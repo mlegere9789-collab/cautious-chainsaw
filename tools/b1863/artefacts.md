@@ -1,0 +1,13 @@
+Fixes made after looking at crops (z13, z15, z16.5, z17.5 around the five hotspots, and a 1/10 overview of the whole box):
+
+1. **Woods removed by mistake near Little Round Top.** The first rule (canopy more than 30 m from an 1863 tree polygon is modern) cut a wedge out of the wooded east slope that the NPS says was wooded in 1863. Measured registration error of the outlines reaches 63 m, so the removal margin was raised to 60 m, 100 m and finally 150 m; the area inside the margin is kept and labelled AMBIGUOUS_KEPT.
+2. **Soldiers' National Cemetery.** The graves and paths of the National Cemetery (founded after the battle) were still visible after the first removal pass (the removal list had no class for them); the cemetery polygon (OSM way 131108963) is now retextured as open ground. Evergreen Cemetery (1854) is kept.
+3. **Divided highway and paved shoulders.** The US 15 bypass was only partly removed (the road mask covers the detector's pavement in a narrow corridor and misses pale concrete). Pavement-like pixels connected to the road mask are now added within 45 m of a mapped arterial and 15 m of other roads.
+4. **Monument plazas.** The mask was a 2.5 m disc per monument, which left the plaza and steps; pavement or pale stone connected to a disc within 22 m is now removed.
+5. **Town.** The first version drew the 229 Warren ink masses as roofs: blobs larger than the buildings with long hull-shaped shadows. They are replaced, inside the 1858 plan, by the individual building symbols of the Hopkins inset and the street plan read from it; shadows are the exact sweep of each footprint instead of a convex hull; modern yard trees and the whole ground of the town block are re-synthesised so that no strip of modern yard meets the fill.
+6. **The Wheatfield** was a hard-edged orange shape; it is now a feathered, lighter ripe-wheat tone on the real field texture, and does not cover trees.
+7. **Orchard.** The added orchard trees were too dark and too large, and were placed in irregular blobs; the crowns are smaller and lighter, spaced on a regular grid aligned to the orchard polygon, and only added where the polygon (eroded 12 m) has no modern canopy within 25 m.
+8. **Roofs.** The first palette gave reddish-brown roofs; the palette is now weathered shingle, slate and tin in neutral tones, with weaker plane shading.
+9. **Unlabelled shadows.** Cast shadows and verge shading changed pixels that were labelled "photograph kept"; every pixel touched by a drawing step now carries that step's class (pass 1 measures it).
+
+Known artefacts and limits that remain (not hidden):

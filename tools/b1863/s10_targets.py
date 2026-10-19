@@ -51,6 +51,83 @@ def main():
             survm[r0:r0 + h, c0:c0 + w][keep] = 1
             kept.append((f['properties']['id'], int(keep.sum())))
     print('survivors un-masked:', len(kept), sum(k[1] for k in kept), 'px')
+    # monument plazas, plinths and steps: the mask is only a 2.5 m disc at each point; pavement (detector probability > 0.38) or bright pale stone within 22 m of a disc and
+    # connected to it is added to the removal (class 3). Measured: see BUILD.md (monument plaza residue check).
+    dp = rasterio.open(os.path.join(C.TMPW, 'detect_ppav.tif')); db = rasterio.open(C.BASE_TIF)
+    added = 0
+    for r0 in range(0, C.H, 2048):
+        r1 = min(r0 + 2048, C.H); R0 = max(r0 - 40, 0); R1 = min(r1 + 40, C.H)
+        sub = m[R0:R1]
+        mon = (sub == C.M_MON).astype(np.uint8)
+        if not mon.any():
+            continue
+        zone = cv2.dilate(mon, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (45, 45))) > 0
+        ppav = dp.read(1, window=Window(0, R0, C.W, R1 - R0)); rgb = db.read([1, 2, 3], window=Window(0, R0, C.W, R1 - R0)).astype(np.float32)
+        lum = rgb.mean(0); sat = (rgb.max(0) - rgb.min(0)) / np.maximum(rgb.max(0), 1)
+        cand = zone & (sub == 0) & ((ppav > 96) | ((lum > 165) & (sat < 0.15)))
+        n_, lab = cv2.connectedComponents(((cand) | (mon > 0)).astype(np.uint8), connectivity=8)
+        keepl = np.unique(lab[mon > 0]); keepl = keepl[keepl > 0]
+        add = np.isin(lab, keepl) & cand
+        sub[add] = C.M_MON
+        added += int(add[(r0 - R0):(r1 - R0)].sum())
+    print('monument plaza px added', added)
+    # pavement growth: the mask holds the detector's pavement inside a narrow corridor; wide roads (divided highways, ramps, paved shoulders, concrete lanes) keep pale pavement outside it.
+    # Pixels that look like pavement (NDVI < 0.18, saturation < 0.22, luminance 95-225) and connect to the road mask within 12 px are added; arterials within 45 m of a mapped arterial centre line, other roads within 15 m.
+    import pickle
+    recs = pickle.load(open(os.path.join(C.TMPW, 'inventory_utm.pkl'), 'rb'))
+    art = [r['geom'].buffer(45) for r in recs if r['cls'] == 'ROAD_ARTERIAL' and r['geom'].geom_type in ('LineString', 'MultiLineString')]
+    oth = [r['geom'].buffer(15) for r in recs if r['cls'] in ('ROAD_LOCAL', 'ROAD_SERVICE', 'PARKING') and r['geom'].geom_type in ('LineString', 'MultiLineString', 'Polygon', 'MultiPolygon')]
+    from shapely.ops import unary_union
+    zart = C.rasterize([unary_union(art)] if art else []).astype(bool)
+    zoth = C.rasterize([unary_union(oth)] if oth else []).astype(bool)
+    grown_px = 0
+    for r0 in range(0, C.H, 2048):
+        r1 = min(r0 + 2048, C.H); R0 = max(r0 - 20, 0); R1 = min(r1 + 20, C.H)
+        sub = m[R0:R1]
+        seed = (sub == C.M_ROAD)
+        if not seed.any():
+            continue
+        rgb = db.read([1, 2, 3, 4], window=Window(0, R0, C.W, R1 - R0)).astype(np.float32)
+        lum = rgb[:3].mean(0); sat = (rgb[:3].max(0) - rgb[:3].min(0)) / np.maximum(rgb[:3].max(0), 1); ndvi = (rgb[3] - rgb[0]) / np.maximum(rgb[3] + rgb[0], 1)
+        cand = (ndvi < 0.18) & (sat < 0.22) & (lum > 95) & (lum < 225) & (sub == 0) & (zart[R0:R1] | zoth[R0:R1])
+        cand &= ~(zoth[R0:R1] & ~zart[R0:R1] & (cv2.dilate(seed.astype(np.uint8), np.ones((31, 31), np.uint8)) == 0))
+        g = seed.copy()
+        k = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+        for _ in range(6):
+            g = (cv2.dilate(g.astype(np.uint8), k) > 0) & (cand | g)
+        add = g & ~seed & cand
+        # keep only the part within 12 px of the seed (6 iterations of 2 px)
+        sub[add] = C.M_ROAD
+        grown_px += int(add[(r0 - R0):(r1 - R0)].sum())
+    print('pavement growth px added', grown_px)
+    # unlisted monuments, tablets and statues: the monument list locates 938 of about 1,320; most of the others stand beside the park roads and paths. Small bright compact objects
+    # (6-150 px, luminance 28 above the local mean, low saturation, not vegetation) within 45 m of a mapped road, path or parking lot are removed (not in the boulder field, not in the town block).
+    zline = [r['geom'].buffer(45) for r in recs if r['cls'] in ('PATH', 'ROAD_LOCAL', 'ROAD_SERVICE', 'ROAD_ARTERIAL', 'PARKING', 'TRACK') and r['geom'].geom_type in ('LineString', 'MultiLineString', 'Polygon', 'MultiPolygon')]
+    zmon = C.rasterize([unary_union(zline)]).astype(bool)
+    lcr = rasterio.open(os.path.join(C.BUILD, 'lc1863.tif'))
+    small_px = 0; small_n = 0
+    for r0 in range(0, C.H, 2048):
+        r1 = min(r0 + 2048, C.H); R0 = max(r0 - 24, 0); R1 = min(r1 + 24, C.H)
+        sub = m[R0:R1]
+        z = zmon[R0:R1] & (sub == 0)
+        if not z.any():
+            continue
+        rgb = db.read([1, 2, 3, 4], window=Window(0, R0, C.W, R1 - R0)).astype(np.float32)
+        lcw = lcr.read(1, window=Window(0, R0, C.W, R1 - R0))
+        lum = rgb[:3].mean(0); sat = (rgb[:3].max(0) - rgb[:3].min(0)) / np.maximum(rgb[:3].max(0), 1); ndvi = (rgb[3] - rgb[0]) / np.maximum(rgb[3] + rgb[0], 1)
+        loc = cv2.GaussianBlur(lum, (0, 0), 12)
+        cand = z & ((lum - loc) > 28) & (sat < 0.22) & (ndvi < 0.2) & (lcw != 6) & (lcw != 7)
+        cand = cv2.morphologyEx(cand.astype(np.uint8), cv2.MORPH_OPEN, np.ones((2, 2), np.uint8))
+        n_, lab, st_, _ = cv2.connectedComponentsWithStats(cand, connectivity=8)
+        keep = np.zeros(cand.shape, bool)
+        for i in range(1, n_):
+            if 6 <= st_[i, cv2.CC_STAT_AREA] <= 150 and max(st_[i, cv2.CC_STAT_WIDTH], st_[i, cv2.CC_STAT_HEIGHT]) <= 22:
+                keep |= lab == i
+        keep = cv2.dilate(keep.astype(np.uint8), np.ones((3, 3), np.uint8)) > 0
+        keep &= (sub == 0)
+        sub[keep] = C.M_MON
+        small_px += int(keep[(r0 - R0):(r1 - R0)].sum())
+    print('small bright objects px added', small_px)
     thin_src = np.isin(m, [C.M_ROAD, C.M_BLDG, C.M_MON, C.M_UTIL, C.M_UNMAP])
     thin_src = cv2.dilate(thin_src.astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * GROW + 1, 2 * GROW + 1)))
     print('dilated', time.time() - t0)
@@ -88,7 +165,7 @@ def main():
         dst.write(survm, 1)
     with open(os.path.join(C.BUILD, 'targets_stats.json'), 'w') as f:
         import json
-        json.dump(dict(survivors_unmasked=kept, thin_px=int((out == 1).sum()), deep_px=int((out == 2).sum()), area_px=int((out == 5).sum()), water_px=int((out == 7).sum()),
+        json.dump(dict(small_object_px_added=small_px, pavement_growth_px_added=grown_px, monument_plaza_px_added=added, survivors_unmasked=kept, thin_px=int((out == 1).sum()), deep_px=int((out == 2).sum()), area_px=int((out == 5).sum()), water_px=int((out == 7).sum()),
                        grow_px=GROW, deep_radius_px=DEEP_R, elapsed_s=round(time.time() - t0, 1)), f, indent=1)
     print('done', time.time() - t0)
 

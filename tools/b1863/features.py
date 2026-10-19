@@ -119,7 +119,7 @@ def draw_fences(win, img, items, prov, conf):
     img[...] = img * (1 - 0.5 * a[..., None]) + col * 0.5 * a[..., None]
     _put(prov, conf, a > 0.2, P_FENCE, 2)
 
-ROOF = {'shingle': np.array([128.0, 117.0, 106.0]), 'slate': np.array([102.0, 105.0, 111.0]), 'brick_roof': np.array([132.0, 110.0, 99.0]), 'tin': np.array([156.0, 155.0, 152.0])}
+ROOF = {'shingle': np.array([126.0, 120.0, 112.0]), 'slate': np.array([104.0, 107.0, 113.0]), 'brick_roof': np.array([128.0, 116.0, 108.0]), 'tin': np.array([152.0, 152.0, 150.0])}
 HEIGHT = {'farmhouse': 8.0, 'house': 7.0, 'barn': 11.0, 'bank_barn': 12.0, 'building': 5.5, 'outbuilding': 4.5, 'institutional': 10.0, 'log_building': 4.5, 'farmstead': 7.0, 'stable': 6.0, 'smokehouse': 3.5, 'wagon_shed': 5.0}
 
 def _footprint(it, roads):
@@ -139,31 +139,34 @@ def _footprint(it, roads):
     return affinity.translate(affinity.rotate(rect, ang, origin=(0, 0)), g.x, g.y)
 
 def _roof_polys(win, img, poly, height, base, rng_seed, conf_val, ridge=None):
-    """gable roof on a polygon: two planes about the ridge, lit from the south-east; returns the alpha"""
-    m = np.zeros((win.h * S, win.w * S), np.float32); R.fill_poly(m, win, poly, 1.0); a = R.down(m)
+    """gable roof on a polygon: two planes about the ridge, lit from the south-east. Returns (r0, r1, c0, c1, alpha, colour) for the polygon's bounding box inside the window, or None"""
+    minx, miny, maxx, maxy = poly.bounds
+    c0 = max(int(math.floor(minx - win.ox)) - 2, 0); c1 = min(int(math.ceil(maxx - win.ox)) + 3, win.w)
+    r0 = max(int(math.floor(win.oy - maxy)) - 2, 0); r1 = min(int(math.ceil(win.oy - miny)) + 3, win.h)
+    if r1 <= r0 or c1 <= c0:
+        return None
+    sub = R.Win(win.r0 + r0, win.r0 + r1, win.c0 + c0, win.c0 + c1)
+    m = np.zeros((sub.h * S, sub.w * S), np.float32); R.fill_poly(m, sub, poly, 1.0); a = R.down(m)
     if a.max() <= 0:
         return None
     mrr = poly.minimum_rotated_rectangle
     xs, ys = mrr.exterior.coords.xy
     e1 = np.array([xs[1] - xs[0], ys[1] - ys[0]]); e2 = np.array([xs[2] - xs[1], ys[2] - ys[1]])
-    if np.hypot(*e1) >= np.hypot(*e2):
-        u = e1 / np.hypot(*e1)                  # ridge along the long axis
-    else:
-        u = e2 / np.hypot(*e2)
+    u = e1 / np.hypot(*e1) if np.hypot(*e1) >= np.hypot(*e2) else e2 / np.hypot(*e2)       # ridge along the long axis
     if ridge is not None:
         u = np.array(ridge, float) / np.hypot(*ridge)
     perp = np.array([-u[1], u[0]])
     cx, cy = poly.centroid.x, poly.centroid.y
-    gx = (np.arange(win.w) + 0.5 + win.c0) + C.X0 - 0 ; gy = C.Y0 - (np.arange(win.h) + 0.5 + win.r0)
+    gx = (np.arange(sub.w) + 0.5) + sub.ox; gy = sub.oy - (np.arange(sub.h) + 0.5)
     GX, GY = np.meshgrid(gx, gy)
     s = (GX - cx) * perp[0] + (GY - cy) * perp[1]          # signed distance across the ridge, metres
     lit = float(np.dot(perp, SUN_TO))                      # >0: the +perp plane faces the sun
-    fac = 1.0 + 0.30 * np.sign(s) * lit + 0.05 * np.clip(-np.abs(s) / 3.0 + 1.0, 0, 1) * 0
-    ridge = np.exp(-(s / 0.45) ** 2)
-    col = base[None, None, :] * fac[..., None] * (1 + 0.10 * ridge)[..., None]
-    nn = R.hash_noise((win.h, win.w), win.ox, -win.oy, 2.0, 5 + rng_seed) - 0.5
-    col = col * (1 + 0.10 * nn)[..., None] + R.grain_field((win.h, win.w), win.c0, win.r0) * 1.6
-    return a, col
+    fac = 1.0 + 0.14 * np.sign(s) * lit
+    ridgeh = np.exp(-(s / 0.45) ** 2)
+    col = base[None, None, :] * fac[..., None] * (1 + 0.10 * ridgeh)[..., None]
+    nn = R.hash_noise((sub.h, sub.w), sub.ox, -sub.oy, 2.0, 5 + rng_seed) - 0.5
+    col = col * (1 + 0.10 * nn)[..., None] + R.grain_field((sub.h, sub.w), sub.c0, sub.r0) * 1.6
+    return r0, r1, c0, c1, a, col
 
 def split_lots(poly, seed):
     """a long thin symbol (a row of buildings) is cut across its long axis into lots of 7 to 11 m; ridges then run across the row (gable ends to the street). Schematic: lot boundaries are not in the source."""
@@ -214,11 +217,11 @@ def draw_structures(win, img, items, prov, conf):
         fp = _footprint(it, items['roads'])
         polys.append(fp); metas.append(it); ridges.append(None)
     # shadows first (ground), then roofs
+    acc = np.zeros((win.h * S, win.w * S), np.float32)
     for fp, it in zip(polys, metas):
-        h = HEIGHT.get(it['sub'], 6.0)
-        sh = R.shade_poly_shadow(win, [fp], h)
-        m = np.zeros((win.h * S, win.w * S), np.float32); R.fill_poly(m, win, fp, 1.0); a = R.down(m)
-        img[...] = img * (1 - 0.40 * (sh * (1 - a))[..., None])
+        R.shadow_into(acc, win, [fp], HEIGHT.get(it['sub'], 6.0))
+    sh = R.finish_shadow(acc)
+    img[...] = img * (1 - 0.38 * np.clip(sh, 0, 1)[..., None])
     for (fp, it), rd in zip(zip(polys, metas), ridges):
         mat = (it.get('material') or '') + ' ' + (it.get('roof') or '')
         if 'slate' in mat: base = ROOF['slate']
@@ -229,9 +232,10 @@ def draw_structures(win, img, items, prov, conf):
         else: base = ROOF['shingle']
         res = _roof_polys(win, img, fp, HEIGHT.get(it['sub'], 6.0), base, zlib.crc32(it['id'].encode()) % 97, 1, ridge=rd)
         if res is not None:
-            a, col = res
-            img[...] = img * (1 - a[..., None]) + col * a[..., None]
-            _put(prov, conf, a > 0.4, P_STRUCT, CONF.get(it['conf'], 2))
+            r0, r1, c0, c1, a, col = res
+            img[r0:r1, c0:c1] = img[r0:r1, c0:c1] * (1 - a[..., None]) + col * a[..., None]
+            ps = prov[r0:r1, c0:c1]; cs = conf[r0:r1, c0:c1]
+            _put(ps, cs, a > 0.4, P_STRUCT, CONF.get(it['conf'], 2))
 
 def draw_masses(win, img, items, prov, conf):
     its = hit(items['masses'], win, pad=30)
@@ -280,7 +284,7 @@ def draw_masses(win, img, items, prov, conf):
     img[...] = img * (1 - a[..., None]) + col * a[..., None]
     _put(prov, conf, a > 0.4, P_MASS, 2)
 
-def draw_orchards(win, img, region, orchards, prov, conf, crown_rgb=(86.0, 118.0, 86.0), spacing=9.1):
+def draw_orchards(win, img, region, orchards, prov, conf, crown_rgb=(100.0, 130.0, 92.0), spacing=9.1):
     """regular orchard rows on `region` (bool h,w): grid anchored at each orchard polygon's centroid, rotated with its minimum rotated rectangle; crowns lit from the south-east with shadows to the north-west"""
     if not region.any():
         return
@@ -320,7 +324,7 @@ def draw_orchards(win, img, region, orchards, prov, conf, crown_rgb=(86.0, 118.0
                 rad = 2.0 + 0.6 * (((hh * 2654435761) & 0xFFFF) / 65535.0)
                 _crown(win, cr_acc, cr_a, sh_acc, px + jx, py + jy, rad, crown_rgb, hh)
     sh = R.down(sh_acc)
-    img[...] = img * (1 - 0.26 * (np.clip(sh, 0, 1) * (1 - cr_a))[..., None])
+    img[...] = img * (1 - 0.20 * (np.clip(sh, 0, 1) * (1 - cr_a))[..., None])
     img[...] = img * (1 - cr_a[..., None]) + cr_acc
     _put(prov, conf, cr_a > 0.3, P_ORCHARD, 2)
 
@@ -352,8 +356,11 @@ def recolour_wheat(win, img, region, canopy, prov, conf):
     The tone (golden-tan, about RGB 196,172,118 in this light) is ESTIMATED from the usual look of ripe winter wheat in summer aerial imagery; no 1863 colour record exists.
     The outline is the catalogue's Estimated outline and is feathered over about 6 m, not drawn as a hard shape."""
     reg = region.astype(np.float32)
-    w = cv2.GaussianBlur(reg, (0, 0), 4.0) * (canopy == 0)
-    w = np.clip(w * 1.15, 0, 1) * (cv2.GaussianBlur((canopy == 0).astype(np.float32), (0, 0), 1.0))
+    nz2 = R.hash_noise((win.h, win.w), win.ox, -win.oy, 18.0, 91) - 0.5      # the Estimated outline is irregularised (about +-8 m) so that it does not read as a drawn shape
+    nz3 = R.hash_noise((win.h, win.w), win.ox, -win.oy, 6.0, 93) - 0.5
+    w = (cv2.GaussianBlur(reg, (0, 0), 4.0) - 0.5 + nz2 * 0.9 + nz3 * 0.4) * 3.0 + 0.5
+    near = cv2.GaussianBlur(reg, (0, 0), 7.0) > 0.03         # the irregular edge only acts within a few metres of the outline
+    w = np.clip(w, 0, 1) * near * (cv2.GaussianBlur((canopy == 0).astype(np.float32), (0, 0), 1.0))
     m = w > 0.5
     if not m.any():
         return
@@ -361,12 +368,31 @@ def recolour_wheat(win, img, region, canopy, prov, conf):
     L = lab[..., 0]
     Lm = L[m].mean()
     nz = R_noise(win)
-    newL = np.clip(172.0 + (L - Lm) * 0.85 + nz * 5.0, 0, 255)
-    newa = 130.5 + (lab[..., 1] - lab[..., 1][m].mean()) * 0.2
-    newb = 150.0 + (lab[..., 2] - lab[..., 2][m].mean()) * 0.2
+    newL = np.clip(186.0 + (L - Lm) * 0.85 + nz * 5.0, 0, 255)
+    newa = 126.5 + (lab[..., 1] - lab[..., 1][m].mean()) * 0.2
+    newb = 160.0 + (lab[..., 2] - lab[..., 2][m].mean()) * 0.2
     out = cv2.cvtColor(np.stack([newL, newa, newb], -1).clip(0, 255).astype(np.uint8), cv2.COLOR_LAB2RGB).astype(np.float32)
+    out = out + R.grain_field((win.h, win.w), win.c0, win.r0) * 1.3          # real photographic grain on top
     img[...] = img * (1 - w[..., None]) + out * w[..., None]
     _put(prov, conf, w > 0.5, P_WHEAT, 2)
 
 def R_noise(win):
     return R.hash_noise((win.h, win.w), win.ox, -win.oy, 12.0, 77) - 0.5
+
+
+def tone_guard(img, fill, sigma=14.0, k=2.2):
+    """limit the luminance of filled pixels to the local range of the unfilled (real) ground: mean +- k * local std (std at least 7 grey levels); the colour of each pixel is scaled, not replaced"""
+    ctx = (~fill).astype(np.float32)
+    if ctx.sum() < 500 or fill.sum() == 0:
+        return
+    lum = img.mean(2)
+    n = cv2.GaussianBlur(ctx, (0, 0), sigma)
+    m1 = cv2.GaussianBlur(lum * ctx, (0, 0), sigma) / np.maximum(n, 1e-3)
+    m2 = cv2.GaussianBlur(lum * lum * ctx, (0, 0), sigma) / np.maximum(n, 1e-3)
+    sd = np.sqrt(np.maximum(m2 - m1 * m1, 0)); sd = np.maximum(sd, 7.0)
+    hi = m1 + k * sd; lo = m1 - k * sd
+    ok = n > 0.05
+    over = fill & ok & (lum > hi); under = fill & ok & (lum < lo)
+    sc = np.ones_like(lum)
+    sc[over] = hi[over] / np.maximum(lum[over], 1.0); sc[under] = lo[under] / np.maximum(lum[under], 1.0)
+    img[...] = img * sc[..., None]

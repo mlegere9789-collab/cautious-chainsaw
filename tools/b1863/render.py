@@ -124,3 +124,24 @@ def shade_poly_shadow(win, foot_polys, height_m):
                 fill_poly(sh, win, unary_union([affinity.translate(q, dx * t / steps, dy * t / steps) for t in range(steps + 1)]), 1.0)
     a = down(sh)
     return cv2.GaussianBlur(a, (0, 0), 0.7)
+
+
+def shadow_into(acc, win, foot_polys, height_m):
+    """same as shade_poly_shadow but draws into the supersampled accumulator `acc` (max) instead of returning a window-sized array"""
+    from shapely.geometry import MultiPoint
+    from shapely import affinity
+    from shapely.ops import unary_union
+    L = SHADOW_K * height_m
+    dx, dy = SHADOW_DIR_ENU * L
+    for p in foot_polys:
+        for q in _polys(p):
+            hull = q.convex_hull
+            if q.area / max(hull.area, 1e-6) > 0.9:
+                pts = list(q.exterior.coords) + [(x + dx, y + dy) for x, y in q.exterior.coords]
+                fill_poly(acc, win, MultiPoint(pts).convex_hull, 1.0)
+            else:
+                steps = max(int(L), 2)
+                fill_poly(acc, win, unary_union([affinity.translate(q, dx * t / steps, dy * t / steps) for t in range(steps + 1)]), 1.0)
+
+def finish_shadow(acc):
+    return cv2.GaussianBlur(down(acc), (0, 0), 0.7)

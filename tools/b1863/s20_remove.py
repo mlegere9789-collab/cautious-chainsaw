@@ -1,6 +1,6 @@
 """Stage 20: remove the THIN modern features (roads, drives, roofs, utilities, small unmapped objects) by PatchMatch inpainting.
 
-Windows of 1024 px (cores) plus a 96 px margin of context are processed in two checkerboard phases, up to 4 worker processes at
+Windows of 1024 px (cores) plus a 96 px margin of context are processed in four phases (i mod 2, j mod 2), up to 4 worker processes at
 below-normal priority. A window writes only its core. Phase 2 sees the finished fill of phase 1 as context, so fills continue across
 window borders. Output: tmp/b1863/build/stage20.u8 (raw uint8 H x W x 3, memmap) and stage20_done.u8 (bool).
 DEEP, AREA and WATER targets are left untouched here (stage 30).  Deterministic: seeds derive from the window index.
@@ -78,8 +78,8 @@ def main():
     t0 = time.time()
     tot = 0
     with Pool(C.THREADS, initializer=_init) as pool:
-        for phase in (0, 1):
-            jobs = [(i, j, 1863 + i * 100 + j) for i in range(nr) for j in range(nc) if (i + j) % 2 == phase]
+        for phase in range(4):          # four phases: windows of one phase are two windows apart, so no window reads pixels another is writing (deterministic)
+            jobs = [(i, j, 1863 + i * 100 + j) for i in range(nr) for j in range(nc) if (i % 2) * 2 + (j % 2) == phase]
             for wi, wj, n, dt in pool.imap_unordered(work, jobs):
                 tot += n
                 print('phase', phase, 'win', wi, wj, 'px', n, 'sec %.1f' % dt, 'elapsed %.0f' % (time.time() - t0), flush=True)

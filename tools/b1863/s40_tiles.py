@@ -13,7 +13,7 @@ from multiprocessing import Pool
 from PIL import Image
 from pyproj import Transformer
 
-SRC = os.environ.get('B1863_FINAL', os.path.join(C.BUILD, 'final.u8'))
+SRC = os.environ.get('B1863_FINAL', os.path.join(C.BUILD, 'stage35.u8'))
 PROVF = os.path.join(C.BUILD, 'prov.u8')
 T = 512
 QUAL = {11: 80, 12: 80, 13: 80, 14: 79, 15: 76, 16: 72, 17: 70}
@@ -63,8 +63,9 @@ def levels():
                 out.append((16, x, y))
     # z17 around the hotspots
     from common import HOTSPOTS
+    HOT17 = dict(HOTSPOTS); HOT17.update({'devils_den': (-77.2435, 39.7911), 'culps_hill': (-77.2194, 39.8156), 'cemetery_hill': (-77.2306, 39.8204), 'seminary_ridge': (-77.2437, 39.8333), 'big_round_top': (-77.2358, 39.7867)})
     seen = set()
-    for name, (lo, la) in HOTSPOTS.items():
+    for name, (lo, la) in HOT17.items():
         for dlon, dlat in [(dx, dy) for dx in (-0.008, -0.004, 0, 0.004, 0.008) for dy in (-0.006, -0.003, 0, 0.003, 0.006)]:
             x, y = tile_xy(lo + dlon, la + dlat, 17)
             t = (17, int(x), int(y))
@@ -148,6 +149,12 @@ PALETTE = {0: (0, 0, 0), 22: (60, 60, 60), 1: (255, 0, 255), 2: (200, 0, 160), 3
 def main():
     C.lowprio()
     t0 = time.time()
+    import shutil
+    for base in (C.TILES, os.path.join(C.PROV, 'tiles')):
+        for z in range(0, 23):
+            d = os.path.join(base, str(z))
+            if os.path.isdir(d):
+                shutil.rmtree(d)           # no stale tiles from earlier builds
     jobs = levels()
     print('tiles', len(jobs), {z: sum(1 for j in jobs if j[0] == z) for z in range(11, 18)}, flush=True)
     if len(sys.argv) > 1 and sys.argv[1].startswith('only'):

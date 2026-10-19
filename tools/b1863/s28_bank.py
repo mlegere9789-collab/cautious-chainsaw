@@ -53,10 +53,13 @@ def main():
         dmin = -cv2.erode(-lum, np.ones(kB, np.uint8), anchor=(0, 0))      # max, not needed
         lmin = cv2.erode(lum, np.ones(kB, np.uint8), anchor=(0, 0))
         m_sat = bm(a.max(2) - a.min(2))
+        gxx = cv2.Sobel(lum, cv2.CV_32F, 1, 0, ksize=3); gyy = cv2.Sobel(lum, cv2.CV_32F, 0, 1, ksize=3)
+        jxx, jyy, jxy = bm(gxx * gxx), bm(gyy * gyy), bm(gxx * gyy)
+        coh = np.sqrt((jxx - jyy) ** 2 + 4 * jxy ** 2) / np.maximum(jxx + jyy, 1e-3)       # structure-tensor coherence: strong linear structure (mown stripes, field edges, tracks) is not texture
         sy = np.arange(0, rows - B, STRIDE); sx = np.arange(0, C.W - B, STRIDE)
         YY, XX = np.meshgrid(sy, sx, indexing='ij')
         stats['candidates'] += YY.size
-        f_ok = (m_t[YY, XX] < 0.001) & (m_c[YY, XX] < 0.001) & (m_lc1[YY, XX] > 0.99) & (m_ok[YY, XX] > 0.99) & (m_nd[YY, XX] > 0.2) & (m_gr[YY, XX] < 40) & (lmin[YY, XX] > 60) & (m_lc7[YY, XX] < 0.001) & (m_lum[YY, XX] > 85) & (m_sat[YY, XX] > 14)
+        f_ok = (m_t[YY, XX] < 0.001) & (m_c[YY, XX] < 0.001) & (m_lc1[YY, XX] > 0.99) & (m_ok[YY, XX] > 0.99) & (m_nd[YY, XX] > 0.2) & (m_gr[YY, XX] < 40) & (lmin[YY, XX] > 60) & (m_lc7[YY, XX] < 0.001) & (m_lum[YY, XX] > 85) & (m_sat[YY, XX] > 14) & (coh[YY, XX] < 0.40)
         w_ok = (m_t[YY, XX] < 0.001) & (m_c[YY, XX] > 0.98) & (m_lc2[YY, XX] > 0.99) & (m_ok[YY, XX] > 0.99) & (m_lum[YY, XX] < 100) & (m_nd[YY, XX] > 0.3)
         for nm, ok, store, cap in (('field', f_ok, field, 6000), ('woods', w_ok, woods, 3000)):
             ii = np.nonzero(ok.ravel())[0]

@@ -14,7 +14,7 @@ import sys, os, json, re, pickle, csv, gzip, math, numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import common as C
 from shapely.geometry import shape, Point, LineString, MultiLineString, Polygon
-from shapely.ops import transform
+from shapely.ops import transform, unary_union
 from shapely.strtree import STRtree
 
 FEAT = C.FEAT
@@ -124,8 +124,13 @@ def main():
     # Hopkins 1858 borough: building symbols (core of the plan) replace the 1868-69 masses inside the plan; non-service streets of the plan are added to the roads
     hb = pickle.load(open(os.path.join(C.BUILD, 'hopkins_buildings.pkl'), 'rb'))
     hp = pickle.load(open(os.path.join(C.BUILD, 'hopkins_hull.pkl'), 'rb'))
+    survpolys = unary_union([C.geom_to_utm(f['geometry']) for f in inv['features'] if f['properties']['id'] in surv and f['geometry'] and f['geometry']['type'] == 'Polygon']).buffer(3.0)
+    dropped_surv = 0
     for k, g in enumerate(hb):
         if g.is_empty:
+            continue
+        if g.intersection(survpolys).area > 0.4 * g.area:
+            dropped_surv += 1          # the real roof of a surviving 1863 building is kept in the photograph: not drawn twice
             continue
         out['structures'].append(dict(id='HOP-B-%04d' % (k + 1), geom=g, sub='building', conf='Estimated', err=4, dims=None, material=None, roof=None, src='hopkins'))
     before = len(out['masses'])
@@ -134,7 +139,7 @@ def main():
     ts = pickle.load(open(os.path.join(C.BUILD, 'hopkins_town_streets.pkl'), 'rb'))
     for k, t in enumerate(ts):
         out['roads'].append(dict(id='HOP-S-%03d' % (k + 1), geom=t['geom'], width=6.5, subtype='town street (Hopkins 1858)', conf='Estimated', err=4, name=t['name']))
-    stats['hopkins'] = dict(buildings=len(hb), streets=len(ts), masses_dropped=before - len(out['masses']))
+    stats['hopkins'] = dict(symbols_on_surviving_buildings_not_redrawn=dropped_surv, buildings=len(hb) - dropped_surv, streets=len(ts), masses_dropped=before - len(out['masses']))
     stats['mapsym'] = nmap
     stats['counts'] = {k: len(v) for k, v in out.items()}
     pickle.dump(out, open(os.path.join(C.BUILD, 'draw_items.pkl'), 'wb'))

@@ -13,7 +13,7 @@ from shapely.ops import transform as stransform, unary_union
 
 SRC = {
     'warren': dict(title='G. K. Warren, Map of the battle field of Gettysburg (survey 1868-69, revised 1873), Library of Congress Geography and Map Division', locator='cw0353500', url='https://www.loc.gov/item/99448794/', type='A1'),
-    'hopkins': dict(title='G. M. Hopkins / M. S. & E. Converse, Map of Adams Co., Pennsylvania (1858), Gettysburg borough inset', locator='la000697 (scan), LoC item 2004629149', url='https://www.loc.gov/item/2004629149/', type='A1'),
+    'hopkins': dict(title='G. M. Hopkins Jr., Map of Adams Co., Pennsylvania (Philadelphia: M. S. & E. Converse, 1858), Gettysburg borough inset, Library of Congress Geography and Map Division, call no. G3823.A3 1858 .H6', locator='scan la000697 (hdl.loc.gov/loc.gmd/g3823a.la000697)', url='https://www.loc.gov/item/2004629149/', type='A1'),
     'bachelder': dict(title="Bachelder, Map of the battle field of Gettysburg (1876; topography from Warren), sheet cw0325000a", locator='cw0325000a', url='https://www.loc.gov/item/99447491/', type='A1'),
 }
 CONF_NAME = {1: 'Documented', 2: 'Estimated', 3: 'Contested'}
@@ -44,7 +44,7 @@ def main():
         hop = r['id'].startswith('HOP-S')
         src = [SRC['hopkins']] if hop else [SRC['bachelder'], SRC['warren']]
         add(r['id'], 'ROAD_ADDED', r['geom'], r.get('name'), r['conf'], r.get('err'),
-            'street plan of 1858 (Hopkins inset): the modern non-service street centre line lies in a street gap of the inset (reviewed on review_street_overlay.png); drawn as an unpaved town street 6.5 m wide' if hop else
+            'street plan of 1858 (Hopkins inset): the modern non-service street centre line lies in a street gap of the inset (reviewed on review_street_overlay.jpg); drawn as an unpaved town street 6.5 m wide' if hop else
             'road catalogue geometry (modern centre line on the 1863 corridor, checked against the period sheets); drawn as an unpaved ribbon of %.1f m (class width)' % r['width'], src, dict(width_m=r['width']))
     for r in items['rails']:
         add(r['id'], 'RAIL_ADDED', r['geom'], r['kind'], r['conf'], r.get('err'), 'railway catalogue geometry; drawn as %s' % ('a ballasted single track' if r['kind'] == 'track' else 'an earth grade (no track laid by July 1863)'), [SRC['bachelder']])
@@ -56,7 +56,9 @@ def main():
         if r.get('src') == 'hopkins':
             add(r['id'], 'STRUCTURE_ADDED', r['geom'], 'Gettysburg borough building symbol (1858 inset)', 'Estimated', 4, 'solid building symbol read from the Hopkins inset; footprint = symbol extent; roof drawn schematically (lots, ridge direction and roof material are NOT in the source)', [SRC['hopkins']])
         else:
-            add(r['id'], 'STRUCTURE_ADDED', r['geom'], r.get('name'), r['conf'], r.get('err'),
+            import features as FT
+            fp = FT._footprint(r, items['roads'])
+            add(r['id'], 'STRUCTURE_ADDED', fp, r.get('name'), r['conf'], r.get('err'),
                 'catalogue entry %s (%s); footprint %s; roof drawn schematically' % (r['id'], r['sub'], 'documented size' if r.get('dims') else 'typical size for the building type'), [SRC['bachelder'], SRC['warren']])
     for r in items['masses']:
         add(r['id'], 'TOWN_MASS_ADDED', r['geom'], 'building mass of the 1868-69 survey', r['conf'], r.get('err'), 'extent of inked building mass on the Warren plate, not an individual footprint; roofs drawn schematically', [SRC['warren']])

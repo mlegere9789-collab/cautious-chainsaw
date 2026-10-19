@@ -1,6 +1,6 @@
 """Stage 30: synthesise DEEP / AREA / WATER removal targets, modern canopy outside 1863 tree cover, 1863 tree cover that is open now, and the town ground.
 Reads stage20.u8 (+ target, lc1863, chg_remove, chg_add, survivors, canopy1m), writes stage30.u8 and stage30_cls.u8 (what was synthesised: 1 open, 2 woods, 3 orchard ground, 4 town ground).
-Windows 1536 px (core) + 256 px margin, checkerboard phases, 4 worker processes at below-normal priority.
+Windows 1536 px (core) + 256 px margin, four phases (i mod 2, j mod 2) so that concurrent windows never touch each other's pixels, 4 worker processes at below-normal priority.
 """
 import sys, os, time, json, numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -65,8 +65,8 @@ def main():
     nr = (C.H + CORE - 1) // CORE; nc = (C.W + CORE - 1) // CORE
     tot = 0
     with Pool(C.THREADS, initializer=_init) as pool:
-        for phase in (0, 1):
-            jobs = [(i, j, 1863 + i * 100 + j) for i in range(nr) for j in range(nc) if (i + j) % 2 == phase]
+        for phase in range(4):          # four phases: windows of one phase are two windows apart, so no window reads pixels another is writing (deterministic)
+            jobs = [(i, j, 1863 + i * 100 + j) for i in range(nr) for j in range(nc) if (i % 2) * 2 + (j % 2) == phase]
             for wi, wj, n, dt in pool.imap_unordered(work, jobs):
                 tot += n
                 print('phase', phase, 'win', wi, wj, 'px', n, 'sec %.1f' % dt, 'elapsed %.0f' % (time.time() - t0), flush=True)

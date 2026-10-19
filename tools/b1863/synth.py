@@ -31,6 +31,8 @@ def shadow_zone(region, canopy, lum):
 
 def guide_field(img, known, sigma=20.0, default=(120.0, 130.0, 122.0)):
     f = img.astype(np.float32)
+    if known.sum() > 2000:
+        default = tuple(float(v) for v in f[known].mean(0))          # far from every known pixel the guide is the window mean of the known ground, not a fixed colour
     km = known.astype(np.float32)
     out = np.empty_like(f)
     den1 = cv2.GaussianBlur(km, (0, 0), sigma)
@@ -77,8 +79,9 @@ def synthesize(img, tg, lc, rem, add, canopy, banks, surv=None, seed=1863):
         cf = cv2.GaussianBlur((canopy > 0).astype(np.float32), (0, 0), 25)
         woods_fill |= unk & (cf > 0.6)
     # the town block: modern yard and street trees are removed (1863 yard trees UNKNOWN), everything else of the real photograph stays; masks (roofs, streets) are already targets
-    town_can = town & (cv2.dilate((canopy > 0).astype(np.uint8), np.ones((5, 5), np.uint8)) > 0)
-    town_sh = shadow_zone(town_can, canopy, lum) if town_can.any() else np.zeros((h, w), bool)
+    # (the whole ground of the town zone is re-synthesised, so no strip of modern yard meets the fill inside the zone; survivors keep their pixels)
+    town_can = town.copy()
+    town_sh = np.zeros((h, w), bool)
     open_fill = (deep & ~woods_fill) | rem_d | sh | town_can | town_sh
     open_fill &= ~woods_fill
     # survivors / kept pixels inside the town zone: everything in the town zone is ground-synthesised except un-masked survivor pixels

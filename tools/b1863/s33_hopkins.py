@@ -71,6 +71,11 @@ def main():
         if d > HALF:
             continue
         keep.append(g)
+    # the Lutheran Seminary engraving (upper right of the plan, source px x >= 13800, y <= 1820 on la000697) contains figures and a frame that the opening mistakes for buildings: excluded
+    def in_engraving(g):
+        px = en2px([[g.centroid.x, g.centroid.y]])[0]
+        return px[0] >= 13800 and px[1] <= 1820
+    keep = [g for g in keep if not in_engraving(g)]
     print('kept', len(keep))
     pickle.dump(keep, open(os.path.join(C.BUILD, 'hopkins_buildings.pkl'), 'wb'))
     # the built-up plan: symbols within 750 m of the Diamond that have at least 3 other symbols within 60 m (drops lettering of the directory text and the title, which survive the opening)
@@ -136,7 +141,7 @@ def main():
         res.append(dict(osm_id=wid, name=tg.get('name'), highway=tg.get('highway'), length_m=round(L), frac=round(best[0], 2), half_width_m=best[1], shift_m=best[2], geom=ls))
     pickle.dump(res, open(os.path.join(C.BUILD, 'hopkins_streets.pkl'), 'wb'))
     # town streets drawn: every non-service highway way, clipped to the plan (P grown by 8 m). Reviewed by eye against the inset on the overlay
-    # docs/basemap1863/features/borough1858/review_street_overlay.png: every drawn line runs along a street gap of the 1858 plan; alleys (highway=service) cross the blocks of the plan and are NOT drawn.
+    # docs/basemap1863/features/borough1858/review_street_overlay.jpg: every drawn line runs along a street gap of the 1858 plan; alleys (highway=service) cross the blocks of the plan and are NOT drawn.
     town = []
     for q in res:
         g = q['geom'].intersection(P.buffer(8))

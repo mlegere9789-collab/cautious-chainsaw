@@ -66,13 +66,22 @@ def main():
     rem2 = canopy2 & cov2 & (1 - near_tree) & (1 - town2)
     rem2 = cv2.morphologyEx(rem2, cv2.MORPH_OPEN, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3)))
     near_can = cv2.dilate(canopy2, kT)
-    w2 = to2((lc == 2).astype(np.uint8))
-    add2 = w2 & (1 - near_can) & (1 - clr2) & (1 - town2)
+    wd2 = to2((lc == 2).astype(np.uint8))
+    add2 = wd2 & (1 - near_can) & (1 - clr2) & (1 - town2)
     add2 = cv2.morphologyEx(add2, cv2.MORPH_OPEN, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3)))
     # orchards: the polygon eroded by 12 m (outline error) and with no modern canopy within 25 m (so a surviving or replanted modern orchard is never doubled)
     o_er = cv2.erode(orch2, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (13, 13)))
     near_can25 = cv2.dilate(canopy2, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (25, 25)))
-    addo2 = o_er & (1 - near_can25) & (1 - town2)
+    # modern orchards (OpenStreetMap landuse=orchard: the NPS rehabilitated orchards, e.g. Sherfy's Peach Orchard) are already in the photograph: never doubled (25 m margin)
+    import json as _j
+    from shapely.geometry import Polygon as _P
+    mo = []
+    for e in _j.load(open(os.path.join(C.ROOT, 'tmp', 'b1863', 'modern', 'vec', 'osm_landuse.json')))['elements']:
+        if e.get('tags', {}).get('landuse') == 'orchard' and 'geometry' in e:
+            mo.append(_P([C.ll2utm(p['lon'], p['lat']) for p in e['geometry']]).buffer(25))
+    modern_orch = C.rasterize(mo).astype(np.uint8)
+    mo2 = to2(modern_orch)
+    addo2 = o_er & (1 - near_can25) & (1 - town2) & (1 - mo2)
     addo2 = cv2.morphologyEx(addo2, cv2.MORPH_OPEN, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5)))
     # ambiguous: canopy within the margin of an 1863 tree polygon that is not in an 1863 tree polygon itself, and 1863 tree polygon pixels with canopy within margin and none inside
     amb2 = (canopy2 & cov2 & near_tree & (1 - t2)) | (lc2 & near_can & (1 - canopy2))
