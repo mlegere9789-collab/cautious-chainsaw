@@ -27,6 +27,8 @@ const files = fs.readdirSync(path.join(HERE, 'fixes')).filter((f) => f.endsWith(
 const patches = [];
 const fixes = [];
 const errors = [];
+const rowAcc = new Map();
+const rowFileCache = {};
 
 function addPatch(p, meta) {
   patches.push({ id: p.id, target: p.target, find: p.find, repl: p.repl, expect: p.expect ?? 1, ...(p.regex ? { regex: true } : {}), note: meta.note });
@@ -41,6 +43,22 @@ for (const f of files) {
     for (const e of mod.default) {
       if (!e.id || e.find == null || e.repl == null || !e.target) { errors.push(`${f}: text entry without id/target/find/repl: ${JSON.stringify(e).slice(0, 120)}`); continue; }
       addPatch(e, { cls: e.cls, before: e.before, src: e.src, note: `${e.cls || ''}: ${e.src || ''}`.slice(0, 300), area });
+    }
+    continue;
+  }
+  if (kind === 'rows') {
+    // JSON files with one object per line, located by a key field: { id, set:{'a.b': value | null}, cls, before, src }; module exports file, key (or groups).
+    // Rows of several modules that name the same unit are merged into ONE patch (emitted after the module loop).
+    for (const grp of (mod.groups || [{ file: mod.file, key: mod.key, rows: mod.default }])) {
+      for (const e of grp.rows) {
+        const k = grp.file + '|' + grp.key + '|' + e.id;
+        const cur = rowAcc.get(k) || { file: grp.file, key: grp.key, id: e.id, set: {}, cls: [], before: [], src: [], area };
+        Object.assign(cur.set, e.set);
+        if (e.cls && !cur.cls.includes(e.cls)) cur.cls.push(e.cls);
+        if (e.before) cur.before.push(e.before);
+        if (e.src && !cur.src.includes(e.src)) cur.src.push(e.src);
+        rowAcc.set(k, cur);
+      }
     }
     continue;
   }
@@ -107,6 +125,46 @@ for (const f of files) {
       fixes[fixes.length - 1].tick = sel.tick;
     } else errors.push(`${f}: entry without set/insertAfter/remove`);
   }
+}
+
+
+// ---- rows: one patch per unit, text-level rewrite of the changed top-level members only
+for (const e of rowAcc.values()) {
+  const rel = 'data/' + e.file;
+  const lines = (rowFileCache[rel] ??= rd(path.join(BASE, rel)).split('\n'));
+  const needle = `"${e.key}":"${e.id}"`;
+  const hits = lines.filter((l) => l.includes(needle) && l.trim().startsWith('{'));
+  if (hits.length !== 1) { errors.push(`${e.file}: ${e.id} selects ${hits.length} rows`); continue; }
+  const old = hits[0].trim().replace(/,$/, '');
+  let orig; try { orig = JSON.parse(old); } catch (err) { errors.push(`${e.file}: ${e.id} not a one-line object`); continue; }
+  const obj = JSON.parse(old);
+  for (const [k, v] of Object.entries(e.set)) {
+    const parts = k.split('.');
+    let o = obj;
+    for (let i = 0; i < parts.length - 1; i++) { o[parts[i]] ??= {}; o = o[parts[i]]; }
+    if (v === null) delete o[parts[parts.length - 1]]; else o[parts[parts.length - 1]] = v;
+  }
+  let nw = old;
+  for (const k of new Set(Object.keys(e.set).map((x) => x.split('.')[0]))) {
+    const oldSub = orig[k] === undefined ? null : `"${k}":${JSON.stringify(orig[k])}`;
+    const newSub = obj[k] === undefined ? null : `"${k}":${JSON.stringify(obj[k])}`;
+    if (oldSub === null && newSub === null) continue;
+    if (oldSub === null) { nw = nw.replace(/\}$/, ',' + newSub + '}'); continue; }
+    if (typeof orig[k] === 'number') {            // numbers may be written 38.0: match the written form
+      const NUM = '-?\\d+(?:\\.\\d+)?';
+      const re = new RegExp(`"${k}":${NUM}`);
+      if (!re.test(nw)) { errors.push(`${e.file}: ${e.id} number member ${k} not found`); continue; }
+      nw = newSub === null ? nw.replace(new RegExp(`,"${k}":${NUM}`), '').replace(re, '') : nw.replace(re, newSub);
+      continue;
+    }
+    if (!nw.includes(oldSub)) { errors.push(`${e.file}: ${e.id} member ${k} is not re-serialisable`); continue; }
+    nw = newSub === null ? nw.replace(',' + oldSub, '').replace(oldSub + ',', '').replace(oldSub, '') : nw.replace(oldSub, newSub);
+  }
+  if (nw === old) continue;
+  const idBase = 'DATA-' + e.file.replace(/\.json$/, '').replace(/[^A-Za-z0-9]+/g, '-');
+  const cls = e.cls.join('+'), src = e.src.join('; ');
+  addPatch({ id: `${idBase}-${e.id}`, target: rel, find: old, repl: nw }, { cls, before: e.before.join(' | '), src, note: `${cls}: ${src}`.slice(0, 300), area: e.area });
+  fixes[fixes.length - 1].unit = e.id;
 }
 
 const ids = new Set();
