@@ -40,7 +40,7 @@ def main():
         crs='EPSG:3857', bounds_wgs84=[-77.34375, 39.75788, -77.146, 39.87602], native_max_zoom=16,
         native_note='The source photograph is 1.0 m per pixel; z16 (0.92 m) is native. z17 tiles exist only around ten hotspots and are enlargements (no new detail). No z18 tiles are shipped (it would be a 4x enlargement).',
         zoom_levels={str(z): v for z, v in sorted(by.items())}, total_tiles=len(idx), total_bytes=sum(r['bytes'] for r in idx),
-        coverage=dict(z11_15='whole data box', z16='Warren-sheet coverage plus 500 m', z17='within 650 m of Peach Orchard, Wheatfield, Little Round Top, The Angle, town centre, Devil's Den, Culp's Hill, Cemetery Hill, Seminary Ridge, Big Round Top'),
+        coverage=dict(z11_15='whole data box', z16='Warren-sheet coverage plus 500 m', z17="within 650 m of Peach Orchard, Wheatfield, Little Round Top, The Angle, town centre, Devil's Den, Culp's Hill, Cemetery Hill, Seminary Ridge, Big Round Top"),
         provenance_tiles='docs/basemap1863/PROVENANCE-LAYER/tiles/{z}/{x}/{y}.png (palette PNG, class codes of PROVENANCE-LAYER/classes.json), z13 and finer', provenance_vectors=['PROVENANCE-LAYER/added_features.geojson', 'PROVENANCE-LAYER/changed_regions.geojson.gz'],
         build=dict(pipeline='tools/b1863 (BUILD.md)', git_commit_at_build=commit, built_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), inputs=inputs),
         tiles={'%d/%d/%d' % (r['z'], r['x'], r['y']): [r['bytes'], r['sha256']] for r in idx})

@@ -1,0 +1,108 @@
+{
+ "banned_term_hits": [
+  {
+   "file": "tools\\b1863\\gen_build_md.py",
+   "term": "google",
+   "context": "s) | public domain |' % ('1.91', '2.85'))     w('\\nnot used, and why: google earth, google maps, bing, maxar, mapbox and any other commercial imag"
+  },
+  {
+   "file": "tools\\b1863\\gen_build_md.py",
+   "term": "google",
+   "context": "main |' % ('1.91', '2.85'))     w('\\nnot used, and why: google earth, google maps, bing, maxar, mapbox and any other commercial imagery (their ter"
+  },
+  {
+   "file": "tools\\b1863\\gen_build_md.py",
+   "term": "maxar",
+   "context": "'2.85'))     w('\\nnot used, and why: google earth, google maps, bing, maxar, mapbox and any other commercial imagery (their terms forbid derivati"
+  },
+  {
+   "file": "tools\\b1863\\gen_build_md.py",
+   "term": "mapbox",
+   "context": "3/tiles/{z}/{x}/{y}.webp` | the photoreal tile pyramid, 512 px tiles, mapbox gl convention (zoom z is the camera zoom), z11 to z17: %d tiles, %.1f"
+  },
+  {
+   "file": "tools\\b1863\\gen_build_md.py",
+   "term": "mapbox",
+   "context": ")     w('\\nnot used, and why: google earth, google maps, bing, maxar, mapbox and any other commercial imagery (their terms forbid derivative or of"
+  },
+  {
+   "file": "tools\\b1863\\s40_tiles.py",
+   "term": "mapbox",
+   "context": "n, plus the provenance mask tiles and the manifest.  tile convention: mapbox gl style, 512 x 512 px tiles. tile (z, x, y) is the standard slippy-m"
+  },
+  {
+   "file": "tools\\b1863\\s40_tiles.py",
+   "term": "mapbox",
+   "context": "oom z is 512 * 2^z px, so the zoom number equals the camera zoom of a mapbox gl map (tilesize 512). ground sample distance at latitude 39.8: z16 0"
+  },
+  {
+   "file": "tools\\b1863\\s46_manifest.py",
+   "term": "mapbox",
+   "context": "t='webp', url_template='tiles/{z}/{x}/{y}.webp',         scheme_note='mapbox gl convention: the world is 512 px at zoom 0, tile (z,x,y) is the sta"
+  },
+  {
+   "file": "docs\\basemap1863\\PROVENANCE-LAYER\\README.md",
+   "term": "mapbox",
+   "context": "ette index), the same 512 px tile grid and tile index as `../tiles/` (mapbox gl convention, zoom z = camera zoom), z13 and finer. nearest-neighbou"
+  },
+  {
+   "file": "docs\\basemap1863\\BUILD.md",
+   "term": "google",
+   "context": "e-out 2.85 m, 8 control points) | public domain |  not used, and why: google earth, google maps, bing, maxar, mapbox and any other commercial imag"
+  },
+  {
+   "file": "docs\\basemap1863\\BUILD.md",
+   "term": "google",
+   "context": "8 control points) | public domain |  not used, and why: google earth, google maps, bing, maxar, mapbox and any other commercial imagery (their ter"
+  },
+  {
+   "file": "docs\\basemap1863\\BUILD.md",
+   "term": "maxar",
+   "context": " public domain |  not used, and why: google earth, google maps, bing, maxar, mapbox and any other commercial imagery (their terms forbid derivati"
+  },
+  {
+   "file": "docs\\basemap1863\\BUILD.md",
+   "term": "mapbox",
+   "context": "3/tiles/{z}/{x}/{y}.webp` | the photoreal tile pyramid, 512 px tiles, mapbox gl convention (zoom z is the camera zoom), z11 to z17: 932 tiles, 29."
+  },
+  {
+   "file": "docs\\basemap1863\\BUILD.md",
+   "term": "mapbox",
+   "context": " domain |  not used, and why: google earth, google maps, bing, maxar, mapbox and any other commercial imagery (their terms forbid derivative or of"
+  }
+ ],
+ "banned_hits_not_in_a_not_used_statement": [],
+ "accuracy_claim_mentions": [
+  {
+   "file": "docs\\basemap1863\\BUILD.md",
+   "text": " were added, from period maps and records. It is **not** an exact replica and **no accuracy of 100 percent is claimed anywhere**. Wha"
+  },
+  {
+   "file": "docs\\basemap1863\\BUILD.md",
+   "text": "ecords. It is **not** an exact replica and **no accuracy of 100 percent is claimed anywhere**. What is measured is stated in sectio"
+  },
+  {
+   "file": "docs\\basemap1863\\PROVENANCE-LAYER\\README.md",
+   "text": "what was changed and why. Nothing here claims the map is an exact replica or perfectly accurate; the measured numbers and the open qu"
+  },
+  {
+   "file": "docs\\basemap1863\\PROVENANCE-LAYER\\README.md",
+   "text": "and why. Nothing here claims the map is an exact replica or perfectly accurate; the measured numbers and the open questions are"
+  }
+ ],
+ "accuracy_claims_not_in_a_negation": [],
+ "tiles": 932,
+ "tiles_hash_mismatch": 0,
+ "tiles_MB": 29.27,
+ "under_40MB": true,
+ "added_features": 790,
+ "added_features_missing_source_method_or_confidence": [],
+ "n_missing": 0,
+ "licence_table_present": true,
+ "labels": {
+  "manifest": true,
+  "provenance_geojson": true
+ },
+ "owner_address_leaks": [],
+ "pass": 7
+}

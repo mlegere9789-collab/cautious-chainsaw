@@ -32,6 +32,8 @@ DEFS = {
 def to_ll(g):
     return stransform(lambda x, y, z=None: C.utm2ll(x, y), g)
 
+MINA = {1: 150, 2: 100, 3: 100, 4: 50, 5: 25, 20: 250}      # 600, 400, 400, 200, 100, 1000 m2: smaller pieces are in the pixel tiles but not in the vector outlines
+
 def main():
     os.makedirs(C.PROV, exist_ok=True)
     items = pickle.load(open(os.path.join(C.BUILD, 'draw_items.pkl'), 'rb'))
@@ -84,7 +86,7 @@ def main():
         hier = hier[0]
         n = 0
         for i, cnt in enumerate(cs):
-            if hier[i][3] != -1 or cv2.contourArea(cnt) < 25:        # >= 100 m2 at 2 m cells
+            if hier[i][3] != -1 or cv2.contourArea(cnt) < MINA.get(code, 25):        # minimum polygon area in 2 m cells (4 m2 each)
                 continue
             ap = cv2.approxPolyDP(cnt, 1.0, True)[:, 0, :].astype(float)
             if len(ap) < 3: continue
@@ -97,11 +99,11 @@ def main():
             g = Polygon(np.stack([C.X0 + ap[:, 0] * 2, C.Y0 - ap[:, 1] * 2], 1), holes)
             if not g.is_valid: g = g.buffer(0)
             if g.is_empty: continue
-            regs.append(dict(type='Feature', properties=dict(code=code, cls=NAMES[code], area_ha=round(g.area / 1e4, 3), meaning=DEFS[code]), geometry=mapping(to_ll(g.simplify(1.5)))))
+            regs.append(dict(type='Feature', properties=dict(code=code, cls=NAMES[code], area_ha=round(g.area / 1e4, 3), meaning=DEFS[code]), geometry=mapping(to_ll(g.simplify(3.0)))))
             n += 1
         print('class', code, NAMES[code], 'polygons', n)
     fc2 = dict(type='FeatureCollection', name='changed_regions', properties=dict(label='RECONSTRUCTION: regions of the photograph that were changed (or deliberately kept although ambiguous). Polygons are the 2 m raster outlines.'), features=regs)
-    with gzip.open(os.path.join(C.PROV, 'changed_regions.geojson.gz'), 'wt', encoding='utf-8') as f:
+    with gzip.open(os.path.join(C.PROV, 'changed_regions.geojson.gz'), 'wt', encoding='utf-8', compresslevel=9) as f:
         json.dump(fc2, f, separators=(',', ':'))
     json.dump(dict(classes={str(k): dict(name=NAMES[k], meaning=DEFS[k]) for k in NAMES}, label='RECONSTRUCTION, not a photograph of 1863'), open(os.path.join(C.PROV, 'classes.json'), 'w'), indent=1)
     print('regions', len(regs), 'files', {f: os.path.getsize(os.path.join(C.PROV, f)) for f in os.listdir(C.PROV) if os.path.isfile(os.path.join(C.PROV, f))})

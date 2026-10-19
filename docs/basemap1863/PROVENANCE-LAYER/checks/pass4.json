@@ -1,0 +1,9 @@
+{
+ "random_line_step_mean": 5.554,
+ "window_row_seam_step_mean": 6.292,
+ "window_col_seam_step_mean": 6.12,
+ "synth_border_mean_step": 2.311,
+ "synth_border_windows": 298,
+ "reading": "mean absolute grey-level step across a line; window seams should equal the random-line step; the synthesised border step is the difference of mean brightness just inside vs just outside the filled regions",
+ "pass": 4
+}

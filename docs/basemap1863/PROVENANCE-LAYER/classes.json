@@ -1,0 +1,73 @@
+{
+ "classes": {
+  "0": {
+   "name": "PHOTO_KEPT",
+   "meaning": "photograph kept, inside the Warren-sheet coverage: not verified as 1863, no source says it differs"
+  },
+  "22": {
+   "name": "PHOTO_KEPT_OUTSIDE",
+   "meaning": "photograph kept, outside the Warren-sheet coverage: 1863 land cover unknown"
+  },
+  "1": {
+   "name": "REMOVED_PATCH",
+   "meaning": "modern feature (road, roof, utility, small object) removed; filled by PatchMatch from the surroundings"
+  },
+  "2": {
+   "name": "REMOVED_SYNTH",
+   "meaning": "modern feature or area removed; ground re-synthesised from real photograph blocks"
+  },
+  "3": {
+   "name": "CANOPY_REMOVED",
+   "meaning": "modern tree canopy outside 1863 tree cover (beyond the 100 m registration margin) replaced by open-ground texture"
+  },
+  "4": {
+   "name": "TREES_ADDED",
+   "meaning": "1863 woods tree cover that is open now (beyond the 60 m margin): canopy blocks added"
+  },
+  "5": {
+   "name": "TOWN_GROUND",
+   "meaning": "town block: modern street and yard trees removed"
+  },
+  "6": {
+   "name": "ROAD_ADDED",
+   "meaning": "1863 road drawn"
+  },
+  "7": {
+   "name": "RAIL_ADDED",
+   "meaning": "1863 railway or railroad grade drawn"
+  },
+  "8": {
+   "name": "BRIDGE_ADDED",
+   "meaning": "1863 bridge drawn"
+  },
+  "9": {
+   "name": "FENCE_ADDED",
+   "meaning": "1863 fence drawn"
+  },
+  "10": {
+   "name": "STRUCTURE_ADDED",
+   "meaning": "1863 structure drawn (schematic roof)"
+  },
+  "11": {
+   "name": "ORCHARD_ADDED",
+   "meaning": "1863 orchard trees drawn"
+  },
+  "12": {
+   "name": "CROP_RECOLOURED",
+   "meaning": "Wheatfield recoloured to ripe wheat"
+  },
+  "13": {
+   "name": "TOWN_MASS_ADDED",
+   "meaning": "1868-69 survey building mass drawn (schematic roofs)"
+  },
+  "20": {
+   "name": "AMBIGUOUS_KEPT",
+   "meaning": "inside the registration margin of an 1863 tree polygon: photograph kept, the evidence cannot decide"
+  },
+  "21": {
+   "name": "SURVIVOR_KEPT",
+   "meaning": "building that stood in 1863 and still stands: real roof pixels kept"
+  }
+ },
+ "label": "RECONSTRUCTION, not a photograph of 1863"
+}

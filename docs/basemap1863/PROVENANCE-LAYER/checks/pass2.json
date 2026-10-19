@@ -1,0 +1,56 @@
+{
+ "per_class": {
+  "removed_patch": {
+   "px": 2588342,
+   "mean_p_modern_before": 0.726,
+   "mean_p_modern_after": 0.208,
+   "share_gt0p5_before": 0.743,
+   "share_gt0p5_after": 0.086
+  },
+  "removed_synth": {
+   "px": 6247243,
+   "mean_p_modern_before": 0.612,
+   "mean_p_modern_after": 0.171,
+   "share_gt0p5_before": 0.583,
+   "share_gt0p5_after": 0.049
+  },
+  "canopy_removed": {
+   "px": 747216,
+   "mean_p_modern_before": 0.336,
+   "mean_p_modern_after": 0.158,
+   "share_gt0p5_before": 0.204,
+   "share_gt0p5_after": 0.046
+  },
+  "town_ground": {
+   "px": 216398,
+   "mean_p_modern_before": 0.849,
+   "mean_p_modern_after": 0.139,
+   "share_gt0p5_before": 0.872,
+   "share_gt0p5_after": 0.015
+  },
+  "drawn_road": {
+   "px": 256143,
+   "mean_p_modern_before": 0.915,
+   "mean_p_modern_after": 0.75,
+   "share_gt0p5_before": 0.926,
+   "share_gt0p5_after": 0.796
+  },
+  "drawn_structure": {
+   "px": 27971,
+   "mean_p_modern_before": 0.84,
+   "mean_p_modern_after": 0.475,
+   "share_gt0p5_before": 0.853,
+   "share_gt0p5_after": 0.395
+  },
+  "kept": {
+   "px": 38231154,
+   "mean_p_modern_before": 0.195,
+   "mean_p_modern_after": 0.191,
+   "share_gt0p5_before": 0.067,
+   "share_gt0p5_after": 0.062
+  }
+ },
+ "detector": "RGB gradient-boosted trees trained on map-derived weak labels of the original photograph (60 blocks); applied to 90 random 768 px windows",
+ "reading": "removed_* classes should fall from the before value to about the kept (untouched) level; drawn_road and drawn_structure SHOULD read as modern surface (they are roads and roofs, drawn in 1863 form).",
+ "pass": 2
+}
