@@ -120,7 +120,11 @@ const vigStrings = (t) => { const a = new Set(); for (const k of VIG_TICKS) if (
 const tabDay = (t) => { const i = O.tabDays.findIndex(([a, b]) => t >= a && t <= b); return i + 1; };
 const STATIC_OK = [/^July [123]$/, /^What happened after July 3rd\.$/, /^Animated Battlefield Map · July 1–3, 1863$/, /^July 1–3, 1863 · 675 snapshots in time$/];
 const PROSE = 110;                                                      // longer strings are story text: the prose inventory (tools/t0/clock/prose-inventory.mjs) covers them, not this test
-const isClockish = (s) => /\d{1,2}:\d{2}\s?[AaPp]\.?[Mm]|1863|Night of|Frame \d|give or take|\b[Tt]icks?\b|five-minute|5 minutes/.test(s);
+// tooltips that carry a model clock of ANOTHER frame by design: scrubber markers ("First shot, about 7:30 AM") and day tabs ("Jump to July 2, about 4:30 AM"); T0-CLK-18 pins their exact values
+const TIME_STRINGS = (() => { const m = new Set(); for (let k = 1; k <= 675; k++) { m.add(O.fmt(k, 'time')); m.add(O.fmt(k, 'compat')); } return m; })();
+const isTip = (x) => { let m = /^Jump to (.+)$/.exec(x); if (m) return TIME_STRINGS.has(m[1]); m = /^(.+), ((?:about )?\d{1,2}:\d{2} [AP]M)$/.exec(x); return !!m && TIME_STRINGS.has(m[2]); };
+// (a clock in the module's own style "3:00 PM"; a time typed in a sentence as "3:00 p.m." or "3 pm" is prose: the inventory lists it)
+const isClockish = (s) => /\d{1,2}:\d{2} [AP]M\b|1863|Night of|Frame \d|give or take|\b[Tt]icks?\b|five-minute|5 minutes/.test(s);
 
 /** problems of one desktop reading at tick t (empty = the screen agrees with the oracle) */
 function desktopProblems(t, d, strings) {
@@ -135,7 +139,7 @@ function desktopProblems(t, d, strings) {
   if (d.minimap === null) p.push('minimap footer not found');
   const allowed = new Set([want.chip, want.aria, want.footText, want.hudDate, wantTitle, O.uncertaintyText(t), O.fmt(t, 'time'), O.fmt(t, 'compat'), d.minimap, ...vigStrings(t)].filter(Boolean));
   for (const x of strings) {
-    if (allowed.has(x.s) || STATIC_OK.some((r) => r.test(x.s))) continue;
+    if (allowed.has(x.s) || STATIC_OK.some((r) => r.test(x.s)) || ((x.k === 'title') && isTip(x.s))) continue;
     if (!isClockish(x.s) || x.s.length > PROSE) continue;
     p.push(`stray clock text (${x.k}${x.cls ? ' .' + String(x.cls).split(' ')[0] : ''}): "${x.s}"`);
   }
@@ -152,7 +156,7 @@ function phoneProblems(t, d, strings) {
   if (d.frame !== t) p.push(`frame: ${d.frame}`);
   const allowed = new Set([day, time, wantTitle, O.uncertaintyText(t), ...vigStrings(t)]);
   for (const x of strings) {
-    if (allowed.has(x.s) || STATIC_OK.some((r) => r.test(x.s))) continue;
+    if (allowed.has(x.s) || STATIC_OK.some((r) => r.test(x.s)) || ((x.k === 'title') && isTip(x.s))) continue;
     if (!isClockish(x.s) || x.s.length > PROSE) continue;
     p.push(`stray clock text (${x.k}): "${x.s}"`);
   }
@@ -174,6 +178,17 @@ suite.test('T0-CLK-01', 'the independent oracle agrees with the anchors file: ev
   }
   assertEq(O.fmt(1, 'compat'), `July 1, ${O.about(1) ? 'about ' : ''}5:00 AM`, 'tick 1');
   for (let k = 1; k <= 675; k++) assert(!/July [4-9]/.test(O.fmt(k, 'date')), `oracle prints a July 4-9 date at ${k}`);
+  // the policy must be able to bite: on a copy of the anchors where five of them are signed with sigma 10, the oracle and the shipped model both drop "about" on exactly the same ticks
+  {
+    const { makeTimeModel } = await import('../../src/lib/time/model.js');
+    const d2 = JSON.parse(JSON.stringify(doc));
+    for (const a of d2.anchors) if ([100, 226, 340, 451, 500].includes(a.tick)) { a.state = 'signed'; a.sigma_min = 10; a.uncertainty_min = 10; }
+    const o2 = makeOracle(d2), m2 = makeTimeModel(d2);
+    let dropped = 0;
+    for (let k = 1; k <= 675; k++) { assertEq(o2.fmt(k, 'time'), m2.tickToLabel(k, { style: 'time' }), `policy on the signed copy, tick ${k}`); if (!o2.about(k)) dropped++; }
+    assert(dropped > 100 && dropped < 675, `the signed copy should drop "about" on some ticks only (${dropped})`);
+    t.note('ticks without "about" on the signed copy (policy check)', dropped);
+  }
   const aboutCount = TICKS.filter((k) => O.about(k)).length;
   t.note('ticks printed with "about" by the written policy', `${aboutCount} of ${TICKS.length}`);
   t.note('first tick of each tab', O.tabDays.map(([a]) => O.fmt(a, 'compat')));
@@ -660,7 +675,9 @@ suite.test('T0-CLK-15', 'ticks stay permanent frame ids: the same units stand on
     for (const tk of sample) {
       const a = await units(A, ORIGIN, tk), b = await units(B, ctl.url, tk);
       rows.push([tk, a.frame, b.frame, a.units, b.units]);
-      assertEq([a.frame, a.units], [b.frame, b.units], `frame ${tk}: clock tree vs control tree (frame, units on the field)`);
+      // the data group may change who stands on a frame (that is its job: it corrects order-of-battle and placement rows); the frame itself must still be the frame
+      if (GROUPS.includes('DATA')) assertEq(a.frame, b.frame, `frame ${tk}: ?tick= lands on a different frame than in the control tree`);
+      else assertEq([a.frame, a.units], [b.frame, b.units], `frame ${tk}: clock tree vs control tree (frame, units on the field)`);
     }
     t.note('tick, frame(clock), frame(control), units(clock), units(control)', rows.slice(0, 6));
     // playback needs the map (the animation loop is driven by its render events): two more sessions with the harness tiles (about 50 requests each)
@@ -748,7 +765,7 @@ try {
   await srv.close();
 }
 if (EXPECT_RED) {
-  const bad = summary.results.filter((r) => r.status === 'pass' && !/CLK-01/.test(r.id));
+  const bad = summary.results.filter((r) => r.status === 'pass' && !/CLK-(01|16)$/.test(r.id));   // 01 (oracle) and 16 (regeneration) do not look at the tree under test
   console.log(bad.length ? `expected-red VIOLATED: passed on this tree: ${bad.map((r) => r.id).join(', ')}` : 'expected-red: every clock test (except the oracle self-check) failed on this tree (red-first proven)');
   process.exit(bad.length ? 1 : 0);
 }
