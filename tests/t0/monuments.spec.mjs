@@ -19,7 +19,7 @@
 //                (map.project before/after, queryRenderedFeatures at the projected point, and the PIXEL of the drawn dot in a real screenshot)
 //   T0-MONL-04 F  click / Esc: a click on a dot opens the card of THAT monument (name, side, group, honors, location, Google Maps link with its coordinates), a second click replaces it, the unit
 //                picker does not also react, a click on bare map closes it, Esc closes it, the app's keys (arrows) still step time with the card open; the hit radius is 12 px for a mouse
-//   T0-MONL-05 F  story marker: its card quotes the narrative, "Jump to this moment" sets the tick whose app clock reads the time the narrative names, pauses, flies there and closes the card
+//   T0-MONL-05 F  story marker: its card quotes the narrative, "Jump to this moment" sets the marker's own tick (the clock shown reads that tick), pauses, flies there and closes the card
 //   T0-MONL-06 F  glow: a story marker glows gold exactly while its linked unit is on the field (expected set computed from the shipped placement data at ticks 1, 268 and 551)
 //   T0-MONL-07 F  phone 375x812, real CDP touch: Tools tile (aria-pressed), tap on a marker opens the card as a sheet above the dock, 44 px targets (22 px tap radius, card buttons), Jump works
 //   T0-MONL-08 F  reload with the layer on: the page boots clean, the layer is off again (not persisted, like every other tool toggle), no stale DOM, and it toggles on again
@@ -28,12 +28,12 @@
 //   T0-MONL-10 F  hover: a real mouse move over a marker rings it, sets the pointer cursor and shows a tooltip; leaving clears all three
 //   T0-MONL-11 F  leaks: 6 on/off cycles leave the map container with exactly the listeners it had, no popup, no control, no store subscription; idle script time with the layer on is not above off
 //   T0-MONL-14 F  layout switch: layer on in the phone layout, "Desktop View" from the Tools sheet: the phone map instance is dropped, the desktop layout starts with the layer off and its own toggle works
-//   T0-MONL-15 F  static (the shipped runtime in a vm): the jump tick of a story is the tick whose legacy clock reads the time its narrative names (9 of 20), else the marker's own tick, and the marker's own tick
-//                whenever the store's clock is not the legacy formula (a corrected D-TIME clock, no getTickTime, a clock that throws)
+//   T0-MONL-15 F  static: the 20 stars of the shipped entry equal tools/t0/mon/stars-spec.mjs (unit, tick, text, note, gap), lie on their monument record or Park marker, link a unit that is on the field at their tick; the clock-derived jump is gone
+//                T0-MONL-17a/b F  all 20 stars in the browser (needs CLOCK in the tree): real click, card, Jump, the clock text, the story text against the clock, unit selected / glowing / drawn at the stated distance; T0-MONL-18 G  the source claims
 //   T0-MONL-16 F  toolbar (group AX trains): no two buttons overlap at any window width from 640 to 1440 px, the Monuments and Virtual Walkthrough buttons are hit by their own centre
 //   T0-MONL-12 G  the Walkthrough is untouched: the Walkthrough code and data of the entry are byte-identical to the same train without MON, and with the layer on it still opens, shows its own
 //                512 dots on its own map (no gtmon layer in it), lists 100 of 512, searches; "Open in Walkthrough list" opens its Monuments tab with the name typed in; Back returns
-//   T0-MONL-13 G  static: the group's 18 anchors (9 story-data, 8 bundle, 1 stylesheet) matched exactly once, the entry carries the runtime once, no screen-fixed star overlay script, KF no longer runs its per-frame loop
+//   T0-MONL-13 G  static: the group's 29 anchors (20 story stars, 8 bundle, 1 stylesheet) matched exactly once, the entry carries the runtime once, no screen-fixed star overlay script, KF no longer runs its per-frame loop
 //   T0-MONL-X  G  every browser test of this run: 0 uncaught exceptions and 0 first-party console.error
 process.env.T0_AGENT ??= 'mon-fix';
 process.env.T0_PORT_BASE ??= '8900';
@@ -43,6 +43,8 @@ import vm from 'node:vm';
 import zlib from 'node:zlib';
 import { spawnSync } from 'node:child_process';
 import * as acorn from 'acorn';
+import { SPEC } from '../../tools/t0/mon/stars-spec.mjs';
+import { makeOracle } from '../../tools/t0/clock/oracle.mjs';
 const {
   REPO, PORT_BASE, openSession, createStaticServer, createSuite, assert, assertEq, sleep, waitFor, waitForApp, chooseLayout, mapView,
   mouseDrag, wheel, emulateViewport, touchTap, tileBudget, Skip,
@@ -67,6 +69,25 @@ const HAS_C = GROUPS.includes('C');
 const HAS_DL = GROUPS.includes('DL');
 const HAS_B = GROUPS.includes('B');
 const HAS_CP = GROUPS.includes('CP');
+// ------------------------------------------------------------------ the corrected clock and the star spec (the independent oracle of tools/t0/clock/oracle.mjs reads data-src/time/time_anchors.json only)
+const HAS_CLOCK = ENTRY_TEXT.includes('GTBGT=');
+const MAX_GAP_M = 1000;      // the largest distance between a star and its linked unit this proof accepts: the DATA audit puts the Herbst/McPherson rows 0.8 to 0.9 km from the Park's monuments (docs/data-audit/AUDIT.md, section 8)
+const ORACLE = makeOracle();
+const legacyClock = (x) => { const d = x <= 225 ? 1 : x <= 450 ? 2 : 3, m = (d === 1 ? 360 : 240) + (x - 1) * 5 - (d === 1 ? 0 : d === 2 ? 1125 : 2250), h = Math.floor(m / 60) % 24, mm = m % 60; return `July ${d}, ${h === 0 ? 12 : h > 12 ? h - 12 : h}:${String(mm).padStart(2, '0')} ${h >= 12 ? 'PM' : 'AM'}`; };
+/** the clock string the app shows at a tick: the corrected clock when CLOCK is in the tree, else the legacy formula */
+const expectedClock = (tick) => (HAS_CLOCK ? ORACLE.fmt(tick, 'compat') : legacyClock(tick));
+/** does the clock of a tick agree with the clock times the story text names?  Within the uncertainty the clock itself states (give or take, uncertainty_min of the anchors), plus the 5-minute rounding.
+ *  A text that names no time agrees with every tick. */
+function clockAgrees(label, tick) {
+  const times = []; const re = /(\d{1,2})(?::(\d{2}))?(?: to (\d{1,2})(?::(\d{2}))?)? ?(AM|PM)\b/g; let m;
+  while ((m = re.exec(label))) for (const [h, mi] of [[m[1], m[2]], [m[3], m[4]]]) if (h) times.push(((+h % 12) + (m[5] === 'PM' ? 12 : 0)) * 60 + (mi ? +mi : 0));
+  const c = Math.round(ORACLE.minutes(tick)) % 1440, sigma = Math.round(ORACLE.uncertaintyMin(tick));
+  const hm = (x) => `${Math.floor(x / 60)}:${String(x % 60).padStart(2, '0')}`;
+  if (!times.length) return { ok: true, sigma, times: [] };
+  const ok = times.some((x) => Math.abs(x - c) <= sigma + 5) || (c >= Math.min(...times) && c <= Math.max(...times));
+  return { ok, sigma, times: times.map(hm), clock: hm(c) };
+}
+
 const needMon = () => { if (!HAS_MON && !EXPECT_RED) throw new Skip(`the Monuments group (MON) is not in this tree (${GROUPS.join(', ') || 'no groups'})`); };
 const resultsDir = (IS_LEGACY || IS_BASELINE) ? path.join(REPO, 'tmp', process.env.T0_AGENT) : path.dirname(DIST);
 
@@ -109,13 +130,7 @@ function truth() {
     for (const arr of Object.values(j)) if (Array.isArray(arr)) for (const r of arr) if (r && r.regiment_id && r.parent_brigade_id) parent[r.regiment_id] = r.parent_brigade_id;
   }
   const onField = (u, t) => { let m = minTick[u]; if (!(m <= t) && parent[u]) m = minTick[parent[u]]; return m <= t; };
-  // the clock of the store (legacy formula: day 1 from 06:00, days 2 and 3 from 04:00, 5 minutes a tick) read the other way round: the tick whose clock shows the time a story text names, or the marker's own tick
-  const jumpTick = (s) => {
-    const m = /\b(\d{1,2}):(\d{2})\s?([AP])\.?M\b/i.exec(s.label); if (!m) return s.tick;
-    const dm = /\bJuly (\d)\b/.exec(s.label), d = dm ? +dm[1] : s.day, base = d === 1 ? 360 : 240, off = d === 1 ? 0 : d === 2 ? 225 : 450;
-    return off + 1 + Math.round(((+m[1] % 12) * 60 + +m[2] + (/p/i.test(m[3]) ? 720 : 0) - base) / 5);
-  };
-  return (TRUTH = { A: want._A, mA: want.mA, sideOf, minTick, parent, jumpTick, activeAt: (t) => want.mA.map((s, i) => (onField(s.unit_id, t) ? i : -1)).filter((i) => i >= 0) });
+  return (TRUTH = { A: want._A, mA: want.mA, sideOf, minTick, parent, activeAt: (t) => want.mA.map((s, i) => (onField(s.unit_id, t) ? i : -1)).filter((i) => i >= 0) });
 }
 const idxOfName = (name) => truth().A.findIndex((m) => m.name === name);
 
@@ -155,7 +170,11 @@ async function dotPixelAt(p, x, y, side) {
 
 // ------------------------------------------------------------------ page helpers
 const bodyText = (p) => p.evaluate(() => document.body.innerText.replace(/\s+/g, ' '));
-const readTick = async (p) => { const m = /Tick (\d+)\/675/.exec(await bodyText(p)); return m ? +m[1] : null; };
+const readTick = async (p) => {
+  const t = await bodyText(p); const m = /Tick (\d+)\/675/.exec(t); if (m) return +m[1];                   // the legacy time bar says "Tick 12/675"
+  const v = await p.evaluate(() => { const r = document.querySelector('input[type="range"][aria-label="Battle time"]'); if (r) return +r.value; try { return window.__gtmon ? window.__gtmon.info().tick : null; } catch (e) { return null; } });   // the corrected clock (CLOCK) shows the time instead: the slider's value is the tick (the phone layout has no slider: the store's tick, read by the runtime)
+  return Number.isFinite(v) ? v : null;
+};
 const monInfo = (p) => p.evaluate(() => { if (!window.__gtmon) throw new Error('window.__gtmon is missing: the Monuments runtime (group MON) is not in this tree'); return window.__gtmon.info(); });
 /** third-party noise of the Walkthrough's Google Street View embed (Permissions-Policy accelerometer message, Google scripts): not first-party errors */
 const isGoogleNoise = (e) => /Permissions policy violation|google|gstatic|streetview/i.test(`${e.text} ${e.url || ''}`);
@@ -189,6 +208,15 @@ const waitCard = (p, id, timeout = 4000) => waitFor(async () => { const c = awai
 const waitNoCard = (p, timeout = 3000) => waitFor(async () => ((await cardNow(p)) ? null : true), { timeout, interval: 80, label: 'card closed' });
 const errsSince = (S, n) => S.collector.firstParty.slice(n);
 
+/** where the map stands after a Jump: the star, and the linked unit when it is drawn more than 250 m from the star, must both lie in the view (with a 10 px margin); a unit within 250 m: the view is centred on the star (within 80 m) at zoom >= 15 */
+async function framed(p, star, unit) {
+  await waitFor(async () => !(await p.evaluate(() => window.__t0map.isMoving())), { timeout: 5000, interval: 100, label: 'the map has stopped moving' }); await sleep(200);
+  const f = await p.evaluate(([lo, la, ul, un]) => { const m = window.__t0map, r = m.getCanvas().getBoundingClientRect(), c = m.getCenter(); const a = m.project([lo, la]); const o = { z: m.getZoom(), c: [c.lng, c.lat], star: [a.x, a.y], size: [r.width, r.height] }; if (ul != null) { const b = m.project([un, ul]); o.unit = [b.x, b.y]; } return o; }, [star.lng, star.lat, unit ? unit[0] : null, unit ? unit[1] : null]);
+  const gap = unit ? Math.hypot((unit[1] - star.lng) * 85300, (unit[0] - star.lat) * 111200) : 0;
+  const inside = (q) => q[0] >= 10 && q[0] <= f.size[0] - 10 && q[1] >= 10 && q[1] <= f.size[1] - 10;
+  if (gap > 250) return { ok: f.z >= 14.5 && inside(f.star) && inside(f.unit), mode: 'both in view', gap: Math.round(gap), f };
+  return { ok: f.z >= 14.9 && Math.hypot((f.c[0] - star.lng) * 85300, (f.c[1] - star.lat) * 111200) < 80, mode: 'centred on the star', gap: Math.round(gap), f };
+}
 const F = {};
 async function boot(S, layout) {
   const p = S.page;
@@ -235,6 +263,16 @@ async function monOff(p) {
 }
 /** the tick of the clock on the desktop, set with the documented keys (Shift+ArrowRight = +12 ticks) */
 async function tickBy12(p, n) { for (let i = 0; i < n; i++) { await p.keyboard.press('Shift+ArrowRight'); await sleep(60); } await sleep(300); }
+/** the time slider's value set the way a person drags it (native setter + input/change events): works with the legacy time bar and with the corrected clock, where Shift+Arrow is an hour and not 12 ticks */
+async function setTickTo(p, tick) {
+  const ok = await p.evaluate((n) => { const r = document.querySelector('input[type="range"][aria-label="Battle time"]') || document.querySelector('input[type="range"]'); if (!r) return false; const set = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set; set.call(r, String(n)); r.dispatchEvent(new Event('input', { bubbles: true })); r.dispatchEvent(new Event('change', { bubbles: true })); return true; }, tick);
+  assert(ok, 'the time slider was not found');
+  await waitFor(async () => (await readTick(p)) === tick, { timeout: 5000, interval: 100, label: `tick ${tick}` }); await sleep(400);
+}
+/** the sky tint over the map fades with an 8 s CSS transition (background 8s): wait until it has cleared, so that a pixel test reads the plain dot colour */
+const clearTint = (p) => waitFor(() => p.evaluate(() => { const e = [...document.querySelectorAll('div')].find((d) => getComputedStyle(d).mixBlendMode === 'multiply'); if (!e) return true; const m = /rgba\([^)]*,\s*([\d.]+)\)/.exec(getComputedStyle(e).backgroundColor); return !m || +m[1] < 0.005; }), { timeout: 15000, interval: 300, label: 'the sky tint has cleared' });
+/** a tick in full daylight (the sky tint is clear between 08:00 and 16:00): the corrected clock reads about 12:50 PM at tick 45, noon at 240, 11:40 AM at 510; the legacy clock reads 11:00 AM 60 ticks into each day */
+const middayTick = (day) => (HAS_CLOCK ? [45, 240, 510][day - 1] : [61, 286, 511][day - 1]);
 /** Toggle Units: hides the unit canvas so that nothing but the map and the monument layers is under a pixel test */
 async function unitsHidden(p, hidden) {
   const shown = await p.evaluate(() => { const cs = [...document.querySelectorAll('canvas')].filter((c) => getComputedStyle(c).zIndex === '10'); return cs.length ? getComputedStyle(cs[0]).display !== 'none' : null; });
@@ -312,7 +350,7 @@ suite.test('T0-MONL-03', 'tracking: a monument keeps its position through a real
   const lonely = T.A.map((m, i) => ({ ...m, i })).filter((m) => all.every((o) => o.i === m.i && o.side !== 'star' || M2(o, m) > 44));
   let best = null; for (const u of lonely.filter((m) => m.side === 'Union')) for (const c of lonely.filter((m) => m.side === 'Confederate')) { const dm = M2(u, c); if (Math.abs(u.lon - c.lon) * 85000 < 520 && Math.abs(u.lat - c.lat) * 111000 < 300 && (!best || dm < best.dm)) best = { u, c, dm }; }
   assert(best, 'no isolated Union/Confederate pair found'); await monOn(p); await unitsHidden(p, true);
-  await tickBy12(p, 5);                                                       // tick 61: no day/night tint over the map (alpha 0 between 08:00 and 16:00), nothing to colour the pixel check
+  await setTickTo(p, middayTick(1)); await clearTint(p);                      // full daylight: no day/night tint over the map (alpha 0 between 08:00 and 16:00), nothing to colour the pixel check
   const tg = { Union: { i: best.u.i, lng: best.u.lon, lat: best.u.lat }, Confederate: { i: best.c.i, lng: best.c.lon, lat: best.c.lat } };
   const centre = [(tg.Union.lng + tg.Confederate.lng) / 2, (tg.Union.lat + tg.Confederate.lat) / 2];
   t.note('targets', { Union: T.A[tg.Union.i].name, Confederate: T.A[tg.Confederate.i].name, metres: Math.round(best.dm) });
@@ -344,7 +382,7 @@ suite.test('T0-MONL-03', 'tracking: a monument keeps its position through a real
   await at();
   await emulateViewport(p, { width: 1180, height: 760, dpr: 1, mobile: false }); await sleep(1300); await both('after a resize to 1180x760');
   await emulateViewport(p, { width: 1440, height: 900, dpr: 1, mobile: false }); await sleep(1300); await both('after the resize back');
-  for (const day of [2, 3, 1]) { await p.locator(`button:text-is("July ${day}")`).last().dispatchEvent('click'); await sleep(900); await tickBy12(p, 5); await at(); await both(`after the July ${day} tab (+60 ticks: no night tint)`); }
+  for (const day of [2, 3, 1]) { await p.locator(`button:text-is("July ${day}")`).last().dispatchEvent('click'); await sleep(900); await setTickTo(p, middayTick(day)); await clearTint(p); await at(); await both(`after the July ${day} tab (+60 ticks: no night tint)`); }
   // style reloads.  (1) a full reload (diff:false) fires style.load and the new style has none of our sources, layers or images; (2) setStyle with the default diff never fires style.load:
   // the diff removes what it does not know (our layers included), the runtime notices through styledata.  Both must bring the markers back where they were.
   const restored = async (label) => {
@@ -453,11 +491,10 @@ suite.test('T0-MONL-04', 'click: a dot opens the card of THAT monument (name, si
 });
 
 // ================================================================== 05 story marker, jump
-suite.test('T0-MONL-05', 'story marker: the card quotes the narrative and offers "Jump to this moment": the tick becomes the one whose app clock reads the time the narrative names (the marker\'s own tick when it names none), playback pauses, the map flies there, the card closes', async (t) => {
+suite.test('T0-MONL-05', 'story marker: the card quotes the narrative and offers "Jump to this moment": the tick becomes the marker\'s own tick, the clock shown reads that tick, playback pauses, the map flies there, the card closes', async (t) => {
   const S = await desktop(); const p = S.page; const e0 = S.collector.firstParty.length;
   const T = truth(); await monOn(p);
-  const i = T.mA.findIndex((s) => s.id === 'mon_armistead'), s = T.mA[i], jt = T.jumpTick(s);              // "July 3, 3:15 PM": tick 551 is where the animation has the event, tick 586 is where the legacy clock reads 3:15 PM
-  assert(jt !== s.tick, `precondition: the Armistead narrative names a time, so the jump tick (${jt}) is not the marker tick (${s.tick})`);
+  const i = T.mA.findIndex((s) => s.id === 'mon_armistead'), s = T.mA[i], jt = s.tick;
   await setCamera(p, { center: [s.lng + 0.003, s.lat + 0.002], zoom: 15.5 }); await sleep(700);
   const q = await pagePoint(p, s.lng, s.lat);
   await p.mouse.click(q.x, q.y);
@@ -465,29 +502,32 @@ suite.test('T0-MONL-05', 'story marker: the card quotes the narrative and offers
   t.note('story card', { text: c.text.slice(0, 260), buttons: c.buttons.map((b) => b.t) });
   assertEq(c.name, s.name, 'card heading');
   assert(c.text.includes(s.label.slice(0, 40)), 'the card quotes the story marker\'s narrative');
-  assert(c.text.includes(`tick ${jt} of 675`) && c.text.includes('July 3'), `the card names the moment Jump goes to (day and tick ${jt}, no clock time of its own): ${c.text.slice(-260)}`);
-  assert(!/\d+:\d\d (AM|PM)/.test(c.text.replace(s.label, '')), 'the card prints no clock time of its own (D-TIME: the clock labels are the clock module\'s business)');
+  assert(c.text.includes(`tick ${jt} of 675`) && c.text.includes('July 3'), `the card names the moment Jump goes to (day and tick ${jt}): ${c.text.slice(-260)}`);
+  assert(!/The moment the text names/.test(c.text), 'there is no second "moment the text names": the jump goes to the marker\'s own tick');
+  assert(!/\d+:\d\d (AM|PM)/.test(c.text.replace(s.label, '')), 'the card prints no clock time of its own (the clock labels are the clock module\'s business)');
   assert(c.buttons.some((b) => /^Jump to this moment/.test(b.t)), 'Jump to this moment');
   assert(await readTick(p) !== jt, 'precondition: the clock is not already at the jump tick');
   await p.locator('[data-gtmon-card] button.gtmon-jump').click();
   await waitFor(async () => (await readTick(p)) === jt, { timeout: 4000, label: `tick ${jt}` });
   await waitNoCard(p);
-  assert(/July 3, 3:15 PM/.test(await bodyText(p)), 'the app clock (toolbar, time bar) reads the time the narrative names: July 3, 3:15 PM');
+  assert((await bodyText(p)).includes(expectedClock(jt)), `the app clock (toolbar, time bar) reads ${expectedClock(jt)}`);
   await sleep(1200);
-  const st = await p.evaluate(() => { const m = window.__t0map; const c = m.getCenter(); return { zoom: m.getZoom(), c: [c.lng, c.lat] }; });
-  assert(st.zoom >= 14.9, `the map did not zoom to the marker (zoom ${st.zoom})`);
-  assert(Math.hypot((st.c[0] - s.lng) * 85000, (st.c[1] - s.lat) * 111000) < 80, `the map did not centre on the marker: ${st.c}`);
+  await waitFor(async () => (await monInfo(p)).unitAt[i] != null, { timeout: 3000, interval: 100, label: 'the linked unit is drawn' });
+  const fr = await framed(p, s, (await monInfo(p)).unitAt[i]); assert(fr.ok, `the map did not frame the marker after the jump (${fr.mode}): ${JSON.stringify(fr.f)}`);   // centred on the star at zoom >= 15, or both star and unit in view when the unit is drawn more than 250 m away
   const txt = await bodyText(p); assert(/July 3/.test(txt), 'the clock shows day 3');
   assert(await p.evaluate(() => { const b = [...document.querySelectorAll('button')].find((x) => x.getAttribute('aria-label') === 'Play' || x.textContent.trim() === '▶'); return !!b; }), 'playback is paused (the Play button is shown)');
   // prefers-reduced-motion: the jump is a cut, not a 0.8 s flight
   await p.emulateMedia({ reducedMotion: 'reduce' });
   try {
-    const j = T.mA.findIndex((x) => x.id === 'mon_hancock'), sj = T.mA[j];
-    const spot = await freeSpot(p, 900, 230); const qj = await placeAt(p, sj.lng, sj.lat, spot.x, spot.y, 14.5); await p.mouse.click(qj.x, qj.y); await waitCard(p, `s${j}`);
-    await p.locator('[data-gtmon-card] button.gtmon-jump').click(); await waitFor(async () => (await readTick(p)) === T.jumpTick(sj), { timeout: 3000, label: 'tick of the second jump' });
-    await sleep(150);
-    const c2 = await p.evaluate(() => { const m = window.__t0map; const c = m.getCenter(); return { zoom: m.getZoom(), c: [c.lng, c.lat], moving: m.isMoving() }; });
-    assert(!c2.moving && c2.zoom >= 14.9 && Math.hypot((c2.c[0] - sj.lng) * 85000, (c2.c[1] - sj.lat) * 111000) < 80, `with reduced motion the jump is immediate: ${JSON.stringify(c2)}`);
+    for (const id of ['mon_cushing', 'mon_hancock']) {                         // a unit near the star (184 m: centred on the star) and one far from it (606 m: both in view)
+      const j = T.mA.findIndex((x) => x.id === id), sj = T.mA[j];
+      const spot = await freeSpot(p, 900, 230); const qj = await placeAt(p, sj.lng, sj.lat, spot.x, spot.y, 14.5); await p.mouse.click(qj.x, qj.y); await waitCard(p, `s${j}`);
+      await p.locator('[data-gtmon-card] button.gtmon-jump').click(); await waitFor(async () => (await readTick(p)) === sj.tick, { timeout: 3000, label: `tick of the jump to ${id}` });
+      await waitFor(async () => (await monInfo(p)).unitAt[j] != null, { timeout: 3000, interval: 100, label: `${id}: the unit is drawn` }); await sleep(1500);   // the jump waits up to 1 s for the day's data, then cuts
+      const c2 = await p.evaluate(() => window.__t0map.isMoving()); const fr = await framed(p, sj, (await monInfo(p)).unitAt[j]);
+      assert(!c2 && fr.ok, `with reduced motion the jump to ${id} is immediate and frames the star (${fr.mode}): ${JSON.stringify(fr.f)}`);
+      await p.keyboard.press('Escape'); await sleep(100);
+    }
   } finally { await p.emulateMedia({ reducedMotion: 'no-preference' }); }
   await monOff(p);
   assertEq(errsSince(S, e0), [], 'errors during MONL-05');
@@ -498,7 +538,7 @@ suite.test('T0-MONL-06', 'glow: a story marker glows gold exactly while its link
   const S = await desktop(); const p = S.page; const e0 = S.collector.firstParty.length;
   const T = truth(); await monOn(p);
   const fsStates = () => p.evaluate(() => { const m = window.__t0map; const out = []; for (let i = 0; i < 20; i++) out.push(!!(m.getFeatureState({ source: 'gtmon-stories', id: i }) || {}).active); return out.map((v, i) => (v ? i : -1)).filter((i) => i >= 0); });
-  const gotoTick = async (tick) => { const day = tick <= 225 ? 1 : tick <= 450 ? 2 : 3; await p.locator(`button:text-is("July ${day}")`).last().dispatchEvent('click'); await sleep(800); const first = day === 1 ? 1 : day === 2 ? 226 : 451; const steps = tick - first; for (let k = 0; k < Math.floor(steps / 12); k++) await p.keyboard.press('Shift+ArrowRight'); for (let k = 0; k < steps % 12; k++) await p.keyboard.press('ArrowRight'); await sleep(500); return readTick(p); };
+  const gotoTick = async (tick) => { await setTickTo(p, tick); return readTick(p); };
   const rows = [];
   for (const tick of [1, 268, 551, 1]) {
     const got = await gotoTick(tick); assertEq(got, tick, `could not reach tick ${tick}`);
@@ -560,7 +600,10 @@ suite.test('T0-MONL-07', 'phone 375x812, real touch: the Tools tile toggles the 
       return;
     }
     // marker taps
-    const k = T.mA.findIndex((x) => x.id === 'mon_armistead'), st = T.mA[k];
+    // the star farthest from every other marker (stars and dots): the tap 17 px below it must belong to it alone (the Angle stars lie 6 m apart)
+    const kmet = (a, b2) => Math.hypot((a.lng - b2.lng) * 85300, (a.lat - b2.lat) * 111200);
+    const iso0 = T.mA.map((x, ix) => ({ ix, d: Math.min(...T.mA.filter((_, jx) => jx !== ix).map((y) => kmet(x, y)), ...T.A.map((m2) => kmet(x, { lng: m2.lon, lat: m2.lat }))) })).sort((x, y) => y.d - x.d)[0];
+    const k = iso0.ix, st = T.mA[k]; t.note('phone tap star', `${st.id}, nearest other marker ${Math.round(iso0.d)} m`);
     await setCamera(p, { center: [st.lng + 0.0004, st.lat + 0.0006], zoom: 16.2 }); await sleep(1500);
     const q = await pagePoint(p, st.lng, st.lat);
     const iso = await p.evaluate(([x, y]) => { const m = window.__t0map; const c = m.getCanvas().getBoundingClientRect(); return { cw: c.width, ch: c.height, top: c.top }; }, [q.x, q.y]);
@@ -568,12 +611,13 @@ suite.test('T0-MONL-07', 'phone 375x812, real touch: the Tools tile toggles the 
     const c = await waitCard(p, `s${k}`);
     t.note('phone card', { rect: c.rect, buttons: c.buttons.map((b) => `${b.t} ${b.w}x${b.h}`), map: iso });
     const dock = await p.evaluate(() => { const d = document.getElementById('gt-timeline'); const r = d.getBoundingClientRect(); return { top: r.top }; });
+    const shr = await p.evaluate(() => { const r = document.querySelector('.gtmon-sheet').getBoundingClientRect(); return { x: r.x, y: r.y, w: r.width, h: r.height }; });      // the sheet (it scrolls when the card is longer), not the card inside it
     assertEq(await p.evaluate(() => !!document.querySelector('.gtmon-sheet [data-gtmon-card]')), true, 'the phone card is a sheet');
-    assert(c.rect.y + c.rect.h <= dock.top + 1, `sheet above the dock (${c.rect.y + c.rect.h} vs ${dock.top})`);
-    assert(c.rect.x >= 0 && c.rect.x + c.rect.w <= 375, 'sheet inside the phone width');
+    assert(shr.y + shr.h <= dock.top + 1, `sheet above the dock (${shr.y + shr.h} vs ${dock.top})`);
+    assert(shr.x >= 0 && shr.x + shr.w <= 375, 'sheet inside the phone width');
     for (const b of c.buttons) assert(b.w >= 44 && b.h >= 44, `card button "${b.t}" is ${b.w}x${b.h}, under 44x44`);
     for (const b of c.linkBoxes) assert(b.h >= 44, `card link is ${b.w}x${b.h}, under 44 px high`);
-    const marker = await pagePoint(p, st.lng, st.lat); const sheetTop = c.rect.y; t.note('marker after the sheet opened (page y) / sheet top', [Math.round(marker.y), sheetTop]);
+    const marker = await pagePoint(p, st.lng, st.lat); const sheetTop = shr.y; t.note('marker after the sheet opened (page y) / sheet top', [Math.round(marker.y), sheetTop]);
     assert(marker.y < sheetTop - 8 && marker.y > 90, `the marker is hidden behind the sheet or off the map (y ${Math.round(marker.y)}, sheet top ${sheetTop})`);
     assert(!(await p.evaluate(() => /Commander|Cmd:/.test(document.body.innerText))), 'a unit popup opened too');
     // tap radius: 30 px from the nearest marker does nothing
@@ -590,7 +634,7 @@ suite.test('T0-MONL-07', 'phone 375x812, real touch: the Tools tile toggles the 
     // Jump
     const mk = await pagePoint(p, st.lng, st.lat); await touchTap(p, mk.x, mk.y); await waitCard(p, `s${k}`);
     await tapEl(p.locator('[data-gtmon-card] button.gtmon-jump'));
-    await waitFor(async () => (await readTick(p)) === T.jumpTick(st), { timeout: 5000, label: `phone tick ${T.jumpTick(st)}` });
+    await waitFor(async () => (await readTick(p)) === st.tick, { timeout: 5000, label: `phone tick ${st.tick}` });
     await waitNoCard(p);
     // "Open in Walkthrough list" on the phone: the phone Walkthrough opens on its Monuments tab with the name typed in
     const wm = T.A[idxOfName('Pennsylvania State Memorial')]; await setCamera(p, { center: [wm.lon, wm.lat], zoom: 16.5 }); await sleep(1500);
@@ -765,29 +809,36 @@ suite.test('T0-MONL-14', 'layout switch: layer on in the phone layout, "Desktop 
   } finally { await closeSession(S); }
 });
 
-// ================================================================== 15 jump tick by the clock (static: the shipped runtime runs in a vm with stubs, nothing else of the page)
-suite.test('T0-MONL-15', 'static: "Jump to this moment" goes to the tick where the app clock reads the time the narrative names (9 of the 20 narratives) and to the marker\'s own tick otherwise, and whenever the shipped clock is not the legacy formula', async (t) => {
+// ================================================================== 15 the story data (static): the 20 stars equal tools/t0/mon/stars-spec.mjs and sit on their monuments
+suite.test('T0-MONL-15', 'static: the 20 story stars of the shipped entry equal tools/t0/mon/stars-spec.mjs (unit, tick, day, text, note, gap), lie on their monument record or Park marker (<= 5 m), link a unit of the order of battle that is on the field at the star\'s tick, and the clock-derived jump is gone', async (t) => {
   needMon();
-  const T = truth(); const a = ENTRY_TEXT.indexOf('const GTMON='), b = ENTRY_TEXT.indexOf('function KF({mapRef:c,showMonuments:f,onWalkthrough');
-  assert(a > 0 && b > a, 'the runtime markers were not found in the entry');
-  const legacy = (x) => { const d = x <= 225 ? 1 : x <= 450 ? 2 : 3, m = (d === 1 ? 360 : 240) + (x - 1) * 5 - (d === 1 ? 0 : d === 2 ? 1125 : 2250), h = Math.floor(m / 60) % 24, mm = m % 60; return `July ${d}, ${h === 0 ? 12 : h > 12 ? h - 12 : h}:${String(mm).padStart(2, '0')} ${h >= 12 ? 'PM' : 'AM'}`; };
-  const run = (getTickTime, currentTick) => {
-    const st = { currentTick, getTickTime, oobData: {}, placementsByTick: {} };
-    const ctx = vm.createContext({ yn: { getState: () => st, subscribe: () => () => {} }, pt: {}, z_: {}, _A: [], mA: T.mA, window: {}, document: {}, matchMedia: () => ({ matches: false }) });
-    return vm.runInContext(`${ENTRY_TEXT.slice(a, b)}\n;GTMON`, ctx);
-  };
-  const TIME = /\b(\d{1,2}):(\d{2})\s?([AP])\.?M/i, rows = [];
-  const api = run(() => legacy(100), 100);                                      // the store's clock is the legacy formula
-  for (const s of T.mA) {
-    const got = api.jumpTick(s), want = T.jumpTick(s), m = TIME.exec(s.label);
-    assertEq(got, want, `jump tick of ${s.id}`);
-    if (m) { const dm = /\bJuly (\d)\b/.exec(s.label); assertEq(legacy(got), `July ${dm ? dm[1] : s.day}, ${m[1]}:${m[2]} ${m[3].toUpperCase()}M`, `the clock at the jump tick of ${s.id} reads the time of its narrative`); rows.push(`${s.id}: ${s.tick} -> ${got} (${legacy(got)})`); }
-    else assertEq(got, s.tick, `${s.id} names no time: its own tick`);
+  const T = truth(); const gaps = JSON.parse(fs.readFileSync(path.join(REPO, 'tools', 't0', 'mon', 'stars-gaps.json'), 'utf8')).gaps;
+  const OSM = new Map(JSON.parse(fs.readFileSync(path.join(REPO, 'tools', 't0', 'data', 'sources', 'osm-monuments.json'), 'utf8')).elements.map((e) => [e.id, e]));
+  const rad = (d) => (d * Math.PI) / 180;
+  const metres = (a, b) => { const dl = rad(b.lat - a.lat), dg = rad(b.lng - a.lng); const x = Math.sin(dl / 2) ** 2 + Math.cos(rad(a.lat)) * Math.cos(rad(b.lat)) * Math.sin(dg / 2) ** 2; return 2 * 6371000 * Math.asin(Math.sqrt(x)); };
+  const ids = new Set();
+  for (const f of fs.readdirSync(path.join(DIST, 'data', 'oob'))) JSON.parse(fs.readFileSync(path.join(DIST, 'data', 'oob', f), 'utf8'), function (k, v) { if (/^(unit_id|regiment_id|brigade_id|division_id|corps_id|battery_id|battalion_id)$/.test(k) && typeof v === 'string') ids.add(v); return v; });
+  assertEq(SPEC.length, 20, 'stars in the spec'); assertEq(T.mA.map((s) => s.id), SPEC.map((s) => s.id), 'ids and order of the 20 stars');
+  const rows = [], offField = [];
+  for (const sp of SPEC) {
+    const s = T.mA.find((x) => x.id === sp.id), i = T.mA.indexOf(s);
+    assertEq([s.name, s.unit_id, s.lat, s.lng, s.tick, s.day], [sp.name, sp.unit_id, sp.lat, sp.lng, sp.tick, sp.day], `${sp.id}: name, unit, position, tick, day`);
+    if (sp.label != null) assertEq(s.label, sp.label, `${sp.id}: label`);
+    assertEq(s.note || '', sp.note || '', `${sp.id}: note`);
+    assertEq(s.gap, Math.round(gaps[sp.id].gapM / 10) * 10, `${sp.id}: gap`);
+    assertEq(s.day, s.tick <= 225 ? 1 : s.tick <= 450 ? 2 : 3, `${sp.id}: the day of the tick`);
+    const mon = sp.geo.rec != null ? { lat: T.A[sp.geo.rec].lat, lng: T.A[sp.geo.rec].lon, what: `record ${sp.geo.rec} ${T.A[sp.geo.rec].name}` } : (() => { const e = OSM.get(sp.geo.osm); return { lat: (e.center || e).lat, lng: (e.center || e).lon, what: `OSM node ${sp.geo.osm} ${e.tags.name}` }; })();
+    const d = metres(s, mon); assert(d <= 5, `${sp.id} lies ${d.toFixed(1)} m from ${mon.what}`);
+    assert(ids.has(s.unit_id), `${sp.id}: the unit ${s.unit_id} is not in the order of battle`);
+    if (GROUPS.includes('DATA')) assert(T.activeAt(s.tick).includes(i), `${sp.id}: the unit ${s.unit_id} is not on the field at tick ${s.tick} (first keyframe ${T.minTick[s.unit_id]}, brigade ${T.parent[s.unit_id]})`);
+    else if (!T.activeAt(s.tick).includes(i)) offField.push(`${sp.id}: ${s.unit_id} first keyframe ${T.minTick[s.unit_id]}, star tick ${s.tick}`);   // the baseline data lack some keyframes DATA adds: without DATA the star is dark at its own tick (noted, not failed)
+    rows.push(`${sp.id}: tick ${s.tick} ${s.unit_id} on ${mon.what} (${d.toFixed(1)} m), gap ${s.gap} m`);
   }
-  t.note('stories whose narrative names a time: marker tick -> jump tick', rows); assertEq(rows.length, 9, 'narratives that name a clock time');
-  const shifted = run(() => legacy(112), 100), none = run(void 0, 100), thrower = run(() => { throw new Error('no clock'); }, 100);
-  for (const [label, g] of [['a clock that is not the legacy formula', shifted], ['a store without getTickTime', none], ['a clock that throws', thrower]]) assertEq(T.mA.map((s) => g.jumpTick(s)), T.mA.map((s) => s.tick), `${label}: every jump goes to the marker's own tick`);
+  t.note('stars', rows); if (offField.length) t.note('without group DATA these stars are dark at their own tick (their unit has no keyframe yet)', offField);
+  const rt = ENTRY_TEXT.slice(ENTRY_TEXT.indexOf('const GTMON='), ENTRY_TEXT.indexOf('function KF({mapRef:c,showMonuments:f,onWalkthrough'));
+  assert(!/JUMP_BY_CLOCK|clockIsLegacy|jumpTick|function clockAt/.test(rt), 'the clock-derived jump (JUMP_BY_CLOCK, jumpTick, clockIsLegacy) is still in the runtime');
 });
+
 
 // ================================================================== 16 toolbar: nothing lies on top of anything else in a narrow desktop window
 suite.test('T0-MONL-16', 'toolbar: no two buttons of the desktop toolbar overlap at any window width from 640 to 1440 px, and the Monuments and Virtual Walkthrough buttons are hit by their own centre (real hit test)', async (t) => {
@@ -810,6 +861,61 @@ suite.test('T0-MONL-16', 'toolbar: no two buttons of the desktop toolbar overlap
     const bad = rows.filter((r) => r.buttons < 14 || r.overlaps.length || !r.mon || !r.wt || (!r.inside && (r.w <= 999 || HAS_CP)));      // from 1000 px up the layout is the app's own: R1a and R1b (the legacy "Download Website Tutorial" link, about 100 px wider, no group CP) already push the last buttons out of the window there, with or without MON
     assert(bad.length === 0, `toolbar problems at ${bad.map((r) => r.w).join(', ')} px: ${JSON.stringify(bad)}`);
   } finally { await closeSession(S); }
+});
+
+// ================================================================== 17 all 20 stars in a real browser: card, Jump, clock, unit, glow, selection
+const STAR_SLICES = { a: [0, 10], b: [10, 20] };
+for (const [key, [from, to]] of Object.entries(STAR_SLICES)) {
+  suite.test(`T0-MONL-17${key}`, `stars ${from + 1} to ${to}: real click opens the card (text, note, gap line), Jump lands on the star's own tick, the app clock reads the clock of that tick and agrees with the story text within its uncertainty, the linked unit is selected, on the field and drawn at the measured distance from the star`, async (t) => {
+    needMon(); if (!HAS_CLOCK) throw new Skip('the corrected clock (group CLOCK) is not in this tree: the clock part of this proof needs it');
+    const S = await desktop(); const p = S.page; const e0 = S.collector.firstParty.length;
+    const T = truth(); await monOn(p);
+    const rows = [];
+    for (let i = from; i < to; i++) {
+      const s = T.mA[i], sp = SPEC[i];
+      for (let k = 0; k < 2; k++) { await p.keyboard.press('Escape'); await sleep(60); } await blurActive(p);
+      const spot = await freeSpot(p, 700, 420); const at = await placeAt(p, s.lng, s.lat, spot.x, spot.y, 15.5);
+      await p.mouse.click(at.x, at.y);
+      const c = await waitCard(p, `s${i}`, 5000);
+      assertEq(c.name, s.name, `${s.id}: card heading`);
+      assert(c.text.includes(s.label), `${s.id}: the card quotes the story text`);
+      if (s.note) assert(c.text.includes(s.note), `${s.id}: the card carries its note`);
+      assert(c.text.includes(`Marker moment: July ${s.day}, tick ${s.tick} of 675.`), `${s.id}: the card names the moment`);
+      assert(c.text.includes(s.gap < 100 ? 'within 100 m of the monument' : `about ${s.gap} m from the monument`), `${s.id}: the card states the distance of the unit (${s.gap} m)`);
+      await p.locator('[data-gtmon-card] button.gtmon-jump').click();
+      await waitFor(async () => (await readTick(p)) === s.tick, { timeout: 6000, label: `${s.id}: tick ${s.tick}` });
+      await waitNoCard(p); await sleep(1100);
+      const body = await bodyText(p), ec = expectedClock(s.tick);
+      assert(body.includes(ec), `${s.id}: the app clock reads "${ec}" at tick ${s.tick}`);
+      const ag = clockAgrees(s.label, s.tick);
+      assert(ag.ok, `${s.id}: the clock ${ec} (give or take ${ag.sigma} min) does not agree with the story text times ${JSON.stringify(ag.times)}`);
+      const inf = await monInfo(p);
+      assertEq(inf.tick, s.tick, `${s.id}: the store's tick`);
+      assertEq(inf.selected, s.unit_id, `${s.id}: the linked unit is selected`);
+      assert(inf.active.includes(i), `${s.id}: the star glows (its unit is on the field)`);
+      const u = inf.unitAt[i]; assert(u, `${s.id}: the linked unit has a drawn position at tick ${s.tick}`);
+      const gap = Math.round(Math.hypot((u[1] - s.lng) * 85300, (u[0] - s.lat) * 111200));
+      assert(Math.abs(gap - s.gap) <= 25, `${s.id}: the unit is drawn ${gap} m from the star, the card says about ${s.gap} m`);
+      assert(gap <= MAX_GAP_M, `${s.id}: the unit is drawn ${gap} m from the star: above the documented maximum of ${MAX_GAP_M} m`);
+      const fr = await framed(p, s, u); assert(fr.ok, `${s.id}: the map after Jump (${fr.mode}): ${JSON.stringify(fr.f)}`);
+      rows.push(`${s.id}: tick ${s.tick}, clock "${ec}" (+-${ag.sigma} min; text times ${ag.times.join(', ') || 'none'}), unit ${s.unit_id} ${gap} m from the star, view: ${fr.mode}`);
+    }
+    t.note('stars proved in the browser', rows);
+    await monOff(p);
+    assertEq(errsSince(S, e0), [], `errors during MONL-17${key}`);
+  });
+}
+
+// ================================================================== 18 the source claims behind the card texts (static, needs the cached source books)
+suite.test('T0-MONL-18', 'static: every claim behind a story card matches the page of the open source it cites (Official Records 27/1 and 27/2, Fox), 65 checks in tools/t0/mon/stars-sources.mjs', async (t) => {
+  const { check, CLAIMS } = await import('../../tools/t0/mon/stars-sources.mjs');
+  const { page } = await import('../../tools/t0/data/sources.mjs');
+  let have = false; try { have = page('or1', 623).length > 0; } catch { have = false; }
+  if (!have) throw new Skip('the cached source books (tmp/env-cache, git-ignored) are not on this machine');
+  const r = check(); const bad = r.filter((c) => !c.ok);
+  t.note('claims', `${r.length - bad.length} of ${r.length} match`);
+  assertEq(bad.map((c) => `${c.id} ${c.book} p.${c.page}: ${c.what}`), [], 'claims that do not match their page'); assertEq(CLAIMS.length >= 60, true, 'number of claims');
+  assertEq([...new Set(CLAIMS.map((c) => c[0]))].length, 20, 'every one of the 20 stars has at least one source claim');
 });
 
 // ================================================================== 12 the Walkthrough is untouched (guard)
@@ -879,7 +985,7 @@ suite.test('T0-MONL-12', 'the Walkthrough is untouched: its code and data are by
 });
 
 // ================================================================== 13 static
-suite.test('T0-MONL-13', 'static: the 18 anchors of the group matched once each, the entry carries the runtime once, KF is a thin hook (the legacy per-frame loop cannot run), no screen-fixed star overlay script', async (t) => {
+suite.test('T0-MONL-13', 'static: the 29 anchors of the group matched once each, the entry carries the runtime once, KF is a thin hook (the legacy per-frame loop cannot run), no screen-fixed star overlay script', async (t) => {
   needMon();
   const count = (s, src = ENTRY_TEXT) => src.split(s).length - 1;
   assertEq([count('const GTMON='), count('function GtMonLegacyKF('), count('GTMON.useDesktop(')], [1, 1, 1], 'runtime, renamed legacy KF, desktop hook');
@@ -889,13 +995,14 @@ suite.test('T0-MONL-13', 'static: the 18 anchors of the group matched once each,
   if (fs.existsSync(anchors)) {
     const a = JSON.parse(fs.readFileSync(anchors, 'utf8')); const mon = a.patches.filter((x) => x.group === 'MON');
     t.note('MON anchors', mon.map((x) => `${x.id}: ${x.found}/${x.expect}`));
-    assertEq(mon.length, 18, 'MON patches in anchors.json'); assert(mon.every((x) => x.ok && x.found === x.expect), 'every MON anchor matched exactly the expected number of times');
+    assertEq(mon.length, 29, 'MON patches in anchors.json (20 stars, 8 bundle, 1 stylesheet)'); assert(mon.every((x) => x.ok && x.found === x.expect), 'every MON anchor matched exactly the expected number of times');
     assert(a.groups.includes('MON'), 'MON is listed in the build groups');
   } else t.note('anchors.json', 'not found next to the dist: anchor counts not re-checked');
   const html = fs.readFileSync(path.join(DIST, 'index.html'), 'utf8');
   assert(!/gtbg-monuments-overlay/.test(html), 'the screen-fixed star overlay script is back in index.html: two systems would draw monuments');
   const gate = path.join(path.dirname(DIST), 'gate.json');
-  if (fs.existsSync(gate)) { const g = JSON.parse(fs.readFileSync(gate, 'utf8')); t.note('gate.json', { ok: g.ok, failed: (g.checks || []).filter((c) => !c.ok).map((c) => c.id) }); assert(g.ok !== false && !(g.checks || []).some((c) => !c.ok), 'the build gates of this tree did not all pass'); }
+  if (fs.existsSync(gate)) { const g = JSON.parse(fs.readFileSync(gate, 'utf8')); const failed = (g.checks || []).filter((c) => !c.ok).map((c) => c.id); t.note('gate.json', { ok: g.ok, failed }); const expected = GROUPS.includes('DATA') ? ['data-untouched'] : [];   // DATA changes served data files on purpose (owner decision 2026-10-05, item 3): that one row fails by design
+    assertEq(failed.filter((x) => !expected.includes(x)), [], 'the build gates of this tree that did not pass'); }
   t.note('runtime bytes in the entry', ENTRY_TEXT.slice(ENTRY_TEXT.indexOf('const GTMON='), ENTRY_TEXT.indexOf('function KF({mapRef:c,showMonuments:f,onWalkthrough')).length);
 });
 

@@ -26,34 +26,29 @@ const min = await minify(fs.readFileSync(SRC, 'utf8'), { compress: false, mangle
 if (min.error) throw min.error;
 const ENGINE = min.code.replace(/;$/, '') + ';';
 
-// The 20 story markers (the legacy array `mA` of the entry bundle) carried 12 wrong values (9 unit ids, 3 coordinate pairs) that a verifier found; they are corrected IN the array, not in the runtime (the Walkthrough has
-// its own data and is not in this span of the bundle).  [id, legacy unit id, order-of-battle id of the same regiment, and for three stars: legacy lat, lng, then the lat, lng of the
-// monument record the star belongs on (records 220, 85 and 37 of the 512-monument array)].  The legacy ids U-I-1-2W, U-I-1-19IN, C-20NC-IV and U-I-1-6W are not in the order of battle
-// (the same regiments are U-2WI, U-19IN, C-20NC, U-6WI); the five regiments named by their star but linked to another brigade's id get their own id; the three stars lay 1.4-2.1 km from
-// every monument.
-const STORY_FIXES = [
-  ['mon_iron_brig', 'U-I-1-2W', 'U-2WI', '39.8289', '-77.2772', '39.83491', '-77.25441'],
-  ['mon_reynolds', 'U-I-1-19IN', 'U-19IN', '39.8272', '-77.2767', '39.834392', '-77.250954'],
-  ['mon_26nc', 'C-III-2-2', 'C-26NC', '39.8289', '-77.27', '39.834715', '-77.254605'],
-  ['mon_20nc', 'C-20NC-IV', 'C-20NC'],
-  ['mon_6wis', 'U-I-1-6W', 'U-6WI'],
-  ['mon_140pa', 'U-V-3-1', 'U-140PA'],
-  ['mon_83pa', 'U-V-3-1', 'U-83PA'],
-  ['mon_1mn', 'U-II-3-2', 'U-1MN'],
-  ['mon_72pa', 'U-II-2-3', 'U-72PA'],
-];
-const reEsc = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-const storyPatches = STORY_FIXES.map(([id, oldU, newU, oldLat, oldLng, newLat, newLng]) => ({
-  id: `MON:story-data:${id}`,
-  target: 'js',
-  find: oldLat
-    ? `(id:"${id}",name:"[^"]*",unit_id:")${reEsc(oldU)}(",lat:)${reEsc(oldLat)}(,lng:)${reEsc(oldLng)}(?=,tick:)`
-    : `(id:"${id}",name:"[^"]*",unit_id:")${reEsc(oldU)}(")`,
-  repl: oldLat ? `\\g<1>${newU}\\g<2>${newLat}\\g<3>${newLng}` : `\\g<1>${newU}\\g<2>`,
-  expect: 1,
-  regex: true,
-  note: `story marker ${id} (array mA): unit ${oldU} -> ${newU}` + (oldLat ? `; the star moves from ${oldLat}, ${oldLng} onto its monument record at ${newLat}, ${newLng}` : '') + '.',
-}));
+// The 20 story markers (the array `mA` of the entry bundle: {id,name,unit_id,lat,lng,tick,day,label}) were re-derived on 2026-10-19 from the sources (docs/data-audit/STORY-STARS.md):
+// the single source of their data is tools/t0/mon/stars-spec.mjs (id, name, unit, the Park's monument, the tick of the story on the corrected clock, a corrected label where the text was wrong,
+// a card note where the sources or the Park leave something open) and tools/t0/mon/stars-gaps.json (the distance between star and unit as the animation draws it, measured by stars-measure.mjs).
+// One regex patch per star replaces the whole object (whatever the earlier groups made of the label) and adds `gap` (metres) and `note` (card line), so the patch holds on R1a, R1b and R1c with
+// or without CLOCK and DATA.  The groups DATA (label text) and CLOCK run before MON and are not touched.
+const { SPEC } = await import('./stars-spec.mjs');
+const GAPS = JSON.parse(fs.readFileSync(path.join(HERE, 'stars-gaps.json'), 'utf8')).gaps;
+const BS = String.fromCharCode(92);
+const bad = (t) => t.includes('"') || t.includes(BS) || t.includes('\n');
+const storyPatches = SPEC.map((s) => {
+  for (const t of [s.name, s.label || '', s.note || '']) if (bad(t)) throw new Error(`star ${s.id}: text with a quote, backslash or newline: ${t}`);
+  if (!GAPS[s.id] || !Number.isFinite(GAPS[s.id].gapM)) throw new Error(`star ${s.id}: no measured gap in stars-gaps.json (run stars-measure.mjs --write)`);
+  const gap = Math.round(GAPS[s.id].gapM / 10) * 10;
+  return {
+    id: `MON:story:${s.id}`,
+    target: 'js',
+    find: String.raw`\{id:"${s.id}",name:"(?:[^"\\]|\\.)*",unit_id:"[^"]*",lat:[-0-9.]+,lng:[-0-9.]+,tick:\d+,day:\d,label:"((?:[^"\\]|\\.)*)"\}`,
+    repl: `{id:"${s.id}",name:"${s.name}",unit_id:"${s.unit_id}",lat:${s.lat},lng:${s.lng},tick:${s.tick},day:${s.day},label:"${s.label == null ? BS + 'g<1>' : s.label}",gap:${gap},note:"${s.note || ''}"}`,
+    expect: 1,
+    regex: true,
+    note: `story marker ${s.id} (array mA): ${s.unit_id}, tick ${s.tick}, on ${s.geo.rec != null ? 'record ' + s.geo.rec + ' of the monument array' : 'the Park marker OSM node ' + s.geo.osm}` + (s.label == null ? '' : '; label corrected') + '.',
+  };
+});
 
 const patches = [
   ...storyPatches,

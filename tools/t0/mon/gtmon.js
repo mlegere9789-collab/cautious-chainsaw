@@ -23,8 +23,7 @@ var SD = "gtmon-dots", SS = "gtmon-stories",
     LAYER_IDS = [LD, LG, LR, LS],
     COL = { Union: "#3a6bc4", Confederate: "#c43a3a", Other: "#9aa0aa", gold: "#c8a84a" },   // the app's own unit colours (sA / aA) and gold
     S = { on: false, subs: [], insts: [], unsub: null, idxFor: null, minTick: {}, act: {}, uc: null },
-    DATA = null, CSS_DONE = false, UID = 0,
-    JUMP_BY_CLOCK = true;     // "Jump to this moment" goes to the tick where the app clock reads the time the story text names (only while the shipped clock is the legacy one, see jumpTick)
+    DATA = null, CSS_DONE = false, UID = 0;
 
 function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
 function sideOf(m) { return m.side === "Union" || m.side === "Confederate" ? m.side : "Other"; }
@@ -35,25 +34,6 @@ function calm() { try { return !!window.__gtbgReduceMotion || !!matchMedia("(pre
 function reach(o, hover) { return !hover && (o.layout === "phone" || coarse()) ? 22 : 12; }   // 44 px touch target (radius 22) for a tap, 12 px for a mouse
 
 // ---------------------------------------------------------------- data (built once, on the first toggle ON)
-// the legacy clock of the store (getTickTime): day 1 starts at 06:00, days 2 and 3 at 04:00, 5 minutes a tick, no midnight roll-over
-function clockAt(t) {
-  var d = t <= 225 ? 1 : t <= 450 ? 2 : 3, m = (d === 1 ? 360 : 240) + (t - 1) * 5 - (d === 1 ? 0 : d === 2 ? 1125 : 2250), h = Math.floor(m / 60) % 24, mm = m % 60;
-  return "July " + d + ", " + (h === 0 ? 12 : h > 12 ? h - 12 : h) + ":" + (mm < 10 ? "0" : "") + mm + (h >= 12 ? " PM" : " AM");
-}
-function clockIsLegacy() {              // true while the clock the app shows IS that formula (checked against the store at the current tick); a corrected clock (D-TIME) makes it false
-  try { var st = yn.getState(); return typeof st.getTickTime === "function" && st.getTickTime() === clockAt(st.currentTick); } catch (e) { return false; }
-}
-// the tick where the legacy clock reads the time the narrative names ("... at 4:30 PM July 2"), or the marker's own tick when the text names no time, the clock is not the
-// legacy one, or the time lies outside its day
-function jumpTick(s) {
-  var m, d, base, off, t;
-  if (!JUMP_BY_CLOCK || !clockIsLegacy()) return s.tick;
-  m = /\b(\d{1,2}):(\d{2})\s?([AP])\.?M\b/i.exec(s.label || ""); if (!m) return s.tick;
-  d = /\bJuly (\d)\b/.exec(s.label); d = d ? +d[1] : s.day; if (d !== 1 && d !== 2 && d !== 3) return s.tick;
-  base = d === 1 ? 360 : 240; off = d === 1 ? 0 : d === 2 ? 225 : 450;
-  t = off + 1 + Math.round(((+m[1] % 12) * 60 + +m[2] + (/p/i.test(m[3]) ? 720 : 0) - base) / 5);
-  return t >= off + 1 && t <= off + 225 ? t : s.tick;
-}
 function data() {
   if (DATA) return DATA;
   var M = [], T = [], mf = [], sf = [], i, m, s;
@@ -93,7 +73,7 @@ var CSS = [
   ".gtmon-card p{margin:0 0 6px;font:13px/1.45 sans-serif;color:#d8d3c4}",
   ".gtmon-card p.gtmon-small{font-size:12px;color:#b9bccb}",
   ".gtmon-card p.gtmon-unit b{color:#e8d5a3}",
-  ".gtmon-acts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}",
+  ".gtmon-acts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;position:sticky;bottom:0;padding:6px 0 2px;background:rgba(5,5,12,.97)}",   // a long card scrolls under its buttons: Jump and the map link stay in reach
   ".gtmon-also{margin-top:10px;padding-top:6px;border-top:1px solid #2a2a3a;display:flex;flex-direction:column;gap:5px;align-items:flex-start}",
   ".gtmon-also p{margin:0}",
   ".gtmon-also-btn{text-align:left;white-space:normal;max-width:100%}",
@@ -319,6 +299,12 @@ function poll(fn, cb, ms, max) {
 }
 // "Open in Walkthrough": opens the Virtual Walkthrough with its own opener, then does what a user would: picks the Monuments tab and types the name in its search
 // box.  The Walkthrough's code is not touched; if its markup is not found within ~3 s nothing else happens (it just opens).
+function walkName(k, r) {                    // the Walkthrough's Monuments tab searches by monument name: a story star offers it under the name of the monument record it stands on (within 30 m), or not at all
+  var best = null, bd = 30, i, m, d, la;
+  if (k !== "s") return r.name;
+  for (i = 0; i < _A.length; i++) { m = _A[i]; if (!isFinite(m.lat) || !isFinite(m.lon)) continue; la = (m.lat - r.lat) * 111200; d = Math.sqrt(la * la + Math.pow((m.lon - r.lng) * 85300, 2)); if (d < bd) { bd = d; best = m.name; } }
+  return best;
+}
 function openWalk(o, name) {
   var f = o.wt, b;
   if (f) f(); else { b = Array.prototype.filter.call(document.querySelectorAll("button"), function (x) { return /Virtual Walkthrough/.test(x.textContent); })[0]; if (!b) return; b.click(); }
@@ -338,20 +324,40 @@ function openWalk(o, name) {
     }, 100, 30);
   }, 100, 30);
 }
+function unitPos(id) {                      // where the unit layer draws a unit at the current tick (its latest keyframe), or null while the day's data is not loaded / the unit has none yet
+  var L = unitsNow(), k;
+  for (k = 0; k < L.length; k++) if (L[k].unit_id === id && isFinite(L[k].lat) && isFinite(L[k].lng)) return L[k];
+  return null;
+}
+function arrive(o, r, u) {                  // the map goes to the star; when the linked unit is drawn more than 250 m from it, the view takes in both (the card says how far it is)
+  var m = o.map, c = m.getContainer(), cw = c.clientWidth, ch = c.clientHeight, z = Math.max(m.getZoom(), 15), far = false, px, py, b;
+  try {
+    if (u) far = Math.sqrt(Math.pow((u.lat - r.lat) * 111200, 2) + Math.pow((u.lng - r.lng) * 85300, 2)) > 250;
+    if (far) {
+      px = Math.min(330, Math.round(cw * 0.22)); py = Math.min(100, Math.round(ch * 0.15));
+      b = [[Math.min(r.lng, u.lng), Math.min(r.lat, u.lat)], [Math.max(r.lng, u.lng), Math.max(r.lat, u.lat)]];
+      m.fitBounds(b, { padding: { top: py, bottom: Math.min(180, Math.round(ch * 0.3)), left: px, right: px }, maxZoom: 16.5, duration: calm() ? 0 : 800, essential: true });
+    } else if (calm()) m.jumpTo({ center: [r.lng, r.lat], zoom: z });
+    else m.flyTo({ center: [r.lng, r.lat], zoom: z, duration: 800, essential: true });
+  } catch (e) { /* the map is gone (layout switch): nothing to move */ }
+}
 function jump(o, i) {
-  var r = mA[i], st = yn.getState(), m = o.map, t = jumpTick(r), z;
+  var r = mA[i], st = yn.getState(), t = r.tick, n = 0;
   if (st.setPlaying) st.setPlaying(false);
   st.setTick(t);                                                            // loads the days up to this tick, then sets it
-  if (t !== r.tick && !clockIsLegacy()) st.setTick(r.tick);                 // the clock shown is not the legacy one after all: stay on the marker's own tick
   if ((st.oobData || {})[r.unit_id]) st.selectUnit(r.unit_id);
   closeCard(o, true);                                                       // the card holds the focus when the keyboard got here: it goes back to where it came from
-  z = Math.max(m.getZoom(), 15);
-  if (calm()) m.jumpTo({ center: [r.lng, r.lat], zoom: z }); else m.flyTo({ center: [r.lng, r.lat], zoom: z, duration: 800, essential: true });
+  (function go() {                                                          // the days up to the tick load in the background (a day lands as a whole): wait for them (at most 3 s), then move once
+    var ld = yn.getState().loadedDays, d = dayOf(t), k, ready = true;
+    if (ld && ld.has) for (k = 1; k <= d; k++) if (!ld.has(k)) ready = false;
+    if (!ready && n++ < 30) { setTimeout(go, 100); return; }
+    arrive(o, r, ready ? unitPos(r.unit_id) : null);
+  })();
 }
 function buildCard(o, k, i, alsos) {
-  var story = k === "s", r = rec(k, i), side = story ? storySide(r) : sideOf(r), id = "gtmon-t" + (++UID), jt = story ? jumpTick(r) : 0,
+  var story = k === "s", r = rec(k, i), side = story ? storySide(r) : sideOf(r), id = "gtmon-t" + (++UID), jt = story ? r.tick : 0,
       root = el("div", "gtmon-card"), x = el("button", "gtmon-x", "×"), sr = el("div", "gtmon-side"), dot = el("span", "gtmon-dot"), nm = el("h2", "gtmon-name", r.name),
-      acts = el("div", "gtmon-acts"), lat = r.lat, lon = story ? r.lng : r.lon, a, b, c, p;
+      acts = el("div", "gtmon-acts"), lat = r.lat, lon = story ? r.lng : r.lon, a, b, c, p, wn;
   root.setAttribute("role", "dialog"); root.setAttribute("aria-modal", "false"); root.setAttribute("aria-labelledby", id); root.tabIndex = -1;
   root.setAttribute("data-gtbg-card", "4"); root.setAttribute("data-gtmon-card", k + i); root.setAttribute("data-gtmon-side", side);
   nm.id = id;
@@ -363,7 +369,9 @@ function buildCard(o, k, i, alsos) {
   if (story) {
     root.appendChild(el("p", "gtmon-story", r.label));
     p = el("p", "gtmon-unit"); root.appendChild(p);
-    root.appendChild(el("p", "gtmon-small", (jt === r.tick ? "Marker moment: " : "The moment the text names: ") + "July " + dayOf(jt) + ", tick " + jt + " of 675."));
+    root.appendChild(el("p", "gtmon-small", "Marker moment: July " + dayOf(jt) + ", tick " + jt + " of 675."));
+    if (r.note) root.appendChild(el("p", "gtmon-small gtmon-note", r.note));                                       // what the Park does not mark, where sources differ, what the animation does not draw
+    if (isFinite(r.gap)) root.appendChild(el("p", "gtmon-small gtmon-gap", "On the map this unit is drawn " + (r.gap < 100 ? "within 100 m of the monument" : "about " + r.gap + " m from the monument") + " at this moment (unit positions are approximate)."));
   } else {
     if (r.honors) root.appendChild(el("p", "gtmon-honors", r.honors));
     if (r.loc) root.appendChild(el("p", "gtmon-loc", "📍 " + r.loc));
@@ -379,9 +387,10 @@ function buildCard(o, k, i, alsos) {
     acts.appendChild(b);
   }
   acts.appendChild(a);
-  if (walkAvail(o)) {
+  wn = walkName(k, r);
+  if (wn && walkAvail(o)) {
     c = el("button", "gtmon-btn gtmon-wt", "Open in Walkthrough list"); c.type = "button";
-    c.addEventListener("click", function () { var n = r.name; closeCard(o, false); openWalk(o, n); });
+    c.addEventListener("click", function () { closeCard(o, false); openWalk(o, wn); });
     acts.appendChild(c);
   }
   root.appendChild(acts);
@@ -653,12 +662,13 @@ function useDesktop(mapRef, on, wt, setOn) {
   return null;
 }
 function info() {
-  var d = data();
-  return { on: S.on, maps: S.insts.length, enabled: S.insts.filter(function (o) { return o.enabled; }).length, monuments: d.M.length, stories: d.T.length,
+  var d = data(), st = yn.getState(), L, byId = {};
+  try { L = unitsNow(); L.forEach(function (e) { byId[e.unit_id] = e; }); } catch (e) { L = []; }
+  return { tick: st.currentTick, selected: st.selectedUnitId || null, unitAt: mA.map(function (s) { var e = byId[s.unit_id]; return e ? [e.lat, e.lng] : null; }), on: S.on, maps: S.insts.length, enabled: S.insts.filter(function (o) { return o.enabled; }).length, monuments: d.M.length, stories: d.T.length,
     active: Object.keys(S.act).map(Number), store: !!S.unsub, listeners: S.insts.reduce(function (n, o) { return n + (o.enabled ? o.dom.length : 0); }, 0),
     card: S.insts.map(function (o) { return o.card ? o.card.k + o.card.i : null; }).filter(Boolean), errors: S.insts.map(function (o) { return o.err; }).filter(Boolean) };
 }
-var API = { on: isOn, set: set, toggle: function () { set(!S.on); }, subscribe: subscribe, useOn: useOn, useDesktop: useDesktop, attach: attach, detach: detach, info: info, jumpTick: jumpTick };
+var API = { on: isOn, set: set, toggle: function () { set(!S.on); }, subscribe: subscribe, useOn: useOn, useDesktop: useDesktop, attach: attach, detach: detach, info: info };
 try { window.__gtmon = { info: info }; } catch (e) { /* no window */ }
 return API;
 })();
