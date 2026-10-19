@@ -12219,15 +12219,15 @@
    "id": "DATA-idx-meta",
    "target": "index.html",
    "find": "unfold in real time -- 467 regiments and batteries across 675 five-minute snapshots",
-   "repl": "unfold step by step -- 412 units (regiments, batteries and the brigades, divisions and corps above them) across 675 snapshots",
+   "repl": "unfold step by step -- 410 units (regiments, batteries and the brigades, divisions and corps above them) across 675 snapshots",
    "expect": 4,
-   "note": "wrong-number: count of distinct unit ids in data/placements_*.json and density_*.json after the id and arrival fixes: 412 (232 regiments, 51 batteries, 90 brigades, 32 divisions, 7 corps); 4 occurrences"
+   "note": "wrong-number: count of distinct unit ids in data/placements_*.json and density_*.json after the id and arrival fixes: 410 (232 regiments, 51 batteries, 88 brigades, 32 divisions, 7 corps); 4 occurrences"
   },
   {
    "id": "DATA-idx-about",
    "target": "index.html",
    "find": "minute-by-minute reconstruction of the Battle of Gettysburg (July 1&ndash;3, 1863): 467 regiments and batteries tracked across 675 five-minute snapshots, built from primary-source unit records, chronology, and terrain data",
-   "repl": "step-by-step reconstruction of the Battle of Gettysburg (July 1&ndash;3, 1863): 412 units tracked across 675 snapshots, reconstructed from published unit records, chronology, and terrain data",
+   "repl": "step-by-step reconstruction of the Battle of Gettysburg (July 1&ndash;3, 1863): 410 units tracked across 675 snapshots, reconstructed from published unit records, chronology, and terrain data",
    "expect": 2,
    "note": "wrong-number: same"
   },
@@ -12427,7 +12427,7 @@
    "id": "DATA-gr-count",
    "target": "ground-remembers.html",
    "find": "Built from the same 694 recorded unit positions",
-   "repl": "Built from the same 640 recorded unit positions",
+   "repl": "Built from the same 683 recorded unit positions",
    "expect": 1,
    "note": "wrong-number: the placements_*.json files of this build"
   },
@@ -12981,6 +12981,1824 @@
    "expect": 1,
    "regex": true,
    "note": "unsupported-claim: OR 27/1 p.182-185"
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks1-50-U-I-1-1-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-I-1-1\",\"tick\":1,\"lat\":39\\.8156,\"lng\":-77\\.2756,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-I-1-1\",\"tick\":1,\"lat\":39\\.8156,\"lng\":-77\\.2756,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched "
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks1-50-U-I-1-2-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-I-1-2\",\"tick\":1,\"lat\":39\\.8144,\"lng\":-77\\.2756,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-I-1-2\",\"tick\":1,\"lat\":39\\.8144,\"lng\":-77\\.2756,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched "
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks1-50-U-I-2-1-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-I-2-1\",\"tick\":1,\"lat\":39\\.8133,\"lng\":-77\\.2756,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-I-2-1\",\"tick\":1,\"lat\":39\\.8133,\"lng\":-77\\.2756,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched "
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks1-50-U-I-2-2-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-I-2-2\",\"tick\":1,\"lat\":39\\.8122,\"lng\":-77\\.2756,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-I-2-2\",\"tick\":1,\"lat\":39\\.8122,\"lng\":-77\\.2756,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched "
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks1-50-U-I-3-1-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-I-3-1\",\"tick\":1,\"lat\":39\\.8111,\"lng\":-77\\.2756,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-I-3-1\",\"tick\":1,\"lat\":39\\.8111,\"lng\":-77\\.2756,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched "
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks1-50-U-I-3-2-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-I-3-2\",\"tick\":1,\"lat\":39\\.8100,\"lng\":-77\\.2756,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-I-3-2\",\"tick\":1,\"lat\":39\\.8100,\"lng\":-77\\.2756,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched "
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks1-50-U-I-3-3-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-I-3-3\",\"tick\":1,\"lat\":39\\.8089,\"lng\":-77\\.2756,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-I-3-3\",\"tick\":1,\"lat\":39\\.8089,\"lng\":-77\\.2756,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-ticks1-50-U-147NY-1",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-147NY\",\"tick\":1,\"lat\":39\\.8317,\"lng\":-77\\.2756,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-147NY\",\"tick\":1,\"lat\":39\\.8317,\"lng\":-77\\.2756,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-ticks1-50-U-19IN-1",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-19IN\",\"tick\":1,\"lat\":39\\.8139,\"lng\":-77\\.2756,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-19IN\",\"tick\":1,\"lat\":39\\.8139,\"lng\":-77\\.2756,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-ticks1-50-U-24MI-1",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-24MI\",\"tick\":1,\"lat\":39\\.8133,\"lng\":-77\\.2756,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-24MI\",\"tick\":1,\"lat\":39\\.8133,\"lng\":-77\\.2756,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-ticks1-50-U-2WI-1",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-2WI\",\"tick\":1,\"lat\":39\\.8156,\"lng\":-77\\.2756,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-2WI\",\"tick\":1,\"lat\":39\\.8156,\"lng\":-77\\.2756,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-ticks1-50-U-56PA-1",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-56PA\",\"tick\":1,\"lat\":39\\.8311,\"lng\":-77\\.2756,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-56PA\",\"tick\":1,\"lat\":39\\.8311,\"lng\":-77\\.2756,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-ticks1-50-U-6WI-1",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-6WI\",\"tick\":1,\"lat\":39\\.8150,\"lng\":-77\\.2756,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-6WI\",\"tick\":1,\"lat\":39\\.8150,\"lng\":-77\\.2756,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-ticks1-50-U-76NY-1",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-76NY\",\"tick\":1,\"lat\":39\\.8333,\"lng\":-77\\.2756,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-76NY\",\"tick\":1,\"lat\":39\\.8333,\"lng\":-77\\.2756,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-ticks1-50-U-7WI-1",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-7WI\",\"tick\":1,\"lat\":39\\.8144,\"lng\":-77\\.2756,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-7WI\",\"tick\":1,\"lat\":39\\.8144,\"lng\":-77\\.2756,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-ticks1-50-U-84NY-1",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-84NY\",\"tick\":1,\"lat\":39\\.8328,\"lng\":-77\\.2756,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-84NY\",\"tick\":1,\"lat\":39\\.8328,\"lng\":-77\\.2756,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-ticks1-50-U-95NY-1",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-95NY\",\"tick\":1,\"lat\":39\\.8322,\"lng\":-77\\.2756,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-95NY\",\"tick\":1,\"lat\":39\\.8322,\"lng\":-77\\.2756,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched "
+  },
+  {
+   "id": "DATA-pos-tick-density-day1-ticks1-50-U-147NY-14-to-24",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"U-147NY\",\"tick\":)14(,\"lat\":39\\.8322,\"lng\":-77\\.2539,)",
+   "repl": "\\g<1>24\\g<2>",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-tick: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched at 9"
+  },
+  {
+   "id": "DATA-pos-tick-density-day1-ticks1-50-U-19IN-14-to-24",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"U-19IN\",\"tick\":)14(,\"lat\":39\\.8228,\"lng\":-77\\.2556,)",
+   "repl": "\\g<1>24\\g<2>",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-tick: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched at 9"
+  },
+  {
+   "id": "DATA-pos-tick-density-day1-ticks1-50-U-24MI-14-to-24",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"U-24MI\",\"tick\":)14(,\"lat\":39\\.8222,\"lng\":-77\\.2550,)",
+   "repl": "\\g<1>24\\g<2>",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-tick: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched at 9"
+  },
+  {
+   "id": "DATA-pos-tick-density-day1-ticks1-50-U-2WI-14-to-24",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"U-2WI\",\"tick\":)14(,\"lat\":39\\.8244,\"lng\":-77\\.2572,)",
+   "repl": "\\g<1>24\\g<2>",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-tick: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched at 9"
+  },
+  {
+   "id": "DATA-pos-tick-density-day1-ticks1-50-U-56PA-14-to-24",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"U-56PA\",\"tick\":)14(,\"lat\":39\\.8317,\"lng\":-77\\.2533,)",
+   "repl": "\\g<1>24\\g<2>",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-tick: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched at 9"
+  },
+  {
+   "id": "DATA-pos-tick-density-day1-ticks1-50-U-6WI-14-to-24",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"U-6WI\",\"tick\":)14(,\"lat\":39\\.8239,\"lng\":-77\\.2567,)",
+   "repl": "\\g<1>24\\g<2>",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-tick: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched at 9"
+  },
+  {
+   "id": "DATA-pos-tick-density-day1-ticks1-50-U-76NY-14-to-24",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"U-76NY\",\"tick\":)14(,\"lat\":39\\.8339,\"lng\":-77\\.2556,)",
+   "repl": "\\g<1>24\\g<2>",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-tick: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched at 9"
+  },
+  {
+   "id": "DATA-pos-tick-density-day1-ticks1-50-U-7WI-14-to-24",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"U-7WI\",\"tick\":)14(,\"lat\":39\\.8233,\"lng\":-77\\.2561,)",
+   "repl": "\\g<1>24\\g<2>",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-tick: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched at 9"
+  },
+  {
+   "id": "DATA-pos-tick-density-day1-ticks1-50-U-84NY-14-to-24",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"U-84NY\",\"tick\":)14(,\"lat\":39\\.8333,\"lng\":-77\\.2550,)",
+   "repl": "\\g<1>24\\g<2>",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-tick: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched at 9"
+  },
+  {
+   "id": "DATA-pos-tick-density-day1-ticks1-50-U-95NY-14-to-24",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"U-95NY\",\"tick\":)14(,\"lat\":39\\.8328,\"lng\":-77\\.2544,)",
+   "repl": "\\g<1>24\\g<2>",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-tick: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched at 9"
+  },
+  {
+   "id": "DATA-pos-del-density-day1-opening-U-I-1-1-12",
+   "target": "data/density_day1_opening.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-I-1-1\",\"tick\":12,\"lat\":39\\.8317,\"lng\":-77\\.2978,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-I-1-1\",\"tick\":12,\"lat\":39\\.8317,\"lng\":-77\\.2978,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched at "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-opening-U-I-1-2-12",
+   "target": "data/density_day1_opening.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-I-1-2\",\"tick\":12,\"lat\":39\\.8344,\"lng\":-77\\.2989,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-I-1-2\",\"tick\":12,\"lat\":39\\.8344,\"lng\":-77\\.2989,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched at "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-opening-U-I-2-12",
+   "target": "data/density_day1_opening.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-I-2\",\"tick\":12,\"lat\":39\\.8256,\"lng\":-77\\.2867,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-I-2\",\"tick\":12,\"lat\":39\\.8256,\"lng\":-77\\.2867,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched at "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-ironbrigade-U-19IN-16",
+   "target": "data/density_day1_ironbrigade.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-19IN\",\"tick\":16,\"lat\":39\\.8278,\"lng\":-77\\.2706,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-19IN\",\"tick\":16,\"lat\":39\\.8278,\"lng\":-77\\.2706,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.267 (Morrow: about 9 a.m. the brigade came near the town, filed to the left and charged down into the ravine of Willoughby's Run), p.265 (Wadsworth: the head of the column struck the Cashtown road at about 10 a.m.); the corrected clock puts Reynolds's death at tick 28 and the "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-ironbrigade-U-24MI-16",
+   "target": "data/density_day1_ironbrigade.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-24MI\",\"tick\":16,\"lat\":39\\.8272,\"lng\":-77\\.2694,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-24MI\",\"tick\":16,\"lat\":39\\.8272,\"lng\":-77\\.2694,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.267 (Morrow: about 9 a.m. the brigade came near the town, filed to the left and charged down into the ravine of Willoughby's Run), p.265 (Wadsworth: the head of the column struck the Cashtown road at about 10 a.m.); the corrected clock puts Reynolds's death at tick 28 and the "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-ironbrigade-U-2WI-16",
+   "target": "data/density_day1_ironbrigade.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-2WI\",\"tick\":16,\"lat\":39\\.8289,\"lng\":-77\\.2728,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-2WI\",\"tick\":16,\"lat\":39\\.8289,\"lng\":-77\\.2728,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.267 (Morrow: about 9 a.m. the brigade came near the town, filed to the left and charged down into the ravine of Willoughby's Run), p.265 (Wadsworth: the head of the column struck the Cashtown road at about 10 a.m.); the corrected clock puts Reynolds's death at tick 28 and the "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-ironbrigade-U-7WI-16",
+   "target": "data/density_day1_ironbrigade.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-7WI\",\"tick\":16,\"lat\":39\\.8283,\"lng\":-77\\.2717,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-7WI\",\"tick\":16,\"lat\":39\\.8283,\"lng\":-77\\.2717,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.267 (Morrow: about 9 a.m. the brigade came near the town, filed to the left and charged down into the ravine of Willoughby's Run), p.265 (Wadsworth: the head of the column struck the Cashtown road at about 10 a.m.); the corrected clock puts Reynolds's death at tick 28 and the "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-ironbrigade-U-19IN-20",
+   "target": "data/density_day1_ironbrigade.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-19IN\",\"tick\":20,\"lat\":39\\.8272,\"lng\":-77\\.2750,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-19IN\",\"tick\":20,\"lat\":39\\.8272,\"lng\":-77\\.2750,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.267 (Morrow: about 9 a.m. the brigade came near the town, filed to the left and charged down into the ravine of Willoughby's Run), p.265 (Wadsworth: the head of the column struck the Cashtown road at about 10 a.m.); the corrected clock puts Reynolds's death at tick 28 and the "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-ironbrigade-U-2WI-20",
+   "target": "data/density_day1_ironbrigade.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-2WI\",\"tick\":20,\"lat\":39\\.8289,\"lng\":-77\\.2772,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-2WI\",\"tick\":20,\"lat\":39\\.8289,\"lng\":-77\\.2772,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.267 (Morrow: about 9 a.m. the brigade came near the town, filed to the left and charged down into the ravine of Willoughby's Run), p.265 (Wadsworth: the head of the column struck the Cashtown road at about 10 a.m.); the corrected clock puts Reynolds's death at tick 28 and the "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-ironbrigade-U-7WI-20",
+   "target": "data/density_day1_ironbrigade.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-7WI\",\"tick\":20,\"lat\":39\\.8283,\"lng\":-77\\.2761,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-7WI\",\"tick\":20,\"lat\":39\\.8283,\"lng\":-77\\.2761,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.267 (Morrow: about 9 a.m. the brigade came near the town, filed to the left and charged down into the ravine of Willoughby's Run), p.265 (Wadsworth: the head of the column struck the Cashtown road at about 10 a.m.); the corrected clock puts Reynolds's death at tick 28 and the "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-ironbrigade-U-2WI-22",
+   "target": "data/density_day1_ironbrigade.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-2WI\",\"tick\":22,\"lat\":39\\.8289,\"lng\":-77\\.2806,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-2WI\",\"tick\":22,\"lat\":39\\.8289,\"lng\":-77\\.2806,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.267 (Morrow: about 9 a.m. the brigade came near the town, filed to the left and charged down into the ravine of Willoughby's Run), p.265 (Wadsworth: the head of the column struck the Cashtown road at about 10 a.m.); the corrected clock puts Reynolds's death at tick 28 and the "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-ironbrigade-U-7WI-22",
+   "target": "data/density_day1_ironbrigade.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-7WI\",\"tick\":22,\"lat\":39\\.8278,\"lng\":-77\\.2800,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-7WI\",\"tick\":22,\"lat\":39\\.8278,\"lng\":-77\\.2800,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.267 (Morrow: about 9 a.m. the brigade came near the town, filed to the left and charged down into the ravine of Willoughby's Run), p.265 (Wadsworth: the head of the column struck the Cashtown road at about 10 a.m.); the corrected clock puts Reynolds's death at tick 28 and the "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-ironbrigade-U-24MI-22",
+   "target": "data/density_day1_ironbrigade.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-24MI\",\"tick\":22,\"lat\":39\\.8267,\"lng\":-77\\.2789,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-24MI\",\"tick\":22,\"lat\":39\\.8267,\"lng\":-77\\.2789,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.267 (Morrow: about 9 a.m. the brigade came near the town, filed to the left and charged down into the ravine of Willoughby's Run), p.265 (Wadsworth: the head of the column struck the Cashtown road at about 10 a.m.); the corrected clock puts Reynolds's death at tick 28 and the "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-ironbrigade-U-2WI-26",
+   "target": "data/density_day1_ironbrigade.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-2WI\",\"tick\":26,\"lat\":39\\.8289,\"lng\":-77\\.2772,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-2WI\",\"tick\":26,\"lat\":39\\.8289,\"lng\":-77\\.2772,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.267 (Morrow: about 9 a.m. the brigade came near the town, filed to the left and charged down into the ravine of Willoughby's Run), p.265 (Wadsworth: the head of the column struck the Cashtown road at about 10 a.m.); the corrected clock puts Reynolds's death at tick 28 and the "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-ironbrigade-C-III-2-3-16",
+   "target": "data/density_day1_ironbrigade.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"C-III-2-3\",\"tick\":16,\"lat\":39\\.8267,\"lng\":-77\\.2789,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"C-III-2-3\",\"tick\":16,\"lat\":39\\.8267,\"lng\":-77\\.2789,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.267 (Morrow: about 9 a.m. the brigade came near the town, filed to the left and charged down into the ravine of Willoughby's Run), p.265 (Wadsworth: the head of the column struck the Cashtown road at about 10 a.m.); the corrected clock puts Reynolds's death at tick 28 and the "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-ironbrigade-C-III-2-3-20",
+   "target": "data/density_day1_ironbrigade.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"C-III-2-3\",\"tick\":20,\"lat\":39\\.8261,\"lng\":-77\\.2761,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"C-III-2-3\",\"tick\":20,\"lat\":39\\.8261,\"lng\":-77\\.2761,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.267 (Morrow: about 9 a.m. the brigade came near the town, filed to the left and charged down into the ravine of Willoughby's Run), p.265 (Wadsworth: the head of the column struck the Cashtown road at about 10 a.m.); the corrected clock puts Reynolds's death at tick 28 and the "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-ironbrigade-C-III-2-3-22",
+   "target": "data/density_day1_ironbrigade.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"C-III-2-3\",\"tick\":22,\"lat\":39\\.8256,\"lng\":-77\\.2811,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"C-III-2-3\",\"tick\":22,\"lat\":39\\.8256,\"lng\":-77\\.2811,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.267 (Morrow: about 9 a.m. the brigade came near the town, filed to the left and charged down into the ravine of Willoughby's Run), p.265 (Wadsworth: the head of the column struck the Cashtown road at about 10 a.m.); the corrected clock puts Reynolds's death at tick 28 and the "
+  },
+  {
+   "id": "DATA-pos-del-density-day1-ironbrigade-C-III-2-3-26",
+   "target": "data/density_day1_ironbrigade.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"C-III-2-3\",\"tick\":26,\"lat\":39\\.8256,\"lng\":-77\\.2856,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"C-III-2-3\",\"tick\":26,\"lat\":39\\.8256,\"lng\":-77\\.2856,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.267 (Morrow: about 9 a.m. the brigade came near the town, filed to the left and charged down into the ravine of Willoughby's Run), p.265 (Wadsworth: the head of the column struck the Cashtown road at about 10 a.m.); the corrected clock puts Reynolds's death at tick 28 and the "
+  },
+  {
+   "id": "DATA-pos-del-density-skirmishers-U-19IN-22",
+   "target": "data/density_skirmishers.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-19IN\",\"tick\":22,\"lat\":39\\.8256,\"lng\":-77\\.2706,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-19IN\",\"tick\":22,\"lat\":39\\.8256,\"lng\":-77\\.2706,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-tick: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched at 9"
+  },
+  {
+   "id": "DATA-pos-del-density-skirmishers-U-2WI-22",
+   "target": "data/density_skirmishers.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-2WI\",\"tick\":22,\"lat\":39\\.8267,\"lng\":-77\\.2711,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-2WI\",\"tick\":22,\"lat\":39\\.8267,\"lng\":-77\\.2711,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-tick: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched at 9"
+  },
+  {
+   "id": "DATA-pos-del-density-skirmishers-U-76NY-22",
+   "target": "data/density_skirmishers.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-76NY\",\"tick\":22,\"lat\":39\\.8344,\"lng\":-77\\.2672,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-76NY\",\"tick\":22,\"lat\":39\\.8344,\"lng\":-77\\.2672,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-tick: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched at 9"
+  },
+  {
+   "id": "DATA-pos-del-density-skirmishers-U-95NY-22",
+   "target": "data/density_skirmishers.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-95NY\",\"tick\":22,\"lat\":39\\.8350,\"lng\":-77\\.2661,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-95NY\",\"tick\":22,\"lat\":39\\.8350,\"lng\":-77\\.2661,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-tick: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched at 9"
+  },
+  {
+   "id": "DATA-pos-del-density-day1-railroadcut-U-I-1-2-20",
+   "target": "data/density_day1_railroadcut.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-I-1-2\",\"tick\":20,\"lat\":39\\.8367,\"lng\":-77\\.2606,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-I-1-2\",\"tick\":20,\"lat\":39\\.8367,\"lng\":-77\\.2606,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-tick: OR 27/1 p.265 (Wadsworth: the First Division moved from Marsh Creek at 8 a.m., turned to the left across the fields and struck the Cashtown road about three-quarters of a mile west of Gettysburg at about 10 a.m.), p.359 (Hall: in camp at Marsh Creek, 4 miles from Gettysburg, marched at 9"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ironbrigade-U-19IN-28",
+   "target": "data/density_day1_ironbrigade.json",
+   "find": "(\"unit_id\":\"U-19IN\",\"tick\":28,)\"lat\":39\\.8272,\"lng\":-77\\.2767",
+   "repl": "\\g<1>\"lat\":39.8272,\"lng\":-77.2540",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.267 (Morrow: about 9 a.m. the brigade came near the town, filed to the left and charged down into the ravine of Willoughby's Run), p.265 (Wadsworth: the head of the column struck the Cashtown road at about 10 a.m.); the corrected clock puts Reynolds's death at tick 28 and the "
+  },
+  {
+   "id": "DATA-pos-tick-placements-day1-ticks1-50-C-III-3-3-42-to-52",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"C-III-3-3\",\"tick\":)42(,\"lat\":39\\.8256,\"lng\":-77\\.2561,)",
+   "repl": "\\g<1>52\\g<2>",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-tick: OR 27/2 p.607 (Hill: about 2.30 o'clock Ewell's right appeared on his left, and Pender's division was then ordered forward)"
+  },
+  {
+   "id": "DATA-pos-tick-placements-day1-ticks1-50-C-III-3-4-42-to-52",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"C-III-3-4\",\"tick\":)42(,\"lat\":39\\.8244,\"lng\":-77\\.2556,)",
+   "repl": "\\g<1>52\\g<2>",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-tick: OR 27/2 p.607 (Hill: about 2.30 o'clock Ewell's right appeared on his left, and Pender's division was then ordered forward)"
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks1-50-U-XI-1-1-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-XI-1-1\",\"tick\":1,\"lat\":39\\.7872,\"lng\":-77\\.2356,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-XI-1-1\",\"tick\":1,\"lat\":39\\.7872,\"lng\":-77\\.2356,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.144 (Meade: July 1 the Eleventh Corps moved from Emmitsburg to Gettysburg), p.696 (Howard: after Reynolds attacked at 10.45 a.m. he pushed on by a parallel road and placed the corps on the First Corps' right)"
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks1-50-U-XI-1-2-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-XI-1-2\",\"tick\":1,\"lat\":39\\.7861,\"lng\":-77\\.2356,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-XI-1-2\",\"tick\":1,\"lat\":39\\.7861,\"lng\":-77\\.2356,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.144 (Meade: July 1 the Eleventh Corps moved from Emmitsburg to Gettysburg), p.696 (Howard: after Reynolds attacked at 10.45 a.m. he pushed on by a parallel road and placed the corps on the First Corps' right)"
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks1-50-U-XI-2-1-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-XI-2-1\",\"tick\":1,\"lat\":39\\.7850,\"lng\":-77\\.2356,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-XI-2-1\",\"tick\":1,\"lat\":39\\.7850,\"lng\":-77\\.2356,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.144 (Meade: July 1 the Eleventh Corps moved from Emmitsburg to Gettysburg), p.696 (Howard: after Reynolds attacked at 10.45 a.m. he pushed on by a parallel road and placed the corps on the First Corps' right)"
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks1-50-U-XI-2-2-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-XI-2-2\",\"tick\":1,\"lat\":39\\.7839,\"lng\":-77\\.2356,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-XI-2-2\",\"tick\":1,\"lat\":39\\.7839,\"lng\":-77\\.2356,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.144 (Meade: July 1 the Eleventh Corps moved from Emmitsburg to Gettysburg), p.696 (Howard: after Reynolds attacked at 10.45 a.m. he pushed on by a parallel road and placed the corps on the First Corps' right)"
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks1-50-U-XI-3-1-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-XI-3-1\",\"tick\":1,\"lat\":39\\.7828,\"lng\":-77\\.2356,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-XI-3-1\",\"tick\":1,\"lat\":39\\.7828,\"lng\":-77\\.2356,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.144 (Meade: July 1 the Eleventh Corps moved from Emmitsburg to Gettysburg), p.696 (Howard: after Reynolds attacked at 10.45 a.m. he pushed on by a parallel road and placed the corps on the First Corps' right)"
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks1-50-U-XI-3-2-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-XI-3-2\",\"tick\":1,\"lat\":39\\.7817,\"lng\":-77\\.2356,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-XI-3-2\",\"tick\":1,\"lat\":39\\.7817,\"lng\":-77\\.2356,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.144 (Meade: July 1 the Eleventh Corps moved from Emmitsburg to Gettysburg), p.696 (Howard: after Reynolds attacked at 10.45 a.m. he pushed on by a parallel road and placed the corps on the First Corps' right)"
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks1-50-C-II-1-1-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"C-II-1-1\",\"tick\":1,\"lat\":39\\.8511,\"lng\":-77\\.2289,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"C-II-1-1\",\"tick\":1,\"lat\":39\\.8511,\"lng\":-77\\.2289,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/2 p.444 (Ewell: on the night of June 30 Rodes's division was at Heidlersburg and Early 3 miles off), p.317 (Lee: Rodes arrived by the Middletown road about the time Heth was engaged and Early came up by the Heidlersburg road soon afterward)"
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks1-50-C-II-1-2-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"C-II-1-2\",\"tick\":1,\"lat\":39\\.8522,\"lng\":-77\\.2289,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"C-II-1-2\",\"tick\":1,\"lat\":39\\.8522,\"lng\":-77\\.2289,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/2 p.444 (Ewell: on the night of June 30 Rodes's division was at Heidlersburg and Early 3 miles off), p.317 (Lee: Rodes arrived by the Middletown road about the time Heth was engaged and Early came up by the Heidlersburg road soon afterward)"
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks1-50-C-II-1-3-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"C-II-1-3\",\"tick\":1,\"lat\":39\\.8500,\"lng\":-77\\.2289,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"C-II-1-3\",\"tick\":1,\"lat\":39\\.8500,\"lng\":-77\\.2289,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/2 p.444 (Ewell: on the night of June 30 Rodes's division was at Heidlersburg and Early 3 miles off), p.317 (Lee: Rodes arrived by the Middletown road about the time Heth was engaged and Early came up by the Heidlersburg road soon afterward)"
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks1-50-C-II-1-4-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"C-II-1-4\",\"tick\":1,\"lat\":39\\.8500,\"lng\":-77\\.2178,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"C-II-1-4\",\"tick\":1,\"lat\":39\\.8500,\"lng\":-77\\.2178,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/2 p.444 (Ewell: on the night of June 30 Rodes's division was at Heidlersburg and Early 3 miles off), p.317 (Lee: Rodes arrived by the Middletown road about the time Heth was engaged and Early came up by the Heidlersburg road soon afterward)"
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks1-50-C-II-3-1-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"C-II-3-1\",\"tick\":1,\"lat\":39\\.8550,\"lng\":-77\\.2600,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"C-II-3-1\",\"tick\":1,\"lat\":39\\.8550,\"lng\":-77\\.2600,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/2 p.444 (Ewell: on the night of June 30 Rodes's division was at Heidlersburg and Early 3 miles off), p.317 (Lee: Rodes arrived by the Middletown road about the time Heth was engaged and Early came up by the Heidlersburg road soon afterward)"
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks1-50-C-II-3-2-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"C-II-3-2\",\"tick\":1,\"lat\":39\\.8561,\"lng\":-77\\.2578,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"C-II-3-2\",\"tick\":1,\"lat\":39\\.8561,\"lng\":-77\\.2578,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/2 p.444 (Ewell: on the night of June 30 Rodes's division was at Heidlersburg and Early 3 miles off), p.317 (Lee: Rodes arrived by the Middletown road about the time Heth was engaged and Early came up by the Heidlersburg road soon afterward)"
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks1-50-C-II-3-3-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"C-II-3-3\",\"tick\":1,\"lat\":39\\.8572,\"lng\":-77\\.2556,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"C-II-3-3\",\"tick\":1,\"lat\":39\\.8572,\"lng\":-77\\.2556,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/2 p.444 (Ewell: on the night of June 30 Rodes's division was at Heidlersburg and Early 3 miles off), p.317 (Lee: Rodes arrived by the Middletown road about the time Heth was engaged and Early came up by the Heidlersburg road soon afterward)"
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks1-50-C-II-3-4-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"C-II-3-4\",\"tick\":1,\"lat\":39\\.8583,\"lng\":-77\\.2533,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"C-II-3-4\",\"tick\":1,\"lat\":39\\.8583,\"lng\":-77\\.2533,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/2 p.444 (Ewell: on the night of June 30 Rodes's division was at Heidlersburg and Early 3 miles off), p.317 (Lee: Rodes arrived by the Middletown road about the time Heth was engaged and Early came up by the Heidlersburg road soon afterward)"
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks1-50-C-II-3-5-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"C-II-3-5\",\"tick\":1,\"lat\":39\\.8594,\"lng\":-77\\.2511,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"C-II-3-5\",\"tick\":1,\"lat\":39\\.8594,\"lng\":-77\\.2511,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/2 p.444 (Ewell: on the night of June 30 Rodes's division was at Heidlersburg and Early 3 miles off), p.317 (Lee: Rodes arrived by the Middletown road about the time Heth was engaged and Early came up by the Heidlersburg road soon afterward)"
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks51-100-U-I-3-3-58",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-I-3-3\",\"tick\":58,\"lat\":39\\.8261,\"lng\":-77\\.2461,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-I-3-3\",\"tick\":58,\"lat\":39\\.8261,\"lng\":-77\\.2461,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.258 (Doubleday: Stannard's brigade reported to him about twilight of July 1 and was put in line with Sickles's troops that night), p.144 (Meade: it joined the First Corps on the field on July 1)"
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks1-50-U-CAV-1-R-1",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-CAV-1-R\",\"tick\":1,\"lat\":39\\.8089,\"lng\":-77\\.2350,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-CAV-1-R\",\"tick\":1,\"lat\":39\\.8089,\"lng\":-77\\.2350,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.145 (Meade: July 1 Gregg's division marched from Manchester to Hanover Junction and Huey's brigade returned to Manchester; July 2 McIntosh's and J. I. Gregg's brigades and Kilpatrick's division reached the field; Merritt's reserve brigade went from Mechanicstown to Emmitsburg "
+  },
+  {
+   "id": "DATA-pos-del-density-reserves-U-CAV-2-1",
+   "target": "data/density_reserves.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-CAV-2\",\"tick\":1,\"lat\":39\\.8350,\"lng\":-77\\.1933,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-CAV-2\",\"tick\":1,\"lat\":39\\.8350,\"lng\":-77\\.1933,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.145 (Meade: July 1 Gregg's division marched from Manchester to Hanover Junction and Huey's brigade returned to Manchester; July 2 McIntosh's and J. I. Gregg's brigades and Kilpatrick's division reached the field; Merritt's reserve brigade went from Mechanicstown to Emmitsbu"
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks101-225-U-CAV-2-1-200",
+   "target": "data/placements_day1_ticks101_225.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-CAV-2-1\",\"tick\":200,\"lat\":39\\.8111,\"lng\":-77\\.2356,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-CAV-2-1\",\"tick\":200,\"lat\":39\\.8111,\"lng\":-77\\.2356,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.145 (Meade: July 1 Gregg's division marched from Manchester to Hanover Junction and Huey's brigade returned to Manchester; July 2 McIntosh's and J. I. Gregg's brigades and Kilpatrick's division reached the field; Merritt's reserve brigade went from Mechanicstown to Emmitsbu"
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks101-225-U-CAV-2-2-200",
+   "target": "data/placements_day1_ticks101_225.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-CAV-2-2\",\"tick\":200,\"lat\":39\\.8122,\"lng\":-77\\.2344,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-CAV-2-2\",\"tick\":200,\"lat\":39\\.8122,\"lng\":-77\\.2344,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.145 (Meade: July 1 Gregg's division marched from Manchester to Hanover Junction and Huey's brigade returned to Manchester; July 2 McIntosh's and J. I. Gregg's brigades and Kilpatrick's division reached the field; Merritt's reserve brigade went from Mechanicstown to Emmitsbu"
+  },
+  {
+   "id": "DATA-pos-del-placements-day1-ticks101-225-U-CAV-2-3-200",
+   "target": "data/placements_day1_ticks101_225.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-CAV-2-3\",\"tick\":200,\"lat\":39\\.8100,\"lng\":-77\\.2578,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-CAV-2-3\",\"tick\":200,\"lat\":39\\.8100,\"lng\":-77\\.2578,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "before-arrival: OR 27/1 p.145 (Meade: July 1 Gregg's division marched from Manchester to Hanover Junction and Huey's brigade returned to Manchester; July 2 McIntosh's and J. I. Gregg's brigades and Kilpatrick's division reached the field; Merritt's reserve brigade went from Mechanicstown to Emmitsbu"
+  },
+  {
+   "id": "DATA-pos-del-density-day3-hancock-U-CAV-1-562",
+   "target": "data/density_day3_hancock.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-CAV-1\",\"tick\":562,\"lat\":39\\.8150,\"lng\":-77\\.2261,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-CAV-1\",\"tick\":562,\"lat\":39\\.8150,\"lng\":-77\\.2261,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-del-density-day3-retreat-U-CAV-1-580",
+   "target": "data/density_day3_retreat.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-CAV-1\",\"tick\":580,\"lat\":39\\.8150,\"lng\":-77\\.2261,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-CAV-1\",\"tick\":580,\"lat\":39\\.8150,\"lng\":-77\\.2261,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-del-density-day3-retreat-U-CAV-1-1-625",
+   "target": "data/density_day3_retreat.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-CAV-1-1\",\"tick\":625,\"lat\":39\\.8278,\"lng\":-77\\.2489,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-CAV-1-1\",\"tick\":625,\"lat\":39\\.8278,\"lng\":-77\\.2489,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-del-placements-day3-ticks601-675-U-CAV-1-1-675",
+   "target": "data/placements_day3_ticks601_675.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-CAV-1-1\",\"tick\":675,\"lat\":39\\.8094,\"lng\":-77\\.2489,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-CAV-1-1\",\"tick\":675,\"lat\":39\\.8094,\"lng\":-77\\.2489,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-del-placements-day3-ticks601-675-U-HAB-A2US-675",
+   "target": "data/placements_day3_ticks601_675.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-HAB-A2US\",\"tick\":675,\"lat\":39\\.8322,\"lng\":-77\\.2511,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-HAB-A2US\",\"tick\":675,\"lat\":39\\.8322,\"lng\":-77\\.2511,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-del-density-skirmishers-U-17PA-CAV-563",
+   "target": "data/density_skirmishers.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-17PA-CAV\",\"tick\":563,\"lat\":39\\.8256,\"lng\":-77\\.2256,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-17PA-CAV\",\"tick\":563,\"lat\":39\\.8256,\"lng\":-77\\.2256,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-add-placements-day2-ticks226-300-U-CAV-1-226-start",
+   "target": "data/placements_day2_ticks226_300.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-CAV-1\",\"tick\":226,\"lat\":39.8289,\"lng\":-77.2372,\"bearing\":160,\"disposition\":\"Line of March\",\"strength\":1200,\"notes\":\"Buford's division leaves for Taneytown on the morning of July 2 (OR 27/1 p.145; the hour is not given in the sources used here)\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-add-placements-day2-ticks301-375-U-CAV-1-340-road",
+   "target": "data/placements_day2_ticks301_375.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-CAV-1\",\"tick\":340,\"lat\":39.7199,\"lng\":-77.2097,\"bearing\":160,\"disposition\":\"Line of March\",\"strength\":1200,\"notes\":\"Buford's division on the Taneytown Road to Taneytown and Westminster (OR 27/1 p.145; shown at the edge of the map)\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-add-placements-day2-ticks226-300-U-CAV-1-1-226-start",
+   "target": "data/placements_day2_ticks226_300.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-CAV-1-1\",\"tick\":226,\"lat\":39.8094,\"lng\":-77.2489,\"bearing\":160,\"disposition\":\"Line of March\",\"strength\":1511,\"notes\":\"Gamble's brigade leaves for Taneytown on the morning of July 2 (OR 27/1 p.145; the hour is not given in the sources used here)\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-add-placements-day2-ticks226-300-U-CAV-1-1-256-road",
+   "target": "data/placements_day2_ticks226_300.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-CAV-1-1\",\"tick\":256,\"lat\":39.7199,\"lng\":-77.2097,\"bearing\":160,\"disposition\":\"Line of March\",\"strength\":1511,\"notes\":\"Gamble's brigade on the Taneytown Road; it reached Taneytown about 4 p.m. (Calef) (OR 27/1 p.145; shown at the edge of the map)\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-add-placements-day2-ticks226-300-U-CAV-1-2-226-start",
+   "target": "data/placements_day2_ticks226_300.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-CAV-1-2\",\"tick\":226,\"lat\":39.8233,\"lng\":-77.2178,\"bearing\":160,\"disposition\":\"Line of March\",\"strength\":1578,\"notes\":\"Devin's brigade leaves for Taneytown on July 2 (OR 27/1 p.145; the hour is not given in the sources used here)\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-add-placements-day2-ticks301-375-U-CAV-1-2-340-road",
+   "target": "data/placements_day2_ticks301_375.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-CAV-1-2\",\"tick\":340,\"lat\":39.7199,\"lng\":-77.2097,\"bearing\":160,\"disposition\":\"Line of March\",\"strength\":1578,\"notes\":\"Devin's brigade on the Taneytown Road to Taneytown (OR 27/1 p.145; shown at the edge of the map)\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-add-placements-day2-ticks226-300-U-HAB-A2US-226-start",
+   "target": "data/placements_day2_ticks226_300.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-HAB-A2US\",\"tick\":226,\"lat\":39.8322,\"lng\":-77.2511,\"bearing\":160,\"disposition\":\"Line of March\",\"strength\":89,\"notes\":\"Calef's battery follows Gamble's brigade to Taneytown on the morning of July 2 (OR 27/1 p.145; the hour is not given in the sources used here)\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-add-placements-day2-ticks226-300-U-HAB-A2US-256-road",
+   "target": "data/placements_day2_ticks226_300.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-HAB-A2US\",\"tick\":256,\"lat\":39.7199,\"lng\":-77.2097,\"bearing\":160,\"disposition\":\"Line of March\",\"strength\":89,\"notes\":\"Calef's battery on the Taneytown Road; it reached Taneytown about 4 p.m. (Calef) (OR 27/1 p.145; shown at the edge of the map)\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-add-placements-day2-ticks226-300-U-8IL-CAV-226-start",
+   "target": "data/placements_day2_ticks226_300.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-8IL-CAV\",\"tick\":226,\"lat\":39.825,\"lng\":-77.2467,\"bearing\":160,\"disposition\":\"Line of March\",\"strength\":350,\"notes\":\"the 8th Illinois leaves for Taneytown with Gamble's brigade on July 2 (OR 27/1 p.145; the hour is not given in the sources used here)\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-add-placements-day2-ticks226-300-U-8IL-CAV-256-road",
+   "target": "data/placements_day2_ticks226_300.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-8IL-CAV\",\"tick\":256,\"lat\":39.7199,\"lng\":-77.2097,\"bearing\":160,\"disposition\":\"Line of March\",\"strength\":350,\"notes\":\"the 8th Illinois on the Taneytown Road with Gamble's brigade (OR 27/1 p.145; shown at the edge of the map)\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-add-placements-day2-ticks226-300-U-8NY-CAV-226-start",
+   "target": "data/placements_day2_ticks226_300.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-8NY-CAV\",\"tick\":226,\"lat\":39.8317,\"lng\":-77.2522,\"bearing\":160,\"disposition\":\"Line of March\",\"strength\":265,\"notes\":\"the 8th New York leaves for Taneytown with Gamble's brigade on July 2 (OR 27/1 p.145; the hour is not given in the sources used here)\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-add-placements-day2-ticks226-300-U-8NY-CAV-256-road",
+   "target": "data/placements_day2_ticks226_300.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-8NY-CAV\",\"tick\":256,\"lat\":39.7199,\"lng\":-77.2097,\"bearing\":160,\"disposition\":\"Line of March\",\"strength\":265,\"notes\":\"the 8th New York on the Taneytown Road with Gamble's brigade (OR 27/1 p.145; shown at the edge of the map)\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-add-placements-day2-ticks226-300-U-12IL-CAV-226-start",
+   "target": "data/placements_day2_ticks226_300.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-12IL-CAV\",\"tick\":226,\"lat\":39.8294,\"lng\":-77.26,\"bearing\":160,\"disposition\":\"Line of March\",\"strength\":248,\"notes\":\"the 12th Illinois leaves for Taneytown with Gamble's brigade on July 2 (OR 27/1 p.145; the hour is not given in the sources used here)\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-add-placements-day2-ticks226-300-U-12IL-CAV-256-road",
+   "target": "data/placements_day2_ticks226_300.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-12IL-CAV\",\"tick\":256,\"lat\":39.7199,\"lng\":-77.2097,\"bearing\":160,\"disposition\":\"Line of March\",\"strength\":248,\"notes\":\"the 12th Illinois on the Taneytown Road with Gamble's brigade (OR 27/1 p.145; shown at the edge of the map)\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-add-placements-day2-ticks226-300-U-3IN-CAV-226-start",
+   "target": "data/placements_day2_ticks226_300.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-3IN-CAV\",\"tick\":226,\"lat\":39.83,\"lng\":-77.2589,\"bearing\":160,\"disposition\":\"Line of March\",\"strength\":335,\"notes\":\"the 3rd Indiana leaves for Taneytown with Gamble's brigade on July 2 (OR 27/1 p.145; the hour is not given in the sources used here)\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-add-placements-day2-ticks226-300-U-3IN-CAV-256-road",
+   "target": "data/placements_day2_ticks226_300.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-3IN-CAV\",\"tick\":256,\"lat\":39.7199,\"lng\":-77.2097,\"bearing\":160,\"disposition\":\"Line of March\",\"strength\":335,\"notes\":\"the 3rd Indiana on the Taneytown Road with Gamble's brigade (OR 27/1 p.145; shown at the edge of the map)\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-add-placements-day2-ticks226-300-U-6NY-CAV-226-start",
+   "target": "data/placements_day2_ticks226_300.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-6NY-CAV\",\"tick\":226,\"lat\":39.84,\"lng\":-77.2278,\"bearing\":160,\"disposition\":\"Line of March\",\"strength\":339,\"notes\":\"the 6th New York leaves for Taneytown with Devin's brigade on July 2 (OR 27/1 p.145; the hour is not given in the sources used here)\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-add-placements-day2-ticks301-375-U-6NY-CAV-340-road",
+   "target": "data/placements_day2_ticks301_375.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-6NY-CAV\",\"tick\":340,\"lat\":39.7199,\"lng\":-77.2097,\"bearing\":160,\"disposition\":\"Line of March\",\"strength\":339,\"notes\":\"the 6th New York on the Taneytown Road with Devin's brigade (OR 27/1 p.145; shown at the edge of the map)\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-add-placements-day2-ticks226-300-U-17PA-CAV-226-start",
+   "target": "data/placements_day2_ticks226_300.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-17PA-CAV\",\"tick\":226,\"lat\":39.8389,\"lng\":-77.2311,\"bearing\":160,\"disposition\":\"Line of March\",\"strength\":435,\"notes\":\"the 17th Pennsylvania leaves for Taneytown with Devin's brigade on July 2 (OR 27/1 p.145; the hour is not given in the sources used here)\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-add-placements-day2-ticks301-375-U-17PA-CAV-340-road",
+   "target": "data/placements_day2_ticks301_375.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-17PA-CAV\",\"tick\":340,\"lat\":39.7199,\"lng\":-77.2097,\"bearing\":160,\"disposition\":\"Line of March\",\"strength\":435,\"notes\":\"the 17th Pennsylvania on the Taneytown Road with Devin's brigade (OR 27/1 p.145; shown at the edge of the map)\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-add-placements-day2-ticks226-300-U-9NY-CAV-226-start",
+   "target": "data/placements_day2_ticks226_300.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-9NY-CAV\",\"tick\":226,\"lat\":39.8411,\"lng\":-77.2511,\"bearing\":160,\"disposition\":\"Line of March\",\"strength\":228,\"notes\":\"the 9th New York leaves for Taneytown with Devin's brigade on July 2 (OR 27/1 p.145; the hour is not given in the sources used here)\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-add-placements-day2-ticks301-375-U-9NY-CAV-340-road",
+   "target": "data/placements_day2_ticks301_375.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-9NY-CAV\",\"tick\":340,\"lat\":39.7199,\"lng\":-77.2097,\"bearing\":160,\"disposition\":\"Line of March\",\"strength\":228,\"notes\":\"the 9th New York on the Taneytown Road with Devin's brigade (OR 27/1 p.145; shown at the edge of the map)\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-note-density-day1-opening-U-8IL-CAV-11",
+   "target": "data/density_day1_opening.json",
+   "find": "(\"unit_id\":\"U-8IL-CAV\",\"tick\":11,\"lat\":39\\.8311,\"lng\":-77\\.2711,[^\\n]*?\"notes\":\")(?:[^\"\\\\]|\\\\.)*\"",
+   "repl": "\\g<1>8th Illinois Cavalry falling back toward McPherson's Ridge\"",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.1031 (Calef: Buford's line fell back as the First Corps came up)"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-opening-U-HAB-A2US-8",
+   "target": "data/density_day1_opening.json",
+   "find": "(\"unit_id\":\"U-HAB-A2US\",\"tick\":8,)\"lat\":39\\.8317,\"lng\":-77\\.2700",
+   "repl": "\\g<1>\"lat\":39.8322,\"lng\":-77.2511",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.1031 (Calef: the battery took an advanced position about 600 yards in front of the one held during the night, on Gamble's brigade's front); position of row U-HAB-A2US tick 14"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-opening-U-HAB-A2US-11",
+   "target": "data/density_day1_opening.json",
+   "find": "(\"unit_id\":\"U-HAB-A2US\",\"tick\":11,)\"lat\":39\\.8317,\"lng\":-77\\.2694",
+   "repl": "\\g<1>\"lat\":39.8322,\"lng\":-77.2511",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.1031; position of row U-HAB-A2US tick 14"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-opening-U-CAV-1-1-9",
+   "target": "data/density_day1_opening.json",
+   "find": "(\"unit_id\":\"U-CAV-1-1\",\"tick\":9,)\"lat\":39\\.8250,\"lng\":-77\\.2744",
+   "repl": "\\g<1>\"lat\":39.8311,\"lng\":-77.2544",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.1031 (Calef: Colonel Gamble commanded the brigade on this line); position of row U-CAV-1-1 tick 14"
+  },
+  {
+   "id": "DATA-pos-note-placements-day1-ticks101-225-U-I-1-1-120",
+   "target": "data/placements_day1_ticks101_225.json",
+   "find": "(\"unit_id\":\"U-I-1-1\",\"tick\":120,\"lat\":39\\.8222,\"lng\":-77\\.2294,[^\\n]*?\"notes\":\")(?:[^\"\\\\]|\\\\.)*\"",
+   "repl": "\\g<1>Iron Brigade remnants on Culp's Hill, where Wadsworth's division stayed through July 2 and 3 (Wadsworth)\"",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.266 (Wadsworth: on the evening of the 1st we were ordered to occupy a hill on the right of the cemetery, which we held on the 2d and 3d), p.277 (Dawes: by direction of General Wadsworth, to an open field on Culp's Hill)"
+  },
+  {
+   "id": "DATA-pos-note-placements-day1-ticks51-100-U-I-1-1-95",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"U-I-1-1\",\"tick\":95,\"lat\":39\\.8222,\"lng\":-77\\.2289,[^\\n]*?\"notes\":\")(?:[^\"\\\\]|\\\\.)*\"",
+   "repl": "\\g<1>Iron Brigade survivors on Cemetery Hill; that evening Wadsworth ordered the division to Culp's Hill (Wadsworth)\"",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.266 (Wadsworth: on the evening of the 1st we were ordered to occupy a hill on the right of the cemetery, which we held on the 2d and 3d), p.277 (Dawes: by direction of General Wadsworth, to an open field on Culp's Hill)"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks101-225-U-I-1-1-120",
+   "target": "data/placements_day1_ticks101_225.json",
+   "find": "(\"unit_id\":\"U-I-1-1\",\"tick\":120,)\"lat\":39\\.8222,\"lng\":-77\\.2294",
+   "repl": "\\g<1>\"lat\":39.8201,\"lng\":-77.2205",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.266 (Wadsworth: on the evening of the 1st we were ordered to occupy a hill on the right of the cemetery, which we held on the 2d and 3d), p.277 (Dawes: by direction of General Wadsworth, to an open field on Culp's Hill)"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks101-225-U-I-1-2-120",
+   "target": "data/placements_day1_ticks101_225.json",
+   "find": "(\"unit_id\":\"U-I-1-2\",\"tick\":120,)\"lat\":39\\.8233,\"lng\":-77\\.2283",
+   "repl": "\\g<1>\"lat\":39.8208,\"lng\":-77.2212",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.266 (Wadsworth: on the evening of the 1st we were ordered to occupy a hill on the right of the cemetery, which we held on the 2d and 3d), p.277 (Dawes: by direction of General Wadsworth, to an open field on Culp's Hill)"
+  },
+  {
+   "id": "DATA-pos-del-density-day3-retreat-U-I-1-1-650",
+   "target": "data/density_day3_retreat.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-I-1-1\",\"tick\":650,\"lat\":39\\.8267,\"lng\":-77\\.2483,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-I-1-1\",\"tick\":650,\"lat\":39\\.8267,\"lng\":-77\\.2483,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.266 (Wadsworth: on the evening of the 1st we were ordered to occupy a hill on the right of the cemetery, which we held on the 2d and 3d), p.277 (Dawes: by direction of General Wadsworth, to an open field on Culp's Hill)"
+  },
+  {
+   "id": "DATA-pos-del-density-skirmishers-U-8IL-CAV-563",
+   "target": "data/density_skirmishers.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-8IL-CAV\",\"tick\":563,\"lat\":39\\.8244,\"lng\":-77\\.2261,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-8IL-CAV\",\"tick\":563,\"lat\":39\\.8244,\"lng\":-77\\.2261,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.117 (Meade: Buford's division, after its service at Gettysburg on the 1st, was on the 2d sent to Westminster to refit and guard the trains), p.145 (July 2 Gamble's and Devin's brigades marched from Gettysburg to Taneytown), p.1032 (Calef: on the morning of the 2d Buford ordere"
+  },
+  {
+   "id": "DATA-pos-add-placements-day1-ticks101-225-U-I-1-120",
+   "target": "data/placements_day1_ticks101_225.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-I-1\",\"tick\":120,\"lat\":39.8205,\"lng\":-77.2208,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":1800,\"notes\":\"Wadsworth's division on Culp's Hill, where it stayed through July 2 and 3 (Wadsworth)\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-claim: OR 27/1 p.266 (Wadsworth: on the evening of the 1st we were ordered to occupy a hill on the right of the cemetery, which we held on the 2d and 3d), p.277 (Dawes: by direction of General Wadsworth, to an open field on Culp's Hill)"
+  },
+  {
+   "id": "DATA-pos-del-density-day1-iverson-U-I-2-2-50",
+   "target": "data/density_day1_iverson.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-I-2-2\",\"tick\":50,\"lat\":39\\.8272,\"lng\":-77\\.2572,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-I-2-2\",\"tick\":50,\"lat\":39\\.8272,\"lng\":-77\\.2572,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the s"
+  },
+  {
+   "id": "DATA-pos-del-density-day1-iverson-U-I-2-2-50-2",
+   "target": "data/density_day1_iverson.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-I-2-2\",\"tick\":50,\"lat\":39\\.8289,\"lng\":-77\\.2578,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-I-2-2\",\"tick\":50,\"lat\":39\\.8289,\"lng\":-77\\.2578,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the s"
+  },
+  {
+   "id": "DATA-pos-del-density-day1-iverson-U-I-2-2-53",
+   "target": "data/density_day1_iverson.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-I-2-2\",\"tick\":53,\"lat\":39\\.8272,\"lng\":-77\\.2572,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-I-2-2\",\"tick\":53,\"lat\":39\\.8272,\"lng\":-77\\.2572,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the s"
+  },
+  {
+   "id": "DATA-pos-del-density-day1-iverson-U-I-2-2-53-2",
+   "target": "data/density_day1_iverson.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-I-2-2\",\"tick\":53,\"lat\":39\\.8289,\"lng\":-77\\.2578,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-I-2-2\",\"tick\":53,\"lat\":39\\.8289,\"lng\":-77\\.2578,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the s"
+  },
+  {
+   "id": "DATA-pos-del-density-day1-iverson-U-I-2-2-60",
+   "target": "data/density_day1_iverson.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-I-2-2\",\"tick\":60,\"lat\":39\\.8289,\"lng\":-77\\.2556,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-I-2-2\",\"tick\":60,\"lat\":39\\.8289,\"lng\":-77\\.2556,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the s"
+  },
+  {
+   "id": "DATA-pos-del-density-day1-iverson-C-12NC-60",
+   "target": "data/density_day1_iverson.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"C-12NC\",\"tick\":60,\"lat\":39\\.8328,\"lng\":-77\\.2583,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"C-12NC\",\"tick\":60,\"lat\":39\\.8328,\"lng\":-77\\.2583,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the s"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-iverson-C-5NC-50",
+   "target": "data/density_day1_iverson.json",
+   "find": "(\"unit_id\":\"C-5NC\",\"tick\":50,)\"lat\":39\\.8322,\"lng\":-77\\.2567",
+   "repl": "\\g<1>\"lat\":39.8289,\"lng\":-77.2430",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the s"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-iverson-C-12NC-50",
+   "target": "data/density_day1_iverson.json",
+   "find": "(\"unit_id\":\"C-12NC\",\"tick\":50,)\"lat\":39\\.8333,\"lng\":-77\\.2561",
+   "repl": "\\g<1>\"lat\":39.8300,\"lng\":-77.2425",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the s"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-iverson-C-20NC-50",
+   "target": "data/density_day1_iverson.json",
+   "find": "(\"unit_id\":\"C-20NC\",\"tick\":50,)\"lat\":39\\.8344,\"lng\":-77\\.2556",
+   "repl": "\\g<1>\"lat\":39.8311,\"lng\":-77.2419",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the s"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-iverson-C-23NC-50",
+   "target": "data/density_day1_iverson.json",
+   "find": "(\"unit_id\":\"C-23NC\",\"tick\":50,)\"lat\":39\\.8356,\"lng\":-77\\.2550",
+   "repl": "\\g<1>\"lat\":39.8323,\"lng\":-77.2413",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the s"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-iverson-C-5NC-53",
+   "target": "data/density_day1_iverson.json",
+   "find": "(\"unit_id\":\"C-5NC\",\"tick\":53,)\"lat\":39\\.8322,\"lng\":-77\\.2550",
+   "repl": "\\g<1>\"lat\":39.8289,\"lng\":-77.2420",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the s"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-iverson-C-12NC-53",
+   "target": "data/density_day1_iverson.json",
+   "find": "(\"unit_id\":\"C-12NC\",\"tick\":53,)\"lat\":39\\.8333,\"lng\":-77\\.2544",
+   "repl": "\\g<1>\"lat\":39.8300,\"lng\":-77.2413",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the s"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-iverson-C-20NC-53",
+   "target": "data/density_day1_iverson.json",
+   "find": "(\"unit_id\":\"C-20NC\",\"tick\":53,)\"lat\":39\\.8344,\"lng\":-77\\.2539",
+   "repl": "\\g<1>\"lat\":39.8311,\"lng\":-77.2408",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the s"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-iverson-C-23NC-53",
+   "target": "data/density_day1_iverson.json",
+   "find": "(\"unit_id\":\"C-23NC\",\"tick\":53,)\"lat\":39\\.8356,\"lng\":-77\\.2533",
+   "repl": "\\g<1>\"lat\":39.8323,\"lng\":-77.2402",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the s"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-iverson-C-5NC-57",
+   "target": "data/density_day1_iverson.json",
+   "find": "(\"unit_id\":\"C-5NC\",\"tick\":57,)\"lat\":39\\.8317,\"lng\":-77\\.2578",
+   "repl": "\\g<1>\"lat\":39.8295,\"lng\":-77.2426",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the s"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-iverson-C-23NC-57",
+   "target": "data/density_day1_iverson.json",
+   "find": "(\"unit_id\":\"C-23NC\",\"tick\":57,)\"lat\":39\\.8350,\"lng\":-77\\.2561",
+   "repl": "\\g<1>\"lat\":39.8328,\"lng\":-77.2408",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the s"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-iverson-C-II-3-4-57",
+   "target": "data/density_day1_iverson.json",
+   "find": "(\"unit_id\":\"C-II-3-4\",\"tick\":57,)\"lat\":39\\.8289,\"lng\":-77\\.2600",
+   "repl": "\\g<1>\"lat\":39.8315,\"lng\":-77.2425",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/2 p.553; position of row C-II-3-4 tick 54"
+  },
+  {
+   "id": "DATA-pos-move-density-day2-devilsden-U-V-1-3-266",
+   "target": "data/density_day2_devilsden.json",
+   "find": "(\"unit_id\":\"U-V-1-3\",\"tick\":266,)\"lat\":39\\.7994,\"lng\":-77\\.2417",
+   "repl": "\\g<1>\"lat\":39.7933,\"lng\":-77.2394",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.602 (Barnes: Vincent's brigade went to Little Round Top), p.623 (Chamberlain: the brigade on the southern slope of Little Round Top, Hazlett's battery on the crest behind it); the rows of the same units at ticks 267, 270 and 620 (39.7933, -77.2394)"
+  },
+  {
+   "id": "DATA-pos-move-density-day2-devilsden-U-V-1-3-268",
+   "target": "data/density_day2_devilsden.json",
+   "find": "(\"unit_id\":\"U-V-1-3\",\"tick\":268,)\"lat\":39\\.7994,\"lng\":-77\\.2417",
+   "repl": "\\g<1>\"lat\":39.7933,\"lng\":-77.2394",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.602 (Barnes: Vincent's brigade went to Little Round Top), p.623 (Chamberlain: the brigade on the southern slope of Little Round Top, Hazlett's battery on the crest behind it); the rows of the same units at ticks 267, 270 and 620 (39.7933, -77.2394)"
+  },
+  {
+   "id": "DATA-pos-move-density-day2-devilsden-U-V-1-3-272",
+   "target": "data/density_day2_devilsden.json",
+   "find": "(\"unit_id\":\"U-V-1-3\",\"tick\":272,)\"lat\":39\\.7994,\"lng\":-77\\.2417",
+   "repl": "\\g<1>\"lat\":39.7933,\"lng\":-77.2394",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.602 (Barnes: Vincent's brigade went to Little Round Top), p.623 (Chamberlain: the brigade on the southern slope of Little Round Top, Hazlett's battery on the crest behind it); the rows of the same units at ticks 267, 270 and 620 (39.7933, -77.2394)"
+  },
+  {
+   "id": "DATA-pos-move-density-day2-devilsden-U-ART-D5US-266",
+   "target": "data/density_day2_devilsden.json",
+   "find": "(\"unit_id\":\"U-ART-D5US\",\"tick\":266,)\"lat\":39\\.7994,\"lng\":-77\\.2406",
+   "repl": "\\g<1>\"lat\":39.7933,\"lng\":-77.2389",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.602 (Barnes: Vincent's brigade went to Little Round Top), p.623 (Chamberlain: the brigade on the southern slope of Little Round Top, Hazlett's battery on the crest behind it); the rows of the same units at ticks 267, 270 and 620 (39.7933, -77.2394)"
+  },
+  {
+   "id": "DATA-pos-move-density-day2-devilsden-U-ART-D5US-272",
+   "target": "data/density_day2_devilsden.json",
+   "find": "(\"unit_id\":\"U-ART-D5US\",\"tick\":272,)\"lat\":39\\.7994,\"lng\":-77\\.2406",
+   "repl": "\\g<1>\"lat\":39.7933,\"lng\":-77.2389",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.602 (Barnes: Vincent's brigade went to Little Round Top), p.623 (Chamberlain: the brigade on the southern slope of Little Round Top, Hazlett's battery on the crest behind it); the rows of the same units at ticks 267, 270 and 620 (39.7933, -77.2394)"
+  },
+  {
+   "id": "DATA-pos-del-placements-day3-ticks521-600-C-I-3-1-548",
+   "target": "data/placements_day3_ticks521_600.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"C-I-3-1\",\"tick\":548,\"lat\":39\\.8222,\"lng\":-77\\.2361,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"C-I-3-1\",\"tick\":548,\"lat\":39\\.8222,\"lng\":-77\\.2361,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: rows of the same brigade at the same or neighbouring ticks in density_day3_angle.json and density_day3_vermont.json, which put it at The Angle (39.8144, -77.2356) and in front of the Vermont brigade (39.8094, -77.2389)"
+  },
+  {
+   "id": "DATA-pos-del-placements-day3-ticks521-600-C-I-3-1-549",
+   "target": "data/placements_day3_ticks521_600.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"C-I-3-1\",\"tick\":549,\"lat\":39\\.8222,\"lng\":-77\\.2356,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"C-I-3-1\",\"tick\":549,\"lat\":39\\.8222,\"lng\":-77\\.2356,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: rows of the same brigade at the same or neighbouring ticks in density_day3_angle.json and density_day3_vermont.json, which put it at The Angle (39.8144, -77.2356) and in front of the Vermont brigade (39.8094, -77.2389)"
+  },
+  {
+   "id": "DATA-pos-del-placements-day3-ticks521-600-C-I-3-1-550",
+   "target": "data/placements_day3_ticks521_600.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"C-I-3-1\",\"tick\":550,\"lat\":39\\.8222,\"lng\":-77\\.2352,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"C-I-3-1\",\"tick\":550,\"lat\":39\\.8222,\"lng\":-77\\.2352,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: rows of the same brigade at the same or neighbouring ticks in density_day3_angle.json and density_day3_vermont.json, which put it at The Angle (39.8144, -77.2356) and in front of the Vermont brigade (39.8094, -77.2389)"
+  },
+  {
+   "id": "DATA-pos-del-placements-day3-ticks521-600-C-I-3-1-555",
+   "target": "data/placements_day3_ticks521_600.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"C-I-3-1\",\"tick\":555,\"lat\":39\\.8222,\"lng\":-77\\.2361,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"C-I-3-1\",\"tick\":555,\"lat\":39\\.8222,\"lng\":-77\\.2361,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: rows of the same brigade at the same or neighbouring ticks in density_day3_angle.json and density_day3_vermont.json, which put it at The Angle (39.8144, -77.2356) and in front of the Vermont brigade (39.8094, -77.2389)"
+  },
+  {
+   "id": "DATA-pos-del-placements-day3-ticks521-600-C-I-3-3-550",
+   "target": "data/placements_day3_ticks521_600.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"C-I-3-3\",\"tick\":550,\"lat\":39\\.8200,\"lng\":-77\\.2356,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"C-I-3-3\",\"tick\":550,\"lat\":39\\.8200,\"lng\":-77\\.2356,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: rows of the same brigade at the same or neighbouring ticks in density_day3_angle.json and density_day3_vermont.json, which put it at The Angle (39.8144, -77.2356) and in front of the Vermont brigade (39.8094, -77.2389)"
+  },
+  {
+   "id": "DATA-pos-del-placements-day3-ticks521-600-C-I-3-2-546",
+   "target": "data/placements_day3_ticks521_600.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"C-I-3-2\",\"tick\":546,\"lat\":39\\.8211,\"lng\":-77\\.2372,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"C-I-3-2\",\"tick\":546,\"lat\":39\\.8211,\"lng\":-77\\.2372,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: rows of the same brigade at the same or neighbouring ticks in density_day3_angle.json and density_day3_vermont.json, which put it at The Angle (39.8144, -77.2356) and in front of the Vermont brigade (39.8094, -77.2389)"
+  },
+  {
+   "id": "DATA-pos-note-density-day1-opening-C-III-2-1-8",
+   "target": "data/density_day1_opening.json",
+   "find": "(\"unit_id\":\"C-III-2-1\",\"tick\":8,\"lat\":39\\.8283,\"lng\":-77\\.3089,[^\\n]*?\"notes\":\")(?:[^\"\\\\]|\\\\.)*\"",
+   "repl": "\\g<1>Pettigrew's brigade following Archer's and Davis's down the Chambersburg Pike; it was held in reserve (Heth)\"",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-unit-note: OR 27/2 p.637 (Heth: Archer's brigade in line on the right of the turnpike, Davis's on the left; Pettigrew's brigade and Brockenbrough's were held in reserve)"
+  },
+  {
+   "id": "DATA-pos-note-density-day1-opening-C-III-2-1-11",
+   "target": "data/density_day1_opening.json",
+   "find": "(\"unit_id\":\"C-III-2-1\",\"tick\":11,\"lat\":39\\.8283,\"lng\":-77\\.2861,[^\\n]*?\"notes\":\")(?:[^\"\\\\]|\\\\.)*\"",
+   "repl": "\\g<1>Pettigrew's brigade in reserve behind Archer's and Davis's (Heth)\"",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-unit-note: OR 27/2 p.637 (Heth: Archer's brigade in line on the right of the turnpike, Davis's on the left; Pettigrew's brigade and Brockenbrough's were held in reserve)"
+  },
+  {
+   "id": "DATA-pos-note-density-day1-opening-C-III-2-2-8",
+   "target": "data/density_day1_opening.json",
+   "find": "(\"unit_id\":\"C-III-2-2\",\"tick\":8,\"lat\":39\\.8311,\"lng\":-77\\.3100,[^\\n]*?\"notes\":\")(?:[^\"\\\\]|\\\\.)*\"",
+   "repl": "\\g<1>Brockenbrough's brigade following Archer's and Davis's down the Chambersburg Pike; it was held in reserve (Heth)\"",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-unit-note: OR 27/2 p.637 (Heth: Archer's brigade in line on the right of the turnpike, Davis's on the left; Pettigrew's brigade and Brockenbrough's were held in reserve)"
+  },
+  {
+   "id": "DATA-pos-note-density-day1-opening-C-III-2-2-11",
+   "target": "data/density_day1_opening.json",
+   "find": "(\"unit_id\":\"C-III-2-2\",\"tick\":11,\"lat\":39\\.8311,\"lng\":-77\\.2878,[^\\n]*?\"notes\":\")(?:[^\"\\\\]|\\\\.)*\"",
+   "repl": "\\g<1>Brockenbrough's brigade in reserve behind Archer's and Davis's (Heth)\"",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-unit-note: OR 27/2 p.637 (Heth: Archer's brigade in line on the right of the turnpike, Davis's on the left; Pettigrew's brigade and Brockenbrough's were held in reserve)"
+  },
+  {
+   "id": "DATA-pos-note-density-day1-railroadcut-C-III-2-2-35",
+   "target": "data/density_day1_railroadcut.json",
+   "find": "(\"unit_id\":\"C-III-2-2\",\"tick\":35,\"lat\":39\\.8361,\"lng\":-77\\.2700,[^\\n]*?\"notes\":\")(?:[^\"\\\\]|\\\\.)*\"",
+   "repl": "\\g<1>Brockenbrough's brigade held in reserve (Heth)\"",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-unit-note: OR 27/2 p.637 (Heth: Archer's brigade in line on the right of the turnpike, Davis's on the left; Pettigrew's brigade and Brockenbrough's were held in reserve)"
+  },
+  {
+   "id": "DATA-pos-note-density-day1-ticks51-100-U-157NY-60",
+   "target": "data/density_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"U-157NY\",\"tick\":60,\"lat\":39\\.8344,\"lng\":-77\\.2311,[^\\n]*?\"notes\":\")(?:[^\"\\\\]|\\\\.)*\"",
+   "repl": "\\g<1>157th New York (Schimmelfennig's brigade, Eleventh Corps) in the retreat north of the town\"",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-unit-note: OR 27/1 p.730 (Schurz); data/oob/union_oob_brigades.json U-XI-3-2 regiment_ids"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-U-6WI-68-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-6WI\",\"tick\":68,\"lat\":39.8231,\"lng\":-77.2421,\"bearing\":0,\"disposition\":\"Chaotic Retreat\",\"strength\":330,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks101-225-U-6WI-120-rejoin",
+   "target": "data/placements_day1_ticks101_225.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-6WI\",\"tick\":120,\"lat\":39.821,\"lng\":-77.2193,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":330,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-U-84NY-95-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-84NY\",\"tick\":95,\"lat\":39.824,\"lng\":-77.2265,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":318,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day2-ticks376-450-C-5AL-H-440-rejoin",
+   "target": "data/placements_day2_ticks376_450.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-5AL-H\",\"tick\":440,\"lat\":39.8284,\"lng\":-77.2464,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":197,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-U-2WI-68-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-2WI\",\"tick\":68,\"lat\":39.8216,\"lng\":-77.2422,\"bearing\":0,\"disposition\":\"Chaotic Retreat\",\"strength\":265,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks101-225-U-2WI-120-rejoin",
+   "target": "data/placements_day1_ticks101_225.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-2WI\",\"tick\":120,\"lat\":39.8195,\"lng\":-77.2194,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":265,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-U-7WI-68-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-7WI\",\"tick\":68,\"lat\":39.8227,\"lng\":-77.2439,\"bearing\":0,\"disposition\":\"Chaotic Retreat\",\"strength\":364,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-U-7WI-95-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-7WI\",\"tick\":95,\"lat\":39.8227,\"lng\":-77.2295,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":364,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-U-19IN-95-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-19IN\",\"tick\":95,\"lat\":39.8211,\"lng\":-77.229,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":290,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-U-24MI-95-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-24MI\",\"tick\":95,\"lat\":39.8211,\"lng\":-77.2278,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":496,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-U-76NY-95-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-76NY\",\"tick\":95,\"lat\":39.8233,\"lng\":-77.2273,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":218,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-U-95NY-95-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-95NY\",\"tick\":95,\"lat\":39.8242,\"lng\":-77.2266,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":241,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-U-147NY-95-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-147NY\",\"tick\":95,\"lat\":39.8218,\"lng\":-77.2278,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":380,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-U-56PA-95-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-56PA\",\"tick\":95,\"lat\":39.8219,\"lng\":-77.2272,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":129,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-U-12MA-72-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-12MA\",\"tick\":72,\"lat\":39.82,\"lng\":-77.2294,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":261,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-U-83NY-72-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-83NY\",\"tick\":72,\"lat\":39.8194,\"lng\":-77.2289,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":196,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-U-97NY-72-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-97NY\",\"tick\":72,\"lat\":39.8191,\"lng\":-77.2277,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":236,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-U-88PA-72-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-88PA\",\"tick\":72,\"lat\":39.8191,\"lng\":-77.2277,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":273,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-U-90PA-72-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-90PA\",\"tick\":72,\"lat\":39.819,\"lng\":-77.2278,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":209,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-C-31GA-75-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-31GA\",\"tick\":75,\"lat\":39.8285,\"lng\":-77.2246,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":254,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-C-61GA-65-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-61GA\",\"tick\":65,\"lat\":39.8343,\"lng\":-77.2252,\"bearing\":0,\"disposition\":\"Charging Line\",\"strength\":256,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-U-153PA-72-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-153PA\",\"tick\":72,\"lat\":39.8188,\"lng\":-77.2261,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":306,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-U-54NY-72-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-54NY\",\"tick\":72,\"lat\":39.8183,\"lng\":-77.2256,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":174,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-U-68NY-72-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-68NY\",\"tick\":72,\"lat\":39.8178,\"lng\":-77.2253,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":233,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-U-41NY-72-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-41NY\",\"tick\":72,\"lat\":39.8176,\"lng\":-77.2254,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":218,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks101-225-C-22NC-115-rejoin",
+   "target": "data/placements_day1_ticks101_225.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-22NC\",\"tick\":115,\"lat\":39.8285,\"lng\":-77.2566,\"bearing\":0,\"disposition\":\"Charging Line\",\"strength\":84,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day3-ticks521-600-C-22NC-530-rejoin",
+   "target": "data/placements_day3_ticks521_600.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-22NC\",\"tick\":530,\"lat\":39.8219,\"lng\":-77.2432,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":84,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks101-225-C-34NC-115-rejoin",
+   "target": "data/placements_day1_ticks101_225.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-34NC\",\"tick\":115,\"lat\":39.8285,\"lng\":-77.2566,\"bearing\":0,\"disposition\":\"Charging Line\",\"strength\":115,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day3-ticks521-600-C-34NC-530-rejoin",
+   "target": "data/placements_day3_ticks521_600.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-34NC\",\"tick\":530,\"lat\":39.8219,\"lng\":-77.2432,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":115,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks101-225-U-61OH-120-rejoin",
+   "target": "data/placements_day1_ticks101_225.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-61OH\",\"tick\":120,\"lat\":39.8194,\"lng\":-77.2256,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":342,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks101-225-U-74PA-120-rejoin",
+   "target": "data/placements_day1_ticks101_225.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-74PA\",\"tick\":120,\"lat\":39.8205,\"lng\":-77.2267,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":383,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks101-225-U-82OH-120-rejoin",
+   "target": "data/placements_day1_ticks101_225.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-82OH\",\"tick\":120,\"lat\":39.8205,\"lng\":-77.2271,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":338,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks101-225-U-26WI-120-rejoin",
+   "target": "data/placements_day1_ticks101_225.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-26WI\",\"tick\":120,\"lat\":39.8209,\"lng\":-77.2264,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":443,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks101-225-U-157NY-120-rejoin",
+   "target": "data/placements_day1_ticks101_225.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-157NY\",\"tick\":120,\"lat\":39.821,\"lng\":-77.2267,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":400,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks101-225-U-134NY-120-rejoin",
+   "target": "data/placements_day1_ticks101_225.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-134NY\",\"tick\":120,\"lat\":39.8195,\"lng\":-77.2256,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":375,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks101-225-U-154NY-120-rejoin",
+   "target": "data/placements_day1_ticks101_225.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-154NY\",\"tick\":120,\"lat\":39.82,\"lng\":-77.226,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":240,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks101-225-U-27PA-120-rejoin",
+   "target": "data/placements_day1_ticks101_225.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-27PA\",\"tick\":120,\"lat\":39.8189,\"lng\":-77.2261,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":284,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks101-225-U-94NY-120-rejoin",
+   "target": "data/placements_day1_ticks101_225.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-94NY\",\"tick\":120,\"lat\":39.8207,\"lng\":-77.2263,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":411,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks101-225-U-104NY-120-rejoin",
+   "target": "data/placements_day1_ticks101_225.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-104NY\",\"tick\":120,\"lat\":39.8206,\"lng\":-77.2264,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":286,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day3-ticks521-600-C-38VA-572-rejoin",
+   "target": "data/placements_day3_ticks521_600.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-38VA\",\"tick\":572,\"lat\":39.8222,\"lng\":-77.2445,\"bearing\":0,\"disposition\":\"Chaotic Retreat\",\"strength\":182,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day3-ticks521-600-C-53VA-572-rejoin",
+   "target": "data/placements_day3_ticks521_600.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-53VA\",\"tick\":572,\"lat\":39.8211,\"lng\":-77.2433,\"bearing\":0,\"disposition\":\"Chaotic Retreat\",\"strength\":261,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day3-ticks601-675-C-53VA-675-rejoin",
+   "target": "data/placements_day3_ticks601_675.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-53VA\",\"tick\":675,\"lat\":39.8211,\"lng\":-77.2578,\"bearing\":0,\"disposition\":\"Bivouac\",\"strength\":261,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day3-ticks601-675-C-8SC-620-rejoin",
+   "target": "data/placements_day3_ticks601_675.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-8SC\",\"tick\":620,\"lat\":39.8032,\"lng\":-77.2548,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":399,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day3-ticks601-675-C-15SC-620-rejoin",
+   "target": "data/placements_day3_ticks601_675.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-15SC\",\"tick\":620,\"lat\":39.8035,\"lng\":-77.2546,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":448,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day2-ticks301-375-U-61NY-316-rejoin",
+   "target": "data/placements_day2_ticks301_375.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-61NY\",\"tick\":316,\"lat\":39.816,\"lng\":-77.2369,\"bearing\":0,\"disposition\":\"Charging Line\",\"strength\":104,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day2-ticks301-375-U-81PA-316-rejoin",
+   "target": "data/placements_day2_ticks301_375.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-81PA\",\"tick\":316,\"lat\":39.8158,\"lng\":-77.2368,\"bearing\":0,\"disposition\":\"Charging Line\",\"strength\":175,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day2-ticks301-375-U-148PA-316-rejoin",
+   "target": "data/placements_day2_ticks301_375.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-148PA\",\"tick\":316,\"lat\":39.8156,\"lng\":-77.2367,\"bearing\":0,\"disposition\":\"Charging Line\",\"strength\":392,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day2-ticks301-375-U-5NH-316-rejoin",
+   "target": "data/placements_day2_ticks301_375.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-5NH\",\"tick\":316,\"lat\":39.8155,\"lng\":-77.2365,\"bearing\":0,\"disposition\":\"Charging Line\",\"strength\":179,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day2-ticks301-375-C-22GA-320-rejoin",
+   "target": "data/placements_day2_ticks301_375.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-22GA\",\"tick\":320,\"lat\":39.8156,\"lng\":-77.2462,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":136,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day2-ticks301-375-C-48GA-320-rejoin",
+   "target": "data/placements_day2_ticks301_375.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-48GA\",\"tick\":320,\"lat\":39.8152,\"lng\":-77.2456,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":199,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day3-ticks521-600-C-11VA-546-rejoin",
+   "target": "data/placements_day3_ticks521_600.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-11VA\",\"tick\":546,\"lat\":39.8086,\"lng\":-77.2376,\"bearing\":0,\"disposition\":\"Charging Line\",\"strength\":419,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day3-ticks521-600-C-11VA-572-rejoin",
+   "target": "data/placements_day3_ticks521_600.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-11VA\",\"tick\":572,\"lat\":39.8198,\"lng\":-77.2426,\"bearing\":0,\"disposition\":\"Chaotic Retreat\",\"strength\":419,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day3-ticks521-600-C-24VA-546-rejoin",
+   "target": "data/placements_day3_ticks521_600.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-24VA\",\"tick\":546,\"lat\":39.8085,\"lng\":-77.2377,\"bearing\":0,\"disposition\":\"Charging Line\",\"strength\":153,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day3-ticks521-600-C-24VA-572-rejoin",
+   "target": "data/placements_day3_ticks521_600.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-24VA\",\"tick\":572,\"lat\":39.8197,\"lng\":-77.2427,\"bearing\":0,\"disposition\":\"Chaotic Retreat\",\"strength\":153,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day3-ticks601-675-U-8OH-620-rejoin",
+   "target": "data/placements_day3_ticks601_675.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"U-8OH\",\"tick\":620,\"lat\":39.8163,\"lng\":-77.2286,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":209,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
   },
   {
    "id": "DATA-oob-union-cavalry-artillery-U-8IL-CAV",

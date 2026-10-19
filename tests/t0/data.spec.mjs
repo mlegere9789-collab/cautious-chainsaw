@@ -15,6 +15,11 @@
 //   T0-DATA-06 F  pages: dashboard, index, find-ancestor, living ledger and turning points say what the sources support (no "built directly from", no 478/467 count; unit count = distinct ids)
 //   T0-DATA-07 F  the app: Find Unit rows show the corrected commander and casualty percentage of 7 regiments (real keyboard and mouse)
 //   T0-DATA-08 F  the app: the event card at ticks 29, 75, 290 and 542 shows the corrected chronology text, not the old claim
+//   T0-DATA-10 F  positions: no unit is on the field before it arrived or after it left (First and Eleventh Corps, Rodes, Early, cavalry)
+//   T0-DATA-11 F  positions: Iron Brigade, Cutler, Baxter, Iverson, Vincent, Hazlett, Garnett are where their notes and the sources put them
+//   T0-DATA-12 F  positions: no regiment is left where its last row put it while its brigade moved on
+//   T0-DATA-13 F  notes on the rows of Pettigrew, Brockenbrough and the 157th New York name the right brigade
+//   T0-DATA-14 F  the app (real Chrome): the data the browser loads gives the Iron Brigade on Culp's Hill at tick 300, Buford's brigades on the Taneytown Road, no First Corps unit on the field at tick 12
 //   T0-DATA-09 G  the Virtual Walkthrough monument array, its Monuments tab data and the DATA group touch nothing there: 512 monuments, byte-identical to the control tree
 //   T0-DATA-X  G  every browser test of this run: 0 uncaught exceptions and 0 first-party console.error
 process.env.T0_AGENT ??= 'data';
@@ -301,6 +306,97 @@ suite.test('T0-DATA-08', 'the app: the event card at ticks 29, 75, 290 and 542 s
     }
     t.note('cards', seen);
     assertEq(bad, [], 'event cards that show the old claim');
+  } finally { await closeSession(S); }
+});
+
+// ================================================================== T0-DATA-10..14 positions
+const km = (a, b) => { const R = 6371, rad = (d) => (d * Math.PI) / 180, dl = rad(b.lat - a.lat), dg = rad(b.lng - a.lng); const x = Math.sin(dl / 2) ** 2 + Math.cos(rad(a.lat)) * Math.cos(rad(b.lat)) * Math.sin(dg / 2) ** 2; return 2 * R * Math.asin(Math.sqrt(x)); };
+const CULP = { lat: 39.820096, lng: -77.22054 };      // terrain.json LOC-002 Culp's Hill
+const LRT_LINE = { lat: 39.7933, lng: -77.2394 };     // the row of Vincent's brigade at tick 267
+suite.test('T0-DATA-10', 'positions: no unit is on the field before it arrived or after it left (First and Eleventh Corps, Rodes, Early, cavalry)', async (t) => {
+  const rows = rowsOf(DIST, /^(placements_|density_).*\.json$/); const regs = regiments(DIST);
+  const fam = (u) => (regs.get(u) ? regs.get(u).parent_brigade_id : u);
+  // [family pattern, first tick it may appear, last tick it may appear, source]
+  const RULES = [
+    [/^U-I-[123]-\d$/, 24, 9999, 'First Corps: left Marsh Creek at 8 a.m., on the Cashtown road at about 10 a.m. (OR 27/1 p.265, p.359, p.267)'],
+    [/^U-XI-\d-\d$/, 50, 9999, 'Eleventh Corps: marched from Emmitsburg on July 1 (OR 27/1 p.144, p.696)'],
+    [/^C-II-3-\d$/, 47, 9999, "Rodes's division: at Heidlersburg on the night of June 30 (OR 27/2 p.444)"],
+    [/^C-II-1-\d$/, 55, 9999, "Early's division: 3 miles from Heidlersburg on the night of June 30 (OR 27/2 p.444)"],
+    [/^U-CAV-1-R$/, 99999, 9999, "Merritt's reserve brigade: at Mechanicstown and Emmitsburg until July 3 (OR 27/1 p.145)"],
+    [/^U-CAV-2-2$/, 99999, 9999, 'Huey\'s brigade: Manchester and Westminster, never at Gettysburg (OR 27/1 p.145)'],
+    [/^U-CAV-(2|2-1|2-3|3)$/, 226, 9999, "Gregg's division, McIntosh, Custer, Kilpatrick: reached the field on July 2 (OR 27/1 p.145)"],
+    [/^U-I-3-3$/, 100, 9999, "Stannard's Vermont brigade: reported to Doubleday about twilight of July 1 (OR 27/1 p.258)"],
+    [/^U-CAV-1(-[12])?$/, 0, 340, "Buford's division left for Taneytown on July 2 (OR 27/1 p.117, p.145, p.1032)"],
+    [/^U-HAB-A2US$/, 0, 256, "Calef's battery reached Taneytown about 4 p.m. on July 2 (OR 27/1 p.1032)"],
+  ];
+  const bad = [];
+  for (const r of rows) for (const [re, first, last, what] of RULES) if (re.test(fam(r.unit_id)) && (r.tick < first || r.tick > last)) bad.push(`${r.f} ${r.unit_id} tick ${r.tick}: ${what}`);
+  t.note('rows read', rows.length); t.note('rows on the field outside their documented days', bad.length);
+  assertEq(bad.slice(0, 8), [], `${bad.length} rows show a unit outside the time it was on the field`);
+  // Buford's brigades end on the Taneytown Road, not on the field
+  const last = (id) => rows.filter((r) => r.unit_id === id).sort((a, b) => a.tick - b.tick).pop();
+  for (const id of ['U-CAV-1-1', 'U-CAV-1-2', 'U-HAB-A2US', 'U-8IL-CAV']) { const r = last(id); assert(r && r.lat < 39.77, `${id}: last row at ${r && r.lat},${r && r.lng} is still on the field`); }
+});
+
+suite.test('T0-DATA-11', 'positions: the Iron Brigade, Cutler, Baxter, Iverson, Vincent, Hazlett and Garnett are where their notes and the sources put them', async (t) => {
+  const rows = rowsOf(DIST, /^(placements_|density_).*\.json$/); const bad = [];
+  const at = (id, tick) => rows.filter((r) => r.unit_id === id && r.tick === tick);
+  // no First Corps infantry row on the Confederate side of Willoughby Run (longitude -77.266) between ticks 12 and 60, apart from cavalry, skirmishers and artillery
+  for (const r of rows) if (r.unit_id.startsWith('U-') && !/CAV|SS|HAB|ART/.test(r.unit_id) && r.tick >= 12 && r.tick <= 60 && r.lng < -77.266) bad.push(`${r.f} ${r.unit_id} tick ${r.tick} at ${r.lng}`);
+  // Wadsworth: the division held Culp's Hill on July 2 and 3 (OR 27/1 p.266); nothing of it may drift to Seminary Ridge at tick 650
+  for (const id of ['U-I-1-1', 'U-I-1-2', 'U-I-1']) { const r = rows.filter((x) => x.unit_id === id && x.tick >= 100).sort((a, b) => b.tick - a.tick)[0]; if (!r || km(r, CULP) > 0.35) bad.push(`${id}: last row ${r ? `tick ${r.tick} at ${r.lat},${r.lng}` : 'none'} is not on Culp's Hill`); }
+  // Iverson's regiments and Baxter's brigade at the stone wall: within 0.5 km of the brigade row of the same tick (OR 27/2 p.553-554)
+  for (const [reg, brig] of [['C-5NC', 'C-II-3-3'], ['C-12NC', 'C-II-3-3'], ['C-20NC', 'C-II-3-3'], ['C-23NC', 'C-II-3-3'], ['U-I-2-2', 'C-II-3-3']]) for (const tick of [50, 53]) { const b = at(brig, tick)[0]; for (const r of at(reg, tick)) if (b && km(r, b) > 0.5) bad.push(`${r.f} ${reg} tick ${tick}: ${km(r, b).toFixed(2)} km from ${brig}`); }
+  // Vincent and Hazlett on Little Round Top at ticks 266-272 (OR 27/1 p.602, p.623)
+  for (const id of ['U-V-1-3', 'U-ART-D5US']) for (const r of rows.filter((x) => x.unit_id === id && x.tick >= 266 && x.tick <= 272)) if (km(r, LRT_LINE) > 0.35) bad.push(`${r.f} ${id} tick ${r.tick}: ${km(r, LRT_LINE).toFixed(2)} km from the Little Round Top line`);
+  // Pickett's charge: Garnett at The Angle at tick 548 and no row of his 1 km north of it
+  for (const r of rows.filter((x) => x.unit_id === 'C-I-3-1' && x.tick >= 546 && x.tick <= 556)) if (r.lat > 39.82) bad.push(`${r.f} C-I-3-1 tick ${r.tick} at ${r.lat}: 1 km north of The Angle`);
+  t.note('violations', bad.length);
+  assertEq(bad.slice(0, 8), [], `${bad.length} rows that contradict their notes or the sources`);
+});
+
+suite.test('T0-DATA-12', 'positions: no regiment is left where its last row put it while its brigade moved on (the engine keeps the last state)', async (t) => {
+  const rows = rowsOf(DIST, /^(placements_|density_).*\.json$/); const regs = regiments(DIST);
+  const lastOf = (id) => rows.filter((r) => r.unit_id === id).sort((a, b) => a.tick - b.tick).pop();
+  const bad = []; let n = 0;
+  for (const [id, reg] of regs) {
+    const r = lastOf(id), b = lastOf(reg.parent_brigade_id);
+    if (!r || !b) continue; n++;
+    if (r.tick < 640 && km(r, b) > 1.2 && id !== 'U-16ME') bad.push(`${id} last row tick ${r.tick}: ${km(r, b).toFixed(2)} km from ${reg.parent_brigade_id} (last row tick ${b.tick})`);
+  }
+  t.note('regiments compared with their brigade', n); t.note('regiments left behind', bad.length);
+  assertEq(bad.slice(0, 8), [], `${bad.length} regiments stand where they stood hours before their brigade left`);
+});
+
+suite.test('T0-DATA-13', 'positions: no note names a different brigade than the row it is on (Pettigrew, Brockenbrough, the 157th New York)', async (t) => {
+  const rows = rowsOf(DIST, /^(placements_|density_).*\.json$/); const bad = [];
+  const get = (id, tick) => rows.filter((r) => r.unit_id === id && r.tick === tick).map((r) => r.notes || '').join(' | ');
+  for (const [id, tick, must, mustNot] of [['C-III-2-1', 8, /Pettigrew/, /Archer deploying/], ['C-III-2-1', 11, /Pettigrew/, /crossing Willoughby/], ['C-III-2-2', 8, /Brockenbrough/, /Davis deploying/], ['C-III-2-2', 11, /Brockenbrough/, /Davis advancing/], ['C-III-2-2', 35, /Brockenbrough/, /Davis reforming/], ['U-157NY', 60, /157th/, /Coster/]]) {
+    const n = get(id, tick); if (!must.test(n) || mustNot.test(n)) bad.push(`${id} tick ${tick}: ${n.slice(0, 100)}`);
+  }
+  assertEq(bad, [], 'notes that still name another brigade');
+});
+
+suite.test('T0-DATA-14', "the app: the data the browser loads gives the Iron Brigade on Culp's Hill at tick 300, Buford's brigades on the Taneytown Road, no First Corps unit on the field at tick 12", async (t) => {
+  const S = await open({ profile: 'pos' });
+  try {
+    await bootApp(S, '?tick=300');
+    const files = fs.readdirSync(path.join(DIST, 'data')).filter((f) => /^(placements_|density_).*\.json$/.test(f));
+    const res = await S.page.evaluate(async (list) => {
+      // the engine keeps a unit at its last row (function y1 of the index chunk): resolve the state of every unit at a tick the same way
+      const rows = [];
+      for (const f of list) { const j = await fetch(`/data/${f}`).then((r) => r.json()); for (const r of (Array.isArray(j) ? j : j.placements || [])) if (r && r.unit_id) rows.push(r); }
+      const stateAt = (tick) => { const m = {}; for (const r of rows.filter((x) => x.tick <= tick).sort((a, b) => a.tick - b.tick)) m[r.unit_id] = r; return m; };
+      const s300 = stateAt(300), s12 = stateAt(12);
+      return { iron: s300['U-I-1-1'], gamble: s300['U-CAV-1-1'], calef: s300['U-HAB-A2US'], twiw: s300['U-2WI'], merritt: s300['U-CAV-1-R'] || null, early12: Object.keys(s12).filter((u) => /^U-I-[123]-\d$|^U-XI-\d-\d$|^C-II-[13]-\d$/.test(u)) };
+    }, files);
+    t.note('state at tick 300', { iron: res.iron && [res.iron.lat, res.iron.lng], gamble: res.gamble && [res.gamble.lat, res.gamble.lng], twiw: res.twiw && [res.twiw.lat, res.twiw.lng] });
+    assert(res.iron && km(res.iron, CULP) < 0.35, `Iron Brigade at tick 300 is ${res.iron ? km(res.iron, CULP).toFixed(2) : '?'} km from Culp's Hill`);
+    assert(res.gamble && res.gamble.lat < 39.77, `Gamble's brigade at tick 300 is still on the field (${res.gamble && res.gamble.lat})`);
+    assert(res.calef && res.calef.lat < 39.77, "Calef's battery at tick 300 is still on the field");
+    assert(res.twiw && km(res.twiw, CULP) < 0.5, `the 2nd Wisconsin at tick 300 is ${res.twiw ? km(res.twiw, CULP).toFixed(2) : '?'} km from Culp's Hill (it should be with its brigade)`);
+    assertEq(res.merritt, null, "Merritt's reserve brigade has no position at tick 300");
+    assertEq(res.early12, [], 'First Corps, Eleventh Corps, Rodes and Early units that are on the field at tick 12 (about 07:30)');
   } finally { await closeSession(S); }
 });
 

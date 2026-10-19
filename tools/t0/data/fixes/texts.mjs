@@ -8,16 +8,25 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { remapId, preArrival, noteOf } from '../idmap.mjs';
 const DATA_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', '..', '..', '..', 'baseline', 'dist', 'data');
+import { posEffects } from './zpos.mjs';
+import { rejoinEffects } from './zrejoin.mjs';
 const UNIT_ROW = new RegExp(String.raw`^\s*\{"unit_id":"([^"]+)","tick":(\d+),`);
 const UNITS = new Set();
+const ROWS_OF = new Map();   // unit -> rows left after the id and arrival fixes
 let PLACEMENT_ROWS = 0;   // rows of the placements_*.json files after the arrival fixes (the Ground Remembers page counts them)
 const COUNTS = { regiment: 0, battery: 0, brigade: 0, division: 0, corps: 0 };
 for (const f of fs.readdirSync(DATA_DIR).filter((x) => /^(placements_|density_).*\.json$/.test(x))) {
   const text = fs.readFileSync(path.join(DATA_DIR, f), 'utf8');
-  for (const l of text.split(String.fromCharCode(10))) { const m = UNIT_ROW.exec(l); if (m && !preArrival(m[1], m[2])) { UNITS.add(remapId(f, m[1], m[2], noteOf(l))); if (f.startsWith('placements_')) PLACEMENT_ROWS++; } }
+  for (const l of text.split(String.fromCharCode(10))) { const m = UNIT_ROW.exec(l); if (m && !preArrival(m[1], m[2])) { const uid = remapId(f, m[1], m[2], noteOf(l)); UNITS.add(uid); ROWS_OF.set(uid, (ROWS_OF.get(uid) || 0) + 1); if (f.startsWith('placements_')) PLACEMENT_ROWS++; } }
   // a pretty-printed file (density_day3_cavalry.json): one key per line, no id remaps or arrival rules apply to its rows
   if (!/^\s*\{"unit_id"/m.test(text)) for (const m of text.matchAll(/"unit_id":\s*"([^"]+)",\s*"tick":\s*(\d+)/g)) if (!preArrival(m[1], m[2])) UNITS.add(m[1]);
 }
+// the row-level position fixes (fixes/zpos.mjs, fixes/zrejoin.mjs) delete and add rows: a unit with no row left is not counted
+for (const e of [...posEffects, ...rejoinEffects]) {
+  ROWS_OF.set(e.unit, (ROWS_OF.get(e.unit) || 0) + (e.op === 'add' ? 1 : -1));
+  if (e.file.startsWith('placements_')) PLACEMENT_ROWS += e.op === 'add' ? 1 : -1;
+}
+for (const [u, n] of ROWS_OF) if (n <= 0) UNITS.delete(u);
 for (const u of UNITS) { if (/^[UC]-ART|^U-HAB|^C-HAB/.test(u)) COUNTS.battery++; else if (/^[UC]-[IVX]+$|^[UC]-CAV$/.test(u)) COUNTS.corps++; else if (/^[UC]-[IVX]+-\d$|^[UC]-CAV-\d$/.test(u)) COUNTS.division++; else if (/^[UC]-[IVX]+-\d-\w+$|^[UC]-CAV-\d-\w+$/.test(u)) COUNTS.brigade++; else COUNTS.regiment++; }
 export const UNIT_COUNT = UNITS.size;
 export const PLACEMENT_COUNT = PLACEMENT_ROWS;
