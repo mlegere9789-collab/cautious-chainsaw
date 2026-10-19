@@ -443,19 +443,6 @@
    "evidence": "Design"
   },
   {
-   "id": "clock.followTicks",
-   "group": "clock",
-   "type": "number",
-   "label": "Follow window",
-   "default": 1.6,
-   "min": 0.05,
-   "max": 10,
-   "step": 0.05,
-   "unit": "ticks",
-   "doc": "While the clock plays, the displayed time follows it exactly; a difference of more than this many ticks between the app's tick and the displayed time is a jump (glide or cross-fade).",
-   "evidence": "Design"
-  },
-  {
    "id": "render.dprCap",
    "group": "render",
    "type": "number",
@@ -479,15 +466,6 @@
    "step": 10,
    "unit": "px",
    "doc": "Marks farther than this outside the screen are not drawn (their crowds are still laid out, so a crowd never changes as it crosses the edge).",
-   "evidence": "Design"
-  },
-  {
-   "id": "render.sprites",
-   "group": "render",
-   "type": "boolean",
-   "label": "Cached sprites",
-   "default": true,
-   "doc": "Draw a mark that is at rest from a cached, device-pixel-exact sprite instead of painting its vector shapes again every frame.",
    "evidence": "Design"
   }
  ]

@@ -13,6 +13,7 @@
 //   T0-ANIM-N5  no ghost tiles: in every frame no two solid marks overlap and no fading mark overlaps a solid one (entries and exits of units apart: they fade in place, over nothing), a one-frame swap for crowds
 //   T0-ANIM-N6  smooth: over the playbacks of N4 no mark teleports (a step beyond its unit's own motion), the numbers are printed
 //   T0-ANIM-N7  the words: no mark names an echelon the order of battle does not have (a record with inOob false is never "4th Div, 3rd Corps")
+//   T0-ANIM-N8  token hygiene and freshness of the generated files (patches, skin token JSON)
 //   T0-ANIM-B1  the engine draws in the real app: marks painted, the engine reports on, 0 errors; the shipped renderer is not drawing
 //   T0-ANIM-B2  EXACT at keyframes in the real app: at keyframe ticks the true place of every drawn unit is where Mapbox projects its record (< 0.5 px)
 //   T0-ANIM-B3  frame pacing against the production baseline: interleaved A/B, repeated, relative thresholds (the host is shared)
@@ -26,6 +27,7 @@
 //   T0-ANIM-B11 cost: 60 fps on the densest tick on the desktop, 30 fps or more at 4x CPU throttle on a phone, no long task above 50 ms, memory flat over 3 minutes
 //   T0-ANIM-B13 rotation and tilt: marks stay upright and stand on their units on a rotated, tilted map
 //   T0-ANIM-B12 extensible: the tuning panel (?tune=1) opens, a slider changes the picture, the skin changes by id, the export parses; the kill switch and the automatic fallback hand back to the shipped renderer
+//   T0-ANIM-B14 idle means no frames at rest, and every cause of change wakes the engine only as long as it needs
 //   T0-ANIM-X   every browser test of this run: 0 uncaught exceptions and 0 first-party console.error
 process.env.T0_AGENT ??= 'motion-build';
 process.env.T0_PORT_BASE ??= '9200';      // PORT_BASE .. +9: the static servers (+0 the tree, +1 the control), the Chrome sessions +2 (the shared one) and +3 .. +8 in turn
@@ -158,6 +160,16 @@ suite.test('T0-ANIM-N7', 'the words: no mark names an echelon the order of battl
   assertEq(invented, [], 'invented echelons on marks'); assertEq(bad, [], 'unlisted records named by an echelon');
 });
 
+suite.test('T0-ANIM-N8', 'token hygiene: every dial of anim.tokens.json is read by the code, every token the code reads is defined, the generated files (patches, skin token JSON) are current', async (t) => {
+  const root = path.join(REPO, 'tools', 't0', 'anim'); const walk = (d) => fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)]));
+  const src = walk(path.join(root, 'src')).filter((f) => f.endsWith('.mjs')).map((f) => fs.readFileSync(f, 'utf8')).join(String.fromCharCode(10)); const ids = new Set(H.tokens.tokens.map((x) => x.id));
+  const read = new Set([...src.matchAll(/(?:tok|tuning\.get|tuning\.set|T\.set)\('([a-zA-Z]+\.[a-zA-Z.]+)'/g)].map((m) => m[1]));
+  const undefinedReads = [...read].filter((r) => !ids.has(r)); const unread = [...ids].filter((i) => !read.has(i) && !src.includes(`'${i}'`));
+  t.note('tokens / distinct tokens read by the code', [ids.size, read.size]); assertEq(undefinedReads, [], 'tokens read but not defined'); assertEq(unread, [], 'tokens defined but read nowhere');
+  const { spawnSync } = await import('node:child_process'); const r = spawnSync(process.execPath, [path.join(root, 'tokens', 'make-skin-tokens.mjs'), '--check'], { encoding: 'utf8' }); assertEq(r.status, 0, 'tokens/standards.tokens.json is stale: ' + (r.stderr || '').trim());
+  const b = spawnSync(process.execPath, [path.join(root, 'build-anim.mjs'), '--check'], { encoding: 'utf8' }); assertEq(b.status, 0, 'the patch files are stale against the sources: ' + (b.stderr || '').trim());
+});
+
 // ================================================================================================================================ the browser part
 const server = await createStaticServer({ root: DIST, port: PORT_BASE });
 const ctlServer = CONTROL ? await createStaticServer({ root: CONTROL, port: PORT_BASE + 1 }) : null;
@@ -230,24 +242,31 @@ suite.test('T0-ANIM-B2', 'exact at keyframes in the real app: the true place of 
   t.note('rows', rows); t.note('marks checked / worst error px', [n, NUM(worst, 3)]); assert(n >= 12, `only ${n} drawn marks stood on a keyframe: widen the ticks`); assert(worst < 0.5, `worst error ${NUM(worst, 3)} px`);
 });
 
-suite.test('T0-ANIM-B3', 'frame pacing against the production baseline: interleaved A/B, repeated, relative thresholds', async (t) => {
+suite.test('T0-ANIM-B3', 'frame pacing against the production baseline: interleaved A/B windows, repeated, relative thresholds', async (t) => {
   needAnim(); if (!CONTROL) throw new Skip('no --control tree (the same build without ANIM)');
-  const res = { anim: [], control: [] }; const run = async (name, control, throttle) => {
-    const s = await open(name, { control, q: 'tick=300&z=13.2&ll=39.812,-77.2373' }); const p = s.page; const c = await cdpFor(p); await c.send('Performance.enable');
-    try { await c.send('Emulation.setCPUThrottlingRate', { rate: throttle }); await p.evaluate(() => { document.activeElement && document.activeElement.blur && document.activeElement.blur(); }); for (let k = 0; k < 3; k++) await p.keyboard.press('+'); await p.keyboard.press(' '); await sleep(2500);
-      const m0 = Object.fromEntries((await c.send('Performance.getMetrics')).metrics.map((x) => [x.name, x.value])); const cap = await capture(p, control ? 'legacy' : 'engine', QUICK ? 5000 : 10000); const m1 = Object.fromEntries((await c.send('Performance.getMetrics')).metrics.map((x) => [x.name, x.value]));
-      const iv = cap.iv; const fps = iv.length / (iv.reduce((a, b) => a + b, 0) / 1000); const sp = spikesOf(cap.frames, control ? 'legacy' : 'engine', cap.times);
-      return { fps: NUM(fps, 1), p95: stats(iv).p95, max: stats(iv).max, over33: iv.filter((x) => x > 33.4).length, over50: iv.filter((x) => x > 50).length, longtasks: cap.lt.filter((d) => d > 50).length, busyPct: NUM(100 * (m1.TaskDuration - m0.TaskDuration) / (m1.Timestamp - m0.Timestamp), 1), spikesPerFrame: sp.perFrame, spikes60: sp.over60 };
-    } finally { await c.send('Emulation.setCPUThrottlingRate', { rate: 1 }).catch(() => {}); await s.close(); delete SESS[name]; }
+  // two long-lived sessions (the harness gives one process about 300 Mapbox requests: twelve fresh pages would not fit), and measurement windows that alternate A, B, A, B ... under the same throttle, the same tick, the same camera
+  const A = await open('ab-anim', { q: 'tick=300&z=13.2&ll=39.812,-77.2373' }); const C = await open('ab-control', { control: true, q: 'tick=300&z=13.2&ll=39.812,-77.2373' });
+  const cdpA = await cdpFor(A.page); const cdpC = await cdpFor(C.page); await cdpA.send('Performance.enable'); await cdpC.send('Performance.enable');
+  for (const s of [A, C]) { await s.page.evaluate(() => { document.activeElement && document.activeElement.blur && document.activeElement.blur(); }); for (let k = 0; k < 2; k++) await s.page.keyboard.press('+'); }      // 4x
+  const window_ = async (s, cdp, control, throttle) => {
+    const p = s.page; await cdp.send('Emulation.setCPUThrottlingRate', { rate: 1 }); await seekUI(p, 300); await sleep(600);
+    await p.evaluate(() => { document.activeElement && document.activeElement.blur && document.activeElement.blur(); }); await cdp.send('Emulation.setCPUThrottlingRate', { rate: throttle }); await p.keyboard.press(' '); await sleep(2500);
+    const m0 = Object.fromEntries((await cdp.send('Performance.getMetrics')).metrics.map((x) => [x.name, x.value])); const cap = await capture(p, control ? 'legacy' : 'engine', QUICK ? 5000 : 10000); const m1 = Object.fromEntries((await cdp.send('Performance.getMetrics')).metrics.map((x) => [x.name, x.value]));
+    await p.keyboard.press(' '); await cdp.send('Emulation.setCPUThrottlingRate', { rate: 1 }); await sleep(400);
+    const iv = cap.iv; const fps = iv.length / (iv.reduce((a, b) => a + b, 0) / 1000); const sp = spikesOf(cap.frames, control ? 'legacy' : 'engine', cap.times);
+    return { fps: NUM(fps, 1), p95: stats(iv).p95, max: stats(iv).max, over33: iv.filter((x) => x > 33.4).length, over50: iv.filter((x) => x > 50).length, longtasks: cap.lt.filter((d) => d > 50).length, busyPct: NUM(100 * (m1.TaskDuration - m0.TaskDuration) / (m1.Timestamp - m0.Timestamp), 1), spikesPerFrame: sp.perFrame, spikes60: sp.over60, marks: NUM(cap.frames.reduce((a, f) => a + f.length, 0) / Math.max(1, cap.frames.length), 0) };
   };
-  for (const throttle of [1, 4]) for (let i = 0; i < (QUICK ? 1 : REPS); i++) { const a = await run('ab-a' + i, false, throttle); const b = await run('ab-c' + i, true, throttle); res.anim.push({ throttle, ...a }); res.control.push({ throttle, ...b }); }
+  const res = { anim: [], control: [] };
+  for (let i = 0; i < (QUICK ? 1 : REPS); i++) for (const throttle of [1, 4]) { res.anim.push({ throttle, ...(await window_(A, cdpA, false, throttle)) }); res.control.push({ throttle, ...(await window_(C, cdpC, true, throttle)) }); }
   t.note('anim', res.anim); t.note('control', res.control);
   for (const throttle of [1, 4]) {
-    const A = res.anim.filter((r) => r.throttle === throttle); const C = res.control.filter((r) => r.throttle === throttle); const mean = (a, k) => a.reduce((x, r) => x + r[k], 0) / a.length;
-    assert(mean(A, 'fps') >= mean(C, 'fps') * 0.97, `${throttle}x CPU: the engine runs at ${NUM(mean(A, 'fps'), 1)} fps, the baseline at ${NUM(mean(C, 'fps'), 1)}`);
-    assert(mean(A, 'over33') <= mean(C, 'over33') + 2, `${throttle}x CPU: frames over 33 ms ${NUM(mean(A, 'over33'), 1)} against ${NUM(mean(C, 'over33'), 1)}`);
-    assert(mean(A, 'spikesPerFrame') <= mean(C, 'spikesPerFrame') * 0.2 + 0.01, `${throttle}x CPU: spikes per frame ${NUM(mean(A, 'spikesPerFrame'), 3)} against ${NUM(mean(C, 'spikesPerFrame'), 3)}`);
+    const Ar = res.anim.filter((r) => r.throttle === throttle); const Cr = res.control.filter((r) => r.throttle === throttle); const mean = (a, k) => a.reduce((x, r) => x + r[k], 0) / a.length;
+    assert(mean(Ar, 'fps') >= mean(Cr, 'fps') * 0.97, `${throttle}x CPU: the engine runs at ${NUM(mean(Ar, 'fps'), 1)} fps, the baseline at ${NUM(mean(Cr, 'fps'), 1)}`);
+    assert(mean(Ar, 'over33') <= mean(Cr, 'over33') + 2, `${throttle}x CPU: frames over 33 ms ${NUM(mean(Ar, 'over33'), 1)} against ${NUM(mean(Cr, 'over33'), 1)}`);
+    assert(mean(Ar, 'longtasks') <= mean(Cr, 'longtasks') + 1, `${throttle}x CPU: long tasks ${NUM(mean(Ar, 'longtasks'), 1)} against ${NUM(mean(Cr, 'longtasks'), 1)}`);
+    assert(mean(Ar, 'spikesPerFrame') <= mean(Cr, 'spikesPerFrame') * 0.2 + 0.01, `${throttle}x CPU: spikes per frame ${NUM(mean(Ar, 'spikesPerFrame'), 3)} against ${NUM(mean(Cr, 'spikesPerFrame'), 3)}`);
   }
+  await A.close(); await C.close(); delete SESS['ab-anim']; delete SESS['ab-control'];
 });
 
 const BSC = [[13.5, [39.812, -77.235], 295], [15, [39.8105, -77.2375], 551], [16.5, [39.8105, -77.2365], 551]];
@@ -375,6 +394,15 @@ suite.test('T0-ANIM-B12', 'extensible and safe: ?tune=1 opens the tuning panel, 
   assertEq(s.errs.length, errs0, 'the fallback must not throw'); await sleep(1200); t.note('after the injected fault', { state: st, shippedPainted: painted }); assert(painted, 'the shipped renderer did not take over after the fault'); await s.close(); delete SESS.tune;
   const k = await open('kill', { q: 'tick=295&z=13.5&anim=legacy', init: false, engine: false }); const kst = await k.page.evaluate(() => window.__gtanim ? window.__gtanim.state() : -1); const kpaint = await k.page.evaluate(() => { const c = [...document.querySelectorAll('canvas')].find((c) => getComputedStyle(c).zIndex === '10' && c.width > 400); return c ? c.getContext('2d').getImageData(0, 0, c.width, c.height).data.some((v, i) => i % 4 === 3 && v > 0) : false; });
   assertEq(kst, 0, '?anim=legacy: the engine is off'); assert(kpaint, '?anim=legacy: the shipped renderer must draw'); await k.close(); delete SESS.kill;
+});
+
+suite.test('T0-ANIM-B14', 'idle means no frames: paused, with nothing moving, the engine draws nothing and costs nothing; a pan and a tick each wake it for exactly as long as they need', async (t) => {
+  needAnim(); const S = await shared(); const p = S.page; await pause(p); await goTo(p, 340, [39.812, -77.235], 14); await sleep(3000);
+  const f0 = await gt(p, () => window.__gtanim.S.frames); await sleep(3000); const f1 = await gt(p, () => window.__gtanim.S.frames); t.note('frames in 3 s at rest', f1 - f0); assert(f1 - f0 <= 2, `${f1 - f0} frames at rest`);
+  await p.evaluate(() => window.__gtanim.S.map.panBy([120, 40], { duration: 0 })); await sleep(700); const f2 = await gt(p, () => window.__gtanim.S.frames); assert(f2 > f1, 'a pan did not repaint');
+  await sleep(2500); const f3 = await gt(p, () => window.__gtanim.S.frames); await sleep(2000); const f4 = await gt(p, () => window.__gtanim.S.frames); t.note('frames 2.5 s after the pan, then in 2 s', [f3 - f2, f4 - f3]); assert(f4 - f3 <= 2, 'the engine did not go back to rest after a pan');
+  await p.evaluate(() => window.__gtanim.S.store.setState({ currentTick: 341 })); await sleep(900); const f5 = await gt(p, () => window.__gtanim.S.frames); assert(f5 > f4, 'a tick did not repaint');
+  await sleep(2500); const f6 = await gt(p, () => window.__gtanim.S.frames); await sleep(1500); const f7 = await gt(p, () => window.__gtanim.S.frames); assert(f7 - f6 <= 2, 'the engine did not go back to rest after a tick');
 });
 
 suite.test('T0-ANIM-X', 'every browser test of this run: 0 uncaught exceptions and 0 first-party console.error', async (t) => {
