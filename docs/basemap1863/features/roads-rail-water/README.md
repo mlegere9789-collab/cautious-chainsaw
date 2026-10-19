@@ -9,7 +9,7 @@ Part of `docs/basemap1863/`. Read `../../SOURCES-roads.md` first: it states what
 | To draw | Take | Rule |
 |---|---|---|
 | 1863 public roads | `roads.geojson` features with `present_1863 == true` | geometry is the modern centreline; `positional_error_m` 15-35; `confidence` Documented / Estimated; `Unknown` records (RD-017) are not drawn |
-| lanes | `lanes.geojson` | 4 traced sections only; the other 17 NPS-named lanes are in `lanes_inventory.json` without geometry |
+| lanes | `lanes.geojson` | 4 traced sections only; the other 18 NPS-named lanes are in `lanes_inventory.json` without geometry |
 | railroad | `railways.geojson` with `present_1863 == true` (RL-001, RL-002, RL-006, RL-007) | RL-002W (grade west of the sheet) is Unknown: do not draw; RL-003 and RL-005 are post-1863: they must be removed from the photograph |
 | streams | `waterways.geojson` with `confidence == "Estimated"` (named streams) | unnamed channels are Unknown |
 | bridges, fords | `bridges.geojson` | `bridge` (symbol seen or class rule), `ford`; `crossing` = type unknown |
@@ -22,6 +22,6 @@ Each file has an EPSG:4326 copy and a `.mercator.geojson` (EPSG:3857, metres) co
 
 - The period map is dated 1868-69, not 1863.
 - The registration of the period map is accurate to about 15-19 m (leave-one-out), worse in sparsely controlled corners.
-- 17 of 21 named lanes, 356 of 392 mapped fences, the 1863 ponds, the borough street plan and the far west and south are not drawn because no source read places them.
+- 18 of 21 named lanes, 356 of 392 mapped fences, the 1863 ponds, the borough street plan and the far west and south are not drawn because no source read places them.
 
 Regenerate: see `scripts/` (SOURCES-roads.md section 8). Caches and map renders are in `tmp/b1863/roads/` and are not committed.
