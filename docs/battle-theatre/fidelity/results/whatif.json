@@ -1,0 +1,53 @@
+{
+ "note": "Expected fidelity under the pilot uncertainty model; scenarios scale the model, they do not measure new evidence.",
+ "scenarios": {
+  "S0 pilot as derived (aligned, slack 3)": {
+   "strict": 0.3699,
+   "standard": 0.6286,
+   "loose": 0.8282,
+   "standard_U": 0.6157,
+   "standard_C": 0.65,
+   "share_ge97_standard": 0.0813
+  },
+  "S1 positions georeferenced (sigma x0.4, floor 25 m)": {
+   "strict": 0.5914,
+   "standard": 0.7567,
+   "loose": 0.8456,
+   "standard_U": 0.7325,
+   "standard_C": 0.797,
+   "share_ge97_standard": 0.1417
+  },
+  "S2 S1 + clocks tightened (group 2 min, kappa 0.10, onset 1.5)": {
+   "strict": 0.7509,
+   "standard": 0.9214,
+   "loose": 0.9642,
+   "standard_U": 0.9031,
+   "standard_C": 0.9519,
+   "share_ge97_standard": 0.4188
+  },
+  "S3 S2 with slack 2 min": {
+   "strict": 0.6925,
+   "standard": 0.8738,
+   "loose": 0.938,
+   "standard_U": 0.8512,
+   "standard_C": 0.9114,
+   "share_ge97_standard": 0.3073
+  },
+  "S4 ideal (sigma 25 m, group 1, kappa 0.05, onset 1, slack 2)": {
+   "strict": 0.8769,
+   "standard": 0.9707,
+   "loose": 0.9822,
+   "standard_U": 0.964,
+   "standard_C": 0.9819,
+   "share_ge97_standard": 0.7521
+  },
+  "S5 ideal with slack 0": {
+   "strict": 0.6458,
+   "standard": 0.8379,
+   "loose": 0.9112,
+   "standard_U": 0.817,
+   "standard_C": 0.8728,
+   "share_ge97_standard": 0.3573
+  }
+ }
+}

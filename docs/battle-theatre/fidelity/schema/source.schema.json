@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "bt-fidelity/source/1",
+  "title": "Source record for unit-level movement and action",
+  "description": "A source the fidelity database may cite. 'weight' fields are not used to average: the Reference Timeline takes the median of independent witnesses (rule R-MED) and keeps the rest as windows and alternates.",
+  "type": "object",
+  "required": ["id", "cite", "type", "read"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^S[0-9]+$"},
+    "cite": {"type": "string"},
+    "type": {"enum": ["regiment report", "brigade report", "division report", "corps report", "army report", "artillery brigade report", "army artillery report", "retrospective article", "regimental history", "state history", "map", "tablet", "monument", "measured object", "measured surface", "clock model", "existing data", "diary", "letter", "testimony"]},
+    "author_side": {"enum": ["Union", "Confederate", "none"]},
+    "written": {"type": "string"}, "lag_days": {"type": "integer", "description": "days between the event and the writing: the retrospective flag is lag over 365"},
+    "read": {"type": "string", "description": "how much was read; never 'all' unless it was"},
+    "text": {"type": ["string", "null"], "description": "local text the quotes are checked against"},
+    "corpus_id": {"type": "string"}, "cache": {"type": "string"},
+    "rights": {"type": "string"}
+  }
+}

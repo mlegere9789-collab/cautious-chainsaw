@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "bt-fidelity/event/1",
+  "title": "Battle event (the event database row)",
+  "description": "One event mention, with its time, type, actors and the exact words of the source. An EVENT is the merge of the mentions that tell the same thing (event_id on the mention rows; merge is a separate, reviewed step). Pilot: events/pilot-100.jsonl (mentions, one reviewer). Production adds: merged event ids, location polygon, the unit-state rows the event must be consistent with, and the contested register.",
+  "type": "object",
+  "required": ["id", "schema", "day", "type", "text", "actors", "source", "review"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^EV-[A-Z0-9]+-[0-9]{4,}$"},
+    "schema": {"const": "bt-fidelity/event/1"},
+    "rule_version": {"type": "string"},
+    "day": {"enum": [1, 2, 3, 4, null]},
+    "time": {"type": ["object", "null"], "properties": {"stated": {"type": "string"}, "minute_of_day": {"type": ["integer", "null"], "description": "null when the o'clock has no a.m./p.m. in the sentence and the corpus did not resolve it (14 of 87 timed pilot mentions): such mentions need the day-context step"}, "ampm": {"type": ["string", "null"]}, "modifier": {"type": ["string", "null"]}, "tol_min": {"type": ["number", "null"]}, "day_basis": {"type": ["string", "null"]}, "clock": {"type": "string"}, "label": {"type": "string"}}, "description": "the clock as the witness wrote it; never converted. The event minute inherits the uncertainty of docs/time (25 minutes at best)."},
+    "type": {"type": "string", "description": "move, order, fire_open, fire_cease, attack, repulse, casualty_killed, casualty_wounded, capture (extraction types); reviewed types add command_change, rally, withdrawal, engagement_end, ground_gained, accident, intelligence_hearsay, ..."},
+    "trigger": {"type": ["string", "null"]},
+    "text": {"type": "string", "description": "the sentence, verbatim from the corpus (public-domain Official Records)"},
+    "actors": {"type": "array", "items": {"type": "object", "required": ["id", "label", "kind"], "properties": {"id": {"type": "string"}, "label": {"type": "string"}, "kind": {"type": "string"}, "link_tier": {"type": "string"}, "role": {"type": "string"}}}},
+    "source": {"type": "object", "required": ["doc", "passage", "page", "cite", "side"], "properties": {"doc": {"type": "string"}, "passage": {"type": "string"}, "page": {"type": ["integer", "null"]}, "cite": {"type": ["string", "null"]}, "author": {"type": ["string", "null"]}, "unit": {"type": ["string", "null"]}, "side": {"type": "string"}, "written": {"type": ["string", "null"]}, "perspective": {"type": ["string", "null"]}, "report_no": {"type": ["integer", "null"]}}},
+    "extraction": {"type": "object"},
+    "review": {"type": "object", "required": ["status", "verdict"], "properties": {"status": {"type": "string"}, "verdict": {"enum": ["OK", "OK_MULTI", "TYPE_WRONG", "TIME_MISBOUND", "DAY_WRONG", "SPLIT_ERROR", "NOT_EVENT", "NEEDS_CONTEXT"]}, "flags": {"type": "array", "items": {"type": "string"}}, "note": {"type": "string"}, "reviewer": {"type": "string"}}},
+    "type_corrected": {"type": "string"},
+    "evidence_label": {"type": "string"},
+    "event_id": {"type": ["string", "null"], "description": "production: id of the merged event"},
+    "contested_with": {"type": "array", "items": {"type": "string"}}
+  }
+}

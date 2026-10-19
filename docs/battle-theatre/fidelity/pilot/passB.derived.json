@@ -1,0 +1,26 @@
+{
+  "schema": "bt-fidelity/passB/1",
+  "note": "Blind second derivation of the 19 sampled cells (seed 20261019). Written from the source packets (tools/make_packet.py), the monument table (S22) and the DEM only; pilot/defs_passA.py and pilot/unit-minutes.A.* were not opened between the draw and the saving of this file. Limit: the same model in the same session as Pass A, so the memory of Pass A's reasoning could not be erased: the agreement is an UPPER BOUND on what an independent historian would reach. Each cell lists knots [HH:MM, lon, lat, facing_deg, formation, activity]; state between knots is interpolated like Pass A (position and facing), activity and formation of the earlier knot hold.",
+  "rule_set": "same as Pass A (R-MED for contested clocks; step-off of Hood's division 16:15)",
+  "cells": {
+    "U-20ME|16:00": [["16:00",-77.2338,39.7981,180,"column_mass","resting"],["16:05",-77.2338,39.7981,190,"column_fours","marching_double"],["16:09",-77.2358,39.7955,195,"column_fours","marching_double"]],
+    "U-20ME|16:30": [["16:30",-77.236141,39.789452,225,"line","standing_under_fire"],["16:39",-77.236141,39.789452,225,"line","standing_under_fire"]],
+    "U-20ME-B|16:30": [["16:30",-77.23614,39.78945,215,"line_forming","forming"],["16:34",-77.23605,39.78912,215,"skirmish_line","skirmishing"],["16:39",-77.23605,39.78912,215,"skirmish_line","skirmishing"]],
+    "U-83PA|16:30": [["16:30",-77.237041,39.790243,265,"line","standing_under_fire"],["16:39",-77.237041,39.790243,265,"line","standing_under_fire"]],
+    "U-83PA|16:50": [["16:50",-77.237041,39.790243,265,"line","firing_unspecified"],["16:59",-77.237041,39.790243,265,"line","firing_unspecified"]],
+    "U-16MI|16:30": [["16:30",-77.2368,39.7905,270,"column_fours","marching_double"],["16:36",-77.237681,39.791199,270,"line_forming","forming"],["16:39",-77.237681,39.791199,270,"line","firing_unspecified"]],
+    "U-140NY|16:40": [["16:40",-77.2380,39.7928,60,"column_fours","marching_quick"],["16:43",-77.2365,39.7917,250,"line_forming","forming"],["16:46",-77.236962,39.7915,255,"line","firing_unspecified"],["16:49",-77.236962,39.7915,255,"line","firing_unspecified"]],
+    "U-146NY|16:10": [["16:10",-77.2300,39.8030,225,"column_fours","marching_double"],["16:19",-77.2350,39.7985,235,"column_fours","marching_double"]],
+    "U-146NY|16:40": [["16:40",-77.2422,39.7944,250,"line_forming","forming"],["16:45",-77.2422,39.7944,250,"line","standing_under_fire"],["16:47",-77.2422,39.7944,70,"column_fours","marching_double"],["16:49",-77.2418,39.7943,70,"column_fours","marching_double"]],
+    "U-146NY|16:50": [["16:50",-77.2410,39.7940,70,"column_fours","marching_double"],["16:57",-77.236658,39.792744,270,"line_forming","forming"],["16:59",-77.236658,39.792744,270,"line","standing_under_fire"]],
+    "U-91PA|16:20": [["16:20",-77.2340,39.7985,225,"column_fours","marching_double"],["16:29",-77.2385,39.7945,235,"column_fours","marching_double"]],
+    "U-ART-D5US|16:20": [["16:20",-77.2335,39.7980,190,"battery_limbered","halted"],["16:25",-77.2335,39.7980,190,"battery_limbered","marching_quick"],["16:29",-77.2345,39.7968,190,"battery_limbered","marching_quick"]],
+    "C-15AL|16:00": [["16:00",-77.2540,39.7872,90,"line","halted_awaiting_order"],["16:09",-77.2540,39.7872,90,"line","halted_awaiting_order"]],
+    "C-47AL|16:30": [["16:30",-77.2425,39.7878,95,"line","advancing_fighting"],["16:39",-77.2410,39.7872,100,"line","climbing"]],
+    "C-47AL|16:50": [["16:50",-77.2397,39.7877,40,"line","halted"],["16:56",-77.2397,39.7877,20,"line","advancing_quick"],["16:59",-77.2392,39.7882,20,"line","advancing_quick"]],
+    "C-48AL|16:30": [["16:30",-77.2435,39.7880,0,"column_fours","flank_move_left"],["16:39",-77.2437,39.7902,20,"column_fours","flank_move_left"]],
+    "C-44AL|16:40": [["16:40",-77.2438,39.7900,45,"line","wheeling"],["16:44",-77.2432,39.7912,20,"line","advancing_fighting"],["16:49",-77.2428,39.7918,20,"line","advancing_fighting"]],
+    "C-5TX|16:10": [["16:10",-77.2540,39.7904,90,"line","halted_awaiting_order"],["16:15",-77.2540,39.7904,90,"line","advancing_quick"],["16:19",-77.2515,39.7905,85,"line","advancing_double"]],
+    "C-5TX|16:20": [["16:20",-77.2505,39.7906,85,"line","advancing_double"],["16:25",-77.2450,39.7908,85,"line","advancing_double"],["16:29",-77.2430,39.7908,85,"line","halted"]]
+  }
+}

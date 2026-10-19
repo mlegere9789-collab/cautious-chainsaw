@@ -1,0 +1,158 @@
+{
+ "frozen_files_unchanged": {
+  "pilot/defs_passA.py": true,
+  "pilot/unit-minutes.A.jsonl": true,
+  "pilot/sources.json": true,
+  "tools/pilot_lib.py": true
+ },
+ "cells": 19,
+ "unit_minutes": 190,
+ "strict": {
+  "agree": 0.4526,
+  "wilson95": [
+   0.383,
+   0.524
+  ],
+  "agree_slack3": 0.6316,
+  "wilson95_slack3": [
+   0.561,
+   0.697
+  ]
+ },
+ "standard": {
+  "agree": 0.5526,
+  "wilson95": [
+   0.482,
+   0.622
+  ],
+  "agree_slack3": 0.7105,
+  "wilson95_slack3": [
+   0.642,
+   0.77
+  ]
+ },
+ "loose": {
+  "agree": 0.5842,
+  "wilson95": [
+   0.513,
+   0.652
+  ],
+  "agree_slack3": 0.7842,
+  "wilson95_slack3": [
+   0.72,
+   0.837
+  ]
+ },
+ "activity_class_agree": 0.8,
+ "formation_class_agree": 0.9105,
+ "fine_activity_agree": 0.7684,
+ "B_inside_A_envelope": 0.9474,
+ "pos_diff_m": {
+  "median": 32,
+  "p90": 419,
+  "max": 734
+ },
+ "by_cell": {
+  "U-20ME|16:00": {
+   "standard": 0.5,
+   "standard_slack3": 1.0,
+   "median_pos_diff": 2
+  },
+  "U-20ME|16:30": {
+   "standard": 0.9,
+   "standard_slack3": 1.0,
+   "median_pos_diff": 0
+  },
+  "U-20ME-B|16:30": {
+   "standard": 0.9,
+   "standard_slack3": 1.0,
+   "median_pos_diff": 37
+  },
+  "U-83PA|16:30": {
+   "standard": 1.0,
+   "standard_slack3": 1.0,
+   "median_pos_diff": 0
+  },
+  "U-83PA|16:50": {
+   "standard": 1.0,
+   "standard_slack3": 1.0,
+   "median_pos_diff": 0
+  },
+  "U-16MI|16:30": {
+   "standard": 0.2,
+   "standard_slack3": 0.7,
+   "median_pos_diff": 33
+  },
+  "U-140NY|16:40": {
+   "standard": 0.3,
+   "standard_slack3": 0.5,
+   "median_pos_diff": 65
+  },
+  "U-146NY|16:10": {
+   "standard": 0.0,
+   "standard_slack3": 0.0,
+   "median_pos_diff": 404
+  },
+  "U-146NY|16:40": {
+   "standard": 0.4,
+   "standard_slack3": 0.5,
+   "median_pos_diff": 28
+  },
+  "U-146NY|16:50": {
+   "standard": 0.2,
+   "standard_slack3": 0.3,
+   "median_pos_diff": 35
+  },
+  "U-91PA|16:20": {
+   "standard": 0.0,
+   "standard_slack3": 0.0,
+   "median_pos_diff": 479
+  },
+  "U-ART-D5US|16:20": {
+   "standard": 0.0,
+   "standard_slack3": 0.0,
+   "median_pos_diff": 674
+  },
+  "C-15AL|16:00": {
+   "standard": 1.0,
+   "standard_slack3": 1.0,
+   "median_pos_diff": 0
+  },
+  "C-47AL|16:30": {
+   "standard": 0.7,
+   "standard_slack3": 0.9,
+   "median_pos_diff": 88
+  },
+  "C-47AL|16:50": {
+   "standard": 0.1,
+   "standard_slack3": 0.6,
+   "median_pos_diff": 29
+  },
+  "C-48AL|16:30": {
+   "standard": 0.7,
+   "standard_slack3": 1.0,
+   "median_pos_diff": 77
+  },
+  "C-44AL|16:40": {
+   "standard": 0.7,
+   "standard_slack3": 1.0,
+   "median_pos_diff": 16
+  },
+  "C-5TX|16:10": {
+   "standard": 1.0,
+   "standard_slack3": 1.0,
+   "median_pos_diff": 0
+  },
+  "C-5TX|16:20": {
+   "standard": 0.9,
+   "standard_slack3": 1.0,
+   "median_pos_diff": 34
+  }
+ },
+ "standard_disagreement_causes": {
+  "position_only": 31,
+  "facing_only": 7,
+  "class_or_formation": 32,
+  "several": 15
+ }
+}

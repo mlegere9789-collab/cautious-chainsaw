@@ -1,0 +1,33 @@
+{
+ "unit_minutes_A": {
+  "schema": "bt-fidelity/unit-state/1",
+  "rows": 976,
+  "errors": 0,
+  "first_errors": []
+ },
+ "events_pilot_100": {
+  "schema": "bt-fidelity/event/1",
+  "rows": 100,
+  "errors": 0,
+  "first_errors": []
+ },
+ "sources": {
+  "schema": "bt-fidelity/source/1",
+  "rows": 25,
+  "errors": 0,
+  "first_errors": []
+ },
+ "waypoints_A": {
+  "schema": "bt-fidelity/waypoint/1",
+  "rows": 107,
+  "errors": 0,
+  "first_errors": []
+ },
+ "integrity": {
+  "units": 16,
+  "rows": 976,
+  "expected_rows": 976,
+  "unique_unit_minute": true,
+  "events_unique_ids": true
+ }
+}

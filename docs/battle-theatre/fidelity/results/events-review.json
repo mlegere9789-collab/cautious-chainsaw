@@ -1,0 +1,49 @@
+{
+ "n": 100,
+ "verdicts": {
+  "NOT_EVENT": 5,
+  "OK_MULTI": 11,
+  "TIME_MISBOUND": 3,
+  "DAY_WRONG": 8,
+  "NEEDS_CONTEXT": 7,
+  "TYPE_WRONG": 22,
+  "SPLIT_ERROR": 2,
+  "OK": 42
+ },
+ "real_events": 86,
+ "real_events_share": 0.86,
+ "usable_as_extracted": 53,
+ "usable_as_extracted_share": 0.53,
+ "strict_ok": 42,
+ "timed_rows": 87,
+ "timed_usable": 47,
+ "untimed_rows": 13,
+ "untimed_usable": 6,
+ "wilson95_usable": [
+  0.433,
+  0.625
+ ],
+ "wilson95_real_event": [
+  0.779,
+  0.915
+ ],
+ "flag_counts": {
+  "DAY?": 2,
+  "DUPLICATE_SENTENCE": 4,
+  "MULTI": 3,
+  "TIME_MISBOUND": 3,
+  "OBSCURE_EVENT": 2,
+  "ITINERARY": 1,
+  "ACTORS_FROM_OTHER_CLAUSE": 1,
+  "SUMMARY": 3,
+  "ACTOR_MISSING": 2,
+  "TYPE_WRONG": 4,
+  "SPLIT_ERROR": 1,
+  "CONTESTED_CLOCK": 1,
+  "AMPM_UNRESOLVED": 1,
+  "CASUALTY_LIST": 2,
+  "AUTHOR_MISSING": 1,
+  "SECONDARY_SOURCE": 1,
+  "HEARSAY": 1
+ }
+}

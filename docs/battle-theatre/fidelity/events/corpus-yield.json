@@ -1,0 +1,47 @@
+{
+ "timed_event_mentions": 802,
+ "by_day": {
+  "1863-07-03": 242,
+  "1863-07-01": 168,
+  "1863-07-02": 392
+ },
+ "by_type": {
+  "attack": 31,
+  "casualty_wounded": 17,
+  "move": 357,
+  "fire_open": 75,
+  "order": 240,
+  "repulse": 44,
+  "casualty_killed": 20,
+  "capture": 6,
+  "fire_cease": 12
+ },
+ "untimed_named_killed": 58,
+ "seconds": 0.5,
+ "wide_pool": {
+  "sentences_with_trigger": 10115,
+  "with_a_linked_unit_or_person": 2863,
+  "by_type": {
+   "move": 4028,
+   "capture": 460,
+   "order": 2293,
+   "casualty_killed": 950,
+   "repulse": 667,
+   "attack": 378,
+   "fire_open": 345,
+   "casualty_wounded": 918,
+   "fire_cease": 76
+  }
+ },
+ "wide_pool_note": "upper bound of event MENTIONS in OR27 core passages before day resolution and de-duplication; one sentence can hold several events and one event is told by several reports",
+ "distinct_day_minute_doc_clusters": 762,
+ "reports_with_a_timed_mention": 308,
+ "reports_in_corpus": 588,
+ "pilot_draw": {
+  "n": 100,
+  "seed": 20261019,
+  "per_stratum": 10,
+  "timed": 87,
+  "untimed": 13
+ }
+}

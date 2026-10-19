@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "bt-fidelity/waypoint/1",
+  "title": "Waypoint (the unit of human derivation)",
+  "description": "A derivation writes waypoints, not minutes. A waypoint states: at about t (window lo..hi, LMT) the unit was at pos (+- sigma_m), facing, in formation, doing activity, on the authority of the cited sources and one verbatim quote that tools/check_quotes.py finds in the source text. The per-minute rows are generated from the waypoints by tools/pilot_lib.py. Relative waypoints (rel) hang on an earlier waypoint of the same unit: this is how the Confederate advance chains off one step-off time.",
+  "type": "object",
+  "required": ["wid", "pos", "sigma_m", "facing", "facing_sd", "formation", "activity", "srcs", "quote", "ev"],
+  "properties": {
+    "wid": {"type": "string"},
+    "t": {"type": ["string", "null"], "pattern": "^[0-2][0-9]:[0-5][0-9]$"}, "lo": {"type": ["string", "null"]}, "hi": {"type": ["string", "null"]},
+    "rel": {"type": ["array", "null"], "items": {"type": ["string", "number"]}, "minItems": 4, "maxItems": 4, "description": "[ref_wid, dt_best_min, dt_lo_min, dt_hi_min]; exactly one of t/lo/hi or rel"},
+    "pos": {"type": "array", "items": {"type": "number"}, "minItems": 2, "maxItems": 2, "description": "[lon, lat]"},
+    "sigma_m": {"type": "number", "minimum": 0, "description": "about a 95 percent half-width of the position claim; 40 m for a monument, 150 m and more for a position read from prose"},
+    "facing": {"type": "number"}, "facing_sd": {"type": "number"},
+    "formation": {"type": "string"}, "activity": {"type": "string"},
+    "srcs": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "quote": {"type": "string", "description": "verbatim from a source in srcs (OCR errors preserved; check_quotes.py folds case, punctuation and line breaks)"},
+    "ev": {"type": "object", "required": ["time", "pos", "facing", "activity"], "additionalProperties": {"enum": ["D", "M", "C", "E", "X", "U"]}},
+    "note": {"type": "string"}
+  }
+}
