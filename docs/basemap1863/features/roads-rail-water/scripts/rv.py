@@ -6,7 +6,8 @@ from overlay import *
 from geomlib import *
 import spec_roads
 def tiles(tf, outpref, x0s, y0s, w, h, sc, extra_names=False):
-    af = Affine(json.load(open(os.path.join(ROOT, 'tmp/b1863/roads', tf)))['M'])
+    import regtf
+    af = regtf.FieldTF()
     feats = json.load(open(os.path.join(OUT, 'roads.geojson')))
     nh = json.load(open(os.path.join(CACHE, 'nhd_6.geojson')))
     k = 0
