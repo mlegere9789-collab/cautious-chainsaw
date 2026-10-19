@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Battle Theatre mixer bench</title>
+<style>
+  :root { --bg:#f4f1ea; --fg:#1d1b17; --mut:#6b665c; --card:#fffdf8; --line:#d8d2c4; --acc:#8a2b1c; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#16140f; --fg:#ece6d8; --mut:#9a9384; --card:#1f1c15; --line:#3a3528; --acc:#e0795f; } }
+  body { margin:0; background:var(--bg); color:var(--fg); font:15px/1.5 system-ui, sans-serif; }
+  main { max-width:880px; margin:0 auto; padding:24px 16px 64px; }
+  h1 { font-size:22px; margin:0 0 4px; } p.sub { color:var(--mut); margin:0 0 20px; }
+  section { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:14px 16px; margin:0 0 14px; }
+  label { display:inline-block; margin:4px 12px 4px 0; } input, select { font:inherit; padding:3px 6px; background:var(--bg); color:var(--fg); border:1px solid var(--line); border-radius:4px; }
+  input[type=number] { width:7em; }
+  button { font:inherit; padding:6px 14px; border-radius:6px; border:1px solid var(--acc); background:var(--acc); color:#fff; cursor:pointer; } button:disabled { opacity:.5; }
+  pre { white-space:pre-wrap; word-break:break-word; font:12.5px/1.45 ui-monospace, Consolas, monospace; background:var(--bg); border:1px solid var(--line); border-radius:6px; padding:10px; max-height:360px; overflow:auto; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Battle Theatre mixer bench</h1>
+  <p class="sub">Every shot is its own voice. Samples are the licensed pilot recordings in <code>../pilot/</code> (stand-ins; see PLAN.md). Nothing here is a period-accurate per-weapon library yet.</p>
+  <section>
+    <b>Offline benchmark</b> (renders faster than real time; reports CPU cost per 2.67 ms block)<br>
+    <label>shots/s <input id="rate" type="number" value="400"></label>
+    <label>seconds <input id="dur" type="number" value="10"></label>
+    <label>cannon/s <input id="cr" type="number" value="2"></label>
+    <label>quality <select id="q"><option value="1">full (ITD + head shadow)</option><option value="0">lite (pan + air filter)</option></select></label>
+    <button id="runOff">Run</button>
+  </section>
+  <section>
+    <b>Listen</b> (real time, your speakers; start the volume low)<br>
+    <label>scenario <select id="sc"><option value="assault">Day 3 assault at the Angle (371 shots/s)</option><option value="cannonade">Cannonade, 150 + 80 guns at 6x the historical rate</option><option value="mixed">Assault plus cannonade</option></select></label>
+    <label>seconds <input id="ldur" type="number" value="30"></label>
+    <label>volume <input id="vol" type="range" min="0" max="0.6" step="0.01" value="0.12"></label>
+    <button id="runRt">Play</button>
+  </section>
+  <pre id="out">Ready.</pre>
+</main>
+<script type="module">
+  import './bench.mjs'; import './tests.mjs';
+  const out = document.getElementById('out'), $ = id => document.getElementById(id);
+  const show = o => { out.textContent = typeof o === 'string' ? o : JSON.stringify(o, null, 1); };
+  $('runOff').onclick = async () => { $('runOff').disabled = true; show('Loading samples and rendering...'); try { await BT.prepare(); show(await BT.runOffline({ kind: 'musket', rate: +$('rate').value, dur: +$('dur').value, cannonRate: +$('cr').value, quality: +$('q').value })); } catch (e) { show(String(e)); } $('runOff').disabled = false; };
+  $('runRt').onclick = async () => { $('runRt').disabled = true; show('Playing...'); const k = $('sc').value; const spec = { kind: k, dur: +$('ldur').value, volume: +$('vol').value, defenders: 6500, attackers: 3000, rD: 2.5, rA: 2.0, confInt: k === 'assault' ? 90 : 15, unionInt: k === 'assault' ? 120 : 20 }; try { show(await BT.runRealtime(spec)); } catch (e) { show(String(e)); } $('runRt').disabled = false; };
+</script>
+</body>
+</html>

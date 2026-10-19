@@ -1,0 +1,201 @@
+{
+ "env": {
+  "chrome": "Chrome/155.0.8059.82",
+  "cpu": "Intel(R) Core(TM) Ultra 7 265H",
+  "logicalCores": 16,
+  "ramGB": 31.4,
+  "platform": "win32 10.0.26200",
+  "priority": "below-normal (Chrome and children)",
+  "otherLoad": "two other large pipelines running during the runs",
+  "date": "2026-10-19T19:47:06.712Z",
+  "ticksPerSec": 123441472.45360845
+ },
+ "runs": [
+  {
+   "spec": {
+    "kind": "mixed",
+    "dur": 45,
+    "defenders": 6500,
+    "attackers": 3000,
+    "rD": 2.5,
+    "rA": 2,
+    "confInt": 15,
+    "unionInt": 20,
+    "volume": 0
+   },
+   "events": 17434,
+   "latency": {
+    "baseLatencyMs": 10,
+    "outputLatencyMsAtEnd": 40,
+    "mainToWorkletRoundTripMs": {
+     "n": 60,
+     "p50": 0.15,
+     "max": 4.43
+    }
+   },
+   "playbackStats": {
+    "underrunEvents": 0,
+    "underrunDuration": 0,
+    "totalDuration": 53.189364999999995,
+    "averageLatency": 0.04327,
+    "minimumLatency": 0,
+    "maximumLatency": 0.0536
+   },
+   "worklet": {
+    "blocks": 20103,
+    "started": 17434,
+    "steals": 0,
+    "culled": 0,
+    "late": 0,
+    "lateDrop": 0,
+    "evDrop": 0,
+    "clips": 10995,
+    "maxActive": 222,
+    "maxInFlight": 912,
+    "blocksOverBudget": 1,
+    "procMaxUs": 3103,
+    "procMeanUs": 101,
+    "procP50Us": 125,
+    "procP99Us": 275,
+    "procP999Us": 425,
+    "rtf": 0.038
+   },
+   "main": {
+    "posts": 2130,
+    "postMsTotal": 144.7,
+    "maxBatch": 152,
+    "jsHeap": {
+     "usedJSHeapMB": 12.5,
+     "totalJSHeapMB": 14
+    }
+   },
+   "name": "DEVICE real-time (headed Chrome, real output device, gain 0): assault 371/s + 6x cannonade, 45 s",
+   "chromeWorkingSetMB": {
+    "before": 794,
+    "after": 796
+   }
+  },
+  {
+   "spec": {
+    "kind": "assault",
+    "dur": 40,
+    "defenders": 25000,
+    "attackers": 15000,
+    "rD": 2.5,
+    "rA": 2.5,
+    "volume": 0
+   },
+   "events": 66614,
+   "latency": {
+    "baseLatencyMs": 10,
+    "outputLatencyMsAtEnd": 40,
+    "mainToWorkletRoundTripMs": {
+     "n": 60,
+     "p50": 0.18,
+     "max": 5.09
+    }
+   },
+   "playbackStats": {
+    "underrunEvents": 0,
+    "underrunDuration": 0,
+    "totalDuration": 48.121300000000005,
+    "averageLatency": 0.043205,
+    "minimumLatency": 0,
+    "maximumLatency": 0.054939999999999996
+   },
+   "worklet": {
+    "blocks": 18233,
+    "started": 66614,
+    "steals": 0,
+    "culled": 0,
+    "late": 0,
+    "lateDrop": 0,
+    "evDrop": 0,
+    "clips": 123074,
+    "maxActive": 933,
+    "maxInFlight": 4536,
+    "blocksOverBudget": 0,
+    "procMaxUs": 2099,
+    "procMeanUs": 329,
+    "procP50Us": 375,
+    "procP99Us": 850,
+    "procP999Us": 1175,
+    "rtf": 0.123
+   },
+   "main": {
+    "posts": 1894,
+    "postMsTotal": 131.7,
+    "maxBatch": 619,
+    "jsHeap": {
+     "usedJSHeapMB": 17.3,
+     "totalJSHeapMB": 18.6
+    }
+   },
+   "name": "DEVICE real-time: 1667 shots/s ceiling, 40 s",
+   "chromeWorkingSetMB": {
+    "before": 796,
+    "after": 793
+   }
+  },
+  {
+   "spec": {
+    "kind": "musket",
+    "rate": 3200,
+    "dur": 30,
+    "cannonRate": 3,
+    "volume": 0
+   },
+   "events": 96090,
+   "latency": {
+    "baseLatencyMs": 10,
+    "outputLatencyMsAtEnd": 40,
+    "mainToWorkletRoundTripMs": {
+     "n": 60,
+     "p50": 0.17,
+     "max": 4.69
+    }
+   },
+   "playbackStats": {
+    "underrunEvents": 0,
+    "underrunDuration": 0,
+    "totalDuration": 39.08356,
+    "averageLatency": 0.044125,
+    "minimumLatency": 0,
+    "maximumLatency": 0.04598
+   },
+   "worklet": {
+    "blocks": 14483,
+    "started": 96090,
+    "steals": 0,
+    "culled": 0,
+    "late": 0,
+    "lateDrop": 0,
+    "evDrop": 0,
+    "clips": 209536,
+    "maxActive": 1374,
+    "maxInFlight": 6762,
+    "blocksOverBudget": 0,
+    "procMaxUs": 2333,
+    "procMeanUs": 565,
+    "procP50Us": 650,
+    "procP99Us": 1425,
+    "procP999Us": 2025,
+    "rtf": 0.212
+   },
+   "main": {
+    "posts": 1415,
+    "postMsTotal": 101.1,
+    "maxBatch": 1280,
+    "jsHeap": {
+     "usedJSHeapMB": 23.8,
+     "totalJSHeapMB": 24.7
+    }
+   },
+   "name": "DEVICE real-time: 3200 shots/s (musket stream), 30 s",
+   "chromeWorkingSetMB": {
+    "before": 794,
+    "after": 834
+   }
+  }
+ ]
+}

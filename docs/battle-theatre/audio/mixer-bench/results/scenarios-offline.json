@@ -1,0 +1,308 @@
+{
+ "env": {
+  "chrome": "Chrome/155.0.8059.82",
+  "cpu": "Intel(R) Core(TM) Ultra 7 265H",
+  "logicalCores": 16,
+  "ramGB": 31.4,
+  "platform": "win32 10.0.26200",
+  "priority": "below-normal (Chrome and children)",
+  "otherLoad": "two other large pipelines running during the runs",
+  "date": "2026-10-19T19:24:47.950Z",
+  "ticksPerSec": 105811219.72922559
+ },
+ "runs": [
+  {
+   "spec": {
+    "kind": "cannonade",
+    "dur": 120,
+    "confInt": 90,
+    "unionInt": 120
+   },
+   "events": 283,
+   "started": 268,
+   "notStartedCulledOrInFlight": 15,
+   "inflightAtEnd": 15,
+   "steals": 0,
+   "lateDrops": 0,
+   "audioSeconds": 120,
+   "wallMs": 969,
+   "wallRTF": 0.008,
+   "workletRTF": 0.004,
+   "perBlockUs": {
+    "p50": 11,
+    "p95": 17,
+    "p99": 38,
+    "p999": 320,
+    "max": 1181,
+    "budgetUs": 2667,
+    "blocksOver": 0,
+    "blocks": 45000
+   },
+   "voices": {
+    "mean": 4.3,
+    "p99": 10,
+    "max": 12
+   },
+   "output": {
+    "nanSamples": 0,
+    "peak": 0.953,
+    "samplesOver098": 0,
+    "rmsDbFS": -32.1
+   },
+   "name": "cannonade realistic: 150 Confed guns @90 s + 80 Union @120 s"
+  },
+  {
+   "spec": {
+    "kind": "cannonade",
+    "dur": 60,
+    "confInt": 15,
+    "unionInt": 20
+   },
+   "events": 861,
+   "started": 810,
+   "notStartedCulledOrInFlight": 51,
+   "inflightAtEnd": 51,
+   "steals": 0,
+   "lateDrops": 0,
+   "audioSeconds": 60,
+   "wallMs": 942,
+   "wallRTF": 0.016,
+   "workletRTF": 0.012,
+   "perBlockUs": {
+    "p50": 31,
+    "p95": 44,
+    "p99": 74,
+    "p999": 669,
+    "max": 6402,
+    "budgetUs": 2667,
+    "blocksOver": 1,
+    "blocks": 22500
+   },
+   "voices": {
+    "mean": 26.3,
+    "p99": 39,
+    "max": 41
+   },
+   "output": {
+    "nanSamples": 0,
+    "peak": 0.989,
+    "samplesOver098": 112,
+    "rmsDbFS": -23.7
+   },
+   "name": "cannonade stress: same guns at 6x the historical rate (15 s Confed, 20 s Union)"
+  },
+  {
+   "spec": {
+    "kind": "assault",
+    "dur": 60,
+    "defenders": 6500,
+    "attackers": 3000,
+    "rD": 2.5,
+    "rA": 2
+   },
+   "events": 22248,
+   "started": 21921,
+   "notStartedCulledOrInFlight": 327,
+   "inflightAtEnd": 327,
+   "steals": 0,
+   "lateDrops": 0,
+   "audioSeconds": 60,
+   "wallMs": 3397,
+   "wallRTF": 0.057,
+   "workletRTF": 0.058,
+   "perBlockUs": {
+    "p50": 157,
+    "p95": 220,
+    "p99": 278,
+    "p999": 623,
+    "max": 6043,
+    "budgetUs": 2667,
+    "blocksOver": 3,
+    "blocks": 22500
+   },
+   "voices": {
+    "mean": 147.6,
+    "p99": 185,
+    "max": 203
+   },
+   "output": {
+    "nanSamples": 0,
+    "peak": 0.969,
+    "samplesOver098": 0,
+    "rmsDbFS": -15.2
+   },
+   "name": "assault at the Angle: 6500 defenders @2.5/min + 3000 attackers @2/min (371 shots/s)"
+  },
+  {
+   "spec": {
+    "kind": "assault",
+    "dur": 60,
+    "defenders": 10000,
+    "attackers": 0,
+    "rD": 3,
+    "rA": 3
+   },
+   "events": 30155,
+   "started": 29801,
+   "notStartedCulledOrInFlight": 354,
+   "inflightAtEnd": 354,
+   "steals": 0,
+   "lateDrops": 0,
+   "audioSeconds": 60,
+   "wallMs": 4876,
+   "wallRTF": 0.081,
+   "workletRTF": 0.074,
+   "perBlockUs": {
+    "p50": 197,
+    "p95": 295,
+    "p99": 400,
+    "p999": 928,
+    "max": 7687,
+    "budgetUs": 2667,
+    "blocksOver": 5,
+    "blocks": 22500
+   },
+   "voices": {
+    "mean": 198.9,
+    "p99": 263,
+    "max": 273
+   },
+   "output": {
+    "nanSamples": 0,
+    "peak": 0.996,
+    "samplesOver098": 72,
+    "rmsDbFS": -11.9
+   },
+   "name": "assault owner worst case: 10000 men @3/min (500 shots/s)"
+  },
+  {
+   "spec": {
+    "kind": "assault",
+    "dur": 40,
+    "defenders": 25000,
+    "attackers": 15000,
+    "rD": 2.5,
+    "rA": 2.5
+   },
+   "events": 66614,
+   "started": 64981,
+   "notStartedCulledOrInFlight": 1633,
+   "inflightAtEnd": 1633,
+   "steals": 0,
+   "lateDrops": 0,
+   "audioSeconds": 40,
+   "wallMs": 9460,
+   "wallRTF": 0.237,
+   "workletRTF": 0.167,
+   "perBlockUs": {
+    "p50": 450,
+    "p95": 634,
+    "p99": 784,
+    "p999": 1492,
+    "max": 3772,
+    "budgetUs": 2667,
+    "blocksOver": 3,
+    "blocks": 15000
+   },
+   "voices": {
+    "mean": 657.4,
+    "p99": 892,
+    "max": 933
+   },
+   "output": {
+    "nanSamples": 0,
+    "peak": 1,
+    "samplesOver098": 2137,
+    "rmsDbFS": -8.5
+   },
+   "name": "Day-2-scale ceiling: 40000 men @2.5/min (1667 shots/s)"
+  },
+  {
+   "spec": {
+    "kind": "mixed",
+    "dur": 60,
+    "defenders": 6500,
+    "attackers": 3000,
+    "rD": 2.5,
+    "rA": 2,
+    "confInt": 15,
+    "unionInt": 20
+   },
+   "events": 23109,
+   "started": 22731,
+   "notStartedCulledOrInFlight": 378,
+   "inflightAtEnd": 378,
+   "steals": 0,
+   "lateDrops": 0,
+   "audioSeconds": 60,
+   "wallMs": 3520,
+   "wallRTF": 0.059,
+   "workletRTF": 0.046,
+   "perBlockUs": {
+    "p50": 123,
+    "p95": 184,
+    "p99": 269,
+    "p999": 420,
+    "max": 687,
+    "budgetUs": 2667,
+    "blocksOver": 0,
+    "blocks": 22500
+   },
+   "voices": {
+    "mean": 173.9,
+    "p99": 214,
+    "max": 232
+   },
+   "output": {
+    "nanSamples": 0,
+    "peak": 0.998,
+    "samplesOver098": 108,
+    "rmsDbFS": -14.7
+   },
+   "name": "mixed worst: assault 371/s + 6x cannonade"
+  },
+  {
+   "spec": {
+    "kind": "assault",
+    "dur": 60,
+    "defenders": 6500,
+    "attackers": 3000,
+    "rD": 2.5,
+    "rA": 2,
+    "moving": true
+   },
+   "events": 22248,
+   "started": 21921,
+   "notStartedCulledOrInFlight": 327,
+   "inflightAtEnd": 327,
+   "steals": 0,
+   "lateDrops": 0,
+   "audioSeconds": 60,
+   "wallMs": 3878,
+   "wallRTF": 0.065,
+   "workletRTF": 0.047,
+   "perBlockUs": {
+    "p50": 121,
+    "p95": 195,
+    "p99": 287,
+    "p999": 478,
+    "max": 898,
+    "budgetUs": 2667,
+    "blocksOver": 0,
+    "blocks": 22500
+   },
+   "voices": {
+    "mean": 150.7,
+    "p99": 188,
+    "max": 205
+   },
+   "output": {
+    "nanSamples": 0,
+    "peak": 0.972,
+    "samplesOver098": 0,
+    "rmsDbFS": -15.2
+   },
+   "name": "assault 371/s with the camera flying at 30 m/s (Doppler + retarded re-keying)"
+  }
+ ]
+}

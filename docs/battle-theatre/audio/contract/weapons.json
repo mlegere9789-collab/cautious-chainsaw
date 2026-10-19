@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "note": "Shared weapon ids for the animation (flash, smoke, recoil) and the mixer (sample bank, level). 'verified' values were read from the cited page on 2026-10-19; 'unverified' values are recollection from standard ordnance tables and must be checked before they drive anything. Peak levels are ASSUMED (order of magnitude), see PLAN.md section 4.6.",
+  "classes": ["rifle_musket", "smoothbore_musket", "breechloader", "repeater", "revolver", "field_gun_smoothbore", "field_gun_rifled", "howitzer"],
+  "weapons": [
+    {"id": 0,  "name": "springfield_m1861",   "class": "rifle_musket",      "caliber_in": 0.58,  "rate_aimed_per_min": [2, 3], "mv_fps": "unverified: ~950 (ordnance tables); Wikipedia states 1000 to 1400", "supersonic_bullet": "UNRESOLVED (Mach 1 = 1125 ft/s at 20 C)", "bank": "rifle", "peak_db_1m_assumed": 152, "src": "https://en.wikipedia.org/wiki/Springfield_Model_1861 (caliber, rate, velocity range)", "verified": "partly"},
+    {"id": 1,  "name": "springfield_m1863",   "class": "rifle_musket",      "caliber_in": 0.58,  "bank": "rifle", "peak_db_1m_assumed": 152, "verified": "no"},
+    {"id": 2,  "name": "enfield_p1853",       "class": "rifle_musket",      "caliber_in": 0.577, "bank": "rifle", "peak_db_1m_assumed": 151.5, "verified": "no"},
+    {"id": 3,  "name": "lorenz_m1854",        "class": "rifle_musket",      "caliber_in": 0.54,  "bank": "rifle", "peak_db_1m_assumed": 151, "verified": "no"},
+    {"id": 4,  "name": "smoothbore_m1842",    "class": "smoothbore_musket", "caliber_in": 0.69,  "load": "ball, or buck and ball (one .69 ball + three buckshot)", "bank": "rifle", "peak_db_1m_assumed": 150, "verified": "no"},
+    {"id": 5,  "name": "sharps_carbine_or_rifle", "class": "breechloader",  "caliber_in": 0.52,  "bank": "rifle", "peak_db_1m_assumed": 148, "verified": "no"},
+    {"id": 6,  "name": "burnside_carbine",    "class": "breechloader",      "bank": "rifle", "peak_db_1m_assumed": 148, "verified": "no"},
+    {"id": 7,  "name": "spencer_carbine",     "class": "repeater",          "caliber_in": 0.56,  "bank": "rifle", "peak_db_1m_assumed": 148, "verified": "no"},
+    {"id": 8,  "name": "henry_rifle",         "class": "repeater",          "caliber_in": 0.44,  "bank": "rifle", "peak_db_1m_assumed": 146, "verified": "no"},
+    {"id": 9,  "name": "revolver_colt_remington", "class": "revolver",      "caliber_in": 0.44,  "bank": "rifle", "peak_db_1m_assumed": 146, "verified": "no"},
+    {"id": 10, "name": "napoleon_12pdr",      "class": "field_gun_smoothbore", "bore_in": 4.62, "charge_lb": 2.5, "shot_lb": 12.25, "mv_fps": 1485, "range_5deg_yd": 1680, "canister_balls": 27, "canister_effective_yd": 350, "rate_per_min": 1, "crew": 9, "bank": "cannon", "peak_db_1m_assumed": 176, "src": "https://en.wikipedia.org/wiki/M1857_12-pounder_Napoleon", "verified": "yes (page values; the page itself lists 1619 to 1680 yd for the range)"},
+    {"id": 11, "name": "ordnance_rifle_3in",  "class": "field_gun_rifled",  "bore_in": 3.0,  "charge_lb": 1.0, "shell_lb": 9.5, "mv_fps": 1215, "range_5deg_yd": 1830, "bank": "cannon", "peak_db_1m_assumed": 176, "src": "https://en.wikipedia.org/wiki/3-inch_ordnance_rifle", "verified": "yes"},
+    {"id": 12, "name": "parrott_10pdr",       "class": "field_gun_rifled",  "bore_in": [2.9, 3.0], "charge_lb": 1.0, "shell_lb": 10, "bank": "cannon", "peak_db_1m_assumed": 174, "src": "https://en.wikipedia.org/wiki/Parrott_rifle", "verified": "yes (muzzle velocity not on the page)"},
+    {"id": 13, "name": "parrott_20pdr",       "class": "field_gun_rifled",  "bore_in": 3.67, "charge_lb": 2.0, "shell_lb": 19, "bank": "cannon", "peak_db_1m_assumed": 180, "src": "https://en.wikipedia.org/wiki/Parrott_rifle", "verified": "yes (muzzle velocity not on the page)"},
+    {"id": 14, "name": "whitworth_12pdr",     "class": "field_gun_rifled",  "bank": "cannon", "peak_db_1m_assumed": 175, "note": "Confederate, very few; presence at Gettysburg to be confirmed in the Official Records", "verified": "no"},
+    {"id": 15, "name": "blakely_rifle",       "class": "field_gun_rifled",  "bank": "cannon", "peak_db_1m_assumed": 175, "note": "Confederate, very few; presence at Gettysburg to be confirmed", "verified": "no"},
+    {"id": 16, "name": "howitzer_12pdr",      "class": "howitzer",          "bank": "cannon", "peak_db_1m_assumed": 172, "verified": "no"},
+    {"id": 17, "name": "howitzer_24pdr",      "class": "howitzer",          "bank": "cannon", "peak_db_1m_assumed": 178, "note": "rare", "verified": "no"}
+  ],
+  "projectiles": ["ball_or_minie", "buck_and_ball", "blank", "solid_shot", "common_shell", "spherical_case", "canister", "double_canister"],
+  "surfaces": ["earth", "wood", "stone", "iron", "water", "man", "horse", "air"]
+}

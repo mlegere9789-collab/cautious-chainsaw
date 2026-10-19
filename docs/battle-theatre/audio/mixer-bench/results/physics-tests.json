@@ -1,0 +1,99 @@
+{
+ "chrome": "Chrome/155.0.8059.82",
+ "date": "2026-10-19T19:29:10.479Z",
+ "tests": [
+  {
+   "name": "arrival time equals fire time + distance/343 (impulse, frame accuracy)",
+   "pass": true,
+   "cases": [
+    {
+     "d": 686,
+     "expectedFrame": 120000,
+     "gotFrame": 120000,
+     "errSamples": 0
+    },
+    {
+     "d": 3.43,
+     "expectedFrame": 6405.89,
+     "gotFrame": 6406,
+     "errSamples": 0.11
+    },
+    {
+     "d": 1500,
+     "expectedFrame": 257912.54,
+     "gotFrame": 257913,
+     "errSamples": 0.46
+    },
+    {
+     "d": 34.3,
+     "expectedFrame": 38400,
+     "gotFrame": 38400,
+     "errSamples": 0
+    },
+    {
+     "d": 12.5,
+     "expectedFrame": 97749.27,
+     "gotFrame": 97749,
+     "errSamples": -0.27
+    }
+   ],
+   "note": "error budget +-1 sample = 21 microseconds"
+  },
+  {
+   "name": "5 m/s tail wind shortens the delay to d/(c+5)",
+   "pass": true,
+   "expectedFrame": 94620.69,
+   "gotFrame": 94621
+  },
+  {
+   "name": "level falls 6.02 dB per doubling of distance (100 Hz, no ground effect)",
+   "pass": true,
+   "dbPerDoubling": [
+    -6.01,
+    -6.02,
+    -6.02
+   ],
+   "note": "small deviation from the 100 Hz air filter"
+  },
+  {
+   "name": "4 kHz air absorption between 100 m and 1000 m follows the fitted filter (ISO 9613-1 target shown)",
+   "pass": true,
+   "measuredExtraDb": -22.47,
+   "fitExpectedDb": -22.47,
+   "iso9613_1_targetDb": -21.06,
+   "note": "the 2-pole fit is within about 2 dB of ISO at 4 kHz"
+  },
+  {
+   "name": "source hard right: right ear leads by the Woodworth ITD (about 0.66 ms = 32 samples) and is louder",
+   "pass": true,
+   "framesR": 6997,
+   "framesL": 7028,
+   "itdSamples": 31,
+   "itdMs": 0.646,
+   "levelDiffDb": 158.3
+  },
+  {
+   "name": "listener approaching at 30 m/s hears the 1 kHz tone at 1000 (1 + 30/343) Hz (the listener has not moved in this test; only the rate is applied)",
+   "pass": true,
+   "measuredHz": 1088,
+   "expectedHz": 1087.5
+  },
+  {
+   "name": "with a pool of 8 voices and 40 long shots the 32 extra shots steal voices (counted), output stays finite",
+   "pass": true,
+   "steals": 32
+  },
+  {
+   "name": "with the default pool nothing is stolen",
+   "pass": true,
+   "steals": 0
+  },
+  {
+   "name": "shots one sample apart are both rendered (energy at two consecutive frames)",
+   "pass": true,
+   "firstFrame": 4800
+  }
+ ],
+ "passed": 9,
+ "total": 9
+}

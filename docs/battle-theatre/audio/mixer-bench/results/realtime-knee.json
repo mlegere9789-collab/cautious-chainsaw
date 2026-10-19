@@ -1,0 +1,248 @@
+{
+ "env": {
+  "chrome": "Chrome/155.0.8059.82",
+  "cpu": "Intel(R) Core(TM) Ultra 7 265H",
+  "logicalCores": 16,
+  "ramGB": 31.4,
+  "platform": "win32 10.0.26200",
+  "priority": "below-normal (Chrome and children)",
+  "otherLoad": "two other large pipelines running during the runs",
+  "date": "2026-10-19T19:39:51.511Z",
+  "ticksPerSec": 112272132.90115085
+ },
+ "runs": [
+  {
+   "spec": {
+    "kind": "musket",
+    "rate": 4800,
+    "dur": 30,
+    "cannonRate": 3,
+    "quality": 1,
+    "volume": 0,
+    "maxVoices": 8192
+   },
+   "events": 144090,
+   "latency": {
+    "baseLatencyMs": 10,
+    "outputLatencyMsAtEnd": 40,
+    "mainToWorkletRoundTripMs": {
+     "n": 60,
+     "p50": 0.2,
+     "max": 6.82
+    }
+   },
+   "playbackStats": {
+    "underrunEvents": 4,
+    "underrunDuration": 0.04,
+    "totalDuration": 39.12356,
+    "averageLatency": 0.0453,
+    "minimumLatency": 0,
+    "maximumLatency": 0.05098
+   },
+   "worklet": {
+    "blocks": 14479,
+    "started": 144090,
+    "steals": 0,
+    "culled": 0,
+    "late": 0,
+    "lateDrop": 0,
+    "evDrop": 0,
+    "clips": 613025,
+    "maxActive": 2005,
+    "maxInFlight": 10086,
+    "blocksOverBudget": 93,
+    "procMaxUs": 4519,
+    "procMeanUs": 1005,
+    "procP50Us": 1100,
+    "procP99Us": 2550,
+    "procP999Us": 3300,
+    "rtf": 0.377
+   },
+   "main": {
+    "posts": 1410,
+    "postMsTotal": 113.9,
+    "maxBatch": 1921,
+    "jsHeap": {
+     "usedJSHeapMB": 20.9,
+     "totalJSHeapMB": 22.2
+    }
+   },
+   "name": "DEVICE real-time knee: 4800 shots/s, quality full, 30 s"
+  },
+  {
+   "spec": {
+    "kind": "musket",
+    "rate": 6400,
+    "dur": 30,
+    "cannonRate": 3,
+    "quality": 1,
+    "volume": 0,
+    "maxVoices": 8192
+   },
+   "events": 192090,
+   "latency": {
+    "baseLatencyMs": 10,
+    "outputLatencyMsAtEnd": 40,
+    "mainToWorkletRoundTripMs": {
+     "n": 60,
+     "p50": 0.46,
+     "max": 22.47
+    }
+   },
+   "playbackStats": {
+    "underrunEvents": 11,
+    "underrunDuration": 0.109785,
+    "totalDuration": 39.164015,
+    "averageLatency": 0.042305,
+    "minimumLatency": 0,
+    "maximumLatency": 0.054935000000000005
+   },
+   "worklet": {
+    "blocks": 14483,
+    "started": 192090,
+    "steals": 0,
+    "culled": 0,
+    "late": 0,
+    "lateDrop": 0,
+    "evDrop": 0,
+    "clips": 953351,
+    "maxActive": 2686,
+    "maxInFlight": 13488,
+    "blocksOverBudget": 316,
+    "procMaxUs": 7160,
+    "procMeanUs": 1248,
+    "procP50Us": 1400,
+    "procP99Us": 2925,
+    "procP999Us": 3500,
+    "rtf": 0.468
+   },
+   "main": {
+    "posts": 1418,
+    "postMsTotal": 107.1,
+    "maxBatch": 2560,
+    "jsHeap": {
+     "usedJSHeapMB": 34.5,
+     "totalJSHeapMB": 35.4
+    }
+   },
+   "name": "DEVICE real-time knee: 6400 shots/s, quality full, 30 s"
+  },
+  {
+   "spec": {
+    "kind": "musket",
+    "rate": 9600,
+    "dur": 30,
+    "cannonRate": 3,
+    "quality": 0,
+    "volume": 0,
+    "maxVoices": 8192
+   },
+   "events": 288090,
+   "latency": {
+    "baseLatencyMs": 10,
+    "outputLatencyMsAtEnd": 40,
+    "mainToWorkletRoundTripMs": {
+     "n": 60,
+     "p50": 0.56,
+     "max": 9.21
+    }
+   },
+   "playbackStats": {
+    "underrunEvents": 58,
+    "underrunDuration": 0.614315,
+    "totalDuration": 39.497925,
+    "averageLatency": 0.041475,
+    "minimumLatency": 0,
+    "maximumLatency": 0.054935000000000005
+   },
+   "worklet": {
+    "blocks": 14479,
+    "started": 288090,
+    "steals": 0,
+    "culled": 0,
+    "late": 0,
+    "lateDrop": 0,
+    "evDrop": 0,
+    "clips": 1306006,
+    "maxActive": 3974,
+    "maxInFlight": 20217,
+    "blocksOverBudget": 115,
+    "procMaxUs": 4802,
+    "procMeanUs": 1109,
+    "procP50Us": 1275,
+    "procP99Us": 2600,
+    "procP999Us": 3225,
+    "rtf": 0.416
+   },
+   "main": {
+    "posts": 1426,
+    "postMsTotal": 124,
+    "maxBatch": 3844,
+    "jsHeap": {
+     "usedJSHeapMB": 54.3,
+     "totalJSHeapMB": 55.2
+    }
+   },
+   "name": "DEVICE real-time knee: 9600 shots/s, quality lite, 30 s"
+  },
+  {
+   "spec": {
+    "kind": "musket",
+    "rate": 12800,
+    "dur": 30,
+    "cannonRate": 3,
+    "quality": 0,
+    "volume": 0,
+    "maxVoices": 8192
+   },
+   "events": 384090,
+   "latency": {
+    "baseLatencyMs": 10,
+    "outputLatencyMsAtEnd": 40,
+    "mainToWorkletRoundTripMs": {
+     "n": 60,
+     "p50": 3.08,
+     "max": 23.7
+    }
+   },
+   "playbackStats": {
+    "underrunEvents": 445,
+    "underrunDuration": 4.730155,
+    "totalDuration": 43.475135,
+    "averageLatency": 0.039635,
+    "minimumLatency": 0,
+    "maximumLatency": 0.05425
+   },
+   "worklet": {
+    "blocks": 14479,
+    "started": 384090,
+    "steals": 0,
+    "culled": 0,
+    "late": 0,
+    "lateDrop": 0,
+    "evDrop": 0,
+    "clips": 1415802,
+    "maxActive": 5246,
+    "maxInFlight": 26884,
+    "blocksOverBudget": 318,
+    "procMaxUs": 6049,
+    "procMeanUs": 1441,
+    "procP50Us": 1700,
+    "procP99Us": 3050,
+    "procP999Us": 3900,
+    "rtf": 0.54
+   },
+   "main": {
+    "posts": 1481,
+    "postMsTotal": 130.8,
+    "maxBatch": 5120,
+    "jsHeap": {
+     "usedJSHeapMB": 80.7,
+     "totalJSHeapMB": 81.3
+    }
+   },
+   "name": "DEVICE real-time knee: 12800 shots/s, quality lite, 30 s"
+  }
+ ],
+ "note": "Chrome working-set figures were removed from this file: that run summed ALL chrome.exe processes on the machine, including the owner's own browser, so they were not a measure of the bench. realtime-device.json has the correct per-profile figures."
+}

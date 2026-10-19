@@ -1,0 +1,422 @@
+{
+ "method": "power of each shot at the listener vs the summed power of all other shots arriving within +-25 ms; marginDb = required level of the shot relative to the sum of the others",
+ "windowSeconds": 0.05,
+ "marginsDb": [
+  -3,
+  0,
+  6,
+  12
+ ],
+ "rows": [
+  {
+   "stream": "musket line, distances 10-1500 m",
+   "shotsPerSec": 25,
+   "result": {
+    "m0": {
+     "shotsPerSecDistinguishable": 14.2,
+     "shareOfShots": 0.559,
+     "energyShareOfDistinguishable": 0.931,
+     "energyShareInMasked": 0.069
+    },
+    "m-3": {
+     "shotsPerSecDistinguishable": 15.6,
+     "shareOfShots": 0.614,
+     "energyShareOfDistinguishable": 0.938,
+     "energyShareInMasked": 0.062
+    },
+    "m6": {
+     "shotsPerSecDistinguishable": 12.5,
+     "shareOfShots": 0.492,
+     "energyShareOfDistinguishable": 0.794,
+     "energyShareInMasked": 0.206
+    },
+    "m12": {
+     "shotsPerSecDistinguishable": 11.1,
+     "shareOfShots": 0.437,
+     "energyShareOfDistinguishable": 0.769,
+     "energyShareInMasked": 0.231
+    }
+   }
+  },
+  {
+   "stream": "musket line, distances 10-1500 m",
+   "shotsPerSec": 50,
+   "result": {
+    "m0": {
+     "shotsPerSecDistinguishable": 18.6,
+     "shareOfShots": 0.368,
+     "energyShareOfDistinguishable": 0.935,
+     "energyShareInMasked": 0.065
+    },
+    "m-3": {
+     "shotsPerSecDistinguishable": 21.2,
+     "shareOfShots": 0.419,
+     "energyShareOfDistinguishable": 0.946,
+     "energyShareInMasked": 0.054
+    },
+    "m6": {
+     "shotsPerSecDistinguishable": 14.6,
+     "shareOfShots": 0.289,
+     "energyShareOfDistinguishable": 0.852,
+     "energyShareInMasked": 0.148
+    },
+    "m12": {
+     "shotsPerSecDistinguishable": 11.4,
+     "shareOfShots": 0.225,
+     "energyShareOfDistinguishable": 0.761,
+     "energyShareInMasked": 0.239
+    }
+   }
+  },
+  {
+   "stream": "musket line, distances 10-1500 m",
+   "shotsPerSec": 100,
+   "result": {
+    "m0": {
+     "shotsPerSecDistinguishable": 17.2,
+     "shareOfShots": 0.173,
+     "energyShareOfDistinguishable": 0.886,
+     "energyShareInMasked": 0.114
+    },
+    "m-3": {
+     "shotsPerSecDistinguishable": 23,
+     "shareOfShots": 0.231,
+     "energyShareOfDistinguishable": 0.923,
+     "energyShareInMasked": 0.077
+    },
+    "m6": {
+     "shotsPerSecDistinguishable": 11.1,
+     "shareOfShots": 0.112,
+     "energyShareOfDistinguishable": 0.795,
+     "energyShareInMasked": 0.205
+    },
+    "m12": {
+     "shotsPerSecDistinguishable": 5.8,
+     "shareOfShots": 0.058,
+     "energyShareOfDistinguishable": 0.551,
+     "energyShareInMasked": 0.449
+    }
+   }
+  },
+  {
+   "stream": "musket line, distances 10-1500 m",
+   "shotsPerSec": 200,
+   "result": {
+    "m0": {
+     "shotsPerSecDistinguishable": 16.4,
+     "shareOfShots": 0.082,
+     "energyShareOfDistinguishable": 0.678,
+     "energyShareInMasked": 0.322
+    },
+    "m-3": {
+     "shotsPerSecDistinguishable": 22.1,
+     "shareOfShots": 0.111,
+     "energyShareOfDistinguishable": 0.796,
+     "energyShareInMasked": 0.204
+    },
+    "m6": {
+     "shotsPerSecDistinguishable": 6.2,
+     "shareOfShots": 0.031,
+     "energyShareOfDistinguishable": 0.379,
+     "energyShareInMasked": 0.621
+    },
+    "m12": {
+     "shotsPerSecDistinguishable": 1.7,
+     "shareOfShots": 0.009,
+     "energyShareOfDistinguishable": 0.198,
+     "energyShareInMasked": 0.802
+    }
+   }
+  },
+  {
+   "stream": "musket line, distances 10-1500 m",
+   "shotsPerSec": 371,
+   "result": {
+    "m0": {
+     "shotsPerSecDistinguishable": 13,
+     "shareOfShots": 0.035,
+     "energyShareOfDistinguishable": 0.568,
+     "energyShareInMasked": 0.432
+    },
+    "m-3": {
+     "shotsPerSecDistinguishable": 19.9,
+     "shareOfShots": 0.053,
+     "energyShareOfDistinguishable": 0.711,
+     "energyShareInMasked": 0.289
+    },
+    "m6": {
+     "shotsPerSecDistinguishable": 4.8,
+     "shareOfShots": 0.013,
+     "energyShareOfDistinguishable": 0.31,
+     "energyShareInMasked": 0.69
+    },
+    "m12": {
+     "shotsPerSecDistinguishable": 1.1,
+     "shareOfShots": 0.003,
+     "energyShareOfDistinguishable": 0.103,
+     "energyShareInMasked": 0.897
+    }
+   }
+  },
+  {
+   "stream": "musket line, distances 10-1500 m",
+   "shotsPerSec": 500,
+   "result": {
+    "m0": {
+     "shotsPerSecDistinguishable": 11.4,
+     "shareOfShots": 0.023,
+     "energyShareOfDistinguishable": 0.495,
+     "energyShareInMasked": 0.505
+    },
+    "m-3": {
+     "shotsPerSecDistinguishable": 18.2,
+     "shareOfShots": 0.036,
+     "energyShareOfDistinguishable": 0.657,
+     "energyShareInMasked": 0.343
+    },
+    "m6": {
+     "shotsPerSecDistinguishable": 2.9,
+     "shareOfShots": 0.006,
+     "energyShareOfDistinguishable": 0.184,
+     "energyShareInMasked": 0.816
+    },
+    "m12": {
+     "shotsPerSecDistinguishable": 0.3,
+     "shareOfShots": 0.001,
+     "energyShareOfDistinguishable": 0.017,
+     "energyShareInMasked": 0.983
+    }
+   }
+  },
+  {
+   "stream": "musket line, distances 10-1500 m",
+   "shotsPerSec": 1000,
+   "result": {
+    "m0": {
+     "shotsPerSecDistinguishable": 6.8,
+     "shareOfShots": 0.007,
+     "energyShareOfDistinguishable": 0.265,
+     "energyShareInMasked": 0.735
+    },
+    "m-3": {
+     "shotsPerSecDistinguishable": 14.7,
+     "shareOfShots": 0.015,
+     "energyShareOfDistinguishable": 0.456,
+     "energyShareInMasked": 0.544
+    },
+    "m6": {
+     "shotsPerSecDistinguishable": 1.5,
+     "shareOfShots": 0.002,
+     "energyShareOfDistinguishable": 0.084,
+     "energyShareInMasked": 0.916
+    },
+    "m12": {
+     "shotsPerSecDistinguishable": 0,
+     "shareOfShots": 0,
+     "energyShareOfDistinguishable": 0,
+     "energyShareInMasked": 1
+    }
+   }
+  },
+  {
+   "stream": "musket line, distances 10-1500 m",
+   "shotsPerSec": 1667,
+   "result": {
+    "m0": {
+     "shotsPerSecDistinguishable": 4.2,
+     "shareOfShots": 0.003,
+     "energyShareOfDistinguishable": 0.141,
+     "energyShareInMasked": 0.859
+    },
+    "m-3": {
+     "shotsPerSecDistinguishable": 11.7,
+     "shareOfShots": 0.007,
+     "energyShareOfDistinguishable": 0.296,
+     "energyShareInMasked": 0.704
+    },
+    "m6": {
+     "shotsPerSecDistinguishable": 0.4,
+     "shareOfShots": 0,
+     "energyShareOfDistinguishable": 0.02,
+     "energyShareInMasked": 0.98
+    },
+    "m12": {
+     "shotsPerSecDistinguishable": 0,
+     "shareOfShots": 0,
+     "energyShareOfDistinguishable": 0,
+     "energyShareInMasked": 1
+    }
+   }
+  },
+  {
+   "stream": "musket line, distances 10-1500 m",
+   "shotsPerSec": 3000,
+   "result": {
+    "m0": {
+     "shotsPerSecDistinguishable": 0.6,
+     "shareOfShots": 0,
+     "energyShareOfDistinguishable": 0.013,
+     "energyShareInMasked": 0.987
+    },
+    "m-3": {
+     "shotsPerSecDistinguishable": 5.9,
+     "shareOfShots": 0.002,
+     "energyShareOfDistinguishable": 0.113,
+     "energyShareInMasked": 0.887
+    },
+    "m6": {
+     "shotsPerSecDistinguishable": 0,
+     "shareOfShots": 0,
+     "energyShareOfDistinguishable": 0,
+     "energyShareInMasked": 1
+    },
+    "m12": {
+     "shotsPerSecDistinguishable": 0,
+     "shareOfShots": 0,
+     "energyShareOfDistinguishable": 0,
+     "energyShareInMasked": 1
+    }
+   }
+  },
+  {
+   "stream": "Angle geometry (371 shots/s: 6500 defenders along the ridge, 3000 attackers 150-1300 m out)",
+   "shotsPerSec": 371,
+   "result": {
+    "m0": {
+     "shotsPerSecDistinguishable": 13.9,
+     "shareOfShots": 0.036,
+     "energyShareOfDistinguishable": 0.78,
+     "energyShareInMasked": 0.22
+    },
+    "m-3": {
+     "shotsPerSecDistinguishable": 20.2,
+     "shareOfShots": 0.053,
+     "energyShareOfDistinguishable": 0.841,
+     "energyShareInMasked": 0.159
+    },
+    "m6": {
+     "shotsPerSecDistinguishable": 4.7,
+     "shareOfShots": 0.012,
+     "energyShareOfDistinguishable": 0.601,
+     "energyShareInMasked": 0.399
+    },
+    "m12": {
+     "shotsPerSecDistinguishable": 2,
+     "shareOfShots": 0.005,
+     "energyShareOfDistinguishable": 0.412,
+     "energyShareInMasked": 0.588
+    }
+   }
+  },
+  {
+   "stream": "Day-2-scale ceiling geometry (1667 shots/s)",
+   "shotsPerSec": 1667,
+   "result": {
+    "m0": {
+     "shotsPerSecDistinguishable": 7.1,
+     "shareOfShots": 0.004,
+     "energyShareOfDistinguishable": 0.432,
+     "energyShareInMasked": 0.568
+    },
+    "m-3": {
+     "shotsPerSecDistinguishable": 14.6,
+     "shareOfShots": 0.009,
+     "energyShareOfDistinguishable": 0.556,
+     "energyShareInMasked": 0.444
+    },
+    "m6": {
+     "shotsPerSecDistinguishable": 1.6,
+     "shareOfShots": 0.001,
+     "energyShareOfDistinguishable": 0.177,
+     "energyShareInMasked": 0.823
+    },
+    "m12": {
+     "shotsPerSecDistinguishable": 0.3,
+     "shareOfShots": 0,
+     "energyShareOfDistinguishable": 0.038,
+     "energyShareInMasked": 0.962
+    }
+   }
+  }
+ ],
+ "windowSensitivityAngle371": {
+  "0.02 s": {
+   "m0": {
+    "shotsPerSecDistinguishable": 42.8,
+    "shareOfShots": 0.112,
+    "energyShareOfDistinguishable": 0.893,
+    "energyShareInMasked": 0.107
+   },
+   "m-3": {
+    "shotsPerSecDistinguishable": 55.6,
+    "shareOfShots": 0.145,
+    "energyShareOfDistinguishable": 0.925,
+    "energyShareInMasked": 0.075
+   },
+   "m6": {
+    "shotsPerSecDistinguishable": 23.3,
+    "shareOfShots": 0.061,
+    "energyShareOfDistinguishable": 0.797,
+    "energyShareInMasked": 0.203
+   },
+   "m12": {
+    "shotsPerSecDistinguishable": 13.2,
+    "shareOfShots": 0.035,
+    "energyShareOfDistinguishable": 0.613,
+    "energyShareInMasked": 0.387
+   }
+  },
+  "0.05 s": {
+   "m0": {
+    "shotsPerSecDistinguishable": 13.9,
+    "shareOfShots": 0.036,
+    "energyShareOfDistinguishable": 0.78,
+    "energyShareInMasked": 0.22
+   },
+   "m-3": {
+    "shotsPerSecDistinguishable": 20.2,
+    "shareOfShots": 0.053,
+    "energyShareOfDistinguishable": 0.841,
+    "energyShareInMasked": 0.159
+   },
+   "m6": {
+    "shotsPerSecDistinguishable": 4.7,
+    "shareOfShots": 0.012,
+    "energyShareOfDistinguishable": 0.601,
+    "energyShareInMasked": 0.399
+   },
+   "m12": {
+    "shotsPerSecDistinguishable": 2,
+    "shareOfShots": 0.005,
+    "energyShareOfDistinguishable": 0.412,
+    "energyShareInMasked": 0.588
+   }
+  },
+  "0.1 s": {
+   "m0": {
+    "shotsPerSecDistinguishable": 6,
+    "shareOfShots": 0.016,
+    "energyShareOfDistinguishable": 0.657,
+    "energyShareInMasked": 0.343
+   },
+   "m-3": {
+    "shotsPerSecDistinguishable": 9.3,
+    "shareOfShots": 0.024,
+    "energyShareOfDistinguishable": 0.749,
+    "energyShareInMasked": 0.251
+   },
+   "m6": {
+    "shotsPerSecDistinguishable": 2,
+    "shareOfShots": 0.005,
+    "energyShareOfDistinguishable": 0.509,
+    "energyShareInMasked": 0.491
+   },
+   "m12": {
+    "shotsPerSecDistinguishable": 0.5,
+    "shareOfShots": 0.001,
+    "energyShareOfDistinguishable": 0.309,
+    "energyShareInMasked": 0.691
+   }
+  }
+ }
+}

@@ -1,0 +1,193 @@
+{
+ "env": {
+  "chrome": "Chrome/155.0.8059.82",
+  "cpu": "Intel(R) Core(TM) Ultra 7 265H",
+  "logicalCores": 16,
+  "ramGB": 31.4,
+  "platform": "win32 10.0.26200",
+  "priority": "below-normal (Chrome and children)",
+  "otherLoad": "two other large pipelines running during the runs",
+  "date": "2026-10-19T19:25:25.513Z",
+  "ticksPerSec": 125542000.48423713
+ },
+ "runs": [
+  {
+   "spec": {
+    "kind": "mixed",
+    "dur": 60,
+    "defenders": 6500,
+    "attackers": 3000,
+    "rD": 2.5,
+    "rA": 2,
+    "confInt": 15,
+    "unionInt": 20,
+    "volume": 0.2
+   },
+   "events": 23109,
+   "latency": {
+    "baseLatencyMs": 10,
+    "outputLatencyMsAtEnd": 48,
+    "mainToWorkletRoundTripMs": {
+     "n": 60,
+     "p50": 0.14,
+     "max": 5.84
+    }
+   },
+   "playbackStats": {
+    "underrunEvents": 0,
+    "underrunDuration": 0,
+    "totalDuration": 68.166955,
+    "averageLatency": 0.05003,
+    "minimumLatency": 0,
+    "maximumLatency": 0.05198
+   },
+   "worklet": {
+    "blocks": 25729,
+    "started": 23109,
+    "steals": 0,
+    "culled": 0,
+    "late": 0,
+    "lateDrop": 0,
+    "evDrop": 0,
+    "clips": 10173,
+    "maxActive": 232,
+    "maxInFlight": 909,
+    "blocksOverBudget": 0,
+    "procMaxUs": 624,
+    "procMeanUs": 100,
+    "procP50Us": 125,
+    "procP99Us": 275,
+    "procP999Us": 425,
+    "rtf": 0.037
+   },
+   "main": {
+    "posts": 2840,
+    "postMsTotal": 217.9,
+    "maxBatch": 156,
+    "jsHeap": {
+     "usedJSHeapMB": 13.2,
+     "totalJSHeapMB": 14.4
+    }
+   },
+   "name": "real-time: assault 371/s + cannonade x6, 60 s"
+  },
+  {
+   "spec": {
+    "kind": "assault",
+    "dur": 40,
+    "defenders": 25000,
+    "attackers": 15000,
+    "rD": 2.5,
+    "rA": 2.5,
+    "volume": 0.2
+   },
+   "events": 66614,
+   "latency": {
+    "baseLatencyMs": 10,
+    "outputLatencyMsAtEnd": 48,
+    "mainToWorkletRoundTripMs": {
+     "n": 60,
+     "p50": 0.19,
+     "max": 6.63
+    }
+   },
+   "playbackStats": {
+    "underrunEvents": 0,
+    "underrunDuration": 0,
+    "totalDuration": 49.110385,
+    "averageLatency": 0.050145,
+    "minimumLatency": 0,
+    "maximumLatency": 0.05198
+   },
+   "worklet": {
+    "blocks": 18232,
+    "started": 66614,
+    "steals": 0,
+    "culled": 0,
+    "late": 0,
+    "lateDrop": 0,
+    "evDrop": 0,
+    "clips": 123074,
+    "maxActive": 933,
+    "maxInFlight": 4540,
+    "blocksOverBudget": 0,
+    "procMaxUs": 1488,
+    "procMeanUs": 315,
+    "procP50Us": 350,
+    "procP99Us": 775,
+    "procP999Us": 1050,
+    "rtf": 0.118
+   },
+   "main": {
+    "posts": 1891,
+    "postMsTotal": 139.2,
+    "maxBatch": 619,
+    "jsHeap": {
+     "usedJSHeapMB": 17.7,
+     "totalJSHeapMB": 19
+    }
+   },
+   "name": "real-time: 1667 shots/s ceiling, 40 s"
+  },
+  {
+   "spec": {
+    "kind": "assault",
+    "dur": 40,
+    "defenders": 6500,
+    "attackers": 3000,
+    "rD": 2.5,
+    "rA": 2,
+    "moving": true,
+    "volume": 0.2
+   },
+   "events": 14797,
+   "latency": {
+    "baseLatencyMs": 10,
+    "outputLatencyMsAtEnd": 56,
+    "mainToWorkletRoundTripMs": {
+     "n": 60,
+     "p50": 0.16,
+     "max": 6.74
+    }
+   },
+   "playbackStats": {
+    "underrunEvents": 0,
+    "underrunDuration": 0,
+    "totalDuration": 48.150625,
+    "averageLatency": 0.05917,
+    "minimumLatency": 0,
+    "maximumLatency": 0.06096
+   },
+   "worklet": {
+    "blocks": 18232,
+    "started": 14797,
+    "steals": 0,
+    "culled": 0,
+    "late": 0,
+    "lateDrop": 0,
+    "evDrop": 0,
+    "clips": 35,
+    "maxActive": 214,
+    "maxInFlight": 1729,
+    "blocksOverBudget": 0,
+    "procMaxUs": 711,
+    "procMeanUs": 86,
+    "procP50Us": 100,
+    "procP99Us": 225,
+    "procP999Us": 350,
+    "rtf": 0.032
+   },
+   "main": {
+    "posts": 1885,
+    "postMsTotal": 135.9,
+    "maxBatch": 123,
+    "jsHeap": {
+     "usedJSHeapMB": 19.5,
+     "totalJSHeapMB": 24.5
+    }
+   },
+   "name": "real-time: 371/s moving camera 30 m/s, 40 s"
+  }
+ ],
+ "note": "Chrome working-set figures were removed from this file: that run summed ALL chrome.exe processes on the machine, including the owner's own browser, so they were not a measure of the bench. realtime-device.json has the correct per-profile figures."
+}

@@ -1,0 +1,555 @@
+{
+ "tool": "mixer-bench/tools/analyze-pilot.mjs",
+ "chrome": "Chrome/155.0.8059.82",
+ "note": "Freesound files are the site's public \"HQ preview\" MP3 renders (128 kbps class); the lossless originals need a Freesound login and were not fetched. All numbers are of the decoded preview.",
+ "files": [
+  {
+   "file": "battle-bed/fs125346_adeluc4_civil-war-battle-noise.mp3",
+   "bytes": 232272,
+   "container": {
+    "codec": "MP3 (MPEG1 L3)",
+    "sampleRate": 48000,
+    "bitrateKbps": 128,
+    "mode": "joint stereo"
+   },
+   "measured": {
+    "ctxRate": 48000,
+    "channels": 2,
+    "seconds": 10.043,
+    "peakDbFS": 0,
+    "rmsDbFS": -29.9,
+    "crestDb": 29.9,
+    "noiseFloorDbFS": -38.1,
+    "loudestWindowDbFS": -12.1,
+    "dynamicRangeDb": 26,
+    "spectralCentroidHz": 384,
+    "rolloff95Hz": 1277,
+    "rolloff99Hz": 5332,
+    "shareAbove10kHz": 0.00122
+   }
+  },
+  {
+   "file": "battle-bed/fs162628_richardemoore_CW_Battle_Nearby.mp3",
+   "bytes": 6379172,
+   "container": {
+    "codec": "MP3 (MPEG1 L3)",
+    "sampleRate": 44100,
+    "bitrateKbps": 128,
+    "mode": "joint stereo"
+   },
+   "measured": {
+    "ctxRate": 48000,
+    "channels": 2,
+    "seconds": 273.529,
+    "peakDbFS": 0.1,
+    "rmsDbFS": -28,
+    "crestDb": 28.1,
+    "noiseFloorDbFS": -51.5,
+    "loudestWindowDbFS": -5.9,
+    "dynamicRangeDb": 45.6,
+    "spectralCentroidHz": 474,
+    "rolloff95Hz": 2871,
+    "rolloff99Hz": 7066,
+    "shareAbove10kHz": 0.00127
+   }
+  },
+  {
+   "file": "battle-bed/fs442293_electra_civil-war-gunfire-distant.mp3",
+   "bytes": 2036064,
+   "container": {
+    "codec": "MP3 (MPEG1 L3)",
+    "sampleRate": 48000,
+    "bitrateKbps": 128,
+    "mode": "joint stereo"
+   },
+   "measured": {
+    "ctxRate": 48000,
+    "channels": 2,
+    "seconds": 89.691,
+    "peakDbFS": -5.5,
+    "rmsDbFS": -35.4,
+    "crestDb": 29.9,
+    "noiseFloorDbFS": -81.4,
+    "loudestWindowDbFS": -13.5,
+    "dynamicRangeDb": 67.9,
+    "spectralCentroidHz": 210,
+    "rolloff95Hz": 1055,
+    "rolloff99Hz": 2391,
+    "shareAbove10kHz": 0.00000392
+   }
+  },
+  {
+   "file": "battle-bed/wc_Civil_War_reenactment_battle4_audio_8k.wav",
+   "bytes": 425624,
+   "container": {
+    "codec": "WAV PCM 16-bit (audio track extracted from a CC video; source track was 8 kHz mono Vorbis, ~17 kbps)",
+    "sampleRate": 8000,
+    "channels": 1
+   },
+   "measured": {
+    "ctxRate": 48000,
+    "channels": 1,
+    "seconds": 26.599,
+    "peakDbFS": 2.1,
+    "rmsDbFS": -15.6,
+    "crestDb": 17.7,
+    "noiseFloorDbFS": -22.4,
+    "loudestWindowDbFS": -10.8,
+    "dynamicRangeDb": 11.6,
+    "spectralCentroidHz": 961,
+    "rolloff95Hz": 1805,
+    "rolloff99Hz": 2309,
+    "shareAbove10kHz": 2.47e-9
+   }
+  },
+  {
+   "file": "battle-bed/wc_Civil_War_reenactment_battle_clip3_audio_8k.wav",
+   "bytes": 346680,
+   "container": {
+    "codec": "WAV PCM 16-bit (audio track extracted from a CC video; source track was 8 kHz mono Vorbis, ~17 kbps)",
+    "sampleRate": 8000,
+    "channels": 1
+   },
+   "measured": {
+    "ctxRate": 48000,
+    "channels": 1,
+    "seconds": 21.665,
+    "peakDbFS": 2.7,
+    "rmsDbFS": -15.7,
+    "crestDb": 18.4,
+    "noiseFloorDbFS": -22.7,
+    "loudestWindowDbFS": -11.1,
+    "dynamicRangeDb": 11.6,
+    "spectralCentroidHz": 722,
+    "rolloff95Hz": 1488,
+    "rolloff99Hz": 2297,
+    "shareAbove10kHz": 1.78e-9
+   }
+  },
+  {
+   "file": "cannon/fs125348_adeluc4_civil-war-cannon.mp3",
+   "bytes": 60864,
+   "container": {
+    "codec": "MP3 (MPEG1 L3)",
+    "sampleRate": 48000,
+    "bitrateKbps": 128,
+    "mode": "joint stereo"
+   },
+   "measured": {
+    "ctxRate": 48000,
+    "channels": 2,
+    "seconds": 2.503,
+    "peakDbFS": -0.1,
+    "rmsDbFS": -22.8,
+    "crestDb": 22.7,
+    "noiseFloorDbFS": -52.3,
+    "loudestWindowDbFS": -8,
+    "dynamicRangeDb": 44.3,
+    "spectralCentroidHz": 158,
+    "rolloff95Hz": 820,
+    "rolloff99Hz": 2156,
+    "shareAbove10kHz": 0.000555
+   }
+  },
+  {
+   "file": "cannon/fs182822_qubodup_artillery-shots-blackpowder.mp3",
+   "bytes": 933696,
+   "container": {
+    "codec": "MP3 (MPEG1 L3)",
+    "sampleRate": 48000,
+    "bitrateKbps": 128,
+    "mode": "mono"
+   },
+   "measured": {
+    "ctxRate": 48000,
+    "channels": 1,
+    "seconds": 41.245,
+    "peakDbFS": 0,
+    "rmsDbFS": -19,
+    "crestDb": 19,
+    "noiseFloorDbFS": -90.3,
+    "loudestWindowDbFS": -4.2,
+    "dynamicRangeDb": 86.1,
+    "spectralCentroidHz": 809,
+    "rolloff95Hz": 3129,
+    "rolloff99Hz": 5684,
+    "shareAbove10kHz": 0.000789
+   }
+  },
+  {
+   "file": "cannon/fs187767_qubodup_cannon-shot-usgov.mp3",
+   "bytes": 260352,
+   "container": {
+    "codec": "MP3 (MPEG1 L3)",
+    "sampleRate": 48000,
+    "bitrateKbps": 128,
+    "mode": "joint stereo"
+   },
+   "measured": {
+    "ctxRate": 48000,
+    "channels": 2,
+    "seconds": 12.346,
+    "peakDbFS": 0,
+    "rmsDbFS": -20.2,
+    "crestDb": 20.2,
+    "noiseFloorDbFS": -95.9,
+    "loudestWindowDbFS": -5,
+    "dynamicRangeDb": 90.9,
+    "spectralCentroidHz": 698,
+    "rolloff95Hz": 3000,
+    "rolloff99Hz": 5941,
+    "shareAbove10kHz": 0.00169
+   }
+  },
+  {
+   "file": "misc/fs18229_dobroide_horse-neigh.mp3",
+   "bytes": 232524,
+   "container": {
+    "codec": "MP3 (MPEG1 L3)",
+    "sampleRate": 44100,
+    "bitrateKbps": 128,
+    "mode": "mono"
+   },
+   "measured": {
+    "ctxRate": 48000,
+    "channels": 1,
+    "seconds": 10.589,
+    "peakDbFS": -10.9,
+    "rmsDbFS": -30.8,
+    "crestDb": 19.9,
+    "noiseFloorDbFS": -50.6,
+    "loudestWindowDbFS": -20.2,
+    "dynamicRangeDb": 30.4,
+    "spectralCentroidHz": 2578,
+    "rolloff95Hz": 3527,
+    "rolloff99Hz": 4254,
+    "shareAbove10kHz": 0.00000653
+   }
+  },
+  {
+   "file": "misc/fs361482_FunWithSound_two-swords-clash.mp3",
+   "bytes": 187674,
+   "container": {
+    "codec": "MP3 (MPEG1 L3)",
+    "sampleRate": 44100,
+    "bitrateKbps": 128,
+    "mode": "joint stereo"
+   },
+   "measured": {
+    "ctxRate": 48000,
+    "channels": 2,
+    "seconds": 10.045,
+    "peakDbFS": 2.1,
+    "rmsDbFS": -24.9,
+    "crestDb": 27,
+    "noiseFloorDbFS": -54.7,
+    "loudestWindowDbFS": -9.7,
+    "dynamicRangeDb": 45,
+    "spectralCentroidHz": 5041,
+    "rolloff95Hz": 11988,
+    "rolloff99Hz": 12012,
+    "shareAbove10kHz": 0.0579
+   }
+  },
+  {
+   "file": "misc/fs486026_craigsmith_cannon-shot-and-shell-whistle.mp3",
+   "bytes": 189600,
+   "container": {
+    "codec": "MP3 (MPEG1 L3)",
+    "sampleRate": 48000,
+    "bitrateKbps": 128,
+    "mode": "mono"
+   },
+   "measured": {
+    "ctxRate": 48000,
+    "channels": 1,
+    "seconds": 8.42,
+    "peakDbFS": -13.1,
+    "rmsDbFS": -29.8,
+    "crestDb": 16.7,
+    "noiseFloorDbFS": -47.3,
+    "loudestWindowDbFS": -22,
+    "dynamicRangeDb": 25.3,
+    "spectralCentroidHz": 208,
+    "rolloff95Hz": 480,
+    "rolloff99Hz": 1148,
+    "shareAbove10kHz": 0.00000384
+   }
+  },
+  {
+   "file": "rifle-musket/fs234869_mlsulli_musket-shot.mp3",
+   "bytes": 56304,
+   "container": {
+    "codec": "MP3 (MPEG1 L3)",
+    "sampleRate": 48000,
+    "bitrateKbps": 128,
+    "mode": "mono"
+   },
+   "measured": {
+    "ctxRate": 48000,
+    "channels": 1,
+    "seconds": 2.4,
+    "peakDbFS": 0,
+    "rmsDbFS": -23.6,
+    "crestDb": 23.6,
+    "noiseFloorDbFS": -71.4,
+    "loudestWindowDbFS": -7.5,
+    "dynamicRangeDb": 63.9,
+    "spectralCentroidHz": 933,
+    "rolloff95Hz": 3867,
+    "rolloff99Hz": 7008,
+    "shareAbove10kHz": 0.00253
+   }
+  },
+  {
+   "file": "rifle-musket/fs347647_fennelliott_musket.mp3",
+   "bytes": 53645,
+   "container": {
+    "codec": "MP3 (MPEG1 L3)",
+    "sampleRate": 44100,
+    "bitrateKbps": 128,
+    "mode": "joint stereo"
+   },
+   "measured": {
+    "ctxRate": 48000,
+    "channels": 2,
+    "seconds": 2.041,
+    "peakDbFS": 2,
+    "rmsDbFS": -12.1,
+    "crestDb": 14,
+    "noiseFloorDbFS": -37.9,
+    "loudestWindowDbFS": -3.4,
+    "dynamicRangeDb": 34.5,
+    "spectralCentroidHz": 854,
+    "rolloff95Hz": 6211,
+    "rolloff99Hz": 11555,
+    "shareAbove10kHz": 0.0156
+   }
+  },
+  {
+   "file": "rifle-musket/fs538795_bruno.auzet_old-musket-bangs.mp3",
+   "bytes": 85584,
+   "container": {
+    "codec": "MP3 (MPEG1 L3)",
+    "sampleRate": 48000,
+    "bitrateKbps": 128,
+    "mode": "joint stereo"
+   },
+   "measured": {
+    "ctxRate": 48000,
+    "channels": 2,
+    "seconds": 3.565,
+    "peakDbFS": -6.2,
+    "rmsDbFS": -34.7,
+    "crestDb": 28.4,
+    "noiseFloorDbFS": -88.3,
+    "loudestWindowDbFS": -16.5,
+    "dynamicRangeDb": 71.8,
+    "spectralCentroidHz": 2889,
+    "rolloff95Hz": 11871,
+    "rolloff99Hz": 17004,
+    "shareAbove10kHz": 0.0703
+   }
+  },
+  {
+   "file": "rifle-musket/fs662875_alppdcjr12_musket-shots.mp3",
+   "bytes": 169522,
+   "container": {
+    "codec": "MP3 (MPEG1 L3)",
+    "sampleRate": 44100,
+    "bitrateKbps": 128,
+    "mode": "joint stereo"
+   },
+   "measured": {
+    "ctxRate": 48000,
+    "channels": 2,
+    "seconds": 8.88,
+    "peakDbFS": 2.1,
+    "rmsDbFS": -13.5,
+    "crestDb": 15.6,
+    "noiseFloorDbFS": -47.2,
+    "loudestWindowDbFS": -1.5,
+    "dynamicRangeDb": 45.7,
+    "spectralCentroidHz": 1873,
+    "rolloff95Hz": 7242,
+    "rolloff99Hz": 11742,
+    "shareAbove10kHz": 0.0196
+   }
+  },
+  {
+   "file": "rifle-musket/fs675623_craigsmith_musket-volley.mp3",
+   "bytes": 219936,
+   "container": {
+    "codec": "MP3 (MPEG1 L3)",
+    "sampleRate": 48000,
+    "bitrateKbps": 128,
+    "mode": "mono"
+   },
+   "measured": {
+    "ctxRate": 48000,
+    "channels": 1,
+    "seconds": 10.121,
+    "peakDbFS": -5.8,
+    "rmsDbFS": -17.9,
+    "crestDb": 12,
+    "noiseFloorDbFS": -28.2,
+    "loudestWindowDbFS": -15.2,
+    "dynamicRangeDb": 13,
+    "spectralCentroidHz": 768,
+    "rolloff95Hz": 2121,
+    "rolloff99Hz": 3012,
+    "shareAbove10kHz": 0.00000109
+   }
+  },
+  {
+   "file": "rifle-musket/wc_3_Volley_Salute_US_Army_Funeral.ogg",
+   "bytes": 245516,
+   "container": {
+    "codec": "Ogg Vorbis",
+    "channels": 1,
+    "sampleRate": 22050,
+    "nominalBitrateKbps": 64
+   },
+   "measured": {
+    "ctxRate": 48000,
+    "channels": 1,
+    "seconds": 30.637,
+    "peakDbFS": 0.4,
+    "rmsDbFS": -23.3,
+    "crestDb": 23.8,
+    "noiseFloorDbFS": -54.3,
+    "loudestWindowDbFS": -7.3,
+    "dynamicRangeDb": 47,
+    "spectralCentroidHz": 1152,
+    "rolloff95Hz": 3715,
+    "rolloff99Hz": 4418,
+    "shareAbove10kHz": 8.21e-10
+   }
+  },
+  {
+   "file": "signals/fs125347_adeluc4_civil-war-fife-drum.mp3",
+   "bytes": 612864,
+   "container": {
+    "codec": "MP3 (MPEG1 L3)",
+    "sampleRate": 48000,
+    "bitrateKbps": 128,
+    "mode": "joint stereo"
+   },
+   "measured": {
+    "ctxRate": 48000,
+    "channels": 2,
+    "seconds": 26.426,
+    "peakDbFS": -0.1,
+    "rmsDbFS": -20.4,
+    "crestDb": 20.3,
+    "noiseFloorDbFS": -35.2,
+    "loudestWindowDbFS": -9.3,
+    "dynamicRangeDb": 25.9,
+    "spectralCentroidHz": 312,
+    "rolloff95Hz": 996,
+    "rolloff99Hz": 2379,
+    "shareAbove10kHz": 0.000129
+   }
+  },
+  {
+   "file": "signals/fs438633_craigsmith_bugle-cavalry-charge.mp3",
+   "bytes": 417984,
+   "container": {
+    "codec": "MP3 (MPEG1 L3)",
+    "sampleRate": 48000,
+    "bitrateKbps": 128,
+    "mode": "mono"
+   },
+   "measured": {
+    "ctxRate": 48000,
+    "channels": 1,
+    "seconds": 18.224,
+    "peakDbFS": -13,
+    "rmsDbFS": -29.5,
+    "crestDb": 16.5,
+    "noiseFloorDbFS": -55.2,
+    "loudestWindowDbFS": -22.7,
+    "dynamicRangeDb": 32.5,
+    "spectralCentroidHz": 1157,
+    "rolloff95Hz": 3270,
+    "rolloff99Hz": 4230,
+    "shareAbove10kHz": 0.0000168
+   }
+  },
+  {
+   "file": "signals/ia_TapsBugleCall_taps.ogg",
+   "bytes": 649679,
+   "container": {
+    "codec": "Ogg Vorbis",
+    "channels": 2,
+    "sampleRate": 44100,
+    "nominalBitrateKbps": 112
+   },
+   "measured": {
+    "ctxRate": 48000,
+    "channels": 2,
+    "seconds": 60.919,
+    "peakDbFS": -6.6,
+    "rmsDbFS": -20.4,
+    "crestDb": 13.8,
+    "noiseFloorDbFS": -35.8,
+    "loudestWindowDbFS": -14.2,
+    "dynamicRangeDb": 21.6,
+    "spectralCentroidHz": 1120,
+    "rolloff95Hz": 2332,
+    "rolloff99Hz": 2355,
+    "shareAbove10kHz": 0.0000021
+   }
+  },
+  {
+   "file": "signals/wc_Assembly_bugle_call.ogg",
+   "bytes": 355344,
+   "container": {
+    "codec": "Ogg Vorbis",
+    "channels": 2,
+    "sampleRate": 44100,
+    "nominalBitrateKbps": 500
+   },
+   "measured": {
+    "ctxRate": 48000,
+    "channels": 2,
+    "seconds": 7.901,
+    "peakDbFS": -0.6,
+    "rmsDbFS": -17.8,
+    "crestDb": 17.2,
+    "noiseFloorDbFS": -58.8,
+    "loudestWindowDbFS": -11.5,
+    "dynamicRangeDb": 47.3,
+    "spectralCentroidHz": 1752,
+    "rolloff95Hz": 3164,
+    "rolloff99Hz": 4348,
+    "shareAbove10kHz": 0.0000143
+   }
+  },
+  {
+   "file": "signals/wc_Recall_bugle_call.ogg",
+   "bytes": 383635,
+   "container": {
+    "codec": "Ogg Vorbis",
+    "channels": 2,
+    "sampleRate": 44100,
+    "nominalBitrateKbps": 500
+   },
+   "measured": {
+    "ctxRate": 48000,
+    "channels": 2,
+    "seconds": 8.207,
+    "peakDbFS": -2.4,
+    "rmsDbFS": -17.7,
+    "crestDb": 15.3,
+    "noiseFloorDbFS": -42.7,
+    "loudestWindowDbFS": -11.9,
+    "dynamicRangeDb": 30.8,
+    "spectralCentroidHz": 1592,
+    "rolloff95Hz": 2953,
+    "rolloff99Hz": 3984,
+    "shareAbove10kHz": 0.00000683
+   }
+  }
+ ]
+}

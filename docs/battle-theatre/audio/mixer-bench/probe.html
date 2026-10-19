@@ -1,0 +1,14 @@
+<!doctype html><meta charset=utf-8><title>probe</title><script>
+window.probe = async () => {
+  const out = { ua: navigator.userAgent, coi: self.crossOriginIsolated, cores: navigator.hardwareConcurrency };
+  const ctx = new AudioContext({ sampleRate: 48000, latencyHint: 'interactive' });
+  out.sr = ctx.sampleRate; out.base = ctx.baseLatency; out.outLat = ctx.outputLatency; out.state = ctx.state; out.hasStats = !!ctx.playbackStats;
+  const src = 'class P extends AudioWorkletProcessor{constructor(){super();this.p=typeof performance!=="undefined";this.n=0;this.t=this.p?performance.now():0;} process(i,o){this.n++;if(this.n==300){this.port.postMessage({perf:this.p,pn:this.p?performance.now()-this.t:null,date:typeof Date, sab:typeof SharedArrayBuffer, wasm:typeof WebAssembly, cf:currentFrame});} return true;}} registerProcessor("p",P)';
+  await ctx.audioWorklet.addModule(URL.createObjectURL(new Blob([src], { type: 'text/javascript' })));
+  const n = new AudioWorkletNode(ctx, 'p'); n.connect(ctx.destination);
+  out.w = await new Promise(r => n.port.onmessage = e => r(e.data)); out.t1 = ctx.currentTime; out.state2 = ctx.state;
+  await new Promise(r => setTimeout(r, 500)); out.t2 = ctx.currentTime; out.outLat2 = ctx.outputLatency;
+  if (ctx.playbackStats) { const s = ctx.playbackStats; out.stats = { underrunEvents: s.underrunEvents, underrunDuration: s.underrunDuration, totalDuration: s.totalDuration, avgLat: s.averageLatency }; }
+  return out;
+};
+</script>
