@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "count": 2300,
+ "count": 2440,
  "fixes": [
   {
    "id": "DATA-cas-UI-day1",
@@ -4169,6 +4169,16 @@
    "src": "order of battle ids (data/oob/*.json) against the unit named in the row's own note; OR 27/1 pp.155-168 and OR 27/2 pp.283-292 for the brigade and division names",
    "find": "\"unit_id\":\"U-52NC\",\"tick\":95,\"lat\":39.8289,\"lng\":-77.2511,",
    "repl": "\"unit_id\":\"C-52NC\",\"tick\":95,\"lat\":39.8289,\"lng\":-77.2511,",
+   "area": "ids"
+  },
+  {
+   "id": "DATA-id-density-day1-ticks51-100-U-107PA-72",
+   "target": "data/density_day1_ticks51_100.json",
+   "cls": "wrong-id",
+   "before": "unit id U-107PA: the Eleventh Corps regiment named by the note (the 107th Ohio); the 107th Pennsylvania is a First Corps regiment",
+   "src": "order of battle ids (data/oob/*.json) against the unit named in the row's own note; OR 27/1 pp.155-168 and OR 27/2 pp.283-292 for the brigade and division names",
+   "find": "\"unit_id\":\"U-107PA\",\"tick\":72,\"lat\":39.8183,\"lng\":-77.2272,",
+   "repl": "\"unit_id\":\"U-107OH\",\"tick\":72,\"lat\":39.8183,\"lng\":-77.2272,",
    "area": "ids"
   },
   {
@@ -13902,6 +13912,46 @@
    "area": "terrain2"
   },
   {
+   "id": "DATA-terr-xy-oakridge",
+   "target": "data/terrain.json",
+   "cls": "wrong-place",
+   "before": "Oak Ridge at 39.83, -77.2406: 1.4 km south of Baxter's headquarters marker at the stone wall",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19; tour stops 2 and 3 of the Virtual Walkthrough (data in the entry bundle, d2)",
+   "find": "(\"location_id\": \"LOC-014\",\\s+\"name\": \"Oak Ridge\",\\s+\"lat\": )39\\.83,(\\s+\"lng\": )-77\\.2406,",
+   "repl": "\\g<1>39.8428,\\g<2>-77.2424,",
+   "area": "terrain3"
+  },
+  {
+   "id": "DATA-terr-xy-oakhill",
+   "target": "data/terrain.json",
+   "cls": "wrong-place",
+   "before": "Oak Hill at 39.8339, -77.2361: 1.7 km south of the Eternal Light Peace Memorial on Oak Hill",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19; tour stops 2 and 3 of the Virtual Walkthrough (data in the entry bundle, d2)",
+   "find": "(\"location_id\": \"LOC-015\",\\s+\"name\": \"Oak Hill\",\\s+\"lat\": )39\\.8339,(\\s+\"lng\": )-77\\.2361,",
+   "repl": "\\g<1>39.8485,\\g<2>-77.2435,",
+   "area": "terrain3"
+  },
+  {
+   "id": "DATA-terr-xy-barlows",
+   "target": "data/terrain.json",
+   "cls": "wrong-place",
+   "before": "Barlow's Knoll at 39.8356, -77.2283: 1.0 km south of the Barlow statue",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19; tour stops 2 and 3 of the Virtual Walkthrough (data in the entry bundle, d2)",
+   "find": "(\"location_id\": \"LOC-016\",\\s+\"name\": \"Barlow's Knoll\",\\s+\"lat\": )39\\.8356,(\\s+\"lng\": )-77\\.2283,",
+   "repl": "\\g<1>39.8454,\\g<2>-77.2264,",
+   "area": "terrain3"
+  },
+  {
+   "id": "DATA-terr-xy-ecf",
+   "target": "data/terrain.json",
+   "cls": "wrong-place",
+   "before": "East Cavalry Field at 39.8317, -77.1972: 3.0 km west of Custer's headquarters marker and Stuart's division marker",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19; tour stops 2 and 3 of the Virtual Walkthrough (data in the entry bundle, d2)",
+   "find": "(\"location_id\": \"LOC-021\",\\s+\"name\": \"East Cavalry Field\",\\s+\"lat\": )39\\.8317,(\\s+\"lng\": )-77\\.1972,",
+   "repl": "\\g<1>39.8308,\\g<2>-77.1677,",
+   "area": "terrain3"
+  },
+  {
    "id": "DATA-pop-1mn",
    "target": "js",
    "cls": "wrong-claim",
@@ -14476,9 +14526,9 @@
    "target": "index.html",
    "cls": "wrong-number",
    "before": "\"467 regiments and batteries\", \"five-minute snapshots\", \"real time\"",
-   "src": "count of distinct unit ids in data/placements_*.json and density_*.json after the id and arrival fixes: 410 (232 regiments, 51 batteries, 88 brigades, 32 divisions, 7 corps); 4 occurrences",
+   "src": "count of distinct unit ids in data/placements_*.json and density_*.json after the id and arrival fixes: 405 (231 regiments, 51 batteries, 82 brigades, 34 divisions, 7 corps); 4 occurrences",
    "find": "unfold in real time -- 467 regiments and batteries across 675 five-minute snapshots",
-   "repl": "unfold step by step -- 410 units (regiments, batteries and the brigades, divisions and corps above them) across 675 snapshots",
+   "repl": "unfold step by step -- 405 units (regiments, batteries and the brigades, divisions and corps above them) across 675 snapshots",
    "area": "texts"
   },
   {
@@ -14488,7 +14538,7 @@
    "before": "same",
    "src": "same",
    "find": "minute-by-minute reconstruction of the Battle of Gettysburg (July 1&ndash;3, 1863): 467 regiments and batteries tracked across 675 five-minute snapshots, built from primary-source unit records, chronology, and terrain data",
-   "repl": "step-by-step reconstruction of the Battle of Gettysburg (July 1&ndash;3, 1863): 410 units tracked across 675 snapshots, reconstructed from published unit records, chronology, and terrain data",
+   "repl": "step-by-step reconstruction of the Battle of Gettysburg (July 1&ndash;3, 1863): 405 units tracked across 675 snapshots, reconstructed from published unit records, chronology, and terrain data",
    "area": "texts"
   },
   {
@@ -14738,7 +14788,7 @@
    "before": "694 positions, before the pre-arrival rows were removed",
    "src": "the placements_*.json files of this build",
    "find": "Built from the same 694 recorded unit positions",
-   "repl": "Built from the same 683 recorded unit positions",
+   "repl": "Built from the same 687 recorded unit positions",
    "area": "texts"
   },
   {
@@ -15312,6 +15362,276 @@
    "repl": "\"full_script\": \"The battle was over. The Official Records print the Union loss for the campaign as 23,049 killed, wounded and missing in the revised return (3,155 killed, 14,529 wounded, 5,365 captured or missing), and the Confederate loss as returned as 20,451 (2,592 killed, 12,709 wounded, 5,150 captured or missing), which the editors call approximate. Later estimates are higher, notably Livermore's of about 28,000 for the Confederates, and the National Park Service gives about 23,000 and 28,000. The sum of 51,000 sometimes quoted is that rounded estimate. These counts include the wounded and missing; the figures for the dead alone differ again by source.\\n\\nOn July 4 Vicksburg surrendered. Lee's report says the heavy loss and reduced ammunition made another attack inadvisable and it was determined to withdraw: the trains with the wounded who could bear removal were sent to Williamsport on July 4, part by Cashtown and Greencastle under Imboden and the rest by the Fairfield road, and the army kept its position until dark and then marched in a heavy rain. Meade did not pursue closely.\\n\\nThe park preserves hundreds of monuments and markers; the number quoted in earlier versions of this page, 1,328, is the park's total for all monuments, markers and tablets, not for the monuments mapped here. The Angle and the copse of trees are preserved, and the wall there has been rebuilt.\"",
    "area": "vignettes",
    "vid": "V-024"
+  },
+  {
+   "id": "DATA-cav3-del-C-CAV-2-505",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-id",
+   "before": "C-CAV-2 tick 505: \"Stuart's 4 brigades at East Cavalry Field -- ordered by Lee to get behind Meade and strike when Pickett charges\" on the id of Fitz Lee's brigade, which has its own rows",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": "\\{\\s*\"unit_id\": \"C-CAV-2\",\\s*\"tick\": 505,[^}]*\\},\\s*",
+   "repl": "",
+   "area": "zcav"
+  },
+  {
+   "id": "DATA-cav3-pos-C-CAV-2-1-505",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-place",
+   "before": "C-CAV-2-1 tick 505 at 39.8378, -77.1833: 3.0-3.4 km west of the NPS monuments of East Cavalry Field; moved by (-0.0013, 0.0144) degrees, the offset between the unit's first row of the file and its NPS marker",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": "(\"unit_id\": \"C-CAV-2-1\",\\s+\"tick\": 505,\\s+\"lat\": )39\\.8378,(\\s+\"lng\": )-77\\.1833,",
+   "repl": "\\g<1>39.8365,\\g<2>-77.1689,",
+   "area": "zcav"
+  },
+  {
+   "id": "DATA-cav3-pos-C-CAV-2-2-505",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-place",
+   "before": "C-CAV-2-2 tick 505 at 39.8361, -77.1844: 3.0-3.4 km west of the NPS monuments of East Cavalry Field; moved by (0.0023, 0.0174) degrees, the offset between the unit's first row of the file and its NPS marker",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": "(\"unit_id\": \"C-CAV-2-2\",\\s+\"tick\": 505,\\s+\"lat\": )39\\.8361,(\\s+\"lng\": )-77\\.1844,",
+   "repl": "\\g<1>39.8384,\\g<2>-77.167,",
+   "area": "zcav"
+  },
+  {
+   "id": "DATA-cav3-pos-C-CAV-2-3-505",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-place",
+   "before": "C-CAV-2-3 tick 505 at 39.835, -77.1856: 3.0-3.4 km west of the NPS monuments of East Cavalry Field; moved by (-0.0014, 0.0135) degrees, the offset between the unit's first row of the file and its NPS marker",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": "(\"unit_id\": \"C-CAV-2-3\",\\s+\"tick\": 505,\\s+\"lat\": )39\\.835,(\\s+\"lng\": )-77\\.1856,",
+   "repl": "\\g<1>39.8336,\\g<2>-77.1721,",
+   "area": "zcav"
+  },
+  {
+   "id": "DATA-cav3-pos-C-CAV-2-4-505",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-place",
+   "before": "C-CAV-2-4 tick 505 at 39.8339, -77.1867: 3.0-3.4 km west of the NPS monuments of East Cavalry Field; moved by (-0.0014, 0.0128) degrees, the offset between the unit's first row of the file and its NPS marker",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": "(\"unit_id\": \"C-CAV-2-4\",\\s+\"tick\": 505,\\s+\"lat\": )39\\.8339,(\\s+\"lng\": )-77\\.1867,",
+   "repl": "\\g<1>39.8325,\\g<2>-77.1739,",
+   "area": "zcav"
+  },
+  {
+   "id": "DATA-cav3-pos-U-CAV-2-M-505",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-place",
+   "before": "U-CAV-2-M tick 505 at 39.8344, -77.1906: 3.0-3.4 km west of the NPS monuments of East Cavalry Field; moved by (-0.0077, 0.0254) degrees, the offset between the unit's first row of the file and its NPS marker",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": "(\"unit_id\": \"U-CAV-2-M\",\\s+\"tick\": 505,\\s+\"lat\": )39\\.8344,(\\s+\"lng\": )-77\\.1906,",
+   "repl": "\\g<1>39.8267,\\g<2>-77.1652,",
+   "area": "zcav"
+  },
+  {
+   "id": "DATA-cav3-pos-U-CAV-2-G-505",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-place",
+   "before": "U-CAV-2-G tick 505 at 39.8322, -77.1928: 3.0-3.4 km west of the NPS monuments of East Cavalry Field; moved by (-0.0058, 0.0298) degrees, the offset between the unit's first row of the file and its NPS marker",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": "(\"unit_id\": \"U-CAV-2-G\",\\s+\"tick\": 505,\\s+\"lat\": )39\\.8322,(\\s+\"lng\": )-77\\.1928,",
+   "repl": "\\g<1>39.8264,\\g<2>-77.163,",
+   "area": "zcav"
+  },
+  {
+   "id": "DATA-cav3-pos-C-CAV-2-1-515",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-place",
+   "before": "C-CAV-2-1 tick 515 at 39.8367, -77.1939: 3.0-3.4 km west of the NPS monuments of East Cavalry Field; moved by (-0.0013, 0.0144) degrees, the offset between the unit's first row of the file and its NPS marker",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": "(\"unit_id\": \"C-CAV-2-1\",\\s+\"tick\": 515,\\s+\"lat\": )39\\.8367,(\\s+\"lng\": )-77\\.1939,",
+   "repl": "\\g<1>39.8354,\\g<2>-77.1795,",
+   "area": "zcav"
+  },
+  {
+   "id": "DATA-cav3-pos-U-CAV-2-M-515",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-place",
+   "before": "U-CAV-2-M tick 515 at 39.8344, -77.1939: 3.0-3.4 km west of the NPS monuments of East Cavalry Field; moved by (-0.0077, 0.0254) degrees, the offset between the unit's first row of the file and its NPS marker",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": "(\"unit_id\": \"U-CAV-2-M\",\\s+\"tick\": 515,\\s+\"lat\": )39\\.8344,(\\s+\"lng\": )-77\\.1939,",
+   "repl": "\\g<1>39.8267,\\g<2>-77.1685,",
+   "area": "zcav"
+  },
+  {
+   "id": "DATA-cav3-pos-U-CAV-2-G-515",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-place",
+   "before": "U-CAV-2-G tick 515 at 39.8322, -77.18: 3.0-3.4 km west of the NPS monuments of East Cavalry Field; moved by (-0.0058, 0.0298) degrees, the offset between the unit's first row of the file and its NPS marker",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": "(\"unit_id\": \"U-CAV-2-G\",\\s+\"tick\": 515,\\s+\"lat\": )39\\.8322,(\\s+\"lng\": )-77\\.18,",
+   "repl": "\\g<1>39.8264,\\g<2>-77.1502,",
+   "area": "zcav"
+  },
+  {
+   "id": "DATA-cav3-pos-C-CAV-2-1-522",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-place",
+   "before": "C-CAV-2-1 tick 522 at 39.8367, -77.1906: 3.0-3.4 km west of the NPS monuments of East Cavalry Field; moved by (-0.0013, 0.0144) degrees, the offset between the unit's first row of the file and its NPS marker",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": "(\"unit_id\": \"C-CAV-2-1\",\\s+\"tick\": 522,\\s+\"lat\": )39\\.8367,(\\s+\"lng\": )-77\\.1906,",
+   "repl": "\\g<1>39.8354,\\g<2>-77.1762,",
+   "area": "zcav"
+  },
+  {
+   "id": "DATA-cav3-pos-C-CAV-2-2-522",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-place",
+   "before": "C-CAV-2-2 tick 522 at 39.8361, -77.1917: 3.0-3.4 km west of the NPS monuments of East Cavalry Field; moved by (0.0023, 0.0174) degrees, the offset between the unit's first row of the file and its NPS marker",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": "(\"unit_id\": \"C-CAV-2-2\",\\s+\"tick\": 522,\\s+\"lat\": )39\\.8361,(\\s+\"lng\": )-77\\.1917,",
+   "repl": "\\g<1>39.8384,\\g<2>-77.1743,",
+   "area": "zcav"
+  },
+  {
+   "id": "DATA-cav3-pos-U-CAV-2-M-522",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-place",
+   "before": "U-CAV-2-M tick 522 at 39.8344, -77.1906: 3.0-3.4 km west of the NPS monuments of East Cavalry Field; moved by (-0.0077, 0.0254) degrees, the offset between the unit's first row of the file and its NPS marker",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": "(\"unit_id\": \"U-CAV-2-M\",\\s+\"tick\": 522,\\s+\"lat\": )39\\.8344,(\\s+\"lng\": )-77\\.1906,",
+   "repl": "\\g<1>39.8267,\\g<2>-77.1652,",
+   "area": "zcav"
+  },
+  {
+   "id": "DATA-cav3-pos-U-CAV-2-G-522",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-place",
+   "before": "U-CAV-2-G tick 522 at 39.8333, -77.1928: 3.0-3.4 km west of the NPS monuments of East Cavalry Field; moved by (-0.0058, 0.0298) degrees, the offset between the unit's first row of the file and its NPS marker",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": "(\"unit_id\": \"U-CAV-2-G\",\\s+\"tick\": 522,\\s+\"lat\": )39\\.8333,(\\s+\"lng\": )-77\\.1928,",
+   "repl": "\\g<1>39.8275,\\g<2>-77.163,",
+   "area": "zcav"
+  },
+  {
+   "id": "DATA-cav3-pos-C-CAV-2-1-530",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-place",
+   "before": "C-CAV-2-1 tick 530 at 39.8367, -77.1894: 3.0-3.4 km west of the NPS monuments of East Cavalry Field; moved by (-0.0013, 0.0144) degrees, the offset between the unit's first row of the file and its NPS marker",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": "(\"unit_id\": \"C-CAV-2-1\",\\s+\"tick\": 530,\\s+\"lat\": )39\\.8367,(\\s+\"lng\": )-77\\.1894,",
+   "repl": "\\g<1>39.8354,\\g<2>-77.175,",
+   "area": "zcav"
+  },
+  {
+   "id": "DATA-cav3-pos-C-CAV-2-2-530",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-place",
+   "before": "C-CAV-2-2 tick 530 at 39.8361, -77.1906: 3.0-3.4 km west of the NPS monuments of East Cavalry Field; moved by (0.0023, 0.0174) degrees, the offset between the unit's first row of the file and its NPS marker",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": "(\"unit_id\": \"C-CAV-2-2\",\\s+\"tick\": 530,\\s+\"lat\": )39\\.8361,(\\s+\"lng\": )-77\\.1906,",
+   "repl": "\\g<1>39.8384,\\g<2>-77.1732,",
+   "area": "zcav"
+  },
+  {
+   "id": "DATA-cav3-pos-U-CAV-2-M-530",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-place",
+   "before": "U-CAV-2-M tick 530 at 39.8344, -77.1906: 3.0-3.4 km west of the NPS monuments of East Cavalry Field; moved by (-0.0077, 0.0254) degrees, the offset between the unit's first row of the file and its NPS marker",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": "(\"unit_id\": \"U-CAV-2-M\",\\s+\"tick\": 530,\\s+\"lat\": )39\\.8344,(\\s+\"lng\": )-77\\.1906,",
+   "repl": "\\g<1>39.8267,\\g<2>-77.1652,",
+   "area": "zcav"
+  },
+  {
+   "id": "DATA-cav3-del-C-CAV-2-540",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-id",
+   "before": "C-CAV-2 tick 540: \"Stuart's corps reforming -- Pickett's Charge is already failing. There is no rear to strike.\" on the id of Fitz Lee's brigade, which has its own rows",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": ",\\s*\\{\\s*\"unit_id\": \"C-CAV-2\",\\s*\"tick\": 540,[^}]*\\}",
+   "repl": "",
+   "area": "zcav"
+  },
+  {
+   "id": "DATA-cav3-pos-U-CAV-2-G-540",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-place",
+   "before": "U-CAV-2-G tick 540 at 39.8322, -77.18: 3.0-3.4 km west of the NPS monuments of East Cavalry Field; moved by (-0.0058, 0.0298) degrees, the offset between the unit's first row of the file and its NPS marker",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": "(\"unit_id\": \"U-CAV-2-G\",\\s+\"tick\": 540,\\s+\"lat\": )39\\.8322,(\\s+\"lng\": )-77\\.18,",
+   "repl": "\\g<1>39.8264,\\g<2>-77.1502,",
+   "area": "zcav"
+  },
+  {
+   "id": "DATA-cav3-del-C-CAV-2-555",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-id",
+   "before": "C-CAV-2 tick 555: \"Stuart withdrawing -- Pickett has been repulsed. There is nothing left to support.\" on the id of Fitz Lee's brigade, which has its own rows",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": ",\\s*\\{\\s*\"unit_id\": \"C-CAV-2\",\\s*\"tick\": 555,[^}]*\\}",
+   "repl": "",
+   "area": "zcav"
+  },
+  {
+   "id": "DATA-cav3-pos-U-CAV-2-M-555",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-place",
+   "before": "U-CAV-2-M tick 555 at 39.8344, -77.18: 3.0-3.4 km west of the NPS monuments of East Cavalry Field; moved by (-0.0077, 0.0254) degrees, the offset between the unit's first row of the file and its NPS marker",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": "(\"unit_id\": \"U-CAV-2-M\",\\s+\"tick\": 555,\\s+\"lat\": )39\\.8344,(\\s+\"lng\": )-77\\.18,",
+   "repl": "\\g<1>39.8267,\\g<2>-77.1546,",
+   "area": "zcav"
+  },
+  {
+   "id": "DATA-cav3-id-C-CAV-2-1",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-id",
+   "before": "unit id C-CAV-2-1 is not an order-of-battle id; the row is about C-CAV-1",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": "\"unit_id\": \"C-CAV-2-1\",",
+   "repl": "\"unit_id\": \"C-CAV-1\",",
+   "area": "zcav"
+  },
+  {
+   "id": "DATA-cav3-id-C-CAV-2-2",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-id",
+   "before": "unit id C-CAV-2-2 is not an order-of-battle id; the row is about C-CAV-2",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": "\"unit_id\": \"C-CAV-2-2\",",
+   "repl": "\"unit_id\": \"C-CAV-2\",",
+   "area": "zcav"
+  },
+  {
+   "id": "DATA-cav3-id-C-CAV-2-3",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-id",
+   "before": "unit id C-CAV-2-3 is not an order-of-battle id; the row is about C-CAV-3",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": "\"unit_id\": \"C-CAV-2-3\",",
+   "repl": "\"unit_id\": \"C-CAV-3\",",
+   "area": "zcav"
+  },
+  {
+   "id": "DATA-cav3-id-C-CAV-2-4",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-id",
+   "before": "unit id C-CAV-2-4 is not an order-of-battle id; the row is about C-CAV-4",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": "\"unit_id\": \"C-CAV-2-4\",",
+   "repl": "\"unit_id\": \"C-CAV-4\",",
+   "area": "zcav"
+  },
+  {
+   "id": "DATA-cav3-id-U-CAV-2-M",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-id",
+   "before": "unit id U-CAV-2-M is not an order-of-battle id; the row is about U-CAV-2-3",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": "\"unit_id\": \"U-CAV-2-M\",",
+   "repl": "\"unit_id\": \"U-CAV-2-3\",",
+   "area": "zcav"
+  },
+  {
+   "id": "DATA-cav3-id-U-CAV-2-G",
+   "target": "data/density_day3_cavalry.json",
+   "cls": "wrong-id",
+   "before": "unit id U-CAV-2-G is not an order-of-battle id; the row is about U-CAV-2",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Jenkins 39.83247,-77.17391, Chambliss 39.83360,-77.17211; data/oob/confederate_cavalry.json and union_oob_brigades.json for the ids",
+   "find": "\"unit_id\": \"U-CAV-2-G\",",
+   "repl": "\"unit_id\": \"U-CAV-2\",",
+   "area": "zcav"
   },
   {
    "id": "DATA-okey-001",
@@ -16660,7 +16980,7 @@
    "before": "density_day1_iverson C-5NC tick 50 (39.8322, -77.2567): 5th NC -- Iverson's lead regiment. No skirmishers deployed. Iverson watches from the rear. -- the regiment is 1.2-1.4 km west of its brigade at the stone wall; moved onto the brigade (placements row of the same tick, tick 54 for tick 57) keeping the regiment's own place in the line",
    "src": "OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the same ticks",
    "find": "(\"unit_id\":\"C-5NC\",\"tick\":50,)\"lat\":39\\.8322,\"lng\":-77\\.2567",
-   "repl": "\\g<1>\"lat\":39.8289,\"lng\":-77.2430",
+   "repl": "\\g<1>\"lat\":39.8411,\"lng\":-77.2443",
    "area": "zpos"
   },
   {
@@ -16670,7 +16990,7 @@
    "before": "density_day1_iverson C-12NC tick 50 (39.8333, -77.2561): 12th NC in column -- 219 men -- the regiment is 1.2-1.4 km west of its brigade at the stone wall; moved onto the brigade (placements row of the same tick, tick 54 for tick 57) keeping the regiment's own place in the line",
    "src": "OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the same ticks",
    "find": "(\"unit_id\":\"C-12NC\",\"tick\":50,)\"lat\":39\\.8333,\"lng\":-77\\.2561",
-   "repl": "\\g<1>\"lat\":39.8300,\"lng\":-77.2425",
+   "repl": "\\g<1>\"lat\":39.8422,\"lng\":-77.2438",
    "area": "zpos"
   },
   {
@@ -16680,7 +17000,7 @@
    "before": "density_day1_iverson C-20NC tick 50 (39.8344, -77.2556): 20th NC -- Iverson's largest regiment -- the regiment is 1.2-1.4 km west of its brigade at the stone wall; moved onto the brigade (placements row of the same tick, tick 54 for tick 57) keeping the regiment's own place in the line",
    "src": "OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the same ticks",
    "find": "(\"unit_id\":\"C-20NC\",\"tick\":50,)\"lat\":39\\.8344,\"lng\":-77\\.2556",
-   "repl": "\\g<1>\"lat\":39.8311,\"lng\":-77.2419",
+   "repl": "\\g<1>\"lat\":39.8433,\"lng\":-77.2432",
    "area": "zpos"
   },
   {
@@ -16690,7 +17010,7 @@
    "before": "density_day1_iverson C-23NC tick 50 (39.8356, -77.2550): 23rd NC -- the flank regiment, about to be hit hardest -- the regiment is 1.2-1.4 km west of its brigade at the stone wall; moved onto the brigade (placements row of the same tick, tick 54 for tick 57) keeping the regiment's own place in the line",
    "src": "OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the same ticks",
    "find": "(\"unit_id\":\"C-23NC\",\"tick\":50,)\"lat\":39\\.8356,\"lng\":-77\\.2550",
-   "repl": "\\g<1>\"lat\":39.8323,\"lng\":-77.2413",
+   "repl": "\\g<1>\"lat\":39.8445,\"lng\":-77.2426",
    "area": "zpos"
   },
   {
@@ -16700,7 +17020,7 @@
    "before": "density_day1_iverson C-5NC tick 53 (39.8322, -77.2550): 5th NC IN THE PITS -- 290 of 470 down in the first volley. The survivors fall into a depre -- the regiment is 1.2-1.4 km west of its brigade at the stone wall; moved onto the brigade (placements row of the same tick, tick 54 for tick 57) keeping the regiment's own place in the line",
    "src": "OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the same ticks",
    "find": "(\"unit_id\":\"C-5NC\",\"tick\":53,)\"lat\":39\\.8322,\"lng\":-77\\.2550",
-   "repl": "\\g<1>\"lat\":39.8289,\"lng\":-77.2420",
+   "repl": "\\g<1>\"lat\":39.8411,\"lng\":-77.2433",
    "area": "zpos"
   },
   {
@@ -16710,7 +17030,7 @@
    "before": "density_day1_iverson C-12NC tick 53 (39.8333, -77.2544): 12th NC -- 139 of 219 killed or wounded in minutes. 80 survivors. -- the regiment is 1.2-1.4 km west of its brigade at the stone wall; moved onto the brigade (placements row of the same tick, tick 54 for tick 57) keeping the regiment's own place in the line",
    "src": "OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the same ticks",
    "find": "(\"unit_id\":\"C-12NC\",\"tick\":53,)\"lat\":39\\.8333,\"lng\":-77\\.2544",
-   "repl": "\\g<1>\"lat\":39.8300,\"lng\":-77.2413",
+   "repl": "\\g<1>\"lat\":39.8422,\"lng\":-77.2426",
    "area": "zpos"
   },
   {
@@ -16720,7 +17040,7 @@
    "before": "density_day1_iverson C-20NC tick 53 (39.8344, -77.2539): 20th NC devastated -- 232 casualties from one volley. Lying in ranks in the wheat field. -- the regiment is 1.2-1.4 km west of its brigade at the stone wall; moved onto the brigade (placements row of the same tick, tick 54 for tick 57) keeping the regiment's own place in the line",
    "src": "OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the same ticks",
    "find": "(\"unit_id\":\"C-20NC\",\"tick\":53,)\"lat\":39\\.8344,\"lng\":-77\\.2539",
-   "repl": "\\g<1>\"lat\":39.8311,\"lng\":-77.2408",
+   "repl": "\\g<1>\"lat\":39.8433,\"lng\":-77.2421",
    "area": "zpos"
   },
   {
@@ -16730,7 +17050,7 @@
    "before": "density_day1_iverson C-23NC tick 53 (39.8356, -77.2533): 23rd NC -- worst of all. 226 of 316 down. The regiment is destroyed as a fighting unit. -- the regiment is 1.2-1.4 km west of its brigade at the stone wall; moved onto the brigade (placements row of the same tick, tick 54 for tick 57) keeping the regiment's own place in the line",
    "src": "OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the same ticks",
    "find": "(\"unit_id\":\"C-23NC\",\"tick\":53,)\"lat\":39\\.8356,\"lng\":-77\\.2533",
-   "repl": "\\g<1>\"lat\":39.8323,\"lng\":-77.2402",
+   "repl": "\\g<1>\"lat\":39.8445,\"lng\":-77.2415",
    "area": "zpos"
   },
   {
@@ -16740,7 +17060,7 @@
    "before": "density_day1_iverson C-5NC tick 57 (39.8317, -77.2578): 5th NC survivors -- those who didn't surrender fleeing west -- the regiment is 1.2-1.4 km west of its brigade at the stone wall; moved onto the brigade (placements row of the same tick, tick 54 for tick 57) keeping the regiment's own place in the line",
    "src": "OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the same ticks",
    "find": "(\"unit_id\":\"C-5NC\",\"tick\":57,)\"lat\":39\\.8317,\"lng\":-77\\.2578",
-   "repl": "\\g<1>\"lat\":39.8295,\"lng\":-77.2426",
+   "repl": "\\g<1>\"lat\":39.8417,\"lng\":-77.2439",
    "area": "zpos"
   },
   {
@@ -16750,7 +17070,7 @@
    "before": "density_day1_iverson C-23NC tick 57 (39.8350, -77.2561): 23rd NC -- 60 men from 316. Iverson reportedly weeping, unable to command. -- the regiment is 1.2-1.4 km west of its brigade at the stone wall; moved onto the brigade (placements row of the same tick, tick 54 for tick 57) keeping the regiment's own place in the line",
    "src": "OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the same ticks",
    "find": "(\"unit_id\":\"C-23NC\",\"tick\":57,)\"lat\":39\\.8350,\"lng\":-77\\.2561",
-   "repl": "\\g<1>\"lat\":39.8328,\"lng\":-77.2408",
+   "repl": "\\g<1>\"lat\":39.8450,\"lng\":-77.2421",
    "area": "zpos"
   },
   {
@@ -16760,7 +17080,7 @@
    "before": "density_day1_iverson C-II-3-4 tick 57 (39.8289, -77.2600): Ramseur's brigade coming up -- trying to restore the collapsed Confederate line on Oak Rid -- Ramseur's brigade \"coming up on Oak Ridge\" but 1.8 km west of it; moved next to the brigade's own rows at ticks 54 (39.8317, -77.2422)",
    "src": "OR 27/2 p.553; position of row C-II-3-4 tick 54",
    "find": "(\"unit_id\":\"C-II-3-4\",\"tick\":57,)\"lat\":39\\.8289,\"lng\":-77\\.2600",
-   "repl": "\\g<1>\"lat\":39.8315,\"lng\":-77.2425",
+   "repl": "\\g<1>\"lat\":39.8437,\"lng\":-77.2438",
    "area": "zpos"
   },
   {
@@ -16934,6 +17254,1046 @@
    "area": "zpos"
   },
   {
+   "id": "DATA-pos-del-density-day1-lateafternoon-U-107OH-63",
+   "target": "data/density_day1_lateafternoon.json",
+   "cls": "wrong-place",
+   "before": "density_day1_lateafternoon U-107OH tick 63 (39.8211, -77.2300) -- the 107th Ohio is shown on Cemetery Hill at tick 63, then \"retreating through Gettysburg\" at tick 66 and rallying on Cemetery Hill at tick 72",
+   "src": "OR 27/1 p.696 (Howard), p.727-729 (Schurz: the corps fell back through the town to Cemetery Hill)",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-107OH\",\"tick\":63,\"lat\":39\\.8211,\"lng\":-77\\.2300,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-107OH\",\"tick\":63,\"lat\":39\\.8211,\"lng\":-77\\.2300,[^\\n]*\\},\\n)",
+   "repl": "",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day3-morning-C-CAV-2-505",
+   "target": "data/density_day3_morning.json",
+   "cls": "wrong-place",
+   "before": "density_day3_morning C-CAV-2 tick 505 (39.8350, -77.1844): Stuart at East Cavalry Field -- Gregg and Custer are waiting for him. The cavalry battle b -- the row \"Stuart's cavalry at East Cavalry Field\" is on the id of Fitz Lee's brigade, 1.6 km east of the rest of the cluster and 3 km west of the NPS markers; moved to the NPS marker of Fitz Lee's brigade (39.83837, -77.16697)",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"C-CAV-2\",\"tick\":505,)\"lat\":39\\.8350,\"lng\":-77\\.1844",
+   "repl": "\\g<1>\"lat\":39.8384,\"lng\":-77.1670",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-artillery-positions-C-ART-Carrington-49",
+   "target": "data/density_artillery_positions.json",
+   "cls": "wrong-place",
+   "before": "density_artillery_positions C-ART-Carrington tick 49 (39.8339, -77.2361): Oak Hill -- Carrington's battery enfilading Union I Corps. Decisive flanking fire. -- the row is 1.0-1.7 km south of the NPS ground at Oak Hill; moved by (0.0146, -0.0074) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-ART-Carrington\",\"tick\":49,)\"lat\":39\\.8339,\"lng\":-77\\.2361",
+   "repl": "\\g<1>\"lat\":39.8485,\"lng\":-77.2435",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-artillery-positions-C-ART-Carter-49",
+   "target": "data/density_artillery_positions.json",
+   "cls": "wrong-place",
+   "before": "density_artillery_positions C-ART-Carter tick 49 (39.8344, -77.2350): Oak Hill -- Carter's battery. Flanking fire that helped break I Corps. -- the row is 1.0-1.7 km south of the NPS ground at Oak Hill; moved by (0.0146, -0.0074) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-ART-Carter\",\"tick\":49,)\"lat\":39\\.8344,\"lng\":-77\\.2350",
+   "repl": "\\g<1>\"lat\":39.8490,\"lng\":-77.2424",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-artillery-positions-C-ART-Fry-49",
+   "target": "data/density_artillery_positions.json",
+   "cls": "wrong-place",
+   "before": "density_artillery_positions C-ART-Fry tick 49 (39.8350, -77.2339): Oak Hill -- Fry's Orange Artillery -- the row is 1.0-1.7 km south of the NPS ground at Oak Hill; moved by (0.0146, -0.0074) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-ART-Fry\",\"tick\":49,)\"lat\":39\\.8350,\"lng\":-77\\.2339",
+   "repl": "\\g<1>\"lat\":39.8496,\"lng\":-77.2413",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-artillery-positions-C-ART-Page-49",
+   "target": "data/density_artillery_positions.json",
+   "cls": "wrong-place",
+   "before": "density_artillery_positions C-ART-Page tick 49 (39.8356, -77.2328) -- the row is 1.0-1.7 km south of the NPS ground at Oak Hill; moved by (0.0146, -0.0074) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-ART-Page\",\"tick\":49,)\"lat\":39\\.8356,\"lng\":-77\\.2328",
+   "repl": "\\g<1>\"lat\":39.8502,\"lng\":-77.2402",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-C-II-3-1-48",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks1_50 C-II-3-1 tick 48 (39.8350, -77.2361): Daniel's brigade on Oak Hill deploying south -- the row is 1.0-1.7 km south of the NPS ground at Oak Hill; moved by (0.0146, -0.0074) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-II-3-1\",\"tick\":48,)\"lat\":39\\.8350,\"lng\":-77\\.2361",
+   "repl": "\\g<1>\"lat\":39.8496,\"lng\":-77.2435",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-C-II-3-2-48",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks1_50 C-II-3-2 tick 48 (39.8356, -77.2322): Doles's brigade on Oak Hill -- the row is 1.0-1.7 km south of the NPS ground at Oak Hill; moved by (0.0146, -0.0074) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-II-3-2\",\"tick\":48,)\"lat\":39\\.8356,\"lng\":-77\\.2322",
+   "repl": "\\g<1>\"lat\":39.8502,\"lng\":-77.2396",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-C-ART-Carrington-48",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks1_50 C-ART-Carrington tick 48 (39.8339, -77.2361): Oak Hill artillery -- flanking fire on Union I Corps -- the row is 1.0-1.7 km south of the NPS ground at Oak Hill; moved by (0.0146, -0.0074) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-ART-Carrington\",\"tick\":48,)\"lat\":39\\.8339,\"lng\":-77\\.2361",
+   "repl": "\\g<1>\"lat\":39.8485,\"lng\":-77.2435",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-C-ART-Carter-48",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks1_50 C-ART-Carter tick 48 (39.8344, -77.2350) -- the row is 1.0-1.7 km south of the NPS ground at Oak Hill; moved by (0.0146, -0.0074) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-ART-Carter\",\"tick\":48,)\"lat\":39\\.8344,\"lng\":-77\\.2350",
+   "repl": "\\g<1>\"lat\":39.8490,\"lng\":-77.2424",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-C-II-3-1-52",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks51_100 C-II-3-1 tick 52 (39.8339, -77.2389): Daniel's brigade attacking south of Oak Hill -- the row is 1.0-1.7 km south of the NPS ground at Oak Hill; moved by (0.0146, -0.0074) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-II-3-1\",\"tick\":52,)\"lat\":39\\.8339,\"lng\":-77\\.2389",
+   "repl": "\\g<1>\"lat\":39.8485,\"lng\":-77.2463",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-C-ART-Carrington-52",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks51_100 C-ART-Carrington tick 52 (39.8339, -77.2361): Oak Hill flanking fire continuing -- the row is 1.0-1.7 km south of the NPS ground at Oak Hill; moved by (0.0146, -0.0074) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-ART-Carrington\",\"tick\":52,)\"lat\":39\\.8339,\"lng\":-77\\.2361",
+   "repl": "\\g<1>\"lat\":39.8485,\"lng\":-77.2435",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-C-ART-Carter-52",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks51_100 C-ART-Carter tick 52 (39.8344, -77.2350) -- the row is 1.0-1.7 km south of the NPS ground at Oak Hill; moved by (0.0146, -0.0074) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-ART-Carter\",\"tick\":52,)\"lat\":39\\.8344,\"lng\":-77\\.2350",
+   "repl": "\\g<1>\"lat\":39.8490,\"lng\":-77.2424",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks1-50-C-5NC-48",
+   "target": "data/density_day1_ticks1_50.json",
+   "cls": "wrong-place",
+   "before": "density_day1_ticks1_50 C-5NC tick 48 (39.8311, -77.2433): Iverson's 5th NC in line -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-5NC\",\"tick\":48,)\"lat\":39\\.8311,\"lng\":-77\\.2433",
+   "repl": "\\g<1>\"lat\":39.8433,\"lng\":-77.2446",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks1-50-C-12NC-48",
+   "target": "data/density_day1_ticks1_50.json",
+   "cls": "wrong-place",
+   "before": "density_day1_ticks1_50 C-12NC tick 48 (39.8317, -77.2428) -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-12NC\",\"tick\":48,)\"lat\":39\\.8317,\"lng\":-77\\.2428",
+   "repl": "\\g<1>\"lat\":39.8439,\"lng\":-77.2441",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks1-50-C-20NC-48",
+   "target": "data/density_day1_ticks1_50.json",
+   "cls": "wrong-place",
+   "before": "density_day1_ticks1_50 C-20NC tick 48 (39.8322, -77.2422) -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-20NC\",\"tick\":48,)\"lat\":39\\.8322,\"lng\":-77\\.2422",
+   "repl": "\\g<1>\"lat\":39.8444,\"lng\":-77.2435",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks1-50-C-23NC-48",
+   "target": "data/density_day1_ticks1_50.json",
+   "cls": "wrong-place",
+   "before": "density_day1_ticks1_50 C-23NC tick 48 (39.8328, -77.2417) -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-23NC\",\"tick\":48,)\"lat\":39\\.8328,\"lng\":-77\\.2417",
+   "repl": "\\g<1>\"lat\":39.8450,\"lng\":-77.2430",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks1-50-U-12MA-48",
+   "target": "data/density_day1_ticks1_50.json",
+   "cls": "wrong-place",
+   "before": "density_day1_ticks1_50 U-12MA tick 48 (39.8306, -77.2411): Baxter's regiments behind the stone wall -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-12MA\",\"tick\":48,)\"lat\":39\\.8306,\"lng\":-77\\.2411",
+   "repl": "\\g<1>\"lat\":39.8428,\"lng\":-77.2424",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks1-50-U-83NY-48",
+   "target": "data/density_day1_ticks1_50.json",
+   "cls": "wrong-place",
+   "before": "density_day1_ticks1_50 U-83NY tick 48 (39.8300, -77.2406) -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-83NY\",\"tick\":48,)\"lat\":39\\.8300,\"lng\":-77\\.2406",
+   "repl": "\\g<1>\"lat\":39.8422,\"lng\":-77.2419",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks1-50-U-97NY-48",
+   "target": "data/density_day1_ticks1_50.json",
+   "cls": "wrong-place",
+   "before": "density_day1_ticks1_50 U-97NY tick 48 (39.8294, -77.2400) -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-97NY\",\"tick\":48,)\"lat\":39\\.8294,\"lng\":-77\\.2400",
+   "repl": "\\g<1>\"lat\":39.8416,\"lng\":-77.2413",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks1-50-U-88PA-48",
+   "target": "data/density_day1_ticks1_50.json",
+   "cls": "wrong-place",
+   "before": "density_day1_ticks1_50 U-88PA tick 48 (39.8289, -77.2394) -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-88PA\",\"tick\":48,)\"lat\":39\\.8289,\"lng\":-77\\.2394",
+   "repl": "\\g<1>\"lat\":39.8411,\"lng\":-77.2407",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks1-50-U-90PA-48",
+   "target": "data/density_day1_ticks1_50.json",
+   "cls": "wrong-place",
+   "before": "density_day1_ticks1_50 U-90PA tick 48 (39.8283, -77.2389) -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-90PA\",\"tick\":48,)\"lat\":39\\.8283,\"lng\":-77\\.2389",
+   "repl": "\\g<1>\"lat\":39.8405,\"lng\":-77.2402",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks51-100-C-5NC-53",
+   "target": "data/density_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "density_day1_ticks51_100 C-5NC tick 53 (39.8311, -77.2417): 5th NC -- Iverson's Pits. Volley from Baxter decimates the brigade. -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-5NC\",\"tick\":53,)\"lat\":39\\.8311,\"lng\":-77\\.2417",
+   "repl": "\\g<1>\"lat\":39.8433,\"lng\":-77.2430",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks51-100-C-12NC-53",
+   "target": "data/density_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "density_day1_ticks51_100 C-12NC tick 53 (39.8317, -77.2422) -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-12NC\",\"tick\":53,)\"lat\":39\\.8317,\"lng\":-77\\.2422",
+   "repl": "\\g<1>\"lat\":39.8439,\"lng\":-77.2435",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks51-100-C-20NC-53",
+   "target": "data/density_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "density_day1_ticks51_100 C-20NC tick 53 (39.8322, -77.2428) -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-20NC\",\"tick\":53,)\"lat\":39\\.8322,\"lng\":-77\\.2428",
+   "repl": "\\g<1>\"lat\":39.8444,\"lng\":-77.2441",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks51-100-C-23NC-53",
+   "target": "data/density_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "density_day1_ticks51_100 C-23NC tick 53 (39.8328, -77.2433) -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-23NC\",\"tick\":53,)\"lat\":39\\.8328,\"lng\":-77\\.2433",
+   "repl": "\\g<1>\"lat\":39.8450,\"lng\":-77.2446",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks51-100-U-12MA-53",
+   "target": "data/density_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "density_day1_ticks51_100 U-12MA tick 53 (39.8306, -77.2411): Baxter advancing to mop up -- Iverson's men surrendering in rows -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-12MA\",\"tick\":53,)\"lat\":39\\.8306,\"lng\":-77\\.2411",
+   "repl": "\\g<1>\"lat\":39.8428,\"lng\":-77.2424",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks51-100-U-83NY-53",
+   "target": "data/density_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "density_day1_ticks51_100 U-83NY tick 53 (39.8300, -77.2406) -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-83NY\",\"tick\":53,)\"lat\":39\\.8300,\"lng\":-77\\.2406",
+   "repl": "\\g<1>\"lat\":39.8422,\"lng\":-77.2419",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks51-100-U-16ME-62",
+   "target": "data/density_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "density_day1_ticks51_100 U-16ME tick 62 (39.8306, -77.2411): 16th Maine sacrifice stand -- ordered to hold as all others retreat -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-16ME\",\"tick\":62,)\"lat\":39\\.8306,\"lng\":-77\\.2411",
+   "repl": "\\g<1>\"lat\":39.8428,\"lng\":-77.2424",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks51-100-U-94NY-62",
+   "target": "data/density_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "density_day1_ticks51_100 U-94NY tick 62 (39.8294, -77.2394): Paul's brigade retreating after four commanders wounded -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-94NY\",\"tick\":62,)\"lat\":39\\.8294,\"lng\":-77\\.2394",
+   "repl": "\\g<1>\"lat\":39.8416,\"lng\":-77.2407",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks51-100-U-104NY-62",
+   "target": "data/density_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "density_day1_ticks51_100 U-104NY tick 62 (39.8289, -77.2389) -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-104NY\",\"tick\":62,)\"lat\":39\\.8289,\"lng\":-77\\.2389",
+   "repl": "\\g<1>\"lat\":39.8411,\"lng\":-77.2402",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-skirmishers-C-5NC-47",
+   "target": "data/density_skirmishers.json",
+   "cls": "wrong-place",
+   "before": "density_skirmishers C-5NC tick 47 (39.8339, -77.2494): Iverson's skirmishers -- advancing toward Oak Ridge stone wall -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-5NC\",\"tick\":47,)\"lat\":39\\.8339,\"lng\":-77\\.2494",
+   "repl": "\\g<1>\"lat\":39.8461,\"lng\":-77.2507",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-skirmishers-C-20NC-47",
+   "target": "data/density_skirmishers.json",
+   "cls": "wrong-place",
+   "before": "density_skirmishers C-20NC tick 47 (39.8333, -77.2489) -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-20NC\",\"tick\":47,)\"lat\":39\\.8333,\"lng\":-77\\.2489",
+   "repl": "\\g<1>\"lat\":39.8455,\"lng\":-77.2502",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-U-I-2-1-42",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks1_50 U-I-2-1 tick 42 (39.8300, -77.2417): Paul's brigade deploying on Oak Ridge -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-I-2-1\",\"tick\":42,)\"lat\":39\\.8300,\"lng\":-77\\.2417",
+   "repl": "\\g<1>\"lat\":39.8422,\"lng\":-77.2430",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-U-I-2-2-42",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks1_50 U-I-2-2 tick 42 (39.8311, -77.2433): Baxter's brigade on Oak Ridge stone wall -- waiting -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-I-2-2\",\"tick\":42,)\"lat\":39\\.8311,\"lng\":-77\\.2433",
+   "repl": "\\g<1>\"lat\":39.8433,\"lng\":-77.2446",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-C-II-3-3-48",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks1_50 C-II-3-3 tick 48 (39.8322, -77.2389): Iverson's brigade forming for advance -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-II-3-3\",\"tick\":48,)\"lat\":39\\.8322,\"lng\":-77\\.2389",
+   "repl": "\\g<1>\"lat\":39.8444,\"lng\":-77.2402",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-C-II-3-4-48",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks1_50 C-II-3-4 tick 48 (39.8311, -77.2378): Ramseur's brigade in reserve -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-II-3-4\",\"tick\":48,)\"lat\":39\\.8311,\"lng\":-77\\.2378",
+   "repl": "\\g<1>\"lat\":39.8433,\"lng\":-77.2391",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-C-II-3-5-48",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks1_50 C-II-3-5 tick 48 (39.8333, -77.2400): O'Neal's brigade -- attack about to miscarry -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-II-3-5\",\"tick\":48,)\"lat\":39\\.8333,\"lng\":-77\\.2400",
+   "repl": "\\g<1>\"lat\":39.8455,\"lng\":-77.2413",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-C-II-3-3-50",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks1_50 C-II-3-3 tick 50 (39.8306, -77.2422): Iverson's brigade in PERFECT ALIGNMENT approaching Oak Ridge wall -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-II-3-3\",\"tick\":50,)\"lat\":39\\.8306,\"lng\":-77\\.2422",
+   "repl": "\\g<1>\"lat\":39.8428,\"lng\":-77.2435",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-U-I-2-2-50",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks1_50 U-I-2-2 tick 50 (39.8306, -77.2411): Baxter's brigade behind stone wall -- WAITING for Iverson -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-I-2-2\",\"tick\":50,)\"lat\":39\\.8306,\"lng\":-77\\.2411",
+   "repl": "\\g<1>\"lat\":39.8428,\"lng\":-77.2424",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-C-II-3-3-52",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks51_100 C-II-3-3 tick 52 (39.8306, -77.2417): Iverson's brigade in PERFECT ALIGNMENT -- no skirmishers, advancing toward stone wall ambu -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-II-3-3\",\"tick\":52,)\"lat\":39\\.8306,\"lng\":-77\\.2417",
+   "repl": "\\g<1>\"lat\":39.8428,\"lng\":-77.2430",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-U-I-2-2-52",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks51_100 U-I-2-2 tick 52 (39.8306, -77.2406): Baxter's brigade behind stone wall -- waiting to fire -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-I-2-2\",\"tick\":52,)\"lat\":39\\.8306,\"lng\":-77\\.2406",
+   "repl": "\\g<1>\"lat\":39.8428,\"lng\":-77.2419",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-C-II-3-5-52",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks51_100 C-II-3-5 tick 52 (39.8317, -77.2433): O'Neal's brigade -- attack already miscarrying -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-II-3-5\",\"tick\":52,)\"lat\":39\\.8317,\"lng\":-77\\.2433",
+   "repl": "\\g<1>\"lat\":39.8439,\"lng\":-77.2446",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-U-I-2-1-52",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks51_100 U-I-2-1 tick 52 (39.8300, -77.2422): Paul's brigade on Oak Ridge -- about to lose four commanders in sequence -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-I-2-1\",\"tick\":52,)\"lat\":39\\.8300,\"lng\":-77\\.2422",
+   "repl": "\\g<1>\"lat\":39.8422,\"lng\":-77.2435",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-C-II-3-3-53",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks51_100 C-II-3-3 tick 53 (39.8306, -77.2411): IVERSON'S PITS. Baxter fires simultaneous volley into flank. ~500 men shot down in rows. -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-II-3-3\",\"tick\":53,)\"lat\":39\\.8306,\"lng\":-77\\.2411",
+   "repl": "\\g<1>\"lat\":39.8428,\"lng\":-77.2424",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-U-I-2-2-53",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks51_100 U-I-2-2 tick 53 (39.8306, -77.2406): Baxter's brigade delivering the devastating volley -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-I-2-2\",\"tick\":53,)\"lat\":39\\.8306,\"lng\":-77\\.2406",
+   "repl": "\\g<1>\"lat\":39.8428,\"lng\":-77.2419",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-C-II-3-3-54",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks51_100 C-II-3-3 tick 54 (39.8311, -77.2417): Iverson's men lying in rows -- some surrendering, many dead -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-II-3-3\",\"tick\":54,)\"lat\":39\\.8311,\"lng\":-77\\.2417",
+   "repl": "\\g<1>\"lat\":39.8433,\"lng\":-77.2430",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-C-II-3-4-54",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks51_100 C-II-3-4 tick 54 (39.8317, -77.2422): Ramseur's brigade moving to exploit the gap -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"C-II-3-4\",\"tick\":54,)\"lat\":39\\.8317,\"lng\":-77\\.2422",
+   "repl": "\\g<1>\"lat\":39.8439,\"lng\":-77.2435",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-U-I-2-1-62",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks51_100 U-I-2-1 tick 62 (39.8300, -77.2417): Paul's brigade collapsing. Paul blinded. Four commanders wounded in sequence. -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-I-2-1\",\"tick\":62,)\"lat\":39\\.8300,\"lng\":-77\\.2417",
+   "repl": "\\g<1>\"lat\":39.8422,\"lng\":-77.2430",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-U-16ME-62",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks51_100 U-16ME tick 62 (39.8306, -77.2411): 16th Maine ordered to hold as SACRIFICE REGIMENT covering the retreat -- the row is 1.0-1.7 km south of the NPS ground at the Oak Ridge stone wall; moved by (0.0122, -0.0013) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-16ME\",\"tick\":62,)\"lat\":39\\.8306,\"lng\":-77\\.2411",
+   "repl": "\\g<1>\"lat\":39.8428,\"lng\":-77.2424",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-barlowsknoll-U-XI-1-55",
+   "target": "data/density_day1_barlowsknoll.json",
+   "cls": "wrong-place",
+   "before": "density_day1_barlowsknoll U-XI-1 tick 55 (39.8372, -77.2267): Barlow's 1st division XI Corps -- advancing beyond the prescribed line to the exposed knol -- the row is 1.0-1.7 km south of the NPS ground at Barlow's Knoll; moved by (0.0095, 0.0005) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-XI-1\",\"tick\":55,)\"lat\":39\\.8372,\"lng\":-77\\.2267",
+   "repl": "\\g<1>\"lat\":39.8467,\"lng\":-77.2262",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-barlowsknoll-U-XI-1-2-55",
+   "target": "data/density_day1_barlowsknoll.json",
+   "cls": "wrong-place",
+   "before": "density_day1_barlowsknoll U-XI-1-2 tick 55 (39.8361, -77.2272): Ames's brigade -- Barlow has advanced a full half-mile beyond his supports -- the row is 1.0-1.7 km south of the NPS ground at Barlow's Knoll; moved by (0.0095, 0.0005) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-XI-1-2\",\"tick\":55,)\"lat\":39\\.8361,\"lng\":-77\\.2272",
+   "repl": "\\g<1>\"lat\":39.8456,\"lng\":-77.2267",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-barlowsknoll-U-XI-1-60",
+   "target": "data/density_day1_barlowsknoll.json",
+   "cls": "wrong-place",
+   "before": "density_day1_barlowsknoll U-XI-1 tick 60 (39.8372, -77.2261): Barlow on the knoll -- he can see Early's full division coming. He has no support. -- the row is 1.0-1.7 km south of the NPS ground at Barlow's Knoll; moved by (0.0095, 0.0005) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-XI-1\",\"tick\":60,)\"lat\":39\\.8372,\"lng\":-77\\.2261",
+   "repl": "\\g<1>\"lat\":39.8467,\"lng\":-77.2256",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks51-100-U-153PA-57",
+   "target": "data/density_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "density_day1_ticks51_100 U-153PA tick 57 (39.8361, -77.2261): Von Gilsa's 153rd PA -- right flank broken by Gordon -- the row is 1.0-1.7 km south of the NPS ground at Barlow's Knoll; moved by (0.0095, 0.0005) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-153PA\",\"tick\":57,)\"lat\":39\\.8361,\"lng\":-77\\.2261",
+   "repl": "\\g<1>\"lat\":39.8456,\"lng\":-77.2256",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks51-100-U-54NY-57",
+   "target": "data/density_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "density_day1_ticks51_100 U-54NY tick 57 (39.8356, -77.2256) -- the row is 1.0-1.7 km south of the NPS ground at Barlow's Knoll; moved by (0.0095, 0.0005) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-54NY\",\"tick\":57,)\"lat\":39\\.8356,\"lng\":-77\\.2256",
+   "repl": "\\g<1>\"lat\":39.8451,\"lng\":-77.2251",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks51-100-U-68NY-57",
+   "target": "data/density_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "density_day1_ticks51_100 U-68NY tick 57 (39.8350, -77.2250) -- the row is 1.0-1.7 km south of the NPS ground at Barlow's Knoll; moved by (0.0095, 0.0005) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-68NY\",\"tick\":57,)\"lat\":39\\.8350,\"lng\":-77\\.2250",
+   "repl": "\\g<1>\"lat\":39.8445,\"lng\":-77.2245",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks51-100-U-41NY-57",
+   "target": "data/density_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "density_day1_ticks51_100 U-41NY tick 57 (39.8344, -77.2244) -- the row is 1.0-1.7 km south of the NPS ground at Barlow's Knoll; moved by (0.0095, 0.0005) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-41NY\",\"tick\":57,)\"lat\":39\\.8344,\"lng\":-77\\.2244",
+   "repl": "\\g<1>\"lat\":39.8439,\"lng\":-77.2239",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-U-XI-1-1-50",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks1_50 U-XI-1-1 tick 50 (39.8350, -77.2289): Von Gilsa's brigade deploying toward Barlow's Knoll -- the row is 1.0-1.7 km south of the NPS ground at Barlow's Knoll; moved by (0.0095, 0.0005) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-XI-1-1\",\"tick\":50,)\"lat\":39\\.8350,\"lng\":-77\\.2289",
+   "repl": "\\g<1>\"lat\":39.8445,\"lng\":-77.2284",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-U-XI-1-2-50",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks1_50 U-XI-1-2 tick 50 (39.8344, -77.2267): Ames's brigade deploying north of town -- the row is 1.0-1.7 km south of the NPS ground at Barlow's Knoll; moved by (0.0095, 0.0005) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-XI-1-2\",\"tick\":50,)\"lat\":39\\.8344,\"lng\":-77\\.2267",
+   "repl": "\\g<1>\"lat\":39.8439,\"lng\":-77.2262",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-U-XI-1-1-56",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks51_100 U-XI-1-1 tick 56 (39.8356, -77.2272): Von Gilsa's brigade at Barlow's Knoll -- about to be flanked -- the row is 1.0-1.7 km south of the NPS ground at Barlow's Knoll; moved by (0.0095, 0.0005) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-XI-1-1\",\"tick\":56,)\"lat\":39\\.8356,\"lng\":-77\\.2272",
+   "repl": "\\g<1>\"lat\":39.8451,\"lng\":-77.2267",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-U-XI-1-2-56",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks51_100 U-XI-1-2 tick 56 (39.8344, -77.2256): Ames's brigade on Barlow's Knoll -- the row is 1.0-1.7 km south of the NPS ground at Barlow's Knoll; moved by (0.0095, 0.0005) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-XI-1-2\",\"tick\":56,)\"lat\":39\\.8344,\"lng\":-77\\.2256",
+   "repl": "\\g<1>\"lat\":39.8439,\"lng\":-77.2251",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-U-ART-G4US-56",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks51_100 U-ART-G4US tick 56 (39.8356, -77.2289): Wilkeson's battery -- most exposed Union artillery position. Wilkeson about to be mortally -- the row is 1.0-1.7 km south of the NPS ground at Barlow's Knoll; moved by (0.0095, 0.0005) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-ART-G4US\",\"tick\":56,)\"lat\":39\\.8356,\"lng\":-77\\.2289",
+   "repl": "\\g<1>\"lat\":39.8451,\"lng\":-77.2284",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-U-XI-1-1-57",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks51_100 U-XI-1-1 tick 57 (39.8356, -77.2267): Von Gilsa's brigade broken. 47% casualties. -- the row is 1.0-1.7 km south of the NPS ground at Barlow's Knoll; moved by (0.0095, 0.0005) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-XI-1-1\",\"tick\":57,)\"lat\":39\\.8356,\"lng\":-77\\.2267",
+   "repl": "\\g<1>\"lat\":39.8451,\"lng\":-77.2262",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-U-XI-1-2-57",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks51_100 U-XI-1-2 tick 57 (39.8344, -77.2256): Ames's brigade collapsing. Barlow falls. -- the row is 1.0-1.7 km south of the NPS ground at Barlow's Knoll; moved by (0.0095, 0.0005) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-XI-1-2\",\"tick\":57,)\"lat\":39\\.8344,\"lng\":-77\\.2256",
+   "repl": "\\g<1>\"lat\":39.8439,\"lng\":-77.2251",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-U-ART-G4US-57",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks51_100 U-ART-G4US tick 57 (39.8356, -77.2289): Wilkeson mortally wounded -- both legs shattered at Barlow's Knoll -- the row is 1.0-1.7 km south of the NPS ground at Barlow's Knoll; moved by (0.0095, 0.0005) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-ART-G4US\",\"tick\":57,)\"lat\":39\\.8356,\"lng\":-77\\.2289",
+   "repl": "\\g<1>\"lat\":39.8451,\"lng\":-77.2284",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-U-XI-3-1-50",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks1_50 U-XI-3-1 tick 50 (39.8322, -77.2300): Krzyzanowski's brigade north of Gettysburg -- the row is 1.0-1.7 km south of the NPS ground at Schurz's line on the Carlisle Road; moved by (0.0108, -0.002) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-XI-3-1\",\"tick\":50,)\"lat\":39\\.8322,\"lng\":-77\\.2300",
+   "repl": "\\g<1>\"lat\":39.8430,\"lng\":-77.2320",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-U-XI-3-2-50",
+   "target": "data/placements_day1_ticks1_50.json",
+   "cls": "wrong-place",
+   "before": "placements_day1_ticks1_50 U-XI-3-2 tick 50 (39.8311, -77.2289): Schimmelfennig's brigade north of Gettysburg -- the row is 1.0-1.7 km south of the NPS ground at Schurz's line on the Carlisle Road; moved by (0.0108, -0.002) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)",
+   "find": "(\"unit_id\":\"U-XI-3-2\",\"tick\":50,)\"lat\":39\\.8311,\"lng\":-77\\.2289",
+   "repl": "\\g<1>\"lat\":39.8419,\"lng\":-77.2309",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-artillery-positions-U-HAB-M2US-560",
+   "target": "data/density_artillery_positions.json",
+   "cls": "wrong-place",
+   "before": "density_artillery_positions U-HAB-M2US tick 560 (39.8317, -77.1994): Pennington's Battery M, 2nd US -- East Cavalry Field. Firing in support of Custer. -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Union); moved by (-0.0055, 0.032) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"U-HAB-M2US\",\"tick\":560,)\"lat\":39\\.8317,\"lng\":-77\\.1994",
+   "repl": "\\g<1>\"lat\":39.8262,\"lng\":-77.1674",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-cavalry-detail-U-CAV-2-3-560",
+   "target": "data/density_cavalry_detail.json",
+   "cls": "wrong-place",
+   "before": "density_cavalry_detail U-CAV-2-3 tick 560 (39.8311, -77.1983): Custer's Michigan Brigade at East Cavalry Field -- about to charge -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Union); moved by (-0.0055, 0.032) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"U-CAV-2-3\",\"tick\":560,)\"lat\":39\\.8311,\"lng\":-77\\.1983",
+   "repl": "\\g<1>\"lat\":39.8256,\"lng\":-77.1663",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-cavalry-detail-U-1MI-CAV-560",
+   "target": "data/density_cavalry_detail.json",
+   "cls": "wrong-place",
+   "before": "density_cavalry_detail U-1MI-CAV tick 560 (39.8317, -77.1989): 1st Michigan Cavalry -- Custer's leading regiment -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Union); moved by (-0.0055, 0.032) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"U-1MI-CAV\",\"tick\":560,)\"lat\":39\\.8317,\"lng\":-77\\.1989",
+   "repl": "\\g<1>\"lat\":39.8262,\"lng\":-77.1669",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-cavalry-detail-U-5MI-CAV-560",
+   "target": "data/density_cavalry_detail.json",
+   "cls": "wrong-place",
+   "before": "density_cavalry_detail U-5MI-CAV tick 560 (39.8311, -77.1994): 5th Michigan Cavalry -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Union); moved by (-0.0055, 0.032) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"U-5MI-CAV\",\"tick\":560,)\"lat\":39\\.8311,\"lng\":-77\\.1994",
+   "repl": "\\g<1>\"lat\":39.8256,\"lng\":-77.1674",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-cavalry-detail-U-6MI-CAV-560",
+   "target": "data/density_cavalry_detail.json",
+   "cls": "wrong-place",
+   "before": "density_cavalry_detail U-6MI-CAV tick 560 (39.8306, -77.2000): 6th Michigan Cavalry -- dismounted skirmishers -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Union); moved by (-0.0055, 0.032) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"U-6MI-CAV\",\"tick\":560,)\"lat\":39\\.8306,\"lng\":-77\\.2000",
+   "repl": "\\g<1>\"lat\":39.8251,\"lng\":-77.1680",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-cavalry-detail-U-7MI-CAV-560",
+   "target": "data/density_cavalry_detail.json",
+   "cls": "wrong-place",
+   "before": "density_cavalry_detail U-7MI-CAV tick 560 (39.8300, -77.2006): 7th Michigan Cavalry -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Union); moved by (-0.0055, 0.032) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"U-7MI-CAV\",\"tick\":560,)\"lat\":39\\.8300,\"lng\":-77\\.2006",
+   "repl": "\\g<1>\"lat\":39.8245,\"lng\":-77.1686",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-cavalry-detail-U-1MI-CAV-563",
+   "target": "data/density_cavalry_detail.json",
+   "cls": "wrong-place",
+   "before": "density_cavalry_detail U-1MI-CAV tick 563 (39.8317, -77.2006): CUSTER'S CHARGE -- 1st Michigan leads. Custer shouts Come on you Wolverines! -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Union); moved by (-0.0055, 0.032) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"U-1MI-CAV\",\"tick\":563,)\"lat\":39\\.8317,\"lng\":-77\\.2006",
+   "repl": "\\g<1>\"lat\":39.8262,\"lng\":-77.1686",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day3-morning-U-CAV-2-470",
+   "target": "data/density_day3_morning.json",
+   "cls": "wrong-place",
+   "before": "density_day3_morning U-CAV-2 tick 470 (39.8317, -77.1978): Gregg's Union cavalry positioning -- he has spotted Stuart. Custer will charge. -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Union); moved by (-0.0055, 0.032) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"U-CAV-2\",\"tick\":470,)\"lat\":39\\.8317,\"lng\":-77\\.1978",
+   "repl": "\\g<1>\"lat\":39.8262,\"lng\":-77.1658",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day3-retreat-U-CAV-2-590",
+   "target": "data/density_day3_retreat.json",
+   "cls": "wrong-place",
+   "before": "density_day3_retreat U-CAV-2 tick 590 (39.8317, -77.1994): Gregg's Union cavalry -- the men who stopped Stuart. Now watching Lee's withdrawal. -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Union); moved by (-0.0055, 0.032) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"U-CAV-2\",\"tick\":590,)\"lat\":39\\.8317,\"lng\":-77\\.1994",
+   "repl": "\\g<1>\"lat\":39.8262,\"lng\":-77.1674",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-reserves-U-CAV-2-538",
+   "target": "data/density_reserves.json",
+   "cls": "wrong-place",
+   "before": "density_reserves U-CAV-2 tick 538 (39.8294, -77.2017): Gregg's division -- positioned to stop Stuart if he breaks through East Cavalry Field -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Union); moved by (-0.0055, 0.032) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"U-CAV-2\",\"tick\":538,)\"lat\":39\\.8294,\"lng\":-77\\.2017",
+   "repl": "\\g<1>\"lat\":39.8239,\"lng\":-77.1697",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day2-ticks376-450-U-CAV-2-3-400",
+   "target": "data/placements_day2_ticks376_450.json",
+   "cls": "wrong-place",
+   "before": "placements_day2_ticks376_450 U-CAV-2-3 tick 400 (39.8311, -77.1972): Custer's Michigan Brigade east of Gettysburg -- Stuart will come here tomorrow -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Union); moved by (-0.0055, 0.032) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"U-CAV-2-3\",\"tick\":400,)\"lat\":39\\.8311,\"lng\":-77\\.1972",
+   "repl": "\\g<1>\"lat\":39.8256,\"lng\":-77.1652",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day2-ticks376-450-U-CAV-2-1-400",
+   "target": "data/placements_day2_ticks376_450.json",
+   "cls": "wrong-place",
+   "before": "placements_day2_ticks376_450 U-CAV-2-1 tick 400 (39.8289, -77.1983): McIntosh's brigade at East Cavalry Field -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Union); moved by (-0.0055, 0.032) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"U-CAV-2-1\",\"tick\":400,)\"lat\":39\\.8289,\"lng\":-77\\.1983",
+   "repl": "\\g<1>\"lat\":39.8234,\"lng\":-77.1663",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day3-ticks521-600-U-CAV-2-1-560",
+   "target": "data/placements_day3_ticks521_600.json",
+   "cls": "wrong-place",
+   "before": "placements_day3_ticks521_600 U-CAV-2-1 tick 560 (39.8306, -77.1994): McIntosh's brigade blocking Stuart's advance -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Union); moved by (-0.0055, 0.032) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"U-CAV-2-1\",\"tick\":560,)\"lat\":39\\.8306,\"lng\":-77\\.1994",
+   "repl": "\\g<1>\"lat\":39.8251,\"lng\":-77.1674",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day3-ticks521-600-U-CAV-2-3-560",
+   "target": "data/placements_day3_ticks521_600.json",
+   "cls": "wrong-place",
+   "before": "placements_day3_ticks521_600 U-CAV-2-3 tick 560 (39.8311, -77.1983): Custer's Michigan Brigade -- about to charge -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Union); moved by (-0.0055, 0.032) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"U-CAV-2-3\",\"tick\":560,)\"lat\":39\\.8311,\"lng\":-77\\.1983",
+   "repl": "\\g<1>\"lat\":39.8256,\"lng\":-77.1663",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day3-ticks521-600-U-HAB-M2US-560",
+   "target": "data/placements_day3_ticks521_600.json",
+   "cls": "wrong-place",
+   "before": "placements_day3_ticks521_600 U-HAB-M2US tick 560 (39.8317, -77.1994): Pennington's battery -- East Cavalry Field -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Union); moved by (-0.0055, 0.032) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"U-HAB-M2US\",\"tick\":560,)\"lat\":39\\.8317,\"lng\":-77\\.1994",
+   "repl": "\\g<1>\"lat\":39.8262,\"lng\":-77.1674",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day3-ticks521-600-U-CAV-2-3-563",
+   "target": "data/placements_day3_ticks521_600.json",
+   "cls": "wrong-place",
+   "before": "placements_day3_ticks521_600 U-CAV-2-3 tick 563 (39.8311, -77.2000): CUSTER'S CHARGE. Custer personally leads. Two lines meet at a gallop. -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Union); moved by (-0.0055, 0.032) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"U-CAV-2-3\",\"tick\":563,)\"lat\":39\\.8311,\"lng\":-77\\.2000",
+   "repl": "\\g<1>\"lat\":39.8256,\"lng\":-77.1680",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day3-ticks521-600-U-CAV-2-3-565",
+   "target": "data/placements_day3_ticks521_600.json",
+   "cls": "wrong-place",
+   "before": "placements_day3_ticks521_600 U-CAV-2-3 tick 565 (39.8311, -77.1994): Michigan Brigade holding East Cavalry Field. Stuart repulsed. -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Union); moved by (-0.0055, 0.032) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"U-CAV-2-3\",\"tick\":565,)\"lat\":39\\.8311,\"lng\":-77\\.1994",
+   "repl": "\\g<1>\"lat\":39.8256,\"lng\":-77.1674",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day3-ticks521-600-U-CAV-2-3-580",
+   "target": "data/placements_day3_ticks521_600.json",
+   "cls": "wrong-place",
+   "before": "placements_day3_ticks521_600 U-CAV-2-3 tick 580 (39.8317, -77.1983): Custer's Michigan Brigade holds East Cavalry Field -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Union); moved by (-0.0055, 0.032) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"U-CAV-2-3\",\"tick\":580,)\"lat\":39\\.8317,\"lng\":-77\\.1983",
+   "repl": "\\g<1>\"lat\":39.8262,\"lng\":-77.1663",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day3-ticks601-675-U-CAV-2-3-620",
+   "target": "data/placements_day3_ticks601_675.json",
+   "cls": "wrong-place",
+   "before": "placements_day3_ticks601_675 U-CAV-2-3 tick 620 (39.8317, -77.1983): Custer's Michigan Brigade holding East Cavalry Field -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Union); moved by (-0.0055, 0.032) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"U-CAV-2-3\",\"tick\":620,)\"lat\":39\\.8317,\"lng\":-77\\.1983",
+   "repl": "\\g<1>\"lat\":39.8262,\"lng\":-77.1663",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-artillery-positions-C-HAB-Breathed-560",
+   "target": "data/density_artillery_positions.json",
+   "cls": "wrong-place",
+   "before": "density_artillery_positions C-HAB-Breathed tick 560 (39.8322, -77.2022): Breathed's Stuart Horse Artillery -- East Cavalry Field -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Confederate); moved by (0.0033, 0.0333) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"C-HAB-Breathed\",\"tick\":560,)\"lat\":39\\.8322,\"lng\":-77\\.2022",
+   "repl": "\\g<1>\"lat\":39.8355,\"lng\":-77.1689",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-artillery-positions-C-HAB-Hart-560",
+   "target": "data/density_artillery_positions.json",
+   "cls": "wrong-place",
+   "before": "density_artillery_positions C-HAB-Hart tick 560 (39.8328, -77.2028): Hart's Washington Artillery SC -- East Cavalry Field -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Confederate); moved by (0.0033, 0.0333) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"C-HAB-Hart\",\"tick\":560,)\"lat\":39\\.8328,\"lng\":-77\\.2028",
+   "repl": "\\g<1>\"lat\":39.8361,\"lng\":-77.1695",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-cavalry-detail-C-CAV-1-560",
+   "target": "data/density_cavalry_detail.json",
+   "cls": "wrong-place",
+   "before": "density_cavalry_detail C-CAV-1 tick 560 (39.8317, -77.2033): Hampton's brigade advancing -- Hampton will be wounded in the melee -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Confederate); moved by (0.0033, 0.0333) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"C-CAV-1\",\"tick\":560,)\"lat\":39\\.8317,\"lng\":-77\\.2033",
+   "repl": "\\g<1>\"lat\":39.8350,\"lng\":-77.1700",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-cavalry-detail-C-1SC-CAV-560",
+   "target": "data/density_cavalry_detail.json",
+   "cls": "wrong-place",
+   "before": "density_cavalry_detail C-1SC-CAV tick 560 (39.8322, -77.2039) -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Confederate); moved by (0.0033, 0.0333) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"C-1SC-CAV\",\"tick\":560,)\"lat\":39\\.8322,\"lng\":-77\\.2039",
+   "repl": "\\g<1>\"lat\":39.8355,\"lng\":-77.1706",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-cavalry-detail-C-Cobb-CAV-560",
+   "target": "data/density_cavalry_detail.json",
+   "cls": "wrong-place",
+   "before": "density_cavalry_detail C-Cobb-CAV tick 560 (39.8317, -77.2044) -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Confederate); moved by (0.0033, 0.0333) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"C-Cobb-CAV\",\"tick\":560,)\"lat\":39\\.8317,\"lng\":-77\\.2044",
+   "repl": "\\g<1>\"lat\":39.8350,\"lng\":-77.1711",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-cavalry-detail-C-Jeff-MS-CAV-560",
+   "target": "data/density_cavalry_detail.json",
+   "cls": "wrong-place",
+   "before": "density_cavalry_detail C-Jeff-MS-CAV tick 560 (39.8311, -77.2050) -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Confederate); moved by (0.0033, 0.0333) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"C-Jeff-MS-CAV\",\"tick\":560,)\"lat\":39\\.8311,\"lng\":-77\\.2050",
+   "repl": "\\g<1>\"lat\":39.8344,\"lng\":-77.1717",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-cavalry-detail-C-1SC-CAV-563",
+   "target": "data/density_cavalry_detail.json",
+   "cls": "wrong-place",
+   "before": "density_cavalry_detail C-1SC-CAV tick 563 (39.8317, -77.2022): Hampton's regiment meeting Custer's charge head-on -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Confederate); moved by (0.0033, 0.0333) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"C-1SC-CAV\",\"tick\":563,)\"lat\":39\\.8317,\"lng\":-77\\.2022",
+   "repl": "\\g<1>\"lat\":39.8350,\"lng\":-77.1689",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-cavalry-detail-C-Cobb-CAV-563",
+   "target": "data/density_cavalry_detail.json",
+   "cls": "wrong-place",
+   "before": "density_cavalry_detail C-Cobb-CAV tick 563 (39.8311, -77.2017) -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Confederate); moved by (0.0033, 0.0333) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"C-Cobb-CAV\",\"tick\":563,)\"lat\":39\\.8311,\"lng\":-77\\.2017",
+   "repl": "\\g<1>\"lat\":39.8344,\"lng\":-77.1684",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-cavalry-detail-C-CAV-1-565",
+   "target": "data/density_cavalry_detail.json",
+   "cls": "wrong-place",
+   "before": "density_cavalry_detail C-CAV-1 tick 565 (39.8328, -77.2028): Hampton's brigade repulsed -- Hampton wounded in sabre melee -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Confederate); moved by (0.0033, 0.0333) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"C-CAV-1\",\"tick\":565,)\"lat\":39\\.8328,\"lng\":-77\\.2028",
+   "repl": "\\g<1>\"lat\":39.8361,\"lng\":-77.1695",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-density-day3-retreat-C-CAV-1-590",
+   "target": "data/density_day3_retreat.json",
+   "cls": "wrong-place",
+   "before": "density_day3_retreat C-CAV-1 tick 590 (39.8311, -77.2017): Stuart's cavalry screening the Confederate right -- humiliated by Custer but still operati -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Confederate); moved by (0.0033, 0.0333) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"C-CAV-1\",\"tick\":590,)\"lat\":39\\.8311,\"lng\":-77\\.2017",
+   "repl": "\\g<1>\"lat\":39.8344,\"lng\":-77.1684",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day2-ticks376-450-C-CAV-1-400",
+   "target": "data/placements_day2_ticks376_450.json",
+   "cls": "wrong-place",
+   "before": "placements_day2_ticks376_450 C-CAV-1 tick 400 (39.8400, -77.2056): Hampton's brigade -- Stuart's cavalry, arrived today -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Confederate); moved by (0.0033, 0.0333) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"C-CAV-1\",\"tick\":400,)\"lat\":39\\.8400,\"lng\":-77\\.2056",
+   "repl": "\\g<1>\"lat\":39.8433,\"lng\":-77.1723",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day2-ticks376-450-C-CAV-2-400",
+   "target": "data/placements_day2_ticks376_450.json",
+   "cls": "wrong-place",
+   "before": "placements_day2_ticks376_450 C-CAV-2 tick 400 (39.8389, -77.2044): Fitz Lee's brigade -- East Cavalry Field tomorrow -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Confederate); moved by (0.0033, 0.0333) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"C-CAV-2\",\"tick\":400,)\"lat\":39\\.8389,\"lng\":-77\\.2044",
+   "repl": "\\g<1>\"lat\":39.8422,\"lng\":-77.1711",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day3-ticks521-600-C-CAV-1-560",
+   "target": "data/placements_day3_ticks521_600.json",
+   "cls": "wrong-place",
+   "before": "placements_day3_ticks521_600 C-CAV-1 tick 560 (39.8317, -77.2033): Hampton's brigade advancing at East Cavalry Field -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Confederate); moved by (0.0033, 0.0333) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"C-CAV-1\",\"tick\":560,)\"lat\":39\\.8317,\"lng\":-77\\.2033",
+   "repl": "\\g<1>\"lat\":39.8350,\"lng\":-77.1700",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day3-ticks521-600-C-CAV-2-560",
+   "target": "data/placements_day3_ticks521_600.json",
+   "cls": "wrong-place",
+   "before": "placements_day3_ticks521_600 C-CAV-2 tick 560 (39.8306, -77.2017): Fitz Lee's brigade -- Stuart's assault force -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Confederate); moved by (0.0033, 0.0333) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"C-CAV-2\",\"tick\":560,)\"lat\":39\\.8306,\"lng\":-77\\.2017",
+   "repl": "\\g<1>\"lat\":39.8339,\"lng\":-77.1684",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day3-ticks521-600-C-CAV-1-563",
+   "target": "data/placements_day3_ticks521_600.json",
+   "cls": "wrong-place",
+   "before": "placements_day3_ticks521_600 C-CAV-1 tick 563 (39.8317, -77.1994): Hampton's cavalry charge -- 'Come on, you Wolverines!' -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Confederate); moved by (0.0033, 0.0333) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"C-CAV-1\",\"tick\":563,)\"lat\":39\\.8317,\"lng\":-77\\.1994",
+   "repl": "\\g<1>\"lat\":39.8350,\"lng\":-77.1661",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day3-ticks521-600-C-CAV-1-565",
+   "target": "data/placements_day3_ticks521_600.json",
+   "cls": "wrong-place",
+   "before": "placements_day3_ticks521_600 C-CAV-1 tick 565 (39.8317, -77.2006): Hampton wounded in melee -- sabre cut. CS-017. Stuart's cavalry repulsed. -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Confederate); moved by (0.0033, 0.0333) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"C-CAV-1\",\"tick\":565,)\"lat\":39\\.8317,\"lng\":-77\\.2006",
+   "repl": "\\g<1>\"lat\":39.8350,\"lng\":-77.1673",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day3-ticks521-600-C-CAV-1-580",
+   "target": "data/placements_day3_ticks521_600.json",
+   "cls": "wrong-place",
+   "before": "placements_day3_ticks521_600 C-CAV-1 tick 580 (39.8344, -77.2022): Hampton's cavalry reformed east of town -- Stuart's attack repulsed -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Confederate); moved by (0.0033, 0.0333) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"C-CAV-1\",\"tick\":580,)\"lat\":39\\.8344,\"lng\":-77\\.2022",
+   "repl": "\\g<1>\"lat\":39.8377,\"lng\":-77.1689",
+   "area": "zpos"
+  },
+  {
+   "id": "DATA-pos-move-placements-day3-ticks601-675-C-CAV-1-620",
+   "target": "data/placements_day3_ticks601_675.json",
+   "cls": "wrong-place",
+   "before": "placements_day3_ticks601_675 C-CAV-1 tick 620 (39.8344, -77.2022): Hampton's cavalry reformed -- Hampton wounded -- the row is 3.0-3.4 km west of the NPS ground at East Cavalry Field (Confederate); moved by (0.0033, 0.0333) degrees, the offset between the terrain point the row was drawn around and the NPS sites",
+   "src": "NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174",
+   "find": "(\"unit_id\":\"C-CAV-1\",\"tick\":620,)\"lat\":39\\.8344,\"lng\":-77\\.2022",
+   "repl": "\\g<1>\"lat\":39.8377,\"lng\":-77.1689",
+   "area": "zpos"
+  },
+  {
    "id": "DATA-rejoin-add-placements-day1-ticks51-100-U-6WI-68-rejoin",
    "target": "data/placements_day1_ticks51_100.json",
    "cls": "stale-position",
@@ -17071,6 +18431,46 @@
    "src": "the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Corps was ordered back to the stronger position, Cemetery Hill), p.730 (Schurz), p.258 (Doubleday); OR 27/2 p.317 (Lee), p.607 (Hill)",
    "find": "(\"placements\": \\[\\n)",
    "repl": "\\g<1>    {\"unit_id\":\"U-56PA\",\"tick\":95,\"lat\":39.8219,\"lng\":-77.2272,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":129,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "area": "zrejoin"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-C-5NC-95-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "stale-position",
+   "before": "C-5NC: the unit stays where its last recorded row put it (tick 95 is a later row of its brigade C-II-3-3)",
+   "src": "the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Corps was ordered back to the stronger position, Cemetery Hill), p.730 (Schurz), p.258 (Doubleday); OR 27/2 p.317 (Lee), p.607 (Hill)",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-5NC\",\"tick\":95,\"lat\":39.831,\"lng\":-77.2363,\"bearing\":0,\"disposition\":\"Bivouac\",\"strength\":130,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "area": "zrejoin"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-C-12NC-95-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "stale-position",
+   "before": "C-12NC: the unit stays where its last recorded row put it (tick 95 is a later row of its brigade C-II-3-3)",
+   "src": "the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Corps was ordered back to the stronger position, Cemetery Hill), p.730 (Schurz), p.258 (Doubleday); OR 27/2 p.317 (Lee), p.607 (Hill)",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-12NC\",\"tick\":95,\"lat\":39.8311,\"lng\":-77.2352,\"bearing\":0,\"disposition\":\"Bivouac\",\"strength\":80,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "area": "zrejoin"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-C-20NC-95-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "stale-position",
+   "before": "C-20NC: the unit stays where its last recorded row put it (tick 95 is a later row of its brigade C-II-3-3)",
+   "src": "the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Corps was ordered back to the stronger position, Cemetery Hill), p.730 (Schurz), p.258 (Doubleday); OR 27/2 p.317 (Lee), p.607 (Hill)",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-20NC\",\"tick\":95,\"lat\":39.8322,\"lng\":-77.2347,\"bearing\":0,\"disposition\":\"Bivouac\",\"strength\":140,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "area": "zrejoin"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-C-23NC-95-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "cls": "stale-position",
+   "before": "C-23NC: the unit stays where its last recorded row put it (tick 95 is a later row of its brigade C-II-3-3)",
+   "src": "the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Corps was ordered back to the stronger position, Cemetery Hill), p.730 (Schurz), p.258 (Doubleday); OR 27/2 p.317 (Lee), p.607 (Hill)",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-23NC\",\"tick\":95,\"lat\":39.8332,\"lng\":-77.2348,\"bearing\":0,\"disposition\":\"Bivouac\",\"strength\":60,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
    "area": "zrejoin"
   },
   {
@@ -18353,6 +19753,17 @@
    "unit": "U-I-3-1"
   },
   {
+   "id": "DATA-oob-union-oob-brigades-U-I-2-1",
+   "target": "data/oob/union_oob_brigades.json",
+   "cls": "wrong-id+wrong-number",
+   "before": "regiment_ids lists U-107NY for the 107th Pennsylvania | brigade casualties 793 against 1041 (the printed total of the brigade, including its staff row (p.173))",
+   "src": "OR 27/1 p.156 (roster: 107th Pennsylvania in the First Brigade of the Second Division, First Corps) and p.173 (return); OR 27/1 pp.173-186 (return of casualties)",
+   "find": "{\"brigade_id\":\"U-I-2-1\",\"designation\":\"First Brigade, Second Division, First Corps (Paul's Brigade)\",\"parent_division_id\":\"U-I-2\",\"parent_corps_id\":\"U-I\",\"commander\":{\"name\":\"Brigadier General Gabriel Paul\",\"fate\":\"Wounded July 1 -- shot through both eyes, blinded permanently\",\"successor\":{\"name\":\"Colonel Samuel Leonard\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Adrian Root\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Richard Coulter\",\"assumed_command\":\"July 1 -- fourth commander in one afternoon\"}}}},\"strength\":1536,\"casualties\":793,\"casualty_percentage\":51.6,\"days_engaged\":[1],\"state\":\"New York/Pennsylvania/Massachusetts\",\"regiment_ids\":[\"U-16ME\",\"U-13MA\",\"U-94NY\",\"U-104NY\",\"U-107NY\",\"U-11PA\"],\"key_action\":\"Oak Ridge defense. Paul blinded, then three successive commanders wounded in under an hour. 16th Maine left as sacrifice regiment to cover retreat.\"}",
+   "repl": "{\"brigade_id\":\"U-I-2-1\",\"designation\":\"First Brigade, Second Division, First Corps (Paul's Brigade)\",\"parent_division_id\":\"U-I-2\",\"parent_corps_id\":\"U-I\",\"commander\":{\"name\":\"Brigadier General Gabriel Paul\",\"fate\":\"Wounded July 1 -- shot through both eyes, blinded permanently\",\"successor\":{\"name\":\"Colonel Samuel Leonard\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Adrian Root\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Richard Coulter\",\"assumed_command\":\"July 1 -- fourth commander in one afternoon\"}}}},\"strength\":1536,\"casualties\":1041,\"casualty_percentage\":67.8,\"days_engaged\":[1],\"state\":\"New York/Pennsylvania/Massachusetts\",\"regiment_ids\":[\"U-16ME\",\"U-13MA\",\"U-94NY\",\"U-104NY\",\"U-107PA\",\"U-11PA\"],\"key_action\":\"Oak Ridge. Paul was severely wounded and command passed through Leonard, Root and Coulter (roster, OR 27/1 p.156); the 16th Maine was ordered alone to take and hold a hill commanding the road (Farnham, OR 27/1 p.295).\"}",
+   "area": "oobbrig",
+   "unit": "U-I-2-1"
+  },
+  {
    "id": "DATA-oob-union-oob-brigades-U-I-3-2",
    "target": "data/oob/union_oob_brigades.json",
    "cls": "wrong-name+wrong-number",
@@ -19382,7 +20793,7 @@
    "before": "record labelled 107th New York but placed in Paul's brigade, which held the 107th Pennsylvania; the 107th New York is U-107NY-XII",
    "src": "OR 27/1 pp.155-186 (roster: 107th Pennsylvania, Lieut. Col. James MacThomson; return: 165)",
    "find": "{\"regiment_id\":\"U-107NY\",\"designation\":\"107th New York Volunteer Infantry\",\"parent_brigade_id\":\"U-I-2-1\",\"parent_corps_id\":\"U-I\",\"state\":\"New York\",\"commander\":{\"name\":\"Colonel Nixon Van Valkenburgh\",\"fate\":\"Wounded July 1\"},\"strength\":122,\"casualties\":53,\"casualty_percentage\":43.4,\"days_engaged\":[1],\"key_action\":\"Oak Ridge -- one of smallest regiments in Paul's brigade.\"}",
-   "repl": "{\"regiment_id\":\"U-107NY\",\"designation\":\"107th Pennsylvania Volunteer Infantry\",\"parent_brigade_id\":\"U-I-2-1\",\"parent_corps_id\":\"U-I\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Lieutenant Colonel James MacThomson\"},\"strength\":122,\"casualties\":165,\"days_engaged\":[1],\"key_action\":\"Oak Ridge -- Paul's brigade (the record was labelled 107th New York; that regiment served in the XII Corps). The strength shown (122) belonged to the old label and is not verified for the 107th Pennsylvania, so no percentage is given.\"}",
+   "repl": "{\"regiment_id\":\"U-107PA\",\"designation\":\"107th Pennsylvania Volunteer Infantry\",\"parent_brigade_id\":\"U-I-2-1\",\"parent_corps_id\":\"U-I\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Lieutenant Colonel James MacThomson\"},\"strength\":122,\"casualties\":165,\"days_engaged\":[1],\"key_action\":\"Oak Ridge -- Paul's brigade (the record was labelled 107th New York; that regiment served in the XII Corps). The strength shown (122) belonged to the old label and is not verified for the 107th Pennsylvania, so no percentage is given.\"}",
    "area": "oobcas",
    "unit": "U-107NY"
   },
@@ -22432,17 +23843,6 @@
    "repl": "{\"brigade_id\":\"U-I-1-2\",\"designation\":\"Second Brigade, First Division, First Corps (Cutler's Brigade)\",\"parent_division_id\":\"U-I-1\",\"parent_corps_id\":\"U-I\",\"commander\":{\"name\":\"Brigadier General Lysander Cutler\",\"fate\":\"Survived\"},\"strength\":2017,\"casualties\":1002,\"casualty_percentage\":49.7,\"days_engaged\":[1],\"state\":\"New York/Pennsylvania\",\"regiment_ids\":[\"U-76NY\",\"U-84NY\",\"U-95NY\",\"U-147NY\",\"U-56PA\",\"U-14BK\"],\"key_action\":\"North of the Chambersburg Pike -- pressed back by Davis's brigade; the 6th Wisconsin, 95th New York and 14th Brooklyn charged the Confederates in the Railroad Cut (Dawes, OR 27/1 p.275-276).\"}",
    "area": "oobtotals",
    "unit": "U-I-1-2"
-  },
-  {
-   "id": "DATA-oob-union-oob-brigades-U-I-2-1",
-   "target": "data/oob/union_oob_brigades.json",
-   "cls": "wrong-number",
-   "before": "brigade casualties 793 against 1041 (the printed total of the brigade, including its staff row (p.173))",
-   "src": "OR 27/1 pp.173-186 (return of casualties)",
-   "find": "{\"brigade_id\":\"U-I-2-1\",\"designation\":\"First Brigade, Second Division, First Corps (Paul's Brigade)\",\"parent_division_id\":\"U-I-2\",\"parent_corps_id\":\"U-I\",\"commander\":{\"name\":\"Brigadier General Gabriel Paul\",\"fate\":\"Wounded July 1 -- shot through both eyes, blinded permanently\",\"successor\":{\"name\":\"Colonel Samuel Leonard\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Adrian Root\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Richard Coulter\",\"assumed_command\":\"July 1 -- fourth commander in one afternoon\"}}}},\"strength\":1536,\"casualties\":793,\"casualty_percentage\":51.6,\"days_engaged\":[1],\"state\":\"New York/Pennsylvania/Massachusetts\",\"regiment_ids\":[\"U-16ME\",\"U-13MA\",\"U-94NY\",\"U-104NY\",\"U-107NY\",\"U-11PA\"],\"key_action\":\"Oak Ridge defense. Paul blinded, then three successive commanders wounded in under an hour. 16th Maine left as sacrifice regiment to cover retreat.\"}",
-   "repl": "{\"brigade_id\":\"U-I-2-1\",\"designation\":\"First Brigade, Second Division, First Corps (Paul's Brigade)\",\"parent_division_id\":\"U-I-2\",\"parent_corps_id\":\"U-I\",\"commander\":{\"name\":\"Brigadier General Gabriel Paul\",\"fate\":\"Wounded July 1 -- shot through both eyes, blinded permanently\",\"successor\":{\"name\":\"Colonel Samuel Leonard\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Adrian Root\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Richard Coulter\",\"assumed_command\":\"July 1 -- fourth commander in one afternoon\"}}}},\"strength\":1536,\"casualties\":1041,\"casualty_percentage\":67.8,\"days_engaged\":[1],\"state\":\"New York/Pennsylvania/Massachusetts\",\"regiment_ids\":[\"U-16ME\",\"U-13MA\",\"U-94NY\",\"U-104NY\",\"U-107NY\",\"U-11PA\"],\"key_action\":\"Oak Ridge. Paul was severely wounded and command passed through Leonard, Root and Coulter (roster, OR 27/1 p.156); the 16th Maine was ordered alone to take and hold a hill commanding the road (Farnham, OR 27/1 p.295).\"}",
-   "area": "oobtotals",
-   "unit": "U-I-2-1"
   },
   {
    "id": "DATA-oob-union-oob-brigades-U-I-2-2",

@@ -43,6 +43,7 @@ export function makePos(tag) {
   }
   const errors = [];
   const out = [];
+  const touched = new Set();   // `${file}|${unit}|${tick}|${lat}|${lng}` of the rows a patch of this module already changes
   const effects = [];   // {op:'del'|'add', file, unit}: row counts the page texts of fixes/texts.mjs depend on
   const used = new Set();
   function pick(file, unit, tick, at) {
@@ -56,6 +57,7 @@ export function makePos(tag) {
 
   function del(file, unit, tick, cls, why, src, at) {
     const r = pick(file, unit, tick, at); if (!r) return;
+    touched.add(`${r.f}|${r.unit}|${r.tick}|${r.latS}|${r.lngS}`);
     const k = esc(key(r));
     effects.push({ op: 'del', file: r.file, unit: r.unit });
     out.push({ id: nid('del', r), target: 'data/' + r.file, regex: true, expect: 1, cls, before: `${bef(r)} -- ${why}`, src,
@@ -63,11 +65,13 @@ export function makePos(tag) {
   }
   function retick(file, unit, from, to, cls, why, src, at) {
     const r = pick(file, unit, from, at); if (!r) return;
+    touched.add(`${r.f}|${r.unit}|${r.tick}|${r.latS}|${r.lngS}`);
     out.push({ id: nid('tick', r, '-to-' + to), target: 'data/' + r.file, regex: true, expect: 1, cls, before: `${bef(r)} -- ${why}`, src,
       find: `("unit_id":"${esc(r.unit)}","tick":)${from}(,"lat":${esc(r.latS)},"lng":${esc(r.lngS)},)`, repl: `${BS}g<1>${to}${BS}g<2>` });
   }
   function move(file, unit, tick, lat, lng, cls, why, src, at) {
     const r = pick(file, unit, tick, at); if (!r) return;
+    touched.add(`${r.f}|${r.unit}|${r.tick}|${r.latS}|${r.lngS}`);
     out.push({ id: nid('move', r), target: 'data/' + r.file, regex: true, expect: 1, cls, before: `${bef(r)} -- ${why}`, src,
       find: `("unit_id":"${esc(r.unit)}","tick":${tick},)"lat":${esc(r.latS)},"lng":${esc(r.lngS)}`, repl: `${BS}g<1>"lat":${lat},"lng":${lng}` });
   }
@@ -92,5 +96,5 @@ export function makePos(tag) {
       find: `("placements": ${BS}[${NL})`, repl: `${BS}g<1>    ${json},
 ` });
   }
-  return { ROWS, FIRST, errors, out, effects, pick, del, retick, move, note, addTo, bef };
+  return { ROWS, FIRST, errors, out, effects, touched, pick, del, retick, move, note, addTo, bef };
 }

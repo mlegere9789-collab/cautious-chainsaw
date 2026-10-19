@@ -108,6 +108,7 @@ for (const [t, at] of [[50, ['39.8272', '-77.2572']], [50, ['39.8289', '-77.2578
   del('density_day1_iverson', 'U-I-2-2', t, 'wrong-place', 'Baxter\'s brigade placed 1.4 km west of the stone wall at the Herbst Woods; the placements rows of the same ticks put it behind the wall', SRC_IV, at);
 del('density_day1_iverson', 'U-I-2-2', 60, 'wrong-place', 'Baxter\'s brigade 1.3 km west of the wall', SRC_IV);
 del('density_day1_iverson', 'C-12NC', 60, 'wrong-place', 'survivors bivouacked 1.2 km west of the wall', SRC_IV);
+const OR_DLAT = 0.0122, OR_DLNG = -0.0013;   // Oak Ridge sector shift, section D2 below
 const IV = {
   50: { b: [39.8306, -77.2422], regs: { 'C-5NC': [39.8322, -77.2567], 'C-12NC': [39.8333, -77.2561], 'C-20NC': [39.8344, -77.2556], 'C-23NC': [39.8356, -77.2550] } },
   53: { b: [39.8306, -77.2411], regs: { 'C-5NC': [39.8322, -77.2550], 'C-12NC': [39.8333, -77.2544], 'C-20NC': [39.8344, -77.2539], 'C-23NC': [39.8356, -77.2533] } },
@@ -117,11 +118,11 @@ for (const [t, d] of Object.entries(IV)) {
   const ids = Object.keys(d.regs);
   const cl = ids.reduce((s, k) => s + d.regs[k][0], 0) / ids.length, cg = ids.reduce((s, k) => s + d.regs[k][1], 0) / ids.length;
   for (const k of ids) {
-    const lat = (d.b[0] + d.regs[k][0] - cl).toFixed(4), lng = (d.b[1] + d.regs[k][1] - cg).toFixed(4);
+    const lat = (d.b[0] + d.regs[k][0] - cl + OR_DLAT).toFixed(4), lng = (d.b[1] + d.regs[k][1] - cg + OR_DLNG).toFixed(4);
     move('density_day1_iverson', k, +t, lat, lng, 'wrong-place', 'the regiment is 1.2-1.4 km west of its brigade at the stone wall; moved onto the brigade (placements row of the same tick, tick 54 for tick 57) keeping the regiment\'s own place in the line', SRC_IV);
   }
 }
-move('density_day1_iverson', 'C-II-3-4', 57, '39.8315', '-77.2425', 'wrong-place', 'Ramseur\'s brigade "coming up on Oak Ridge" but 1.8 km west of it; moved next to the brigade\'s own rows at ticks 54 (39.8317, -77.2422)', `${OR2} p.553; position of row C-II-3-4 tick 54`);
+move('density_day1_iverson', 'C-II-3-4', 57, (39.8315 + OR_DLAT).toFixed(4), (-77.2425 + OR_DLNG).toFixed(4), 'wrong-place', 'Ramseur\'s brigade "coming up on Oak Ridge" but 1.8 km west of it; moved next to the brigade\'s own rows at ticks 54 (39.8317, -77.2422)', `${OR2} p.553; position of row C-II-3-4 tick 54`);
 
 // ---------------------------------------------------------------- D. Little Round Top
 const SRC_LRT = `${OR1} p.602 (Barnes: Vincent's brigade went to Little Round Top), p.623 (Chamberlain: the brigade on the southern slope of Little Round Top, Hazlett's battery on the crest behind it); the rows of the same units at ticks 267, 270 and 620 (39.7933, -77.2394)`;
@@ -142,6 +143,42 @@ note('density_day1_opening', 'C-III-2-2', 8, 'Brockenbrough\'s brigade following
 note('density_day1_opening', 'C-III-2-2', 11, 'Brockenbrough\'s brigade in reserve behind Archer\'s and Davis\'s (Heth)', 'wrong-unit-note', 'the note of Brockenbrough\'s row said "Davis advancing north of the pike toward the Railroad Cut"', SRC_HETH);
 note('density_day1_railroadcut', 'C-III-2-2', 35, 'Brockenbrough\'s brigade held in reserve (Heth)', 'wrong-unit-note', 'the note of Brockenbrough\'s row said "Davis reforming behind Herr Ridge"', SRC_HETH);
 note('density_day1_ticks51_100', 'U-157NY', 60, '157th New York (Schimmelfennig\'s brigade, Eleventh Corps) in the retreat north of the town', 'wrong-unit-note', 'the 157th New York carried the note "Coster\'s brigade in the brickyard -- 597 casualties in the return"; it belonged to Schimmelfennig\'s brigade', `${OR1} p.730 (Schurz); data/oob/union_oob_brigades.json U-XI-3-2 regiment_ids`);
+
+
+del('density_day1_lateafternoon', 'U-107OH', 63, 'wrong-place', `the 107th Ohio is shown on Cemetery Hill at tick 63, then "retreating through Gettysburg" at tick 66 and rallying on Cemetery Hill at tick 72`, `${OR1} p.696 (Howard), p.727-729 (Schurz: the corps fell back through the town to Cemetery Hill)`);
+
+// ---------------------------------------------------------------- D2. the north sector of July 1 and East Cavalry Field are plotted 1.0-3.4 km from the NPS ground
+// The terrain table puts Oak Hill 1.7 km, Oak Ridge 1.5 km, Barlow's Knoll 1.0 km south of the NPS sites and East Cavalry Field 3.0 km west of its monuments; the rows
+// authored around these points moved with them.  NPS ground (OpenStreetMap historic=monument nodes, which carry the NPS names; the Eternal Light Peace Memorial is also the
+// coordinate of tour stop 2 of the Virtual Walkthrough): Oak Hill 39.8485,-77.2435 (Eternal Light, Rodes's and Iverson's headquarters markers 39.8478-39.8484,-77.2432);
+// Baxter's brigade and its regiments at the Oak Ridge stone wall 39.8422-39.8444,-77.2412-77.2429 (Baxter's headquarters marker 39.84278,-77.24243); Barlow's headquarters
+// marker 39.84479,-77.22670, the Barlow statue 39.84544,-77.22641, the 17th Connecticut 39.84541,-77.22614, Wilkeson's battery 39.84558,-77.22602; Krzyzanowski's and
+// Schimmelfennig's regiments on the Carlisle Road line 39.8409-39.8437,-77.2281 to -77.2345; East Cavalry Field: Custer's headquarters marker 39.82669,-77.16524, McIntosh
+// 39.82589,-77.16307, Stuart's division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697 (NPS monuments, OpenStreetMap).
+const SRC_N = 'NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Memorial on Oak Hill 39.8478-39.8485,-77.2432 to -77.2435 (also tour stop 2 of the Virtual Walkthrough, 39.84806,-77.24384); Barlow HQ marker 39.84479,-77.22670, 17th Connecticut 39.84541,-77.22614, Wilkeson 39.84558,-77.22602; Krzyzanowski/Schimmelfennig regiments 39.8409-39.8437,-77.2281 to -77.2345; OR 27/2 p.553-554 (Rodes), OR 27/1 p.727-729 (Schurz)';
+const SRC_E = 'NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz Lee 39.83837,-77.16697, Breathed 39.83695,-77.16817, Pennington 39.81837,-77.16917; the 512-monument array of the Virtual Walkthrough puts the East Cavalry Field tablets at 39.818-39.838,-77.163 to -77.174';
+const SECTORS = [
+  // [name, dlat, dlng, unit pattern, first tick, last tick, source, what]
+  ['OH', 0.0146, -0.0074, /^(C-ART-(Carrington|Carter|Fry|Page)|C-II-3-1|C-II-3-2)$/, 40, 53, SRC_N, 'Oak Hill'],
+  ['OR', OR_DLAT, OR_DLNG, /^(C-II-3-3|C-II-3-4|C-II-3-5|C-5NC|C-12NC|C-20NC|C-23NC|U-I-2-1|U-I-2-2|U-12MA|U-83NY|U-97NY|U-88PA|U-90PA|U-94NY|U-104NY|U-16ME)$/, 40, 62, SRC_N, 'the Oak Ridge stone wall'],
+  ['BK', 0.0095, 0.0005, /^(U-XI-1|U-XI-1-1|U-XI-1-2|U-153PA|U-54NY|U-68NY|U-41NY|U-ART-G4US)$/, 50, 60, SRC_N, "Barlow's Knoll"],
+  ['SC', 0.0108, -0.0020, /^(U-XI-3-1|U-XI-3-2)$/, 50, 50, SRC_N, "Schurz's line on the Carlisle Road"],
+  ['ECU', -0.0055, 0.0320, /^(U-CAV-2|U-CAV-2-1|U-CAV-2-3|U-[1567]MI-CAV|U-HAB-M2US)$/, 395, 680, SRC_E, 'East Cavalry Field (Union)'],
+  ['ECC', 0.0033, 0.0333, /^(C-CAV-1|C-CAV-2|C-1SC-CAV|C-Cobb-CAV|C-Jeff-MS-CAV|C-HAB-(Breathed|Hart))$/, 395, 680, SRC_E, 'East Cavalry Field (Confederate)'],
+];
+move('density_day3_morning', 'C-CAV-2', 505, '39.8384', '-77.1670', 'wrong-place', `the row "Stuart's cavalry at East Cavalry Field" is on the id of Fitz Lee's brigade, 1.6 km east of the rest of the cluster and 3 km west of the NPS markers; moved to the NPS marker of Fitz Lee's brigade (39.83837, -77.16697)`, SRC_E);
+let nSector = 0;
+for (const [name, dlat, dlng, re, lo, hi, src, what] of SECTORS) {
+  for (const r of P.ROWS) {
+    if (!re.test(r.unit) || r.tick < lo || r.tick > hi) continue;
+    if (name.startsWith('EC') && !(Number(r.lngS) > -77.215)) continue;                          // the ECF sector shift only applies to rows at the old East Cavalry Field
+    if (name === 'ECC' && r.unit === 'C-CAV-2' && r.tick === 470) continue;                      // the march east of tick 470 stays where it is
+    if (P.touched.has(`${r.f}|${r.unit}|${r.tick}|${r.latS}|${r.lngS}`)) continue;
+    const lat = (Number(r.latS) + dlat).toFixed(4), lng = (Number(r.lngS) + dlng).toFixed(4);
+    move(r.f, r.unit, r.tick, lat, lng, 'wrong-place', `the row is ${what === 'East Cavalry Field (Union)' || what === 'East Cavalry Field (Confederate)' ? '3.0-3.4 km west of' : '1.0-1.7 km south of'} the NPS ground at ${what}; moved by (${dlat}, ${dlng}) degrees, the offset between the terrain point the row was drawn around and the NPS sites`, src, [r.latS, r.lngS]);
+    nSector++;
+  }
+}
 
 export default P.out;
 export const zposErrors = P.errors;

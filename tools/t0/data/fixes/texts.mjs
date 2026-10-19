@@ -10,6 +10,7 @@ import { remapId, preArrival, noteOf } from '../idmap.mjs';
 const DATA_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', '..', '..', '..', 'baseline', 'dist', 'data');
 import { posEffects } from './zpos.mjs';
 import { rejoinEffects } from './zrejoin.mjs';
+import { CAV3_REMAP } from './zcav.mjs';
 const UNIT_ROW = new RegExp(String.raw`^\s*\{"unit_id":"([^"]+)","tick":(\d+),`);
 const UNITS = new Set();
 const ROWS_OF = new Map();   // unit -> rows left after the id and arrival fixes
@@ -19,7 +20,7 @@ for (const f of fs.readdirSync(DATA_DIR).filter((x) => /^(placements_|density_).
   const text = fs.readFileSync(path.join(DATA_DIR, f), 'utf8');
   for (const l of text.split(String.fromCharCode(10))) { const m = UNIT_ROW.exec(l); if (m && !preArrival(m[1], m[2])) { const uid = remapId(f, m[1], m[2], noteOf(l)); UNITS.add(uid); ROWS_OF.set(uid, (ROWS_OF.get(uid) || 0) + 1); if (f.startsWith('placements_')) PLACEMENT_ROWS++; } }
   // a pretty-printed file (density_day3_cavalry.json): one key per line, no id remaps or arrival rules apply to its rows
-  if (!/^\s*\{"unit_id"/m.test(text)) for (const m of text.matchAll(/"unit_id":\s*"([^"]+)",\s*"tick":\s*(\d+)/g)) if (!preArrival(m[1], m[2])) UNITS.add(m[1]);
+  if (!/^\s*\{"unit_id"/m.test(text)) for (const m of text.matchAll(/"unit_id":\s*"([^"]+)",\s*"tick":\s*(\d+)/g)) if (!preArrival(m[1], m[2])) UNITS.add(CAV3_REMAP[m[1]] || m[1]);
 }
 // the row-level position fixes (fixes/zpos.mjs, fixes/zrejoin.mjs) delete and add rows: a unit with no row left is not counted
 for (const e of [...posEffects, ...rejoinEffects]) {

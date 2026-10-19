@@ -115,6 +115,7 @@ export const R2 = [
   ['*', 'U-11NC', 'C-11NC', 'all', 'a Confederate regiment with a Union prefix'],
   ['*', 'U-47NC', 'C-47NC', 'all', 'a Confederate regiment with a Union prefix'],
   ['*', 'U-52NC', 'C-52NC', 'all', 'a Confederate regiment with a Union prefix'],
+  ['*', 'U-107PA', 'U-107OH', 'all', "the Eleventh Corps regiment named by the note (the 107th Ohio); the 107th Pennsylvania is a First Corps regiment"],
   ['*', 'C-2LA', 'C-II-1-1', 'all', "the Louisiana Tigers (Hays's brigade); not an order-of-battle id"],
   ['*', 'C-1NC-EW', 'C-II-3', 'all', "Rodes's division; not an order-of-battle id"],
   ['*', 'C-ART-Eshleman', 'C-ART-I-4', 'all', "Eshleman's battalion; not an order-of-battle id"],

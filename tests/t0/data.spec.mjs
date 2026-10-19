@@ -20,6 +20,7 @@
 //   T0-DATA-12 F  positions: no regiment is left where its last row put it while its brigade moved on
 //   T0-DATA-13 F  notes on the rows of Pettigrew, Brockenbrough and the 157th New York name the right brigade
 //   T0-DATA-14 F  the app (real Chrome): the data the browser loads gives the Iron Brigade on Culp's Hill at tick 300, Buford's brigades on the Taneytown Road, no First Corps unit on the field at tick 12
+//   T0-DATA-15 F  positions: the north sector of July 1 (Oak Hill, Oak Ridge, Barlow's Knoll) and East Cavalry Field lie where the NPS monuments are (terrain points and unit rows)
 //   T0-DATA-09 G  the Virtual Walkthrough monument array, its Monuments tab data and the DATA group touch nothing there: 512 monuments, byte-identical to the control tree
 //   T0-DATA-X  G  every browser test of this run: 0 uncaught exceptions and 0 first-party console.error
 process.env.T0_AGENT ??= 'data';
@@ -398,6 +399,41 @@ suite.test('T0-DATA-14', "the app: the data the browser loads gives the Iron Bri
     assertEq(res.merritt, null, "Merritt's reserve brigade has no position at tick 300");
     assertEq(res.early12, [], 'First Corps, Eleventh Corps, Rodes and Early units that are on the field at tick 12 (about 07:30)');
   } finally { await closeSession(S); }
+});
+
+// NPS ground (OpenStreetMap historic=monument/memorial nodes with the NPS names, fetched 2026-10-19; recorded in docs/data-audit/positions.json)
+const NPS = {
+  baxterHQ: { lat: 39.84278, lng: -77.24243 }, eternalLight: { lat: 39.84844, lng: -77.24348 }, barlowHQ: { lat: 39.84479, lng: -77.2267 }, barlowStatue: { lat: 39.84544, lng: -77.22641 },
+  krzyz: { lat: 39.8433, lng: -77.2299 }, custerHQ: { lat: 39.82669, lng: -77.16524 }, hamptonMk: { lat: 39.83649, lng: -77.16888 }, stuartMk: { lat: 39.83499, lng: -77.17024 },
+};
+suite.test('T0-DATA-15', 'positions: the north sector of July 1 and East Cavalry Field lie where the NPS monuments are (terrain points and unit rows)', async (t) => {
+  const rows = rowsOf(DIST, /^(placements_|density_).*\.json$/); const bad = [];
+  const terr = rdJson(DIST, 'data/terrain.json').key_locations; const loc = (id) => terr.find((k) => k.location_id === id);
+  for (const [id, p, tol, what] of [['LOC-014', NPS.baxterHQ, 0.3, 'Oak Ridge'], ['LOC-015', NPS.eternalLight, 0.3, 'Oak Hill'], ['LOC-016', NPS.barlowStatue, 0.3, "Barlow's Knoll"], ['LOC-021', { lat: 39.8308, lng: -77.1677 }, 0.3, 'East Cavalry Field']]) {
+    const k = loc(id); if (!k || km(k, p) > tol) bad.push(`${id} ${what}: ${k ? km(k, p).toFixed(2) : '?'} km from the NPS site`);
+  }
+  const near = (unit, ticks, p, tol, what) => { for (const r of rows.filter((x) => x.unit_id === unit && ticks.includes(x.tick))) if (km(r, p) > tol) bad.push(`${r.f} ${unit} tick ${r.tick}: ${km(r, p).toFixed(2)} km from ${what}`); };
+  near('U-I-2-2', [42, 50, 52, 53], NPS.baxterHQ, 0.35, "Baxter's headquarters marker");
+  near('C-II-3-3', [50, 52, 53, 54], NPS.baxterHQ, 0.35, "the stone wall (Baxter's marker)");
+  near('C-ART-Carter', [48, 49, 52], NPS.eternalLight, 0.5, 'the Eternal Light on Oak Hill');
+  near('U-XI-1-1', [56], NPS.barlowHQ, 0.5, "Barlow's headquarters marker");
+  near('U-XI-1-2', [55, 56], NPS.barlowHQ, 0.5, "Barlow's headquarters marker");
+  near('U-XI-3-1', [50], NPS.krzyz, 0.5, "Krzyzanowski's regiments on the Carlisle Road");
+  near('U-CAV-2-3', [560, 563, 565, 580], NPS.custerHQ, 0.6, "Custer's headquarters marker");
+  near('C-CAV-1', [563, 565], NPS.hamptonMk, 0.6, "Hampton's marker");
+  // the fight of density_day3_cavalry.json: the first row of each unit on its marker, the rest within 1.3 km of it (the charge and the flank moved by up to 1.1 km)
+  near('C-CAV-2', [505], { lat: 39.83837, lng: -77.16697 }, 0.1, "Fitz Lee's marker");
+  near('C-CAV-1', [505], NPS.hamptonMk, 0.1, "Hampton's marker");
+  near('U-CAV-2', [505], { lat: 39.82641, lng: -77.163 }, 0.1, "Gregg's shaft");
+  near('U-CAV-2-3', [505], NPS.custerHQ, 0.1, "Custer's headquarters marker");
+  near('C-CAV-2', [522, 530], { lat: 39.83837, lng: -77.16697 }, 1.3, "Fitz Lee's marker");
+  near('C-CAV-1', [515, 522, 530], NPS.hamptonMk, 1.3, "Hampton's marker");
+  near('U-CAV-2', [515, 522, 540], { lat: 39.82641, lng: -77.163 }, 1.3, "Gregg's shaft");
+  near('U-CAV-2-3', [515, 522, 530, 555], NPS.custerHQ, 1.3, "Custer's headquarters marker");
+  // the order-of-battle ids of East Cavalry Field: the seven ids that were not order-of-battle ids are gone
+  const ids = oobIds(DIST); for (const r of rows.filter((x) => /^(C-CAV-2-d|U-CAV-2-[MG])$/.test(x.unit_id))) bad.push(`${r.f} ${r.unit_id} tick ${r.tick}: not an order-of-battle id`);
+  t.note('violations', bad.length);
+  assertEq(bad.slice(0, 8), [], `${bad.length} places or rows that are far from the NPS ground`);
 });
 
 // ================================================================== guards

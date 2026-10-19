@@ -3235,6 +3235,14 @@
    "note": "wrong-id: order of battle ids (data/oob/*.json) against the unit named in the row's own note; OR 27/1 pp.155-168 and OR 27/2 pp.283-292 for the brigade and division names"
   },
   {
+   "id": "DATA-id-density-day1-ticks51-100-U-107PA-72",
+   "target": "data/density_day1_ticks51_100.json",
+   "find": "\"unit_id\":\"U-107PA\",\"tick\":72,\"lat\":39.8183,\"lng\":-77.2272,",
+   "repl": "\"unit_id\":\"U-107OH\",\"tick\":72,\"lat\":39.8183,\"lng\":-77.2272,",
+   "expect": 1,
+   "note": "wrong-id: order of battle ids (data/oob/*.json) against the unit named in the row's own note; OR 27/1 pp.155-168 and OR 27/2 pp.283-292 for the brigade and division names"
+  },
+  {
    "id": "DATA-id-density-day2-culpshill-C-2LA-326",
    "target": "data/density_day2_culpshill.json",
    "find": "\"unit_id\":\"C-2LA\",\"tick\":326,\"lat\":39.8222,\"lng\":-77.2261,",
@@ -11760,6 +11768,42 @@
    "note": "unsupported-claim: in no report read"
   },
   {
+   "id": "DATA-terr-xy-oakridge",
+   "target": "data/terrain.json",
+   "find": "(\"location_id\": \"LOC-014\",\\s+\"name\": \"Oak Ridge\",\\s+\"lat\": )39\\.83,(\\s+\"lng\": )-77\\.2406,",
+   "repl": "\\g<1>39.8428,\\g<2>-77.2424,",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19; tour stops 2 and 3 of the Virtual Walkthrough (data in the entry bundle, d2)"
+  },
+  {
+   "id": "DATA-terr-xy-oakhill",
+   "target": "data/terrain.json",
+   "find": "(\"location_id\": \"LOC-015\",\\s+\"name\": \"Oak Hill\",\\s+\"lat\": )39\\.8339,(\\s+\"lng\": )-77\\.2361,",
+   "repl": "\\g<1>39.8485,\\g<2>-77.2435,",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19; tour stops 2 and 3 of the Virtual Walkthrough (data in the entry bundle, d2)"
+  },
+  {
+   "id": "DATA-terr-xy-barlows",
+   "target": "data/terrain.json",
+   "find": "(\"location_id\": \"LOC-016\",\\s+\"name\": \"Barlow's Knoll\",\\s+\"lat\": )39\\.8356,(\\s+\"lng\": )-77\\.2283,",
+   "repl": "\\g<1>39.8454,\\g<2>-77.2264,",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19; tour stops 2 and 3 of the Virtual Walkthrough (data in the entry bundle, d2)"
+  },
+  {
+   "id": "DATA-terr-xy-ecf",
+   "target": "data/terrain.json",
+   "find": "(\"location_id\": \"LOC-021\",\\s+\"name\": \"East Cavalry Field\",\\s+\"lat\": )39\\.8317,(\\s+\"lng\": )-77\\.1972,",
+   "repl": "\\g<1>39.8308,\\g<2>-77.1677,",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19; tour stops 2 and 3 of the Virtual Walkthrough (data in the entry bundle, d2)"
+  },
+  {
    "id": "DATA-pop-1mn",
    "target": "js",
    "find": "\"★ Highest Union regimental casualty rate: 85.5% in 15 minutes\"",
@@ -12219,15 +12263,15 @@
    "id": "DATA-idx-meta",
    "target": "index.html",
    "find": "unfold in real time -- 467 regiments and batteries across 675 five-minute snapshots",
-   "repl": "unfold step by step -- 410 units (regiments, batteries and the brigades, divisions and corps above them) across 675 snapshots",
+   "repl": "unfold step by step -- 405 units (regiments, batteries and the brigades, divisions and corps above them) across 675 snapshots",
    "expect": 4,
-   "note": "wrong-number: count of distinct unit ids in data/placements_*.json and density_*.json after the id and arrival fixes: 410 (232 regiments, 51 batteries, 88 brigades, 32 divisions, 7 corps); 4 occurrences"
+   "note": "wrong-number: count of distinct unit ids in data/placements_*.json and density_*.json after the id and arrival fixes: 405 (231 regiments, 51 batteries, 82 brigades, 34 divisions, 7 corps); 4 occurrences"
   },
   {
    "id": "DATA-idx-about",
    "target": "index.html",
    "find": "minute-by-minute reconstruction of the Battle of Gettysburg (July 1&ndash;3, 1863): 467 regiments and batteries tracked across 675 five-minute snapshots, built from primary-source unit records, chronology, and terrain data",
-   "repl": "step-by-step reconstruction of the Battle of Gettysburg (July 1&ndash;3, 1863): 410 units tracked across 675 snapshots, reconstructed from published unit records, chronology, and terrain data",
+   "repl": "step-by-step reconstruction of the Battle of Gettysburg (July 1&ndash;3, 1863): 405 units tracked across 675 snapshots, reconstructed from published unit records, chronology, and terrain data",
    "expect": 2,
    "note": "wrong-number: same"
   },
@@ -12427,7 +12471,7 @@
    "id": "DATA-gr-count",
    "target": "ground-remembers.html",
    "find": "Built from the same 694 recorded unit positions",
-   "repl": "Built from the same 683 recorded unit positions",
+   "repl": "Built from the same 687 recorded unit positions",
    "expect": 1,
    "note": "wrong-number: the placements_*.json files of this build"
   },
@@ -12846,6 +12890,243 @@
    "repl": "\"full_script\": \"The battle was over. The Official Records print the Union loss for the campaign as 23,049 killed, wounded and missing in the revised return (3,155 killed, 14,529 wounded, 5,365 captured or missing), and the Confederate loss as returned as 20,451 (2,592 killed, 12,709 wounded, 5,150 captured or missing), which the editors call approximate. Later estimates are higher, notably Livermore's of about 28,000 for the Confederates, and the National Park Service gives about 23,000 and 28,000. The sum of 51,000 sometimes quoted is that rounded estimate. These counts include the wounded and missing; the figures for the dead alone differ again by source.\\n\\nOn July 4 Vicksburg surrendered. Lee's report says the heavy loss and reduced ammunition made another attack inadvisable and it was determined to withdraw: the trains with the wounded who could bear removal were sent to Williamsport on July 4, part by Cashtown and Greencastle under Imboden and the rest by the Fairfield road, and the army kept its position until dark and then marched in a heavy rain. Meade did not pursue closely.\\n\\nThe park preserves hundreds of monuments and markers; the number quoted in earlier versions of this page, 1,328, is the park's total for all monuments, markers and tablets, not for the monuments mapped here. The Angle and the copse of trees are preserved, and the wall there has been rebuilt.\"",
    "expect": 1,
    "note": "wrong-number: OR 27/1 p.187; OR 27/2 p.322, p.346; ledger WSD-01, WSD-02; NPS Battle Detail (about 23,000 and 28,000); the 1,328 is the NPS-wide count named in docs/plan findings (data-integrity-29), distinct from the 512 monuments of the app"
+  },
+  {
+   "id": "DATA-cav3-del-C-CAV-2-505",
+   "target": "data/density_day3_cavalry.json",
+   "find": "\\{\\s*\"unit_id\": \"C-CAV-2\",\\s*\"tick\": 505,[^}]*\\},\\s*",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-id: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz "
+  },
+  {
+   "id": "DATA-cav3-pos-C-CAV-2-1-505",
+   "target": "data/density_day3_cavalry.json",
+   "find": "(\"unit_id\": \"C-CAV-2-1\",\\s+\"tick\": 505,\\s+\"lat\": )39\\.8378,(\\s+\"lng\": )-77\\.1833,",
+   "repl": "\\g<1>39.8365,\\g<2>-77.1689,",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-cav3-pos-C-CAV-2-2-505",
+   "target": "data/density_day3_cavalry.json",
+   "find": "(\"unit_id\": \"C-CAV-2-2\",\\s+\"tick\": 505,\\s+\"lat\": )39\\.8361,(\\s+\"lng\": )-77\\.1844,",
+   "repl": "\\g<1>39.8384,\\g<2>-77.167,",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-cav3-pos-C-CAV-2-3-505",
+   "target": "data/density_day3_cavalry.json",
+   "find": "(\"unit_id\": \"C-CAV-2-3\",\\s+\"tick\": 505,\\s+\"lat\": )39\\.835,(\\s+\"lng\": )-77\\.1856,",
+   "repl": "\\g<1>39.8336,\\g<2>-77.1721,",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-cav3-pos-C-CAV-2-4-505",
+   "target": "data/density_day3_cavalry.json",
+   "find": "(\"unit_id\": \"C-CAV-2-4\",\\s+\"tick\": 505,\\s+\"lat\": )39\\.8339,(\\s+\"lng\": )-77\\.1867,",
+   "repl": "\\g<1>39.8325,\\g<2>-77.1739,",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-cav3-pos-U-CAV-2-M-505",
+   "target": "data/density_day3_cavalry.json",
+   "find": "(\"unit_id\": \"U-CAV-2-M\",\\s+\"tick\": 505,\\s+\"lat\": )39\\.8344,(\\s+\"lng\": )-77\\.1906,",
+   "repl": "\\g<1>39.8267,\\g<2>-77.1652,",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-cav3-pos-U-CAV-2-G-505",
+   "target": "data/density_day3_cavalry.json",
+   "find": "(\"unit_id\": \"U-CAV-2-G\",\\s+\"tick\": 505,\\s+\"lat\": )39\\.8322,(\\s+\"lng\": )-77\\.1928,",
+   "repl": "\\g<1>39.8264,\\g<2>-77.163,",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-cav3-pos-C-CAV-2-1-515",
+   "target": "data/density_day3_cavalry.json",
+   "find": "(\"unit_id\": \"C-CAV-2-1\",\\s+\"tick\": 515,\\s+\"lat\": )39\\.8367,(\\s+\"lng\": )-77\\.1939,",
+   "repl": "\\g<1>39.8354,\\g<2>-77.1795,",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-cav3-pos-U-CAV-2-M-515",
+   "target": "data/density_day3_cavalry.json",
+   "find": "(\"unit_id\": \"U-CAV-2-M\",\\s+\"tick\": 515,\\s+\"lat\": )39\\.8344,(\\s+\"lng\": )-77\\.1939,",
+   "repl": "\\g<1>39.8267,\\g<2>-77.1685,",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-cav3-pos-U-CAV-2-G-515",
+   "target": "data/density_day3_cavalry.json",
+   "find": "(\"unit_id\": \"U-CAV-2-G\",\\s+\"tick\": 515,\\s+\"lat\": )39\\.8322,(\\s+\"lng\": )-77\\.18,",
+   "repl": "\\g<1>39.8264,\\g<2>-77.1502,",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-cav3-pos-C-CAV-2-1-522",
+   "target": "data/density_day3_cavalry.json",
+   "find": "(\"unit_id\": \"C-CAV-2-1\",\\s+\"tick\": 522,\\s+\"lat\": )39\\.8367,(\\s+\"lng\": )-77\\.1906,",
+   "repl": "\\g<1>39.8354,\\g<2>-77.1762,",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-cav3-pos-C-CAV-2-2-522",
+   "target": "data/density_day3_cavalry.json",
+   "find": "(\"unit_id\": \"C-CAV-2-2\",\\s+\"tick\": 522,\\s+\"lat\": )39\\.8361,(\\s+\"lng\": )-77\\.1917,",
+   "repl": "\\g<1>39.8384,\\g<2>-77.1743,",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-cav3-pos-U-CAV-2-M-522",
+   "target": "data/density_day3_cavalry.json",
+   "find": "(\"unit_id\": \"U-CAV-2-M\",\\s+\"tick\": 522,\\s+\"lat\": )39\\.8344,(\\s+\"lng\": )-77\\.1906,",
+   "repl": "\\g<1>39.8267,\\g<2>-77.1652,",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-cav3-pos-U-CAV-2-G-522",
+   "target": "data/density_day3_cavalry.json",
+   "find": "(\"unit_id\": \"U-CAV-2-G\",\\s+\"tick\": 522,\\s+\"lat\": )39\\.8333,(\\s+\"lng\": )-77\\.1928,",
+   "repl": "\\g<1>39.8275,\\g<2>-77.163,",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-cav3-pos-C-CAV-2-1-530",
+   "target": "data/density_day3_cavalry.json",
+   "find": "(\"unit_id\": \"C-CAV-2-1\",\\s+\"tick\": 530,\\s+\"lat\": )39\\.8367,(\\s+\"lng\": )-77\\.1894,",
+   "repl": "\\g<1>39.8354,\\g<2>-77.175,",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-cav3-pos-C-CAV-2-2-530",
+   "target": "data/density_day3_cavalry.json",
+   "find": "(\"unit_id\": \"C-CAV-2-2\",\\s+\"tick\": 530,\\s+\"lat\": )39\\.8361,(\\s+\"lng\": )-77\\.1906,",
+   "repl": "\\g<1>39.8384,\\g<2>-77.1732,",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-cav3-pos-U-CAV-2-M-530",
+   "target": "data/density_day3_cavalry.json",
+   "find": "(\"unit_id\": \"U-CAV-2-M\",\\s+\"tick\": 530,\\s+\"lat\": )39\\.8344,(\\s+\"lng\": )-77\\.1906,",
+   "repl": "\\g<1>39.8267,\\g<2>-77.1652,",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-cav3-del-C-CAV-2-540",
+   "target": "data/density_day3_cavalry.json",
+   "find": ",\\s*\\{\\s*\"unit_id\": \"C-CAV-2\",\\s*\"tick\": 540,[^}]*\\}",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-id: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz "
+  },
+  {
+   "id": "DATA-cav3-pos-U-CAV-2-G-540",
+   "target": "data/density_day3_cavalry.json",
+   "find": "(\"unit_id\": \"U-CAV-2-G\",\\s+\"tick\": 540,\\s+\"lat\": )39\\.8322,(\\s+\"lng\": )-77\\.18,",
+   "repl": "\\g<1>39.8264,\\g<2>-77.1502,",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-cav3-del-C-CAV-2-555",
+   "target": "data/density_day3_cavalry.json",
+   "find": ",\\s*\\{\\s*\"unit_id\": \"C-CAV-2\",\\s*\"tick\": 555,[^}]*\\}",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-id: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz "
+  },
+  {
+   "id": "DATA-cav3-pos-U-CAV-2-M-555",
+   "target": "data/density_day3_cavalry.json",
+   "find": "(\"unit_id\": \"U-CAV-2-M\",\\s+\"tick\": 555,\\s+\"lat\": )39\\.8344,(\\s+\"lng\": )-77\\.18,",
+   "repl": "\\g<1>39.8267,\\g<2>-77.1546,",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-cav3-id-C-CAV-2-1",
+   "target": "data/density_day3_cavalry.json",
+   "find": "\"unit_id\": \"C-CAV-2-1\",",
+   "repl": "\"unit_id\": \"C-CAV-1\",",
+   "expect": 4,
+   "note": "wrong-id: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz "
+  },
+  {
+   "id": "DATA-cav3-id-C-CAV-2-2",
+   "target": "data/density_day3_cavalry.json",
+   "find": "\"unit_id\": \"C-CAV-2-2\",",
+   "repl": "\"unit_id\": \"C-CAV-2\",",
+   "expect": 3,
+   "note": "wrong-id: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz "
+  },
+  {
+   "id": "DATA-cav3-id-C-CAV-2-3",
+   "target": "data/density_day3_cavalry.json",
+   "find": "\"unit_id\": \"C-CAV-2-3\",",
+   "repl": "\"unit_id\": \"C-CAV-3\",",
+   "expect": 1,
+   "note": "wrong-id: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz "
+  },
+  {
+   "id": "DATA-cav3-id-C-CAV-2-4",
+   "target": "data/density_day3_cavalry.json",
+   "find": "\"unit_id\": \"C-CAV-2-4\",",
+   "repl": "\"unit_id\": \"C-CAV-4\",",
+   "expect": 1,
+   "note": "wrong-id: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz "
+  },
+  {
+   "id": "DATA-cav3-id-U-CAV-2-M",
+   "target": "data/density_day3_cavalry.json",
+   "find": "\"unit_id\": \"U-CAV-2-M\",",
+   "repl": "\"unit_id\": \"U-CAV-2-3\",",
+   "expect": 5,
+   "note": "wrong-id: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz "
+  },
+  {
+   "id": "DATA-cav3-id-U-CAV-2-G",
+   "target": "data/density_day3_cavalry.json",
+   "find": "\"unit_id\": \"U-CAV-2-G\",",
+   "repl": "\"unit_id\": \"U-CAV-2\",",
+   "expect": 4,
+   "note": "wrong-id: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fitz "
   },
   {
    "id": "DATA-okey-001",
@@ -14057,7 +14338,7 @@
    "id": "DATA-pos-move-density-day1-iverson-C-5NC-50",
    "target": "data/density_day1_iverson.json",
    "find": "(\"unit_id\":\"C-5NC\",\"tick\":50,)\"lat\":39\\.8322,\"lng\":-77\\.2567",
-   "repl": "\\g<1>\"lat\":39.8289,\"lng\":-77.2430",
+   "repl": "\\g<1>\"lat\":39.8411,\"lng\":-77.2443",
    "expect": 1,
    "regex": true,
    "note": "wrong-place: OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the s"
@@ -14066,7 +14347,7 @@
    "id": "DATA-pos-move-density-day1-iverson-C-12NC-50",
    "target": "data/density_day1_iverson.json",
    "find": "(\"unit_id\":\"C-12NC\",\"tick\":50,)\"lat\":39\\.8333,\"lng\":-77\\.2561",
-   "repl": "\\g<1>\"lat\":39.8300,\"lng\":-77.2425",
+   "repl": "\\g<1>\"lat\":39.8422,\"lng\":-77.2438",
    "expect": 1,
    "regex": true,
    "note": "wrong-place: OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the s"
@@ -14075,7 +14356,7 @@
    "id": "DATA-pos-move-density-day1-iverson-C-20NC-50",
    "target": "data/density_day1_iverson.json",
    "find": "(\"unit_id\":\"C-20NC\",\"tick\":50,)\"lat\":39\\.8344,\"lng\":-77\\.2556",
-   "repl": "\\g<1>\"lat\":39.8311,\"lng\":-77.2419",
+   "repl": "\\g<1>\"lat\":39.8433,\"lng\":-77.2432",
    "expect": 1,
    "regex": true,
    "note": "wrong-place: OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the s"
@@ -14084,7 +14365,7 @@
    "id": "DATA-pos-move-density-day1-iverson-C-23NC-50",
    "target": "data/density_day1_iverson.json",
    "find": "(\"unit_id\":\"C-23NC\",\"tick\":50,)\"lat\":39\\.8356,\"lng\":-77\\.2550",
-   "repl": "\\g<1>\"lat\":39.8323,\"lng\":-77.2413",
+   "repl": "\\g<1>\"lat\":39.8445,\"lng\":-77.2426",
    "expect": 1,
    "regex": true,
    "note": "wrong-place: OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the s"
@@ -14093,7 +14374,7 @@
    "id": "DATA-pos-move-density-day1-iverson-C-5NC-53",
    "target": "data/density_day1_iverson.json",
    "find": "(\"unit_id\":\"C-5NC\",\"tick\":53,)\"lat\":39\\.8322,\"lng\":-77\\.2550",
-   "repl": "\\g<1>\"lat\":39.8289,\"lng\":-77.2420",
+   "repl": "\\g<1>\"lat\":39.8411,\"lng\":-77.2433",
    "expect": 1,
    "regex": true,
    "note": "wrong-place: OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the s"
@@ -14102,7 +14383,7 @@
    "id": "DATA-pos-move-density-day1-iverson-C-12NC-53",
    "target": "data/density_day1_iverson.json",
    "find": "(\"unit_id\":\"C-12NC\",\"tick\":53,)\"lat\":39\\.8333,\"lng\":-77\\.2544",
-   "repl": "\\g<1>\"lat\":39.8300,\"lng\":-77.2413",
+   "repl": "\\g<1>\"lat\":39.8422,\"lng\":-77.2426",
    "expect": 1,
    "regex": true,
    "note": "wrong-place: OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the s"
@@ -14111,7 +14392,7 @@
    "id": "DATA-pos-move-density-day1-iverson-C-20NC-53",
    "target": "data/density_day1_iverson.json",
    "find": "(\"unit_id\":\"C-20NC\",\"tick\":53,)\"lat\":39\\.8344,\"lng\":-77\\.2539",
-   "repl": "\\g<1>\"lat\":39.8311,\"lng\":-77.2408",
+   "repl": "\\g<1>\"lat\":39.8433,\"lng\":-77.2421",
    "expect": 1,
    "regex": true,
    "note": "wrong-place: OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the s"
@@ -14120,7 +14401,7 @@
    "id": "DATA-pos-move-density-day1-iverson-C-23NC-53",
    "target": "data/density_day1_iverson.json",
    "find": "(\"unit_id\":\"C-23NC\",\"tick\":53,)\"lat\":39\\.8356,\"lng\":-77\\.2533",
-   "repl": "\\g<1>\"lat\":39.8323,\"lng\":-77.2402",
+   "repl": "\\g<1>\"lat\":39.8445,\"lng\":-77.2415",
    "expect": 1,
    "regex": true,
    "note": "wrong-place: OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the s"
@@ -14129,7 +14410,7 @@
    "id": "DATA-pos-move-density-day1-iverson-C-5NC-57",
    "target": "data/density_day1_iverson.json",
    "find": "(\"unit_id\":\"C-5NC\",\"tick\":57,)\"lat\":39\\.8317,\"lng\":-77\\.2578",
-   "repl": "\\g<1>\"lat\":39.8295,\"lng\":-77.2426",
+   "repl": "\\g<1>\"lat\":39.8417,\"lng\":-77.2439",
    "expect": 1,
    "regex": true,
    "note": "wrong-place: OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the s"
@@ -14138,7 +14419,7 @@
    "id": "DATA-pos-move-density-day1-iverson-C-23NC-57",
    "target": "data/density_day1_iverson.json",
    "find": "(\"unit_id\":\"C-23NC\",\"tick\":57,)\"lat\":39\\.8350,\"lng\":-77\\.2561",
-   "repl": "\\g<1>\"lat\":39.8328,\"lng\":-77.2408",
+   "repl": "\\g<1>\"lat\":39.8450,\"lng\":-77.2421",
    "expect": 1,
    "regex": true,
    "note": "wrong-place: OR 27/2 p.553-554 (Rodes: the dead lay in a line close to the stone wall; Iverson's brigade was caught at the wall); OR 27/1 p.248 (Baxter's brigade behind the stone wall on Oak Ridge); placements rows of the brigades U-I-2-2 (39.8306, -77.2411) and C-II-3-3 (39.8306, -77.2411) at the s"
@@ -14147,7 +14428,7 @@
    "id": "DATA-pos-move-density-day1-iverson-C-II-3-4-57",
    "target": "data/density_day1_iverson.json",
    "find": "(\"unit_id\":\"C-II-3-4\",\"tick\":57,)\"lat\":39\\.8289,\"lng\":-77\\.2600",
-   "repl": "\\g<1>\"lat\":39.8315,\"lng\":-77.2425",
+   "repl": "\\g<1>\"lat\":39.8437,\"lng\":-77.2438",
    "expect": 1,
    "regex": true,
    "note": "wrong-place: OR 27/2 p.553; position of row C-II-3-4 tick 54"
@@ -14306,6 +14587,942 @@
    "note": "wrong-unit-note: OR 27/1 p.730 (Schurz); data/oob/union_oob_brigades.json U-XI-3-2 regiment_ids"
   },
   {
+   "id": "DATA-pos-del-density-day1-lateafternoon-U-107OH-63",
+   "target": "data/density_day1_lateafternoon.json",
+   "find": "(?:,\\n[ \\t]*\\{\"unit_id\":\"U-107OH\",\"tick\":63,\"lat\":39\\.8211,\"lng\":-77\\.2300,[^\\n]*\\}(?=\\n[ \\t]*\\])|[ \\t]*\\{\"unit_id\":\"U-107OH\",\"tick\":63,\"lat\":39\\.8211,\"lng\":-77\\.2300,[^\\n]*\\},\\n)",
+   "repl": "",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: OR 27/1 p.696 (Howard), p.727-729 (Schurz: the corps fell back through the town to Cemetery Hill)"
+  },
+  {
+   "id": "DATA-pos-move-density-day3-morning-C-CAV-2-505",
+   "target": "data/density_day3_morning.json",
+   "find": "(\"unit_id\":\"C-CAV-2\",\"tick\":505,)\"lat\":39\\.8350,\"lng\":-77\\.1844",
+   "repl": "\\g<1>\"lat\":39.8384,\"lng\":-77.1670",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-density-artillery-positions-C-ART-Carrington-49",
+   "target": "data/density_artillery_positions.json",
+   "find": "(\"unit_id\":\"C-ART-Carrington\",\"tick\":49,)\"lat\":39\\.8339,\"lng\":-77\\.2361",
+   "repl": "\\g<1>\"lat\":39.8485,\"lng\":-77.2435",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-artillery-positions-C-ART-Carter-49",
+   "target": "data/density_artillery_positions.json",
+   "find": "(\"unit_id\":\"C-ART-Carter\",\"tick\":49,)\"lat\":39\\.8344,\"lng\":-77\\.2350",
+   "repl": "\\g<1>\"lat\":39.8490,\"lng\":-77.2424",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-artillery-positions-C-ART-Fry-49",
+   "target": "data/density_artillery_positions.json",
+   "find": "(\"unit_id\":\"C-ART-Fry\",\"tick\":49,)\"lat\":39\\.8350,\"lng\":-77\\.2339",
+   "repl": "\\g<1>\"lat\":39.8496,\"lng\":-77.2413",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-artillery-positions-C-ART-Page-49",
+   "target": "data/density_artillery_positions.json",
+   "find": "(\"unit_id\":\"C-ART-Page\",\"tick\":49,)\"lat\":39\\.8356,\"lng\":-77\\.2328",
+   "repl": "\\g<1>\"lat\":39.8502,\"lng\":-77.2402",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-C-II-3-1-48",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"C-II-3-1\",\"tick\":48,)\"lat\":39\\.8350,\"lng\":-77\\.2361",
+   "repl": "\\g<1>\"lat\":39.8496,\"lng\":-77.2435",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-C-II-3-2-48",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"C-II-3-2\",\"tick\":48,)\"lat\":39\\.8356,\"lng\":-77\\.2322",
+   "repl": "\\g<1>\"lat\":39.8502,\"lng\":-77.2396",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-C-ART-Carrington-48",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"C-ART-Carrington\",\"tick\":48,)\"lat\":39\\.8339,\"lng\":-77\\.2361",
+   "repl": "\\g<1>\"lat\":39.8485,\"lng\":-77.2435",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-C-ART-Carter-48",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"C-ART-Carter\",\"tick\":48,)\"lat\":39\\.8344,\"lng\":-77\\.2350",
+   "repl": "\\g<1>\"lat\":39.8490,\"lng\":-77.2424",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-C-II-3-1-52",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"C-II-3-1\",\"tick\":52,)\"lat\":39\\.8339,\"lng\":-77\\.2389",
+   "repl": "\\g<1>\"lat\":39.8485,\"lng\":-77.2463",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-C-ART-Carrington-52",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"C-ART-Carrington\",\"tick\":52,)\"lat\":39\\.8339,\"lng\":-77\\.2361",
+   "repl": "\\g<1>\"lat\":39.8485,\"lng\":-77.2435",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-C-ART-Carter-52",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"C-ART-Carter\",\"tick\":52,)\"lat\":39\\.8344,\"lng\":-77\\.2350",
+   "repl": "\\g<1>\"lat\":39.8490,\"lng\":-77.2424",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks1-50-C-5NC-48",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"C-5NC\",\"tick\":48,)\"lat\":39\\.8311,\"lng\":-77\\.2433",
+   "repl": "\\g<1>\"lat\":39.8433,\"lng\":-77.2446",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks1-50-C-12NC-48",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"C-12NC\",\"tick\":48,)\"lat\":39\\.8317,\"lng\":-77\\.2428",
+   "repl": "\\g<1>\"lat\":39.8439,\"lng\":-77.2441",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks1-50-C-20NC-48",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"C-20NC\",\"tick\":48,)\"lat\":39\\.8322,\"lng\":-77\\.2422",
+   "repl": "\\g<1>\"lat\":39.8444,\"lng\":-77.2435",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks1-50-C-23NC-48",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"C-23NC\",\"tick\":48,)\"lat\":39\\.8328,\"lng\":-77\\.2417",
+   "repl": "\\g<1>\"lat\":39.8450,\"lng\":-77.2430",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks1-50-U-12MA-48",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"U-12MA\",\"tick\":48,)\"lat\":39\\.8306,\"lng\":-77\\.2411",
+   "repl": "\\g<1>\"lat\":39.8428,\"lng\":-77.2424",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks1-50-U-83NY-48",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"U-83NY\",\"tick\":48,)\"lat\":39\\.8300,\"lng\":-77\\.2406",
+   "repl": "\\g<1>\"lat\":39.8422,\"lng\":-77.2419",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks1-50-U-97NY-48",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"U-97NY\",\"tick\":48,)\"lat\":39\\.8294,\"lng\":-77\\.2400",
+   "repl": "\\g<1>\"lat\":39.8416,\"lng\":-77.2413",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks1-50-U-88PA-48",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"U-88PA\",\"tick\":48,)\"lat\":39\\.8289,\"lng\":-77\\.2394",
+   "repl": "\\g<1>\"lat\":39.8411,\"lng\":-77.2407",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks1-50-U-90PA-48",
+   "target": "data/density_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"U-90PA\",\"tick\":48,)\"lat\":39\\.8283,\"lng\":-77\\.2389",
+   "repl": "\\g<1>\"lat\":39.8405,\"lng\":-77.2402",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks51-100-C-5NC-53",
+   "target": "data/density_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"C-5NC\",\"tick\":53,)\"lat\":39\\.8311,\"lng\":-77\\.2417",
+   "repl": "\\g<1>\"lat\":39.8433,\"lng\":-77.2430",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks51-100-C-12NC-53",
+   "target": "data/density_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"C-12NC\",\"tick\":53,)\"lat\":39\\.8317,\"lng\":-77\\.2422",
+   "repl": "\\g<1>\"lat\":39.8439,\"lng\":-77.2435",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks51-100-C-20NC-53",
+   "target": "data/density_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"C-20NC\",\"tick\":53,)\"lat\":39\\.8322,\"lng\":-77\\.2428",
+   "repl": "\\g<1>\"lat\":39.8444,\"lng\":-77.2441",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks51-100-C-23NC-53",
+   "target": "data/density_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"C-23NC\",\"tick\":53,)\"lat\":39\\.8328,\"lng\":-77\\.2433",
+   "repl": "\\g<1>\"lat\":39.8450,\"lng\":-77.2446",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks51-100-U-12MA-53",
+   "target": "data/density_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"U-12MA\",\"tick\":53,)\"lat\":39\\.8306,\"lng\":-77\\.2411",
+   "repl": "\\g<1>\"lat\":39.8428,\"lng\":-77.2424",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks51-100-U-83NY-53",
+   "target": "data/density_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"U-83NY\",\"tick\":53,)\"lat\":39\\.8300,\"lng\":-77\\.2406",
+   "repl": "\\g<1>\"lat\":39.8422,\"lng\":-77.2419",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks51-100-U-16ME-62",
+   "target": "data/density_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"U-16ME\",\"tick\":62,)\"lat\":39\\.8306,\"lng\":-77\\.2411",
+   "repl": "\\g<1>\"lat\":39.8428,\"lng\":-77.2424",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks51-100-U-94NY-62",
+   "target": "data/density_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"U-94NY\",\"tick\":62,)\"lat\":39\\.8294,\"lng\":-77\\.2394",
+   "repl": "\\g<1>\"lat\":39.8416,\"lng\":-77.2407",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks51-100-U-104NY-62",
+   "target": "data/density_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"U-104NY\",\"tick\":62,)\"lat\":39\\.8289,\"lng\":-77\\.2389",
+   "repl": "\\g<1>\"lat\":39.8411,\"lng\":-77.2402",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-skirmishers-C-5NC-47",
+   "target": "data/density_skirmishers.json",
+   "find": "(\"unit_id\":\"C-5NC\",\"tick\":47,)\"lat\":39\\.8339,\"lng\":-77\\.2494",
+   "repl": "\\g<1>\"lat\":39.8461,\"lng\":-77.2507",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-skirmishers-C-20NC-47",
+   "target": "data/density_skirmishers.json",
+   "find": "(\"unit_id\":\"C-20NC\",\"tick\":47,)\"lat\":39\\.8333,\"lng\":-77\\.2489",
+   "repl": "\\g<1>\"lat\":39.8455,\"lng\":-77.2502",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-U-I-2-1-42",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"U-I-2-1\",\"tick\":42,)\"lat\":39\\.8300,\"lng\":-77\\.2417",
+   "repl": "\\g<1>\"lat\":39.8422,\"lng\":-77.2430",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-U-I-2-2-42",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"U-I-2-2\",\"tick\":42,)\"lat\":39\\.8311,\"lng\":-77\\.2433",
+   "repl": "\\g<1>\"lat\":39.8433,\"lng\":-77.2446",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-C-II-3-3-48",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"C-II-3-3\",\"tick\":48,)\"lat\":39\\.8322,\"lng\":-77\\.2389",
+   "repl": "\\g<1>\"lat\":39.8444,\"lng\":-77.2402",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-C-II-3-4-48",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"C-II-3-4\",\"tick\":48,)\"lat\":39\\.8311,\"lng\":-77\\.2378",
+   "repl": "\\g<1>\"lat\":39.8433,\"lng\":-77.2391",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-C-II-3-5-48",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"C-II-3-5\",\"tick\":48,)\"lat\":39\\.8333,\"lng\":-77\\.2400",
+   "repl": "\\g<1>\"lat\":39.8455,\"lng\":-77.2413",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-C-II-3-3-50",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"C-II-3-3\",\"tick\":50,)\"lat\":39\\.8306,\"lng\":-77\\.2422",
+   "repl": "\\g<1>\"lat\":39.8428,\"lng\":-77.2435",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-U-I-2-2-50",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"U-I-2-2\",\"tick\":50,)\"lat\":39\\.8306,\"lng\":-77\\.2411",
+   "repl": "\\g<1>\"lat\":39.8428,\"lng\":-77.2424",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-C-II-3-3-52",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"C-II-3-3\",\"tick\":52,)\"lat\":39\\.8306,\"lng\":-77\\.2417",
+   "repl": "\\g<1>\"lat\":39.8428,\"lng\":-77.2430",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-U-I-2-2-52",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"U-I-2-2\",\"tick\":52,)\"lat\":39\\.8306,\"lng\":-77\\.2406",
+   "repl": "\\g<1>\"lat\":39.8428,\"lng\":-77.2419",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-C-II-3-5-52",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"C-II-3-5\",\"tick\":52,)\"lat\":39\\.8317,\"lng\":-77\\.2433",
+   "repl": "\\g<1>\"lat\":39.8439,\"lng\":-77.2446",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-U-I-2-1-52",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"U-I-2-1\",\"tick\":52,)\"lat\":39\\.8300,\"lng\":-77\\.2422",
+   "repl": "\\g<1>\"lat\":39.8422,\"lng\":-77.2435",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-C-II-3-3-53",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"C-II-3-3\",\"tick\":53,)\"lat\":39\\.8306,\"lng\":-77\\.2411",
+   "repl": "\\g<1>\"lat\":39.8428,\"lng\":-77.2424",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-U-I-2-2-53",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"U-I-2-2\",\"tick\":53,)\"lat\":39\\.8306,\"lng\":-77\\.2406",
+   "repl": "\\g<1>\"lat\":39.8428,\"lng\":-77.2419",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-C-II-3-3-54",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"C-II-3-3\",\"tick\":54,)\"lat\":39\\.8311,\"lng\":-77\\.2417",
+   "repl": "\\g<1>\"lat\":39.8433,\"lng\":-77.2430",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-C-II-3-4-54",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"C-II-3-4\",\"tick\":54,)\"lat\":39\\.8317,\"lng\":-77\\.2422",
+   "repl": "\\g<1>\"lat\":39.8439,\"lng\":-77.2435",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-U-I-2-1-62",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"U-I-2-1\",\"tick\":62,)\"lat\":39\\.8300,\"lng\":-77\\.2417",
+   "repl": "\\g<1>\"lat\":39.8422,\"lng\":-77.2430",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-U-16ME-62",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"U-16ME\",\"tick\":62,)\"lat\":39\\.8306,\"lng\":-77\\.2411",
+   "repl": "\\g<1>\"lat\":39.8428,\"lng\":-77.2424",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-barlowsknoll-U-XI-1-55",
+   "target": "data/density_day1_barlowsknoll.json",
+   "find": "(\"unit_id\":\"U-XI-1\",\"tick\":55,)\"lat\":39\\.8372,\"lng\":-77\\.2267",
+   "repl": "\\g<1>\"lat\":39.8467,\"lng\":-77.2262",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-barlowsknoll-U-XI-1-2-55",
+   "target": "data/density_day1_barlowsknoll.json",
+   "find": "(\"unit_id\":\"U-XI-1-2\",\"tick\":55,)\"lat\":39\\.8361,\"lng\":-77\\.2272",
+   "repl": "\\g<1>\"lat\":39.8456,\"lng\":-77.2267",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-barlowsknoll-U-XI-1-60",
+   "target": "data/density_day1_barlowsknoll.json",
+   "find": "(\"unit_id\":\"U-XI-1\",\"tick\":60,)\"lat\":39\\.8372,\"lng\":-77\\.2261",
+   "repl": "\\g<1>\"lat\":39.8467,\"lng\":-77.2256",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks51-100-U-153PA-57",
+   "target": "data/density_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"U-153PA\",\"tick\":57,)\"lat\":39\\.8361,\"lng\":-77\\.2261",
+   "repl": "\\g<1>\"lat\":39.8456,\"lng\":-77.2256",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks51-100-U-54NY-57",
+   "target": "data/density_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"U-54NY\",\"tick\":57,)\"lat\":39\\.8356,\"lng\":-77\\.2256",
+   "repl": "\\g<1>\"lat\":39.8451,\"lng\":-77.2251",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks51-100-U-68NY-57",
+   "target": "data/density_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"U-68NY\",\"tick\":57,)\"lat\":39\\.8350,\"lng\":-77\\.2250",
+   "repl": "\\g<1>\"lat\":39.8445,\"lng\":-77.2245",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-day1-ticks51-100-U-41NY-57",
+   "target": "data/density_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"U-41NY\",\"tick\":57,)\"lat\":39\\.8344,\"lng\":-77\\.2244",
+   "repl": "\\g<1>\"lat\":39.8439,\"lng\":-77.2239",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-U-XI-1-1-50",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"U-XI-1-1\",\"tick\":50,)\"lat\":39\\.8350,\"lng\":-77\\.2289",
+   "repl": "\\g<1>\"lat\":39.8445,\"lng\":-77.2284",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-U-XI-1-2-50",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"U-XI-1-2\",\"tick\":50,)\"lat\":39\\.8344,\"lng\":-77\\.2267",
+   "repl": "\\g<1>\"lat\":39.8439,\"lng\":-77.2262",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-U-XI-1-1-56",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"U-XI-1-1\",\"tick\":56,)\"lat\":39\\.8356,\"lng\":-77\\.2272",
+   "repl": "\\g<1>\"lat\":39.8451,\"lng\":-77.2267",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-U-XI-1-2-56",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"U-XI-1-2\",\"tick\":56,)\"lat\":39\\.8344,\"lng\":-77\\.2256",
+   "repl": "\\g<1>\"lat\":39.8439,\"lng\":-77.2251",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-U-ART-G4US-56",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"U-ART-G4US\",\"tick\":56,)\"lat\":39\\.8356,\"lng\":-77\\.2289",
+   "repl": "\\g<1>\"lat\":39.8451,\"lng\":-77.2284",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-U-XI-1-1-57",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"U-XI-1-1\",\"tick\":57,)\"lat\":39\\.8356,\"lng\":-77\\.2267",
+   "repl": "\\g<1>\"lat\":39.8451,\"lng\":-77.2262",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-U-XI-1-2-57",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"U-XI-1-2\",\"tick\":57,)\"lat\":39\\.8344,\"lng\":-77\\.2256",
+   "repl": "\\g<1>\"lat\":39.8439,\"lng\":-77.2251",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks51-100-U-ART-G4US-57",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"unit_id\":\"U-ART-G4US\",\"tick\":57,)\"lat\":39\\.8356,\"lng\":-77\\.2289",
+   "repl": "\\g<1>\"lat\":39.8451,\"lng\":-77.2284",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-U-XI-3-1-50",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"U-XI-3-1\",\"tick\":50,)\"lat\":39\\.8322,\"lng\":-77\\.2300",
+   "repl": "\\g<1>\"lat\":39.8430,\"lng\":-77.2320",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-placements-day1-ticks1-50-U-XI-3-2-50",
+   "target": "data/placements_day1_ticks1_50.json",
+   "find": "(\"unit_id\":\"U-XI-3-2\",\"tick\":50,)\"lat\":39\\.8311,\"lng\":-77\\.2289",
+   "repl": "\\g<1>\"lat\":39.8419,\"lng\":-77.2309",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Baxter HQ marker 39.84278,-77.24243 and the stone-wall regiments (83rd NY, 97th NY, 88th PA, 90th PA, 12th MA, 11th PA) 39.8422-39.8444,-77.2412 to -77.2429; Rodes and Iverson HQ markers and the Eternal Light Peace Mem"
+  },
+  {
+   "id": "DATA-pos-move-density-artillery-positions-U-HAB-M2US-560",
+   "target": "data/density_artillery_positions.json",
+   "find": "(\"unit_id\":\"U-HAB-M2US\",\"tick\":560,)\"lat\":39\\.8317,\"lng\":-77\\.1994",
+   "repl": "\\g<1>\"lat\":39.8262,\"lng\":-77.1674",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-density-cavalry-detail-U-CAV-2-3-560",
+   "target": "data/density_cavalry_detail.json",
+   "find": "(\"unit_id\":\"U-CAV-2-3\",\"tick\":560,)\"lat\":39\\.8311,\"lng\":-77\\.1983",
+   "repl": "\\g<1>\"lat\":39.8256,\"lng\":-77.1663",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-density-cavalry-detail-U-1MI-CAV-560",
+   "target": "data/density_cavalry_detail.json",
+   "find": "(\"unit_id\":\"U-1MI-CAV\",\"tick\":560,)\"lat\":39\\.8317,\"lng\":-77\\.1989",
+   "repl": "\\g<1>\"lat\":39.8262,\"lng\":-77.1669",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-density-cavalry-detail-U-5MI-CAV-560",
+   "target": "data/density_cavalry_detail.json",
+   "find": "(\"unit_id\":\"U-5MI-CAV\",\"tick\":560,)\"lat\":39\\.8311,\"lng\":-77\\.1994",
+   "repl": "\\g<1>\"lat\":39.8256,\"lng\":-77.1674",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-density-cavalry-detail-U-6MI-CAV-560",
+   "target": "data/density_cavalry_detail.json",
+   "find": "(\"unit_id\":\"U-6MI-CAV\",\"tick\":560,)\"lat\":39\\.8306,\"lng\":-77\\.2000",
+   "repl": "\\g<1>\"lat\":39.8251,\"lng\":-77.1680",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-density-cavalry-detail-U-7MI-CAV-560",
+   "target": "data/density_cavalry_detail.json",
+   "find": "(\"unit_id\":\"U-7MI-CAV\",\"tick\":560,)\"lat\":39\\.8300,\"lng\":-77\\.2006",
+   "repl": "\\g<1>\"lat\":39.8245,\"lng\":-77.1686",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-density-cavalry-detail-U-1MI-CAV-563",
+   "target": "data/density_cavalry_detail.json",
+   "find": "(\"unit_id\":\"U-1MI-CAV\",\"tick\":563,)\"lat\":39\\.8317,\"lng\":-77\\.2006",
+   "repl": "\\g<1>\"lat\":39.8262,\"lng\":-77.1686",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-density-day3-morning-U-CAV-2-470",
+   "target": "data/density_day3_morning.json",
+   "find": "(\"unit_id\":\"U-CAV-2\",\"tick\":470,)\"lat\":39\\.8317,\"lng\":-77\\.1978",
+   "repl": "\\g<1>\"lat\":39.8262,\"lng\":-77.1658",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-density-day3-retreat-U-CAV-2-590",
+   "target": "data/density_day3_retreat.json",
+   "find": "(\"unit_id\":\"U-CAV-2\",\"tick\":590,)\"lat\":39\\.8317,\"lng\":-77\\.1994",
+   "repl": "\\g<1>\"lat\":39.8262,\"lng\":-77.1674",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-density-reserves-U-CAV-2-538",
+   "target": "data/density_reserves.json",
+   "find": "(\"unit_id\":\"U-CAV-2\",\"tick\":538,)\"lat\":39\\.8294,\"lng\":-77\\.2017",
+   "repl": "\\g<1>\"lat\":39.8239,\"lng\":-77.1697",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-placements-day2-ticks376-450-U-CAV-2-3-400",
+   "target": "data/placements_day2_ticks376_450.json",
+   "find": "(\"unit_id\":\"U-CAV-2-3\",\"tick\":400,)\"lat\":39\\.8311,\"lng\":-77\\.1972",
+   "repl": "\\g<1>\"lat\":39.8256,\"lng\":-77.1652",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-placements-day2-ticks376-450-U-CAV-2-1-400",
+   "target": "data/placements_day2_ticks376_450.json",
+   "find": "(\"unit_id\":\"U-CAV-2-1\",\"tick\":400,)\"lat\":39\\.8289,\"lng\":-77\\.1983",
+   "repl": "\\g<1>\"lat\":39.8234,\"lng\":-77.1663",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-placements-day3-ticks521-600-U-CAV-2-1-560",
+   "target": "data/placements_day3_ticks521_600.json",
+   "find": "(\"unit_id\":\"U-CAV-2-1\",\"tick\":560,)\"lat\":39\\.8306,\"lng\":-77\\.1994",
+   "repl": "\\g<1>\"lat\":39.8251,\"lng\":-77.1674",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-placements-day3-ticks521-600-U-CAV-2-3-560",
+   "target": "data/placements_day3_ticks521_600.json",
+   "find": "(\"unit_id\":\"U-CAV-2-3\",\"tick\":560,)\"lat\":39\\.8311,\"lng\":-77\\.1983",
+   "repl": "\\g<1>\"lat\":39.8256,\"lng\":-77.1663",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-placements-day3-ticks521-600-U-HAB-M2US-560",
+   "target": "data/placements_day3_ticks521_600.json",
+   "find": "(\"unit_id\":\"U-HAB-M2US\",\"tick\":560,)\"lat\":39\\.8317,\"lng\":-77\\.1994",
+   "repl": "\\g<1>\"lat\":39.8262,\"lng\":-77.1674",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-placements-day3-ticks521-600-U-CAV-2-3-563",
+   "target": "data/placements_day3_ticks521_600.json",
+   "find": "(\"unit_id\":\"U-CAV-2-3\",\"tick\":563,)\"lat\":39\\.8311,\"lng\":-77\\.2000",
+   "repl": "\\g<1>\"lat\":39.8256,\"lng\":-77.1680",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-placements-day3-ticks521-600-U-CAV-2-3-565",
+   "target": "data/placements_day3_ticks521_600.json",
+   "find": "(\"unit_id\":\"U-CAV-2-3\",\"tick\":565,)\"lat\":39\\.8311,\"lng\":-77\\.1994",
+   "repl": "\\g<1>\"lat\":39.8256,\"lng\":-77.1674",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-placements-day3-ticks521-600-U-CAV-2-3-580",
+   "target": "data/placements_day3_ticks521_600.json",
+   "find": "(\"unit_id\":\"U-CAV-2-3\",\"tick\":580,)\"lat\":39\\.8317,\"lng\":-77\\.1983",
+   "repl": "\\g<1>\"lat\":39.8262,\"lng\":-77.1663",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-placements-day3-ticks601-675-U-CAV-2-3-620",
+   "target": "data/placements_day3_ticks601_675.json",
+   "find": "(\"unit_id\":\"U-CAV-2-3\",\"tick\":620,)\"lat\":39\\.8317,\"lng\":-77\\.1983",
+   "repl": "\\g<1>\"lat\":39.8262,\"lng\":-77.1663",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-density-artillery-positions-C-HAB-Breathed-560",
+   "target": "data/density_artillery_positions.json",
+   "find": "(\"unit_id\":\"C-HAB-Breathed\",\"tick\":560,)\"lat\":39\\.8322,\"lng\":-77\\.2022",
+   "repl": "\\g<1>\"lat\":39.8355,\"lng\":-77.1689",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-density-artillery-positions-C-HAB-Hart-560",
+   "target": "data/density_artillery_positions.json",
+   "find": "(\"unit_id\":\"C-HAB-Hart\",\"tick\":560,)\"lat\":39\\.8328,\"lng\":-77\\.2028",
+   "repl": "\\g<1>\"lat\":39.8361,\"lng\":-77.1695",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-density-cavalry-detail-C-CAV-1-560",
+   "target": "data/density_cavalry_detail.json",
+   "find": "(\"unit_id\":\"C-CAV-1\",\"tick\":560,)\"lat\":39\\.8317,\"lng\":-77\\.2033",
+   "repl": "\\g<1>\"lat\":39.8350,\"lng\":-77.1700",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-density-cavalry-detail-C-1SC-CAV-560",
+   "target": "data/density_cavalry_detail.json",
+   "find": "(\"unit_id\":\"C-1SC-CAV\",\"tick\":560,)\"lat\":39\\.8322,\"lng\":-77\\.2039",
+   "repl": "\\g<1>\"lat\":39.8355,\"lng\":-77.1706",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-density-cavalry-detail-C-Cobb-CAV-560",
+   "target": "data/density_cavalry_detail.json",
+   "find": "(\"unit_id\":\"C-Cobb-CAV\",\"tick\":560,)\"lat\":39\\.8317,\"lng\":-77\\.2044",
+   "repl": "\\g<1>\"lat\":39.8350,\"lng\":-77.1711",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-density-cavalry-detail-C-Jeff-MS-CAV-560",
+   "target": "data/density_cavalry_detail.json",
+   "find": "(\"unit_id\":\"C-Jeff-MS-CAV\",\"tick\":560,)\"lat\":39\\.8311,\"lng\":-77\\.2050",
+   "repl": "\\g<1>\"lat\":39.8344,\"lng\":-77.1717",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-density-cavalry-detail-C-1SC-CAV-563",
+   "target": "data/density_cavalry_detail.json",
+   "find": "(\"unit_id\":\"C-1SC-CAV\",\"tick\":563,)\"lat\":39\\.8317,\"lng\":-77\\.2022",
+   "repl": "\\g<1>\"lat\":39.8350,\"lng\":-77.1689",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-density-cavalry-detail-C-Cobb-CAV-563",
+   "target": "data/density_cavalry_detail.json",
+   "find": "(\"unit_id\":\"C-Cobb-CAV\",\"tick\":563,)\"lat\":39\\.8311,\"lng\":-77\\.2017",
+   "repl": "\\g<1>\"lat\":39.8344,\"lng\":-77.1684",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-density-cavalry-detail-C-CAV-1-565",
+   "target": "data/density_cavalry_detail.json",
+   "find": "(\"unit_id\":\"C-CAV-1\",\"tick\":565,)\"lat\":39\\.8328,\"lng\":-77\\.2028",
+   "repl": "\\g<1>\"lat\":39.8361,\"lng\":-77.1695",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-density-day3-retreat-C-CAV-1-590",
+   "target": "data/density_day3_retreat.json",
+   "find": "(\"unit_id\":\"C-CAV-1\",\"tick\":590,)\"lat\":39\\.8311,\"lng\":-77\\.2017",
+   "repl": "\\g<1>\"lat\":39.8344,\"lng\":-77.1684",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-placements-day2-ticks376-450-C-CAV-1-400",
+   "target": "data/placements_day2_ticks376_450.json",
+   "find": "(\"unit_id\":\"C-CAV-1\",\"tick\":400,)\"lat\":39\\.8400,\"lng\":-77\\.2056",
+   "repl": "\\g<1>\"lat\":39.8433,\"lng\":-77.1723",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-placements-day2-ticks376-450-C-CAV-2-400",
+   "target": "data/placements_day2_ticks376_450.json",
+   "find": "(\"unit_id\":\"C-CAV-2\",\"tick\":400,)\"lat\":39\\.8389,\"lng\":-77\\.2044",
+   "repl": "\\g<1>\"lat\":39.8422,\"lng\":-77.1711",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-placements-day3-ticks521-600-C-CAV-1-560",
+   "target": "data/placements_day3_ticks521_600.json",
+   "find": "(\"unit_id\":\"C-CAV-1\",\"tick\":560,)\"lat\":39\\.8317,\"lng\":-77\\.2033",
+   "repl": "\\g<1>\"lat\":39.8350,\"lng\":-77.1700",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-placements-day3-ticks521-600-C-CAV-2-560",
+   "target": "data/placements_day3_ticks521_600.json",
+   "find": "(\"unit_id\":\"C-CAV-2\",\"tick\":560,)\"lat\":39\\.8306,\"lng\":-77\\.2017",
+   "repl": "\\g<1>\"lat\":39.8339,\"lng\":-77.1684",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-placements-day3-ticks521-600-C-CAV-1-563",
+   "target": "data/placements_day3_ticks521_600.json",
+   "find": "(\"unit_id\":\"C-CAV-1\",\"tick\":563,)\"lat\":39\\.8317,\"lng\":-77\\.1994",
+   "repl": "\\g<1>\"lat\":39.8350,\"lng\":-77.1661",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-placements-day3-ticks521-600-C-CAV-1-565",
+   "target": "data/placements_day3_ticks521_600.json",
+   "find": "(\"unit_id\":\"C-CAV-1\",\"tick\":565,)\"lat\":39\\.8317,\"lng\":-77\\.2006",
+   "repl": "\\g<1>\"lat\":39.8350,\"lng\":-77.1673",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-placements-day3-ticks521-600-C-CAV-1-580",
+   "target": "data/placements_day3_ticks521_600.json",
+   "find": "(\"unit_id\":\"C-CAV-1\",\"tick\":580,)\"lat\":39\\.8344,\"lng\":-77\\.2022",
+   "repl": "\\g<1>\"lat\":39.8377,\"lng\":-77.1689",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
+   "id": "DATA-pos-move-placements-day3-ticks601-675-C-CAV-1-620",
+   "target": "data/placements_day3_ticks601_675.json",
+   "find": "(\"unit_id\":\"C-CAV-1\",\"tick\":620,)\"lat\":39\\.8344,\"lng\":-77\\.2022",
+   "repl": "\\g<1>\"lat\":39.8377,\"lng\":-77.1689",
+   "expect": 1,
+   "regex": true,
+   "note": "wrong-place: NPS monuments as mapped in OpenStreetMap (ODbL), fetched 2026-10-19: Custer HQ marker 39.82669,-77.16524, Michigan Cavalry Brigade monument 39.82615,-77.16529, McIntosh 39.82589,-77.16307, Gregg shaft 39.82641,-77.16300, Stuart division 39.83499,-77.17024, Hampton 39.83649,-77.16888, Fi"
+  },
+  {
    "id": "DATA-rejoin-add-placements-day1-ticks51-100-U-6WI-68-rejoin",
    "target": "data/placements_day1_ticks51_100.json",
    "find": "(\"placements\": \\[\\n)",
@@ -14427,6 +15644,42 @@
    "target": "data/placements_day1_ticks51_100.json",
    "find": "(\"placements\": \\[\\n)",
    "repl": "\\g<1>    {\"unit_id\":\"U-56PA\",\"tick\":95,\"lat\":39.8219,\"lng\":-77.2272,\"bearing\":0,\"disposition\":\"Line of Battle\",\"strength\":129,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-C-5NC-95-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-5NC\",\"tick\":95,\"lat\":39.831,\"lng\":-77.2363,\"bearing\":0,\"disposition\":\"Bivouac\",\"strength\":130,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-C-12NC-95-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-12NC\",\"tick\":95,\"lat\":39.8311,\"lng\":-77.2352,\"bearing\":0,\"disposition\":\"Bivouac\",\"strength\":80,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-C-20NC-95-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-20NC\",\"tick\":95,\"lat\":39.8322,\"lng\":-77.2347,\"bearing\":0,\"disposition\":\"Bivouac\",\"strength\":140,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
+   "expect": 1,
+   "regex": true,
+   "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
+  },
+  {
+   "id": "DATA-rejoin-add-placements-day1-ticks51-100-C-23NC-95-rejoin",
+   "target": "data/placements_day1_ticks51_100.json",
+   "find": "(\"placements\": \\[\\n)",
+   "repl": "\\g<1>    {\"unit_id\":\"C-23NC\",\"tick\":95,\"lat\":39.8332,\"lng\":-77.2348,\"bearing\":0,\"disposition\":\"Bivouac\",\"strength\":60,\"notes\":\"Shown with its brigade: no later position of this regiment is recorded\"},\n",
    "expect": 1,
    "regex": true,
    "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
@@ -15433,6 +16686,14 @@
    "note": "wrong-name+wrong-number: OR 27/1 p.156 (order of battle: First Brigade, Third Division, I Corps, Col. Chapman Biddle) and p.6 (Biddle commanding regiment and First Brigade); OR 27/1 pp.173-186 (return of casualties)"
   },
   {
+   "id": "DATA-oob-union-oob-brigades-U-I-2-1",
+   "target": "data/oob/union_oob_brigades.json",
+   "find": "{\"brigade_id\":\"U-I-2-1\",\"designation\":\"First Brigade, Second Division, First Corps (Paul's Brigade)\",\"parent_division_id\":\"U-I-2\",\"parent_corps_id\":\"U-I\",\"commander\":{\"name\":\"Brigadier General Gabriel Paul\",\"fate\":\"Wounded July 1 -- shot through both eyes, blinded permanently\",\"successor\":{\"name\":\"Colonel Samuel Leonard\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Adrian Root\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Richard Coulter\",\"assumed_command\":\"July 1 -- fourth commander in one afternoon\"}}}},\"strength\":1536,\"casualties\":793,\"casualty_percentage\":51.6,\"days_engaged\":[1],\"state\":\"New York/Pennsylvania/Massachusetts\",\"regiment_ids\":[\"U-16ME\",\"U-13MA\",\"U-94NY\",\"U-104NY\",\"U-107NY\",\"U-11PA\"],\"key_action\":\"Oak Ridge defense. Paul blinded, then three successive commanders wounded in under an hour. 16th Maine left as sacrifice regiment to cover retreat.\"}",
+   "repl": "{\"brigade_id\":\"U-I-2-1\",\"designation\":\"First Brigade, Second Division, First Corps (Paul's Brigade)\",\"parent_division_id\":\"U-I-2\",\"parent_corps_id\":\"U-I\",\"commander\":{\"name\":\"Brigadier General Gabriel Paul\",\"fate\":\"Wounded July 1 -- shot through both eyes, blinded permanently\",\"successor\":{\"name\":\"Colonel Samuel Leonard\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Adrian Root\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Richard Coulter\",\"assumed_command\":\"July 1 -- fourth commander in one afternoon\"}}}},\"strength\":1536,\"casualties\":1041,\"casualty_percentage\":67.8,\"days_engaged\":[1],\"state\":\"New York/Pennsylvania/Massachusetts\",\"regiment_ids\":[\"U-16ME\",\"U-13MA\",\"U-94NY\",\"U-104NY\",\"U-107PA\",\"U-11PA\"],\"key_action\":\"Oak Ridge. Paul was severely wounded and command passed through Leonard, Root and Coulter (roster, OR 27/1 p.156); the 16th Maine was ordered alone to take and hold a hill commanding the road (Farnham, OR 27/1 p.295).\"}",
+   "expect": 1,
+   "note": "wrong-id+wrong-number: OR 27/1 p.156 (roster: 107th Pennsylvania in the First Brigade of the Second Division, First Corps) and p.173 (return); OR 27/1 pp.173-186 (return of casualties)"
+  },
+  {
    "id": "DATA-oob-union-oob-brigades-U-I-3-2",
    "target": "data/oob/union_oob_brigades.json",
    "find": "{\"brigade_id\":\"U-I-3-2\",\"designation\":\"Second Brigade, Third Division, First Corps (Stone's Bucktails)\",\"parent_division_id\":\"U-I-3\",\"parent_corps_id\":\"U-I\",\"commander\":{\"name\":\"Colonel Roy Stone\",\"fate\":\"Wounded July 1\"},\"strength\":1899,\"casualties\":858,\"casualty_percentage\":45.2,\"days_engaged\":[1],\"state\":\"Pennsylvania\",\"regiment_ids\":[\"U-143PA\",\"U-149PA\",\"U-150PA\"],\"key_action\":\"Bucktail Brigade astride Chambersburg Pike. 149th PA suffered 84% casualties -- one of the highest single-regiment rates of the battle.\"}",
@@ -16180,7 +17441,7 @@
    "id": "DATA-oob-union-regiments-i-ii-corps-U-107NY",
    "target": "data/oob/union_regiments_i_ii_corps.json",
    "find": "{\"regiment_id\":\"U-107NY\",\"designation\":\"107th New York Volunteer Infantry\",\"parent_brigade_id\":\"U-I-2-1\",\"parent_corps_id\":\"U-I\",\"state\":\"New York\",\"commander\":{\"name\":\"Colonel Nixon Van Valkenburgh\",\"fate\":\"Wounded July 1\"},\"strength\":122,\"casualties\":53,\"casualty_percentage\":43.4,\"days_engaged\":[1],\"key_action\":\"Oak Ridge -- one of smallest regiments in Paul's brigade.\"}",
-   "repl": "{\"regiment_id\":\"U-107NY\",\"designation\":\"107th Pennsylvania Volunteer Infantry\",\"parent_brigade_id\":\"U-I-2-1\",\"parent_corps_id\":\"U-I\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Lieutenant Colonel James MacThomson\"},\"strength\":122,\"casualties\":165,\"days_engaged\":[1],\"key_action\":\"Oak Ridge -- Paul's brigade (the record was labelled 107th New York; that regiment served in the XII Corps). The strength shown (122) belonged to the old label and is not verified for the 107th Pennsylvania, so no percentage is given.\"}",
+   "repl": "{\"regiment_id\":\"U-107PA\",\"designation\":\"107th Pennsylvania Volunteer Infantry\",\"parent_brigade_id\":\"U-I-2-1\",\"parent_corps_id\":\"U-I\",\"state\":\"Pennsylvania\",\"commander\":{\"name\":\"Lieutenant Colonel James MacThomson\"},\"strength\":122,\"casualties\":165,\"days_engaged\":[1],\"key_action\":\"Oak Ridge -- Paul's brigade (the record was labelled 107th New York; that regiment served in the XII Corps). The strength shown (122) belonged to the old label and is not verified for the 107th Pennsylvania, so no percentage is given.\"}",
    "expect": 1,
    "note": "wrong-claim: OR 27/1 pp.155-186 (roster: 107th Pennsylvania, Lieut. Col. James MacThomson; return: 165)"
   },
@@ -18397,14 +19658,6 @@
    "target": "data/oob/union_oob_brigades.json",
    "find": "{\"brigade_id\":\"U-I-1-2\",\"designation\":\"Second Brigade, First Division, First Corps (Cutler's Brigade)\",\"parent_division_id\":\"U-I-1\",\"parent_corps_id\":\"U-I\",\"commander\":{\"name\":\"Brigadier General Lysander Cutler\",\"fate\":\"Survived\"},\"strength\":2017,\"casualties\":1000,\"casualty_percentage\":49.6,\"days_engaged\":[1],\"state\":\"New York/Pennsylvania\",\"regiment_ids\":[\"U-76NY\",\"U-84NY\",\"U-95NY\",\"U-147NY\",\"U-56PA\",\"U-14BK\"],\"key_action\":\"North of Chambersburg Pike -- initially pushed back by Davis; 6th Wisconsin charge at Railroad Cut saved the brigade's position.\"}",
    "repl": "{\"brigade_id\":\"U-I-1-2\",\"designation\":\"Second Brigade, First Division, First Corps (Cutler's Brigade)\",\"parent_division_id\":\"U-I-1\",\"parent_corps_id\":\"U-I\",\"commander\":{\"name\":\"Brigadier General Lysander Cutler\",\"fate\":\"Survived\"},\"strength\":2017,\"casualties\":1002,\"casualty_percentage\":49.7,\"days_engaged\":[1],\"state\":\"New York/Pennsylvania\",\"regiment_ids\":[\"U-76NY\",\"U-84NY\",\"U-95NY\",\"U-147NY\",\"U-56PA\",\"U-14BK\"],\"key_action\":\"North of the Chambersburg Pike -- pressed back by Davis's brigade; the 6th Wisconsin, 95th New York and 14th Brooklyn charged the Confederates in the Railroad Cut (Dawes, OR 27/1 p.275-276).\"}",
-   "expect": 1,
-   "note": "wrong-number: OR 27/1 pp.173-186 (return of casualties)"
-  },
-  {
-   "id": "DATA-oob-union-oob-brigades-U-I-2-1",
-   "target": "data/oob/union_oob_brigades.json",
-   "find": "{\"brigade_id\":\"U-I-2-1\",\"designation\":\"First Brigade, Second Division, First Corps (Paul's Brigade)\",\"parent_division_id\":\"U-I-2\",\"parent_corps_id\":\"U-I\",\"commander\":{\"name\":\"Brigadier General Gabriel Paul\",\"fate\":\"Wounded July 1 -- shot through both eyes, blinded permanently\",\"successor\":{\"name\":\"Colonel Samuel Leonard\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Adrian Root\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Richard Coulter\",\"assumed_command\":\"July 1 -- fourth commander in one afternoon\"}}}},\"strength\":1536,\"casualties\":793,\"casualty_percentage\":51.6,\"days_engaged\":[1],\"state\":\"New York/Pennsylvania/Massachusetts\",\"regiment_ids\":[\"U-16ME\",\"U-13MA\",\"U-94NY\",\"U-104NY\",\"U-107NY\",\"U-11PA\"],\"key_action\":\"Oak Ridge defense. Paul blinded, then three successive commanders wounded in under an hour. 16th Maine left as sacrifice regiment to cover retreat.\"}",
-   "repl": "{\"brigade_id\":\"U-I-2-1\",\"designation\":\"First Brigade, Second Division, First Corps (Paul's Brigade)\",\"parent_division_id\":\"U-I-2\",\"parent_corps_id\":\"U-I\",\"commander\":{\"name\":\"Brigadier General Gabriel Paul\",\"fate\":\"Wounded July 1 -- shot through both eyes, blinded permanently\",\"successor\":{\"name\":\"Colonel Samuel Leonard\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Adrian Root\",\"fate\":\"Wounded July 1\",\"successor\":{\"name\":\"Colonel Richard Coulter\",\"assumed_command\":\"July 1 -- fourth commander in one afternoon\"}}}},\"strength\":1536,\"casualties\":1041,\"casualty_percentage\":67.8,\"days_engaged\":[1],\"state\":\"New York/Pennsylvania/Massachusetts\",\"regiment_ids\":[\"U-16ME\",\"U-13MA\",\"U-94NY\",\"U-104NY\",\"U-107NY\",\"U-11PA\"],\"key_action\":\"Oak Ridge. Paul was severely wounded and command passed through Leonard, Root and Coulter (roster, OR 27/1 p.156); the 16th Maine was ordered alone to take and hold a hill commanding the road (Farnham, OR 27/1 p.295).\"}",
    "expect": 1,
    "note": "wrong-number: OR 27/1 pp.173-186 (return of casualties)"
   },
