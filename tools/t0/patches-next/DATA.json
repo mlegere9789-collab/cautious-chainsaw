@@ -10208,6 +10208,54 @@
    "note": "off-topic: Buford died in December 1863; not a position fact"
   },
   {
+   "id": "DATA-artorg-garnett",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "\"designation\": \"Garnett's Battalion (Anderson's Division)\",",
+   "repl": "\"designation\": \"Garnett's Battalion (Heth's Division Artillery)\",",
+   "expect": 1,
+   "note": "wrong-name: OR 27/2 pp.286-290 (roster of the artillery), p.607 (Hill)"
+  },
+  {
+   "id": "DATA-artorg-mcintosh",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "\"designation\": \"McIntosh's Battalion (Heth's Division)\",",
+   "repl": "\"designation\": \"McIntosh's Battalion (Artillery Reserve, Third Corps)\",",
+   "expect": 1,
+   "note": "wrong-name: OR 27/2 pp.286-290 (roster of the artillery), p.607 (Hill)"
+  },
+  {
+   "id": "DATA-artorg-pegram",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "\"designation\": \"Pegram's Battalion (Pender's Division)\",",
+   "repl": "\"designation\": \"Pegram's Battalion (Artillery Reserve, Third Corps)\",",
+   "expect": 1,
+   "note": "wrong-name: OR 27/2 pp.286-290 (roster of the artillery), p.607 (Hill)"
+  },
+  {
+   "id": "DATA-artorg-latimer1",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "\"designation\": \"Andrews's Battalion\",\n        \"commander\": {\"name\": \"Lieutenant Colonel R. Snowden Andrews\", \"fate\": \"Wounded July 1\"},",
+   "repl": "\"designation\": \"Latimer's Battalion, called Andrews's Battalion in the reports (Johnson's Division Artillery)\",\n        \"commander\": {\"name\": \"Major Joseph Latimer\", \"fate\": \"Mortally wounded July 2 -- died August 1, 1863; age 19\"},",
+   "expect": 1,
+   "note": "wrong-name: OR 27/2 pp.286-290 (roster of the artillery), p.607 (Hill)"
+  },
+  {
+   "id": "DATA-artorg-carter",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "\"designation\": \"Jones's Battalion (Rodes's Division Artillery)\",\n        \"commander\": {\"name\": \"Lieutenant Colonel Hilary Jones\", \"fate\": \"Survived\"},",
+   "repl": "\"designation\": \"Carter's Battalion (Rodes's Division Artillery); Carrington's battery belonged to Jones's Battalion (Early's Division)\",\n        \"commander\": {\"name\": \"Lieutenant Colonel Thomas Carter\", \"fate\": \"Survived\"},",
+   "expect": 1,
+   "note": "wrong-name: OR 27/2 pp.286-290 (roster of the artillery), p.607 (Hill)"
+  },
+  {
+   "id": "DATA-artorg-latimer2",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "\"designation\": \"Latimer's Battalion (Johnson's Division Artillery)\",\n        \"commander\": {\n          \"name\": \"Major Joseph Latimer\",",
+   "repl": "\"designation\": \"Batteries filed under Latimer's battalion that the roster places elsewhere or does not name (see each record)\",\n        \"commander\": {\n          \"name\": \"No commander of record: not a battalion of the roster (the note below is about Latimer's battalion, C-ART-II-1)\",",
+   "expect": 1,
+   "note": "duplicate-record: OR 27/2 pp.286-290 (roster of the artillery), p.607 (Hill)"
+  },
+  {
    "id": "DATA-corps-I-fate",
    "target": "data/oob/union_oob_corps_division.json",
    "find": "\"fate\": \"KIA July 1, 1863 — shot through the head at approximately 10:15am while directing the Iron Brigade into Herbst Woods\"",
@@ -10331,7 +10379,7 @@
    "id": "DATA-meta-gunsc",
    "target": "data/oob/confederate_artillery.json",
    "find": "\"total_guns_approximately\": 283,",
-   "repl": "\"total_guns_in_records\": 182,",
+   "repl": "\"total_guns_in_records\": 182, \"battalions_not_listed\": \"The roster (27/2 pp.285-290) also names Alexander's and Nelson's battalions (reserve artillery of the First and Second Corps), Poague's battalion (Pender's division) and Lane's Sumter battalion (Anderson's division; one of its batteries, Ross's, is listed here); this file has no records for the other batteries of these four.\",",
    "expect": 1,
    "note": "unsupported-number: the records of this file"
   },
@@ -13189,7 +13237,7 @@
    "note": "unsupported-claim: no report read supports the removed phrase"
   },
   {
-   "id": "DATA-okey-006",
+   "id": "DATA-okey-005",
    "target": "data/oob/confederate_artillery.json",
    "find": "Latimer was only 19 years old\\. He positioned his battalion on Benner's Hill to bombard Cemetery Hill and Culp's Hill\\. The Union artillery response was overwhelming\\. Latimer was mortally wounded\\.",
    "repl": "Latimer, aged 19, placed his battalion on Benner's Hill to fire on Cemetery Hill and Culp's Hill; Ewell reports that he withdrew all but one battery, and Latimer was mortally wounded.",
@@ -13198,7 +13246,7 @@
    "note": "unsupported-claim: OR 27/2 p.446, p.351"
   },
   {
-   "id": "DATA-okey-010",
+   "id": "DATA-okey-009",
    "target": "data/oob/confederate_artillery.json",
    "find": "One of the most aggressive and talented Confederate artillerists\\. Posted on Herr Ridge July 1 in support of Heth\\.",
    "repl": "Pegram's battalion was posted on Herr Ridge on July 1 in support of Heth.",
@@ -13207,7 +13255,7 @@
    "note": "unsupported-claim: no report read supports the removed phrase"
   },
   {
-   "id": "DATA-okey-012",
+   "id": "DATA-okey-011",
    "target": "data/oob/confederate_cavalry.json",
    "find": "Stuart's cavalry was absent July 1-2, depriving Lee of intelligence\\. Stuart arrived July 2 afternoon\\. July 3 East Cavalry Field is the major cavalry action\\.",
    "repl": "Stuart reached the army on the afternoon of July 2; the cavalry fought at East Cavalry Field on July 3.",
@@ -13216,7 +13264,7 @@
    "note": "unsupported-claim: OR 27/2 p.322 (Lee)"
   },
   {
-   "id": "DATA-okey-013",
+   "id": "DATA-okey-012",
    "target": "data/oob/confederate_cavalry.json",
    "find": "Stuart's controversial absence left Lee blind during the approach march\\. Lee reportedly greeted him with 'General Stuart, where have you been\\?' Stuart arrived late July 2\\.",
    "repl": "Stuart reached the army on the afternoon of July 2 (Lee's report). Accounts of Lee's greeting come from later recollections.",
@@ -13225,7 +13273,7 @@
    "note": "unsupported-quote: OR 27/2 p.322 (Lee)"
   },
   {
-   "id": "DATA-okey-051",
+   "id": "DATA-okey-050",
    "target": "data/oob/union_artillery.json",
    "find": "Hunt managed ammunition supply before Pickett's Charge -- deliberately silenced Union guns over Hancock's objections to conserve rounds\\. His decision is credited with allowing Union artillery to devastate Confederate infantry during the charge itself\\.",
    "repl": "Hunt was the army's chief of artillery. During the Confederate cannonade, at about 2.30 p.m., finding the ammunition running low, he directed that the Union fire be gradually stopped (Hunt, OR 27/1 p.239). His report counts 67 batteries with 372 guns (p.242).",
@@ -13234,7 +13282,7 @@
    "note": "unsupported-claim: OR 27/1 p.239, p.242"
   },
   {
-   "id": "DATA-okey-052",
+   "id": "DATA-okey-051",
    "target": "data/oob/union_artillery.json",
    "find": "A 6-gun battery online occupies roughly 42 yards of front\\. Total Union guns approximately 370 including horse artillery\\.",
    "repl": "A six-gun battery is drawn occupying about 42 yards of front (a drawing convention). Hunt's report counts 67 batteries with 372 guns (OR 27/1 p.242).",
@@ -13243,7 +13291,7 @@
    "note": "unsupported-claim: OR 27/1 p.242"
   },
   {
-   "id": "DATA-okey-053",
+   "id": "DATA-okey-052",
    "target": "data/oob/union_artillery.json",
    "find": "McGilvery's emergency construction of the Plum Run Line on July 2 evening -- assembling guns from multiple batteries to plug the gap left by Sickles' collapse -- is one of the finest improvised artillery actions of the war\\.",
    "repl": "McGilvery assembled batteries from several commands on the Plum Run line on the evening of July 2 (Hunt, OR 27/1 p.235).",
@@ -13252,7 +13300,7 @@
    "note": "unsupported-claim: OR 27/1 p.235 (Hunt)"
   },
   {
-   "id": "DATA-okey-056",
+   "id": "DATA-okey-055",
    "target": "data/oob/union_artillery.json",
    "find": "Wainwright kept a superb diary -- one of the best artillery primary sources for Gettysburg\\.",
    "repl": "Wainwright kept a diary of the campaign.",
@@ -13261,7 +13309,7 @@
    "note": "unsupported-claim: no report read supports the removed phrase"
   },
   {
-   "id": "DATA-okey-067",
+   "id": "DATA-okey-066",
    "target": "data/oob/union_artillery.json",
    "find": "Osborn organized the massed artillery on Cemetery Hill that played a critical defensive role\\.",
    "repl": "Osborn commanded the XI Corps artillery brigade and the artillery on Cemetery Hill.",
@@ -13270,7 +13318,7 @@
    "note": "unsupported-claim: no report read supports the removed phrase"
   },
   {
-   "id": "DATA-okey-073",
+   "id": "DATA-okey-072",
    "target": "data/oob/union_cavalry_artillery.json",
    "find": "Cavalry units fought primarily dismounted \\(carbines\\) on July 1, mounted actions July 3\\. Horse artillery batteries included as they operated integral to cavalry divisions\\. Richmond's brigade slots are largely small detachments from other regiments\\.",
    "repl": "Cavalry units fought mainly dismounted on July 1 and in part mounted on July 3. The records of 'Richmond's brigade' are small detachments from other regiments and do not correspond to a brigade in the Official Records roster.",
@@ -13279,7 +13327,7 @@
    "note": "unsupported-claim: OR 27/1 p.167 (roster)"
   },
   {
-   "id": "DATA-okey-140",
+   "id": "DATA-okey-139",
    "target": "data/oob/union_regiments_vi_xi_xii_corps.json",
    "find": "VI Corps nearly all zero casualties -- army reserve\\. XI Corps routed July 1 north of town\\. XII Corps held Culp's Hill throughout all three days\\.",
    "repl": "VI Corps: 242 casualties in the return, mostly army reserve. XI Corps fell back through the town on July 1. XII Corps held Culp's Hill.",
@@ -16123,6 +16171,126 @@
    "note": "stale-position: the brigade rows of data/placements_*.json and density_*.json at the same ticks; the sources put the regiments with their brigades after the fight: OR 27/1 p.266 (Wadsworth: the First Division held a hill on the right of the cemetery on the 2d and 3d), p.696 (Howard: the Eleventh Cor"
   },
   {
+   "id": "DATA-oob-confederate-artillery-C-ART-Lewis",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Lewis\",\"designation\":\"Lewis's Battery (Pittsylvania Artillery VA)\",\"commander\":{\"name\":\"Captain John Lewis\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":6,\"key_action\":\"Anderson's division artillery -- Cemetery Ridge approach July 2.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Lewis\",\"designation\":\"Lewis's Battery (Pittsylvania Artillery VA)\",\"commander\":{\"name\":\"Captain John Lewis\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":6,\"key_action\":\"Garnett's battalion, Heth's division artillery (the roster, 27/2 p.289).\"}",
+   "expect": 1,
+   "note": "wrong-name: OR 27/2 pp.288-290 (roster of the artillery), p.607 (Hill)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Maurin",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Maurin\",\"designation\":\"Maurin's Battery (Donaldsonville Artillery LA)\",\"commander\":{\"name\":\"Captain Victor Maurin\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":8,\"key_action\":\"Anderson's division artillery July 2.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Maurin\",\"designation\":\"Maurin's Battery (Donaldsonville Artillery LA)\",\"commander\":{\"name\":\"Captain Victor Maurin\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":8,\"key_action\":\"Garnett's battalion, Heth's division artillery (the roster, 27/2 p.289).\"}",
+   "expect": 1,
+   "note": "wrong-name: OR 27/2 pp.288-290 (roster of the artillery), p.607 (Hill)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Moore",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Moore\",\"designation\":\"Moore's Battery (Norfolk Light Artillery VA)\",\"commander\":{\"name\":\"Captain Joseph Moore\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":5,\"key_action\":\"Anderson's division support.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Moore\",\"designation\":\"Moore's Battery (Norfolk Light Artillery VA)\",\"commander\":{\"name\":\"Captain Joseph Moore\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":5,\"key_action\":\"Garnett's battalion, Heth's division artillery (the roster, 27/2 p.289).\"}",
+   "expect": 1,
+   "note": "wrong-name: OR 27/2 pp.288-290 (roster of the artillery), p.607 (Hill)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Grandy",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Grandy\",\"designation\":\"Grandy's Battery (Norfolk Blues Artillery VA)\",\"commander\":{\"name\":\"Captain Charles Grandy\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":4,\"key_action\":\"Anderson's division support.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Grandy\",\"designation\":\"Grandy's Battery (Norfolk Blues Artillery VA)\",\"commander\":{\"name\":\"Captain Charles Grandy\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":4,\"key_action\":\"Garnett's battalion, Heth's division artillery (the roster, 27/2 p.289).\"}",
+   "expect": 1,
+   "note": "wrong-name: OR 27/2 pp.288-290 (roster of the artillery), p.607 (Hill)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Hurt",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Hurt\",\"designation\":\"Hurt's Battery (Hardaway Artillery AL)\",\"commander\":{\"name\":\"Captain William Hurt\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle / Whitworth rifle\",\"strength\":80,\"casualties\":14,\"key_action\":\"Heth's division -- McPherson's Ridge July 1 and July 3 cannonade. Two Whitworth rifles with exceptional range used for long-range counterbattery fire.\",\"flag_notes\":\"Two Whitworth rifles -- exceptionally long range. Note as special long-range weapons in unit tooltip.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Hurt\",\"designation\":\"Hurt's Battery (Hardaway Artillery AL)\",\"commander\":{\"name\":\"Captain William Hurt\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle / Whitworth rifle\",\"strength\":80,\"casualties\":14,\"key_action\":\"McIntosh's battalion, Artillery Reserve of the Third Corps (the roster, 27/2 p.290); it marched with Pender's division on July 1 (Hill, 27/2 p.607).\",\"flag_notes\":\"Two Whitworth rifles -- exceptionally long range. Note as special long-range weapons in unit tooltip.\"}",
+   "expect": 1,
+   "note": "wrong-name+unsupported-claim: OR 27/2 pp.288-290 (roster of the artillery), p.607 (Hill); no report read supports the removed phrase"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Johnson-M",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Johnson-M\",\"designation\":\"Johnson's Battery (1st Rockbridge Artillery VA)\",\"commander\":{\"name\":\"Captain Marmaduke Johnson\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":10,\"key_action\":\"McPherson's Ridge July 1 -- fired on Buford's cavalry and Hall's battery.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Johnson-M\",\"designation\":\"Johnson's Battery (1st Rockbridge Artillery VA)\",\"commander\":{\"name\":\"Captain Marmaduke Johnson\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":10,\"key_action\":\"McIntosh's battalion, Artillery Reserve of the Third Corps (the roster, 27/2 p.290); it marched with Pender's division on July 1 (Hill, 27/2 p.607).\"}",
+   "expect": 1,
+   "note": "wrong-name: OR 27/2 pp.288-290 (roster of the artillery), p.607 (Hill)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Rice-B",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Rice-B\",\"designation\":\"Rice's Battery (Danville Artillery VA)\",\"commander\":{\"name\":\"Captain William Rice\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":8,\"key_action\":\"Heth's division artillery July 1 and 3.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Rice-B\",\"designation\":\"Rice's Battery (Danville Artillery VA)\",\"commander\":{\"name\":\"Captain William Rice\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":8,\"key_action\":\"McIntosh's battalion, Artillery Reserve of the Third Corps (the roster, 27/2 p.290); it marched with Pender's division on July 1 (Hill, 27/2 p.607).\"}",
+   "expect": 1,
+   "note": "wrong-name: OR 27/2 pp.288-290 (roster of the artillery), p.607 (Hill)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Wallace",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Wallace\",\"designation\":\"Wallace's Battery (2nd Rockbridge Artillery VA)\",\"commander\":{\"name\":\"Captain Samuel Wallace\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":7,\"key_action\":\"Heth's division artillery.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Wallace\",\"designation\":\"Wallace's Battery (2nd Rockbridge Artillery VA)\",\"commander\":{\"name\":\"Captain Samuel Wallace\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":7,\"key_action\":\"McIntosh's battalion, Artillery Reserve of the Third Corps (the roster, 27/2 p.290); it marched with Pender's division on July 1 (Hill, 27/2 p.607).\"}",
+   "expect": 1,
+   "note": "wrong-name: OR 27/2 pp.288-290 (roster of the artillery), p.607 (Hill)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Ross",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Ross\",\"designation\":\"Ross's Battery (Sumter Flying Artillery GA)\",\"commander\":{\"name\":\"Captain Hugh Ross\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":7,\"key_action\":\"Hood's division support.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Ross\",\"designation\":\"Ross's Battery (Sumter Flying Artillery GA)\",\"commander\":{\"name\":\"Captain Hugh Ross\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":7,\"key_action\":\"Sumter Battalion (Maj. John Lane, Company A), Anderson's division artillery (the roster, 27/2 p.288); the file lists it under Henry's battalion, which the roster does not support.\"}",
+   "expect": 1,
+   "note": "wrong-name: OR 27/2 pp.288-290 (roster of the artillery), p.607 (Hill)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Brown-C",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Brown-C\",\"designation\":\"Brown's Battery (4th Maryland Artillery CSA)\",\"commander\":{\"name\":\"Captain William Brown\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":7,\"key_action\":\"Benner's Hill -- Johnson's division artillery.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Brown-C\",\"designation\":\"Brown's Battery (4th Maryland Artillery CSA)\",\"commander\":{\"name\":\"Captain William Brown\",\"fate\":\"Killed or mortally wounded at Gettysburg (27/2 pp.451, 455)\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":7,\"key_action\":\"Benner's Hill -- Johnson's division artillery. This record duplicates Brown's (Chesapeake) battery shown as C-ART-Brown-J; the roster names one Brown's battery in the battalion (27/2 p.286).\"}",
+   "expect": 1,
+   "note": "wrong-claim+unverified-record: OR 27/2 pp.451, 455; OR 27/2 p.286"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Dement",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Dement\",\"designation\":\"Dement's Battery (1st Maryland Artillery CSA)\",\"commander\":{\"name\":\"Captain William Dement\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":10,\"key_action\":\"Oak Hill July 1 bombardment -- cross-fire on Union I Corps.\",\"flag_notes\":\"Oak Hill artillery placement critical for Day 1 -- Confederate guns must be positioned on the ridge northwest of town firing into the flank of the Union I Corps on Oak Ridge.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Dement\",\"designation\":\"Dement's Battery (1st Maryland Artillery CSA)\",\"commander\":{\"name\":\"Captain William Dement\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":5,\"key_action\":\"Benner's Hill July 2, about 4 to 6 p.m., under Union counter-battery fire (27/2 pp.446, 504); Latimer's (Andrews's) battalion, Johnson's division artillery (the roster, 27/2 p.286).\",\"flag_notes\":\"Johnson's division reached the field late on July 1 (27/2 p.504) and its artillery was not engaged that day; the guns fired from Benner's Hill on July 2.\"}",
+   "expect": 1,
+   "note": "before-arrival+wrong-number: OR 27/2 p.504 (Johnson), p.446, p.286; OR 27/2 p.338 and p.341 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Carpenter",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Carpenter\",\"designation\":\"Carpenter's Battery (Alleghany Artillery VA)\",\"commander\":{\"name\":\"Captain Joseph Carpenter\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":8,\"key_action\":\"Oak Hill July 1 -- flanking fire on Union I Corps.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Carpenter\",\"designation\":\"Carpenter's Battery (Alleghany Artillery VA)\",\"commander\":{\"name\":\"Captain Joseph Carpenter\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":24,\"key_action\":\"Benner's Hill July 2 (27/2 pp.446, 504); Latimer's (Andrews's) battalion, Johnson's division artillery (the roster, 27/2 p.286).\"}",
+   "expect": 1,
+   "note": "before-arrival+wrong-number: OR 27/2 p.504 (Johnson), p.286; OR 27/2 p.338 and p.341 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Brown-J",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Brown-J\",\"designation\":\"Brown's Battery (Chesapeake Artillery MD)\",\"commander\":{\"name\":\"Captain William Brown\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":6,\"key_action\":\"Second Corps support July 1-3.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Brown-J\",\"designation\":\"Brown's Battery (Chesapeake Artillery MD)\",\"commander\":{\"name\":\"Captain William Brown\",\"fate\":\"Killed or mortally wounded at Gettysburg (27/2 pp.451, 455)\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":16,\"key_action\":\"Benner's Hill July 2 (27/2 pp.446, 504); Latimer's (Andrews's) battalion, Johnson's division artillery (the roster, 27/2 p.286). Captain William D. Brown fell at Gettysburg (27/2 pp.451, 455).\"}",
+   "expect": 1,
+   "note": "wrong-claim+wrong-number: OR 27/2 pp.446, 451, 455, 504; OR 27/2 p.338 and p.341 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Raine",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Raine\",\"designation\":\"Raine's Battery (Lee Battery VA)\",\"commander\":{\"name\":\"Captain Charles Raine\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle / 10-pdr Parrott\",\"strength\":80,\"casualties\":7,\"key_action\":\"Second Corps artillery July 1.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Raine\",\"designation\":\"Raine's Battery (Lee Battery VA)\",\"commander\":{\"name\":\"Captain Charles Raine\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle / 10-pdr Parrott\",\"strength\":80,\"casualties\":4,\"key_action\":\"Benner's Hill July 2 (27/2 pp.446, 504); Latimer's (Andrews's) battalion, Johnson's division artillery (the roster, 27/2 p.286).\"}",
+   "expect": 1,
+   "note": "before-arrival+wrong-number: OR 27/2 p.504 (Johnson), p.286; OR 27/2 p.338 and p.341 (return of casualties)"
+  },
+  {
+   "id": "DATA-oob-confederate-artillery-C-ART-Carrington",
+   "target": "data/oob/confederate_artillery.json",
+   "find": "{\"battery_id\":\"C-ART-Carrington\",\"designation\":\"Carrington's Battery (Charlottesville Artillery VA)\",\"commander\":{\"name\":\"Captain James Carrington\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":9,\"key_action\":\"Oak Hill July 1 -- flanking fire that helped destroy I Corps. Key battery in Rodes's attack.\"}",
+   "repl": "{\"battery_id\":\"C-ART-Carrington\",\"designation\":\"Carrington's Battery (Charlottesville Artillery VA)\",\"commander\":{\"name\":\"Captain James Carrington\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":0,\"key_action\":\"Jones's battalion, Early's division artillery (the roster, 27/2 p.286): came up the York road with Early's division on July 1 and engaged north of the town on Rodes's left (27/2 p.456); not on Oak Hill.\"}",
+   "expect": 1,
+   "note": "wrong-place+wrong-number: OR 27/2 p.286, p.456, p.603; OR 27/2 p.338 and p.341 (return of casualties)"
+  },
+  {
    "id": "DATA-oob-union-cavalry-artillery-U-8IL-CAV",
    "target": "data/oob/union_cavalry_artillery.json",
    "find": "{\"regiment_id\":\"U-8IL-CAV\",\"designation\":\"8th Illinois Cavalry\",\"parent_brigade_id\":\"U-CAV-1-1\",\"parent_corps_id\":\"U-CAV\",\"state\":\"Illinois\",\"commander\":{\"name\":\"Major John Beveridge\",\"fate\":\"Survived\"},\"strength\":466,\"casualties\":26,\"days_engaged\":[1,2,3],\"key_action\":\"Gamble's brigade -- dismounted on McPherson's Ridge July 1 morning, delaying Heth with Spencer repeating carbines. First line of Buford's defense.\"}",
@@ -16977,46 +17145,6 @@
    "repl": "{\"battery_id\":\"C-ART-Fraser\",\"designation\":\"Fraser's Battery (Pulaski Artillery GA)\",\"commander\":{\"name\":\"Captain John Fraser\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":18,\"key_action\":\"Supporting Hood's assault July 2.\"}",
    "expect": 1,
    "note": "wrong-number: OR 27/2 p.338 and p.341 (return of casualties)"
-  },
-  {
-   "id": "DATA-oob-confederate-artillery-C-ART-Dement",
-   "target": "data/oob/confederate_artillery.json",
-   "find": "{\"battery_id\":\"C-ART-Dement\",\"designation\":\"Dement's Battery (1st Maryland Artillery CSA)\",\"commander\":{\"name\":\"Captain William Dement\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":10,\"key_action\":\"Oak Hill July 1 bombardment -- cross-fire on Union I Corps.\",\"flag_notes\":\"Oak Hill artillery placement critical for Day 1 -- Confederate guns must be positioned on the ridge northwest of town firing into the flank of the Union I Corps on Oak Ridge.\"}",
-   "repl": "{\"battery_id\":\"C-ART-Dement\",\"designation\":\"Dement's Battery (1st Maryland Artillery CSA)\",\"commander\":{\"name\":\"Captain William Dement\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":5,\"key_action\":\"Oak Hill July 1 bombardment -- cross-fire on Union I Corps.\",\"flag_notes\":\"Oak Hill artillery placement critical for Day 1 -- Confederate guns must be positioned on the ridge northwest of town firing into the flank of the Union I Corps on Oak Ridge.\"}",
-   "expect": 1,
-   "note": "wrong-number: OR 27/2 p.338 and p.341 (return of casualties)"
-  },
-  {
-   "id": "DATA-oob-confederate-artillery-C-ART-Carpenter",
-   "target": "data/oob/confederate_artillery.json",
-   "find": "{\"battery_id\":\"C-ART-Carpenter\",\"designation\":\"Carpenter's Battery (Alleghany Artillery VA)\",\"commander\":{\"name\":\"Captain Joseph Carpenter\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":8,\"key_action\":\"Oak Hill July 1 -- flanking fire on Union I Corps.\"}",
-   "repl": "{\"battery_id\":\"C-ART-Carpenter\",\"designation\":\"Carpenter's Battery (Alleghany Artillery VA)\",\"commander\":{\"name\":\"Captain Joseph Carpenter\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":24,\"key_action\":\"Oak Hill July 1 -- flanking fire on Union I Corps.\"}",
-   "expect": 1,
-   "note": "wrong-number: OR 27/2 p.338 and p.341 (return of casualties)"
-  },
-  {
-   "id": "DATA-oob-confederate-artillery-C-ART-Brown-J",
-   "target": "data/oob/confederate_artillery.json",
-   "find": "{\"battery_id\":\"C-ART-Brown-J\",\"designation\":\"Brown's Battery (Chesapeake Artillery MD)\",\"commander\":{\"name\":\"Captain William Brown\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":6,\"key_action\":\"Second Corps support July 1-3.\"}",
-   "repl": "{\"battery_id\":\"C-ART-Brown-J\",\"designation\":\"Brown's Battery (Chesapeake Artillery MD)\",\"commander\":{\"name\":\"Captain William Brown\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":16,\"key_action\":\"Second Corps support July 1-3.\"}",
-   "expect": 1,
-   "note": "wrong-number: OR 27/2 p.338 and p.341 (return of casualties)"
-  },
-  {
-   "id": "DATA-oob-confederate-artillery-C-ART-Raine",
-   "target": "data/oob/confederate_artillery.json",
-   "find": "{\"battery_id\":\"C-ART-Raine\",\"designation\":\"Raine's Battery (Lee Battery VA)\",\"commander\":{\"name\":\"Captain Charles Raine\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle / 10-pdr Parrott\",\"strength\":80,\"casualties\":7,\"key_action\":\"Second Corps artillery July 1.\"}",
-   "repl": "{\"battery_id\":\"C-ART-Raine\",\"designation\":\"Raine's Battery (Lee Battery VA)\",\"commander\":{\"name\":\"Captain Charles Raine\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle / 10-pdr Parrott\",\"strength\":80,\"casualties\":4,\"key_action\":\"Second Corps artillery July 1.\"}",
-   "expect": 1,
-   "note": "wrong-number: OR 27/2 p.338 and p.341 (return of casualties)"
-  },
-  {
-   "id": "DATA-oob-confederate-artillery-C-ART-Carrington",
-   "target": "data/oob/confederate_artillery.json",
-   "find": "{\"battery_id\":\"C-ART-Carrington\",\"designation\":\"Carrington's Battery (Charlottesville Artillery VA)\",\"commander\":{\"name\":\"Captain James Carrington\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":9,\"key_action\":\"Oak Hill July 1 -- flanking fire that helped destroy I Corps. Key battery in Rodes's attack.\"}",
-   "repl": "{\"battery_id\":\"C-ART-Carrington\",\"designation\":\"Carrington's Battery (Charlottesville Artillery VA)\",\"commander\":{\"name\":\"Captain James Carrington\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"Napoleon 12-pdr\",\"strength\":80,\"casualties\":0,\"key_action\":\"Oak Hill July 1 -- fired on the flank of the Union I Corps.\"}",
-   "expect": 1,
-   "note": "wrong-number+unsupported-claim: OR 27/2 p.338 and p.341 (return of casualties); no report read supports the removed phrase"
   },
   {
    "id": "DATA-oob-confederate-artillery-C-ART-Garber",
@@ -19515,14 +19643,6 @@
    "note": "unverified-record+unsupported-claim: OR 27/2 p.286, p.346; OR 27/2 p.446 (Ewell: Latimer withdrew all but one battery)"
   },
   {
-   "id": "DATA-oob-confederate-artillery-C-ART-Brown-C",
-   "target": "data/oob/confederate_artillery.json",
-   "find": "{\"battery_id\":\"C-ART-Brown-C\",\"designation\":\"Brown's Battery (4th Maryland Artillery CSA)\",\"commander\":{\"name\":\"Captain William Brown\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":7,\"key_action\":\"Benner's Hill -- Johnson's division artillery.\"}",
-   "repl": "{\"battery_id\":\"C-ART-Brown-C\",\"designation\":\"Brown's Battery (4th Maryland Artillery CSA)\",\"commander\":{\"name\":\"Captain William Brown\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle\",\"strength\":80,\"casualties\":7,\"key_action\":\"Benner's Hill -- Johnson's division artillery. This record duplicates Brown's (Chesapeake) battery shown as C-ART-Brown-J; the roster names one Brown's battery in the battalion (27/2 p.286).\"}",
-   "expect": 1,
-   "note": "unverified-record: OR 27/2 p.286"
-  },
-  {
    "id": "DATA-oob-union-oob-brigades-U-III-1-1",
    "target": "data/oob/union_oob_brigades.json",
    "find": "{\"brigade_id\":\"U-III-1-1\",\"designation\":\"First Brigade, First Division, Third Corps (Ward's Brigade)\",\"parent_division_id\":\"U-III-1\",\"parent_corps_id\":\"U-III\",\"commander\":{\"name\":\"Brigadier General J.H. Hobart Ward\",\"fate\":\"Survived\"},\"strength\":2188,\"casualties\":781,\"casualty_percentage\":35.7,\"days_engaged\":[2],\"state\":\"Indiana/Maine/New York/Pennsylvania\",\"regiment_ids\":[\"U-20IN\",\"U-3ME\",\"U-4ME\",\"U-86NY\",\"U-124NY\",\"U-99PA\",\"U-1US-SS\"],\"key_action\":\"Devil's Den and Triangular Field -- Ward's brigade held the rocky ground south of Little Round Top.\"}",
@@ -20369,14 +20489,6 @@
    "repl": "{\"division_id\":\"C-III-3\",\"designation\":\"Pender's Division, Third Corps\",\"parent_corps_id\":\"C-III\",\"commander\":{\"name\":\"Major General William Dorsey Pender\",\"fate\":\"Mortally wounded July 2 -- died July 18\",\"successor\":{\"name\":\"Major General Isaac Trimble\",\"assumed_command\":\"July 3 for the charge\"}},\"strength\":6700,\"casualties\":1690,\"days_engaged\":[1,3],\"brigade_ids\":[\"C-III-3-1\",\"C-III-3-2\",\"C-III-3-3\",\"C-III-3-4\"]}",
    "expect": 1,
    "note": "wrong-number: OR 27/2 pp.338-346 (return of casualties; transcription tools/t0/data/sources/or27_confed_losses.json)"
-  },
-  {
-   "id": "DATA-oob-confederate-artillery-C-ART-Hurt",
-   "target": "data/oob/confederate_artillery.json",
-   "find": "{\"battery_id\":\"C-ART-Hurt\",\"designation\":\"Hurt's Battery (Hardaway Artillery AL)\",\"commander\":{\"name\":\"Captain William Hurt\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle / Whitworth rifle\",\"strength\":80,\"casualties\":14,\"key_action\":\"Heth's division -- McPherson's Ridge July 1 and July 3 cannonade. Two Whitworth rifles with exceptional range used for long-range counterbattery fire.\",\"flag_notes\":\"Two Whitworth rifles -- exceptionally long range. Note as special long-range weapons in unit tooltip.\"}",
-   "repl": "{\"battery_id\":\"C-ART-Hurt\",\"designation\":\"Hurt's Battery (Hardaway Artillery AL)\",\"commander\":{\"name\":\"Captain William Hurt\",\"fate\":\"Survived\"},\"gun_count\":4,\"gun_type\":\"3-inch ordnance rifle / Whitworth rifle\",\"strength\":80,\"casualties\":14,\"key_action\":\"Heth's division -- McPherson's Ridge July 1 and July 3 cannonade.\",\"flag_notes\":\"Two Whitworth rifles -- exceptionally long range. Note as special long-range weapons in unit tooltip.\"}",
-   "expect": 1,
-   "note": "unsupported-claim: no report read supports the removed phrase"
   },
   {
    "id": "DATA-oob-confederate-artillery-C-ART-Marye",

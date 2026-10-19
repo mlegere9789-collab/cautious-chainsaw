@@ -11,7 +11,7 @@ export const RULES = [
   ["Alexander's two messages to Pickett are among the most famous command communications of the battle. The cannonade consumed most of the Confederate ammunition reserve.", "Alexander commanded the First Corps artillery in the July 3 cannonade.", 'unsupported-claim', U],
   ["Alexander directed the July 3 cannonade and wrote one of the finest Civil War memoirs. His two messages to Pickett are definitive primary sources.", "Alexander directed the First Corps artillery in the July 3 cannonade.", 'unsupported-claim', U],
   ["One of the most famous artillery units in the Confederate army. Positioned", "Positioned", 'unsupported-claim', U],
-  ["flanking fire that helped destroy I Corps. Key battery in Rodes's attack.", "fired on the flank of the Union I Corps.", 'unsupported-claim', U],
+  // Carrington's key_action is replaced as a whole in fixes/oobartorg2.mjs (battalion and July 1 position)
   ["Latimer was only 19 years old. He positioned his battalion on Benner's Hill to bombard Cemetery Hill and Culp's Hill. The Union artillery response was overwhelming. Latimer was mortally wounded.", "Latimer, aged 19, placed his battalion on Benner's Hill to fire on Cemetery Hill and Culp's Hill; Ewell reports that he withdrew all but one battery, and Latimer was mortally wounded.", 'unsupported-claim', `${OR2} p.446, p.351`],
   ["exposed position systematically destroyed by Union counterbattery fire.", "under Union counter-battery fire.", 'unsupported-claim', `${OR2} p.446 (Ewell: Latimer withdrew all but one battery)`],
   ["Benner's Hill -- driven back by Union artillery.", "Benner's Hill, July 2.", 'unsupported-claim', U],

@@ -21,6 +21,7 @@
 //   T0-DATA-13 F  notes on the rows of Pettigrew, Brockenbrough and the 157th New York name the right brigade
 //   T0-DATA-14 F  the app (real Chrome): the data the browser loads gives the Iron Brigade on Culp's Hill at tick 300, Buford's brigades on the Taneytown Road, no First Corps unit on the field at tick 12
 //   T0-DATA-15 F  positions: the north sector of July 1 (Oak Hill, Oak Ridge, Barlow's Knoll) and East Cavalry Field lie where the NPS monuments are (terrain points and unit rows)
+//   T0-DATA-16 F  the Confederate artillery file follows the roster (battalion designations, commanders, Johnson's batteries not at Oak Hill on July 1, Captain Brown's fate)
 //   T0-DATA-09 G  the Virtual Walkthrough monument array, its Monuments tab data and the DATA group touch nothing there: 512 monuments, byte-identical to the control tree
 //   T0-DATA-X  G  every browser test of this run: 0 uncaught exceptions and 0 first-party console.error
 process.env.T0_AGENT ??= 'data';
@@ -437,6 +438,18 @@ suite.test('T0-DATA-15', 'positions: the north sector of July 1 and East Cavalry
 });
 
 // ================================================================== guards
+suite.test('T0-DATA-16', 'the Confederate artillery file follows the Official Records roster: Garnett, McIntosh, Pegram, Latimer, Carter battalions; no Andrews as commander; batteries of Johnson’s division not on Oak Hill July 1', async (t) => {
+  const art = rdJson(DIST, 'data/oob/confederate_artillery.json'); const bad = [];
+  const bns = []; for (const k of ['first_corps_artillery', 'second_corps_artillery', 'third_corps_artillery']) for (const b of art[k].battalions) bns.push(b);
+  const des = bns.map((b) => b.designation).join(' | ');
+  for (const [re, what] of [[/Garnett's Battalion \(Heth's Division/, "Garnett's battalion as Heth's artillery"], [/McIntosh's Battalion \(Artillery Reserve/, "McIntosh's battalion in the Artillery Reserve"], [/Pegram's Battalion \(Artillery Reserve/, "Pegram's battalion in the Artillery Reserve"], [/Latimer's Battalion/, "Latimer's battalion"], [/Carter's Battalion \(Rodes/, "Carter's battalion as Rodes's artillery"]]) if (!re.test(des)) bad.push(`missing: ${what}`);
+  if (/Snowden Andrews/.test(JSON.stringify(bns.map((b) => b.commander)))) bad.push('Lieutenant Colonel Andrews still shown as a battalion commander');
+  const bat = {}; for (const b of bns) for (const y of b.batteries) bat[y.battery_id] = y;
+  for (const id of ['C-ART-Dement', 'C-ART-Carpenter', 'C-ART-Raine', 'C-ART-Carrington']) if (/Oak Hill July 1 (bombardment|--)/.test(bat[id]?.key_action || 'x')) bad.push(`${id} still on Oak Hill July 1`);
+  if (/Survived/.test(JSON.stringify(bat['C-ART-Brown-J']?.commander))) bad.push('Captain Brown (Chesapeake Artillery) still shown as surviving');
+  assertEq(bad, [], 'artillery organisation');
+});
+
 suite.test('T0-DATA-09', 'the Virtual Walkthrough code and its 512-monument array are byte-identical to the control tree', async (t) => {
   if (!fs.existsSync(path.join(CONTROL, 'version.json'))) throw new Skip(`control tree not found: ${CONTROL}`);
   const entry = (root) => fs.readFileSync(path.join(root, 'assets', rdJson(root, 'version.json').entry), 'utf8');
