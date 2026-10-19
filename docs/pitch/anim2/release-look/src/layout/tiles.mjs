@@ -119,11 +119,13 @@ export function makeAggregate(all, tiles, spec, createdFrame = 0) {
   const n = ids.length;
   const leadTile = leaves.reduce((m, t) => (t.prio > m.prio ? t : m), leaves[0]);
   const nm = aggregateName(all, lca, side, sides, leadTile, n, leaves);
+  const key = 'agg:' + lca + ':' + ids[0]; const baseShort = nm.short; const baseName = nm.name || null; const sfx = spec.crowdSuffix ? spec.crowdSuffix.get(key) : null;      // FORK (director fix 9): a crowd whose words another crowd shares says which part of the line it is (layout/crowdnames.mjs)
+  if (sfx) { nm.short = nm.short + ', ' + sfx; if (nm.name) nm.name = nm.name + ', ' + sfx; }
   const cs = spec.sizer ? spec.sizer.agg(spec, { short: nm.short, name: nm.name, tail: nm.tail, badge: nm.badge, kind: nm.kind, side, n, zoom: spec.zoom }) : chipSize(spec, nm.short, nm.badge);
   const ax = px + (cs.dx || 0); const ay = py + (cs.dy || 0);
   const node = all.nodes.get(lca);
   return {
-    key: 'agg:' + lca + ':' + ids[0], kind: 'agg', ids, px, py, ax, ay, dx: cs.dx || 0, dy: cs.dy || 0, sgn: cs.sgn || 0, chipW: cs.w, chipH: cs.h, labelW: 0, labelH: 0, labelText: null, short: nm.short, fname: nm.name || null, ftail: nm.tail || null, badge: nm.badge, nameKind: nm.kind, side,
+    key, baseShort, baseName, kind: 'agg', ids, px, py, ax, ay, dx: cs.dx || 0, dy: cs.dy || 0, sgn: cs.sgn || 0, chipW: cs.w, chipH: cs.h, labelW: 0, labelH: 0, labelText: null, short: nm.short, fname: nm.name || null, ftail: nm.tail || null, badge: nm.badge, nameKind: nm.kind, side,
     nSides: sides, arm: arms.size === 1 ? [...arms][0] : 'mixed', strength: sStr, ratio: sr / sw, lca, n, echelon: 0, prio: prio + 5e5, depth: node ? node.depth : 0, chain: chains[0], createdFrame, members: tiles,
   };
 }

@@ -148,7 +148,7 @@
   },
   {
    "name": "pole.unitFull",
-   "value": 25,
+   "value": 27,
    "doc": "Height of the pole of a regiment or battery from the full zoom (default 15)",
    "min": 10,
    "max": 34,
@@ -227,10 +227,10 @@
   },
   {
    "name": "flag.unitFullH",
-   "value": 15,
-   "doc": "Height of a regiment flag from the full zoom: tall enough for the 12 px code on its cloth",
+   "value": 18,
+   "doc": "Height of a regiment flag from the full zoom: the 12 px code stands on it with 3 px of plain cloth above and below (director fix 7: a clean ring round every numeral)",
    "min": 6,
-   "max": 16,
+   "max": 22,
    "unit": "px"
   },
   {
@@ -243,10 +243,10 @@
   },
   {
    "name": "flag.brigadeH",
-   "value": 20,
+   "value": 24,
    "doc": "Height of a brigade flag",
    "min": 7,
-   "max": 22,
+   "max": 28,
    "unit": "px"
   },
   {
@@ -259,10 +259,10 @@
   },
   {
    "name": "flag.divisionH",
-   "value": 26,
+   "value": 30,
    "doc": "Height of a division flag",
    "min": 8,
-   "max": 26,
+   "max": 34,
    "unit": "px"
   },
   {
@@ -275,10 +275,26 @@
   },
   {
    "name": "flag.corpsH",
-   "value": 32,
+   "value": 36,
    "doc": "Height of a corps flag",
    "min": 10,
-   "max": 32,
+   "max": 40,
+   "unit": "px"
+  },
+  {
+   "name": "rank.pip",
+   "value": 2.2,
+   "doc": "Radius of a rank pip on a formation flag: one pip for a brigade, two for a division, three for a corps (derived from the order of battle, no insignia)",
+   "min": 1,
+   "max": 3.5,
+   "unit": "px"
+  },
+  {
+   "name": "rank.pipGap",
+   "value": 8,
+   "doc": "Distance between the centres of two rank pips",
+   "min": 4,
+   "max": 12,
    "unit": "px"
   },
   {
@@ -321,7 +337,7 @@
   },
   {
    "name": "flag.edgeHollow",
-   "value": 2,
+   "value": 1.6,
    "doc": "Width of the light-side edge of a carried-forward flag",
    "min": 1,
    "max": 3,
@@ -337,8 +353,8 @@
   },
   {
    "name": "flag.padX",
-   "value": 3.5,
-   "doc": "Space round the count inside a flag that has to widen for two digits",
+   "value": 5.5,
+   "doc": "Space between the code or count and the flag edge, at each end: with the edge itself it leaves 3 px of plain cloth (director fix 7)",
    "min": 1,
    "max": 6,
    "unit": "px"
@@ -430,16 +446,16 @@
   },
   {
    "name": "detail.selectGrowZoom",
-   "value": 15,
-   "doc": "From this zoom a selected mark grows its name and the layout makes room for it; below it the selection is a ring and nothing moves",
+   "value": 14,
+   "doc": "From this zoom a selected mark grows its flag and name (a unit inside a crowd steps out of it and stands on its own place); below it the selection is a ring and nothing moves (director fix 6)",
    "min": 10,
    "max": 18,
    "unit": "zoom"
   },
   {
    "name": "detail.selectNameMinViewport",
-   "value": 560,
-   "doc": "A selected mark grows its full name only when the window is at least this wide (px); on a phone the sheet carries the name",
+   "value": 320,
+   "doc": "A selected mark grows its full name only when the window is at least this wide (px); the default admits every phone: the sheet carries the card, the map still shows which mark it is about (director fix 6)",
    "min": 320,
    "max": 2000,
    "unit": "px"
@@ -560,6 +576,14 @@
    "doc": "Opacity of the hairlines from a crowd to its units",
    "min": 0,
    "max": 1
+  },
+  {
+   "name": "hull.maxLen",
+   "value": 130,
+   "doc": "Longest hairline from a crowd to a member it stands for (px); a member further off shows its dot alone, so a crowd of scattered units does not throw a spider of lines across the map",
+   "min": 40,
+   "max": 600,
+   "unit": "px"
   },
   {
    "name": "pin.r",

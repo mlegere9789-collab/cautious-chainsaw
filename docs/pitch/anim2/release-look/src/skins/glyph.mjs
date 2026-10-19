@@ -56,6 +56,7 @@ const sideCol = (P, side) => (side === 'union' ? P['color.union'] : side === 'co
 const sideTint = (P, side) => (side === 'union' ? P['color.unionTint'] : side === 'confederate' ? P['color.confederateTint'] : '#eceff1');
 const tintHex = (P, side) => (side === 'union' ? P['color.tintUnion'] : side === 'confederate' ? P['color.tintConfederate'] : side === 'unknown' ? P['color.tintUnknown'] : P['color.tintMixed']);
 const easeOut = (x) => 1 - (1 - clamp01(x)) ** 3;
+const relLum = (hex) => { const n = parseInt(String(hex).slice(1, 7), 16); const f = (v) => { v /= 255; return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }; return 0.2126 * f((n >> 16) & 255) + 0.7152 * f((n >> 8) & 255) + 0.0722 * f(n & 255); };
 
 /** the outline of a body of width s centred on (cx, cy): union and mixed a disc, confederate a rounded square, unknown an octagon */
 function bodyPath(c, P, side, cx, cy, s) {
@@ -77,7 +78,9 @@ function drawGlyph(c, P, cx, cy, o) {
     if (hollow < 0.99) { c.globalAlpha = base * (1 - hollow); bodyPath(c, P, side === 'mixed' ? 'union' : side, x, y, s); c.fillStyle = col; c.fill(); if (side === 'unknown') hatchIn(c, x, y, s / 2, P['color.paper'], 0.7); c.globalAlpha = base; }
     if (side === 'mixed' && hollow < 0.99) { c.save(); bodyPath(c, P, 'union', x, y, s); c.clip(); c.globalAlpha = base * (1 - hollow); c.beginPath(); c.moveTo(x + s * 0.12, y - s); c.lineTo(x + s, y - s); c.lineTo(x + s, y + s); c.lineTo(x - s * 0.22, y + s); c.closePath(); c.fillStyle = P['color.confederate']; c.fill(); c.restore(); c.globalAlpha = base; }
     if (hollow > 0.01) { c.globalAlpha = base * hollow; bodyPath(c, P, side === 'mixed' ? 'union' : side, x, y, s); c.fillStyle = sideTint(P, side === 'mixed' ? 'union' : side); c.fill(); c.globalAlpha = base; }
+    if (side === 'mixed' && hollow > 0.01) { c.save(); bodyPath(c, P, 'union', x, y, s); c.clip(); c.globalAlpha = base * hollow; c.beginPath(); c.moveTo(x + s * 0.12, y - s); c.lineTo(x + s, y - s); c.lineTo(x + s, y + s); c.lineTo(x - s * 0.22, y + s); c.closePath(); c.fillStyle = sideTint(P, 'confederate'); c.fill(); c.restore(); c.globalAlpha = base; }      // director fix 10: a carried-forward crowd of both armies keeps both sides: the glass is blue on the left, red on the right
     bodyPath(c, P, side === 'mixed' ? 'union' : side, x, y, s); c.lineWidth = ol + (P['carried.ring'] - ol) * hollow; c.strokeStyle = mixHex(P['color.outline'], col, hollow); c.stroke();
+    if (side === 'mixed' && hollow > 0.01) { c.save(); c.beginPath(); c.moveTo(x + s * 0.12, y - s * 1.6); c.lineTo(x + s * 1.6, y - s * 1.6); c.lineTo(x + s * 1.6, y + s * 1.6); c.lineTo(x - s * 0.22, y + s * 1.6); c.closePath(); c.clip(); bodyPath(c, P, 'union', x, y, s); c.lineWidth = ol + (P['carried.ring'] - ol) * hollow; c.strokeStyle = mixHex(P['color.outline'], sideCol(P, 'confederate'), hollow); c.stroke(); c.restore(); }      // and its rim is red on the right
     if (i === 0 && !o.noArm && !stackN) {                                                // the arm mark inside the glyph: white on a solid body, the side colour on glass
       const ink = mixHex(P['color.inner'], col, hollow); const q = s * 0.3; c.lineCap = 'round';
       if (arm === 'cavalry') { c.beginPath(); c.moveTo(x - q, y + q); c.lineTo(x + q, y - q); c.lineWidth = P['arm.stroke']; c.strokeStyle = ink; c.stroke(); }
@@ -109,7 +112,7 @@ function tile(c, t, g) {
   drawGlyph(c, P, gx, gy, { side, arm: pl.flag ? 'infantry' : arm, S: Sn, rings: dm.rings, old, scale: 0.8 + 0.2 * enter, stackN: dm.stack, sgn, noArm: pl.flag });
   c.globalAlpha = base;
   if (pl.flag && info.count != null) {                                                    // the numeral in the middle of the front glyph: white on the body, ink on the glass
-    const hol = ss(0.42, 0.58, old * P['carried.hollow']); const by = g.cr(gy + P['code.baseline'] - 0.2, 0); const b = c.globalAlpha;
+    const bodyHex = mixHex(sideCol(P, side === 'mixed' ? 'union' : side), sideTint(P, side === 'mixed' ? 'union' : side), old * P['carried.hollow']); const hol = ss(0.17, 0.23, relLum(bodyHex)); const by = g.cr(gy + P['code.baseline'] - 0.2, 0); const b = c.globalAlpha;      // director fix 7: white or ink is chosen by the lightness of the body itself (a body half-way to glass is too light for white and too dark for the glass ink only by age: the old age-band left 4.3:1)
     if (hol < 0.99) { const sp = lettering(g, FONTS.code, info.count, P['color.inner'], P['color.numeralHalo'], 0); c.globalAlpha = b * ss(0.4, 1, g.enter) * (1 - hol); c.drawImage(sp.img, gx - sp.tw / 2 - sp.x, by - sp.y, sp.w, sp.h); }
     if (hol > 0.01) { const sp = lettering(g, FONTS.code, info.count, P['color.ink'], P['color.halo'], 0); c.globalAlpha = b * ss(0.4, 1, g.enter) * hol; c.drawImage(sp.img, gx - sp.tw / 2 - sp.x, by - sp.y, sp.w, sp.h); }
     c.globalAlpha = b;
@@ -143,7 +146,8 @@ function leader(c, t, g, a, b) {
 function hull(c, t, g, pts) {
   const P = g.P; if (g.zoom < P['detail.hullZoom'] || !pts.length || !isOn(t)) return;
   const view = g.env.view || { dx: 0, dy: 0 }; const e0 = standing(t, g, [t.x + view.dx, t.y + view.dy]); const base = c.globalAlpha; const side = sideOf(g.vm.side); c.lineCap = 'round'; c.beginPath();
-  for (const p of pts) { c.moveTo(e0[0], e0[1]); c.lineTo(p[0], p[1]); }
+  const LMAX = P['hull.maxLen'];      // director fix 11: a hairline never runs further than this; a member that stands further off is shown by its dot alone (no spider of long lines across the map)
+  for (const p of pts) { const dx = p[0] - e0[0]; const dy = p[1] - e0[1]; const d = Math.hypot(dx, dy); const k = d > LMAX ? LMAX / d : 1; c.moveTo(e0[0], e0[1]); c.lineTo(e0[0] + dx * k, e0[1] + dy * k); }
   c.globalAlpha = base * P['hull.leader']; c.strokeStyle = rgba(P['color.paper'], 0.8); c.lineWidth = 2.4; c.stroke(); c.strokeStyle = tintHex(P, side); c.lineWidth = 0.9; c.stroke();
   c.globalAlpha = base * 0.95; const r = P['hull.dot'];
   for (const p of pts) { c.beginPath(); c.arc(p[0], p[1], r + 1.2, 0, TAU); c.fillStyle = rgba(P['color.paper'], 0.95); c.fill(); c.beginPath(); c.arc(p[0], p[1], r, 0, TAU); c.fillStyle = P['color.outline']; c.fill(); }
@@ -179,24 +183,29 @@ function figure(c, g, W) {
   drawGlyph(c, P, M + gx + 84, cy, { side: 'union', arm: 'cavalry', S }); word('1 NJ', M + gx + 84 + tg, cy + bl, lab, ink);
   drawGlyph(c, P, M + gx + 150, cy, { side: 'union', arm: 'artillery', S }); word('B/1 RI', M + gx + 150 + tg, cy + bl, lab, ink);
   drawGlyph(c, P, W - M - gx, cy, { side: 'confederate', arm: 'infantry', S }); word('53 VA', W - M - gx - tg, cy + bl, lab, ink, 'right');
-  y += 28; caption('A disc is Union, a rounded square Confederate. Inside: nothing for infantry, a slash for cavalry, a dot for artillery. Each reads away from its own side: Union to the right, Confederate to the left.'); rule();
+  y += 34; cy = y + 8; drawGlyph(c, P, M + gx, cy, { side: 'unknown', arm: 'infantry', S }); word('side contested', M + gx + tg, cy + bl, lab, P['color.tintUnknown'] === '#eceee9' ? ink : ink);
+  y += 26; caption('A disc is Union, a rounded square Confederate, a hatched grey octagon a unit whose side the records disagree on (Contested): it is never drawn in either army’s colour. Inside: nothing for infantry, a slash for cavalry, a dot for artillery. Each reads away from its own side: Union to the right, Confederate to the left.'); rule();
   head('Rank'); cy = y + 26;
   for (const [x0, k, text] of [[0, 1, 'Bde'], [74, 2, 'Div'], [160, 3, 'Corps']]) { const x = M + 20 + x0; const s = P[SIZE[k]]; drawGlyph(c, P, x, cy, { side: 'union', arm: 'infantry', S: s, rings: k, noArm: true }); word(text, x + s / 2 + k * P['ring.step'] + 5, cy + bl, labB, P['color.tintUnion']); }
   y += 56; caption('A larger glyph with more rings is a higher rank: one ring a brigade, two a division, three a corps. Rank is size, never a box.'); rule();
   head('A crowd'); cy = y + 22;
   drawGlyph(c, P, M + 22, cy, { side: 'union', arm: 'infantry', S: 19, stackN: 2, sgn: 1, noArm: true }); word('5', M + 22, cy + bl - 0.2, lab, P['color.inner'], 'center'); word("Garnett's Bde", M + 22 + 19 / 2 + 6, cy + bl, labB, P['color.tintUnion']);
   drawGlyph(c, P, W - M - 22, cy, { side: 'confederate', arm: 'infantry', S: 19, stackN: 2, sgn: -1, noArm: true }); word('9', W - M - 22, cy + bl - 0.2, lab, P['color.inner'], 'center'); word("Pender's Div", W - M - 22 - 19 / 2 - 6, cy + bl, labB, P['color.tintConfederate'], 'right');
-  y += 44; caption('Units too close to stand apart merge into one stacked glyph. Its number counts placement records, never men; its words say what they share. Point at it to see where each one stands.'); rule();
+  y += 44; cy = y + 22;
+  drawGlyph(c, P, M + 22, cy, { side: 'union', arm: 'infantry', S: 19, stackN: 2, sgn: 1, noArm: true }); word('2', M + 22, cy + bl - 0.2, lab, P['color.inner'], 'center'); word("Ward's Bde, north", M + 22 + 19 / 2 + 6, cy + bl, labB, P['color.tintUnion']);
+  drawGlyph(c, P, W - M - 22, cy, { side: 'mixed', arm: 'infantry', S: 19, stackN: 2, sgn: 1, noArm: true }); word('4', W - M - 22, cy + bl - 0.2, lab, P['color.inner'], 'center'); word('both armies', W - M - 22 - 19 / 2 - 6, cy + bl, labB, P['color.tintMixed'], 'right');
+  y += 44; caption('Units too close to stand apart merge into one stacked glyph. Its number counts placement records, never men; its words say what they share, with north, south, east or west (or the army) added when two crowds share the same words. A glyph split blue and red holds units of both armies. Point at it to see where each one stands.'); rule();
   head('Age, strength and the ground'); cy = y + 14;
   drawGlyph(c, P, M + gx, cy, { side: 'union', arm: 'infantry', S }); word('fresh', M + gx + tg, cy + bl, lab, ink);
   drawGlyph(c, P, M + gx + 66, cy, { side: 'union', arm: 'infantry', S, old: 1 }); word('carried forward', M + gx + 66 + tg, cy + bl, lab, ink);
   gaugeArc(c, P, M + gx + 200, cy, S / 2 + P['gauge.gap'] + P['gauge.width'] / 2 - 0.4, 0.6, P['color.outline'], 1); drawGlyph(c, P, M + gx + 200, cy, { side: 'union', arm: 'infantry', S }); word('strength', M + gx + 200 + S / 2 + 8, cy + bl, lab, ink);
-  y += 32; caption('A hollow glyph means the latest keyframe is a battle day old or more. The arc round a glyph is the placement strength over the unit’s reference: a modelled value, not a casualty record.'); rule();
+  y += 32; cy = y + 14; drawGlyph(c, P, M + gx, cy, { side: 'union', arm: 'infantry', S }); selRing(c, P, 'union', M + gx, cy, S / 2 + P['sel.gap'] + 2, 1, P['sel.width']); word('selected', M + gx + tg + 4, cy + bl, lab, ink);
+  y += 32; caption('A hollow glyph means the latest keyframe is a battle day old or more. The arc round a glyph is the placement strength over the unit’s reference: a modelled value, not a casualty record. A ring round a glyph is the selected mark.'); rule();
   head('The battle remembers'); c.save(); c.lineCap = 'round'; const my = y + 10; for (let i = 0; i < 9; i++) { const x = M + 8 + i * 10 + (i % 3) * 2; const yy = my + ((i * 7) % 5) - 2; const col = i < 5 ? P['memory.union'] : P['memory.confederate']; c.beginPath(); c.moveTo(x - 2, yy - 2); c.lineTo(x + 2, yy + 2); c.moveTo(x - 2, yy + 2); c.lineTo(x + 2, yy - 2); c.strokeStyle = rgba(P['memory.edge'], P['memory.edgeAlpha']); c.lineWidth = P['memory.width'] + 1.6; c.stroke(); c.strokeStyle = col; c.lineWidth = P['memory.width']; c.stroke(); } c.restore();
   y += 22; caption('Each cross on the ground stands for about ten men killed, wounded or missing. How many a unit lost is Documented (a secondary source); when and where they fell is Modelled.'); y += 8;
   return y;
 }
-const FIG_H = 720;
+const FIG_H = 900;
 
 const DEF = {
   id: 'glyph', label: 'Glyph', version: '1.0', tokens: GLY_TOKENS, fonts: FONTS, footprint: FOOT, sizer: makeSizer,

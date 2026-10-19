@@ -24,8 +24,9 @@ export const SHOTS = [
   { name: '14-menu-showcase', tick: 551, at: ANGLE, zoom: 15, safe: true, popups: false, js: `S.ui.toggleMenu(); adv(30);` },
   { name: '15-fast-playback-chips', tick: 540, at: ANGLE, zoom: 14, safe: true, popups: true, js: `E.transport.setSpeed(4); E.transport.play(); adv(240, 16.667); E.transport.pause(); adv(30, 16.667);` },
   { name: '16-phone-lane-t28', vp: [390, 844], mobile: true, tick: 28, at: HERBST, zoom: 14, safe: true, popups: true },
-  { name: '17-phone-sheet-event-t28', vp: [390, 844], mobile: true, tick: 28, at: HERBST, zoom: 14, safe: true, popups: true, js: `const ec = [...S.host.state.cards.values()].find((c) => String(c.id).startsWith('event-card:')); S.host.openRail(ec ? ec.id : 'event-card:event-28'); adv(90);` },
-  { name: '18-phone-sheet-story-t28', vp: [390, 844], mobile: true, tick: 28, at: HERBST, zoom: 14, safe: true, popups: true, js: `S.host.openRail('story-card:story-V-002'); S.host.setSheet('full'); adv(90);` },
+  // director fix 5 and 6: the phone's event card and story sheet OPEN, with a unit selected whose own flag and name stand on the map above the sheet
+  { name: '17-phone-sheet-event-t60', vp: [390, 844], mobile: true, tick: 60, at: [39.8344, -77.2311], zoom: 14.5, safe: true, popups: true, js: `E.select('U-XI-2-1'); S.host.setSelected('U-XI-2-1'); adv(60); S.host.openRail('event-card:event-60'); S.host.setSheet('half'); adv(150);` },
+  { name: '18-phone-sheet-story-t28', vp: [390, 844], mobile: true, tick: 28, at: HERBST, zoom: 14.5, safe: true, popups: true, js: `E.select('U-I-1-1'); S.host.setSelected('U-I-1-1'); adv(60); S.host.openRail('story-card:story-V-002'); S.host.setSheet('half'); adv(150);` },
   { name: '21-phone-legend-t28', vp: [390, 844], mobile: true, tick: 28, at: HERBST, zoom: 14, safe: true, popups: true, js: `S.host.toggleDoc('legend:doc'); S.host.setSheet('half'); adv(90);` },
   { name: '22-phone-menu-t28', vp: [390, 844], mobile: true, tick: 28, at: HERBST, zoom: 14, safe: true, popups: true, js: `S.ui.toggleMenu(); adv(30);` },
 ];

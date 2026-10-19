@@ -148,7 +148,7 @@ function makeSigner(leaves, cfg, spec) {
 
 const hashJitter = (str, mod) => { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return (h >>> 0) % mod; };
 
-export function newState() { return { time: 0, solves: 0, age: new Map(), off: new Map(), tgt: new Map(), splits: new Map(), aggs: new Map(), label: new Map(), assign: new Map() }; }
+export function newState() { return { suffix: new Map(), time: 0, solves: 0, age: new Map(), off: new Map(), tgt: new Map(), splits: new Map(), aggs: new Map(), label: new Map(), assign: new Map() }; }
 
 /** connected components of tiles under the interaction radius: tiles in different components cannot influence each other's chip placement */
 function components(tiles, dMax, gap) {
@@ -223,7 +223,7 @@ function placePass(cur, cfg, state, tentative, dt, stats) {
 /** Aggregation round: every failed tile is merged with its best partner.  A failed member of a tentatively split aggregate goes back into that aggregate.
  *  Strictly reduces the number of tiles when `failed` is non-empty. */
 function mergeFailures(all, cur, failed, cfg, tentative, frame) {
-  const spec = cfg.spec; const consumed = new Set(); const merged = [];
+  const spec = cfg.spec; const consumed = new Set(cfg.protect ? [cfg.protect] : []); const merged = [];      // director fix 6: the selected unit that has stepped out of its crowd is neither merged nor taken as a partner
   for (const F of [...failed].sort((a, b) => b.prio - a.prio)) {
     if (consumed.has(F.key)) continue;
     const tent = F.kind === 'leaf' ? tentative.get(F.ids[0]) : null;
@@ -233,10 +233,18 @@ function mergeFailures(all, cur, failed, cfg, tentative, frame) {
     }
     let bp = bestPartner(all, F, cur, 2 * cfg.dMax, consumed);
     if (!bp) bp = bestPartner(all, F, cur, 1e9, consumed);          // safety net: no partner in reach -> the nearest tile of the group (progress is guaranteed while the group has >= 2 tiles)
+    if (!bp && cfg.protect) { const free = new Set([...consumed].filter((k) => k !== cfg.protect)); bp = bestPartner(all, F, cur, 1e9, free); }      // the only partner left is the protected unit: better a crowd that holds it than no layout
     const partner = bp ? bp.b : null;
     if (!partner) continue;
     consumed.add(F.key); consumed.add(partner.key);
     merged.push(makeAggregate(all, [F, partner], spec, frame));
+  }
+  if (merged.length === 0 && cfg.protect) {
+    // only the protected tile (the selected unit) failed: it keeps its own mark and its NEAREST neighbour gives way, by merging with the neighbour's own best partner (never with the protected tile), which frees the room; only when
+    // nothing else can merge does the selected unit join a crowd after all, rather than leave the group with no progress (an exception)
+    const P = cur.find((t) => t.key === cfg.protect); const near = P ? bestPartner(all, P, cur, 1e9, new Set([cfg.protect])) : null; const other = near ? bestPartner(all, near.b, cur, 1e9, new Set([cfg.protect, near.b.key])) : null;
+    if (other) { const m = makeAggregate(all, [near.b, other.b], spec, frame); const gone = new Set([near.b.key, other.b.key]); return [...cur.filter((t) => !gone.has(t.key)), m]; }
+    return mergeFailures(all, cur, failed, { ...cfg, protect: null }, tentative, frame);
   }
   if (merged.length === 0) return null;
   const gone = new Set(); for (const m of merged) for (const t of m.members) gone.add(t.key);

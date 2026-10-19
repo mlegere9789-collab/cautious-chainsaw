@@ -90,7 +90,7 @@ function hatch(c, cx, cy, r, P, a) {
 
 /** one planted standard, drawn in the mirrored frame: the foot at (0, 0), the pole rising to y = -H, the cloth flying to +x.  old 0 fresh .. 1 carried forward; furl 0..1 the cloth unfurls on arrival */
 function drawStandard(c, P, o) {
-  const { side, H, fw, fh, end, old, furl, k } = o; const base = c.globalAlpha; const hollow = old * P['carried.hollow']; const cloth = side === 'mixed' ? P['color.union'] : sideCloth(P, side); const bright = side === 'mixed' ? P['color.unionBright'] : sideBright(P, side);
+  const { side, H, fw, fh, end, old, furl, k } = o; const pips = o.pips || 0; const base = c.globalAlpha; const hollow = old * P['carried.hollow']; const cloth = side === 'mixed' ? P['color.union'] : sideCloth(P, side); const bright = side === 'mixed' ? P['color.unionBright'] : sideBright(P, side);
   const pw = P['pole.width'] * (k >= 2 ? 1.12 : 1); const shade = P['shadow.alpha'];
   // the ground shadow: lit from the north-west (like the relief), so it falls to the south-east
   c.save(); c.translate(1.2, 0.7); c.scale(1, 0.36); c.beginPath(); c.arc(0, 0, P['shadow.rx'] * (0.62 + 0.38 * Math.min(1.2, H / 26)), 0, TAU); c.fillStyle = rgba('#000000', shade); c.fill(); c.restore();
@@ -111,6 +111,15 @@ function drawStandard(c, P, o) {
   if (side === 'unknown') hatch(c, x0 + w / 2, y0 + fh / 2, w / 2 + 2, P, 1);
   if (P['flag.shade'] > 0 && w > 8) { const gr = c.createLinearGradient(x0, 0, x0 + w, 0); gr.addColorStop(0, `rgba(255,255,255,${P['flag.shade'] * 0.5})`); gr.addColorStop(0.55, 'rgba(255,255,255,0)'); gr.addColorStop(1, `rgba(0,0,0,${P['flag.shade']})`); c.fillStyle = gr; c.fillRect(bx, y0 - 2, bw, fh + 4); }
   c.restore(); c.globalAlpha = base;
+  // the rank pips: one, two, three cloth-coloured studs in a row, centred on the cloth of a brigade, division or corps flag (a derived rank mark, never insignia); ink on a hollow flag, as the lettering is
+  if (pips > 0 && w > 10) {
+    const pr = P['rank.pip']; const gap = P['rank.pipGap']; const cx0 = x0 + w / 2; const cy0 = y0 + fh / 2; const ink = mixHex(P['color.numeral'], P['color.ink'], 0); const holl = ss(0.42, 0.58, hollow);
+    for (let i = 0; i < pips; i++) {
+      const px = cx0 + (i - (pips - 1) / 2) * gap;
+      c.beginPath(); c.arc(px, cy0, pr + 1, 0, TAU); c.fillStyle = rgba(P['color.poleEdge'], 0.62 * (1 - holl)); c.fill();
+      c.beginPath(); c.arc(px, cy0, pr, 0, TAU); c.fillStyle = holl > 0.5 ? P['color.ink'] : ink; c.fill();
+    }
+  }
   // the finial and the foot
   c.beginPath(); c.arc(0, -H, pw * 0.85, 0, TAU); c.fillStyle = mixHex(P['color.pole'], bright, hollow * 0.55); c.fill();
   const fr = P['foot.r']; c.beginPath(); c.arc(0, 0, fr + 1, 0, TAU); c.fillStyle = rgba(P['color.poleEdge'], 0.75); c.fill(); c.beginPath(); c.arc(0, 0, fr, 0, TAU); c.fillStyle = mixHex(P['color.pole'], bright, hollow * 0.7); c.fill();
@@ -131,7 +140,7 @@ function tile(c, t, g) {
   const fhNow = g.ease('fh', pl.fh, 140); const Hnow = g.ease('H', pl.H, 140);                    // the pole and the flag grow into the full size over 140 ms (a zoom through 15 never pops)
   const arm = vm.arm === 'cavalry' || vm.arm === 'artillery' ? vm.arm : 'infantry';
   c.save(); c.translate(fx, fy); c.scale(sgn, 1);
-  const stdInfo = { side, H: Hnow, fw: pl.fw, fh: fhNow, end: pl.flag ? 'rect' : (arm === 'cavalry' ? 'swallow' : arm === 'artillery' ? 'point' : 'rect'), old, furl: Math.max(0.3, enter), k: pl.k };
+  const stdInfo = { side, H: Hnow, fw: pl.fw, fh: fhNow, end: pl.flag ? 'rect' : (arm === 'cavalry' ? 'swallow' : arm === 'artillery' ? 'point' : 'rect'), old, furl: Math.max(0.3, enter), k: pl.k, pips: pl.flag && info.count == null ? pl.k : 0 };
   c.globalAlpha = base * (0.6 + 0.4 * enter); drawStandard(c, P, stdInfo); c.globalAlpha = base;
   c.restore();
   const fy0 = fy - Hnow; const fcy = fy0 + fhNow / 2;                                            // the middle of the cloth, in box coordinates
@@ -168,7 +177,8 @@ function tile(c, t, g) {
 function standing(t, g, b) { const pl = plan(g.env.spec, g.P, infoOfTile(t), g.zoom, !!t.selected && t.grown !== false); return [b[0] - pl.dx, b[1] - pl.dy]; }
 const isOn = (t) => !!t.selected || skinKit.hover() === t.key;
 function pin(c, t, g) {
-  if (!isOn(t)) return; const P = g.P; const r = P['pin.r']; const base = c.globalAlpha; const side = sideOf(g.vm.side === 'mixed' ? 'union' : g.vm.side);
+  if (!isOn(t)) return; const P = g.P; const r = P['pin.r']; const base = c.globalAlpha; { const pl = plan(g.env.spec, P, infoOfTile(t), g.zoom, !!t.selected && t.grown !== false); c.translate(-pl.dx, -pl.dy); }      // the renderer puts the origin on the true place of the box CENTRE; the unit stands at the true place of the FOOT
+  const side = sideOf(g.vm.side === 'mixed' ? 'union' : g.vm.side);
   c.beginPath(); c.arc(0, 0, r + 1.2, 0, TAU); c.fillStyle = rgba(P['color.poleEdge'], 0.75); c.fill(); c.beginPath(); c.arc(0, 0, r, 0, TAU); c.fillStyle = P['color.pole']; c.fill();
   c.beginPath(); c.arc(0, 0, Math.max(0.6, r - 1.15), 0, TAU); c.fillStyle = sideCloth(P, side); c.fill(); c.globalAlpha = base;
 }
@@ -180,7 +190,8 @@ function leader(c, t, g, a, b) {
 function hull(c, t, g, pts) {
   const P = g.P; if (g.zoom < P['detail.hullZoom'] || !pts.length || !isOn(t)) return;
   const view = g.env.view || { dx: 0, dy: 0 }; const e0 = standing(t, g, [t.x + view.dx, t.y + view.dy]); const base = c.globalAlpha; const side = sideOf(g.vm.side); c.lineCap = 'round'; c.beginPath();
-  for (const p of pts) { c.moveTo(e0[0], e0[1]); c.lineTo(p[0], p[1]); }
+  const LMAX = P['hull.maxLen'];      // director fix 11: a hairline never runs further than this; a member that stands further off is shown by its dot alone (no spider of long lines across the map)
+  for (const p of pts) { const dx = p[0] - e0[0]; const dy = p[1] - e0[1]; const d = Math.hypot(dx, dy); const k = d > LMAX ? LMAX / d : 1; c.moveTo(e0[0], e0[1]); c.lineTo(e0[0] + dx * k, e0[1] + dy * k); }
   c.globalAlpha = base * P['hull.leader']; c.strokeStyle = rgba(P['color.poleEdge'], 0.6); c.lineWidth = 2.4; c.stroke(); c.strokeStyle = tintHex(P, side); c.lineWidth = 0.9; c.stroke();
   c.globalAlpha = base * 0.95; const r = P['hull.dot'];
   for (const p of pts) { c.beginPath(); c.arc(p[0], p[1], r + 1, 0, TAU); c.fillStyle = rgba(P['color.poleEdge'], 0.75); c.fill(); c.beginPath(); c.arc(p[0], p[1], r, 0, TAU); c.fillStyle = P['color.pole']; c.fill(); }
@@ -188,11 +199,11 @@ function hull(c, t, g, pts) {
 }
 
 // ---- the legend's swatches (26 x 20, centre at 0,0): the same drawing code ----------------------------------------------------------------------------------------------------
-function swatch(c, P, side, k, o = {}) { c.save(); c.translate(o.x ?? -5, 8); const info = { flag: k > 0, ech: k + 1, count: null, arm: o.arm || 'infantry' }; const H = o.H ?? 15; const fw = o.fw ?? 12; const fh = o.fh ?? 8.5; drawStandard(c, P, { side, H, fw, fh, end: o.end || 'rect', old: o.old || 0, furl: 1, k }); void info; c.restore(); }
+function swatch(c, P, side, k, o = {}) {      /* o.pips: rank pips on the cloth */ c.save(); c.translate(o.x ?? -5, 8); const info = { flag: k > 0, ech: k + 1, count: null, arm: o.arm || 'infantry' }; const H = o.H ?? 15; const fw = o.fw ?? 12; const fh = o.fh ?? 8.5; drawStandard(c, P, { side, H, fw, fh, end: o.end || 'rect', old: o.old || 0, furl: 1, k, pips: o.pips || 0 }); void info; c.restore(); }
 function sample(c, ch, v, g, w, h) {
   const P = g.P;
   if (ch === 'side') { if (v === 'mixed') swatch(c, P, 'mixed', 1, { H: 16, fw: 13, fh: 9.5 }); else swatch(c, P, v, 0); }
-  else if (ch === 'arm') { if (v === 'formation') swatch(c, P, 'union', 1, { H: 17, fw: 14, fh: 9.5 }); else if (v === 'infantry') swatch(c, P, 'union', 0); else if (v === 'cavalry') swatch(c, P, 'union', 0, { end: 'swallow' }); else if (v === 'artillery') swatch(c, P, 'union', 0, { end: 'point' }); else return false; }
+  else if (ch === 'arm') { if (v === 'formation') swatch(c, P, 'union', 1, { H: 17, fw: 14, fh: 9.5, pips: 1 }); else if (v === 'infantry') swatch(c, P, 'union', 0); else if (v === 'cavalry') swatch(c, P, 'union', 0, { end: 'swallow' }); else if (v === 'artillery') swatch(c, P, 'union', 0, { end: 'point' }); else return false; }
   else if (ch === 'fix') swatch(c, P, 'union', 0, { old: v === 'carried' ? 1 : 0 });
   else if (ch === 'aggregate') { swatch(c, P, 'union', 1, { H: 17, fw: 15, fh: 11 }); c.font = FONTS.code; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillStyle = P['color.numeral']; c.fillText('5', 2.4, -2.6); }
   else if (ch === 'idOnly') { c.font = FONTS.codeI; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillStyle = P['color.ink']; c.fillText('12 NC', 0, 0.6); }
@@ -204,6 +215,8 @@ function sample(c, ch, v, g, w, h) {
 }
 
 // ---- the legend's figure: the anatomy of the marks at their true size, drawn with the same code as the map -----------------------------------------------------------------------
+// Every state of a mark the map can draw is in it (director fix 4): a unit of each arm and of each side, the three ranks with their pips, a crowd of each side, of both armies and with the words that tell two crowds apart,
+// fresh / carried forward / selected, the strength bar, the hatched flag of a unit whose side is Contested, and the ground marks.  It lays itself out for any width W (316 in the rail, the sheet's width on a phone).
 function figure(c, g, W) {
   const P = g.P; const ink = P['color.ink']; const mute = rgba(ink, 0.78); const faint = rgba(ink, 0.16); const FACE = FONTS.name.replace(/^400 12px /, ''); const cap = `400 12px ${FACE}`; const lab = `600 12px ${FACE}`; const labB = `700 13px ${FACE}`; const title = `700 11px ${FACE}`;
   const M = 16; let y = 8; c.textBaseline = 'alphabetic'; c.textAlign = 'left';
@@ -212,41 +225,53 @@ function figure(c, g, W) {
   const caption = (text) => { c.font = cap; const lines = wrapText(c, text, W - 2 * M); c.fillStyle = mute; for (const ln of lines) { c.fillText(ln, M, y + 12); y += 17; } };
   const rule = () => { y += 6; c.strokeStyle = faint; c.lineWidth = 1; c.beginPath(); c.moveTo(M, y + 0.5); c.lineTo(W - M, y + 0.5); c.stroke(); y += 12; };
   const stand = (side, x, foot, o, mirror) => { c.save(); c.translate(x, foot); if (mirror) c.scale(-1, 1); drawStandard(c, P, { side, old: 0, furl: 1, ...o }); c.restore(); };
-  const bl = P['code.baseline'];
-  // 1. a unit: pole, flag, code; the three arms
-  head('A unit'); let foot = y + 30; const U = { H: P['pole.unitFull'], fh: P['flag.unitFullH'], k: 0 };
-  const unitFlag = (side, text, x, end, mirror) => {            // the short code stands ON the cloth, which is as long as the code needs
+  const bl = P['code.baseline']; const colW = (W - 2 * M) / 2;           // two columns: the left cell starts at M + 8, the right at M + colW + 8
+  const cell = (i) => M + 8 + (i % 2) * colW;
+  const tint = (side) => (side === 'union' ? P['color.tintUnion'] : side === 'confederate' ? P['color.tintConfederate'] : side === 'unknown' ? P['color.tintUnknown'] : P['color.tintMixed']);
+  // 1. a unit: pole, flag, code; the three arms, and a Confederate flag (it flies the other way); a 2 x 2 grid with the side named beside each flag
+  head('A unit'); let foot = y + 34; const U = { H: P['pole.unitFull'], fh: P['flag.unitFullH'], k: 0 };
+  const unitFlag = (side, text, x, end, mirror, name) => {            // the short code stands ON the cloth, which is as long as the code needs; a mirrored flag has its pole on the right of its cloth, so x is its LEFT edge there
     c.font = FONTS.code; const nPx = end === 'rect' ? 0 : U.fh * P['flag.notch']; const fw = Math.max(P['flag.unitFullW'], Math.ceil(c.measureText(text).width + 2 * P['flag.padX'] + nPx)); const pw = P['pole.width'];
-    stand(side, x, foot, { ...U, fw, end }, mirror); const mid = x + (mirror ? -1 : 1) * (pw / 2 - 0.2 + (fw - nPx) / 2); const sp = lettering(g, FONTS.code, text, P['color.numeral'], P['color.numeralHalo'], 0); const by = foot - U.H + U.fh / 2 + bl - 0.2; c.drawImage(sp.img, mid - sp.tw / 2 - sp.x, by - sp.y, sp.w, sp.h);
+    const px = mirror ? x - pw : x; x = mirror ? x - pw - fw : x; stand(side, px, foot, { ...U, fw, end }, mirror); const mid = px + (mirror ? -1 : 1) * (pw / 2 - 0.2 + (fw - nPx) / 2); const sp = lettering(g, FONTS.code, text, P['color.numeral'], P['color.numeralHalo'], 0); const by = foot - U.H + U.fh / 2 + bl - 0.2; c.drawImage(sp.img, mid - sp.tw / 2 - sp.x, by - sp.y, sp.w, sp.h);
+    word(name, mirror ? x - 8 : px + fw + 10, foot - 3, lab, tint(side), mirror ? 'right' : 'left');      // x is now the flag's left edge
   };
-  unitFlag('union', '71 PA', M + 8, 'rect', false); unitFlag('union', '1 NJ', M + 100, 'swallow', false); unitFlag('union', 'B/1 RI', M + 180, 'point', false);
-  foot += 36; unitFlag('confederate', '53 VA', W - M - 8, 'rect', true);
-  y += 76; caption('Square: infantry. Swallow-tail: cavalry. Arrow: artillery. The short code is on the flag. A flag flies toward the enemy: Union to the right, Confederate to the left. The foot of the pole is the unit.'); rule();
+  unitFlag('union', '71 PA', cell(0), 'rect', false, 'infantry'); unitFlag('union', '1 NJ', cell(1), 'swallow', false, 'cavalry');
+  foot += 42; unitFlag('union', 'B/1 RI', cell(0), 'point', false, 'artillery'); unitFlag('confederate', '53 VA', W - M - 8, 'rect', true, 'Confederate');
+  y += 96; caption('Square: infantry. Swallow-tail: cavalry. Arrow: artillery. The short code is on the flag. A flag flies toward the enemy: Union to the right, Confederate to the left. The foot of the pole is the unit.'); rule();
   // 2. rank
   head('Rank');
-  foot = y + P['pole.corps'] + 4;
-  for (const [x0, k, text] of [[0, 1, 'Bde'], [82, 2, 'Div'], [176, 3, 'Corps']]) {
-    const x = M + 8 + x0; const H = P[POLE[k]]; const fw = P[FLAGW[k]]; const fh = P[FLAGH[k]];
-    stand('union', x, foot, { H, fw, fh, end: 'rect', k }, false); word(text, x + fw + 6, foot - H + fh / 2 + bl - 0.2, labB, P['color.tintUnion']);
-  }
-  y += P['pole.corps'] + 12; caption('A taller pole and a larger flag are a higher rank: brigade, division, corps. Rank is height, never a box.'); rule();
-  // 3. a crowd
-  head('A crowd'); foot = y + 34; const cfy = foot - P['pole.brigade'] + P['flag.crowdMinH'] / 2 + bl - 0.2;
-  stand('union', M + 8, foot, { H: P['pole.brigade'], fw: 30, fh: P['flag.crowdMinH'], end: 'rect', k: 1 }, false); word('5', M + 8 + 15.5, cfy, lab, P['color.numeral'], 'center'); word("Garnett's Bde", M + 8 + 30 + 6, cfy, labB, P['color.tintUnion']);
-  stand('confederate', W - M - 8, foot, { H: P['pole.brigade'], fw: 30, fh: P['flag.crowdMinH'], end: 'rect', k: 1 }, true); word('9', W - M - 8 - 15.5, cfy, lab, P['color.numeral'], 'center'); word("Pender's Div", W - M - 8 - 30 - 6, cfy, labB, P['color.tintConfederate'], 'right');
-  y += 46; caption('Units too close to stand apart merge into one flag. Its number counts placement records, never men; its words say what they share. Point at it to see where each one stands.'); rule();
-  // 4. age, strength, the ground
-  head('Age, strength and the ground'); foot = y + 28;
-  const F = { H: P['pole.unitFull'], fw: P['flag.unitFullW'], fh: P['flag.unitFullH'], end: 'rect', k: 0 }; const fcy = foot - F.H + F.fh / 2 + bl - 0.2;
-  stand('union', M + 8, foot, F, false); word('fresh', M + 8 + 20, fcy, lab, ink);
-  stand('union', M + 70, foot, { ...F, old: 1 }, false); word('carried forward', M + 70 + 20, fcy, lab, ink);
-  c.save(); c.translate(M + 204, foot); groundRing(c, P, 8.5, 3.6, P['color.unionBright'], 1, P['sel.width']); c.restore(); stand('union', M + 204, foot, F, false); word('selected', M + 204 + 20, fcy, lab, ink);
-  y += 38; caption('A hollow flag means the latest keyframe is a battle day old or more. The bar under a flag is the placement strength over the unit’s reference: a modelled value, not a casualty record.'); rule();
+  foot = y + P['pole.corps'] + 4; const span = W - 2 * M - 16; const rx = [0, span * 0.28, span * 0.58];
+  [[1, 'Bde'], [2, 'Div'], [3, 'Corps']].forEach(([k, text], i) => {
+    const x = M + 8 + rx[i]; const H = P[POLE[k]]; const fw = P[FLAGW[k]]; const fh = P[FLAGH[k]];
+    stand('union', x, foot, { H, fw, fh, end: 'rect', k, pips: k }, false); word(text, x + fw + 6, foot - H + fh / 2 + bl - 0.2, labB, P['color.tintUnion']);
+  });
+  y += P['pole.corps'] + 12; caption('A taller pole and a larger flag are a higher rank, and the pips on the cloth count it: one for a brigade, two for a division, three for a corps. Rank is height, never a box.'); rule();
+  // 3. a crowd: of one army, of both, and with the words that tell two crowds apart
+  head('A crowd'); foot = y + 36;
+  const crowd = (x, side, n, words, mirror) => {
+    c.font = lab; const fw = Math.max(30, Math.ceil(c.measureText(n).width + 2 * P['flag.padX'])); const fh = P['flag.crowdMinH']; const H = P['pole.brigade']; const fy = foot - H + fh / 2 + bl - 0.2; const px = mirror ? x - P['pole.width'] : x; if (mirror) x = x - P['pole.width'] - fw;
+    stand(side, px, foot, { H, fw, fh, end: 'rect', k: 1 }, mirror); word(n, px + (mirror ? -1 : 1) * (fw / 2 + 0.7), fy, lab, P['color.numeral'], 'center');
+    word(words, mirror ? x - 6 : px + fw + 6, fy, labB, tint(side), mirror ? 'right' : 'left');
+  };
+  crowd(cell(0), 'union', '5', "Garnett's Bde", false); crowd(W - M - 8, 'confederate', '9', "Pender's Div", true);
+  y += 48; foot = y + 36; crowd(cell(0), 'union', '2', "Ward's Bde, north", false); crowd(cell(1), 'mixed', '4', 'both armies', false);
+  y += 48; caption('Units too close to stand apart merge into one flag. Its number counts placement records, never men; its words say what they share, with north, south, east or west added when two crowds share the same words. A flag split blue and red holds units of both armies. Point at it to see where each one stands.'); rule();
+  // 4. age, strength, side
+  head('Age, strength and side'); foot = y + 30; const F = { H: P['pole.unitFull'], fw: P['flag.unitFullW'], fh: P['flag.unitFullH'], end: 'rect', k: 0 }; const fcy = foot - F.H + F.fh / 2 + bl - 0.2; const cw = (W - 2 * M - 16) / 3;
+  const col3 = (i) => M + 8 + i * cw;
+  stand('union', col3(0), foot, F, false); word('fresh', col3(0) + F.fw + 8, fcy, lab, ink);
+  stand('union', col3(1), foot, { ...F, old: 1 }, false); word('carried', col3(1) + F.fw + 8, fcy, lab, ink);
+  c.save(); c.translate(col3(2), foot); groundRing(c, P, 8.5, 3.6, P['color.unionBright'], 1, P['sel.width']); c.restore(); stand('union', col3(2), foot, F, false); word('selected', col3(2) + F.fw + 8, fcy, lab, ink);
+  y += 36; foot = y + 38; const fcy2 = foot - F.H + F.fh / 2 + bl - 0.2;
+  const barred = (x, share, text) => { stand('union', x, foot, F, false); const bx = x + P['pole.width'] / 2 + 0.6; const bw = F.fw; const by = foot - F.H + F.fh + P['strength.gap']; c.fillStyle = rgba(P['color.poleEdge'], P['strength.track']); c.fillRect(bx - 0.6, by - 0.6, bw + 1.2, P['strength.h'] + 1.2); c.fillStyle = P['color.unionBright']; c.fillRect(bx, by, bw * share, P['strength.h']); word(text, x + bw + 8, fcy2, lab, ink); };
+  barred(col3(0), 1, 'full'); barred(col3(1), 0.4, '40 %');
+  stand('unknown', col3(2), foot, F, false); word('contested', col3(2) + F.fw + 8, fcy2, lab, ink);
+  y += 44; caption('A hollow flag means the latest keyframe is a battle day old or more. The bar under a flag is the placement strength over the unit’s reference: a modelled value, not a casualty record. A pale hatched flag is a unit whose side the records disagree on (Contested): it is never drawn in either army’s colour.'); rule();
   head('The battle remembers'); c.save(); c.lineCap = 'round'; const my = y + 10; for (let i = 0; i < 9; i++) { const x = M + 8 + i * 10 + (i % 3) * 2; const yy = my + ((i * 7) % 5) - 2; const ang = (i * 0.7) % 3; const col = i < 5 ? P['memory.union'] : P['memory.confederate']; c.beginPath(); c.moveTo(x - Math.cos(ang) * 2.3, yy - Math.sin(ang) * 2.3); c.lineTo(x + Math.cos(ang) * 2.3, yy + Math.sin(ang) * 2.3); c.strokeStyle = rgba(P['memory.edge'], P['memory.edgeAlpha']); c.lineWidth = P['memory.width'] + 1.6; c.stroke(); c.strokeStyle = col; c.lineWidth = P['memory.width']; c.stroke(); } c.restore();
   y += 22; caption('Each mark on the ground stands for about ten men killed, wounded or missing. How many a unit lost is Documented (a secondary source); when and where they fell is Modelled.'); y += 8;
   return y;
 }
-const FIG_H = 770;
+const FIG_H = 1000;
 
 const DEF = {
   id: 'standards', label: 'Standards', version: '1.0', tokens: STD_TOKENS, fonts: FONTS, footprint: FOOT, sizer: makeSizer,

@@ -1,20 +1,20 @@
 {
- "generated": "2026-10-19T04:37:46.667Z",
+ "generated": "2026-10-19T06:04:12.557Z",
  "node": "v24.19.0",
  "rows": [
   {
    "file": "test/layout.test.mjs",
    "tests": 12,
-   "pass": 12,
-   "fail": 0,
-   "seconds": 13.6
+   "pass": 11,
+   "fail": 1,
+   "seconds": 12.3
   },
   {
    "file": "test/display.test.mjs",
    "tests": 20,
    "pass": 20,
    "fail": 0,
-   "seconds": 57.4
+   "seconds": 51
   },
   {
    "file": "test/interp.test.mjs",
@@ -35,7 +35,7 @@
    "tests": 11,
    "pass": 9,
    "fail": 2,
-   "seconds": 1.3
+   "seconds": 1.2
   },
   {
    "file": "test/tuning.test.mjs",
@@ -49,56 +49,56 @@
    "tests": 9,
    "pass": 9,
    "fail": 0,
-   "seconds": 5.7
+   "seconds": 5.5
   },
   {
    "file": "test/production.test.mjs",
    "tests": 6,
    "pass": 6,
    "fail": 0,
-   "seconds": 20.3
+   "seconds": 17.8
   },
   {
    "file": "test/build.test.mjs",
    "tests": 6,
    "pass": 6,
    "fail": 0,
-   "seconds": 1
+   "seconds": 0.6
   },
   {
    "file": "test/skin-look.test.mjs",
    "tests": 14,
    "pass": 14,
    "fail": 0,
-   "seconds": 5.3
+   "seconds": 4.3
   },
   {
    "file": "test/rest.test.mjs",
    "tests": 11,
-   "pass": 11,
-   "fail": 0,
-   "seconds": 33.5
+   "pass": 9,
+   "fail": 2,
+   "seconds": 30.2
   },
   {
    "file": "test/assemble.test.mjs",
    "tests": 17,
-   "pass": 17,
-   "fail": 0,
-   "seconds": 87.3
+   "pass": 13,
+   "fail": 4,
+   "seconds": 53.3
   },
   {
    "file": "test/popups.test.mjs",
    "tests": 36,
    "pass": 36,
    "fail": 0,
-   "seconds": 193.5
+   "seconds": 192.1
   },
   {
    "file": "test/fuzz.test.mjs",
    "tests": 3,
    "pass": 3,
    "fail": 0,
-   "seconds": 30
+   "seconds": 28.3
   }
  ]
 }

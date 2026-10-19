@@ -6,7 +6,7 @@ const FADE = 0.22;                                          // fraction of the w
 
 export function createStreets({ vectors }) {
   const groups = vectors ? vectors.groups : null; const widths = new Map();
-  let cache = null; const state = new Map(); let sig = '';
+  let cache = null; const state = new Map(); let sig = ''; const last = [];      // last: the names drawn in the latest frame, for the checking tools
   const width = (c, font, s) => { const k = font + '|' + s; let w = widths.get(k); if (w === undefined) { c.font = font; w = c.measureText(s).width; widths.set(k, w); } return w; };
 
   /** every candidate place of every name in the view and a margin: { id, text, kind, tw, cands: [{ ux, uy, ang }] } (unit-square world coordinates, so they stand still while the camera moves) */
@@ -60,21 +60,21 @@ export function createStreets({ vectors }) {
       return true;
     };
     const box = (x, y, tw, ang) => { const ca = Math.abs(Math.cos(ang)); const sa = Math.abs(Math.sin(ang)); const bw = tw * ca + 18 * sa; const bh = tw * sa + 18 * ca; return { x0: x - bw / 2 - 2, x1: x + bw / 2 + 2, y0: y - bh / 2, y1: y + bh / 2 }; };
-    const taken = []; const seenIds = new Set(); const perGroup = new Map();
+    const taken = []; const seenIds = new Set(); const perGroup = new Map(); const perName = new Set(); last.length = 0;
     c.save(); c.lineJoin = 'round'; c.textBaseline = 'middle'; c.textAlign = 'center';
     for (const it of cache.items) {
       let st = state.get(it.id); if (!st) { st = { a: 0, cand: -1, want: -1 }; state.set(it.id, st); }
       seenIds.add(it.id);
       const sc = cache.sx; const screen = (cd) => [cd.ux * sc - cam[0], cd.uy * sc - cam[1]];
       let pick = -1; const used = perGroup.get(it.grp) || 0;
-      if (used < 2) {
+      if (used < 2 && !perName.has(it.text)) {      // a road or stream name is lettered once on the screen, even when the data has it as two records (director fix 3)
         if (st.cand >= 0 && st.cand < it.cands.length) { const [x, y] = screen(it.cands[st.cand]); if (free(x, y, it.tw, it.cands[st.cand].ang, taken)) pick = st.cand; }
         if (pick < 0) {                                                       // the free candidate nearest the middle of the stage
-          let best = Infinity; const mx = (stage.x0 + stage.x1) / 2; const my = (stage.y0 + stage.y1) / 2;
-          for (let i = 0; i < it.cands.length; i++) { const [x, y] = screen(it.cands[i]); if (x < stage.x0 || x > stage.x1 || y < stage.y0 || y > stage.y1) continue; const d = Math.abs(x - mx) + Math.abs(y - my) * 1.2; if (d < best && free(x, y, it.tw, it.cands[i].ang, taken)) { best = d; pick = i; } }
+          let best = Infinity; const mx = (stage.x0 + stage.x1) / 2; const my = (stage.y0 + stage.y1) / 2; const gnd = v.ground;
+          for (let i = 0; i < it.cands.length; i++) { const [x, y] = screen(it.cands[i]); if (x < stage.x0 || x > stage.x1 || y < stage.y0 || y > stage.y1) continue; const d = Math.abs(x - mx) + Math.abs(y - my) * 1.2 + (gnd ? 40 * gnd(x, y, it.tw / 2) : 0); if (d < best && free(x, y, it.tw, it.cands[i].ang, taken)) { best = d; pick = i; } }
         }
       }
-      if (pick >= 0) { const [x, y] = screen(it.cands[pick]); taken.push(box(x, y, it.tw, it.cands[pick].ang)); perGroup.set(it.grp, used + 1); }
+      if (pick >= 0) { perName.add(it.text); const [x, y] = screen(it.cands[pick]); taken.push(box(x, y, it.tw, it.cands[pick].ang)); perGroup.set(it.grp, used + 1); }
       st.want = pick;
       if (st.cand >= 0 && st.want >= 0 && st.cand !== st.want) { st.a += (0 - st.a) * F2; if (st.a < 0.05) { st.cand = st.want; } }       // fade out before moving to another place
       else if (st.want >= 0) { if (st.cand < 0) st.cand = st.want; st.a += (1 - st.a) * F; }
@@ -83,6 +83,7 @@ export function createStreets({ vectors }) {
       if (st.a < 0.02 || st.cand < 0) continue;
       const cd = it.cands[Math.min(st.cand, it.cands.length - 1)]; const [x, y] = screen(cd);
       if (st.a < 1 && v.onBusy) v.onBusy();
+      if (st.a >= 0.5) { const bx = box(x, y, it.tw, cd.ang); last.push({ kind: it.kind, text: it.text, cx: x, cy: y, tw: it.tw - 8, ang: cd.ang, x0: bx.x0, x1: bx.x1, y0: bx.y0, y1: bx.y1 }); }
       const fill = it.kind === 'stream' ? L.water : L.road; const f = it.kind === 'stream' ? ifont : font;
       c.save(); c.translate(x, y); c.rotate(cd.ang); c.globalAlpha = c.globalAlpha * st.a; c.font = f; c.lineWidth = 4; c.strokeStyle = L.roadHalo; c.strokeText(it.text, 0, 0.5); c.fillStyle = fill; c.fillText(it.text, 0, 0.5); c.restore();
     }
@@ -90,5 +91,5 @@ export function createStreets({ vectors }) {
     if (state.size > 400) for (const k of state.keys()) if (!seenIds.has(k)) state.delete(k);
     return taken;
   }
-  return { draw, reset() { cache = null; state.clear(); sig = ''; void sig; } };
+  return { draw, last, reset() { cache = null; state.clear(); sig = ''; void sig; } };
 }

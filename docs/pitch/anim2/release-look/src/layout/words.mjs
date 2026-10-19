@@ -21,6 +21,9 @@ export function compactDesignation(full) {
 /** the words a formation record's own id carries, for a record the order of battle gives no name: "C-I-1-7" -> "7th Bde, 1st Div, 1st Corps", "U-CAV-2-1" -> "1st Bde, 2nd Div, Cavalry Corps", "C-II-4" -> "4th Div, 2nd Corps", "U-2-I" -> "2nd Div, 1st Corps"; null when the id is no formation id */
 export function wordsOfFormationId(id) {
   const s = String(id || '').replace(/^[UC]-/, ''); let m;
+  // FORK (director fix 9): the Confederate cavalry records C-CAV-2-1 .. C-CAV-2-4 are no order-of-battle brigades (the data gives them no name and inOob false); the Union's "1st Bde, 2nd Div, Cavalry Corps" is not their organisation,
+  // so they are not called by it (it also printed the same words as the Union's own brigade).  The words are the id's own numbers and claim nothing more.
+  if ((m = /^C-CAV-(\d)-(\d)$/.exec(String(id || '')))) return `Cavalry group ${m[1]}/${m[2]}`;
   if ((m = /^(XII|XI|X|IX|VIII|VII|VI|IV|V|III|II|I|CAV)-(\d)-(\d|R)$/.exec(s))) return `${bdeWords(m[3])}, ${ordinal(+m[2])} Div, ${corpsWords(m[1])}`;
   if ((m = /^(XII|XI|X|IX|VIII|VII|VI|IV|V|III|II|I|CAV)-(\d)$/.exec(s))) return `${ordinal(+m[2])} Div, ${corpsWords(m[1])}`;
   if ((m = /^(XII|XI|X|IX|VIII|VII|VI|IV|V|III|II|I)$/.exec(s))) return corpsWords(m[1]);

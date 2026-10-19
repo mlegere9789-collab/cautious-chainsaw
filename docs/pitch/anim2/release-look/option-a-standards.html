@@ -1179,6 +1179,9 @@ function compactDesignation(full) {
 /** the words a formation record's own id carries, for a record the order of battle gives no name: "C-I-1-7" -> "7th Bde, 1st Div, 1st Corps", "U-CAV-2-1" -> "1st Bde, 2nd Div, Cavalry Corps", "C-II-4" -> "4th Div, 2nd Corps", "U-2-I" -> "2nd Div, 1st Corps"; null when the id is no formation id */
 function wordsOfFormationId(id) {
   const s = String(id || '').replace(/^[UC]-/, ''); let m;
+  // FORK (director fix 9): the Confederate cavalry records C-CAV-2-1 .. C-CAV-2-4 are no order-of-battle brigades (the data gives them no name and inOob false); the Union's "1st Bde, 2nd Div, Cavalry Corps" is not their organisation,
+  // so they are not called by it (it also printed the same words as the Union's own brigade).  The words are the id's own numbers and claim nothing more.
+  if ((m = /^C-CAV-(\d)-(\d)$/.exec(String(id || '')))) return `Cavalry group ${m[1]}/${m[2]}`;
   if ((m = /^(XII|XI|X|IX|VIII|VII|VI|IV|V|III|II|I|CAV)-(\d)-(\d|R)$/.exec(s))) return `${bdeWords(m[3])}, ${ordinal(+m[2])} Div, ${corpsWords(m[1])}`;
   if ((m = /^(XII|XI|X|IX|VIII|VII|VI|IV|V|III|II|I|CAV)-(\d)$/.exec(s))) return `${ordinal(+m[2])} Div, ${corpsWords(m[1])}`;
   if ((m = /^(XII|XI|X|IX|VIII|VII|VI|IV|V|III|II|I)$/.exec(s))) return corpsWords(m[1]);
@@ -1368,11 +1371,13 @@ function makeAggregate(all, tiles, spec, createdFrame = 0) {
   const n = ids.length;
   const leadTile = leaves.reduce((m, t) => (t.prio > m.prio ? t : m), leaves[0]);
   const nm = aggregateName(all, lca, side, sides, leadTile, n, leaves);
+  const key = 'agg:' + lca + ':' + ids[0]; const baseShort = nm.short; const baseName = nm.name || null; const sfx = spec.crowdSuffix ? spec.crowdSuffix.get(key) : null;      // FORK (director fix 9): a crowd whose words another crowd shares says which part of the line it is (layout/crowdnames.mjs)
+  if (sfx) { nm.short = nm.short + ', ' + sfx; if (nm.name) nm.name = nm.name + ', ' + sfx; }
   const cs = spec.sizer ? spec.sizer.agg(spec, { short: nm.short, name: nm.name, tail: nm.tail, badge: nm.badge, kind: nm.kind, side, n, zoom: spec.zoom }) : chipSize(spec, nm.short, nm.badge);
   const ax = px + (cs.dx || 0); const ay = py + (cs.dy || 0);
   const node = all.nodes.get(lca);
   return {
-    key: 'agg:' + lca + ':' + ids[0], kind: 'agg', ids, px, py, ax, ay, dx: cs.dx || 0, dy: cs.dy || 0, sgn: cs.sgn || 0, chipW: cs.w, chipH: cs.h, labelW: 0, labelH: 0, labelText: null, short: nm.short, fname: nm.name || null, ftail: nm.tail || null, badge: nm.badge, nameKind: nm.kind, side,
+    key, baseShort, baseName, kind: 'agg', ids, px, py, ax, ay, dx: cs.dx || 0, dy: cs.dy || 0, sgn: cs.sgn || 0, chipW: cs.w, chipH: cs.h, labelW: 0, labelH: 0, labelText: null, short: nm.short, fname: nm.name || null, ftail: nm.tail || null, badge: nm.badge, nameKind: nm.kind, side,
     nSides: sides, arm: arms.size === 1 ? [...arms][0] : 'mixed', strength: sStr, ratio: sr / sw, lca, n, echelon: 0, prio: prio + 5e5, depth: node ? node.depth : 0, chain: chains[0], createdFrame, members: tiles,
   };
 }
@@ -1797,7 +1802,7 @@ function makeSigner(leaves, cfg, spec) {
 
 const hashJitter = (str, mod) => { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return (h >>> 0) % mod; };
 
-function newState() { return { time: 0, solves: 0, age: new Map(), off: new Map(), tgt: new Map(), splits: new Map(), aggs: new Map(), label: new Map(), assign: new Map() }; }
+function newState() { return { suffix: new Map(), time: 0, solves: 0, age: new Map(), off: new Map(), tgt: new Map(), splits: new Map(), aggs: new Map(), label: new Map(), assign: new Map() }; }
 
 /** connected components of tiles under the interaction radius: tiles in different components cannot influence each other's chip placement */
 function components(tiles, dMax, gap) {
@@ -1872,7 +1877,7 @@ function placePass(cur, cfg, state, tentative, dt, stats) {
 /** Aggregation round: every failed tile is merged with its best partner.  A failed member of a tentatively split aggregate goes back into that aggregate.
  *  Strictly reduces the number of tiles when `failed` is non-empty. */
 function mergeFailures(all, cur, failed, cfg, tentative, frame) {
-  const spec = cfg.spec; const consumed = new Set(); const merged = [];
+  const spec = cfg.spec; const consumed = new Set(cfg.protect ? [cfg.protect] : []); const merged = [];      // director fix 6: the selected unit that has stepped out of its crowd is neither merged nor taken as a partner
   for (const F of [...failed].sort((a, b) => b.prio - a.prio)) {
     if (consumed.has(F.key)) continue;
     const tent = F.kind === 'leaf' ? tentative.get(F.ids[0]) : null;
@@ -1882,10 +1887,18 @@ function mergeFailures(all, cur, failed, cfg, tentative, frame) {
     }
     let bp = bestPartner(all, F, cur, 2 * cfg.dMax, consumed);
     if (!bp) bp = bestPartner(all, F, cur, 1e9, consumed);          // safety net: no partner in reach -> the nearest tile of the group (progress is guaranteed while the group has >= 2 tiles)
+    if (!bp && cfg.protect) { const free = new Set([...consumed].filter((k) => k !== cfg.protect)); bp = bestPartner(all, F, cur, 1e9, free); }      // the only partner left is the protected unit: better a crowd that holds it than no layout
     const partner = bp ? bp.b : null;
     if (!partner) continue;
     consumed.add(F.key); consumed.add(partner.key);
     merged.push(makeAggregate(all, [F, partner], spec, frame));
+  }
+  if (merged.length === 0 && cfg.protect) {
+    // only the protected tile (the selected unit) failed: it keeps its own mark and its NEAREST neighbour gives way, by merging with the neighbour's own best partner (never with the protected tile), which frees the room; only when
+    // nothing else can merge does the selected unit join a crowd after all, rather than leave the group with no progress (an exception)
+    const P = cur.find((t) => t.key === cfg.protect); const near = P ? bestPartner(all, P, cur, 1e9, new Set([cfg.protect])) : null; const other = near ? bestPartner(all, near.b, cur, 1e9, new Set([cfg.protect, near.b.key])) : null;
+    if (other) { const m = makeAggregate(all, [near.b, other.b], spec, frame); const gone = new Set([near.b.key, other.b.key]); return [...cur.filter((t) => !gone.has(t.key)), m]; }
+    return mergeFailures(all, cur, failed, { ...cfg, protect: null }, tentative, frame);
   }
   if (merged.length === 0) return null;
   const gone = new Set(); for (const m of merged) for (const t of m.members) gone.add(t.key);
@@ -2066,6 +2079,54 @@ __exports.plain = plain;
 __exports.newState = newState;
 __exports.solve = solve;
 };
+__defs["src/layout/crowdnames.mjs"] = function (__exports, __r) {
+// layout/crowdnames.mjs - UNIQUE WORDS FOR CROWDS (director fix 9).  Two flags on the screen may never carry the same words: "Pickett's Div, 1st Corps" on three crowds, "2nd Corps" on two, "both armies" on two read as one
+// thing repeated.  A crowd whose words equal another visible crowd's gets one more word that says WHICH part of the line it is: where it stands among the crowds that share its words, "north" / "south" (or "west" /
+// "east") for two, "north" / "centre" / "south" for three, "part 2 of 4" beyond.  Everything is derived from the true positions of the crowds (the strength-weighted centre of the units each one stands for), nothing is invented.
+// The words are part of the crowd's footprint (the layout reads them in makeAggregate through spec.crowdSuffix), so the box that is reserved is the box that is drawn.  The assignment is kept while the same crowds share
+// the same words (no flicker as a crowd drifts a few pixels), and is made again when one joins, leaves or merges.
+const { compactName } = __r("src/layout/words.mjs");
+const MARGIN = 40; const TTL = 600; const FORMATION = new Set(['brigade', 'division', 'corps', 'army']);
+/** @param {Array} placed  layout.solve's placed list  @param {{dx:number,dy:number,w:number,h:number}} view  @param {{suffix:Map<string,string>}} state  @returns {boolean} true when the assignment changed */
+function updateCrowdSuffixes(placed, view, state, now = 0) {
+  const groups = new Map();
+  for (const p of placed) {
+    const t = p.t; let words = null; let fixed = false;
+    if (t.kind === 'agg') { if (!t.baseShort) continue; words = t.baseName || t.baseShort; }                 // the words the flag shows: a crowd's name where it has one, else its short words
+    else if (t.kind === 'leaf' && t.u && FORMATION.has(t.u.kind)) { words = compactName(t.u, true); fixed = true; }      // a formation record's own flag carries the same words as the crowd of its units: it keeps them, the crowd says which part it is
+    if (!words) continue;
+    void view; void MARGIN;      // the whole field is grouped, not only what the camera shows: a crowd's words do not change as the map is panned (a filter by the view left stale words on crowds that entered and left it)
+    let g = groups.get(words); if (!g) groups.set(words, g = []); g.push({ t, fixed, key: t.key, side: t.side, px: t.px, py: t.py });      // ordered by TRUE position (the centre of the units each stands for), not by where the layout displaced the flag: the words do not depend on the layout's choices
+  }
+  // The set of crowds that carry words only GROWS while they stand (a crowd that has words keeps them when its twin leaves, until it has been gone for TTL frames): taking words away widened and narrowed a crowd's box
+  // in turn and set the layout oscillating (measured: widths 124 -> 152 -> 124, one tile drifting 1.9 px a frame, the engine never idle).  What the words SAY is recomputed from where the crowds stand.
+  const prev = state.suffix; const seen = state.suffixSeen || (state.suffixSeen = new Map()); const next = new Map(prev);
+  for (const p of placed) if (p.t.kind === 'agg') seen.set(p.t.key, now);
+  const SIDE = { union: 'Union', confederate: 'Confederate', unknown: 'contested', mixed: 'both armies' };
+  for (const g of groups.values()) {
+    if (g.length < 2 || !g.some((m) => !m.fixed)) continue;
+    g.sort((a, b) => (a.key < b.key ? -1 : 1));
+    // 1. the same words on the two armies ("2nd Corps": the Union's and the Confederate's) are told apart by the army
+    const sides = new Set(g.map((t) => t.side)); const armyWord = (t) => (sides.size > 1 ? SIDE[t.side] || null : null);
+    // 2. the same words on the same army are told apart by where they stand among their namesakes
+    const bySide = new Map(); for (const t of g) { let q = bySide.get(t.side); if (!q) bySide.set(t.side, q = []); q.push(t); }
+    for (const q of bySide.values()) {
+      if (q.length < 2) { for (const t of q) if (!t.fixed) next.set(t.key, armyWord(t) || 'regiments'); continue; }
+      const xs = q.map((t) => t.px); const ys = q.map((t) => t.py); const vertical = Math.max(...ys) - Math.min(...ys) >= Math.max(...xs) - Math.min(...xs);
+      const order = q.map((t, i) => i).sort((a, b) => ((vertical ? ys[a] - ys[b] : xs[a] - xs[b]) || (q[a].key < q[b].key ? -1 : 1)));
+      const ends = vertical ? ['north', 'south'] : ['west', 'east']; const k = q.length;
+      order.forEach((qi, rank) => { const where = k === 2 ? ends[rank] : k === 3 ? (rank === 0 ? ends[0] : rank === 2 ? ends[1] : 'centre') : `part ${rank + 1} of ${k}`; const aw = armyWord(q[qi]); if (!q[qi].fixed) next.set(q[qi].key, aw ? aw + ', ' + where : where); });
+    }
+  }
+  // (words of a crowd long gone are dropped below, silently: they cannot change any box that is on the screen)
+  let changed = next.size !== prev.size; if (!changed) for (const [k, v] of next) if (prev.get(k) !== v) { changed = true; break; }
+  if (changed) { prev.clear(); for (const [k, v] of next) prev.set(k, v); }
+  for (const k of [...prev.keys()]) if (now - (seen.get(k) ?? -1e9) > TTL) { prev.delete(k); seen.delete(k); }
+  return changed;
+}
+
+__exports.updateCrowdSuffixes = updateCrowdSuffixes;
+};
 __defs["src/layout/strategies.mjs"] = function (__exports, __r) {
 // layout/strategies.mjs - the layout strategies registered by name in kernel.layout.
 //   certified   the certified hybrid of 06-layout.md: zero overlap by construction (see engine.mjs).  THE DEFAULT.
@@ -2078,6 +2139,7 @@ __defs["src/layout/strategies.mjs"] = function (__exports, __r) {
 const { solve, newState, chipRect, pinRect, plain } = __r("src/layout/engine.mjs");
 const { buildLeaves, refreshTile } = __r("src/layout/tiles.mjs");
 const { FRAME_MS } = __r("src/layout/spec.mjs");
+const { updateCrowdSuffixes } = __r("src/layout/crowdnames.mjs");
 
 const certified = {
   id: 'certified', label: 'Certified hybrid (zero overlap)',
@@ -2097,17 +2159,25 @@ const certified = {
     };
     return {
       reset() { state = newState(); grow.id = null; grow.on = false; },
-      solve({ vis, z, dtMs, selectedId, spec, cold = false }) {
+      solve({ vis, z, dtMs, selectedId, spec, view = null, cold = false }) {
+        spec.crowdSuffix = state.suffix;                       // director fix 9: the words that tell two crowds of the same name apart (layout/crowdnames.mjs)
         const cfg = { spec, z, dMax: spec.dMax, pinProtect: spec.pinProtect, inertia: true, sticky: true, seniority: 1e7, labels: spec.labels, aggregate: true, dt: Math.max(0.01, dtMs / FRAME_MS), static: cold };
         const selects = !!selectedId && (!spec.sizer || !spec.sizer.selects || spec.sizer.selects(z));
         if (!selects) { grow.id = null; grow.on = false; }
         else if (grow.id !== selectedId) {                                      // a new selection: solve it small, then test the grown box on that solution
           grow.id = selectedId; const small = buildLeaves(vis, z, spec, selectedId, false); const r0 = solve(ctx.all, small, cfg, state); r0.leaves = small;
-          grow.on = growTest(r0, selectedId, z, spec);
+          const inCrowd = !!(spec.sizer && spec.sizer.selects) && r0.placed.some((q) => q.t.kind === 'agg' && q.t.ids.includes(selectedId));      // director fix 6: a selected unit that stands inside a crowd steps out of it, whatever it costs the neighbours, so its own flag and name are on the map
+          grow.on = inCrowd || growTest(r0, selectedId, z, spec);
           if (!grow.on) return r0;
         }
         const leaves = buildLeaves(vis, z, spec, selectedId, grow.on);
-        const r = solve(ctx.all, leaves, cfg, state);
+        if (grow.on && selectedId) for (const rec of state.aggs.values()) { const i = rec.ids.indexOf(selectedId); if (i >= 0) rec.ids = rec.ids.filter((id) => id !== selectedId); }      // the sticky crowds let go of it
+        if (grow.on && selectedId) cfg.protect = selectedId;
+        // the words that tell two crowds apart are part of the crowd's footprint: when they change, the same frame is laid out again from the same start with them (until no crowd needs words it has not got: the assignment only ever adds, so it ends), so the picture never
+        // shows words its boxes were not sized for, and the solver's own history (timers, offsets) is that of ONE solve
+        state.sfxClock = (state.sfxClock || 0) + 1; const start = { ...state, splits: new Map(state.splits) }; let r = solve(ctx.all, leaves, cfg, state); let stamped = false;
+        for (let pass = 0; pass < 12 && updateCrowdSuffixes(r.placed, view, state, state.sfxClock); pass++) { stamped = true; Object.assign(state, start, { splits: new Map(start.splits), suffix: state.suffix }); r = solve(ctx.all, leaves, cfg, state); }
+        if (stamped) state.stamp = (state.stamp || 0) + 1;
         r.leaves = leaves; return r;
       },
       /** between two solves: move the solved tiles with their units (same offsets, new true positions).  false = the set of units changed, solve again. */
@@ -3945,8 +4015,13 @@ const FADE = 0.2;                                          // fraction of the wa
 
 function createPlaces({ places }) {
   const list = []; const seen = new Set(); const order = { loc: 0, struct: 1, feat: 2 };
-  for (const p0 of [...(places || [])].sort((a, b) => order[a.k] - order[b.k])) { const p = { ...p0, n: cleanPlace(p0.n) }; if (seen.has(p.n)) continue; seen.add(p.n); list.push(p); }
-  const state = new Map(); const widths = new Map();
+  // director fix 3: a name that is the whole of another name's words ("Railroad Cut" in "Gettysburg & Harrisburg Railroad Cut", "Trostle Farm" in "Trostle Farm barn") and lies within 400 m of it is the same landmark: it is lettered once,
+  // by the earlier of the data's own kinds (a locality before a structure before a feature).  "Culp's Hill" and "Culp's Hill saddle" lie 520 m apart and stay two places.
+  const NEAR_M = 400; const metres = (a, b) => { const k = Math.PI / 180; const x = (b.lng - a.lng) * k * Math.cos((a.lat + b.lat) / 2 * k); const y = (b.lat - a.lat) * k; return 6371000 * Math.hypot(x, y); };
+  const words = (n) => ' ' + n.toLowerCase().replace(/[^a-z0-9' ]+/g, ' ').replace(/\s+/g, ' ').trim() + ' ';
+  const nested = (a, b) => { const x = words(a); const y = words(b); return x !== y && (y.includes(x) || x.includes(y)); };
+  for (const p0 of [...(places || [])].sort((a, b) => order[a.k] - order[b.k])) { const p = { ...p0, n: cleanPlace(p0.n) }; if (seen.has(p.n)) continue; if (list.some((q) => nested(q.n, p.n) && metres(q, p) < NEAR_M)) continue; seen.add(p.n); list.push(p); }
+  const state = new Map(); const widths = new Map(); const last = [];      // last: the names drawn in the latest frame (text, rectangle), for the checking tools
   const width = (c, font, s) => { const k = font + '|' + s; let w = widths.get(k); if (w === undefined) { c.font = font; w = c.measureText(s).width; widths.set(k, w); } return w; };
   const hit = (a, b) => a.x0 < b.x1 && b.x0 < a.x1 && a.y0 < b.y1 && b.y0 < a.y1;
 
@@ -3956,7 +4031,7 @@ function createPlaces({ places }) {
     const obst = []; for (const t of tiles) { if (t.opacity < 0.3 || (t.stageA !== undefined && t.stageA < 0.3)) continue; const hw = t.w * t.scale / 2 + 3; const hh = t.h * t.scale / 2 + 3; const x = t.x + view.dx; const y = t.y + view.dy; if (x + hw < -10 || x - hw > W + 10 || y + hh < -10 || y - hh > H + 10) continue; obst.push({ x0: x - hw, x1: x + hw, y0: y - hh, y1: y + hh }); }
     if (stage) for (const r of outsideRects(stage, W, H)) obst.push(r);
     for (const r of v.cards || []) obst.push(r);
-    const taken = []; c.save(); c.lineJoin = 'round'; c.textBaseline = 'alphabetic'; c.textAlign = 'left';
+    const taken = []; last.length = 0; c.save(); c.lineJoin = 'round'; c.textBaseline = 'alphabetic'; c.textAlign = 'left';
     for (const p of list) {
       let st = state.get(p.id); if (!st) { st = { a: 0, slot: null, want: null }; state.set(p.id, st); }
       const minor = p.k !== 'loc'; const on = !(minor ? z < (v.minorZoom ?? 14.5) : z < 12.5);
@@ -3968,7 +4043,9 @@ function createPlaces({ places }) {
         const free = (b) => { for (const o of obst) if (hit(b, o)) return false; for (const o of taken) if (hit(b, o)) return false; return true; };
         const ringFree = free(ringBox);
         const tryOrder = st.slot ? [st.slot, ...SLOTS.filter((s) => s !== st.slot)] : SLOTS;
-        for (const s of tryOrder) { const b = box(s); if (free({ x0: b.x0 - 2, x1: b.x1 + 2, y0: b.y0, y1: b.y1 })) { st.want = s; rect = b; break; } }
+        // among the free slots the one with the fewest ground marks under it (the field is dense where it was fought over: a name keeps to the quieter side); the slot it already has wins a tie
+        const dens = (b) => (v.ground ? v.ground((b.x0 + b.x1) / 2, (b.y0 + b.y1) / 2, Math.max(8, (b.x1 - b.x0) / 2 + 3)) : 0); let bestScore = Infinity;
+        for (const s of tryOrder) { const b = box(s); if (free({ x0: b.x0 - 2, x1: b.x1 + 2, y0: b.y0, y1: b.y1 })) { const sc = dens(b) + (s === st.slot ? -1.5 : 0); if (sc < bestScore) { bestScore = sc; st.want = s; rect = b; } } }
         if (rect && ringFree) target = 1;
         if (!rect) st.want = null;
       }
@@ -3979,6 +4056,7 @@ function createPlaces({ places }) {
       if (st.a < 0.02 || !st.slot) continue;
       const b = (() => { const r = minor ? 2.2 : 2.8; const tw = width(c, font, p.n); const g = r + 5; return st.slot === 'r' ? { x0: x + g, x1: x + g + tw, y0: y - 8, y1: y + 6 } : st.slot === 'l' ? { x0: x - g - tw, x1: x - g, y0: y - 8, y1: y + 6 } : st.slot === 't' ? { x0: x - tw / 2, x1: x + tw / 2, y0: y - r - 17, y1: y - r - 3 } : { x0: x - tw / 2, x1: x + tw / 2, y0: y + r + 4, y1: y + r + 18 }; })();
       taken.push({ x0: b.x0 - 2, x1: b.x1 + 2, y0: b.y0, y1: b.y1 }); { const rr = minor ? 2.2 : 2.8; taken.push({ x0: x - rr - 3, x1: x + rr + 3, y0: y - rr - 3, y1: y + rr + 3 }); }      // the label and the ring both stay clear of every later name
+      if (st.a >= 0.5) last.push({ kind: 'place', text: p.n, x0: b.x0, x1: b.x1, y0: b.y0, y1: b.y1, rx: x, ry: y });
       const base = c.globalAlpha; c.globalAlpha = base * st.a; const r = minor ? 2.2 : 2.8;
       // the ring (a gap when the two terrain frames disagree about the place)
       c.beginPath(); if (p.d) c.arc(x, y, r, 0.45, Math.PI * 2 - 0.45); else c.arc(x, y, r, 0, Math.PI * 2); c.lineCap = 'round'; c.strokeStyle = L.dotRing; c.lineWidth = 3.2; c.stroke(); c.strokeStyle = L.dot; c.lineWidth = 1.1; c.stroke();
@@ -3988,7 +4066,7 @@ function createPlaces({ places }) {
     c.restore();
     return taken;
   }
-  return { draw, list };
+  return { draw, list, last };
 }
 
 __exports.cleanPlace = cleanPlace;
@@ -4003,7 +4081,7 @@ const FADE = 0.22;                                          // fraction of the w
 
 function createStreets({ vectors }) {
   const groups = vectors ? vectors.groups : null; const widths = new Map();
-  let cache = null; const state = new Map(); let sig = '';
+  let cache = null; const state = new Map(); let sig = ''; const last = [];      // last: the names drawn in the latest frame, for the checking tools
   const width = (c, font, s) => { const k = font + '|' + s; let w = widths.get(k); if (w === undefined) { c.font = font; w = c.measureText(s).width; widths.set(k, w); } return w; };
 
   /** every candidate place of every name in the view and a margin: { id, text, kind, tw, cands: [{ ux, uy, ang }] } (unit-square world coordinates, so they stand still while the camera moves) */
@@ -4057,21 +4135,21 @@ function createStreets({ vectors }) {
       return true;
     };
     const box = (x, y, tw, ang) => { const ca = Math.abs(Math.cos(ang)); const sa = Math.abs(Math.sin(ang)); const bw = tw * ca + 18 * sa; const bh = tw * sa + 18 * ca; return { x0: x - bw / 2 - 2, x1: x + bw / 2 + 2, y0: y - bh / 2, y1: y + bh / 2 }; };
-    const taken = []; const seenIds = new Set(); const perGroup = new Map();
+    const taken = []; const seenIds = new Set(); const perGroup = new Map(); const perName = new Set(); last.length = 0;
     c.save(); c.lineJoin = 'round'; c.textBaseline = 'middle'; c.textAlign = 'center';
     for (const it of cache.items) {
       let st = state.get(it.id); if (!st) { st = { a: 0, cand: -1, want: -1 }; state.set(it.id, st); }
       seenIds.add(it.id);
       const sc = cache.sx; const screen = (cd) => [cd.ux * sc - cam[0], cd.uy * sc - cam[1]];
       let pick = -1; const used = perGroup.get(it.grp) || 0;
-      if (used < 2) {
+      if (used < 2 && !perName.has(it.text)) {      // a road or stream name is lettered once on the screen, even when the data has it as two records (director fix 3)
         if (st.cand >= 0 && st.cand < it.cands.length) { const [x, y] = screen(it.cands[st.cand]); if (free(x, y, it.tw, it.cands[st.cand].ang, taken)) pick = st.cand; }
         if (pick < 0) {                                                       // the free candidate nearest the middle of the stage
-          let best = Infinity; const mx = (stage.x0 + stage.x1) / 2; const my = (stage.y0 + stage.y1) / 2;
-          for (let i = 0; i < it.cands.length; i++) { const [x, y] = screen(it.cands[i]); if (x < stage.x0 || x > stage.x1 || y < stage.y0 || y > stage.y1) continue; const d = Math.abs(x - mx) + Math.abs(y - my) * 1.2; if (d < best && free(x, y, it.tw, it.cands[i].ang, taken)) { best = d; pick = i; } }
+          let best = Infinity; const mx = (stage.x0 + stage.x1) / 2; const my = (stage.y0 + stage.y1) / 2; const gnd = v.ground;
+          for (let i = 0; i < it.cands.length; i++) { const [x, y] = screen(it.cands[i]); if (x < stage.x0 || x > stage.x1 || y < stage.y0 || y > stage.y1) continue; const d = Math.abs(x - mx) + Math.abs(y - my) * 1.2 + (gnd ? 40 * gnd(x, y, it.tw / 2) : 0); if (d < best && free(x, y, it.tw, it.cands[i].ang, taken)) { best = d; pick = i; } }
         }
       }
-      if (pick >= 0) { const [x, y] = screen(it.cands[pick]); taken.push(box(x, y, it.tw, it.cands[pick].ang)); perGroup.set(it.grp, used + 1); }
+      if (pick >= 0) { perName.add(it.text); const [x, y] = screen(it.cands[pick]); taken.push(box(x, y, it.tw, it.cands[pick].ang)); perGroup.set(it.grp, used + 1); }
       st.want = pick;
       if (st.cand >= 0 && st.want >= 0 && st.cand !== st.want) { st.a += (0 - st.a) * F2; if (st.a < 0.05) { st.cand = st.want; } }       // fade out before moving to another place
       else if (st.want >= 0) { if (st.cand < 0) st.cand = st.want; st.a += (1 - st.a) * F; }
@@ -4080,6 +4158,7 @@ function createStreets({ vectors }) {
       if (st.a < 0.02 || st.cand < 0) continue;
       const cd = it.cands[Math.min(st.cand, it.cands.length - 1)]; const [x, y] = screen(cd);
       if (st.a < 1 && v.onBusy) v.onBusy();
+      if (st.a >= 0.5) { const bx = box(x, y, it.tw, cd.ang); last.push({ kind: it.kind, text: it.text, cx: x, cy: y, tw: it.tw - 8, ang: cd.ang, x0: bx.x0, x1: bx.x1, y0: bx.y0, y1: bx.y1 }); }
       const fill = it.kind === 'stream' ? L.water : L.road; const f = it.kind === 'stream' ? ifont : font;
       c.save(); c.translate(x, y); c.rotate(cd.ang); c.globalAlpha = c.globalAlpha * st.a; c.font = f; c.lineWidth = 4; c.strokeStyle = L.roadHalo; c.strokeText(it.text, 0, 0.5); c.fillStyle = fill; c.fillText(it.text, 0, 0.5); c.restore();
     }
@@ -4087,7 +4166,7 @@ function createStreets({ vectors }) {
     if (state.size > 400) for (const k of state.keys()) if (!seenIds.has(k)) state.delete(k);
     return taken;
   }
-  return { draw, reset() { cache = null; state.clear(); sig = ''; void sig; } };
+  return { draw, last, reset() { cache = null; state.clear(); sig = ''; void sig; } };
 }
 
 __exports.createStreets = createStreets;
@@ -4156,15 +4235,19 @@ function createRenderer({ canvas, engine, data, places = null, vectors = null })
     const bid = tok('backdrop.id'); const bd = engine.kernel.backdrops.has(bid) ? engine.kernel.backdrops.get(bid) : null;
     if (bd) bd.draw(c, { w: cssW, h: cssH, camera: cam, mpp: cam.mpp(), toScreen: (lng, lat) => cam.toScreen(lng, lat) }, data, tok); else { c.fillStyle = '#ddd'; c.fillRect(0, 0, cssW, cssH); }
     const stage = stageRect(engine.safe, cssW, cssH, mapRect);
+    // 1b. fx modules (the casualty memory) come BEFORE any lettering of the ground: a ground mark is drawn under every place name, road name and the scale bar (director fix 2), and keeps out of the scale bar's box
+    const keepOut = []; if (stage.x1 - stage.x0 >= 420) { const sb = scaleBarRect(stage, cam); keepOut.push({ x0: sb.x0 - 14, x1: sb.x1 + 14, y0: sb.y0 - 14, y1: sb.y1 + 14 }); }
+    env.keepOut = keepOut;
+    for (const fx of engine.kernel.fx.list()) if (fx.draw) { c.save(); fx.draw(c, frame, env); c.restore(); }
+    const memFx = engine.kernel.fx.list().find((f) => f.id === 'memory'); const ground = memFx && memFx.countNear ? (x, y, r) => memFx.countNear(x, y, r) : null;      // the casualty marks drawn this frame: the lettering keeps to the quieter side of the field
     if (bd && bd.look) {
       let avoid = cardRects.slice(); if (stage.x1 - stage.x0 >= 420) avoid.push(scaleBarRect(stage, cam));
-      if (placeNames && tok('backdrop.places')) avoid = avoid.concat(placeNames.draw(c, { w: cssW, h: cssH, camera: cam, tiles: frame.tiles, view, stage, look: bd.look, cards: avoid, steps }) || []);
-      if (streetNames) streetNames.draw(c, { w: cssW, h: cssH, camera: cam, tiles: frame.tiles, view, stage, look: bd.look, avoid, steps, onBusy: () => { engine.dirty = true; } });
+      if (placeNames && tok('backdrop.places')) avoid = avoid.concat(placeNames.draw(c, { w: cssW, h: cssH, camera: cam, tiles: frame.tiles, view, stage, look: bd.look, cards: avoid, steps, ground }) || []);
+      if (streetNames) streetNames.draw(c, { w: cssW, h: cssH, camera: cam, tiles: frame.tiles, view, stage, look: bd.look, avoid, steps, ground, onBusy: () => { engine.dirty = true; } });
       const sbObst = []; for (const t of frame.tiles) { if (t.opacity < 0.3) continue; const x = t.x + view.dx; const y = t.y + view.dy; sbObst.push({ x0: x - t.w * t.scale / 2, x1: x + t.w * t.scale / 2, y0: y - t.h * t.scale / 2, y1: y + t.h * t.scale / 2 }); }
       drawScaleBar(c, stage, cam, bd.look, sbObst, steps);
     }
-    // 2. fx modules
-    for (const fx of engine.kernel.fx.list()) if (fx.draw) { c.save(); fx.draw(c, frame, env); c.restore(); }
+    // 2. (the fx modules were drawn above, beneath the lettering of the ground)
     const on = (t) => { const x = t.x + view.dx; const y = t.y + view.dy; return x > -120 && x < cssW + 120 && y > -60 && y < cssH + 60; };
     // ROUND 2 (render/stage.mjs): a mark is drawn WHOLE or not at all.  The frame (masthead, dock, rail, columns) is the edge of the stage; a mark whose whole footprint lies inside the stage and clear of the floating interface is
     // shown, any other is eased out as one piece; at rest every mark is either fully shown or absent (never half-transparent under a bar, never cut by the screen edge).
@@ -4210,7 +4293,7 @@ function createRenderer({ canvas, engine, data, places = null, vectors = null })
     stats.drawMs = performance.now() - t0; stats.tilesDrawn = drawn; lastMs = stats.drawMs;
     return stats;
   }
-  return { draw, resize, stats, get dpr() { return dpr; }, get lastDrawMs() { return lastMs; }, get size() { return [cssW, cssH]; } };
+  return { draw, resize, stats, get labels() { return { places: placeNames ? placeNames.last : [], streets: streetNames ? streetNames.last : [] }; }, get dpr() { return dpr; }, get lastDrawMs() { return lastMs; }, get size() { return [cssW, cssH]; } };
 }
 
 __exports.createRenderer = createRenderer;
@@ -6383,7 +6466,7 @@ function defineSkin(def) {
   if (D.hull) draw.hull = (c, t, env, pts) => { D.hull(c, t, light(skin, gl, t, env), pts); };
   const out = { id: def.id, label: def.label, version: def.version, family: skin.family, variant: skin.variant, footprint: def.footprint, fonts: def.fonts, draw, channels: def.channels, tokenDocs: table, skin, sizer: typeof def.sizer === 'function' ? def.sizer(skin) : null };      // FORK: sizer(skin) -> { key, leaf, agg }: the footprint by detail level (layout/spec.mjs)
   out.legend = () => legendOf(skin, def);
-  if (typeof def.figure === 'function') { const gf = makeG(skin); out.figure = (c, w) => { const m = typeof c.getTransform === 'function' ? c.getTransform() : null; gf.dpr = m ? m.a : 1; gf.ring = def.footprint && def.footprint.ring !== undefined ? def.footprint.ring : 2; return def.figure(c, gf, w); }; out.figureH = def.figureH || 300; }      // POLISH 1: the legend's figure (anatomy of the marks), drawn with the skin's own code
+  if (typeof def.figure === 'function') { const gf = makeG(skin); out.figure = (c, w) => { const m = typeof c.getTransform === 'function' ? c.getTransform() : null; gf.dpr = m ? m.a : 1; gf.ring = def.footprint && def.footprint.ring !== undefined ? def.footprint.ring : 2; return def.figure(c, gf, w); }; out.figureH = def.figureH || 300; out.figureMeasure = (w) => { try { if (typeof OffscreenCanvas === 'undefined') return out.figureH; const cv = new OffscreenCanvas(4, 4); const c = cv.getContext('2d'); return Math.ceil(out.figure(c, w)) + 6; } catch { return out.figureH; } }; }      // figureMeasure(w): the height the figure needs at width w (it is drawn once on a throwaway canvas)      // POLISH 1: the legend's figure (anatomy of the marks), drawn with the skin's own code
   if (def.fonts) { for (const k of ['code', 'label', 'badge']) if (typeof def.fonts[k] !== 'string') throw new Error(`defineSkin(${def.id}): fonts.${k}`); }
   for (const [ch] of Object.entries(def.channels)) if (!CHANNELS[ch]) throw new Error(`defineSkin(${def.id}): unknown channel ${ch}`);
   skin.def = def; skin.out = out; registry.set(def.id, skin);
@@ -6482,7 +6565,7 @@ const STD_TOKENS = [
   // ---- the planted standard: pole, foot, shadow -----------------------------------------------------------------------------------------------------------------------
   ['pole.width', 1.6, 'Width of a pole, the hard cream line a flag flies from', { min: 1, max: 3, unit: 'px' }],
   ['pole.unit', 17, 'Height of the pole of a regiment or battery below the full zoom (a small side-and-arm mark)', { min: 8, max: 26, unit: 'px' }],
-  ['pole.unitFull', 25, 'Height of the pole of a regiment or battery from the full zoom (default 15)', { min: 10, max: 34, unit: 'px' }],
+  ['pole.unitFull', 27, 'Height of the pole of a regiment or battery from the full zoom (default 15)', { min: 10, max: 34, unit: 'px' }],
   ['pole.brigade', 34, 'Height of a brigade standard (and of a crowd of units under no formation)', { min: 14, max: 44, unit: 'px' }],
   ['pole.division', 44, 'Height of a division standard: the scale hierarchy is the pole and the flag, not a box', { min: 16, max: 52, unit: 'px' }],
   ['pole.corps', 56, 'Height of a corps (or army) standard', { min: 18, max: 60, unit: 'px' }],
@@ -6493,21 +6576,23 @@ const STD_TOKENS = [
   ['flag.unitW', 11, 'Length of a regiment flag below the full zoom', { min: 6, max: 20, unit: 'px' }],
   ['flag.unitH', 8, 'Height of a regiment flag below the full zoom', { min: 4, max: 14, unit: 'px' }],
   ['flag.unitFullW', 16, 'Least length of a regiment flag from the full zoom: it lengthens to hold its short code, which stands on the cloth', { min: 8, max: 24, unit: 'px' }],
-  ['flag.unitFullH', 15, 'Height of a regiment flag from the full zoom: tall enough for the 12 px code on its cloth', { min: 6, max: 16, unit: 'px' }],
+  ['flag.unitFullH', 18, 'Height of a regiment flag from the full zoom: the 12 px code stands on it with 3 px of plain cloth above and below (director fix 7: a clean ring round every numeral)', { min: 6, max: 22, unit: 'px' }],
   ['flag.brigadeW', 30, 'Length of a brigade flag', { min: 10, max: 34, unit: 'px' }],
-  ['flag.brigadeH', 20, 'Height of a brigade flag', { min: 7, max: 22, unit: 'px' }],
+  ['flag.brigadeH', 24, 'Height of a brigade flag', { min: 7, max: 28, unit: 'px' }],
   ['flag.divisionW', 38, 'Length of a division flag', { min: 12, max: 40, unit: 'px' }],
-  ['flag.divisionH', 26, 'Height of a division flag', { min: 8, max: 26, unit: 'px' }],
+  ['flag.divisionH', 30, 'Height of a division flag', { min: 8, max: 34, unit: 'px' }],
   ['flag.corpsW', 48, 'Length of a corps flag', { min: 14, max: 48, unit: 'px' }],
-  ['flag.corpsH', 32, 'Height of a corps flag', { min: 10, max: 32, unit: 'px' }],
+  ['flag.corpsH', 36, 'Height of a corps flag', { min: 10, max: 40, unit: 'px' }],
+  ['rank.pip', 2.2, 'Radius of a rank pip on a formation flag: one pip for a brigade, two for a division, three for a corps (derived from the order of battle, no insignia)', { min: 1, max: 3.5, unit: 'px' }],
+  ['rank.pipGap', 8, 'Distance between the centres of two rank pips', { min: 4, max: 12, unit: 'px' }],
   ['flag.crowdMinH', 20, 'Least height of a crowd flag: tall enough for its 12 px numeral', { min: 12, max: 24, unit: 'px' }],
   ['flag.notch', 0.34, 'Depth of the swallow-tail of a cavalry flag and of the arrow end of an artillery flag, as a share of the flag height', { min: 0.1, max: 0.6 }],
   ['flag.wave', 1.3, 'How far the cloth rises and falls along its length (px; none under 12 px of length): cloth, not a box', { min: 0, max: 2, unit: 'px' }],
   ['flag.shade', 0.26, 'Strength of the light-to-shade gradient along the cloth', { min: 0, max: 0.5 }],
   ['flag.edge', 1.1, 'Width of the edge of a fresh flag', { min: 0.5, max: 2, unit: 'px' }],
-  ['flag.edgeHollow', 2, 'Width of the light-side edge of a carried-forward flag', { min: 1, max: 3, unit: 'px' }],
+  ['flag.edgeHollow', 1.6, 'Width of the light-side edge of a carried-forward flag', { min: 1, max: 3, unit: 'px' }],
   ['flag.gap', 5, 'Space between a flag and its lettering', { min: 2, max: 10, unit: 'px' }],
-  ['flag.padX', 3.5, 'Space round the count inside a flag that has to widen for two digits', { min: 1, max: 6, unit: 'px' }],
+  ['flag.padX', 5.5, 'Space between the code or count and the flag edge, at each end: with the edge itself it leaves 3 px of plain cloth (director fix 7)', { min: 1, max: 6, unit: 'px' }],
   ['code.baseline', 4.1, 'Distance of a lettering baseline below the middle of the flag', { min: 2, max: 6, unit: 'px' }],
   ['name.alpha', 1, 'Opacity of the grown-in full name', { min: 0.4, max: 1 }],
   // ---- strength: the slim bar under a regiment flag (Modelled) --------------------------------------------------------------------------------------------------------
@@ -6521,8 +6606,8 @@ const STD_TOKENS = [
   ['detail.brigadeNameZoom', 13, 'From this zoom a brigade says its name', { min: 10, max: 18, unit: 'zoom' }],
   ['detail.crowdNameZoom', 12, 'From this zoom a crowd says what its units share (a number alone never stands for hidden units)', { min: 10, max: 18, unit: 'zoom' }],
   ['detail.fullZoom', 15, 'From this zoom a unit is a FULL mark (a taller pole, a larger flag, its short code, the strength bar); below it a small side-and-arm mark', { min: 12, max: 18, unit: 'zoom' }],
-  ['detail.selectGrowZoom', 15, 'From this zoom a selected mark grows its name and the layout makes room for it; below it the selection is a ring and nothing moves', { min: 10, max: 18, unit: 'zoom' }],
-  ['detail.selectNameMinViewport', 560, 'A selected mark grows its full name only when the window is at least this wide (px); on a phone the sheet carries the name', { min: 320, max: 2000, unit: 'px' }],
+  ['detail.selectGrowZoom', 14, 'From this zoom a selected mark grows its flag and name (a unit inside a crowd steps out of it and stands on its own place); below it the selection is a ring and nothing moves (director fix 6)', { min: 10, max: 18, unit: 'zoom' }],
+  ['detail.selectNameMinViewport', 320, 'A selected mark grows its full name only when the window is at least this wide (px); the default admits every phone: the sheet carries the card, the map still shows which mark it is about (director fix 6)', { min: 320, max: 2000, unit: 'px' }],
   ['detail.unitNameZoom', 17, 'From this zoom a unit says its full name: the same mark grows, there is no second box', { min: 14, max: 18, unit: 'zoom' }],
   ['detail.hullZoom', 12, 'From this zoom a crowd shows the true positions of the units it stands for (while pointed at or selected)', { min: 11, max: 18, unit: 'zoom' }],
   // ---- state: carried forward ------------------------------------------------------------------------------------------------------------------------------------
@@ -6543,6 +6628,7 @@ const STD_TOKENS = [
   // ---- crowd member dots -----------------------------------------------------------------------------------------------------------------------------------------------
   ['hull.dot', 2.3, 'Radius of the dot on the true position of one unit a crowd stands for (shown while the crowd is pointed at or selected)', { min: 1, max: 4, unit: 'px' }],
   ['hull.leader', 0.8, 'Opacity of the hairlines from a crowd to its units', { min: 0, max: 1 }],
+  ['hull.maxLen', 130, 'Longest hairline from a crowd to a member it stands for (px); a member further off shows its dot alone, so a crowd of scattered units does not throw a spider of lines across the map', { min: 40, max: 600, unit: 'px' }],
   // ---- pin and leader (only for the mark hovered or selected) ----------------------------------------------------------------------------------------------------
   ['pin.r', 2.6, 'Radius of the true-position ring', { min: 1, max: 4, unit: 'px' }],
   ['leader.width', 1, 'Width of the hairline from the true position to its mark', { min: 0.5, max: 2, unit: 'px' }],
@@ -6746,7 +6832,7 @@ function hatch(c, cx, cy, r, P, a) {
 
 /** one planted standard, drawn in the mirrored frame: the foot at (0, 0), the pole rising to y = -H, the cloth flying to +x.  old 0 fresh .. 1 carried forward; furl 0..1 the cloth unfurls on arrival */
 function drawStandard(c, P, o) {
-  const { side, H, fw, fh, end, old, furl, k } = o; const base = c.globalAlpha; const hollow = old * P['carried.hollow']; const cloth = side === 'mixed' ? P['color.union'] : sideCloth(P, side); const bright = side === 'mixed' ? P['color.unionBright'] : sideBright(P, side);
+  const { side, H, fw, fh, end, old, furl, k } = o; const pips = o.pips || 0; const base = c.globalAlpha; const hollow = old * P['carried.hollow']; const cloth = side === 'mixed' ? P['color.union'] : sideCloth(P, side); const bright = side === 'mixed' ? P['color.unionBright'] : sideBright(P, side);
   const pw = P['pole.width'] * (k >= 2 ? 1.12 : 1); const shade = P['shadow.alpha'];
   // the ground shadow: lit from the north-west (like the relief), so it falls to the south-east
   c.save(); c.translate(1.2, 0.7); c.scale(1, 0.36); c.beginPath(); c.arc(0, 0, P['shadow.rx'] * (0.62 + 0.38 * Math.min(1.2, H / 26)), 0, TAU); c.fillStyle = rgba('#000000', shade); c.fill(); c.restore();
@@ -6767,6 +6853,15 @@ function drawStandard(c, P, o) {
   if (side === 'unknown') hatch(c, x0 + w / 2, y0 + fh / 2, w / 2 + 2, P, 1);
   if (P['flag.shade'] > 0 && w > 8) { const gr = c.createLinearGradient(x0, 0, x0 + w, 0); gr.addColorStop(0, `rgba(255,255,255,${P['flag.shade'] * 0.5})`); gr.addColorStop(0.55, 'rgba(255,255,255,0)'); gr.addColorStop(1, `rgba(0,0,0,${P['flag.shade']})`); c.fillStyle = gr; c.fillRect(bx, y0 - 2, bw, fh + 4); }
   c.restore(); c.globalAlpha = base;
+  // the rank pips: one, two, three cloth-coloured studs in a row, centred on the cloth of a brigade, division or corps flag (a derived rank mark, never insignia); ink on a hollow flag, as the lettering is
+  if (pips > 0 && w > 10) {
+    const pr = P['rank.pip']; const gap = P['rank.pipGap']; const cx0 = x0 + w / 2; const cy0 = y0 + fh / 2; const ink = mixHex(P['color.numeral'], P['color.ink'], 0); const holl = ss(0.42, 0.58, hollow);
+    for (let i = 0; i < pips; i++) {
+      const px = cx0 + (i - (pips - 1) / 2) * gap;
+      c.beginPath(); c.arc(px, cy0, pr + 1, 0, TAU); c.fillStyle = rgba(P['color.poleEdge'], 0.62 * (1 - holl)); c.fill();
+      c.beginPath(); c.arc(px, cy0, pr, 0, TAU); c.fillStyle = holl > 0.5 ? P['color.ink'] : ink; c.fill();
+    }
+  }
   // the finial and the foot
   c.beginPath(); c.arc(0, -H, pw * 0.85, 0, TAU); c.fillStyle = mixHex(P['color.pole'], bright, hollow * 0.55); c.fill();
   const fr = P['foot.r']; c.beginPath(); c.arc(0, 0, fr + 1, 0, TAU); c.fillStyle = rgba(P['color.poleEdge'], 0.75); c.fill(); c.beginPath(); c.arc(0, 0, fr, 0, TAU); c.fillStyle = mixHex(P['color.pole'], bright, hollow * 0.7); c.fill();
@@ -6787,7 +6882,7 @@ function tile(c, t, g) {
   const fhNow = g.ease('fh', pl.fh, 140); const Hnow = g.ease('H', pl.H, 140);                    // the pole and the flag grow into the full size over 140 ms (a zoom through 15 never pops)
   const arm = vm.arm === 'cavalry' || vm.arm === 'artillery' ? vm.arm : 'infantry';
   c.save(); c.translate(fx, fy); c.scale(sgn, 1);
-  const stdInfo = { side, H: Hnow, fw: pl.fw, fh: fhNow, end: pl.flag ? 'rect' : (arm === 'cavalry' ? 'swallow' : arm === 'artillery' ? 'point' : 'rect'), old, furl: Math.max(0.3, enter), k: pl.k };
+  const stdInfo = { side, H: Hnow, fw: pl.fw, fh: fhNow, end: pl.flag ? 'rect' : (arm === 'cavalry' ? 'swallow' : arm === 'artillery' ? 'point' : 'rect'), old, furl: Math.max(0.3, enter), k: pl.k, pips: pl.flag && info.count == null ? pl.k : 0 };
   c.globalAlpha = base * (0.6 + 0.4 * enter); drawStandard(c, P, stdInfo); c.globalAlpha = base;
   c.restore();
   const fy0 = fy - Hnow; const fcy = fy0 + fhNow / 2;                                            // the middle of the cloth, in box coordinates
@@ -6824,7 +6919,8 @@ function tile(c, t, g) {
 function standing(t, g, b) { const pl = plan(g.env.spec, g.P, infoOfTile(t), g.zoom, !!t.selected && t.grown !== false); return [b[0] - pl.dx, b[1] - pl.dy]; }
 const isOn = (t) => !!t.selected || skinKit.hover() === t.key;
 function pin(c, t, g) {
-  if (!isOn(t)) return; const P = g.P; const r = P['pin.r']; const base = c.globalAlpha; const side = sideOf(g.vm.side === 'mixed' ? 'union' : g.vm.side);
+  if (!isOn(t)) return; const P = g.P; const r = P['pin.r']; const base = c.globalAlpha; { const pl = plan(g.env.spec, P, infoOfTile(t), g.zoom, !!t.selected && t.grown !== false); c.translate(-pl.dx, -pl.dy); }      // the renderer puts the origin on the true place of the box CENTRE; the unit stands at the true place of the FOOT
+  const side = sideOf(g.vm.side === 'mixed' ? 'union' : g.vm.side);
   c.beginPath(); c.arc(0, 0, r + 1.2, 0, TAU); c.fillStyle = rgba(P['color.poleEdge'], 0.75); c.fill(); c.beginPath(); c.arc(0, 0, r, 0, TAU); c.fillStyle = P['color.pole']; c.fill();
   c.beginPath(); c.arc(0, 0, Math.max(0.6, r - 1.15), 0, TAU); c.fillStyle = sideCloth(P, side); c.fill(); c.globalAlpha = base;
 }
@@ -6836,7 +6932,8 @@ function leader(c, t, g, a, b) {
 function hull(c, t, g, pts) {
   const P = g.P; if (g.zoom < P['detail.hullZoom'] || !pts.length || !isOn(t)) return;
   const view = g.env.view || { dx: 0, dy: 0 }; const e0 = standing(t, g, [t.x + view.dx, t.y + view.dy]); const base = c.globalAlpha; const side = sideOf(g.vm.side); c.lineCap = 'round'; c.beginPath();
-  for (const p of pts) { c.moveTo(e0[0], e0[1]); c.lineTo(p[0], p[1]); }
+  const LMAX = P['hull.maxLen'];      // director fix 11: a hairline never runs further than this; a member that stands further off is shown by its dot alone (no spider of long lines across the map)
+  for (const p of pts) { const dx = p[0] - e0[0]; const dy = p[1] - e0[1]; const d = Math.hypot(dx, dy); const k = d > LMAX ? LMAX / d : 1; c.moveTo(e0[0], e0[1]); c.lineTo(e0[0] + dx * k, e0[1] + dy * k); }
   c.globalAlpha = base * P['hull.leader']; c.strokeStyle = rgba(P['color.poleEdge'], 0.6); c.lineWidth = 2.4; c.stroke(); c.strokeStyle = tintHex(P, side); c.lineWidth = 0.9; c.stroke();
   c.globalAlpha = base * 0.95; const r = P['hull.dot'];
   for (const p of pts) { c.beginPath(); c.arc(p[0], p[1], r + 1, 0, TAU); c.fillStyle = rgba(P['color.poleEdge'], 0.75); c.fill(); c.beginPath(); c.arc(p[0], p[1], r, 0, TAU); c.fillStyle = P['color.pole']; c.fill(); }
@@ -6844,11 +6941,11 @@ function hull(c, t, g, pts) {
 }
 
 // ---- the legend's swatches (26 x 20, centre at 0,0): the same drawing code ----------------------------------------------------------------------------------------------------
-function swatch(c, P, side, k, o = {}) { c.save(); c.translate(o.x ?? -5, 8); const info = { flag: k > 0, ech: k + 1, count: null, arm: o.arm || 'infantry' }; const H = o.H ?? 15; const fw = o.fw ?? 12; const fh = o.fh ?? 8.5; drawStandard(c, P, { side, H, fw, fh, end: o.end || 'rect', old: o.old || 0, furl: 1, k }); void info; c.restore(); }
+function swatch(c, P, side, k, o = {}) {      /* o.pips: rank pips on the cloth */ c.save(); c.translate(o.x ?? -5, 8); const info = { flag: k > 0, ech: k + 1, count: null, arm: o.arm || 'infantry' }; const H = o.H ?? 15; const fw = o.fw ?? 12; const fh = o.fh ?? 8.5; drawStandard(c, P, { side, H, fw, fh, end: o.end || 'rect', old: o.old || 0, furl: 1, k, pips: o.pips || 0 }); void info; c.restore(); }
 function sample(c, ch, v, g, w, h) {
   const P = g.P;
   if (ch === 'side') { if (v === 'mixed') swatch(c, P, 'mixed', 1, { H: 16, fw: 13, fh: 9.5 }); else swatch(c, P, v, 0); }
-  else if (ch === 'arm') { if (v === 'formation') swatch(c, P, 'union', 1, { H: 17, fw: 14, fh: 9.5 }); else if (v === 'infantry') swatch(c, P, 'union', 0); else if (v === 'cavalry') swatch(c, P, 'union', 0, { end: 'swallow' }); else if (v === 'artillery') swatch(c, P, 'union', 0, { end: 'point' }); else return false; }
+  else if (ch === 'arm') { if (v === 'formation') swatch(c, P, 'union', 1, { H: 17, fw: 14, fh: 9.5, pips: 1 }); else if (v === 'infantry') swatch(c, P, 'union', 0); else if (v === 'cavalry') swatch(c, P, 'union', 0, { end: 'swallow' }); else if (v === 'artillery') swatch(c, P, 'union', 0, { end: 'point' }); else return false; }
   else if (ch === 'fix') swatch(c, P, 'union', 0, { old: v === 'carried' ? 1 : 0 });
   else if (ch === 'aggregate') { swatch(c, P, 'union', 1, { H: 17, fw: 15, fh: 11 }); c.font = FONTS.code; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillStyle = P['color.numeral']; c.fillText('5', 2.4, -2.6); }
   else if (ch === 'idOnly') { c.font = FONTS.codeI; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillStyle = P['color.ink']; c.fillText('12 NC', 0, 0.6); }
@@ -6860,6 +6957,8 @@ function sample(c, ch, v, g, w, h) {
 }
 
 // ---- the legend's figure: the anatomy of the marks at their true size, drawn with the same code as the map -----------------------------------------------------------------------
+// Every state of a mark the map can draw is in it (director fix 4): a unit of each arm and of each side, the three ranks with their pips, a crowd of each side, of both armies and with the words that tell two crowds apart,
+// fresh / carried forward / selected, the strength bar, the hatched flag of a unit whose side is Contested, and the ground marks.  It lays itself out for any width W (316 in the rail, the sheet's width on a phone).
 function figure(c, g, W) {
   const P = g.P; const ink = P['color.ink']; const mute = rgba(ink, 0.78); const faint = rgba(ink, 0.16); const FACE = FONTS.name.replace(/^400 12px /, ''); const cap = `400 12px ${FACE}`; const lab = `600 12px ${FACE}`; const labB = `700 13px ${FACE}`; const title = `700 11px ${FACE}`;
   const M = 16; let y = 8; c.textBaseline = 'alphabetic'; c.textAlign = 'left';
@@ -6868,41 +6967,53 @@ function figure(c, g, W) {
   const caption = (text) => { c.font = cap; const lines = wrapText(c, text, W - 2 * M); c.fillStyle = mute; for (const ln of lines) { c.fillText(ln, M, y + 12); y += 17; } };
   const rule = () => { y += 6; c.strokeStyle = faint; c.lineWidth = 1; c.beginPath(); c.moveTo(M, y + 0.5); c.lineTo(W - M, y + 0.5); c.stroke(); y += 12; };
   const stand = (side, x, foot, o, mirror) => { c.save(); c.translate(x, foot); if (mirror) c.scale(-1, 1); drawStandard(c, P, { side, old: 0, furl: 1, ...o }); c.restore(); };
-  const bl = P['code.baseline'];
-  // 1. a unit: pole, flag, code; the three arms
-  head('A unit'); let foot = y + 30; const U = { H: P['pole.unitFull'], fh: P['flag.unitFullH'], k: 0 };
-  const unitFlag = (side, text, x, end, mirror) => {            // the short code stands ON the cloth, which is as long as the code needs
+  const bl = P['code.baseline']; const colW = (W - 2 * M) / 2;           // two columns: the left cell starts at M + 8, the right at M + colW + 8
+  const cell = (i) => M + 8 + (i % 2) * colW;
+  const tint = (side) => (side === 'union' ? P['color.tintUnion'] : side === 'confederate' ? P['color.tintConfederate'] : side === 'unknown' ? P['color.tintUnknown'] : P['color.tintMixed']);
+  // 1. a unit: pole, flag, code; the three arms, and a Confederate flag (it flies the other way); a 2 x 2 grid with the side named beside each flag
+  head('A unit'); let foot = y + 34; const U = { H: P['pole.unitFull'], fh: P['flag.unitFullH'], k: 0 };
+  const unitFlag = (side, text, x, end, mirror, name) => {            // the short code stands ON the cloth, which is as long as the code needs; a mirrored flag has its pole on the right of its cloth, so x is its LEFT edge there
     c.font = FONTS.code; const nPx = end === 'rect' ? 0 : U.fh * P['flag.notch']; const fw = Math.max(P['flag.unitFullW'], Math.ceil(c.measureText(text).width + 2 * P['flag.padX'] + nPx)); const pw = P['pole.width'];
-    stand(side, x, foot, { ...U, fw, end }, mirror); const mid = x + (mirror ? -1 : 1) * (pw / 2 - 0.2 + (fw - nPx) / 2); const sp = lettering(g, FONTS.code, text, P['color.numeral'], P['color.numeralHalo'], 0); const by = foot - U.H + U.fh / 2 + bl - 0.2; c.drawImage(sp.img, mid - sp.tw / 2 - sp.x, by - sp.y, sp.w, sp.h);
+    const px = mirror ? x - pw : x; x = mirror ? x - pw - fw : x; stand(side, px, foot, { ...U, fw, end }, mirror); const mid = px + (mirror ? -1 : 1) * (pw / 2 - 0.2 + (fw - nPx) / 2); const sp = lettering(g, FONTS.code, text, P['color.numeral'], P['color.numeralHalo'], 0); const by = foot - U.H + U.fh / 2 + bl - 0.2; c.drawImage(sp.img, mid - sp.tw / 2 - sp.x, by - sp.y, sp.w, sp.h);
+    word(name, mirror ? x - 8 : px + fw + 10, foot - 3, lab, tint(side), mirror ? 'right' : 'left');      // x is now the flag's left edge
   };
-  unitFlag('union', '71 PA', M + 8, 'rect', false); unitFlag('union', '1 NJ', M + 100, 'swallow', false); unitFlag('union', 'B/1 RI', M + 180, 'point', false);
-  foot += 36; unitFlag('confederate', '53 VA', W - M - 8, 'rect', true);
-  y += 76; caption('Square: infantry. Swallow-tail: cavalry. Arrow: artillery. The short code is on the flag. A flag flies toward the enemy: Union to the right, Confederate to the left. The foot of the pole is the unit.'); rule();
+  unitFlag('union', '71 PA', cell(0), 'rect', false, 'infantry'); unitFlag('union', '1 NJ', cell(1), 'swallow', false, 'cavalry');
+  foot += 42; unitFlag('union', 'B/1 RI', cell(0), 'point', false, 'artillery'); unitFlag('confederate', '53 VA', W - M - 8, 'rect', true, 'Confederate');
+  y += 96; caption('Square: infantry. Swallow-tail: cavalry. Arrow: artillery. The short code is on the flag. A flag flies toward the enemy: Union to the right, Confederate to the left. The foot of the pole is the unit.'); rule();
   // 2. rank
   head('Rank');
-  foot = y + P['pole.corps'] + 4;
-  for (const [x0, k, text] of [[0, 1, 'Bde'], [82, 2, 'Div'], [176, 3, 'Corps']]) {
-    const x = M + 8 + x0; const H = P[POLE[k]]; const fw = P[FLAGW[k]]; const fh = P[FLAGH[k]];
-    stand('union', x, foot, { H, fw, fh, end: 'rect', k }, false); word(text, x + fw + 6, foot - H + fh / 2 + bl - 0.2, labB, P['color.tintUnion']);
-  }
-  y += P['pole.corps'] + 12; caption('A taller pole and a larger flag are a higher rank: brigade, division, corps. Rank is height, never a box.'); rule();
-  // 3. a crowd
-  head('A crowd'); foot = y + 34; const cfy = foot - P['pole.brigade'] + P['flag.crowdMinH'] / 2 + bl - 0.2;
-  stand('union', M + 8, foot, { H: P['pole.brigade'], fw: 30, fh: P['flag.crowdMinH'], end: 'rect', k: 1 }, false); word('5', M + 8 + 15.5, cfy, lab, P['color.numeral'], 'center'); word("Garnett's Bde", M + 8 + 30 + 6, cfy, labB, P['color.tintUnion']);
-  stand('confederate', W - M - 8, foot, { H: P['pole.brigade'], fw: 30, fh: P['flag.crowdMinH'], end: 'rect', k: 1 }, true); word('9', W - M - 8 - 15.5, cfy, lab, P['color.numeral'], 'center'); word("Pender's Div", W - M - 8 - 30 - 6, cfy, labB, P['color.tintConfederate'], 'right');
-  y += 46; caption('Units too close to stand apart merge into one flag. Its number counts placement records, never men; its words say what they share. Point at it to see where each one stands.'); rule();
-  // 4. age, strength, the ground
-  head('Age, strength and the ground'); foot = y + 28;
-  const F = { H: P['pole.unitFull'], fw: P['flag.unitFullW'], fh: P['flag.unitFullH'], end: 'rect', k: 0 }; const fcy = foot - F.H + F.fh / 2 + bl - 0.2;
-  stand('union', M + 8, foot, F, false); word('fresh', M + 8 + 20, fcy, lab, ink);
-  stand('union', M + 70, foot, { ...F, old: 1 }, false); word('carried forward', M + 70 + 20, fcy, lab, ink);
-  c.save(); c.translate(M + 204, foot); groundRing(c, P, 8.5, 3.6, P['color.unionBright'], 1, P['sel.width']); c.restore(); stand('union', M + 204, foot, F, false); word('selected', M + 204 + 20, fcy, lab, ink);
-  y += 38; caption('A hollow flag means the latest keyframe is a battle day old or more. The bar under a flag is the placement strength over the unit’s reference: a modelled value, not a casualty record.'); rule();
+  foot = y + P['pole.corps'] + 4; const span = W - 2 * M - 16; const rx = [0, span * 0.28, span * 0.58];
+  [[1, 'Bde'], [2, 'Div'], [3, 'Corps']].forEach(([k, text], i) => {
+    const x = M + 8 + rx[i]; const H = P[POLE[k]]; const fw = P[FLAGW[k]]; const fh = P[FLAGH[k]];
+    stand('union', x, foot, { H, fw, fh, end: 'rect', k, pips: k }, false); word(text, x + fw + 6, foot - H + fh / 2 + bl - 0.2, labB, P['color.tintUnion']);
+  });
+  y += P['pole.corps'] + 12; caption('A taller pole and a larger flag are a higher rank, and the pips on the cloth count it: one for a brigade, two for a division, three for a corps. Rank is height, never a box.'); rule();
+  // 3. a crowd: of one army, of both, and with the words that tell two crowds apart
+  head('A crowd'); foot = y + 36;
+  const crowd = (x, side, n, words, mirror) => {
+    c.font = lab; const fw = Math.max(30, Math.ceil(c.measureText(n).width + 2 * P['flag.padX'])); const fh = P['flag.crowdMinH']; const H = P['pole.brigade']; const fy = foot - H + fh / 2 + bl - 0.2; const px = mirror ? x - P['pole.width'] : x; if (mirror) x = x - P['pole.width'] - fw;
+    stand(side, px, foot, { H, fw, fh, end: 'rect', k: 1 }, mirror); word(n, px + (mirror ? -1 : 1) * (fw / 2 + 0.7), fy, lab, P['color.numeral'], 'center');
+    word(words, mirror ? x - 6 : px + fw + 6, fy, labB, tint(side), mirror ? 'right' : 'left');
+  };
+  crowd(cell(0), 'union', '5', "Garnett's Bde", false); crowd(W - M - 8, 'confederate', '9', "Pender's Div", true);
+  y += 48; foot = y + 36; crowd(cell(0), 'union', '2', "Ward's Bde, north", false); crowd(cell(1), 'mixed', '4', 'both armies', false);
+  y += 48; caption('Units too close to stand apart merge into one flag. Its number counts placement records, never men; its words say what they share, with north, south, east or west added when two crowds share the same words. A flag split blue and red holds units of both armies. Point at it to see where each one stands.'); rule();
+  // 4. age, strength, side
+  head('Age, strength and side'); foot = y + 30; const F = { H: P['pole.unitFull'], fw: P['flag.unitFullW'], fh: P['flag.unitFullH'], end: 'rect', k: 0 }; const fcy = foot - F.H + F.fh / 2 + bl - 0.2; const cw = (W - 2 * M - 16) / 3;
+  const col3 = (i) => M + 8 + i * cw;
+  stand('union', col3(0), foot, F, false); word('fresh', col3(0) + F.fw + 8, fcy, lab, ink);
+  stand('union', col3(1), foot, { ...F, old: 1 }, false); word('carried', col3(1) + F.fw + 8, fcy, lab, ink);
+  c.save(); c.translate(col3(2), foot); groundRing(c, P, 8.5, 3.6, P['color.unionBright'], 1, P['sel.width']); c.restore(); stand('union', col3(2), foot, F, false); word('selected', col3(2) + F.fw + 8, fcy, lab, ink);
+  y += 36; foot = y + 38; const fcy2 = foot - F.H + F.fh / 2 + bl - 0.2;
+  const barred = (x, share, text) => { stand('union', x, foot, F, false); const bx = x + P['pole.width'] / 2 + 0.6; const bw = F.fw; const by = foot - F.H + F.fh + P['strength.gap']; c.fillStyle = rgba(P['color.poleEdge'], P['strength.track']); c.fillRect(bx - 0.6, by - 0.6, bw + 1.2, P['strength.h'] + 1.2); c.fillStyle = P['color.unionBright']; c.fillRect(bx, by, bw * share, P['strength.h']); word(text, x + bw + 8, fcy2, lab, ink); };
+  barred(col3(0), 1, 'full'); barred(col3(1), 0.4, '40 %');
+  stand('unknown', col3(2), foot, F, false); word('contested', col3(2) + F.fw + 8, fcy2, lab, ink);
+  y += 44; caption('A hollow flag means the latest keyframe is a battle day old or more. The bar under a flag is the placement strength over the unit’s reference: a modelled value, not a casualty record. A pale hatched flag is a unit whose side the records disagree on (Contested): it is never drawn in either army’s colour.'); rule();
   head('The battle remembers'); c.save(); c.lineCap = 'round'; const my = y + 10; for (let i = 0; i < 9; i++) { const x = M + 8 + i * 10 + (i % 3) * 2; const yy = my + ((i * 7) % 5) - 2; const ang = (i * 0.7) % 3; const col = i < 5 ? P['memory.union'] : P['memory.confederate']; c.beginPath(); c.moveTo(x - Math.cos(ang) * 2.3, yy - Math.sin(ang) * 2.3); c.lineTo(x + Math.cos(ang) * 2.3, yy + Math.sin(ang) * 2.3); c.strokeStyle = rgba(P['memory.edge'], P['memory.edgeAlpha']); c.lineWidth = P['memory.width'] + 1.6; c.stroke(); c.strokeStyle = col; c.lineWidth = P['memory.width']; c.stroke(); } c.restore();
   y += 22; caption('Each mark on the ground stands for about ten men killed, wounded or missing. How many a unit lost is Documented (a secondary source); when and where they fell is Modelled.'); y += 8;
   return y;
 }
-const FIG_H = 770;
+const FIG_H = 1000;
 
 const DEF = {
   id: 'standards', label: 'Standards', version: '1.0', tokens: STD_TOKENS, fonts: FONTS, footprint: FOOT, sizer: makeSizer,
@@ -6983,8 +7094,8 @@ const GLY_TOKENS = [
   ['detail.brigadeNameZoom', 13, 'From this zoom a brigade says its name', { min: 10, max: 18, unit: 'zoom' }],
   ['detail.crowdNameZoom', 12, 'From this zoom a crowd says what its units share (a number alone never stands for hidden units)', { min: 10, max: 18, unit: 'zoom' }],
   ['detail.fullZoom', 15, 'From this zoom a unit is a FULL mark (a larger glyph, its short code, the strength gauge); below it a small side-and-arm mark', { min: 12, max: 18, unit: 'zoom' }],
-  ['detail.selectGrowZoom', 15, 'From this zoom a selected mark grows its name and the layout makes room for it; below it the selection is a ring and nothing moves', { min: 10, max: 18, unit: 'zoom' }],
-  ['detail.selectNameMinViewport', 560, 'A selected mark grows its full name only when the window is at least this wide (px); on a phone the sheet carries the name', { min: 320, max: 2000, unit: 'px' }],
+  ['detail.selectGrowZoom', 14, 'From this zoom a selected mark grows its flag and name (a unit inside a crowd steps out of it and stands on its own place); below it the selection is a ring and nothing moves (director fix 6)', { min: 10, max: 18, unit: 'zoom' }],
+  ['detail.selectNameMinViewport', 320, 'A selected mark grows its full name only when the window is at least this wide (px); the default admits every phone: the sheet carries the card, the map still shows which mark it is about (director fix 6)', { min: 320, max: 2000, unit: 'px' }],
   ['detail.unitNameZoom', 17, 'From this zoom a unit says its full name: the same mark grows, there is no second box', { min: 14, max: 18, unit: 'zoom' }],
   ['detail.hullZoom', 12, 'From this zoom a crowd shows the true positions of the units it stands for (while pointed at or selected)', { min: 11, max: 18, unit: 'zoom' }],
   // ---- state: carried forward --------------------------------------------------------------------------------------------------------------------------------------
@@ -7004,6 +7115,7 @@ const GLY_TOKENS = [
   // ---- crowd member dots ---------------------------------------------------------------------------------------------------------------------------------------------------
   ['hull.dot', 2.4, 'Radius of the dot on the true position of one unit a crowd stands for (shown while the crowd is pointed at or selected)', { min: 1, max: 4, unit: 'px' }],
   ['hull.leader', 0.85, 'Opacity of the hairlines from a crowd to its units', { min: 0, max: 1 }],
+  ['hull.maxLen', 130, 'Longest hairline from a crowd to a member it stands for (px); a member further off shows its dot alone, so a crowd of scattered units does not throw a spider of lines across the map', { min: 40, max: 600, unit: 'px' }],
   // ---- pin and leader --------------------------------------------------------------------------------------------------------------------------------------------------
   ['pin.r', 2.6, 'Radius of the true-position ring', { min: 1, max: 4, unit: 'px' }],
   ['leader.width', 1, 'Width of the hairline from the true position to its mark', { min: 0.5, max: 2, unit: 'px' }],
@@ -7084,6 +7196,7 @@ const sideCol = (P, side) => (side === 'union' ? P['color.union'] : side === 'co
 const sideTint = (P, side) => (side === 'union' ? P['color.unionTint'] : side === 'confederate' ? P['color.confederateTint'] : '#eceff1');
 const tintHex = (P, side) => (side === 'union' ? P['color.tintUnion'] : side === 'confederate' ? P['color.tintConfederate'] : side === 'unknown' ? P['color.tintUnknown'] : P['color.tintMixed']);
 const easeOut = (x) => 1 - (1 - clamp01(x)) ** 3;
+const relLum = (hex) => { const n = parseInt(String(hex).slice(1, 7), 16); const f = (v) => { v /= 255; return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }; return 0.2126 * f((n >> 16) & 255) + 0.7152 * f((n >> 8) & 255) + 0.0722 * f(n & 255); };
 
 /** the outline of a body of width s centred on (cx, cy): union and mixed a disc, confederate a rounded square, unknown an octagon */
 function bodyPath(c, P, side, cx, cy, s) {
@@ -7105,7 +7218,9 @@ function drawGlyph(c, P, cx, cy, o) {
     if (hollow < 0.99) { c.globalAlpha = base * (1 - hollow); bodyPath(c, P, side === 'mixed' ? 'union' : side, x, y, s); c.fillStyle = col; c.fill(); if (side === 'unknown') hatchIn(c, x, y, s / 2, P['color.paper'], 0.7); c.globalAlpha = base; }
     if (side === 'mixed' && hollow < 0.99) { c.save(); bodyPath(c, P, 'union', x, y, s); c.clip(); c.globalAlpha = base * (1 - hollow); c.beginPath(); c.moveTo(x + s * 0.12, y - s); c.lineTo(x + s, y - s); c.lineTo(x + s, y + s); c.lineTo(x - s * 0.22, y + s); c.closePath(); c.fillStyle = P['color.confederate']; c.fill(); c.restore(); c.globalAlpha = base; }
     if (hollow > 0.01) { c.globalAlpha = base * hollow; bodyPath(c, P, side === 'mixed' ? 'union' : side, x, y, s); c.fillStyle = sideTint(P, side === 'mixed' ? 'union' : side); c.fill(); c.globalAlpha = base; }
+    if (side === 'mixed' && hollow > 0.01) { c.save(); bodyPath(c, P, 'union', x, y, s); c.clip(); c.globalAlpha = base * hollow; c.beginPath(); c.moveTo(x + s * 0.12, y - s); c.lineTo(x + s, y - s); c.lineTo(x + s, y + s); c.lineTo(x - s * 0.22, y + s); c.closePath(); c.fillStyle = sideTint(P, 'confederate'); c.fill(); c.restore(); c.globalAlpha = base; }      // director fix 10: a carried-forward crowd of both armies keeps both sides: the glass is blue on the left, red on the right
     bodyPath(c, P, side === 'mixed' ? 'union' : side, x, y, s); c.lineWidth = ol + (P['carried.ring'] - ol) * hollow; c.strokeStyle = mixHex(P['color.outline'], col, hollow); c.stroke();
+    if (side === 'mixed' && hollow > 0.01) { c.save(); c.beginPath(); c.moveTo(x + s * 0.12, y - s * 1.6); c.lineTo(x + s * 1.6, y - s * 1.6); c.lineTo(x + s * 1.6, y + s * 1.6); c.lineTo(x - s * 0.22, y + s * 1.6); c.closePath(); c.clip(); bodyPath(c, P, 'union', x, y, s); c.lineWidth = ol + (P['carried.ring'] - ol) * hollow; c.strokeStyle = mixHex(P['color.outline'], sideCol(P, 'confederate'), hollow); c.stroke(); c.restore(); }      // and its rim is red on the right
     if (i === 0 && !o.noArm && !stackN) {                                                // the arm mark inside the glyph: white on a solid body, the side colour on glass
       const ink = mixHex(P['color.inner'], col, hollow); const q = s * 0.3; c.lineCap = 'round';
       if (arm === 'cavalry') { c.beginPath(); c.moveTo(x - q, y + q); c.lineTo(x + q, y - q); c.lineWidth = P['arm.stroke']; c.strokeStyle = ink; c.stroke(); }
@@ -7137,7 +7252,7 @@ function tile(c, t, g) {
   drawGlyph(c, P, gx, gy, { side, arm: pl.flag ? 'infantry' : arm, S: Sn, rings: dm.rings, old, scale: 0.8 + 0.2 * enter, stackN: dm.stack, sgn, noArm: pl.flag });
   c.globalAlpha = base;
   if (pl.flag && info.count != null) {                                                    // the numeral in the middle of the front glyph: white on the body, ink on the glass
-    const hol = ss(0.42, 0.58, old * P['carried.hollow']); const by = g.cr(gy + P['code.baseline'] - 0.2, 0); const b = c.globalAlpha;
+    const bodyHex = mixHex(sideCol(P, side === 'mixed' ? 'union' : side), sideTint(P, side === 'mixed' ? 'union' : side), old * P['carried.hollow']); const hol = ss(0.17, 0.23, relLum(bodyHex)); const by = g.cr(gy + P['code.baseline'] - 0.2, 0); const b = c.globalAlpha;      // director fix 7: white or ink is chosen by the lightness of the body itself (a body half-way to glass is too light for white and too dark for the glass ink only by age: the old age-band left 4.3:1)
     if (hol < 0.99) { const sp = lettering(g, FONTS.code, info.count, P['color.inner'], P['color.numeralHalo'], 0); c.globalAlpha = b * ss(0.4, 1, g.enter) * (1 - hol); c.drawImage(sp.img, gx - sp.tw / 2 - sp.x, by - sp.y, sp.w, sp.h); }
     if (hol > 0.01) { const sp = lettering(g, FONTS.code, info.count, P['color.ink'], P['color.halo'], 0); c.globalAlpha = b * ss(0.4, 1, g.enter) * hol; c.drawImage(sp.img, gx - sp.tw / 2 - sp.x, by - sp.y, sp.w, sp.h); }
     c.globalAlpha = b;
@@ -7171,7 +7286,8 @@ function leader(c, t, g, a, b) {
 function hull(c, t, g, pts) {
   const P = g.P; if (g.zoom < P['detail.hullZoom'] || !pts.length || !isOn(t)) return;
   const view = g.env.view || { dx: 0, dy: 0 }; const e0 = standing(t, g, [t.x + view.dx, t.y + view.dy]); const base = c.globalAlpha; const side = sideOf(g.vm.side); c.lineCap = 'round'; c.beginPath();
-  for (const p of pts) { c.moveTo(e0[0], e0[1]); c.lineTo(p[0], p[1]); }
+  const LMAX = P['hull.maxLen'];      // director fix 11: a hairline never runs further than this; a member that stands further off is shown by its dot alone (no spider of long lines across the map)
+  for (const p of pts) { const dx = p[0] - e0[0]; const dy = p[1] - e0[1]; const d = Math.hypot(dx, dy); const k = d > LMAX ? LMAX / d : 1; c.moveTo(e0[0], e0[1]); c.lineTo(e0[0] + dx * k, e0[1] + dy * k); }
   c.globalAlpha = base * P['hull.leader']; c.strokeStyle = rgba(P['color.paper'], 0.8); c.lineWidth = 2.4; c.stroke(); c.strokeStyle = tintHex(P, side); c.lineWidth = 0.9; c.stroke();
   c.globalAlpha = base * 0.95; const r = P['hull.dot'];
   for (const p of pts) { c.beginPath(); c.arc(p[0], p[1], r + 1.2, 0, TAU); c.fillStyle = rgba(P['color.paper'], 0.95); c.fill(); c.beginPath(); c.arc(p[0], p[1], r, 0, TAU); c.fillStyle = P['color.outline']; c.fill(); }
@@ -7207,24 +7323,29 @@ function figure(c, g, W) {
   drawGlyph(c, P, M + gx + 84, cy, { side: 'union', arm: 'cavalry', S }); word('1 NJ', M + gx + 84 + tg, cy + bl, lab, ink);
   drawGlyph(c, P, M + gx + 150, cy, { side: 'union', arm: 'artillery', S }); word('B/1 RI', M + gx + 150 + tg, cy + bl, lab, ink);
   drawGlyph(c, P, W - M - gx, cy, { side: 'confederate', arm: 'infantry', S }); word('53 VA', W - M - gx - tg, cy + bl, lab, ink, 'right');
-  y += 28; caption('A disc is Union, a rounded square Confederate. Inside: nothing for infantry, a slash for cavalry, a dot for artillery. Each reads away from its own side: Union to the right, Confederate to the left.'); rule();
+  y += 34; cy = y + 8; drawGlyph(c, P, M + gx, cy, { side: 'unknown', arm: 'infantry', S }); word('side contested', M + gx + tg, cy + bl, lab, P['color.tintUnknown'] === '#eceee9' ? ink : ink);
+  y += 26; caption('A disc is Union, a rounded square Confederate, a hatched grey octagon a unit whose side the records disagree on (Contested): it is never drawn in either army’s colour. Inside: nothing for infantry, a slash for cavalry, a dot for artillery. Each reads away from its own side: Union to the right, Confederate to the left.'); rule();
   head('Rank'); cy = y + 26;
   for (const [x0, k, text] of [[0, 1, 'Bde'], [74, 2, 'Div'], [160, 3, 'Corps']]) { const x = M + 20 + x0; const s = P[SIZE[k]]; drawGlyph(c, P, x, cy, { side: 'union', arm: 'infantry', S: s, rings: k, noArm: true }); word(text, x + s / 2 + k * P['ring.step'] + 5, cy + bl, labB, P['color.tintUnion']); }
   y += 56; caption('A larger glyph with more rings is a higher rank: one ring a brigade, two a division, three a corps. Rank is size, never a box.'); rule();
   head('A crowd'); cy = y + 22;
   drawGlyph(c, P, M + 22, cy, { side: 'union', arm: 'infantry', S: 19, stackN: 2, sgn: 1, noArm: true }); word('5', M + 22, cy + bl - 0.2, lab, P['color.inner'], 'center'); word("Garnett's Bde", M + 22 + 19 / 2 + 6, cy + bl, labB, P['color.tintUnion']);
   drawGlyph(c, P, W - M - 22, cy, { side: 'confederate', arm: 'infantry', S: 19, stackN: 2, sgn: -1, noArm: true }); word('9', W - M - 22, cy + bl - 0.2, lab, P['color.inner'], 'center'); word("Pender's Div", W - M - 22 - 19 / 2 - 6, cy + bl, labB, P['color.tintConfederate'], 'right');
-  y += 44; caption('Units too close to stand apart merge into one stacked glyph. Its number counts placement records, never men; its words say what they share. Point at it to see where each one stands.'); rule();
+  y += 44; cy = y + 22;
+  drawGlyph(c, P, M + 22, cy, { side: 'union', arm: 'infantry', S: 19, stackN: 2, sgn: 1, noArm: true }); word('2', M + 22, cy + bl - 0.2, lab, P['color.inner'], 'center'); word("Ward's Bde, north", M + 22 + 19 / 2 + 6, cy + bl, labB, P['color.tintUnion']);
+  drawGlyph(c, P, W - M - 22, cy, { side: 'mixed', arm: 'infantry', S: 19, stackN: 2, sgn: 1, noArm: true }); word('4', W - M - 22, cy + bl - 0.2, lab, P['color.inner'], 'center'); word('both armies', W - M - 22 - 19 / 2 - 6, cy + bl, labB, P['color.tintMixed'], 'right');
+  y += 44; caption('Units too close to stand apart merge into one stacked glyph. Its number counts placement records, never men; its words say what they share, with north, south, east or west (or the army) added when two crowds share the same words. A glyph split blue and red holds units of both armies. Point at it to see where each one stands.'); rule();
   head('Age, strength and the ground'); cy = y + 14;
   drawGlyph(c, P, M + gx, cy, { side: 'union', arm: 'infantry', S }); word('fresh', M + gx + tg, cy + bl, lab, ink);
   drawGlyph(c, P, M + gx + 66, cy, { side: 'union', arm: 'infantry', S, old: 1 }); word('carried forward', M + gx + 66 + tg, cy + bl, lab, ink);
   gaugeArc(c, P, M + gx + 200, cy, S / 2 + P['gauge.gap'] + P['gauge.width'] / 2 - 0.4, 0.6, P['color.outline'], 1); drawGlyph(c, P, M + gx + 200, cy, { side: 'union', arm: 'infantry', S }); word('strength', M + gx + 200 + S / 2 + 8, cy + bl, lab, ink);
-  y += 32; caption('A hollow glyph means the latest keyframe is a battle day old or more. The arc round a glyph is the placement strength over the unit’s reference: a modelled value, not a casualty record.'); rule();
+  y += 32; cy = y + 14; drawGlyph(c, P, M + gx, cy, { side: 'union', arm: 'infantry', S }); selRing(c, P, 'union', M + gx, cy, S / 2 + P['sel.gap'] + 2, 1, P['sel.width']); word('selected', M + gx + tg + 4, cy + bl, lab, ink);
+  y += 32; caption('A hollow glyph means the latest keyframe is a battle day old or more. The arc round a glyph is the placement strength over the unit’s reference: a modelled value, not a casualty record. A ring round a glyph is the selected mark.'); rule();
   head('The battle remembers'); c.save(); c.lineCap = 'round'; const my = y + 10; for (let i = 0; i < 9; i++) { const x = M + 8 + i * 10 + (i % 3) * 2; const yy = my + ((i * 7) % 5) - 2; const col = i < 5 ? P['memory.union'] : P['memory.confederate']; c.beginPath(); c.moveTo(x - 2, yy - 2); c.lineTo(x + 2, yy + 2); c.moveTo(x - 2, yy + 2); c.lineTo(x + 2, yy - 2); c.strokeStyle = rgba(P['memory.edge'], P['memory.edgeAlpha']); c.lineWidth = P['memory.width'] + 1.6; c.stroke(); c.strokeStyle = col; c.lineWidth = P['memory.width']; c.stroke(); } c.restore();
   y += 22; caption('Each cross on the ground stands for about ten men killed, wounded or missing. How many a unit lost is Documented (a secondary source); when and where they fell is Modelled.'); y += 8;
   return y;
 }
-const FIG_H = 720;
+const FIG_H = 900;
 
 const DEF = {
   id: 'glyph', label: 'Glyph', version: '1.0', tokens: GLY_TOKENS, fonts: FONTS, footprint: FOOT, sizer: makeSizer,
@@ -7910,8 +8031,9 @@ const legend = {
     const tok = api.tok; const skinId = tok('skin.id'); const skin = api.engine.kernel.skins.has(skinId) ? api.engine.kernel.skins.get(skinId) : null; const rows = skin && skin.legend ? skin.legend() : [];
     const slot = tok('popup.legend.slot'); const slots = [slot, SLOT_ALT[slot]]; const open = !!(api.host.rail && api.host.rail.id === 'legend:doc');
     const pill = { id: 'pill', level: 'compact', w: 104, h: 42, content: { label: 'Legend. Activate to open.', blocks: [{ t: 'pill', id: 'toggle', label: 'Legend', icon: 'list', expanded: open }] } };
+    const figW = typeof innerWidth === 'number' && innerWidth < 600 ? Math.max(280, innerWidth - 34) : 316;      // director fix 1: on a phone the figure takes the sheet's width (the card used to stop 57 px short of the edge)
     const blocks = [
-      ...(skin && skin.figure ? [{ t: 'canvas', w: 316, h: skin.figureH, label: 'The anatomy of the marks, drawn at their true size: a unit, a formation, a crowd, age and selection', paint: (g, w, h) => { g.clearRect(0, 0, w, h); skin.figure(g, w); } }] : []),
+      ...(skin && skin.figure ? [{ t: 'canvas', w: figW, h: skin.figureMeasure ? skin.figureMeasure(figW) : skin.figureH, label: 'The anatomy of the marks, drawn at their true size: a unit, a formation, a crowd, age and selection', paint: (g, w, h) => { g.clearRect(0, 0, w, h); skin.figure(g, w); } }] : []),
       { t: 'title', text: 'How well each is known', level: 3, size: 'sm' },
       { t: 'evkey', rows: [['Documented', 'printed in the order of battle'], ['Modelled', 'placed by hand, not recorded'], ['Computed', 'counts and age, by a stated rule'], ['Contested', 'the records disagree on the side'], ['Measured', 'the 2022 ground, not 1863'], ['Design', 'drawn to be read, claims nothing']] },
     ];
@@ -9040,19 +9162,24 @@ __defs["src/fx/memory.mjs"] = function (__exports, __r) {
 function createMemory(engine, data) {
   const marks = data.marks; const n = marks.length; let hi = 0;
   const upper = (t) => { let a = 0; let b = n; while (a < b) { const m = (a + b) >> 1; if (marks[m][0] <= t) a = m + 1; else b = m; } return a; };      // first mark whose tick is after t
+  const CELL = 16; let cells = new Map();      // the marks drawn in the latest frame, counted per 16 px cell: the lettering of the ground asks where the field is dense (render/places.mjs, streets.mjs)
   const API = {
+    /** how many ground marks lie within r px of (x, y) on the screen, as drawn in the latest frame */
+    countNear(x, y, r) { let n = 0; const x0 = Math.floor((x - r) / CELL); const x1 = Math.floor((x + r) / CELL); const y0 = Math.floor((y - r) / CELL); const y1 = Math.floor((y + r) / CELL); for (let i = x0; i <= x1; i++) for (let j = y0; j <= y1; j++) n += cells.get(i * 8192 + j) || 0; return n; },
     id: 'memory', label: 'The battle remembers', count: () => hi, total: n, data,
     update() { /* nothing to advance: the marks are a function of the tick */ },
     draw(c, frame, env) {
       const skin = engine.kernel.skins.has(engine.tok('skin.id')) ? engine.kernel.skins.get(engine.tok('skin.id')) : null; const S = skin && skin.skin ? skin.skin.P : null;
-      if (!S || !S['memory.enabled']) { hi = 0; return; }
+      if (!S || !S['memory.enabled']) { hi = 0; cells = new Map(); return; }
       const tick = frame.tau; hi = upper(tick); const cam = engine.camera; const z = frame.zoom; const w = cam.w || 1440; const h = cam.h || 900;
       const len = S['memory.len'] * (0.55 + 0.45 * Math.min(1, Math.max(0, (z - 13) / 3))) * (1 + 0.55 * Math.min(1.5, Math.max(0, z - 15.5))); const lw = S['memory.width'] * (0.7 + 0.3 * Math.min(1, Math.max(0, (z - 13) / 3)));
       const shape = S['memory.shape']; const uC = S['memory.union']; const cC = S['memory.confederate']; const edge = S['memory.edge']; const a0 = S['memory.alpha']; const edgeA = S['memory.edgeAlpha'];
-      c.lineCap = 'round'; const fade = S['memory.fadeTicks'];
+      cells = new Map(); c.lineCap = 'round'; const fade = S['memory.fadeTicks']; const keep = env && env.keepOut && env.keepOut.length ? env.keepOut : null;
       for (let pass = 0; pass < (edge ? 2 : 1); pass++) {
         for (let i = 0; i < hi; i++) {
           const m = marks[i]; const p = cam.toScreen(m[2], m[1]); const x = p[0]; const y = p[1]; if (x < -10 || y < -10 || x > w + 10 || y > h + 10) continue;
+          if (keep) { let skip = false; for (const r of keep) if (x > r.x0 && x < r.x1 && y > r.y0 && y < r.y1) { skip = true; break; } if (skip) continue; }      // never on the scale bar (director fix 2)
+          if (pass === 0) { const ck = Math.floor(x / CELL) * 8192 + Math.floor(y / CELL); cells.set(ck, (cells.get(ck) || 0) + 1); }
           const age = tick - m[0]; const k = age >= fade ? 1 : Math.max(0, age / fade); const ang = m[4] / 256 * Math.PI; const dx = Math.cos(ang) * len / 2; const dy = Math.sin(ang) * len / 2;
           c.globalAlpha = a0 * k; c.beginPath();
           if (shape === 'cross') { const r = len / 2; c.moveTo(x - r, y - r); c.lineTo(x + r, y + r); c.moveTo(x - r, y + r); c.lineTo(x + r, y - r); }

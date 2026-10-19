@@ -326,16 +326,16 @@
   },
   {
    "name": "detail.selectGrowZoom",
-   "value": 15,
-   "doc": "From this zoom a selected mark grows its name and the layout makes room for it; below it the selection is a ring and nothing moves",
+   "value": 14,
+   "doc": "From this zoom a selected mark grows its flag and name (a unit inside a crowd steps out of it and stands on its own place); below it the selection is a ring and nothing moves (director fix 6)",
    "min": 10,
    "max": 18,
    "unit": "zoom"
   },
   {
    "name": "detail.selectNameMinViewport",
-   "value": 560,
-   "doc": "A selected mark grows its full name only when the window is at least this wide (px); on a phone the sheet carries the name",
+   "value": 320,
+   "doc": "A selected mark grows its full name only when the window is at least this wide (px); the default admits every phone: the sheet carries the card, the map still shows which mark it is about (director fix 6)",
    "min": 320,
    "max": 2000,
    "unit": "px"
@@ -450,6 +450,14 @@
    "doc": "Opacity of the hairlines from a crowd to its units",
    "min": 0,
    "max": 1
+  },
+  {
+   "name": "hull.maxLen",
+   "value": 130,
+   "doc": "Longest hairline from a crowd to a member it stands for (px); a member further off shows its dot alone, so a crowd of scattered units does not throw a spider of lines across the map",
+   "min": 40,
+   "max": 600,
+   "unit": "px"
   },
   {
    "name": "pin.r",

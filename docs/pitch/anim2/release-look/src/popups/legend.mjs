@@ -15,8 +15,9 @@ export const legend = {
     const tok = api.tok; const skinId = tok('skin.id'); const skin = api.engine.kernel.skins.has(skinId) ? api.engine.kernel.skins.get(skinId) : null; const rows = skin && skin.legend ? skin.legend() : [];
     const slot = tok('popup.legend.slot'); const slots = [slot, SLOT_ALT[slot]]; const open = !!(api.host.rail && api.host.rail.id === 'legend:doc');
     const pill = { id: 'pill', level: 'compact', w: 104, h: 42, content: { label: 'Legend. Activate to open.', blocks: [{ t: 'pill', id: 'toggle', label: 'Legend', icon: 'list', expanded: open }] } };
+    const figW = typeof innerWidth === 'number' && innerWidth < 600 ? Math.max(280, innerWidth - 34) : 316;      // director fix 1: on a phone the figure takes the sheet's width (the card used to stop 57 px short of the edge)
     const blocks = [
-      ...(skin && skin.figure ? [{ t: 'canvas', w: 316, h: skin.figureH, label: 'The anatomy of the marks, drawn at their true size: a unit, a formation, a crowd, age and selection', paint: (g, w, h) => { g.clearRect(0, 0, w, h); skin.figure(g, w); } }] : []),
+      ...(skin && skin.figure ? [{ t: 'canvas', w: figW, h: skin.figureMeasure ? skin.figureMeasure(figW) : skin.figureH, label: 'The anatomy of the marks, drawn at their true size: a unit, a formation, a crowd, age and selection', paint: (g, w, h) => { g.clearRect(0, 0, w, h); skin.figure(g, w); } }] : []),
       { t: 'title', text: 'How well each is known', level: 3, size: 'sm' },
       { t: 'evkey', rows: [['Documented', 'printed in the order of battle'], ['Modelled', 'placed by hand, not recorded'], ['Computed', 'counts and age, by a stated rule'], ['Contested', 'the records disagree on the side'], ['Measured', 'the 2022 ground, not 1863'], ['Design', 'drawn to be read, claims nothing']] },
     ];

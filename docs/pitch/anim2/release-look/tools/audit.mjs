@@ -26,6 +26,7 @@ try {
   for (const sc of SCENES) {
     await setScene(s.page, { tick: sc.tick, lat: sc.lat, lng: sc.lng, zoom: sc.zoom, safe: true, shift: sc.shift, popups: false, style: STYLE, steps: 120 });
     await s.page.evaluate(() => globalThis.__ground.whenIdle(20000)); await s.page.evaluate(() => globalThis.__advance(30));
+    if (args.nofringe) await s.page.evaluate(() => { window.__nofringe = true; });
     const r = await s.page.evaluate(async () => {
       const S = window.__studio; const cv = document.getElementById('map'); const ctx = cv.getContext('2d'); const log = []; const orig = CanvasRenderingContext2D.prototype.drawImage;
       CanvasRenderingContext2D.prototype.drawImage = function (img, ...a) {
@@ -41,6 +42,10 @@ try {
         for (let i = 0; i < n; i++) { const a = sp.data[i * 4 + 3]; if (a > 0 && a < 250) { haloR += sp.data[i * 4]; haloG += sp.data[i * 4 + 1]; haloB += sp.data[i * 4 + 2]; hn++; } }
         const hr = hn ? haloR / hn : -999; const hg = hn ? haloG / hn : -999; const hb = hn ? haloB / hn : -999;
         for (let i = 0; i < n; i++) { const a = sp.data[i * 4 + 3]; if (a >= 250 && (hn === 0 || Math.abs(sp.data[i * 4] - hr) + Math.abs(sp.data[i * 4 + 1] - hg) + Math.abs(sp.data[i * 4 + 2] - hb) > 90)) ink[i] = 1; }
+        if (e.img._cloth && !window.__nofringe) {      // (--nofringe: the director-r1 method, for comparison) a count or code ON the cloth: the letters' own anti-aliased fringe (partly transparent pixels of the ink colour over the soft halo) belongs to the ink, not to the background it is measured against (director fix 7: the first method counted it as background)
+          let cr = 0; let cg = 0; let cb = 0; let cn = 0; for (let i = 0; i < n; i++) if (ink[i]) { cr += sp.data[i * 4]; cg += sp.data[i * 4 + 1]; cb += sp.data[i * 4 + 2]; cn++; }
+          if (cn) { cr /= cn; cg /= cn; cb /= cn; for (let i = 0; i < n; i++) if (!ink[i] && sp.data[i * 4 + 3] >= 40 && Math.abs(sp.data[i * 4] - cr) + Math.abs(sp.data[i * 4 + 1] - cg) + Math.abs(sp.data[i * 4 + 2] - cb) < 130) ink[i] = 1; }
+        }
         const il = []; let inkN = 0; for (let i = 0; i < n; i++) if (ink[i]) { il.push(L(dst.data[i * 4], dst.data[i * 4 + 1], dst.data[i * 4 + 2])); inkN++; } if (inkN < 8) continue; il.sort((a, b) => a - b); const Li = il[il.length >> 1];
         const bgs = []; const w = sp.width; const h = sp.height; const within = (x, y, r) => { for (let dy = -r; dy <= r; dy++) for (let dx = -r; dx <= r; dx++) { const xx = x + dx; const yy = y + dy; if (xx >= 0 && yy >= 0 && xx < w && yy < h && ink[yy * w + xx]) return true; } return false; };
         for (let y = 1; y < h - 1; y++) for (let x = 1; x < w - 1; x++) { const i = y * w + x; if (ink[i] || within(x, y, 1)) continue; if (within(x, y, 3)) bgs.push(L(dst.data[i * 4], dst.data[i * 4 + 1], dst.data[i * 4 + 2])); }      // the ring 2 to 3 device px from the ink: outside the anti-aliased edge, inside the halo
@@ -102,4 +107,4 @@ for (const [sid, P] of Object.entries(SETS)) {
   out.skins[sid] = { worstText: worst.text, worstMark: worst.mark, deltaE2000UnionVsConfederate: dE, greyscaleLuminanceRatio: grey, secondCueForGreyscale: OPT === 'a' ? 'flag flies right (Union) or left (Confederate)' : 'disc (Union) or rounded square (Confederate)', verdict };
   console.log(sid.padEnd(9), 'text', worst.text.ratio, `(${worst.text.name})`, '| mark', worst.mark.ratio, `(light ${worst.mark.light}, dark ${worst.mark.dark}; ${worst.mark.view} p${Math.round(worst.mark.band * 100)})`, '| dE', Math.min(...Object.values(dE)), 'grey', grey, JSON.stringify(verdict));
 }
-out.analyticFails = fails; fs.mkdirSync(path.join(D1, 'results'), { recursive: true }); fs.writeFileSync(path.join(D1, 'results', `audit-${OPT}.json`), JSON.stringify(out, null, 1)); console.log('analytic fails', fails);
+out.analyticFails = fails; fs.mkdirSync(path.join(D1, 'results'), { recursive: true }); fs.writeFileSync(path.join(D1, 'results', `audit-${OPT}${args.nofringe ? "-nofringe" : ""}.json`), JSON.stringify(out, null, 1)); console.log('analytic fails', fails);

@@ -55,8 +55,8 @@ export const GLY_TOKENS = [
   ['detail.brigadeNameZoom', 13, 'From this zoom a brigade says its name', { min: 10, max: 18, unit: 'zoom' }],
   ['detail.crowdNameZoom', 12, 'From this zoom a crowd says what its units share (a number alone never stands for hidden units)', { min: 10, max: 18, unit: 'zoom' }],
   ['detail.fullZoom', 15, 'From this zoom a unit is a FULL mark (a larger glyph, its short code, the strength gauge); below it a small side-and-arm mark', { min: 12, max: 18, unit: 'zoom' }],
-  ['detail.selectGrowZoom', 15, 'From this zoom a selected mark grows its name and the layout makes room for it; below it the selection is a ring and nothing moves', { min: 10, max: 18, unit: 'zoom' }],
-  ['detail.selectNameMinViewport', 560, 'A selected mark grows its full name only when the window is at least this wide (px); on a phone the sheet carries the name', { min: 320, max: 2000, unit: 'px' }],
+  ['detail.selectGrowZoom', 14, 'From this zoom a selected mark grows its flag and name (a unit inside a crowd steps out of it and stands on its own place); below it the selection is a ring and nothing moves (director fix 6)', { min: 10, max: 18, unit: 'zoom' }],
+  ['detail.selectNameMinViewport', 320, 'A selected mark grows its full name only when the window is at least this wide (px); the default admits every phone: the sheet carries the card, the map still shows which mark it is about (director fix 6)', { min: 320, max: 2000, unit: 'px' }],
   ['detail.unitNameZoom', 17, 'From this zoom a unit says its full name: the same mark grows, there is no second box', { min: 14, max: 18, unit: 'zoom' }],
   ['detail.hullZoom', 12, 'From this zoom a crowd shows the true positions of the units it stands for (while pointed at or selected)', { min: 11, max: 18, unit: 'zoom' }],
   // ---- state: carried forward --------------------------------------------------------------------------------------------------------------------------------------
@@ -76,6 +76,7 @@ export const GLY_TOKENS = [
   // ---- crowd member dots ---------------------------------------------------------------------------------------------------------------------------------------------------
   ['hull.dot', 2.4, 'Radius of the dot on the true position of one unit a crowd stands for (shown while the crowd is pointed at or selected)', { min: 1, max: 4, unit: 'px' }],
   ['hull.leader', 0.85, 'Opacity of the hairlines from a crowd to its units', { min: 0, max: 1 }],
+  ['hull.maxLen', 130, 'Longest hairline from a crowd to a member it stands for (px); a member further off shows its dot alone, so a crowd of scattered units does not throw a spider of lines across the map', { min: 40, max: 600, unit: 'px' }],
   // ---- pin and leader --------------------------------------------------------------------------------------------------------------------------------------------------
   ['pin.r', 2.6, 'Radius of the true-position ring', { min: 1, max: 4, unit: 'px' }],
   ['leader.width', 1, 'Width of the hairline from the true position to its mark', { min: 0.5, max: 2, unit: 'px' }],

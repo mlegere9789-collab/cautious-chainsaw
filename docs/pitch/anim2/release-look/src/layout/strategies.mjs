@@ -9,6 +9,7 @@
 import { solve, newState, chipRect, pinRect, plain } from './engine.mjs';
 import { buildLeaves, refreshTile } from './tiles.mjs';
 import { FRAME_MS } from './spec.mjs';
+import { updateCrowdSuffixes } from './crowdnames.mjs';
 
 const certified = {
   id: 'certified', label: 'Certified hybrid (zero overlap)',
@@ -28,17 +29,25 @@ const certified = {
     };
     return {
       reset() { state = newState(); grow.id = null; grow.on = false; },
-      solve({ vis, z, dtMs, selectedId, spec, cold = false }) {
+      solve({ vis, z, dtMs, selectedId, spec, view = null, cold = false }) {
+        spec.crowdSuffix = state.suffix;                       // director fix 9: the words that tell two crowds of the same name apart (layout/crowdnames.mjs)
         const cfg = { spec, z, dMax: spec.dMax, pinProtect: spec.pinProtect, inertia: true, sticky: true, seniority: 1e7, labels: spec.labels, aggregate: true, dt: Math.max(0.01, dtMs / FRAME_MS), static: cold };
         const selects = !!selectedId && (!spec.sizer || !spec.sizer.selects || spec.sizer.selects(z));
         if (!selects) { grow.id = null; grow.on = false; }
         else if (grow.id !== selectedId) {                                      // a new selection: solve it small, then test the grown box on that solution
           grow.id = selectedId; const small = buildLeaves(vis, z, spec, selectedId, false); const r0 = solve(ctx.all, small, cfg, state); r0.leaves = small;
-          grow.on = growTest(r0, selectedId, z, spec);
+          const inCrowd = !!(spec.sizer && spec.sizer.selects) && r0.placed.some((q) => q.t.kind === 'agg' && q.t.ids.includes(selectedId));      // director fix 6: a selected unit that stands inside a crowd steps out of it, whatever it costs the neighbours, so its own flag and name are on the map
+          grow.on = inCrowd || growTest(r0, selectedId, z, spec);
           if (!grow.on) return r0;
         }
         const leaves = buildLeaves(vis, z, spec, selectedId, grow.on);
-        const r = solve(ctx.all, leaves, cfg, state);
+        if (grow.on && selectedId) for (const rec of state.aggs.values()) { const i = rec.ids.indexOf(selectedId); if (i >= 0) rec.ids = rec.ids.filter((id) => id !== selectedId); }      // the sticky crowds let go of it
+        if (grow.on && selectedId) cfg.protect = selectedId;
+        // the words that tell two crowds apart are part of the crowd's footprint: when they change, the same frame is laid out again from the same start with them (until no crowd needs words it has not got: the assignment only ever adds, so it ends), so the picture never
+        // shows words its boxes were not sized for, and the solver's own history (timers, offsets) is that of ONE solve
+        state.sfxClock = (state.sfxClock || 0) + 1; const start = { ...state, splits: new Map(state.splits) }; let r = solve(ctx.all, leaves, cfg, state); let stamped = false;
+        for (let pass = 0; pass < 12 && updateCrowdSuffixes(r.placed, view, state, state.sfxClock); pass++) { stamped = true; Object.assign(state, start, { splits: new Map(start.splits), suffix: state.suffix }); r = solve(ctx.all, leaves, cfg, state); }
+        if (stamped) state.stamp = (state.stamp || 0) + 1;
         r.leaves = leaves; return r;
       },
       /** between two solves: move the solved tiles with their units (same offsets, new true positions).  false = the set of units changed, solve again. */

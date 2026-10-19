@@ -36,15 +36,19 @@ export function createRenderer({ canvas, engine, data, places = null, vectors = 
     const bid = tok('backdrop.id'); const bd = engine.kernel.backdrops.has(bid) ? engine.kernel.backdrops.get(bid) : null;
     if (bd) bd.draw(c, { w: cssW, h: cssH, camera: cam, mpp: cam.mpp(), toScreen: (lng, lat) => cam.toScreen(lng, lat) }, data, tok); else { c.fillStyle = '#ddd'; c.fillRect(0, 0, cssW, cssH); }
     const stage = stageRect(engine.safe, cssW, cssH, mapRect);
+    // 1b. fx modules (the casualty memory) come BEFORE any lettering of the ground: a ground mark is drawn under every place name, road name and the scale bar (director fix 2), and keeps out of the scale bar's box
+    const keepOut = []; if (stage.x1 - stage.x0 >= 420) { const sb = scaleBarRect(stage, cam); keepOut.push({ x0: sb.x0 - 14, x1: sb.x1 + 14, y0: sb.y0 - 14, y1: sb.y1 + 14 }); }
+    env.keepOut = keepOut;
+    for (const fx of engine.kernel.fx.list()) if (fx.draw) { c.save(); fx.draw(c, frame, env); c.restore(); }
+    const memFx = engine.kernel.fx.list().find((f) => f.id === 'memory'); const ground = memFx && memFx.countNear ? (x, y, r) => memFx.countNear(x, y, r) : null;      // the casualty marks drawn this frame: the lettering keeps to the quieter side of the field
     if (bd && bd.look) {
       let avoid = cardRects.slice(); if (stage.x1 - stage.x0 >= 420) avoid.push(scaleBarRect(stage, cam));
-      if (placeNames && tok('backdrop.places')) avoid = avoid.concat(placeNames.draw(c, { w: cssW, h: cssH, camera: cam, tiles: frame.tiles, view, stage, look: bd.look, cards: avoid, steps }) || []);
-      if (streetNames) streetNames.draw(c, { w: cssW, h: cssH, camera: cam, tiles: frame.tiles, view, stage, look: bd.look, avoid, steps, onBusy: () => { engine.dirty = true; } });
+      if (placeNames && tok('backdrop.places')) avoid = avoid.concat(placeNames.draw(c, { w: cssW, h: cssH, camera: cam, tiles: frame.tiles, view, stage, look: bd.look, cards: avoid, steps, ground }) || []);
+      if (streetNames) streetNames.draw(c, { w: cssW, h: cssH, camera: cam, tiles: frame.tiles, view, stage, look: bd.look, avoid, steps, ground, onBusy: () => { engine.dirty = true; } });
       const sbObst = []; for (const t of frame.tiles) { if (t.opacity < 0.3) continue; const x = t.x + view.dx; const y = t.y + view.dy; sbObst.push({ x0: x - t.w * t.scale / 2, x1: x + t.w * t.scale / 2, y0: y - t.h * t.scale / 2, y1: y + t.h * t.scale / 2 }); }
       drawScaleBar(c, stage, cam, bd.look, sbObst, steps);
     }
-    // 2. fx modules
-    for (const fx of engine.kernel.fx.list()) if (fx.draw) { c.save(); fx.draw(c, frame, env); c.restore(); }
+    // 2. (the fx modules were drawn above, beneath the lettering of the ground)
     const on = (t) => { const x = t.x + view.dx; const y = t.y + view.dy; return x > -120 && x < cssW + 120 && y > -60 && y < cssH + 60; };
     // ROUND 2 (render/stage.mjs): a mark is drawn WHOLE or not at all.  The frame (masthead, dock, rail, columns) is the edge of the stage; a mark whose whole footprint lies inside the stage and clear of the floating interface is
     // shown, any other is eased out as one piece; at rest every mark is either fully shown or absent (never half-transparent under a bar, never cut by the screen edge).
@@ -90,5 +94,5 @@ export function createRenderer({ canvas, engine, data, places = null, vectors = 
     stats.drawMs = performance.now() - t0; stats.tilesDrawn = drawn; lastMs = stats.drawMs;
     return stats;
   }
-  return { draw, resize, stats, get dpr() { return dpr; }, get lastDrawMs() { return lastMs; }, get size() { return [cssW, cssH]; } };
+  return { draw, resize, stats, get labels() { return { places: placeNames ? placeNames.last : [], streets: streetNames ? streetNames.last : [] }; }, get dpr() { return dpr; }, get lastDrawMs() { return lastMs; }, get size() { return [cssW, cssH]; } };
 }

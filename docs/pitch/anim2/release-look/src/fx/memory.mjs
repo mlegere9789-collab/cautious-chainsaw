@@ -7,19 +7,24 @@
 export function createMemory(engine, data) {
   const marks = data.marks; const n = marks.length; let hi = 0;
   const upper = (t) => { let a = 0; let b = n; while (a < b) { const m = (a + b) >> 1; if (marks[m][0] <= t) a = m + 1; else b = m; } return a; };      // first mark whose tick is after t
+  const CELL = 16; let cells = new Map();      // the marks drawn in the latest frame, counted per 16 px cell: the lettering of the ground asks where the field is dense (render/places.mjs, streets.mjs)
   const API = {
+    /** how many ground marks lie within r px of (x, y) on the screen, as drawn in the latest frame */
+    countNear(x, y, r) { let n = 0; const x0 = Math.floor((x - r) / CELL); const x1 = Math.floor((x + r) / CELL); const y0 = Math.floor((y - r) / CELL); const y1 = Math.floor((y + r) / CELL); for (let i = x0; i <= x1; i++) for (let j = y0; j <= y1; j++) n += cells.get(i * 8192 + j) || 0; return n; },
     id: 'memory', label: 'The battle remembers', count: () => hi, total: n, data,
     update() { /* nothing to advance: the marks are a function of the tick */ },
     draw(c, frame, env) {
       const skin = engine.kernel.skins.has(engine.tok('skin.id')) ? engine.kernel.skins.get(engine.tok('skin.id')) : null; const S = skin && skin.skin ? skin.skin.P : null;
-      if (!S || !S['memory.enabled']) { hi = 0; return; }
+      if (!S || !S['memory.enabled']) { hi = 0; cells = new Map(); return; }
       const tick = frame.tau; hi = upper(tick); const cam = engine.camera; const z = frame.zoom; const w = cam.w || 1440; const h = cam.h || 900;
       const len = S['memory.len'] * (0.55 + 0.45 * Math.min(1, Math.max(0, (z - 13) / 3))) * (1 + 0.55 * Math.min(1.5, Math.max(0, z - 15.5))); const lw = S['memory.width'] * (0.7 + 0.3 * Math.min(1, Math.max(0, (z - 13) / 3)));
       const shape = S['memory.shape']; const uC = S['memory.union']; const cC = S['memory.confederate']; const edge = S['memory.edge']; const a0 = S['memory.alpha']; const edgeA = S['memory.edgeAlpha'];
-      c.lineCap = 'round'; const fade = S['memory.fadeTicks'];
+      cells = new Map(); c.lineCap = 'round'; const fade = S['memory.fadeTicks']; const keep = env && env.keepOut && env.keepOut.length ? env.keepOut : null;
       for (let pass = 0; pass < (edge ? 2 : 1); pass++) {
         for (let i = 0; i < hi; i++) {
           const m = marks[i]; const p = cam.toScreen(m[2], m[1]); const x = p[0]; const y = p[1]; if (x < -10 || y < -10 || x > w + 10 || y > h + 10) continue;
+          if (keep) { let skip = false; for (const r of keep) if (x > r.x0 && x < r.x1 && y > r.y0 && y < r.y1) { skip = true; break; } if (skip) continue; }      // never on the scale bar (director fix 2)
+          if (pass === 0) { const ck = Math.floor(x / CELL) * 8192 + Math.floor(y / CELL); cells.set(ck, (cells.get(ck) || 0) + 1); }
           const age = tick - m[0]; const k = age >= fade ? 1 : Math.max(0, age / fade); const ang = m[4] / 256 * Math.PI; const dx = Math.cos(ang) * len / 2; const dy = Math.sin(ang) * len / 2;
           c.globalAlpha = a0 * k; c.beginPath();
           if (shape === 'cross') { const r = len / 2; c.moveTo(x - r, y - r); c.lineTo(x + r, y + r); c.moveTo(x - r, y + r); c.lineTo(x + r, y - r); }
