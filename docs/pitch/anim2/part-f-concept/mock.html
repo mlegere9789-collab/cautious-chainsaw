@@ -1,0 +1,39 @@
+<!doctype html><meta charset="utf-8"><style>html,body{margin:0;background:#000}canvas{display:block}</style>
+<canvas id="c" width="1500" height="880"></canvas>
+<script>
+const q=new URLSearchParams(location.search),v=q.get('v')||'1';
+const c=document.getElementById('c'),g=c.getContext('2d');
+const ref=new Image(),mini=new Image();let n=0;
+ref.onload=mini.onload=()=>{if(++n==2)draw()};ref.src='ref.webp';mini.src='mini.jpg';
+const crops={'1':[0,0,1190,698],'2':[330,130,700,411],'3':[0,290,640,376]};
+function pill(x,y,t,sub,acc){g.save();g.font='600 15px system-ui';const w=Math.max(g.measureText(t).width,g.measureText(sub||'').width)+34;
+ g.fillStyle='rgba(12,16,24,.86)';g.beginPath();g.roundRect(x,y,w,sub?48:32,9);g.fill();if(acc){g.fillStyle=acc;g.fillRect(x,y+8,4,sub?32:16)}
+ g.fillStyle='#fff';g.fillText(t,x+16,y+(sub?21:21));if(sub){g.font='500 12px system-ui';g.fillStyle='#b9c3d4';g.fillText(sub,x+16,y+39)}g.restore();return w}
+function badge(x,y,t,col){g.save();g.font='700 11px system-ui';const w=g.measureText(t).width+16;g.fillStyle=col;g.beginPath();g.roundRect(x,y,w,20,10);g.fill();g.fillStyle='#fff';g.fillText(t,x+8,y+14);g.restore();return w+6}
+function draw(){
+ const [sx,sy,sw,sh]=crops[v];g.drawImage(ref,sx,sy,sw,sh,0,0,1500,880);
+ // top bar
+ g.fillStyle='rgba(10,14,20,.78)';g.fillRect(0,0,1500,56);g.fillStyle='#fff';g.font='700 17px Georgia,serif';g.fillText('Gettysburg Interactive Map',22,34);
+ g.font='600 15px system-ui';g.fillStyle='#ffd37a';g.fillText('July 2, 1863 · about [corrected time]',1010,34);
+ g.font='500 12px system-ui';g.fillStyle='#b9c3d4';g.fillText('Day 2 ▸ tick [n] of 675',1300,34);
+ // minimap with the 1863 reconstruction
+ g.save();g.beginPath();g.roundRect(1250,76,226,170,10);g.clip();g.drawImage(mini,0,0,mini.width,mini.height,1250,76,226,170);
+ [[1300,150,'#2f6fe0'],[1316,160,'#2f6fe0'],[1332,172,'#2f6fe0'],[1352,140,'#d6453a'],[1368,150,'#d6453a'],[1384,168,'#d6453a'],[1402,180,'#d6453a']].forEach(p=>{g.fillStyle=p[2];g.fillRect(p[0],p[1],7,7)});g.restore();
+ g.strokeStyle='rgba(255,255,255,.7)';g.lineWidth=2;g.beginPath();g.roundRect(1250,76,226,170,10);g.stroke();
+ g.font='600 10px system-ui';g.fillStyle='#fff';g.fillText('1863 reconstruction',1260,238);
+ // label + badges bottom
+ g.fillStyle='rgba(0,0,0,.72)';g.fillRect(0,836,1500,44);g.font='600 13px system-ui';g.fillStyle='#ffd37a';
+ g.fillText('STAND-IN: this scene is a screenshot from a Total War mod, shown only to indicate the quality bar. Our version uses your licensed assets, re-skinned.',16,862);
+ let bx=22;bx+=badge(bx,76,'Ground: 1863 reconstruction','#5a6b2e');bx+=badge(bx,76,'Soldiers: Modelled','#8a5a1c');bx+=badge(bx,76,'Unit position: Documented','#1f5f8a');
+ if(v=='1'){pill(60,600,'[Example] Brigade name, Division, Corps','strength from the record · formation from the record · Documented');
+   g.font='500 12px system-ui';g.fillStyle='#e6edf7';
+   pill(60,656,'Individual soldiers: Modelled','Positions of single soldiers, volleys and casualties are modelled; their number is scaled to the documented strength and losses','#d6453a')}
+ if(v=='2'){pill(500,610,'[Example] Confederate brigade','strength and formation from the record · Documented','#c43a3a');pill(40,610,'[Example] Union brigade','strength and formation from the record · Documented','#2f6fe0');
+   g.font='600 13px system-ui';g.fillStyle='#fff';g.fillText('Story card: event text and time from the sources',60,780)}
+ if(v=='3'){ // inspect card
+   g.fillStyle='rgba(12,16,24,.92)';g.beginPath();g.roundRect(780,150,620,330,12);g.fill();g.fillStyle='#fff';g.font='700 20px system-ui';g.fillText('Inspect: [Example regiment]',806,194);
+   g.font='500 14px system-ui';g.fillStyle='#cfd8e6';
+   ['Brigade, division, corps: from the order of battle','Strength: from the record (Fox, Official Records) · Documented','Dress: per-regiment documented dress (regimental histories, period photographs); otherwise a varied generic kit, labelled Modelled','Figures on screen: scaled to strength; look fixed to the documented dress','Casualties: fallen figures scaled to the documented loss · placement Modelled','Position at this tick: Documented keyframe'].forEach((t,i)=>g.fillText(t,806,236+i*36));
+   g.fillStyle='#ffd37a';g.font='600 12px system-ui';g.fillText('Every uniform detail is tied to a source or labelled Modelled.',806,456)}
+}
+</script>

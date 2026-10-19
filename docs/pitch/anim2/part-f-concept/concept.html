@@ -1,0 +1,64 @@
+<!doctype html><meta charset="utf-8"><title>Part F concept sketch</title>
+<style>html,body{margin:0;background:#111}canvas{display:block}</style>
+<canvas id="c" width="1500" height="900"></canvas>
+<script>
+const c=document.getElementById('c'),g=c.getContext('2d');
+let s=7;const rnd=()=>{s=(s*16807)%2147483647;return s/2147483647};
+const img=new Image();img.onload=draw;img.src='bg.jpg';
+function soldier(x,y,col,dark,face,step,sc=1){ // slight-oblique top-down figure
+  g.save();g.translate(x,y);g.scale(sc,sc);
+  g.fillStyle='rgba(0,0,0,.32)';g.beginPath();g.ellipse(2,9,9,4,0,0,7);g.fill(); // ground shadow
+  // legs (stride)
+  g.strokeStyle=dark;g.lineWidth=3.2;g.lineCap='round';
+  g.beginPath();g.moveTo(-2,3);g.lineTo(-3-step*2,9);g.moveTo(2,3);g.lineTo(3+step*2,9);g.stroke();
+  // rifle
+  g.strokeStyle='#2a1c10';g.lineWidth=1.8;g.beginPath();g.moveTo(6*face,-9);g.lineTo(9*face,6);g.stroke();
+  g.strokeStyle='#bbb';g.lineWidth=.8;g.beginPath();g.moveTo(6*face,-9);g.lineTo(5.4*face,-14);g.stroke();
+  // torso
+  g.fillStyle=col;g.beginPath();g.ellipse(0,-2,6.2,7.4,0,0,7);g.fill();
+  g.fillStyle='rgba(255,255,255,.10)';g.beginPath();g.ellipse(-2,-4,3,4,0,0,7);g.fill();
+  // knapsack
+  g.fillStyle=dark;g.fillRect(-4,-4,5,8);
+  // head + kepi
+  g.fillStyle='#d9b99a';g.beginPath();g.arc(0,-11,3.3,0,7);g.fill();
+  g.fillStyle=dark;g.beginPath();g.ellipse(0,-13.2,4,1.8,0,0,7);g.fill();g.fillRect(-2.6,-15.2,5.2,2.6);
+  g.restore();
+}
+function fallen(x,y,col,a){g.save();g.translate(x,y);g.rotate(a);g.fillStyle='rgba(0,0,0,.3)';g.beginPath();g.ellipse(2,4,11,4,0,0,7);g.fill();
+  g.fillStyle=col;g.beginPath();g.ellipse(0,0,10,4.2,0,0,7);g.fill();g.fillStyle='#d9b99a';g.beginPath();g.arc(-10,0,2.8,0,7);g.fill();
+  g.strokeStyle='#2a1c10';g.lineWidth=1.6;g.beginPath();g.moveTo(-6,5);g.lineTo(12,6);g.stroke();g.restore();}
+function smoke(x,y,r,a){const gr=g.createRadialGradient(x,y,0,x,y,r);gr.addColorStop(0,`rgba(235,235,230,${a})`);gr.addColorStop(1,'rgba(235,235,230,0)');g.fillStyle=gr;g.beginPath();g.arc(x,y,r,0,7);g.fill();}
+function flag(x,y,col,txt){g.save();g.translate(x,y);g.fillStyle='rgba(0,0,0,.3)';g.beginPath();g.ellipse(4,4,9,3,0,0,7);g.fill();
+  g.strokeStyle='#e8d9a8';g.lineWidth=2.2;g.beginPath();g.moveTo(0,0);g.lineTo(0,-64);g.stroke();
+  g.fillStyle=col;g.beginPath();g.moveTo(1,-64);g.quadraticCurveTo(22,-70,40,-62);g.lineTo(40,-40);g.quadraticCurveTo(22,-47,1,-41);g.closePath();g.fill();
+  g.strokeStyle='rgba(255,255,255,.5)';g.lineWidth=1;g.stroke();
+  g.fillStyle='#fff';g.font='700 11px system-ui';g.textAlign='center';g.fillText(txt,21,-48);g.restore();}
+function plaque(x,y,txt,sub,col){g.save();g.font='600 14px system-ui';const w=g.measureText(txt).width+22;
+  g.fillStyle='rgba(12,16,24,.82)';g.beginPath();g.roundRect(x,y,w,38,7);g.fill();g.fillStyle=col;g.fillRect(x,y+6,4,26);
+  g.fillStyle='#fff';g.fillText(txt,x+14,y+17);g.font='500 11px system-ui';g.fillStyle='#b9c3d4';g.fillText(sub,x+14,y+32);g.restore();}
+function draw(){
+  g.drawImage(img,0,0,c.width,c.height); // aerial backdrop
+  g.fillStyle='rgba(30,34,40,.12)';g.fillRect(0,0,c.width,c.height); // cohesive grade
+  const blue='#27437a',blueD='#142348',gray='#7d7467',grayD='#463e33';
+  // Union line of battle (two ranks) advancing right-to-left, lower half
+  const ph=0.6;
+  for(let r=0;r<2;r++)for(let i=0;i<34;i++){const x=120+i*17+r*9+rnd()*2,y=640+r*20+Math.sin(i*.35)*6+rnd()*2;soldier(x,y,blue,blueD,-1,Math.sin(i*.9+r+ph)>0?1:-1)}
+  // Union column marching, upper left toward centre
+  for(let i=0;i<16;i++)for(let k=0;k<4;k++){const x=330+i*22+k*3,y=380+i*9+k*17;soldier(x,y,blue,blueD,1,Math.sin(i+k)>0?1:-1)}
+  // Confederate line facing left, right side with volley smoke
+  for(let r=0;r<2;r++)for(let i=0;i<24;i++){const x=1000+r*15+rnd()*3,y=200+i*20+rnd()*3;soldier(x,y,gray,grayD,-1,Math.sin(i*.8+r)>0?1:-1)}
+  for(let i=0;i<9;i++)smoke(985-rnd()*60,230+i*48,70+rnd()*40,.55);
+  smoke(930,360,110,.35);smoke(900,520,100,.3);
+  // fallen
+  const fl=[[620,520,blue],[660,560,blue],[560,600,blue],[880,300,gray],[860,410,gray],[900,470,gray],[800,430,blue],[740,330,blue],[700,610,blue]];
+  fl.forEach((f,i)=>fallen(f[0],f[1],f[2],(i*1.7)%6.28));
+  // flags and plaques
+  flag(190,640,blue,'II/3');flag(560,420,blue,'V Corps');flag(1075,215,gray,'Kershaw');
+  plaque(120,560,'3rd Brigade, 2nd Division, 3rd Corps','about 1,400 men · line of battle · Modelled figures',blue);
+  plaque(1060,120,"Kershaw's Brigade",'about 1,800 men · volley · Modelled figures','#c43a3a');
+  // sketch label
+  g.fillStyle='rgba(0,0,0,.7)';g.fillRect(0,860,c.width,40);g.fillStyle='#ffd37a';g.font='600 15px system-ui';
+  g.fillText('CONCEPT SKETCH ONLY: drawn with placeholder figures, not real assets. Positions, volleys and casualties of individual soldiers are Modelled, never documented.',18,885);
+  document.title='done';
+}
+</script>
