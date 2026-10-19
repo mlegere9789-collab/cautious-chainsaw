@@ -146,11 +146,11 @@ export function createCore(o) {
     // ... of which the ones near the screen are laid out (the others cannot be seen: a layout of 478 units for a phone showing 60 is wasted work).  The margin is wide, so a crowd near the edge is still whole.
     const proj = inp.project || null; const spec = E.spec(); spec.proj = proj; E.proj = proj; spec.zoom = zoom; spec.dMax = zoom >= tok('layout.fullZoom') ? tok('layout.dMaxFullPx') : tok('layout.dMaxPx'); const origin = worldOrigin(zoom); const camO = camera.origin(); const bias = inp.bias || [0, 0];
     const view = proj ? { dx: 0, dy: 0, w: camera.w, h: camera.h } : { dx: origin[0] - camO[0] + bias[0], dy: origin[1] - camO[1] + bias[1], w: camera.w, h: camera.h };
-    const cullPx = tok('layout.cullPx'); let laid = vis;
+    const cullPx = Math.min(tok('layout.cullPx'), Math.max(100, 0.3 * Math.min(camera.w, camera.h))); let laid = vis;      // a phone's margin is smaller (a quarter of the screen's short side, 100 px at least): fewer marks to lay out where there is least room for them
     if (cullPx > 0) {
-      const sc = 512 * 2 ** zoom; const D2R = Math.PI / 180; const wx = (v) => (proj ? proj(v.st.lng, v.st.lat)[0] : (v.st.lng + 180) / 360 * sc - origin[0] + view.dx); const wy = (v) => { if (proj) return proj(v.st.lng, v.st.lat)[1]; const s = Math.sin(v.st.lat * D2R); return (0.5 - Math.log((1 + s) / (1 - s)) / (4 * Math.PI)) * sc - origin[1] + view.dy; };
+      const sc = 512 * 2 ** zoom; const D2R = Math.PI / 180; const wx = (v) => (proj ? (v.p = proj(v.st.lng, v.st.lat))[0] : (v.st.lng + 180) / 360 * sc - origin[0] + view.dx); const wy = (v) => { if (proj) return v.p[1]; const s = Math.sin(v.st.lat * D2R); return (0.5 - Math.log((1 + s) / (1 - s)) / (4 * Math.PI)) * sc - origin[1] + view.dy; };
       const x0 = -cullPx; const x1 = view.w + cullPx; const y0 = -cullPx; const y1 = view.h + cullPx; laid = [];
-      for (const v of vis) { const x = wx(v); const y = wy(v); if ((x > x0 && x < x1 && y > y0 && y < y1) || v.u.id === E.selectedId) laid.push(v); }
+      for (const v of vis) { const x = wx(v); const y = wy(v); if ((x > x0 && x < x1 && y > y0 && y < y1) || v.u.id === E.selectedId) { v.sx = x; v.sy = y; laid.push(v); } }
     }
     const setting = tok('layout.solveEvery'); const every = setting === 'auto' ? (o.autoQuality ? autoEvery : 1) : +setting;
     const frameDt = Math.min(dtMs || 16.667, 50); accDtMs += frameDt;

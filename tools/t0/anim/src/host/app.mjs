@@ -14,6 +14,7 @@
 import { createCore } from '../engine/core.mjs';
 import { SKINS } from './skins.mjs';
 import { skinKit } from '../engine/skins/kit.mjs';
+import { setViewportWidth } from '../engine/skins/common.mjs';
 import { measureTable, FONT_SPECS } from '../engine/layout/text.mjs';
 import { buildDataset } from './dataset.mjs';
 import { createClock } from './clock.mjs';
@@ -46,9 +47,11 @@ function fail(e) {
   if (S.strict) throw e;
   S.state = 0; try { window.console.warn('[gtanim] engine switched off for this session:', e && e.message); } catch { /* console */ }
   try { if (S.canvas) { const c = S.canvas.getContext('2d'); c && c.clearRect(0, 0, S.canvas.width, S.canvas.height); } } catch { /* canvas */ }
+  try { if (S.map) S.map.fire('move'); } catch { /* the app's own repaint hangs on the map's move event: the shipped routine draws the picture now (while playing its own loop already does) */ }
 }
 function guard(fn, bad) { try { return fn(); } catch (e) { fail(e); return bad; } }
-const reducedNow = () => { try { return !!(S.host && S.host.reduced && S.host.reduced()) || !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); } catch { return false; } };
+let MQL = null;
+const reducedNow = () => { try { if (!MQL && window.matchMedia) MQL = window.matchMedia('(prefers-reduced-motion: reduce)'); return !!(S.host && S.host.reduced && S.host.reduced()) || !!(MQL && MQL.matches); } catch { return false; } };
 
 // ---- data -----------------------------------------------------------------------------------------------------------------------------------------------
 function readJson(rel) { return S.oob[rel]; }
@@ -65,7 +68,7 @@ function createEngine(ds) {
   const settings = { 'skin.id': (S.sw.skin && skins.some((k) => k.id === S.sw.skin)) ? S.sw.skin : 'standards', ...(S.sw.set || {}) };
   S.t0 = window.performance.now(); S.core = createCore({ dataset: ds, tokens: TOKENS_DOC, textTable: measure(), storage: S.sw.tune ? storage : null, skins, settings, autoQuality: true, systemReduced: reducedNow });
   S.core.tuning.on('*', () => { wake(); });
-  skinKit.onInvalidate(() => wake());
+  skinKit.onInvalidate(() => wake()); skinKit.onReduced(reducedNow);
   S.clock = createClock(S.core.tok);
   S.trails = createTrails(S.core); if (S.host && S.host.trails) S.trails.setFlag(S.host.trails);
   loadFonts();
@@ -87,7 +90,7 @@ function attach(canvas, map) {
   if (S.canvas === canvas && S.map === map) return;
   if (S.map && S.map !== map && S.mapOff) { try { S.mapOff(); } catch { /* old map gone */ } }
   S.canvas = canvas; S.map = map; S.renderer = null;
-  const onRender = () => { if (S.state === 1 && S.map === map) guard(() => frame(), null); };
+  const onRender = () => { if (S.state !== 1 || S.map !== map) return; if (!mapBusy(map) && S.last && !S.idle && window.performance.now() - S.last < 10) return; guard(() => frame(), null); };      // (a render the map made for its own reasons, a tile that arrived, right after the engine drew this frame: nothing new to draw)
   const onMove = (e) => { if (S.state !== 1) return; const h = S.core && S.core.frame ? S.core.pickAt(e.point.x, e.point.y, 4) : null; const k = h && h.kind === 'unit' ? h.tile.key : (h ? h.tile.key : null); if (k !== S.hoverKey) { S.hoverKey = k; skinKit.setHover(k); wake(); try { map.getCanvas().style.cursor = k ? 'pointer' : ''; } catch { /* cursor */ } } };
   const onOut = () => { if (S.hoverKey !== null) { S.hoverKey = null; skinKit.setHover(null); wake(); } };
   map.on('render', onRender); map.on('mousemove', onMove); map.getCanvas().addEventListener('mouseleave', onOut);
@@ -99,7 +102,7 @@ function attach(canvas, map) {
   if (!S.popups) S.popups = createPopups(S);
   wake();
 }
-function wake() { try { if (S.map && S.state === 1) S.map.triggerRepaint(); } catch { /* map gone */ } }
+function wake() { try { if (S.map && S.state === 1) { if (mapBusy(S.map)) S.map.triggerRepaint(); else armRaf(); } } catch { /* map gone */ } }
 
 // ---- the frame ------------------------------------------------------------------------------------------------------------------------------------------
 const filterOf = (f) => {
@@ -114,6 +117,7 @@ function frame() {
   if (!ensureData(st.placementsByTick) || !S.core) return;
   const E = S.core; const now = window.performance.now();
   if (!S.fontsReady && now - S.t0 < 2500) { map.triggerRepaint(); return; }      // the layout is measured with the page's own face: the first picture waits for it (it is embedded, a few milliseconds)
+  if (S.last && now - S.last < 2 && !S.idle) return;
   const gap = S.last ? now - S.last : 16.667; S.last = now; const raw = S.idle ? 16.667 : gap; S.idle = false; const dt = Math.min(raw, MAX_DT);
   const reduced = reducedNow();
   if (!S.ever) { S.ever = true; S.clock.init(st.currentTick); }
@@ -121,7 +125,7 @@ function frame() {
   if (ck.write !== null) S.store.setState({ currentTick: ck.write });
   if (ck.stop) S.store.setState({ isPlaying: false });
   const tau = reduced ? Math.floor(ck.tau + 1e-9) : ck.tau;
-  const cont = map.getContainer(); const w = cont.clientWidth; const h = cont.clientHeight; if (!w || !h) return;
+  const cont = map.getContainer(); const w = cont.clientWidth; const h = cont.clientHeight; if (!w || !h) return; setViewportWidth(window.innerWidth);
   const c = map.getCenter(); const cam = S.cam; cam.lng = c.lng; cam.lat = c.lat; cam.zoom = map.getZoom(); cam.w = w; cam.h = h;
   if (!S.renderer) S.renderer = createRenderer({ canvas, engine: E });
   S.renderer.fit(w, h);
@@ -134,7 +138,15 @@ function frame() {
   S.frames++; if (S.onFrame) S.onFrame(F, S);
   if (S.popups) S.popups.update(F, st);
   const more = !!st.isPlaying || S.clock.moving || E.busy() || S.trails.busy() || (S.renderer && S.renderer.stageEasing());
-  if (more) map.triggerRepaint(); else S.idle = true;
+  if (!more) { S.idle = true; return; }
+  // while the camera stands still the engine runs on its own animation-frame loop and the map is NOT asked to redraw its (unchanged) tiles sixty times a second; while the camera moves (a drag, a wheel, a flight)
+  // the map's own render event drives the frame, so the overlay and the map are always one frame
+  if (mapBusy(map)) map.triggerRepaint(); else armRaf();
+}
+const mapBusy = (map) => { try { return map.isMoving() || map.isZooming() || map.isRotating() || !map.loaded(); } catch { return true; } };
+function armRaf() {
+  if (S.raf) return;
+  S.raf = window.requestAnimationFrame(() => { S.raf = 0; if (S.state !== 1 || !S.map) return; if (mapBusy(S.map)) { S.map.triggerRepaint(); return; } guard(() => frame(), null); });
 }
 
 /** the trails of the app's "Trails ON" button, drawn on the app's own trail canvas (z-index 8, beneath the unit canvas): the path each moving unit has just walked, only while the clock moves; nothing is left behind when it stops */

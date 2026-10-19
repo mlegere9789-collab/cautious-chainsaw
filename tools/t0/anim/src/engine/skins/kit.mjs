@@ -84,7 +84,7 @@ function newFrame(env) {
   const now = clock.now(); const gap = FRAME.n ? now - FRAME.now : 16.7;
   FRAME.dt = Math.min(100, Math.max(0, gap)); FRAME.now = now; FRAME.env = env; FRAME.n++; FRAME.active = false;
   const tok = env.tok; let birth = 0.6; let red = false;
-  try { const b = tok('motion.birthScale'); if (typeof b === 'number' && b >= 0 && b < 1) birth = b; const m = tok('motion.reduced'); red = m === 'on' || (m === 'auto' && typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches); } catch { /* a standalone caller without the engine's tokens */ }
+  try { const b = tok('motion.birthScale'); if (typeof b === 'number' && b >= 0 && b < 1) birth = b; const m = tok('motion.reduced'); red = m === 'on' || (m === 'auto' && reducedProbe()); } catch { /* a standalone caller without the engine's tokens */ }
   FRAME.birth = birth; FRAME.reduced = red;
   if ((FRAME.n & 63) === 0) for (const [k, s] of STORE) if (FRAME.n - s.seen > 120) STORE.delete(k);          // forget tiles that have not been drawn for a while
 }
@@ -109,7 +109,9 @@ function cat(s, name, value, ms) {
 
 /** ask the host to draw another frame while something is still easing.  The skin contract has no redraw request, so this goes through the Studio's test hook (window.__studio) when it
  *  exists and does nothing otherwise (the picture then simply eases on the next frame the host draws anyway).  Engine request: an env.invalidate() would make this a clean call. */
-let invalidateHook = null;
+let invalidateHook = null; let reducedHook = null;
+let MQL = null;
+const reducedProbe = () => { if (reducedHook) return reducedHook(); try { if (!MQL && typeof matchMedia === 'function') MQL = matchMedia('(prefers-reduced-motion: reduce)'); return !!(MQL && MQL.matches); } catch { return false; } };
 function invalidate() { if (invalidateHook) invalidateHook(); }
 function pump() {
   if (!FRAME.active || FRAME.pumping || typeof requestAnimationFrame !== 'function') return;
@@ -298,6 +300,6 @@ function applyUrlSettings(skin) {
 /** every token of a skin as a settings object (what a designer pastes into the spec file or ?skinset=) */
 export function exportTokens(skinId) { const s = registry.get(skinId); if (!s) throw new Error(`no skin ${skinId}`); return { [skinId]: { ...s.P } }; }
 
-export const skinKit = { onInvalidate(fn) { invalidateHook = fn; }, setToken, exportTokens, setClock, setSnap(v) { snapOn = !!v; }, ids: () => [...registry.keys()], hover: () => hoverKey, setHover(k) { hoverKey = k; }, frame: FRAME, states: STORE, reset() { STORE.clear(); TW.clear(); GRADS.clear(); hoverKey = null; FRAME.env = null; FRAME.n = 0; } };
+export const skinKit = { onInvalidate(fn) { invalidateHook = fn; }, onReduced(fn) { reducedHook = fn; }, setToken, exportTokens, setClock, setSnap(v) { snapOn = !!v; }, ids: () => [...registry.keys()], hover: () => hoverKey, setHover(k) { hoverKey = k; }, frame: FRAME, states: STORE, reset() { STORE.clear(); TW.clear(); GRADS.clear(); hoverKey = null; FRAME.env = null; FRAME.n = 0; } };
 if (typeof window !== 'undefined') window.__skinKit = skinKit;
 export { EVID_OK };

@@ -21,7 +21,8 @@ export function createPopups(S) {
   const P = { pad: 0, nodes: {}, rects: [], extra: [], chrome: [], stage: { x0: EDGE, y0: EDGE, x1: 1e5, y1: 1e5 }, last: 0, dirty: true, subj: [], spots: new Map(), tip: null, chron: null, chronBusy: false, lastKey: '', mo: null, legendFor: null };
   try { const prefs = JSON.parse(window.localStorage.getItem('gtbg_prefs') || '{}'); if (prefs.showLegend === undefined && S.store.getState().showLegend) S.store.setState({ showLegend: false }); } catch { /* storage blocked: the legend keeps the app's default */ }      // the legend is closed until the viewer opens it (it opened over a fifth of the map); a viewer's own choice is kept
   const css = doc.createElement('style'); css.id = 'gtanim-chrome'; css.textContent = CHROME_CSS; doc.head.appendChild(css);
-  try { P.mo = new window.MutationObserver(() => { P.dirty = true; }); P.mo.observe(root, { childList: true, subtree: true }); } catch { /* a page without observers rescans on the timer */ }
+  // a card that appears while the picture is at rest wakes the engine so that it is placed at once
+  try { P.mo = new window.MutationObserver(() => { P.dirty = true; try { if (S.map && S.state === 1) S.map.triggerRepaint(); } catch { /* the map is gone */ } }); P.mo.observe(root, { childList: true, subtree: true }); } catch { /* a page without observers rescans on the timer */ }
 
   // ---- the chronology (subjects of the event cards): the same files the app loads, read once ---------------------------------------------------------------
   function loadChronology() {
@@ -36,9 +37,9 @@ export function createPopups(S) {
     const q = (s) => doc.querySelector(s); const n = {};
     n.event = q('[data-gtbg-card="1"]'); n.story = q('[data-gtbg-card="2"]'); n.tour = q('[data-gtbg-card="3"]'); n.mon = q('[data-gtbg-card="4"]'); n.unit = q('#gt-unit-panel');
     n.toast = q('[role="log"][aria-label="Battle events"]'); n.legend = q('[role="group"][aria-label="Legend"]');
-    n.hud = null; n.minimap = null;
+    n.hud = P.nodes.hud && P.nodes.hud.isConnected ? P.nodes.hud : null; n.minimap = null;
     const mc = q('main#root canvas[title^="Click to"]'); if (mc) n.minimap = mc.parentElement;        // the overview: its wrapper (header, canvas, footer)
-    for (const d of doc.querySelectorAll('main#root div')) { if (d.children.length === 0 && /\(base speed\)|speed\)/.test(d.textContent)) { n.hud = d.closest('div[style*="position: absolute"]'); break; } }      // the day badge: the absolute card around "1x (base speed)"
+    if (!n.hud) for (const d of doc.querySelectorAll('main#root div')) { if (d.children.length === 0 && /\(base speed\)|speed\)/.test(d.textContent)) { n.hud = d.closest('div[style*="position: absolute"]'); break; } }      // the day badge: the absolute card around "1x (base speed)"
     for (const k of KINDS) { const el = n[k]; if (el && el.getAttribute('data-gta') !== k) el.setAttribute('data-gta', k); }
     for (const [k, el] of Object.entries(P.nodes)) if (el && el !== n[k] && el.getAttribute) el.removeAttribute('data-gta');
     P.nodes = n; return n;
@@ -51,14 +52,14 @@ export function createPopups(S) {
 
   // ---- the interface rectangles that cover the map (canvas px) -----------------------------------------------------------------------------------------------------
   function chromeRects(c) {
-    const out = []; const add = (el, pad = 0) => { if (!el) return; const cs = window.getComputedStyle(el); if (cs.display === 'none' || cs.visibility === 'hidden' || +cs.opacity < 0.05) return; const r = relRect(el, c, true); if (r.x1 - r.x0 < 4 || r.y1 - r.y0 < 4) return; out.push({ x0: r.x0 - pad, y0: r.y0 - pad, x1: r.x1 + pad, y1: r.y1 + pad }); };
-    for (const k of ['legend', 'minimap', 'hud', 'toast']) add(P.nodes[k]);
+    const out = []; const add = (el, pad = 0) => { if (!el) return; const cs = window.getComputedStyle(el); if (cs.display === 'none' || cs.visibility === 'hidden' || +cs.opacity < 0.05) return; const r = relRect(el, c, false); if (r.x1 - r.x0 < 4 || r.y1 - r.y0 < 4) return; out.push({ x0: r.x0 - pad, y0: r.y0 - pad, x1: r.x1 + pad, y1: r.y1 + pad }); };
+    for (const k of ['legend', 'minimap', 'hud']) add(P.nodes[k]);
     add(doc.getElementById('gt-timeline')); add(doc.getElementById('extra-features'), 2);
     for (const el of doc.querySelectorAll('.mapboxgl-ctrl-top-right, .mapboxgl-ctrl-bottom-right, .mapboxgl-ctrl-bottom-left')) add(el);
     for (const b of doc.querySelectorAll('main#root button')) { if (/Trails/.test(b.textContent) && b.textContent.length < 20) add(b, 2); else if (/NPS Auto Tour/.test(b.textContent)) add(b, 2); }
     return out;
   }
-  function floatingRects(c) { const out = []; for (const k of ['event', 'story', 'tour', 'unit']) { const el = P.nodes[k]; if (el) { const r = relRect(el, c, false); out.push({ ...r, kind: k }); } } return out; }
+  function floatingRects(c) { const out = []; for (const k of ['event', 'story', 'tour', 'unit', 'toast']) { const el = P.nodes[k]; if (el) { const r = relRect(el, c, false); out.push({ ...r, kind: k }); } } return out; }
 
   // ---- placement ---------------------------------------------------------------------------------------------------------------------------------------------------------------
   function markRects(F, pad) {
@@ -81,15 +82,15 @@ export function createPopups(S) {
     // subjects
     const tick = st.currentTick; const ev = P.chron && P.chron[tick] ? P.chron[tick].find((e) => e.significance !== 'low') : null; const vg = st.vignetteData && st.vignetteData.byTick ? (st.vignetteData.byTick[tick] || st.vignetteData.byTick[tick - 1] || st.vignetteData.byTick[tick - 2] || [])[0] : null;
     const subjects = { event: ev ? subjectAnchor(F, ev.units_involved, null) : null, story: vg ? subjectAnchor(F, vg.units_featured, [vg.trigger_lat, vg.trigger_lng]) : null, unit: st.selectedUnitId ? subjectAnchor(F, [st.selectedUnitId], null) : null };
-    const order = ['unit', 'tour', 'event', 'story']; const handled = [];
+    const order = ['unit', 'tour', 'event', 'story', 'toast']; const handled = [];
     for (const k of order) {
       const el = P.nodes[k]; if (!el) continue;
-      const cs = window.getComputedStyle(el); if (cs.display === 'none') continue;
+      const cs = window.getComputedStyle(el); if (cs.display === 'none' || (k === 'toast' && !el.children.length)) continue;
       const st0 = P.spots.get(el) || { tx: 0, ty: 0, since: 0, goodSince: 0 }; const nat = relRect(el, c, true); const w = nat.x1 - nat.x0; const h = nat.y1 - nat.y0;
       if (w > W * 0.85 || h > H * 0.8) { if (st0.tx || st0.ty) { el.style.removeProperty('translate'); st0.tx = 0; st0.ty = 0; } continue; }      // a full-width drawer or a sheet (the tour panel, the phone's sheets) is a surface of its own: never moved
       const cur = rectOf(nat.x0 + st0.tx, nat.y0 + st0.ty, w, h); const subj = subjects[k] || null;
       // is the card where it is on free ground?  (a mark under it, or the subject itself under it, is not)
-      const others = []; for (const k2 of ['event', 'story', 'tour', 'unit']) { const e2 = P.nodes[k2]; if (e2 && e2 !== el) { const cs2 = window.getComputedStyle(e2); if (cs2.display !== 'none') others.push(relRect(e2, c, false)); } }
+      const others = []; for (const k2 of ['event', 'story', 'tour', 'unit', 'toast']) { const e2 = P.nodes[k2]; if (e2 && e2 !== el) { const cs2 = window.getComputedStyle(e2); if (cs2.display !== 'none') others.push(relRect(e2, c, false)); } }
       const covered = () => { for (const r of markRects(F, gap - 2)) if (overlaps(cur, r, 0)) return true; for (const r of P.chrome) if (overlaps(cur, r, 1)) return true; for (const r of others) if (overlaps(cur, r, 1)) return true; return false; };
       const bad = covered() || (subj && overlaps(cur, subj.rect, 2));
       const now = window.performance.now();
@@ -117,14 +118,6 @@ export function createPopups(S) {
       const fin = rectOf(nat.x0 + st0.tx, nat.y0 + st0.ty, w, h); taken.push(fin);
       if (subj && (k === 'event' || k === 'story')) P.subj.push({ kind: k, subj, card: fin });
       handled.push(k);
-    }
-    // the toasts column: one block, kept clear of the marks like a card
-    const tl = P.nodes.toast;
-    if (tl && tl.children.length) {
-      const st0 = P.spots.get(tl) || { tx: 0, ty: 0, since: 0 }; const nat = relRect(tl, c, true); const w = nat.x1 - nat.x0; const h = nat.y1 - nat.y0; const cur = rectOf(nat.x0 + st0.tx, nat.y0 + st0.ty, w, h); let bad = false; for (const r of markRects(F, 4)) if (overlaps(cur, r, 0)) { bad = true; break; }
-      const now = window.performance.now();
-      if (bad && now - st0.since > 600) { const occK = new Occupancy(W, H, 8); for (const r of markRects(F, 8)) occK.add(r, 0); for (const r of P.chrome) if (r.x0 !== nat.x0) occK.add(r, 2, { kind: 'chrome' }); const spot = findSpot({ w, h, anchor: null, occ: occK, taken: [...taken], gap: 10, margin: 10, prefer: { x: nat.x0, y: nat.y0 } }); if (spot) { st0.tx = spot.x - nat.x0; st0.ty = spot.y - nat.y0; st0.since = now; } }
-      P.spots.set(tl, st0); tl.style.setProperty('translate', st0.tx + 'px ' + st0.ty + 'px'); if (!tl.__gtaT) { tl.__gtaT = 1; tl.style.setProperty('transition', 'translate 260ms cubic-bezier(.2,.72,.2,1)'); }
     }
   }
 

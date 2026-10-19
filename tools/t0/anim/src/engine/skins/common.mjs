@@ -13,10 +13,15 @@ export { codeOf };
 export function compactName(u) { return u ? compactNameOf(u, FORMATION_KINDS.has(u.kind)) : null; }
 const NAMES = new WeakMap();
 const nameOfUnit = (u) => { let n = NAMES.get(u); if (n === undefined) { n = compactName(u); NAMES.set(u, n); } return n; };
-export function infoOfUnit(u) { const flag = FORMATION_KINDS.has(u.kind); return { flag, side: sideOf(u.side), short: codeOf(u), name: nameOfUnit(u), idOnly: !u.inOob && !flag, count: null, ech: flag ? (ECH_OF_KIND[u.kind] ?? 1) : 0, agg: false, arm: u.arm }; }
+const INFO = new WeakMap();
+/** what a unit says about itself: a pure function of the unit record, so one shared object per unit (the skins read it, never write it) */
+export function infoOfUnit(u) { let r = INFO.get(u); if (!r) { r = infoOfUnit0(u); INFO.set(u, r); } return r; }
+function infoOfUnit0(u) { const flag = FORMATION_KINDS.has(u.kind); return { flag, side: sideOf(u.side), short: codeOf(u), name: nameOfUnit(u), idOnly: !u.inOob && !flag, count: null, ech: flag ? (ECH_OF_KIND[u.kind] ?? 1) : 0, agg: false, arm: u.arm }; }
 export function infoOfAgg(a) { return { flag: true, side: sideOf(a.side), short: a.short, name: a.name || null, idOnly: false, count: a.badge, ech: ECH_OF_KIND[a.kind] || 0, generic: a.kind === 'scope' || a.kind === 'contact', agg: true, arm: 'mixed' }; }
 export const infoOfTile = (t) => (t.kind === 'agg' ? infoOfAgg({ short: t.short, name: t.fname, badge: t.badge, kind: t.nameKind, side: t.side }) : infoOfUnit(t.unit));
-export const wideScreen = (P) => (typeof innerWidth === 'number' ? innerWidth : 1440) >= P['detail.selectNameMinViewport'];
+let VIEW_W = 0;      // the viewport width, set by the host once per frame (innerWidth read hundreds of times a frame after the app changed the page forces a layout each time: 6 % of a phone's frame)
+export const setViewportWidth = (w) => { VIEW_W = w; };
+export const wideScreen = (P) => (VIEW_W || (typeof innerWidth === 'number' ? innerWidth : 1440)) >= P['detail.selectNameMinViewport'];
 
 /** progressive disclosure (the same rule for both options): formations and crowds say their names first (a corps from zoom 11, a division from 12.5, a brigade 13, a crowd 12), a unit says its short code only
  *  at the full zoom (default 15: below it a unit is a small side-and-arm mark), its full name close up; a selected mark always says all it can */
