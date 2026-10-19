@@ -113,7 +113,93 @@ An option is four files and one line each: a **skin module** (`src/skins/<name>.
 Everything below was produced by a command in this folder and is in `results/`. Chrome 155 headless, Windows 11, DPR 2, desktop 1440 x 900 and phone 390 x 844; the real aerial; the engine's own layout.
 
 <!--AUDIT-->
-(filled by `node tools/spec-fill.mjs`)
+**Layout, in the real engine, on every settled scene frame** (`tools/scenes.mjs`, results `scene-checks-a.json`, `scene-checks-b.json`). A core overlap is two solid marks whose footprints overlap; a covered pin is a true-position pin under another mark; unrepresented is a unit with no mark and in no crowd; cards over tiles counts frames in which a popup lay on a mark, label or pin.
+
+| option | scene | marks | units on the field | crowds | units inside crowds | core overlaps | pins covered | unrepresented | frames with a card over a tile |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| A Standards | s1a (s1a-opening-z13.5-midbattle-t295) | 109 | 344 | 23 | 258 | 0 | 0 | 0 | 0 of 195 |
+| A Standards | s1b (s1b-opening-z13.5-day3-assault-t556) | 124 | 456 | 29 | 361 | 0 | 0 | 0 | 0 of 195 |
+| A Standards | s2 (s2-wheatfield-rose-woods-z15-t295) | 227 | 344 | 30 | 147 | 0 | 0 | 0 | 0 of 195 |
+| A Standards | s3 (s3-cemetery-hill-z15.5-t346) | 283 | 385 | 27 | 129 | 0 | 0 | 0 | 0 of 195 |
+| A Standards | s4 (s4-closeup-selected-z16.5-t551) | 422 | 451 | 12 | 41 | 0 | 0 | 0 | 0 of 285 |
+| A Standards | s5 (s5-phone-z14.5-sheet-t551) | 286 | 451 | 38 | 203 | 0 | 0 | 0 | 0 of 345 |
+| A Standards | s6 (s6-event-and-story-in-situ-t28) | 84 | 88 | 4 | 8 | 0 | 0 | 0 | 0 of 195 |
+| A Standards | s6b (s6b-story-card-in-situ-t28) | 84 | 88 | 4 | 8 | 0 | 0 | 0 | 0 of 195 |
+| A Standards | s7 (s7-legend-t60) | 121 | 126 | 5 | 10 | 0 | 0 | 0 | 0 of 315 |
+| A Standards | s8 (s8-hover-tooltip-z16-t551) | 370 | 451 | 15 | 96 | 0 | 0 | 0 | 0 of 285 |
+| A Standards | s9 (s9-minimap-in-the-rail-t551) | 195 | 451 | 39 | 295 | 0 | 0 | 0 | 0 of 315 |
+| B Glyph | s1a (s1a-opening-z13.5-midbattle-t295) | 152 | 344 | 30 | 222 | 0 | 0 | 0 | 0 of 195 |
+| B Glyph | s1b (s1b-opening-z13.5-day3-assault-t556) | 169 | 456 | 38 | 325 | 0 | 0 | 0 | 0 of 195 |
+| B Glyph | s2 (s2-wheatfield-rose-woods-z15-t295) | 251 | 344 | 39 | 132 | 0 | 0 | 0 | 0 of 195 |
+| B Glyph | s3 (s3-cemetery-hill-z15.5-t346) | 309 | 385 | 32 | 108 | 0 | 0 | 0 | 0 of 195 |
+| B Glyph | s4 (s4-closeup-selected-z16.5-t551) | 432 | 451 | 15 | 34 | 0 | 0 | 0 | 0 of 285 |
+| B Glyph | s5 (s5-phone-z14.5-sheet-t551) | 317 | 451 | 26 | 160 | 0 | 0 | 0 | 0 of 345 |
+| B Glyph | s6 (s6-event-and-story-in-situ-t28) | 87 | 88 | 1 | 2 | 0 | 0 | 0 | 0 of 195 |
+| B Glyph | s6b (s6b-story-card-in-situ-t28) | 87 | 88 | 1 | 2 | 0 | 0 | 0 | 0 of 195 |
+| B Glyph | s7 (s7-legend-t60) | 120 | 126 | 6 | 12 | 0 | 0 | 0 | 0 of 315 |
+| B Glyph | s8 (s8-hover-tooltip-z16-t551) | 374 | 451 | 27 | 104 | 0 | 0 | 0 | 0 of 285 |
+| B Glyph | s9 (s9-minimap-in-the-rail-t551) | 297 | 451 | 37 | 191 | 0 | 0 | 0 | 0 of 315 |
+
+22 scene frames, 0 violations of any of the four kinds.
+
+**Lettering contrast, read from rendered pixels** (`tools/audit.mjs`, `audit-a.json`, `audit-b.json`). Every lettering sprite the renderer blits is located on the canvas; its opaque ink pixels give the ink, the pixels 2 to 3 device px from the ink (halo over ground, or the cloth under a numeral) give the background; each pixel pair is a WCAG ratio. "Median" is the median neighbour pixel of a label; "worst decile" its 10th-percentile pixel. Haloed labels are unit codes beside a mark, names and formation words; on-cloth labels are the code or count standing on a flag or glyph body (no halo; the cream edge of a flag lies 2 to 3 px from the glyphs, which is the "worst decile" shortfall there).
+
+| option | scene | haloed labels | share with median at 4.5:1 | share with worst decile at 4.5:1 | worst median | on-cloth labels | share with median at 4.5:1 | share with worst decile at 4.5:1 | worst median |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| A Standards | s1a z13.5 t295 | 26 | 100 % | 100 % | 12.97 | 14 | 100 % | 100 % | 8.09 |
+| A Standards | s1b z13.5 t556 | 22 | 100 % | 100 % | 12.95 | 18 | 100 % | 100 % | 7.98 |
+| A Standards | s2 z15 t295 | 27 | 100 % | 100 % | 12.61 | 34 | 100 % | 88.2 % | 7.39 |
+| A Standards | s3 z15.5 t346 | 12 | 100 % | 100 % | 13.03 | 25 | 100 % | 72 % | 6.73 |
+| A Standards | s4 z16.5 t551 | 9 | 100 % | 100 % | 12.58 | 18 | 100 % | 94.4 % | 7.76 |
+| A Standards | z12.5 t226 | 17 | 100 % | 100 % | 13.06 | 13 | 100 % | 100 % | 8.16 |
+| B Glyph | s1a z13.5 t295 | 34 | 100 % | 100 % | 7.61 | 18 | 100 % | 100 % | 11.65 |
+| B Glyph | s1b z13.5 t556 | 34 | 100 % | 100 % | 7.52 | 26 | 100 % | 100 % | 9.52 |
+| B Glyph | s2 z15 t295 | 51 | 100 % | 100 % | 7.16 | 18 | 100 % | 100 % | 9.5 |
+| B Glyph | s3 z15.5 t346 | 32 | 100 % | 100 % | 6.26 | 11 | 100 % | 100 % | 9.58 |
+| B Glyph | s4 z16.5 t551 | 23 | 100 % | 100 % | 5.6 | 5 | 100 % | 100 % | 7 |
+| B Glyph | z12.5 t226 | 21 | 100 % | 100 % | 7.51 | 17 | 94.1 % | 82.4 % | 4.46 |
+
+The measured ink is the median of the opaque ink pixels after the canvas has resampled them, which makes it slightly lighter (or darker) than the token colour: the ratios are conservative.
+
+**Marks, text and the two sides, from the token file over the ground bands the page renders** (5 views x 7 percentiles of ground luminance, from the page's own backdrop; standard, colour-blind-safe and high-contrast token sets). A mark holds when its light or its dark outermost line stands 3:1 off the ground; text is the ink over the halo over the ground; sides are CIEDE2000 between the Union and Confederate colours under normal vision and protanopia, deuteranopia and tritanopia (Machado 2009 matrices, as the symbology job's colour module has them).
+
+| option | token set | worst text ratio | worst mark ratio (light / dark line) | smallest CIEDE2000, Union vs Confederate | greyscale luminance ratio | verdict |
+|---|---|---:|---:|---:|---:|---|
+| A Standards | standard | 5.14 (numeral on the cloth or body) | 3.83 (3.79 / 3.83) | 45.6 | 1.09 : 1 | text pass, marks pass, sides pass |
+| A Standards | cvd | 5.05 (numeral on the cloth or body) | 3.83 (3.79 / 3.83) | 47.3 | 1.04 : 1 | text pass, marks pass, sides pass |
+| A Standards | contrast | 6.23 (numeral on the cloth or body) | 3.83 (3.79 / 3.83) | 45.5 | 1.11 : 1 | text pass, marks pass, sides pass |
+| B Glyph | standard | 5.28 (numeral on the cloth or body) | 8.33 (8.33 / 1.98) | 46 | 1.2 : 1 | text pass, marks pass, sides pass |
+| B Glyph | cvd | 5.3 (numeral on the cloth or body) | 8.33 (8.33 / 1.98) | 46.9 | 1.17 : 1 | text pass, marks pass, sides pass |
+| B Glyph | contrast | 7 (numeral on the cloth or body) | 8.33 (8.33 / 1.98) | 45 | 1.19 : 1 | text pass, marks pass, sides pass |
+
+**Lettering stays inside its own footprint** (`tools/inkfit.mjs`, `inkfit-a.json`, `inkfit-b.json`): the alpha bounds of every lettering sprite against the box of the mark that owns it (more than 0.6 px outside counts). The drawn shapes (pole, flag, glyph, rings, bar, gauge, selection ring) are checked against the footprint in node by `test/skin-look.test.mjs` with a recording context, every unit at six zooms, both armies, selected and not.
+
+| option | z13.5 t295 | z13.5 t556 | z15 t295 | z15.5 t346 | z16.5 t551 | z17.2 t551 (names) | z12.5 t226 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| A Standards | 40 sprites, 0 outside | 40 sprites, 0 outside | 60 sprites, 0 outside | 37 sprites, 0 outside | 26 sprites, 0 outside | 29 sprites, 0 outside | 32 sprites, 0 outside |
+| B Glyph | 52 sprites, 0 outside | 60 sprites, 0 outside | 69 sprites, 0 outside | 43 sprites, 0 outside | 28 sprites, 0 outside | 23 sprites, 0 outside | 43 sprites, 0 outside |
+
+**Text sizes of the interface** (computed `font-size` of every visible text node, nine states): A Standards: 11, 13, 17 px, minimum 11 px; B Glyph: 11, 13, 17 px, minimum 11 px. Map lettering: 12 and 13 px (the font table of `layout/text.mjs`).
+
+**Node tests** (`tools/run-tests.mjs`, `tests.json`):
+
+| file | tests | pass | fail |
+|---|---:|---:|---:|
+| test/layout.test.mjs | 12 | 12 | 0 |
+| test/display.test.mjs | 20 | 20 | 0 |
+| test/interp.test.mjs | 11 | 11 | 0 |
+| test/time.test.mjs | 7 | 7 | 0 |
+| test/data.test.mjs | 11 | 9 | 2 |
+| test/tuning.test.mjs | 8 | 8 | 0 |
+| test/extend.test.mjs | 9 | 9 | 0 |
+| test/production.test.mjs | 6 | 6 | 0 |
+| test/build.test.mjs | 6 | 6 | 0 |
+| test/skin-look.test.mjs | 14 | 14 | 0 |
+| test/rest.test.mjs | 11 | 11 | 0 |
+| test/assemble.test.mjs | 17 | 17 | 0 |
+| test/popups.test.mjs | 36 | 36 | 0 |
+| test/fuzz.test.mjs | 3 | 3 | 0 |
+
 <!--/AUDIT-->
 
 ## 10. What is not known
@@ -122,7 +208,10 @@ Everything below was produced by a command in this folder and is in `results/`. 
 - **The two armies differ in luminance by only 1.09 : 1 (A) and 1.20 : 1 (B)**; their colour difference is large (CIEDE2000 above 45 under normal vision and the three simulated deficiencies). The grey-print cue is geometric: the way a flag flies (A) and the shape family (B). It was simulated by computation, not tried by colour-blind readers.
 - **Placement strength is a hand-authored number.** The bar (A) and the gauge (B) are labelled Modelled everywhere they appear and must not be read as losses.
 - **Casualty marks cover 70 % of the modelled men** (section 5); their time and place are modelled; the totals are secondary-source figures. 255 units have a registry figure; 217 of them have a fighting day.
-- **The opening view is dense.** At zoom 13.5 about 40 to 70 marks stand for 344 to 456 units: the rest are inside counted crowds. That is the certified layout (nothing dropped, nothing nudged), and the cost of showing a whole corps field at one zoom.
+- **The opening view is dense.** At zoom 13.5 the 344 to 456 units on the field are drawn as 109 to 169 marks, and 222 to 361 of the units (65 to 79 %) stand inside counted crowds. That is the certified layout (nothing dropped, nothing nudged), and the cost of showing a whole field at one zoom.
 - **Two crowds of one brigade can stand apart with the same words** ("Armistead's Bde 4" and "Armistead's Bde 2"): the layout produces them when the brigade's regiments cannot stand together.
-- **Place and road names are the basemap's** and run under marks where a mark stands on a road; the marks paint over them with their halo. The measured contrast of ground names is part of the audit's labels count but is the basemap's, not this folder's, to fix.
+- **Place and road names are the basemap's** and run under marks where a mark stands on a road; the marks paint over them with their halo.
+- **One numeral in B reads below the bar by the pixel measure** (4.46:1, a count in a crowd glyph at the three-day zoom, 1 of 17 on-cloth labels in that scene); the token arithmetic puts a white numeral on the body at 5.3:1 or better, so the likely cause is a crowd in the middle of the age blend, where the body is half glass. I did not trace it to the unit.
+- **In A the worst-decile shortfall of the numerals on the flags** (3.2:1 to 4.6:1, in the scenes at zoom 15 and above) is the flag's own cream edge lying 2 to 3 px from the digits, inside the pixel ring the measure uses; the median neighbour of every such label is 6.7:1 or better.
 - **The Showcase tour and the other tour copy are the first round's**, only retargeted at the two looks; the two inherited assertions about a 60-second Showcase and its measured table were updated to the 46-second tour without the Before/After step that the first round left in place (`test/assemble.test.mjs`, marked FORK).
+- **Two data tests fail, and the cause is outside this folder.** `test/data.test.mjs` (2 of 11) finds the dataset of this fork no longer identical to a fresh build, because `data-src/time/time_anchors.json` was modified in the repository's working tree (by the clock work) after this fork's `data/dataset.json` was built. The fork therefore still carries the old candidate clock in its stills ("candidate clock", "about 7:00 PM (±30 min)"). Nothing in either look depends on the clock; when the clock group lands, `node data/build-dataset.mjs` regenerates the dataset (and `node data/build-memory.mjs` the casualty marks) and the two tests pass again.

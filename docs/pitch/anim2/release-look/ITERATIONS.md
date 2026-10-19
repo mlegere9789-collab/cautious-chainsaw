@@ -47,7 +47,7 @@ Pictures: `shots/a-standards/final` (A at round 6 plus the three fixes) and `sho
 
 ## What I could not fix, and why
 
-- **The opening view is dense** (about 40 to 70 marks standing for 344 to 456 units): the layout merges what cannot stand clear, and the owner's default says no nudging of full marks.
+- **The opening view is dense** (109 to 169 marks for 344 to 456 units, 65 to 79 % of the units inside counted crowds): the layout merges what cannot stand clear, and the owner's default says no nudging of full marks.
 - **The two armies are almost the same lightness** (1.09 : 1 in A, 1.20 : 1 in B). The second cue is geometric (the way a flag flies; the shape family), not lightness.
 - **Hollow formations in B** (a carried-forward brigade or division glyph with its rings) read as a target. It says what it should (the latest keyframe is a battle day old or more) but it is not elegant; a better device needs a decision about how formations age.
 - **Place and road names of the ground** are the basemap's and sometimes run under a mark.

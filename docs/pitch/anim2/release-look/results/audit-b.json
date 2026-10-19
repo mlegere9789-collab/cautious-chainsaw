@@ -1,0 +1,521 @@
+{
+ "generated": "2026-10-19T04:34:42.734Z",
+ "option": "b",
+ "method": "see the header of tools/audit.mjs",
+ "scenes": [
+  {
+   "scene": "s1a z13.5 t295",
+   "labels": 52,
+   "split": {
+    "haloed": {
+     "n": 34,
+     "shareMedian": 1,
+     "shareP10": 1,
+     "worstMedian": 7.61,
+     "worstP10": 6.95
+    },
+    "onCloth": {
+     "n": 18,
+     "shareMedian": 1,
+     "shareP10": 1,
+     "worstMedian": 11.65,
+     "worstP10": 9.94
+    }
+   },
+   "worstLabels": [
+    {
+     "ink": "#9e4831",
+     "med": 7.61,
+     "p10": 7.1,
+     "wCss": 137
+    },
+    {
+     "ink": "#9e4831",
+     "med": 7.67,
+     "p10": 6.95,
+     "wCss": 110
+    },
+    {
+     "ink": "#a04d36",
+     "med": 7.67,
+     "p10": 7.08,
+     "wCss": 132
+    }
+   ],
+   "medianOfMedians": 9.43,
+   "worstMedian": 7.61,
+   "shareMedianAbove4_5": 1,
+   "shareP10Above4_5": 1,
+   "worstP10": 6.95,
+   "spriteHeightsCss": [
+    24,
+    25
+   ]
+  },
+  {
+   "scene": "s1b z13.5 t556",
+   "labels": 60,
+   "split": {
+    "haloed": {
+     "n": 34,
+     "shareMedian": 1,
+     "shareP10": 1,
+     "worstMedian": 7.52,
+     "worstP10": 6.88
+    },
+    "onCloth": {
+     "n": 26,
+     "shareMedian": 1,
+     "shareP10": 1,
+     "worstMedian": 9.52,
+     "worstP10": 6.23
+    }
+   },
+   "worstLabels": [
+    {
+     "ink": "#9f4b34",
+     "med": 7.52,
+     "p10": 7.07,
+     "wCss": 138
+    },
+    {
+     "ink": "#a04c35",
+     "med": 7.56,
+     "p10": 6.94,
+     "wCss": 132
+    },
+    {
+     "ink": "#a04c35",
+     "med": 7.56,
+     "p10": 6.88,
+     "wCss": 132
+    }
+   ],
+   "medianOfMedians": 9.5,
+   "worstMedian": 7.52,
+   "shareMedianAbove4_5": 1,
+   "shareP10Above4_5": 1,
+   "worstP10": 6.23,
+   "spriteHeightsCss": [
+    24,
+    25
+   ]
+  },
+  {
+   "scene": "s2 z15 t295",
+   "labels": 69,
+   "split": {
+    "haloed": {
+     "n": 51,
+     "shareMedian": 1,
+     "shareP10": 1,
+     "worstMedian": 7.16,
+     "worstP10": 6.39
+    },
+    "onCloth": {
+     "n": 18,
+     "shareMedian": 1,
+     "shareP10": 1,
+     "worstMedian": 9.5,
+     "worstP10": 5.86
+    }
+   },
+   "worstLabels": [
+    {
+     "ink": "#5f6369",
+     "med": 7.16,
+     "p10": 6.39,
+     "wCss": 28
+    },
+    {
+     "ink": "#9e4932",
+     "med": 7.78,
+     "p10": 7.18,
+     "wCss": 136
+    },
+    {
+     "ink": "#9e4932",
+     "med": 7.84,
+     "p10": 7.31,
+     "wCss": 136
+    }
+   ],
+   "medianOfMedians": 9.5,
+   "worstMedian": 7.16,
+   "shareMedianAbove4_5": 1,
+   "shareP10Above4_5": 1,
+   "worstP10": 5.86,
+   "spriteHeightsCss": [
+    24,
+    25
+   ]
+  },
+  {
+   "scene": "s3 z15.5 t346",
+   "labels": 43,
+   "split": {
+    "haloed": {
+     "n": 32,
+     "shareMedian": 1,
+     "shareP10": 1,
+     "worstMedian": 6.26,
+     "worstP10": 5.54
+    },
+    "onCloth": {
+     "n": 11,
+     "shareMedian": 1,
+     "shareP10": 1,
+     "worstMedian": 9.58,
+     "worstP10": 8.3
+    }
+   },
+   "worstLabels": [
+    {
+     "ink": "#65696f",
+     "med": 6.26,
+     "p10": 5.54,
+     "wCss": 34
+    },
+    {
+     "ink": "#686b71",
+     "med": 6.36,
+     "p10": 5.77,
+     "wCss": 42
+    },
+    {
+     "ink": "#5e6269",
+     "med": 6.62,
+     "p10": 5.74,
+     "wCss": 32
+    }
+   ],
+   "medianOfMedians": 9.44,
+   "worstMedian": 6.26,
+   "shareMedianAbove4_5": 1,
+   "shareP10Above4_5": 1,
+   "worstP10": 5.54,
+   "spriteHeightsCss": [
+    24,
+    25
+   ]
+  },
+  {
+   "scene": "s4 z16.5 t551",
+   "labels": 28,
+   "split": {
+    "haloed": {
+     "n": 23,
+     "shareMedian": 1,
+     "shareP10": 1,
+     "worstMedian": 5.6,
+     "worstP10": 5.22
+    },
+    "onCloth": {
+     "n": 5,
+     "shareMedian": 1,
+     "shareP10": 1,
+     "worstMedian": 7,
+     "worstP10": 5.9
+    }
+   },
+   "worstLabels": [
+    {
+     "ink": "#6e7277",
+     "med": 5.6,
+     "p10": 5.22,
+     "wCss": 56
+    },
+    {
+     "ink": "#fafbfc",
+     "med": 7,
+     "p10": 6.08,
+     "wCss": 15
+    },
+    {
+     "ink": "#9d462f",
+     "med": 7.78,
+     "p10": 7.37,
+     "wCss": 81
+    }
+   ],
+   "medianOfMedians": 10.13,
+   "worstMedian": 5.6,
+   "shareMedianAbove4_5": 1,
+   "shareP10Above4_5": 1,
+   "worstP10": 5.22,
+   "spriteHeightsCss": [
+    24,
+    25
+   ]
+  },
+  {
+   "scene": "z12.5 t226",
+   "labels": 38,
+   "split": {
+    "haloed": {
+     "n": 21,
+     "shareMedian": 1,
+     "shareP10": 1,
+     "worstMedian": 7.51,
+     "worstP10": 7
+    },
+    "onCloth": {
+     "n": 17,
+     "shareMedian": 0.941,
+     "shareP10": 0.824,
+     "worstMedian": 4.46,
+     "worstP10": 3.2
+    }
+   },
+   "worstLabels": [
+    {
+     "ink": "#f4f1f0",
+     "med": 4.46,
+     "p10": 3.2,
+     "wCss": 15
+    },
+    {
+     "ink": "#fdfcfc",
+     "med": 5.53,
+     "p10": 3.92,
+     "wCss": 21
+    },
+    {
+     "ink": "#f8f9fb",
+     "med": 5.91,
+     "p10": 4.11,
+     "wCss": 21
+    }
+   ],
+   "medianOfMedians": 9.18,
+   "worstMedian": 4.46,
+   "shareMedianAbove4_5": 0.974,
+   "shareP10Above4_5": 0.921,
+   "worstP10": 3.2,
+   "spriteHeightsCss": [
+    24,
+    25
+   ]
+  }
+ ],
+ "dom": [
+  {
+   "scene": "s1a z13.5 t295",
+   "min": 11,
+   "sizes": {
+    "11": 13,
+    "13": 8
+   }
+  },
+  {
+   "scene": "s1b z13.5 t556",
+   "min": 11,
+   "sizes": {
+    "11": 13,
+    "13": 8
+   }
+  },
+  {
+   "scene": "s2 z15 t295",
+   "min": 11,
+   "sizes": {
+    "11": 13,
+    "13": 8
+   }
+  },
+  {
+   "scene": "s3 z15.5 t346",
+   "min": 11,
+   "sizes": {
+    "11": 13,
+    "13": 8
+   }
+  },
+  {
+   "scene": "s4 z16.5 t551",
+   "min": 11,
+   "sizes": {
+    "11": 13,
+    "13": 8
+   }
+  },
+  {
+   "scene": "z12.5 t226",
+   "min": 11,
+   "sizes": {
+    "11": 13,
+    "13": 8
+   }
+  },
+  {
+   "scene": "legend",
+   "min": 11,
+   "sizes": {
+    "11": 25,
+    "13": 14,
+    "17": 1
+   }
+  },
+  {
+   "scene": "unit card",
+   "min": 11,
+   "sizes": {
+    "11": 37,
+    "13": 16,
+    "17": 2
+   }
+  },
+  {
+   "scene": "event + story",
+   "min": 11,
+   "sizes": {
+    "11": 35,
+    "13": 16,
+    "17": 2
+   }
+  }
+ ],
+ "bands": {
+  "field-z13.5": [
+   "#000000",
+   "#000000",
+   "#454947",
+   "#c7c7bc",
+   "#d7d6cd",
+   "#e3e2db",
+   "#e9e8e2"
+  ],
+  "angle-z15": [
+   "#000000",
+   "#000000",
+   "#454948",
+   "#cdccc1",
+   "#d9d7cf",
+   "#e3e1d9",
+   "#e8e7e0"
+  ],
+  "wheatfield-z15": [
+   "#000000",
+   "#000000",
+   "#454a4a",
+   "#ceccc2",
+   "#dad9cf",
+   "#e5e4dc",
+   "#eae9e3"
+  ],
+  "cemetery-hill-z15.5": [
+   "#000000",
+   "#000000",
+   "#424848",
+   "#c4c3b9",
+   "#d3d3c9",
+   "#e3e2db",
+   "#ebeae4"
+  ],
+  "three-days-z12.5": [
+   "#000000",
+   "#000000",
+   "#444643",
+   "#c4c3b8",
+   "#d5d5cc",
+   "#e3e2dc",
+   "#eaeae4"
+  ]
+ },
+ "skins": {
+  "standard": {
+   "worstText": {
+    "ratio": 5.28,
+    "name": "numeral on the cloth or body",
+    "view": "n/a",
+    "band": 0,
+    "ground": "n/a"
+   },
+   "worstMark": {
+    "ratio": 8.33,
+    "name": "glyph under-edge and outline",
+    "light": 8.33,
+    "dark": 1.98,
+    "view": "wheatfield-z15",
+    "band": 0.25,
+    "ground": "#454a4a"
+   },
+   "deltaE2000UnionVsConfederate": {
+    "normal": 46,
+    "protanopia": 51.8,
+    "deuteranopia": 59,
+    "tritanopia": 62.6
+   },
+   "greyscaleLuminanceRatio": 1.2,
+   "secondCueForGreyscale": "disc (Union) or rounded square (Confederate)",
+   "verdict": {
+    "text": true,
+    "marks": true,
+    "sides": true
+   }
+  },
+  "cvd": {
+   "worstText": {
+    "ratio": 5.3,
+    "name": "numeral on the cloth or body",
+    "view": "n/a",
+    "band": 0,
+    "ground": "n/a"
+   },
+   "worstMark": {
+    "ratio": 8.33,
+    "name": "glyph under-edge and outline",
+    "light": 8.33,
+    "dark": 1.98,
+    "view": "wheatfield-z15",
+    "band": 0.25,
+    "ground": "#454a4a"
+   },
+   "deltaE2000UnionVsConfederate": {
+    "normal": 46.9,
+    "protanopia": 49,
+    "deuteranopia": 54.1,
+    "tritanopia": 59.9
+   },
+   "greyscaleLuminanceRatio": 1.17,
+   "secondCueForGreyscale": "disc (Union) or rounded square (Confederate)",
+   "verdict": {
+    "text": true,
+    "marks": true,
+    "sides": true
+   }
+  },
+  "contrast": {
+   "worstText": {
+    "ratio": 7,
+    "name": "numeral on the cloth or body",
+    "view": "n/a",
+    "band": 0,
+    "ground": "n/a"
+   },
+   "worstMark": {
+    "ratio": 8.33,
+    "name": "glyph under-edge and outline",
+    "light": 8.33,
+    "dark": 1.98,
+    "view": "wheatfield-z15",
+    "band": 0.25,
+    "ground": "#454a4a"
+   },
+   "deltaE2000UnionVsConfederate": {
+    "normal": 45,
+    "protanopia": 51,
+    "deuteranopia": 57.4,
+    "tritanopia": 56.9
+   },
+   "greyscaleLuminanceRatio": 1.19,
+   "secondCueForGreyscale": "disc (Union) or rounded square (Confederate)",
+   "verdict": {
+    "text": true,
+    "marks": true,
+    "sides": true
+   }
+  }
+ },
+ "analyticFails": 0
+}
