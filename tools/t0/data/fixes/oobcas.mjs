@@ -23,6 +23,8 @@ const MANUAL = new Set(['U-107NY', 'U-11NY', 'U-11PA', 'U-11PA-B', 'U-3US-1', 'U
 const files = ['union_regiments_i_ii_corps', 'union_regiments_iii_v_corps', 'union_regiments_vi_xi_xii_corps'];
 const pct = (c, s) => (s > 0 ? Math.round((1000 * c) / s) / 10 : null);
 export const groups = [];
+export const orIds = new Set(); // regiments whose casualties now equal the Official Records return
+
 for (const f of files) {
   const j = JSON.parse(fs.readFileSync(path.join(ROOT, 'baseline', 'dist', 'data', 'oob', f + '.json'), 'utf8'));
   const rows = [];
@@ -30,6 +32,7 @@ for (const f of files) {
     if (MANUAL.has(r.regiment_id)) continue;
     const k = key(r);
     const o = OR[k];
+    if (o !== undefined) orIds.add(r.regiment_id);
     if (o === undefined || o === r.casualties) continue;
     const set = { casualties: o };
     if (r.strength > 0) set.casualty_percentage = pct(o, r.strength); else set.casualty_percentage = null;
@@ -56,6 +59,7 @@ add('union_regiments_iii_v_corps', man('U-12US-1', { casualties: 47 }, 'unchange
 add('union_regiments_iii_v_corps', man('U-12US-2', { casualties: 45 }, 'casualties 44; the two battalion records added to 91 against 92 in the return', `${U} (return p.179: 12th United States 92)`));
 add('union_regiments_iii_v_corps', man('U-11PA-R', { casualties: 41, casualty_percentage: pct(41, 327) }, 'casualties 20 against 41 in the return for the 11th Pennsylvania Reserves (which stood in Fisher\'s brigade)', `${U} (return p.180: 11th Pennsylvania Reserves 41)`));
 add('union_regiments_iii_v_corps', man('U-1US-SS', { casualties: 49, casualty_percentage: pct(49, 490) }, 'casualties 61 against 49 in the return', `${U} (return p.177: 1st United States Sharpshooters 49)`));
+for (const m of MANUAL) orIds.add(m);
 for (const g of groups) {
   const manual = byFile[g.file.replace(/^oob\//, '').replace(/\.json$/, '')] || [];
   for (const m of manual) {
