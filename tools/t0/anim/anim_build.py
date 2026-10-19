@@ -67,12 +67,14 @@ def main(argv=None):
         raise SystemExit("refusing to build into release/%s (the integrator's output); use a directory under tmp/" % a.train)
     cfg = copy.deepcopy(load_json(os.path.join(T0, 'trains.json')))
     groups = []
+    for fn in a.extra:                                   # CLOCK and DATA patch the baseline text that MON rewrites: they come first, MON and ANIM after them
+        g = fn.split('.')[0].split('+')[0]
+        if g not in groups:
+            groups.append(g)
     if not a.without_mon:
         groups.append('MON')
     if not a.without_anim:
         groups.append('ANIM')
-    for fn in a.extra:
-        groups.append(fn.split('.')[0].split('+')[0])
     have = set(cfg.get('group_order', [])) | set(cfg.get('optional_groups', []))
     cfg['optional_groups'] = list(cfg.get('optional_groups', [])) + [g for g in groups if g not in have]
     scratch = os.path.join(os.path.dirname(out_abs), '_anim-patches-' + a.train)

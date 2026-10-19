@@ -155,16 +155,16 @@ export function createCore(o) {
     const setting = tok('layout.solveEvery'); const every = setting === 'auto' ? (o.autoQuality ? autoEvery : 1) : +setting;
     const frameDt = Math.min(dtMs || 16.667, 50); accDtMs += frameDt;
     // THE REST CANON.  The sticky layout is history-dependent by design (merge now, split later), so after a long journey a still picture can sit in a coarser partition than the same picture reached fresh (measured: 7 marks against 24 for the same 29 units).
-    // Once the picture has been still for 20 frames and nothing on screen is fading, the layout is solved ONCE from clean state; it is adopted only if it shows MORE marks (never fewer: no flicker, no cycle), and not while a unit is selected.  Any change re-arms it.
+    // Once the picture has been still for 6 frames and nothing on screen is fading, the layout is solved ONCE from clean state; it is adopted only if it shows MORE marks (never fewer: no flicker, no cycle), and not while a unit is selected.  Any change re-arms it.
     let sig = zoom.toFixed(3) + '|' + (E.selectedId || '') + '|' + inp.tau.toFixed(3) + '|' + laid.length; let hs = 0; for (const v of laid) hs = (Math.imul(hs ^ (((v.sx || 0) * 4) | 0), 16777619) ^ (((v.sy || 0) * 4) | 0)) | 0; sig += '|' + hs;
-    if (sig !== restSig) { restSig = sig; restSince = E.frames; canonDone = false; }
-    let canonNow = !canonDone && !first && !cut && !E.selectedId && !!layoutMod.canon && !!lastL && E.frames - restSince >= 20 && !display.busy();
+    if (sig !== restSig) { restSig = sig; restSince = E.frames; canonDone = false; if (layoutMod.canonCancel) layoutMod.canonCancel(); }
+    let canonNow = !first && !cut && !E.selectedId && !!layoutMod.canon && !!lastL && (layoutMod.canonProbing() || (!canonDone && E.frames - restSince >= 6 && !display.busy()));
     const run = (force, dt) => {
       let L = null; let solved = true;
       // solve cadence: every frame, or (slow devices) every 2nd / 3rd with the solved tiles carried along by their units in between; a zoom change, a new selection or a change of the set of units always solves at once
       if (!force && lastL && every > 1 && sinceSolve + 1 < every && zoom === lastL._z && E.selectedId === lastSelected && newIds.size === 0 && goneIds.size === 0 && layoutMod.refresh) { if (layoutMod.refresh(lastL, { vis: laid, z: zoom, spec, selectedId: E.selectedId })) { L = lastL; solved = false; sinceSolve++; } }
-      if (!L && canonNow) { canonNow = false; canonDone = true; L = layoutMod.canon({ vis: laid, z: zoom, tau: inp.tau, view, dtMs: accDtMs, selectedId: E.selectedId, spec, against: lastL }); if (L) { E.canons++; sinceSolve = 0; accDtMs = 0; solves++; } }
-      if (!L) { L = layoutMod.solve({ vis: laid, z: zoom, tau: inp.tau, view, dtMs: accDtMs, selectedId: E.selectedId, spec, cold: first || cut }); L._z = zoom; lastL = L; lastSelected = E.selectedId; sinceSolve = 0; accDtMs = 0; solves++; }
+      if (!L && canonNow) { canonNow = false; const C = layoutMod.canon({ vis: laid, z: zoom, tau: inp.tau, view, selectedId: E.selectedId, spec, against: lastL }); if (C) { L = C; L._z = zoom; lastL = L; lastSelected = E.selectedId; E.canons++; sinceSolve = 0; accDtMs = 0; solves++; } if (!layoutMod.canonProbing()) canonDone = true; }
+      if (!L) { const sin = { vis: laid, z: zoom, tau: inp.tau, view, dtMs: accDtMs, selectedId: E.selectedId, spec, cold: first || cut }; L = layoutMod.solve(sin); if ((first || cut) && layoutMod.settle && !E.selectedId) L = layoutMod.settle(sin, L); L._z = zoom; lastL = L; lastSelected = E.selectedId; sinceSolve = 0; accDtMs = 0; solves++; }
       const t1 = performance.now();
       const F = display.step(L, { dtMs: dt, z: zoom, origin, spec, cut: cut && !first, selectedId: E.selectedId, reduced: reduced(), newIds: first ? null : newIds, goneIds: first ? null : goneIds });
       F.solved = solved; F.t1 = t1; return F;
@@ -183,7 +183,7 @@ export function createCore(o) {
 
   const SETTLE_FRAMES = 100;                       // after the set of crowds last changed: longer than the longest wait before a split trial (the dwell plus its jitter)
   /** does the picture need another frame?  false when nothing moves, fades or settles */
-  E.busy = () => E.dirty || display.busy() || (layoutMod.stamp !== undefined && E.frames - stampFrame < SETTLE_FRAMES);
+  E.busy = () => E.dirty || display.busy() || (layoutMod.canonProbing && layoutMod.canonProbing()) || (layoutMod.stamp !== undefined && E.frames - stampFrame < SETTLE_FRAMES);
   E.autoEvery = () => autoEvery;
   E.solves = () => solves;
   E.modules = () => ({ layout: layoutMod, display });

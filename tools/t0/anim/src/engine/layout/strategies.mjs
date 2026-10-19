@@ -11,11 +11,12 @@ import { buildLeaves, refreshTile } from './tiles.mjs';
 import { FRAME_MS } from './spec.mjs';
 import { updateCrowdSuffixes } from './crowdnames.mjs';
 
+const CANON_STEP_MS = 250; const CANON_STABLE = 4; const CANON_MAX = 80;      // the rest canon probe: 250 ms of clock per background solve, done when the count has held 4 solves (at most 80)
 const certified = {
   id: 'certified', label: 'Certified hybrid (zero overlap)',
   doc: 'Exact minimum-displacement placement within a budget, aggregation along the order of battle as the guaranteed fallback, exact all-pairs certification before a frame is emitted.',
   create(ctx) {
-    let state = newState();
+    let state = newState(); let canonP = null;
     // ROUND 2: SELECTION MOVES NOTHING.  A selected unit grows its name (the skin's sizer) only where the layout has VERIFIED free ground for the grown box beside the pip: the picture is first solved with the unit as small as
     // it is when nothing is selected, the grown box is tested against every chip, label and pin of that solution, and only a box that touches nothing is adopted (then no neighbour has to move, merge or be re-counted).  Otherwise the
     // selection is a ring and the code stays.  The decision is made once per selection and zoom regime (never per frame).
@@ -28,7 +29,7 @@ const certified = {
       return true;
     };
     return {
-      reset() { state = newState(); grow.id = null; grow.on = false; },
+      reset() { state = newState(); canonP = null; grow.id = null; grow.on = false; },
       solve({ vis, z, dtMs, selectedId, spec, view = null, cold = false }) {
         spec.crowdSuffix = state.suffix;                       // director fix 9: the words that tell two crowds of the same name apart (layout/crowdnames.mjs)
         const cfg = { spec, z, dMax: spec.dMax, pinProtect: spec.pinProtect, inertia: true, sticky: true, seniority: 1e7, labels: spec.labels, aggregate: true, dt: Math.max(0.01, dtMs / FRAME_MS), static: cold };
@@ -50,14 +51,33 @@ const certified = {
         if (stamped) state.stamp = (state.stamp || 0) + 1;
         r.leaves = leaves; return r;
       },
-      /** the rest canon (core.mjs): the same picture solved from clean state.  Adopted (and the sticky history replaced by it) only when it shows more marks than the layout on screen; null otherwise, the history untouched. */
+      /** the rest canon (core.mjs).  Fresh state is not yet the fine partition: it merges first and splits later, over many frames.  So the canon is PROBED in the background, one extra solve of a clean state per frame
+       *  (each advancing the clock by CANON_STEP_MS so the dwell timers run), until its mark count has held for CANON_STABLE solves.  Adopted (the sticky history replaced by it) only if it shows more marks than the layout on
+       *  screen; otherwise dropped and the history untouched.  Returns the adopted layout, or null (still probing, finished without a gain, or cancelled). */
       canon(inp) {
-        const saved = state; const sel = grow.id; const on = grow.on; const before = inp.against ? inp.against.placed.length : 0;
-        state = newState(); state.time = saved.time; state.stamp = saved.stamp || 0; let r = null;
-        try { r = this.solve({ ...inp, cold: false }); } catch { r = null; }
-        if (r && r.placed.length > before && r.dropped.length === 0) { state.stamp = (state.stamp || 0) + 1; return r; }
-        state = saved; grow.id = sel; grow.on = on; return null;
+        if (!canonP) canonP = { state: newState(), n: 0, stable: 0, last: -1 };
+        const P = canonP; const saved = state; state = P.state; state.time = P.n ? state.time : saved.time; let r = null;
+        try { r = this.solve({ ...inp, dtMs: CANON_STEP_MS, cold: false }); } catch { r = null; }
+        P.state = state; state = saved;
+        if (!r || r.dropped.length > 0) { canonP = null; return null; }
+        P.n++; if (r.placed.length === P.last) P.stable++; else { P.stable = 0; P.last = r.placed.length; }
+        if (P.stable < CANON_STABLE && P.n < CANON_MAX) return null;
+        canonP = null; const before = inp.against ? inp.against.placed.length : 0;
+        if (r.placed.length > before) { state = P.state; state.stamp = (saved.stamp || 0) + 1; return r; }
+        return null;
       },
+      /** after a CUT (the first frame, a jump in time, a jump in zoom) the layout starts from clean state and would take a second of frames to refine; the picture is a cross-fade anyway, so the refinement runs HERE, at once,
+       *  within a small time budget: solves of the same picture 250 ms of clock apart until the mark count has held for 3 solves.  Returns the last layout (the history is that of all of them). */
+      settle(inp, r0) {
+        let r = r0; let last = r0.placed.length; let stable = 0; const t0 = performance.now();
+        for (let i = 0; i < 24 && stable < 3 && performance.now() - t0 < 10; i++) {
+          let r2 = null; try { r2 = this.solve({ ...inp, dtMs: CANON_STEP_MS, cold: false }); } catch { r2 = null; }
+          if (!r2 || r2.dropped.length > 0) break; r = r2; if (r.placed.length === last) stable++; else { stable = 0; last = r.placed.length; }
+        }
+        return r;
+      },
+      canonProbing() { return !!canonP; },
+      canonCancel() { canonP = null; },
       /** between two solves: move the solved tiles with their units (same offsets, new true positions).  false = the set of units changed, solve again. */
       refresh(L, { vis, z, spec, selectedId }) {
         if (!L || vis.length !== L.leaves.length) return false;
