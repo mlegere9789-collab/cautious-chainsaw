@@ -1,6 +1,6 @@
 {
- "patches": 57,
- "applied": 57,
+ "patches": 113,
+ "applied": 110,
  "changed": [
   "assets/index-Cg8FAMXN.js",
   "assets/BookmarkPanel-C5YT4b5k.js",
@@ -14,12 +14,20 @@
   "turning-points.html",
   "sandbox.html",
   "regiment.html",
-  "search.html"
+  "search.html",
+  "historian.html",
+  "cinematic-export.html",
+  "watch-together.html",
+  "ground-remembers.html"
  ],
- "problems": [],
+ "problems": [
+  "CLK-55-mobile-step-back: expected 1, found 0 in assets/index-Cg8FAMXN.js",
+  "CLK-56-mobile-step-forward: expected 1, found 0 in assets/index-Cg8FAMXN.js",
+  "CLK-62-bookmark-remove-label: expected 1, found 0 in assets/BookmarkPanel-C5YT4b5k.js",
+  "inlined module not found in the patched bundle"
+ ],
  "notes": [],
  "evals": [
-  "inline module parity: 675 ticks x 9 styles, after(+-60), hour, hostile inputs: identical to src/lib/time",
   "rewritten getTickTime, JF, QF evaluate to the module strings (mobile split(\", \")[1] is the time, never 1863): ok",
   "HUD date expression routed: true",
   "compare.html approxTimeForTick: evaluates to the module",
@@ -31,12 +39,12 @@
   [
    "TM-V2",
    25,
-   20
+   19
   ],
   [
    "TM-V9",
    92,
-   66
+   67
   ],
   [
    "TM-V16",
@@ -46,7 +54,7 @@
   [
    "TM-V17",
    42,
-   28
+   29
   ],
   [
    "TM-V18",
@@ -54,8 +62,6 @@
    0
   ]
  ],
- "remaining": [
-  "E day/night lighting M4 + E4"
- ],
- "bundleDelta": 6494
+ "remaining": [],
+ "bundleDelta": 8035
 }

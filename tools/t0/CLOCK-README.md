@@ -73,13 +73,24 @@ T0-CLK-01 oracle self-check; -02 desktop, **all 675 ticks** through the scrubber
 -16 `build-clock.mjs --check`; -17 the map tint at 79 ticks including every tick where it changes; -18 scrubber and tab tooltips.
 Red-first: `node tests/t0/clock.spec.mjs --dist release/R1c/dist --expect-red` fails every clock test on R1c without the group.
 
-## Evidence (commands run, 2026-10-19)
+## Results (commands run on 2026-10-19, on the tree as committed)
 
-See the end of this file ("Results") for the numbers of the last run.
+| command | result |
+|---|---|
+| `node tools/t0/clock/build-clock.mjs` | 113 patches generated, 113 recorded by the builder, 113 applied, 0 failed (R1c + CLOCK = release id `5b520eda`; the same tree without CLOCK is `2531699e`, the committed R1c) |
+| the same with MON and DATA, in both orders (`clock_build.py --also MON --also DATA`; `data_build.py --with DATA,CLOCK,MON`) | 0 anchor failures; release id `59668493` for CLOCK+MON+DATA at DATA commit 57ea882 (re-built 2026-10-19 after the DATA samples D and E) |
+| `python tools/t0/clock/clock_build.py --train R1c --out tmp/clock-integrate/clock-gate-R1c` (with the gate) | gate OK, 10 rows PASS (`data-untouched` included), +8,006 bytes in the entry bundle (+2.7 KB brotli), +102 KB in 14 html pages (the module, 7 KB each) |
+| `node tests/t0/clock.spec.mjs` on R1c + CLOCK | **18 of 18 passed** (about 9 minutes; the three map pages and the map tint use about 150 harness tile requests of the 300 cap) |
+| the same on R1c + CLOCK + MON + DATA (re-run 2026-10-19 on the tree rebuilt at DATA commit 57ea882, release id `59668493`) | **18 of 18 passed** |
+| `node tests/t0/clock.spec.mjs --dist release/R1c/dist --expect-red --step 60` | red-first: the 15 tests that look at the tree fail on R1c (T0-CLK-02..14, 17, 18); 15 skips itself (no separate control tree), 01 and 16 do not look at a tree |
+| `node tests/t0/walkthrough-guard.spec.mjs --dist <R1c + CLOCK> --no-real-google` | 13 passed, 5 skipped, 0 failed (the 5 skips are the guard's own: Monuments layer absent without MON) |
+| `node --test tests/time/*.test.mjs` | 633 of 637 pass (was 636 of 637 before this work, one failing at HEAD): the 3 new failures are tests that pin the old candidate (57 patches; every anchor against the pristine bundle while three patches must follow groups A..PERF) |
+| `node tools/t0/clock/prose-inventory.mjs` | 66 typed times in R1c + CLOCK (20 consistent, 3 near, 6 differ, 37 with no frame); 149 in the stacked tree |
+| `node tools/t0/clock/defect-audit.mjs` | the 27 content defects: stacked tree (DATA at 57ea882) 17 closed, 5 open, 5 review; R1c + CLOCK 7 closed, 11 open, 9 review |
 
 ## Interplay with the other groups
 
-* **DATA** (verified displayed data): CLOCK patches no data file. DATA's chronology/vignette re-ticks and rewrites are what close most of the 27 content defects (`DEFECTS-27.md`: 18 closed, 5 open, 4 need a person on the stacked tree; with CLOCK alone 7 closed, 11 open, 9 review: a clock cannot move an event). DATA's story-subtitle edits and CLOCK's `CLK-54` compose: a subtitle that DATA made qualitative ("July 1, early afternoon") is left alone, a typed clock is swapped for the clock of the frame.
+* **DATA** (verified displayed data): CLOCK patches no data file. DATA's chronology/vignette re-ticks and rewrites are what close most of the 27 content defects (`DEFECTS-27.md`: 17 closed, 5 open, 5 need a person on the stacked tree; with CLOCK alone 7 closed, 11 open, 9 review: a clock cannot move an event). DATA's story-subtitle edits and CLOCK's `CLK-54` compose: a subtitle that DATA made qualitative ("July 1, early afternoon") is left alone, a typed clock is swapped for the clock of the frame.
 * **MON** (Monuments): `gtmon.js` recognises the corrected clock (`clockIsLegacy()` is false) and then jumps to the marker's own frame. Two markers whose frame disagrees with their own text: `mon_iron_brig` (frame 20 = 8:55 AM, text "about 10:15 AM": anchor 28 is Documented at 10:15, so frame 28-29) and `mon_barlow` (frame 63 = 3:50 PM, text "2:30 PM"/"about 3 PM": anchor 57 is 15:00). Owner: MON/DATA.
 * **ANIM**: no file of CLOCK touches the unit layer, `Zn`, canvas drawing or the playback loop; it changes the text of the transport buttons and the time bar only.
 * **Virtual Walkthrough**: untouched; `tests/t0/walkthrough-guard.spec.mjs --dist <CLOCK tree>` 13 passed, 5 skipped (the skips are the guard's own intended ones), 0 failed.
@@ -105,7 +116,7 @@ its `--after-t0` case already failed at HEAD for another reason; `tests/time/sur
 
 ## The 27 content defects
 
-`DEFECTS-27.md` (generated). Summary on the stacked tree: 18 closed, 5 open, 4 need a person; the open ones are named with the frame, the clock and the distance. Open (stacked): Stuart's arrival (frame 310 = 7:15 PM, the plan's source says
+`DEFECTS-27.md` (generated). Summary on the stacked tree: 17 closed, 5 open, 5 need a person (t304 Wilcox no longer matched by words after a DATA re-wording: check by hand); the open ones are named with the frame, the clock and the distance. Open (stacked): Stuart's arrival (frame 310 = 7:15 PM, the plan's source says
 12:30 PM July 2), Colgrove's charge (frame 483 = 7:20 AM, the plan's source says 10:00-11:30 and one source 6:00), and the composites t50, t95, t270 (one card still tells several events). Quote items t525/t530 are re-worded with clocks
 and need the historian. These are the data owner's: CLOCK cannot move an event.
 
