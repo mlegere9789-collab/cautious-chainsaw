@@ -50,6 +50,7 @@ for c in CASES:
     if c['pose'] is None: continue
     res['cases'][c['id']]=dict(loc=c['loc'],tier=c['tier'],pose=c['pose'],cone=cr[c['id']],**fn[c['id']],**tl[c['id']])
 fence_photos=['C01','C02','C09','C12','C14','C15','C16','C17']
+res['c03_position_ambiguity']=json.load(open('c03_grid_summary.json'))
 res['fences']=dict(drawn_total=36,candidates=392,photos_showing_fences_within_100m=fence_photos,min_nearest_drawn_fence_m=min(fn[k]['nearest_drawn_fence_m'] for k in fence_photos if k in fn),
     drawn_within_150m_of_camera=sum(1 for k in fence_photos if k in fn and fn[k]['nearest_drawn_fence_m']<=150))
 # 4 terrain: skyline of 3DEP for C03

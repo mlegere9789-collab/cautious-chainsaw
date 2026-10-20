@@ -234,7 +234,7 @@
   },
   "C03": {
    "loc": "2018670708",
-   "tier": "B",
+   "tier": "C",
    "pose": [
     308470,
     4406990,
@@ -322,9 +322,99 @@
     "600m": 0
    }
   },
+  "C03b": {
+   "loc": "2018670708",
+   "tier": "C",
+   "pose": [
+    308420,
+    4407040,
+    1.7,
+    206.5,
+    0.0,
+    36.0
+   ],
+   "cone": {
+    "canopy_recon": [
+     0.11461811896260121,
+     0.026578011669789812,
+     0.2559249369847702
+    ],
+    "canopy_2013": [
+     0.19763059185667892,
+     0.054100695534571454,
+     0.35114225725585313
+    ],
+    "struct": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fence": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "woods1863": [
+     0.3536625054944171,
+     0.18452880009234499,
+     0.5413379194474709
+    ],
+    "open1863": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "covered": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "canopy_kept_photo": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "canopy_ambig": [
+     0.11461811896260121,
+     0.026578011669789812,
+     0.2559249369847702
+    ],
+    "canopy_outside": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "canopy_added": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "road_drawn": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "removed": [
+     0.22779507344068822,
+     0.15705637081187157,
+     0.29357355653284156
+    ]
+   },
+   "nearest_drawn_fence_m": 1153,
+   "fence_id": "FN-0239",
+   "lon": -77.2375,
+   "lat": 39.79176,
+   "z16": "16/18707/24859",
+   "z17": "17/37414/49719",
+   "structure_blobs_in_cone": {
+    "150m": 0,
+    "300m": 0,
+    "600m": 0
+   }
+  },
   "C04": {
    "loc": "2018666302",
-   "tier": "C",
+   "tier": "D",
    "pose": [
     308455,
     4406975,
@@ -1132,6 +1222,221 @@
     "600m": 1
    }
   }
+ },
+ "c03_position_ambiguity": {
+  "positions_searched": 78,
+  "positions_within_45px": [
+   {
+    "E": 308380,
+    "N": 4407020,
+    "skyline_rms_px": 44.8,
+    "canopy_recon_median": 0.36,
+    "open1863": 1.0
+   },
+   {
+    "E": 308380,
+    "N": 4407040,
+    "skyline_rms_px": 44.7,
+    "canopy_recon_median": 0.22,
+    "open1863": 1.0
+   },
+   {
+    "E": 308380,
+    "N": 4407060,
+    "skyline_rms_px": 43.2,
+    "canopy_recon_median": 0.11,
+    "open1863": 1.0
+   },
+   {
+    "E": 308380,
+    "N": 4407080,
+    "skyline_rms_px": 43.6,
+    "canopy_recon_median": 0.02,
+    "open1863": 1.0
+   },
+   {
+    "E": 308400,
+    "N": 4406960,
+    "skyline_rms_px": 31.6,
+    "canopy_recon_median": 0.68,
+    "open1863": 1.0
+   },
+   {
+    "E": 308400,
+    "N": 4406980,
+    "skyline_rms_px": 29.3,
+    "canopy_recon_median": 0.55,
+    "open1863": 1.0
+   },
+   {
+    "E": 308400,
+    "N": 4407000,
+    "skyline_rms_px": 29.9,
+    "canopy_recon_median": 0.42,
+    "open1863": 1.0
+   },
+   {
+    "E": 308400,
+    "N": 4407020,
+    "skyline_rms_px": 31.2,
+    "canopy_recon_median": 0.27,
+    "open1863": 1.0
+   },
+   {
+    "E": 308400,
+    "N": 4407060,
+    "skyline_rms_px": 33.4,
+    "canopy_recon_median": 0.06,
+    "open1863": 1.0
+   },
+   {
+    "E": 308400,
+    "N": 4407080,
+    "skyline_rms_px": 38.0,
+    "canopy_recon_median": 0.0,
+    "open1863": 1.0
+   },
+   {
+    "E": 308400,
+    "N": 4407100,
+    "skyline_rms_px": 39.0,
+    "canopy_recon_median": 0.0,
+    "open1863": 1.0
+   },
+   {
+    "E": 308400,
+    "N": 4407120,
+    "skyline_rms_px": 41.0,
+    "canopy_recon_median": 0.0,
+    "open1863": 1.0
+   },
+   {
+    "E": 308400,
+    "N": 4407140,
+    "skyline_rms_px": 42.5,
+    "canopy_recon_median": 0.0,
+    "open1863": 1.0
+   },
+   {
+    "E": 308420,
+    "N": 4406960,
+    "skyline_rms_px": 26.4,
+    "canopy_recon_median": 0.64,
+    "open1863": 1.0
+   },
+   {
+    "E": 308420,
+    "N": 4406960,
+    "skyline_rms_px": 30.3,
+    "canopy_recon_median": 0.64,
+    "open1863": 1.0
+   },
+   {
+    "E": 308420,
+    "N": 4406980,
+    "skyline_rms_px": 27.4,
+    "canopy_recon_median": 0.49,
+    "open1863": 1.0
+   },
+   {
+    "E": 308420,
+    "N": 4407000,
+    "skyline_rms_px": 37.9,
+    "canopy_recon_median": 0.35,
+    "open1863": 1.0
+   },
+   {
+    "E": 308420,
+    "N": 4407000,
+    "skyline_rms_px": 42.1,
+    "canopy_recon_median": 0.35,
+    "open1863": 1.0
+   },
+   {
+    "E": 308420,
+    "N": 4407020,
+    "skyline_rms_px": 29.1,
+    "canopy_recon_median": 0.21,
+    "open1863": 1.0
+   },
+   {
+    "E": 308420,
+    "N": 4407040,
+    "skyline_rms_px": 29.0,
+    "canopy_recon_median": 0.1,
+    "open1863": 1.0
+   },
+   {
+    "E": 308420,
+    "N": 4407040,
+    "skyline_rms_px": 29.4,
+    "canopy_recon_median": 0.1,
+    "open1863": 1.0
+   },
+   {
+    "E": 308420,
+    "N": 4407060,
+    "skyline_rms_px": 41.3,
+    "canopy_recon_median": 0.04,
+    "open1863": 1.0
+   },
+   {
+    "E": 308420,
+    "N": 4407080,
+    "skyline_rms_px": 36.2,
+    "canopy_recon_median": 0.0,
+    "open1863": 1.0
+   },
+   {
+    "E": 308420,
+    "N": 4407080,
+    "skyline_rms_px": 38.0,
+    "canopy_recon_median": 0.0,
+    "open1863": 1.0
+   },
+   {
+    "E": 308420,
+    "N": 4407100,
+    "skyline_rms_px": 36.1,
+    "canopy_recon_median": 0.0,
+    "open1863": 1.0
+   },
+   {
+    "E": 308420,
+    "N": 4407120,
+    "skyline_rms_px": 37.3,
+    "canopy_recon_median": 0.0,
+    "open1863": 1.0
+   },
+   {
+    "E": 308420,
+    "N": 4407120,
+    "skyline_rms_px": 37.8,
+    "canopy_recon_median": 0.0,
+    "open1863": 1.0
+   },
+   {
+    "E": 308420,
+    "N": 4407140,
+    "skyline_rms_px": 38.2,
+    "canopy_recon_median": 0.0,
+    "open1863": 1.0
+   },
+   {
+    "E": 308460,
+    "N": 4407080,
+    "skyline_rms_px": 39.7,
+    "canopy_recon_median": 0.05,
+    "open1863": 1.0
+   },
+   {
+    "E": 308460,
+    "N": 4407120,
+    "skyline_rms_px": 38.4,
+    "canopy_recon_median": 0.0,
+    "open1863": 1.0
+   }
+  ]
  },
  "fences": {
   "drawn_total": 36,
