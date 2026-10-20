@@ -33,8 +33,8 @@ def main():
     np.save(os.path.join(C.BUILD, 'canopy1m.npy'), canfull)
     rng = np.random.default_rng(1863)
     ds_b = rasterio.open(C.BASE_TIF); ds_t = rasterio.open(os.path.join(C.BUILD, 'target.tif')); ds_l = rasterio.open(os.path.join(C.BUILD, 'lc1863.tif'))
-    field, woods = [], []
-    stats = dict(candidates=0, field_ok=0, woods_ok=0)
+    field, woods, yard = [], [], []
+    stats = dict(candidates=0, field_ok=0, woods_ok=0, yard_ok=0)
     kB = (B, B)
     for r0 in range(0, C.H - B, BAND):
         r1 = min(r0 + BAND + B, C.H)
@@ -49,6 +49,7 @@ def main():
         grad = np.abs(cv2.Sobel(lum, cv2.CV_32F, 1, 0, ksize=3)) + np.abs(cv2.Sobel(lum, cv2.CV_32F, 0, 1, ksize=3))
         tgd = cv2.dilate(tg.astype(np.uint8), np.ones((13, 13), np.uint8))
         def bm(x): return cv2.boxFilter(x.astype(np.float32), -1, kB, normalize=True, anchor=(0, 0), borderType=cv2.BORDER_REFLECT)
+        pale_m = ((lum > 150) & ((a.max(2) - a.min(2)) < 16)).astype(np.float32)
         m_t = bm(tgd); m_c = bm(can); m_lum = bm(lum); m_gr = bm(grad); m_nd = bm(ndvi); m_lc1 = bm(lc == 1); m_lc2 = bm(lc == 2); m_lc7 = bm(lc == 7); m_ok = bm(lidar_ok[r0:r1])
         dmin = -cv2.erode(-lum, np.ones(kB, np.uint8), anchor=(0, 0))      # max, not needed
         lmin = cv2.erode(lum, np.ones(kB, np.uint8), anchor=(0, 0))
@@ -59,9 +60,11 @@ def main():
         sy = np.arange(0, rows - B, STRIDE); sx = np.arange(0, C.W - B, STRIDE)
         YY, XX = np.meshgrid(sy, sx, indexing='ij')
         stats['candidates'] += YY.size
-        f_ok = (m_t[YY, XX] < 0.001) & (m_c[YY, XX] < 0.001) & (m_lc1[YY, XX] > 0.99) & (m_ok[YY, XX] > 0.99) & (m_nd[YY, XX] > 0.2) & (m_gr[YY, XX] < 40) & (lmin[YY, XX] > 60) & (m_lc7[YY, XX] < 0.001) & (m_lum[YY, XX] > 85) & (m_sat[YY, XX] > 14) & (coh[YY, XX] < 0.40)
+        f_ok = (m_t[YY, XX] < 0.001) & (m_c[YY, XX] < 0.001) & (m_lc1[YY, XX] > 0.99) & (m_ok[YY, XX] > 0.99) & (m_nd[YY, XX] > 0.2) & (m_gr[YY, XX] < 40) & (lmin[YY, XX] > 60) & (m_lc7[YY, XX] < 0.001) & (m_lum[YY, XX] > 85) & (m_sat[YY, XX] > 14) & (coh[YY, XX] < 0.40) & (bm(pale_m)[YY, XX] < 0.02)
         w_ok = (m_t[YY, XX] < 0.001) & (m_c[YY, XX] > 0.98) & (m_lc2[YY, XX] > 0.99) & (m_ok[YY, XX] > 0.99) & (m_lum[YY, XX] < 100) & (m_nd[YY, XX] > 0.3)
-        for nm, ok, store, cap in (('field', f_ok, field, 6000), ('woods', w_ok, woods, 3000)):
+        # yard bank: the mixed ground of yards, lots, gardens, dusty lawn and ploughed or hay ground (NDVI 0.04-0.30, not green lawn, no linear structure): used for the ground between the roofs of the town
+        y_ok = (m_t[YY, XX] < 0.001) & (m_c[YY, XX] < 0.001) & (m_lc1[YY, XX] > 0.99) & (m_ok[YY, XX] > 0.99) & (m_nd[YY, XX] > 0.04) & (m_nd[YY, XX] <= 0.30) & (m_gr[YY, XX] < 45) & (lmin[YY, XX] > 55)                & (m_lc7[YY, XX] < 0.001) & (m_lum[YY, XX] > 85) & (m_lum[YY, XX] < 195) & (coh[YY, XX] < 0.45)
+        for nm, ok, store, cap in (('field', f_ok, field, 6000), ('woods', w_ok, woods, 3000), ('yard', y_ok, yard, 4000)):
             ii = np.nonzero(ok.ravel())[0]
             stats[nm + '_ok'] += int(len(ii))
             if len(ii) > cap:
@@ -69,8 +72,8 @@ def main():
             for i in ii:
                 y = int(YY.ravel()[i]); x = int(XX.ravel()[i])
                 store.append(a[y:y + B, x:x + B].astype(np.uint8).copy())
-        print('band', r0, 'field', len(field), 'woods', len(woods), 'elapsed %.0f' % (time.time() - t0), flush=True)
-    for nm, store in (('field', field), ('woods', woods)):
+        print('band', r0, 'field', len(field), 'woods', len(woods), 'yard', len(yard), 'elapsed %.0f' % (time.time() - t0), flush=True)
+    for nm, store in (('field', field), ('woods', woods), ('yard', yard)):
         arr = np.stack(store)
         if len(arr) > 90000:
             arr = arr[rng.choice(len(arr), 90000, replace=False)]

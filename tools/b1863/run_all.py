@@ -3,7 +3,7 @@ Inputs that must exist (see BUILD.md section 2): tmp/b1863/modern/work/naip2013_
 tmp/b1863/maps/scans/la000697.jp2, the catalogues in docs/basemap1863/features. Usage: python run_all.py [from_stage_name]"""
 import subprocess, sys, os, time
 HERE = os.path.dirname(os.path.abspath(__file__))
-STAGES = ['s10_targets', 's20_remove', 's25_lc', 's28_bank', 'mk_grain', 's30_synth', 's33_hopkins', 's34_prepare', 's35_features', 's39_final', 's40_tiles', 's45_prov_vectors', 's46_manifest', 'checks']
+STAGES = ['s25_lc', 's09_unlisted', 's10_targets', 's20_remove', 's28_bank', 'mk_grain', 's30_synth', 's33_hopkins', 's34_prepare', 's35_features', 's39_final', 's40_tiles', 's45_prov_vectors', 's46_manifest', 'checks']
 start = sys.argv[1] if len(sys.argv) > 1 else STAGES[0]
 for st in STAGES[STAGES.index(start):]:
     t0 = time.time()

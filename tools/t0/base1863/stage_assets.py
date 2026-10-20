@@ -164,7 +164,7 @@ def photo_job(job):
 
 
 PALETTE = {0: (0, 0, 0), 22: (60, 60, 60), 1: (255, 0, 255), 2: (200, 0, 160), 3: (255, 128, 0), 4: (0, 180, 0), 5: (150, 100, 200), 6: (255, 230, 0), 7: (255, 160, 0),
-           8: (0, 200, 255), 9: (160, 120, 60), 10: (255, 60, 60), 11: (120, 255, 120), 12: (255, 200, 0), 13: (230, 60, 120), 20: (120, 120, 255), 21: (0, 120, 255)}
+           8: (0, 200, 255), 9: (160, 120, 60), 10: (255, 60, 60), 11: (120, 255, 120), 12: (255, 200, 0), 13: (230, 60, 120), 14: (0, 255, 200), 20: (120, 120, 255), 21: (0, 120, 255)}
 TRANSPARENT_CLASSES = (0, 22)          # PHOTO_KEPT, PHOTO_KEPT_OUTSIDE: nothing to show
 
 
@@ -207,11 +207,12 @@ CLASS_TEXT = {
     11: '1863 orchard trees drawn (schematic)',
     12: 'Wheatfield recoloured to ripe wheat (colour estimated)',
     13: '1868-69 building mass drawn (schematic roofs)',
+    14: '1863 stream channel drawn where the 2013 photograph shows none (Stevens Run through the borough)',
     20: 'Kept as photographed: the evidence cannot say whether modern or 1863',
     21: '1863 building that still stands: real roof kept',
 }
 ATTRIBUTION_LONG = ('Reconstruction of Gettysburg, July 1863, not a photograph. Base: USDA NAIP imagery 2013 (public domain), USGS 3DEP; period maps: Library of Congress '
-                    '(Warren 1868-69, Bachelder 1876, Hopkins 1858), NPS, Census TIGER, USGS NHD, OpenStreetMap contributors (modern-feature lists only).')
+                    '(Warren 1868-69, Bachelder 1876, Hopkins 1858), NPS, Census TIGER, USGS NHD, OpenStreetMap contributors (ODbL: the lists of modern features to remove and the centre lines of the roads and streets that are drawn), Wikipedia contributors (CC BY-SA 4.0: the monument list), Adams County GIS (2023 building outlines, used to decide what to remove).')
 ATTRIBUTION = 'Reconstruction, not a photograph. USDA NAIP 2013, USGS, Library of Congress, NPS, OpenStreetMap contributors'
 
 

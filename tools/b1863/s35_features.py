@@ -34,7 +34,7 @@ def work(job):
     win = R.Win(R0, R1, C0, C1)
     items = _g['items']
     bb = sbox(*win.bbox).buffer(40)
-    has = any(it['geom'].intersects(bb) for k in ('roads', 'rails', 'fences', 'masses', 'structures') for it in items[k]) or any(it['pt'].intersects(bb) for it in items['bridges'])
+    has = any(it['geom'].intersects(bb) for k in ('roads', 'rails', 'fences', 'masses', 'structures', 'streams') for it in items.get(k, [])) or any(it['pt'].intersects(bb) for it in items['bridges'])
     rd = {n: d.read(1, window=Window(C0, R0, C1 - C0, R1 - R0)) for n, d in _g['rd'].items()}
     wheat = rd['lc1863'] == 4
     orch_reg = (rd['chg_add'] == 2)      # only where no modern canopy lies within 25 m of the eroded orchard polygon: a surviving or replanted orchard is never doubled
@@ -50,6 +50,7 @@ def work(job):
     steps = [(lambda: F.recolour_wheat(win, img, wheat, can, prov, conf), F.P_WHEAT),
              (lambda: F.draw_orchards(win, img, orch_reg, items['orchards'], prov, conf), F.P_ORCHARD),
              (lambda: F.draw_rails(win, img, items, prov, conf), F.P_RAIL),
+             (lambda: F.draw_streams(win, img, items, prov, conf), F.P_STREAM),
              (lambda: F.draw_roads(win, img, items, prov, conf), F.P_ROAD),
              (lambda: F.draw_bridges(win, img, items, prov, conf), F.P_BRIDGE),
              (lambda: F.draw_fences(win, img, items, prov, conf), F.P_FENCE),

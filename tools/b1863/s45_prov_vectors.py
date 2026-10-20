@@ -12,9 +12,9 @@ from shapely.geometry import mapping, Polygon, shape, MultiPolygon
 from shapely.ops import transform as stransform, unary_union
 
 SRC = {
-    'warren': dict(title='G. K. Warren, Map of the battle field of Gettysburg (survey 1868-69, revised 1873), Library of Congress Geography and Map Division', locator='cw0353500', url='https://www.loc.gov/item/99448794/', type='A1'),
+    'warren': dict(title='G. K. Warren, Map of the battle field of Gettysburg (survey 1868-69, revised 1873), Library of Congress Geography and Map Division (a survey made five years after the battle: later first-hand, A2)', locator='cw0353500', url='https://www.loc.gov/item/99448794/', type='A2'),
     'hopkins': dict(title='G. M. Hopkins Jr., Map of Adams Co., Pennsylvania (Philadelphia: M. S. & E. Converse, 1858), Gettysburg borough inset, Library of Congress Geography and Map Division, call no. G3823.A3 1858 .H6', locator='scan la000697 (hdl.loc.gov/loc.gmd/g3823a.la000697)', url='https://www.loc.gov/item/2004629149/', type='A1'),
-    'bachelder': dict(title="Bachelder, Map of the battle field of Gettysburg (1876; topography from Warren), sheet cw0325000a", locator='cw0325000a', url='https://www.loc.gov/item/99447491/', type='A1'),
+    'bachelder': dict(title="Bachelder, Map of the battle field of Gettysburg (1876; topography from Warren), sheet cw0325000a (a compilation of 1876, B)", locator='cw0325000a', url='https://www.loc.gov/item/99447491/', type='B'),
 }
 CONF_NAME = {1: 'Documented', 2: 'Estimated', 3: 'Contested'}
 DEFS = {
@@ -22,12 +22,26 @@ DEFS = {
     22: 'photograph kept, outside the Warren-sheet coverage: 1863 land cover unknown',
     1: 'modern feature (road, roof, utility, small object) removed; filled by PatchMatch from the surroundings',
     2: 'modern feature or area removed; ground re-synthesised from real photograph blocks',
-    3: 'modern tree canopy outside 1863 tree cover (beyond the 100 m registration margin) replaced by open-ground texture',
+    3: 'modern tree canopy outside 1863 tree cover (beyond the 150 m registration margin) replaced by open-ground texture',
     4: '1863 woods tree cover that is open now (beyond the 60 m margin): canopy blocks added',
     5: 'town block: modern street and yard trees removed',
     6: '1863 road drawn', 7: '1863 railway or railroad grade drawn', 8: '1863 bridge drawn', 9: '1863 fence drawn', 10: '1863 structure drawn (schematic roof)',
-    11: '1863 orchard trees drawn', 12: 'Wheatfield recoloured to ripe wheat', 13: '1868-69 survey building mass drawn (schematic roofs)',
+    11: '1863 orchard trees drawn', 12: 'Wheatfield recoloured to ripe wheat', 13: '1868-69 survey building mass drawn (schematic roofs)', 14: '1863 stream channel drawn where the 2013 photograph shows none (Stevens Run through the borough)',
     20: 'inside the registration margin of an 1863 tree polygon: photograph kept, the evidence cannot decide', 21: 'building that stood in 1863 and still stands: real roof pixels kept'}
+
+def cat_sources():
+    """id -> catalogue record (properties) of every catalogue the drawn features come from"""
+    out = {}
+    for rel in ('roads-rail-water/roads.geojson', 'roads-rail-water/lanes.geojson', 'roads-rail-water/railways.geojson', 'roads-rail-water/bridges.geojson', 'roads-rail-water/fences.geojson', 'roads-rail-water/waterways.geojson',
+                'landcover/orchards_1863.geojson', 'structures/structures.geojson'):
+        for f in json.load(open(os.path.join(C.FEAT, rel), encoding='utf-8'))['features']:
+            out[f['properties']['id']] = f['properties']
+    return out
+
+def src_from(rec, fallback):
+    """the sources of the catalogue record, as title/locator/url/type (what the record itself cites); the fallback only when the record cites none"""
+    ss = [dict(title=s.get('cite'), locator=s.get('sheet_or_page'), url=s.get('url'), type=s.get('type', 'B')) for s in (rec or {}).get('sources', []) if s.get('url')]
+    return ss or fallback
 
 def to_ll(g):
     return stransform(lambda x, y, z=None: C.utm2ll(x, y), g)
@@ -37,6 +51,7 @@ MINA = {1: 150, 2: 100, 3: 100, 4: 50, 5: 25, 20: 250}      # 600, 400, 400, 200
 def main():
     os.makedirs(C.PROV, exist_ok=True)
     items = pickle.load(open(os.path.join(C.BUILD, 'draw_items.pkl'), 'rb'))
+    CAT = cat_sources()
     feats = []
     def add(i, cls, geom, name, conf, err, method, sources, extra=None):
         p = dict(id=i, cls=cls, name=name, confidence=conf, positional_error_m=err, method=method, sources=sources)
@@ -44,28 +59,35 @@ def main():
         feats.append(dict(type='Feature', properties=p, geometry=mapping(to_ll(geom))))
     for r in items['roads']:
         hop = r['id'].startswith('HOP-S')
-        src = [SRC['hopkins']] if hop else [SRC['bachelder'], SRC['warren']]
+        rec = CAT.get(r['id'])
+        src = [SRC['hopkins']] if hop else src_from(rec, [SRC['bachelder']])
         add(r['id'], 'ROAD_ADDED', r['geom'], r.get('name'), r['conf'], r.get('err'),
-            'street plan of 1858 (Hopkins inset): the modern non-service street centre line lies in a street gap of the inset (reviewed on review_street_overlay.jpg); drawn as an unpaved town street 6.5 m wide' if hop else
-            'road catalogue geometry (modern centre line on the 1863 corridor, checked against the period sheets); drawn as an unpaved ribbon of %.1f m (class width)' % r['width'], src, dict(width_m=r['width']))
+            'street plan of 1858 (Hopkins inset): the modern non-service street centre line lies in a street gap of the inset (reviewed on review_street_overlay.jpg and again by passes 1 and 4, which removed the arcs of the 2013 roundabout and five streets that lie on lettering); drawn as an unpaved town street 6.5 m wide' if hop else
+            'road catalogue geometry (%s); drawn as an unpaved ribbon of %.1f m (class width). Sources and the period-map check are those of the catalogue record %s.' % ((rec or {}).get('method', 'modern centre line on the 1863 corridor')[:400], r['width'], r['id']), src, dict(width_m=r['width']))
     for r in items['rails']:
-        add(r['id'], 'RAIL_ADDED', r['geom'], r['kind'], r['conf'], r.get('err'), 'railway catalogue geometry; drawn as %s' % ('a ballasted single track' if r['kind'] == 'track' else 'an earth grade (no track laid by July 1863)'), [SRC['bachelder']])
+        add(r['id'], 'RAIL_ADDED', r['geom'], r['kind'], r['conf'], r.get('err'), 'railway catalogue geometry; drawn as %s' % ('a ballasted single track' if r['kind'] == 'track' else 'an earth grade (no track laid by July 1863)'), src_from(CAT.get(r['id']), [SRC['bachelder']]))
     for r in items['bridges']:
-        add(r['id'], 'BRIDGE_ADDED', r['pt'], r.get('name'), r['conf'], r.get('err'), 'bridge point of the catalogue snapped to the road centre line; deck 11 m', [SRC['bachelder']])
+        rec = CAT.get(r['id']) or {}
+        sym = rec.get('period_map_symbol')
+        how = ('a bridge symbol was seen on the period sheet near this crossing' if sym == 'seen' else 'a probable bridge symbol was seen on the period sheet near this crossing' if sym == 'probable'
+               else 'CLASS RULE ONLY, no bridge symbol read on the period sheet (%s): turnpikes and state roads had bridges by 1863, local roads used fords (NPS Treatment Philosophy 2004 p79); this crossing may have been a ford' % (sym or 'no reading'))
+        add(r['id'], 'BRIDGE_ADDED', r['pt'], r.get('name'), r['conf'], r.get('err'), 'bridge point of the catalogue snapped to the road centre line; deck 11 m; %s' % how, src_from(rec, [SRC['bachelder']]))
     for r in items['fences']:
-        add(r['id'], 'FENCE_ADDED', r['geom'], 'fence' if not r['stone'] else 'stone wall', r['conf'], r.get('err'), 'modern line with a continuous drawn line on the period sheet; 1863 style UNKNOWN', [SRC['bachelder']])
+        add(r['id'], 'FENCE_ADDED', r['geom'], 'fence' if not r['stone'] else 'stone wall', r['conf'], r.get('err'), 'modern line with a continuous drawn line on the period sheet; 1863 style UNKNOWN', src_from(CAT.get(r['id']), [SRC['bachelder']]))
     for r in items['structures']:
         if r.get('src') == 'hopkins':
-            add(r['id'], 'STRUCTURE_ADDED', r['geom'], 'Gettysburg borough building symbol (1858 inset)', 'Estimated', 4, 'solid building symbol read from the Hopkins inset; footprint = symbol extent; roof drawn schematically (lots, ridge direction and roof material are NOT in the source)', [SRC['hopkins']])
+            add(r['id'], 'STRUCTURE_ADDED', r['geom'], 'Gettysburg borough building symbol (1858 inset)', 'Estimated', r['err'], 'solid building symbol read from the Hopkins inset; footprint = symbol extent; roof drawn schematically (lots, ridge direction and roof material are NOT in the source). Positional error: 6 m (NAIP absolute spec) inside the control hull of the inset georeference, growing by 5 percent of the distance outside it (extrapolated affine)', [SRC['hopkins']])
         else:
             import features as FT
             fp = FT._footprint(r, items['roads'])
             add(r['id'], 'STRUCTURE_ADDED', fp, r.get('name'), r['conf'], r.get('err'),
-                'catalogue entry %s (%s); footprint %s; roof drawn schematically' % (r['id'], r['sub'], 'documented size' if r.get('dims') else 'typical size for the building type'), [SRC['bachelder'], SRC['warren']])
+                'catalogue entry %s (%s); footprint %s; roof drawn schematically. Catalogue method: %s' % (r['id'], r['sub'], 'documented size' if r.get('dims') else ('typical size for the building type, long axis %s' % ('read from the symbol on the Warren plate (%.0f degrees)' % r['angle_deg'] if r.get('angle_deg') is not None else 'parallel to the nearest road (orientation UNKNOWN)')), (CAT.get(r['id'], {}).get('method') or '')[:300]), src_from(CAT.get(r['id']), [SRC['warren']]))
+    for r in items.get('streams', []):
+        add(r['id'], 'STREAM_ADDED', r['geom'], r['name'], r['conf'], r.get('err'), 'NHD flowline of the catalogue (record %s) through the borough, where the 2013 photograph shows the channel covered; drawn as a %.1f m channel of the colour of the open streams of the photograph; the Warren sheet draws an open stream along this reach (the sheet is of 1868-69); the 1863 course may differ from the NHD line by tens of metres' % (r['id'], r['width']), src_from(CAT.get(r['id']), [SRC['warren']]))
     for r in items['masses']:
-        add(r['id'], 'TOWN_MASS_ADDED', r['geom'], 'building mass of the 1868-69 survey', r['conf'], r.get('err'), 'extent of inked building mass on the Warren plate, not an individual footprint; roofs drawn schematically', [SRC['warren']])
+        add(r['id'], 'TOWN_MASS_ADDED', r['geom'], 'building mass of the 1868-69 survey', r['conf'], r.get('err'), 'extent of inked building mass on the Warren plate, not an individual footprint; roofs drawn schematically', src_from(CAT.get(r['id']), [SRC['warren']]))
     for r in items['orchards']:
-        add(r['id'], 'ORCHARD_AREA', r['geom'], 'orchard (Warren symbol area)', r['conf'], 30, 'orchard polygon of the land-cover catalogue; trees drawn only where no modern canopy lies within 25 m, polygon eroded by 12 m', [SRC['warren']])
+        add(r['id'], 'ORCHARD_AREA', r['geom'], 'orchard (Warren symbol area)', 'Estimated', 30, 'orchard polygon of the land-cover catalogue (outline from the Warren symbol area; catalogue label %s); trees drawn only where no modern canopy lies within 25 m, polygon eroded by 12 m; tree positions and crowns are schematic (Estimated)' % r['conf'], src_from(CAT.get(r['id']), [SRC['warren']]))
     fc = dict(type='FeatureCollection', name='added_features_1863',
               properties=dict(label='RECONSTRUCTION of Gettysburg, July 1863: no aerial photograph of 1863 exists. Every feature lists its sources, method, positional error and confidence.'), features=feats)
     json.dump(fc, open(os.path.join(C.PROV, 'added_features.geojson'), 'w'), separators=(',', ':'))

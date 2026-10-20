@@ -1,0 +1,341 @@
+{
+ "note": "Review of the machine-detected building symbols (STR-MAPSYM) on the Warren plate cw0353500, done 2026-10-19 by the fix pass: contact sheets (src/ms_contact.py: 140 px crops at 2x, marker at the catalogue point mapped through the inverse of plate_cw0353500_to_cw0325000a_homography) and the solid-component test (src/ms_blob.py: opening 6x6, nearest component within 4 plate px). Rejected: no building symbol at the point. Second review (same day): the 95 unreviewed detections with a stated error of at most 45 m were tested (solid component within 3 plate px, area >= 100 px, fill ratio >= 0.78, short side >= 8 px: 26 passed) and the 26 crops viewed: 22 are building symbols, 4 are lettering.",
+ "rejected": {
+  "STR-MAPSYM-0058": "the point lies on a tree glyph of the orchard symbols (the solid component at 4 plate px is a glyph of 60 px)",
+  "STR-MAPSYM-0085": "the point lies on a fence line beside the symbols, not on a building symbol (viewed on the plate)",
+  "STR-MAPSYM-0091": "the point lies on the lettering of the owner label (nearest solid symbol 35 plate px away)",
+  "STR-MAPSYM-0093": "the point lies between symbols, 24 plate px from the nearest solid symbol, on a fence line",
+  "STR-MAPSYM-0111": "the point lies on the lettering ADAM BUTT (solid component of 42 px, 11 plate px from the marker)",
+  "STR-MAPSYM-0112": "the point lies on the lettering ADAM BUTT (nearest solid symbol 37 plate px away)",
+  "STR-MAPSYM-0113": "the point lies on the lettering ADAM BUTT (a letter stroke of 42 px)",
+  "STR-MAPSYM-0129": "the point lies on marsh hatching (nearest solid component 12 plate px away)",
+  "STR-MAPSYM-0195": "the point lies on the lettering GEORGE WEIKERT (nearest solid symbol 22 plate px away)",
+  "STR-MAPSYM-0017": "the point lies on a letter S of the label of the Smith farm, beside the symbols",
+  "STR-MAPSYM-0076": "the point lies on the lettering HANOVER (railroad name) over the railway bar",
+  "STR-MAPSYM-0185": "the point lies on the lettering of the owner label (R of CHRIER)",
+  "STR-MAPSYM-0124": "the point lies on a letter S beside the symbol, not on the symbol"
+ },
+ "confirmed_by_photograph": {
+  "STR-MAPSYM-0168": "confirmed by the photograph LC 2025169709 (Meade headquarters, Leister house): low outbuildings and a fenced yard stand beside the house; a symbol of the 1868-69 plate lies at this place. Drawn although no 2023 building outline lies near (the buildings are gone).",
+  "STR-MAPSYM-0169": "confirmed by the photograph LC 2025169709 (Meade headquarters, Leister house): low outbuildings and a fenced yard stand beside the house; a symbol of the 1868-69 plate lies at this place. Drawn although no 2023 building outline lies near (the buildings are gone).",
+  "STR-MAPSYM-0170": "confirmed by the photograph LC 2025169709 (Meade headquarters, Leister house): low outbuildings and a fenced yard stand beside the house; a symbol of the 1868-69 plate lies at this place. Drawn although no 2023 building outline lies near (the buildings are gone).",
+  "STR-MAPSYM-0171": "confirmed by the photograph LC 2025169709 (Meade headquarters, Leister house): low outbuildings and a fenced yard stand beside the house; a symbol of the 1868-69 plate lies at this place. Drawn although no 2023 building outline lies near (the buildings are gone)."
+ },
+ "reviewed_drawn": [
+  "STR-MAPSYM-0005",
+  "STR-MAPSYM-0007",
+  "STR-MAPSYM-0011",
+  "STR-MAPSYM-0014",
+  "STR-MAPSYM-0018",
+  "STR-MAPSYM-0020",
+  "STR-MAPSYM-0021",
+  "STR-MAPSYM-0027",
+  "STR-MAPSYM-0042",
+  "STR-MAPSYM-0047",
+  "STR-MAPSYM-0054",
+  "STR-MAPSYM-0059",
+  "STR-MAPSYM-0060",
+  "STR-MAPSYM-0064",
+  "STR-MAPSYM-0080",
+  "STR-MAPSYM-0081",
+  "STR-MAPSYM-0087",
+  "STR-MAPSYM-0088",
+  "STR-MAPSYM-0089",
+  "STR-MAPSYM-0090",
+  "STR-MAPSYM-0092",
+  "STR-MAPSYM-0094",
+  "STR-MAPSYM-0096",
+  "STR-MAPSYM-0097",
+  "STR-MAPSYM-0099",
+  "STR-MAPSYM-0105",
+  "STR-MAPSYM-0106",
+  "STR-MAPSYM-0107",
+  "STR-MAPSYM-0110",
+  "STR-MAPSYM-0114",
+  "STR-MAPSYM-0115",
+  "STR-MAPSYM-0117",
+  "STR-MAPSYM-0119",
+  "STR-MAPSYM-0122",
+  "STR-MAPSYM-0125",
+  "STR-MAPSYM-0131",
+  "STR-MAPSYM-0132",
+  "STR-MAPSYM-0133",
+  "STR-MAPSYM-0134",
+  "STR-MAPSYM-0146",
+  "STR-MAPSYM-0148",
+  "STR-MAPSYM-0151",
+  "STR-MAPSYM-0152",
+  "STR-MAPSYM-0163",
+  "STR-MAPSYM-0164",
+  "STR-MAPSYM-0165",
+  "STR-MAPSYM-0166",
+  "STR-MAPSYM-0167",
+  "STR-MAPSYM-0173",
+  "STR-MAPSYM-0179",
+  "STR-MAPSYM-0180",
+  "STR-MAPSYM-0181",
+  "STR-MAPSYM-0182",
+  "STR-MAPSYM-0187",
+  "STR-MAPSYM-0188",
+  "STR-MAPSYM-0189",
+  "STR-MAPSYM-0192",
+  "STR-MAPSYM-0196",
+  "STR-MAPSYM-0227",
+  "STR-MAPSYM-0229",
+  "STR-MAPSYM-0232",
+  "STR-MAPSYM-0238",
+  "STR-MAPSYM-0239",
+  "STR-MAPSYM-0242",
+  "STR-MAPSYM-0244",
+  "STR-MAPSYM-0249",
+  "STR-MAPSYM-0250",
+  "STR-MAPSYM-0251",
+  "STR-MAPSYM-0253",
+  "STR-MAPSYM-0255",
+  "STR-MAPSYM-0258",
+  "STR-MAPSYM-0259",
+  "STR-MAPSYM-0260"
+ ],
+ "blob_test": {
+  "STR-MAPSYM-0007": {
+   "d": 1.0,
+   "area": 117
+  },
+  "STR-MAPSYM-0047": {
+   "d": 0.0,
+   "area": 148
+  },
+  "STR-MAPSYM-0058": {
+   "d": 4.0,
+   "area": 60
+  },
+  "STR-MAPSYM-0059": {
+   "d": 0.0,
+   "area": 165
+  },
+  "STR-MAPSYM-0060": {
+   "d": 0.0,
+   "area": 214
+  },
+  "STR-MAPSYM-0080": {
+   "d": 0.0,
+   "area": 70
+  },
+  "STR-MAPSYM-0081": {
+   "d": 0.0,
+   "area": 87
+  },
+  "STR-MAPSYM-0085": {
+   "d": 2.0,
+   "area": 73
+  },
+  "STR-MAPSYM-0087": {
+   "d": 0.0,
+   "area": 183
+  },
+  "STR-MAPSYM-0088": {
+   "d": 0.0,
+   "area": 119
+  },
+  "STR-MAPSYM-0090": {
+   "d": 0.0,
+   "area": 193
+  },
+  "STR-MAPSYM-0091": {
+   "d": 35.4,
+   "area": 193
+  },
+  "STR-MAPSYM-0092": {
+   "d": 0.0,
+   "area": 161
+  },
+  "STR-MAPSYM-0093": {
+   "d": 24.0,
+   "area": 161
+  },
+  "STR-MAPSYM-0094": {
+   "d": 0.0,
+   "area": 223
+  },
+  "STR-MAPSYM-0096": {
+   "d": 0.0,
+   "area": 194
+  },
+  "STR-MAPSYM-0097": {
+   "d": 0.0,
+   "area": 154
+  },
+  "STR-MAPSYM-0099": {
+   "d": 0.0,
+   "area": 117
+  },
+  "STR-MAPSYM-0107": {
+   "d": 0.0,
+   "area": 552
+  },
+  "STR-MAPSYM-0110": {
+   "d": 0.0,
+   "area": 312
+  },
+  "STR-MAPSYM-0111": {
+   "d": 11.0,
+   "area": 42
+  },
+  "STR-MAPSYM-0112": {
+   "d": 37.3,
+   "area": 24
+  },
+  "STR-MAPSYM-0113": {
+   "d": 0.0,
+   "area": 42
+  },
+  "STR-MAPSYM-0114": {
+   "d": 0.0,
+   "area": 329
+  },
+  "STR-MAPSYM-0115": {
+   "d": 0.0,
+   "area": 129
+  },
+  "STR-MAPSYM-0117": {
+   "d": 0.0,
+   "area": 154
+  },
+  "STR-MAPSYM-0119": {
+   "d": 0.0,
+   "area": 108
+  },
+  "STR-MAPSYM-0129": {
+   "d": 11.7,
+   "area": 64
+  },
+  "STR-MAPSYM-0131": {
+   "d": 0.0,
+   "area": 87
+  },
+  "STR-MAPSYM-0132": {
+   "d": 0.0,
+   "area": 218
+  },
+  "STR-MAPSYM-0133": {
+   "d": 0.0,
+   "area": 192
+  },
+  "STR-MAPSYM-0134": {
+   "d": 0.0,
+   "area": 164
+  },
+  "STR-MAPSYM-0151": {
+   "d": 14.4,
+   "area": 217
+  },
+  "STR-MAPSYM-0152": {
+   "d": 1.4,
+   "area": 217
+  },
+  "STR-MAPSYM-0163": {
+   "d": 0.0,
+   "area": 150
+  },
+  "STR-MAPSYM-0165": {
+   "d": 0.0,
+   "area": 165
+  },
+  "STR-MAPSYM-0166": {
+   "d": 0.0,
+   "area": 185
+  },
+  "STR-MAPSYM-0167": {
+   "d": 0.0,
+   "area": 183
+  },
+  "STR-MAPSYM-0179": {
+   "d": 0.0,
+   "area": 165
+  },
+  "STR-MAPSYM-0180": {
+   "d": 0.0,
+   "area": 134
+  },
+  "STR-MAPSYM-0182": {
+   "d": 0.0,
+   "area": 182
+  },
+  "STR-MAPSYM-0187": {
+   "d": 0.0,
+   "area": 223
+  },
+  "STR-MAPSYM-0188": {
+   "d": 0.0,
+   "area": 161
+  },
+  "STR-MAPSYM-0195": {
+   "d": 22.0,
+   "area": 118
+  },
+  "STR-MAPSYM-0196": {
+   "d": 0.0,
+   "area": 367
+  },
+  "STR-MAPSYM-0227": {
+   "d": 0.0,
+   "area": 210
+  },
+  "STR-MAPSYM-0229": {
+   "d": 0.0,
+   "area": 138
+  },
+  "STR-MAPSYM-0232": {
+   "d": 0.0,
+   "area": 196
+  },
+  "STR-MAPSYM-0238": {
+   "d": 0.0,
+   "area": 137
+  },
+  "STR-MAPSYM-0239": {
+   "d": 0.0,
+   "area": 178
+  },
+  "STR-MAPSYM-0242": {
+   "d": 0.0,
+   "area": 245
+  },
+  "STR-MAPSYM-0244": {
+   "d": 0.0,
+   "area": 607
+  },
+  "STR-MAPSYM-0249": {
+   "d": 0.0,
+   "area": 231
+  },
+  "STR-MAPSYM-0250": {
+   "d": 0.0,
+   "area": 204
+  },
+  "STR-MAPSYM-0251": {
+   "d": 0.0,
+   "area": 254
+  },
+  "STR-MAPSYM-0253": {
+   "d": 0.0,
+   "area": 256
+  },
+  "STR-MAPSYM-0255": {
+   "d": 0.0,
+   "area": 306
+  },
+  "STR-MAPSYM-0258": {
+   "d": 0.0,
+   "area": 242
+  },
+  "STR-MAPSYM-0259": {
+   "d": 0.0,
+   "area": 166
+  },
+  "STR-MAPSYM-0260": {
+   "d": 0.0,
+   "area": 118
+  }
+ }
+}

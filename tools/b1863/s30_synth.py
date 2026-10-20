@@ -15,8 +15,10 @@ def _init():
     C.lowprio()
     import rasterio, quilt as Q
     _g['rd'] = {n: rasterio.open(os.path.join(C.BUILD, n + '.tif')) for n in ('target', 'lc1863', 'chg_remove', 'chg_add', 'survivors')}
+    _g['base'] = rasterio.open(C.BASE_TIF)
     _g['can'] = np.load(os.path.join(C.BUILD, 'canopy1m.npy'), mmap_mode='r')
-    _g['banks'] = {k: Q.Bank(np.load(os.path.join(C.BUILD, 'bank_%s.npy' % k))) for k in ('field', 'woods')}
+    _g['banks'] = {k: Q.Bank(np.load(os.path.join(C.BUILD, 'bank_%s.npy' % k))) for k in ('field', 'woods', 'yard')}
+    _g['banks']['town'] = Q.Bank(np.concatenate([np.load(os.path.join(C.BUILD, 'bank_field.npy')), np.load(os.path.join(C.BUILD, 'bank_yard.npy'))]))
     _g['out'] = np.memmap(OUT, dtype=np.uint8, mode='r+', shape=(C.H, C.W, 3))
     _g['cls'] = np.memmap(CLS, dtype=np.uint8, mode='r+', shape=(C.H, C.W))
     _g['done'] = np.memmap(DONE, dtype=np.uint8, mode='r+', shape=(C.H, C.W))
@@ -33,7 +35,7 @@ def work(job):
     can = np.array(_g['can'][R0:R1, C0:C1])
     # only the core's work: nothing to do when the core holds no change
     core = (slice(r0 - R0, r1 - R0), slice(c0 - C0, c1 - C0))
-    need = (np.isin(a['target'][core], (2, 5, 7)) | (a['chg_remove'][core] == 1) | (a['chg_add'][core] > 0) | (a['lc1863'][core] == 7))
+    need = (np.isin(a['target'][core], (2, 5, 7, 8)) | (a['chg_remove'][core] == 1) | (a['chg_add'][core] > 0) | (a['lc1863'][core] == 7))
     if not need.any():
         return wi, wj, 0, 0.0
     t0 = time.time()
@@ -44,7 +46,10 @@ def work(job):
         a[k] = np.where(done, 0, a[k])
     tg = np.where(done, 0, a['target'])
     lc = np.where(done & (a['lc1863'] == 7), 0, a['lc1863'])      # the town ground of a finished neighbour is known
-    res, cls = S.synthesize(img, tg, lc, a['chg_remove'], a['chg_add'], can, _g['banks'], surv=a['survivors'], seed=seed)
+    nb = _g['base'].read([1, 2, 3, 4], window=win).astype(np.float32)
+    ndvi = (nb[3] - nb[0]) / np.maximum(nb[3] + nb[0], 1); chroma = nb[:3].max(0) - nb[:3].min(0)
+    veg = (ndvi > 0.2) & (chroma > 20)
+    res, cls = S.synthesize(img, tg, lc, a['chg_remove'], a['chg_add'], can, _g['banks'], surv=a['survivors'], seed=seed, veg=veg, org=(R0, C0))
     wr = (cls > 0) & ~done
     cs = _g['out']; cc = _g['cls']; dn = _g['done']
     m = wr[core]

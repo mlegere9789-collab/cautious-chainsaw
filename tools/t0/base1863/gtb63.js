@@ -13,7 +13,7 @@ const GTB63 = (() => {
   const VER = "__VER__", B = "/tiles1863/" + VER + "/", CFG = __CFG__;
   const EMPTY = () => ({ type: "FeatureCollection", features: [] });
   const S = { maps: [], errors: 0, retried: 0, lastRetry: 0, overlays: null, loading: false, sharp: false, saveData: false, version: VER, base: B, ctl: [] };
-  const LABEL = "Reconstruction of July 1863 (USGS imagery and period maps), not a photograph";
+  const LABEL = "Reconstruction of July 1863, not a photograph: a USDA NAIP aerial photograph of 4 June 2013 with post-1863 features removed and 1863 features added from period maps";
   let cssDone = false;
 
   function env() {
@@ -111,7 +111,8 @@ const GTB63 = (() => {
   function mkLegend(ul) {
     CFG.classes.forEach((c) => {
       const li = document.createElement("li"), sw = document.createElement("span"), tx = document.createElement("span");
-      sw.className = "gtb63-sw"; sw.style.background = "rgb(" + c.rgb.join(",") + ")"; sw.setAttribute("aria-hidden", "true");
+      sw.className = "gtb63-sw"; sw.setAttribute("aria-hidden", "true");
+      if (c.code === 0 || c.code === 22) { sw.style.background = "transparent"; sw.style.borderStyle = "dashed"; } else sw.style.background = "rgb(" + c.rgb.join(",") + ")";
       tx.textContent = c.text; li.appendChild(sw); li.appendChild(tx); ul.appendChild(li);
     });
   }
@@ -139,9 +140,18 @@ const GTB63 = (() => {
       ["mousedown", "dblclick", "touchstart", "wheel", "pointerdown"].forEach((t) => el.addEventListener(t, (e) => e.stopPropagation(), { passive: true }));
       this.zoomFn = () => this.zoomNote();
       map.on("zoom", this.zoomFn);
+      this.styleFn = () => { if (this.on) this.applyVis(); };       // the style may still be loading when the button is pressed: the layers appear as soon as they exist
+      map.on("styledata", this.styleFn); map.on("idle", this.styleFn);
       return el;
     }
-    onRemove() { try { this.map.off("zoom", this.zoomFn); } catch (e) { /* removed */ } if (this.el) this.el.remove(); }
+    onRemove() { try { this.map.off("zoom", this.zoomFn); this.map.off("styledata", this.styleFn); this.map.off("idle", this.styleFn); } catch (e) { /* removed */ } if (this.el) this.el.remove(); }
+    applyVis() {
+      let ok = true;
+      try { ["b1863-changed", "b1863-changed-detail"].forEach((id) => { if (this.map.getLayer(id)) this.map.setLayoutProperty(id, "visibility", this.on ? "visible" : "none"); else ok = false; }); } catch (e) { ok = false; }
+      if (this.on && !ok) this.status("The map is still loading: the change layer appears as soon as it is ready.");
+      else if (this.st && /still loading/.test(this.st.textContent)) this.status("");
+      return ok;
+    }
     zoomNote() {
       if (!this.note) return;
       const lo = this.on && this.map.getZoom() < CFG.changed.minzoom;
@@ -150,7 +160,7 @@ const GTB63 = (() => {
     }
     set(on) {
       this.on = !!on;
-      try { ["b1863-changed", "b1863-changed-detail"].forEach((id) => { if (this.map.getLayer(id)) this.map.setLayoutProperty(id, "visibility", this.on ? "visible" : "none"); }); } catch (e) { /* style swap */ }
+      this.applyVis();
       this.btn.setAttribute("aria-pressed", this.on ? "true" : "false");
       this.ul.hidden = !this.on;
       this.zoomNote();
@@ -177,6 +187,7 @@ const GTB63 = (() => {
       const ctl = new Ctl(map, layout);
       rec.ctl = ctl; S.ctl.push(ctl);
       map.getContainer().appendChild(ctl.onAdd(map));
+      try { map.setMaxZoom(CFG.maxZoom || 17); } catch (e) { /* the style limit stays */ }      // the picture is 0.92 m per pixel at z16: z17 is a 2x enlargement, nothing beyond is offered (pass 7)
       let errSince = false;
       map.on("error", (e) => {
         const id = e && e.sourceId;

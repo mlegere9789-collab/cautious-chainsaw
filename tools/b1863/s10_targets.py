@@ -27,6 +27,11 @@ def main():
         m = d.read(1)
         prof = d.profile
     print('mask loaded', m.shape, time.time() - t0)
+    lc_all = rasterio.open(os.path.join(C.BUILD, 'lc1863.tif')).read(1)
+    boulder = (lc_all == 6)          # 1863 boulder fields (Devil's Den, Houck's Ridge): the pale rocks are natural; never taken for pavement or monuments (pass 5, R5-01/R5-02)
+    unl = rasterio.open(os.path.join(C.BUILD, 'unlisted.tif')).read(1)       # stage 09: modern surfaces found in the photograph itself
+    m[(unl == 1) & (m == 0) & ~boulder] = C.M_AREA
+    print('unlisted modern area px added', int(((unl == 1) & ~boulder).sum()), 'woods clearings', int((unl == 2).sum()))
     # survivors
     ids = {r['structure_id']: r for r in csv.DictReader(open(os.path.join(C.FEAT, 'structures', 'retain_1863_survivors.csv'), encoding='utf-8'))}
     st = C.load_geojson(os.path.join(C.FEAT, 'structures', 'structures.geojson'))
@@ -64,7 +69,7 @@ def main():
         zone = cv2.dilate(mon, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (45, 45))) > 0
         ppav = dp.read(1, window=Window(0, R0, C.W, R1 - R0)); rgb = db.read([1, 2, 3], window=Window(0, R0, C.W, R1 - R0)).astype(np.float32)
         lum = rgb.mean(0); sat = (rgb.max(0) - rgb.min(0)) / np.maximum(rgb.max(0), 1)
-        cand = zone & (sub == 0) & ((ppav > 96) | ((lum > 165) & (sat < 0.15)))
+        cand = zone & (sub == 0) & ((ppav > 96) | ((lum > 165) & (sat < 0.15))) & ~boulder[R0:R1]
         n_, lab = cv2.connectedComponents(((cand) | (mon > 0)).astype(np.uint8), connectivity=8)
         keepl = np.unique(lab[mon > 0]); keepl = keepl[keepl > 0]
         add = np.isin(lab, keepl) & cand
@@ -91,6 +96,7 @@ def main():
         lum = rgb[:3].mean(0); sat = (rgb[:3].max(0) - rgb[:3].min(0)) / np.maximum(rgb[:3].max(0), 1); ndvi = (rgb[3] - rgb[0]) / np.maximum(rgb[3] + rgb[0], 1)
         cand = (ndvi < 0.18) & (sat < 0.22) & (lum > 95) & (lum < 225) & (sub == 0) & (zart[R0:R1] | zoth[R0:R1])
         cand &= ~(zoth[R0:R1] & ~zart[R0:R1] & (cv2.dilate(seed.astype(np.uint8), np.ones((31, 31), np.uint8)) == 0))
+        cand &= ~boulder[R0:R1]
         g = seed.copy()
         k = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
         for _ in range(6):
@@ -128,6 +134,28 @@ def main():
         sub[keep] = C.M_MON
         small_px += int(keep[(r0 - R0):(r1 - R0)].sum())
     print('small bright objects px added', small_px)
+    # rim growth: a removed surface leaves its edge (curb, apron, gravel shoulder, fence-line ghost) when the mask stops a pixel or two short of it. Pixels that look like paving or bare
+    # unvegetated neutral ground (NDVI < 0.06, max-min <= 18, |R-G| <= 10, luma 85-235) and connect to a removal target within 8 px are added (not in boulder fields, not water, not survivor roofs).
+    seed_all = np.isin(m, [C.M_ROAD, C.M_BLDG, C.M_MON, C.M_UTIL, C.M_UNMAP, C.M_AREA, C.M_WATER])
+    rim_px = 0
+    for r0 in range(0, C.H, 2048):
+        r1 = min(r0 + 2048, C.H); R0 = max(r0 - 16, 0); R1 = min(r1 + 16, C.H)
+        seed = seed_all[R0:R1]
+        if not seed.any():
+            continue
+        a = db.read([1, 2, 3, 4], window=Window(0, R0, C.W, R1 - R0)).astype(np.float32)
+        Rr, Gg, Bb, Nn = a
+        mx = a[:3].max(0); mn = a[:3].min(0); Ll = a[:3].mean(0); nd = (Nn - Rr) / np.maximum(Nn + Rr, 1)
+        cand = (nd < 0.06) & (nd > -0.33) & ((mx - mn) <= 18) & (np.abs(Rr - Gg) <= 10) & (Ll >= 85) & (Ll <= 235) & ~seed & ~boulder[R0:R1] & (survm[R0:R1] == 0)
+        g = seed.copy()
+        k5 = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+        for _ in range(4):
+            g = (cv2.dilate(g.astype(np.uint8), k5) > 0) & (cand | g)
+        add = g & ~seed
+        sub = m[R0:R1]
+        sub[add & (sub == 0)] = C.M_UNMAP
+        rim_px += int(add[(r0 - R0):(r1 - R0)].sum())
+    print('rim growth px added', rim_px)
     thin_src = np.isin(m, [C.M_ROAD, C.M_BLDG, C.M_MON, C.M_UTIL, C.M_UNMAP])
     thin_src = cv2.dilate(thin_src.astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * GROW + 1, 2 * GROW + 1)))
     print('dilated', time.time() - t0)
@@ -154,8 +182,10 @@ def main():
             nat = C.rasterize([g]).astype(bool) & (survm == 0)
             out[nat] = 5
             print('National Cemetery px', int(nat.sum()))
+    out[(unl == 2) & (out == 0) & ~boulder] = 8        # modern clearing in woods (power-line swaths): refilled with woods in stage 30
+    out[survm == 1] = 0                                  # the real roofs of the buildings that stood in 1863 are never touched by any removal rule
     # thin targets sitting inside AREA/WATER polygons belong to them
-    for k, v in (('THIN', 1), ('DEEP', 2), ('AREA', 5), ('WATER', 7)):
+    for k, v in (('THIN', 1), ('DEEP', 2), ('AREA', 5), ('WATER', 7), ('WOODS_CLEARING', 8)):
         print(k, int((out == v).sum()), 'px')
     prof.update(dtype='uint8', count=1, compress='deflate', tiled=True, blockxsize=512, blockysize=512)
     prof.pop('interleave', None)

@@ -8,7 +8,7 @@ Provenance classes (uint8) written to tmp/b1863/build/prov.u8 (same grid):
   3  CANOPY_REMOVED        modern tree canopy outside 1863 tree cover (60-100 m margin), replaced by open ground texture
   4  TREES_ADDED           1863 woods cover open now, filled with real canopy blocks
   5  TOWN_GROUND           town block ground re-synthesised
-  6  ROAD_ADDED   7 RAIL_ADDED   8 BRIDGE_ADDED   9 FENCE_ADDED   10 STRUCTURE_ADDED   11 ORCHARD_ADDED   12 CROP_RECOLOURED (Wheatfield)   13 TOWN_MASS_ADDED
+  6  ROAD_ADDED   7 RAIL_ADDED   8 BRIDGE_ADDED   9 FENCE_ADDED   10 STRUCTURE_ADDED   11 ORCHARD_ADDED   12 CROP_RECOLOURED (Wheatfield)   13 TOWN_MASS_ADDED   14 STREAM_ADDED (Stevens Run through the borough)
   20 AMBIGUOUS_KEPT        canopy or open ground inside the registration margin of an 1863 tree polygon: photograph kept, evidence cannot decide
   21 SURVIVOR_KEPT         building that stood in 1863 and still stands: real roof pixels kept
 """
@@ -19,7 +19,7 @@ import rasterio
 from rasterio.windows import Window
 
 NAMES = {0: 'PHOTO_KEPT', 22: 'PHOTO_KEPT_OUTSIDE', 1: 'REMOVED_PATCH', 2: 'REMOVED_SYNTH', 3: 'CANOPY_REMOVED', 4: 'TREES_ADDED', 5: 'TOWN_GROUND', 6: 'ROAD_ADDED', 7: 'RAIL_ADDED',
-         8: 'BRIDGE_ADDED', 9: 'FENCE_ADDED', 10: 'STRUCTURE_ADDED', 11: 'ORCHARD_ADDED', 12: 'CROP_RECOLOURED', 13: 'TOWN_MASS_ADDED', 20: 'AMBIGUOUS_KEPT', 21: 'SURVIVOR_KEPT'}
+         8: 'BRIDGE_ADDED', 9: 'FENCE_ADDED', 10: 'STRUCTURE_ADDED', 11: 'ORCHARD_ADDED', 12: 'CROP_RECOLOURED', 13: 'TOWN_MASS_ADDED', 14: 'STREAM_ADDED', 20: 'AMBIGUOUS_KEPT', 21: 'SURVIVOR_KEPT'}
 
 def main():
     C.lowprio()
@@ -38,7 +38,7 @@ def main():
         p = np.where(a['lc1863'] > 0, 0, 22).astype(np.uint8)
         p[a['chg_ambiguous'] == 1] = 20
         p[a['target'] == 1] = 1
-        p[np.isin(a['target'], (2, 5, 7))] = 2
+        p[np.isin(a['target'], (2, 5, 7, 8))] = 2
         p[(c == 1) & (a['target'] == 0)] = 3
         p[(c == 2) & (a['target'] == 0)] = 4
         p[(c == 4)] = 5

@@ -8,7 +8,7 @@ from render import S, SUN_TO, SHADOW_DIR_ENU
 from shapely.geometry import Polygon, Point, box as sbox
 from shapely import affinity
 
-P_ROAD, P_RAIL, P_BRIDGE, P_FENCE, P_STRUCT, P_ORCHARD, P_WHEAT, P_MASS = 6, 7, 8, 9, 10, 11, 12, 13
+P_ROAD, P_RAIL, P_BRIDGE, P_FENCE, P_STRUCT, P_ORCHARD, P_WHEAT, P_MASS, P_STREAM = 6, 7, 8, 9, 10, 11, 12, 13, 14
 CONF = {'Documented': 1, 'Estimated': 2, 'Contested': 3, 'Unknown': 3}
 
 def hit(items, win, pad=40, key='geom'):
@@ -45,6 +45,25 @@ def draw_roads(win, img, items, prov, conf):
         img[...] = (img * (1 - 0.06 * verge[..., None])) * (1 - aa) + col * aa
         cf = 1 if all(i['conf'] == 'Documented' for i in its) else 2
         _put(prov, conf, a > 0.35, P_ROAD, cf)
+
+def draw_streams(win, img, items, prov, conf):
+    """Stevens Run through the borough: an open stream on the Warren sheet and in the NHD line, culverted or built over in the 2013 photograph. A narrow channel of the colour of the real
+    streams of the photograph (Rock Creek, Willoughby Run, Plum Run: median of their water pixels) between two soft banks; nothing is drawn where the photograph shows the channel."""
+    for it in hit(items.get('streams', []), win):
+        a, d = R.ribbon_alpha(win, [it['geom']], it['width'], seed=41, noise_amp=0.55)
+        if a.max() <= 0:
+            continue
+        wide, _ = R.ribbon_alpha(win, [it['geom']], it['width'] + 3.2, seed=42, noise_amp=0.9)
+        n = R.hash_noise((win.h, win.w), win.ox, -win.oy, 5.0, 61) - 0.5
+        water = np.array(WATER_RGB, np.float32)[None, None, :] * (1 + 0.12 * n)[..., None]
+        water = water + R.grain_field((win.h, win.w), win.c0, win.r0) * 0.8
+        bank = np.clip(wide - a, 0, 1)
+        img[...] = img * (1 - 0.22 * bank[..., None])                                   # damp bank, a little darker and greener
+        aa = np.clip(a * 0.97, 0, 1)[..., None]
+        img[...] = img * (1 - aa) + water * aa
+        _put(prov, conf, wide > 0.35, P_STREAM, CONF.get(it['conf'], 2))
+
+WATER_RGB = (84.0, 93.0, 86.0)       # median of 327 water samples along Rock Creek, Willoughby Run, Plum Run and Marsh Creek in the 2013 photograph (tmp/b1863/fix/water_col.py)
 
 def draw_rails(win, img, items, prov, conf):
     for it in hit(items['rails'], win):
@@ -133,8 +152,8 @@ def _footprint(it, roads):
     L, Wd = max(dm), min(dm)
     pos, t = _nearest_tangent(roads, g) if roads else (None, None)
     ang = math.degrees(math.atan2(t[1], t[0])) if t is not None and Point(pos).distance(g) < 90 else 0.0
-    if sub in ('barn', 'bank_barn') and t is not None:
-        ang += 90.0 if zlib.crc32(it['id'].encode()) % 2 else 0.0          # barns sit gable-end or broadside to the lane: unknown, alternate deterministically
+    if it.get('angle_deg') is not None:
+        ang = it['angle_deg']          # the long axis of the symbol on the Warren plate (read from the plate, features/structures/symbol_orientation.json)
     rect = Polygon([(-L / 2, -Wd / 2), (L / 2, -Wd / 2), (L / 2, Wd / 2), (-L / 2, Wd / 2)])
     return affinity.translate(affinity.rotate(rect, ang, origin=(0, 0)), g.x, g.y)
 
@@ -284,7 +303,7 @@ def draw_masses(win, img, items, prov, conf):
     img[...] = img * (1 - a[..., None]) + col * a[..., None]
     _put(prov, conf, a > 0.4, P_MASS, 2)
 
-def draw_orchards(win, img, region, orchards, prov, conf, crown_rgb=(100.0, 130.0, 92.0), spacing=9.1):
+def draw_orchards(win, img, region, orchards, prov, conf, crown_rgb=(108.0, 138.0, 94.0), spacing=9.1):
     """regular orchard rows on `region` (bool h,w): grid anchored at each orchard polygon's centroid, rotated with its minimum rotated rectangle; crowns lit from the south-east with shadows to the north-west"""
     if not region.any():
         return
@@ -320,9 +339,14 @@ def draw_orchards(win, img, region, orchards, prov, conf, crown_rgb=(100.0, 130.
                 if not pg.contains(Point(px, py)):
                     continue
                 hh = (iu * 73856093 ^ iv * 19349663 ^ int(cx)) & 0xFFFF
-                jx = (hh / 65535.0 - 0.5) * 0.8; jy = (((hh * 40503) & 0xFFFF) / 65535.0 - 0.5) * 0.8
-                rad = 2.0 + 0.6 * (((hh * 2654435761) & 0xFFFF) / 65535.0)
-                _crown(win, cr_acc, cr_a, sh_acc, px + jx, py + jy, rad, crown_rgb, hh)
+                if hh % 13 == 0:
+                    continue                                    # a lattice is never complete: about 8 percent of the places are empty (dead or never planted trees)
+                u1 = ((hh * 40503) & 0xFFFF) / 65535.0; u2 = ((hh * 2654435761) & 0xFFFF) / 65535.0; u3 = ((hh * 69069 + 12345) & 0xFFFF) / 65535.0
+                jx = (hh / 65535.0 - 0.5) * 2.8; jy = (u1 - 0.5) * 2.8          # orchards were planted by eye: rows wander by up to 1.4 m
+                rad = 2.2 + 1.2 * u2                                              # crowns of mature trees differ: 4.4 to 6.8 m across
+                tone = 0.88 + 0.26 * u3
+                rgb = (crown_rgb[0] * tone + 6 * (u1 - 0.5), crown_rgb[1] * tone + 8 * (u2 - 0.5), crown_rgb[2] * tone)
+                _crown(win, cr_acc, cr_a, sh_acc, px + jx, py + jy, rad, rgb, hh)
     sh = R.down(sh_acc)
     img[...] = img * (1 - 0.20 * (np.clip(sh, 0, 1) * (1 - cr_a))[..., None])
     img[...] = img * (1 - cr_a[..., None]) + cr_acc
@@ -351,6 +375,8 @@ def _crown(win, cr_acc, cr_a, sh_acc, x, y, rad, rgb, hh):
     sub[...] = sub * (1 - a[..., None]) + col * a[..., None]
     cr_a[r0:r1, c0:c1] = 1 - (1 - sa) * (1 - a)
 
+WHEAT_B = 150.0       # Lab b (OpenCV 8-bit, 128 = neutral): below the 99.9th percentile of the photographed ground (pass 7, T0-V7-05); tuned by tmp/b1863/fix/wheat_b.py
+
 def recolour_wheat(win, img, region, canopy, prov, conf):
     """Wheat on 2 July 1863 (NPS marker: golden wheat; ripe or nearly ripe): the real field texture of the photograph is kept (luminance relief) and re-coloured to a ripe-wheat hue.
     The tone (golden-tan, about RGB 196,172,118 in this light) is ESTIMATED from the usual look of ripe winter wheat in summer aerial imagery; no 1863 colour record exists.
@@ -370,7 +396,7 @@ def recolour_wheat(win, img, region, canopy, prov, conf):
     nz = R_noise(win)
     newL = np.clip(186.0 + (L - Lm) * 0.85 + nz * 5.0, 0, 255)
     newa = 126.5 + (lab[..., 1] - lab[..., 1][m].mean()) * 0.2
-    newb = 160.0 + (lab[..., 2] - lab[..., 2][m].mean()) * 0.2
+    newb = WHEAT_B + (lab[..., 2] - lab[..., 2][m].mean()) * 0.2
     out = cv2.cvtColor(np.stack([newL, newa, newb], -1).clip(0, 255).astype(np.uint8), cv2.COLOR_LAB2RGB).astype(np.float32)
     out = out + R.grain_field((win.h, win.w), win.c0, win.r0) * 1.3          # real photographic grain on top
     img[...] = img * (1 - w[..., None]) + out * w[..., None]

@@ -35,8 +35,20 @@ def feet(s):
 DEFAULT_DIM = {'farmhouse': (11.0, 8.0), 'house': (9.0, 7.0), 'barn': (22.0, 13.0), 'bank_barn': (24.0, 13.0), 'building': (9.0, 6.0), 'outbuilding': (7.0, 5.0),
                'institutional': (24.0, 12.0), 'log_building': (6.0, 5.5), 'farmstead': (11.0, 8.0), 'stable': (12.0, 7.0), 'smokehouse': (4.0, 4.0), 'wagon_shed': (10.0, 6.0)}
 
+HOP_STREETS_REJECTED = {      # Hopkins street ids (index in hopkins_town_streets.pkl + 1) the verification passes showed are not streets of the 1858 inset
+    24: 'arc of the 2013 Lincoln Square roundabout (the 1858 inset shows a plain crossing)', 33: 'arc of the 2013 roundabout', 34: 'arc of the 2013 roundabout', 35: 'arc of the 2013 roundabout',
+    29: 'lies on the engraved Fahnestock building vignette, not in a street gap (57 percent of its centre line on dark ink); a park road of the 1890s-1900s by name',
+    3: 'runs across the lettering BALTIMORE and a railway bar, not in a street gap', 7: 'runs inside the Roman Catholic cemetery enclosure', 16: 'runs into the railway bar and the water tint',
+    19: 'crosses a lot with a lettered name (J. Winebrenner), not in a street gap', 42: 'crosses a blank lot (S. McCreary / S. Weldy), not in a street gap'}
+
+def hopkins_error(g, hull):
+    """positional error of a roof read from the 1858 inset: the NAIP absolute spec (6 m CE95) inside the hull of the 8 control points, growing by 5 percent of the distance outside it
+    (the affine is extrapolated there: an independent fit differs by a median of 11.6 m beyond 200 m, pass 2)"""
+    d = max(g.centroid.distance(hull), 0.0)
+    return int(round(6 + 0.05 * d))
+
 def main():
-    out = dict(roads=[], rails=[], bridges=[], fences=[], structures=[], masses=[], orchards=[])
+    out = dict(roads=[], rails=[], bridges=[], fences=[], structures=[], masses=[], orchards=[], streams=[])
     stats = dict(undrawn=[])
     # roads and lanes
     for fn in ('roads', 'lanes'):
@@ -70,6 +82,16 @@ def main():
             continue
         g = C.geom_to_utm(f['geometry'])
         out['bridges'].append(dict(id=p['id'], pt=g, road=p.get('road_id'), conf=p['confidence'], err=p.get('positional_error_m'), name=p['name']))
+    # Stevens Run through the borough (pass 4, D6): the NHD flowline between 39.8225 and 39.8340 N (the reach where the 2013 photograph shows no channel: built over or culverted)
+    from shapely.geometry import box as sbox
+    wcat = C.load_geojson(os.path.join(FEAT, 'roads-rail-water', 'waterways.geojson'))
+    zone = sbox(*C.ll2utm(-77.2425, 39.8225), *C.ll2utm(-77.2225, 39.8340))
+    for f in wcat['features']:
+        p = f['properties']
+        if p['name'] == 'Stevens Run' and f['geometry'] and p.get('present_1863') is True:
+            g = C.geom_to_utm(f['geometry']).intersection(zone)
+            if not g.is_empty:
+                out['streams'].append(dict(id=p['id'], name='Stevens Run (borough reach)', geom=g, width=3.6, conf=p['confidence'], err=p.get('positional_error_m')))
     # fences
     d = C.load_geojson(os.path.join(FEAT, 'roads-rail-water', 'fences.geojson'))
     for f in d['features']:
@@ -84,6 +106,7 @@ def main():
     modu = [transform(lambda x, y, z=None: C.ll2utm(x, y), g) for g in mod]
     tree = STRtree(modu)
     nmap = dict(total=0, drawn=0, no_corr=0, too_far=0)
+    orient = C.load_geojson(os.path.join(FEAT, 'structures', 'symbol_orientation.json')) if os.path.exists(os.path.join(FEAT, 'structures', 'symbol_orientation.json')) else {}
     for f in inv['features']:
         p = f['properties']; i = p['id']
         g = f['geometry']
@@ -92,32 +115,46 @@ def main():
         if not g:
             stats['undrawn'].append(dict(id=i, why='no geometry (position UNKNOWN)'))
             continue
-        gu = C.geom_to_utm(g)
+        if p.get('draw') is False or str(p.get('status', '')).startswith('not_drawn'):
+            stats['undrawn'].append(dict(id=i, why='not drawn by decision of the catalogue: %s' % (p.get('notes') or '')[-160:]))
+            continue
+        gu = C.geom_to_utm(p['draw_geometry']) if p.get('draw_geometry') else C.geom_to_utm(g)
         if i.startswith('STR-BORO'):
             out['masses'].append(dict(id=i, geom=gu, conf=p['confidence'], err=p.get('positional_error_m')))
             continue
         err = p.get('positional_error_m') or 0
         if i.startswith('STR-MAPSYM'):
             nmap['total'] += 1
-            if err > 35:
+            stt = p.get('status')
+            if stt == 'rejected_not_a_building_symbol':
+                nmap['rejected'] = nmap.get('rejected', 0) + 1
+                stats['undrawn'].append(dict(id=i, why='rejected on review: not a building symbol on the plate'))
+                continue
+            if stt == 'unreviewed_machine_detection':
+                nmap['unreviewed'] = nmap.get('unreviewed', 0) + 1
+                stats['undrawn'].append(dict(id=i, why='machine-detected symbol, not reviewed (UNKNOWN)'))
+                continue
+            if err > 45:
                 nmap['too_far'] += 1
-                stats['undrawn'].append(dict(id=i, why='machine-detected symbol, position error > 35 m'))
+                stats['undrawn'].append(dict(id=i, why='machine-detected symbol, position error > 45 m'))
                 continue
             near = tree.query(gu.buffer(max(err, 15)))
+            if stt in ('confirmed_by_photograph', 'reviewed_symbol_on_plate'):
+                near = [0]          # reviewed on the plate itself (or confirmed by an 1863 photograph): the county outlines of 2023 are not needed, and cannot show a building that is gone
             if len(near) == 0:
                 nmap['no_corr'] += 1
                 stats['undrawn'].append(dict(id=i, why='machine-detected symbol, no county building outline within the error radius (no corroboration)'))
                 continue
             nmap['drawn'] += 1
-            out['structures'].append(dict(id=i, geom=gu, sub='building', conf='Estimated', err=err, dims=None, material=None, roof=None, src='mapsym'))
+            out['structures'].append(dict(id=i, geom=gu, sub='building', conf='Estimated', err=err, dims=None, material=None, roof=None, src='mapsym', angle_deg=(orient.get(i) or {}).get('angle_deg')))
             continue
-        if err > 30:
-            stats['undrawn'].append(dict(id=i, why='position error %s m > 30 m: drawn nowhere (existence documented, position not)' % err))
+        if err > 45:
+            stats['undrawn'].append(dict(id=i, why='position error %s m > 45 m: drawn nowhere (existence documented, position not)' % err))
             continue
         if p['subtype'] in ('covered_bridge', 'mill'):
             stats['undrawn'].append(dict(id=i, why='site point, no footprint (the surviving bridge, if any, is in the photograph)'))
             continue
-        out['structures'].append(dict(id=i, geom=gu, sub=p['subtype'], conf=p['confidence'], err=err, dims=feet(p.get('dims_documented')), material=p.get('material'), roof=p.get('roof'), src='curated', name=p['name'], status=p.get('status')))
+        out['structures'].append(dict(id=i, geom=gu, sub=p['subtype'], conf=p['confidence'], err=err, dims=feet(p.get('dims_documented')), material=p.get('material'), roof=p.get('roof'), src='curated', name=p['name'], status=p.get('status'), angle_deg=(orient.get(i) or {}).get('angle_deg')))
     for f in C.load_geojson(os.path.join(FEAT, 'landcover', 'orchards_1863.geojson'))['features']:
         if f['geometry']:
             out['orchards'].append(dict(id=f['properties']['id'], geom=C.geom_to_utm(f['geometry']), conf=f['properties']['confidence']))
@@ -126,20 +163,27 @@ def main():
     hp = pickle.load(open(os.path.join(C.BUILD, 'hopkins_hull.pkl'), 'rb'))
     survpolys = unary_union([C.geom_to_utm(f['geometry']) for f in inv['features'] if f['properties']['id'] in surv and f['geometry'] and f['geometry']['type'] == 'Polygon']).buffer(3.0)
     dropped_surv = 0
+    from shapely.geometry import MultiPoint
+    gc = json.load(open(os.path.join(C.DOCS, 'maps', 'gcps', 'hopkins_inset.json')))['gcps']
+    hull = MultiPoint([tuple(q['en']) for q in gc]).convex_hull
     for k, g in enumerate(hb):
         if g.is_empty:
             continue
         if g.intersection(survpolys).area > 0.4 * g.area:
             dropped_surv += 1          # the real roof of a surviving 1863 building is kept in the photograph: not drawn twice
             continue
-        out['structures'].append(dict(id='HOP-B-%04d' % (k + 1), geom=g, sub='building', conf='Estimated', err=4, dims=None, material=None, roof=None, src='hopkins'))
+        out['structures'].append(dict(id='HOP-B-%04d' % (k + 1), geom=g, sub='building', conf='Estimated', err=hopkins_error(g, hull), dims=None, material=None, roof=None, src='hopkins'))
     before = len(out['masses'])
     out['masses'] = [m for m in out['masses'] if not m['geom'].intersects(hp.buffer(25))]
     stats['masses_superseded_by_hopkins'] = before - len(out['masses'])
     ts = pickle.load(open(os.path.join(C.BUILD, 'hopkins_town_streets.pkl'), 'rb'))
+    n_rej = 0
     for k, t in enumerate(ts):
+        if (k + 1) in HOP_STREETS_REJECTED:
+            stats['undrawn'].append(dict(id='HOP-S-%03d' % (k + 1), why='rejected: ' + HOP_STREETS_REJECTED[k + 1])); n_rej += 1
+            continue
         out['roads'].append(dict(id='HOP-S-%03d' % (k + 1), geom=t['geom'], width=6.5, subtype='town street (Hopkins 1858)', conf='Estimated', err=4, name=t['name']))
-    stats['hopkins'] = dict(symbols_on_surviving_buildings_not_redrawn=dropped_surv, buildings=len(hb) - dropped_surv, streets=len(ts), masses_dropped=before - len(out['masses']))
+    stats['hopkins'] = dict(symbols_on_surviving_buildings_not_redrawn=dropped_surv, buildings=len(hb) - dropped_surv, streets=len(ts) - n_rej, streets_rejected=n_rej, masses_dropped=before - len(out['masses']))
     stats['mapsym'] = nmap
     stats['counts'] = {k: len(v) for k, v in out.items()}
     pickle.dump(out, open(os.path.join(C.BUILD, 'draw_items.pkl'), 'wb'))
