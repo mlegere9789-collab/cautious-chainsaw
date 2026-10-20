@@ -12,7 +12,7 @@ X0,Y1=304500,4413500
 _cache={}
 def load():
     if not _cache:
-        _cache['dem']=np.load(D+'dem.npy'); _cache['ext']=np.load(D+'ext.npy'); _cache['cls']=np.load(D+'cls.npy')
+        _cache['dem']=np.load(D+'dem.npy'); _cache['ext']=np.load(D+'ext.npy'); _cache['ext_base']=np.load(D+'ext_base.npy'); _cache['cls']=np.load(D+'cls.npy')
         rec=np.load(D+'recon.npy'); _cache['recon']=np.ascontiguousarray(rec[...,:3])  # BGR
         nai=np.load(D+'naip.npy'); _cache['naip']=np.ascontiguousarray(nai[...,::-1])  # BGR
     return _cache
@@ -68,7 +68,7 @@ def _shoot(dem,ext,cls,tex,ox,oy,oz,dx,dy,dz,tmax,sky,use_ext,x0,y1,clr):
             hit=True; break
         prev=t
         t+=0.35+0.0012*t
-    res=np.zeros(5,np.float64)
+    res=np.zeros(7,np.float64)
     if hit:
         rr=r-0.5; cc=c-0.5
         i=int(math.floor(rr)); j=int(math.floor(cc)); fy=rr-i; fx=cc-j
@@ -81,24 +81,26 @@ def _shoot(dem,ext,cls,tex,ox,oy,oz,dx,dy,dz,tmax,sky,use_ext,x0,y1,clr):
         for ch in range(3):
             val=(1-fy)*((1-fx)*tex[i,j,ch]+fx*tex[i,j+1,ch])+fy*((1-fx)*tex[i+1,j,ch]+fx*tex[i+1,j+1,ch])
             res[ch]=min(255.0,max(0.0,val*sh*hz+sky[ch]*(1-hz)))
-        res[3]=t; res[4]=cls[int(r),int(c)]
+        res[3]=t; res[4]=cls[int(r),int(c)]; res[5]=r; res[6]=c
     else:
         for ch in range(3): res[ch]=sky[ch]
-        res[3]=-1.0
+        res[3]=-1.0; res[5]=-1.0; res[6]=-1.0
     return res
 @njit(parallel=True,cache=True,fastmath=True)
 def _render(dem,ext,cls,tex,ox,oy,oz,f,rt,up,F,W,H,tmax,sky,use_ext,x0,y1,clr):
-    out=np.zeros((H,W,3),np.uint8); depth=np.zeros((H,W),np.float32); cl=np.zeros((H,W),np.uint8)
+    out=np.zeros((H,W,3),np.uint8); depth=np.zeros((H,W),np.float32); cl=np.zeros((H,W),np.uint8); rcarr=np.zeros((H,W,2),np.float32)
     for v in prange(H):
         for u in range(W):
             xn=(u+0.5-W/2)/F; yn=-(v+0.5-H/2)/F
             dx=f[0]+xn*rt[0]+yn*up[0]; dy=f[1]+xn*rt[1]+yn*up[1]; dz=f[2]+xn*rt[2]+yn*up[2]
             nrm=math.sqrt(dx*dx+dy*dy+dz*dz)
             res=_shoot(dem,ext,cls,tex,ox,oy,oz,dx/nrm,dy/nrm,dz/nrm,tmax,sky,use_ext,x0,y1,clr)
-            out[v,u,0]=res[0]; out[v,u,1]=res[1]; out[v,u,2]=res[2]; depth[v,u]=res[3]; cl[v,u]=res[4]
-    return out,depth,cl
-def render(E,N,hag,yaw,pitch,hfov,W=900,H=700,layer='recon',roll=0.0,use_ext=True,tmax=7000.0,Z=None,sky=(232,235,238),clear_r=0.0):
+            out[v,u,0]=res[0]; out[v,u,1]=res[1]; out[v,u,2]=res[2]; depth[v,u]=res[3]; cl[v,u]=res[4]; rcarr[v,u,0]=res[5]; rcarr[v,u,1]=res[6]
+    return out,depth,cl,rcarr
+def render(E,N,hag,yaw,pitch,hfov,W=900,H=700,layer='recon',roll=0.0,use_ext=True,tmax=7000.0,Z=None,sky=(232,235,238),clear_r=0.0,ext_key='ext'):
     c=load(); g=ground(E,N); oz=(g+hag) if Z is None else Z
     f,r,u=cam_basis(yaw,pitch,roll); F=(W/2)/math.tan(math.radians(hfov)/2)
     tex=c[layer]
-    return _render(c['dem'],c['ext'],c['cls'],tex,E-0.0,N-0.0,oz,f,r,u,F,W,H,tmax,np.array(sky,np.float64),use_ext,float(X0),float(Y1),float(clear_r))
+    o,d,cl,rc=_render(c['dem'],c[ext_key],c['cls'],tex,E-0.0,N-0.0,oz,f,r,u,F,W,H,tmax,np.array(sky,np.float64),use_ext,float(X0),float(Y1),float(clear_r))
+    _cache['rc']=rc
+    return o,d,cl

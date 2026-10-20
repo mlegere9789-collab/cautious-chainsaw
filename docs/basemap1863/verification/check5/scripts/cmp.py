@@ -4,6 +4,7 @@ import rephoto as R
 def crop_photo(path,box):
     im=cv2.imread(path); x0,y0,x1,y1=box; return im[y0:y1,x0:x1]
 CLR=0.0
+STACK=False
 def shot(path,box,cam,out,W=720,layers=('recon','naip'),label=''):
     ph=crop_photo(path,box); h,w=ph.shape[:2]; H=int(round(W*h/w))
     E,N,hag,yaw,pitch,hfov=cam[:6]; roll=cam[6] if len(cam)>6 else 0.0
@@ -11,7 +12,7 @@ def shot(path,box,cam,out,W=720,layers=('recon','naip'),label=''):
     for ly in layers:
         img,d,cl=R.render(E,N,hag,yaw,pitch,hfov,W=W,H=H,layer=ly,roll=roll,use_ext=(ly=='recon'),clear_r=CLR)
         ims.append(img)
-    comp=np.hstack(ims)
+    comp=np.vstack(ims) if STACK else np.hstack(ims)
     cv2.imwrite(out,comp)
     return comp
 

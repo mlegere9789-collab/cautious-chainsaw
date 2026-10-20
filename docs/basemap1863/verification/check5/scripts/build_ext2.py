@@ -53,5 +53,21 @@ for it in d['masses']:
     if g.bounds[2]<X0 or g.bounds[0]>X0+W or g.bounds[3]<Y1-H or g.bounds[1]>Y1: continue
     burn(g,8.0,5); nstr+=1
 print('structures/masses burned',nstr)
+
+import csv,json
+from shapely.geometry import shape
+from shapely.ops import transform
+from pyproj import Transformer
+pj=Transformer.from_crs(4326,26918,always_xy=True).transform   # draw items are in EPSG:26918 numerically equal to the scene frame
+ids=[r['structure_id'] for r in csv.DictReader(open('C:/Users/mlege/gettysburg-map/docs/basemap1863/features/structures/retain_1863_survivors.csv',encoding='utf8'))]
+sj=json.load(open('C:/Users/mlege/gettysburg-map/docs/basemap1863/features/structures/structures.geojson',encoding='utf8'))['features']
+nsv=0
+for f in sj:
+    p=f['properties']
+    if p['id'] in ids and f.get('geometry'):
+        g=transform(pj,shape(f['geometry']))
+        if g.bounds[2]<X0 or g.bounds[0]>X0+W or g.bounds[3]<Y1-H or g.bounds[1]>Y1: continue
+        burn(g,HEIGHT.get(p['subtype'],7.0),6); nsv+=1
+print('survivors burned',nsv)
 np.save('scene/ext.npy',ext); np.save('scene/cls.npy',cls); np.save('scene/prov.npy',prov)
-print({k:int((cls==k).sum()) for k in (1,3,4,5)})
+print({k:int((cls==k).sum()) for k in (1,3,4,5,6)})
