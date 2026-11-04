@@ -1,0 +1,21 @@
+# sources-b-EG-04: Photograph sources: LOC blocked, Perisho URL dead, NARA IDs and Frassanito unverified (R12.032-037)
+
+| Field | Content |
+|---|---|
+| ID | sources-b-EG-04 |
+| Requirement IDs | R12 |
+| Category | evidence missing / blocked |
+| Description | LOC collection pages return a challenge (403); the Gettysburg College exhibition URL is 404; NARA IDs 165-SB-40/41, Tipton counts and the 'six views of one body' claim were not read; Frassanito is a copyrighted book (cite only) with only a Wikipedia lead. |
+| Why literal 100% is not possible or blocked | Not literal-100% blocked by record: the page text claims were not retained and no network was available in this container to re-read them (the proxy refuses archive.org and nps.gov). |
+| Evidence searched | horde/sources-b/web_lookups.jsonl (362 rows, 2026-11-04: titles, HTTP codes, short snippets; page text not retained); docs/battle-theatre/terrain/terrain_sources.json rows 23-45; sibling shards sources-a, terrain-1, fence-3. |
+| Autonomous substitute applied | None (no datum is taken from the unread claim) |
+| Strongest evidence-based reconstruction | Re-read the cited pages and record the exact passages; until then the row stays at the stated status. |
+| Confidence tier | inferred |
+| Competing values | None |
+| Product marking | Source row flagged in the source catalog with its status |
+| Visual and audio impact | Source availability only; no direct visual impact |
+| Review status | internal review only (DEC-006: no public review label) |
+| Owner decision requested | Owner decides whether to buy or borrow Frassanito (billing is owner-only) |
+| Agent recommendation | Use another lawful route for LOC images (a different host that serves them openly) and log photograph IDs; a view of each image is needed before any camera pose is accepted. |
+| Status | proposed (shard sources-b; not yet merged into register/) |
+| Owner decision and date | (filled only from the Decision Log) |

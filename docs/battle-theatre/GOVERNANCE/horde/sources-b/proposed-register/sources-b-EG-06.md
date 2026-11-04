@@ -1,0 +1,21 @@
+# sources-b-EG-06: Ecology and fence rows are R3 leads with unread figures (R12.042-045)
+
+| Field | Content |
+|---|---|
+| ID | sources-b-EG-06 |
+| Requirement IDs | R12 |
+| Category | evidence missing / access |
+| Description | NPS and American Battlefield Trust figures (acreage, species, orchard counts) and the blog fence dimensions were not read from retained text; the PDF's own 2008 vs 1883 Sherfy replanting conflict is carried unresolved; blog fences are not Gettysburg-specific. |
+| Why literal 100% is not possible or blocked | Not literal-100% blocked by record: the page text claims were not retained and no network was available in this container to re-read them (the proxy refuses archive.org and nps.gov). |
+| Evidence searched | horde/sources-b/web_lookups.jsonl (362 rows, 2026-11-04: titles, HTTP codes, short snippets; page text not retained); docs/battle-theatre/terrain/terrain_sources.json rows 23-45; sibling shards sources-a, terrain-1, fence-3. |
+| Autonomous substitute applied | None (no datum is taken from the unread claim) |
+| Strongest evidence-based reconstruction | Re-read the cited pages and record the exact passages; until then the row stays at the stated status. |
+| Confidence tier | inferred |
+| Competing values | Sherfy replanting 2008 vs 1883; Gilbert 2007 |
+| Product marking | Source row flagged in the source catalog with its status |
+| Visual and audio impact | Source availability only; no direct visual impact |
+| Review status | internal review only (DEC-006: no public review label) |
+| Owner decision requested | Owner decides the default for the replanting date (conflict register) |
+| Agent recommendation | Read and log the passages; use OR evidence (fence-3) for Emmitsburg Road fences. |
+| Status | proposed (shard sources-b; not yet merged into register/) |
+| Owner decision and date | (filled only from the Decision Log) |
