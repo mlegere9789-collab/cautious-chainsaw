@@ -1,0 +1,11 @@
+{
+ "probed": "2026-10-19",
+ "gpu": "NVIDIA RTX PRO 1000 Blackwell Generation Laptop GPU",
+ "vram_mib": 8151,
+ "driver": "595.95",
+ "cpu": "Intel Core Ultra 7 265H (16 cores / 16 threads)",
+ "ram_gb": 31.4,
+ "disk_c_free_gb": 244,
+ "os": "Windows 11 Pro 10.0.26200",
+ "notes": "Laptop GPU: thermal/power guard required (PDF D.6.3); nvidia-smi reports power limit N/A. 8 GB VRAM rules out 24 GB-class 3DGS training and bounds a UE5 film path."
+}

@@ -28,35 +28,7 @@ from t0build import mechanism as M  # noqa: E402
 from t0build.util import REPO, load_json, rmtree_safe  # noqa: E402
 
 STAGE_DEFAULT = os.path.join('tmp', 'b1863', 'group', 'stage')
-TILE_MAX = 600          # entries of /tiles1863/ in the release cache: about 24 MB at the 40 KB average tile (journey budget in BASE1863-README.md section 8)
-
-SW_EDITS = [
-    # (find, replace): every find must occur exactly once in tools/t0/mechanism/sw.js.tmpl
-    (" * ok, basic responses of hashed /assets/* files (cache-first), purges",
-     " * ok, basic responses of hashed /assets/* files and of the versioned /tiles1863/* tiles (cache-first), purges"),
-    ("const CACHE = 'gbg-r0-{{RID}}';\n",
-     "const CACHE = 'gbg-r0-{{RID}}';\n"
-     "/* BASE1863: the reconstruction tiles /tiles1863/<version>/... (immutable names) are cached cache-first in the same release cache, at most TILE_MAX entries, oldest dropped first;\n"
-     " * the asset entries are never evicted by it.  Nothing else changed in this worker. */\n"
-     "const TILES = '/tiles1863/', TILE_MAX = %d;\n"
-     "async function putTile(c, r, res) { await c.put(r, res); const ks = (await c.keys()).filter(function (k) { return new URL(k.url).pathname.indexOf(TILES) === 0; });\n"
-     "  if (ks.length > TILE_MAX) await Promise.all(ks.slice(0, ks.length - TILE_MAX).map(function (k) { return c.delete(k); })); }\n" % TILE_MAX),
-    ("  const u = new URL(r.url); if (u.origin !== self.location.origin || u.pathname.indexOf('/assets/') !== 0) return;\n",
-     "  const u = new URL(r.url); if (u.origin !== self.location.origin) return;\n"
-     "  const tile = u.pathname.indexOf(TILES) === 0; if (!tile && u.pathname.indexOf('/assets/') !== 0) return;\n"),
-    ("const res = await fetch(r); if (res.ok && res.status === 200 && res.type === 'basic') e.waitUntil(c.put(r, res.clone())); return res; })());",
-     "let res; try { res = await fetch(r); } catch (err) { if (tile) return Response.error(); throw err; } "
-     "if (res.ok && res.status === 200 && res.type === 'basic') e.waitUntil(tile ? putTile(c, r, res.clone()) : c.put(r, res.clone())); return res; })());"),
-]
-
-
-def sw_with_tiles(text):
-    for find, repl in SW_EDITS:
-        n = text.count(find)
-        if n != 1:
-            raise B.BuildError('BASE1863 service-worker edit anchor found %d times (expected 1): %r' % (n, find[:70]))
-        text = text.replace(find, repl)
-    return text
+from t0build.swtiles import SW_EDITS, TILE_MAX, sw_with_tiles  # noqa: E402,F401  (moved to tools/t0/t0build/swtiles.py when R1d registered the service-worker edit)
 
 
 def link_tree(src, dst):

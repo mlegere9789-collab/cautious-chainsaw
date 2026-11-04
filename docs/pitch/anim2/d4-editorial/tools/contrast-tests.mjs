@@ -8,7 +8,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { contrast, deltaE, simulate, mix, over, luminance } from './colour.mjs';
-import { DISPATCH_TOKENS, DP_VARIANTS, DA_SET, DA_VARIANTS, fadeFill, fadeInk, fadeT } from '../studio/src/skins/editorial.spec.mjs';
+import { DISPATCH_TOKENS, DP_VARIANTS, DA_SET, DA_VARIANTS, fadeFill, ageInk, fadeT } from '../studio/src/skins/editorial.spec.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const rows = (...sets) => { const P = {}; for (const r of DISPATCH_TOKENS) P[r[0]] = r[1]; P['text.dy'] = 0.6; for (const s of sets) Object.assign(P, s || {}); return P; };
@@ -26,9 +26,11 @@ export function runContrastTests() {
     T('glyph on fill', `${id}: white glyph on Confederate, fresh`, contrast(P['color.glyph'], P['color.confederate']), 4.5);
     T('glyph on fill', `${id}: dark glyph on contested amber`, contrast(P['color.unknownInk'], P['color.unknown']), 4.5);
     // every one of the seven age buckets: the ink of the glyph, the pips and the count is the better of white and the dark ink, and it must read as text (4.5:1) on the aged fill
-    for (const [nm, hex] of [['Union', P['color.union']], ['Confederate', P['color.confederate']]]) {
-      let w = Infinity; let wb = 0; for (let k = 0; k <= 6; k++) { const bk = k / 6; const f = fadeFill(P, hex, bk); const v = contrast(fadeInk(P, hex, bk), over(fadeInk(P, hex, bk), 1 - P['fade.glyph'] * fadeT(bk), f) === f ? f : f); if (v < w) { w = v; wb = bk; } }
+    for (const [nm, hex, sd] of [['Union', P['color.union'], 'union'], ['Confederate', P['color.confederate'], 'confederate']]) {
+      let w = Infinity; let wb = 0; for (let k = 0; k <= 6; k++) { const bk = k / 6; const f = fadeFill(P, hex, bk); const v = contrast(ageInk(P, sd, bk), f); if (v < w) { w = v; wb = bk; } }
       T('glyph on fill', `${id}: the glyph and the count on ${nm}, worst of the seven ages (age ${wb.toFixed(2)})`, w, 4.5);
+      // the outline of an aged mark is in the side's own ink: it must stand out from its own pale fill (ink and plate agree: the plate is the hue, the outline is the same hue, deep) and, with the dark hairline outside it, from the ground
+      T('age', `${id}: the outline of an aged ${nm} mark against its own pale fill`, contrast(ageInk(P, sd, 1), faded(hex)), 3, ':1', 'the plate keeps an edge: the outline in the side ink is at least 3:1 against the pale fill');
     }
     T('text', `${id}: ink on its halo`, contrast(P['text.ink'], over(P['text.halo'], P['text.haloAlpha'], ground === 'paper' ? '#c9bda1' : '#535959')), 7);
     // the ring against the ground: the better of the light ring and the dark hairline, on the worst band

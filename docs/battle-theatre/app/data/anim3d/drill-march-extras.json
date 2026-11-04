@@ -1,0 +1,304 @@
+{
+ "schema": "anim3d-drill-items-1",
+ "note": "Items the drill/*.json files do not carry (march rates). Verified against the OCR text by tests/anim3d.test.mjs; the brief said \"90 steps/min of 28 in. quick time\": the manuals print 90/min for COMMON time and 110/min for QUICK time.",
+ "items": [
+  {
+   "id": "ANIM-H94",
+   "manual": "HARDEE-1861b",
+   "file": "riflelightinfant121hard_djvu.txt",
+   "ref": "S.S. para 94 (Principles of the direct step)",
+   "paraphrase": "Common time: the step is 28 inches heel to heel at 90 a minute.",
+   "verbatim": "at the rate of ninety in a minute",
+   "printed_page": 24,
+   "page_confidence": "medium",
+   "value": {
+    "stepsPerMin": 90,
+    "stepIn": 28,
+    "gait": "common_time"
+   },
+   "ocr_line": 867,
+   "ocr_occurrences": 1,
+   "tier": "documented"
+  },
+  {
+   "id": "ANIM-H94b",
+   "manual": "HARDEE-1861b",
+   "file": "riflelightinfant121hard_djvu.txt",
+   "ref": "S.S. para 94",
+   "paraphrase": "Length of the step in common time: 28 inches, reckoning from heel to heel.",
+   "verbatim": "twenty eight inches, reckoning from heel to heel",
+   "printed_page": 24,
+   "page_confidence": "medium",
+   "value": {
+    "stepIn": 28
+   },
+   "ocr_line": 866,
+   "ocr_occurrences": 1,
+   "tier": "documented"
+  },
+  {
+   "id": "ANIM-H102",
+   "manual": "HARDEE-1861b",
+   "file": "riflelightinfant121hard_djvu.txt",
+   "ref": "S.S. para 102",
+   "paraphrase": "Quick time: the principles are those of common time, but the swiftness is 110 steps a minute.",
+   "verbatim": "rate of one hundred and ten steps per minute",
+   "printed_page": 25,
+   "page_confidence": "medium",
+   "value": {
+    "stepsPerMin": 110,
+    "stepIn": 28,
+    "gait": "quick_time"
+   },
+   "ocr_line": 928,
+   "ocr_occurrences": 1,
+   "tier": "documented"
+  },
+  {
+   "id": "ANIM-H104",
+   "manual": "HARDEE-1861b",
+   "file": "riflelightinfant121hard_djvu.txt",
+   "ref": "S.S. para 104 (Principles of the double quick step)",
+   "paraphrase": "Double quick: the step is 33 inches at 165 steps a minute.",
+   "verbatim": "sixty-five steps per minute",
+   "printed_page": 26,
+   "page_confidence": "medium",
+   "value": {
+    "stepsPerMin": 165,
+    "stepIn": 33,
+    "gait": "double_quick"
+   },
+   "ocr_line": 947,
+   "ocr_occurrences": 2,
+   "tier": "documented"
+  },
+  {
+   "id": "ANIM-H114",
+   "manual": "HARDEE-1861b",
+   "file": "riflelightinfant121hard_djvu.txt",
+   "ref": "S.S. para 114",
+   "paraphrase": "Under urgent circumstances the double-quick cadence may be raised to 180 a minute; 4,000 yards would be covered in about 25 minutes.",
+   "verbatim": "may be increased to one hundred and eighty per minute",
+   "printed_page": 28,
+   "page_confidence": "medium",
+   "value": {
+    "stepsPerMin": 180,
+    "gait": "double_quick_urgent",
+    "yards": 4000,
+    "minutes": 25
+   },
+   "ocr_line": 1012,
+   "ocr_occurrences": 1,
+   "tier": "documented"
+  },
+  {
+   "id": "ANIM-H116",
+   "manual": "HARDEE-1861b",
+   "file": "riflelightinfant121hard_djvu.txt",
+   "ref": "S.S. para 116 (the run)",
+   "paraphrase": "The run follows the principles of the double quick, the only difference being a greater degree of swiftness (no rate or step length printed).",
+   "verbatim": "consisting in a greater degree of",
+   "printed_page": 28,
+   "page_confidence": "medium",
+   "value": {
+    "gait": "run",
+    "rate": null
+   },
+   "ocr_line": 1020,
+   "ocr_occurrences": 1,
+   "tier": "documented"
+  },
+  {
+   "id": "ANIM-H247",
+   "manual": "HARDEE-1861b",
+   "file": "riflelightinfant121hard_djvu.txt",
+   "ref": "S.S. paras 246-248 (To march backwards)",
+   "paraphrase": "Marching backwards: 14 inches heel to heel, always in quick time.",
+   "verbatim": "step off smartly with the left foot fourteen inches to the rear",
+   "printed_page": null,
+   "page_confidence": "unknown",
+   "value": {
+    "stepIn": 14,
+    "gait": "backward"
+   },
+   "ocr_line": 2046,
+   "ocr_occurrences": 1,
+   "tier": "documented"
+  },
+  {
+   "id": "ANIM-H306",
+   "manual": "HARDEE-1861b",
+   "file": "riflelightinfant121hard_djvu.txt",
+   "ref": "S.C. para 306 (Article Third, to march the column in route)",
+   "paraphrase": "The swiftness of the route step is 110 steps a minute, habitually maintained in columns in route when roads and ground permit.",
+   "verbatim": "swiftness of the route step will be one hundred and ten steps",
+   "printed_page": 154,
+   "page_confidence": "medium",
+   "value": {
+    "stepsPerMin": 110,
+    "gait": "route_step"
+   },
+   "ocr_line": 6039,
+   "ocr_occurrences": 1,
+   "tier": "documented"
+  },
+  {
+   "id": "ANIM-H312",
+   "manual": "HARDEE-1861b",
+   "file": "riflelightinfant121hard_djvu.txt",
+   "ref": "S.S. Part III para 312 (Alignments, man by man)",
+   "paraphrase": "A recruit aligning himself marches two paces, shortens the last, stops about six inches behind the new alignment and then moves up to it by steps of two or three inches, touching the elbow of the next man lightly.",
+   "verbatim": "move up steadily by steps of two or three inches",
+   "printed_page": 68,
+   "page_confidence": "medium",
+   "value": {
+    "stepIn": [
+     2,
+     3
+    ],
+    "gait": "dress_step_up"
+   },
+   "ocr_line": 2529,
+   "ocr_occurrences": 1,
+   "tier": "documented"
+  },
+  {
+   "id": "ANIM-H317",
+   "manual": "HARDEE-1861b",
+   "file": "riflelightinfant121hard_djvu.txt",
+   "ref": "S.S. Part III para 317 (Right (or left) Dress)",
+   "paraphrase": "At the command Right (or left) Dress the rank, except the two men in advance as a basis of alignment, moves up in quick time to align itself (heads and eyes turned toward the basis).",
+   "verbatim": "except the two men placed in advance as a basis of alignment",
+   "printed_page": 69,
+   "page_confidence": "medium",
+   "value": {
+    "gait": "dress"
+   },
+   "ocr_line": 2559,
+   "ocr_occurrences": 1,
+   "tier": "documented"
+  },
+  {
+   "id": "ANIM-H380",
+   "manual": "HARDEE-1861b",
+   "file": "riflelightinfant121hard_djvu.txt",
+   "ref": "S.S. Part III para 380 (wheels from a halt)",
+   "paraphrase": "In a wheel from a halt the pivot man only turns in his place, without advancing or receding.",
+   "verbatim": "the pivot-man only turns in his place",
+   "printed_page": 81,
+   "page_confidence": "medium",
+   "value": {
+    "stepIn": 0,
+    "gait": "mark_time"
+   },
+   "ocr_line": 3015,
+   "ocr_occurrences": 1,
+   "tier": "documented"
+  },
+  {
+   "id": "ANIM-H381",
+   "manual": "HARDEE-1861b",
+   "file": "riflelightinfant121hard_djvu.txt",
+   "ref": "S.S. Part III para 381 (wheels in marching)",
+   "paraphrase": "In a wheel in marching the pivot takes steps of nine inches in quick time or eleven inches in double quick time, so as to clear the wheeling point.",
+   "verbatim": "the pivot takes steps of nine or eleven inches",
+   "printed_page": 81,
+   "page_confidence": "medium",
+   "value": {
+    "stepInQuick": 9,
+    "stepInDoubleQuick": 11,
+    "gait": "wheel_pivot"
+   },
+   "ocr_line": 3018,
+   "ocr_occurrences": 1,
+   "tier": "documented"
+  },
+  {
+   "id": "ANIM-H382",
+   "manual": "HARDEE-1861b",
+   "file": "riflelightinfant121hard_djvu.txt",
+   "ref": "S.S. Part III para 382 (wheeling flank)",
+   "paraphrase": "The man on the wheeling flank takes the full step, 28 inches in quick time or 33 inches in double quick time.",
+   "verbatim": "will take the full step of twenty-eight inches",
+   "printed_page": 81,
+   "page_confidence": "medium",
+   "value": {
+    "stepInQuick": 28,
+    "stepInDoubleQuick": 33,
+    "gait": "wheel_flank"
+   },
+   "ocr_line": 3025,
+   "ocr_occurrences": 1,
+   "tier": "documented"
+  },
+  {
+   "id": "ANIM-H384",
+   "manual": "HARDEE-1861b",
+   "file": "riflelightinfant121hard_djvu.txt",
+   "ref": "S.S. Part III para 384 (right wheel from a halt)",
+   "paraphrase": "At the second command of a right wheel the rank steps off with the left foot, heads turned a little toward the marching flank, eyes on the line of the men to their left; the pivot man merely marks time, turning his body gradually.",
+   "verbatim": "the pivot-man will merely mark time in gradually turning his body",
+   "printed_page": 81,
+   "page_confidence": "medium",
+   "value": {
+    "gait": "mark_time"
+   },
+   "ocr_line": 3040,
+   "ocr_occurrences": 1,
+   "tier": "documented"
+  },
+  {
+   "id": "ANIM-C101",
+   "manual": "CASEY-1862-1",
+   "file": "infantrytacticsf01brig_djvu.txt",
+   "ref": "S.S. para 101",
+   "paraphrase": "Casey: the length of the direct step in common time is 28 inches at 90 a minute (same as Hardee).",
+   "verbatim": "rate of ninety in a minute",
+   "printed_page": 29,
+   "page_confidence": "medium",
+   "value": {
+    "stepsPerMin": 90,
+    "stepIn": 28,
+    "gait": "common_time"
+   },
+   "ocr_line": 1142,
+   "ocr_occurrences": 2,
+   "tier": "documented"
+  },
+  {
+   "id": "ANIM-C109",
+   "manual": "CASEY-1862-1",
+   "file": "infantrytacticsf01brig_djvu.txt",
+   "ref": "S.S. para 109",
+   "paraphrase": "Casey: quick time is 110 steps a minute.",
+   "verbatim": "at the rate of one hundred and ten steps",
+   "printed_page": 32,
+   "page_confidence": "medium",
+   "value": {
+    "stepsPerMin": 110,
+    "gait": "quick_time"
+   },
+   "ocr_line": 1217,
+   "ocr_occurrences": 1,
+   "tier": "documented"
+  },
+  {
+   "id": "ANIM-C111",
+   "manual": "CASEY-1862-1",
+   "file": "infantrytacticsf01brig_djvu.txt",
+   "ref": "S.S. para 111",
+   "paraphrase": "Casey: the double-quick step is 33 inches at 165 steps a minute.",
+   "verbatim": "of one hundred and sixty-five steps per minute",
+   "printed_page": 32,
+   "page_confidence": "medium",
+   "value": {
+    "stepsPerMin": 165,
+    "stepIn": 33,
+    "gait": "double_quick"
+   },
+   "ocr_line": 1229,
+   "ocr_occurrences": 2,
+   "tier": "documented"
+  }
+ ]
+}

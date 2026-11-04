@@ -243,7 +243,7 @@ export function createPopupHost(engine, env = {}) {
   // ---- viewport / rail inset ----------------------------------------------------------------------------------------------------------------------------------
   function insetTarget() {
     if (!S.rail) return { right: 0, bottom: 0 };
-    if (isPhone()) { const H = S.size.h; const dock = chromeNow().dock || 0; const d = S.sheet === 'peek' ? tok('popup.sheet.peekPx') : S.sheet === 'full' ? H * 0.7 : H * tok('popup.sheet.halfFrac'); return { right: 0, bottom: Math.round(Math.min(d, H * 0.72) + dock) }; }
+    if (isPhone()) { const H = S.size.h; const dock = chromeNow().dock || 0; const d = S.sheet === 'peek' ? (S.peekPx || tok('popup.sheet.peekPx')) : S.sheet === 'full' ? H * 0.7 : H * tok('popup.sheet.halfFrac'); return { right: 0, bottom: Math.round(Math.min(d, H * 0.72) + dock) }; }
     return { right: Math.min(tok('popup.rail.widthPx'), Math.round(S.size.w * 0.5)), bottom: 0 };
   }
   function applyViewport(force = false) {
@@ -291,6 +291,8 @@ export function createPopupHost(engine, env = {}) {
     },
     closeRail() { if (!S.rail) return false; const r = S.rail; S.rail = null; const c = S.cards.get(r.id); if (c && c.spec.onRailClose) c.spec.onRailClose(makeApi(S.frame, S.now, 0, c.def)); return true; },
     setSheet(d) { S.sheet = d; },
+    /** ROUND 2: the phone's peek is as tall as what it shows (kicker, name, first block), measured by the layer, never a fixed height that cuts a line */
+    setPeekPx(px) { const v = px > 0 ? Math.round(px) : 0; if (v !== (S.peekPx || 0)) S.peekPx = v; },
     /** show a chronicle row again as a pinned card (the recall path) */
     reopen(row) {
       if (!row.make || !S.frame) return null; const def = row.popup ? kernel.popups.get(row.popup) : null; const card = row.make(makeApi(S.frame, S.now, 0, def)); if (!card) return null;
@@ -377,6 +379,11 @@ export function createPopupHost(engine, env = {}) {
       const group = floating.filter((c) => c.spec.tier === tier && c.phase !== 'out' && !c.pinned && Math.max(c.allowed, c.forceLevel) < 2).sort((a, b) => rank(b) - rank(a));
       group.slice(tier === 'A' ? tok('popup.queue.aliveA') : tok('popup.queue.aliveB')).forEach((c) => { c.forceLevel = 2; c.demoted = true; });
     }
+    {      // ROUND 2: one free-standing card at a time (the owner's rule, "no stacked cards over the field"): the best-ranked card keeps its form, the others wait as chips in the Chronicle strip (their rows stay in the Chronicle)
+      const stack = floating.filter((c) => c.phase !== 'out' && !c.pinned && Math.max(c.allowed, c.forceLevel) < 2).sort((a, b) => rank(b) - rank(a));
+      const pinnedFloating = floating.filter((c) => c.phase !== 'out' && c.pinned && Math.max(c.allowed, c.forceLevel) < 2).length;
+      stack.slice(Math.max(0, tok('popup.queue.maxFloating') - pinnedFloating)).forEach((c) => { c.forceLevel = 2; c.demoted = true; });
+    }
     const minShow = tok('popup.queue.chipMinShowMs');   // a chip is never pushed out before it has been on show this long (at 16x a new one arrives every half second)
     floating.filter((c) => c.phase !== 'out' && !c.pinned && (Math.max(c.allowed, c.forceLevel) >= 2 || c.lane)).sort((a, b) => b.seq - a.seq).slice(tok('popup.queue.aliveChips')).filter((c) => nowMs - c.born >= minShow).forEach((c) => startExit(c));
     const chipMax = tok('popup.dwell.chipMaxMs'); for (const c of floating) if (c.demoted && c.holdLeft != null && c.holdLeft > chipMax) c.holdLeft = chipMax;
@@ -434,7 +441,9 @@ export function createPopupHost(engine, env = {}) {
   function placeFloating(c, P) {
     const { occ, gap, hitsRaw, nearRaw, now, M, m } = P; const taken = P.othersOf(c); const spec = c.spec; const forms = spec.forms; if (!forms.length) return;
     if (c.phase === 'out') { if (c.rect && !c.lane && (hitsRaw(c.rect.r) || P.outOrChrome(c.rect.r))) { c.opacity = 0; c.done = true; P.reserve.delete(c.id); } return; }
-    syncSize(c, P); const level = Math.max(c.allowed, c.forceLevel); let minFi = forms.findIndex((f) => LEVEL[f.level] >= level); if (minFi < 0) minFi = forms.length - 1;
+    syncSize(c, P); const level = Math.max(c.allowed, c.forceLevel);
+    if (c.demoted && c.forceLevel >= 2 && !forms.some((f) => f.lane)) { c.hidden = true; c.rect = null; c.pending = null; P.reserve.delete(c.id); return; }      // ROUND 2: a card with no chip form that is not the one card on the ground waits unseen (its row stays in the Chronicle)
+    let minFi = forms.findIndex((f) => LEVEL[f.level] >= level); if (minFi < 0) minFi = forms.length - 1;
     const toLane = (fi) => { if (!c.lane) { c.lane = true; c.rect = null; c.pending = null; c.leaderT0 = now; c.pulseT0 = now; S.stats.laneFalls++; } c.fi = fi; P.reserve.delete(c.id); };
     const chipFi = () => { const i = forms.findIndex((f) => f.lane); return i >= 0 ? i : -1; };
     // no free-standing cards on the phone, and a subject-less card has nothing to stand next to: the chip in the Chronicle strip (cards that bring their own slots are placed there instead)
@@ -534,18 +543,18 @@ export function createPopupHost(engine, env = {}) {
   // ---- outputs ---------------------------------------------------------------------------------------------------------------------------------------------------------
   function buildOut(frame, nowMs, M, tileByKey, overlap) {
     const reduced = M.reduced; const leaders = []; const rings = []; const places = []; const arrows = []; const stripChips = []; const cards = []; const m = mapSize(); const T = S.T;
-    const leaderMs = tok('popup.motion.leaderMs'); const pulseMs = tok('popup.motion.pulseMs');
+    const LEADER_MAX = 300; const leaderMs = tok('popup.motion.leaderMs'); const pulseMs = tok('popup.motion.pulseMs');
     const fxFor = (subj, tone, leaderT0, pulseT0, anchorRect, from, alpha) => {
       const p = leaderProgress(nowMs, leaderT0, leaderMs, reduced); const pu = pulse(nowMs, pulseT0, pulseMs, reduced);
       subj.tiles.forEach((st, i) => {
         const r = tileRectOf(st.t, frame.view); const on = r.x1 > 0 && r.x0 < m.w && r.y1 > 0 && r.y0 < m.h;
-        if (on) rings.push({ rect: r, tone, strength: i === 0 ? 1 : 0.5, pulse: i === 0 ? pu : null, alpha, via: st.via, dashed: st.via === 'parent' });
+        if (on) rings.push({ rect: r, selected: !!st.t.selected, pip: { x: (st.t.ix ?? (r.x0 + r.x1) / 2) + frame.view.dx, y: (st.t.iy ?? (r.y0 + r.y1) / 2) + frame.view.dy }, tone, strength: i === 0 ? 1 : 0.5, pulse: i === 0 ? pu : null, alpha, via: st.via, dashed: st.via === 'parent' });      // ROUND 2: the ring stands round the PIP (the place), never round the words
         else if (i === 0) { const cx = clamp((r.x0 + r.x1) / 2, 14, m.w - 14); const cy = clamp((r.y0 + r.y1) / 2, 14, m.h - 14); arrows.push({ x: cx, y: cy, ang: Math.atan2((r.y0 + r.y1) / 2 - cy, (r.x0 + r.x1) / 2 - cx), tone, alpha }); }
       });
       if (subj.point) { const q = subj.point; if (q.x > 0 && q.x < m.w && q.y > 0 && q.y < m.h) places.push({ x: q.x, y: q.y, r: 20, tone, alpha, label: subj.placeLL && subj.placeLL.label }); else { const cx = clamp(q.x, 14, m.w - 14); const cy = clamp(q.y, 14, m.h - 14); arrows.push({ x: cx, y: cy, ang: Math.atan2(q.y - cy, q.x - cx), tone, alpha }); } }
       if (from && anchorRect && !(S.rail && isPhone())) {      // POLISH 1: a card whose reading is in the bottom sheet draws no leader across the map
         const tx = (anchorRect.x0 + anchorRect.x1) / 2; const ty = (anchorRect.y0 + anchorRect.y1) / 2;
-        if (tx > 0 && tx < m.w && ty > 0 && ty < m.h) { const e = subj.tiles.length ? clampPt(anchorRect, from.x, from.y) : [tx, ty]; leaders.push({ x0: from.x, y0: from.y, x1: e[0], y1: e[1], tone, p, alpha, onTile: subj.tiles.length > 0 }); }
+        if (tx > 0 && tx < m.w && ty > 0 && ty < m.h) { const e = subj.tiles.length ? clampPt(anchorRect, from.x, from.y) : [tx, ty]; if (Math.hypot(e[0] - from.x, e[1] - from.y) <= LEADER_MAX) leaders.push({ x0: from.x, y0: from.y, x1: e[0], y1: e[1], tone, p, alpha, onTile: subj.tiles.length > 0 }); }
       }
     };
     let newestLane = null; for (const c of S.cards.values()) if (c.lane && c.phase !== 'out' && c.spec.kind === 'card' && (!newestLane || c.seq > newestLane.seq)) newestLane = c;

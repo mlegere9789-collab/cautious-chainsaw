@@ -1,0 +1,433 @@
+{
+ "machine": {
+  "adapter": {
+   "vendor": "nvidia",
+   "arch": "blackwell",
+   "device": "",
+   "desc": ""
+  },
+  "api": "webgpu",
+  "canvas": [
+   1920,
+   1080
+  ],
+  "dpr": 1,
+  "gpuMBaccounted": 119,
+  "soldiersOnField": 165000,
+  "guns": 360,
+  "browser": "155.0.8059.82"
+ },
+ "paced": [
+  {
+   "label": "whole field, 165,000 in view",
+   "frames": 360,
+   "p50": 16.7,
+   "p95": 16.8,
+   "p99": 16.8,
+   "max": 16.9,
+   "cpuP50": 1,
+   "cpuP95": 1.4,
+   "gpuP50": 1.1,
+   "gpuP95": 1.5,
+   "phases": {
+    "light": 0.2,
+    "stage": 0.6,
+    "upload": 0.2,
+    "structs": 0.2,
+    "fx": 0.1,
+    "render": 0.9,
+    "overlay": 0.3,
+    "ui": 0.1
+   },
+   "long": [],
+   "soldiers": 165000,
+   "lod": {
+    "nearFoot": 0,
+    "midFoot": 0,
+    "farFoot": 153000,
+    "tris": 1626144
+   }
+  },
+  {
+   "label": "low over the lines (fly-through)",
+   "frames": 362,
+   "p50": 16.7,
+   "p95": 16.8,
+   "p99": 16.8,
+   "max": 16.8,
+   "cpuP50": 1.2,
+   "cpuP95": 1.5,
+   "gpuP50": 1.5,
+   "gpuP95": 2.4,
+   "phases": {
+    "light": 0.2,
+    "stage": 0.6,
+    "upload": 0.2,
+    "structs": 0.2,
+    "fx": 0.1,
+    "render": 1.4,
+    "overlay": 0.7,
+    "ui": 0.2
+   },
+   "long": [],
+   "soldiers": 165000,
+   "lod": {
+    "nearFoot": 0,
+    "midFoot": 0,
+    "farFoot": 153000,
+    "tris": 1850216
+   }
+  },
+  {
+   "label": "close to a firing line, smoke and guns",
+   "frames": 360,
+   "p50": 16.7,
+   "p95": 16.8,
+   "p99": 16.8,
+   "max": 17.1,
+   "cpuP50": 1.3,
+   "cpuP95": 1.6,
+   "gpuP50": 2.4,
+   "gpuP95": 2.4,
+   "phases": {
+    "light": 0.2,
+    "stage": 0.8,
+    "upload": 0.3,
+    "structs": 0.3,
+    "fx": 0.1,
+    "render": 1.6,
+    "overlay": 0.8,
+    "ui": 0.1
+   },
+   "long": [],
+   "soldiers": 165000,
+   "lod": {
+    "nearFoot": 16,
+    "midFoot": 1324,
+    "farFoot": 153000,
+    "tris": 3345504
+   }
+  },
+  {
+   "label": "playing at 60x with units on the move",
+   "frames": 360,
+   "p50": 16.7,
+   "p95": 16.8,
+   "p99": 16.8,
+   "max": 16.8,
+   "cpuP50": 1.1,
+   "cpuP95": 1.5,
+   "gpuP50": 1,
+   "gpuP95": 1.1,
+   "phases": {
+    "light": 0.2,
+    "stage": 0.9,
+    "upload": 1.1,
+    "structs": 1.1,
+    "fx": 2.2,
+    "render": 0.8,
+    "overlay": 0.6,
+    "ui": 0.4
+   },
+   "long": [],
+   "soldiers": 137511,
+   "lod": {
+    "nearFoot": 0,
+    "midFoot": 0,
+    "farFoot": 153000,
+    "tris": 1574304
+   }
+  },
+  {
+   "label": "dragging the scrubber",
+   "frames": 361,
+   "p50": 16.7,
+   "p95": 16.8,
+   "p99": 16.8,
+   "max": 16.8,
+   "cpuP50": 1,
+   "cpuP95": 1.5,
+   "gpuP50": 1,
+   "gpuP95": 1.1,
+   "phases": {
+    "light": 0.2,
+    "stage": 0.7,
+    "upload": 0.8,
+    "structs": 0.8,
+    "fx": 0.1,
+    "render": 0.6,
+    "overlay": 0.4,
+    "ui": 0.3
+   },
+   "long": [],
+   "soldiers": 39030,
+   "lod": {
+    "nearFoot": 0,
+    "midFoot": 0,
+    "farFoot": 153000,
+    "tris": 1574304
+   }
+  }
+ ],
+ "uncapped": [
+  {
+   "label": "whole field, 165,000 in view",
+   "frames": 607,
+   "p50": 1.9,
+   "p95": 19.3,
+   "p99": 19.9,
+   "max": 20.5,
+   "cpuP50": 0.7,
+   "cpuP95": 1.1,
+   "gpuP50": 1.1,
+   "gpuP95": 1.7,
+   "phases": {
+    "light": 0.2,
+    "stage": 0.5,
+    "upload": 0.2,
+    "structs": 0.2,
+    "fx": 0.1,
+    "render": 0.9,
+    "overlay": 0.4,
+    "ui": 0.1
+   },
+   "long": [],
+   "soldiers": 165000,
+   "lod": {
+    "nearFoot": 0,
+    "midFoot": 0,
+    "farFoot": 153000,
+    "tris": 1626144
+   }
+  },
+  {
+   "label": "low over the lines (fly-through)",
+   "frames": 593,
+   "p50": 3.7,
+   "p95": 19.6,
+   "p99": 20,
+   "max": 20.4,
+   "cpuP50": 0.9,
+   "cpuP95": 1.4,
+   "gpuP50": 1.5,
+   "gpuP95": 2.9,
+   "phases": {
+    "light": 0.2,
+    "stage": 0.5,
+    "upload": 0.3,
+    "structs": 0.2,
+    "fx": 0.1,
+    "render": 1.6,
+    "overlay": 0.8,
+    "ui": 0.1
+   },
+   "long": [],
+   "soldiers": 165000,
+   "lod": {
+    "nearFoot": 0,
+    "midFoot": 0,
+    "farFoot": 153000,
+    "tris": 1833712
+   }
+  },
+  {
+   "label": "close to a firing line, smoke and guns",
+   "frames": 594,
+   "p50": 17.6,
+   "p95": 19.5,
+   "p99": 20,
+   "max": 20.1,
+   "cpuP50": 0.9,
+   "cpuP95": 1.2,
+   "gpuP50": 2.7,
+   "gpuP95": 2.9,
+   "phases": {
+    "light": 0.2,
+    "stage": 0.7,
+    "upload": 0.3,
+    "structs": 0.2,
+    "fx": 0.2,
+    "render": 1.4,
+    "overlay": 0.8,
+    "ui": 0.1
+   },
+   "long": [],
+   "soldiers": 165000,
+   "lod": {
+    "nearFoot": 16,
+    "midFoot": 1322,
+    "farFoot": 153000,
+    "tris": 3343200
+   }
+  },
+  {
+   "label": "playing at 60x with units on the move",
+   "frames": 603,
+   "p50": 3.1,
+   "p95": 19.2,
+   "p99": 19.8,
+   "max": 20.4,
+   "cpuP50": 0.8,
+   "cpuP95": 1.2,
+   "gpuP50": 1,
+   "gpuP95": 1.8,
+   "phases": {
+    "light": 0.2,
+    "stage": 0.6,
+    "upload": 1,
+    "structs": 0.9,
+    "fx": 2.8,
+    "render": 0.7,
+    "overlay": 0.7,
+    "ui": 0.3
+   },
+   "long": [],
+   "soldiers": 137511,
+   "lod": {
+    "nearFoot": 0,
+    "midFoot": 0,
+    "farFoot": 153000,
+    "tris": 1574304
+   }
+  },
+  {
+   "label": "dragging the scrubber",
+   "frames": 597,
+   "p50": 3.2,
+   "p95": 19.4,
+   "p99": 20.2,
+   "max": 20.8,
+   "cpuP50": 0.7,
+   "cpuP95": 1.2,
+   "gpuP50": 1,
+   "gpuP95": 1.5,
+   "phases": {
+    "light": 0.2,
+    "stage": 0.6,
+    "upload": 0.8,
+    "structs": 0.8,
+    "fx": 0.1,
+    "render": 0.7,
+    "overlay": 0.4,
+    "ui": 0.5
+   },
+   "long": [],
+   "soldiers": 6573,
+   "lod": {
+    "nearFoot": 0,
+    "midFoot": 0,
+    "farFoot": 153000,
+    "tris": 1574304
+   }
+  }
+ ],
+ "interactions": {
+  "steps": [
+   [
+    "open Events",
+    114
+   ],
+   [
+    "type in the event search",
+    749
+   ],
+   [
+    "filter a tier",
+    83
+   ],
+   [
+    "pick an event",
+    417
+   ],
+   [
+    "open Views",
+    100
+   ],
+   [
+    "monuments tab",
+    84
+   ],
+   [
+    "search monuments",
+    533
+   ],
+   [
+    "fly to a monument",
+    83
+   ],
+   [
+    "open Sources",
+    100
+   ],
+   [
+    "change a conflict",
+    67
+   ],
+   [
+    "change a weather conflict",
+    50
+   ],
+   [
+    "reset sources",
+    100
+   ],
+   [
+    "open About",
+    99
+   ],
+   [
+    "open Settings",
+    84
+   ],
+   [
+    "move a slider",
+    67
+   ],
+   [
+    "overlay on (all marks)",
+    83
+   ],
+   [
+    "click a unit",
+    565
+   ],
+   [
+    "play, speed up, slow down",
+    666
+   ],
+   [
+    "scrubber seek by click",
+    67
+   ],
+   [
+    "jump events with keys",
+    100
+   ],
+   [
+    "chapter to epilogue and back",
+    134
+   ],
+   [
+    "camera: bookmark, drag, wheel",
+    3966
+   ],
+   [
+    "resize the window",
+    667
+   ]
+  ],
+  "longTasks": [],
+  "maxLongMs": 0,
+  "eventsAbove16ms": 475,
+  "eventP95": 64,
+  "eventMax": 96,
+  "maxInputDelay": 37.5,
+  "maxProcessing": 13.7,
+  "frame": {
+   "p50": 16.7,
+   "p95": 16.8,
+   "p99": 33.4,
+   "max": 166.7
+  }
+ }
+}

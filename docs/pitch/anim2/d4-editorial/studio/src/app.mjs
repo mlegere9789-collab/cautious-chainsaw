@@ -75,14 +75,24 @@ export async function boot() {
   const host = createPopupHost(engine, { popupData, size: { w: rect.width, h: rect.height }, systemReduced: sysReduced, chrome: () => (layer ? layer.chrome() : { rects: [], safe: { top: 0, right: 0, bottom: 0, left: 0 } }), measure: (c, f) => (layer ? layer.measure(c, f) : null), onSelect: (id) => { const t = id ? engine.frame && engine.frame.tiles.find((q) => q.ids[0] === id && q.kind === 'leaf') : null; ui.setSelection(t || null); } });
   layer = createPopupLayer({ root: app, container: popups, engine, host, systemReduced: sysReduced }); mark('popups');
   ui.onPreview = (id) => { host.preview(id); engine.dirty = true; }; if (q.has('tune')) ui.togglePanel('tune');
+  try { if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) engine.tuning.set('scene.hitSlopPx', 15); } catch { /* optional */ }      // a finger: a 15 px mark is a 45 px target (hit area only; the drawn size does not change)
   if (q.has('speed')) engine.transport.setSpeed(+q.get('speed'));
   if (q.get('play') === '1') engine.transport.play();
 
+  // round 2: nothing of the interface lies on the map.  The narration (a tour step, the welcome) is a column and the Tune / Inspect / About panel a column beside the stage, a sheet above the dock on a phone:
+  // the stage (and with it the map's viewport) gives them their room, so no mark is ever under them.
+  const NAR_W = 372; const PANEL_W = 372;
   const updateSafe = () => { const r = app.getBoundingClientRect(); const panel = document.getElementById('panel'); const narrow = r.width < 760;
-    engine.safe = { top: 0, bottom: 0, left: nar && nar.open && !narrow ? nar.width + 24 : 0, right: panel && !panel.classList.contains('hidden') && !narrow ? r.width - panel.getBoundingClientRect().left : 0 }; };
+    const narOpen = !!(nar && nar.open); const panelOpen = !!(panel && !panel.classList.contains('hidden'));
+    app.style.setProperty('--nar-w', (narOpen && !narrow ? NAR_W : 0) + 'px'); app.style.setProperty('--panel-w', (panelOpen && !narrow ? PANEL_W : 0) + 'px');
+    app.style.setProperty('--nar-h', (narOpen && narrow ? Math.ceil(nar.element.getBoundingClientRect().height) : 0) + 'px');
+    engine.safe = { top: 0, bottom: 0, left: 0, right: 0 }; };
   updateSafeRef = updateSafe;
-  let lastStageH = null;
-  const resize = () => { const r = stage.getBoundingClientRect(); const dpr = window.devicePixelRatio || 1; if (lastStageH !== null && Math.abs(r.height - lastStageH) > 0.5 && engine.frame) engine.shiftView(0, (lastStageH - r.height) / 2); lastStageH = r.height;       // the dock grew or shrank: the ground stays where it is on screen
+  let lastStage = null;
+  const resize = () => { const r = stage.getBoundingClientRect(); const dpr = window.devicePixelRatio || 1;
+    if (lastStage && engine.frame && (Math.abs(r.height - lastStage.height) > 0.5 || Math.abs(r.width - lastStage.width) > 0.5 || Math.abs(r.left - lastStage.left) > 0.5)) {              // the interface gave the stage a different size (the dock grew, a column opened): the ground stays where it is on screen
+      const dx = (r.left + r.width / 2) - (lastStage.left + lastStage.width / 2); const dy = (r.top + r.height / 2) - (lastStage.top + lastStage.height / 2); engine.shiftView(-dx, -dy); }
+    lastStage = { left: r.left, top: r.top, width: r.width, height: r.height };
     renderer.resize(r.width, r.height, dpr); fadeCanvas.width = canvas.width; fadeCanvas.height = canvas.height; host.setSize(r.width, r.height); ui.drawMarks(); };
   { const dockEl = document.getElementById('dock'); const setDockH = () => { if (dockEl) app.style.setProperty('--dock-h', Math.ceil(dockEl.getBoundingClientRect().height) + 'px'); }; setDockH(); if (dockEl) new ResizeObserver(() => { setDockH(); }).observe(dockEl); }
   new ResizeObserver(() => { resize(); updateSafe(); }).observe(stage);
@@ -111,8 +121,8 @@ export async function boot() {
     const tour = id === 'view-replay' ? viewReplayTour({ tick: engine.transport.simTau, lat: engine.camera.lat, lng: engine.camera.lng, zoom: engine.camera.zoom }) : kernel.tours.get(id);
     ui.closeMenu(); if (director.running) director.stop('replaced'); host.dismissAll(); updateSafe(); director.start(tour); nar.setPaused(false); return tour;
   }
-  ui.onTour = (id) => startTour(id);
-  const showWelcome = () => nar.welcome({ kicker: 'Battle Studio · prototype', title: 'Gettysburg, animated honestly.', text: `${dataset.provenance.counts.units.toLocaleString('en-US')} real units and ${dataset.provenance.counts.keyframes.toLocaleString('en-US')} hand-placed keyframes, drawn by a renderer that never lets a tile hide another. Watch the 60-second showcase, or press Space and explore. The ground is the real aerial photograph (USGS NAIP, 2022), read from the folder beside this page: nothing is requested from any other site.`,
+  ui.onTour = (id) => startTour(id); ui.onDoc = (id) => host.toggleDoc(id);
+  const showWelcome = () => nar.welcome({ kicker: 'Battle Studio', title: 'Gettysburg, animated honestly.', text: `${dataset.provenance.counts.units.toLocaleString('en-US')} real units and ${dataset.provenance.counts.keyframes.toLocaleString('en-US')} hand-placed keyframes, drawn by a renderer that never lets a tile hide another. Watch the 60-second showcase, or press Space and explore. The ground is a real aerial photograph (USGS NAIP, 2022): modern, not the 1863 landscape.`,
     chips: [{ ev: 'Documented', text: 'identity: order of battle' }, { ev: 'Modelled', text: 'positions and clock' }], actions: [{ label: 'Watch the 60-second showcase', primary: true, run: () => startTour('showcase') }, { label: 'Explore', run: () => { nar.hide(); try { storage && storage.setItem(WELCOME_KEY, '1'); } catch { /* optional */ } } }] });
   let welcomed = false; try { welcomed = !!(storage && storage.getItem(WELCOME_KEY)); } catch { welcomed = false; }
   if (q.get('welcome') !== '0' && !welcomed && !q.has('tour') && !q.has('scene') && !q.has('tick') && q.get('play') !== '1') showWelcome();

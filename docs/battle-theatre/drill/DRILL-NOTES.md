@@ -1,0 +1,74 @@
+# Drill and ordnance extraction: method, findings, what is still open
+
+Scope: PDF B.6.11 (loading drill), B.6.14 (artillery), gap G19 and gap table B.6.14.10.
+**Hardee update:** Hardee's Tactics has since been acquired; see `DRILL-HARDEE-NOTES.md`, `drill_hardee.json` and `drill_compare.json` (Hardee vs Casey, G19 settled for the text). The sections below that say Hardee was not checked or not fetched describe the state before that and are superseded.
+Files here: `drill_infantry.json` (79 items), `drill_artillery.json` (80 items), `ordnance_tables.json` (28 items). Rebuild with `python tools/bt/drill_build.py`, verify with `python tools/bt/drill_check.py` (exit 1 on any failure). Specs live in `tools/bt/drill_data_inf.py`, `drill_data_art.py`, `drill_data_ord.py`; page recovery in `tools/bt/drill_text.py`.
+
+## 1. Method
+
+1. Source texts are the raw archive.org djvu OCR already in `tmp/library/misc/` (Casey vols 1-2, Gibbon, Ordnance Manual) plus **one** extra text fetched under the allowance (see 4). Every file's sha256 is checked against `GOVERNANCE/library/acquired.json`.
+2. Each item has one verbatim OCR phrase (at most 14 words, so under the 15-word quote limit), found by exact match after collapsing whitespace. The checker re-finds the phrase, its line, and the n-th occurrence on every run. Optional `heading_ocr` / `verbatim2` strings are verified the same way. Paraphrases are checked to contain no 15-word run from any of the five OCR texts.
+3. Printed page: the running head ("SCHOOL OF THE SOLDIER - PART II. 43", "44 SCHOOL...", or a head line followed by a bare number) is read from the OCR; garbled numbers are corrected by voting among neighbouring heads. Confidence values: `high` = the head's own number is legible and agrees with its neighbours; `medium` = number garbled but corroborated, or legible but a neighbour disagrees; `inferred` = number unreadable, taken from the sequence; `low` = a head may be missing between head and passage. About 65 heads that the reader cannot see or misreads are listed by hand in `drill_text.EXTRA_HEADS` and a few items carry an explicit `page_override` with the basis line and reason; the checker verifies that each such line contains the stated text.
+4. Tier: all items are `documented` (a primary manual states it) unless marked otherwise. Items marked `inferred (arithmetic)` are sums/products of documented figures (chest totals, battery stocks) and say so.
+5. Printed pages are the manual's own numbers. Casey vol. 1's title page says 1863 (copyright 1862); vol. 2 is 1862; Gibbon's Appendix is separately numbered (pp. 28-43 here); the Ordnance Manual is the 1861 Richmond reprint of the 1850 US text (front matter dated 1847-49).
+
+## 2. OCR problems that affect the result
+
+* Long-s and look-alikes: `Eest` for Rest, `Fiee` for Fire, `Eeadt` for Ready, `Kammee` for Rammer, `icill` for will; digits 3/8 and 7/1/I swap constantly, so table digits are unreliable (`1869` for 1,269; `1X29`; `21` canister shot for 27).
+* Running heads are often garbled (`OU` = 69, `Tl` = 71, `Ill` = 111, `JOY` = 107, `^15` = 115, `3SS` = 388); handled as above.
+* Tables (Ordnance Manual chests, ranges, fixed-ammunition weights, Gibbon appendix canister table) come out column-by-column or row-by-row in the wrong order; some row labels are missing. Chest tables were reconciled by arithmetic (see 3); the fixed-ammunition weight table and canister table could not be reconstructed.
+* No page images were inspected, so every table number is "as the OCR reads" with a stated reading confidence.
+
+## 3. Findings against the PDF
+
+### Memory-only claim: the nine drill commands (B.6.11, "Leads to verify", p. 77)
+**CONFIRMED, exact list and order, for Casey (1862).** School of the Soldier, Part II, paras 163-177, printed pp. 42-46: 1 Load, 2 Handle cartridge, 3 Tear cartridge, 4 Charge cartridge, 5 Draw rammer (3 motions), 6 Ram cartridge, 7 Return rammer (3 motions), 8 Prime (2 motions), 9 Shoulder arms (2 motions). Each has hands, piece position and text in `drill_infantry.json` (INF-L9-01..09). `Load in eight times` (Maynard primer, para 195), `Load in four times` (paras 259-264: times end at charge cartridge / ram cartridge / prime / shoulder arms) and `Load at will` (paras 265-267) are also printed. Confirmed for **Casey only** at the time of writing; Hardee prints the same nine commands (confirmed later, `DRILL-HARDEE-NOTES.md`).
+
+### Other infantry items
+* Firing commands as printed: by squad (direct and oblique), by file, by rank, by company, by wing, by battalion, to the rear, kneeling, lying, skirmishers; fire by file is "most used in war". The firing cycle is Ready (cock) - Aim - Fire - Load; the man re-enters the nine-time loading from para 163.
+* Rate: only "fire at least three rounds in a minute with ease and regularity" (S.C. para 47, p. 110) as a training standard; motions are timed at 1/90 minute except cartridge/rammer/bayonet motions. The PDF's 2-3 rounds a minute is consistent.
+* The forum claim that combat only has eight cycles (ninth step only on the first load) is **not supported** by Casey: the manual has no such statement (INF-FIRE-04 and pdf_claim_checks).
+* Misfire: the **procedure** is printed (no smoke from the tube on uncocking = pick and prime again; ball screw if three cartridges are in a piece; stopped tube after a missed cap = new cap without picking; S.C. paras 82-83). No misfire **rates** are in any of the five texts.
+* Cartridge and buck and ball: the Ordnance Manual describes ball cartridges and ball-and-buckshot cartridges (3 buckshot with the ball; all-buckshot cartridge in 4 tiers of 3 = 12) and a 100-rounds-a-man allowance, 60 in the parks (OCR "10" in the box, read as 40). The count of caps per bundle of cartridges is **unreadable** in the OCR (PDF's "twelve caps to ten cartridges" neither confirmed nor contradicted). No effective-range statement for buck and ball was found. Gibbon gives the new rifled musket charge as sixty grains of musket powder.
+
+### Artillery: where the drill actually is
+**Gibbon's Artillerist's Manual does not contain the detachment drill.** It says the manner of loading "being given in the tactics" and gives only general principles (ART-GB-01). The numbered detachment, commands and positions come from the 1860 Light Artillery Board's *Instruction for Field Artillery* (French, Barry, Hunt; printed 1863; archive.org `cu31924030759330`), School of the Piece, paras 93-131, printed pp. 107-126. Confirmed or settled there:
+* Nine men including the gunner (gunner + Nos. 1-8; No. 8 is the chief of the caisson, 4 yd behind the limber on its left); chief of piece separate. This matches the PDF engine rule (eight at the piece + chief of caisson).
+* Positions unlimbered (para 95): gunner at the end of the trail handspike; No. 1 right and No. 2 left, about 2 ft outside the wheels; Nos. 3 and 4 in line with the knob of the cascable covering them; No. 5 5 yd behind the left wheel; No. 6 at the limber chest; No. 7 beside him; limber end-of-pole 6 yd from the trail handspike (paras 96, 126). Posts limbered (para 118), forming the detachment (119-123), moving by hand, limbering and "Action front/right/left", "Fire to the rear. In battery" (115-128).
+* Commands: Load by detail - Load; (two, three, four) Sponge; (two, three, four) Ram; (two, three) Ready; Fire; Cease firing; undetailed: Load; Commence firing; Cease firing. Duties: No. 1 sponges (eye on the vent) and rams, No. 2 loads (seam clear of the vent), No. 3 thumbs the vent, shifts the trail on the gunner's tap and pricks the cartridge, No. 4 hooks the primer to the lanyard, inserts it and fires; No. 5 carries rounds; No. 6 cuts fuzes; No. 7 assists. The order is Load (sponge, load, ram, point) - Ready (prick, insert tube) - Fire; i.e. the manual points before it primes.
+* Misfire ("Don't advance, the primer has failed"); service with 2 to 8 men; ammunition served from the caisson rear chest by No. 8.
+* Prolonge: "Fix prolonge to fire retiring/advancing", retire/halt, coil, with the section loaded/limbered cases (paras 476-477, 549); "should be generally used when artillery is retiring slowly". Gibbon says the prolonge in the enemy's presence is "now entirely abandoned" (ART-GB-11): a recorded conflict in context (older heavy carriages), not resolved.
+* Recoil: no measured distance is printed; the drill text says the piece is run up to its place "if necessary". Gibbon's only number is a theoretical free-recoil figure for a 12-pdr field gun, 17.4 ft (derived, ignores friction; ART-GB-23).
+* Contradicted / unsupported: "No. 2 also uses the worm staff after firing" (CVBT via the PDF): in the manual the worm only draws an unfired load (ART-FA-97).
+* Rates: Gibbon 30-40 s per round for a 6-pdr, 60 s for a 12-pdr, mean about one shot a minute, two or three a minute when pressed; the manual's planning figure is two solid shot or three canisters a minute "with sufficient deliberation for pointing". The PDF's inferred 20-30 s per round is **faster than anything printed**.
+* Canister: begins at 350 yd (manual), double canister at 150-160 yd in an emergency, case not inside 500 yd (manual); good at 300-600 yd, maximum 400-450 yd (Gibbon). PDF "350-400 yd" is thus partly confirmed (350), partly a band (400-450).
+
+### Ordnance tables (against B.6.14.1/B.6.14.2/B.6.14.10)
+* The Napoleon is "the new 12-pdr gun" (Gibbon) and "the light 12-pounder gun" (Instruction for Field Artillery; "the same ammunition is used for the 12-pounder and light 12-pounder guns"). The word Napoleon is not used for the gun in any of the texts (checked).
+* **Range at 5 degrees: both PDF values are real printed figures.** Gibbon's Appendix table reads 1619 yd (new 12-pdr, 2.5 lb shot); the Instruction for Field Artillery reads 1,680 yd (light 12-pdr, 2.5 lb). They are different manuals, not one mis-copied number. Other 5-degree values in the PDF table are confirmed: 6-pdr 1,523 (Gibbon and Ordnance Manual; the FA OCR reads 1,625, unresolved), 12-pdr howitzer 1,072, 24-pdr howitzer 1,322 (Ordnance Manual), mountain howitzer 1,005 (Ordnance Manual, damaged), shell 1,300 yd and case 1,135 yd at 3 deg 45 min (the FA reads 1,130 for case). The older heavy 12-pdr gun reaches 1,663 yd at 5 degrees (Gibbon, Ordnance Manual).
+* Per-elevation tables are recorded in `ordnance_tables.json` for 6-pdr, 12-pdr, new/light 12-pdr, 12-, 24-, 32-pdr howitzers and the mountain howitzer, with OCR tokens beside readings; **the light-12 3 and 4 degree shot values stay unresolved** (Gibbon `ISO]`/`1822`, FA `1,200`/`1,820`).
+* **Chest contents: the PDF's 32 rounds per Napoleon limber chest is confirmed**: 12 shot + 12 spherical case + 4 shell + 4 canister, total weight 484.1 lb (arithmetic closes). The 12-pdr gun chest also holds 32 (20 shot, 8 case, 4 canister); the 6-pdr chest holds 50 (25 shot, 20 case, 5 canister) - the PDF's "50 per rifle chest" matches the 6-pdr, not a rifle. A caisson carries three chests (limber, middle, rear). The PDF's six-Napoleon stock (288/288/96/96 = 768) equals 24 chests x 32 rounds, i.e. one caisson per gun; the manual's war establishment is two caissons per gun, 1,344 rounds (504/504/168/168), 224 per gun, "campaign allowance" double that (about 400 a piece, 200 with the battery). These are inferred from the documented chest table by arithmetic and flagged so.
+* Fuzes: the Bormann (Belgian) time fuze is "the only kind" used in field artillery in the 1860 manual (graduated to 5.5 s); Gibbon describes the paper fuze with colour-coded rates (black 2, red 3, green 4, yellow 5 s to the inch; the PDF's "about 4 s/inch" example is the green fuze) and the Belgian fuze as the best. Friction primer composition and the 50 per cent primer surplus are printed. No percussion, Schenkl or Hotchkiss specifics (Gibbon discusses percussion fuzes generally but this pass did not extract them).
+* **Not in any of these editions** (re-counted by the checker): 3-inch ordnance rifle, 10-pdr and 20-pdr Parrott, James, Whitworth, Blakely. The Ordnance Manual contains no light 12-pdr at all (its text predates 1857).
+
+Unsettled digits (flagged `unsettled`, not guessed): canister shot count (OCR 21; PDF 27), spherical-case balls (OCR 76; PDF 78) and weight, projectile-only weights (12.25/12.1/12.3/14.8 lb cannot be separated from the scrambled round-weight table; round weights 15.4/14.7/12.2/16.9 lb are derived from the chest weights).
+
+## 4. Fetch allowance
+
+One additional archive.org text was allowed "if Hardee is missing". Gibbon has no detachment drill, so the single fetch was used for the artillery drill manual (`cu31924030759330`, Cornell scan, 1863 printing of the 1860 text, 740,991 bytes, not access-restricted, pre-1929; appended to `acquired.json` as `FIELDART-1863`). Hardee's Tactics was therefore not fetched in that pass; it was downloaded later (HARDEE-1861a/b) and compared in `DRILL-HARDEE-NOTES.md`.
+
+## 5. Open items and what settles them
+
+| Open | Source needed |
+|---|---|
+| G19: Hardee vs Casey differences (loading words, motions, bayonet, firings) | SETTLED for the text: see `drill_compare.json`. (Was: download one Hardee (archive.org: `hardeesrifleligh01hard` 1861, `rifleandlightin03hardgoog` 1855, `riflelightinfant01hard` 1861, `rifleinfantrytac00hard`), diff paras for Load in nine times, Ready/Aim/Fire, fire by file/rank. Casey's preface only says few changes were made from the Hardee-translated original.) |
+| G19: misfire rates | Regimental/ordnance test reports (not in these texts); Casey gives procedure only |
+| G19: buck-and-ball charge and effective range | Ordnance Manual gives construction (3 buckshot + ball) and powder charge tables (garbled); need page image of pp. 243-249 or the 1861 US Ordnance Manual |
+| Caps per bundle (12 per 10 cartridges?) | Page image of Ordnance Manual p. 248 |
+| B.6.14.10: damaged range digits, canister/case counts, 6-pdr 5 deg conflict | Page images (archive.org scans) of Gibbon Appendix pp. 40-42, FA pp. 43-44 and 11-13, Ordnance Manual pp. 359-360 |
+| B.6.14.10: 3-inch ordnance rifle, Parrott, James, Whitworth, Blakely specs, rifle chests, percussion and Schenkl/Hotchkiss fuzes | Ordnance Manual 3rd ed. (US, 1861-62), Instruction for Field Artillery 1864 edition (archive.org `instructionforf00huntgoog`, `instructionforf03deptgoog`) and Ordnance Department reports; not verified to contain them |
+| B.6.14.10: measured recoil | Ordnance Department experiment reports; none in these texts |
+| Confederate crew size and practice | Confederate drill manuals / battery histories; nothing in these texts |
+| Rates achieved at Gettysburg | Battery reports (OR vol. 27); manuals give drill and planning rates only |
+
+All figures here are the Union/regular-army system. Whether a given Gettysburg battery used exactly this drill is a separate question for unit histories.

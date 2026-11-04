@@ -171,7 +171,7 @@ Tests run the real `historian.html` and `historian.js` in a small fake DOM (`tes
 ## 9. Deliberately not in H0 to H2
 
 - No embeddings, no semantic tier, no model stage (`manifest.semantic.enabled` and `manifest.ai.enabled` are `false`).
-- No external text in the shipped artifacts: the Official Records volume 27 corpus (8,405 passages, page and scan citations) is built, tested and measured (CORPUS.md) but not part of `historian-src/dist/hx`; Fox, Busey and the rest are catalogued and gated, nothing more. Shipping the corpus is the owner's decision.
+- No external text in the shipped artifacts: the Official Records volume 27 corpus (8,414 passages, page and scan citations) is built, tested and measured (CORPUS.md) but not part of `historian-src/dist/hx`; Fox, Busey and the rest are catalogued and gated, nothing more. Shipping the corpus is the owner's decision.
 - No Worker wrapper for the engine yet (it is main-thread safe: the p95 answer is milliseconds; a Worker is a later hardening).
 - No release wiring, service worker precache, analytics or feedback capture.
 

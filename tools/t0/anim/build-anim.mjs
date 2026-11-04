@@ -1,7 +1,8 @@
 // build-anim.mjs - compiles the readable sources of the ANIM group (tools/t0/anim/src, ES modules) into the asserted patch files the Tranche-0 builder applies:
 //
-//     node tools/t0/anim/build-anim.mjs            write tools/t0/patches-next/ANIM.json and ANIM+mon.json
+//     node tools/t0/anim/build-anim.mjs            write tools/t0/patches-next/ANIM@R1f.json and ANIM+mon@R1f.json (R1F: the sources are the authoring copy of train R1f; ANIM.json / ANIM@R1e.json are the frozen R1d / R1e compiles and are not touched)
 //     node tools/t0/anim/build-anim.mjs --check    exit 1 when the committed patch files differ from a fresh compile (the sources are the truth)
+//     ANIM_TRAIN=R1e (or '' for the unsuffixed names) names the files of another train in a scratch ANIM_OUT_DIR
 //     node tools/t0/anim/build-anim.mjs --dev      also write tmp/motion-build/anim.dev.js (the engine, readable, unminified) for a debugger
 //
 // The compiler is deliberately small and strict (acorn and terser, both already in the repo's node_modules, no new dependency): each module becomes a function scope; `import {a} from './x.mjs'` becomes a
@@ -19,7 +20,8 @@ import { minify } from 'terser';
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(HERE, '..', '..', '..');
 const SRC = path.join(HERE, 'src');
-const OUT_DIR = path.join(REPO, 'tools', 't0', 'patches-next');
+const OUT_DIR = process.env.ANIM_OUT_DIR ? path.resolve(process.env.ANIM_OUT_DIR) : path.join(REPO, 'tools', 't0', 'patches-next');      // R1E: a scratch directory for a candidate compile (the shared patch files are replaced only when the candidate is verified)
+const TRAIN = process.env.ANIM_TRAIN ?? 'R1f'; const SFX = TRAIN ? '@' + TRAIN : '';      // R1F: the file names carry the train they are the authoring copy of
 const args = new Set(process.argv.slice(2));
 const read = (p) => fs.readFileSync(p, 'utf8');
 
@@ -111,13 +113,21 @@ export const MON_HOOKS = [
     find: 'function unitsNow(){var st=yn.getState(),pbt=st.placementsByTick||{},t=st.currentTick,u={},k,a,j;',
     repl: 'function unitsNow(){var st=yn.getState(),pbt=st.placementsByTick||{},t=st.currentTick,u={},k,a,j;if(GTANIM.on()){var gtd=GTANIM.drawn();if(gtd)return gtd}',
     note: 'ONLY with MON (the anchor lies in the MON runtime): the Monuments click arbitration asks which unit is nearest to the pointer; it must use the positions the engine drew, not the latest keyframe' },
+  { id: 'ANIM:mon-unitdist', target: 'js', expect: 1,
+    find: 'function unitDist(o,x,y){var L,i,p,d=1e9,e;if(yn.getState().showUnits===false)return d;L=unitsNow();',
+    repl: 'function unitDist(o,x,y){var L,i,p,d=1e9,e;if(yn.getState().showUnits===false)return d;if(GTANIM.on()){try{var gz=window.__gtanim.S,gc=gz.canvas.getBoundingClientRect(),gm=o.map.getContainer().getBoundingClientRect(),gx=x+gm.left-gc.left,gy=y+gm.top-gc.top,gq=o.layout==="phone"?14:4,gh=gz.core.pickAt(gx,gy,gq),gt=gh&&gh.kind==="unit"&&gh.tile,gf=gz.core.frame;if(gt&&gt.kind==="leaf"&&Math.abs(gx-gt.x-gf.view.dx)<=gt.w*gt.scale/2+gq&&Math.abs(gy-gt.y-gf.view.dy)<=gt.h*gt.scale/2+gq)return 0}catch(e){}}L=unitsNow();',
+    note: 'ONLY with MON: a pointer inside the box of a unit mark the engine drew (the same box test as the engine picker, mouse reach 4 px, finger 14 px) is on that unit, whatever the distance of its true place: the unit wins over a monument dot or story star under its mark (VMON-04: 4 of 4 selectable units under a dot opened the monument card instead, R1d and R1e before this hook). Outside every mark box the old rule (distance to the true place) stands' },
+  { id: 'ANIM:mon-unitpos', target: 'js', expect: 1,
+    find: 'function unitPos(id){var L=unitsNow(),k;',
+    repl: 'function unitPos(id){var L=(GTANIM.on()&&GTANIM.units(yn.getState().placementsByTick,yn.getState().currentTick,0))||unitsNow(),k;',
+    note: 'ONLY with MON: Jump to this moment frames the star and its unit from the place of the unit AT the tick of the star (the model state the engine lands on), not from where the mark happens to be drawn while the clock is still gliding to that tick' },
 ];
 
 export async function compile() {
   const virt = virtualModules();
   const raw = bundle(path.join(SRC, 'host', 'app.mjs'), virt);
   if (args.has('--dev')) { fs.mkdirSync(path.join(REPO, 'tmp', 'motion-build'), { recursive: true }); fs.writeFileSync(path.join(REPO, 'tmp', 'motion-build', 'anim.dev.js'), raw); }
-  const min = await minify('var GTANIM = ' + raw + ';', { compress: { passes: 2, ecma: 2020, unsafe: false }, mangle: true, format: { comments: false, ascii_only: true, ecma: 2020 }, ecma: 2020 });
+  const min = await minify('var GTANIM = ' + raw + ';', { compress: { passes: 2, ecma: 2020, unsafe: false }, mangle: !process.env.ANIM_NOMANGLE, format: { comments: false, ascii_only: true, ecma: 2020 }, ecma: 2020 });
   if (min.error) throw min.error;
   let js = min.code; if (!js || !/^var GTANIM=/.test(js) || /[^\x00-\x7f]/.test(js)) throw new Error('the minified engine is not ASCII');
   return { raw, js };
@@ -126,14 +136,14 @@ export async function compile() {
 async function main() {
   const { js } = await compile();
   const files = {
-    'ANIM.json': { group: 'ANIM', patches: hooks(js) },
-    'ANIM+mon.json': { group: 'ANIM', patches: MON_HOOKS },
+    [`ANIM${SFX}.json`]: { group: 'ANIM', patches: hooks(js) },
+    [`ANIM+mon${SFX}.json`]: { group: 'ANIM', patches: MON_HOOKS },
   };
   const sha = crypto.createHash('sha256').update(js).digest('hex').slice(0, 16);
   for (const [name, doc] of Object.entries(files)) {
     const text = JSON.stringify(doc, null, 1) + '\n'; const f = path.join(OUT_DIR, name);
     if (args.has('--check')) { const cur = fs.existsSync(f) ? read(f) : ''; if (cur !== text) { console.error(`${name} is stale: run node tools/t0/anim/build-anim.mjs`); process.exit(1); } console.log(`${name} is current`); }
-    else { fs.mkdirSync(OUT_DIR, { recursive: true }); fs.writeFileSync(f, text); console.log(`wrote tools/t0/patches-next/${name}  ${(text.length / 1024).toFixed(1)} KB`); }
+    else { fs.mkdirSync(OUT_DIR, { recursive: true }); fs.writeFileSync(f, text); console.log(`wrote ${path.relative(REPO, f).split(path.sep).join("/")}  ${(text.length / 1024).toFixed(1)} KB`); }
   }
   console.log(`engine ${(js.length / 1024).toFixed(1)} KB minified, sha256:${sha}`);
 }

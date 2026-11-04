@@ -23,6 +23,7 @@ const {
   touchPinch, emulateViewport, cdpFor, tileBudget, Skip,
 } = L;
 
+const { treeHas, loadOracle } = await import('./lib_clock.mjs');
 const argv = process.argv.slice(2);
 const opt = (name, dflt) => { const i = argv.indexOf(`--${name}`); return i >= 0 ? (argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[i + 1] : true) : dflt; };
 const DIST = path.resolve(REPO, opt('dist', 'release/R1b/dist'));
@@ -44,6 +45,8 @@ const SEL = VPSEL === 'all' ? MATRIX : VPSEL === 'portrait' ? MATRIX.filter((v) 
 const vpById = (id) => MATRIX.find((v) => v.id === id);
 const inSel = (id) => SEL.some((v) => v.id === id);
 
+// groups of the tree under test, from its own version.json (never from the page)
+const HAS_B63 = treeHas(DIST, 'BASE1863');       // BASE1863: the map style is inline, drawn from our own tiles; Mapbox serves only text glyphs (+ the map-session call and telemetry), no style, no raster
 const srv = await createStaticServer({ root: DIST, port: PORT_BASE + 2 * SLOT });
 const ORIGIN = srv.url;
 const IS_LEGACY = path.resolve(DIST) === path.resolve(REPO, 'legacy/dist');
@@ -172,7 +175,7 @@ function auditInPage({ root, selector, ignoreSel }) {
 const audit = (page, opts = {}) => page.evaluate(auditInPage, { ...opts, ignoreSel: [opts.ignoreSel, '.gt-skip'].filter(Boolean).join(', ') });
 
 // topmost panel located by its title text: rect, viewport containment, 3x3 hit samples, close-control candidates
-function panelProbeInPage({ text }) {
+function panelProbeInPage({ text, exact = false }) {
   const vw = innerWidth, vh = innerHeight;
   const norm = (s) => s.replace(/\s+/g, ' ').trim().toLowerCase();
   const want = norm(text);
@@ -180,7 +183,7 @@ function panelProbeInPage({ text }) {
   for (const e of document.querySelectorAll('#root *')) {
     if (e.closest('.gtbg-m-toolspanel')) continue;
     const n = norm(e.textContent || '');
-    if (n.includes(want) && n.length <= want.length + 16 && e.children.length <= 3) { const r = e.getBoundingClientRect(); if (r.width > 0 && r.height > 0) { title = e; break; } }
+    if ((exact ? n === want : n.includes(want) && n.length <= want.length + 16) && e.children.length <= 3) { const r = e.getBoundingClientRect(); if (r.width > 0 && r.height > 0) { title = e; break; } }
   }
   if (!title) return null;
   let root = null;
@@ -209,8 +212,11 @@ function panelProbeInPage({ text }) {
 }
 
 // ------------------------------------------------------------------ the Tools sheet (14 tiles) and its panels
-const TILE_LABELS = ['Search', 'Filter', 'Order of Battle', 'Unit Roster', "Soldier's View", 'Follow Ancestor', 'Map Layers', 'Virtual Walkthrough',
+const TILE_LABELS_BASE = ['Search', 'Filter', 'Order of Battle', 'Unit Roster', "Soldier's View", 'Follow Ancestor', 'Map Layers', 'Virtual Walkthrough',
   'Legend', 'Bookmarks', 'Help', 'Mini Map', 'Ask the Historian', 'Desktop View'];
+// the tiles the tree under test really has: group MON adds "Monuments" after Unit Roster; group POLISH adds "User Guide (PDF)" and "Toggle Units" after Help (the phone shell has no toolbar, T0-POL-13).  Decided from the entry bundle, never from the page being tested.
+const ENTRY_JS = fs.readdirSync(path.join(DIST, 'assets')).filter((f) => /^index-.*\.js$/.test(f)).map((f) => fs.readFileSync(path.join(DIST, 'assets', f), 'utf8')).join('\n');
+const TILE_LABELS = TILE_LABELS_BASE.flatMap((l) => [l, ...(l === 'Unit Roster' && ENTRY_JS.includes('label:"Monuments",gtMon') ? ['Monuments'] : []), ...(l === 'Help' && ENTRY_JS.includes('label:"User Guide (PDF)"') ? ['User Guide (PDF)', 'Toggle Units'] : [])]);
 const PANELS = [
   { key: 'search', tile: 'Search', text: 'Search Units' },
   { key: 'filter', tile: 'Filter', text: 'Filters' },
@@ -221,7 +227,7 @@ const PANELS = [
   { key: 'layers', tile: 'Map Layers', text: 'Map Layers' },
   { key: 'legend', tile: 'Legend', text: 'Disposition Legend' },
   { key: 'bookmarks', tile: 'Bookmarks', text: 'Bookmarks & Sharing' },
-  { key: 'help', tile: 'Help', text: 'About' },        // the Help modal's tabs differ between the phone list and the keyboard list; the About tab is in both
+  { key: 'help', tile: 'Help', text: 'About', exact: true },        // the Help modal's tabs differ between the phone list and the keyboard list; the About tab is in both
   { key: 'walkthrough', tile: 'Virtual Walkthrough', text: 'Virtual Walkthrough', wait: 3500, tilesNeeded: true },
 ];
 const WALK_VP = new Set(['320x568', '375x812', '768x1024', '812x375', '915x412']);      // the walkthrough builds a 2nd Mapbox map: keep the tile budget
@@ -248,6 +254,7 @@ async function collect(vp) {
   // expired, Chrome answers the page's fetch from the cache AND sends one background revalidation (resource type 'Other', ~20 ms later,
   // same frame, same sku).  That is the browser, not a second map: count only the page's own requests (type Fetch/XHR).
   rec.styleRequests = S.net.find(/^https:\/\/api\.mapbox\.com\/styles\/v1\/mapbox\/satellite-v9\?/, mark).filter((e) => e.type !== 'Other').length;
+  rec.mapboxStyleLike = S.net.find(/^https:\/\/api\.mapbox\.com\/(styles|v4|raster)\//, mark).filter((e) => e.type !== 'Other').length;
   rec.skus = [...new Set(S.net.find(/^https:\/\/[^/]*mapbox\.com\//, mark).map((e) => (/[?&]sku=([^&]+)/.exec(e.url) || [])[1]).filter(Boolean))];
   rec.mapContainers = await page.evaluate(() => document.querySelectorAll('.mapboxgl-map').length);
   rec.mapCanvases = await page.evaluate(() => document.querySelectorAll('canvas.mapboxgl-canvas').length);
@@ -271,7 +278,7 @@ async function collect(vp) {
   rec.baseNamed = await page.evaluate(() => {
     const q = (s) => { const e = document.querySelector(s); if (!e) return null; const r = e.getBoundingClientRect(); const t = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
       return { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height), hit: !!t && (t === e || e.contains(t)), inViewport: r.left >= -1 && r.top >= -1 && r.right <= innerWidth + 1 && r.bottom <= innerHeight + 1 }; };
-    return { stepBack: q('button[aria-label="Step back 5 minutes"]'), play: q('button[aria-label="Play"], button[aria-label="Pause"]'), stepFwd: q('button[aria-label="Step forward 5 minutes"]'),
+    return { stepBack: q('button[aria-label="Step back 5 minutes"], button[aria-label="Previous step"]'), play: q('button[aria-label="Play"], button[aria-label="Pause"]'), stepFwd: q('button[aria-label="Step forward 5 minutes"], button[aria-label="Next step"]'),
       speed: q('button[aria-label$="playback speed. Tap to change."]'), tools: q('.gtbg-m-top button'), scrub: q('.gtbg-m-scrub'), days: [...document.querySelectorAll('.gtbg-m-days button')].map((b, i) => q(`.gtbg-m-days button:nth-child(${i + 1})`)),
       map: q('.gtbg-m-map'), dock: q('.gtbg-m-dock'), top: q('.gtbg-m-top'), attribution: q('.mapboxgl-ctrl-attrib-button'), dockOverflow: (() => { const d = document.querySelector('.gtbg-m-dock'); return d ? [d.scrollWidth - d.clientWidth, d.scrollHeight - d.clientHeight] : null; })() };
   });
@@ -324,7 +331,7 @@ async function collect(vp) {
       await openTools(page);
       pr.tap = await tapEl(page, tileBtn(page, pn.tile));
       await sleep(pn.wait || 1300);
-      const probe = await page.evaluate(panelProbeInPage, { text: pn.text });
+      const probe = await page.evaluate(panelProbeInPage, { text: pn.text, exact: !!pn.exact });
       pr.probe = probe;
       if (pn.key === 'layers') pr.controls = await audit(page, { root: null, selector: 'input[type=checkbox], button', ignoreSel: '.gtbg-m-root' });
       pr.shot = await shot(page, `${vp.id}-10-${pn.key}`);
@@ -335,7 +342,7 @@ async function collect(vp) {
         const c = probe.closes.find((x) => x.hit) || probe.closes[0];
         await touchTap(page, c.x + c.w / 2, c.y + c.h / 2);
         await sleep(600);
-        pr.closedByTouch = !(await page.evaluate(panelProbeInPage, { text: pn.text }));
+        pr.closedByTouch = !(await page.evaluate(panelProbeInPage, { text: pn.text, exact: !!pn.exact }));
       }
       if (!pr.closedByTouch) dirty = true;
     } catch (e) { pr.error = String(e.message || e).split('\n')[0].slice(0, 200); dirty = true; }
@@ -464,7 +471,7 @@ suite.test('T0-MOB-03', 'Tools sheet: 14 tiles + 44 px close + Extra Features gr
   const lines = [];
   for (const vp of SEL) {
     const r = await collect(vp);
-    if (r.tools.count !== 14) lines.push(`${vp.id}: ${r.tools.count} tiles, want 14 (${r.tools.labels.join(', ')})`);
+    if (r.tools.count !== TILE_LABELS.length) lines.push(`${vp.id}: ${r.tools.count} tiles, want ${TILE_LABELS.length} (${r.tools.labels.join(', ')})`);
     else if (JSON.stringify(r.tools.labels) !== JSON.stringify(TILE_LABELS)) lines.push(`${vp.id}: tile labels ${JSON.stringify(r.tools.labels)}`);
     const closeItem = r.tileReach.tiles.find((x) => /Close tools/i.test(x.label));
     if (!closeItem) lines.push(`${vp.id}: no "Close tools" control`); else { if (Math.min(closeItem.w, closeItem.h) < 44) lines.push(`${vp.id}: close ${closeItem.w}x${closeItem.h} < 44`); if (!closeItem.hit || !closeItem.inViewport) lines.push(`${vp.id}: close not hit-testable/on screen`); }
@@ -523,7 +530,8 @@ suite.test('T0-MOB-05', 'no desktop-only overlay mounted (no timeline IO / range
     if (r.chooserSeen) lines.push(`${vp.id}: "Choose Your Experience" chooser was rendered`);
     if (r.mapContainers !== 1 || r.mapCanvases !== 1) lines.push(`${vp.id}: ${r.mapContainers} map containers / ${r.mapCanvases} map canvases (want 1/1: second map mounted behind the chooser or desktop map left mounted)`);
     if (r.skus.length !== 1) lines.push(`${vp.id}: ${r.skus.length} distinct Mapbox sku values on load (want 1 = one map session, X1)`);
-    if (r.styleRequests !== 1) lines.push(`${vp.id}: ${r.styleRequests} Mapbox style requests on load (want 1 = one map session)`);
+    if (HAS_B63) { if (r.styleRequests !== 0 || r.mapboxStyleLike !== 0) lines.push(`${vp.id}: ${r.styleRequests} satellite style / ${r.mapboxStyleLike} Mapbox style-or-raster requests on load (BASE1863 draws our own tiles: want 0; one map session is the single sku above)`); }
+    else if (r.styleRequests !== 1) lines.push(`${vp.id}: ${r.styleRequests} Mapbox style requests on load (want 1 = one map session)`);
   }
   fail(lines, t);
 });
@@ -553,7 +561,7 @@ suite.test('T0-MOB-07', 'safe-area insets: with notch/home-indicator insets the 
       const q = (s) => { const e = document.querySelector(s); if (!e) return null; const r = e.getBoundingClientRect(); return { x: r.x, y: r.y, r: r.right, b: r.bottom, w: r.width, h: r.height }; };
       const cs = getComputedStyle(document.documentElement);
       return { sat: cs.getPropertyValue('--gt-sat'), sab: cs.getPropertyValue('--gt-sab'), clock: q('.gtbg-m-top > div'), tools: q('.gtbg-m-top button'), map: q('.gtbg-m-map'), play: q('button[aria-label="Play"], button[aria-label="Pause"]'),
-        back: q('button[aria-label="Step back 5 minutes"]'), speed: q('button[aria-label$="playback speed. Tap to change."]'), dock: q('.gtbg-m-dock'), days: q('.gtbg-m-days'), top: q('.gtbg-m-top'), iw: innerWidth, ih: innerHeight,
+        back: q('button[aria-label="Step back 5 minutes"], button[aria-label="Previous step"]'), speed: q('button[aria-label$="playback speed. Tap to change."]'), dock: q('.gtbg-m-dock'), days: q('.gtbg-m-days'), top: q('.gtbg-m-top'), iw: innerWidth, ih: innerHeight,
         insetProbe: (() => { const d = document.createElement('div'); d.style.cssText = 'position:fixed;top:env(safe-area-inset-top,0px);left:env(safe-area-inset-left,0px);width:1px;height:1px;visibility:hidden'; document.body.appendChild(d); const r = d.getBoundingClientRect(); d.remove(); return [r.top, r.left]; })() };
     });
     t.note(`${vp.id} insets`, JSON.stringify({ ins, sat: m.sat, sab: m.sab, probe: m.insetProbe }));
@@ -584,7 +592,15 @@ suite.test('T0-MOB-08', 'real CDP touch: drag pans, pinch zooms, tap selects a u
     const m = await page.evaluate(() => { const r = document.querySelector('.gtbg-m-map').getBoundingClientRect(); return { x: r.x, y: r.y, w: r.width, h: r.height }; });
     const cx = m.x + m.w / 2, cy = m.y + m.h / 2;
     // drag right/down by ~45 % of the map: the centre must move west and north
-    await touchSwipe(page, [cx - m.w * 0.2, cy - m.h * 0.2], [cx + m.w * 0.2, cy + m.h * 0.2], { steps: 14, stepMs: 18 });
+    // the swipe has to start on the bare map: the BASE1863 note box ("Reconstruction of July 1863 ... Show what was changed") covers the upper part of a 320 px wide map, so start at the
+    // nearest point below the intended one whose topmost element is the map canvas (the intended point itself when it is bare, as on every tree without the box)
+    const dx = m.w * 0.4, dy = m.h * 0.4;
+    const start = await page.evaluate(({ x0, y0, dx, dy, m }) => {
+      const bare = (x, y) => { const e = document.elementFromPoint(x, y); return !!e && e.classList.contains('mapboxgl-canvas'); };
+      for (let k = 0; k <= 60; k++) { const y = y0 + k * 4; if (y + dy > m.y + m.h - 6) break; if (bare(x0, y) && bare(x0 + dx, y + dy)) return [x0, y]; }
+      return [x0, y0];
+    }, { x0: cx - m.w * 0.2, y0: cy - m.h * 0.2, dx, dy, m });
+    await touchSwipe(page, start, [start[0] + dx, start[1] + dy], { steps: 14, stepMs: 18 });
     await sleep(900);
     const mv1 = await mapView(page);
     const moved = Math.hypot(mv1.center[0] - mv0.center[0], mv1.center[1] - mv0.center[1]);
@@ -718,7 +734,17 @@ suite.test('T0-MOB-09', 'story + event panels (tick 12) and commander toasts ren
         window.__t0map.jumpTo({ center: [r.lng, r.lat], zoom: 15.5, padding: land ? { top: 0, bottom: 0, left: 0, right: Math.round(mr.width * 0.55) } : { top: 0, left: 0, right: 0, bottom: Math.round(mr.height * 0.62) } });
       }, c);
       await sleep(1400);
-      const pt = await page.evaluate((c2) => { const map = window.__t0map, r = document.querySelector('.gtbg-m-map').getBoundingClientRect(); const p = map.project([c2.lng, c2.lat]); return { x: r.left + p.x, y: r.top + p.y }; }, c);
+      const place = (c2) => page.evaluate((c3) => { const map = window.__t0map, r = document.querySelector('.gtbg-m-map').getBoundingClientRect(); const p = map.project([c3.lng, c3.lat]); return { x: r.left + p.x, y: r.top + p.y }; }, c2);
+      let pt = await place(c);
+      // a map this small is crowded (story/event cards, legend, overview, and with BASE1863 the reconstruction note): when something other than the map is on top of the unit's place,
+      // pan the map so that the unit stands on the nearest bare point (topmost element = the map canvas), then tap it; the unit is still the one tapped
+      const bare = await page.evaluate(([px, py]) => {
+        const r = document.querySelector('.gtbg-m-map').getBoundingClientRect(); const ok = (x, y) => { const e = document.elementFromPoint(x, y); return !!e && e.classList.contains('mapboxgl-canvas'); };
+        if (ok(px, py)) return null;
+        let best = null, bd = 1e9; for (let x = r.left + 8; x < r.right - 8; x += 10) for (let y = r.top + 8; y < r.bottom - 8; y += 10) if (ok(x, y)) { const d = Math.hypot(x - px, y - py); if (d < bd) { bd = d; best = [x, y]; } }
+        return best;
+      }, [pt.x, pt.y]);
+      if (bare) { await page.evaluate(([dx, dy]) => { window.__t0map.panBy([dx, dy], { duration: 0 }); }, [pt.x - bare[0], pt.y - bare[1]]); await sleep(900); pt = await place(c); }
       await touchTap(page, pt.x, pt.y, 60); await sleep(900);
       pop = await page.evaluate(() => { const p = document.querySelector('.gtbg-m-popup'); const s = document.querySelector('.gtbg-mp-story'); return { popup: !!p, storyVisibility: s && getComputedStyle(s).visibility }; });
       if (pop.popup) { t.note(`${vp.id} popup at`, `keyframe of tick ${c.tick}`); break; }
@@ -787,7 +813,12 @@ suite.test('T0-MOB-11', 'attribution: the compact Mapbox attribution control exp
     if (!hit) lines.push(`${vp.id}: attribution button is covered by another element`);
     await tapEl(page, btn); await sleep(500);
     const txt = await page.evaluate(() => { const e = document.querySelector('.mapboxgl-ctrl-attrib'); const r = e.getBoundingClientRect(); return { text: e.innerText.replace(/\s+/g, ' ').trim(), open: e.classList.contains('mapboxgl-compact-show') || e.hasAttribute('open'), x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height), vw: innerWidth }; });
-    if (!/Mapbox/.test(txt.text)) lines.push(`${vp.id}: expanded attribution does not mention Mapbox: "${txt.text}"`);
+    if (HAS_B63) {
+      // BASE1863: the picture is our own reconstruction, so the control credits its sources; Mapbox remains only as the glyph service and keeps its wordmark, which must be on screen and not covered
+      for (const need of ['Reconstruction, not a photograph', 'USGS', 'OpenStreetMap']) if (!txt.text.includes(need)) lines.push(`${vp.id}: expanded attribution does not say "${need}": "${txt.text}"`);
+      const logo = await page.evaluate(() => { const e = document.querySelector('.mapboxgl-ctrl-logo'); if (!e) return null; const r = e.getBoundingClientRect(); const t = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return { w: Math.round(r.width), h: Math.round(r.height), hit: !!t && (t === e || e.contains(t)) }; });
+      if (!logo || logo.w < 20 || !logo.hit) lines.push(`${vp.id}: the Mapbox wordmark is missing or covered (${JSON.stringify(logo)})`);
+    } else if (!/Mapbox/.test(txt.text)) lines.push(`${vp.id}: expanded attribution does not mention Mapbox: "${txt.text}"`);
     if (txt.x < 0 || txt.x + txt.w > txt.vw + 1) lines.push(`${vp.id}: expanded attribution leaves the viewport ${JSON.stringify(txt)}`);
     await shot(page, `${vp.id}-50-attribution`);
     t.note(`${vp.id} attribution`, JSON.stringify(txt).slice(0, 200));

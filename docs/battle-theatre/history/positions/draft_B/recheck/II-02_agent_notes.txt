@@ -1,0 +1,16 @@
+Batch II-02, reader notes. 55 claims, each read against the cited report passage (R077 Caldwell, R078 McKeen, R079 Cross, R080 Broady, R081 Stroh, R082 Kelly, R076 Hancock).
+Counts per fc: passed_full_read 39, corrected 16, downgraded 0, split 0.
+Validator: decisions 55, errors 0, missing 0.
+
+Patterns (claims may carry more than one):
+- time from another sentence / non-time phrase used as when.printed: 6 (1d-04 [4-6 o'clock is receipt of orders]; cross-05 [4 p.m. is the detachment sentence]; cross-12 [10th = arrival at Tilghmanton]; 3d-10, art-1usi-04 [distance phrase "200 and .300 yards" used as wp]; webb-69pa-04 [unit names used as wp]); cross-07 wp was an activity phrase, also cleared.
+- merged second report: 0.
+- later order ignored: 0 (cross-05 and cross-148pa-01 activity stretched beyond what part of the brigade did).
+- compass/road gloss: 0 (road 'Emmitsburg road' in 1d-02 is printed but is where the corps had gone; kept).
+- hedge/condition dropped: 2 (1d-04 "I think the adjutant-general of General Sykes"; kelly-09 "I should think" three-quarters of an hour); 5nh-02 date printed "July 3" internally inconsistent (not OCR), stated as printed.
+- unit identity gloss: 3 (kelly-01 "Second Brigade (Kelly)" and zook-01 "Third Brigade (Zook)": brigade commander not named by the passage; cross-13: author is the 5th NH commander but claim unit is the brigade, stated in act). Also 1d-03 "(Fifth Corps)" for Sykes not printed.
+- overstatement/other: cross-05 (400 yards and wheat-field attributed to whole brigade), webb-14 (Armistead "reached" the wall; passage says nearly reached), 3d-10 ("about 15 colors", passage says fifteen), cross-148pa-01 ("at the left of the brigade line" not printed), 1d-02 ("advanced corps" for "Second Corps" as printed), cross-07 (relief sequence garbled).
+- OCR digit: 0 corrected. 3d-10 ocr flag cleared (glyph was only in the removed wp). 2c-14 (4,323 / 10,000) read cleanly in the passage.
+- meridian inferred: 0 (kelly-04 "next morning" prints the day part; 1d-08 noon).
+Systematic: the compiler used non-time phrases (distances, unit names, activity phrases) in when.printed for Hancock's July 3 narrative claims; brigade-number-to-commander glosses (Kelly, Zook) appear wherever a division commander writes "the Second/Third Brigade"; regimental reports assigned to a brigade unit (cross-13). Passed-with-annotation claims carry wdesc/dbasis/q2 only.
+Ids split: none. Ids downgraded: none.

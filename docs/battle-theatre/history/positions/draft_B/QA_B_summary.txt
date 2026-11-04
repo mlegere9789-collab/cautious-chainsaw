@@ -1,0 +1,19 @@
+QA of scope-B OR position ledger, 90 claims re-judged blind against raw report text (snapshot positions_B.after_recheck_snapshot.jsonl)
+
+OVERALL: 90 claims: 88 FAITHFUL, 2 NOT FAITHFUL (97.8% faithful)
+passed_full_read subset (60): 58 FAITHFUL, 2 NOT FAITHFUL
+corrected subset (30): 30 FAITHFUL, 0 NOT FAITHFUL
+Claims carrying a 'minor' note (judged still FAITHFUL or noted on the 2 failures): 68
+
+NOT FAITHFUL claims (both low severity, category 'other'):
+- POS-B-us-3c-37 [passed_full_read] (other): activity labels the Mackenzie statement an '1863 statement'; the passage dates it Brandy Station, March 22, 1864 (the claim's own note and fidelity_note say 1864). Content (no Third Corps troops on Round Top ridge at opening of July 2 battle) is as printed. Low severity: mislabels source date of an after-the-event statement.
+- POS-B-us-3c-2d-burling-5nj-09 [passed_full_read] (other): activity says the Confederate line 'advanced about 600 yards to the left and front'; passage says the enemy infantry was seen advancing over a knoll about 600 yards distant to our left and front (600 yards is the distance of the line, not the distance advanced). Low severity; also 'Confederate' for the printed 'enemy'.
+
+Categories checked on every claim: unit identity, date/clock time in same or continuing sentence, place gloss, activity and numbers, hedges, later orders, OCR digits, meridian, day-part words. No instance found of: time from another sentence, merged second report, later order ignored, compass/road gloss presented as printed, dropped hedge/condition, OCR digit read with confidence.
+
+Notes on judgement calls kept FAITHFUL (see 'minor' column in QA_B.jsonl):
+- POS-B-us-12c-art-pae-04 and POS-B-us-12c-art-5usk-01 / -2d-09: dated July 2 although the report text prints July 3 (Redington opening line) or 'Early on the morning of July 3' (Williams); each is tier 'inferred' and discloses the date reading in when.description/date_basis/reasoning. If the owner wants a printed-date-only rule, these three would fail on date.
+- POS-B-us-2c-2d-webb-06: same passage prints 'assault of the 3d at about 6. 30 p. m.'; July 2 settled by position before 'OPERATIONS OF JULY 3' and flagged ocr_uncertain; Webb's own second report gives 5 p.m. for the July 2 assault.
+- POS-B-us-2c-3d-smyth-14ct-05: the report prints no date for the 160-muskets figure; date July 3 is declared a compiler placement in date_basis.
+- POS-B-us-2c-2d-harrow-1mn-07: passage says the enemy head of column was 'about passing' the interval; claim says 'passing' (negligible).
+- Meridian inferred without a printed a.m./p.m. in the sentence: POS-B-us-2c-2d-hall-7mi-04 (flagged meridian_inferred), POS-B-us-2c-3d-carroll-07 (flagged), POS-B-us-12c-art-5usk-05 (5.30 o'clock, not flagged, settled by sequence), POS-B-us-3c-33 (4 o'clock; p.m. in preceding sentence).

@@ -26,6 +26,9 @@ const L = await import('./lib.mjs');
 const fs = await import('node:fs');
 const path = await import('node:path');
 const { spawnSync } = await import('node:child_process');
+// group POLISH (marker: the menu's landmark name in index.html) renames the menu "Extra features" to "More to Explore"; each tree is asserted with its own name (DIST is assigned below, the helper reads it when a test runs)
+const { treeHas } = await import('./lib_clock.mjs');
+const HAS_POLISH_MENU = () => { try { return fs.readFileSync(path.join(DIST, 'index.html'), 'utf8').includes('aria-label="More to Explore"'); } catch { return false; } };
 const { AxeBuilder } = await import('@axe-core/playwright');
 const { REPO, TMP, PORT_BASE, VIEWPORTS, openSession, createStaticServer, createSuite, assert, assertEq, sleep, waitFor, waitForApp, chooseLayout, emulateViewport, tileBudget, Skip } = L;
 
@@ -47,6 +50,7 @@ else {
 }
 if (!fs.existsSync(DIST)) { console.error(`dist not found: ${DIST}`); process.exit(2); }
 const IS_LEGACY = path.resolve(DIST) === path.resolve(REPO, 'legacy/dist');
+const LEGEND2 = treeHas(DIST, 'ANIM') ? 'legendmarks' : 'legendsides';      // the second look at the legend: its Sides tab, or on a tree with ANIM (no tabs) the end of its one card
 
 const srv = await createStaticServer({ root: DIST, port: PORT_BASE });
 const ORIGIN = srv.url;
@@ -157,6 +161,8 @@ const DESKTOP_STATES = {
   searchresults: async (p) => { await resetDesktop(p); await key(p, 's', 400); await fill(p, 'input[aria-label="Search units"]', 'a'); },
   unitpanel: async (p) => { await resetDesktop(p); await key(p, 's', 400); await fill(p, 'input[aria-label="Search units"]', '20th Maine'); await p.getByText('20th Maine').first().click(); await visible(p, 'button[title="Unpin unit"]', 10000).catch(() => {}); await settle(800); },
   ancestorpick: async (p) => { await resetDesktop(p); await p.click('button[title="Follow Your Ancestor"]'); await fill(p, 'input[aria-label="Regiment name"]', '20th Maine'); await p.getByText('20th Maine').first().click(); await settle(1800); },
+  // ANIM replaces the legend (tabs Disposition / Sides / Size) by the skin's own "What the marks say" (one scrolling card): there is no Sides tab to open, so the second look at the legend is its end
+  legendmarks: async (p) => { await resetDesktop(p); await p.evaluate(() => { const e = document.querySelector('[role="group"][aria-label="Legend"]'); if (!e) return; const sc = [e, ...e.querySelectorAll('*')].find((x) => x.scrollHeight > x.clientHeight + 4 && getComputedStyle(x).overflowY !== 'visible'); if (sc) sc.scrollTop = sc.scrollHeight; }); await settle(400); },
   legendsides: async (p) => { await resetDesktop(p); await p.getByRole('button', { name: 'Sides' }).click(); await settle(400); },
   walkthrough: async (p) => { await resetDesktop(p); await p.getByText('Virtual Walkthrough').first().click(); await settle(1800); },
 };
@@ -216,7 +222,7 @@ suite.test('T0-A11Y-01', 'axe: 0 serious/critical on / desktop 1440x900 - first-
 suite.test('T0-A11Y-02', 'axe: 0 serious/critical in the other desktop panels and dialogs (roster, filter, unit panel, ancestor, layers, distance, bookmarks, walkthrough ...)', async (t) => {
   if (IS_LEGACY) throw new Skip('extended states are only asserted on release trees');
   await axeStates(t, { profile: 'a11y-02', cdpPort: PORT_BASE + 3, viewport: DESKTOP, layout: 'desktop',
-    states: ['filter', 'roster', 'ancestor', 'bookmarks', 'layers', 'monuments', 'soldier', 'locations', 'distance', 'findunit', 'efmenu', 'searchresults', 'unitpanel', 'ancestorpick', 'legendsides', 'walkthrough', 'tick17', 'tick302', 'tick538'],
+    states: ['filter', 'roster', 'ancestor', 'bookmarks', 'layers', 'monuments', 'soldier', 'locations', 'distance', 'findunit', 'efmenu', 'searchresults', 'unitpanel', 'ancestorpick', LEGEND2, 'walkthrough', 'tick17', 'tick302', 'tick538'],
     exclude: { walkthrough: ['iframe'], soldier: ['iframe'] }, label: 'axe desktop panels (Google requests blocked locally; iframes excluded)' });
 });
 
@@ -273,7 +279,7 @@ suite.test('T0-A11Y-05', 'structure: one h1, main + nav landmarks, first Tab = "
       t.note(tag, st);
       assertEq(st.h1.length, 1, `h1 count (${JSON.stringify(st.h1)})`);
       assert(st.main === 1 && st.mainIsRoot, '<main id="root"> landmark missing');
-      assert(st.navs.includes('Extra features'), 'nav landmark for #extra-features missing');
+      assert(st.navs.includes(HAS_POLISH_MENU() ? 'More to Explore' : 'Extra features'), `nav landmark for #extra-features missing (named "${HAS_POLISH_MENU() ? 'More to Explore' : 'Extra features'}" on this tree; group POLISH renamed it): ${JSON.stringify(st.navs)}`);
       assert(st.skip.length === 2 && st.skip.every((s) => s.targetExists), `skip links / targets: ${JSON.stringify(st.skip)}`);
       assertEq(st.skip[0].href, '#gt-map', 'first skip link target');
       await S.page.evaluate(() => { document.activeElement && document.activeElement.blur && document.activeElement.blur(); window.scrollTo(0, 0); });
@@ -535,7 +541,7 @@ suite.test('T0-A11Y-15', 'text contrast, own compositing audit (covers what axe 
   if (IS_LEGACY && !EXPECT_RED) throw new Skip('legacy fails by design (run with --expect-red)');
   const res = {}; let total = 0;
   for (const [tag, viewport, layout, port, states] of [
-    ['desktop', DESKTOP, 'desktop', 1, ['loaded', 'help', 'search', 'searchresults', 'filter', 'roster', 'unitpanel', 'ancestor', 'ancestorpick', 'bookmarks', 'layers', 'monuments', 'soldier', 'locations', 'distance', 'findunit', 'efmenu', 'legendsides', 'walkthrough', 'tick17', 'tick302', 'tick538']],
+    ['desktop', DESKTOP, 'desktop', 1, ['loaded', 'help', 'search', 'searchresults', 'filter', 'roster', 'unitpanel', 'ancestor', 'ancestorpick', 'bookmarks', 'layers', 'monuments', 'soldier', 'locations', 'distance', 'findunit', 'efmenu', LEGEND2, 'walkthrough', 'tick17', 'tick302', 'tick538']],
     ['phone', PHONE, 'mobile', 2, ['loaded', 'tools', 'help', 'search', 'filter', 'roster', 'legend']],
   ]) {
     if (IS_LEGACY && tag === 'phone') continue;
@@ -668,7 +674,7 @@ suite.test('T0-A11Y-18', 'a unit can be selected from Search with the keyboard a
     // semantics and the rest of the keyboard model
     await key(S.page, 's', 500); await visible(S.page, 'input[aria-label="Search units"]');
     await S.page.keyboard.type('20th'); await sleep(900);
-    const sem = await S.page.evaluate(() => { const lb = document.querySelector('#gt-search-results'); const rows = lb ? [...lb.querySelectorAll('[data-gt-row]')] : []; const inp = document.querySelector('input[aria-label="Search units"]'); const st = document.querySelector('[role=status]');
+    const sem = await S.page.evaluate(() => { const lb = document.querySelector('#gt-search-results'); const rows = lb ? [...lb.querySelectorAll('[data-gt-row]')] : []; const inp = document.querySelector('input[aria-label="Search units"]'); const st = [...document.querySelectorAll('[role=status]')].find((e) => /^\d+ results?\./.test(e.textContent.trim())) || document.querySelector('[role=status]');          // other groups add their own polite status lines (BASE1863's tile status), so the one that announces the result count is the one judged
       return { role: lb && lb.getAttribute('role'), name: lb && lb.getAttribute('aria-label'), rows: rows.length, roles: [...new Set(rows.map((r) => r.getAttribute('role')))], tabindex: [...new Set(rows.map((r) => r.getAttribute('tabindex')))], controls: inp.getAttribute('aria-controls'), status: st && st.textContent.trim() }; });
     t.note('semantics', sem);
     assertEq([sem.role, sem.name, sem.controls], ['listbox', 'Search results', 'gt-search-results'], 'result list semantics');

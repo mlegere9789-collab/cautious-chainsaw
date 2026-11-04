@@ -1,0 +1,2235 @@
+{
+ "candidate": "deliver\\gettysburg-R1c-2531699e-PRODUCTION.zip",
+ "ran": 204,
+ "failed": 3,
+ "skipped": 0,
+ "validWaivers": [
+  "W-file-InterpolationWorker",
+  "W-data-manifest",
+  "W-shared-subpage-layer",
+  "W-screenshot-aftermath",
+  "W-text-ar",
+  "W-screenshot-ar",
+  "W-screenshot-documentary",
+  "W-screenshot-education",
+  "W-screenshot-embed",
+  "W-screenshot-find-ancestor",
+  "W-text-historian",
+  "W-screenshot-historian",
+  "W-screenshot-living-ledger",
+  "W-screenshot-privacy",
+  "W-screenshot-regiment",
+  "W-screenshot-report",
+  "W-screenshot-search",
+  "W-screenshot-terms",
+  "W-screenshot-turning-points",
+  "W-screenshot-camera",
+  "W-screenshot-cinematic-export",
+  "W-screenshot-compare",
+  "W-screenshot-ground-remembers",
+  "W-screenshot-immersive",
+  "W-screenshot-sandbox",
+  "W-text-viewshed",
+  "W-screenshot-viewshed",
+  "W-screenshot-watch-together",
+  "W-text-index-1440",
+  "W-controls-index-1440",
+  "W-screenshot-index-1440",
+  "W-screenshot-index-390"
+ ],
+ "invalidWaivers": [
+  "W-text-dashboard",
+  "W-screenshot-dashboard",
+  "W-data-DATA-group"
+ ],
+ "results": [
+  {
+   "waiver": "W-file-InterpolationWorker",
+   "defects": [
+    "D01"
+   ],
+   "assertion": "baseline-bytes",
+   "type": "baseline-file-sha",
+   "status": "PASS",
+   "detail": "baseline assets/InterpolationWorker-ufiwa2-e.js sha256 a44f17c2727fd84ee437c9f732884767a2fdf305c6c082731c6d96dc6b7c865b"
+  },
+  {
+   "waiver": "W-file-InterpolationWorker",
+   "defects": [
+    "D01"
+   ],
+   "assertion": "never-referenced",
+   "type": "unreferenced",
+   "status": "PASS",
+   "detail": "token \"InterpolationWorker\" named by baseline files: [], candidate files: []"
+  },
+  {
+   "waiver": "W-file-InterpolationWorker",
+   "defects": [
+    "D01"
+   ],
+   "assertion": "hash-token",
+   "type": "unreferenced",
+   "status": "PASS",
+   "detail": "token \"ufiwa2\" named by baseline files: [], candidate files: []"
+  },
+  {
+   "waiver": "W-file-InterpolationWorker",
+   "defects": [
+    "D01"
+   ],
+   "assertion": "no-app-worker",
+   "type": "no-same-origin-worker",
+   "status": "PASS",
+   "detail": "no `new Worker(\"<literal url>\")` in the baseline or the candidate: the published app never starts that script"
+  },
+  {
+   "waiver": "W-file-InterpolationWorker",
+   "defects": [
+    "D01"
+   ],
+   "assertion": "absent",
+   "type": "file-absent",
+   "status": "PASS",
+   "detail": "assets/InterpolationWorker-ufiwa2-e.js is not in the candidate"
+  },
+  {
+   "waiver": "W-data-manifest",
+   "defects": [
+    "D02"
+   ],
+   "assertion": "manifest-shape",
+   "type": "manifest",
+   "status": "PASS",
+   "detail": "orientation removed (was \"landscape\"), id \"/\", 4 icons + 2 screenshots decode at their declared sizes, a maskable icon exists, only \"orientation\" was removed"
+  },
+  {
+   "waiver": "W-data-manifest",
+   "defects": [
+    "D02"
+   ],
+   "assertion": "build-guard",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate manifest.json contains /\"id\"\\s*:\\s*\"/\"/"
+  },
+  {
+   "waiver": "W-data-manifest",
+   "defects": [
+    "D02"
+   ],
+   "assertion": "portrait-phone",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-shared-subpage-layer",
+   "defects": [],
+   "assertion": "css-layer",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate site-nav.css contains \"Sub-page shared layer (pages-fixes)\""
+  },
+  {
+   "waiver": "W-shared-subpage-layer",
+   "defects": [],
+   "assertion": "css-mount",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate site-nav.css contains /#gtbg-nav-mount\\s*\\{\\s*display:\\s*block;\\s*min-height:\\s*55px/"
+  },
+  {
+   "waiver": "W-shared-subpage-layer",
+   "defects": [],
+   "assertion": "css-footer-contrast",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate site-nav.css contains \"#gtbg-footer a { color: #9aa3b8;\""
+  },
+  {
+   "waiver": "W-shared-subpage-layer",
+   "defects": [],
+   "assertion": "css-no-fade",
+   "type": "not-contains",
+   "status": "PASS",
+   "detail": "candidate site-nav.css does not contain \"gtbg-page-in 340ms\""
+  },
+  {
+   "waiver": "W-shared-subpage-layer",
+   "defects": [],
+   "assertion": "css-no-glow",
+   "type": "not-contains",
+   "status": "PASS",
+   "detail": "candidate site-nav.css does not contain \"animation: gtbg-pin-glow 3.4s\""
+  },
+  {
+   "waiver": "W-shared-subpage-layer",
+   "defects": [],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "13 patch(es) on site-nav.css, site-nav.js: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-aftermath",
+   "defects": [
+    "D03",
+    "D04"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "5 patch(es) on aftermath.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-aftermath",
+   "defects": [
+    "D03",
+    "D04"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate aftermath.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-aftermath",
+   "defects": [
+    "D03",
+    "D04"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/aftermath@1440: 0 published line(s) gone; all documented; 0 replacement line(s) present"
+  },
+  {
+   "waiver": "W-screenshot-aftermath",
+   "defects": [
+    "D03",
+    "D04"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/aftermath@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-aftermath",
+   "defects": [
+    "D03",
+    "D04"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/aftermath@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-aftermath",
+   "defects": [
+    "D03",
+    "D04"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "aftermath@1440: 2.758 % differ (budget 4.2 %), page height 1265 -> 1266 (+1; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-aftermath",
+   "defects": [
+    "D03",
+    "D04"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "aftermath@390: 7.902 % differ (budget 11.9 %), page height 1646 -> 1703 (+57; budget +-90)"
+  },
+  {
+   "waiver": "W-text-ar",
+   "defects": [
+    "D05",
+    "D07"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "6 patch(es) on ar.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-text-ar",
+   "defects": [
+    "D05",
+    "D07"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/ar@1440: 1 published line(s) gone; all documented; 1 replacement line(s) present"
+  },
+  {
+   "waiver": "W-text-ar",
+   "defects": [
+    "D05",
+    "D07"
+   ],
+   "assertion": "text-390",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/ar@390: 1 published line(s) gone; all documented; 1 replacement line(s) present"
+  },
+  {
+   "waiver": "W-text-ar",
+   "defects": [
+    "D05",
+    "D07"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/ar@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-text-ar",
+   "defects": [
+    "D05",
+    "D07"
+   ],
+   "assertion": "ar-stays-reachable",
+   "type": "browser:ar-hidden",
+   "status": "PASS",
+   "detail": "ar.html is still served with its camera/location code, carries the Beta notice and noindex, and is out of the menus and the sitemap"
+  },
+  {
+   "waiver": "W-screenshot-ar",
+   "defects": [
+    "D06",
+    "D08"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "6 patch(es) on ar.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-ar",
+   "defects": [
+    "D06",
+    "D08"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate ar.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-ar",
+   "defects": [
+    "D06",
+    "D08"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/ar@1440: 1 published line(s) gone; all documented; 1 replacement line(s) present"
+  },
+  {
+   "waiver": "W-screenshot-ar",
+   "defects": [
+    "D06",
+    "D08"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/ar@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-ar",
+   "defects": [
+    "D06",
+    "D08"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/ar@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-ar",
+   "defects": [
+    "D06",
+    "D08"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "ar@1440: 1.801 % differ (budget 2.8 %), page height 900 -> 900 (+0; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-ar",
+   "defects": [
+    "D06",
+    "D08"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "ar@390: 8.095 % differ (budget 12.2 %), page height 944 -> 999 (+55; budget +-90)"
+  },
+  {
+   "waiver": "W-screenshot-ar",
+   "defects": [
+    "D06",
+    "D08"
+   ],
+   "assertion": "ar-stays-reachable",
+   "type": "browser:ar-hidden",
+   "status": "PASS",
+   "detail": "ar.html is still served with its camera/location code, carries the Beta notice and noindex, and is out of the menus and the sitemap"
+  },
+  {
+   "waiver": "W-text-dashboard",
+   "defects": [
+    "D09",
+    "D11"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "21 patch(es) on dashboard.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-text-dashboard",
+   "defects": [
+    "D09",
+    "D11"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/dashboard@1440: 15 published line(s) gone; all documented; 6 replacement line(s) present"
+  },
+  {
+   "waiver": "W-text-dashboard",
+   "defects": [
+    "D09",
+    "D11"
+   ],
+   "assertion": "text-390",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/dashboard@390: 15 published line(s) gone; all documented; 6 replacement line(s) present"
+  },
+  {
+   "waiver": "W-text-dashboard",
+   "defects": [
+    "D09",
+    "D11"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/dashboard@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-text-dashboard",
+   "defects": [
+    "D09",
+    "D11"
+   ],
+   "assertion": "dom",
+   "type": "browser:dashboard-dom",
+   "status": "PASS",
+   "detail": "7 titled stat cards, 12 legend entries, no raw key / \"undefined\", model note present"
+  },
+  {
+   "waiver": "W-text-dashboard",
+   "defects": [
+    "D09",
+    "D11"
+   ],
+   "assertion": "source-data-consistent",
+   "type": "data-dashboard-no-mismatch",
+   "status": "FAIL",
+   "detail": "the corps the published dashboard flagged with a warning glyph are STILL inconsistent in the data, and the candidate no longer flags them: U-I: periods sum 6394 but total_casualties 6059 (52.3%); C-CAV: periods sum 483 but total_casualties 583 (5.1%)"
+  },
+  {
+   "waiver": "W-screenshot-dashboard",
+   "defects": [
+    "D10",
+    "D12"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "21 patch(es) on dashboard.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-dashboard",
+   "defects": [
+    "D10",
+    "D12"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate dashboard.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-dashboard",
+   "defects": [
+    "D10",
+    "D12"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/dashboard@1440: 15 published line(s) gone; all documented; 6 replacement line(s) present"
+  },
+  {
+   "waiver": "W-screenshot-dashboard",
+   "defects": [
+    "D10",
+    "D12"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/dashboard@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-dashboard",
+   "defects": [
+    "D10",
+    "D12"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/dashboard@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-dashboard",
+   "defects": [
+    "D10",
+    "D12"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "dashboard@1440: 3.334 % differ (budget 5.1 %), page height 1713 -> 1561 (-152; budget +-230)"
+  },
+  {
+   "waiver": "W-screenshot-dashboard",
+   "defects": [
+    "D10",
+    "D12"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "dashboard@390: 5.898 % differ (budget 8.9 %), page height 2454 -> 2688 (+234; budget +-360)"
+  },
+  {
+   "waiver": "W-screenshot-dashboard",
+   "defects": [
+    "D10",
+    "D12"
+   ],
+   "assertion": "dom",
+   "type": "browser:dashboard-dom",
+   "status": "PASS",
+   "detail": "7 titled stat cards, 12 legend entries, no raw key / \"undefined\", model note present"
+  },
+  {
+   "waiver": "W-screenshot-dashboard",
+   "defects": [
+    "D10",
+    "D12"
+   ],
+   "assertion": "source-data-consistent",
+   "type": "data-dashboard-no-mismatch",
+   "status": "FAIL",
+   "detail": "the corps the published dashboard flagged with a warning glyph are STILL inconsistent in the data, and the candidate no longer flags them: U-I: periods sum 6394 but total_casualties 6059 (52.3%); C-CAV: periods sum 483 but total_casualties 583 (5.1%)"
+  },
+  {
+   "waiver": "W-screenshot-documentary",
+   "defects": [
+    "D13",
+    "D14"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "6 patch(es) on documentary.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-documentary",
+   "defects": [
+    "D13",
+    "D14"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate documentary.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-documentary",
+   "defects": [
+    "D13",
+    "D14"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/documentary@1440: 0 published line(s) gone; all documented; 0 replacement line(s) present"
+  },
+  {
+   "waiver": "W-screenshot-documentary",
+   "defects": [
+    "D13",
+    "D14"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/documentary@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-documentary",
+   "defects": [
+    "D13",
+    "D14"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/documentary@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-documentary",
+   "defects": [
+    "D13",
+    "D14"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "documentary@1440: 2.284 % differ (budget 3.5 %), page height 1238 -> 1230 (-8; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-documentary",
+   "defects": [
+    "D13",
+    "D14"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "documentary@390: 7.324 % differ (budget 11 %), page height 1838 -> 1883 (+45; budget +-70)"
+  },
+  {
+   "waiver": "W-screenshot-education",
+   "defects": [
+    "D15",
+    "D16"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "6 patch(es) on education.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-education",
+   "defects": [
+    "D15",
+    "D16"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate education.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-education",
+   "defects": [
+    "D15",
+    "D16"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/education@1440: 0 published line(s) gone; all documented; 0 replacement line(s) present"
+  },
+  {
+   "waiver": "W-screenshot-education",
+   "defects": [
+    "D15",
+    "D16"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/education@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-education",
+   "defects": [
+    "D15",
+    "D16"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/education@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-education",
+   "defects": [
+    "D15",
+    "D16"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "education@1440: 3.205 % differ (budget 4.9 %), page height 2546 -> 2530 (-16; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-education",
+   "defects": [
+    "D15",
+    "D16"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "education@390: 12.135 % differ (budget 18.3 %), page height 3373 -> 3418 (+45; budget +-70)"
+  },
+  {
+   "waiver": "W-screenshot-embed",
+   "defects": [
+    "D17",
+    "D18"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "1 patch(es) on embed.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-embed",
+   "defects": [
+    "D17",
+    "D18"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/embed@1440: 0 published line(s) gone; all documented; 0 replacement line(s) present"
+  },
+  {
+   "waiver": "W-screenshot-embed",
+   "defects": [
+    "D17",
+    "D18"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/embed@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-embed",
+   "defects": [
+    "D17",
+    "D18"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/embed@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-embed",
+   "defects": [
+    "D17",
+    "D18"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "embed@1440: 1.304 % differ (budget 2 %), page height 900 -> 900 (+0; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-embed",
+   "defects": [
+    "D17",
+    "D18"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "embed@390: 7.149 % differ (budget 10.8 %), page height 844 -> 844 (+0; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-find-ancestor",
+   "defects": [
+    "D19",
+    "D20"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "6 patch(es) on find-ancestor.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-find-ancestor",
+   "defects": [
+    "D19",
+    "D20"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate find-ancestor.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-find-ancestor",
+   "defects": [
+    "D19",
+    "D20"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/find-ancestor@1440: 0 published line(s) gone; all documented; 0 replacement line(s) present"
+  },
+  {
+   "waiver": "W-screenshot-find-ancestor",
+   "defects": [
+    "D19",
+    "D20"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/find-ancestor@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-find-ancestor",
+   "defects": [
+    "D19",
+    "D20"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/find-ancestor@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-find-ancestor",
+   "defects": [
+    "D19",
+    "D20"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "find-ancestor@1440: 1.379 % differ (budget 2.1 %), page height 900 -> 900 (+0; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-find-ancestor",
+   "defects": [
+    "D19",
+    "D20"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "find-ancestor@390: 5.333 % differ (budget 8 %), page height 844 -> 885 (+41; budget +-70)"
+  },
+  {
+   "waiver": "W-text-historian",
+   "defects": [
+    "D21",
+    "D23"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "15 patch(es) on historian.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-text-historian",
+   "defects": [
+    "D21",
+    "D23"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/historian@1440: 1 published line(s) gone; all documented; 1 replacement line(s) present"
+  },
+  {
+   "waiver": "W-text-historian",
+   "defects": [
+    "D21",
+    "D23"
+   ],
+   "assertion": "text-390",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/historian@390: 1 published line(s) gone; all documented; 1 replacement line(s) present"
+  },
+  {
+   "waiver": "W-text-historian",
+   "defects": [
+    "D21",
+    "D23"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/historian@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-text-historian",
+   "defects": [
+    "D21",
+    "D23"
+   ],
+   "assertion": "claims",
+   "type": "browser:historian",
+   "status": "PASS",
+   "detail": "displayed counts 466/24/137/30 match the data files; asked one question: answer carries a source line/link; no external fetch: still runs entirely in the browser"
+  },
+  {
+   "waiver": "W-screenshot-historian",
+   "defects": [
+    "D22",
+    "D24"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "15 patch(es) on historian.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-historian",
+   "defects": [
+    "D22",
+    "D24"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate historian.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-historian",
+   "defects": [
+    "D22",
+    "D24"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/historian@1440: 1 published line(s) gone; all documented; 1 replacement line(s) present"
+  },
+  {
+   "waiver": "W-screenshot-historian",
+   "defects": [
+    "D22",
+    "D24"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/historian@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-historian",
+   "defects": [
+    "D22",
+    "D24"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/historian@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-historian",
+   "defects": [
+    "D22",
+    "D24"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "historian@1440: 1.499 % differ (budget 2.3 %), page height 900 -> 1194 (+294; budget +-450)"
+  },
+  {
+   "waiver": "W-screenshot-historian",
+   "defects": [
+    "D22",
+    "D24"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "historian@390: 4.001 % differ (budget 6.1 %), page height 966 -> 1247 (+281; budget +-430)"
+  },
+  {
+   "waiver": "W-screenshot-historian",
+   "defects": [
+    "D22",
+    "D24"
+   ],
+   "assertion": "claims",
+   "type": "browser:historian",
+   "status": "PASS",
+   "detail": "displayed counts 466/24/137/30 match the data files; asked one question: answer carries a source line/link; no external fetch: still runs entirely in the browser"
+  },
+  {
+   "waiver": "W-screenshot-living-ledger",
+   "defects": [
+    "D25",
+    "D26"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "8 patch(es) on living-ledger.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-living-ledger",
+   "defects": [
+    "D25",
+    "D26"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate living-ledger.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-living-ledger",
+   "defects": [
+    "D25",
+    "D26"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/living-ledger@1440: 0 published line(s) gone; all documented; 0 replacement line(s) present"
+  },
+  {
+   "waiver": "W-screenshot-living-ledger",
+   "defects": [
+    "D25",
+    "D26"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/living-ledger@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-living-ledger",
+   "defects": [
+    "D25",
+    "D26"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/living-ledger@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-living-ledger",
+   "defects": [
+    "D25",
+    "D26"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "living-ledger@1440: 0.991 % differ (budget 1.5 %), page height 900 -> 1124 (+224; budget +-340)"
+  },
+  {
+   "waiver": "W-screenshot-living-ledger",
+   "defects": [
+    "D25",
+    "D26"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "living-ledger@390: 4.312 % differ (budget 6.5 %), page height 844 -> 1157 (+313; budget +-470)"
+  },
+  {
+   "waiver": "W-screenshot-privacy",
+   "defects": [
+    "D27",
+    "D28"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "2 patch(es) on privacy.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-privacy",
+   "defects": [
+    "D27",
+    "D28"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/privacy@1440: 0 published line(s) gone; all documented; 0 replacement line(s) present"
+  },
+  {
+   "waiver": "W-screenshot-privacy",
+   "defects": [
+    "D27",
+    "D28"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/privacy@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-privacy",
+   "defects": [
+    "D27",
+    "D28"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/privacy@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-privacy",
+   "defects": [
+    "D27",
+    "D28"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "privacy@1440: 0.138 % differ (budget 0.7 %), page height 1518 -> 1539 (+21; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-privacy",
+   "defects": [
+    "D27",
+    "D28"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "privacy@390: 0.247 % differ (budget 0.8 %), page height 1966 -> 2007 (+41; budget +-70)"
+  },
+  {
+   "waiver": "W-screenshot-regiment",
+   "defects": [
+    "D29",
+    "D30"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "13 patch(es) on regiment.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-regiment",
+   "defects": [
+    "D29",
+    "D30"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate regiment.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-regiment",
+   "defects": [
+    "D29",
+    "D30"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/regiment@1440: 0 published line(s) gone; all documented; 0 replacement line(s) present"
+  },
+  {
+   "waiver": "W-screenshot-regiment",
+   "defects": [
+    "D29",
+    "D30"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/regiment@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-regiment",
+   "defects": [
+    "D29",
+    "D30"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/regiment@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-regiment",
+   "defects": [
+    "D29",
+    "D30"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "regiment@1440: 0.771 % differ (budget 1.3 %), page height 900 -> 900 (+0; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-regiment",
+   "defects": [
+    "D29",
+    "D30"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "regiment@390: 2.599 % differ (budget 3.9 %), page height 844 -> 844 (+0; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-report",
+   "defects": [
+    "D31",
+    "D32"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "13 patch(es) on report.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-report",
+   "defects": [
+    "D31",
+    "D32"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate report.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-report",
+   "defects": [
+    "D31",
+    "D32"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/report@1440: 0 published line(s) gone; all documented; 0 replacement line(s) present"
+  },
+  {
+   "waiver": "W-screenshot-report",
+   "defects": [
+    "D31",
+    "D32"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/report@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-report",
+   "defects": [
+    "D31",
+    "D32"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/report@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-report",
+   "defects": [
+    "D31",
+    "D32"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "report@1440: 0.596 % differ (budget 1.1 %), page height 900 -> 900 (+0; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-report",
+   "defects": [
+    "D31",
+    "D32"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "report@390: 2.042 % differ (budget 3.1 %), page height 844 -> 844 (+0; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-search",
+   "defects": [
+    "D33",
+    "D34"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "8 patch(es) on search.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-search",
+   "defects": [
+    "D33",
+    "D34"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate search.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-search",
+   "defects": [
+    "D33",
+    "D34"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/search@1440: 0 published line(s) gone; all documented; 0 replacement line(s) present"
+  },
+  {
+   "waiver": "W-screenshot-search",
+   "defects": [
+    "D33",
+    "D34"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/search@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-search",
+   "defects": [
+    "D33",
+    "D34"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/search@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-search",
+   "defects": [
+    "D33",
+    "D34"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "search@1440: 2.085 % differ (budget 3.2 %), page height 3273 -> 3306 (+33; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-search",
+   "defects": [
+    "D33",
+    "D34"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "search@390: 7.480 % differ (budget 11.3 %), page height 3498 -> 3740 (+242; budget +-370)"
+  },
+  {
+   "waiver": "W-screenshot-terms",
+   "defects": [
+    "D35",
+    "D36"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "1 patch(es) on terms.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-terms",
+   "defects": [
+    "D35",
+    "D36"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/terms@1440: 0 published line(s) gone; all documented; 0 replacement line(s) present"
+  },
+  {
+   "waiver": "W-screenshot-terms",
+   "defects": [
+    "D35",
+    "D36"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/terms@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-terms",
+   "defects": [
+    "D35",
+    "D36"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/terms@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-terms",
+   "defects": [
+    "D35",
+    "D36"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "terms@1440: 0.109 % differ (budget 0.7 %), page height 1388 -> 1410 (+22; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-terms",
+   "defects": [
+    "D35",
+    "D36"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "terms@390: 0.252 % differ (budget 0.8 %), page height 1872 -> 1915 (+43; budget +-70)"
+  },
+  {
+   "waiver": "W-screenshot-turning-points",
+   "defects": [
+    "D37",
+    "D38"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "10 patch(es) on turning-points.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-turning-points",
+   "defects": [
+    "D37",
+    "D38"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate turning-points.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-turning-points",
+   "defects": [
+    "D37",
+    "D38"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/turning-points@1440: 0 published line(s) gone; all documented; 0 replacement line(s) present"
+  },
+  {
+   "waiver": "W-screenshot-turning-points",
+   "defects": [
+    "D37",
+    "D38"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/turning-points@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-turning-points",
+   "defects": [
+    "D37",
+    "D38"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/turning-points@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-turning-points",
+   "defects": [
+    "D37",
+    "D38"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "turning-points@1440: 1.909 % differ (budget 2.9 %), page height 1608 -> 1629 (+21; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-turning-points",
+   "defects": [
+    "D37",
+    "D38"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "turning-points@390: 5.501 % differ (budget 8.3 %), page height 2134 -> 2251 (+117; budget +-180)"
+  },
+  {
+   "waiver": "W-screenshot-camera",
+   "defects": [
+    "D39"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "9 patch(es) on camera.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-camera",
+   "defects": [
+    "D39"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate camera.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-camera",
+   "defects": [
+    "D39"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/camera@1440: 0 published line(s) gone; all documented; 0 replacement line(s) present"
+  },
+  {
+   "waiver": "W-screenshot-camera",
+   "defects": [
+    "D39"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/camera@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-camera",
+   "defects": [
+    "D39"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/camera@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-camera",
+   "defects": [
+    "D39"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "camera@1440: 59.156 % differ (budget 88.8 %), page height 948 -> 937 (-11; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-cinematic-export",
+   "defects": [
+    "D40"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "13 patch(es) on cinematic-export.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-cinematic-export",
+   "defects": [
+    "D40"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate cinematic-export.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-cinematic-export",
+   "defects": [
+    "D40"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/cinematic-export@1440: 0 published line(s) gone; all documented; 0 replacement line(s) present"
+  },
+  {
+   "waiver": "W-screenshot-cinematic-export",
+   "defects": [
+    "D40"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/cinematic-export@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-cinematic-export",
+   "defects": [
+    "D40"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/cinematic-export@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-cinematic-export",
+   "defects": [
+    "D40"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "cinematic-export@1440: 0.934 % differ (budget 1.5 %), page height 980 -> 971 (-9; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-compare",
+   "defects": [
+    "D41"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "20 patch(es) on compare.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-compare",
+   "defects": [
+    "D41"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate compare.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-compare",
+   "defects": [
+    "D41"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/compare@1440: 0 published line(s) gone; all documented; 0 replacement line(s) present"
+  },
+  {
+   "waiver": "W-screenshot-compare",
+   "defects": [
+    "D41"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/compare@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-compare",
+   "defects": [
+    "D41"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/compare@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-compare",
+   "defects": [
+    "D41"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "compare@1440: 2.422 % differ (budget 3.7 %), page height 956 -> 962 (+6; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-ground-remembers",
+   "defects": [
+    "D42"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "8 patch(es) on ground-remembers.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-ground-remembers",
+   "defects": [
+    "D42"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate ground-remembers.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-ground-remembers",
+   "defects": [
+    "D42"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/ground-remembers@1440: 0 published line(s) gone; all documented; 0 replacement line(s) present"
+  },
+  {
+   "waiver": "W-screenshot-ground-remembers",
+   "defects": [
+    "D42"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/ground-remembers@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-ground-remembers",
+   "defects": [
+    "D42"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/ground-remembers@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-ground-remembers",
+   "defects": [
+    "D42"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "ground-remembers@1440: 1.573 % differ (budget 2.4 %), page height 1026 -> 1019 (-7; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-immersive",
+   "defects": [
+    "D43"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "13 patch(es) on immersive.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-immersive",
+   "defects": [
+    "D43"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate immersive.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-immersive",
+   "defects": [
+    "D43"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/immersive@1440: 0 published line(s) gone; all documented; 0 replacement line(s) present"
+  },
+  {
+   "waiver": "W-screenshot-immersive",
+   "defects": [
+    "D43"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/immersive@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-immersive",
+   "defects": [
+    "D43"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/immersive@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-immersive",
+   "defects": [
+    "D43"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "immersive@1440: 1.651 % differ (budget 2.5 %), page height 990 -> 983 (-7; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-sandbox",
+   "defects": [
+    "D50"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "14 patch(es) on sandbox.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-sandbox",
+   "defects": [
+    "D50"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate sandbox.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-sandbox",
+   "defects": [
+    "D50"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/sandbox@1440: 0 published line(s) gone; all documented; 0 replacement line(s) present"
+  },
+  {
+   "waiver": "W-screenshot-sandbox",
+   "defects": [
+    "D50"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/sandbox@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-sandbox",
+   "defects": [
+    "D50"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/sandbox@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-sandbox",
+   "defects": [
+    "D50"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "sandbox@1440: 2.945 % differ (budget 4.5 %), page height 1093 -> 1107 (+14; budget +-60)"
+  },
+  {
+   "waiver": "W-text-viewshed",
+   "defects": [
+    "D51"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "10 patch(es) on viewshed.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-text-viewshed",
+   "defects": [
+    "D51"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/viewshed@1440: 1 published line(s) gone; all documented; 1 replacement line(s) present"
+  },
+  {
+   "waiver": "W-text-viewshed",
+   "defects": [
+    "D51"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/viewshed@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-text-viewshed",
+   "defects": [
+    "D51"
+   ],
+   "assertion": "viewshed-ranks-30",
+   "type": "browser:viewshed",
+   "status": "PASS",
+   "detail": "caveat \"⚠ Elevation only. This page ranks the height of 30 places on...\", ranking rows 30, terrain features 30 (the caveat says 30 places)"
+  },
+  {
+   "waiver": "W-screenshot-viewshed",
+   "defects": [
+    "D52"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "10 patch(es) on viewshed.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-viewshed",
+   "defects": [
+    "D52"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate viewshed.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-viewshed",
+   "defects": [
+    "D52"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/viewshed@1440: 1 published line(s) gone; all documented; 1 replacement line(s) present"
+  },
+  {
+   "waiver": "W-screenshot-viewshed",
+   "defects": [
+    "D52"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/viewshed@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-viewshed",
+   "defects": [
+    "D52"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/viewshed@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-viewshed",
+   "defects": [
+    "D52"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "viewshed@1440: 1.700 % differ (budget 2.6 %), page height 2005 -> 1882 (-123; budget +-190)"
+  },
+  {
+   "waiver": "W-screenshot-viewshed",
+   "defects": [
+    "D52"
+   ],
+   "assertion": "viewshed-ranks-30",
+   "type": "browser:viewshed",
+   "status": "PASS",
+   "detail": "caveat \"⚠ Elevation only. This page ranks the height of 30 places on...\", ranking rows 30, terrain features 30 (the caveat says 30 places)"
+  },
+  {
+   "waiver": "W-screenshot-watch-together",
+   "defects": [
+    "D53"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "25 patch(es) on watch-together.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-watch-together",
+   "defects": [
+    "D53"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate watch-together.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-watch-together",
+   "defects": [
+    "D53"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/watch-together@1440: 0 published line(s) gone; all documented; 0 replacement line(s) present"
+  },
+  {
+   "waiver": "W-screenshot-watch-together",
+   "defects": [
+    "D53"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/watch-together@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-watch-together",
+   "defects": [
+    "D53"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/watch-together@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-watch-together",
+   "defects": [
+    "D53"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "watch-together@1440: 1.571 % differ (budget 2.4 %), page height 1467 -> 1497 (+30; budget +-60)"
+  },
+  {
+   "waiver": "W-text-index-1440",
+   "defects": [
+    "D44",
+    "D47"
+   ],
+   "assertion": "page-ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "49 patch(es) on index.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-text-index-1440",
+   "defects": [
+    "D44",
+    "D47"
+   ],
+   "assertion": "bundle-ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "246 patch(es) on js, help, book, css: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-text-index-1440",
+   "defects": [
+    "D44",
+    "D47"
+   ],
+   "assertion": "no-chooser-and-layout-override",
+   "type": "browser:no-chooser",
+   "status": "PASS",
+   "detail": "no chooser at 1440 (layout desktop) and 390 (layout mobile); ?layout=desktop works and Phone view returns: 1440px -> desktop; 390px -> mobile; 390px ?layout=desktop -> desktop, Phone view control visible; after Phone view -> mobile"
+  },
+  {
+   "waiver": "W-text-index-1440",
+   "defects": [
+    "D44",
+    "D47"
+   ],
+   "assertion": "desktop-replacements",
+   "type": "browser:index-desktop",
+   "status": "PASS",
+   "detail": "HUD July 3, 1863 -> July 1, 1863; minimap 70 units at tick 1 (published 72); guide link \"Download Website Tutorial PDF\" -> \"User Guide (PDF)\", same href and download; timeline slider named \"Battle time\" 1..675, valuetext \"July 1, 6:00 AM\" (published: unnamed \"0\"); no sound button; \"1x (real time)\" -> \"1x (base speed)\""
+  },
+  {
+   "waiver": "W-text-index-1440",
+   "defects": [
+    "D44",
+    "D47"
+   ],
+   "assertion": "lines-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/@1440: 5 published line(s) gone; all documented; 4 replacement line(s) present"
+  },
+  {
+   "waiver": "W-text-index-1440",
+   "defects": [
+    "D44",
+    "D47"
+   ],
+   "assertion": "lines-390",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/@390: 31 published line(s) gone; all documented; 1 replacement line(s) present"
+  },
+  {
+   "waiver": "W-controls-index-1440",
+   "defects": [
+    "D45",
+    "D48"
+   ],
+   "assertion": "bundle-ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "246 patch(es) on js, help, book, css: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-controls-index-1440",
+   "defects": [
+    "D45",
+    "D48"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/@1440: 3 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-controls-index-1440",
+   "defects": [
+    "D45",
+    "D48"
+   ],
+   "assertion": "controls-390",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/@390: 12 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-controls-index-1440",
+   "defects": [
+    "D45",
+    "D48"
+   ],
+   "assertion": "phone-shell-rehoming",
+   "type": "browser:phone-shell",
+   "status": "PASS",
+   "detail": "14 Tools tiles present; More tools links == desktop Extra Features menu (19 links); \"Search\" opens a panel; \"Filter\" opens Filters; \"Order of Battle\" opens Order of Battle; \"Unit Roster\" opens All Battle Units; \"Soldier's View\" opens a dialog; \"Follow Ancestor\" opens a dialog; \"Map Layers\" opens Map Layers; \"Virtual Walkthrough\" opens a dialog; \"Legend\" opens Legend; \"Bookmarks\" opens a dialog; \"Help\" opens a dialog; \"Ask the Historian\" opens /historian.html; \"Desktop View\" opens Phone view"
+  },
+  {
+   "waiver": "W-screenshot-index-1440",
+   "defects": [
+    "D46"
+   ],
+   "assertion": "page-ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "49 patch(es) on index.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-index-1440",
+   "defects": [
+    "D46"
+   ],
+   "assertion": "no-chooser-and-layout-override",
+   "type": "browser:no-chooser",
+   "status": "PASS",
+   "detail": "no chooser at 1440 (layout desktop) and 390 (layout mobile); ?layout=desktop works and Phone view returns: 1440px -> desktop; 390px -> mobile; 390px ?layout=desktop -> desktop, Phone view control visible; after Phone view -> mobile"
+  },
+  {
+   "waiver": "W-screenshot-index-1440",
+   "defects": [
+    "D46"
+   ],
+   "assertion": "desktop-replacements",
+   "type": "browser:index-desktop",
+   "status": "PASS",
+   "detail": "HUD July 3, 1863 -> July 1, 1863; minimap 70 units at tick 1 (published 72); guide link \"Download Website Tutorial PDF\" -> \"User Guide (PDF)\", same href and download; timeline slider named \"Battle time\" 1..675, valuetext \"July 1, 6:00 AM\" (published: unnamed \"0\"); no sound button; \"1x (real time)\" -> \"1x (base speed)\""
+  },
+  {
+   "waiver": "W-screenshot-index-390",
+   "defects": [
+    "D49"
+   ],
+   "assertion": "page-ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "49 patch(es) on index.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-index-390",
+   "defects": [
+    "D49"
+   ],
+   "assertion": "no-chooser-and-layout-override",
+   "type": "browser:no-chooser",
+   "status": "PASS",
+   "detail": "no chooser at 1440 (layout desktop) and 390 (layout mobile); ?layout=desktop works and Phone view returns: 1440px -> desktop; 390px -> mobile; 390px ?layout=desktop -> desktop, Phone view control visible; after Phone view -> mobile"
+  },
+  {
+   "waiver": "W-screenshot-index-390",
+   "defects": [
+    "D49"
+   ],
+   "assertion": "desktop-replacements",
+   "type": "browser:index-desktop",
+   "status": "PASS",
+   "detail": "HUD July 3, 1863 -> July 1, 1863; minimap 70 units at tick 1 (published 72); guide link \"Download Website Tutorial PDF\" -> \"User Guide (PDF)\", same href and download; timeline slider named \"Battle time\" 1..675, valuetext \"July 1, 6:00 AM\" (published: unnamed \"0\"); no sound button; \"1x (real time)\" -> \"1x (base speed)\""
+  },
+  {
+   "waiver": "W-screenshot-index-390",
+   "defects": [
+    "D49"
+   ],
+   "assertion": "phone-shell-rehoming",
+   "type": "browser:phone-shell",
+   "status": "PASS",
+   "detail": "14 Tools tiles present; More tools links == desktop Extra Features menu (19 links); \"Search\" opens a panel; \"Filter\" opens Filters; \"Order of Battle\" opens Order of Battle; \"Unit Roster\" opens All Battle Units; \"Soldier's View\" opens a dialog; \"Follow Ancestor\" opens a dialog; \"Map Layers\" opens Map Layers; \"Virtual Walkthrough\" opens a dialog; \"Legend\" opens Legend; \"Bookmarks\" opens a dialog; \"Help\" opens a dialog; \"Ask the Historian\" opens /historian.html; \"Desktop View\" opens Phone view"
+  },
+  {
+   "waiver": "W-data-DATA-group",
+   "defects": [],
+   "assertion": "every-changed-data-file-is-accounted-for",
+   "type": "data-changes-accounted",
+   "status": "FAIL",
+   "detail": "added without a patch: data/moments.json"
+  }
+ ]
+}

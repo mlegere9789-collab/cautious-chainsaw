@@ -27,7 +27,7 @@ export function drawBeneath(c, fx, colors) {
   }
   for (const r of fx.rings) {
     if (!r.pulse) continue; const col = colorOf(colors, r.tone); const g = r.pulse.grow; c.globalAlpha = 0.5 * r.pulse.alpha * r.alpha; c.strokeStyle = col; c.lineWidth = 1.2;
-    rr(c, r.rect.x0 - g, r.rect.y0 - g, r.rect.x1 - r.rect.x0 + 2 * g, r.rect.y1 - r.rect.y0 + 2 * g, 7 + g * 0.6); c.stroke();
+    const px = r.pip ? r.pip.x : (r.rect.x0 + r.rect.x1) / 2; const py = r.pip ? r.pip.y : (r.rect.y0 + r.rect.y1) / 2; c.beginPath(); c.arc(px, py, RING_R + g, 0, Math.PI * 2); c.stroke();
   }
   for (const l of fx.leaders) {
     const col = colorOf(colors, l.tone); const x = l.x0 + (l.x1 - l.x0) * l.p; const y = l.y0 + (l.y1 - l.y0) * l.p; c.globalAlpha = Math.max(0, Math.min(1, l.alpha)) * 0.9;
@@ -37,13 +37,16 @@ export function drawBeneath(c, fx, colors) {
   c.restore();
 }
 
-/** the subject ring: inside the mark's box, in the reserved band; strength 1 for the primary subject, 0.5 for the others; lighter when the mark stands for a parent (Modelled) */
+/** the subject ring (round 2): a ring round the PIP of the subject mark, a hairline in the card's tone under a paper underlay; strength 1 for the primary subject, 0.5 for the others; lighter when the mark stands for a parent (Modelled).
+ *  It is the skin's own selection ring that says "selected"; this one says "this is what the card is about", and never frames the words. */
+const RING_R = 10.5;
 export function drawAbove(c, fx, colors) {
   if (!fx || !fx.rings.length) return;
   c.save();
   for (const r of fx.rings) {
-    const col = colorOf(colors, r.tone); const x = r.rect.x0; const y = r.rect.y0; const w = r.rect.x1 - r.rect.x0; const h = r.rect.y1 - r.rect.y0; c.globalAlpha = Math.max(0, Math.min(1, r.alpha)) * r.strength * (r.dashed ? 0.6 : 1);
-    c.lineWidth = 2.6; c.strokeStyle = under(0.6); rr(c, x + 1, y + 1, w - 2, h - 2, 6.5); c.stroke(); c.lineWidth = 1.3; c.strokeStyle = col; rr(c, x + 1, y + 1, w - 2, h - 2, 6.5); c.stroke();
+    if (r.selected) continue;      // the skin's own ring already stands round a selected mark
+    const col = colorOf(colors, r.tone); const px = r.pip ? r.pip.x : (r.rect.x0 + r.rect.x1) / 2; const py = r.pip ? r.pip.y : (r.rect.y0 + r.rect.y1) / 2; c.globalAlpha = Math.max(0, Math.min(1, r.alpha)) * r.strength * (r.dashed ? 0.6 : 1);
+    c.lineWidth = 3.2; c.strokeStyle = under(0.7); c.beginPath(); c.arc(px, py, RING_R, 0, Math.PI * 2); c.stroke(); c.lineWidth = 1.5; c.strokeStyle = col; c.beginPath(); c.arc(px, py, RING_R, 0, Math.PI * 2); c.stroke();
   }
   c.restore();
 }

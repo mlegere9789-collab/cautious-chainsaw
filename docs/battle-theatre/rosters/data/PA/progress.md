@@ -1,0 +1,30 @@
+- 2026-10-30 21:58  fetched historyofpennsyl01bate_djvu.txt (6608167 bytes)
+- 2026-10-30 22:01  fetched historyofpennsyl02bate_djvu.txt (7523801 bytes)
+- 2026-10-30 22:01  fetched historyofpennsyl03bate_djvu.txt (7776906 bytes)
+- 2026-10-30 22:01  fetched historyofpennsyl04bate_djvu.txt (7715971 bytes)
+- 2026-10-30 22:01  fetched historyofpennsyl00bate_djvu.txt (8689746 bytes)
+- 2026-10-30 22:02  fetched historyofpennsyl01bate_djvu.xml (81339700 bytes)
+- 2026-10-30 22:14  fetched historyofpennsyl02bate_djvu.xml (93392803 bytes)
+- 2026-10-30 22:15  fetched historyofpennsyl03bate_djvu.xml (98890957 bytes)
+- 2026-10-30 22:15  fetched historyofpennsyl04bate_djvu.xml (96863361 bytes)
+- 2026-10-30 22:15  fetched historyofpennsyl00bate_djvu.xml (106172156 bytes)
+- 2026-10-30 22:37  fetched revisedreportma00cemegoog_djvu.txt (431377 bytes)
+- 2026-10-30 22:37  fetched revisedreportma00cemegoog_djvu.xml (5382130 bytes)
+- 2026-10-30 22:52  datecol strips fetched: 50 (04)
+- 2026-10-30 22:57  datecol strips fetched: 100 (02)
+- 2026-10-30 21:56  step 1: read CLAUDE.md, DEC-019, PLAN, pilot, pipeline; listed 77 Pennsylvania units in the repository OOB (scripts/oob_units.py -> units.json)
+- 2026-10-30 21:58  step 2: IA search and metadata for Bates vols 1-5 and Pennsylvania at Gettysburg (ia_find.py, ia_meta.py): rights flags read, none access-restricted
+- 2026-10-30 22:02  step 3: downloaded djvu.txt and djvu.xml for 5 Bates volumes (about 520 MB), sha256 in acquired.json
+- 2026-10-30 22:10  step 4: layout parser (pages.py, layout.py): table columns per page, rows by name anchors; narrative pages dropped
+- 2026-10-30 22:25  step 5: assemble.py (regiment per page from running heads, company headings) and classify.py (PLAN 2.2 rules), emit.py (per-unit CSV)
+- 2026-10-30 22:35  step 6: 77 of 77 OOB units have rolls; 3 extra Pennsylvania regiments from the sources (46th, 107th, 139th)
+- 2026-10-30 22:38  step 7: monument inscriptions of Pennsylvania at Gettysburg vol II -> strength_present_inscriptions.csv (pag.py)
+- 2026-10-30 22:44  step 8: visual QA of two pages (115 rows), qa/QA.md; stats.py -> stats.json, reconciliation.csv, qa/*_sample30.csv
+- 2026-10-30 22:46  step 9: second OCR of the date column started (IIIF crops, Windows OCR): fetch runs about 8 pages a minute, ordered by unit
+- 2026-10-30 22:57  step 10: SOURCES.csv (U07, PA-01..PA-06) and GAPS.md (G-PA1..G-PA10) updated
+- 2026-10-30 23:02  datecol strips fetched: 150 (04)
+- 2026-10-30 23:06  datecol strips fetched: 200 (04)
+- 2026-10-30 23:10  datecol strips fetched: 250 (01)
+- 2026-10-30 23:13  datecol strips fetched: 300 (02)
+- 2026-10-30 23:17  datecol strips fetched: 350 (02)
+- 2026-10-30 23:35  final: 373 date strips read; units re-emitted; stats.json, reconciliation.csv, conservation.json, README results regenerated; fetch stopped (resumable)

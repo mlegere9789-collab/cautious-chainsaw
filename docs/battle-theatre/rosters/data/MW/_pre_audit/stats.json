@@ -1,0 +1,686 @@
+{
+ "family": "MW",
+ "units_in_oob": 26,
+ "units_with_names": 26,
+ "units_with_full_roll": 16,
+ "rows": 27098,
+ "names": 26094,
+ "rows_name_not_in_ocr": 1004,
+ "share_by_label": {
+  "Unknown": 0.5639,
+  "Absent-Documented": 0.3524,
+  "Present-Documented": 0.0556,
+  "Duplicate-Xref": 0.028
+ },
+ "labels_total": {
+  "Unknown": 15281,
+  "Absent-Documented": 9550,
+  "Present-Documented": 1507,
+  "Duplicate-Xref": 760
+ },
+ "units": {
+  "U-12IL-CAV": {
+   "slug": "12th-illinois-cavalry",
+   "rows": 2653,
+   "rows_with_name": 2607,
+   "rows_name_not_in_ocr": 46,
+   "name_flagged": 86,
+   "labels": {
+    "Unknown": 1343,
+    "Absent-Documented": 1109,
+    "Present-Documented": 8,
+    "Duplicate-Xref": 193
+   },
+   "roll_status": {
+    "on-roll-undetermined": 648,
+    "off-roll-before-battle": 173,
+    "unreadable-or-ambiguous": 695,
+    "not-yet-enlisted": 936,
+    "named-present": 8,
+    "xref": 193
+   },
+   "present_documented": 8,
+   "oob_strength": 378,
+   "oob_casualties": 24,
+   "michigan_monument_effective_strength": null,
+   "sources": [
+    "IL-AGR-1900-v8",
+    "MI-BOIES-1913"
+   ],
+   "full_roll": true
+  },
+  "U-14IN": {
+   "slug": "14th-indiana-infantry",
+   "rows": 1142,
+   "rows_with_name": 1033,
+   "rows_name_not_in_ocr": 109,
+   "name_flagged": 159,
+   "labels": {
+    "Unknown": 591,
+    "Absent-Documented": 537,
+    "Present-Documented": 14
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 162,
+    "on-roll-undetermined": 429,
+    "off-roll-before-battle": 492,
+    "named-present": 14,
+    "not-yet-enlisted": 45
+   },
+   "present_documented": 14,
+   "oob_strength": 311,
+   "oob_casualties": 74,
+   "michigan_monument_effective_strength": null,
+   "sources": [
+    "IN-AGR-v4"
+   ],
+   "full_roll": true
+  },
+  "U-16MI": {
+   "slug": "16th-michigan-infantry",
+   "rows": 15,
+   "rows_with_name": 15,
+   "rows_name_not_in_ocr": 0,
+   "name_flagged": 15,
+   "labels": {
+    "Present-Documented": 15
+   },
+   "roll_status": {
+    "named-present": 15
+   },
+   "present_documented": 15,
+   "oob_strength": 263,
+   "oob_casualties": 97,
+   "michigan_monument_effective_strength": 365,
+   "sources": [
+    "MI-BOIES-1913"
+   ],
+   "full_roll": false
+  },
+  "U-19IN": {
+   "slug": "19th-indiana-infantry",
+   "rows": 1328,
+   "rows_with_name": 1175,
+   "rows_name_not_in_ocr": 153,
+   "name_flagged": 186,
+   "labels": {
+    "Unknown": 961,
+    "Absent-Documented": 309,
+    "Present-Documented": 58
+   },
+   "roll_status": {
+    "on-roll-undetermined": 650,
+    "unreadable-or-ambiguous": 311,
+    "off-roll-before-battle": 184,
+    "named-present": 58,
+    "not-yet-enlisted": 125
+   },
+   "present_documented": 58,
+   "oob_strength": 308,
+   "oob_casualties": 210,
+   "michigan_monument_effective_strength": null,
+   "sources": [
+    "IN-AGR-v4"
+   ],
+   "full_roll": true
+  },
+  "U-1MI-CAV": {
+   "slug": "1st-michigan-cavalry",
+   "rows": 16,
+   "rows_with_name": 16,
+   "rows_name_not_in_ocr": 0,
+   "name_flagged": 16,
+   "labels": {
+    "Present-Documented": 16
+   },
+   "roll_status": {
+    "named-present": 16
+   },
+   "present_documented": 16,
+   "oob_strength": 427,
+   "oob_casualties": 80,
+   "michigan_monument_effective_strength": null,
+   "sources": [
+    "MI-BOIES-1913"
+   ],
+   "full_roll": false
+  },
+  "U-1MI": {
+   "slug": "1st-michigan-infantry",
+   "rows": 10,
+   "rows_with_name": 10,
+   "rows_name_not_in_ocr": 0,
+   "name_flagged": 10,
+   "labels": {
+    "Present-Documented": 10
+   },
+   "roll_status": {
+    "named-present": 10
+   },
+   "present_documented": 10,
+   "oob_strength": 145,
+   "oob_casualties": 26,
+   "michigan_monument_effective_strength": 261,
+   "sources": [
+    "MI-BOIES-1913"
+   ],
+   "full_roll": false
+  },
+  "U-1MN": {
+   "slug": "1st-minnesota-infantry",
+   "rows": 1322,
+   "rows_with_name": 1267,
+   "rows_name_not_in_ocr": 55,
+   "name_flagged": 129,
+   "labels": {
+    "Absent-Documented": 404,
+    "Present-Documented": 241,
+    "Unknown": 677
+   },
+   "roll_status": {
+    "off-roll-before-battle": 320,
+    "named-present": 241,
+    "unreadable-or-ambiguous": 208,
+    "on-roll-undetermined": 469,
+    "not-yet-enlisted": 84
+   },
+   "present_documented": 241,
+   "oob_strength": 262,
+   "oob_casualties": 224,
+   "michigan_monument_effective_strength": null,
+   "sources": [
+    "MN-CIVILINDIAN-1890-v1"
+   ],
+   "full_roll": true
+  },
+  "U-20IN": {
+   "slug": "20th-indiana-infantry",
+   "rows": 1370,
+   "rows_with_name": 1199,
+   "rows_name_not_in_ocr": 171,
+   "name_flagged": 194,
+   "labels": {
+    "Unknown": 1180,
+    "Present-Documented": 41,
+    "Absent-Documented": 149
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 354,
+    "on-roll-undetermined": 826,
+    "named-present": 41,
+    "not-yet-enlisted": 91,
+    "off-roll-before-battle": 58
+   },
+   "present_documented": 41,
+   "oob_strength": 401,
+   "oob_casualties": 141,
+   "michigan_monument_effective_strength": null,
+   "sources": [
+    "IN-AGR-v4"
+   ],
+   "full_roll": true
+  },
+  "U-24MI": {
+   "slug": "24th-michigan-infantry",
+   "rows": 24,
+   "rows_with_name": 24,
+   "rows_name_not_in_ocr": 0,
+   "name_flagged": 24,
+   "labels": {
+    "Present-Documented": 24
+   },
+   "roll_status": {
+    "named-present": 24
+   },
+   "present_documented": 24,
+   "oob_strength": 496,
+   "oob_casualties": 362,
+   "michigan_monument_effective_strength": 496,
+   "sources": [
+    "MI-BOIES-1913"
+   ],
+   "full_roll": false
+  },
+  "U-26WI": {
+   "slug": "26th-wisconsin-infantry",
+   "rows": 1139,
+   "rows_with_name": 1139,
+   "rows_name_not_in_ocr": 0,
+   "name_flagged": 68,
+   "labels": {
+    "Absent-Documented": 274,
+    "Present-Documented": 225,
+    "Unknown": 639,
+    "Duplicate-Xref": 1
+   },
+   "roll_status": {
+    "off-roll-before-battle": 154,
+    "named-present": 225,
+    "unreadable-or-ambiguous": 435,
+    "not-yet-enlisted": 120,
+    "on-roll-undetermined": 204,
+    "xref": 1
+   },
+   "present_documented": 225,
+   "oob_strength": 443,
+   "oob_casualties": 211,
+   "michigan_monument_effective_strength": null,
+   "sources": [
+    "WI-ROSTER-1886-v2"
+   ],
+   "full_roll": true
+  },
+  "U-27IN": {
+   "slug": "27th-indiana-infantry",
+   "rows": 1036,
+   "rows_with_name": 915,
+   "rows_name_not_in_ocr": 121,
+   "name_flagged": 146,
+   "labels": {
+    "Unknown": 945,
+    "Absent-Documented": 82,
+    "Present-Documented": 9
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 207,
+    "on-roll-undetermined": 738,
+    "not-yet-enlisted": 19,
+    "named-present": 9,
+    "off-roll-before-battle": 63
+   },
+   "present_documented": 9,
+   "oob_strength": 339,
+   "oob_casualties": 124,
+   "michigan_monument_effective_strength": null,
+   "sources": [
+    "IN-AGR-v4"
+   ],
+   "full_roll": true
+  },
+  "U-2WI": {
+   "slug": "2nd-wisconsin-infantry",
+   "rows": 1433,
+   "rows_with_name": 1433,
+   "rows_name_not_in_ocr": 0,
+   "name_flagged": 92,
+   "labels": {
+    "Unknown": 730,
+    "Present-Documented": 226,
+    "Absent-Documented": 473,
+    "Duplicate-Xref": 4
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 460,
+    "named-present": 226,
+    "off-roll-before-battle": 460,
+    "on-roll-undetermined": 270,
+    "not-yet-enlisted": 13,
+    "xref": 4
+   },
+   "present_documented": 226,
+   "oob_strength": 302,
+   "oob_casualties": 233,
+   "michigan_monument_effective_strength": null,
+   "sources": [
+    "WI-ROSTER-1886-v1"
+   ],
+   "full_roll": true
+  },
+  "U-3IN-CAV": {
+   "slug": "3rd-indiana-cavalry",
+   "rows": 1389,
+   "rows_with_name": 1207,
+   "rows_name_not_in_ocr": 182,
+   "name_flagged": 292,
+   "labels": {
+    "Unknown": 1258,
+    "Absent-Documented": 131
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 275,
+    "on-roll-undetermined": 983,
+    "not-yet-enlisted": 115,
+    "off-roll-before-battle": 16
+   },
+   "present_documented": 0,
+   "oob_strength": 377,
+   "oob_casualties": 11,
+   "michigan_monument_effective_strength": null,
+   "sources": [
+    "IN-AGR-v5"
+   ],
+   "full_roll": true
+  },
+  "U-3MI": {
+   "slug": "3rd-michigan-infantry",
+   "rows": 1758,
+   "rows_with_name": 1758,
+   "rows_name_not_in_ocr": 0,
+   "name_flagged": 6,
+   "labels": {
+    "Absent-Documented": 1079,
+    "Unknown": 516,
+    "Duplicate-Xref": 107,
+    "Present-Documented": 56
+   },
+   "roll_status": {
+    "not-yet-enlisted": 700,
+    "off-roll-before-battle": 379,
+    "unreadable-or-ambiguous": 379,
+    "on-roll-undetermined": 136,
+    "xref": 107,
+    "named-present": 56,
+    "contested": 1
+   },
+   "present_documented": 56,
+   "oob_strength": 238,
+   "oob_casualties": 97,
+   "michigan_monument_effective_strength": 286,
+   "sources": [
+    "MI-BOIES-1913",
+    "MI-ROS-v3"
+   ],
+   "full_roll": true
+  },
+  "U-3WI": {
+   "slug": "3rd-wisconsin-infantry",
+   "rows": 2918,
+   "rows_with_name": 2918,
+   "rows_name_not_in_ocr": 0,
+   "name_flagged": 246,
+   "labels": {
+    "Unknown": 1802,
+    "Absent-Documented": 1099,
+    "Duplicate-Xref": 7,
+    "Present-Documented": 10
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 1349,
+    "off-roll-before-battle": 417,
+    "on-roll-undetermined": 453,
+    "not-yet-enlisted": 682,
+    "xref": 7,
+    "named-present": 10
+   },
+   "present_documented": 10,
+   "oob_strength": 246,
+   "oob_casualties": 16,
+   "michigan_monument_effective_strength": null,
+   "sources": [
+    "WI-ROSTER-1886-v1"
+   ],
+   "full_roll": true
+  },
+  "U-4MI": {
+   "slug": "4th-michigan-infantry",
+   "rows": 50,
+   "rows_with_name": 50,
+   "rows_name_not_in_ocr": 0,
+   "name_flagged": 50,
+   "labels": {
+    "Present-Documented": 50
+   },
+   "roll_status": {
+    "named-present": 50
+   },
+   "present_documented": 50,
+   "oob_strength": 342,
+   "oob_casualties": 136,
+   "michigan_monument_effective_strength": 403,
+   "sources": [
+    "MI-BOIES-1913"
+   ],
+   "full_roll": false
+  },
+  "U-5MI-CAV": {
+   "slug": "5th-michigan-cavalry",
+   "rows": 28,
+   "rows_with_name": 28,
+   "rows_name_not_in_ocr": 0,
+   "name_flagged": 28,
+   "labels": {
+    "Present-Documented": 28
+   },
+   "roll_status": {
+    "named-present": 28
+   },
+   "present_documented": 28,
+   "oob_strength": 654,
+   "oob_casualties": 56,
+   "michigan_monument_effective_strength": null,
+   "sources": [
+    "MI-BOIES-1913"
+   ],
+   "full_roll": false
+  },
+  "U-5MI": {
+   "slug": "5th-michigan-infantry",
+   "rows": 83,
+   "rows_with_name": 83,
+   "rows_name_not_in_ocr": 0,
+   "name_flagged": 83,
+   "labels": {
+    "Present-Documented": 83
+   },
+   "roll_status": {
+    "named-present": 83
+   },
+   "present_documented": 83,
+   "oob_strength": 261,
+   "oob_casualties": 98,
+   "michigan_monument_effective_strength": 283,
+   "sources": [
+    "MI-BOIES-1913"
+   ],
+   "full_roll": false
+  },
+  "U-5WI": {
+   "slug": "5th-wisconsin-infantry",
+   "rows": 1510,
+   "rows_with_name": 1510,
+   "rows_name_not_in_ocr": 0,
+   "name_flagged": 75,
+   "labels": {
+    "Unknown": 901,
+    "Absent-Documented": 587,
+    "Duplicate-Xref": 12,
+    "Present-Documented": 10
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 343,
+    "on-roll-undetermined": 558,
+    "off-roll-before-battle": 494,
+    "xref": 12,
+    "not-yet-enlisted": 93,
+    "named-present": 10
+   },
+   "present_documented": 10,
+   "oob_strength": 309,
+   "oob_casualties": 0,
+   "michigan_monument_effective_strength": null,
+   "sources": [
+    "WI-ROSTER-1886-v1"
+   ],
+   "full_roll": true
+  },
+  "U-6MI-CAV": {
+   "slug": "6th-michigan-cavalry",
+   "rows": 14,
+   "rows_with_name": 14,
+   "rows_name_not_in_ocr": 0,
+   "name_flagged": 14,
+   "labels": {
+    "Present-Documented": 14
+   },
+   "roll_status": {
+    "named-present": 14
+   },
+   "present_documented": 14,
+   "oob_strength": 477,
+   "oob_casualties": 47,
+   "michigan_monument_effective_strength": null,
+   "sources": [
+    "MI-BOIES-1913"
+   ],
+   "full_roll": false
+  },
+  "U-6WI": {
+   "slug": "6th-wisconsin-infantry",
+   "rows": 2098,
+   "rows_with_name": 2098,
+   "rows_name_not_in_ocr": 0,
+   "name_flagged": 157,
+   "labels": {
+    "Unknown": 929,
+    "Absent-Documented": 982,
+    "Present-Documented": 177,
+    "Duplicate-Xref": 10
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 559,
+    "off-roll-before-battle": 400,
+    "named-present": 177,
+    "on-roll-undetermined": 370,
+    "xref": 10,
+    "not-yet-enlisted": 582
+   },
+   "present_documented": 177,
+   "oob_strength": 344,
+   "oob_casualties": 168,
+   "michigan_monument_effective_strength": null,
+   "sources": [
+    "WI-ROSTER-1886-v1"
+   ],
+   "full_roll": true
+  },
+  "U-7MI-CAV": {
+   "slug": "7th-michigan-cavalry",
+   "rows": 16,
+   "rows_with_name": 16,
+   "rows_name_not_in_ocr": 0,
+   "name_flagged": 16,
+   "labels": {
+    "Present-Documented": 16
+   },
+   "roll_status": {
+    "named-present": 16
+   },
+   "present_documented": 16,
+   "oob_strength": 369,
+   "oob_casualties": 68,
+   "michigan_monument_effective_strength": null,
+   "sources": [
+    "MI-BOIES-1913"
+   ],
+   "full_roll": false
+  },
+  "U-7MI": {
+   "slug": "7th-michigan-infantry",
+   "rows": 4,
+   "rows_with_name": 4,
+   "rows_name_not_in_ocr": 0,
+   "name_flagged": 4,
+   "labels": {
+    "Present-Documented": 4
+   },
+   "roll_status": {
+    "named-present": 4
+   },
+   "present_documented": 4,
+   "oob_strength": 165,
+   "oob_casualties": 75,
+   "michigan_monument_effective_strength": 165,
+   "sources": [
+    "MI-BOIES-1913"
+   ],
+   "full_roll": false
+  },
+  "U-7WI": {
+   "slug": "7th-wisconsin-infantry",
+   "rows": 1710,
+   "rows_with_name": 1710,
+   "rows_name_not_in_ocr": 0,
+   "name_flagged": 153,
+   "labels": {
+    "Absent-Documented": 621,
+    "Unknown": 933,
+    "Present-Documented": 154,
+    "Duplicate-Xref": 2
+   },
+   "roll_status": {
+    "off-roll-before-battle": 360,
+    "unreadable-or-ambiguous": 539,
+    "named-present": 154,
+    "on-roll-undetermined": 394,
+    "not-yet-enlisted": 261,
+    "xref": 2
+   },
+   "present_documented": 154,
+   "oob_strength": 364,
+   "oob_casualties": 178,
+   "michigan_monument_effective_strength": null,
+   "sources": [
+    "WI-ROSTER-1886-v1"
+   ],
+   "full_roll": true
+  },
+  "U-82IL": {
+   "slug": "82nd-illinois-infantry",
+   "rows": 1047,
+   "rows_with_name": 970,
+   "rows_name_not_in_ocr": 77,
+   "name_flagged": 145,
+   "labels": {
+    "Unknown": 715,
+    "Absent-Documented": 318,
+    "Present-Documented": 14
+   },
+   "roll_status": {
+    "on-roll-undetermined": 479,
+    "off-roll-before-battle": 215,
+    "unreadable-or-ambiguous": 236,
+    "named-present": 14,
+    "not-yet-enlisted": 103
+   },
+   "present_documented": 14,
+   "oob_strength": 267,
+   "oob_casualties": 57,
+   "michigan_monument_effective_strength": null,
+   "sources": [
+    "IL-AGR-1900-v5",
+    "MI-BOIES-1913"
+   ],
+   "full_roll": true
+  },
+  "U-8IL-CAV": {
+   "slug": "8th-illinois-cavalry",
+   "rows": 2985,
+   "rows_with_name": 2895,
+   "rows_name_not_in_ocr": 90,
+   "name_flagged": 141,
+   "labels": {
+    "Unknown": 1161,
+    "Absent-Documented": 1396,
+    "Duplicate-Xref": 424,
+    "Present-Documented": 4
+   },
+   "roll_status": {
+    "on-roll-undetermined": 512,
+    "off-roll-before-battle": 302,
+    "unreadable-or-ambiguous": 649,
+    "not-yet-enlisted": 1094,
+    "xref": 424,
+    "named-present": 4
+   },
+   "present_documented": 4,
+   "oob_strength": 466,
+   "oob_casualties": 26,
+   "michigan_monument_effective_strength": null,
+   "sources": [
+    "IL-AGR-1900-v8"
+   ],
+   "full_roll": true
+  }
+ },
+ "unreadable_share": 0.2643
+}

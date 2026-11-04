@@ -5,7 +5,7 @@
 // (chips for cards that found no room), toolbar buttons of the popups that declare them, the polite live region, and a hidden sandbox in which card heights are MEASURED (placement uses the
 // real height, never a guess).  Every string goes in through textContent: data never reaches innerHTML.
 import { h, svgIcon } from './dom.mjs';
-import { SHAPES, TONES, chipText } from '../popups/kit.mjs';
+import { SHAPES, TONES, chipText, tidy, headlineOf } from '../popups/kit.mjs';
 import { contentOf } from '../popups/host.mjs';
 
 const evChip = (c) => h('span', { class: 'ev-pair', title: c.title || ('Evidence label: ' + c.ev) }, h('span', { class: 'ev ev-' + c.ev }, c.ev), c.text ? h('span', { class: 'evt' }, c.text) : null);
@@ -51,15 +51,15 @@ export function createPopupLayer({ root, container, engine, host, systemReduced 
   function block(b, ctx) {
     const { rec } = ctx;
     switch (b.t) {
-      case 'kicker': return h('div', { class: 'pc-kick' }, icon(b.shape || toneOf(rec.tone).shape, 'pc-shape'), h('span', { class: 'pc-kick-label' }, b.label), b.right ? h('span', { class: 'pc-kick-right' }, b.right) : null, b.chip ? evChip(b.chip) : null);
-      case 'title': return h(b.level === 2 ? 'h2' : 'h3', { class: 'pc-title' + (b.serif ? ' serif' : '') + (b.size === 'big' ? ' big' : '') }, b.text);
-      case 'p': return h('p', { class: 'pc-p' + (b.italic ? ' italic' : '') + (b.muted ? ' muted' : '') + (b.size === 'sm' ? ' sm' : '') + (b.lead ? ' lead' : '') + (b.serif ? ' serif' : ''), style: b.lines ? { display: '-webkit-box', WebkitLineClamp: String(b.lines), WebkitBoxOrient: 'vertical', overflow: 'hidden' } : null }, b.text);
-      case 'quote': return h('blockquote', { class: 'pc-quote' }, h('p', null, b.text), b.cite ? h('cite', null, b.cite) : null);
-      case 'meta': return h('ul', { class: 'pc-meta' }, b.rows.map((r) => h('li', { title: r.title || null }, icon(r.icon || 'dot', 'pc-mi'), h('span', null, r.text))));
+      case 'kicker': return h('div', { class: 'pc-kick' }, h('span', { class: 'pc-kick-label' }, b.label), b.right ? h('span', { class: 'pc-kick-right' }, b.right) : null, b.chip ? evChip(b.chip) : null);
+      case 'title': return h(b.level === 2 ? 'h2' : 'h3', { class: 'pc-title' + (b.serif ? ' serif' : '') + (b.size === 'big' ? ' big' : '') }, tidy(b.text));
+      case 'p': { const t = tidy(b.text); const hl = b.size === 'sm' || b.muted ? null : headlineOf(t); return h('p', { class: 'pc-p' + (b.italic ? ' italic' : '') + (b.muted ? ' muted' : '') + (b.size === 'sm' ? ' sm' : '') + (b.lead ? ' lead' : '') + (b.serif ? ' serif' : ''), 'data-lines': b.lines ? String(b.lines) : null }, ...(hl ? [h('strong', { class: 'pc-hl' }, hl.head), ' ' + hl.rest] : [t])); }
+      case 'quote': return h('blockquote', { class: 'pc-quote' }, h('p', null, tidy(b.text)), b.cite ? h('cite', null, b.cite) : null);
+      case 'meta': return h('ul', { class: 'pc-meta' }, b.rows.map((r) => h('li', { title: r.title || null }, icon(r.icon || 'dot', 'pc-mi'), h('span', null, tidy(r.text)))));
       case 'chips': return h('div', { class: 'pc-chips' }, b.items.map(evChip));
       case 'bar': return h('div', { class: 'pc-bar' }, b.label ? h('div', { class: 'pc-bar-row' }, h('span', null, b.label), b.value2 ? h('b', null, b.value2) : null) : null, h('div', { class: 'pc-track', role: 'img', 'aria-label': b.aria || b.label || 'bar' }, h('i', { style: { width: Math.round(Math.max(0, Math.min(1, b.value)) * 1000) / 10 + '%' } })), b.sub ? h('div', { class: 'pc-bar-sub' }, b.sub, b.chip ? evChip(b.chip) : null) : null);
       case 'kv': return h('dl', { class: 'pc-kv' }, b.rows.flatMap((r) => [h('dt', null, r[0]), h('dd', null, r[1], r[2] ? evChip(r[2]) : null)]));
-      case 'list': return h('ul', { class: 'pc-list' }, b.items.map((i) => h('li', { class: 'pc-li', 'data-tone': i.tone || 'info' }, icon(i.shape || 'dot', 'pc-shape'), h('div', { class: 'pc-li-body' }, i.title ? h('div', { class: 'pc-li-title' }, i.title) : null, i.text ? h('div', { class: 'pc-li-text', style: i.lines ? { display: '-webkit-box', WebkitLineClamp: String(i.lines), WebkitBoxOrient: 'vertical', overflow: 'hidden' } : null }, i.text) : null, i.sub ? h('div', { class: 'pc-li-sub' }, i.sub) : null),
+      case 'list': return h('ul', { class: 'pc-list' }, b.items.map((i) => h('li', { class: 'pc-li', 'data-tone': i.tone || 'info' }, icon(i.shape || 'dot', 'pc-shape'), h('div', { class: 'pc-li-body' }, i.title ? h('div', { class: 'pc-li-title' }, tidy(i.title)) : null, i.text ? h('div', { class: 'pc-li-text', style: i.lines ? { display: '-webkit-box', WebkitLineClamp: String(i.lines), WebkitBoxOrient: 'vertical', overflow: 'hidden' } : null }, tidy(i.text)) : null, i.sub ? h('div', { class: 'pc-li-sub' }, tidy(i.sub)) : null),
         i.actions ? h('div', { class: 'pc-li-acts' }, i.actions.map((a) => h('button', { class: 'pc-act', type: 'button', 'aria-label': a.aria || a.label, title: a.title || null, onclick: (e) => { e.stopPropagation(); host.act(rec.id, a.id); } }, h('span', null, a.label)))) : null)));
       case 'actions': return h('div', { class: 'pc-actions' }, b.items.map((a) => action(rec, a)));
       case 'disclosure': { const d = h('details', { class: 'pc-disc', open: b.open ? '' : null }, h('summary', null, b.label)); blocks(d, b.blocks, ctx); return d; }
@@ -98,17 +98,29 @@ export function createPopupLayer({ root, container, engine, host, systemReduced 
     }
     return el;
   }
+  /** a paragraph that may take at most N lines is cut at a WORD, with an ellipsis (never mid-word, never by the browser's own clamp): the words are removed from the end until the text fits N lines */
+  function fitLines(el) {
+    for (const p of el.querySelectorAll('p[data-lines]')) {
+      const n = +p.dataset.lines; const cs = getComputedStyle(p); const lh = parseFloat(cs.lineHeight) || parseFloat(cs.fontSize) * 1.45; const max = n * lh + 1.5;
+      if (p.getBoundingClientRect().height <= max) continue;
+      const tn = p.lastChild; if (!tn || tn.nodeType !== 3) continue; const lead = /^\s/.test(tn.data) ? ' ' : ''; const words = tn.data.trim().split(/\s+/); let lo = 0; let hi = words.length;      // the space that follows a bold headline is kept (round 2)
+      while (lo < hi) { const mid = (lo + hi + 1) >> 1; tn.data = lead + words.slice(0, mid).join(' ').replace(/[,;:\s—-]+$/, '') + '…'; if (p.getBoundingClientRect().height <= max) lo = mid; else hi = mid - 1; }
+      tn.data = lead + (lo ? words.slice(0, lo).join(' ').replace(/[,;:\s—-]+$/, '') + '…' : '…');
+    }
+  }
   /** the real size of a card form: render it in the hidden sandbox at its width and read the height */
   function measure(rec, form) {
-    const el = cardEl({ ...rec, id: rec.id, spec: rec.spec, kind: rec.spec.kind, tone: rec.spec.tone, popup: rec.def ? rec.def.id : 'host', hold: rec.spec.hold }, form); el.style.visibility = 'hidden'; el.style.position = 'absolute'; sandbox.append(el);
+    const el = cardEl({ ...rec, id: rec.id, spec: rec.spec, kind: rec.spec.kind, tone: rec.spec.tone, popup: rec.def ? rec.def.id : 'host', hold: rec.spec.hold }, form); el.style.visibility = 'hidden'; el.style.position = 'absolute'; sandbox.append(el); fitLines(el);
     const r = { h: Math.ceil(el.getBoundingClientRect().height) }; el.remove(); return r;
   }
+  /** the places in the dock where a popup may live (round 2: the overview map is in the dock, never on the map) */
+  function dockSlot(name) { const dk = document.getElementById('dock'); if (!dk) return null; let n = dk.querySelector('.dock-' + name); if (!n) { n = h('div', { class: 'dock-slot dock-' + name }); dk.append(n); } return n; }
   let hoverId = null;
   function mountCard(rec) {
     const form = rec.form; if (!form) return null; const el = cardEl(rec, form);
     el.addEventListener('pointerenter', () => { host.setHovered(rec.id, true); if (rec.kind === 'tooltip') host.setTipHeld(true); }); el.addEventListener('pointerleave', () => { host.setHovered(rec.id, false); if (rec.kind === 'tooltip') host.setTipHeld(false); });
     el.addEventListener('focusin', () => host.setFocused(rec.id, true)); el.addEventListener('focusout', () => host.setFocused(rec.id, false));
-    container.append(el); const entry = { el, formId: form.id, version: rec.version, w: form.w, born: performance.now() }; els.set(rec.id, entry); return entry;
+    if (rec.spec.dock) { el.classList.add('pc-dock'); (dockSlot(rec.spec.dock) || container).append(el); } else container.append(el); fitLines(el); const entry = { el, formId: form.id, version: rec.version, w: form.w, born: performance.now() }; els.set(rec.id, entry); return entry;
   }
 
   // ---- rail ----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -204,7 +216,7 @@ export function createPopupLayer({ root, container, engine, host, systemReduced 
       if (e && (e.formId !== rec.form.id || e.version !== rec.version || e.w !== rec.form.w)) { e.el.remove(); els.delete(rec.id); e = null; }
       if (!e) e = mountCard(rec); if (!e) continue; seen.add(rec.id); const el = e.el;
       const vis = rec.opacity > 0.01; el.style.visibility = vis ? 'visible' : 'hidden'; el.style.opacity = rec.opacity.toFixed(3); el.style.pointerEvents = rec.opacity >= 0.6 ? 'auto' : 'none';
-      el.style.transform = `translate(${Math.round(rec.rect.x)}px, ${Math.round(rec.rect.y + rec.dy)}px) scale(${rec.scale.toFixed(4)})`; el.style.zIndex = String(rec.kind === 'hud' ? 5 : rec.kind === 'tooltip' ? 40 : 10 + Math.min(20, rec.seq % 20));
+      if (rec.spec.dock) el.style.transform = 'none'; else el.style.transform = `translate(${Math.round(rec.rect.x)}px, ${Math.round(rec.rect.y + rec.dy)}px) scale(${rec.scale.toFixed(4)})`; el.style.zIndex = String(rec.kind === 'hud' ? 5 : rec.kind === 'tooltip' ? 40 : 10 + Math.min(20, rec.seq % 20));
       el.dataset.phase = rec.phase; el.dataset.bare = String(!!rec.spec.bare); el.dataset.pinned = String(!!rec.pinned); const pin = el.querySelector('.pc-btn.pin'); if (pin) { pin.setAttribute('aria-pressed', String(!!rec.pinned)); pin.title = rec.pinned ? 'Unpin' : 'Keep on screen'; }
       const hb = el.querySelector('.pc-hold i'); if (hb && rec.hold) { hb.style.transform = `scaleX(${rec.hold.frac.toFixed(3)})`; el.classList.toggle('paused', !!rec.hold.paused); }
       for (const sw of el.querySelectorAll('.pc-swap')) { const at = +sw.dataset.at; sw.dataset.struck = String(nowMs - (e.born0 ?? (e.born0 = nowMs)) >= at); }

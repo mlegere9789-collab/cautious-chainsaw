@@ -179,6 +179,12 @@ def fix_structures():
         new.append(mk('STR-TOWN-GATEHOUSE_PAVILION', 'Pavilion beside the Evergreen Cemetery gatehouse', 'outbuilding', Point(*C.utm2ll(x, y)), 'Estimated', 15,
                       'Position projected from the pose of the camera of LC 2020634839 (Tyson, gatehouse seen from Baltimore Street, tier C): a small hip-roofed pavilion stands to the right of the gatehouse.',
                       'Small open pavilion; point only, the drawn size is a class default (5 x 4 m).', [S_PHOTO('2020634839', 'Evergreen Cemetery gatehouse with a small hip-roofed pavilion to its right.')], status='lost_later', dims_documented='16 x 13 ft', geometry_kind='photo_pose_point'))
+    pav = by.get('STR-TOWN-GATEHOUSE_PAVILION'); gh = by.get('STR-TOWN-GATEHOUSE')
+    if pav and gh and 'placed beside the gatehouse' not in (pav['properties'].get('notes') or ''):
+        gc = utm(gh['geometry']).centroid
+        az = math.radians(242.0)          # the camera of LC 2020634839 looks toward 152 degrees (SSE): to the right of the gatehouse in the photograph is 242 degrees (WSW)
+        pav['geometry'] = mapping(ll(Point(gc.x + 12.0 * math.sin(az), gc.y + 12.0 * math.cos(az))))
+        pav['properties']['notes'] = ((pav['properties'].get('notes') or '') + ' Placed beside the gatehouse: 12 m from the centre of the gatehouse toward 242 degrees (to its right in the photograph); the distance is an estimate (error 15 m), not on the roof of the gatehouse.').strip()
     for nf in new:
         by[nf['id']] = nf
         feats.append(nf)
@@ -274,10 +280,10 @@ def fix_roads():
         q['notes'] = (q['notes'] + ' Continued 2026-10-19: the 283 m of the modern road of the same name (OpenStreetMap way MOD-ROAD_LOCAL-00703) that carries the lane to the Baltimore Pike (NPS lane inventory: the lane links the Taneytown Road with the Pike) is drawn; the junction lies on the Pike (and on RD-018, McAllister\'s Mill road).').strip()
         q['method'] = q['method'] + ' + 283 m of OpenStreetMap centre line to the Baltimore Pike.'
     # RD-024: the Diamond is a plain crossing; the 2013 roundabout is not drawn
-    if 'roundabout removed' not in by['RD-024']['properties']['notes']:
+    if any(q.is_closed for q in utm(by['RD-024']['geometry']).geoms):
         g = utm(by['RD-024']['geometry'])
         cx, cy = C.ll2utm(-77.23110, 39.83093)
-        keep = [q for q in g.geoms if q.length > 40]            # the straight connecting edge, not the ring
+        keep = [q for q in g.geoms if not q.is_closed]          # the straight connecting edge, not the ring
         cross = [LineString([(cx - 14, cy), (cx + 14, cy)]), LineString([(cx, cy - 14), (cx, cy + 14)])]
         by['RD-024']['geometry'] = mapping(ll(MultiLineString([*keep, *cross])))
         q = by['RD-024']['properties']
@@ -388,3 +394,30 @@ if __name__ == '__main__':
     fix_roads()
     fix_bridges()
     fix_other_types()
+
+def fix_wheatfield():
+    """pass 2 (G2-09, Wheatfield test): the Warren-derived outline of the Wheatfield lies about 33 m south of the open field; own re-measurement (tmp/b1863/fix/wheat_shift.py: canopy-free share inside minus
+    outside, 2017 lidar, shifts of +-60 m) peaks at 36 m north with contrast 0.49 against 0.23 at zero shift. The outline is moved 34 m north (the field is the same field today: NPS rehabilitated it)."""
+    for fn in ('fields_documented_1863.geojson', 'fields_documented_1863.3857.geojson'):
+        p = os.path.join(F, 'landcover', fn)
+        fc = load(p)
+        f = fc['features'][0]
+        if f['properties'].get('shift_north_m'):
+            continue
+        if fn.endswith('3857.geojson'):
+            from pyproj import Transformer
+            t = Transformer.from_crs('EPSG:3857', 'EPSG:4326', always_xy=True); ti = Transformer.from_crs('EPSG:4326', 'EPSG:3857', always_xy=True)
+            g = transform(lambda x, y, z=None: t.transform(x, y), shape(f['geometry']))
+            g = transform(lambda x, y, z=None: C.utm2ll(x, y), affinity.translate(transform(lambda x, y, z=None: C.ll2utm(x, y), g), 0, 34.0))
+            g = transform(lambda x, y, z=None: ti.transform(x, y), g)
+        else:
+            g = ll(affinity.translate(utm(f['geometry']), 0, 34.0))
+        f['geometry'] = mapping(g)
+        f['properties']['shift_north_m'] = 34
+        f['properties']['notes'] = ((f['properties'].get('notes') or '') + ' Outline moved 34 m north on 2026-10-19: the Warren-derived outline lay about 33 m south of the open field (pass 2 and a re-measurement against the 2017 lidar canopy, shift of maximum contrast 36 m north). Positional error 40 m.').strip()
+        f['properties']['positional_error_m'] = max(40, f['properties'].get('positional_error_m') or 0)
+        json.dump(fc, open(p, 'w', encoding='utf-8'), separators=(',', ':'))
+    print('wheatfield shifted')
+
+if __name__ == '__main__':
+    fix_wheatfield()

@@ -1,0 +1,257 @@
+{
+ "_doc": "library/status.json (PDF Section X). Statuses: scheduled, ingested, blocked, partial, print-only.",
+ "sources": [
+  {
+   "id": "OR-27-1",
+   "title": "Official Records Ser I vol 27 pt 1",
+   "where": "eHistory serial 043; HathiTrust coo.31924077699761",
+   "status": "scheduled",
+   "note": "public domain; throttle 1 req/s"
+  },
+  {
+   "id": "OR-27-2",
+   "title": "OR vol 27 pt 2",
+   "where": "eHistory 044; HathiTrust coo.31924077728255",
+   "status": "scheduled",
+   "note": "public domain"
+  },
+  {
+   "id": "OR-27-3",
+   "title": "OR vol 27 pt 3",
+   "where": "eHistory 045; HathiTrust coo.31924077700262",
+   "status": "scheduled",
+   "note": "public domain"
+  },
+  {
+   "id": "OR-ATLAS",
+   "title": "OR Atlas plates 1-175",
+   "where": "ehistory.osu.edu/books/official-records",
+   "status": "scheduled",
+   "note": "Gettysburg plate numbers unknown"
+  },
+  {
+   "id": "PA-GB",
+   "title": "Pennsylvania at Gettysburg",
+   "where": "archive.org pennsylvaniaatget00penn; HathiTrust 000823389",
+   "status": "scheduled",
+   "note": "public domain"
+  },
+  {
+   "id": "NY-GB",
+   "title": "New York at Gettysburg",
+   "where": "archive.org cu31924092924996",
+   "status": "scheduled",
+   "note": "public domain"
+  },
+  {
+   "id": "ME-GB",
+   "title": "Maine at Gettysburg 1898",
+   "where": "maine.gov/civilwar/books",
+   "status": "scheduled",
+   "note": "public domain"
+  },
+  {
+   "id": "MI-GB",
+   "title": "Michigan at Gettysburg 1889",
+   "where": "HathiTrust 100209273",
+   "status": "scheduled",
+   "note": "public domain"
+  },
+  {
+   "id": "STATE-OTHER",
+   "title": "Other state volumes MA MN VT OH NJ WI IN VA NC GA AL SC TX",
+   "where": "no URL verified",
+   "status": "scheduled",
+   "note": "locate"
+  },
+  {
+   "id": "SHSP",
+   "title": "Southern Historical Society Papers (52 vols)",
+   "where": "archive.org per volume",
+   "status": "scheduled",
+   "note": "keyword filter; Lost Cause tier handling"
+  },
+  {
+   "id": "FOX",
+   "title": "Fox, Regimental Losses 1889",
+   "where": "HathiTrust 000452031",
+   "status": "scheduled",
+   "note": "table OCR"
+  },
+  {
+   "id": "WITNESS",
+   "title": "Fremantle, Haskell, Chamberlain, Gibbon, Sorrel, Alexander, Pierce, Broadhead, Wills",
+   "where": "ABT primary sources; GettDigital",
+   "status": "scheduled",
+   "note": "verify availability"
+  },
+  {
+   "id": "NEWS",
+   "title": "Chronicling America 1863-07-01..10",
+   "where": "loc.gov API + bulk OCR",
+   "status": "scheduled",
+   "note": "news-spread evidence only"
+  },
+  {
+   "id": "LOC-MAPS",
+   "title": "LOC Civil War maps (Warren 99446453, Hopkins 2004629149, Bachelder)",
+   "where": "loc.gov IIIF",
+   "status": "blocked-to-prior-research",
+   "note": "retry at run time"
+  },
+  {
+   "id": "LOC-PHOTO",
+   "title": "LOC Civil War photographs",
+   "where": "loc.gov/pictures/collection/cwp",
+   "status": "scheduled",
+   "note": "IDs not retrieved"
+  },
+  {
+   "id": "NARA-WARREN",
+   "title": "NARA RG 77 Warren sheets NAID 102279222",
+   "where": "catalog.archives.gov",
+   "status": "blocked-to-prior-research",
+   "note": "72 dpi copy reported blurry"
+  },
+  {
+   "id": "RUMSEY",
+   "title": "David Rumsey Warren 1895",
+   "where": "davidrumsey.com",
+   "status": "viewer-only",
+   "note": "noncommercial; no redistribution"
+  },
+  {
+   "id": "NPS-SEM",
+   "title": "NPS Gettysburg Seminar Papers",
+   "where": "npshistory.com",
+   "status": "scheduled",
+   "note": "vols 4-13, 15, 16"
+  },
+  {
+   "id": "NPS-CLR",
+   "title": "NPS Cultural Landscape Reports, HSRs, farm histories",
+   "where": "npshistory.com; IRMA 2257218",
+   "status": "partial",
+   "note": "LRT CLR failed to fetch"
+  },
+  {
+   "id": "NPS-SS",
+   "title": "NPS Soldiers and Sailors System",
+   "where": "nps.gov",
+   "status": "targeted-lookup-only",
+   "note": "no bulk API; permission needed for bulk"
+  },
+  {
+   "id": "STONE-S",
+   "title": "Stone Sentinels",
+   "where": "gettysburg.stonesentinels.com",
+   "status": "finder-not-authority",
+   "note": "copy errors flagged"
+  },
+  {
+   "id": "LIDAR-3DEP",
+   "title": "USGS 3DEP point clouds (usgs-lidar-public)",
+   "where": "registry.opendata.aws/usgs-lidar",
+   "status": "scheduled",
+   "note": "no account; avoid Requester Pays"
+  },
+  {
+   "id": "LIDAR-PA17",
+   "title": "South Central PA 2017 QL2 lidar",
+   "where": "data.amerigeoss.org; PASDA",
+   "status": "scheduled",
+   "note": "project folder name unverified"
+  },
+  {
+   "id": "LIDAR-PAMAP",
+   "title": "PAMAP 2006-08 lidar",
+   "where": "NOAA InPort 49951; PASDA",
+   "status": "scheduled",
+   "note": "fallback"
+  },
+  {
+   "id": "PENN-PILOT",
+   "title": "Penn Pilot aerials 1937-42",
+   "where": "PASDA / BTAA",
+   "status": "scheduled",
+   "note": ""
+  },
+  {
+   "id": "BACHELDER",
+   "title": "Bachelder Papers originals / Ladd edition",
+   "where": "NH Historical Society",
+   "status": "print-only",
+   "note": "copyrighted edition: cite only"
+  },
+  {
+   "id": "PRINT",
+   "title": "Busey & Martin; Coddington; Pfanz; Gottfried; Warner; Thomas/Coates; Jensen; Coco",
+   "where": "print",
+   "status": "print-only",
+   "note": "cite only; acquire lawfully"
+  },
+  {
+   "id": "ORDNANCE",
+   "title": "Gibbon Artillerist's Manual; 1861 Ordnance Manual; Hardee; Casey",
+   "where": "archive.org / HathiTrust",
+   "status": "scheduled",
+   "note": "needed for drill and range tables"
+  },
+  {
+   "id": "MOTION",
+   "title": "CMU Mocap; 100STYLE (CC BY); Mixamo (Adobe ID = owner act)",
+   "where": "see C.10",
+   "status": "licence-checked",
+   "note": "SMPL/AMASS/LAFAN1/Motion-X non-commercial: previz only"
+  },
+  {
+   "id": "AUDIO",
+   "title": "Freesound CC0/CC BY; Smithsonian Open Access; Poly Haven CC0",
+   "where": "see C.10",
+   "status": "licence-checked",
+   "note": "BBC unusable until terms verified"
+  },
+  {
+   "id": "TM-BACHELDER-1876",
+   "title": "Bachelder 1876 three-sheet troop-position map (LOC 99447491)",
+   "where": "tile.loc.gov (acquired); also Wikimedia Commons, NARA catalogue copy, Yale Beinecke, UMN",
+   "status": "ingested",
+   "note": "georeferenced (docs/basemap1863); sheet 2 (July 2: troopmap_jul2_b1876.jsonl, 178 claims) and sheet 3 (July 3: troopmap_jul3_b1876.jsonl, 165 claims) read; sheet 1 (July 1) not read; line state not delivered (see library/TROOP-MAPS-NOTES.md section 7)"
+  },
+  {
+   "id": "TM-BACHELDER-1883",
+   "title": "Bachelder 1883 edition (LOC 99447492)",
+   "where": "tile.loc.gov",
+   "status": "partial",
+   "note": "sheet 3 only, duplicate of 1876 positions"
+  },
+  {
+   "id": "TM-BACHELDER-1886-HOURLY",
+   "title": "Bachelder 28 tactical maps (July 1 14 maps 10:30 a.m.-4:30 p.m. and later; July 2 five; July 3 four; East Cavalry Field five)",
+   "where": "listed only by a retailer reprint (Horse Soldier/Morningside); no digitised public-domain copy found at LOC, Commons, archive.org or NARA catalogue in the 2026-10-21 searches",
+   "status": "blocked",
+   "note": "open gap: location of original sheets and any digitisation not established; request to LOC/NARA or owner purchase of the reprint is an owner decision"
+  },
+  {
+   "id": "TM-LOC99447494",
+   "title": "LOC 99447494: Battle of Gettysburg July 1 1863 First day General position of troops 2 to 3.30 p.m. (plate II, 1:23,400)",
+   "where": "Wikimedia Commons copy of LOC scan; LOC master 66 MB TIFF not fetched (HTTP 520/403)",
+   "status": "ingested",
+   "note": "best hour-labelled source found; author/date not stated by LOC; coarse georeference only (LOO 48.8 m)"
+  },
+  {
+   "id": "TM-OR-ATLAS-GETTYSBURG",
+   "title": "OR Atlas Gettysburg plates (XLIII maps 1-2, XCV maps 1-2 and others per the Atlas authors index)",
+   "where": "archive.org atlastoaccompany00unit (PDF acquired)",
+   "status": "ingested",
+   "note": "raw index OCR names plates 28, 40, 43, 45, 73, 95, 116 for Gettysburg; plates XLIII and XCV viewed; scan too coarse for brigade labels"
+  },
+  {
+   "id": "TM-HOSTS-BLOCKED",
+   "title": "Access blocks met 2026-10-21 (recorded, not circumvented)",
+   "where": "digitalcommonwealth.org and geo.btaa.org (Anubis browser-verification page), davidrumsey.com (Verify Access page), collections.library.yale.edu (empty response to the fetch tool), loc.gov item pages (HTTP 403 via the fetch tool; HTTP 520 via curl on several item ids), tile.loc.gov (HTTP 520 once)",
+   "status": "blocked",
+   "note": "no retry loops, no header spoofing; Commons/archive.org/LOC JSON used instead where they answered"
+  }
+ ]
+}

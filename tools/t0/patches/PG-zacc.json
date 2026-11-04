@@ -1,0 +1,23 @@
+{
+ "group": "PG-zacc",
+ "description": "Page part of ACC: /regiment and /report never print a casualty rate above 100 percent. The name sorts after PG-core, whose PGC-regiment-rate patch writes the text this anchors on.",
+ "train": "R1e",
+ "patches": [
+  {
+   "id": "ACC-regiment-rate-cap",
+   "target": "regiment.html",
+   "find": "    const rate = r.casualty_percentage != null ? r.casualty_percentage\n      : (r.strength && r.casualties != null ? Math.round(r.casualties / r.strength * 1000) / 10 : null);\n    document.getElementById('b-rate').textContent = rate != null ? rate + '%' : '—';\n",
+   "repl": "    let rate = r.casualty_percentage != null ? r.casualty_percentage\n      : (r.strength && r.casualties != null ? Math.round(r.casualties / r.strength * 1000) / 10 : null);\n    // losses cannot exceed the men engaged: a rate above 100 % means the two numbers of the record are not for the same body of men, and it is not printed (the key action below says why)\n    const rateOver = rate != null && rate > 100;\n    if (rateOver) rate = null;\n    document.getElementById('b-rate').textContent = rate != null ? rate + '%' : '—';\n    document.getElementById('b-rate').title = rateOver ? \"No rate is given: the losses and the strength in this record are not for the same body of men (see the key action).\" : '';\n",
+   "expect": 1,
+   "note": "a computed or recorded casualty rate above 100 percent is shown as a dash with the reason in the tooltip (the 107th Pennsylvania printed 135.2 percent, the 6th US Cavalry 107.1)"
+  },
+  {
+   "id": "ACC-report-rate-cap",
+   "target": "report.html",
+   "find": "    const rate = r.casualty_percentage != null ? r.casualty_percentage\n      : (r.strength && r.casualties != null ? Math.round(r.casualties / r.strength * 1000) / 10 : null);\n    setRow('r-rate', rate != null ? rate + '%' : null);\n",
+   "repl": "    let rate = r.casualty_percentage != null ? r.casualty_percentage\n      : (r.strength && r.casualties != null ? Math.round(r.casualties / r.strength * 1000) / 10 : null);\n    // losses cannot exceed the men engaged: a rate above 100 % means the two numbers of the record are not for the same body of men, so the row is not printed (the key action row says why)\n    if (rate != null && rate > 100) rate = null;\n    setRow('r-rate', rate != null ? rate + '%' : null);\n",
+   "expect": 1,
+   "note": "same guard for the report page: no row for a rate above 100 percent"
+  }
+ ]
+}

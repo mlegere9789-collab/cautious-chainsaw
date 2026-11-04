@@ -29,7 +29,7 @@ function inPage() {
     if (t0.label) {                                                                                      // the grown name: inside the tile's box plus its label rectangle (both are this tile's own ground)
       res.labels++; const L = t0.label; const cx = t0.x; const cy = t0.y; const t = { ...t0, solid: true };
       draw(() => { c.translate(L.x0 - cx, L.y0 - cy); skin.draw.label(c, t, env()); }); const bb = bbox();       // the canvas centre is the tile centre, so bb is relative to it
-      if (bb) { const rx0 = -t.w / 2; const rx1 = L.x1 - cx; const ry0 = Math.min(-t.h / 2, L.y0 - cy); const ry1 = Math.max(t.h / 2, L.y1 - cy); const o = Math.max(rx0 - bb.x0, bb.x1 - rx1, ry0 - bb.y0, bb.y1 - ry1, 0); if (o > 0.5) res.labelOver.push({ key: t0.short, over: +o.toFixed(2) }); res.maxLabelOver = Math.max(res.maxLabelOver || 0, o); }
+      if (bb) { const rx0 = Math.min(-t.w / 2, L.x0 - cx); const rx1 = Math.max(t.w / 2, L.x1 - cx);      // round 2: a name may stand to the left of its mark const ry0 = Math.min(-t.h / 2, L.y0 - cy); const ry1 = Math.max(t.h / 2, L.y1 - cy); const o = Math.max(rx0 - bb.x0, bb.x1 - rx1, ry0 - bb.y0, bb.y1 - ry1, 0); if (o > 0.5) res.labelOver.push({ key: t0.short, over: +o.toFixed(2) }); res.maxLabelOver = Math.max(res.maxLabelOver || 0, o); }
     }
     if (t0.displaced && skin.draw.pin) {
       res.pins++; const t = { ...t0, solid: true }; draw(() => { skin.draw.pin(c, t, env()); }); const bb = bbox(); if (bb) { const h = spec.pinHalf; const o = Math.max(-h - bb.x0, bb.x1 - h, -h - bb.y0, bb.y1 - h, 0); if (o > 0.5) res.pinOver.push({ key: t0.short, over: +o.toFixed(2) }); }

@@ -1,0 +1,340 @@
+{
+ "meta": {
+  "schema": "fx3d-fires-1",
+  "built_by": "app/tools/build-fx3d-data.mjs",
+  "note": "Fire windows are the windows of structures/state_schedule.json (date-granular unless a clock is printed). A fire with a date-only window is drawn at params.fire.uncertain_intensity and marked \"time uncertain\" inside its window; it is never given an invented ignition time. Flames never exist before the window start; a host that knows the cause (a shell strike on the barn) may call ignite(fireId, t) with t inside the window and the fire then starts exactly there."
+ },
+ "sources": [
+  {
+   "id": "fx-fire-sherfy-barn",
+   "label": "Sherfy barn",
+   "kind": "barn",
+   "struct_id": "bld-sherfy-farm#barn",
+   "row": "S-037",
+   "tier": "documented",
+   "pos": {
+    "lng": -77.249193,
+    "lat": 39.803134,
+    "err_m": 10,
+    "point_id": "STR-SHERFY-BARN1",
+    "name": "Sherfy barn of 1863 (burned 3 July 1863)"
+   },
+   "windows": {
+    "default": {
+     "window": [
+      "1863-07-03T00:00",
+      "1863-07-03T23:59"
+     ],
+     "granularity": "date",
+     "basis": "B.8.7 S-037 \"most-supported reading, Jul 3 during the afternoon artillery\""
+    },
+    "jul3_afternoon_b87": {
+     "window": [
+      "1863-07-03T00:00",
+      "1863-07-03T23:59"
+     ],
+     "granularity": "date",
+     "basis": "B.8.7 S-037; B.2.3 conflict highlights p.55 \"most plausible Jul 3 afternoon (inferred)\""
+    },
+    "jul2_evening_c026": {
+     "window": [
+      "1863-07-02T00:00",
+      "1863-07-02T23:59"
+     ],
+     "granularity": "date",
+     "basis": "B.2.5 C-026 recommended default \"Jul 2 evening\""
+    },
+    "flag_window_full": {
+     "window": [
+      "1863-07-02T00:00",
+      "1863-07-03T23:59"
+     ],
+     "granularity": "date",
+     "basis": "B.8.7 S-037 flag window \"Jul 2 evening to Jul 3 afternoon\""
+    }
+   },
+   "ruined_by": null,
+   "cause": "shell ignition (GD-12590, CWT-Sherfy) or other: three alternatives carried in the row",
+   "flags": [
+    "timing conflict: PDF B.8.7 prints Jul 3 afternoon as the most-supported reading, C-026 prints Jul 2 evening (PENDING OWNER)",
+    "part of day is not parsed into the window (the structures layer does the same)"
+   ],
+   "source_keys": [
+    "GD-12590",
+    "CWT-Sherfy",
+    "SS-Sherfy",
+    "WHB"
+   ],
+   "timeline": [
+    "T3-132"
+   ]
+  },
+  {
+   "id": "fx-fire-bliss-barn",
+   "label": "Bliss barn",
+   "kind": "barn",
+   "struct_id": "bld-bliss-farm#barn",
+   "row": "S-052",
+   "tier": "documented",
+   "pos": {
+    "lng": -77.241759,
+    "lat": 39.816606,
+    "err_m": 20,
+    "point_id": "STR-BLISS-BARN1",
+    "name": "Bliss barn (large stone barn, burned 3 July 1863)"
+   },
+   "windows": {
+    "default": {
+     "window": [
+      "1863-07-03T00:00",
+      "1863-07-03T23:59"
+     ],
+     "granularity": "date",
+     "basis": "B.8.7 S-052 / HMDB-16570"
+    },
+    "late_morning_forum_unreliable": {
+     "window": [
+      "1863-07-03T00:00",
+      "1863-07-03T23:59"
+     ],
+     "granularity": "date",
+     "basis": "CWT-Query (forum, unreliable)"
+    }
+   },
+   "ruined_by": {
+    "t": "1863-07-03T13:00",
+    "basis": "both buildings are ruined before the cannonade (T3-055); the cannonade start about 13:00 is printed elsewhere (G-14, S-061), not as a window bound in the schedule",
+    "tier": "inferred"
+   },
+   "cause": "burned deliberately by order, with hay, straw and cartridge paper, by the 14th Connecticut (T3-055)",
+   "flags": [
+    "exact clock time open (B.8.2)",
+    "two Warren-plate symbols bracket the NPS marker; which is house and which barn is unresolved (structures3d), so both are drawn as the two Bliss buildings"
+   ],
+   "source_keys": [
+    "ECW-Bliss",
+    "HMDB-16570",
+    "SS-Bliss",
+    "CWT-Query"
+   ],
+   "timeline": [
+    "T3-055"
+   ]
+  },
+  {
+   "id": "fx-fire-bliss-house",
+   "label": "Bliss house",
+   "kind": "house",
+   "struct_id": "bld-bliss-farm#house",
+   "row": "S-052",
+   "tier": "documented",
+   "pos": {
+    "lng": -77.241643,
+    "lat": 39.817301,
+    "err_m": 20,
+    "point_id": "STR-BLISS-HOUSE1",
+    "name": "Bliss house (burned 3 July 1863)"
+   },
+   "windows": {
+    "default": {
+     "window": [
+      "1863-07-03T00:00",
+      "1863-07-03T23:59"
+     ],
+     "granularity": "date",
+     "basis": "B.8.7 S-052 / HMDB-16570"
+    },
+    "late_morning_forum_unreliable": {
+     "window": [
+      "1863-07-03T00:00",
+      "1863-07-03T23:59"
+     ],
+     "granularity": "date",
+     "basis": "CWT-Query (forum, unreliable)"
+    }
+   },
+   "ruined_by": {
+    "t": "1863-07-03T13:00",
+    "basis": "see fx-fire-bliss-barn",
+    "tier": "inferred"
+   },
+   "cause": "burned deliberately by order (T3-055)",
+   "flags": [
+    "exact clock time open (B.8.2)"
+   ],
+   "source_keys": [
+    "ECW-Bliss",
+    "HMDB-16570",
+    "SS-Bliss",
+    "CWT-Query"
+   ],
+   "timeline": [
+    "T3-055"
+   ]
+  },
+  {
+   "id": "fx-fire-rock-creek-trestle",
+   "label": "Gettysburg Railroad trestle over Rock Creek",
+   "kind": "small",
+   "struct_id": "bld-rock-creek-rr-bridge",
+   "row": "S-001",
+   "tier": "inferred",
+   "pos": {
+    "lng": -77.219871,
+    "lat": 39.835113,
+    "err_m": 40,
+    "point_id": "RL-007",
+    "name": "Rock Creek trestle of the Gettysburg Railroad (burned 27 June 1863)"
+   },
+   "windows": {
+    "default": {
+     "window": [
+      "1863-06-26T00:00",
+      "1863-06-27T23:59"
+     ],
+     "granularity": "date",
+     "basis": "row S-001 printed window"
+    },
+    "jun26": {
+     "window": [
+      "1863-06-26T00:00",
+      "1863-06-26T23:59"
+     ],
+     "granularity": "date",
+     "basis": "B.8.2: \"sources vary 26 or 27\""
+    },
+    "jun27": {
+     "window": [
+      "1863-06-27T00:00",
+      "1863-06-27T23:59"
+     ],
+     "granularity": "date",
+     "basis": "B.8.2: \"sources vary 26 or 27\""
+    }
+   },
+   "ruined_by": null,
+   "cause": "burned by Early's troops (T1-016)",
+   "flags": [
+    "sources vary: 26 or 27 June",
+    "the structures point note says 27 June; the schedule carries both"
+   ],
+   "source_keys": [
+    "Wiki-GBRR"
+   ],
+   "timeline": [
+    "T1-016"
+   ]
+  },
+  {
+   "id": "fx-fire-rail-cars-station",
+   "label": "Rail cars at the Gettysburg station area",
+   "kind": "small",
+   "struct_id": null,
+   "row": null,
+   "tier": "documented",
+   "pos": {
+    "lng": -77.230745,
+    "lat": 39.832019,
+    "err_m": 15,
+    "point_id": "RL-006",
+    "name": "Gettysburg Railroad passenger depot (Lincoln Railroad Station), Carlisle and Railroad Streets"
+   },
+   "windows": {
+    "default": {
+     "window": [
+      "1863-06-26T00:00",
+      "1863-06-26T23:59"
+     ],
+     "granularity": "date",
+     "basis": "T1-015 \"Jun 26 evening\"; \"whether burnings were evening or earlier not stated\" (the part of day is not parsed into the window)"
+    }
+   },
+   "ruined_by": null,
+   "cause": "burned by Early's troops (T1-015, W-BG); the depot itself did not burn (it was a hospital)",
+   "flags": [
+    "position is the depot point (err 15 m): the PDF says \"station area\"; the covered bridge burned at the same time has NO position in the repository (open gap FX-G03) and is not drawn"
+   ],
+   "source_keys": [
+    "W-BG"
+   ],
+   "timeline": [
+    "T1-015"
+   ]
+  }
+ ],
+ "host_placed": {
+  "horse_carcass": {
+   "kind": "small",
+   "tier": "documented (the burning), plausible-procedural (where and how long)",
+   "window": [
+    "1863-07-04T00:00",
+    null
+   ],
+   "granularity": "date",
+   "basis": "T3-150 \"Jul 4 morning ... horses (3,000-5,000 animals) are burned with kerosene where possible\"; W-GNC, W-BG; no positions or end date recorded (open gap FX-G13)"
+  },
+  "campfire": {
+   "kind": "camp",
+   "tier": "plausible-procedural",
+   "basis": "PDF T1 night rows and B.8 camp life: campfires and cooking in rear camps; no fires on contact lines; no sourced positions (open gap FX-G15)"
+  }
+ },
+ "never_burn": [
+  {
+   "rule": "RULE-01",
+   "structs": [
+    "bld-mcpherson-farm#barn"
+   ],
+   "kind": "never_state",
+   "from": "1863-06-26T00:00",
+   "to": "1863-11-20T23:59",
+   "not_before": null,
+   "source": "B.8.7 \"Rows the engine must never schedule\" (p.102)"
+  },
+  {
+   "rule": "RULE-02",
+   "structs": [
+    "bld-bliss-farm#house",
+    "bld-bliss-farm#barn"
+   ],
+   "kind": "not_before",
+   "from": null,
+   "to": null,
+   "not_before": "1863-07-03T00:00",
+   "source": "B.8.7 \"Rows the engine must never schedule\" (p.102)"
+  },
+  {
+   "rule": "RULE-03",
+   "structs": [
+    "FEN-emmitsburg-road"
+   ],
+   "kind": "not_before",
+   "from": null,
+   "to": null,
+   "not_before": "1863-07-02T00:00",
+   "source": "B.8.7 \"Rows the engine must never schedule\" (p.102)"
+  }
+ ],
+ "not_fires": [
+  {
+   "what": "Wheatfield fire",
+   "why": "The repository has no documented wheat-field fire. Row S-033 reads \"Trampled / clipped by fire\" (forum citing Pfanz, low reliability): fire there means gunfire. Nothing drawn (gap FX-G01)."
+  },
+  {
+   "what": "Rogers house, Schmucker Hall (Seminary), McPherson barn",
+   "why": "Documented as NOT burned: Rogers stays and shelters (SS-ROGERS); Schmucker Hall is a hospital; the McPherson barn did not burn (rule RULE-01), the house burned in 1895. Nothing drawn (gap FX-G02)."
+  },
+  {
+   "what": "Caledonia Furnace (Jun 26) and the Gettysburg covered bridge (Jun 26)",
+   "why": "Burning documented (T1-005, T1-015) but no position in the repository; the furnace is about 2 miles out on the Cashtown road, off the loaded terrain. Not drawn (gap FX-G03)."
+  },
+  {
+   "what": "Leister and Thompson fence rails \"burned\"",
+   "why": "Cause (shell fire or firewood) and extent not recorded: S-059, T3-067 (\"burned for firewood\"). No flame drawn (gap FX-G14)."
+  },
+  {
+   "what": "Taney house",
+   "why": "S-053 says shelled, ruins; no fire documented."
+  }
+ ]
+}

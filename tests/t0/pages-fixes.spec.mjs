@@ -41,6 +41,9 @@ if (!fs.existsSync(DIST)) { console.error(`dist not found: ${DIST}\nbuild it fir
 const PAGES = ['404', 'aftermath', 'ar', 'camera', 'cinematic-export', 'compare', 'dashboard', 'documentary', 'education', 'embed', 'find-ancestor', 'ground-remembers', 'historian',
   'immersive', 'index', 'living-ledger', 'privacy', 'regiment', 'report', 'sandbox', 'search', 'terms', 'turning-points', 'viewshed', 'watch-together'];
 const SUBPAGES = PAGES.filter((p) => p !== 'index');
+const { treeHas, loadOracle } = await import('./lib_clock.mjs');
+const HAS_CLOCK = treeHas(DIST, 'CLOCK');            // CLOCK: pages print the clock of a frame ("July 1, about 7:30 AM"), never "Tick n"; the expected strings come from the clock oracle (tools/t0/clock/oracle.mjs)
+const ORACLE = HAS_CLOCK ? await loadOracle() : null;
 const GROUPS = (() => { try { return JSON.parse(fs.readFileSync(path.join(DIST, 'version.json'), 'utf8')).groups || []; } catch { return []; } })();
 // index.html is the map app: its axe / field-name state is group AX's job (R1b and later; R1a has the legacy app plus group A), so it is asserted only on a tree that has AX.
 // The sub-pages are asserted on every train that has the page groups, and on legacy/dist (where they must fail).
@@ -517,7 +520,7 @@ test('T0-PGF-10', 'controls that only had a mouse handler work from the keyboard
   ({ page } = await openPage('desktop', 'watch-together', { wait: 1500 }));
   await page.evaluate(() => { try { localStorage.removeItem('gtbg_watch_together_tour'); } catch { /* blocked */ } });
   await page.focus('#new-tick'); await page.keyboard.type('12'); await page.keyboard.press('Tab'); await page.keyboard.type('Keyboard stop'); await page.keyboard.press('Tab'); await page.keyboard.press('Enter'); await sleep(250);
-  assertEq(await page.evaluate(() => [...document.querySelectorAll('#stops .stop-row')].map((r) => [...r.children].map((c) => c.textContent.trim()).join('|'))), ['Tick 12|Keyboard stop|×'], 'watch-together: a stop added with the keyboard');
+  assertEq(await page.evaluate(() => [...document.querySelectorAll('#stops .stop-row')].map((r) => [...r.children].map((c) => c.textContent.trim()).join('|'))), [`${HAS_CLOCK ? ORACLE.fmt(12, 'compat') : 'Tick 12'}|Keyboard stop|×`], 'watch-together: a stop added with the keyboard');
   assertEq(await page.evaluate(() => document.querySelector('#stops .stop-row button').getAttribute('aria-label')), 'Remove stop at tick 12', 'watch-together: the remove button names its stop');
   let reached = false;
   await page.focus('#add-stop');
@@ -585,14 +588,20 @@ test('T0-PGF-18', 'Sandbox: the HYPOTHETICAL banner text is one box at 375, 320 
   t.note('banner text box', seen);
   for (const [kind, v] of Object.entries(seen)) { assertEq(v.boxes, 1, `${kind}: the banner text is split into ${v.boxes} boxes`); assert(v.inside, `${kind}: the text box sticks out of the banner ${JSON.stringify(v)}`); }
 });
-test('T0-PGF-13', 'Ask the Historian opens at the top on a 320x568 phone (the greeting no longer scrolls the page under the sticky nav) and an answer is still scrolled into view', async () => {
+test('T0-PGF-13', 'Ask the Historian opens at the top on a 320x568 phone (the greeting no longer scrolls the page under the sticky nav) and an answer is still scrolled into view (group POLISH: the question with the start of its first answer; before it, the last answer)', async () => {
   const { page } = await openPage('small', 'historian', { wait: 2500 });
+  // group POLISH (marker: its settle() in historian.html) brings the QUESTION to the top and shows the start of its first answer, once per question; before it every answer was scrolled to in turn and the view ended on the last one
+  const polish = fs.readFileSync(path.join(DIST, 'historian.html'), 'utf8').includes('function settle(');
   assertEq(await page.evaluate(() => Math.round(scrollY)), 0, 'scrollY after load');
   await page.fill('#ask', 'What happened to the 1st Minnesota?'); await page.keyboard.press('Enter'); await sleep(1500);
-  const last = await page.evaluate(() => { const m = [...document.querySelectorAll('#transcript .msg')].pop().getBoundingClientRect(); return { top: Math.round(m.top), bottom: Math.round(m.bottom), vh: innerHeight, n: document.querySelectorAll('#transcript .msg').length }; });
-  assert(last.n >= 3 && last.bottom > 0 && last.top < last.vh, `answer not on screen: ${JSON.stringify(last)}`);
+  const r = await page.evaluate(() => { const ms = [...document.querySelectorAll('#transcript .msg')]; const q = [...ms].reverse().find((m) => m.classList.contains('user')); const a = q ? ms[ms.indexOf(q) + 1] : null; const box = (e) => { if (!e) return null; const b = e.getBoundingClientRect(); return { top: Math.round(b.top), bottom: Math.round(b.bottom) }; }; return { q: box(q), a: box(a), last: box(ms[ms.length - 1]), vh: innerHeight, n: ms.length }; });
+  if (polish) {
+    assert(r.n >= 3 && r.q && r.a, `no question with an answer after it: ${JSON.stringify(r)}`);
+    assert(r.q.top >= 0 && r.q.bottom <= r.vh, `the question is not on screen: ${JSON.stringify(r)}`);
+    assert(r.a.top < r.vh && r.a.bottom > 0, `the first answer does not start on screen: ${JSON.stringify(r)}`);
+  } else assert(r.n >= 3 && r.last.bottom > 0 && r.last.top < r.vh, `answer not on screen: ${JSON.stringify(r.last)}`);
   await page.close();
-}, { red: false });   // not red-first: the greeting's scrollIntoView only moves the page once the layout is taller than a 320x568 screen, which the 44 px targets cause; this guards that fix (PGF-historian-greeting-scroll)
+}, { red: false });   // not red-first: the greeting's scrollIntoView only moves the page once the layout is taller than a 320x568 screen, which the 44 px targets cause; this guards that fix (PGF-historian-greeting-scroll)   // not red-first: the greeting's scrollIntoView only moves the page once the layout is taller than a 320x568 screen, which the 44 px targets cause; this guards that fix (PGF-historian-greeting-scroll)   // not red-first: the greeting's scrollIntoView only moves the page once the layout is taller than a 320x568 screen, which the 44 px targets cause; this guards that fix (PGF-historian-greeting-scroll)
 test('T0-PGF-14', 'Privacy: a table that scrolls sideways can be reached with the keyboard (focusable, named region)', async () => {
   const { page } = await openPage('phone', 'privacy', { wait: 800 });
   const w = await page.evaluate(() => [...document.querySelectorAll('.tablewrap')].map((e) => ({ tabindex: e.getAttribute('tabindex'), role: e.getAttribute('role'), label: !!e.getAttribute('aria-label'), scrolls: e.scrollWidth > e.clientWidth })));

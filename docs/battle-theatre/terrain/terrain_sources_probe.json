@@ -1,0 +1,2313 @@
+{
+ "schema": "bt-terrain-sources-probe/1",
+ "user_agent": "GettysburgBattleTheatre-SourceProbe/1.0 (polite check of catalog URLs for a non-commercial history project; HEAD only, honours robots.txt, no retries)",
+ "started_utc": "2026-10-20T02:34:58+00:00",
+ "finished_utc": "2026-10-20T02:42:06+00:00",
+ "policy": "HEAD only (one GET fallback on 405/501, body unread); >=3 s between any two requests and >= Crawl-delay per host; robots.txt honoured; no retries; 401/403/429 and challenges recorded as blocked and not worked around; nothing downloaded. Redirects: at most one extra HEAD to the target.",
+ "request_cap": 150,
+ "requests_made": 115,
+ "unique_urls": 66,
+ "hosts": 43,
+ "counts_by_url_status": {
+  "blocked": 11,
+  "moved_to_search": 1,
+  "not_found": 3,
+  "ok": 36,
+  "redirect": 11,
+  "robots_disallowed": 3,
+  "robots_unavailable": 1
+ },
+ "counts_by_row_access_status": {
+  "blocked": 5,
+  "no-url": 1,
+  "partially-reachable": 7,
+  "print-only": 2,
+  "reachable": 24,
+  "request-only": 1,
+  "unreachable": 3,
+  "viewer-only": 2
+ },
+ "counts_by_row_reachability": {
+  "blocked": 6,
+  "no_url": 1,
+  "partial": 8,
+  "reachable": 27,
+  "unreachable": 3
+ },
+ "robots": {
+  "catalog-beta.data.gov": {
+   "robots_url": "https://catalog-beta.data.gov/robots.txt",
+   "http_status": 404,
+   "result": "robots_absent",
+   "crawl_delay": null,
+   "note": null
+  },
+  "catalog.archives.gov": {
+   "robots_url": "https://catalog.archives.gov/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": null,
+   "note": null
+  },
+  "catalog.data.gov": {
+   "robots_url": "https://catalog.data.gov/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": 10.0,
+   "note": null
+  },
+  "data.amerigeoss.org": {
+   "robots_url": "https://data.amerigeoss.org/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": 10.0,
+   "note": null
+  },
+  "davidrumsey.com": {
+   "robots_url": "https://davidrumsey.com/robots.txt",
+   "http_status": 301,
+   "result": "robots_redirect",
+   "crawl_delay": null,
+   "note": "Location: https://www.davidrumsey.com/robots.txt"
+  },
+  "ehistory.osu.edu": {
+   "robots_url": "https://ehistory.osu.edu/robots.txt",
+   "http_status": 403,
+   "result": "robots_blocked_or_error",
+   "crawl_delay": null,
+   "note": "HTTP 403; host not probed further"
+  },
+  "emergingcivilwar.com": {
+   "robots_url": "http://emergingcivilwar.com/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": 10.0,
+   "note": null
+  },
+  "en.wikipedia.org": {
+   "robots_url": "https://en.wikipedia.org/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": null,
+   "note": null
+  },
+  "forum.game-labs.net": {
+   "robots_url": "https://forum.game-labs.net/robots.txt",
+   "http_status": null,
+   "result": "robots_error",
+   "crawl_delay": null,
+   "note": "connection_error: HTTPSConnectionPool(host='forum.game-labs.net', port=443): Max retries exceeded with url: /robots.txt (Caused by NameResolutionError(\"HTTPSConnection(host='foru"
+  },
+  "geo.btaa.org": {
+   "robots_url": "https://geo.btaa.org/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": null,
+   "note": null
+  },
+  "geodata.libraries.mit.edu": {
+   "robots_url": "https://geodata.libraries.mit.edu/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": null,
+   "note": null
+  },
+  "gettysburg.stonesentinels.com": {
+   "robots_url": "https://gettysburg.stonesentinels.com/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": 10.0,
+   "note": null
+  },
+  "gettysburgcompiler.org": {
+   "robots_url": "https://gettysburgcompiler.org/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": null,
+   "note": null
+  },
+  "gettysburghistory.org": {
+   "robots_url": "https://gettysburghistory.org/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": null,
+   "note": null
+  },
+  "hd.housedivided.dickinson.edu": {
+   "robots_url": "https://hd.housedivided.dickinson.edu/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": 30.0,
+   "note": null
+  },
+  "home.nps.gov": {
+   "robots_url": "https://home.nps.gov/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": null,
+   "note": null
+  },
+  "irma.nps.gov": {
+   "robots_url": "https://irma.nps.gov/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": 1.0,
+   "note": null
+  },
+  "mapping.adamscountypa.gov": {
+   "robots_url": "https://mapping.adamscountypa.gov/robots.txt",
+   "http_status": 404,
+   "result": "robots_absent",
+   "crawl_delay": null,
+   "note": null
+  },
+  "mapservices.pasda.psu.edu": {
+   "robots_url": "https://mapservices.pasda.psu.edu/robots.txt",
+   "http_status": 404,
+   "result": "robots_absent",
+   "crawl_delay": null,
+   "note": null
+  },
+  "museum.nps.gov": {
+   "robots_url": "https://museum.nps.gov/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": null,
+   "note": null
+  },
+  "nps.gov": {
+   "robots_url": "https://nps.gov/robots.txt",
+   "http_status": 301,
+   "result": "robots_redirect",
+   "crawl_delay": null,
+   "note": "Location: https://www.nps.gov/robots.txt"
+  },
+  "prologue.blogs.archives.gov": {
+   "robots_url": "https://prologue.blogs.archives.gov/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": null,
+   "note": null
+  },
+  "scrcguides.libraries.wm.edu": {
+   "robots_url": "https://scrcguides.libraries.wm.edu/robots.txt",
+   "http_status": 403,
+   "result": "robots_blocked_or_error",
+   "crawl_delay": null,
+   "note": "HTTP 403; host not probed further"
+  },
+  "storymaps.esri.com": {
+   "robots_url": "https://storymaps.esri.com/robots.txt",
+   "http_status": 301,
+   "result": "robots_redirect",
+   "crawl_delay": null,
+   "note": "Location: http://www.esri.com/en-us/arcgis/products/arcgis-storymaps/overview/robots.txt"
+  },
+  "support.geocue.com": {
+   "robots_url": "https://support.geocue.com/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": null,
+   "note": null
+  },
+  "unwritten-record.blogs.archives.gov": {
+   "robots_url": "https://unwritten-record.blogs.archives.gov/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": null,
+   "note": null
+  },
+  "www.arcgis.com": {
+   "robots_url": "https://www.arcgis.com/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": null,
+   "note": null
+  },
+  "www.battlefields.org": {
+   "robots_url": "https://www.battlefields.org/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": null,
+   "note": null
+  },
+  "www.fisheries.noaa.gov": {
+   "robots_url": "https://www.fisheries.noaa.gov/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": null,
+   "note": null
+  },
+  "www.gettysburg.edu": {
+   "robots_url": "https://www.gettysburg.edu/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": null,
+   "note": null
+  },
+  "www.gettysburgdaily.com": {
+   "robots_url": "https://www.gettysburgdaily.com/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": null,
+   "note": null
+  },
+  "www.loc.gov": {
+   "robots_url": "https://www.loc.gov/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": 5.0,
+   "note": null
+  },
+  "www.nhhistory.org": {
+   "robots_url": "https://www.nhhistory.org/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": null,
+   "note": null
+  },
+  "www.nps.gov": {
+   "robots_url": "https://www.nps.gov/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": null,
+   "note": null
+  },
+  "www.npshistory.com": {
+   "robots_url": "https://www.npshistory.com/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": null,
+   "note": null
+  },
+  "www.pa.gov": {
+   "robots_url": "https://www.pa.gov/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": null,
+   "note": null
+  },
+  "www.pasda.psu.edu": {
+   "robots_url": "http://www.pasda.psu.edu/robots.txt",
+   "http_status": 404,
+   "result": "robots_absent",
+   "crawl_delay": null,
+   "note": null
+  },
+  "www.phmc.pa.gov": {
+   "robots_url": "https://www.phmc.pa.gov/robots.txt",
+   "http_status": 301,
+   "result": "robots_redirect",
+   "crawl_delay": null,
+   "note": "Location: https://www.pa.gov/spdocsothers/robots.txt"
+  },
+  "www.smithsonianmag.com": {
+   "robots_url": "https://www.smithsonianmag.com/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": null,
+   "note": null
+  },
+  "www.spokesman.com": {
+   "robots_url": "https://www.spokesman.com/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": null,
+   "note": null
+  },
+  "www.usgs.gov": {
+   "robots_url": "https://www.usgs.gov/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": null,
+   "note": null
+  },
+  "www.witf.org": {
+   "robots_url": "https://www.witf.org/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": null,
+   "note": null
+  },
+  "xyht.com": {
+   "robots_url": "https://xyht.com/robots.txt",
+   "http_status": 200,
+   "result": "robots_ok",
+   "crawl_delay": 3.0,
+   "note": null
+  }
+ },
+ "robots_followup": [
+  {
+   "host": "davidrumsey.com",
+   "robots_redirect_to": "https://www.davidrumsey.com/robots.txt",
+   "target_host": "www.davidrumsey.com",
+   "urls_checked": [
+    {
+     "url": "https://davidrumsey.com/maps1100223-26914.html",
+     "allowed_by_target_robots": true
+    }
+   ],
+   "http_status": 200
+  },
+  {
+   "host": "nps.gov",
+   "robots_redirect_to": "https://www.nps.gov/robots.txt",
+   "target_host": "www.nps.gov",
+   "urls_checked": [
+    {
+     "url": "https://nps.gov/gett/learn/nature/plants.htm",
+     "allowed_by_target_robots": true
+    }
+   ],
+   "http_status": 200
+  },
+  {
+   "host": "storymaps.esri.com",
+   "robots_redirect_to": "http://www.esri.com/en-us/arcgis/products/arcgis-storymaps/overview/robots.txt",
+   "target_host": "www.esri.com",
+   "urls_checked": [
+    {
+     "url": "https://storymaps.esri.com/stories/2013/gettysburg",
+     "allowed_by_target_robots": null
+    }
+   ],
+   "http_status": 301,
+   "note": "HTTP 301"
+  },
+  {
+   "host": "www.phmc.pa.gov",
+   "robots_redirect_to": "https://www.pa.gov/spdocsothers/robots.txt",
+   "target_host": "www.pa.gov",
+   "urls_checked": [
+    {
+     "url": "https://www.phmc.pa.gov/Preservation/1880-Agricultural-Census/Documents/adams_county_1880_census_data.pdf",
+     "allowed_by_target_robots": null
+    }
+   ],
+   "http_status": 301,
+   "note": "HTTP 301"
+  }
+ ],
+ "urls": [
+  {
+   "url": "https://www.loc.gov/item/99446453/",
+   "rows": [
+    1
+   ],
+   "host": "www.loc.gov",
+   "status": "blocked",
+   "http_status": 403,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html; charset=UTF-8",
+   "content_length": null,
+   "server": "cloudflare",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://unwritten-record.blogs.archives.gov/?p=20249",
+   "rows": [
+    2,
+    10
+   ],
+   "host": "unwritten-record.blogs.archives.gov",
+   "status": "redirect",
+   "http_status": 301,
+   "method": "HEAD",
+   "location": "https://unwritten-record.blogs.archives.gov/2018/07/03/mapping-the-battle-of-gettysburg/",
+   "follow": {
+    "url": "https://unwritten-record.blogs.archives.gov/2018/07/03/mapping-the-battle-of-gettysburg/",
+    "status": "ok",
+    "http_status": 200,
+    "location": null,
+    "note": null
+   },
+   "content_type": "text/html; charset=UTF-8",
+   "content_length": "0",
+   "server": null,
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://catalog.archives.gov/id/102279222",
+   "rows": [
+    2
+   ],
+   "host": "catalog.archives.gov",
+   "status": "robots_disallowed",
+   "http_status": null,
+   "method": null,
+   "location": null,
+   "follow": null,
+   "content_type": null,
+   "content_length": null,
+   "server": null,
+   "note": "robots.txt disallows this path for our User-Agent; not requested.",
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://davidrumsey.com/maps1100223-26914.html",
+   "rows": [
+    3
+   ],
+   "host": "davidrumsey.com",
+   "status": "redirect",
+   "http_status": 301,
+   "method": "HEAD",
+   "location": "https://www.davidrumsey.com/maps1100223-26914.html",
+   "follow": {
+    "url": "https://www.davidrumsey.com/maps1100223-26914.html",
+    "status": "not_followed_other_host",
+    "http_status": null
+   },
+   "content_type": "text/html; charset=iso-8859-1",
+   "content_length": null,
+   "server": "Apache/2.4.41 (Ubuntu)",
+   "note": null,
+   "robots": "robots_redirect"
+  },
+  {
+   "url": "https://geodata.libraries.mit.edu/record/gisogm:edu.umn:3cfe346bdd99",
+   "rows": [
+    4
+   ],
+   "host": "geodata.libraries.mit.edu",
+   "status": "robots_disallowed",
+   "http_status": null,
+   "method": null,
+   "location": null,
+   "follow": null,
+   "content_type": null,
+   "content_length": null,
+   "server": null,
+   "note": "robots.txt disallows this path for our User-Agent; not requested.",
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://scrcguides.libraries.wm.edu/repositories/2/archival_objects/212965",
+   "rows": [
+    5
+   ],
+   "host": "scrcguides.libraries.wm.edu",
+   "status": "blocked",
+   "http_status": null,
+   "method": null,
+   "location": null,
+   "follow": null,
+   "content_type": null,
+   "content_length": null,
+   "server": null,
+   "note": "robots.txt: HTTP 403; host not probed further. Not probed.",
+   "robots": "robots_blocked_or_error"
+  },
+  {
+   "url": "https://scrcguides.libraries.wm.edu/repositories/2/archival_objects/212966",
+   "rows": [
+    5
+   ],
+   "host": "scrcguides.libraries.wm.edu",
+   "status": "blocked",
+   "http_status": null,
+   "method": null,
+   "location": null,
+   "follow": null,
+   "content_type": null,
+   "content_length": null,
+   "server": null,
+   "note": "robots.txt: HTTP 403; host not probed further. Not probed.",
+   "robots": "robots_blocked_or_error"
+  },
+  {
+   "url": "https://www.nhhistory.org/NHHS/media/NHHS-Media-Library/PDFs/Finding-Aids/Bachelder_John_B-_Papers_1921-001.pdf",
+   "rows": [
+    6
+   ],
+   "host": "www.nhhistory.org",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "application/pdf",
+   "content_length": "183237",
+   "server": "Microsoft-IIS/10.0",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://www.loc.gov/item/2004629149/",
+   "rows": [
+    8
+   ],
+   "host": "www.loc.gov",
+   "status": "blocked",
+   "http_status": 403,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html; charset=UTF-8",
+   "content_length": null,
+   "server": "cloudflare",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://gettysburghistory.org/our-holdings/",
+   "rows": [
+    8,
+    38
+   ],
+   "host": "gettysburghistory.org",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html; charset=UTF-8",
+   "content_length": null,
+   "server": "nginx",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://www.loc.gov/resource/g3880.cw0508800/",
+   "rows": [
+    9
+   ],
+   "host": "www.loc.gov",
+   "status": "blocked",
+   "http_status": 403,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html; charset=UTF-8",
+   "content_length": null,
+   "server": "cloudflare",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://www.loc.gov/collections/civil-war-maps/about-this-collection/",
+   "rows": [
+    11
+   ],
+   "host": "www.loc.gov",
+   "status": "blocked",
+   "http_status": 403,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html; charset=UTF-8",
+   "content_length": null,
+   "server": "cloudflare",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://www.loc.gov/collections/civil-war-maps/?q=gettysburg&fo=json&c=5",
+   "rows": [
+    11
+   ],
+   "host": "www.loc.gov",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "application/json",
+   "content_length": "116639",
+   "server": "cloudflare",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://ehistory.osu.edu/books/official-records/atlas",
+   "rows": [
+    12
+   ],
+   "host": "ehistory.osu.edu",
+   "status": "blocked",
+   "http_status": null,
+   "method": null,
+   "location": null,
+   "follow": null,
+   "content_type": null,
+   "content_length": null,
+   "server": null,
+   "note": "robots.txt: HTTP 403; host not probed further. Not probed.",
+   "robots": "robots_blocked_or_error"
+  },
+  {
+   "url": "https://ehistory.osu.edu/books/official-records/",
+   "rows": [
+    12
+   ],
+   "host": "ehistory.osu.edu",
+   "status": "blocked",
+   "http_status": null,
+   "method": null,
+   "location": null,
+   "follow": null,
+   "content_type": null,
+   "content_length": null,
+   "server": null,
+   "note": "robots.txt: HTTP 403; host not probed further. Not probed.",
+   "robots": "robots_blocked_or_error"
+  },
+  {
+   "url": "https://www.nps.gov/gett/learn/news/gett-battlefield-rehab.htm",
+   "rows": [
+    13,
+    16
+   ],
+   "host": "www.nps.gov",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html;charset=UTF-8",
+   "content_length": null,
+   "server": "NPS.gov",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://www.nps.gov/gis/gisday/gallery2001/GWS/musselman.htm",
+   "rows": [
+    14,
+    29
+   ],
+   "host": "www.nps.gov",
+   "status": "not_found",
+   "http_status": 404,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html",
+   "content_length": null,
+   "server": "NPS.gov",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://xyht.com/?p=2387",
+   "rows": [
+    14,
+    15,
+    29
+   ],
+   "host": "xyht.com",
+   "status": "redirect",
+   "http_status": 301,
+   "method": "HEAD",
+   "location": "https://xyhtcom.kinsta.cloud/professional-surveyor-archives/feature-discovering-lees-view/",
+   "follow": {
+    "url": "https://xyhtcom.kinsta.cloud/professional-surveyor-archives/feature-discovering-lees-view/",
+    "status": "not_followed_other_host",
+    "http_status": null
+   },
+   "content_type": "text/html; charset=UTF-8",
+   "content_length": null,
+   "server": "cloudflare",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://www.smithsonianmag.com/history-archaeology/A-Cutting-Edge-Second-Look-at-the-Battle-of-Gettysburg.html",
+   "rows": [
+    15
+   ],
+   "host": "www.smithsonianmag.com",
+   "status": "redirect",
+   "http_status": 301,
+   "method": "HEAD",
+   "location": "https://www.smithsonianmag.com/history-archaeology/A-Cutting-Edge-Second-Look-at-the-Battle-of-Gettysburg.html/",
+   "follow": {
+    "url": "https://www.smithsonianmag.com/history-archaeology/A-Cutting-Edge-Second-Look-at-the-Battle-of-Gettysburg.html/",
+    "status": "redirect",
+    "http_status": 301,
+    "location": "https://www.smithsonianmag.com/history/A-Cutting-Edge-Second-Look-at-the-Battle-of-Gettysburg-1-180947921/",
+    "note": null
+   },
+   "content_type": "text/html; charset=utf-8",
+   "content_length": null,
+   "server": "cloudflare",
+   "note": "redirect chain: first hop followed, second hop not followed",
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://storymaps.esri.com/stories/2013/gettysburg",
+   "rows": [
+    15
+   ],
+   "host": "storymaps.esri.com",
+   "status": "redirect",
+   "http_status": 301,
+   "method": "HEAD",
+   "location": "https://storymaps.esri.com/stories/2013/gettysburg/",
+   "follow": {
+    "url": "https://storymaps.esri.com/stories/2013/gettysburg/",
+    "status": "ok",
+    "http_status": 200,
+    "location": null,
+    "note": null
+   },
+   "content_type": "text/html; charset=UTF-8",
+   "content_length": "174",
+   "server": "Microsoft-IIS/7.5",
+   "note": null,
+   "robots": "robots_redirect"
+  },
+  {
+   "url": "https://www.spokesman.com/stories/2013/jun/28/new-map-may-explain-lees-decisions-gettysburg/",
+   "rows": [
+    15
+   ],
+   "host": "www.spokesman.com",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html; charset=utf-8",
+   "content_length": null,
+   "server": "nginx",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://www.npshistory.com/publications/gett/index.htm",
+   "rows": [
+    17
+   ],
+   "host": "www.npshistory.com",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html",
+   "content_length": null,
+   "server": "openresty/1.31.1.1",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://www.npshistory.com/series/symposia/gettysburg_seminars/index.htm",
+   "rows": [
+    17
+   ],
+   "host": "www.npshistory.com",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html",
+   "content_length": null,
+   "server": "openresty/1.31.1.1",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://irma.nps.gov/DataStore/Reference/Profile/2257218",
+   "rows": [
+    17
+   ],
+   "host": "irma.nps.gov",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html; charset=utf-8",
+   "content_length": "22352",
+   "server": "Microsoft-IIS/10.0",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://www.nps.gov/gett/getinvolved/planning.htm",
+   "rows": [
+    17
+   ],
+   "host": "www.nps.gov",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html;charset=UTF-8",
+   "content_length": null,
+   "server": "NPS.gov",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://gettysburg.stonesentinels.com/?p=203",
+   "rows": [
+    18
+   ],
+   "host": "gettysburg.stonesentinels.com",
+   "status": "redirect",
+   "http_status": 301,
+   "method": "HEAD",
+   "location": "https://gettysburg.stonesentinels.com/battlefield-farms/sherfy-farm/",
+   "follow": {
+    "url": "https://gettysburg.stonesentinels.com/battlefield-farms/sherfy-farm/",
+    "status": "ok",
+    "http_status": 200,
+    "location": null,
+    "note": null
+   },
+   "content_type": "text/html; charset=UTF-8",
+   "content_length": null,
+   "server": "Apache",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://support.geocue.com/wp-content/uploads/2017/07/MappingGettysburg-LittleRoundTopRevealed.pdf",
+   "rows": [
+    19
+   ],
+   "host": "support.geocue.com",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "application/pdf",
+   "content_length": "2845098",
+   "server": "cloudflare",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://forum.game-labs.net/topic/19003-accuracy-of-gettysburg-map/",
+   "rows": [
+    20
+   ],
+   "host": "forum.game-labs.net",
+   "status": "robots_unavailable",
+   "http_status": null,
+   "method": null,
+   "location": null,
+   "follow": null,
+   "content_type": null,
+   "content_length": null,
+   "server": null,
+   "note": "robots.txt: connection_error: HTTPSConnectionPool(host='forum.game-labs.net', port=443): Max retries exceeded with url: /robots.txt (Caused by NameResolutionError(\"HTTPSConnection(host='foru. Not probed.",
+   "robots": "robots_error"
+  },
+  {
+   "url": "https://data.amerigeoss.org/dataset/south-central-pennsylvania-2017-ql2-lidar",
+   "rows": [
+    21
+   ],
+   "host": "data.amerigeoss.org",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html; charset=utf-8",
+   "content_length": null,
+   "server": "nginx",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "http://www.pasda.psu.edu/",
+   "rows": [
+    21
+   ],
+   "host": "www.pasda.psu.edu",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html",
+   "content_length": "19695",
+   "server": "Microsoft-IIS/10.0",
+   "note": null,
+   "robots": "robots_absent"
+  },
+  {
+   "url": "https://mapping.adamscountypa.gov/arcgis/rest/services/AGOL/Two_Foot_Contours/MapServer",
+   "rows": [
+    21
+   ],
+   "host": "mapping.adamscountypa.gov",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html; charset=utf-8",
+   "content_length": null,
+   "server": "cloudflare",
+   "note": null,
+   "robots": "robots_absent"
+  },
+  {
+   "url": "https://www.usgs.gov/index.php/3d-elevation-program/topographic-data-quality-levels-qls",
+   "rows": [
+    21
+   ],
+   "host": "www.usgs.gov",
+   "status": "redirect",
+   "http_status": 301,
+   "method": "HEAD",
+   "location": "http://www.usgs.gov/3d-elevation-program/topographic-data-quality-levels-qls",
+   "follow": {
+    "url": "http://www.usgs.gov/3d-elevation-program/topographic-data-quality-levels-qls",
+    "status": "redirect",
+    "http_status": 301,
+    "location": "https://www.usgs.gov/3d-elevation-program/topographic-data-quality-levels-qls",
+    "note": null
+   },
+   "content_type": "text/html; charset=iso-8859-1",
+   "content_length": null,
+   "server": "nginx",
+   "note": "redirect chain: first hop followed, second hop not followed",
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://www.usgs.gov/3d-elevation-program/about-3dep-products-services",
+   "rows": [
+    21,
+    22
+   ],
+   "host": "www.usgs.gov",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html; charset=utf-8",
+   "content_length": "21400",
+   "server": "nginx",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://www.fisheries.noaa.gov/inport/item/49951",
+   "rows": [
+    23
+   ],
+   "host": "www.fisheries.noaa.gov",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html;charset=UTF-8",
+   "content_length": "0",
+   "server": null,
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://www.pasda.psu.edu/download/pamap/PAMAP_ancillary_data/PAMAP_LiDAR_%202006-2008_%20Acquisition%20Report_Full_Report.pdf",
+   "rows": [
+    23
+   ],
+   "host": "www.pasda.psu.edu",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "application/pdf",
+   "content_length": "16351792",
+   "server": "Microsoft-IIS/10.0",
+   "note": null,
+   "robots": "robots_absent"
+  },
+  {
+   "url": "https://mapping.adamscountypa.gov/arcgis/rest/services",
+   "rows": [
+    24
+   ],
+   "host": "mapping.adamscountypa.gov",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html; charset=utf-8",
+   "content_length": null,
+   "server": "cloudflare",
+   "note": null,
+   "robots": "robots_absent"
+  },
+  {
+   "url": "https://irma.nps.gov/DataStore/DownloadFile/610918?Reference=2233298",
+   "rows": [
+    25
+   ],
+   "host": "irma.nps.gov",
+   "status": "robots_disallowed",
+   "http_status": null,
+   "method": null,
+   "location": null,
+   "follow": null,
+   "content_type": null,
+   "content_length": null,
+   "server": null,
+   "note": "robots.txt disallows this path for our User-Agent; not requested.",
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://catalog-beta.data.gov/dataset/geospatial-data-for-the-vegetation-mapping-inventory-project-of-gettysburg-national-milita",
+   "rows": [
+    25
+   ],
+   "host": "catalog-beta.data.gov",
+   "status": "not_found",
+   "http_status": 404,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/plain; charset=utf-8",
+   "content_length": "73",
+   "server": null,
+   "note": null,
+   "robots": "robots_absent"
+  },
+  {
+   "url": "https://www.nps.gov/im/vmi-gett-eise.htm",
+   "rows": [
+    25
+   ],
+   "host": "www.nps.gov",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html;charset=UTF-8",
+   "content_length": null,
+   "server": "NPS.gov",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://catalog.data.gov/dataset/digital-geologic-gis-map-of-gettysburg-national-military-park-pennsylvania-nps-grd-gr-1929",
+   "rows": [
+    26
+   ],
+   "host": "catalog.data.gov",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html; charset=utf-8",
+   "content_length": null,
+   "server": null,
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://mapservices.pasda.psu.edu/server/rest/services/pasda/Soils_PA/MapServer/0/iteminfo",
+   "rows": [
+    27
+   ],
+   "host": "mapservices.pasda.psu.edu",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html;charset=utf-8",
+   "content_length": "0",
+   "server": "Microsoft-IIS/10.0, ",
+   "note": null,
+   "robots": "robots_absent"
+  },
+  {
+   "url": "https://www.arcgis.com/apps/View/index.html?appid=10af5f75f9f94f01866359ba398cb6a9",
+   "rows": [
+    28
+   ],
+   "host": "www.arcgis.com",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html",
+   "content_length": "376",
+   "server": "ArcGIS Online",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://geo.btaa.org/catalog/pasda-1078",
+   "rows": [
+    28
+   ],
+   "host": "geo.btaa.org",
+   "status": "redirect",
+   "http_status": 301,
+   "method": "HEAD",
+   "location": "https://geo.btaa.org/resources/pasda-1078",
+   "follow": {
+    "url": "https://geo.btaa.org/resources/pasda-1078",
+    "status": "ok",
+    "http_status": 200,
+    "location": null,
+    "note": null
+   },
+   "content_type": null,
+   "content_length": null,
+   "server": "nginx/1.22.1",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://www.witf.org/2025/01/24/penn-pilot-exploring-pennsylvanias-history-through-aerial-photography/",
+   "rows": [
+    28
+   ],
+   "host": "www.witf.org",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html; charset=UTF-8",
+   "content_length": null,
+   "server": "nginx",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://www.pa.gov/agencies/dcnr/conservation/geology/digital-base-maps",
+   "rows": [
+    30
+   ],
+   "host": "www.pa.gov",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html;charset=utf-8",
+   "content_length": "29289",
+   "server": null,
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://catalog.data.gov/dataset/gettysburg-national-military-park-small-scale-base-gis-data",
+   "rows": [
+    31
+   ],
+   "host": "catalog.data.gov",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html; charset=utf-8",
+   "content_length": null,
+   "server": null,
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://prologue.blogs.archives.gov/2013/06/20/the-true-story-behind-the-gettysburg-sharpshooter",
+   "rows": [
+    32
+   ],
+   "host": "prologue.blogs.archives.gov",
+   "status": "redirect",
+   "http_status": 301,
+   "method": "HEAD",
+   "location": "https://prologue.blogs.archives.gov/2013/06/20/the-true-story-behind-the-gettysburg-sharpshooter/",
+   "follow": {
+    "url": "https://prologue.blogs.archives.gov/2013/06/20/the-true-story-behind-the-gettysburg-sharpshooter/",
+    "status": "ok",
+    "http_status": 200,
+    "location": null,
+    "note": null
+   },
+   "content_type": "text/html; charset=UTF-8",
+   "content_length": "0",
+   "server": null,
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://hd.housedivided.dickinson.edu/node/27090",
+   "rows": [
+    32
+   ],
+   "host": "hd.housedivided.dickinson.edu",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html; charset=UTF-8",
+   "content_length": null,
+   "server": "Apache",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://www.loc.gov/pictures/collection/cwp/",
+   "rows": [
+    33
+   ],
+   "host": "www.loc.gov",
+   "status": "blocked",
+   "http_status": 403,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html; charset=UTF-8",
+   "content_length": null,
+   "server": "cloudflare",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://en.wikipedia.org/wiki/Home_of_a_Rebel_Sharpshooter",
+   "rows": [
+    34
+   ],
+   "host": "en.wikipedia.org",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html; charset=UTF-8",
+   "content_length": null,
+   "server": "mw-web.eqiad.main-977dcd544-gjmtb",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://www.nps.gov/places/gettysburg-then-now-first-rose-woods.htm",
+   "rows": [
+    35
+   ],
+   "host": "www.nps.gov",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html;charset=UTF-8",
+   "content_length": null,
+   "server": "NPS.gov",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://www.nps.gov/gett/learn/photosmultimedia/then-and-now.htm",
+   "rows": [
+    35
+   ],
+   "host": "www.nps.gov",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html;charset=UTF-8",
+   "content_length": null,
+   "server": "NPS.gov",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://www.battlefields.org/learn/biographies/william-h-tipton",
+   "rows": [
+    36
+   ],
+   "host": "www.battlefields.org",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html; charset=utf-8",
+   "content_length": "34465",
+   "server": "nginx",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://museum.nps.gov/Media//00001/Gett%2041136,%20W.H.%20Tipton%20Photographic%20Prints%202013%20U00635923399151552978.pdf",
+   "rows": [
+    36
+   ],
+   "host": "museum.nps.gov",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "application/pdf",
+   "content_length": "971117",
+   "server": "Microsoft-IIS/10.0",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://www.gettysburg.edu/offices/schmucker-art-gallery/exhibitions/a-great-and-truthful-medium-photography-at-gettysburg-beyond-selections-from-the-ron-perisho-collection-at-gettysburg-college",
+   "rows": [
+    37
+   ],
+   "host": "www.gettysburg.edu",
+   "status": "not_found",
+   "http_status": 404,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html; charset=utf-8",
+   "content_length": "41109",
+   "server": "nginx",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://gettysburgcompiler.org/uncategorized/patriotism-or-greed-damage-claims-after-the-b",
+   "rows": [
+    39
+   ],
+   "host": "gettysburgcompiler.org",
+   "status": "redirect",
+   "http_status": 301,
+   "method": "HEAD",
+   "location": "https://gettysburgcompiler.org/2011/05/19/patriotism-or-greed-damage-claims-after-the-b/",
+   "follow": {
+    "url": "https://gettysburgcompiler.org/2011/05/19/patriotism-or-greed-damage-claims-after-the-b/",
+    "status": "ok",
+    "http_status": 200,
+    "location": null,
+    "note": null
+   },
+   "content_type": "text/html; charset=UTF-8",
+   "content_length": null,
+   "server": "Apache",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://www.nps.gov/gett/learn/historyculture/cyclorama.htm",
+   "rows": [
+    40
+   ],
+   "host": "www.nps.gov",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html;charset=UTF-8",
+   "content_length": null,
+   "server": "NPS.gov",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://www.phmc.pa.gov/Preservation/1880-Agricultural-Census/Documents/adams_county_1880_census_data.pdf",
+   "rows": [
+    41
+   ],
+   "host": "www.phmc.pa.gov",
+   "status": "moved_to_search",
+   "http_status": 301,
+   "method": "HEAD",
+   "location": "https://www.pa.gov/spdocsothers/Preservation/1880-Agricultural-Census/Documents/adams_county_1880_census_data.pdf",
+   "follow": {
+    "url": "https://www.pa.gov/spdocsothers/Preservation/1880-Agricultural-Census/Documents/adams_county_1880_census_data.pdf",
+    "status": "redirect",
+    "http_status": 301,
+    "location": "https://www.pa.gov/en/search.html#q=adams_county_1880_census_data.pdf",
+    "note": null
+   },
+   "content_type": "text/html",
+   "content_length": "0",
+   "server": null,
+   "note": "second hop redirects to a site search page: the document is not at the printed URL",
+   "robots": "robots_redirect"
+  },
+  {
+   "url": "https://www.nps.gov/gett/learn/nature/naturalfeaturesandecosystems.htm",
+   "rows": [
+    42
+   ],
+   "host": "www.nps.gov",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html;charset=UTF-8",
+   "content_length": "10350",
+   "server": "NPS.gov",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://home.nps.gov/gett/learn/nature/naturalfeaturesandecosystems.htm",
+   "rows": [
+    42
+   ],
+   "host": "home.nps.gov",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html;charset=UTF-8",
+   "content_length": null,
+   "server": "Apache",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://nps.gov/gett/learn/nature/plants.htm",
+   "rows": [
+    43
+   ],
+   "host": "nps.gov",
+   "status": "redirect",
+   "http_status": 301,
+   "method": "HEAD",
+   "location": "https://www.nps.gov/gett/learn/nature/plants.htm",
+   "follow": {
+    "url": "https://www.nps.gov/gett/learn/nature/plants.htm",
+    "status": "ok",
+    "http_status": 200,
+    "location": null,
+    "note": null
+   },
+   "content_type": "text/html; charset=iso-8859-1",
+   "content_length": null,
+   "server": "Apache",
+   "note": null,
+   "robots": "robots_redirect"
+  },
+  {
+   "url": "https://www.battlefields.org/learn/articles/nature-of-history/hidden-history-battlefield-orchards",
+   "rows": [
+    44
+   ],
+   "host": "www.battlefields.org",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html; charset=utf-8",
+   "content_length": "38678",
+   "server": "nginx",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://www.gettysburgdaily.com/fences-constructed-along-the-emmitsburg-road/",
+   "rows": [
+    45
+   ],
+   "host": "www.gettysburgdaily.com",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html; charset=UTF-8",
+   "content_length": null,
+   "server": "cloudflare",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "http://emergingcivilwar.com/2022/09/30/fence-friday-post-and-rail/",
+   "rows": [
+    45
+   ],
+   "host": "emergingcivilwar.com",
+   "status": "ok",
+   "http_status": 200,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html; charset=UTF-8",
+   "content_length": null,
+   "server": "cloudflare",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://www.loc.gov/item/sn83032044",
+   "rows": [
+    "unverified_list_postscript"
+   ],
+   "host": "www.loc.gov",
+   "status": "blocked",
+   "http_status": 403,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html; charset=UTF-8",
+   "content_length": null,
+   "server": "cloudflare",
+   "note": null,
+   "robots": "robots_ok"
+  },
+  {
+   "url": "https://www.loc.gov/collections/chronicling-america/",
+   "rows": [
+    "unverified_list_postscript"
+   ],
+   "host": "www.loc.gov",
+   "status": "blocked",
+   "http_status": 403,
+   "method": "HEAD",
+   "location": null,
+   "follow": null,
+   "content_type": "text/html; charset=UTF-8",
+   "content_length": null,
+   "server": "cloudflare",
+   "note": null,
+   "robots": "robots_ok"
+  }
+ ],
+ "rows": [
+  {
+   "number": 1,
+   "access_status": "blocked",
+   "reachability": "blocked",
+   "urls": [
+    {
+     "url": "https://www.loc.gov/item/99446453/",
+     "status": "blocked",
+     "http_status": 403
+    }
+   ],
+   "summary": "blocked/403 https://www.loc.gov/item/99446453/"
+  },
+  {
+   "number": 2,
+   "access_status": "partially-reachable",
+   "reachability": "partial",
+   "urls": [
+    {
+     "url": "https://unwritten-record.blogs.archives.gov/?p=20249",
+     "status": "redirect",
+     "http_status": 301
+    },
+    {
+     "url": "https://catalog.archives.gov/id/102279222",
+     "status": "robots_disallowed",
+     "http_status": null
+    }
+   ],
+   "summary": "redirect/301 https://unwritten-record.blogs.archives.gov/?p=20249; robots_disallowed https://catalog.archives.gov/id/102279222"
+  },
+  {
+   "number": 3,
+   "access_status": "viewer-only",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://davidrumsey.com/maps1100223-26914.html",
+     "status": "redirect",
+     "http_status": 301
+    }
+   ],
+   "summary": "redirect/301 https://davidrumsey.com/maps1100223-26914.html"
+  },
+  {
+   "number": 4,
+   "access_status": "blocked",
+   "reachability": "blocked",
+   "urls": [
+    {
+     "url": "https://geodata.libraries.mit.edu/record/gisogm:edu.umn:3cfe346bdd99",
+     "status": "robots_disallowed",
+     "http_status": null
+    }
+   ],
+   "summary": "robots_disallowed https://geodata.libraries.mit.edu/record/gisogm:edu.umn:3cfe346bdd99"
+  },
+  {
+   "number": 5,
+   "access_status": "print-only",
+   "reachability": "blocked",
+   "urls": [
+    {
+     "url": "https://scrcguides.libraries.wm.edu/repositories/2/archival_objects/212965",
+     "status": "blocked",
+     "http_status": null
+    },
+    {
+     "url": "https://scrcguides.libraries.wm.edu/repositories/2/archival_objects/212966",
+     "status": "blocked",
+     "http_status": null
+    }
+   ],
+   "summary": "blocked https://scrcguides.libraries.wm.edu/repositories/2/archival_objects/21; blocked https://scrcguides.libraries.wm.edu/repositories/2/archival_objects/21"
+  },
+  {
+   "number": 6,
+   "access_status": "print-only",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://www.nhhistory.org/NHHS/media/NHHS-Media-Library/PDFs/Finding-Aids/Bachelder_John_B-_Papers_1921-001.pdf",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "ok/200 https://www.nhhistory.org/NHHS/media/NHHS-Media-Library/PDFs/Finding-A"
+  },
+  {
+   "number": 7,
+   "access_status": "no-url",
+   "reachability": "no_url",
+   "urls": [],
+   "summary": ""
+  },
+  {
+   "number": 8,
+   "access_status": "partially-reachable",
+   "reachability": "partial",
+   "urls": [
+    {
+     "url": "https://www.loc.gov/item/2004629149/",
+     "status": "blocked",
+     "http_status": 403
+    },
+    {
+     "url": "https://gettysburghistory.org/our-holdings/",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "blocked/403 https://www.loc.gov/item/2004629149/; ok/200 https://gettysburghistory.org/our-holdings/"
+  },
+  {
+   "number": 9,
+   "access_status": "blocked",
+   "reachability": "blocked",
+   "urls": [
+    {
+     "url": "https://www.loc.gov/resource/g3880.cw0508800/",
+     "status": "blocked",
+     "http_status": 403
+    }
+   ],
+   "summary": "blocked/403 https://www.loc.gov/resource/g3880.cw0508800/"
+  },
+  {
+   "number": 10,
+   "access_status": "reachable",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://unwritten-record.blogs.archives.gov/?p=20249",
+     "status": "redirect",
+     "http_status": 301
+    }
+   ],
+   "summary": "redirect/301 https://unwritten-record.blogs.archives.gov/?p=20249"
+  },
+  {
+   "number": 11,
+   "access_status": "partially-reachable",
+   "reachability": "partial",
+   "urls": [
+    {
+     "url": "https://www.loc.gov/collections/civil-war-maps/about-this-collection/",
+     "status": "blocked",
+     "http_status": 403
+    },
+    {
+     "url": "https://www.loc.gov/collections/civil-war-maps/?q=gettysburg&fo=json&c=5",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "blocked/403 https://www.loc.gov/collections/civil-war-maps/about-this-collection/; ok/200 https://www.loc.gov/collections/civil-war-maps/?q=gettysburg&fo=json&c"
+  },
+  {
+   "number": 12,
+   "access_status": "blocked",
+   "reachability": "blocked",
+   "urls": [
+    {
+     "url": "https://ehistory.osu.edu/books/official-records/atlas",
+     "status": "blocked",
+     "http_status": null
+    },
+    {
+     "url": "https://ehistory.osu.edu/books/official-records/",
+     "status": "blocked",
+     "http_status": null
+    }
+   ],
+   "summary": "blocked https://ehistory.osu.edu/books/official-records/atlas; blocked https://ehistory.osu.edu/books/official-records/"
+  },
+  {
+   "number": 13,
+   "access_status": "reachable",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://www.nps.gov/gett/learn/news/gett-battlefield-rehab.htm",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "ok/200 https://www.nps.gov/gett/learn/news/gett-battlefield-rehab.htm"
+  },
+  {
+   "number": 14,
+   "access_status": "request-only",
+   "reachability": "partial",
+   "urls": [
+    {
+     "url": "https://www.nps.gov/gis/gisday/gallery2001/GWS/musselman.htm",
+     "status": "not_found",
+     "http_status": 404
+    },
+    {
+     "url": "https://xyht.com/?p=2387",
+     "status": "redirect",
+     "http_status": 301
+    }
+   ],
+   "summary": "not_found/404 https://www.nps.gov/gis/gisday/gallery2001/GWS/musselman.htm; redirect/301 https://xyht.com/?p=2387"
+  },
+  {
+   "number": 15,
+   "access_status": "partially-reachable",
+   "reachability": "partial",
+   "urls": [
+    {
+     "url": "https://xyht.com/?p=2387",
+     "status": "redirect",
+     "http_status": 301
+    },
+    {
+     "url": "https://www.smithsonianmag.com/history-archaeology/A-Cutting-Edge-Second-Look-at-the-Battle-of-Gettysburg.html",
+     "status": "redirect",
+     "http_status": 301
+    },
+    {
+     "url": "https://storymaps.esri.com/stories/2013/gettysburg",
+     "status": "redirect",
+     "http_status": 301
+    },
+    {
+     "url": "https://www.spokesman.com/stories/2013/jun/28/new-map-may-explain-lees-decisions-gettysburg/",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "redirect/301 https://xyht.com/?p=2387; redirect/301 https://www.smithsonianmag.com/history-archaeology/A-Cutting-Edge-Seco; redirect/301 https://storymaps.esri.com/stories/2013/gettysburg; ok/200 https://www.spokesman.com/stories/2013/jun/28/new-map-may-explain-lees"
+  },
+  {
+   "number": 16,
+   "access_status": "reachable",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://www.nps.gov/gett/learn/news/gett-battlefield-rehab.htm",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "ok/200 https://www.nps.gov/gett/learn/news/gett-battlefield-rehab.htm"
+  },
+  {
+   "number": 17,
+   "access_status": "reachable",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://www.npshistory.com/publications/gett/index.htm",
+     "status": "ok",
+     "http_status": 200
+    },
+    {
+     "url": "https://www.npshistory.com/series/symposia/gettysburg_seminars/index.htm",
+     "status": "ok",
+     "http_status": 200
+    },
+    {
+     "url": "https://irma.nps.gov/DataStore/Reference/Profile/2257218",
+     "status": "ok",
+     "http_status": 200
+    },
+    {
+     "url": "https://www.nps.gov/gett/getinvolved/planning.htm",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "ok/200 https://www.npshistory.com/publications/gett/index.htm; ok/200 https://www.npshistory.com/series/symposia/gettysburg_seminars/index.h; ok/200 https://irma.nps.gov/DataStore/Reference/Profile/2257218; ok/200 https://www.nps.gov/gett/getinvolved/planning.htm"
+  },
+  {
+   "number": 18,
+   "access_status": "reachable",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://gettysburg.stonesentinels.com/?p=203",
+     "status": "redirect",
+     "http_status": 301
+    }
+   ],
+   "summary": "redirect/301 https://gettysburg.stonesentinels.com/?p=203"
+  },
+  {
+   "number": 19,
+   "access_status": "reachable",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://support.geocue.com/wp-content/uploads/2017/07/MappingGettysburg-LittleRoundTopRevealed.pdf",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "ok/200 https://support.geocue.com/wp-content/uploads/2017/07/MappingGettysbur"
+  },
+  {
+   "number": 20,
+   "access_status": "unreachable",
+   "reachability": "unreachable",
+   "urls": [
+    {
+     "url": "https://forum.game-labs.net/topic/19003-accuracy-of-gettysburg-map/",
+     "status": "robots_unavailable",
+     "http_status": null
+    }
+   ],
+   "summary": "robots_unavailable https://forum.game-labs.net/topic/19003-accuracy-of-gettysburg-map/"
+  },
+  {
+   "number": 21,
+   "access_status": "partially-reachable",
+   "reachability": "partial",
+   "urls": [
+    {
+     "url": "https://data.amerigeoss.org/dataset/south-central-pennsylvania-2017-ql2-lidar",
+     "status": "ok",
+     "http_status": 200
+    },
+    {
+     "url": "http://www.pasda.psu.edu/",
+     "status": "ok",
+     "http_status": 200
+    },
+    {
+     "url": "https://mapping.adamscountypa.gov/arcgis/rest/services/AGOL/Two_Foot_Contours/MapServer",
+     "status": "ok",
+     "http_status": 200
+    },
+    {
+     "url": "https://www.usgs.gov/index.php/3d-elevation-program/topographic-data-quality-levels-qls",
+     "status": "redirect",
+     "http_status": 301
+    },
+    {
+     "url": "https://www.usgs.gov/3d-elevation-program/about-3dep-products-services",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "ok/200 https://data.amerigeoss.org/dataset/south-central-pennsylvania-2017-ql; ok/200 http://www.pasda.psu.edu/; ok/200 https://mapping.adamscountypa.gov/arcgis/rest/services/AGOL/Two_Foot_C; redirect/301 https://www.usgs.gov/index.php/3d-elevation-program/topographic-data-q; ok/200 https://www.usgs.gov/3d-elevation-program/about-3dep-products-services"
+  },
+  {
+   "number": 22,
+   "access_status": "reachable",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://www.usgs.gov/3d-elevation-program/about-3dep-products-services",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "ok/200 https://www.usgs.gov/3d-elevation-program/about-3dep-products-services"
+  },
+  {
+   "number": 23,
+   "access_status": "reachable",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://www.fisheries.noaa.gov/inport/item/49951",
+     "status": "ok",
+     "http_status": 200
+    },
+    {
+     "url": "https://www.pasda.psu.edu/download/pamap/PAMAP_ancillary_data/PAMAP_LiDAR_%202006-2008_%20Acquisition%20Report_Full_Report.pdf",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "ok/200 https://www.fisheries.noaa.gov/inport/item/49951; ok/200 https://www.pasda.psu.edu/download/pamap/PAMAP_ancillary_data/PAMAP_Li"
+  },
+  {
+   "number": 24,
+   "access_status": "reachable",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://mapping.adamscountypa.gov/arcgis/rest/services",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "ok/200 https://mapping.adamscountypa.gov/arcgis/rest/services"
+  },
+  {
+   "number": 25,
+   "access_status": "partially-reachable",
+   "reachability": "partial",
+   "urls": [
+    {
+     "url": "https://irma.nps.gov/DataStore/DownloadFile/610918?Reference=2233298",
+     "status": "robots_disallowed",
+     "http_status": null
+    },
+    {
+     "url": "https://catalog-beta.data.gov/dataset/geospatial-data-for-the-vegetation-mapping-inventory-project-of-gettysburg-national-milita",
+     "status": "not_found",
+     "http_status": 404
+    },
+    {
+     "url": "https://www.nps.gov/im/vmi-gett-eise.htm",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "robots_disallowed https://irma.nps.gov/DataStore/DownloadFile/610918?Reference=2233298; not_found/404 https://catalog-beta.data.gov/dataset/geospatial-data-for-the-vegetati; ok/200 https://www.nps.gov/im/vmi-gett-eise.htm"
+  },
+  {
+   "number": 26,
+   "access_status": "reachable",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://catalog.data.gov/dataset/digital-geologic-gis-map-of-gettysburg-national-military-park-pennsylvania-nps-grd-gr-1929",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "ok/200 https://catalog.data.gov/dataset/digital-geologic-gis-map-of-gettysbur"
+  },
+  {
+   "number": 27,
+   "access_status": "reachable",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://mapservices.pasda.psu.edu/server/rest/services/pasda/Soils_PA/MapServer/0/iteminfo",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "ok/200 https://mapservices.pasda.psu.edu/server/rest/services/pasda/Soils_PA/"
+  },
+  {
+   "number": 28,
+   "access_status": "viewer-only",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://www.arcgis.com/apps/View/index.html?appid=10af5f75f9f94f01866359ba398cb6a9",
+     "status": "ok",
+     "http_status": 200
+    },
+    {
+     "url": "https://geo.btaa.org/catalog/pasda-1078",
+     "status": "redirect",
+     "http_status": 301
+    },
+    {
+     "url": "https://www.witf.org/2025/01/24/penn-pilot-exploring-pennsylvanias-history-through-aerial-photography/",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "ok/200 https://www.arcgis.com/apps/View/index.html?appid=10af5f75f9f94f018663; redirect/301 https://geo.btaa.org/catalog/pasda-1078; ok/200 https://www.witf.org/2025/01/24/penn-pilot-exploring-pennsylvanias-his"
+  },
+  {
+   "number": 29,
+   "access_status": "partially-reachable",
+   "reachability": "partial",
+   "urls": [
+    {
+     "url": "https://www.nps.gov/gis/gisday/gallery2001/GWS/musselman.htm",
+     "status": "not_found",
+     "http_status": 404
+    },
+    {
+     "url": "https://xyht.com/?p=2387",
+     "status": "redirect",
+     "http_status": 301
+    }
+   ],
+   "summary": "not_found/404 https://www.nps.gov/gis/gisday/gallery2001/GWS/musselman.htm; redirect/301 https://xyht.com/?p=2387"
+  },
+  {
+   "number": 30,
+   "access_status": "reachable",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://www.pa.gov/agencies/dcnr/conservation/geology/digital-base-maps",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "ok/200 https://www.pa.gov/agencies/dcnr/conservation/geology/digital-base-map"
+  },
+  {
+   "number": 31,
+   "access_status": "reachable",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://catalog.data.gov/dataset/gettysburg-national-military-park-small-scale-base-gis-data",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "ok/200 https://catalog.data.gov/dataset/gettysburg-national-military-park-sma"
+  },
+  {
+   "number": 32,
+   "access_status": "reachable",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://prologue.blogs.archives.gov/2013/06/20/the-true-story-behind-the-gettysburg-sharpshooter",
+     "status": "redirect",
+     "http_status": 301
+    },
+    {
+     "url": "https://hd.housedivided.dickinson.edu/node/27090",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "redirect/301 https://prologue.blogs.archives.gov/2013/06/20/the-true-story-behind-t; ok/200 https://hd.housedivided.dickinson.edu/node/27090"
+  },
+  {
+   "number": 33,
+   "access_status": "blocked",
+   "reachability": "blocked",
+   "urls": [
+    {
+     "url": "https://www.loc.gov/pictures/collection/cwp/",
+     "status": "blocked",
+     "http_status": 403
+    }
+   ],
+   "summary": "blocked/403 https://www.loc.gov/pictures/collection/cwp/"
+  },
+  {
+   "number": 34,
+   "access_status": "reachable",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://en.wikipedia.org/wiki/Home_of_a_Rebel_Sharpshooter",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "ok/200 https://en.wikipedia.org/wiki/Home_of_a_Rebel_Sharpshooter"
+  },
+  {
+   "number": 35,
+   "access_status": "reachable",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://www.nps.gov/places/gettysburg-then-now-first-rose-woods.htm",
+     "status": "ok",
+     "http_status": 200
+    },
+    {
+     "url": "https://www.nps.gov/gett/learn/photosmultimedia/then-and-now.htm",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "ok/200 https://www.nps.gov/places/gettysburg-then-now-first-rose-woods.htm; ok/200 https://www.nps.gov/gett/learn/photosmultimedia/then-and-now.htm"
+  },
+  {
+   "number": 36,
+   "access_status": "reachable",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://www.battlefields.org/learn/biographies/william-h-tipton",
+     "status": "ok",
+     "http_status": 200
+    },
+    {
+     "url": "https://museum.nps.gov/Media//00001/Gett%2041136,%20W.H.%20Tipton%20Photographic%20Prints%202013%20U00635923399151552978.pdf",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "ok/200 https://www.battlefields.org/learn/biographies/william-h-tipton; ok/200 https://museum.nps.gov/Media//00001/Gett%2041136,%20W.H.%20Tipton%20Ph"
+  },
+  {
+   "number": 37,
+   "access_status": "unreachable",
+   "reachability": "unreachable",
+   "urls": [
+    {
+     "url": "https://www.gettysburg.edu/offices/schmucker-art-gallery/exhibitions/a-great-and-truthful-medium-photography-at-gettysburg-beyond-selections-from-the-ron-perisho-collection-at-gettysburg-college",
+     "status": "not_found",
+     "http_status": 404
+    }
+   ],
+   "summary": "not_found/404 https://www.gettysburg.edu/offices/schmucker-art-gallery/exhibitions/a"
+  },
+  {
+   "number": 38,
+   "access_status": "reachable",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://gettysburghistory.org/our-holdings/",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "ok/200 https://gettysburghistory.org/our-holdings/"
+  },
+  {
+   "number": 39,
+   "access_status": "reachable",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://gettysburgcompiler.org/uncategorized/patriotism-or-greed-damage-claims-after-the-b",
+     "status": "redirect",
+     "http_status": 301
+    }
+   ],
+   "summary": "redirect/301 https://gettysburgcompiler.org/uncategorized/patriotism-or-greed-damag"
+  },
+  {
+   "number": 40,
+   "access_status": "reachable",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://www.nps.gov/gett/learn/historyculture/cyclorama.htm",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "ok/200 https://www.nps.gov/gett/learn/historyculture/cyclorama.htm"
+  },
+  {
+   "number": 41,
+   "access_status": "unreachable",
+   "reachability": "unreachable",
+   "urls": [
+    {
+     "url": "https://www.phmc.pa.gov/Preservation/1880-Agricultural-Census/Documents/adams_county_1880_census_data.pdf",
+     "status": "moved_to_search",
+     "http_status": 301
+    }
+   ],
+   "summary": "moved_to_search/301 https://www.phmc.pa.gov/Preservation/1880-Agricultural-Census/Document"
+  },
+  {
+   "number": 42,
+   "access_status": "reachable",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://www.nps.gov/gett/learn/nature/naturalfeaturesandecosystems.htm",
+     "status": "ok",
+     "http_status": 200
+    },
+    {
+     "url": "https://home.nps.gov/gett/learn/nature/naturalfeaturesandecosystems.htm",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "ok/200 https://www.nps.gov/gett/learn/nature/naturalfeaturesandecosystems.htm; ok/200 https://home.nps.gov/gett/learn/nature/naturalfeaturesandecosystems.ht"
+  },
+  {
+   "number": 43,
+   "access_status": "reachable",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://nps.gov/gett/learn/nature/plants.htm",
+     "status": "redirect",
+     "http_status": 301
+    }
+   ],
+   "summary": "redirect/301 https://nps.gov/gett/learn/nature/plants.htm"
+  },
+  {
+   "number": 44,
+   "access_status": "reachable",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://www.battlefields.org/learn/articles/nature-of-history/hidden-history-battlefield-orchards",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "ok/200 https://www.battlefields.org/learn/articles/nature-of-history/hidden-h"
+  },
+  {
+   "number": 45,
+   "access_status": "reachable",
+   "reachability": "reachable",
+   "urls": [
+    {
+     "url": "https://www.gettysburgdaily.com/fences-constructed-along-the-emmitsburg-road/",
+     "status": "ok",
+     "http_status": 200
+    },
+    {
+     "url": "http://emergingcivilwar.com/2022/09/30/fence-friday-post-and-rail/",
+     "status": "ok",
+     "http_status": 200
+    }
+   ],
+   "summary": "ok/200 https://www.gettysburgdaily.com/fences-constructed-along-the-emmitsbur; ok/200 http://emergingcivilwar.com/2022/09/30/fence-friday-post-and-rail/"
+  }
+ ],
+ "loc_99446453_identity_lookup": null,
+ "notes": [
+  "robots.txt of storymaps.esri.com redirected (to http://www.esri.com/en-us/arcgis/products/arcgis-storymaps/overview/robots.txt) and the redirect target did not give a robots.txt on one more hop; the rules were not read. One HEAD each was sent to: https://storymaps.esri.com/stories/2013/gettysburg.",
+  "robots.txt of www.phmc.pa.gov redirected (to https://www.pa.gov/spdocsothers/robots.txt) and the redirect target did not give a robots.txt on one more hop; the rules were not read. One HEAD each was sent to: https://www.phmc.pa.gov/Preservation/1880-Agricultural-Census/Documents/adams_county_1880_census_data.pdf.",
+  "www.loc.gov answered 403 to HEAD for 7 URL(s) while one other www.loc.gov URL answered 200 to HEAD in the same pass: LOC bot protection is not uniform. No retry or alternative request was made (no work-around). The identity lookup of item 99446453 was therefore not done."
+ ]
+}

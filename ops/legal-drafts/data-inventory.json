@@ -302,7 +302,9 @@
     "www.jsdelivr.com": "policy link on privacy.html, only followed if clicked",
     "peerjs.com": "project link on privacy.html, only followed if clicked",
     "mapbox.mapbox-terrain-dem-v1": "Mapbox tileset id (mapbox://-style identifier in compare.html), not a host",
-    "friendly-lolly-da85c0.netlify.app": "the site's default Netlify hostname; appears only as the SOURCE of a 301 to the primary domain in the generated _redirects, never requested by the site"
+    "friendly-lolly-da85c0.netlify.app": "the site's default Netlify hostname; appears only as the SOURCE of a 301 to the primary domain in the generated _redirects, never requested by the site",
+    "catalog.archives.gov": "source-credit link (<a href>, rel=noopener) under the 1863 photographs on aftermath.html and turning-points.html (U.S. National Archives catalogue entries); only followed if clicked, nothing is loaded from it (the photographs are served from /img/ on this site)",
+    "www.metmuseum.org": "source-credit link (<a href>, rel=noopener) under the 1863 photograph on education.html (The Metropolitan Museum of Art catalogue entry); only followed if clicked, nothing is loaded from it (the photograph is served from /img/ on this site)"
   },
   "storage": {
     "localStorage": [
@@ -406,6 +408,20 @@
         "holds": "map tiles",
         "kept": "managed by the library",
         "evidence": "tmp/legal/probe-out.json snapshot.caches; the R0 worker never touches it"
+      }
+    ],
+    "developer_switches": [
+      {
+        "key": "gtanim_off",
+        "match": "gtanim_off",
+        "store": "localStorage",
+        "purpose": "kill switch of the animation layer: the value \"1\" makes this browser use the shipped renderer instead",
+        "holds": "\"1\"",
+        "written_by": "only the \"Legacy renderer\" button of the hidden tuning panel, which opens with ?tune=1 in the address; no page, link or control a visitor meets sets it (tools/t0/anim/src/host/studio.mjs; the same panel is the only writer in the bundle)",
+        "read_by": "the animation layer at start-up (tools/t0/anim/src/host/app.mjs); a value of \"1\" or ?anim=legacy switches it off",
+        "writer_gate": "get(\"tune\")",
+        "disclosed": false,
+        "why_not_disclosed": "PROVISIONAL (docs/decisions/R1G-PROVISIONAL-DECISIONS-2026-11-01.md G2): a visitor never causes this write by ordinary use; it is a developer setting like gtbg-motion. verify-facts.mjs checks that every file that writes it also contains the ?tune gate. If counsel wants it listed, move the row to storage.localStorage and add one row to the opt-in privacy text; the owner decides."
       }
     ],
     "cookies": "none set by this site; none present in the probe (context.cookies() and document.cookie empty after loading the R1c main page with a real Mapbox session and after opening the Virtual Walkthrough); no document.cookie in any first-party or bundled code; no Set-Cookie header on 8 live URLs",

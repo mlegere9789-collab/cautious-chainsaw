@@ -1,0 +1,19 @@
+Batch II-06 (48 claims; reports OR27-1-R106 to R114: Smith 71st PA, Hesser 72nd PA, Curry 106th PA, Hall, Devereux 19th MA, Abbott 20th MA, Curtis 7th MI, Mallon 42nd NY, McFadden 59th NY)
+
+Counts per fc: passed_full_read 23, corrected 25, downgraded 0. Split (add): 0. Validator: decisions 48, new split claims 0, missing 0, errors 0.
+
+Patterns (claims may carry more than one):
+- time from another sentence: 2 (hall-19ma-09: "Just about 3 o'clock" belongs to the cannonade-slackening sentence, t removed; hall-19ma-02: "Until 4.30 p. m." is two sentences before the order, wp cleared).
+- merged second report: 0 as a separate-record case. hall-7mi-07 merges the 4 p. m. (second report) and "about two hours" (first report) from the same record R112; both are in the cited record and labelled in the act.
+- later order ignored: 0.
+- compass/road gloss: 1 (hall-19ma-05 "to the left" as direction of the move; the passage puts the Third Corps "on our left").
+- hedge/condition dropped: 4 (hall-20ma-04 "seemed to have broken in"; hall-19ma-04 "perhaps an hour"; hall-19ma-05 "I believe" on Mallon's volleys; hall-20ma-01 Revere "killed or wounded").
+- unit identity gloss: 6 (harrow-15ma-10, harrow-1mn-06, harrow-19me-05: "Harrow's" not printed, passage says "the First Brigade of this division"; webb-13 "Second Brigade" = Webb is compiler identification; hall-19ma-03 "the corps" not named; hall-05 "the line" not tied to Hall's brigade).
+- OCR digit: 2 (hall-07 distance "IGO" read as 160; hall-42ny-03 "morning of the 3d instant" inconsistent with the following July 2 paragraph, marked ocr true, t null). hall-59ny-01/02 print "On July 3" for the July 2 action; internal evidence ("as the day before") settles it, kept with dbasis.
+- meridian inferred: 3 (hall-06 and hall-07 settled by "afternoon of the 3d"; hall-7mi-04 "5 o'clock next day" settled by skirmishing until 4.15 p. m.).
+- day-part word not printed: 4 (hall-7mi-01, hall-20ma-01, hall-20ma-02 "evening"; hall-7mi-04 "morning").
+- other overstatement/attribution: 8 (webb-106pa-03 Webb's order attached to the advance, printed only for the flank move and withdrawal; hall-08 "toward the break"; hall-19ma-08 "6 then 30 men volunteered to work its pieces"; hall-7mi-03 "slept"; hall-7mi-07 "quiet until 1 p. m."; hall-42ny-05 "Hall led it forward"; hall-42ny-02 quote did not cover core fact; hall-19ma-06 pp "two small regiments" is not a place).
+
+Ids split: none. Ids downgraded: none.
+
+Systematic: Hall brigade file attributes brigade-level or division-level text to a regiment unit id (19ma-04, 19ma-03, harrow trio); acts now state the subject as printed. Dates for several Hall-brigade claims rest on report context (no date phrase in the sentence); dbasis added. Mallon's report (R113) and McFadden's (R114) print internally inconsistent July 2/3 labels. Reports R106-R108 (regimental, short) were clean apart from hall-style attribution in 106pa-03.

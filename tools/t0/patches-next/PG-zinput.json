@@ -1,0 +1,23 @@
+{
+ "group": "PG-zinput",
+ "description": "Release 1 round 3, acceptance check 4: /immersive builds its AudioContext before the first paint instead of inside the click on Enable Sound & Start. Sorts after PG-perf3 / PG-core, whose texts these anchor on.",
+ "train": "R1e",
+ "patches": [
+  {
+   "id": "R9-immersive-audio-early",
+   "target": "immersive.html",
+   "find": "  const responses = await Promise.all(PLACEMENT_FILES.map(f => fetch('/data/' + f).then(r => r.json())));\n",
+   "repl": "  // R9 (acceptance check 4): the browser's first AudioContext of a session takes 45 ms on a warm machine and 300 ms and more when the audio service and the sound device have to start; it was built inside the click\n  // on \"Enable Sound & Start\", which made the click one long task (292-389 ms on both shells). It is built here instead, in the page's first task and before the first paint, while the placement files download\n  // (the download is started first and goes on while the context is built). The context stays suspended until the click.\n  const placementFetches = PLACEMENT_FILES.map(f => fetch('/data/' + f).then(r => r.json()));\n  let preAudio = null;\n  try { preAudio = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { preAudio = null; }\n  const responses = await Promise.all(placementFetches);\n",
+   "expect": 1,
+   "note": "check 4 (input matrix) on Chrome 156: the click on 'Enable Sound & Start' was one task of 292-389 ms on desktop and phone (limit 50 ms, response limit 100 ms) because the first AudioContext of the session is built inside it; the cost depends on the machine and the moment (45-300 ms measured here). The context is now built in the first task of the page, before the first paint (where a long task is not blocking time and the placement downloads run alongside)."
+  },
+  {
+   "id": "R9-immersive-audio-use-early",
+   "target": "immersive.html",
+   "find": "  function initAudio() {\n    audioCtx = new (window.AudioContext || window.webkitAudioContext)();\n",
+   "repl": "  function initAudio() {\n    audioCtx = preAudio || new (window.AudioContext || window.webkitAudioContext)();   // R9: built before the first paint (see above); only a browser that refused that builds it here\n    preAudio = null;\n    if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});   // a context built before the click starts suspended; the click is the user action that lets it run\n",
+   "expect": 1,
+   "note": "the click takes the context built at load, resumes it (a context built without a user action starts suspended) and builds the sound graph (a few ms); a browser that refused the early context still builds it here as before."
+  }
+ ]
+}

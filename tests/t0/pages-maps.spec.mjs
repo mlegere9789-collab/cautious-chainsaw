@@ -18,6 +18,7 @@ import path from 'node:path';
 import zlib from 'node:zlib';
 import { spawnSync } from 'node:child_process';
 import * as acorn from 'acorn';
+import { treeHas, loadOracle } from './lib_clock.mjs';
 
 // this agent's scratch dir, ports and Chrome profiles are fixed unless the caller overrides them (lib.mjs reads the env at import time)
 process.env.T0_AGENT ??= 't0-maps';
@@ -29,6 +30,8 @@ const {
 const argv = process.argv.slice(2);
 const opt = (name, dflt) => { const i = argv.indexOf(`--${name}`); return i >= 0 ? (argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[i + 1] : true) : dflt; };
 const DIST = path.resolve(REPO, opt('dist', 'release/R1a/dist'));
+const CLOCK_TREE = treeHas(DIST, 'CLOCK');
+const IMG_TREE = fs.existsSync(path.join(DIST, 'og', 'gettysburg-card.jpg')) && !fs.existsSync(path.join(DIST, 'og', 'card-r1.png'));   // IMG replaced the generated card, icons and screenshots by photographs
 const FILTER = opt('filter', null);
 const EXPECT_RED = !!opt('expect-red', false);
 const ONLINE = !!opt('online', false);
@@ -321,7 +324,12 @@ t.test('PG-03b-camera-ui', 'camera: the handlers bound inside the DOMContentLoad
     assertEq(await page.evaluate(() => document.getElementById('unit-select').style.display), 'inline-block', 'unit select shown in follow mode');
     assert((await page.locator('#unit-select option').count()) >= 10, 'unit dropdown filled from the OOB data');
     await page.click('#play-btn');
-    await waitFor(() => page.evaluate(() => Number(document.getElementById('tick-num').textContent) >= 3), { timeout: 8000, label: 'tick advances' });
+    // the readout is "<n>" before CLOCK and the clock module's own string ("July 1, about 5:10 AM") with it: the frame is the earliest one that prints that string
+    const O = CLOCK_TREE ? await loadOracle() : null;
+    const labelTick = new Map();
+    if (O) for (let n = 1; n <= O.tickMax; n++) { const l = O.fmt(n, 'compat'); if (!labelTick.has(l)) labelTick.set(l, n); }
+    const frameNow = async () => { const x = await page.evaluate(() => document.getElementById('tick-num').textContent.trim()); return O ? (labelTick.get(x) ?? NaN) : Number(x); };
+    await waitFor(async () => (await frameNow()) >= 3, { timeout: 8000, label: 'tick advances' });
     await page.click('#play-btn');
     S.collector.assertClean('camera ui');
   } finally { await page.close(); }
@@ -422,16 +430,37 @@ t.test('PG-05c', 'watch-together: a PeerJS load failure (wrong SRI) shows "unava
 t.test('PG-06', 'T0-IMG-01: every og/twitter image and manifest icon/screenshot decodes with Pillow at its declared size; card 1200x630 RGB <= 150 KB', async (ctx) => {
   const r = spawnSync('python', [path.join(TOOLS, 'check_images.py'), '--dist', DIST, '--json', path.join(TMP, 'img-report.json')], { encoding: 'utf8' });
   ctx.note('checker', r.stdout.trim().split('\n').slice(-1)[0]);
-  if (r.status !== 0) throw new Error(`check_images.py exit ${r.status}: ${r.stdout.split('\n').filter((l) => l.startsWith('PROBLEM')).slice(0, 4).join(' | ')} (+${Math.max(0, r.stdout.split('\n').filter((l) => l.startsWith('PROBLEM')).length - 4)} more)`);
+  let problems = r.stdout.split('\n').filter((l) => l.startsWith('PROBLEM'));
+  if (IMG_TREE) {
+    // IMG (tools/t0/images/README.md, "Interactions"): the card is a photographic JPEG and the maskable icons are full-bleed photographs, so check_images.py's two rules about the GENERATED art
+    // (card = PNG <= 150 KB; vector artwork inside the 40 % safe circle) cannot hold.  Every other rule (decodes, declared sizes true, single purposes, opaque maskable, no orientation lock,
+    // id "/", names, GSC bytes) still applies unchanged; the card gets the equivalent check for a JPEG: decodes, exactly 1200x630, 8-bit RGB, <= 300 KB (images.spec T0-RIMG-06).
+    // The checker's "opaque" rule is `mode == RGB`; IMG's maskable icons are palette PNGs (mode P), so that proxy is replaced by the property itself: no pixel of a maskable icon has alpha < 255.
+    problems = problems.filter((l) => !/card .* \(want PNG RGB 1200x630 <= 150 KB\)/.test(l) && !/artwork reaches/.test(l) && !/maskable icon .* has mode \w+ \(must be opaque\)/.test(l));
+    const mani = JSON.parse(fs.readFileSync(path.join(DIST, 'manifest.json'), 'utf8'));
+    for (const ic of (mani.icons || []).filter((i) => i.purpose === 'maskable')) {
+      const op = spawnSync('python', ['-I', '-c', 'import sys\nfrom PIL import Image\nim=Image.open(sys.argv[1]).convert("RGBA"); im.load()\nprint(im.getchannel("A").getextrema()[0])', path.join(DIST, ic.src.replace(/^\//, ''))], { encoding: 'utf8' });
+      if (op.status !== 0 || op.stdout.trim() !== '255') problems.push(`PROBLEM: maskable icon ${ic.src} is not opaque (lowest alpha ${op.stdout.trim() || op.stderr.trim().slice(-80)})`);
+    }
+    const card = fs.readdirSync(path.join(DIST, 'og')).filter((f) => /^gettysburg-card\.(jpg|png)$/.test(f));
+    assertEq(card.length, 1, 'cards under og/');
+    const py = spawnSync('python', ['-I', '-c', 'import sys,os\nfrom PIL import Image\np=sys.argv[1]\nim=Image.open(p); im.load()\nprint(im.format, im.mode, im.size[0], im.size[1], os.path.getsize(p))', path.join(DIST, 'og', card[0])], { encoding: 'utf8' });
+    const [fmt, mode, w, h, bytes] = py.stdout.trim().split(' ');
+    ctx.note('card', `${fmt} ${mode} ${w}x${h} ${bytes} B`);
+    assert(py.status === 0 && ['JPEG', 'PNG'].includes(fmt) && mode === 'RGB' && +w === 1200 && +h === 630 && +bytes <= 300 * 1024, `card ${card[0]} is ${fmt} ${mode} ${w}x${h} ${bytes} B (want JPEG/PNG RGB 1200x630 <= 300 KB)`);
+  }
+  if (problems.length) throw new Error(`check_images.py exit ${r.status}: ${problems.slice(0, 4).join(' | ')} (+${Math.max(0, problems.length - 4)} more)`);
 });
 
 t.test('PG-07', 'og/twitter: all 21 pages point to /og/card-r1.png (200, image/png), none to the corrupt screenshots; the manifest is valid in Chrome (Page.getInstallabilityErrors)', async (ctx) => {
   const srv = await getStatic(), S = await getA();
   const tags = []; for (const f of fs.readdirSync(DIST).filter((x) => x.endsWith('.html'))) { const h = fs.readFileSync(path.join(DIST, f), 'utf8'); for (const m of h.matchAll(/<meta\s+(?:property|name)="(og:image|twitter:image)"\s+content="([^"]+)"/g)) tags.push({ page: f, kind: m[1], url: m[2] }); }
   assertEq(new Set(tags.filter((x) => x.kind === 'og:image').map((x) => x.page)).size, 21, 'pages with og:image');
-  assertEq([...new Set(tags.map((x) => x.url))], ['https://gettysburginteractivemap.com/og/card-r1.png'], 'distinct og/twitter image URLs');
-  const res = await fetch(`${srv.url}/og/card-r1.png`); assertEq([res.status, res.headers.get('content-type')], [200, 'image/png'], 'card response');
-  assertEq((await res.arrayBuffer()).byteLength <= 150 * 1024, true, 'card size');
+  // the one card every page names: /og/card-r1.png (PNG, <= 150 KB) before IMG; with IMG the real photograph /og/gettysburg-card.jpg (JPEG, <= 300 KB, images.spec T0-RIMG-06)
+  const CARD = IMG_TREE ? { file: 'gettysburg-card.jpg', type: 'image/jpeg', cap: 300 * 1024 } : { file: 'card-r1.png', type: 'image/png', cap: 150 * 1024 };
+  assertEq([...new Set(tags.map((x) => x.url))], [`https://gettysburginteractivemap.com/og/${CARD.file}`], 'distinct og/twitter image URLs');
+  const res = await fetch(`${srv.url}/og/${CARD.file}`); assertEq([res.status, res.headers.get('content-type')], [200, CARD.type], 'card response');
+  assertEq((await res.arrayBuffer()).byteLength <= CARD.cap, true, 'card size');
   // manifest through a probe page (the app's own index needs the whole app to boot); images decoded by Chrome itself
   const probe = path.join(TMP, 'manifest-probe.html');
   fs.writeFileSync(probe, '<!doctype html><meta charset=utf-8><title>probe</title><link rel="manifest" href="/manifest.json"><body>probe</body>');
@@ -454,9 +483,11 @@ t.test('PG-07', 'og/twitter: all 21 pages point to /og/card-r1.png (200, image/p
     const bad = (inst.installabilityErrors || []).filter((e) => /icon|manifest/i.test(e.errorId));
     assertEq(bad.map((e) => e.errorId), [], 'manifest/icon installability errors');
     const imgs = await page.evaluate(async (list) => Promise.all(list.map(async (u) => { const im = new Image(); im.src = u; try { await im.decode(); return [u, im.naturalWidth, im.naturalHeight]; } catch (e) { return [u, 0, 0]; } })),
-      ['/og/card-r1.png', '/screenshots/day1.png', '/screenshots/day3.png', '/icons/icon-192.png', '/icons/icon-512.png', '/icons/icon-maskable-192.png', '/icons/icon-maskable-512.png']);
+      IMG_TREE ? [`/og/${CARD.file}`, ...(parsed.icons || []).map((i) => i.src), ...(parsed.screenshots || []).map((i) => i.src)]
+        : ['/og/card-r1.png', '/screenshots/day1.png', '/screenshots/day3.png', '/icons/icon-192.png', '/icons/icon-512.png', '/icons/icon-maskable-192.png', '/icons/icon-maskable-512.png']);
     ctx.note('chrome decoded', imgs.map((x) => `${x[0].split('/').pop()}=${x[1]}x${x[2]}`).join(' '));
-    assertEq(imgs.map((x) => `${x[1]}x${x[2]}`), ['1200x630', '1280x720', '1280x720', '192x192', '512x512', '192x192', '512x512'], 'Chrome-decoded sizes');
+    // with IMG the manifest lists the files it really has (no "screenshots" that were never screenshots): Chrome must decode each at the size the manifest declares
+    assertEq(imgs.map((x) => `${x[1]}x${x[2]}`), IMG_TREE ? ['1200x630', ...[...(parsed.icons || []), ...(parsed.screenshots || [])].map((i) => i.sizes)] : ['1200x630', '1280x720', '1280x720', '192x192', '512x512', '192x192', '512x512'], 'Chrome-decoded sizes');
   } finally { srv.setOverrides({}); await page.close(); }
 });
 

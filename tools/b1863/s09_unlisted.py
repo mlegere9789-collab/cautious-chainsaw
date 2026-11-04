@@ -30,12 +30,15 @@ def neutral_mask():
         a = base.read([1, 2, 3, 4], window=Window(0, r0, C.W, n)).astype(np.int32)
         R, G, B, N = a
         mx = a[:3].max(0); mn = a[:3].min(0); L = (299 * R + 587 * G + 114 * B) // 1000
-        neu[r0:r0 + n] = ((mx - mn) <= 11) & (np.abs(R - G) <= 7) & (L >= 40) & (L <= 240)
+        ndv = (N - R) / np.maximum(N + R, 1)
+        # neutral grey (the pass-6 measure) and dark bluish asphalt of pads and lots (chroma up to 26, blue not below red, the NIR of paving: NDVI between -0.15 and 0, water is below -0.2)
+        neu[r0:r0 + n] = (((mx - mn) <= 11) & (np.abs(R - G) <= 7) & (L >= 40) & (L <= 240)) | (((mx - mn) <= 26) & (a[2] >= a[0] - 4) & (ndv < 0.0) & (ndv > -0.15) & (L >= 55) & (L <= 170))
         sat = (mx - mn) / np.maximum(mx, 1)
         ndvi = (N - R) / np.maximum(N + R, 1)
         # hue of red-orange: R is the maximum, G between B and R, hue = 60*(G-B)/(mx-mn) in [0, 22] (mod 360)
         hue = np.where(mx == R, (60.0 * (G - B) / np.maximum(mx - mn, 1)) % 360, 99)
-        red[r0:r0 + n] = ((hue <= 22) | (hue >= 340)) & (sat > 0.45) & (mx > 90) & (mx == R)          # terracotta and painted tile: strongly red, any NIR
+        # tile and shingle roofs of a red-brown hue: strongly red at any NIR, or fainter (weathered, salmon) with the low NIR of a roof (bare soil and dry grass have NDVI above 0.02)
+        red[r0:r0 + n] = (((hue <= 25) | (hue >= 340)) & (mx == R) & (mx > 90) & (((sat > 0.45)) | ((sat > 0.22) & (ndvi < 0.02) & (R > G + 25) & (R - B > 44))))
     return neu, red
 
 def main():
@@ -71,6 +74,8 @@ def main():
             rej_w += 1; continue
         if L[nm].std() < 4.0 and L[nm].mean() > 150:
             rej_f += 1; continue
+        if L[nm].mean() < 125 and L[nm].std() < 9.0:
+            rej_w += 1; continue                # dark and uniform: a pond or a slow stream, not paving (paving carries markings, cars, patches)
         # grow by the unvegetated ground of the site
         bare = (nd < 0.05) & (L > 70) & ~masked[r0:r1, c0:c1] & (lc[r0:r1, c0:c1] != 6) & (nd > WATER_NDVI)
         g = sub.copy()
@@ -88,17 +93,39 @@ def main():
     # red roofs
     redc = cv2.morphologyEx(red, cv2.MORPH_OPEN, np.ones((2, 2), np.uint8))
     redc = (redc > 0) & ~masked
+    # the fainter (weathered, salmon) reds are taken only within 35 m of a mapped modern building (wings and annexes that the county data lack); the strong reds anywhere
+    near_b = cv2.dilate((mask == C.M_BLDG).astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (71, 71))) > 0
+    strong = np.zeros((C.H, C.W), bool)
+    for r0 in range(0, C.H, BAND):
+        n_ = min(BAND, C.H - r0)
+        a_ = base.read([1, 2, 3], window=Window(0, r0, C.W, n_)).astype(np.int32)
+        mx_ = a_.max(0); mn_ = a_.min(0)
+        strong[r0:r0 + n_] = ((mx_ - mn_) / np.maximum(mx_, 1) > 0.45)
+    redc &= (near_b | strong)
     n, lab, st, cen = cv2.connectedComponentsWithStats(redc.astype(np.uint8), connectivity=8)
     nr = 0
     for i in range(1, n):
-        if st[i, 4] < 20:
-            continue
+        if st[i, 4] < 15 or st[i, 4] > 4000:
+            continue                  # ploughed fields have the same hue and a low NIR: they are far larger than any roof
         x, y, w, h, a = st[i]
         if max(w, h) > 80:
             continue
-        r0 = max(y - 6, 0); c0 = max(x - 6, 0); r1 = min(y + h + 6, C.H); c1 = min(x + w + 6, C.W)
+        # a roof stands out from the ground around it: mean colour of the component against a ring 3 to 8 px outside it (a ploughed field edge or a bare patch does not)
+        r0_ = max(y - 10, 0); c0_ = max(x - 10, 0); r1_ = min(y + h + 10, C.H); c1_ = min(x + w + 10, C.W)
+        comp = (lab[r0_:r1_, c0_:c1_] == i).astype(np.uint8)
+        ring = (cv2.dilate(comp, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (17, 17))) > 0) & ~(cv2.dilate(comp, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (7, 7))) > 0)
+        rgbw = base.read([1, 2, 3], window=Window(c0_, r0_, c1_ - c0_, r1_ - r0_)).astype(np.float32)
+        if ring.sum() < 20 or np.linalg.norm(rgbw[:, comp > 0].mean(1) - rgbw[:, ring].mean(1)) < 38:
+            continue
+        r0 = max(y - 12, 0); c0 = max(x - 12, 0); r1 = min(y + h + 12, C.H); c1 = min(x + w + 12, C.W)
         sub = (lab[r0:r1, c0:c1] == i).astype(np.uint8)
-        sub = cv2.dilate(sub, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (9, 9))) > 0
+        arr = base.read([1, 2, 3, 4], window=Window(c0, r0, c1 - c0, r1 - r0)).astype(np.float32)
+        ndl = (arr[3] - arr[0]) / np.maximum(arr[3] + arr[0], 1)
+        roofy = (ndl < 0.04) & ~(arr[1] > arr[0] + 4)          # unvegetated, not green: the rest of the roof (shaded plane, ridge, dormer) around the red part
+        g = sub > 0
+        for _ in range(5):
+            g = (cv2.dilate(g.astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))) > 0) & (roofy | g)
+        sub = cv2.dilate(g.astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (7, 7))) > 0
         sub &= ~masked[r0:r1, c0:c1] & (lc[r0:r1, c0:c1] != 6)
         out[r0:r1, c0:c1][sub] = 1
         cx, cy = cen[i]; lon, lat = C.utm2ll(C.X0 + cx, C.Y0 - cy)

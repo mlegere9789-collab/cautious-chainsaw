@@ -36,7 +36,7 @@ const hotspotTour = (h) => ({
   id: 'hotspot-' + h.id, label: h.label, group: 'Hotspots', blurb: `Tick ${h.tick}: ${h.why}.`,
   steps: abSteps({
     tick: h.tick - 6, lat: h.lat, lng: h.lng, zoom: h.zoom, label: `Starts at tick ${h.tick - 6}`,
-    intro: (ctx) => ({ kicker: `Hotspot · ${when(ctx, h.tick)} (candidate clock)`, title: h.label, text: `Tick ${h.tick}, ${h.why}. The data's nearest key location is ${h.near} (a label, not a claim). Watch the same six minutes twice.`, chips: [ev('Computed', 'ranked by units within 120 m of one unit'), ev('Modelled', 'clock is a candidate')] }),
+    intro: (ctx) => ({ kicker: `Hotspot · ${when(ctx, h.tick)}`, title: h.label, text: `Tick ${h.tick}, ${h.why}. The data's nearest key location is ${h.near} (a label, not a claim). Watch the same six minutes twice.`, chips: [ev('Computed', 'ranked by units within 120 m of one unit'), ev('Modelled', 'clock is a candidate')] }),
   }),
 });
 
@@ -44,7 +44,7 @@ const SHOWCASE = {
   id: 'showcase', label: '60-second showcase', group: 'Showcase', blurb: 'The before and after, the two looks of the ground, the whole field and the popups, in one minute.',
   steps: [
     { id: 'open', ms: 5000, enter: [{ a: 'pause' }, { a: 'popups', on: false }, { a: 'compare', mode: 'after' }, { a: 'style', id: 'dispatch-paper' }, { a: 'seek', tick: 548, glide: false }, { a: 'camera', lat: 39.8117, lng: -77.2347, zoom: 15, glide: false }, { a: 'speed', v: 1 }],
-      caption: (ctx) => { const c = ctx.engine.battle.ds.provenance.counts; return { kicker: `Gettysburg · ${when(ctx, 548)} (candidate clock)`, title: 'Every tile is a real record.', text: `${num(c.units)} units and ${num(c.keyframes)} hand-placed keyframes on ${c.populatedTicks} of 675 ticks. Where a unit stood is Modelled; who it is comes from the order of battle.`, chips: [ev('Documented', 'identity: order of battle'), ev('Modelled', 'positions and clock')] }; } },
+      caption: (ctx) => { const c = ctx.engine.battle.ds.provenance.counts; return { kicker: `${when(ctx, 548)}`, title: 'Every tile is a real record.', text: `${num(c.units)} units and ${num(c.keyframes)} hand-placed keyframes on ${c.populatedTicks} of 675 ticks. Where a unit stood is Modelled; who it is comes from the order of battle.`, chips: [ev('Documented', 'identity: order of battle'), ev('Modelled', 'positions and clock')] }; } },
     { id: 'before', ms: 9000, live: true, enter: [{ a: 'compare', mode: 'before' }, { a: 'seek', tick: 548, glide: false }, { a: 'play', speed: 4 }],
       caption: () => ({ kicker: 'Before · production-style stepping', title: 'Sit still, then hop.', text: `Reproduced from the shipped code and checked against the research replay: ${FACTS.hops} hops of 8 px or more across the battle. Units wait, then jump; bars pile on bars.`, chips: [ev('Computed', 'matches the shipped code'), ev('Modelled', 'positions')] }) },
     { id: 'after', ms: 9000, live: true, enter: [{ a: 'compare', mode: 'after' }, { a: 'seek', tick: 548, glide: false }, { a: 'play', speed: 4 }],

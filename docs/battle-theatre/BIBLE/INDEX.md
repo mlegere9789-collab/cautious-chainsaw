@@ -18,4 +18,8 @@ Owner's PDF: C:\Users\mlege\Downloads\Gettysburg Total War animation plan v2.pdf
 | 138-144 | Appendices A-F (register template, provenance schema, acquisition list + 42 open questions, glossary, traceability matrix R01-R22, budget table), consolidated sources |
 
 ## Read status (honest)
-Read in full by the assistant, line by line: pages 1-17 (to T1-160), 62-66, 119-144 (all of Parts C, D, E and the appendices), Part A (5-8). NOT yet read line by line: pages 17-61 after T1-160 (rest of July 1, July 2, July 3-14 rows, ledger start), 66-118 (B.6-B.12 bodies). Those pages were processed programmatically (row counts, source domains, headings). Reading them continues; this file is updated as pages are read.
+As of 2026-10-19 every page 1-144 has been read in order, line by line, from tmp/pdf/plan-clean.txt (pages 43-144 in one continuous pass, pages 1-42 re-read afterwards). That is a reading status, not a certification: the PDF itself says its sources are mostly secondary and its own defects are listed in READING-NOTES-pp43-144.md section C.
+
+## Reading notes (2026-10-19 fresh full re-audit, pages 1-144 read end to end in order)
+- READING-NOTES-pp01-42.md: Part A (Total War), B.0-B.1, timelines T1 (225 rows) and T2 (248 rows), start of T3.
+- READING-NOTES-pp43-144.md: rest of T3, ledger B.2.4, conflict register C-001..C-047, B.3-B.12, Parts C-E, appendices; defect list, disputable items and PDF-vs-owner conflicts.

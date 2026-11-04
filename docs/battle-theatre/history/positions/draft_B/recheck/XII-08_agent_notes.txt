@@ -1,0 +1,19 @@
+XII-08 reader notes (reports OR27-1-R278, R279, R280, R281, R282; 58 claims)
+
+Counts per fc: passed_full_read 42, corrected 16, downgraded 0, split 0.
+
+Patterns (claims affected):
+- time from another sentence: 3 (123ny-10 "Next morning", 145ny-07 "At 6 o'clock", lockwood-17 "Soon after our return"; wp removed, t was already null). Anaphoric continuations ("Thus formed", "On approaching", "Afterward") passed with a wdesc line: 123ny-09, 123ny-12, lockwood-13, lockwood-1mdphb-01.
+- merged second report: 0.
+- later order ignored: 0 (145ny-02 "ordered to advance" then retired: activity now says ordered, not advanced).
+- compass/road/gazetteer gloss: 4 (123ny-07 GZ-042 Taneytown Road removed; 145ny-02 GZ-039 flagged as inference; 46pa-03 "south" read from OCR-damaged "^outh", flagged ocr; 3md-12 place "breastworks" removed because the sentence names none).
+- hedge/condition/overstatement: 4 (145ny-02 ordered to advance; 145ny-11 "corps's own shells" gloss and "subsequently" wounded; 1mdeasternshore-02 arrival time not printed, parenthesis "now increased"; 3md-08 "from train guard" not printed; 123ny-09 morning applied to the later "Afterward" move).
+- unit identity gloss: 1 (lockwood-14 "brigade" for "The command" = two regiments).
+- OCR digit: 2 (lockwood-11 "July 3" doubtful: t removed, ocr true, date moved to July 2 by the report's own order, dbasis stated; 46pa-03 "^outh"). lockwood-12/-13/-14 stay tier inferred and rest on the same doubtful "that day".
+- meridian inferred: 3 annotated (145ny-05, 145ny-10, 145ny-12; mer true with wdesc).
+- other: 46pa-07 place "from an eminence" belongs to the supporting batteries, not the regiment (pp changed, ppd explains); lockwood-10 "to Gettysburg" removed and dbasis states July 2 is not printed in that sentence; 145ny-10 "at 10.30 rested on arms" reworded to the printed "It was now 10.30 o'clock".
+
+Split ids: none. Downgraded ids: none.
+
+Systematic: the compiler repeatedly attached a day-part or clock phrase from the sentence before a place-description sentence ("Here the regiment...", "I would state that the position..."); and in Lockwood's report the printed "July 3" for the 8 a. m. arrival contradicts the report's own sequence, so every claim dated by "that day" in that paragraph depends on a doubtful digit (lockwood-11 to -14).
+Open-gap claims in the batch were not touched.

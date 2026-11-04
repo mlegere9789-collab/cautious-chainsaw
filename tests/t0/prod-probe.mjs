@@ -69,7 +69,7 @@ function readLog() {
 const lastRow = readLog();
 let TRAIN = opt.train || 'auto';
 if (TRAIN === 'auto') TRAIN = lastRow ? lastRow.train : 'legacy';
-if (TRAIN === 'R1d') TRAIN = 'R1c';
+if (TRAIN === 'R1d' || TRAIN === 'R1e' || TRAIN === 'R1f' || TRAIN === 'R1g') TRAIN = 'R1c';
 if (!TRAINS.includes(TRAIN)) { console.error(`unknown train ${TRAIN} (use ${TRAINS.join(' | ')} | R1d | auto)`); process.exit(2); }
 const due = (from) => from !== 'DG2' && TRAINS.indexOf(TRAIN) >= TRAINS.indexOf(from);
 const EXPECT_RELEASE = opt['expect-release'] || (lastRow && TRAIN !== 'legacy' ? lastRow.rid : null);

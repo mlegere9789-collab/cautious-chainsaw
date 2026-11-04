@@ -1,0 +1,3473 @@
+{
+ "candidate": "release\\R1d\\dist",
+ "ran": 220,
+ "failed": 0,
+ "skipped": 0,
+ "validWaivers": [
+  "W-shared-subpage-layer",
+  "W-file-InterpolationWorker",
+  "W-data-manifest",
+  "W-screenshot-aftermath",
+  "W-text-ar",
+  "W-screenshot-ar",
+  "W-text-dashboard",
+  "W-screenshot-dashboard",
+  "W-screenshot-documentary",
+  "W-screenshot-education",
+  "W-screenshot-embed",
+  "W-screenshot-find-ancestor",
+  "W-text-historian",
+  "W-screenshot-historian",
+  "W-screenshot-living-ledger",
+  "W-screenshot-privacy",
+  "W-screenshot-regiment",
+  "W-screenshot-report",
+  "W-screenshot-search",
+  "W-screenshot-terms",
+  "W-screenshot-turning-points",
+  "W-screenshot-camera",
+  "W-screenshot-cinematic-export",
+  "W-screenshot-compare",
+  "W-screenshot-ground-remembers",
+  "W-screenshot-immersive",
+  "W-screenshot-sandbox",
+  "W-text-viewshed",
+  "W-screenshot-viewshed",
+  "W-screenshot-watch-together",
+  "W-text-index-1440",
+  "W-controls-index-1440",
+  "W-screenshot-index-1440",
+  "W-screenshot-index-390",
+  "W-data-DATA-group"
+ ],
+ "invalidWaivers": [],
+ "results": [
+  {
+   "waiver": "W-shared-subpage-layer",
+   "defects": [],
+   "assertion": "css-layer",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate site-nav.css contains \"Sub-page shared layer (pages-fixes)\""
+  },
+  {
+   "waiver": "W-shared-subpage-layer",
+   "defects": [],
+   "assertion": "css-mount",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate site-nav.css contains /#gtbg-nav-mount\\s*\\{\\s*display:\\s*block;\\s*min-height:\\s*55px/"
+  },
+  {
+   "waiver": "W-shared-subpage-layer",
+   "defects": [],
+   "assertion": "css-footer-contrast",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate site-nav.css contains \"#gtbg-footer a { color: #9aa3b8;\""
+  },
+  {
+   "waiver": "W-shared-subpage-layer",
+   "defects": [],
+   "assertion": "css-no-fade",
+   "type": "not-contains",
+   "status": "PASS",
+   "detail": "candidate site-nav.css does not contain \"gtbg-page-in 340ms\""
+  },
+  {
+   "waiver": "W-shared-subpage-layer",
+   "defects": [],
+   "assertion": "css-no-glow",
+   "type": "not-contains",
+   "status": "PASS",
+   "detail": "candidate site-nav.css does not contain \"animation: gtbg-pin-glow 3.4s\""
+  },
+  {
+   "waiver": "W-shared-subpage-layer",
+   "defects": [],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "17 patch(es) on site-nav.css, site-nav.js: all listed; further groups with a recorded decision: PG-perf2, PG-polish; required replacements present"
+  },
+  {
+   "waiver": "W-file-InterpolationWorker",
+   "defects": [
+    "D01"
+   ],
+   "assertion": "baseline-bytes",
+   "type": "baseline-file-sha",
+   "status": "PASS",
+   "detail": "baseline assets/InterpolationWorker-ufiwa2-e.js sha256 a44f17c2727fd84ee437c9f732884767a2fdf305c6c082731c6d96dc6b7c865b"
+  },
+  {
+   "waiver": "W-file-InterpolationWorker",
+   "defects": [
+    "D01"
+   ],
+   "assertion": "never-referenced",
+   "type": "unreferenced",
+   "status": "PASS",
+   "detail": "token \"InterpolationWorker\" named by baseline files: [], candidate files: []"
+  },
+  {
+   "waiver": "W-file-InterpolationWorker",
+   "defects": [
+    "D01"
+   ],
+   "assertion": "hash-token",
+   "type": "unreferenced",
+   "status": "PASS",
+   "detail": "token \"ufiwa2\" named by baseline files: [], candidate files: []"
+  },
+  {
+   "waiver": "W-file-InterpolationWorker",
+   "defects": [
+    "D01"
+   ],
+   "assertion": "no-app-worker",
+   "type": "no-same-origin-worker",
+   "status": "PASS",
+   "detail": "no `new Worker(\"<literal url>\")` in the baseline or the candidate: the published app never starts that script"
+  },
+  {
+   "waiver": "W-file-InterpolationWorker",
+   "defects": [
+    "D01"
+   ],
+   "assertion": "absent",
+   "type": "file-absent",
+   "status": "PASS",
+   "detail": "assets/InterpolationWorker-ufiwa2-e.js is not in the candidate"
+  },
+  {
+   "waiver": "W-data-manifest",
+   "defects": [
+    "D02"
+   ],
+   "assertion": "manifest-shape",
+   "type": "manifest",
+   "status": "PASS",
+   "detail": "orientation removed (was \"landscape\"), id \"/\", 4 icons + 0 screenshots decode at their declared sizes, a maskable icon exists, only \"orientation\", \"screenshots\" removed"
+  },
+  {
+   "waiver": "W-data-manifest",
+   "defects": [
+    "D02"
+   ],
+   "assertion": "build-guard",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate manifest.json contains /\"id\"\\s*:\\s*\"/\"/"
+  },
+  {
+   "waiver": "W-data-manifest",
+   "defects": [
+    "D02"
+   ],
+   "assertion": "portrait-phone",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-aftermath",
+   "defects": [
+    "D03",
+    "D04"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "9 patch(es) on aftermath.html: all listed; further groups with a recorded decision: PG-polish, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-aftermath",
+   "defects": [
+    "D03",
+    "D04"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate aftermath.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-aftermath",
+   "defects": [
+    "D03",
+    "D04"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/aftermath@1440: 1 published line(s) gone; 1 of them changed by PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/aftermath",
+    "vp": 1440,
+    "groups": [
+     "PG-polish",
+     "PG-zimg",
+     "DATA"
+    ],
+    "lost": [
+     "Unlike the main animated map, this timeline is general narrative history, not built from the same tick-by-tick regimental placement data as the July 1–3 simulation -- it doesn't carry the same source-by-source precision. Treat it as an overview, not the same level of forensic detail as the battle itself."
+    ],
+    "gained": [
+     "Unlike the main animated map, this timeline is general narrative history, not built from the same moment-by-moment regimental placement data as the July 1–3 simulation -- it doesn't carry the same source-by-source precision. Treat it as an overview, not the same level of forensic detail as the battle itself.",
+     "The Trostle farmhouse (catalogued as “Trossel’s (Trostle’s) House”), photographed with dead horses in the foreground. Negative by Timothy H. O’Sullivan, July 1863. The photograph shows dead animals. U.S. National Archives, ARC 533316. Public domain."
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-aftermath",
+   "defects": [
+    "D03",
+    "D04"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/aftermath@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-aftermath",
+   "defects": [
+    "D03",
+    "D04"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/aftermath@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-aftermath",
+   "defects": [
+    "D03",
+    "D04"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "aftermath@1440: 6.219 % differ (budget 6.9 %), page height 1265 -> 1776 (+511; budget +-570)"
+  },
+  {
+   "waiver": "W-screenshot-aftermath",
+   "defects": [
+    "D03",
+    "D04"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "aftermath@390: 11.776 % differ (budget 13 %), page height 1646 -> 2081 (+435; budget +-480)"
+  },
+  {
+   "waiver": "W-screenshot-aftermath",
+   "defects": [
+    "D03",
+    "D04"
+   ],
+   "assertion": "text-390",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/aftermath@390: 1 published line(s) gone; 1 of them changed by PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/aftermath",
+    "vp": 390,
+    "groups": [
+     "PG-polish",
+     "PG-zimg",
+     "DATA"
+    ],
+    "lost": [
+     "Unlike the main animated map, this timeline is general narrative history, not built from the same tick-by-tick regimental placement data as the July 1–3 simulation -- it doesn't carry the same source-by-source precision. Treat it as an overview, not the same level of forensic detail as the battle itself."
+    ],
+    "gained": [
+     "Unlike the main animated map, this timeline is general narrative history, not built from the same moment-by-moment regimental placement data as the July 1–3 simulation -- it doesn't carry the same source-by-source precision. Treat it as an overview, not the same level of forensic detail as the battle itself.",
+     "The Trostle farmhouse (catalogued as “Trossel’s (Trostle’s) House”), photographed with dead horses in the foreground. Negative by Timothy H. O’Sullivan, July 1863. The photograph shows dead animals. U.S. National Archives, ARC 533316. Public domain."
+    ]
+   }
+  },
+  {
+   "waiver": "W-text-ar",
+   "defects": [
+    "D05",
+    "D07"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "9 patch(es) on ar.html: all listed; further groups with a recorded decision: PG-perf2, PG-perf3, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-text-ar",
+   "defects": [
+    "D05",
+    "D07"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/ar@1440: 1 published line(s) gone; all documented; 1 replacement line(s) present"
+  },
+  {
+   "waiver": "W-text-ar",
+   "defects": [
+    "D05",
+    "D07"
+   ],
+   "assertion": "text-390",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/ar@390: 1 published line(s) gone; all documented; 1 replacement line(s) present"
+  },
+  {
+   "waiver": "W-text-ar",
+   "defects": [
+    "D05",
+    "D07"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/ar@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-text-ar",
+   "defects": [
+    "D05",
+    "D07"
+   ],
+   "assertion": "ar-stays-reachable",
+   "type": "browser:ar-hidden",
+   "status": "PASS",
+   "detail": "ar.html is still served with its camera/location code, carries the Beta notice and noindex, and is out of the menus and the sitemap"
+  },
+  {
+   "waiver": "W-screenshot-ar",
+   "defects": [
+    "D06",
+    "D08"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "9 patch(es) on ar.html: all listed; further groups with a recorded decision: PG-perf2, PG-perf3, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-ar",
+   "defects": [
+    "D06",
+    "D08"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate ar.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-ar",
+   "defects": [
+    "D06",
+    "D08"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/ar@1440: 1 published line(s) gone; all documented; 1 replacement line(s) present"
+  },
+  {
+   "waiver": "W-screenshot-ar",
+   "defects": [
+    "D06",
+    "D08"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/ar@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-ar",
+   "defects": [
+    "D06",
+    "D08"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/ar@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-ar",
+   "defects": [
+    "D06",
+    "D08"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "ar@1440: 1.801 % differ (budget 2.8 %), page height 900 -> 900 (+0; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-ar",
+   "defects": [
+    "D06",
+    "D08"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "ar@390: 8.095 % differ (budget 12.2 %), page height 944 -> 999 (+55; budget +-90)"
+  },
+  {
+   "waiver": "W-screenshot-ar",
+   "defects": [
+    "D06",
+    "D08"
+   ],
+   "assertion": "ar-stays-reachable",
+   "type": "browser:ar-hidden",
+   "status": "PASS",
+   "detail": "ar.html is still served with its camera/location code, carries the Beta notice and noindex, and is out of the menus and the sitemap"
+  },
+  {
+   "waiver": "W-text-dashboard",
+   "defects": [
+    "D09",
+    "D11"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "28 patch(es) on dashboard.html: all listed; further groups with a recorded decision: DATA, PG-polish, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-text-dashboard",
+   "defects": [
+    "D09",
+    "D11"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/dashboard@1440: 19 published line(s) gone; 4 of them changed by DATA+PG-polish+PG-zimg and substituted (REVIEW LIST in --json); 6 replacement line(s) present",
+   "review": {
+    "route": "/dashboard",
+    "vp": 1440,
+    "groups": [
+     "DATA",
+     "PG-polish",
+     "PG-zimg"
+    ],
+    "lost": [
+     "Corps-by-corps effective strength over the course of the battle, built directly from the same primary-source casualty data (Busey & Martin, Official Records) that drives the main animation's casualty modeling.",
+     "23,138",
+     "Across 8 corps, 25.7% overall rate",
+     "Across 4 corps, 31.6% overall rate"
+    ],
+    "gained": [
+     "Corps-by-corps effective strength over the course of the battle, The totals follow the Official Records (Union corps) and Busey & Martin (the rest); the shape of each decline within a day is a model, a smooth drop around a peak moment, not a record, and the Union total shown omits the Artillery Reserve and headquarters.",
+     "These curves are modeled from each corps' recorded engagement periods. They show when losses concentrated, not observed strength at each moment.",
+     "(49.6% casualties)",
+     "(5.1% casualties)",
+     "22,803",
+     "Across 8 corps, 25.3% overall rate (the eight corps only; the Artillery Reserve and army headquarters add 246, for the Official Records total of 23,049)",
+     "Across 4 corps, 31.6% overall rate (modelled totals; the Official Records return counts 20,451, and the National Park Service estimates about 28,000)",
+     "Third Corps",
+     "MOST COMPRESSED FIGHT, UNION",
+     "Nearly all of the III Corps' 4,211 killed, wounded and missing (the whole-battle total in the Official Records) fell on the afternoon and evening of July 2; the Official Records give no day split.",
+     "Pickett's Division",
+     "MOST INTENSE HALF HOUR, CONFEDERATE",
+     "The Confederate return counts 2,888 casualties in Pickett's division, 1,499 of them captured or missing, in the assault of July 3.",
+     "Culp's Hill",
+     "LONGEST SUSTAINED FIGHT",
+     "Kane reports fire of unintermitting strength for seven hours on the morning of July 3, from about 3:30 to about 10:30 a.m.",
+     "85.5%",
+     "HIGHEST REGIMENTAL LOSS RATE, UNION",
+     "1st Minnesota: 224 casualties of 262 engaged over the battle, 215 of them on July 2 in the charge; the highest percentage of any Union regiment in a single battle in Fox's tables.",
+     "588",
+     "A HEAVY REGIMENTAL LOSS, CONFEDERATE",
+     "26th North Carolina: 588 killed and wounded of over 800 engaged, most on July 1 (Fox), with about 120 more missing. Smaller regiments with many captured, such as the 8th Virginia, show higher percentages in Busey and Martin's counts, which have not been re-verified here."
+    ]
+   }
+  },
+  {
+   "waiver": "W-text-dashboard",
+   "defects": [
+    "D09",
+    "D11"
+   ],
+   "assertion": "text-390",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/dashboard@390: 19 published line(s) gone; 4 of them changed by DATA+PG-polish+PG-zimg and substituted (REVIEW LIST in --json); 6 replacement line(s) present",
+   "review": {
+    "route": "/dashboard",
+    "vp": 390,
+    "groups": [
+     "DATA",
+     "PG-polish",
+     "PG-zimg"
+    ],
+    "lost": [
+     "Corps-by-corps effective strength over the course of the battle, built directly from the same primary-source casualty data (Busey & Martin, Official Records) that drives the main animation's casualty modeling.",
+     "23,138",
+     "Across 8 corps, 25.7% overall rate",
+     "Across 4 corps, 31.6% overall rate"
+    ],
+    "gained": [
+     "Corps-by-corps effective strength over the course of the battle, The totals follow the Official Records (Union corps) and Busey & Martin (the rest); the shape of each decline within a day is a model, a smooth drop around a peak moment, not a record, and the Union total shown omits the Artillery Reserve and headquarters.",
+     "These curves are modeled from each corps' recorded engagement periods. They show when losses concentrated, not observed strength at each moment.",
+     "(49.6% casualties)",
+     "(5.1% casualties)",
+     "22,803",
+     "Across 8 corps, 25.3% overall rate (the eight corps only; the Artillery Reserve and army headquarters add 246, for the Official Records total of 23,049)",
+     "Across 4 corps, 31.6% overall rate (modelled totals; the Official Records return counts 20,451, and the National Park Service estimates about 28,000)",
+     "Third Corps",
+     "MOST COMPRESSED FIGHT, UNION",
+     "Nearly all of the III Corps' 4,211 killed, wounded and missing (the whole-battle total in the Official Records) fell on the afternoon and evening of July 2; the Official Records give no day split.",
+     "Pickett's Division",
+     "MOST INTENSE HALF HOUR, CONFEDERATE",
+     "The Confederate return counts 2,888 casualties in Pickett's division, 1,499 of them captured or missing, in the assault of July 3.",
+     "Culp's Hill",
+     "LONGEST SUSTAINED FIGHT",
+     "Kane reports fire of unintermitting strength for seven hours on the morning of July 3, from about 3:30 to about 10:30 a.m.",
+     "85.5%",
+     "HIGHEST REGIMENTAL LOSS RATE, UNION",
+     "1st Minnesota: 224 casualties of 262 engaged over the battle, 215 of them on July 2 in the charge; the highest percentage of any Union regiment in a single battle in Fox's tables.",
+     "588",
+     "A HEAVY REGIMENTAL LOSS, CONFEDERATE",
+     "26th North Carolina: 588 killed and wounded of over 800 engaged, most on July 1 (Fox), with about 120 more missing. Smaller regiments with many captured, such as the 8th Virginia, show higher percentages in Busey and Martin's counts, which have not been re-verified here."
+    ]
+   }
+  },
+  {
+   "waiver": "W-text-dashboard",
+   "defects": [
+    "D09",
+    "D11"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/dashboard@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-text-dashboard",
+   "defects": [
+    "D09",
+    "D11"
+   ],
+   "assertion": "dom",
+   "type": "browser:dashboard-dom",
+   "status": "PASS",
+   "detail": "7 titled stat cards, 12 legend entries, no raw key / \"undefined\", model note present"
+  },
+  {
+   "waiver": "W-text-dashboard",
+   "defects": [
+    "D09",
+    "D11"
+   ],
+   "assertion": "source-data-consistent",
+   "type": "data-dashboard-no-mismatch",
+   "status": "PASS",
+   "detail": "every corps' engagement periods sum to its total_casualties, so the warning glyph the published page printed has nothing left to flag"
+  },
+  {
+   "waiver": "W-screenshot-dashboard",
+   "defects": [
+    "D10",
+    "D12"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "28 patch(es) on dashboard.html: all listed; further groups with a recorded decision: DATA, PG-polish, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-dashboard",
+   "defects": [
+    "D10",
+    "D12"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate dashboard.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-dashboard",
+   "defects": [
+    "D10",
+    "D12"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/dashboard@1440: 19 published line(s) gone; 4 of them changed by DATA+PG-polish+PG-zimg and substituted (REVIEW LIST in --json); 6 replacement line(s) present",
+   "review": {
+    "route": "/dashboard",
+    "vp": 1440,
+    "groups": [
+     "DATA",
+     "PG-polish",
+     "PG-zimg"
+    ],
+    "lost": [
+     "Corps-by-corps effective strength over the course of the battle, built directly from the same primary-source casualty data (Busey & Martin, Official Records) that drives the main animation's casualty modeling.",
+     "23,138",
+     "Across 8 corps, 25.7% overall rate",
+     "Across 4 corps, 31.6% overall rate"
+    ],
+    "gained": [
+     "Corps-by-corps effective strength over the course of the battle, The totals follow the Official Records (Union corps) and Busey & Martin (the rest); the shape of each decline within a day is a model, a smooth drop around a peak moment, not a record, and the Union total shown omits the Artillery Reserve and headquarters.",
+     "These curves are modeled from each corps' recorded engagement periods. They show when losses concentrated, not observed strength at each moment.",
+     "(49.6% casualties)",
+     "(5.1% casualties)",
+     "22,803",
+     "Across 8 corps, 25.3% overall rate (the eight corps only; the Artillery Reserve and army headquarters add 246, for the Official Records total of 23,049)",
+     "Across 4 corps, 31.6% overall rate (modelled totals; the Official Records return counts 20,451, and the National Park Service estimates about 28,000)",
+     "Third Corps",
+     "MOST COMPRESSED FIGHT, UNION",
+     "Nearly all of the III Corps' 4,211 killed, wounded and missing (the whole-battle total in the Official Records) fell on the afternoon and evening of July 2; the Official Records give no day split.",
+     "Pickett's Division",
+     "MOST INTENSE HALF HOUR, CONFEDERATE",
+     "The Confederate return counts 2,888 casualties in Pickett's division, 1,499 of them captured or missing, in the assault of July 3.",
+     "Culp's Hill",
+     "LONGEST SUSTAINED FIGHT",
+     "Kane reports fire of unintermitting strength for seven hours on the morning of July 3, from about 3:30 to about 10:30 a.m.",
+     "85.5%",
+     "HIGHEST REGIMENTAL LOSS RATE, UNION",
+     "1st Minnesota: 224 casualties of 262 engaged over the battle, 215 of them on July 2 in the charge; the highest percentage of any Union regiment in a single battle in Fox's tables.",
+     "588",
+     "A HEAVY REGIMENTAL LOSS, CONFEDERATE",
+     "26th North Carolina: 588 killed and wounded of over 800 engaged, most on July 1 (Fox), with about 120 more missing. Smaller regiments with many captured, such as the 8th Virginia, show higher percentages in Busey and Martin's counts, which have not been re-verified here."
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-dashboard",
+   "defects": [
+    "D10",
+    "D12"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/dashboard@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-dashboard",
+   "defects": [
+    "D10",
+    "D12"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/dashboard@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-dashboard",
+   "defects": [
+    "D10",
+    "D12"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "dashboard@1440: 3.448 % differ (budget 5.1 %), page height 1713 -> 1673 (-40; budget +-230)"
+  },
+  {
+   "waiver": "W-screenshot-dashboard",
+   "defects": [
+    "D10",
+    "D12"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "dashboard@390: 6.301 % differ (budget 8.9 %), page height 2454 -> 2904 (+450; budget +-480)"
+  },
+  {
+   "waiver": "W-screenshot-dashboard",
+   "defects": [
+    "D10",
+    "D12"
+   ],
+   "assertion": "dom",
+   "type": "browser:dashboard-dom",
+   "status": "PASS",
+   "detail": "7 titled stat cards, 12 legend entries, no raw key / \"undefined\", model note present"
+  },
+  {
+   "waiver": "W-screenshot-dashboard",
+   "defects": [
+    "D10",
+    "D12"
+   ],
+   "assertion": "source-data-consistent",
+   "type": "data-dashboard-no-mismatch",
+   "status": "PASS",
+   "detail": "every corps' engagement periods sum to its total_casualties, so the warning glyph the published page printed has nothing left to flag"
+  },
+  {
+   "waiver": "W-screenshot-documentary",
+   "defects": [
+    "D13",
+    "D14"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "10 patch(es) on documentary.html: all listed; further groups with a recorded decision: CLOCK, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-documentary",
+   "defects": [
+    "D13",
+    "D14"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate documentary.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-documentary",
+   "defects": [
+    "D13",
+    "D14"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/documentary@1440: 2 published line(s) gone; 2 of them changed by CLOCK+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/documentary",
+    "vp": 1440,
+    "groups": [
+     "CLOCK",
+     "PG-zimg",
+     "DATA"
+    ],
+    "lost": [
+     "DAY 1 · TICK 12 · KNOXLYN RIDGE, WEST OF GETTYSBURG",
+     "The morning of July 1 was warm and hazy when Corporal Alphonso Hodges spotted movement on the Chambersburg Pike. He reported to his sergeant: Confederate infantry, coming in force. Lieutenant Marcellus Jones, commanding the vedette post of Company E, 8th Illinois Cavalry, borrowed Sergeant Levi Shafer's carbine. He rested the barrel on a fence rail along the Knoxlyn Ridge. In the distance, perhaps 700 yards away, a mounted Confederate officer rode along the pike ahead of his advancing column. Jones squeezed the trigger. The shot missed. The officer rode on. But the sound of that single shot rolled across the fields and into the histories of both nations. It was approximately 7:30 in the morning. The Battle of Gettysburg had begun. Jones had no way of knowing what his missed shot had set in motion. He could not know that 51,000 men would become casualties on this ground over the next three days. He could not know that the shot he had just fired -- borrowed, aimed from a fence rail, and wasted -- would be commemorated by a monument that still stands on Knoxlyn Ridge today. He rode back to report what he had seen. Behind him, Heth's Confederate division continued its march toward Gettysburg."
+    ],
+    "gained": [
+     "WED, JULY 1 · ABOUT 7:30 AM · KNOXLYN RIDGE, WEST OF GETTYSBURG",
+     "Buford's pickets west of Gettysburg watched Heth's division come down the Chambersburg Pike on the morning of July 1. By tradition, Lieutenant Marcellus Jones, commanding a vedette post of the 8th Illinois Cavalry, borrowed a carbine from a sergeant, rested it on a fence rail and fired at a Confederate officer riding ahead of the column, at about 7:30 in the morning. A monument on the pike marks the place the tradition names. Not everyone agrees. Men of other regiments later claimed to have fired first, some of them hours earlier; the account that examined those claims found them mistaken, because Heth's column had barely left Cashtown at five o'clock. Artillery has its own claim: in his report Lieutenant Calef of Battery A, 2nd U.S. Artillery, writes that 'Lieutenant Roder now fired the first gun (which opened the sanguinary battle of Gettysburg)' on the head of a column of Confederate cavalry. Behind the shot Heth's division, which he says was ordered to move at 5 a.m., marched on toward Gettysburg."
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-documentary",
+   "defects": [
+    "D13",
+    "D14"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/documentary@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-documentary",
+   "defects": [
+    "D13",
+    "D14"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/documentary@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-documentary",
+   "defects": [
+    "D13",
+    "D14"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "documentary@1440: 2.242 % differ (budget 3.5 %), page height 1238 -> 1142 (-96; budget +-110)"
+  },
+  {
+   "waiver": "W-screenshot-documentary",
+   "defects": [
+    "D13",
+    "D14"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "documentary@390: 7.447 % differ (budget 11 %), page height 1838 -> 1663 (-175; budget +-200)"
+  },
+  {
+   "waiver": "W-screenshot-documentary",
+   "defects": [
+    "D13",
+    "D14"
+   ],
+   "assertion": "text-390",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/documentary@390: 2 published line(s) gone; 2 of them changed by CLOCK+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/documentary",
+    "vp": 390,
+    "groups": [
+     "CLOCK",
+     "PG-zimg",
+     "DATA"
+    ],
+    "lost": [
+     "DAY 1 · TICK 12 · KNOXLYN RIDGE, WEST OF GETTYSBURG",
+     "The morning of July 1 was warm and hazy when Corporal Alphonso Hodges spotted movement on the Chambersburg Pike. He reported to his sergeant: Confederate infantry, coming in force. Lieutenant Marcellus Jones, commanding the vedette post of Company E, 8th Illinois Cavalry, borrowed Sergeant Levi Shafer's carbine. He rested the barrel on a fence rail along the Knoxlyn Ridge. In the distance, perhaps 700 yards away, a mounted Confederate officer rode along the pike ahead of his advancing column. Jones squeezed the trigger. The shot missed. The officer rode on. But the sound of that single shot rolled across the fields and into the histories of both nations. It was approximately 7:30 in the morning. The Battle of Gettysburg had begun. Jones had no way of knowing what his missed shot had set in motion. He could not know that 51,000 men would become casualties on this ground over the next three days. He could not know that the shot he had just fired -- borrowed, aimed from a fence rail, and wasted -- would be commemorated by a monument that still stands on Knoxlyn Ridge today. He rode back to report what he had seen. Behind him, Heth's Confederate division continued its march toward Gettysburg."
+    ],
+    "gained": [
+     "WED, JULY 1 · ABOUT 7:30 AM · KNOXLYN RIDGE, WEST OF GETTYSBURG",
+     "Buford's pickets west of Gettysburg watched Heth's division come down the Chambersburg Pike on the morning of July 1. By tradition, Lieutenant Marcellus Jones, commanding a vedette post of the 8th Illinois Cavalry, borrowed a carbine from a sergeant, rested it on a fence rail and fired at a Confederate officer riding ahead of the column, at about 7:30 in the morning. A monument on the pike marks the place the tradition names. Not everyone agrees. Men of other regiments later claimed to have fired first, some of them hours earlier; the account that examined those claims found them mistaken, because Heth's column had barely left Cashtown at five o'clock. Artillery has its own claim: in his report Lieutenant Calef of Battery A, 2nd U.S. Artillery, writes that 'Lieutenant Roder now fired the first gun (which opened the sanguinary battle of Gettysburg)' on the head of a column of Confederate cavalry. Behind the shot Heth's division, which he says was ordered to move at 5 a.m., marched on toward Gettysburg."
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-education",
+   "defects": [
+    "D15",
+    "D16"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "12 patch(es) on education.html: all listed; further groups with a recorded decision: CLOCK, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-education",
+   "defects": [
+    "D15",
+    "D16"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate education.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-education",
+   "defects": [
+    "D15",
+    "D16"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/education@1440: 6 published line(s) gone; 6 of them changed by CLOCK+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/education",
+    "vp": 1440,
+    "groups": [
+     "CLOCK",
+     "PG-zimg",
+     "DATA"
+    ],
+    "lost": [
+     "At approximately 7:30am on July 1, 1863, Lieutenant Marcellus Jones of the 8th Illinois Cavalry fired the first shot of the Battle of Gettysburg. He borrowed a carbine from a sergeant, rested it on a fence rail, and fired at a distant Confederate officer. The shot missed -- but 51,000 casualties would follow.",
+     "Major General John Reynolds, the finest corps commander in the Army of the Potomac, was killed at approximately 10:15am while personally leading the Iron Brigade into Herbst Woods. Shot through the head, he fell dead from his horse. He was 42 years old. His death left a void in Union command that was never truly filled.",
+     "Within minutes of Reynolds's death, the Iron Brigade's charge through Herbst Woods captured Confederate General James Archer -- the first Confederate general officer taken prisoner since Lee assumed command of the army. Private Patrick Maloney of the 2nd Wisconsin personally seized Archer as he tried to escape across Willoughby Run.",
+     "Colonel Rufus Dawes led the 6th Wisconsin in a desperate charge across the Chambersburg Pike and into the unfinished Railroad Cut, where Davis's Confederate brigade had taken cover. The cut proved a trap -- too deep to escape under fire. The 6th Wisconsin captured 232 men in one of the most decisive small-unit actions of the battle.",
+     "Brigadier General Alfred Iverson sent his North Carolina brigade forward without skirmishers, without reconnaissance, and apparently without personally leading the charge. His men advanced in perfect alignment directly toward a stone wall behind which Baxter's Union brigade lay waiting. In minutes, approximately 500 of Iverson's 1,470 men were shot down in rows. The shallow graves of his men are visible as depressions in the ground at Oak Ridge to this day.",
+     "When Gordon's Confederate brigade swept over Barlow's Knoll, General Francis Barlow was shot and left for dead among his fallen men. Confederate General John Gordon rode to the dying Union general, gave him water, tried to comfort him, and promised to find his wife. The two men met again after the war and became friends -- one of the most remarkable reconciliation stories of the conflict."
+    ],
+    "gained": [
+     "Gettysburg from the west, photographed in 1863 by Timothy H. O’Sullivan. The Metropolitan Museum of Art, 33.65.394. Public domain (Met Open Access).",
+     "Wed, July 1 · about 7:30 AM",
+     "About 7:30 a.m. on July 1, 1863, Lieutenant Marcellus Jones of the 8th Illinois Cavalry is traditionally credited with the first shot of the battle, fired from a borrowed carbine at a Confederate officer on the Chambersburg Pike. Other men claimed earlier shots, so the claim is contested; the Official Records credit Lieutenant Roder's gun of Calef's battery with the first artillery shot.",
+     "Wed, July 1 · about 10:15 AM",
+     "Major General John F. Reynolds, commanding the left wing of the Army of the Potomac, was killed on the morning of July 1 as the Iron Brigade went into McPherson's (Herbst) Woods. Doubleday gives the hour as about 10:15 a.m., Howard's reports give 11:15, and the source of the shot is unsettled.",
+     "Wed, July 1 · about 10:20 AM",
+     "The Iron Brigade's counterattack drove Archer's brigade back across the Willoughby Run and captured Brigadier General James J. Archer, brought in by Private Patrick Maloney of the 2nd Wisconsin, who was killed later in the day. Doubleday reported nearly 1,000 prisoners from Archer's brigade; Heth said Archer was lost with some 60 or 70 of his men.",
+     "Wed, July 1 · about 11:00 AM",
+     "Lieutenant Colonel Rufus Dawes's 6th Wisconsin, with the 95th New York and the 14th Brooklyn, charged Davis's Confederates in the unfinished Railroad Cut north of the Chambersburg Pike. The men in the cut threw down their arms; the 6th Wisconsin sent to the rear 7 officers and about 225 men and took the 2nd Mississippi's flag.",
+     "Wed, July 1 · about 2:20 PM",
+     "Iverson's North Carolina brigade attacked the stone wall on Oak Ridge held by Robinson's division, was struck by musketry from behind it, and lost heavily; Rodes wrote that its dead 'lay in a distinctly marked line of battle'. The Confederate return prints 820 casualties for the brigade, though its own rows add to 763.",
+     "Wed, July 1 · about 3:00 PM",
+     "Gordon's brigade broke Barlow's division on the knoll north of Gettysburg and Barlow, severely wounded, was captured. The story that Gordon gave him water, promised to tell his wife, and years later met him as a friend comes from Gordon's own later account; some of its details have been questioned, and none is in the Official Records."
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-education",
+   "defects": [
+    "D15",
+    "D16"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/education@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-education",
+   "defects": [
+    "D15",
+    "D16"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/education@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-education",
+   "defects": [
+    "D15",
+    "D16"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "education@1440: 6.461 % differ (budget 7.2 %), page height 2546 -> 3087 (+541; budget +-600)"
+  },
+  {
+   "waiver": "W-screenshot-education",
+   "defects": [
+    "D15",
+    "D16"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "education@390: 14.129 % differ (budget 18.3 %), page height 3373 -> 3812 (+439; budget +-490)"
+  },
+  {
+   "waiver": "W-screenshot-education",
+   "defects": [
+    "D15",
+    "D16"
+   ],
+   "assertion": "text-390",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/education@390: 6 published line(s) gone; 6 of them changed by CLOCK+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/education",
+    "vp": 390,
+    "groups": [
+     "CLOCK",
+     "PG-zimg",
+     "DATA"
+    ],
+    "lost": [
+     "At approximately 7:30am on July 1, 1863, Lieutenant Marcellus Jones of the 8th Illinois Cavalry fired the first shot of the Battle of Gettysburg. He borrowed a carbine from a sergeant, rested it on a fence rail, and fired at a distant Confederate officer. The shot missed -- but 51,000 casualties would follow.",
+     "Major General John Reynolds, the finest corps commander in the Army of the Potomac, was killed at approximately 10:15am while personally leading the Iron Brigade into Herbst Woods. Shot through the head, he fell dead from his horse. He was 42 years old. His death left a void in Union command that was never truly filled.",
+     "Within minutes of Reynolds's death, the Iron Brigade's charge through Herbst Woods captured Confederate General James Archer -- the first Confederate general officer taken prisoner since Lee assumed command of the army. Private Patrick Maloney of the 2nd Wisconsin personally seized Archer as he tried to escape across Willoughby Run.",
+     "Colonel Rufus Dawes led the 6th Wisconsin in a desperate charge across the Chambersburg Pike and into the unfinished Railroad Cut, where Davis's Confederate brigade had taken cover. The cut proved a trap -- too deep to escape under fire. The 6th Wisconsin captured 232 men in one of the most decisive small-unit actions of the battle.",
+     "Brigadier General Alfred Iverson sent his North Carolina brigade forward without skirmishers, without reconnaissance, and apparently without personally leading the charge. His men advanced in perfect alignment directly toward a stone wall behind which Baxter's Union brigade lay waiting. In minutes, approximately 500 of Iverson's 1,470 men were shot down in rows. The shallow graves of his men are visible as depressions in the ground at Oak Ridge to this day.",
+     "When Gordon's Confederate brigade swept over Barlow's Knoll, General Francis Barlow was shot and left for dead among his fallen men. Confederate General John Gordon rode to the dying Union general, gave him water, tried to comfort him, and promised to find his wife. The two men met again after the war and became friends -- one of the most remarkable reconciliation stories of the conflict."
+    ],
+    "gained": [
+     "Gettysburg from the west, photographed in 1863 by Timothy H. O’Sullivan. The Metropolitan Museum of Art, 33.65.394. Public domain (Met Open Access).",
+     "Wed, July 1 · about 7:30 AM",
+     "About 7:30 a.m. on July 1, 1863, Lieutenant Marcellus Jones of the 8th Illinois Cavalry is traditionally credited with the first shot of the battle, fired from a borrowed carbine at a Confederate officer on the Chambersburg Pike. Other men claimed earlier shots, so the claim is contested; the Official Records credit Lieutenant Roder's gun of Calef's battery with the first artillery shot.",
+     "Wed, July 1 · about 10:15 AM",
+     "Major General John F. Reynolds, commanding the left wing of the Army of the Potomac, was killed on the morning of July 1 as the Iron Brigade went into McPherson's (Herbst) Woods. Doubleday gives the hour as about 10:15 a.m., Howard's reports give 11:15, and the source of the shot is unsettled.",
+     "Wed, July 1 · about 10:20 AM",
+     "The Iron Brigade's counterattack drove Archer's brigade back across the Willoughby Run and captured Brigadier General James J. Archer, brought in by Private Patrick Maloney of the 2nd Wisconsin, who was killed later in the day. Doubleday reported nearly 1,000 prisoners from Archer's brigade; Heth said Archer was lost with some 60 or 70 of his men.",
+     "Wed, July 1 · about 11:00 AM",
+     "Lieutenant Colonel Rufus Dawes's 6th Wisconsin, with the 95th New York and the 14th Brooklyn, charged Davis's Confederates in the unfinished Railroad Cut north of the Chambersburg Pike. The men in the cut threw down their arms; the 6th Wisconsin sent to the rear 7 officers and about 225 men and took the 2nd Mississippi's flag.",
+     "Wed, July 1 · about 2:20 PM",
+     "Iverson's North Carolina brigade attacked the stone wall on Oak Ridge held by Robinson's division, was struck by musketry from behind it, and lost heavily; Rodes wrote that its dead 'lay in a distinctly marked line of battle'. The Confederate return prints 820 casualties for the brigade, though its own rows add to 763.",
+     "Wed, July 1 · about 3:00 PM",
+     "Gordon's brigade broke Barlow's division on the knoll north of Gettysburg and Barlow, severely wounded, was captured. The story that Gordon gave him water, promised to tell his wife, and years later met him as a friend comes from Gordon's own later account; some of its details have been questioned, and none is in the Official Records."
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-embed",
+   "defects": [
+    "D17",
+    "D18"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "1 patch(es) on embed.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-embed",
+   "defects": [
+    "D17",
+    "D18"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/embed@1440: 1 published line(s) gone; 1 of them changed by DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/embed",
+    "vp": 1440,
+    "groups": [
+     "DATA"
+    ],
+    "lost": [
+     "Colonel Hiram Berdan led his regiment of green-uniformed sharpshooters into Pitzer's Woods on a reconnaissance ordered by Sickles. They found Wilcox's Confederate infantry already positioned there -- confirming Confederate activity on Seminary Ridge south of town. The reconnaissance gave Sickles his justification for advancing to the Peach Orchard."
+    ],
+    "gained": [
+     "About 11 a.m. on July 2 Birney ordered Colonel Berdan to feel the enemy beyond the Union left. Berdan took 100 men of the 1st U.S. Sharpshooters, with the 3rd Maine in support, down the Emmitsburg road, ran into Confederate columns changing direction in the woods beyond, attacked them, and withdrew; he reported to Birney about 2 p.m."
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-embed",
+   "defects": [
+    "D17",
+    "D18"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/embed@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-embed",
+   "defects": [
+    "D17",
+    "D18"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/embed@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-embed",
+   "defects": [
+    "D17",
+    "D18"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "embed@1440: 1.840 % differ (budget 2 %), page height 900 -> 900 (+0; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-embed",
+   "defects": [
+    "D17",
+    "D18"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "embed@390: 4.995 % differ (budget 10.8 %), page height 844 -> 844 (+0; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-embed",
+   "defects": [
+    "D17",
+    "D18"
+   ],
+   "assertion": "text-390",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/embed@390: 1 published line(s) gone; 1 of them changed by DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/embed",
+    "vp": 390,
+    "groups": [
+     "DATA"
+    ],
+    "lost": [
+     "Colonel Hiram Berdan led his regiment of green-uniformed sharpshooters into Pitzer's Woods on a reconnaissance ordered by Sickles. They found Wilcox's Confederate infantry already positioned there -- confirming Confederate activity on Seminary Ridge south of town. The reconnaissance gave Sickles his justification for advancing to the Peach Orchard."
+    ],
+    "gained": [
+     "About 11 a.m. on July 2 Birney ordered Colonel Berdan to feel the enemy beyond the Union left. Berdan took 100 men of the 1st U.S. Sharpshooters, with the 3rd Maine in support, down the Emmitsburg road, ran into Confederate columns changing direction in the woods beyond, attacked them, and withdrew; he reported to Birney about 2 p.m."
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-find-ancestor",
+   "defects": [
+    "D19",
+    "D20"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "8 patch(es) on find-ancestor.html: all listed; further groups with a recorded decision: DATA, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-find-ancestor",
+   "defects": [
+    "D19",
+    "D20"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate find-ancestor.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-find-ancestor",
+   "defects": [
+    "D19",
+    "D20"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/find-ancestor@1440: 1 published line(s) gone; 1 of them changed by DATA+PG-zimg and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/find-ancestor",
+    "vp": 1440,
+    "groups": [
+     "DATA",
+     "PG-zimg"
+    ],
+    "lost": [
+     "Search by state, or by a commander's surname, to narrow down which of the 467 Union and Confederate regiments and batteries at Gettysburg your ancestor may have served in."
+    ],
+    "gained": [
+     "Search by state, or by a commander's surname, to narrow down which of the 443 Union and Confederate infantry and cavalry regiment records in the order of battle of this site your ancestor may have served in (batteries are not searched)."
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-find-ancestor",
+   "defects": [
+    "D19",
+    "D20"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/find-ancestor@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-find-ancestor",
+   "defects": [
+    "D19",
+    "D20"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/find-ancestor@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-find-ancestor",
+   "defects": [
+    "D19",
+    "D20"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "find-ancestor@1440: 1.487 % differ (budget 2.1 %), page height 900 -> 900 (+0; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-find-ancestor",
+   "defects": [
+    "D19",
+    "D20"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "find-ancestor@390: 5.116 % differ (budget 8 %), page height 844 -> 901 (+57; budget +-70)"
+  },
+  {
+   "waiver": "W-screenshot-find-ancestor",
+   "defects": [
+    "D19",
+    "D20"
+   ],
+   "assertion": "text-390",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/find-ancestor@390: 1 published line(s) gone; 1 of them changed by DATA+PG-zimg and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/find-ancestor",
+    "vp": 390,
+    "groups": [
+     "DATA",
+     "PG-zimg"
+    ],
+    "lost": [
+     "Search by state, or by a commander's surname, to narrow down which of the 467 Union and Confederate regiments and batteries at Gettysburg your ancestor may have served in."
+    ],
+    "gained": [
+     "Search by state, or by a commander's surname, to narrow down which of the 443 Union and Confederate infantry and cavalry regiment records in the order of battle of this site your ancestor may have served in (batteries are not searched)."
+    ]
+   }
+  },
+  {
+   "waiver": "W-text-historian",
+   "defects": [
+    "D21",
+    "D23"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "27 patch(es) on historian.html: all listed; further groups with a recorded decision: CLOCK, PG-polish, PG-zcopy2, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-text-historian",
+   "defects": [
+    "D21",
+    "D23"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/historian@1440: 1 published line(s) gone; all documented; 1 replacement line(s) present"
+  },
+  {
+   "waiver": "W-text-historian",
+   "defects": [
+    "D21",
+    "D23"
+   ],
+   "assertion": "text-390",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/historian@390: 1 published line(s) gone; all documented; 1 replacement line(s) present"
+  },
+  {
+   "waiver": "W-text-historian",
+   "defects": [
+    "D21",
+    "D23"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/historian@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-text-historian",
+   "defects": [
+    "D21",
+    "D23"
+   ],
+   "assertion": "claims",
+   "type": "browser:historian",
+   "status": "PASS",
+   "detail": "displayed counts 466/24/134/30 match the data files; asked one question: answer carries a source line/link; no external fetch: still runs entirely in the browser"
+  },
+  {
+   "waiver": "W-screenshot-historian",
+   "defects": [
+    "D22",
+    "D24"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "27 patch(es) on historian.html: all listed; further groups with a recorded decision: CLOCK, PG-polish, PG-zcopy2, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-historian",
+   "defects": [
+    "D22",
+    "D24"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate historian.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-historian",
+   "defects": [
+    "D22",
+    "D24"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/historian@1440: 1 published line(s) gone; all documented; 1 replacement line(s) present"
+  },
+  {
+   "waiver": "W-screenshot-historian",
+   "defects": [
+    "D22",
+    "D24"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/historian@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-historian",
+   "defects": [
+    "D22",
+    "D24"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/historian@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-historian",
+   "defects": [
+    "D22",
+    "D24"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "historian@1440: 1.493 % differ (budget 2.3 %), page height 900 -> 1194 (+294; budget +-450)"
+  },
+  {
+   "waiver": "W-screenshot-historian",
+   "defects": [
+    "D22",
+    "D24"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "historian@390: 3.974 % differ (budget 6.1 %), page height 966 -> 1247 (+281; budget +-430)"
+  },
+  {
+   "waiver": "W-screenshot-historian",
+   "defects": [
+    "D22",
+    "D24"
+   ],
+   "assertion": "claims",
+   "type": "browser:historian",
+   "status": "PASS",
+   "detail": "displayed counts 466/24/134/30 match the data files; asked one question: answer carries a source line/link; no external fetch: still runs entirely in the browser"
+  },
+  {
+   "waiver": "W-screenshot-living-ledger",
+   "defects": [
+    "D25",
+    "D26"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "14 patch(es) on living-ledger.html: all listed; further groups with a recorded decision: CLOCK, DATA, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-living-ledger",
+   "defects": [
+    "D25",
+    "D26"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate living-ledger.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-living-ledger",
+   "defects": [
+    "D25",
+    "D26"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/living-ledger@1440: 2 published line(s) gone; 2 of them changed by CLOCK+DATA+PG-zimg and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/living-ledger",
+    "vp": 1440,
+    "groups": [
+     "CLOCK",
+     "DATA",
+     "PG-zimg"
+    ],
+    "lost": [
+     "JULY 1, 5:00 AM",
+     "TOTAL CASUALTIES, BOTH ARMIES"
+    ],
+    "gained": [
+     "JULY 1, ABOUT 5:00 AM",
+     "MODELLED RUNNING TOTAL OF CASUALTIES, BOTH ARMIES (OFFICIAL RECORDS: 23,049 UNION AND 20,451 CONFEDERATE AS RETURNED; PARK SERVICE ESTIMATE ABOUT 51,000)"
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-living-ledger",
+   "defects": [
+    "D25",
+    "D26"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/living-ledger@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-living-ledger",
+   "defects": [
+    "D25",
+    "D26"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/living-ledger@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-living-ledger",
+   "defects": [
+    "D25",
+    "D26"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "living-ledger@1440: 1.409 % differ (budget 1.5 %), page height 900 -> 1124 (+224; budget +-340)"
+  },
+  {
+   "waiver": "W-screenshot-living-ledger",
+   "defects": [
+    "D25",
+    "D26"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "living-ledger@390: 5.135 % differ (budget 6.5 %), page height 844 -> 1157 (+313; budget +-470)"
+  },
+  {
+   "waiver": "W-screenshot-living-ledger",
+   "defects": [
+    "D25",
+    "D26"
+   ],
+   "assertion": "text-390",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/living-ledger@390: 2 published line(s) gone; 2 of them changed by CLOCK+DATA+PG-zimg and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/living-ledger",
+    "vp": 390,
+    "groups": [
+     "CLOCK",
+     "DATA",
+     "PG-zimg"
+    ],
+    "lost": [
+     "JULY 1, 5:00 AM",
+     "TOTAL CASUALTIES, BOTH ARMIES"
+    ],
+    "gained": [
+     "JULY 1, ABOUT 5:00 AM",
+     "MODELLED RUNNING TOTAL OF CASUALTIES, BOTH ARMIES (OFFICIAL RECORDS: 23,049 UNION AND 20,451 CONFEDERATE AS RETURNED; PARK SERVICE ESTIMATE ABOUT 51,000)"
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-privacy",
+   "defects": [
+    "D27",
+    "D28"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "2 patch(es) on privacy.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-privacy",
+   "defects": [
+    "D27",
+    "D28"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/privacy@1440: 0 published line(s) gone; all documented; 0 replacement line(s) present"
+  },
+  {
+   "waiver": "W-screenshot-privacy",
+   "defects": [
+    "D27",
+    "D28"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/privacy@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-privacy",
+   "defects": [
+    "D27",
+    "D28"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/privacy@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-privacy",
+   "defects": [
+    "D27",
+    "D28"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "privacy@1440: 0.138 % differ (budget 0.7 %), page height 1518 -> 1539 (+21; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-privacy",
+   "defects": [
+    "D27",
+    "D28"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "privacy@390: 0.247 % differ (budget 0.8 %), page height 1966 -> 2007 (+41; budget +-70)"
+  },
+  {
+   "waiver": "W-screenshot-regiment",
+   "defects": [
+    "D29",
+    "D30"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "19 patch(es) on regiment.html: all listed; further groups with a recorded decision: CLOCK, PG-polish, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-regiment",
+   "defects": [
+    "D29",
+    "D30"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate regiment.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-regiment",
+   "defects": [
+    "D29",
+    "D30"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/regiment@1440: 1 published line(s) gone; 1 of them changed by CLOCK+PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/regiment",
+    "vp": 1440,
+    "groups": [
+     "CLOCK",
+     "PG-polish",
+     "PG-zimg",
+     "DATA"
+    ],
+    "lost": [
+     "Pick any regiment or battery and follow its whole three-day battle as one story -- built entirely from this site's own order-of-battle, placement, and vignette data."
+    ],
+    "gained": [
+     "Pick any regiment or battery and follow its whole three-day battle as one story -- built entirely from this site's own order-of-battle, placement, and story data."
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-regiment",
+   "defects": [
+    "D29",
+    "D30"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/regiment@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-regiment",
+   "defects": [
+    "D29",
+    "D30"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/regiment@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-regiment",
+   "defects": [
+    "D29",
+    "D30"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "regiment@1440: 0.768 % differ (budget 1.3 %), page height 900 -> 900 (+0; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-regiment",
+   "defects": [
+    "D29",
+    "D30"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "regiment@390: 2.587 % differ (budget 3.9 %), page height 844 -> 844 (+0; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-regiment",
+   "defects": [
+    "D29",
+    "D30"
+   ],
+   "assertion": "text-390",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/regiment@390: 1 published line(s) gone; 1 of them changed by CLOCK+PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/regiment",
+    "vp": 390,
+    "groups": [
+     "CLOCK",
+     "PG-polish",
+     "PG-zimg",
+     "DATA"
+    ],
+    "lost": [
+     "Pick any regiment or battery and follow its whole three-day battle as one story -- built entirely from this site's own order-of-battle, placement, and vignette data."
+    ],
+    "gained": [
+     "Pick any regiment or battery and follow its whole three-day battle as one story -- built entirely from this site's own order-of-battle, placement, and story data."
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-report",
+   "defects": [
+    "D31",
+    "D32"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "18 patch(es) on report.html: all listed; further groups with a recorded decision: PG-polish, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-report",
+   "defects": [
+    "D31",
+    "D32"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate report.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-report",
+   "defects": [
+    "D31",
+    "D32"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/report@1440: 1 published line(s) gone; 1 of them changed by PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/report",
+    "vp": 1440,
+    "groups": [
+     "PG-polish",
+     "PG-zimg",
+     "DATA"
+    ],
+    "lost": [
+     "Battle Reports"
+    ],
+    "gained": [
+     "Regiment Fact Sheets"
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-report",
+   "defects": [
+    "D31",
+    "D32"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/report@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-report",
+   "defects": [
+    "D31",
+    "D32"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/report@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-report",
+   "defects": [
+    "D31",
+    "D32"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "report@1440: 0.687 % differ (budget 1.1 %), page height 900 -> 900 (+0; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-report",
+   "defects": [
+    "D31",
+    "D32"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "report@390: 2.122 % differ (budget 3.1 %), page height 844 -> 844 (+0; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-report",
+   "defects": [
+    "D31",
+    "D32"
+   ],
+   "assertion": "text-390",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/report@390: 1 published line(s) gone; 1 of them changed by PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/report",
+    "vp": 390,
+    "groups": [
+     "PG-polish",
+     "PG-zimg",
+     "DATA"
+    ],
+    "lost": [
+     "Battle Reports"
+    ],
+    "gained": [
+     "Regiment Fact Sheets"
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-search",
+   "defects": [
+    "D33",
+    "D34"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "17 patch(es) on search.html: all listed; further groups with a recorded decision: CLOCK, PG-polish, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-search",
+   "defects": [
+    "D33",
+    "D34"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate search.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-search",
+   "defects": [
+    "D33",
+    "D34"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/search@1440: 19 published line(s) gone; 19 of them changed by CLOCK+PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/search",
+    "vp": 1440,
+    "groups": [
+     "CLOCK",
+     "PG-polish",
+     "PG-zimg",
+     "DATA"
+    ],
+    "lost": [
+     "Vignettes",
+     "Michigan · Colonel Henry Morrow · 73% casualties",
+     "New York · Colonel Edward Fowler · 42.5% casualties",
+     "New York · Colonel George Biddle · 41.1% casualties",
+     "New York · Lieutenant Colonel Francis Miller · 55.5% casualties",
+     "Pennsylvania · Colonel J. William Hoffman · 34.9% casualties",
+     "Massachusetts · Colonel Samuel Leonard · 48.2% casualties",
+     "New York · Colonel Adrian Root · 47.4% casualties",
+     "New York · Colonel Gilbert Prey · 39.2% casualties",
+     "107th New York Volunteer Infantry",
+     "New York · Colonel Nixon Van Valkenburgh · 43.4% casualties",
+     "Pennsylvania · Colonel Richard Coulter · 39.3% casualties",
+     "Massachusetts · Colonel James Bates · 57.1% casualties",
+     "New York · Lieutenant Colonel Joseph Moesch · 47.5% casualties",
+     "New York · Colonel Charles Wheelock · 43.2% casualties",
+     "Pennsylvania · Major Benezet Foust · 44.5% casualties",
+     "Pennsylvania · Colonel Peter Lyle · 43.1% casualties",
+     "New York · Colonel Theodore Gates · 43.2% casualties",
+     "Pennsylvania · Major Alexander Biddle · 55.1% casualties"
+    ],
+    "gained": [
+     "Stories",
+     "Michigan · Colonel Henry Morrow · 73.2% casualties",
+     "New York · Colonel Edward Fowler · 68.2% casualties",
+     "New York · Colonel George Biddle · 47.7% casualties",
+     "New York · Lieutenant Colonel Francis Miller · 77.9% casualties",
+     "Pennsylvania · Colonel J. William Hofmann · 51.6% casualties",
+     "Massachusetts · Colonel Samuel Leonard · 65.1% casualties",
+     "New York · Colonel Adrian Root · 59.6% casualties",
+     "New York · Colonel Gilbert Prey · 67.8% casualties",
+     "107th Pennsylvania Volunteer Infantry",
+     "Pennsylvania · Lieutenant Colonel James MacThomson ·",
+     "Pennsylvania · Colonel Richard Coulter · 11.1% casualties",
+     "Massachusetts · Colonel James Bates · 45.6% casualties",
+     "New York · Lieutenant Colonel Joseph Moesch · 41% casualties",
+     "New York · Colonel Charles Wheelock · 53.4% casualties",
+     "Pennsylvania · Major Benezet Foust · 40.1% casualties",
+     "Pennsylvania · Colonel Peter Lyle · 44.5% casualties",
+     "New York · Colonel Theodore Gates · 45.3% casualties",
+     "Pennsylvania · Major Alexander Biddle · 68.1% casualties"
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-search",
+   "defects": [
+    "D33",
+    "D34"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/search@1440: 3 published control(s) without a same-name counterpart; 3 changed by CLOCK+PG-polish+PG-zimg+DATA and re-named/moved (REVIEW LIST in --json); replacements present",
+   "review": {
+    "route": "/search",
+    "vp": 1440,
+    "groups": [
+     "CLOCK",
+     "PG-polish",
+     "PG-zimg",
+     "DATA"
+    ],
+    "lost": [
+     "input|Search regiments, vignettes, locations… (e.g. '20th Maine', 'Wheatfield', 'Cushi",
+     "button|Vignettes",
+     "a|REGIMENT · UNION 107th New York Volunteer Infantry New York · Colonel Nixon Van "
+    ],
+    "added": [
+     "input|Search regiments, stories and locations",
+     "button|Stories",
+     "a|REGIMENT · UNION 107th Pennsylvania Volunteer Infantry Pennsylvania · Lieutenant"
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-search",
+   "defects": [
+    "D33",
+    "D34"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/search@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-search",
+   "defects": [
+    "D33",
+    "D34"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "search@1440: 2.087 % differ (budget 3.2 %), page height 3273 -> 3306 (+33; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-search",
+   "defects": [
+    "D33",
+    "D34"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "search@390: 7.471 % differ (budget 11.3 %), page height 3498 -> 3740 (+242; budget +-370)"
+  },
+  {
+   "waiver": "W-screenshot-search",
+   "defects": [
+    "D33",
+    "D34"
+   ],
+   "assertion": "text-390",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/search@390: 19 published line(s) gone; 19 of them changed by CLOCK+PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/search",
+    "vp": 390,
+    "groups": [
+     "CLOCK",
+     "PG-polish",
+     "PG-zimg",
+     "DATA"
+    ],
+    "lost": [
+     "Vignettes",
+     "Michigan · Colonel Henry Morrow · 73% casualties",
+     "New York · Colonel Edward Fowler · 42.5% casualties",
+     "New York · Colonel George Biddle · 41.1% casualties",
+     "New York · Lieutenant Colonel Francis Miller · 55.5% casualties",
+     "Pennsylvania · Colonel J. William Hoffman · 34.9% casualties",
+     "Massachusetts · Colonel Samuel Leonard · 48.2% casualties",
+     "New York · Colonel Adrian Root · 47.4% casualties",
+     "New York · Colonel Gilbert Prey · 39.2% casualties",
+     "107th New York Volunteer Infantry",
+     "New York · Colonel Nixon Van Valkenburgh · 43.4% casualties",
+     "Pennsylvania · Colonel Richard Coulter · 39.3% casualties",
+     "Massachusetts · Colonel James Bates · 57.1% casualties",
+     "New York · Lieutenant Colonel Joseph Moesch · 47.5% casualties",
+     "New York · Colonel Charles Wheelock · 43.2% casualties",
+     "Pennsylvania · Major Benezet Foust · 44.5% casualties",
+     "Pennsylvania · Colonel Peter Lyle · 43.1% casualties",
+     "New York · Colonel Theodore Gates · 43.2% casualties",
+     "Pennsylvania · Major Alexander Biddle · 55.1% casualties"
+    ],
+    "gained": [
+     "Stories",
+     "Michigan · Colonel Henry Morrow · 73.2% casualties",
+     "New York · Colonel Edward Fowler · 68.2% casualties",
+     "New York · Colonel George Biddle · 47.7% casualties",
+     "New York · Lieutenant Colonel Francis Miller · 77.9% casualties",
+     "Pennsylvania · Colonel J. William Hofmann · 51.6% casualties",
+     "Massachusetts · Colonel Samuel Leonard · 65.1% casualties",
+     "New York · Colonel Adrian Root · 59.6% casualties",
+     "New York · Colonel Gilbert Prey · 67.8% casualties",
+     "107th Pennsylvania Volunteer Infantry",
+     "Pennsylvania · Lieutenant Colonel James MacThomson ·",
+     "Pennsylvania · Colonel Richard Coulter · 11.1% casualties",
+     "Massachusetts · Colonel James Bates · 45.6% casualties",
+     "New York · Lieutenant Colonel Joseph Moesch · 41% casualties",
+     "New York · Colonel Charles Wheelock · 53.4% casualties",
+     "Pennsylvania · Major Benezet Foust · 40.1% casualties",
+     "Pennsylvania · Colonel Peter Lyle · 44.5% casualties",
+     "New York · Colonel Theodore Gates · 45.3% casualties",
+     "Pennsylvania · Major Alexander Biddle · 68.1% casualties"
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-search",
+   "defects": [
+    "D33",
+    "D34"
+   ],
+   "assertion": "controls-390",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/search@390: 3 published control(s) without a same-name counterpart; 3 changed by CLOCK+PG-polish+PG-zimg+DATA and re-named/moved (REVIEW LIST in --json); replacements present",
+   "review": {
+    "route": "/search",
+    "vp": 390,
+    "groups": [
+     "CLOCK",
+     "PG-polish",
+     "PG-zimg",
+     "DATA"
+    ],
+    "lost": [
+     "input|Search regiments, vignettes, locations… (e.g. '20th Maine', 'Wheatfield', 'Cushi",
+     "button|Vignettes",
+     "a|REGIMENT · UNION 107th New York Volunteer Infantry New York · Colonel Nixon Van "
+    ],
+    "added": [
+     "input|Search regiments, stories and locations",
+     "button|Stories",
+     "a|REGIMENT · UNION 107th Pennsylvania Volunteer Infantry Pennsylvania · Lieutenant"
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-terms",
+   "defects": [
+    "D35",
+    "D36"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "4 patch(es) on terms.html: all listed; further groups with a recorded decision: DATA, PG-polish; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-terms",
+   "defects": [
+    "D35",
+    "D36"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/terms@1440: 2 published line(s) gone; 2 of them changed by DATA+PG-polish and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/terms",
+    "vp": 1440,
+    "groups": [
+     "DATA",
+     "PG-polish"
+    ],
+    "lost": [
+     "Unit positions, casualty figures, and troop strengths are compiled from published historical sources (including the Official Records and Busey & Martin's regimental strength tabulations) and researched in good faith, but this is not a peer-reviewed academic work. Where the underlying source data disagrees with itself, this site notes the discrepancy rather than silently picking one number. Historical positions, especially at five-minute resolution, are a best-effort reconstruction and should not be treated as forensically exact.",
+     "The site's design, the animation engine, and the written vignette scripts are the creator's own work. The underlying historical facts (troop movements, casualty counts, unit designations) are not owned by anyone and are free to reference; please credit gettysburginteractivemap.com if you republish substantial excerpts of the written vignettes or the compiled data."
+    ],
+    "gained": [
+     "Unit positions, casualty figures, and troop strengths are compiled from published historical sources (including the Official Records and Busey & Martin's regimental strength tabulations) and researched in good faith, but this is not a peer-reviewed academic work. Where the underlying source data disagrees with itself, this site notes the discrepancy rather than silently picking one number. Historical positions, especially at the resolution of this animation, are a best-effort reconstruction and should not be treated as forensically exact.",
+     "The site's design, the animation engine, and the written story scripts are the creator's own work. The underlying historical facts (troop movements, casualty counts, unit designations) are not owned by anyone and are free to reference; please credit gettysburginteractivemap.com if you republish substantial excerpts of the written stories or the compiled data."
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-terms",
+   "defects": [
+    "D35",
+    "D36"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/terms@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-terms",
+   "defects": [
+    "D35",
+    "D36"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/terms@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-terms",
+   "defects": [
+    "D35",
+    "D36"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "terms@1440: 1.261 % differ (budget 1.4 %), page height 1388 -> 1436 (+48; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-terms",
+   "defects": [
+    "D35",
+    "D36"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "terms@390: 1.172 % differ (budget 1.3 %), page height 1872 -> 1915 (+43; budget +-70)"
+  },
+  {
+   "waiver": "W-screenshot-terms",
+   "defects": [
+    "D35",
+    "D36"
+   ],
+   "assertion": "text-390",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/terms@390: 2 published line(s) gone; 2 of them changed by DATA+PG-polish and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/terms",
+    "vp": 390,
+    "groups": [
+     "DATA",
+     "PG-polish"
+    ],
+    "lost": [
+     "Unit positions, casualty figures, and troop strengths are compiled from published historical sources (including the Official Records and Busey & Martin's regimental strength tabulations) and researched in good faith, but this is not a peer-reviewed academic work. Where the underlying source data disagrees with itself, this site notes the discrepancy rather than silently picking one number. Historical positions, especially at five-minute resolution, are a best-effort reconstruction and should not be treated as forensically exact.",
+     "The site's design, the animation engine, and the written vignette scripts are the creator's own work. The underlying historical facts (troop movements, casualty counts, unit designations) are not owned by anyone and are free to reference; please credit gettysburginteractivemap.com if you republish substantial excerpts of the written vignettes or the compiled data."
+    ],
+    "gained": [
+     "Unit positions, casualty figures, and troop strengths are compiled from published historical sources (including the Official Records and Busey & Martin's regimental strength tabulations) and researched in good faith, but this is not a peer-reviewed academic work. Where the underlying source data disagrees with itself, this site notes the discrepancy rather than silently picking one number. Historical positions, especially at the resolution of this animation, are a best-effort reconstruction and should not be treated as forensically exact.",
+     "The site's design, the animation engine, and the written story scripts are the creator's own work. The underlying historical facts (troop movements, casualty counts, unit designations) are not owned by anyone and are free to reference; please credit gettysburginteractivemap.com if you republish substantial excerpts of the written stories or the compiled data."
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-turning-points",
+   "defects": [
+    "D37",
+    "D38"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "26 patch(es) on turning-points.html: all listed; further groups with a recorded decision: CLOCK, DATA, PG-polish, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-turning-points",
+   "defects": [
+    "D37",
+    "D38"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate turning-points.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-turning-points",
+   "defects": [
+    "D37",
+    "D38"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/turning-points@1440: 11 published line(s) gone; 11 of them changed by CLOCK+DATA+PG-polish+PG-zimg and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/turning-points",
+    "vp": 1440,
+    "groups": [
+     "CLOCK",
+     "DATA",
+     "PG-polish",
+     "PG-zimg"
+    ],
+    "lost": [
+     "DAY 1 · MORNING · MCPHERSON'S RIDGE",
+     "Brigadier General John Buford chose to dismount his two cavalry brigades and fight a delaying action west of town on the morning of July 1, rather than screen and fall back as cavalry doctrine of the era usually called for. His men held the ridges long enough for the Union I Corps infantry to arrive and occupy the high ground south and east of town.",
+     "Historians broadly agree this was the single most consequential tactical choice of the battle's opening hours: had Buford withdrawn, Confederate infantry likely would have seized Cemetery Hill and the other high ground before Union infantry could contest it -- ground the Army of the Potomac held for the rest of the battle. The debate isn't whether it mattered, but how deliberately Buford foresaw its importance versus simply buying time for Reynolds's corps.",
+     "DAY 1 · LATE AFTERNOON · CEMETERY HILL",
+     "DAY 2 · AFTERNOON · SEMINARY RIDGE / EMMITSBURG ROAD",
+     "DAY 2 · LATE AFTERNOON · LITTLE ROUND TOP",
+     "DAY 2 · EVENING · WHEATFIELD / PEACH ORCHARD",
+     "DAY 2 · NIGHT · CULP'S HILL / EAST CEMETERY HILL",
+     "DAY 3 · MORNING · CULP'S HILL",
+     "DAY 3 · AFTERNOON · SEMINARY RIDGE / CEMETERY RIDGE",
+     "DAY 3 · AFTERNOON · THE ANGLE / CEMETERY RIDGE"
+    ],
+    "gained": [
+     "Interior view of breastworks on Round Top, as catalogued by the National Archives. Negative by Timothy H. O’Sullivan, July 1863. U.S. National Archives, ARC 533312. Public domain.",
+     "WED, JULY 1 · ABOUT 5:00 AM · MCPHERSON'S RIDGE",
+     "Brigadier General John Buford chose to dismount his two cavalry brigades and fight a delaying action west of town on the morning of July 1, rather than screen and fall back as cavalry doctrine of the era usually called for. His men held the ridges long enough for the Union I Corps infantry to arrive, and the Union army went on to hold Cemetery Hill and the ridges south of town for the rest of the battle.",
+     "Many accounts hold that this was the most consequential tactical choice of the battle's opening hours: had Buford withdrawn, Confederate infantry likely would have seized Cemetery Hill and the other high ground before Union infantry could contest it -- ground the Army of the Potomac held for the rest of the battle. The debate isn't whether it mattered, but how deliberately Buford foresaw its importance versus simply buying time for Reynolds's corps.",
+     "WED, JULY 1 · ABOUT 4:55 PM · CEMETERY HILL",
+     "THU, JULY 2 · ABOUT 4:00 PM · SEMINARY RIDGE / EMMITSBURG ROAD",
+     "THU, JULY 2 · ABOUT 6:00 PM · LITTLE ROUND TOP",
+     "THU, JULY 2 · ABOUT 7:05 PM · WHEATFIELD / PEACH ORCHARD",
+     "THU, JULY 2 · EVENING, ABOUT 7:00 TO 8:30 PM · CULP'S HILL / EAST CEMETERY HILL",
+     "FRI, JULY 3 · ABOUT 7:05 AM · CULP'S HILL",
+     "FRI, JULY 3 · ABOUT 1:00 PM · SEMINARY RIDGE / CEMETERY RIDGE",
+     "FRI, JULY 3 · ABOUT 3:00 PM · THE ANGLE / CEMETERY RIDGE"
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-turning-points",
+   "defects": [
+    "D37",
+    "D38"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/turning-points@1440: 9 published control(s) without a same-name counterpart; 9 changed by CLOCK+DATA+PG-polish+PG-zimg and re-named/moved (REVIEW LIST in --json); replacements present",
+   "review": {
+    "route": "/turning-points",
+    "vp": 1440,
+    "groups": [
+     "CLOCK",
+     "DATA",
+     "PG-polish",
+     "PG-zimg"
+    ],
+    "lost": [
+     "summary|1 DAY 1 · MORNING · MCPHERSON'S RIDGE Buford's Decision to Stand ▾",
+     "summary|2 DAY 1 · LATE AFTERNOON · CEMETERY HILL Ewell's Discretion on Cemetery Hill ▾",
+     "summary|3 DAY 2 · AFTERNOON · SEMINARY RIDGE / EMMITSBURG ROAD Longstreet's Delayed Atta",
+     "summary|4 DAY 2 · LATE AFTERNOON · LITTLE ROUND TOP Chamberlain's Bayonet Charge ▾",
+     "summary|5 DAY 2 · EVENING · WHEATFIELD / PEACH ORCHARD The Collapse at the Wheatfield an",
+     "summary|6 DAY 2 · NIGHT · CULP'S HILL / EAST CEMETERY HILL The Night Assault on Culp's a",
+     "summary|7 DAY 3 · MORNING · CULP'S HILL Culp's Hill Retaken ▾",
+     "summary|8 DAY 3 · AFTERNOON · SEMINARY RIDGE / CEMETERY RIDGE The Cannonade and Its Effe",
+     "summary|9 DAY 3 · AFTERNOON · THE ANGLE / CEMETERY RIDGE Pickett's Charge and the Decisi"
+    ],
+    "added": [
+     "a|U.S. National Archives, ARC 533312",
+     "summary|1 WED, JULY 1 · ABOUT 5:00 AM · MCPHERSON'S RIDGE Buford's Decision to Stand ▾",
+     "summary|2 WED, JULY 1 · ABOUT 4:55 PM · CEMETERY HILL Ewell's Discretion on Cemetery Hil",
+     "summary|3 THU, JULY 2 · ABOUT 4:00 PM · SEMINARY RIDGE / EMMITSBURG ROAD Longstreet's De",
+     "summary|4 THU, JULY 2 · ABOUT 6:00 PM · LITTLE ROUND TOP Chamberlain's Bayonet Charge ▾",
+     "summary|5 THU, JULY 2 · ABOUT 7:05 PM · WHEATFIELD / PEACH ORCHARD The Collapse at the W",
+     "summary|6 THU, JULY 2 · EVENING, ABOUT 7:00 TO 8:30 PM · CULP'S HILL / EAST CEMETERY HIL",
+     "summary|7 FRI, JULY 3 · ABOUT 7:05 AM · CULP'S HILL Culp's Hill Retaken ▾",
+     "summary|8 FRI, JULY 3 · ABOUT 1:00 PM · SEMINARY RIDGE / CEMETERY RIDGE The Cannonade an",
+     "summary|9 FRI, JULY 3 · ABOUT 3:00 PM · THE ANGLE / CEMETERY RIDGE Pickett's Charge and "
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-turning-points",
+   "defects": [
+    "D37",
+    "D38"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/turning-points@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-turning-points",
+   "defects": [
+    "D37",
+    "D38"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "turning-points@1440: 4.510 % differ (budget 5 %), page height 1608 -> 2168 (+560; budget +-620)"
+  },
+  {
+   "waiver": "W-screenshot-turning-points",
+   "defects": [
+    "D37",
+    "D38"
+   ],
+   "assertion": "screenshot-budget-390",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "turning-points@390: 8.290 % differ (budget 9.2 %), page height 2134 -> 2678 (+544; budget +-600)"
+  },
+  {
+   "waiver": "W-screenshot-turning-points",
+   "defects": [
+    "D37",
+    "D38"
+   ],
+   "assertion": "text-390",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/turning-points@390: 11 published line(s) gone; 11 of them changed by CLOCK+DATA+PG-polish+PG-zimg and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/turning-points",
+    "vp": 390,
+    "groups": [
+     "CLOCK",
+     "DATA",
+     "PG-polish",
+     "PG-zimg"
+    ],
+    "lost": [
+     "DAY 1 · MORNING · MCPHERSON'S RIDGE",
+     "Brigadier General John Buford chose to dismount his two cavalry brigades and fight a delaying action west of town on the morning of July 1, rather than screen and fall back as cavalry doctrine of the era usually called for. His men held the ridges long enough for the Union I Corps infantry to arrive and occupy the high ground south and east of town.",
+     "Historians broadly agree this was the single most consequential tactical choice of the battle's opening hours: had Buford withdrawn, Confederate infantry likely would have seized Cemetery Hill and the other high ground before Union infantry could contest it -- ground the Army of the Potomac held for the rest of the battle. The debate isn't whether it mattered, but how deliberately Buford foresaw its importance versus simply buying time for Reynolds's corps.",
+     "DAY 1 · LATE AFTERNOON · CEMETERY HILL",
+     "DAY 2 · AFTERNOON · SEMINARY RIDGE / EMMITSBURG ROAD",
+     "DAY 2 · LATE AFTERNOON · LITTLE ROUND TOP",
+     "DAY 2 · EVENING · WHEATFIELD / PEACH ORCHARD",
+     "DAY 2 · NIGHT · CULP'S HILL / EAST CEMETERY HILL",
+     "DAY 3 · MORNING · CULP'S HILL",
+     "DAY 3 · AFTERNOON · SEMINARY RIDGE / CEMETERY RIDGE",
+     "DAY 3 · AFTERNOON · THE ANGLE / CEMETERY RIDGE"
+    ],
+    "gained": [
+     "Interior view of breastworks on Round Top, as catalogued by the National Archives. Negative by Timothy H. O’Sullivan, July 1863. U.S. National Archives, ARC 533312. Public domain.",
+     "WED, JULY 1 · ABOUT 5:00 AM · MCPHERSON'S RIDGE",
+     "Brigadier General John Buford chose to dismount his two cavalry brigades and fight a delaying action west of town on the morning of July 1, rather than screen and fall back as cavalry doctrine of the era usually called for. His men held the ridges long enough for the Union I Corps infantry to arrive, and the Union army went on to hold Cemetery Hill and the ridges south of town for the rest of the battle.",
+     "Many accounts hold that this was the most consequential tactical choice of the battle's opening hours: had Buford withdrawn, Confederate infantry likely would have seized Cemetery Hill and the other high ground before Union infantry could contest it -- ground the Army of the Potomac held for the rest of the battle. The debate isn't whether it mattered, but how deliberately Buford foresaw its importance versus simply buying time for Reynolds's corps.",
+     "WED, JULY 1 · ABOUT 4:55 PM · CEMETERY HILL",
+     "THU, JULY 2 · ABOUT 4:00 PM · SEMINARY RIDGE / EMMITSBURG ROAD",
+     "THU, JULY 2 · ABOUT 6:00 PM · LITTLE ROUND TOP",
+     "THU, JULY 2 · ABOUT 7:05 PM · WHEATFIELD / PEACH ORCHARD",
+     "THU, JULY 2 · EVENING, ABOUT 7:00 TO 8:30 PM · CULP'S HILL / EAST CEMETERY HILL",
+     "FRI, JULY 3 · ABOUT 7:05 AM · CULP'S HILL",
+     "FRI, JULY 3 · ABOUT 1:00 PM · SEMINARY RIDGE / CEMETERY RIDGE",
+     "FRI, JULY 3 · ABOUT 3:00 PM · THE ANGLE / CEMETERY RIDGE"
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-turning-points",
+   "defects": [
+    "D37",
+    "D38"
+   ],
+   "assertion": "controls-390",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/turning-points@390: 9 published control(s) without a same-name counterpart; 9 changed by CLOCK+DATA+PG-polish+PG-zimg and re-named/moved (REVIEW LIST in --json); replacements present",
+   "review": {
+    "route": "/turning-points",
+    "vp": 390,
+    "groups": [
+     "CLOCK",
+     "DATA",
+     "PG-polish",
+     "PG-zimg"
+    ],
+    "lost": [
+     "summary|1 DAY 1 · MORNING · MCPHERSON'S RIDGE Buford's Decision to Stand ▾",
+     "summary|2 DAY 1 · LATE AFTERNOON · CEMETERY HILL Ewell's Discretion on Cemetery Hill ▾",
+     "summary|3 DAY 2 · AFTERNOON · SEMINARY RIDGE / EMMITSBURG ROAD Longstreet's Delayed Atta",
+     "summary|4 DAY 2 · LATE AFTERNOON · LITTLE ROUND TOP Chamberlain's Bayonet Charge ▾",
+     "summary|5 DAY 2 · EVENING · WHEATFIELD / PEACH ORCHARD The Collapse at the Wheatfield an",
+     "summary|6 DAY 2 · NIGHT · CULP'S HILL / EAST CEMETERY HILL The Night Assault on Culp's a",
+     "summary|7 DAY 3 · MORNING · CULP'S HILL Culp's Hill Retaken ▾",
+     "summary|8 DAY 3 · AFTERNOON · SEMINARY RIDGE / CEMETERY RIDGE The Cannonade and Its Effe",
+     "summary|9 DAY 3 · AFTERNOON · THE ANGLE / CEMETERY RIDGE Pickett's Charge and the Decisi"
+    ],
+    "added": [
+     "a|U.S. National Archives, ARC 533312",
+     "summary|1 WED, JULY 1 · ABOUT 5:00 AM · MCPHERSON'S RIDGE Buford's Decision to Stand ▾",
+     "summary|2 WED, JULY 1 · ABOUT 4:55 PM · CEMETERY HILL Ewell's Discretion on Cemetery Hil",
+     "summary|3 THU, JULY 2 · ABOUT 4:00 PM · SEMINARY RIDGE / EMMITSBURG ROAD Longstreet's De",
+     "summary|4 THU, JULY 2 · ABOUT 6:00 PM · LITTLE ROUND TOP Chamberlain's Bayonet Charge ▾",
+     "summary|5 THU, JULY 2 · ABOUT 7:05 PM · WHEATFIELD / PEACH ORCHARD The Collapse at the W",
+     "summary|6 THU, JULY 2 · EVENING, ABOUT 7:00 TO 8:30 PM · CULP'S HILL / EAST CEMETERY HIL",
+     "summary|7 FRI, JULY 3 · ABOUT 7:05 AM · CULP'S HILL Culp's Hill Retaken ▾",
+     "summary|8 FRI, JULY 3 · ABOUT 1:00 PM · SEMINARY RIDGE / CEMETERY RIDGE The Cannonade an",
+     "summary|9 FRI, JULY 3 · ABOUT 3:00 PM · THE ANGLE / CEMETERY RIDGE Pickett's Charge and "
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-camera",
+   "defects": [
+    "D39"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "17 patch(es) on camera.html: all listed; further groups with a recorded decision: CLOCK, PG-perf3, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-camera",
+   "defects": [
+    "D39"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate camera.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-camera",
+   "defects": [
+    "D39"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/camera@1440: 2 published line(s) gone; 2 of them changed by CLOCK+PG-perf3+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/camera",
+    "vp": 1440,
+    "groups": [
+     "CLOCK",
+     "PG-perf3",
+     "PG-zimg",
+     "DATA"
+    ],
+    "lost": [
+     "Director Mode auto-flies to wherever the most units are engaged, each tick. Follow Cam locks onto one regiment and tracks it through the whole battle.",
+     "Tick 1 / 675"
+    ],
+    "gained": [
+     "Director Mode auto-flies to wherever the most units are engaged, at every step. Follow Cam locks onto one regiment and tracks it through the whole battle.",
+     "July 1, about 5:00 AM"
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-camera",
+   "defects": [
+    "D39"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/camera@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-camera",
+   "defects": [
+    "D39"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/camera@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-camera",
+   "defects": [
+    "D39"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "camera@1440: 59.170 % differ (budget 88.8 %), page height 948 -> 937 (-11; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-cinematic-export",
+   "defects": [
+    "D40"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "26 patch(es) on cinematic-export.html: all listed; further groups with a recorded decision: CLOCK, PG-perf3, PG-polish, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-cinematic-export",
+   "defects": [
+    "D40"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate cinematic-export.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-cinematic-export",
+   "defects": [
+    "D40"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/cinematic-export@1440: 3 published line(s) gone; 3 of them changed by CLOCK+PG-perf3+PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/cinematic-export",
+    "vp": 1440,
+    "groups": [
+     "CLOCK",
+     "PG-perf3",
+     "PG-polish",
+     "PG-zimg",
+     "DATA"
+    ],
+    "lost": [
+     "Cinematic Export",
+     "START TICK",
+     "END TICK"
+    ],
+    "gained": [
+     "Export a Video",
+     "START FRAME",
+     "July 3, about 3:05 PM",
+     "END FRAME",
+     "July 3, about 6:05 PM"
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-cinematic-export",
+   "defects": [
+    "D40"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/cinematic-export@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-cinematic-export",
+   "defects": [
+    "D40"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/cinematic-export@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-cinematic-export",
+   "defects": [
+    "D40"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "cinematic-export@1440: 1.163 % differ (budget 1.5 %), page height 980 -> 987 (+7; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-compare",
+   "defects": [
+    "D41"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "38 patch(es) on compare.html: all listed; further groups with a recorded decision: CLOCK, PG-perf2, PG-perf3, PG-polish, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-compare",
+   "defects": [
+    "D41"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate compare.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-compare",
+   "defects": [
+    "D41"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/compare@1440: 5 published line(s) gone; 5 of them changed by CLOCK+PG-perf2+PG-perf3+PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/compare",
+    "vp": 1440,
+    "groups": [
+     "CLOCK",
+     "PG-perf2",
+     "PG-perf3",
+     "PG-polish",
+     "PG-zimg",
+     "DATA"
+    ],
+    "lost": [
+     "Set each map to a different tick and compare unit positions side by side — e.g. the Union line at 4:00pm vs. 6:00pm on Day 2. Units snap to the nearest recorded position at or before the tick you choose.",
+     "Tick 60",
+     "9:55am",
+     "Tick 300",
+     "11:10am"
+    ],
+    "gained": [
+     "Set each map to a different moment and compare unit positions side by side — e.g. the Union line at 4:00pm vs. 6:00pm on Day 2. Units snap to the nearest recorded position at or before the moment you choose.",
+     "July 1",
+     "about 3:25 PM",
+     "July 2",
+     "about 7:05 PM"
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-compare",
+   "defects": [
+    "D41"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/compare@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-compare",
+   "defects": [
+    "D41"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/compare@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-compare",
+   "defects": [
+    "D41"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "compare@1440: 2.433 % differ (budget 3.7 %), page height 956 -> 962 (+6; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-ground-remembers",
+   "defects": [
+    "D42"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "20 patch(es) on ground-remembers.html: all listed; further groups with a recorded decision: CLOCK, DATA, PG-perf2, PG-perf3, PG-polish, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-ground-remembers",
+   "defects": [
+    "D42"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate ground-remembers.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-ground-remembers",
+   "defects": [
+    "D42"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/ground-remembers@1440: 4 published line(s) gone; 4 of them changed by CLOCK+DATA+PG-perf2+PG-perf3+PG-polish+PG-zimg and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/ground-remembers",
+    "vp": 1440,
+    "groups": [
+     "CLOCK",
+     "DATA",
+     "PG-perf2",
+     "PG-perf3",
+     "PG-polish",
+     "PG-zimg"
+    ],
+    "lost": [
+     "Every recorded unit position across all 675 five-minute snapshots, accumulated into one map -- so the places that saw fighting again and again stand out, permanently, instead of resetting with each tick.",
+     "Built from the same 694 recorded unit positions that drive the main map's playback (not the separate, more granular per-scene density files) -- so this shows where units were positioned most often across the battle, as a proxy for where the fighting concentrated.",
+     "Reveal through tick",
+     "675"
+    ],
+    "gained": [
+     "Every recorded unit position across all 675 snapshots, accumulated into one map -- so the places that saw fighting again and again stand out, permanently, instead of resetting with each moment.",
+     "Built from the same 686 recorded unit positions that drive the main map's playback (not the separate, more granular per-scene density files) -- so this shows where units were positioned most often across the battle, as a proxy for where the fighting concentrated.",
+     "Reveal through",
+     "July 3, about 8:00 PM"
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-ground-remembers",
+   "defects": [
+    "D42"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/ground-remembers@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-ground-remembers",
+   "defects": [
+    "D42"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/ground-remembers@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-ground-remembers",
+   "defects": [
+    "D42"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "ground-remembers@1440: 1.577 % differ (budget 2.4 %), page height 1026 -> 1019 (-7; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-immersive",
+   "defects": [
+    "D43"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "24 patch(es) on immersive.html: all listed; further groups with a recorded decision: CLOCK, PG-perf2, PG-perf3, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-immersive",
+   "defects": [
+    "D43"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate immersive.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-immersive",
+   "defects": [
+    "D43"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/immersive@1440: 2 published line(s) gone; 2 of them changed by CLOCK+PG-perf2+PG-perf3+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/immersive",
+    "vp": 1440,
+    "groups": [
+     "CLOCK",
+     "PG-perf2",
+     "PG-perf3",
+     "PG-zimg",
+     "DATA"
+    ],
+    "lost": [
+     "All audio here is synthesized in real time with the Web Audio API (no recorded sound files) so its intensity is directly tied to the real unit density at each tick -- more units in contact means more and louder cannon/musket cues.",
+     "Tick 1 / 675"
+    ],
+    "gained": [
+     "All audio here is synthesized in real time with the Web Audio API (no recorded sound files) so its intensity is directly tied to the real unit density at each moment -- more units in contact means more and louder cannon/musket cues.",
+     "July 1, about 5:00 AM"
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-immersive",
+   "defects": [
+    "D43"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/immersive@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-immersive",
+   "defects": [
+    "D43"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/immersive@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-immersive",
+   "defects": [
+    "D43"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "immersive@1440: 1.665 % differ (budget 2.5 %), page height 990 -> 983 (-7; budget +-60)"
+  },
+  {
+   "waiver": "W-screenshot-sandbox",
+   "defects": [
+    "D50"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "23 patch(es) on sandbox.html: all listed; further groups with a recorded decision: CLOCK, PG-perf3, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-sandbox",
+   "defects": [
+    "D50"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate sandbox.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-sandbox",
+   "defects": [
+    "D50"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/sandbox@1440: 3 published line(s) gone; 3 of them changed by CLOCK+PG-perf3+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/sandbox",
+    "vp": 1440,
+    "groups": [
+     "CLOCK",
+     "PG-perf3",
+     "PG-zimg",
+     "DATA"
+    ],
+    "lost": [
+     "Day 2, mid-afternoon (tick 260) -- before Longstreet's assault",
+     "Day 3, ~3:00pm (tick 553) -- moments before Pickett's Charge reaches the wall",
+     "Day 1, mid-morning (tick 62) -- I Corps holding McPherson's Ridge"
+    ],
+    "gained": [
+     "Thu, July 2 · about 3:30 PM — before Longstreet's assault opens",
+     "Fri, July 3 · about 3:25 PM — moments before Pickett's Charge reaches the wall",
+     "Wed, July 1 · about 10:25 AM — I Corps holding McPherson's Ridge"
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-sandbox",
+   "defects": [
+    "D50"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/sandbox@1440: 1 published control(s) without a same-name counterpart; 1 changed by CLOCK+PG-perf3+PG-zimg+DATA and re-named/moved (REVIEW LIST in --json); replacements present",
+   "review": {
+    "route": "/sandbox",
+    "vp": 1440,
+    "groups": [
+     "CLOCK",
+     "PG-perf3",
+     "PG-zimg",
+     "DATA"
+    ],
+    "lost": [
+     "select|Day 2, mid-afternoon (tick 260) -- before Longstreet's assault Day 3, ~3:00pm (t"
+    ],
+    "added": [
+     "select|Thu, July 2 · about 3:30 PM — before Longstreet's assault opens Fri, July 3 · ab"
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-sandbox",
+   "defects": [
+    "D50"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/sandbox@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-sandbox",
+   "defects": [
+    "D50"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "sandbox@1440: 2.947 % differ (budget 4.5 %), page height 1093 -> 1107 (+14; budget +-60)"
+  },
+  {
+   "waiver": "W-text-viewshed",
+   "defects": [
+    "D51"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "19 patch(es) on viewshed.html: all listed; further groups with a recorded decision: PG-perf3, PG-polish, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-text-viewshed",
+   "defects": [
+    "D51"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/viewshed@1440: 4 published line(s) gone; 3 of them changed by PG-perf3+PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 1 replacement line(s) present",
+   "review": {
+    "route": "/viewshed",
+    "vp": 1440,
+    "groups": [
+     "PG-perf3",
+     "PG-polish",
+     "PG-zimg",
+     "DATA"
+    ],
+    "lost": [
+     "What They Could See",
+     "Gulp's Hill saddle (560 ft)",
+     "#20 · Gulp's Hill saddle · 560 ft"
+    ],
+    "gained": [
+     "High Ground",
+     "⚠ Elevation only. This page ranks the height of 30 places on the field. It is not a line-of-sight map: trees, buildings, fences and gun smoke often decided what a soldier could see.",
+     "Culp's Hill saddle (560 ft)",
+     "#20 · Culp's Hill saddle · 560 ft"
+    ]
+   }
+  },
+  {
+   "waiver": "W-text-viewshed",
+   "defects": [
+    "D51"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/viewshed@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-text-viewshed",
+   "defects": [
+    "D51"
+   ],
+   "assertion": "viewshed-ranks-30",
+   "type": "browser:viewshed",
+   "status": "PASS",
+   "detail": "caveat \"⚠ Elevation only. This page ranks the height of 30 places on...\", ranking rows 30, terrain features 30 (the caveat says 30 places)"
+  },
+  {
+   "waiver": "W-screenshot-viewshed",
+   "defects": [
+    "D52"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "19 patch(es) on viewshed.html: all listed; further groups with a recorded decision: PG-perf3, PG-polish, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-viewshed",
+   "defects": [
+    "D52"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate viewshed.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-viewshed",
+   "defects": [
+    "D52"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/viewshed@1440: 4 published line(s) gone; 3 of them changed by PG-perf3+PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 1 replacement line(s) present",
+   "review": {
+    "route": "/viewshed",
+    "vp": 1440,
+    "groups": [
+     "PG-perf3",
+     "PG-polish",
+     "PG-zimg",
+     "DATA"
+    ],
+    "lost": [
+     "What They Could See",
+     "Gulp's Hill saddle (560 ft)",
+     "#20 · Gulp's Hill saddle · 560 ft"
+    ],
+    "gained": [
+     "High Ground",
+     "⚠ Elevation only. This page ranks the height of 30 places on the field. It is not a line-of-sight map: trees, buildings, fences and gun smoke often decided what a soldier could see.",
+     "Culp's Hill saddle (560 ft)",
+     "#20 · Culp's Hill saddle · 560 ft"
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-viewshed",
+   "defects": [
+    "D52"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/viewshed@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-screenshot-viewshed",
+   "defects": [
+    "D52"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/viewshed@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-viewshed",
+   "defects": [
+    "D52"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "viewshed@1440: 1.711 % differ (budget 2.6 %), page height 2005 -> 1882 (-123; budget +-190)"
+  },
+  {
+   "waiver": "W-screenshot-viewshed",
+   "defects": [
+    "D52"
+   ],
+   "assertion": "viewshed-ranks-30",
+   "type": "browser:viewshed",
+   "status": "PASS",
+   "detail": "caveat \"⚠ Elevation only. This page ranks the height of 30 places on...\", ranking rows 30, terrain features 30 (the caveat says 30 places)"
+  },
+  {
+   "waiver": "W-screenshot-watch-together",
+   "defects": [
+    "D53"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "33 patch(es) on watch-together.html: all listed; further groups with a recorded decision: CLOCK, PG-perf3, PG-polish, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-watch-together",
+   "defects": [
+    "D53"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate watch-together.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-watch-together",
+   "defects": [
+    "D53"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/watch-together@1440: 1 published line(s) gone; 1 of them changed by CLOCK+PG-perf3+PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/watch-together",
+    "vp": 1440,
+    "groups": [
+     "CLOCK",
+     "PG-perf3",
+     "PG-polish",
+     "PG-zimg",
+     "DATA"
+    ],
+    "lost": [
+     "✓ Live Sync below connects two browsers directly to each other (peer-to-peer, over WebRTC) using a free public connection broker -- no account or server of ours involved. One person starts a session and shares a 5-letter code; anyone who enters it sees the same tick move on their own screen in real time. Because it depends on a third-party public broker rather than infrastructure we run, treat it as best-effort -- if it's ever down, Export tour / Import tour below is the reliable fallback for sharing a tour asynchronously."
+    ],
+    "gained": [
+     "✓ Live Sync below connects two browsers directly to each other (peer-to-peer, over WebRTC) using a free public connection broker -- no account or server of ours involved. One person starts a session and shares a 5-letter code; anyone who enters it sees the same moment move on their own screen in real time. Because it depends on a third-party public broker rather than infrastructure we run, treat it as best-effort -- if it's ever down, Export tour / Import tour below is the reliable fallback for sharing a tour asynchronously."
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-watch-together",
+   "defects": [
+    "D53"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/watch-together@1440: 1 published control(s) without a same-name counterpart; 1 changed by CLOCK+PG-perf3+PG-polish+PG-zimg+DATA and re-named/moved (REVIEW LIST in --json); replacements present",
+   "review": {
+    "route": "/watch-together",
+    "vp": 1440,
+    "groups": [
+     "CLOCK",
+     "PG-perf3",
+     "PG-polish",
+     "PG-zimg",
+     "DATA"
+    ],
+    "lost": [
+     "input|Tick (1-675)"
+    ],
+    "added": [
+     "input|frame number",
+     "input|↑ Import tour"
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-watch-together",
+   "defects": [
+    "D53"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/watch-together@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-watch-together",
+   "defects": [
+    "D53"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "watch-together@1440: 1.577 % differ (budget 2.4 %), page height 1467 -> 1497 (+30; budget +-60)"
+  },
+  {
+   "waiver": "W-text-index-1440",
+   "defects": [
+    "D44",
+    "D47"
+   ],
+   "assertion": "page-ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "68 patch(es) on index.html: all listed; further groups with a recorded decision: DATA, BASE1863, PG-perf2, PG-polish, PG-zimg, PG-zperf3; required replacements present"
+  },
+  {
+   "waiver": "W-text-index-1440",
+   "defects": [
+    "D44",
+    "D47"
+   ],
+   "assertion": "bundle-ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "460 patch(es) on js, help, book, css: all listed; further groups with a recorded decision: CLOCK, DATA, MON, ANIM, POLISH, PERF2, PERF3, BASE1863; required replacements present"
+  },
+  {
+   "waiver": "W-text-index-1440",
+   "defects": [
+    "D44",
+    "D47"
+   ],
+   "assertion": "no-chooser-and-layout-override",
+   "type": "browser:no-chooser",
+   "status": "PASS",
+   "detail": "no chooser at 1440 (layout desktop) and 390 (layout mobile); ?layout=desktop works and Phone view returns: 1440px -> desktop; 390px -> mobile; 390px ?layout=desktop -> desktop, Phone view control visible; after Phone view -> mobile"
+  },
+  {
+   "waiver": "W-text-index-1440",
+   "defects": [
+    "D44",
+    "D47"
+   ],
+   "assertion": "desktop-replacements",
+   "type": "browser:index-desktop",
+   "status": "PASS",
+   "detail": "HUD July 3, 1863 -> July 1, 1863; minimap 27 units at the first moment (published 72); guide link \"Download Website Tutorial PDF\" -> \"User Guide (PDF)The printable guide to every control and feature.\", same href and download; timeline slider named \"Battle time\" 1..675, valuetext \"July 1, about 5:00 AM\" (published: unnamed \"0\"); no sound button; \"1x (real time)\" -> \"1x (base speed)\""
+  },
+  {
+   "waiver": "W-text-index-1440",
+   "defects": [
+    "D44",
+    "D47"
+   ],
+   "assertion": "lines-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/@1440: 35 published line(s) gone; 30 of them changed by CLOCK+DATA+MON+ANIM+POLISH+PERF2+PERF3+BASE1863+PG-perf2+PG-polish+PG-zimg+PG-zperf3 and substituted (REVIEW LIST in --json); 4 replacement line(s) present",
+   "review": {
+    "route": "/",
+    "vp": 1440,
+    "groups": [
+     "CLOCK",
+     "DATA",
+     "MON",
+     "ANIM",
+     "POLISH",
+     "PERF2",
+     "PERF3",
+     "BASE1863",
+     "PG-perf2",
+     "PG-polish",
+     "PG-zimg",
+     "PG-zperf3"
+    ],
+    "lost": [
+     "Extra Features",
+     "July 1, 6:00 AM",
+     "© Mapbox © OpenStreetMap Improve this map © Maxar",
+     "Disposition",
+     "Sides",
+     "Size",
+     "Line of Battle",
+     "Holding position",
+     "Charging Line",
+     "Advancing to attack",
+     "Skirmish Line",
+     "Screening / scouting",
+     "Chaotic Retreat",
+     "Broken and falling back",
+     "Line of March",
+     "Moving toward action",
+     "Reserve",
+     "Held back awaiting orders",
+     "Bivouac",
+     "Encamped overnight",
+     "Deployed Artillery",
+     "Guns in battery, firing",
+     "Limbered Artillery",
+     "Guns moving",
+     "Mounted Cavalry",
+     "Cavalry in formation",
+     "Dismounted Cavalry",
+     "Cavalry fighting on foot",
+     "July 1, 6:00 AM",
+     "Tick 1/675"
+    ],
+    "gained": [
+     "Skip to the map",
+     "Skip to the timeline controls",
+     "Gettysburg Animated Battlefield Map",
+     "More to Explore",
+     "about 5:00 AM",
+     "User Guide (PDF)",
+     "Reconstruction, not a photograph. USDA NAIP 2013, USGS, Library of Congress, NPS, OpenStreetMap contributors",
+     "Reconstruction of July 1863, not a photograph: a USDA NAIP aerial photograph of 4 June 2013 with post-1863 features removed and 1863 features added from period maps",
+     "Show what was changed",
+     "Sources and licences",
+     "What the marks say",
+     "Union (order of battle)",
+     "DOCUMENTED",
+     "Confederate (order of battle)",
+     "DOCUMENTED",
+     "Side unknown: hatched, never a side colour",
+     "CONTESTED",
+     "Both sides in one standard",
+     "COMPUTED",
+     "A flag flies toward the enemy: Union to the right, Confederate to the left",
+     "DESIGN",
+     "Infantry: a square-ended flag",
+     "DOCUMENTED",
+     "Cavalry: a swallow-tailed flag",
+     "DOCUMENTED",
+     "Artillery: an arrow-ended flag",
+     "DOCUMENTED",
+     "More marks (8)",
+     "How the marks are drawn",
+     "27 units · about 5:00 AM",
+     "July 1, 1863",
+     "1x (base speed)",
+     "July 1, about 5:00 AM",
+     "about 5:00 AM"
+    ]
+   }
+  },
+  {
+   "waiver": "W-text-index-1440",
+   "defects": [
+    "D44",
+    "D47"
+   ],
+   "assertion": "lines-390",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/@390: 33 published line(s) gone; 2 of them changed by CLOCK+DATA+MON+ANIM+POLISH+PERF2+PERF3+BASE1863+PG-perf2+PG-polish+PG-zimg+PG-zperf3 and substituted (REVIEW LIST in --json); 1 replacement line(s) present",
+   "review": {
+    "route": "/",
+    "vp": 390,
+    "groups": [
+     "CLOCK",
+     "DATA",
+     "MON",
+     "ANIM",
+     "POLISH",
+     "PERF2",
+     "PERF3",
+     "BASE1863",
+     "PG-perf2",
+     "PG-polish",
+     "PG-zimg",
+     "PG-zperf3"
+    ],
+    "lost": [
+     "6:00 AM",
+     "Tick 1/675"
+    ],
+    "gained": [
+     "Skip to the map",
+     "Skip to the timeline controls",
+     "Gettysburg Animated Battlefield Map",
+     "Reconstruction of July 1863, not a photograph: a USDA NAIP aerial photograph of 4 June 2013 with post-1863 features removed and 1863 features added from period maps",
+     "Show what was changed",
+     "Sources and licences",
+     "about 5:00 AM",
+     "about 5:00 AM"
+    ]
+   }
+  },
+  {
+   "waiver": "W-controls-index-1440",
+   "defects": [
+    "D45",
+    "D48"
+   ],
+   "assertion": "bundle-ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "460 patch(es) on js, help, book, css: all listed; further groups with a recorded decision: CLOCK, DATA, MON, ANIM, POLISH, PERF2, PERF3, BASE1863; required replacements present"
+  },
+  {
+   "waiver": "W-controls-index-1440",
+   "defects": [
+    "D45",
+    "D48"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/@1440: 12 published control(s) without a same-name counterpart; 9 changed by CLOCK+DATA+MON+ANIM+POLISH+PERF2+PERF3+BASE1863+PG-perf2+PG-polish+PG-zimg+PG-zperf3 and re-named/moved (REVIEW LIST in --json); replacements present",
+   "review": {
+    "route": "/",
+    "vp": 1440,
+    "groups": [
+     "CLOCK",
+     "DATA",
+     "MON",
+     "ANIM",
+     "POLISH",
+     "PERF2",
+     "PERF3",
+     "BASE1863",
+     "PG-perf2",
+     "PG-polish",
+     "PG-zimg",
+     "PG-zperf3"
+    ],
+    "lost": [
+     "button|Hide Extra Features menu",
+     "button|Extra Features ▾",
+     "a|© Mapbox",
+     "a|© OpenStreetMap",
+     "a|Improve this map",
+     "a|© Maxar",
+     "button|Disposition",
+     "button|Sides",
+     "button|Size"
+    ],
+    "added": [
+     "a|Skip to the map",
+     "a|Skip to the timeline controls",
+     "button|Hide the More to Explore menu",
+     "button|More to Explore ▾",
+     "a|User Guide (PDF)",
+     "a|Mapbox homepage",
+     "button|Show what was changed",
+     "a|Sources and licences",
+     "summary|More marks (8)",
+     "summary|How the marks are drawn",
+     "input|Battle time"
+    ]
+   }
+  },
+  {
+   "waiver": "W-controls-index-1440",
+   "defects": [
+    "D45",
+    "D48"
+   ],
+   "assertion": "controls-390",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/@390: 12 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-controls-index-1440",
+   "defects": [
+    "D45",
+    "D48"
+   ],
+   "assertion": "phone-shell-rehoming",
+   "type": "browser:phone-shell",
+   "status": "PASS",
+   "detail": "14 Tools tiles present; More tools page links == desktop Extra Features menu page links (19 links); \"Search\" opens a panel; \"Filter\" opens Filters; \"Order of Battle\" opens Order of Battle; \"Unit Roster\" opens All Battle Units; \"Soldier's View\" opens a dialog; \"Follow Ancestor\" opens a dialog; \"Map Layers\" opens Map Layers; \"Virtual Walkthrough\" opens a dialog; \"Legend\" opens Legend; \"Bookmarks\" opens a dialog; \"Help\" opens a dialog; \"Ask the Historian\" opens /historian.html; \"Desktop View\" opens Phone view"
+  },
+  {
+   "waiver": "W-screenshot-index-1440",
+   "defects": [
+    "D46"
+   ],
+   "assertion": "page-ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "68 patch(es) on index.html: all listed; further groups with a recorded decision: DATA, BASE1863, PG-perf2, PG-polish, PG-zimg, PG-zperf3; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-index-1440",
+   "defects": [
+    "D46"
+   ],
+   "assertion": "no-chooser-and-layout-override",
+   "type": "browser:no-chooser",
+   "status": "PASS",
+   "detail": "no chooser at 1440 (layout desktop) and 390 (layout mobile); ?layout=desktop works and Phone view returns: 1440px -> desktop; 390px -> mobile; 390px ?layout=desktop -> desktop, Phone view control visible; after Phone view -> mobile"
+  },
+  {
+   "waiver": "W-screenshot-index-1440",
+   "defects": [
+    "D46"
+   ],
+   "assertion": "desktop-replacements",
+   "type": "browser:index-desktop",
+   "status": "PASS",
+   "detail": "HUD July 3, 1863 -> July 1, 1863; minimap 27 units at the first moment (published 72); guide link \"Download Website Tutorial PDF\" -> \"User Guide (PDF)The printable guide to every control and feature.\", same href and download; timeline slider named \"Battle time\" 1..675, valuetext \"July 1, about 5:00 AM\" (published: unnamed \"0\"); no sound button; \"1x (real time)\" -> \"1x (base speed)\""
+  },
+  {
+   "waiver": "W-screenshot-index-390",
+   "defects": [
+    "D49"
+   ],
+   "assertion": "page-ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "68 patch(es) on index.html: all listed; further groups with a recorded decision: DATA, BASE1863, PG-perf2, PG-polish, PG-zimg, PG-zperf3; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-index-390",
+   "defects": [
+    "D49"
+   ],
+   "assertion": "no-chooser-and-layout-override",
+   "type": "browser:no-chooser",
+   "status": "PASS",
+   "detail": "no chooser at 1440 (layout desktop) and 390 (layout mobile); ?layout=desktop works and Phone view returns: 1440px -> desktop; 390px -> mobile; 390px ?layout=desktop -> desktop, Phone view control visible; after Phone view -> mobile"
+  },
+  {
+   "waiver": "W-screenshot-index-390",
+   "defects": [
+    "D49"
+   ],
+   "assertion": "desktop-replacements",
+   "type": "browser:index-desktop",
+   "status": "PASS",
+   "detail": "HUD July 3, 1863 -> July 1, 1863; minimap 27 units at the first moment (published 72); guide link \"Download Website Tutorial PDF\" -> \"User Guide (PDF)The printable guide to every control and feature.\", same href and download; timeline slider named \"Battle time\" 1..675, valuetext \"July 1, about 5:00 AM\" (published: unnamed \"0\"); no sound button; \"1x (real time)\" -> \"1x (base speed)\""
+  },
+  {
+   "waiver": "W-screenshot-index-390",
+   "defects": [
+    "D49"
+   ],
+   "assertion": "phone-shell-rehoming",
+   "type": "browser:phone-shell",
+   "status": "PASS",
+   "detail": "14 Tools tiles present; More tools page links == desktop Extra Features menu page links (19 links); \"Search\" opens a panel; \"Filter\" opens Filters; \"Order of Battle\" opens Order of Battle; \"Unit Roster\" opens All Battle Units; \"Soldier's View\" opens a dialog; \"Follow Ancestor\" opens a dialog; \"Map Layers\" opens Map Layers; \"Virtual Walkthrough\" opens a dialog; \"Legend\" opens Legend; \"Bookmarks\" opens a dialog; \"Help\" opens a dialog; \"Ask the Historian\" opens /historian.html; \"Desktop View\" opens Phone view"
+  },
+  {
+   "waiver": "W-data-DATA-group",
+   "defects": [],
+   "assertion": "every-changed-data-file-is-accounted-for",
+   "type": "data-changes-accounted",
+   "status": "PASS",
+   "detail": "69 published data file(s) differ; every one is covered by ledger patches of groups with a recorded decision (DATA); 1 data file(s) added (data/moments.json; allowed: data/moments.json)"
+  }
+ ]
+}

@@ -1,0 +1,187 @@
+{
+ "method": "Each ground-truth feature (gt_j1.json: 2023 Adams County building outline bbox centre of a surviving building, or Warren GCP with modern ground truth) was located by eye in 4x-4.5x crops (gtmont.py) centred on the position predicted by the chain of record plus a coarse shift, tick grid 20 px; px = predicted + shift + read offset. Reading precision about 5 px (building symbols are schematic squares 8-20 px wide).",
+ "points": [
+  {
+   "id": "STR-TOWN-SCHMUCKER_HALL",
+   "name": "Schmucker Hall, Lutheran Theological Seminary",
+   "gt_en": [
+    307961.5,
+    4411485.5
+   ],
+   "sigma_gt_m": 10,
+   "scan_px": [
+    3883,
+    3737
+   ],
+   "sigma_read_px": 8,
+   "used": false,
+   "note": "black B block immediately right of the printed 'LUTH. T. SEM.'; shift (0,-134), read (-2,0) | EXCLUDED: identification ambiguous (the printed S.S. SCHMUCKER block 157 px south is the alternative; relative to the Chambersburg Pike the 367 m GT distance favours the southern block); not used",
+   "field_model_err_m": 81.1,
+   "field_err_en": [
+    -6.5,
+    80.8
+   ],
+   "chain_err_m": 138.0,
+   "chain_err_en": [
+    4.6,
+    137.9
+   ]
+  },
+  {
+   "id": "STR-TOWN-PENN_HALL",
+   "name": "Pennsylvania Hall (\"Old Dorm\"), Pennsylvania College",
+   "gt_en": [
+    308811.8,
+    4411828.2
+   ],
+   "sigma_gt_m": 10,
+   "scan_px": [
+    4717,
+    3414
+   ],
+   "sigma_read_px": 6,
+   "used": true,
+   "note": "large black block in the Pennsylvania College grounds (label 'COLLEGE'); shift (-6,-69), read (0,+1)",
+   "field_model_err_m": 35.2,
+   "field_err_en": [
+    -9.0,
+    34.1
+   ],
+   "chain_err_m": 70.4,
+   "chain_err_en": [
+    -2.3,
+    70.3
+   ]
+  },
+  {
+   "id": "STR-MCLEAN-BARN1",
+   "name": "McClean barn",
+   "gt_en": [
+    308291.0,
+    4413017.1
+   ],
+   "sigma_gt_m": 6,
+   "scan_px": [
+    4154,
+    2275
+   ],
+   "sigma_read_px": 8,
+   "used": true,
+   "note": "lower of the two W symbols beside the printed 'M. McLEAN' (assignment barn/house by the 24 m E, 53 m N relative position of the house)",
+   "field_model_err_m": 15.5,
+   "field_err_en": [
+    -7.9,
+    13.3
+   ],
+   "chain_err_m": 86.7,
+   "chain_err_en": [
+    18.2,
+    84.8
+   ]
+  },
+  {
+   "id": "STR-MCLEAN-HOUSE1",
+   "name": "McClean house (original narrow house)",
+   "gt_en": [
+    308312.6,
+    4413072.4
+   ],
+   "sigma_gt_m": 10,
+   "scan_px": [
+    4164,
+    2215
+   ],
+   "sigma_read_px": 8,
+   "used": true,
+   "note": "upper symbol with fenced yard",
+   "field_model_err_m": 25.2,
+   "field_err_en": [
+    -17.2,
+    18.4
+   ],
+   "chain_err_m": 90.6,
+   "chain_err_en": [
+    9.6,
+    90.1
+   ]
+  },
+  {
+   "id": "STR-TOWN-BLACK_HORSE_TAVERN",
+   "name": "Black Horse Tavern, Fairfield Road (Confederate Heth division area, July 1)",
+   "gt_en": [
+    304527.2,
+    4410161.7
+   ],
+   "sigma_gt_m": 8,
+   "scan_px": [
+    582,
+    5284
+   ],
+   "sigma_read_px": 15,
+   "used": false,
+   "note": "S-lettered block beside printed 'BLACK HO[RSE]'; two candidate symbols 25 px apart | EXCLUDED: two candidate symbols, west edge of sheet; not used",
+   "field_model_err_m": 71.8,
+   "field_err_en": [
+    71.5,
+    -6.6
+   ],
+   "chain_err_m": 131.5,
+   "chain_err_en": [
+    88.2,
+    97.5
+   ]
+  },
+  {
+   "id": "W014",
+   "name": "Hanover Rd bridge over Rock Creek",
+   "gt_en": [
+    310203.4,
+    4411349.1
+   ],
+   "sigma_gt_m": 10,
+   "scan_px": [
+    6154,
+    3843
+   ],
+   "sigma_read_px": 6,
+   "used": true,
+   "note": "Hanover Rd bridge deck over Rock Creek",
+   "field_model_err_m": 22.8,
+   "field_err_en": [
+    14.2,
+    17.7
+   ],
+   "chain_err_m": 14.6,
+   "chain_err_en": [
+    9.4,
+    11.1
+   ]
+  },
+  {
+   "id": "W015",
+   "name": "York Pike bridge over Rock Creek",
+   "gt_en": [
+    310060.5,
+    4411762.5
+   ],
+   "sigma_gt_m": 10,
+   "scan_px": [
+    5981,
+    3438
+   ],
+   "sigma_read_px": 6,
+   "used": true,
+   "note": "York Pike bridge deck over Rock Creek",
+   "field_model_err_m": 21.3,
+   "field_err_en": [
+    2.9,
+    21.1
+   ],
+   "chain_err_m": 23.8,
+   "chain_err_en": [
+    1.3,
+    23.8
+   ]
+  }
+ ]
+}

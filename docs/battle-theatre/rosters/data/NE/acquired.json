@@ -1,0 +1,485 @@
+{
+ "user_agent": "gettysburg-map-research/1.0",
+ "files": [
+  {
+   "url": "https://archive.org/advancedsearch.php?q=title%3A%28%22Massachusetts%20soldiers%2C%20sailors%20and%20marines%22%29%20AND%20mediatype%3Atexts&fl[]=identifier&fl[]=title&fl[]=volume&fl[]=year&fl[]=creator&fl[]=possible-copyright-status&rows=60&output=json",
+   "cache_path": "tmp/library/rosters/NE/s_mass1931.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T01:56:38Z",
+   "bytes": 2550,
+   "sha256": "7970cb08b524b51a9b378895d8981e00c98bda9c7f4f46a8bf11f217a1de1528"
+  },
+  {
+   "url": "https://archive.org/metadata/massachusettssol11931mass",
+   "cache_path": "tmp/library/rosters/NE/meta_massachusettssol11931mass.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T01:56:49Z",
+   "bytes": 153508,
+   "sha256": "068898b7ffe1c6f85ca038ff972ade301653268b68de3d12c410c4bef6b8d6c0"
+  },
+  {
+   "url": "https://archive.org/metadata/massachusettssol21931mass",
+   "cache_path": "tmp/library/rosters/NE/meta_massachusettssol21931mass.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T01:56:56Z",
+   "bytes": 153873,
+   "sha256": "ad082f6f55033286d4a352fc4903682ad49d687847975030043e9776929e5e90"
+  },
+  {
+   "url": "https://archive.org/metadata/massachusettssol31931mass",
+   "cache_path": "tmp/library/rosters/NE/meta_massachusettssol31931mass.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T01:57:03Z",
+   "bytes": 152491,
+   "sha256": "8c2ca7f17eedff754c766014c327d32c250add27feb72016e9788d4b4723986f"
+  },
+  {
+   "url": "https://archive.org/metadata/massachusettssol41931mass",
+   "cache_path": "tmp/library/rosters/NE/meta_massachusettssol41931mass.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T01:57:06Z",
+   "bytes": 161111,
+   "sha256": "998e22b086091ad81b66655c780e73a06b6e31839e624f7d47c81f7f179aa822"
+  },
+  {
+   "url": "https://archive.org/metadata/massachusettssol51931mass",
+   "cache_path": "tmp/library/rosters/NE/meta_massachusettssol51931mass.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T01:57:08Z",
+   "bytes": 156264,
+   "sha256": "f55f16993db564a1a9cbf0232038031cb2673a7c7eee5afb17a9203e193be277"
+  },
+  {
+   "url": "https://archive.org/metadata/massachusettssol61931mass",
+   "cache_path": "tmp/library/rosters/NE/meta_massachusettssol61931mass.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T01:57:17Z",
+   "bytes": 155291,
+   "sha256": "8edcd0367d67b4ca38e1e3a5c4ea996b9634e415892f1ca66f17af23a421f9eb"
+  },
+  {
+   "url": "https://archive.org/metadata/massachusettssol71931mass",
+   "cache_path": "tmp/library/rosters/NE/meta_massachusettssol71931mass.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T01:57:20Z",
+   "bytes": 162515,
+   "sha256": "fb7a4158d44c34d03721f4dc9ec1ed2494252aacdc912f0c10447d62748de400"
+  },
+  {
+   "url": "https://archive.org/metadata/massachusettssol81931mass",
+   "cache_path": "tmp/library/rosters/NE/meta_massachusettssol81931mass.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T01:57:50Z",
+   "bytes": 168982,
+   "sha256": "316dd82c73786ffb7ffbfd64fa94374e1927dfe9b55c539fd44bee35f0000424"
+  },
+  {
+   "url": "https://archive.org/metadata/massachusettssol1937mass",
+   "cache_path": "tmp/library/rosters/NE/meta_massachusettssol1937mass.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T01:57:55Z",
+   "bytes": 120398,
+   "sha256": "bd40c1e8a77e39663338e30dee43628622db7a5303549c691720b1cef338053e"
+  },
+  {
+   "url": "https://archive.org/download/massachusettssol11931mass/massachusettssol11931mass_djvu.txt",
+   "cache_path": "tmp/library/rosters/NE/massachusettssol11931mass_djvu.txt",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T01:58:36Z",
+   "bytes": 4266429,
+   "sha256": "0821098dce3f662a1b391185a09d668943afc2793677c01dda566c7e75344cc7"
+  },
+  {
+   "url": "https://archive.org/download/massachusettssol21931mass/massachusettssol21931mass_djvu.txt",
+   "cache_path": "tmp/library/rosters/NE/massachusettssol21931mass_djvu.txt",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T01:58:47Z",
+   "bytes": 4490505,
+   "sha256": "68d5d1c6deb6da3d0b8e9d9e1390697b868466cf6b2890301f22ba7c76eeed3c"
+  },
+  {
+   "url": "https://archive.org/download/massachusettssol31931mass/massachusettssol31931mass_djvu.txt",
+   "cache_path": "tmp/library/rosters/NE/massachusettssol31931mass_djvu.txt",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T01:59:02Z",
+   "bytes": 4414150,
+   "sha256": "42cf240d4780b08372c212a2c8e03390b18151736735055529e73f3b63d2ac67"
+  },
+  {
+   "url": "https://archive.org/download/massachusettssol41931mass/massachusettssol41931mass_djvu.txt",
+   "cache_path": "tmp/library/rosters/NE/massachusettssol41931mass_djvu.txt",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T01:59:13Z",
+   "bytes": 4548550,
+   "sha256": "33e352b25f91e9425d3f06b07bed2968c9241458f91dda9bfab84b4a2e875ad5"
+  },
+  {
+   "url": "https://archive.org/download/massachusettssol51931mass/massachusettssol51931mass_djvu.txt",
+   "cache_path": "tmp/library/rosters/NE/massachusettssol51931mass_djvu.txt",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T01:59:17Z",
+   "bytes": 4315167,
+   "sha256": "f6e545d2dd2ee3a7cf492fb551e9d8aac50ee2448990ab14ed4a42cef0b3dbeb"
+  },
+  {
+   "url": "https://archive.org/download/massachusettssol61931mass/massachusettssol61931mass_djvu.txt",
+   "cache_path": "tmp/library/rosters/NE/massachusettssol61931mass_djvu.txt",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T01:59:20Z",
+   "bytes": 4454869,
+   "sha256": "84500181a8afc3e45488e2de208164e60d8550ca82f76a85e05fd59048355c46"
+  },
+  {
+   "url": "https://archive.org/download/massachusettssol71931mass/massachusettssol71931mass_djvu.txt",
+   "cache_path": "tmp/library/rosters/NE/massachusettssol71931mass_djvu.txt",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T01:59:24Z",
+   "bytes": 4940128,
+   "sha256": "50fcaac6ff7df1eef2f5a22abbed9d8f0fcb41f7a222d3974b0216b1e50e579d"
+  },
+  {
+   "url": "https://archive.org/download/massachusettssol1937mass/massachusettssol1937mass_djvu.txt",
+   "cache_path": "tmp/library/rosters/NE/massachusettssol1937mass_djvu.txt",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T01:59:33Z",
+   "bytes": 2981485,
+   "sha256": "9134116e9c9d6f053b39f643288c70e429fca33577120d444582790ac09da19b"
+  },
+  {
+   "url": "https://archive.org/advancedsearch.php?q=title%3A%28revised%20register%20soldiers%20sailors%20New%20Hampshire%29%20AND%20mediatype%3Atexts&fl[]=identifier&fl[]=title&fl[]=volume&fl[]=year&fl[]=creator&fl[]=possible-copyright-status&rows=60&output=json",
+   "cache_path": "tmp/library/rosters/NE/s_nh.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:00:47Z",
+   "bytes": 794,
+   "sha256": "2c42d84316e24f9d00ab4b11076364fc45a35e1b205a37fb119546d76ba17d6e"
+  },
+  {
+   "url": "https://archive.org/advancedsearch.php?q=title%3A%28revised%20roster%20Vermont%20volunteers%29%20AND%20mediatype%3Atexts&fl[]=identifier&fl[]=title&fl[]=volume&fl[]=year&fl[]=creator&fl[]=possible-copyright-status&rows=60&output=json",
+   "cache_path": "tmp/library/rosters/NE/s_vt.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:00:47Z",
+   "bytes": 618,
+   "sha256": "4af65cd1b0ade8ad8caf42b9669cc4fc8fcdac6b1c22cd79ed4cb586df03c6e4"
+  },
+  {
+   "url": "https://archive.org/advancedsearch.php?q=title%3A%28adjutant%20general%20Maine%20annual%20report%29%20AND%20mediatype%3Atexts&fl[]=identifier&fl[]=title&fl[]=volume&fl[]=year&fl[]=creator&fl[]=possible-copyright-status&rows=60&output=json",
+   "cache_path": "tmp/library/rosters/NE/s_me.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:00:48Z",
+   "bytes": 814,
+   "sha256": "709a5e07f71481d012e5061005ce24fb281f3230b35840b025484f2153fdd445"
+  },
+  {
+   "url": "https://archive.org/metadata/cu31924096263128",
+   "cache_path": "tmp/library/rosters/NE/meta_cu31924096263128.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:00:57Z",
+   "bytes": 116708,
+   "sha256": "06447bca1376c17839019495dbd628caf46d208b8c3f9ee1cc0403d5111ca926"
+  },
+  {
+   "url": "https://archive.org/metadata/cu31924096263136",
+   "cache_path": "tmp/library/rosters/NE/meta_cu31924096263136.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:01:02Z",
+   "bytes": 141203,
+   "sha256": "4a9cb0d8ff9885dcf4d3810cfd2030ad2ebaee3eb7f908a0b7eb892c6e48bc9c"
+  },
+  {
+   "url": "https://archive.org/metadata/cu31924080774148",
+   "cache_path": null,
+   "status": "ERROR",
+   "note": "TimeoutError('The read operation timed out')",
+   "retrieved_utc": "2026-10-31T02:03:02Z"
+  },
+  {
+   "url": "https://archive.org/metadata/appendixdofannua00main",
+   "cache_path": "tmp/library/rosters/NE/meta_appendixdofannua00main.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:03:14Z",
+   "bytes": 110886,
+   "sha256": "b067b6c80df40eea8d73909e828056a3704e413469fd0a0725d6e99bee167748"
+  },
+  {
+   "url": "https://archive.org/advancedsearch.php?q=creator%3A%28Maine%29%20AND%20title%3A%28adjutant%20general%20report%201864%20OR%201865%20OR%20%221864-65%22%29%20AND%20mediatype%3Atexts&fl[]=identifier&fl[]=title&fl[]=volume&fl[]=year&fl[]=creator&fl[]=possible-copyright-status&rows=60&output=json",
+   "cache_path": "tmp/library/rosters/NE/s_me2.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:03:14Z",
+   "bytes": 1296,
+   "sha256": "2039097c56a3bc4684b0cc2a7be53072e4934682e653ce55caaaf6cdbe0bfe95"
+  },
+  {
+   "url": "https://archive.org/advancedsearch.php?q=title%3A%28%22Maine%20at%20Gettysburg%22%29&fl[]=identifier&fl[]=title&fl[]=volume&fl[]=year&fl[]=creator&fl[]=possible-copyright-status&rows=60&output=json",
+   "cache_path": "tmp/library/rosters/NE/s_meg.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:03:15Z",
+   "bytes": 1135,
+   "sha256": "00dcda1440bfc86933941366eb5f588989f232a4ddd75a5883062a1f21cde475"
+  },
+  {
+   "url": "https://archive.org/download/massachusettssol11931mass/massachusettssol11931mass_page_numbers.json",
+   "cache_path": "tmp/library/rosters/NE/massachusettssol11931mass_page_numbers.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:07:32Z",
+   "bytes": 143171,
+   "sha256": "bb7439d567cf2704f01c75c44a6391f7c34edd1362715a427174d6c56b9b7b92"
+  },
+  {
+   "url": "https://archive.org/download/massachusettssol21931mass/massachusettssol21931mass_page_numbers.json",
+   "cache_path": "tmp/library/rosters/NE/massachusettssol21931mass_page_numbers.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:07:34Z",
+   "bytes": 144234,
+   "sha256": "6ba3807cba82d272866e7e98a05e66a7a85a627fa5a261e60f2b3db3d4bb42e1"
+  },
+  {
+   "url": "https://archive.org/download/massachusettssol31931mass/massachusettssol31931mass_page_numbers.json",
+   "cache_path": "tmp/library/rosters/NE/massachusettssol31931mass_page_numbers.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:07:41Z",
+   "bytes": 142881,
+   "sha256": "f6cbdaf1e66d2f3127be228fb7519cb56d5f9366b319001dd74388534acc886e"
+  },
+  {
+   "url": "https://archive.org/download/massachusettssol51931mass/massachusettssol51931mass_page_numbers.json",
+   "cache_path": "tmp/library/rosters/NE/massachusettssol51931mass_page_numbers.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:07:42Z",
+   "bytes": 146865,
+   "sha256": "1caf19e70ad394ff8cf3bbc38c066087c8d4bff99c8763b8bad63ecb7afafbec"
+  },
+  {
+   "url": "https://archive.org/download/massachusettssol61931mass/massachusettssol61931mass_page_numbers.json",
+   "cache_path": "tmp/library/rosters/NE/massachusettssol61931mass_page_numbers.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:07:55Z",
+   "bytes": 145167,
+   "sha256": "b2e27f08faca6b432be834112694b1ef08b4d6df64085862cc9d5e49564f908a"
+  },
+  {
+   "url": "https://archive.org/download/cu31924096263128/cu31924096263128_djvu.txt",
+   "cache_path": "tmp/library/rosters/NE/cu31924096263128_djvu.txt",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:12:08Z",
+   "bytes": 5261560,
+   "sha256": "6aa635f7db758f698763a4170119927148d98005e10c0c144b252ca75d355068"
+  },
+  {
+   "url": "https://archive.org/download/cu31924096263136/cu31924096263136_djvu.txt",
+   "cache_path": "tmp/library/rosters/NE/cu31924096263136_djvu.txt",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:12:10Z",
+   "bytes": 5935294,
+   "sha256": "36452a24f032ae834b94b67e7d581a4ec4306829b18e69f0425114ebe9f17d6b"
+  },
+  {
+   "url": "https://archive.org/advancedsearch.php?q=title%3A%28roster%20Vermont%20volunteers%29%20AND%20mediatype%3Atexts&fl[]=identifier&fl[]=title&fl[]=volume&fl[]=year&fl[]=creator&fl[]=possible-copyright-status&rows=60&output=json",
+   "cache_path": "tmp/library/rosters/NE/s_vt2.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:17:59Z",
+   "bytes": 1729,
+   "sha256": "1e741020b58dee74c18bab60a99f64b58fe85f6f31ab3c5719feef2be572da1f"
+  },
+  {
+   "url": "https://archive.org/advancedsearch.php?q=subject%3A%28Vermont%29%20AND%20subject%3A%28United%20States%20--%20History%20--%20Civil%20War%29%20AND%20title%3A%28roster%29&fl[]=identifier&fl[]=title&fl[]=volume&fl[]=year&fl[]=creator&fl[]=possible-copyright-status&rows=60&output=json",
+   "cache_path": "tmp/library/rosters/NE/s_vt3.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:17:59Z",
+   "bytes": 99,
+   "sha256": "22fa17e1a89f7bbd46c119629c87fe7628718ce0a514454f935a30bbe41d0708"
+  },
+  {
+   "url": "https://archive.org/advancedsearch.php?q=creator%3A%28Peck%2C%20Theodore%20S%29%20OR%20title%3A%28%22Vermont%20in%20the%20civil%20war%22%29&fl[]=identifier&fl[]=title&fl[]=volume&fl[]=year&fl[]=creator&fl[]=possible-copyright-status&rows=60&output=json",
+   "cache_path": "tmp/library/rosters/NE/s_vt4.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:18:00Z",
+   "bytes": 2692,
+   "sha256": "b42d4173c6ed8ad1503d10f0dfe71078d286c1eb1142347f90cbe7dce9acc97b"
+  },
+  {
+   "url": "https://archive.org/download/annualreportofad1863main/page/n790_w1000.jpg",
+   "cache_path": "tmp/library/rosters/NE/me1863_n790.jpg",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:21:47Z",
+   "bytes": 272197,
+   "sha256": "abfd89c4a32f5b037312fa0f72480f0f1838260912a2165ba45605c0b0c6a371"
+  },
+  {
+   "url": "https://archive.org/download/annualreportofad1863main/page/n821_w1000.jpg",
+   "cache_path": "tmp/library/rosters/NE/me1863_n821.jpg",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:21:48Z",
+   "bytes": 192296,
+   "sha256": "98333dcdcb18bb24e595e787dc5026f83ab2425c11b2ac6ba20fafa90abf6840"
+  },
+  {
+   "url": "https://archive.org/advancedsearch.php?q=title%3A%28Vermont%29%20AND%20%28title%3A%28roster%29%20OR%20title%3A%28adjutant%29%20OR%20title%3A%28soldiers%29%29%20AND%20mediatype%3Atexts%20AND%20date%3A%5B1862-01-01%20TO%201900-12-31%5D&fl[]=identifier&fl[]=title&fl[]=volume&fl[]=year&fl[]=creator&fl[]=possible-copyright-status&rows=60&output=json",
+   "cache_path": "tmp/library/rosters/NE/s_vt5.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:26:38Z",
+   "bytes": 6806,
+   "sha256": "ae5608e93a1bda2cfd2cf72228e01cb0a89f812d6212a53dfa40104d952f1daf"
+  },
+  {
+   "url": "https://archive.org/metadata/reportofadjutant00verm",
+   "cache_path": "tmp/library/rosters/NE/meta_reportofadjutant00verm.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:26:49Z",
+   "bytes": 75342,
+   "sha256": "1a073a7b8b41d7e245032ac67530fce0e00e783ee0f8a2af1e19fc66c08084f9"
+  },
+  {
+   "url": "https://archive.org/download/massachusettssol21931mass/page/n520_w1100.jpg",
+   "cache_path": "tmp/library/rosters/NE/ma_v2_p511.jpg",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:26:58Z",
+   "bytes": 339717,
+   "sha256": "e5a7c4a646e01825e031af875010933f10ceb46cb3d412383cced42b84882e30"
+  },
+  {
+   "url": "https://archive.org/download/massachusettssol31931mass/page/n239_w1100.jpg",
+   "cache_path": "tmp/library/rosters/NE/ma_v3_p230.jpg",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:27:06Z",
+   "bytes": 378544,
+   "sha256": "1d70fea834bec25406df8611249b5869a21e91b1db6b4d14cb4506363ffd6ccb"
+  },
+  {
+   "url": "https://archive.org/download/massachusettssol11931mass/page/n53_w1100.jpg",
+   "cache_path": "tmp/library/rosters/NE/ma_v1_p40.jpg",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:27:08Z",
+   "bytes": 338925,
+   "sha256": "bf5a9e1bc6efb57fd88fc536c8f69980d50c1febc30411aa018674d7acbaeda9"
+  },
+  {
+   "url": "https://archive.org/download/cu31924096263128/cu31924096263128_page_numbers.json",
+   "cache_path": "tmp/library/rosters/NE/cu31924096263128_page_numbers.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:27:32Z",
+   "bytes": 106803,
+   "sha256": "9f40fbe606af7770d23db35fa741e1711da69eb67e02a7b5287751000b312c25"
+  },
+  {
+   "url": "https://archive.org/download/cu31924096263128/page/n64_w1100.jpg",
+   "cache_path": "tmp/library/rosters/NE/nh_p44.jpg",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:27:37Z",
+   "bytes": 470665,
+   "sha256": "0dd601ca3ccd98d47fa68fd1bbe068298e99dbbf67026b1a93143b6e958cd9b1"
+  },
+  {
+   "url": "https://archive.org/download/annualreportofad1863main/page/n757_w1000.jpg",
+   "cache_path": "tmp/library/rosters/NE/me1863_n757.jpg",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:29:30Z",
+   "bytes": 265709,
+   "sha256": "569d1f099ee87ad28fdc63c11d39206de005f368ff0df494576af6221f59c4c4"
+  },
+  {
+   "url": "https://archive.org/advancedsearch.php?q=creator%3A%28Peck%29%20AND%20%28title%3A%28Vermont%29%20OR%20title%3A%28roster%29%29%20AND%20mediatype%3Atexts&fl[]=identifier&fl[]=title&fl[]=volume&fl[]=year&fl[]=creator&fl[]=possible-copyright-status&rows=60&output=json",
+   "cache_path": "tmp/library/rosters/NE/s_vt6.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:30:13Z",
+   "bytes": 4191,
+   "sha256": "40892e12f2b880756f304bfa7022f0aca204fe43ed6b8ea9f178142497adf157"
+  },
+  {
+   "url": "https://archive.org/advancedsearch.php?q=title%3A%28%22Vermont%20volunteers%22%29%20AND%20mediatype%3Atexts&fl[]=identifier&fl[]=title&fl[]=volume&fl[]=year&fl[]=creator&fl[]=possible-copyright-status&rows=60&output=json",
+   "cache_path": "tmp/library/rosters/NE/s_vt7.json",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:30:14Z",
+   "bytes": 4333,
+   "sha256": "d5a3065fd6cd05aca9ba550a08ec5d2381674867247187d3b397a9f052aae5b9"
+  },
+  {
+   "url": "https://archive.org/download/pictorialhistory01stur/pictorialhistory01stur_djvu.txt",
+   "cache_path": "tmp/library/rosters/NE/pictorialhistory01stur_djvu.txt",
+   "status": "FETCHED",
+   "note": "",
+   "retrieved_utc": "2026-10-31T02:30:25Z",
+   "bytes": 2961788,
+   "sha256": "0bf8efd89f3c3b7c8545c5803a65be6409b96f29a86d3778a849888a940db512"
+  },
+  {
+   "url": "https://archive.org/download/annualreportofad1863main/annualreportofad1863main_djvu.xml",
+   "cache_path": "tmp/library/rosters/NE/annualreportofad1863main.djvu.xml",
+   "status": "FETCHED",
+   "note": "downloaded 2026-10-19 by the roster pilot (cache copied here for the NE run; sha256 computed 2026-10-30); coordinate-parsed copies are tmp/bt/rosters/cache/me_pages.json and meg_pages.json",
+   "retrieved_utc": "2026-10-31T02:30:59Z",
+   "bytes": 59959006,
+   "sha256": "869aa626276c9a297ae04eedc6ef89b59de0724b9e4fa55503cf6d14121ddda2"
+  },
+  {
+   "url": "https://archive.org/download/maineatgettysbur01main/maineatgettysbur01main_djvu.xml",
+   "cache_path": "tmp/library/rosters/NE/maineatgettysbur01main.djvu.xml",
+   "status": "FETCHED",
+   "note": "downloaded 2026-10-19 by the roster pilot (cache copied here for the NE run; sha256 computed 2026-10-30); coordinate-parsed copies are tmp/bt/rosters/cache/me_pages.json and meg_pages.json",
+   "retrieved_utc": "2026-10-31T02:30:59Z",
+   "bytes": 18214090,
+   "sha256": "0bd25a6c1f807f2962df3ade25dae1bc93508c596730ae83cb93f8ce69ecbc8c"
+  },
+  {
+   "url": "https://archive.org/download/massachusettssol81931mass/massachusettssol81931mass_djvu.txt",
+   "cache_path": null,
+   "status": "HTTP-500",
+   "note": "vol 8 (Navy enlisted E-Z and Marines) not needed for army units; not retried",
+   "retrieved_utc": "2026-10-31T02:30:59Z"
+  },
+  {
+   "url": "https://archive.org/download/cu31924080774148/cu31924080774148_djvu.txt",
+   "cache_path": null,
+   "status": "HTTP-500",
+   "note": "HTTP Error 500: Internal Server Error",
+   "retrieved_utc": "2026-10-31T03:10:17Z"
+  }
+ ]
+}

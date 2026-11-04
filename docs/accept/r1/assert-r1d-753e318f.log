@@ -1,0 +1,222 @@
+PASS  W-shared-subpage-layer css-layer                    candidate site-nav.css contains "Sub-page shared layer (pages-fixes)"
+PASS  W-shared-subpage-layer css-mount                    candidate site-nav.css contains /#gtbg-nav-mount\s*\{\s*display:\s*block;\s*min-height:\s*55px/
+PASS  W-shared-subpage-layer css-footer-contrast          candidate site-nav.css contains "#gtbg-footer a { color: #9aa3b8;"
+PASS  W-shared-subpage-layer css-no-fade                  candidate site-nav.css does not contain "gtbg-page-in 340ms"
+PASS  W-shared-subpage-layer css-no-glow                  candidate site-nav.css does not contain "animation: gtbg-pin-glow 3.4s"
+PASS  W-shared-subpage-layer ledger                       17 patch(es) on site-nav.css, site-nav.js: all listed; further groups with a recorded decision: PG-perf2, PG-polish; required replacements present
+PASS  W-file-InterpolationWorker baseline-bytes               baseline assets/InterpolationWorker-ufiwa2-e.js sha256 a44f17c2727fd84ee437c9f732884767a2fdf305c6c082731c6d96dc6b7c865b
+PASS  W-file-InterpolationWorker never-referenced             token "InterpolationWorker" named by baseline files: [], candidate files: []
+PASS  W-file-InterpolationWorker hash-token                   token "ufiwa2" named by baseline files: [], candidate files: []
+PASS  W-file-InterpolationWorker no-app-worker                no `new Worker("<literal url>")` in the baseline or the candidate: the published app never starts that script
+PASS  W-file-InterpolationWorker absent                       assets/InterpolationWorker-ufiwa2-e.js is not in the candidate
+PASS  W-data-manifest manifest-shape               orientation removed (was "landscape"), id "/", 4 icons + 0 screenshots decode at their declared sizes, a maskable icon exists, only "orientation", "screenshots" removed
+PASS  W-data-manifest build-guard                  candidate manifest.json contains /"id"\s*:\s*"/"/
+PASS  W-data-manifest portrait-phone               /@390: document scrollWidth 390 (limit 390)
+PASS  W-screenshot-aftermath ledger                       9 patch(es) on aftermath.html: all listed; further groups with a recorded decision: PG-polish, PG-zimg; required replacements present
+PASS  W-screenshot-aftermath shared-layer-linked          candidate aftermath.html contains //site-nav\.css\?v=[0-9a-f]{8}/
+PASS  W-screenshot-aftermath text-1440                    /aftermath@1440: 1 published line(s) gone; 1 of them changed by PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-aftermath controls-1440                /aftermath@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present
+PASS  W-screenshot-aftermath no-overflow-390              /aftermath@390: document scrollWidth 390 (limit 390)
+PASS  W-screenshot-aftermath screenshot-budget-1440       aftermath@1440: 6.219 % differ (budget 6.9 %), page height 1265 -> 1776 (+511; budget +-570)
+PASS  W-screenshot-aftermath screenshot-budget-390        aftermath@390: 11.776 % differ (budget 13 %), page height 1646 -> 2081 (+435; budget +-480)
+PASS  W-screenshot-aftermath text-390                     /aftermath@390: 1 published line(s) gone; 1 of them changed by PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-text-ar ledger                       9 patch(es) on ar.html: all listed; further groups with a recorded decision: PG-perf2, PG-perf3, PG-zimg; required replacements present
+PASS  W-text-ar text-1440                    /ar@1440: 1 published line(s) gone; all documented; 1 replacement line(s) present
+PASS  W-text-ar text-390                     /ar@390: 1 published line(s) gone; all documented; 1 replacement line(s) present
+PASS  W-text-ar controls-1440                /ar@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present
+PASS  W-text-ar ar-stays-reachable           ar.html is still served with its camera/location code, carries the Beta notice and noindex, and is out of the menus and the sitemap
+PASS  W-screenshot-ar ledger                       9 patch(es) on ar.html: all listed; further groups with a recorded decision: PG-perf2, PG-perf3, PG-zimg; required replacements present
+PASS  W-screenshot-ar shared-layer-linked          candidate ar.html contains //site-nav\.css\?v=[0-9a-f]{8}/
+PASS  W-screenshot-ar text-1440                    /ar@1440: 1 published line(s) gone; all documented; 1 replacement line(s) present
+PASS  W-screenshot-ar controls-1440                /ar@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present
+PASS  W-screenshot-ar no-overflow-390              /ar@390: document scrollWidth 390 (limit 390)
+PASS  W-screenshot-ar screenshot-budget-1440       ar@1440: 1.801 % differ (budget 2.8 %), page height 900 -> 900 (+0; budget +-60)
+PASS  W-screenshot-ar screenshot-budget-390        ar@390: 8.095 % differ (budget 12.2 %), page height 944 -> 999 (+55; budget +-90)
+PASS  W-screenshot-ar ar-stays-reachable           ar.html is still served with its camera/location code, carries the Beta notice and noindex, and is out of the menus and the sitemap
+PASS  W-text-dashboard ledger                       28 patch(es) on dashboard.html: all listed; further groups with a recorded decision: DATA, PG-polish, PG-zimg; required replacements present
+PASS  W-text-dashboard text-1440                    /dashboard@1440: 19 published line(s) gone; 4 of them changed by DATA+PG-polish+PG-zimg and substituted (REVIEW LIST in --json); 6 replacement line(s) present
+PASS  W-text-dashboard text-390                     /dashboard@390: 19 published line(s) gone; 4 of them changed by DATA+PG-polish+PG-zimg and substituted (REVIEW LIST in --json); 6 replacement line(s) present
+PASS  W-text-dashboard controls-1440                /dashboard@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present
+PASS  W-text-dashboard dom                          7 titled stat cards, 12 legend entries, no raw key / "undefined", model note present
+PASS  W-text-dashboard source-data-consistent       every corps' engagement periods sum to its total_casualties, so the warning glyph the published page printed has nothing left to flag
+PASS  W-screenshot-dashboard ledger                       28 patch(es) on dashboard.html: all listed; further groups with a recorded decision: DATA, PG-polish, PG-zimg; required replacements present
+PASS  W-screenshot-dashboard shared-layer-linked          candidate dashboard.html contains //site-nav\.css\?v=[0-9a-f]{8}/
+PASS  W-screenshot-dashboard text-1440                    /dashboard@1440: 19 published line(s) gone; 4 of them changed by DATA+PG-polish+PG-zimg and substituted (REVIEW LIST in --json); 6 replacement line(s) present
+PASS  W-screenshot-dashboard controls-1440                /dashboard@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present
+PASS  W-screenshot-dashboard no-overflow-390              /dashboard@390: document scrollWidth 390 (limit 390)
+PASS  W-screenshot-dashboard screenshot-budget-1440       dashboard@1440: 3.448 % differ (budget 5.1 %), page height 1713 -> 1673 (-40; budget +-230)
+PASS  W-screenshot-dashboard screenshot-budget-390        dashboard@390: 6.301 % differ (budget 8.9 %), page height 2454 -> 2904 (+450; budget +-480)
+PASS  W-screenshot-dashboard dom                          7 titled stat cards, 12 legend entries, no raw key / "undefined", model note present
+PASS  W-screenshot-dashboard source-data-consistent       every corps' engagement periods sum to its total_casualties, so the warning glyph the published page printed has nothing left to flag
+PASS  W-screenshot-documentary ledger                       10 patch(es) on documentary.html: all listed; further groups with a recorded decision: CLOCK, PG-zimg; required replacements present
+PASS  W-screenshot-documentary shared-layer-linked          candidate documentary.html contains //site-nav\.css\?v=[0-9a-f]{8}/
+PASS  W-screenshot-documentary text-1440                    /documentary@1440: 2 published line(s) gone; 2 of them changed by CLOCK+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-documentary controls-1440                /documentary@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present
+PASS  W-screenshot-documentary no-overflow-390              /documentary@390: document scrollWidth 390 (limit 390)
+PASS  W-screenshot-documentary screenshot-budget-1440       documentary@1440: 2.242 % differ (budget 3.5 %), page height 1238 -> 1142 (-96; budget +-110)
+PASS  W-screenshot-documentary screenshot-budget-390        documentary@390: 7.447 % differ (budget 11 %), page height 1838 -> 1663 (-175; budget +-200)
+PASS  W-screenshot-documentary text-390                     /documentary@390: 2 published line(s) gone; 2 of them changed by CLOCK+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-education ledger                       12 patch(es) on education.html: all listed; further groups with a recorded decision: CLOCK, PG-zimg; required replacements present
+PASS  W-screenshot-education shared-layer-linked          candidate education.html contains //site-nav\.css\?v=[0-9a-f]{8}/
+PASS  W-screenshot-education text-1440                    /education@1440: 6 published line(s) gone; 6 of them changed by CLOCK+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-education controls-1440                /education@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present
+PASS  W-screenshot-education no-overflow-390              /education@390: document scrollWidth 390 (limit 390)
+PASS  W-screenshot-education screenshot-budget-1440       education@1440: 6.461 % differ (budget 7.2 %), page height 2546 -> 3087 (+541; budget +-600)
+PASS  W-screenshot-education screenshot-budget-390        education@390: 14.129 % differ (budget 18.3 %), page height 3373 -> 3812 (+439; budget +-490)
+PASS  W-screenshot-education text-390                     /education@390: 6 published line(s) gone; 6 of them changed by CLOCK+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-embed ledger                       1 patch(es) on embed.html: all listed; required replacements present
+PASS  W-screenshot-embed text-1440                    /embed@1440: 1 published line(s) gone; 1 of them changed by DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-embed controls-1440                /embed@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present
+PASS  W-screenshot-embed no-overflow-390              /embed@390: document scrollWidth 390 (limit 390)
+PASS  W-screenshot-embed screenshot-budget-1440       embed@1440: 1.840 % differ (budget 2 %), page height 900 -> 900 (+0; budget +-60)
+PASS  W-screenshot-embed screenshot-budget-390        embed@390: 4.995 % differ (budget 10.8 %), page height 844 -> 844 (+0; budget +-60)
+PASS  W-screenshot-embed text-390                     /embed@390: 1 published line(s) gone; 1 of them changed by DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-find-ancestor ledger                       8 patch(es) on find-ancestor.html: all listed; further groups with a recorded decision: DATA, PG-zimg; required replacements present
+PASS  W-screenshot-find-ancestor shared-layer-linked          candidate find-ancestor.html contains //site-nav\.css\?v=[0-9a-f]{8}/
+PASS  W-screenshot-find-ancestor text-1440                    /find-ancestor@1440: 1 published line(s) gone; 1 of them changed by DATA+PG-zimg and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-find-ancestor controls-1440                /find-ancestor@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present
+PASS  W-screenshot-find-ancestor no-overflow-390              /find-ancestor@390: document scrollWidth 390 (limit 390)
+PASS  W-screenshot-find-ancestor screenshot-budget-1440       find-ancestor@1440: 1.487 % differ (budget 2.1 %), page height 900 -> 900 (+0; budget +-60)
+PASS  W-screenshot-find-ancestor screenshot-budget-390        find-ancestor@390: 5.116 % differ (budget 8 %), page height 844 -> 901 (+57; budget +-70)
+PASS  W-screenshot-find-ancestor text-390                     /find-ancestor@390: 1 published line(s) gone; 1 of them changed by DATA+PG-zimg and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-text-historian ledger                       27 patch(es) on historian.html: all listed; further groups with a recorded decision: CLOCK, PG-polish, PG-zcopy2, PG-zimg; required replacements present
+PASS  W-text-historian text-1440                    /historian@1440: 1 published line(s) gone; all documented; 1 replacement line(s) present
+PASS  W-text-historian text-390                     /historian@390: 1 published line(s) gone; all documented; 1 replacement line(s) present
+PASS  W-text-historian controls-1440                /historian@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present
+PASS  W-text-historian claims                       displayed counts 466/24/134/30 match the data files; asked one question: answer carries a source line/link; no external fetch: still runs entirely in the browser
+PASS  W-screenshot-historian ledger                       27 patch(es) on historian.html: all listed; further groups with a recorded decision: CLOCK, PG-polish, PG-zcopy2, PG-zimg; required replacements present
+PASS  W-screenshot-historian shared-layer-linked          candidate historian.html contains //site-nav\.css\?v=[0-9a-f]{8}/
+PASS  W-screenshot-historian text-1440                    /historian@1440: 1 published line(s) gone; all documented; 1 replacement line(s) present
+PASS  W-screenshot-historian controls-1440                /historian@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present
+PASS  W-screenshot-historian no-overflow-390              /historian@390: document scrollWidth 390 (limit 390)
+PASS  W-screenshot-historian screenshot-budget-1440       historian@1440: 1.493 % differ (budget 2.3 %), page height 900 -> 1194 (+294; budget +-450)
+PASS  W-screenshot-historian screenshot-budget-390        historian@390: 3.974 % differ (budget 6.1 %), page height 966 -> 1247 (+281; budget +-430)
+PASS  W-screenshot-historian claims                       displayed counts 466/24/134/30 match the data files; asked one question: answer carries a source line/link; no external fetch: still runs entirely in the browser
+PASS  W-screenshot-living-ledger ledger                       14 patch(es) on living-ledger.html: all listed; further groups with a recorded decision: CLOCK, DATA, PG-zimg; required replacements present
+PASS  W-screenshot-living-ledger shared-layer-linked          candidate living-ledger.html contains //site-nav\.css\?v=[0-9a-f]{8}/
+PASS  W-screenshot-living-ledger text-1440                    /living-ledger@1440: 2 published line(s) gone; 2 of them changed by CLOCK+DATA+PG-zimg and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-living-ledger controls-1440                /living-ledger@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present
+PASS  W-screenshot-living-ledger no-overflow-390              /living-ledger@390: document scrollWidth 390 (limit 390)
+PASS  W-screenshot-living-ledger screenshot-budget-1440       living-ledger@1440: 1.409 % differ (budget 1.5 %), page height 900 -> 1124 (+224; budget +-340)
+PASS  W-screenshot-living-ledger screenshot-budget-390        living-ledger@390: 5.135 % differ (budget 6.5 %), page height 844 -> 1157 (+313; budget +-470)
+PASS  W-screenshot-living-ledger text-390                     /living-ledger@390: 2 published line(s) gone; 2 of them changed by CLOCK+DATA+PG-zimg and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-privacy ledger                       2 patch(es) on privacy.html: all listed; required replacements present
+PASS  W-screenshot-privacy text-1440                    /privacy@1440: 0 published line(s) gone; all documented; 0 replacement line(s) present
+PASS  W-screenshot-privacy controls-1440                /privacy@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present
+PASS  W-screenshot-privacy no-overflow-390              /privacy@390: document scrollWidth 390 (limit 390)
+PASS  W-screenshot-privacy screenshot-budget-1440       privacy@1440: 0.138 % differ (budget 0.7 %), page height 1518 -> 1539 (+21; budget +-60)
+PASS  W-screenshot-privacy screenshot-budget-390        privacy@390: 0.247 % differ (budget 0.8 %), page height 1966 -> 2007 (+41; budget +-70)
+PASS  W-screenshot-regiment ledger                       19 patch(es) on regiment.html: all listed; further groups with a recorded decision: CLOCK, PG-polish, PG-zimg; required replacements present
+PASS  W-screenshot-regiment shared-layer-linked          candidate regiment.html contains //site-nav\.css\?v=[0-9a-f]{8}/
+PASS  W-screenshot-regiment text-1440                    /regiment@1440: 1 published line(s) gone; 1 of them changed by CLOCK+PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-regiment controls-1440                /regiment@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present
+PASS  W-screenshot-regiment no-overflow-390              /regiment@390: document scrollWidth 390 (limit 390)
+PASS  W-screenshot-regiment screenshot-budget-1440       regiment@1440: 0.768 % differ (budget 1.3 %), page height 900 -> 900 (+0; budget +-60)
+PASS  W-screenshot-regiment screenshot-budget-390        regiment@390: 2.587 % differ (budget 3.9 %), page height 844 -> 844 (+0; budget +-60)
+PASS  W-screenshot-regiment text-390                     /regiment@390: 1 published line(s) gone; 1 of them changed by CLOCK+PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-report ledger                       18 patch(es) on report.html: all listed; further groups with a recorded decision: PG-polish, PG-zimg; required replacements present
+PASS  W-screenshot-report shared-layer-linked          candidate report.html contains //site-nav\.css\?v=[0-9a-f]{8}/
+PASS  W-screenshot-report text-1440                    /report@1440: 1 published line(s) gone; 1 of them changed by PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-report controls-1440                /report@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present
+PASS  W-screenshot-report no-overflow-390              /report@390: document scrollWidth 390 (limit 390)
+PASS  W-screenshot-report screenshot-budget-1440       report@1440: 0.687 % differ (budget 1.1 %), page height 900 -> 900 (+0; budget +-60)
+PASS  W-screenshot-report screenshot-budget-390        report@390: 2.122 % differ (budget 3.1 %), page height 844 -> 844 (+0; budget +-60)
+PASS  W-screenshot-report text-390                     /report@390: 1 published line(s) gone; 1 of them changed by PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-search ledger                       17 patch(es) on search.html: all listed; further groups with a recorded decision: CLOCK, PG-polish, PG-zimg; required replacements present
+PASS  W-screenshot-search shared-layer-linked          candidate search.html contains //site-nav\.css\?v=[0-9a-f]{8}/
+PASS  W-screenshot-search text-1440                    /search@1440: 19 published line(s) gone; 19 of them changed by CLOCK+PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-search controls-1440                /search@1440: 3 published control(s) without a same-name counterpart; 3 changed by CLOCK+PG-polish+PG-zimg+DATA and re-named/moved (REVIEW LIST in --json); replacements present
+PASS  W-screenshot-search no-overflow-390              /search@390: document scrollWidth 390 (limit 390)
+PASS  W-screenshot-search screenshot-budget-1440       search@1440: 2.087 % differ (budget 3.2 %), page height 3273 -> 3306 (+33; budget +-60)
+PASS  W-screenshot-search screenshot-budget-390        search@390: 7.471 % differ (budget 11.3 %), page height 3498 -> 3740 (+242; budget +-370)
+PASS  W-screenshot-search text-390                     /search@390: 19 published line(s) gone; 19 of them changed by CLOCK+PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-search controls-390                 /search@390: 3 published control(s) without a same-name counterpart; 3 changed by CLOCK+PG-polish+PG-zimg+DATA and re-named/moved (REVIEW LIST in --json); replacements present
+PASS  W-screenshot-terms ledger                       4 patch(es) on terms.html: all listed; further groups with a recorded decision: DATA, PG-polish; required replacements present
+PASS  W-screenshot-terms text-1440                    /terms@1440: 2 published line(s) gone; 2 of them changed by DATA+PG-polish and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-terms controls-1440                /terms@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present
+PASS  W-screenshot-terms no-overflow-390              /terms@390: document scrollWidth 390 (limit 390)
+PASS  W-screenshot-terms screenshot-budget-1440       terms@1440: 1.261 % differ (budget 1.4 %), page height 1388 -> 1436 (+48; budget +-60)
+PASS  W-screenshot-terms screenshot-budget-390        terms@390: 1.172 % differ (budget 1.3 %), page height 1872 -> 1915 (+43; budget +-70)
+PASS  W-screenshot-terms text-390                     /terms@390: 2 published line(s) gone; 2 of them changed by DATA+PG-polish and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-turning-points ledger                       26 patch(es) on turning-points.html: all listed; further groups with a recorded decision: CLOCK, DATA, PG-polish, PG-zimg; required replacements present
+PASS  W-screenshot-turning-points shared-layer-linked          candidate turning-points.html contains //site-nav\.css\?v=[0-9a-f]{8}/
+PASS  W-screenshot-turning-points text-1440                    /turning-points@1440: 11 published line(s) gone; 11 of them changed by CLOCK+DATA+PG-polish+PG-zimg and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-turning-points controls-1440                /turning-points@1440: 9 published control(s) without a same-name counterpart; 9 changed by CLOCK+DATA+PG-polish+PG-zimg and re-named/moved (REVIEW LIST in --json); replacements present
+PASS  W-screenshot-turning-points no-overflow-390              /turning-points@390: document scrollWidth 390 (limit 390)
+PASS  W-screenshot-turning-points screenshot-budget-1440       turning-points@1440: 4.510 % differ (budget 5 %), page height 1608 -> 2168 (+560; budget +-620)
+PASS  W-screenshot-turning-points screenshot-budget-390        turning-points@390: 8.290 % differ (budget 9.2 %), page height 2134 -> 2678 (+544; budget +-600)
+PASS  W-screenshot-turning-points text-390                     /turning-points@390: 11 published line(s) gone; 11 of them changed by CLOCK+DATA+PG-polish+PG-zimg and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-turning-points controls-390                 /turning-points@390: 9 published control(s) without a same-name counterpart; 9 changed by CLOCK+DATA+PG-polish+PG-zimg and re-named/moved (REVIEW LIST in --json); replacements present
+PASS  W-screenshot-camera ledger                       17 patch(es) on camera.html: all listed; further groups with a recorded decision: CLOCK, PG-perf3, PG-zimg; required replacements present
+PASS  W-screenshot-camera shared-layer-linked          candidate camera.html contains //site-nav\.css\?v=[0-9a-f]{8}/
+PASS  W-screenshot-camera text-1440                    /camera@1440: 2 published line(s) gone; 2 of them changed by CLOCK+PG-perf3+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-camera controls-1440                /camera@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present
+PASS  W-screenshot-camera no-overflow-390              /camera@390: document scrollWidth 390 (limit 390)
+PASS  W-screenshot-camera screenshot-budget-1440       camera@1440: 59.170 % differ (budget 88.8 %), page height 948 -> 937 (-11; budget +-60)
+PASS  W-screenshot-cinematic-export ledger                       26 patch(es) on cinematic-export.html: all listed; further groups with a recorded decision: CLOCK, PG-perf3, PG-polish, PG-zimg; required replacements present
+PASS  W-screenshot-cinematic-export shared-layer-linked          candidate cinematic-export.html contains //site-nav\.css\?v=[0-9a-f]{8}/
+PASS  W-screenshot-cinematic-export text-1440                    /cinematic-export@1440: 3 published line(s) gone; 3 of them changed by CLOCK+PG-perf3+PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-cinematic-export controls-1440                /cinematic-export@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present
+PASS  W-screenshot-cinematic-export no-overflow-390              /cinematic-export@390: document scrollWidth 390 (limit 390)
+PASS  W-screenshot-cinematic-export screenshot-budget-1440       cinematic-export@1440: 1.163 % differ (budget 1.5 %), page height 980 -> 987 (+7; budget +-60)
+PASS  W-screenshot-compare ledger                       38 patch(es) on compare.html: all listed; further groups with a recorded decision: CLOCK, PG-perf2, PG-perf3, PG-polish, PG-zimg; required replacements present
+PASS  W-screenshot-compare shared-layer-linked          candidate compare.html contains //site-nav\.css\?v=[0-9a-f]{8}/
+PASS  W-screenshot-compare text-1440                    /compare@1440: 5 published line(s) gone; 5 of them changed by CLOCK+PG-perf2+PG-perf3+PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-compare controls-1440                /compare@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present
+PASS  W-screenshot-compare no-overflow-390              /compare@390: document scrollWidth 390 (limit 390)
+PASS  W-screenshot-compare screenshot-budget-1440       compare@1440: 2.433 % differ (budget 3.7 %), page height 956 -> 962 (+6; budget +-60)
+PASS  W-screenshot-ground-remembers ledger                       20 patch(es) on ground-remembers.html: all listed; further groups with a recorded decision: CLOCK, DATA, PG-perf2, PG-perf3, PG-polish, PG-zimg; required replacements present
+PASS  W-screenshot-ground-remembers shared-layer-linked          candidate ground-remembers.html contains //site-nav\.css\?v=[0-9a-f]{8}/
+PASS  W-screenshot-ground-remembers text-1440                    /ground-remembers@1440: 4 published line(s) gone; 4 of them changed by CLOCK+DATA+PG-perf2+PG-perf3+PG-polish+PG-zimg and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-ground-remembers controls-1440                /ground-remembers@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present
+PASS  W-screenshot-ground-remembers no-overflow-390              /ground-remembers@390: document scrollWidth 390 (limit 390)
+PASS  W-screenshot-ground-remembers screenshot-budget-1440       ground-remembers@1440: 1.577 % differ (budget 2.4 %), page height 1026 -> 1019 (-7; budget +-60)
+PASS  W-screenshot-immersive ledger                       24 patch(es) on immersive.html: all listed; further groups with a recorded decision: CLOCK, PG-perf2, PG-perf3, PG-zimg; required replacements present
+PASS  W-screenshot-immersive shared-layer-linked          candidate immersive.html contains //site-nav\.css\?v=[0-9a-f]{8}/
+PASS  W-screenshot-immersive text-1440                    /immersive@1440: 2 published line(s) gone; 2 of them changed by CLOCK+PG-perf2+PG-perf3+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-immersive controls-1440                /immersive@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present
+PASS  W-screenshot-immersive no-overflow-390              /immersive@390: document scrollWidth 390 (limit 390)
+PASS  W-screenshot-immersive screenshot-budget-1440       immersive@1440: 1.665 % differ (budget 2.5 %), page height 990 -> 983 (-7; budget +-60)
+PASS  W-screenshot-sandbox ledger                       23 patch(es) on sandbox.html: all listed; further groups with a recorded decision: CLOCK, PG-perf3, PG-zimg; required replacements present
+PASS  W-screenshot-sandbox shared-layer-linked          candidate sandbox.html contains //site-nav\.css\?v=[0-9a-f]{8}/
+PASS  W-screenshot-sandbox text-1440                    /sandbox@1440: 3 published line(s) gone; 3 of them changed by CLOCK+PG-perf3+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-sandbox controls-1440                /sandbox@1440: 1 published control(s) without a same-name counterpart; 1 changed by CLOCK+PG-perf3+PG-zimg+DATA and re-named/moved (REVIEW LIST in --json); replacements present
+PASS  W-screenshot-sandbox no-overflow-390              /sandbox@390: document scrollWidth 390 (limit 390)
+PASS  W-screenshot-sandbox screenshot-budget-1440       sandbox@1440: 2.947 % differ (budget 4.5 %), page height 1093 -> 1107 (+14; budget +-60)
+PASS  W-text-viewshed ledger                       19 patch(es) on viewshed.html: all listed; further groups with a recorded decision: PG-perf3, PG-polish, PG-zimg; required replacements present
+PASS  W-text-viewshed text-1440                    /viewshed@1440: 4 published line(s) gone; 3 of them changed by PG-perf3+PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 1 replacement line(s) present
+PASS  W-text-viewshed controls-1440                /viewshed@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present
+PASS  W-text-viewshed viewshed-ranks-30            caveat "⚠ Elevation only. This page ranks the height of 30 places on...", ranking rows 30, terrain features 30 (the caveat says 30 places)
+PASS  W-screenshot-viewshed ledger                       19 patch(es) on viewshed.html: all listed; further groups with a recorded decision: PG-perf3, PG-polish, PG-zimg; required replacements present
+PASS  W-screenshot-viewshed shared-layer-linked          candidate viewshed.html contains //site-nav\.css\?v=[0-9a-f]{8}/
+PASS  W-screenshot-viewshed text-1440                    /viewshed@1440: 4 published line(s) gone; 3 of them changed by PG-perf3+PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 1 replacement line(s) present
+PASS  W-screenshot-viewshed controls-1440                /viewshed@1440: 0 published control(s) without a same-name counterpart; all documented; replacements present
+PASS  W-screenshot-viewshed no-overflow-390              /viewshed@390: document scrollWidth 390 (limit 390)
+PASS  W-screenshot-viewshed screenshot-budget-1440       viewshed@1440: 1.711 % differ (budget 2.6 %), page height 2005 -> 1882 (-123; budget +-190)
+PASS  W-screenshot-viewshed viewshed-ranks-30            caveat "⚠ Elevation only. This page ranks the height of 30 places on...", ranking rows 30, terrain features 30 (the caveat says 30 places)
+PASS  W-screenshot-watch-together ledger                       33 patch(es) on watch-together.html: all listed; further groups with a recorded decision: CLOCK, PG-perf3, PG-polish, PG-zimg; required replacements present
+PASS  W-screenshot-watch-together shared-layer-linked          candidate watch-together.html contains //site-nav\.css\?v=[0-9a-f]{8}/
+PASS  W-screenshot-watch-together text-1440                    /watch-together@1440: 1 published line(s) gone; 1 of them changed by CLOCK+PG-perf3+PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present
+PASS  W-screenshot-watch-together controls-1440                /watch-together@1440: 1 published control(s) without a same-name counterpart; 1 changed by CLOCK+PG-perf3+PG-polish+PG-zimg+DATA and re-named/moved (REVIEW LIST in --json); replacements present
+PASS  W-screenshot-watch-together no-overflow-390              /watch-together@390: document scrollWidth 390 (limit 390)
+PASS  W-screenshot-watch-together screenshot-budget-1440       watch-together@1440: 1.577 % differ (budget 2.4 %), page height 1467 -> 1497 (+30; budget +-60)
+PASS  W-text-index-1440 page-ledger                  68 patch(es) on index.html: all listed; further groups with a recorded decision: DATA, BASE1863, PG-perf2, PG-polish, PG-zimg, PG-zperf3; required replacements present
+PASS  W-text-index-1440 bundle-ledger                460 patch(es) on js, help, book, css: all listed; further groups with a recorded decision: CLOCK, DATA, MON, ANIM, POLISH, PERF2, PERF3, BASE1863; required replacements present
+PASS  W-text-index-1440 no-chooser-and-layout-override no chooser at 1440 (layout desktop) and 390 (layout mobile); ?layout=desktop works and Phone view returns: 1440px -> desktop; 390px -> mobile; 390px ?layout=desktop -> desktop, Phone view control visible; after Phone view -> mobile
+PASS  W-text-index-1440 desktop-replacements         HUD July 3, 1863 -> July 1, 1863; minimap 27 units at the first moment (published 72); guide link "Download Website Tutorial PDF" -> "User Guide (PDF)The printable guide to every control and feature.", same href and download; timeline slider named "Battle time" 1..675, valuetext "July 1, about 5:00 AM" (published: unnamed "0"); no sound button; "1x (real time)" -> "1x (base speed)"
+PASS  W-text-index-1440 lines-1440                   /@1440: 35 published line(s) gone; 30 of them changed by CLOCK+DATA+MON+ANIM+POLISH+PERF2+PERF3+BASE1863+PG-perf2+PG-polish+PG-zimg+PG-zperf3 and substituted (REVIEW LIST in --json); 4 replacement line(s) present
+PASS  W-text-index-1440 lines-390                    /@390: 33 published line(s) gone; 2 of them changed by CLOCK+DATA+MON+ANIM+POLISH+PERF2+PERF3+BASE1863+PG-perf2+PG-polish+PG-zimg+PG-zperf3 and substituted (REVIEW LIST in --json); 1 replacement line(s) present
+PASS  W-controls-index-1440 bundle-ledger                460 patch(es) on js, help, book, css: all listed; further groups with a recorded decision: CLOCK, DATA, MON, ANIM, POLISH, PERF2, PERF3, BASE1863; required replacements present
+PASS  W-controls-index-1440 controls-1440                /@1440: 12 published control(s) without a same-name counterpart; 9 changed by CLOCK+DATA+MON+ANIM+POLISH+PERF2+PERF3+BASE1863+PG-perf2+PG-polish+PG-zimg+PG-zperf3 and re-named/moved (REVIEW LIST in --json); replacements present
+PASS  W-controls-index-1440 controls-390                 /@390: 12 published control(s) without a same-name counterpart; all documented; replacements present
+PASS  W-controls-index-1440 phone-shell-rehoming         14 Tools tiles present; More tools page links == desktop Extra Features menu page links (19 links); "Search" opens a panel; "Filter" opens Filters; "Order of Battle" opens Order of Battle; "Unit Roster" opens All Battle Units; "Soldier's View" opens a dialog; "Follow Ancestor" opens a dialog; "Map Layers" opens Map Layers; "Virtual Walkthrough" opens a dialog; "Legend" opens Legend; "Bookmarks" opens a dialog; "Help" opens a dialog; "Ask the Historian" opens /historian.html; "Desktop View" opens Phone view
+PASS  W-screenshot-index-1440 page-ledger                  68 patch(es) on index.html: all listed; further groups with a recorded decision: DATA, BASE1863, PG-perf2, PG-polish, PG-zimg, PG-zperf3; required replacements present
+PASS  W-screenshot-index-1440 no-chooser-and-layout-override no chooser at 1440 (layout desktop) and 390 (layout mobile); ?layout=desktop works and Phone view returns: 1440px -> desktop; 390px -> mobile; 390px ?layout=desktop -> desktop, Phone view control visible; after Phone view -> mobile
+PASS  W-screenshot-index-1440 desktop-replacements         HUD July 3, 1863 -> July 1, 1863; minimap 27 units at the first moment (published 72); guide link "Download Website Tutorial PDF" -> "User Guide (PDF)The printable guide to every control and feature.", same href and download; timeline slider named "Battle time" 1..675, valuetext "July 1, about 5:00 AM" (published: unnamed "0"); no sound button; "1x (real time)" -> "1x (base speed)"
+PASS  W-screenshot-index-390 page-ledger                  68 patch(es) on index.html: all listed; further groups with a recorded decision: DATA, BASE1863, PG-perf2, PG-polish, PG-zimg, PG-zperf3; required replacements present
+PASS  W-screenshot-index-390 no-chooser-and-layout-override no chooser at 1440 (layout desktop) and 390 (layout mobile); ?layout=desktop works and Phone view returns: 1440px -> desktop; 390px -> mobile; 390px ?layout=desktop -> desktop, Phone view control visible; after Phone view -> mobile
+PASS  W-screenshot-index-390 desktop-replacements         HUD July 3, 1863 -> July 1, 1863; minimap 27 units at the first moment (published 72); guide link "Download Website Tutorial PDF" -> "User Guide (PDF)The printable guide to every control and feature.", same href and download; timeline slider named "Battle time" 1..675, valuetext "July 1, about 5:00 AM" (published: unnamed "0"); no sound button; "1x (real time)" -> "1x (base speed)"
+PASS  W-screenshot-index-390 phone-shell-rehoming         14 Tools tiles present; More tools page links == desktop Extra Features menu page links (19 links); "Search" opens a panel; "Filter" opens Filters; "Order of Battle" opens Order of Battle; "Unit Roster" opens All Battle Units; "Soldier's View" opens a dialog; "Follow Ancestor" opens a dialog; "Map Layers" opens Map Layers; "Virtual Walkthrough" opens a dialog; "Legend" opens Legend; "Bookmarks" opens a dialog; "Help" opens a dialog; "Ask the Historian" opens /historian.html; "Desktop View" opens Phone view
+PASS  W-data-DATA-group every-changed-data-file-is-accounted-for 69 published data file(s) differ; every one is covered by ledger patches of groups with a recorded decision (DATA); 1 data file(s) added (data/moments.json; allowed: data/moments.json)
+
+220 passed, 0 failed, 0 skipped.  Waivers whose assertions all passed (35): W-shared-subpage-layer W-file-InterpolationWorker W-data-manifest W-screenshot-aftermath W-text-ar W-screenshot-ar W-text-dashboard W-screenshot-dashboard W-screenshot-documentary W-screenshot-education W-screenshot-embed W-screenshot-find-ancestor W-text-historian W-screenshot-historian W-screenshot-living-ledger W-screenshot-privacy W-screenshot-regiment W-screenshot-report W-screenshot-search W-screenshot-terms W-screenshot-turning-points W-screenshot-camera W-screenshot-cinematic-export W-screenshot-compare W-screenshot-ground-remembers W-screenshot-immersive W-screenshot-sandbox W-text-viewshed W-screenshot-viewshed W-screenshot-watch-together W-text-index-1440 W-controls-index-1440 W-screenshot-index-1440 W-screenshot-index-390 W-data-DATA-group.  Waivers NOT valid on this candidate (0): -

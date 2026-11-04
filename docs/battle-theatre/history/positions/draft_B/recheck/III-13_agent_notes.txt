@@ -1,0 +1,15 @@
+Batch III-13 (Third Corps, Part 3 dispatches and Devin R339). 43 decisions written; 13 open-gap claims skipped (reported missing by validator): 3c-81, 3c-1d-graham-18, 3c-1d-ward-11, 3c-2d-carr-12nh-02, 3c-2d-27, 3c-2d-burling-8nj-03, 3c-2d-burling-115pa-03, 3c-2d-brewster-74ny-02, 3c-2d-brewster-73ny-07, 3c-2d-brewster-16, 3c-2d-burling-23, 3c-art-13, 3c-art-1rie-11.
+
+Counts: passed_full_read 24, corrected 19, downgraded 0, split 0.
+
+Patterns (claims):
+- Heading time treated as time of a past event (t removed): 3c-23, 3c-46, 3c-72 (3). Heading time of writing for earlier-done acts marked ap true with description: 3c-12, 3c-17, 3c-1d-01 (3). Forwarding-note stamp not writing time: 3c-71 (ap true).
+- Later/other-sentence time: none else.
+- Compass/road gloss: 3c-65 ("near Fairfield" not printed); 3c-78 and 3c-62 Taneytown attached to Third Corps although passage names it only as headquarters site / Devin's destination (place cleared).
+- Hedge or condition dropped: 3c-21 (until Hancock heard from), 3c-66 (if no objection), 3c-68 (it appears), 3c-69 (Sedgwick denies sending orders), 3c-46 (might have said today), 3c-13 (wishes, not orders).
+- Overstated / compiler gloss: 3c-12 (corps vs headquarters), 3c-1d-01 ("night"), 3c-20 ("another brigade"), 3c-48 ("Birney's aide"), 3c-73 (halt vs determined to halt), 3c-76 ("Meade then believed").
+- Unit identity gloss: 3c-62 (passage is Devin's cavalry brigade, unit_id us-3c; fact kept as printed). 3c-22 unit_id is the corps but passage speaks of 'the division of Sickles' corps ordered to remain at Emmitsburg' (passed, noted). 3c-51 generic 'their corps' (passed, noted). 3c-45 and 3c-66/68 name Birney for the Third Corps (passed).
+- OCR: 3c-03 ("4 a. TO." only m garbled, hour legible), 3c-77 ("Jime"), 3c-48 (place/year glyphs), 3c-50 spacing; none needed t removed. 3c-17 dash before 3 is printed dash.
+- Meridian inferred: none (all a.m./p.m. printed; 3c-73 "3 o'clock this morning").
+- Merged second report: none (notes cite other reports; activities do not). 3c-78 ppd cites 3c-11's dispatch as inference only.
+Systematic: in Part 3 dispatch claims the t_iso is the heading (writing) time; fine for present-tense states and orders, wrong for reported past events. 3c-78 date changed to the march day (06-30) with dbasis; check the validator/builder accepts date different from wp phrase (validator showed no error).

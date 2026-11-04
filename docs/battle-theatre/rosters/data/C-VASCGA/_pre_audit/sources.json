@@ -1,0 +1,267 @@
+[
+ {
+  "source_id": "GA-THOMAS-1903-DOLESCOOK-v1",
+  "citation": "Thomas, Henry W., History of the Doles-Cook Brigade of Northern Virginia, C.S.A., containing muster rolls of each company of the 4th, 12th, 21st and 44th Georgia, Atlanta 1903, book pp.95-591",
+  "tier": "C-regimental-history-or-memoir",
+  "licence": "PD-US",
+  "licence_note": "Internet Archive possible-copyright-status: NOT_IN_COPYRIGHT; published 1903 (before 1931); access-restricted-item not set. Confirmation of US status is for the owner.",
+  "terms_url": "https://archive.org/about/terms.php",
+  "locator": "archive.org/details/historyofdolesco00thom",
+  "retrieved": "2026-10-30",
+  "user_agent": "gettysburg-map-research/1.0 (roster blueprint; read-only, rate-limited)",
+  "files": [
+   {
+    "name": "historyofdolesco00thom_djvu.txt",
+    "url": "https://archive.org/download/historyofdolesco00thom/historyofdolesco00thom_djvu.txt",
+    "sha256": "3f310a052b6fcd94110f056507c6c89d34882d12e29a68698f274de3dca5505d",
+    "bytes": 1422814
+   }
+  ],
+  "transform": "scripts/dolescook_parse.py then flag_dupes.py and finalize.py (family C-VASCGA, 30 October 2026; git commit: none, files are uncommitted in the working tree)",
+  "known_defects": [
+   "rolls compiled by veterans in 1903 from memory and records; service history only; 137 header lines first missed by the parser were recovered (recall check)"
+  ]
+ },
+ {
+  "source_id": "SC-SALLEY-1914-VOL2-v1",
+  "citation": "Salley, A. S., Jr. (compiler), South Carolina Troops in Confederate Service, vol. II, Columbia 1914, 2nd and 3rd South Carolina Volunteers, pp.1-570",
+  "tier": "B-official-compilation",
+  "licence": "PD-US",
+  "licence_note": "Internet Archive possible-copyright-status: NOT_IN_COPYRIGHT; published 1913 (before 1931); access-restricted-item not set. Confirmation of US status is for the owner.",
+  "terms_url": "https://archive.org/about/terms.php",
+  "locator": "archive.org/details/southcarolinatr00sallgoog",
+  "retrieved": "2026-10-30",
+  "user_agent": "gettysburg-map-research/1.0 (roster blueprint; read-only, rate-limited)",
+  "files": [
+   {
+    "name": "southcarolinatr00sallgoog_djvu.txt",
+    "url": "https://archive.org/download/southcarolinatr00sallgoog/southcarolinatr00sallgoog_djvu.txt",
+    "sha256": "bdd2fb15bd256d6bdb96de0028b2ef017e41240e803e64280aae948fbabaf69f",
+    "bytes": 2009503
+   }
+  ],
+  "transform": "scripts/salley_parse.py then flag_dupes.py and finalize.py (family C-VASCGA, 30 October 2026; git commit: none, files are uncommitted in the working tree)",
+  "known_defects": [
+   "Google-scan OCR; the scan repeats a Company G heading; footnotes record the \"unofficial compilation\" readings that disagree and are kept in remarks; 4th Regiment (not at Gettysburg) not parsed"
+  ]
+ },
+ {
+  "source_id": "VA-LOEHR-1884-1VA-v1",
+  "citation": "Loehr, Charles T., War History of the Old First Virginia Infantry Regiment, Army of Northern Virginia, Richmond 1884, List of Members pp.65-88",
+  "tier": "C-regimental-history-or-memoir",
+  "licence": "PD-US",
+  "licence_note": "Internet Archive possible-copyright-status: NOT_IN_COPYRIGHT; published 1884 (before 1931); access-restricted-item not set. Confirmation of US status is for the owner.",
+  "terms_url": "https://archive.org/about/terms.php",
+  "locator": "archive.org/details/warhistoryold00loehrich",
+  "retrieved": "2026-10-30",
+  "user_agent": "gettysburg-map-research/1.0 (roster blueprint; read-only, rate-limited)",
+  "files": [
+   {
+    "name": "warhistoryold00loehrich_djvu.txt",
+    "url": "https://archive.org/download/warhistoryold00loehrich/warhistoryold00loehrich_djvu.txt",
+    "sha256": "b3f14948fb486cff619ae356699ec6a377f00fca0e79f114a6c8922b14f6d14d",
+    "bytes": 212006
+   },
+   {
+    "name": "warhistoryold00loehrich_djvu.xml",
+    "url": "https://archive.org/download/warhistoryold00loehrich/warhistoryold00loehrich_djvu.xml",
+    "sha256": "e315cb9e02a64ea407b3e466ef32a5be50f9718a21cd737e00d6d484a5165f25",
+    "bytes": 2578029
+   }
+  ],
+  "transform": "scripts/loehr1va_parse.py then flag_dupes.py and finalize.py (family C-VASCGA, 30 October 2026; git commit: none, files are uncommitted in the working tree)",
+  "known_defects": [
+   "years of service only; three columns rebuilt from word coordinates; a few names lose a comma in the text layer"
+  ]
+ },
+ {
+  "source_id": "GA-WARREN-1863-11GA-v1",
+  "citation": "Warren, Kittrell J., History of the Eleventh Georgia Vols., embracing the muster rolls, Richmond 1863, pp.5-26",
+  "tier": "C-regimental-history-or-memoir",
+  "licence": "PD-US",
+  "licence_note": "Internet Archive possible-copyright-status: not set; published 1863 (before 1931); access-restricted-item not set. Confirmation of US status is for the owner.",
+  "terms_url": "https://archive.org/about/terms.php",
+  "locator": "archive.org/details/historyofelevent00warr",
+  "retrieved": "2026-10-30",
+  "user_agent": "gettysburg-map-research/1.0 (roster blueprint; read-only, rate-limited)",
+  "files": [
+   {
+    "name": "historyofelevent00warr_djvu.txt",
+    "url": "https://archive.org/download/historyofelevent00warr/historyofelevent00warr_djvu.txt",
+    "sha256": "0fe4ee3fb7cdf60e16c36d6432fb4299cd0747d3c760d79981c2b49d8455cf2d",
+    "bytes": 185143
+   },
+   {
+    "name": "historyofelevent00warr_djvu.xml",
+    "url": "https://archive.org/download/historyofelevent00warr/historyofelevent00warr_djvu.xml",
+    "sha256": "b97eb93ddd369914abbdf1ce746a1c99bd0db8ca80b3813c28c5f86865ddd005",
+    "bytes": 2162936
+   }
+  ],
+  "transform": "scripts/warren11ga_parse.py then flag_dupes.py and finalize.py (family C-VASCGA, 30 October 2026; git commit: none, files are uncommitted in the working tree)",
+  "known_defects": [
+   "printed before the battle; heavy name damage in print and scan; needs a second reading of the page images"
+  ]
+ },
+ {
+  "source_id": "GA-NICHOLS-1898-61GA-v1",
+  "citation": "Nichols, G. W., A Soldier's Story of His Regiment (61st Georgia), Jesup 1898, Roster of Companies B to K",
+  "tier": "C-regimental-history-or-memoir",
+  "licence": "PD-US",
+  "licence_note": "Internet Archive possible-copyright-status: not set; published 1898 (before 1931); access-restricted-item not set. Confirmation of US status is for the owner.",
+  "terms_url": "https://archive.org/about/terms.php",
+  "locator": "archive.org/details/01494987.3402.emory.edu",
+  "retrieved": "2026-10-30",
+  "user_agent": "gettysburg-map-research/1.0 (roster blueprint; read-only, rate-limited)",
+  "files": [
+   {
+    "name": "01494987.3402.emory.edu_djvu.txt",
+    "url": "https://archive.org/download/01494987.3402.emory.edu/01494987_3402_djvu.txt",
+    "sha256": "8b6a2f64aadbade6d63125f4bba2feae635428a9dea9df1749bd89e1c8da0d88",
+    "bytes": 541823
+   }
+  ],
+  "transform": "scripts/nichols61ga_parse.py then flag_dupes.py and finalize.py (family C-VASCGA, 30 October 2026; git commit: none, files are uncommitted in the working tree)",
+  "known_defects": [
+   "Company A has no roster in the book"
+  ]
+ },
+ {
+  "source_id": "SC-TOMPKINS-1897-COK14-v1",
+  "citation": "Tompkins, D. A., Company K, Fourteenth South Carolina Volunteers, Charleston 1897",
+  "tier": "C-regimental-history-or-memoir",
+  "licence": "PD-US",
+  "licence_note": "Internet Archive possible-copyright-status: not set; published 1897 (before 1931); access-restricted-item not set. Confirmation of US status is for the owner.",
+  "terms_url": "https://archive.org/about/terms.php",
+  "locator": "archive.org/details/06269758.3416.emory.edu",
+  "retrieved": "2026-10-30",
+  "user_agent": "gettysburg-map-research/1.0 (roster blueprint; read-only, rate-limited)",
+  "files": [
+   {
+    "name": "06269758.3416.emory.edu_djvu.txt",
+    "url": "https://archive.org/download/06269758.3416.emory.edu/06269758_3416_djvu.txt",
+    "sha256": "d667fc0a652670d59c161dfa18f2e30e647907f7b940e8c39d90768d925b827d",
+    "bytes": 39537
+   }
+  ],
+  "transform": "scripts/tompkins14sc_parse.py then flag_dupes.py and finalize.py (family C-VASCGA, 30 October 2026; git commit: none, files are uncommitted in the working tree)",
+  "known_defects": [
+   "one company; the wounded list names only 5 of the 30 wounded at Gettysburg the text mentions"
+  ]
+ },
+ {
+  "source_id": "VA-IRBY-1878-COG18-v1",
+  "citation": "Irby, Richard, Historical Sketch of the Nottoway Grays, afterwards Company G, Eighteenth Virginia Regiment, Richmond 1878, condensed roll",
+  "tier": "C-regimental-history-or-memoir",
+  "licence": "PD-US",
+  "licence_note": "Internet Archive possible-copyright-status: NOT_IN_COPYRIGHT; published 1878 (before 1931); access-restricted-item not set. Confirmation of US status is for the owner.",
+  "terms_url": "https://archive.org/about/terms.php",
+  "locator": "archive.org/details/historicalsketc00irbygoog",
+  "retrieved": "2026-10-30",
+  "user_agent": "gettysburg-map-research/1.0 (roster blueprint; read-only, rate-limited)",
+  "files": [
+   {
+    "name": "historicalsketc00irbygoog_djvu.txt",
+    "url": "https://archive.org/download/historicalsketc00irbygoog/historicalsketc00irbygoog_djvu.txt",
+    "sha256": "8aa1710adba9abde409bd8bc072d8fcf1fdde8b5937295ab238d8c2189361276",
+    "bytes": 122729
+   }
+  ],
+  "transform": "scripts/irby18va_parse.py then flag_dupes.py and finalize.py (family C-VASCGA, 30 October 2026; git commit: none, files are uncommitted in the working tree)",
+  "known_defects": [
+   "one company"
+  ]
+ },
+ {
+  "source_id": "VA-BEALE-1899-9VACAV-v1",
+  "citation": "Beale, R. L. T., History of the Ninth Virginia Cavalry in the War between the States, Richmond 1899, Roster",
+  "tier": "C-regimental-history-or-memoir",
+  "licence": "PD-US",
+  "licence_note": "Internet Archive possible-copyright-status: NOT_IN_COPYRIGHT; published 1899 (before 1931); access-restricted-item not set. Confirmation of US status is for the owner.",
+  "terms_url": "https://archive.org/about/terms.php",
+  "locator": "archive.org/details/historyofninthvi00beal",
+  "retrieved": "2026-10-30",
+  "user_agent": "gettysburg-map-research/1.0 (roster blueprint; read-only, rate-limited)",
+  "files": [
+   {
+    "name": "historyofninthvi00beal_djvu.txt",
+    "url": "https://archive.org/download/historyofninthvi00beal/historyofninthvi00beal_djvu.txt",
+    "sha256": "acb2ada284f7839649ab218b723ea5206e63e3fa492c1a20748ca733f55cb3f5",
+    "bytes": 411982
+   }
+  ],
+  "transform": "scripts/beale9vacav_parse.py then flag_dupes.py and finalize.py (family C-VASCGA, 30 October 2026; git commit: none, files are uncommitted in the working tree)",
+  "known_defects": [
+   "names and rank only; later notes (Dead, Cannot be located)"
+  ]
+ },
+ {
+  "source_id": "VA-PAGE-1885-PAGEBATTERY-v1",
+  "citation": "Page, Richard C. M., Sketch of Page's Battery, or Morris Artillery, 2d Corps, Army Northern Virginia, 1885",
+  "tier": "C-regimental-history-or-memoir",
+  "licence": "PD-US",
+  "licence_note": "Internet Archive possible-copyright-status: not set; published 1885 (before 1931); access-restricted-item not set. Confirmation of US status is for the owner.",
+  "terms_url": "https://archive.org/about/terms.php",
+  "locator": "archive.org/details/sketchofpagesbat00page",
+  "retrieved": "2026-10-30",
+  "user_agent": "gettysburg-map-research/1.0 (roster blueprint; read-only, rate-limited)",
+  "files": [
+   {
+    "name": "sketchofpagesbat00page_djvu.txt",
+    "url": "https://archive.org/download/sketchofpagesbat00page/sketchofpagesbat00page_djvu.txt",
+    "sha256": "67ab81a39cd63dca73a01a962a8eb4da769ad252a45992d8a71c2eb79257ea31",
+    "bytes": 128475
+   }
+  ],
+  "transform": "scripts/page_battery_parse.py then flag_dupes.py and finalize.py (family C-VASCGA, 30 October 2026; git commit: none, files are uncommitted in the working tree)",
+  "known_defects": [
+   "entries by the survivors; OCR reads 6 as 0 or G in years"
+  ]
+ },
+ {
+  "source_id": "CS-SHSP27-1899-GAINES-v1",
+  "citation": "Southern Historical Society Papers vol. 27 (1899), pp.241-251, Sick and wounded Confederate soldiers at Hagerstown and Williamsport (rolls of Dr J. M. Gaines, 13 July to 12 August 1863, printed from the Richmond Dispatch, 2 April 1899)",
+  "tier": "A-primary-contemporary",
+  "licence": "PD-US",
+  "licence_note": "Internet Archive possible-copyright-status: not set; published January-December 1899 (before 1931); access-restricted-item not set. Confirmation of US status is for the owner.",
+  "terms_url": "https://archive.org/about/terms.php",
+  "locator": "archive.org/details/sim_southern-historical-society-papers_january-december-1899_27",
+  "retrieved": "2026-10-30",
+  "user_agent": "gettysburg-map-research/1.0 (roster blueprint; read-only, rate-limited)",
+  "files": [
+   {
+    "name": "sim_southern-historical-society-papers_january-december-1899_27_djvu.txt",
+    "url": "https://archive.org/download/sim_southern-historical-society-papers_january-december-1899_27/sim_southern-historical-society-papers_january-december-1899_27_djvu.txt",
+    "sha256": "e912049f1282623277699c549862420b8fa2bb7a9af24d924a1c94224211b159",
+    "bytes": 936013
+   }
+  ],
+  "transform": "scripts/gaines_hospital_parse.py then flag_dupes.py and finalize.py (family C-VASCGA, 30 October 2026; git commit: none, files are uncommitted in the working tree)",
+  "known_defects": [
+   "a printed transcript of original hospital rolls; ordinals and days damaged in OCR (rst for 1st, roth for 10th) are read with a stated rule and flagged"
+  ]
+ },
+ {
+  "source_id": "CS-SHSP15-1887-PAROLES-v1",
+  "citation": "Brock, R. A. (ed.), Paroles of the Army of Northern Virginia, Southern Historical Society Papers vol. 15, Richmond 1887, officers lists",
+  "tier": "B-official-compilation",
+  "licence": "PD-US",
+  "licence_note": "Internet Archive possible-copyright-status: not set; published 1887 (before 1931); access-restricted-item not set. Confirmation of US status is for the owner.",
+  "terms_url": "https://archive.org/about/terms.php",
+  "locator": "archive.org/details/cu31924030921773",
+  "retrieved": "2026-10-30",
+  "user_agent": "gettysburg-map-research/1.0 (roster blueprint; read-only, rate-limited)",
+  "files": [
+   {
+    "name": "cu31924030921773_djvu.txt",
+    "url": "https://archive.org/download/cu31924030921773/cu31924030921773_djvu.txt",
+    "sha256": "9c61a6c6d5650ba3667a0c9c924372c3ec567c003d8516a9cd8650024ed29955",
+    "bytes": 991746
+   }
+  ],
+  "transform": "scripts/paroles_officers_parse.py then flag_dupes.py and finalize.py (family C-VASCGA, 30 October 2026; git commit: none, files are uncommitted in the working tree)",
+  "known_defects": [
+   "officers only; ordinals in OCR corrected by rule and flagged"
+  ]
+ }
+]

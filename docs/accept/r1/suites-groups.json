@@ -1,0 +1,240 @@
+{
+ "finished": "see file mtime",
+ "seconds": 3560,
+ "portBase": "8480",
+ "totals": {
+  "suites": 9,
+  "ok": 1,
+  "notOk": 8,
+  "greenTests": 101,
+  "greenTestsTotal": 145,
+  "redProofs": 0,
+  "redProofsOk": 0,
+  "redTestsRedAsRequired": 0
+ },
+ "results": [
+  {
+   "id": "r1.clock",
+   "title": "CLOCK: one clock for the whole site (T0-CLK-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 451.4,
+   "passed": 9,
+   "total": 18,
+   "skipped": 0,
+   "failed": 9,
+   "tiles": null,
+   "failLines": [
+    "FAIL  T0-CLK-02    desktop shell, ticks 1..675 through the scrubber: HUD date, toolbar clock and tab, time bar clock, footer clock, slider text, minimap footer and tooltips equal the oracle; no stray clock",
+    "FAIL  T0-CLK-03    phone shell (390x844, touch), ticks 1..675 through the step button: header date, header and transport clock and tooltip equal the oracle; no stray clock",
+    "FAIL  T0-CLK-04    the hour buttons and Shift+Arrow keys move 60 battle minutes (not 12 frames) from 13 start ticks, forwards and back, desktop; the labels no longer say 5 minutes",
+    "FAIL  T0-CLK-05    ?tick=N and ?t=N land on frame N with every clock surface right, at every anchor tick and day boundary (desktop) and 14 of them on the phone shell",
+    "FAIL  T0-CLK-06    the July 1/2/3 tabs jump to frames 1/226/451 and show their clocks (desktop time bar and phone day tabs); a tab is a tick range, never a date",
+    "FAIL  T0-CLK-08    unit panel (20th Maine): \"At <clock>\" and every Recent Positions row is the oracle clock of its frame, none a bare frame number; Follow Your Ancestor rows are model clocks",
+    "FAIL  T0-CLK-09    bookmarks: a new bookmark lists the oracle clock; one saved by an earlier release as \"Tick 538\" lists as \"Saved moment\" with the clock",
+    "FAIL  T0-CLK-11    the 16 Story cards: a subtitle that ends in a clock ends in the oracle clock of the frame the card flies to; none keeps a typed clock that differs; no July 4-9 date"
+   ],
+   "ok": false,
+   "tail": [
+    "PASS  T0-CLK-16    node tools/t0/clock/build-clock.mjs --check: patches-next/CLOCK.json is exactly what the anchors generate, and the derived time modules are current",
+    "      {\"output\":[\"ok   node tools/time/build.mjs --check :: generated files current (8)\",\"ok   node tools/time/build-clock-patches.mjs :: 113 patches (3 regex) -> tools/t0/patches-next/CLOCK.json unch",
+    "clock: 9/18 passed, 9 FAILED"
+   ]
+  },
+  {
+   "id": "r1.data",
+   "title": "DATA: audited displayed data (T0-DATA-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 44.4,
+   "passed": 16,
+   "total": 18,
+   "skipped": 0,
+   "failed": 2,
+   "tiles": null,
+   "failLines": [
+    "FAIL  T0-DATA-01   build proof: DATA is in the tree, its anchors matched exactly, every other gate row passes",
+    "FAIL  T0-DATA-X    every browser test of this run: 0 first-party console errors"
+   ],
+   "ok": false,
+   "tail": [
+    "      Error: first-party errors seen by the browser sessions that were closed: got [\"console.error: Error\",\"console.error: Error\",\"console.error: Error\",\"console.error: Error\",\"console.error: Error\",\"",
+    "      {\"browser sessions opened\":4}",
+    "data: 16/18 passed, 2 FAILED"
+   ]
+  },
+  {
+   "id": "r1.monuments",
+   "title": "MON: the Monuments layer (MONL-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 190.9,
+   "passed": 10,
+   "total": 20,
+   "skipped": 0,
+   "failed": 10,
+   "tiles": 300,
+   "failLines": [
+    "FAIL  T0-MONL-07   phone 375x812, real touch: the Tools tile toggles the layer (aria-pressed), a tap on a marker opens the card as a sheet above the dock (22 px tap radius, 44 px targets), Jump works",
+    "FAIL  T0-MONL-08   reload with the layer on: boots clean, off again (not persisted), nothing stale in the DOM, toggles on again",
+    "FAIL  T0-MONL-09   keyboard: Tab reaches the list control, Enter opens it, typing filters, arrows move, Enter opens the card with focus inside, Esc closes card and list; axe: no serious/critical violation",
+    "FAIL  T0-MONL-10   hover: a real mouse move over a marker rings it, sets the pointer cursor and shows a tooltip with its name; leaving clears all three",
+    "FAIL  T0-MONL-11   leaks: 6 on/off cycles leave the map with exactly the listeners it had and no popup, control or subscription; idle script time with the layer on is not above off",
+    "FAIL  T0-MONL-14   layout switch: layer on in the phone layout, \"Desktop View\" in the Tools sheet: the phone map instance is dropped (no leak), the desktop layout starts with the layer off, its own toggle works, no errors",
+    "FAIL  T0-MONL-17a  stars 1 to 10: real click opens the card (text, note, gap line), Jump lands on the star's own tick, the app clock reads the clock of that tick and agrees with the story text within its uncertainty, the linked unit is selected, on the field and drawn at the measured distance from the star",
+    "FAIL  T0-MONL-17b  stars 11 to 20: real click opens the card (text, note, gap line), Jump lands on the star's own tick, the app clock reads the clock of that tick and agrees with the story text within its uncertainty, the linked unit is selected, on the field and drawn at the measured distance from the star"
+   ],
+   "ok": false,
+   "tail": [
+    "      {\"tile requests in the desktop session\":300,\"ignored tile noise\":{\"tile\":623,\"telemetry\":0}}",
+    "monuments: 10/20 passed, 10 FAILED",
+    "mapbox requests used this run: 300 of 300 (blocked by cap: 491)"
+   ]
+  },
+  {
+   "id": "r1.verifymon",
+   "title": "MON verifier tests (VMON-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 337.3,
+   "passed": 11,
+   "total": 16,
+   "skipped": 0,
+   "failed": 5,
+   "tiles": null,
+   "failLines": [
+    "FAIL  T0-VMON-02   [medium] a monument drawn under a control inside the map (zoom in, zoom out, compass, the four attribution links): the control still receives a real click and no card opens",
+    "FAIL  T0-VMON-03   [medium] Distance Tool: the first click on a monument places the measuring point (no card, no swallowed click)",
+    "FAIL  T0-VMON-04   [medium] units within 11 px of a monument can still be selected with a real click while the layer is on",
+    "FAIL  T0-VMON-05   [medium] after \"Jump to this moment\" the app clock agrees with the clock time the story card quotes (9 of 9 differ by 2.0-9.0 h)",
+    "FAIL  T0-VMON-14   [medium] every story star lies within 500 m of one of the 512 monuments (3 of 20 do not: Iron Brigade 2.0 km, Reynolds Death Site 2.1 km, 26th North Carolina 1.5 km)"
+   ],
+   "ok": false,
+   "tail": [
+    "PASS  T0-VMON-17   [low] after the phone tile switches the layer OFF it stays off when the user goes back to the desktop layout (it switches itself on again: phone on -> Desktop View -> button on -> P",
+    "      {\"rows\":[{\"label\":\"phone, layer on through the tile\",\"shell\":\"phone\",\"layerOn\":true,\"toolbarPressed\":null},{\"label\":\"Desktop View\",\"shell\":\"desktop\",\"layerOn\":false,\"toolbarPressed\":\"false\"},{\"l",
+    "verify-monuments: 11/16 passed, 5 FAILED"
+   ]
+  },
+  {
+   "id": "r1.anim",
+   "title": "ANIM: continuous unit motion (T0-ANIM-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 397,
+   "passed": 20,
+   "total": 23,
+   "skipped": 1,
+   "failed": 2,
+   "tiles": null,
+   "failLines": [
+    "FAIL  T0-ANIM-N8   token hygiene: every dial of anim.tokens.json is read by the code, every token the code reads is defined, the generated files (patches, skin token JSON) are current",
+    "FAIL  T0-ANIM-B11  cost: 60 fps on the densest tick (desktop), 30 fps or more at 4x CPU on a phone, no long task above 50 ms, memory flat over 3 minutes"
+   ],
+   "ok": false,
+   "tail": [
+    "PASS  T0-ANIM-X    every browser test of this run: 0 uncaught exceptions and 0 first-party console.error",
+    "      {\"first-party errors of the shared session\":0}",
+    "anim: 20/23 passed, 1 skipped, 2 FAILED"
+   ]
+  },
+  {
+   "id": "r1.base1863",
+   "title": "BASE1863: the 1863 reconstruction as the map base (B63-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 138.4,
+   "passed": 9,
+   "total": 12,
+   "skipped": 0,
+   "failed": 3,
+   "tiles": 60,
+   "failLines": [
+    "FAIL  T0-B63-02    phone 375x812 DPR 3 touch: the reconstruction on the phone map, label / toggle / link visible and tappable (44 px), zero satellite requests",
+    "FAIL  T0-B63-03    label and attribution: permanent label text on desktop and phone, attribution text, Sources and licences (honest), nothing offers or names modern satellite",
+    "FAIL  T0-B63-07    the product's overlays on the new base: layer order, catalogue geometry for the labels, old hand-placed lines gone, units canvas and a unit panel on top"
+   ],
+   "ok": false,
+   "tail": [
+    "      {\"ignored tile noise\":{\"tile\":0,\"telemetry\":0}}",
+    "base1863: 9/12 passed, 3 FAILED",
+    "mapbox requests used this run: 60 of 300 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "r1.images",
+   "title": "IMG: only real images of Gettysburg (T0-RIMG-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 47.1,
+   "passed": 8,
+   "total": 13,
+   "skipped": 0,
+   "failed": 5,
+   "tiles": null,
+   "failLines": [
+    "FAIL  T0-RIMG-01   every image file and every referenced image: exists, HTTP 200, image content type, decodes at byte level",
+    "FAIL  T0-RIMG-02   real Chrome decodes every raster, the ICO and the SVG (natural size equals the byte-level size)",
+    "FAIL  T0-RIMG-03   ledger: every image of the tree is a row of LEDGER.md with the same sha256; every row has a source, licence and derivation; md and json agree",
+    "FAIL  T0-RIMG-04   only real images of Gettysburg: no generic art left, every raster is a REAL-IMAGE-OF-GETTYSBURG row from a public-domain source",
+    "FAIL  T0-RIMG-08   no hot-linked images; the user guide PDF embeds no picture; inline SVG is UI glyphs or charts only"
+   ],
+   "ok": false,
+   "tail": [
+    "PASS  T0-RIMG-11   reproducible: build_images.py --check (committed derivatives and ledger equal what the verified sources give)",
+    "PASS  T0-RIMG-X    the Chrome pass had 0 uncaught exceptions and 0 first-party console errors",
+    "images: 8/13 passed, 5 FAILED"
+   ]
+  },
+  {
+   "id": "r1.polish",
+   "title": "POLISH: one name per feature, layout, targets, welcome window, historian scroll (T0-POL-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 1479.8,
+   "passed": 7,
+   "total": 13,
+   "skipped": 4,
+   "failed": 2,
+   "tiles": null,
+   "failLines": [
+    "FAIL  T0-POL-02    desktop layout: no card, rail, control or logo overlaps another at 1024..1920 wide (mouse and touch), over every story tick and a third of the event ticks; with a unit card open too",
+    "FAIL  T0-POL-04    phone and tablet shell, portrait and landscape: legend, overview, cards, header and the Mapbox logo never overlap; the logo stays visible above the cards"
+   ],
+   "ok": false,
+   "tail": [
+    "PASS  T0-POL-13    the User Guide link and Toggle Units are reachable at 360, 390, 768, 1024, 1320, 1440 and 1920 wide, mouse and touch: in the toolbar where it has room, otherwise in the More to Expl",
+    "      {\"homes\":\"360x740 touch mobile: guide tools, units tools; 390x844 touch mobile: guide tools, units tools; 768x1024 touch mobile: guide tools, units tools; 1024x768 touch desktop: guide menu, uni",
+    "T0-POL: 7/13 passed, 4 skipped, 2 FAILED"
+   ]
+  },
+  {
+   "id": "r1.perf2",
+   "title": "PERF2: compare/precompile/roster performance (T0-P2-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 473.2,
+   "passed": 11,
+   "total": 12,
+   "skipped": 1,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "SKIP  T0-P2-12     the group builds with the unmodified builder after POLISH, with and without ANIM in either order, standalone on CLOCK,DATA,MON, and gives one entry bundle whichever way ANIM is orde",
+    "      pass --build (about 5 minutes)",
+    "perf2: 11/12 passed, 1 skipped"
+   ]
+  }
+ ]
+}

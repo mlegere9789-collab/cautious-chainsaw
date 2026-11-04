@@ -1,0 +1,913 @@
+{
+ "group": "CLOCK",
+ "description": "CANDIDATE until registered: optional group CLOCK (owner decision 2026-10-05, item 2): every clock, date and time-derived string of the app and of 14 static pages comes from the one time module (data-src/time/time_anchors.json, 33 adjudicated anchors, none signed), printed with \"about\", with the uncertainty in the tooltip. Ticks stay permanent frame ids. Regenerate: node tools/t0/clock/build-clock.mjs. Inert in patches-next until registered (tools/t0/CLOCK-README.md).",
+ "patches": [
+  {
+   "id": "CLK-00-module-inline",
+   "target": "js",
+   "find": ",nA=675;function v4(){",
+   "repl": ",nA=675;var GTBGT=(function(){const t=[\"January\",\"February\",\"March\",\"April\",\"May\",\"June\",\"July\",\"August\",\"September\",\"October\",\"November\",\"December\"],i=[\"Sunday\",\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],e={S:\"A\",M:\"B\",R:\"C\",D:\"D\"},n=[\"time\",\"day\",\"date\",\"long\",\"short\",\"compat\",\"chip\",\"iso\",\"aria\",\"frame\"];function a(t){t+=719468;const i=Math.floor(t/146097),e=t-146097*i,n=Math.floor((e-Math.floor(e/1460)+Math.floor(e/36524)-Math.floor(e/146096))/365),a=e-(365*n+Math.floor(n/4)-Math.floor(n/100)),s=Math.floor((5*a+2)/153),r=s<10?s+3:s-9;return[n+400*i+(r<=2?1:0),r,a-Math.floor((153*s+2)/5)+1]}const s=-38900,r=t=>(t<10?\"0\":\"\")+t,m=(t,i)=>(t%12==0?12:t%12)+\":\"+r(i)+(t>=12?\" PM\":\" AM\"),o=t=>60*+t.slice(0,2)+ +t.slice(3,5);return(function(t){const i=(t,i)=>{try{t=+t}catch(t){return i}return t!=t?i:Math.max(-1e9,Math.min(1e9,t))},e=t=>n.indexOf(t)<0?\"compat\":t;return{version:t.version,dv:t.dv,tickMax:t.tickMax,f:(n,a)=>t.tickToLabel(i(n,1),{style:e(a)}),x:(n,a)=>t.format(i(n,1),e(a)),after:(e,n)=>t.tickAfterMinutes(i(e,1),i(n,0)),hour:e=>t.hour(i(e,1)),phase:e=>t.dayPart(i(e,1)),tab:e=>t.tabDay(i(e,1)),approx:e=>t.isApprox(i(e,1)),tabStart:e=>t.tabStart(i(e,1)),minutes:e=>t.tickToMinutes(i(e,1)),tickAt:e=>t.minutesToTick(i(e,0))}})((function(c){const u=null==c.approx_sigma_min?10:c.approx_sigma_min,d=(c&&c.anchors).map(t=>({tick:t.tick,min:t.min,sigma:null==t.sigma_min?15:t.sigma_min,status:null==t.status?\"M\":t.status,cls:e[null==t.effective_status?t.status:t.effective_status]||\"B\",state:null==t.state?\"proposed\":t.state,review:null==t.review_flag?\"none\":t.review_flag})),l=d.length,k=d[l-1].tick,g=c.tab_days||[[1,k]],h=c.solar||{},_=t=>t<1?1:t>k?k:t,f=(t,i)=>{let e=0,n=l-2;for(;e<n;){const a=e+n+1>>1;d[a][i]<=t?e=a:n=a-1}return e},v=(t,i)=>d[t].min+(d[t+1].min-d[t].min)*(i-d[t].tick)/(d[t+1].tick-d[t].tick),w=new Float64Array(k+1);for(let t=1;t<=k;t++)w[t]=v(f(t,\"tick\"),t);const M=t=>{const i=_(t);return i===(0|i)?w[i]:v(f(i,\"tick\"),i)},p=(t,i)=>{const e=i&&i.extrapolate;if(t<=d[0].min)return e?1+(t-d[0].min)/5:1;if(t>=d[l-1].min)return e?k+(t-d[l-1].min)/5:k;const n=(t=>{let i=0,e=k;for(;i<e;){const n=i+e+1>>1;w[n]<=t?i=n:e=n-1}return i})(t),a=(t-w[n])/(w[n+1]-w[n]);return n+(a<.999999999999?a:.999999999999)},y=t=>{const i=(t=>{const i=_(t),e=f(i,\"tick\"),n=d[e],a=d[e+1];if(i===n.tick)return{sigma:n.sigma,ends:[n]};if(i===a.tick)return{sigma:a.sigma,ends:[a]};const s=(i-n.tick)/(a.tick-n.tick);return{sigma:n.sigma*(1-s)+a.sigma*s,ends:[n,a]}})(t);return i.sigma>=u||i.ends.some(t=>\"signed\"!==t.state)},b=t=>{const i=h[\"1863-07-\"+r(1+t)]||h[\"1863-07-01\"]||{civil_dawn:\"04:03\",sunrise:\"04:35\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"};return{dawn:o(i.civil_dawn),rise:o(i.sunrise),set:o(i.sunset),naut:o(i.nautical_dusk)}},x=(t,i)=>{const e=b(i);return t<e.dawn?\"night\":t<e.rise+60?\"dawn\":t<720?\"morning\":t<e.set-120?\"afternoon\":t<e.set?\"evening\":t<e.naut?\"dusk\":\"night\"},A=(e,n)=>{let r=M(e);r=n?Math.round(r/n)*n:Math.round(r);const m=Math.floor(r/1440),o=r-1440*m,c=a(s+m);let u=null;if(o<b(m).dawn){const i=a(s+m-1);u=\"Night of \"+t[i[1]-1]+\" \"+i[2]+\"-\"+(i[1]===c[1]?\"\":t[c[1]-1]+\" \")+c[2]}return{year:c[0],monthNum:c[1],month:t[c[1]-1],date:c[2],weekday:i[((s+m+4)%7+7)%7],hour24:Math.floor(o/60),minute:o%60,dayIdx:m,minutes:r,mod:o,nightOf:u,phase:x(o,m)}},T=new Map,S=(t,i,e)=>{i=n.indexOf(i)<0?\"long\":i;const a=e&&e.roundMin||0,s=!!e&&e.approx,o=_(t),c=o===(0|o)?o+\"|\"+i+\"|\"+a+\"|\"+s:null;if(c&&T.has(c))return T.get(c);const u=A(o,a),d=!0===s||\"auto\"===s&&y(o)?\"about \":\"\",l=d+m(u.hour24,u.minute),g=u.nightOf,h=(t=>t.nightOf||t.month+\" \"+t.date)(u);let f;switch(i){case\"time\":f=l;break;case\"day\":f=h;break;case\"date\":f=h+\", \"+u.year;break;case\"iso\":f=(t=>t.year+\"-\"+r(t.monthNum)+\"-\"+r(t.date)+\"T\"+r(t.hour24)+\":\"+r(t.minute))(u);break;case\"chip\":f=g?g+\", \"+l:l;break;case\"compat\":f=h+\", \"+l;break;case\"short\":f=(g?g.replace(/[A-Za-z]+(?= \\d)/g,t=>t.slice(0,3)):u.month.slice(0,3)+\" \"+u.date)+\", \"+l;break;case\"aria\":f=d+m(u.hour24,u.minute).replace(\":00 \",\" \")+(g?\" on the \"+g.charAt(0).toLowerCase()+g.slice(1):\" on \"+u.weekday+\", \"+u.month+\" \"+u.date)+\", \"+u.year;break;case\"frame\":f=\"Frame \"+Math.round(o)+\" of \"+k;break;default:f=(g||u.weekday.slice(0,3)+\", \"+u.month+\" \"+u.date)+\" · \"+l}return c&&T.set(c,f),f};return{version:null==c.version?\"\":c.version,dv:null==c.dv?2:c.dv,tickMax:k,tickToMinutes:M,minutesToTick:p,tabDay:t=>{const i=Math.floor(_(t));for(let t=0;t<g.length;t++)if(i<=g[t][1])return t+1;return g.length},tabStart:t=>(g[t-1]||g[0])[0],format:S,tickToLabel:(t,i)=>{const e=i||{};return S(t,e.style||\"long\",{roundMin:null==e.roundMin?5:e.roundMin,approx:null==e.approx?\"auto\":e.approx})},isApprox:y,tickAfterMinutes:(t,i)=>{const e=_(t);let n=Math.round(p(M(e)+i));return 0!==i&&n===Math.round(e)&&Math.abs(i)>=(t=>{const i=f(_(t),\"tick\");return(d[i+1].min-d[i].min)/(d[i+1].tick-d[i].tick)})(i>0?e:e-1e-9)/2&&(n+=i>0?1:-1),_(n)},dayPart:t=>A(t,0).phase,hour:t=>{const i=M(t);return(i-1440*Math.floor(i/1440))/60}}})({version:\"2026-10-18.1\",dv:3,tab_days:[[1,225],[226,450],[451,675]],approx_sigma_min:20,solar:{\"1863-07-01\":{civil_dawn:\"04:03\",sunrise:\"04:35\",noon:\"12:03\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"}},anchors:[{tick:1,min:300,sigma_min:25,state:\"reviewed\"},{tick:5,min:320,sigma_min:30},{tick:12,min:450,sigma_min:25,state:\"reviewed\"},{tick:28,min:615,sigma_min:25,state:\"reviewed\"},{tick:36,min:660,sigma_min:30,state:\"reviewed\"},{tick:53,min:870,sigma_min:30,state:\"reviewed\"},{tick:57,min:900,sigma_min:30,state:\"reviewed\"},{tick:64,min:960,sigma_min:30,state:\"reviewed\"},{tick:72,min:980,sigma_min:30,state:\"reviewed\"},{tick:75,min:1015,sigma_min:35,state:\"reviewed\"},{tick:90,min:1050,sigma_min:90,state:\"contested\"},{tick:100,min:1200,sigma_min:30},{tick:226,min:1710,sigma_min:30},{tick:240,min:2160,sigma_min:45,state:\"reviewed\"},{tick:248,min:2340,sigma_min:60,state:\"contested\"},{tick:256,min:2400,sigma_min:25,state:\"reviewed\"},{tick:267,min:2430,sigma_min:25,state:\"reviewed\"},{tick:275,min:2520,sigma_min:45,state:\"contested\"},{tick:280,min:2535,sigma_min:30,state:\"reviewed\"},{tick:295,min:2580,sigma_min:30,state:\"reviewed\"},{tick:302,min:2590,sigma_min:25,state:\"reviewed\"},{tick:314,min:2600,sigma_min:30,state:\"reviewed\"},{tick:326,min:2640,sigma_min:30,state:\"reviewed\"},{tick:340,min:2775,sigma_min:45,state:\"reviewed\"},{tick:451,min:3135,sigma_min:30,state:\"reviewed\"},{tick:500,min:3420,sigma_min:30,state:\"reviewed\"},{tick:515,min:3510,sigma_min:40,state:\"reviewed\"},{tick:518,min:3660,sigma_min:25,state:\"reviewed\"},{tick:538,min:3780,sigma_min:40,state:\"contested\"},{tick:551,min:3815,sigma_min:25,state:\"reviewed\"},{tick:556,min:3840,sigma_min:25,state:\"reviewed\"},{tick:568,min:3915,sigma_min:30,state:\"reviewed\"},{tick:675,min:4080,sigma_min:30}]}))})();function v4(){",
+   "expect": 1,
+   "note": "Inlines the canonical time module (33 adjudicated anchors, data-src/time/time_anchors.json) as GTBGT"
+  },
+  {
+   "id": "CLK-00b-module-helpers",
+   "target": "js",
+   "find": ";function v4(){",
+   "repl": ";GTBGT.u=(function(){var R=[[1,30,2],[5,30,1],[12,30,1],[28,35,2],[36,30,1],[53,30,1],[57,30,1],[64,40,2],[72,50,2],[75,35,1],[90,90,0],[100,30,1],[226,30,1],[240,60,2],[248,60,0],[256,30,2],[267,30,1],[275,60,0],[280,30,2],[295,30,1],[302,25,1],[314,30,2],[326,30,2],[340,45,2],[451,30,2],[500,30,2],[515,45,2],[518,30,2],[538,60,0],[551,25,1],[556,30,1],[568,30,2],[675,30,1]],W=[\"Contested: first-hand accounts disagree\",\"Estimated: no source gives this moment a clock time\",\"Documented: a first-hand source gives a clock time\"],M=[\"Between two anchored times, at least one of them Contested (first-hand accounts disagree)\",\"Between two anchored times, at least one of them only Estimated\",\"Between two anchored times, both Documented by first-hand sources\"];return function(t){t=+t;if(t!==t)t=1;t=t<1?1:t>R[R.length-1][0]?R[R.length-1][0]:t;var i=0;while(i<R.length-2&&R[i+1][0]<=t)i++;var a=R[i],b=R[i+1],u,s,L=W;if(t===a[0]){u=a[1];s=a[2]}else if(t===b[0]){u=b[1];s=b[2]}else{var w=(t-a[0])/(b[0]-a[0]);u=a[1]*(1-w)+b[1]*w;s=Math.min(a[2],b[2]);L=M}return\"give or take \"+Math.round(u/5)*5+\" minutes. \"+L[s]+\".\"}})();GTBGT.s=(function(s,t){return typeof s===\"string\"?s.replace(/July \\d, (?:about )?\\d{1,2}:\\d{2} [AP]M$/,function(){return GTBGT.f(t,\"compat\")}):s});function v4(){",
+   "expect": 1,
+   "note": "GTBGT.u (how sure the clock is, tooltip text from the anchors) and GTBGT.s (swaps a typed clock at the end of a story subtitle for the clock of its frame)"
+  },
+  {
+   "id": "CLK-01-module-export",
+   "target": "js",
+   "find": "IF as t,yn as u};",
+   "repl": "IF as t,yn as u,GTBGT as G};",
+   "expect": 1,
+   "note": "exports GTBGT as G so the lazy chunks import it (no bare window reference: the T0 unresolved-globals gate)"
+  },
+  {
+   "id": "CLK-02-store-getTickTime",
+   "target": "js",
+   "find": "getTickTime:()=>{const{currentTick:x}=f(),M=(x-1)*5,P=x<=225?1:x<=450?2:3,z=P===1?0:P===2?225*5:450*5,H=M-z,R=(P===1?6*60:4*60)+H,he=Math.floor(R/60)%24,Ee=R%60,Se=he>=12?\"PM\":\"AM\",Ie=he===0?12:he>12?he-12:he;return`July ${P}, ${Ie}:${String(Ee).padStart(2,\"0\")} ${Se}`},getCurrentDay:",
+   "repl": "getTickTime:()=>{const{currentTick:x}=f();return GTBGT.f(x,\"compat\")},getCurrentDay:",
+   "expect": 1,
+   "note": "store clock (toolbar label, time bar, mobile header): base 06:00/04:00 and no rollover replaced by the model; keeps the \"July N, h:mm AM\" shape the mobile header splits on"
+  },
+  {
+   "id": "CLK-03-hud-date",
+   "target": "js",
+   "find": "R=`July \\$\\{l(?:\\+2)?\\}, 1863`",
+   "repl": "R=GTBGT.f(x,\"date\")",
+   "expect": 1,
+   "regex": true,
+   "note": "HUD badge printed July 3-5 (tab + 2); now the true calendar date, \"Night of July 1-2\" between midnight and first light. Regex so it also matches after T0 patch D1"
+  },
+  {
+   "id": "CLK-04-monument-tooltip-JF",
+   "target": "js",
+   "find": "function JF\\(c,f\\)\\{.*?\\}(?=function KF\\()",
+   "repl": "function JF(c,f){return GTBGT.f(c,\"compat\")}",
+   "expect": 1,
+   "regex": true,
+   "note": "monument hover clock: base 05:00, date + 2 replaced by the model. Regex so it also matches after T0 patch D2"
+  },
+  {
+   "id": "CLK-05-ancestor-timeline-QF",
+   "target": "js",
+   "find": "function QF\\(c\\)\\{.*?\\}(?=function Zk\\()",
+   "repl": "function QF(c){return GTBGT.f(c,\"compat\")}",
+   "expect": 1,
+   "regex": true,
+   "note": "Follow-Your-Ancestor rows: same. Regex so it also matches after T0 patch D3"
+  },
+  {
+   "id": "CLK-06-toolbar-clock",
+   "target": "js",
+   "find": "const xi=(kt==null?void 0:kt())||`Tick ${c}`,va=c<=225?1:c<=450?2:3;",
+   "repl": "const xi=GTBGT.f(c,\"chip\"),va=c<=225?1:c<=450?2:3;",
+   "expect": 1,
+   "note": "desktop toolbar: time only (\"about 3:00 PM\"), no second date beside the \"July N\" tab label"
+  },
+  {
+   "id": "CLK-07-mobile-header-date",
+   "target": "js",
+   "find": "V.jsxs(\"div\",{style:tn.clockDay,children:[\"July \",di]})",
+   "repl": "V.jsx(\"div\",{style:tn.clockDay,children:GTBGT.f(f,\"day\")})",
+   "expect": 1,
+   "note": "mobile header: date from the clock, \"Night of July 1-2\" after midnight (a Day tab is not a date)"
+  },
+  {
+   "id": "CLK-08-mobile-transport-frame",
+   "target": "js",
+   "find": "V.jsxs(\"div\",{style:tn.tickInfo,children:[\"Tick \",f,\"/\",P]})",
+   "repl": "V.jsx(\"div\",{style:tn.tickInfo,title:GTBGT.f(f,\"frame\"),children:GTBGT.f(f,\"time\")})",
+   "expect": 1,
+   "note": "mobile transport row: the time (\"about 3:00 PM\") instead of \"Tick n/675\"; \"Frame n of 675\" only in the tooltip (chapter 04 section 4.9: never visible text)"
+  },
+  {
+   "id": "CLK-09-timebar-frame",
+   "target": "js",
+   "find": "V.jsxs(\"span\",{style:Po.tickNum,children:[\"Tick \",c,\"/675\"]})",
+   "repl": "V.jsx(\"span\",{style:Po.tickNum,title:GTBGT.f(c,\"frame\"),children:GTBGT.f(c,\"time\")})",
+   "expect": 1,
+   "note": "time bar footer: the time instead of \"Tick n/675\"; \"Frame n of 675\" only in the tooltip (chapter 04 section 4.9)"
+  },
+  {
+   "id": "CLK-08b-mobile-transport-tooltip",
+   "target": "js",
+   "find": "tn.tickInfo,title:GTBGT.f(f,\"frame\"),children",
+   "repl": "tn.tickInfo,\"data-gt-frame\":f,title:GTBGT.f(f,\"frame\")+\" · \"+GTBGT.u(f),children",
+   "expect": 1,
+   "note": "the transport tooltip adds the uncertainty; data-gt-frame carries the frame id for tests and tools (never visible text)"
+  },
+  {
+   "id": "CLK-09b-timebar-tooltip",
+   "target": "js",
+   "find": "Po.tickNum,title:GTBGT.f(c,\"frame\"),children",
+   "repl": "Po.tickNum,\"data-gt-frame\":c,title:GTBGT.f(c,\"frame\")+\" · \"+GTBGT.u(c),children",
+   "expect": 1,
+   "note": "same for the desktop time bar footer"
+  },
+  {
+   "id": "CLK-10-timebar-hour-back",
+   "target": "js",
+   "find": "onClick:()=>P(c-12),style:Po.btn,title:\"Back 1hr (Shift+Left)\"",
+   "repl": "onClick:()=>P(GTBGT.after(c,-60)),style:Po.btn,title:\"Back 1hr (Shift+Left)\"",
+   "expect": 1,
+   "note": "Back 1hr was 12 ticks (12 minutes to 42 hours of battle time): now 60 battle minutes"
+  },
+  {
+   "id": "CLK-11-timebar-hour-forward",
+   "target": "js",
+   "find": "onClick:()=>P(c+12),style:Po.btn,title:\"Fwd 1hr (Shift+Right)\"",
+   "repl": "onClick:()=>P(GTBGT.after(c,60)),style:Po.btn,title:\"Fwd 1hr (Shift+Right)\"",
+   "expect": 1,
+   "note": "Fwd 1hr: same"
+  },
+  {
+   "id": "CLK-12-timebar-keys",
+   "target": "js",
+   "find": "Ie.key===\"ArrowRight\"&&P(Ie.shiftKey?c+12:c+1),Ie.key===\"ArrowLeft\"&&P(Ie.shiftKey?c-12:c-1)",
+   "repl": "Ie.key===\"ArrowRight\"&&P(Ie.shiftKey?GTBGT.after(c,60):c+1),Ie.key===\"ArrowLeft\"&&P(Ie.shiftKey?GTBGT.after(c,-60):c-1)",
+   "expect": 1,
+   "note": "time bar Shift+arrow: 60 battle minutes"
+  },
+  {
+   "id": "CLK-13-global-key-forward",
+   "target": "js",
+   "find": "currentTick:Math.min(675,Bo+(Ur.shiftKey?12:1))",
+   "repl": "currentTick:Math.min(675,Ur.shiftKey?GTBGT.after(Bo,60):Bo+1)",
+   "expect": 1,
+   "note": "global Shift+ArrowRight: 60 battle minutes"
+  },
+  {
+   "id": "CLK-14-global-key-back",
+   "target": "js",
+   "find": "currentTick:Math.max(1,Bo-(Ur.shiftKey?12:1))",
+   "repl": "currentTick:Math.max(1,Ur.shiftKey?GTBGT.after(Bo,-60):Bo-1)",
+   "expect": 1,
+   "note": "global Shift+ArrowLeft: 60 battle minutes"
+  },
+  {
+   "id": "CLK-15-event-card-time",
+   "target": "js",
+   "find": "V.jsx(\"div\",{style:Vc.time,children:l.time})",
+   "repl": "V.jsx(\"div\",{style:Vc.time,title:GTBGT.u(l.tick),children:GTBGT.f(l.tick,\"time\")})",
+   "expect": 1,
+   "note": "event card printed the hand-typed label (5 of 102 within 30 min of history); now the model time at the event tick"
+  },
+  {
+   "id": "CLK-16-unit-panel-time",
+   "target": "js",
+   "find": "[\"At Tick \",P]",
+   "repl": "[\"At \",GTBGT.f(P,\"time\")]",
+   "expect": 1,
+   "note": "\"At Tick n\" becomes \"At 4:30 PM\""
+  },
+  {
+   "id": "CLK-17-toast-time",
+   "target": "js",
+   "find": "V.jsxs(\"div\",{style:eh.toastTick,children:[\"Tick \",l.tick]})",
+   "repl": "V.jsx(\"div\",{style:eh.toastTick,children:GTBGT.f(l.tick,\"time\")})",
+   "expect": 1,
+   "note": "commander toast footer \"Tick n\" becomes a time"
+  },
+  {
+   "id": "CLK-18-succession-time",
+   "target": "js",
+   "find": "(tick ${c.successionTick})",
+   "repl": "(${GTBGT.f(c.successionTick,\"time\")})",
+   "expect": 1,
+   "note": "unit panel succession \"(tick n)\" becomes a time"
+  },
+  {
+   "id": "CLK-19-minimap-footer",
+   "target": "js",
+   "find": ",\" units · tick \",z]",
+   "repl": ",\" units · \",GTBGT.f(z,\"time\")]",
+   "expect": 1,
+   "note": "minimap footer \"tick n\" becomes a time (the units count itself is a T0 patch)"
+  },
+  {
+   "id": "CLK-19b-bookmark-default-label",
+   "target": "js",
+   "find": "675:\"End of the battle\"}[c]||`Tick ${c}`}",
+   "repl": "675:\"End of the battle\"}[c]||\"Saved moment\"}",
+   "expect": 1,
+   "note": "the default name of a new bookmark (\"Tick n\" when the tick has no event name) becomes \"Saved moment\": the last visible \"Tick n\" in the bundle; a neutral word, because the label is stored in the visitor's browser and must not freeze a clock string"
+  },
+  {
+   "id": "CLK-20-vignette-jump",
+   "target": "js",
+   "find": "title:`Jump to tick ${ze.trigger_tick}`,children:[\"⏩ \",ze.trigger_tick]",
+   "repl": "title:`Jump to ${GTBGT.f(ze.trigger_tick,\"time\")}`,children:[\"⏩ \",GTBGT.f(ze.trigger_tick,\"time\")]",
+   "expect": 1,
+   "note": "vignette jump button and tooltip show a time, not a tick number"
+  },
+  {
+   "id": "CLK-46-timebar-clock-title",
+   "target": "js",
+   "find": "V.jsx(\"div\",{style:Po.time,children:R()})",
+   "repl": "V.jsx(\"div\",{style:Po.time,title:GTBGT.u(c),children:R()})",
+   "expect": 1,
+   "note": "desktop time bar: the big clock carries a tooltip with the uncertainty and the adjudicated status (GTBGT.u)"
+  },
+  {
+   "id": "CLK-47-timebar-prev-title",
+   "target": "js",
+   "find": "title:\"Prev tick (Left)\"",
+   "repl": "title:\"Previous step (Left)\"",
+   "expect": 1,
+   "note": "tooltip \"Prev tick (Left)\" becomes \"Previous step (Left)\" (a frame is not shown as a tick)"
+  },
+  {
+   "id": "CLK-48-timebar-next-title",
+   "target": "js",
+   "find": "title:\"Next tick (Right)\"",
+   "repl": "title:\"Next step (Right)\"",
+   "expect": 1,
+   "note": "tooltip \"Next tick (Right)\" becomes \"Next step (Right)\""
+  },
+  {
+   "id": "CLK-49-legend-note",
+   "target": "js",
+   "find": "\"unit strength at current tick\"",
+   "repl": "\"unit strength at the current moment\"",
+   "expect": 1,
+   "note": "legend note \"at current tick\" becomes \"at the current moment\""
+  },
+  {
+   "id": "CLK-50-intro-hero-text",
+   "target": "js",
+   "find": "\"July 1–3, 1863 · 675 five-minute snapshots\"",
+   "repl": "\"July 1–3, 1863 · 675 snapshots in time\"",
+   "expect": 1,
+   "note": "opening screen promised \"675 five-minute snapshots\"; the frames are 0.8 to 42 minutes of battle time apart"
+  },
+  {
+   "id": "CLK-51-unit-history-time",
+   "target": "js",
+   "find": "V.jsx(\"span\",{style:ji.histTick,children:pe})",
+   "repl": "V.jsx(\"span\",{style:ji.histTick,title:GTBGT.f(pe,\"frame\"),children:GTBGT.f(pe,\"time\")})",
+   "expect": 1,
+   "note": "unit panel \"Recent Positions\" listed bare frame numbers (12, 17, 28); now the clock, the frame number only in the tooltip"
+  },
+  {
+   "id": "CLK-52-unit-history-width",
+   "target": "js",
+   "find": "histTick:{fontSize:10,color:\"#555\",fontFamily:\"monospace\",minWidth:24}",
+   "repl": "histTick:{fontSize:10,color:\"#8a8a9a\",fontFamily:\"monospace\",minWidth:84}",
+   "expect": 1,
+   "note": "room for the clock text in that column; the colour passes 4.5:1 on the panel background"
+  },
+  {
+   "id": "CLK-53-scrubber-first-shot",
+   "target": "js",
+   "find": "TO=[{tick:17,label:\"First shot\"",
+   "repl": "TO=[{tick:12,label:\"First shot\"",
+   "expect": 1,
+   "note": "the scrubber marker \"First shot\" sat on frame 17 (Calef opens fire); the first shot is frame 12 (anchor 12, 7:30 AM; time-plan defect TICK-PLACEMENT)"
+  },
+  {
+   "id": "CLK-54-story-subtitle-clock",
+   "target": "js",
+   "find": "V.jsx(\"div\",{style:Zr.stopSubtitle,children:M.subtitle})",
+   "repl": "V.jsx(\"div\",{style:Zr.stopSubtitle,children:GTBGT.s(M.subtitle,M.tick)})",
+   "expect": 1,
+   "note": "Story card subtitle: a typed clock at its end (\"July 1, 4:00 PM\") becomes the clock of the frame the card flies to; other subtitles stay"
+  },
+  {
+   "id": "CLK-55-mobile-step-back",
+   "target": "js",
+   "find": "\"aria-label\":\"Step back 5 minutes\",title:\"Step back 5 minutes\"",
+   "repl": "\"aria-label\":\"Previous step\",title:\"Previous step\"",
+   "expect": 1,
+   "note": "mobile transport (group C) said \"Step back 5 minutes\"; a step is 0.8 to 42 minutes of battle time"
+  },
+  {
+   "id": "CLK-56-mobile-step-forward",
+   "target": "js",
+   "find": "\"aria-label\":\"Step forward 5 minutes\",title:\"Step forward 5 minutes\"",
+   "repl": "\"aria-label\":\"Next step\",title:\"Next step\"",
+   "expect": 1,
+   "note": "same for the forward step"
+  },
+  {
+   "id": "CLK-92-scrubber-marker-title",
+   "target": "js",
+   "find": "V.jsx(\"div\",{title:Ie.label,onClick:()=>P(Ie.tick)",
+   "repl": "V.jsx(\"div\",{title:Ie.label+\", \"+GTBGT.f(Ie.tick,\"time\"),onClick:()=>P(Ie.tick)",
+   "expect": 1,
+   "note": "scrubber markers (First shot, Reynolds KIA ...): the tooltip adds the clock of the marker"
+  },
+  {
+   "id": "CLK-93-timebar-day-tab-title",
+   "target": "js",
+   "find": "V.jsx(\"button\",{onClick:()=>l(Ie.day),",
+   "repl": "V.jsx(\"button\",{title:\"Jump to \"+GTBGT.f(Ie.tick,\"compat\"),onClick:()=>l(Ie.day),",
+   "expect": 1,
+   "note": "July 1/2/3 buttons of the time bar: the tooltip says where the tab lands (\"Jump to July 2, about 4:30 AM\")"
+  },
+  {
+   "id": "CLK-94-phone-day-tab-title",
+   "target": "js",
+   "find": "onClick:()=>{R($t),H(!1)},children:[\"July \",$t]",
+   "repl": "title:\"Jump to \"+GTBGT.f(GTBGT.tabStart($t),\"compat\"),onClick:()=>{R($t),H(!1)},children:[\"July \",$t]",
+   "expect": 1,
+   "note": "July 1/2/3 tabs of the phone shell: same tooltip"
+  },
+  {
+   "id": "CLK-95-map-tint-hour",
+   "target": "js",
+   "find": "function M4(c){const f=c<=225?1:c<=450?2:3,M=(c-(f===1?0:f===2?225:450)-1)*5;return(5*60+M)/60}",
+   "repl": "function M4(c){return GTBGT.hour(c)}",
+   "expect": 1,
+   "note": "day and night tint of the main map: the hour of day comes from the clock (it was 05:00 + 5 minutes a frame on each tab, so frame 326, the Tigers' assault at dusk, was tinted for 12:20 PM)"
+  },
+  {
+   "id": "CLK-96-map-tint-first-paint",
+   "target": "js",
+   "find": "A4(f.current),J4(f.current)",
+   "repl": "A4(f.current),C4(yn.getState().currentTick),J4(f.current)",
+   "expect": 1,
+   "note": "the tint overlay is created when the map has loaded, but its colour was only set on the next frame change: a map opened at frame 1 (5:00 AM) or by a deep link showed no tint until the visitor moved the clock; now set when the overlay is created"
+  },
+  {
+   "id": "CLK-21-bookmark-import",
+   "target": "book",
+   "find": "import{u as L,",
+   "repl": "import{G as GT,u as L,",
+   "expect": 1,
+   "note": "Bookmarks chunk imports GTBGT from the entry (export G)"
+  },
+  {
+   "id": "CLK-22-bookmark-list-time",
+   "target": "book",
+   "find": "[\"Tick \",e.tick,e.unitId&&",
+   "repl": "[GT.f(e.tick,\"time\"),e.unitId&&",
+   "expect": 1,
+   "note": "Bookmarks list meta \"Tick n\" becomes a time"
+  },
+  {
+   "id": "CLK-23-help-import",
+   "target": "help",
+   "find": "import{r as g,j as e,u as a}from",
+   "repl": "import{G as GT,r as g,j as e,u as a}from",
+   "expect": 1,
+   "note": "Help chunk imports GTBGT from the entry (export G)"
+  },
+  {
+   "id": "CLK-24-help-step-text",
+   "target": "help",
+   "find": "desc:\"Advance one tick (5 minutes)\"",
+   "repl": "desc:\"Advance one step\"",
+   "expect": 1,
+   "note": "Help said one step is 5 minutes; steps are 0.8 to 42 minutes of battle time"
+  },
+  {
+   "id": "CLK-25-help-hour-text",
+   "target": "help",
+   "find": "desc:\"Advance one hour (12 ticks)\"",
+   "repl": "desc:\"Skip forward about one hour of battle time\"",
+   "expect": 1,
+   "note": "Help said one hour is 12 ticks; the hour buttons now step 60 battle minutes"
+  },
+  {
+   "id": "CLK-26-help-keys-forward",
+   "target": "help",
+   "find": "setTick(s.shiftKey?c+12:c+1)",
+   "repl": "setTick(s.shiftKey?GT.after(c,60):c+1)",
+   "expect": 1,
+   "note": "Help chunk keyboard handler: Shift+ArrowRight 60 battle minutes"
+  },
+  {
+   "id": "CLK-27-help-keys-back",
+   "target": "help",
+   "find": "setTick(s.shiftKey?c-12:c-1)",
+   "repl": "setTick(s.shiftKey?GT.after(c,-60):c-1)",
+   "expect": 1,
+   "note": "Help chunk keyboard handler: Shift+ArrowLeft 60 battle minutes"
+  },
+  {
+   "id": "CLK-57-help-step-back",
+   "target": "help",
+   "find": "desc:\"Go back one tick\"",
+   "repl": "desc:\"Go back one step\"",
+   "expect": 1,
+   "note": "Help: \"Go back one tick\" becomes \"Go back one step\""
+  },
+  {
+   "id": "CLK-58-help-day1",
+   "target": "help",
+   "find": "desc:\"Jump to July 1, dawn (tick 1)\"",
+   "repl": "desc:\"Jump to the July 1 tab, \"+GT.f(1,\"time\")",
+   "expect": 1,
+   "note": "Help: the 1 key jumps to the July 1 tab, shown with its clock instead of \"dawn (tick 1)\""
+  },
+  {
+   "id": "CLK-59-help-day2",
+   "target": "help",
+   "find": "desc:\"Jump to July 2, dawn (tick 226)\"",
+   "repl": "desc:\"Jump to the July 2 tab, \"+GT.f(226,\"time\")",
+   "expect": 1,
+   "note": "Help: the 2 key, same"
+  },
+  {
+   "id": "CLK-60-help-day3",
+   "target": "help",
+   "find": "desc:\"Jump to July 3, dawn (tick 451)\"",
+   "repl": "desc:\"Jump to the July 3 tab, \"+GT.f(451,\"time\")",
+   "expect": 1,
+   "note": "Help: the 3 key, same"
+  },
+  {
+   "id": "CLK-61-bookmark-old-label",
+   "target": "book",
+   "find": "children:e.label}),t.jsxs(\"div\",{style:o.itemMeta",
+   "repl": "children:/^Tick \\d+$/.test(e.label)?\"Saved moment\":e.label}),t.jsxs(\"div\",{style:o.itemMeta",
+   "expect": 1,
+   "note": "bookmarks saved by earlier releases have the label \"Tick n\" in the visitor's storage: listed as \"Saved moment\""
+  },
+  {
+   "id": "CLK-62-bookmark-remove-label",
+   "target": "book",
+   "find": "\"aria-label\":\"Remove bookmark \"+e.label",
+   "repl": "\"aria-label\":\"Remove bookmark \"+(/^Tick \\d+$/.test(e.label)?\"saved moment\":e.label)",
+   "expect": 1,
+   "note": "same for the screen-reader name of the remove button"
+  },
+  {
+   "id": "CLK-30-module-compare",
+   "target": "compare.html",
+   "find": "</head>",
+   "repl": "<script>/* GTBGTime 2026-10-18.1 dv3 CANDIDATE (adjudicated 2026-10-18, not signed) */\n(function(g){g.GTBGTime=(function(){const t=[\"January\",\"February\",\"March\",\"April\",\"May\",\"June\",\"July\",\"August\",\"September\",\"October\",\"November\",\"December\"],i=[\"Sunday\",\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],e={S:\"A\",M:\"B\",R:\"C\",D:\"D\"},n=[\"time\",\"day\",\"date\",\"long\",\"short\",\"compat\",\"chip\",\"iso\",\"aria\",\"frame\"];function a(t){t+=719468;const i=Math.floor(t/146097),e=t-146097*i,n=Math.floor((e-Math.floor(e/1460)+Math.floor(e/36524)-Math.floor(e/146096))/365),a=e-(365*n+Math.floor(n/4)-Math.floor(n/100)),s=Math.floor((5*a+2)/153),r=s<10?s+3:s-9;return[n+400*i+(r<=2?1:0),r,a-Math.floor((153*s+2)/5)+1]}const s=-38900,r=t=>(t<10?\"0\":\"\")+t,m=(t,i)=>(t%12==0?12:t%12)+\":\"+r(i)+(t>=12?\" PM\":\" AM\"),o=t=>60*+t.slice(0,2)+ +t.slice(3,5);return(function(t){const i=(t,i)=>{try{t=+t}catch(t){return i}return t!=t?i:Math.max(-1e9,Math.min(1e9,t))},e=t=>n.indexOf(t)<0?\"compat\":t;return{version:t.version,dv:t.dv,tickMax:t.tickMax,f:(n,a)=>t.tickToLabel(i(n,1),{style:e(a)}),x:(n,a)=>t.format(i(n,1),e(a)),after:(e,n)=>t.tickAfterMinutes(i(e,1),i(n,0)),hour:e=>t.hour(i(e,1)),phase:e=>t.dayPart(i(e,1)),tab:e=>t.tabDay(i(e,1)),approx:e=>t.isApprox(i(e,1)),tabStart:e=>t.tabStart(i(e,1)),minutes:e=>t.tickToMinutes(i(e,1)),tickAt:e=>t.minutesToTick(i(e,0))}})((function(c){const u=null==c.approx_sigma_min?10:c.approx_sigma_min,d=(c&&c.anchors).map(t=>({tick:t.tick,min:t.min,sigma:null==t.sigma_min?15:t.sigma_min,status:null==t.status?\"M\":t.status,cls:e[null==t.effective_status?t.status:t.effective_status]||\"B\",state:null==t.state?\"proposed\":t.state,review:null==t.review_flag?\"none\":t.review_flag})),l=d.length,k=d[l-1].tick,g=c.tab_days||[[1,k]],h=c.solar||{},_=t=>t<1?1:t>k?k:t,f=(t,i)=>{let e=0,n=l-2;for(;e<n;){const a=e+n+1>>1;d[a][i]<=t?e=a:n=a-1}return e},v=(t,i)=>d[t].min+(d[t+1].min-d[t].min)*(i-d[t].tick)/(d[t+1].tick-d[t].tick),w=new Float64Array(k+1);for(let t=1;t<=k;t++)w[t]=v(f(t,\"tick\"),t);const M=t=>{const i=_(t);return i===(0|i)?w[i]:v(f(i,\"tick\"),i)},p=(t,i)=>{const e=i&&i.extrapolate;if(t<=d[0].min)return e?1+(t-d[0].min)/5:1;if(t>=d[l-1].min)return e?k+(t-d[l-1].min)/5:k;const n=(t=>{let i=0,e=k;for(;i<e;){const n=i+e+1>>1;w[n]<=t?i=n:e=n-1}return i})(t),a=(t-w[n])/(w[n+1]-w[n]);return n+(a<.999999999999?a:.999999999999)},y=t=>{const i=(t=>{const i=_(t),e=f(i,\"tick\"),n=d[e],a=d[e+1];if(i===n.tick)return{sigma:n.sigma,ends:[n]};if(i===a.tick)return{sigma:a.sigma,ends:[a]};const s=(i-n.tick)/(a.tick-n.tick);return{sigma:n.sigma*(1-s)+a.sigma*s,ends:[n,a]}})(t);return i.sigma>=u||i.ends.some(t=>\"signed\"!==t.state)},b=t=>{const i=h[\"1863-07-\"+r(1+t)]||h[\"1863-07-01\"]||{civil_dawn:\"04:03\",sunrise:\"04:35\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"};return{dawn:o(i.civil_dawn),rise:o(i.sunrise),set:o(i.sunset),naut:o(i.nautical_dusk)}},x=(t,i)=>{const e=b(i);return t<e.dawn?\"night\":t<e.rise+60?\"dawn\":t<720?\"morning\":t<e.set-120?\"afternoon\":t<e.set?\"evening\":t<e.naut?\"dusk\":\"night\"},A=(e,n)=>{let r=M(e);r=n?Math.round(r/n)*n:Math.round(r);const m=Math.floor(r/1440),o=r-1440*m,c=a(s+m);let u=null;if(o<b(m).dawn){const i=a(s+m-1);u=\"Night of \"+t[i[1]-1]+\" \"+i[2]+\"-\"+(i[1]===c[1]?\"\":t[c[1]-1]+\" \")+c[2]}return{year:c[0],monthNum:c[1],month:t[c[1]-1],date:c[2],weekday:i[((s+m+4)%7+7)%7],hour24:Math.floor(o/60),minute:o%60,dayIdx:m,minutes:r,mod:o,nightOf:u,phase:x(o,m)}},T=new Map,S=(t,i,e)=>{i=n.indexOf(i)<0?\"long\":i;const a=e&&e.roundMin||0,s=!!e&&e.approx,o=_(t),c=o===(0|o)?o+\"|\"+i+\"|\"+a+\"|\"+s:null;if(c&&T.has(c))return T.get(c);const u=A(o,a),d=!0===s||\"auto\"===s&&y(o)?\"about \":\"\",l=d+m(u.hour24,u.minute),g=u.nightOf,h=(t=>t.nightOf||t.month+\" \"+t.date)(u);let f;switch(i){case\"time\":f=l;break;case\"day\":f=h;break;case\"date\":f=h+\", \"+u.year;break;case\"iso\":f=(t=>t.year+\"-\"+r(t.monthNum)+\"-\"+r(t.date)+\"T\"+r(t.hour24)+\":\"+r(t.minute))(u);break;case\"chip\":f=g?g+\", \"+l:l;break;case\"compat\":f=h+\", \"+l;break;case\"short\":f=(g?g.replace(/[A-Za-z]+(?= \\d)/g,t=>t.slice(0,3)):u.month.slice(0,3)+\" \"+u.date)+\", \"+l;break;case\"aria\":f=d+m(u.hour24,u.minute).replace(\":00 \",\" \")+(g?\" on the \"+g.charAt(0).toLowerCase()+g.slice(1):\" on \"+u.weekday+\", \"+u.month+\" \"+u.date)+\", \"+u.year;break;case\"frame\":f=\"Frame \"+Math.round(o)+\" of \"+k;break;default:f=(g||u.weekday.slice(0,3)+\", \"+u.month+\" \"+u.date)+\" · \"+l}return c&&T.set(c,f),f};return{version:null==c.version?\"\":c.version,dv:null==c.dv?2:c.dv,tickMax:k,tickToMinutes:M,minutesToTick:p,tabDay:t=>{const i=Math.floor(_(t));for(let t=0;t<g.length;t++)if(i<=g[t][1])return t+1;return g.length},tabStart:t=>(g[t-1]||g[0])[0],format:S,tickToLabel:(t,i)=>{const e=i||{};return S(t,e.style||\"long\",{roundMin:null==e.roundMin?5:e.roundMin,approx:null==e.approx?\"auto\":e.approx})},isApprox:y,tickAfterMinutes:(t,i)=>{const e=_(t);let n=Math.round(p(M(e)+i));return 0!==i&&n===Math.round(e)&&Math.abs(i)>=(t=>{const i=f(_(t),\"tick\");return(d[i+1].min-d[i].min)/(d[i+1].tick-d[i].tick)})(i>0?e:e-1e-9)/2&&(n+=i>0?1:-1),_(n)},dayPart:t=>A(t,0).phase,hour:t=>{const i=M(t);return(i-1440*Math.floor(i/1440))/60}}})({version:\"2026-10-18.1\",dv:3,tab_days:[[1,225],[226,450],[451,675]],approx_sigma_min:20,solar:{\"1863-07-01\":{civil_dawn:\"04:03\",sunrise:\"04:35\",noon:\"12:03\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"}},anchors:[{tick:1,min:300,sigma_min:25,state:\"reviewed\"},{tick:5,min:320,sigma_min:30},{tick:12,min:450,sigma_min:25,state:\"reviewed\"},{tick:28,min:615,sigma_min:25,state:\"reviewed\"},{tick:36,min:660,sigma_min:30,state:\"reviewed\"},{tick:53,min:870,sigma_min:30,state:\"reviewed\"},{tick:57,min:900,sigma_min:30,state:\"reviewed\"},{tick:64,min:960,sigma_min:30,state:\"reviewed\"},{tick:72,min:980,sigma_min:30,state:\"reviewed\"},{tick:75,min:1015,sigma_min:35,state:\"reviewed\"},{tick:90,min:1050,sigma_min:90,state:\"contested\"},{tick:100,min:1200,sigma_min:30},{tick:226,min:1710,sigma_min:30},{tick:240,min:2160,sigma_min:45,state:\"reviewed\"},{tick:248,min:2340,sigma_min:60,state:\"contested\"},{tick:256,min:2400,sigma_min:25,state:\"reviewed\"},{tick:267,min:2430,sigma_min:25,state:\"reviewed\"},{tick:275,min:2520,sigma_min:45,state:\"contested\"},{tick:280,min:2535,sigma_min:30,state:\"reviewed\"},{tick:295,min:2580,sigma_min:30,state:\"reviewed\"},{tick:302,min:2590,sigma_min:25,state:\"reviewed\"},{tick:314,min:2600,sigma_min:30,state:\"reviewed\"},{tick:326,min:2640,sigma_min:30,state:\"reviewed\"},{tick:340,min:2775,sigma_min:45,state:\"reviewed\"},{tick:451,min:3135,sigma_min:30,state:\"reviewed\"},{tick:500,min:3420,sigma_min:30,state:\"reviewed\"},{tick:515,min:3510,sigma_min:40,state:\"reviewed\"},{tick:518,min:3660,sigma_min:25,state:\"reviewed\"},{tick:538,min:3780,sigma_min:40,state:\"contested\"},{tick:551,min:3815,sigma_min:25,state:\"reviewed\"},{tick:556,min:3840,sigma_min:25,state:\"reviewed\"},{tick:568,min:3915,sigma_min:30,state:\"reviewed\"},{tick:675,min:4080,sigma_min:30}]}))})();})(typeof globalThis!==\"undefined\"?globalThis:window);</script>\n</head>",
+   "expect": 1,
+   "note": "inlines the GTBGTime global (classic script) for this page"
+  },
+  {
+   "id": "CLK-30-module-living-ledger",
+   "target": "living-ledger.html",
+   "find": "</head>",
+   "repl": "<script>/* GTBGTime 2026-10-18.1 dv3 CANDIDATE (adjudicated 2026-10-18, not signed) */\n(function(g){g.GTBGTime=(function(){const t=[\"January\",\"February\",\"March\",\"April\",\"May\",\"June\",\"July\",\"August\",\"September\",\"October\",\"November\",\"December\"],i=[\"Sunday\",\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],e={S:\"A\",M:\"B\",R:\"C\",D:\"D\"},n=[\"time\",\"day\",\"date\",\"long\",\"short\",\"compat\",\"chip\",\"iso\",\"aria\",\"frame\"];function a(t){t+=719468;const i=Math.floor(t/146097),e=t-146097*i,n=Math.floor((e-Math.floor(e/1460)+Math.floor(e/36524)-Math.floor(e/146096))/365),a=e-(365*n+Math.floor(n/4)-Math.floor(n/100)),s=Math.floor((5*a+2)/153),r=s<10?s+3:s-9;return[n+400*i+(r<=2?1:0),r,a-Math.floor((153*s+2)/5)+1]}const s=-38900,r=t=>(t<10?\"0\":\"\")+t,m=(t,i)=>(t%12==0?12:t%12)+\":\"+r(i)+(t>=12?\" PM\":\" AM\"),o=t=>60*+t.slice(0,2)+ +t.slice(3,5);return(function(t){const i=(t,i)=>{try{t=+t}catch(t){return i}return t!=t?i:Math.max(-1e9,Math.min(1e9,t))},e=t=>n.indexOf(t)<0?\"compat\":t;return{version:t.version,dv:t.dv,tickMax:t.tickMax,f:(n,a)=>t.tickToLabel(i(n,1),{style:e(a)}),x:(n,a)=>t.format(i(n,1),e(a)),after:(e,n)=>t.tickAfterMinutes(i(e,1),i(n,0)),hour:e=>t.hour(i(e,1)),phase:e=>t.dayPart(i(e,1)),tab:e=>t.tabDay(i(e,1)),approx:e=>t.isApprox(i(e,1)),tabStart:e=>t.tabStart(i(e,1)),minutes:e=>t.tickToMinutes(i(e,1)),tickAt:e=>t.minutesToTick(i(e,0))}})((function(c){const u=null==c.approx_sigma_min?10:c.approx_sigma_min,d=(c&&c.anchors).map(t=>({tick:t.tick,min:t.min,sigma:null==t.sigma_min?15:t.sigma_min,status:null==t.status?\"M\":t.status,cls:e[null==t.effective_status?t.status:t.effective_status]||\"B\",state:null==t.state?\"proposed\":t.state,review:null==t.review_flag?\"none\":t.review_flag})),l=d.length,k=d[l-1].tick,g=c.tab_days||[[1,k]],h=c.solar||{},_=t=>t<1?1:t>k?k:t,f=(t,i)=>{let e=0,n=l-2;for(;e<n;){const a=e+n+1>>1;d[a][i]<=t?e=a:n=a-1}return e},v=(t,i)=>d[t].min+(d[t+1].min-d[t].min)*(i-d[t].tick)/(d[t+1].tick-d[t].tick),w=new Float64Array(k+1);for(let t=1;t<=k;t++)w[t]=v(f(t,\"tick\"),t);const M=t=>{const i=_(t);return i===(0|i)?w[i]:v(f(i,\"tick\"),i)},p=(t,i)=>{const e=i&&i.extrapolate;if(t<=d[0].min)return e?1+(t-d[0].min)/5:1;if(t>=d[l-1].min)return e?k+(t-d[l-1].min)/5:k;const n=(t=>{let i=0,e=k;for(;i<e;){const n=i+e+1>>1;w[n]<=t?i=n:e=n-1}return i})(t),a=(t-w[n])/(w[n+1]-w[n]);return n+(a<.999999999999?a:.999999999999)},y=t=>{const i=(t=>{const i=_(t),e=f(i,\"tick\"),n=d[e],a=d[e+1];if(i===n.tick)return{sigma:n.sigma,ends:[n]};if(i===a.tick)return{sigma:a.sigma,ends:[a]};const s=(i-n.tick)/(a.tick-n.tick);return{sigma:n.sigma*(1-s)+a.sigma*s,ends:[n,a]}})(t);return i.sigma>=u||i.ends.some(t=>\"signed\"!==t.state)},b=t=>{const i=h[\"1863-07-\"+r(1+t)]||h[\"1863-07-01\"]||{civil_dawn:\"04:03\",sunrise:\"04:35\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"};return{dawn:o(i.civil_dawn),rise:o(i.sunrise),set:o(i.sunset),naut:o(i.nautical_dusk)}},x=(t,i)=>{const e=b(i);return t<e.dawn?\"night\":t<e.rise+60?\"dawn\":t<720?\"morning\":t<e.set-120?\"afternoon\":t<e.set?\"evening\":t<e.naut?\"dusk\":\"night\"},A=(e,n)=>{let r=M(e);r=n?Math.round(r/n)*n:Math.round(r);const m=Math.floor(r/1440),o=r-1440*m,c=a(s+m);let u=null;if(o<b(m).dawn){const i=a(s+m-1);u=\"Night of \"+t[i[1]-1]+\" \"+i[2]+\"-\"+(i[1]===c[1]?\"\":t[c[1]-1]+\" \")+c[2]}return{year:c[0],monthNum:c[1],month:t[c[1]-1],date:c[2],weekday:i[((s+m+4)%7+7)%7],hour24:Math.floor(o/60),minute:o%60,dayIdx:m,minutes:r,mod:o,nightOf:u,phase:x(o,m)}},T=new Map,S=(t,i,e)=>{i=n.indexOf(i)<0?\"long\":i;const a=e&&e.roundMin||0,s=!!e&&e.approx,o=_(t),c=o===(0|o)?o+\"|\"+i+\"|\"+a+\"|\"+s:null;if(c&&T.has(c))return T.get(c);const u=A(o,a),d=!0===s||\"auto\"===s&&y(o)?\"about \":\"\",l=d+m(u.hour24,u.minute),g=u.nightOf,h=(t=>t.nightOf||t.month+\" \"+t.date)(u);let f;switch(i){case\"time\":f=l;break;case\"day\":f=h;break;case\"date\":f=h+\", \"+u.year;break;case\"iso\":f=(t=>t.year+\"-\"+r(t.monthNum)+\"-\"+r(t.date)+\"T\"+r(t.hour24)+\":\"+r(t.minute))(u);break;case\"chip\":f=g?g+\", \"+l:l;break;case\"compat\":f=h+\", \"+l;break;case\"short\":f=(g?g.replace(/[A-Za-z]+(?= \\d)/g,t=>t.slice(0,3)):u.month.slice(0,3)+\" \"+u.date)+\", \"+l;break;case\"aria\":f=d+m(u.hour24,u.minute).replace(\":00 \",\" \")+(g?\" on the \"+g.charAt(0).toLowerCase()+g.slice(1):\" on \"+u.weekday+\", \"+u.month+\" \"+u.date)+\", \"+u.year;break;case\"frame\":f=\"Frame \"+Math.round(o)+\" of \"+k;break;default:f=(g||u.weekday.slice(0,3)+\", \"+u.month+\" \"+u.date)+\" · \"+l}return c&&T.set(c,f),f};return{version:null==c.version?\"\":c.version,dv:null==c.dv?2:c.dv,tickMax:k,tickToMinutes:M,minutesToTick:p,tabDay:t=>{const i=Math.floor(_(t));for(let t=0;t<g.length;t++)if(i<=g[t][1])return t+1;return g.length},tabStart:t=>(g[t-1]||g[0])[0],format:S,tickToLabel:(t,i)=>{const e=i||{};return S(t,e.style||\"long\",{roundMin:null==e.roundMin?5:e.roundMin,approx:null==e.approx?\"auto\":e.approx})},isApprox:y,tickAfterMinutes:(t,i)=>{const e=_(t);let n=Math.round(p(M(e)+i));return 0!==i&&n===Math.round(e)&&Math.abs(i)>=(t=>{const i=f(_(t),\"tick\");return(d[i+1].min-d[i].min)/(d[i+1].tick-d[i].tick)})(i>0?e:e-1e-9)/2&&(n+=i>0?1:-1),_(n)},dayPart:t=>A(t,0).phase,hour:t=>{const i=M(t);return(i-1440*Math.floor(i/1440))/60}}})({version:\"2026-10-18.1\",dv:3,tab_days:[[1,225],[226,450],[451,675]],approx_sigma_min:20,solar:{\"1863-07-01\":{civil_dawn:\"04:03\",sunrise:\"04:35\",noon:\"12:03\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"}},anchors:[{tick:1,min:300,sigma_min:25,state:\"reviewed\"},{tick:5,min:320,sigma_min:30},{tick:12,min:450,sigma_min:25,state:\"reviewed\"},{tick:28,min:615,sigma_min:25,state:\"reviewed\"},{tick:36,min:660,sigma_min:30,state:\"reviewed\"},{tick:53,min:870,sigma_min:30,state:\"reviewed\"},{tick:57,min:900,sigma_min:30,state:\"reviewed\"},{tick:64,min:960,sigma_min:30,state:\"reviewed\"},{tick:72,min:980,sigma_min:30,state:\"reviewed\"},{tick:75,min:1015,sigma_min:35,state:\"reviewed\"},{tick:90,min:1050,sigma_min:90,state:\"contested\"},{tick:100,min:1200,sigma_min:30},{tick:226,min:1710,sigma_min:30},{tick:240,min:2160,sigma_min:45,state:\"reviewed\"},{tick:248,min:2340,sigma_min:60,state:\"contested\"},{tick:256,min:2400,sigma_min:25,state:\"reviewed\"},{tick:267,min:2430,sigma_min:25,state:\"reviewed\"},{tick:275,min:2520,sigma_min:45,state:\"contested\"},{tick:280,min:2535,sigma_min:30,state:\"reviewed\"},{tick:295,min:2580,sigma_min:30,state:\"reviewed\"},{tick:302,min:2590,sigma_min:25,state:\"reviewed\"},{tick:314,min:2600,sigma_min:30,state:\"reviewed\"},{tick:326,min:2640,sigma_min:30,state:\"reviewed\"},{tick:340,min:2775,sigma_min:45,state:\"reviewed\"},{tick:451,min:3135,sigma_min:30,state:\"reviewed\"},{tick:500,min:3420,sigma_min:30,state:\"reviewed\"},{tick:515,min:3510,sigma_min:40,state:\"reviewed\"},{tick:518,min:3660,sigma_min:25,state:\"reviewed\"},{tick:538,min:3780,sigma_min:40,state:\"contested\"},{tick:551,min:3815,sigma_min:25,state:\"reviewed\"},{tick:556,min:3840,sigma_min:25,state:\"reviewed\"},{tick:568,min:3915,sigma_min:30,state:\"reviewed\"},{tick:675,min:4080,sigma_min:30}]}))})();})(typeof globalThis!==\"undefined\"?globalThis:window);</script>\n</head>",
+   "expect": 1,
+   "note": "inlines the GTBGTime global (classic script) for this page"
+  },
+  {
+   "id": "CLK-30-module-camera",
+   "target": "camera.html",
+   "find": "</head>",
+   "repl": "<script>/* GTBGTime 2026-10-18.1 dv3 CANDIDATE (adjudicated 2026-10-18, not signed) */\n(function(g){g.GTBGTime=(function(){const t=[\"January\",\"February\",\"March\",\"April\",\"May\",\"June\",\"July\",\"August\",\"September\",\"October\",\"November\",\"December\"],i=[\"Sunday\",\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],e={S:\"A\",M:\"B\",R:\"C\",D:\"D\"},n=[\"time\",\"day\",\"date\",\"long\",\"short\",\"compat\",\"chip\",\"iso\",\"aria\",\"frame\"];function a(t){t+=719468;const i=Math.floor(t/146097),e=t-146097*i,n=Math.floor((e-Math.floor(e/1460)+Math.floor(e/36524)-Math.floor(e/146096))/365),a=e-(365*n+Math.floor(n/4)-Math.floor(n/100)),s=Math.floor((5*a+2)/153),r=s<10?s+3:s-9;return[n+400*i+(r<=2?1:0),r,a-Math.floor((153*s+2)/5)+1]}const s=-38900,r=t=>(t<10?\"0\":\"\")+t,m=(t,i)=>(t%12==0?12:t%12)+\":\"+r(i)+(t>=12?\" PM\":\" AM\"),o=t=>60*+t.slice(0,2)+ +t.slice(3,5);return(function(t){const i=(t,i)=>{try{t=+t}catch(t){return i}return t!=t?i:Math.max(-1e9,Math.min(1e9,t))},e=t=>n.indexOf(t)<0?\"compat\":t;return{version:t.version,dv:t.dv,tickMax:t.tickMax,f:(n,a)=>t.tickToLabel(i(n,1),{style:e(a)}),x:(n,a)=>t.format(i(n,1),e(a)),after:(e,n)=>t.tickAfterMinutes(i(e,1),i(n,0)),hour:e=>t.hour(i(e,1)),phase:e=>t.dayPart(i(e,1)),tab:e=>t.tabDay(i(e,1)),approx:e=>t.isApprox(i(e,1)),tabStart:e=>t.tabStart(i(e,1)),minutes:e=>t.tickToMinutes(i(e,1)),tickAt:e=>t.minutesToTick(i(e,0))}})((function(c){const u=null==c.approx_sigma_min?10:c.approx_sigma_min,d=(c&&c.anchors).map(t=>({tick:t.tick,min:t.min,sigma:null==t.sigma_min?15:t.sigma_min,status:null==t.status?\"M\":t.status,cls:e[null==t.effective_status?t.status:t.effective_status]||\"B\",state:null==t.state?\"proposed\":t.state,review:null==t.review_flag?\"none\":t.review_flag})),l=d.length,k=d[l-1].tick,g=c.tab_days||[[1,k]],h=c.solar||{},_=t=>t<1?1:t>k?k:t,f=(t,i)=>{let e=0,n=l-2;for(;e<n;){const a=e+n+1>>1;d[a][i]<=t?e=a:n=a-1}return e},v=(t,i)=>d[t].min+(d[t+1].min-d[t].min)*(i-d[t].tick)/(d[t+1].tick-d[t].tick),w=new Float64Array(k+1);for(let t=1;t<=k;t++)w[t]=v(f(t,\"tick\"),t);const M=t=>{const i=_(t);return i===(0|i)?w[i]:v(f(i,\"tick\"),i)},p=(t,i)=>{const e=i&&i.extrapolate;if(t<=d[0].min)return e?1+(t-d[0].min)/5:1;if(t>=d[l-1].min)return e?k+(t-d[l-1].min)/5:k;const n=(t=>{let i=0,e=k;for(;i<e;){const n=i+e+1>>1;w[n]<=t?i=n:e=n-1}return i})(t),a=(t-w[n])/(w[n+1]-w[n]);return n+(a<.999999999999?a:.999999999999)},y=t=>{const i=(t=>{const i=_(t),e=f(i,\"tick\"),n=d[e],a=d[e+1];if(i===n.tick)return{sigma:n.sigma,ends:[n]};if(i===a.tick)return{sigma:a.sigma,ends:[a]};const s=(i-n.tick)/(a.tick-n.tick);return{sigma:n.sigma*(1-s)+a.sigma*s,ends:[n,a]}})(t);return i.sigma>=u||i.ends.some(t=>\"signed\"!==t.state)},b=t=>{const i=h[\"1863-07-\"+r(1+t)]||h[\"1863-07-01\"]||{civil_dawn:\"04:03\",sunrise:\"04:35\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"};return{dawn:o(i.civil_dawn),rise:o(i.sunrise),set:o(i.sunset),naut:o(i.nautical_dusk)}},x=(t,i)=>{const e=b(i);return t<e.dawn?\"night\":t<e.rise+60?\"dawn\":t<720?\"morning\":t<e.set-120?\"afternoon\":t<e.set?\"evening\":t<e.naut?\"dusk\":\"night\"},A=(e,n)=>{let r=M(e);r=n?Math.round(r/n)*n:Math.round(r);const m=Math.floor(r/1440),o=r-1440*m,c=a(s+m);let u=null;if(o<b(m).dawn){const i=a(s+m-1);u=\"Night of \"+t[i[1]-1]+\" \"+i[2]+\"-\"+(i[1]===c[1]?\"\":t[c[1]-1]+\" \")+c[2]}return{year:c[0],monthNum:c[1],month:t[c[1]-1],date:c[2],weekday:i[((s+m+4)%7+7)%7],hour24:Math.floor(o/60),minute:o%60,dayIdx:m,minutes:r,mod:o,nightOf:u,phase:x(o,m)}},T=new Map,S=(t,i,e)=>{i=n.indexOf(i)<0?\"long\":i;const a=e&&e.roundMin||0,s=!!e&&e.approx,o=_(t),c=o===(0|o)?o+\"|\"+i+\"|\"+a+\"|\"+s:null;if(c&&T.has(c))return T.get(c);const u=A(o,a),d=!0===s||\"auto\"===s&&y(o)?\"about \":\"\",l=d+m(u.hour24,u.minute),g=u.nightOf,h=(t=>t.nightOf||t.month+\" \"+t.date)(u);let f;switch(i){case\"time\":f=l;break;case\"day\":f=h;break;case\"date\":f=h+\", \"+u.year;break;case\"iso\":f=(t=>t.year+\"-\"+r(t.monthNum)+\"-\"+r(t.date)+\"T\"+r(t.hour24)+\":\"+r(t.minute))(u);break;case\"chip\":f=g?g+\", \"+l:l;break;case\"compat\":f=h+\", \"+l;break;case\"short\":f=(g?g.replace(/[A-Za-z]+(?= \\d)/g,t=>t.slice(0,3)):u.month.slice(0,3)+\" \"+u.date)+\", \"+l;break;case\"aria\":f=d+m(u.hour24,u.minute).replace(\":00 \",\" \")+(g?\" on the \"+g.charAt(0).toLowerCase()+g.slice(1):\" on \"+u.weekday+\", \"+u.month+\" \"+u.date)+\", \"+u.year;break;case\"frame\":f=\"Frame \"+Math.round(o)+\" of \"+k;break;default:f=(g||u.weekday.slice(0,3)+\", \"+u.month+\" \"+u.date)+\" · \"+l}return c&&T.set(c,f),f};return{version:null==c.version?\"\":c.version,dv:null==c.dv?2:c.dv,tickMax:k,tickToMinutes:M,minutesToTick:p,tabDay:t=>{const i=Math.floor(_(t));for(let t=0;t<g.length;t++)if(i<=g[t][1])return t+1;return g.length},tabStart:t=>(g[t-1]||g[0])[0],format:S,tickToLabel:(t,i)=>{const e=i||{};return S(t,e.style||\"long\",{roundMin:null==e.roundMin?5:e.roundMin,approx:null==e.approx?\"auto\":e.approx})},isApprox:y,tickAfterMinutes:(t,i)=>{const e=_(t);let n=Math.round(p(M(e)+i));return 0!==i&&n===Math.round(e)&&Math.abs(i)>=(t=>{const i=f(_(t),\"tick\");return(d[i+1].min-d[i].min)/(d[i+1].tick-d[i].tick)})(i>0?e:e-1e-9)/2&&(n+=i>0?1:-1),_(n)},dayPart:t=>A(t,0).phase,hour:t=>{const i=M(t);return(i-1440*Math.floor(i/1440))/60}}})({version:\"2026-10-18.1\",dv:3,tab_days:[[1,225],[226,450],[451,675]],approx_sigma_min:20,solar:{\"1863-07-01\":{civil_dawn:\"04:03\",sunrise:\"04:35\",noon:\"12:03\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"}},anchors:[{tick:1,min:300,sigma_min:25,state:\"reviewed\"},{tick:5,min:320,sigma_min:30},{tick:12,min:450,sigma_min:25,state:\"reviewed\"},{tick:28,min:615,sigma_min:25,state:\"reviewed\"},{tick:36,min:660,sigma_min:30,state:\"reviewed\"},{tick:53,min:870,sigma_min:30,state:\"reviewed\"},{tick:57,min:900,sigma_min:30,state:\"reviewed\"},{tick:64,min:960,sigma_min:30,state:\"reviewed\"},{tick:72,min:980,sigma_min:30,state:\"reviewed\"},{tick:75,min:1015,sigma_min:35,state:\"reviewed\"},{tick:90,min:1050,sigma_min:90,state:\"contested\"},{tick:100,min:1200,sigma_min:30},{tick:226,min:1710,sigma_min:30},{tick:240,min:2160,sigma_min:45,state:\"reviewed\"},{tick:248,min:2340,sigma_min:60,state:\"contested\"},{tick:256,min:2400,sigma_min:25,state:\"reviewed\"},{tick:267,min:2430,sigma_min:25,state:\"reviewed\"},{tick:275,min:2520,sigma_min:45,state:\"contested\"},{tick:280,min:2535,sigma_min:30,state:\"reviewed\"},{tick:295,min:2580,sigma_min:30,state:\"reviewed\"},{tick:302,min:2590,sigma_min:25,state:\"reviewed\"},{tick:314,min:2600,sigma_min:30,state:\"reviewed\"},{tick:326,min:2640,sigma_min:30,state:\"reviewed\"},{tick:340,min:2775,sigma_min:45,state:\"reviewed\"},{tick:451,min:3135,sigma_min:30,state:\"reviewed\"},{tick:500,min:3420,sigma_min:30,state:\"reviewed\"},{tick:515,min:3510,sigma_min:40,state:\"reviewed\"},{tick:518,min:3660,sigma_min:25,state:\"reviewed\"},{tick:538,min:3780,sigma_min:40,state:\"contested\"},{tick:551,min:3815,sigma_min:25,state:\"reviewed\"},{tick:556,min:3840,sigma_min:25,state:\"reviewed\"},{tick:568,min:3915,sigma_min:30,state:\"reviewed\"},{tick:675,min:4080,sigma_min:30}]}))})();})(typeof globalThis!==\"undefined\"?globalThis:window);</script>\n</head>",
+   "expect": 1,
+   "note": "inlines the GTBGTime global (classic script) for this page"
+  },
+  {
+   "id": "CLK-30-module-immersive",
+   "target": "immersive.html",
+   "find": "</head>",
+   "repl": "<script>/* GTBGTime 2026-10-18.1 dv3 CANDIDATE (adjudicated 2026-10-18, not signed) */\n(function(g){g.GTBGTime=(function(){const t=[\"January\",\"February\",\"March\",\"April\",\"May\",\"June\",\"July\",\"August\",\"September\",\"October\",\"November\",\"December\"],i=[\"Sunday\",\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],e={S:\"A\",M:\"B\",R:\"C\",D:\"D\"},n=[\"time\",\"day\",\"date\",\"long\",\"short\",\"compat\",\"chip\",\"iso\",\"aria\",\"frame\"];function a(t){t+=719468;const i=Math.floor(t/146097),e=t-146097*i,n=Math.floor((e-Math.floor(e/1460)+Math.floor(e/36524)-Math.floor(e/146096))/365),a=e-(365*n+Math.floor(n/4)-Math.floor(n/100)),s=Math.floor((5*a+2)/153),r=s<10?s+3:s-9;return[n+400*i+(r<=2?1:0),r,a-Math.floor((153*s+2)/5)+1]}const s=-38900,r=t=>(t<10?\"0\":\"\")+t,m=(t,i)=>(t%12==0?12:t%12)+\":\"+r(i)+(t>=12?\" PM\":\" AM\"),o=t=>60*+t.slice(0,2)+ +t.slice(3,5);return(function(t){const i=(t,i)=>{try{t=+t}catch(t){return i}return t!=t?i:Math.max(-1e9,Math.min(1e9,t))},e=t=>n.indexOf(t)<0?\"compat\":t;return{version:t.version,dv:t.dv,tickMax:t.tickMax,f:(n,a)=>t.tickToLabel(i(n,1),{style:e(a)}),x:(n,a)=>t.format(i(n,1),e(a)),after:(e,n)=>t.tickAfterMinutes(i(e,1),i(n,0)),hour:e=>t.hour(i(e,1)),phase:e=>t.dayPart(i(e,1)),tab:e=>t.tabDay(i(e,1)),approx:e=>t.isApprox(i(e,1)),tabStart:e=>t.tabStart(i(e,1)),minutes:e=>t.tickToMinutes(i(e,1)),tickAt:e=>t.minutesToTick(i(e,0))}})((function(c){const u=null==c.approx_sigma_min?10:c.approx_sigma_min,d=(c&&c.anchors).map(t=>({tick:t.tick,min:t.min,sigma:null==t.sigma_min?15:t.sigma_min,status:null==t.status?\"M\":t.status,cls:e[null==t.effective_status?t.status:t.effective_status]||\"B\",state:null==t.state?\"proposed\":t.state,review:null==t.review_flag?\"none\":t.review_flag})),l=d.length,k=d[l-1].tick,g=c.tab_days||[[1,k]],h=c.solar||{},_=t=>t<1?1:t>k?k:t,f=(t,i)=>{let e=0,n=l-2;for(;e<n;){const a=e+n+1>>1;d[a][i]<=t?e=a:n=a-1}return e},v=(t,i)=>d[t].min+(d[t+1].min-d[t].min)*(i-d[t].tick)/(d[t+1].tick-d[t].tick),w=new Float64Array(k+1);for(let t=1;t<=k;t++)w[t]=v(f(t,\"tick\"),t);const M=t=>{const i=_(t);return i===(0|i)?w[i]:v(f(i,\"tick\"),i)},p=(t,i)=>{const e=i&&i.extrapolate;if(t<=d[0].min)return e?1+(t-d[0].min)/5:1;if(t>=d[l-1].min)return e?k+(t-d[l-1].min)/5:k;const n=(t=>{let i=0,e=k;for(;i<e;){const n=i+e+1>>1;w[n]<=t?i=n:e=n-1}return i})(t),a=(t-w[n])/(w[n+1]-w[n]);return n+(a<.999999999999?a:.999999999999)},y=t=>{const i=(t=>{const i=_(t),e=f(i,\"tick\"),n=d[e],a=d[e+1];if(i===n.tick)return{sigma:n.sigma,ends:[n]};if(i===a.tick)return{sigma:a.sigma,ends:[a]};const s=(i-n.tick)/(a.tick-n.tick);return{sigma:n.sigma*(1-s)+a.sigma*s,ends:[n,a]}})(t);return i.sigma>=u||i.ends.some(t=>\"signed\"!==t.state)},b=t=>{const i=h[\"1863-07-\"+r(1+t)]||h[\"1863-07-01\"]||{civil_dawn:\"04:03\",sunrise:\"04:35\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"};return{dawn:o(i.civil_dawn),rise:o(i.sunrise),set:o(i.sunset),naut:o(i.nautical_dusk)}},x=(t,i)=>{const e=b(i);return t<e.dawn?\"night\":t<e.rise+60?\"dawn\":t<720?\"morning\":t<e.set-120?\"afternoon\":t<e.set?\"evening\":t<e.naut?\"dusk\":\"night\"},A=(e,n)=>{let r=M(e);r=n?Math.round(r/n)*n:Math.round(r);const m=Math.floor(r/1440),o=r-1440*m,c=a(s+m);let u=null;if(o<b(m).dawn){const i=a(s+m-1);u=\"Night of \"+t[i[1]-1]+\" \"+i[2]+\"-\"+(i[1]===c[1]?\"\":t[c[1]-1]+\" \")+c[2]}return{year:c[0],monthNum:c[1],month:t[c[1]-1],date:c[2],weekday:i[((s+m+4)%7+7)%7],hour24:Math.floor(o/60),minute:o%60,dayIdx:m,minutes:r,mod:o,nightOf:u,phase:x(o,m)}},T=new Map,S=(t,i,e)=>{i=n.indexOf(i)<0?\"long\":i;const a=e&&e.roundMin||0,s=!!e&&e.approx,o=_(t),c=o===(0|o)?o+\"|\"+i+\"|\"+a+\"|\"+s:null;if(c&&T.has(c))return T.get(c);const u=A(o,a),d=!0===s||\"auto\"===s&&y(o)?\"about \":\"\",l=d+m(u.hour24,u.minute),g=u.nightOf,h=(t=>t.nightOf||t.month+\" \"+t.date)(u);let f;switch(i){case\"time\":f=l;break;case\"day\":f=h;break;case\"date\":f=h+\", \"+u.year;break;case\"iso\":f=(t=>t.year+\"-\"+r(t.monthNum)+\"-\"+r(t.date)+\"T\"+r(t.hour24)+\":\"+r(t.minute))(u);break;case\"chip\":f=g?g+\", \"+l:l;break;case\"compat\":f=h+\", \"+l;break;case\"short\":f=(g?g.replace(/[A-Za-z]+(?= \\d)/g,t=>t.slice(0,3)):u.month.slice(0,3)+\" \"+u.date)+\", \"+l;break;case\"aria\":f=d+m(u.hour24,u.minute).replace(\":00 \",\" \")+(g?\" on the \"+g.charAt(0).toLowerCase()+g.slice(1):\" on \"+u.weekday+\", \"+u.month+\" \"+u.date)+\", \"+u.year;break;case\"frame\":f=\"Frame \"+Math.round(o)+\" of \"+k;break;default:f=(g||u.weekday.slice(0,3)+\", \"+u.month+\" \"+u.date)+\" · \"+l}return c&&T.set(c,f),f};return{version:null==c.version?\"\":c.version,dv:null==c.dv?2:c.dv,tickMax:k,tickToMinutes:M,minutesToTick:p,tabDay:t=>{const i=Math.floor(_(t));for(let t=0;t<g.length;t++)if(i<=g[t][1])return t+1;return g.length},tabStart:t=>(g[t-1]||g[0])[0],format:S,tickToLabel:(t,i)=>{const e=i||{};return S(t,e.style||\"long\",{roundMin:null==e.roundMin?5:e.roundMin,approx:null==e.approx?\"auto\":e.approx})},isApprox:y,tickAfterMinutes:(t,i)=>{const e=_(t);let n=Math.round(p(M(e)+i));return 0!==i&&n===Math.round(e)&&Math.abs(i)>=(t=>{const i=f(_(t),\"tick\");return(d[i+1].min-d[i].min)/(d[i+1].tick-d[i].tick)})(i>0?e:e-1e-9)/2&&(n+=i>0?1:-1),_(n)},dayPart:t=>A(t,0).phase,hour:t=>{const i=M(t);return(i-1440*Math.floor(i/1440))/60}}})({version:\"2026-10-18.1\",dv:3,tab_days:[[1,225],[226,450],[451,675]],approx_sigma_min:20,solar:{\"1863-07-01\":{civil_dawn:\"04:03\",sunrise:\"04:35\",noon:\"12:03\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"}},anchors:[{tick:1,min:300,sigma_min:25,state:\"reviewed\"},{tick:5,min:320,sigma_min:30},{tick:12,min:450,sigma_min:25,state:\"reviewed\"},{tick:28,min:615,sigma_min:25,state:\"reviewed\"},{tick:36,min:660,sigma_min:30,state:\"reviewed\"},{tick:53,min:870,sigma_min:30,state:\"reviewed\"},{tick:57,min:900,sigma_min:30,state:\"reviewed\"},{tick:64,min:960,sigma_min:30,state:\"reviewed\"},{tick:72,min:980,sigma_min:30,state:\"reviewed\"},{tick:75,min:1015,sigma_min:35,state:\"reviewed\"},{tick:90,min:1050,sigma_min:90,state:\"contested\"},{tick:100,min:1200,sigma_min:30},{tick:226,min:1710,sigma_min:30},{tick:240,min:2160,sigma_min:45,state:\"reviewed\"},{tick:248,min:2340,sigma_min:60,state:\"contested\"},{tick:256,min:2400,sigma_min:25,state:\"reviewed\"},{tick:267,min:2430,sigma_min:25,state:\"reviewed\"},{tick:275,min:2520,sigma_min:45,state:\"contested\"},{tick:280,min:2535,sigma_min:30,state:\"reviewed\"},{tick:295,min:2580,sigma_min:30,state:\"reviewed\"},{tick:302,min:2590,sigma_min:25,state:\"reviewed\"},{tick:314,min:2600,sigma_min:30,state:\"reviewed\"},{tick:326,min:2640,sigma_min:30,state:\"reviewed\"},{tick:340,min:2775,sigma_min:45,state:\"reviewed\"},{tick:451,min:3135,sigma_min:30,state:\"reviewed\"},{tick:500,min:3420,sigma_min:30,state:\"reviewed\"},{tick:515,min:3510,sigma_min:40,state:\"reviewed\"},{tick:518,min:3660,sigma_min:25,state:\"reviewed\"},{tick:538,min:3780,sigma_min:40,state:\"contested\"},{tick:551,min:3815,sigma_min:25,state:\"reviewed\"},{tick:556,min:3840,sigma_min:25,state:\"reviewed\"},{tick:568,min:3915,sigma_min:30,state:\"reviewed\"},{tick:675,min:4080,sigma_min:30}]}))})();})(typeof globalThis!==\"undefined\"?globalThis:window);</script>\n</head>",
+   "expect": 1,
+   "note": "inlines the GTBGTime global (classic script) for this page"
+  },
+  {
+   "id": "CLK-30-module-documentary",
+   "target": "documentary.html",
+   "find": "</head>",
+   "repl": "<script>/* GTBGTime 2026-10-18.1 dv3 CANDIDATE (adjudicated 2026-10-18, not signed) */\n(function(g){g.GTBGTime=(function(){const t=[\"January\",\"February\",\"March\",\"April\",\"May\",\"June\",\"July\",\"August\",\"September\",\"October\",\"November\",\"December\"],i=[\"Sunday\",\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],e={S:\"A\",M:\"B\",R:\"C\",D:\"D\"},n=[\"time\",\"day\",\"date\",\"long\",\"short\",\"compat\",\"chip\",\"iso\",\"aria\",\"frame\"];function a(t){t+=719468;const i=Math.floor(t/146097),e=t-146097*i,n=Math.floor((e-Math.floor(e/1460)+Math.floor(e/36524)-Math.floor(e/146096))/365),a=e-(365*n+Math.floor(n/4)-Math.floor(n/100)),s=Math.floor((5*a+2)/153),r=s<10?s+3:s-9;return[n+400*i+(r<=2?1:0),r,a-Math.floor((153*s+2)/5)+1]}const s=-38900,r=t=>(t<10?\"0\":\"\")+t,m=(t,i)=>(t%12==0?12:t%12)+\":\"+r(i)+(t>=12?\" PM\":\" AM\"),o=t=>60*+t.slice(0,2)+ +t.slice(3,5);return(function(t){const i=(t,i)=>{try{t=+t}catch(t){return i}return t!=t?i:Math.max(-1e9,Math.min(1e9,t))},e=t=>n.indexOf(t)<0?\"compat\":t;return{version:t.version,dv:t.dv,tickMax:t.tickMax,f:(n,a)=>t.tickToLabel(i(n,1),{style:e(a)}),x:(n,a)=>t.format(i(n,1),e(a)),after:(e,n)=>t.tickAfterMinutes(i(e,1),i(n,0)),hour:e=>t.hour(i(e,1)),phase:e=>t.dayPart(i(e,1)),tab:e=>t.tabDay(i(e,1)),approx:e=>t.isApprox(i(e,1)),tabStart:e=>t.tabStart(i(e,1)),minutes:e=>t.tickToMinutes(i(e,1)),tickAt:e=>t.minutesToTick(i(e,0))}})((function(c){const u=null==c.approx_sigma_min?10:c.approx_sigma_min,d=(c&&c.anchors).map(t=>({tick:t.tick,min:t.min,sigma:null==t.sigma_min?15:t.sigma_min,status:null==t.status?\"M\":t.status,cls:e[null==t.effective_status?t.status:t.effective_status]||\"B\",state:null==t.state?\"proposed\":t.state,review:null==t.review_flag?\"none\":t.review_flag})),l=d.length,k=d[l-1].tick,g=c.tab_days||[[1,k]],h=c.solar||{},_=t=>t<1?1:t>k?k:t,f=(t,i)=>{let e=0,n=l-2;for(;e<n;){const a=e+n+1>>1;d[a][i]<=t?e=a:n=a-1}return e},v=(t,i)=>d[t].min+(d[t+1].min-d[t].min)*(i-d[t].tick)/(d[t+1].tick-d[t].tick),w=new Float64Array(k+1);for(let t=1;t<=k;t++)w[t]=v(f(t,\"tick\"),t);const M=t=>{const i=_(t);return i===(0|i)?w[i]:v(f(i,\"tick\"),i)},p=(t,i)=>{const e=i&&i.extrapolate;if(t<=d[0].min)return e?1+(t-d[0].min)/5:1;if(t>=d[l-1].min)return e?k+(t-d[l-1].min)/5:k;const n=(t=>{let i=0,e=k;for(;i<e;){const n=i+e+1>>1;w[n]<=t?i=n:e=n-1}return i})(t),a=(t-w[n])/(w[n+1]-w[n]);return n+(a<.999999999999?a:.999999999999)},y=t=>{const i=(t=>{const i=_(t),e=f(i,\"tick\"),n=d[e],a=d[e+1];if(i===n.tick)return{sigma:n.sigma,ends:[n]};if(i===a.tick)return{sigma:a.sigma,ends:[a]};const s=(i-n.tick)/(a.tick-n.tick);return{sigma:n.sigma*(1-s)+a.sigma*s,ends:[n,a]}})(t);return i.sigma>=u||i.ends.some(t=>\"signed\"!==t.state)},b=t=>{const i=h[\"1863-07-\"+r(1+t)]||h[\"1863-07-01\"]||{civil_dawn:\"04:03\",sunrise:\"04:35\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"};return{dawn:o(i.civil_dawn),rise:o(i.sunrise),set:o(i.sunset),naut:o(i.nautical_dusk)}},x=(t,i)=>{const e=b(i);return t<e.dawn?\"night\":t<e.rise+60?\"dawn\":t<720?\"morning\":t<e.set-120?\"afternoon\":t<e.set?\"evening\":t<e.naut?\"dusk\":\"night\"},A=(e,n)=>{let r=M(e);r=n?Math.round(r/n)*n:Math.round(r);const m=Math.floor(r/1440),o=r-1440*m,c=a(s+m);let u=null;if(o<b(m).dawn){const i=a(s+m-1);u=\"Night of \"+t[i[1]-1]+\" \"+i[2]+\"-\"+(i[1]===c[1]?\"\":t[c[1]-1]+\" \")+c[2]}return{year:c[0],monthNum:c[1],month:t[c[1]-1],date:c[2],weekday:i[((s+m+4)%7+7)%7],hour24:Math.floor(o/60),minute:o%60,dayIdx:m,minutes:r,mod:o,nightOf:u,phase:x(o,m)}},T=new Map,S=(t,i,e)=>{i=n.indexOf(i)<0?\"long\":i;const a=e&&e.roundMin||0,s=!!e&&e.approx,o=_(t),c=o===(0|o)?o+\"|\"+i+\"|\"+a+\"|\"+s:null;if(c&&T.has(c))return T.get(c);const u=A(o,a),d=!0===s||\"auto\"===s&&y(o)?\"about \":\"\",l=d+m(u.hour24,u.minute),g=u.nightOf,h=(t=>t.nightOf||t.month+\" \"+t.date)(u);let f;switch(i){case\"time\":f=l;break;case\"day\":f=h;break;case\"date\":f=h+\", \"+u.year;break;case\"iso\":f=(t=>t.year+\"-\"+r(t.monthNum)+\"-\"+r(t.date)+\"T\"+r(t.hour24)+\":\"+r(t.minute))(u);break;case\"chip\":f=g?g+\", \"+l:l;break;case\"compat\":f=h+\", \"+l;break;case\"short\":f=(g?g.replace(/[A-Za-z]+(?= \\d)/g,t=>t.slice(0,3)):u.month.slice(0,3)+\" \"+u.date)+\", \"+l;break;case\"aria\":f=d+m(u.hour24,u.minute).replace(\":00 \",\" \")+(g?\" on the \"+g.charAt(0).toLowerCase()+g.slice(1):\" on \"+u.weekday+\", \"+u.month+\" \"+u.date)+\", \"+u.year;break;case\"frame\":f=\"Frame \"+Math.round(o)+\" of \"+k;break;default:f=(g||u.weekday.slice(0,3)+\", \"+u.month+\" \"+u.date)+\" · \"+l}return c&&T.set(c,f),f};return{version:null==c.version?\"\":c.version,dv:null==c.dv?2:c.dv,tickMax:k,tickToMinutes:M,minutesToTick:p,tabDay:t=>{const i=Math.floor(_(t));for(let t=0;t<g.length;t++)if(i<=g[t][1])return t+1;return g.length},tabStart:t=>(g[t-1]||g[0])[0],format:S,tickToLabel:(t,i)=>{const e=i||{};return S(t,e.style||\"long\",{roundMin:null==e.roundMin?5:e.roundMin,approx:null==e.approx?\"auto\":e.approx})},isApprox:y,tickAfterMinutes:(t,i)=>{const e=_(t);let n=Math.round(p(M(e)+i));return 0!==i&&n===Math.round(e)&&Math.abs(i)>=(t=>{const i=f(_(t),\"tick\");return(d[i+1].min-d[i].min)/(d[i+1].tick-d[i].tick)})(i>0?e:e-1e-9)/2&&(n+=i>0?1:-1),_(n)},dayPart:t=>A(t,0).phase,hour:t=>{const i=M(t);return(i-1440*Math.floor(i/1440))/60}}})({version:\"2026-10-18.1\",dv:3,tab_days:[[1,225],[226,450],[451,675]],approx_sigma_min:20,solar:{\"1863-07-01\":{civil_dawn:\"04:03\",sunrise:\"04:35\",noon:\"12:03\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"}},anchors:[{tick:1,min:300,sigma_min:25,state:\"reviewed\"},{tick:5,min:320,sigma_min:30},{tick:12,min:450,sigma_min:25,state:\"reviewed\"},{tick:28,min:615,sigma_min:25,state:\"reviewed\"},{tick:36,min:660,sigma_min:30,state:\"reviewed\"},{tick:53,min:870,sigma_min:30,state:\"reviewed\"},{tick:57,min:900,sigma_min:30,state:\"reviewed\"},{tick:64,min:960,sigma_min:30,state:\"reviewed\"},{tick:72,min:980,sigma_min:30,state:\"reviewed\"},{tick:75,min:1015,sigma_min:35,state:\"reviewed\"},{tick:90,min:1050,sigma_min:90,state:\"contested\"},{tick:100,min:1200,sigma_min:30},{tick:226,min:1710,sigma_min:30},{tick:240,min:2160,sigma_min:45,state:\"reviewed\"},{tick:248,min:2340,sigma_min:60,state:\"contested\"},{tick:256,min:2400,sigma_min:25,state:\"reviewed\"},{tick:267,min:2430,sigma_min:25,state:\"reviewed\"},{tick:275,min:2520,sigma_min:45,state:\"contested\"},{tick:280,min:2535,sigma_min:30,state:\"reviewed\"},{tick:295,min:2580,sigma_min:30,state:\"reviewed\"},{tick:302,min:2590,sigma_min:25,state:\"reviewed\"},{tick:314,min:2600,sigma_min:30,state:\"reviewed\"},{tick:326,min:2640,sigma_min:30,state:\"reviewed\"},{tick:340,min:2775,sigma_min:45,state:\"reviewed\"},{tick:451,min:3135,sigma_min:30,state:\"reviewed\"},{tick:500,min:3420,sigma_min:30,state:\"reviewed\"},{tick:515,min:3510,sigma_min:40,state:\"reviewed\"},{tick:518,min:3660,sigma_min:25,state:\"reviewed\"},{tick:538,min:3780,sigma_min:40,state:\"contested\"},{tick:551,min:3815,sigma_min:25,state:\"reviewed\"},{tick:556,min:3840,sigma_min:25,state:\"reviewed\"},{tick:568,min:3915,sigma_min:30,state:\"reviewed\"},{tick:675,min:4080,sigma_min:30}]}))})();})(typeof globalThis!==\"undefined\"?globalThis:window);</script>\n</head>",
+   "expect": 1,
+   "note": "inlines the GTBGTime global (classic script) for this page"
+  },
+  {
+   "id": "CLK-30-module-education",
+   "target": "education.html",
+   "find": "</head>",
+   "repl": "<script>/* GTBGTime 2026-10-18.1 dv3 CANDIDATE (adjudicated 2026-10-18, not signed) */\n(function(g){g.GTBGTime=(function(){const t=[\"January\",\"February\",\"March\",\"April\",\"May\",\"June\",\"July\",\"August\",\"September\",\"October\",\"November\",\"December\"],i=[\"Sunday\",\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],e={S:\"A\",M:\"B\",R:\"C\",D:\"D\"},n=[\"time\",\"day\",\"date\",\"long\",\"short\",\"compat\",\"chip\",\"iso\",\"aria\",\"frame\"];function a(t){t+=719468;const i=Math.floor(t/146097),e=t-146097*i,n=Math.floor((e-Math.floor(e/1460)+Math.floor(e/36524)-Math.floor(e/146096))/365),a=e-(365*n+Math.floor(n/4)-Math.floor(n/100)),s=Math.floor((5*a+2)/153),r=s<10?s+3:s-9;return[n+400*i+(r<=2?1:0),r,a-Math.floor((153*s+2)/5)+1]}const s=-38900,r=t=>(t<10?\"0\":\"\")+t,m=(t,i)=>(t%12==0?12:t%12)+\":\"+r(i)+(t>=12?\" PM\":\" AM\"),o=t=>60*+t.slice(0,2)+ +t.slice(3,5);return(function(t){const i=(t,i)=>{try{t=+t}catch(t){return i}return t!=t?i:Math.max(-1e9,Math.min(1e9,t))},e=t=>n.indexOf(t)<0?\"compat\":t;return{version:t.version,dv:t.dv,tickMax:t.tickMax,f:(n,a)=>t.tickToLabel(i(n,1),{style:e(a)}),x:(n,a)=>t.format(i(n,1),e(a)),after:(e,n)=>t.tickAfterMinutes(i(e,1),i(n,0)),hour:e=>t.hour(i(e,1)),phase:e=>t.dayPart(i(e,1)),tab:e=>t.tabDay(i(e,1)),approx:e=>t.isApprox(i(e,1)),tabStart:e=>t.tabStart(i(e,1)),minutes:e=>t.tickToMinutes(i(e,1)),tickAt:e=>t.minutesToTick(i(e,0))}})((function(c){const u=null==c.approx_sigma_min?10:c.approx_sigma_min,d=(c&&c.anchors).map(t=>({tick:t.tick,min:t.min,sigma:null==t.sigma_min?15:t.sigma_min,status:null==t.status?\"M\":t.status,cls:e[null==t.effective_status?t.status:t.effective_status]||\"B\",state:null==t.state?\"proposed\":t.state,review:null==t.review_flag?\"none\":t.review_flag})),l=d.length,k=d[l-1].tick,g=c.tab_days||[[1,k]],h=c.solar||{},_=t=>t<1?1:t>k?k:t,f=(t,i)=>{let e=0,n=l-2;for(;e<n;){const a=e+n+1>>1;d[a][i]<=t?e=a:n=a-1}return e},v=(t,i)=>d[t].min+(d[t+1].min-d[t].min)*(i-d[t].tick)/(d[t+1].tick-d[t].tick),w=new Float64Array(k+1);for(let t=1;t<=k;t++)w[t]=v(f(t,\"tick\"),t);const M=t=>{const i=_(t);return i===(0|i)?w[i]:v(f(i,\"tick\"),i)},p=(t,i)=>{const e=i&&i.extrapolate;if(t<=d[0].min)return e?1+(t-d[0].min)/5:1;if(t>=d[l-1].min)return e?k+(t-d[l-1].min)/5:k;const n=(t=>{let i=0,e=k;for(;i<e;){const n=i+e+1>>1;w[n]<=t?i=n:e=n-1}return i})(t),a=(t-w[n])/(w[n+1]-w[n]);return n+(a<.999999999999?a:.999999999999)},y=t=>{const i=(t=>{const i=_(t),e=f(i,\"tick\"),n=d[e],a=d[e+1];if(i===n.tick)return{sigma:n.sigma,ends:[n]};if(i===a.tick)return{sigma:a.sigma,ends:[a]};const s=(i-n.tick)/(a.tick-n.tick);return{sigma:n.sigma*(1-s)+a.sigma*s,ends:[n,a]}})(t);return i.sigma>=u||i.ends.some(t=>\"signed\"!==t.state)},b=t=>{const i=h[\"1863-07-\"+r(1+t)]||h[\"1863-07-01\"]||{civil_dawn:\"04:03\",sunrise:\"04:35\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"};return{dawn:o(i.civil_dawn),rise:o(i.sunrise),set:o(i.sunset),naut:o(i.nautical_dusk)}},x=(t,i)=>{const e=b(i);return t<e.dawn?\"night\":t<e.rise+60?\"dawn\":t<720?\"morning\":t<e.set-120?\"afternoon\":t<e.set?\"evening\":t<e.naut?\"dusk\":\"night\"},A=(e,n)=>{let r=M(e);r=n?Math.round(r/n)*n:Math.round(r);const m=Math.floor(r/1440),o=r-1440*m,c=a(s+m);let u=null;if(o<b(m).dawn){const i=a(s+m-1);u=\"Night of \"+t[i[1]-1]+\" \"+i[2]+\"-\"+(i[1]===c[1]?\"\":t[c[1]-1]+\" \")+c[2]}return{year:c[0],monthNum:c[1],month:t[c[1]-1],date:c[2],weekday:i[((s+m+4)%7+7)%7],hour24:Math.floor(o/60),minute:o%60,dayIdx:m,minutes:r,mod:o,nightOf:u,phase:x(o,m)}},T=new Map,S=(t,i,e)=>{i=n.indexOf(i)<0?\"long\":i;const a=e&&e.roundMin||0,s=!!e&&e.approx,o=_(t),c=o===(0|o)?o+\"|\"+i+\"|\"+a+\"|\"+s:null;if(c&&T.has(c))return T.get(c);const u=A(o,a),d=!0===s||\"auto\"===s&&y(o)?\"about \":\"\",l=d+m(u.hour24,u.minute),g=u.nightOf,h=(t=>t.nightOf||t.month+\" \"+t.date)(u);let f;switch(i){case\"time\":f=l;break;case\"day\":f=h;break;case\"date\":f=h+\", \"+u.year;break;case\"iso\":f=(t=>t.year+\"-\"+r(t.monthNum)+\"-\"+r(t.date)+\"T\"+r(t.hour24)+\":\"+r(t.minute))(u);break;case\"chip\":f=g?g+\", \"+l:l;break;case\"compat\":f=h+\", \"+l;break;case\"short\":f=(g?g.replace(/[A-Za-z]+(?= \\d)/g,t=>t.slice(0,3)):u.month.slice(0,3)+\" \"+u.date)+\", \"+l;break;case\"aria\":f=d+m(u.hour24,u.minute).replace(\":00 \",\" \")+(g?\" on the \"+g.charAt(0).toLowerCase()+g.slice(1):\" on \"+u.weekday+\", \"+u.month+\" \"+u.date)+\", \"+u.year;break;case\"frame\":f=\"Frame \"+Math.round(o)+\" of \"+k;break;default:f=(g||u.weekday.slice(0,3)+\", \"+u.month+\" \"+u.date)+\" · \"+l}return c&&T.set(c,f),f};return{version:null==c.version?\"\":c.version,dv:null==c.dv?2:c.dv,tickMax:k,tickToMinutes:M,minutesToTick:p,tabDay:t=>{const i=Math.floor(_(t));for(let t=0;t<g.length;t++)if(i<=g[t][1])return t+1;return g.length},tabStart:t=>(g[t-1]||g[0])[0],format:S,tickToLabel:(t,i)=>{const e=i||{};return S(t,e.style||\"long\",{roundMin:null==e.roundMin?5:e.roundMin,approx:null==e.approx?\"auto\":e.approx})},isApprox:y,tickAfterMinutes:(t,i)=>{const e=_(t);let n=Math.round(p(M(e)+i));return 0!==i&&n===Math.round(e)&&Math.abs(i)>=(t=>{const i=f(_(t),\"tick\");return(d[i+1].min-d[i].min)/(d[i+1].tick-d[i].tick)})(i>0?e:e-1e-9)/2&&(n+=i>0?1:-1),_(n)},dayPart:t=>A(t,0).phase,hour:t=>{const i=M(t);return(i-1440*Math.floor(i/1440))/60}}})({version:\"2026-10-18.1\",dv:3,tab_days:[[1,225],[226,450],[451,675]],approx_sigma_min:20,solar:{\"1863-07-01\":{civil_dawn:\"04:03\",sunrise:\"04:35\",noon:\"12:03\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"}},anchors:[{tick:1,min:300,sigma_min:25,state:\"reviewed\"},{tick:5,min:320,sigma_min:30},{tick:12,min:450,sigma_min:25,state:\"reviewed\"},{tick:28,min:615,sigma_min:25,state:\"reviewed\"},{tick:36,min:660,sigma_min:30,state:\"reviewed\"},{tick:53,min:870,sigma_min:30,state:\"reviewed\"},{tick:57,min:900,sigma_min:30,state:\"reviewed\"},{tick:64,min:960,sigma_min:30,state:\"reviewed\"},{tick:72,min:980,sigma_min:30,state:\"reviewed\"},{tick:75,min:1015,sigma_min:35,state:\"reviewed\"},{tick:90,min:1050,sigma_min:90,state:\"contested\"},{tick:100,min:1200,sigma_min:30},{tick:226,min:1710,sigma_min:30},{tick:240,min:2160,sigma_min:45,state:\"reviewed\"},{tick:248,min:2340,sigma_min:60,state:\"contested\"},{tick:256,min:2400,sigma_min:25,state:\"reviewed\"},{tick:267,min:2430,sigma_min:25,state:\"reviewed\"},{tick:275,min:2520,sigma_min:45,state:\"contested\"},{tick:280,min:2535,sigma_min:30,state:\"reviewed\"},{tick:295,min:2580,sigma_min:30,state:\"reviewed\"},{tick:302,min:2590,sigma_min:25,state:\"reviewed\"},{tick:314,min:2600,sigma_min:30,state:\"reviewed\"},{tick:326,min:2640,sigma_min:30,state:\"reviewed\"},{tick:340,min:2775,sigma_min:45,state:\"reviewed\"},{tick:451,min:3135,sigma_min:30,state:\"reviewed\"},{tick:500,min:3420,sigma_min:30,state:\"reviewed\"},{tick:515,min:3510,sigma_min:40,state:\"reviewed\"},{tick:518,min:3660,sigma_min:25,state:\"reviewed\"},{tick:538,min:3780,sigma_min:40,state:\"contested\"},{tick:551,min:3815,sigma_min:25,state:\"reviewed\"},{tick:556,min:3840,sigma_min:25,state:\"reviewed\"},{tick:568,min:3915,sigma_min:30,state:\"reviewed\"},{tick:675,min:4080,sigma_min:30}]}))})();})(typeof globalThis!==\"undefined\"?globalThis:window);</script>\n</head>",
+   "expect": 1,
+   "note": "inlines the GTBGTime global (classic script) for this page"
+  },
+  {
+   "id": "CLK-30-module-turning-points",
+   "target": "turning-points.html",
+   "find": "</head>",
+   "repl": "<script>/* GTBGTime 2026-10-18.1 dv3 CANDIDATE (adjudicated 2026-10-18, not signed) */\n(function(g){g.GTBGTime=(function(){const t=[\"January\",\"February\",\"March\",\"April\",\"May\",\"June\",\"July\",\"August\",\"September\",\"October\",\"November\",\"December\"],i=[\"Sunday\",\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],e={S:\"A\",M:\"B\",R:\"C\",D:\"D\"},n=[\"time\",\"day\",\"date\",\"long\",\"short\",\"compat\",\"chip\",\"iso\",\"aria\",\"frame\"];function a(t){t+=719468;const i=Math.floor(t/146097),e=t-146097*i,n=Math.floor((e-Math.floor(e/1460)+Math.floor(e/36524)-Math.floor(e/146096))/365),a=e-(365*n+Math.floor(n/4)-Math.floor(n/100)),s=Math.floor((5*a+2)/153),r=s<10?s+3:s-9;return[n+400*i+(r<=2?1:0),r,a-Math.floor((153*s+2)/5)+1]}const s=-38900,r=t=>(t<10?\"0\":\"\")+t,m=(t,i)=>(t%12==0?12:t%12)+\":\"+r(i)+(t>=12?\" PM\":\" AM\"),o=t=>60*+t.slice(0,2)+ +t.slice(3,5);return(function(t){const i=(t,i)=>{try{t=+t}catch(t){return i}return t!=t?i:Math.max(-1e9,Math.min(1e9,t))},e=t=>n.indexOf(t)<0?\"compat\":t;return{version:t.version,dv:t.dv,tickMax:t.tickMax,f:(n,a)=>t.tickToLabel(i(n,1),{style:e(a)}),x:(n,a)=>t.format(i(n,1),e(a)),after:(e,n)=>t.tickAfterMinutes(i(e,1),i(n,0)),hour:e=>t.hour(i(e,1)),phase:e=>t.dayPart(i(e,1)),tab:e=>t.tabDay(i(e,1)),approx:e=>t.isApprox(i(e,1)),tabStart:e=>t.tabStart(i(e,1)),minutes:e=>t.tickToMinutes(i(e,1)),tickAt:e=>t.minutesToTick(i(e,0))}})((function(c){const u=null==c.approx_sigma_min?10:c.approx_sigma_min,d=(c&&c.anchors).map(t=>({tick:t.tick,min:t.min,sigma:null==t.sigma_min?15:t.sigma_min,status:null==t.status?\"M\":t.status,cls:e[null==t.effective_status?t.status:t.effective_status]||\"B\",state:null==t.state?\"proposed\":t.state,review:null==t.review_flag?\"none\":t.review_flag})),l=d.length,k=d[l-1].tick,g=c.tab_days||[[1,k]],h=c.solar||{},_=t=>t<1?1:t>k?k:t,f=(t,i)=>{let e=0,n=l-2;for(;e<n;){const a=e+n+1>>1;d[a][i]<=t?e=a:n=a-1}return e},v=(t,i)=>d[t].min+(d[t+1].min-d[t].min)*(i-d[t].tick)/(d[t+1].tick-d[t].tick),w=new Float64Array(k+1);for(let t=1;t<=k;t++)w[t]=v(f(t,\"tick\"),t);const M=t=>{const i=_(t);return i===(0|i)?w[i]:v(f(i,\"tick\"),i)},p=(t,i)=>{const e=i&&i.extrapolate;if(t<=d[0].min)return e?1+(t-d[0].min)/5:1;if(t>=d[l-1].min)return e?k+(t-d[l-1].min)/5:k;const n=(t=>{let i=0,e=k;for(;i<e;){const n=i+e+1>>1;w[n]<=t?i=n:e=n-1}return i})(t),a=(t-w[n])/(w[n+1]-w[n]);return n+(a<.999999999999?a:.999999999999)},y=t=>{const i=(t=>{const i=_(t),e=f(i,\"tick\"),n=d[e],a=d[e+1];if(i===n.tick)return{sigma:n.sigma,ends:[n]};if(i===a.tick)return{sigma:a.sigma,ends:[a]};const s=(i-n.tick)/(a.tick-n.tick);return{sigma:n.sigma*(1-s)+a.sigma*s,ends:[n,a]}})(t);return i.sigma>=u||i.ends.some(t=>\"signed\"!==t.state)},b=t=>{const i=h[\"1863-07-\"+r(1+t)]||h[\"1863-07-01\"]||{civil_dawn:\"04:03\",sunrise:\"04:35\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"};return{dawn:o(i.civil_dawn),rise:o(i.sunrise),set:o(i.sunset),naut:o(i.nautical_dusk)}},x=(t,i)=>{const e=b(i);return t<e.dawn?\"night\":t<e.rise+60?\"dawn\":t<720?\"morning\":t<e.set-120?\"afternoon\":t<e.set?\"evening\":t<e.naut?\"dusk\":\"night\"},A=(e,n)=>{let r=M(e);r=n?Math.round(r/n)*n:Math.round(r);const m=Math.floor(r/1440),o=r-1440*m,c=a(s+m);let u=null;if(o<b(m).dawn){const i=a(s+m-1);u=\"Night of \"+t[i[1]-1]+\" \"+i[2]+\"-\"+(i[1]===c[1]?\"\":t[c[1]-1]+\" \")+c[2]}return{year:c[0],monthNum:c[1],month:t[c[1]-1],date:c[2],weekday:i[((s+m+4)%7+7)%7],hour24:Math.floor(o/60),minute:o%60,dayIdx:m,minutes:r,mod:o,nightOf:u,phase:x(o,m)}},T=new Map,S=(t,i,e)=>{i=n.indexOf(i)<0?\"long\":i;const a=e&&e.roundMin||0,s=!!e&&e.approx,o=_(t),c=o===(0|o)?o+\"|\"+i+\"|\"+a+\"|\"+s:null;if(c&&T.has(c))return T.get(c);const u=A(o,a),d=!0===s||\"auto\"===s&&y(o)?\"about \":\"\",l=d+m(u.hour24,u.minute),g=u.nightOf,h=(t=>t.nightOf||t.month+\" \"+t.date)(u);let f;switch(i){case\"time\":f=l;break;case\"day\":f=h;break;case\"date\":f=h+\", \"+u.year;break;case\"iso\":f=(t=>t.year+\"-\"+r(t.monthNum)+\"-\"+r(t.date)+\"T\"+r(t.hour24)+\":\"+r(t.minute))(u);break;case\"chip\":f=g?g+\", \"+l:l;break;case\"compat\":f=h+\", \"+l;break;case\"short\":f=(g?g.replace(/[A-Za-z]+(?= \\d)/g,t=>t.slice(0,3)):u.month.slice(0,3)+\" \"+u.date)+\", \"+l;break;case\"aria\":f=d+m(u.hour24,u.minute).replace(\":00 \",\" \")+(g?\" on the \"+g.charAt(0).toLowerCase()+g.slice(1):\" on \"+u.weekday+\", \"+u.month+\" \"+u.date)+\", \"+u.year;break;case\"frame\":f=\"Frame \"+Math.round(o)+\" of \"+k;break;default:f=(g||u.weekday.slice(0,3)+\", \"+u.month+\" \"+u.date)+\" · \"+l}return c&&T.set(c,f),f};return{version:null==c.version?\"\":c.version,dv:null==c.dv?2:c.dv,tickMax:k,tickToMinutes:M,minutesToTick:p,tabDay:t=>{const i=Math.floor(_(t));for(let t=0;t<g.length;t++)if(i<=g[t][1])return t+1;return g.length},tabStart:t=>(g[t-1]||g[0])[0],format:S,tickToLabel:(t,i)=>{const e=i||{};return S(t,e.style||\"long\",{roundMin:null==e.roundMin?5:e.roundMin,approx:null==e.approx?\"auto\":e.approx})},isApprox:y,tickAfterMinutes:(t,i)=>{const e=_(t);let n=Math.round(p(M(e)+i));return 0!==i&&n===Math.round(e)&&Math.abs(i)>=(t=>{const i=f(_(t),\"tick\");return(d[i+1].min-d[i].min)/(d[i+1].tick-d[i].tick)})(i>0?e:e-1e-9)/2&&(n+=i>0?1:-1),_(n)},dayPart:t=>A(t,0).phase,hour:t=>{const i=M(t);return(i-1440*Math.floor(i/1440))/60}}})({version:\"2026-10-18.1\",dv:3,tab_days:[[1,225],[226,450],[451,675]],approx_sigma_min:20,solar:{\"1863-07-01\":{civil_dawn:\"04:03\",sunrise:\"04:35\",noon:\"12:03\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"}},anchors:[{tick:1,min:300,sigma_min:25,state:\"reviewed\"},{tick:5,min:320,sigma_min:30},{tick:12,min:450,sigma_min:25,state:\"reviewed\"},{tick:28,min:615,sigma_min:25,state:\"reviewed\"},{tick:36,min:660,sigma_min:30,state:\"reviewed\"},{tick:53,min:870,sigma_min:30,state:\"reviewed\"},{tick:57,min:900,sigma_min:30,state:\"reviewed\"},{tick:64,min:960,sigma_min:30,state:\"reviewed\"},{tick:72,min:980,sigma_min:30,state:\"reviewed\"},{tick:75,min:1015,sigma_min:35,state:\"reviewed\"},{tick:90,min:1050,sigma_min:90,state:\"contested\"},{tick:100,min:1200,sigma_min:30},{tick:226,min:1710,sigma_min:30},{tick:240,min:2160,sigma_min:45,state:\"reviewed\"},{tick:248,min:2340,sigma_min:60,state:\"contested\"},{tick:256,min:2400,sigma_min:25,state:\"reviewed\"},{tick:267,min:2430,sigma_min:25,state:\"reviewed\"},{tick:275,min:2520,sigma_min:45,state:\"contested\"},{tick:280,min:2535,sigma_min:30,state:\"reviewed\"},{tick:295,min:2580,sigma_min:30,state:\"reviewed\"},{tick:302,min:2590,sigma_min:25,state:\"reviewed\"},{tick:314,min:2600,sigma_min:30,state:\"reviewed\"},{tick:326,min:2640,sigma_min:30,state:\"reviewed\"},{tick:340,min:2775,sigma_min:45,state:\"reviewed\"},{tick:451,min:3135,sigma_min:30,state:\"reviewed\"},{tick:500,min:3420,sigma_min:30,state:\"reviewed\"},{tick:515,min:3510,sigma_min:40,state:\"reviewed\"},{tick:518,min:3660,sigma_min:25,state:\"reviewed\"},{tick:538,min:3780,sigma_min:40,state:\"contested\"},{tick:551,min:3815,sigma_min:25,state:\"reviewed\"},{tick:556,min:3840,sigma_min:25,state:\"reviewed\"},{tick:568,min:3915,sigma_min:30,state:\"reviewed\"},{tick:675,min:4080,sigma_min:30}]}))})();})(typeof globalThis!==\"undefined\"?globalThis:window);</script>\n</head>",
+   "expect": 1,
+   "note": "inlines the GTBGTime global (classic script) for this page"
+  },
+  {
+   "id": "CLK-30-module-sandbox",
+   "target": "sandbox.html",
+   "find": "</head>",
+   "repl": "<script>/* GTBGTime 2026-10-18.1 dv3 CANDIDATE (adjudicated 2026-10-18, not signed) */\n(function(g){g.GTBGTime=(function(){const t=[\"January\",\"February\",\"March\",\"April\",\"May\",\"June\",\"July\",\"August\",\"September\",\"October\",\"November\",\"December\"],i=[\"Sunday\",\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],e={S:\"A\",M:\"B\",R:\"C\",D:\"D\"},n=[\"time\",\"day\",\"date\",\"long\",\"short\",\"compat\",\"chip\",\"iso\",\"aria\",\"frame\"];function a(t){t+=719468;const i=Math.floor(t/146097),e=t-146097*i,n=Math.floor((e-Math.floor(e/1460)+Math.floor(e/36524)-Math.floor(e/146096))/365),a=e-(365*n+Math.floor(n/4)-Math.floor(n/100)),s=Math.floor((5*a+2)/153),r=s<10?s+3:s-9;return[n+400*i+(r<=2?1:0),r,a-Math.floor((153*s+2)/5)+1]}const s=-38900,r=t=>(t<10?\"0\":\"\")+t,m=(t,i)=>(t%12==0?12:t%12)+\":\"+r(i)+(t>=12?\" PM\":\" AM\"),o=t=>60*+t.slice(0,2)+ +t.slice(3,5);return(function(t){const i=(t,i)=>{try{t=+t}catch(t){return i}return t!=t?i:Math.max(-1e9,Math.min(1e9,t))},e=t=>n.indexOf(t)<0?\"compat\":t;return{version:t.version,dv:t.dv,tickMax:t.tickMax,f:(n,a)=>t.tickToLabel(i(n,1),{style:e(a)}),x:(n,a)=>t.format(i(n,1),e(a)),after:(e,n)=>t.tickAfterMinutes(i(e,1),i(n,0)),hour:e=>t.hour(i(e,1)),phase:e=>t.dayPart(i(e,1)),tab:e=>t.tabDay(i(e,1)),approx:e=>t.isApprox(i(e,1)),tabStart:e=>t.tabStart(i(e,1)),minutes:e=>t.tickToMinutes(i(e,1)),tickAt:e=>t.minutesToTick(i(e,0))}})((function(c){const u=null==c.approx_sigma_min?10:c.approx_sigma_min,d=(c&&c.anchors).map(t=>({tick:t.tick,min:t.min,sigma:null==t.sigma_min?15:t.sigma_min,status:null==t.status?\"M\":t.status,cls:e[null==t.effective_status?t.status:t.effective_status]||\"B\",state:null==t.state?\"proposed\":t.state,review:null==t.review_flag?\"none\":t.review_flag})),l=d.length,k=d[l-1].tick,g=c.tab_days||[[1,k]],h=c.solar||{},_=t=>t<1?1:t>k?k:t,f=(t,i)=>{let e=0,n=l-2;for(;e<n;){const a=e+n+1>>1;d[a][i]<=t?e=a:n=a-1}return e},v=(t,i)=>d[t].min+(d[t+1].min-d[t].min)*(i-d[t].tick)/(d[t+1].tick-d[t].tick),w=new Float64Array(k+1);for(let t=1;t<=k;t++)w[t]=v(f(t,\"tick\"),t);const M=t=>{const i=_(t);return i===(0|i)?w[i]:v(f(i,\"tick\"),i)},p=(t,i)=>{const e=i&&i.extrapolate;if(t<=d[0].min)return e?1+(t-d[0].min)/5:1;if(t>=d[l-1].min)return e?k+(t-d[l-1].min)/5:k;const n=(t=>{let i=0,e=k;for(;i<e;){const n=i+e+1>>1;w[n]<=t?i=n:e=n-1}return i})(t),a=(t-w[n])/(w[n+1]-w[n]);return n+(a<.999999999999?a:.999999999999)},y=t=>{const i=(t=>{const i=_(t),e=f(i,\"tick\"),n=d[e],a=d[e+1];if(i===n.tick)return{sigma:n.sigma,ends:[n]};if(i===a.tick)return{sigma:a.sigma,ends:[a]};const s=(i-n.tick)/(a.tick-n.tick);return{sigma:n.sigma*(1-s)+a.sigma*s,ends:[n,a]}})(t);return i.sigma>=u||i.ends.some(t=>\"signed\"!==t.state)},b=t=>{const i=h[\"1863-07-\"+r(1+t)]||h[\"1863-07-01\"]||{civil_dawn:\"04:03\",sunrise:\"04:35\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"};return{dawn:o(i.civil_dawn),rise:o(i.sunrise),set:o(i.sunset),naut:o(i.nautical_dusk)}},x=(t,i)=>{const e=b(i);return t<e.dawn?\"night\":t<e.rise+60?\"dawn\":t<720?\"morning\":t<e.set-120?\"afternoon\":t<e.set?\"evening\":t<e.naut?\"dusk\":\"night\"},A=(e,n)=>{let r=M(e);r=n?Math.round(r/n)*n:Math.round(r);const m=Math.floor(r/1440),o=r-1440*m,c=a(s+m);let u=null;if(o<b(m).dawn){const i=a(s+m-1);u=\"Night of \"+t[i[1]-1]+\" \"+i[2]+\"-\"+(i[1]===c[1]?\"\":t[c[1]-1]+\" \")+c[2]}return{year:c[0],monthNum:c[1],month:t[c[1]-1],date:c[2],weekday:i[((s+m+4)%7+7)%7],hour24:Math.floor(o/60),minute:o%60,dayIdx:m,minutes:r,mod:o,nightOf:u,phase:x(o,m)}},T=new Map,S=(t,i,e)=>{i=n.indexOf(i)<0?\"long\":i;const a=e&&e.roundMin||0,s=!!e&&e.approx,o=_(t),c=o===(0|o)?o+\"|\"+i+\"|\"+a+\"|\"+s:null;if(c&&T.has(c))return T.get(c);const u=A(o,a),d=!0===s||\"auto\"===s&&y(o)?\"about \":\"\",l=d+m(u.hour24,u.minute),g=u.nightOf,h=(t=>t.nightOf||t.month+\" \"+t.date)(u);let f;switch(i){case\"time\":f=l;break;case\"day\":f=h;break;case\"date\":f=h+\", \"+u.year;break;case\"iso\":f=(t=>t.year+\"-\"+r(t.monthNum)+\"-\"+r(t.date)+\"T\"+r(t.hour24)+\":\"+r(t.minute))(u);break;case\"chip\":f=g?g+\", \"+l:l;break;case\"compat\":f=h+\", \"+l;break;case\"short\":f=(g?g.replace(/[A-Za-z]+(?= \\d)/g,t=>t.slice(0,3)):u.month.slice(0,3)+\" \"+u.date)+\", \"+l;break;case\"aria\":f=d+m(u.hour24,u.minute).replace(\":00 \",\" \")+(g?\" on the \"+g.charAt(0).toLowerCase()+g.slice(1):\" on \"+u.weekday+\", \"+u.month+\" \"+u.date)+\", \"+u.year;break;case\"frame\":f=\"Frame \"+Math.round(o)+\" of \"+k;break;default:f=(g||u.weekday.slice(0,3)+\", \"+u.month+\" \"+u.date)+\" · \"+l}return c&&T.set(c,f),f};return{version:null==c.version?\"\":c.version,dv:null==c.dv?2:c.dv,tickMax:k,tickToMinutes:M,minutesToTick:p,tabDay:t=>{const i=Math.floor(_(t));for(let t=0;t<g.length;t++)if(i<=g[t][1])return t+1;return g.length},tabStart:t=>(g[t-1]||g[0])[0],format:S,tickToLabel:(t,i)=>{const e=i||{};return S(t,e.style||\"long\",{roundMin:null==e.roundMin?5:e.roundMin,approx:null==e.approx?\"auto\":e.approx})},isApprox:y,tickAfterMinutes:(t,i)=>{const e=_(t);let n=Math.round(p(M(e)+i));return 0!==i&&n===Math.round(e)&&Math.abs(i)>=(t=>{const i=f(_(t),\"tick\");return(d[i+1].min-d[i].min)/(d[i+1].tick-d[i].tick)})(i>0?e:e-1e-9)/2&&(n+=i>0?1:-1),_(n)},dayPart:t=>A(t,0).phase,hour:t=>{const i=M(t);return(i-1440*Math.floor(i/1440))/60}}})({version:\"2026-10-18.1\",dv:3,tab_days:[[1,225],[226,450],[451,675]],approx_sigma_min:20,solar:{\"1863-07-01\":{civil_dawn:\"04:03\",sunrise:\"04:35\",noon:\"12:03\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"}},anchors:[{tick:1,min:300,sigma_min:25,state:\"reviewed\"},{tick:5,min:320,sigma_min:30},{tick:12,min:450,sigma_min:25,state:\"reviewed\"},{tick:28,min:615,sigma_min:25,state:\"reviewed\"},{tick:36,min:660,sigma_min:30,state:\"reviewed\"},{tick:53,min:870,sigma_min:30,state:\"reviewed\"},{tick:57,min:900,sigma_min:30,state:\"reviewed\"},{tick:64,min:960,sigma_min:30,state:\"reviewed\"},{tick:72,min:980,sigma_min:30,state:\"reviewed\"},{tick:75,min:1015,sigma_min:35,state:\"reviewed\"},{tick:90,min:1050,sigma_min:90,state:\"contested\"},{tick:100,min:1200,sigma_min:30},{tick:226,min:1710,sigma_min:30},{tick:240,min:2160,sigma_min:45,state:\"reviewed\"},{tick:248,min:2340,sigma_min:60,state:\"contested\"},{tick:256,min:2400,sigma_min:25,state:\"reviewed\"},{tick:267,min:2430,sigma_min:25,state:\"reviewed\"},{tick:275,min:2520,sigma_min:45,state:\"contested\"},{tick:280,min:2535,sigma_min:30,state:\"reviewed\"},{tick:295,min:2580,sigma_min:30,state:\"reviewed\"},{tick:302,min:2590,sigma_min:25,state:\"reviewed\"},{tick:314,min:2600,sigma_min:30,state:\"reviewed\"},{tick:326,min:2640,sigma_min:30,state:\"reviewed\"},{tick:340,min:2775,sigma_min:45,state:\"reviewed\"},{tick:451,min:3135,sigma_min:30,state:\"reviewed\"},{tick:500,min:3420,sigma_min:30,state:\"reviewed\"},{tick:515,min:3510,sigma_min:40,state:\"reviewed\"},{tick:518,min:3660,sigma_min:25,state:\"reviewed\"},{tick:538,min:3780,sigma_min:40,state:\"contested\"},{tick:551,min:3815,sigma_min:25,state:\"reviewed\"},{tick:556,min:3840,sigma_min:25,state:\"reviewed\"},{tick:568,min:3915,sigma_min:30,state:\"reviewed\"},{tick:675,min:4080,sigma_min:30}]}))})();})(typeof globalThis!==\"undefined\"?globalThis:window);</script>\n</head>",
+   "expect": 1,
+   "note": "inlines the GTBGTime global (classic script) for this page"
+  },
+  {
+   "id": "CLK-30-module-regiment",
+   "target": "regiment.html",
+   "find": "</head>",
+   "repl": "<script>/* GTBGTime 2026-10-18.1 dv3 CANDIDATE (adjudicated 2026-10-18, not signed) */\n(function(g){g.GTBGTime=(function(){const t=[\"January\",\"February\",\"March\",\"April\",\"May\",\"June\",\"July\",\"August\",\"September\",\"October\",\"November\",\"December\"],i=[\"Sunday\",\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],e={S:\"A\",M:\"B\",R:\"C\",D:\"D\"},n=[\"time\",\"day\",\"date\",\"long\",\"short\",\"compat\",\"chip\",\"iso\",\"aria\",\"frame\"];function a(t){t+=719468;const i=Math.floor(t/146097),e=t-146097*i,n=Math.floor((e-Math.floor(e/1460)+Math.floor(e/36524)-Math.floor(e/146096))/365),a=e-(365*n+Math.floor(n/4)-Math.floor(n/100)),s=Math.floor((5*a+2)/153),r=s<10?s+3:s-9;return[n+400*i+(r<=2?1:0),r,a-Math.floor((153*s+2)/5)+1]}const s=-38900,r=t=>(t<10?\"0\":\"\")+t,m=(t,i)=>(t%12==0?12:t%12)+\":\"+r(i)+(t>=12?\" PM\":\" AM\"),o=t=>60*+t.slice(0,2)+ +t.slice(3,5);return(function(t){const i=(t,i)=>{try{t=+t}catch(t){return i}return t!=t?i:Math.max(-1e9,Math.min(1e9,t))},e=t=>n.indexOf(t)<0?\"compat\":t;return{version:t.version,dv:t.dv,tickMax:t.tickMax,f:(n,a)=>t.tickToLabel(i(n,1),{style:e(a)}),x:(n,a)=>t.format(i(n,1),e(a)),after:(e,n)=>t.tickAfterMinutes(i(e,1),i(n,0)),hour:e=>t.hour(i(e,1)),phase:e=>t.dayPart(i(e,1)),tab:e=>t.tabDay(i(e,1)),approx:e=>t.isApprox(i(e,1)),tabStart:e=>t.tabStart(i(e,1)),minutes:e=>t.tickToMinutes(i(e,1)),tickAt:e=>t.minutesToTick(i(e,0))}})((function(c){const u=null==c.approx_sigma_min?10:c.approx_sigma_min,d=(c&&c.anchors).map(t=>({tick:t.tick,min:t.min,sigma:null==t.sigma_min?15:t.sigma_min,status:null==t.status?\"M\":t.status,cls:e[null==t.effective_status?t.status:t.effective_status]||\"B\",state:null==t.state?\"proposed\":t.state,review:null==t.review_flag?\"none\":t.review_flag})),l=d.length,k=d[l-1].tick,g=c.tab_days||[[1,k]],h=c.solar||{},_=t=>t<1?1:t>k?k:t,f=(t,i)=>{let e=0,n=l-2;for(;e<n;){const a=e+n+1>>1;d[a][i]<=t?e=a:n=a-1}return e},v=(t,i)=>d[t].min+(d[t+1].min-d[t].min)*(i-d[t].tick)/(d[t+1].tick-d[t].tick),w=new Float64Array(k+1);for(let t=1;t<=k;t++)w[t]=v(f(t,\"tick\"),t);const M=t=>{const i=_(t);return i===(0|i)?w[i]:v(f(i,\"tick\"),i)},p=(t,i)=>{const e=i&&i.extrapolate;if(t<=d[0].min)return e?1+(t-d[0].min)/5:1;if(t>=d[l-1].min)return e?k+(t-d[l-1].min)/5:k;const n=(t=>{let i=0,e=k;for(;i<e;){const n=i+e+1>>1;w[n]<=t?i=n:e=n-1}return i})(t),a=(t-w[n])/(w[n+1]-w[n]);return n+(a<.999999999999?a:.999999999999)},y=t=>{const i=(t=>{const i=_(t),e=f(i,\"tick\"),n=d[e],a=d[e+1];if(i===n.tick)return{sigma:n.sigma,ends:[n]};if(i===a.tick)return{sigma:a.sigma,ends:[a]};const s=(i-n.tick)/(a.tick-n.tick);return{sigma:n.sigma*(1-s)+a.sigma*s,ends:[n,a]}})(t);return i.sigma>=u||i.ends.some(t=>\"signed\"!==t.state)},b=t=>{const i=h[\"1863-07-\"+r(1+t)]||h[\"1863-07-01\"]||{civil_dawn:\"04:03\",sunrise:\"04:35\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"};return{dawn:o(i.civil_dawn),rise:o(i.sunrise),set:o(i.sunset),naut:o(i.nautical_dusk)}},x=(t,i)=>{const e=b(i);return t<e.dawn?\"night\":t<e.rise+60?\"dawn\":t<720?\"morning\":t<e.set-120?\"afternoon\":t<e.set?\"evening\":t<e.naut?\"dusk\":\"night\"},A=(e,n)=>{let r=M(e);r=n?Math.round(r/n)*n:Math.round(r);const m=Math.floor(r/1440),o=r-1440*m,c=a(s+m);let u=null;if(o<b(m).dawn){const i=a(s+m-1);u=\"Night of \"+t[i[1]-1]+\" \"+i[2]+\"-\"+(i[1]===c[1]?\"\":t[c[1]-1]+\" \")+c[2]}return{year:c[0],monthNum:c[1],month:t[c[1]-1],date:c[2],weekday:i[((s+m+4)%7+7)%7],hour24:Math.floor(o/60),minute:o%60,dayIdx:m,minutes:r,mod:o,nightOf:u,phase:x(o,m)}},T=new Map,S=(t,i,e)=>{i=n.indexOf(i)<0?\"long\":i;const a=e&&e.roundMin||0,s=!!e&&e.approx,o=_(t),c=o===(0|o)?o+\"|\"+i+\"|\"+a+\"|\"+s:null;if(c&&T.has(c))return T.get(c);const u=A(o,a),d=!0===s||\"auto\"===s&&y(o)?\"about \":\"\",l=d+m(u.hour24,u.minute),g=u.nightOf,h=(t=>t.nightOf||t.month+\" \"+t.date)(u);let f;switch(i){case\"time\":f=l;break;case\"day\":f=h;break;case\"date\":f=h+\", \"+u.year;break;case\"iso\":f=(t=>t.year+\"-\"+r(t.monthNum)+\"-\"+r(t.date)+\"T\"+r(t.hour24)+\":\"+r(t.minute))(u);break;case\"chip\":f=g?g+\", \"+l:l;break;case\"compat\":f=h+\", \"+l;break;case\"short\":f=(g?g.replace(/[A-Za-z]+(?= \\d)/g,t=>t.slice(0,3)):u.month.slice(0,3)+\" \"+u.date)+\", \"+l;break;case\"aria\":f=d+m(u.hour24,u.minute).replace(\":00 \",\" \")+(g?\" on the \"+g.charAt(0).toLowerCase()+g.slice(1):\" on \"+u.weekday+\", \"+u.month+\" \"+u.date)+\", \"+u.year;break;case\"frame\":f=\"Frame \"+Math.round(o)+\" of \"+k;break;default:f=(g||u.weekday.slice(0,3)+\", \"+u.month+\" \"+u.date)+\" · \"+l}return c&&T.set(c,f),f};return{version:null==c.version?\"\":c.version,dv:null==c.dv?2:c.dv,tickMax:k,tickToMinutes:M,minutesToTick:p,tabDay:t=>{const i=Math.floor(_(t));for(let t=0;t<g.length;t++)if(i<=g[t][1])return t+1;return g.length},tabStart:t=>(g[t-1]||g[0])[0],format:S,tickToLabel:(t,i)=>{const e=i||{};return S(t,e.style||\"long\",{roundMin:null==e.roundMin?5:e.roundMin,approx:null==e.approx?\"auto\":e.approx})},isApprox:y,tickAfterMinutes:(t,i)=>{const e=_(t);let n=Math.round(p(M(e)+i));return 0!==i&&n===Math.round(e)&&Math.abs(i)>=(t=>{const i=f(_(t),\"tick\");return(d[i+1].min-d[i].min)/(d[i+1].tick-d[i].tick)})(i>0?e:e-1e-9)/2&&(n+=i>0?1:-1),_(n)},dayPart:t=>A(t,0).phase,hour:t=>{const i=M(t);return(i-1440*Math.floor(i/1440))/60}}})({version:\"2026-10-18.1\",dv:3,tab_days:[[1,225],[226,450],[451,675]],approx_sigma_min:20,solar:{\"1863-07-01\":{civil_dawn:\"04:03\",sunrise:\"04:35\",noon:\"12:03\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"}},anchors:[{tick:1,min:300,sigma_min:25,state:\"reviewed\"},{tick:5,min:320,sigma_min:30},{tick:12,min:450,sigma_min:25,state:\"reviewed\"},{tick:28,min:615,sigma_min:25,state:\"reviewed\"},{tick:36,min:660,sigma_min:30,state:\"reviewed\"},{tick:53,min:870,sigma_min:30,state:\"reviewed\"},{tick:57,min:900,sigma_min:30,state:\"reviewed\"},{tick:64,min:960,sigma_min:30,state:\"reviewed\"},{tick:72,min:980,sigma_min:30,state:\"reviewed\"},{tick:75,min:1015,sigma_min:35,state:\"reviewed\"},{tick:90,min:1050,sigma_min:90,state:\"contested\"},{tick:100,min:1200,sigma_min:30},{tick:226,min:1710,sigma_min:30},{tick:240,min:2160,sigma_min:45,state:\"reviewed\"},{tick:248,min:2340,sigma_min:60,state:\"contested\"},{tick:256,min:2400,sigma_min:25,state:\"reviewed\"},{tick:267,min:2430,sigma_min:25,state:\"reviewed\"},{tick:275,min:2520,sigma_min:45,state:\"contested\"},{tick:280,min:2535,sigma_min:30,state:\"reviewed\"},{tick:295,min:2580,sigma_min:30,state:\"reviewed\"},{tick:302,min:2590,sigma_min:25,state:\"reviewed\"},{tick:314,min:2600,sigma_min:30,state:\"reviewed\"},{tick:326,min:2640,sigma_min:30,state:\"reviewed\"},{tick:340,min:2775,sigma_min:45,state:\"reviewed\"},{tick:451,min:3135,sigma_min:30,state:\"reviewed\"},{tick:500,min:3420,sigma_min:30,state:\"reviewed\"},{tick:515,min:3510,sigma_min:40,state:\"reviewed\"},{tick:518,min:3660,sigma_min:25,state:\"reviewed\"},{tick:538,min:3780,sigma_min:40,state:\"contested\"},{tick:551,min:3815,sigma_min:25,state:\"reviewed\"},{tick:556,min:3840,sigma_min:25,state:\"reviewed\"},{tick:568,min:3915,sigma_min:30,state:\"reviewed\"},{tick:675,min:4080,sigma_min:30}]}))})();})(typeof globalThis!==\"undefined\"?globalThis:window);</script>\n</head>",
+   "expect": 1,
+   "note": "inlines the GTBGTime global (classic script) for this page"
+  },
+  {
+   "id": "CLK-30-module-search",
+   "target": "search.html",
+   "find": "</head>",
+   "repl": "<script>/* GTBGTime 2026-10-18.1 dv3 CANDIDATE (adjudicated 2026-10-18, not signed) */\n(function(g){g.GTBGTime=(function(){const t=[\"January\",\"February\",\"March\",\"April\",\"May\",\"June\",\"July\",\"August\",\"September\",\"October\",\"November\",\"December\"],i=[\"Sunday\",\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],e={S:\"A\",M:\"B\",R:\"C\",D:\"D\"},n=[\"time\",\"day\",\"date\",\"long\",\"short\",\"compat\",\"chip\",\"iso\",\"aria\",\"frame\"];function a(t){t+=719468;const i=Math.floor(t/146097),e=t-146097*i,n=Math.floor((e-Math.floor(e/1460)+Math.floor(e/36524)-Math.floor(e/146096))/365),a=e-(365*n+Math.floor(n/4)-Math.floor(n/100)),s=Math.floor((5*a+2)/153),r=s<10?s+3:s-9;return[n+400*i+(r<=2?1:0),r,a-Math.floor((153*s+2)/5)+1]}const s=-38900,r=t=>(t<10?\"0\":\"\")+t,m=(t,i)=>(t%12==0?12:t%12)+\":\"+r(i)+(t>=12?\" PM\":\" AM\"),o=t=>60*+t.slice(0,2)+ +t.slice(3,5);return(function(t){const i=(t,i)=>{try{t=+t}catch(t){return i}return t!=t?i:Math.max(-1e9,Math.min(1e9,t))},e=t=>n.indexOf(t)<0?\"compat\":t;return{version:t.version,dv:t.dv,tickMax:t.tickMax,f:(n,a)=>t.tickToLabel(i(n,1),{style:e(a)}),x:(n,a)=>t.format(i(n,1),e(a)),after:(e,n)=>t.tickAfterMinutes(i(e,1),i(n,0)),hour:e=>t.hour(i(e,1)),phase:e=>t.dayPart(i(e,1)),tab:e=>t.tabDay(i(e,1)),approx:e=>t.isApprox(i(e,1)),tabStart:e=>t.tabStart(i(e,1)),minutes:e=>t.tickToMinutes(i(e,1)),tickAt:e=>t.minutesToTick(i(e,0))}})((function(c){const u=null==c.approx_sigma_min?10:c.approx_sigma_min,d=(c&&c.anchors).map(t=>({tick:t.tick,min:t.min,sigma:null==t.sigma_min?15:t.sigma_min,status:null==t.status?\"M\":t.status,cls:e[null==t.effective_status?t.status:t.effective_status]||\"B\",state:null==t.state?\"proposed\":t.state,review:null==t.review_flag?\"none\":t.review_flag})),l=d.length,k=d[l-1].tick,g=c.tab_days||[[1,k]],h=c.solar||{},_=t=>t<1?1:t>k?k:t,f=(t,i)=>{let e=0,n=l-2;for(;e<n;){const a=e+n+1>>1;d[a][i]<=t?e=a:n=a-1}return e},v=(t,i)=>d[t].min+(d[t+1].min-d[t].min)*(i-d[t].tick)/(d[t+1].tick-d[t].tick),w=new Float64Array(k+1);for(let t=1;t<=k;t++)w[t]=v(f(t,\"tick\"),t);const M=t=>{const i=_(t);return i===(0|i)?w[i]:v(f(i,\"tick\"),i)},p=(t,i)=>{const e=i&&i.extrapolate;if(t<=d[0].min)return e?1+(t-d[0].min)/5:1;if(t>=d[l-1].min)return e?k+(t-d[l-1].min)/5:k;const n=(t=>{let i=0,e=k;for(;i<e;){const n=i+e+1>>1;w[n]<=t?i=n:e=n-1}return i})(t),a=(t-w[n])/(w[n+1]-w[n]);return n+(a<.999999999999?a:.999999999999)},y=t=>{const i=(t=>{const i=_(t),e=f(i,\"tick\"),n=d[e],a=d[e+1];if(i===n.tick)return{sigma:n.sigma,ends:[n]};if(i===a.tick)return{sigma:a.sigma,ends:[a]};const s=(i-n.tick)/(a.tick-n.tick);return{sigma:n.sigma*(1-s)+a.sigma*s,ends:[n,a]}})(t);return i.sigma>=u||i.ends.some(t=>\"signed\"!==t.state)},b=t=>{const i=h[\"1863-07-\"+r(1+t)]||h[\"1863-07-01\"]||{civil_dawn:\"04:03\",sunrise:\"04:35\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"};return{dawn:o(i.civil_dawn),rise:o(i.sunrise),set:o(i.sunset),naut:o(i.nautical_dusk)}},x=(t,i)=>{const e=b(i);return t<e.dawn?\"night\":t<e.rise+60?\"dawn\":t<720?\"morning\":t<e.set-120?\"afternoon\":t<e.set?\"evening\":t<e.naut?\"dusk\":\"night\"},A=(e,n)=>{let r=M(e);r=n?Math.round(r/n)*n:Math.round(r);const m=Math.floor(r/1440),o=r-1440*m,c=a(s+m);let u=null;if(o<b(m).dawn){const i=a(s+m-1);u=\"Night of \"+t[i[1]-1]+\" \"+i[2]+\"-\"+(i[1]===c[1]?\"\":t[c[1]-1]+\" \")+c[2]}return{year:c[0],monthNum:c[1],month:t[c[1]-1],date:c[2],weekday:i[((s+m+4)%7+7)%7],hour24:Math.floor(o/60),minute:o%60,dayIdx:m,minutes:r,mod:o,nightOf:u,phase:x(o,m)}},T=new Map,S=(t,i,e)=>{i=n.indexOf(i)<0?\"long\":i;const a=e&&e.roundMin||0,s=!!e&&e.approx,o=_(t),c=o===(0|o)?o+\"|\"+i+\"|\"+a+\"|\"+s:null;if(c&&T.has(c))return T.get(c);const u=A(o,a),d=!0===s||\"auto\"===s&&y(o)?\"about \":\"\",l=d+m(u.hour24,u.minute),g=u.nightOf,h=(t=>t.nightOf||t.month+\" \"+t.date)(u);let f;switch(i){case\"time\":f=l;break;case\"day\":f=h;break;case\"date\":f=h+\", \"+u.year;break;case\"iso\":f=(t=>t.year+\"-\"+r(t.monthNum)+\"-\"+r(t.date)+\"T\"+r(t.hour24)+\":\"+r(t.minute))(u);break;case\"chip\":f=g?g+\", \"+l:l;break;case\"compat\":f=h+\", \"+l;break;case\"short\":f=(g?g.replace(/[A-Za-z]+(?= \\d)/g,t=>t.slice(0,3)):u.month.slice(0,3)+\" \"+u.date)+\", \"+l;break;case\"aria\":f=d+m(u.hour24,u.minute).replace(\":00 \",\" \")+(g?\" on the \"+g.charAt(0).toLowerCase()+g.slice(1):\" on \"+u.weekday+\", \"+u.month+\" \"+u.date)+\", \"+u.year;break;case\"frame\":f=\"Frame \"+Math.round(o)+\" of \"+k;break;default:f=(g||u.weekday.slice(0,3)+\", \"+u.month+\" \"+u.date)+\" · \"+l}return c&&T.set(c,f),f};return{version:null==c.version?\"\":c.version,dv:null==c.dv?2:c.dv,tickMax:k,tickToMinutes:M,minutesToTick:p,tabDay:t=>{const i=Math.floor(_(t));for(let t=0;t<g.length;t++)if(i<=g[t][1])return t+1;return g.length},tabStart:t=>(g[t-1]||g[0])[0],format:S,tickToLabel:(t,i)=>{const e=i||{};return S(t,e.style||\"long\",{roundMin:null==e.roundMin?5:e.roundMin,approx:null==e.approx?\"auto\":e.approx})},isApprox:y,tickAfterMinutes:(t,i)=>{const e=_(t);let n=Math.round(p(M(e)+i));return 0!==i&&n===Math.round(e)&&Math.abs(i)>=(t=>{const i=f(_(t),\"tick\");return(d[i+1].min-d[i].min)/(d[i+1].tick-d[i].tick)})(i>0?e:e-1e-9)/2&&(n+=i>0?1:-1),_(n)},dayPart:t=>A(t,0).phase,hour:t=>{const i=M(t);return(i-1440*Math.floor(i/1440))/60}}})({version:\"2026-10-18.1\",dv:3,tab_days:[[1,225],[226,450],[451,675]],approx_sigma_min:20,solar:{\"1863-07-01\":{civil_dawn:\"04:03\",sunrise:\"04:35\",noon:\"12:03\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"}},anchors:[{tick:1,min:300,sigma_min:25,state:\"reviewed\"},{tick:5,min:320,sigma_min:30},{tick:12,min:450,sigma_min:25,state:\"reviewed\"},{tick:28,min:615,sigma_min:25,state:\"reviewed\"},{tick:36,min:660,sigma_min:30,state:\"reviewed\"},{tick:53,min:870,sigma_min:30,state:\"reviewed\"},{tick:57,min:900,sigma_min:30,state:\"reviewed\"},{tick:64,min:960,sigma_min:30,state:\"reviewed\"},{tick:72,min:980,sigma_min:30,state:\"reviewed\"},{tick:75,min:1015,sigma_min:35,state:\"reviewed\"},{tick:90,min:1050,sigma_min:90,state:\"contested\"},{tick:100,min:1200,sigma_min:30},{tick:226,min:1710,sigma_min:30},{tick:240,min:2160,sigma_min:45,state:\"reviewed\"},{tick:248,min:2340,sigma_min:60,state:\"contested\"},{tick:256,min:2400,sigma_min:25,state:\"reviewed\"},{tick:267,min:2430,sigma_min:25,state:\"reviewed\"},{tick:275,min:2520,sigma_min:45,state:\"contested\"},{tick:280,min:2535,sigma_min:30,state:\"reviewed\"},{tick:295,min:2580,sigma_min:30,state:\"reviewed\"},{tick:302,min:2590,sigma_min:25,state:\"reviewed\"},{tick:314,min:2600,sigma_min:30,state:\"reviewed\"},{tick:326,min:2640,sigma_min:30,state:\"reviewed\"},{tick:340,min:2775,sigma_min:45,state:\"reviewed\"},{tick:451,min:3135,sigma_min:30,state:\"reviewed\"},{tick:500,min:3420,sigma_min:30,state:\"reviewed\"},{tick:515,min:3510,sigma_min:40,state:\"reviewed\"},{tick:518,min:3660,sigma_min:25,state:\"reviewed\"},{tick:538,min:3780,sigma_min:40,state:\"contested\"},{tick:551,min:3815,sigma_min:25,state:\"reviewed\"},{tick:556,min:3840,sigma_min:25,state:\"reviewed\"},{tick:568,min:3915,sigma_min:30,state:\"reviewed\"},{tick:675,min:4080,sigma_min:30}]}))})();})(typeof globalThis!==\"undefined\"?globalThis:window);</script>\n</head>",
+   "expect": 1,
+   "note": "inlines the GTBGTime global (classic script) for this page"
+  },
+  {
+   "id": "CLK-30-module-historian",
+   "target": "historian.html",
+   "find": "</head>",
+   "repl": "<script>/* GTBGTime 2026-10-18.1 dv3 CANDIDATE (adjudicated 2026-10-18, not signed) */\n(function(g){g.GTBGTime=(function(){const t=[\"January\",\"February\",\"March\",\"April\",\"May\",\"June\",\"July\",\"August\",\"September\",\"October\",\"November\",\"December\"],i=[\"Sunday\",\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],e={S:\"A\",M:\"B\",R:\"C\",D:\"D\"},n=[\"time\",\"day\",\"date\",\"long\",\"short\",\"compat\",\"chip\",\"iso\",\"aria\",\"frame\"];function a(t){t+=719468;const i=Math.floor(t/146097),e=t-146097*i,n=Math.floor((e-Math.floor(e/1460)+Math.floor(e/36524)-Math.floor(e/146096))/365),a=e-(365*n+Math.floor(n/4)-Math.floor(n/100)),s=Math.floor((5*a+2)/153),r=s<10?s+3:s-9;return[n+400*i+(r<=2?1:0),r,a-Math.floor((153*s+2)/5)+1]}const s=-38900,r=t=>(t<10?\"0\":\"\")+t,m=(t,i)=>(t%12==0?12:t%12)+\":\"+r(i)+(t>=12?\" PM\":\" AM\"),o=t=>60*+t.slice(0,2)+ +t.slice(3,5);return(function(t){const i=(t,i)=>{try{t=+t}catch(t){return i}return t!=t?i:Math.max(-1e9,Math.min(1e9,t))},e=t=>n.indexOf(t)<0?\"compat\":t;return{version:t.version,dv:t.dv,tickMax:t.tickMax,f:(n,a)=>t.tickToLabel(i(n,1),{style:e(a)}),x:(n,a)=>t.format(i(n,1),e(a)),after:(e,n)=>t.tickAfterMinutes(i(e,1),i(n,0)),hour:e=>t.hour(i(e,1)),phase:e=>t.dayPart(i(e,1)),tab:e=>t.tabDay(i(e,1)),approx:e=>t.isApprox(i(e,1)),tabStart:e=>t.tabStart(i(e,1)),minutes:e=>t.tickToMinutes(i(e,1)),tickAt:e=>t.minutesToTick(i(e,0))}})((function(c){const u=null==c.approx_sigma_min?10:c.approx_sigma_min,d=(c&&c.anchors).map(t=>({tick:t.tick,min:t.min,sigma:null==t.sigma_min?15:t.sigma_min,status:null==t.status?\"M\":t.status,cls:e[null==t.effective_status?t.status:t.effective_status]||\"B\",state:null==t.state?\"proposed\":t.state,review:null==t.review_flag?\"none\":t.review_flag})),l=d.length,k=d[l-1].tick,g=c.tab_days||[[1,k]],h=c.solar||{},_=t=>t<1?1:t>k?k:t,f=(t,i)=>{let e=0,n=l-2;for(;e<n;){const a=e+n+1>>1;d[a][i]<=t?e=a:n=a-1}return e},v=(t,i)=>d[t].min+(d[t+1].min-d[t].min)*(i-d[t].tick)/(d[t+1].tick-d[t].tick),w=new Float64Array(k+1);for(let t=1;t<=k;t++)w[t]=v(f(t,\"tick\"),t);const M=t=>{const i=_(t);return i===(0|i)?w[i]:v(f(i,\"tick\"),i)},p=(t,i)=>{const e=i&&i.extrapolate;if(t<=d[0].min)return e?1+(t-d[0].min)/5:1;if(t>=d[l-1].min)return e?k+(t-d[l-1].min)/5:k;const n=(t=>{let i=0,e=k;for(;i<e;){const n=i+e+1>>1;w[n]<=t?i=n:e=n-1}return i})(t),a=(t-w[n])/(w[n+1]-w[n]);return n+(a<.999999999999?a:.999999999999)},y=t=>{const i=(t=>{const i=_(t),e=f(i,\"tick\"),n=d[e],a=d[e+1];if(i===n.tick)return{sigma:n.sigma,ends:[n]};if(i===a.tick)return{sigma:a.sigma,ends:[a]};const s=(i-n.tick)/(a.tick-n.tick);return{sigma:n.sigma*(1-s)+a.sigma*s,ends:[n,a]}})(t);return i.sigma>=u||i.ends.some(t=>\"signed\"!==t.state)},b=t=>{const i=h[\"1863-07-\"+r(1+t)]||h[\"1863-07-01\"]||{civil_dawn:\"04:03\",sunrise:\"04:35\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"};return{dawn:o(i.civil_dawn),rise:o(i.sunrise),set:o(i.sunset),naut:o(i.nautical_dusk)}},x=(t,i)=>{const e=b(i);return t<e.dawn?\"night\":t<e.rise+60?\"dawn\":t<720?\"morning\":t<e.set-120?\"afternoon\":t<e.set?\"evening\":t<e.naut?\"dusk\":\"night\"},A=(e,n)=>{let r=M(e);r=n?Math.round(r/n)*n:Math.round(r);const m=Math.floor(r/1440),o=r-1440*m,c=a(s+m);let u=null;if(o<b(m).dawn){const i=a(s+m-1);u=\"Night of \"+t[i[1]-1]+\" \"+i[2]+\"-\"+(i[1]===c[1]?\"\":t[c[1]-1]+\" \")+c[2]}return{year:c[0],monthNum:c[1],month:t[c[1]-1],date:c[2],weekday:i[((s+m+4)%7+7)%7],hour24:Math.floor(o/60),minute:o%60,dayIdx:m,minutes:r,mod:o,nightOf:u,phase:x(o,m)}},T=new Map,S=(t,i,e)=>{i=n.indexOf(i)<0?\"long\":i;const a=e&&e.roundMin||0,s=!!e&&e.approx,o=_(t),c=o===(0|o)?o+\"|\"+i+\"|\"+a+\"|\"+s:null;if(c&&T.has(c))return T.get(c);const u=A(o,a),d=!0===s||\"auto\"===s&&y(o)?\"about \":\"\",l=d+m(u.hour24,u.minute),g=u.nightOf,h=(t=>t.nightOf||t.month+\" \"+t.date)(u);let f;switch(i){case\"time\":f=l;break;case\"day\":f=h;break;case\"date\":f=h+\", \"+u.year;break;case\"iso\":f=(t=>t.year+\"-\"+r(t.monthNum)+\"-\"+r(t.date)+\"T\"+r(t.hour24)+\":\"+r(t.minute))(u);break;case\"chip\":f=g?g+\", \"+l:l;break;case\"compat\":f=h+\", \"+l;break;case\"short\":f=(g?g.replace(/[A-Za-z]+(?= \\d)/g,t=>t.slice(0,3)):u.month.slice(0,3)+\" \"+u.date)+\", \"+l;break;case\"aria\":f=d+m(u.hour24,u.minute).replace(\":00 \",\" \")+(g?\" on the \"+g.charAt(0).toLowerCase()+g.slice(1):\" on \"+u.weekday+\", \"+u.month+\" \"+u.date)+\", \"+u.year;break;case\"frame\":f=\"Frame \"+Math.round(o)+\" of \"+k;break;default:f=(g||u.weekday.slice(0,3)+\", \"+u.month+\" \"+u.date)+\" · \"+l}return c&&T.set(c,f),f};return{version:null==c.version?\"\":c.version,dv:null==c.dv?2:c.dv,tickMax:k,tickToMinutes:M,minutesToTick:p,tabDay:t=>{const i=Math.floor(_(t));for(let t=0;t<g.length;t++)if(i<=g[t][1])return t+1;return g.length},tabStart:t=>(g[t-1]||g[0])[0],format:S,tickToLabel:(t,i)=>{const e=i||{};return S(t,e.style||\"long\",{roundMin:null==e.roundMin?5:e.roundMin,approx:null==e.approx?\"auto\":e.approx})},isApprox:y,tickAfterMinutes:(t,i)=>{const e=_(t);let n=Math.round(p(M(e)+i));return 0!==i&&n===Math.round(e)&&Math.abs(i)>=(t=>{const i=f(_(t),\"tick\");return(d[i+1].min-d[i].min)/(d[i+1].tick-d[i].tick)})(i>0?e:e-1e-9)/2&&(n+=i>0?1:-1),_(n)},dayPart:t=>A(t,0).phase,hour:t=>{const i=M(t);return(i-1440*Math.floor(i/1440))/60}}})({version:\"2026-10-18.1\",dv:3,tab_days:[[1,225],[226,450],[451,675]],approx_sigma_min:20,solar:{\"1863-07-01\":{civil_dawn:\"04:03\",sunrise:\"04:35\",noon:\"12:03\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"}},anchors:[{tick:1,min:300,sigma_min:25,state:\"reviewed\"},{tick:5,min:320,sigma_min:30},{tick:12,min:450,sigma_min:25,state:\"reviewed\"},{tick:28,min:615,sigma_min:25,state:\"reviewed\"},{tick:36,min:660,sigma_min:30,state:\"reviewed\"},{tick:53,min:870,sigma_min:30,state:\"reviewed\"},{tick:57,min:900,sigma_min:30,state:\"reviewed\"},{tick:64,min:960,sigma_min:30,state:\"reviewed\"},{tick:72,min:980,sigma_min:30,state:\"reviewed\"},{tick:75,min:1015,sigma_min:35,state:\"reviewed\"},{tick:90,min:1050,sigma_min:90,state:\"contested\"},{tick:100,min:1200,sigma_min:30},{tick:226,min:1710,sigma_min:30},{tick:240,min:2160,sigma_min:45,state:\"reviewed\"},{tick:248,min:2340,sigma_min:60,state:\"contested\"},{tick:256,min:2400,sigma_min:25,state:\"reviewed\"},{tick:267,min:2430,sigma_min:25,state:\"reviewed\"},{tick:275,min:2520,sigma_min:45,state:\"contested\"},{tick:280,min:2535,sigma_min:30,state:\"reviewed\"},{tick:295,min:2580,sigma_min:30,state:\"reviewed\"},{tick:302,min:2590,sigma_min:25,state:\"reviewed\"},{tick:314,min:2600,sigma_min:30,state:\"reviewed\"},{tick:326,min:2640,sigma_min:30,state:\"reviewed\"},{tick:340,min:2775,sigma_min:45,state:\"reviewed\"},{tick:451,min:3135,sigma_min:30,state:\"reviewed\"},{tick:500,min:3420,sigma_min:30,state:\"reviewed\"},{tick:515,min:3510,sigma_min:40,state:\"reviewed\"},{tick:518,min:3660,sigma_min:25,state:\"reviewed\"},{tick:538,min:3780,sigma_min:40,state:\"contested\"},{tick:551,min:3815,sigma_min:25,state:\"reviewed\"},{tick:556,min:3840,sigma_min:25,state:\"reviewed\"},{tick:568,min:3915,sigma_min:30,state:\"reviewed\"},{tick:675,min:4080,sigma_min:30}]}))})();})(typeof globalThis!==\"undefined\"?globalThis:window);</script>\n</head>",
+   "expect": 1,
+   "note": "inlines the GTBGTime global (classic script) for this page"
+  },
+  {
+   "id": "CLK-30-module-cinematic-export",
+   "target": "cinematic-export.html",
+   "find": "</head>",
+   "repl": "<script>/* GTBGTime 2026-10-18.1 dv3 CANDIDATE (adjudicated 2026-10-18, not signed) */\n(function(g){g.GTBGTime=(function(){const t=[\"January\",\"February\",\"March\",\"April\",\"May\",\"June\",\"July\",\"August\",\"September\",\"October\",\"November\",\"December\"],i=[\"Sunday\",\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],e={S:\"A\",M:\"B\",R:\"C\",D:\"D\"},n=[\"time\",\"day\",\"date\",\"long\",\"short\",\"compat\",\"chip\",\"iso\",\"aria\",\"frame\"];function a(t){t+=719468;const i=Math.floor(t/146097),e=t-146097*i,n=Math.floor((e-Math.floor(e/1460)+Math.floor(e/36524)-Math.floor(e/146096))/365),a=e-(365*n+Math.floor(n/4)-Math.floor(n/100)),s=Math.floor((5*a+2)/153),r=s<10?s+3:s-9;return[n+400*i+(r<=2?1:0),r,a-Math.floor((153*s+2)/5)+1]}const s=-38900,r=t=>(t<10?\"0\":\"\")+t,m=(t,i)=>(t%12==0?12:t%12)+\":\"+r(i)+(t>=12?\" PM\":\" AM\"),o=t=>60*+t.slice(0,2)+ +t.slice(3,5);return(function(t){const i=(t,i)=>{try{t=+t}catch(t){return i}return t!=t?i:Math.max(-1e9,Math.min(1e9,t))},e=t=>n.indexOf(t)<0?\"compat\":t;return{version:t.version,dv:t.dv,tickMax:t.tickMax,f:(n,a)=>t.tickToLabel(i(n,1),{style:e(a)}),x:(n,a)=>t.format(i(n,1),e(a)),after:(e,n)=>t.tickAfterMinutes(i(e,1),i(n,0)),hour:e=>t.hour(i(e,1)),phase:e=>t.dayPart(i(e,1)),tab:e=>t.tabDay(i(e,1)),approx:e=>t.isApprox(i(e,1)),tabStart:e=>t.tabStart(i(e,1)),minutes:e=>t.tickToMinutes(i(e,1)),tickAt:e=>t.minutesToTick(i(e,0))}})((function(c){const u=null==c.approx_sigma_min?10:c.approx_sigma_min,d=(c&&c.anchors).map(t=>({tick:t.tick,min:t.min,sigma:null==t.sigma_min?15:t.sigma_min,status:null==t.status?\"M\":t.status,cls:e[null==t.effective_status?t.status:t.effective_status]||\"B\",state:null==t.state?\"proposed\":t.state,review:null==t.review_flag?\"none\":t.review_flag})),l=d.length,k=d[l-1].tick,g=c.tab_days||[[1,k]],h=c.solar||{},_=t=>t<1?1:t>k?k:t,f=(t,i)=>{let e=0,n=l-2;for(;e<n;){const a=e+n+1>>1;d[a][i]<=t?e=a:n=a-1}return e},v=(t,i)=>d[t].min+(d[t+1].min-d[t].min)*(i-d[t].tick)/(d[t+1].tick-d[t].tick),w=new Float64Array(k+1);for(let t=1;t<=k;t++)w[t]=v(f(t,\"tick\"),t);const M=t=>{const i=_(t);return i===(0|i)?w[i]:v(f(i,\"tick\"),i)},p=(t,i)=>{const e=i&&i.extrapolate;if(t<=d[0].min)return e?1+(t-d[0].min)/5:1;if(t>=d[l-1].min)return e?k+(t-d[l-1].min)/5:k;const n=(t=>{let i=0,e=k;for(;i<e;){const n=i+e+1>>1;w[n]<=t?i=n:e=n-1}return i})(t),a=(t-w[n])/(w[n+1]-w[n]);return n+(a<.999999999999?a:.999999999999)},y=t=>{const i=(t=>{const i=_(t),e=f(i,\"tick\"),n=d[e],a=d[e+1];if(i===n.tick)return{sigma:n.sigma,ends:[n]};if(i===a.tick)return{sigma:a.sigma,ends:[a]};const s=(i-n.tick)/(a.tick-n.tick);return{sigma:n.sigma*(1-s)+a.sigma*s,ends:[n,a]}})(t);return i.sigma>=u||i.ends.some(t=>\"signed\"!==t.state)},b=t=>{const i=h[\"1863-07-\"+r(1+t)]||h[\"1863-07-01\"]||{civil_dawn:\"04:03\",sunrise:\"04:35\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"};return{dawn:o(i.civil_dawn),rise:o(i.sunrise),set:o(i.sunset),naut:o(i.nautical_dusk)}},x=(t,i)=>{const e=b(i);return t<e.dawn?\"night\":t<e.rise+60?\"dawn\":t<720?\"morning\":t<e.set-120?\"afternoon\":t<e.set?\"evening\":t<e.naut?\"dusk\":\"night\"},A=(e,n)=>{let r=M(e);r=n?Math.round(r/n)*n:Math.round(r);const m=Math.floor(r/1440),o=r-1440*m,c=a(s+m);let u=null;if(o<b(m).dawn){const i=a(s+m-1);u=\"Night of \"+t[i[1]-1]+\" \"+i[2]+\"-\"+(i[1]===c[1]?\"\":t[c[1]-1]+\" \")+c[2]}return{year:c[0],monthNum:c[1],month:t[c[1]-1],date:c[2],weekday:i[((s+m+4)%7+7)%7],hour24:Math.floor(o/60),minute:o%60,dayIdx:m,minutes:r,mod:o,nightOf:u,phase:x(o,m)}},T=new Map,S=(t,i,e)=>{i=n.indexOf(i)<0?\"long\":i;const a=e&&e.roundMin||0,s=!!e&&e.approx,o=_(t),c=o===(0|o)?o+\"|\"+i+\"|\"+a+\"|\"+s:null;if(c&&T.has(c))return T.get(c);const u=A(o,a),d=!0===s||\"auto\"===s&&y(o)?\"about \":\"\",l=d+m(u.hour24,u.minute),g=u.nightOf,h=(t=>t.nightOf||t.month+\" \"+t.date)(u);let f;switch(i){case\"time\":f=l;break;case\"day\":f=h;break;case\"date\":f=h+\", \"+u.year;break;case\"iso\":f=(t=>t.year+\"-\"+r(t.monthNum)+\"-\"+r(t.date)+\"T\"+r(t.hour24)+\":\"+r(t.minute))(u);break;case\"chip\":f=g?g+\", \"+l:l;break;case\"compat\":f=h+\", \"+l;break;case\"short\":f=(g?g.replace(/[A-Za-z]+(?= \\d)/g,t=>t.slice(0,3)):u.month.slice(0,3)+\" \"+u.date)+\", \"+l;break;case\"aria\":f=d+m(u.hour24,u.minute).replace(\":00 \",\" \")+(g?\" on the \"+g.charAt(0).toLowerCase()+g.slice(1):\" on \"+u.weekday+\", \"+u.month+\" \"+u.date)+\", \"+u.year;break;case\"frame\":f=\"Frame \"+Math.round(o)+\" of \"+k;break;default:f=(g||u.weekday.slice(0,3)+\", \"+u.month+\" \"+u.date)+\" · \"+l}return c&&T.set(c,f),f};return{version:null==c.version?\"\":c.version,dv:null==c.dv?2:c.dv,tickMax:k,tickToMinutes:M,minutesToTick:p,tabDay:t=>{const i=Math.floor(_(t));for(let t=0;t<g.length;t++)if(i<=g[t][1])return t+1;return g.length},tabStart:t=>(g[t-1]||g[0])[0],format:S,tickToLabel:(t,i)=>{const e=i||{};return S(t,e.style||\"long\",{roundMin:null==e.roundMin?5:e.roundMin,approx:null==e.approx?\"auto\":e.approx})},isApprox:y,tickAfterMinutes:(t,i)=>{const e=_(t);let n=Math.round(p(M(e)+i));return 0!==i&&n===Math.round(e)&&Math.abs(i)>=(t=>{const i=f(_(t),\"tick\");return(d[i+1].min-d[i].min)/(d[i+1].tick-d[i].tick)})(i>0?e:e-1e-9)/2&&(n+=i>0?1:-1),_(n)},dayPart:t=>A(t,0).phase,hour:t=>{const i=M(t);return(i-1440*Math.floor(i/1440))/60}}})({version:\"2026-10-18.1\",dv:3,tab_days:[[1,225],[226,450],[451,675]],approx_sigma_min:20,solar:{\"1863-07-01\":{civil_dawn:\"04:03\",sunrise:\"04:35\",noon:\"12:03\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"}},anchors:[{tick:1,min:300,sigma_min:25,state:\"reviewed\"},{tick:5,min:320,sigma_min:30},{tick:12,min:450,sigma_min:25,state:\"reviewed\"},{tick:28,min:615,sigma_min:25,state:\"reviewed\"},{tick:36,min:660,sigma_min:30,state:\"reviewed\"},{tick:53,min:870,sigma_min:30,state:\"reviewed\"},{tick:57,min:900,sigma_min:30,state:\"reviewed\"},{tick:64,min:960,sigma_min:30,state:\"reviewed\"},{tick:72,min:980,sigma_min:30,state:\"reviewed\"},{tick:75,min:1015,sigma_min:35,state:\"reviewed\"},{tick:90,min:1050,sigma_min:90,state:\"contested\"},{tick:100,min:1200,sigma_min:30},{tick:226,min:1710,sigma_min:30},{tick:240,min:2160,sigma_min:45,state:\"reviewed\"},{tick:248,min:2340,sigma_min:60,state:\"contested\"},{tick:256,min:2400,sigma_min:25,state:\"reviewed\"},{tick:267,min:2430,sigma_min:25,state:\"reviewed\"},{tick:275,min:2520,sigma_min:45,state:\"contested\"},{tick:280,min:2535,sigma_min:30,state:\"reviewed\"},{tick:295,min:2580,sigma_min:30,state:\"reviewed\"},{tick:302,min:2590,sigma_min:25,state:\"reviewed\"},{tick:314,min:2600,sigma_min:30,state:\"reviewed\"},{tick:326,min:2640,sigma_min:30,state:\"reviewed\"},{tick:340,min:2775,sigma_min:45,state:\"reviewed\"},{tick:451,min:3135,sigma_min:30,state:\"reviewed\"},{tick:500,min:3420,sigma_min:30,state:\"reviewed\"},{tick:515,min:3510,sigma_min:40,state:\"reviewed\"},{tick:518,min:3660,sigma_min:25,state:\"reviewed\"},{tick:538,min:3780,sigma_min:40,state:\"contested\"},{tick:551,min:3815,sigma_min:25,state:\"reviewed\"},{tick:556,min:3840,sigma_min:25,state:\"reviewed\"},{tick:568,min:3915,sigma_min:30,state:\"reviewed\"},{tick:675,min:4080,sigma_min:30}]}))})();})(typeof globalThis!==\"undefined\"?globalThis:window);</script>\n</head>",
+   "expect": 1,
+   "note": "inlines the GTBGTime global (classic script) for this page"
+  },
+  {
+   "id": "CLK-30-module-watch-together",
+   "target": "watch-together.html",
+   "find": "</head>",
+   "repl": "<script>/* GTBGTime 2026-10-18.1 dv3 CANDIDATE (adjudicated 2026-10-18, not signed) */\n(function(g){g.GTBGTime=(function(){const t=[\"January\",\"February\",\"March\",\"April\",\"May\",\"June\",\"July\",\"August\",\"September\",\"October\",\"November\",\"December\"],i=[\"Sunday\",\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],e={S:\"A\",M:\"B\",R:\"C\",D:\"D\"},n=[\"time\",\"day\",\"date\",\"long\",\"short\",\"compat\",\"chip\",\"iso\",\"aria\",\"frame\"];function a(t){t+=719468;const i=Math.floor(t/146097),e=t-146097*i,n=Math.floor((e-Math.floor(e/1460)+Math.floor(e/36524)-Math.floor(e/146096))/365),a=e-(365*n+Math.floor(n/4)-Math.floor(n/100)),s=Math.floor((5*a+2)/153),r=s<10?s+3:s-9;return[n+400*i+(r<=2?1:0),r,a-Math.floor((153*s+2)/5)+1]}const s=-38900,r=t=>(t<10?\"0\":\"\")+t,m=(t,i)=>(t%12==0?12:t%12)+\":\"+r(i)+(t>=12?\" PM\":\" AM\"),o=t=>60*+t.slice(0,2)+ +t.slice(3,5);return(function(t){const i=(t,i)=>{try{t=+t}catch(t){return i}return t!=t?i:Math.max(-1e9,Math.min(1e9,t))},e=t=>n.indexOf(t)<0?\"compat\":t;return{version:t.version,dv:t.dv,tickMax:t.tickMax,f:(n,a)=>t.tickToLabel(i(n,1),{style:e(a)}),x:(n,a)=>t.format(i(n,1),e(a)),after:(e,n)=>t.tickAfterMinutes(i(e,1),i(n,0)),hour:e=>t.hour(i(e,1)),phase:e=>t.dayPart(i(e,1)),tab:e=>t.tabDay(i(e,1)),approx:e=>t.isApprox(i(e,1)),tabStart:e=>t.tabStart(i(e,1)),minutes:e=>t.tickToMinutes(i(e,1)),tickAt:e=>t.minutesToTick(i(e,0))}})((function(c){const u=null==c.approx_sigma_min?10:c.approx_sigma_min,d=(c&&c.anchors).map(t=>({tick:t.tick,min:t.min,sigma:null==t.sigma_min?15:t.sigma_min,status:null==t.status?\"M\":t.status,cls:e[null==t.effective_status?t.status:t.effective_status]||\"B\",state:null==t.state?\"proposed\":t.state,review:null==t.review_flag?\"none\":t.review_flag})),l=d.length,k=d[l-1].tick,g=c.tab_days||[[1,k]],h=c.solar||{},_=t=>t<1?1:t>k?k:t,f=(t,i)=>{let e=0,n=l-2;for(;e<n;){const a=e+n+1>>1;d[a][i]<=t?e=a:n=a-1}return e},v=(t,i)=>d[t].min+(d[t+1].min-d[t].min)*(i-d[t].tick)/(d[t+1].tick-d[t].tick),w=new Float64Array(k+1);for(let t=1;t<=k;t++)w[t]=v(f(t,\"tick\"),t);const M=t=>{const i=_(t);return i===(0|i)?w[i]:v(f(i,\"tick\"),i)},p=(t,i)=>{const e=i&&i.extrapolate;if(t<=d[0].min)return e?1+(t-d[0].min)/5:1;if(t>=d[l-1].min)return e?k+(t-d[l-1].min)/5:k;const n=(t=>{let i=0,e=k;for(;i<e;){const n=i+e+1>>1;w[n]<=t?i=n:e=n-1}return i})(t),a=(t-w[n])/(w[n+1]-w[n]);return n+(a<.999999999999?a:.999999999999)},y=t=>{const i=(t=>{const i=_(t),e=f(i,\"tick\"),n=d[e],a=d[e+1];if(i===n.tick)return{sigma:n.sigma,ends:[n]};if(i===a.tick)return{sigma:a.sigma,ends:[a]};const s=(i-n.tick)/(a.tick-n.tick);return{sigma:n.sigma*(1-s)+a.sigma*s,ends:[n,a]}})(t);return i.sigma>=u||i.ends.some(t=>\"signed\"!==t.state)},b=t=>{const i=h[\"1863-07-\"+r(1+t)]||h[\"1863-07-01\"]||{civil_dawn:\"04:03\",sunrise:\"04:35\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"};return{dawn:o(i.civil_dawn),rise:o(i.sunrise),set:o(i.sunset),naut:o(i.nautical_dusk)}},x=(t,i)=>{const e=b(i);return t<e.dawn?\"night\":t<e.rise+60?\"dawn\":t<720?\"morning\":t<e.set-120?\"afternoon\":t<e.set?\"evening\":t<e.naut?\"dusk\":\"night\"},A=(e,n)=>{let r=M(e);r=n?Math.round(r/n)*n:Math.round(r);const m=Math.floor(r/1440),o=r-1440*m,c=a(s+m);let u=null;if(o<b(m).dawn){const i=a(s+m-1);u=\"Night of \"+t[i[1]-1]+\" \"+i[2]+\"-\"+(i[1]===c[1]?\"\":t[c[1]-1]+\" \")+c[2]}return{year:c[0],monthNum:c[1],month:t[c[1]-1],date:c[2],weekday:i[((s+m+4)%7+7)%7],hour24:Math.floor(o/60),minute:o%60,dayIdx:m,minutes:r,mod:o,nightOf:u,phase:x(o,m)}},T=new Map,S=(t,i,e)=>{i=n.indexOf(i)<0?\"long\":i;const a=e&&e.roundMin||0,s=!!e&&e.approx,o=_(t),c=o===(0|o)?o+\"|\"+i+\"|\"+a+\"|\"+s:null;if(c&&T.has(c))return T.get(c);const u=A(o,a),d=!0===s||\"auto\"===s&&y(o)?\"about \":\"\",l=d+m(u.hour24,u.minute),g=u.nightOf,h=(t=>t.nightOf||t.month+\" \"+t.date)(u);let f;switch(i){case\"time\":f=l;break;case\"day\":f=h;break;case\"date\":f=h+\", \"+u.year;break;case\"iso\":f=(t=>t.year+\"-\"+r(t.monthNum)+\"-\"+r(t.date)+\"T\"+r(t.hour24)+\":\"+r(t.minute))(u);break;case\"chip\":f=g?g+\", \"+l:l;break;case\"compat\":f=h+\", \"+l;break;case\"short\":f=(g?g.replace(/[A-Za-z]+(?= \\d)/g,t=>t.slice(0,3)):u.month.slice(0,3)+\" \"+u.date)+\", \"+l;break;case\"aria\":f=d+m(u.hour24,u.minute).replace(\":00 \",\" \")+(g?\" on the \"+g.charAt(0).toLowerCase()+g.slice(1):\" on \"+u.weekday+\", \"+u.month+\" \"+u.date)+\", \"+u.year;break;case\"frame\":f=\"Frame \"+Math.round(o)+\" of \"+k;break;default:f=(g||u.weekday.slice(0,3)+\", \"+u.month+\" \"+u.date)+\" · \"+l}return c&&T.set(c,f),f};return{version:null==c.version?\"\":c.version,dv:null==c.dv?2:c.dv,tickMax:k,tickToMinutes:M,minutesToTick:p,tabDay:t=>{const i=Math.floor(_(t));for(let t=0;t<g.length;t++)if(i<=g[t][1])return t+1;return g.length},tabStart:t=>(g[t-1]||g[0])[0],format:S,tickToLabel:(t,i)=>{const e=i||{};return S(t,e.style||\"long\",{roundMin:null==e.roundMin?5:e.roundMin,approx:null==e.approx?\"auto\":e.approx})},isApprox:y,tickAfterMinutes:(t,i)=>{const e=_(t);let n=Math.round(p(M(e)+i));return 0!==i&&n===Math.round(e)&&Math.abs(i)>=(t=>{const i=f(_(t),\"tick\");return(d[i+1].min-d[i].min)/(d[i+1].tick-d[i].tick)})(i>0?e:e-1e-9)/2&&(n+=i>0?1:-1),_(n)},dayPart:t=>A(t,0).phase,hour:t=>{const i=M(t);return(i-1440*Math.floor(i/1440))/60}}})({version:\"2026-10-18.1\",dv:3,tab_days:[[1,225],[226,450],[451,675]],approx_sigma_min:20,solar:{\"1863-07-01\":{civil_dawn:\"04:03\",sunrise:\"04:35\",noon:\"12:03\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"}},anchors:[{tick:1,min:300,sigma_min:25,state:\"reviewed\"},{tick:5,min:320,sigma_min:30},{tick:12,min:450,sigma_min:25,state:\"reviewed\"},{tick:28,min:615,sigma_min:25,state:\"reviewed\"},{tick:36,min:660,sigma_min:30,state:\"reviewed\"},{tick:53,min:870,sigma_min:30,state:\"reviewed\"},{tick:57,min:900,sigma_min:30,state:\"reviewed\"},{tick:64,min:960,sigma_min:30,state:\"reviewed\"},{tick:72,min:980,sigma_min:30,state:\"reviewed\"},{tick:75,min:1015,sigma_min:35,state:\"reviewed\"},{tick:90,min:1050,sigma_min:90,state:\"contested\"},{tick:100,min:1200,sigma_min:30},{tick:226,min:1710,sigma_min:30},{tick:240,min:2160,sigma_min:45,state:\"reviewed\"},{tick:248,min:2340,sigma_min:60,state:\"contested\"},{tick:256,min:2400,sigma_min:25,state:\"reviewed\"},{tick:267,min:2430,sigma_min:25,state:\"reviewed\"},{tick:275,min:2520,sigma_min:45,state:\"contested\"},{tick:280,min:2535,sigma_min:30,state:\"reviewed\"},{tick:295,min:2580,sigma_min:30,state:\"reviewed\"},{tick:302,min:2590,sigma_min:25,state:\"reviewed\"},{tick:314,min:2600,sigma_min:30,state:\"reviewed\"},{tick:326,min:2640,sigma_min:30,state:\"reviewed\"},{tick:340,min:2775,sigma_min:45,state:\"reviewed\"},{tick:451,min:3135,sigma_min:30,state:\"reviewed\"},{tick:500,min:3420,sigma_min:30,state:\"reviewed\"},{tick:515,min:3510,sigma_min:40,state:\"reviewed\"},{tick:518,min:3660,sigma_min:25,state:\"reviewed\"},{tick:538,min:3780,sigma_min:40,state:\"contested\"},{tick:551,min:3815,sigma_min:25,state:\"reviewed\"},{tick:556,min:3840,sigma_min:25,state:\"reviewed\"},{tick:568,min:3915,sigma_min:30,state:\"reviewed\"},{tick:675,min:4080,sigma_min:30}]}))})();})(typeof globalThis!==\"undefined\"?globalThis:window);</script>\n</head>",
+   "expect": 1,
+   "note": "inlines the GTBGTime global (classic script) for this page"
+  },
+  {
+   "id": "CLK-30-module-ground-remembers",
+   "target": "ground-remembers.html",
+   "find": "</head>",
+   "repl": "<script>/* GTBGTime 2026-10-18.1 dv3 CANDIDATE (adjudicated 2026-10-18, not signed) */\n(function(g){g.GTBGTime=(function(){const t=[\"January\",\"February\",\"March\",\"April\",\"May\",\"June\",\"July\",\"August\",\"September\",\"October\",\"November\",\"December\"],i=[\"Sunday\",\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"],e={S:\"A\",M:\"B\",R:\"C\",D:\"D\"},n=[\"time\",\"day\",\"date\",\"long\",\"short\",\"compat\",\"chip\",\"iso\",\"aria\",\"frame\"];function a(t){t+=719468;const i=Math.floor(t/146097),e=t-146097*i,n=Math.floor((e-Math.floor(e/1460)+Math.floor(e/36524)-Math.floor(e/146096))/365),a=e-(365*n+Math.floor(n/4)-Math.floor(n/100)),s=Math.floor((5*a+2)/153),r=s<10?s+3:s-9;return[n+400*i+(r<=2?1:0),r,a-Math.floor((153*s+2)/5)+1]}const s=-38900,r=t=>(t<10?\"0\":\"\")+t,m=(t,i)=>(t%12==0?12:t%12)+\":\"+r(i)+(t>=12?\" PM\":\" AM\"),o=t=>60*+t.slice(0,2)+ +t.slice(3,5);return(function(t){const i=(t,i)=>{try{t=+t}catch(t){return i}return t!=t?i:Math.max(-1e9,Math.min(1e9,t))},e=t=>n.indexOf(t)<0?\"compat\":t;return{version:t.version,dv:t.dv,tickMax:t.tickMax,f:(n,a)=>t.tickToLabel(i(n,1),{style:e(a)}),x:(n,a)=>t.format(i(n,1),e(a)),after:(e,n)=>t.tickAfterMinutes(i(e,1),i(n,0)),hour:e=>t.hour(i(e,1)),phase:e=>t.dayPart(i(e,1)),tab:e=>t.tabDay(i(e,1)),approx:e=>t.isApprox(i(e,1)),tabStart:e=>t.tabStart(i(e,1)),minutes:e=>t.tickToMinutes(i(e,1)),tickAt:e=>t.minutesToTick(i(e,0))}})((function(c){const u=null==c.approx_sigma_min?10:c.approx_sigma_min,d=(c&&c.anchors).map(t=>({tick:t.tick,min:t.min,sigma:null==t.sigma_min?15:t.sigma_min,status:null==t.status?\"M\":t.status,cls:e[null==t.effective_status?t.status:t.effective_status]||\"B\",state:null==t.state?\"proposed\":t.state,review:null==t.review_flag?\"none\":t.review_flag})),l=d.length,k=d[l-1].tick,g=c.tab_days||[[1,k]],h=c.solar||{},_=t=>t<1?1:t>k?k:t,f=(t,i)=>{let e=0,n=l-2;for(;e<n;){const a=e+n+1>>1;d[a][i]<=t?e=a:n=a-1}return e},v=(t,i)=>d[t].min+(d[t+1].min-d[t].min)*(i-d[t].tick)/(d[t+1].tick-d[t].tick),w=new Float64Array(k+1);for(let t=1;t<=k;t++)w[t]=v(f(t,\"tick\"),t);const M=t=>{const i=_(t);return i===(0|i)?w[i]:v(f(i,\"tick\"),i)},p=(t,i)=>{const e=i&&i.extrapolate;if(t<=d[0].min)return e?1+(t-d[0].min)/5:1;if(t>=d[l-1].min)return e?k+(t-d[l-1].min)/5:k;const n=(t=>{let i=0,e=k;for(;i<e;){const n=i+e+1>>1;w[n]<=t?i=n:e=n-1}return i})(t),a=(t-w[n])/(w[n+1]-w[n]);return n+(a<.999999999999?a:.999999999999)},y=t=>{const i=(t=>{const i=_(t),e=f(i,\"tick\"),n=d[e],a=d[e+1];if(i===n.tick)return{sigma:n.sigma,ends:[n]};if(i===a.tick)return{sigma:a.sigma,ends:[a]};const s=(i-n.tick)/(a.tick-n.tick);return{sigma:n.sigma*(1-s)+a.sigma*s,ends:[n,a]}})(t);return i.sigma>=u||i.ends.some(t=>\"signed\"!==t.state)},b=t=>{const i=h[\"1863-07-\"+r(1+t)]||h[\"1863-07-01\"]||{civil_dawn:\"04:03\",sunrise:\"04:35\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"};return{dawn:o(i.civil_dawn),rise:o(i.sunrise),set:o(i.sunset),naut:o(i.nautical_dusk)}},x=(t,i)=>{const e=b(i);return t<e.dawn?\"night\":t<e.rise+60?\"dawn\":t<720?\"morning\":t<e.set-120?\"afternoon\":t<e.set?\"evening\":t<e.naut?\"dusk\":\"night\"},A=(e,n)=>{let r=M(e);r=n?Math.round(r/n)*n:Math.round(r);const m=Math.floor(r/1440),o=r-1440*m,c=a(s+m);let u=null;if(o<b(m).dawn){const i=a(s+m-1);u=\"Night of \"+t[i[1]-1]+\" \"+i[2]+\"-\"+(i[1]===c[1]?\"\":t[c[1]-1]+\" \")+c[2]}return{year:c[0],monthNum:c[1],month:t[c[1]-1],date:c[2],weekday:i[((s+m+4)%7+7)%7],hour24:Math.floor(o/60),minute:o%60,dayIdx:m,minutes:r,mod:o,nightOf:u,phase:x(o,m)}},T=new Map,S=(t,i,e)=>{i=n.indexOf(i)<0?\"long\":i;const a=e&&e.roundMin||0,s=!!e&&e.approx,o=_(t),c=o===(0|o)?o+\"|\"+i+\"|\"+a+\"|\"+s:null;if(c&&T.has(c))return T.get(c);const u=A(o,a),d=!0===s||\"auto\"===s&&y(o)?\"about \":\"\",l=d+m(u.hour24,u.minute),g=u.nightOf,h=(t=>t.nightOf||t.month+\" \"+t.date)(u);let f;switch(i){case\"time\":f=l;break;case\"day\":f=h;break;case\"date\":f=h+\", \"+u.year;break;case\"iso\":f=(t=>t.year+\"-\"+r(t.monthNum)+\"-\"+r(t.date)+\"T\"+r(t.hour24)+\":\"+r(t.minute))(u);break;case\"chip\":f=g?g+\", \"+l:l;break;case\"compat\":f=h+\", \"+l;break;case\"short\":f=(g?g.replace(/[A-Za-z]+(?= \\d)/g,t=>t.slice(0,3)):u.month.slice(0,3)+\" \"+u.date)+\", \"+l;break;case\"aria\":f=d+m(u.hour24,u.minute).replace(\":00 \",\" \")+(g?\" on the \"+g.charAt(0).toLowerCase()+g.slice(1):\" on \"+u.weekday+\", \"+u.month+\" \"+u.date)+\", \"+u.year;break;case\"frame\":f=\"Frame \"+Math.round(o)+\" of \"+k;break;default:f=(g||u.weekday.slice(0,3)+\", \"+u.month+\" \"+u.date)+\" · \"+l}return c&&T.set(c,f),f};return{version:null==c.version?\"\":c.version,dv:null==c.dv?2:c.dv,tickMax:k,tickToMinutes:M,minutesToTick:p,tabDay:t=>{const i=Math.floor(_(t));for(let t=0;t<g.length;t++)if(i<=g[t][1])return t+1;return g.length},tabStart:t=>(g[t-1]||g[0])[0],format:S,tickToLabel:(t,i)=>{const e=i||{};return S(t,e.style||\"long\",{roundMin:null==e.roundMin?5:e.roundMin,approx:null==e.approx?\"auto\":e.approx})},isApprox:y,tickAfterMinutes:(t,i)=>{const e=_(t);let n=Math.round(p(M(e)+i));return 0!==i&&n===Math.round(e)&&Math.abs(i)>=(t=>{const i=f(_(t),\"tick\");return(d[i+1].min-d[i].min)/(d[i+1].tick-d[i].tick)})(i>0?e:e-1e-9)/2&&(n+=i>0?1:-1),_(n)},dayPart:t=>A(t,0).phase,hour:t=>{const i=M(t);return(i-1440*Math.floor(i/1440))/60}}})({version:\"2026-10-18.1\",dv:3,tab_days:[[1,225],[226,450],[451,675]],approx_sigma_min:20,solar:{\"1863-07-01\":{civil_dawn:\"04:03\",sunrise:\"04:35\",noon:\"12:03\",sunset:\"19:32\",civil_dusk:\"20:04\",nautical_dusk:\"20:46\"}},anchors:[{tick:1,min:300,sigma_min:25,state:\"reviewed\"},{tick:5,min:320,sigma_min:30},{tick:12,min:450,sigma_min:25,state:\"reviewed\"},{tick:28,min:615,sigma_min:25,state:\"reviewed\"},{tick:36,min:660,sigma_min:30,state:\"reviewed\"},{tick:53,min:870,sigma_min:30,state:\"reviewed\"},{tick:57,min:900,sigma_min:30,state:\"reviewed\"},{tick:64,min:960,sigma_min:30,state:\"reviewed\"},{tick:72,min:980,sigma_min:30,state:\"reviewed\"},{tick:75,min:1015,sigma_min:35,state:\"reviewed\"},{tick:90,min:1050,sigma_min:90,state:\"contested\"},{tick:100,min:1200,sigma_min:30},{tick:226,min:1710,sigma_min:30},{tick:240,min:2160,sigma_min:45,state:\"reviewed\"},{tick:248,min:2340,sigma_min:60,state:\"contested\"},{tick:256,min:2400,sigma_min:25,state:\"reviewed\"},{tick:267,min:2430,sigma_min:25,state:\"reviewed\"},{tick:275,min:2520,sigma_min:45,state:\"contested\"},{tick:280,min:2535,sigma_min:30,state:\"reviewed\"},{tick:295,min:2580,sigma_min:30,state:\"reviewed\"},{tick:302,min:2590,sigma_min:25,state:\"reviewed\"},{tick:314,min:2600,sigma_min:30,state:\"reviewed\"},{tick:326,min:2640,sigma_min:30,state:\"reviewed\"},{tick:340,min:2775,sigma_min:45,state:\"reviewed\"},{tick:451,min:3135,sigma_min:30,state:\"reviewed\"},{tick:500,min:3420,sigma_min:30,state:\"reviewed\"},{tick:515,min:3510,sigma_min:40,state:\"reviewed\"},{tick:518,min:3660,sigma_min:25,state:\"reviewed\"},{tick:538,min:3780,sigma_min:40,state:\"contested\"},{tick:551,min:3815,sigma_min:25,state:\"reviewed\"},{tick:556,min:3840,sigma_min:25,state:\"reviewed\"},{tick:568,min:3915,sigma_min:30,state:\"reviewed\"},{tick:675,min:4080,sigma_min:30}]}))})();})(typeof globalThis!==\"undefined\"?globalThis:window);</script>\n</head>",
+   "expect": 1,
+   "note": "inlines the GTBGTime global (classic script) for this page"
+  },
+  {
+   "id": "CLK-31-compare-clock",
+   "target": "compare.html",
+   "find": "function approxTimeForTick(tick) {\r\n    // Ticks are 5-minute intervals starting 5:00am. Day boundaries reset the clock (per placement_schema.json's ticks_per_day).\r\n    const dayStartTick = tick <= 225 ? 1 : (tick <= 450 ? 226 : 451);\r\n    const minutesIn = (tick - dayStartTick) * 5;\r\n    const hour = Math.floor(minutesIn / 60) + 5;\r\n    const min = minutesIn % 60;\r\n    const h12 = ((hour + 11) % 12) + 1;\r\n    const ampm = hour >= 12 && hour < 24 ? 'pm' : (hour >= 24 ? 'am' : 'am');\r\n    return `${h12}:${String(min).padStart(2,'0')}${hour >= 24 ? 'am (next day)' : (hour >= 12 ? 'pm' : 'am')}`;\r\n  }",
+   "repl": "function approxTimeForTick(tick) {\n    return GTBGTime.f(tick, 'chip');\n  }",
+   "expect": 1,
+   "note": "Compare: local clock deleted; time from the model (the \"Day N\" text stays: a tab is a tick range)"
+  },
+  {
+   "id": "CLK-32-ledger-clock",
+   "target": "living-ledger.html",
+   "find": "function timeForTick(tick) {\n    const dayIdx = tick < DAY_BOUNDS[1] ? 0 : (tick < DAY_BOUNDS[2] ? 1 : 2);\n    const dayStart = DAY_BOUNDS[dayIdx];\n    const minutesIn = (tick - dayStart) * 5;\n    const hour = Math.floor(minutesIn / 60) + 5;\n    const min = minutesIn % 60;\n    const h12 = ((hour + 11) % 12) + 1;\n    const ampm = hour >= 12 ? 'PM' : 'AM';\n    return `July ${dayIdx + 1}, ${h12}:${String(min).padStart(2, '0')} ${ampm}`;\n  }",
+   "repl": "function timeForTick(tick) {\n    return GTBGTime.f(tick, 'compat');\n  }",
+   "expect": 1,
+   "note": "Living Ledger clock from the model"
+  },
+  {
+   "id": "CLK-33-ledger-static-clock",
+   "target": "living-ledger.html",
+   "find": "<div class=\"clock\" id=\"clock\">July 1, 5:00 AM</div>",
+   "repl": "<div class=\"clock\" id=\"clock\">July 1, about 5:00 AM</div>",
+   "expect": 1,
+   "note": "Ledger static clock text (visible before scripts run) marked approximate"
+  },
+  {
+   "id": "CLK-34-ledger-callout-time",
+   "target": "living-ledger.html",
+   "find": "<b>${due.trigger_location}, tick ${due.trigger_tick}:</b>",
+   "repl": "<b>${due.trigger_location}, ${GTBGTime.f(due.trigger_tick, 'time')}:</b>",
+   "expect": 1,
+   "note": "Ledger callout: a time instead of \"tick n\""
+  },
+  {
+   "id": "CLK-35-camera-hour",
+   "target": "camera.html",
+   "find": "function hourForTick(tick) {\r\n    const dayStartTick = tick <= 225 ? 1 : (tick <= 450 ? 226 : 451);\r\n    const minutesIn = (tick - dayStartTick) * 5;\r\n    return (Math.floor(minutesIn / 60) + 5) % 24; // ticks are 5-min intervals starting 5:00am each day\r\n  }",
+   "repl": "function hourForTick(tick) {\n    return GTBGTime.hour(tick);\n  }",
+   "expect": 1,
+   "note": "atmosphere overlay hour from the clock (thresholds unchanged; WP-TIME-13 replaces them with the solar table)"
+  },
+  {
+   "id": "CLK-36-camera-tick-display",
+   "target": "camera.html",
+   "find": "<span id=\"tick-display\">Tick <b id=\"tick-num\">1</b> / 675</span>",
+   "repl": "<span id=\"tick-display\"><b id=\"tick-num\">July 1, about 5:00 AM</b></span>",
+   "expect": 1,
+   "note": "shows the clock instead of \"Tick n / 675\""
+  },
+  {
+   "id": "CLK-37-camera-tick-text",
+   "target": "camera.html",
+   "find": "document.getElementById('tick-num').textContent = tick;",
+   "repl": "document.getElementById('tick-num').textContent = GTBGTime.f(tick, 'compat');",
+   "expect": 1,
+   "note": "clock text per tick"
+  },
+  {
+   "id": "CLK-35-immersive-hour",
+   "target": "immersive.html",
+   "find": "function hourForTick(tick) {\n    const dayStartTick = tick <= 225 ? 1 : (tick <= 450 ? 226 : 451);\n    const minutesIn = (tick - dayStartTick) * 5;\n    return (Math.floor(minutesIn / 60) + 5) % 24;\n  }",
+   "repl": "function hourForTick(tick) {\n    return GTBGTime.hour(tick);\n  }",
+   "expect": 1,
+   "note": "atmosphere overlay hour from the clock (thresholds unchanged; WP-TIME-13 replaces them with the solar table)"
+  },
+  {
+   "id": "CLK-36-immersive-tick-display",
+   "target": "immersive.html",
+   "find": "<span id=\"tick-display\">Tick <b id=\"tick-num\">1</b> / 675</span>",
+   "repl": "<span id=\"tick-display\"><b id=\"tick-num\">July 1, about 5:00 AM</b></span>",
+   "expect": 1,
+   "note": "shows the clock instead of \"Tick n / 675\""
+  },
+  {
+   "id": "CLK-37-immersive-tick-text",
+   "target": "immersive.html",
+   "find": "document.getElementById('tick-num').textContent = tick;",
+   "repl": "document.getElementById('tick-num').textContent = GTBGTime.f(tick, 'compat');",
+   "expect": 1,
+   "note": "clock text per tick"
+  },
+  {
+   "id": "CLK-38-documentary-eyebrow",
+   "target": "documentary.html",
+   "find": "`Day ${dayForTick(v.trigger_tick)} · Tick ${v.trigger_tick} · ${v.trigger_location}`",
+   "repl": "`${GTBGTime.f(v.trigger_tick, 'long')} · ${v.trigger_location}`",
+   "expect": 1,
+   "note": "Documentary eyebrow: date and time from the clock, no tick number"
+  },
+  {
+   "id": "CLK-39-education-tab-ranges",
+   "target": "education.html",
+   "find": "const DAY_TICK_RANGES = { 1: [1, 225], 2: [226, 450], 3: [451, 675] };",
+   "repl": "const DAY_TICK_RANGES = { 1: [GTBGTime.tabStart(1), GTBGTime.tabStart(2) - 1], 2: [GTBGTime.tabStart(2), GTBGTime.tabStart(3) - 1], 3: [GTBGTime.tabStart(3), GTBGTime.tickMax] };",
+   "expect": 1,
+   "note": "Education tab ranges from the module instead of hard-coded 1/225/226/450/451/675"
+  },
+  {
+   "id": "CLK-40-education-card-time",
+   "target": "education.html",
+   "find": "card.innerHTML = `<div class=\"story-title\">${v.title}</div>",
+   "repl": "card.innerHTML = `<div class=\"story-title\">${v.title}</div>\n        <div class=\"story-text\" style=\"font-size:0.85em;opacity:0.75\">${GTBGTime.f(v.trigger_tick, 'long')}</div>",
+   "expect": 1,
+   "note": "Education cards show their clock time"
+  },
+  {
+   "id": "CLK-41-turning-points-day",
+   "target": "turning-points.html",
+   "find": "<div class=\"tp-day\">${p.day} &middot; ${p.location}</div>",
+   "repl": "<div class=\"tp-day\">${GTBGTime.f(p.tick, 'long')} &middot; ${p.location}</div>",
+   "expect": 1,
+   "note": "Turning Points: date and time from the clock instead of the typed day part (t175 now reads as night: the misplaced tick becomes visible)"
+  },
+  {
+   "id": "CLK-41b-turning-points-uncertainty",
+   "target": "turning-points.html",
+   "find": "</head>",
+   "repl": "<script>GTBGTime.u=(function(){var R=[[1,30,2],[5,30,1],[12,30,1],[28,35,2],[36,30,1],[53,30,1],[57,30,1],[64,40,2],[72,50,2],[75,35,1],[90,90,0],[100,30,1],[226,30,1],[240,60,2],[248,60,0],[256,30,2],[267,30,1],[275,60,0],[280,30,2],[295,30,1],[302,25,1],[314,30,2],[326,30,2],[340,45,2],[451,30,2],[500,30,2],[515,45,2],[518,30,2],[538,60,0],[551,25,1],[556,30,1],[568,30,2],[675,30,1]],W=[\"Contested: first-hand accounts disagree\",\"Estimated: no source gives this moment a clock time\",\"Documented: a first-hand source gives a clock time\"],M=[\"Between two anchored times, at least one of them Contested (first-hand accounts disagree)\",\"Between two anchored times, at least one of them only Estimated\",\"Between two anchored times, both Documented by first-hand sources\"];return function(t){t=+t;if(t!==t)t=1;t=t<1?1:t>R[R.length-1][0]?R[R.length-1][0]:t;var i=0;while(i<R.length-2&&R[i+1][0]<=t)i++;var a=R[i],b=R[i+1],u,s,L=W;if(t===a[0]){u=a[1];s=a[2]}else if(t===b[0]){u=b[1];s=b[2]}else{var w=(t-a[0])/(b[0]-a[0]);u=a[1]*(1-w)+b[1]*w;s=Math.min(a[2],b[2]);L=M}return\"give or take \"+Math.round(u/5)*5+\" minutes. \"+L[s]+\".\"}})();</script>\n</head>",
+   "expect": 1,
+   "note": "Turning Points: date and time from the clock instead of the typed day part (t175 now reads as night: the misplaced tick becomes visible)"
+  },
+  {
+   "id": "CLK-41c-turning-points-tooltip",
+   "target": "turning-points.html",
+   "find": "<div class=\"tp-day\">${GTBGTime.f(p.tick, 'long')} &middot;",
+   "repl": "<div class=\"tp-day\" title=\"${GTBGTime.u(p.tick)}\">${p.when ? GTBGTime.f(p.tick, 'long').split(' · ')[0] + ' · ' + p.when : GTBGTime.f(p.tick, 'long')} &middot;",
+   "expect": 1,
+   "note": "Turning Points: date and time from the clock instead of the typed day part (t175 now reads as night: the misplaced tick becomes visible)"
+  },
+  {
+   "id": "CLK-41d-turning-points-night-assault",
+   "target": "turning-points.html",
+   "find": "title: \"The Night Assault on Culp's and Cemetery Hill\", tick: ",
+   "repl": "title: \"The Night Assault on Culp's and Cemetery Hill\", when: 'evening, about 7:00 to 8:30 PM', tick: ",
+   "expect": 1,
+   "note": "Turning Points: date and time from the clock instead of the typed day part (t175 now reads as night: the misplaced tick becomes visible)"
+  },
+  {
+   "id": "CLK-42-sandbox-labels",
+   "target": "sandbox.html",
+   "find": "opt.value = sp.tick; opt.textContent = sp.label;",
+   "repl": "opt.value = sp.tick; opt.textContent = GTBGTime.f(sp.tick, 'long') + ' — ' + sp.label.split(' -- ').slice(1).join(' -- ');",
+   "expect": 1,
+   "note": "Sandbox presets start from the clock; the typed description after \" -- \" stays (t260 is 4:11 PM, after the assault began: content triage)"
+  },
+  {
+   "id": "CLK-43-regiment-span",
+   "target": "regiment.html",
+   "find": "const span = run.startTick === run.endTick ? `tick ${run.startTick}` : `ticks ${run.startTick}&ndash;${run.endTick}`;",
+   "repl": "const span = run.startTick === run.endTick ? GTBGTime.f(run.startTick, 'chip') : GTBGTime.f(run.startTick, 'chip') + '&ndash;' + (GTBGTime.f(run.startTick, 'day') === GTBGTime.f(run.endTick, 'day') ? GTBGTime.f(run.endTick, 'time').replace(/^about /, '') : GTBGTime.f(run.endTick, 'chip'));",
+   "expect": 1,
+   "note": "Regiment timeline spans as clock times"
+  },
+  {
+   "id": "CLK-44-regiment-day",
+   "target": "regiment.html",
+   "find": "<div class=\"tl-meta\">Day ${dayForTick(run.startTick)} &middot; ${span}</div>",
+   "repl": "<div class=\"tl-meta\">${GTBGTime.f(run.startTick, 'day')} &middot; ${span}</div>",
+   "expect": 1,
+   "note": "Regiment day label from the clock"
+  },
+  {
+   "id": "CLK-45-search-meta",
+   "target": "search.html",
+   "find": "meta: `${v.trigger_location} · Tick ${v.trigger_tick}`,",
+   "repl": "meta: `${v.trigger_location} · ${GTBGTime.f(v.trigger_tick, 'compat')}`,",
+   "expect": 1,
+   "note": "Search result meta: a time instead of \"Tick n\""
+  },
+  {
+   "id": "CLK-70-historian-chronology-clock",
+   "target": "historian.html",
+   "find": ".then(d => ({ day: i + 1, ...d }))",
+   "repl": ".then(d => ({ day: i + 1, ...d, events: (d.events || []).map(e => (e && e.tick ? { ...e, time: GTBGTime.f(e.tick, 'compat') } : e)) }))",
+   "expect": 1,
+   "note": "Ask the Historian: chronology answers show the model clock of the event frame (done where the file is loaded, so the later page groups keep their anchors)"
+  },
+  {
+   "id": "CLK-71-historian-vignette-clock",
+   "target": "historian.html",
+   "find": "(${v.trigger_location}, tick ${v.trigger_tick})",
+   "repl": "(${v.trigger_location}, ${GTBGTime.f(v.trigger_tick, 'compat')})",
+   "expect": 1,
+   "note": "Ask the Historian: vignette answers show the clock instead of \"tick n\""
+  },
+  {
+   "id": "CLK-72-cinematic-caption-preview",
+   "target": "cinematic-export.html",
+   "find": "v ? `${v.trigger_location} — tick ${startTick}` : `Tick ${startTick}`",
+   "repl": "v ? `${v.trigger_location} — ${GTBGTime.f(startTick, 'compat')}` : GTBGTime.f(startTick, 'compat')",
+   "expect": 1,
+   "note": "Cinematic export: preview caption shows the clock"
+  },
+  {
+   "id": "CLK-73-cinematic-caption-record",
+   "target": "cinematic-export.html",
+   "find": "v ? `${v.trigger_location} — tick ${tick}` : `Tick ${tick}`",
+   "repl": "v ? `${v.trigger_location} — ${GTBGTime.f(tick, 'compat')}` : GTBGTime.f(tick, 'compat')",
+   "expect": 1,
+   "note": "Cinematic export: recorded captions show the clock"
+  },
+  {
+   "id": "CLK-74-cinematic-start-hint",
+   "target": "cinematic-export.html",
+   "find": "<input type=\"number\" id=\"start-tick\" min=\"1\" max=\"675\" value=\"540\" />",
+   "repl": "<input type=\"number\" id=\"start-tick\" min=\"1\" max=\"675\" value=\"540\" /> <small id=\"start-time\" aria-live=\"polite\"></small>",
+   "expect": 1,
+   "note": "Cinematic export: the clock beside the start frame input"
+  },
+  {
+   "id": "CLK-75-cinematic-end-hint",
+   "target": "cinematic-export.html",
+   "find": "<input type=\"number\" id=\"end-tick\" min=\"1\" max=\"675\" value=\"600\" />",
+   "repl": "<input type=\"number\" id=\"end-tick\" min=\"1\" max=\"675\" value=\"600\" /> <small id=\"end-time\" aria-live=\"polite\"></small>",
+   "expect": 1,
+   "note": "Cinematic export: the clock beside the end frame input"
+  },
+  {
+   "id": "CLK-76-cinematic-hint-script",
+   "target": "cinematic-export.html",
+   "find": "document.getElementById('start-tick').addEventListener('change', updatePreview);",
+   "repl": "document.getElementById('start-tick').addEventListener('change', updatePreview);\n  [['start-tick', 'start-time'], ['end-tick', 'end-time']].forEach(([inp, out]) => { const el = document.getElementById(inp), o = document.getElementById(out); const upd = () => { const t = Math.round(Number(el.value)); o.textContent = t >= 1 && t <= 675 ? GTBGTime.f(t, 'compat') : ''; }; el.addEventListener('input', upd); el.addEventListener('change', upd); upd(); });",
+   "expect": 1,
+   "note": "Cinematic export: keeps those two clocks current"
+  },
+  {
+   "id": "CLK-77-ground-label",
+   "target": "ground-remembers.html",
+   "find": "<label>Reveal through tick <span id=\"reveal-label\">675</span>",
+   "repl": "<label>Reveal through <span id=\"reveal-label\">July 3, about 8:00 PM</span>",
+   "expect": 1,
+   "note": "Ground Remembers: \"Reveal through tick 675\" becomes the clock"
+  },
+  {
+   "id": "CLK-78-ground-label-input",
+   "target": "ground-remembers.html",
+   "find": "labelEl.textContent = revealEl.value;",
+   "repl": "labelEl.textContent = GTBGTime.f(Number(revealEl.value), 'compat');",
+   "expect": 1,
+   "note": "Ground Remembers: the label follows the slider"
+  },
+  {
+   "id": "CLK-79-ground-label-play",
+   "target": "ground-remembers.html",
+   "find": "labelEl.textContent = v;",
+   "repl": "labelEl.textContent = GTBGTime.f(v, 'compat');",
+   "expect": 1,
+   "note": "Ground Remembers: the label follows the build-up animation"
+  },
+  {
+   "id": "CLK-80-watch-together-late-hook",
+   "target": "watch-together.html",
+   "find": "<div id=\"gtbg-footer-mount\"></div>",
+   "repl": "<script>(function () { var G = window.GTBGTime; if (!G) return; var WORD = [\"Ti\", \"ck\"].join(\"\"); /* the word this hook removes from the page */\n  function fix() {\n    var els = document.querySelectorAll(\".stop-tick, #caption-bar, #add-stop-msg\");\n    for (var i = 0; i < els.length; i++) { var el = els[i], t = el.textContent, m = new RegExp(\"^\" + WORD + \" ([0-9]+)(?: — ([^]*))?$\").exec(t);\n      if (m) { var s = G.f(+m[1], \"compat\"); el.textContent = m[2] != null ? s + \" — \" + m[2] : s; }\n      else if (t.indexOf(WORD.toLowerCase() + \" number\") >= 0) el.textContent = t.replace(WORD.toLowerCase() + \" number\", \"frame number\"); }\n  }\n  var inp = document.getElementById(\"new-tick\");\n  if (inp) { inp.setAttribute(\"placeholder\", \"frame number (1-675)\"); inp.setAttribute(\"aria-label\", \"frame number\"); var h = document.createElement(\"small\"); h.setAttribute(\"aria-live\", \"polite\"); h.id = \"new-tick-time\"; inp.insertAdjacentElement(\"afterend\", h);\n    var upd = function () { var n = Math.round(Number(inp.value)); h.textContent = inp.value.trim() !== \"\" && n >= 1 && n <= 675 ? \" \" + G.f(n, \"compat\") : \"\"; }; inp.addEventListener(\"input\", upd); }\n  new MutationObserver(fix).observe(document.body, { childList: true, subtree: true, characterData: true }); fix();\n})();</script>\n<div id=\"gtbg-footer-mount\"></div>",
+   "expect": 1,
+   "note": "Watch Together: a late hook (the sub-page group rewrites the stop rows and messages) turns \"Tick n\" into the clock, the input into a frame field with its clock beside it"
+  },
+  {
+   "id": "CLK-81-compare-label-a",
+   "target": "compare.html",
+   "find": "<span>Tick <b id=\"tick-num-a\">60</b></span>",
+   "repl": "<span><b id=\"tick-num-a\">July 1</b></span>",
+   "expect": 1,
+   "note": "Compare: the label beside each slider is the date, not \"Tick n\""
+  },
+  {
+   "id": "CLK-81-compare-label-b",
+   "target": "compare.html",
+   "find": "<span>Tick <b id=\"tick-num-b\">300</b></span>",
+   "repl": "<span><b id=\"tick-num-b\">July 1</b></span>",
+   "expect": 1,
+   "note": "Compare: the label beside each slider is the date, not \"Tick n\""
+  },
+  {
+   "id": "CLK-82-compare-label-text",
+   "target": "compare.html",
+   "find": "document.getElementById(tickNumId).textContent = tick;",
+   "repl": "{ const nb = document.getElementById(tickNumId); nb.textContent = GTBGTime.f(tick, 'day'); nb.title = GTBGTime.f(tick, 'frame') + ' · ' + GTBGTime.u(tick); }",
+   "expect": 1,
+   "note": "Compare: that label follows the slider; the frame number and the uncertainty are its tooltip"
+  },
+  {
+   "id": "CLK-82b-compare-uncertainty",
+   "target": "compare.html",
+   "find": "</head>",
+   "repl": "<script>GTBGTime.u=(function(){var R=[[1,30,2],[5,30,1],[12,30,1],[28,35,2],[36,30,1],[53,30,1],[57,30,1],[64,40,2],[72,50,2],[75,35,1],[90,90,0],[100,30,1],[226,30,1],[240,60,2],[248,60,0],[256,30,2],[267,30,1],[275,60,0],[280,30,2],[295,30,1],[302,25,1],[314,30,2],[326,30,2],[340,45,2],[451,30,2],[500,30,2],[515,45,2],[518,30,2],[538,60,0],[551,25,1],[556,30,1],[568,30,2],[675,30,1]],W=[\"Contested: first-hand accounts disagree\",\"Estimated: no source gives this moment a clock time\",\"Documented: a first-hand source gives a clock time\"],M=[\"Between two anchored times, at least one of them Contested (first-hand accounts disagree)\",\"Between two anchored times, at least one of them only Estimated\",\"Between two anchored times, both Documented by first-hand sources\"];return function(t){t=+t;if(t!==t)t=1;t=t<1?1:t>R[R.length-1][0]?R[R.length-1][0]:t;var i=0;while(i<R.length-2&&R[i+1][0]<=t)i++;var a=R[i],b=R[i+1],u,s,L=W;if(t===a[0]){u=a[1];s=a[2]}else if(t===b[0]){u=b[1];s=b[2]}else{var w=(t-a[0])/(b[0]-a[0]);u=a[1]*(1-w)+b[1]*w;s=Math.min(a[2],b[2]);L=M}return\"give or take \"+Math.round(u/5)*5+\" minutes. \"+L[s]+\".\"}})();</script>\n</head>",
+   "expect": 1,
+   "note": "Compare: that label follows the slider; the frame number and the uncertainty are its tooltip"
+  },
+  {
+   "id": "CLK-83-compare-popup",
+   "target": "compare.html",
+   "find": "as of tick ${p.asOfTick}",
+   "repl": "as of ${GTBGTime.f(p.asOfTick, 'compat')}",
+   "expect": 1,
+   "note": "Compare: unit popup \"as of tick n\" becomes the clock"
+  },
+  {
+   "id": "CLK-84-compare-hint",
+   "target": "compare.html",
+   "find": "Set each map to a different tick and compare unit positions side by side",
+   "repl": "Set each map to a different moment and compare unit positions side by side",
+   "expect": 1,
+   "note": "Compare: the hint no longer says tick"
+  },
+  {
+   "id": "CLK-85-camera-prose",
+   "target": "camera.html",
+   "find": "wherever the most units are engaged, each tick.",
+   "repl": "wherever the most units are engaged, at every step.",
+   "expect": 1,
+   "note": "Camera: prose says step, not tick"
+  },
+  {
+   "id": "CLK-86-immersive-prose",
+   "target": "immersive.html",
+   "find": "real unit density at each tick --",
+   "repl": "real unit density at each moment --",
+   "expect": 1,
+   "note": "Immersive: prose says moment, not tick"
+  },
+  {
+   "id": "CLK-87-sandbox-preset-1",
+   "target": "sandbox.html",
+   "find": "{ tick: 260, label: \"Day 2, mid-afternoon (tick 260) -- before Longstreet's assault\" },",
+   "repl": "{ tick: 252, label: \"Day 2, mid-afternoon -- before Longstreet's assault opens\" },",
+   "expect": 1,
+   "note": "Sandbox preset 1 starts at frame 252 (3:30 PM), before the assault that opens at 4:00 PM (anchor 256); it was frame 260 (4:10 PM)"
+  },
+  {
+   "id": "CLK-88-sandbox-preset-2",
+   "target": "sandbox.html",
+   "find": "{ tick: 553, label: \"Day 3, ~3:00pm (tick 553) -- moments before Pickett's Charge reaches the wall\" },",
+   "repl": "{ tick: 548, label: \"Day 3, mid-afternoon -- moments before Pickett's Charge reaches the wall\" },",
+   "expect": 1,
+   "note": "Sandbox preset 2 starts at frame 548 (3:25 PM), before Armistead is over the wall at 3:35 PM (anchor 551); it was frame 553 (3:45 PM)"
+  },
+  {
+   "id": "CLK-89-sandbox-preset-3",
+   "target": "sandbox.html",
+   "find": "{ tick: 62, label: \"Day 1, mid-morning (tick 62) -- I Corps holding McPherson's Ridge\" },",
+   "repl": "{ tick: 30, label: \"Day 1, mid-morning -- I Corps holding McPherson's Ridge\" },",
+   "expect": 1,
+   "note": "Sandbox preset 3 starts at frame 30 (10:25 AM), I Corps on McPherson's Ridge (anchor 28, 10:15 AM); it was frame 62 (3:45 PM, \"mid-morning\")"
+  },
+  {
+   "id": "CLK-90-sandbox-default",
+   "target": "sandbox.html",
+   "find": "loadTickIntoSandbox(260);",
+   "repl": "loadTickIntoSandbox(252);",
+   "expect": 1,
+   "note": "Sandbox opens on the first preset (frame 252)"
+  },
+  {
+   "id": "CLK-91-cinematic-labels-hook",
+   "target": "cinematic-export.html",
+   "find": "<div id=\"gtbg-footer-mount\"></div>",
+   "repl": "<script>(function () { var m = { \"start-tick\": \"Start frame\", \"end-tick\": \"End frame\" }; Object.keys(m).forEach(function (id) { var l = document.querySelector('label[for=\"' + id + '\"]'); if (!l) { var i = document.getElementById(id); l = i && i.parentElement && i.parentElement.querySelector(\"label\"); } if (l) l.textContent = m[id]; }); })();</script>\n<div id=\"gtbg-footer-mount\"></div>",
+   "expect": 1,
+   "note": "Cinematic export: the input labels say frame (late hook, the sub-page group wrote the labels)"
+  }
+ ]
+}

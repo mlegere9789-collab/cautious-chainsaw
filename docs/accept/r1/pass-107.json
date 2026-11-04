@@ -1,0 +1,3819 @@
+{
+  "pass": 107,
+  "verdict": "DEFECTS (incomplete)",
+  "startedAt": "2026-10-20T12:02:21.826Z",
+  "finishedAt": "2026-10-20T12:09:47.482Z",
+  "args": {
+    "_": [],
+    "candidate": "tmp/r1/r1-cand.zip",
+    "baseline": "baseline/dist",
+    "pass": "107",
+    "only": "7",
+    "soak-seconds": "60",
+    "port-base": "8800",
+    "out-dir": "docs/accept/r1"
+  },
+  "harness": {
+    "digest": "cd0c5dbcf775d7210283ca348cdc7a6fc5d825388527ebbf1e2881773ff4a76a",
+    "files": 31
+  },
+  "countsTowardAcceptance": false,
+  "env": {
+    "node": "v24.19.0",
+    "python": "Python 3.11.9",
+    "chrome": "Chrome/155.0.8059.82",
+    "os": "Windows_NT 10.0.26200 x64",
+    "playwrightCore": "1.63.0",
+    "axeCore": "4.13.0",
+    "cpus": 16,
+    "cpuModel": "Intel(R) Core(TM) Ultra 7 265H",
+    "memGB": 34,
+    "gitHead": "17ba8ee789133164815e11c4f2e740de86524862",
+    "portBase": 8800,
+    "tileCap": 20000,
+    "tilesUsed": 512,
+    "mapboxMapLoadsSkus": 62,
+    "tilesCapBlocked": 0,
+    "soakSeconds": 60,
+    "serverHeadersApplied": {
+      "headerBlocks": 72,
+      "redirectRules": 23,
+      "redirected": 0,
+      "headersAdded": 4178
+    }
+  },
+  "candidate": {
+    "path": "tmp\\r1\\r1-cand.zip",
+    "kind": "zip",
+    "sha256": "1af54cb0586a60dddf0072d601c10d5ff51b21b154a736ae05dadcb4e63877d3",
+    "bytes": 40236401,
+    "files": 2013,
+    "treeSha256": "9f2bfc51298d35c0132c13d1cbe828106e4b4c7d064c7c1bb590d4670c0d2061",
+    "zipComment": ""
+  },
+  "baseline": "baseline\\dist",
+  "thresholds": {
+    "_comment": "Green band of the end-of-mission acceptance (docs/battle-theatre/GOVERNANCE/FINAL-ACCEPTANCE.md, step 5). Any value outside the band is a defect: there is no amber that passes. Never loosen these to make a pass clean.",
+    "webVitals": {
+      "lcpMs": 2500,
+      "cls": 0.1,
+      "inpMs": 200,
+      "tbtMs": 200
+    },
+    "frames": {
+      "p95FrameMsDesktop": 20,
+      "p95FrameMsPhone": 20,
+      "maxJankFrameMs": 100,
+      "_note": "p95 frame time of requestAnimationFrame deltas while the map animation plays at 1x and 4x. maxJankFrameMs is reported as a defect only when more than 1 percent of frames exceed it."
+    },
+    "interaction": {
+      "visibleResponseMs": 100,
+      "longTaskMs": 50,
+      "longTasksPerInteraction": 0,
+      "navigationFirstPaintMs": 1000
+    },
+    "heap": {
+      "maxGrowthPercent": 10,
+      "_note": "(heap after the final forced GC - heap after warm-up and a forced GC) / heap after warm-up, over the soak. Default soak is 120 s for dry runs; the acceptance run uses --soak-seconds 600."
+    },
+    "visual": {
+      "widths": [
+        360,
+        390,
+        768,
+        1024,
+        1440,
+        1920
+      ],
+      "heights": {
+        "360": 740,
+        "390": 844,
+        "768": 1024,
+        "1024": 768,
+        "1440": 900,
+        "1920": 1080
+      },
+      "tapTargetMinPx": 44,
+      "tapTargetAppliesUpToWidth": 1024,
+      "pointerTargetMinPx": 24,
+      "minTextPx": 12,
+      "layoutShiftMax": 0.1,
+      "horizontalOverflowTolerancePx": 1
+    },
+    "regression": {
+      "pixelColorThreshold": 0.1,
+      "maxDiffRatio": 0.002,
+      "regionGrid": [
+        8,
+        6
+      ],
+      "viewports": [
+        [
+          1440,
+          900
+        ],
+        [
+          390,
+          844
+        ]
+      ]
+    },
+    "setup": {
+      "tileCapPerRun": 20000,
+      "_note": "Mapbox requests per pass through the Referer-injecting side channel of tests/t0/lib.mjs (harness default 300 per run). Mapbox bills map loads (one sku per GL JS initialisation), not tile requests; every pass reports the number of skus it used. Override with --tile-cap."
+    }
+  },
+  "routes": [
+    "/404",
+    "/aftermath",
+    "/ar",
+    "/camera",
+    "/cinematic-export",
+    "/compare",
+    "/dashboard",
+    "/documentary",
+    "/education",
+    "/embed",
+    "/find-ancestor",
+    "/ground-remembers",
+    "/historian",
+    "/immersive",
+    "/",
+    "/living-ledger",
+    "/privacy",
+    "/regiment",
+    "/report",
+    "/sandbox",
+    "/search",
+    "/terms",
+    "/turning-points",
+    "/viewshed",
+    "/watch-together"
+  ],
+  "checks": [
+    {
+      "id": "7",
+      "title": "Visual QA at six widths",
+      "status": "RAN",
+      "reason": null,
+      "defectCount": 24,
+      "noteCount": 123,
+      "notRunParts": [],
+      "ms": 443368,
+      "started": "2026-10-20T12:02:24.065Z",
+      "finished": "2026-10-20T12:09:47.428Z",
+      "commands": [],
+      "metrics": {
+        "chrome": "Chrome/155.0.8059.82",
+        "pagesAnalysed": 152,
+        "widths": [
+          360,
+          390,
+          768,
+          1024,
+          1440,
+          1920
+        ],
+        "tilesSkipped": 0,
+        "thresholdsUsed": {
+          "tapTargetMinPx": 44,
+          "appliesUpToWidth": 1024,
+          "pointerTargetMinPx": 24,
+          "minTextPx": 12,
+          "layoutShiftMax": 0.1
+        }
+      },
+      "defects": [
+        {
+          "code": "text-too-small",
+          "where": "/cinematic-export @360px",
+          "detail": "small#start-time \"July 3, about 3:05 PM\" is 10.8333px (minimum 12)"
+        },
+        {
+          "code": "text-too-small",
+          "where": "/cinematic-export @360px",
+          "detail": "small#end-time \"July 3, about 6:05 PM\" is 10.8333px (minimum 12)"
+        },
+        {
+          "code": "text-too-small",
+          "where": "/cinematic-export @390px",
+          "detail": "small#start-time \"July 3, about 3:05 PM\" is 10.8333px (minimum 12)"
+        },
+        {
+          "code": "text-too-small",
+          "where": "/cinematic-export @390px",
+          "detail": "small#end-time \"July 3, about 6:05 PM\" is 10.8333px (minimum 12)"
+        },
+        {
+          "code": "text-too-small",
+          "where": "/cinematic-export @768px",
+          "detail": "small#start-time \"July 3, about 3:05 PM\" is 10.8333px (minimum 12)"
+        },
+        {
+          "code": "text-too-small",
+          "where": "/cinematic-export @768px",
+          "detail": "small#end-time \"July 3, about 6:05 PM\" is 10.8333px (minimum 12)"
+        },
+        {
+          "code": "text-too-small",
+          "where": "/cinematic-export @1024px",
+          "detail": "small#start-time \"July 3, about 3:05 PM\" is 10.8333px (minimum 12)"
+        },
+        {
+          "code": "text-too-small",
+          "where": "/cinematic-export @1024px",
+          "detail": "small#end-time \"July 3, about 6:05 PM\" is 10.8333px (minimum 12)"
+        },
+        {
+          "code": "text-too-small",
+          "where": "/cinematic-export @1440px",
+          "detail": "small#start-time \"July 3, about 3:05 PM\" is 10.8333px (minimum 12)"
+        },
+        {
+          "code": "text-too-small",
+          "where": "/cinematic-export @1440px",
+          "detail": "small#end-time \"July 3, about 6:05 PM\" is 10.8333px (minimum 12)"
+        },
+        {
+          "code": "text-too-small",
+          "where": "/cinematic-export @1920px",
+          "detail": "small#start-time \"July 3, about 3:05 PM\" is 10.8333px (minimum 12)"
+        },
+        {
+          "code": "text-too-small",
+          "where": "/cinematic-export @1920px",
+          "detail": "small#end-time \"July 3, about 6:05 PM\" is 10.8333px (minimum 12)"
+        },
+        {
+          "code": "text-too-small",
+          "where": "/ @360px",
+          "detail": "p.gtb63-label \"Reconstruction of July 1863 (USGS imager\" is 11px (minimum 12)"
+        },
+        {
+          "code": "text-too-small",
+          "where": "/ @360px",
+          "detail": "button.gtb63-btn \"Show what was changed\" is 11px (minimum 12)"
+        },
+        {
+          "code": "text-too-small",
+          "where": "/ @360px",
+          "detail": "a.gtb63-link \"Sources and licences\" is 11px (minimum 12)"
+        },
+        {
+          "code": "text-too-small",
+          "where": "/ @390px",
+          "detail": "p.gtb63-label \"Reconstruction of July 1863 (USGS imager\" is 11px (minimum 12)"
+        },
+        {
+          "code": "text-too-small",
+          "where": "/ @390px",
+          "detail": "button.gtb63-btn \"Show what was changed\" is 11px (minimum 12)"
+        },
+        {
+          "code": "text-too-small",
+          "where": "/ @390px",
+          "detail": "a.gtb63-link \"Sources and licences\" is 11px (minimum 12)"
+        },
+        {
+          "code": "text-too-small",
+          "where": "/ @768px",
+          "detail": "p.gtb63-label \"Reconstruction of July 1863 (USGS imager\" is 11px (minimum 12)"
+        },
+        {
+          "code": "text-too-small",
+          "where": "/ @768px",
+          "detail": "button.gtb63-btn \"Show what was changed\" is 11px (minimum 12)"
+        },
+        {
+          "code": "text-too-small",
+          "where": "/ @768px",
+          "detail": "a.gtb63-link \"Sources and licences\" is 11px (minimum 12)"
+        },
+        {
+          "code": "text-too-small",
+          "where": "/ (first visit, onboarding modal) @360px",
+          "detail": "p.gtb63-label \"Reconstruction of July 1863 (USGS imager\" is 11px (minimum 12)"
+        },
+        {
+          "code": "text-too-small",
+          "where": "/ (first visit, onboarding modal) @360px",
+          "detail": "button.gtb63-btn \"Show what was changed\" is 11px (minimum 12)"
+        },
+        {
+          "code": "text-too-small",
+          "where": "/ (first visit, onboarding modal) @360px",
+          "detail": "a.gtb63-link \"Sources and licences\" is 11px (minimum 12)"
+        }
+      ],
+      "notes": [
+        {
+          "code": "third-party-small-target",
+          "where": "/camera @360px",
+          "detail": "1 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): button.mapboxgl-ctrl-attrib-button 24x24"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/camera @390px",
+          "detail": "1 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): button.mapboxgl-ctrl-attrib-button 24x24"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/camera @768px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/camera @768px",
+          "detail": "4 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/camera @1024px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/camera @1024px",
+          "detail": "4 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/camera @1440px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "layout-shift-below-limit",
+          "where": "/camera @1440px",
+          "detail": "CLS 0.0061"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/camera @1440px",
+          "detail": "4 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/camera @1920px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "layout-shift-below-limit",
+          "where": "/camera @1920px",
+          "detail": "CLS 0.0028"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/camera @1920px",
+          "detail": "4 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/cinematic-export @360px",
+          "detail": "1 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): button.mapboxgl-ctrl-attrib-button 24x24"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/cinematic-export @390px",
+          "detail": "1 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): button.mapboxgl-ctrl-attrib-button 24x24"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/cinematic-export @768px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/cinematic-export @768px",
+          "detail": "4 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/cinematic-export @1024px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/cinematic-export @1024px",
+          "detail": "4 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/cinematic-export @1440px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "layout-shift-below-limit",
+          "where": "/cinematic-export @1440px",
+          "detail": "CLS 0.0065"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/cinematic-export @1440px",
+          "detail": "4 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/cinematic-export @1920px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "layout-shift-below-limit",
+          "where": "/cinematic-export @1920px",
+          "detail": "CLS 0.0041"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/cinematic-export @1920px",
+          "detail": "4 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/compare @360px",
+          "detail": "2 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): button.mapboxgl-ctrl-attrib-button 24x24, button.mapboxgl-ctrl-attrib-button 24x24"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/compare @390px",
+          "detail": "2 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): button.mapboxgl-ctrl-attrib-button 24x24, button.mapboxgl-ctrl-attrib-button 24x24"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/compare @768px",
+          "detail": "2 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): button.mapboxgl-ctrl-attrib-button 24x24, button.mapboxgl-ctrl-attrib-button 24x24"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/compare @768px",
+          "detail": "16 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/compare @1024px",
+          "detail": "2 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): button.mapboxgl-ctrl-attrib-button 24x24, button.mapboxgl-ctrl-attrib-button 24x24"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/compare @1024px",
+          "detail": "16 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/compare @1440px",
+          "detail": "8 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "layout-shift-below-limit",
+          "where": "/compare @1440px",
+          "detail": "CLS 0.0123"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/compare @1440px",
+          "detail": "24 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/compare @1920px",
+          "detail": "8 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "layout-shift-below-limit",
+          "where": "/compare @1920px",
+          "detail": "CLS 0.0056"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/compare @1920px",
+          "detail": "24 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/dashboard @360px",
+          "detail": "12 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/dashboard @390px",
+          "detail": "12 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/dashboard @768px",
+          "detail": "12 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/dashboard @1024px",
+          "detail": "12 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/dashboard @1440px",
+          "detail": "12 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/dashboard @1920px",
+          "detail": "12 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/ground-remembers @360px",
+          "detail": "2 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): button.mapboxgl-ctrl-attrib-button 24x24, a.mapboxgl-ctrl-logo 88x23"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/ground-remembers @390px",
+          "detail": "2 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): button.mapboxgl-ctrl-attrib-button 24x24, a.mapboxgl-ctrl-logo 88x23"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/ground-remembers @768px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/ground-remembers @768px",
+          "detail": "3 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/ground-remembers @1024px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/ground-remembers @1024px",
+          "detail": "3 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/ground-remembers @1440px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "layout-shift-below-limit",
+          "where": "/ground-remembers @1440px",
+          "detail": "CLS 0.0038"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/ground-remembers @1440px",
+          "detail": "3 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/ground-remembers @1920px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "layout-shift-below-limit",
+          "where": "/ground-remembers @1920px",
+          "detail": "CLS 0.0025"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/ground-remembers @1920px",
+          "detail": "3 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "layout-shift-below-limit",
+          "where": "/historian @1440px",
+          "detail": "CLS 0.0052"
+        },
+        {
+          "code": "layout-shift-below-limit",
+          "where": "/historian @1920px",
+          "detail": "CLS 0.0031"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/immersive @360px",
+          "detail": "1 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): button.mapboxgl-ctrl-attrib-button 24x24"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/immersive @390px",
+          "detail": "1 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): button.mapboxgl-ctrl-attrib-button 24x24"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/immersive @768px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/immersive @1024px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/immersive @1440px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "layout-shift-below-limit",
+          "where": "/immersive @1440px",
+          "detail": "CLS 0.0062"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/immersive @1920px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "layout-shift-below-limit",
+          "where": "/immersive @1920px",
+          "detail": "CLS 0.0028"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/ @360px",
+          "detail": "8 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/ @390px",
+          "detail": "8 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/ @768px",
+          "detail": "8 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/ @1024px",
+          "detail": "18 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/ @1440px",
+          "detail": "1 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a.mapboxgl-ctrl-logo 88x23"
+        },
+        {
+          "code": "layout-shift-below-limit",
+          "where": "/ @1440px",
+          "detail": "CLS 0.0024"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/ @1440px",
+          "detail": "18 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/ @1920px",
+          "detail": "1 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a.mapboxgl-ctrl-logo 88x23"
+        },
+        {
+          "code": "layout-shift-below-limit",
+          "where": "/ @1920px",
+          "detail": "CLS 0.0011"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/ @1920px",
+          "detail": "18 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "layout-shift-below-limit",
+          "where": "/regiment @1440px",
+          "detail": "CLS 0.0078"
+        },
+        {
+          "code": "layout-shift-below-limit",
+          "where": "/regiment @1920px",
+          "detail": "CLS 0.0049"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/sandbox @360px",
+          "detail": "1 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): button.mapboxgl-ctrl-attrib-button 24x24"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/sandbox @390px",
+          "detail": "1 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): button.mapboxgl-ctrl-attrib-button 24x24"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/sandbox @768px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/sandbox @768px",
+          "detail": "4 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/sandbox @1024px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/sandbox @1024px",
+          "detail": "4 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/sandbox @1440px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "layout-shift-below-limit",
+          "where": "/sandbox @1440px",
+          "detail": "CLS 0.0061"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/sandbox @1440px",
+          "detail": "4 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/sandbox @1920px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "layout-shift-below-limit",
+          "where": "/sandbox @1920px",
+          "detail": "CLS 0.0028"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/sandbox @1920px",
+          "detail": "4 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/turning-points @360px",
+          "detail": "9 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/turning-points @390px",
+          "detail": "9 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/turning-points @768px",
+          "detail": "9 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/turning-points @1024px",
+          "detail": "9 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/turning-points @1440px",
+          "detail": "9 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/turning-points @1920px",
+          "detail": "9 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/viewshed @360px",
+          "detail": "1 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): button.mapboxgl-ctrl-attrib-button 24x24"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/viewshed @390px",
+          "detail": "1 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): button.mapboxgl-ctrl-attrib-button 24x24"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/viewshed @768px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/viewshed @768px",
+          "detail": "4 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/viewshed @1024px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/viewshed @1024px",
+          "detail": "4 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/viewshed @1440px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "layout-shift-below-limit",
+          "where": "/viewshed @1440px",
+          "detail": "CLS 0.0061"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/viewshed @1440px",
+          "detail": "4 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/viewshed @1920px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "layout-shift-below-limit",
+          "where": "/viewshed @1920px",
+          "detail": "CLS 0.0028"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/viewshed @1920px",
+          "detail": "4 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/watch-together @360px",
+          "detail": "1 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): button.mapboxgl-ctrl-attrib-button 24x24"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/watch-together @390px",
+          "detail": "1 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): button.mapboxgl-ctrl-attrib-button 24x24"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/watch-together @768px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/watch-together @768px",
+          "detail": "4 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/watch-together @1024px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/watch-together @1024px",
+          "detail": "4 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/watch-together @1440px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "layout-shift-below-limit",
+          "where": "/watch-together @1440px",
+          "detail": "CLS 0.0061"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/watch-together @1440px",
+          "detail": "4 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/watch-together @1920px",
+          "detail": "4 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a 55x14, a 97x14, a.mapbox-improve-map 99x14"
+        },
+        {
+          "code": "layout-shift-below-limit",
+          "where": "/watch-together @1920px",
+          "detail": "CLS 0.0028"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/watch-together @1920px",
+          "detail": "4 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/ (first visit, onboarding modal) @360px",
+          "detail": "8 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "third-party-small-target",
+          "where": "/ (first visit, onboarding modal) @1440px",
+          "detail": "1 Mapbox attribution/logo target(s) under the minimum (Mapbox attribution/logo markup: required by Mapbox's terms but styled by the site CSS; reported as a note, NOT counted. Owner decision: enlarge them or accept): a.mapboxgl-ctrl-logo 88x23"
+        },
+        {
+          "code": "layout-shift-below-limit",
+          "where": "/ (first visit, onboarding modal) @1440px",
+          "detail": "CLS 0.0009"
+        },
+        {
+          "code": "axe-contrast-incomplete",
+          "where": "/ (first visit, onboarding modal) @1440px",
+          "detail": "16 node(s) axe could not decide (background image/gradient/overlap)"
+        },
+        {
+          "code": "method",
+          "where": "-",
+          "detail": "Mapbox canvases are not inspected pixel-wise; contrast is axe color-contrast on DOM text only (text drawn on the map canvas is not covered); screenshots (JPEG q55) are in the pass artifacts folder for human review. Widths <= 1024 px are emulated with touch + mobile viewport (the application layout switch is at 834 px with a coarse pointer), which is why the 44 px tap rule applies there."
+        }
+      ],
+      "raw": {
+        "rows": [
+          {
+            "route": "/404",
+            "width": 360,
+            "firstVisit": false,
+            "counts": {
+              "elements": 5,
+              "interactive": 1,
+              "textEls": 4,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\404-360.jpg"
+          },
+          {
+            "route": "/404",
+            "width": 390,
+            "firstVisit": false,
+            "counts": {
+              "elements": 5,
+              "interactive": 1,
+              "textEls": 4,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\404-390.jpg"
+          },
+          {
+            "route": "/404",
+            "width": 768,
+            "firstVisit": false,
+            "counts": {
+              "elements": 5,
+              "interactive": 1,
+              "textEls": 4,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\404-768.jpg"
+          },
+          {
+            "route": "/404",
+            "width": 1024,
+            "firstVisit": false,
+            "counts": {
+              "elements": 5,
+              "interactive": 1,
+              "textEls": 4,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\404-1024.jpg"
+          },
+          {
+            "route": "/404",
+            "width": 1440,
+            "firstVisit": false,
+            "counts": {
+              "elements": 5,
+              "interactive": 1,
+              "textEls": 4,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\404-1440.jpg"
+          },
+          {
+            "route": "/404",
+            "width": 1920,
+            "firstVisit": false,
+            "counts": {
+              "elements": 5,
+              "interactive": 1,
+              "textEls": 4,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\404-1920.jpg"
+          },
+          {
+            "route": "/aftermath",
+            "width": 360,
+            "firstVisit": false,
+            "counts": {
+              "elements": 40,
+              "interactive": 9,
+              "textEls": 25,
+              "images": 1
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\aftermath-360.jpg"
+          },
+          {
+            "route": "/aftermath",
+            "width": 390,
+            "firstVisit": false,
+            "counts": {
+              "elements": 40,
+              "interactive": 9,
+              "textEls": 25,
+              "images": 1
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\aftermath-390.jpg"
+          },
+          {
+            "route": "/aftermath",
+            "width": 768,
+            "firstVisit": false,
+            "counts": {
+              "elements": 41,
+              "interactive": 9,
+              "textEls": 26,
+              "images": 1
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\aftermath-768.jpg"
+          },
+          {
+            "route": "/aftermath",
+            "width": 1024,
+            "firstVisit": false,
+            "counts": {
+              "elements": 41,
+              "interactive": 9,
+              "textEls": 26,
+              "images": 1
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\aftermath-1024.jpg"
+          },
+          {
+            "route": "/aftermath",
+            "width": 1440,
+            "firstVisit": false,
+            "counts": {
+              "elements": 41,
+              "interactive": 9,
+              "textEls": 26,
+              "images": 1
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\aftermath-1440.jpg"
+          },
+          {
+            "route": "/aftermath",
+            "width": 1920,
+            "firstVisit": false,
+            "counts": {
+              "elements": 41,
+              "interactive": 9,
+              "textEls": 26,
+              "images": 1
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\aftermath-1920.jpg"
+          },
+          {
+            "route": "/ar",
+            "width": 360,
+            "firstVisit": false,
+            "counts": {
+              "elements": 27,
+              "interactive": 9,
+              "textEls": 17,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\ar-360.jpg"
+          },
+          {
+            "route": "/ar",
+            "width": 390,
+            "firstVisit": false,
+            "counts": {
+              "elements": 27,
+              "interactive": 9,
+              "textEls": 17,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\ar-390.jpg"
+          },
+          {
+            "route": "/ar",
+            "width": 768,
+            "firstVisit": false,
+            "counts": {
+              "elements": 28,
+              "interactive": 9,
+              "textEls": 18,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\ar-768.jpg"
+          },
+          {
+            "route": "/ar",
+            "width": 1024,
+            "firstVisit": false,
+            "counts": {
+              "elements": 28,
+              "interactive": 9,
+              "textEls": 18,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\ar-1024.jpg"
+          },
+          {
+            "route": "/ar",
+            "width": 1440,
+            "firstVisit": false,
+            "counts": {
+              "elements": 28,
+              "interactive": 9,
+              "textEls": 18,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\ar-1440.jpg"
+          },
+          {
+            "route": "/ar",
+            "width": 1920,
+            "firstVisit": false,
+            "counts": {
+              "elements": 28,
+              "interactive": 9,
+              "textEls": 18,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\ar-1920.jpg"
+          },
+          {
+            "route": "/camera",
+            "width": 360,
+            "firstVisit": false,
+            "counts": {
+              "elements": 40,
+              "interactive": 16,
+              "textEls": 16,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\camera-360.jpg"
+          },
+          {
+            "route": "/camera",
+            "width": 390,
+            "firstVisit": false,
+            "counts": {
+              "elements": 40,
+              "interactive": 16,
+              "textEls": 16,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\camera-390.jpg"
+          },
+          {
+            "route": "/camera",
+            "width": 768,
+            "firstVisit": false,
+            "counts": {
+              "elements": 44,
+              "interactive": 19,
+              "textEls": 21,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\camera-768.jpg"
+          },
+          {
+            "route": "/camera",
+            "width": 1024,
+            "firstVisit": false,
+            "counts": {
+              "elements": 44,
+              "interactive": 19,
+              "textEls": 21,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\camera-1024.jpg"
+          },
+          {
+            "route": "/camera",
+            "width": 1440,
+            "firstVisit": false,
+            "counts": {
+              "elements": 44,
+              "interactive": 19,
+              "textEls": 21,
+              "images": 0
+            },
+            "cls": 0.0061,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\camera-1440.jpg"
+          },
+          {
+            "route": "/camera",
+            "width": 1920,
+            "firstVisit": false,
+            "counts": {
+              "elements": 44,
+              "interactive": 19,
+              "textEls": 21,
+              "images": 0
+            },
+            "cls": 0.0028,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\camera-1920.jpg"
+          },
+          {
+            "route": "/cinematic-export",
+            "width": 360,
+            "firstVisit": false,
+            "counts": {
+              "elements": 50,
+              "interactive": 18,
+              "textEls": 17,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\cinematic-export-360.jpg"
+          },
+          {
+            "route": "/cinematic-export",
+            "width": 390,
+            "firstVisit": false,
+            "counts": {
+              "elements": 50,
+              "interactive": 18,
+              "textEls": 17,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\cinematic-export-390.jpg"
+          },
+          {
+            "route": "/cinematic-export",
+            "width": 768,
+            "firstVisit": false,
+            "counts": {
+              "elements": 54,
+              "interactive": 21,
+              "textEls": 22,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\cinematic-export-768.jpg"
+          },
+          {
+            "route": "/cinematic-export",
+            "width": 1024,
+            "firstVisit": false,
+            "counts": {
+              "elements": 54,
+              "interactive": 21,
+              "textEls": 22,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\cinematic-export-1024.jpg"
+          },
+          {
+            "route": "/cinematic-export",
+            "width": 1440,
+            "firstVisit": false,
+            "counts": {
+              "elements": 54,
+              "interactive": 21,
+              "textEls": 22,
+              "images": 0
+            },
+            "cls": 0.0065,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\cinematic-export-1440.jpg"
+          },
+          {
+            "route": "/cinematic-export",
+            "width": 1920,
+            "firstVisit": false,
+            "counts": {
+              "elements": 54,
+              "interactive": 21,
+              "textEls": 22,
+              "images": 0
+            },
+            "cls": 0.0041,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\cinematic-export-1920.jpg"
+          },
+          {
+            "route": "/compare",
+            "width": 360,
+            "firstVisit": false,
+            "counts": {
+              "elements": 78,
+              "interactive": 28,
+              "textEls": 29,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\compare-360.jpg"
+          },
+          {
+            "route": "/compare",
+            "width": 390,
+            "firstVisit": false,
+            "counts": {
+              "elements": 78,
+              "interactive": 28,
+              "textEls": 29,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\compare-390.jpg"
+          },
+          {
+            "route": "/compare",
+            "width": 768,
+            "firstVisit": false,
+            "counts": {
+              "elements": 79,
+              "interactive": 28,
+              "textEls": 30,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\compare-768.jpg"
+          },
+          {
+            "route": "/compare",
+            "width": 1024,
+            "firstVisit": false,
+            "counts": {
+              "elements": 79,
+              "interactive": 28,
+              "textEls": 30,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\compare-1024.jpg"
+          },
+          {
+            "route": "/compare",
+            "width": 1440,
+            "firstVisit": false,
+            "counts": {
+              "elements": 85,
+              "interactive": 34,
+              "textEls": 38,
+              "images": 0
+            },
+            "cls": 0.0123,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\compare-1440.jpg"
+          },
+          {
+            "route": "/compare",
+            "width": 1920,
+            "firstVisit": false,
+            "counts": {
+              "elements": 85,
+              "interactive": 34,
+              "textEls": 38,
+              "images": 0
+            },
+            "cls": 0.0056,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\compare-1920.jpg"
+          },
+          {
+            "route": "/dashboard",
+            "width": 360,
+            "firstVisit": false,
+            "counts": {
+              "elements": 105,
+              "interactive": 23,
+              "textEls": 71,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\dashboard-360.jpg"
+          },
+          {
+            "route": "/dashboard",
+            "width": 390,
+            "firstVisit": false,
+            "counts": {
+              "elements": 105,
+              "interactive": 23,
+              "textEls": 71,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\dashboard-390.jpg"
+          },
+          {
+            "route": "/dashboard",
+            "width": 768,
+            "firstVisit": false,
+            "counts": {
+              "elements": 106,
+              "interactive": 23,
+              "textEls": 72,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\dashboard-768.jpg"
+          },
+          {
+            "route": "/dashboard",
+            "width": 1024,
+            "firstVisit": false,
+            "counts": {
+              "elements": 106,
+              "interactive": 23,
+              "textEls": 72,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\dashboard-1024.jpg"
+          },
+          {
+            "route": "/dashboard",
+            "width": 1440,
+            "firstVisit": false,
+            "counts": {
+              "elements": 106,
+              "interactive": 23,
+              "textEls": 72,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\dashboard-1440.jpg"
+          },
+          {
+            "route": "/dashboard",
+            "width": 1920,
+            "firstVisit": false,
+            "counts": {
+              "elements": 106,
+              "interactive": 23,
+              "textEls": 72,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\dashboard-1920.jpg"
+          },
+          {
+            "route": "/documentary",
+            "width": 360,
+            "firstVisit": false,
+            "counts": {
+              "elements": 52,
+              "interactive": 10,
+              "textEls": 16,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\documentary-360.jpg"
+          },
+          {
+            "route": "/documentary",
+            "width": 390,
+            "firstVisit": false,
+            "counts": {
+              "elements": 52,
+              "interactive": 10,
+              "textEls": 16,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\documentary-390.jpg"
+          },
+          {
+            "route": "/documentary",
+            "width": 768,
+            "firstVisit": false,
+            "counts": {
+              "elements": 53,
+              "interactive": 10,
+              "textEls": 17,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\documentary-768.jpg"
+          },
+          {
+            "route": "/documentary",
+            "width": 1024,
+            "firstVisit": false,
+            "counts": {
+              "elements": 53,
+              "interactive": 10,
+              "textEls": 17,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\documentary-1024.jpg"
+          },
+          {
+            "route": "/documentary",
+            "width": 1440,
+            "firstVisit": false,
+            "counts": {
+              "elements": 53,
+              "interactive": 10,
+              "textEls": 17,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\documentary-1440.jpg"
+          },
+          {
+            "route": "/documentary",
+            "width": 1920,
+            "firstVisit": false,
+            "counts": {
+              "elements": 53,
+              "interactive": 10,
+              "textEls": 17,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\documentary-1920.jpg"
+          },
+          {
+            "route": "/education",
+            "width": 360,
+            "firstVisit": false,
+            "counts": {
+              "elements": 59,
+              "interactive": 18,
+              "textEls": 40,
+              "images": 1
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\education-360.jpg"
+          },
+          {
+            "route": "/education",
+            "width": 390,
+            "firstVisit": false,
+            "counts": {
+              "elements": 59,
+              "interactive": 18,
+              "textEls": 40,
+              "images": 1
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\education-390.jpg"
+          },
+          {
+            "route": "/education",
+            "width": 768,
+            "firstVisit": false,
+            "counts": {
+              "elements": 60,
+              "interactive": 18,
+              "textEls": 41,
+              "images": 1
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\education-768.jpg"
+          },
+          {
+            "route": "/education",
+            "width": 1024,
+            "firstVisit": false,
+            "counts": {
+              "elements": 60,
+              "interactive": 18,
+              "textEls": 41,
+              "images": 1
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\education-1024.jpg"
+          },
+          {
+            "route": "/education",
+            "width": 1440,
+            "firstVisit": false,
+            "counts": {
+              "elements": 60,
+              "interactive": 18,
+              "textEls": 41,
+              "images": 1
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\education-1440.jpg"
+          },
+          {
+            "route": "/education",
+            "width": 1920,
+            "firstVisit": false,
+            "counts": {
+              "elements": 60,
+              "interactive": 18,
+              "textEls": 41,
+              "images": 1
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\education-1920.jpg"
+          },
+          {
+            "route": "/embed",
+            "width": 360,
+            "firstVisit": false,
+            "counts": {
+              "elements": 8,
+              "interactive": 2,
+              "textEls": 5,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\embed-360.jpg"
+          },
+          {
+            "route": "/embed",
+            "width": 390,
+            "firstVisit": false,
+            "counts": {
+              "elements": 8,
+              "interactive": 2,
+              "textEls": 5,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\embed-390.jpg"
+          },
+          {
+            "route": "/embed",
+            "width": 768,
+            "firstVisit": false,
+            "counts": {
+              "elements": 8,
+              "interactive": 2,
+              "textEls": 5,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\embed-768.jpg"
+          },
+          {
+            "route": "/embed",
+            "width": 1024,
+            "firstVisit": false,
+            "counts": {
+              "elements": 8,
+              "interactive": 2,
+              "textEls": 5,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\embed-1024.jpg"
+          },
+          {
+            "route": "/embed",
+            "width": 1440,
+            "firstVisit": false,
+            "counts": {
+              "elements": 8,
+              "interactive": 2,
+              "textEls": 5,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\embed-1440.jpg"
+          },
+          {
+            "route": "/embed",
+            "width": 1920,
+            "firstVisit": false,
+            "counts": {
+              "elements": 8,
+              "interactive": 2,
+              "textEls": 5,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\embed-1920.jpg"
+          },
+          {
+            "route": "/find-ancestor",
+            "width": 360,
+            "firstVisit": false,
+            "counts": {
+              "elements": 25,
+              "interactive": 11,
+              "textEls": 14,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\find-ancestor-360.jpg"
+          },
+          {
+            "route": "/find-ancestor",
+            "width": 390,
+            "firstVisit": false,
+            "counts": {
+              "elements": 25,
+              "interactive": 11,
+              "textEls": 14,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\find-ancestor-390.jpg"
+          },
+          {
+            "route": "/find-ancestor",
+            "width": 768,
+            "firstVisit": false,
+            "counts": {
+              "elements": 26,
+              "interactive": 11,
+              "textEls": 15,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\find-ancestor-768.jpg"
+          },
+          {
+            "route": "/find-ancestor",
+            "width": 1024,
+            "firstVisit": false,
+            "counts": {
+              "elements": 26,
+              "interactive": 11,
+              "textEls": 15,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\find-ancestor-1024.jpg"
+          },
+          {
+            "route": "/find-ancestor",
+            "width": 1440,
+            "firstVisit": false,
+            "counts": {
+              "elements": 26,
+              "interactive": 11,
+              "textEls": 15,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\find-ancestor-1440.jpg"
+          },
+          {
+            "route": "/find-ancestor",
+            "width": 1920,
+            "firstVisit": false,
+            "counts": {
+              "elements": 26,
+              "interactive": 11,
+              "textEls": 15,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\find-ancestor-1920.jpg"
+          },
+          {
+            "route": "/ground-remembers",
+            "width": 360,
+            "firstVisit": false,
+            "counts": {
+              "elements": 39,
+              "interactive": 16,
+              "textEls": 14,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\ground-remembers-360.jpg"
+          },
+          {
+            "route": "/ground-remembers",
+            "width": 390,
+            "firstVisit": false,
+            "counts": {
+              "elements": 39,
+              "interactive": 16,
+              "textEls": 14,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\ground-remembers-390.jpg"
+          },
+          {
+            "route": "/ground-remembers",
+            "width": 768,
+            "firstVisit": false,
+            "counts": {
+              "elements": 42,
+              "interactive": 18,
+              "textEls": 18,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\ground-remembers-768.jpg"
+          },
+          {
+            "route": "/ground-remembers",
+            "width": 1024,
+            "firstVisit": false,
+            "counts": {
+              "elements": 42,
+              "interactive": 18,
+              "textEls": 18,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\ground-remembers-1024.jpg"
+          },
+          {
+            "route": "/ground-remembers",
+            "width": 1440,
+            "firstVisit": false,
+            "counts": {
+              "elements": 42,
+              "interactive": 18,
+              "textEls": 18,
+              "images": 0
+            },
+            "cls": 0.0038,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\ground-remembers-1440.jpg"
+          },
+          {
+            "route": "/ground-remembers",
+            "width": 1920,
+            "firstVisit": false,
+            "counts": {
+              "elements": 42,
+              "interactive": 18,
+              "textEls": 18,
+              "images": 0
+            },
+            "cls": 0.0025,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\ground-remembers-1920.jpg"
+          },
+          {
+            "route": "/historian",
+            "width": 360,
+            "firstVisit": false,
+            "counts": {
+              "elements": 30,
+              "interactive": 15,
+              "textEls": 18,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\historian-360.jpg"
+          },
+          {
+            "route": "/historian",
+            "width": 390,
+            "firstVisit": false,
+            "counts": {
+              "elements": 30,
+              "interactive": 15,
+              "textEls": 18,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\historian-390.jpg"
+          },
+          {
+            "route": "/historian",
+            "width": 768,
+            "firstVisit": false,
+            "counts": {
+              "elements": 31,
+              "interactive": 15,
+              "textEls": 19,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\historian-768.jpg"
+          },
+          {
+            "route": "/historian",
+            "width": 1024,
+            "firstVisit": false,
+            "counts": {
+              "elements": 31,
+              "interactive": 15,
+              "textEls": 19,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\historian-1024.jpg"
+          },
+          {
+            "route": "/historian",
+            "width": 1440,
+            "firstVisit": false,
+            "counts": {
+              "elements": 31,
+              "interactive": 15,
+              "textEls": 19,
+              "images": 0
+            },
+            "cls": 0.0052,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\historian-1440.jpg"
+          },
+          {
+            "route": "/historian",
+            "width": 1920,
+            "firstVisit": false,
+            "counts": {
+              "elements": 31,
+              "interactive": 15,
+              "textEls": 19,
+              "images": 0
+            },
+            "cls": 0.0031,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\historian-1920.jpg"
+          },
+          {
+            "route": "/immersive",
+            "width": 360,
+            "firstVisit": false,
+            "counts": {
+              "elements": 42,
+              "interactive": 15,
+              "textEls": 15,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\immersive-360.jpg"
+          },
+          {
+            "route": "/immersive",
+            "width": 390,
+            "firstVisit": false,
+            "counts": {
+              "elements": 42,
+              "interactive": 15,
+              "textEls": 15,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\immersive-390.jpg"
+          },
+          {
+            "route": "/immersive",
+            "width": 768,
+            "firstVisit": false,
+            "counts": {
+              "elements": 46,
+              "interactive": 18,
+              "textEls": 20,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\immersive-768.jpg"
+          },
+          {
+            "route": "/immersive",
+            "width": 1024,
+            "firstVisit": false,
+            "counts": {
+              "elements": 46,
+              "interactive": 18,
+              "textEls": 20,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\immersive-1024.jpg"
+          },
+          {
+            "route": "/immersive",
+            "width": 1440,
+            "firstVisit": false,
+            "counts": {
+              "elements": 46,
+              "interactive": 18,
+              "textEls": 20,
+              "images": 0
+            },
+            "cls": 0.0062,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\immersive-1440.jpg"
+          },
+          {
+            "route": "/immersive",
+            "width": 1920,
+            "firstVisit": false,
+            "counts": {
+              "elements": 46,
+              "interactive": 18,
+              "textEls": 20,
+              "images": 0
+            },
+            "cls": 0.0028,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\immersive-1920.jpg"
+          },
+          {
+            "route": "/",
+            "width": 360,
+            "firstVisit": false,
+            "counts": {
+              "elements": 208,
+              "interactive": 13,
+              "textEls": 23,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\index-360.jpg"
+          },
+          {
+            "route": "/",
+            "width": 390,
+            "firstVisit": false,
+            "counts": {
+              "elements": 208,
+              "interactive": 13,
+              "textEls": 23,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\index-390.jpg"
+          },
+          {
+            "route": "/",
+            "width": 768,
+            "firstVisit": false,
+            "counts": {
+              "elements": 208,
+              "interactive": 13,
+              "textEls": 23,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\index-768.jpg"
+          },
+          {
+            "route": "/",
+            "width": 1024,
+            "firstVisit": false,
+            "counts": {
+              "elements": 114,
+              "interactive": 44,
+              "textEls": 52,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\index-1024.jpg"
+          },
+          {
+            "route": "/",
+            "width": 1440,
+            "firstVisit": false,
+            "counts": {
+              "elements": 117,
+              "interactive": 46,
+              "textEls": 55,
+              "images": 0
+            },
+            "cls": 0.0024,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\index-1440.jpg"
+          },
+          {
+            "route": "/",
+            "width": 1920,
+            "firstVisit": false,
+            "counts": {
+              "elements": 117,
+              "interactive": 46,
+              "textEls": 55,
+              "images": 0
+            },
+            "cls": 0.0011,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\index-1920.jpg"
+          },
+          {
+            "route": "/living-ledger",
+            "width": 360,
+            "firstVisit": false,
+            "counts": {
+              "elements": 35,
+              "interactive": 11,
+              "textEls": 19,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\living-ledger-360.jpg"
+          },
+          {
+            "route": "/living-ledger",
+            "width": 390,
+            "firstVisit": false,
+            "counts": {
+              "elements": 35,
+              "interactive": 11,
+              "textEls": 19,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\living-ledger-390.jpg"
+          },
+          {
+            "route": "/living-ledger",
+            "width": 768,
+            "firstVisit": false,
+            "counts": {
+              "elements": 36,
+              "interactive": 11,
+              "textEls": 20,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\living-ledger-768.jpg"
+          },
+          {
+            "route": "/living-ledger",
+            "width": 1024,
+            "firstVisit": false,
+            "counts": {
+              "elements": 36,
+              "interactive": 11,
+              "textEls": 20,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\living-ledger-1024.jpg"
+          },
+          {
+            "route": "/living-ledger",
+            "width": 1440,
+            "firstVisit": false,
+            "counts": {
+              "elements": 36,
+              "interactive": 11,
+              "textEls": 20,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\living-ledger-1440.jpg"
+          },
+          {
+            "route": "/living-ledger",
+            "width": 1920,
+            "firstVisit": false,
+            "counts": {
+              "elements": 36,
+              "interactive": 11,
+              "textEls": 20,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\living-ledger-1920.jpg"
+          },
+          {
+            "route": "/privacy",
+            "width": 360,
+            "firstVisit": false,
+            "counts": {
+              "elements": 30,
+              "interactive": 4,
+              "textEls": 28,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\privacy-360.jpg"
+          },
+          {
+            "route": "/privacy",
+            "width": 390,
+            "firstVisit": false,
+            "counts": {
+              "elements": 30,
+              "interactive": 4,
+              "textEls": 28,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\privacy-390.jpg"
+          },
+          {
+            "route": "/privacy",
+            "width": 768,
+            "firstVisit": false,
+            "counts": {
+              "elements": 30,
+              "interactive": 4,
+              "textEls": 28,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\privacy-768.jpg"
+          },
+          {
+            "route": "/privacy",
+            "width": 1024,
+            "firstVisit": false,
+            "counts": {
+              "elements": 30,
+              "interactive": 4,
+              "textEls": 28,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\privacy-1024.jpg"
+          },
+          {
+            "route": "/privacy",
+            "width": 1440,
+            "firstVisit": false,
+            "counts": {
+              "elements": 30,
+              "interactive": 4,
+              "textEls": 28,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\privacy-1440.jpg"
+          },
+          {
+            "route": "/privacy",
+            "width": 1920,
+            "firstVisit": false,
+            "counts": {
+              "elements": 30,
+              "interactive": 4,
+              "textEls": 28,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\privacy-1920.jpg"
+          },
+          {
+            "route": "/regiment",
+            "width": 360,
+            "firstVisit": false,
+            "counts": {
+              "elements": 20,
+              "interactive": 9,
+              "textEls": 10,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\regiment-360.jpg"
+          },
+          {
+            "route": "/regiment",
+            "width": 390,
+            "firstVisit": false,
+            "counts": {
+              "elements": 20,
+              "interactive": 9,
+              "textEls": 10,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\regiment-390.jpg"
+          },
+          {
+            "route": "/regiment",
+            "width": 768,
+            "firstVisit": false,
+            "counts": {
+              "elements": 21,
+              "interactive": 9,
+              "textEls": 11,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\regiment-768.jpg"
+          },
+          {
+            "route": "/regiment",
+            "width": 1024,
+            "firstVisit": false,
+            "counts": {
+              "elements": 21,
+              "interactive": 9,
+              "textEls": 11,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\regiment-1024.jpg"
+          },
+          {
+            "route": "/regiment",
+            "width": 1440,
+            "firstVisit": false,
+            "counts": {
+              "elements": 21,
+              "interactive": 9,
+              "textEls": 11,
+              "images": 0
+            },
+            "cls": 0.0078,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\regiment-1440.jpg"
+          },
+          {
+            "route": "/regiment",
+            "width": 1920,
+            "firstVisit": false,
+            "counts": {
+              "elements": 21,
+              "interactive": 9,
+              "textEls": 11,
+              "images": 0
+            },
+            "cls": 0.0049,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\regiment-1920.jpg"
+          },
+          {
+            "route": "/report",
+            "width": 360,
+            "firstVisit": false,
+            "counts": {
+              "elements": 19,
+              "interactive": 9,
+              "textEls": 10,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\report-360.jpg"
+          },
+          {
+            "route": "/report",
+            "width": 390,
+            "firstVisit": false,
+            "counts": {
+              "elements": 19,
+              "interactive": 9,
+              "textEls": 10,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\report-390.jpg"
+          },
+          {
+            "route": "/report",
+            "width": 768,
+            "firstVisit": false,
+            "counts": {
+              "elements": 20,
+              "interactive": 9,
+              "textEls": 11,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\report-768.jpg"
+          },
+          {
+            "route": "/report",
+            "width": 1024,
+            "firstVisit": false,
+            "counts": {
+              "elements": 20,
+              "interactive": 9,
+              "textEls": 11,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\report-1024.jpg"
+          },
+          {
+            "route": "/report",
+            "width": 1440,
+            "firstVisit": false,
+            "counts": {
+              "elements": 20,
+              "interactive": 9,
+              "textEls": 11,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\report-1440.jpg"
+          },
+          {
+            "route": "/report",
+            "width": 1920,
+            "firstVisit": false,
+            "counts": {
+              "elements": 20,
+              "interactive": 9,
+              "textEls": 11,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\report-1920.jpg"
+          },
+          {
+            "route": "/sandbox",
+            "width": 360,
+            "firstVisit": false,
+            "counts": {
+              "elements": 42,
+              "interactive": 16,
+              "textEls": 17,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\sandbox-360.jpg"
+          },
+          {
+            "route": "/sandbox",
+            "width": 390,
+            "firstVisit": false,
+            "counts": {
+              "elements": 42,
+              "interactive": 16,
+              "textEls": 17,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\sandbox-390.jpg"
+          },
+          {
+            "route": "/sandbox",
+            "width": 768,
+            "firstVisit": false,
+            "counts": {
+              "elements": 46,
+              "interactive": 19,
+              "textEls": 22,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\sandbox-768.jpg"
+          },
+          {
+            "route": "/sandbox",
+            "width": 1024,
+            "firstVisit": false,
+            "counts": {
+              "elements": 46,
+              "interactive": 19,
+              "textEls": 22,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\sandbox-1024.jpg"
+          },
+          {
+            "route": "/sandbox",
+            "width": 1440,
+            "firstVisit": false,
+            "counts": {
+              "elements": 46,
+              "interactive": 19,
+              "textEls": 22,
+              "images": 0
+            },
+            "cls": 0.0061,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\sandbox-1440.jpg"
+          },
+          {
+            "route": "/sandbox",
+            "width": 1920,
+            "firstVisit": false,
+            "counts": {
+              "elements": 46,
+              "interactive": 19,
+              "textEls": 22,
+              "images": 0
+            },
+            "cls": 0.0028,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\sandbox-1920.jpg"
+          },
+          {
+            "route": "/search",
+            "width": 360,
+            "firstVisit": false,
+            "counts": {
+              "elements": 144,
+              "interactive": 43,
+              "textEls": 103,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\search-360.jpg"
+          },
+          {
+            "route": "/search",
+            "width": 390,
+            "firstVisit": false,
+            "counts": {
+              "elements": 144,
+              "interactive": 43,
+              "textEls": 103,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\search-390.jpg"
+          },
+          {
+            "route": "/search",
+            "width": 768,
+            "firstVisit": false,
+            "counts": {
+              "elements": 145,
+              "interactive": 43,
+              "textEls": 104,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\search-768.jpg"
+          },
+          {
+            "route": "/search",
+            "width": 1024,
+            "firstVisit": false,
+            "counts": {
+              "elements": 145,
+              "interactive": 43,
+              "textEls": 104,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\search-1024.jpg"
+          },
+          {
+            "route": "/search",
+            "width": 1440,
+            "firstVisit": false,
+            "counts": {
+              "elements": 145,
+              "interactive": 43,
+              "textEls": 104,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\search-1440.jpg"
+          },
+          {
+            "route": "/search",
+            "width": 1920,
+            "firstVisit": false,
+            "counts": {
+              "elements": 145,
+              "interactive": 43,
+              "textEls": 104,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\search-1920.jpg"
+          },
+          {
+            "route": "/terms",
+            "width": 360,
+            "firstVisit": false,
+            "counts": {
+              "elements": 19,
+              "interactive": 2,
+              "textEls": 18,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\terms-360.jpg"
+          },
+          {
+            "route": "/terms",
+            "width": 390,
+            "firstVisit": false,
+            "counts": {
+              "elements": 19,
+              "interactive": 2,
+              "textEls": 18,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\terms-390.jpg"
+          },
+          {
+            "route": "/terms",
+            "width": 768,
+            "firstVisit": false,
+            "counts": {
+              "elements": 19,
+              "interactive": 2,
+              "textEls": 18,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\terms-768.jpg"
+          },
+          {
+            "route": "/terms",
+            "width": 1024,
+            "firstVisit": false,
+            "counts": {
+              "elements": 19,
+              "interactive": 2,
+              "textEls": 18,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\terms-1024.jpg"
+          },
+          {
+            "route": "/terms",
+            "width": 1440,
+            "firstVisit": false,
+            "counts": {
+              "elements": 19,
+              "interactive": 2,
+              "textEls": 18,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\terms-1440.jpg"
+          },
+          {
+            "route": "/terms",
+            "width": 1920,
+            "firstVisit": false,
+            "counts": {
+              "elements": 19,
+              "interactive": 2,
+              "textEls": 18,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\terms-1920.jpg"
+          },
+          {
+            "route": "/turning-points",
+            "width": 360,
+            "firstVisit": false,
+            "counts": {
+              "elements": 83,
+              "interactive": 19,
+              "textEls": 53,
+              "images": 1
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\turning-points-360.jpg"
+          },
+          {
+            "route": "/turning-points",
+            "width": 390,
+            "firstVisit": false,
+            "counts": {
+              "elements": 83,
+              "interactive": 19,
+              "textEls": 53,
+              "images": 1
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\turning-points-390.jpg"
+          },
+          {
+            "route": "/turning-points",
+            "width": 768,
+            "firstVisit": false,
+            "counts": {
+              "elements": 84,
+              "interactive": 19,
+              "textEls": 54,
+              "images": 1
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\turning-points-768.jpg"
+          },
+          {
+            "route": "/turning-points",
+            "width": 1024,
+            "firstVisit": false,
+            "counts": {
+              "elements": 84,
+              "interactive": 19,
+              "textEls": 54,
+              "images": 1
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\turning-points-1024.jpg"
+          },
+          {
+            "route": "/turning-points",
+            "width": 1440,
+            "firstVisit": false,
+            "counts": {
+              "elements": 84,
+              "interactive": 19,
+              "textEls": 54,
+              "images": 1
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\turning-points-1440.jpg"
+          },
+          {
+            "route": "/turning-points",
+            "width": 1920,
+            "firstVisit": false,
+            "counts": {
+              "elements": 84,
+              "interactive": 19,
+              "textEls": 54,
+              "images": 1
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\turning-points-1920.jpg"
+          },
+          {
+            "route": "/viewshed",
+            "width": 360,
+            "firstVisit": false,
+            "counts": {
+              "elements": 69,
+              "interactive": 14,
+              "textEls": 46,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\viewshed-360.jpg"
+          },
+          {
+            "route": "/viewshed",
+            "width": 390,
+            "firstVisit": false,
+            "counts": {
+              "elements": 69,
+              "interactive": 14,
+              "textEls": 46,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\viewshed-390.jpg"
+          },
+          {
+            "route": "/viewshed",
+            "width": 768,
+            "firstVisit": false,
+            "counts": {
+              "elements": 73,
+              "interactive": 17,
+              "textEls": 51,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\viewshed-768.jpg"
+          },
+          {
+            "route": "/viewshed",
+            "width": 1024,
+            "firstVisit": false,
+            "counts": {
+              "elements": 73,
+              "interactive": 17,
+              "textEls": 51,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\viewshed-1024.jpg"
+          },
+          {
+            "route": "/viewshed",
+            "width": 1440,
+            "firstVisit": false,
+            "counts": {
+              "elements": 73,
+              "interactive": 17,
+              "textEls": 51,
+              "images": 0
+            },
+            "cls": 0.0061,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\viewshed-1440.jpg"
+          },
+          {
+            "route": "/viewshed",
+            "width": 1920,
+            "firstVisit": false,
+            "counts": {
+              "elements": 73,
+              "interactive": 17,
+              "textEls": 51,
+              "images": 0
+            },
+            "cls": 0.0028,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\viewshed-1920.jpg"
+          },
+          {
+            "route": "/watch-together",
+            "width": 360,
+            "firstVisit": false,
+            "counts": {
+              "elements": 58,
+              "interactive": 20,
+              "textEls": 28,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\watch-together-360.jpg"
+          },
+          {
+            "route": "/watch-together",
+            "width": 390,
+            "firstVisit": false,
+            "counts": {
+              "elements": 58,
+              "interactive": 20,
+              "textEls": 28,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\watch-together-390.jpg"
+          },
+          {
+            "route": "/watch-together",
+            "width": 768,
+            "firstVisit": false,
+            "counts": {
+              "elements": 62,
+              "interactive": 23,
+              "textEls": 33,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\watch-together-768.jpg"
+          },
+          {
+            "route": "/watch-together",
+            "width": 1024,
+            "firstVisit": false,
+            "counts": {
+              "elements": 62,
+              "interactive": 23,
+              "textEls": 33,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\watch-together-1024.jpg"
+          },
+          {
+            "route": "/watch-together",
+            "width": 1440,
+            "firstVisit": false,
+            "counts": {
+              "elements": 62,
+              "interactive": 23,
+              "textEls": 33,
+              "images": 0
+            },
+            "cls": 0.0061,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\watch-together-1440.jpg"
+          },
+          {
+            "route": "/watch-together",
+            "width": 1920,
+            "firstVisit": false,
+            "counts": {
+              "elements": 62,
+              "interactive": 23,
+              "textEls": 33,
+              "images": 0
+            },
+            "cls": 0.0028,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\watch-together-1920.jpg"
+          },
+          {
+            "route": "/ (first visit, onboarding modal)",
+            "width": 360,
+            "firstVisit": true,
+            "counts": {
+              "elements": 224,
+              "interactive": 16,
+              "textEls": 34,
+              "images": 0
+            },
+            "cls": 0,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\first_visit_onboarding_modal_-360-first.jpg"
+          },
+          {
+            "route": "/ (first visit, onboarding modal)",
+            "width": 1440,
+            "firstVisit": true,
+            "counts": {
+              "elements": 127,
+              "interactive": 47,
+              "textEls": 66,
+              "images": 0
+            },
+            "cls": 0.0009,
+            "axeViolations": 0,
+            "overflow": 0,
+            "clipped": 0,
+            "smallTargets": 0,
+            "covered": 0,
+            "overlaps": 0,
+            "shot": "docs\\accept\\r1\\pass-107-artifacts\\visual\\first_visit_onboarding_modal_-1440-first.jpg"
+          }
+        ]
+      }
+    }
+  ]
+}

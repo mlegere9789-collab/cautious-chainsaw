@@ -1,0 +1,15 @@
+Batch XII-07 (reports OR27-1-R275 Packer, 5th Conn., two reports; OR27-1-R276 Wooster, 20th Conn.)
+Decisions: 53 total. passed_full_read 46, corrected 5, downgraded 2, split 0. Validator: 0 missing, 0 errors.
+
+Corrected (5):
+- 5ct-21, 5ct-22: OCR-damaged distance "l-J miles" had been read as 1.5 miles; removed from activity/place, ocr true (5ct-22 also wdesc 'OCR glyph only').
+- 5ct-24: when.printed was a sequence phrase ("We then received orders...") not a time; replaced by "all the morning".
+- 5ct-32: place "Gettysburg" narrowed to "into Gettysburg"; the report does not say the brigade's all-night position lay in the town.
+- 20ct-07: "on the right of the battle line" was the First Division's position in the passage, not stated for the regiment; narrowed.
+
+Downgraded to inferred (2): art-1nym-01, art-1nym-02 (Battery M, 1st NY Art). The passages print only the 5th Connecticut's position/hour and its order to support a section of the battery; the battery's own place, hour ("evening", "noon-afternoon", "extreme right") are not printed.
+
+Pattern counts (claims touched): time/date from another sentence: 1 (5ct-24, sequence phrase as when.printed); merged second report: 0; later order ignored: 0; compass/road gloss: 0; hedge dropped: 0; unit identity gloss: 3 (2 battery claims, 20ct-07 division vs regiment); OCR digit: 2 (5ct-21/22); meridian inferred: 0; other: 1 (5ct-32 place).
+Passed with annotation: date-only claims whose date comes from the day-by-day order carry dbasis; 5ct-14 carries wdesc (printed "the following day, July 6" after a July 4 sentence: day count and date disagree, kept as printed, ocr already true); 20ct-09 wdesc (printed "3d instant" read as July 2, already inferred).
+
+Systematic: claims for a supported unit (Battery M) written from the supporting regiment's report take the regiment's place/time as the unit's own; these should be inferred. Claims in R276 for July 2 depend on the "3d instant" slip and stay inferred (20ct-09 to 20ct-15); 20ct-16/17 are dated from the later "night of the 3d" and kept documented.

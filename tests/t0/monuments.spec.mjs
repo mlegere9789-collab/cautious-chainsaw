@@ -45,6 +45,7 @@ import { spawnSync } from 'node:child_process';
 import * as acorn from 'acorn';
 import { SPEC } from '../../tools/t0/mon/stars-spec.mjs';
 import { makeOracle } from '../../tools/t0/clock/oracle.mjs';
+import { readFrame } from './lib_clock.mjs';
 const {
   REPO, PORT_BASE, openSession, createStaticServer, createSuite, assert, assertEq, sleep, waitFor, waitForApp, chooseLayout, mapView,
   mouseDrag, wheel, emulateViewport, touchTap, tileBudget, Skip,
@@ -76,6 +77,10 @@ const ORACLE = makeOracle();
 const legacyClock = (x) => { const d = x <= 225 ? 1 : x <= 450 ? 2 : 3, m = (d === 1 ? 360 : 240) + (x - 1) * 5 - (d === 1 ? 0 : d === 2 ? 1125 : 2250), h = Math.floor(m / 60) % 24, mm = m % 60; return `July ${d}, ${h === 0 ? 12 : h > 12 ? h - 12 : h}:${String(mm).padStart(2, '0')} ${h >= 12 ? 'PM' : 'AM'}`; };
 /** the clock string the app shows at a tick: the corrected clock when CLOCK is in the tree, else the legacy formula */
 const expectedClock = (tick) => (HAS_CLOCK ? ORACLE.fmt(tick, 'compat') : legacyClock(tick));
+/** group POLISH (marker: its onboarding string) retires the word "tick" from everything a visitor reads: the card names the moment by the clock of the marker (the clock module's own date and time), or, without CLOCK, "moment N of 675".
+ *  On a tree without POLISH the card still says "tick N of 675", and this is what is asserted there. */
+const HAS_POLISH = ENTRY_TEXT.includes('Step one moment');
+const markerMoment = (tick, day) => `Marker moment: ${HAS_POLISH ? (HAS_CLOCK ? `${ORACLE.fmt(tick, 'date')}, ${ORACLE.fmt(tick, 'time')}` : `July ${day}, moment ${tick} of 675`) : `July ${day}, tick ${tick} of 675`}.`;
 /** does the clock of a tick agree with the clock times the story text names?  Within the uncertainty the clock itself states (give or take, uncertainty_min of the anchors), plus the 5-minute rounding.
  *  A text that names no time agrees with every tick. */
 function clockAgrees(label, tick) {
@@ -171,6 +176,7 @@ async function dotPixelAt(p, x, y, side) {
 // ------------------------------------------------------------------ page helpers
 const bodyText = (p) => p.evaluate(() => document.body.innerText.replace(/\s+/g, ' '));
 const readTick = async (p) => {
+  const fr = await readFrame(p); if (fr != null) return fr;                                        // a tree with the corrected clock (CLOCK) carries the frame in data-gt-frame; legacy trees print "Tick n/675" (readFrame falls back to it)
   const t = await bodyText(p); const m = /Tick (\d+)\/675/.exec(t); if (m) return +m[1];                   // the legacy time bar says "Tick 12/675"
   const v = await p.evaluate(() => { const r = document.querySelector('input[type="range"][aria-label="Battle time"]'); if (r) return +r.value; try { return window.__gtmon ? window.__gtmon.info().tick : null; } catch (e) { return null; } });   // the corrected clock (CLOCK) shows the time instead: the slider's value is the tick (the phone layout has no slider: the store's tick, read by the runtime)
   return Number.isFinite(v) ? v : null;
@@ -485,6 +491,9 @@ suite.test('T0-MONL-04', 'click: a dot opens the card of THAT monument (name, si
   // bare map closes it; Esc closes it
   const qe = await placeAt(p, pm.lon, pm.lat, 720, 450, 17);
   await p.mouse.click(qe.x, qe.y); await waitCard(p); await p.mouse.click(qe.x + 120, qe.y + 160); await waitNoCard(p);
+  // precondition (R1e): BASE1863's label gives way to a card and comes back about 60-200 ms after the card is gone; a click in that moment lands on the label (R1d also lost this race in 1 of 2 runs under load),
+  // so the click waits until the point is the map's again
+  await waitFor(async () => p.evaluate(([x, y]) => { const e = document.elementFromPoint(x, y); return !!e && !e.closest('.gtb63-ctl'); }, [qe.x, qe.y]), { timeout: 4000, interval: 50, label: 'the label gone from the click point' });
   await p.mouse.click(qe.x, qe.y); await waitCard(p); await p.keyboard.press('Escape'); await waitNoCard(p);
   await monOff(p);
   assertEq(errsSince(S, e0), [], 'errors during MONL-04');
@@ -502,9 +511,11 @@ suite.test('T0-MONL-05', 'story marker: the card quotes the narrative and offers
   t.note('story card', { text: c.text.slice(0, 260), buttons: c.buttons.map((b) => b.t) });
   assertEq(c.name, s.name, 'card heading');
   assert(c.text.includes(s.label.slice(0, 40)), 'the card quotes the story marker\'s narrative');
-  assert(c.text.includes(`tick ${jt} of 675`) && c.text.includes('July 3'), `the card names the moment Jump goes to (day and tick ${jt}): ${c.text.slice(-260)}`);
+  assert(c.text.includes(markerMoment(jt, 3)) && c.text.includes('July 3'), `the card names the moment Jump goes to (day and clock of moment ${jt}; wanted "${markerMoment(jt, 3)}"): ${c.text.slice(-260)}`);
+  if (HAS_POLISH) assert(!/\btick\b/i.test(c.text), 'the card says "tick" (group POLISH retires the word)');
   assert(!/The moment the text names/.test(c.text), 'there is no second "moment the text names": the jump goes to the marker\'s own tick');
-  assert(!/\d+:\d\d (AM|PM)/.test(c.text.replace(s.label, '')), 'the card prints no clock time of its own (the clock labels are the clock module\'s business)');
+  // the card prints no clock time of its own: the only time outside the story text is the one the clock module formats for the marker's moment (POLISH: GTBGT.f; before it the card printed none)
+  { const own = HAS_POLISH && HAS_CLOCK ? ORACLE.fmt(jt, 'time') : null, rest = c.text.replace(s.label, ''); assert(!/\d+:\d\d (AM|PM)/.test(own ? rest.split(own).join('') : rest), 'the card prints a clock time of its own (the clock labels are the clock module\'s business)'); }
   assert(c.buttons.some((b) => /^Jump to this moment/.test(b.t)), 'Jump to this moment');
   assert(await readTick(p) !== jt, 'precondition: the clock is not already at the jump tick');
   await p.locator('[data-gtmon-card] button.gtmon-jump').click();
@@ -579,7 +590,10 @@ suite.test('T0-MONL-07', 'phone 375x812, real touch: the Tools tile toggles the 
     // a screen point on the bare Mapbox canvas (not a control, a panel or a card), 60 px from every marker: the map's own controls (the info button, Browse) keep their taps and are no "bare map"
     const bareSpot = () => p.evaluate(([A, MA]) => {
       const m = window.__t0map, c = m.getCanvas().getBoundingClientRect(), pts = [...A.map((a) => [a.lon, a.lat]), ...MA.map((s) => [s.lng, s.lat])].map(([lo, la]) => { const q = m.project([lo, la]); return [q.x + c.left, q.y + c.top]; });
-      for (const [x, y] of [[60, 150], [60, 210], [190, 130], [300, 260], [60, 300]]) { const e = document.elementFromPoint(x, y); if (e && e.classList.contains('mapboxgl-canvas') && pts.every(([px, py]) => Math.hypot(px - x, py - y) > 60)) return { x, y }; }
+      const bare = (x, y) => { const e = document.elementFromPoint(x, y); return !!(e && e.classList.contains('mapboxgl-canvas') && pts.every(([px, py]) => Math.hypot(px - x, py - y) > 60)); };
+      for (const [x, y] of [[60, 150], [60, 210], [190, 130], [300, 260], [60, 300]]) if (bare(x, y)) return { x, y };
+      // a tree whose cards and legend cover those five spots (the restyled popups of group ANIM, the legend open on a first visit) still has bare map elsewhere: scan the map box for the first spot that is the canvas itself
+      for (let y = Math.round(c.top) + 20; y < Math.min(innerHeight, c.bottom) - 20; y += 15) for (let x = 24; x < innerWidth - 24; x += 15) if (bare(x, y)) return { x, y };
       return null;
     }, [T.A, T.mA]);
     await openTools();
@@ -870,7 +884,7 @@ for (const [key, [from, to]] of Object.entries(STAR_SLICES)) {
     needMon(); if (!HAS_CLOCK) throw new Skip('the corrected clock (group CLOCK) is not in this tree: the clock part of this proof needs it');
     const S = await desktop(); const p = S.page; const e0 = S.collector.firstParty.length;
     const T = truth(); await monOn(p);
-    const rows = [];
+    const rows = [], frameBad = [];
     for (let i = from; i < to; i++) {
       const s = T.mA[i], sp = SPEC[i];
       for (let k = 0; k < 2; k++) { await p.keyboard.press('Escape'); await sleep(60); } await blurActive(p);
@@ -880,7 +894,7 @@ for (const [key, [from, to]] of Object.entries(STAR_SLICES)) {
       assertEq(c.name, s.name, `${s.id}: card heading`);
       assert(c.text.includes(s.label), `${s.id}: the card quotes the story text`);
       if (s.note) assert(c.text.includes(s.note), `${s.id}: the card carries its note`);
-      assert(c.text.includes(`Marker moment: July ${s.day}, tick ${s.tick} of 675.`), `${s.id}: the card names the moment`);
+      assert(c.text.includes(markerMoment(s.tick, s.day)), `${s.id}: the card names the moment (wanted "${markerMoment(s.tick, s.day)}")`);
       assert(c.text.includes(s.gap < 100 ? 'within 100 m of the monument' : `about ${s.gap} m from the monument`), `${s.id}: the card states the distance of the unit (${s.gap} m)`);
       await p.locator('[data-gtmon-card] button.gtmon-jump').click();
       await waitFor(async () => (await readTick(p)) === s.tick, { timeout: 6000, label: `${s.id}: tick ${s.tick}` });
@@ -897,12 +911,14 @@ for (const [key, [from, to]] of Object.entries(STAR_SLICES)) {
       const gap = Math.round(Math.hypot((u[1] - s.lng) * 85300, (u[0] - s.lat) * 111200));
       assert(Math.abs(gap - s.gap) <= 25, `${s.id}: the unit is drawn ${gap} m from the star, the card says about ${s.gap} m`);
       assert(gap <= MAX_GAP_M, `${s.id}: the unit is drawn ${gap} m from the star: above the documented maximum of ${MAX_GAP_M} m`);
-      const fr = await framed(p, s, u); assert(fr.ok, `${s.id}: the map after Jump (${fr.mode}): ${JSON.stringify(fr.f)}`);
+      // the view after Jump is judged for every star of the slice (a star whose framing is wrong must not hide the clock, selection, glow and distance proofs of the stars after it): collected, asserted below
+      const fr = await framed(p, s, u); if (!fr.ok) frameBad.push(`${s.id}: the map after Jump (${fr.mode}, unit ${gap} m from the star): ${JSON.stringify(fr.f)}`);
       rows.push(`${s.id}: tick ${s.tick}, clock "${ec}" (+-${ag.sigma} min; text times ${ag.times.join(', ') || 'none'}), unit ${s.unit_id} ${gap} m from the star, view: ${fr.mode}`);
     }
     t.note('stars proved in the browser', rows);
     await monOff(p);
     assertEq(errsSince(S, e0), [], `errors during MONL-17${key}`);
+    assertEq(frameBad, [], `stars whose view after Jump does not frame the star (and the unit, when it is drawn more than 250 m away)`);
   });
 }
 
@@ -923,6 +939,8 @@ suite.test('T0-MONL-12', 'the Walkthrough is untouched: its code and data are by
   // -- static: the Walkthrough region of the entry (tour stops d2 .. the Walkthrough components .. before their style object ln) equals the control tree's
   const region = (txt) => { const a = txt.indexOf('d2=[{id:1,name:"McPherson Ridge"'), b = txt.indexOf('const ln={ink:'); assert(a > 0 && b > a, 'Walkthrough region markers not found in the entry'); return txt.slice(a, b); };
   if (HAS_MON) {
+    // trains R1d and R1e register every Release 1 group, so a build without MON alone cannot be made (the other groups anchor on it): its control is the published train R1c, whose Walkthrough the guard proves untouched
+    if (!CONTROL && (VERSION.train === 'R1d' || VERSION.train === 'R1e' || VERSION.train === 'R1f' || VERSION.train === 'R1g')) CONTROL = path.join('release', 'R1c', 'dist');
     if (!CONTROL) {
       const out = path.join(REPO, 'tmp', 'mon-fix', `ctl-${VERSION.train}`);
       if (!fs.existsSync(path.join(out, 'dist', 'version.json'))) {
@@ -932,9 +950,11 @@ suite.test('T0-MONL-12', 'the Walkthrough is untouched: its code and data are by
       CONTROL = path.join(out, 'dist');
     }
     const cv = JSON.parse(fs.readFileSync(path.join(path.resolve(REPO, CONTROL), 'version.json'), 'utf8'));
-    assert(!cv.groups.includes('MON') && cv.train === VERSION.train, `the control tree must be the same train without MON (it is ${cv.train} ${cv.groups})`);
+    assert(!cv.groups.includes('MON') && (cv.train === VERSION.train || ((VERSION.train === 'R1d' || VERSION.train === 'R1e' || VERSION.train === 'R1f' || VERSION.train === 'R1g') && cv.train === 'R1c')), `the control tree must be the same train without MON (it is ${cv.train} ${cv.groups})`);
     const ctl = fs.readFileSync(path.join(path.resolve(REPO, CONTROL), 'assets', cv.entry), 'utf8');
-    const a = region(ENTRY_TEXT), b = region(ctl);
+    const a = region(ENTRY_TEXT); let b = region(ctl);
+    // train R1f (group PERF5) changes the Walkthrough's map effect on purpose: the expected region is the control's with exactly the registered PERF5-wt-* edits (tests/t0/perf5-region.mjs); nothing else may differ
+    { const P5 = await import('./perf5-region.mjs'); if (P5.hasPerf5(ENTRY_TEXT)) { b = P5.expectedWalkthroughRegion(b, REPO); t.note('PERF5', 'the control region with the PERF5-wt-* edits applied'); } }
     assertEq([a.length, a === b], [b.length, true], 'the Walkthrough code + tour data + the 512-monument array of the entry are byte-identical to the control tree');
     t.note('walkthrough region bytes', a.length); t.note('control', path.relative(REPO, path.resolve(REPO, CONTROL)));
   } else t.note('static', 'no MON in this tree: the region is trivially untouched');

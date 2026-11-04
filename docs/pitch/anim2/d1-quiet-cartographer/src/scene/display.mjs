@@ -9,7 +9,9 @@
 //   births     a new tile grows from birthScale and fades in; its box takes space from the first frame, so its neighbours are pushed aside gently
 //   handoffs   a merge (members -> aggregate) and a split (aggregate -> members) are sequenced dissolves: the outgoing tiles fade out while gliding toward the incoming one and the
 //              incoming one starts fading in only when they are below 0.5, so two overlapping tiles are never both solid (06-layout.md 6.4, "the opacity rule")
-//   travel     a tile whose solved place is far from where it stands (a flip to the other side of a neighbour, a swap of two tiles whose true positions crossed) does not shove its way
+//   relocate   (ROUND 2, replaces the dimmed travel of rounds 0 and 1) a tile whose solved place is far from where it stands is not slid through the crowd at 42 percent: it fades out where it stands (RELOC_MS), and a
+//              new tile of the same identity is born at the certified place (it grows in, from birthScale), so no two marks ever overlap while one of them travels and no mark steps a long way in one frame.
+//   travel     (kept for the safety net only) a tile whose solved place is far from where it stands (a flip to the other side of a neighbour, a swap of two tiles whose true positions crossed) does not shove its way
 //              through the crowd: it dims below 0.5, glides there, and solidifies on arrival.  While it is below 0.5 it neither obscures nor is obscured (the opacity rule),
 //              and it stays visible (about 0.42), so the unit is never hidden
 //   cuts       a jump in time or zoom too large to glide is a cross-fade of the whole picture in the same sequence
@@ -26,6 +28,7 @@ const clamp01 = (x) => (x < 0 ? 0 : x > 1 ? 1 : x);
 const smooth = (x) => { x = clamp01(x); return x * x * (3 - 2 * x); };
 export const SOLID = 0.5;                      // opacity at or above which a tile counts as solid (an obstacle that must not be overlapped)
 const SEQ = 0.52;                              // a newborn that takes over from fading tiles starts when they are below SOLID: 0.52 x their fade time
+const RELOC_MS = 130;                           // FORK (round 2): a tile that must change places fades out where it stands over this long, and is born again at its place
 const DIM_MS = 60;                             // a tile that decides to travel dims over this long before it moves
 const RAMP_MS = 140;
 const SETTLE_PX = 0.25;                       // a tile this close to its target and slower than SETTLE_V (px/s) has arrived
@@ -67,10 +70,10 @@ export class Display {
     // 2. identity: leaves by unit id; aggregates by overlap of their member ids (an aggregate that gains or loses a member stays the same tile)
     const live = [...this.tiles.values()].filter((d) => d.life === 'live');
     const matchedL = new Set(); const matchedD = new Set();
-    for (const d of live) { const p = byLKey.get(d.lkey); if (p && p.t.kind === d.kind) { matchedL.add(d.lkey); matchedD.add(d); } }
+    for (const d of live) { const p = byLKey.get(d.lkey); if (p && p.t.kind === d.kind && !d.relocate) { matchedL.add(d.lkey); matchedD.add(d); } }
     const pairs = [];
     for (const d of live) {
-      if (matchedD.has(d) || d.kind !== 'agg') continue; const set = new Set(d.ids);
+      if (matchedD.has(d) || d.kind !== 'agg' || d.relocate) continue; const set = new Set(d.ids);
       for (const p of L.placed) {
         if (matchedL.has(p.t.key) || p.t.kind !== 'agg') continue;
         let k = 0; for (const id of p.t.ids) if (set.has(id)) k++;
@@ -80,18 +83,19 @@ export class Display {
     pairs.sort((a, b) => b.k - a.k || (a.d.key < b.d.key ? -1 : 1));
     for (const { d, p } of pairs) { if (matchedD.has(d) || matchedL.has(p.t.key)) continue; d.lkey = p.t.key; matchedL.add(p.t.key); matchedD.add(d); }
 
-    // 3. deaths
-    const dying = [];
-    for (const d of live) if (!matchedD.has(d)) { this._die(d, fadeMs, false, z); dying.push(d); stats.deaths++; }
+    // 3. deaths (a tile that decided to relocate dies where it stands and is born again at its place: no handoff, no slide)
+    const dying = []; const relocL = new Set();
+    for (const d of live) if (!matchedD.has(d)) { const rl = !!d.relocate; if (rl) { relocL.add(d.lkey); d.relocate = false; } this._die(d, rl ? Math.min(RELOC_MS, Math.max(fadeMs, 1)) : fadeMs, false, z); d.relocFrom = rl; dying.push(d); stats.deaths++; if (rl) stats.relocations = (stats.relocations || 0) + 1; }
     const prevTile = this.prevAssign;                                 // where each unit was drawn last frame (for tiles that emerge from an aggregate that persists)
+    const handoffs = dying.filter((dd) => !dd.relocFrom);
 
     // 4. births
     const born = [];
     for (const p of L.placed) {
       if (matchedL.has(p.t.key)) continue;
-      born.push(this._spawn(p, dying, prevTile, cutDelay, fadeMs)); stats.births++;
+      const nd = this._spawn(p, handoffs, prevTile, cutDelay, fadeMs); if (relocL.has(p.t.key) || relocL.has(nd.lkey)) nd.birthDelay = Math.max(nd.birthDelay, SEQ * RELOC_MS); born.push(nd); stats.births++;
     }
-    for (const dd of dying) {                                          // handoff wiring: a dying tile flows toward the tile that now holds its units
+    for (const dd of handoffs) {                                       // handoff wiring: a dying tile flows toward the tile that now holds its units
       const idset = new Set(dd.ids); let target = null;
       for (const b of born) if (b.ids.some((id) => idset.has(id))) { target = b; break; }
       if (!target) for (const d of this.tiles.values()) if (d.life === 'live' && d !== dd && d.ids.some((id) => idset.has(id))) { target = d; break; }
@@ -116,7 +120,7 @@ export class Display {
         for (const l of flattenLeaves(t)) { const o = old.get(l.ids[0]); if (!o) continue; const w = Math.max(1, l.strength || 1); ex += (l.px - o.ax) * w; ey += (l.py - o.ay) * w; sw += w; }
         if (sw > 0) { ex /= sw; ey /= sw; }
         const jx = (t.px - d.px) - ex; const jy = (t.py - d.py) - ey;       // FORK: in TRUE positions; the box anchor also moves when the mark's own size changes, and cOff() carries that
-        if (jx * jx + jy * jy > 0.5625) { d.ox -= jx; d.oy -= jy; d.ajx = jx; d.ajy = jy; stats.anchorFixes = (stats.anchorFixes || 0) + 1; if (!d.dim && Math.hypot(d.ox, d.oy) > this.tok('layout.dMaxPx') + 0.5) { d.dim = true; stats.travels++; } }
+        if (jx * jx + jy * jy > 0.5625) { d.ox -= jx; d.oy -= jy; d.ajx = jx; d.ajy = jy; stats.anchorFixes = (stats.anchorFixes || 0) + 1; if (!d.relocate && Math.hypot(d.ox, d.oy) > this.tok('layout.dMaxPx') + 0.5) { d.relocate = true; stats.travels++; } }
       }
       d.ax = t.ax; d.ay = t.ay; d.px = t.px ?? t.ax; d.py = t.py ?? t.ay; d.sgn = t.sgn || 0; d.tx = p.cx - t.ax; d.ty = p.cy - t.ay; d.tw = t.chipW; d.th = t.chipH; d.prio = t.prio;
       this._content(d, t, dt, inp);
@@ -144,7 +148,7 @@ export class Display {
       let moving = true;
       if (d.life === 'live' && !still) {
         const dist = Math.hypot(d.tx - d.ox, d.ty - d.oy);
-        if (!d.dim && dist > travelPx) { d.dim = true; stats.travels++; }
+        if (!d.dim && !d.relocate && dist > travelPx) { d.relocate = true; stats.travels++; }
         if (d.dim && dist < 1.2 && d.mv <= dimOp + 1e-6) {                                       // arrived: solidify as soon as nothing solid is in the way
           if (!this._blocked(d, spec)) d.dim = false; else { d.waitMs = (d.waitMs || 0) + dtMs; if (d.waitMs > 400) d.dim = false; }   // a blocker that never leaves is pushed or repaired, not waited for
         } else d.waitMs = 0;
@@ -152,7 +156,7 @@ export class Display {
         else d.mv = Math.min(1, d.mv + dt / (RAMP_MS / 1000));
       } else { d.mv = 1; d.dim = false; }
       d.opacity = base * d.mv;
-      if (d.life === 'live' && d.dim && d.opacity >= SOLID) moving = false;          // a solid tile that decides to travel first dims below 0.5, then moves
+      if (d.life === 'live' && ((d.dim && d.opacity >= SOLID) || d.relocate)) moving = false;          // a solid tile that decides to travel first dims below 0.5, then moves
       d.scale = (d.born || d.life === 'dying') ? birthScale + (1 - birthScale) * clamp01(base) : 1;
       if (still) { d.ox = d.tx; d.oy = d.ty; d.vx = 0; d.vy = 0; d.w = d.tw; d.h = d.th; }
       else if (moving) {
@@ -238,7 +242,7 @@ export class Display {
   /** content that comes from the layout tile (text, side, arm, strength state ...), refreshed every frame */
   _content(d, t, dt, inp) {
     d.n = t.n; d.ids = t.ids; d.side = t.side; d.arm = t.arm; d.short = t.short; d.fname = t.fname || null; d.ftail = t.ftail || null; d.badge = t.badge || null; d.strength = t.strength; d.nameKind = t.nameKind || null;
-    d.selected = inp.selectedId != null && t.ids.includes(inp.selectedId);
+    d.selected = inp.selectedId != null && t.ids.includes(inp.selectedId); d.grown = t.grown !== false;      // ROUND 2: a selected unit whose grown box was not verified free stays small (layout/strategies.mjs)
     const tween = this.tok('interp.strengthTweenMs') / 1000;
     d.ratioTarget = t.ratio ?? 1; d.ratioShown = tween <= 0 ? d.ratioTarget : dampStep(d.ratioShown, 0, d.ratioTarget, tween / 2, dt)[0];
     d.labelText = t.labelText || null; d.labelW = t.labelW; d.labelH = t.labelH;
@@ -381,7 +385,7 @@ export class Display {
   }
 
   _verifyAndRepair(spec, stats) {
-    const net = this.tok('motion.safetyNet') && !this._diag; const dimOp = this.tok('motion.dimOpacity'); const dimmed = new Set();
+    const net = this.tok('motion.safetyNet') && !this._diag; const dimmed = new Set();
     let items = this._items(spec); let v = verifyFrame(items, spec.gap - 0.05, true);
     if (net) {
       for (let round = 0; v.overlaps > 0 && round < 400; round++) {
@@ -392,12 +396,15 @@ export class Display {
           if (a === b) continue;
           const ma = this._mass(a); const mb = this._mass(b);
           // the lighter tile gives way; an item that is a label or a pin of the other tile is repaired by dimming the LABEL owner's label, then the tile
-          victims.add(ma < mb || (ma === mb && a.key > b.key) ? a : b);
+          // ROUND 2: the tile that stands farther from its certified place gives way (relocating it, reborn at its own place, ends the conflict: the certified places never overlap); only when both stand at their places does mass decide.
+          // (Rule of the lighter tile alone made a tile at its certified place the victim of a neighbour stuck 12 px off it, over and over: a relocation every 21 frames for ever, found by test/rest.test.mjs.)
+          const da = Math.hypot(a.tx - a.ox, a.ty - a.oy); const db = Math.hypot(b.tx - b.ox, b.ty - b.oy);
+          victims.add(Math.abs(da - db) > 0.5 ? (da > db ? a : b) : ma < mb || (ma === mb && a.key > b.key) ? a : b);
         }
         let changed = 0;
         for (const d of victims) {
           if (d.life === 'dying') { d.opacity = 0; changed++; continue; }
-          d.dim = true; d.mv = Math.min(d.mv, dimOp); d.opacity = Math.min(d.opacity, dimOp); d.label.opacity = Math.min(d.label.opacity, SOLID - 0.01); dimmed.add(d.key); changed++;
+          d.relocate = true; d.opacity = Math.min(d.opacity, SOLID - 0.01); d.label.opacity = Math.min(d.label.opacity, SOLID - 0.01); dimmed.add(d.key); changed++;      // ROUND 2: the victim fades out where it stands next frame and is born again at its place (it is never slid over the others)
         }
         if (!changed) break;
         items = this._items(spec); v = verifyFrame(items, spec.gap - 0.05, true);
@@ -417,7 +424,7 @@ export class Display {
     const tiles = list.map((d) => ({
       key: d.key, kind: d.kind, ids: d.ids, n: d.n, x: d.ax + d.ox + cOff(d), y: d.ay + d.oy, ax: d.px, ay: d.py, ox: d.ox, oy: d.oy, ix: d.px + d.ox, iy: d.py + d.oy, sgn: d.sgn || 0, w: d.w, h: d.h, scale: d.scale, opacity: d.opacity, solid: d.opacity >= SOLID, life: d.life,
       ajx: d.ajx || 0, ajy: d.ajy || 0, entering: d.born, travelling: d.dim, displaced: Math.hypot(d.ox, d.oy) > 1.5, side: d.side, arm: d.arm, short: d.short, fname: d.fname || null, ftail: d.ftail || null, badge: d.badge, nameKind: d.nameKind, ratio: d.ratioShown, strength: d.strength,
-      disposition: d.disposition, selected: !!d.selected, unit: d.unit, ageTicks: d.ageTicks, ageMin: d.ageMin, ageMax: d.ageMax, moving: !!d.moving, members: d.members,
+      disposition: d.disposition, selected: !!d.selected, grown: d.grown !== false, unit: d.unit, ageTicks: d.ageTicks, ageMin: d.ageMin, ageMax: d.ageMax, moving: !!d.moving, members: d.members,
       label: d.label.opacity > 0.01 && d.label.rect && d.labelText ? { text: d.labelText, slot: d.label.slot, opacity: d.label.opacity, x0: d.label.rect.x0, y0: d.label.rect.y0, x1: d.label.rect.x1, y1: d.label.rect.y1 } : null,
     }));
     let unrepresented = 0; const onField = new Set(); for (const lf of L.leaves || []) onField.add(lf.ids[0]);

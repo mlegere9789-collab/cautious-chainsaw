@@ -1,0 +1,1024 @@
+{
+  "pass": 101,
+  "verdict": "DEFECTS (incomplete)",
+  "startedAt": "2026-10-20T11:56:39.534Z",
+  "finishedAt": "2026-10-20T11:57:55.658Z",
+  "args": {
+    "_": [],
+    "candidate": "tmp/r1/r1-cand.zip",
+    "baseline": "baseline/dist",
+    "pass": "101",
+    "only": "1,2,8",
+    "soak-seconds": "20",
+    "port-base": "8700",
+    "out-dir": "docs/accept/r1"
+  },
+  "harness": {
+    "digest": "2cf304aad7f05481d537b6e4a888656d615aff44b74bb25c3d35406277b6ddda",
+    "files": 30
+  },
+  "countsTowardAcceptance": false,
+  "env": {
+    "node": "v24.19.0",
+    "python": "Python 3.11.9",
+    "chrome": "Chrome/155.0.8059.82",
+    "os": "Windows_NT 10.0.26200 x64",
+    "playwrightCore": "1.63.0",
+    "axeCore": "4.13.0",
+    "cpus": 16,
+    "cpuModel": "Intel(R) Core(TM) Ultra 7 265H",
+    "memGB": 34,
+    "gitHead": "17ba8ee789133164815e11c4f2e740de86524862",
+    "portBase": 8700,
+    "tileCap": 20000,
+    "tilesUsed": 122,
+    "mapboxMapLoadsSkus": 13,
+    "tilesCapBlocked": 0,
+    "soakSeconds": 20,
+    "serverHeadersApplied": {
+      "headerBlocks": 72,
+      "redirectRules": 23,
+      "redirected": 0,
+      "headersAdded": 2122
+    }
+  },
+  "candidate": {
+    "path": "tmp\\r1\\r1-cand.zip",
+    "kind": "zip",
+    "sha256": "0cd817c1228606b8cbe9b6d7ef95b580f718d366a0e91be3712ada0cf1a38d35",
+    "bytes": 35837173,
+    "files": 2013,
+    "treeSha256": "e8da2c11ddf75d331c3fd37925087dbf1c7a5de6aa85843aefa03ddf7d4aadd9",
+    "zipComment": ""
+  },
+  "baseline": "baseline\\dist",
+  "thresholds": {
+    "_comment": "Green band of the end-of-mission acceptance (docs/battle-theatre/GOVERNANCE/FINAL-ACCEPTANCE.md, step 5). Any value outside the band is a defect: there is no amber that passes. Never loosen these to make a pass clean.",
+    "webVitals": {
+      "lcpMs": 2500,
+      "cls": 0.1,
+      "inpMs": 200,
+      "tbtMs": 200
+    },
+    "frames": {
+      "p95FrameMsDesktop": 20,
+      "p95FrameMsPhone": 20,
+      "maxJankFrameMs": 100,
+      "_note": "p95 frame time of requestAnimationFrame deltas while the map animation plays at 1x and 4x. maxJankFrameMs is reported as a defect only when more than 1 percent of frames exceed it."
+    },
+    "interaction": {
+      "visibleResponseMs": 100,
+      "longTaskMs": 50,
+      "longTasksPerInteraction": 0,
+      "navigationFirstPaintMs": 1000
+    },
+    "heap": {
+      "maxGrowthPercent": 10,
+      "_note": "(heap after the final forced GC - heap after warm-up and a forced GC) / heap after warm-up, over the soak. Default soak is 120 s for dry runs; the acceptance run uses --soak-seconds 600."
+    },
+    "visual": {
+      "widths": [
+        360,
+        390,
+        768,
+        1024,
+        1440,
+        1920
+      ],
+      "heights": {
+        "360": 740,
+        "390": 844,
+        "768": 1024,
+        "1024": 768,
+        "1440": 900,
+        "1920": 1080
+      },
+      "tapTargetMinPx": 44,
+      "tapTargetAppliesUpToWidth": 1024,
+      "pointerTargetMinPx": 24,
+      "minTextPx": 12,
+      "layoutShiftMax": 0.1,
+      "horizontalOverflowTolerancePx": 1
+    },
+    "regression": {
+      "pixelColorThreshold": 0.1,
+      "maxDiffRatio": 0.002,
+      "regionGrid": [
+        8,
+        6
+      ],
+      "viewports": [
+        [
+          1440,
+          900
+        ],
+        [
+          390,
+          844
+        ]
+      ]
+    },
+    "setup": {
+      "tileCapPerRun": 20000,
+      "_note": "Mapbox requests per pass through the Referer-injecting side channel of tests/t0/lib.mjs (harness default 300 per run). Mapbox bills map loads (one sku per GL JS initialisation), not tile requests; every pass reports the number of skus it used. Override with --tile-cap."
+    }
+  },
+  "routes": [
+    "/404",
+    "/aftermath",
+    "/ar",
+    "/camera",
+    "/cinematic-export",
+    "/compare",
+    "/dashboard",
+    "/documentary",
+    "/education",
+    "/embed",
+    "/find-ancestor",
+    "/ground-remembers",
+    "/historian",
+    "/immersive",
+    "/",
+    "/living-ledger",
+    "/privacy",
+    "/regiment",
+    "/report",
+    "/sandbox",
+    "/search",
+    "/terms",
+    "/turning-points",
+    "/viewshed",
+    "/watch-together"
+  ],
+  "checks": [
+    {
+      "id": "1",
+      "title": "Deterministic zip (hash equals the previous pass)",
+      "status": "RAN",
+      "reason": null,
+      "defectCount": 1,
+      "noteCount": 2,
+      "notRunParts": [],
+      "ms": 60,
+      "started": "2026-10-20T11:56:41.748Z",
+      "finished": "2026-10-20T11:56:41.804Z",
+      "commands": [],
+      "metrics": {
+        "candidateSha256": "0cd817c1228606b8cbe9b6d7ef95b580f718d366a0e91be3712ada0cf1a38d35",
+        "bytes": 35837173,
+        "entries": 2013,
+        "comparedAgainst": [
+          "r1-cand.zip.sha256"
+        ]
+      },
+      "defects": [
+        {
+          "code": "no-previous-pass",
+          "where": "C:\\Users\\mlege\\gettysburg-map\\docs\\accept\\r1\\pass-100.json",
+          "detail": "pass 101 needs pass 100's hash (or --prev-sha) to prove determinism"
+        }
+      ],
+      "notes": [
+        {
+          "code": "zip-hash-equal",
+          "where": "r1-cand.zip.sha256",
+          "detail": "equals r1-cand.zip.sha256"
+        },
+        {
+          "code": "repack-skipped",
+          "where": "-",
+          "detail": "no release/<train>/dist to repack (train unknown)"
+        }
+      ],
+      "raw": {}
+    },
+    {
+      "id": "2",
+      "title": "Static hygiene",
+      "status": "RAN",
+      "reason": null,
+      "defectCount": 42,
+      "noteCount": 6,
+      "notRunParts": [],
+      "ms": 72249,
+      "started": "2026-10-20T11:56:42.056Z",
+      "finished": "2026-10-20T11:57:54.052Z",
+      "commands": [],
+      "metrics": {
+        "parsed": {
+          "html": 25,
+          "css": 2,
+          "js": 5,
+          "json": 78,
+          "inlineScripts": 50,
+          "inlineStyles": 25
+        },
+        "crawl": {
+          "internalReferences": 229,
+          "uniqueTargets": 47,
+          "externalReferences": 31,
+          "externalHosts": {
+            "catalog.archives.gov": 2,
+            "api.mapbox.com": 25,
+            "www.metmuseum.org": 1,
+            "www.nps.gov": 1,
+            "www.mapbox.com": 1,
+            "policies.google.com": 1
+          },
+          "dynamicTemplateReferencesNotResolvable": 0,
+          "unreferencedFilesNote": 1887
+        },
+        "insecureUrls": 0,
+        "chrome": "Chrome/155.0.8059.82",
+        "mapLoads": {
+          "routes": 9,
+          "tileRequestsSeen": 122,
+          "statuses": {
+            "200": 122,
+            "204": 31
+          },
+          "refererInjected": 122,
+          "skus": 10
+        },
+        "routes": 25,
+        "serviceWorker": {
+          "install": {
+            "scope": "http://127.0.0.1:8700/",
+            "active": "http://127.0.0.1:8700/sw.js",
+            "state": "activated"
+          },
+          "afterReload": {
+            "controller": "http://127.0.0.1:8700/sw.js",
+            "caches": [
+              "gbg-r0-770d0df8",
+              "mapbox-tiles"
+            ],
+            "cachedAssets": 18
+          },
+          "update": {
+            "waiting": true,
+            "installing": false,
+            "active": "activated"
+          },
+          "afterActivate": {
+            "active": "activated",
+            "waiting": false,
+            "caches": [
+              "mapbox-tiles",
+              "gbg-r0-770d0df8-acceptance-update"
+            ],
+            "controller": true,
+            "loads": 1
+          }
+        }
+      },
+      "defects": [
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        },
+        {
+          "code": "sw-console-error",
+          "where": "/",
+          "detail": "Error @ http://127.0.0.1:8700/assets/index-770d0df8.js:227"
+        }
+      ],
+      "notes": [
+        {
+          "code": "crawl-ignored",
+          "where": "-",
+          "detail": "5 string literals under /mapbox-gl-js/ ignored: prefix of the Mapbox CDN path (https://api.mapbox.com/mapbox-gl-js/...): Mapbox GL appends it to its own origin at runtime"
+        },
+        {
+          "code": "fragment-target-not-static",
+          "where": "index.html",
+          "detail": "#gt-map has no static id (may be created by script)"
+        },
+        {
+          "code": "fragment-target-not-static",
+          "where": "index.html",
+          "detail": "#gt-timeline has no static id (may be created by script)"
+        },
+        {
+          "code": "external-not-checked",
+          "where": "-",
+          "detail": "31 references to 6 external hosts were NOT requested (the run is offline by design): catalog.archives.gov, api.mapbox.com, www.metmuseum.org, www.nps.gov, www.mapbox.com, policies.google.com"
+        },
+        {
+          "code": "unreferenced-files",
+          "where": "-",
+          "detail": "apple-touch-icon-precomposed.png, icons.svg, tiles1863/v1-65d491b8/11/583/776.webp, tiles1863/v1-65d491b8/11/583/777.webp, tiles1863/v1-65d491b8/11/584/776.webp, tiles1863/v1-65d491b8/11/584/777.webp, tiles1863/v1-65d491b8/11/585/776.webp, tiles1863/v1-65d491b8/11/585/777.webp, tiles1863/v1-65d491b8/12/1167/1552.webp, tiles1863/v1-65d491b8/12/1167/1553.webp, tiles1863/v1-65d491b8/12/1167/1554.webp, tiles1863/v1-65d491b8/12/1168/1552.webp, tiles1863/v1-65d491b8/12/1168/1553.webp, tiles1863/v1-65d491b8/12/1168/1554.webp, tiles1863/v1-65d491b8/12/1169/1552.webp, tiles1863/v1-65d491b8/12/1169/1553"
+        },
+        {
+          "code": "mapbox-cdn-runtime-dependency",
+          "where": "-",
+          "detail": "8 pages load mapbox-gl.js/css from https://api.mapbox.com at runtime (SRI-pinned v3.24.1); the app bundles its own copy"
+        }
+      ],
+      "raw": {
+        "routeLoads": [
+          {
+            "route": "/404",
+            "mode": "block",
+            "status": 404,
+            "ms": 1313,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/aftermath",
+            "mode": "block",
+            "status": 200,
+            "ms": 1317,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/ar",
+            "mode": "block",
+            "status": 200,
+            "ms": 1325,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/dashboard",
+            "mode": "block",
+            "status": 200,
+            "ms": 1299,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/documentary",
+            "mode": "block",
+            "status": 200,
+            "ms": 1302,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/education",
+            "mode": "block",
+            "status": 200,
+            "ms": 1318,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/embed",
+            "mode": "block",
+            "status": 200,
+            "ms": 1267,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/find-ancestor",
+            "mode": "block",
+            "status": 200,
+            "ms": 1336,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/historian",
+            "mode": "block",
+            "status": 200,
+            "ms": 1329,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/living-ledger",
+            "mode": "block",
+            "status": 200,
+            "ms": 1314,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/privacy",
+            "mode": "block",
+            "status": 200,
+            "ms": 1289,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/regiment",
+            "mode": "block",
+            "status": 200,
+            "ms": 1315,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/report",
+            "mode": "block",
+            "status": 200,
+            "ms": 1313,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/search",
+            "mode": "block",
+            "status": 200,
+            "ms": 1318,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/terms",
+            "mode": "block",
+            "status": 200,
+            "ms": 1269,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/turning-points",
+            "mode": "block",
+            "status": 200,
+            "ms": 1322,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/camera",
+            "mode": "inject",
+            "status": 200,
+            "ms": 4338,
+            "mapCanvases": 1,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/cinematic-export",
+            "mode": "inject",
+            "status": 200,
+            "ms": 4187,
+            "mapCanvases": 1,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/compare",
+            "mode": "inject",
+            "status": 200,
+            "ms": 4226,
+            "mapCanvases": 2,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/ground-remembers",
+            "mode": "inject",
+            "status": 200,
+            "ms": 4198,
+            "mapCanvases": 1,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/immersive",
+            "mode": "inject",
+            "status": 200,
+            "ms": 4224,
+            "mapCanvases": 1,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/",
+            "mode": "inject",
+            "status": 200,
+            "ms": 4134,
+            "mapCanvases": 1,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/sandbox",
+            "mode": "inject",
+            "status": 200,
+            "ms": 4195,
+            "mapCanvases": 1,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/viewshed",
+            "mode": "inject",
+            "status": 200,
+            "ms": 4197,
+            "mapCanvases": 1,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/watch-together",
+            "mode": "inject",
+            "status": 200,
+            "ms": 4226,
+            "mapCanvases": 1,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "8",
+      "title": "Copy audit",
+      "status": "RAN",
+      "reason": null,
+      "defectCount": 13,
+      "noteCount": 3,
+      "notRunParts": [],
+      "ms": 1550,
+      "started": "2026-10-20T11:57:54.059Z",
+      "finished": "2026-10-20T11:57:55.603Z",
+      "commands": [
+        {
+          "cmd": "node tools/accept/copy_audit.mjs r1-cand.zip (in-process)",
+          "exit": null,
+          "ms": 0,
+          "note": "whitelist: 0 entries"
+        }
+      ],
+      "metrics": {
+        "scanned": {
+          "files": 2013,
+          "bytes": 39620104
+        },
+        "zip": {
+          "entries": 2013,
+          "comment": ""
+        },
+        "blocking": 13,
+        "whitelisted": 0,
+        "informational": 3,
+        "whitelistEntries": 0,
+        "rules": [
+          "claude",
+          "anthropic",
+          "openai",
+          "chatgpt",
+          "gpt-",
+          "copilot",
+          "gemini",
+          "llm",
+          "language model",
+          "artificial intelligence",
+          "AI (whole word, also AI-)",
+          "A.I.",
+          "machine-generated",
+          "generated by",
+          "auto-generated",
+          "subagent",
+          "agent (as AI)",
+          "prompt",
+          "OWNER TO CONFIRM",
+          "lorem ipsum",
+          "TODO/FIXME/XXX",
+          "DO NOT EDIT",
+          "(anonymous)",
+          "(unspecified)",
+          "how-it-was-built label (DEC-006)"
+        ],
+        "pdfs": [
+          {
+            "file": "user-guide.pdf",
+            "pdf": {
+              "pages": 6,
+              "info": {
+                "/Author": "(anonymous)",
+                "/CreationDate": "D:20260907225548-04'00'",
+                "/Creator": "(unspecified)",
+                "/Keywords": "",
+                "/ModDate": "D:20260907225548-04'00'",
+                "/Producer": "ReportLab PDF Library - (opensource)",
+                "/Subject": "(unspecified)",
+                "/Title": "(anonymous)",
+                "/Trapped": "/False"
+              },
+              "hasXmp": false,
+              "fonts": [
+                "/Helvetica",
+                "/Helvetica-Bold",
+                "/Helvetica-Oblique",
+                "/Symbol"
+              ],
+              "tagged": false,
+              "lang": null
+            }
+          }
+        ]
+      },
+      "defects": [
+        {
+          "code": "copy:generated by",
+          "where": "_headers:1 [config-file]",
+          "detail": "\"Generated by\" ... # Generated by tools/t0/config/gen.mjs for release 770d0df8 (tra"
+        },
+        {
+          "code": "copy:DO NOT EDIT",
+          "where": "_headers:1 [config-file]",
+          "detail": "\"DO NOT EDIT\" ... elease 770d0df8 (train R1c, context production). DO NOT EDIT. # Invariant: for any URL each header NAME is pro"
+        },
+        {
+          "code": "copy:generated by",
+          "where": "_redirects:1 [config-file]",
+          "detail": "\"Generated by\" ... # Generated by tools/t0/config/gen.mjs. DO NOT EDIT. First mat"
+        },
+        {
+          "code": "copy:DO NOT EDIT",
+          "where": "_redirects:1 [config-file]",
+          "detail": "\"DO NOT EDIT\" ... # Generated by tools/t0/config/gen.mjs. DO NOT EDIT. First matching rule wins; `!` = force (applies"
+        },
+        {
+          "code": "copy:generated by",
+          "where": "netlify.toml:1 [toml]",
+          "detail": "\"Generated by\" ... # Generated by tools/t0/config/gen.mjs for release 770d0df8. DO"
+        },
+        {
+          "code": "copy:DO NOT EDIT",
+          "where": "netlify.toml:1 [toml]",
+          "detail": "\"DO NOT EDIT\" ... by tools/t0/config/gen.mjs for release 770d0df8. DO NOT EDIT. # All headers live in _headers and all redirects"
+        },
+        {
+          "code": "copy:(anonymous)",
+          "where": "user-guide.pdf [pdf/Info/Author]",
+          "detail": "\"(anonymous)\" ... (anonymous)"
+        },
+        {
+          "code": "copy:(unspecified)",
+          "where": "user-guide.pdf [pdf/Info/Creator]",
+          "detail": "\"(unspecified)\" ... (unspecified)"
+        },
+        {
+          "code": "copy:pdf producer/creator tool name",
+          "where": "user-guide.pdf [pdf/Info/Creator]",
+          "detail": "\"(unspecified)\" ... /Creator = (unspecified)  (non-empty: name the site or leave it empty)"
+        },
+        {
+          "code": "copy:pdf producer/creator tool name",
+          "where": "user-guide.pdf [pdf/Info/Producer]",
+          "detail": "\"ReportLab PDF Library - (opensource)\" ... /Producer = ReportLab PDF Library - (opensource)"
+        },
+        {
+          "code": "copy:(unspecified)",
+          "where": "user-guide.pdf [pdf/Info/Subject]",
+          "detail": "\"(unspecified)\" ... (unspecified)"
+        },
+        {
+          "code": "copy:(anonymous)",
+          "where": "user-guide.pdf [pdf/Info/Title]",
+          "detail": "\"(anonymous)\" ... (anonymous)"
+        },
+        {
+          "code": "copy:AI (whole word, also AI-)",
+          "where": "user-guide.pdf [pdf/text/p5]",
+          "detail": "\"AI\" ... errain) — a search-and-synthesis tool, not a live AI model, so every answer traces back to a real reco"
+        }
+      ],
+      "notes": [
+        {
+          "code": "copy-info:ops file shipped (info)",
+          "where": "_ops/asset-manifest.json",
+          "detail": "_ops/asset-manifest.json is deployed to the public site"
+        },
+        {
+          "code": "copy-info:ops file shipped (info)",
+          "where": "_ops/config-manifest.json",
+          "detail": "_ops/config-manifest.json is deployed to the public site"
+        },
+        {
+          "code": "copy-info:ops file shipped (info)",
+          "where": "_ops/used-names.txt",
+          "detail": "_ops/used-names.txt is deployed to the public site"
+        }
+      ],
+      "raw": {}
+    }
+  ]
+}

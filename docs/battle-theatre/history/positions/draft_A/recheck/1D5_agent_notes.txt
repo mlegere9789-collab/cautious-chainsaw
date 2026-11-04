@@ -1,0 +1,24 @@
+Recheck notes, scope A, tag 1D5 (66 claims, reports OR27-1-R061 to R070: Stone, Wister, Dana, Musser, Dwight, Irvin, Huidekoper, Jones, Stannard, Randall)
+
+Counts per fidelity: passed_full_read 27, corrected 39, downgraded 0, split 0 (no "add" entries).
+Validator (positions_A_build.py --tag 1D5, --out in TEMP): no errors for 1D5.
+
+Pattern counts (a claim can fall under several):
+- time of day / hour not printed in the cited report (day-part "afternoon", "forenoon", "about noon", "late afternoon", "toward evening", "evening" borrowed from another report, or a 3.30-4 p. m. window computed from Stannard's 2 p. m. + 1.5 hours): 16 claims
+  (025, 026, 031, 032, 033, 034, 035, 038, 039, 040, 045, 047, 057, 060, 062, 066). In every case the fact stays documented; w was replaced by the printed date/duration or null and wd says what the compiler read.
+- place.printed paraphrased, composite of two sentences, or with an added word/editorial parenthesis (e.g. "(McPherson barn and house)", "the front of the ridge", "the Chambersburg pike line", "of Cemetery Hill", "on the left", "in front of the position"): 22 claims
+  (001, 003, 004, 010, 013, 014, 015, 019, 022, 029, 033, 034, 039, 040, 043, 054, 056, 057, 060, 066, 028, 062-act). No compass direction was added in this tag; the glosses are road names / place words.
+- clause from a second report merged into the claim: 1 (016: Dana's 1,315 inside Wister's 1,300 claim; moved to the note).
+- hedge or condition dropped: 2 (020 "I believe" the last organized body; 062 "as I am told" for Weir's battery).
+- later order ignored: 0 found (034 narrowed so the colors/return to the pike are stated as printed).
+- OCR digit read with confidence: 3 (009 "about 13 m." arrival hour, t_iso removed; 031 and 032 distance fractions "1^" and "1|" read as 1 1/2 and 1 3/4, now marked unreadable).
+- unit identity: 1 (028: Musser prints "our brigade was double-quicked"; unit re-pointed from the 143rd to the brigade).
+- other overstatement: 008 (double-quick: passage says march as fast as possible), 048 (600 yards is the picket line's distance in front of the defenses, not an advance), 058 (date 07-01 contradicts the report; brigade engaged July 2-3, no date printed), 016 (date not printed), 021, 051, 015, 022 (daylight not printed in Dana).
+
+Split ids: none. Downgraded ids: none.
+
+Systematic:
+- The builder wrote day-parts in parentheses ("(afternoon, July 1)", "(about noon, July 1)") for regimental reports that print no hour; the hour came from Stone/Dana/Wister. This is the main defect of this tag.
+- The 11 a. m. (Stone, Dana) versus about 12 m. (Wister, Huidekoper) conflict is genuine; Wister's arrival hour "13 m." is an OCR 2/3 confusion and is now t_iso null.
+- Stannard (evening of July 1, front line with Third Corps) versus Randall (about 5 p. m., Cemetery Hill rear): the conflict stands; Stannard also says the brigade was allowed to join the First Corps on the morning of the 2d, noted in 049.
+- Scratchpad hazard: the shared scratchpad directory is used by several readers, whose merge.py/parts files overwrote each other; I moved to scratchpad/mine1d5/ (R0*.json + merge1d5.py). Two of my early merge calls ran another reader's merge.py, which rewrote recheck/11B.json from that reader's own part_*.json files; the content should equal what they would produce, but the 11B reader should re-run its merge.

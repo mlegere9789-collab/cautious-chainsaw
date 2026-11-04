@@ -1,0 +1,64 @@
+{
+ "group": "PG-polish-legal",
+ "train": "R1c",
+ "optional": true,
+ "description": "CANDIDATE until registered (tools/t0/POLISH-README.md), companion of PG-polish for a build that also uses PG-legal (the interim privacy page): the same names and words on that page. OPT-IN: --with PG-legal,PG-polish,PG-polish-legal. It anchors on PG-legal's text, so it is refused without PG-legal. Page groups apply sorted by name, so this runs after both.",
+ "patches": [
+  {
+   "id": "POL-LG01-privacy-pages",
+   "target": "privacy.html",
+   "find": "Camera Modes, What They Could See, What-If Sandbox",
+   "repl": "Camera Modes, High Ground, What-If Sandbox",
+   "expect": 1
+  },
+  {
+   "id": "POL-LG02-privacy-export",
+   "target": "privacy.html",
+   "find": "Watch Together and Cinematic Export) get their map imagery",
+   "repl": "Watch Together and Export a Video) get their map imagery",
+   "expect": 1
+  },
+  {
+   "id": "POL-LG03-privacy-tools",
+   "target": "privacy.html",
+   "find": "<p>Cinematic Export records the map view into a video file",
+   "repl": "<p>Export a Video records the map view into a video file",
+   "expect": 1
+  },
+  {
+   "id": "POL-LG04-privacy-reports",
+   "target": "privacy.html",
+   "find": "Casualty Dashboard, Battle Reports, Search Everything",
+   "repl": "Casualty Dashboard, Regiment Fact Sheets, Search Everything",
+   "expect": 1
+  },
+  {
+   "id": "POL-LG05-privacy-ef",
+   "target": "privacy.html",
+   "find": "Whether you hid the Extra Features menu",
+   "repl": "Whether you hid the More to Explore menu",
+   "expect": 1
+  },
+  {
+   "id": "POL-LG06-privacy-tick1",
+   "target": "privacy.html",
+   "find": "the tick number the host is showing",
+   "repl": "the moment the host is showing",
+   "expect": 1
+  },
+  {
+   "id": "POL-LG07-privacy-tick2",
+   "target": "privacy.html",
+   "find": "the moment (tick), a label,",
+   "repl": "the moment, a label,",
+   "expect": 1
+  },
+  {
+   "id": "POL-LG08-privacy-tick3",
+   "target": "privacy.html",
+   "find": "Your stops (tick numbers) and notes",
+   "repl": "Your stops (moments) and notes",
+   "expect": 1
+  }
+ ]
+}

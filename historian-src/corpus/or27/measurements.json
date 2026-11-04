@@ -1,45 +1,45 @@
 {
- "measured_at": "2026-10-05",
+ "measured_at": "2026-10-22",
  "node": "v24.19.0",
  "hx": "historian-src\\dist\\hx-or27",
  "build": {
-  "passages": 8405,
-  "words": 1323095,
-  "files": 1211,
-  "vocabulary_terms": 20732,
+  "passages": 8414,
+  "words": 1321161,
+  "files": 1212,
+  "vocabulary_terms": 20691,
   "postings": {
    "files": 128,
-   "raw": 3622777,
-   "brotli": 1218211,
-   "largest_file": 79917
+   "raw": 3617873,
+   "brotli": 1216199,
+   "largest_file": 79942
   },
   "entity_postings": {
    "files": 32,
-   "raw": 315427,
-   "brotli": 72563
+   "raw": 323434,
+   "brotli": 74838
   },
   "text": {
-   "files": 1051,
-   "raw": 11654463,
-   "brotli": 3500332,
-   "largest_file": 20558,
+   "files": 1052,
+   "raw": 11668065,
+   "brotli": 3499709,
+   "largest_file": 19089,
    "passages_per_file": 8
   },
   "file_list": {
-   "path": "f/or27/files.8b8dc430.json",
-   "raw": 85600,
-   "brotli": 12511
+   "path": "f/or27/files.ad8e6803.json",
+   "raw": 85660,
+   "brotli": 12472
   },
   "total": {
-   "raw": 15678267,
-   "brotli": 4803617
+   "raw": 15695032,
+   "brotli": 4803218
   }
  },
  "first_paint": {
   "without_corpus": {
    "manifest": {
     "raw": 17757,
-    "brotli": 3360
+    "brotli": 3334
    },
    "t1": [
     {
@@ -53,9 +53,9 @@
      "brotli": 54929
     },
     {
-     "file": "f/facts.e9dfe2cf.json",
-     "raw": 148560,
-     "brotli": 28206
+     "file": "f/facts.dc1c2773.json",
+     "raw": 148576,
+     "brotli": 28184
     },
     {
      "file": "f/lexicon.f3f965e0.json",
@@ -64,14 +64,14 @@
     }
    ],
    "total": {
-    "raw": 1540463,
-    "brotli": 205330
+    "raw": 1540479,
+    "brotli": 205282
    }
   },
   "with_corpus": {
    "manifest": {
-    "raw": 18825,
-    "brotli": 3644
+    "raw": 18824,
+    "brotli": 3623
    },
    "t1": [
     {
@@ -85,9 +85,9 @@
      "brotli": 54929
     },
     {
-     "file": "f/facts.e9dfe2cf.json",
-     "raw": 148560,
-     "brotli": 28206
+     "file": "f/facts.dc1c2773.json",
+     "raw": 148576,
+     "brotli": 28184
     },
     {
      "file": "f/lexicon.f3f965e0.json",
@@ -96,43 +96,43 @@
     }
    ],
    "total": {
-    "raw": 1541531,
-    "brotli": 205614
+    "raw": 1541546,
+    "brotli": 205571
    }
   },
   "t1_files_identical": true,
   "delta": {
-   "raw": 1068,
-   "brotli": 284
+   "raw": 1067,
+   "brotli": 289
   }
  },
  "per_question": {
   "corpus_questions": {
    "n": 106,
    "files": {
-    "p50": 13,
-    "p95": 29,
-    "max": 37
+    "p50": 14,
+    "p95": 30,
+    "max": 75
    },
    "raw_bytes": {
-    "p50": 236899,
-    "p95": 459798,
-    "max": 565392
+    "p50": 238684,
+    "p95": 495121,
+    "max": 871386
    },
    "brotli_bytes": {
-    "p50": 57207,
-    "p95": 126057,
-    "max": 163784
+    "p50": 57291,
+    "p95": 138505,
+    "max": 235339
    },
    "node_ms": {
-    "p50": 265.6,
-    "p95": 526.3,
-    "max": 660.5
+    "p50": 414.5,
+    "p95": 1062.9,
+    "max": 2510
    },
    "modelled_phone_ms": {
-    "p50": 1932,
-    "p95": 3305,
-    "max": 4061
+    "p50": 2651,
+    "p95": 5304,
+    "max": 11817
    }
   },
   "site_questions": {
@@ -153,42 +153,42 @@
     "max": 40243
    },
    "node_ms": {
-    "p50": 176.3,
-    "p95": 248.5,
-    "max": 248.5
+    "p50": 194.8,
+    "p95": 316.3,
+    "max": 316.3
    },
    "modelled_phone_ms": {
-    "p50": 1302,
-    "p95": 1631,
-    "max": 1631
+    "p50": 1369,
+    "p95": 1917,
+    "max": 1917
    }
   },
   "all": {
    "n": 113,
    "files": {
-    "p50": 13,
+    "p50": 14,
     "p95": 30,
-    "max": 37
+    "max": 75
    },
    "raw_bytes": {
-    "p50": 233572,
-    "p95": 459798,
-    "max": 565392
+    "p50": 230759,
+    "p95": 495121,
+    "max": 871386
    },
    "brotli_bytes": {
-    "p50": 56102,
-    "p95": 126057,
-    "max": 163784
+    "p50": 56196,
+    "p95": 138505,
+    "max": 235339
    },
    "node_ms": {
-    "p50": 253.6,
-    "p95": 526.3,
-    "max": 660.5
+    "p50": 391.9,
+    "p95": 1062.9,
+    "max": 2510
    },
    "modelled_phone_ms": {
-    "p50": 1895,
-    "p95": 3305,
-    "max": 4061
+    "p50": 2505,
+    "p95": 5304,
+    "max": 11817
    }
   }
  },

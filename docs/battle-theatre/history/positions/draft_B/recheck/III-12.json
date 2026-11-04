@@ -1,0 +1,171 @@
+[
+ {
+  "id": "POS-B-us-3c-15",
+  "fc": "corrected",
+  "why": "Original activity said Howard 'sent word to move up'; this sentence says word informed Sickles/Slocum of the situation with a request to forward a dispatch to Meade. The move-up request is Pearson's later message. Narrowed.",
+  "act": "Howard: word was sent to Sickles (informing him of the situation, with a request that he forward a dispatch to Meade); Sickles was at that time, about 1 p. m., near Emmitsburg",
+  "q2": [
+   "a request that General Sickles forward my dispatch to General Meade"
+  ],
+  "dbasis": "report context: Howard's narrative of the first day, July 1 (follows the 12.30 p. m. message from Buford)"
+ },
+ {
+  "id": "POS-B-us-3c-16",
+  "fc": "passed_full_read",
+  "why": "3.30 p. m. in the same sentence; Pearson sent to Sickles to move up to Gettysburg, delayed by difficulty finding Sickles' headquarters. Date from July 1 narrative. No later contradiction.",
+  "dbasis": "report context: Howard's narrative of the first day, July 1 (3.20 p. m. attack on the First Corps follows)"
+ },
+ {
+  "id": "POS-B-us-3c-27",
+  "fc": "passed_full_read",
+  "why": "Hour, place and names in one sentence; it is Generals Slocum and Sickles (commanders) arriving, not the Third Corps troops; unit_id us-3c stands for Sickles. Date from July 1 narrative (7 in the evening).",
+  "dbasis": "report context: Howard's narrative of the first day, July 1 ('The eventful day was over', 'until 7 in the evening')"
+ },
+ {
+  "id": "POS-B-us-3c-34",
+  "fc": "passed_full_read",
+  "why": "'At 3 p. m.' opens the same sentence; attack on 'our left' printed 2 clauses later. Time dates Meade's summons; battle opened while the conference was on. Passage speaks of Sykes (Fifth Corps), not Third Corps front; unit_id us-3c is the compiler's association.",
+  "dbasis": "report context: Sykes reached the field about 8 a. m. 'on the latter date', July 2"
+ },
+ {
+  "id": "POS-B-us-3c-1d-20",
+  "fc": "corrected",
+  "why": "Activity said Birney 'asked' to close on the battery; Sykes writes that he 'suggested' it, and promised to fill the gap. Narrowed wording; no clock in passage.",
+  "act": "Sykes: a narrow gorge filled with bowlders lay between the rocky ridge on the extreme left and the position occupied by Birney's division, Third Corps; Sykes suggested to Birney that he close his division on the battery and hold the edge of the woods on its right, promising to fill the gap",
+  "q2": [
+   "suggested that he should close his division on the battery"
+  ],
+  "dbasis": "report context: Sykes's narrative of his arrival and deployment on July 2"
+ },
+ {
+  "id": "POS-B-us-3c-1d-05",
+  "fc": "corrected",
+  "why": "Place 'Gettysburg' is not in this sentence; passage prints 'right of the center of the main line of battle, east of the turnpike'. Passage is Geary's (Twelfth Corps, 2d Div.) division, relieved by 'the Third Army Corps', not a Third Corps division; unit_id us-3c-1d kept as printed.",
+  "act": "Geary: at 5 a. m. on the 2d, having been relieved by the Third Army Corps, his division (Twelfth Corps), by order of Slocum, was placed on the right of the center of the main line of battle, east of the turnpike",
+  "pp": "the right of the center of the main line of battle; east of the turnpike",
+  "q2": [
+   "the division was placed on the right of the center of the main line",
+   "line of battle, east of the turnpike"
+  ],
+  "gz": null,
+  "rd": null
+ },
+ {
+  "id": "POS-B-us-3c-61",
+  "fc": "passed_full_read",
+  "why": "Quote and Taneytown clause in one sentence; passage is Buford's cavalry division, not the Third Corps. Date token OCR-garbled ('-TnW 9'); July 2 settled by next sentence 'The next day, July 3'. No clock printed.",
+  "wdesc": "compiler reading from order of events: date token OCR-garbled; 'The next day, July 3' follows in the next sentence",
+  "dbasis": "report context: previous paragraph is July 1; the next day is printed as July 3",
+  "ocr": true
+ },
+ {
+  "id": "POS-B-us-3c-63",
+  "fc": "passed_full_read",
+  "why": "'On July 2' in the same sentence; Pleasonton on Buford's division (not the Third Corps) holding a position on our left at Gettysburg until relieved by the Third Corps, then Westminster. No later contradiction."
+ },
+ {
+  "id": "POS-B-us-3c-art-4usk-12",
+  "fc": "passed_full_read",
+  "why": "'about 8 o'clock' ends the previous sentence (firing ceased); 'I then placed Seeley's battery' continues it. Seeley's battery (Lt. James) near Dow's, to watch the enemy. No a. m./p. m. printed; evening settled by the sequence.",
+  "wdesc": "printed in the continuing sentence: \"which was about 8 o'clock\" (firing ceased; \"I then placed\"); meridian inferred: follows the 5.30 and sundown events of July 2",
+  "mer": true,
+  "dbasis": "report context: McGilvery's account of the engagement of July 2"
+ },
+ {
+  "id": "POS-B-us-3c-art-4usk-13",
+  "fc": "corrected",
+  "why": "Printed '7.80 p. m.' is an OCR-damaged minute digit; the original activity read it as 7.30 with confidence. Time set to OCR glyph only (t null, ocr true); activity now states the printed glyph.",
+  "act": "Dow: at '7.80 p. m.' (OCR glyph; minute digit not settled) he was relieved by McGilvery, who placed Seeley's battery, under Lt. James, in his position",
+  "wdesc": "OCR glyph only: minute digit printed \"7.80\"; 7.30 is not settled by the passage",
+  "t": null,
+  "ocr": true
+ },
+ {
+  "id": "POS-B-us-3c-art-1rie-06",
+  "fc": "passed_full_read",
+  "why": "'On the morning of July 2' and 'second line of battle' in the same sentence; Freeborn's own battery (E, 1st RI), Bucklyn in command, no firing until 3 p. m. No later contradiction."
+ },
+ {
+  "id": "POS-B-us-3c-art-1rie-07",
+  "fc": "passed_full_read",
+  "why": "'until 3 p. m., when it was ordered to the front' same sentence; 'We moved up and took a position near the Emmitsburg road' is the continuing sentence. Clock dates the order, the move follows.",
+  "wdesc": "printed in the continuing sentence: \"3 p. m.\" (ordered to the front; the move to the Emmitsburg road follows)"
+ },
+ {
+  "id": "POS-B-us-3c-art-1rie-08",
+  "fc": "passed_full_read",
+  "why": "Right section detached and 'operated on the road near a small house'; sharpshooters in a barn in front of the section dislodged by shell. No clock; follows the 3 p. m. advance.",
+  "dbasis": "report context: July 2 action after the 3 p. m. order to the front"
+ },
+ {
+  "id": "POS-B-us-3c-art-1rie-09",
+  "fc": "passed_full_read",
+  "why": "Twenty minutes without support; artillery and infantry on the left fell back 'nearly at the same time'; battery withdrawn; one caisson abandoned and regained. All printed in the passage; no clock.",
+  "q2": [
+   "the artillery and infantry on our left fell back"
+  ],
+  "dbasis": "report context: July 2 action after the 3 p. m. order to the front"
+ },
+ {
+  "id": "POS-B-us-3c-art-1rie-10",
+  "fc": "passed_full_read",
+  "why": "Bucklyn wounded coming off the field, command to Freeborn, battery ordered to the rear, badly cut up, took no part in subsequent fighting: all printed. No clock.",
+  "dbasis": "report context: end of Freeborn's July 2 narrative"
+ },
+ {
+  "id": "POS-B-us-3c-art-4usk-14",
+  "fc": "corrected",
+  "why": "when.printed is 'About 3 p. m.' (hedged) but approx was false; set approx true. Unit (Battery K, 4th US, Seeley, report by James), position, 800 yards and fifteen minutes all printed.",
+  "ap": true
+ },
+ {
+  "id": "POS-B-us-3c-art-4usk-15",
+  "fc": "corrected",
+  "why": "Hedge 'some four batteries' dropped and 'Confederate' added; the passage says 'the enemy'. Later clauses (Seeley wounded, canister, retire) follow in sequence with no clock; stated as such.",
+  "act": "James: about 5.30 p. m. the enemy placed some four batteries about 1,000 yards to our left and front and opened fire; enemy infantry advanced in heavy columns; Lt. Seeley severely wounded; with the infantry fallen back a few rounds of canister were fired, then the battery retired (no clock for the later clauses)"
+ },
+ {
+  "id": "POS-B-us-3c-art-4usk-16",
+  "fc": "passed_full_read",
+  "why": "'I then took a position about 400 yards to the right' to enfilade; skirmishers 'not more than some 30 yards' on right flank and rear; moved by the left flank and retired. All printed; no clock.",
+  "dbasis": "report context: July 2 narrative, follows the retirement after about 5.30 p. m."
+ },
+ {
+  "id": "POS-B-us-3c-art-4usk-17",
+  "fc": "passed_full_read",
+  "why": "Orders from McGilvery; 'a position in an open field to the rear and, left', about 1,200 yards from the original position, four guns, remained during the night. All printed.",
+  "dbasis": "report context: July 2 night, before 'At daybreak on the morning of the 3d'"
+ },
+ {
+  "id": "POS-B-us-3c-art-4usk-18",
+  "fc": "corrected",
+  "why": "Activity said the limber ammunition was expended; passage says 'nearly all' of it. 'An open field' is from the preceding sentence (the night position), carried by continuity.",
+  "act": "James: at daybreak on the morning of the 3d the enemy opened upon the battery with sixteen guns from about 1,300 yards, and with sharpshooters; he replied, expending nearly all the ammunition in the limbers, and, without supports, retired; he then reported to the corps commander; by direction the battery was held in reserve"
+ },
+ {
+  "id": "POS-B-us-3c-art-4usk-19",
+  "fc": "passed_full_read",
+  "why": "Held in reserve 'during the remainder of the day' (stray dot in 'remaind.er' is only OCR punctuation), by direction, after reporting to the corps commander on the 3d. No later contradiction in the passage.",
+  "ocr": false
+ },
+ {
+  "id": "POS-B-us-3c-art-4usk-20",
+  "fc": "corrected",
+  "why": "Digit 2/3 in 'night of the 3d' not settled by this passage (guns 'abandoned ... during the day'; McGilvery R318 and Dow R331 place a similar recovery on the night of July 2). Marked OCR-doubtful; 'other troops' changed to the printed 'our troops'.",
+  "act": "James: on the night of the 3d (digit 2/3 uncertain), with the Sixth Maine Battery and under McGilvery's orders, he brought from the field seven guns (four 3-inch rifled, three light 12-pounders) abandoned by our troops during the day; next morning returned the three 12-pounders to the Ninth Massachusetts Battery",
+  "wdesc": "OCR glyph only: \"night of the 3d\" digit 2/3 not settled in this passage",
+  "t": null,
+  "ocr": true
+ },
+ {
+  "id": "POS-B-us-3c-art-12",
+  "fc": "corrected",
+  "why": "The road 'Emmitsburg road' belongs to the earlier sheltering position (woods on the Emmitsburg road near the stone barn), not to the peach orchard. Place phrases restricted to printed words; gazetteer by inference. Unit is Ames' Battery G, 1st NY, an Artillery Reserve battery.",
+  "pp": "a thick peach orchard; the piece of woods on the Emmitsburg road; near the stone barn",
+  "rd": "Emmitsburg road",
+  "q2": [
+   "shelter the battery behind the piece of woods on the Emmitsburg road"
+  ],
+  "ppd": "orchard position taken at about 3 p. m.; 'Emmitsburg road' is printed for the woods where the battery sheltered, not for the orchard; gazetteer id by inference from 'a thick peach orchard'"
+ }
+]

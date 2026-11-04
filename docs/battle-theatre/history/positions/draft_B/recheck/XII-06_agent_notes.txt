@@ -1,0 +1,15 @@
+BATCH XII-06 (60 claims; reports OR27-1-R273 Ruger, 27 claims; OR27-1-R274 McDougall, 33 claims; no open-gap claims)
+Counts per fc: passed_full_read 42, corrected 16, downgraded 2, split 0.
+Validator: decisions 60, missing 0, errors 0.
+
+Patterns (claims):
+- time from another sentence (relative or day-part phrase belongs to a preceding sentence; wp cleared, wdesc set): 5
+  (12c-1d-mcdougall-20ct-01, 12c-1d-colgrove-107ny-01, 12c-1d-colgrove-04, 12c-1d-colgrove-05, 12c-1d-mcdougall-20ct-02)
+- OCR digit read with confidence (distance 'l-J', '1|', '1\', '1^' miles taken as 1.5): 4 corrected (1d-29, mcdougall-08, -14, -25) plus mcdougall-24 which merged that distance.
+- merged clause / overstated activity: 1d-mcdougall-16 (brigade vs retiring skirmishers fired upon), 1d-mcdougall-24 (merged claim 25's OCR move).
+- unit identity gloss: 12c-art-05 downgraded (battery unnamed; us-12c-art is compiler's); 12c-2d-11 had '(Geary)' not in the sentence, plus a place (swale) that is the First Division's, not stated for the Second.
+- strength notes: 4 table lines said 'date column not legible' but no date is printed (46pa-01, 145ny-01, 5ct-01, 123ny-03): act reworded, nominal date explained; 1d-mcdougall-26 footnote downgraded (subject and date not printed; sits after the July 1 paragraph, ledger said July 2).
+- compass/road gloss: none. Hedge dropped: none significant. Meridian inferred: none. Later order ignored: none.
+- Annotations only (passed): 1d-30, 1d-33, 1d-colgrove-2ma-01, -27in-01 (time in continuing sentence), 1d-26 and several July 2 position claims (date from report context).
+Systematic: the builder should stop (a) reading OCR fraction glyphs as 1.5 miles, (b) carrying 'soon after'/'On the morning of' from the preceding sentence into wp, (c) writing 'date column not legible' when the line prints no date, (d) giving a bare 'a battery' to a corps artillery unit id.
+Ledger conflicts lists were not checked (not part of the brief).

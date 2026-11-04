@@ -1,19 +1,32 @@
 {
  "march": {
-  "unit": "5 TX",
-  "pxPerFrame": 3.03,
+  "unit": "21 MS",
+  "pxPerFrame": 3.73,
   "speed": 8,
-  "frameMs": 16.7,
+  "frameMs": 100,
+  "camera": {
+   "start": {
+    "lng": -77.2411,
+    "lat": 39.7989,
+    "zoom": 15
+   },
+   "end": {
+    "lng": -77.2411,
+    "lat": 39.7989,
+    "zoom": 15
+   },
+   "identical": true
+  },
   "stats": {
    "examples": [
-    "agg:A-U:U-148PA (agg) f28 32.2px (was 1.9), opacity 0.84",
-    "U-1MN (leaf, the units own motion) f42 8.6px (was 2.3), opacity 1.00",
-    "U-1MN (leaf, the units own motion) f43 28.0px (was 8.6), opacity 1.00"
+    "U-1MN (leaf, the units own motion) f42 8.3px (was 2.2), opacity 1.00",
+    "U-1MN (leaf, the units own motion) f43 27.9px (was 8.3), opacity 1.00",
+    "agg:C-II-2-1:C-27VA (agg) f88 20.5px (was 4.9), opacity 1.00"
    ],
-   "frames": 68,
+   "frames": 108,
    "framesWithOverlaps": 0,
-   "marksTracked": 278,
-   "maxStepPx": 32.23,
+   "marksTracked": 313,
+   "maxStepPx": 55.71,
    "suddenSteps": 3,
    "ofWhichTheUnitsOwnMotion": 2,
    "suddenStepsOfTheDisplay": 1
@@ -24,12 +37,27 @@
   "tick": 240,
   "frameMs": 80,
   "clockStartsTicksBefore": 0.1,
+  "firstFrame": "the first frame at which the mark is visible (opacity 0.06)",
+  "waitedFrames": 14,
+  "camera": {
+   "start": {
+    "lng": -77.2461,
+    "lat": 39.8011,
+    "zoom": 16
+   },
+   "end": {
+    "lng": -77.2461,
+    "lat": 39.8011,
+    "zoom": 16
+   },
+   "identical": true
+  },
   "stats": {
    "examples": [],
-   "frames": 40,
+   "frames": 55,
    "framesWithOverlaps": 0,
-   "marksTracked": 275,
-   "maxStepPx": 4.13,
+   "marksTracked": 274,
+   "maxStepPx": 4.17,
    "suddenSteps": 0,
    "ofWhichTheUnitsOwnMotion": 0,
    "suddenStepsOfTheDisplay": 0
@@ -40,21 +68,96 @@
   "frameMs": 50
  },
  "deploy": {
-  "crowd": "I Corps & others",
-  "records": 6,
+  "crowd": "Union",
+  "records": 3,
+  "spreadPx": 49,
+  "speed": 4,
   "frameMs": 67,
-  "zoom": "14.7 to 16.4",
-  "opensAfterFrames": 20,
-  "note": "eight frames 4 frames (67 ms) apart, from 20 frames before the crowd mark goes",
+  "cameraStill": true,
+  "startFrame": 22,
+  "frames": [
+   {
+    "f": 22,
+    "crowd": 1,
+    "members": []
+   },
+   {
+    "f": 26,
+    "crowd": 0.99,
+    "members": []
+   },
+   {
+    "f": 30,
+    "crowd": 0.72,
+    "members": []
+   },
+   {
+    "f": 34,
+    "crowd": 0.32,
+    "members": [
+     0.03,
+     0.01,
+     0.01
+    ]
+   },
+   {
+    "f": 38,
+    "crowd": 0.03,
+    "members": [
+     0.33,
+     0.25,
+     0.18
+    ]
+   },
+   {
+    "f": 42,
+    "crowd": 0,
+    "members": [
+     0.73,
+     0.73,
+     0.73
+    ]
+   },
+   {
+    "f": 46,
+    "crowd": 0,
+    "members": [
+     0.99,
+     0.99,
+     0.99
+    ]
+   },
+   {
+    "f": 50,
+    "crowd": 0,
+    "members": [
+     1,
+     1,
+     1
+    ]
+   }
+  ],
+  "camera": {
+   "start": {
+    "lng": -77.2261,
+    "lat": 39.8189,
+    "zoom": 15
+   },
+   "end": {
+    "lng": -77.2261,
+    "lat": 39.8189,
+    "zoom": 15
+   },
+   "identical": true
+  },
   "stats": {
-   "examples": [],
-   "frames": 152,
+   "frames": 62,
    "framesWithOverlaps": 0,
-   "marksTracked": 324,
-   "maxStepPx": 4.13,
    "suddenSteps": 0,
    "ofWhichTheUnitsOwnMotion": 0,
-   "suddenStepsOfTheDisplay": 0
-  }
+   "examples": [],
+   "filmedFrames": 62
+  },
+  "note": "one run filmed once (the page is manual-clocked at 60 Hz, 4x speed); the strip shows the frame 4 before the crowd mark starts to go, then every 4th frame (67 ms)"
  }
 }

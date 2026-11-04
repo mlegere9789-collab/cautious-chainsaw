@@ -15,10 +15,10 @@
 }
 /* ---- paper (the light ground) ---- */
 :root[data-theme="light"] {
-  --bg: #e9e2d1; --panel: #fbf8f1; --panel2: #f2ede0; --line: #d9cfba; --text: #1a2230; --muted: #4f5b6a; --faint: #7a8591;
+  --bg: #e8ece7; --panel: #f8f9f6; --panel2: #eef1ed; --line: #d1d8d1; --text: #17202b; --muted: #475361; --faint: #77828d;
   --accent: #ffc21a; --accent-ink: #1b1405; --blue: #1c57a6; --red: #c2441b; --ok: #1f7a55; --warn: #8a5300; --bad: #b3261e;
   --glass: var(--panel); --glass-hi: var(--panel); --edge: var(--line);
-  --shadow1: 0 1px 0 rgba(26, 34, 48, .05), 0 6px 18px rgba(52, 40, 18, .14); --shadow2: 0 1px 0 rgba(26, 34, 48, .06), 0 14px 38px rgba(52, 40, 18, .22);
+  --shadow1: 0 1px 0 rgba(26, 34, 48, .05), 0 6px 18px rgba(30, 44, 56, .14); --shadow2: 0 1px 0 rgba(26, 34, 48, .06), 0 14px 38px rgba(30, 44, 56, .22);
   --tone-critical: #c23b22; --tone-high: #c98a00; --tone-medium: #9a8a1c; --tone-story: #7a5a28; --tone-info: #2f6db5; --tone-day: #7a5a28; --tone-union: #1c57a6; --tone-confederate: #c2441b; --tone-neutral: #6d7782;
   --ink-critical: #a5301b; --ink-high: #8a5300; --ink-medium: #6a5a00; --ink-story: #6b4a12; --ink-info: #1d4f95; --ink-day: #6b4a12; --ink-union: #1d4f95; --ink-confederate: #a23a17; --ink-neutral: #4a515c;
   --title-ink: #1a2230; --on-ink: #ffffff; --pc-shadow: var(--shadow1);
@@ -50,7 +50,7 @@ html, body { font: 13px/1.5 var(--font); font-feature-settings: "calt", "kern"; 
 #topbar { gap: 8px; padding: 12px var(--gutter); }
 .brand { height: 40px; padding: 0 14px 0 12px; gap: 10px; }
 .brand svg { color: var(--accent); width: 18px; height: 18px; }
-.brand b { font: 600 15px/1.1 var(--serif); letter-spacing: 0; } .brand span { font: 500 11px/1.2 var(--font); letter-spacing: .02em; color: var(--muted); }
+.brand b { font: 600 15px/1.1 var(--serif); letter-spacing: 0; } .brand span { font: 500 11.5px/1.2 var(--font); letter-spacing: .02em; color: var(--muted); }
 .clockbox { height: 40px; padding: 0 14px; }
 .clockbox .tick { font: 650 13px/1.2 var(--font); letter-spacing: 0; font-variant-numeric: tabular-nums; } .clockbox .clock { font-size: 11.5px; color: var(--muted); }
 .btn { height: 32px; padding: 0 12px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r2); box-shadow: none; font-weight: 600; font-size: 12.5px; letter-spacing: 0; -webkit-backdrop-filter: none; backdrop-filter: none; transition: background-color var(--dur1) var(--ease-io), border-color var(--dur1) var(--ease-io), color var(--dur1); }
@@ -79,9 +79,9 @@ select.btn { background-color: var(--panel); }
 .honesty { font-size: 11.5px; gap: 6px 10px; } .honesty .note { color: var(--muted); }
 
 /* ---- evidence labels: a dot and a word, not a pill ---- */
-.ev, .ev-pair .ev { display: inline-flex; align-items: center; gap: 5px; border: 0; padding: 0; border-radius: 0; font: 650 11px/1.2 var(--font); letter-spacing: .06em; text-transform: uppercase; vertical-align: baseline; }
+.ev, .ev-pair .ev { display: inline-flex; align-items: center; gap: 5px; border: 0; padding: 0; border-radius: 0; font: 650 11.5px/1.2 var(--font); letter-spacing: .06em; text-transform: uppercase; vertical-align: baseline; }
 .ev::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex: none; }
-.ev-pair { display: inline-flex; align-items: baseline; gap: 6px; font-size: 11.5px; color: var(--muted); } .ev-pair .ev { font-size: 11px; padding: 0; }
+.ev-pair { display: inline-flex; align-items: baseline; gap: 6px; font-size: 11.5px; color: var(--muted); } .ev-pair .ev { font-size: 11.5px; padding: 0; }
 .ev-Contested::before { border-radius: 0; transform: rotate(45deg) scale(.85); } .ev-Unknown::before { background: transparent; box-shadow: inset 0 0 0 1.6px currentColor; } .ev-Modelled::before { border-radius: 1px; }
 
 /* ---- cards: a callout on the map ---- */
@@ -90,7 +90,7 @@ select.btn { background-color: var(--panel); }
 .pc::before { left: 0; right: 0; top: 0; bottom: auto; width: auto; height: 3px; background: var(--tc); }
 .pc-body { padding: 14px 16px 14px 16px; } #app[data-density="compact"] .pc-body { padding: 11px 13px 11px; }
 .pc-tools { top: 9px; right: 6px; opacity: .55; } .pc-btn { width: 26px; height: 26px; border-radius: 2px; } .pc-btn svg { width: 13px; height: 13px; }
-.pc-kick { font: 700 11px/1 var(--font); letter-spacing: .12em; gap: 3px 8px; min-height: 16px; } .pc-kick .pc-shape { width: 11px; height: 11px; }
+.pc-kick { font: 700 11.5px/1 var(--font); letter-spacing: .12em; gap: 3px 8px; min-height: 16px; } .pc-kick .pc-shape { width: 11px; height: 11px; }
 .pc-kick-right { font: 500 12px/1 var(--font); letter-spacing: 0; color: var(--muted); font-variant-numeric: tabular-nums; }
 .pc-title { margin: 7px 0 0; font: 600 16px/1.3 var(--font); letter-spacing: -.005em; color: var(--text); }
 .pc-title.serif { font-family: var(--serif); font-weight: 600; font-size: calc(19px * var(--pc-scale, 1)); line-height: 1.22; letter-spacing: -.01em; color: var(--text); }
@@ -127,28 +127,28 @@ select.btn { background-color: var(--panel); }
 .pc[data-form="ribbon"] .pc-kick { letter-spacing: .18em; }
 
 /* ---- Chronicle strip, chips, the reading rail ---- */
-.pop-strip-btn { border-radius: var(--r2); height: 28px; border: 1px solid var(--line); background: var(--panel); font: 650 12px/1 var(--font); } .pop-count { background: color-mix(in srgb, var(--text) 9%, transparent); border-radius: 2px; font: 650 11px var(--font); font-variant-numeric: tabular-nums; }
-.pop-chip { border-radius: var(--r2); height: 28px; border: 1px solid color-mix(in srgb, var(--tc) 50%, var(--line)); background: color-mix(in srgb, var(--tc) 9%, var(--panel)); font: 500 12px/1 var(--font); } .pop-chip-kind { font: 700 11px/1 var(--font); letter-spacing: .1em; } .pop-chip-hold { height: 2px; border-radius: 0; }
+.pop-strip-btn { border-radius: var(--r2); height: 28px; border: 1px solid var(--line); background: var(--panel); font: 650 12px/1 var(--font); } .pop-count { background: color-mix(in srgb, var(--text) 9%, transparent); border-radius: 2px; font: 650 11.5px var(--font); font-variant-numeric: tabular-nums; }
+.pop-chip { border-radius: var(--r2); height: 28px; border: 1px solid color-mix(in srgb, var(--tc) 50%, var(--line)); background: color-mix(in srgb, var(--tc) 9%, var(--panel)); font: 500 12px/1 var(--font); } .pop-chip-kind { font: 700 11.5px/1 var(--font); letter-spacing: .1em; } .pop-chip-hold { height: 2px; border-radius: 0; }
 .pop-chip.pinned { border-style: solid; border-width: 1px 1px 1px 3px; }
 .pop-rail { background: var(--panel); border-left: 1px solid var(--line); box-shadow: var(--shadow2); font-family: var(--font); } .pop-rail::before { left: 0; right: 0; top: 0; bottom: auto; width: auto; height: 3px; }
-.pop-rail-kick { font: 700 11px/1 var(--font); letter-spacing: .12em; } .pop-rail-title { font: 600 24px/1.18 var(--serif); letter-spacing: -.012em; } #app[data-title-font="serif"] .pop-rail-title { font-family: var(--serif); color: var(--text); }
+.pop-rail-kick { font: 700 11.5px/1 var(--font); letter-spacing: .12em; } .pop-rail-title { font: 600 24px/1.18 var(--serif); letter-spacing: -.012em; } #app[data-title-font="serif"] .pop-rail-title { font-family: var(--serif); color: var(--text); }
 .pop-rail-body .pc-p { font-size: 14.5px; line-height: 1.62; } .pop-rail-body .pc-p.serif, .pop-rail-body .pc-p.script { font-family: var(--serif); font-size: 16px; line-height: 1.68; } .pop-rail-head { border-bottom: 1px solid var(--line); }
 .pop-handle span { border-radius: 0; height: 3px; }
 
 /* ---- narration: the caption of a tour ---- */
 .nar { padding: 16px 18px 14px; border-radius: var(--r3); width: 360px; }
-.nar-kicker { font: 700 11px/1.3 var(--font); letter-spacing: .12em; color: var(--ink-story); }
+.nar-kicker { font: 700 11.5px/1.3 var(--font); letter-spacing: .12em; color: var(--ink-story); }
 .nar-title { font: 600 25px/1.12 var(--serif); letter-spacing: -.015em; } .nar-text { font-size: 13.5px; line-height: 1.58; color: var(--text); }
 .nar-btns button { border-radius: 2px; width: 28px; height: 28px; }
 .nar-chips .ev-pair { font-size: 11.5px; }
 .nar-live div, .card { border: 1px solid var(--line); border-radius: var(--r2); background: var(--panel2); } .nar-live b { font: 650 20px/1.1 var(--font); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
 .nar-bar { height: 2px; border-radius: 0; background: color-mix(in srgb, var(--text) 14%, transparent); } .nar-bar i { background: var(--text); border-radius: 0; } .nar-steps i { border-radius: 0; height: 2px; } .nar-steps i.done { background: color-mix(in srgb, var(--text) 55%, transparent); } .nar-steps i.cur { background: var(--text); }
-.nar-foot { font: 500 11px var(--font); font-variant-numeric: tabular-nums; }
+.nar-foot { font: 500 11.5px var(--font); font-variant-numeric: tabular-nums; }
 .cmpbadge { border-radius: var(--r2); font: 650 12px var(--font); } .cmpbadge.before { background: var(--panel); border: 1px solid var(--warn); }
 
 /* ---- panel (Tune / Inspect / About), menus ---- */
 .tabs { border-bottom: 1px solid var(--line); } .tabs button { font-weight: 650; border-bottom-width: 2px; } .tabs button[aria-selected="true"] { border-bottom-color: var(--text); }
-.pane h3, .menu h4 { font: 700 11px var(--font); letter-spacing: .12em; color: var(--muted); }
+.pane h3, .menu h4 { font: 700 11.5px var(--font); letter-spacing: .12em; color: var(--muted); }
 .row .val { color: var(--text); font: 600 12px var(--font); font-variant-numeric: tabular-nums; } .row.changed label::after { color: var(--accent); } .row input[type=range] { accent-color: var(--text); }
 .menu { padding: 6px; } .menu button { border-radius: 2px; } .menu button svg { color: var(--ink-story); }
 .warnbox { border: 0; border-left: 3px solid var(--ev-Modelled); background: color-mix(in srgb, var(--ev-Modelled) 8%, var(--panel)); border-radius: 0; font-size: 12.5px; }
@@ -157,10 +157,10 @@ select.btn { background-color: var(--panel); }
 #metrics { border-radius: var(--r3); font-family: var(--font); }
 
 /* ---- the credit line: what this ground is, in the dock, on every screen ---- */
-.credit { margin-top: 5px; font: 500 11px/1.35 var(--font); color: var(--muted); } .credit:empty { display: none; }
+.credit { margin-top: 5px; font: 500 11.5px/1.35 var(--font); color: var(--muted); } .credit:empty { display: none; }
 .honesty { margin-top: 6px; } .scrub { height: 32px; margin-top: 6px; } .scrub input[type=range]::-webkit-slider-runnable-track, .scrub input[type=range]::-webkit-slider-thumb { height: 32px; } .scrub input[type=range]::-moz-range-track, .scrub input[type=range]::-moz-range-thumb { height: 32px; }
 .pop-strip { min-height: 28px; margin-bottom: 6px; }
-@media (max-width: 760px) { .credit { display: block; font-size: 10.5px; margin-top: 4px; } .brand div { display: none; } }
+@media (max-width: 760px) { .credit { display: block; font-size: 11.5px; margin-top: 4px; } .brand div { display: none; } }
 
 /* ---- a quieter masthead: the title and the clock are one piece; the comparison lives in the Showcase menu; the popup toolbar is text, the tools are icons ---- */
 .seg.cmp { display: none; }
@@ -176,10 +176,10 @@ select.btn { background-color: var(--panel); }
 
 /* ---- phone: the dock gives the map back its height ---- */
 @media (max-width: 760px) {
-  #dock { padding: 8px 10px 8px; bottom: 6px; } .honesty-mini { margin-top: 4px; font-size: 11px; } .scrub { height: 28px; margin-top: 5px; } .scrub input[type=range]::-webkit-slider-runnable-track, .scrub input[type=range]::-webkit-slider-thumb { height: 28px; }
+  #dock { padding: 8px 10px 8px; bottom: 6px; } .honesty-mini { margin-top: 4px; font-size: 11.5px; } .scrub { height: 28px; margin-top: 5px; } .scrub input[type=range]::-webkit-slider-runnable-track, .scrub input[type=range]::-webkit-slider-thumb { height: 28px; }
   .speeds .tbtn[data-speed="0.25"], .speeds .tbtn[data-speed="0.5"], .speeds .tbtn[data-speed="16"] { display: none; } .speeds .tbtn { min-width: 36px; }
   .transport { gap: 6px; flex-wrap: nowrap; } .dockstat { display: none; } .pop-strip { min-height: 30px; margin-bottom: 5px; }
-  .credit { font-size: 10.5px; line-height: 1.3; margin-top: 3px; }
+  .credit { font-size: 11.5px; line-height: 1.3; margin-top: 3px; }
   #topbar { padding: 8px var(--gutter); } .clockbox { height: 38px; } .clockbox .tick { font-size: 13px; } .seg { height: 38px; }
 }
 
@@ -194,5 +194,5 @@ select.btn { background-color: var(--panel); }
 @media (max-width: 760px) { .toolbox, .scalebar { display: none !important; } }
 
 /* the floor: nothing that is read is set under 11 px, whatever an earlier rule of the first prototype's stylesheets said */
-#metrics .mrow.head span, #metrics > b, .nar-table th, .nar-live span, .nar-kicker, .credit, .ev-pair .ev, .pop-chip-kind, .pop-rail-kick, .menu h4, .pane h3, .brand span, .row.changed label::after { font-size: 11px !important; }
-@media (max-width: 760px) { .nar-live span, .nar-kicker, .credit, .nar-foot { font-size: 11px !important; } }
+#metrics .mrow.head span, #metrics > b, .nar-table th, .nar-live span, .nar-kicker, .credit, .ev-pair .ev, .pop-chip-kind, .pop-rail-kick, .menu h4, .pane h3, .brand span, .row.changed label::after { font-size: 11.5px !important; }
+@media (max-width: 760px) { .nar-live span, .nar-kicker, .credit, .nar-foot { font-size: 11.5px !important; } }

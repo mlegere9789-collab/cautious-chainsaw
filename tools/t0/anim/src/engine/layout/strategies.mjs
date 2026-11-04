@@ -6,8 +6,9 @@
 //   ctx   = { all: battle, tok }
 //   input = { vis, z, dtMs, selectedId, spec, cold }
 //   LayoutResult = { placed:[{t, cx, cy, off:{ox,oy}, chip, label, displaced}], dropped:[], items:[...], labelsShown, ms, rounds, stats }   (layout px, origin = tiles.ORIGIN at zoom z)
-import { solve, newState, chipRect, pinRect, plain } from './engine.mjs';
-import { buildLeaves, refreshTile } from './tiles.mjs';
+import { solveG, drain, newState, chipRect, pinRect, plain } from './engine.mjs';
+import { buildLeaves, refreshTile, worldOrigin } from './tiles.mjs';
+import { project } from '../geo/project.mjs';
 import { FRAME_MS } from './spec.mjs';
 import { updateCrowdSuffixes } from './crowdnames.mjs';
 
@@ -28,46 +29,64 @@ const certified = {
       for (const o of r0.items) { if (o.owner === sel) continue; if (box.x0 - gap < o.x1 && box.x1 + gap > o.x0 && box.y0 - gap < o.y1 && box.y1 + gap > o.y0) return false; }
       return true;
     };
+    /** one frame of the certified layout on the state `st`, as a generator: with ctl (engine.mjs, `spent`) it yields when its slice is spent.  Called with ctl === null it never yields (drain), which is the synchronous solve. */
+    function* solveWith(st, { vis, z, dtMs, selectedId, spec, view = null, cold = false }, ctl) {
+      spec.crowdSuffix = st.suffix;                       // director fix 9: the words that tell two crowds of the same name apart (layout/crowdnames.mjs)
+      const cfg = { spec, z, dMax: spec.dMax, pinProtect: spec.pinProtect, inertia: true, sticky: true, seniority: 1e7, labels: spec.labels, aggregate: true, dt: Math.max(0.01, dtMs / FRAME_MS), static: cold };
+      const selects = !!selectedId && (!spec.sizer || !spec.sizer.selects || spec.sizer.selects(z));
+      if (!selects) { grow.id = null; grow.on = false; }
+      else if (grow.id !== selectedId) {                                      // a new selection: solve it small, then test the grown box on that solution
+        grow.id = selectedId; const small = buildLeaves(vis, z, spec, selectedId, false); const r0 = yield* solveG(ctx.all, small, cfg, st, ctl); r0.leaves = small;
+        const inCrowd = !!(spec.sizer && spec.sizer.selects) && r0.placed.some((q) => q.t.kind === 'agg' && q.t.ids.includes(selectedId));      // director fix 6: a selected unit that stands inside a crowd steps out of it, whatever it costs the neighbours, so its own flag and name are on the map
+        grow.on = inCrowd || growTest(r0, selectedId, z, spec);
+        if (!grow.on) return r0;
+      }
+      const leaves = buildLeaves(vis, z, spec, selectedId, grow.on);
+      if (grow.on && selectedId) for (const rec of st.aggs.values()) { const i = rec.ids.indexOf(selectedId); if (i >= 0) rec.ids = rec.ids.filter((id) => id !== selectedId); }      // the sticky crowds let go of it
+      if (grow.on && selectedId) cfg.protect = selectedId;
+      // the words that tell two crowds apart are part of the crowd's footprint: when they change, the same frame is laid out again from the same start with them (until no crowd needs words it has not got: the assignment only ever adds, so it ends), so the picture never
+      // shows words its boxes were not sized for, and the solver's own history (timers, offsets) is that of ONE solve
+      st.sfxClock = (st.sfxClock || 0) + 1; const start = { ...st, splits: new Map(st.splits) }; let r = yield* solveG(ctx.all, leaves, cfg, st, ctl); let stamped = false;
+      for (let pass = 0; pass < 12 && updateCrowdSuffixes(r.placed, view, st, st.sfxClock); pass++) { stamped = true; Object.assign(st, start, { splits: new Map(start.splits), suffix: st.suffix }); r = yield* solveG(ctx.all, leaves, cfg, st, ctl); }
+      if (stamped) st.stamp = (st.stamp || 0) + 1;
+      r.leaves = leaves; return r;
+    }
+    /** PERF3: a COLD START as a job.  After a cut the history is gone and the solve starts from clean state: the first solve of a crowded scene is the most expensive thing the engine does (65 to 110 ms on a desktop,
+     *  four times that on a phone at 4x), and the refinement after it (`settle`) is a run of further solves.  As a job both run in slices of a few milliseconds, one slice per frame, and the layout is warm when the job ends. */
+    let warm = null;
+    function* warmG(inp, ctl) {
+      let r = yield* solveWith(state, { ...inp, cold: true }, ctl); let last = r.placed.length; let stable = 0;
+      for (let i = 0; i < 24 && stable < 3 && !inp.noSettle; i++) {
+        const r2 = yield* solveWith(state, { ...inp, dtMs: CANON_STEP_MS, cold: false }, ctl);
+        if (!r2 || r2.dropped.length > 0) break; r = r2; if (r.placed.length === last) stable++; else { stable = 0; last = r.placed.length; }
+      }
+      return r;
+    }
     return {
-      reset() { state = newState(); canonP = null; grow.id = null; grow.on = false; },
-      solve({ vis, z, dtMs, selectedId, spec, view = null, cold = false }) {
-        spec.crowdSuffix = state.suffix;                       // director fix 9: the words that tell two crowds of the same name apart (layout/crowdnames.mjs)
-        const cfg = { spec, z, dMax: spec.dMax, pinProtect: spec.pinProtect, inertia: true, sticky: true, seniority: 1e7, labels: spec.labels, aggregate: true, dt: Math.max(0.01, dtMs / FRAME_MS), static: cold };
-        const selects = !!selectedId && (!spec.sizer || !spec.sizer.selects || spec.sizer.selects(z));
-        if (!selects) { grow.id = null; grow.on = false; }
-        else if (grow.id !== selectedId) {                                      // a new selection: solve it small, then test the grown box on that solution
-          grow.id = selectedId; const small = buildLeaves(vis, z, spec, selectedId, false); const r0 = solve(ctx.all, small, cfg, state); r0.leaves = small;
-          const inCrowd = !!(spec.sizer && spec.sizer.selects) && r0.placed.some((q) => q.t.kind === 'agg' && q.t.ids.includes(selectedId));      // director fix 6: a selected unit that stands inside a crowd steps out of it, whatever it costs the neighbours, so its own flag and name are on the map
-          grow.on = inCrowd || growTest(r0, selectedId, z, spec);
-          if (!grow.on) return r0;
-        }
-        const leaves = buildLeaves(vis, z, spec, selectedId, grow.on);
-        if (grow.on && selectedId) for (const rec of state.aggs.values()) { const i = rec.ids.indexOf(selectedId); if (i >= 0) rec.ids = rec.ids.filter((id) => id !== selectedId); }      // the sticky crowds let go of it
-        if (grow.on && selectedId) cfg.protect = selectedId;
-        // the words that tell two crowds apart are part of the crowd's footprint: when they change, the same frame is laid out again from the same start with them (until no crowd needs words it has not got: the assignment only ever adds, so it ends), so the picture never
-        // shows words its boxes were not sized for, and the solver's own history (timers, offsets) is that of ONE solve
-        state.sfxClock = (state.sfxClock || 0) + 1; const start = { ...state, splits: new Map(state.splits) }; let r = solve(ctx.all, leaves, cfg, state); let stamped = false;
-        for (let pass = 0; pass < 12 && updateCrowdSuffixes(r.placed, view, state, state.sfxClock); pass++) { stamped = true; Object.assign(state, start, { splits: new Map(start.splits), suffix: state.suffix }); r = solve(ctx.all, leaves, cfg, state); }
-        if (stamped) state.stamp = (state.stamp || 0) + 1;
-        r.leaves = leaves; return r;
-      },
+      reset() { state = newState(); canonP = null; warm = null; grow.id = null; grow.on = false; },
+      solve(inp) { return drain(solveWith(state, inp, null)); },
       /** the rest canon (core.mjs).  Fresh state is not yet the fine partition: it merges first and splits later, over many frames.  So the canon is PROBED in the background, one extra solve of a clean state per frame
        *  (each advancing the clock by CANON_STEP_MS so the dwell timers run), until its mark count has held for CANON_STABLE solves.  Adopted (the sticky history replaced by it) only if it shows more marks than the layout on
-       *  screen; otherwise dropped and the history untouched.  Returns the adopted layout, or null (still probing, finished without a gain, or cancelled). */
-      canon(inp) {
-        if (!canonP) canonP = { state: newState(), n: 0, stable: 0, last: -1 };
-        const P = canonP; const saved = state; state = P.state; state.time = P.n ? state.time : saved.time; let r = null;
-        try { r = this.solve({ ...inp, dtMs: CANON_STEP_MS, cold: false }); } catch { r = null; }
-        P.state = state; state = saved;
+       *  screen; otherwise dropped and the history untouched.  Returns the adopted layout, or null (still probing, finished without a gain, or cancelled).
+       *  budgetMs (PERF3): a probe solve is cut into slices of that many milliseconds, one per call, and null is returned until it is done (the first probe of a crowded scene is a whole cold solve); without it a probe is one call. */
+      canon(inp, budgetMs = Infinity) {
+        if (!canonP) canonP = { state: newState(), n: 0, stable: 0, last: -1, gen: null, ctl: { deadline: 0, n: 0, m: 7 } };
+        const P = canonP;
+        if (!P.gen) { if (!P.n) P.state.time = state.time; P.gen = solveWith(P.state, { ...inp, dtMs: CANON_STEP_MS, cold: false }, P.ctl); }
+        P.ctl.deadline = performance.now() + budgetMs; let step = null;
+        try { step = P.gen.next(); } catch { canonP = null; return null; }
+        if (!step.done) return null;                                                   // this probe is not finished: the next frame carries on
+        P.gen = null; const r = step.value;
         if (!r || r.dropped.length > 0) { canonP = null; return null; }
         P.n++; if (r.placed.length === P.last) P.stable++; else { P.stable = 0; P.last = r.placed.length; }
         if (P.stable < CANON_STABLE && P.n < CANON_MAX) return null;
         canonP = null; const before = inp.against ? inp.against.placed.length : 0;
-        if (r.placed.length > before) { state = P.state; state.stamp = saved.stamp || 0; return r; }                      // no new stamp: the picture is at rest, it does not need another settling period
+        if (r.placed.length > before) { const saved = state; state = P.state; state.stamp = saved.stamp || 0; return r; }                      // no new stamp: the picture is at rest, it does not need another settling period
         return null;
       },
       /** after a CUT (the first frame, a jump in time, a jump in zoom) the layout starts from clean state and would take a second of frames to refine; the picture is a cross-fade anyway, so the refinement runs HERE, at once,
-       *  within a small time budget: solves of the same picture 250 ms of clock apart until the mark count has held for 3 solves.  Returns the last layout (the history is that of all of them). */
+       *  within a small time budget: solves of the same picture 250 ms of clock apart until the mark count has held for 3 solves.  Returns the last layout (the history is that of all of them).
+       *  (The browser host uses warmStart / warmStep instead, which does the same in slices; this is the synchronous form the tests and the node harness use.) */
       settle(inp, r0) {
         let r = r0; let last = r0.placed.length; let stable = 0; const t0 = performance.now();
         for (let i = 0; i < 24 && stable < 3 && performance.now() - t0 < 10; i++) {
@@ -76,15 +95,42 @@ const certified = {
         }
         return r;
       },
+      /** PERF3: start the cold start of `inp` as a job (the history is replaced by a clean one), and carry it on with `warmStep(ms)`, once per frame, until it returns true: the layout is then warm and the next ordinary
+       *  solve costs a few milliseconds.  An exception inside the job ends it (the ordinary solve then finishes the work in one go). */
+      warmStart(inp) { state = newState(); canonP = null; grow.id = null; grow.on = false; const ctl = { deadline: 0, n: 0, m: 7 }; warm = { gen: warmG(inp, ctl), ctl }; },
+      warmStep(budgetMs) {
+        if (!warm) return true;
+        warm.ctl.deadline = performance.now() + budgetMs;
+        let step = null; try { step = warm.gen.next(); } catch { warm = null; return true; }
+        if (!step.done) return false;
+        warm = null; return true;
+      },
+      warming() { return !!warm; },
       canonProbing() { return !!canonP; },
       canonCancel() { canonP = null; },
       /** between two solves: move the solved tiles with their units (same offsets, new true positions).  false = the set of units changed, solve again. */
       refresh(L, { vis, z, spec, selectedId }) {
         if (!L || vis.length !== L.leaves.length) return false;
+        // R1E: the leaves of the solve are brought to the units' places IN PLACE (the same formulas as buildLeaves: the true place, the box anchor hung from it by the footprint's own offset, and the state fields a tile copies), where the
+        // solve's own leaves are still the units on the field in the same order; the tiles of the layout are then moved with them (refreshTile).  This used to build every leaf again, 300 objects of 28 fields a frame, to read six of them.
+        const lv = L.leaves; const n = lv.length; let aligned = true; for (let i = 0; i < n; i++) if (vis[i].u.id !== lv[i].ids[0]) { aligned = false; break; }
+        if (aligned) {
+          const px = this._px || (this._px = []); const py = this._py || (this._py = []); const [ox, oy] = spec.proj ? [0, 0] : worldOrigin(z); let ok = true;
+          for (let i = 0; i < n; i++) {
+            const v = vis[i]; const st = v.st; const xy = spec.proj ? (v.p || spec.proj(st.lng, st.lat)) : project(st.lng, st.lat, z);
+            if (spec.proj && !(xy[0] > -1e5 && xy[0] < 1e5 && xy[1] > -1e5 && xy[1] < 1e5)) { ok = false; break; }
+            px[i] = xy[0]; py[i] = xy[1];
+          }
+          if (!ok) return false;      // (a mark behind the camera of a steeply tilted map: the answer is the same as before, a new solve)
+          for (let i = 0; i < n; i++) { const l = lv[i]; const st = vis[i].st; l.px = px[i] - ox; l.py = py[i] - oy; l.ax = px[i] - ox + l.dx; l.ay = py[i] - oy + l.dy; l.st = st; l.strength = st.strength; l.ratio = st.ratio; l.moving = st.moving; }
+          const lm = L._lm || (L._lm = new Map(lv.map((l) => [l.ids[0], l])));
+          for (const p of L.placed) { refreshTile(p.t, lm); p.cx = p.t.ax + p.off.ox; p.cy = p.t.ay + p.off.oy; }
+          L.ms = 0; return true;
+        }
         const leaves = buildLeaves(vis, z, spec, selectedId, grow.on); const map = new Map(leaves.map((l) => [l.ids[0], l]));
         for (const l of L.leaves) if (!map.has(l.ids[0])) return false;
         for (const p of L.placed) { refreshTile(p.t, map); p.cx = p.t.ax + p.off.ox; p.cy = p.t.ay + p.off.oy; }
-        L.leaves = leaves; L.ms = 0; return true;
+        L.leaves = leaves; L._lm = null; L.ms = 0; return true;
       },
       /** the display layer reports where tiles ACTUALLY are (offsets from their true positions) so the next solve starts from the picture the viewer sees */
       feedback(offsets) { for (const [key, o] of offsets) { const cur = state.off.get(key); if (cur) { cur.ox = o.ox; cur.oy = o.oy; } } },

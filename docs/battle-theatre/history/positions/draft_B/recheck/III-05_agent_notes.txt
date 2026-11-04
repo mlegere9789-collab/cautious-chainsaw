@@ -1,0 +1,17 @@
+Batch III-05 (Ward's brigade, Birney's division, III Corps): reports R148 (Moore, 99th PA), R149 (Berdan), R150 (Trepp), R151 (Stoughton). 46 claims, all read against the full report text.
+
+Counts per fc: passed_full_read 31, corrected 15, downgraded 0, split 0.
+Validator: decisions 46, missing 0, errors 0.
+
+Patterns (claims may carry more than one):
+- time/date from another sentence: 2 (1ussharpshooters-12: 11 a.m. is the order's time, not the move; 1ussharpshooters-16: "On the 3d" is in the preceding sentence).
+- merged second report: 2 (2ussharpshooters-06 and -12 each carried the other report's figure, 22 vs 23 prisoners; clause removed, each figure now stands in its own claim).
+- later order ignored: 0.
+- place/unit/person gloss: 7 (99pa-03 "of the army"; 99pa-07 night bivouac placed behind Sykes though printed only "to the rear"; 99pa-09 a person (Webb) used as place; 99pa-10 night position given the daytime Emmitsburg road place; 2ussharpshooters-04 "(Ward's)"; 1ussharpshooters-14 "Graham's"; 2ussharpshooters-11 "Confederate").
+- hedge/condition dropped: 5 (1ussharpshooters-08 "if possible"; -20 "about ten minutes", rail-fence wording; 2ussharpshooters-10 "some 200 yards"; -11 "about a dozen"; -14 order vs accomplished, "about").
+- OCR digit: 0 changed. 1ussharpshooters-24 and -25 (headings "Jtdy 3.", "Jvly 4.") keep ocr true; the digits are settled by sequence between the July 2 account and the next heading, noted in dbasis.
+- meridian inferred: 2 (99pa-09 "about 1 o'clock" after "early on the morning of the 3d"; 1ussharpshooters-13 "about 2 o'clock" after the 11 a.m. order), mer true.
+- unit identity: no problems; each author's own command, Berdan reports for the 1st Sharpshooters (3me-15 is Berdan naming the Third Maine, 3me-16 is Trepp naming the Third Maine and Lakeman).
+
+Split/downgraded ids: none.
+Systematic: the compiler tends to (a) add a brigade owner's name to a numbered brigade ("Ward's", "Graham's"); (b) attach a daytime place to a night_position claim; (c) copy "(X says N)" cross-report remarks into activity. Remarks of kind (c) belong in note or a conflicts_with link only.

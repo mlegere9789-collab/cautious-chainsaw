@@ -1,0 +1,348 @@
+{
+ "what": "Warren-minus-modern residual regions that no documented disturbance polygon explains. Never edited. Never overwritten: new runs write unexplained_residuals_runN.json when this file exists.",
+ "criteria": {
+  "smoothed_abs_residual_m": 6.0,
+  "min_area_ha": 1.0,
+  "smoothing": "25 m window",
+  "excluded": "within 15 m of any candidate polygon"
+ },
+ "count": 12,
+ "regions": [
+  {
+   "id": "UR-001",
+   "area_ha": 10.134,
+   "centroid_E_N_utm18n": [
+    305088.16326228535,
+    4412766.579928952
+   ],
+   "bbox_rows_cols": [
+    2637,
+    3260,
+    3091,
+    3727
+   ],
+   "residual_warren_minus_modern_m": {
+    "median": 6.760772705078125,
+    "p05": 6.031630039215088,
+    "p95": 8.15103816986084
+   },
+   "registration_shift_test": {
+    "best_dE_m": 8.35326630537556,
+    "best_dN_m": -1.3092182970700956,
+    "variance_explained_of_within_region_variation": 0.1247892812501411,
+    "uniform_offset_in_4ft_contour_steps": 5.484640121459961,
+    "reading": "near-uniform offset of 6.7 m (= 5.5 contour intervals of 4 ft) over the region: HYPOTHESIS, not established: a contour-level assignment error in this stretch, or a datum/regional effect; not a horizontal shift"
+   },
+   "cause_assigned": null,
+   "status": "UNEXPLAINED (not edited; no documented post-1863 disturbance covers it)"
+  },
+  {
+   "id": "UR-002",
+   "area_ha": 6.9223,
+   "centroid_E_N_utm18n": [
+    304625.71117981017,
+    4407335.649235081
+   ],
+   "bbox_rows_cols": [
+    8279,
+    8616,
+    2523,
+    3195
+   ],
+   "residual_warren_minus_modern_m": {
+    "median": 7.272491455078125,
+    "p05": 6.030433654785156,
+    "p95": 8.678874015808105
+   },
+   "registration_shift_test": {
+    "best_dE_m": 1.8149829991154314,
+    "best_dN_m": -3.141624560834061,
+    "variance_explained_of_within_region_variation": 0.020229724741077315,
+    "uniform_offset_in_4ft_contour_steps": 5.8927812576293945,
+    "reading": "near-uniform offset of 7.2 m (= 5.9 contour intervals of 4 ft) over the region: HYPOTHESIS, not established: a contour-level assignment error in this stretch, or a datum/regional effect; not a horizontal shift"
+   },
+   "cause_assigned": null,
+   "status": "UNEXPLAINED (not edited; no documented post-1863 disturbance covers it)"
+  },
+  {
+   "id": "UR-003",
+   "area_ha": 3.7133,
+   "centroid_E_N_utm18n": [
+    304228.1603964129,
+    4409114.793283602
+   ],
+   "bbox_rows_cols": [
+    6498,
+    6778,
+    2321,
+    2672
+   ],
+   "residual_warren_minus_modern_m": {
+    "median": 7.3461151123046875,
+    "p05": 5.7866058349609375,
+    "p95": 10.615808486938477
+   },
+   "registration_shift_test": {
+    "best_dE_m": -0.3422081669531094,
+    "best_dN_m": -4.493797958103284,
+    "variance_explained_of_within_region_variation": 0.04847374829246365,
+    "uniform_offset_in_4ft_contour_steps": 6.046611309051514,
+    "reading": "near-uniform offset of 7.4 m (= 6.0 contour intervals of 4 ft) over the region: HYPOTHESIS, not established: a contour-level assignment error in this stretch, or a datum/regional effect; not a horizontal shift"
+   },
+   "cause_assigned": null,
+   "status": "UNEXPLAINED (not edited; no documented post-1863 disturbance covers it)"
+  },
+  {
+   "id": "UR-004",
+   "area_ha": 2.5808,
+   "centroid_E_N_utm18n": [
+    304755.0309981401,
+    4412621.142785183
+   ],
+   "bbox_rows_cols": [
+    3039,
+    3281,
+    2838,
+    3115
+   ],
+   "residual_warren_minus_modern_m": {
+    "median": 7.092521667480469,
+    "p05": 6.06140661239624,
+    "p95": 7.896792411804199
+   },
+   "registration_shift_test": {
+    "best_dE_m": 5.703002145237145,
+    "best_dN_m": -3.4720461967925176,
+    "variance_explained_of_within_region_variation": 0.12435147385418488,
+    "uniform_offset_in_4ft_contour_steps": 5.699540615081787,
+    "reading": "near-uniform offset of 6.9 m (= 5.7 contour intervals of 4 ft) over the region: HYPOTHESIS, not established: a contour-level assignment error in this stretch, or a datum/regional effect; not a horizontal shift"
+   },
+   "cause_assigned": null,
+   "status": "UNEXPLAINED (not edited; no documented post-1863 disturbance covers it)"
+  },
+  {
+   "id": "UR-005",
+   "area_ha": 2.4206,
+   "centroid_E_N_utm18n": [
+    305366.0454845906,
+    4411775.643022391
+   ],
+   "bbox_rows_cols": [
+    3727,
+    4197,
+    3496,
+    3733
+   ],
+   "residual_warren_minus_modern_m": {
+    "median": 7.139015197753906,
+    "p05": 6.131599426269531,
+    "p95": 9.533649444580078
+   },
+   "registration_shift_test": {
+    "best_dE_m": 16.319499486538398,
+    "best_dN_m": -5.930394387474352,
+    "variance_explained_of_within_region_variation": 0.04170221886151615,
+    "uniform_offset_in_4ft_contour_steps": 5.864082336425781,
+    "reading": "near-uniform offset of 7.1 m (= 5.9 contour intervals of 4 ft) over the region: HYPOTHESIS, not established: a contour-level assignment error in this stretch, or a datum/regional effect; not a horizontal shift"
+   },
+   "cause_assigned": null,
+   "status": "UNEXPLAINED (not edited; no documented post-1863 disturbance covers it)"
+  },
+  {
+   "id": "UR-006",
+   "area_ha": 2.1916,
+   "centroid_E_N_utm18n": [
+    306129.4287734988,
+    4411884.540107684
+   ],
+   "bbox_rows_cols": [
+    3760,
+    3995,
+    4286,
+    4466
+   ],
+   "residual_warren_minus_modern_m": {
+    "median": 7.850364685058594,
+    "p05": 6.036102294921875,
+    "p95": 10.255424499511719
+   },
+   "registration_shift_test": {
+    "best_dE_m": 1.2732916097530653,
+    "best_dN_m": -3.3605689573602113,
+    "variance_explained_of_within_region_variation": 0.020734499728015665,
+    "uniform_offset_in_4ft_contour_steps": 6.343489170074463,
+    "reading": "near-uniform offset of 7.7 m (= 6.3 contour intervals of 4 ft) over the region: HYPOTHESIS, not established: a contour-level assignment error in this stretch, or a datum/regional effect; not a horizontal shift"
+   },
+   "cause_assigned": null,
+   "status": "UNEXPLAINED (not edited; no documented post-1863 disturbance covers it)"
+  },
+  {
+   "id": "UR-007",
+   "area_ha": 1.9721,
+   "centroid_E_N_utm18n": [
+    311905.07388063485,
+    4407185.234572283
+   ],
+   "bbox_rows_cols": [
+    8483,
+    8665,
+    10087,
+    10243
+   ],
+   "residual_warren_minus_modern_m": {
+    "median": -8.422027587890625,
+    "p05": -11.047119140625,
+    "p95": -6.34259033203125
+   },
+   "registration_shift_test": {
+    "best_dE_m": 6.798844618235184,
+    "best_dN_m": -4.336866381085196,
+    "variance_explained_of_within_region_variation": 0.0989942240103171,
+    "uniform_offset_in_4ft_contour_steps": -6.810867786407471,
+    "reading": "near-uniform offset of -8.3 m (= -6.8 contour intervals of 4 ft) over the region: HYPOTHESIS, not established: a contour-level assignment error in this stretch, or a datum/regional effect; not a horizontal shift"
+   },
+   "cause_assigned": null,
+   "status": "UNEXPLAINED (not edited; no documented post-1863 disturbance covers it)"
+  },
+  {
+   "id": "UR-008",
+   "area_ha": 1.2224,
+   "centroid_E_N_utm18n": [
+    305940.83082460734,
+    4411654.3606839
+   ],
+   "bbox_rows_cols": [
+    4027,
+    4194,
+    4117,
+    4310
+   ],
+   "residual_warren_minus_modern_m": {
+    "median": 8.256324768066406,
+    "p05": 6.216922760009766,
+    "p95": 10.208945274353027
+   },
+   "registration_shift_test": {
+    "best_dE_m": 5.679363010251047,
+    "best_dN_m": -4.432400704049192,
+    "variance_explained_of_within_region_variation": 0.1535986034206579,
+    "uniform_offset_in_4ft_contour_steps": 6.354398250579834,
+    "reading": "near-uniform offset of 7.7 m (= 6.4 contour intervals of 4 ft) over the region: HYPOTHESIS, not established: a contour-level assignment error in this stretch, or a datum/regional effect; not a horizontal shift"
+   },
+   "cause_assigned": null,
+   "status": "UNEXPLAINED (not edited; no documented post-1863 disturbance covers it)"
+  },
+  {
+   "id": "UR-009",
+   "area_ha": 1.2139,
+   "centroid_E_N_utm18n": [
+    304295.8820331164,
+    4412186.21632754
+   ],
+   "bbox_rows_cols": [
+    3441,
+    3734,
+    2441,
+    2640
+   ],
+   "residual_warren_minus_modern_m": {
+    "median": 7.1886749267578125,
+    "p05": 5.9122633934021,
+    "p95": 8.382855415344238
+   },
+   "registration_shift_test": {
+    "best_dE_m": 0.43038260288767,
+    "best_dN_m": -0.0020977015517942843,
+    "variance_explained_of_within_region_variation": 0.001972807689592071,
+    "uniform_offset_in_4ft_contour_steps": 5.601521015167236,
+    "reading": "near-uniform offset of 6.8 m (= 5.6 contour intervals of 4 ft) over the region: HYPOTHESIS, not established: a contour-level assignment error in this stretch, or a datum/regional effect; not a horizontal shift"
+   },
+   "cause_assigned": null,
+   "status": "UNEXPLAINED (not edited; no documented post-1863 disturbance covers it)"
+  },
+  {
+   "id": "UR-010",
+   "area_ha": 1.2016,
+   "centroid_E_N_utm18n": [
+    310719.265063249,
+    4409301.999250999
+   ],
+   "bbox_rows_cols": [
+    6394,
+    6512,
+    8885,
+    9065
+   ],
+   "residual_warren_minus_modern_m": {
+    "median": 10.900794982910156,
+    "p05": 6.211090087890625,
+    "p95": 15.634071350097656
+   },
+   "registration_shift_test": {
+    "best_dE_m": -7.713008189375021,
+    "best_dN_m": 23.01902630728679,
+    "variance_explained_of_within_region_variation": 0.1619576299162765,
+    "uniform_offset_in_4ft_contour_steps": 8.87533187866211,
+    "reading": "near-uniform offset of 10.8 m (= 8.9 contour intervals of 4 ft) over the region: HYPOTHESIS, not established: a contour-level assignment error in this stretch, or a datum/regional effect; not a horizontal shift"
+   },
+   "cause_assigned": null,
+   "status": "UNEXPLAINED (not edited; no documented post-1863 disturbance covers it)"
+  },
+  {
+   "id": "UR-011",
+   "area_ha": 1.1809,
+   "centroid_E_N_utm18n": [
+    306535.55771022104,
+    4413550.774409349
+   ],
+   "bbox_rows_cols": [
+    2060,
+    2394,
+    4736,
+    4860
+   ],
+   "residual_warren_minus_modern_m": {
+    "median": 6.7308197021484375,
+    "p05": 5.881909370422363,
+    "p95": 7.768640041351318
+   },
+   "registration_shift_test": {
+    "best_dE_m": -1.8821986122045213,
+    "best_dN_m": -3.589045978912544,
+    "variance_explained_of_within_region_variation": 0.05920733313618731,
+    "uniform_offset_in_4ft_contour_steps": 5.236559867858887,
+    "reading": "near-uniform offset of 6.4 m (= 5.2 contour intervals of 4 ft) over the region: HYPOTHESIS, not established: a contour-level assignment error in this stretch, or a datum/regional effect; not a horizontal shift"
+   },
+   "cause_assigned": null,
+   "status": "UNEXPLAINED (not edited; no documented post-1863 disturbance covers it)"
+  },
+  {
+   "id": "UR-012",
+   "area_ha": 1.0096,
+   "centroid_E_N_utm18n": [
+    311554.0620047544,
+    4408200.276545166
+   ],
+   "bbox_rows_cols": [
+    7459,
+    7670,
+    9749,
+    9864
+   ],
+   "residual_warren_minus_modern_m": {
+    "median": -7.523590087890625,
+    "p05": -10.937213897705078,
+    "p95": -6.173427581787109
+   },
+   "registration_shift_test": {
+    "best_dE_m": 4.968886630841121,
+    "best_dN_m": -6.3505147858472695,
+    "variance_explained_of_within_region_variation": 0.03369581872645355,
+    "uniform_offset_in_4ft_contour_steps": -6.145169734954834,
+    "reading": "near-uniform offset of -7.5 m (= -6.1 contour intervals of 4 ft) over the region: HYPOTHESIS, not established: a contour-level assignment error in this stretch, or a datum/regional effect; not a horizontal shift"
+   },
+   "cause_assigned": null,
+   "status": "UNEXPLAINED (not edited; no documented post-1863 disturbance covers it)"
+  }
+ ]
+}

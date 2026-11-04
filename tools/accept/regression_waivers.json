@@ -1,0 +1,764 @@
+{
+ "_comment": "Check 3 (regression against the published build). A baseline route/file/text/screenshot difference listed here is reported as a NOTE instead of a DEFECT. Only an OWNER-APPROVED intentional change belongs here, with its reason and a pointer to the decision. kind: route | file | data | text | controls | screenshot. target: exact route/path or a glob (* and **); for screenshot/text/controls the route. Never add an entry to make a pass clean. || 2026-10-20 Release 1 integration: the waivers of docs/accept/triage/regression_waivers.r1.json (proposed by the regression triage, all assertions re-run on candidate 766259b8) were applied, plus four IMG file waivers (generic icons and corrupt screenshots).",
+ "waivers": [
+  {
+   "kind": "route",
+   "target": "/diagnostics",
+   "reason": "Developer page removed on purpose: _redirects force-404s /diagnostics and /diagnostics.html (see the generated _redirects of every train; tools/t0/verify_release.mjs check V3 asserts it).",
+   "approvedBy": "design of the R1a+ trains (verify_release V3)",
+   "date": "2026-09-30"
+  },
+  {
+   "kind": "route",
+   "target": "/unit-rendering-reference",
+   "reason": "Developer page removed on purpose: _redirects force-404s it (verify_release V3).",
+   "approvedBy": "design of the R1a+ trains (verify_release V3)",
+   "date": "2026-09-30"
+  },
+  {
+   "kind": "file",
+   "target": "diagnostics.html",
+   "reason": "Developer page removed on purpose (see the route waiver above).",
+   "approvedBy": "design of the R1a+ trains (verify_release V3)",
+   "date": "2026-09-30"
+  },
+  {
+   "kind": "file",
+   "target": "unit-rendering-reference.html",
+   "reason": "Developer page removed on purpose (see the route waiver above).",
+   "approvedBy": "design of the R1a+ trains (verify_release V3)",
+   "date": "2026-09-30"
+  },
+  {
+   "id": "W-file-InterpolationWorker",
+   "kind": "file",
+   "target": "assets/InterpolationWorker-ufiwa2-e.js",
+   "reason": "Orphan build artefact deleted on purpose by the R0 mechanism: the 672-byte script (a main-thread-free lerp of lat/lng/bearing/strength between two ticks) is named by no file of the published build (not the entry bundle, not index.html, not sw.js), so the published app never started it. The map animation is the bundle's own requestAnimationFrame loop, which the candidate keeps (groups B and later change what it draws, not that it exists).",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: repo documentation (build mechanism, plan chapters 04/05, release notes); no owner decision needed, nothing user-visible",
+   "defects": [
+    "D01"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-data-manifest",
+   "kind": "data",
+   "target": "manifest.json",
+   "reason": "The published manifest says \"orientation\": \"landscape\". On an installed (standalone) PWA that locks the app to landscape on phones, which the phone shell (portrait, 390x844 and the other portrait widths of tests/t0/mobile-matrix.spec.mjs) is built for; WCAG 1.3.4 fails with it. Removing the key lets the installed app follow the device. Browser tabs were never affected. The same edit adds \"id\": \"/\", two maskable icons and keeps every other key; nothing else was removed.",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: plan default WP-T0-14 / D-SHELL, listed as deviation row 8 with \"Needs the owner: no\"",
+   "defects": [
+    "D02"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-screenshot-aftermath",
+   "kind": "screenshot",
+   "target": "/aftermath",
+   "reason": "back link and footer links 44 px, intro 14 px, dates 12 px, caveat 13 px (PGF-css-aftermath); text is identical.",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "defects": [
+    "D03",
+    "D04"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-text-ar",
+   "kind": "text",
+   "target": "/ar",
+   "reason": "caveat paragraph replaced (PGC-ar-notice), noindex (PGC-ar-noindex), 12 px text (PGF-css-ar).",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "defects": [
+    "D05",
+    "D07"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-screenshot-ar",
+   "kind": "screenshot",
+   "target": "/ar",
+   "reason": "caveat paragraph replaced (PGC-ar-notice), noindex (PGC-ar-noindex), 12 px text (PGF-css-ar).",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "defects": [
+    "D06",
+    "D08"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-text-dashboard",
+   "kind": "text",
+   "target": "/dashboard",
+   "reason": "chart scales with its card and no longer overflows a phone (published page was 448 px wide at 390), titled stat cards instead of a raw key and \"undefined\", developer data note and warning glyphs removed, legend entries are keyboard buttons (PGC-dash-*, PGF-css-dashboard, PGF-dashboard-legend-*). VALID ONLY WHILE the casualty data no longer contradicts itself (assertion source-data-consistent): R1c alone fails it, the DATA group passes it.",
+   "class": "CONDITIONAL",
+   "approvalBasis": "A for the data fix (owner decision 2026-10-05 item 3, group DATA); B for the layout and copy",
+   "defects": [
+    "D09",
+    "D11"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-screenshot-dashboard",
+   "kind": "screenshot",
+   "target": "/dashboard",
+   "reason": "chart scales with its card and no longer overflows a phone (published page was 448 px wide at 390), titled stat cards instead of a raw key and \"undefined\", developer data note and warning glyphs removed, legend entries are keyboard buttons (PGC-dash-*, PGF-css-dashboard, PGF-dashboard-legend-*). VALID ONLY WHILE the casualty data no longer contradicts itself (assertion source-data-consistent): R1c alone fails it, the DATA group passes it.",
+   "class": "CONDITIONAL",
+   "approvalBasis": "A for the data fix (owner decision 2026-10-05 item 3, group DATA); B for the layout and copy",
+   "defects": [
+    "D10",
+    "D12"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-screenshot-documentary",
+   "kind": "screenshot",
+   "target": "/documentary",
+   "reason": "sub 14 px, eyebrow 12 px, main kept about one screen tall (PGF-css-documentary, PGC-fill-documentary).",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "defects": [
+    "D13",
+    "D14"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-screenshot-education",
+   "kind": "screenshot",
+   "target": "/education",
+   "reason": "back link keeps its own 14 px, main kept about one screen tall (PGF-css-education, PGC-fill-education).",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "defects": [
+    "D15",
+    "D16"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-screenshot-embed",
+   "kind": "screenshot",
+   "target": "/embed",
+   "reason": "12 px text, readable link colour, 44 px link and button targets (PGF-css-embed; the page is iframed on other sites).",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "defects": [
+    "D17",
+    "D18"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-screenshot-find-ancestor",
+   "kind": "screenshot",
+   "target": "/find-ancestor",
+   "reason": "labels on the two inputs, 44 px result rows, 12-14 px text (PGF-label-*, PGF-css-find-ancestor).",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "defects": [
+    "D19",
+    "D20"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-text-historian",
+   "kind": "text",
+   "target": "/historian",
+   "reason": "how-it-works sentence rewritten with computed counts, answers carry a source line, 44 px source links, main kept about one screen tall (page is now taller than 900 px at 1440), no per-message jump (PGC-hist-*, PGF-*, PGC-fill-historian).",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B (copy rows of the docs-copy chapter; the \"not an AI\" wording itself is an owner decision, see COPY2 and tools/accept/copy_whitelist.json)",
+   "defects": [
+    "D21",
+    "D23"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-screenshot-historian",
+   "kind": "screenshot",
+   "target": "/historian",
+   "reason": "how-it-works sentence rewritten with computed counts, answers carry a source line, 44 px source links, main kept about one screen tall (page is now taller than 900 px at 1440), no per-message jump (PGC-hist-*, PGF-*, PGC-fill-historian).",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "defects": [
+    "D22",
+    "D24"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-screenshot-living-ledger",
+   "kind": "screenshot",
+   "target": "/living-ledger",
+   "reason": "main kept about one screen tall, cumulative curve fixed (tick 1 read 4 and tick 675 read 47,001 against a period total of 46,163: PGC-ledger-curve), 12 px labels, labelled speed select.",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "defects": [
+    "D25",
+    "D26"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-screenshot-privacy",
+   "kind": "screenshot",
+   "target": "/privacy",
+   "reason": "Back-to-map link and mailto links are 44 px targets, wide tables scroll in a focusable region (PGF-css-privacy, PGF-privacy-tablewrap); the text is unchanged (the legal group is opt-in and not in this build).",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "defects": [
+    "D27",
+    "D28"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-screenshot-regiment",
+   "kind": "screenshot",
+   "target": "/regiment",
+   "reason": "search box id renamed (the sprite symbol id=\"search\" won getElementById: PGC-regiment-input), alias stubs no longer searchable (PGC-regiment-alias), missing casualty rate computed (PGC-regiment-rate), 44 px result rows (PGF-css-regiment).",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "defects": [
+    "D29",
+    "D30"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-screenshot-report",
+   "kind": "screenshot",
+   "target": "/report",
+   "reason": "search box id renamed (PGC-report-input), alias stubs no longer searchable, rows without data hidden instead of printed as a dash (PGC-report-show), 44 px keyboard result rows (PGF-report-match-kbd).",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "defects": [
+    "D31",
+    "D32"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-screenshot-search",
+   "kind": "screenshot",
+   "target": "/search",
+   "reason": "filter chips 44 px with a background of their own (PGC-search-chip: 1.10:1 contrast before), labelled search box, 12-13 px result tags (PGF-css-search), main kept about one screen tall.",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "defects": [
+    "D33",
+    "D34"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-screenshot-terms",
+   "kind": "screenshot",
+   "target": "/terms",
+   "reason": "Back-to-map and mailto links are 44 px targets (PGF-css-terms); the text is unchanged.",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "defects": [
+    "D35",
+    "D36"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-screenshot-turning-points",
+   "kind": "screenshot",
+   "target": "/turning-points",
+   "reason": "six anchor ticks repointed to the site's own chronology (DL-turning-points-anchor x6: Ewell 175 -> 75, Longstreet 240 -> 256, Chamberlain 267 -> 275, Night Assault 340 -> 326, Cannonade 540 -> 518, Pickett 560 -> 538), 12 px labels (PGF-css-turning-points).",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "defects": [
+    "D37",
+    "D38"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-screenshot-camera",
+   "kind": "screenshot",
+   "target": "/camera",
+   "reason": "Mapbox script/stylesheet non-blocking with SRI, DOMContentLoaded wrapper (maps:camera:*), 14 px sub (PGF-css-camera); the 59 % diff is the c3 screenshot method (section 7.3), the map itself renders identically.",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "defects": [
+    "D39"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-screenshot-cinematic-export",
+   "kind": "screenshot",
+   "target": "/cinematic-export",
+   "reason": "non-blocking Mapbox (maps:cinematic-export:*), labels bound to their inputs (PGF-label-cinematic-*), loading notice out of flow (CLS), 12 px labels.",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "defects": [
+    "D40"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-screenshot-compare",
+   "kind": "screenshot",
+   "target": "/compare",
+   "reason": "non-blocking Mapbox, split container hidden with visibility instead of display (CLS), toggle row wraps, phone layout, named sliders and canvases (PGF-compare-*, PGC-compare-toggle-wrap, PGC-a11y-compare-slider-*).",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "defects": [
+    "D41"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-screenshot-ground-remembers",
+   "kind": "screenshot",
+   "target": "/ground-remembers",
+   "reason": "non-blocking Mapbox, slider label shrinks to the screen (PGF-css-ground-remembers), 14 px sub, 13 px caveat.",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "defects": [
+    "D42"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-screenshot-immersive",
+   "kind": "screenshot",
+   "target": "/immersive",
+   "reason": "non-blocking Mapbox, Pause now silences the drone (PGC-imm-pause), labelled volume, inert map until the sound gate is passed (PGF-immersive-gate-*).",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "defects": [
+    "D43"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-screenshot-sandbox",
+   "kind": "screenshot",
+   "target": "/sandbox",
+   "reason": "non-blocking Mapbox, map wrapped so the edit pop-up stays inside it (PGF-sandbox-wrap, PGF-sandbox-popup), hint and list colours raised for contrast, phone layout (PGF-css-sandbox).",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "defects": [
+    "D50"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-text-viewshed",
+   "kind": "text",
+   "target": "/viewshed",
+   "reason": "non-blocking Mapbox, caveat shortened to \"Elevation only ...\" (PGC-viewshed-caveat), select shrinks to the screen (PGF-css-viewshed).",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "defects": [
+    "D51"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-screenshot-viewshed",
+   "kind": "screenshot",
+   "target": "/viewshed",
+   "reason": "non-blocking Mapbox, caveat shortened to \"Elevation only ...\" (PGC-viewshed-caveat), select shrinks to the screen (PGF-css-viewshed).",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "defects": [
+    "D52"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-screenshot-watch-together",
+   "kind": "screenshot",
+   "target": "/watch-together",
+   "reason": "non-blocking Mapbox, PeerJS loaded on demand with SRI (maps:watch-together:peerjs-*), imported tours validated and rendered with textContent (PGC-wt-*: stored XSS), labelled inputs, 44 px controls (PGF-wt-*).",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "defects": [
+    "D53"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-text-index-1440",
+   "kind": "text",
+   "target": "/",
+   "reason": "HARNESS DEFECT behind most of this row: tools/accept/checks/c3_regression.mjs calls lib.chooseLayout, which gives up after 1.5 s because the published app only shows its \"Choose Your Experience\" screen after the ~3.5 s intro fast-forward; the baseline was therefore captured AT the chooser. The assertions below compare the real published app (chooser clicked through, tick 1) with the candidate. Real differences at 1440: \"Download Website Tutorial PDF\" is now \"User Guide (PDF)\" (same href); tick-1 HUD reads July 1, 1863 (published: July 3, the +2 bug); tick 1 draws 70 units (published: 72 intro-primed ghosts standing at later positions, O-T0-3); \"1x (real time)\" is \"1x (base speed)\"; the sound button is gone (D-SOUND). The layout chooser is deleted: the layout is chosen by media query and a Phone view control returns from the desktop layout.",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: plan defaults D-ENTRY and D-SOUND, the +2 date fix that the T0 plan always allowed, copy rows CP; the O-T0-3 intro deletion and the O-T0-9 device bound still need the owner's yes",
+   "defects": [
+    "D44",
+    "D47"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-controls-index-1440",
+   "kind": "controls",
+   "target": "/",
+   "reason": "HARNESS DEFECT behind most of this row: tools/accept/checks/c3_regression.mjs calls lib.chooseLayout, which gives up after 1.5 s because the published app only shows its \"Choose Your Experience\" screen after the ~3.5 s intro fast-forward; the baseline was therefore captured AT the chooser. The assertions below compare the real published app (chooser clicked through, tick 1) with the candidate. Real differences at 1440: the guide link is renamed, the timeline slider (published name \"0\") is now \"Battle time\", the dead-since-D-SOUND sound button is removed. At 390 the desktop overlays that leaked into the published phone layout (Extra Features pill and menu, Ask the Historian pin, the desktop legend panel with Disposition/Sides/Size, NPS Auto Tour, sound) are gated out and re-homed: the Extra Features menu is the \"More tools\" part of the Tools sheet, Ask the Historian is a tile, the legend is the Legend tile, the glyph-only prev/next buttons are named \"Step back/forward 5 minutes\". The published \"NPS Auto Tour\" tile never worked on a phone (it called the layout setter with true), so the tile became the Virtual Walkthrough.",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B (plan defaults, release notes R0/R1a/R1b; AX group names the slider)",
+   "defects": [
+    "D45",
+    "D48"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-screenshot-index-1440",
+   "kind": "screenshot",
+   "target": "/",
+   "reason": "HARNESS DEFECT behind most of this row: tools/accept/checks/c3_regression.mjs calls lib.chooseLayout, which gives up after 1.5 s because the published app only shows its \"Choose Your Experience\" screen after the ~3.5 s intro fast-forward; the baseline was therefore captured AT the chooser. The assertions below compare the real published app (chooser clicked through, tick 1) with the candidate. The pixel diff compares the published chooser screen with the candidate map, so the ratio says nothing about the app. Against the real published app the visible differences are: no intro-primed ghost units at tick 1 (O-T0-3), HUD date July 1, the guide link, no sound button.",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B as W-text-index-1440 and W-controls-index-1440",
+   "defects": [
+    "D46"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-screenshot-index-390",
+   "kind": "screenshot",
+   "target": "/",
+   "reason": "HARNESS DEFECT behind most of this row: tools/accept/checks/c3_regression.mjs calls lib.chooseLayout, which gives up after 1.5 s because the published app only shows its \"Choose Your Experience\" screen after the ~3.5 s intro fast-forward; the baseline was therefore captured AT the chooser. The assertions below compare the real published app (chooser clicked through, tick 1) with the candidate. The pixel diff compares the published chooser screen with the candidate map, so the ratio says nothing about the app. Against the real published app the visible differences are: no intro-primed ghost units at tick 1 (O-T0-3), HUD date July 1, the guide link, no sound button, and the phone shell instead of the leaked desktop overlays.",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B as W-text-index-1440 and W-controls-index-1440",
+   "defects": [
+    "D49"
+   ],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-shared-subpage-layer",
+   "kind": "screenshot",
+   "target": "(shared nav and footer of every sub-page)",
+   "reason": "Cause of the position shifts behind most screenshot defects: shared navigation bar with 44 px controls inside the same 55 px bar and a reserved 55 px mount, footer re-flowed into 44 px rows with contrast-corrected colours, no page-entrance fade, no infinite glow animation, zero-specificity button reset.",
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in ops/release-notes/R1a.md:48 (\"Visible behaviour changes to sign off\") and T0-DEVIATIONS row 17; owner sign-off of that list is not recorded in docs/decisions",
+   "defects": [],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "W-data-DATA-group",
+   "kind": "data",
+   "target": "data/**",
+   "reason": "NOT one of the 53 defects of the R1c dry run (R1c edits no /data file). Check 3 flags a data file when a key disappears or an array shrinks. The DATA group does both on purpose (about 33 files: unsupported commander fates and position notes removed, contradictory or pre-arrival duplicate position rows removed, the raw `highest_single_regiment_rate` note replaced); each of its 2,364 data patches is listed with class, source and what was before in docs/data-audit/fixes.json. This waiver is valid for a data file only while a patch of a group with a recorded decision accounts for it.",
+   "class": "CONDITIONAL",
+   "approvalBasis": "A: owner decision 2026-10-05 item 3 (wrong displayed data must be fixed: verified, labelled as an estimate, or removed)",
+   "defects": [],
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "R1-file-icons-icon-192.png",
+   "kind": "file",
+   "target": "icons/icon-192.png",
+   "reason": "the generic star icon, replaced by the real-photograph icon set (IMG, tools/t0/images/IMG-overlay.json remove_from_overlay + manifest rows; owner decision 2026-10-19 item 2: the site uses only actual images of Gettysburg)",
+   "class": "INTENTIONAL",
+   "approvalBasis": "A: docs/decisions/OWNER-DECISIONS-2026-10-19.md item 2; replacement proven by tests/t0/images.spec.mjs and the manifest assertion of W-data-manifest",
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "R1-file-icons-icon-512.png",
+   "kind": "file",
+   "target": "icons/icon-512.png",
+   "reason": "same: generic star icon replaced (IMG)",
+   "class": "INTENTIONAL",
+   "approvalBasis": "A: docs/decisions/OWNER-DECISIONS-2026-10-19.md item 2; replacement proven by tests/t0/images.spec.mjs and the manifest assertion of W-data-manifest",
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "R1-file-screenshots-day1.png",
+   "kind": "file",
+   "target": "screenshots/day1.png",
+   "reason": "a corrupt \"screenshot\" that production named in og:image and the PWA manifest; replaced by og/gettysburg-card.jpg (IMG, owner decision 2026-10-19 item 2)",
+   "class": "INTENTIONAL",
+   "approvalBasis": "A: docs/decisions/OWNER-DECISIONS-2026-10-19.md item 2; replacement proven by tests/t0/images.spec.mjs and the manifest assertion of W-data-manifest",
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "R1-file-screenshots-day3.png",
+   "kind": "file",
+   "target": "screenshots/day3.png",
+   "reason": "same as screenshots/day1.png (IMG)",
+   "class": "INTENTIONAL",
+   "approvalBasis": "A: docs/decisions/OWNER-DECISIONS-2026-10-19.md item 2; replacement proven by tests/t0/images.spec.mjs and the manifest assertion of W-data-manifest",
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: every assertion of this waiver passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json); basis as stated per entry; owner sign-off of basis-B items still to be recorded (docs/accept/triage/REGRESSION-TRIAGE.md section 6)"
+  },
+  {
+   "id": "R1-text-aftermath",
+   "kind": "text",
+   "target": "/aftermath",
+   "reason": "lines/controls of the published page that the Release 1 groups changed and substituted (renames \"vignette\"->\"story\", ticks->clock times, corrected casualty figures, captions); see the assertion review lists",
+   "class": "INTENTIONAL",
+   "approvalBasis": "A/B: groups CLOCK, DATA (owner decisions 2026-10-05 items 6,7), PG-polish (documented, owner sign-off pending), IMG (2026-10-19 item 2)",
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: the text-1440/390 and controls-1440/390 assertions of the matching page waiver in docs/accept/triage/regression_waivers.r1.json passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json): every lost line/control is changed by a group with a recorded decision (CLOCK, DATA, PG-polish, PG-zimg) and substituted; the per-page review lists of lost and gained lines are in those JSON files; owner sign-off pending for the groups without a recorded decision (PG-polish naming, CLOCK wording)"
+  },
+  {
+   "id": "R1-text-documentary",
+   "kind": "text",
+   "target": "/documentary",
+   "reason": "lines/controls of the published page that the Release 1 groups changed and substituted (renames \"vignette\"->\"story\", ticks->clock times, corrected casualty figures, captions); see the assertion review lists",
+   "class": "INTENTIONAL",
+   "approvalBasis": "A/B: groups CLOCK, DATA (owner decisions 2026-10-05 items 6,7), PG-polish (documented, owner sign-off pending), IMG (2026-10-19 item 2)",
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: the text-1440/390 and controls-1440/390 assertions of the matching page waiver in docs/accept/triage/regression_waivers.r1.json passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json): every lost line/control is changed by a group with a recorded decision (CLOCK, DATA, PG-polish, PG-zimg) and substituted; the per-page review lists of lost and gained lines are in those JSON files; owner sign-off pending for the groups without a recorded decision (PG-polish naming, CLOCK wording)"
+  },
+  {
+   "id": "R1-text-education",
+   "kind": "text",
+   "target": "/education",
+   "reason": "lines/controls of the published page that the Release 1 groups changed and substituted (renames \"vignette\"->\"story\", ticks->clock times, corrected casualty figures, captions); see the assertion review lists",
+   "class": "INTENTIONAL",
+   "approvalBasis": "A/B: groups CLOCK, DATA (owner decisions 2026-10-05 items 6,7), PG-polish (documented, owner sign-off pending), IMG (2026-10-19 item 2)",
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: the text-1440/390 and controls-1440/390 assertions of the matching page waiver in docs/accept/triage/regression_waivers.r1.json passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json): every lost line/control is changed by a group with a recorded decision (CLOCK, DATA, PG-polish, PG-zimg) and substituted; the per-page review lists of lost and gained lines are in those JSON files; owner sign-off pending for the groups without a recorded decision (PG-polish naming, CLOCK wording)"
+  },
+  {
+   "id": "R1-text-embed",
+   "kind": "text",
+   "target": "/embed",
+   "reason": "lines/controls of the published page that the Release 1 groups changed and substituted (renames \"vignette\"->\"story\", ticks->clock times, corrected casualty figures, captions); see the assertion review lists",
+   "class": "INTENTIONAL",
+   "approvalBasis": "A/B: groups CLOCK, DATA (owner decisions 2026-10-05 items 6,7), PG-polish (documented, owner sign-off pending), IMG (2026-10-19 item 2)",
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: the text-1440/390 and controls-1440/390 assertions of the matching page waiver in docs/accept/triage/regression_waivers.r1.json passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json): every lost line/control is changed by a group with a recorded decision (CLOCK, DATA, PG-polish, PG-zimg) and substituted; the per-page review lists of lost and gained lines are in those JSON files; owner sign-off pending for the groups without a recorded decision (PG-polish naming, CLOCK wording)"
+  },
+  {
+   "id": "R1-text-find-ancestor",
+   "kind": "text",
+   "target": "/find-ancestor",
+   "reason": "lines/controls of the published page that the Release 1 groups changed and substituted (renames \"vignette\"->\"story\", ticks->clock times, corrected casualty figures, captions); see the assertion review lists",
+   "class": "INTENTIONAL",
+   "approvalBasis": "A/B: groups CLOCK, DATA (owner decisions 2026-10-05 items 6,7), PG-polish (documented, owner sign-off pending), IMG (2026-10-19 item 2)",
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: the text-1440/390 and controls-1440/390 assertions of the matching page waiver in docs/accept/triage/regression_waivers.r1.json passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json): every lost line/control is changed by a group with a recorded decision (CLOCK, DATA, PG-polish, PG-zimg) and substituted; the per-page review lists of lost and gained lines are in those JSON files; owner sign-off pending for the groups without a recorded decision (PG-polish naming, CLOCK wording)"
+  },
+  {
+   "id": "R1-text-living-ledger",
+   "kind": "text",
+   "target": "/living-ledger",
+   "reason": "lines/controls of the published page that the Release 1 groups changed and substituted (renames \"vignette\"->\"story\", ticks->clock times, corrected casualty figures, captions); see the assertion review lists",
+   "class": "INTENTIONAL",
+   "approvalBasis": "A/B: groups CLOCK, DATA (owner decisions 2026-10-05 items 6,7), PG-polish (documented, owner sign-off pending), IMG (2026-10-19 item 2)",
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: the text-1440/390 and controls-1440/390 assertions of the matching page waiver in docs/accept/triage/regression_waivers.r1.json passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json): every lost line/control is changed by a group with a recorded decision (CLOCK, DATA, PG-polish, PG-zimg) and substituted; the per-page review lists of lost and gained lines are in those JSON files; owner sign-off pending for the groups without a recorded decision (PG-polish naming, CLOCK wording)"
+  },
+  {
+   "id": "R1-text-regiment",
+   "kind": "text",
+   "target": "/regiment",
+   "reason": "lines/controls of the published page that the Release 1 groups changed and substituted (renames \"vignette\"->\"story\", ticks->clock times, corrected casualty figures, captions); see the assertion review lists",
+   "class": "INTENTIONAL",
+   "approvalBasis": "A/B: groups CLOCK, DATA (owner decisions 2026-10-05 items 6,7), PG-polish (documented, owner sign-off pending), IMG (2026-10-19 item 2)",
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: the text-1440/390 and controls-1440/390 assertions of the matching page waiver in docs/accept/triage/regression_waivers.r1.json passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json): every lost line/control is changed by a group with a recorded decision (CLOCK, DATA, PG-polish, PG-zimg) and substituted; the per-page review lists of lost and gained lines are in those JSON files; owner sign-off pending for the groups without a recorded decision (PG-polish naming, CLOCK wording)"
+  },
+  {
+   "id": "R1-text-report",
+   "kind": "text",
+   "target": "/report",
+   "reason": "lines/controls of the published page that the Release 1 groups changed and substituted (renames \"vignette\"->\"story\", ticks->clock times, corrected casualty figures, captions); see the assertion review lists",
+   "class": "INTENTIONAL",
+   "approvalBasis": "A/B: groups CLOCK, DATA (owner decisions 2026-10-05 items 6,7), PG-polish (documented, owner sign-off pending), IMG (2026-10-19 item 2)",
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: the text-1440/390 and controls-1440/390 assertions of the matching page waiver in docs/accept/triage/regression_waivers.r1.json passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json): every lost line/control is changed by a group with a recorded decision (CLOCK, DATA, PG-polish, PG-zimg) and substituted; the per-page review lists of lost and gained lines are in those JSON files; owner sign-off pending for the groups without a recorded decision (PG-polish naming, CLOCK wording)"
+  },
+  {
+   "id": "R1-text-search",
+   "kind": "text",
+   "target": "/search",
+   "reason": "lines/controls of the published page that the Release 1 groups changed and substituted (renames \"vignette\"->\"story\", ticks->clock times, corrected casualty figures, captions); see the assertion review lists",
+   "class": "INTENTIONAL",
+   "approvalBasis": "A/B: groups CLOCK, DATA (owner decisions 2026-10-05 items 6,7), PG-polish (documented, owner sign-off pending), IMG (2026-10-19 item 2)",
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: the text-1440/390 and controls-1440/390 assertions of the matching page waiver in docs/accept/triage/regression_waivers.r1.json passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json): every lost line/control is changed by a group with a recorded decision (CLOCK, DATA, PG-polish, PG-zimg) and substituted; the per-page review lists of lost and gained lines are in those JSON files; owner sign-off pending for the groups without a recorded decision (PG-polish naming, CLOCK wording)"
+  },
+  {
+   "id": "R1-controls-search",
+   "kind": "controls",
+   "target": "/search",
+   "reason": "lines/controls of the published page that the Release 1 groups changed and substituted (renames \"vignette\"->\"story\", ticks->clock times, corrected casualty figures, captions); see the assertion review lists",
+   "class": "INTENTIONAL",
+   "approvalBasis": "A/B: groups CLOCK, DATA (owner decisions 2026-10-05 items 6,7), PG-polish (documented, owner sign-off pending), IMG (2026-10-19 item 2)",
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: the text-1440/390 and controls-1440/390 assertions of the matching page waiver in docs/accept/triage/regression_waivers.r1.json passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json): every lost line/control is changed by a group with a recorded decision (CLOCK, DATA, PG-polish, PG-zimg) and substituted; the per-page review lists of lost and gained lines are in those JSON files; owner sign-off pending for the groups without a recorded decision (PG-polish naming, CLOCK wording)"
+  },
+  {
+   "id": "R1-text-terms",
+   "kind": "text",
+   "target": "/terms",
+   "reason": "lines/controls of the published page that the Release 1 groups changed and substituted (renames \"vignette\"->\"story\", ticks->clock times, corrected casualty figures, captions); see the assertion review lists",
+   "class": "INTENTIONAL",
+   "approvalBasis": "A/B: groups CLOCK, DATA (owner decisions 2026-10-05 items 6,7), PG-polish (documented, owner sign-off pending), IMG (2026-10-19 item 2)",
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: the text-1440/390 and controls-1440/390 assertions of the matching page waiver in docs/accept/triage/regression_waivers.r1.json passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json): every lost line/control is changed by a group with a recorded decision (CLOCK, DATA, PG-polish, PG-zimg) and substituted; the per-page review lists of lost and gained lines are in those JSON files; owner sign-off pending for the groups without a recorded decision (PG-polish naming, CLOCK wording)"
+  },
+  {
+   "id": "R1-text-turning-points",
+   "kind": "text",
+   "target": "/turning-points",
+   "reason": "lines/controls of the published page that the Release 1 groups changed and substituted (renames \"vignette\"->\"story\", ticks->clock times, corrected casualty figures, captions); see the assertion review lists",
+   "class": "INTENTIONAL",
+   "approvalBasis": "A/B: groups CLOCK, DATA (owner decisions 2026-10-05 items 6,7), PG-polish (documented, owner sign-off pending), IMG (2026-10-19 item 2)",
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: the text-1440/390 and controls-1440/390 assertions of the matching page waiver in docs/accept/triage/regression_waivers.r1.json passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json): every lost line/control is changed by a group with a recorded decision (CLOCK, DATA, PG-polish, PG-zimg) and substituted; the per-page review lists of lost and gained lines are in those JSON files; owner sign-off pending for the groups without a recorded decision (PG-polish naming, CLOCK wording)"
+  },
+  {
+   "id": "R1-controls-turning-points",
+   "kind": "controls",
+   "target": "/turning-points",
+   "reason": "lines/controls of the published page that the Release 1 groups changed and substituted (renames \"vignette\"->\"story\", ticks->clock times, corrected casualty figures, captions); see the assertion review lists",
+   "class": "INTENTIONAL",
+   "approvalBasis": "A/B: groups CLOCK, DATA (owner decisions 2026-10-05 items 6,7), PG-polish (documented, owner sign-off pending), IMG (2026-10-19 item 2)",
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: the text-1440/390 and controls-1440/390 assertions of the matching page waiver in docs/accept/triage/regression_waivers.r1.json passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json): every lost line/control is changed by a group with a recorded decision (CLOCK, DATA, PG-polish, PG-zimg) and substituted; the per-page review lists of lost and gained lines are in those JSON files; owner sign-off pending for the groups without a recorded decision (PG-polish naming, CLOCK wording)"
+  },
+  {
+   "id": "R1-text-camera",
+   "kind": "text",
+   "target": "/camera",
+   "reason": "lines/controls of the published page that the Release 1 groups changed and substituted (renames \"vignette\"->\"story\", ticks->clock times, corrected casualty figures, captions); see the assertion review lists",
+   "class": "INTENTIONAL",
+   "approvalBasis": "A/B: groups CLOCK, DATA (owner decisions 2026-10-05 items 6,7), PG-polish (documented, owner sign-off pending), IMG (2026-10-19 item 2)",
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: the text-1440/390 and controls-1440/390 assertions of the matching page waiver in docs/accept/triage/regression_waivers.r1.json passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json): every lost line/control is changed by a group with a recorded decision (CLOCK, DATA, PG-polish, PG-zimg) and substituted; the per-page review lists of lost and gained lines are in those JSON files; owner sign-off pending for the groups without a recorded decision (PG-polish naming, CLOCK wording)"
+  },
+  {
+   "id": "R1-text-cinematic-export",
+   "kind": "text",
+   "target": "/cinematic-export",
+   "reason": "lines/controls of the published page that the Release 1 groups changed and substituted (renames \"vignette\"->\"story\", ticks->clock times, corrected casualty figures, captions); see the assertion review lists",
+   "class": "INTENTIONAL",
+   "approvalBasis": "A/B: groups CLOCK, DATA (owner decisions 2026-10-05 items 6,7), PG-polish (documented, owner sign-off pending), IMG (2026-10-19 item 2)",
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: the text-1440/390 and controls-1440/390 assertions of the matching page waiver in docs/accept/triage/regression_waivers.r1.json passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json): every lost line/control is changed by a group with a recorded decision (CLOCK, DATA, PG-polish, PG-zimg) and substituted; the per-page review lists of lost and gained lines are in those JSON files; owner sign-off pending for the groups without a recorded decision (PG-polish naming, CLOCK wording)"
+  },
+  {
+   "id": "R1-text-compare",
+   "kind": "text",
+   "target": "/compare",
+   "reason": "lines/controls of the published page that the Release 1 groups changed and substituted (renames \"vignette\"->\"story\", ticks->clock times, corrected casualty figures, captions); see the assertion review lists",
+   "class": "INTENTIONAL",
+   "approvalBasis": "A/B: groups CLOCK, DATA (owner decisions 2026-10-05 items 6,7), PG-polish (documented, owner sign-off pending), IMG (2026-10-19 item 2)",
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: the text-1440/390 and controls-1440/390 assertions of the matching page waiver in docs/accept/triage/regression_waivers.r1.json passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json): every lost line/control is changed by a group with a recorded decision (CLOCK, DATA, PG-polish, PG-zimg) and substituted; the per-page review lists of lost and gained lines are in those JSON files; owner sign-off pending for the groups without a recorded decision (PG-polish naming, CLOCK wording)"
+  },
+  {
+   "id": "R1-text-ground-remembers",
+   "kind": "text",
+   "target": "/ground-remembers",
+   "reason": "lines/controls of the published page that the Release 1 groups changed and substituted (renames \"vignette\"->\"story\", ticks->clock times, corrected casualty figures, captions); see the assertion review lists",
+   "class": "INTENTIONAL",
+   "approvalBasis": "A/B: groups CLOCK, DATA (owner decisions 2026-10-05 items 6,7), PG-polish (documented, owner sign-off pending), IMG (2026-10-19 item 2)",
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: the text-1440/390 and controls-1440/390 assertions of the matching page waiver in docs/accept/triage/regression_waivers.r1.json passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json): every lost line/control is changed by a group with a recorded decision (CLOCK, DATA, PG-polish, PG-zimg) and substituted; the per-page review lists of lost and gained lines are in those JSON files; owner sign-off pending for the groups without a recorded decision (PG-polish naming, CLOCK wording)"
+  },
+  {
+   "id": "R1-text-immersive",
+   "kind": "text",
+   "target": "/immersive",
+   "reason": "lines/controls of the published page that the Release 1 groups changed and substituted (renames \"vignette\"->\"story\", ticks->clock times, corrected casualty figures, captions); see the assertion review lists",
+   "class": "INTENTIONAL",
+   "approvalBasis": "A/B: groups CLOCK, DATA (owner decisions 2026-10-05 items 6,7), PG-polish (documented, owner sign-off pending), IMG (2026-10-19 item 2)",
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: the text-1440/390 and controls-1440/390 assertions of the matching page waiver in docs/accept/triage/regression_waivers.r1.json passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json): every lost line/control is changed by a group with a recorded decision (CLOCK, DATA, PG-polish, PG-zimg) and substituted; the per-page review lists of lost and gained lines are in those JSON files; owner sign-off pending for the groups without a recorded decision (PG-polish naming, CLOCK wording)"
+  },
+  {
+   "id": "R1-text-sandbox",
+   "kind": "text",
+   "target": "/sandbox",
+   "reason": "lines/controls of the published page that the Release 1 groups changed and substituted (renames \"vignette\"->\"story\", ticks->clock times, corrected casualty figures, captions); see the assertion review lists",
+   "class": "INTENTIONAL",
+   "approvalBasis": "A/B: groups CLOCK, DATA (owner decisions 2026-10-05 items 6,7), PG-polish (documented, owner sign-off pending), IMG (2026-10-19 item 2)",
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: the text-1440/390 and controls-1440/390 assertions of the matching page waiver in docs/accept/triage/regression_waivers.r1.json passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json): every lost line/control is changed by a group with a recorded decision (CLOCK, DATA, PG-polish, PG-zimg) and substituted; the per-page review lists of lost and gained lines are in those JSON files; owner sign-off pending for the groups without a recorded decision (PG-polish naming, CLOCK wording)"
+  },
+  {
+   "id": "R1-controls-sandbox",
+   "kind": "controls",
+   "target": "/sandbox",
+   "reason": "lines/controls of the published page that the Release 1 groups changed and substituted (renames \"vignette\"->\"story\", ticks->clock times, corrected casualty figures, captions); see the assertion review lists",
+   "class": "INTENTIONAL",
+   "approvalBasis": "A/B: groups CLOCK, DATA (owner decisions 2026-10-05 items 6,7), PG-polish (documented, owner sign-off pending), IMG (2026-10-19 item 2)",
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: the text-1440/390 and controls-1440/390 assertions of the matching page waiver in docs/accept/triage/regression_waivers.r1.json passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json): every lost line/control is changed by a group with a recorded decision (CLOCK, DATA, PG-polish, PG-zimg) and substituted; the per-page review lists of lost and gained lines are in those JSON files; owner sign-off pending for the groups without a recorded decision (PG-polish naming, CLOCK wording)"
+  },
+  {
+   "id": "R1-text-watch-together",
+   "kind": "text",
+   "target": "/watch-together",
+   "reason": "lines/controls of the published page that the Release 1 groups changed and substituted (renames \"vignette\"->\"story\", ticks->clock times, corrected casualty figures, captions); see the assertion review lists",
+   "class": "INTENTIONAL",
+   "approvalBasis": "A/B: groups CLOCK, DATA (owner decisions 2026-10-05 items 6,7), PG-polish (documented, owner sign-off pending), IMG (2026-10-19 item 2)",
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: the text-1440/390 and controls-1440/390 assertions of the matching page waiver in docs/accept/triage/regression_waivers.r1.json passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json): every lost line/control is changed by a group with a recorded decision (CLOCK, DATA, PG-polish, PG-zimg) and substituted; the per-page review lists of lost and gained lines are in those JSON files; owner sign-off pending for the groups without a recorded decision (PG-polish naming, CLOCK wording)"
+  },
+  {
+   "id": "R1-controls-watch-together",
+   "kind": "controls",
+   "target": "/watch-together",
+   "reason": "lines/controls of the published page that the Release 1 groups changed and substituted (renames \"vignette\"->\"story\", ticks->clock times, corrected casualty figures, captions); see the assertion review lists",
+   "class": "INTENTIONAL",
+   "approvalBasis": "A/B: groups CLOCK, DATA (owner decisions 2026-10-05 items 6,7), PG-polish (documented, owner sign-off pending), IMG (2026-10-19 item 2)",
+   "date": "2026-10-20",
+   "approvedBy": "applied 2026-10-20 by the Release 1 integration: the text-1440/390 and controls-1440/390 assertions of the matching page waiver in docs/accept/triage/regression_waivers.r1.json passed on candidate 766259b8 (docs/accept/r1/assert-766259b8*.json): every lost line/control is changed by a group with a recorded decision (CLOCK, DATA, PG-polish, PG-zimg) and substituted; the per-page review lists of lost and gained lines are in those JSON files; owner sign-off pending for the groups without a recorded decision (PG-polish naming, CLOCK wording)"
+  }
+ ]
+}

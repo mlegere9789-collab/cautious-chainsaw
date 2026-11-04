@@ -58,7 +58,11 @@ const readText = (rel) => fs.readFileSync(path.join(DIST, rel), 'utf8');
 const sha256 = (b) => crypto.createHash('sha256').update(b).digest('hex');
 const AXE = fs.readFileSync(path.join(REPO, 'node_modules', 'axe-core', 'axe.min.js'), 'utf8');
 const HTML = FILES.filter((f) => f.endsWith('.html'));
-const IMAGE_FILES = FILES.filter((f) => IMG_EXT.test(f) && !f.startsWith('_ops/'));
+// The reconstruction tile pyramid of group BASE1863 (/tiles1863/<version>/, 1,800+ map tiles derived from a USDA NAIP aerial photograph and period maps) is not a photograph the
+// site shows as a picture and is not a row of this ledger: its own record is the ABOUT.txt and index.json inside each version directory (docs/basemap1863/BUILD.md section 10, test
+// T0-B63-03 and -11).  T0-RIMG-04 below checks that a pyramid on the tree names its sources.
+const TILES = (f) => /^tiles1863\//.test(f);
+const IMAGE_FILES = FILES.filter((f) => IMG_EXT.test(f) && !f.startsWith('_ops/') && !TILES(f));
 
 /** byte-level decoders: return {fmt, w, h} or throw */
 function decodePng(b) {
@@ -265,6 +269,10 @@ feature('T0-RIMG-03', 'ledger: every image of the tree is a row of LEDGER.md wit
 feature('T0-RIMG-04', 'only real images of Gettysburg: no generic art left, every raster is a REAL-IMAGE-OF-GETTYSBURG row from a public-domain source', async (ctx) => {
   const led = ledgerJson(); const by = new Map(led.rows.map((r) => [r.path, r]));
   const bad = [];
+  for (const dir of new Set(FILES.filter(TILES).map((f) => f.split('/').slice(0, 2).join('/')))) {
+    const about = FILES.includes(`${dir}/ABOUT.txt`) ? readText(`${dir}/ABOUT.txt`) : '';
+    if (!about || !/NAIP/.test(about) || !FILES.includes(`${dir}/index.json`)) bad.push(`${dir}: the reconstruction tile set has no ABOUT.txt naming its source (USDA NAIP) or no index.json`);
+  }
   for (const old of ['og/card-r1.png', 'screenshots/day1.png', 'screenshots/day3.png', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-192.png', 'icons/icon-maskable-512.png']) if (FILES.includes(old)) bad.push(`${old}: generic / generated art is still served`);
   for (const rel of IMAGE_FILES.filter((f) => RASTER_EXT.test(f))) { const r = by.get(rel); if (!r) bad.push(`${rel}: raster without a ledger row`); else if (r.klass !== 'REAL-IMAGE-OF-GETTYSBURG' || r.status !== 'OK') bad.push(`${rel}: class ${r.klass}/${r.status}`); }
   for (const r of refs()) if (r.local && RASTER_EXT.test(r.local) && !by.has(r.local)) bad.push(`${r.from} -> ${r.local} (${r.kind}): referenced raster without a ledger row`);
@@ -358,8 +366,19 @@ guard('T0-RIMG-08', 'no hot-linked images; the user guide PDF embeds no picture;
   const bad = [];
   for (const r of refs()) if (r.external) bad.push(`${r.from} (${r.kind}): ${r.url}`);
   const pdf = read('user-guide.pdf').toString('latin1');
-  if (/\/Subtype\s*\/Image\b/.test(pdf)) bad.push('user-guide.pdf embeds an image XObject');
-  if (/\/XObject\b/.test(pdf)) bad.push('user-guide.pdf has XObjects');
+  // The tutorial of train R1d (tools/guide, docs/guide) shows the site: its pictures are SCREENSHOTS of the product, captured by tools/guide/shots.mjs and defined in docs/guide/content.json. The rule keeps its point
+  // (no stock picture, no other picture): the PDF may hold at most one image per defined screenshot; the text-only guide of the published trains none. (Before R1d the rule was: no picture at all.)
+  {
+    const imgs = (pdf.match(/\/Subtype\s*\/Image\b/g) || []).length;
+    let shots = 0, r1d = false;
+    try {
+      const gc = fs.readFileSync(path.join(REPO, 'docs', 'guide', 'content.json'), 'utf8');
+      shots = Object.keys(JSON.parse(gc).shots).length;
+      const v = JSON.parse(fs.readFileSync(path.join(DIST, 'version.json'), 'utf8'));
+      r1d = v.train === 'R1d' || (v.groups || []).includes('BASE1863');
+    } catch { /* no guide sources or no version.json: no picture is allowed */ }
+    if (imgs > (r1d ? shots : 0)) bad.push(`user-guide.pdf embeds ${imgs} image XObject(s); ${r1d ? shots + ' screenshots are defined' : 'none are allowed'}`);
+  }
   let svgs = 0;
   for (const page of HTML) { const html = readText(page); for (const m of html.matchAll(/<svg\b[^>]*>/gi)) { svgs++; if (/<image\b/i.test(html.slice(m.index, html.indexOf('</svg>', m.index)))) bad.push(`${page}: an inline <svg> embeds an <image>`); } }
   for (const f of FILES.filter((x) => x === 'icons.svg')) if (/<image\b/i.test(readText(f))) bad.push(`${f} embeds an <image>`);

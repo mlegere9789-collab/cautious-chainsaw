@@ -22,7 +22,7 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(HERE, '..', '..'))
-TRAINS = ['R0', 'R1a', 'R1b', 'R1c']
+TRAINS = ['R0', 'R1a', 'R1b', 'R1c', 'R1d', 'R1e', 'R1f', 'R1g']
 SIDE = ['manifest.json', 'anchors.json', 'gate.json', os.path.join('_ops', 'sw-kill.js')]
 
 

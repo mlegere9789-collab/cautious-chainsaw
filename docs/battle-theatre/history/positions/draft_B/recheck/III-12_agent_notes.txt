@@ -1,0 +1,18 @@
+Batch III-12 notes (23 claims, all decided; validator: errors 0, missing 0)
+
+Counts per fc: passed_full_read 14, corrected 9, downgraded 0, split 0.
+
+Per pattern:
+- time from another sentence: 0 (art-4usk-12 takes 'about 8 o'clock' from the previous sentence, linked by 'I then placed'; annotated as continuing sentence)
+- merged second report: 0 (art-4usk-20 wdesc mentions R318/R331 only as annotation)
+- later order ignored: 0
+- compass/road gloss: 2 (3c-1d-05 'Gettysburg' not in sentence; art-12 road 'Emmitsburg road' belongs to the woods, not the orchard)
+- hedge/condition dropped or overstated: 4 (4usk-15 'some four batteries'; 4usk-18 'nearly all' ammunition; 4usk-14 'About 3 p.m.' marked approx false; 3c-1d-20 'suggested' vs 'asked')
+- unit identity gloss: 5 (3c-34 Sykes/Fifth Corps, not Third Corps; 3c-1d-05 Geary's Twelfth Corps division relieved by 'the Third Army Corps'; 3c-61 Buford's cavalry division; 3c-63 Buford's division; 3c-27 Slocum/Sickles as commanders, not corps troops; art-12 Ames' Battery G 1st NY, Artillery Reserve, attached) - ids kept as printed
+- OCR digit: 3 (art-4usk-13 '7.80 p. m.'; art-4usk-20 'night of the 3d' 2/3 digit; 3c-61 garbled date token, settled by 'The next day, July 3')
+- meridian inferred: 1 (art-4usk-12, mer true)
+- other: 3c-15 'move up' not in the cited sentence (word informed Sickles; the move-up request is Pearson's, 3c-16)
+
+Unit ids that are not the unit the passage speaks of: POS-B-us-3c-34, POS-B-us-3c-1d-05, POS-B-us-3c-61, POS-B-us-3c-63, POS-B-us-3c-27 (commander only), POS-B-us-3c-art-12 (Reserve battery).
+
+Systematic: the Third Corps unit ids (us-3c, us-3c-1d) are used for claims whose passage names other commands (Buford, Geary, Sykes); the facts are printed but should not be read as Third Corps troop movements. R186 (James) 'night of the 3d' recovery of guns looks like July 2 night in R318/R331; digit left unsettled and flagged, date field left as printed.

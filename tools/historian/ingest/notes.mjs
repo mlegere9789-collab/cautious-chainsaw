@@ -29,17 +29,19 @@ const textOf = (lines, p) => lines.slice(p.s, p.e + 1).map((x) => x.trim()).join
 const wordsIn = (s) => (s.match(/\S+/g) || []).length;
 
 /** a trailing paragraph that is no text of the page (the sheet signature "19 R R - VOL XXVII, PT I", a page number, a stray mark, the OCR's debris "■•••■vt 1 f ..I-.") */
-const isTrailer = (t) => SIG_LINE.test(t) && t.length <= 60 || /^\W{0,3}\d{1,4}\W{0,3}$/.test(t) || (t.length <= 3 && !/[A-Za-z]{2}/.test(t)) || (t.length <= 28 && !(t.match(/[A-Za-z]{3,}/g) || []).length);
+const isTrailer = (t) => SIG_LINE.test(t) && t.length <= 60 || /^\W{0,3}\d{1,4}\W{0,3}$/.test(t) || (t.length <= 3 && !/[A-Za-z]{2}/.test(t)) || (t.length <= 28 && !(t.match(/[A-Za-z]{3,}/g) || []).length)
+  || (t.length <= 40 && isHeadFragment(t));      // the pieces of the running head of the next page that the OCR set after the foot note ("K. C., VA., W. VA., M X>.,"): they end the leaf, the note stands above them
 
 /** is this stretch of lines a foot-of-page note: its first line (after the mark) is sentence-case text, not an ellipsis row, a signature, an addressee or a dateline; short */
 const noteLike = (lines, from, to, paras) => {
   const text = lines.slice(from, to).map((x) => x.trim()).filter(Boolean).join(' ');
   const first = text.replace(MARK_STRICT, '');
   const nlines = lines.slice(from, to).filter((x) => x.trim()).length;
-  if (nlines > 8 || wordsIn(text) > 150 || (paras && paras.some((p) => p.e - p.s + 1 > 6))) return false;
+  if (nlines > 16 || wordsIn(text) > 260 || (paras && paras.some((p) => p.e - p.s + 1 > 6))) return false;
   if (ellipsisRow(first.slice(0, 60)) || upperRatio(first.slice(0, 40)) > 0.6) return false;                       // an ellipsis row of stars; a signature
   if (/:\s*$/.test(first.slice(0, 80)) && first.length < 80) return false;                                           // an addressee
-  if (MONTHS.test(first.slice(0, 40)) && /\b1[8I]\s?[6G]\s?\d\b/.test(first.slice(0, 60))) return false;           // a dateline
+  // a dateline; a note that cites a letter by its date ("*See Butterfield to Meade, January 23, 1864, p. 20", "*Of March 15, 1864, p. 127") is not one
+  if (MONTHS.test(first.slice(0, 40)) && /\b1[8I]\s?[6G]\s?\d\b/.test(first.slice(0, 60)) && !/^(?:See|Compare|Cf\.?|Of|For|But see|Also|Including|According|Embodied|Not accounted|Includes|Reported)\b/.test(first)) return false;
   return true;
 };
 
@@ -56,13 +58,16 @@ export function footnoteZone(lines, a, b) {
   // (1) paragraphs of their own
   if (k >= 1) {
     // walk up from the foot over paragraphs that open with a mark and over the short continuations of a note the OCR parted from its first line ("Beaufort."); the topmost star paragraph of the stack opens the zone
-    let top = -1;
+    let top = -1, cont = 0;
     for (let i = k; i >= 1; i--) {
       const t = lines[paras[i].s].trim();
-      if (MARK_BROAD.test(t)) { if (MARK_STRICT.test(t)) top = i; continue; }
-      if (wordsIn(textOf(lines, paras[i])) <= 12 && k - i <= 3) continue;
+      if (MARK_BROAD.test(t)) { if (MARK_STRICT.test(t)) top = i; cont = 0; continue; }
+      // a continuation of a note the OCR parted from its first line ("Beaufort.", or the lines of one note set as paragraphs of their own): short, and not more than four in a row
+      if (wordsIn(textOf(lines, paras[i])) <= 24 && paras[i].e - paras[i].s <= 1 && ++cont <= 4) continue;
       break;
     }
+    // the marked notes directly above the topmost starred one belong to the same stack ("t But see ...", "j Companies B and C ..." over "*According to ...")
+    while (top > 1 && MARK_BROAD.test(lines[paras[top - 1].s].trim())) top--;
     if (top < 0) {
       // a lone dagger note ("f Omitted,") on its own at the foot, of the commonest wording
       const t = textOf(lines, paras[k]);
@@ -80,7 +85,35 @@ export function footnoteZone(lines, a, b) {
 }
 
 const COMPILER_END = /(?:[—–-]\s*|\s)Compiler\.?,?\s*$/;
+// the compilers' pointers that stand alone in the text with their footnote mark lost ("But see revised statement, p. 187.", "Embodied in revised statement, p. 173.", "For casualties July 1-3, see p. 344."): a whole
+// paragraph of this shape and nothing else
+const COMPILER_NOTE = /^(?:[*†‡§]\s?)?(?:But see(?: revised statement| organization of [^,]{3,50})?|Embodied in revised statement|For casualties[^.]{0,30}\bsee)\b[^\n]{0,70}?\bpp?\.\s*\d[\d,\s–-]*[.,]?$/;
 const CROSSREF = /^\[\s*(?:(?:[A-Z][a-z]+\.?\s*[\d\-–. ]+(?:,?\s*\d{4})?\.?\s*[—–-]+\s*)?(?:For|See)\b[^\]]{8,320}\bsee\b[^\]]{0,120}|Note\.?\s*[—–-]+\s*For additional[^\]]{5,200}\bsee\b[^\]]{0,120})\]\.?$/;
+
+// ---- what the head stripper leaves behind -------------------------------------------------------------------------------------------------------------------------------------------
+// A line that is nothing but the chapter bracket of a running head, its numeral read as letters ("[Chap. YYYTY-", "[Chap, wyty", "Chap, mix.]"), or the tail of the Part 3 head ("TJNION.", ", UNION.", "] ' UNION."), or the
+// sheet signature of the printer ("30 R R - VOL XII.VII, PT III"): the head stripper reads heads by what they say, and these say too little of it (a remnant also appears AFTER it has cut the rest of a head away).
+// Whole lines only, short ones, and no word of six letters; the page marks the normaliser carries (private-use characters) stay where they are.
+const CHAP_REMNANT = /^\W{0,3}\[?\s*(?:Chap|CHAP|Ohap|Cnap|hap|Mat)[.,;:^\s-]{0,3}[A-Za-z|!*][A-Za-z|!1* ]{0,9}[\].,;:\-jJ|!\s\d]{0,5}$/;
+const SHEET_SIG = /\b\d{1,2}\s*R\s*R\s*[-—–]+\s*VOL\s+[XIVLKxivlj.,]{3,12}[,.]?\s*(?:PT|FT|RT)\.?\s*[IVXLJ]{1,4}\b/;
+/** 'chap' | 'union' | 'sheet' | null for one line (page marks ignored) */
+export function headRemnantKind(line) {
+  const t0 = String(line).replace(/[-]/g, '').trim();
+  if (t0.length <= 26 && CHAP_REMNANT.test(t0) && !/[A-Za-z]{7,}/.test(t0)) return 'chap';
+  if (t0.length <= 22 && /^[^A-Za-z]{0,4}[TUVYItuvyi]{0,2}J?NION\W{0,3}$/.test(t0) && /[A-Z]{4}/.test(t0)) return 'union';
+  if (SHEET_SIG.test(t0)) return 'sheet';
+  return null;
+}
+/** the text with those lines (or, for a sheet signature that shares a line, that stretch of the line) taken out; `mark` is the private-use character of the page marks, kept in place */
+export function dropHeadRemnants(text, mark = '') {
+  const markRe = mark ? new RegExp(mark, 'g') : null;
+  return String(text).split('\n').map((l) => {
+    const k = headRemnantKind(l); if (!k) return l;
+    const marks = markRe ? (l.match(markRe) || []).join('') : '';
+    if (k === 'sheet') { const r = l.replace(new RegExp(SHEET_SIG.source, 'g'), ' ').replace(/ {2,}/g, ' ').trim(); return r.length >= 3 ? r : marks; }
+    return marks;
+  }).join('\n');
+}
 
 const SECTION_HEAD = /^(?:(?:UNION|CONFEDERATE)\s+)?CORRESPONDENCE,?\s*ETC\.?(?:\s*[—–-]*\s*(?:UNION|CONFEDERATE)\.?)?$/i;
 // the head of the right-hand pages of Part 3 run into a body line, in the OCR's spellings: [Chap. XXXIX.] CORRESPONDENCE, ETC. - UNION. 631, then the OCR's reading of the page number
@@ -152,6 +185,7 @@ export function stripNotes(text) {
     const leaf = (() => { for (let q = starts.length - 1; q >= 0; q--) if (starts[q] <= i) return leafAt[starts[q]]; return null; })();
     if (para.length <= 700 && COMPILER_END.test(para) && !/\bthe\s+Compiler\b/.test(para)) take('compiler-note', leaf, i, j + 1);
     else if (CROSSREF.test(para)) take('cross-reference', leaf, i, j + 1);
+    else if (para.length <= 110 && COMPILER_NOTE.test(para)) take('compiler-note', leaf, i, j + 1);
     i = j;
   }
   // a head run into the middle of a line

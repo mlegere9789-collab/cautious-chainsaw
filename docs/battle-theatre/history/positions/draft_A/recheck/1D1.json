@@ -1,0 +1,279 @@
+[
+ {
+  "id": "POS-A-1D1-001",
+  "fidelity": "passed_full_read",
+  "why": "8 a. m. in the same sentence; Wadsworth's division named; Marsh Creek and Reynolds printed.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1D1-002",
+  "fidelity": "corrected",
+  "why": "Hour and place in same sentence; road printed only as 'Cashtown road', the '(Chambersburg Pike)' in direction_or_road was a gazetteer gloss, removed.",
+  "patch": {
+   "rd": "Cashtown road",
+   "note_add": "Road field now the printed name only; identification with the Chambersburg Pike is by gazetteer inference."
+  }
+ },
+ {
+  "id": "POS-A-1D1-003",
+  "fidelity": "passed_full_read",
+  "why": "Division's order of march printed in the report's march narrative; date/morning from the opening sentence of the narrative.",
+  "patch": {
+   "wd": "compiler reading: day and morning from the report opening (\"On the morning of July 1\"); the order of march sentence itself prints no time"
+  }
+ },
+ {
+  "id": "POS-A-1D1-004",
+  "fidelity": "passed_full_read",
+  "why": "3.45 o'clock and order to retire in the same sentence; division's own commander; Seventh Wisconsin rear is the next sentence.",
+  "patch": {
+   "note_add": "Place Seminary Ridge is the line the division was ordered to hold in earlier sentences; the 3.45 sentence names no place and no destination."
+  }
+ },
+ {
+  "id": "POS-A-1D1-005",
+  "fidelity": "passed_full_read",
+  "why": "'On the evening of the 1st' and the hill in the same sentence; unit and hedge-free.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1D1-006",
+  "fidelity": "passed_full_read",
+  "why": "'which we held on the 2d and 3d' and the attacks of the evening of the 2d and morning of the 3d printed in the same sentence.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1D1-007",
+  "fidelity": "passed_full_read",
+  "why": "June 30 march and bivouac near Marsh Creek in one sentence; Morrow writes for the 24th Michigan.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1D1-008",
+  "fidelity": "corrected",
+  "why": "Morrow's 'we' is the 24th Michigan, not the brigade; unit narrowed to the regiment.",
+  "patch": {
+   "u": "us-1c-1d-meredith-24mi",
+   "act": "24th Michigan marched at an early hour on July 1 in the direction of Gettysburg, distant 6 or 7 miles"
+  }
+ },
+ {
+  "id": "POS-A-1D1-009",
+  "fidelity": "corrected",
+  "why": "'about 9 a. m. we came near the town ... filed off to the left' is the 24th Michigan (we); the brigade is named only later. Unit and activity narrowed to the regiment.",
+  "patch": {
+   "u": "us-1c-1d-meredith-24mi",
+   "act": "24th Michigan came near the town about 9 a. m., filed off to the left leaving it on its right, crossed a branch and was moved into line of battle at the double-quick"
+  }
+ },
+ {
+  "id": "POS-A-1D1-010",
+  "fidelity": "passed_full_read",
+  "why": "Brigade printed as subject; morning follows the 9 a.m. sentence in the narrative; Willoughby's Run and Archer's brigade printed.",
+  "patch": {
+   "wd": "compiler reading from order of events: follows the sentence with \"about 9 a. m.\" and no later clock"
+  }
+ },
+ {
+  "id": "POS-A-1D1-011",
+  "fidelity": "passed_full_read",
+  "why": "Brigade changed front and formed in McPherson's woods, regiment order printed in same sentence; follows the withdrawal to the east bank.",
+  "patch": {
+   "wd": "compiler reading from order of events: after the first charge; no clock printed"
+  }
+ },
+ {
+  "id": "POS-A-1D1-012",
+  "fidelity": "corrected",
+  "why": "'We' forced back step by step is the 24th Michigan, not the brigade; no hour printed for the retreat, so '(afternoon)' is dropped.",
+  "patch": {
+   "u": "us-1c-1d-meredith-24mi",
+   "act": "24th Michigan forced back step by step, contesting every foot of ground, to the barricade west of the seminary building",
+   "w": null,
+   "wd": "no time printed in the passage for the retreat to the barricade (the passage gives only about 9 a. m. at the start of the action)"
+  }
+ },
+ {
+  "id": "POS-A-1D1-013",
+  "fidelity": "corrected",
+  "why": "Subject is the regiment under Capt. Edwards falling back with the brigade; 'evening of July 1' is not printed, only 'which it held for the two succeeding days'; hour dropped and activity restated as printed.",
+  "patch": {
+   "w": null,
+   "wd": "compiler reading: end of July 1 from the sequence after the barricade and \"held for the two succeeding days\"; no hour or evening printed",
+   "act": "24th Michigan fell back with the brigade to Culp's Hill (printed 'Gulp's Hill'), which it held for the two succeeding days"
+  }
+ },
+ {
+  "id": "POS-A-1D1-014",
+  "fidelity": "passed_full_read",
+  "why": "Printed phrase 'during the battles of July 3 and 4' in the claim; regiment is subject; printed dates differ from other reports, already noted.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1D1-015",
+  "fidelity": "corrected",
+  "why": "Regiment (2nd Wisconsin) had the right; 'of the brigade' is the compiler's reading, road printed as 'Emmitsburg pike' not 'Emmitsburg road'.",
+  "patch": {
+   "act": "2nd Wisconsin, part of the First Brigade, had the right and approached Gettysburg from the Emmitsburg pike on the morning of July 1",
+   "rd": "Emmitsburg pike"
+  }
+ },
+ {
+  "id": "POS-A-1D1-016",
+  "fidelity": "passed_full_read",
+  "why": "About 10 a. m., the brigade and the field on the left and west of Gettysburg, left of Seminary Ridge, all in one sentence; Federal cavalry and battery in the next.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1D1-017",
+  "fidelity": "passed_full_read",
+  "why": "Thrown forward in front of the cavalry follows the 'About 10 a. m.' sentence ('Here' the cavalry were in line); Archer capture later in the same paragraph.",
+  "patch": {
+   "wd": "compiler reading: the 10 a. m. is in the preceding sentence, this regiment-level order follows it without another clock"
+  }
+ },
+ {
+  "id": "POS-A-1D1-018",
+  "fidelity": "corrected",
+  "why": "'Second Confederate advance' is the compiler's label; passage says only that the enemy were discovered emerging from the timber after some two hours or more. Activity restated.",
+  "patch": {
+   "act": "After the charge the regiment retired about midway through the timber, was ordered to lie down, and remained in position some two hours or more until the enemy were discovered emerging from the timber beyond the field"
+  }
+ },
+ {
+  "id": "POS-A-1D1-019",
+  "fidelity": "passed_full_read",
+  "why": "Fifth Maine Battery 'placed and at work' on Seminary Ridge when the order to fall back toward it was given; two hours from the previous sentence.",
+  "patch": {
+   "wd": "compiler reading from order of events: after \"some two hours or more\"; no clock printed"
+  }
+ },
+ {
+  "id": "POS-A-1D1-020",
+  "fidelity": "passed_full_read",
+  "why": "'the brigade and regiment fell back to Cemetery Hill' almost immediately after Mansfield's wound; day-part only from the sequence.",
+  "patch": {
+   "wd": "compiler reading from order of events: last event of the report; no clock printed"
+  }
+ },
+ {
+  "id": "POS-A-1D1-021",
+  "fidelity": "passed_full_read",
+  "why": "Halted with left on the Fairfield road, detached as general reserve by Doubleday; 'On the morning of July 1' opens the same narrative.",
+  "patch": {
+   "wd": "printed in the opening sentence of the narrative: \"On the morning of July 1\""
+  }
+ },
+ {
+  "id": "POS-A-1D1-022",
+  "fidelity": "passed_full_read",
+  "why": "Doubleday's order to the support of the right of the line printed with the three regiments; follows the halt 'in a very few moments'.",
+  "patch": {
+   "wd": "compiler reading: continues the morning narrative (\"In a very few moments\")"
+  }
+ },
+ {
+  "id": "POS-A-1D1-023",
+  "fidelity": "passed_full_read",
+  "why": "Fence on the Chambersburg turnpike, railroad cut, Second Mississippi surrender all printed; second letter says 'morning of July 1' for the same action.",
+  "patch": {
+   "wd": "compiler reading: morning from the opening sentence and from the second letter (\"Shortly after the opening of the action on the morning of July 1\")"
+  }
+ },
+ {
+  "id": "POS-A-1D1-024",
+  "fidelity": "passed_full_read",
+  "why": "'After this capture of prisoners' printed; woods, thirty minutes, crest and Stewart's battery all in the passage.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1D1-025",
+  "fidelity": "corrected",
+  "why": "No hour or day-part printed in Dawes' report; '(afternoon)' dropped (Wadsworth's 3 p. m. is another report).",
+  "patch": {
+   "w": null,
+   "wd": "no time printed in the passage; the 3 p. m. arrival of Stewart's battery is in a different report (Wadsworth R032)"
+  }
+ },
+ {
+  "id": "POS-A-1D1-026",
+  "fidelity": "passed_full_read",
+  "why": "Ordered to retire beyond the city, moved steadily back over the open field to the city; Cemetery Hill in a later sentence.",
+  "patch": {
+   "wd": "compiler reading: at the retirement ordered by Wadsworth; no clock printed"
+  }
+ },
+ {
+  "id": "POS-A-1D1-027",
+  "fidelity": "corrected",
+  "why": "'Evening of July 1' not printed here (it is in Wadsworth's report); date follows from the sequence only. Hour phrase dropped.",
+  "patch": {
+   "w": null,
+   "wd": "compiler reading: end of July 1 from the sequence after the retirement into the city; no hour or evening printed in this report"
+  }
+ },
+ {
+  "id": "POS-A-1D1-028",
+  "fidelity": "corrected",
+  "why": "Passage: 'we left our camp ... with the brigade' - the 7th Wisconsin; column order is the brigade's. Unit narrowed to the 7th Wisconsin; road quoted as printed.",
+  "patch": {
+   "u": "us-1c-1d-meredith-7wi",
+   "act": "7th Wisconsin left its camp on the road running from Emmitsburg to Gettysburg, about 5 miles from Gettysburg, early on July 1 with the brigade, the Second Wisconsin leading, the Seventh next in column",
+   "rd": "the road running from Emmitsburg to Gettysburg"
+  }
+ },
+ {
+  "id": "POS-A-1D1-029",
+  "fidelity": "corrected",
+  "why": "Inferred camp of the night before; road field changed to the printed wording (no 'Emmitsburg road' name in the passage).",
+  "patch": {
+   "rd": "the road running from Emmitsburg to Gettysburg",
+   "wd": "compiler reading: camp left early on the morning of the 1st, so the camp is that of the night of June 30; the date is not printed"
+  }
+ },
+ {
+  "id": "POS-A-1D1-030",
+  "fidelity": "corrected",
+  "why": "'Arrived' is 'we', the 7th Wisconsin; the brigade moved to the left in the next sentence. Unit narrowed, activity restated, 10 a. m. same sentence.",
+  "patch": {
+   "u": "us-1c-1d-meredith-7wi",
+   "act": "7th Wisconsin arrived in the vicinity of Gettysburg about 10 a. m., hearing firing to the left of the town; the brigade was then moved across the field to the left to where the cavalry were engaged"
+  }
+ },
+ {
+  "id": "POS-A-1D1-031",
+  "fidelity": "passed_full_read",
+  "why": "Regiment lay some hours under artillery fire in the grove on the right of the Second; 'midday' printed in the closing summary.",
+  "patch": {
+   "wd": "printed in a later sentence of the same report: \"under the severe artillery fire of the midday\""
+  }
+ },
+ {
+  "id": "POS-A-1D1-032",
+  "fidelity": "passed_full_read",
+  "why": "Nineteenth and Twenty-fourth on my left, near the grove, then three regiments charged the ravine; morning from the closing summary ('the morning charge').",
+  "patch": {
+   "wd": "compiler reading from order of events; the closing summary says \"the morning charge\""
+  }
+ },
+ {
+  "id": "POS-A-1D1-033",
+  "fidelity": "corrected",
+  "why": "The retirement by wheels, breastwork of loose rails and the battery are the 7th Wisconsin ('I threw the regiment'); the order came from brigade staff. Unit narrowed.",
+  "patch": {
+   "u": "us-1c-1d-meredith-7wi",
+   "act": "7th Wisconsin ordered to retire to Seminary Ridge, retired by successive wheels; found a slight breastwork of loose rails about 40 yards in front of a battery at the foot of the ridge and threw the regiment behind it",
+   "wd": "compiler reading from order of events: after \"Early in the afternoon\" in the preceding paragraph; no clock printed"
+  }
+ },
+ {
+  "id": "POS-A-1D1-034",
+  "fidelity": "corrected",
+  "why": "Retirement through the orchard, turnpike and town is the 7th Wisconsin; Wadsworth's order to Robinson to command the brigade follows on arrival. Unit narrowed.",
+  "patch": {
+   "u": "us-1c-1d-meredith-7wi",
+   "act": "7th Wisconsin retired through the orchard, onto the turnpike and through the town to Cemetery Hill; on arrival Wadsworth ordered Colonel Robinson to take command of the brigade",
+   "wd": "compiler reading from order of events: last position on Seminary Ridge was held \"until all the troops had retired\"; no clock printed"
+  }
+ }
+]

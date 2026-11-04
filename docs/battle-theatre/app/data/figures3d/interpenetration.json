@@ -1,0 +1,4447 @@
+{
+ "schema": "figures3d-interpenetration-1",
+ "method": "interpen.mjs: inner-layer vertices vs the outer layer surface along its smooth normal; coat vs body: elliptical clearance against the torso table",
+ "tolerance_mm": 1,
+ "coat_vs_body": [
+  {
+   "shape": 0,
+   "coat": "sack",
+   "min_clearance_mm": 23.08
+  },
+  {
+   "shape": 0,
+   "coat": "frock",
+   "min_clearance_mm": 7.63
+  },
+  {
+   "shape": 0,
+   "coat": "frock_double",
+   "min_clearance_mm": 9.27
+  },
+  {
+   "shape": 0,
+   "coat": "short_jacket",
+   "min_clearance_mm": 6.06
+  },
+  {
+   "shape": 0,
+   "coat": "shell_cs",
+   "min_clearance_mm": 7.77
+  },
+  {
+   "shape": 0,
+   "coat": "zouave",
+   "min_clearance_mm": 7.86
+  },
+  {
+   "shape": 0,
+   "coat": "tunic6",
+   "min_clearance_mm": 10.67
+  },
+  {
+   "shape": 0,
+   "coat": "civilian",
+   "min_clearance_mm": 20.16
+  },
+  {
+   "shape": 0,
+   "coat": "shirt",
+   "min_clearance_mm": 12.45
+  },
+  {
+   "shape": 1,
+   "coat": "sack",
+   "min_clearance_mm": 23.07
+  },
+  {
+   "shape": 1,
+   "coat": "frock",
+   "min_clearance_mm": 7.63
+  },
+  {
+   "shape": 1,
+   "coat": "frock_double",
+   "min_clearance_mm": 9.26
+  },
+  {
+   "shape": 1,
+   "coat": "short_jacket",
+   "min_clearance_mm": 6.06
+  },
+  {
+   "shape": 1,
+   "coat": "shell_cs",
+   "min_clearance_mm": 7.76
+  },
+  {
+   "shape": 1,
+   "coat": "zouave",
+   "min_clearance_mm": 7.86
+  },
+  {
+   "shape": 1,
+   "coat": "tunic6",
+   "min_clearance_mm": 10.66
+  },
+  {
+   "shape": 1,
+   "coat": "civilian",
+   "min_clearance_mm": 20.14
+  },
+  {
+   "shape": 1,
+   "coat": "shirt",
+   "min_clearance_mm": 12.44
+  },
+  {
+   "shape": 2,
+   "coat": "sack",
+   "min_clearance_mm": 23.05
+  },
+  {
+   "shape": 2,
+   "coat": "frock",
+   "min_clearance_mm": 7.62
+  },
+  {
+   "shape": 2,
+   "coat": "frock_double",
+   "min_clearance_mm": 9.25
+  },
+  {
+   "shape": 2,
+   "coat": "short_jacket",
+   "min_clearance_mm": 6.06
+  },
+  {
+   "shape": 2,
+   "coat": "shell_cs",
+   "min_clearance_mm": 7.76
+  },
+  {
+   "shape": 2,
+   "coat": "zouave",
+   "min_clearance_mm": 7.85
+  },
+  {
+   "shape": 2,
+   "coat": "tunic6",
+   "min_clearance_mm": 10.65
+  },
+  {
+   "shape": 2,
+   "coat": "civilian",
+   "min_clearance_mm": 20.13
+  },
+  {
+   "shape": 2,
+   "coat": "shirt",
+   "min_clearance_mm": 12.43
+  },
+  {
+   "shape": 3,
+   "coat": "sack",
+   "min_clearance_mm": 23.23
+  },
+  {
+   "shape": 3,
+   "coat": "frock",
+   "min_clearance_mm": 7.68
+  },
+  {
+   "shape": 3,
+   "coat": "frock_double",
+   "min_clearance_mm": 9.33
+  },
+  {
+   "shape": 3,
+   "coat": "short_jacket",
+   "min_clearance_mm": 6.11
+  },
+  {
+   "shape": 3,
+   "coat": "shell_cs",
+   "min_clearance_mm": 7.82
+  },
+  {
+   "shape": 3,
+   "coat": "zouave",
+   "min_clearance_mm": 7.91
+  },
+  {
+   "shape": 3,
+   "coat": "tunic6",
+   "min_clearance_mm": 10.74
+  },
+  {
+   "shape": 3,
+   "coat": "civilian",
+   "min_clearance_mm": 20.29
+  },
+  {
+   "shape": 3,
+   "coat": "shirt",
+   "min_clearance_mm": 12.53
+  },
+  {
+   "shape": 4,
+   "coat": "sack",
+   "min_clearance_mm": 23.21
+  },
+  {
+   "shape": 4,
+   "coat": "frock",
+   "min_clearance_mm": 7.68
+  },
+  {
+   "shape": 4,
+   "coat": "frock_double",
+   "min_clearance_mm": 9.32
+  },
+  {
+   "shape": 4,
+   "coat": "short_jacket",
+   "min_clearance_mm": 6.1
+  },
+  {
+   "shape": 4,
+   "coat": "shell_cs",
+   "min_clearance_mm": 7.82
+  },
+  {
+   "shape": 4,
+   "coat": "zouave",
+   "min_clearance_mm": 7.91
+  },
+  {
+   "shape": 4,
+   "coat": "tunic6",
+   "min_clearance_mm": 10.73
+  },
+  {
+   "shape": 4,
+   "coat": "civilian",
+   "min_clearance_mm": 20.27
+  },
+  {
+   "shape": 4,
+   "coat": "shirt",
+   "min_clearance_mm": 12.52
+  },
+  {
+   "shape": 5,
+   "coat": "sack",
+   "min_clearance_mm": 23.19
+  },
+  {
+   "shape": 5,
+   "coat": "frock",
+   "min_clearance_mm": 7.67
+  },
+  {
+   "shape": 5,
+   "coat": "frock_double",
+   "min_clearance_mm": 9.32
+  },
+  {
+   "shape": 5,
+   "coat": "short_jacket",
+   "min_clearance_mm": 6.1
+  },
+  {
+   "shape": 5,
+   "coat": "shell_cs",
+   "min_clearance_mm": 7.81
+  },
+  {
+   "shape": 5,
+   "coat": "zouave",
+   "min_clearance_mm": 7.9
+  },
+  {
+   "shape": 5,
+   "coat": "tunic6",
+   "min_clearance_mm": 10.73
+  },
+  {
+   "shape": 5,
+   "coat": "civilian",
+   "min_clearance_mm": 20.25
+  },
+  {
+   "shape": 5,
+   "coat": "shirt",
+   "min_clearance_mm": 12.51
+  },
+  {
+   "shape": 6,
+   "coat": "sack",
+   "min_clearance_mm": 23.38
+  },
+  {
+   "shape": 6,
+   "coat": "frock",
+   "min_clearance_mm": 7.74
+  },
+  {
+   "shape": 6,
+   "coat": "frock_double",
+   "min_clearance_mm": 9.39
+  },
+  {
+   "shape": 6,
+   "coat": "short_jacket",
+   "min_clearance_mm": 6.15
+  },
+  {
+   "shape": 6,
+   "coat": "shell_cs",
+   "min_clearance_mm": 7.87
+  },
+  {
+   "shape": 6,
+   "coat": "zouave",
+   "min_clearance_mm": 7.96
+  },
+  {
+   "shape": 6,
+   "coat": "tunic6",
+   "min_clearance_mm": 10.81
+  },
+  {
+   "shape": 6,
+   "coat": "civilian",
+   "min_clearance_mm": 20.41
+  },
+  {
+   "shape": 6,
+   "coat": "shirt",
+   "min_clearance_mm": 12.62
+  },
+  {
+   "shape": 7,
+   "coat": "sack",
+   "min_clearance_mm": 23.35
+  },
+  {
+   "shape": 7,
+   "coat": "frock",
+   "min_clearance_mm": 7.73
+  },
+  {
+   "shape": 7,
+   "coat": "frock_double",
+   "min_clearance_mm": 9.38
+  },
+  {
+   "shape": 7,
+   "coat": "short_jacket",
+   "min_clearance_mm": 6.14
+  },
+  {
+   "shape": 7,
+   "coat": "shell_cs",
+   "min_clearance_mm": 7.87
+  },
+  {
+   "shape": 7,
+   "coat": "zouave",
+   "min_clearance_mm": 7.95
+  },
+  {
+   "shape": 7,
+   "coat": "tunic6",
+   "min_clearance_mm": 10.8
+  },
+  {
+   "shape": 7,
+   "coat": "civilian",
+   "min_clearance_mm": 20.39
+  },
+  {
+   "shape": 7,
+   "coat": "shirt",
+   "min_clearance_mm": 12.6
+  },
+  {
+   "shape": 8,
+   "coat": "sack",
+   "min_clearance_mm": 23.33
+  },
+  {
+   "shape": 8,
+   "coat": "frock",
+   "min_clearance_mm": 7.72
+  },
+  {
+   "shape": 8,
+   "coat": "frock_double",
+   "min_clearance_mm": 9.38
+  },
+  {
+   "shape": 8,
+   "coat": "short_jacket",
+   "min_clearance_mm": 6.14
+  },
+  {
+   "shape": 8,
+   "coat": "shell_cs",
+   "min_clearance_mm": 7.86
+  },
+  {
+   "shape": 8,
+   "coat": "zouave",
+   "min_clearance_mm": 7.95
+  },
+  {
+   "shape": 8,
+   "coat": "tunic6",
+   "min_clearance_mm": 10.8
+  },
+  {
+   "shape": 8,
+   "coat": "civilian",
+   "min_clearance_mm": 20.37
+  },
+  {
+   "shape": 8,
+   "coat": "shirt",
+   "min_clearance_mm": 12.59
+  },
+  {
+   "shape": 9,
+   "coat": "sack",
+   "min_clearance_mm": 23.5
+  },
+  {
+   "shape": 9,
+   "coat": "frock",
+   "min_clearance_mm": 7.78
+  },
+  {
+   "shape": 9,
+   "coat": "frock_double",
+   "min_clearance_mm": 9.44
+  },
+  {
+   "shape": 9,
+   "coat": "short_jacket",
+   "min_clearance_mm": 6.18
+  },
+  {
+   "shape": 9,
+   "coat": "shell_cs",
+   "min_clearance_mm": 7.92
+  },
+  {
+   "shape": 9,
+   "coat": "zouave",
+   "min_clearance_mm": 8
+  },
+  {
+   "shape": 9,
+   "coat": "tunic6",
+   "min_clearance_mm": 10.87
+  },
+  {
+   "shape": 9,
+   "coat": "civilian",
+   "min_clearance_mm": 20.52
+  },
+  {
+   "shape": 9,
+   "coat": "shirt",
+   "min_clearance_mm": 12.69
+  },
+  {
+   "shape": 10,
+   "coat": "sack",
+   "min_clearance_mm": 23.47
+  },
+  {
+   "shape": 10,
+   "coat": "frock",
+   "min_clearance_mm": 7.77
+  },
+  {
+   "shape": 10,
+   "coat": "frock_double",
+   "min_clearance_mm": 9.44
+  },
+  {
+   "shape": 10,
+   "coat": "short_jacket",
+   "min_clearance_mm": 6.17
+  },
+  {
+   "shape": 10,
+   "coat": "shell_cs",
+   "min_clearance_mm": 7.91
+  },
+  {
+   "shape": 10,
+   "coat": "zouave",
+   "min_clearance_mm": 7.99
+  },
+  {
+   "shape": 10,
+   "coat": "tunic6",
+   "min_clearance_mm": 10.86
+  },
+  {
+   "shape": 10,
+   "coat": "civilian",
+   "min_clearance_mm": 20.49
+  },
+  {
+   "shape": 10,
+   "coat": "shirt",
+   "min_clearance_mm": 12.67
+  },
+  {
+   "shape": 11,
+   "coat": "sack",
+   "min_clearance_mm": 23.45
+  },
+  {
+   "shape": 11,
+   "coat": "frock",
+   "min_clearance_mm": 7.76
+  },
+  {
+   "shape": 11,
+   "coat": "frock_double",
+   "min_clearance_mm": 9.43
+  },
+  {
+   "shape": 11,
+   "coat": "short_jacket",
+   "min_clearance_mm": 6.17
+  },
+  {
+   "shape": 11,
+   "coat": "shell_cs",
+   "min_clearance_mm": 7.9
+  },
+  {
+   "shape": 11,
+   "coat": "zouave",
+   "min_clearance_mm": 7.99
+  },
+  {
+   "shape": 11,
+   "coat": "tunic6",
+   "min_clearance_mm": 10.85
+  },
+  {
+   "shape": 11,
+   "coat": "civilian",
+   "min_clearance_mm": 20.47
+  },
+  {
+   "shape": 11,
+   "coat": "shirt",
+   "min_clearance_mm": 12.66
+  }
+ ],
+ "trousers_in_skirt": [
+  {
+   "shape": 0,
+   "coat": "sack",
+   "trousers": "straight",
+   "counted": 257,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "coat": "sack",
+   "trousers": "loose",
+   "counted": 265,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "coat": "sack",
+   "trousers": "baggy",
+   "counted": 285,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "coat": "sack",
+   "trousers": "chasseur",
+   "counted": 271,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "coat": "frock",
+   "trousers": "straight",
+   "counted": 292,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "coat": "frock",
+   "trousers": "loose",
+   "counted": 309,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "coat": "frock",
+   "trousers": "baggy",
+   "counted": 451,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "coat": "frock",
+   "trousers": "chasseur",
+   "counted": 391,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "coat": "frock_double",
+   "trousers": "straight",
+   "counted": 288,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "coat": "frock_double",
+   "trousers": "loose",
+   "counted": 303,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "coat": "frock_double",
+   "trousers": "baggy",
+   "counted": 449,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "coat": "frock_double",
+   "trousers": "chasseur",
+   "counted": 380,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "coat": "civilian",
+   "trousers": "straight",
+   "counted": 260,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "coat": "civilian",
+   "trousers": "loose",
+   "counted": 292,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "coat": "civilian",
+   "trousers": "baggy",
+   "counted": 371,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "coat": "civilian",
+   "trousers": "chasseur",
+   "counted": 329,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "coat": "tunic6",
+   "trousers": "straight",
+   "counted": 287,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "coat": "tunic6",
+   "trousers": "loose",
+   "counted": 293,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "coat": "tunic6",
+   "trousers": "baggy",
+   "counted": 317,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "coat": "tunic6",
+   "trousers": "chasseur",
+   "counted": 301,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "coat": "sack",
+   "trousers": "straight",
+   "counted": 257,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "coat": "sack",
+   "trousers": "loose",
+   "counted": 265,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "coat": "sack",
+   "trousers": "baggy",
+   "counted": 285,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "coat": "sack",
+   "trousers": "chasseur",
+   "counted": 271,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "coat": "frock",
+   "trousers": "straight",
+   "counted": 292,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "coat": "frock",
+   "trousers": "loose",
+   "counted": 309,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "coat": "frock",
+   "trousers": "baggy",
+   "counted": 451,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "coat": "frock",
+   "trousers": "chasseur",
+   "counted": 391,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "coat": "frock_double",
+   "trousers": "straight",
+   "counted": 288,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "coat": "frock_double",
+   "trousers": "loose",
+   "counted": 303,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "coat": "frock_double",
+   "trousers": "baggy",
+   "counted": 449,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "coat": "frock_double",
+   "trousers": "chasseur",
+   "counted": 380,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "coat": "civilian",
+   "trousers": "straight",
+   "counted": 260,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "coat": "civilian",
+   "trousers": "loose",
+   "counted": 292,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "coat": "civilian",
+   "trousers": "baggy",
+   "counted": 371,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "coat": "civilian",
+   "trousers": "chasseur",
+   "counted": 329,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "coat": "tunic6",
+   "trousers": "straight",
+   "counted": 287,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "coat": "tunic6",
+   "trousers": "loose",
+   "counted": 293,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "coat": "tunic6",
+   "trousers": "baggy",
+   "counted": 317,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "coat": "tunic6",
+   "trousers": "chasseur",
+   "counted": 301,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "coat": "sack",
+   "trousers": "straight",
+   "counted": 257,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "coat": "sack",
+   "trousers": "loose",
+   "counted": 265,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "coat": "sack",
+   "trousers": "baggy",
+   "counted": 285,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "coat": "sack",
+   "trousers": "chasseur",
+   "counted": 271,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "coat": "frock",
+   "trousers": "straight",
+   "counted": 292,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "coat": "frock",
+   "trousers": "loose",
+   "counted": 309,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "coat": "frock",
+   "trousers": "baggy",
+   "counted": 451,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "coat": "frock",
+   "trousers": "chasseur",
+   "counted": 391,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "coat": "frock_double",
+   "trousers": "straight",
+   "counted": 288,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "coat": "frock_double",
+   "trousers": "loose",
+   "counted": 303,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "coat": "frock_double",
+   "trousers": "baggy",
+   "counted": 449,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "coat": "frock_double",
+   "trousers": "chasseur",
+   "counted": 380,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "coat": "civilian",
+   "trousers": "straight",
+   "counted": 260,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "coat": "civilian",
+   "trousers": "loose",
+   "counted": 292,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "coat": "civilian",
+   "trousers": "baggy",
+   "counted": 371,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "coat": "civilian",
+   "trousers": "chasseur",
+   "counted": 329,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "coat": "tunic6",
+   "trousers": "straight",
+   "counted": 287,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "coat": "tunic6",
+   "trousers": "loose",
+   "counted": 293,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "coat": "tunic6",
+   "trousers": "baggy",
+   "counted": 317,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "coat": "tunic6",
+   "trousers": "chasseur",
+   "counted": 301,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "coat": "sack",
+   "trousers": "straight",
+   "counted": 254,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "coat": "sack",
+   "trousers": "loose",
+   "counted": 262,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "coat": "sack",
+   "trousers": "baggy",
+   "counted": 285,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "coat": "sack",
+   "trousers": "chasseur",
+   "counted": 270,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "coat": "frock",
+   "trousers": "straight",
+   "counted": 289,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "coat": "frock",
+   "trousers": "loose",
+   "counted": 302,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "coat": "frock",
+   "trousers": "baggy",
+   "counted": 449,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "coat": "frock",
+   "trousers": "chasseur",
+   "counted": 383,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "coat": "frock_double",
+   "trousers": "straight",
+   "counted": 283,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "coat": "frock_double",
+   "trousers": "loose",
+   "counted": 298,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "coat": "frock_double",
+   "trousers": "baggy",
+   "counted": 446,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "coat": "frock_double",
+   "trousers": "chasseur",
+   "counted": 373,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "coat": "civilian",
+   "trousers": "straight",
+   "counted": 254,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "coat": "civilian",
+   "trousers": "loose",
+   "counted": 277,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "coat": "civilian",
+   "trousers": "baggy",
+   "counted": 371,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "coat": "civilian",
+   "trousers": "chasseur",
+   "counted": 327,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "coat": "tunic6",
+   "trousers": "straight",
+   "counted": 285,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "coat": "tunic6",
+   "trousers": "loose",
+   "counted": 292,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "coat": "tunic6",
+   "trousers": "baggy",
+   "counted": 315,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "coat": "tunic6",
+   "trousers": "chasseur",
+   "counted": 301,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "coat": "sack",
+   "trousers": "straight",
+   "counted": 254,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "coat": "sack",
+   "trousers": "loose",
+   "counted": 262,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "coat": "sack",
+   "trousers": "baggy",
+   "counted": 285,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "coat": "sack",
+   "trousers": "chasseur",
+   "counted": 270,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "coat": "frock",
+   "trousers": "straight",
+   "counted": 289,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "coat": "frock",
+   "trousers": "loose",
+   "counted": 302,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "coat": "frock",
+   "trousers": "baggy",
+   "counted": 449,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "coat": "frock",
+   "trousers": "chasseur",
+   "counted": 383,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "coat": "frock_double",
+   "trousers": "straight",
+   "counted": 283,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "coat": "frock_double",
+   "trousers": "loose",
+   "counted": 298,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "coat": "frock_double",
+   "trousers": "baggy",
+   "counted": 446,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "coat": "frock_double",
+   "trousers": "chasseur",
+   "counted": 373,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "coat": "civilian",
+   "trousers": "straight",
+   "counted": 254,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "coat": "civilian",
+   "trousers": "loose",
+   "counted": 277,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "coat": "civilian",
+   "trousers": "baggy",
+   "counted": 371,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "coat": "civilian",
+   "trousers": "chasseur",
+   "counted": 327,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "coat": "tunic6",
+   "trousers": "straight",
+   "counted": 285,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "coat": "tunic6",
+   "trousers": "loose",
+   "counted": 292,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "coat": "tunic6",
+   "trousers": "baggy",
+   "counted": 315,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "coat": "tunic6",
+   "trousers": "chasseur",
+   "counted": 301,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "coat": "sack",
+   "trousers": "straight",
+   "counted": 254,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "coat": "sack",
+   "trousers": "loose",
+   "counted": 262,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "coat": "sack",
+   "trousers": "baggy",
+   "counted": 285,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "coat": "sack",
+   "trousers": "chasseur",
+   "counted": 270,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "coat": "frock",
+   "trousers": "straight",
+   "counted": 289,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "coat": "frock",
+   "trousers": "loose",
+   "counted": 302,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "coat": "frock",
+   "trousers": "baggy",
+   "counted": 449,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "coat": "frock",
+   "trousers": "chasseur",
+   "counted": 383,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "coat": "frock_double",
+   "trousers": "straight",
+   "counted": 283,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "coat": "frock_double",
+   "trousers": "loose",
+   "counted": 298,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "coat": "frock_double",
+   "trousers": "baggy",
+   "counted": 446,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "coat": "frock_double",
+   "trousers": "chasseur",
+   "counted": 373,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "coat": "civilian",
+   "trousers": "straight",
+   "counted": 254,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "coat": "civilian",
+   "trousers": "loose",
+   "counted": 277,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "coat": "civilian",
+   "trousers": "baggy",
+   "counted": 371,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "coat": "civilian",
+   "trousers": "chasseur",
+   "counted": 327,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "coat": "tunic6",
+   "trousers": "straight",
+   "counted": 285,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "coat": "tunic6",
+   "trousers": "loose",
+   "counted": 292,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "coat": "tunic6",
+   "trousers": "baggy",
+   "counted": 315,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "coat": "tunic6",
+   "trousers": "chasseur",
+   "counted": 301,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "coat": "sack",
+   "trousers": "straight",
+   "counted": 251,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "coat": "sack",
+   "trousers": "loose",
+   "counted": 260,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "coat": "sack",
+   "trousers": "baggy",
+   "counted": 285,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "coat": "sack",
+   "trousers": "chasseur",
+   "counted": 269,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "coat": "frock",
+   "trousers": "straight",
+   "counted": 282,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "coat": "frock",
+   "trousers": "loose",
+   "counted": 296,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "coat": "frock",
+   "trousers": "baggy",
+   "counted": 447,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "coat": "frock",
+   "trousers": "chasseur",
+   "counted": 375,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "coat": "frock_double",
+   "trousers": "straight",
+   "counted": 268,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "coat": "frock_double",
+   "trousers": "loose",
+   "counted": 291,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "coat": "frock_double",
+   "trousers": "baggy",
+   "counted": 445,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "coat": "frock_double",
+   "trousers": "chasseur",
+   "counted": 368,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "coat": "civilian",
+   "trousers": "straight",
+   "counted": 249,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "coat": "civilian",
+   "trousers": "loose",
+   "counted": 266,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "coat": "civilian",
+   "trousers": "baggy",
+   "counted": 370,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "coat": "civilian",
+   "trousers": "chasseur",
+   "counted": 324,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "coat": "tunic6",
+   "trousers": "straight",
+   "counted": 280,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "coat": "tunic6",
+   "trousers": "loose",
+   "counted": 288,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "coat": "tunic6",
+   "trousers": "baggy",
+   "counted": 314,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "coat": "tunic6",
+   "trousers": "chasseur",
+   "counted": 301,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "coat": "sack",
+   "trousers": "straight",
+   "counted": 251,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "coat": "sack",
+   "trousers": "loose",
+   "counted": 260,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "coat": "sack",
+   "trousers": "baggy",
+   "counted": 285,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "coat": "sack",
+   "trousers": "chasseur",
+   "counted": 269,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "coat": "frock",
+   "trousers": "straight",
+   "counted": 282,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "coat": "frock",
+   "trousers": "loose",
+   "counted": 296,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "coat": "frock",
+   "trousers": "baggy",
+   "counted": 447,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "coat": "frock",
+   "trousers": "chasseur",
+   "counted": 375,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "coat": "frock_double",
+   "trousers": "straight",
+   "counted": 268,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "coat": "frock_double",
+   "trousers": "loose",
+   "counted": 291,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "coat": "frock_double",
+   "trousers": "baggy",
+   "counted": 445,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "coat": "frock_double",
+   "trousers": "chasseur",
+   "counted": 368,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "coat": "civilian",
+   "trousers": "straight",
+   "counted": 249,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "coat": "civilian",
+   "trousers": "loose",
+   "counted": 266,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "coat": "civilian",
+   "trousers": "baggy",
+   "counted": 370,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "coat": "civilian",
+   "trousers": "chasseur",
+   "counted": 324,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "coat": "tunic6",
+   "trousers": "straight",
+   "counted": 280,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "coat": "tunic6",
+   "trousers": "loose",
+   "counted": 288,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "coat": "tunic6",
+   "trousers": "baggy",
+   "counted": 314,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "coat": "tunic6",
+   "trousers": "chasseur",
+   "counted": 301,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "coat": "sack",
+   "trousers": "straight",
+   "counted": 251,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "coat": "sack",
+   "trousers": "loose",
+   "counted": 260,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "coat": "sack",
+   "trousers": "baggy",
+   "counted": 285,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "coat": "sack",
+   "trousers": "chasseur",
+   "counted": 269,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "coat": "frock",
+   "trousers": "straight",
+   "counted": 282,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "coat": "frock",
+   "trousers": "loose",
+   "counted": 296,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "coat": "frock",
+   "trousers": "baggy",
+   "counted": 447,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "coat": "frock",
+   "trousers": "chasseur",
+   "counted": 375,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "coat": "frock_double",
+   "trousers": "straight",
+   "counted": 268,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "coat": "frock_double",
+   "trousers": "loose",
+   "counted": 291,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "coat": "frock_double",
+   "trousers": "baggy",
+   "counted": 445,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "coat": "frock_double",
+   "trousers": "chasseur",
+   "counted": 368,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "coat": "civilian",
+   "trousers": "straight",
+   "counted": 249,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "coat": "civilian",
+   "trousers": "loose",
+   "counted": 266,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "coat": "civilian",
+   "trousers": "baggy",
+   "counted": 370,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "coat": "civilian",
+   "trousers": "chasseur",
+   "counted": 324,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "coat": "tunic6",
+   "trousers": "straight",
+   "counted": 280,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "coat": "tunic6",
+   "trousers": "loose",
+   "counted": 288,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "coat": "tunic6",
+   "trousers": "baggy",
+   "counted": 314,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "coat": "tunic6",
+   "trousers": "chasseur",
+   "counted": 301,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "coat": "sack",
+   "trousers": "straight",
+   "counted": 251,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "coat": "sack",
+   "trousers": "loose",
+   "counted": 258,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "coat": "sack",
+   "trousers": "baggy",
+   "counted": 285,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "coat": "sack",
+   "trousers": "chasseur",
+   "counted": 268,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "coat": "frock",
+   "trousers": "straight",
+   "counted": 268,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "coat": "frock",
+   "trousers": "loose",
+   "counted": 290,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "coat": "frock",
+   "trousers": "baggy",
+   "counted": 442,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "coat": "frock",
+   "trousers": "chasseur",
+   "counted": 369,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "coat": "frock_double",
+   "trousers": "straight",
+   "counted": 262,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "coat": "frock_double",
+   "trousers": "loose",
+   "counted": 288,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "coat": "frock_double",
+   "trousers": "baggy",
+   "counted": 440,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "coat": "frock_double",
+   "trousers": "chasseur",
+   "counted": 364,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "coat": "civilian",
+   "trousers": "straight",
+   "counted": 245,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "coat": "civilian",
+   "trousers": "loose",
+   "counted": 262,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "coat": "civilian",
+   "trousers": "baggy",
+   "counted": 370,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "coat": "civilian",
+   "trousers": "chasseur",
+   "counted": 320,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "coat": "tunic6",
+   "trousers": "straight",
+   "counted": 276,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "coat": "tunic6",
+   "trousers": "loose",
+   "counted": 285,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "coat": "tunic6",
+   "trousers": "baggy",
+   "counted": 312,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "coat": "tunic6",
+   "trousers": "chasseur",
+   "counted": 299,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "coat": "sack",
+   "trousers": "straight",
+   "counted": 251,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "coat": "sack",
+   "trousers": "loose",
+   "counted": 258,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "coat": "sack",
+   "trousers": "baggy",
+   "counted": 285,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "coat": "sack",
+   "trousers": "chasseur",
+   "counted": 268,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "coat": "frock",
+   "trousers": "straight",
+   "counted": 268,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "coat": "frock",
+   "trousers": "loose",
+   "counted": 290,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "coat": "frock",
+   "trousers": "baggy",
+   "counted": 442,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "coat": "frock",
+   "trousers": "chasseur",
+   "counted": 369,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "coat": "frock_double",
+   "trousers": "straight",
+   "counted": 262,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "coat": "frock_double",
+   "trousers": "loose",
+   "counted": 288,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "coat": "frock_double",
+   "trousers": "baggy",
+   "counted": 440,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "coat": "frock_double",
+   "trousers": "chasseur",
+   "counted": 364,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "coat": "civilian",
+   "trousers": "straight",
+   "counted": 245,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "coat": "civilian",
+   "trousers": "loose",
+   "counted": 262,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "coat": "civilian",
+   "trousers": "baggy",
+   "counted": 370,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "coat": "civilian",
+   "trousers": "chasseur",
+   "counted": 320,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "coat": "tunic6",
+   "trousers": "straight",
+   "counted": 276,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "coat": "tunic6",
+   "trousers": "loose",
+   "counted": 285,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "coat": "tunic6",
+   "trousers": "baggy",
+   "counted": 312,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "coat": "tunic6",
+   "trousers": "chasseur",
+   "counted": 299,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "coat": "sack",
+   "trousers": "straight",
+   "counted": 251,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "coat": "sack",
+   "trousers": "loose",
+   "counted": 258,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "coat": "sack",
+   "trousers": "baggy",
+   "counted": 285,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "coat": "sack",
+   "trousers": "chasseur",
+   "counted": 268,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "coat": "frock",
+   "trousers": "straight",
+   "counted": 268,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "coat": "frock",
+   "trousers": "loose",
+   "counted": 290,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "coat": "frock",
+   "trousers": "baggy",
+   "counted": 442,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "coat": "frock",
+   "trousers": "chasseur",
+   "counted": 369,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "coat": "frock_double",
+   "trousers": "straight",
+   "counted": 262,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "coat": "frock_double",
+   "trousers": "loose",
+   "counted": 288,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "coat": "frock_double",
+   "trousers": "baggy",
+   "counted": 440,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "coat": "frock_double",
+   "trousers": "chasseur",
+   "counted": 364,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "coat": "civilian",
+   "trousers": "straight",
+   "counted": 245,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "coat": "civilian",
+   "trousers": "loose",
+   "counted": 262,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "coat": "civilian",
+   "trousers": "baggy",
+   "counted": 370,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "coat": "civilian",
+   "trousers": "chasseur",
+   "counted": 320,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "coat": "tunic6",
+   "trousers": "straight",
+   "counted": 276,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "coat": "tunic6",
+   "trousers": "loose",
+   "counted": 285,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "coat": "tunic6",
+   "trousers": "baggy",
+   "counted": 312,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "coat": "tunic6",
+   "trousers": "chasseur",
+   "counted": 299,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  }
+ ],
+ "trousers_in_footwear": [
+  {
+   "shape": 0,
+   "foot": "brogan",
+   "trousers": "straight",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "foot": "brogan",
+   "trousers": "loose",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "foot": "brogan",
+   "trousers": "baggy",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "foot": "brogan",
+   "trousers": "chasseur",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "foot": "boot_tall",
+   "trousers": "straight",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "foot": "boot_tall",
+   "trousers": "loose",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "foot": "boot_tall",
+   "trousers": "baggy",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "foot": "boot_tall",
+   "trousers": "chasseur",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "foot": "gaiter",
+   "trousers": "straight",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "foot": "gaiter",
+   "trousers": "loose",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "foot": "gaiter",
+   "trousers": "baggy",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "foot": "gaiter",
+   "trousers": "chasseur",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "foot": "legging",
+   "trousers": "straight",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "foot": "legging",
+   "trousers": "loose",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "foot": "legging",
+   "trousers": "baggy",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 0,
+   "foot": "legging",
+   "trousers": "chasseur",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "foot": "brogan",
+   "trousers": "straight",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "foot": "brogan",
+   "trousers": "loose",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "foot": "brogan",
+   "trousers": "baggy",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "foot": "brogan",
+   "trousers": "chasseur",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "foot": "boot_tall",
+   "trousers": "straight",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "foot": "boot_tall",
+   "trousers": "loose",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "foot": "boot_tall",
+   "trousers": "baggy",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "foot": "boot_tall",
+   "trousers": "chasseur",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "foot": "gaiter",
+   "trousers": "straight",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "foot": "gaiter",
+   "trousers": "loose",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "foot": "gaiter",
+   "trousers": "baggy",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "foot": "gaiter",
+   "trousers": "chasseur",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "foot": "legging",
+   "trousers": "straight",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "foot": "legging",
+   "trousers": "loose",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "foot": "legging",
+   "trousers": "baggy",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 1,
+   "foot": "legging",
+   "trousers": "chasseur",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "foot": "brogan",
+   "trousers": "straight",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "foot": "brogan",
+   "trousers": "loose",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "foot": "brogan",
+   "trousers": "baggy",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "foot": "brogan",
+   "trousers": "chasseur",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "foot": "boot_tall",
+   "trousers": "straight",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "foot": "boot_tall",
+   "trousers": "loose",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "foot": "boot_tall",
+   "trousers": "baggy",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "foot": "boot_tall",
+   "trousers": "chasseur",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "foot": "gaiter",
+   "trousers": "straight",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "foot": "gaiter",
+   "trousers": "loose",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "foot": "gaiter",
+   "trousers": "baggy",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "foot": "gaiter",
+   "trousers": "chasseur",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "foot": "legging",
+   "trousers": "straight",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "foot": "legging",
+   "trousers": "loose",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "foot": "legging",
+   "trousers": "baggy",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 2,
+   "foot": "legging",
+   "trousers": "chasseur",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "foot": "brogan",
+   "trousers": "straight",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "foot": "brogan",
+   "trousers": "loose",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "foot": "brogan",
+   "trousers": "baggy",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "foot": "brogan",
+   "trousers": "chasseur",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "foot": "boot_tall",
+   "trousers": "straight",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "foot": "boot_tall",
+   "trousers": "loose",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "foot": "boot_tall",
+   "trousers": "baggy",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "foot": "boot_tall",
+   "trousers": "chasseur",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "foot": "gaiter",
+   "trousers": "straight",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "foot": "gaiter",
+   "trousers": "loose",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "foot": "gaiter",
+   "trousers": "baggy",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "foot": "gaiter",
+   "trousers": "chasseur",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "foot": "legging",
+   "trousers": "straight",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "foot": "legging",
+   "trousers": "loose",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "foot": "legging",
+   "trousers": "baggy",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 3,
+   "foot": "legging",
+   "trousers": "chasseur",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "foot": "brogan",
+   "trousers": "straight",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "foot": "brogan",
+   "trousers": "loose",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "foot": "brogan",
+   "trousers": "baggy",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "foot": "brogan",
+   "trousers": "chasseur",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "foot": "boot_tall",
+   "trousers": "straight",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "foot": "boot_tall",
+   "trousers": "loose",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "foot": "boot_tall",
+   "trousers": "baggy",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "foot": "boot_tall",
+   "trousers": "chasseur",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "foot": "gaiter",
+   "trousers": "straight",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "foot": "gaiter",
+   "trousers": "loose",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "foot": "gaiter",
+   "trousers": "baggy",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "foot": "gaiter",
+   "trousers": "chasseur",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "foot": "legging",
+   "trousers": "straight",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "foot": "legging",
+   "trousers": "loose",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "foot": "legging",
+   "trousers": "baggy",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 4,
+   "foot": "legging",
+   "trousers": "chasseur",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "foot": "brogan",
+   "trousers": "straight",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "foot": "brogan",
+   "trousers": "loose",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "foot": "brogan",
+   "trousers": "baggy",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "foot": "brogan",
+   "trousers": "chasseur",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "foot": "boot_tall",
+   "trousers": "straight",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "foot": "boot_tall",
+   "trousers": "loose",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "foot": "boot_tall",
+   "trousers": "baggy",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "foot": "boot_tall",
+   "trousers": "chasseur",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "foot": "gaiter",
+   "trousers": "straight",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "foot": "gaiter",
+   "trousers": "loose",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "foot": "gaiter",
+   "trousers": "baggy",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "foot": "gaiter",
+   "trousers": "chasseur",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "foot": "legging",
+   "trousers": "straight",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "foot": "legging",
+   "trousers": "loose",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "foot": "legging",
+   "trousers": "baggy",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 5,
+   "foot": "legging",
+   "trousers": "chasseur",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "foot": "brogan",
+   "trousers": "straight",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "foot": "brogan",
+   "trousers": "loose",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "foot": "brogan",
+   "trousers": "baggy",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "foot": "brogan",
+   "trousers": "chasseur",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "foot": "boot_tall",
+   "trousers": "straight",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "foot": "boot_tall",
+   "trousers": "loose",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "foot": "boot_tall",
+   "trousers": "baggy",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "foot": "boot_tall",
+   "trousers": "chasseur",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "foot": "gaiter",
+   "trousers": "straight",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "foot": "gaiter",
+   "trousers": "loose",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "foot": "gaiter",
+   "trousers": "baggy",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "foot": "gaiter",
+   "trousers": "chasseur",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "foot": "legging",
+   "trousers": "straight",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "foot": "legging",
+   "trousers": "loose",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "foot": "legging",
+   "trousers": "baggy",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 6,
+   "foot": "legging",
+   "trousers": "chasseur",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "foot": "brogan",
+   "trousers": "straight",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "foot": "brogan",
+   "trousers": "loose",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "foot": "brogan",
+   "trousers": "baggy",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "foot": "brogan",
+   "trousers": "chasseur",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "foot": "boot_tall",
+   "trousers": "straight",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "foot": "boot_tall",
+   "trousers": "loose",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "foot": "boot_tall",
+   "trousers": "baggy",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "foot": "boot_tall",
+   "trousers": "chasseur",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "foot": "gaiter",
+   "trousers": "straight",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "foot": "gaiter",
+   "trousers": "loose",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "foot": "gaiter",
+   "trousers": "baggy",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "foot": "gaiter",
+   "trousers": "chasseur",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "foot": "legging",
+   "trousers": "straight",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "foot": "legging",
+   "trousers": "loose",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "foot": "legging",
+   "trousers": "baggy",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 7,
+   "foot": "legging",
+   "trousers": "chasseur",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "foot": "brogan",
+   "trousers": "straight",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "foot": "brogan",
+   "trousers": "loose",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "foot": "brogan",
+   "trousers": "baggy",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "foot": "brogan",
+   "trousers": "chasseur",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "foot": "boot_tall",
+   "trousers": "straight",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "foot": "boot_tall",
+   "trousers": "loose",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "foot": "boot_tall",
+   "trousers": "baggy",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "foot": "boot_tall",
+   "trousers": "chasseur",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "foot": "gaiter",
+   "trousers": "straight",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "foot": "gaiter",
+   "trousers": "loose",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "foot": "gaiter",
+   "trousers": "baggy",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "foot": "gaiter",
+   "trousers": "chasseur",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "foot": "legging",
+   "trousers": "straight",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "foot": "legging",
+   "trousers": "loose",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "foot": "legging",
+   "trousers": "baggy",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 8,
+   "foot": "legging",
+   "trousers": "chasseur",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "foot": "brogan",
+   "trousers": "straight",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "foot": "brogan",
+   "trousers": "loose",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "foot": "brogan",
+   "trousers": "baggy",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "foot": "brogan",
+   "trousers": "chasseur",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "foot": "boot_tall",
+   "trousers": "straight",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "foot": "boot_tall",
+   "trousers": "loose",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "foot": "boot_tall",
+   "trousers": "baggy",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "foot": "boot_tall",
+   "trousers": "chasseur",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "foot": "gaiter",
+   "trousers": "straight",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "foot": "gaiter",
+   "trousers": "loose",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "foot": "gaiter",
+   "trousers": "baggy",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "foot": "gaiter",
+   "trousers": "chasseur",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "foot": "legging",
+   "trousers": "straight",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "foot": "legging",
+   "trousers": "loose",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "foot": "legging",
+   "trousers": "baggy",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 9,
+   "foot": "legging",
+   "trousers": "chasseur",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "foot": "brogan",
+   "trousers": "straight",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "foot": "brogan",
+   "trousers": "loose",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "foot": "brogan",
+   "trousers": "baggy",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "foot": "brogan",
+   "trousers": "chasseur",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "foot": "boot_tall",
+   "trousers": "straight",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "foot": "boot_tall",
+   "trousers": "loose",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "foot": "boot_tall",
+   "trousers": "baggy",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "foot": "boot_tall",
+   "trousers": "chasseur",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "foot": "gaiter",
+   "trousers": "straight",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "foot": "gaiter",
+   "trousers": "loose",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "foot": "gaiter",
+   "trousers": "baggy",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "foot": "gaiter",
+   "trousers": "chasseur",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "foot": "legging",
+   "trousers": "straight",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "foot": "legging",
+   "trousers": "loose",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "foot": "legging",
+   "trousers": "baggy",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 10,
+   "foot": "legging",
+   "trousers": "chasseur",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "foot": "brogan",
+   "trousers": "straight",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "foot": "brogan",
+   "trousers": "loose",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "foot": "brogan",
+   "trousers": "baggy",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "foot": "brogan",
+   "trousers": "chasseur",
+   "counted": 164,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "foot": "boot_tall",
+   "trousers": "straight",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "foot": "boot_tall",
+   "trousers": "loose",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "foot": "boot_tall",
+   "trousers": "baggy",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "foot": "boot_tall",
+   "trousers": "chasseur",
+   "counted": 434,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "foot": "gaiter",
+   "trousers": "straight",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "foot": "gaiter",
+   "trousers": "loose",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "foot": "gaiter",
+   "trousers": "baggy",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "foot": "gaiter",
+   "trousers": "chasseur",
+   "counted": 338,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "foot": "legging",
+   "trousers": "straight",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "foot": "legging",
+   "trousers": "loose",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "foot": "legging",
+   "trousers": "baggy",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  },
+  {
+   "shape": 11,
+   "foot": "legging",
+   "trousers": "chasseur",
+   "counted": 376,
+   "worst_pokeout_mm": 0,
+   "over_tolerance": 0,
+   "at": null
+  }
+ ],
+ "summary": {
+  "shapes": 12,
+  "worst_coat_clearance_mm": 6.06,
+  "worst_skirt_pokeout_mm": 0,
+  "worst_footwear_pokeout_mm": 0,
+  "skirt_over_tolerance": 0,
+  "footwear_over_tolerance": 0
+ }
+}

@@ -35,7 +35,7 @@ const opt = (name, dflt) => { const i = argv.indexOf(`--${name}`); if (i < 0) re
 const flag = (name) => argv.includes(`--${name}`);
 const VALUE_FLAGS = new Set(['profile', 'expect-release', 'host-check', 'json', 'timeout', 'retries', 'delay', 'dup-host', 'dist', 'port']);
 const positional = argv.filter((a, i) => !a.startsWith('--') && !(i > 0 && argv[i - 1].startsWith('--') && VALUE_FLAGS.has(argv[i - 1].slice(2))));
-const TRAIN_PROFILE = { legacy: 'baseline', R0: 'baseline', R1a: 'baseline', R1b: 'baseline', R1c: 't0', R1d: 't0', S1: 's1' };
+const TRAIN_PROFILE = { legacy: 'baseline', R0: 'baseline', R1a: 'baseline', R1b: 'baseline', R1c: 't0', R1d: 't0', R1e: 't0', R1f: 't0', R1g: 't0', S1: 's1' };
 const PROFILE = String(opt('profile', TRAIN_PROFILE[process.env.PROBE_TRAIN] || 't0'));
 const TIMEOUT = Number(opt('timeout', 15000)), RETRIES = Number(opt('retries', 3)), DELAY = Number(opt('delay', 120));
 const DUP_HOST = String(opt('dup-host', 'friendly-lolly-da85c0.netlify.app'));

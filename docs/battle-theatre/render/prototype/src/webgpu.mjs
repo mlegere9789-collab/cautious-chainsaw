@@ -178,7 +178,7 @@ export class GPURenderer {
         if (L.nMM) { pass.setPipeline(this.P['midMnt' + suffix]); pass.setBindGroup(1, this.bg.midMnt); pass.setVertexBuffer(0, this.g.hrsMid.vb); pass.setIndexBuffer(this.g.hrsMid.ib, 'uint32'); pass.drawIndexed(this.g.hrsMid.n, L.nMM); } }
       if (F.guns) { pass.setPipeline(this.P['gun' + suffix]); pass.setVertexBuffer(0, this.g.gun.vb); pass.setIndexBuffer(this.g.gun.ib, 'uint32'); pass.drawIndexed(this.g.gun.n, w.guns.length); }
     };
-    if (F.shadows) for (let c = 0; c < 2; c++) { const p = enc.beginRenderPass({ colorAttachments: [], depthStencilAttachment: { view: this.shadowViews[c], depthClearValue: 1, depthLoadOp: 'clear', depthStoreOp: 'store' }, timestampWrites: ts(c) }); p.setBindGroup(0, this.bg0S, [FU_BYTES * (1 + c)]); drawChars('S', p); p.end(); }
+    if (F.shadows) for (let c = 0; c < 2; c++) { const p = enc.beginRenderPass({ colorAttachments: [], depthStencilAttachment: { view: this.shadowViews[c], depthClearValue: 1, depthLoadOp: 'clear', depthStoreOp: 'store' }, timestampWrites: ts(c) }); p.setBindGroup(0, this.bg0S, [FU_BYTES * (1 + c)]); drawChars('S', p); if (this.ext) this.ext.shadow(p, c, this); p.end(); }
     // scene
     { const p = enc.beginRenderPass({ colorAttachments: [{ view: this.hdrV, clearValue: { r: .5, g: .6, b: .8, a: 1 }, loadOp: 'clear', storeOp: 'store' }], depthStencilAttachment: { view: this.depthRT, depthClearValue: 1, depthLoadOp: 'clear', depthStoreOp: 'store' }, timestampWrites: ts(2) });
       p.setBindGroup(0, this.bg0, [0]);
@@ -186,6 +186,7 @@ export class GPURenderer {
       if (F.terrain) { p.setPipeline(this.P.terrain); for (let l = 0; l < 3; l++) if (this.chunkN[l]) { p.setVertexBuffer(0, this.tm[l].vb); p.setVertexBuffer(1, this.chunkBuf[l]); p.setIndexBuffer(this.tm[l].ib, 'uint32'); p.drawIndexed(this.tm[l].n, this.chunkN[l]); } }
       drawChars('', p);
       if (F.far) { p.setPipeline(this.P.impFoot); p.setBindGroup(1, this.bg.impFoot); p.draw(4, this.farN.foot); p.setPipeline(this.P.impMnt); p.setBindGroup(1, this.bg.impMnt); p.draw(4, this.farN.mnt); }
+      if (this.ext) this.ext.scene(p, this);       // optional extension hook (the Battle Theatre's structures); null in the prototype itself
       p.end(); }
     if (F.particles && nEv) { const p = enc.beginRenderPass({ colorAttachments: [{ view: this.hdrV, loadOp: 'load', storeOp: 'store' }], depthStencilAttachment: { view: this.depthRT, depthReadOnly: true }, timestampWrites: ts(3) }); p.setBindGroup(0, this.bg0, [0]); p.setPipeline(this.P.part); p.setBindGroup(1, this.bgPart); p.draw(4, nEv * EV_PER); p.end(); }
     const post = (pipe, target, bg, tsw) => { const p = enc.beginRenderPass({ colorAttachments: [{ view: target, loadOp: 'clear', clearValue: { r: 0, g: 0, b: 0, a: 1 }, storeOp: 'store' }], timestampWrites: tsw }); p.setBindGroup(0, this.bg0, [0]); p.setPipeline(pipe); p.setBindGroup(1, bg); p.draw(3); p.end(); };

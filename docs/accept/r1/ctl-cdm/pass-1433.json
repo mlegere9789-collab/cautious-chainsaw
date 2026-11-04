@@ -1,0 +1,662 @@
+{
+  "pass": 1433,
+  "verdict": "DEFECTS (incomplete)",
+  "startedAt": "2026-10-20T14:07:04.647Z",
+  "finishedAt": "2026-10-20T14:09:01.863Z",
+  "args": {
+    "_": [],
+    "candidate": "tmp/r1/cdm/dist",
+    "baseline": "baseline/dist",
+    "pass": "1433",
+    "only": "4",
+    "routes": "immersive",
+    "soak-seconds": "20",
+    "port-base": "12760",
+    "out-dir": "docs/accept/r1/ctl-cdm"
+  },
+  "harness": {
+    "digest": "a7c9b9797aada217bf1589f1270635a7cebd309e4be728c94685af8172f020bb",
+    "files": 32
+  },
+  "countsTowardAcceptance": false,
+  "env": {
+    "node": "v24.19.0",
+    "python": "Python 3.11.9",
+    "chrome": "Chrome/155.0.8059.82",
+    "os": "Windows_NT 10.0.26200 x64",
+    "playwrightCore": "1.63.0",
+    "axeCore": "4.13.0",
+    "cpus": 16,
+    "cpuModel": "Intel(R) Core(TM) Ultra 7 265H",
+    "memGB": 34,
+    "gitHead": "17ba8ee789133164815e11c4f2e740de86524862",
+    "portBase": 12760,
+    "tileCap": 20000,
+    "tilesUsed": 132,
+    "mapboxMapLoadsSkus": 11,
+    "tilesCapBlocked": 0,
+    "soakSeconds": 20,
+    "serverHeadersApplied": {
+      "headerBlocks": 71,
+      "redirectRules": 23,
+      "redirected": 0,
+      "headersAdded": 1257
+    }
+  },
+  "candidate": {
+    "path": "tmp\\r1\\cdm\\dist",
+    "kind": "dir",
+    "sha256": null,
+    "bytes": null,
+    "files": 127,
+    "treeSha256": "3feca5224b7584151e6dd1e360cba94cc460b1bee8acbc92c5a9143c2bc5f972",
+    "zipComment": null
+  },
+  "baseline": "baseline\\dist",
+  "thresholds": {
+    "_comment": "Green band of the end-of-mission acceptance (docs/battle-theatre/GOVERNANCE/FINAL-ACCEPTANCE.md, step 5). Any value outside the band is a defect: there is no amber that passes. Never loosen these to make a pass clean.",
+    "webVitals": {
+      "lcpMs": 2500,
+      "cls": 0.1,
+      "inpMs": 200,
+      "tbtMs": 200
+    },
+    "frames": {
+      "p95FrameMsDesktop": 20,
+      "p95FrameMsPhone": 20,
+      "maxJankFrameMs": 100,
+      "_note": "p95 frame time of requestAnimationFrame deltas while the map animation plays at 1x and 4x. maxJankFrameMs is reported as a defect only when more than 1 percent of frames exceed it."
+    },
+    "interaction": {
+      "visibleResponseMs": 100,
+      "longTaskMs": 50,
+      "longTasksPerInteraction": 0,
+      "navigationFirstPaintMs": 1000
+    },
+    "heap": {
+      "maxGrowthPercent": 10,
+      "_note": "(heap after the final forced GC - heap after warm-up and a forced GC) / heap after warm-up, over the soak. Default soak is 120 s for dry runs; the acceptance run uses --soak-seconds 600."
+    },
+    "visual": {
+      "widths": [
+        360,
+        390,
+        768,
+        1024,
+        1440,
+        1920
+      ],
+      "heights": {
+        "360": 740,
+        "390": 844,
+        "768": 1024,
+        "1024": 768,
+        "1440": 900,
+        "1920": 1080
+      },
+      "tapTargetMinPx": 44,
+      "tapTargetAppliesUpToWidth": 1024,
+      "pointerTargetMinPx": 24,
+      "minTextPx": 12,
+      "layoutShiftMax": 0.1,
+      "horizontalOverflowTolerancePx": 1
+    },
+    "regression": {
+      "pixelColorThreshold": 0.1,
+      "maxDiffRatio": 0.002,
+      "regionGrid": [
+        8,
+        6
+      ],
+      "viewports": [
+        [
+          1440,
+          900
+        ],
+        [
+          390,
+          844
+        ]
+      ]
+    },
+    "setup": {
+      "tileCapPerRun": 20000,
+      "_note": "Mapbox requests per pass through the Referer-injecting side channel of tests/t0/lib.mjs (harness default 300 per run). Mapbox bills map loads (one sku per GL JS initialisation), not tile requests; every pass reports the number of skus it used. Override with --tile-cap."
+    }
+  },
+  "routes": [
+    "/immersive"
+  ],
+  "checks": [
+    {
+      "id": "4",
+      "title": "Input matrix (desktop + phone)",
+      "status": "RAN",
+      "reason": null,
+      "defectCount": 2,
+      "noteCount": 9,
+      "notRunParts": [],
+      "ms": 116191,
+      "started": "2026-10-20T14:07:05.602Z",
+      "finished": "2026-10-20T14:09:01.786Z",
+      "commands": [],
+      "metrics": {
+        "chrome": "Chrome/155.0.8059.82",
+        "activations": {
+          "desktop": {
+            "/immersive": {
+              "total": 11,
+              "hidden": 0,
+              "disabled": 1,
+              "unnamed": 0,
+              "activations": 14
+            }
+          },
+          "phone": {
+            "/immersive": {
+              "total": 11,
+              "hidden": 0,
+              "disabled": 1,
+              "unnamed": 0,
+              "activations": 13
+            }
+          }
+        },
+        "activationRows": 27,
+        "latency": {
+          "n": 10,
+          "p50": 29.3,
+          "p95": 60.2,
+          "max": 60.2,
+          "unmeasuredFastUnder16ms": 17
+        },
+        "preferencePages": 3
+      },
+      "defects": [
+        {
+          "code": "long-task-during-interaction",
+          "where": "desktop /immersive :: button \"🔊 Enable Sound & Start\"",
+          "detail": "click: long task(s) [56] ms (limit 50 ms)"
+        },
+        {
+          "code": "long-task-during-interaction",
+          "where": "phone /immersive :: button \"🔊 Enable Sound & Start\"",
+          "detail": "tap: long task(s) [58] ms (limit 50 ms)"
+        }
+      ],
+      "notes": [
+        {
+          "code": "disabled-control-skipped",
+          "where": "desktop /immersive",
+          "detail": "button \"▶ Play\""
+        },
+        {
+          "code": "repeat-activation-no-change",
+          "where": "desktop /immersive :: slider \"Volume\"",
+          "detail": "arrow: the control received the activation but nothing visible changed (an earlier mode did change something; repeated input is idempotent?)"
+        },
+        {
+          "code": "link-not-activated",
+          "where": "desktop /immersive :: link \"Contact\"",
+          "detail": "mailto:gettysburginteractivemap@gmail.com (download/mailto/pdf: reachability is proven by the crawl in check 2)"
+        },
+        {
+          "code": "link-not-activated",
+          "where": "desktop /immersive :: link \"User Guide (PDF)\"",
+          "detail": "/user-guide.pdf (download/mailto/pdf: reachability is proven by the crawl in check 2)"
+        },
+        {
+          "code": "control-gone-after-activation",
+          "where": "desktop /immersive :: button \"🔊 Enable Sound & Start\"",
+          "detail": "the control is no longer shown after click (a dismiss/close control or a state change); enter not applicable"
+        },
+        {
+          "code": "disabled-control-skipped",
+          "where": "phone /immersive",
+          "detail": "button \"▶ Play\""
+        },
+        {
+          "code": "link-not-activated",
+          "where": "phone /immersive :: link \"Contact\"",
+          "detail": "mailto:gettysburginteractivemap@gmail.com (download/mailto/pdf: reachability is proven by the crawl in check 2)"
+        },
+        {
+          "code": "link-not-activated",
+          "where": "phone /immersive :: link \"User Guide (PDF)\"",
+          "detail": "/user-guide.pdf (download/mailto/pdf: reachability is proven by the crawl in check 2)"
+        },
+        {
+          "code": "control-gone-after-activation",
+          "where": "phone /immersive :: button \"🔊 Enable Sound & Start\"",
+          "detail": "the control is no longer shown after tap (a dismiss/close control or a state change); enter not applicable"
+        }
+      ],
+      "raw": {
+        "tab": [
+          {
+            "where": "desktop /immersive",
+            "expected": 10,
+            "stops": 10,
+            "cycled": true,
+            "unreached": 0,
+            "first": [
+              "nav#gtbg-nav>a",
+              "nav#gtbg-nav>a",
+              "nav#gtbg-nav>button#gtbg-menu-btn"
+            ]
+          }
+        ],
+        "activationRows": [
+          {
+            "shell": "desktop",
+            "page": "/immersive",
+            "control": "link:← GETTYSBURG",
+            "mode": "click",
+            "latencyMs": null,
+            "eventMs": null,
+            "longTasks": [],
+            "responded": true,
+            "pixelOnly": false,
+            "urlChanged": true,
+            "clicks": 0,
+            "navFcpMs": 128
+          },
+          {
+            "shell": "desktop",
+            "page": "/immersive",
+            "control": "link:← GETTYSBURG",
+            "mode": "enter",
+            "latencyMs": null,
+            "eventMs": null,
+            "longTasks": [],
+            "responded": true,
+            "pixelOnly": false,
+            "urlChanged": true,
+            "clicks": 0,
+            "navFcpMs": 68
+          },
+          {
+            "shell": "desktop",
+            "page": "/immersive",
+            "control": "link:Ask the Historian",
+            "mode": "click",
+            "latencyMs": null,
+            "eventMs": null,
+            "longTasks": [],
+            "responded": true,
+            "pixelOnly": false,
+            "urlChanged": true,
+            "clicks": 0,
+            "navFcpMs": 64
+          },
+          {
+            "shell": "desktop",
+            "page": "/immersive",
+            "control": "link:Ask the Historian",
+            "mode": "enter",
+            "latencyMs": null,
+            "eventMs": null,
+            "longTasks": [],
+            "responded": true,
+            "pixelOnly": false,
+            "urlChanged": true,
+            "clicks": 0,
+            "navFcpMs": 72
+          },
+          {
+            "shell": "desktop",
+            "page": "/immersive",
+            "control": "button:Explore",
+            "mode": "click",
+            "latencyMs": 18.2,
+            "eventMs": 32,
+            "longTasks": [],
+            "responded": true,
+            "pixelOnly": false,
+            "urlChanged": false,
+            "clicks": 1,
+            "navFcpMs": null
+          },
+          {
+            "shell": "desktop",
+            "page": "/immersive",
+            "control": "button:Explore",
+            "mode": "enter",
+            "latencyMs": 17.8,
+            "eventMs": 16,
+            "longTasks": [],
+            "responded": true,
+            "pixelOnly": false,
+            "urlChanged": false,
+            "clicks": 1,
+            "navFcpMs": null
+          },
+          {
+            "shell": "desktop",
+            "page": "/immersive",
+            "control": "button:Explore",
+            "mode": "space",
+            "latencyMs": 29.3,
+            "eventMs": 32,
+            "longTasks": [],
+            "responded": true,
+            "pixelOnly": false,
+            "urlChanged": false,
+            "clicks": 1,
+            "navFcpMs": null
+          },
+          {
+            "shell": "desktop",
+            "page": "/immersive",
+            "control": "slider:Volume",
+            "mode": "click",
+            "latencyMs": 32,
+            "eventMs": 32,
+            "longTasks": [],
+            "responded": true,
+            "pixelOnly": false,
+            "urlChanged": false,
+            "clicks": 1,
+            "navFcpMs": null
+          },
+          {
+            "shell": "desktop",
+            "page": "/immersive",
+            "control": "slider:Volume",
+            "mode": "arrow",
+            "latencyMs": null,
+            "eventMs": null,
+            "longTasks": [],
+            "responded": false,
+            "pixelOnly": false,
+            "urlChanged": false,
+            "clicks": 0,
+            "navFcpMs": null
+          },
+          {
+            "shell": "desktop",
+            "page": "/immersive",
+            "control": "link:Privacy",
+            "mode": "click",
+            "latencyMs": null,
+            "eventMs": null,
+            "longTasks": [],
+            "responded": true,
+            "pixelOnly": false,
+            "urlChanged": true,
+            "clicks": 0,
+            "navFcpMs": 76
+          },
+          {
+            "shell": "desktop",
+            "page": "/immersive",
+            "control": "link:Privacy",
+            "mode": "enter",
+            "latencyMs": null,
+            "eventMs": null,
+            "longTasks": [],
+            "responded": true,
+            "pixelOnly": false,
+            "urlChanged": true,
+            "clicks": 0,
+            "navFcpMs": 64
+          },
+          {
+            "shell": "desktop",
+            "page": "/immersive",
+            "control": "link:Terms",
+            "mode": "click",
+            "latencyMs": null,
+            "eventMs": null,
+            "longTasks": [],
+            "responded": true,
+            "pixelOnly": false,
+            "urlChanged": true,
+            "clicks": 0,
+            "navFcpMs": 44
+          },
+          {
+            "shell": "desktop",
+            "page": "/immersive",
+            "control": "link:Terms",
+            "mode": "enter",
+            "latencyMs": null,
+            "eventMs": null,
+            "longTasks": [],
+            "responded": true,
+            "pixelOnly": false,
+            "urlChanged": true,
+            "clicks": 0,
+            "navFcpMs": 44
+          },
+          {
+            "shell": "desktop",
+            "page": "/immersive",
+            "control": "button:🔊 Enable Sound & Start",
+            "mode": "click",
+            "latencyMs": 57.6,
+            "eventMs": 64,
+            "longTasks": [
+              56
+            ],
+            "responded": true,
+            "pixelOnly": false,
+            "urlChanged": false,
+            "clicks": 1,
+            "navFcpMs": null
+          },
+          {
+            "shell": "phone",
+            "page": "/immersive",
+            "control": "link:← GETTYSBURG",
+            "mode": "tap",
+            "latencyMs": null,
+            "eventMs": null,
+            "longTasks": [],
+            "responded": true,
+            "pixelOnly": false,
+            "urlChanged": true,
+            "clicks": 0,
+            "navFcpMs": 148
+          },
+          {
+            "shell": "phone",
+            "page": "/immersive",
+            "control": "link:← GETTYSBURG",
+            "mode": "enter",
+            "latencyMs": null,
+            "eventMs": null,
+            "longTasks": [],
+            "responded": true,
+            "pixelOnly": false,
+            "urlChanged": true,
+            "clicks": 0,
+            "navFcpMs": 104
+          },
+          {
+            "shell": "phone",
+            "page": "/immersive",
+            "control": "link:Ask the Historian",
+            "mode": "tap",
+            "latencyMs": null,
+            "eventMs": null,
+            "longTasks": [],
+            "responded": true,
+            "pixelOnly": false,
+            "urlChanged": true,
+            "clicks": 0,
+            "navFcpMs": 56
+          },
+          {
+            "shell": "phone",
+            "page": "/immersive",
+            "control": "link:Ask the Historian",
+            "mode": "enter",
+            "latencyMs": null,
+            "eventMs": null,
+            "longTasks": [],
+            "responded": true,
+            "pixelOnly": false,
+            "urlChanged": true,
+            "clicks": 0,
+            "navFcpMs": 72
+          },
+          {
+            "shell": "phone",
+            "page": "/immersive",
+            "control": "button:Explore",
+            "mode": "tap",
+            "latencyMs": 26.6,
+            "eventMs": 24,
+            "longTasks": [],
+            "responded": true,
+            "pixelOnly": false,
+            "urlChanged": false,
+            "clicks": 1,
+            "navFcpMs": null
+          },
+          {
+            "shell": "phone",
+            "page": "/immersive",
+            "control": "button:Explore",
+            "mode": "enter",
+            "latencyMs": 23.2,
+            "eventMs": 24,
+            "longTasks": [],
+            "responded": true,
+            "pixelOnly": false,
+            "urlChanged": false,
+            "clicks": 1,
+            "navFcpMs": null
+          },
+          {
+            "shell": "phone",
+            "page": "/immersive",
+            "control": "slider:Volume",
+            "mode": "tap",
+            "latencyMs": 40,
+            "eventMs": 40,
+            "longTasks": [],
+            "responded": true,
+            "pixelOnly": false,
+            "urlChanged": false,
+            "clicks": 0,
+            "navFcpMs": null
+          },
+          {
+            "shell": "phone",
+            "page": "/immersive",
+            "control": "slider:Volume",
+            "mode": "arrow",
+            "latencyMs": 32,
+            "eventMs": 32,
+            "longTasks": [],
+            "responded": true,
+            "pixelOnly": false,
+            "urlChanged": false,
+            "clicks": 0,
+            "navFcpMs": null
+          },
+          {
+            "shell": "phone",
+            "page": "/immersive",
+            "control": "link:Privacy",
+            "mode": "tap",
+            "latencyMs": null,
+            "eventMs": null,
+            "longTasks": [],
+            "responded": true,
+            "pixelOnly": false,
+            "urlChanged": true,
+            "clicks": 0,
+            "navFcpMs": 68
+          },
+          {
+            "shell": "phone",
+            "page": "/immersive",
+            "control": "link:Privacy",
+            "mode": "enter",
+            "latencyMs": null,
+            "eventMs": null,
+            "longTasks": [],
+            "responded": true,
+            "pixelOnly": false,
+            "urlChanged": true,
+            "clicks": 0,
+            "navFcpMs": 68
+          },
+          {
+            "shell": "phone",
+            "page": "/immersive",
+            "control": "link:Terms",
+            "mode": "tap",
+            "latencyMs": null,
+            "eventMs": null,
+            "longTasks": [],
+            "responded": true,
+            "pixelOnly": false,
+            "urlChanged": true,
+            "clicks": 0,
+            "navFcpMs": 40
+          },
+          {
+            "shell": "phone",
+            "page": "/immersive",
+            "control": "link:Terms",
+            "mode": "enter",
+            "latencyMs": null,
+            "eventMs": null,
+            "longTasks": [],
+            "responded": true,
+            "pixelOnly": false,
+            "urlChanged": true,
+            "clicks": 0,
+            "navFcpMs": 36
+          },
+          {
+            "shell": "phone",
+            "page": "/immersive",
+            "control": "button:🔊 Enable Sound & Start",
+            "mode": "tap",
+            "latencyMs": 60.2,
+            "eventMs": 72,
+            "longTasks": [
+              58
+            ],
+            "responded": true,
+            "pixelOnly": false,
+            "urlChanged": false,
+            "clicks": 1,
+            "navFcpMs": null
+          }
+        ],
+        "preferences": [
+          {
+            "route": "/immersive",
+            "scheme": "dark",
+            "motion": "no-preference",
+            "contrast": 0,
+            "runningAnimations": 0,
+            "hasReduceRule": true
+          },
+          {
+            "route": "/immersive",
+            "scheme": "light",
+            "motion": "no-preference",
+            "contrast": 0,
+            "runningAnimations": 0,
+            "hasReduceRule": true
+          },
+          {
+            "route": "/immersive",
+            "scheme": "light",
+            "motion": "reduce",
+            "contrast": 0,
+            "runningAnimations": 0,
+            "hasReduceRule": true
+          }
+        ]
+      }
+    }
+  ]
+}

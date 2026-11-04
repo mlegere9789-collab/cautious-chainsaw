@@ -67,28 +67,29 @@ export function boot() {
   // FORK: the page's own face (QC Sans, embedded): load every cut the canvas uses, then measure again, so layout widths are the real ones from the first settled frame on
   if (document.fonts && document.fonts.load) Promise.all(['600 12px "QC Sans"', '400 12px "QC Sans"', 'italic 400 12px "QC Sans"', '700 13px "QC Sans"', '400 11px "QC Sans"'].map((f) => document.fonts.load(f, 'AaBb0123 ×·'))).then(() => { measure(); engine.dirty = true; globalThis.__fontsReady = true; }).catch(() => { globalThis.__fontsReady = true; });
 
-  const renderer = createRenderer({ canvas, engine, data: dataset, places: ground.places });
+  const renderer = createRenderer({ canvas, engine, data: dataset, places: ground.places, vectors: ground.vectors });
   let updateSafeRef = () => {}; const ui = createStudioUI({ root: app, engine, data: dataset, onSafe: () => updateSafeRef() }); mark('ui');
   // Escape ends a running tour before anything else acts on it (registered before the popup layer, whose own Escape handler would otherwise consume the key)
   window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && director && director.running) { e.preventDefault(); e.stopImmediatePropagation(); director.stop('closed'); } }, true);
   let layer = null; const sysReduced = () => mql.matches;
   const host = createPopupHost(engine, { popupData, size: { w: rect.width, h: rect.height }, systemReduced: sysReduced, chrome: () => (layer ? layer.chrome() : { rects: [], safe: { top: 0, right: 0, bottom: 0, left: 0 } }), measure: (c, f) => (layer ? layer.measure(c, f) : null), onSelect: (id) => { const t = id ? engine.frame && engine.frame.tiles.find((q) => q.ids[0] === id && q.kind === 'leaf') : null; ui.setSelection(t || null); } });
   layer = createPopupLayer({ root: app, container: popups, engine, host, systemReduced: sysReduced }); mark('popups');
-  ui.onPreview = (id) => { host.preview(id); engine.dirty = true; }; if (q.has('tune')) ui.togglePanel('tune');
+  ui.onPreview = (id) => { host.preview(id); engine.dirty = true; }; ui.onLegend = () => host.toggleDoc('legend:doc'); ui.onChronicle = () => host.toggleDoc('chronicle:list'); if (q.has('tune')) ui.togglePanel('tune');
   if (q.has('dev') || q.has('tune') || q.has('metrics')) document.body.classList.add('dev');      // POLISH 1: the development tools (metrics button) show only with ?dev=1, ?tune=1 or ?metrics=1
-  if (typeof innerWidth === 'number' && innerWidth < 700) engine.tuning.set('popup.minimap.enabled', false, { silent: true });      // POLISH 1: a phone has no room for a second map over the first
+  if (typeof innerWidth === 'number' && innerWidth < 700) engine.tuning.set('popup.minimap.enabled', false, { silent: true });
+  if (window.matchMedia && (window.matchMedia('(pointer: coarse)').matches || (typeof innerWidth === 'number' && innerWidth < 760))) engine.tuning.set('scene.hitSlopPx', 16, { silent: true });      // ROUND 2: a thumb needs a 44 px target: a 12 px pip plus 16 px each side      // POLISH 1: a phone has no room for a second map over the first
   if (q.has('speed')) engine.transport.setSpeed(+q.get('speed'));
   if (q.get('play') === '1') engine.transport.play();
 
   const updateSafe = () => { const r = app.getBoundingClientRect(); const top = document.getElementById('topbar'); const dock = document.getElementById('dock'); const panel = document.getElementById('panel'); const narrow = r.width < 760;
-    engine.safe = { top: top ? top.getBoundingClientRect().bottom : 0, bottom: dock ? r.height - dock.getBoundingClientRect().top : 0, left: nar && nar.open && !narrow ? nar.width + 24 : 0, right: panel && !panel.classList.contains('hidden') && !narrow ? r.width - panel.getBoundingClientRect().left : 0 }; };
+    // ROUND 2: the interface is a frame (ui/frame.css): the masthead band on top, the dock band below, the narration column on the left and the side panel on the right are the edges of the stage, read from the DOM
+    engine.safe = { top: top ? Math.max(0, top.getBoundingClientRect().bottom - r.top) : 0, bottom: dock ? Math.max(0, r.bottom - dock.getBoundingClientRect().top) : 0, left: nar && nar.open && !narrow ? nar.width : 0, right: panel && !panel.classList.contains('hidden') && !narrow ? Math.max(0, r.right - panel.getBoundingClientRect().left) : 0 }; };
   updateSafeRef = updateSafe;
-  /** POLISH 1: the rectangles the interface really covers (each control group of the top bar, the dock, the side panel), in map coordinates, read at most every 250 ms: the renderer dissolves a mark that reaches into one (render/canvas.mjs), and only into one: the gaps between the controls stay open map */
+  /** ROUND 2: the rectangles of floating interface that lie on the ground beyond the frame's bands (the minimap, the Before badge): the renderer keeps every mark whole and clear of them (render/canvas.mjs "stage") */
   let chromeCache = null; let chromeAt = -1e9;
   engine.chromeRects = (force = false) => {
     const now = performance.now(); if (!force && chromeCache && now - chromeAt < 250) return chromeCache; const ar = app.getBoundingClientRect(); const out = [];
-    const add = (el) => { if (!el || el.classList.contains('hidden') || el.classList.contains('off')) return; const cs = getComputedStyle(el); if (cs.display === 'none' || +cs.opacity < 0.05) return; const r = el.getBoundingClientRect(); if (r.width > 1 && r.height > 1) out.push({ x0: r.left - ar.left, y0: r.top - ar.top, x1: r.right - ar.left, y1: r.bottom - ar.top }); };
-    const bar = document.getElementById('topbar'); if (bar) for (const k of bar.children) add(k); add(document.getElementById('dock')); const pn = document.getElementById('panel'); if (pn && !pn.classList.contains('hidden')) add(pn); for (const n of app.querySelectorAll('[data-chrome]')) add(n);
+    for (const n of app.querySelectorAll('[data-chrome]')) { if (n.id === 'narration' || n.classList.contains('hidden') || n.classList.contains('off')) continue; const cs = getComputedStyle(n); if (cs.display === 'none' || +cs.opacity < 0.05) continue; const r = n.getBoundingClientRect(); if (r.width > 1 && r.height > 1) out.push({ x0: r.left - ar.left, y0: r.top - ar.top, x1: r.right - ar.left, y1: r.bottom - ar.top }); }
     chromeCache = out; chromeAt = now; return out;
   };
   if (typeof ResizeObserver !== 'undefined') { const ro = new ResizeObserver(() => { updateSafe(); engine.dirty = true; }); for (const id of ['topbar', 'dock']) { const n = document.getElementById(id); if (n) ro.observe(n); } }      // POLISH 1: the margin the bars take is read again whenever a bar changes size (the renderer dissolves marks that reach into it)
@@ -120,7 +121,7 @@ export function boot() {
     ui.closeMenu(); if (director.running) director.stop('replaced'); host.dismissAll(); updateSafe(); director.start(tour); nar.setPaused(false); return tour;
   }
   ui.onTour = (id) => startTour(id);
-  const showWelcome = () => nar.welcome({ kicker: 'Gettysburg · Quiet Cartographer', title: 'The battle, drawn quietly.', text: `${dataset.provenance.counts.units.toLocaleString('en-US')} real units and ${dataset.provenance.counts.keyframes.toLocaleString('en-US')} hand-placed keyframes, drawn by a renderer that never lets a mark hide another. Watch the 60-second showcase, or press Space and explore. The ground is a modern aerial photograph from the USGS (public domain), not the 1863 landscape. Nothing leaves this page.`,
+  const showWelcome = () => nar.welcome({ kicker: 'Gettysburg, July 1 to 3, 1863', title: 'The battle, drawn quietly.', text: `${dataset.provenance.counts.units.toLocaleString('en-US')} real units and ${dataset.provenance.counts.keyframes.toLocaleString('en-US')} hand-placed keyframes, drawn so that no mark covers another. Watch the 60-second showcase, or press Space and explore. The ground is a modern aerial photograph from the USGS (public domain), not the 1863 landscape. Nothing leaves this page.`,
     chips: [{ ev: 'Documented', text: 'identity: order of battle' }, { ev: 'Modelled', text: 'positions and clock' }], actions: [{ label: 'Watch the 60-second showcase', primary: true, run: () => startTour('showcase') }, { label: 'Explore', run: () => { nar.hide(); try { storage && storage.setItem(WELCOME_KEY, '1'); } catch { /* optional */ } } }] });
   let welcomed = false; try { welcomed = !!(storage && storage.getItem(WELCOME_KEY)); } catch { welcomed = false; }
   if (q.get('welcome') !== '0' && !welcomed && !q.has('tour') && !q.has('scene') && !q.has('tick') && q.get('play') !== '1') showWelcome();
@@ -185,11 +186,13 @@ export function boot() {
     }
     cardStats.frames++; if (any) cardStats.withCards++; if (over) cardStats.over++; ui.cardsOverTiles = cardStats.over;
   }
+  /** the rectangles of the cards lying on the ground now: the names of places and roads keep clear of them (a name half under a card read as a rendering fault) */
+  const cardRectsOf = (out) => out.cards.filter((c) => c.rect && !c.lane && !c.hidden && c.kind !== 'doc' && c.opacity > 0.15).map((c) => ({ x0: c.rect.x - 4, y0: c.rect.y - 4, x1: c.rect.x + c.rect.w + 4, y1: c.rect.y + c.rect.h + 4 }));
   function frameOnce(dt, raw, now) {
     const f = engine.step(Math.min(dt, 100), { rawDtMs: raw });
     virtualNow += Math.min(dt, 100); const out = host.frame(f, virtualNow, Math.min(dt, 100)); layer.update(out, virtualNow); studio.lastOut = out;
     if (director.running) { director.update(Math.min(dt, 100)); } nar.update(now);
-    renderer.draw(f, { hoverKey, popupFx: out.fx, mapRect: out.mapRect, toneColors: layer.toneColors() }); ui.update(f, now); checkCards(f, out); frames++;
+    renderer.draw(f, { hoverKey, popupFx: out.fx, mapRect: out.mapRect, toneColors: layer.toneColors(), cardRects: cardRectsOf(out) }); ui.update(f, now); checkCards(f, out); frames++;
     if (firstFrameMs === null) { firstFrameMs = performance.now() - t0; studio.boot.firstFrameMs = +firstFrameMs.toFixed(1); requestAnimationFrame(() => { splash.classList.add('gone'); document.body.classList.remove('booting'); setTimeout(() => { updateSafe(); engine.dirty = true; }, 450); /* the bars rise into place over 380 ms: the margin they take is read again when they have landed */ setTimeout(() => splash.remove(), 700); }); }
     return f;
   }
@@ -207,7 +210,7 @@ export function boot() {
     updateSafe, engine, ui, renderer, host, layer, popupData, tuning: T, kernel, director, narration: nar, ready: true, lastOut: null, cardStats, boot: { phases, firstFrameMs: null }, get frames() { return frames; },
     startTour, showWelcome,
     /** drive n frames synchronously (tests and screenshots): deterministic, no rAF */
-    step(n = 1, dtMs = 1000 / 60) { let f = null; let out = null; for (let i = 0; i < n; i++) { f = engine.step(dtMs, { rawDtMs: dtMs }); virtualNow += dtMs; out = host.frame(f, virtualNow, dtMs); if (director.running) director.update(dtMs); } if (f) { layer.update(out, virtualNow); nar.update(performance.now() + 1e6); renderer.draw(f, { hoverKey, popupFx: out.fx, mapRect: out.mapRect, toneColors: layer.toneColors() }); ui.update(f, performance.now()); checkCards(f, out); } studio.lastOut = out; return f; },
+    step(n = 1, dtMs = 1000 / 60) { let f = null; let out = null; for (let i = 0; i < n; i++) { f = engine.step(dtMs, { rawDtMs: dtMs }); virtualNow += dtMs; out = host.frame(f, virtualNow, dtMs); if (director.running) director.update(dtMs); } if (f) { layer.update(out, virtualNow); nar.update(performance.now() + 1e6); renderer.draw(f, { hoverKey, popupFx: out.fx, mapRect: out.mapRect, toneColors: layer.toneColors(), cardRects: cardRectsOf(out) }); ui.update(f, performance.now()); checkCards(f, out); } studio.lastOut = out; return f; },
   };
   window.__studio = studio;
   return studio;

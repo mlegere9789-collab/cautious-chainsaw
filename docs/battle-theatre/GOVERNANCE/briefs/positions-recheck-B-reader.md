@@ -1,0 +1,52 @@
+# Reader instructions: full-passage fidelity re-check of OR position ledger SCOPE B (one batch of claims)
+
+Repo C:\Users\mlege\gettysburg-map (Windows, Git Bash/PowerShell, Python 3.11, set PYTHONIOENCODING=utf-8). Obey CLAUDE.md: never fabricate; each quote under 15 words and exact (normalised) OR text; no deploys; edit ONLY the files named below. Read docs/battle-theatre/GOVERNANCE/briefs/positions-recheck.md (lead's brief) and docs/battle-theatre/history/positions/FIDELITY_AUDIT_SUMMARY.md (the pattern list) first.
+
+## Why
+An independent audit read 30 random B claims: 28 were fully supported, 2 were not (a label imported from an enclosure, B-12c-59; an OCR-doubtful 2/3 date digit, B-lockwood-03). The flag claim_support_verified was true for all of them and cannot be trusted for time, place and unit. You re-read EVERY claim of your batch against the raw report text and record a decision for each. Be sceptical: the claim text was written by a compiler, not printed.
+
+## Tools
+- Show passages: `python -I tools/bt/recheck_B_ctx.py --batch II-01 [--report OR27-1-R037]`  (claims grouped by cited report: compact claim records, then the normalised report text, running heads removed, hyphenation joined, with `<<unit-seq quote>>` markers around each claim's quote; reports up to 14,000 chars are printed whole, longer ones as windows of 1,800 chars before and 2,200 after each quote). Work one report at a time (`--report`) to keep output small. If a window is not enough (a later order, the date, another sentence about the same unit) widen it: `--before 6000 --after 6000` or `--whole 60000`, or search the whole report: `python -I tools/bt/or27_find.py "regex" -C 300 --part 1` (Part 3 documents: `--part 3`).
+- Claim ids look like POS-B-us-12c-1d-42; the frozen ledger you read is docs/battle-theatre/history/positions/_orig_B/positions_B.before_recheck.jsonl (do not edit; the lead rebuilds the live ledger). Claim source data (read-only for you): tools/bt/positions_data_B_*.py.
+- Validate your decisions (never writes a ledger): `python -I tools/bt/positions_B_recheck.py check docs/battle-theatre/history/positions/draft_B/recheck/<BATCH>.json --batch <BATCH>`  (prints "NO recheck decision: <id>" for undecided claims and ERROR lines for bad decisions: quote not found / 15+ words, phrase not near the quote, etc.).
+
+## What to check for every claim (read the claim, then the passage around it, at least 1,200 chars each side, in the report named in source.report_id)
+1. Unit identity: does the passage say this unit (or the author's own command)? A unit the compiler resolved from "the brigade", "the division", "his command", a regiment number supplied from outside the passage, is a gloss. The claim's unit_id and the author's command must match.
+2. Date and clock time: the clock phrase must be in the SAME sentence as the fact, or in an explicitly continuing sentence ("then", "soon after", "at that time"). A time from a different sentence, an earlier or later paragraph, a different unit's movement, or another report is NOT a time for this fact. Check that when.printed really is printed; check the claim `date` (a date from the day-by-day order of the report is fine, but then say so in dbasis). For Part 3 documents the dispatch heading/date line is part of the document: a time in the heading is the time of writing, not of the movement reported unless the text says so.
+3. Place and road: place.printed may only contain words the passage prints (no compass direction, road name, or modern name added). Compass directions, road names and modern names not printed are glosses: remove them from pp / rd (the gazetteer id may stay when the note says it is by inference; mention it in why).
+4. Activity and numbers: every clause of `activity` and every number must be in the cited report's passage. A clause from a second report, a compiler's purpose label ("council", "Pipe Creek movement" when only the circular names it), a dropped hedge ("supposed", "I think", "reported") or dropped condition makes the claim overstated. Narrow it.
+5. Later or earlier contradiction: later in the passage the unit may be ordered to move, withdrawn, or the position superseded (e.g. "ordered half a mile north ... then 1,000 steps back"). The claim must not place the unit at the first position at the later time.
+6. OCR-damaged digits: a time, date, distance or count whose digit is a letter/symbol/2-3 confusion must not be read with confidence (e.g. "July 3" where the report itself says 2/3 mixed; "G a. m.", "1.3(" ). Mark: t null, ocr true, wdesc 'OCR glyph only: ...'. Report headings that print "1st, 3d, and 3d" style confusions: if the report's own internal evidence cannot settle the digit, mark it.
+7. No a.m./p.m. in the passage: a clock hour with meridian supplied by the compiler (e.g. "about 1 o'clock", "12") may keep t only if the sequence settles it; then set mer true and say so in wdesc ('meridian inferred: ...'). If the sequence does not settle it: t null.
+8. Day-part words ("morning", "afternoon", "evening") that the passage does not print must not appear as printed text; keep them only in wdesc as compiler reading.
+
+## Decision per claim: write ALL, in docs/battle-theatre/history/positions/draft_B/recheck/<BATCH>.json = JSON list, one object per claim; rewrite the whole file after every report or ~15 claims so a cut-off loses nothing; resume from the file if it exists.
+```
+{"id": "POS-B-us-12c-59",
+ "fc": "passed_full_read" | "corrected" | "downgraded",
+ "why": "<= 40 words. passed_full_read: a short evidence line (e.g. 'hour in same sentence; division named; no later order'). corrected/downgraded: exactly what changed and why.",
+ ...only the fields that change, from the list below...,
+ "add": [ {new claim from a SECOND report, see below} ] }
+```
+Fields (all optional except id, fc, why):
+- act: new activity text (narrowed to what the passage supports; keep the "Author: ..." style of the old text).
+- q: replacement verbatim quote (< 15 words, exact text of the normalised passage as the tool prints it, from the cited report). Use when the old quote does not cover the claim's core fact (e.g. it covers only the time).
+- q2: list of additional verbatim extracts (< 15 words each) from the same report, e.g. one holding the time phrase or a place phrase that lies outside the quote.
+- wp: when.printed (a phrase printed in the passage in the fact's own sentence, or null). If it lies outside quote/extracts the code adds an extract automatically (it must be within 700 chars of the quote); if that fails give q2.
+- wdesc: when.description. Standard forms: 'time in a different sentence: "<phrase>" (<where>)'; 'OCR glyph only: <what>'; 'compiler reading from order of events: <what>'; 'printed in the continuing sentence: <phrase>'; 'meridian inferred: <why>'.
+- date: 'YYYY-MM-DD' (only if wrong); dbasis: why the date is what it is when no date phrase is in the fact's sentence ('report context: ...').
+- t: 'HH:MM' 24 h, or null to remove t_iso; ap: approx bool; mer: true when the meridian is inferred.
+- pp: place.printed (only words printed in the passage; '; ' separates several phrases; every phrase must be near the quote); null to clear. ppd: place.description (compiler description, not printed). rd: direction_or_road (as printed; null to clear; a gloss must be bracketed '[compiler gloss, not printed] ...'). gz: gazetteer_ref or null.
+- ocr: ocr_uncertain bool.
+- tier: "inferred" plus reasoning (what the passage does say and why the claim is not documented), for downgraded claims.
+Rules enforced by the validator: passed_full_read must not change act/wp/t/date/pp/rd/q/tier (it may carry wdesc, dbasis, mer, q2, ppd, ocr for annotation); 'OCR glyph only' needs t null and ocr true; 'time in a different sentence' needs t null; a t needs a printed clock phrase in wp.
+
+Outcomes:
+- passed_full_read: the full passage supports unit, date/time, place, activity, numbers; no later contradiction.
+- corrected: narrow the claim to what the passage supports (act/wp/t/pp/rd/date/q); remove a t that is from another sentence (t null, wp = the phrase from the SAME sentence or null, wdesc 'time in a different sentence: "..." (where)'); remove an invented compass direction/road; restore a dropped hedge; fix a later-order problem; OCR digit: t null, ocr true, wdesc 'OCR glyph only: ...'. The position/activity fact may stay documented if its own quote supports it. When you change a claim, say in why what changed.
+- split: if the activity merges text from a SECOND report: narrow the original (fc corrected) to its own report and put the other part in `add`: {"k": kind, "rec": "OR27-1-R336" (full record id; the report the clause comes from), "q": verbatim quote from THAT record (read that record's passage the same way), "act", "wp", "wdesc", "date", "t", "ap", "pp", "rd", "gz", "ocr", "note", "u": unit id if different from the parent}. Each added claim needs its own quote from its own report. If you cannot find the second report's passage, drop the clause from the original and say so in why.
+- downgraded: the passage does not support the central fact (unit/place/time/activity): fc "downgraded", tier "inferred", reasoning "<what the passage does say and why this is inference>". Keep q if it still shows the nearest text. Never leave a documented claim that its passage does not support.
+Doubt = do not pass. Do not widen a claim; do not add facts that are not printed. Do not use Wikipedia/memory to decide what a passage says: the passage is the only evidence here. The claim's `note` field often holds compiler remarks that cite other reports: those are not claims, but any such fact repeated in `activity` must be in the cited passage.
+
+## Finish
+1. Every claim of your batch has a decision (the validator shows no "NO recheck decision" and no ERROR). 2. Write docs/battle-theatre/history/positions/draft_B/recheck/<BATCH>_agent_notes.txt: counts per fc; per pattern (time from another sentence, merged second report, later order ignored, compass/road gloss, hedge/condition dropped, unit identity gloss, OCR digit, meridian inferred, other) how many claims; ids split and downgraded; anything systematic. 3. Final answer (under 200 words): counts, patterns, ids split/downgraded, validator last line. Do not ask questions. Do not run the full-ledger build. Do not edit tools, the frozen ledger, other batches' files.

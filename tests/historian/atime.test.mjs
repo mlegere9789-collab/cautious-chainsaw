@@ -191,7 +191,13 @@ test('a question that merely mentions a time is still a clock question, a questi
 
 test('"what time did X begin" carries the model\'s time for X, approximate, with the range where the anchor is contested, and never a legacy label', async () => {
   const a = await ask('What time did Pickett\'s Charge begin?');
-  assert.match(a.text, /places “Pickett's Charge Begins” on July 3 at about 3:00 PM \(sources put it between about 2:00 and 3:00 PM\)/);
+  // the contested range is read from the adjudicated anchor itself (tick 538: ["14:00","15:15"] since the 2026-10-18 adjudication; this line said 3:00 PM before), not typed a second time
+  const anchor538 = JSON.parse(fs.readFileSync(path.join(ROOT, 'data-src', 'time', 'time_anchors.json'), 'utf8')).anchors.find((x) => x.tick === 538);
+  const clock12 = (hhmm) => { const [h, m] = hhmm.split(':').map(Number); return hm12(h * 60 + m).replace(/ (AM|PM)$/, ''); };
+  assert.deepEqual(anchor538.range, ['14:00', '15:15']);
+  assert.match(a.text, /places “Pickett's Charge Begins” on July 3 at about 3:00 PM \(sources put it between about 2:00 and 3:15 PM\)/);
+  const mins = (hhmm) => { const [h, m] = hhmm.split(':').map(Number); return h * 60 + m; };
+  assert.ok(a.text.includes(`between about ${clock12(anchor538.range[0])} and ${hm12(mins(anchor538.range[1]))})`), 'the range printed is the anchor range');
   assert.match(a.blocks[0].runs.map((r) => r.txt).join(''), /about 3:00 PM/, 'the time is the first thing said, in the first bubble');
   assert.ok(a.blocks.some((b) => b.t === 'note' && b.code === 'time-basis' && /proposed revised timeline/.test(b.txt)));
   const b = await ask('When did Longstreet\'s assault on the Union left begin on July 2?'); assert.match(b.text, /about 4:00 PM/);

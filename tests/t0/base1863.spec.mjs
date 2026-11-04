@@ -45,7 +45,7 @@ const ENTRY_TEXT = fs.readFileSync(path.join(DIST, 'assets', VERSION.entry), 'ut
 const HAS_B63 = ENTRY_TEXT.includes('const GTB63 = ');
 const HAS_MON = ENTRY_TEXT.includes('gtmon-dots');
 const TILEDIR = fs.existsSync(path.join(DIST, 'tiles1863')) ? fs.readdirSync(path.join(DIST, 'tiles1863'))[0] : null;
-const LABEL = 'Reconstruction of July 1863 (USGS imagery and period maps), not a photograph';
+const LABEL = 'Reconstruction of July 1863, not a photograph: a USDA NAIP aerial photograph of 4 June 2013 with post-1863 features removed and 1863 features added from period maps';
 const resultsDir = path.dirname(DIST);   // anchors.json, gate.json, manifest.json sit beside the dist
 const outDir = path.relative(path.join(REPO, 'release'), DIST).startsWith('..') ? resultsDir : path.join(REPO, 'tmp', 'b1863', 'group');   // never write into release/
 const BEHAVIOR = !!opt('behavior-only', false);   // with --expect-red: skip the "group is in the tree" guard so the BEHAVIOUR of the control tree is what fails
@@ -141,7 +141,7 @@ suite.test('T0-B63-01', 'desktop z11 to z18: GL pixels equal the reconstruction 
   t.note('GL vs tile mean abs diff by zoom', diffs);
   // z16 detail tile, z17 / z18 are the z16 tile enlarged 2x / 4x about the same centre
   const [tx, ty] = tileOf(c0[0], c0[1], 16); const [lon, lat] = tileCenter(16, tx, ty);
-  for (const z of [16, 17, 18]) {
+  for (const z of [16, 17]) {      // the camera stops at z17 (pass 7: z18 would be a 4x enlargement of a 0.92 m picture)
     await jump(p, { center: [lon, lat], zoom: z }); const gl = await glGrid(p); const tg = await tileGrid(p, `${ORIGIN}/tiles1863/${TILEDIR}/16/${tx}/${ty}.webp`, 256, 256, 2 ** (z - 16));
     const d = Math.round(gridDiff(gl, tg) * 10) / 10; diffs[z] = d; assert(d < 16, `z${z}: the GL pixels differ from the enlarged z16 tile by ${d}`);
   }
@@ -243,7 +243,7 @@ suite.test('T0-B63-05', 'beyond coverage: neutral ground colour, no 404, no cons
   need();
   const S = F.D; assert(S, 'needs the desktop session'); const p = S.page; const e0 = errsOf(S).length; const r0 = S.resp.length;
   const ground = await p.evaluate(() => window.__t0map.getStyle().layers[0].paint['background-color']); assert(/^#?[0-9a-f]{6}$/i.test(ground.replace('#', '')) || /rgb/.test(ground), `ground colour ${ground}`);
-  for (const [c, z] of [[[-77.352, 39.730], 13], [[-77.125, 39.905], 12], [[-77.352, 39.730], 17], [[-77.30, 39.78], 17], [[-77.19, 39.86], 18], [[-77.2356, 39.8128], 18]]) {
+  for (const [c, z] of [[[-77.352, 39.730], 13], [[-77.125, 39.905], 12], [[-77.352, 39.730], 17], [[-77.30, 39.78], 17], [[-77.19, 39.86], 17], [[-77.2356, 39.8128], 17]]) {
     await jump(p, { center: c, zoom: z });
     const g = await glGrid(p, 2, 24);
     if (z <= 13 && c[1] < 39.75) { const want = ground.replace('#', ''); const wr = [0, 2, 4].map((i) => parseInt(want.slice(i, i + 2), 16)); assert(g.every((v) => v.every((x, k) => Math.abs(x - wr[k]) <= 3)), `outside the imagery the map shows ${JSON.stringify(g[0])}, not the ground colour ${wr}`); }
@@ -287,6 +287,8 @@ suite.test('T0-B63-07', 'the product\'s overlays on the new base: layer order, c
   assert(geo.roads.features.every((f) => f.properties.id && /^RD-/.test(f.properties.id)) && geo.farms.features.length === 4 && geo.rivers.features.length >= 5, 'overlay data carries catalogue ids');
   const panel = ENTRY_TEXT.includes('"roads-1863-line":!1,"roads-1863-label":!0,"rivers-line":!1,"rivers-label":!0,"breastworks-line":!0,"farms-outline":!1'); assert(panel && !ENTRY_TEXT.includes('label:"Farm Outlines"'), 'the Layers panel state matches the map and the dead farm-outline row is gone');
   // the units canvas is above the map and draws; a real click on a drawn unit opens its panel, which is not covered by our label
+  // (a tree with group DATA shows no unit on the home view at the first moment - arrival gating - so the test looks at the morning of July 2, where the armies stand on the field)
+  await p.keyboard.press('2'); await sleep(2500);
   const unit = await p.evaluate(() => { const cs = [...document.querySelectorAll('canvas')].filter((c) => !c.classList.contains('mapboxgl-canvas') && c.width > 800 && getComputedStyle(c).zIndex === '10'); const out = []; for (const c of cs) { const x = c.getContext('2d'); if (!x) continue; const w = c.width, h = c.height; const d = x.getImageData(0, 0, w, h).data; for (let i = 0; i < d.length; i += 4 * 7) { if (d[i + 3] > 240 && d[i] < 90 && d[i + 2] > 170 && d[i + 1] < 120) { const px = (i / 4) % w, py = Math.floor(i / 4 / w); const r = c.getBoundingClientRect(); out.push({ x: r.left + (px / w) * r.width, y: r.top + (py / h) * r.height, z: getComputedStyle(c).zIndex }); if (out.length > 400) break; } } } return out; });
   assert(unit.length > 0, 'the units canvas draws blue unit marks'); t.note('unit canvas z-index', unit[0].z);
   const mapC = await p.evaluate(() => { const c = document.querySelector('.mapboxgl-canvas'); return Number(getComputedStyle(c).zIndex) || 0; }); assert(Number(unit[0].z) > mapC, 'the units canvas is stacked above the map canvas');
@@ -365,15 +367,20 @@ suite.test('T0-B63-10', 'Monuments layer on the new base (MON in the tree): the 
 suite.test('T0-B63-11', 'static: the group\'s anchors matched once each, the Walkthrough span is byte-identical to the control, its own map still names the Mapbox style (untouched), nothing else names a satellite style, the tile set is complete', async (t) => {
   need();
   const anchors = path.join(resultsDir, 'anchors.json');
-  if (fs.existsSync(anchors)) { const a = JSON.parse(fs.readFileSync(anchors, 'utf8')); const g = a.patches.filter((x) => x.group === 'BASE1863'); assertEq(g.length, 10, 'BASE1863 patches'); assert(g.every((x) => x.ok && x.found === x.expect), 'every anchor matched exactly once'); assert(a.groups.includes('BASE1863'), 'listed in the build groups'); }
+  if (fs.existsSync(anchors)) { const a = JSON.parse(fs.readFileSync(anchors, 'utf8')); const g = a.patches.filter((x) => x.group === 'BASE1863'); assertEq(g.length, 11, 'BASE1863 patches (10 in the bundle + the one sentence of index.html that called the map a real satellite map)'); assert(g.every((x) => x.ok && x.found === x.expect), 'every anchor matched exactly once'); assert(a.groups.includes('BASE1863'), 'listed in the build groups'); }
   assertEq(ENTRY_TEXT.split('style:"mapbox://styles/mapbox/satellite-v9"').length - 1, 1, 'exactly one satellite style string is left: the Walkthrough map\'s'); assertEq(ENTRY_TEXT.split('const GTB63 = ').length - 1, 1, 'the runtime is in the entry once');
   const i = ENTRY_TEXT.indexOf('style:"mapbox://styles/mapbox/satellite-v9"'); assert(/container:el,style:/.test(ENTRY_TEXT.slice(i - 40, i + 10)), 'the remaining one is the Walkthrough\'s (container:el)');
   assertEq(ENTRY_TEXT.split('GTB63.attach(').length - 1, 2, 'two attach calls (desktop, phone)');
   let ctl = CONTROL ? path.resolve(REPO, CONTROL) : null;
+  // trains R1d and R1e register every Release 1 group: a build without BASE1863 alone cannot be made (the other groups anchor on its finished text); the control is the published train R1c, whose Walkthrough the guard (walkthrough-guard.spec) proves untouched
+  if (!ctl && (VERSION.train === 'R1d' || VERSION.train === 'R1e' || VERSION.train === 'R1f' || VERSION.train === 'R1g')) ctl = path.join(REPO, 'release', 'R1c', 'dist');
   if (!ctl) { const out = path.join(resultsDir, '..', 'R1c-control'); if (!fs.existsSync(path.join(out, 'dist'))) { const r = spawnSync('python', [path.join(REPO, 'tools/t0/base1863/b63_build.py'), '--train', VERSION.train, '--out', path.relative(REPO, out), '--no-gate', '--without-base'], { cwd: REPO, encoding: 'utf8' }); assertEq(r.status, 0, `control build: ${r.stdout.slice(-300)}`); } ctl = path.join(out, 'dist'); }
   const ctext = fs.readFileSync(path.join(ctl, 'assets', JSON.parse(fs.readFileSync(path.join(ctl, 'version.json'), 'utf8')).entry), 'utf8');
   const span = (s) => { const a = s.indexOf('d2=[{id:1,name:"McPherson Ridge"'), b = s.indexOf('const ln={ink:', a); return a >= 0 && b > a ? s.slice(a, b) : null; };
-  const [sa, sb] = [span(ENTRY_TEXT), span(ctext)]; assert(sa && sb && sa.length > 1000, 'Walkthrough span found'); assert(sa === sb, 'the Walkthrough code and data are byte-identical to the control without the group');
+  let [sa, sb] = [span(ENTRY_TEXT), span(ctext)]; assert(sa && sb && sa.length > 1000, 'Walkthrough span found');
+  // train R1f (group PERF5) changes the Walkthrough's map effect on purpose: the expected span is the control's with exactly the registered PERF5-wt-* edits (tests/t0/perf5-region.mjs)
+  { const P5 = await import('./perf5-region.mjs'); if (P5.hasPerf5(ENTRY_TEXT)) sb = P5.expectedWalkthroughRegion(sb, REPO); }
+  assert(sa === sb, 'the Walkthrough code and data are byte-identical to the control without the group');
   const wsm = ENTRY_TEXT.indexOf('"gtbg-wt-map"'); assert(ENTRY_TEXT.slice(wsm, wsm + 400).includes('mapbox://styles/mapbox/satellite-v9'), 'the Walkthrough map keeps its own style');
   // the tile set on disk: the version directory, every file hash-checked against the index, bytes, no z17
   const root = path.join(DIST, 'tiles1863', TILEDIR); const idx = JSON.parse(fs.readFileSync(path.join(root, 'index.json'), 'utf8')); assertEq(idx.version, TILEDIR, 'index.json version');
@@ -382,7 +389,7 @@ suite.test('T0-B63-11', 'static: the group\'s anchors matched once each, the Wal
   assert(photo.length === idx.photo.tiles && changed.length === idx.changed.tiles, `tiles on disk ${photo.length}/${idx.photo.tiles}, ${changed.length}/${idx.changed.tiles}`); assert(!files.some((f) => /[\\/]17[\\/]/.test(f)), 'no z17 tile shipped');
   const bytes = files.reduce((a, f) => a + fs.statSync(f).size, 0); t.note('bytes added to the dist (tiles1863)', bytes); assert(bytes < 40e6 + 3e6, `tile directory ${bytes} bytes`);
   const man = JSON.parse(fs.readFileSync(path.join(resultsDir, 'manifest.json'), 'utf8')); t.note('build manifest total bytes / files', [man.total_bytes, man.file_count]);
-  const gate = path.join(resultsDir, 'gate.json'); if (fs.existsSync(gate)) { const g = JSON.parse(fs.readFileSync(gate, 'utf8')); assertEq((g.checks || []).filter((c) => !c.ok).map((c) => c.id), [], 'failed build gates'); }
+  const gate = path.join(resultsDir, 'gate.json'); if (fs.existsSync(gate)) { const g = JSON.parse(fs.readFileSync(gate, 'utf8')); assertEq((g.checks || []).filter((c) => !c.ok && !(c.id === 'data-untouched' && /"DATA"/.test(JSON.stringify(JSON.parse(fs.readFileSync(path.join(DIST, 'version.json'), 'utf8')).groups || [])))).map((c) => c.id), [], 'failed build gates (data-untouched is judged by group DATA itself: a tree with DATA changes served data files by decision)'); }
 });
 
 suite.test('T0-B63-X', 'every browser test of this run: 0 uncaught exceptions and 0 first-party console.error', async (t) => {

@@ -1,0 +1,223 @@
+{
+ "_doc": "Documented reports used as test expectations for the sound physics (audio/PLAN.md 4.8; PDF S.3, C.6). Every OCR line refers to the files registered in GOVERNANCE/library/acquired.json (tmp/library). Quotes are fragments under 15 words. Where the model cannot reproduce a report it says so (model_mismatch) and no default is bent to fit. Tier follows CLAUDE.md: only a non-lead source supporting exactly the claim is 'documented'.",
+ "reports": [
+  {
+   "id": "DR-HEAR-ROD-4MI",
+   "kind": "hearing",
+   "claim": "On 1 July a Confederate division approaching Gettysburg from Middletown heard the cannonade when within 4 miles of the town.",
+   "evidence": [
+    {
+     "source": "OR-27-2",
+     "archive_identifier": "cu31924077728255",
+     "ocr_line": 46275,
+     "quote": "When within 4 miles of the town",
+     "note": "report of the division that turned toward Gettysburg at Middletown by Ewell's order; the PDF (T1-109) attributes this to Rodes; the author's name was not read in this session"
+    }
+   ],
+   "tier": "documented",
+   "distance_m": 6437,
+   "sources_per_cite": "primary (Official Records)",
+   "expectation": {
+    "type": "audible",
+    "n_guns": 1,
+    "ambient_db": 38,
+    "reading": "model: a single 12-pounder is audible above the day ambient floor at 4 miles (homogeneous atmosphere, upper bound)"
+   }
+  },
+  {
+   "id": "DR-HEAR-OR-4MI-B",
+   "kind": "hearing",
+   "claim": "A Union officer reports hearing heavy cannonading in front at about 4 miles from Gettysburg on 1 July.",
+   "evidence": [
+    {
+     "source": "OR-27-1",
+     "archive_identifier": "cu31924077699761",
+     "ocr_line": 66243,
+     "quote": "At the distance of about 4 miles from Gettys- burg, I heard heavy cannonading in front",
+     "note": "author not read in this session"
+    },
+    {
+     "source": "OR-27-1",
+     "archive_identifier": "cu31924077699761",
+     "ocr_line": 33329,
+     "quote": "After proceeding about 4 miles, heard cannonading in front",
+     "note": "a second regiment"
+    }
+   ],
+   "tier": "documented",
+   "distance_m": 6437,
+   "expectation": {
+    "type": "audible",
+    "n_guns": 2,
+    "ambient_db": 38
+   }
+  },
+  {
+   "id": "DR-HEAR-TWO-TAVERNS",
+   "kind": "hearing",
+   "claim": "The Twelfth Corps regiment marching on the Gettysburg turnpike first heard cannonading at Two Taverns on the afternoon of 1 July.",
+   "evidence": [
+    {
+     "source": "OR-27-1",
+     "archive_identifier": "cu31924077699761",
+     "ocr_line": 71588,
+     "quote": "Here the sound of cannonading first reached us."
+    }
+   ],
+   "tier": "documented",
+   "distance_m": null,
+   "expectation": {
+    "type": "qualitative",
+    "note": "distance Two Taverns to the firing not taken from a source here"
+   }
+  },
+  {
+   "id": "DR-HEAR-HARRISBURG",
+   "kind": "hearing",
+   "claim": "Cannonading of 2 July was reported heard at Harrisburg, 35 to 40 miles north (Harrisburg Evening Telegraph, 3 July 1863, via secondary pages; audio/PLAN.md 4.8).",
+   "evidence": [
+    {
+     "source": "audio/PLAN.md 4.8 (secondary pages read 2026-10-19: Wynn, Gratz, Lancaster Online)",
+     "note": "weak: the newspaper itself was not read; distance is the road estimate"
+    }
+   ],
+   "tier": "documented (secondary, weak)",
+   "distance_m": 56327,
+   "distance_range_m": [
+    56327,
+    64374
+   ],
+   "expectation": {
+    "type": "audible",
+    "n_guns": 150,
+    "ambient_db": 30,
+    "reading": "model: audible with a large margin, spectrum reduced to a low rumble; but the homogeneous model over-predicts range (no turbulence, no ground excess), so this expectation cannot discriminate"
+   }
+  },
+  {
+   "id": "DR-HEAR-PITTSBURGH",
+   "kind": "hearing",
+   "claim": "Sound of the battle was reported heard in Pittsburgh, about 150 miles (ASA via the PDF C.6); the date is contested (1 July in one source, general in another); the 100 miles of the brief is not the ASA figure.",
+   "evidence": [
+    {
+     "source": "PDF Appendix C.6 (page 119), citing the Acoustical Society of America and Today I Found Out",
+     "note": "weak, contested; no first-hand report read"
+    }
+   ],
+   "tier": "documented (secondary, contested)",
+   "distance_m": 241402,
+   "expectation": {
+    "type": "audible_upper_bound_only",
+    "n_guns": 150,
+    "ambient_db": 30,
+    "reading": "model: homogeneous air does not rule it out because it ignores turbulence and ground; the model neither confirms nor disproves the report; any rendering of it is a refraction scenario (plausible-procedural)"
+   }
+  },
+  {
+   "id": "DR-NOHEAR-EWELL",
+   "kind": "shadow",
+   "claim": "On 2 July Ewell's party did not hear Longstreet's artillery signal (PDF Section S.3, C.6; the Ellis attribution and the refraction explanation are unverified).",
+   "evidence": [
+    {
+     "source": "PDF Section S.3 and C.6 (secondary: Today I Found Out / ASA)",
+     "note": "positions and distance not documented here; no number is invented"
+    }
+   ],
+   "tier": "documented (secondary, weak)",
+   "distance_m": null,
+   "expectation": {
+    "type": "model_mismatch",
+    "reading": "the homogeneous model predicts audibility at any distance a party could plausibly have been; the documented non-hearing is NOT reproduced by default; only the shadow_zone scenario (extra loss 25 dB) moves in that direction, as a plausible-procedural scenario"
+   }
+  },
+  {
+   "id": "DR-DELAY-1500M",
+   "kind": "delay",
+   "claim": "A cannon 1.5 km away is heard about 4.4 s after the flash at 343 m/s (about 20 C).",
+   "evidence": [
+    {
+     "source": "PDF Appendix C.6 (page 119, 'hypotheses to validate')",
+     "note": "arithmetic; the plan labels it a hypothesis"
+    }
+   ],
+   "tier": "inferred",
+   "distance_m": 1500,
+   "expectation": {
+    "type": "delay",
+    "seconds": 4.4,
+    "tolerance_s": 0.1,
+    "tC": 20
+   }
+  },
+  {
+   "id": "DR-ECHO-HILLS-KIDD",
+   "kind": "echo",
+   "claim": "The 3 July cannonade was heard at East Cavalry Field as a volume of sound that rolled across the intervening hills.",
+   "evidence": [
+    {
+     "source": "MI-GB-1889 (Michigan at Gettysburg, address of General James H. Kidd)",
+     "archive_identifier": "cu31924030924736",
+     "ocr_line": 7359,
+     "quote": "volume of sound volleyed and rolled across the intervening hills",
+     "note": "recollection published 1889"
+    }
+   ],
+   "tier": "documented (secondary, late recollection)",
+   "expectation": {
+    "type": "qualitative",
+    "reading": "supports a long rolling tail for the cannonade heard over hills: ridge echo taps and a long reverb tail; no delay value is documented"
+   }
+  },
+  {
+   "id": "DR-ECHO-WOODS-CULPS",
+   "kind": "echo",
+   "claim": "At Culp's Hill the echoing of the woods increased the roar of the close musketry.",
+   "evidence": [
+    {
+     "source": "NY-GB-1900 (New York at Gettysburg, 1900)",
+     "archive_identifier": "newyorkatgettysb0001unse",
+     "ocr_line": 4294,
+     "quote": "the echoing of the woods increased the appalling roar"
+    },
+    {
+     "source": "New York at Gettysburg, Final Report vol. 1 (archive.org finalreportonba00chatgoog, not in acquired.json), history of the 78th NY",
+     "ocr_line": 9383,
+     "quote": "For seven hours the woods echoed with the crashing musketry"
+    }
+   ],
+   "tier": "documented (secondary, 1900 compilation)",
+   "expectation": {
+    "type": "qualitative",
+    "reading": "supports a woods reverb boost for dense musketry on Culp's Hill: the engine has the hook (woodsAt mask) but no woods mask exists yet, so the boost is not applied by default (open item)"
+   }
+  },
+  {
+   "id": "DR-ECHO-FIGURATIVE",
+   "kind": "echo",
+   "claim": "Longstreet's account of 3 July says the thunder on Seminary Ridge was answered by 'the echo from the Federal side'.",
+   "evidence": [
+    {
+     "source": "BL-3 (Battles and Leaders vol. 3, 'Lee's Right Wing at Gettysburg')",
+     "archive_identifier": "battlesleadersof03cent",
+     "ocr_line": 27373,
+     "quote": "the echo from the Federal side"
+    }
+   ],
+   "tier": "not used",
+   "expectation": {
+    "type": "none",
+    "reading": "figurative (answering fire), not an acoustic echo: NOT used as evidence for echo"
+   }
+  },
+  {
+   "id": "DR-NO-GETTYSBURG-ECHO-DELAY",
+   "kind": "gap",
+   "claim": "No account read gives a delay, distance or character of an echo at Gettysburg beyond the qualitative statements above; the 7 to 9 s ridge-to-ridge echo in audio/PLAN.md 4.4 is a geometric inference from the DEM, not an account.",
+   "evidence": [],
+   "tier": "open gap",
+   "expectation": {
+    "type": "gap"
+   }
+  }
+ ]
+}

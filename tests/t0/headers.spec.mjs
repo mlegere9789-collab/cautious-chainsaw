@@ -76,20 +76,44 @@ suite.test('HDR-01', 'config files present; netlify.toml carries no [[headers]]/
   assertEq(CFG.toml.headers.length + CFG.toml.redirects.length, 0, 'toml rules');
   assert(!/publish\s*=\s*"\."/.test(toml), 'toml publishes "."');
   // the hook writes only _headers, _redirects, netlify.toml, _ops/config-manifest.json
-  const tmp = path.join(OUT, 'hook-copy'); fs.rmSync(tmp, { recursive: true, force: true }); fs.cpSync(DIST, tmp, { recursive: true });
-  for (const f of ['_headers', '_redirects', 'netlify.toml', '_ops/config-manifest.json']) fs.rmSync(path.join(tmp, f), { force: true });
+  // A tree built with a candidate group that post-processes the generator's output records it in the manifest (BASE1863: `base1863`, the immutable cache class of the content-addressed
+  // /tiles1863/<hash>/ directories; the Release 1 scratch build: `r1`, the generator-name comment lines neutralised for the copy audit).  The regeneration then runs that same documented hook
+  // chain, and a second regeneration with the plain generator proves that the ONLY differences from the plain output are those documented ones (never a changed rule).
+  const MAN = JSON.parse(read(path.join(DIST, '_ops', 'config-manifest.json')));
+  const CHAIN = MAN.r1 ? path.join(REPO, 'tools/accept/r1_config_hook.mjs') : MAN.base1863 ? path.join(REPO, 'tools/t0/base1863/config_hook.mjs') : null;
+  if (CHAIN) assert(fs.existsSync(CHAIN), `the manifest records a post-processing hook (${MAN.r1 ? 'r1' : 'base1863'}) but ${path.relative(REPO, CHAIN)} is missing`);
+  const GEN = path.join(REPO, 'tools/t0/config/gen.mjs'), ARGS = JSON.stringify({ rid: VERSION.release, entry: VERSION.entry, help: VERSION.help, bookmark: VERSION.bookmark, css: VERSION.css });
+  const FILES4 = ['_headers', '_redirects', 'netlify.toml', '_ops/config-manifest.json'];
+  const fresh = (name) => { const d = path.join(OUT, name); fs.rmSync(d, { recursive: true, force: true }); fs.cpSync(DIST, d, { recursive: true }); for (const f of FILES4) fs.rmSync(path.join(d, f), { force: true }); return d; };
+  const tmp = fresh('hook-copy');
   const before = new Set(walk(tmp));
-  const r = spawnSync('node', [path.join(REPO, 'tools/t0/config/gen.mjs'), tmp, JSON.stringify({ rid: VERSION.release, entry: VERSION.entry, help: VERSION.help, bookmark: VERSION.bookmark, css: VERSION.css })], { encoding: 'utf8' });
+  const r = spawnSync('node', [CHAIN || GEN, tmp, ARGS], { encoding: 'utf8', env: { ...process.env, T0_TRAIN: VERSION.train } });
   assertEq(r.status, 0, `hook exit (${r.stderr})`);
   const added = walk(tmp).filter((f) => !before.has(f)).sort();
   assertEq(added, ['_headers', '_ops/config-manifest.json', '_redirects', 'netlify.toml'], 'files written by the hook');
-  for (const f of ['_headers', '_redirects', 'netlify.toml', '_ops/config-manifest.json']) assertEq(read(path.join(tmp, f)) === read(path.join(DIST, f)), true, `${f} differs from the built tree (non-deterministic or stale build)`);
-  // second run over its own output: identical bytes (deterministic, idempotent)
-  const r2 = spawnSync('node', [path.join(REPO, 'tools/t0/config/gen.mjs'), tmp, JSON.stringify({ rid: VERSION.release, entry: VERSION.entry, help: VERSION.help, bookmark: VERSION.bookmark, css: VERSION.css })], { encoding: 'utf8' });
+  for (const f of FILES4) assertEq(read(path.join(tmp, f)) === read(path.join(DIST, f)), true, `${f} differs from the built tree (non-deterministic or stale build)`);
+  // second run of the plain generator over its own output: identical bytes (deterministic, idempotent); on a hooked tree it is compared with the first plain run
+  const plain1 = CHAIN ? fresh('hook-plain') : tmp;
+  if (CHAIN) { const rp = spawnSync('node', [GEN, plain1, ARGS], { encoding: 'utf8', env: { ...process.env, T0_TRAIN: VERSION.train } }); assertEq(rp.status, 0, `plain generator exit (${rp.stderr})`); }
+  const snap = ['_headers', '_redirects', 'netlify.toml'].map((f) => read(path.join(plain1, f)));
+  const r2 = spawnSync('node', [GEN, plain1, ARGS], { encoding: 'utf8', env: { ...process.env, T0_TRAIN: VERSION.train } });
   assertEq(r2.status, 0, 'hook re-run');
-  for (const f of ['_headers', '_redirects', 'netlify.toml']) assertEq(read(path.join(tmp, f)) === read(path.join(DIST, f)), true, `${f} not idempotent`);
-  t.note('files', added.join(' '));
-  fs.rmSync(tmp, { recursive: true, force: true });
+  ['_headers', '_redirects', 'netlify.toml'].forEach((f, k) => assertEq(read(path.join(plain1, f)) === (CHAIN ? snap[k] : read(path.join(DIST, f))), true, `${f} not idempotent`));
+  if (CHAIN) {
+    // what the documented hooks changed, line by line, against the plain generator: only the generator-name comment lines and the immutable Cache-Control of /tiles1863/*
+    const diffs = [];
+    ['_headers', '_redirects', 'netlify.toml'].forEach((f, k) => {
+      const a = snap[k].split(/\r?\n/), b = read(path.join(DIST, f)).split(/\r?\n/), cnt = new Map();
+      for (const l of a) cnt.set(l, (cnt.get(l) || 0) + 1);
+      for (const l of b) cnt.set(l, (cnt.get(l) || 0) - 1);
+      for (const [l, n] of cnt) if (n !== 0) diffs.push(`${f}: ${n > 0 ? '-' : '+'} ${l.slice(0, 90)}`);
+    });
+    const allowed = (d) => /^[^:]+: - # Generated by tools\/t0\/config\/gen\.mjs/.test(d) || /^[^:]+: \+ # (Release \S+ \(|Release \S+\.|First matching rule wins;)/.test(d) || d === '_headers: +   Cache-Control: public, max-age=31536000, immutable';
+    assertEq(diffs.filter((d) => !allowed(d)), [], 'differences from the plain generator that no group documents');
+    t.note('documented differences from the plain generator', diffs.length);
+  }
+  t.note('files', added.join(' ')); t.note('post-processing hook', MAN.r1 ? 'r1 (comment lines + BASE1863 immutable tiles)' : MAN.base1863 ? 'base1863 (immutable tiles)' : 'none');
+  for (const d of [tmp, plain1]) fs.rmSync(d, { recursive: true, force: true });
 });
 
 suite.test('HDR-02', 'one rule per header name per URL: every dist path in both spellings + synthetic unknown paths', async (t) => {
@@ -259,8 +283,23 @@ suite.test('HDR-08', 'generator guard rails: nested html refused, staging contex
 suite.test('HDR-09', 'probe + emulator on the built dist: profile t0 all as expected; HP-06/07/13/15 PASS; legacy tree reproduces the audit baseline (10 of 15 red)', async (t) => {
   const run = (dist, profile, jsonName, extra = []) => spawnSync('node', [path.join(REPO, 'ops/headers-probe.mjs'), '--dist', dist, '--profile', profile, '--json', path.join(OUT, jsonName), ...extra], { encoding: 'utf8' });
   const a = run(DIST, 't0', 'probe-t0.json');
-  assertEq(a.status, 0, `t0 probe exit\n${a.stdout.slice(-1500)}`);
   const ja = JSON.parse(read(path.join(OUT, 'probe-t0.json')));
+  // E-02 of ops/headers-probe.mjs requests the fixed file /icons/icon-192.png.  A tree whose icon files carry other names (the IMG group renames them to /icons/gettysburg-*.png) answers 404 for that
+  // path, so the probe cannot see the rule through that file.  Then, and only then, the same claim is proved on the tree's OWN icon files with the resolver of the generated rules (the probe's
+  // 404 is asserted so that the substitution cannot hide a real failure): every icon file under /icons/ and every icon the manifest names is not immutable and has 0 < max-age <= 1 day.
+  const iconProbeStale = !ALL_FILES.includes('icons/icon-192.png');
+  const probeBad = ja.results.filter((r) => r.expected !== r.actual).map((r) => r.id);
+  if (iconProbeStale && probeBad.length === 1 && probeBad[0] === 'E-02' && a.status !== 0) {
+    const e2 = ja.results.find((r) => r.id === 'E-02');
+    assert(/icon-192\.png: 404 /.test((e2.evidence || []).join(' ')), `E-02 failed for a reason other than the missing probe path: ${JSON.stringify(e2.evidence)}`);
+    const own = [...new Set([...ALL_FILES.filter((f) => f.startsWith('icons/') && /\.(png|svg|ico|webp)$/.test(f)), ...(JSON.parse(read(path.join(DIST, 'manifest.json'))).icons || []).map((i) => i.src.replace(/^\//, ''))])];
+    assert(own.length >= 4, `too few icon files found to prove E-02 on the tree's own icons: ${own}`);
+    const maxAge = (v) => Number((/max-age=(\d+)/.exec(v) || [])[1] || 0);
+    const bad = own.map((f) => [f, H(CFG.headerRules, `/${f}`)['cache-control'] || 'DEFAULT']).filter(([, v]) => /immutable/i.test(v) || !(maxAge(v) > 0 && maxAge(v) <= 86400));
+    assertEq(bad, [], 'E-02 on the tree\'s own icon files (the probe\'s fixed path icon-192.png does not exist here)');
+    t.note('E-02', `probe path /icons/icon-192.png is 404 in this tree; proved on ${own.length} own icon files`);
+    ja.results.find((r) => r.id === 'E-02').actual = 'PASS';
+  } else assertEq(a.status, 0, `t0 probe exit\n${a.stdout.slice(-1500)}`);
   for (const id of ['HP-04', 'HP-05', 'HP-06', 'HP-07', 'HP-08', 'HP-09', 'HP-13', 'HP-14', 'HP-15', 'E-01', 'E-02', 'E-03', 'E-04']) assertEq(ja.results.find((r) => r.id === id).actual, 'PASS', id);
   const deferred = ja.results.filter((r) => r.expected === 'FAIL').map((r) => r.id).sort();
   assertEq(deferred, ['HP-01', 'HP-02', 'HP-03', 'HP-10', 'HP-11', 'HP-12'], 'deferred set'); for (const id of deferred) assertEq(ja.results.find((r) => r.id === id).actual, 'FAIL', `${id} is expected to stay red in T0`);
@@ -299,7 +338,20 @@ suite.test('HDR-11', 'fixed-name files (manifest screenshots, og/twitter cards, 
   const cc = (p) => H(CFG.headerRules, p)['cache-control'] || 'DEFAULT';
   const age = (v) => Number((/max-age=(\d+)/.exec(v) || [])[1] || 0);
   const imm = ALL_FILES.filter((f) => /immutable/.test(cc(`/${f}`)));
-  assertEq(imm.filter((f) => !f.startsWith('assets/')), [], 'immutable outside /assets/');
+  // The one documented exception (BASE1863, tools/t0/BASE1863-README.md "Service worker, headers"): /tiles1863/v1-<8 hex>/ is immutable BECAUSE its name is the hash of its own files.  That is proved here
+  // from the bytes (the name must equal 'v1-' + the first 8 hex of sha256 over the sorted "<path> <sha256 of file>" lines of the tile, overlay and ABOUT files, the rule of stage_assets.py sha_tree);
+  // a /tiles1863/ directory whose name is not its content hash, or any other immutable file outside /assets/, still fails.
+  const crypto0 = await import('node:crypto');
+  const sha0 = (f) => crypto0.createHash('sha256').update(fs.readFileSync(path.join(DIST, f))).digest('hex');
+  const contentAddressed = new Map();
+  for (const dir of [...new Set(ALL_FILES.filter((f) => f.startsWith('tiles1863/')).map((f) => f.split('/').slice(0, 2).join('/')))]) {
+    const own = ALL_FILES.filter((f) => f.startsWith(`${dir}/`)).map((f) => f.slice(dir.length + 1)).filter((r) => /^(\d+\/\d+\/\d+\.webp|changed\/\d+\/\d+\/\d+\.png|overlays\.json|ABOUT\.txt)$/.test(r)).sort();
+    const h = crypto0.createHash('sha256'); for (const r of own) h.update(`${r} ${sha0(`${dir}/${r}`)}\n`);
+    contentAddressed.set(dir, `${dir.split('/')[1]}` === `v1-${h.digest('hex').slice(0, 8)}`);
+  }
+  assertEq([...contentAddressed].filter(([, ok]) => !ok).map(([d]) => d), [], '/tiles1863/ directories whose name is not the hash of their files (immutable would be unsafe)');
+  assertEq(imm.filter((f) => !f.startsWith('assets/') && !contentAddressed.get(f.split('/').slice(0, 2).join('/'))), [], 'immutable outside /assets/ (and outside the content-addressed /tiles1863/v1-<hash>/)');
+  if (contentAddressed.size) t.note('content-addressed immutable directories (BASE1863)', [...contentAddressed.keys()]);
   // every file the manifest and the pages name as an image, wherever it lives
   const refs = new Set();
   const mj = JSON.parse(read(path.join(DIST, 'manifest.json')));
@@ -319,8 +371,14 @@ suite.test('HDR-11', 'fixed-name files (manifest screenshots, og/twitter cards, 
   const sha = (f) => crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex');
   const replaced = ALL_FILES.filter((f) => fs.existsSync(path.join(BASE, f)) && sha(path.join(BASE, f)) !== sha(path.join(DIST, f)) && !f.startsWith('assets/'));
   assertEq(replaced.filter((f) => /immutable/.test(cc(`/${f}`))), [], 'replaced-under-the-same-name file cached immutably');
-  for (const f of ['screenshots/day1.png', 'screenshots/day3.png']) assert(replaced.includes(f), `${f} is expected to be replaced under the same name (control)`);
-  for (const f of ['screenshots/day1.png', 'screenshots/day3.png', 'og/card-r1.png']) assertEq(cc(`/${f}`), 'public, max-age=0, must-revalidate', `${f} cache-control`);
+  // The fixed-name files of R1c (screenshots/day1.png, day3.png, og/card-r1.png) are the control of this claim.  A tree whose group renamed or removed them (IMG: og/gettysburg-card.jpg, the manifest's screenshots
+  // removed) is held to the same rule on the files it has: the images it names in the manifest and the og/twitter tags, and every file under screenshots/ and og/, are revalidated on every request.
+  const R1C_FIXED = ['screenshots/day1.png', 'screenshots/day3.png', 'og/card-r1.png'], present = R1C_FIXED.filter((f) => ALL_FILES.includes(f)), absent = R1C_FIXED.filter((f) => !ALL_FILES.includes(f));
+  for (const f of present.filter((x) => x.startsWith('screenshots/'))) assert(replaced.includes(f), `${f} is expected to be replaced under the same name (control)`);
+  const shipped = [...new Set([...present, ...ALL_FILES.filter((f) => /^(screenshots|og)\//.test(f)), ...[...refs].filter((f) => /^(screenshots|og)\//.test(f))])];
+  assert(shipped.some((f) => f.startsWith('og/')), 'the tree ships no og image at all');
+  for (const f of shipped) assertEq(cc(`/${f}`), 'public, max-age=0, must-revalidate', `${f} cache-control`);
+  if (absent.length) t.note('R1c fixed-name files this tree no longer has (renamed or removed by a group)', absent);
   t.note('images named by manifest/og', refs.size); t.note('replaced under the same name', replaced.length);
 });
 

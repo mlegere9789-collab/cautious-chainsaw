@@ -54,7 +54,9 @@ function pageFunction(file, name) {
 // the inlined module (patched trees): var GTBGT=(function(){...})(); in the bundle, window.GTBGTime in a page <script>
 const GT = {};
 {
-  const m = /var GTBGT=(\(function\(\)\{[\s\S]*?\}\)\(\));(?=function v4\()/.exec(bundle);
+  // the module is followed by the helper assignments of the CLOCK group (GTBGT.s=...;) or, in a tree with the module alone, by the next declaration (function v4()): the lookahead
+  // names both, so an inner IIFE of the module can not end the match early (the old lookahead named only v4 and found nothing once helpers followed the module)
+  const m = /var GTBGT=(\(function\(\)\{[\s\S]*?\}\)\(\));(?=GTBGT\.\w+=|function v4\()/.exec(bundle);
   if (m) { const sb = {}; vm.createContext(sb); vm.runInContext('var G=' + m[1] + ';', sb); GT.GTBGT = sb.G; }
   for (const [f, text] of Object.entries(files)) {
     if (!f.endsWith('.html')) continue;
@@ -135,8 +137,12 @@ const inventory = [];
 for (const im of impls) {
   const per = [], samples = {};
   let dateWrong = 0, over30 = 0, over60 = 0; const errs = [];
+  let evalErrors = 0, firstEvalError = null;
   for (let t = 1; t <= T; t++) {
-    let o; try { o = im.out(t); } catch (e) { o = null; }
+    // an implementation that throws or returns nothing is a finding, never a crash of the inventory: it is counted per implementation and reported (exit 3) after the table is printed
+    let o, why = null; try { o = im.out(t); } catch (e) { why = String((e && e.message) || e).slice(0, 160); }
+    if (why === null && (o === null || o === undefined)) why = `returned ${o}`;
+    if (why !== null) { if (!evalErrors++) firstEvalError = `tick ${t}: ${why}`; continue; }
     const c = canon(t);
     if (im.id === 'E') { const h = o.hour, e = circ(Math.round(h * 60), c.mod); per.push(e); errs.push(e); if (e > 30) over30++; if (e > 60) over60++; if (SAMPLE.includes(t)) samples[t] = `hour ${h.toFixed(2)} alpha ${o.alpha}`; continue; }
     if (im.id === 'H' || im.id === 'I') { const oh = Math.floor(o), e = circ(oh * 60 + 30, c.mod - (c.mod % 60) + 30); errs.push(e); if (circ(oh * 60, c.mod - (c.mod % 60)) >= 60) over60++; if (oh !== Math.floor(c.mod / 60)) over30++; if (SAMPLE.includes(t)) samples[t] = `hour ${o}`; continue; }
@@ -147,7 +153,7 @@ for (const im of impls) {
     if (pr.mod !== null) { const e = circ(pr.mod, c.mod); errs.push(e); if (e > 30) over30++; if (e > 60) over60++; }
   }
   inventory.push({ id: im.id, name: im.name, file: im.file, at: im.at, routed: /GTBGT(?:ime)?\b/.test(im.src), hash: sha(im.src), bytes: im.src.length, rule: im.rule, feeds: im.feeds, kind: im.kind,
-    ticksOver30MinFromModel: over30, ticksOver60MinFromModel: over60, datesWrong: dateWrong, meanAbsErrMin: errs.length ? r1(mean(errs)) : null, medianAbsErrMin: errs.length ? r1(median(errs)) : null, samples });
+    ticksOver30MinFromModel: over30, ticksOver60MinFromModel: over60, datesWrong: dateWrong, meanAbsErrMin: errs.length ? r1(mean(errs)) : null, medianAbsErrMin: errs.length ? r1(median(errs)) : null, samples, evalErrors, firstEvalError });
 }
 
 // ---------------------------------------------------------------- generic detectors (TM-V9 style), attributed to the known implementations or flagged UNKNOWN
@@ -238,5 +244,10 @@ else if (flags.check) {
 } else if (!flags.root) {
   writeIfChanged(P('docs', 'editorial', 'formula-inventory.md'), md);
   writeIfChanged(P('tools', 'time', 'build', 'surfaces.json'), JSON.stringify(result, null, 2) + '\n');
+}
+const broken = inventory.filter((i) => i.evalErrors);
+if (broken.length) {
+  console.error('INVENTORY ERROR: ' + broken.map((i) => `${i.id} ${i.name} threw or returned nothing on ${i.evalErrors} of ${T} ticks (first: ${i.firstEvalError})`).join('; '));
+  if (!flags.noexit) process.exitCode = 3;
 }
 export { result as surfaces };

@@ -5,10 +5,15 @@
 //   The pin of a displaced tile is drawn ON TOP of its chip so the true position stays visible even when the chip is only a few pixels away.
 import { drawBeneath, drawAbove } from '../popups/fxdraw.mjs';
 import { createPlaces } from './places.mjs';
-export function createRenderer({ canvas, engine, data, places = null }) {
+import { createStreets } from './streets.mjs';
+import { stageRect, boxInStage } from './stage.mjs';
+import { drawScaleBar, scaleBarRect } from './scalebar.mjs';
+export function createRenderer({ canvas, engine, data, places = null, vectors = null }) {
   const placeNames = places ? createPlaces({ places }) : null;       // FORK: the real ground's place names, set around the marks (render/places.mjs)
+  const streetNames = vectors ? createStreets({ vectors }) : null;   // ROUND 2: and its road and stream names (render/streets.mjs)
+  const stageA = new Map();                                          // display tile key -> how much of the mark is shown (0..1): a mark is whole or absent, eased in time
   const ctx = canvas.getContext('2d', { alpha: false });
-  let dpr = 1; let cssW = 0; let cssH = 0; let lastMs = 0;
+  let dpr = 1; let cssW = 0; let cssH = 0; let lastMs = 0; let lastFrames = 0;
   const stats = { drawMs: 0, tilesDrawn: 0 };
   const fallbackSkin = { draw: { tile(c, t) { c.fillStyle = '#777'; c.fillRect(-t.w / 2, -t.h / 2, t.w, t.h); } } };
 
@@ -18,8 +23,10 @@ export function createRenderer({ canvas, engine, data, places = null }) {
     canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr); canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
   }
 
-  function draw(frame, { hoverKey = null, popupLeaders = [], popupFx = null, mapRect = null, toneColors = null } = {}) {
+  function draw(frame, { hoverKey = null, popupLeaders = [], popupFx = null, mapRect = null, toneColors = null, cardRects = [] } = {}) {
     const t0 = performance.now(); const tok = engine.tok; const c = ctx;
+    const steps = Math.max(1, Math.min(60, (engine.frames || 0) - lastFrames)); lastFrames = engine.frames || 0;      // engine frames since the last drawing: every fade below runs per ENGINE frame, so a harness that steps 240 frames and draws once still shows the settled picture
+
     const skin = engine.kernel.skins.has(tok('skin.id')) ? engine.kernel.skins.get(tok('skin.id')) : fallbackSkin;
     const spec = frame.spec; const view = frame.view; const cam = engine.camera;
     const env = { dpr, zoom: frame.zoom, timeMs: frame.tau * 500, tok, spec, view };
@@ -28,19 +35,28 @@ export function createRenderer({ canvas, engine, data, places = null }) {
     // 1. backdrop
     const bid = tok('backdrop.id'); const bd = engine.kernel.backdrops.has(bid) ? engine.kernel.backdrops.get(bid) : null;
     if (bd) bd.draw(c, { w: cssW, h: cssH, camera: cam, mpp: cam.mpp(), toScreen: (lng, lat) => cam.toScreen(lng, lat) }, data, tok); else { c.fillStyle = '#ddd'; c.fillRect(0, 0, cssW, cssH); }
-    if (placeNames && bd && bd.look && tok('backdrop.places')) { const sf0 = engine.safe || { top: 0, bottom: 0, left: 0, right: 0 }; const sf1 = mapRect ? { ...sf0, bottom: Math.max(sf0.bottom, cssH - mapRect.h), right: Math.max(sf0.right, cssW - mapRect.w) } : sf0; placeNames.draw(c, { w: cssW, h: cssH, camera: cam, tiles: frame.tiles, view, safe: sf1, look: bd.look }); }      // POLISH 1: the reading rail or sheet narrows the map: a place name is never set across its edge
+    const stage = stageRect(engine.safe, cssW, cssH, mapRect);
+    if (bd && bd.look) {
+      let avoid = cardRects.slice(); if (stage.x1 - stage.x0 >= 420) avoid.push(scaleBarRect(stage, cam));
+      if (placeNames && tok('backdrop.places')) avoid = avoid.concat(placeNames.draw(c, { w: cssW, h: cssH, camera: cam, tiles: frame.tiles, view, stage, look: bd.look, cards: avoid, steps }) || []);
+      if (streetNames) streetNames.draw(c, { w: cssW, h: cssH, camera: cam, tiles: frame.tiles, view, stage, look: bd.look, avoid, steps, onBusy: () => { engine.dirty = true; } });
+      const sbObst = []; for (const t of frame.tiles) { if (t.opacity < 0.3) continue; const x = t.x + view.dx; const y = t.y + view.dy; sbObst.push({ x0: x - t.w * t.scale / 2, x1: x + t.w * t.scale / 2, y0: y - t.h * t.scale / 2, y1: y + t.h * t.scale / 2 }); }
+      drawScaleBar(c, stage, cam, bd.look, sbObst, steps);
+    }
     // 2. fx modules
     for (const fx of engine.kernel.fx.list()) if (fx.draw) { c.save(); fx.draw(c, frame, env); c.restore(); }
     const on = (t) => { const x = t.x + view.dx; const y = t.y + view.dy; return x > -120 && x < cssW + 120 && y > -60 && y < cssH + 60; };
-    // POLISH 1: a mark that reaches into what the interface covers (a control group of the top bar, the dock, the side panel: engine.chromeRects) dissolves over the last RAMP px before it, so it is never cut in
-    // half by a bar and never hides under one, exactly as a mark dissolves at the edge of a scrolled map; the gaps between the controls stay open map; the reading rail narrows the map (mapRect) and works the same way.  The window's own edge is not a margin.
-    const rects = engine.chromeRects ? engine.chromeRects() : []; const RAMP = 16; const mapW = mapRect ? mapRect.w : cssW;
-    const fadeOf = (t) => {
-      const hw = t.w * t.scale / 2; const hh = t.h * t.scale / 2; const x = t.x + view.dx; const y = t.y + view.dy; let k = 1;
-      for (const r of rects) { const d = Math.max(r.x0 - (x + hw), (x - hw) - r.x1, r.y0 - (y + hh), (y - hh) - r.y1); if (d < RAMP) k = Math.min(k, d / RAMP); }
-      if (mapRect && mapRect.w < cssW) k = Math.min(k, (mapW - (x + hw)) / RAMP + 1);
-      return k >= 1 ? 1 : k <= 0 ? 0 : k * k * (3 - 2 * k);
-    };
+    // ROUND 2 (render/stage.mjs): a mark is drawn WHOLE or not at all.  The frame (masthead, dock, rail, columns) is the edge of the stage; a mark whose whole footprint lies inside the stage and clear of the floating interface is
+    // shown, any other is eased out as one piece; at rest every mark is either fully shown or absent (never half-transparent under a bar, never cut by the screen edge).
+    const extra = engine.chromeRects ? engine.chromeRects() : []; let easing = false; const seenKeys = new Set();
+    for (const t of frame.tiles) {
+      const x = t.x + view.dx; const y = t.y + view.dy; const want = boxInStage(stage, x, y, t.w * t.scale, t.h * t.scale, extra) ? 1 : 0; seenKeys.add(t.key);
+      let a = stageA.get(t.key); if (a === undefined) a = want; else { a += (want - a) * (1 - Math.pow(0.7, steps)); if (Math.abs(a - want) < 0.03) a = want; }
+      stageA.set(t.key, a); t.stageA = a; if (a !== want) easing = true;
+    }
+    if (stageA.size > frame.tiles.length + 64) for (const k of stageA.keys()) if (!seenKeys.has(k)) stageA.delete(k);
+    if (easing) engine.dirty = true;
+    const fadeOf = (t) => { const a = t.stageA; return a >= 1 ? 1 : a <= 0 ? 0 : a * a * (3 - 2 * a); };
     const D = skin.draw; let drawn = 0;
     // 2b. popup ink beneath the tiles: leader lines, place rings, arrows, pulses (a tile always paints over them)
     if (popupFx) drawBeneath(c, popupFx, toneColors);

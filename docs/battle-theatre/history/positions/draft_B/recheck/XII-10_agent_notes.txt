@@ -1,0 +1,19 @@
+BATCH XII-10: reports OR27-1-R287 (Fesler, 27th Ind), R288 (Morse, 2d Mass), R289 (Grimes, 13th NJ), R290 (Crane, 107th NY). 54 claims, all decided; no open-gap claims skipped.
+
+Counts per fc: passed_full_read 38, corrected 15, downgraded 1, split 0.
+Validator: decisions 54 ... new split claims 0 missing 0 errors 0.
+
+Patterns (claims affected):
+- time from another sentence / non-time wp: 27in-14 (5-6 a. m. order, not the 100-yard halt), 107ny-07 (4 p. m. is arrival), 13nj-13 (midnight arrival, not the building), 27in-08 (wp was not a date/hour) = 4
+- merged second report: 0
+- later order ignored: 0 (107ny-07 note: later deploy/advance/move to rear)
+- compass/road gloss or unprinted detail added: 13nj-17 ("General Gregg's" not in report; "about 5 miles" sum), art-1nym-03 ("near the pike" not printed), 2ma-14 ("near the works") = 3
+- hedge/condition/overstatement: 2ma-13 (enemy identity: reply "Twenty-third Virginia"), 13nj-13 ("built" vs "assisted in building"), 107ny-10 (order named only the pike), 107ny-14 (merged 4 p. m. relief, separate claim -15), 13nj-10 (on the wood road), 27in-15 (July 4 8 a. m. clause order unsettled by footnote) = 6
+- unit identity gloss: art-4usf-02 downgraded (battery letter F not printed; only "Captain Best's Fourth Regular Battery") = 1
+- OCR digit: 13nj-07 (distance "l4 miles" read as 1.25-1.5), 107ny-17 (garbled strength table, footnote 322) = 2
+- meridian inferred: 2ma-16 (5.30 after "At daylight, July 3"), passed with mer true = 1
+- other: 2ma-10 (quote was the half-hour halt, replaced by the reserve/double column sentence) = 1
+
+Split ids: none. Downgraded ids: POS-B-us-12c-art-4usf-02.
+
+Systematic: (1) artifacts of the artillery supporting-regiment claims (art-*) copy the regiment's sentence and add a place or battery identity not printed; check every art-* claim built from a supporting-regiment passage. (2) Footnote strength claims (2ma-05 .. 13nj-04) carry a report-context date only; digits are corroborated by the footnote total 1,571. (3) 107ny-17 table is OCR-garbled; officers/enlisted breakdown is a sum-consistent reading only.

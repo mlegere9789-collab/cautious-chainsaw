@@ -20,6 +20,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
+import { treeHas, loadOracle } from './lib_clock.mjs';
 
 process.env.T0_AGENT ??= 'pages-core';
 process.env.T0_PORT_BASE ??= '8380';
@@ -38,7 +39,9 @@ const IS_LEGACY = path.resolve(DIST) === path.resolve(REPO, 'legacy/dist');
 if (!fs.existsSync(DIST)) { console.error(`dist not found: ${DIST}\nbuild it first: python tools/t0/build.py --train R1a`); process.exit(2); }
 const LEGACY = path.join(REPO, 'legacy', 'dist');
 const readDist = (rel) => fs.readFileSync(path.join(DIST, rel), 'utf8');
-const readJson = (rel) => JSON.parse(fs.readFileSync(path.join(LEGACY, rel), 'utf8'));   // data files are byte-identical in every train (T0 never edits /data/*)
+// The data files are byte-identical in every train that has no DATA group (T0 never edits /data/*); a tree built with DATA corrects figures and texts,
+// so the expectations are read from the data files of the tree under test (for a tree without DATA that is the same bytes as legacy/dist).
+const readJson = (rel) => JSON.parse(fs.readFileSync(path.join(fs.existsSync(path.join(DIST, rel)) ? DIST : LEGACY, rel), 'utf8'));
 
 const DESKTOP = { width: 1280, height: 800, dpr: 1, mobile: false };
 const PHONE = { width: 375, height: 812, dpr: 2, mobile: true };
@@ -74,6 +77,10 @@ const dupIds = (page) => page.evaluate(() => {
   const seen = {}; document.querySelectorAll('[id]').forEach((e) => { seen[e.id] = (seen[e.id] || 0) + 1; });
   return Object.entries(seen).filter(([, n]) => n > 1).map(([id, n]) => `${id}x${n}`);
 });
+// What a stop / caption prints for a frame: "Tick 5" before CLOCK, the clock module's own string ("July 1, about 5:20 AM", style compat) with it (the oracle reads the adjudicated anchors only)
+const CLOCK_TREE = treeHas(DIST, 'CLOCK');
+const POLISH_TREE = treeHas(DIST, 'POLISH');
+const frameLabel = async (n) => (CLOCK_TREE ? (await loadOracle()).fmt(n, 'compat') : `Tick ${n}`);
 const bodyText = (page) => page.evaluate(() => document.body.innerText);
 const noJunk = (text, label) => assert(!/undefined|\bNaN\b|\bnull\b/.test(text), `${label}: page text contains undefined/NaN/null: ${JSON.stringify(text.match(/.{0,40}(undefined|\bNaN\b|\bnull\b).{0,40}/)?.[0])}`);
 const staticStub = () => {
@@ -310,7 +317,12 @@ test('T0-PGC-10', 'dashboard: chart draws in svg#strength-chart (>= 24 children,
   t.note('chart', seen);
 });
 
-test('T0-PGC-11', 'dashboard: notable-intensity cards read as titled Union/Confederate cards; no undefined, raw keys, developer data note or warning glyphs (C7, H7)', async (t) => {
+// The notable-intensity notes have two shapes: the published (R1c) data nests highest_single_regiment_rate {union:{unit,rate,note}, confederate:{...}}; DATA replaced it by
+// two flat {unit, note} entries (highest_union_regiment_loss, a_heavy_confederate_regiment_loss) whose figures it re-checked.  The tree under test decides which one it has.
+const NOTES = CASUALTY.notable_intensity_notes || {};
+const NESTED = !!(NOTES.highest_single_regiment_rate && NOTES.highest_single_regiment_rate.union);
+const TIDY = (x) => String(x).replace(/ -- /g, ' — ');
+test('T0-PGC-11', 'dashboard: notable-intensity cards read as titled cards (one per note of the data); no undefined, raw keys, developer data note or warning glyphs (C7, H7)', async (t) => {
   const { page } = await freshPage();
   await open(page, 'dashboard');
   await waitFor(() => page.evaluate(() => document.querySelectorAll('.stat-card').length >= 5), { timeout: 10000, label: 'stat cards' });
@@ -319,14 +331,47 @@ test('T0-PGC-11', 'dashboard: notable-intensity cards read as titled Union/Confe
   noJunk(r.text, 'dashboard');
   assert(!/highest_single_regiment_rate|_/.test(r.cards.map((c) => c.lbl).join(' ')), 'a card label still shows a snake_case key');
   const titles = r.cards.map((c) => c.lbl);
-  assert(titles.includes('Highest regimental loss rate, Union') && titles.includes('Highest regimental loss rate, Confederate'), `nested notes must give two labelled cards: ${titles}`);
-  const un = r.cards.find((c) => c.lbl === 'Highest regimental loss rate, Union'), cf = r.cards.find((c) => c.lbl === 'Highest regimental loss rate, Confederate');
-  assert(un.num === '85.5%' && /1st Minnesota/.test(un.note), `union card ${JSON.stringify(un)}`);
-  assert(cf.num === '69.7%' && /26th North Carolina/.test(cf.note), `confederate card ${JSON.stringify(cf)}`);
+  if (NESTED) {
+    assert(titles.includes('Highest regimental loss rate, Union') && titles.includes('Highest regimental loss rate, Confederate'), `nested notes must give two labelled cards: ${titles}`);
+    const un = r.cards.find((c) => c.lbl === 'Highest regimental loss rate, Union'), cf = r.cards.find((c) => c.lbl === 'Highest regimental loss rate, Confederate');
+    assert(un.num === '85.5%' && /1st Minnesota/.test(un.note), `union card ${JSON.stringify(un)}`);
+    assert(cf.num === '69.7%' && /26th North Carolina/.test(cf.note), `confederate card ${JSON.stringify(cf)}`);
+  } else {
+    // every note of the data becomes exactly one card that prints the note's own sentence (a card per entry, nothing dropped, nothing doubled)
+    for (const [key, n] of Object.entries(NOTES)) {
+      assert(n && typeof n.note === 'string', `unexpected notes shape for ${key}`);
+      assertEq(r.cards.filter((c) => c.note === TIDY(n.note)).length, 1, `cards that print the note of "${key}"`);
+    }
+    assertEq(r.cards.length, 2 + Object.keys(NOTES).length, 'cards on the page (2 corps-total cards + one per note)');
+  }
   assert(!/Data note|reconciled|source data flags/.test(r.text) && !r.text.includes('⚠'), 'developer data note / warning glyph still visible');
   assert(!/ -- /.test(r.cards.map((c) => c.note).join(' ')), 'raw " -- " left in a card note');
   await page.close();
 });
+
+// A card that is about one regiment says which one, and a side's name is a proper noun.  On the published data the note itself names the regiment ("1st Minnesota -- 224 of 262 ...");
+// DATA's flat entries carry the regiment only in `unit` ("1st Minnesota (85.5%)"), which the page's groupName() cuts down to the text inside the brackets.
+test('T0-PGC-11b', 'dashboard: a regiment card names its regiment, and "Union" / "Confederate" in a card title are capitalised', async (t) => {
+  const { page } = await freshPage();
+  await open(page, 'dashboard');
+  await waitFor(() => page.evaluate(() => document.querySelectorAll('.stat-card').length >= 5), { timeout: 10000, label: 'stat cards' });
+  const cards = await page.evaluate(() => [...document.querySelectorAll('.stat-card')].map((c) => ({ num: c.querySelector('.num').textContent, lbl: c.querySelector('.lbl').textContent, note: c.querySelector('.note').textContent })));
+  const bad = [];
+  for (const [key, n] of Object.entries(NOTES)) {
+    const entries = n && typeof n.note === 'string' ? [[key, n]] : Object.entries(n || {}).filter(([, v]) => v && typeof v.note === 'string').map(([side, v]) => [`${key}.${side}`, v]);
+    for (const [k, v] of entries) {
+      if (!/regiment/i.test(k) || /^[UC]-[0-9A-Z]+$/.test(String(v.unit))) continue;   // an id such as U-1MN: the published note names the regiment itself and the other test reads it
+      const name = String(v.unit).replace(/\s*\([^)]*\)\s*$/, '');
+      const card = cards.find((c) => c.note === TIDY(v.note));
+      if (!card) { bad.push(`${k}: no card`); continue; }
+      if (!`${card.num} ${card.lbl} ${card.note}`.includes(name)) bad.push(`${k}: the card (${JSON.stringify(card).slice(0, 160)}) does not name "${name}"`);
+    }
+  }
+  for (const c of cards) if (/\b(union|confederate)\b/.test(c.lbl)) bad.push(`title "${c.lbl}" has a lower-case side name`);
+  t.note('problems', bad);
+  assertEq(bad, [], 'regiment cards / titles');
+  await page.close();
+}, { red: false });
 
 test('T0-PGC-12', 'dashboard on a 375px phone: layout viewport stays 375, no page-level horizontal scroll, chart scrolls inside its own region (S4)', async (t) => {
   const { page } = await freshPage('phone');
@@ -445,14 +490,18 @@ test('T0-PGC-17', 'historian: chronology answers print the event (not "undefined
   await open(page, 'historian');
   await waitFor(() => page.evaluate(() => getComputedStyle(document.getElementById('ask-row')).display !== 'none'), { timeout: 10000, label: 'ask row' });
   const ask = async (q) => { await page.fill('#ask', q); await page.press('#ask', 'Enter'); await sleep(400); };
-  await ask('Both armies consolidate overnight positions');
+  // the chronology event at frame 226 (the first night): its first sentence is both the question and what the answer must print; it is read from this tree's data
+  const nightEvent = readJson('data/chronology_day2.json').events.find((e) => e.tick === 226);
+  const nightText = nightEvent.event.split(/\.\s/)[0].replace(/\.$/, '');
+  t.note('chronology question', nightText);
+  await ask(nightText);
   await ask('20th Maine');
   await ask("Devil's Den");
   const msgs = await page.evaluate(() => [...document.querySelectorAll('#transcript .msg.bot')].map((m) => m.innerText));
   const all = msgs.join('\n');
   t.note('answers', msgs.length);
   noJunk(all, 'historian transcript');
-  assert(/Both armies consolidate overnight positions/.test(all), 'the chronology answer must print the event text');
+  assert(all.includes(nightText), `the chronology answer must print the event text "${nightText}"`);
   assert(!/\b[UC]-[IVX]+(-\d+)*\b/.test(all), `raw formation ids in prose: ${all.match(/.{0,30}\b[UC]-[IVX]+(-\d+)*\b.{0,10}/)?.[0]}`);
   assert(/Source: chronology, Day \d/.test(all), 'chronology answers name their source');
   const how = await page.evaluate(() => document.getElementById('how').textContent);
@@ -475,10 +524,27 @@ test('T0-PGC-18', 'historian: the newest answer clears the sticky ask bar after 
       await page.press('#ask', 'Enter');
       await sleep(1800);   // smooth scroll settles
     }
-    const r = await page.evaluate(() => { const msgs = document.querySelectorAll('#transcript .msg'); const last = msgs[msgs.length - 1].getBoundingClientRect(); const bar = document.getElementById('ask-row').getBoundingClientRect(); return { lastBottom: Math.round(last.bottom), barTop: Math.round(bar.top), scrollable: document.documentElement.scrollHeight > innerHeight }; });
+    const measure = () => page.evaluate(() => {
+      const all = [...document.querySelectorAll('#transcript .msg')], last = all[all.length - 1].getBoundingClientRect(), bar = document.getElementById('ask-row').getBoundingClientRect();
+      const q = [...document.querySelectorAll('#transcript .msg.user')].pop().getBoundingClientRect();
+      const firstAnswer = (() => { const u = [...document.querySelectorAll('#transcript .msg.user')].pop(); return u && u.nextElementSibling ? u.nextElementSibling.getBoundingClientRect() : null; })();
+      return { lastBottom: Math.round(last.bottom), barTop: Math.round(bar.top), qTop: Math.round(q.top), qBottom: Math.round(q.bottom), a1Top: firstAnswer ? Math.round(firstAnswer.top) : null, vh: innerHeight, scrollable: document.documentElement.scrollHeight > innerHeight };
+    });
+    const r = await measure();
     gaps[kind] = r;
     assert(r.scrollable, `${kind}: page must be scrollable for this check`);
-    assert(r.lastBottom <= r.barTop + 1, `${kind}: last answer bottom ${r.lastBottom} is under the ask bar (top ${r.barTop})`);
+    if (POLISH_TREE) {
+      // POLISH (section 5 of POLISH-README, T0-POL-08 / PGF-13): one scroll per question, to the QUESTION; its first answer follows it.  The newest answer's end is reached by scrolling.
+      assert(r.qTop >= 0 && r.qBottom <= r.vh, `${kind}: the question must be on screen after asking (top ${r.qTop}, bottom ${r.qBottom}, viewport ${r.vh})`);
+      assert(r.a1Top != null && r.a1Top < r.barTop, `${kind}: the first answer must start above the ask bar (top ${r.a1Top}, bar ${r.barTop})`);
+      // ... and nothing is lost under the sticky bar: scrolled to the end of the page, the newest answer ends above it (the bar never covers the end of the transcript)
+      await page.evaluate(() => window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' }));
+      await sleep(400);
+      const end = await measure();
+      assert(end.lastBottom <= end.barTop + 1, `${kind}: at the end of the page the last answer bottom ${end.lastBottom} is under the ask bar (top ${end.barTop})`);
+    } else {
+      assert(r.lastBottom <= r.barTop + 1, `${kind}: last answer bottom ${r.lastBottom} is under the ask bar (top ${r.barTop})`);
+    }
     await page.close();
   }
   t.note('positions', gaps);
@@ -502,7 +568,8 @@ test('T0-PGC-19', 'Watch Together: a stored tour with markup in a note or tick r
   t.note('rows', r.rows);
   assertEq(r.xss, 0, 'script executions from a stored note');
   assertEq(r.imgs, 0, 'injected elements inside #stops');
-  assert(r.rows.some((x) => x.includes('Tick 5') && x.includes('<img src=x')), 'the note must be shown literally as text');
+  const l5 = await frameLabel(5);
+  assert(r.rows.some((x) => x.includes(l5) && x.includes('<img src=x')), `the note must be shown literally as text, after the label of frame 5 ("${l5}")`);
   assert(r.rows.length === 2, `invalid stops (non-integer tick, tick out of 1..675) must be dropped: ${r.rows.length} rows`);
   await page.close();
 });
@@ -553,7 +620,8 @@ test('T0-PGC-21', 'Watch Together: "Add stop" with an empty, non-numeric or out-
   await page.click('#add-stop');
   assertEq(await count(), 1, 'stops after a valid tick');
   const row = await page.evaluate(() => document.querySelector('#stops .stop-row').innerText.replace(/\s+/g, ' '));
-  assert(row.includes('Tick 226') && row.includes('Second day begins'), `row "${row}"`);
+  const l226 = await frameLabel(226);
+  assert(row.includes(l226) && row.includes('Second day begins'), `row "${row}" (want the label of frame 226 "${l226}")`);
   await page.close();
 });
 

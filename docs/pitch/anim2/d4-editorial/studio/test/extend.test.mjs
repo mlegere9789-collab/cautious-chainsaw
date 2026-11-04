@@ -22,11 +22,11 @@ const mk = (opts = {}) => { const e = makeEngine({ start: { tick: scene.tick, la
 const rng = (seed) => { let s = seed >>> 0; return () => { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; }; };
 
 // ---- skins -----------------------------------------------------------------------------------------------------------------------------------------------
-test('the reference skin conforms to the skin contract: ink inside the footprint for every side, arm, badge, selection and strength state of real tiles', () => {
-  const e = mk(); const spec = e.spec(); const f = e.frame; const samples = [];
+test('the shipped Dispatch skin conforms to the skin contract: ink inside the footprint for every side, arm, badge, selection and strength state of real tiles', () => {
+  const dispatch = SKINS.find((k) => k.id === 'dispatch-paper'); const e = mk({ skin: dispatch, settings: { 'skin.id': 'dispatch-paper' } }); const spec = e.spec(); const f = e.frame; const samples = [];
   for (const t of f.tiles.filter((x) => x.solid)) { samples.push(t); samples.push({ ...t, selected: true, ratio: 0 }); samples.push({ ...t, ratio: 1, ageMax: 400, ageTicks: 400 }); }
   for (const side of ['union', 'confederate', 'unknown', 'mixed']) for (const arm of ['infantry', 'cavalry', 'artillery', 'mixed']) samples.push({ ...f.tiles.find((x) => x.solid), key: `synthetic ${side}/${arm}`, side, arm, badge: '×128', short: 'ART/II/CORPS', w: chipSize(spec, 'ART/II/CORPS', '×128').w, selected: side === 'unknown', ratio: 0.5 });
-  const bad = checkSkin(referenceSkin, spec, samples, text); assert.deepEqual(bad.slice(0, 5), []); assert.ok(samples.length > 600);
+  const bad = checkSkin(dispatch, spec, samples, text, 1.5); assert.deepEqual(bad.slice(0, 5), []); assert.ok(samples.length > 600);      // D4 FORK: the skin the fork ships (the reference skin of the first prototype is not drawn here); tolerance 1.5 px because the recording context takes a sprite's whole rectangle (transparent margin included) as ink: the exact, pixel measurement is tools/skin-ink.mjs
 });
 
 test('the conformance check is a real check: a skin that paints outside its box, and one that paints nothing, are reported', () => {
@@ -97,11 +97,11 @@ test('fx, layout strategies, motion modes and motion models register by name and
 });
 
 test('the shell lists the reference skin first (the design pitches follow it: skins.test.mjs) and the twelve popups of the Overlay Director in a fixed order, no effects; the copy-me template skin conforms to the contract and is a drop-in', () => {
-  assert.equal(SKINS[0].id, 'dispatch-paper'); assert.ok(SKINS.some((k) => k.id === 'reference')); assert.ok(SKINS.every((k) => /^[a-z][a-z0-9]*(?:[-/.][a-z0-9]+)*$/.test(k.id)));
-  assert.deepEqual(POPUPS.map((p) => p.id), ['clock-hud', 'day-banner', 'event-card', 'story-card', 'command-toast', 'command-crossout', 'unit-card', 'tour', 'legend', 'minimap', 'hints', 'chronicle']); assert.deepEqual(FX, []);
+  assert.equal(SKINS[0].id, 'dispatch-paper'); assert.ok(SKINS.some((k) => k.id === 'dispatch-aerial')); assert.ok(SKINS.every((k) => /^[a-z][a-z0-9]*(?:[-/.][a-z0-9]+)*$/.test(k.id)));
+  assert.deepEqual(POPUPS.map((p) => p.id), ['day-banner', 'event-card', 'story-card', 'command-toast', 'command-crossout', 'unit-card', 'tour', 'legend', 'minimap', 'hints', 'chronicle']); assert.deepEqual(FX, []);
   for (const p of POPUPS) { assert.ok(p.label && p.doc && typeof p.update === 'function', p.id); }
-  const e = mk(); const spec = e.spec(); const tiles = e.frame.tiles.filter((t) => t.solid); const bad = checkSkin(templateSkin, spec, [...tiles, ...tiles.map((t) => ({ ...t, selected: true }))], text); assert.deepEqual(bad.slice(0, 3), []);
   const e2 = makeEngine({ skin: templateSkin, settings: { 'skin.id': 'template' } }); e2.setViewport(1440, 900); for (let i = 0; i < 20; i++) e2.step(1000 / 60); assert.equal(e2.frame.overlaps, 0);
+  const tiles = e2.frame.tiles.filter((t) => t.solid); const bad = checkSkin(templateSkin, e2.spec(), [...tiles, ...tiles.map((t) => ({ ...t, selected: true }))], text); assert.deepEqual(bad.slice(0, 3), []);      // D4 FORK: the template is checked on a frame of its own footprint (this fork's layout gives a unit's code to a label of the display layer)
   for (const row of templateSkin.legend()) assert.ok(['Documented', 'Contested'].includes(row.evidence));
 });
 

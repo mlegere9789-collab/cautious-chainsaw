@@ -1,0 +1,18 @@
+XII-17 re-check notes (reader agent)
+Batch: 49 claim ids; 7 open-gap claims skipped (mcdougall-3md-15, colgrove-3wi-06, greene-32, 1d-46, 70, lockwood-32, art-19); 42 claims decided.
+Counts per fc: passed_full_read 21, corrected 21, downgraded 0, split 0.
+Validator last line: decisions 42 {'passed_full_read': 21, 'corrected': 21} new split claims 0 missing 7 errors 0
+
+Per pattern (claims may carry more than one):
+- time from another sentence: 2 (12c-47 morning of July 2 is in preceding sentence; lockwood-30 4 a. TO. is the Twelfth Corps line of the order)
+- heading time used as time of the event: 2 (candy-7oh-18 reconnaissance was "this morning", heading 11 a. m. is writing time; eastern-shore-08 forecast "to-morrow"). Other heading-time claims kept and annotated "time of writing".
+- merged second report: 0 (12c-59 label "Pipe Creek movement" imported from the enclosure was removed; 12c-57 "Pipe Creek circular" label removed, Fifth/Twelfth glosses removed)
+- later order ignored: 0
+- compass/road gloss: 0
+- hedge or condition dropped: 9 (lockwood-28 "I think", lockwood-31 "desires / if not already done", 12c-56 "or supporting distance", 12c-57 contingency, 12c-59 conditional halt, 12c-61 "If you conclude to make the fight here", 2d-45 "appears", 12c-64 "I think", 12c-69 "Unless otherwise ordered")
+- unit identity gloss: 3 corrected + 2 noted. Ids whose unit_id is not what the passage names: 12c-1d-44 (addressed to General Alpheus S. Williams, no division printed), 12c-1d-45 (same, "your division"), 12c-2d-44 (General Geary, no division printed), 12c-46 (passage speaks of Rigby's Reserve battery; unit us-12c is the corps), 12c-47 (same, Rigby's Reserve battery, Twelfth Corps named only as occupying the woods in front). Also 12c-63 speaks of an enemy column in front of Slocum's corps (the corps position only implied), kept documented.
+- OCR digit: 3 (12c-64 "13.20 p. m." impossible hour; 12c-65 "G a. m."; candy-7oh-18 "2i miles"); 12c-51 "4 a. TO." kept (only the m. is damaged, 4 a. legible, neighbouring lines print "4 a. m.").
+- meridian inferred: 0
+- other glosses removed: 12c-49 "army headquarters at Frederick" (heading prints only "Headquarters"); 12c-48 wrong parenthesis (cavalry joins at Harper's Ferry; actually only French's brigades do); 1mdphb-13 "(Maryland)"; 1d-44 "Slocum's aide"; 1d-45 "AAG" for Rodgers; 12c-68 place printed corrected from the writing place (Two Taverns) to the encampment place (Littlestown).
+Systematic: (1) dispatch headings (time of writing) are used as t_iso for forecasts and past events; I kept it where the dispatch states a present condition, removed it where the text gives its own time. (2) Signers' titles and division names for addressees are supplied by the compiler (Rodgers AAG, Williams = First Division, Geary = Second Division, Moseley = Slocum's aide). (3) Conditional wording of orders/circulars (if/unless/should) is often dropped.
+No quote was changed; q2 extracts added to several claims for second clauses. Open-gap claims were not touched.

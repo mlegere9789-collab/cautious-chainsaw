@@ -10,19 +10,17 @@ export const legend = {
   id: 'legend', label: 'Legend', group: 'popup-legend', enabled: (tok) => tok('popup.legend.enabled'),
   preview(api) { api.host.toggleDoc('legend:doc'); },
   doc: 'The legend (P-12), generated from the active skin’s legend(): a pill on free ground; it opens in the reading rail, so it can never cover a tile.',
-  toolbar: [],
+  toolbar: [{ id: 'open', phone: true, label: 'Legend', title: 'What each mark says, and how well that is known', run: (api) => api.host.toggleDoc('legend:doc'), pressed: (host) => !!(host.rail && host.rail.id === 'legend:doc') }],
   update(frame, api) {
     const tok = api.tok; const skinId = tok('skin.id'); const skin = api.engine.kernel.skins.has(skinId) ? api.engine.kernel.skins.get(skinId) : null; const rows = skin && skin.legend ? skin.legend() : [];
     const slot = tok('popup.legend.slot'); const slots = [slot, SLOT_ALT[slot]]; const open = !!(api.host.rail && api.host.rail.id === 'legend:doc');
     const pill = { id: 'pill', level: 'compact', w: 104, h: 42, content: { label: 'Legend. Activate to open.', blocks: [{ t: 'pill', id: 'toggle', label: 'Legend', icon: 'list', expanded: open }] } };
     const blocks = [
-      { t: 'p', size: 'sm', muted: true, text: `What each mark of the ${skin ? skin.label : 'tiles'} claims, and how well that is known. The rows are drawn by the skin itself.` },
-      ...(skin && skin.figure ? [{ t: 'canvas', w: 316, h: skin.figureH, label: 'The anatomy of the marks, drawn at their true size: a unit, a formation, a crowd, a carried-forward unit', paint: (g, w, h) => { g.clearRect(0, 0, w, h); skin.figure(g, w); } }] : []),
-      rows.length ? { t: 'swatches', rows: rows.map((r) => ({ swatch: r.swatch, text: r.text, ev: r.evidence })) } : { t: 'p', size: 'sm', muted: true, text: 'The active skin does not publish a legend.' },
-      { t: 'chips', items: [ev('Computed', 'rows read from the skin’s own drawing', 'The rows are read from the active skin each time, so they cannot describe a renderer that is not drawing.'), ev('Measured', 'ground: a 2022 aerial, not 1863', 'USDA NAIP photographed 24 April to 10 May 2022, lit by USGS 3DEP elevation: the modern ground.')] },
+      ...(skin && skin.figure ? [{ t: 'canvas', w: 316, h: skin.figureH, label: 'The anatomy of the marks, drawn at their true size: a unit, a formation, a crowd, age and selection', paint: (g, w, h) => { g.clearRect(0, 0, w, h); skin.figure(g, w); } }] : []),
+      { t: 'title', text: 'How well each is known', level: 3, size: 'sm' },
+      { t: 'evkey', rows: [['Documented', 'printed in the order of battle'], ['Modelled', 'placed by hand, not recorded'], ['Computed', 'counts and age, by a stated rule'], ['Contested', 'the records disagree on the side'], ['Measured', 'the 2022 ground, not 1863'], ['Design', 'drawn to be read, claims nothing']] },
     ];
     return [
-      { key: 'legend', kind: 'hud', tier: 'S', tone: 'info', priority: 5, slots, version: `${open}|${skinId}`, forms: [pill], actions: { toggle: (a) => { a.host.toggleDoc('legend:doc'); } } },
       { key: 'doc', kind: 'doc', tier: 'S', tone: 'info', forms: [], version: `${skinId}|${rows.length}`, doc: { key: 'doc', tone: 'info', kicker: 'Legend', title: 'What the marks say', version: `${skinId}|${rows.length}`, content: { blocks } } },
     ];
   },

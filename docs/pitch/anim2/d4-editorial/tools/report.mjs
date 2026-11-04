@@ -25,28 +25,28 @@ const out = {};
 
 // ---- real-time pacing -----------------------------------------------------------------------------------------------------------------------------------------------
 { const runs = [['pacing-dpr2.json', 'DPR 2, no slowdown'], ['pacing-dpr1.json', 'DPR 1, no slowdown'], ['pacing-dpr2-cpu4.json', 'DPR 2, main thread 4x slower (a harsh stand-in for a phone, not a phone)']].map(([f, n]) => [R(f), n]).filter(([r]) => r);
-  if (runs.length) { const rows = []; for (const [r, n] of runs) for (const x of r.runs) rows.push(`| ${n} | ${x.scene} | ${x.speed}x | ${x.fps} | ${x.p95ms} | ${x.over20} | ${x.engineMs} | ${x.drawMsMedian} | ${x.solidMaxStepPx} | ${x.solidSuddenPerS} | ${x.overlapFrames} |`);
+  if (runs.length) { const rows = []; for (const [r, n] of runs) for (const x of r.runs) rows.push(`| ${n} | ${x.scene} | ${x.speed}x | ${x.fps} | ${x.p95ms} | ${x.over20} | ${x.engineMs} | ${x.drawMsMedian} | ${x.solidMaxStepPx} | ${x.solidSuddenPerS} | ${x.solidSuddenRawPerS ?? 'n/a'} | ${x.overlapFrames} |`);
     out.PACING = `### Real-time frame pacing and jitter (the page's own animation loop in real Chrome 155, 8 s per row after 2 s of warm-up; \`tools/pacing.mjs\`)
 
 | Condition | Scene | Speed | fps | Frame p95 (ms) | Frames over 20 ms (%) | Engine (ms/frame) | Skin draw, median (ms) | Largest step of a solid mark (px) | Sudden steps of solid marks per s | Frames with overlaps |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 ${rows.join(String.fromCharCode(10))}
 
-*Largest step of a solid mark* and *sudden steps* come from an instrument of the driver's own (every tile that is solid in two consecutive frames; a step of 8 px or more that is at least 3 times the step before it is sudden), independent of the engine's recorder; the recorder also counts dimmed travelling marks, which can step farther (it reported up to 161 px at The Angle at 1x) and are not solid.`; } }
+*Largest step of a solid mark* and *sudden steps* come from an instrument of the driver's own (every tile that is solid in two consecutive frames; a step of 8 px or more whose speed, in px per millisecond of the frame it took, is at least 3 times the speed before it is sudden; the next column counts the same without correcting for an uneven frame time, which is what a throttled main thread produces), independent of the engine's recorder; the recorder also counts dimmed travelling marks, which can step farther (it reported up to 161 px at The Angle at 1x) and are not solid.`; } }
 
 // ---- the interface over the marks --------------------------------------------------------------------------------------------------------------------------------------------
-{ const c = R('chrome-cover.json'); if (c) { const rows = c.results.map((r) => `| ${r.scene} | ${r.marks} | ${r.hidden} | ${r.partly} | ${r.cutByTheMapEdge ?? 0} |`);
+{ const c = R('chrome-cover.json'); if (c) { const rows = c.results.map((r) => `| ${r.scene} | ${r.marks} | ${r.hidden} | ${r.partly} | ${r.cutByTheMapEdge ?? 0} | ${r.fadingAtTheEdge ?? 0} |`);
   out.CHROMECOVER = `### The interface over the marks (\`tools/chrome-cover.mjs\`: five points of every solid mark's box are asked of the browser, \`document.elementsFromPoint\`)
 
-| Scene | Marks on the map | Hidden under an opaque panel | Partly hidden | Cut by the edge of the map |
-|---|---:|---:|---:|---:|
+| Scene | Marks on the map | Hidden under an opaque panel | Partly hidden | Opaque and cut by the edge | Fading out at the edge (safe area) |
+|---|---:|---:|---:|---:|---:|
 ${rows.join(String.fromCharCode(10))}
 
-**The first pass measured 6 to 12 percent of the marks under the dock or the top bar (14 of 117 in S1b) and called it "not solved". The interface is now a frame around the map (section 9), so the count is 0 by construction and the tool confirms it.** A mark near the edge of the map is cut by that edge as by the edge of any screen; those are counted apart and are not under the interface.`; } }
+**The first pass measured 6 to 12 percent of the marks under the dock or the top bar (14 of 117 in S1b) and called it "not solved". The interface is now a frame around the map (section 9), so the count is 0 by construction and the tool confirms it.** A mark that comes within 14 px of the edge of the map (the masthead, the dock, the rail, the screen) dissolves whole instead of being cut (\`edge.fadePx\`, the safe area); the last two columns count the marks that are still opaque and cut by an edge (none, by construction) and the marks caught mid-dissolve in the still.`; } }
 
 // ---- the motion strips: the jitter count ---------------------------------------------------------------------------------------------------------------------------------
-{ const m = R('strips-src/meta.json'); if (m) { const row = (name, d) => d && d.stats ? `| ${name} | ${d.unit || d.crowd || ''} | ${d.stats.frames} | ${d.stats.marksTracked} | ${d.stats.framesWithOverlaps} | ${d.stats.maxStepPx} | ${d.stats.suddenSteps} (${d.stats.suddenStepsOfTheDisplay} of the display, ${d.stats.ofWhichTheUnitsOwnMotion} the unit's own motion) |` : null;
-  const rows = [row('A march (8x)', m.march), row('An arrival', m.arrival), row('A deployment (zoom 14.7 to 16.4)', m.deploy)].filter(Boolean);
+{ const m = R('strips-src/meta.json'); if (m) { const row = (name, d) => d && d.stats ? `| ${name} | ${d.unit || d.crowd || ''} | ${d.stats.frames} | ${d.stats.marksTracked} | ${d.stats.framesWithOverlaps} | ${d.stats.maxStepPx ?? 'n/a'} | ${d.stats.suddenSteps} (${d.stats.suddenStepsOfTheDisplay} of the display, ${d.stats.ofWhichTheUnitsOwnMotion} the unit's own motion) |` : null;
+  const rows = [row('A march (8x)', m.march), row('An arrival', m.arrival), row('A deployment (camera still, 4x)', m.deploy)].filter(Boolean);
   out.STRIPS = `### The motion strips: overlaps and jitter, counted (\`tools/strips.mjs\`, virtual clock at 60 Hz)
 
 | Strip | Subject | Frames recorded | Marks tracked | Frames with an overlap | Largest one-frame step (px, camera removed) | Sudden steps (8 px or more and at least 3 times the step before) |

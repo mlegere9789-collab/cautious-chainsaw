@@ -1,0 +1,143 @@
+{
+ "finished": "PARTIAL: the run was still going (or was stopped) when this was written",
+ "seconds": 738,
+ "portBase": "8480",
+ "totals": {
+  "suites": 4,
+  "ok": 1,
+  "notOk": 3,
+  "greenTests": 78,
+  "greenTestsTotal": 82,
+  "redProofs": 0,
+  "redProofsOk": 0,
+  "redTestsRedAsRequired": 0
+ },
+ "results": [
+  {
+   "id": "journeys.R1c",
+   "title": "desktop journeys J1-J8, inputs, group A, group B on R1c",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 216,
+   "passed": 40,
+   "total": 41,
+   "skipped": 0,
+   "failed": 1,
+   "tiles": 16,
+   "failLines": [
+    "FAIL  T0-C5-02     C5 without a map: picking a regiment and Change Regiment (DOM-dispatched clicks) throw nothing and show the true caption"
+   ],
+   "ok": false,
+   "tail": [
+    "      {\"tile requests in the shared session\":6,\"ignored tile noise\":{\"tile\":27,\"telemetry\":0}}",
+    "journeys-desktop: 40/41 passed, 1 FAILED",
+    "mapbox requests used this run: 16 of 300 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "deeplinks.R1c",
+   "title": "deep links, moments.json, Turning Points (X7)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 176.2,
+   "passed": 10,
+   "total": 12,
+   "skipped": 0,
+   "failed": 2,
+   "tiles": 30,
+   "failLines": [
+    "FAIL  T0-DL-04b    junk map parameters leave the camera at home (ll=0,0 with z=abc); z alone moves only the zoom and is clamped to 11..18",
+    "FAIL  T0-DL-06     moments.json v0: 9 Turning Points + 8 markers + 5 tour stops, ids unique, every row unreviewed, every tick within +-3 of a chronology event, Ewell/Night Assault provisional"
+   ],
+   "ok": false,
+   "tail": [
+    "      {\"phone camera\":{\"center\":[-77.2359,39.7918],\"zoom\":15.5},\"?ancestor= opens the Follow panel on the phone\":true,\"junk link tick 1\":true}",
+    "deeplinks: 10/12 passed, 2 FAILED",
+    "mapbox requests used this run: 30 of 300 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "desktop.R1c",
+   "title": "desktop fixes T0-DF-01..09 (group A2) on R1c",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 101.8,
+   "passed": 10,
+   "total": 10,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 10,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"tile requests in the shared session\":10,\"ignored tile noise\":{\"tile\":0,\"telemetry\":0}}",
+    "desktop-fixes: 10/10 passed",
+    "mapbox requests used this run: 10 of 300 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "mobile.R1c",
+   "title": "mobile shell matrix (X5) on R1c: portrait, landscape, misc, touch slices",
+   "kind": "green",
+   "inverted": false,
+   "parts": [
+    {
+     "exit": 0,
+     "seconds": 244.1,
+     "passed": 6,
+     "total": 6,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": 58,
+     "tail": []
+    },
+    {
+     "exit": 0,
+     "seconds": 114.8,
+     "passed": 6,
+     "total": 6,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": 33,
+     "tail": []
+    },
+    {
+     "exit": 0,
+     "seconds": 67.4,
+     "passed": 4,
+     "total": 4,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": null,
+     "tail": []
+    },
+    {
+     "exit": 1,
+     "seconds": 125.2,
+     "passed": 2,
+     "total": 3,
+     "skipped": 0,
+     "failed": 1,
+     "tiles": null,
+     "tail": [
+      "FAIL  T0-MOB-09    story + event panels (tick 12) and commander toasts render under the mobile root: on screen, above the dock, 44 px dismiss targets"
+     ]
+    }
+   ],
+   "exit": 1,
+   "seconds": 244.1,
+   "passed": 18,
+   "total": 19,
+   "skipped": 0,
+   "failed": 1,
+   "tiles": 58,
+   "ok": false,
+   "failLines": [
+    "FAIL  T0-MOB-09    story + event panels (tick 12) and commander toasts render under the mobile root: on screen, above the dock, 44 px dismiss targets"
+   ]
+  }
+ ]
+}

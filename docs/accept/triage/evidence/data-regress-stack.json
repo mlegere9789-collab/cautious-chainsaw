@@ -1,0 +1,496 @@
+[
+ {
+  "f": "data/casualty_apportionment.json",
+  "regressions": [
+   "/notable_intensity_notes/highest_single_regiment_rate: key removed"
+  ]
+ },
+ {
+  "f": "data/chronology_day1.json",
+  "regressions": [
+   "/events[4]/flag: key removed",
+   "/events[5]/flag: key removed",
+   "/events[6]/flag: key removed",
+   "/events[11]/flag: key removed",
+   "/events[12]/flag: key removed",
+   "/events[13]/flag: key removed",
+   "/events[15]/flag: key removed",
+   "/events[18]/flag: key removed",
+   "/events[19]/flag: key removed",
+   "/events[23]/flag: key removed",
+   "/events[25]/flag: key removed",
+   "/events[26]/flag: key removed",
+   "/events[28]/flag: key removed",
+   "/events[29]/flag: key removed",
+   "/events[30]/flag: key removed",
+   "/events[32]/flag: key removed",
+   "/events[33]/flag: key removed",
+   "/events[34]/flag: key removed",
+   "/events[35]/flag: key removed",
+   "/events[41]/narrative: key removed"
+  ]
+ },
+ {
+  "f": "data/chronology_day2.json",
+  "regressions": [
+   "/events: array shrank 49 -> 46",
+   "/events[3]/flag: key removed",
+   "/events[5]/flag: key removed",
+   "/events[7]/flag: key removed",
+   "/events[8]/flag: key removed",
+   "/events[13]/flag: key removed",
+   "/events[14]/flag: key removed",
+   "/events[15]/flag: key removed",
+   "/events[16]/flag: key removed",
+   "/events[17]/flag: key removed",
+   "/events[18]/flag: key removed",
+   "/events[19]/flag: key removed",
+   "/events[20]/flag: key removed",
+   "/events[24]/flag: key removed",
+   "/events[25]/flag: key removed",
+   "/events[26]/flag: key removed",
+   "/events[27]/flag: key removed",
+   "/events[28]/flag: key removed",
+   "/events[29]/flag: key removed",
+   "/events[30]/flag: key removed",
+   "/events[31]/flag: key removed",
+   "/events[32]/flag: key removed",
+   "/events[35]/flag: key removed",
+   "/events[39]/flag: key removed",
+   "/events[41]/flag: key removed",
+   "/events[44]/units_involved: array shrank 3 -> 2",
+   "/events[45]/narrative: key removed"
+  ]
+ },
+ {
+  "f": "data/chronology_day3.json",
+  "regressions": [
+   "/events[0]/flag: key removed",
+   "/events[2]/units_involved: array shrank 2 -> 1",
+   "/events[2]/flag: key removed",
+   "/events[5]/units_involved: array shrank 4 -> 2",
+   "/events[7]/flag: key removed",
+   "/events[10]/narrative: key removed",
+   "/events[11]/flag: key removed",
+   "/events[12]/flag: key removed",
+   "/events[19]/flag: key removed",
+   "/events[21]/flag: key removed",
+   "/events[23]/flag: key removed",
+   "/events[26]/flag: key removed",
+   "/events[27]/flag: key removed",
+   "/events[28]/flag: key removed",
+   "/events[29]/flag: key removed",
+   "/events[30]/flag: key removed",
+   "/events[31]/flag: key removed",
+   "/events[32]/flag: key removed",
+   "/events[34]/flag: key removed",
+   "/events[35]/flag: key removed",
+   "/events[36]/flag: key removed",
+   "/events[39]/flag: key removed",
+   "/events[40]/narrative: key removed"
+  ]
+ },
+ {
+  "f": "data/density_artillery_positions.json",
+  "regressions": [
+   "/placements: array shrank 36 -> 35",
+   "/placements[9]/notes: key removed",
+   "/placements[14]/notes: key removed"
+  ]
+ },
+ {
+  "f": "data/density_cavalry_detail.json",
+  "regressions": []
+ },
+ {
+  "f": "data/density_day1_afternoon.json",
+  "regressions": []
+ },
+ {
+  "f": "data/density_day1_barlowsknoll.json",
+  "regressions": []
+ },
+ {
+  "f": "data/density_day1_ironbrigade.json",
+  "regressions": [
+   "/placements: array shrank 16 -> 1"
+  ]
+ },
+ {
+  "f": "data/density_day1_iverson.json",
+  "regressions": [
+   "/placements: array shrank 17 -> 11"
+  ]
+ },
+ {
+  "f": "data/density_day1_lateafternoon.json",
+  "regressions": [
+   "/placements: array shrank 27 -> 24",
+   "/placements[8]/notes: key removed"
+  ]
+ },
+ {
+  "f": "data/density_day1_opening.json",
+  "regressions": [
+   "/placements: array shrank 22 -> 19"
+  ]
+ },
+ {
+  "f": "data/density_day1_railroadcut.json",
+  "regressions": [
+   "/placements: array shrank 16 -> 15"
+  ]
+ },
+ {
+  "f": "data/density_day1_seminary.json",
+  "regressions": []
+ },
+ {
+  "f": "data/density_day1_ticks1_50.json",
+  "regressions": [
+   "/placements: array shrank 75 -> 65",
+   "/placements[21]/notes: key removed",
+   "/placements[46]/notes: key removed"
+  ]
+ },
+ {
+  "f": "data/density_day1_ticks51_100.json",
+  "regressions": []
+ },
+ {
+  "f": "data/density_day2_15alabama.json",
+  "regressions": []
+ },
+ {
+  "f": "data/density_day2_afternoon.json",
+  "regressions": []
+ },
+ {
+  "f": "data/density_day2_bigelow.json",
+  "regressions": []
+ },
+ {
+  "f": "data/density_day2_cemhill.json",
+  "regressions": []
+ },
+ {
+  "f": "data/density_day2_culpshill.json",
+  "regressions": []
+ },
+ {
+  "f": "data/density_day2_culpshill_overnight.json",
+  "regressions": []
+ },
+ {
+  "f": "data/density_day2_devilsden.json",
+  "regressions": []
+ },
+ {
+  "f": "data/density_day2_kershaw.json",
+  "regressions": []
+ },
+ {
+  "f": "data/density_day2_lrt.json",
+  "regressions": []
+ },
+ {
+  "f": "data/density_day2_morning.json",
+  "regressions": []
+ },
+ {
+  "f": "data/density_day2_overnight.json",
+  "regressions": []
+ },
+ {
+  "f": "data/density_day2_wheatfield.json",
+  "regressions": []
+ },
+ {
+  "f": "data/density_day2_wright.json",
+  "regressions": []
+ },
+ {
+  "f": "data/density_day3_aftermath.json",
+  "regressions": []
+ },
+ {
+  "f": "data/density_day3_angle.json",
+  "regressions": []
+ },
+ {
+  "f": "data/density_day3_cannonade.json",
+  "regressions": []
+ },
+ {
+  "f": "data/density_day3_cavalry.json",
+  "regressions": [
+   "/placements: array shrank 21 -> 18"
+  ]
+ },
+ {
+  "f": "data/density_day3_culpshill.json",
+  "regressions": []
+ },
+ {
+  "f": "data/density_day3_hancock.json",
+  "regressions": [
+   "/placements: array shrank 15 -> 14"
+  ]
+ },
+ {
+  "f": "data/density_day3_morning.json",
+  "regressions": []
+ },
+ {
+  "f": "data/density_day3_pettigrew.json",
+  "regressions": []
+ },
+ {
+  "f": "data/density_day3_picketts_charge.json",
+  "regressions": []
+ },
+ {
+  "f": "data/density_day3_retreat.json",
+  "regressions": [
+   "/placements: array shrank 24 -> 21"
+  ]
+ },
+ {
+  "f": "data/density_day3_vermont.json",
+  "regressions": []
+ },
+ {
+  "f": "data/density_reserves.json",
+  "regressions": [
+   "/placements: array shrank 26 -> 24"
+  ]
+ },
+ {
+  "f": "data/density_skirmishers.json",
+  "regressions": [
+   "/placements: array shrank 31 -> 25",
+   "/placements[17]/notes: key removed"
+  ]
+ },
+ {
+  "f": "data/oob/commander_successions.json",
+  "regressions": []
+ },
+ {
+  "f": "data/oob/confederate_artillery.json",
+  "regressions": [
+   "/metadata/total_guns_approximately: key removed",
+   "/metadata/alexander_cannonade_notes/total_confederate_guns_engaged: key removed",
+   "/second_corps_artillery/battalions[1]/batteries[2]/commander/fate: key removed",
+   "/second_corps_artillery/battalions[1]/batteries[3]/commander/fate: key removed",
+   "/third_corps_artillery/battalions[1]/batteries[2]/commander/fate: key removed"
+  ]
+ },
+ {
+  "f": "data/oob/confederate_cavalry.json",
+  "regressions": []
+ },
+ {
+  "f": "data/oob/confederate_oob_corps_div_bde.json",
+  "regressions": []
+ },
+ {
+  "f": "data/oob/confederate_regiments_first_corps.json",
+  "regressions": [
+   "/regiments[4]/commander/fate: key removed",
+   "/regiments[13]/commander/fate: key removed",
+   "/regiments[19]/commander/fate: key removed",
+   "/regiments[22]/commander/fate: key removed",
+   "/regiments[48]/commander/fate: key removed"
+  ]
+ },
+ {
+  "f": "data/oob/confederate_regiments_second_corps.json",
+  "regressions": [
+   "/regiments[11]/commander/fate: key removed",
+   "/regiments[21]/commander/fate: key removed",
+   "/regiments[27]/commander/fate: key removed",
+   "/regiments[28]/commander/fate: key removed",
+   "/regiments[29]/commander/fate: key removed",
+   "/regiments[33]/commander/fate: key removed",
+   "/regiments[39]/commander/fate: key removed",
+   "/regiments[44]/commander/fate: key removed",
+   "/regiments[45]/commander/fate: key removed",
+   "/regiments[48]/commander/fate: key removed"
+  ]
+ },
+ {
+  "f": "data/oob/confederate_regiments_third_corps.json",
+  "regressions": [
+   "/regiments[10]/commander/fate: key removed",
+   "/regiments[19]/commander/fate: key removed",
+   "/regiments[20]/commander/fate: key removed",
+   "/regiments[28]/commander/fate: key removed",
+   "/regiments[32]/commander/fate: key removed",
+   "/regiments[38]/commander/fate: key removed",
+   "/regiments[43]/commander/fate: key removed",
+   "/regiments[46]/commander/fate: key removed",
+   "/regiments[47]/commander/fate: key removed",
+   "/regiments[48]/commander/fate: key removed"
+  ]
+ },
+ {
+  "f": "data/oob/union_artillery.json",
+  "regressions": [
+   "/corps_artillery_brigades[5]/batteries[3]/commander/fate: key removed"
+  ]
+ },
+ {
+  "f": "data/oob/union_cavalry_artillery.json",
+  "regressions": [
+   "/regiments[7]/commander/fate: key removed",
+   "/regiments[15]/commander/fate: key removed",
+   "/regiments[17]/commander/fate: key removed",
+   "/regiments[19]/commander/fate: key removed",
+   "/regiments[22]/commander/fate: key removed",
+   "/regiments[32]/commander/fate: key removed",
+   "/regiments[32]/commander/successor: key removed"
+  ]
+ },
+ {
+  "f": "data/oob/union_oob_brigades.json",
+  "regressions": [
+   "/brigades[4]/commander/successor: key removed"
+  ]
+ },
+ {
+  "f": "data/oob/union_oob_corps_division.json",
+  "regressions": []
+ },
+ {
+  "f": "data/oob/union_regiments_iii_v_corps.json",
+  "regressions": [
+   "/regiments[7]/commander/fate: key removed",
+   "/regiments[22]/commander/fate: key removed",
+   "/regiments[27]/commander/fate: key removed",
+   "/regiments[34]/commander/fate: key removed",
+   "/regiments[47]/commander/fate: key removed",
+   "/regiments[48]/commander/fate: key removed"
+  ]
+ },
+ {
+  "f": "data/oob/union_regiments_i_ii_corps.json",
+  "regressions": [
+   "/regiments[10]/commander/fate: key removed",
+   "/regiments[15]/commander/fate: key removed",
+   "/regiments[15]/casualty_percentage: key removed",
+   "/regiments[42]/commander/fate: key removed"
+  ]
+ },
+ {
+  "f": "data/oob/union_regiments_vi_xi_xii_corps.json",
+  "regressions": [
+   "/regiments[2]/commander/fate: key removed",
+   "/regiments[3]/commander/fate: key removed",
+   "/regiments[7]/commander/fate: key removed",
+   "/regiments[8]/commander/fate: key removed",
+   "/regiments[14]/commander/fate: key removed",
+   "/regiments[17]/commander/fate: key removed",
+   "/regiments[26]/commander/fate: key removed",
+   "/regiments[32]/commander/fate: key removed",
+   "/regiments[44]/commander/fate: key removed"
+  ]
+ },
+ {
+  "f": "data/placements_day1_ticks101_225.json",
+  "regressions": [
+   "/placements: array shrank 107 -> 83",
+   "/placements[23]/notes: key removed",
+   "/placements[29]/notes: key removed",
+   "/placements[30]/notes: key removed",
+   "/placements[31]/notes: key removed",
+   "/placements[33]/notes: key removed",
+   "/placements[44]/notes: key removed"
+  ]
+ },
+ {
+  "f": "data/placements_day1_ticks1_50.json",
+  "regressions": [
+   "/placements: array shrank 100 -> 66"
+  ]
+ },
+ {
+  "f": "data/placements_day1_ticks51_100.json",
+  "regressions": [
+   "/placements[31]/notes: key removed"
+  ]
+ },
+ {
+  "f": "data/placements_day2_ticks226_300.json",
+  "regressions": [
+   "/placements[18]/notes: key removed",
+   "/placements[20]/notes: key removed",
+   "/placements[21]/notes: key removed",
+   "/placements[22]/notes: key removed",
+   "/placements[39]/notes: key removed",
+   "/placements[43]/notes: key removed",
+   "/placements[44]/notes: key removed"
+  ]
+ },
+ {
+  "f": "data/placements_day2_ticks301_375.json",
+  "regressions": [
+   "/placements[44]/notes: key removed",
+   "/placements[45]/notes: key removed",
+   "/placements[46]/notes: key removed",
+   "/placements[47]/notes: key removed"
+  ]
+ },
+ {
+  "f": "data/placements_day2_ticks376_450.json",
+  "regressions": [
+   "/placements[9]/notes: key removed",
+   "/placements[14]/notes: key removed",
+   "/placements[30]/notes: key removed",
+   "/placements[34]/notes: key removed",
+   "/placements[38]/notes: key removed"
+  ]
+ },
+ {
+  "f": "data/placements_day3_ticks451_520.json",
+  "regressions": []
+ },
+ {
+  "f": "data/placements_day3_ticks521_600.json",
+  "regressions": []
+ },
+ {
+  "f": "data/placements_day3_ticks601_675.json",
+  "regressions": [
+   "/placements[9]/notes: key removed",
+   "/placements[15]/notes: key removed",
+   "/placements[16]/notes: key removed",
+   "/placements[17]/notes: key removed",
+   "/placements[18]/notes: key removed",
+   "/placements[40]/vignette_trigger: key removed",
+   "/placements[46]/vignette_trigger: key removed"
+  ]
+ },
+ {
+  "f": "data/terrain.json",
+  "regressions": []
+ },
+ {
+  "f": "data/vignettes_part1.json",
+  "regressions": []
+ },
+ {
+  "f": "data/vignettes_part2.json",
+  "regressions": []
+ },
+ {
+  "f": "data/vignettes_part3.json",
+  "regressions": []
+ },
+ {
+  "f": "manifest.json",
+  "regressions": [
+   "/orientation: key removed"
+  ]
+ }
+]

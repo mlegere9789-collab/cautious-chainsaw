@@ -1,0 +1,57 @@
+"""D batch 11: Cabell's battalion (McLaws's division artillery) and its batteries: R435 Cabell, R436 McCarthy, R437 Manly, R438 Furlong, R439 Anderson, R440 Motes."""
+from positions_build import C
+
+CAB = 'cs-1c-mclaws-cabell'
+CLAIMS = [
+    C(CAB, 'march', 'R435', a='We encamped a mile beyond Chambersburg on the 28th', w='the 28th', d='06-28', pl='a mile beyond Chambersburg',
+      act='Battalion encamped a mile beyond Chambersburg.'),
+    C(CAB, 'arrival_road', 'R435', a='On July 1, we encamped a few miles from Gettysburg', w='July 1', d='07-01', pl='a few miles from Gettysburg',
+      act='Battalion encamped a few miles from Gettysburg on July 1 (no road named).', note='No road is named by Cabell; no hour printed.'),
+    C(CAB, 'position', 'R435', a='my battalion moved to the head of the column', w='July 2 (morning, no hour)', d='07-02', ap=True,
+      pl='the road leading to the crest of the hill; battalion in position on the edge of the wood, right near the Gettysburg-Emmitsburg road', rd='Emmitsburg road', gz='GZ-041',
+      act='Moved up with the division; when ascending the road to the crest of the hill the battalion moved to the head of the column, turned right near the crest and went into position on the edge of the wood with its right resting near the road from Gettysburg to Emmitsburg.',
+      note='Cabell\'s wood and hill are not named. The wood-edge/Emmitsburg-road position fronts the Peach Orchard about 600-700 yards away (printed).'),
+    C(CAB, 'engagement', 'R435', a='directly in front, about 600 or 700 yards distant, were a large number of batteries, occupying a peach orchard', w='July 2 (no hour)', d='07-02', ap=True,
+      pl='a peach orchard, 600 or 700 yards in front', gz='GZ-014',
+      act='Opened fire on the Union batteries in the peach orchard, being the first to open; two guns played on the batteries on the stony mountain; loss heavy; Captain Fraser wounded.',
+      cf='art_open_jul2', note='Cabell prints no hour for the opening of fire on July 2. See McCarthy (about 4 p.m.), Manly (2.30 p.m.), Motes (about 3 o\'clock), Maffett (3 p.m.), Lee (about 4 p.m.), Longstreet (McLaws in position about 4 p.m.).'),
+    C(CAB, 'position', 'R435', a='ordered to take position on the new and advanced line of battle', w='July 3 (morning)', d='07-03', ap=True,
+      pl='several hundred yards in front of the infantry, near a small brick house, fronting the Gettysburg-Emmitsburg road', rd='Emmitsburg road', gz='GZ-041',
+      act='On July 3 batteries of the battalion placed on the advanced line: Manly, McCarthy (rifle section) and Fraser sections near a small brick house; Carlton\'s battery and a McCarthy Napoleon section on the left of the line in front of Pickett\'s division, en echelon.'),
+    C(CAB, 'engagement', 'R435', a='The fire of the artillery was opened about 1 p. m.', w='about 1 p. m. (July 3)', d='07-03', t='13:00', ap=True,
+      pl='positions opposite the cemetery position of the enemy', act='Opened the cannonade at about 1 p. m. on July 3; cannonading almost continuous for over two hours; a part of Pickett\'s division then passed over the ground of these batteries.',
+      cf='cannonade_start_jul3', note='The cannonade start hour is a conflict between reports (not C-029, which is the cannonade END): Cabell says about 1 p. m.; McCarthy (his battery) says 1.30 p. m.; Longstreet says about 2 p. m. for the order to open.'),
+    C(CAB, 'movement', 'R435', a='The change in the position of the guns was made about 4 p. m.', w='about 4 p. m. (July 3)', d='07-03', t='16:00', ap=True,
+      pl='on the road above mentioned, about 700 yards from the Cemetery Hill', act='After Pickett\'s division was ordered back, McCarthy and Motes moved forward onto the road, the left flank of the extended line; the guns held the position until after dark and were withdrawn.'),
+    C(CAB, 'departure', 'R435', a='During the night of the 4th, we withdrew from our position', w='night of the 4th', d='07-04', ap=True,
+      pl='withdrew from the position; encamped at Monterey Springs the night of the 5th', act='Withdrew during the night of the 4th; reached Monterey Springs the night of the 5th and Hagerstown the next evening.'),
+    # McCarthy
+    C(CAB, 'engagement', 'R436', a='opened fire at about 4 p. m., firing until dark', w='about 4 p. m. (July 2)', d='07-02', t='16:00', ap=True, sub='First Richmond Howitzers (McCarthy)',
+      pl='in the front, in position (no place named)', act='McCarthy\'s rifle section (Anderson, Nimmo) opened at about 4 p. m. and fired until dark; Napoleon section in reserve under fire. July 3: placed 300-400 yards in front of the skirmishers (reported to Major Eshleman), fired 20 rounds; about 4 a. m. moved to another position; opened with the line at 1.30 p. m.; later advanced with Carlton\'s battery.',
+      cf='art_open_jul2', note='McCarthy: opened at 1.30 p. m. on July 3 (R436); the July 3 cannonade start hour differs between reports (not C-029, which is the end).'),
+    C(CAB, 'engagement', 'R436', a='At 1.30 p. m., opened with the line of artillery', w='1.30 p. m. (July 3)', d='07-03', t='13:30', sub='First Richmond Howitzers (McCarthy)',
+      pl='the line of artillery (position at about 4 a. m., place not named)', act='McCarthy\'s battery opened with the line of artillery at 1.30 p. m. and fired over 200 rounds from its Napoleons.',
+      cf='cannonade_start_jul3', note='1.30 p. m. is the battery\'s own time for opening with the line.'),
+    # Manly
+    C(CAB, 'movement', 'R437', a='I was ordered to advance on a road that intersected at right angles the Emmitsburg road', w='July 2 (morning to 2.30 p. m.)', d='07-02', ap=True, sub='Company A, 1st North Carolina Artillery (Manly)',
+      pl='a road that intersected the Emmitsburg road a short distance south-southwest of Gettysburg; within 2 1/2 miles of Gettysburg', rd='Emmitsburg road', gz='GZ-041',
+      act='When within 2 1/2 miles of Gettysburg, advanced on a road crossing the Emmitsburg road at right angles; found the cross-roads held; came into battery on an eminence right of the road 700 yards from the Union batteries.'),
+    C(CAB, 'engagement', 'R437', a='we engaged the enemy at 2.30 p. m.', w='2.30 p. m. (July 2)', d='07-02', t='14:30', sub='Company A, 1st North Carolina Artillery (Manly)',
+      pl='an eminence a short distance right of the road, 700 yards from the enemy\'s batteries', act='Manly\'s battery engaged the enemy at 2.30 p. m. and fired for several hours; evening advanced by a left-oblique to the peach orchard position left by the enemy; at night resumed its afternoon position.',
+      cf='art_open_jul2', note='Manly prints 2.30 p. m.; McCarthy about 4 p. m.; Motes about 3 o\'clock.'),
+    C(CAB, 'engagement', 'R437', a='On Friday, July 3, at 5 a. m. , I was ordered to carry my rifled guns', w='5 a. m. (July 3)', d='07-03', t='05:00', sub='Company A, 1st North Carolina Artillery (Manly)',
+      pl='the position occupied by the enemy\'s batteries the day previous, beyond and to the left of the cross-roads; enemy line 2,000 yards distant', act='Rifled guns carried to the enemy\'s former battery position; smooth-bores left in the July 2 position; engaged on signal, ammunition exhausted about 3 p. m., renewed fire until 7.30 p. m. when withdrawn.',
+      ocr=True, note='OCR "5 a. m. ," retains a stray space/comma.'),
+    # Furlong (Fraser's battery, Pulaski Artillery)
+    C(CAB, 'engagement', 'R438', a='the battery was placed in position on the right of the battalion, behind a loose rock fence', w='July 2 (no hour)', d='07-02', ap=True, sub='Pulaski (Georgia) Artillery, Fraser\'s battery (Furlong)',
+      pl='right of the battalion, behind a loose rock fence', act='Fraser\'s battery opened fire from four guns on batteries on the left; Captain Fraser fell after about an hour; Furlong took command with two guns and in the evening placed one piece 300 yards left of the earlier position and held it until dark.'),
+    C(CAB, 'movement', 'R439', a='Remained with him until about 0 a. m. the following day', w='July 10-11', d='07-10', ap=True, sub='Pulaski Artillery (R. M. Anderson)',
+      pl='bridge across Antietam Creek near Funkstown; Colonel Munford\'s cavalry', act='July 10: reported to Kershaw on the Sharpsburg turnpike, advanced to the Antietam bridge about 2 o\'clock, then at twilight to Colonel Munford\'s cavalry (not Gettysburg).', ocr=True,
+      note='Outside the Gettysburg battle days; recorded because the report is indexed as "operations July 10-11". "0 a. m." is OCR for 9 a. m.'),
+    # Motes (Carlton's battery, Troup Artillery)
+    C(CAB, 'engagement', 'R440', a='About 3 o\'clock, Captain Carlton ordered a fire from the Parrotts to be opened', w='about 3 o\'clock (July 2)', d='07-02', t='15:00', ap=True, sub='Troup (Georgia) Artillery, Carlton\'s battery (Motes)',
+      pl='right of the road fronting the enemy\'s position on the mountain, between Manly\'s and McCarthy\'s batteries; howitzers left of the battalion', act='Parrott section opened about 3 o\'clock on the enemy trying to place a battery on the left near the orchard; fire general until near dark; battery withdrawn to a field about half a mile to the rear for the night.',
+      cf='art_open_jul2', note='Motes prints about 3 o\'clock, a first-fire time for the Parrott section.'),
+    C(CAB, 'position', 'R440', a='was ordered to a position on the left of the road, in advance of Pickett\'s division', w='early morning (July 3)', d='07-03', ap=True, sub='Troup (Georgia) Artillery, Carlton\'s battery (Motes)',
+      pl='left of the road, in advance of Pickett\'s division, in front of the enemy position on Cemetery Hill', gz='GZ-003', act='Parrott section in position, howitzer section under cover; fired on signal; Carlton wounded; Motes took an advanced position about 300 yards forward and held it until dark.'),
+]

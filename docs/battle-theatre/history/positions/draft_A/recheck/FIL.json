@@ -1,0 +1,81 @@
+[
+ {
+  "id": "POS-A-FIL-001",
+  "fidelity": "corrected",
+  "why": "Narrowed to what Merritt prints (encamped near Mechanicstown from June 29, two days picketing, marched to Emmitsburg on the 2d); Buford 10.30 p.m. fact is another report and moved to reasoning; July 1 position stays inferred.",
+  "patch": {
+   "act": "Reserve Brigade on the night of July 1: by inference still near Mechanicstown (Merritt prints encampment near Mechanicstown from June 29 for two days of picketing, then a march to Emmitsburg on the 2d; no July 1 position is printed)",
+   "why": "No OR passage places the Reserve Brigade on July 1. Merritt (R340) prints the encampment near Mechanicstown from June 29, two days of picketing there, and the march to Emmitsburg on the 2d; the Itinerary (R007) agrees on July 2. Buford's dispatch of 10.30 p. m. June 30 (R337) places the brigade at Mechanicstown. The July 1 position is read as Mechanicstown (no movement recorded in between), but Pleasonton's July 1 order to Merritt (D0988) to fall back after the infantry have left Emmitsburg does not state where Merritt was, and pickets may have been nearer Emmitsburg."
+  }
+ },
+ {
+  "id": "POS-A-FIL-002",
+  "fidelity": "passed_full_read",
+  "why": "hour in the printed heading of the same order; unit addressed (Gregg, Second Division) and order text printed",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-FIL-003",
+  "fidelity": "passed_full_read",
+  "why": "hour in the printed heading of the same order; unit addressed (Gregg, Second Division) and order text printed",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-FIL-004",
+  "fidelity": "corrected",
+  "why": "Place gloss removed: 'field of Farnsworth's charge (Union left)' is not printed; passage prints 'the field so dearly won'. Conflict with Capehart (withdrew 3 miles) cross-linked.",
+  "patch": {
+   "pp": "the field so dearly won",
+   "cf": [
+    "POS-A-FIL-005"
+   ],
+   "note_add": "Place identification with Farnsworth's charge and the Union left is by inference; the date July 3 is from context (Farnsworth fell July 3, same passage)."
+  }
+ },
+ {
+  "id": "POS-A-FIL-005",
+  "fidelity": "passed_full_read",
+  "why": "hedge 'Apparently' kept in act; unit and 3-mile withdrawal in one sentence; night is the sequence before 'morning of July 4'",
+  "patch": {
+   "wd": "compiler reading from order of events: no clock printed; bivouac after the 3 p. m. charge, followed by 'On the morning of July 4'",
+   "cf": [
+    "POS-A-FIL-004"
+   ]
+  }
+ },
+ {
+  "id": "POS-A-FIL-006",
+  "fidelity": "corrected",
+  "why": "Place 'left of the Union line' narrowed to printed 'our left' (OCR 'let^'); night is 'that night' in the preceding sentence of the same passage.",
+  "patch": {
+   "pp": "on our left",
+   "wd": "printed in the continuing sentence: 'evacuated his lines that night' precedes 'Custer's brigade then proceeded'",
+   "note_add": "OCR 'let^' read as 'left'."
+  }
+ },
+ {
+  "id": "POS-A-FIL-007",
+  "fidelity": "corrected",
+  "why": "Split: J. I. Gregg moving to the front on the left that evening is in R355, not R344 (R344 says the Third Brigade was held in reserve upon the field); place gloss removed.",
+  "patch": {
+   "act": "At dark, when the enemy had withdrawn from his former position, Gregg was at liberty to relieve the First [Second] Brigade of the Third Division (Custer), which was directed to join its division",
+   "w": "At dark",
+   "pp": null,
+   "wd": "printed in the preceding sentence ('at dark withdrew from his former position'); 'At this time' continues it",
+   "note_add": "Place not printed. The Third Brigade (J. I. Gregg) moving to the front on the left that evening is a separate claim from R355; R344 itself says that brigade 'was held in reserve upon the field'."
+  },
+  "add": [
+   {
+    "u": "us-cav-2d-gregg",
+    "k": "movement",
+    "act": "On the evening of July 3 the Fourth Pennsylvania Cavalry rejoined J. I. Gregg's brigade, which was ordered to move to the front and take up a position on the left to meet a threatened attack from that direction",
+    "r": "R355",
+    "q": "ordered to move to the front and take up a position on the left",
+    "w": "in the evening of that day",
+    "d": "1863-07-03",
+    "pp": "the front, a position on the left",
+    "note": "Split from POS-A-FIL-007: R355 (Col. J. Irvin Gregg). The position is not named; the threatened attack came 'from that direction'."
+   }
+  ]
+ }
+]

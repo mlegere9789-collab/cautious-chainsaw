@@ -44,8 +44,9 @@ export function monthOf(word) {
   return best;
 }
 const YEAR_PAT = String.raw`([1Il]\s?[83S]\s?-?\s?[0-9GOSlI]\s?[0-9lIOS])(?![0-9])`;                                // 1863 as the OCR prints it: "I860", "1S63", "1 863", "18-63", "1363"
-const DATE_RE = new RegExp(String.raw`(?<![A-Za-z])((?:J\s)?[A-Za-z]{3,9})\.?[\s,]*['’‘]?([0-9lI]\s?[0-9lIOS]?)(?:st|d|nd|rd|th)?\s*(?:\[[^\]]{0,6}\])?\s*[,.;:?/\-»«'’‘"*]{0,4}(?:[a-z](?=\s?[1Il]\s?[83S]))?\s*(?:\[[^\]]{0,6}\]\s*)?` + YEAR_PAT, 'g');
+const DATE_RE = new RegExp(String.raw`(?<![A-Za-z])((?:J\s)?[A-Za-z]{3,9})\.?[\s,]*['’‘]?([0-9lI]\s?[0-9lIOS]?)(?:st|d|nd|rd|th)?\s*(?:\[[^\]]{0,6}\])?\s*(?:[,.;:?/\-»«'’‘"*]\s*){0,4}(?:[a-z](?=\s?[1Il]\s?[83S]))?\s*(?:\[[^\]]{0,6}\]\s*)?` + YEAR_PAT, 'g');
 const DATE_NODAY_RE = new RegExp(String.raw`(?<![A-Za-z])((?:J\s)?[A-Za-z]{3,9})\.?[\s,]*[%&*?]{1,2}\s*[,.;:/\-]{0,3}\s*` + YEAR_PAT, 'g');                    // "July % 1863": the day the OCR could not read
+const DATE_LETTERDAY_RE = new RegExp(String.raw`(?<![A-Za-z])((?:J\s)?[A-Za-z]{3,9})\.?[\s,]*([A-Za-z][0-9]?|[0-9][A-Za-z])\s*[,.;:]\s*` + YEAR_PAT, 'g');
 const yearOf = (tok) => { let c = tok.replace(/[\s-]/g, '').replace(/[Il]/g, '1').replace(/O/g, '0').replace(/G/g, '6'); c = c[1] === 'S' ? c[0] + '8' + c.slice(2) : c; c = c.replace(/S/g, '5'); if (/^136\d$/.test(c)) c = '18' + c.slice(2); return /^18\d\d$/.test(c) ? +c : null; };
 /** the first date in a text: { month, day, year, index, end } (year as read; an OCR slip in the last digit keeps its reading, see repairYears) or null */
 export function findDate(t) {
@@ -61,6 +62,12 @@ export function findDate(t) {
   DATE_NODAY_RE.lastIndex = 0;
   while ((m = DATE_NODAY_RE.exec(t))) {
     const mon = monthOf(m[1]), year = yearOf(m[2]); if (!mon || !year) continue;
+    return { month: mon, day: null, year, index: m.index, end: m.index + m[0].length };
+  }
+  // "June z4, 1863." / "July o, 1863.": the OCR printed a letter (and perhaps one figure) where the day stands. The month and the year are read; the day is NOT guessed (null, like the "July % 1863" form above)
+  DATE_LETTERDAY_RE.lastIndex = 0;
+  while ((m = DATE_LETTERDAY_RE.exec(t))) {
+    const mon = monthOf(m[1]), year = yearOf(m[3]); if (!mon || !year) continue;
     return { month: mon, day: null, year, index: m.index, end: m.index + m[0].length };
   }
   return null;
@@ -99,8 +106,8 @@ const keyOf = (s) => String(s || '').toLowerCase().replace(/[^a-z]/g, '');
 
 /** the clock the tail of a dateline holds, the "(Received ...)" time, and what is left of the line: { clock (text), received (text), rest } */
 function readTail(post) {
-  let p = post.replace(/^[\s.,;:*]+/, ''), clock = null, received = null, guard = 0;
-  const CLK = String.raw`(?:12\s*m\b\.?|(?:\d{1,2}\s*[.:]\s*\d{2}|\d{1,2})\s*[-–—.,]?\s*\[?\s*(?:[ap]\s?\.?\s?m\b\.?\]?|[ap]\.(?![A-Za-z])\]?|noon\b|midnight\b|o.{0,2}clock\b))`;
+  let p = post.replace(/^[\s.,;:*^~•|_'"“”‘’`]+/, ''), clock = null, received = null, guard = 0;           // the OCR's debris between the year and the clock ("1863^-5 p. m.", "1863— *10.20")
+  const CLK = String.raw`(?:12\s*m\b\.?|(?:\d{1,2}\s*[.:]\s*\d{2}|\d{1,2})\s*[-–—.,'‘’]?\s*\[?\s*(?:[ap]\s?\.?\s?m\b\.?\]?|[ap]\.(?![A-Za-z])\]?|noon\b|midnight\b|o.{0,2}clock\b))`;
   while (p && guard++ < 6) {
     let m;
     if ((m = /^[—–-]{1,3}\s*/.exec(p))) { p = p.slice(m[0].length); continue; }
@@ -112,6 +119,7 @@ function readTail(post) {
   }
   return { clock, received, rest: p.trim() };
 }
+const GARBLED_CLOCK = /^[£$\dlIO|][\dlIO.:,\s'£‘’]{0,8}\s?[ap]\.?\s?[-.]?\s?[mnuiIl][a-z]?[.i*]*\.?\s*$/i;
 const clockOf = (text) => {
   if (!text) return null;
   const fixed = /[ap]\.\s*$/i.test(text.trim()) ? text.trim() + ' m.' : text;                                    // "8.30 p." (the OCR set the "m." on a line of its own)
@@ -123,7 +131,7 @@ const clockOf = (text) => {
 const ADDR_SMALL = new Set(['and', 'others', 'of', 'the', 'at', 'in', 'for', 'de', 'via', 'or', 'elsewhere', 'near', '&c.', '&c', 'etc.', 'etc', 'a.', 'a', 'to', 'on', 'hundred', 'thousand']);
 function addressLike(t0) {
   // the OCR's brackets, question marks and bullets around an address ("[General Butterfield ?] :")
-  const s = String(t0).replace(/^[\s,.;*•|~_"“”‘’'\[(]+/, '').replace(/[\[\]?]/g, ' ').replace(/[\s•*]+$/, '').replace(/\s+-\s*(?=[A-Za-z])/g, '-').replace(/\s+/g, ' ').trim(); if (!s || s.length > 130) return false;
+  const s = String(t0).replace(/^[\s,.;*•|~_"“”‘’'\[(]+/, '').replace(/^\d{1,2}\s+(?=[A-Z])/, '').replace(/[\[\]?]/g, ' ').replace(/[\s•*]+$/, '').replace(/\s+-\s*(?=[A-Za-z])/g, '-').replace(/\s+/g, ' ').trim(); if (!s || s.length > 130) return false;
   if (/^[a-z]/.test(s)) return false;
   const lower = (s.match(/\b(?:the|is|was|are|were|will|have|has|had|that|which|this|my|we|you|your|not|but|been|with|for|from|by)\b/g) || []).length;
   if (lower >= 3) return false;
@@ -141,10 +149,12 @@ function addressLike(t0) {
 export function readDateline(line, { prevOk = true, gaz = null } = {}) {
   let t = String(line).trim().replace(/\s+/g, ' ');
   if (t.length < 9 || t.length > 220) return null;
+  t = t.replace(/(\b[A-Za-z]{3,9}\.?\s+)\d{1,2}\s*\[\s*(\d{1,2})\s*\]/, '$1$2');                          // "June 16 [17], 1863": the compiler's bracket corrects the printed day; the corrected day is read
+  t = t.replace(/([A-Za-z])\*\s?s\b/g, '$1’s');                                                         // "Harper* s Ferry": the OCR's asterisk for the apostrophe
   t = t.replace(/\[\s*([A-Za-z]{3,9})\s*\]/g, '$1').replace(/\[\s*(\d{1,2})\s*\]/g, '$1').replace(/\[\s*([A-Za-z]{3,9}\.?\s*\d{1,2}\s*,?)\s*\]/g, '$1').replace(/\[\s*(?=[A-Za-z]{3,9}\.?\s*\d)/, '').replace(/\[\s*(\d{4})\s*[.,]?\s*\]/g, '$1').replace(/([1I]\s?8\s?[0-9GOSlI]\s?[0-9lIOS])\s*\]/, '$1');
   const d = findDate(t); if (!d) return null;
   let pre = t.slice(0, d.index).replace(/^[\s*•|~_'"‘’“”`]+/, ''), post = t.slice(d.end);
-  pre = pre.replace(/^[\\/\[]\s*(?=[A-Z][A-Za-z.’' ]{2,30}\])/, '').replace(/^([A-Z][A-Za-z.’' ]{2,30})\]/, '$1');                 // "\Taney town], July 2": a place in brackets, its opening bracket read as a backslash
+  pre = pre.replace(/^[\\/\[]\s*(?=[A-Z][A-Za-z.’' ]{2,30}\])/, '').replace(/^(?!(?:Sub-?)?(?:Circular|Orders?|Telegram|Cipher|Confidential|Copy|Private|Official|Inclosures?|Enclosures?|Indorsements?)\b)([A-Z][A-Za-z.’' ]{2,30})\]/, '$1');                 // "\Taney town], July 2": a place in brackets, its opening bracket read as a backslash (not an order tag: "Circular.] Hdqrs. ...")
   pre = pre.replace(/^(?:[^A-Za-z0-9\s]|[a-z])(?:\s+(?:[^A-Za-z0-9\s]|[a-z])){0,6}\s+(?=\S)/, '');                  // the OCR's debris in front of a heading ("c _ „ ^ . June 21, 1863")
   // order number and tags before the place: "No. 12. j June 7, 1863", "Confidential.] New York", "[Inclosure.] Headquarters ..."
   let orderNo = null; const tags = [];
@@ -167,6 +177,9 @@ export function readDateline(line, { prevOk = true, gaz = null } = {}) {
   const tail = readTail(post);
   // the "m." of a clock the OCR garbled ("5 p. np", "9 a. . m.", "12.30 a. ni.") is left over after "5 p.": two letters at most, never an address
   if (tail.clock && /[ap]\.?$/i.test(tail.clock.trim()) && /^[a-z]{1,2}[.,:;]?$/.test(tail.rest)) tail.rest = '';
+  // what else the OCR leaves after the year: one to three lower-case letters ("Suffolk, June 18, 1863. fl") or a clock it garbled past reading ("l.lOp. m.", "4.5.0 p. m."): the line is still a dateline
+  // and nothing is made of the debris (the clock stays null: no hour is guessed from "l.lO")
+  if (tail.rest && (/^[a-z]{1,3}[.,:;*]?$/.test(tail.rest) || GARBLED_CLOCK.test(tail.rest))) tail.rest = '';
   let addr = null;
   if (tail.rest) {
     const r = tail.rest.replace(/^[\s*•|~_]+/, '');
@@ -195,6 +208,9 @@ const NAME_STOP = /^(?:GENERAL|SPECIAL|CIRCULAR|ORDERS?|NO|HEADQUARTERS|DEPARTME
 const NAME_UNIT = new Set(['FIRST', 'SECOND', 'THIRD', 'FOURTH', 'FIFTH', 'SIXTH', 'SEVENTH', 'EIGHTH', 'NINTH', 'TENTH', 'ELEVENTH', 'TWELFTH', 'DIVISION', 'BRIGADE', 'CORPS', 'ARTILLERY', 'CAVALRY', 'INFANTRY', 'RESERVE', 'ARMY', 'DEPARTMENT', 'STAFF', 'BATTERY', 'REGIMENT', 'TOTAL', 'GRAND', 'SIGNAL', 'OFFICE', 'MILITIA', 'NORTH', 'SOUTH', 'WEST', 'EAST', 'POTOMAC', 'VIRGINIA', 'MARYLAND', 'PENNSYLVANIA', 'STATION', 'BUREAU', 'GUARD', 'PROVOST', 'ENGINEER', 'ENGINEERS', 'ORDNANCE']);
 const NAMETOK = /^(?:Mc|Mac|De|Van|Von|La|O[’']|D[’'])?[A-Z][A-Z’'.\-]*[.,;:]?$/;
 const TITLE_START = /,\s*[#*•^|~]*\s*(?=(?:Brevet |Bvt\.? |Brig|Maj|Lieut|Lt\b|Col|Capt|Gen|Assistant|Acting|Chief|Secretary|President|Commanding|Adjutant|Signal|Governor|Commodore|Rear|Surg|Medical|Inspector|Operator|Aide|Quarter|Provost|Judge|Mayor|Sergt|Corpl|Private|Engineer|Paymaster|Superintendent|\[))/;
+export function repairSigName(name) {
+  return String(name).replace(/(?<=[A-Z])[1I]ST(?=[A-Z])/g, 'N').replace(/(^|\s)[1I]ST\.?(?=\s|$)/g, '$1N.').replace(/(?<=[A-Z]{3})8(?=\s|$|[.,])/g, 'S').replace(/(^|\s)([A-Z])(?=\s)/g, '$1$2.');
+}
 /** the name part of a signature line: { name, title (the rest of the line, inline), weak } or null. "DANL. BUTTERFIELD," "EDWIN M; STANTON." "65 S. P. HEINTZELMAN," "H. W. SLOCUM, Major-General of Volunteers." "WILLIAM H. HILL and I. S. LYON, Signal Officers." */
 export function nameOf(line) {
   let t = String(line).trim().replace(/(^|\s)0\.(?=\s|[A-Z]|$)/g, '$1O.');       // "0. 0. HOWARD.": a zero for the initial O
@@ -223,7 +239,10 @@ export function nameOf(line) {
   const weak = !big && initials >= 2 && letters >= 2 && letters <= 6;                                              // "P. AND C." (initials only: a signature only with a title under it)
   if (!big && !weak) return null;
   if (!weak && letters < 4) return null;
-  const clean = name.replace(/([A-Z]\.?)\s*[;,]\s*(?=[A-Z])/g, '$1 ').replace(/;/g, ',').replace(/\s+/g, ' ').trim();
+  let clean = name.replace(/([A-Z]\.?)\s*[;,]\s*(?=[A-Z])/g, '$1 ').replace(/;/g, ',').replace(/\s+/g, ' ').trim();
+  // the OCR reads the capital N of a signature as "1ST" / "IST" ("D. 1ST. COUCH" for D. N. Couch, "DA1STL. BUTTERFIELD" for Danl. Butterfield) and a final S as 8 ("SYKE8"): a letter confused with a figure,
+  // read back as the letter; a lone initial gets its full stop. The reading is the OCR slip's only possible one in a name in capitals, and it is applied to nothing else.
+  clean = repairSigName(clean);
   return { name: clean, title, weak };
 }
 const POSTSCRIPT = /^(?:(?:N|IST|1ST|1S)\.?\s?B\.?\s*[—–-]|P\.?\s?S\.?[\]JjlI]?\s*[—–-]|\[\s*P\.?\s?S|\(|\[)/;
@@ -260,7 +279,7 @@ export function weakSignature(ul) {
     for (let k = toks.length - 1; k >= 0 && got.length < 5; k--) { const x = toks[k].replace(/[.,;:]+$/, ''); if (/^[A-Z0-9][A-Z0-9'’\-]*$/.test(x) && /[A-Z]/.test(x)) got.unshift(x); else break; }
     if (!got.some((x) => (x.match(/[A-Z]/g) || []).length >= 3 && !/\d/.test(x)) || got.every((x) => NAME_UNIT.has(x) || NAME_STOP.test(x))) return null;
     if (got.some((x) => /^(?:AND|THE|OF|FOR|NOT|ARE|YOU|HAS|HAD|WAS)$/.test(x))) return null;
-    return { i, end: i + 1, name: got.join(' '), title: ul.slice(i + 1).map((x) => x.trim()).filter((x) => x && isTitleLine(x)).join(' '), weak: true };
+    return { i, end: i + 1, name: repairSigName(got.join(' ')), title: ul.slice(i + 1).map((x) => x.trim()).filter((x) => x && isTitleLine(x)).join(' '), weak: true };
   }
   return null;
 }
@@ -277,8 +296,45 @@ export function tableLike(ul) {
   const lower = toks.filter((x) => /^[a-z]{2,}[.,;:]?$/.test(x)).length;                                // prose is about 60% lower-case words; a list of units, officers and stations about 10%
   return lower / toks.length < 0.3;
 }
+const FWD_LEAD = /\b(?:The )?[Ff]ollowing\b[^.:]{0,45}\b(?:received|from)\b[^:.]{0,45}:/;
 const FORWARD = /\b(?:forward(?:ed)?|inclos(?:e|ed|ing)|transmit(?:ted)?|following (?:dispatch|telegram|letter|report|just|is|important)|copy of)\b/i;
 
+const TABLE_HEAD = /^(?:Troops|Organization|Abstract|List\s+of|Itinerary|Return|Statement|Roster|Distribution)\b/;
+/**
+ * The heading of a table that the volume prints under a date ("Troops in the Department of Washington, Maj. Gen. Samuel P. Heintzelman, U. S. Army, commanding, June 30, 1863.", "Organization of the Army of the
+ * Potomac, Maj. Gen. George G. Meade, U. S. Army, commanding, July 31, 1863.", "Abstract from return of ..., for June 30, 1863."). It is the dateline of a document of its own, a return, not the tail of the dispatch above it:
+ * a place + date reading fails on it (the line is a title with a commander in it), so it is recognised by its first word and by a date that ends the line. Returns { month, day, year, place: null, header: the title, ... } or null.
+ */
+export function tableHeadingDateline(L, k, nEnd) {
+  // the title wraps ("Troops in the Department of Washington, Maj. Gen. Samuel P. / Heintzelman, U. S. Army, commanding, July 31, 1863."): up to three lines, none blank
+  let t = '';
+  for (let n = 0; n < 3 && k + n < nEnd; n++) {
+    const part = String(L(k + n)).trim(); if (!part) break;
+    t = (t ? t + ' ' : '') + part.replace(/\s+/g, ' ');
+    if (t.length > 330) return null;
+    if (n === 0 && !TABLE_HEAD.test(t)) return null;
+    if (t.length < 25) continue;
+    const d = findDate(t); if (!d) continue;
+    if (t.slice(d.end).replace(/[\s.,;:*\])fJ|†]+$/g, '').length > 3) continue;                 // the date closes the title (a trailing "*", "f" or "J" is the OCR's footnote mark)
+    return { month: d.month, day: d.day, year: d.year, place: null, header: t.slice(0, d.index).replace(/[\s,]+$/, ''), tags: [], order_no: null, clock: null, received: null, tail: null, line: t, table: true };
+  }
+  return null;
+}
+
+/** a document with no signature whose first line after its dateline is the title of a compilation ("Abstract of papers relating to horses lost or abandoned ...", "List of divisions, brigades, and regiments ...") is a return */
+const titledAsReturn = (ul, from) => { for (let i = Math.max(0, from) + 1; i < Math.min(ul.length, from + 8); i++) { const t = ul[i].trim(); if (!t || NUMLINE.test(t) || TAG_LINE.test(t) || /^\(.*\)$/.test(t)) continue; return TABLE_HEAD.test(t); } return false; };
+/** the note a header prints about the transmission, "(Received 9.15 p. m.)", "(Copy received, War Department, 6.10 a. m.)", "(Sent 2 a. m., 16th.)": the first one in the head of the document, as printed, without its brackets */
+const receivedNote = (ul) => {
+  const m = /\(\s*((?:Copy\s+)?[Rr]eceived|Sent)\b[^)\n]{0,80}\)?/.exec(ul.slice(0, 14).join('\n').slice(0, 500));
+  return m ? m[0].replace(/^\(\s*/, '').replace(/\)?\s*\.?$/, '').replace(/\s+/g, ' ') : null;
+};
+/** the debris the OCR leaves in a place: marks in front ("_ „ Washington", "T ., ^, Middletown"), asterisks and carets inside a word ("Within* Two Miles", "W. V*a") */
+const cleanPlace = (p) => {
+  if (!p) return p;
+  let t = String(p).replace(/[_„~•|^*]/g, '').replace(/\s+/g, ' ');
+  t = t.replace(/^(?:[A-Za-z]?\s*[.,;:]+\s*)+/, '').replace(/^[^A-Za-z]+/, '').trim();
+  return t || null;
+};
 /**
  * Cut the dispatches of Part 3.
  * @param norm  { text, pages: [{offset, page}] } from normalizeOcr
@@ -331,8 +387,14 @@ export function segmentDispatches(norm, { part = 3 } = {}) {
     const pn = prevNonBlank(k);
     const above = pn >= 0 && k - pn <= 2 && placeShape(L(pn)) ? pn : -1;                              // a date-only line under "Hear Gettysburg," is the dateline of a place and a date on two lines
     const prevOk = pn < 0 || k - pn > 1 || above >= 0 || headerLike(pn) || (/[.!?:;"”’)\]]\s*$/.test(L(pn).trim()) && !/,$/.test(L(pn).trim())) || isTitleLine(L(pn)) || nameOf(L(pn)) !== null;
-    const d = readDateline(L(k), { prevOk }); if (!d) continue;
-    if (above >= 0 && !d.place) d.place = L(pn).trim().replace(/[\s,.]+$/, '').replace(/\s+,/g, ',');
+    let d = readDateline(L(k), { prevOk }); if (!d && prevOk) d = tableHeadingDateline(L, k, nEnd); if (!d) continue;
+    if (above >= 0 && !d.place) {
+      // "Circular.] Headquarters Army of the Potomac," above "June 5, 1863.": the order tag is a tag of the document, not the start of its place
+      let ab = L(pn).trim().replace(/[\s,.]+$/, '').replace(/\s+,/g, ',');
+      const tg = /^\[?\s*((?:Sub-?)?(?:Circular|Orders?|General Orders|Special Orders|Telegram|Cipher|Confidential|Copy|Private|Official)(?:\s+No\.?\s*[0-9A-Z]{1,4})?)\.?\s*[\]\)]\s*/i.exec(ab);
+      if (tg) { ab = ab.slice(tg[0].length); d.tags = [...(d.tags || []), tg[1]]; }
+      d.place = ab || null;
+    }
     dls.push({ k, d, above });
   }
   // a dateline directly followed (before any body line) by another dateline line is the same heading ("June 3, 1863." / "June 3, 1863 - 10 p. m.")
@@ -343,6 +405,16 @@ export function segmentDispatches(norm, { part = 3 } = {}) {
     heads.push(x);
   }
   // ---- where each dispatch starts: the header lines above its dateline, down to the last signature of the previous dispatch
+  // a signature the OCR damaged past reading ("E>. N. COUCH," / "Major - General .", "0EO. G. MEADE," / "JJajor-GeneraJ") still ends a message: the first line above the header lines of k that is not a
+  // header line itself is a title line, a name in capitals or a closing. A quotation inside a cover ("The following is from ...: / W. P. Smith : / Marriottsville, Md., / June 29, 1863. / [text]"
+  // under the cover's own text) has body text there and keeps its cover.
+  const signedAbove = (k, lo) => {
+    let j = k - 1;
+    while (j >= lo && (blank(j) || headerLike(j, { addr: false }))) j--;
+    if (j < lo) return false;
+    const t = L(j).trim();
+    return isTitleLine(t) || (t.length <= 60 && /(?:ajor|eneral|olonel|aptain|ieutenant|ommanding|taff|ecretary|dju?tant|olunteers|Officer)/.test(t) && !/[a-z]{3,}\s+[a-z]{3,}\s+[a-z]{3,}/.test(t)) || (t.length <= 48 && (t.match(/[A-Z]/g) || []).length >= 3 && !/[a-z]{4,}/.test(t)) || /(?:General|Staff|Colonel|Captain|Commanding|Secretary|Operator|Officer|Volunteers)\W*$/.test(t) && t.length <= 70 && !/[a-z]{3,}\s+[a-z]{3,}\s+[a-z]{3,}/.test(t) || CLOSING.test(t);
+  };
   const starts = [];
   heads.forEach((h, idx) => {
     const lo = idx > 0 ? heads[idx - 1].k + 1 : 0;
@@ -353,7 +425,7 @@ export function segmentDispatches(norm, { part = 3 } = {}) {
       const t = L(k).trim();
       if (!t) { if (++blanks > 3) break; continue; }
       // above the last signature only unambiguous heading lines; below it also an addressee the OCR set above the date
-      const ok = k === h.above || (headerLike(k, { addr: k >= pe && sigs.length > 0 }) && !isTitleLine(t));
+      const ok = k === h.above || (headerLike(k, { addr: k >= pe && (sigs.length > 0 || signedAbove(k, lo)) }) && !isTitleLine(t));
       if (!ok || k < pe) break;
       first = k; taken++; blanks = 0;
     }
@@ -397,7 +469,9 @@ export function segmentDispatches(norm, { part = 3 } = {}) {
       let k = u.b - 1; while (k > u.a && blank(k)) k--;
       if (k <= u.a) break;
       const t = L(k).trim();
-      if (!(isPlaceLine(t) || TAG_LINE.test(t) || (INSTIT.test(t) && /,\s*$/.test(t) && !isTitleLine(t)) || (ORDER_HEAD.test(t) && /[)\]|jJ]/.test(t))) || CLOSING.test(t) || nameOf(t) || (isTitleLine(t) && /^(?:Adjutant|Assistant|Chief of|Acting|Aide|Major|Brig|Lieut|Col|Capt|General|Commanding|Secretary|Surgeon)\b/i.test(t) && !/Office|Bureau|Headquarters|Hdqrs|Department/i.test(t))) break;      // "Adjutant- General ," under a signature is its title, not a place line of the next dispatch
+      // the addressee of the next message left under the signature of this one ("... Chief of Staff. / General Benham"): a recipient-led short line, directly after a signature block
+      const strayAddr = RECIPIENT_CUE.test(t) && t.length <= 70 && !/[.;!?]$/.test(t.replace(/\s*[:,]$/, '')) && addressLike(t) && !isTitleLine(t) && !nameOf(t) && !CLOSING.test(t) && signedAbove(k, u.a);
+      if (!(isPlaceLine(t) || strayAddr || TAG_LINE.test(t) || (INSTIT.test(t) && /,\s*$/.test(t) && !isTitleLine(t)) || (ORDER_HEAD.test(t) && /[)\]|jJ]/.test(t))) || CLOSING.test(t) || nameOf(t) || (isTitleLine(t) && /^(?:Adjutant|Assistant|Chief of|Acting|Aide|Major|Brig|Lieut|Col|Capt|General|Commanding|Secretary|Surgeon)\b/i.test(t) && !/Office|Bureau|Headquarters|Hdqrs|Department/i.test(t))) break;      // "Adjutant- General ," under a signature is its title, not a place line of the next dispatch
       u.b = k; nx.a = k;                                                                                   // the line (and the blank lines that followed it) move to the next unit
     }
   }
@@ -415,18 +489,24 @@ export function segmentDispatches(norm, { part = 3 } = {}) {
     const sigs = tableDoc ? [] : findSignatures(ul);
     const mark = ul.findIndex((x, i) => INDORSE.test(x.trim()) && sigs.some((s) => s.end <= i));
     // the sender is the last signature before the first indorsement marker; two signatures with no text between them (a dispatch and the name of the officer who certifies or forwards the copy: "HOOKER, Major-General. / CHAS. N. TURNBULL, Captain of Engineers, Commanding.") are the dispatch's writer first
-    let main = (() => { const c = sigs.filter((s) => mark < 0 || s.i < mark); if (!c.length) return null; let m = c.length - 1; while (m > 0 && ul.slice(c[m - 1].end, c[m].i).every((x) => !x.trim())) m--; return c[m]; })();
+    let main = (() => { const c = sigs.filter((s) => mark < 0 || s.i < mark); if (!c.length) return null; let m = c.length - 1; while (m > 0 && ul.slice(c[m - 1].end, c[m].i).every((x) => !x.trim())) m--; if (m < c.length - 1 && FWD_LEAD.test(ul.join(' ').slice(0, 600))) m = c.length - 1; return c[m]; })();           // "Following just received from New Creek: [Kelley's text] B. F. KELLEY. DONN PIATT, Chief of Staff.": the forwarder signs, the writer of the quoted message is not the sender
     if (!main && !tableDoc) main = weakSignature(ul);
     let dline = null; for (let k = a; k < b; k++) { const hh = heads.find((x) => x.k === k); if (hh) { dline = hh; break; } }
     const d = dline ? dline.d : (u.h ? u.h.d : null);
     const dk = dline ? dline.k : -1;
     // the lines under the dateline that are not yet the address: a "(Received ...)" note, the OCR's debris, a stray "m."
-    const skippable = (t) => /^\(.*[Rr]eceived/.test(t) || TAG_LINE.test(t) || /^m\.?$/i.test(t) || NUMLINE.test(t) || /^\(\s*Copy/i.test(t) || /^[*•]+\s*$/.test(t);
+    const skippable = (t) => /^\(.*[Rr]eceived/.test(t) || /^\(\s*Sent\b/i.test(t) || TAG_LINE.test(t) || /^m\.?$/i.test(t) || NUMLINE.test(t) || /^\(\s*Copy/i.test(t) || /^[*•]+\s*$/.test(t);
     const below = (k0) => {
       const blk = []; let n = k0, guard = 0;
       while (n < b && guard++ < 14 && blk.length < 3) {
-        const t = L(n).trim().replace(/^[\s,.;*•|~_]+/, '').replace(/[\s•*|~_<>»«]+$/, '').replace(/([:;])\s*,\s*$/, '$1').replace(/[\[\]]/g, '').replace(/\s+/g, ' '); n++;      // "Commanding Cavalry Corps: >" and "Boonsborough : ," end in the OCR's debris after the colon
+        const cleanLine = (x) => x.trim().replace(/^[\s,.;*•|~_]+/, '').replace(/^\d{1,2}\s+(?=[A-Z])/, '').replace(/[\s•*|~_<>»«]+$/, '').replace(/([:;])\s*,\s*$/, '$1').replace(/[\[\]]/g, '').replace(/\s+/g, ' ');
+        let t = cleanLine(L(n)); n++;      // "Commanding Cavalry Corps: >" and "Boonsborough : ," end in the OCR's debris after the colon
         if (!t || skippable(t)) continue;
+        // an address of two lines, the first closed by "and": "H. W. Halleck, General-in-Chief, and / Major-General Couch, Harrisburg:"
+        if (!blk.length && /(?:^|[\s,])(?:and|&)$/.test(t)) {
+          let q = n; while (q < b && !L(q).trim()) q++;
+          if (q < b) { const t2 = cleanLine(L(q)); if (t2 && addressLike(t + ' ' + t2) && /[:;]\s*$/.test(t2)) { t = t + ' ' + t2; n = q + 1; } }
+        }
         if (SALUTATION.test(t) && blk.length) return { block: blk, via: 'salutation' };
         const nxt = (() => { let q = n; while (q < b && !L(q).trim()) q++; return q < b ? L(q).trim() : ''; })();
         const contin = blk.length && /[:;]\s*$/.test(t) && t.length <= 85 && (t.match(/\b(?:the|is|was|are|will|have|that|which|this)\b/g) || []).length <= 1 && !/^[a-z]/.test(t);   // "Leesburg, via Poolesville:" under "General Slocum,"
@@ -444,19 +524,23 @@ export function segmentDispatches(norm, { part = 3 } = {}) {
       addressee = joinAddr(blk);
     } else if (dk >= 0) { const r = below(dk + 1); if (r) addressee = joinAddr(r.block); }
     else { const r = below(a); if (r) addressee = joinAddr(r.block); }                                          // a message with no heading of its own: its address is its first lines
+    if (addressee && !RECIPIENT_CUE.test(addressee) && dk >= 0) {                                         // "Governor Curtin, / War Department, June 15, 1863. / (Sent 2 a. m., 16th.) / Harrisburg :": the person above the date, the place under it
+      const above = []; for (let k = a; k < dk; k++) { const t = L(k).trim(); if (t && RECIPIENT_CUE.test(t) && /[,:]\s*$/.test(t) && t.length <= 70 && addressLike(t) && !INSTIT.test(t) && !CLOSING.test(t)) above.push(t); }
+      if (above.length) addressee = joinAddr([...above, addressee]);
+    }
     if (!addressee) { // an address printed above the date (the OCR's reading order)
-      const hl = []; for (let k = a; k < (dk >= 0 ? dk : a); k++) { const t = L(k).trim(); if (dline && k === dline.above) continue; if (t && /[:;,]\s*$/.test(t) && addressLike(t) && !INSTIT.test(t) && !isPlaceLine(t) && !CLOSING.test(t)) hl.push(t); }
-      if (hl.length && /[:;]\s*$/.test(hl[hl.length - 1])) addressee = joinAddr(hl);
+      const hl = []; for (let k = a; k < (dk >= 0 ? dk : a); k++) { const t = L(k).trim(); if (dline && k === dline.above) continue; if (t && (/[:;,]\s*$/.test(t) || (RECIPIENT_CUE.test(t) && t.length <= 70 && !/[.!?]$/.test(t))) && addressLike(t) && !INSTIT.test(t) && !isPlaceLine(t) && !CLOSING.test(t)) hl.push(t); }
+      if (hl.length && (/[:;]\s*$/.test(hl[hl.length - 1]) || (hl.length === 1 && RECIPIENT_CUE.test(hl[0]) && !/[.,;!?]$/.test(hl[0])))) addressee = joinAddr(hl);
     }
     if (addressee && main && addressee.replace(/[^A-Za-z]/g, '').toUpperCase().includes(main.name.replace(/[^A-Za-z]/g, '').toUpperCase()) && main.name.replace(/[^A-Za-z]/g, '').length >= 6) addressee = null;                  // the signature read as the address
     if (addressee && (addressee.split(/\s+/).length > 16 || /\b(?:will|shall|should|would|must)\b/.test(addressee))) addressee = null;
     const first = ul.find((x) => x.trim()) || '';
-    const kind = /^(?:GENERAL|SPECIAL|CIRCULAR|FIELD)?\s*ORDERS?\b|^General Orders|^Special (?:Field )?Orders|^Circular|^\[?Circular/i.test(first) || (d && d.tags.some((x) => /^(?:Order|Circular)/i.test(x)) && !main) ? 'order' : /^Itinerary/i.test(first) ? 'itinerary' : tableDoc ? 'return' : 'dispatch';
+    const kind = /^(?:GENERAL|SPECIAL|CIRCULAR|FIELD)?\s*ORDERS?\b|^General Orders|^Special (?:Field )?Orders|^Circular|^\[?Circular/i.test(first) || (d && d.tags.some((x) => /^(?:Order|Circular)/i.test(x)) && !main) ? 'order' : /^Itinerary/i.test(first) ? 'itinerary' : (tableDoc || (d && d.table) || (!main && titledAsReturn(ul, dk >= 0 ? dk - a : 0))) ? 'return' : 'dispatch';
     const pg = pageAt(lines[a].s);
     const header = ul.slice(0, Math.max(0, (dk >= 0 ? dk : a) - a)).map((x) => x.trim()).filter(Boolean).concat(d && d.header ? [d.header] : []).join(' / ');
     return {
       kind, header, toc_title: null, no: null,
-      date: d && d.month && d.day ? { y: d.year, m: d.month, d: d.day } : null, date_text: d ? d.line : null, clock: d ? d.clock : null, received: d ? d.received : null, place: d ? d.place : null, addressee, signer: main ? main.name : null, signer_title: main ? main.title : null,
+      date: d && d.month && d.day ? { y: d.year, m: d.month, d: d.day } : null, date_text: d ? d.line : null, clock: d ? d.clock : null, received: (d && d.received) || receivedNote(ul), place: d ? cleanPlace(d.place) : null, addressee, signer: main ? main.name : null, signer_title: main ? main.title : null,
       side: sideAt[Math.min(a, nEnd - 1)], start: lines[a].s, end: lines[b - 1].e, text: ul.join('\n').replace(/\s+$/, ''),
       pages: { start: pg, end: pageAt(Math.max(lines[a].s, lines[b - 1].e - 1)) }, confidence: d && d.month && d.year === 1863 ? 'A' : 'B', recovered: null, sign_text: main ? ul.slice(0, main.end).join('\n') : null,
       _ul: ul, _sigs: sigs, _main: main, _a: a, _b: b, _h: u.h,

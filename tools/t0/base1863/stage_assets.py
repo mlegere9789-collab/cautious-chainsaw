@@ -213,7 +213,7 @@ CLASS_TEXT = {
 }
 ATTRIBUTION_LONG = ('Reconstruction of Gettysburg, July 1863, not a photograph. Base: USDA NAIP imagery 2013 (public domain), USGS 3DEP; period maps: Library of Congress '
                     '(Warren 1868-69, Bachelder 1876, Hopkins 1858), NPS, Census TIGER, USGS NHD, OpenStreetMap contributors (ODbL: the lists of modern features to remove and the centre lines of the roads and streets that are drawn), Wikipedia contributors (CC BY-SA 4.0: the monument list), Adams County GIS (2023 building outlines, used to decide what to remove).')
-ATTRIBUTION = 'Reconstruction, not a photograph. USDA NAIP 2013, USGS, Library of Congress, NPS, OpenStreetMap contributors'
+ATTRIBUTION = 'Reconstruction, not a photograph: USDA NAIP 2013 edited with period maps (Library of Congress, NPS); USGS; OpenStreetMap contributors; Wikipedia contributors'
 
 
 def licence_rows():
@@ -231,6 +231,9 @@ def licence_rows():
 
 def about_text(manifest):
     rows = licence_rows()
+    ha = manifest.get('class_areas_ha') or {}
+    out_ha = ha.get('PHOTO_KEPT_OUTSIDE'); in_ha = ha.get('PHOTO_KEPT'); amb_ha = ha.get('AMBIGUOUS_KEPT')
+    f0 = lambda v: ('{:,.0f}'.format(v) if v is not None else 'some')
     return chr(10).join([
         'RECONSTRUCTION OF GETTYSBURG, JULY 1863 - sources, licences and limits',
         '',
@@ -239,7 +242,8 @@ def about_text(manifest):
         'It is not an exact replica, and no claim of 100 percent accuracy is made anywhere. Where a feature of 1863 is not known the neighbouring ground is shown and the',
         'feature is recorded as UNKNOWN rather than invented.',
         '',
-        'What "Show what was changed" shows: every pixel that was removed, re-synthesised, drawn or recoloured, in the colours of its legend. Untouched photograph is not tinted.',
+        'What "Show what was changed" shows: every pixel that was removed, re-synthesised, drawn or recoloured, in the colours of its legend. Untinted ground is the 2013 photograph, unchanged:',
+        '%s ha of it lie outside the Warren sheet (1863 land cover unknown there) and %s ha inside it, where no source says it differs from 1863: untinted does NOT mean checked against 1863.' % (f0(out_ha), f0(in_ha)),
         'Every drawn feature has an id, sources (title, sheet or page, link, type), a method, a positional error in metres and a confidence (Documented, Estimated, Contested)',
         'in the provenance layer of the project (docs/basemap1863/PROVENANCE-LAYER/ and docs/basemap1863/BUILD.md in the project files).',
         '',
@@ -250,9 +254,11 @@ def about_text(manifest):
         '',
         'What is not known or not done:',
         '  - The photograph is dated 4 June 2013. Crop and meadow state in July 1863 is unknown except for the Wheatfield, whose ripe-wheat colour is an estimate.',
-        '  - Outside the Warren sheet (about 163 of the 235 km2 of the box) only modern buildings, roads and utilities were removed; woods and fields stay as photographed and',
+        '  - Outside the Warren sheet (about %s of the 235 km2 of the box) only modern buildings, roads, pavements and utilities were removed; woods and fields stay as photographed and' % ('{:,.0f} km2'.format(out_ha / 100.0) if out_ha else '163 km2'),
         '    no 1863 roads or buildings are drawn there.',
-        '  - 1,535 ha (21 percent of the surveyed ground) is kept as photographed because the outlines cannot separate modern canopy from 1863 woods.',
+        '  - %s ha inside the Warren sheet are kept as photographed because the outlines cannot separate modern canopy from 1863 woods.' % f0(amb_ha),
+        '  - The Warren sheet is registered to the ground in several ways that disagree by tens of metres (median 24 to 48 m between frames): a drawn building or road can be that far from its 1863 place.',
+        '  - The map stops at zoom 17: the picture is native at zoom 16 (0.92 m per pixel) and zoom 17 is a 2x enlargement of the same pixels.',
         '  - Terrain is modern: road cuts, the quarry and 20th-century grading are not rolled back. Wide removed areas are soft, re-synthesised ground.',
         '  - The resolution is 1 m per pixel: closer zoom levels enlarge the same pixels. Roofs, fences and orchard trees are schematic. Borough alleys, farm lanes not in',
         '    the catalogue and buildings erected 1859-1863 are not drawn. Monuments farther than 45 m from a road or path may remain in the image.',

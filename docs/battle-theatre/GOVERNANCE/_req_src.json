@@ -1,0 +1,128 @@
+{
+ "requirements": {
+  "R01": "A Total War-style, Hollywood-grade CGI animation of the entire Battle of Gettysburg from start to finish that anyone can fly around freely and watch any spot at any moment.",
+  "R02": "A 1:1 3D digital recreation of the 1863 battlefield (terrain, rocks, hills, fences, earthworks, gun emplacements, trees, buildings, roads).",
+  "R03": "100% historically accurate hyper-realistic visuals, sounds, combat mechanics, environment.",
+  "R04": "Individual units in hyper-realistic combat; every unit\u2019s uniform and equipment correct; commanders lieutenant to general with correct appearance.",
+  "R05": "Animation of preparatory events such as Buford scouting, soldiers building earthworks, casualties, casualties carried to field hospitals.",
+  "R06": "Empty woods where nothing is happening, but accurate gunfire and artillery sound audible from anywhere with correct distance.",
+  "R07": "The entire battle from start to finish.",
+  "R08": "Remove all owner-supplied-input dependencies. Claude Code does everything itself, using the owner\u2019s GPU as hard as needed. Physical capture is replaced by autonomous equivalents, clearly labeled; the only owner acts are the one-time account, credential, billing and licence steps in Part D.8.",
+  "R09": "Be incredibly efficient with the owner\u2019s usage while making rapid but totally accurate progress.",
+  "R10": "Research what each individual unit wore, the different types of soldiers in each unit including sharpshooters, and how their uniforms, equipment and weapons looked; if a unit carried a specific rifle (the Springfield variants, Sharps rifles, and so on), say so.",
+  "R11": "A greatly expanded master timeline, the backbone for scripting.",
+  "R12": "Identify any and all reputable terrain sources for a July 1863 landscape, modern and from the 1860s.",
+  "R13": "Far more detail about every 1863 terrain element: buildings, fences, earthworks, defenses, gun positions, field hospitals and the rest.",
+  "R14": "If a fence existed at the start and was damaged during the battle, the animation shows that damage at the right time. Earthworks are not pre-placed; they are shown being constructed.",
+  "R15": "Photorealistic weather and environmentals.",
+  "R16": "Include cavalry.",
+  "R17": "Every soldier has a historically accurate, realistic appearance for how that soldier would have been dressed and equipped (not a photo replica of a real person). Every unit shows what it was actually doing at each time, including marching to fighting positions. Units that arrived on day 2 must not appear before they arrived.",
+  "R18": "A 24/7 day and night animation. Night is clearly night with a dimmed sky, but everything and all activity stays visible, only dimmer. Soldiers are shown doing whatever they were doing at night: sitting around a fire, digging defenses, and so on.",
+  "R19": "Users can navigate back and forth to different points in the battle.",
+  "R20": "Research how trees and plant growth looked during the battle, as accurately as all known knowledge allows.",
+  "R21": "Read the full free online library of primary sources, witness accounts, biographies and more; audit everything for accuracy; take the animation\u2019s historical accuracy as far as that library allows.",
+  "R22": "The default film path ends with the July 4 events at Gettysburg (casualty collection, burial, the truce, the Confederate withdrawal). At the end of July 4 the animation swirls and jumps to the Gettysburg cemetery on November 19, 1863, and from the point of view of a person in the front row shows an accurate version of Lincoln taking the stage and giving the Gettysburg Address. Events outside Gettysburg are not shown. Specified in B.12."
+ },
+ "trace_gates": {
+  "R01": [
+   "Q12",
+   "Q15",
+   "Q18",
+   "Q24"
+  ],
+  "R02": [
+   "Q03",
+   "Q07",
+   "Q08",
+   "Q09",
+   "Q16"
+  ],
+  "R03": [
+   "Q02",
+   "Q13",
+   "Q14",
+   "Q19",
+   "Q23"
+  ],
+  "R04": [
+   "Q01",
+   "Q03",
+   "Q14",
+   "Q20"
+  ],
+  "R05": [
+   "Q08",
+   "Q17",
+   "Q26"
+  ],
+  "R06": [
+   "Q13"
+  ],
+  "R07": [
+   "Q12",
+   "Q17"
+  ],
+  "R08": [
+   "Q25",
+   "Q27"
+  ],
+  "R09": [
+   "Q27"
+  ],
+  "R10": [
+   "Q01",
+   "Q03"
+  ],
+  "R11": [
+   "Q12",
+   "Q17"
+  ],
+  "R12": [
+   "Q16",
+   "Q25"
+  ],
+  "R13": [
+   "Q03",
+   "Q07",
+   "Q08",
+   "Q09",
+   "Q26"
+  ],
+  "R14": [
+   "Q07",
+   "Q08"
+  ],
+  "R15": [
+   "Q11",
+   "Q22"
+  ],
+  "R16": [
+   "Q04",
+   "Q20"
+  ],
+  "R17": [
+   "Q03",
+   "Q04",
+   "Q05",
+   "Q06"
+  ],
+  "R18": [
+   "Q10",
+   "Q11"
+  ],
+  "R19": [
+   "Q12",
+   "Q24"
+  ],
+  "R20": [
+   "Q21"
+  ],
+  "R21": [
+   "Q19",
+   "Q25"
+  ],
+  "R22": [
+   "Q28"
+  ]
+ }
+}

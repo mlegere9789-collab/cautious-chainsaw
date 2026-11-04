@@ -39,17 +39,26 @@ describe('regression detection', () => {
     const c = run('--root=' + d, '--check');
     assert.equal(c.status, 1, c.stdout + c.stderr); assert.match(c.stdout + c.stderr, /unknownTickFormulas|tick\*5/); assert.match(c.stdout, /Unattributed tick formulas: 1/);
   });
+  test('an implementation that throws is reported as an inventory error (exit 3, named, with the first tick) and never as a TypeError of the inventory itself (2026-10-22: the lighting function threw on a patched tree and o.hour of null crashed the run)', () => {
+    const d = copyTree(); const p = path.join(d, 'assets', 'index-Cg8FAMXN.js'); const s = fs.readFileSync(p, 'utf8');
+    assert.equal(s.split('function M4(').length, 2, 'precondition: one function M4 in the bundle');
+    fs.writeFileSync(p, s.replace('function M4(', 'function M4(){throw new Error("planted")}function M4_unused('));
+    const c = run('--root=' + d);
+    assert.equal(c.status, 3, c.stdout + c.stderr); assert.doesNotMatch(c.stderr, /TypeError/);
+    assert.match(c.stderr, /INVENTORY ERROR: E day\/night lighting M4 \+ E4 threw or returned nothing on 675 of 675 ticks \(first: tick 1: planted\)/);
+    assert.match(c.stdout, /Formula inventory for/, 'the table is still printed');
+  });
   test('changing one of the nine (JF base hour) changes its hash and fails --check', () => {
     const d = copyTree(); const p = path.join(d, 'assets', 'index-Cg8FAMXN.js');
     const s = fs.readFileSync(p, 'utf8'); assert.equal(s.split('P=5*60+M,z=Math.floor(P/60)%24,H=P%60,l=z>=12?"PM":"AM";return`${z===0?12').length, 2);
     fs.writeFileSync(p, s.replace('P=5*60+M,z=Math.floor(P/60)%24,H=P%60,l=z>=12?"PM":"AM";return`${z===0?12', 'P=6*60+M,z=Math.floor(P/60)%24,H=P%60,l=z>=12?"PM":"AM";return`${z===0?12'));
     const c = run('--root=' + d, '--check'); assert.equal(c.status, 1); assert.match(c.stderr, /\[C\]\.hash/);
   });
-  test('the patched tree (CLOCK bridge) routes seven of the eight remaining implementations through the module; lighting is held for WP-TIME-13', () => {
+  test('the patched tree (CLOCK bridge) routes all eight remaining implementations through the module (lighting too, since CLK-95); none is unattributed', () => {
     const out = path.join(os.tmpdir(), 'gtbg-surf-patched-' + process.pid); temps.push(out);
     const chk = spawnSync(process.execPath, [P('tools', 'time', 'check-patches.mjs'), '--out=' + out, '--no-scope'], { encoding: 'utf8', maxBuffer: 32 * 1024 * 1024 });
     assert.equal(chk.status, 0, chk.stdout + chk.stderr);
-    const t = rows(run('--root=' + out).stdout); assert.equal(t.length, 8); assert.equal(t.filter((x) => x[4] === 'yes').length, 7); assert.equal(t.find((x) => x[4] === 'no')[0], 'E');
+    const t = rows(run('--root=' + out).stdout); assert.equal(t.length, 8); assert.equal(t.filter((x) => x[4] === 'yes').length, 8); assert.equal(t.find((x) => x[4] === 'no'), undefined); assert.equal(t.find((x) => x[0] === 'E')[5], '0', 'the lighting hour is the model hour'); assert.match(run('--root=' + out).stdout, /Unattributed tick formulas: 0/);
     for (const x of t.filter((y) => y[4] === 'yes')) assert.ok(+x[5] <= 5, `${x[1]} still has ${x[5]} ticks over 30 min`); // camera/immersive whole-hour rounding artefacts only; bound 3 -> 5 after the 2026-10-18 adjudication (steeper segments 240-248 and 515-518 put more ticks across an hour boundary)
   });
 });

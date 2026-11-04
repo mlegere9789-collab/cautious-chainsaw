@@ -15,7 +15,7 @@
 #topbar .brand { display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 16px 0 0; margin: 0; background: none; border: 0; border-right: 1px solid var(--line); border-radius: 0; box-shadow: none; flex: 0 0 auto; }
 #topbar .brand svg { width: 20px; height: 20px; color: var(--accent); }
 #topbar .brand b { font: 600 17px/1.05 var(--serif); letter-spacing: -.005em; }
-#topbar .brand span { display: block; margin-top: 3px; font: 600 11px/1 var(--font); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+#topbar .brand span { display: block; margin-top: 3px; font: 600 11.5px/1 var(--font); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 #topbar .brand div { display: flex; flex-direction: column; }
 #topbar .clockbox { display: flex; flex-direction: column; justify-content: center; height: 40px; margin: 0 0 0 12px; padding: 0 18px 0 0; background: none; border: 0; border-radius: 0; box-shadow: none; flex: 1 1 280px; min-width: 190px; max-width: 420px; }
 #topbar .clockbox .tick { font: 600 15px/1.15 var(--serif); letter-spacing: -.005em; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }
@@ -68,15 +68,17 @@
   #topbar { padding: 0 10px; gap: 2px; flex-wrap: nowrap !important; }
   #topbar .style-sel { display: none !important; }
   #topbar .brand { display: flex !important; padding-right: 10px; border-right: 0; } #topbar .brand div { display: none; } #topbar .brand svg { width: 22px; height: 22px; }
-  #topbar .clockbox { flex: 1 1 auto; min-width: 0; max-width: none; margin-left: 0; padding-right: 8px; } #topbar .clockbox .tick { font-size: 15px; } #topbar .clockbox .clock { font-size: 11px; }
+  #topbar .clockbox { flex: 1 1 auto; min-width: 0; max-width: none; margin-left: 0; padding-right: 8px; } #topbar .clockbox .tick { font-size: 15px; } #topbar .clockbox .clock { font-size: 11.5px; }
   #topbar .seg, #topbar .toolbox, .pop-btns, .spacer { display: none !important; }
-  #topbar .btn.tool-l { width: 40px; height: 40px; padding: 0; justify-content: center; }
+  #topbar .btn.tool-l { width: 44px; height: 44px; padding: 0; justify-content: center; }
   #dock { padding: 8px 10px 8px; }
-  #dock .transport { flex-wrap: wrap; gap: 6px 8px; } #dock .scrub { order: 5; flex: 1 1 100%; height: 30px; }
-  #dock .scrub input[type=range]::-webkit-slider-runnable-track, #dock .scrub input[type=range]::-webkit-slider-thumb { height: 30px; }
+  /* round 2: every control on the phone is at least 44 x 44 px (the transport is one segmented row of eight, 352 px, in the 358 px between the gutters; the scrubber's hit area is 44 px high) */
+  #dock .transport { flex-wrap: wrap; gap: 0 6px; } #dock .transport .grp { gap: 0; } #dock .transport .tbtn { min-width: 44px; min-height: 44px; width: 44px; height: 44px; padding: 0; }
+  #dock .scrub { order: 5; flex: 1 1 100%; height: 44px; margin-top: 0; }
+  #dock .scrub input[type=range]::-webkit-slider-runnable-track, #dock .scrub input[type=range]::-webkit-slider-thumb { height: 44px; }
   #dock .scalebar { display: none; }
-  #dock .honesty { display: none; } #dock .honesty-mini { display: flex; align-items: center; gap: 7px; margin: 6px 0 0; font-size: 11px; color: var(--muted); }
-  #dock .credit { margin-top: 2px; font-size: 11px; line-height: 1.35; } #dock .credit .credit-full { display: none; } #dock .credit .credit-short { display: inline; }
+  #dock .honesty { display: none; } #dock .honesty-mini { display: flex; align-items: center; gap: 7px; margin: 6px 0 0; font-size: 11.5px; color: var(--muted); }
+  #dock .credit { margin-top: 2px; font-size: 11.5px; line-height: 1.35; } #dock .credit .credit-full { display: none; } #dock .credit .credit-short { display: inline; }
   .pop-rail { top: auto; bottom: var(--dock-h); }
   #panel { top: auto; left: 8px; right: 8px; bottom: calc(var(--dock-h) + 8px); height: 46vh; }
   .nar { top: auto; bottom: calc(var(--dock-h) + 8px); }
@@ -96,3 +98,40 @@
 .pc-kick { flex-wrap: wrap; column-gap: 10px; row-gap: 3px; } .pc-kick-right { margin-left: 0 !important; white-space: normal; min-width: 0; flex: 0 1 auto; }
 /* phone: while the sheet is open the Chronicle chips give the map their row back (the sheet is the reading surface) */
 @media (max-width: 760px) { #app[data-rail="open"] .pop-strip { display: none !important; } }
+
+/* ======================= round 2: nothing of the interface lies on the map ======================= */
+:root { --nar-w: 0px; --panel-w: 0px; --nar-h: 0px; --mini-w: 132px; }
+#stage { left: var(--nar-w); right: var(--panel-w); bottom: calc(var(--dock-h) + var(--nar-h)); }
+/* the overview map lives in the dock, in one place on every screen */
+#dock { padding-right: calc(var(--mini-w) + 32px); }
+.dock-slot { position: absolute; right: 16px; top: 9px; bottom: 9px; width: var(--mini-w); display: flex; align-items: center; justify-content: flex-end; }
+.pc.pc-dock { position: static; left: auto; top: auto; transform: none !important; width: auto !important; background: transparent; border: 1px solid var(--line); border-radius: var(--r1); box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; overflow: hidden; }
+.pc.pc-dock::before { display: none; } .pc.pc-dock .pc-body { padding: 0; } .pc.pc-dock .pc-canvas { margin: 0; border-radius: 0; display: block; }
+@media (max-width: 760px) { #dock { padding-right: 10px; } .dock-slot { display: none; } }
+/* the narration (a tour step, the welcome) is a column beside the stage; on a phone a sheet above the dock */
+.nar { left: 0; top: var(--mast-h); bottom: var(--dock-h); width: 372px; max-height: none; border-radius: 0; border: 0; border-right: 1px solid var(--line); box-shadow: none; padding: 20px 22px 18px; z-index: 31; }
+.nar.hidden { display: none; }
+@media (max-width: 760px) { .nar { left: 0; right: 0; top: auto; bottom: var(--dock-h); width: auto; max-height: 46vh; border-right: 0; border-top: 1px solid var(--line); } }
+/* the Tune / Inspect / About panel is a column beside the stage too */
+#panel { top: var(--mast-h); bottom: var(--dock-h); right: var(--rail-w, 0px); width: 372px; border-radius: 0; border: 0; border-left: 1px solid var(--line); box-shadow: none; }
+@media (max-width: 760px) { #panel { right: 0; left: 0; width: auto; top: auto; bottom: var(--dock-h); height: 46vh; border-left: 0; border-top: 1px solid var(--line); } }
+
+/* ---- cards: one grammar for the words and the buttons (round 2) ---- */
+.pc-title, .pc-p, .pc-li-text, .pc-li-title, .pc-meta li, .pc-kv dd, .pc-bar-sub { text-wrap: pretty; }
+.pc-title { line-height: 1.3; } .pc-p { line-height: 1.5; } .pc-p.sm { line-height: 1.45; } .pc-meta li, .pc-li-text { line-height: 1.45; } .pc-li-sub { line-height: 1.4; }
+.pc-hl { font-weight: 650; color: var(--text); }
+.pc-actions { gap: 8px; margin-top: 12px; }
+.pc-act, .pc-act.primary { display: inline-flex; align-items: center; gap: 6px; min-height: 30px; padding: 0 12px; border: 1px solid var(--line); border-radius: var(--r2); background: transparent; color: var(--text); font: 600 12.5px/1 var(--font); text-decoration: none; }
+.pc-act svg { width: 13px; height: 13px; fill: currentColor; }
+.pc-act:hover { background: var(--panel2); border-color: color-mix(in srgb, var(--text) 40%, var(--line)); }
+.pc-act.primary { background: var(--text); border-color: var(--text); color: var(--panel); } .pc-act.primary:hover { background: color-mix(in srgb, var(--text) 86%, var(--accent)); }
+.pc-btn { width: 28px; height: 28px; } .pc-tools { top: 6px; right: 6px; }
+.pc-bar-sub { gap: 2px 8px; }
+.pc-kick-label { color: var(--ti); }
+
+/* the menu button: the desktop's Showcase (a play ring) and the phone's menu (three dots) */
+#topbar .ic-phone { display: none; }
+@media (max-width: 760px) { #topbar .ic-desk { display: none; } #topbar .ic-phone { display: block; } }
+
+/* a reading column that scrolls fades at both edges, so a line is never cut hard under the head or the dock */
+.pop-rail-body { -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14px, #000 calc(100% - 30px), transparent 100%); mask-image: linear-gradient(to bottom, transparent 0, #000 14px, #000 calc(100% - 30px), transparent 100%); }

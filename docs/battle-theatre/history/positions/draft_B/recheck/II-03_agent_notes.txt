@@ -1,0 +1,19 @@
+BATCH II-03: 55 claims, reports OR27-1-R083..R091 (Kelly 2nd Bde regiments 28th MA, 63rd/69th/88th NY, 116th PA; Zook 3rd Bde and 140th PA, 52nd, 57th, 66th NY). Every report read whole (all under 14,000 chars).
+Validator: decisions 55 {corrected 15, passed_full_read 40}, split 0, downgraded 0, missing 0, errors 0.
+
+Counts per fc: passed_full_read 40, corrected 15, downgraded 0, split 0.
+
+Per pattern (claims):
+- time from another sentence: 3 (zook-04, kelly-88ny-03, zook-66ny-02; wp cleared, wdesc 'time in a different sentence')
+- merged second report: 0
+- later order ignored: 0 (88ny-03 gained the later fall-back order as extract; 140pa-02 hold-until-flanked restated)
+- compass/road gloss: 0 (88ny-03 '(Zook)' unit gloss removed; 66ny-06 place 'ourselves' cleared)
+- hedge/condition/attribution dropped: 4 (116pa-03 'I think'; 88ny-05 'military judges pronounced'; 57ny-03 staff officer hearsay; 116pa-04 durations merged)
+- unit identity gloss: 2 (57ny-01 'This brigade' printed in regiment report; 63ny-04 75 men = 63rd alone or three consolidated battalions unspecified)
+- OCR digit / print slip: 3 (116pa-02 'morning of the 3d' vs 'forenoon of the 2d'; 140pa-03 'After this engagement on the 3d' for the July 2 action; 63ny-04 OCR loss-table total 24 read from sums that agree)
+- meridian inferred: 1 (28ma-02 '5.30 o'clock', kept t, mer true)
+- other (compiler wording): 3 (28ma-01 order vs advance; 116pa-06 'early morning' vs 'early in the day'; 140pa-02 act restated)
+
+Split: none. Downgraded: none.
+
+Systematic: (1) Date digits 2/3 slip in two Mulholland/Fraser regiment reports where the print itself is self-contradictory; the builder had silently dated July 2 (116pa-02 had flagged ocr, 140pa-03 had dropped the printed '3d' from wp). (2) The compiler tends to paraphrase attributed judgments flat ('unequalled severity'). (3) Third Brigade 'Zook' glosses added to 'Third Brigade' in another unit's report. (4) Unit-of-count ambiguity in consolidated battalions (63rd/69th/88th NY): other 63ny claims pass because 'we' is the report's consolidated battalions, disclosed in 63ny-01. (5) 116pa-04 gz GZ-013 left in place with ppd saying it is by inference; place.printed is 'a dense woods'. (6) 40 passes include date-only claims where the date comes from report context; dbasis added.

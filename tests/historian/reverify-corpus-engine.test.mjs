@@ -49,7 +49,9 @@ for (const [q, re, why] of [
 });
 
 // ---- the verb of the question -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-const KNOWN = [['Halleck', 'Heintzelman', 'July 5', 'or27-3:p0545.1'], ['Butterfield', 'Schenck', 'June 27', 'or27-3:p0361.2'], ['Halleck', 'Dix', 'July 14', 'or27-3:p0700.2']];
+// R1e: Butterfield's dispatch to Schenck of June 27 was or27-3:p0361.2 until the dateline-damaged dispatch above it (Schenck to Butterfield, p. 361: "Baltimore, Md., Juried, 1863.") was parted from its neighbour by the third
+// build of the table; the numbers of a page count its dispatches in order, so it is p0361.3 now. Verified by content: p0361.3 is signed DANL. BUTTERFIELD, addressed to Major-General Schenck, Baltimore, written 1863-06-27.
+const KNOWN = [['Halleck', 'Heintzelman', 'July 5', 'or27-3:p0545.1'], ['Butterfield', 'Schenck', 'June 27', 'or27-3:p0361.3'], ['Halleck', 'Dix', 'July 14', 'or27-3:p0700.2']];
 const FORMS = {
   report: (s, a, d) => `What did ${s} report to ${a} on ${d}?`, tell: (s, a, d) => `What did ${s} tell ${a} on ${d}?`, ask: (s, a, d) => `What did ${s} ask ${a} on ${d}?`,
   order: (s, a, d) => `What did ${s} order ${a} to do on ${d}?`, send: (s, a, d) => `What did ${s} send to ${a} on ${d}?`,
@@ -103,7 +105,9 @@ test('RV-EN-G1 (green) the Part 3 dispatches the re-verifier read are found in t
 });
 test('RV-EN-G2 (green) wrong-day and direction traps whose premise was checked in all three parts decline in so many words and quote nothing as the answer', { skip: need, timeout: 600000 }, async () => {
   const bad = [];
-  for (const q of ['what did Sedgwick telegraph on July 5', 'what did Hancock telegraph on June 26', 'what did Reynolds telegraph on June 22', 'what did Warren telegraph on July 11', 'what did Sickles telegraph on July 2', 'what did Heintzelman telegraph to Hooker on June 22', 'what did Howard telegraph to Meade on June 21', 'what did Milroy telegraph to Couch on June 23']) {
+  // R1e: 'what did Hancock telegraph on June 26' was a trap in the first form of this test; the dateline of Hancock's dispatch of June 26, 11.45 p. m. (or27-3:p0338.1, to Butterfield, p. 338) was unreadable in the OCR (11.45'p. m.) and the
+  // row carried no date. It is read now, so June 26 is no trap: the day is replaced by June 20 (the dispatch table holds no dispatch of Hancock dated June 17-20: his are dated June 16 and June 21; whether a Part 1 or 2 enclosure carries one is what RV-EN-4 is about, and the test below still requires the answer to decline).
+  for (const q of ['what did Sedgwick telegraph on July 5', 'what did Hancock telegraph on June 20', 'what did Reynolds telegraph on June 22', 'what did Warren telegraph on July 11', 'what did Sickles telegraph on July 2', 'what did Heintzelman telegraph to Hooker on June 22', 'what did Howard telegraph to Meade on June 21', 'what did Milroy telegraph to Couch on June 23']) {
     const a = await ask(q); if (quotes(a).length || !/(did not find|none of|no dispatch)/i.test(a.text)) bad.push(`${q}: ${a.mode} ${say(a)}`);
   }
   assert.deepEqual(bad, [], bad.join('\n'));

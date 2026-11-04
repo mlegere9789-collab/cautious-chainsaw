@@ -1,0 +1,18 @@
+Batch XII-04 (report OR27-1-R271, Slocum, with the Williams enclosure of Dec. 26, 1863). 29 claims, all read against the full report text.
+
+Counts: passed_full_read 20, corrected 8, downgraded 1, split 0.
+
+Patterns (claims):
+- time from another sentence: 4 (2d-03, 1d-05, 1d-lockwood-02, 1d-06). In each, wp removed and wdesc says "time in a different sentence".
+- merged second report: 0.
+- later order ignored: 0.
+- compass/road gloss: 0 (gazetteer ids GZ-002 / GZ-066 left as compiler inference, not touched).
+- hedge/condition dropped or overstated place: 2 (03: "through Frederick City" when the passage says the army moved through "the city"; 1d-lockwood-01: "Baltimore" for "Baltimore, or its vicinity", an origin and not a reporting place).
+- compiler gloss in activity: 3 (07 "Culp's Hill / Rock Creek"; 08 "to the works"; 1d-05 "great cannonade"; 1d-lockwood-02 "to recapture" as purpose).
+- unit identity gloss: 1 (1d-colgrove-01; passage says "one brigade (General Ruger's)"; Third Brigade/Colgrove comes from R273). Downgraded to inferred.
+- OCR digit: 0 (lockwood-01 July 2 is supported inside the passage by "Thursday afternoon, July 2" and "Friday morning, July 3"; "Oil" for "On" is a letter only).
+- meridian inferred: 0 (all clock times print a. m./p. m.).
+- other: 13 passed claims whose date rests on report context (no date phrase in the fact's sentence) carry a dbasis annotation.
+
+Split: none. Downgraded: POS-B-us-12c-1d-colgrove-01.
+Systematic: the claim set is relative-time heavy (no clock time) so the main risk is a time phrase belonging to the sentence that issues the order, not the later fact. Williams authorship of the enclosure was confirmed in the same record (signed A. S. Williams, Dec. 26, 1863, p. 765/768).

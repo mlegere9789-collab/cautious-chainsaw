@@ -165,7 +165,7 @@ export function createEngine(o) {
   E.hit = (sx, sy) => {
     const f = E.frame; if (!f) return null; const slop = tok('scene.hitSlopPx');
     for (let i = f.tiles.length - 1; i >= 0; i--) {
-      const t = f.tiles[i]; if (!t.solid) continue;
+      const t = f.tiles[i]; if (!t.solid || (t.stageA !== undefined && t.stageA < 0.5)) continue;
       const x = t.x + f.view.dx; const y = t.y + f.view.dy; const hw = t.w * t.scale / 2 + slop; const hh = t.h * t.scale / 2 + slop;
       if (sx >= x - hw && sx <= x + hw && sy >= y - hh && sy <= y + hh) return t;
     }
@@ -210,7 +210,7 @@ export function createEngine(o) {
   E.describeUnit = (id, tau = transport.simTau) => {
     const u = battle.units.get(id); if (!u) return null; const st = battle.stateOf(u, tau);
     const chain = u.chain.filter((c) => c !== 'ROOT').map((c) => { const n = battle.nodes.get(c); return { id: c, kind: n?.kind || '?', designation: n?.designation || null }; });
-    const sideNote = u.sideFlag ? `Contested: the id prefix says ${u.prefixSide}, the state code in the id matches ${u.sideGuess} units in the order of battle. Unknown until a historian decides (03-data-fuel.md, T7).` : null;
+    const sideNote = u.sideFlag ? `The records disagree about this unit's side: its id says ${u.prefixSide}, but its state matches ${u.sideGuess} units in the order of battle. It stays unknown until a historian decides.` : null;
     return {
       id: u.id, short: u.short, label: u.label, designation: u.designation, side: u.side, sideNote, arm: u.arm, kind: u.kind, inOob: u.inOob, parentSource: u.parentSource, chain,
       keyframes: u.kf.length, firstTick: u.kf[0].tick, lastTick: u.kf[u.kf.length - 1].tick,

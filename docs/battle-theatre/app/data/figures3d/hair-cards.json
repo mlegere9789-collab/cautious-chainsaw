@@ -1,0 +1,148 @@
+{
+ "schema": "figures3d-haircards-1",
+ "tier": "plausible-procedural (TIERS.json F-HAIR-CARDS)",
+ "note": "strand-card texture generated in code (src/figures3d/hairtex.mjs); textures/hair_cards.png shows the 8 variants side by side, R = alpha, G = fibre id, B = fibre shade (channels as stored)",
+ "tile_u_m": 0.026,
+ "tile_v_m": 0.055,
+ "size": [
+  256,
+  512
+ ],
+ "mips": 6,
+ "variants": [
+  {
+   "index": 0,
+   "name": "dense",
+   "n": 140,
+   "w": [
+    1.7,
+    2.2
+   ],
+   "amp": 0.25,
+   "freq": 1.2,
+   "lenMin": 1,
+   "clump": 10,
+   "gap": 0,
+   "shade": 0.32
+  },
+  {
+   "index": 1,
+   "name": "straight",
+   "n": 72,
+   "w": [
+    0.3,
+    0.46
+   ],
+   "amp": 0.22,
+   "freq": 1,
+   "lenMin": 0.6,
+   "clump": 7,
+   "gap": 0.55,
+   "shade": 0.45
+  },
+  {
+   "index": 2,
+   "name": "wavy",
+   "n": 64,
+   "w": [
+    0.3,
+    0.46
+   ],
+   "amp": 0.8,
+   "freq": 1.6,
+   "lenMin": 0.6,
+   "clump": 8,
+   "gap": 0.55,
+   "shade": 0.45
+  },
+  {
+   "index": 3,
+   "name": "curly",
+   "n": 56,
+   "w": [
+    0.34,
+    0.5
+   ],
+   "amp": 1.5,
+   "freq": 3.4,
+   "lenMin": 0.55,
+   "clump": 8,
+   "gap": 0.5,
+   "shade": 0.45
+  },
+  {
+   "index": 4,
+   "name": "coarse",
+   "n": 52,
+   "w": [
+    0.38,
+    0.6
+   ],
+   "amp": 0.55,
+   "freq": 2,
+   "lenMin": 0.5,
+   "clump": 6,
+   "gap": 0.6,
+   "shade": 0.5
+  },
+  {
+   "index": 5,
+   "name": "lock",
+   "n": 30,
+   "w": [
+    0.55,
+    0.9
+   ],
+   "amp": 0.45,
+   "freq": 1.4,
+   "lenMin": 0.7,
+   "clump": 5,
+   "gap": 0.35,
+   "shade": 0.4
+  },
+  {
+   "index": 6,
+   "name": "single",
+   "n": 1,
+   "w": [
+    0.16,
+    0.16
+   ],
+   "amp": 0.12,
+   "freq": 1,
+   "lenMin": 1,
+   "clump": 1,
+   "gap": 0,
+   "shade": 0.2
+  },
+  {
+   "index": 7,
+   "name": "short",
+   "n": 120,
+   "w": [
+    0.4,
+    0.6
+   ],
+   "amp": 0.2,
+   "freq": 1,
+   "lenMin": 0.15,
+   "clump": 9,
+   "gap": 0.2,
+   "shade": 0.4
+  }
+ ],
+ "channels": {
+  "R": "alpha (alpha-to-coverage)",
+  "G": "fibre id 0..1: the shader drops fibres with id above the vertex coverage",
+  "B": "fibre shade",
+  "A": "reserved"
+ },
+ "materials": {
+  "hair_card": 57,
+  "beard_card": 58
+ },
+ "vertex_flag": "bits 0..4 coverage 0..31, bits 5..7 variant",
+ "raw_rgba8_bytes": 5591040,
+ "bc7_bytes": 1397760,
+ "sha256": "f2eed17690ed23f31a9d3a7aa04d926ac50ebeea76f289a692446c93810fb982"
+}

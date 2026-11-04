@@ -208,10 +208,11 @@ function placePass(cur, cfg, state, tentative, dt, stats) {
     if (!c) { failed.push(t); continue; }
     // TARGET HOLD.  A tile that is settled must keep the SAME target: the relaxation (2 px per frame toward the true position, clipped by the neighbours) makes the nearest free point creep along an
     // obstacle's edge by thousandths of a pixel, so a still picture never came to rest (measured: 150 to 200 tiles with a target 0.3 to 0.7 px off their offset, for ever).  When the new target is
-    // within HOLD_PX of the previous one, and the previous one is still free, the previous one stays.
+    // within HOLD_PX of the previous one, and the previous one is still free, the previous one stays.  ROUND 2: it also stays when the new target is no nearer to the true place than the previous one (a relaxation
+    // only ever improves: against an obstacle's edge the nearest free point used to saw back and forth by a pixel every dozen frames for ever, a mark breathing at 5 Hz at rest: field tick 620 zoom 12).
     if (!cfg.static && po) {
       const pt = state.tgt && state.tgt.get(t.key);
-      if (pt) { const Q = { x: A.x + pt.ox, y: A.y + pt.oy }; const dq = Math.hypot(c.x - Q.x, c.y - Q.y); if (dq > 0 && dq < HOLD_PX && Math.hypot(pt.ox, pt.oy) <= budget + EPS) { const keep = nearestFree(part, A, Q, budget, occ, t.key, gap, null, spec.kCap); if (keep && keep.x === Q.x && keep.y === Q.y) c = Q; } }
+      if (pt) { const Q = { x: A.x + pt.ox, y: A.y + pt.oy }; const dq = Math.hypot(c.x - Q.x, c.y - Q.y); if (dq > 0 && (dq < HOLD_PX || Math.hypot(c.x - A.x, c.y - A.y) > Math.hypot(pt.ox, pt.oy) - 1e-3) && Math.hypot(pt.ox, pt.oy) <= budget + EPS) { const keep = nearestFree(part, A, Q, budget, occ, t.key, gap, null, spec.kCap); if (keep && keep.x === Q.x && keep.y === Q.y) c = Q; } }
     }
     const rect = chipRect(t, c.x, c.y); rect.owner = t.key; rect.kind = 'chip'; occ.add(rect);
     placed.push({ t, cx: c.x, cy: c.y, off: { ox: c.x - t.ax, oy: c.y - t.ay }, chip: rect, label: null });

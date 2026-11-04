@@ -1,0 +1,723 @@
+{
+ "version": 1,
+ "_doc": "Gun counts as STATED in the kit data (PDF B.6.14), keyed to the batteries of the order of battle. A battery not listed here has no stated gun count and is drawn without guns (its card says so); no default count (the 4-gun Confederate default of the PDF is a total check only) is ever applied. Built by app/tools/build-guns.mjs.",
+ "kit_counts": {
+  "batteries_in_kit": 125,
+  "with_stated_guns": 29
+ },
+ "matched": [
+  {
+   "history": "us-11c-art-13ny",
+   "history_name": "13th NY",
+   "status": "type_only",
+   "kit": "US.ART.13th_NY",
+   "kit_name": "13th NY",
+   "guns": [
+    {
+     "count": null,
+     "type_id": "3inch_ordnance_rifle",
+     "printed_type": "3-inch (count not stated)"
+    }
+   ],
+   "guns_printed": "3-inch (count not stated)",
+   "total": null,
+   "tier": "documented",
+   "weak_source": false,
+   "source_keys": [
+    "Wiki-OOB-Union",
+    "13NYBty-Wheeler"
+   ],
+   "conflicts": [],
+   "notes": null
+  },
+  {
+   "history": "us-2c-art-1nyb",
+   "history_name": "1st NY B",
+   "status": "stated",
+   "kit": "US.ART.1st_NY_B",
+   "kit_name": "1st NY B",
+   "guns": [
+    {
+     "count": 4,
+     "type_id": "10pdr_parrott",
+     "printed_type": "four 10-pdr Parrotts"
+    }
+   ],
+   "guns_printed": "four 10-pdr Parrotts",
+   "total": 4,
+   "tier": "inferred",
+   "weak_source": true,
+   "source_keys": [
+    "Wiki-OOB-Union",
+    "IronBrigader-Hazard"
+   ],
+   "conflicts": [],
+   "notes": null
+  },
+  {
+   "history": "us-2c-art-1ria",
+   "history_name": "1st RI A",
+   "status": "stated",
+   "kit": "US.ART.1st_RI_A",
+   "kit_name": "1st RI A",
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "3inch_ordnance_rifle",
+     "printed_type": "six 3-inch"
+    }
+   ],
+   "guns_printed": "six 3-inch",
+   "total": 6,
+   "tier": "inferred",
+   "weak_source": true,
+   "source_keys": [
+    "Wiki-OOB-Union",
+    "IronBrigader-Hazard"
+   ],
+   "conflicts": [],
+   "notes": null
+  },
+  {
+   "history": "us-2c-art-1rib",
+   "history_name": "1st RI B",
+   "status": "stated",
+   "kit": "US.ART.1st_RI_B",
+   "kit_name": "1st RI B",
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "napoleon_12pdr_m1857",
+     "printed_type": "six light 12-pdrs"
+    }
+   ],
+   "guns_printed": "six light 12-pdrs",
+   "total": 6,
+   "tier": "inferred",
+   "weak_source": true,
+   "source_keys": [
+    "Wiki-OOB-Union",
+    "IronBrigader-Hazard"
+   ],
+   "conflicts": [],
+   "notes": null
+  },
+  {
+   "history": "us-2c-art-1usi",
+   "history_name": "1st US I",
+   "status": "stated",
+   "kit": "US.ART.1st_US_I",
+   "kit_name": "1st US I",
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "napoleon_12pdr_m1857",
+     "printed_type": "six \"light 12-pdrs\""
+    }
+   ],
+   "guns_printed": "six \"light 12-pdrs\"",
+   "total": 6,
+   "tier": "inferred",
+   "weak_source": true,
+   "source_keys": [
+    "Wiki-OOB-Union",
+    "IronBrigader-Hazard"
+   ],
+   "conflicts": [],
+   "notes": null
+  },
+  {
+   "history": "us-2c-art-4usa",
+   "history_name": "4th US A",
+   "status": "stated",
+   "kit": "US.ART.4th_US_A",
+   "kit_name": "4th US A",
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "3inch_ordnance_rifle",
+     "printed_type": "six 3-inch rifles"
+    }
+   ],
+   "guns_printed": "six 3-inch rifles",
+   "total": 6,
+   "tier": "documented",
+   "weak_source": false,
+   "source_keys": [
+    "Wiki-OOB-Union",
+    "SS-Cushing-7888"
+   ],
+   "conflicts": [],
+   "notes": null
+  },
+  {
+   "history": "us-3c-art-4ny",
+   "history_name": "4th NY",
+   "status": "stated",
+   "kit": "US.ART.4th_NY",
+   "kit_name": "4th NY",
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "10pdr_parrott",
+     "printed_type": "six 10-pdr Parrotts (monument)"
+    }
+   ],
+   "guns_printed": "six 10-pdr Parrotts (monument)",
+   "total": 6,
+   "tier": "documented",
+   "weak_source": false,
+   "source_keys": [
+    "Wiki-OOB-Union",
+    "GburgDaily-Smith4NY",
+    "SS-NYArt-1958"
+   ],
+   "conflicts": [],
+   "notes": null
+  },
+  {
+   "history": "us-5c-art-5usd",
+   "history_name": "5th US D",
+   "status": "stated",
+   "kit": "US.ART.5th_US_D",
+   "kit_name": "5th US D",
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "10pdr_parrott",
+     "printed_type": "six 10-pdr Parrotts"
+    }
+   ],
+   "guns_printed": "six 10-pdr Parrotts",
+   "total": 6,
+   "tier": "documented",
+   "weak_source": false,
+   "source_keys": [
+    "Wiki-OOB-Union",
+    "SS-Hazlett-10491"
+   ],
+   "conflicts": [],
+   "notes": null
+  },
+  {
+   "history": "us-art-reserve-fitzhugh-1nj",
+   "history_name": "1st NJ",
+   "status": "stated",
+   "kit": "US.ART.1st_NJ",
+   "kit_name": "1st NJ",
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "10pdr_parrott",
+     "printed_type": "6 10-pdr Parrotts"
+    }
+   ],
+   "guns_printed": "6 10-pdr Parrotts",
+   "total": 6,
+   "tier": "documented",
+   "weak_source": false,
+   "source_keys": [
+    "SS-ArtReserve"
+   ],
+   "conflicts": [],
+   "notes": null
+  },
+  {
+   "history": "us-art-reserve-fitzhugh-1nyg",
+   "history_name": "1st NY G",
+   "status": "stated",
+   "kit": "US.ART.1st_NY_G",
+   "kit_name": "1st NY G",
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "napoleon_12pdr_m1857",
+     "printed_type": "6 Napoleons"
+    }
+   ],
+   "guns_printed": "6 Napoleons",
+   "total": 6,
+   "tier": "documented",
+   "weak_source": false,
+   "source_keys": [
+    "SS-ArtReserve"
+   ],
+   "conflicts": [],
+   "notes": null
+  },
+  {
+   "history": "us-art-reserve-fitzhugh-6me",
+   "history_name": "6th ME",
+   "status": "stated",
+   "kit": "US.ART.6th_Maine",
+   "kit_name": "6th Maine",
+   "guns": [
+    {
+     "count": 4,
+     "type_id": "napoleon_12pdr_m1857",
+     "printed_type": "4 Napoleons"
+    }
+   ],
+   "guns_printed": "4 Napoleons",
+   "total": 4,
+   "tier": "documented",
+   "weak_source": false,
+   "source_keys": [
+    "SS-ArtReserve"
+   ],
+   "conflicts": [],
+   "notes": null
+  },
+  {
+   "history": "us-art-reserve-fitzhugh-mda",
+   "history_name": "MD A",
+   "status": "stated",
+   "kit": "US.ART.Md_A",
+   "kit_name": "Md. A",
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "3inch_ordnance_rifle",
+     "printed_type": "6 3-inch"
+    }
+   ],
+   "guns_printed": "6 3-inch",
+   "total": 6,
+   "tier": "documented",
+   "weak_source": false,
+   "source_keys": [
+    "SS-ArtReserve"
+   ],
+   "conflicts": [],
+   "notes": null
+  },
+  {
+   "history": "us-art-reserve-huntington-1nh",
+   "history_name": "1st NH",
+   "status": "stated",
+   "kit": "US.ART.1st_New_Hampshire",
+   "kit_name": "1st New Hampshire",
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "3inch_ordnance_rifle",
+     "printed_type": "6 3-inch"
+    }
+   ],
+   "guns_printed": "6 3-inch",
+   "total": 6,
+   "tier": "documented",
+   "weak_source": false,
+   "source_keys": [
+    "SS-ArtReserve"
+   ],
+   "conflicts": [],
+   "notes": null
+  },
+  {
+   "history": "us-art-reserve-huntington-1ohh",
+   "history_name": "1st OH H",
+   "status": "stated",
+   "kit": "US.ART.1st_Ohio_H",
+   "kit_name": "1st Ohio H",
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "3inch_ordnance_rifle",
+     "printed_type": "6 3-inch"
+    }
+   ],
+   "guns_printed": "6 3-inch",
+   "total": 6,
+   "tier": "documented",
+   "weak_source": false,
+   "source_keys": [
+    "SS-ArtReserve"
+   ],
+   "conflicts": [],
+   "notes": null
+  },
+  {
+   "history": "us-art-reserve-huntington-wvc",
+   "history_name": "WV C",
+   "status": "stated",
+   "kit": "US.ART.W_Va_C",
+   "kit_name": "W.Va. C",
+   "guns": [
+    {
+     "count": 4,
+     "type_id": "10pdr_parrott",
+     "printed_type": "4 10-pdr Parrotts"
+    }
+   ],
+   "guns_printed": "4 10-pdr Parrotts",
+   "total": 4,
+   "tier": "documented",
+   "weak_source": false,
+   "source_keys": [
+    "SS-ArtReserve"
+   ],
+   "conflicts": [],
+   "notes": null
+  },
+  {
+   "history": "us-art-reserve-mcgilvery-15ny",
+   "history_name": "15th NY",
+   "status": "stated",
+   "kit": "US.ART.15th_New_York",
+   "kit_name": "15th New York",
+   "guns": [
+    {
+     "count": 4,
+     "type_id": "napoleon_12pdr_m1857",
+     "printed_type": "4 Napoleons"
+    }
+   ],
+   "guns_printed": "4 Napoleons",
+   "total": 4,
+   "tier": "documented",
+   "weak_source": false,
+   "source_keys": [
+    "SS-ArtReserve"
+   ],
+   "conflicts": [],
+   "notes": null
+  },
+  {
+   "history": "us-art-reserve-mcgilvery-5ma",
+   "history_name": "5th MA",
+   "status": "stated",
+   "kit": "US.ART.5th_Massachusetts",
+   "kit_name": "5th Massachusetts",
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "3inch_ordnance_rifle",
+     "printed_type": "6 3-inch rifles (conflict: Civil War News says Napoleons)"
+    }
+   ],
+   "guns_printed": "6 3-inch rifles (conflict: Civil War News says Napoleons)",
+   "total": 6,
+   "tier": "documented",
+   "weak_source": false,
+   "source_keys": [
+    "SS-ArtReserve"
+   ],
+   "conflicts": [],
+   "notes": null
+  },
+  {
+   "history": "us-art-reserve-mcgilvery-9ma",
+   "history_name": "9th MA",
+   "status": "stated",
+   "kit": "US.ART.9th_Massachusetts",
+   "kit_name": "9th Massachusetts",
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "napoleon_12pdr_m1857",
+     "printed_type": "6 Napoleons"
+    }
+   ],
+   "guns_printed": "6 Napoleons",
+   "total": 6,
+   "tier": "documented",
+   "weak_source": false,
+   "source_keys": [
+    "SS-ArtReserve"
+   ],
+   "conflicts": [],
+   "notes": null
+  },
+  {
+   "history": "us-art-reserve-ransom-1ush",
+   "history_name": "1st US H",
+   "status": "stated",
+   "kit": "US.ART.1st_US_H",
+   "kit_name": "1st US H",
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "napoleon_12pdr_m1857",
+     "printed_type": "6 Napoleons"
+    }
+   ],
+   "guns_printed": "6 Napoleons",
+   "total": 6,
+   "tier": "documented",
+   "weak_source": false,
+   "source_keys": [
+    "SS-ArtReserve"
+   ],
+   "conflicts": [],
+   "notes": null
+  },
+  {
+   "history": "us-art-reserve-ransom-4usc",
+   "history_name": "4th US C",
+   "status": "stated",
+   "kit": "US.ART.4th_US_C",
+   "kit_name": "4th US C",
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "napoleon_12pdr_m1857",
+     "printed_type": "6 Napoleons"
+    }
+   ],
+   "guns_printed": "6 Napoleons",
+   "total": 6,
+   "tier": "documented",
+   "weak_source": false,
+   "source_keys": [
+    "SS-ArtReserve"
+   ],
+   "conflicts": [],
+   "notes": null
+  },
+  {
+   "history": "us-art-reserve-ransom-5usc",
+   "history_name": "5th US C",
+   "status": "stated",
+   "kit": "US.ART.5th_US_C",
+   "kit_name": "5th US C",
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "napoleon_12pdr_m1857",
+     "printed_type": "6 Napoleons"
+    }
+   ],
+   "guns_printed": "6 Napoleons",
+   "total": 6,
+   "tier": "documented",
+   "weak_source": false,
+   "source_keys": [
+    "SS-ArtReserve"
+   ],
+   "conflicts": [],
+   "notes": null
+  },
+  {
+   "history": "us-art-reserve-taft-2ct",
+   "history_name": "2nd CT",
+   "status": "stated",
+   "kit": "US.ART.2nd_Connecticut",
+   "kit_name": "2nd Connecticut",
+   "guns": [
+    {
+     "count": 4,
+     "type_id": "14pdr_james_rifle",
+     "printed_type": "4 James rifles"
+    },
+    {
+     "count": 2,
+     "type_id": "12pdr_howitzer",
+     "printed_type": "2 12-pdr howitzers"
+    }
+   ],
+   "guns_printed": "4 James rifles; 2 12-pdr howitzers",
+   "total": 6,
+   "tier": "documented",
+   "weak_source": false,
+   "source_keys": [
+    "SS-ArtReserve"
+   ],
+   "conflicts": [],
+   "notes": null
+  },
+  {
+   "history": "us-art-reserve-taft-5ny",
+   "history_name": "5th NY",
+   "status": "stated",
+   "kit": "US.ART.5th_New_York",
+   "kit_name": "5th New York",
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "20pdr_parrott",
+     "printed_type": "6 20-pdr Parrotts"
+    }
+   ],
+   "guns_printed": "6 20-pdr Parrotts",
+   "total": 6,
+   "tier": "documented",
+   "weak_source": false,
+   "source_keys": [
+    "SS-ArtReserve"
+   ],
+   "conflicts": [],
+   "notes": null
+  }
+ ],
+ "combined": [
+  {
+   "kit": "US.ART.3rd_US_F_K",
+   "kit_name": "3rd US F&K",
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "napoleon_12pdr_m1857",
+     "printed_type": "6 Napoleons"
+    }
+   ],
+   "guns_printed": "6 Napoleons",
+   "total": 6,
+   "tier": "documented",
+   "weak_source": false,
+   "source_keys": [
+    "SS-ArtReserve"
+   ],
+   "conflicts": [],
+   "notes": null,
+   "history": [
+    "us-art-reserve-ransom-3usf",
+    "us-art-reserve-ransom-3usk"
+   ],
+   "reason": "the kit entry “3rd US F&K” joins or attaches more than one battery; the printed count belongs to the entry and is not split between batteries"
+  },
+  {
+   "kit": "US.ART.Pa_Independent_C_F",
+   "kit_name": "Pa. Independent C & F",
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "3inch_ordnance_rifle",
+     "printed_type": "6 3-inch rifles"
+    }
+   ],
+   "guns_printed": "6 3-inch rifles",
+   "total": 6,
+   "tier": "documented",
+   "weak_source": false,
+   "source_keys": [
+    "SS-ArtReserve"
+   ],
+   "conflicts": [],
+   "notes": null,
+   "history": [
+    "us-art-reserve-mcgilvery-pac",
+    "us-art-reserve-mcgilvery-paf"
+   ],
+   "reason": "the kit entry “Pa. Independent C & F” joins or attaches more than one battery; the printed count belongs to the entry and is not split between batteries"
+  },
+  {
+   "kit": "US.ART.1st_Pennsylvania_F_G",
+   "kit_name": "1st Pennsylvania F&G",
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "3inch_ordnance_rifle",
+     "printed_type": "6 3-inch"
+    }
+   ],
+   "guns_printed": "6 3-inch",
+   "total": 6,
+   "tier": "documented",
+   "weak_source": false,
+   "source_keys": [
+    "SS-ArtReserve"
+   ],
+   "conflicts": [],
+   "notes": null,
+   "history": [
+    "us-art-reserve-huntington-1paf",
+    "us-art-reserve-huntington-1pag"
+   ],
+   "reason": "the kit entry “1st Pennsylvania F&G” joins or attaches more than one battery; the printed count belongs to the entry and is not split between batteries"
+  },
+  {
+   "kit": "US.ART.1st_NY_K_with_11th_NY_attached",
+   "kit_name": "1st NY K with 11th NY attached",
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "3inch_ordnance_rifle",
+     "printed_type": "6 3-inch"
+    }
+   ],
+   "guns_printed": "6 3-inch",
+   "total": 6,
+   "tier": "documented",
+   "weak_source": false,
+   "source_keys": [
+    "SS-ArtReserve"
+   ],
+   "conflicts": [],
+   "notes": null,
+   "history": [
+    "us-art-reserve-fitzhugh-1nyk"
+   ],
+   "reason": "the kit entry “1st NY K with 11th NY attached” joins or attaches more than one battery; the printed count belongs to the entry and is not split between batteries"
+  }
+ ],
+ "unmatched": [
+  {
+   "kit": "US.ART.2nd_US_A",
+   "kit_name": "2nd US A",
+   "guns": [
+    {
+     "count": 6,
+     "type_id": "3inch_ordnance_rifle",
+     "printed_type": "six 3-inch rifles"
+    }
+   ],
+   "guns_printed": "six 3-inch rifles",
+   "total": 6,
+   "tier": "documented",
+   "weak_source": false,
+   "source_keys": [
+    "Wiki-OOB-Union",
+    "SS-Calef-7820"
+   ],
+   "conflicts": [],
+   "notes": "Horse artillery: cannoneers mounted (RegCav-HorseArt); visual references for Union horse vs foot artillery dress: gap.",
+   "reason": "no battery of that name in history/units.json (the order of battle has no such unit or the name differs)"
+  },
+  {
+   "kit": "CS.ART.HURT",
+   "kit_name": "Hardaway AL battery",
+   "guns": [
+    {
+     "count": 2,
+     "type_id": "12pdr_whitworth",
+     "printed_type": "Two Whitworths"
+    },
+    {
+     "count": 2,
+     "type_id": "3inch_ordnance_rifle",
+     "printed_type": "two 3-inch rifles"
+    }
+   ],
+   "guns_printed": "Two Whitworths and two 3-inch rifles; July 3 on Oak Hill per the marker (forum quote)",
+   "total": 4,
+   "tier": "inferred",
+   "weak_source": true,
+   "source_keys": [
+    "CWTalk-Whitworths",
+    "SS-ConfArt-96"
+   ],
+   "conflicts": [],
+   "notes": "PDF B.6.10 names this battery 'Hardaway's battery' (UA-HARDAWAY); B.6.14.6/.7 name it 'Hardaway AL (Hurt)' in McIntosh's battalion",
+   "reason": "no battery of that name in history/units.json (the order of battle has no such unit or the name differs)"
+  }
+ ],
+ "detachment": {
+  "crew_per_piece": 9,
+  "basis": "the printed manuals’ detachment: gunner and Nos. 1-7, chief of caisson ninth (kit/KIT-NOTES.md section 4 item 11; drill/drill_artillery.json); the PDF’s “eight at the piece” leaves the chief of caisson with the caisson",
+  "tier": "documented",
+  "source_keys": [
+   "FIELDART-1863"
+  ],
+  "limbers_behind_m": [
+   10,
+   15
+  ],
+  "limbers_note": "PDF B.6.14.9 inferred 10-15 yd behind; the manual puts the limber end-of-pole 6 yd from the trail handspike when unlimbered (inferred, weak)",
+  "teams": {
+   "teams_per_gun": 2,
+   "horses_per_team": 6,
+   "drivers_per_team": 3
+  }
+ }
+}

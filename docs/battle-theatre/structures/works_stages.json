@@ -1,0 +1,596 @@
+{
+ "meta": {
+  "source": "Gettysburg Total War animation plan, version 2 (tmp/pdf/plan-clean.txt)",
+  "sections": "B.7.2, B.7.3, B.7.5, B.8.2, B.8.3, B.8.4, B.8.5, B.8.6, B.8.7, B.12.3",
+  "status": "seeded_unverified: transcribed from the PDF text; no primary source read",
+  "pdf_defaults_status": "PENDING OWNER (Law cl.6): no default view of a conflicting source has been chosen here",
+  "time_convention": "naive ISO-8601 local mean time as printed (Union and Confederate clocks differed by about 20 minutes; no correction applied)",
+  "tier_rule": "tier = printed PDF tier AND >=1 cited key outside the weak set; weak set = Wikipedia (Wiki-*, W-CONS), forums (CWT*), blogs the PDF flags (WHB*, GC-COMP), Stone Sentinels (SS-*, SStone-*). Mechanical only: no source opened to confirm it supports the exact claim.",
+  "weak_patterns": [
+   "^Wiki-",
+   "^W-CONS$",
+   "^CWT",
+   "^WHB",
+   "^GC-COMP$",
+   "^SS-",
+   "^SStone-"
+  ],
+  "generator": "tools/bt/build_structures.py",
+  "section": "B.7.4 (p.93), B.7.1, B.7.6, B.7.5 engine rules"
+ },
+ "governing_rule": "No earthwork, breastwork, barricade, lunette or gun pit is pre-placed in the scene (B.7.1). A work that cannot be attributed to a builder or time is still built on screen by a labeled stand-in crew, flagged \"builder unknown\".",
+ "stage_model": {
+  "stages": [
+   {
+    "stage": 0,
+    "name": "Bare ground",
+    "visible": "Natural slope, trees standing, no works",
+    "typical": "Woods and rocks as terrain",
+    "basis": "documented (no earthwork is pre-placed)"
+   },
+   {
+    "stage": 1,
+    "name": "Layout",
+    "visible": "Officers pacing the line; men told off along it; tools carried up",
+    "typical": "Greene's decision to build despite superiors; skirmish line sent downslope",
+    "basis": "documented (Greene ordering); procedural (staging)"
+   },
+   {
+    "stage": 2,
+    "name": "Felling and gathering",
+    "visible": "Trees felled and cut into blocks; stones and boulders gathered; cordwood moved; rails pulled from fences (Seminary)",
+    "typical": "\"Felled trees cut into blocks\"; stones and boulders; nearby cordwood piles",
+    "basis": "documented (HN-Walls)"
+   },
+   {
+    "stage": 3,
+    "name": "Stacking",
+    "visible": "Logs, stones or rails stacked into a close log fence; earth thrown behind with spades; rifle pits dug; traverse laid out",
+    "typical": "\"Close log fence\"; spades and shovels; rifle pits; traverse",
+    "basis": "documented"
+   },
+   {
+    "stage": 4,
+    "name": "Head logs and concealment",
+    "visible": "Head logs laid along much of the line; boughs and logs placed in front",
+    "typical": "\"A man could kneel and fire over the works\"; works not distinguishable at 50 yd",
+    "basis": "documented"
+   },
+   {
+    "stage": 5,
+    "name": "Completed",
+    "visible": "Full-height line, about 5 ft (Culp's Hill)",
+    "typical": "Occupied in firing posture",
+    "basis": "documented (height); procedural (profile)"
+   },
+   {
+    "stage": 6,
+    "name": "Damaged",
+    "visible": "Splintered head logs, torn boughs, scattered stone, shell craters behind",
+    "typical": "July 3 morning after the shelling and about 227,000-250,000 rounds fired by Geary's men",
+    "basis": "inferred (damage state); documented (rounds, shelling)"
+   }
+  ],
+  "notes": [
+   "Every built work is an object made of segments. Each segment (roughly one regiment front or a fixed run of yards) moves through these stages. The state is a function of scenario time, so scrubbing backward un-builds the work.",
+   "Greene's brigade: 3 to 4 hours for the main line (E-05). The engine sets the window start at 06:00 and the end between 09:00 and 10:00 for the default; the documented outer bounds for \"finished\" are about 10:00 (DMNA) and about noon (Gettysburg Daily). The default sits inside the overlap of the sources; the playback option \"show source conflict\" can re-run the dawn start at the night-of-July-1-to-2 start the DMNA gives.",
+   "6th Wisconsin (July 1): about a dozen spades and shovels from the regimental wagon. The engine therefore shows a small digging party working alongside men using bayonets, hands, logs and stones, with the tool count capped at 12 for that regiment. The number of men without tools is not in the sources; it is a plausible-procedural parameter.",
+   "Work did not stop at \"completed\": angles, salients, the traverse and extra head logs continue through July 2 (DMNA, HN-King), so stages 3-4 may be re-entered by a segment after it first reaches stage 5.",
+   "Length: about 300 yd morning of July 2 (GD-219), then a single thin line of about 800 yd after 18:30 (GD-219, inferred). Keep the lower-hill works intact but empty from 18:30 until Steuart enters them."
+  ],
+  "state_is_function_of_time": true
+ },
+ "assumptions": {
+  "preamble": "The notes give no thickness, no head-log dimension, no tool inventory beyond the dozen spades, no per-regiment work times for the 78th, 102nd, 137th, 149th NY, and no Kane or Lockwood detail. Where the engine needs these it uses the following, each tagged plausible-procedural and shown in the viewer's tier overlay:",
+  "items": [
+   {
+    "n": 1,
+    "text": "The stage shares of a segment's work window (layout, felling and gathering, stacking, head logs) are drawn from a seeded distribution with the sum fixed to the documented 3-4 hour window; the split itself is an assumption.",
+    "tier": "plausible-procedural",
+    "implemented_in_state_at": true
+   },
+   {
+    "n": 2,
+    "text": "Each regiment's segment starts within a seeded offset of the brigade start, so the line does not rise in lockstep; no source gives the offsets.",
+    "tier": "plausible-procedural",
+    "implemented_in_state_at": false
+   },
+   {
+    "n": 3,
+    "text": "Thickness and profile follow the sources' qualitative description (log fence with stone and earth, about 5 ft high). Any numeric thickness is an assumption and is marked as such.",
+    "tier": "plausible-procedural",
+    "implemented_in_state_at": false
+   },
+   {
+    "n": 4,
+    "text": "Seminary rail barricade: height and rail layout are assumptions; length about 600 yd is the only sourced dimension.",
+    "tier": "plausible-procedural",
+    "implemented_in_state_at": false
+   },
+   {
+    "n": 5,
+    "text": "Tool mix beyond the 6th Wisconsin spades is an assumption.",
+    "tier": "plausible-procedural",
+    "implemented_in_state_at": false
+   }
+  ]
+ },
+ "stage_share_procedure": {
+  "tier": "plausible-procedural",
+  "seed_default": 0,
+  "method": "share_i = w_i / sum(w), w_i = 1 + b_i/255 where b_0..b_3 are the first four bytes of sha256(\"{seed}:{work_id}\"); shares apply to stages 1-4 across [begin, finish]; stage 0 before begin, stage 5 from finish. The split is an assumption (assumption 1); the sum is fixed to the documented window.",
+  "finish_rule": "state_at uses finish.latest as the completion instant (never earlier than the earliest printed \"finished\" time); this is a modelling convention, not a source claim."
+ },
+ "works": {
+  "E-01": {
+   "id": "E-01",
+   "unit": "I Corps remnants under Wainwright's artillery (20-22 guns)",
+   "location": "Seminary Ridge, in the small wood in front of Schmucker Hall",
+   "start_printed": "Jul 1, afternoon, before about 16:00",
+   "end_printed": "Overrun about 16:00-16:30",
+   "construction_applies": true,
+   "begin": {
+    "printed": "Jul 1, afternoon, before about 16:00",
+    "earliest": null,
+    "latest": "1863-07-01T16:00",
+    "default": null,
+    "approx": true,
+    "gran": "clock",
+    "date": "1863-07-01T00:00",
+    "pod": "afternoon",
+    "time_parse": "clock"
+   },
+   "finish": {
+    "printed": "Overrun about 16:00-16:30",
+    "earliest": "1863-07-01T16:00",
+    "latest": "1863-07-01T16:30",
+    "default": null,
+    "approx": true,
+    "gran": "clock",
+    "date": "1863-07-01T00:00",
+    "time_parse": "clock"
+   },
+   "schedule_rows": [
+    "S-010",
+    "S-011"
+   ],
+   "crew": "I Corps remnants under Wainwright's artillery (20-22 guns); no crew list printed",
+   "builder_known": true,
+   "gap": "No start time, no crew list"
+  },
+  "E-02": {
+   "id": "E-02",
+   "unit": "Wadsworth's 1st Division, I Corps, led by the 6th Wisconsin (Dawes), then the rest of the division",
+   "location": "Culp's Hill north slope, Stevens' Knoll to the summit",
+   "start_printed": "Jul 1 evening (inferred about 18:00-21:00)",
+   "end_printed": "Rudimentary line by nightfall",
+   "construction_applies": true,
+   "begin": {
+    "printed": "Jul 1 evening (inferred about 18:00-21:00)",
+    "earliest": "1863-07-01T18:00",
+    "latest": "1863-07-01T21:00",
+    "default": null,
+    "approx": true,
+    "gran": "clock",
+    "date": "1863-07-01T00:00",
+    "pod": "evening",
+    "tier": "inferred",
+    "time_parse": "clock"
+   },
+   "finish": {
+    "printed": "Rudimentary line by nightfall",
+    "earliest": null,
+    "latest": null,
+    "default": null,
+    "gran": null,
+    "date": "1863-07-01T00:00",
+    "pod": "nightfall",
+    "time_parse": "phrase"
+   },
+   "schedule_rows": [
+    "S-014"
+   ],
+   "crew": "6th Wisconsin (Dawes), then the rest of Wadsworth's division; tool count capped at 12 (about a dozen spades and shovels)",
+   "builder_known": true
+  },
+  "E-03": {
+   "id": "E-03",
+   "unit": "123rd NY (1st Division, XII Corps)",
+   "location": "Lower Culp's Hill summit",
+   "start_printed": "Jul 1",
+   "end_printed": "Not stated",
+   "construction_applies": true,
+   "begin": {
+    "printed": "Jul 1",
+    "earliest": "1863-07-01T00:00",
+    "latest": "1863-07-01T23:59",
+    "default": null,
+    "gran": "date",
+    "date": "1863-07-01T00:00",
+    "time_parse": "date"
+   },
+   "finish": {
+    "printed": "Not stated",
+    "earliest": null,
+    "latest": null,
+    "default": null,
+    "gran": null,
+    "time_parse": "phrase"
+   },
+   "schedule_rows": [
+    "S-015"
+   ],
+   "crew": "123rd NY (1st Division, XII Corps)",
+   "builder_known": true,
+   "flag": "Start hour not given; conflicts with the 6 a.m. Jul 2 corps start (E-05), carried not resolved"
+  },
+  "E-04": {
+   "id": "E-04",
+   "unit": "Von Steinwehr's division and two batteries; Howard left infantry and artillery; Hancock directed troops after 16:00",
+   "location": "Cemetery Hill",
+   "start_printed": "Jul 1, afternoon-night",
+   "end_printed": "Not stated",
+   "construction_applies": true,
+   "begin": {
+    "printed": "Jul 1, afternoon-night",
+    "earliest": "1863-07-01T00:00",
+    "latest": "1863-07-01T23:59",
+    "default": null,
+    "gran": "date",
+    "date": "1863-07-01T00:00",
+    "pod": "afternoon-night",
+    "time_parse": "date"
+   },
+   "finish": {
+    "printed": "Not stated",
+    "earliest": null,
+    "latest": null,
+    "default": null,
+    "gran": null,
+    "time_parse": "phrase"
+   },
+   "schedule_rows": [
+    "S-020"
+   ],
+   "crew": "Von Steinwehr's division and two batteries; Howard left infantry and artillery; Hancock directed troops after 16:00",
+   "builder_known": true,
+   "flag": "method undetailed (\"Fortified\"); soft"
+  },
+  "E-05": {
+   "id": "E-05",
+   "unit": "Greene's 3rd Brigade, XII Corps (60th, 78th, 102nd, 137th, 149th NY)",
+   "location": "Upper Culp's Hill (60th NY upper crest, 102nd and 149th in the saddle, 137th lower crest, 78th reserve)",
+   "start_printed": "About 06:00 Jul 2 (HistoryNet King, HMDB)",
+   "end_printed": "About 09:00-10:00 (3-4 hours); finished by about 10:00 (DMNA) or about noon (Gettysburg Daily)",
+   "construction_applies": true,
+   "begin": {
+    "printed": "About 06:00 Jul 2 (HistoryNet King, HMDB)",
+    "earliest": "1863-07-02T06:00",
+    "latest": "1863-07-02T06:00",
+    "default": "1863-07-02T06:00",
+    "approx": true,
+    "gran": "clock",
+    "date": "1863-07-02T00:00",
+    "time_parse": "clock"
+   },
+   "finish": {
+    "printed": "About 09:00-10:00 (3-4 hours); finished by about 10:00 (DMNA) or about noon (Gettysburg Daily)",
+    "earliest": "1863-07-02T09:00",
+    "latest": "1863-07-02T10:00",
+    "default": null,
+    "approx": true,
+    "gran": "clock",
+    "date": "1863-07-02T00:00",
+    "outer_bounds": [
+     "07-02 10:00 (DMNA)",
+     "07-02 12:00 (Gettysburg Daily)"
+    ],
+    "time_parse": "clock"
+   },
+   "schedule_rows": [
+    "S-023",
+    "S-050"
+   ],
+   "crew": "Greene's 3rd Brigade, XII Corps (60th, 78th, 102nd, 137th, 149th NY)",
+   "builder_known": true,
+   "reentry": "stages 3-4 may be re-entered through Jul 2 (DMNA, HN-King)",
+   "damage_stage": {
+    "stage": 6,
+    "begin": "1863-07-03T04:00",
+    "finish_earliest": "1863-07-03T04:30",
+    "finish_latest": "1863-07-03T07:00",
+    "via": "E-11 / S-050",
+    "derived": true
+   },
+   "scenarios": {
+    "default": {
+     "src": "B.7.4 printed default: start 06:00, end between 09:00 and 10:00"
+    },
+    "start_night_jul1_2_dmna": {
+     "begin_earliest": "1863-07-01T00:00",
+     "begin_latest": "1863-07-02T06:00",
+     "begin_gran": "date",
+     "src": "DMNA-60NY: night of July 1-2; no clock printed"
+    },
+    "finish_about_10_dmna": {
+     "finish_earliest": "1863-07-02T10:00",
+     "finish_latest": "1863-07-02T10:00",
+     "src": "DMNA-60NY"
+    },
+    "finish_about_noon_gd": {
+     "finish_earliest": "1863-07-02T12:00",
+     "finish_latest": "1863-07-02T12:00",
+     "src": "GD-219"
+    }
+   }
+  },
+  "E-06": {
+   "id": "E-06",
+   "unit": "Greene (supervised personally)",
+   "location": "Right-hand end of Greene's line, running back along a ridge crest toward the Baltimore Pike; where the line dropped into the swale",
+   "start_printed": "Jul 2 morning, with E-05",
+   "end_printed": "Work continued through the day",
+   "construction_applies": true,
+   "begin": {
+    "printed": "Jul 2 morning, with E-05",
+    "earliest": "1863-07-02T00:00",
+    "latest": "1863-07-02T23:59",
+    "default": null,
+    "gran": "date",
+    "date": "1863-07-02T00:00",
+    "pod": "morning",
+    "time_parse": "date"
+   },
+   "finish": {
+    "printed": "Work continued through the day",
+    "earliest": "1863-07-02T00:00",
+    "latest": "1863-07-02T23:59",
+    "default": null,
+    "gran": "date",
+    "date": "1863-07-02T00:00",
+    "time_parse": "date"
+   },
+   "schedule_rows": [
+    "S-023",
+    "S-025"
+   ],
+   "crew": "Greene (supervised personally); 137th NY traversing trench",
+   "builder_known": true
+  },
+  "E-07": {
+   "id": "E-07",
+   "unit": "Kane's 2nd Brigade (Greene's right) and Wadsworth's I Corps men (Greene's left)",
+   "location": "Culp's Hill, either side of Greene",
+   "start_printed": "Jul 2 morning",
+   "end_printed": "About same as E-05",
+   "construction_applies": true,
+   "begin": {
+    "printed": "Jul 2 morning",
+    "earliest": "1863-07-02T00:00",
+    "latest": "1863-07-02T23:59",
+    "default": null,
+    "gran": "date",
+    "date": "1863-07-02T00:00",
+    "pod": "morning",
+    "time_parse": "date"
+   },
+   "finish": {
+    "printed": "About same as E-05",
+    "earliest": null,
+    "latest": null,
+    "default": null,
+    "gran": null,
+    "ref": "E-05",
+    "time_parse": "phrase"
+   },
+   "schedule_rows": [
+    "S-024"
+   ],
+   "crew": "Kane's 2nd Brigade (Greene's right) and Wadsworth's I Corps men (Greene's left)",
+   "builder_known": true,
+   "flag": "per-regiment times not found"
+  },
+  "E-08": {
+   "id": "E-08",
+   "unit": "Williams's division, XII Corps (including Lockwood's brigade, position unconfirmed)",
+   "location": "Lower Culp's Hill",
+   "start_printed": "Jul 2 morning (on arrival)",
+   "end_printed": "Not stated",
+   "construction_applies": true,
+   "begin": {
+    "printed": "Jul 2 morning (on arrival)",
+    "earliest": "1863-07-02T00:00",
+    "latest": "1863-07-02T23:59",
+    "default": null,
+    "gran": "date",
+    "date": "1863-07-02T00:00",
+    "pod": "morning",
+    "time_parse": "date"
+   },
+   "finish": {
+    "printed": "Not stated",
+    "earliest": null,
+    "latest": null,
+    "default": null,
+    "gran": null,
+    "time_parse": "phrase"
+   },
+   "schedule_rows": [
+    "S-024"
+   ],
+   "crew": "Williams's division, XII Corps (including Lockwood's brigade, position unconfirmed)",
+   "builder_known": true,
+   "flag": "Lockwood's brigade position and work: open gap"
+  },
+  "E-09": {
+   "id": "E-09",
+   "unit": "Greene's brigade alone (plus about 750 reinforcements from I and XI Corps later)",
+   "location": "Whole Culp's Hill line",
+   "start_printed": "18:30 Jul 2",
+   "end_printed": "Evening",
+   "construction_applies": true,
+   "begin": {
+    "printed": "18:30 Jul 2",
+    "earliest": "1863-07-02T18:30",
+    "latest": "1863-07-02T18:30",
+    "default": "1863-07-02T18:30",
+    "gran": "clock",
+    "date": "1863-07-02T00:00",
+    "time_parse": "clock"
+   },
+   "finish": {
+    "printed": "Evening",
+    "earliest": null,
+    "latest": null,
+    "default": null,
+    "gran": null,
+    "date": "1863-07-02T00:00",
+    "pod": "evening",
+    "time_parse": "phrase"
+   },
+   "schedule_rows": [
+    "S-041",
+    "S-050"
+   ],
+   "crew": "Greene's brigade alone (plus about 750 reinforcements from I and XI Corps later)",
+   "builder_known": true,
+   "extension_of": "E-05"
+  },
+  "E-10": {
+   "id": "E-10",
+   "unit": "Steuart's brigade (1st Maryland Battalion, 1st and 3rd NC, 10th, 23rd, 37th VA)",
+   "location": "Empty lower-hill Union works (the 1st Division, Kane and Candy areas)",
+   "start_printed": "After dark Jul 2 (about 19:00-22:00; Johnson's attacks ended by about 10 p.m.)",
+   "end_printed": "Held several hours; driven out Jul 3",
+   "construction_applies": false,
+   "why_not": "Occupation, not construction (Steuart enters the empty lower-hill works; rows S-042)."
+  },
+  "E-11": {
+   "id": "E-11",
+   "unit": "XII Corps, Geary, Greene; Union artillery (including Powers Hill guns)",
+   "location": "Culp's Hill",
+   "start_printed": "About 04:00 Jul 3",
+   "end_printed": "Battle ended about 11:00",
+   "construction_applies": false,
+   "why_not": "Shelling/damage state of Culp's Hill works (stage 6) rather than a construction (rows S-050, S-056)."
+  },
+  "E-12": {
+   "id": "E-12",
+   "unit": "Union batteries; builders unnamed (likely battery crews and infantry details: inference)",
+   "location": "East Cemetery Hill, lunettes near the gatehouse (Stewart's Battery B, 4th US occupied a lunette; Battery L, 1st NY also marked)",
+   "start_printed": "Between Jul 1 evening and noon Jul 2 (inferred)",
+   "end_printed": "Existing by about 16:00 Jul 2",
+   "construction_applies": true,
+   "begin": {
+    "printed": "Between Jul 1 evening and noon Jul 2 (inferred)",
+    "earliest": null,
+    "latest": "1863-07-02T12:00",
+    "default": null,
+    "gran": "clock",
+    "date": "1863-07-01T00:00",
+    "pod": "Jul 1 evening (earliest, no clock)",
+    "tier": "inferred",
+    "time_parse": "clock"
+   },
+   "finish": {
+    "printed": "Existing by about 16:00 Jul 2",
+    "earliest": null,
+    "latest": "1863-07-02T16:00",
+    "default": null,
+    "approx": true,
+    "gran": "clock",
+    "date": "1863-07-02T00:00",
+    "time_parse": "clock"
+   },
+   "schedule_rows": [
+    "S-026"
+   ],
+   "crew": "Union batteries; builders unnamed (likely battery crews and infantry details: inference)",
+   "builder_known": false,
+   "stand_in_crew": true,
+   "stand_in_note": "PDF B.7.1: a work whose builder cannot be attributed is still built on screen by a labeled stand-in crew and flagged \"builder unknown\""
+  },
+  "E-13": {
+   "id": "E-13",
+   "unit": "Vincent's brigade (16th Michigan, 44th NY, 83rd PA, 20th Maine)",
+   "location": "Little Round Top",
+   "start_printed": "Arrived about 15:30-16:00 Jul 2",
+   "end_printed": "Fought at once",
+   "construction_applies": false,
+   "why_not": "No construction attributed; natural ledges and boulders."
+  },
+  "E-14": {
+   "id": "E-14",
+   "unit": "Weed's brigade, five Pennsylvania Reserve regiments, an Ohio battery",
+   "location": "Little Round Top, south slope",
+   "start_printed": "Evening Jul 2 (about 20:00 inferred) or after",
+   "end_printed": "Into Jul 3",
+   "construction_applies": true,
+   "begin": {
+    "printed": "Evening Jul 2 (about 20:00 inferred) or after",
+    "earliest": "1863-07-02T20:00",
+    "latest": null,
+    "default": null,
+    "approx": true,
+    "gran": "clock",
+    "date": "1863-07-02T00:00",
+    "pod": "evening",
+    "tier": "inferred",
+    "time_parse": "clock"
+   },
+   "finish": {
+    "printed": "Into Jul 3",
+    "earliest": null,
+    "latest": "1863-07-03T23:59",
+    "default": null,
+    "gran": "date",
+    "date": "1863-07-03T00:00",
+    "time_parse": "date"
+   },
+   "schedule_rows": [
+    "S-043"
+   ],
+   "crew": "Weed's brigade, five Pennsylvania Reserve regiments, an Ohio battery",
+   "builder_known": true,
+   "flag": "conflict: NPS says built on July 2; Wikipedia says on the evening of July 2 or after"
+  },
+  "E-15": {
+   "id": "E-15",
+   "unit": "Hazlett's Battery D, 5th US (six guns)",
+   "location": "Little Round Top summit",
+   "start_printed": "March about 16:30 Jul 2; first fire 17:45",
+   "end_printed": "Fired until after dark; remained Jul 3",
+   "construction_applies": false,
+   "why_not": "Improvised gun position, hand-hauled, no prepared epaulement (rows S-038)."
+  },
+  "E-16": {
+   "id": "E-16",
+   "unit": "Ward's brigade, Smith's 4th NY Battery",
+   "location": "Devil's Den / Houck's Ridge",
+   "start_printed": "n/a",
+   "end_printed": "n/a",
+   "construction_applies": false,
+   "why_not": "No works; Ward lacked time or inclination."
+  },
+  "E-17": {
+   "id": "E-17",
+   "unit": "Unknown",
+   "location": "Cemetery Ridge, rail works",
+   "start_printed": "Unknown",
+   "end_printed": "Unknown",
+   "construction_applies": false,
+   "why_not": "Open gap: do not animate rail piles as documented."
+  },
+  "E-18": {
+   "id": "E-18",
+   "unit": "Confederate units",
+   "location": "Seminary Ridge, Warfield Ridge, Oak Hill, Benner's Hill, town barricades",
+   "start_printed": "Unknown",
+   "end_printed": "Unknown",
+   "construction_applies": false,
+   "why_not": "Open gap: no Confederate works found for Jul 2-3."
+  }
+ },
+ "gun_emplacement_engine_rules": "Engine rules from the B.7.5 table: prepared emplacements (G-03 lunettes; G-12 the in-line ridge battery) are built on screen like any other work. Improvised positions (G-01, G-05, G-06, G-07, G-10, G-11) get no earth; the engine shows guns unlimbered on natural ground with trail marks and, where sourced, hand-hauling or prolonge retirement. Where \"no works described\" the engine shows open-ground battery positions and logs the item as a gap.",
+ "modern_profile_rule": "Present-day Culp's Hill is not the 1863 profile (B.7.6): the engine must not derive an 1863 profile from the modern lidar surface of Culp's Hill earthworks (veterans' rebuilds, 1930s CCC reconstruction of the Iron Brigade works, 2021 NPS/Gettysburg Foundation clearing) or from the Little Round Top breastworks (NPS rehabilitation reconstruction). Use the sourced description (log close-fence with stone and earth, about 5 ft high) plus period photographs, and tag it inferred."
+}

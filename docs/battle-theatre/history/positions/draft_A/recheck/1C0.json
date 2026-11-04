@@ -1,0 +1,527 @@
+[
+ {
+  "id": "POS-A-1C0-001",
+  "fidelity": "passed_full_read",
+  "why": "unit, date and place in one sentence; 'to the north' printed",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-002",
+  "fidelity": "passed_full_read",
+  "why": "date and 3-4 miles to Marsh Creek in same sentence",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-003",
+  "fidelity": "passed_full_read",
+  "why": "division, battery and road in same clause; date from 'On the 30th'",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-004",
+  "fidelity": "passed_full_read",
+  "why": "'my own division' (Doubleday, Third Division); battery and road in clause",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-005",
+  "fidelity": "passed_full_read",
+  "why": "Robinson's division in rear as reserve; same sentence as date",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-006",
+  "fidelity": "corrected",
+  "why": "Dropped unprinted 'about 8 a. m.' and unit names; 7-8 o'clock is another sentence (Reynolds summoning Doubleday); removed unprinted place 'Emmitsburg bivouacs'.",
+  "patch": {
+   "act": "Owing to the intervals between the divisions and the need to call in the pickets, from an hour and a half to two hours elapsed before the troops remaining behind Wadsworth's division (already ordered forward by Reynolds) were en route",
+   "w": "from an hour and a half to two hours elapsed",
+   "pp": null,
+   "wd": "duration only; clock phrase in a different sentence: \"between 7 and 8 o'clock\" (Reynolds sent for Doubleday); \"about 8 a. m.\" for Wadsworth is not printed"
+  }
+ },
+ {
+  "id": "POS-A-1C0-007",
+  "fidelity": "corrected",
+  "why": "Removed '(Emmitsburg road)' and '(McPherson Ridge)' (not printed); no clock printed, hour is compiler reading.",
+  "patch": {
+   "pp": "a ridge which ran north and south, about 400 yards to the west of the seminary",
+   "rd": "the main road",
+   "wd": "compiler reading from order of events: no clock printed; after the 7-8 o'clock summons and the delay, before Reynolds' death at about 10.15 a. m.",
+   "note_add": "Gazetteer id GZ-001 by inference; 'Emmitsburg road' and 'McPherson Ridge' are not printed in this passage."
+  }
+ },
+ {
+  "id": "POS-A-1C0-008",
+  "fidelity": "passed_full_read",
+  "why": "unit, order and place printed in one sentence; hour only compiler reading",
+  "patch": {
+   "wd": "compiler reading from order of events: no clock printed; Reynolds' orders brought back before Doubleday reached the ridge, before his death (about 10.15 a. m.)"
+  }
+ },
+ {
+  "id": "POS-A-1C0-009",
+  "fidelity": "corrected",
+  "why": "Place 'ridge beyond Willoughby Run' not printed for Reynolds' death; 'took command of the corps' not printed (burden of battle thrown upon me).",
+  "patch": {
+   "act": "Reynolds had just been shot and was no more; this occurred in the beginning of the attack, about 10.15 a. m., and the whole burden of the battle was thrown upon Doubleday",
+   "pp": null,
+   "note_add": "Place of Reynolds' fall is not printed in this passage; GZ-001 by inference only."
+  }
+ },
+ {
+  "id": "POS-A-1C0-010",
+  "fidelity": "corrected",
+  "why": "Place gloss 'McPherson woods' not printed; passage prints the woods on the ridge. Hour compiler reading.",
+  "patch": {
+   "pp": "the woods",
+   "wd": "compiler reading from order of events: no clock printed; on Doubleday's arrival, before Reynolds' death (about 10.15 a. m.)"
+  }
+ },
+ {
+  "id": "POS-A-1C0-011",
+  "fidelity": "passed_full_read",
+  "why": "order, unit and reserve role printed in one sentence",
+  "patch": {
+   "wd": "compiler reading from order of events: no clock printed; on Doubleday's arrival at the ridge, before Reynolds' death"
+  }
+ },
+ {
+  "id": "POS-A-1C0-012",
+  "fidelity": "passed_full_read",
+  "why": "Hall withdrawal printed with railroad grading; sequence follows Cutler's fall back",
+  "patch": {
+   "wd": "compiler reading from order of events: no clock printed; after Reynolds' death (about 10.15 a. m.) and Cutler's retirement, before Doubleday's later dispositions"
+  }
+ },
+ {
+  "id": "POS-A-1C0-013",
+  "fidelity": "corrected",
+  "why": "Place 'front line near Seminary Ridge' not printed here (Wadsworth's report says it); battery identity is compiler inference.",
+  "patch": {
+   "pp": null,
+   "wd": "compiler reading from order of events: no clock printed; after Hall's battery was cut up",
+   "note_add": "Place not printed in this passage; GZ-073 by inference from Wadsworth (R032). Unit us-cav-art resolved from 'Tidball's horse battery' by inference."
+  }
+ },
+ {
+  "id": "POS-A-1C0-014",
+  "fidelity": "corrected",
+  "why": "'Just after Reynolds' death' not printed: arrival is 'just previous to' Howard's message, after Howard arrived.",
+  "patch": {
+   "w": "Just previous to this",
+   "wd": "printed in the continuing sentence: relative to Howard's message to hold Seminary Hill; no clock; 'just after Reynolds' death' is not supported (Howard had arrived)"
+  }
+ },
+ {
+  "id": "POS-A-1C0-015",
+  "fidelity": "corrected",
+  "why": "Unit was Robinson's division, not Paul's brigade; 'seminary ridge' not printed (seminary); timing relative to Howard's message.",
+  "patch": {
+   "u": "us-1c-2d",
+   "gz": "GZ-037",
+   "pp": "the seminary",
+   "act": "Robinson was directed to throw up some slight intrenchments, to aid in holding the seminary in case Doubleday should be driven back",
+   "w": "Just previous to this",
+   "wd": "printed in the continuing sentence: same sentence as the order to station Robinson's division at the seminary; no clock",
+   "note_add": "Unit changed from Paul's brigade: the passage names General Robinson only."
+  }
+ },
+ {
+  "id": "POS-A-1C0-016",
+  "fidelity": "passed_full_read",
+  "why": "Stone's brigade placement printed; day-part is reading of sequence (before 'Later in the day')",
+  "patch": {
+   "wd": "compiler reading from order of events: no clock printed; follows Howard's arrival and precedes 'Later in the day' (Gates) and the 4 p. m. advance"
+  }
+ },
+ {
+  "id": "POS-A-1C0-017",
+  "fidelity": "passed_full_read",
+  "why": "brigade, position and Millerstown road printed in one clause",
+  "patch": {
+   "wd": "compiler reading from order of events: no clock printed; same sentence group as Stone's brigade, before 'Later in the day'"
+  }
+ },
+ {
+  "id": "POS-A-1C0-018",
+  "fidelity": "passed_full_read",
+  "why": "'Later in the day' printed; Gates with 20th NY SM and 151st PA named",
+  "patch": {
+   "wd": "compiler reading of printed 'Later in the day' (relative to Rowley's earlier dispositions); no clock"
+  }
+ },
+ {
+  "id": "POS-A-1C0-019",
+  "fidelity": "corrected",
+  "why": "Day-part '(afternoon)' not supported: no hour; the message came after Howard arrived, same time as Robinson's arrival.",
+  "patch": {
+   "w": "(July 1, after Howard arrived on the field)",
+   "wd": "compiler reading from order of events: no clock printed; Howard 'now arrived' earlier in the passage; relative to Robinson's and Rowley's arrival"
+  }
+ },
+ {
+  "id": "POS-A-1C0-020",
+  "fidelity": "passed_full_read",
+  "why": "Baxter detailed to fill gap printed; early afternoon from Robinson's 'from about noon' in same passage",
+  "patch": {
+   "wd": "compiler reading: no clock in Doubleday's sentence; Robinson's quoted words in the same passage say his division held the right 'from about noon'"
+  }
+ },
+ {
+  "id": "POS-A-1C0-021",
+  "fidelity": "corrected",
+  "why": "Place 'line west of the seminary' not printed; claim keeps 4 p. m. and retirement order, both in the passage.",
+  "patch": {
+   "pp": null,
+   "note_add": "Place not printed in this sentence group; GZ-037 by inference."
+  }
+ },
+ {
+  "id": "POS-A-1C0-022",
+  "fidelity": "passed_full_read",
+  "why": "retirement cover by Meredith and Biddle printed in sentence after 'About 4 p. m.' sentence",
+  "patch": {
+   "wd": "compiler reading: printed in the continuing sentences after 'About 4 p. m.' ('I now gave orders to fall back')"
+  }
+ },
+ {
+  "id": "POS-A-1C0-023",
+  "fidelity": "passed_full_read",
+  "why": "battery and 'on the north' of the seminary printed in one clause",
+  "patch": {
+   "wd": "compiler reading: printed in the continuing sentences after 'About 4 p. m.'; no clock of its own"
+  }
+ },
+ {
+  "id": "POS-A-1C0-024",
+  "fidelity": "passed_full_read",
+  "why": "battery and 'on the south of the seminary' printed",
+  "patch": {
+   "wd": "compiler reading: printed in the continuing sentences after 'About 4 p. m.'; no clock of its own"
+  }
+ },
+ {
+  "id": "POS-A-1C0-025",
+  "fidelity": "passed_full_read",
+  "why": "strength figures printed; internal variant 8,200 already noted; OCR flagged",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-026",
+  "fidelity": "corrected",
+  "why": "Later order ignored: Howard's immediate contrary order and delay not in claim; 'evening' is reading ('until sundown').",
+  "patch": {
+   "act": "At Cemetery Hill Hancock directed a force to support a battery on a lower range of hills about 100 yards east of our position; Doubleday sent the remainder of Wadsworth's division there; immediately afterward Howard ordered the troops sent in another direction, causing delay and confusion",
+   "wd": "compiler reading from order of events: no clock printed; after the retreat to Cemetery Hill and before 'the hours passed away until sundown in comparative quiet'"
+  }
+ },
+ {
+  "id": "POS-A-1C0-027",
+  "fidelity": "corrected",
+  "why": "Place 'the field at Gettysburg' not printed in the sentence.",
+  "patch": {
+   "pp": null,
+   "note_add": "Place not printed in this sentence; Gettysburg field by context only."
+  }
+ },
+ {
+  "id": "POS-A-1C0-028",
+  "fidelity": "corrected",
+  "why": "Overstated: 'the remaining regiments' only (12th and 15th were wagon guard); 'Third Corps line (left center)' not printed (printed: same line with them).",
+  "patch": {
+   "act": "The remaining Vermont regiments (the Twelfth and Fifteenth were with the wagon train), having marched with General Sickles' troops through some mistake, were placed in the same line with them on the night of July 1 and joined Doubleday the next morning",
+   "pp": "in the same line with them",
+   "note_add": "'them' = General Sickles' troops; 'Third Corps line' and 'left center' are the compiler's gloss."
+  }
+ },
+ {
+  "id": "POS-A-1C0-029",
+  "fidelity": "passed_full_read",
+  "why": "date 'next morning' and place behind western Cemetery Hill printed in one sentence",
+  "patch": {
+   "note_add": "Later that evening (2d) the division moved to the assistance of Hancock; see the next claim."
+  }
+ },
+ {
+  "id": "POS-A-1C0-030",
+  "fidelity": "passed_full_read",
+  "why": "time, order, and distance west of the cemetery printed; 'w&st' OCR read as west",
+  "patch": {
+   "note_add": "OCR 'w&st' in the passage read as 'west'."
+  }
+ },
+ {
+  "id": "POS-A-1C0-031",
+  "fidelity": "corrected",
+  "why": "Place 'front line of the Third Division' not printed for the cannonade; date July 3 from context, not this sentence.",
+  "patch": {
+   "pp": null,
+   "wd": "date from context: the sentence prints no date; it follows the 2d-evening and bivouac narrative; 'About 2 p. m.' is printed in the same sentence as the fact"
+  }
+ },
+ {
+  "id": "POS-A-1C0-032",
+  "fidelity": "corrected",
+  "why": "Place 'the front' not printed; date July 3 from context.",
+  "patch": {
+   "pp": null,
+   "wd": "date from context: no date in the sentence; 'Toward 5 o'clock' is in the same sentence as the notice received"
+  }
+ },
+ {
+  "id": "POS-A-1C0-033",
+  "fidelity": "corrected",
+  "why": "Heading digit printed 'July 3' (2/3 confusion); date July 2 settled by internal evidence, flagged ocr.",
+  "patch": {
+   "ocr": true,
+   "wd": "date by internal evidence: the section heading prints 'July 3' (2/3 digit); a second heading 'July 3 - The dawn of day' follows the sundown attack and the appendix says guns taken 'on the evening of the 2d July'; so this section is July 2; 'early in the morning of this day' printed in same sentence"
+  }
+ },
+ {
+  "id": "POS-A-1C0-034",
+  "fidelity": "corrected",
+  "why": "Time phrase 'early on July 2' not printed; continuing sentence after 'early in the morning of this day'; heading digit 2/3.",
+  "patch": {
+   "w": "early in the morning of this day",
+   "ocr": true,
+   "wd": "printed in the continuing sentence ('I found the First Division'); date by internal evidence: the section heading prints 'July 3' (2/3 digit); a second heading 'July 3 - The dawn of day' follows the sundown attack and the appendix says guns taken 'on the evening of the 2d July'; so this section is July 2"
+  }
+ },
+ {
+  "id": "POS-A-1C0-035",
+  "fidelity": "corrected",
+  "why": "Time phrase 'early on July 2' not printed; continuing sentence; heading digit 2/3.",
+  "patch": {
+   "w": "early in the morning of this day",
+   "ocr": true,
+   "wd": "printed in the continuing sentence; date by internal evidence: the section heading prints 'July 3' (2/3 digit); a second heading 'July 3 - The dawn of day' follows the sundown attack and the appendix says guns taken 'on the evening of the 2d July'; so this section is July 2"
+  }
+ },
+ {
+  "id": "POS-A-1C0-036",
+  "fidelity": "corrected",
+  "why": "Time phrase 'early on July 2' not printed; continuing sentence; heading digit 2/3.",
+  "patch": {
+   "w": "early in the morning of this day",
+   "ocr": true,
+   "wd": "printed in the continuing sentence; date by internal evidence: the section heading prints 'July 3' (2/3 digit); a second heading 'July 3 - The dawn of day' follows the sundown attack and the appendix says guns taken 'on the evening of the 2d July'; so this section is July 2"
+  }
+ },
+ {
+  "id": "POS-A-1C0-037",
+  "fidelity": "corrected",
+  "why": "'July 2-3' not printed; passage prints 'all the subsequent fighting'; heading digit 2/3.",
+  "patch": {
+   "w": "all the subsequent fighting",
+   "ocr": true,
+   "wd": "printed in the same sentence as a duration, no date; date by internal evidence: the section heading prints 'July 3' (2/3 digit); a second heading 'July 3 - The dawn of day' follows the sundown attack and the appendix says guns taken 'on the evening of the 2d July'; so this section is July 2"
+  }
+ },
+ {
+  "id": "POS-A-1C0-038",
+  "fidelity": "corrected",
+  "why": "'Near sundown' printed in same sentence; date rests on heading digit 2/3, flagged.",
+  "patch": {
+   "ocr": true,
+   "wd": "date by internal evidence: the section heading prints 'July 3' (2/3 digit); a second heading 'July 3 - The dawn of day' follows the sundown attack and the appendix says guns taken 'on the evening of the 2d July'; so this section is July 2"
+  }
+ },
+ {
+  "id": "POS-A-1C0-039",
+  "fidelity": "corrected",
+  "why": "'(night of July 2)' reading: 'Night coming on' is in the preceding sentence; sundown attack 'about the same time'; date digit 2/3.",
+  "patch": {
+   "w": "Night coming on",
+   "ocr": true,
+   "wd": "printed in the preceding sentence of the same paragraph; the Eleventh Corps attack is placed 'about the same time' as about sundown; date by internal evidence: the section heading prints 'July 3' (2/3 digit); a second heading 'July 3 - The dawn of day' follows the sundown attack and the appendix says guns taken 'on the evening of the 2d July'; so this section is July 2"
+  }
+ },
+ {
+  "id": "POS-A-1C0-040",
+  "fidelity": "corrected",
+  "why": "'about sundown' printed in same sentence; place 'high wooded hill on the right' is from an earlier sentence; date digit 2/3.",
+  "patch": {
+   "ocr": true,
+   "wd": "date by internal evidence: the section heading prints 'July 3' (2/3 digit); a second heading 'July 3 - The dawn of day' follows the sundown attack and the appendix says guns taken 'on the evening of the 2d July'; so this section is July 2",
+   "note_add": "Place is from the earlier sentence describing the First Division's position (not detached from it)."
+  }
+ },
+ {
+  "id": "POS-A-1C0-041",
+  "fidelity": "passed_full_read",
+  "why": "dawn of day and the Third Division on left center printed in one sentence",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-042",
+  "fidelity": "passed_full_read",
+  "why": "dawn of day and Second Division on Cemetery Hill printed in one sentence",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-043",
+  "fidelity": "passed_full_read",
+  "why": "interval and 'no troops in position' printed in the dawn sentence group; neighbour evidence noted",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-044",
+  "fidelity": "passed_full_read",
+  "why": "'Near 1 p. m.' and 120 guns in same sentence; July 3 section follows 'dawn of day'",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-045",
+  "fidelity": "passed_full_read",
+  "why": "Second Division moved to sustain Hancock's right, not engaged; afternoon from the 1 p. m. cannonade and charge sequence",
+  "patch": {
+   "wd": "compiler reading from order of events: no clock printed; follows the cannonade 'Near 1 p. m.' and the assault narrative"
+  }
+ },
+ {
+  "id": "POS-A-1C0-046",
+  "fidelity": "corrected",
+  "why": "'from Gettysburg' not printed; passage says only 'the corps marched to Emmitsburg' on the 6th.",
+  "patch": {
+   "act": "On July 6 the corps marched to Emmitsburg (after remaining in the same position near Gettysburg July 4-5)"
+  }
+ },
+ {
+  "id": "POS-A-1C0-047",
+  "fidelity": "passed_full_read",
+  "why": "itinerary entry June 29 names First and Eleventh Corps Frederick to Emmitsburg",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-048",
+  "fidelity": "passed_full_read",
+  "why": "same June 29 entry names the Eleventh Corps",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-049",
+  "fidelity": "passed_full_read",
+  "why": "June 30 entry: First Corps from Emmitsburg to Marsh Run",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-050",
+  "fidelity": "passed_full_read",
+  "why": "July 1 entry: First Corps moved from Marsh Run ... to Gettysburg",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-051",
+  "fidelity": "passed_full_read",
+  "why": "July 1 entry: Eleventh Corps from Emmitsburg to Gettysburg",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-052",
+  "fidelity": "passed_full_read",
+  "why": "July 1 entry: Stannard's Vermont Brigade joined the First Corps on the field of Gettysburg; OCR noted",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-053",
+  "fidelity": "passed_full_read",
+  "why": "July 6 entry: First Corps from Gettysburg to Emmitsburg",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-054",
+  "fidelity": "corrected",
+  "why": "Activity merged two entries; narrowed to the July 5 entry (Eleventh Corps to Rock Creek, leaving Gettysburg).",
+  "patch": {
+   "act": "Itinerary: Eleventh Corps, leaving Gettysburg, marched to Rock Creek on July 5",
+   "note_add": "The July 6 move from Rock Creek to Emmitsburg is a separate itinerary entry."
+  }
+ },
+ {
+  "id": "POS-A-1C0-055",
+  "fidelity": "passed_full_read",
+  "why": "June 29 entry names Gamble's and Devin's brigades, route to near Fairfield",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-056",
+  "fidelity": "passed_full_read",
+  "why": "June 29 entry names Merritt's reserve cavalry brigade Middletown to Mechanicstown",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-057",
+  "fidelity": "passed_full_read",
+  "why": "June 30 entry names both brigades from near Fairfield via Emmitsburg to Gettysburg",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-058",
+  "fidelity": "passed_full_read",
+  "why": "July 1 entry names Kilpatrick's division Hanover via Abbottsville to Berlin",
+  "patch": {
+   "note_add": "Identification of Berlin as Berlin, Pa. is by inference; the entry prints only 'Berlin'."
+  }
+ },
+ {
+  "id": "POS-A-1C0-059",
+  "fidelity": "passed_full_read",
+  "why": "July 1 entry names Gregg's division, McIntosh's and J. I. Gregg's brigades to Hanover",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-060",
+  "fidelity": "passed_full_read",
+  "why": "July 2 entry: Gamble's and Devin's brigades Gettysburg to Taneytown",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-061",
+  "fidelity": "passed_full_read",
+  "why": "July 2 entry: Merritt's reserve brigade Mechanicstown to Emmitsburg",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-062",
+  "fidelity": "passed_full_read",
+  "why": "July 2 entry names Kilpatrick's division reached the field of Gettysburg",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-063",
+  "fidelity": "passed_full_read",
+  "why": "July 2 entry names McIntosh's and J. I. Gregg's brigades reached the field of Gettysburg",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-064",
+  "fidelity": "passed_full_read",
+  "why": "July 3 entry: Gamble's and Devin's brigades Taneytown to Westminster",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-065",
+  "fidelity": "passed_full_read",
+  "why": "July 3 entry: Merritt's reserve brigade Emmitsburg to the field of Gettysburg",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-066",
+  "fidelity": "passed_full_read",
+  "why": "July 4 entry: Merritt's reserve brigade from Gettysburg en route to Frederick",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-067",
+  "fidelity": "passed_full_read",
+  "why": "July 4 entry: J. I. Gregg's brigade Gettysburg to Hunterstown",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1C0-068",
+  "fidelity": "passed_full_read",
+  "why": "July 4 entry: Kilpatrick's division Gettysburg via Emmitsburg to Monterey",
+  "patch": {}
+ }
+]

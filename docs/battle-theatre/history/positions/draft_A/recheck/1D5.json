@@ -1,0 +1,560 @@
+[
+ {
+  "id": "POS-A-1D5-001",
+  "fidelity": "corrected",
+  "why": "Hour, date, unit and quote are in the same sentence. place.printed paraphrased the passage (right on / held by); restored to printed wording; road restored to printed form.",
+  "patch": {
+   "pp": "the ridge in advance of Seminary Ridge, my right resting upon the Chambersburg or Cashtown road, and left extending nearly to the wood occupied by General Meredith's brigade",
+   "rd": "Chambersburg or Cashtown road"
+  }
+ },
+ {
+  "id": "POS-A-1D5-002",
+  "fidelity": "passed_full_read",
+  "why": "'between 12 and 1 o'clock' is in the same sentence as the enfilade and the troops on the right falling back; unit is Stone's brigade (first person); no later contradiction."
+ },
+ {
+  "id": "POS-A-1D5-003",
+  "fidelity": "corrected",
+  "why": "Placement follows the 12-1 event in the passage (day-part reading ok), but place.printed added editorial '(McPherson barn and house)' and 'Chambersburg road' for 'the road'; restored to printed words, gazetteer id kept by inference.",
+  "patch": {
+   "pp": "into the road ... on the left of the stone building",
+   "rd": null,
+   "wd": "compiler reading from order of events: placement follows the 'between 12 and 1 o'clock' enfilade in the preceding sentences; 143rd sent right 'Soon after'",
+   "note_add": "Gazetteer id GZ-040 and the identification of the stone building as the McPherson barn/house are by inference, not printed in this passage."
+  }
+ },
+ {
+  "id": "POS-A-1D5-004",
+  "fidelity": "corrected",
+  "why": "Time and fact are in the same sentence; but place.printed 'the front of the ridge' is not printed anywhere; replaced with 'From my position' (next sentence).",
+  "patch": {
+   "pp": "From my position",
+   "wd": "printed in the same sentence: At about 1. 30 p. m. the grand advance of the enemy's infantry began"
+  }
+ },
+ {
+  "id": "POS-A-1D5-005",
+  "fidelity": "passed_full_read",
+  "why": "Dwight sent forward to railroad cut ~100 yards from road, forced back to road later in same passage; afternoon follows the 1.30 p.m. advance (pluperfect 'had sent'); wd annotation.",
+  "patch": {
+   "wd": "compiler reading from order of events: sent forward in anticipation of the attack that followed the 1. 30 p. m. advance"
+  }
+ },
+ {
+  "id": "POS-A-1D5-006",
+  "fidelity": "passed_full_read",
+  "why": "Retreat sequence in the same long sentence group: stand and battery brought off at Seminary Ridge, then through the town; afternoon follows from sequence after the attacks.",
+  "patch": {
+   "wd": "compiler reading from order of events: retreat follows the 1. 30 p. m. advance and the later attacks described in the passage"
+  }
+ },
+ {
+  "id": "POS-A-1D5-007",
+  "fidelity": "passed_full_read",
+  "why": "Evening of June 30, 'about 6 miles from Gettysburg and on the north side of Marsh Creek' in one sentence; unit is the brigade named in the report."
+ },
+ {
+  "id": "POS-A-1D5-008",
+  "fidelity": "corrected",
+  "why": "Morning of July 1, 9.30 in the same sentence. Passage says 'march the men as fast as possible', not double-quick; and the 6-mile camp is in the preceding sentence. Act and place narrowed.",
+  "patch": {
+   "act": "On the morning of July 1 at about 9.30 o'clock the brigade took up its line of march for Gettysburg; after about 3 miles very slowly, cannonading was heard and an order came to march the men as fast as possible",
+   "pp": "its line of march for Gettysburg",
+   "note_add": "Camp 'about 6 miles from Gettysburg' is from the preceding sentence of the report; 'as fast as possible' is the printed order (no double-quick in this passage)."
+  }
+ },
+ {
+  "id": "POS-A-1D5-009",
+  "fidelity": "corrected",
+  "why": "Arrival hour printed 'about 13 m.' (impossible hour, OCR 2/3 confusion); the later 'taken position about 12 m.' is a different event/sentence, so the digit is not settled by the same fact. t_iso removed, OCR-glyph marked; act keeps printed token.",
+  "patch": {
+   "w": "at about 13 m.",
+   "t": null,
+   "ap": true,
+   "ocr": true,
+   "act": "The brigade arrived at or near the Gettysburg Seminary at about '13 m.' (OCR-damaged hour), then Stone moved it in column by battalion toward a house and barn on the Chambersburg pike",
+   "wd": "OCR glyph only: 'at about 13 m.' is not a valid hour; 12 m. is a conjecture from the later, different sentence 'Having first taken position about 12 m.'",
+   "pp": "at or near the Gettysburg Seminary ... toward a house and barn on the Chambersburg pike"
+  }
+ },
+ {
+  "id": "POS-A-1D5-010",
+  "fidelity": "corrected",
+  "why": "Unit, hour 'about 12 m.' and 'did not retire until after 3 p. m.' are in one sentence. place.printed 'the Chambersburg pike line' is not printed there; replaced by the printed 'taken position'; gazetteer id kept by inference.",
+  "patch": {
+   "pp": "taken position",
+   "rd": null,
+   "note_add": "The sentence names no place; road and gazetteer id (Chambersburg pike line) are by inference from the same report's account of the position at the barn on the pike."
+  }
+ },
+ {
+  "id": "POS-A-1D5-011",
+  "fidelity": "passed_full_read",
+  "why": "'only left the seminary at about .3.40 o'clock' in the same sentence as 'after 3 p. m.', confirming p.m. and the 3; stray leading period is only punctuation damage; unit named as the brigade.",
+  "patch": {
+   "wd": "printed in the same sentence: 'after 3 p. m.' ... 'only left the seminary at about .3.40 o'clock' (stray leading period in OCR)"
+  }
+ },
+ {
+  "id": "POS-A-1D5-012",
+  "fidelity": "passed_full_read",
+  "why": "Halted on Cemetery Hill, 'Formed in line in the rear of a battery', 'bivouacked for the night' in one sentence group; next sentence turns to the morning of July 2; Dana's words quoted by Wister.",
+  "patch": {
+   "wd": "compiler reading from order of events: 'bivouacked for the night' follows the July 1 retreat; the next sentence begins 'the morning of Thursday, July 2'"
+  }
+ },
+ {
+  "id": "POS-A-1D5-013",
+  "fidelity": "corrected",
+  "why": "'Later in the afternoon' follows 'morning of Thursday, July 2' so the date holds. 'of Cemetery Hill' in place.printed is not in the sentence; 'the First' is not named as First Brigade in the passage.",
+  "patch": {
+   "pp": "about half a mile toward the left",
+   "note_add": "'Together with the First' is printed; reading it as the First Brigade of the same division is the compiler's inference. 'Of Cemetery Hill' is not printed in this sentence (the batteries on Cemetery Hill are in the preceding sentence)."
+  }
+ },
+ {
+  "id": "POS-A-1D5-014",
+  "fidelity": "corrected",
+  "why": "149th and 150th under Glenn and Jones advanced some 600 yards to the front, engaged pickets, stayed until morning and brought off two guns: all printed. 'on the left' in place.printed is from the previous sentence; evening-night is a sequence reading.",
+  "patch": {
+   "pp": "some 600 yards to the front",
+   "wd": "compiler reading from order of events: follows 'Later in the afternoon' (July 2); 'Remaining in position until morning' is printed"
+  }
+ },
+ {
+  "id": "POS-A-1D5-015",
+  "fidelity": "corrected",
+  "why": "Morning of July 3, breastwork of rails and stone, second line: printed. place.printed paraphrased; restored to printed wording. 'rails' is OCR-damaged ('raUs') but sense is clear.",
+  "patch": {
+   "pp": "in front of its position, which was in the second line",
+   "act": "On the morning of July 3, during the interval between the firing, the command (the brigade) threw up a rude breastwork of rails and stone in front of its position, which was in the second line"
+  }
+ },
+ {
+  "id": "POS-A-1D5-016",
+  "fidelity": "corrected",
+  "why": "1,300 men is Wister's figure; the sentence has no date ('July 1' not printed there) and the '(Dana: 1,315)' clause is from another report. Act narrowed to Wister's sentence; date left as compiler reading.",
+  "patch": {
+   "act": "The brigade went into action with 1,300 men",
+   "w": null,
+   "wd": "date not printed in this sentence: compiler reading that the report's first-day narrative (July 1) is the going into action",
+   "note_add": "Dana's 1,315 is from R063 and is recorded only in this note, not in the claim text."
+  }
+ },
+ {
+  "id": "POS-A-1D5-017",
+  "fidelity": "passed_full_read",
+  "why": "'On the morning of July 1' and 'marched from Marsh Creek, where it had halted the previous evening' are one sentence; brigade named."
+ },
+ {
+  "id": "POS-A-1D5-018",
+  "fidelity": "corrected",
+  "why": "Place and activity printed (within some 2 miles, firing, hurried to a point west or northwest of the town, formed column of regiments). 'forenoon' is not printed; the passage says 'On the morning of July 1' in the previous sentence; w changed to printed phrase.",
+  "patch": {
+   "w": "On the morning of July 1",
+   "wd": "printed in the continuing sentence group: 'On the morning of July 1 ... when within some 2 miles of Gettysburg ... Hurrying forward'; 'forenoon' dropped as not printed"
+  }
+ },
+ {
+  "id": "POS-A-1D5-019",
+  "fidelity": "corrected",
+  "why": "Hour 'about 11 a. m.' and 'became engaged about noon' are in the quoted sentence. Place words come from earlier sentences (the interval between the grove and the barn), and were paraphrased; restored to printed wording.",
+  "patch": {
+   "pp": "the interval between a grove of woods on the left (in or near which General Reynolds was killed) and a barn and stone dwelling on the right",
+   "note_add": "Place is taken from the earlier sentences describing the line formed on the crest; the 11 a. m. sentence itself names no place."
+  }
+ },
+ {
+  "id": "POS-A-1D5-020",
+  "fidelity": "corrected",
+  "why": "Time, place and 'the last organized body of troops' are in one sentence, but Dana hedges it ('I believe'); hedge had been dropped. Act restored.",
+  "patch": {
+   "act": "Between 5 and 6 p. m. the brigade, the last organized body of troops, Dana believed, to leave the field, reached and was halted on Cemetery Hill; a line was formed near a low wall facing the town"
+  }
+ },
+ {
+  "id": "POS-A-1D5-021",
+  "fidelity": "corrected",
+  "why": "'Later in the day' follows the July 2 afternoon sentence; printed 'with the First' and 600 yards are in the passage. 'afternoon-evening' is the compiler's; act and w narrowed to printed words.",
+  "patch": {
+   "w": "Later in the day",
+   "act": "Later in the day on July 2 (after the afternoon engagement on the left) the brigade, with the First, moved at a double-quick about half a mile to the left and front to re-enforce that portion of the line; the 149th and 150th were advanced some 600 yards",
+   "wd": "printed in the continuing sentence group: 'the morning of Thursday, July 2 ... In the afternoon ... Later in the day'"
+  }
+ },
+ {
+  "id": "POS-A-1D5-022",
+  "fidelity": "corrected",
+  "why": "July 3 morning, intervals between artillery firing, breastwork of rails and stones, second line, held through cannonade and Longstreet's charge: printed. 'at daylight' is not in this passage (it is the compiler's); place.printed restored to printed wording.",
+  "patch": {
+   "pp": "in front of its position, which was in the second line",
+   "act": "On the morning of Friday, July 3, during intervals between the artillery firing, the command threw up a slight breastwork of rails and stones in front of its position in the second line and held it during the cannonade in the afternoon and General Longstreet's final infantry charge"
+  }
+ },
+ {
+  "id": "POS-A-1D5-023",
+  "fidelity": "passed_full_read",
+  "why": "'This command marched from Gettysburg on the morning of July 6, following up with other troops the retreat of General Lee': date, place, activity in one sentence."
+ },
+ {
+  "id": "POS-A-1D5-024",
+  "fidelity": "passed_full_read",
+  "why": "1,315 printed after a damaged table; regiment figures 465+450+400 printed in the same table sum to 1,315, which settles the digits.",
+  "patch": {
+   "note_add": "Digits verified arithmetically: 143rd 465 + 149th 450 + 150th 400 = 1,315 (all printed in the same table)."
+  }
+ },
+ {
+  "id": "POS-A-1D5-025",
+  "fidelity": "corrected",
+  "why": "Musser prints July 1 and 'holding the road west of the town' (ordered by Stone) in one sentence, but no time of day; '(afternoon)' is not supported by this report. w set to the printed date.",
+  "patch": {
+   "w": "July 1",
+   "wd": "date printed in the same sentence ('battle of Gettysburg, July 1'); no time of day printed in Musser's report, so 'afternoon' removed"
+  }
+ },
+ {
+  "id": "POS-A-1D5-026",
+  "fidelity": "corrected",
+  "why": "Fell back to a peach orchard where our battery was stationed and with others saved the battery: printed. No time of day printed in this report; 'afternoon' removed. Act narrowed to the printed wording.",
+  "patch": {
+   "w": "July 1",
+   "act": "Fell back to a peach orchard, where our battery was stationed, halted again and, with others, saved the battery (the men pulling it were not the regiment's)",
+   "wd": "date July 1 from the report's opening sentence; no time of day printed in Musser's report, so 'afternoon' removed"
+  }
+ },
+ {
+  "id": "POS-A-1D5-027",
+  "fidelity": "passed_full_read",
+  "why": "'the position occupied ... on the morning of July 2. We were ordered first to occupy a position in the rear of a battery a little south of Cemetery Hill': date, place, unit in one continuing sentence."
+ },
+ {
+  "id": "POS-A-1D5-028",
+  "fidelity": "corrected",
+  "why": "Musser writes 'our brigade was double-quicked' farther to our left to assist in driving back the enemy and recapturing guns, lay on arms all night: unit changed to the brigade as printed. 'farther to the left of the line' narrowed to printed words; day-part is a sequence reading.",
+  "patch": {
+   "u": "us-1c-3d-stone",
+   "pp": "farther to our left",
+   "wd": "compiler reading from order of events: follows 'the greater part of the afternoon'; 'all night' printed in the next sentence",
+   "note_add": "Musser commands the 143rd but prints 'our brigade'; unit re-pointed from the regiment to the brigade accordingly."
+  }
+ },
+ {
+  "id": "POS-A-1D5-029",
+  "fidelity": "corrected",
+  "why": "'This morning at daylight' under the heading July 3: breastworks of rails and stones, placed directly in the rear of a battery captured and retaken the day before. place.printed paraphrased; restored to printed wording.",
+  "patch": {
+   "pp": "directly in the rear of a battery which had been captured, but retaken again, the day before"
+  }
+ },
+ {
+  "id": "POS-A-1D5-030",
+  "fidelity": "passed_full_read",
+  "why": "'Entered the battle with 465.' in Musser's report of the regiment's July 1 participation (opening sentence prints July 1); unit is the 143rd."
+ },
+ {
+  "id": "POS-A-1D5-031",
+  "fidelity": "corrected",
+  "why": "'Wednesday, July 1 ... moving on Gettysburg from the Emmitsburg direction' printed; 'forenoon' is not. The distance prints '1^ miles' (damaged fraction), read as 1 1/2 with confidence; marked as unreadable. Road kept as printed 'Emmitsburg direction'.",
+  "patch": {
+   "w": "Wednesday, July 1",
+   "act": "149th PA moving on Gettysburg from the Emmitsburg direction; within 1[damaged fraction] miles of the town an order came back to quicken to a double-quick, and the regiment broke to the left of the town",
+   "pp": "the Emmitsburg direction, and within 1[damaged fraction] miles of the town",
+   "rd": "Emmitsburg direction",
+   "ocr": true,
+   "wd": "date printed in the same sentence ('Wednesday, July 1'); 'forenoon' not printed in this report. OCR glyph only: the distance fraction ('1^ miles') is illegible"
+  }
+ },
+ {
+  "id": "POS-A-1D5-032",
+  "fidelity": "corrected",
+  "why": "Passed in rear of First and Second Divisions, printed. 'forenoon' not printed; the distance 'about 1| miles in front of Gettysburg' has a damaged fraction, read as 1 3/4 without basis. Act and w narrowed.",
+  "patch": {
+   "w": "Wednesday, July 1",
+   "act": "Passed in rear of the First and Second Divisions of the corps, which were in position engaging the enemy about 1[damaged fraction] miles in front of Gettysburg, in the Chambersburg direction",
+   "ocr": true,
+   "wd": "date printed in the preceding sentence ('Wednesday, July 1'); 'forenoon' not printed. OCR glyph only: the distance fraction ('1|') is illegible"
+  }
+ },
+ {
+  "id": "POS-A-1D5-033",
+  "fidelity": "corrected",
+  "why": "Position on the right flank of the corps line, in parallel line with the Chambersburg pike, 150th on left and 143rd on right: printed. 'about noon' is not printed in Dwight's report; removed. place.printed restored.",
+  "patch": {
+   "w": "Wednesday, July 1",
+   "pp": "the right flank of the corps line of battle, being in parallel line with Chambersburg pike",
+   "wd": "date printed in the opening sentence; no hour printed in Dwight's report ('about noon' was the compiler's, from other reports)"
+  }
+ },
+ {
+  "id": "POS-A-1D5-034",
+  "fidelity": "corrected",
+  "why": "Stone's order to take the railroad cut about 50 paces in front, two repulsed advances, return to the pike, colors left behind: printed. No time of day in Dwight's report; 'afternoon' removed. Place restored to printed words; colors clause narrowed to what is printed.",
+  "patch": {
+   "w": "Wednesday, July 1",
+   "pp": "the railroad cut, about 50 paces to my front",
+   "act": "Moved forward by Stone's order to take possession of the railroad cut about 50 paces in front; repulsed the enemy twice; discovering artillery and a brigade on its left, moved back rapidly to its first position on the pike; the colors planted on the left flank stayed behind and were lost",
+   "wd": "date from the report's opening; no hour printed in Dwight's report, so 'afternoon' removed (the sequence follows the position taken on the pike)"
+  }
+ },
+ {
+  "id": "POS-A-1D5-035",
+  "fidelity": "corrected",
+  "why": "Retire contesting inch by inch to the Seminary, desperate stand until a battery limbered, Dana took the brigade off: printed. No time of day printed in Dwight's report; 'afternoon' removed.",
+  "patch": {
+   "w": "Wednesday, July 1",
+   "wd": "date from the report's opening; no hour printed in Dwight's report, so 'afternoon' removed (sequence: after the second charge to clear the cut)"
+  }
+ },
+ {
+  "id": "POS-A-1D5-036",
+  "fidelity": "passed_full_read",
+  "why": "'We entered the engagement with about 450 men, and came out with about 100' in the report of the first day, Wednesday, July 1 (opening sentence); unit is the 149th.",
+  "patch": {
+   "wd": "date printed in the report's opening sentence: 'the first day: Wednesday, July 1'"
+  }
+ },
+ {
+  "id": "POS-A-1D5-037",
+  "fidelity": "passed_full_read",
+  "why": "'On the morning of July 1, our regiment ... marched from a point about 4 miles north of Emmitsburg': date, unit, place in one sentence."
+ },
+ {
+  "id": "POS-A-1D5-038",
+  "fidelity": "corrected",
+  "why": "3 miles out, artillery heard, double-quick, formed line, marched northwest of the town to a barn: printed. 'forenoon' not printed; the continuing paragraph prints 'On the morning of July 1'.",
+  "patch": {
+   "w": "On the morning of July 1",
+   "wd": "printed in the continuing paragraph: 'On the morning of July 1 ... When we arrived within about 3 miles'; 'forenoon' dropped as not printed"
+  }
+ },
+ {
+  "id": "POS-A-1D5-039",
+  "fidelity": "corrected",
+  "why": "No clock hour in Irvin's report: 'about noon' removed (the passage gives only 15 or 20 minutes at the barn). place.printed restored ('our line'); the order of regiments is as printed (later 143rd on its right left it in the centre).",
+  "patch": {
+   "w": "a period of fifteen or twenty minutes",
+   "t": null,
+   "act": "After lying at the barn fifteen or twenty minutes the regiment was ordered to a position on a road leading from the town, crossing the line at right angles, occupying the right of the brigade; after some time the 143rd took position on its right, leaving it in the center, with the 150th on its left",
+   "pp": "a road leading from the town, crossing our line at right angles",
+   "wd": "no clock hour printed; 'about noon' was the compiler's reading from other reports; only the duration at the barn is printed"
+  }
+ },
+ {
+  "id": "POS-A-1D5-040",
+  "fidelity": "corrected",
+  "why": "Ordered forward by Stone to a deep railroad cut parallel with the line about 100 yards in front, fire over the bank, fall back to the road when a second line came up: printed. No time of day printed in Irvin; 'afternoon' removed. place.printed restored.",
+  "patch": {
+   "w": null,
+   "pp": "a deep railroad cut, which ran parallel with our line and about 100 yards in front",
+   "wd": "no time of day printed in Irvin's report; 'afternoon' was the compiler's reading (sequence follows the position on the road)"
+  }
+ },
+ {
+  "id": "POS-A-1D5-041",
+  "fidelity": "passed_full_read",
+  "why": "'We marched from near Gettysburg, leaving there the morning of the 6th instant, to near Funkstown, Md.': date, place, destination in one sentence; 'instant' = July in a report dated July 17."
+ },
+ {
+  "id": "POS-A-1D5-042",
+  "fidelity": "passed_full_read",
+  "why": "'On the morning of July 1 ... left camp near Emmitsburg, and about noon arrived on the battle-field at Gettysburg': time, place, unit in one sentence."
+ },
+ {
+  "id": "POS-A-1D5-043",
+  "fidelity": "corrected",
+  "why": "Moved up between the Iron Brigade and the other regiments of Stone's brigade, which reached to the Chambersburg road: printed, in the sentence continuing 'about noon arrived'. place.printed paraphrased; restored.",
+  "patch": {
+   "pp": "on the ground between the Iron Brigade and the other regiments of Colonel Stone's brigade, which reached to the Chambersburg road",
+   "wd": "printed in the continuing sentence: 'about noon arrived on the battle-field ... Rapidly throwing off their knapsacks, the regiment moved up'"
+  }
+ },
+ {
+  "id": "POS-A-1D5-044",
+  "fidelity": "passed_full_read",
+  "why": "Report of the action 'on July 1' (opening line): 'including 17 officers, before the battle nearly 400 at roll-call'; unit is the 150th."
+ },
+ {
+  "id": "POS-A-1D5-045",
+  "fidelity": "corrected",
+  "why": "Line of battle on the west side of Gettysburg and Company B skirmishing half a mile for three-quarters of an hour: printed. Jones prints no hour; 'about noon' removed, date printed as 'the 1st instant'.",
+  "patch": {
+   "w": "on the 1st instant",
+   "wd": "date printed in the same sentence ('on the 1st instant'); no clock hour printed in Jones' report, so 'about noon' removed"
+  }
+ },
+ {
+  "id": "POS-A-1D5-046",
+  "fidelity": "passed_full_read",
+  "why": "'lay for nearly three hours under a heavy fire of artillery' behind a slight rise, then the enemy line advanced: all printed; date July 1 from the opening sentence ('on the 1st instant'); duration only, no clock.",
+  "patch": {
+   "wd": "duration only; date from the report's opening sentence ('on the 1st instant')"
+  }
+ },
+ {
+  "id": "POS-A-1D5-047",
+  "fidelity": "corrected",
+  "why": "Fell back to a battery in the rear, rallied and engaged briefly, fell back again through the second line of defenses on Cemetery Hill, formed line, 60 rounds issued: printed. 'late afternoon' is not printed; act completed with the rally and w replaced by the printed date.",
+  "patch": {
+   "w": "on the 1st instant",
+   "act": "Fell back to a battery in the rear, rallied and engaged briefly, then fell back through the second line of defenses on Cemetery Hill and formed into line; supplied there with 60 rounds of cartridges",
+   "wd": "date from the report's opening sentence; 'late afternoon' was the compiler's reading, no hour is printed"
+  }
+ },
+ {
+  "id": "POS-A-1D5-048",
+  "fidelity": "corrected",
+  "why": "'On the 2d, we supported a battery until about 6 p. m., when we were ordered to the front and on the left of the Fifth Corps as pickets': printed. The 600 yards is the distance of the picket line in front of the defenses, not an advance of 600 yards.",
+  "patch": {
+   "act": "On July 2 the regiment supported a battery until about 6 p. m., when it was ordered to the front and on the left of the Fifth Corps as pickets, advanced its line until it met the enemy's pickets, exchanged a few shots and fell back, bringing two guns and caissons; the picket line stood about 600 yards in front of the defenses",
+   "wd": "time printed in the same sentence: 'until about 6 p. m., when we were ordered'"
+  }
+ },
+ {
+  "id": "POS-A-1D5-049",
+  "fidelity": "passed_full_read",
+  "why": "'The brigade joined that corps at this place on the evening of July 1, after an exhausting march of seven days' duration': date, place, march printed in one sentence.",
+  "patch": {
+   "note_add": "Internal tension in the same report: it also says the brigade was allowed to join the First Army Corps on the morning of the 2d (see POS-A-1D5-052); 'joined that corps' on the evening of July 1 is the printed wording."
+  }
+ },
+ {
+  "id": "POS-A-1D5-050",
+  "fidelity": "passed_full_read",
+  "why": "'my tired troops upon their arrival were placed in position in column by regiments on the front line, in connection with the Third Army Corps'; evening of July 1 is the arrival in the preceding sentence ('upon their arrival').",
+  "patch": {
+   "wd": "printed in the continuing sentence: 'upon their arrival', after 'on the evening of July 1' and 'too late in the day'"
+  }
+ },
+ {
+  "id": "POS-A-1D5-051",
+  "fidelity": "corrected",
+  "why": "Twelfth and Fifteenth detailed by Reynolds' order as guard to the corps wagon train in the rear before reaching the ground; the Fifteenth rejoined 'in the morning' and was ordered back 'about noon'. The sentence prints no date for these; 'morning of July 2' follows only from the preceding '3 a. m. of the 2d instant'.",
+  "patch": {
+   "act": "The 12th (Blunt) and 15th (Proctor) Vermont were detailed, by order of General Reynolds, as guard to the wagon train of the corps in the rear before reaching the ground; the 15th rejoined the brigade in the morning but was again ordered back on the same duty about noon",
+   "wd": "compiler reading from order of events: 'before reaching the ground' is July 1 (arrival in the evening); 'in the morning' and 'about noon' follow the passage's '3 a. m. of the 2d instant', date not printed in those sentences"
+  }
+ },
+ {
+  "id": "POS-A-1D5-052",
+  "fidelity": "passed_full_read",
+  "why": "'On the morning of the 2d instant, we were allowed to join the First Army Corps, and reported to Major-General Doubleday ... and were placed in the rear of the left of Cemetery Hill': one sentence."
+ },
+ {
+  "id": "POS-A-1D5-053",
+  "fidelity": "passed_full_read",
+  "why": "'Just before dark of the same day' (July 2), brigade ordered up; right wing of the 13th, on reaching the break in the line, granted by Hancock the privilege of retaking the guns: printed in connected sentences."
+ },
+ {
+  "id": "POS-A-1D5-054",
+  "fidelity": "corrected",
+  "why": "16th placed on picket extending to the left of the immediate front; 'The front thus established was held by my brigade for twenty-six hours': printed. place.printed 'the brigade front on the left center' is a composite; restored to the printed words.",
+  "patch": {
+   "pp": "extending to the left of our immediate front",
+   "wd": "compiler reading from order of events: follows 'Just before dark' of July 2; 'twenty-six hours' printed"
+  }
+ },
+ {
+  "id": "POS-A-1D5-055",
+  "fidelity": "passed_full_read",
+  "why": "'At about 4 o'clock on the morning of the 3d, the enemy commenced a vigorous artillery attack ... During its continuance, I moved the Fourteenth ... to the front of the main line about 75 yards ... double-quick': explicitly continuing.",
+  "patch": {
+   "wd": "printed in the continuing sentence: 'During its continuance' after 'At about 4 o'clock on the morning of the 3d'"
+  }
+ },
+ {
+  "id": "POS-A-1D5-056",
+  "fidelity": "corrected",
+  "why": "'At about 2 p. m. the enemy again commenced a vigorous attack upon my position. After subjecting us for one and one-half hours to the severest cannonade ... from one hundred guns or more': printed. place.printed 'the brigade position in front of the main line' replaced by the printed 'my position'.",
+  "patch": {
+   "pp": "upon my position"
+  }
+ },
+ {
+  "id": "POS-A-1D5-057",
+  "fidelity": "corrected",
+  "why": "Flank attack ordered, 13th changed front forward on first company, 16th formed on its left at right angles to the main line in the open meadow: printed. The window about 3.30-4 p. m. is arithmetic (2 p. m. plus 1 1/2 hours) and its upper end is not printed; replaced by the printed sequence. place.printed restored.",
+  "patch": {
+   "w": "(after one and one-half hours of cannonade begun at about 2 p. m.)",
+   "pp": "the open meadow in front of our lines",
+   "wd": "compiler reading from order of events: follows 'At about 2 p. m.' and 'one and one-half hours' of cannonade; no clock time is printed for the flank attack"
+  }
+ },
+ {
+  "id": "POS-A-1D5-058",
+  "fidelity": "corrected",
+  "why": "'There were 350 killed, wounded, and missing from my three regiments engaged': no date printed in the sentence, and the claim's date July 1 contradicts the report ('too late in the day to take part in the battle of July 1'). w removed; date moved to July 3, approximate.",
+  "patch": {
+   "w": null,
+   "d": "1863-07-03",
+   "ap": true,
+   "wd": "no date printed in this sentence; compiler reading: the brigade did not take part July 1 ('too late in the day'), engaged July 2 and 3"
+  }
+ },
+ {
+  "id": "POS-A-1D5-059",
+  "fidelity": "passed_full_read",
+  "why": "'The brigade then marched to Gettysburg, arriving there on July 1, at about 5 p. m.'; the next sentence puts the 13th, 14th and 16th on Cemetery Hill in rear of the First and Eleventh Corps line: same report, continuing text.",
+  "patch": {
+   "wd": "time printed in the same sentence ('arriving there on July 1, at about 5 p. m.'); Cemetery Hill clause is the next sentence of the same report"
+  }
+ },
+ {
+  "id": "POS-A-1D5-060",
+  "fidelity": "corrected",
+  "why": "Randall prints 'about 5 p. m.' (preceding sentence), not 'evening'; the word evening is Stannard's. place.printed paraphrased; restored to the printed wording.",
+  "patch": {
+   "w": "(about 5 p. m., July 1)",
+   "pp": "Cemetery Hill, in rear of our line of battle, made up of the First and Eleventh Corps",
+   "wd": "printed in the continuing sentence: 'arriving there on July 1, at about 5 p. m. My regiment ... took position'; 'evening' is Stannard (R069), not Randall"
+  }
+ },
+ {
+  "id": "POS-A-1D5-061",
+  "fidelity": "passed_full_read",
+  "why": "'On the morning of the 2d, we occupied substantially the same position until about 2 p. m., when I was ordered to advance five of my companies ... to support a battery in our front. Soon after ... the balance ... to the front and to the left'; hour, unit, place printed."
+ },
+ {
+  "id": "POS-A-1D5-062",
+  "fidelity": "corrected",
+  "why": "Doubleday sent the regiment to Hancock; guns overtaken about half way to the Emmitsburg road and recaptured; line advanced to the road; picket reserve of 3 officers and 80 men: printed. Weir's battery is 'as I am told' (hedge dropped). 'toward evening' is not printed in Randall.",
+  "patch": {
+   "w": null,
+   "act": "Sent by Doubleday to report to Hancock; pursued and, about half way to the Emmitsburg road, recaptured four guns which, as Randall was told, belonged to Lieutenant Weir's Fifth U. S. battery; advanced the line to the road and captured a rebel picket reserve of 3 officers and 80 men",
+   "wd": "no time of day printed in Randall's report; compiler reading from order of events: follows the heavy fight of the afternoon of July 2, and the report says 'It was dark' only after the return to the main line"
+  }
+ },
+ {
+  "id": "POS-A-1D5-063",
+  "fidelity": "passed_full_read",
+  "why": "'In the morning of the third day of the battle, we were placed in the front line, to the left of Cemetery Hill': date, unit, place in one sentence."
+ },
+ {
+  "id": "POS-A-1D5-064",
+  "fidelity": "passed_full_read",
+  "why": "'During the heavy artillery fire on the afternoon of that day, preceding Longstreet's great charge ... advance it a little to the front, about 15 rods ... rocky points'; the 14th also advanced on its left: printed.",
+  "patch": {
+   "w": "During the heavy artillery fire on the afternoon of that day",
+   "wd": "printed in the same sentence; 'that day' is the third day of the battle (July 3) from the preceding sentence"
+  }
+ },
+ {
+  "id": "POS-A-1D5-065",
+  "fidelity": "passed_full_read",
+  "why": "'the more favorable position, which we immediately strengthened with loose stones and rails ... Before we had fairly completed our little arrangements, the great charge commenced': afternoon of July 3 before the charge is printed in continuing sentences.",
+  "patch": {
+   "wd": "printed in the continuing sentences: 'afternoon of that day' ... 'Before we had fairly completed ... the great charge commenced'"
+  }
+ },
+ {
+  "id": "POS-A-1D5-066",
+  "fidelity": "corrected",
+  "why": "Changed front forward on the right company, throwing the left flank toward the rebel main line, then within 15 rods firing into the column's exposed flank: printed. The window 3.30-4 p. m. is not printed in Randall (arithmetic from Stannard); place.printed 'in front of the position' not printed.",
+  "patch": {
+   "w": "(after the charging column began to move by its left flank)",
+   "pp": "throwing my left flank toward the rebel main line of battle",
+   "wd": "compiler reading from order of events: no clock time printed in Randall; the move follows the column 'commenced to move by their left flank' during Longstreet's charge"
+  }
+ }
+]

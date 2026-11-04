@@ -15,16 +15,17 @@ try {
       for (const [name, q, ph] of SC.filter((s) => s[2] === phone)) {
         await open(b.page, `${q}&style=dispatch-paper&set=${encodeURIComponent(JSON.stringify(QUIET))}`); await settle(b.page, 60);
         const r = await b.page.evaluate(() => {
-          const S = window.__studio; const f = S.engine.frame; const cv = document.getElementById('map'); const cb = document.getElementById('map').getBoundingClientRect(); const W = cb.right; const H = cb.bottom; let marks = 0, hidden = 0, partly = 0, edge = 0; const who = {};
+          const S = window.__studio; const f = S.engine.frame; const cv = document.getElementById('map'); const cb = document.getElementById('map').getBoundingClientRect(); const W = cb.right; const H = cb.bottom; let marks = 0, hidden = 0, partly = 0, edge = 0, fading = 0; const who = {};
           for (const t of f.tiles) {
             if (t.life !== 'live' || t.opacity < 0.5) continue; const hw = t.w * t.scale / 2; const hh = t.h * t.scale / 2; const cx = t.x + f.view.dx + cb.left; const cy = t.y + f.view.dy + cb.top;
             if (cx + hw < cb.left || cx - hw > W || cy + hh < cb.top || cy - hh > H) continue;                           // not on the map at all
-            if (cx - hw < cb.left || cx + hw > W || cy - hh < cb.top || cy + hh > H) edge++;                              // cut by the edge of the map, as by the edge of a screen (not by the interface)
+            const al = t._edge === undefined ? 1 : t._edge; if (al <= 0.03) continue;                                            // round 2: a mark that has dissolved at the edge of the map (the safe area) is not on the screen
+            if (al < 0.97) fading++; else if (cx - hw < cb.left - 0.5 || cx + hw > W + 0.5 || cy - hh < cb.top - 0.5 || cy + hh > H + 0.5) edge++;      // still opaque and cut by the edge: none, by construction (the safe area dissolves it first)
             marks++; let cov = 0; let n = 0; let by = null;
             for (const [px, py] of [[0, 0], [-0.5, -0.5], [0.5, -0.5], [-0.5, 0.5], [0.5, 0.5]]) { const x = cx + px * hw; const y = cy + py * hh; if (x < cb.left || x > W || y < cb.top || y > H) continue; n++; const els = document.elementsFromPoint(x, y); let hit = null; for (const e of els) { if (e === cv) break; if (e.tagName === 'HTML' || e.tagName === 'BODY' || e.contains(cv)) continue; const bg = getComputedStyle(e).backgroundColor; const m = /rgba?\(([^)]+)\)/.exec(bg); const a = m ? (m[1].split(',').length > 3 ? +m[1].split(',')[3] : 1) : 0; if (a > 0.5 && e.getBoundingClientRect().width > 4) { hit = e; break; } } if (hit) { cov++; by = by || (hit.closest('[id]') ? hit.closest('[id]').id : hit.className || hit.tagName); } }
             if (n && cov === n) { hidden++; who[by] = (who[by] || 0) + 1; } else if (cov) { partly++; who[by] = (who[by] || 0) + 1; }
           }
-          return { marks, hidden, partly, cutByTheMapEdge: edge, who };
+          return { marks, hidden, partly, cutByTheMapEdge: edge, fadingAtTheEdge: fading, who };
         });
         out.push({ scene: name, ...r }); console.log(name, JSON.stringify(r));
       }

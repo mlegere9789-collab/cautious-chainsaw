@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-12T04:47:30.057Z",
+ "generated": "2026-10-12T11:34:22.463Z",
  "node": "v24.19.0",
  "rows": [
   {
@@ -7,14 +7,14 @@
    "tests": 12,
    "pass": 12,
    "fail": 0,
-   "seconds": 11.5
+   "seconds": 9.9
   },
   {
    "file": "test/display.test.mjs",
    "tests": 20,
    "pass": 20,
    "fail": 0,
-   "seconds": 49.2
+   "seconds": 38.3
   },
   {
    "file": "test/interp.test.mjs",
@@ -35,7 +35,7 @@
    "tests": 11,
    "pass": 11,
    "fail": 0,
-   "seconds": 1.4
+   "seconds": 1.2
   },
   {
    "file": "test/tuning.test.mjs",
@@ -49,63 +49,63 @@
    "tests": 9,
    "pass": 9,
    "fail": 0,
-   "seconds": 6.1
+   "seconds": 4.6
   },
   {
    "file": "test/production.test.mjs",
    "tests": 6,
    "pass": 6,
    "fail": 0,
-   "seconds": 17
+   "seconds": 14
   },
   {
    "file": "test/build.test.mjs",
    "tests": 5,
-   "pass": 5,
-   "fail": 0,
-   "seconds": 0.6
+   "pass": 4,
+   "fail": 1,
+   "seconds": 0.5
   },
   {
    "file": "test/skin-d1.test.mjs",
    "tests": 12,
    "pass": 12,
    "fail": 0,
-   "seconds": 4.6
+   "seconds": 4
   },
   {
    "file": "test/rest.test.mjs",
    "tests": 11,
    "pass": 11,
    "fail": 0,
-   "seconds": 30.7
+   "seconds": 23.4
   },
   {
    "file": "test/assemble.test.mjs",
    "tests": 17,
-   "pass": 17,
-   "fail": 0,
-   "seconds": 66.5
+   "pass": 15,
+   "fail": 2,
+   "seconds": 57.6
   },
   {
    "file": "test/popups.test.mjs",
    "tests": 36,
    "pass": 36,
    "fail": 0,
-   "seconds": 187.4
+   "seconds": 154.6
   },
   {
    "file": "test/fuzz.test.mjs",
    "tests": 3,
    "pass": 3,
    "fail": 0,
-   "seconds": 23.1
+   "seconds": 23.7
   },
   {
    "file": "test/fuzz.test.mjs (12 seeds x 500 actions)",
    "tests": 12,
    "pass": 12,
    "fail": 0,
-   "seconds": 210.6
+   "seconds": 201.1
   }
  ]
 }

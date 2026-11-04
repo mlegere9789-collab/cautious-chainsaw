@@ -88,7 +88,7 @@ async function main() {
   const NL = String.fromCharCode(10);
   const faces = [['QCSans-Regular', 400, 'normal'], ['QCSans-SemiBold', 600, 'normal'], ['QCSans-Bold', 700, 'normal'], ['QCSans-Italic', 400, 'italic']];
   const fontCss = faces.map(([f, w, st]) => `@font-face { font-family: "QC Sans"; font-weight: ${w}; font-style: ${st}; font-display: block; src: url(data:font/woff;base64,${fs.readFileSync(path.join(HERE, 'assets', 'fonts', f + '.woff')).toString('base64')}) format("woff"); }`).join(NL);
-  const css = fontCss + NL + read(path.join(SRC, 'ui', 'studio.css')) + NL + read(path.join(SRC, 'ui', 'popups.css')) + NL + read(path.join(SRC, 'ui', 'quiet.css'));
+  const css = fontCss + NL + read(path.join(SRC, 'ui', 'studio.css')) + NL + read(path.join(SRC, 'ui', 'popups.css')) + NL + read(path.join(SRC, 'ui', 'quiet.css')) + NL + read(path.join(SRC, 'ui', 'frame.css'));
   let html = read(path.join(SRC, 'ui', 'shell.html'));
   html = html.replace('<!--@STYLE-->', () => css).replace('<!--@DATASET-->', () => jsonInline(dataset)).replace('<!--@TOKENS-->', () => jsonInline(tokens)).replace('<!--@TEXT-->', () => jsonInline(text)).replace('<!--@POPUPS-->', () => jsonInline(popupData)).replace('<!--@BUNDLE-->', () => js);
 

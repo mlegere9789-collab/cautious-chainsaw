@@ -13,11 +13,10 @@ export const CHARSET = (() => { let s = ''; for (let i = 32; i < 127; i++) s += 
 
 /** @param {{fonts: Record<string,{adv: Record<string,number>}>}} table  @param {number} [safety] */
 export function createTextModel(table, safety = 1.04, source = 'table') {
-  const fonts = table.fonts;
   return {
     source, safety, table,
     width(font, s) {
-      const adv = fonts[font].adv; let w = 0;
+      const adv = table.fonts[font].adv; let w = 0;      // (table.fonts is read here, not at creation: the host may hand in a table that measures itself the first time it is read)
       for (const ch of s) w += adv[ch] ?? adv.M;
       return w * safety + 1;
     },
@@ -27,10 +26,12 @@ export function createTextModel(table, safety = 1.04, source = 'table') {
 /** measure every tile font with a 2D canvas context of the running browser; returns a table in the same shape as data/text-widths.json */
 export function measureTable(ctx2d, fontSpecs = FONT_SPECS, chars = CHARSET) {
   const out = { browser: typeof navigator !== 'undefined' ? navigator.userAgent : 'unknown', fonts: {} };
-  for (const [k, css] of Object.entries(fontSpecs)) {
-    ctx2d.font = css; const adv = {};
-    for (const ch of chars) adv[ch] = ctx2d.measureText(ch).width;
-    out.fonts[k] = { css, adv };
-  }
+  for (const [k, css] of Object.entries(fontSpecs)) out.fonts[k] = measureFont(ctx2d, css, chars);
   return out;
+}
+/** one font of the table (a measureText call costs about 60 microseconds, so the host measures the fonts one task at a time) */
+export function measureFont(ctx2d, css, chars = CHARSET) {
+  ctx2d.font = css; const adv = {};
+  for (const ch of chars) adv[ch] = ctx2d.measureText(ch).width;
+  return { css, adv };
 }

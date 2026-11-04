@@ -1,0 +1,382 @@
+{
+ "finished": "PARTIAL: the run was still going (or was stopped) when this was written",
+ "seconds": 2393,
+ "portBase": "18000",
+ "totals": {
+  "suites": 14,
+  "ok": 12,
+  "notOk": 2,
+  "greenTests": 210,
+  "greenTestsTotal": 231,
+  "redProofs": 0,
+  "redProofsOk": 0,
+  "redTestsRedAsRequired": 0
+ },
+ "results": [
+  {
+   "id": "r0.R1c",
+   "title": "R0 acceptance (X1/X2) on R1c",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 41.5,
+   "passed": 11,
+   "total": 13,
+   "skipped": 1,
+   "failed": 1,
+   "tiles": 10,
+   "failLines": [
+    "FAIL  T0-R0-03     first visit: one Mapbox sku, one style request (one map session) (X1)"
+   ],
+   "ok": false,
+   "tail": [
+    "      {\"measurements\":{\"cls\":0.001,\"chooser\":false,\"banner\":false,\"layout\":\"mobile\"}}",
+    "r0-acceptance: 11/13 passed, 1 skipped, 1 FAILED",
+    "mapbox requests used this run: 10 of 3000 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "journeys.R1c",
+   "title": "desktop journeys J1-J8, inputs, group A, group B on R1c",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 202.4,
+   "passed": 41,
+   "total": 41,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 16,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"tile requests in the shared session\":6,\"ignored tile noise\":{\"tile\":23,\"telemetry\":0}}",
+    "journeys-desktop: 41/41 passed",
+    "mapbox requests used this run: 16 of 3000 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "deeplinks.R1c",
+   "title": "deep links, moments.json, Turning Points (X7)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 155.2,
+   "passed": 12,
+   "total": 12,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 34,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"phone camera\":{\"center\":[-77.2359,39.7918],\"zoom\":15.5},\"?ancestor= opens the Follow panel on the phone\":true,\"junk link tick 1\":true}",
+    "deeplinks: 12/12 passed",
+    "mapbox requests used this run: 34 of 3000 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "desktop.R1c",
+   "title": "desktop fixes T0-DF-01..09 (group A2) on R1c",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 97,
+   "passed": 10,
+   "total": 10,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 10,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"tile requests in the shared session\":10,\"ignored tile noise\":{\"tile\":0,\"telemetry\":0}}",
+    "desktop-fixes: 10/10 passed",
+    "mapbox requests used this run: 10 of 3000 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "mobile.R1c",
+   "title": "mobile shell matrix (X5) on R1c: portrait, landscape, misc, touch slices",
+   "kind": "green",
+   "inverted": false,
+   "parts": [
+    {
+     "exit": 0,
+     "seconds": 228.7,
+     "passed": 6,
+     "total": 6,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": 59,
+     "tail": []
+    },
+    {
+     "exit": 0,
+     "seconds": 102.7,
+     "passed": 6,
+     "total": 6,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": 33,
+     "tail": []
+    },
+    {
+     "exit": 0,
+     "seconds": 49,
+     "passed": 4,
+     "total": 4,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": null,
+     "tail": []
+    },
+    {
+     "exit": 0,
+     "seconds": 108.7,
+     "passed": 3,
+     "total": 3,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": null,
+     "tail": []
+    }
+   ],
+   "exit": 0,
+   "seconds": 228.7,
+   "passed": 19,
+   "total": 19,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 59,
+   "ok": true,
+   "failLines": []
+  },
+  {
+   "id": "mobilefix.R1c",
+   "title": "mobile + shell fixes T0-MFIX-01..12 on R1c: three viewport slices and the desktop-shell slice",
+   "kind": "green",
+   "inverted": false,
+   "parts": [
+    {
+     "exit": 0,
+     "seconds": 352.6,
+     "passed": 8,
+     "total": 8,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": 60,
+     "tail": []
+    },
+    {
+     "exit": 0,
+     "seconds": 231,
+     "passed": 8,
+     "total": 8,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": 15,
+     "tail": []
+    },
+    {
+     "exit": 0,
+     "seconds": 269.2,
+     "passed": 10,
+     "total": 10,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": 35,
+     "tail": []
+    },
+    {
+     "exit": 0,
+     "seconds": 105.2,
+     "passed": 3,
+     "total": 3,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": 41,
+     "tail": []
+    }
+   ],
+   "exit": 0,
+   "seconds": 352.6,
+   "passed": 29,
+   "total": 29,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 60,
+   "ok": true,
+   "failLines": []
+  },
+  {
+   "id": "perf.R1c",
+   "title": "perf PF-01..10 on R1c (PF-01..06 skip on R0: no PERF group by design)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 40.1,
+   "passed": 10,
+   "total": 10,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  PF-10        a browser without KHR_parallel_shader_compile (hidden by an init script): the app boots and draws as before, the precompile stays out of the way (nothing precompiled, no exception)",
+    "      {\"without KHR_parallel_shader_compile\":{\"parallel\":false,\"precompiled\":0,\"onDemand\":5,\"counts\":{\"b1863-ground\":0,\"b1863-wide\":0,\"b1863-detail\":0,\"b1863-changed\":0,\"b1863-changed-detail\":0,\"roads",
+    "perf-fixes: 10/10 passed"
+   ]
+  },
+  {
+   "id": "a11y.R1c",
+   "title": "a11y bridge on R1c",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 492.1,
+   "passed": 26,
+   "total": 28,
+   "skipped": 2,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "SKIP  T0-A11Y-27   Lighthouse accessibility category on / (first visit; mobile and desktop presets): 100 on trains that carry group AX, and the audits that fail otherwise are named (needs --lighthouse",
+    "      Lighthouse is not installed in this repo: pass --lighthouse <dir of an npm install of lighthouse> (or T0_LIGHTHOUSE) to run it",
+    "a11y-bridge: 26/28 passed, 2 skipped"
+   ]
+  },
+  {
+   "id": "a11y.R1c.tiles",
+   "title": "a11y with real tiles (A11Y-14, production Referer, capped)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 22.4,
+   "passed": 1,
+   "total": 1,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  T0-A11Y-14   real tiles: axe on the loaded desktop map with the production Referer (<= T0_TILE_CAP Mapbox requests) - 0 serious/critical; playback with reduced motion ON and OFF draws and advanc",
+    "      {\"tiles\":{\"seen\":5,\"statuses\":{\"200\":5,\"204\":3},\"referers\":[\"https://gettysburginteractivemap.com/\"]},\"axe with map\":{\"loaded\":[],\"help\":[],\"search\":[]},\"playback 3 s at 1x\":{\"reduce\":{\"mode\":\"r",
+    "a11y-bridge: 1/1 passed"
+   ]
+  },
+  {
+   "id": "copy.R1c",
+   "title": "truthful-copy subset (CP-01..04: copy rows, Help rows, the keyboard-route row)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 63,
+   "passed": 4,
+   "total": 4,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  T0-CP-04     Help text: the desktop list keeps the held arrow and Esc rows and adds \"Tab to the map\" (arrows pan once the map has keyboard focus); the phone shell shows touch controls, not the k",
+    "      {\"desktop Help rows\":{\"0\":\"Reset to 1x speed\",\"1\":\"Jump to the July 1 tab, about 5:00 AM\",\"2\":\"Jump to the July 2 tab, about 4:30 AM\",\"3\":\"Jump to the July 3 tab, about 4:15 AM\",\"Space\":\"Play / ",
+    "copy-truthful-subset: 4/4 passed"
+   ]
+  },
+  {
+   "id": "pagescore.R1c",
+   "title": "page defect pack PGC-01..27 on R1c",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 311.7,
+   "passed": 28,
+   "total": 28,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 0,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  T0-PGC-27    legacy/ untouched: git reports no change under legacy/ and the pinned tree gate passes",
+    "pages-core: 28/28 passed",
+    "mapbox requests used this run: 0 of 3000"
+   ]
+  },
+  {
+   "id": "pagescore.R1c.real",
+   "title": "PGC-28 Watch Together + Immersive with the real Mapbox library",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 2.9,
+   "passed": 1,
+   "total": 1,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 18,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"WT mapbox requests so far\":3,\"mapbox requests used\":18}",
+    "pages-core: 1/1 passed",
+    "mapbox requests used this run: 18 of 3000"
+   ]
+  },
+  {
+   "id": "pagescore.R1c.full",
+   "title": "PGC-01 duplicate-id sweep of every page under 0/300/1500/4000 ms data delay (X11)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 308.8,
+   "passed": 1,
+   "total": 1,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 0,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"pages with a problem\":{}}",
+    "pages-core: 1/1 passed",
+    "mapbox requests used this run: 0 of 3000"
+   ]
+  },
+  {
+   "id": "pagesmaps.R1c",
+   "title": "map sub-pages, og card, manifest (PG-01..08) on R1c",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 75,
+   "passed": 17,
+   "total": 34,
+   "skipped": 0,
+   "failed": 17,
+   "tiles": 107,
+   "failLines": [
+    "FAIL  PG-01        static markup of the 8 map pages: deferred SRI-pinned Mapbox GL, DOMContentLoaded wrapper, preconnect, valid inline JS",
+    "FAIL  PG-02-camera camera: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)",
+    "FAIL  PG-02-cinematic-export cinematic-export: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)",
+    "FAIL  PG-02-compare compare: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)",
+    "FAIL  PG-02-ground-remembers ground-remembers: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)",
+    "FAIL  PG-02-immersive immersive: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)",
+    "FAIL  PG-02-sandbox sandbox: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)",
+    "FAIL  PG-02-viewshed viewshed: first paint does not wait for Mapbox GL (library held back 3 s by the lab server)"
+   ],
+   "ok": false,
+   "tail": [
+    "      {\"skipped\":\"pass --online to re-fetch\"}",
+    "T0-PG (map pages, og/manifest): 17/34 passed, 17 FAILED",
+    "mapbox requests used this run: 107 of 3000 (blocked by cap: 0)"
+   ]
+  }
+ ]
+}

@@ -6,6 +6,7 @@
 //          side 'union'|'confederate'|'unknown'|'mixed', arm, ratio (strength state), prio, lca, n, chain, st (state of a leaf), members (aggregate) }
 import { project } from '../geo/project.mjs';
 import { chipSize, labelSize } from './spec.mjs';
+import { compactDesignation, compactName, formationWordsOf, armNoun, ordinal, ROMAN } from './words.mjs';
 
 export const ORIGIN = { lng: -77.2377, lat: 39.8206 };      // arbitrary local origin: keeps numbers small; layout is translation invariant
 export const worldOrigin = (z) => project(ORIGIN.lng, ORIGIN.lat, z);
@@ -15,18 +16,18 @@ export function leafPriority(u, selectedId) { return (u.id === selectedId ? 1e9 
 
 /** leaf tiles for the visible set `vis` ([{u, st}]) at zoom z.  FORK: a skin whose selection is only a ring at this zoom (sizer.selects(z) false) does not give the selected unit the top priority either: the priority
  *  re-ordered the greedy placement and dissolved crowds all over a dense field (measured: 46 to 105 marks moved after one click at zoom 11 to 13.5, tools/probes/select-motion.mjs); a unit inside a crowd is then shown by the ring on the crowd's standard. */
-export function buildLeaves(vis, z, spec, selectedId = null) {
+export function buildLeaves(vis, z, spec, selectedId = null, grow = true) {
   const [ox, oy] = worldOrigin(z);
   const leaves = [];
   for (const { u, st } of vis) {
     const [x, y] = project(st.lng, st.lat, z);
-    const memo = spec._sz || (spec._sz = new Map()); const sel = selectedId != null && u.id === selectedId;
+    const memo = spec._sz || (spec._sz = new Map()); const sel = selectedId != null && u.id === selectedId && grow;      // ROUND 2: the selected mark grows its name only where the layout has verified free ground (layout/strategies.mjs): `grow` false = a ring and nothing else
     const mk = spec.sizer ? u.id + '|' + spec.sizer.key(u, z, sel) : u.id;                    // FORK: the footprint of a unit depends on the detail level of the zoom and on selection (the same object growing)
     let sz = memo.get(mk); if (!sz) memo.set(mk, sz = spec.sizer ? { cs: spec.sizer.leaf(spec, u, z, sel), ls: { w: 0, h: 0 } } : { cs: chipSize(spec, u.short), ls: labelSize(spec, u.label) });      // text widths of a unit never change while the spec is the same
     const cs = sz.cs; const ls = sz.ls;
     leaves.push({
       key: u.id, kind: 'leaf', ids: [u.id], u, st, px: x - ox, py: y - oy, ax: x - ox + (cs.dx || 0), ay: y - oy + (cs.dy || 0), dx: cs.dx || 0, dy: cs.dy || 0, sgn: cs.sgn || 0, chipW: cs.w, chipH: cs.h, labelW: ls.w, labelH: ls.h, labelText: u.label,
-      short: u.short, side: u.side, arm: u.arm, strength: st.strength, ratio: st.ratio, lca: u.id, n: 1, echelon: u.echelon, prio: leafPriority(u, spec.sizer && spec.sizer.selects && !spec.sizer.selects(z) ? null : selectedId),
+      short: u.short, side: u.side, arm: u.arm, strength: st.strength, ratio: st.ratio, lca: u.id, n: 1, echelon: u.echelon, prio: leafPriority(u, (spec.sizer && spec.sizer.selects && !spec.sizer.selects(z)) || !grow ? null : selectedId), grown: sel,
       moving: st.moving, depth: u.depth, chain: u.chain,
     });
   }
@@ -42,47 +43,46 @@ export function nodeShort(all, id) {
   if (u) s = u.short;
   else if (id === 'ROOT') s = 'Field';
   else if (id === 'A-U') s = 'Union';
-  else if (id === 'A-C') s = 'Confed.';
-  else { const bare = id.replace(/^[UC]-/, ''); s = /^[IVX]+$/.test(bare) ? bare + ' Corps' : bare.replace(/-/g, '/'); }
+  else if (id === 'A-C') s = 'Confederate';
+  else s = formationWordsOf(all, id);
   cache.set(id, s); return s;
 }
 
-/** The name an aggregate shows (the product owns the final wording).  FORK (d1, after PITCH-REVIEW on "Contact" and "lead"): the badge is the plain count of placement records, never "x n" or "+k",
- *  and the lettering says only what the members share, never an engagement the data does not record:
- *   both Union and Confederate members            -> "Both sides"            (they stand close together; the data records no fight)
- *   members share a brigade / division / corps    -> that formation's short code (and its name, when the order of battle has one)
- *   anything else on one side                     -> the corps they belong to ("II Corps", "I, XI Corps"), then ", k unlisted" for the k members the order of battle gives no parent; "Union, unlisted" when none has one  */
+/** The words a crowd shows (the product owns the final wording).  ROUND 2: one pattern, "of <what they share>", read after the count on the flag ("5  of Garnett's Bde"), so a crowd is never the same string as the
+ *  standard of the formation it comes from, and never says what it is NOT ("no formation", "& others", "unlisted" are gone):
+ *   both Union and Confederate members       -> "both armies"                      (they stand close together; the data records no fight)
+ *   members share a brigade / division / corps -> "of <that formation's words>"       ("of Garnett's Bde", "of 2nd Div, 1st Corps")
+ *   several formations of one side           -> "of 2nd Corps", "of 1st, 11th Corps", "of 3 corps", then " + 2 artillery" for the members that stand under no corps (what they are, by arm)
+ *   members that stand under nothing         -> "Union artillery", "Confederate regiments", "Union units"
+ *  and ", 2 of unknown side" for the units whose side the data contradicts (Contested): counted in the number, never in a side. */
 export function aggregateName(all, lca, side, sides, lead, n, leaves = null) {
-  const contested = sides.unknown ? `${sides.unknown} contested` : null;      // units of side unknown (Contested): counted in the number, never in a side
-  if (sides.union && sides.confederate) return { short: 'Both sides', tail: contested ? ', ' + contested : null, badge: String(n), kind: 'contact' };
+  const contested = sides.unknown ? `, ${sides.unknown} of unknown side` : null;
+  if (sides.union && sides.confederate) return { short: 'both armies' + (contested || ''), tail: null, badge: String(n), kind: 'contact' };
   const node = all.nodes.get(lca);
-  if (side !== 'mixed' && node && ['brigade', 'battalion', 'division', 'corps'].includes(node.kind)) return { short: nodeShort(all, lca), name: formationName(all, lca), tail: contested ? ', ' + contested : null, badge: String(n), kind: node.kind };
-  const sc = scopeName(all, side, leaves); return { short: sc.main, tail: [sc.tail, contested ? ', ' + contested : null].filter(Boolean).join('').replace(/^, (\d+ contested), unlisted$/, ', $1') || null, badge: String(n), kind: 'scope' };
+  if (side !== 'mixed' && node && ['brigade', 'battalion', 'division', 'corps'].includes(node.kind)) { const w = formationWordsOf(all, lca); return { short: 'of ' + w + (contested || ''), name: 'of ' + w + (contested || ''), tail: null, badge: String(n), kind: node.kind }; }
+  const sc = scopeName(all, side, leaves); return { short: sc.main + (contested || ''), tail: null, badge: String(n), kind: 'scope' };
 }
 
-const CORPS_RE = /^[UC]-(XII|XI|X|IX|VIII|VII|VI|IV|V|III|II|I)(?:-|$)/; const ROMAN = { I: 1, II: 2, III: 3, IV: 4, V: 5, VI: 6, VII: 7, VIII: 8, IX: 9, X: 10, XI: 11, XII: 12 };
-/** what several formations of one side have in common: the corps they belong to ("I, XI Corps"), read from the order-of-battle chains of the members; "Union" / "Confed." when no member's chain names a corps */
+const CORPS_RE = /^[UC]-(XII|XI|X|IX|VIII|VII|VI|IV|V|III|II|I)(?:-|$)/;
+/** what several formations of one side have in common: the corps they belong to ("of 2nd Corps"), read from the order-of-battle chains of the members; their arm when no member's chain names a corps */
 function scopeName(all, side, leaves) {
-  const side0 = side === 'union' ? 'Union' : side === 'confederate' ? 'Confederate' : 'Side unknown';
-  if (!leaves || side === 'unknown') return { main: side0, tail: null };
-  const set = new Set(); let unplaced = 0;
-  for (const l of leaves) { const u = all.units.get(l.ids[0]); let r = null; for (const id of (u && u.chain) || []) { const m = CORPS_RE.exec(id); if (m) { r = m[1]; break; } } if (r) set.add(r); else unplaced++; }
-  if (!set.size) return { main: side0, tail: ', unlisted' };       // none of its units has a parent in the order of battle
+  const side0 = side === 'union' ? 'Union' : side === 'confederate' ? 'Confederate' : 'Side-unknown';
+  if (!leaves || side === 'unknown') return { main: 'units of unknown side' };
+  const set = new Set(); const stray = [];
+  for (const l of leaves) { const u = all.units.get(l.ids[0]); let r = null; for (const id of (u && u.chain) || []) { const m = CORPS_RE.exec(id); if (m) { r = m[1]; break; } } if (r) set.add(r); else stray.push(u ? u.arm : 'infantry'); }
+  if (!set.size) return { main: `${side0} ${armNoun(stray, stray.length)}` };       // none of them stands under a corps in the order of battle: say what they are
   const list = [...set].sort((a, b) => ROMAN[a] - ROMAN[b]);
-  return { main: list.length > 3 ? `${list.length} corps` : list.join(', ') + ' Corps', tail: unplaced ? `, ${unplaced} unlisted` : null };      // "II Corps" + ", 2 unlisted": two more units the order of battle gives no parent (the tail is set lighter)
+  const corps = list.length > 2 ? `of ${list.length} corps` : list.length === 1 ? `of ${ordinal(ROMAN[list[0]])} Corps` : `of ${list.map((r) => ordinal(ROMAN[r])).join(', ')} Corps`;
+  return { main: corps + (stray.length ? ` + ${stray.length} ${armNoun(stray, stray.length)}` : '') };
 }
 
-/** the order of battle's own name of a formation, for the label of an aggregate at close zoom: the record's label when the data has a real name ("Harrow's Bde"), else null */
+/** the order of battle's own name of a formation, for the label of an aggregate at close zoom: the record's label when the data has a real name ("Harrow's Bde"), else the words of its id */
 export function formationName(all, id) {
-  const u = all.units.get(id); if (u && u.label && u.label !== u.short && u.label !== id) return compactDesignation((u.label.includes('…') || u.kind === 'battalion') && u.designation ? u.designation : u.label);      // FORK: the data cuts 25 of the 157 formation labels at 24 characters with an ellipsis ("3rd Bde, 3rd Div, 1st C…"): the designation says it whole; a battalion is named by its designation as its own mark is (the label of C-ART-III-2 reads "Heth's Div")
+  const u = all.units.get(id); if (u && u.label && u.label !== u.short && u.label !== id) return compactName(u, true);
   return null;
 }
 
-const ORD = { First: '1st', Second: '2nd', Third: '3rd', Fourth: '4th', Fifth: '5th', Sixth: '6th', Seventh: '7th', Eighth: '8th', Ninth: '9th', Tenth: '10th', Eleventh: '11th', Twelfth: '12th' };
-/** a designation as the map says it: the trailing parenthesis dropped (the card carries it), ordinals as numerals, Brigade / Division as Bde / Div, "Volunteer " dropped */
-export function compactDesignation(full) {
-  return full.replace(/\s*\([^)]*\)\s*$/, '').replace(/\b(First|Second|Third|Fourth|Fifth|Sixth|Seventh|Eighth|Ninth|Tenth|Eleventh|Twelfth)\b/g, (m) => ORD[m]).replace(/\bBrigade\b/g, 'Bde').replace(/\bDivision\b/g, 'Div').replace(/\bVolunteer /g, '');
-}
+export { compactDesignation };
 
 /** lowest common ancestor of a set of chains (each runs node -> ... -> ROOT) */
 export function lcaOf(chains) {
@@ -132,10 +132,13 @@ export function makeAggregate(all, tiles, spec, createdFrame = 0) {
 export function refreshTile(t, leafMap) {
   const fresh = (x) => { const l = leafMap.get(x.ids[0]); x.px = l.px; x.py = l.py; x.ax = l.ax; x.ay = l.ay; x.st = l.st; x.strength = l.strength; x.ratio = l.ratio; x.moving = l.moving; };
   if (t.kind === 'leaf') { fresh(t); return t; }
+  // FORK (round 2): the same formulas as makeAggregate: the crowd stands on the strength-weighted centre of its members' TRUE positions (px, py), its box hangs from that by the skin's own offset (dx, dy).
+  // Round 1 averaged the members' BOX anchors and never moved px, py: on every second frame (the solve cadence of a slow device) a crowd's standard jumped by up to 90 px between the solved and the carried position,
+  // which the objective jury measured as 73 to 77 marks moving in 119 of 120 frames at 45 fps and slower.
   const leaves = leavesOf(t); let sw = 0; let sx = 0; let sy = 0; let sr = 0; let sStr = 0;
-  for (const l of leaves) { fresh(l); const w = Math.max(1, l.strength || 1); sw += w; sx += l.ax * w; sy += l.ay * w; sr += (l.ratio ?? 1) * w; sStr += (l.strength || 0); }
+  for (const l of leaves) { fresh(l); const w = Math.max(1, l.strength || 1); sw += w; sx += l.px * w; sy += l.py * w; sr += (l.ratio ?? 1) * w; sStr += (l.strength || 0); }
   const own = leaves.find((l) => l.lca === t.lca);
-  t.ax = own ? own.ax : sx / sw; t.ay = own ? own.ay : sy / sw; t.ratio = sr / sw; t.strength = sStr;
+  t.px = own ? own.px : sx / sw; t.py = own ? own.py : sy / sw; t.ax = t.px + (t.dx || 0); t.ay = t.py + (t.dy || 0); t.ratio = sr / sw; t.strength = sStr;
   return t;
 }
 

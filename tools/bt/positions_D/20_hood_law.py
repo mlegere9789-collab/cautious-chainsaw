@@ -1,0 +1,35 @@
+"""D batch 20: Hood's division, Law's brigade (4th, 15th, 44th, 47th, 48th Alabama) from R443-R447. Law's own report and Hood's report are not in the index (and not in OR27)."""
+from positions_build import C
+
+LAW = 'cs-1c-hood-law'
+CLAIMS = [
+    C('cs-1c-hood-law-4al', 'march', 'R443', a='On the morning of the 2d, we took up the line of march from Now Guilford in the direction of Gettysburg', w='morning of the 2d', d='07-02', ap=True,
+      pl='New Guilford', rd='toward Gettysburg (road not named)', act='4th Alabama took up the march from New Guilford toward Gettysburg on the morning of July 2, a march of about 24 miles.', ocr=True,
+      cf='law_march', note='Scruggs prints "Now Guilford" (OCR for New Guilford) and "about 24 miles"; Sheffield (48th) prints 20 miles; Perry (44th) prints "2i miles" (OCR; 21 or 24).'),
+    C('cs-1c-hood-law-4al', 'arrival_road', 'R443', q='arrived at the scene of action at 3.30 p. m.', w='3.30 p. m. (July 2)', d='07-02', t='15:30',
+      pl='the scene of action; assigned position on the left of the brigade', act='4th Alabama arrived at the scene of action at 3.30 p. m. after a march of about 24 miles and took its position on the left of the brigade; ordered forward at the double-quick across a plowed field for half a mile.',
+      cf='law_arrival', note='Longstreet (R430) says Law\'s brigade "joined about noon on the 2d". Scruggs\' 3.30 p. m. is the arrival at the "scene of action", an arrival at the battle position and not necessarily at the division. Both carried.'),
+    C('cs-1c-hood-law-4al', 'engagement', 'R443', a='Early on the next morning, we threw up a line of breastworks composed of rock', w='early morning (July 3)', d='07-03', ap=True,
+      pl='in the enemy\'s front, some 200 yards distant', act='After the night (200 yards from the enemy) the regiment threw up a line of rock breastworks early on July 3 and held it until late in the afternoon, then went some distance to the right to meet the enemy\'s cavalry, which it dispersed; remained there until dark, then connected with the brigade on the right until the morning of the 4th.',
+      note='A breastwork built on July 3 morning by the regiment itself (rock): the OR is the source for a constructed work.'),
+    C('cs-1c-hood-law-15al', 'engagement', 'R444', a='My regiment occupied the center of the brigade when the line of battle was formed', w='July 2 (no hour)', d='07-02', ap=True,
+      pl='center of the brigade, then extreme right of the line; stone fence, the mountain, its top and foot, and a depression of about 300 yards between the mountain base and the open plain', act='15th Alabama in the center of the line; during the advance the two regiments on its right moved by the left flank across its rear, putting it on the extreme right of the whole line; it advanced up the mountain, over its top, and fought at its foot, repulsing five charges, until flanked on the right and retreating.',
+      note='Oates names no hours; the mountain is not named in R444.'),
+    C('cs-1c-hood-law-44al', 'engagement', 'R445', a='It occupied the place of the second battalion in the line formed by , the brigade on the heights', w='July 2 (before 5 p. m.)', d='07-02', ap=True,
+      pl='the heights, then the extreme left of the brigade; a rugged cliff battery position; valley of boulders about 300 paces wide', act='44th Alabama in the second position of the brigade line on the heights, advanced down the long slope and across the meadow, was detached by Law and moved by flank to the extreme left of the brigade; ordered to take a battery on a rugged cliff; wheeled left, advanced and took the heights, capturing 40 or 50 prisoners.',
+      ocr=True),
+    C('cs-1c-hood-law-44al', 'engagement', 'R445', q='It was now past .5 p. m.', w='past 5 p. m. (July 2)', d='07-02', t='17:00', ap=True,
+      pl='the heights taken by the regiment; Benning\'s right lapped its left', act='Benning\'s brigade advanced into action with its extreme right lapping the 44th Alabama\'s left, past 5 p. m.; fighting continued until dark.', ocr=True,
+      note='The OCR prints ".5 p. m."; read as 5 p. m. Waddell (20th Georgia) prints about 5 p. m. for the Georgia brigade\'s assault; Benning prints no advance hour.'),
+    C('cs-1c-hood-law-47al', 'engagement', 'R446', a='three companies were detached from my regiment, and placed in rear of our right, to guard a road', w='before the line formed (July 2)', d='07-02', ap=True,
+      pl='in rear of the right of the brigade, guarding a road', act='Three companies of the 47th Alabama were detached to guard a road in rear of the brigade\'s right and stayed skirmishing until the morning of the 4th; the other seven companies went into the fight in line; after the first repulse part of the men were deployed on the right of the brigade; by Sheffield\'s order the regiment was thrown out as skirmishers on the right after the firing ceased.'),
+    C('cs-1c-hood-law-48al', 'march', 'R447', a='this regiment, with the brigade, marched from New Guilford to the field, a distance of 20 miles', w='morning of the 2d', d='07-02', ap=True,
+      pl='New Guilford to the field, 20 miles', rd='road not named', act='48th Alabama, with the brigade, marched from New Guilford to the field, a distance of 20 miles, on the morning of July 2; placed in line in the open field, Companies A and H on picket; after a half hour ordered forward over a very rough ground about 1 mile.',
+      cf='law_march', note='20 miles (Sheffield) vs about 24 miles (Scruggs) vs "2i" (OCR, Perry).'),
+    C(LAW, 'engagement', 'R447', a='After the contest had continued for an hour and a half, and my whole regiment had been brought to the front the third time', w='after 3.30 p. m. to evening (July 2)', d='07-02', ap=True,
+      pl='the enemy\'s lines on the mountain side; the held ground in front through the night', act='After the fight (an hour and a half with the regiment brought up three times) Sheffield was ordered to take command of the brigade; the regiment reformed and held the battle-ground in the front during the night; on July 3 it was withdrawn a short distance, fought a short fight with cavalry, and at night was withdrawn farther.',
+      sub='48th Alabama (Sheffield); Sheffield succeeded to command of Law\'s brigade',
+      note='The 48th Alabama regiment is also covered by its own unit id: see the 48th claims above; this claim is the brigade-command statement.'),
+    C(LAW, 'night_position', 'R443', a='Having received a fresh supply of cartridges [J about dark, we remained in the enemy\'s front, some 200 yards distant, during the night', w='about dark (July 2)', d='07-02', ap=True,
+      pl='in the enemy\'s front, some 200 yards distant', sub='4th Alabama', act='The 4th Alabama (left of the brigade) remained in the enemy\'s front about 200 yards distant through the night of July 2.', ocr=True),
+]

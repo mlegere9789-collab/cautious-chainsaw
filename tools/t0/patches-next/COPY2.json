@@ -1,0 +1,14 @@
+{
+ "group": "COPY2",
+ "description": "CANDIDATE until registered: copy audit fixes from the end-of-mission acceptance order (2026-10-19): no page names AI, even to say the Historian is not one. historian.html: 'This is a search of those records, not an AI.' becomes 'This is a search of those records.' (two occurrences: static note and the generated summary). Inert in patches-next until registered; register in trains.json after PG-core (it targets the finished text of historian.html).",
+ "patches": [
+  {
+   "id": "COPY2-historian-not-an-ai",
+   "target": "historian.html",
+   "find": ", not an AI.",
+   "repl": ".",
+   "expect": 2,
+   "note": "copy audit: shipped pages must not mention AI"
+  }
+ ]
+}

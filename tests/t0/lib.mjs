@@ -103,8 +103,8 @@ export class NetLog {
 }
 
 export class Collector {
-  constructor() { this.errors = []; this.ignored = { tile: 0, telemetry: 0 }; this.badResponses = []; this.failedRequests = []; }
-  clear() { this.errors.length = 0; this.badResponses.length = 0; this.failedRequests.length = 0; }
+  constructor() { this.errors = []; this.ignored = { tile: 0, telemetry: 0 }; this.badResponses = []; this.failedRequests = []; this.noiseCredit = 0; }
+  clear() { this.errors.length = 0; this.badResponses.length = 0; this.failedRequests.length = 0; this.noiseCredit = 0; }
   push(kind, text, extra = {}) { this.errors.push({ kind, text: String(text).slice(0, 400), ...extra }); }
   /** true when a console.error is Mapbox tile/telemetry noise (403 off-domain, capped/blocked requests) */
   tileNoise(text, url) {
@@ -113,6 +113,16 @@ export class Collector {
     // tolerated while tile failures are expected (tiles disabled, request cap reached, or a >= 400 answer was seen)
     if (this.tileFailuresExpected && this.tileFailuresExpected() && /^[A-Za-z_$][\w$]{0,3}\n\s+at .*\/assets\/index-\S*\.js/.test(text)) return true;
     return /mapbox/i.test(text) && /(403|401|Forbidden|Failed to load resource|AJAXError|ERR_BLOCKED_BY_CLIENT|Failed to fetch)/i.test(text);
+  }
+  /** Mapbox glyph/tile fetches that the harness itself failed (blocked, capped, or cut by a navigation) are logged by the page as console.error(Error("Failed to fetch https://api.mapbox.com/...")), which
+   *  Playwright reports as the bare text "Error".  The message is only in the argument, and reading it through the message's JSHandle is a round trip that a navigation kills ("Execution context was
+   *  destroyed": T0-DL-10 left 2-5 stale "Error" entries in about 1 run of 8).  The CDP event Runtime.consoleAPICalled carries the argument's description with the event itself: noise() is called from
+   *  there and takes one bare "Error" entry back out of `errors` or, when Playwright's copy of the message has not arrived yet, banks a credit that the console handler spends on it.  The outcome does not
+   *  depend on the order of the two events or on how long the page lives. */
+  noise() {
+    const i = this.errors.findIndex((e) => e.kind === 'console.error' && e.text === 'Error');
+    if (i >= 0) this.errors.splice(i, 1); else this.noiseCredit++;
+    this.ignored.tile++;
   }
   get firstParty() { return this.errors.filter((e) => e.kind === 'pageerror' || e.kind === 'console.error' || e.kind === 'worker-exception'); }
   assertClean(label = '') {
@@ -175,6 +185,7 @@ async function attachSession({ chrome, cdp, profileDir, onboarded, tiles, viewpo
   });
   cdp.on('Network.responseReceived', (p) => {
     if (isMapbox(p.response.url)) tileStats.status[p.response.status] = (tileStats.status[p.response.status] || 0) + 1;
+    if (process.env.T0_DEBUG_TILES && isMapbox(p.response.url) && p.response.status >= 300) console.log('[tiles]', p.response.status, maskToken(p.response.url).slice(0, 150));
   });
   cdp.on('Runtime.exceptionThrown', (p, sid) => {
     const t = targets.get(sid) || {};
@@ -182,6 +193,14 @@ async function attachSession({ chrome, cdp, profileDir, onboarded, tiles, viewpo
     if (t.type === 'page' || t.type === 'worker' || !t.type) return;
     const d = p.exceptionDetails;
     collector.push('worker-exception', (d.exception && d.exception.description) || d.text, { target: t.type, url: t.url });
+  });
+  cdp.on('Runtime.consoleAPICalled', (p) => {
+    if (p.type !== 'error') return;
+    const a = p.args && p.args[0];
+    // the Error Mapbox logs for a failed glyph/tile fetch has no stack (description "Error"); its message is in the preview CDP attaches to the event ("Failed to fetch https://api.mapbox.com/fonts/v1/...", long values
+    // are cut in the middle, the beginning is kept)
+    const msg = a && a.className === 'Error' && a.preview && (a.preview.properties || []).find((x) => x.name === 'message');
+    if (msg && collector.tileFailuresExpected() && /^Failed to fetch https:\/\/(api|events|[a-d]\.tiles)\.mapbox\.com\//.test(String(msg.value))) collector.noise();
   });
   cdp.on('Fetch.requestPaused', (p, sid) => {
     const url = p.request.url;
@@ -232,7 +251,11 @@ async function attachSession({ chrome, cdp, profileDir, onboarded, tiles, viewpo
       if (m.type() !== 'error') return;
       const text = m.text(); const url = m.location().url || '';
       if (collector.tileNoise(text, url)) { collector.ignored.tile++; return; }
+      if (text === 'Error' && collector.noiseCredit > 0) { collector.noiseCredit--; return; }     // its CDP twin was classified first (Collector.noise)
       collector.push('console.error', text, { url });
+      // A tree whose map style is inline (group BASE1863) fetches only Mapbox glyphs; when the harness blocks or caps Mapbox requests that fetch rejects and the page logs a plain
+      // console.error(Error("Failed to fetch https://api.mapbox.com/fonts/...")) whose text is just "Error".  Those are classified from the CDP event (cdp.on('Runtime.consoleAPICalled') above,
+      // Collector.noise) and kept out of collector.errors; a bare "Error" that is not such a fetch stays in it.
     });
     page.on('requestfailed', (r) => { const u = r.url(); if (!isMapbox(u) && !/^(data|blob):/.test(u)) collector.failedRequests.push({ url: maskToken(u), failure: r.failure() && r.failure().errorText }); });
     page.on('response', (r) => { const u = r.url(); if (r.status() >= 400 && !isMapbox(u)) collector.badResponses.push({ url: u, status: r.status() }); });
@@ -375,7 +398,7 @@ export function createSuite(name) {
         const t0 = Date.now();
         let status = 'pass', error = null;
         try { await t.fn(ctx); } catch (e) {
-          if (e instanceof Skip) { status = 'skip'; error = e.message; } else { status = 'fail'; error = String(e && e.stack ? e.stack.split('\n').slice(0, 4).join(' | ') : e); }
+          if (e instanceof Skip) { status = 'skip'; error = e.message; } else { status = 'fail'; error = String(e && e.stack ? e.stack.split('\n').slice(0, process.env.T0_FULL_ERRORS ? 400 : 4).join(process.env.T0_FULL_ERRORS ? '\n' : ' | ') : e); }
         }
         results.push({ id: t.id, title: t.title, status, ms: Date.now() - t0, error, notes });
         console.log(`${status === 'pass' ? 'PASS' : status === 'skip' ? 'SKIP' : 'FAIL'}  ${t.id.padEnd(12)} ${t.title}${status === 'pass' ? '' : `\n      ${error}`}`);

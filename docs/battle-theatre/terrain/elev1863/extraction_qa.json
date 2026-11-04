@@ -1,0 +1,167 @@
+{
+ "method": "random fragments (>= 60 px) drawn in red over the scan crop next to the raw crop (scratch montages), judged by eye by the extractor: PASS = the whole fragment follows one real contour line; FAIL = it leaves the contour (tree glyph, fence, road, building, neatline)",
+ "caveat": "one reviewer (the author of the extractor); no second reader; judged on the fragment geometry, not on its level",
+ "sample_all_selected_fragments": {
+  "n": 40,
+  "seed": 2026,
+  "pass": 28,
+  "fail": 12,
+  "pass_rate": 0.7,
+  "fragment_ids": [
+   42,
+   8253,
+   3676,
+   4869,
+   7754,
+   3608,
+   4973,
+   4640,
+   5160,
+   1588,
+   3341,
+   3704,
+   7971,
+   1275,
+   9593,
+   1899,
+   558,
+   250,
+   5744,
+   4572,
+   3641,
+   7424,
+   6141,
+   426,
+   8880,
+   8375,
+   9696,
+   5607,
+   232,
+   324,
+   727,
+   3673,
+   8826,
+   3947,
+   8841,
+   7558,
+   5176,
+   3383,
+   3424,
+   6412
+  ],
+  "failures": {
+   "8253": {
+    "sample_no": 1,
+    "why": "wanders through tree glyphs in dense woods"
+   },
+   "3676": {
+    "sample_no": 2,
+    "why": "traces a single tree glyph outline"
+   },
+   "4973": {
+    "sample_no": 6,
+    "why": "follows a road/fence double line, not a contour"
+   },
+   "3341": {
+    "sample_no": 10,
+    "why": "follows building blocks in the borough"
+   },
+   "7971": {
+    "sample_no": 12,
+    "why": "follows a wavy fence/boundary line"
+   },
+   "9593": {
+    "sample_no": 14,
+    "why": "wanders along tree glyphs in woods"
+   },
+   "558": {
+    "sample_no": 16,
+    "why": "jumps between a contour and a tree edge"
+   },
+   "250": {
+    "sample_no": 17,
+    "why": "loops through tree glyphs"
+   },
+   "426": {
+    "sample_no": 23,
+    "why": "wanders in dense woods"
+   },
+   "9696": {
+    "sample_no": 26,
+    "why": "follows the neatline frame"
+   },
+   "5176": {
+    "sample_no": 36,
+    "why": "wanders in woods"
+   },
+   "6412": {
+    "sample_no": 39,
+    "why": "wanders in woods"
+   }
+  },
+  "failure_types": {
+   "dense woods / tree glyphs": 8,
+   "road or fence line": 2,
+   "town buildings": 1,
+   "neatline frame": 1
+  }
+ },
+ "sample_trusted_fragments": {
+  "n": 30,
+  "seed": 77,
+  "pass": 26,
+  "fail": 4,
+  "pass_rate": 0.867,
+  "fragment_ids": [
+   302,
+   1504,
+   5526,
+   5816,
+   439,
+   393,
+   66,
+   232,
+   6513,
+   716,
+   104,
+   126,
+   7269,
+   2447,
+   6691,
+   7565,
+   5870,
+   5727,
+   583,
+   7328,
+   76,
+   4279,
+   2895,
+   925,
+   961,
+   1547,
+   6868,
+   7439,
+   6630,
+   121
+  ],
+  "failures": {
+   "439": {
+    "sample_no": 4,
+    "why": "follows a wavy road/stream edge line"
+   },
+   "716": {
+    "sample_no": 9,
+    "why": "upper part follows a wavy fence line"
+   },
+   "126": {
+    "sample_no": 11,
+    "why": "follows the heavy neatline-adjacent line"
+   },
+   "7565": {
+    "sample_no": 15,
+    "why": "partly follows a field boundary and tree edge"
+   }
+  }
+ },
+ "consequence": "about 30 percent of the selected fragments are not clean contours (mostly in woods); the level walk and the 3 m-class error figures include their effect; woods and the town are the weakest areas and are not separately masked"
+}

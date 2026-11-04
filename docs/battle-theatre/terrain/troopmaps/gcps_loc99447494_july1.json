@@ -1,0 +1,149 @@
+{
+ "map": "LOC 99447494 'Battle of Gettysburg, July 1, 1863. First day. General position of troops, 2 to 3.30 p.m.' (Wikimedia Commons copy of the LOC scan, 4462x4943 px)",
+ "method": "Hand pairs read by eye between the map (zoom crops, 100 px ticks) and the georeferenced Warren 1869 raster (tmp/b1863/maps/georef/warren-1869.tif, 3 m/px preview with 250 m ticks, tools/bt/troopmaps/wcrop.py). Ground E,N are read from the Warren raster, so they inherit the Warren absolute error (leave-one-out 16.5 m) on top of the reading error. Each Warren position is read to about +-8 preview px (about 20 m), each map position to about +-8 px (about 16 m). This is a coarse georeference.",
+ "pairs": [
+  {
+   "id": "J01",
+   "name": "Herr Tavern buildings",
+   "map_px": [
+    1307,
+    1060
+   ],
+   "en": [
+    306510,
+    4412849
+   ],
+   "sigma_read_m": 25
+  },
+  {
+   "id": "J02",
+   "name": "E. McPherson buildings",
+   "map_px": [
+    1781,
+    1316
+   ],
+   "en": [
+    307372,
+    4412184
+   ],
+   "sigma_read_m": 25
+  },
+  {
+   "id": "J03",
+   "name": "Chambersburg Pike bridge over Willoughby Run",
+   "map_px": [
+    1586,
+    1034
+   ],
+   "en": [
+    307019,
+    4412772
+   ],
+   "sigma_read_m": 25
+  },
+  {
+   "id": "J04",
+   "name": "D. Finnefrock house",
+   "map_px": [
+    1292,
+    1905
+   ],
+   "en": [
+    306400,
+    4411068
+   ],
+   "sigma_read_m": 25
+  },
+  {
+   "id": "J05",
+   "name": "Diamond, Gettysburg",
+   "map_px": [
+    2677,
+    1653
+   ],
+   "en": [
+    309040,
+    4411383
+   ],
+   "sigma_read_m": 25
+  },
+  {
+   "id": "J06",
+   "name": "Railroad crossing of Rock Creek",
+   "map_px": [
+    3175,
+    1393
+   ],
+   "en": [
+    310038,
+    4411818
+   ],
+   "sigma_read_m": 25
+  },
+  {
+   "id": "J07",
+   "name": "Hanover Road crossing of Rock Creek",
+   "map_px": [
+    3257,
+    1636
+   ],
+   "en": [
+    310218,
+    4411357
+   ],
+   "sigma_read_m": 25
+  },
+  {
+   "id": "J08",
+   "name": "Wm. Culp house",
+   "map_px": [
+    3005,
+    1721
+   ],
+   "en": [
+    309669,
+    4411223
+   ],
+   "sigma_read_m": 25
+  },
+  {
+   "id": "J09",
+   "name": "Benner's Hill summit",
+   "map_px": [
+    3441,
+    1884
+   ],
+   "en": [
+    310477,
+    4410796
+   ],
+   "sigma_read_m": 30
+  },
+  {
+   "id": "J10",
+   "name": "County Almshouse buildings",
+   "map_px": [
+    2880,
+    1120
+   ],
+   "en": [
+    309486,
+    4412446
+   ],
+   "sigma_read_m": 30
+  },
+  {
+   "id": "J11",
+   "name": "Culp's Hill summit (Warren GCP W001 ground)",
+   "map_px": [
+    3155,
+    2247
+   ],
+   "en": [
+    309954,
+    4410155
+   ],
+   "sigma_read_m": 30
+  }
+ ]
+}

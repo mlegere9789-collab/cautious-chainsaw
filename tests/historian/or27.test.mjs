@@ -42,14 +42,17 @@ test('OR-1 provenance: every file fetched has its URL, fetch time, sha256, size,
   assert.deepEqual(MAN.sources.find((p) => p.source === 'or27-1' && p.role === 'run-report').missing_numbers, [161], 'the one report not found is named, not hidden');
 });
 
-test('OR-2 counts: 588 of the 589 numbered reports, 3,178 dispatches, 8,405 passages; a document\'s passages are its words; every report has its page and its scan', () => {
+test('OR-2 counts: 588 of the 589 numbered reports, 3,222 dispatches, 8,414 passages; a document\'s passages are its words; every report has its page and its scan', () => {
   // the first build held 3,533 documents, 8,232 passages and 2,945 dispatches (2,939 with text); the rebuild cuts Part 3 at 3,178 dispatches and counts the one table with no text apart
-  assert.deepEqual(MAN.totals, {"documents":3766,"passages":8405,"words":1323095,"reports_found":588,"dispatches":3178,"tables_without_text":1});
+  // R1e (2026-10-22), the third build: Part 3 is cut at 3,222 dispatches (3,178 before: 21 documents glued under one signature were parted by datelines the OCR damaged - "June z4", "4.5.0 p. m.", "1863^-5", a bracketed day -, and 23 more returns are
+  // cut at their table headings: 34 rows of kind 'return', 11 before), 15 tables apart with no text (1 before), 8,414 passages (8,405) of 1,321,161 words (1,323,095: the running-head fragments, the footnotes and the printer's
+  // sheet marks that were still in the text are out). Counted independently of the manifest from the files of the build: historian-src/raw/or27/docs.jsonl 3,810 lines (588 + 3,222), passages.jsonl 8,414 lines whose words add to 1,321,161.
+  assert.deepEqual(MAN.totals, {"documents":3810,"passages":8414,"words":1321161,"reports_found":588,"dispatches":3222,"tables_without_text":15});
   const reports = J('historian-src/corpus/or27/reports.json').reports; assert.equal(reports.length, 588);
   assert.equal(reports.filter((r) => r.kind === 'report').length, 573);
   for (const r of reports) { assert.ok(r.pages && Number.isFinite(r.pages.start) || r.confidence !== 'A', r.id); if (r.scan) assert.match(r.scan.url, /^https:\/\/archive\.org\/details\/warofrebellion27[12]unit\/page\/n\d+\/mode\/1up$/); }
   assert.ok(reports.filter((r) => r.scan).length >= 560, 'a scan link for nearly every report');
-  const d = J('historian-src/corpus/or27/dispatches.json'); assert.equal(d.rows.length, 3178); assert.ok(d.rows.every((r) => r[d.fields.indexOf('passages')] > 0), 'every row of the dispatch table has text'); assert.ok(d.fields.includes('signer_link') && d.fields.includes('signer_tier'));
+  const d = J('historian-src/corpus/or27/dispatches.json'); assert.equal(d.rows.length, 3222); assert.ok(d.rows.every((r) => r[d.fields.indexOf('passages')] > 0), 'every row of the dispatch table has text'); assert.ok(d.fields.includes('signer_link') && d.fields.includes('signer_tier'));
   const t = J('historian-src/corpus/or27/time_claims.json'); assert.equal(t.rows.length, MAN.time.claims); assert.ok(t.fields.includes('leaf') && t.fields.includes('page'), 'a claim carries the printed page and the scan leaf of ITS page, not of the report\'s first page');
 });
 
@@ -178,13 +181,17 @@ test('OR-8 time proposals: 36 attached claims read against their events; tier F 
   for (const i of F.items) {
     const ev = TE.events[i.event]; assert.ok(ev, i.event);
     const c = ev.claims.find((x) => x.text === i.claim.text && x.author === i.claim.author && flat(x.sentence).startsWith(i.claim.sentence.slice(0, 80)));
+    // a claim the hand check labelled "not about the event" may drop out (R1e: the site's own minute of D3T515 moved from 11:00 to 10:30 AM with the adjudicated clock, so Col. Packer's "12 m." is 90 minutes away and no longer
+    // a tier F candidate: a false positive less); one the check found "about the event" must still be proposed, in the tier it was checked in
+    if (!c && i.label === 'not about the event') continue;
     assert.ok(c, `${i.event}: "${i.claim.text}" by ${i.claim.author} is no longer proposed`); assert.equal(c.tier, i.tier, `${i.event}: the tier of a hand-checked claim moved`);
   }
   assert.match(TE.status, /^PROPOSALS: nothing here is shown to a reader/); assert.equal(Object.keys(TE.events).length, 137);
   const tiers = { A: 0, B: 0, F: 0, C: 0 }; let n = 0;
   for (const e of Object.values(TE.events)) for (const k of 'ABFC') tiers[k] += e.tiers[k];
   // the hand check was drawn from a table of A 1, B 5, F 68, C 434 (494 claims); the day register has been corrected since (a bare ordinal that turns over the end of June, "the 1st instant" in a document of two reports, a clock followed by "on the following morning"), which moved 4 claims into tier F and 19 into C; every one of the 36 checked claims is still proposed, in its tier (above)
-  assert.deepEqual(tiers, { A: 1, B: 5, F: 72, C: 453 }, 'the tier counts of the rebuilt table');
+  // R1e: C 453 -> 454: the knowledge base is rebuilt with the adjudicated clock (hx is no longer stale), which moves the site's own minute of three events and so their tiers: D2T248 F 1 -> 2, D2T304 C 13 -> 14, D3T515 F 3 -> 2 (compared with the table before the rebuild). Counted from the table: A 1, B 5, F 72, C 454.
+  assert.deepEqual(tiers, { A: 1, B: 5, F: 72, C: 454 }, 'the tier counts of the rebuilt table');
   for (const e of Object.values(TE.events)) for (const c of e.claims) {
     n++; assert.ok(Number.isInteger(c.min) && c.min >= 0 && c.min < 1440, 'a minute of the day'); assert.ok(Number.isInteger(c.page) && Number.isInteger(c.leaf), `${c.passage}: printed page and scan leaf`);
     assert.ok(['A', 'B', 'F', 'C'].includes(c.tier)); assert.ok(['report', 'dispatch-header', 'dispatch-body'].includes(c.evidence)); assert.ok(/^or27-[123]:/.test(c.passage));
@@ -262,8 +269,9 @@ test('OR-13 whom a dispatch is from and to: a surname that ends in s is found (t
   r = await ask('what did Humphreys write to Howard on July 12');
   assert.ok(r.qs.length >= 1 && r.qs.every((b) => b.passage.startsWith('or27-3:p0664.2#')), r.qs.map((b) => b.passage).join());
   r = await ask('what did Sykes write to Meade on July 6');
-  // refinement with the engine fix (c): none of his dispatches of July 6 is addressed to Meade (all three went to Howard), which the answer now says, and it shows them, the one that names Meade first
-  assert.ok(r.qs.length >= 1 && r.qs[0].passage.startsWith('or27-3:p0560.3#') && r.qs.every((b) => /^or27-3:p05[56]\d\.\d#/.test(b.passage)), r.qs.map((b) => b.passage).join());
+  // refinement with the engine fix (c): none of his dispatches of July 6 is addressed to Meade (all three went to Howard), which the answer now says, and it shows them, the one that names Meade among them.
+  // R1e-ACC (2026-10-22): a day asked of a sender shows up to four dispatches (it showed two), so all three of the day are quoted, in the order of the volume; the one that names Meade is no longer first by being one of two.
+  assert.ok(r.qs.length === 3 && r.qs.some((b) => b.passage.startsWith('or27-3:p0560.3#')) && r.qs.length >= 1 && r.qs.every((b) => /^or27-3:p05[56]\d\.\d#/.test(b.passage)), r.qs.map((b) => b.passage).join());
   assert.match(r.a.text, /None of .*Sykes.* dispatches of July 6 is addressed to “Meade”; the 3 he wrote that day went to General Howard/);
   r = await ask('what did Pleasonton write to Williams on June 4');
   // the wording changed with the engine fix (c): the answer says what was searched, not only that nothing was found

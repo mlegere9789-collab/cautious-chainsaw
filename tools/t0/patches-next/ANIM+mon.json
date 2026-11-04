@@ -8,6 +8,22 @@
    "find": "function unitsNow(){var st=yn.getState(),pbt=st.placementsByTick||{},t=st.currentTick,u={},k,a,j;",
    "repl": "function unitsNow(){var st=yn.getState(),pbt=st.placementsByTick||{},t=st.currentTick,u={},k,a,j;if(GTANIM.on()){var gtd=GTANIM.drawn();if(gtd)return gtd}",
    "note": "ONLY with MON (the anchor lies in the MON runtime): the Monuments click arbitration asks which unit is nearest to the pointer; it must use the positions the engine drew, not the latest keyframe"
+  },
+  {
+   "id": "ANIM:mon-unitdist",
+   "target": "js",
+   "expect": 1,
+   "find": "function unitDist(o,x,y){var L,i,p,d=1e9,e;if(yn.getState().showUnits===false)return d;L=unitsNow();",
+   "repl": "function unitDist(o,x,y){var L,i,p,d=1e9,e;if(yn.getState().showUnits===false)return d;if(GTANIM.on()){try{var gz=window.__gtanim.S,gc=gz.canvas.getBoundingClientRect(),gm=o.map.getContainer().getBoundingClientRect(),gx=x+gm.left-gc.left,gy=y+gm.top-gc.top,gq=o.layout===\"phone\"?14:4,gh=gz.core.pickAt(gx,gy,gq),gt=gh&&gh.kind===\"unit\"&&gh.tile,gf=gz.core.frame;if(gt&&gt.kind===\"leaf\"&&Math.abs(gx-gt.x-gf.view.dx)<=gt.w*gt.scale/2+gq&&Math.abs(gy-gt.y-gf.view.dy)<=gt.h*gt.scale/2+gq)return 0}catch(e){}}L=unitsNow();",
+   "note": "ONLY with MON: a pointer inside the box of a unit mark the engine drew (the same box test as the engine picker, mouse reach 4 px, finger 14 px) is on that unit, whatever the distance of its true place: the unit wins over a monument dot or story star under its mark (VMON-04: 4 of 4 selectable units under a dot opened the monument card instead, R1d and R1e before this hook). Outside every mark box the old rule (distance to the true place) stands"
+  },
+  {
+   "id": "ANIM:mon-unitpos",
+   "target": "js",
+   "expect": 1,
+   "find": "function unitPos(id){var L=unitsNow(),k;",
+   "repl": "function unitPos(id){var L=(GTANIM.on()&&GTANIM.units(yn.getState().placementsByTick,yn.getState().currentTick,0))||unitsNow(),k;",
+   "note": "ONLY with MON: Jump to this moment frames the star and its unit from the place of the unit AT the tick of the star (the model state the engine lands on), not from where the mark happens to be drawn while the clock is still gliding to that tick"
   }
  ]
 }

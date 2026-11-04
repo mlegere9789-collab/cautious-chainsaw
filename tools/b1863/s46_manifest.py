@@ -29,7 +29,13 @@ def main():
         commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=C.ROOT).decode().strip()
     except Exception:
         commit = None
+    try:
+        ps = json.load(open(os.path.join(C.BUILD, 'prov_stats.json')))['classes']
+        class_ha = {k: v['ha'] for k, v in ps.items()}
+    except Exception:
+        class_ha = {}
     man = dict(
+        class_areas_ha=class_ha,
         title='Reconstruction of Gettysburg, July 1863, base map tiles',
         label='RECONSTRUCTION. No aerial photograph of 1863 exists. This is a modern public-domain aerial photograph (USDA NAIP, 2013-06-04, 1 m) with post-1863 features removed and 1863 features added from period maps and records. '
               'It is not an exact replica and no accuracy of 100 percent is claimed: every changed region and every added feature is listed in the provenance layer (docs/basemap1863/PROVENANCE-LAYER) with its sources, method, positional error and confidence. What is unknown is left as photographed or neutral.',

@@ -1,0 +1,109 @@
+{
+  "runs": [
+    {
+      "startedAt": "2026-10-20T08:17:09.942Z",
+      "dryRun": true,
+      "wantPasses": 1,
+      "soakSeconds": 120,
+      "fullAccuracy": false,
+      "candidate": "deliver\\gettysburg-R1c-2531699e-PRODUCTION.zip",
+      "train": "R1c",
+      "passes": [
+        {
+          "n": 1,
+          "exit": 1,
+          "seconds": 4232,
+          "verdict": "DEFECTS",
+          "defects": 112,
+          "notRun": [],
+          "zipSha256": "4b6799863d7f242edc4a2bea98be0028c2dbab214e66c621eb971e8e876d9452",
+          "harness": "30cce50bfbdf815a103231ea30e15341971b4a04de33749de9119e8096b77a4d",
+          "soakSeconds": 120,
+          "perCheck": [
+            {
+              "id": "1",
+              "title": "Deterministic zip (hash equals the previous pass)",
+              "status": "RAN",
+              "defects": 0,
+              "partial": 0
+            },
+            {
+              "id": "2",
+              "title": "Static hygiene",
+              "status": "RAN",
+              "defects": 0,
+              "partial": 0
+            },
+            {
+              "id": "3",
+              "title": "Regression against the published build",
+              "status": "RAN",
+              "defects": 53,
+              "partial": 0
+            },
+            {
+              "id": "4",
+              "title": "Input matrix (desktop + phone)",
+              "status": "RAN",
+              "defects": 13,
+              "partial": 0
+            },
+            {
+              "id": "5",
+              "title": "Performance",
+              "status": "RAN",
+              "defects": 5,
+              "partial": 0
+            },
+            {
+              "id": "6",
+              "title": "Accuracy (verify_release + test subset)",
+              "status": "RAN",
+              "defects": 5,
+              "partial": 0
+            },
+            {
+              "id": "7",
+              "title": "Visual QA at six widths",
+              "status": "RAN",
+              "defects": 20,
+              "partial": 0
+            },
+            {
+              "id": "8",
+              "title": "Copy audit",
+              "status": "RAN",
+              "defects": 16,
+              "partial": 0
+            }
+          ],
+          "file": "docs\\accept\\dryrun\\pass-1.json",
+          "firstDefects": [
+            "[3] file-missing @ assets/InterpolationWorker-ufiwa2-e.js: assets/InterpolationWorker-ufiwa2-e.js is on the published build and not in the candidate",
+            "[3] data-regressed @ manifest.json: 1 regression(s): /orientation: key removed",
+            "[3] screenshot-differs @ aftermath@1440: 2.758% of pixels differ (limit 0.20%); page size 1425x1265 -> 1425x1266; bbox [72,5,1366,1235]; worst regions [[534,843,713,1054],[534,422,713,633],[534,633,713",
+            "[4] long-task-during-interaction @ desktop /compare :: button \"Dark\": click: long task(s) [64] ms (limit 50 ms)",
+            "[4] slow-response @ desktop /compare :: button \"3D Terrain\": click: 178.2 ms from input to visible change (limit 100 ms; dom 3.3, paint 178.2, event timing 192)",
+            "[4] long-task-during-interaction @ desktop /compare :: button \"3D Terrain\": click: long task(s) [164] ms (limit 50 ms)",
+            "[5] tbt @ phone /compare: TBT proxy 211 ms > 200 ms (7 long tasks; cpu 4x)",
+            "[5] tbt @ phone /ground-remembers: TBT proxy 615 ms > 200 ms (9 long tasks; cpu 4x)",
+            "[5] tbt @ phone /immersive: TBT proxy 232 ms > 200 ms (7 long tasks; cpu 4x)",
+            "[6] suite-failed @ copy-spec: exit 1; copy-truthful-subset: 2/4 passed, 2 FAILED|copy-truthful-subset|2|4||2; FAIL  T0-CP-01     string level: each shipped row present once before / gone aft",
+            "[6] suite-failed @ headers: exit 1; headers: 13/18 passed, 4 skipped, 1 FAILED|headers|13|18|4|1; FAIL  HDR-24       the DEFAULT R1c build (the opt-in legal group is NOT included): privacy",
+            "[6] suite-failed @ data-test: --test tests/data/*.test.mjs: exit 1: ...ew-norm.json', 'data-src/sources-v2/qc/review-pass1-r2.json', 'data-src/sources-v2/qc/review-pass1.json', 'data-src/sources-v2/qc/review-pass2-r2.jso"
+          ]
+        }
+      ],
+      "status": "DEFECT FOUND (counter reset to 0)",
+      "consecutiveClean": 0,
+      "snapshot": {
+        "zip": "4b6799863d7f242edc4a2bea98be0028c2dbab214e66c621eb971e8e876d9452",
+        "harness": "30cce50bfbdf815a103231ea30e15341971b4a04de33749de9119e8096b77a4d",
+        "baseline": "72b47b7abe633c0180431a837d42c4c45e08ce491c1d45efb599f085780024df",
+        "builtDist": "b279998713873674dcb921431aac69615063146736c6297bc8df758826204a3f"
+      },
+      "stoppedAt": 1,
+      "finishedAt": "2026-10-20T09:27:41.848Z"
+    }
+  ]
+}

@@ -1,0 +1,3696 @@
+{
+ "_doc": "Item-by-item comparison of Hardee (1861 printings of the 1855 text) with Casey (1862), settling PDF gap G19 'Hardee vs Casey differences' for the loading and firing drill, the bayonet drill, the firings of company and battalion, the skirmisher instruction and the bugle/drum calls. Each row cites both manuals (item ids resolve in drill_hardee.json / drill_infantry.json), gives the OCR line windows of the two passages compared, and the machine-recomputed similarity. Statuses: identical (same wording apart from OCR noise), differs (phrases that occur on one side only), absent_hardee / absent_casey (present in one manual and a regex finds nothing in the other), unsettled (OCR does not allow a decision).",
+ "schema_version": 1,
+ "built_from": "tools/bt/drill_build.py (rows in drill_data_hardee.py; metrics from drill_paras.py)",
+ "sources": {
+  "CASEY-1862-1": {
+   "title": "Casey, Infantry Tactics vol. 1 (Schools of the Soldier and Company, Skirmishers), Van Nostrand 1863 (copyright 1862)",
+   "ocr_file": "tmp/library/misc/infantrytacticsf01brig_djvu.txt",
+   "archive_identifier": "infantrytacticsf01brig",
+   "sha256": "6c2b898c02cfc9eabb62c68ae3f68740849c5650876daaef7fe961552514b7fa",
+   "acquired_json_source_id": "CASEY-1862-1",
+   "licence": "archive.org item; published 1862 (pre-1929, US public domain); OCR unverified",
+   "ocr_quality_note": "raw archive.org djvu text, uncorrected; page images were not inspected"
+  },
+  "CASEY-1862-2": {
+   "title": "Casey, Infantry Tactics vol. 2 (School of the Battalion), Van Nostrand 1862",
+   "ocr_file": "tmp/library/misc/infantrytacticsf02case_djvu.txt",
+   "archive_identifier": "infantrytacticsf02case",
+   "sha256": "8155e5e59d3c3fcf16ac3f2ea577cfa0a1480639513509b34b6dd80bb3396ef2",
+   "acquired_json_source_id": "CASEY-1862-2",
+   "licence": "archive.org item; published 1862 (pre-1929, US public domain); OCR unverified",
+   "ocr_quality_note": "raw archive.org djvu text, uncorrected; page images were not inspected"
+  },
+  "HARDEE-1861a": {
+   "title": "Hardee, Rifle and Light Infantry Tactics complete in one volume, Memphis 1861 (OCR is poor; running-head page numbers are mostly lost, so no printed page is recovered from this copy)",
+   "ocr_file": "tmp/library/misc/hardeesrifleligh01hard_djvu.txt",
+   "archive_identifier": "hardeesrifleligh01hard",
+   "sha256": "80ad465e3728752415ce71a94d1f4ae6e8a28968a764e4a3a5587a5184422a37",
+   "acquired_json_source_id": "HARDEE-1861a",
+   "licence": "archive.org item, 1861 (pre-1929 US public domain); OCR unverified",
+   "ocr_quality_note": "raw archive.org djvu text, uncorrected; page images were not inspected"
+  },
+  "HARDEE-1861b": {
+   "title": "Hardee, Rifle and Light Infantry Tactics, Richmond: J. W. Randolph 1861 (vol. 1 = Schools of the Soldier and Company, Instruction for Skirmishers; vol. 2 = School of the Battalion; page numbers restart in vol. 2)",
+   "ocr_file": "tmp/library/misc/riflelightinfant121hard_djvu.txt",
+   "archive_identifier": "riflelightinfant121hard",
+   "sha256": "1bc521fe61ba9412d08118d1c688550d470cb726844e6c4df084eceafee49ddf",
+   "acquired_json_source_id": "HARDEE-1861b",
+   "licence": "archive.org item, 1861 (pre-1929 US public domain); OCR unverified",
+   "ocr_quality_note": "raw archive.org djvu text, uncorrected; page images were not inspected"
+  }
+ },
+ "summary": {
+  "rows": 64,
+  "by_status": {
+   "absent_hardee": 4,
+   "differs": 8,
+   "identical": 51,
+   "unsettled": 1
+  },
+  "differences": [
+   {
+    "row": "CMP-S02",
+    "topic": "load_in_nine_times",
+    "diff": "Casey adds the rifle-musket variant (right hand just below the upper band, muzzle 8 in. from the body); Hardee has no musket variant."
+   },
+   {
+    "row": "CMP-S04",
+    "topic": "load_in_nine_times",
+    "diff": "Hardee: unconditional footnote on the cartridge boxes; Casey: numbered paragraph conditioned on boxes slung upon the waist-belt."
+   },
+   {
+    "row": "CMP-S17",
+    "topic": "aim_remarks",
+    "diff": "Casey-only note on using the rear sight at high elevation when deployed as a skirmisher."
+   },
+   {
+    "row": "CMP-S20",
+    "topic": "fix_bayonet",
+    "diff": "Hardee: sabre-bayonet only. Casey: generic \"bayonet\" plus rifle-musket variants (muzzle 8 in., clasp)."
+   },
+   {
+    "row": "CMP-S22",
+    "topic": "unfix_bayonet",
+    "diff": "Casey adds a complete rifle-musket (socket bayonet) unfixing method; Hardee has the sabre-bayonet method only."
+   },
+   {
+    "row": "CMP-S25",
+    "topic": "inspection_of_arms",
+    "diff": "Casey adds the 8 in. muzzle for the rifle musket and drops \"sabre\" before bayonet."
+   },
+   {
+    "row": "CMP-B08",
+    "topic": "light_companies",
+    "diff": "Casey designates two companies of skirmishers per battalion and tells them not to fire in the battalion fires; Hardee has no such company."
+   },
+   {
+    "row": "CMP-K06",
+    "topic": "skirmishers_rally",
+    "diff": "Casey adds re-deployment commands after a rally; the rally on the battalion is in Hardee's skirmisher instruction and in Casey's volume 2."
+   },
+   {
+    "row": "CMP-K07",
+    "topic": "skirmishers_battalion",
+    "diff": "Casey names senior and junior majors and adds the two skirmisher companies to the reserve arrangement."
+   },
+   {
+    "row": "CMP-L01",
+    "topic": "bugle_general_calls",
+    "diff": "Casey has one more general bugle call (Signal of execution)."
+   },
+   {
+    "row": "CMP-L04",
+    "topic": "drum_beats",
+    "diff": "Hardee (rifle and light infantry) has bugle calls only; Casey adds the drum beats and the drum-major's staff signals."
+   },
+   {
+    "row": "CMP-L05",
+    "topic": "drum_major_signals",
+    "diff": "Hardee has no drum-major signals."
+   }
+  ],
+  "method": "identical = letters-only difflib similarity of the two OCR windows >= 0.80, at most max(5, 15 percent) real content words (>= 5 letters, in the ordinary vocabulary of the manuals) on either side without a near match on the other, and at most 35 percent unmatched OCR-garbled tokens (drill_paras.is_identical); differs = at least one verbatim phrase that occurs in one window and not in the other; absent_hardee/absent_casey = verbatim phrase in one manual and a regular expression with zero hits in every OCR text of the other; unsettled = OCR does not allow a decision. All numbers are recomputed by tools/bt/drill_check.py.",
+  "g19": "Hardee (1855 text, 1861 printings) and Casey (1862) carry the same loading and firing drill: the nine times (Load, Handle, Tear, Charge, Draw rammer, Ram, Return rammer, Prime, Shoulder arms), load in four times and at will, Ready/Aim/Fire/Load, the fires by squad, oblique, file, rank, company, wing, battalion, kneeling and lying, the bayonet drill and the skirmisher firings agree in wording. Differences of substance: rifle-musket alternatives in Load (muzzle 8 in.), Fix bayonet, Unfix bayonet and Inspection (Casey only); \"sabre-bayonet\" in Hardee against \"bayonet\" in Casey; the cartridge-box note (footnote in Hardee, conditional numbered paragraph in Casey); a Casey plate note on the rear sight; re-deployment commands after a rally and senior/junior majors in the skirmisher instruction (Casey); the two light companies per battalion that do not fire with the line (Casey, suspended by the 11 August 1862 order); one more general bugle call (Signal of execution), the drum beats and the drum-major signals (Casey). Paragraph numbers differ (Casey S.S. = Hardee + 7 to para 186, then + 9 after the two inserted paras 194-195; Casey S.B. = Hardee + 6)."
+ },
+ "rows": [
+  {
+   "id": "CMP-S01",
+   "topic": "cadence",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. paras 128-131",
+    "items": [
+     "HAR-S01"
+    ],
+    "lines": [
+     [
+      1111,
+      1147
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. paras 135-138",
+    "items": [
+     "INF-GEN-01"
+    ],
+    "lines": [
+     [
+      1420,
+      1463
+     ]
+    ]
+   },
+   "similarity": 0.9742,
+   "unmatched_content_words": {
+    "hardee": 1,
+    "casey": 1,
+    "hardee_tokens": 102,
+    "casey_tokens": 102,
+    "hardee_words": [
+     "tvill"
+    ],
+    "casey_words": [
+     "soldiee"
+    ]
+   },
+   "says": "Every command of the manual of arms is one time, split into numbered motions; each motion runs at one ninetieth of a minute, except the cartridge, rammer and (un)fixing-bayonet motions, which have no fixed cadence and are done promptly and regularly; the last syllable of the command triggers motion one and the spoken two, three, four trigger the later motions."
+  },
+  {
+   "id": "CMP-S02",
+   "topic": "load_in_nine_times",
+   "status": "differs",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. para 156 (time 1: Load)",
+    "items": [
+     "HAR-S02"
+    ],
+    "lines": [
+     [
+      1314,
+      1324
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. para 163 (time 1: Load)",
+    "items": [
+     "HCS-S02"
+    ],
+    "lines": [
+     [
+      1683,
+      1708
+     ]
+    ]
+   },
+   "similarity": 0.7851,
+   "unmatched_content_words": {
+    "hardee": 0,
+    "casey": 4,
+    "hardee_tokens": 27,
+    "casey_tokens": 37,
+    "hardee_words": [],
+    "casey_words": [
+     "rifle",
+     "musket",
+     "loadko",
+     "oarteide"
+    ]
+   },
+   "only_casey": [
+    "If the rifle musket is used the right hand will be shifted",
+    "The muzzle will be eight inches from the body."
+   ],
+   "says_h": "Time 1 \"Load\" (one time, one motion): left hand grasps the piece as high as the right elbow, piece brought vertical in front of the body, right hand shifted to the upper band, butt placed between the feet, barrel to the front, left hand seizes the piece near the muzzle (3 in. from the body), right hand to the cartridge box. Only one muzzle distance is given.",
+   "says_c": "Same words as Hardee for time 1 (muzzle 3 in. from the body), then Casey adds a rifle-musket alternative: right hand shifted to just below the upper band and the muzzle 8 in. from the body.",
+   "diff": "Casey adds the rifle-musket variant (right hand just below the upper band, muzzle 8 in. from the body); Hardee has no musket variant."
+  },
+  {
+   "id": "CMP-S03",
+   "topic": "load_in_nine_times",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. para 157 (time 2: Handle cartridge)",
+    "items": [
+     "HAR-S03"
+    ],
+    "lines": [
+     [
+      1325,
+      1330
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. para 164 (time 2: Handle cartridge)",
+    "items": [
+     "INF-L9-02"
+    ],
+    "lines": [
+     [
+      1709,
+      1715
+     ]
+    ]
+   },
+   "similarity": 0.9659,
+   "unmatched_content_words": {
+    "hardee": 0,
+    "casey": 1,
+    "hardee_tokens": 9,
+    "casey_tokens": 9,
+    "hardee_words": [],
+    "casey_words": [
+     "oabteidge"
+    ]
+   },
+   "says": "Time 2 \"Handle cartridge\": the right hand seizes the cartridge with the thumb and next two fingers and places it between the teeth."
+  },
+  {
+   "id": "CMP-S04",
+   "topic": "load_in_nine_times",
+   "status": "differs",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. para 158 (time 3: Tear cartridge) and its footnote",
+    "items": [
+     "HAR-S04"
+    ],
+    "lines": [
+     [
+      1331,
+      1346
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. para 165 (time 3) and para 194",
+    "items": [
+     "HCS-S04"
+    ],
+    "lines": [
+     [
+      1716,
+      1725
+     ],
+     [
+      2003,
+      2007
+     ]
+    ]
+   },
+   "similarity": 0.7645,
+   "unmatched_content_words": {
+    "hardee": 1,
+    "casey": 4,
+    "hardee_tokens": 26,
+    "casey_tokens": 27,
+    "hardee_words": [
+     "boxes"
+    ],
+    "casey_words": [
+     "oaeteidge",
+     "cartridgeboxes",
+     "slung",
+     "waistbelt"
+    ]
+   },
+   "only_hardee": [
+    "the cartridge boxes to be brought to the front"
+   ],
+   "only_casey": [
+    "are slung upon the waist-belt"
+   ],
+   "says_h": "Time 3 \"Tear cartridge\": paper torn to the powder, cartridge held upright between thumb and first two fingers in front of and near the muzzle, back of the hand to the front. A footnote says that whenever loading or firing is to be done the instructor has the cartridge boxes brought to the front.",
+   "says_c": "Time 3 is worded the same, but the cartridge-box rule is no longer a footnote: it is numbered para 194 and applies when the boxes are slung on the waist-belt (a belt-slung box has to be shifted to the front before drill).",
+   "diff": "Hardee: unconditional footnote on the cartridge boxes; Casey: numbered paragraph conditioned on boxes slung upon the waist-belt."
+  },
+  {
+   "id": "CMP-S05",
+   "topic": "load_in_nine_times",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. para 159 (time 4: Charge cartridge)",
+    "items": [
+     "HAR-S05"
+    ],
+    "lines": [
+     [
+      1347,
+      1357
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. para 166 (time 4: Charge cartridge)",
+    "items": [
+     "INF-L9-04"
+    ],
+    "lines": [
+     [
+      1726,
+      1740
+     ]
+    ]
+   },
+   "similarity": 0.9482,
+   "unmatched_content_words": {
+    "hardee": 2,
+    "casey": 2,
+    "hardee_tokens": 29,
+    "casey_tokens": 28,
+    "hardee_words": [
+     "avith",
+     "draio"
+    ],
+    "casey_words": [
+     "soldiee",
+     "kammee"
+    ]
+   },
+   "says": "Time 4 \"Charge cartridge\": powder emptied into the barrel; the ball disengaged from the paper, inserted pointed end uppermost and pressed down with the right thumb; the right hand then seizes the head of the rammer, elbows near the body."
+  },
+  {
+   "id": "CMP-S06",
+   "topic": "load_in_nine_times",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. paras 160-162 (time 5: Draw rammer; three motions)",
+    "items": [
+     "HAR-S06"
+    ],
+    "lines": [
+     [
+      1358,
+      1375
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. paras 167-169 (time 5: Draw rammer; three motions)",
+    "items": [
+     "INF-L9-05"
+    ],
+    "lines": [
+     [
+      1741,
+      1759
+     ]
+    ]
+   },
+   "similarity": 0.9805,
+   "unmatched_content_words": {
+    "hardee": 1,
+    "casey": 1,
+    "hardee_tokens": 42,
+    "casey_tokens": 43,
+    "hardee_words": [
+     "cartridge"
+    ],
+    "casey_words": [
+     "caeteidoe"
+    ]
+   },
+   "says": "Time 5 \"Draw rammer\" (one time, three motions): (1) half draw the rammer by extending the right arm, steady it with the left thumb, regrasp near the muzzle; (2) clear it from the pipes by extending the arm again; (3) turn it, small end passing near the left shoulder, and place its head on the ball."
+  },
+  {
+   "id": "CMP-S07",
+   "topic": "load_in_nine_times",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. para 163 (time 6: Ram cartridge)",
+    "items": [
+     "HAR-S07"
+    ],
+    "lines": [
+     [
+      1376,
+      1389
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. para 170 (time 6: Ram cartridge)",
+    "items": [
+     "INF-L9-06"
+    ],
+    "lines": [
+     [
+      1760,
+      1769
+     ]
+    ]
+   },
+   "similarity": 0.9352,
+   "unmatched_content_words": {
+    "hardee": 0,
+    "casey": 0,
+    "hardee_tokens": 19,
+    "casey_tokens": 19,
+    "hardee_words": [],
+    "casey_words": []
+   },
+   "says": "Time 6 \"Ram cartridge\": rammer inserted as far as the right hand and steadied with the left thumb; the right hand takes the small end and presses the ball home, elbows near the body."
+  },
+  {
+   "id": "CMP-S08",
+   "topic": "load_in_nine_times",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. paras 164-166 (time 7: Return rammer; three motions)",
+    "items": [
+     "HAR-S08"
+    ],
+    "lines": [
+     [
+      1390,
+      1410
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. paras 171-173 (time 7: Return rammer; three motions)",
+    "items": [
+     "INF-L9-07"
+    ],
+    "lines": [
+     [
+      1770,
+      1803
+     ]
+    ]
+   },
+   "similarity": 0.936,
+   "unmatched_content_words": {
+    "hardee": 3,
+    "casey": 3,
+    "hardee_tokens": 54,
+    "casey_tokens": 55,
+    "hardee_words": [
+     "rauiiuor",
+     "third",
+     "dcprcssiiig"
+    ],
+    "casey_words": [
+     "soldiee",
+     "tliircl",
+     "depressing"
+    ]
+   },
+   "says": "Time 7 \"Return rammer\" (one time, three motions): (1) draw it half out and clear it from the bore; (2) turn it, head passing near the left shoulder, and insert it in the pipes; (3) force it home with the right little finger on its head while the left hand slides down the barrel without lowering the shoulder."
+  },
+  {
+   "id": "CMP-S09",
+   "topic": "load_in_nine_times",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. paras 167-168 (time 8: Prime; two motions)",
+    "items": [
+     "HAR-S09"
+    ],
+    "lines": [
+     [
+      1411,
+      1442
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. paras 174-175 (time 8: Prime; two motions)",
+    "items": [
+     "INF-L9-08"
+    ],
+    "lines": [
+     [
+      1804,
+      1834
+     ]
+    ]
+   },
+   "similarity": 0.9384,
+   "unmatched_content_words": {
+    "hardee": 4,
+    "casey": 1,
+    "hardee_tokens": 69,
+    "casey_tokens": 67,
+    "hardee_words": [
+     "maynards",
+     "primer",
+     "command",
+     "theigbt"
+    ],
+    "casey_words": [
+     "soldiee"
+    ]
+   },
+   "says": "Time 8 \"Prime\" (one time, two motions): (1) left hand raises the piece to eye height, half face right, right foot behind at a right angle, piece brought to the right side, small of the stock two inches below the right breast, barrel up, muzzle at eye level; (2) half cock, old cap removed, new cap taken from the pouch and pressed on the nipple."
+  },
+  {
+   "id": "CMP-S10",
+   "topic": "load_in_nine_times",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. paras 169-170 (time 9: Shoulder arms; two motions)",
+    "items": [
+     "HAR-S10"
+    ],
+    "lines": [
+     [
+      1443,
+      1446
+     ],
+     [
+      1458,
+      1470
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. paras 176-177 (time 9: Shoulder arms; two motions)",
+    "items": [
+     "INF-L9-09"
+    ],
+    "lines": [
+     [
+      1835,
+      1848
+     ]
+    ]
+   },
+   "similarity": 0.9619,
+   "unmatched_content_words": {
+    "hardee": 3,
+    "casey": 1,
+    "hardee_tokens": 23,
+    "casey_tokens": 23,
+    "hardee_words": [
+     "nhonldcr",
+     "ihotioii",
+     "ready"
+    ],
+    "casey_words": [
+     "eeadt"
+    ]
+   },
+   "says": "Time 9 \"Shoulder arms\" (one time, two motions): piece brought to the right shoulder and supported by the left hand, face to the front, right heel brought to the left; right hand takes the shoulder-arms grasp; the left hand is dropped quickly to the side."
+  },
+  {
+   "id": "CMP-S11",
+   "topic": "load_in_eight_times",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. footnote to para 167 (Maynard primer, load in eight times)",
+    "items": [
+     "HAR-S11"
+    ],
+    "lines": [
+     [
+      1413,
+      1413
+     ],
+     [
+      1447,
+      1455
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. para 195",
+    "items": [
+     "INF-L8-01"
+    ],
+    "lines": [
+     [
+      2008,
+      2023
+     ]
+    ]
+   },
+   "similarity": 0.9873,
+   "unmatched_content_words": {
+    "hardee": 0,
+    "casey": 1,
+    "hardee_tokens": 23,
+    "casey_tokens": 24,
+    "hardee_words": [],
+    "casey_words": [
+     "leffc"
+    ]
+   },
+   "says": "If Maynard's primer is used the command is \"Load in eight times\"; the eighth command is shoulder arms, executed from return rammer in one time and two motions (raise the piece with the left hand to shoulder arms, drop the left hand). The wording is the same in both manuals; only the place differs (Hardee: page-foot footnote split across a page break; Casey: numbered paragraph 195).",
+   "note": "Wording identical; position differs (footnote in Hardee, numbered paragraph under \"Remarks on Loading and Firing\" in Casey); the cross-reference number differs (No. 145 vs No. 152)."
+  },
+  {
+   "id": "CMP-S12",
+   "topic": "ready",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. paras 171-173 (Ready; three motions)",
+    "items": [
+     "HAR-S12"
+    ],
+    "lines": [
+     [
+      1471,
+      1500
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. paras 178-180 (Ready; three motions)",
+    "items": [
+     "INF-FIRE-01"
+    ],
+    "lines": [
+     [
+      1849,
+      1889
+     ]
+    ]
+   },
+   "similarity": 0.9309,
+   "unmatched_content_words": {
+    "hardee": 2,
+    "casey": 2,
+    "hardee_tokens": 63,
+    "casey_tokens": 65,
+    "hardee_words": [
+     "riiisc",
+     "fiikill"
+    ],
+    "casey_words": [
+     "eaise",
+     "soldiee"
+    ]
+   },
+   "says": "\"Ready\" (one time, three motions): raise the piece, half face right, right foot to the rear at a right angle; bring the piece down with both hands, barrel up, butt below the right forearm, muzzle at eye height, left elbow against the side, right thumb on the cock; third motion cocks and re-seizes the small of the stock."
+  },
+  {
+   "id": "CMP-S13",
+   "topic": "aim",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. paras 174-176 (Aim)",
+    "items": [
+     "HAR-S13"
+    ],
+    "lines": [
+     [
+      1501,
+      1522
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. paras 181-183 (Aim)",
+    "items": [
+     "INF-FIRE-02"
+    ],
+    "lines": [
+     [
+      1890,
+      1914
+     ]
+    ]
+   },
+   "similarity": 0.9767,
+   "unmatched_content_words": {
+    "hardee": 1,
+    "casey": 0,
+    "hardee_tokens": 54,
+    "casey_tokens": 53,
+    "hardee_words": [
+     "hiiib"
+    ],
+    "casey_words": []
+   },
+   "says": "\"Aim\": piece raised with both hands, butt against the right shoulder, left elbow down, right elbow as high as the shoulder, head inclined on the butt so the right eye sees the notch of the hausse (rear sight), the front sight and the object; left eye closed, finger on the trigger. In two ranks the front-rank men lower the right elbow a little and each rear-rank man steps about eight inches to the right toward the left heel of the man on his right, leaning forward."
+  },
+  {
+   "id": "CMP-S14",
+   "topic": "fire",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. para 177 (Fire)",
+    "items": [
+     "HAR-S14"
+    ],
+    "lines": [
+     [
+      1523,
+      1526
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. para 184 (Fire)",
+    "items": [
+     "INF-FIRE-03"
+    ],
+    "lines": [
+     [
+      1915,
+      1918
+     ]
+    ]
+   },
+   "similarity": 1.0,
+   "unmatched_content_words": {
+    "hardee": 0,
+    "casey": 0,
+    "hardee_tokens": 9,
+    "casey_tokens": 9,
+    "hardee_words": [],
+    "casey_words": []
+   },
+   "says": "\"Fire\": press the forefinger against the trigger, fire without lowering or turning the head, and stay in that position."
+  },
+  {
+   "id": "CMP-S15",
+   "topic": "aim_remarks",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. para 178",
+    "items": [
+     "HAR-S15"
+    ],
+    "lines": [
+     [
+      1527,
+      1543
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. para 185",
+    "items": [
+     "HCS-S15"
+    ],
+    "lines": [
+     [
+      1919,
+      1931
+     ]
+    ]
+   },
+   "similarity": 0.9467,
+   "unmatched_content_words": {
+    "hardee": 2,
+    "casey": 1,
+    "hardee_tokens": 25,
+    "casey_tokens": 24,
+    "hardee_words": [
+     "soldikr",
+     "diltcrcnt"
+    ],
+    "casey_words": [
+     "different"
+    ]
+   },
+   "says": "Instructors check that the men aim at a distinct object, that the line of fire and the line of sight lie in one vertical plane, and have the firing practised on ground of different inclinations so that men learn to fire at objects above or below them."
+  },
+  {
+   "id": "CMP-S16",
+   "topic": "load_after_fire",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. paras 179-182 (Load after Fire; Shoulder arms)",
+    "items": [
+     "HAR-S16"
+    ],
+    "lines": [
+     [
+      1544,
+      1564
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. paras 186-189 (Load after Fire; Shoulder arms)",
+    "items": [
+     "INF-FIRE-04"
+    ],
+    "lines": [
+     [
+      1932,
+      1967
+     ]
+    ]
+   },
+   "similarity": 0.8912,
+   "unmatched_content_words": {
+    "hardee": 1,
+    "casey": 3,
+    "hardee_tokens": 37,
+    "casey_tokens": 40,
+    "hardee_words": [
+     "vhuidder"
+    ],
+    "casey_words": [
+     "deployed",
+     "skirmisher",
+     "elevation"
+    ]
+   },
+   "says": "After \"Fire\", the command \"Load\" brings the piece down with both hands, faces the man to the front (a rear-rank man brings his right foot beside the left) and resumes the position of load; loading then continues by the nine-time commands. If no reload is wanted the command \"Shoulder arms\" follows.",
+   "note": "Casey's OCR prints para 186 as \"188\" and lays a plate caption through the passage; the content is the same."
+  },
+  {
+   "id": "CMP-S17",
+   "topic": "aim_remarks",
+   "status": "absent_hardee",
+   "hardee": null,
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. plate note beside para 188 (Aim)",
+    "items": [
+     "HCS-S17"
+    ],
+    "lines": [
+     [
+      1950,
+      1961
+     ]
+    ]
+   },
+   "absent": {
+    "side": "hardee",
+    "regex": "rear\\s+sig",
+    "max_count": 0,
+    "manuals": [
+     "HARDEE-1861b",
+     "HARDEE-1861a"
+    ]
+   },
+   "says_c": "Casey prints, with the plate for the Aim position, a note that a man deployed as a skirmisher aims with the rear sight at high elevation. The note is damaged in the OCR (\"rear sig...\").",
+   "diff": "Casey-only note on using the rear sight at high elevation when deployed as a skirmisher."
+  },
+  {
+   "id": "CMP-S18",
+   "topic": "recover_arms",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. paras 183-184 (Recover arms)",
+    "items": [
+     "HAR-S18"
+    ],
+    "lines": [
+     [
+      1565,
+      1578
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. paras 190-191 (Recover arms)",
+    "items": [
+     "HCS-S18"
+    ],
+    "lines": [
+     [
+      1968,
+      1980
+     ]
+    ]
+   },
+   "similarity": 0.9381,
+   "unmatched_content_words": {
+    "hardee": 0,
+    "casey": 0,
+    "hardee_tokens": 19,
+    "casey_tokens": 19,
+    "hardee_words": [],
+    "casey_words": []
+   },
+   "says": "\"Recover arms\" (from Aim, to teach men to wait for the word Fire): at the first word take the finger off the trigger, at \"arms\" retake the position of the third motion of Ready."
+  },
+  {
+   "id": "CMP-S19",
+   "topic": "shoulder_from_ready",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. paras 185-186 (Shoulder arms from Ready)",
+    "items": [
+     "HAR-S19"
+    ],
+    "lines": [
+     [
+      1579,
+      1591
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. paras 192-193 (Shoulder arms from Ready)",
+    "items": [
+     "HCS-S19"
+    ],
+    "lines": [
+     [
+      1981,
+      2002
+     ]
+    ]
+   },
+   "similarity": 0.9139,
+   "unmatched_content_words": {
+    "hardee": 2,
+    "casey": 5,
+    "hardee_tokens": 33,
+    "casey_tokens": 36,
+    "hardee_words": [
+     "xhoiilder",
+     "halfcock"
+    ],
+    "casey_words": [
+     "stiom",
+     "soldiee",
+     "remarks",
+     "loading",
+     "fieixg"
+    ]
+   },
+   "says": "From the position of Ready the command \"Shoulder arms\" half-cocks the piece (thumb on the cock, forefinger on the trigger) and brings it briskly to the right shoulder."
+  },
+  {
+   "id": "CMP-S20",
+   "topic": "fix_bayonet",
+   "status": "differs",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. paras 187-190 (Fix bayonet; three motions)",
+    "items": [
+     "HAR-S20"
+    ],
+    "lines": [
+     [
+      1592,
+      1623
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. paras 196-199 (Fix bayonet; three motions)",
+    "items": [
+     "HCS-S20"
+    ],
+    "lines": [
+     [
+      2024,
+      2073
+     ]
+    ]
+   },
+   "similarity": 0.8122,
+   "unmatched_content_words": {
+    "hardee": 2,
+    "casey": 10,
+    "hardee_tokens": 57,
+    "casey_tokens": 77,
+    "hardee_words": [
+     "sabrebayonet",
+     "sabrebayonet"
+    ],
+    "casey_words": [
+     "cliarge",
+     "rifle",
+     "musket",
+     "inclined",
+     "forward",
+     "rifle",
+     "musket",
+     "clasp",
+     "turned",
+     "fixed"
+    ]
+   },
+   "only_hardee": [
+    "Draw the sabre-bayonet from the scabbard and fix it"
+   ],
+   "only_casey": [
+    "If the rifle musket be used the clasp will be turned as soon as"
+   ],
+   "says_h": "\"Fix bayonet\" (one time, three motions): piece grasped at the height of the shoulder, lowered to the front with the butt between the feet and the muzzle three inches from the body, left hand reversed to the handle of the sabre-bayonet, which is drawn and fixed on the end of the barrel.",
+   "says_c": "Same three motions, but Casey says \"bayonet\" and adds rifle-musket alternatives: the barrel inclined forward with the muzzle eight inches from the body, and the clasp turned once the bayonet is fixed.",
+   "diff": "Hardee: sabre-bayonet only. Casey: generic \"bayonet\" plus rifle-musket variants (muzzle 8 in., clasp)."
+  },
+  {
+   "id": "CMP-S21",
+   "topic": "charge_trail",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. paras 191-198 (Shoulder arms; Charge bayonet; Trail arms)",
+    "items": [
+     "HAR-S21"
+    ],
+    "lines": [
+     [
+      1624,
+      1684
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. paras 200-207 (Shoulder arms; Charge bayonet; Trail arms)",
+    "items": [
+     "HCS-S21"
+    ],
+    "lines": [
+     [
+      2074,
+      2149
+     ]
+    ]
+   },
+   "similarity": 0.9413,
+   "unmatched_content_words": {
+    "hardee": 2,
+    "casey": 1,
+    "hardee_tokens": 116,
+    "casey_tokens": 118,
+    "hardee_words": [
+     "fivht",
+     "sabrebayonet"
+    ],
+    "casey_words": [
+     "unfix"
+    ]
+   },
+   "says": "After fixing: shoulder arms (two motions); \"Charge bayonet\" (two motions: half face right, feet square, piece brought down with the barrel uppermost, right hand at the hip, point as high as the eye); shoulder arms again; \"Trail arms\" (muzzle inclined to the front, butt about four inches from the ground, so that rear-rank bayonets do not touch the front rank).",
+   "note": "Hardee names the weapon \"sabre-bayonet\" in the charge-bayonet text; Casey says \"bayonet\" there. The movements are the same."
+  },
+  {
+   "id": "CMP-S22",
+   "topic": "unfix_bayonet",
+   "status": "differs",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. paras 199-203 (Unfix bayonet; three motions)",
+    "items": [
+     "HAR-S22"
+    ],
+    "lines": [
+     [
+      1685,
+      1728
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. paras 208-212 (Unfix bayonet; three motions)",
+    "items": [
+     "HCS-S22"
+    ],
+    "lines": [
+     [
+      2150,
+      2214
+     ]
+    ]
+   },
+   "similarity": 0.7797,
+   "unmatched_content_words": {
+    "hardee": 4,
+    "casey": 22,
+    "hardee_tokens": 94,
+    "casey_tokens": 138,
+    "hardee_words": [
+     "perpen",
+     "licularly",
+     "ariuh",
+     "nccind"
+    ],
+    "casey_words": [
+     "perpendicularly",
+     "rifle",
+     "musket",
+     "clasp",
+     "against",
+     "grasp",
+     "socket",
+     "shank",
+     "resting",
+     "forefinger"
+    ]
+   },
+   "only_casey": [
+    "If the rifle musket is used, at the end of the second command"
+   ],
+   "says_h": "\"Unfix bayonet\": first two motions as for fix bayonet except that the right thumb goes on the spring of the sabre-bayonet and the left hand embraces its handle and the barrel; third motion presses the spring, wrests the sabre-bayonet off, turns it edge to the front and returns it to the scabbard.",
+   "says_c": "The same sabre-bayonet method, followed by a separate method for the rifle musket: turn the clasp with the left thumb, grasp the socket, then wrest the bayonet off point down by the shank of the socket and return it to the scabbard.",
+   "diff": "Casey adds a complete rifle-musket (socket bayonet) unfixing method; Hardee has the sabre-bayonet method only."
+  },
+  {
+   "id": "CMP-S23",
+   "topic": "manual_of_arms",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. paras 132-155 (Support, Present, Order, Shoulder arms; position of order arms)",
+    "items": [
+     "HAR-S23"
+    ],
+    "lines": [
+     [
+      1148,
+      1313
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. paras 139-162",
+    "items": [
+     "HCS-S23"
+    ],
+    "lines": [
+     [
+      1464,
+      1682
+     ]
+    ]
+   },
+   "similarity": 0.9311,
+   "unmatched_content_words": {
+    "hardee": 2,
+    "casey": 8,
+    "hardee_tokens": 330,
+    "casey_tokens": 347,
+    "hardee_words": [
+     "bjmhe",
+     "jjass"
+    ],
+    "casey_words": [
+     "soldibe",
+     "rifle",
+     "musket",
+     "middle",
+     "oedee",
+     "soldiee",
+     "irixe",
+     "tirhe"
+    ]
+   },
+   "says": "Positions and motions that precede the loading drill (support arms, present arms, order arms with its position, rest, shoulder arms): same text in both manuals."
+  },
+  {
+   "id": "CMP-S24",
+   "topic": "manual_of_arms",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. paras 204-225 (Secure arms, shift arms, arms at will, ground and raise arms)",
+    "items": [
+     "HAR-S24"
+    ],
+    "lines": [
+     [
+      1729,
+      1894
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. paras 213-234",
+    "items": [
+     "HCS-S24"
+    ],
+    "lines": [
+     [
+      2215,
+      2414
+     ]
+    ]
+   },
+   "similarity": 0.9344,
+   "unmatched_content_words": {
+    "hardee": 10,
+    "casey": 7,
+    "hardee_tokens": 300,
+    "casey_tokens": 307,
+    "hardee_words": [
+     "jnolions",
+     "dhoitlder",
+     "khonldcr",
+     "aujijiart",
+     "viotioii",
+     "jjiecc",
+     "hailf",
+     "sojdikk",
+     "comuiuiul",
+     "eomiuaud"
+    ],
+    "casey_words": [
+     "secure",
+     "armso",
+     "guidesight",
+     "soldiee",
+     "soldiee",
+     "soldiee",
+     "soldiee"
+    ]
+   },
+   "says": "The rest of the manual of arms after the bayonet drill (secure arms, right shoulder shift arms, arms at will, ground arms, raise arms): same text in both manuals."
+  },
+  {
+   "id": "CMP-S25",
+   "topic": "inspection_of_arms",
+   "status": "differs",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. paras 226-229 (Inspection of arms)",
+    "items": [
+     "HAR-S25"
+    ],
+    "lines": [
+     [
+      1895,
+      1941
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. paras 235-238 (Inspection of arms)",
+    "items": [
+     "HCS-S25"
+    ],
+    "lines": [
+     [
+      2415,
+      2460
+     ]
+    ]
+   },
+   "similarity": 0.8774,
+   "unmatched_content_words": {
+    "hardee": 8,
+    "casey": 5,
+    "hardee_tokens": 112,
+    "casey_tokens": 106,
+    "hardee_words": [
+     "saljrcbayonct",
+     "volow",
+     "sabrebayonet",
+     "shall",
+     "passed",
+     "prescribed",
+     "resume",
+     "nrdrred"
+    ],
+    "casey_words": [
+     "bayonet",
+     "rifle",
+     "musket",
+     "bayonet",
+     "arins"
+    ]
+   },
+   "only_hardee": [
+    "carry the left hand re- versed to the sabre-bayonet"
+   ],
+   "only_casey": [
+    "should the rifle musket be used, the muzzle will be about"
+   ],
+   "says_h": "\"Inspection arms\": with the sabre-bayonet in the scabbard the recruit seizes the piece, muzzle about three inches from the body, fixes the sabre-bayonet, draws the rammer to the bottom of the bore and retakes order arms; the instructor inspects each piece in turn.",
+   "says_c": "The same inspection with \"bayonet\" for \"sabre-bayonet\", plus a parenthesis for the rifle musket: the muzzle about eight inches from the body.",
+   "diff": "Casey adds the 8 in. muzzle for the rifle musket and drops \"sabre\" before bayonet."
+  },
+  {
+   "id": "CMP-S26",
+   "topic": "spring_rammer",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. paras 231-236 (Fix bayonet by itself; Spring rammer)",
+    "items": [
+     "HAR-S26"
+    ],
+    "lines": [
+     [
+      1942,
+      1984
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. paras 240-246",
+    "items": [
+     "HCS-S26"
+    ],
+    "lines": [
+     [
+      2467,
+      2507
+     ]
+    ]
+   },
+   "similarity": 0.946,
+   "unmatched_content_words": {
+    "hardee": 2,
+    "casey": 3,
+    "hardee_tokens": 75,
+    "casey_tokens": 76,
+    "hardee_words": [
+     "soldieu",
+     "contiilcnce"
+    ],
+    "casey_words": [
+     "eammees",
+     "ldiee",
+     "confidence"
+    ]
+   },
+   "says": "\"Spring rammer\": after firing, to ascertain whether the pieces were discharged, the instructor has the rammer put in the barrel and either springs it with the small end in his hand or has each recruit make it ring in the barrel; the recruit then returns the rammer and resumes order arms. Fix bayonet may be ordered by itself in place of inspection of arms."
+  },
+  {
+   "id": "CMP-S27",
+   "topic": "load_in_four_times",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. paras 250-255 (Load in four times)",
+    "items": [
+     "HAR-S27"
+    ],
+    "lines": [
+     [
+      2067,
+      2101
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. paras 259-264 (Load in four times)",
+    "items": [
+     "INF-L4-01"
+    ],
+    "lines": [
+     [
+      2598,
+      2633
+     ]
+    ]
+   },
+   "similarity": 0.916,
+   "unmatched_content_words": {
+    "hardee": 2,
+    "casey": 2,
+    "hardee_tokens": 44,
+    "casey_tokens": 45,
+    "hardee_words": [
+     "lesspu",
+     "exeqjate"
+    ],
+    "casey_words": [
+     "andbr",
+     "eoije"
+    ]
+   },
+   "says": "Load in four times, to prepare for loading at will and to teach the steps needing most care (charge cartridge, ram cartridge, prime): command \"1. Load in four times. 2. Load.\"; the first time is executed at the end of the command and times two, three, four at the words two, three, four. Time 1 runs through charge cartridge, 2 through ram cartridge, 3 through prime, 4 is shoulder arms."
+  },
+  {
+   "id": "CMP-S28",
+   "topic": "load_at_will",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. paras 256-258 (Load at will)",
+    "items": [
+     "HAR-S28"
+    ],
+    "lines": [
+     [
+      2102,
+      2121
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. paras 265-267 (Load at will)",
+    "items": [
+     "INF-LAW-01"
+    ],
+    "lines": [
+     [
+      2634,
+      2653
+     ]
+    ]
+   },
+   "similarity": 0.9821,
+   "unmatched_content_words": {
+    "hardee": 1,
+    "casey": 2,
+    "hardee_tokens": 34,
+    "casey_tokens": 35,
+    "hardee_words": [
+     "loill"
+    ],
+    "casey_words": [
+     "icill",
+     "lessox"
+    ]
+   },
+   "says": "Loading at will is loading in four times run on without resting on any time, commanded \"1. Load at will. 2. Load.\"; men are brought by degrees to load with the greatest promptitude, each without regulating himself by or waiting for his neighbour; the 1/90-minute cadence does not apply."
+  },
+  {
+   "id": "CMP-S29",
+   "topic": "fire_direct_squad",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. paras 259-264 (direct fire; Cease firing)",
+    "items": [
+     "HAR-S29"
+    ],
+    "lines": [
+     [
+      2122,
+      2168
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. paras 268-274 (direct fire; Cease firing)",
+    "items": [
+     "INF-FIRE-05"
+    ],
+    "lines": [
+     [
+      2654,
+      2702
+     ]
+    ]
+   },
+   "similarity": 0.9373,
+   "unmatched_content_words": {
+    "hardee": 8,
+    "casey": 3,
+    "hardee_tokens": 73,
+    "casey_tokens": 72,
+    "hardee_words": [
+     "soldiku",
+     "coiunninds",
+     "stpiarl",
+     "coiniuands",
+     "recominoncc",
+     "tiling",
+     "conmiauj",
+     "ciiool"
+    ],
+    "casey_words": [
+     "rearrank",
+     "recommence",
+     "soldiee"
+    ]
+   },
+   "says": "Direct fire by squad: \"Fire by squad. Squad. Ready. Aim. Fire. Load.\"; the rear rank leans forward so its pieces project beyond the front rank; after \"Load\" the men load and return at once to Ready; firing is recommenced by \"Squad. Aim. Fire. Load.\" and stopped by \"Cease firing\" (men load if unloaded, then shoulder)."
+  },
+  {
+   "id": "CMP-S30",
+   "topic": "fire_oblique",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. paras 266-272 (oblique firings)",
+    "items": [
+     "HAR-S30"
+    ],
+    "lines": [
+     [
+      2169,
+      2219
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. paras 275-281 (oblique firings)",
+    "items": [
+     "INF-OBL-01"
+    ],
+    "lines": [
+     [
+      2703,
+      2760
+     ]
+    ]
+   },
+   "similarity": 0.9581,
+   "unmatched_content_words": {
+    "hardee": 4,
+    "casey": 4,
+    "hardee_tokens": 97,
+    "casey_tokens": 98,
+    "hardee_words": [
+     "sciiooi",
+     "ciglit",
+     "incbcs",
+     "iueliniug"
+    ],
+    "casey_words": [
+     "eaisks",
+     "frontrank",
+     "rearrank",
+     "vtake"
+    ]
+   },
+   "says": "Oblique fire uses the direct-fire commands with the caution \"right oblique\" or \"left oblique\" before Aim; front-rank men aim without moving the feet, each rear-rank man advances the foot about eight inches toward the heel of the man on his side of the file leader and leans forward; after Load each man loads as if isolated."
+  },
+  {
+   "id": "CMP-S31",
+   "topic": "fire_by_file",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. paras 273-283 (fire by file)",
+    "items": [
+     "HAR-S31"
+    ],
+    "lines": [
+     [
+      2220,
+      2273
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. paras 282-292 (fire by file)",
+    "items": [
+     "INF-FILE-01"
+    ],
+    "lines": [
+     [
+      2761,
+      2815
+     ]
+    ]
+   },
+   "similarity": 0.9576,
+   "unmatched_content_words": {
+    "hardee": 0,
+    "casey": 4,
+    "hardee_tokens": 83,
+    "casey_tokens": 85,
+    "hardee_words": [],
+    "casey_words": [
+     "rearrank",
+     "soldiee",
+     "tliat",
+     "fielng"
+    ]
+   },
+   "says": "Fire by file: the files fire successively without regulating on each other except for the first discharge; commands \"Fire by file. Squad. Ready. Commence firing.\"; the right-hand file aims and fires, the next file aims as the first brings down pieces to reload; after the first fire front and rear rank need not fire together; \"Cease firing\" ends it."
+  },
+  {
+   "id": "CMP-S32",
+   "topic": "fire_by_rank",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. paras 284-289 (fire by rank)",
+    "items": [
+     "HAR-S32"
+    ],
+    "lines": [
+     [
+      2274,
+      2310
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. paras 293-298 (fire by rank)",
+    "items": [
+     "INF-RANK-02"
+    ],
+    "lines": [
+     [
+      2816,
+      2861
+     ]
+    ]
+   },
+   "similarity": 0.9137,
+   "unmatched_content_words": {
+    "hardee": 2,
+    "casey": 3,
+    "hardee_tokens": 50,
+    "casey_tokens": 51,
+    "hardee_words": [
+     "soidiek",
+     "prcscrilieil"
+    ],
+    "casey_words": [
+     "eeadt",
+     "rarik",
+     "icneehngjso"
+    ]
+   },
+   "says": "Fire by rank: \"Fire by rank. Squad. Ready. Rear rank. Aim. Fire. Load.\"; the rear rank fires first; when several of its men are at Ready the front rank is ordered \"Front rank. Aim. Fire. Load.\" and the ranks alternate until \"Cease firing\"."
+  },
+  {
+   "id": "CMP-S33",
+   "topic": "fire_kneeling",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. paras 290-297 (fire and load kneeling)",
+    "items": [
+     "HAR-S33"
+    ],
+    "lines": [
+     [
+      2311,
+      2383
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. paras 299-306 (fire and load kneeling)",
+    "items": [
+     "INF-KNEEL-01"
+    ],
+    "lines": [
+     [
+      2862,
+      2930
+     ]
+    ]
+   },
+   "similarity": 0.9299,
+   "unmatched_content_words": {
+    "hardee": 4,
+    "casey": 1,
+    "hardee_tokens": 145,
+    "casey_tokens": 137,
+    "hardee_words": [
+     "sijiiad",
+     "suiiposcd",
+     "halfcock",
+     "soldikr"
+    ],
+    "casey_words": [
+     "smdjire"
+    ]
+   },
+   "says": "Fire and load kneeling (individual instruction, no times or motions): the man steps forward three paces, places the right knee on the ground and sits on the right heel, left forearm on the left thigh; cocks, aims and fires; then rises on the knee, carries the piece to the rear barrel down, butt on the ground, loads (ramming with both hands if needed), brings the piece forward, half-cocks, replaces the cap, rises and returns to the ranks."
+  },
+  {
+   "id": "CMP-S34",
+   "topic": "fire_lying",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. paras 299-303 (fire and load lying)",
+    "items": [
+     "HAR-S34"
+    ],
+    "lines": [
+     [
+      2384,
+      2433
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. paras 307-312 (fire and load lying)",
+    "items": [
+     "INF-LYING-01"
+    ],
+    "lines": [
+     [
+      2931,
+      2982
+     ]
+    ]
+   },
+   "similarity": 0.9269,
+   "unmatched_content_words": {
+    "hardee": 2,
+    "casey": 8,
+    "hardee_tokens": 109,
+    "casey_tokens": 117,
+    "hardee_words": [
+     "lianl",
+     "dsmsilmmm"
+    ],
+    "casey_words": [
+     "loaded",
+     "given",
+     "individually",
+     "without",
+     "times",
+     "motions",
+     "soldiee",
+     "lessoij"
+    ]
+   },
+   "says": "Fire and load lying (individual, no times or motions): the man steps three paces forward, drops to both knees and lies flat on the belly, piece held nearly horizontal by the left hand near the lower band, butt and left elbow on the ground; cocks, aims on both elbows and fires; turns on the left side, draws a cartridge, rolls on the back, loads with the butt between the heels, turns again on the left side, removes the old cap and primes, then raises the piece vertically and rises."
+  },
+  {
+   "id": "CMP-S35",
+   "topic": "bayonet_exercise",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.S. paras 304-309 (Lesson VI, bayonet exercise)",
+    "items": [
+     "HAR-S35"
+    ],
+    "lines": [
+     [
+      2434,
+      2491
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.S. paras 313-317 (Lesson VI, bayonet exercise)",
+    "items": [
+     "HCS-S35"
+    ],
+    "lines": [
+     [
+      2983,
+      3050
+     ]
+    ]
+   },
+   "similarity": 0.8454,
+   "unmatched_content_words": {
+    "hardee": 8,
+    "casey": 4,
+    "hardee_tokens": 106,
+    "casey_tokens": 103,
+    "hardee_words": [
+     "jiiard",
+     "infautit",
+     "notiu",
+     "iiard",
+     "arjaiimt",
+     "chanjc",
+     "baiunet",
+     "third"
+    ],
+    "casey_words": [
+     "gtjaed",
+     "soiiool",
+     "arras",
+     "charge"
+    ]
+   },
+   "says": "Bayonet exercise is confined to two movements, \"Guard against infantry\" and \"Guard against cavalry\", each in one time and two motions with the men in one rank at two paces interval; shoulder arms follows each. Guard against cavalry is the same with the right hand at the hip and the bayonet at eye height as in charge bayonet."
+  },
+  {
+   "id": "CMP-C01",
+   "topic": "company_loading",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.C. paras 44-46 (loading in four times and at will, company)",
+    "items": [
+     "HAR-C01"
+    ],
+    "lines": [
+     [
+      3735,
+      3754
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.C. paras 44-46",
+    "items": [
+     "INF-LAW-05"
+    ],
+    "lines": [
+     [
+      4482,
+      4501
+     ]
+    ]
+   },
+   "similarity": 0.9177,
+   "unmatched_content_words": {
+    "hardee": 2,
+    "casey": 0,
+    "hardee_tokens": 40,
+    "casey_tokens": 39,
+    "hardee_words": [
+     "timcn",
+     "thorn"
+    ],
+    "casey_words": []
+   },
+   "says": "In the company school loading in four times is repeated until it is steady, then loading at will; in priming the captain and covering sergeant half face right with the men and face front when the next man shoulders; the instructor works to have the loadings of the soldier school executed exactly."
+  },
+  {
+   "id": "CMP-C02",
+   "topic": "rate_of_fire",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.C. para 47",
+    "items": [
+     "HAR-C02"
+    ],
+    "lines": [
+     [
+      3755,
+      3766
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.C. para 47",
+    "items": [
+     "INF-LAW-04"
+    ],
+    "lines": [
+     [
+      4502,
+      4519
+     ]
+    ]
+   },
+   "similarity": 0.9448,
+   "unmatched_content_words": {
+    "hardee": 1,
+    "casey": 1,
+    "hardee_tokens": 26,
+    "casey_tokens": 26,
+    "hardee_words": [
+     "second"
+    ],
+    "casey_words": [
+     "compamt"
+    ]
+   },
+   "says": "Loading at will, being the loading of battle, takes priority once the men know the principles; the training standard is that every man load with cartridges and fire at least three rounds a minute with ease and regularity."
+  },
+  {
+   "id": "CMP-C03",
+   "topic": "fire_by_company",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.C. paras 48-52 (fire by company)",
+    "items": [
+     "HAR-C03"
+    ],
+    "lines": [
+     [
+      3767,
+      3794
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.C. paras 48-52 (fire by company)",
+    "items": [
+     "INF-COY-01"
+    ],
+    "lines": [
+     [
+      4520,
+      4548
+     ]
+    ]
+   },
+   "similarity": 0.9143,
+   "unmatched_content_words": {
+    "hardee": 2,
+    "casey": 4,
+    "hardee_tokens": 46,
+    "casey_tokens": 52,
+    "hardee_words": [
+     "oovipany",
+     "rendu"
+    ],
+    "casey_words": [
+     "continued",
+     "until",
+     "signal",
+     "sounded"
+    ]
+   },
+   "says": "Fire by company: \"1. Fire by company. 2. Commence firing.\"; the captain stands opposite the centre four paces behind the file closers and the covering sergeant retires to that line; at the second command the captain adds \"Company. Ready. Aim. Fire. Load.\"; after the volley he recommences with \"Company. Aim. Fire. Load.\"."
+  },
+  {
+   "id": "CMP-C04",
+   "topic": "fire_by_company",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.C. paras 53-56 (continuing; oblique aim; fire by file opening)",
+    "items": [
+     "HAR-C04"
+    ],
+    "lines": [
+     [
+      3795,
+      3816
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.C. paras 53-56",
+    "items": [
+     "HCS-C04"
+    ],
+    "lines": [
+     [
+      4549,
+      4571
+     ]
+    ]
+   },
+   "similarity": 0.8075,
+   "unmatched_content_words": {
+    "hardee": 5,
+    "casey": 1,
+    "hardee_tokens": 35,
+    "casey_tokens": 28,
+    "hardee_words": [
+     "continued",
+     "until",
+     "signal",
+     "sounded",
+     "tumniands"
+    ],
+    "casey_words": [
+     "lessox"
+    ]
+   },
+   "says": "Company firing continues until the signal to cease firing is sounded; the captain may order aim to the right or left by saying right (or left) oblique before the word Aim; the company fire by file is commanded \"1. Fire by file. 2. Company. 3. Ready. 4. Commence firing.\", the third and fourth commands executed as in the soldier school."
+  },
+  {
+   "id": "CMP-C05",
+   "topic": "fire_by_file",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.C. para 57 (fire by file, company)",
+    "items": [
+     "HAR-C05"
+    ],
+    "lines": [
+     [
+      3817,
+      3832
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.C. para 57 (fire by file, company)",
+    "items": [
+     "INF-FILE-06"
+    ],
+    "lines": [
+     [
+      4572,
+      4585
+     ]
+    ]
+   },
+   "similarity": 0.9179,
+   "unmatched_content_words": {
+    "hardee": 1,
+    "casey": 0,
+    "hardee_tokens": 23,
+    "casey_tokens": 22,
+    "hardee_words": [
+     "fourth"
+    ],
+    "casey_words": []
+   },
+   "says": "Company fire by file begins with the right file of the company; the next file takes aim as the first brings down pieces; after the first discharge each man reloads and fires without regulating on the others."
+  },
+  {
+   "id": "CMP-C06",
+   "topic": "fire_by_rank",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.C. paras 58-62 (fire by rank, company)",
+    "items": [
+     "HAR-C06"
+    ],
+    "lines": [
+     [
+      3833,
+      3857
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.C. paras 58-62 (fire by rank, company)",
+    "items": [
+     "INF-COY-05"
+    ],
+    "lines": [
+     [
+      4586,
+      4611
+     ]
+    ]
+   },
+   "similarity": 0.9113,
+   "unmatched_content_words": {
+    "hardee": 0,
+    "casey": 1,
+    "hardee_tokens": 32,
+    "casey_tokens": 33,
+    "hardee_words": [],
+    "casey_words": [
+     "ranlc"
+    ]
+   },
+   "says": "Company fire by rank: \"Fire by rank. Company. Ready. Rear rank, Aim. Fire. Load.\"; the ranks alternate until the signal to cease firing; right/left oblique aim as for the fire by company."
+  },
+  {
+   "id": "CMP-C07",
+   "topic": "cease_firing_signal",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.C. paras 63-67 (signal to cease firing; bugle note or tap)",
+    "items": [
+     "HAR-C07"
+    ],
+    "lines": [
+     [
+      3858,
+      3897
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.C. paras 63-67",
+    "items": [
+     "INF-FILE-05"
+    ],
+    "lines": [
+     [
+      4612,
+      4665
+     ]
+    ]
+   },
+   "similarity": 0.8993,
+   "unmatched_content_words": {
+    "hardee": 5,
+    "casey": 8,
+    "hardee_tokens": 107,
+    "casey_tokens": 117,
+    "hardee_words": [
+     "finnf",
+     "jiriufj",
+     "souillance",
+     "iksson",
+     "fifth"
+    ],
+    "casey_words": [
+     "semblance",
+     "lessor",
+     "avill",
+     "several",
+     "fires",
+     "executed",
+     "effect",
+     "ahout"
+    ]
+   },
+   "says": "Company firing is stopped by sounding the signal to cease firing, the men stopping at the instant it begins as in the soldier school; a bugle note that always follows sends the captain and covering sergeant back to their places in line to rectify the alignment; in drill without powder the command cease firing replaces the signal and the command posts replaces the bugle note; the fire by file, being the one most used against an enemy, is given almost exclusive preference and the men are made to aim with care at a particular object."
+  },
+  {
+   "id": "CMP-C08",
+   "topic": "fire_to_rear",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.C. paras 68-76 (fire to the rear)",
+    "items": [
+     "HAR-C08"
+    ],
+    "lines": [
+     [
+      3898,
+      3956
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.C. paras 68-76 (fire to the rear)",
+    "items": [
+     "INF-COY-06"
+    ],
+    "lines": [
+     [
+      4666,
+      4717
+     ]
+    ]
+   },
+   "similarity": 0.8666,
+   "unmatched_content_words": {
+    "hardee": 11,
+    "casey": 7,
+    "hardee_tokens": 126,
+    "casey_tokens": 113,
+    "hardee_words": [
+     "several",
+     "effect",
+     "couipany",
+     "impress",
+     "importance",
+     "aiming",
+     "always",
+     "particular",
+     "object",
+     "holding"
+    ],
+    "casey_words": [
+     "sixteen",
+     "inches",
+     "inline",
+     "lesso",
+     "rearrank",
+     "rearrank",
+     "fileclosers"
+    ]
+   },
+   "says": "Fire to the rear: \"Face by the rear rank. Company. About face\"; the captain steps out to the right file, the covering sergeant and file closers pass through his interval to the new rear, and after the about face the captain takes his interval in the new front rank; the fire by file then starts on the left of the company (now the right) and the fire by rank with the front rank (now the rear); \"Face by the front rank. Company. About face\" restores the front."
+  },
+  {
+   "id": "CMP-C09",
+   "topic": "firing_instruction",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.C. paras 77-81 (remarks on the firings)",
+    "items": [
+     "HAR-C09"
+    ],
+    "lines": [
+     [
+      3957,
+      3984
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.C. paras 77-81",
+    "items": [
+     "INF-COY-04"
+    ],
+    "lines": [
+     [
+      4727,
+      4754
+     ]
+    ]
+   },
+   "similarity": 0.9729,
+   "unmatched_content_words": {
+    "hardee": 1,
+    "casey": 1,
+    "hardee_tokens": 63,
+    "casey_tokens": 63,
+    "hardee_words": [
+     "eiieral"
+    ],
+    "casey_words": [
+     "general"
+    ]
+   },
+   "says": "The instructor recommends a short pause between Aim and Fire to give the men time to aim accurately, watches for faulty loading and sends such men back to individual instruction, urges composure in the firings and has the men keep the left heel in place in direct fire so the alignment is not deranged."
+  },
+  {
+   "id": "CMP-C10",
+   "topic": "misfire_double_load",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.C. paras 82-83 (misfires and double loads)",
+    "items": [
+     "HAR-C10"
+    ],
+    "lines": [
+     [
+      3985,
+      4010
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "S.C. paras 82-83",
+    "items": [
+     "INF-FIRE-06"
+    ],
+    "lines": [
+     [
+      4755,
+      4789
+     ]
+    ]
+   },
+   "similarity": 0.9462,
+   "unmatched_content_words": {
+    "hardee": 1,
+    "casey": 5,
+    "hardee_tokens": 69,
+    "casey_tokens": 74,
+    "hardee_words": [
+     "chool"
+    ],
+    "casey_words": [
+     "vrith",
+     "lesso",
+     "aeticle",
+     "advance",
+     "battle"
+    ]
+   },
+   "says": "Misfire procedure: on uncocking the man watches for smoke from the tube; if none escapes the piece has not discharged and he picks and primes again instead of reloading; a second cartridge should be noticed in ramming by the height of the load; after cartridge firing arms are inspected for three cartridges in one piece and the ball screw is applied; if a cap missed fire and the tube is stopped with hard white powder, picking is skipped and a new cap substituted. No misfire rate is given in either manual."
+  },
+  {
+   "id": "CMP-B01",
+   "topic": "battalion_firings",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.B. paras 31-38 (loading at will and the firings; which fires may be oblique)",
+    "items": [
+     "HAR-B01"
+    ],
+    "lines": [
+     [
+      9277,
+      9322
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-2",
+    "ref": "S.B. paras 37-44",
+    "items": [
+     "INF-BN-01"
+    ],
+    "lines": [
+     [
+      493,
+      547
+     ]
+    ]
+   },
+   "similarity": 0.9405,
+   "unmatched_content_words": {
+    "hardee": 3,
+    "casey": 1,
+    "hardee_tokens": 80,
+    "casey_tokens": 78,
+    "hardee_words": [
+     "bjcompany",
+     "jattalin",
+     "connnence"
+    ],
+    "casey_words": [
+     "commence"
+    ]
+   },
+   "says": "The battalion school lists five fires: by company, by wing, by battalion, by file and by rank. Fire by company and by file are always direct; the others may be direct or oblique, the colonel giving the caution right (or left) oblique between Ready and Aim at every round. The right company of a division fires first and the left company waits until it sees one or two pieces at Ready; fire by file begins in all companies at once; the color guard does not fire but reserves itself for the color."
+  },
+  {
+   "id": "CMP-B02",
+   "topic": "fire_by_company",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.B. paras 39-45 (fire by company)",
+    "items": [
+     "HAR-B02"
+    ],
+    "lines": [
+     [
+      9323,
+      9372
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-2",
+    "ref": "S.B. paras 45-51",
+    "items": [
+     "INF-BN-02"
+    ],
+    "lines": [
+     [
+      548,
+      598
+     ]
+    ]
+   },
+   "similarity": 0.9256,
+   "unmatched_content_words": {
+    "hardee": 5,
+    "casey": 2,
+    "hardee_tokens": 103,
+    "casey_tokens": 103,
+    "hardee_words": [
+     "fenfral",
+     "lajion",
+     "tainy",
+     "itneraj",
+     "jirimi"
+    ],
+    "casey_words": [
+     "general",
+     "general"
+    ]
+   },
+   "says": "Battalion fire by company: \"1. Fire by company. 2. Commence firing.\"; the color and guard step back so the guard's front rank is in line with the battalion's rear rank; the odd-numbered companies fire first, the captains giving the company commands, then the even-numbered; the colonel stops the fire with the sounded signal to cease firing, after which captains and sergeants resume their places."
+  },
+  {
+   "id": "CMP-B03",
+   "topic": "fire_by_wing",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.B. paras 46-48 (fire by wing; fire by battalion)",
+    "items": [
+     "HAR-B03"
+    ],
+    "lines": [
+     [
+      9374,
+      9393
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-2",
+    "ref": "S.B. paras 52-54",
+    "items": [
+     "INF-BN-03"
+    ],
+    "lines": [
+     [
+      599,
+      619
+     ]
+    ]
+   },
+   "similarity": 0.8503,
+   "unmatched_content_words": {
+    "hardee": 8,
+    "casey": 1,
+    "hardee_tokens": 27,
+    "casey_tokens": 23,
+    "hardee_words": [
+     "iciity",
+     "ccdoncl",
+     "thisfirtto",
+     "eoinraand",
+     "riylu",
+     "ready",
+     "battulioii",
+     "iattaioii"
+    ],
+    "casey_words": [
+     "eeadt"
+    ]
+   },
+   "says": "Fire by wing: \"1. Fire by wing. 2. Right wing. 3. Ready. 4. Aim. 5. Fire. 6. Load.\"; the wings then fire alternately, recommencing with \"Right wing. Aim. Fire. Load.\" and \"Left wing. Aim. Fire. Load.\". Fire by battalion uses the same commands with \"1. Fire by battalion. 2. Battalion.\" in place of the first two. (the Hardee OCR of the wing paragraphs is badly damaged; the commands are legible in Casey and in the damaged Hardee lines.)",
+   "note": "Hardee OCR of paras 46-47 is heavily damaged; the identity of wording rests on the legible parts and the matching command lists."
+  },
+  {
+   "id": "CMP-B05",
+   "topic": "fire_by_file",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.B. paras 49-50 (fire by file)",
+    "items": [
+     "HAR-B05"
+    ],
+    "lines": [
+     [
+      9394,
+      9411
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-2",
+    "ref": "S.B. paras 55-57",
+    "items": [
+     "HCS-B05"
+    ],
+    "lines": [
+     [
+      620,
+      636
+     ]
+    ]
+   },
+   "similarity": 0.8587,
+   "unmatched_content_words": {
+    "hardee": 0,
+    "casey": 1,
+    "hardee_tokens": 19,
+    "casey_tokens": 20,
+    "hardee_words": [],
+    "casey_words": [
+     "papwt"
+    ]
+   },
+   "says": "Battalion fire by file: \"1. Fire by file. 2. Battalion. 3. Ready. 4. Commence firing.\"; at the fourth command the fire begins on the right of each company (the colonel may have it begin on the right of each platoon) and proceeds as in the company school."
+  },
+  {
+   "id": "CMP-B06",
+   "topic": "fire_by_rank",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.B. paras 51-52 (fire by rank)",
+    "items": [
+     "HAR-B06"
+    ],
+    "lines": [
+     [
+      9412,
+      9428
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-2",
+    "ref": "S.B. paras 57-58",
+    "items": [
+     "HCS-B06"
+    ],
+    "lines": [
+     [
+      637,
+      649
+     ]
+    ]
+   },
+   "similarity": 0.9028,
+   "unmatched_content_words": {
+    "hardee": 0,
+    "casey": 1,
+    "hardee_tokens": 14,
+    "casey_tokens": 15,
+    "hardee_words": [],
+    "casey_words": [
+     "firely"
+    ]
+   },
+   "says": "Battalion fire by rank follows the company school: \"Fire by rank. Battalion. Ready. Rear rank. Aim. Fire. Load.\"; the ranks alternate."
+  },
+  {
+   "id": "CMP-B07",
+   "topic": "fire_to_rear",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "S.B. paras 53-62 (fire to the rear)",
+    "items": [
+     "HAR-B07"
+    ],
+    "lines": [
+     [
+      9429,
+      9490
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-2",
+    "ref": "S.B. paras 59-68",
+    "items": [
+     "HCS-B07"
+    ],
+    "lines": [
+     [
+      650,
+      716
+     ]
+    ]
+   },
+   "similarity": 0.8047,
+   "unmatched_content_words": {
+    "hardee": 7,
+    "casey": 8,
+    "hardee_tokens": 104,
+    "casey_tokens": 114,
+    "hardee_words": [
+     "color",
+     "lattalto",
+     "bearer",
+     "after",
+     "firing",
+     "wishing",
+     "battauoi"
+    ],
+    "casey_words": [
+     "aboil",
+     "senior",
+     "junior",
+     "irmishers",
+     "marched",
+     "flanks",
+     "respectively",
+     "toward"
+    ]
+   },
+   "says": "To fire to the rear the battalion faces by the rear rank (about face); the wings and companies keep their old designations, fire by file starts on the left company (now the right) and fire by rank with the former front rank (now the rear); \"Face by the front rank\" restores it; the fire by file is the one \"most used in war\" and is preferred in the preparatory exercises."
+  },
+  {
+   "id": "CMP-B08",
+   "topic": "light_companies",
+   "status": "absent_hardee",
+   "hardee": null,
+   "casey": {
+    "manual": "CASEY-1862-2",
+    "ref": "S.B. para 71",
+    "items": [
+     "HCS-B08"
+    ],
+    "lines": [
+     [
+      734,
+      740
+     ]
+    ]
+   },
+   "absent": {
+    "side": "hardee",
+    "regex": "companies\\s+of\\s+skirmishers\\s+will\\s+not\\s+fire",
+    "max_count": 0,
+    "manuals": [
+     "HARDEE-1861b",
+     "HARDEE-1861a"
+    ]
+   },
+   "says_c": "Casey's battalion school says the two companies designated as skirmishers do not fire when the line fires, except behind a breastwork or similar cover. (The War Department order of 11 August 1862 suspended the permanent two-company arrangement.)",
+   "diff": "Casey designates two companies of skirmishers per battalion and tells them not to fire in the battalion fires; Hardee has no such company."
+  },
+  {
+   "id": "CMP-K01",
+   "topic": "skirmishers_general",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "Instruction for Skirmishers, general principles (Nos. 1-14)",
+    "items": [
+     "HAR-K01"
+    ],
+    "lines": [
+     [
+      6667,
+      6809
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "Instruction for Skirmishers, general principles (Nos. 1-14)",
+    "items": [
+     "HCS-K01"
+    ],
+    "lines": [
+     [
+      7844,
+      7995
+     ]
+    ]
+   },
+   "similarity": 0.9714,
+   "unmatched_content_words": {
+    "hardee": 4,
+    "casey": 7,
+    "hardee_tokens": 257,
+    "casey_tokens": 258,
+    "hardee_words": [
+     "afford",
+     "rapidly",
+     "second",
+     "fourth"
+    ],
+    "casey_words": [
+     "instkuction",
+     "inslri",
+     "ixstrtjctiott",
+     "skiemishees",
+     "afibrd",
+     "insteuotion",
+     "skirmisliers"
+    ]
+   },
+   "says": "Skirmisher movements are not held to closed-rank precision; skirmishers cover the advance of the main corps; each body has a reserve (company reserves at 150 paces and the principal reserve at 400 paces, as the text sets the distances) that fills vacant places, furnishes cartridges, relieves the tired and is the rallying point; men of one group are five paces apart in open ground; all movements are made at quick or double-quick time, the run only in cases of urgent necessity; pieces are carried as each man finds convenient; movements are habitually indicated by the bugle (No. 10)."
+  },
+  {
+   "id": "CMP-K02",
+   "topic": "skirmishers_deploy",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "Skirmishers, Article First: deployments, extend and close intervals, relieve (Nos. 15-69)",
+    "items": [
+     "HAR-K02"
+    ],
+    "lines": [
+     [
+      6810,
+      7306
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "Skirmishers, Article I (Nos. 15-69)",
+    "items": [
+     "HCS-K02"
+    ],
+    "lines": [
+     [
+      7996,
+      8631
+     ]
+    ]
+   },
+   "similarity": 0.9421,
+   "unmatched_content_words": {
+    "hardee": 10,
+    "casey": 37,
+    "hardee_tokens": 1116,
+    "casey_tokens": 1157,
+    "hardee_words": [
+     "lcploycd",
+     "liviniiigi",
+     "iiiifiirnjbe",
+     "efraa",
+     "morcli",
+     "numbered",
+     "skium",
+     "miicii",
+     "satne",
+     "avhat"
+    ],
+    "casey_words": [
+     "sktrivrishers",
+     "sirmwi",
+     "vvith",
+     "platcxm",
+     "jdatoon",
+     "tiien",
+     "frontrank",
+     "rearrank",
+     "mstbuotion",
+     "ixstrtjction"
+    ]
+   },
+   "says": "Deployment of a company as skirmishers forward or by the flank on a named file, extending and closing intervals, and relieving a deployed company: same commands, same movements, same paragraph numbers in both manuals (Casey adds plates)."
+  },
+  {
+   "id": "CMP-K03",
+   "topic": "skirmishers_march",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "Skirmishers, Article Second: march to the front, in retreat, change direction, by the flank (Nos. 70-105)",
+    "items": [
+     "HAR-K03"
+    ],
+    "lines": [
+     [
+      7307,
+      7521
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "Skirmishers, Article II (Nos. 70-105)",
+    "items": [
+     "HCS-K03"
+    ],
+    "lines": [
+     [
+      8632,
+      8878
+     ]
+    ]
+   },
+   "similarity": 0.9494,
+   "unmatched_content_words": {
+    "hardee": 10,
+    "casey": 2,
+    "hardee_tokens": 428,
+    "casey_tokens": 429,
+    "hardee_words": [
+     "juidc",
+     "jniarcti",
+     "llifjht",
+     "avill",
+     "avish",
+     "avill",
+     "jiank",
+     "iiuoch",
+     "llaiik",
+     "plalnon"
+    ],
+    "casey_words": [
+     "isstetjctiox",
+     "skiemisiiees"
+    ]
+   },
+   "says": "Marching the deployed line: forward (guide habitually in the centre, \"guide right\" or \"guide left\" after the command forward when otherwise), in retreat, change of direction, march by the flank; same text and paragraph numbers in both manuals."
+  },
+  {
+   "id": "CMP-K04",
+   "topic": "skirmishers_firing",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "Skirmishers, Article Third: the firings (Nos. 106-126)",
+    "items": [
+     "HAR-K04"
+    ],
+    "lines": [
+     [
+      7522,
+      7760
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "Skirmishers, Article III (Nos. 106-126)",
+    "items": [
+     "INF-SKIRM-01"
+    ],
+    "lines": [
+     [
+      8879,
+      9119
+     ]
+    ]
+   },
+   "similarity": 0.9295,
+   "unmatched_content_words": {
+    "hardee": 13,
+    "casey": 39,
+    "hardee_tokens": 456,
+    "casey_tokens": 482,
+    "hardee_words": [
+     "skrrmishkis",
+     "kmishkus",
+     "finixj",
+     "jiriny",
+     "evcrj",
+     "avhen",
+     "jinuf",
+     "jiauk",
+     "isillilis",
+     "llbiqisiaoxd"
+    ],
+    "casey_words": [
+     "fieino",
+     "skiemishee",
+     "frontrank",
+     "rearrank",
+     "frontrank",
+     "frontrank",
+     "frontrank",
+     "rearrank",
+     "frontrank",
+     "frontrank"
+    ]
+   },
+   "says": "Skirmishers fire at a halt or while marching: at \"commence firing\" the front-rank man of a file halts, fires and reloads before moving, the rear-rank man marches 10-12 paces beyond, halts, fires and reloads in turn; at least one man of a file stays loaded; skirmishers are practised to load marching but halt an instant to charge cartridge and prime; to fire and load kneeling, lying and sitting; the piece is held upright before ramming so the powder reaches the bottom; the signal to cease firing is obeyed at once."
+  },
+  {
+   "id": "CMP-K05",
+   "topic": "skirmishers_loading",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "Skirmishers, Nos. 120-122 (loading while marching; kneeling, lying, sitting; opening the fire)",
+    "items": [
+     "HAR-K05"
+    ],
+    "lines": [
+     [
+      7652,
+      7671
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "Skirmishers, Nos. 120-122",
+    "items": [
+     "INF-SKIRM-01"
+    ],
+    "lines": [
+     [
+      9020,
+      9045
+     ]
+    ]
+   },
+   "similarity": 0.9738,
+   "unmatched_content_words": {
+    "hardee": 0,
+    "casey": 2,
+    "hardee_tokens": 51,
+    "casey_tokens": 53,
+    "hardee_words": [],
+    "casey_words": [
+     "iksteuctiox",
+     "skiemishees"
+    ]
+   },
+   "says": "Skirmishers are habituated to load while marching but halt an instant while charging cartridge and priming; they may fire and load kneeling, lying or sitting with latitude, upright before ramming; in opening the fire the men of one rank must not all fire at once and a file keeps one man loaded."
+  },
+  {
+   "id": "CMP-K06",
+   "topic": "skirmishers_rally",
+   "status": "differs",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "Skirmishers, Article Fourth: the rally (Nos. 127-177)",
+    "items": [
+     "HAR-K06"
+    ],
+    "lines": [
+     [
+      7761,
+      8181
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "Skirmishers, Article IV (Nos. 127-)",
+    "items": [
+     "HCS-K06"
+    ],
+    "lines": [
+     [
+      9120,
+      9529
+     ]
+    ]
+   },
+   "similarity": 0.8336,
+   "unmatched_content_words": {
+    "hardee": 38,
+    "casey": 24,
+    "hardee_tokens": 1028,
+    "casey_tokens": 918,
+    "hardee_words": [
+     "article",
+     "avill",
+     "judic",
+     "llalbj",
+     "eoniniand",
+     "moverapidly",
+     "umisiifrs",
+     "jiank",
+     "likirmixhevh",
+     "avish"
+    ],
+    "casey_words": [
+     "frontrank",
+     "evennumbered",
+     "rearrank",
+     "frontrank",
+     "rearrank",
+     "desires",
+     "slhrmisjiers",
+     "desires",
+     "desires",
+     "mstetjctiolsr"
+    ]
+   },
+   "only_hardee": [
+    "no matter what position the company to which they be- long may occupy"
+   ],
+   "only_casey": [
+    "If the captain desires again to deploy the sections"
+   ],
+   "says_h": "The rally by fours, sections, platoons, on the reserve and on the battalion, with assembly on the reserve and on the centre; the paragraphs on rallying on the battalion (skirmishers and reserve unmask the battalion front and run round its flank) are printed in this article.",
+   "says_c": "The same rallies, but Casey adds the commands to deploy again out of the rallied groups, sections and platoons (\"deploy as skirmishers\", \"form sections\", \"form platoons\") and moves the rally on the battalion to the School of the Battalion (vol. 2).",
+   "diff": "Casey adds re-deployment commands after a rally; the rally on the battalion is in Hardee's skirmisher instruction and in Casey's volume 2."
+  },
+  {
+   "id": "CMP-K07",
+   "topic": "skirmishers_battalion",
+   "status": "differs",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "Skirmishers, Article Fifth: deploy the battalion as skirmishers (Nos. 178-197)",
+    "items": [
+     "HAR-K07"
+    ],
+    "lines": [
+     [
+      8182,
+      8470
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "Skirmishers, Article V (Nos. 178-193)",
+    "items": [
+     "HCS-K07"
+    ],
+    "lines": [
+     [
+      9530,
+      9900
+     ]
+    ]
+   },
+   "similarity": 0.8897,
+   "unmatched_content_words": {
+    "hardee": 11,
+    "casey": 33,
+    "hardee_tokens": 594,
+    "casey_tokens": 677,
+    "hardee_words": [
+     "avill",
+     "skiiimisiikrs",
+     "juljutant",
+     "compauy",
+     "isiikus",
+     "rwiij",
+     "maxiai",
+     "slufuldcr",
+     "saiitk",
+     "ditaiicc"
+    ],
+    "casey_words": [
+     "battaiilon",
+     "senior",
+     "junior",
+     "sjcirmistiers",
+     "ilsrsteiiction",
+     "straightforward",
+     "lieutenant",
+     "constitute",
+     "junior",
+     "iljjjll"
+    ]
+   },
+   "only_hardee": [
+    "adjutant, and also to the major, who will be directed to"
+   ],
+   "only_casey": [
+    "senior and junior majors, one of whom"
+   ],
+   "says_h": "Deployment and rally of a whole battalion as skirmishers: the colonel gives orders to the lieutenant-colonel, adjutant and the (single) major, who is directed to take charge of the battalion reserve.",
+   "says_c": "The same deployment, but the battalion has senior and junior majors and the two companies of skirmishers; the junior major takes the reserve when those companies are part of it, and Casey adds a paragraph on the assembly of the deployed companies.",
+   "diff": "Casey names senior and junior majors and adds the two skirmisher companies to the reserve arrangement."
+  },
+  {
+   "id": "CMP-L01",
+   "topic": "bugle_general_calls",
+   "status": "differs",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "Instruction for the chief bugler: General calls (p. 217)",
+    "items": [
+     "HAR-L01"
+    ],
+    "lines": [
+     [
+      8553,
+      8628
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "Instruction for the drum-major: General calls on the bugle (p. 229)",
+    "items": [
+     "HCS-L01"
+    ],
+    "lines": [
+     [
+      10073,
+      10133
+     ]
+    ]
+   },
+   "similarity": 0.7756,
+   "unmatched_content_words": {
+    "hardee": 6,
+    "casey": 9,
+    "hardee_tokens": 37,
+    "casey_tokens": 45,
+    "hardee_words": [
+     "cdior",
+     "tirnf",
+     "ixstrtctiox",
+     "chief",
+     "rtgler",
+     "asiemhlf"
+    ],
+    "casey_words": [
+     "signal",
+     "execution",
+     "given",
+     "commanding",
+     "brigade",
+     "color",
+     "places",
+     "siclc",
+     "drill"
+    ]
+   },
+   "calls": [
+    {
+     "casey_no": 1,
+     "hardee_no": 1,
+     "name": "Attention",
+     "hardee_regex": "Attention\\.",
+     "casey_regex": "Attention",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 2,
+     "hardee_no": null,
+     "name": "Signal of execution",
+     "hardee_regex": null,
+     "casey_regex": "Signal of execution",
+     "hardee_reading": "not in the Hardee list"
+    },
+    {
+     "casey_no": 3,
+     "hardee_no": 2,
+     "name": "The general",
+     "hardee_regex": "The general\\.",
+     "casey_regex": "the general",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 4,
+     "hardee_no": 3,
+     "name": "The assembly",
+     "hardee_regex": "The assembl",
+     "casey_regex": "The assembly",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 5,
+     "hardee_no": 4,
+     "name": "To the color",
+     "hardee_regex": "To the C\\w+",
+     "casey_regex": "To the color",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 6,
+     "hardee_no": 5,
+     "name": "The recall",
+     "hardee_regex": "The recall",
+     "casey_regex": "The recall",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 7,
+     "hardee_no": 6,
+     "name": "Quick time",
+     "hardee_regex": "Quick time",
+     "casey_regex": "Quick time",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 8,
+     "hardee_no": 7,
+     "name": "Double quick time",
+     "hardee_regex": "Double quick t\\w+",
+     "casey_regex": "Double quich tim",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 9,
+     "hardee_no": 8,
+     "name": "The charge",
+     "hardee_regex": "The charge",
+     "casey_regex": "The charge",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 10,
+     "hardee_no": 9,
+     "name": "The reveille",
+     "hardee_regex": "The reveille",
+     "casey_regex": "The reveille",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 11,
+     "hardee_no": 10,
+     "name": "Retreat",
+     "hardee_regex": "Retreat",
+     "casey_regex": "Retreat",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 12,
+     "hardee_no": 11,
+     "name": "Tattoo",
+     "hardee_regex": "Tattoo",
+     "casey_regex": "Tattoo",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 13,
+     "hardee_no": 12,
+     "name": "To extinguish lights",
+     "hardee_regex": "extinguish lights",
+     "casey_regex": "To extinguish lights",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 14,
+     "hardee_no": 13,
+     "name": "Assembly of the buglers",
+     "hardee_regex": "Assembly of the buglers",
+     "casey_regex": "Assembly of the bugles",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 15,
+     "hardee_no": 14,
+     "name": "Assembly of the guard",
+     "hardee_regex": "of the guar",
+     "casey_regex": "Assembly of the guard",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 16,
+     "hardee_no": 15,
+     "name": "Orders for orderly sergeants",
+     "hardee_regex": "Orders for order",
+     "casey_regex": "Orders for orderly sergeants",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 17,
+     "hardee_no": 16,
+     "name": "For officers to take their places in line after firing",
+     "hardee_regex": "For officers to take their",
+     "casey_regex": "For officers to take their places in line after",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 18,
+     "hardee_no": 17,
+     "name": "The disperse",
+     "hardee_regex": "The disperse",
+     "casey_regex": "The disperse",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 19,
+     "hardee_no": 18,
+     "name": "Officers' call",
+     "hardee_regex": "Officers' call",
+     "casey_regex": "Offi\\S+ call",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 20,
+     "hardee_no": 19,
+     "name": "Breakfast call",
+     "hardee_regex": "Breakfast call",
+     "casey_regex": "Breakfast call",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 21,
+     "hardee_no": 20,
+     "name": "Dinner call",
+     "hardee_regex": "Dinner call",
+     "casey_regex": "Dinner call",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 22,
+     "hardee_no": 21,
+     "name": "Sick call",
+     "hardee_regex": "Sick call",
+     "casey_regex": "Sic\\w+ call",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 23,
+     "hardee_no": 22,
+     "name": "Fatigue call",
+     "hardee_regex": "Fatigue call",
+     "casey_regex": "Fatigue call",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 24,
+     "hardee_no": 23,
+     "name": "Church call",
+     "hardee_regex": "C\\w*urch call",
+     "casey_regex": "Church call",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 25,
+     "hardee_no": 24,
+     "name": "Drill call",
+     "hardee_regex": null,
+     "casey_regex": "Drill call",
+     "hardee_reading": "unreadable in the OCR"
+    },
+    {
+     "casey_no": 26,
+     "hardee_no": 25,
+     "name": "School call",
+     "hardee_regex": "School\\s+rail",
+     "casey_regex": "School call",
+     "hardee_reading": "legible (damaged OCR)"
+    }
+   ],
+   "only_casey": [
+    "Signal of execution"
+   ],
+   "absent": {
+    "side": "hardee",
+    "regex": "Signal\\s+of\\s+execution",
+    "max_count": 0,
+    "manuals": [
+     "HARDEE-1861b",
+     "HARDEE-1861a"
+    ]
+   },
+   "says_h": "25 general bugle calls are listed (attention, the general, the assembly, to the color, the recall, quick time, double quick time, the charge, reveille, retreat, tattoo, to extinguish lights, assembly of the buglers, assembly of the guard, orders for orderly sergeants, for officers to take their places in line after firing, the disperse, officers' call, breakfast, dinner, sick, fatigue, church, drill and school call); the notation is not in the OCR text.",
+   "says_c": "26 general bugle calls: the same 25 plus \"Signal of execution\" (to be given by the general commanding more than one brigade of the line) as call 2.",
+   "diff": "Casey has one more general bugle call (Signal of execution)."
+  },
+  {
+   "id": "CMP-L02",
+   "topic": "bugle_skirmisher_calls",
+   "status": "identical",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "Instruction for the chief bugler: Calls for skirmishers (p. 218)",
+    "items": [
+     "HAR-L02"
+    ],
+    "lines": [
+     [
+      8629,
+      8683
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "Calls on the bugle for skirmishers (p. 230)",
+    "items": [
+     "HCS-L02"
+    ],
+    "lines": [
+     [
+      10134,
+      10193
+     ]
+    ]
+   },
+   "similarity": 0.7792,
+   "unmatched_content_words": {
+    "hardee": 5,
+    "casey": 5,
+    "hardee_tokens": 53,
+    "casey_tokens": 56,
+    "hardee_words": [
+     "sktrnshers",
+     "fnfir",
+     "jihel",
+     "ineiice",
+     "doivn"
+    ],
+    "casey_words": [
+     "unfix",
+     "smrmishers",
+     "commence",
+     "signals",
+     "drummajor"
+    ]
+   },
+   "calls": [
+    {
+     "casey_no": 1,
+     "hardee_no": 1,
+     "name": "Fix bayonet",
+     "hardee_regex": "F\\S*\\s+bagonet",
+     "casey_regex": "Fix bayonet",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 2,
+     "hardee_no": 2,
+     "name": "Unfix bayonet",
+     "hardee_regex": "nfi\\.r\\s+bayonet",
+     "casey_regex": "Unfix bayonet",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 3,
+     "hardee_no": 3,
+     "name": "Quick time",
+     "hardee_regex": "Quick time",
+     "casey_regex": "Quich time",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 4,
+     "hardee_no": 4,
+     "name": "Double quick time",
+     "hardee_regex": "Double \\S+ time",
+     "casey_regex": "Double quick time",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 5,
+     "hardee_no": null,
+     "name": "The run",
+     "hardee_regex": null,
+     "casey_regex": "The run",
+     "hardee_reading": "line missing in the OCR (number skipped)"
+    },
+    {
+     "casey_no": 6,
+     "hardee_no": 6,
+     "name": "Deploy as skirmishers",
+     "hardee_regex": "Deplog as skirmishers",
+     "casey_regex": "Deploy as s\\w+",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 7,
+     "hardee_no": 7,
+     "name": "Forward",
+     "hardee_regex": "Forirard",
+     "casey_regex": "Forward",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 8,
+     "hardee_no": 8,
+     "name": "In retreat",
+     "hardee_regex": "retreat",
+     "casey_regex": "In retreat",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 9,
+     "hardee_no": 9,
+     "name": "Halt",
+     "hardee_regex": null,
+     "casey_regex": "Ealt",
+     "hardee_reading": "unreadable in the OCR"
+    },
+    {
+     "casey_no": 10,
+     "hardee_no": 10,
+     "name": "By the right flank",
+     "hardee_regex": "right flank",
+     "casey_regex": "By the right flan",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 11,
+     "hardee_no": 11,
+     "name": "By the left flank",
+     "hardee_regex": "left flank",
+     "casey_regex": "By the left flank",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 12,
+     "hardee_no": 12,
+     "name": "Commence firing",
+     "hardee_regex": "Com ineiice",
+     "casey_regex": "Commence firing",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 13,
+     "hardee_no": 13,
+     "name": "Cease firing",
+     "hardee_regex": "Cease Jiring",
+     "casey_regex": "Cease firing",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 14,
+     "hardee_no": 14,
+     "name": "Change direction to the right",
+     "hardee_regex": "Change direction to the right",
+     "casey_regex": "Change direction to the right",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 15,
+     "hardee_no": 15,
+     "name": "Change direction to the left",
+     "hardee_regex": "Change direction to the left",
+     "casey_regex": "Change direction to the lefU",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 16,
+     "hardee_no": 16,
+     "name": "Lie down",
+     "hardee_regex": "doivn",
+     "casey_regex": "Lie down",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 17,
+     "hardee_no": 17,
+     "name": "Rise up",
+     "hardee_regex": null,
+     "casey_regex": "Rise up",
+     "hardee_reading": "unreadable in the OCR"
+    },
+    {
+     "casey_no": 18,
+     "hardee_no": 18,
+     "name": "Rally by fours",
+     "hardee_regex": "Rally by fours",
+     "casey_regex": "Rally by fours",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 19,
+     "hardee_no": 19,
+     "name": "Rally by sections",
+     "hardee_regex": "Rally by sections",
+     "casey_regex": "Bally by sections",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 20,
+     "hardee_no": 20,
+     "name": "Rally by platoons",
+     "hardee_regex": "Rally by platoons",
+     "casey_regex": "Bally by platoons",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 21,
+     "hardee_no": 21,
+     "name": "Rally on the reserve",
+     "hardee_regex": "on \\S+ reserve",
+     "casey_regex": "on the reserve",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 22,
+     "hardee_no": 22,
+     "name": "Rally on the battalion",
+     "hardee_regex": "on \\S+ battalion",
+     "casey_regex": "on the battalion",
+     "hardee_reading": "legible (damaged OCR)"
+    },
+    {
+     "casey_no": 23,
+     "hardee_no": 23,
+     "name": "Assemble on the battalion",
+     "hardee_regex": "Assemble on the battalion",
+     "casey_regex": "Assemble on the battalion",
+     "hardee_reading": "legible (damaged OCR)"
+    }
+   ],
+   "says": "The bugle calls for skirmishers (fix and unfix bayonet, quick time, double quick time, deploy as skirmishers, forward, in retreat, halt, by the right and left flank, commence and cease firing, change direction right and left, lie down, rise up, rally by fours, by sections, by platoons, on the reserve and on the battalion, assemble on the battalion) and the note on the general, the assembly and to the color are the same list in both manuals; the damaged Hardee OCR leaves calls 5, 9 and 17 unreadable."
+  },
+  {
+   "id": "CMP-L03",
+   "topic": "bugle_skirmisher_calls",
+   "status": "unsettled",
+   "hardee": {
+    "manual": "HARDEE-1861b",
+    "ref": "Calls for skirmishers, call 5 (OCR numbering skips 4 to 6)",
+    "items": [
+     "HAR-L03"
+    ],
+    "lines": [
+     [
+      8629,
+      8640
+     ]
+    ]
+   },
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "Calls on the bugle for skirmishers, call 5 \"The run.\"",
+    "items": [
+     "HCS-L03"
+    ],
+    "lines": [
+     [
+      10134,
+      10149
+     ]
+    ]
+   },
+   "similarity": 0.2551,
+   "unmatched_content_words": {
+    "hardee": 2,
+    "casey": 3,
+    "hardee_tokens": 9,
+    "casey_tokens": 11,
+    "hardee_words": [
+     "sktrnshers",
+     "fnfir"
+    ],
+    "casey_words": [
+     "bugle",
+     "unfix",
+     "smrmishers"
+    ]
+   },
+   "says_h": "In Hardee's OCR the skirmisher calls are numbered 1, 2, 3, 4 and then 6; the line for call 5 is missing, so whether Hardee lists \"The run\" as a bugle call cannot be settled from this text.",
+   "says_c": "Casey's fifth bugle call for skirmishers is \"The run.\"; the call list is complete (23)."
+  },
+  {
+   "id": "CMP-L04",
+   "topic": "drum_beats",
+   "status": "absent_hardee",
+   "hardee": null,
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "Instruction for the drum-major: beats of the drum (pp. 227-228)",
+    "items": [
+     "HCS-L04"
+    ],
+    "lines": [
+     [
+      9983,
+      10072
+     ]
+    ]
+   },
+   "absent": {
+    "side": "hardee",
+    "regex": "long\\s+roll|beats\\s+of\\s+the\\s+drum|beats\\s+on\\s+the\\s+drum",
+    "max_count": 0,
+    "manuals": [
+     "HARDEE-1861b",
+     "HARDEE-1861a"
+    ]
+   },
+   "says_c": "Casey prints drum beats for infantry: 15 general beats (the general, the assembly, to the color, the long roll, common time, quick time, double quick time, reveille, the troop, retreat, tattoo, to recall detachments, drummer's call, come for orders, the roll to cease firing) and 20 beats for skirmishers for use when no bugle is available.",
+   "diff": "Hardee (rifle and light infantry) has bugle calls only; Casey adds the drum beats and the drum-major's staff signals."
+  },
+  {
+   "id": "CMP-L05",
+   "topic": "drum_major_signals",
+   "status": "absent_hardee",
+   "hardee": null,
+   "casey": {
+    "manual": "CASEY-1862-1",
+    "ref": "Signals of the drum-major (p. 231)",
+    "items": [
+     "HCS-L05"
+    ],
+    "lines": [
+     [
+      10194,
+      10260
+     ]
+    ]
+   },
+   "absent": {
+    "side": "hardee",
+    "regex": "Signals\\s+of\\s+the\\s+dr",
+    "max_count": 0,
+    "manuals": [
+     "HARDEE-1861b",
+     "HARDEE-1861a"
+    ]
+   },
+   "says_c": "Casey adds staff signals by which the drum-major orders the principal beats and sounds (the general, the assembly, to the color, the long roll, common time and others).",
+   "diff": "Hardee has no drum-major signals."
+  }
+ ]
+}

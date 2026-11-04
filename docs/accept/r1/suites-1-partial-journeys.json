@@ -1,0 +1,46 @@
+{
+ "finished": "PARTIAL: the run was still going (or was stopped) when this was written",
+ "seconds": 415,
+ "portBase": "8480",
+ "totals": {
+  "suites": 1,
+  "ok": 0,
+  "notOk": 1,
+  "greenTests": 4,
+  "greenTestsTotal": 41,
+  "redProofs": 0,
+  "redProofsOk": 0,
+  "redTestsRedAsRequired": 0
+ },
+ "results": [
+  {
+   "id": "journeys.R1c",
+   "title": "desktop journeys J1-J8, inputs, group A, group B on R1c",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 414.7,
+   "passed": 4,
+   "total": 41,
+   "skipped": 0,
+   "failed": 37,
+   "tiles": 10,
+   "failLines": [
+    "FAIL  T0-J1        J1 load: app mounts, HUD/toolbar/minimap present, units drawn, one map, no exceptions",
+    "FAIL  T0-J2        J2 play 30 ticks at 8x: tick advances, minimap follows, pause stops it",
+    "FAIL  T0-J3        J3 pan by real mouse drag, wheel zoom, pinch zoom (CDP touch): camera changes each time (X4)",
+    "FAIL  T0-J4        J4 select a unit by real click: panel opens for exactly that unit; Escape closes it (X4)",
+    "FAIL  T0-J5        J5 search: type a unit name, pick the result, the unit panel opens for it; Escape closes",
+    "FAIL  T0-J7        J7 day 2/3 jump by tab and by keys 2/3: data loads within 2 s, minimap follows, dates stay July 1-3 (X6)",
+    "FAIL  T0-J8        J8 /?ancestor=U-20ME on a fresh load: no white screen, the Follow panel opens on the regiment timeline, Escape closes it, the map underneath is intact (C5, DL)",
+    "FAIL  T0-IN-01     real mouse drag on the map changes getCenter()"
+   ],
+   "ok": false,
+   "tail": [
+    "      {\"tile requests in the shared session\":5,\"ignored tile noise\":{\"tile\":7,\"telemetry\":0}}",
+    "journeys-desktop: 4/41 passed, 37 FAILED",
+    "mapbox requests used this run: 10 of 300 (blocked by cap: 0)"
+   ]
+  }
+ ]
+}

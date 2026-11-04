@@ -33,25 +33,31 @@ export function createBattle(ds, kernel, tok) {
   for (const u of units.values()) if (!nodes.has(u.id)) { nodes.set(u.id, { id: u.id, side: u.side, kind: u.kind, parent: u.parent || 'ROOT', designation: u.designation, depth: 1 }); }
   const snapTicks = [...snap.keys()].sort((a, b) => a - b);
 
-  const S = { model: null, endSlopes: null };
+  const S = { model: null, endSlopes: null }; let trackGen = 0;
   /** (re)build every unit's track for the current interpolation settings */
   function buildTracks() {
     const model = tok('interp.model'); const endSlopes = tok('interp.endSlopes');
     if (S.model === model && S.endSlopes === endSlopes) return false;
     const def = kernel.interp.get(model);
     for (const u of units.values()) u.track = def.build(u.kf.map((k) => [k.tick, k.lat, k.lng]), { endSlopes, kf: u.kf });
-    S.model = model; S.endSlopes = endSlopes; return true;
+    S.model = model; S.endSlopes = endSlopes; trackGen++; return true;
   }
   buildTracks();
 
   const sample = { present: false, lat: 0, lng: 0, vLat: 0, vLng: 0, seg: 0, s: 0, moving: false };
 
-  /** state of one unit at tau under the current model, or null before its first keyframe */
-  function stateOf(u, tau) {
+  /** state of one unit at tau under the current model, or null before its first keyframe.  `into`: an object to fill (the same fields) instead of a new one (R1F: the engine's frame asks for one per unit and keeps it) */
+  function stateOf(u, tau, into) {
     sample.ov = false;                                                    // a motion model may OVERRIDE strength / bearing / disposition (the production reproduction blends them between ticks)
     u.track.at(tau, sample);
     if (!sample.present) return null;
     const k = u.kf[sample.seg]; const nextK = u.kf[sample.seg + 1]; const ov = sample.ov; const strength = ov ? sample.strength : k.strength;
+    if (into) {
+      into.lat = sample.lat; into.lng = sample.lng; into.vLat = sample.vLat; into.vLng = sample.vLng; into.moving = sample.moving; into.seg = sample.seg; into.s = sample.s;
+      into.strength = strength; into.ratio = Math.min(1, (strength || 0) / u.strengthRef); into.disposition = ov ? sample.disposition : k.disposition; into.bearing = ov ? sample.bearing : k.bearing; into.note = k.note;
+      into.kfTick = k.tick; into.ageTicks = Math.max(0, tau - k.tick); into.untilNext = nextK ? nextK.tick - tau : Infinity; into.nKf = u.kf.length;
+      return into;
+    }
     return {
       lat: sample.lat, lng: sample.lng, vLat: sample.vLat, vLng: sample.vLng, moving: sample.moving, seg: sample.seg, s: sample.s,
       strength, ratio: Math.min(1, (strength || 0) / u.strengthRef), disposition: ov ? sample.disposition : k.disposition, bearing: ov ? sample.bearing : k.bearing, note: k.note,
@@ -61,6 +67,14 @@ export function createBattle(ds, kernel, tok) {
 
   /** The units on the field at tau.  rule: 'carry' (every unit with a keyframe up to tau; what the site draws today), 'window' (only units within `windowTicks` ticks of one of their keyframes,
    *  before or after), 'snapshot' (only the units recorded at the latest populated tick, held there). */
+  const POOL = { out: [] }; const POOL2 = { out: [] };      // (R1F: a second pool for the pre-solve's prediction of the next frame, which must not overwrite the records of the frame on screen)
+  let appearSorted = null; let appearGen = -1;
+  /** R1F: does a unit come onto the field in (a, b]?  (a unit appears at its track's appearTau, or at its first keyframe, and never leaves) */
+  function arrives(a, b) {
+    if (appearSorted === null || appearGen !== trackGen) { appearSorted = []; for (const u of units.values()) { const ap = u.track.appearTau; appearSorted.push(ap === undefined ? u.kf[0].tick : ap); } appearSorted.sort((x, y) => x - y); appearGen = trackGen; }
+    let lo = 0; let hi = appearSorted.length; while (lo < hi) { const m = (lo + hi) >> 1; if (appearSorted[m] <= a) lo = m + 1; else hi = m; }
+    return lo < appearSorted.length && appearSorted[lo] <= b;
+  }      // R1F: the engine's own frame (opts.reuse) keeps ONE state object and ONE { u, st } record per unit, refilled at every call, and one result array: the 360 marks near the screen allocated some 130 KB of them a frame, and the page's garbage collector paid for it inside the engine's frame
   function visibleAt(tau, opts = {}) {
     const rule = opts.rule || 'carry'; const win = opts.windowTicks ?? 24;      // ANIM: the visibility rule is the app's own (carry-forward: a unit stays at its last keyframe), not a dial
     const out = [];
@@ -71,6 +85,16 @@ export function createBattle(ds, kernel, tok) {
       for (const { u, idx } of snap.get(t)) { const k = u.kf[idx]; out.push({ u, st: { lat: k.lat, lng: k.lng, vLat: 0, vLng: 0, moving: false, seg: idx, s: 0, strength: k.strength, ratio: Math.min(1, (k.strength || 0) / u.strengthRef), disposition: k.disposition, bearing: k.bearing, note: k.note, kfTick: k.tick, ageTicks: Math.max(0, tau - k.tick), untilNext: Infinity, nKf: u.kf.length } }); }
       return out;
     }
+    if (opts.reuse && rule === 'carry') {
+      const o = opts.alt ? POOL2.out : POOL.out; let n = 0; const rk = opts.alt ? '_w' : '_v';
+      for (const u of units.values()) {
+        const appear = u.track.appearTau; if (tau < (appear === undefined ? u.kf[0].tick : appear)) continue;
+        const rec = u[rk] || (u[rk] = { u, st: { lat: 0, lng: 0, vLat: 0, vLng: 0, moving: false, seg: 0, s: 0, strength: 0, ratio: 0, disposition: null, bearing: 0, note: null, kfTick: 0, ageTicks: 0, untilNext: 0, nKf: 0 }, p: undefined, pb: null, sx: undefined, sy: undefined });
+        if (!stateOf(u, tau, rec.st)) continue;
+        rec.p = undefined; rec.sx = undefined; rec.sy = undefined; o[n++] = rec;
+      }
+      o.length = n; return o;
+    }
     for (const u of units.values()) {
       const appear = u.track.appearTau; if (tau < (appear === undefined ? u.kf[0].tick : appear)) continue;
       const st = stateOf(u, tau); if (!st) continue;
@@ -80,5 +104,5 @@ export function createBattle(ds, kernel, tok) {
     return out;
   }
 
-  return { units, nodes, snap, snapTicks, dispositions: disp, visibleAt, stateOf, buildTracks, ds, chainOf };
+  return { units, nodes, snap, snapTicks, dispositions: disp, visibleAt, arrives, stateOf, buildTracks, ds, chainOf };
 }

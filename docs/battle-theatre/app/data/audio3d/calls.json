@@ -1,0 +1,804 @@
+{
+ "_doc": "Bugle and drum calls of the Union infantry (Casey 1862, vol. 1, 'Instruction for the drum-major') with the Hardee 1861 list as second witness. NAMES AND ORDER are documented: read from the OCR of the two manuals by tools/bt/drill_*.py and checked by drill_check.py (drill/DRILL-HARDEE-NOTES.md section 2; items HAR-L01, HAR-L02, HAR-L03, HCS-L01..L05). The MUSICAL NOTATION is not in the OCR text and was not transcribed: 'notation' is null for every call. Casey's printed leaf for the bugle calls (printed p. 229-230 of vol. 1, archive.org infantrytacticsf01brig) is not at leaf offset +59 as for the text pages: 32 plates are interleaved, so the page images must be located by the leaf search described in AUDIO3D-NOTES.md before transcription. Until then the engine plays modern recordings of the call of the same name where a licensed one exists (real_standin, never claimed as the 1863 call) and nothing otherwise. Taps (Butterfield, July 1862) is a call of the Army of the Potomac not in the 1862 manuals.",
+ "tier_names": "documented (primary manual text, OCR-verified)",
+ "tier_notation": "open gap",
+ "tier_recordings": "real_standin",
+ "bugle": [
+  {
+   "casey_no": 1,
+   "hardee_no": 1,
+   "name": "Attention",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L01",
+    "HCS-L01"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [
+    "WC-ATTENTION"
+   ],
+   "recording_note": "modern call of the same name; identity of notes with the 1863 call not verified"
+  },
+  {
+   "casey_no": 2,
+   "hardee_no": null,
+   "name": "Signal of execution",
+   "hardee_reading": "not in the Hardee list",
+   "documented_in": [
+    "HAR-L01",
+    "HCS-L01"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 3,
+   "hardee_no": 2,
+   "name": "The general",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L01",
+    "HCS-L01"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 4,
+   "hardee_no": 3,
+   "name": "The assembly",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L01",
+    "HCS-L01"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [
+    "WC-ASSEMBLY",
+    "WC-ASSEMBLY-USMB"
+   ],
+   "recording_note": "modern call of the same name; identity of notes with the 1863 call not verified"
+  },
+  {
+   "casey_no": 5,
+   "hardee_no": 4,
+   "name": "To the color",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L01",
+    "HCS-L01"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [
+    "WC-TOCOLOR"
+   ],
+   "recording_note": "modern call of the same name; identity of notes with the 1863 call not verified"
+  },
+  {
+   "casey_no": 6,
+   "hardee_no": 5,
+   "name": "The recall",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L01",
+    "HCS-L01"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [
+    "WC-RECALL",
+    "WC-RECALL-USMB"
+   ],
+   "recording_note": "modern call of the same name; identity of notes with the 1863 call not verified"
+  },
+  {
+   "casey_no": 7,
+   "hardee_no": 6,
+   "name": "Quick time",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L01",
+    "HCS-L01"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 8,
+   "hardee_no": 7,
+   "name": "Double quick time",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L01",
+    "HCS-L01"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 9,
+   "hardee_no": 8,
+   "name": "The charge",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L01",
+    "HCS-L01"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 10,
+   "hardee_no": 9,
+   "name": "The reveille",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L01",
+    "HCS-L01"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [
+    "WC-REVEILLE"
+   ],
+   "recording_note": "modern call of the same name; identity of notes with the 1863 call not verified"
+  },
+  {
+   "casey_no": 11,
+   "hardee_no": 10,
+   "name": "Retreat",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L01",
+    "HCS-L01"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [
+    "WC-RETREAT"
+   ],
+   "recording_note": "modern call of the same name; identity of notes with the 1863 call not verified"
+  },
+  {
+   "casey_no": 12,
+   "hardee_no": 11,
+   "name": "Tattoo",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L01",
+    "HCS-L01"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [
+    "WC-TATTOO"
+   ],
+   "recording_note": "modern call of the same name; identity of notes with the 1863 call not verified"
+  },
+  {
+   "casey_no": 13,
+   "hardee_no": 12,
+   "name": "To extinguish lights",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L01",
+    "HCS-L01"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 14,
+   "hardee_no": 13,
+   "name": "Assembly of the buglers",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L01",
+    "HCS-L01"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 15,
+   "hardee_no": 14,
+   "name": "Assembly of the guard",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L01",
+    "HCS-L01"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 16,
+   "hardee_no": 15,
+   "name": "Orders for orderly sergeants",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L01",
+    "HCS-L01"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 17,
+   "hardee_no": 16,
+   "name": "For officers to take their places in line after firing",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L01",
+    "HCS-L01"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 18,
+   "hardee_no": 17,
+   "name": "The disperse",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L01",
+    "HCS-L01"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 19,
+   "hardee_no": 18,
+   "name": "Officers' call",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L01",
+    "HCS-L01"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [
+    "WC-OFFICERSCALL"
+   ],
+   "recording_note": "modern call of the same name; identity of notes with the 1863 call not verified"
+  },
+  {
+   "casey_no": 20,
+   "hardee_no": 19,
+   "name": "Breakfast call",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L01",
+    "HCS-L01"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [
+    "WC-MESSCALL"
+   ],
+   "recording_note": "modern call of the same name; identity of notes with the 1863 call not verified"
+  },
+  {
+   "casey_no": 21,
+   "hardee_no": 20,
+   "name": "Dinner call",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L01",
+    "HCS-L01"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [
+    "WC-MESSCALL"
+   ],
+   "recording_note": "modern call of the same name; identity of notes with the 1863 call not verified"
+  },
+  {
+   "casey_no": 22,
+   "hardee_no": 21,
+   "name": "Sick call",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L01",
+    "HCS-L01"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [
+    "WC-SICKCALL"
+   ],
+   "recording_note": "modern call of the same name; identity of notes with the 1863 call not verified"
+  },
+  {
+   "casey_no": 23,
+   "hardee_no": 22,
+   "name": "Fatigue call",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L01",
+    "HCS-L01"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 24,
+   "hardee_no": 23,
+   "name": "Church call",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L01",
+    "HCS-L01"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 25,
+   "hardee_no": 24,
+   "name": "Drill call",
+   "hardee_reading": "unreadable in the OCR",
+   "documented_in": [
+    "HAR-L01",
+    "HCS-L01"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 26,
+   "hardee_no": 25,
+   "name": "School call",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L01",
+    "HCS-L01"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  }
+ ],
+ "bugle_skirmishers": [
+  {
+   "casey_no": 1,
+   "hardee_no": 1,
+   "name": "Fix bayonet",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L02",
+    "HAR-L03",
+    "HCS-L02",
+    "HCS-L03"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 2,
+   "hardee_no": 2,
+   "name": "Unfix bayonet",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L02",
+    "HAR-L03",
+    "HCS-L02",
+    "HCS-L03"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 3,
+   "hardee_no": 3,
+   "name": "Quick time",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L02",
+    "HAR-L03",
+    "HCS-L02",
+    "HCS-L03"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 4,
+   "hardee_no": 4,
+   "name": "Double quick time",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L02",
+    "HAR-L03",
+    "HCS-L02",
+    "HCS-L03"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 5,
+   "hardee_no": null,
+   "name": "The run",
+   "hardee_reading": "line missing in the OCR (number skipped)",
+   "documented_in": [
+    "HAR-L02",
+    "HAR-L03",
+    "HCS-L02",
+    "HCS-L03"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 6,
+   "hardee_no": 6,
+   "name": "Deploy as skirmishers",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L02",
+    "HAR-L03",
+    "HCS-L02",
+    "HCS-L03"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 7,
+   "hardee_no": 7,
+   "name": "Forward",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L02",
+    "HAR-L03",
+    "HCS-L02",
+    "HCS-L03"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 8,
+   "hardee_no": 8,
+   "name": "In retreat",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L02",
+    "HAR-L03",
+    "HCS-L02",
+    "HCS-L03"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 9,
+   "hardee_no": 9,
+   "name": "Halt",
+   "hardee_reading": "unreadable in the OCR",
+   "documented_in": [
+    "HAR-L02",
+    "HAR-L03",
+    "HCS-L02",
+    "HCS-L03"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 10,
+   "hardee_no": 10,
+   "name": "By the right flank",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L02",
+    "HAR-L03",
+    "HCS-L02",
+    "HCS-L03"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 11,
+   "hardee_no": 11,
+   "name": "By the left flank",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L02",
+    "HAR-L03",
+    "HCS-L02",
+    "HCS-L03"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 12,
+   "hardee_no": 12,
+   "name": "Commence firing",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L02",
+    "HAR-L03",
+    "HCS-L02",
+    "HCS-L03"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 13,
+   "hardee_no": 13,
+   "name": "Cease firing",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L02",
+    "HAR-L03",
+    "HCS-L02",
+    "HCS-L03"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 14,
+   "hardee_no": 14,
+   "name": "Change direction to the right",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L02",
+    "HAR-L03",
+    "HCS-L02",
+    "HCS-L03"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 15,
+   "hardee_no": 15,
+   "name": "Change direction to the left",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L02",
+    "HAR-L03",
+    "HCS-L02",
+    "HCS-L03"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 16,
+   "hardee_no": 16,
+   "name": "Lie down",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L02",
+    "HAR-L03",
+    "HCS-L02",
+    "HCS-L03"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 17,
+   "hardee_no": 17,
+   "name": "Rise up",
+   "hardee_reading": "unreadable in the OCR",
+   "documented_in": [
+    "HAR-L02",
+    "HAR-L03",
+    "HCS-L02",
+    "HCS-L03"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 18,
+   "hardee_no": 18,
+   "name": "Rally by fours",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L02",
+    "HAR-L03",
+    "HCS-L02",
+    "HCS-L03"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 19,
+   "hardee_no": 19,
+   "name": "Rally by sections",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L02",
+    "HAR-L03",
+    "HCS-L02",
+    "HCS-L03"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 20,
+   "hardee_no": 20,
+   "name": "Rally by platoons",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L02",
+    "HAR-L03",
+    "HCS-L02",
+    "HCS-L03"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 21,
+   "hardee_no": 21,
+   "name": "Rally on the reserve",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L02",
+    "HAR-L03",
+    "HCS-L02",
+    "HCS-L03"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 22,
+   "hardee_no": 22,
+   "name": "Rally on the battalion",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L02",
+    "HAR-L03",
+    "HCS-L02",
+    "HCS-L03"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  },
+  {
+   "casey_no": 23,
+   "hardee_no": 23,
+   "name": "Assemble on the battalion",
+   "hardee_reading": "legible (damaged OCR)",
+   "documented_in": [
+    "HAR-L02",
+    "HAR-L03",
+    "HCS-L02",
+    "HCS-L03"
+   ],
+   "notation": null,
+   "tempo": null,
+   "recordings": [],
+   "recording_note": null
+  }
+ ],
+ "drum": {
+  "documented_in": [
+   "HCS-L04",
+   "HCS-L05"
+  ],
+  "general_beats": 15,
+  "skirmisher_beats": 20,
+  "general_beat_names": [
+   "the general",
+   "the assembly",
+   "to the color",
+   "the long roll",
+   "common time",
+   "quick time",
+   "double quick time",
+   "reveille",
+   "the troop",
+   "retreat",
+   "tattoo",
+   "to recall detachments",
+   "drummer's call",
+   "come for orders",
+   "the roll to cease firing"
+  ],
+  "notation": null,
+  "note": "Casey prints 15 general beats and 20 for skirmishers (drill_compare.json CMP-L04); names of the 15 general beats are as listed there; rhythms not transcribed. The long roll is rendered as a sustained rudimental roll (inferred)."
+ },
+ "other_calls": [
+  {
+   "name": "Taps",
+   "note": "Butterfield, July 1862 (audio/PLAN.md 3.3, general knowledge, to be sourced); recordings WC-TAPS and IA-TAPS",
+   "recordings": [
+    "WC-TAPS",
+    "IA-TAPS"
+   ],
+   "tier": "inferred"
+  }
+ ]
+}

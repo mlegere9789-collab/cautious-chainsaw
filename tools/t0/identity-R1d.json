@@ -1,0 +1,89 @@
+{
+ "_doc": "Identity differences of train R1d against the baseline (tools/t0/verify_release.mjs check V6) that are intended. The check demands exactly this list.",
+ "differences": [
+  {
+   "diff": "cinematic-export.html: title changed \"Cinematic Export — Gettysburg Animated Battlefield Map\" -> \"Export a Video — Gettysburg Animated Battlefield Map\"",
+   "reason": "Group POLISH (canonical names, docs/plan/FINAL/11-copy-docs-content.md Appendix D, CD-1 defaults in force): Battle Reports -> Regiment Fact Sheets, What They Could See -> High Ground, Cinematic Export -> Export a Video; the page descriptions say what the page does."
+  },
+  {
+   "diff": "cinematic-export.html: og:title changed \"Cinematic Export — Gettysburg Animated Battlefield Map\" -> \"Export a Video — Gettysburg Animated Battlefield Map\"",
+   "reason": "Group POLISH (canonical names, docs/plan/FINAL/11-copy-docs-content.md Appendix D, CD-1 defaults in force): Battle Reports -> Regiment Fact Sheets, What They Could See -> High Ground, Cinematic Export -> Export a Video; the page descriptions say what the page does."
+  },
+  {
+   "diff": "index.html: description changed \"Watch the Battle of Gettysburg unfold in real time -- 467 regiments and batteries across 675 five-minute snapshots of July 1-3, 1863.\" -> \"Watch the Battle of Gettysburg unfold step by step -- 405 units (regiments, batteries and the brigades, divisions and corps above them) across 675 snapshots of July 1-3, 1863.\"",
+   "reason": "Groups CLOCK and DATA: the description says what the map now holds (405 units counted from the order of battle) and drops the \"five-minute snapshots\" claim the clock no longer makes."
+  },
+  {
+   "diff": "index.html: og:description changed \"Watch the Battle of Gettysburg unfold in real time -- 467 regiments and batteries across 675 five-minute snapshots of July 1-3, 1863.\" -> \"Watch the Battle of Gettysburg unfold step by step -- 405 units (regiments, batteries and the brigades, divisions and corps above them) across 675 snapshots of July 1-3, 1863.\"",
+   "reason": "Groups CLOCK and DATA: the description says what the map now holds (405 units counted from the order of battle) and drops the \"five-minute snapshots\" claim the clock no longer makes."
+  },
+  {
+   "diff": "index.html: twitter:description changed \"Watch the Battle of Gettysburg unfold in real time -- 467 regiments and batteries across 675 five-minute snapshots of July 1-3, 1863.\" -> \"Watch the Battle of Gettysburg unfold step by step -- 405 units (regiments, batteries and the brigades, divisions and corps above them) across 675 snapshots of July 1-3, 1863.\"",
+   "reason": "Groups CLOCK and DATA: the description says what the map now holds (405 units counted from the order of battle) and drops the \"five-minute snapshots\" claim the clock no longer makes."
+  },
+  {
+   "diff": "report.html: title changed \"Battle Reports — Gettysburg Animated Battlefield Map\" -> \"Regiment Fact Sheets — Gettysburg Animated Battlefield Map\"",
+   "reason": "Group POLISH (canonical names, docs/plan/FINAL/11-copy-docs-content.md Appendix D, CD-1 defaults in force): Battle Reports -> Regiment Fact Sheets, What They Could See -> High Ground, Cinematic Export -> Export a Video; the page descriptions say what the page does."
+  },
+  {
+   "diff": "report.html: description changed \"Generate a printable report on any regiment or moment of the battle, for study, teaching, or reference.\" -> \"Generate a printable one-page fact sheet on any regiment, for study, teaching, or reference.\"",
+   "reason": "Group POLISH (canonical names, docs/plan/FINAL/11-copy-docs-content.md Appendix D, CD-1 defaults in force): Battle Reports -> Regiment Fact Sheets, What They Could See -> High Ground, Cinematic Export -> Export a Video; the page descriptions say what the page does."
+  },
+  {
+   "diff": "report.html: og:title changed \"Battle Reports — Gettysburg Animated Battlefield Map\" -> \"Regiment Fact Sheets — Gettysburg Animated Battlefield Map\"",
+   "reason": "Group POLISH (canonical names, docs/plan/FINAL/11-copy-docs-content.md Appendix D, CD-1 defaults in force): Battle Reports -> Regiment Fact Sheets, What They Could See -> High Ground, Cinematic Export -> Export a Video; the page descriptions say what the page does."
+  },
+  {
+   "diff": "report.html: og:description changed \"Generate a printable report on any regiment or moment of the battle, for study, teaching, or reference.\" -> \"Generate a printable one-page fact sheet on any regiment, for study, teaching, or reference.\"",
+   "reason": "Group POLISH (canonical names, docs/plan/FINAL/11-copy-docs-content.md Appendix D, CD-1 defaults in force): Battle Reports -> Regiment Fact Sheets, What They Could See -> High Ground, Cinematic Export -> Export a Video; the page descriptions say what the page does."
+  },
+  {
+   "diff": "report.html: twitter:title changed \"Battle Reports — Gettysburg Animated Battlefield Map\" -> \"Regiment Fact Sheets — Gettysburg Animated Battlefield Map\"",
+   "reason": "Group POLISH (canonical names, docs/plan/FINAL/11-copy-docs-content.md Appendix D, CD-1 defaults in force): Battle Reports -> Regiment Fact Sheets, What They Could See -> High Ground, Cinematic Export -> Export a Video; the page descriptions say what the page does."
+  },
+  {
+   "diff": "report.html: twitter:description changed \"Generate a printable report on any regiment or moment of the battle, for study, teaching, or reference.\" -> \"Generate a printable one-page fact sheet on any regiment, for study, teaching, or reference.\"",
+   "reason": "Group POLISH (canonical names, docs/plan/FINAL/11-copy-docs-content.md Appendix D, CD-1 defaults in force): Battle Reports -> Regiment Fact Sheets, What They Could See -> High Ground, Cinematic Export -> Export a Video; the page descriptions say what the page does."
+  },
+  {
+   "diff": "search.html: description changed \"Search every regiment, battery, vignette, and battlefield location by name.\" -> \"Search every regiment, battery, story, and battlefield location by name.\"",
+   "reason": "Group POLISH (canonical names, docs/plan/FINAL/11-copy-docs-content.md Appendix D): \"vignette\" is called \"story\" everywhere."
+  },
+  {
+   "diff": "search.html: og:description changed \"Search every regiment, battery, vignette, and battlefield location by name.\" -> \"Search every regiment, battery, story, and battlefield location by name.\"",
+   "reason": "Group POLISH (canonical names, docs/plan/FINAL/11-copy-docs-content.md Appendix D): \"vignette\" is called \"story\" everywhere."
+  },
+  {
+   "diff": "search.html: twitter:description changed \"Search every regiment, battery, vignette, and battlefield location by name.\" -> \"Search every regiment, battery, story, and battlefield location by name.\"",
+   "reason": "Group POLISH (canonical names, docs/plan/FINAL/11-copy-docs-content.md Appendix D): \"vignette\" is called \"story\" everywhere."
+  },
+  {
+   "diff": "viewshed.html: title changed \"What They Could See — Gettysburg Animated Battlefield Map\" -> \"High Ground — Gettysburg Animated Battlefield Map\"",
+   "reason": "Group POLISH (canonical names, docs/plan/FINAL/11-copy-docs-content.md Appendix D, CD-1 defaults in force): Battle Reports -> Regiment Fact Sheets, What They Could See -> High Ground, Cinematic Export -> Export a Video; the page descriptions say what the page does."
+  },
+  {
+   "diff": "viewshed.html: description changed \"Explore approximate sightlines from key battlefield vantage points, based on real elevation data.\" -> \"Compare the height of 30 battlefield landmarks, ranked by elevation. Line-of-sight maps are not shown.\"",
+   "reason": "Group POLISH (canonical names, docs/plan/FINAL/11-copy-docs-content.md Appendix D, CD-1 defaults in force): Battle Reports -> Regiment Fact Sheets, What They Could See -> High Ground, Cinematic Export -> Export a Video; the page descriptions say what the page does."
+  },
+  {
+   "diff": "viewshed.html: og:title changed \"What They Could See — Gettysburg Animated Battlefield Map\" -> \"High Ground — Gettysburg Animated Battlefield Map\"",
+   "reason": "Group POLISH (canonical names, docs/plan/FINAL/11-copy-docs-content.md Appendix D, CD-1 defaults in force): Battle Reports -> Regiment Fact Sheets, What They Could See -> High Ground, Cinematic Export -> Export a Video; the page descriptions say what the page does."
+  },
+  {
+   "diff": "viewshed.html: og:description changed \"Explore approximate sightlines from key battlefield vantage points, based on real elevation data.\" -> \"Compare the height of 30 battlefield landmarks, ranked by elevation. Line-of-sight maps are not shown.\"",
+   "reason": "Group POLISH (canonical names, docs/plan/FINAL/11-copy-docs-content.md Appendix D, CD-1 defaults in force): Battle Reports -> Regiment Fact Sheets, What They Could See -> High Ground, Cinematic Export -> Export a Video; the page descriptions say what the page does."
+  },
+  {
+   "diff": "viewshed.html: twitter:title changed \"What They Could See — Gettysburg Animated Battlefield Map\" -> \"High Ground — Gettysburg Animated Battlefield Map\"",
+   "reason": "Group POLISH (canonical names, docs/plan/FINAL/11-copy-docs-content.md Appendix D, CD-1 defaults in force): Battle Reports -> Regiment Fact Sheets, What They Could See -> High Ground, Cinematic Export -> Export a Video; the page descriptions say what the page does."
+  },
+  {
+   "diff": "viewshed.html: twitter:description changed \"Explore approximate sightlines from key battlefield vantage points, based on real elevation data.\" -> \"Compare the height of 30 battlefield landmarks, ranked by elevation. Line-of-sight maps are not shown.\"",
+   "reason": "Group POLISH (canonical names, docs/plan/FINAL/11-copy-docs-content.md Appendix D, CD-1 defaults in force): Battle Reports -> Regiment Fact Sheets, What They Could See -> High Ground, Cinematic Export -> Export a Video; the page descriptions say what the page does."
+  },
+  {
+   "diff": "data/* changed or removed: data/casualty_apportionment.json, data/chronology_day1.json, data/chronology_day2.json, data/chronology_day3.json, data/density_artillery_positions.json, data/density_cavalry_detail.json, data/density_day1_afternoon.json, data/density_day1_barlowsknoll.json, data/density_day1_ironbrigade.json, data/density_day1_iverson.json, data/density_day1_lateafternoon.json, data/density_day1_opening.json, data/density_day1_railroadcut.json, data/density_day1_seminary.json, data/density_day1_ticks1_50.json, data/density_day1_ticks51_100.json, data/density_day2_15alabama.json, data/density_day2_afternoon.json, data/density_day2_bigelow.json, data/density_day2_cemhill.json, data/density_day2_culpshill.json, data/density_day2_culpshill_overnight.json, data/density_day2_devilsden.json, data/density_day2_kershaw.json, data/density_day2_lrt.json, data/density_day2_morning.json, data/density_day2_overnight.json, data/density_day2_wheatfield.json, data/density_day2_wright.json, data/density_day3_aftermath.json, data/density_day3_angle.json, data/density_day3_cannonade.json, data/density_day3_cavalry.json, data/density_day3_culpshill.json, data/density_day3_hancock.json, data/density_day3_morning.json, data/density_day3_pettigrew.json, data/density_day3_picketts_charge.json, data/density_day3_retreat.json, data/density_day3_vermont.json, data/density_reserves.json, data/density_skirmishers.json, data/oob/commander_successions.json, data/oob/confederate_artillery.json, data/oob/confederate_cavalry.json, data/oob/confederate_oob_corps_div_bde.json, data/oob/confederate_regiments_first_corps.json, data/oob/confederate_regiments_second_corps.json, data/oob/confederate_regiments_third_corps.json, data/oob/union_artillery.json, data/oob/union_cavalry_artillery.json, data/oob/union_oob_brigades.json, data/oob/union_oob_corps_division.json, data/oob/union_regiments_iii_v_corps.json, data/oob/union_regiments_i_ii_corps.json, data/oob/union_regiments_vi_xi_xii_corps.json, data/placements_day1_ticks101_225.json, data/placements_day1_ticks1_50.json, data/placements_day1_ticks51_100.json, data/placements_day2_ticks226_300.json, data/placements_day2_ticks301_375.json, data/placements_day2_ticks376_450.json, data/placements_day3_ticks451_520.json, data/placements_day3_ticks521_600.json, data/placements_day3_ticks601_675.json, data/terrain.json, data/vignettes_part1.json, data/vignettes_part2.json, data/vignettes_part3.json",
+   "reason": "Group DATA (owner decision 2026-10-05 item 3, docs/data-audit/fixes.json): the served data files it corrects; the gate row data-untouched accepts exactly the files an applied DATA patch targets."
+  }
+ ]
+}

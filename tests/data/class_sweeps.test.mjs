@@ -363,6 +363,11 @@ const KNOWN_INPUTS = [
 // read by the validator, but not something a verdict can depend on
 const INFORMATIONAL_INPUT = (rel) => rel === 'docs/plan/data/time-facts-anchors.csv' /* the warped-clock PROPOSAL: only the report's informational count reads it */
   || rel.startsWith('data-src/time/') /* another workstream's files: F002 scans them for {{facts.*}} tokens like any other text */
+  /* Decision R1E-ACC-1 (2026-10-22): the workstreams that came after this test (environment, ledger, sources-v2) put .json files under data-src/. The only reader is
+     rule F002 (tools/data/rules/facts_rules.mjs walks data-src/**.{md,html,json,txt} for {{facts.*}} tokens; grep finds no other tool/rule under tools/data that names these
+     directories). Like data-src/time/ above, a file that is missing removes no verdict (F002 reports tokens that do not resolve, never a missing file), so none of them can be a
+     KNOWN_INPUT. Each directory is named: a new directory under data-src/ the validator starts to read for another reason is still reported as undecided. */
+  || rel.startsWith('data-src/environment/') || rel.startsWith('data-src/ledger/') || rel.startsWith('data-src/sources-v2/')
   || /^legacy\/dist\/(?:[^/]+|assets\/[^/]+)$/.test(rel) /* the scanned deploy corpus: a scan of "whatever is there" (the named members are in KNOWN_INPUTS) */
   || rel.startsWith('legacy/dist/data/') /* the data tree itself: D002, the manifest and the lock turn red on a missing file */
   || rel.startsWith('tools/data/') || rel.startsWith('node_modules/');

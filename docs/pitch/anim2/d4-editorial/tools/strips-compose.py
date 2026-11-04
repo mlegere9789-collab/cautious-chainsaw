@@ -2,7 +2,7 @@
 import json, os
 from PIL import Image, ImageDraw, ImageFont
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SRC = os.path.join(ROOT, 'results', 'strips-src'); OUT = os.path.join(ROOT, 'shots', 'round-1'); os.makedirs(OUT, exist_ok=True)
+SRC = os.path.join(ROOT, 'results', 'strips-src'); OUT = os.path.join(ROOT, 'shots', os.environ.get('D4_ROUND', 'round-2')); os.makedirs(OUT, exist_ok=True)
 meta = json.load(open(os.path.join(SRC, 'meta.json')))
 try:
     F = ImageFont.truetype('C:/Windows/Fonts/segoeuib.ttf', 24); S = ImageFont.truetype('C:/Windows/Fonts/segoeui.ttf', 20)
@@ -34,12 +34,14 @@ def strip(name, title, sub, labels):
 
 
 m = meta
-strip('march', f"A march: {m['march']['unit']} under way at {m['march']['speed']}x, {m['march']['pxPerFrame']} px a frame",
-      'eight consecutive frames, 16.7 ms apart (60 Hz), camera still: the step changes smoothly from frame to frame', [f'frame {i}   +{i * 16.7:.0f} ms' for i in range(8)])
+def cam(k):
+    c = m[k].get('camera'); return 'camera identical at the first and last frame' if c and c['identical'] else 'CAMERA MOVED'
+st = lambda k: m[k]['stats']
+strip('march', f"A march: {m['march']['unit']} under way at {m['march']['speed']}x",
+      f"eight frames 100 ms apart, {cam('march')} (zoom {m['march']['camera']['start']['zoom']}); over these frames: {st('march')['suddenSteps']} sudden steps, {st('march')['framesWithOverlaps']} frames with overlaps", [f'frame {i}   +{i * 100} ms' for i in range(8)])
 strip('arrival', f"An arrival: {m['arrival']['unit']} appears at its first keyframe (tick {m['arrival']['tick']})",
-      'eight frames 80 ms apart from the moment the clock starts, 0.1 tick before the keyframe: the mark fades in while it grows from 85 percent, the disc settles, a ring leaves it', [f'frame {i}   +{i * 80} ms' for i in range(8)])
+      f"eight frames 80 ms apart from the first visible frame, {cam('arrival')}: the mark fades in and settles, the ring leaves it; {st('arrival')['suddenSteps']} sudden steps", [f'frame {i}   +{i * 80} ms' for i in range(8)])
 strip('growth', f"The name grows out of the mark ({m['growth']['unit']}): hover, then selection",
       'frames 0-3: the pointer rests on the mark (50 ms apart), the code gives way to the name; frames 4-7: a click, the amber ring draws itself', [f'frame {i}   +{(i % 4) * 50} ms' + ('  hover' if i < 4 else '  click') for i in range(8)])
-
-strip('deploy', f"A deployment: the crowd {m['deploy']['crowd']} ({m['deploy']['records']} records) opens as the camera moves in, zoom {m['deploy']['zoom']}",
-      'eight frames 67 ms apart: the members glide apart on a critically damped spring, the crowd mark fades out after they are half there, no two solid marks ever overlap', [f'frame {i}   +{i * 67} ms' for i in range(8)])
+strip('deploy', f"A deployment: the crowd '{m['deploy']['crowd']}' ({m['deploy']['records']} records) opens into its records at {m['deploy']['speed']}x",
+      f"eight frames 67 ms apart, {cam('deploy')} (zoom {m['deploy']['camera']['start']['zoom']}, no pan): the records part, the crowd mark goes; {st('deploy')['suddenSteps']} sudden steps, {st('deploy')['framesWithOverlaps']} frames with overlaps", [f'frame {i}   +{i * 67} ms' for i in range(8)])

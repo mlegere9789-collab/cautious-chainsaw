@@ -1,0 +1,11 @@
+import { TIER_STYLE } from '../config.mjs';
+import { glyphSVG } from '../overlay.mjs';
+import { registerHref } from '../data.mjs';
+export const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+export const ic = n => `<svg class="ic"><use href="#i-${n}"/></svg>`;
+export const pill = tier => `<span class="pill" data-tier="${esc(tier)}">${glyphSVG(tier, 12)}${esc((TIER_STYLE[tier] || { label: tier }).label)}</span>`;
+export const sidePill = side => `<span class="pill" data-side="${esc(side)}">${side === 'union' ? 'Union' : 'Confederate'}</span>`;
+export const regLink = (id, text) => `<a class="btn-s" href="${esc(registerHref(id))}" target="_blank" rel="noopener">${ic('ext')}${esc(text || 'Open register entry ' + id)}</a>`;
+export const placeholderNote = txt => `<p class="ph"><b>Modelled placeholder.</b> ${esc(txt)}</p>`;
+export const fmtN = n => Math.round(n).toLocaleString('en-US');
+export const debounce = (th, fn, ms) => { let id = 0; return (...a) => { th.scope.clear(id); id = th.scope.timeout(() => fn(...a), ms); }; };

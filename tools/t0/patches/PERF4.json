@@ -1,0 +1,102 @@
+{
+ "group": "PERF4",
+ "description": "Release 1 round 3: phone blocking time of the app route.  Bundle part (tools/t0/PERF4-README.md); page part PG-zperf4.json.  Apply after BASE1863 (and ACC).",
+ "patches": [
+  {
+   "id": "PERF4-T4-slices",
+   "target": "js",
+   "find": "function T4(c){c.addSource(\"roads-1863\",{type:\"geojson\",data:GTB63.d(\"roads\")}),c.addLayer({id:\"roads-1863-line\",type:\"line\",source:\"roads-1863\",paint:{\"line-color\":\"#44bb44\",\"line-width\":2,\"line-opacity\":.7},layout:{visibility:\"visible\"}}),c.addLayer({id:\"roads-1863-label\",type:\"symbol\",source:\"roads-1863\",filter:[\"==\",[\"get\",\"label\"],!0],layout:{\"symbol-placement\":\"line\",\"text-field\":[\"get\",\"name\"],\"text-size\":10,\"text-font\":[\"Open Sans Regular\"],visibility:\"visible\"},paint:{\"text-color\":\"#88dd88\",\"text-halo-color\":\"rgba(0,0,0,0.8)\",\"text-halo-width\":1}}),c.addSource(\"rivers\",{type:\"geojson\",data:GTB63.d(\"rivers\")}),c.addLayer({id:\"rivers-line\",type:\"line\",source:\"rivers\",paint:{\"line-color\":\"#8844cc\",\"line-width\":2,\"line-opacity\":.8},layout:{visibility:\"visible\"}}),c.addLayer({id:\"rivers-label\",type:\"symbol\",source:\"rivers\",layout:{\"symbol-placement\":\"line\",\"text-field\":[\"get\",\"name\"],\"text-size\":9,\"text-font\":[\"Open Sans Italic\"],visibility:\"visible\"},paint:{\"text-color\":\"#aa66dd\",\"text-halo-color\":\"rgba(0,0,0,0.8)\",\"text-halo-width\":1}}),c.addSource(\"breastworks\",{type:\"geojson\",data:w4}),c.addLayer({id:\"breastworks-line\",type:\"line\",source:\"breastworks\",paint:{\"line-color\":\"#884422\",\"line-width\":3,\"line-opacity\":.85,\"line-dasharray\":[4,2]},layout:{visibility:\"visible\"}}),c.addSource(\"farms\",{type:\"geojson\",data:GTB63.d(\"farms\")}),c.addLayer({id:\"farms-outline\",type:\"line\",source:\"farms\",paint:{\"line-color\":\"#886633\",\"line-width\":1,\"line-opacity\":.5,\"line-dasharray\":[3,3]},layout:{visibility:\"none\"}}),c.addLayer({id:\"farms-label\",type:\"symbol\",source:\"farms\",layout:{\"text-field\":[\"get\",\"name\"],\"text-size\":13,\"text-font\":[\"Open Sans Bold\"],visibility:\"none\"},paint:{\"text-color\":\"#f0c97a\",\"text-halo-color\":\"rgba(0,0,0,0.95)\",\"text-halo-width\":2}}),GTB63.refine(c),gtPrecompile(c)}",
+   "repl": "function T4(c){const st={a:gtLast(c)};gtSlices(c,[()=>{c.addSource(\"roads-1863\",{type:\"geojson\",data:GTB63.d(\"roads\")}),gtAdd(c,st,{id:\"roads-1863-line\",type:\"line\",source:\"roads-1863\",paint:{\"line-color\":\"#44bb44\",\"line-width\":2,\"line-opacity\":.7},layout:{visibility:\"none\"}}),gtAdd(c,st,{id:\"roads-1863-label\",type:\"symbol\",source:\"roads-1863\",filter:[\"==\",[\"get\",\"label\"],!0],layout:{\"symbol-placement\":\"line\",\"text-field\":[\"get\",\"name\"],\"text-size\":10,\"symbol-sort-key\":[\"get\",\"rank\"],\"text-font\":[\"Open Sans Regular\"],visibility:\"visible\"},paint:{\"text-color\":\"#88dd88\",\"text-halo-color\":\"rgba(0,0,0,0.8)\",\"text-halo-width\":1}})},()=>{c.addSource(\"rivers\",{type:\"geojson\",data:GTB63.d(\"rivers\")}),gtAdd(c,st,{id:\"rivers-line\",type:\"line\",source:\"rivers\",paint:{\"line-color\":\"#8844cc\",\"line-width\":2,\"line-opacity\":.8},layout:{visibility:\"none\"}}),gtAdd(c,st,{id:\"rivers-label\",type:\"symbol\",source:\"rivers\",layout:{\"symbol-placement\":\"line\",\"text-field\":[\"get\",\"name\"],\"text-size\":9,\"text-font\":[\"Open Sans Italic\"],visibility:\"visible\"},paint:{\"text-color\":\"#aa66dd\",\"text-halo-color\":\"rgba(0,0,0,0.8)\",\"text-halo-width\":1}})},()=>{c.addSource(\"breastworks\",{type:\"geojson\",data:w4}),gtAdd(c,st,{id:\"breastworks-line\",type:\"line\",source:\"breastworks\",paint:{\"line-color\":\"#884422\",\"line-width\":3,\"line-opacity\":.85,\"line-dasharray\":[4,2]},layout:{visibility:\"visible\"}}),c.addSource(\"farms\",{type:\"geojson\",data:GTB63.d(\"farms\")}),gtAdd(c,st,{id:\"farms-outline\",type:\"line\",source:\"farms\",paint:{\"line-color\":\"#886633\",\"line-width\":1,\"line-opacity\":.5,\"line-dasharray\":[3,3]},layout:{visibility:\"none\"}}),gtAdd(c,st,{id:\"farms-label\",type:\"symbol\",source:\"farms\",layout:{\"text-field\":[\"get\",\"name\"],\"text-size\":13,\"text-font\":[\"Open Sans Bold\"],visibility:\"none\"},paint:{\"text-color\":\"#f0c97a\",\"text-halo-color\":\"rgba(0,0,0,0.95)\",\"text-halo-width\":2}})},()=>{GTB63.refine(c),gtPrecompile(c)}])}function gtLast(c){const o=c.style&&c.style._order;return o&&o.length?o[o.length-1]:null}function gtAdd(c,st,l){const o=c.style&&c.style._order;let b;if(o){if(st.a!=null){const i=o.indexOf(st.a);if(i>=0)b=o[i+1]}else if(o.length)b=o[0]}c.addLayer(l,b);st.a=l.id}function gtSlices(c,a){let i=0;const go=()=>{if(c._removed)return;try{a[i]()}catch(e){console.warn(\"T4 slice\",e)}i++;i<a.length&&setTimeout(go,0)};setTimeout(go,0)}",
+   "expect": 1,
+   "note": "T4 adds the product's own sources and layers (roads, rivers, breastworks, farms) inside the map's 'load' event, which Mapbox fires inside its render task: 36-45 ms of addSource/addLayer on the 4x phone added to a render of 60-90 ms.  Now four timer tasks (roads, rivers, breastworks + farms, refine + precompile), each after the one before; the statements are the same, in the same order.  gtSlices stops if the map was removed.  The layers keep the place in the stack they had when T4 ran inside the load event: gtAdd inserts each one directly above the one before it (the first above the layer that was on top when T4 was called), so a layer that another handler adds in the meantime (the place labels, gtbg-locs-lbl) stays above them: Mapbox places symbols from the top of the stack, so the order decides which label wins a collision (without this 'Little Round Top' lost to a road label). On a BASE1863 tree the values refine() sets later (roads-1863-line and rivers-line hidden, the sort key of roads-1863-label) are part of the layer definitions: a setLayoutProperty on a layer of a source that is already loading reloads the source and Mapbox then lost the symbol bucket of the road labels in about a third of the page loads (REDS-A, PF-07)."
+  },
+  {
+   "id": "PERF4-mapbox-umd-async-head",
+   "target": "js",
+   "find": "(gB,function(){let x,M,P;function z(l,R){if(!x)x=R;else if(!M)M=R;else{const he={};x(void 0,he),P=R(he);const Ee=",
+   "repl": "(gB,async function(){let x,M,P;async function z(l,R){if(!x)x=R;else if(!M)M=R;else{const he={};await new Promise(gtY=>setTimeout(gtY,0));x(void 0,he);await new Promise(gtY=>setTimeout(gtY,0));P=R(he);await new Promise(gtY=>setTimeout(gtY,0));const Ee=",
+   "expect": 1,
+   "note": "The map library (mapbox-gl 3.24.1) sits inside the entry bundle behind a UMD wrapper whose factory runs three things in ONE synchronous task of 105-130 ms on the 4x phone: the shared chunk (x), the main chunk (R) and the worker blob (Ee).  The factory is made async and a timer turn is put between the three, the third call is awaited (next patch) and the exports are awaited at the top of the module (PERF4-mapbox-umd-await).  Same statements in the same order, three tasks of 25-66 ms instead of one of 105-130 (the long task of the blocking-time metric: excess 80 ms -> 17 ms)."
+  },
+  {
+   "id": "PERF4-mapbox-umd-async-main",
+   "target": "js",
+   "find": "z([\"./shared\"],function(l){var R=\"3.24.1\"",
+   "repl": "await z([\"./shared\"],function(l){var R=\"3.24.1\"",
+   "expect": 1,
+   "note": "see PERF4-mapbox-umd-async-head"
+  },
+  {
+   "id": "PERF4-mapbox-umd-await",
+   "target": "js",
+   "find": "var R4=Ok.exports;const z_=cS(R4);await new Promise(gtR=>setTimeout(gtR,0));",
+   "repl": "var R4=await Ok.exports;const z_=cS(R4);await new Promise(gtR=>setTimeout(gtR,0));try{z_.prewarm()}catch(e){}await new Promise(gtY=>setTimeout(gtY,0));",
+   "expect": 1,
+   "note": "The exports of the library are the factory's promise now; PERF3-entry-yield's timer turn follows unchanged.  mapboxgl.prewarm() starts the shared workers after that turn, in a task of its own (their creation was 10-20 ms of the Map constructor's 90-120 ms); the sub-pages have done the same since PERF2."
+  },
+  {
+   "id": "PERF4-precompile-at-style-load",
+   "target": "js",
+   "find": "let Uc=null;function I4(c){",
+   "repl": "function gtPre(m){try{const s=m.style,pc=s&&s._programPrecompiler,p=m.painter;if(!pc||!p||!s._order||!s._layers||!p.context.extParallelShaderCompile||!pc.needsBuild())return;pc.buildQueue(s._order.map(i=>s._layers[i]),{zoom:m.getZoom()},s);pc._executeBatch({timeRemaining:()=>1e9},p,s)}catch(e){}}let Uc=null;function I4(c){",
+   "expect": 1,
+   "note": "gtPre(map): when the map's style has loaded (before its first render) Mapbox's own program precompiler is asked for the programs of the layers that exist then (background, raster, clipping mask), so that the GPU process links them while the main thread goes on instead of the first render waiting for them (_finalize: 10-30 ms of the render tasks on the 4x phone).  Only with KHR_parallel_shader_compile, otherwise nothing."
+  },
+  {
+   "id": "PERF4-precompile-desktop",
+   "target": "js",
+   "find": "return GTB63.attach(Xe,\"desktop\"),",
+   "repl": "return GTB63.attach(Xe,\"desktop\"),Xe.once(\"style.load\",()=>gtPre(Xe)),",
+   "expect": 1,
+   "note": "see PERF4-precompile-at-style-load"
+  },
+  {
+   "id": "PERF4-precompile-phone",
+   "target": "js",
+   "find": "GTB63.attach($t,\"phone\"),$t.touchZoomRotate.disableRotation(),$t.dragRotate.disable(),$t.addControl(new z_.AttributionControl({compact:!0}),\"top-right\");return $t.on(\"load\",",
+   "repl": "$t.once(\"style.load\",()=>gtPre($t)),setTimeout(()=>{try{GTB63.attach($t,\"phone\"),$t.touchZoomRotate.disableRotation(),$t.dragRotate.disable(),$t.addControl(new z_.AttributionControl({compact:!0}),\"top-right\")}catch(e){}},0);return $t.on(\"load\",",
+   "expect": 1,
+   "note": "Phone map: gtPre is registered for the style load (see PERF4-precompile-at-style-load); the label/placer attach, the two gesture switches and the attribution control (15-20 ms of the 100-140 ms task that creates the map) are set up in the next timer turn, before the style's first frame (a frame is at least a turn away; GTB63.attach and the controls do not depend on it)."
+  },
+  {
+   "id": "PERF4-no-perf-metrics-desktop",
+   "target": "js",
+   "find": "maxBounds:[[-77.36,39.72],[-77.12,39.91]],dragPan:{inertia:!0",
+   "repl": "performanceMetricsCollection:!1,maxBounds:[[-77.36,39.72],[-77.12,39.91]],dragPan:{inertia:!0",
+   "expect": 1,
+   "note": "Mapbox's documented map option performanceMetricsCollection (default true) switched off for the two main maps: when the map has fully loaded it gathers every resource and mark timing of the page, builds a performance event and queues it for Mapbox (16-23 ms in one render task on the 4x phone).  Billing events (map load, session) are separate and untouched.  Way back: delete the two patches."
+  },
+  {
+   "id": "PERF4-no-perf-metrics-phone",
+   "target": "js",
+   "find": "attributionControl:!1,maxBounds:[[-77.36,39.72],[-77.12,39.91]]});",
+   "repl": "attributionControl:!1,performanceMetricsCollection:!1,maxBounds:[[-77.36,39.72],[-77.12,39.91]]});",
+   "expect": 1,
+   "note": "see PERF4-no-perf-metrics-desktop"
+  },
+  {
+   "id": "PERF4-anim-swatch-canvas",
+   "target": "js",
+   "find": "s.width=e*i,s.height=t*i;const r=s.getContext(\"2d\");r.setTransform(i,0,0,i,e*i/2,t*i/2)",
+   "repl": "s.width=e*i,s.height=t*i;const r=s.getContext(\"2d\",{willReadFrequently:!0});r.setTransform(i,0,0,i,e*i/2,t*i/2)",
+   "expect": 1,
+   "note": "ANIM's legend draws each swatch on a 54 x 36 canvas and reads it back with toDataURL.  On the desktop shell the canvas was GPU-backed, so every swatch was a synchronous readback from the GPU process (RasterImplementation::ReadbackImagePixels, 5 of them, 34 ms of an 82 ms legend build, one task of 106 ms in the engine's first frame at 1x).  willReadFrequently asks for a CPU-backed canvas: same pixels (screenshots at six widths: 0 differing), no readback; the desktop blocking time of / goes from 92 to 45 ms in the profile run."
+  },
+  {
+   "id": "PERF4-phone-days-idle",
+   "target": "js",
+   "find": "zp(1),zp(2),zp(3);const ai=yn.getState();e1(bn,$t",
+   "repl": "zp(1),(window.requestIdleCallback||setTimeout)(()=>{zp(2),zp(3)},{timeout:2500});const ai=yn.getState();e1(bn,$t",
+   "expect": 1,
+   "note": "Phone map 'load' handler: days 2 and 3 (about ten fetch calls, 25 ms of the 150 ms render task on the 4x phone) are requested when the main thread is idle, at the latest 2.5 s later; the engine's own prefetch asks for them after 1.5 s anyway, a jump or a tick past a day loads that day first (setTick / jumpToDay call zp for the days up to the target)."
+  },
+  {
+   "id": "PERF4-anim-dataset-split",
+   "target": "js",
+   "find": "const t=d(k,e);return x.pbt=e,x.dsGen=x.oobGen,x.counts=t.counts,x.core?x.core.setDataset(t):function(e){let t=null;try{t=window.localStorage",
+   "repl": "if(!x.core&&!x.gtDs){x.gtDs=d(k,e),x.gtDk=e;C();return!1}const t=!x.core&&x.gtDs&&x.gtDk===e?x.gtDs:d(k,e);x.gtDs=null;return x.pbt=e,x.dsGen=x.oobGen,x.counts=t.counts,x.core?x.core.setDataset(t):function(e){let t=null;try{t=window.localStorage",
+   "expect": 1,
+   "note": "ANIM's first frame built the dataset (24 ms on the 4x phone) and the engine (45 ms) in one task of 70-90 ms.  The dataset is built in the first frame, the engine in the next one (the existing later() timer turn; the existing 'engine was just built, the first picture is the next task' rule follows).  Same code, same order, two tasks."
+  }
+ ]
+}

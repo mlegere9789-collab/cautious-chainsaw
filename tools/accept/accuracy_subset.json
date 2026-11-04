@@ -1,0 +1,209 @@
+{
+  "_comment": "Check 6 runs these against the UNZIPPED CANDIDATE ({dist}). Selection rule: deterministic, no network except the capped Mapbox side channel, and together under about 25 minutes, so eight consecutive passes stay practical. The full suite (tools/t0/run_suites.mjs, about 2.5 hours, 75 suites) is available with --full. Durations are from release/test-summary.json (R1c rows) unless marked.",
+  "node": [
+    {
+      "id": "r0",
+      "args": [
+        "tests/t0/r0.mjs",
+        "--dist",
+        "{dist}"
+      ],
+      "approxSeconds": 43,
+      "why": "the release mechanism of the candidate: one Document on first visit, service worker controls without navigation, one Mapbox sku, the upgrade drill (old worker + old bundle)"
+    },
+    {
+      "id": "journeys-desktop",
+      "args": [
+        "tests/t0/journeys-desktop.spec.mjs",
+        "--dist",
+        "{dist}"
+      ],
+      "approxSeconds": 192,
+      "why": "the data and clock accuracy journeys J1-J8: play 30 ticks, pan/wheel/pinch, select, search, Help, day 2/3 jump (dates read July 1-3 1863, never July 4-9), ?ancestor= deep link; group B clock and data tests"
+    },
+    {
+      "id": "deeplinks",
+      "args": [
+        "tests/t0/deeplinks.spec.mjs",
+        "--dist",
+        "{dist}"
+      ],
+      "approxSeconds": 155,
+      "why": "single URL-state reader (tick, day, unit, z, ll, ancestor, vignette), moments.json and Turning Points anchors"
+    },
+    {
+      "id": "desktop-fixes",
+      "args": [
+        "tests/t0/desktop-fixes.spec.mjs",
+        "--dist",
+        "{dist}"
+      ],
+      "approxSeconds": 81,
+      "why": "keyboard focus after click/drag, Tab to the map and Esc, unit canvas follows the map, attribution, NPS tour"
+    },
+    {
+      "id": "walkthrough-guard",
+      "args": [
+        "tests/t0/walkthrough-guard.spec.mjs",
+        "--dist",
+        "{dist}"
+      ],
+      "approxSeconds": 97,
+      "why": "owner constraint: the Virtual Walkthrough (16 stops, 512 monuments, Monuments tab, Back without leaks) must never break"
+    },
+    {
+      "id": "copy-spec",
+      "args": [
+        "tests/t0/copy.spec.mjs",
+        "--dist",
+        "{dist}"
+      ],
+      "approxSeconds": 63,
+      "why": "the truthful-copy rows are in the bundle and Help"
+    },
+    {
+      "id": "acc",
+      "args": [
+        "tests/t0/acc.spec.mjs",
+        "--dist",
+        "{dist}"
+      ],
+      "approxSeconds": 40,
+      "why": "accuracy of the order of battle: no record has more casualties than men unless flagged, the 107th Pennsylvania and 6th US Cavalry records, /regiment and /report never print a rate above 100 percent (R1d printed 135.2 and 107.1)"
+    },
+    {
+      "id": "headers",
+      "args": [
+        "tests/t0/headers.spec.mjs",
+        "--dist",
+        "{dist}",
+        "--no-browser"
+      ],
+      "approxSeconds": 25,
+      "why": "generated _headers/_redirects/netlify.toml rules: one rule per header name per URL, both URL spellings, Permissions-Policy, CSP (browser part is covered by check 2)"
+    },
+    {
+      "id": "pages-maps",
+      "args": [
+        "tests/t0/pages-maps.spec.mjs",
+        "--dist",
+        "{dist}"
+      ],
+      "approxSeconds": 73,
+      "why": "the eight map sub-pages load Mapbox without blocking, og card, manifest"
+    },
+    {
+      "id": "perf-fixes",
+      "args": [
+        "tests/t0/perf-fixes.spec.mjs",
+        "--dist",
+        "{dist}"
+      ],
+      "approxSeconds": 41,
+      "why": "non-blocking stylesheets, inlined first-paint rules, no layout shift, Mapbox shader precompile"
+    },
+    {
+      "id": "pages-core",
+      "args": [
+        "tests/t0/pages-core.spec.mjs",
+        "--dist",
+        "{dist}"
+      ],
+      "approxSeconds": 309,
+      "why": "the page defect pack PGC-01..27 (duplicate ids under data delay, dashboard, report, regiment, historian, living ledger ...)"
+    }
+  ],
+  "npm": [
+    {
+      "id": "data-check",
+      "steps": [
+        [
+          "tools/data/manifest.mjs",
+          "verify"
+        ],
+        [
+          "tools/data/validate.mjs"
+        ],
+        [
+          "tools/data/unit_registry.mjs",
+          "--check"
+        ],
+        [
+          "tools/data/facts.mjs",
+          "--check"
+        ],
+        [
+          "tools/data/rights_audit.mjs",
+          "--check"
+        ]
+      ],
+      "why": "npm run data:check without npm: data manifest, validator suite, unit registry, facts, rights audit (pure Node)"
+    },
+    {
+      "id": "data-test",
+      "steps": [
+        [
+          "--test",
+          "tests/data/*.test.mjs"
+        ]
+      ],
+      "why": "validator rules and schemas (node --test tests/data)"
+    },
+    {
+      "id": "time-check",
+      "steps": [
+        [
+          "tools/time/build.mjs",
+          "--check"
+        ],
+        [
+          "tools/time/validate.mjs",
+          "--check"
+        ],
+        [
+          "tools/time/surfaces.mjs",
+          "--check"
+        ]
+      ],
+      "why": "npm run time:check: clock oracle anchors, golden values, playback, solar checks"
+    },
+    {
+      "id": "time-test",
+      "steps": [
+        [
+          "--test",
+          "tests/time/*.test.mjs"
+        ]
+      ],
+      "why": "clock module tests (node --test tests/time)"
+    },
+    {
+      "id": "historian-test",
+      "steps": [
+        [
+          "--test",
+          "tests/historian/*.test.mjs"
+        ]
+      ],
+      "why": "historian intent rules, text handling, sources register"
+    }
+  ],
+  "notInSubset": [
+    {
+      "id": "a11y.spec",
+      "why": "about 8 minutes; axe on every page and the app is repeated by check 7 (six widths) and check 4 (keyboard, preferences)"
+    },
+    {
+      "id": "pages-fixes.spec",
+      "why": "about 10 minutes; axe/overflow/target-size on 25 pages at 1440/375/320 is repeated by check 7 at six widths"
+    },
+    {
+      "id": "mobile-matrix.spec / mobile-fixes.spec",
+      "why": "about 4-6 minutes each with four parallel Chrome processes; the phone shell is exercised by checks 4, 5 and 7 (touch, 390x844); use --full for the viewport matrix"
+    },
+    {
+      "id": "red-first proofs and build self-tests",
+      "why": "they prove the TESTS discriminate against legacy/control trees, not that the candidate is right"
+    }
+  ]
+}

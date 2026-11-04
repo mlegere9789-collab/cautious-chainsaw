@@ -1,0 +1,1086 @@
+{
+ "family": "OJC",
+ "user_agent": "gettysburg-map-research/1.0 (public-domain roster extraction; read-only, 1.5-3 s between requests)",
+ "files": [
+  {
+   "file": "search_ohio_roster.json",
+   "url": "https://archive.org/advancedsearch.php?q=title%3A%28official%20roster%20soldiers%20state%20ohio%20war%20rebellion%29&fl[]=identifier&fl[]=title&fl[]=volume&fl[]=date&fl[]=possible-copyright-status&fl[]=access-restricted-item&rows=60&output=json",
+   "bytes": 6095,
+   "sha256": "76b9326e6daea988a1ed255b42b643acc106add390e4b2b06e588371d37fdd44",
+   "retrieved_utc": "2026-10-31T01:56:15Z",
+   "http_status": 200,
+   "content_type": "application/json"
+  },
+  {
+   "file": "search_nj_stryker.json",
+   "url": "https://archive.org/advancedsearch.php?q=title%3A%28record%20of%20officers%20and%20men%20of%20new%20jersey%29&fl[]=identifier&fl[]=title&fl[]=volume&fl[]=date&fl[]=possible-copyright-status&fl[]=access-restricted-item&rows=60&output=json",
+   "bytes": 763,
+   "sha256": "72c990e07cb762c24ea316638cf3bfb47b97f5dfe7450cb7a1ce29088a64426a",
+   "retrieved_utc": "2026-10-31T01:56:18Z",
+   "http_status": 200,
+   "content_type": "application/json"
+  },
+  {
+   "file": "search_ct_catalogue.json",
+   "url": "https://archive.org/advancedsearch.php?q=title%3A%28catalogue%20connecticut%20volunteer%20organizations%29&fl[]=identifier&fl[]=title&fl[]=volume&fl[]=date&fl[]=possible-copyright-status&fl[]=access-restricted-item&rows=60&output=json",
+   "bytes": 1532,
+   "sha256": "7d7415087eff352a6df933069ed20953319edf50b820c799e09adfc81ee9ca9e",
+   "retrieved_utc": "2026-10-31T01:56:22Z",
+   "http_status": 200,
+   "content_type": "application/json"
+  },
+  {
+   "file": "meta_officialrosters05commgoog.json",
+   "url": "https://archive.org/metadata/officialrosters05commgoog",
+   "bytes": 131589,
+   "sha256": "ff09ed21e4c3a920ba0dddc3713e5839391f0ce32441dedfaaf5bf3e78543e98",
+   "retrieved_utc": "2026-10-31T01:56:51Z",
+   "http_status": 200,
+   "content_type": "application/json"
+  },
+  {
+   "file": "meta_ohiowarroster03howerich.json",
+   "url": "https://archive.org/metadata/ohiowarroster03howerich",
+   "bytes": 145116,
+   "sha256": "7eca59c6b3e915f40abcf0129efb29a37809c4998d34e69fcbfb5689cb3e5198",
+   "retrieved_utc": "2026-10-31T01:58:05Z",
+   "http_status": 200,
+   "content_type": "application/json"
+  },
+  {
+   "file": "meta_ohiowarroster04howerich.json",
+   "url": "https://archive.org/metadata/ohiowarroster04howerich",
+   "bytes": 152200,
+   "sha256": "ce5227e0bb6a991317c7ed4e6921fe975bf618fa732ee7c02fe00f107a9a88c7",
+   "retrieved_utc": "2026-10-31T01:58:17Z",
+   "http_status": 200,
+   "content_type": "application/json"
+  },
+  {
+   "file": "meta_ohiowarroster05howerich.json",
+   "url": "https://archive.org/metadata/ohiowarroster05howerich",
+   "bytes": 150189,
+   "sha256": "4da01f55a70f12570678f4711523837d8c58704657a0c7b4c4881e7acad983a2",
+   "retrieved_utc": "2026-10-31T01:58:22Z",
+   "http_status": 200,
+   "content_type": "application/json"
+  },
+  {
+   "file": "meta_ohiowarroster06howerich.json",
+   "url": "https://archive.org/metadata/ohiowarroster06howerich",
+   "bytes": 146741,
+   "sha256": "e6d9499ee5328a33964a375b874dbc8c4b47ad8346908b3f18f8dd255a6c1c00",
+   "retrieved_utc": "2026-10-31T01:58:43Z",
+   "http_status": 200,
+   "content_type": "application/json"
+  },
+  {
+   "file": "meta_officialrosterof62ohio.json",
+   "url": "https://archive.org/metadata/officialrosterof62ohio",
+   "bytes": 144467,
+   "sha256": "a299ae1e2009370bbc624956b641162fac05b9496b2d3f17a9ca0bc2690f3ac6",
+   "retrieved_utc": "2026-10-31T01:58:54Z",
+   "http_status": 200,
+   "content_type": "application/json"
+  },
+  {
+   "file": "meta_officialrosterof07ohio.json",
+   "url": "https://archive.org/metadata/officialrosterof07ohio",
+   "bytes": 146734,
+   "sha256": "90023194dc2a6b41e773ae48f148d9b70664fad79a6bdb2725171b9b9d54ab1e",
+   "retrieved_utc": "2026-10-31T01:59:19Z",
+   "http_status": 200,
+   "content_type": "application/json"
+  },
+  {
+   "file": "meta_ohiowarroster08howerich.json",
+   "url": "https://archive.org/metadata/ohiowarroster08howerich",
+   "bytes": 147689,
+   "sha256": "c882e51648d8a07cbc620011fe42de0bdd6dccccf22a1c27635aff85170668c5",
+   "retrieved_utc": "2026-10-31T01:59:29Z",
+   "http_status": 200,
+   "content_type": "application/json"
+  },
+  {
+   "file": "meta_ohiowarroster09howerich.json",
+   "url": "https://archive.org/metadata/ohiowarroster09howerich",
+   "bytes": 147779,
+   "sha256": "3c45b0758b0baf61211929a2e0d19570873742654435e3b6cfbd48bdc5b6c562",
+   "retrieved_utc": "2026-10-31T01:59:33Z",
+   "http_status": 200,
+   "content_type": "application/json"
+  },
+  {
+   "file": "meta_ohiowarroster10howerich.json",
+   "url": "https://archive.org/metadata/ohiowarroster10howerich",
+   "bytes": 134993,
+   "sha256": "4b6dd70b063028fbbc19a82e551bcc7285f0bbf46debd32b0df3aba1dac90bda",
+   "retrieved_utc": "2026-10-31T01:59:37Z",
+   "http_status": 200,
+   "content_type": "application/json"
+  },
+  {
+   "file": "newjerseyincivil02recorich_djvu.txt",
+   "url": "https://archive.org/download/newjerseyincivil02recorich/newjerseyincivil02recorich_djvu.txt",
+   "bytes": 6324215,
+   "sha256": "2f318659e2f5cb782bab3749f49f25f6bef5e1caeee221942276c0281b826f06",
+   "retrieved_utc": "2026-10-31T02:00:04Z",
+   "http_status": 200,
+   "content_type": "text/plain; charset=utf-8"
+  },
+  {
+   "file": "connecticutvolorg00catarich_djvu.txt",
+   "url": "https://archive.org/download/connecticutvolorg00catarich/connecticutvolorg00catarich_djvu.txt",
+   "bytes": 4426667,
+   "sha256": "97aade21d73c2d76dd36d8fdb3ffa6b6da2610556957f078fe993d248b7b0cac",
+   "retrieved_utc": "2026-10-31T02:00:08Z",
+   "http_status": 200,
+   "content_type": "text/plain; charset=utf-8"
+  },
+  {
+   "file": "newjerseyincivil01recorich_djvu.txt",
+   "url": "https://archive.org/download/newjerseyincivil01recorich/newjerseyincivil01recorich_djvu.txt",
+   "bytes": 4817341,
+   "sha256": "706499379d45e4caec146e69e107a860ca21b4401799b8c15bef7f82ab04d8a7",
+   "retrieved_utc": "2026-10-31T02:00:42Z",
+   "http_status": 200,
+   "content_type": "text/plain; charset=utf-8"
+  },
+  {
+   "file": "ohiowarroster04howerich_djvu.txt",
+   "url": "https://archive.org/download/ohiowarroster04howerich/ohiowarroster04howerich_djvu.txt",
+   "bytes": 4370690,
+   "sha256": "1bf8f864580c8987db72446fa033bb48d003859bc8d178971bebdd020c336991",
+   "retrieved_utc": "2026-10-31T02:01:51Z",
+   "http_status": 200,
+   "content_type": "text/plain; charset=utf-8"
+  },
+  {
+   "file": "newjerseyincivil01recorich_djvu.xml",
+   "url": "https://archive.org/download/newjerseyincivil01recorich/newjerseyincivil01recorich_djvu.xml",
+   "bytes": 61893251,
+   "sha256": "233dbd6c9f6991ec227b5fa64e285c5935d294f0ce5cbf8bbc8336fce9d6f29c",
+   "retrieved_utc": "2026-10-31T02:02:02Z",
+   "http_status": 200,
+   "content_type": "text/xml; charset=utf-8"
+  },
+  {
+   "file": "ohiowarroster05howerich_djvu.txt",
+   "url": "https://archive.org/download/ohiowarroster05howerich/ohiowarroster05howerich_djvu.txt",
+   "bytes": 4296330,
+   "sha256": "64542f63fcb15119dd1bc74e7c5b6d2ff661ffee1fc52bf4767ed19b02399af2",
+   "retrieved_utc": "2026-10-31T02:02:09Z",
+   "http_status": 200,
+   "content_type": "text/plain; charset=utf-8"
+  },
+  {
+   "file": "ohiowarroster06howerich_djvu.txt",
+   "url": "https://archive.org/download/ohiowarroster06howerich/ohiowarroster06howerich_djvu.txt",
+   "bytes": 4243600,
+   "sha256": "d030289425af781a8f6b31a47d95e18093977c2effcacd4a4f74d1eaeed3d975",
+   "retrieved_utc": "2026-10-31T02:02:13Z",
+   "http_status": 200,
+   "content_type": "text/plain; charset=utf-8"
+  },
+  {
+   "file": "officialrosterof62ohio_djvu.txt",
+   "url": "https://archive.org/download/officialrosterof62ohio/officialrosterof62ohio_djvu.txt",
+   "bytes": 2247961,
+   "sha256": "5d97acb43f52d3f2651140c8d8f189b6e451fdf52e927287e773a593c9d3134d",
+   "retrieved_utc": "2026-10-31T02:02:16Z",
+   "http_status": 200,
+   "content_type": "text/plain; charset=utf-8"
+  },
+  {
+   "file": "officialrosterof07ohio_djvu.txt",
+   "url": "https://archive.org/download/officialrosterof07ohio/officialrosterof07ohio_djvu.txt",
+   "bytes": 4322226,
+   "sha256": "1b91e1efe4e3226e7294ec4b482a38dd28ab06f714c77c1649d3d07a06fb7658",
+   "retrieved_utc": "2026-10-31T02:02:21Z",
+   "http_status": 200,
+   "content_type": "text/plain; charset=utf-8"
+  },
+  {
+   "file": "ohiowarroster08howerich_djvu.txt",
+   "url": "https://archive.org/download/ohiowarroster08howerich/ohiowarroster08howerich_djvu.txt",
+   "bytes": 4717175,
+   "sha256": "812a89c8e77a5e04003fcb480197e7672cd230e718866c5376339f1085492dc7",
+   "retrieved_utc": "2026-10-31T02:02:27Z",
+   "http_status": 200,
+   "content_type": "text/plain; charset=utf-8"
+  },
+  {
+   "file": "ohiowarroster09howerich_djvu.txt",
+   "url": "https://archive.org/download/ohiowarroster09howerich/ohiowarroster09howerich_djvu.txt",
+   "bytes": 5136424,
+   "sha256": "242c6fd1cf0dd6b302065d41f9bb4a4f8b7b765607ace96dcacba192a5c27fb0",
+   "retrieved_utc": "2026-10-31T02:02:33Z",
+   "http_status": 200,
+   "content_type": "text/plain; charset=utf-8"
+  },
+  {
+   "file": "ohiowarroster10howerich_djvu.txt",
+   "url": "https://archive.org/download/ohiowarroster10howerich/ohiowarroster10howerich_djvu.txt",
+   "bytes": 4205905,
+   "sha256": "2cf17b25bda87dd10e88c6004bde9810e0cf7d3a78cbd90a5d29fd6a74745e0c",
+   "retrieved_utc": "2026-10-31T02:02:39Z",
+   "http_status": 200,
+   "content_type": "text/plain; charset=utf-8"
+  },
+  {
+   "file": "officialrosters06commgoog_djvu.txt",
+   "url": "https://archive.org/download/officialrosters06commgoog/officialrosters06commgoog_djvu.txt",
+   "bytes": 3693461,
+   "sha256": "5b0907a5bbde9432130e71b3e16ca6f2b36d8e54f94ad410258e31474e2c76ce",
+   "retrieved_utc": "2026-10-31T02:03:09Z",
+   "http_status": 200,
+   "content_type": "text/plain; charset=utf-8"
+  },
+  {
+   "file": "ohiowarroster03howerich_djvu.txt",
+   "url": "https://archive.org/download/ohiowarroster03howerich/ohiowarroster03howerich_djvu.txt",
+   "bytes": 4319167,
+   "sha256": "366023c72491ea8b5254f7c29d664931c59c42221acd5122a59209a02601cee6",
+   "retrieved_utc": "2026-10-31T02:03:12Z",
+   "http_status": 200,
+   "content_type": "text/plain; charset=utf-8"
+  },
+  {
+   "file": "officialrosterof32ohio_djvu.txt",
+   "url": "https://archive.org/download/officialrosterof32ohio/officialrosterof32ohio_djvu.txt",
+   "bytes": 2016868,
+   "sha256": "47505ecaf30352504f9e6d71d1d0189cae7296096228d4e05fc5caa9632c4c35",
+   "retrieved_utc": "2026-10-31T02:03:22Z",
+   "http_status": 200,
+   "content_type": "text/plain; charset=utf-8"
+  },
+  {
+   "file": "connecticutvolorg00catarich_djvu.xml",
+   "url": "https://archive.org/download/connecticutvolorg00catarich/connecticutvolorg00catarich_djvu.xml",
+   "bytes": 53036419,
+   "sha256": "0c9cad686dcee05a217c32ea6468cf6753a81902af2fba1c5c48bc7664aae724",
+   "retrieved_utc": "2026-10-31T02:04:17Z",
+   "http_status": 200,
+   "content_type": "text/xml; charset=utf-8"
+  },
+  {
+   "file": "officialrosterof11ohio_djvu.txt",
+   "url": "https://archive.org/download/officialrosterof11ohio/officialrosterof11ohio_djvu.txt",
+   "bytes": 3623105,
+   "sha256": "d5b0c35988988b6de9513ea0cc981075d19e5eb70736ec3e2c782955e754216b",
+   "retrieved_utc": "2026-10-31T02:04:20Z",
+   "http_status": 200,
+   "content_type": "text/plain; charset=utf-8"
+  },
+  {
+   "file": "officialrosters05commgoog_djvu.txt",
+   "url": "https://archive.org/download/officialrosters05commgoog/officialrosters05commgoog_djvu.txt",
+   "bytes": 409499,
+   "sha256": "84201e81dd076c95e1fb58d9bee15c3acb78dc59180318418f7cef58e6870963",
+   "retrieved_utc": "2026-10-31T02:04:30Z",
+   "http_status": 200,
+   "content_type": "text/plain; charset=utf-8"
+  },
+  {
+   "file": "newjerseyincivil02recorich_djvu.xml",
+   "url": "https://archive.org/download/newjerseyincivil02recorich/newjerseyincivil02recorich_djvu.xml",
+   "bytes": 81412767,
+   "sha256": "a20a96cefbe8b0d87f71649039215eaf5c6d3fe730fcb2f61606584633d2812d",
+   "retrieved_utc": "2026-10-31T02:11:57Z",
+   "http_status": 200,
+   "content_type": "text/xml; charset=utf-8"
+  },
+  {
+   "file": "img_newjerseyincivil01recorich_349.jpg",
+   "url": "https://archive.org/download/newjerseyincivil01recorich/page/n348_w1500.jpg",
+   "bytes": 579042,
+   "sha256": "124254b09c1a09080f88062893fca6edb2114293bb29e156a736bf4906a5345b",
+   "retrieved_utc": "2026-10-31T02:14:23Z",
+   "http_status": 200,
+   "content_type": "image/jpeg"
+  },
+  {
+   "file": "ohiowarroster05howerich_djvu.xml",
+   "url": "https://archive.org/download/ohiowarroster05howerich/ohiowarroster05howerich_djvu.xml",
+   "bytes": 54325651,
+   "sha256": "e698d0dbcce3e2165a544b1c730a778484e2660483131ea56db048713f776f54",
+   "retrieved_utc": "2026-10-31T02:15:48Z",
+   "http_status": 200,
+   "content_type": "text/xml; charset=utf-8"
+  },
+  {
+   "file": "search_ohio_v2.json",
+   "url": "https://archive.org/advancedsearch.php?q=title%3A%28official%20roster%20soldiers%20ohio%29%20AND%20volume%3A%282%20OR%20II%20OR%2002%29&fl[]=identifier&fl[]=title&fl[]=volume&fl[]=possible-copyright-status&fl[]=access-restricted-item&rows=40&output=json",
+   "bytes": 1087,
+   "sha256": "3016c6a414c0ae5769df4b3b17a1b522ea07ffd824977deb02a569167aa55e80",
+   "retrieved_utc": "2026-10-31T02:15:51Z",
+   "http_status": 200,
+   "content_type": "application/json"
+  },
+  {
+   "file": "ohiowarroster06howerich_djvu.xml",
+   "url": "https://archive.org/download/ohiowarroster06howerich/ohiowarroster06howerich_djvu.xml",
+   "bytes": 54187725,
+   "sha256": "48baa386f9641490ee83ed9e3c94ef59e30c9b1611d7aaebc4ceb7f21bb425a8",
+   "retrieved_utc": "2026-10-31T02:15:53Z",
+   "http_status": 200,
+   "content_type": "text/xml; charset=utf-8"
+  },
+  {
+   "file": "search_ohio_v2b.json",
+   "url": "https://archive.org/advancedsearch.php?q=%28ohio%20roster%201886%20volume%20II%20first%20to%20twentieth%20infantry%29&fl[]=identifier&fl[]=title&fl[]=volume&fl[]=possible-copyright-status&fl[]=access-restricted-item&rows=40&output=json",
+   "bytes": 933,
+   "sha256": "17caef423868c3caf87fb88d244503dc1cd7f3e24d13bdb7d4fb084259cc0571",
+   "retrieved_utc": "2026-10-31T02:15:54Z",
+   "http_status": 200,
+   "content_type": "application/json"
+  },
+  {
+   "file": "ohiowarroster08howerich_djvu.xml",
+   "url": "https://archive.org/download/ohiowarroster08howerich/ohiowarroster08howerich_djvu.xml",
+   "bytes": 59948057,
+   "sha256": "cb8e2e65bf1ad5d4f335ae883948bf23b2ab1ca980d068363cab4faf4e563478",
+   "retrieved_utc": "2026-10-31T02:16:03Z",
+   "http_status": 200,
+   "content_type": "text/xml; charset=utf-8"
+  },
+  {
+   "file": "ohiowarroster10howerich_djvu.xml",
+   "url": "https://archive.org/download/ohiowarroster10howerich/ohiowarroster10howerich_djvu.xml",
+   "bytes": 53176469,
+   "sha256": "730a37e6f36d45dfa0021c0c0e1f611c28810ab06a8464e47769cd9f72b4b5d8",
+   "retrieved_utc": "2026-10-31T02:16:11Z",
+   "http_status": 200,
+   "content_type": "text/xml; charset=utf-8"
+  },
+  {
+   "file": "officialrosterof11ohio_djvu.xml",
+   "url": "https://archive.org/download/officialrosterof11ohio/officialrosterof11ohio_djvu.xml",
+   "bytes": 46071774,
+   "sha256": "56be760862555b9fb567e64527df9366765ccf2800fa1b3b29d5cc0915fdc4e0",
+   "retrieved_utc": "2026-10-31T02:16:17Z",
+   "http_status": 200,
+   "content_type": "text/xml; charset=utf-8"
+  },
+  {
+   "file": "ohiowarroster03howerich_djvu.xml",
+   "url": "https://archive.org/download/ohiowarroster03howerich/ohiowarroster03howerich_djvu.xml",
+   "bytes": 54528777,
+   "sha256": "ea688ffe5ae46524fd41e75b604cbc14f09f58792ea8049e3c580fce3cbbcc01",
+   "retrieved_utc": "2026-10-31T02:16:26Z",
+   "http_status": 200,
+   "content_type": "text/xml; charset=utf-8"
+  },
+  {
+   "file": "officialrosterof07ohio_djvu.xml",
+   "url": "https://archive.org/download/officialrosterof07ohio/officialrosterof07ohio_djvu.xml",
+   "bytes": 56724711,
+   "sha256": "56914eef65c72cf2a94a86e01b484330d78c3b89066d0edc1e08ed49e7ba65ee",
+   "retrieved_utc": "2026-10-31T02:18:26Z",
+   "http_status": 200,
+   "content_type": "text/xml; charset=utf-8"
+  },
+  {
+   "file": "img_officialrosterof07ohio_665.jpg",
+   "url": "https://archive.org/download/officialrosterof07ohio/page/n664_w1500.jpg",
+   "bytes": 1041374,
+   "sha256": "0d020b6dfbb66e03a08a560b92e8e8946142cf1c920215a7fe3baa064ed62bd7",
+   "retrieved_utc": "2026-10-31T02:21:46Z",
+   "http_status": 200,
+   "content_type": "image/jpeg"
+  },
+  {
+   "file": "bwb_W9-BTC-637_djvu.txt",
+   "url": "https://archive.org/download/bwb_W9-BTC-637/bwb_W9-BTC-637_djvu.txt",
+   "bytes": 4240469,
+   "sha256": "fb2b76424ca06db55184914aefbb0f38271a29363b2c931e9eeea094ffb905b3",
+   "retrieved_utc": "2026-10-31T02:22:37Z",
+   "http_status": 200,
+   "content_type": "text/plain; charset=utf-8"
+  },
+  {
+   "file": "bwb_W9-BTC-637_djvu.xml",
+   "url": "https://archive.org/download/bwb_W9-BTC-637/bwb_W9-BTC-637_djvu.xml",
+   "bytes": 57048813,
+   "sha256": "dec2d6e1a328b149c377daaf4e9ad5e0f9da8a5838f07a941d9411ce54833acc",
+   "retrieved_utc": "2026-10-31T02:23:25Z",
+   "http_status": 200,
+   "content_type": "text/xml; charset=utf-8"
+  },
+  {
+   "file": "img_connecticutvolorg00catarich_681.jpg",
+   "url": "https://archive.org/download/connecticutvolorg00catarich/page/n680_w1500.jpg",
+   "bytes": 829164,
+   "sha256": "29b13a40808c53fe3deb39e7957b726e58ad806119d71a2c8634da1ec2c4b01c",
+   "retrieved_utc": "2026-10-31T02:29:17Z",
+   "http_status": 200,
+   "content_type": "image/jpeg"
+  },
+  {
+   "file": "img_newjerseyincivil01recorich_576.jpg",
+   "url": "https://archive.org/download/newjerseyincivil01recorich/page/n575_w1500.jpg",
+   "bytes": 611567,
+   "sha256": "effcfa0580fe9c7742037b0f26151bd8cc08611957fc79fc64c0c291420fe7e0",
+   "retrieved_utc": "2026-10-31T02:29:26Z",
+   "http_status": 200,
+   "content_type": "image/jpeg"
+  },
+  {
+   "file": "img_ohiowarroster06howerich_548.jpg",
+   "url": "https://archive.org/download/ohiowarroster06howerich/page/n547_w1500.jpg",
+   "bytes": 883855,
+   "sha256": "7bc19163e335501cd36146b936050eec14e5b74dabace87f0b8e244efe8a549a",
+   "retrieved_utc": "2026-10-31T02:29:28Z",
+   "http_status": 200,
+   "content_type": "image/jpeg"
+  },
+  {
+   "file": "img_bwb_W9-BTC-637_160.jpg",
+   "url": "https://archive.org/download/bwb_W9-BTC-637/page/n159_w1500.jpg",
+   "bytes": 675747,
+   "sha256": "b65e1eb5239e5b8b6b268fb379af85d8e631674d2117d8b60c319e528d999637",
+   "retrieved_utc": "2026-10-31T02:39:22Z",
+   "http_status": 200,
+   "content_type": "image/jpeg"
+  },
+  {
+   "file": "img_bwb_W9-BTC-637_109.jpg",
+   "url": "https://archive.org/download/bwb_W9-BTC-637/page/n108_w1500.jpg",
+   "bytes": 603978,
+   "sha256": "21ba86d46990e186fda7277cda09df67ded9d7b560aa42c9680ea268e5bdd816",
+   "retrieved_utc": "2026-10-31T02:45:54Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_bwb_W9-BTC-637_145.jpg",
+   "url": "https://archive.org/download/bwb_W9-BTC-637/page/n144_w1500.jpg",
+   "bytes": 663651,
+   "sha256": "bf234a35bbfd9ac336e5c8079b465aad4edbb2cb14c376cfc4d7038d4de82d4a",
+   "retrieved_utc": "2026-10-31T02:45:59Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_bwb_W9-BTC-637_178.jpg",
+   "url": "https://archive.org/download/bwb_W9-BTC-637/page/n177_w1500.jpg",
+   "bytes": 628993,
+   "sha256": "fa164d263a623816d8fe2dcc19e339107c9b6bc8afbb473eaab85d2cf876b35e",
+   "retrieved_utc": "2026-10-31T02:46:03Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_bwb_W9-BTC-637_223.jpg",
+   "url": "https://archive.org/download/bwb_W9-BTC-637/page/n222_w1500.jpg",
+   "bytes": 702307,
+   "sha256": "a16c993188dcbe7b941c00d78f738bf72cd0c7b730d4d6a671534d24b182b21b",
+   "retrieved_utc": "2026-10-31T02:46:08Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_bwb_W9-BTC-637_230.jpg",
+   "url": "https://archive.org/download/bwb_W9-BTC-637/page/n229_w1500.jpg",
+   "bytes": 646272,
+   "sha256": "630c83b195f4a2daa789d2a2649cd3205ec4645c78bc220369107ce405a34fec",
+   "retrieved_utc": "2026-10-31T02:46:12Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_bwb_W9-BTC-637_258.jpg",
+   "url": "https://archive.org/download/bwb_W9-BTC-637/page/n257_w1500.jpg",
+   "bytes": 674628,
+   "sha256": "68fbd8602329a183bc14d9ead01662b228a3e4ac9bf9313c9f87a464d2f356a0",
+   "retrieved_utc": "2026-10-31T02:46:16Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_connecticutvolorg00catarich_147.jpg",
+   "url": "https://archive.org/download/connecticutvolorg00catarich/page/n146_w1500.jpg",
+   "bytes": 967256,
+   "sha256": "62a9383f691535af6c373cc9163452434e6cb15649bd441c58a9ea7822a13b4a",
+   "retrieved_utc": "2026-10-31T02:46:22Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_connecticutvolorg00catarich_194.jpg",
+   "url": "https://archive.org/download/connecticutvolorg00catarich/page/n193_w1500.jpg",
+   "bytes": 788199,
+   "sha256": "55b76af9445c07f67f662992924b0a4c9f0f6f5282d4f3128a2ee6ef72747d37",
+   "retrieved_utc": "2026-10-31T02:46:27Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_connecticutvolorg00catarich_260.jpg",
+   "url": "https://archive.org/download/connecticutvolorg00catarich/page/n259_w1500.jpg",
+   "bytes": 940147,
+   "sha256": "052dbb94082f1d2c2bde248613d0558105ff6c401becbc24eaccd84fec50ff2f",
+   "retrieved_utc": "2026-10-31T02:46:31Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_connecticutvolorg00catarich_574.jpg",
+   "url": "https://archive.org/download/connecticutvolorg00catarich/page/n573_w1500.jpg",
+   "bytes": 501357,
+   "sha256": "28df7ee15f9bf5833271435ab28947549c009ab2a15bc74663ee3c2d5aef558b",
+   "retrieved_utc": "2026-10-31T02:46:34Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_connecticutvolorg00catarich_586.jpg",
+   "url": "https://archive.org/download/connecticutvolorg00catarich/page/n585_w1500.jpg",
+   "bytes": 739223,
+   "sha256": "2a03c5c142908aefc5f887a3bfa26d56006d430b5af6f3091fe074715e042e23",
+   "retrieved_utc": "2026-10-31T02:46:38Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_connecticutvolorg00catarich_607.jpg",
+   "url": "https://archive.org/download/connecticutvolorg00catarich/page/n606_w1500.jpg",
+   "bytes": 890959,
+   "sha256": "ea13b0cf31aaf28dbe1b3e9d9d5028bba6041515fb5f128405c64c142b56d8fa",
+   "retrieved_utc": "2026-10-31T02:46:42Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_connecticutvolorg00catarich_686.jpg",
+   "url": "https://archive.org/download/connecticutvolorg00catarich/page/n685_w1500.jpg",
+   "bytes": 756073,
+   "sha256": "23535761c49a49cfb52ea3b619255874282111b43aefbaa16c4b25e084e4c940",
+   "retrieved_utc": "2026-10-31T02:46:50Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_connecticutvolorg00catarich_735.jpg",
+   "url": "https://archive.org/download/connecticutvolorg00catarich/page/n734_w1500.jpg",
+   "bytes": 885240,
+   "sha256": "81b5869cee028f312a7f6fffa5baa7387907e1afcbbebcd9733702ff3df5077f",
+   "retrieved_utc": "2026-10-31T02:46:54Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_connecticutvolorg00catarich_863.jpg",
+   "url": "https://archive.org/download/connecticutvolorg00catarich/page/n862_w1500.jpg",
+   "bytes": 454329,
+   "sha256": "403b70ed01cdedcf53940cfde8d44b871058561bc1e3435a2fc74cf8d2687807",
+   "retrieved_utc": "2026-10-31T02:46:58Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_connecticutvolorg00catarich_877.jpg",
+   "url": "https://archive.org/download/connecticutvolorg00catarich/page/n876_w1500.jpg",
+   "bytes": 756197,
+   "sha256": "13e2c66958a9cdab74657e285b2cb1f2b2d2cb66e3b008f0c182b30486520b93",
+   "retrieved_utc": "2026-10-31T02:47:02Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_newjerseyincivil01recorich_105.jpg",
+   "url": "https://archive.org/download/newjerseyincivil01recorich/page/n104_w1500.jpg",
+   "bytes": 729123,
+   "sha256": "918bea75138ce10ab873c3220d168efb410dc2806f93d2ef1ce175b85db38518",
+   "retrieved_utc": "2026-10-31T02:47:08Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_newjerseyincivil01recorich_109.jpg",
+   "url": "https://archive.org/download/newjerseyincivil01recorich/page/n108_w1500.jpg",
+   "bytes": 505617,
+   "sha256": "f90313807ff1256f1a0a9ac0955390a30bfae81ff67071511c4dd63ff604b89d",
+   "retrieved_utc": "2026-10-31T02:47:12Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_newjerseyincivil01recorich_181.jpg",
+   "url": "https://archive.org/download/newjerseyincivil01recorich/page/n180_w1500.jpg",
+   "bytes": 529002,
+   "sha256": "864060304ca460228f71a904dd57ba803c4f930278969b311ba6ab62f16ec8cf",
+   "retrieved_utc": "2026-10-31T02:47:16Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_newjerseyincivil01recorich_203.jpg",
+   "url": "https://archive.org/download/newjerseyincivil01recorich/page/n202_w1500.jpg",
+   "bytes": 505375,
+   "sha256": "198e9938ee33ece85dc7f3c619996c75dd31b317871358210133a8d5a5234601",
+   "retrieved_utc": "2026-10-31T02:47:20Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_newjerseyincivil01recorich_240.jpg",
+   "url": "https://archive.org/download/newjerseyincivil01recorich/page/n239_w1500.jpg",
+   "bytes": 740416,
+   "sha256": "072708ec2bcda3c036a64aba9fbd6df23b5ef9ff54a3fcea8dbca99c1231bd3b",
+   "retrieved_utc": "2026-10-31T02:47:24Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_newjerseyincivil01recorich_267.jpg",
+   "url": "https://archive.org/download/newjerseyincivil01recorich/page/n266_w1500.jpg",
+   "bytes": 621953,
+   "sha256": "ea58f4053d92857bb213cddaca79a3e5526f638e2f31ba8366ea8288b647cd36",
+   "retrieved_utc": "2026-10-31T02:47:28Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_newjerseyincivil01recorich_285.jpg",
+   "url": "https://archive.org/download/newjerseyincivil01recorich/page/n284_w1500.jpg",
+   "bytes": 599933,
+   "sha256": "16a20286f84bef0fb8e772de60bce25a21510a313ccea81f201556c73cf0aa14",
+   "retrieved_utc": "2026-10-31T02:47:32Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_newjerseyincivil01recorich_362.jpg",
+   "url": "https://archive.org/download/newjerseyincivil01recorich/page/n361_w1500.jpg",
+   "bytes": 554846,
+   "sha256": "0ebe37a756891e5b9cb7c3b5699f4d8a4725801b30676ad5f95fbb5708db1daf",
+   "retrieved_utc": "2026-10-31T02:47:36Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_newjerseyincivil01recorich_384.jpg",
+   "url": "https://archive.org/download/newjerseyincivil01recorich/page/n383_w1500.jpg",
+   "bytes": 607581,
+   "sha256": "677d4c56b54c6c395317516aa70e9cd2c668c43268fe9ae60658071e9aeb0daf",
+   "retrieved_utc": "2026-10-31T02:47:40Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_newjerseyincivil01recorich_433.jpg",
+   "url": "https://archive.org/download/newjerseyincivil01recorich/page/n432_w1500.jpg",
+   "bytes": 462030,
+   "sha256": "4646dcd82688e8a1e11c1be4d754abf0a58551e12b1dfa3dd5cfe2b5f8393bf2",
+   "retrieved_utc": "2026-10-31T02:47:43Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_newjerseyincivil01recorich_557.jpg",
+   "url": "https://archive.org/download/newjerseyincivil01recorich/page/n556_w1500.jpg",
+   "bytes": 563245,
+   "sha256": "a3b443535d33e98aa7083355c68e1bb1a12b0118433b94b7f7a925d1e04725aa",
+   "retrieved_utc": "2026-10-31T02:47:47Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_newjerseyincivil01recorich_564.jpg",
+   "url": "https://archive.org/download/newjerseyincivil01recorich/page/n563_w1500.jpg",
+   "bytes": 640955,
+   "sha256": "faee9420d616de6f6a1461810402e33c9e7fe85874c93ddf3bb6f1fc1b2c1e49",
+   "retrieved_utc": "2026-10-31T02:47:51Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_newjerseyincivil01recorich_602.jpg",
+   "url": "https://archive.org/download/newjerseyincivil01recorich/page/n601_w1500.jpg",
+   "bytes": 587912,
+   "sha256": "9bc6dc574189a8364d00a35cc09f72f85783ab660f0504e4518bbe6b59df9eed",
+   "retrieved_utc": "2026-10-31T02:47:55Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_newjerseyincivil01recorich_641.jpg",
+   "url": "https://archive.org/download/newjerseyincivil01recorich/page/n640_w1500.jpg",
+   "bytes": 595650,
+   "sha256": "d144b397383cb2d4e845bea01fb63e15c806b9aba636459a5a079cf2985ca095",
+   "retrieved_utc": "2026-10-31T02:47:59Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_newjerseyincivil01recorich_796.jpg",
+   "url": "https://archive.org/download/newjerseyincivil01recorich/page/n795_w1500.jpg",
+   "bytes": 509332,
+   "sha256": "e332b85f41e18d3a4ec36d598d2abb01a420f3c95ff66f18b6f1f4e0d02065f4",
+   "retrieved_utc": "2026-10-31T02:48:09Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_newjerseyincivil02recorich_301.jpg",
+   "url": "https://archive.org/download/newjerseyincivil02recorich/page/n300_w1500.jpg",
+   "bytes": 681675,
+   "sha256": "a9272fcec7f1c898002694f52c282d1a114da8b70280f8d07f164abca13589d6",
+   "retrieved_utc": "2026-10-31T02:48:18Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_newjerseyincivil02recorich_437.jpg",
+   "url": "https://archive.org/download/newjerseyincivil02recorich/page/n436_w1500.jpg",
+   "bytes": 639020,
+   "sha256": "a695ba040f5bc61476d09ea5efb00c0abed1e4469b910c68dc813b4854cd3815",
+   "retrieved_utc": "2026-10-31T02:48:21Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_officialrosterof07ohio_644.jpg",
+   "url": "https://archive.org/download/officialrosterof07ohio/page/n643_w1500.jpg",
+   "bytes": 1079218,
+   "sha256": "055eaf8b23295e5d13d0760b785dfa70b52c30aa848bc6d5cdfe544defa57089",
+   "retrieved_utc": "2026-10-31T02:48:26Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_officialrosterof11ohio_326.jpg",
+   "url": "https://archive.org/download/officialrosterof11ohio/page/n325_w1500.jpg",
+   "bytes": 637120,
+   "sha256": "a98d2603090466a6a989777f381c2440cc69e2931f5e8fe87006696783200ea3",
+   "retrieved_utc": "2026-10-31T02:48:37Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_officialrosterof11ohio_370.jpg",
+   "url": "https://archive.org/download/officialrosterof11ohio/page/n369_w1500.jpg",
+   "bytes": 619343,
+   "sha256": "120d196294cfca772e82a24d5e7b526c6a940ad685484181cbc9c6b3802706d8",
+   "retrieved_utc": "2026-10-31T02:48:41Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_ohiowarroster03howerich_176.jpg",
+   "url": "https://archive.org/download/ohiowarroster03howerich/page/n175_w1500.jpg",
+   "bytes": 734458,
+   "sha256": "4decb1bab54d0b108f617075cbaad1692f24414e3199a0ad3d87d7bc95af08e2",
+   "retrieved_utc": "2026-10-31T02:48:51Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_ohiowarroster03howerich_205.jpg",
+   "url": "https://archive.org/download/ohiowarroster03howerich/page/n204_w1500.jpg",
+   "bytes": 736779,
+   "sha256": "007c84f791f176bbddc0a2a60663e066df874062ffc50d78a4a5963edae381b0",
+   "retrieved_utc": "2026-10-31T02:48:55Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_ohiowarroster03howerich_220.jpg",
+   "url": "https://archive.org/download/ohiowarroster03howerich/page/n219_w1500.jpg",
+   "bytes": 737323,
+   "sha256": "bc9e0c9aa2d2e9a7db25f87c737ed4a471c78de6e6cf38a2cac6262dc568cc1a",
+   "retrieved_utc": "2026-10-31T02:49:00Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_ohiowarroster03howerich_400.jpg",
+   "url": "https://archive.org/download/ohiowarroster03howerich/page/n399_w1500.jpg",
+   "bytes": 752520,
+   "sha256": "c688adbda8fbb8d6e10759795f18bae99dcf7c3fe7acc6ff7233a595d242753a",
+   "retrieved_utc": "2026-10-31T02:49:04Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_ohiowarroster05howerich_51.jpg",
+   "url": "https://archive.org/download/ohiowarroster05howerich/page/n50_w1500.jpg",
+   "bytes": 776420,
+   "sha256": "e88925c567e164c7c33f88e85ba7fefc3452956be67ccb386f93d018c52bc2e3",
+   "retrieved_utc": "2026-10-31T02:49:08Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_ohiowarroster05howerich_76.jpg",
+   "url": "https://archive.org/download/ohiowarroster05howerich/page/n75_w1500.jpg",
+   "bytes": 872323,
+   "sha256": "9bbf4af17d35e55b25c4ea187943b3acf003ed9154bb17fdd761e4c0b6196a23",
+   "retrieved_utc": "2026-10-31T02:49:13Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_ohiowarroster05howerich_311.jpg",
+   "url": "https://archive.org/download/ohiowarroster05howerich/page/n310_w1500.jpg",
+   "bytes": 827526,
+   "sha256": "bd2115c84c6fad69195eab8deaa3d7832d0ab3a40824ff8499df12b405cffaad",
+   "retrieved_utc": "2026-10-31T02:49:16Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_ohiowarroster05howerich_323.jpg",
+   "url": "https://archive.org/download/ohiowarroster05howerich/page/n322_w1500.jpg",
+   "bytes": 826945,
+   "sha256": "613b476118e2184fe6523fb103609d71e5ca4c2873074bfd50f7945623b85e0e",
+   "retrieved_utc": "2026-10-31T02:49:20Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_ohiowarroster05howerich_539.jpg",
+   "url": "https://archive.org/download/ohiowarroster05howerich/page/n538_w1500.jpg",
+   "bytes": 763830,
+   "sha256": "d1fe7ba1763f21e38b86b88eaf96a6297b48abacf7e404cee98911d1dc4c722a",
+   "retrieved_utc": "2026-10-31T02:49:28Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_ohiowarroster06howerich_156.jpg",
+   "url": "https://archive.org/download/ohiowarroster06howerich/page/n155_w1500.jpg",
+   "bytes": 772900,
+   "sha256": "cff38670cdd68d2b3a9a9fce258144beb4c312feef03a35388c68ffbf490bdca",
+   "retrieved_utc": "2026-10-31T02:49:33Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_ohiowarroster06howerich_179.jpg",
+   "url": "https://archive.org/download/ohiowarroster06howerich/page/n178_w1500.jpg",
+   "bytes": 828231,
+   "sha256": "c777d2efa78d513c7f60dbc0b48bc3fd312e18b6051af7f8f464240eb7a897d3",
+   "retrieved_utc": "2026-10-31T02:49:36Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_ohiowarroster06howerich_238.jpg",
+   "url": "https://archive.org/download/ohiowarroster06howerich/page/n237_w1500.jpg",
+   "bytes": 769984,
+   "sha256": "82da075339ba2675c8f6f3fdd267475adffd12d1bcdeeb06b451e33afa85e9d8",
+   "retrieved_utc": "2026-10-31T02:49:40Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_ohiowarroster06howerich_262.jpg",
+   "url": "https://archive.org/download/ohiowarroster06howerich/page/n261_w1500.jpg",
+   "bytes": 792943,
+   "sha256": "78929e44ef6d75e0ee1f7ebcac2c18d140879122f5ca4c862f3c8cde9b04f46a",
+   "retrieved_utc": "2026-10-31T02:49:44Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_ohiowarroster06howerich_536.jpg",
+   "url": "https://archive.org/download/ohiowarroster06howerich/page/n535_w1500.jpg",
+   "bytes": 795821,
+   "sha256": "7b25ee37c823a5824457bd78550a8a183fce78ac182fc4fafcf2b215ef09ad41",
+   "retrieved_utc": "2026-10-31T02:49:48Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_ohiowarroster06howerich_558.jpg",
+   "url": "https://archive.org/download/ohiowarroster06howerich/page/n557_w1500.jpg",
+   "bytes": 805396,
+   "sha256": "c2b48c98feec0f16684eb3d1e11fec620b6ceef58f50a70a8a0be476073516bd",
+   "retrieved_utc": "2026-10-31T02:49:52Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_ohiowarroster10howerich_426.jpg",
+   "url": "https://archive.org/download/ohiowarroster10howerich/page/n425_w1500.jpg",
+   "bytes": 1081526,
+   "sha256": "8e53e55f3de26cfc8c0e08002c216666f09091d38bb68c6bbef396bdadd61582",
+   "retrieved_utc": "2026-10-31T02:50:01Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_ohiowarroster10howerich_435.jpg",
+   "url": "https://archive.org/download/ohiowarroster10howerich/page/n434_w1500.jpg",
+   "bytes": 1020317,
+   "sha256": "c8d69c2ea77b7459b3f5da15c778c3275f0532d895a0a6e2858d33930d8e5eb8",
+   "retrieved_utc": "2026-10-31T02:50:07Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_ohiowarroster10howerich_443.jpg",
+   "url": "https://archive.org/download/ohiowarroster10howerich/page/n442_w1500.jpg",
+   "bytes": 1044293,
+   "sha256": "1dd8a2466a7b45d973d5a1eb29d82d2508bc2ef72c18ad14e28f7646bce4fe22",
+   "retrieved_utc": "2026-10-31T02:50:12Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_ohiowarroster10howerich_445.jpg",
+   "url": "https://archive.org/download/ohiowarroster10howerich/page/n444_w1500.jpg",
+   "bytes": 965277,
+   "sha256": "2ef8b295c5697d852af10d130d0c2da55035c021232386bf858609c3ff0a16bd",
+   "retrieved_utc": "2026-10-31T02:50:17Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_ohiowarroster10howerich_446.jpg",
+   "url": "https://archive.org/download/ohiowarroster10howerich/page/n445_w1500.jpg",
+   "bytes": 904935,
+   "sha256": "0414b34f3dac983d6d34a618ccc94ac7504b58eb21312aef9b0e8449f28c2aab",
+   "retrieved_utc": "2026-10-31T02:50:21Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_newjerseyincivil01recorich_790.jpg",
+   "url": "https://archive.org/download/newjerseyincivil01recorich/page/n789_w1500.jpg",
+   "bytes": 394773,
+   "sha256": "49b3a650c9ea88c2eebfc03ab81cda28bd71ce9b59225cfe6cbfee8e73a0aa4c",
+   "retrieved_utc": "2026-10-31T03:01:21Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_ohiowarroster03howerich_217.jpg",
+   "url": "https://archive.org/download/ohiowarroster03howerich/page/n216_w1500.jpg",
+   "bytes": 724696,
+   "sha256": "b481e88e61e5e7ac5aece5a854086b381b1f19cd59b2a76139fee37f52c17aec",
+   "retrieved_utc": "2026-10-31T03:06:06Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_officialrosterof11ohio_330.jpg",
+   "url": "https://archive.org/download/officialrosterof11ohio/page/n329_w1500.jpg",
+   "bytes": 718870,
+   "sha256": "31223297218e2a2088477a5a32e60af41cfbf7da736f4ca3d2ca6e45304db90d",
+   "retrieved_utc": "2026-10-31T03:06:16Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_ohiowarroster06howerich_264.jpg",
+   "url": "https://archive.org/download/ohiowarroster06howerich/page/n263_w1500.jpg",
+   "bytes": 749379,
+   "sha256": "d7e39c65e460eef415800248ba8c201ec8dc0c2d5ce9a0fc042ce1cd74814e60",
+   "retrieved_utc": "2026-10-31T03:06:22Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  },
+  {
+   "file": "img_newjerseyincivil01recorich_578.jpg",
+   "url": "https://archive.org/download/newjerseyincivil01recorich/page/n577_w1500.jpg",
+   "bytes": 600239,
+   "sha256": "87c610a845f28188efb57104897b6044e6b36c392db793fbc9fad9277ece7090",
+   "retrieved_utc": "2026-10-31T03:06:26Z",
+   "http_status": 200,
+   "content_type": "image/jpeg",
+   "acquired_by": "independent audit 2026-10-30 (page-image check of the sample)"
+  }
+ ],
+ "blocked": [],
+ "reused_from_repository_cache": [
+  {
+   "file": "tmp/library/or27/cu31924077699761_djvu.txt",
+   "source": "https://archive.org/download/cu31924077699761/cu31924077699761_djvu.txt (OR Series I vol 27 part 1; downloaded by earlier work, not by this task)",
+   "bytes": 4015765,
+   "sha256": "5c041e6ebc70cd4e33a325b411c7bec0b22ffa6dedbb71fbd4943fb57977a6ca"
+  }
+ ],
+ "failed_requests": [
+  {
+   "url": "https://archive.org/download/officialrosters02commgoog/officialrosters02commgoog_djvu.txt",
+   "result": "HTTP 504 gateway timeout, 3 attempts (also _djvu.xml); not a block; the Ohio volume 2 text was obtained from the other IA copy bwb_W9-BTC-637"
+  },
+  {
+   "url": "https://archive.org/download/officialrosterof11ohio/officialrosterof11ohio_djvu.txt",
+   "result": "HTTP 500 once, succeeded on retry"
+  },
+  {
+   "url": "https://archive.org/download/newjerseyincivil01recorich/newjerseyincivil01recorich_djvu.txt",
+   "result": "HTTP 500 once, succeeded on retry"
+  },
+  {
+   "url": "https://archive.org/metadata/<id> (about 14 item-metadata requests)",
+   "result": "slow (tens of seconds each); the run was stopped after 7 files and the copyright flags were taken from the advancedsearch API instead"
+  }
+ ],
+ "rate_policy": "single sequential requester, 2 s minimum gap between requests, User-Agent identifies the project, below-normal process priority; one exception: a short overlap of two download processes (about 1 s apart) while the Ohio volumes were fetched, noted here for the record",
+ "audit_rate_policy": "audit page images: one sequential requester, 2 s gap, below-normal priority, same identified user agent, 61 JPEG page images (about 40 MB), no login, no account, no block or challenge seen"
+}

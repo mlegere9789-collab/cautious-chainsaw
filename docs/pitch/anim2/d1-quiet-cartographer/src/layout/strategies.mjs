@@ -15,18 +15,36 @@ const certified = {
   doc: 'Exact minimum-displacement placement within a budget, aggregation along the order of battle as the guaranteed fallback, exact all-pairs certification before a frame is emitted.',
   create(ctx) {
     let state = newState();
+    // ROUND 2: SELECTION MOVES NOTHING.  A selected unit grows its name (the skin's sizer) only where the layout has VERIFIED free ground for the grown box beside the pip: the picture is first solved with the unit as small as
+    // it is when nothing is selected, the grown box is tested against every chip, label and pin of that solution, and only a box that touches nothing is adopted (then no neighbour has to move, merge or be re-counted).  Otherwise the
+    // selection is a ring and the code stays.  The decision is made once per selection and zoom regime (never per frame).
+    const grow = { id: null, selects: null, on: false };
+    const growTest = (r0, sel, z, spec) => {
+      const p = r0.placed.find((q) => q.t.key === sel && q.t.kind === 'leaf'); if (!p || !spec.sizer) return false;
+      const t = p.t; const big = spec.sizer.leaf(spec, t.u, z, true); const sm = p.chip; const w = big.w; const h = big.h; const sgn = t.sgn || 1; const cy = (sm.y0 + sm.y1) / 2;
+      const box = sgn > 0 ? { x0: sm.x0, x1: sm.x0 + w } : { x0: sm.x1 - w, x1: sm.x1 }; box.y0 = cy - h / 2; box.y1 = cy + h / 2; const gap = spec.gap + 0.5;
+      for (const o of r0.items) { if (o.owner === sel) continue; if (box.x0 - gap < o.x1 && box.x1 + gap > o.x0 && box.y0 - gap < o.y1 && box.y1 + gap > o.y0) return false; }
+      return true;
+    };
     return {
-      reset() { state = newState(); },
+      reset() { state = newState(); grow.id = null; grow.on = false; },
       solve({ vis, z, dtMs, selectedId, spec, cold = false }) {
-        const leaves = buildLeaves(vis, z, spec, selectedId);
         const cfg = { spec, z, dMax: spec.dMax, pinProtect: spec.pinProtect, inertia: true, sticky: true, seniority: 1e7, labels: spec.labels, aggregate: true, dt: Math.max(0.01, dtMs / FRAME_MS), static: cold };
+        const selects = !!selectedId && (!spec.sizer || !spec.sizer.selects || spec.sizer.selects(z));
+        if (!selects) { grow.id = null; grow.on = false; }
+        else if (grow.id !== selectedId) {                                      // a new selection: solve it small, then test the grown box on that solution
+          grow.id = selectedId; const small = buildLeaves(vis, z, spec, selectedId, false); const r0 = solve(ctx.all, small, cfg, state); r0.leaves = small;
+          grow.on = growTest(r0, selectedId, z, spec);
+          if (!grow.on) return r0;
+        }
+        const leaves = buildLeaves(vis, z, spec, selectedId, grow.on);
         const r = solve(ctx.all, leaves, cfg, state);
         r.leaves = leaves; return r;
       },
       /** between two solves: move the solved tiles with their units (same offsets, new true positions).  false = the set of units changed, solve again. */
       refresh(L, { vis, z, spec, selectedId }) {
         if (!L || vis.length !== L.leaves.length) return false;
-        const leaves = buildLeaves(vis, z, spec, selectedId); const map = new Map(leaves.map((l) => [l.ids[0], l]));
+        const leaves = buildLeaves(vis, z, spec, selectedId, grow.on); const map = new Map(leaves.map((l) => [l.ids[0], l]));
         for (const l of L.leaves) if (!map.has(l.ids[0])) return false;
         for (const p of L.placed) { refreshTile(p.t, map); p.cx = p.t.ax + p.off.ox; p.cy = p.t.ay + p.off.oy; }
         L.leaves = leaves; L.ms = 0; return true;

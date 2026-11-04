@@ -32,7 +32,7 @@ function flattenLeaves(t, out = []) { if (t.kind === 'leaf') out.push(t); else f
 export class Display {
   /** @param {{glide:boolean}} flags  @param {(id:string)=>any} tok */
   constructor(flags, tok) { this.flags = flags; this.tok = tok; this.reset(); }
-  reset() { this._uid = 0; this.tiles = new Map(); this.nowMs = 0; this.frameNo = 0; this.prevAssign = new Map(); this.stats = null; }
+  reset() { this._uid = 0; this.tiles = new Map(); this.nowMs = 0; this.frameNo = 0; this.stats = null; }
 
   /** @param {object} L layout result  @param {{dtMs:number, z:number, origin:number[], spec:object, cut:boolean, selectedId:string|null, reduced:boolean, newIds:Set<string>|null, goneIds:Set<string>|null}} inp */
   step(L, inp) {
@@ -49,7 +49,7 @@ export class Display {
     if (inp.cut) {
       if (cutMs > 0 && !this._diag) { stats.cut = true; cutNow = true; for (const d of [...this.tiles.values()]) if (d.life === 'live') this._die(d, cutMs, true); }
       else this.tiles.clear();
-    }
+    } else if (inp.cutIn && cutMs > 0 && !this._diag) cutNow = true;      // the new picture of a cut whose layout was made in slices (core.mjs): the old marks went out in the frame of the cut, the new ones fade in now
 
     // 1. index the layout
     const byLKey = new Map(); for (const p of L.placed) byLKey.set(p.t.key, p);
@@ -95,9 +95,16 @@ export class Display {
       // ANCHOR CONTINUITY.  A crowd's anchor is the centre of its members; when a member joins or leaves a tile that keeps its identity the centre jumps (measured up to 116 px at zoom 14).  The part of the jump the
       // members' own motion does not explain is absorbed into the offset, so the mark stays where it was drawn and eases to its place (the net snaps it if the glide would touch a neighbour).
       if (d.kind === 'agg' && d.members && !snapMode) {
-        const old = this._mm || (this._mm = new Map()); old.clear(); for (const m of d.members) old.set(m.id, m);
+        // R1F: the crowd's members as they were drawn last frame, matched to the ones it has now.  They almost always stand in the same order (a sticky crowd is rebuilt from its sorted members), and then the match is by position;
+        // a different set or order falls back to the table by id.  The sums are taken in the same order either way.
+        const nl = this._fl || (this._fl = []); nl.length = 0; flattenLeaves(t, nl); const mem = d.members; let same = mem.length === nl.length;
+        for (let i = 0; same && i < nl.length; i++) if (mem[i].id !== nl[i].ids[0]) same = false;
         let ex = 0; let ey = 0; let sw = 0;
-        for (const l of flattenLeaves(t)) { const o = old.get(l.ids[0]); if (!o) continue; const w = Math.max(1, l.strength || 1); ex += (l.px - o.ax) * w; ey += (l.py - o.ay) * w; sw += w; }
+        if (same) { for (let i = 0; i < nl.length; i++) { const l = nl[i]; const o = mem[i]; const w = Math.max(1, l.strength || 1); ex += (l.px - o.ax) * w; ey += (l.py - o.ay) * w; sw += w; } }
+        else {
+          const old = this._mm || (this._mm = new Map()); old.clear(); for (const m of mem) old.set(m.id, m);
+          for (const l of nl) { const o = old.get(l.ids[0]); if (!o) continue; const w = Math.max(1, l.strength || 1); ex += (l.px - o.ax) * w; ey += (l.py - o.ay) * w; sw += w; }
+        }
         if (sw > 0) { ex /= sw; ey /= sw; }
         const jx = (t.px - d.px) - ex; const jy = (t.py - d.py) - ey;
         const jj = jx * jx + jy * jy;
@@ -180,10 +187,13 @@ export class Display {
     if (t.kind === 'leaf') {
       const st = t.st; d.lat = st.lat; d.lng = st.lng; d.disposition = st.disposition; d.ageTicks = st.ageTicks; d.ageMin = st.ageTicks; d.ageMax = st.ageTicks; d.moving = st.moving; d.kfTick = st.kfTick; d.unit = t.u; d.members = null;
     } else {
-      const leaves = flattenLeaves(t); d.unit = null; d.disposition = null; d.moving = false;
-      let mn = Infinity; let mx = 0; for (const l of leaves) { mn = Math.min(mn, l.st.ageTicks); mx = Math.max(mx, l.st.ageTicks); }
+      const leaves = this._fl2 || (this._fl2 = []); leaves.length = 0; flattenLeaves(t, leaves); d.unit = null; d.disposition = null; d.moving = false;
+      let mn = Infinity; let mx = 0; for (let i = 0; i < leaves.length; i++) { const a = leaves[i].st.ageTicks; mn = Math.min(mn, a); mx = Math.max(mx, a); }
       d.ageMin = mn; d.ageMax = mx; d.ageTicks = mx;
-      d.members = leaves.map((l) => ({ id: l.ids[0], ax: l.px, ay: l.py }));      // TRUE positions
+      // TRUE positions.  R1F: the member records of last frame are moved to the new places when the crowd has the same members in the same order (the usual case), and made new otherwise
+      const old = d.members; let same = !!old && old.length === leaves.length; for (let i = 0; same && i < leaves.length; i++) if (old[i].id !== leaves[i].ids[0]) same = false;
+      if (same) { for (let i = 0; i < leaves.length; i++) { old[i].ax = leaves[i].px; old[i].ay = leaves[i].py; } }
+      else d.members = leaves.map((l) => ({ id: l.ids[0], ax: l.px, ay: l.py }));
     }
   }
 
@@ -228,17 +238,22 @@ export class Display {
     const list = [...this.tiles.values()].filter((d) => d.opacity > 0.004);
     list.sort((a, b) => (a.opacity >= SOLID ? 1 : 0) - (b.opacity >= SOLID ? 1 : 0) || a.prio - b.prio || (a.key < b.key ? -1 : 1));
     const offsets = new Map(); for (const d of this.tiles.values()) if (d.life === 'live') offsets.set(d.lkey, { ox: d.ox, oy: d.oy });
-    const assign = new Map(); for (const d of this.tiles.values()) if (d.life === 'live') for (const id of d.ids) assign.set(id, d.key);
-    this.prevAssign = assign;
+    // R1F: which tile each unit stands in.  Nothing reads it but the frame's `assign` property, so it is made when asked for (from a short list of the live tiles' keys and id lists), and the count of unrepresented units below
+    // is taken with one stamped table that lives as long as the display (two Maps and a Set, 700 entries, were made and dropped every frame)
+    const liveList = []; const cov = this._cov || (this._cov = new Map()); const ep = this._covEp = (this._covEp || 0) + 1;
+    for (const d of this.tiles.values()) if (d.life === 'live') { liveList.push(d.key, d.ids); for (const id of d.ids) cov.set(id, ep); }
     const tiles = list.map((d) => ({
       key: d.key, kind: d.kind, ids: d.ids, n: d.n, x: d.ax + d.ox + cOff(d), y: d.ay + d.oy, ax: d.px, ay: d.py, ox: d.ox, oy: d.oy, ix: d.px + d.ox, iy: d.py + d.oy, sgn: d.sgn || 0, w: d.w, h: d.h, scale: d.scale, opacity: d.opacity, solid: d.opacity >= SOLID, life: d.life,
       ajx: d.ajx || 0, ajy: d.ajy || 0, entering: d.born, travelling: false, displaced: Math.hypot(d.ox, d.oy) > 1.5, side: d.side, arm: d.arm, short: d.short, fname: d.fname || null, ftail: d.ftail || null, badge: d.badge, nameKind: d.nameKind, ratio: d.ratioShown, strength: d.strength,
       disposition: d.disposition, selected: !!d.selected, grown: d.grown !== false, unit: d.unit, ageTicks: d.ageTicks, ageMin: d.ageMin, ageMax: d.ageMax, moving: !!d.moving, kfTick: d.kfTick, members: d.members, ghost: !!d.ghost,
       label: null,
     }));
-    let unrepresented = 0; const onField = new Set(); for (const lf of L.leaves || []) onField.add(lf.ids[0]);
-    for (const id of onField) if (!assign.has(id)) unrepresented++;
-    return { tiles, offsets, stats, overlaps: ver ? ver.overlaps : null, clearanceViolations: ver ? ver.clearanceViolations : null, unrepresented, assign, solverMs: L.ms, rounds: L.rounds, onField: onField.size };
+    let unrepresented = 0; const lvs = L.leaves || []; const seenEp = ep + 0.5; let nOn = 0;      // (a unit counted once: its stamp moves to ep + 0.5 when seen)
+    for (let i = 0; i < lvs.length; i++) { const id = lvs[i].ids[0]; const c = cov.get(id); if (c === seenEp) continue; nOn++; if (c !== ep) unrepresented++; cov.set(id, seenEp); }
+    if (cov.size > 4096) cov.clear();
+    const F = { tiles, offsets, stats, overlaps: ver ? ver.overlaps : null, clearanceViolations: ver ? ver.clearanceViolations : null, unrepresented, solverMs: L.ms, rounds: L.rounds, onField: nOn };
+    let assignMap = null; Object.defineProperty(F, 'assign', { enumerable: true, get() { if (!assignMap) { assignMap = new Map(); for (let i = 0; i < liveList.length; i += 2) for (const id of liveList[i + 1]) assignMap.set(id, liveList[i]); } return assignMap; } });
+    return F;
   }
 }
 void plain;

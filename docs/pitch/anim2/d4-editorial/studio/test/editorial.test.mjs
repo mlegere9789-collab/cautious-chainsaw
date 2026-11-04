@@ -11,7 +11,7 @@ import { createKernel } from '../src/kernel/registry.mjs';
 import { registerBuiltins } from '../src/builtins.mjs';
 import { SKINS } from '../src/skins/index.mjs';
 import { verifyFrame } from '../src/layout/geom.mjs';
-import { nameOf, abbreviate, lcaOf } from '../src/layout/tiles.mjs';
+import { nameOf, abbreviate, lcaOf, tileTextOf, codeOf } from '../src/layout/tiles.mjs';
 import { DISPATCH_TOKENS } from '../src/skins/editorial.spec.mjs';
 import { frameOf, sizeOf, labelSizeOf, formationOf } from '../src/skins/editorial.mjs';
 import { runContrastTests } from '../../tools/contrast-tests.mjs';
@@ -24,7 +24,7 @@ const engine = (skin = 'dispatch-paper', start) => { const e = makeEngine({ kern
 test('every token of the language is documented, typed, in range, and read by the drawing code (and nothing reads a token that is not listed)', () => {
   const names = new Set(DISPATCH_TOKENS.map((r) => r[0])); names.add('text.dy');
   for (const r of DISPATCH_TOKENS) { assert.ok(typeof r[2] === 'string' && r[2].length > 12, `${r[0]}: needs a doc line`); if (typeof r[1] === 'number' && r[3]) { assert.ok(r[1] >= r[3].min && r[1] <= r[3].max, `${r[0]} = ${r[1]} outside ${r[3].min}..${r[3].max}`); } }
-  for (const n of names) assert.ok(n === 'motion.selectMs' || n === 'motion.hoverMs' /* read by skins/kit.mjs: the eased selection and hover */ || SRC.includes(`P['${n}']`) || SRC.includes(`P["${n}"]`) || (/^flag\.(w|h)\./.test(n) && SRC.includes("P['flag.w.' + kind]") && SRC.includes("P['flag.h.' + kind]")), `token ${n} is never read by editorial.mjs`);
+  for (const n of names) assert.ok(n === 'motion.selectMs' || n === 'motion.hoverMs' /* read by skins/kit.mjs: the eased selection and hover */ || n === 'edge.fadePx' /* read by render/canvas.mjs: the safe-area band of the stage */ || SRC.includes(`P['${n}']`) || SRC.includes(`P["${n}"]`) || (/^flag\.(w|h)\./.test(n) && SRC.includes("P['flag.w.' + kind]") && SRC.includes("P['flag.h.' + kind]")), `token ${n} is never read by editorial.mjs`);
   for (const m of SRC.matchAll(/P\['([a-zA-Z.0-9]+)'\]/g)) assert.ok(names.has(m[1]) || /^flag\.(w|h)\.$/.test(m[1]) || m[1].startsWith('flag.'), `editorial.mjs reads ${m[1]}, which is not a listed token`);
   assert.equal(kernel.skins.list().filter((s) => /^dispatch/.test(s.id)).length, 6, 'two families, three variants each');
 });
@@ -41,13 +41,14 @@ test('echelon is size: unit < brigade < division < corps, and the crowd mark is 
   assert.ok(P['flag.w.crowd'] < P['flag.w.brigade'] && P['flag.h.crowd'] < P['flag.h.brigade'], 'the body of a crowd standard is smaller than a brigade standard: a crowd is no louder than the formation it merges');
 });
 
-test('the name grows out of the mark: the label rectangle is only the part of the name beyond the room the code has, and it carries the mark font', () => {
-  const e = engine(); const spec = e.spec(); const P = kernel.skins.get('dispatch-paper').skin.P; let grown = 0;
+test('the name grows out of the mark: a unit mark carries no text of its own; its code and its name are text beside it, the name wipes out of the code, and both carry the mark font', () => {
+  const e = engine(); const spec = e.spec(); const P = kernel.skins.get('dispatch-paper').skin.P; let units = 0; let formations = 0;
   for (const u of e.battle.units.values()) {
-    const cs = sizeOf(spec, { text: u.short, kind: u.kind, echelon: u.echelon }, P); const L = labelSizeOf(spec, { text: nameOf(u), chip: cs }, P);
-    if (L.w > 0) { grown++; const need = spec.text.width(cs.font === 'badge' ? 'badge' : 'label', nameOf(u)) - cs.textW; assert.ok(L.w >= need, `${u.id}: label ${L.w} narrower than the overhang ${need}`); assert.equal(L.h, cs.h); }
+    const text = tileTextOf(u); const cs = sizeOf(spec, { text, kind: u.kind, echelon: u.echelon, lod: 1 }, P); const L = labelSizeOf(spec, { text: nameOf(u), code: codeOf(u), chip: cs }, P);
+    if (cs.kind === 'unit') { units++; assert.equal(text, '', `${u.id}: a unit mark has no text inside its box`); const code = spec.text.width('label', codeOf(u)); assert.ok(L.cw >= code - 1, `${u.id}: the code has room`); assert.ok(L.w >= L.cw, `${u.id}: the name rectangle holds the code`); assert.ok(L.w >= spec.text.width('label', nameOf(u)) || L.w === L.cw, `${u.id}: the name has room or is no longer than the code`); assert.equal(L.h, cs.h); }
+    else { formations++; assert.ok(text.length > 0 && !/^[IVX]+\/\d/.test(text), `${u.id}: a formation record carries its NAME in its box, never a Roman code ("${text}")`); assert.equal(L.w, 0, 'a formation name is inside its box'); }
   }
-  assert.ok(grown > 350, `most of the 478 units have a name that grows (${grown}); the rest have a name no longer than their code`);
+  assert.ok(units > 300 && formations > 40, `${units} unit marks, ${formations} formation records`);
 });
 
 test('names: whole (never cut with an ellipsis), the unit\'s own words, nicknames in brackets left to the unit card, formation records abbreviated by rule', () => {
@@ -55,9 +56,10 @@ test('names: whole (never cut with an ellipsis), the unit\'s own words, nickname
   assert.equal(abbreviate('First Brigade, First Division, Twelfth Corps'), '1st Bde, 1st Div, XII Corps');
   for (const u of e0().battle.units.values()) {
     const n = nameOf(u); assert.ok(n.length > 0, u.id); assert.ok(!/…$/.test(n), `${u.id}: "${n}" is cut`);
-    const bag = ((u.designation || '') + ' ' + (u.label || '')).replace(/…/g, '').toLowerCase(); const norm = (w) => w.replace(/[^a-z0-9']/g, '');
-    const have = new Set(bag.split(/\s+/).map(norm)); const alias = { bde: 'brigade', div: 'division', i: 'first', ii: 'second', iii: 'third', iv: 'fourth', v: 'fifth', vi: 'sixth', vii: 'seventh', viii: 'eighth', ix: 'ninth', x: 'tenth', xi: 'eleventh', xii: 'twelfth' };
-    for (const w of n.toLowerCase().split(/\s+/).map(norm)) { if (!w) continue; const ord = { '1st': 'first', '2nd': 'second', '3rd': 'third', '4th': 'fourth', '5th': 'fifth', '6th': 'sixth', '7th': 'seventh', '8th': 'eighth', '9th': 'ninth', '10th': 'tenth', '11th': 'eleventh', '12th': 'twelfth' }; assert.ok(have.has(w) || have.has(alias[w]) || have.has(ord[w]) || [...have].some((h) => h.startsWith(w.replace(/…/, ''))), `${u.id}: "${n}" says "${w}", which is not in "${bag}"`); }
+    const bag = ((u.designation || '') + ' ' + (u.label || '') + ' ' + (u.short || '') + ' ' + (u.id || '')).replace(/…/g, '').replace(/[\/\-]/g, ' ').replace(/(\d)([A-Z])/g, '$1 $2').toLowerCase(); const norm = (w) => w.replace(/[^a-z0-9']/g, '');
+    const have = new Set(bag.split(/\s+/).map(norm)); if (!u.inOob) { const ordw = (k) => k + (k % 100 >= 11 && k % 100 <= 13 ? 'th' : ['th', 'st', 'nd', 'rd'][k % 10] || 'th'); for (const m of (u.id || '').matchAll(/\d+/g)) have.add(ordw(+m[0])); for (const x of ['cavalry', 'corps', 'reserve', 'brigade', 'division']) have.add(x); }
+    /* a formation record the order of battle does not list is named from its own id ("C-CAV-2-1" is the 1st Bde, 2nd Div, Cavalry Corps) */ const alias = { bde: 'brigade', div: 'division', i: 'first', ii: 'second', iii: 'third', iv: 'fourth', v: 'fifth', vi: 'sixth', vii: 'seventh', viii: 'eighth', ix: 'ninth', x: 'tenth', xi: 'eleventh', xii: 'twelfth' };
+    for (const w of n.toLowerCase().split(/[\s/]+/).map(norm)) { if (!w) continue; const ord = { '1st': 'first', '2nd': 'second', '3rd': 'third', '4th': 'fourth', '5th': 'fifth', '6th': 'sixth', '7th': 'seventh', '8th': 'eighth', '9th': 'ninth', '10th': 'tenth', '11th': 'eleventh', '12th': 'twelfth' }; assert.ok(have.has(w) || bag.replace(/[\s/]+/g, '').includes(w) || have.has(alias[w]) || have.has(ord[w]) || [...have].some((h) => h.startsWith(w.replace(/…/, ''))), `${u.id}: "${n}" says "${w}", which is not in "${bag}"`); }
   }
   function e0() { return engine(); }
 });
@@ -116,9 +118,9 @@ test('the hull joins the records of one formation: a crowd its own records, a re
 test('the legend is the drawing: every channel the skin draws has rows with an evidence label and a swatch, and posture and arm state (never drawn) have none', () => {
   for (const id of ['dispatch-paper', 'dispatch-aerial/cvd']) {
     const skin = kernel.skins.get(id); const chans = Object.keys(skin.channels); assert.ok(!chans.includes('posture') && !chans.includes('armState'), 'the compact mark does not draw posture');
-    const rows = skin.legend(); assert.ok(rows.length >= 18, `${id}: ${rows.length} legend rows`);
+    const rows = skin.legend(); assert.ok(rows.length >= 14, `${id}: ${rows.length} legend rows`);
     for (const r of rows) { assert.ok(r.text && r.text.length > 10); assert.ok(['Documented', 'Measured', 'Computed', 'Modelled', 'Contested', 'Unknown', 'Design'].includes(r.evidence), r.text); assert.ok(chans.includes(r.channel), `${r.channel} is not a channel of the skin`); assert.ok(r.swatch); }
-    assert.ok(rows.find((r) => r.channel === 'strength' && r.evidence === 'Modelled'), 'strength is Modelled'); assert.ok(rows.find((r) => r.channel === 'aggregate' && r.evidence === 'Computed'), 'a crowd count is Computed'); assert.ok(rows.find((r) => r.channel === 'side' && r.value === 'unknown' && r.evidence === 'Contested'), 'the contested side is Contested');
+    assert.ok(!chans.includes('strength'), 'the strength ring is gone: strength is on the card (Modelled), not on the mark'); assert.ok(rows.find((r) => r.channel === 'aggregate' && r.evidence === 'Computed'), 'a crowd count is Computed'); assert.ok(rows.find((r) => r.channel === 'side' && r.value === 'unknown' && r.evidence === 'Contested'), 'the contested side is Contested');
   }
 });
 
@@ -130,24 +132,26 @@ test('the dataset behind the pictures is the prototype\'s: 478 units, 1,687 keyf
   assert.equal(dataset.provenance.counts.units, 478); assert.equal(dataset.provenance.counts.keyframes, 1687);
 });
 
-test('a crowd is named in words, from the order of battle: never "Contact", never a lead record and a plus; Both sides only when both armies are in it; a formation by its own name; the count is the records', () => {
-  const norm = (w) => w.replace(/[^a-z0-9'&]/g, ''); const roman = { i: 'first', ii: 'second', iii: 'third', iv: 'fourth', v: 'fifth', vi: 'sixth', vii: 'seventh', viii: 'eighth', ix: 'ninth', x: 'tenth', xi: 'eleventh', xii: 'twelfth' };
-  let crowds = 0; const kinds = new Set();
+test('a crowd is named in two lines, who then what, from the order of battle: never "Contact", "& others", "no formation" or a lead record and a plus; the second line adds up to the count; Both armies only when both are in it', () => {
+  let crowds = 0; const kinds = new Set(); const who = new Set();
   for (const [tick, zoom, lat, lng] of [[556, 13.5, 39.8117, -77.235], [551, 14.5, 39.8117, -77.235], [346, 15, 39.8117, -77.235]]) {
     const e = engine('dispatch-paper', { tick, zoom, lat, lng }); e.moveTo({ lat, lng, zoom }, { glide: false }); for (let i = 0; i < 120; i++) e.step(16.667); const f = e.frame;
     for (const t of f.tiles) {
-      if (t.kind !== 'agg' || t.life !== 'live') continue; crowds++; kinds.add(t.nameKind);
-      assert.ok(!/contact/i.test(t.short), `${t.short}: the data records no engagement`); assert.ok(!/ \+$|^\+| \+\d/.test(t.short), `${t.short}: no lead-and-a-plus`); assert.equal(t.badge, String(t.n), 'the count is the number of records');
-      const sides = new Set(t.ids.map((id) => f.unitOf(id).side)); if (t.short === 'Both sides') assert.ok(sides.has('union') && sides.has('confederate'), 'Both sides needs both armies'); if (sides.has('union') && sides.has('confederate')) assert.equal(t.short, 'Both sides');
-      if (['brigade', 'division', 'corps'].includes(t.nameKind)) { const lca = lcaOf(t.ids.map((id) => f.unitOf(id).chain)); const node = e.battle.nodes.get(lca); const bag = new Set(`${node.designation || ''} ${(e.battle.units.get(lca) || {}).label || ''}`.replace(/[(),]/g, ' ').toLowerCase().split(/\s+/).map(norm)); const alias = { bde: 'brigade', div: 'division', '1st': 'first', '2nd': 'second', '3rd': 'third', '4th': 'fourth', '5th': 'fifth', '6th': 'sixth', '7th': 'seventh', '8th': 'eighth', '9th': 'ninth' };
-        for (const w of t.short.toLowerCase().split(/\s+/).map(norm)) { if (!w) continue; assert.ok(bag.has(w) || bag.has(alias[w]) || bag.has(roman[w]) || [...bag].some((h) => h.startsWith(w)), `${t.short}: "${w}" is not in "${[...bag].join(' ')}"`); } }
+      if (t.kind !== 'agg' || t.life !== 'live') continue; crowds++; kinds.add(t.nameKind); who.add(t.short);
+      assert.ok(!/contact|& others|no formation|unlisted/i.test(t.short + ' ' + t.detail), `${t.short}: a word the data does not support`); assert.ok(!/ \+$|^\+| \+\d/.test(t.short), `${t.short}: no lead-and-a-plus`); assert.equal(t.badge, String(t.n), 'the count is the number of records');
+      assert.ok(t.short.length > 1 && t.short.length <= 34, `${t.short}: one short line`); assert.ok(t.detail && t.detail.length > 3, 'the second line says what the records are');
+      const sides = new Set(t.ids.map((id) => f.unitOf(id).side)); assert.equal(t.short === 'Both armies', sides.has('union') && sides.has('confederate'), `${t.short}: Both armies exactly when both armies are in it`);
+      if (t.short !== 'Both armies') { let sum = 0; for (const part of t.detail.split(', ')) { const m = /^(\d+) /.exec(part); assert.ok(m, `${t.detail}: a count first`); sum += +m[1]; } assert.equal(sum, t.n, `${t.short} / ${t.detail}: the second line adds up to the ${t.n} records`); }
+      else { const m = /^(?:(\d+) Union)?(?:, )?(?:(\d+) Confed\.)?(?:, )?(?:(\d+) contested)?$/.exec(t.detail); assert.ok(m, t.detail); assert.equal((+m[1] || 0) + (+m[2] || 0) + (+m[3] || 0), t.n); }
+      const part = /^(.*), (\d+) of (\d+)$/.exec(t.short); if (part) { assert.equal(+part[3], t.n, `${t.short}: "k of n" counts this crowd's records`); assert.ok(+part[2] < +part[3], `${t.short}: k is a part of n`); }
+      if (/^in /.test(t.short)) { const lca = lcaOf(t.ids.map((id) => f.unitOf(id).chain)); const node = e.battle.nodes.get(lca); assert.ok(node && ['brigade', 'division', 'corps'].includes(node.kind), `${t.short}: "in" names the formation all its records belong to`); }
     }
   }
-  assert.ok(crowds > 60 && kinds.size >= 3, `${crowds} crowds of ${[...kinds].join(', ')}`);
+  assert.ok(crowds > 40 && kinds.size >= 3 && who.size > 30, `${crowds} crowds of ${[...kinds].join(', ')}, ${who.size} different first lines`);
 });
 
-test('the legend teaches the mark: an anatomy specimen with nine numbered parts, and the words of the crowd rows are the ones above (no Contact)', () => {
-  const skin = kernel.skins.get('dispatch-paper'); assert.ok(skin.anatomy && skin.anatomy.notes.length === 9 && skin.anatomy.w > 200, 'the skin publishes an anatomy');
+test('the legend teaches the mark: an anatomy specimen with twelve numbered parts, and the words of the crowd rows are the ones above (no Contact)', () => {
+  const skin = kernel.skins.get('dispatch-paper'); assert.ok(skin.anatomy && skin.anatomy.notes.length === 12 && skin.anatomy.w > 200, 'the skin publishes an anatomy');
   for (const r of skin.legend()) assert.ok(!/contact/i.test(r.text), r.text);
   assert.ok(!/Contact/.test(SRC), 'no engagement is claimed in the skin');
 });
@@ -155,7 +159,7 @@ test('the legend teaches the mark: an anatomy specimen with nine numbered parts,
 test('the skin tokens are also plain JSON (studio/tokens/dispatch.tokens.json), the same values as the module, for both families and every variant', () => {
   const j = JSON.parse(fs.readFileSync(path.join(HERE, '..', 'tokens', 'dispatch.tokens.json'), 'utf8')); assert.equal(j.format, 'dispatch-tokens/1'); assert.equal(j.tokens.length, DISPATCH_TOKENS.length);
   for (const r of DISPATCH_TOKENS) { assert.equal(j.resolved['dispatch-paper'][r[0]], r[1], r[0]); const t = j.tokens.find((q) => q.name === r[0]); assert.equal(t.default, r[1]); }
-  assert.deepEqual(Object.keys(j.families['dispatch-paper'].variants).sort(), ['contrast', 'cvd']); assert.equal(j.resolved['dispatch-aerial']['color.fade'], '#0f1722');
+  assert.deepEqual(Object.keys(j.families['dispatch-paper'].variants).sort(), ['contrast', 'cvd']); assert.equal(j.resolved['dispatch-aerial']['color.fade'], '#0b1119');
 });
 
 test('the interface is a frame around the map, not a layer over it: the stage lies between the masthead and the dock, the popup director sees no chrome on the map, a mark is clipped by the stage as by a screen', () => {

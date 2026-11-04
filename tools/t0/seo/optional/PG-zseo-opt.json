@@ -1,0 +1,184 @@
+{
+ "group": "PG-zseo-opt",
+ "description": "NOT REGISTERED. Candidates that change timing or looks; each needs the browser check named in its note.",
+ "train": "R1f",
+ "optional": true,
+ "patches": [
+  {
+   "id": "ZSEO-OPT-home-prefetch-entry",
+   "target": "index.html",
+   "find": "<link rel=\"preconnect\" href=\"https://api.mapbox.com\" crossorigin />",
+   "repl": "<link rel=\"preconnect\" href=\"https://api.mapbox.com\" crossorigin />\r\n  <link rel=\"prefetch\" as=\"script\" href=\"/assets/{{ENTRY}}\" crossorigin />",
+   "expect": 1,
+   "note": "NEEDS BROWSER VERIFICATION (E2): warms the HTTP cache with the 657 KB (br) entry at idle priority while the splash is shown, so import() after FCP does not wait for the download. Risk: it shares the link with the two media=print stylesheets that the loader waits for (3 s cap) and could delay the boot instead; drop it if FCP, LCP or time-to-interactive regress on a throttled run"
+  },
+  {
+   "id": "ZSEO-OPT-home-title",
+   "target": "index.html",
+   "find": "<title>Gettysburg Animated Battlefield Map</title>",
+   "repl": "<title>Gettysburg Interactive Battle Map — Animated Map of July 1–3, 1863</title>",
+   "expect": 1,
+   "note": "OWNER DECISION (brand wording of the home title; og:title and twitter:title stay the brand name). Puts \"Interactive Battle Map\" (the words of the domain and of the target queries) into the one tag Google weighs most for the page. verify_release V6 then lists one identity difference: index.html: title changed \"Gettysburg Animated Battlefield Map\" -> \"Gettysburg Interactive Battle Map — Animated Map of July 1–3, 1863\""
+  },
+  {
+   "id": "ZSEO-OPT-footer-links-search",
+   "target": "search.html",
+   "find": "<div id=\"gtbg-footer-mount\"></div>",
+   "repl": "<div id=\"gtbg-footer-mount\"><nav aria-label=\"All pages\"><a href=\"/\">Home</a> <a href=\"/historian.html\">Ask the Historian</a> <a href=\"/documentary.html\">Documentary Mode</a> <a href=\"/compare.html\">Compare Two Moments</a> <a href=\"/camera.html\">Camera Modes</a> <a href=\"/sandbox.html\">What-If Sandbox</a> <a href=\"/turning-points.html\">Turning Points</a> <a href=\"/dashboard.html\">Casualty &amp; Strength Dashboard</a> <a href=\"/viewshed.html\">High Ground</a> <a href=\"/regiment.html\">Regimental Biography</a> <a href=\"/ground-remembers.html\">The Ground Remembers</a> <a href=\"/find-ancestor.html\">Find an Ancestor</a> <a href=\"/watch-together.html\">Watch Together</a> <a href=\"/immersive.html\">Immersive Mode</a> <a href=\"/living-ledger.html\">Living Ledger</a> <a href=\"/aftermath.html\">Aftermath</a> <a href=\"/education.html\">For Students</a> <a href=\"/report.html\">Regiment Fact Sheets</a> <a href=\"/cinematic-export.html\">Export a Video</a> </nav></div>",
+   "expect": 1,
+   "note": "NEEDS BROWSER VERIFICATION (E4): static links for crawlers and no-JavaScript visitors; site-nav.js replaces the mount (outerHTML) at DOMContentLoaded. Check no visible flash and CLS 0 on a throttled load"
+  },
+  {
+   "id": "ZSEO-OPT-footer-links-dashboard",
+   "target": "dashboard.html",
+   "find": "<div id=\"gtbg-footer-mount\"></div>",
+   "repl": "<div id=\"gtbg-footer-mount\"><nav aria-label=\"All pages\"><a href=\"/\">Home</a> <a href=\"/search.html\">Search Everything</a> <a href=\"/historian.html\">Ask the Historian</a> <a href=\"/documentary.html\">Documentary Mode</a> <a href=\"/compare.html\">Compare Two Moments</a> <a href=\"/camera.html\">Camera Modes</a> <a href=\"/sandbox.html\">What-If Sandbox</a> <a href=\"/turning-points.html\">Turning Points</a> <a href=\"/viewshed.html\">High Ground</a> <a href=\"/regiment.html\">Regimental Biography</a> <a href=\"/ground-remembers.html\">The Ground Remembers</a> <a href=\"/find-ancestor.html\">Find an Ancestor</a> <a href=\"/watch-together.html\">Watch Together</a> <a href=\"/immersive.html\">Immersive Mode</a> <a href=\"/living-ledger.html\">Living Ledger</a> <a href=\"/aftermath.html\">Aftermath</a> <a href=\"/education.html\">For Students</a> <a href=\"/report.html\">Regiment Fact Sheets</a> <a href=\"/cinematic-export.html\">Export a Video</a> </nav></div>",
+   "expect": 1,
+   "note": "NEEDS BROWSER VERIFICATION (E4): static links for crawlers and no-JavaScript visitors; site-nav.js replaces the mount (outerHTML) at DOMContentLoaded. Check no visible flash and CLS 0 on a throttled load"
+  },
+  {
+   "id": "ZSEO-OPT-footer-links-compare",
+   "target": "compare.html",
+   "find": "<div id=\"gtbg-footer-mount\"></div>",
+   "repl": "<div id=\"gtbg-footer-mount\"><nav aria-label=\"All pages\"><a href=\"/\">Home</a> <a href=\"/search.html\">Search Everything</a> <a href=\"/historian.html\">Ask the Historian</a> <a href=\"/documentary.html\">Documentary Mode</a> <a href=\"/camera.html\">Camera Modes</a> <a href=\"/sandbox.html\">What-If Sandbox</a> <a href=\"/turning-points.html\">Turning Points</a> <a href=\"/dashboard.html\">Casualty &amp; Strength Dashboard</a> <a href=\"/viewshed.html\">High Ground</a> <a href=\"/regiment.html\">Regimental Biography</a> <a href=\"/ground-remembers.html\">The Ground Remembers</a> <a href=\"/find-ancestor.html\">Find an Ancestor</a> <a href=\"/watch-together.html\">Watch Together</a> <a href=\"/immersive.html\">Immersive Mode</a> <a href=\"/living-ledger.html\">Living Ledger</a> <a href=\"/aftermath.html\">Aftermath</a> <a href=\"/education.html\">For Students</a> <a href=\"/report.html\">Regiment Fact Sheets</a> <a href=\"/cinematic-export.html\">Export a Video</a> </nav></div>",
+   "expect": 1,
+   "note": "NEEDS BROWSER VERIFICATION (E4): static links for crawlers and no-JavaScript visitors; site-nav.js replaces the mount (outerHTML) at DOMContentLoaded. Check no visible flash and CLS 0 on a throttled load"
+  },
+  {
+   "id": "ZSEO-OPT-footer-links-camera",
+   "target": "camera.html",
+   "find": "<div id=\"gtbg-footer-mount\"></div>",
+   "repl": "<div id=\"gtbg-footer-mount\"><nav aria-label=\"All pages\"><a href=\"/\">Home</a> <a href=\"/search.html\">Search Everything</a> <a href=\"/historian.html\">Ask the Historian</a> <a href=\"/documentary.html\">Documentary Mode</a> <a href=\"/compare.html\">Compare Two Moments</a> <a href=\"/sandbox.html\">What-If Sandbox</a> <a href=\"/turning-points.html\">Turning Points</a> <a href=\"/dashboard.html\">Casualty &amp; Strength Dashboard</a> <a href=\"/viewshed.html\">High Ground</a> <a href=\"/regiment.html\">Regimental Biography</a> <a href=\"/ground-remembers.html\">The Ground Remembers</a> <a href=\"/find-ancestor.html\">Find an Ancestor</a> <a href=\"/watch-together.html\">Watch Together</a> <a href=\"/immersive.html\">Immersive Mode</a> <a href=\"/living-ledger.html\">Living Ledger</a> <a href=\"/aftermath.html\">Aftermath</a> <a href=\"/education.html\">For Students</a> <a href=\"/report.html\">Regiment Fact Sheets</a> <a href=\"/cinematic-export.html\">Export a Video</a> </nav></div>",
+   "expect": 1,
+   "note": "NEEDS BROWSER VERIFICATION (E4): static links for crawlers and no-JavaScript visitors; site-nav.js replaces the mount (outerHTML) at DOMContentLoaded. Check no visible flash and CLS 0 on a throttled load"
+  },
+  {
+   "id": "ZSEO-OPT-footer-links-documentary",
+   "target": "documentary.html",
+   "find": "<div id=\"gtbg-footer-mount\"></div>",
+   "repl": "<div id=\"gtbg-footer-mount\"><nav aria-label=\"All pages\"><a href=\"/\">Home</a> <a href=\"/search.html\">Search Everything</a> <a href=\"/historian.html\">Ask the Historian</a> <a href=\"/compare.html\">Compare Two Moments</a> <a href=\"/camera.html\">Camera Modes</a> <a href=\"/sandbox.html\">What-If Sandbox</a> <a href=\"/turning-points.html\">Turning Points</a> <a href=\"/dashboard.html\">Casualty &amp; Strength Dashboard</a> <a href=\"/viewshed.html\">High Ground</a> <a href=\"/regiment.html\">Regimental Biography</a> <a href=\"/ground-remembers.html\">The Ground Remembers</a> <a href=\"/find-ancestor.html\">Find an Ancestor</a> <a href=\"/watch-together.html\">Watch Together</a> <a href=\"/immersive.html\">Immersive Mode</a> <a href=\"/living-ledger.html\">Living Ledger</a> <a href=\"/aftermath.html\">Aftermath</a> <a href=\"/education.html\">For Students</a> <a href=\"/report.html\">Regiment Fact Sheets</a> <a href=\"/cinematic-export.html\">Export a Video</a> </nav></div>",
+   "expect": 1,
+   "note": "NEEDS BROWSER VERIFICATION (E4): static links for crawlers and no-JavaScript visitors; site-nav.js replaces the mount (outerHTML) at DOMContentLoaded. Check no visible flash and CLS 0 on a throttled load"
+  },
+  {
+   "id": "ZSEO-OPT-footer-links-report",
+   "target": "report.html",
+   "find": "<div id=\"gtbg-footer-mount\"></div>",
+   "repl": "<div id=\"gtbg-footer-mount\"><nav aria-label=\"All pages\"><a href=\"/\">Home</a> <a href=\"/search.html\">Search Everything</a> <a href=\"/historian.html\">Ask the Historian</a> <a href=\"/documentary.html\">Documentary Mode</a> <a href=\"/compare.html\">Compare Two Moments</a> <a href=\"/camera.html\">Camera Modes</a> <a href=\"/sandbox.html\">What-If Sandbox</a> <a href=\"/turning-points.html\">Turning Points</a> <a href=\"/dashboard.html\">Casualty &amp; Strength Dashboard</a> <a href=\"/viewshed.html\">High Ground</a> <a href=\"/regiment.html\">Regimental Biography</a> <a href=\"/ground-remembers.html\">The Ground Remembers</a> <a href=\"/find-ancestor.html\">Find an Ancestor</a> <a href=\"/watch-together.html\">Watch Together</a> <a href=\"/immersive.html\">Immersive Mode</a> <a href=\"/living-ledger.html\">Living Ledger</a> <a href=\"/aftermath.html\">Aftermath</a> <a href=\"/education.html\">For Students</a> <a href=\"/cinematic-export.html\">Export a Video</a> </nav></div>",
+   "expect": 1,
+   "note": "NEEDS BROWSER VERIFICATION (E4): static links for crawlers and no-JavaScript visitors; site-nav.js replaces the mount (outerHTML) at DOMContentLoaded. Check no visible flash and CLS 0 on a throttled load"
+  },
+  {
+   "id": "ZSEO-OPT-footer-links-education",
+   "target": "education.html",
+   "find": "<div id=\"gtbg-footer-mount\"></div>",
+   "repl": "<div id=\"gtbg-footer-mount\"><nav aria-label=\"All pages\"><a href=\"/\">Home</a> <a href=\"/search.html\">Search Everything</a> <a href=\"/historian.html\">Ask the Historian</a> <a href=\"/documentary.html\">Documentary Mode</a> <a href=\"/compare.html\">Compare Two Moments</a> <a href=\"/camera.html\">Camera Modes</a> <a href=\"/sandbox.html\">What-If Sandbox</a> <a href=\"/turning-points.html\">Turning Points</a> <a href=\"/dashboard.html\">Casualty &amp; Strength Dashboard</a> <a href=\"/viewshed.html\">High Ground</a> <a href=\"/regiment.html\">Regimental Biography</a> <a href=\"/ground-remembers.html\">The Ground Remembers</a> <a href=\"/find-ancestor.html\">Find an Ancestor</a> <a href=\"/watch-together.html\">Watch Together</a> <a href=\"/immersive.html\">Immersive Mode</a> <a href=\"/living-ledger.html\">Living Ledger</a> <a href=\"/aftermath.html\">Aftermath</a> <a href=\"/report.html\">Regiment Fact Sheets</a> <a href=\"/cinematic-export.html\">Export a Video</a> </nav></div>",
+   "expect": 1,
+   "note": "NEEDS BROWSER VERIFICATION (E4): static links for crawlers and no-JavaScript visitors; site-nav.js replaces the mount (outerHTML) at DOMContentLoaded. Check no visible flash and CLS 0 on a throttled load"
+  },
+  {
+   "id": "ZSEO-OPT-footer-links-aftermath",
+   "target": "aftermath.html",
+   "find": "<div id=\"gtbg-footer-mount\"></div>",
+   "repl": "<div id=\"gtbg-footer-mount\"><nav aria-label=\"All pages\"><a href=\"/\">Home</a> <a href=\"/search.html\">Search Everything</a> <a href=\"/historian.html\">Ask the Historian</a> <a href=\"/documentary.html\">Documentary Mode</a> <a href=\"/compare.html\">Compare Two Moments</a> <a href=\"/camera.html\">Camera Modes</a> <a href=\"/sandbox.html\">What-If Sandbox</a> <a href=\"/turning-points.html\">Turning Points</a> <a href=\"/dashboard.html\">Casualty &amp; Strength Dashboard</a> <a href=\"/viewshed.html\">High Ground</a> <a href=\"/regiment.html\">Regimental Biography</a> <a href=\"/ground-remembers.html\">The Ground Remembers</a> <a href=\"/find-ancestor.html\">Find an Ancestor</a> <a href=\"/watch-together.html\">Watch Together</a> <a href=\"/immersive.html\">Immersive Mode</a> <a href=\"/living-ledger.html\">Living Ledger</a> <a href=\"/education.html\">For Students</a> <a href=\"/report.html\">Regiment Fact Sheets</a> <a href=\"/cinematic-export.html\">Export a Video</a> </nav></div>",
+   "expect": 1,
+   "note": "NEEDS BROWSER VERIFICATION (E4): static links for crawlers and no-JavaScript visitors; site-nav.js replaces the mount (outerHTML) at DOMContentLoaded. Check no visible flash and CLS 0 on a throttled load"
+  },
+  {
+   "id": "ZSEO-OPT-footer-links-sandbox",
+   "target": "sandbox.html",
+   "find": "<div id=\"gtbg-footer-mount\"></div>",
+   "repl": "<div id=\"gtbg-footer-mount\"><nav aria-label=\"All pages\"><a href=\"/\">Home</a> <a href=\"/search.html\">Search Everything</a> <a href=\"/historian.html\">Ask the Historian</a> <a href=\"/documentary.html\">Documentary Mode</a> <a href=\"/compare.html\">Compare Two Moments</a> <a href=\"/camera.html\">Camera Modes</a> <a href=\"/turning-points.html\">Turning Points</a> <a href=\"/dashboard.html\">Casualty &amp; Strength Dashboard</a> <a href=\"/viewshed.html\">High Ground</a> <a href=\"/regiment.html\">Regimental Biography</a> <a href=\"/ground-remembers.html\">The Ground Remembers</a> <a href=\"/find-ancestor.html\">Find an Ancestor</a> <a href=\"/watch-together.html\">Watch Together</a> <a href=\"/immersive.html\">Immersive Mode</a> <a href=\"/living-ledger.html\">Living Ledger</a> <a href=\"/aftermath.html\">Aftermath</a> <a href=\"/education.html\">For Students</a> <a href=\"/report.html\">Regiment Fact Sheets</a> <a href=\"/cinematic-export.html\">Export a Video</a> </nav></div>",
+   "expect": 1,
+   "note": "NEEDS BROWSER VERIFICATION (E4): static links for crawlers and no-JavaScript visitors; site-nav.js replaces the mount (outerHTML) at DOMContentLoaded. Check no visible flash and CLS 0 on a throttled load"
+  },
+  {
+   "id": "ZSEO-OPT-footer-links-viewshed",
+   "target": "viewshed.html",
+   "find": "<div id=\"gtbg-footer-mount\"></div>",
+   "repl": "<div id=\"gtbg-footer-mount\"><nav aria-label=\"All pages\"><a href=\"/\">Home</a> <a href=\"/search.html\">Search Everything</a> <a href=\"/historian.html\">Ask the Historian</a> <a href=\"/documentary.html\">Documentary Mode</a> <a href=\"/compare.html\">Compare Two Moments</a> <a href=\"/camera.html\">Camera Modes</a> <a href=\"/sandbox.html\">What-If Sandbox</a> <a href=\"/turning-points.html\">Turning Points</a> <a href=\"/dashboard.html\">Casualty &amp; Strength Dashboard</a> <a href=\"/regiment.html\">Regimental Biography</a> <a href=\"/ground-remembers.html\">The Ground Remembers</a> <a href=\"/find-ancestor.html\">Find an Ancestor</a> <a href=\"/watch-together.html\">Watch Together</a> <a href=\"/immersive.html\">Immersive Mode</a> <a href=\"/living-ledger.html\">Living Ledger</a> <a href=\"/aftermath.html\">Aftermath</a> <a href=\"/education.html\">For Students</a> <a href=\"/report.html\">Regiment Fact Sheets</a> <a href=\"/cinematic-export.html\">Export a Video</a> </nav></div>",
+   "expect": 1,
+   "note": "NEEDS BROWSER VERIFICATION (E4): static links for crawlers and no-JavaScript visitors; site-nav.js replaces the mount (outerHTML) at DOMContentLoaded. Check no visible flash and CLS 0 on a throttled load"
+  },
+  {
+   "id": "ZSEO-OPT-footer-links-regiment",
+   "target": "regiment.html",
+   "find": "<div id=\"gtbg-footer-mount\"></div>",
+   "repl": "<div id=\"gtbg-footer-mount\"><nav aria-label=\"All pages\"><a href=\"/\">Home</a> <a href=\"/search.html\">Search Everything</a> <a href=\"/historian.html\">Ask the Historian</a> <a href=\"/documentary.html\">Documentary Mode</a> <a href=\"/compare.html\">Compare Two Moments</a> <a href=\"/camera.html\">Camera Modes</a> <a href=\"/sandbox.html\">What-If Sandbox</a> <a href=\"/turning-points.html\">Turning Points</a> <a href=\"/dashboard.html\">Casualty &amp; Strength Dashboard</a> <a href=\"/viewshed.html\">High Ground</a> <a href=\"/ground-remembers.html\">The Ground Remembers</a> <a href=\"/find-ancestor.html\">Find an Ancestor</a> <a href=\"/watch-together.html\">Watch Together</a> <a href=\"/immersive.html\">Immersive Mode</a> <a href=\"/living-ledger.html\">Living Ledger</a> <a href=\"/aftermath.html\">Aftermath</a> <a href=\"/education.html\">For Students</a> <a href=\"/report.html\">Regiment Fact Sheets</a> <a href=\"/cinematic-export.html\">Export a Video</a> </nav></div>",
+   "expect": 1,
+   "note": "NEEDS BROWSER VERIFICATION (E4): static links for crawlers and no-JavaScript visitors; site-nav.js replaces the mount (outerHTML) at DOMContentLoaded. Check no visible flash and CLS 0 on a throttled load"
+  },
+  {
+   "id": "ZSEO-OPT-footer-links-ground-remembers",
+   "target": "ground-remembers.html",
+   "find": "<div id=\"gtbg-footer-mount\"></div>",
+   "repl": "<div id=\"gtbg-footer-mount\"><nav aria-label=\"All pages\"><a href=\"/\">Home</a> <a href=\"/search.html\">Search Everything</a> <a href=\"/historian.html\">Ask the Historian</a> <a href=\"/documentary.html\">Documentary Mode</a> <a href=\"/compare.html\">Compare Two Moments</a> <a href=\"/camera.html\">Camera Modes</a> <a href=\"/sandbox.html\">What-If Sandbox</a> <a href=\"/turning-points.html\">Turning Points</a> <a href=\"/dashboard.html\">Casualty &amp; Strength Dashboard</a> <a href=\"/viewshed.html\">High Ground</a> <a href=\"/regiment.html\">Regimental Biography</a> <a href=\"/find-ancestor.html\">Find an Ancestor</a> <a href=\"/watch-together.html\">Watch Together</a> <a href=\"/immersive.html\">Immersive Mode</a> <a href=\"/living-ledger.html\">Living Ledger</a> <a href=\"/aftermath.html\">Aftermath</a> <a href=\"/education.html\">For Students</a> <a href=\"/report.html\">Regiment Fact Sheets</a> <a href=\"/cinematic-export.html\">Export a Video</a> </nav></div>",
+   "expect": 1,
+   "note": "NEEDS BROWSER VERIFICATION (E4): static links for crawlers and no-JavaScript visitors; site-nav.js replaces the mount (outerHTML) at DOMContentLoaded. Check no visible flash and CLS 0 on a throttled load"
+  },
+  {
+   "id": "ZSEO-OPT-footer-links-historian",
+   "target": "historian.html",
+   "find": "<div id=\"gtbg-footer-mount\"></div>",
+   "repl": "<div id=\"gtbg-footer-mount\"><nav aria-label=\"All pages\"><a href=\"/\">Home</a> <a href=\"/search.html\">Search Everything</a> <a href=\"/documentary.html\">Documentary Mode</a> <a href=\"/compare.html\">Compare Two Moments</a> <a href=\"/camera.html\">Camera Modes</a> <a href=\"/sandbox.html\">What-If Sandbox</a> <a href=\"/turning-points.html\">Turning Points</a> <a href=\"/dashboard.html\">Casualty &amp; Strength Dashboard</a> <a href=\"/viewshed.html\">High Ground</a> <a href=\"/regiment.html\">Regimental Biography</a> <a href=\"/ground-remembers.html\">The Ground Remembers</a> <a href=\"/find-ancestor.html\">Find an Ancestor</a> <a href=\"/watch-together.html\">Watch Together</a> <a href=\"/immersive.html\">Immersive Mode</a> <a href=\"/living-ledger.html\">Living Ledger</a> <a href=\"/aftermath.html\">Aftermath</a> <a href=\"/education.html\">For Students</a> <a href=\"/report.html\">Regiment Fact Sheets</a> <a href=\"/cinematic-export.html\">Export a Video</a> </nav></div>",
+   "expect": 1,
+   "note": "NEEDS BROWSER VERIFICATION (E4): static links for crawlers and no-JavaScript visitors; site-nav.js replaces the mount (outerHTML) at DOMContentLoaded. Check no visible flash and CLS 0 on a throttled load"
+  },
+  {
+   "id": "ZSEO-OPT-footer-links-immersive",
+   "target": "immersive.html",
+   "find": "<div id=\"gtbg-footer-mount\"></div>",
+   "repl": "<div id=\"gtbg-footer-mount\"><nav aria-label=\"All pages\"><a href=\"/\">Home</a> <a href=\"/search.html\">Search Everything</a> <a href=\"/historian.html\">Ask the Historian</a> <a href=\"/documentary.html\">Documentary Mode</a> <a href=\"/compare.html\">Compare Two Moments</a> <a href=\"/camera.html\">Camera Modes</a> <a href=\"/sandbox.html\">What-If Sandbox</a> <a href=\"/turning-points.html\">Turning Points</a> <a href=\"/dashboard.html\">Casualty &amp; Strength Dashboard</a> <a href=\"/viewshed.html\">High Ground</a> <a href=\"/regiment.html\">Regimental Biography</a> <a href=\"/ground-remembers.html\">The Ground Remembers</a> <a href=\"/find-ancestor.html\">Find an Ancestor</a> <a href=\"/watch-together.html\">Watch Together</a> <a href=\"/living-ledger.html\">Living Ledger</a> <a href=\"/aftermath.html\">Aftermath</a> <a href=\"/education.html\">For Students</a> <a href=\"/report.html\">Regiment Fact Sheets</a> <a href=\"/cinematic-export.html\">Export a Video</a> </nav></div>",
+   "expect": 1,
+   "note": "NEEDS BROWSER VERIFICATION (E4): static links for crawlers and no-JavaScript visitors; site-nav.js replaces the mount (outerHTML) at DOMContentLoaded. Check no visible flash and CLS 0 on a throttled load"
+  },
+  {
+   "id": "ZSEO-OPT-footer-links-watch-together",
+   "target": "watch-together.html",
+   "find": "<div id=\"gtbg-footer-mount\"></div>",
+   "repl": "<div id=\"gtbg-footer-mount\"><nav aria-label=\"All pages\"><a href=\"/\">Home</a> <a href=\"/search.html\">Search Everything</a> <a href=\"/historian.html\">Ask the Historian</a> <a href=\"/documentary.html\">Documentary Mode</a> <a href=\"/compare.html\">Compare Two Moments</a> <a href=\"/camera.html\">Camera Modes</a> <a href=\"/sandbox.html\">What-If Sandbox</a> <a href=\"/turning-points.html\">Turning Points</a> <a href=\"/dashboard.html\">Casualty &amp; Strength Dashboard</a> <a href=\"/viewshed.html\">High Ground</a> <a href=\"/regiment.html\">Regimental Biography</a> <a href=\"/ground-remembers.html\">The Ground Remembers</a> <a href=\"/find-ancestor.html\">Find an Ancestor</a> <a href=\"/immersive.html\">Immersive Mode</a> <a href=\"/living-ledger.html\">Living Ledger</a> <a href=\"/aftermath.html\">Aftermath</a> <a href=\"/education.html\">For Students</a> <a href=\"/report.html\">Regiment Fact Sheets</a> <a href=\"/cinematic-export.html\">Export a Video</a> </nav></div>",
+   "expect": 1,
+   "note": "NEEDS BROWSER VERIFICATION (E4): static links for crawlers and no-JavaScript visitors; site-nav.js replaces the mount (outerHTML) at DOMContentLoaded. Check no visible flash and CLS 0 on a throttled load"
+  },
+  {
+   "id": "ZSEO-OPT-footer-links-turning-points",
+   "target": "turning-points.html",
+   "find": "<div id=\"gtbg-footer-mount\"></div>",
+   "repl": "<div id=\"gtbg-footer-mount\"><nav aria-label=\"All pages\"><a href=\"/\">Home</a> <a href=\"/search.html\">Search Everything</a> <a href=\"/historian.html\">Ask the Historian</a> <a href=\"/documentary.html\">Documentary Mode</a> <a href=\"/compare.html\">Compare Two Moments</a> <a href=\"/camera.html\">Camera Modes</a> <a href=\"/sandbox.html\">What-If Sandbox</a> <a href=\"/dashboard.html\">Casualty &amp; Strength Dashboard</a> <a href=\"/viewshed.html\">High Ground</a> <a href=\"/regiment.html\">Regimental Biography</a> <a href=\"/ground-remembers.html\">The Ground Remembers</a> <a href=\"/find-ancestor.html\">Find an Ancestor</a> <a href=\"/watch-together.html\">Watch Together</a> <a href=\"/immersive.html\">Immersive Mode</a> <a href=\"/living-ledger.html\">Living Ledger</a> <a href=\"/aftermath.html\">Aftermath</a> <a href=\"/education.html\">For Students</a> <a href=\"/report.html\">Regiment Fact Sheets</a> <a href=\"/cinematic-export.html\">Export a Video</a> </nav></div>",
+   "expect": 1,
+   "note": "NEEDS BROWSER VERIFICATION (E4): static links for crawlers and no-JavaScript visitors; site-nav.js replaces the mount (outerHTML) at DOMContentLoaded. Check no visible flash and CLS 0 on a throttled load"
+  },
+  {
+   "id": "ZSEO-OPT-footer-links-find-ancestor",
+   "target": "find-ancestor.html",
+   "find": "<div id=\"gtbg-footer-mount\"></div>",
+   "repl": "<div id=\"gtbg-footer-mount\"><nav aria-label=\"All pages\"><a href=\"/\">Home</a> <a href=\"/search.html\">Search Everything</a> <a href=\"/historian.html\">Ask the Historian</a> <a href=\"/documentary.html\">Documentary Mode</a> <a href=\"/compare.html\">Compare Two Moments</a> <a href=\"/camera.html\">Camera Modes</a> <a href=\"/sandbox.html\">What-If Sandbox</a> <a href=\"/turning-points.html\">Turning Points</a> <a href=\"/dashboard.html\">Casualty &amp; Strength Dashboard</a> <a href=\"/viewshed.html\">High Ground</a> <a href=\"/regiment.html\">Regimental Biography</a> <a href=\"/ground-remembers.html\">The Ground Remembers</a> <a href=\"/watch-together.html\">Watch Together</a> <a href=\"/immersive.html\">Immersive Mode</a> <a href=\"/living-ledger.html\">Living Ledger</a> <a href=\"/aftermath.html\">Aftermath</a> <a href=\"/education.html\">For Students</a> <a href=\"/report.html\">Regiment Fact Sheets</a> <a href=\"/cinematic-export.html\">Export a Video</a> </nav></div>",
+   "expect": 1,
+   "note": "NEEDS BROWSER VERIFICATION (E4): static links for crawlers and no-JavaScript visitors; site-nav.js replaces the mount (outerHTML) at DOMContentLoaded. Check no visible flash and CLS 0 on a throttled load"
+  },
+  {
+   "id": "ZSEO-OPT-footer-links-cinematic-export",
+   "target": "cinematic-export.html",
+   "find": "<div id=\"gtbg-footer-mount\"></div>",
+   "repl": "<div id=\"gtbg-footer-mount\"><nav aria-label=\"All pages\"><a href=\"/\">Home</a> <a href=\"/search.html\">Search Everything</a> <a href=\"/historian.html\">Ask the Historian</a> <a href=\"/documentary.html\">Documentary Mode</a> <a href=\"/compare.html\">Compare Two Moments</a> <a href=\"/camera.html\">Camera Modes</a> <a href=\"/sandbox.html\">What-If Sandbox</a> <a href=\"/turning-points.html\">Turning Points</a> <a href=\"/dashboard.html\">Casualty &amp; Strength Dashboard</a> <a href=\"/viewshed.html\">High Ground</a> <a href=\"/regiment.html\">Regimental Biography</a> <a href=\"/ground-remembers.html\">The Ground Remembers</a> <a href=\"/find-ancestor.html\">Find an Ancestor</a> <a href=\"/watch-together.html\">Watch Together</a> <a href=\"/immersive.html\">Immersive Mode</a> <a href=\"/living-ledger.html\">Living Ledger</a> <a href=\"/aftermath.html\">Aftermath</a> <a href=\"/education.html\">For Students</a> <a href=\"/report.html\">Regiment Fact Sheets</a> </nav></div>",
+   "expect": 1,
+   "note": "NEEDS BROWSER VERIFICATION (E4): static links for crawlers and no-JavaScript visitors; site-nav.js replaces the mount (outerHTML) at DOMContentLoaded. Check no visible flash and CLS 0 on a throttled load"
+  },
+  {
+   "id": "ZSEO-OPT-footer-links-living-ledger",
+   "target": "living-ledger.html",
+   "find": "<div id=\"gtbg-footer-mount\"></div>",
+   "repl": "<div id=\"gtbg-footer-mount\"><nav aria-label=\"All pages\"><a href=\"/\">Home</a> <a href=\"/search.html\">Search Everything</a> <a href=\"/historian.html\">Ask the Historian</a> <a href=\"/documentary.html\">Documentary Mode</a> <a href=\"/compare.html\">Compare Two Moments</a> <a href=\"/camera.html\">Camera Modes</a> <a href=\"/sandbox.html\">What-If Sandbox</a> <a href=\"/turning-points.html\">Turning Points</a> <a href=\"/dashboard.html\">Casualty &amp; Strength Dashboard</a> <a href=\"/viewshed.html\">High Ground</a> <a href=\"/regiment.html\">Regimental Biography</a> <a href=\"/ground-remembers.html\">The Ground Remembers</a> <a href=\"/find-ancestor.html\">Find an Ancestor</a> <a href=\"/watch-together.html\">Watch Together</a> <a href=\"/immersive.html\">Immersive Mode</a> <a href=\"/aftermath.html\">Aftermath</a> <a href=\"/education.html\">For Students</a> <a href=\"/report.html\">Regiment Fact Sheets</a> <a href=\"/cinematic-export.html\">Export a Video</a> </nav></div>",
+   "expect": 1,
+   "note": "NEEDS BROWSER VERIFICATION (E4): static links for crawlers and no-JavaScript visitors; site-nav.js replaces the mount (outerHTML) at DOMContentLoaded. Check no visible flash and CLS 0 on a throttled load"
+  },
+  {
+   "id": "ZSEO-OPT-footer-links-ar",
+   "target": "ar.html",
+   "find": "<div id=\"gtbg-footer-mount\"></div>",
+   "repl": "<div id=\"gtbg-footer-mount\"><nav aria-label=\"All pages\"><a href=\"/\">Home</a> <a href=\"/search.html\">Search Everything</a> <a href=\"/historian.html\">Ask the Historian</a> <a href=\"/documentary.html\">Documentary Mode</a> <a href=\"/compare.html\">Compare Two Moments</a> <a href=\"/camera.html\">Camera Modes</a> <a href=\"/sandbox.html\">What-If Sandbox</a> <a href=\"/turning-points.html\">Turning Points</a> <a href=\"/dashboard.html\">Casualty &amp; Strength Dashboard</a> <a href=\"/viewshed.html\">High Ground</a> <a href=\"/regiment.html\">Regimental Biography</a> <a href=\"/ground-remembers.html\">The Ground Remembers</a> <a href=\"/find-ancestor.html\">Find an Ancestor</a> <a href=\"/watch-together.html\">Watch Together</a> <a href=\"/immersive.html\">Immersive Mode</a> <a href=\"/living-ledger.html\">Living Ledger</a> <a href=\"/aftermath.html\">Aftermath</a> <a href=\"/education.html\">For Students</a> <a href=\"/report.html\">Regiment Fact Sheets</a> <a href=\"/cinematic-export.html\">Export a Video</a> </nav></div>",
+   "expect": 1,
+   "note": "NEEDS BROWSER VERIFICATION (E4): static links for crawlers and no-JavaScript visitors; site-nav.js replaces the mount (outerHTML) at DOMContentLoaded. Check no visible flash and CLS 0 on a throttled load"
+  }
+ ]
+}

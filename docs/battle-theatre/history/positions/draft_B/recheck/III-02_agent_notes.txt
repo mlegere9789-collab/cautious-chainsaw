@@ -1,0 +1,21 @@
+Batch III-02 (48 claims, all read against the full cited report: R029, R030, R076, R098, R109, R133, R134)
+Validator: decisions 48 {downgraded 1, corrected 17, passed_full_read 30}; split 0; missing 0; errors 0.
+
+Counts per fc: passed_full_read 30; corrected 17; downgraded 1; split (add) 0.
+
+Patterns (claims may carry more than one):
+- time from another sentence: 7 (1d-15 [7 a. m.], 1d-ward-1ussharpshooters-02 and -03, 1d-ward-3me-02 [12 m.], 1d-17 and 1d-19 [4 o'clock], 1d-trobriand-02 [2 o'clock]). In 1d-17 the t_iso 16:00 was removed.
+- time attached to the wrong act (12 m. times the permission, not the sending): 2 (1d-ward-1ussharpshooters-01, 1d-ward-3me-01); place from the following sentence cleared in both.
+- merged second report: 0.
+- later order ignored: 1 (1d-19: Barnes withdrew 300 yards to the rear; also 'Fifth Corps' not printed).
+- compass/road gloss: 0 (a compass-like gloss 'Union left' for 'our left' in 1d-ward-1ussharpshooters-03).
+- hedge/condition/overstatement: 3 (3c-40 'directed to assume' not 'assumed'; 3c-25 observer not named; 3c-53 'not at Gettysburg' inference dropped).
+- unit identity gloss: 3 (1d-06 downgraded: passage says 'a division of the Third Corps', First Division is from Craig R139; 1d-04 'this division' hedged; 3c-38 '(corps)' removed). 3c-42 passed but note: act names the First Division while unit_id is the corps.
+- OCR digit: 2 (1d-10 '1^ miles' fraction read as 1.5 with confidence, now marked; 3c-01 'June 38' kept as June 28 because the report's own 'from June 28 to July 3' and next date June 30 settle it).
+- meridian inferred: 3 (3c-38 '6 o'clock', 3c-33 '4 o'clock' [same report prints 4 p. m.], 1d-18 '4 o'clock' [3.30 p. m. before]); set mer true.
+- other: 3c-43 day-part 'morning' not printed (removed); 3c-01 'resumed command' is a gloss (Sickles 'relieved me').
+
+Ids downgraded: POS-B-us-3c-1d-06. Ids split: none.
+
+Systematic: (1) Birney R133 repeatedly places a clock phrase ('At 12 m.', 'At 4 o'clock', '2 o'clock', 'At 7 a. m.') in one sentence and the builder attached it to each following sentence's claim; (2) the builder attached the 12 m. time to the movement though the clause times the permission; (3) Third-Corps-level claims quote Birney's division report and Doubleday/Hancock/Gibbon on 'a division'/'the corps' without checking which unit is printed; unit_id us-3c on 3c-42 and 3c-38 is the corps while the printed actor is Birney's division/troops.
+Passed claims with annotations only: dispatch/document heading dates (3c-24, 1d-03, 2d-01) are time of writing, present tense; 3c-1d-07 stays tier inferred (no date printed for the Walkersville march).

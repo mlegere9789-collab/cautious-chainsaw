@@ -1,0 +1,26 @@
+"""Fidelity re-check batch 25: Part 3 correspondence (D0919, D0925, D0935, D0976, D0982, D0983, D0985, D1001, D1003, D1041, D1090, D1091, D1120, D1122, D1160, D1168, D1173, D1207, D2099, D2102)."""
+OK = "0304 0305 0435 0437 0478 0479 0480 0484 0458 0475 0476 0483 0444 0445 0457 0488 0490 0491 0492"
+FIX = {
+ '0481': dict(check='corrected', note="The dispatch's hour is printed '13.30 a. m.' (OCR; 12.30 by sense, since he left Hanover at 7 p.m. and marched 9 miles); the activity now says so instead of stating 12.30.",
+              set={'activity': "Sykes (dispatch dated July 2, '13.30' a.m. [OCR; 12.30 by sense]): Crawford's division had not reached Hanover when the rest of the corps left at 7 p.m."}),
+ '0482': dict(check='corrected', note="The dispatch's hour is printed '13.30 a. m.' (OCR; 12.30 by sense); the activity now says so.",
+              set={'activity': "Sykes to Butterfield (dispatch dated July 2, '13.30' a.m. [OCR; 12.30 by sense]): on receipt of Meade's note to Slocum of the 1st the corps left Hanover at 7 p.m. and marched 9 miles to Bonaughtown; to resume the march at 4 a.m."}),
+ '0500': dict(check='corrected', note="Narrowed: the sentence is conditional ('If any shorter road presents itself, without difficulty in getting up, you will use your discretion in taking it'); the claim had dropped the condition.",
+              set={'activity': "Butterfield to Sedgwick: if a shorter road presents itself without difficulty in getting up, use his discretion in taking it and report the facts to headquarters"}),
+ '0306': dict(check='corrected', note="t_iso 05:30 July 2 was the letter's own time; the fact in the sentence is 'At 4.30 p. m. yesterday orders were sent you to move up your command to Taneytown' (July 1, 4.30 p.m.), the 7.30 p.m. repetition follows in the next sentence. The letter's dateline is kept as a description.",
+              set={'when.printed': 'At 4.30 p. m. yesterday', 'when.date': '1863-07-01', 'when.t_iso': '1863-07-01T16:30',
+                   'when.description': "letter dated July 2, 1863, 5.30 a.m.; the order of 4.30 p.m. July 1 is the one in the quoted sentence, the 7.30 p.m. repetition is in the next sentence"}),
+ '0439': dict(check='corrected', note="'12' has no a.m./p.m.; read as midnight (the letter is of 5.30 a.m. July 2 and says 'report here in person at 11 p. m.'). A reading, marked approximate; Meade's own report puts the departure at 10 p.m.",
+              set={'when.approx': True, 'when.description': "meridian not printed: '12' read as midnight from the 11 p.m. report time in the same letter; an inference, not a printed clock time"}),
+ '0499': dict(check='corrected', note="road field made verbatim ('via Littlestown'); place narrowed.",
+              set={'place.direction_or_road': 'via Littlestown'}),
+ '0450': dict(check='corrected', note="Audit finding confirmed: the circular states no purpose and leaves the hour blank; '(the council of corps commanders)' was the compiler's gloss. The 3 p.m. is the circular's time.",
+              set={'activity': "Butterfield circular of 3 p.m. July 2 to Sedgwick, Sickles, Sykes, Newton, Slocum, Howard and Hancock: the commanding general desires to see them at headquarters at a blank hour (no purpose stated)",
+                   'when.description': "3 p.m. is the time of the circular; the hour of the meeting is blank in the printed text"}),
+ '0485': dict(check='corrected', note="place.printed carried the compiler's gloss '(the Fifth Corps line)'; t_iso is the dispatch time (1.45 p.m.), not a time of the brigade positions.",
+              set={'place.printed': 'our left and front', 'when.description': "1.45 p.m. is the time of Sykes's dispatch (received 2.35 p.m.), reporting what Garrard and Tilton said"}),
+ '0486': dict(check='corrected', note="Same as POS-C-0485.",
+              set={'place.printed': 'our left and front', 'when.description': "1.45 p.m. is the time of Sykes's dispatch (received 2.35 p.m.), reporting what Garrard and Tilton said"}),
+ '0487': dict(check='corrected', note="road field made verbatim.", set={'place.direction_or_road': 'the road to Emmitsburg, the left-hand road'}),
+ '0489': dict(check='corrected', note="road field made verbatim ('the direct road from Gettysburg to Emmitsburg').", set={'place.direction_or_road': 'the direct road from Gettysburg to Emmitsburg'}),
+}

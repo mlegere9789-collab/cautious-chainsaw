@@ -2,7 +2,7 @@
  "corpus_version": "1.0.0",
  "built_with": {
   "node": "v24.19.0",
-  "ingest_sha": "6bf0e6ac30b968e9"
+  "ingest_sha": "15c09f427de3ec70"
  },
  "linker_registry_sha": "0a02e6c75fe4",
  "sources": [
@@ -143,12 +143,12 @@
    },
    "tables_without_text": [],
    "docs": 377,
-   "passages": 2670,
+   "passages": 2668,
    "missing_numbers": [
     161
    ],
    "tail": {
-    "back_matter_at": 3090957,
+    "back_matter_at": 3089977,
     "back_matter_chars": 239641,
     "addenda_at": null,
     "addenda_chars": 0
@@ -157,22 +157,22 @@
    "page_marks_inferred": 0,
    "running_heads_left": 1,
    "dispatch": null,
-   "edits": 8156,
+   "edits": 8171,
    "edit_kinds": {
-    "footnote": 252,
-    "compiler-note": 1,
+    "footnote": 257,
+    "compiler-note": 12,
     "head-line": 1253,
     "inline-head": 54,
-    "dehyphenate": 6207,
+    "dehyphenate": 6206,
     "hyphen-kept": 247,
     "ocr-dict": 142
    },
    "table_chunks_cleaned": 100,
-   "table_paragraphs_removed": 3955,
+   "table_paragraphs_removed": 3953,
    "table_chunks_dropped": 25,
    "notes_removed": {
-    "footnote": 252,
-    "compiler-note": 1,
+    "footnote": 257,
+    "compiler-note": 12,
     "head-line": 1253,
     "inline-head": 54
    }
@@ -269,34 +269,36 @@
    },
    "tables_without_text": [],
    "docs": 211,
-   "passages": 2074,
+   "passages": 2073,
    "missing_numbers": [],
    "tail": {
-    "back_matter_at": 3009303,
+    "back_matter_at": 3007347,
     "back_matter_chars": 255908,
-    "addenda_at": 2400447,
-    "addenda_chars": 608856
+    "addenda_at": 2399085,
+    "addenda_chars": 608262
    },
    "page_marks": 1121,
    "page_marks_inferred": 0,
    "running_heads_left": 4,
    "dispatch": null,
-   "edits": 6454,
+   "edits": 6458,
    "edit_kinds": {
-    "footnote": 142,
+    "footnote": 146,
     "cross-reference": 1,
+    "compiler-note": 4,
     "head-line": 1001,
     "inline-head": 87,
-    "dehyphenate": 4730,
+    "dehyphenate": 4727,
     "hyphen-kept": 225,
-    "ocr-dict": 268
+    "ocr-dict": 267
    },
-   "table_chunks_cleaned": 41,
-   "table_paragraphs_removed": 2283,
+   "table_chunks_cleaned": 40,
+   "table_paragraphs_removed": 2210,
    "table_chunks_dropped": 24,
    "notes_removed": {
-    "footnote": 142,
+    "footnote": 146,
     "cross-reference": 1,
+    "compiler-note": 4,
     "head-line": 1001,
     "inline-head": 87
    }
@@ -392,56 +394,70 @@
     "mid_line_starts": 0
    },
    "tables_without_text": [
-    "or27-3:p0642.1"
+    "or27-3:p0242.2",
+    "or27-3:p0440.1",
+    "or27-3:p0444.1",
+    "or27-3:p0444.2",
+    "or27-3:p0448.1",
+    "or27-3:p0453.1",
+    "or27-3:p0639.1",
+    "or27-3:p0644.1",
+    "or27-3:p0733.1",
+    "or27-3:p0809.1",
+    "or27-3:p0811.2",
+    "or27-3:p0816.1",
+    "or27-3:p0819.1",
+    "or27-3:p0909.2",
+    "or27-3:p0994.1"
    ],
-   "docs": 3179,
-   "passages": 3661,
+   "docs": 3237,
+   "passages": 3673,
    "missing_numbers": [],
    "tail": null,
    "page_marks": 1244,
    "page_marks_inferred": 0,
-   "running_heads_left": 5,
+   "running_heads_left": 4,
    "dispatch": {
-    "dispatches": 3179,
-    "index_starts_at": 2504378,
-    "confederate_section_starts_at": 1926060,
+    "dispatches": 3237,
+    "index_starts_at": 2498242,
+    "confederate_section_starts_at": 1921049,
     "by_side": {
-     "union": 2690,
-     "confederate": 489
+     "union": 2739,
+     "confederate": 498
     },
     "by_kind": {
-     "dispatch": 2978,
-     "order": 188,
-     "return": 12,
+     "dispatch": 3000,
+     "order": 187,
+     "return": 49,
      "itinerary": 1
     },
-    "dated_1863": 3118,
-    "with_clock": 1382,
-    "in_battle_window": 624,
-    "july_1_3": 233,
+    "dated_1863": 3176,
+    "with_clock": 1388,
+    "in_battle_window": 641,
+    "july_1_3": 232,
     "july_1_3_with_clock": 103,
     "pages_missing": 0,
-    "with_signer": 3105,
-    "with_addressee": 2824,
-    "quotations_kept_in_their_cover": 10,
+    "with_signer": 3123,
+    "with_addressee": 2853,
+    "quotations_kept_in_their_cover": 7,
     "covers_moved_closing": 2,
-    "years_repaired": 9
+    "years_repaired": 10
    },
-   "edits": 6363,
+   "edits": 6364,
    "edit_kinds": {
-    "footnote": 143,
+    "footnote": 155,
     "cross-reference": 2,
     "inline-head": 93,
     "head-line": 1429,
-    "hyphen-kept": 224,
-    "dehyphenate": 4404,
+    "hyphen-kept": 223,
+    "dehyphenate": 4394,
     "ocr-dict": 68
    },
-   "table_chunks_cleaned": 34,
-   "table_paragraphs_removed": 1892,
-   "table_chunks_dropped": 16,
+   "table_chunks_cleaned": 18,
+   "table_paragraphs_removed": 1015,
+   "table_chunks_dropped": 29,
    "notes_removed": {
-    "footnote": 143,
+    "footnote": 155,
     "cross-reference": 2,
     "inline-head": 93,
     "head-line": 1429
@@ -449,19 +465,19 @@
   }
  ],
  "totals": {
-  "documents": 3766,
-  "passages": 8405,
-  "words": 1323095,
+  "documents": 3810,
+  "passages": 8414,
+  "words": 1321161,
   "reports_found": 588,
-  "dispatches": 3178,
-  "tables_without_text": 1
+  "dispatches": 3222,
+  "tables_without_text": 15
  },
  "link_stats": {
-  "A": 6992,
-  "B": 6884,
-  "C": 6183,
-  "passages_with_ents": 5675,
-  "ents": 15434,
+  "A": 6989,
+  "B": 6880,
+  "C": 6154,
+  "passages_with_ents": 5680,
+  "ents": 15439,
   "registry_side_disagree": 0,
   "registry_missing": 0,
   "authors": {
@@ -471,43 +487,43 @@
    "none": 157
   },
   "signers": {
-   "dispatches": 3177,
-   "one_signature": 3034,
-   "person": 579
+   "dispatches": 3221,
+   "one_signature": 3048,
+   "person": 583
   }
  },
  "time": {
-  "claims": 5268,
-  "with_minute": 5003,
+  "claims": 5572,
+  "with_minute": 5307,
   "ambiguous_meridiem": 265,
-  "with_day": 4867,
+  "with_day": 5171,
   "by_kind": {
-   "clock": 3819,
+   "clock": 4116,
    "sun": 459,
-   "midnight": 78,
+   "midnight": 79,
    "oclock": 596,
-   "noon": 269,
+   "noon": 275,
    "range": 44,
    "spelled": 3
   },
   "by_evidence": {
-   "report": 3489,
-   "dispatch-header": 1131,
-   "dispatch-body": 648
+   "report": 3522,
+   "dispatch-header": 1387,
+   "dispatch-body": 663
   },
   "by_day_basis": {
-   "carried": 1939,
-   "same": 1634,
+   "carried": 1931,
+   "same": 1680,
    "scope-other": 351,
-   "rel": 160,
+   "rel": 170,
    "none": 50,
    "later": 3,
-   "dateline": 1131
+   "dateline": 1387
   },
   "by_side": {
-   "union": 4666,
-   "confederate": 602
+   "union": 4966,
+   "confederate": 606
   },
-  "battle_days": 1514
+  "battle_days": 1547
  }
 }

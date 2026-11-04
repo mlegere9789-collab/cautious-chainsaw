@@ -623,7 +623,7 @@
      "type": "number",
      "minimum": 120,
      "maximum": 1200,
-     "default": 420
+     "default": 300
     },
     "popup.place.crossPenalty": {
      "description": "A candidate place whose leader line would cross another tile is judged this many pixels farther away per tile crossed. Leaders are drawn beneath tiles, so a crossing hides nothing, but a clean line reads better.",
@@ -663,13 +663,21 @@
      "type": "number",
      "minimum": 1,
      "maximum": 8,
-     "default": 2
+     "default": 1
     },
     "popup.queue.aliveB": {
      "description": "How many tier B cards (high events) may be compact at once; the rest are chips.",
      "x-token": "popups",
      "type": "number",
      "minimum": 0,
+     "maximum": 6,
+     "default": 1
+    },
+    "popup.queue.maxFloating": {
+     "description": "Round 2: how many free-standing cards may lie on the map at once (the card of the selected unit counts and wins; a reading rail and chips do not count). The rest of a burst become chips in the Chronicle strip, not cards stacked over the field.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 1,
      "maximum": 6,
      "default": 1
     },
@@ -858,7 +866,7 @@
      "type": "number",
      "minimum": 80,
      "maximum": 260,
-     "default": 92
+     "default": 168
     },
     "popup.sheet.halfFrac": {
      "description": "Height of the bottom sheet at its half detent as a share of the screen.",
@@ -1292,7 +1300,7 @@
      "description": "The date, time and speed badge (P-10). It prints only what the clock module says: 'about 10:15 AM', always Modelled while the anchors are candidates.",
      "x-token": "popup-clock",
      "type": "boolean",
-     "default": true
+     "default": false
     },
     "popup.clock.sigma": {
      "description": "Show the clock's stated uncertainty (plus or minus minutes, interpolated from the anchors' own estimates).",
@@ -1337,30 +1345,10 @@
      "default": "bl"
     },
     "popup.minimap.enabled": {
-     "description": "A small overview of every unit on the field with the viewport box (P-13). Click to fly. It pulses when a card is about something off-screen.",
+     "description": "The overview of every unit on the field with the viewport box (P-13), a page of the reading rail that the masthead’s Overview button opens. Click to fly. It pulses when a card is about something off-screen.",
      "x-token": "popup-minimap",
      "type": "boolean",
      "default": true
-    },
-    "popup.minimap.w": {
-     "description": "Width of the overview map.",
-     "x-token": "popup-minimap",
-     "type": "number",
-     "minimum": 100,
-     "maximum": 280,
-     "default": 168
-    },
-    "popup.minimap.slot": {
-     "description": "Where the overview lives. It steps aside for a tile and returns after a calm delay.",
-     "x-token": "popup-minimap",
-     "type": "string",
-     "enum": [
-      "tl",
-      "tr",
-      "bl",
-      "br"
-     ],
-     "default": "br"
     },
     "popup.hints.enabled": {
      "description": "Short contextual hints (P-38): how to play, step, select, and read the Chronicle. Each shows once and goes when used. Press ? for the full list.",

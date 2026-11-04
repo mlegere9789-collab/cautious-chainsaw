@@ -17,6 +17,8 @@ const {
   REPO, PORT_BASE, openSession, createStaticServer, createSuite, assert, assertEq, sleep, waitFor, waitForApp, chooseLayout, mapView, tileBudget, VIEWPORTS, Skip,
 } = await import('./lib.mjs');
 
+const { readPageState, parseCaptionCollapsed, parseClock } = await import('./lib_clock.mjs');   // CLOCK: the frame is data-gt-frame ("Tick n/675" is not on the page), the caption reads "n units . about 5:00 AM"
+
 const argv = process.argv.slice(2);
 const opt = (name, dflt) => { const i = argv.indexOf(`--${name}`); return i >= 0 ? (argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[i + 1] : true) : dflt; };
 const DIST = path.resolve(REPO, opt('dist', 'release/R1c/dist'));
@@ -56,9 +58,9 @@ const carryCount = (days, tick) => { const by = {}; for (const d of days) for (c
 const dayOf = (tick) => (tick <= 225 ? 1 : tick <= 450 ? 2 : 3);
 const bodyText = (p) => p.evaluate(() => document.body.innerText.replace(/\s+/g, ' '));
 async function readState(p) {
-  const t = await bodyText(p); const x = (re) => re.exec(t);
-  const tick = x(/Tick (\d+)\/675/), mm = x(/(\d+) units · tick (\d+)/), hud = x(/July (\d+), 1863/), clock = x(/July (\d+), \d{1,2}:\d{2} [AP]M/);
-  return { tick: tick ? +tick[1] : null, units: mm ? +mm[1] : null, hudDay: hud ? +hud[1] : null, clockDay: clock ? +clock[1] : null, follow: /Change Regiment/i.test(t) || /Follow Your Ancestor Track/i.test(t), onboarding: /Welcome|Choose your|Skip tour|Skip intro|How would you like/i.test(t) && !/Toggle Units/.test(t), text: t };
+  const { text: t, frame } = await readPageState(p);       // frame: data-gt-frame on a CLOCK tree, "Tick n/675" on an older one (one atomic snapshot)
+  const x = (re) => re.exec(t); const cap = parseCaptionCollapsed(t), hud = x(/July (\d+), 1863/), clk = parseClock(t);
+  return { tick: frame, units: cap ? cap.units : null, hudDay: hud ? +hud[1] : null, clockDay: clk ? clk.day : null, follow: /Change Regiment/i.test(t) || /Follow Your Ancestor Track/i.test(t), onboarding: /Welcome|Choose your|Skip tour|Skip intro|How would you like/i.test(t) && !/Toggle Units/.test(t), text: t };
 }
 const BAD_DATE = /July\s+[4-9],\s*1863|July\s+[4-9],\s*\d{1,2}:\d{2}|\d{1,2}:\d{2}\s*[AP]M\s+July\s+[4-9]\b/;
 const waitState = (p, pred, label, timeout = 10000) => waitFor(async () => { const s = await readState(p); return pred(s) ? s : null; }, { timeout, interval: 120, label });
@@ -191,9 +193,10 @@ suite.test('T0-DL-04b', 'junk map parameters leave the camera at home (ll=0,0 wi
   const S = await mapSession();
   {
     const seen = {};
+    const MAXZ = /GTB63 = /.test(fs.readFileSync(path.join(DIST, 'assets', fs.readdirSync(path.join(DIST, 'assets')).find((f) => /^index-.*\.js$/.test(f))), 'utf8')) ? 17 : 18;
     for (const [q, check] of [
       ['?ll=0,0&z=abc&tick=5', (v) => metres(v.center, HOME.center) < 5 && Math.abs(v.zoom - HOME.zoom) < 0.01],
-      ['?z=99', (v) => Math.abs(v.zoom - 18) < 0.05],
+      ['?z=99', (v) => Math.abs(v.zoom - MAXZ) < 0.05],      // clamped to the map's own ceiling: 18 on the Mapbox satellite base, 17 on group BASE1863's reconstruction (z16 is its native level; z17 is a 2x enlargement and nothing finer is offered)
     ]) {
       await boot(S, q);
       const v = await waitFor(async () => { const m = await mapView(S.page); return m && (check(m) || Math.abs(m.zoom - HOME.zoom) > 0.05) ? m : null; }, { timeout: 25000, label: `camera for ${q}` });
@@ -328,7 +331,8 @@ suite.test('T0-DL-09', 'turning-points.html: nine anchors match moments.json and
   needGroup('DL');
   if (IS_LEGACY) throw new Skip('legacy/dist keeps the wrong anchors by definition');
   const html = fs.readFileSync(path.join(DIST, 'turning-points.html'), 'utf8');
-  const ticks = [...html.matchAll(/title: "([^"]+)", tick: (\d+),/g)].map((m) => ({ title: m[1], tick: +m[2] }));
+  // CLOCK adds a `when: '...'` field between title and tick on a card (the Night Assault reads "evening, about 7:00 to 8:30 PM"): match the card's own line
+  const ticks = [...html.matchAll(/title: "([^"]+)",[^\n]*?tick: (\d+),/g)].map((m) => ({ title: m[1], tick: +m[2] }));
   const doc = JSON.parse(fs.readFileSync(path.join(DIST, 'data', 'moments.json'), 'utf8'));
   const tp = doc.moments.filter((m) => m.kind === 'turning-point');
   t.note('page anchors', ticks.map((x) => x.tick));
@@ -354,8 +358,8 @@ suite.test('T0-DL-10', 'phone 375x812 (mobile shell): ?t=268&u=U-20ME&z=15.5&ll=
   const S = await open({ profile: 'phone', viewport: VIEWPORTS.portrait[0] });
   try {
     await S.page.goto(`${ORIGIN}/?t=268&u=U-20ME&z=15.5&ll=39.7918,-77.2359`, { waitUntil: 'load' }); await waitForApp(S.page, 45000);
-    const s = await waitFor(async () => { const x = await bodyText(S.page); return /Tick 268\/675/.test(x) ? x : null; }, { timeout: 15000, label: 'phone shell at tick 268' });
-    assert(/JULY\s+2\s+\d{1,2}:\d{2}/i.test(s), 'phone clock does not read July 2');
+    const s = await waitFor(async () => { const x = await readPageState(S.page); return x.frame === 268 ? x.text : null; }, { timeout: 15000, label: 'phone shell at tick 268' });
+    assert(/JULY\s+2\s+(?:about\s+)?\d{1,2}:\d{2}/i.test(s), 'phone clock does not read July 2');
     await waitFor(async () => /20th Maine/i.test(await bodyText(S.page)), { timeout: 8000, label: 'unit panel for the 20th Maine on the phone' });
     const v = await waitFor(async () => { const m = await mapView(S.page); return m && Math.abs(m.zoom - 15.5) < 0.06 ? m : null; }, { timeout: 25000, label: 'phone camera jump to z=15.5' });
     t.note('phone camera', { center: v.center.map((x) => +x.toFixed(4)), zoom: +v.zoom.toFixed(2) });
@@ -366,8 +370,8 @@ suite.test('T0-DL-10', 'phone 375x812 (mobile shell): ?t=268&u=U-20ME&z=15.5&ll=
     const anc = await waitFor(async () => (/Change Regiment/i.test(await bodyText(S.page)) ? true : null), { timeout: 12000, label: 'Follow panel on the phone' }).catch(() => false);
     t.note('?ancestor= opens the Follow panel on the phone', !!anc);
     await S.page.goto(`${ORIGIN}/?tick=9999&unit=%3Cscript%3E&ll=0,0&z=abc`, { waitUntil: 'load' }); await waitForApp(S.page, 45000); await sleep(1200);
-    const junk = await bodyText(S.page); t.note('junk link tick 1', /Tick 1\/675/.test(junk));
-    assert(/Tick 1\/675/.test(junk), 'a junk link moved the phone clock');
+    const junkFrame = (await readPageState(S.page)).frame; t.note('junk link tick 1', junkFrame === 1);
+    assertEq(junkFrame, 1, 'a junk link moved the phone clock');
     assertEq(S.collector.firstParty, [], 'errors on the phone links');
     assert(anc, '?ancestor= did not open the Follow panel in the mobile shell');
   } finally { await closeSession(S); }

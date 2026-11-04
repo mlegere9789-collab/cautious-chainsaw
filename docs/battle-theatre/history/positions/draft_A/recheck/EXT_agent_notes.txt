@@ -1,0 +1,27 @@
+Scope A re-check, tags EXT (46 claims) and 1CA (35 claims). Files: recheck/EXT.json, recheck/1CA.json.
+Validator (positions_A_build.py --out %TEMP%/chk_*.jsonl --tag EXT,1CA): no error line for either tag; last line "wrote 688 claims".
+
+COUNTS PER FIDELITY VALUE (as written in the decision files)
+EXT: passed_full_read 31 (12 documented regiment/cavalry claims + 19 open gaps), corrected 15, downgraded 0, split 0.
+1CA: passed_full_read 20, corrected 15, downgraded 0, split 0.
+Total 81: passed 51, corrected 30.
+Note on open gaps (EXT-026..046, 21 claims): they cite no passage. I re-ran every stated regex search with tools/bt/or27_find.py and compared the hit counts; 19 matched and are written passed_full_read, 2 were worded wrongly and are corrected (EXT-029, EXT-038), EXT-037 matched in substance but the hit count differs (3 hits, not 1; the two extra Part 2 hits are Winchester/Averell mentions of other companies; recorded in the decision why). The builder prints fidelity_check 'downgraded' for every open-gap row that has any decision, whatever fidelity I wrote (positions_A_build.py, open-gap branch). The lead should expect 'downgraded' for these 21 rows in the ledger; it is a builder label, not a finding.
+
+PATTERNS (claims touched; one claim can show several)
+- time not printed in the passage, window or clock supplied by the compiler (parenthesised phrase, or borrowed from another sentence/report): 19 claims. EXT-001, 002, 003, 004, 006, 007, 008, 011, 014, 019, 020; 1CA-007, 008, 009, 010, 011, 015, 020, 025. Clock phrases removed (w null) in all but EXT-002 ('at this time'), EXT-007 ('6.30 p. m.'), EXT-008 ('Between 6 and 7 p. m.'). 1CA-020: the 10.30 a.m. is Wainwright's (another report), not Hall's.
+- later order ignored: 2 claims (EXT-006, EXT-007): Einsiedel's 5 p.m. half-mile-north order was replaced by 'move 1,000 steps backward' before the 6.30 attack. The 153rd/68th/54th are placed only by order of naming in the post-move line, no 'half a mile north'.
+- compass / road / place gloss: 11 claims. EXT-001, 003, 010, 011 (north-northeast), 014 (west of the seminary), 019, 020; 1CA-003 (camps), 013 (Baltimore Pike), 017 (Cemetery Hill), 018 (north front).
+- hedge, antecedent or clause attributed too widely: 3 claims. EXT-002 ('flank of this brigade', antecedent unclear, not 'of the enemy'), EXT-008 ('the regiments' drove the enemy out, not only the two named), 1CA-027 (gunners first replied).
+- unit identity / battery designation not printed in the cited report: 3 claims (EXT-005 Cooper 'B, 1st PA', EXT-019 'Battery E, 1st U.S.' printed only in a July 16 section, EXT-020 'Battery E, 4th U.S.').
+- activity slightly overstated or wrongly worded: 1CA-010 (trot placed in the town; it starts on the pike), EXT-011 (omitted 'in check' and 'until relieved'), EXT-029 and EXT-038 (gap wording contradicted by R250, R337, R338).
+- OCR digit: none of my claims turned on a damaged digit. 1CA-033 prints 'At a few minutes past 2' with no a.m./p.m.; p.m. is a reading (wd 'meridian supplied'). 1CA-034/035: Whittier's report prints 'morning of the 3d' before the dusk action (2/3 confusion); 1CA-035 stays inferred.
+- merged second report: none found in these two tags.
+
+CLAIMS SPLIT: none. CLAIMS DOWNGRADED: none (EXT-004 kept documented; only the time was removed).
+
+SYSTEMATIC
+- Day-part parentheses '(afternoon, July 1)', '(forenoon, July 1)', '(early afternoon, ...)' were added by the builder to nearly every claim without a clock in its sentence. Where the report prints only a morning arrival time (Morrow 9 a.m., Wainwright 10.30 a.m., Baxter 11 a.m.) the later day-part is not derivable from the sequence and was removed. Where the report's own preceding sentences set the day-part ('In the afternoon' in Gamble's report, 'At 12 m.' in D. Gregg's) I kept the reading and annotated it in wd.
+- place.printed was often a composite of two sentences (position from the July 1 paragraph used for the July 2 fight; 'Gregg's line', 'Union left'). Builders should print only words of the cited sentence.
+- gazetteer ids are by inference on most of these; I added note_add where the place itself is not printed.
+- Many EXT claims rest on a brigade or division report that names the regiment once (single-sentence mention); I passed them only when unit, event and (where given) clock were in that sentence or its explicitly continuing sentences.
+- Noted for the lead: R009 (p. ~163) prints 'Battery E, 1st New York Light Artillery, attached' after the 145th Pennsylvania entry; EXT-005 (the E and L roster question) records this; I did not trace it further.

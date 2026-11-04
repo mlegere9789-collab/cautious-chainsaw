@@ -15,7 +15,7 @@ python tools/t0/baseline.py verify | prove | lock | mirror | reconstruct | compa
 python tools/t0/tests/baseline_selftest.py                                 # 17 cases: model, lock, build refusal, CRLF, overlay guard, verify-live against a local Netlify fake, compare-zip
 node   tools/t0/tests/baseline-drift.spec.mjs                              # T0-BL-01..09: what the live drift does, and that every train keeps it (or supersedes it on purpose)
 node   tools/t0/gate.mjs --train R1a                                       # re-run the gates on an existing build
-python tools/t0/overlap.py                                                 # geometric overlap audit of the patch set
+python tools/t0/overlap.py [--deep] [--pristine]                           # replay audit of the patch set (anchors at their turn; a patch overwritten by a later one must be declared in overlap-declared.json; about 1 min); tools/t0/tests/overlap_selftest.py proves it can fail
 python tools/t0/determinism.py                                             # every train rebuilt into release/check/<train> and compared byte for byte with release/<train> (about 40 s)
 python tools/t0/redtrees.py                                                # control trees for the red-first proofs (R1c without A2, without the Mapbox precompile, without the mobile + shell fixes) and the opt-in legal variant (R1c with PG-legal, gates on) into release/control/
 python tools/t0/hygiene.py                                                 # source hygiene of the tracked files of tools/t0, tests/t0, tools/ship, ops: no stray control bytes (a regex escape that reached the file as BACKSPACE), every script parses, JSON valid (about 3 s)

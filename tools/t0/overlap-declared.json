@@ -1,0 +1,35 @@
+{
+ "_doc": "Patches that have no effect on the bundle because a later patch overwrites everything they wrote and does not need them (tools/t0/overlap.py: the replay of the train without the patch gives the same bytes). Each entry names the patch, the patch that overwrites it and why that is intended. An overwrite that is not listed here fails static.overlap; an entry whose patch is no longer overwritten fails it too.",
+ "declared": [
+  {
+   "patch": "DATA-mA-15al_lrt",
+   "superseded_by": "MON:story:mon_15al_lrt",
+   "why": "Both groups first ship in R1d and MON follows DATA in the fixed order. MON:story:mon_15al_lrt is a regex over the whole label of this story marker and writes the source-checked wording of the Monuments layer; the 15th Alabama caveat (the count of four assaults and the company sent for water are from Oates's postwar account, not the reports) is kept in MON's wording, which adds what Oates's report says. The DATA patch therefore has no effect on any shipped bundle (the audit replays R1d..R1f without it and the bytes are identical). It stays in group DATA because verify_release V7 requires every patch id of a train to exist in the next one, and removing it would change no byte."
+  },
+  {
+   "patch": "DATA-mA-reynolds",
+   "superseded_by": "MON:story:mon_reynolds",
+   "why": "Both groups first ship in R1d and MON follows DATA in the fixed order. MON:story:mon_reynolds is a regex over the whole label of this story marker and writes the source-checked wording of the Monuments layer; MON keeps the 10:15 AM time and the Howard 11:15 alternative and names Wadsworth and Doubleday as the sources. The DATA patch therefore has no effect on any shipped bundle (the audit replays R1d..R1f without it and the bytes are identical). It stays in group DATA because verify_release V7 requires every patch id of a train to exist in the next one, and removing it would change no byte."
+  },
+  {
+   "patch": "DATA-mA-hancock",
+   "superseded_by": "MON:story:mon_hancock",
+   "why": "Both groups first ship in R1d and MON follows DATA in the fixed order. MON:story:mon_hancock is a regex over the whole label of this story marker and writes the source-checked wording of the Monuments layer; MON keeps the Meade report, the tenpenny-nail dispatch and the 'did not leave the field' sentence and replaces the unsourced 3:30 PM with the 3:35-4 PM bracket, 'no report gives the minute'. The DATA patch therefore has no effect on any shipped bundle (the audit replays R1d..R1f without it and the bytes are identical). It stays in group DATA because verify_release V7 requires every patch id of a train to exist in the next one, and removing it would change no byte."
+  },
+  {
+   "patch": "DATA-mA-1mn",
+   "superseded_by": "MON:story:mon_1mn",
+   "why": "Both groups first ship in R1d and MON follows DATA in the fixed order. MON:story:mon_1mn is a regex over the whole label of this story marker and writes the source-checked wording of the Monuments layer; MON keeps Fox's 224 of 262 and 215 on July 2 and adds that Fox names Wilcox's brigade while Hancock's report says a regiment. The DATA patch therefore has no effect on any shipped bundle (the audit replays R1d..R1f without it and the bytes are identical). It stays in group DATA because verify_release V7 requires every patch id of a train to exist in the next one, and removing it would change no byte."
+  },
+  {
+   "patch": "DATA-mA-20nc",
+   "superseded_by": "MON:story:mon_20nc",
+   "why": "Both groups first ship in R1d and MON follows DATA in the fixed order. MON:story:mon_20nc is a regex over the whole label of this story marker and writes the source-checked wording of the Monuments layer; MON keeps the stone-wall and captured-men sentence and adds the 97th New York count (Wheelock). The DATA patch therefore has no effect on any shipped bundle (the audit replays R1d..R1f without it and the bytes are identical). It stays in group DATA because verify_release V7 requires every patch id of a train to exist in the next one, and removing it would change no byte."
+  },
+  {
+   "patch": "DATA-mA-hood",
+   "superseded_by": "MON:story:mon_hood",
+   "why": "Both groups first ship in R1d and MON follows DATA in the fixed order. MON:story:mon_hood is a regex over the whole label of this story marker and writes the source-checked wording of the Monuments layer; MON keeps Lee's July 4 dispatch (in the arm) and replaces the unsourced 4:30 PM with 'no report gives the hour, later estimates run from about 4 to 5 PM'. The DATA patch therefore has no effect on any shipped bundle (the audit replays R1d..R1f without it and the bytes are identical). It stays in group DATA because verify_release V7 requires every patch id of a train to exist in the next one, and removing it would change no byte."
+  }
+ ]
+}

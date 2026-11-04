@@ -1,0 +1,4400 @@
+{
+ "meta": {
+  "source": "Gettysburg Total War animation plan, version 2 (tmp/pdf/plan-clean.txt)",
+  "sections": "B.7.2, B.7.3, B.7.5, B.8.2, B.8.3, B.8.4, B.8.5, B.8.6, B.8.7, B.12.3",
+  "status": "seeded_unverified: transcribed from the PDF text; no primary source read",
+  "pdf_defaults_status": "PENDING OWNER (Law cl.6): no default view of a conflicting source has been chosen here",
+  "time_convention": "naive ISO-8601 local mean time as printed (Union and Confederate clocks differed by about 20 minutes; no correction applied)",
+  "tier_rule": "tier = printed PDF tier AND >=1 cited key outside the weak set; weak set = Wikipedia (Wiki-*, W-CONS), forums (CWT*), blogs the PDF flags (WHB*, GC-COMP), Stone Sentinels (SS-*, SStone-*). Mechanical only: no source opened to confirm it supports the exact claim.",
+  "weak_patterns": [
+   "^Wiki-",
+   "^W-CONS$",
+   "^CWT",
+   "^WHB",
+   "^GC-COMP$",
+   "^SS-",
+   "^SStone-"
+  ],
+  "generator": "tools/bt/build_structures.py",
+  "record_count": 130,
+  "kind_counts": {
+   "barricade": 1,
+   "earthwork": 1,
+   "breastwork": 4,
+   "fortification_undetailed": 1,
+   "traverse": 1,
+   "line_extension": 1,
+   "occupation_not_construction": 1,
+   "shelling_damage_state": 1,
+   "lunette": 1,
+   "no_construction": 1,
+   "stone_breastwork": 1,
+   "gun_position_improvised": 1,
+   "no_works": 1,
+   "open_gap": 2,
+   "preexisting_wall_or_fence": 13,
+   "terrain_excavation": 1,
+   "gun_emplacement": 18,
+   "building": 40,
+   "bridge": 1,
+   "fence_post_and_rail": 2,
+   "fence": 10,
+   "fence_and_orchard": 1,
+   "fence_virginia_worm": 1,
+   "fence_iron_other": 1,
+   "stone_wall": 1,
+   "road": 6,
+   "avenue_not_in_1863": 1,
+   "crop": 1,
+   "cemetery": 1,
+   "world_state": 1,
+   "terrain": 1,
+   "group": 1,
+   "person_state": 1,
+   "railroad": 1,
+   "epilogue_state": 9
+  }
+ },
+ "structures": [
+  {
+   "id": "E-01",
+   "section": "B.7.2",
+   "kind": "barricade",
+   "name": "Seminary Ridge, in the small wood in front of Schmucker Hall",
+   "location": "Seminary Ridge, in the small wood in front of Schmucker Hall",
+   "preexisting": false,
+   "description": "Fences dismantled and rails stacked into a barricade that curved through the wood; hasty breastworks",
+   "dimensions": "About 600 yd long (Wikipedia first day)",
+   "unit": "I Corps remnants under Wainwright's artillery (20-22 guns)",
+   "start_printed": "Jul 1, afternoon, before about 16:00",
+   "end_printed": "Overrun about 16:00-16:30",
+   "notes_printed": "20 guns (Wikipedia) vs 22 guns in four batteries (HistoryNet Pender). Pender attacked about 16:00 and broke through by about 16:30. No start time, no crew list",
+   "construction_applies": true,
+   "parse_status": "parsed",
+   "tier": "documented",
+   "tier_printed": "documented (existence, method); inferred (start window)",
+   "tier_mixed": true,
+   "weak_source": false,
+   "weak_keys": [
+    "Wiki-D1"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "HN-Pender",
+    "Wiki-D1"
+   ],
+   "conflicts": [
+    "20 guns (Wikipedia) vs 22 guns in four batteries (HistoryNet Pender). Pender attacked about 16:00 and broke through by about 16:30. No start time, no crew list"
+   ],
+   "gaps": [],
+   "schedule_rows": [
+    "S-010",
+    "S-011"
+   ]
+  },
+  {
+   "id": "E-02",
+   "section": "B.7.2",
+   "kind": "earthwork",
+   "name": "Culp's Hill north slope, Stevens' Knoll to the summit",
+   "location": "Culp's Hill north slope, Stevens' Knoll to the summit",
+   "preexisting": false,
+   "description": "Spades and shovels (about a dozen from the 6th Wisconsin's regimental wagon), logs and earth",
+   "dimensions": null,
+   "unit": "Wadsworth's 1st Division, I Corps, led by the 6th Wisconsin (Dawes), then the rest of the division",
+   "start_printed": "Jul 1 evening (inferred about 18:00-21:00)",
+   "end_printed": "Rudimentary line by nightfall",
+   "notes_printed": "The 6th Wisconsin began on its own initiative. Later regiments of the division followed. The \"about 18:00-21:00\" window is the earlier note's inference",
+   "construction_applies": true,
+   "parse_status": "parsed",
+   "dimensions_printed": "None given",
+   "tier": "documented",
+   "tier_printed": "documented (who, when, tools); inferred (clock window)",
+   "tier_mixed": true,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "HN-Walls"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-014"
+   ]
+  },
+  {
+   "id": "E-03",
+   "section": "B.7.2",
+   "kind": "breastwork",
+   "name": "Lower Culp's Hill summit",
+   "location": "Lower Culp's Hill summit",
+   "preexisting": false,
+   "description": "Breastworks",
+   "dimensions": "A soldier's letter puts the work about 10 rods (about 165 ft) in front of a heavy stone wall",
+   "unit": "123rd NY (1st Division, XII Corps)",
+   "start_printed": "Jul 1",
+   "end_printed": "Not stated",
+   "notes_printed": "Start hour not given. A XII Corps regiment working on July 1 sits oddly beside the 6 a.m. July 2 start for the corps (see E-05); carried, not resolved",
+   "construction_applies": true,
+   "parse_status": "parsed",
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "HN-Hundreds"
+   ],
+   "conflicts": [
+    "Start hour not given. A XII Corps regiment working on July 1 sits oddly beside the 6 a.m. July 2 start for the corps (see E-05); carried, not resolved"
+   ],
+   "gaps": [],
+   "schedule_rows": [
+    "S-015"
+   ]
+  },
+  {
+   "id": "E-04",
+   "section": "B.7.2",
+   "kind": "fortification_undetailed",
+   "name": "Cemetery Hill",
+   "location": "Cemetery Hill",
+   "preexisting": false,
+   "description": "\"Fortified\" (undetailed)",
+   "dimensions": null,
+   "unit": "Von Steinwehr's division and two batteries; Howard left infantry and artillery; Hancock directed troops after 16:00",
+   "start_printed": "Jul 1, afternoon-night",
+   "end_printed": "Not stated",
+   "notes_printed": "Wikipedia says von Steinwehr fortified it; no method or time. Soft",
+   "construction_applies": true,
+   "parse_status": "parsed",
+   "dimensions_printed": "None",
+   "tier": "inferred",
+   "tier_printed": "documented (vague)",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-CH",
+    "Wiki-D1"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-D1",
+    "Wiki-CH"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-020"
+   ]
+  },
+  {
+   "id": "E-05",
+   "section": "B.7.2",
+   "kind": "breastwork",
+   "name": "Upper Culp's Hill (60th NY upper crest, 102nd and 149th in the saddle, 137th lower crest, 78th reserve)",
+   "location": "Upper Culp's Hill (60th NY upper crest, 102nd and 149th in the saddle, 137th lower crest, 78th reserve)",
+   "preexisting": false,
+   "description": "Felled trees cut into blocks and stacked as a close log fence; stones and boulders; earth; head logs on much of the line; cordwood piles; rifle pits; boughs and logs in front as concealment",
+   "dimensions": "About 5 ft high (only height figure found). About 300 yd at first",
+   "unit": "Greene's 3rd Brigade, XII Corps (60th, 78th, 102nd, 137th, 149th NY)",
+   "start_printed": "About 06:00 Jul 2 (HistoryNet King, HMDB)",
+   "end_printed": "About 09:00-10:00 (3-4 hours); finished by about 10:00 (DMNA) or about noon (Gettysburg Daily)",
+   "notes_printed": "Start-time conflict: night of July 1-2 (DMNA 60th NY) vs about 06:00 July 2 (HMDB, HistoryNet King) vs \"about 3 hours, finished about noon\" (Gettysburg Daily). Duration: \"about four hours\" (HistoryNet King), \"three or four hours\" (Capt. Collins, 149th NY, via HistoryNet Walls), about 3 hours (Gettysburg Daily). Slocum and Geary thought works unnecessary; Greene, a former railroad engineer, ordered them",
+   "construction_applies": true,
+   "parse_status": "parsed",
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "HN-King",
+    "HMDB-13997",
+    "HN-Walls",
+    "GD-219",
+    "DMNA-60NY"
+   ],
+   "conflicts": [
+    "Start-time conflict: night of July 1-2 (DMNA 60th NY) vs about 06:00 July 2 (HMDB, HistoryNet King) vs \"about 3 hours, finished about noon\" (Gettysburg Daily). Duration: \"about four hours\" (HistoryNet King), \"three or four hours\" (Capt. Collins, 149th NY, via HistoryNet Walls), about 3 hours (Gettysburg Daily). Slocum and Geary thought works unnecessary; Greene, a former railroad engineer, ordered them"
+   ],
+   "gaps": [],
+   "schedule_rows": [
+    "S-023",
+    "S-050"
+   ]
+  },
+  {
+   "id": "E-06",
+   "section": "B.7.2",
+   "kind": "traverse",
+   "name": "Right-hand end of Greene's line, running back along a ridge crest toward the Baltimore Pike; where the line dropped into the swale",
+   "location": "Right-hand end of Greene's line, running back along a ridge crest toward the Baltimore Pike; where the line dropped into the swale",
+   "preexisting": false,
+   "description": "Traverse at right angles to protect the right flank; a traversing trench the 137th NY used to face south",
+   "dimensions": null,
+   "unit": "Greene (supervised personally)",
+   "start_printed": "Jul 2 morning, with E-05",
+   "end_printed": "Work continued through the day",
+   "notes_printed": "DMNA says work continued on angles and salients through the day",
+   "construction_applies": true,
+   "parse_status": "parsed",
+   "dimensions_printed": "No dimensions documented",
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "Wiki-CH2"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "HN-King",
+    "DMNA-60NY",
+    "Wiki-CH2"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-023",
+    "S-025"
+   ]
+  },
+  {
+   "id": "E-07",
+   "section": "B.7.2",
+   "kind": "breastwork",
+   "name": "Culp's Hill, either side of Greene",
+   "location": "Culp's Hill, either side of Greene",
+   "preexisting": false,
+   "description": "Breastworks",
+   "dimensions": null,
+   "unit": "Kane's 2nd Brigade (Greene's right) and Wadsworth's I Corps men (Greene's left)",
+   "start_printed": "Jul 2 morning",
+   "end_printed": "About same as E-05",
+   "notes_printed": "HistoryNet King places Kane on Greene's right and Wadsworth's men on his left. Per-regiment times not found",
+   "construction_applies": true,
+   "parse_status": "parsed",
+   "dimensions_printed": "None",
+   "tier": "documented",
+   "tier_printed": "documented (general)",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "HN-King"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-024"
+   ]
+  },
+  {
+   "id": "E-08",
+   "section": "B.7.2",
+   "kind": "breastwork",
+   "name": "Lower Culp's Hill",
+   "location": "Lower Culp's Hill",
+   "preexisting": false,
+   "description": "Log breastwork",
+   "dimensions": null,
+   "unit": "Williams's division, XII Corps (including Lockwood's brigade, position unconfirmed)",
+   "start_printed": "Jul 2 morning (on arrival)",
+   "end_printed": "Not stated",
+   "notes_printed": "Lockwood's brigade position and work: open gap",
+   "construction_applies": true,
+   "parse_status": "parsed",
+   "dimensions_printed": "None",
+   "tier": "documented",
+   "tier_printed": "documented (general)",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "HN-Walls"
+   ],
+   "conflicts": [],
+   "gaps": [
+    "Lockwood's brigade position and work: open gap"
+   ],
+   "schedule_rows": [
+    "S-024"
+   ]
+  },
+  {
+   "id": "E-09",
+   "section": "B.7.2",
+   "kind": "line_extension",
+   "name": "Whole Culp's Hill line",
+   "location": "Whole Culp's Hill line",
+   "preexisting": false,
+   "description": "\"Hastily built extension\" when the Federal right fell back; 137th NY changed front into the traverse",
+   "dimensions": "Line stretched to about 800 yd, a single thin line",
+   "unit": "Greene's brigade alone (plus about 750 reinforcements from I and XI Corps later)",
+   "start_printed": "18:30 Jul 2",
+   "end_printed": "Evening",
+   "notes_printed": "At 18:30 the 1st and 2nd Brigades were ordered to the left, leaving Greene to hold the corps line. Greene spaced men a foot to several feet apart and sent a skirmish line down the slope",
+   "construction_applies": true,
+   "parse_status": "parsed",
+   "tier": "documented",
+   "tier_printed": "documented (extension, 18:30); inferred (800 yd per Gettysburg Daily)",
+   "tier_mixed": true,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "HMDB-13997",
+    "ABT-Culp",
+    "GD-219",
+    "HN-King"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-041",
+    "S-050"
+   ]
+  },
+  {
+   "id": "E-10",
+   "section": "B.7.2",
+   "kind": "occupation_not_construction",
+   "name": "Empty lower-hill Union works (the 1st Division, Kane and Candy areas)",
+   "location": "Empty lower-hill Union works (the 1st Division, Kane and Candy areas)",
+   "preexisting": false,
+   "description": "Occupation, not construction",
+   "dimensions": null,
+   "unit": "Steuart's brigade (1st Maryland Battalion, 1st and 3rd NC, 10th, 23rd, 37th VA)",
+   "start_printed": "After dark Jul 2 (about 19:00-22:00; Johnson's attacks ended by about 10 p.m.)",
+   "end_printed": "Held several hours; driven out Jul 3",
+   "notes_printed": "Virginians took the empty works on the 137th's right; the 6th Wisconsin ran into their fire; the 14th Brooklyn drove them back. A company of the 2nd Mass. took 23 prisoners in unoccupied works south of the swale",
+   "construction_applies": false,
+   "parse_status": "parsed",
+   "dimensions_printed": "n/a",
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "HN-King",
+    "ABT-Culp",
+    "DMNA-60NY"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-042"
+   ]
+  },
+  {
+   "id": "E-11",
+   "section": "B.7.2",
+   "kind": "shelling_damage_state",
+   "name": "Culp's Hill",
+   "location": "Culp's Hill",
+   "preexisting": false,
+   "description": "Shelling of the lower works; counterattack",
+   "dimensions": "Works damaged, unevenly held",
+   "unit": "XII Corps, Geary, Greene; Union artillery (including Powers Hill guns)",
+   "start_printed": "About 04:00 Jul 3",
+   "end_printed": "Battle ended about 11:00",
+   "notes_printed": "Shelling length 30 minutes to 3 hours; 5 batteries (one account) or 24 guns (soldier's letter). Rounds fired by Geary's men: about 227,000 (Wikipedia) vs about 250,000 (soldier's letter). Greene rotated regiments out to reload and rest",
+   "construction_applies": false,
+   "parse_status": "parsed",
+   "tier": "documented",
+   "tier_printed": "documented (shelling and retaking); inferred (damage state)",
+   "tier_mixed": true,
+   "weak_source": false,
+   "weak_keys": [
+    "Wiki-Culp"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-Culp",
+    "HN-Hundreds",
+    "HN-King"
+   ],
+   "conflicts": [
+    "Shelling length 30 minutes to 3 hours; 5 batteries (one account) or 24 guns (soldier's letter). Rounds fired by Geary's men: about 227,000 (Wikipedia) vs about 250,000 (soldier's letter). Greene rotated regiments out to reload and rest"
+   ],
+   "gaps": [],
+   "schedule_rows": [
+    "S-050",
+    "S-056"
+   ]
+  },
+  {
+   "id": "E-12",
+   "section": "B.7.2",
+   "kind": "lunette",
+   "name": "East Cemetery Hill, lunettes near the gatehouse (Stewart's Battery B, 4th US occupied a lunette; Battery L, 1st NY also marked)",
+   "location": "East Cemetery Hill, lunettes near the gatehouse (Stewart's Battery B, 4th US occupied a lunette; Battery L, 1st NY also marked)",
+   "preexisting": false,
+   "description": "Earth lunettes",
+   "dimensions": null,
+   "unit": "Union batteries; builders unnamed (likely battery crews and infantry details: inference)",
+   "start_printed": "Between Jul 1 evening and noon Jul 2 (inferred)",
+   "end_printed": "Existing by about 16:00 Jul 2",
+   "notes_printed": "Protected guns from the Benner's Hill barrage that began about 16:00. Wiedrich's and Ricketts's batteries were on the crest; slope limited gun depression so they used canister",
+   "construction_applies": true,
+   "parse_status": "parsed",
+   "dimensions_printed": "None",
+   "tier": "inferred",
+   "tier_printed": "inferred (timing); documented (existence by 16:00); builder is an open gap",
+   "tier_mixed": true,
+   "weak_source": false,
+   "weak_keys": [
+    "Wiki-ECH"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-ECH",
+    "GD-Housch"
+   ],
+   "conflicts": [],
+   "gaps": [
+    "builder is an open gap"
+   ],
+   "schedule_rows": [
+    "S-026"
+   ]
+  },
+  {
+   "id": "E-13",
+   "section": "B.7.2",
+   "kind": "no_construction",
+   "name": "Little Round Top",
+   "location": "Little Round Top",
+   "preexisting": false,
+   "description": "No construction attributed; natural ledges and boulders",
+   "dimensions": null,
+   "unit": "Vincent's brigade (16th Michigan, 44th NY, 83rd PA, 20th Maine)",
+   "start_printed": "Arrived about 15:30-16:00 Jul 2",
+   "end_printed": "Fought at once",
+   "notes_printed": "20th Maine Company B and the 2nd US Sharpshooters also used a wall (stone wall about 150 yd east of the hill for the sharpshooters)",
+   "construction_applies": false,
+   "parse_status": "parsed",
+   "dimensions_printed": "n/a",
+   "tier": "documented",
+   "tier_printed": "documented (no works attributed); inferred (arrival window)",
+   "tier_mixed": true,
+   "weak_source": false,
+   "weak_keys": [
+    "Wiki-LRT"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "HN-LRT",
+    "Wiki-LRT"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "E-14",
+   "section": "B.7.2",
+   "kind": "stone_breastwork",
+   "name": "Little Round Top, south slope",
+   "location": "Little Round Top, south slope",
+   "preexisting": false,
+   "description": "Stone breastworks from abundant nearby rock",
+   "dimensions": null,
+   "unit": "Weed's brigade, five Pennsylvania Reserve regiments, an Ohio battery",
+   "start_printed": "Evening Jul 2 (about 20:00 inferred) or after",
+   "end_printed": "Into Jul 3",
+   "notes_printed": "NPS says built on July 2; Wikipedia says on the evening of July 2 or after, and credits most surviving works to Weed's brigade and the Reserves. O'Sullivan photographed the wall days later",
+   "construction_applies": true,
+   "parse_status": "parsed",
+   "dimensions_printed": "None",
+   "tier": "documented",
+   "tier_printed": "documented, with a conflict",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "Wiki-LRT"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "NPS-LRT",
+    "Wiki-LRT"
+   ],
+   "conflicts": [
+    "documented, with a conflict"
+   ],
+   "gaps": [],
+   "schedule_rows": [
+    "S-043"
+   ]
+  },
+  {
+   "id": "E-15",
+   "section": "B.7.2",
+   "kind": "gun_position_improvised",
+   "name": "Little Round Top summit",
+   "location": "Little Round Top summit",
+   "preexisting": false,
+   "description": "Guns hauled by hand up the rocky slope (one driven to the summit, per another account); ammunition run up from caissons; no prepared epaulement",
+   "dimensions": null,
+   "unit": "Hazlett's Battery D, 5th US (six guns)",
+   "start_printed": "March about 16:30 Jul 2; first fire 17:45",
+   "end_printed": "Fired until after dark; remained Jul 3",
+   "notes_printed": "Guns could not depress enough to fire on close attackers. Hazlett mortally wounded kneeling by Weed. Rittenhouse took command",
+   "construction_applies": false,
+   "parse_status": "ambiguous",
+   "dimensions_printed_candidate": "n/a",
+   "raw_unparsed": [
+    "documented"
+   ],
+   "parse_note": "Extracted text has two cells ('documented', 'n/a') between the Method cell and the Tier cell that do not fit the 9-column layout; 'n/a' is read as Dimensions (kept in dimensions_printed_candidate, dimensions left null) and the stray 'documented' is kept unparsed.",
+   "tier": "documented",
+   "tier_printed": "documented (hand-hauling, times); inferred (no prepared emplacement)",
+   "tier_mixed": true,
+   "weak_source": false,
+   "weak_keys": [
+    "SS-10491",
+    "SS-8009"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "NPS-Hazlett",
+    "NPS-HB9",
+    "SS-8009",
+    "SS-10491"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-038"
+   ]
+  },
+  {
+   "id": "E-16",
+   "section": "B.7.2",
+   "kind": "no_works",
+   "name": "Devil's Den / Houck's Ridge",
+   "location": "Devil's Den / Houck's Ridge",
+   "preexisting": false,
+   "description": "No works; Ward lacked time or inclination",
+   "dimensions": null,
+   "unit": "Ward's brigade, Smith's 4th NY Battery",
+   "start_printed": "n/a",
+   "end_printed": "n/a",
+   "notes_printed": "Smith's battery emplaced at Devil's Den (see B.7.5, G-05)",
+   "construction_applies": false,
+   "parse_status": "parsed",
+   "dimensions_printed": "n/a",
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "Wiki-D2"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-D2",
+    "NPS-HB9"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "E-17",
+   "section": "B.7.2",
+   "kind": "open_gap",
+   "name": "Cemetery Ridge, rail works",
+   "location": "Cemetery Ridge, rail works",
+   "preexisting": false,
+   "description": "Unknown",
+   "dimensions": null,
+   "unit": "Unknown",
+   "start_printed": "Unknown",
+   "end_printed": "Unknown",
+   "notes_printed": "No source found for rail breastworks on Cemetery Ridge. Do not animate rail piles as documented. A July 2 evening gap south of the Copse implies no continuous works there",
+   "construction_applies": false,
+   "parse_status": "parsed",
+   "dimensions_printed": "Unknown",
+   "tier": "open_gap",
+   "tier_printed": "open gap",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "NPS-CWS10"
+   ],
+   "conflicts": [],
+   "gaps": [
+    "open gap",
+    "whole row is an open gap: No source found for rail breastworks on Cemetery Ridge. Do not animate rail piles as documented. A July 2 evening gap south of the Copse implies no continuous works there"
+   ],
+   "schedule_rows": []
+  },
+  {
+   "id": "E-18",
+   "section": "B.7.2",
+   "kind": "open_gap",
+   "name": "Seminary Ridge, Warfield Ridge, Oak Hill, Benner's Hill, town barricades",
+   "location": "Seminary Ridge, Warfield Ridge, Oak Hill, Benner's Hill, town barricades",
+   "preexisting": false,
+   "description": "Unknown",
+   "dimensions": null,
+   "unit": "Confederate units",
+   "start_printed": "Unknown",
+   "end_printed": "Unknown",
+   "notes_printed": "No Confederate works found in the notes for July 2-3",
+   "construction_applies": false,
+   "parse_status": "parsed",
+   "dimensions_printed": "Unknown",
+   "tier": "open_gap",
+   "tier_printed": "open gap",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [],
+   "conflicts": [],
+   "gaps": [
+    "open gap",
+    "whole row is an open gap: No Confederate works found in the notes for July 2-3"
+   ],
+   "schedule_rows": []
+  },
+  {
+   "id": "P-01",
+   "section": "B.7.3",
+   "kind": "preexisting_wall_or_fence",
+   "name": "Stone wall at the Angle and around the Copse",
+   "location": "Cemetery Ridge",
+   "preexisting": true,
+   "description": "Built by local farmers before the battle; originally about 2-3 ft high; Copse under ten feet high in 1863; the 80-yd right-angle wall held by Webb's brigade",
+   "engine_note": "Present at frame one. Any added rail or earth reinforcement is unverified and must be flagged",
+   "dimensions": "originally about 2-3 ft high; Copse under ten feet high in 1863; the 80-yd right-angle wall (as printed in the 'why' cell)",
+   "construction": null,
+   "construction_animation_allowed": false,
+   "parse_status": "parsed",
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "SStone-6164",
+    "Wiki-PC"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "NPS-Angle",
+    "SStone-6164",
+    "Wiki-PC"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "P-02",
+   "section": "B.7.3",
+   "kind": "preexisting_wall_or_fence",
+   "name": "Low stone wall at the north end of Cemetery Hill wrapping onto Brickyard Lane, and the lane walls",
+   "location": "East Cemetery Hill",
+   "preexisting": true,
+   "description": "Inferred as farm walls (Harris's brigade held the wall; von Gilsa's along the lane)",
+   "engine_note": "Present at frame one",
+   "dimensions": null,
+   "construction": null,
+   "construction_animation_allowed": false,
+   "parse_status": "parsed",
+   "tier": "inferred",
+   "tier_printed": "inferred",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-ECH"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-ECH"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "P-03",
+   "section": "B.7.3",
+   "kind": "preexisting_wall_or_fence",
+   "name": "Stone wall on the east side of the Baltimore Pike",
+   "location": "Cemetery Hill",
+   "preexisting": true,
+   "description": "Landmark in the guide's description",
+   "engine_note": "Present at frame one",
+   "dimensions": null,
+   "construction": null,
+   "construction_animation_allowed": false,
+   "parse_status": "parsed",
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "GD-Housch"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "P-04",
+   "section": "B.7.3",
+   "kind": "preexisting_wall_or_fence",
+   "name": "Stone wall between Rose's Woods and the Wheatfield's south edge (17th Maine)",
+   "location": "Wheatfield",
+   "preexisting": true,
+   "description": "Existing wall",
+   "engine_note": "Present at frame one; damage by fire/trampling only if sourced",
+   "dimensions": null,
+   "construction": null,
+   "construction_animation_allowed": false,
+   "parse_status": "parsed",
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "NPS-CWS8"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "P-05",
+   "section": "B.7.3",
+   "kind": "preexisting_wall_or_fence",
+   "name": "Low stone fence on Houck's Ridge (124th NY counterattack)",
+   "location": "Devil's Den area",
+   "preexisting": true,
+   "description": "Existing fence",
+   "engine_note": "Present at frame one",
+   "dimensions": null,
+   "construction": null,
+   "construction_animation_allowed": false,
+   "parse_status": "parsed",
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-D2"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-D2"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "P-06",
+   "section": "B.7.3",
+   "kind": "preexisting_wall_or_fence",
+   "name": "Stone wall near the Trostle house (Bigelow's second position, about 18:00-18:30)",
+   "location": "Trostle farm",
+   "preexisting": true,
+   "description": "Existing wall",
+   "engine_note": "Present at frame one",
+   "dimensions": null,
+   "construction": null,
+   "construction_animation_allowed": false,
+   "parse_status": "parsed",
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "CWE-9Mass"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "P-07",
+   "section": "B.7.3",
+   "kind": "preexisting_wall_or_fence",
+   "name": "Wall on Oak Ridge (Baxter's brigade, about 14:00-15:00 Jul 1)",
+   "location": "Oak Ridge",
+   "preexisting": true,
+   "description": "Existing wall",
+   "engine_note": "Present at frame one",
+   "dimensions": null,
+   "construction": null,
+   "construction_animation_allowed": false,
+   "parse_status": "parsed",
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-D1"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-D1"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "P-08",
+   "section": "B.7.3",
+   "kind": "preexisting_wall_or_fence",
+   "name": "Stone wall in Pardee Field (attacked about Jul 3 by the 1st Maryland PHB)",
+   "location": "Culp's Hill",
+   "preexisting": true,
+   "description": "Existing wall",
+   "engine_note": "Present at frame one",
+   "dimensions": null,
+   "construction": null,
+   "construction_animation_allowed": false,
+   "parse_status": "parsed",
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "Wiki-Culp"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-Culp",
+    "HN-Walls"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "P-09",
+   "section": "B.7.3",
+   "kind": "preexisting_wall_or_fence",
+   "name": "\"Heavy stone wall\" about 10 rods behind the 123rd NY's breastwork",
+   "location": "Lower Culp's Hill",
+   "preexisting": true,
+   "description": "Existing wall",
+   "engine_note": "Present at frame one",
+   "dimensions": "about 10 rods behind the 123rd NY's breastwork (as printed in the feature cell)",
+   "construction": null,
+   "construction_animation_allowed": false,
+   "parse_status": "parsed",
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "HN-Hundreds"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "P-10",
+   "section": "B.7.3",
+   "kind": "preexisting_wall_or_fence",
+   "name": "Peach Orchard and Wheatfield fences and walls; Emmitsburg Road double post-and-rail fences",
+   "location": "Emmitsburg Road, Peach Orchard, Wheatfield",
+   "preexisting": true,
+   "description": "Farm fences",
+   "engine_note": "Present at frame one; destruction handled in the B.8.7 schedule",
+   "dimensions": null,
+   "construction": null,
+   "construction_animation_allowed": false,
+   "parse_status": "parsed",
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Savas-Hessler",
+    "GD-EmmRd"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "see_also": [
+    "FEN-emmitsburg-road",
+    "FEN-sherfy-orchard"
+   ],
+   "schedule_rows": [
+    "S-062"
+   ]
+  },
+  {
+   "id": "P-11",
+   "section": "B.7.3",
+   "kind": "preexisting_wall_or_fence",
+   "name": "James Warfield's stone walls",
+   "location": "Warfield farm",
+   "preexisting": true,
+   "description": "Farm walls",
+   "engine_note": "Present at frame one",
+   "dimensions": null,
+   "construction": null,
+   "construction_animation_allowed": false,
+   "parse_status": "parsed",
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Warfield"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-Warfield"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "see_also": [
+    "FEN-warfield",
+    "bld-warfield-house"
+   ],
+   "schedule_rows": []
+  },
+  {
+   "id": "P-12",
+   "section": "B.7.3",
+   "kind": "terrain_excavation",
+   "name": "Unfinished railroad grade and cut",
+   "location": "McPherson Ridge",
+   "preexisting": true,
+   "description": "Earlier excavation (used for cover about 11:00 Jul 1)",
+   "engine_note": "Modelled as terrain, not construction. Cut dimensions: open gap",
+   "dimensions": null,
+   "construction": null,
+   "construction_animation_allowed": false,
+   "parse_status": "parsed",
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-D1"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-D1"
+   ],
+   "conflicts": [],
+   "gaps": [
+    "Cut dimensions: open gap"
+   ],
+   "b84_row": {
+    "road": "Unfinished railroad cut",
+    "notes": "Attacked about 11:00 Jul 1 by the 6th Wisconsin and NY regiments against Davis's brigade",
+    "gap": "Cut dimensions"
+   },
+   "schedule_rows": [
+    "S-007"
+   ]
+  },
+  {
+   "id": "P-13",
+   "section": "B.7.3",
+   "kind": "preexisting_wall_or_fence",
+   "name": "Low stone wall at the Leister farm (Gardner photographed it July 6, 1863)",
+   "location": "Cemetery Ridge, Leister farm",
+   "preexisting": true,
+   "description": "Farm wall; a critic argues it was low (about 24 in) and haphazardly built",
+   "engine_note": "Present at frame one. NPS's rebuilt walls are taller (48-52 in): see B.8.3",
+   "dimensions": "about 24 in per a critic (contested); NPS rebuilt walls 48-52 in (modern, not 1863)",
+   "construction": null,
+   "construction_animation_allowed": false,
+   "parse_status": "parsed",
+   "tier": "documented",
+   "tier_printed": "documented (photo); contested (height)",
+   "tier_mixed": true,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "GD-14708"
+   ],
+   "conflicts": [
+    "documented (photo); contested (height)"
+   ],
+   "gaps": [],
+   "see_also": [
+    "FEN-leister",
+    "FEN-cemetery-ridge-walls"
+   ],
+   "schedule_rows": [
+    "S-075"
+   ]
+  },
+  {
+   "id": "P-14",
+   "section": "B.7.3",
+   "kind": "preexisting_wall_or_fence",
+   "name": "Stone wall (Chamberlain's sharpshooters, about 150 yd east of Little Round Top) and the wall used by 20th Maine Company B",
+   "location": "Little Round Top",
+   "preexisting": true,
+   "description": "Existing walls used for cover",
+   "engine_note": "Inferred as pre-existing because the notes describe them as used, not built",
+   "dimensions": null,
+   "construction": null,
+   "construction_animation_allowed": false,
+   "parse_status": "parsed",
+   "tier": "inferred",
+   "tier_printed": "inferred",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "Wiki-LRT"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-LRT",
+    "HN-LRT"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "G-01",
+   "section": "B.7.5",
+   "kind": "gun_emplacement",
+   "name": "Calef, Battery A, 2nd US (six 3-inch rifles)",
+   "location": "McPherson Ridge",
+   "preexisting": false,
+   "description": "Improvised field position",
+   "evidence_printed": "Left section pulled back because woods came within 200 yd; the \"first shot\" marker location is unverified",
+   "time_printed": "Night of June 30 in a hollow; right and center sections about 600 yd forward on morning of Jul 1; fired first Union gun; relieved about 10:00 by Hall's 2nd Maine",
+   "emplacement_class": "improvised",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "built_on_screen": false,
+   "earth_allowed": false,
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "CWT-Calef",
+    "SS-7820"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels, forum (CivilWarTalk)) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "CWT-Calef",
+    "SS-7820"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "G-02",
+   "section": "B.7.5",
+   "kind": "gun_emplacement",
+   "name": "I Corps batteries (Wainwright, 20-22 guns; four batteries)",
+   "location": "Seminary Ridge, behind the E-01 rail barricade",
+   "preexisting": false,
+   "description": "Improvised (guns behind hasty rail works)",
+   "evidence_printed": "Artillery withdrew down Chambersburg Street after the line collapsed",
+   "time_printed": "Jul 1 afternoon to about 16:30",
+   "emplacement_class": "improvised",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "built_on_screen": false,
+   "earth_allowed": false,
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "Wiki-D1"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-D1",
+    "HN-Pender"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "G-03",
+   "section": "B.7.5",
+   "kind": "gun_emplacement",
+   "name": "Wiedrich (1st NY I), Ricketts (Pa. F&G); Stewart (Battery B, 4th US) in a lunette; Battery L, 1st NY",
+   "location": "East Cemetery Hill, lunettes near gatehouse",
+   "preexisting": false,
+   "description": "Prepared (earth lunettes)",
+   "evidence_printed": "Slope limited gun depression, so canister; gunners fought hand to hand when Hays's Louisianans reached the guns",
+   "time_printed": "Lunettes by about 16:00 Jul 2; fighting about 19:30-21:00",
+   "emplacement_class": "prepared",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "built_on_screen": true,
+   "earth_allowed": true,
+   "tier": "documented",
+   "tier_printed": "documented (existence); builder unknown",
+   "tier_mixed": true,
+   "weak_source": false,
+   "weak_keys": [
+    "Wiki-ECH"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-ECH",
+    "GD-Housch"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "see_also": [
+    "E-12"
+   ],
+   "schedule_rows": [
+    "S-026"
+   ]
+  },
+  {
+   "id": "G-04",
+   "section": "B.7.5",
+   "kind": "gun_emplacement",
+   "name": "Latimer's battalion, about 20 guns in five batteries (Chesapeake, Alleghany, 1st Md, Lee, Rockbridge loaned from Dance)",
+   "location": "Benner's Hill",
+   "preexisting": false,
+   "description": "No works described",
+   "evidence_printed": "Outgunned by 37 Union guns from Culp's Hill to East Cemetery Hill; by dusk only four guns remained",
+   "time_printed": "About 16:00 Jul 2",
+   "emplacement_class": "no_works_described",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "built_on_screen": false,
+   "earth_allowed": false,
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "Wiki-ECH"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "ECW-Benner",
+    "Wiki-ECH"
+   ],
+   "conflicts": [],
+   "gaps": [
+    "no works described: open-ground battery position; log as a gap (B.7.5 engine rule)"
+   ],
+   "schedule_rows": [
+    "S-031"
+   ]
+  },
+  {
+   "id": "G-05",
+   "section": "B.7.5",
+   "kind": "gun_emplacement",
+   "name": "Smith's 4th NY (six 10-pdr Parrotts)",
+   "location": "Devil's Den / Houck's Ridge",
+   "preexisting": false,
+   "description": "Improvised (ordered to fire west into the woods)",
+   "evidence_printed": "Two guns in the Plum Run valley fired canister at Benning's brigade; three ridge guns captured by the 1st Texas and later given to Henry's battalion",
+   "time_printed": "Arrived 09:00; four guns above Devil's Den at 14:00; one section shifted right about 18:00",
+   "emplacement_class": "improvised",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "built_on_screen": false,
+   "earth_allowed": false,
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "SS-NY1958"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-NY1958",
+    "GD-Smith",
+    "NPS-HB9"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "G-06",
+   "section": "B.7.5",
+   "kind": "gun_emplacement",
+   "name": "Hazlett's Battery D, 5th US",
+   "location": "Little Round Top summit",
+   "preexisting": false,
+   "description": "Improvised; hand-hauled",
+   "evidence_printed": "See E-15",
+   "time_printed": "March 16:30; first fire 17:45; fired until after dark",
+   "emplacement_class": "improvised",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "built_on_screen": false,
+   "earth_allowed": false,
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "SS-8009"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "NPS-Hazlett",
+    "SS-8009"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "see_also": [
+    "E-15"
+   ],
+   "schedule_rows": [
+    "S-038"
+   ]
+  },
+  {
+   "id": "G-07",
+   "section": "B.7.5",
+   "kind": "gun_emplacement",
+   "name": "Hart's 15th NY (four Napoleons)",
+   "location": "Peach Orchard, on the Wheatfield Road facing south",
+   "preexisting": false,
+   "description": "Improvised (open field)",
+   "evidence_printed": "Lieutenant Knox pulled a gun off by hand",
+   "time_printed": "Ordered forward 16:00; placed about 16:30; canister at about 17:30",
+   "emplacement_class": "improvised",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "built_on_screen": false,
+   "earth_allowed": false,
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-15NY"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-15NY"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-035"
+   ]
+  },
+  {
+   "id": "G-08",
+   "section": "B.7.5",
+   "kind": "gun_emplacement",
+   "name": "Huger's four batteries (Moody, Parker, Taylor, Rhett/Gilbert) of Alexander's battalion",
+   "location": "Peach Orchard region, about 500 yd from the enemy",
+   "preexisting": false,
+   "description": "No works described",
+   "evidence_printed": "Silenced Union guns in half an hour; 36 Confederate guns fired for 30 minutes at the Peach Orchard around 16:00 (Wikipedia)",
+   "time_printed": "About 16:00 Jul 2",
+   "emplacement_class": "no_works_described",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "built_on_screen": false,
+   "earth_allowed": false,
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "Wiki-D2"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Alexander-OR",
+    "Wiki-D2"
+   ],
+   "conflicts": [],
+   "gaps": [
+    "no works described: open-ground battery position; log as a gap (B.7.5 engine rule)"
+   ],
+   "schedule_rows": []
+  },
+  {
+   "id": "G-09",
+   "section": "B.7.5",
+   "kind": "gun_emplacement",
+   "name": "Cabell's battalion",
+   "location": "Edge of woods by the Emmitsburg Road",
+   "preexisting": false,
+   "description": "No works described",
+   "evidence_printed": "July 3 guns several hundred yd in front of the infantry near a small brick house, firing about 13:00 for over two hours",
+   "time_printed": "First to open Jul 2",
+   "emplacement_class": "no_works_described",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "built_on_screen": false,
+   "earth_allowed": false,
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Cabell-OR"
+   ],
+   "conflicts": [],
+   "gaps": [
+    "no works described: open-ground battery position; log as a gap (B.7.5 engine rule)"
+   ],
+   "schedule_rows": []
+  },
+  {
+   "id": "G-10",
+   "section": "B.7.5",
+   "kind": "gun_emplacement",
+   "name": "Bigelow's 9th Mass. (six Napoleons)",
+   "location": "Wheatfield Road, then by prolonge about 400 yd to the stone wall near Trostle's house",
+   "preexisting": false,
+   "description": "Improvised; first position open, second behind existing wall (P-06)",
+   "evidence_printed": "Hand-to-hand fighting; two serviceable guns under Milton in Ziegler's Grove on Jul 3. Losses conflict (65 horses lost vs 80 of 88)",
+   "time_printed": "16:30-18:00; second position 18:00-18:30; overrun 21st Mississippi, about 18:30",
+   "emplacement_class": "improvised",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "built_on_screen": false,
+   "earth_allowed": false,
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "CWE-9Mass",
+    "CWN-2025"
+   ],
+   "conflicts": [
+    "Hand-to-hand fighting; two serviceable guns under Milton in Ziegler's Grove on Jul 3. Losses conflict (65 horses lost vs 80 of 88)"
+   ],
+   "gaps": [],
+   "schedule_rows": [
+    "S-039"
+   ]
+  },
+  {
+   "id": "G-11",
+   "section": "B.7.5",
+   "kind": "gun_emplacement",
+   "name": "McGilvery's Plum Run line",
+   "location": "South of Cemetery Ridge, along Plum Run",
+   "preexisting": false,
+   "description": "Improvised",
+   "evidence_printed": "Varied from 6 to 23 guns as batteries arrived and left",
+   "time_printed": "Assembled Jul 2 evening from various commands",
+   "emplacement_class": "improvised",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "built_on_screen": false,
+   "earth_allowed": false,
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "CWN-2025"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "G-12",
+   "section": "B.7.5",
+   "kind": "gun_emplacement",
+   "name": "Cushing's Battery A, 4th US (six 3-inch rifles)",
+   "location": "Angle, below the crest between the 71st and 72nd PA; two guns run to the wall",
+   "preexisting": false,
+   "description": "Prepared position in line; guns run forward to the pre-existing wall for canister",
+   "evidence_printed": "Four of six knocked out in the bombardment; three limbers exploded in the morning of Jul 3 per Hazard; double canister at about 100 yd; Cushing killed at the last shot",
+   "time_printed": "Jul 2 late afternoon (attached to Webb); Jul 3 about 13:00-15:30",
+   "emplacement_class": "prepared",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "built_on_screen": true,
+   "earth_allowed": true,
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "SS-7888"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "WHN-Cushing",
+    "Iron-9699",
+    "SS-7888"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-058"
+   ]
+  },
+  {
+   "id": "G-13",
+   "section": "B.7.5",
+   "kind": "gun_emplacement",
+   "name": "Union ridge line Jul 3 (Hunt)",
+   "location": "Cemetery Hill to Little Round Top",
+   "preexisting": false,
+   "description": "Mixed; prepared batteries on the ridge",
+   "evidence_printed": "About 80 (Wikipedia) to as many as 120 (ABT) guns for counterbattery; 34 Union cannon disabled in the bombardment; Hunt's slowdown and Hancock's countermand carried as a conflict",
+   "time_printed": "By 13:00 Jul 3",
+   "emplacement_class": "mixed",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "built_on_screen": false,
+   "earth_allowed": false,
+   "tier": "documented",
+   "tier_printed": "documented, with count range",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "Wiki-CR",
+    "Wiki-PC"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-PC",
+    "ABT-Art",
+    "Wiki-CR"
+   ],
+   "conflicts": [
+    "About 80 (Wikipedia) to as many as 120 (ABT) guns for counterbattery; 34 Union cannon disabled in the bombardment; Hunt's slowdown and Hancock's countermand carried as a conflict"
+   ],
+   "gaps": [],
+   "schedule_rows": [
+    "S-061"
+   ]
+  },
+  {
+   "id": "G-14",
+   "section": "B.7.5",
+   "kind": "gun_emplacement",
+   "name": "Confederate line Jul 3",
+   "location": "More than 2 miles from the Peach Orchard along the Emmitsburg Road",
+   "preexisting": false,
+   "description": "Open positions",
+   "evidence_printed": "138-179 estimates (see B.2.5 conflict register); reasoned range 142-155",
+   "time_printed": "Placed from dawn Jul 3; fire from about 13:00",
+   "emplacement_class": "open_positions",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "built_on_screen": false,
+   "earth_allowed": false,
+   "tier": "documented",
+   "tier_printed": "documented, with count range",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "Wiki-PC"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-PC",
+    "SP-Guns"
+   ],
+   "conflicts": [
+    "138-179 estimates (see B.2.5 conflict register); reasoned range 142-155"
+   ],
+   "gaps": [
+    "no works described: open-ground battery position; log as a gap (B.7.5 engine rule)"
+   ],
+   "schedule_rows": [
+    "S-061"
+   ]
+  },
+  {
+   "id": "G-15",
+   "section": "B.7.5",
+   "kind": "gun_emplacement",
+   "name": "Carter's rifles",
+   "location": "Both sides of the railroad cut, Oak Hill region",
+   "preexisting": false,
+   "description": "No works described",
+   "evidence_printed": "Ten rifled guns on high ground firing at Cemetery Hill; smoothbores behind the college",
+   "time_printed": "Jul 3",
+   "emplacement_class": "no_works_described",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "built_on_screen": false,
+   "earth_allowed": false,
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Carter-OR"
+   ],
+   "conflicts": [],
+   "gaps": [
+    "no works described: open-ground battery position; log as a gap (B.7.5 engine rule)"
+   ],
+   "schedule_rows": []
+  },
+  {
+   "id": "G-16",
+   "section": "B.7.5",
+   "kind": "gun_emplacement",
+   "name": "Hurt's guns (McIntosh's battalion)",
+   "location": "Oak Hill/Oak Ridge: two Whitworths plus two 3-inch rifles per the Oak Hill marker",
+   "preexisting": false,
+   "description": "No works described",
+   "evidence_printed": "One account says Whitworths on Oak Ridge fired the signal; NPS handbook says two guns near the Peach Orchard (Miller's battery) fired at about 13:00",
+   "time_printed": "Jul 3",
+   "emplacement_class": "no_works_described",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "built_on_screen": false,
+   "earth_allowed": false,
+   "tier": "documented",
+   "tier_printed": "documented, with conflict",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "CWT-Whit"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "CWT-Whit",
+    "HN-Thunder",
+    "NPS-HB9"
+   ],
+   "conflicts": [
+    "documented, with conflict"
+   ],
+   "gaps": [
+    "no works described: open-ground battery position; log as a gap (B.7.5 engine rule)"
+   ],
+   "schedule_rows": []
+  },
+  {
+   "id": "G-17",
+   "section": "B.7.5",
+   "kind": "gun_emplacement",
+   "name": "Powers Hill guns",
+   "location": "Powers Hill",
+   "preexisting": false,
+   "description": "Not described",
+   "evidence_printed": "Fired at Culp's Hill; Meade moved to Powers Hill after the Leister house became untenable",
+   "time_printed": "Morning Jul 3",
+   "emplacement_class": "not_described",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "built_on_screen": false,
+   "earth_allowed": false,
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "HN-Thunder"
+   ],
+   "conflicts": [],
+   "gaps": [
+    "no works described: open-ground battery position; log as a gap (B.7.5 engine rule)"
+   ],
+   "schedule_rows": [
+    "S-057"
+   ]
+  },
+  {
+   "id": "G-18",
+   "section": "B.7.5",
+   "kind": "gun_emplacement",
+   "name": "Union Culp's Hill batteries",
+   "location": "Stevens' Knoll and around",
+   "preexisting": false,
+   "description": "Not described",
+   "evidence_printed": "Five batteries on one account; Wainwright commanded the guns on East Cemetery Hill and Stevens Knoll",
+   "time_printed": "About 04:00 Jul 3",
+   "emplacement_class": "not_described",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "built_on_screen": false,
+   "earth_allowed": false,
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-Culp",
+    "Wiki-ECH"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-Culp",
+    "Wiki-ECH"
+   ],
+   "conflicts": [],
+   "gaps": [
+    "no works described: open-ground battery position; log as a gap (B.7.5 engine rule)"
+   ],
+   "schedule_rows": []
+  },
+  {
+   "id": "bld-schmucker-hall",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Lutheran Seminary \"Schmucker Hall\" (Old Dorm)",
+   "location": "Seminary Ridge, Chambersburg Pike",
+   "preexisting": true,
+   "description": "Seminary founded 1826; hall built 1832; cupola used as observation post; ladder from attic to cupola",
+   "role_in_battle": "Buford and I Corps observation; I Corps hospital from day 1; Confederates held it from late afternoon Jul 1",
+   "state_and_damage_printed": "Lost most window glass, many bullet holes, a crack running nearly two stories; about 700 patients over about 2 months, about 70 died; 600-700 wounded at peak, over 400 Confederates (In Trust)",
+   "what_survives": "Hall survives; lightning destroyed the original cupola in 1913 (restored). Brady-era \"hole\" in the cupola photograph is a negative defect, not damage",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parts": [
+    {
+     "id": "bld-schmucker-hall#cupola",
+     "part": "cupola"
+    }
+   ],
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "SS-Seminary"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-Seminary",
+    "GD-Cupola",
+    "HN-Top",
+    "McF",
+    "InTrust"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-012",
+    "S-013"
+   ]
+  },
+  {
+   "id": "bld-pennsylvania-hall",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Pennsylvania Hall (Pennsylvania College)",
+   "location": "Town, college campus",
+   "preexisting": true,
+   "description": "Designed 1835, built 1837-38; Greek Revival, 4 stories, 150 x 45 ft, 4-column south portico; cupola",
+   "role_in_battle": "Union signal officers used the cupola June 30; Prof. Jacobs with Union officers Jul 1; control passed to Confederates evening Jul 1; hospital to about Jul 29 with about 700 casualties",
+   "state_and_damage_printed": "No specific structural damage recorded",
+   "what_survives": "Survives",
+   "dimensions": "150 x 45 ft, 4 stories",
+   "parse_status": "parsed",
+   "parts": [
+    {
+     "id": "bld-pennsylvania-hall#cupola",
+     "part": "cupola"
+    }
+   ],
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-PennHall"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-PennHall"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-002",
+    "S-018"
+   ]
+  },
+  {
+   "id": "bld-courthouse",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Adams County Courthouse",
+   "location": "Town",
+   "preexisting": true,
+   "description": "Built 1858 (occupied 1859), Italianate, two stories, red brick originally painted gray, about 70 ft clock tower",
+   "role_in_battle": "Command post and hospital for both sides",
+   "state_and_damage_printed": "No damage recorded",
+   "what_survives": "Survives",
+   "dimensions": "about 70 ft clock tower; two stories",
+   "parse_status": "parsed",
+   "parts": [],
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-Courthouse"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-Courthouse"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "bld-rr-station",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Railroad station (Carlisle Street)",
+   "location": "Town",
+   "preexisting": true,
+   "description": "Built 1858-59, Italianate, arched windows, low-pitched roof, cupola used by soldiers; a one-story addition came in 1886",
+   "role_in_battle": "Hospital",
+   "state_and_damage_printed": "Undamaged. Rail traffic resumed July 10 (one passage says 1865, internally inconsistent)",
+   "what_survives": "Survives",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parts": [],
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-Station"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-Station"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-076"
+   ]
+  },
+  {
+   "id": "bld-rock-creek-rr-bridge",
+   "section": "B.8.2",
+   "kind": "bridge",
+   "name": "Rock Creek railroad trestle / bridge",
+   "location": "Rock Creek, rail line",
+   "preexisting": true,
+   "description": "Covered bridge / trestle",
+   "role_in_battle": "Burned by Early's troops before the main battle",
+   "state_and_damage_printed": "Burned June 26-27 (sources vary 26 or 27)",
+   "what_survives": "Gone",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "b84_row": {
+    "road": "Rock Creek railroad trestle",
+    "notes": "Burned June 26-27",
+    "gap": "n/a"
+   },
+   "parts": [],
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "Wiki-GBRR"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-GBRR",
+    "ABT-Civilians"
+   ],
+   "conflicts": [
+    "Burned June 26-27 (sources vary 26 or 27)"
+   ],
+   "gaps": [],
+   "schedule_rows": [
+    "S-001"
+   ]
+  },
+  {
+   "id": "bld-evergreen-gatehouse",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Evergreen Cemetery gatehouse",
+   "location": "Cemetery Hill",
+   "preexisting": true,
+   "description": "Italianate, designed by S.D. Button, built by the Chritzman brothers, finished Nov 1855",
+   "role_in_battle": "XI Corps HQ (Howard); guns on the cemetery high ground; Hays/Avery attack from the east at dusk Jul 2",
+   "state_and_damage_printed": "NPS: \"moderate damage\" on the evening of July 2. Tombstones laid flat; cemetery fences knocked down, iron fences and monuments destroyed, obelisks toppled (Wikipedia)",
+   "what_survives": "Largely unchanged except a right-side addition",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parts": [],
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "Wiki-Evergreen"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-Evergreen",
+    "NPS-Bldgs"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-044",
+    "S-075"
+   ]
+  },
+  {
+   "id": "bld-wade-house",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Jennie (Ginnie) Wade house",
+   "location": "548 Baltimore St",
+   "preexisting": true,
+   "description": "Home of her sister Georgia McClellan (newborn present)",
+   "role_in_battle": "Wade killed about 08:00 Jul 3 by a ball through kitchen and parlor doors",
+   "state_and_damage_printed": "150+ bullet strikes on the house",
+   "what_survives": "Survives",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parts": [],
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-Wade"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-Wade"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-051"
+   ]
+  },
+  {
+   "id": "bld-pierce-house",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Tillie Pierce house",
+   "location": "Corner Baltimore and Breckenridge Sts",
+   "preexisting": true,
+   "description": "Family lived above father's butcher shop",
+   "role_in_battle": "She left Jul 1 for the Weikert farm and returned Jul 7",
+   "state_and_damage_printed": "Damage: open gap",
+   "what_survives": "Not stated",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parts": [],
+   "tier": "inferred",
+   "tier_printed": "documented (movements); open gap (damage)",
+   "tier_mixed": true,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-Pierce"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-Pierce"
+   ],
+   "conflicts": [],
+   "gaps": [
+    "Damage: open gap",
+    "open gap (damage)"
+   ],
+   "schedule_rows": [
+    "S-074"
+   ]
+  },
+  {
+   "id": "bld-burns-house",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "John Burns house",
+   "location": "Chambersburg St",
+   "preexisting": true,
+   "description": "Razed after his death",
+   "role_in_battle": "Burns fought Jul 1 beside McPherson Woods; wounded",
+   "state_and_damage_printed": "n/a",
+   "what_survives": "Gone",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parts": [],
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-Burns"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-Burns"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "bld-sweney-rupp-mccreary",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Sweney House (now Farnsworth) and Rupp house",
+   "location": "Baltimore St, town",
+   "preexisting": true,
+   "description": "Confederate sharpshooters in the Sweney House; Union skirmishers in the Rupp house; McCreary House (gone; a Louisiana soldier killed inside)",
+   "role_in_battle": "Sniping from dawn Jul 2",
+   "state_and_damage_printed": "Bullet pocks on the Sweney south wall; fence at McCreary house photographed about 1890 with bullet holes; John Rupp alone in his house evening Jul 2 and all Jul 3",
+   "what_survives": "Sweney survives; McCreary gone",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "components": [
+    "Sweney House (now Farnsworth)",
+    "Rupp house",
+    "McCreary House"
+   ],
+   "parse_note": "One printed row names three buildings; the single set of cells is kept together and not split between them.",
+   "parts": [
+    {
+     "id": "bld-sweney-rupp-mccreary#sweney_house",
+     "part": "sweney_house"
+    },
+    {
+     "id": "bld-sweney-rupp-mccreary#rupp_house",
+     "part": "rupp_house"
+    },
+    {
+     "id": "bld-sweney-rupp-mccreary#mccreary_house",
+     "part": "mccreary_house"
+    }
+   ],
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "GD-Town"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-022"
+   ]
+  },
+  {
+   "id": "bld-town-belfry",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Town church belfry",
+   "location": "Town",
+   "preexisting": true,
+   "description": "Used by snipers",
+   "role_in_battle": "Snipers from dawn Jul 2",
+   "state_and_damage_printed": "n/a",
+   "what_survives": "Not identified",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parts": [],
+   "tier": "inferred",
+   "tier_printed": "documented (general)",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-Battlefield"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-Battlefield"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-022"
+   ]
+  },
+  {
+   "id": "bld-st-francis-xavier",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "St. Francis Xavier Catholic church",
+   "location": "Town",
+   "preexisting": true,
+   "description": "Alternate pews removed, boards laid on the rest",
+   "role_in_battle": "Hospital by noon Jul 1, mostly amputations; 14 Sisters of Charity arrived from Emmitsburg after the fighting",
+   "state_and_damage_printed": "Interior changed for hospital use",
+   "what_survives": "Not stated",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parts": [],
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Aleteia"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-008"
+   ]
+  },
+  {
+   "id": "bld-presbyterian-church",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Presbyterian Church (208 Baltimore St)",
+   "location": "Town",
+   "preexisting": true,
+   "description": "Church",
+   "role_in_battle": "Cavalry Corps 1st Division hospital set up June 30; fell to Confederates evening Jul 1",
+   "state_and_damage_printed": "Hospital use",
+   "what_survives": "Not stated",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parts": [],
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "HMDB-17939"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-004"
+   ]
+  },
+  {
+   "id": "bld-mcpherson-farm",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "McPherson farm (Edward McPherson owner, tenant John Slentz)",
+   "location": "Chambersburg Pike",
+   "preexisting": true,
+   "description": "Barn and house",
+   "role_in_battle": "Farmhouse aid station evening Jul 1; barn held I Corps and Confederate wounded",
+   "state_and_damage_printed": "Barn did not burn in battle. Treat as intact; Brady/Gardner photographs show the barn with hospital use (inferred)",
+   "what_survives": "Barn survives (NPS restored 1978); house burned 1895 (no month or day). Slentz family lived in the Seminary about 3 months",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parts": [
+    {
+     "id": "bld-mcpherson-farm#barn",
+     "part": "barn"
+    },
+    {
+     "id": "bld-mcpherson-farm#house",
+     "part": "house"
+    }
+   ],
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "SS-McPherson"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-McPherson",
+    "NPS-Bldgs",
+    "ECW-Hosp"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-017",
+    "S-078"
+   ]
+  },
+  {
+   "id": "bld-thompson-house",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Thompson house (Lee's HQ)",
+   "location": "Chambersburg Pike, Seminary Ridge",
+   "preexisting": true,
+   "description": "Stone, built 1833 by Michael Clarkson",
+   "role_in_battle": "Lee HQ from Jul 1; hospital",
+   "state_and_damage_printed": "Mary Thompson's fences burned for firewood; interior fire 1896 (not the battle)",
+   "what_survives": "Survives",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parts": [],
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Thompson"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-Thompson"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "bld-mcmillan-farm",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "McMillan farm",
+   "location": "Seminary Ridge area",
+   "preexisting": true,
+   "description": "David McMillan; 20-acre apple orchard, largest on the field",
+   "role_in_battle": "Occupation",
+   "state_and_damage_printed": "House shell-damaged and ransacked; trenches through the yard; a neighbor reportedly felled his own fences for Union troops on Jul 1",
+   "what_survives": "Not stated",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parts": [],
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "SS-McMillan"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-McMillan",
+    "ECW-Bliss"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "bld-herbst",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Herbst (McPherson) Woods and house/barn",
+   "location": "McPherson Ridge",
+   "preexisting": true,
+   "description": "Woods; Reynolds killed near the east end about 10:30 Jul 1",
+   "role_in_battle": "I Corps fighting",
+   "state_and_damage_printed": "House/barn specifics: open gap",
+   "what_survives": "Not stated",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parts": [],
+   "tier": "inferred",
+   "tier_printed": "documented (Reynolds); open gap (buildings)",
+   "tier_mixed": true,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-D1"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-D1"
+   ],
+   "conflicts": [],
+   "gaps": [
+    "House/barn specifics: open gap",
+    "open gap (buildings)"
+   ],
+   "schedule_rows": []
+  },
+  {
+   "id": "bld-codori-farm",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Codori farm",
+   "location": "Emmitsburg Road",
+   "preexisting": true,
+   "description": "Nicholas Codori bought 273 acres 1854, replaced log house with 2-story frame; rear brick addition 1877; original barn smaller, white",
+   "role_in_battle": "Pickett's men passed on both sides Jul 3; 500+ Confederates buried on the farm",
+   "state_and_damage_printed": "Original barn torn down 1882 (not the battle). Orchard position uncertain (west vs east of house on period maps)",
+   "what_survives": "House survives; the 1863 barn does not",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parts": [
+    {
+     "id": "bld-codori-farm#barn",
+     "part": "barn"
+    }
+   ],
+   "tier": "documented",
+   "tier_printed": "documented; orchard position open",
+   "tier_mixed": true,
+   "weak_source": false,
+   "weak_keys": [
+    "SS-Codori"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-Codori",
+    "Savas-Hessler"
+   ],
+   "conflicts": [
+    "Original barn torn down 1882 (not the battle). Orchard position uncertain (west vs east of house on period maps)"
+   ],
+   "gaps": [
+    "Orchard position uncertain (west vs east of house on period maps)"
+   ],
+   "schedule_rows": [
+    "S-079"
+   ]
+  },
+  {
+   "id": "bld-klingle-farm",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Klingle (Klingel) farm",
+   "location": "East of Emmitsburg Road",
+   "preexisting": true,
+   "description": "Daniel Klingel, shoemaker, bought about 15 acres April 1863; log core with red-painted weatherboard",
+   "role_in_battle": "14-16 wounded Confederates sheltered night of Jul 1; family left Jul 2",
+   "state_and_damage_printed": "Bullet holes; crops destroyed; all fences missing when he returned Jul 4; $880 claim denied 1881",
+   "what_survives": "2-story rear addition postwar (removed)",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parts": [],
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Klingle"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-Klingle"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-021",
+    "S-068"
+   ]
+  },
+  {
+   "id": "bld-rogers-house",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Rogers house",
+   "location": "West side of Emmitsburg Road at Sickles Ave",
+   "preexisting": true,
+   "description": "One-story log",
+   "role_in_battle": "Peter Rogers stayed; cellar used for wounded",
+   "state_and_damage_printed": "Shelled",
+   "what_survives": "Torn down 1880s",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parts": [],
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Rogers"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-Rogers"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "bld-bliss-farm",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Bliss farm",
+   "location": "Between the lines, west of Cemetery Ridge",
+   "preexisting": true,
+   "description": "William and Adeline Bliss, about 60 acres; double log and frame house, weatherboarded; Pennsylvania bank barn about 75 x 33 ft, stone basement about 10 ft; peach and cherry orchard",
+   "role_in_battle": "Held alternately by both sides Jul 2",
+   "state_and_damage_printed": "Barn and house deliberately burned the morning of Jul 3 by the 14th Connecticut under a division order (Hays/Smyth); Sgt Hitchcock 111th NY is named; fires set with hay, straw and cartridge paper. \"Late morning\" per a forum (unreliable). Claims $3,256.05 unpaid",
+   "what_survives": "Sold to Codori 1865; buildings gone",
+   "dimensions": "barn about 75 x 33 ft, stone basement about 10 ft; about 60 acres",
+   "parse_status": "parsed",
+   "parts": [
+    {
+     "id": "bld-bliss-farm#house",
+     "part": "house"
+    },
+    {
+     "id": "bld-bliss-farm#barn",
+     "part": "barn"
+    },
+    {
+     "id": "bld-bliss-farm#orchard",
+     "part": "orchard"
+    }
+   ],
+   "tier": "documented",
+   "tier_printed": "documented (morning Jul 3); exact clock time open",
+   "tier_mixed": true,
+   "weak_source": false,
+   "weak_keys": [
+    "CWT-Query",
+    "SS-Bliss"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "ECW-Bliss",
+    "HMDB-16570",
+    "SS-Bliss",
+    "CWT-Query"
+   ],
+   "conflicts": [],
+   "gaps": [
+    "exact clock time open"
+   ],
+   "schedule_rows": [
+    "S-052"
+   ]
+  },
+  {
+   "id": "bld-sherfy-farm",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Sherfy farm",
+   "location": "West of Emmitsburg Road, Peach Orchard",
+   "preexisting": true,
+   "description": "Rev. Joseph Sherfy, about 50 acres; brick house (1840s); original barn, hospital, \"riddled\" with shot; orchard (114 trees survived the battle)",
+   "role_in_battle": "Fighting in farmyard Jul 2 evening",
+   "state_and_damage_printed": "House: south and west walls scarred, 7+ shell hits, roof punctured. Barn burned: timing conflict. Jul 3 per Gettysburg Daily and CivilWarTalk (shell-ignited during the afternoon artillery; Union fire per one forum); a 77th NY soldier wrote it burned from shell fire; one account has the farmyard fight on Jul 2 evening; Stone Sentinels has the barn standing morning Jul 3; a one-sided blog says Confederates set it on fire. About a dozen wounded died; Compiler (Jul 20) reported about 20 Zouaves perished. 48 dead horses on the farm. Family left morning or midday Jul 2, returned Jul 6",
+   "what_survives": "House survives with bullet holes; barn rebuilt postwar",
+   "dimensions": "about 50 acres; 114 orchard trees survived",
+   "parse_status": "parsed",
+   "parts": [
+    {
+     "id": "bld-sherfy-farm#house",
+     "part": "house"
+    },
+    {
+     "id": "bld-sherfy-farm#barn",
+     "part": "barn"
+    },
+    {
+     "id": "bld-sherfy-farm#orchard_fences",
+     "part": "orchard_fences"
+    },
+    {
+     "id": "bld-sherfy-farm#family",
+     "part": "family"
+    }
+   ],
+   "tier": "documented",
+   "tier_printed": "documented (burned in battle); window flagged",
+   "tier_mixed": true,
+   "weak_source": false,
+   "weak_keys": [
+    "CWT-Sherfy",
+    "SS-Sherfy",
+    "WHB"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "GD-12590",
+    "CWT-Sherfy",
+    "SS-Sherfy",
+    "WHB"
+   ],
+   "conflicts": [
+    "House: south and west walls scarred, 7+ shell hits, roof punctured. Barn burned: timing conflict. Jul 3 per Gettysburg Daily and CivilWarTalk (shell-ignited during the afternoon artillery; Union fire per one forum); a 77th NY soldier wrote it burned from shell fire; one account has the farmyard fight on Jul 2 evening; Stone Sentinels has the barn standing morning Jul 3; a one-sided blog says Confederates set it on fire. About a dozen wounded died; Compiler (Jul 20) reported about 20 Zouaves perished. 48 dead horses on the farm. Family left morning or midday Jul 2, returned Jul 6"
+   ],
+   "gaps": [
+    "barn fire timing conflict (window flagged)"
+   ],
+   "schedule_rows": [
+    "S-030",
+    "S-034",
+    "S-036",
+    "S-037"
+   ]
+  },
+  {
+   "id": "bld-wentz-farm",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Wentz farm",
+   "location": "East of Emmitsburg Road, north of Wheatfield Road",
+   "preexisting": true,
+   "description": "Log farmhouse (later replaced), John and Mary Wentz",
+   "role_in_battle": "Taylor's Virginia battery north of it",
+   "state_and_damage_printed": "House \"relatively unscathed\"",
+   "what_survives": "Replaced",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parts": [],
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Wentz"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-Wentz"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "bld-trostle-farm",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Trostle farm",
+   "location": "Plum Run area",
+   "preexisting": true,
+   "description": "Peter Trostle owner, Abraham and family lived there; 134 acres; frame house, brick barn, corn crib, wagon shed, springhouse, brick smokehouse",
+   "role_in_battle": "Sickles HQ Jul 2; Sickles wounded west of the barn; 9th Mass. battery stand about evening Jul 2; III and V Corps wounded after Jul 2",
+   "state_and_damage_printed": "Barn shell hole on the south side, bullets on the east; 16+ dead horses in the yard, 100+ on the farm; $2,500 claim unpaid. Hospital abandoned by Jul 6",
+   "what_survives": "Survives",
+   "dimensions": "134 acres",
+   "parse_status": "parsed",
+   "parts": [
+    {
+     "id": "bld-trostle-farm#house",
+     "part": "house"
+    },
+    {
+     "id": "bld-trostle-farm#barn",
+     "part": "barn"
+    }
+   ],
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "SS-Trostle"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-Trostle",
+    "ECW-Hosp"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-029",
+    "S-040"
+   ]
+  },
+  {
+   "id": "bld-rose-farm",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Rose farm",
+   "location": "Wheatfield area",
+   "preexisting": true,
+   "description": "George Rose owner; brother John and tenant Francis Ogden lived there; stone house (1811, form 1824), stone barn 1812; farm 225 acres with Rose Woods, Stony Hill and a separate Ogden wheat field",
+   "role_in_battle": "Confederate cover and hospital Jul 2",
+   "state_and_damage_printed": "Barn burned 1910 (not the battle)",
+   "what_survives": "House survives; barn gone",
+   "dimensions": "225 acres",
+   "parse_status": "parsed",
+   "parts": [
+    {
+     "id": "bld-rose-farm#house",
+     "part": "house"
+    },
+    {
+     "id": "bld-rose-farm#barn",
+     "part": "barn"
+    }
+   ],
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "SS-Rose"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-Rose",
+    "Savas-Rose"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-032",
+    "S-079"
+   ]
+  },
+  {
+   "id": "bld-bushman-farm",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Bushman farm",
+   "location": "Rock Creek area",
+   "preexisting": true,
+   "description": "Rev. Michael Bushman; house parts 1808, brick addition 1860",
+   "role_in_battle": "Hood crossed Jul 2; barn temporary hospital, 8 Confederates buried; XII Corps hospital at the Bushman house (tablet)",
+   "state_and_damage_printed": "Family had left; losses and theft",
+   "what_survives": "Survives",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parts": [
+    {
+     "id": "bld-bushman-farm#barn",
+     "part": "barn"
+    },
+    {
+     "id": "bld-bushman-farm#house",
+     "part": "house"
+    }
+   ],
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "SS-Bushman"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-Bushman",
+    "HMDB-13265"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-032"
+   ]
+  },
+  {
+   "id": "bld-warfield-house",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Warfield (James) house",
+   "location": "Warfield Ridge",
+   "preexisting": true,
+   "description": "Free Black blacksmith; stone walls",
+   "role_in_battle": "Kershaw formed there; artillery east of the house drew counterbattery fire",
+   "state_and_damage_printed": "Orchard, garden and buildings badly damaged; claims for fences lost; paid $410",
+   "what_survives": "Not stated",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parts": [],
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Warfield"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-Warfield"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "bld-snyder-farm",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Snyder farm",
+   "location": "Confederate right",
+   "preexisting": true,
+   "description": "2-story log house on stone foundation, board-and-batten, early 1830s",
+   "role_in_battle": "Start of Hood's attack Jul 2",
+   "state_and_damage_printed": "No damage described",
+   "what_survives": "Not stated",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parts": [],
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Snyder"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-Snyder"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "bld-slyder-farm",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Slyder farm",
+   "location": "Round Top area",
+   "preexisting": true,
+   "description": "John Slyder, 75 acres; 2-story stone house, barn, shops, orchard",
+   "role_in_battle": "Hood crossed Jul 2; Confederate hospital",
+   "state_and_damage_printed": "Crops and orchards destroyed",
+   "what_survives": "Not stated",
+   "dimensions": "75 acres",
+   "parse_status": "parsed",
+   "parts": [
+    {
+     "id": "bld-slyder-farm#house",
+     "part": "house"
+    }
+   ],
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Slyder"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-Slyder"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-032"
+   ]
+  },
+  {
+   "id": "bld-leister-house",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Leister house (Meade HQ)",
+   "location": "Taneytown Road",
+   "preexisting": true,
+   "description": "Small two-room wooden house, later a 2-story addition",
+   "role_in_battle": "Meade's council of war evening Jul 2; HQ untenable during the Jul 3 bombardment; hospital/aid station after firing ceased",
+   "state_and_damage_printed": "Many shot holes; porch supports and steps knocked down; a shell broke a bedstead; 17 dead horses in the yard; apple trees destroyed; a peach tree died; all fence rails burned; 2 tons hay lost; spring spoiled",
+   "what_survives": "Survives",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parts": [],
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "SS-Leister"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-Leister",
+    "NPS-Bldgs",
+    "ECW-Hosp"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-046",
+    "S-059",
+    "S-060",
+    "S-064"
+   ]
+  },
+  {
+   "id": "bld-weikert-farm",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Weikert (George) farm",
+   "location": "Taneytown Road, below Little Round Top",
+   "preexisting": true,
+   "description": "About 78 acres; house a hospital",
+   "role_in_battle": "V Corps 2nd Division hospital: surgeons arrived the morning of Jul 2; Weed died in the basement before dawn Jul 3; moved east early Jul 3; about 950 treated",
+   "state_and_damage_printed": "Amputated limbs piled outside a window; graves in the yard",
+   "what_survives": "Survives",
+   "dimensions": "about 78 acres",
+   "parse_status": "parsed",
+   "parts": [],
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "SS-Weikert"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-Weikert",
+    "HN-Weikert"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-027",
+    "S-047"
+   ]
+  },
+  {
+   "id": "bld-hummelbaugh-farm",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Hummelbaugh farm",
+   "location": "Cemetery Ridge rear",
+   "preexisting": true,
+   "description": "2-story log, shiplap siding, 1840s",
+   "role_in_battle": "II Corps hospital Jul 2-3; Barksdale died there (Jul 2 per one source; Jul 3 per others); Pleasonton HQ Jul 4-6",
+   "state_and_damage_printed": "Pleasonton Avenue \"did not exist in 1863\"",
+   "what_survives": "Survives",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parts": [],
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Hummelbaugh"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-Hummelbaugh"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-071"
+   ]
+  },
+  {
+   "id": "bld-brian-farm",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Brian (Bryan) farm",
+   "location": "Cemetery Ridge, west",
+   "preexisting": true,
+   "description": "Abraham Brian, free Black farmer, 12 acres; small 2-room house with loft; barn; small orchard",
+   "role_in_battle": "Hays's HQ",
+   "state_and_damage_printed": "Fences nearly destroyed; house ransacked; claimed $1,028, received $15",
+   "what_survives": "House and barn are reconstructions",
+   "dimensions": "12 acres; small 2-room house with loft",
+   "parse_status": "parsed",
+   "parts": [],
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Brian"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-Brian"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "bld-biggs-house",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Biggs house",
+   "location": "Taneytown Road",
+   "preexisting": true,
+   "description": "Original house stands",
+   "role_in_battle": "n/a",
+   "state_and_damage_printed": "Barn not original",
+   "what_survives": "House survives",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parts": [],
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "NPS-Bldgs"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "bld-spangler-farm",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Spangler farm",
+   "location": "Hospital Road",
+   "preexisting": true,
+   "description": "George Spangler, 166 acres; bank barn with 7-ft forebay, summer kitchen, smokehouse",
+   "role_in_battle": "XI Corps hospital from mid-afternoon Jul 1 to Aug 6; Artillery Reserve camped Jul 2",
+   "state_and_damage_printed": "Wheat crushed; claims about $5,000, paid $90; orchard burials",
+   "what_survives": "Survives",
+   "dimensions": "166 acres; bank barn with 7-ft forebay",
+   "parse_status": "parsed",
+   "parts": [
+    {
+     "id": "bld-spangler-farm#barn_forebay",
+     "part": "barn_forebay"
+    },
+    {
+     "id": "bld-spangler-farm#summer_kitchen",
+     "part": "summer_kitchen"
+    }
+   ],
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "HN-Spangler"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-016",
+    "S-049",
+    "S-066",
+    "S-072"
+   ]
+  },
+  {
+   "id": "bld-granite-schoolhouse",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Granite Schoolhouse",
+   "location": "Near Spangler",
+   "preexisting": true,
+   "description": "Built 1862",
+   "role_in_battle": "II Corps 1st Division hospital Jul 2-3; moved toward McAllister's Mill after Jul 3 overshots",
+   "state_and_damage_printed": "Razed 1921",
+   "what_survives": "Gone",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parts": [],
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "HN-Spangler"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-028",
+    "S-065"
+   ]
+  },
+  {
+   "id": "bld-taney-farm",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Taney farm",
+   "location": "Culp's Hill area, across Rock Creek",
+   "preexisting": true,
+   "description": "House",
+   "role_in_battle": "Confederate sharpshooters in the house; shelled by 1st NY Battery M on Jul 3",
+   "state_and_damage_printed": "House reduced to ruins",
+   "what_survives": "Ruins only",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parse_note": "Printed twice across the p.96/p.97 page break: the p.96 stub has \"Confederate sharpshooters\" and no shelling clause; the p.97 repeat adds \"in the house; shelled by 1st NY Battery M on Jul 3\". One record kept, with the fuller p.97 text.",
+   "parts": [],
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Taney"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-Taney"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-053"
+   ]
+  },
+  {
+   "id": "bld-rummel-farm",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Rummel farm",
+   "location": "East Cavalry Field",
+   "preexisting": true,
+   "description": "168 acres; log house gone; stone-and-wood barn survives",
+   "role_in_battle": "Stuart's men cut loopholes in the barn planking Jul 3; Fitz Lee's 1st Virginia through the farm",
+   "state_and_damage_printed": "30+ horses dead; fences destroyed; claim $219.95 rejected",
+   "what_survives": "Barn survives",
+   "dimensions": "168 acres",
+   "parse_status": "parsed",
+   "parts": [
+    {
+     "id": "bld-rummel-farm#barn",
+     "part": "barn"
+    }
+   ],
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Rummel"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-Rummel"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-054"
+   ]
+  },
+  {
+   "id": "bld-henry-culp-farm",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Henry Culp farm",
+   "location": "Culp's Hill",
+   "preexisting": true,
+   "description": "Hill owned by Henry Culp",
+   "role_in_battle": "n/a",
+   "state_and_damage_printed": "Building data: open gap",
+   "what_survives": "Not stated",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parts": [],
+   "tier": "open_gap",
+   "tier_printed": "open gap",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-Culp"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-Culp"
+   ],
+   "conflicts": [],
+   "gaps": [
+    "Building data: open gap",
+    "open gap"
+   ],
+   "schedule_rows": []
+  },
+  {
+   "id": "bld-daniel-lady-farm",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Daniel Lady farm",
+   "location": "Near Culp's Hill",
+   "preexisting": true,
+   "description": "n/a",
+   "role_in_battle": "Confederate field hospital",
+   "state_and_damage_printed": "Details: open gap",
+   "what_survives": "Not stated",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parts": [],
+   "tier": "documented",
+   "tier_printed": "documented (hospital); open gap (details)",
+   "tier_mixed": true,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "GBPA"
+   ],
+   "conflicts": [],
+   "gaps": [
+    "Details: open gap",
+    "open gap (details)"
+   ],
+   "schedule_rows": []
+  },
+  {
+   "id": "bld-poorhouse-christ-lutheran-wills",
+   "section": "B.8.2",
+   "kind": "building",
+   "name": "Adams County poorhouse, Christ Lutheran Church, Wills house",
+   "location": "Town and outskirts",
+   "preexisting": true,
+   "description": "n/a",
+   "role_in_battle": "n/a",
+   "state_and_damage_printed": "No source retrieved",
+   "what_survives": "Not stated",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "components": [
+    "Adams County poorhouse",
+    "Christ Lutheran Church",
+    "Wills house"
+   ],
+   "parse_note": "One printed row names three buildings; all cells are n/a or an open gap.",
+   "parts": [
+    {
+     "id": "bld-poorhouse-christ-lutheran-wills#poorhouse",
+     "part": "poorhouse"
+    },
+    {
+     "id": "bld-poorhouse-christ-lutheran-wills#christ_lutheran_church",
+     "part": "christ_lutheran_church"
+    },
+    {
+     "id": "bld-poorhouse-christ-lutheran-wills#wills_house",
+     "part": "wills_house"
+    }
+   ],
+   "tier": "open_gap",
+   "tier_printed": "open gap",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [],
+   "conflicts": [],
+   "gaps": [
+    "No source retrieved",
+    "open gap"
+   ],
+   "schedule_rows": []
+  },
+  {
+   "id": "FEN-emmitsburg-road",
+   "section": "B.8.3",
+   "kind": "fence_post_and_rail",
+   "name": "Emmitsburg Road double post-and-rail fences",
+   "location": "Both sides of the road, Pickett's Charge area",
+   "preexisting": true,
+   "description": "Intact morning Jul 3. Slowed the charge about 15:30-16:15; attackers broke ranks to climb. Heavily hit by bullets and artillery on Jul 2-3 (one 16-ft rail had 836 holes; a Confederate described perforated slabs). Whether the fences decided the charge is debated. Exact breach points not documented",
+   "dimensions": "one 16-ft rail had 836 holes (as printed)",
+   "parse_status": "parsed",
+   "contested": false,
+   "state_changes": [
+    {
+     "to_state": "Heavily hit by bullets and artillery",
+     "printed_time": "Jul 2-3",
+     "time_parse": "date",
+     "schedule_row": null,
+     "tier_printed": "documented",
+     "window": [
+      "1863-07-02T00:00",
+      "1863-07-03T23:59",
+      null
+     ],
+     "open_flag": null
+    },
+    {
+     "to_state": "Splintered / breached; attackers climbing",
+     "printed_time": "about 15:30-16:15 Jul 3",
+     "time_parse": "clock",
+     "schedule_row": "S-062",
+     "tier_printed": "documented (slowing); inferred (breach points)",
+     "window": [
+      "1863-07-03T15:30",
+      "1863-07-03T16:15",
+      null
+     ],
+     "open_flag": null
+    }
+   ],
+   "state_assertions": [
+    {
+     "state": "Intact",
+     "printed_time": "morning Jul 3",
+     "window": [
+      "1863-07-03T00:00",
+      "1863-07-03T12:00"
+     ]
+    }
+   ],
+   "tier": "documented",
+   "tier_printed": "documented (slowing, damage); inferred (breaches)",
+   "tier_mixed": true,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "ABT-Charge",
+    "Savas-Hessler"
+   ],
+   "conflicts": [],
+   "gaps": [
+    "Exact breach points not documented"
+   ],
+   "schedule_rows": [
+    "S-062"
+   ]
+  },
+  {
+   "id": "FEN-klingle",
+   "section": "B.8.3",
+   "kind": "fence",
+   "name": "Klingle fences",
+   "location": "Klingle farm",
+   "preexisting": true,
+   "description": "All missing when Klingel returned Jul 4",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "contested": false,
+   "state_changes": [
+    {
+     "to_state": "Missing (all)",
+     "printed_time": "when Klingel returned Jul 4",
+     "time_parse": "date",
+     "schedule_row": "S-068",
+     "tier_printed": "documented",
+     "window": [
+      null,
+      "1863-07-04T23:59",
+      null
+     ],
+     "open_flag": "removal time not stated; only \"missing by Jul 4\""
+    }
+   ],
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Klingle"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-Klingle"
+   ],
+   "conflicts": [],
+   "gaps": [
+    "removal time not stated; only \"missing by Jul 4\""
+   ],
+   "schedule_rows": [
+    "S-068"
+   ]
+  },
+  {
+   "id": "FEN-leister",
+   "section": "B.8.3",
+   "kind": "fence",
+   "name": "Leister fences",
+   "location": "Leister farm",
+   "preexisting": true,
+   "description": "All rails burned (Jul 2-3)",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "contested": false,
+   "state_changes": [
+    {
+     "to_state": "All rails burned",
+     "printed_time": "Jul 2-3",
+     "time_parse": "date",
+     "schedule_row": null,
+     "tier_printed": "documented",
+     "window": [
+      "1863-07-02T00:00",
+      "1863-07-03T23:59",
+      null
+     ],
+     "open_flag": null
+    }
+   ],
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Leister"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-Leister"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-059"
+   ]
+  },
+  {
+   "id": "FEN-thompson",
+   "section": "B.8.3",
+   "kind": "fence",
+   "name": "Thompson fences",
+   "location": "Thompson farm",
+   "preexisting": true,
+   "description": "Burned for firewood",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "contested": false,
+   "state_changes": [
+    {
+     "to_state": "Burned for firewood",
+     "printed_time": "(no date)",
+     "time_parse": "phrase",
+     "schedule_row": null,
+     "tier_printed": "documented (no date)",
+     "window": null,
+     "open_flag": "no date printed; open register entry EG-0049 (fence damage state per segment)"
+    }
+   ],
+   "tier": "inferred",
+   "tier_printed": "documented (no date)",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Thompson"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-Thompson"
+   ],
+   "conflicts": [],
+   "gaps": [
+    "no date printed; open register entry EG-0049 (fence damage state per segment)"
+   ],
+   "schedule_rows": []
+  },
+  {
+   "id": "FEN-brian",
+   "section": "B.8.3",
+   "kind": "fence",
+   "name": "Brian fences",
+   "location": "Brian farm",
+   "preexisting": true,
+   "description": "Nearly destroyed",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "contested": false,
+   "state_changes": [
+    {
+     "to_state": "Nearly destroyed",
+     "printed_time": "(no date in B.8.3; Jul 3 in S-063, time flag)",
+     "time_parse": "date",
+     "schedule_row": "S-063",
+     "tier_printed": "documented (time flag)",
+     "window": [
+      "1863-07-03T00:00",
+      "1863-07-03T23:59",
+      null
+     ],
+     "open_flag": "B.8.3 prints no date; S-063 prints Jul 3 with \"time flag\""
+    }
+   ],
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Brian"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-Brian"
+   ],
+   "conflicts": [],
+   "gaps": [
+    "B.8.3 prints no date; S-063 prints Jul 3 with \"time flag\""
+   ],
+   "schedule_rows": [
+    "S-063"
+   ]
+  },
+  {
+   "id": "FEN-warfield",
+   "section": "B.8.3",
+   "kind": "fence",
+   "name": "Warfield fences",
+   "location": "Warfield farm",
+   "preexisting": true,
+   "description": "Claimed lost",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "contested": false,
+   "state_changes": [
+    {
+     "to_state": "Claimed lost",
+     "printed_time": "(no date)",
+     "time_parse": "phrase",
+     "schedule_row": null,
+     "tier_printed": "documented",
+     "window": null,
+     "open_flag": "no date printed (claim, paid $410 per B.8.2); open register entry EG-0049"
+    }
+   ],
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Warfield"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-Warfield"
+   ],
+   "conflicts": [],
+   "gaps": [
+    "no date printed (claim, paid $410 per B.8.2); open register entry EG-0049"
+   ],
+   "schedule_rows": []
+  },
+  {
+   "id": "FEN-rummel",
+   "section": "B.8.3",
+   "kind": "fence",
+   "name": "Rummel fences",
+   "location": "Rummel farm",
+   "preexisting": true,
+   "description": "Destroyed Jul 3",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "contested": false,
+   "state_changes": [
+    {
+     "to_state": "Destroyed",
+     "printed_time": "Jul 3",
+     "time_parse": "date",
+     "schedule_row": "S-055",
+     "tier_printed": "documented",
+     "window": [
+      "1863-07-03T00:00",
+      "1863-07-03T23:59",
+      null
+     ],
+     "open_flag": null
+    }
+   ],
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Rummel"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-Rummel"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-055"
+   ]
+  },
+  {
+   "id": "FEN-sherfy-orchard",
+   "section": "B.8.3",
+   "kind": "fence_and_orchard",
+   "name": "Sherfy orchard and fences",
+   "location": "Sherfy farm",
+   "preexisting": true,
+   "description": "Destroyed",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "contested": false,
+   "state_changes": [
+    {
+     "to_state": "Destroyed",
+     "printed_time": "(no date in B.8.3; afternoon-evening Jul 2 on in S-034)",
+     "time_parse": "date",
+     "schedule_row": "S-034",
+     "tier_printed": "documented",
+     "window": [
+      "1863-07-02T00:00",
+      "1863-07-02T23:59",
+      null
+     ],
+     "open_flag": "B.8.3 prints no date; S-034 prints \"Afternoon-evening Jul 2 on\" (open-ended)"
+    }
+   ],
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Sherfy"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "SS-Sherfy"
+   ],
+   "conflicts": [],
+   "gaps": [
+    "B.8.3 prints no date; S-034 prints \"Afternoon-evening Jul 2 on\" (open-ended)"
+   ],
+   "schedule_rows": [
+    "S-034"
+   ]
+  },
+  {
+   "id": "FEN-mcmillan",
+   "section": "B.8.3",
+   "kind": "fence",
+   "name": "McMillan fences",
+   "location": "McMillan farm",
+   "preexisting": true,
+   "description": "Neighbor reportedly felled them for Union troops Jul 1",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "contested": false,
+   "state_changes": [
+    {
+     "to_state": "Felled for Union troops",
+     "printed_time": "Jul 1",
+     "time_parse": "date",
+     "schedule_row": "S-009",
+     "tier_printed": "documented (secondary)",
+     "window": [
+      "1863-07-01T00:00",
+      "1863-07-01T23:59",
+      null
+     ],
+     "open_flag": null
+    }
+   ],
+   "tier": "documented",
+   "tier_printed": "documented (secondary)",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "ECW-Bliss"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-009"
+   ]
+  },
+  {
+   "id": "FEN-seminary-ridge",
+   "section": "B.8.3",
+   "kind": "fence",
+   "name": "Seminary Ridge fences",
+   "location": "Seminary Ridge",
+   "preexisting": true,
+   "description": "Dismantled by I Corps for the E-01 rail barricade, Jul 1 afternoon",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "contested": false,
+   "state_changes": [
+    {
+     "to_state": "Dismantled (rails stacked into E-01 barricade)",
+     "printed_time": "Jul 1 afternoon (before about 16:00 per S-010)",
+     "time_parse": "clock",
+     "schedule_row": "S-010",
+     "tier_printed": "documented",
+     "window": [
+      null,
+      "1863-07-01T16:00",
+      null
+     ],
+     "open_flag": null
+    }
+   ],
+   "tier": "documented",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "HN-Pender"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-010"
+   ]
+  },
+  {
+   "id": "FEN-gamble-cavalry",
+   "section": "B.8.3",
+   "kind": "fence",
+   "name": "Gamble's cavalry fence",
+   "location": "McPherson Ridge",
+   "preexisting": true,
+   "description": "Used as cover from about 07:30 Jul 1 (\"behind fence posts\")",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "contested": false,
+   "state_changes": [
+    {
+     "to_state": "Used as cover",
+     "printed_time": "from about 07:30 Jul 1",
+     "time_parse": "clock",
+     "schedule_row": "S-005",
+     "tier_printed": "documented",
+     "window": [
+      "1863-07-01T07:30",
+      null,
+      "1863-07-01T07:30"
+     ],
+     "open_flag": null
+    }
+   ],
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-D1"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-D1"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-005"
+   ]
+  },
+  {
+   "id": "FEN-mcpherson-railroad-grade",
+   "section": "B.8.3",
+   "kind": "fence_virginia_worm",
+   "name": "McPherson / railroad-grade fences",
+   "location": "Along the cut",
+   "preexisting": true,
+   "description": "Contested. NPS reconstructed Virginia/worm fences citing Harrison's paper and a mid-July 1863 Brady photograph; Harrison argues cavalry dismantled some on June 30 for firewood or breastworks and the farmer restored them; a critic says no wartime account describes fences along the cut. Post-and-rail along the Chambersburg Pike is documented Jul 1",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "contested": true,
+   "state_changes": [
+    {
+     "to_state": "Partly dismantled (Harrison); fences restored by the farmer per Harrison",
+     "printed_time": "Jun 30 (Harrison); restored afterwards, date not printed",
+     "time_parse": "date",
+     "schedule_row": "S-003",
+     "tier_printed": "contested",
+     "window": [
+      "1863-06-30T00:00",
+      "1863-06-30T23:59",
+      null
+     ],
+     "open_flag": "contested: a critic says no wartime account describes fences along the cut; restoration date not printed"
+    }
+   ],
+   "tier": "documented",
+   "tier_printed": "documented (pike); contested (cut)",
+   "tier_mixed": true,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "GD-Fences"
+   ],
+   "conflicts": [
+    "Contested. NPS reconstructed Virginia/worm fences citing Harrison's paper and a mid-July 1863 Brady photograph; Harrison argues cavalry dismantled some on June 30 for firewood or breastworks and the farmer restored them; a critic says no wartime account describes fences along the cut. Post-and-rail along the Chambersburg Pike is documented Jul 1",
+    "documented (pike); contested (cut)"
+   ],
+   "gaps": [
+    "contested: a critic says no wartime account describes fences along the cut; restoration date not printed"
+   ],
+   "schedule_rows": [
+    "S-003"
+   ]
+  },
+  {
+   "id": "FEN-chambersburg-pike",
+   "section": "B.8.3",
+   "kind": "fence_post_and_rail",
+   "name": "Chambersburg Pike post-and-rail fences",
+   "location": "Chambersburg Pike",
+   "preexisting": true,
+   "description": "Post-and-rail along the Chambersburg Pike is documented Jul 1",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "contested": false,
+   "parse_note": "Derived record: named only inside the McPherson/railroad-grade fence row, B.8.4 (Chambersburg Pike) and schedule row S-006; no separate B.8.3 row.",
+   "state_changes": [],
+   "tier": "documented",
+   "tier_printed": "documented (pike)",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "GD-Fences"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-006"
+   ]
+  },
+  {
+   "id": "FEN-evergreen-cemetery",
+   "section": "B.8.3",
+   "kind": "fence_iron_other",
+   "name": "Evergreen Cemetery fences",
+   "location": "Cemetery Hill",
+   "preexisting": true,
+   "description": "Cemetery fences (iron/other) knocked down; iron fences destroyed, Jul 2",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "contested": false,
+   "state_changes": [
+    {
+     "to_state": "Knocked down / destroyed",
+     "printed_time": "Jul 2 (detail times not given, S-045)",
+     "time_parse": "date",
+     "schedule_row": "S-045",
+     "tier_printed": "documented (flag times)",
+     "window": [
+      "1863-07-02T00:00",
+      "1863-07-02T23:59",
+      null
+     ],
+     "open_flag": "detail times not given"
+    }
+   ],
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-Evergreen"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false,
+   "source_keys": [
+    "Wiki-Evergreen"
+   ],
+   "conflicts": [],
+   "gaps": [
+    "detail times not given"
+   ],
+   "schedule_rows": [
+    "S-045"
+   ]
+  },
+  {
+   "id": "FEN-mccreary-house",
+   "section": "B.8.3",
+   "kind": "fence",
+   "name": "McCreary house fence",
+   "location": "Town",
+   "preexisting": true,
+   "description": "Photographed about 1890 with bullet holes",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "contested": false,
+   "state_changes": [
+    {
+     "to_state": "Bullet holes (as photographed about 1890)",
+     "printed_time": "photograph about 1890; date of damage not printed",
+     "time_parse": "phrase",
+     "schedule_row": null,
+     "tier_printed": "documented (photo date)",
+     "window": null,
+     "open_flag": "only the photograph date (about 1890) is printed; date of the damage is not; open register entry EG-0049"
+    }
+   ],
+   "tier": "documented",
+   "tier_printed": "documented (photo date)",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "GD-Town"
+   ],
+   "conflicts": [],
+   "gaps": [
+    "only the photograph date (about 1890) is printed; date of the damage is not; open register entry EG-0049"
+   ],
+   "schedule_rows": []
+  },
+  {
+   "id": "FEN-cemetery-ridge-walls",
+   "section": "B.8.3",
+   "kind": "stone_wall",
+   "name": "Cemetery Ridge walls",
+   "location": "Cemetery Ridge",
+   "preexisting": true,
+   "description": "Low (about 24 in per critic), haphazard field-cleared stone; east-west wall had a rider fence on the 1882 Cyclorama photograph",
+   "dimensions": "about 24 in per critic (flagged opinion)",
+   "parse_status": "parsed",
+   "contested": false,
+   "parse_note": "No state change printed. Cross-reference P-01 (Angle/Copse wall) and P-13 (Leister wall); the NPS rebuilt walls (48-52 in) are modern and not to be used.",
+   "state_changes": [],
+   "tier": "documented",
+   "tier_printed": "documented (critic's view, flagged opinion)",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false,
+   "source_keys": [
+    "GD-14708"
+   ],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "RD-turnpikes",
+   "section": "B.8.4",
+   "kind": "road",
+   "name": "Turnpikes to Chambersburg, York, Baltimore",
+   "location": null,
+   "preexisting": true,
+   "exists_in_1863": true,
+   "description": "Antebellum turnpikes ran from Gettysburg (Wiki-Battlefield)",
+   "dimensions": null,
+   "gap_printed": "Surface, width, grade",
+   "parse_status": "parsed",
+   "tier": null,
+   "tier_printed": null,
+   "tier_note": "B.8.4 prints no tier column; roads are rendered from the 1863 vector layer with a generic surface tagged plausible-procedural until a source is found (B.8.4 footer).",
+   "source_keys": [
+    "Wiki-Battlefield"
+   ],
+   "weak_source": true,
+   "conflicts": [],
+   "gaps": [
+    "Surface, width, grade"
+   ],
+   "parts": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "RD-baltimore-pike",
+   "section": "B.8.4",
+   "kind": "road",
+   "name": "Baltimore Pike",
+   "location": null,
+   "preexisting": true,
+   "exists_in_1863": true,
+   "description": "Chartered 1807 as the Gettysburg and Petersburg Turnpike (\"artificial road\"); macadamized by 1916; field hospitals lined it",
+   "dimensions": null,
+   "gap_printed": "1863 surface not stated",
+   "parse_status": "parsed",
+   "tier": null,
+   "tier_printed": null,
+   "tier_note": "B.8.4 prints no tier column; roads are rendered from the 1863 vector layer with a generic surface tagged plausible-procedural until a source is found (B.8.4 footer).",
+   "source_keys": [],
+   "weak_source": false,
+   "conflicts": [],
+   "gaps": [
+    "1863 surface not stated"
+   ],
+   "parts": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "RD-taneytown-road",
+   "section": "B.8.4",
+   "kind": "road",
+   "name": "Taneytown Road",
+   "location": null,
+   "preexisting": true,
+   "exists_in_1863": true,
+   "description": "Rock Creek covered bridge (1841) near Horner's Mill used by Union troops; a 1905 section near Meade HQ reconstructed to 16-ft width (modern width, not 1863); southern section unpaved until the 1930s",
+   "dimensions": null,
+   "gap_printed": "1863 width",
+   "parse_status": "parsed",
+   "tier": null,
+   "tier_printed": null,
+   "tier_note": "B.8.4 prints no tier column; roads are rendered from the 1863 vector layer with a generic surface tagged plausible-procedural until a source is found (B.8.4 footer).",
+   "source_keys": [],
+   "weak_source": false,
+   "conflicts": [],
+   "gaps": [
+    "1863 width"
+   ],
+   "parts": [
+    {
+     "id": "RD-taneytown-road#rock_creek_covered_bridge_horners_mill",
+     "part": "rock_creek_covered_bridge_horners_mill"
+    }
+   ],
+   "schedule_rows": []
+  },
+  {
+   "id": "RD-wheatfield-road",
+   "section": "B.8.4",
+   "kind": "road",
+   "name": "Wheatfield Road / Peach Orchard Road",
+   "location": null,
+   "preexisting": true,
+   "exists_in_1863": true,
+   "description": "Dirt road along the north side of the Wheatfield",
+   "dimensions": null,
+   "gap_printed": "Width",
+   "parse_status": "parsed",
+   "tier": null,
+   "tier_printed": null,
+   "tier_note": "B.8.4 prints no tier column; roads are rendered from the 1863 vector layer with a generic surface tagged plausible-procedural until a source is found (B.8.4 footer).",
+   "source_keys": [],
+   "weak_source": false,
+   "conflicts": [],
+   "gaps": [
+    "Width"
+   ],
+   "parts": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "RD-chambersburg-pike",
+   "section": "B.8.4",
+   "kind": "road",
+   "name": "Chambersburg Pike",
+   "location": null,
+   "preexisting": true,
+   "exists_in_1863": true,
+   "description": "Post-and-rail fences documented on July 1",
+   "dimensions": null,
+   "gap_printed": "Surface, width",
+   "parse_status": "parsed",
+   "tier": null,
+   "tier_printed": null,
+   "tier_note": "B.8.4 prints no tier column; roads are rendered from the 1863 vector layer with a generic surface tagged plausible-procedural until a source is found (B.8.4 footer).",
+   "source_keys": [],
+   "weak_source": false,
+   "conflicts": [],
+   "gaps": [
+    "Surface, width"
+   ],
+   "parts": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "RD-avenues",
+   "section": "B.8.4",
+   "kind": "avenue_not_in_1863",
+   "name": "Hancock Avenue, Pleasonton Avenue and other avenues",
+   "location": null,
+   "preexisting": false,
+   "exists_in_1863": false,
+   "description": "Did not exist in 1863; avenues were added by the GBMA and War Department (17 miles by 1896). Do not place them in the scene",
+   "dimensions": null,
+   "gap_printed": "n/a",
+   "parse_status": "parsed",
+   "tier": null,
+   "tier_printed": null,
+   "tier_note": "B.8.4 prints no tier column; roads are rendered from the 1863 vector layer with a generic surface tagged plausible-procedural until a source is found (B.8.4 footer).",
+   "source_keys": [],
+   "weak_source": false,
+   "conflicts": [],
+   "gaps": [
+    "n/a"
+   ],
+   "parts": [],
+   "never_place": true,
+   "schedule_rows": []
+  },
+  {
+   "id": "RD-other-roads",
+   "section": "B.8.4",
+   "kind": "road",
+   "name": "Other roads (Hagerstown, Fairfield, Emmitsburg, Hanover, York, Harrisburg, Carlisle, Mummasburg, Millerstown, Granite Schoolhouse Lane), Plum Run crossings, other Rock Creek bridges",
+   "location": null,
+   "preexisting": true,
+   "exists_in_1863": true,
+   "description": "No width, surface or grade retrieved",
+   "dimensions": null,
+   "gap_printed": "Open gap",
+   "parse_status": "parsed",
+   "tier": null,
+   "tier_printed": null,
+   "tier_note": "B.8.4 prints no tier column; roads are rendered from the 1863 vector layer with a generic surface tagged plausible-procedural until a source is found (B.8.4 footer).",
+   "source_keys": [],
+   "weak_source": false,
+   "conflicts": [],
+   "gaps": [
+    "Open gap"
+   ],
+   "parts": [],
+   "schedule_rows": []
+  },
+  {
+   "id": "ENV-wheatfield-wheat",
+   "section": "B.8.7",
+   "kind": "crop",
+   "name": "Wheatfield wheat",
+   "location": null,
+   "preexisting": null,
+   "description": null,
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parse_note": "Named only in schedule row S-033; no B.8.2/B.8.3 row.",
+   "tier": null,
+   "source_keys": [],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-033"
+   ]
+  },
+  {
+   "id": "ENV-evergreen-cemetery",
+   "section": "B.8.7",
+   "kind": "cemetery",
+   "name": "Evergreen Cemetery",
+   "location": null,
+   "preexisting": null,
+   "description": null,
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parse_note": "Named in S-045 and in the gatehouse row; the cemetery itself has no B.8.2 row.",
+   "tier": null,
+   "source_keys": [],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-045"
+   ]
+  },
+  {
+   "id": "ENV-confederate-position",
+   "section": "B.8.7",
+   "kind": "world_state",
+   "name": "Confederate position",
+   "location": null,
+   "preexisting": null,
+   "description": null,
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parse_note": "Object of S-067; not a structure.",
+   "tier": null,
+   "source_keys": [],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-067"
+   ]
+  },
+  {
+   "id": "ENV-plum-run",
+   "section": "B.8.7",
+   "kind": "terrain",
+   "name": "Plum Run and low ground",
+   "location": null,
+   "preexisting": null,
+   "description": null,
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parse_note": "Object of S-069; terrain, not a structure.",
+   "tier": null,
+   "source_keys": [],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-069"
+   ]
+  },
+  {
+   "id": "GROUP-hospital-sites",
+   "section": "B.8.7",
+   "kind": "group",
+   "name": "Hospital sites (all)",
+   "location": null,
+   "preexisting": null,
+   "description": null,
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parse_note": "Object of S-070 is generic; covers the H-nn sites.",
+   "tier": null,
+   "source_keys": [],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-070"
+   ]
+  },
+  {
+   "id": "PERSON-armistead",
+   "section": "B.8.7",
+   "kind": "person_state",
+   "name": "Armistead",
+   "location": null,
+   "preexisting": null,
+   "description": null,
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parse_note": "Object of S-072 is a person, not a structure.",
+   "tier": null,
+   "source_keys": [],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-072"
+   ]
+  },
+  {
+   "id": "RD-gettysburg-railroad",
+   "section": "B.8.7",
+   "kind": "railroad",
+   "name": "Railroad",
+   "location": null,
+   "preexisting": null,
+   "description": null,
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parse_note": "Object of S-076 (\"Railroad\"); no B.8.4 row beyond the trestle.",
+   "tier": null,
+   "source_keys": [],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-076"
+   ]
+  },
+  {
+   "id": "WS-080-land",
+   "section": "B.12.3",
+   "kind": "epilogue_state",
+   "name": "Land",
+   "location": null,
+   "preexisting": null,
+   "description": "17 acres bought by Wills for about $2,475.87 in late July and August.",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parse_note": "Epilogue world-state element introduced by schedule row S-080 (Nov 1863); not a B.8.2 structure.",
+   "tier": null,
+   "source_keys": [],
+   "conflicts": [],
+   "gaps": [
+    "Parcel boundary against Warren and later maps."
+   ],
+   "schedule_rows": [
+    "S-080"
+   ]
+  },
+  {
+   "id": "WS-081-reburials",
+   "section": "B.12.3",
+   "kind": "epilogue_state",
+   "name": "Reburials",
+   "location": null,
+   "preexisting": null,
+   "description": "The first of 3,512 Union bodies moved on October 27; 1,258 reburied by November 19; work due to finish March 1864. Sources date the start differently (Oct 17 and Oct 27 appear in the timeline tail T3-218).",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parse_note": "Epilogue world-state element introduced by schedule row S-081 (Nov 1863); not a B.8.2 structure.",
+   "tier": null,
+   "source_keys": [],
+   "conflicts": [],
+   "gaps": [
+    "Grave-by-grave progress and which plots were open."
+   ],
+   "schedule_rows": [
+    "S-081"
+   ]
+  },
+  {
+   "id": "WS-082-layout",
+   "section": "B.12.3",
+   "kind": "epilogue_state",
+   "name": "Layout",
+   "location": null,
+   "preexisting": null,
+   "description": "Semicircular burial plots (Saunders design); an iron fence separated the new cemetery from Evergreen Cemetery.",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parse_note": "Epilogue world-state element introduced by schedule row S-082 (Nov 1863); not a B.8.2 structure.",
+   "tier": null,
+   "source_keys": [],
+   "conflicts": [],
+   "gaps": [
+    "Plot geometry, gate positions and path widths."
+   ],
+   "schedule_rows": [
+    "S-082"
+   ]
+  },
+  {
+   "id": "WS-083-platform",
+   "section": "B.12.3",
+   "kind": "epilogue_state",
+   "name": "Platform",
+   "location": null,
+   "preexisting": null,
+   "description": "Built by November 19. Garry Wills (1992) and William Frassanito (1995) place it on the Evergreen Cemetery side of the dividing fence, not at the later monument site; the park marker and brochure now say Evergreen. Earlier park materials said otherwise.",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parse_note": "Epilogue world-state element introduced by schedule row S-083 (Nov 1863); not a B.8.2 structure.",
+   "tier": null,
+   "source_keys": [],
+   "conflicts": [],
+   "gaps": [
+    "Exact footprint, height, flags and bunting, rail, seating plan."
+   ],
+   "schedule_rows": [
+    "S-083"
+   ]
+  },
+  {
+   "id": "WS-084-surrounding-ground",
+   "section": "B.12.3",
+   "kind": "epilogue_state",
+   "name": "Surrounding ground",
+   "location": null,
+   "preexisting": null,
+   "description": "Cut and scarred trees, broken fences, rifle pits and discarded gear still visible around the cemetery; the Blue Ridge visible in the distance.",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parse_note": "Epilogue world-state element introduced by schedule row S-084 (Nov 1863); not a B.8.2 structure.",
+   "tier": null,
+   "source_keys": [],
+   "conflicts": [],
+   "gaps": [
+    "Which trees, which fences."
+   ],
+   "schedule_rows": [
+    "S-084"
+   ]
+  },
+  {
+   "id": "WS-085-season",
+   "section": "B.12.3",
+   "kind": "epilogue_state",
+   "name": "Season",
+   "location": null,
+   "preexisting": null,
+   "description": "Late autumn: trees assumed leaf-off or nearly so, grass dormant.",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parse_note": "Epilogue world-state element introduced by schedule row S-085 (Nov 1863); not a B.8.2 structure.",
+   "tier": null,
+   "source_keys": [],
+   "conflicts": [],
+   "gaps": [
+    "No Nov 19 vegetation source retrieved. Fetch Nov 1863 observations."
+   ],
+   "schedule_rows": [
+    "S-085"
+   ]
+  },
+  {
+   "id": "WS-086-sun-sky",
+   "section": "B.12.3",
+   "kind": "epilogue_state",
+   "name": "Sun and sky",
+   "location": null,
+   "preexisting": null,
+   "description": "Sun position and shadow direction computed from the ephemeris for 39.82 N, 77.23 W; cloud default cloudy clearing to sun at the prayer.",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parse_note": "Epilogue world-state element introduced by schedule row S-086 (Nov 1863); not a B.8.2 structure.",
+   "tier": null,
+   "source_keys": [],
+   "conflicts": [],
+   "gaps": [
+    "Actual cloud timing."
+   ],
+   "schedule_rows": [
+    "S-086"
+   ]
+  },
+  {
+   "id": "WS-087-crowd",
+   "section": "B.12.3",
+   "kind": "epilogue_state",
+   "name": "Crowd",
+   "location": null,
+   "preexisting": null,
+   "description": "About 15,000 (W-CONS) to 15,000 to 20,000 (EWH); soldiers, civilians, widows, boys at the edge (a photo), six governors, reporters.",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parse_note": "Epilogue world-state element introduced by schedule row S-087 (Nov 1863); not a B.8.2 structure.",
+   "tier": null,
+   "source_keys": [],
+   "conflicts": [],
+   "gaps": [
+    "Composition and civilian dress by group: plausible-procedural, period-correct."
+   ],
+   "schedule_rows": [
+    "S-087"
+   ]
+  },
+  {
+   "id": "WS-088-torch-lit-evening",
+   "section": "B.12.3",
+   "kind": "epilogue_state",
+   "name": "Torch-lit evening before",
+   "location": null,
+   "preexisting": null,
+   "description": "Celebrating crowds, bands and alcohol in the streets on the night of November 18.",
+   "dimensions": null,
+   "parse_status": "parsed",
+   "parse_note": "Epilogue world-state element introduced by schedule row S-088 (Nov 1863); not a B.8.2 structure.",
+   "tier": null,
+   "source_keys": [],
+   "conflicts": [],
+   "gaps": [],
+   "schedule_rows": [
+    "S-088"
+   ]
+  }
+ ]
+}

@@ -76,27 +76,50 @@ function t0Groups() {
     const files = fs.readdirSync(dir).filter((f) => f.endsWith('.json') && !f.startsWith('PG-')).sort();
     for (const g of cfg.group_order) groups[g] = [...files.filter((f) => f === g + '.json'), ...files.filter((f) => f.startsWith(g + '+'))].flatMap((f) => readJson(path.join(dir, f)).patches);
   }
-  return { order: cfg.group_order, groups };
+  // the T0 groups are the groups that stand BEFORE the checked group in the build order: trains.json lists the later groups (CLOCK itself, DATA, MON ...) in the same order and
+  // tools/t0/patches now holds their files too (CLOCK.json since train R1d); applying them here would apply CLOCK twice and DATA/MON on top of it
+  const at = cfg.group_order.indexOf(spec.group);
+  return { order: at >= 0 ? cfg.group_order.slice(0, at) : cfg.group_order, groups };
 }
 const position = flags.position || 'end';
+/** The T0 groups applied in the build system's order (optionally with CLOCK inserted at runClock's position). */
+function emulateT0(st, runClockAt) {
+  let t0Applied = 0; const t0Failed = [];
+  const { order, groups } = t0Groups();
+  for (const g of order) {
+    for (const p of groups[g] || []) {
+      const q = { ...p, id: 't0:' + p.id };
+      if (q.regex) {
+        try { const re = new RegExp(q.find, 'g'), rel = relOf(q.target), t = get(st, rel), ms = [...t.matchAll(re)]; if (ms.length !== q.expect) { t0Failed.push(q.id); continue; } st.set(rel, t.replace(re, (...m) => pyExpand(m, q.repl))); t0Applied++; } catch { t0Failed.push(q.id + ' (Python regex not emulated)'); }
+      } else if (applyPatch(st, q, () => t0Failed.push(q.id))) t0Applied++;
+    }
+    if (runClockAt && position === 'after-' + g) runClockAt();
+  }
+  return { t0Applied, t0Failed };
+}
+/** The patches of the group that anchor on text which a T0 group writes (build-clock-patches.mjs: "patches that follow groups A..PERF", asserted there against the staged text).
+ *  Applied to the pristine legacy text they find nothing, by construction; --after-t0 is the mode that applies them. Found by trial: a patch that finds nothing in the pristine text
+ *  but exactly `expect` matches in the text after the T0 groups is such a patch; one that finds nothing in either is a real failure and stays one. */
+let t0Only = null;
+const matchesAfterT0 = (p) => {
+  if (!t0Only) { t0Only = new Map(); emulateT0(t0Only, null); }
+  const t = get(t0Only, relOf(p.target));
+  try { return (p.regex ? [...t.matchAll(new RegExp(p.find, 'g'))].length : countOf(t, p.find)) === p.expect; } catch { return false; }
+};
 /** withClock=false gives the baseline (legacy, or legacy + T0 groups); true adds CLOCK. */
 function build(withClock) {
-  const st = new Map(); let t0Applied = 0, applied = 0; const t0Failed = [], clockFailed = [];
-  const runClock = () => { for (const p of spec.patches) if (applyPatch(st, p, (m) => clockFailed.push(m))) applied++; };
-  if (flags['after-t0']) {
-    const { order, groups } = t0Groups();
-    for (const g of order) {
-      for (const p of groups[g] || []) {
-        const q = { ...p, id: 't0:' + p.id };
-        if (q.regex) {
-          try { const re = new RegExp(q.find, 'g'), rel = relOf(q.target), t = get(st, rel), ms = [...t.matchAll(re)]; if (ms.length !== q.expect) { t0Failed.push(q.id); continue; } st.set(rel, t.replace(re, (...m) => pyExpand(m, q.repl))); t0Applied++; } catch { t0Failed.push(q.id + ' (Python regex not emulated)'); }
-        } else if (applyPatch(st, q, () => t0Failed.push(q.id))) t0Applied++;
-      }
-      if (withClock && position === 'after-' + g) runClock();
+  const st = new Map(); let t0Applied = 0, applied = 0; const t0Failed = [], clockFailed = [], followsT0 = [];
+  const runClock = () => {
+    for (const p of spec.patches) {
+      if (applyPatch(st, p, (m) => clockFailed.push(m))) { applied++; continue; }
+      if (!flags['after-t0'] && matchesAfterT0(p)) { clockFailed.pop(); followsT0.push(p.id); }
     }
+  };
+  if (flags['after-t0']) {
+    const r = emulateT0(st, withClock ? runClock : null); t0Applied = r.t0Applied; t0Failed.push(...r.t0Failed);
     if (withClock && position === 'end') runClock();
   } else if (withClock) runClock();
-  return { st, t0Applied, t0Failed, clockFailed, applied };
+  return { st, t0Applied, t0Failed, clockFailed, applied, followsT0 };
 }
 const base = build(false), patched = build(true);
 for (const m of patched.clockFailed) fail(m);
@@ -145,7 +168,7 @@ const bundle = texts.get(BUNDLE);
 const evals = [];
 const gtCtx = () => ({ f: (t, s) => model.tickToLabel(+t || 1, { style: s || 'compat' }), after: (t, d) => model.tickAfterMinutes(+t || 1, d), hour: (t) => model.hour(+t || 1), tabStart: (d) => model.tabStart(d), tickMax: model.tickMax });
 {
-  const m = /var GTBGT=(\(function\(\)\{[\s\S]*?\}\)\(\));(?=function v4\()/.exec(bundle);
+  const m = /var GTBGT=(\(function\(\)\{[\s\S]*?\}\)\(\));(?=GTBGT\.\w+=|function v4\()/.exec(bundle); // the module is followed by the group's helper assignments (CLK-00b) or, in a bare tree, by function v4
   if (!m) fail('inlined module not found in the patched bundle');
   else {
     const sb = { window: {} }; vm.createContext(sb); vm.runInContext('var GTBGT=' + m[1] + ';', sb);
@@ -190,7 +213,7 @@ const routedN = rowsOf.filter((l) => /\| yes \|/.test(l)).length, unatt = (/Unat
 
 // ------------------------------------------------------------------ report
 const delta = texts.get(BUNDLE).length - baseText(BUNDLE).length;
-console.log(`CLOCK bridge check: ${spec.patches.length} patches in group "${spec.group}" (${spec.patches.filter((p) => p.regex).length} regex), ${patched.applied} applied${flags['after-t0'] ? ' on top of the T0 groups' : ' to the pristine legacy text'}, ${changed.length} files changed`);
+console.log(`CLOCK bridge check: ${spec.patches.length} patches in group "${spec.group}" (${spec.patches.filter((p) => p.regex).length} regex), ${patched.applied} applied${flags['after-t0'] ? ' on top of the T0 groups' : ' to the pristine legacy text'}${patched.followsT0.length ? `, ${patched.followsT0.length} follow the T0 groups and are asserted with --after-t0 (${patched.followsT0.join(', ')})` : ''}, ${changed.length} files changed`);
 if (flags['after-t0']) notes.unshift(`base tree of the T0 emulation: ${path.relative(P(), TREE0).split(path.sep).join('/')}`);
 console.log(synt.join('\n'));
 console.log('scope: ' + scopeNote);

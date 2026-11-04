@@ -89,7 +89,30 @@ def main():
             core.append(g)
     print('core symbols', len(core), 'of', len(cand))
     P = unary_union([g.buffer(45) for g in core]).buffer(-10).buffer(10)
-    pickle.dump(core, open(os.path.join(C.BUILD, 'hopkins_buildings.pkl'), 'wb'))
+    # sparse symbols outside the dense core (the southern approach along the Baltimore Pike: the Waggon Hotel and the houses to the Evergreen Cemetery entrance, the outskirts on the Hanover and
+    # Harrisburg roads): kept when they are compact solid rectangles (fill ratio >= 0.7 of the minimum rectangle, aspect <= 5, 25-700 m2) inside the frame of the inset plan, outside its
+    # lettering and engravings (frame and exclusions read on the raster, 2 m per pixel view: u 395-845, v 330-1075 of a 2200 m window centred on the Diamond; pass 3, completeness)
+    corein = set(id(g) for g in core)
+    def in_frame(g):
+        e, n = g.centroid.x, g.centroid.y
+        if not (308766 <= e <= 309666 and 4410320 <= n <= 4411810):
+            return False
+        if 309296 <= e <= 309776 and 4410350 <= n <= 4410500: return False        # the title GETTYSBURG
+        if 309256 <= e <= 309666 and 4411650 <= n <= 4411810: return False        # foot of the Seminary engraving
+        if 308766 <= e <= 308866 and 4411750 <= n <= 4411810: return False        # the label Pennsylvania College
+        return True
+    outer_ok = []
+    for g in keep:
+        if id(g) in corein or g.geom_type != 'Polygon' or not in_frame(g) or not (25 <= g.area <= 700):
+            continue
+        mrr = g.minimum_rotated_rectangle
+        xs, ys = mrr.exterior.coords.xy
+        w_ = math.hypot(xs[1] - xs[0], ys[1] - ys[0]); h_ = math.hypot(xs[2] - xs[1], ys[2] - ys[1])
+        if min(w_, h_) < 2 or max(w_, h_) / min(w_, h_) > 5 or g.area / (w_ * h_) < 0.7:
+            continue
+        outer_ok.append(g)
+    print('outer sparse symbols kept', len(outer_ok))
+    pickle.dump(core + outer_ok, open(os.path.join(C.BUILD, 'hopkins_buildings.pkl'), 'wb'))
     pickle.dump(P, open(os.path.join(C.BUILD, 'hopkins_hull.pkl'), 'wb'))
     print('plan area ha', P.area / 1e4)
     # streets: test the modern centre lines

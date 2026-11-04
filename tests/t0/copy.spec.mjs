@@ -21,6 +21,7 @@ const L = await import('./lib.mjs');
 const fs = await import('node:fs');
 const path = await import('node:path');
 const { spawnSync } = await import('node:child_process');
+const { treeGroups } = await import('./lib_clock.mjs');
 const { REPO, TMP, PORT_BASE, VIEWPORTS, openSession, createStaticServer, createSuite, assert, assertEq, sleep, waitForApp, chooseLayout, Skip } = L;
 
 const argv = process.argv.slice(2);
@@ -57,6 +58,10 @@ function buildPair() {
 
 // ------------------------------------------------------------------ helpers for the rendered tests
 let DIST, srv, ORIGIN;
+// group POLISH (marker: its onboarding string in the entry bundle) writes "The 24 stories" where Help About said "The 24 narrative vignettes"; the count sentence must be there either way, in the wording of the tree under test
+let HAS_POLISH = false;
+// groups of the tree under test (its version.json): CLOCK words the Help rows for the arrows and the hour key without "tick" and "5 minutes"; ANIM replaces the legend (tabs Disposition / Sides / Size) by the skin's own "What the marks say"
+let HAS_CLOCK = false, HAS_ANIM = false;
 const sessions = [];
 // never load the owner's Google Maps key (Soldier's Eye View / walkthrough Street View): those requests fail locally
 const GOOGLE = /^https:\/\/(www\.google\.com\/maps|maps\.googleapis\.com|maps\.gstatic\.com|www\.gstatic\.com)/i;
@@ -69,6 +74,8 @@ async function ensureServer() {
   if (opt('dist', null)) DIST = path.resolve(REPO, opt('dist'));
   else { buildPair(); DIST = B.with.dist; }
   if (!fs.existsSync(DIST)) throw new Error(`dist not found: ${DIST}`);
+  { const g = treeGroups(DIST); HAS_CLOCK = g.includes('CLOCK'); HAS_ANIM = g.includes('ANIM'); }
+  HAS_POLISH = fs.readdirSync(path.join(DIST, 'assets')).filter((f) => /^index-.*\.js$/.test(f)).some((f) => fs.readFileSync(path.join(DIST, 'assets', f), 'utf8').includes('Step one moment'));
   srv = await createStaticServer({ root: DIST, port: PORT_BASE });
   ORIGIN = srv.url;
 }
@@ -151,29 +158,37 @@ suite.test('T0-CP-01', 'string level: each shipped row present once before / gon
 suite.test('T0-CP-02', 'rendered desktop: Help About/Sources, no heatmap row, Street View subtitle (8 viewpoints), speed label, guide link, size legend, minimap title, walkthrough link, "Copy link"', async (t) => {
   if (IS_LEGACY) throw new Skip('the shipped copy is only asserted on release trees');
   await ensureServer();
-  const S = await open({ profile: 'cp-02', cdpPort: PORT_BASE + 1, viewport: DESKTOP });
+  // ANIM: the engine (and with it the replacement legend) starts only when the map has loaded; with Mapbox blocked the shipped legend stays, its tab strip hidden.  The few requests a load makes are the harness's capped, Referer-injected ones.
+  const S = await open({ profile: 'cp-02', cdpPort: PORT_BASE + 1, viewport: DESKTOP, ...(HAS_ANIM ? { tiles: 'inject' } : {}) });
   try {
     await boot(S.page, 'desktop');
     const p = S.page;
     const seen = {};
     seen.speed = await p.locator('text=1x (base speed)').count();
     seen.realTime = await p.locator('text=1x (real time)').count();
-    seen.guide = await p.locator('a[href="/user-guide.pdf"]').first().textContent();
+    seen.guide = await p.locator('#root a[href="/user-guide.pdf"]').first().textContent();      // the toolbar link (group POLISH also lists the guide in the More to Explore menu where the toolbar has no room, outside #root)
     seen.minimapTitle = await p.locator('canvas[title]').evaluateAll((els) => els.map((e) => e.title));
+    if (HAS_ANIM) {
+      // the legend of an ANIM tree is the skin's own "What the marks say": it has no Size tab; its size line is the bar under a regiment flag, and no row of the retired Size tab (Regiment / Brigade / Division with a typical strength) may survive
+      await p.locator('text=What the marks say').first().waitFor({ state: 'visible', timeout: 30000 });
+      seen.size = await p.locator('text=/^(Regiment|Brigade|Division) \\(/').allTextContents();
+      seen.markLegend = await p.evaluate(() => { const e = document.querySelector('[role="group"][aria-label="Legend"]'); const tx = e ? e.textContent.replace(/\s+/g, ' ') : '';   /* textContent: the skin legend folds its lower rows (incl. the size line) into a closed <details>, which innerText omits but a reader can open */ return { title: /What the marks say/.test(tx), sizeLine: /Bar under a regiment flag: placement strength over reference/.test(tx), oldTabs: ['Disposition', 'Sides', 'Size'].filter((w) => [...(e ? e.querySelectorAll('button') : [])].some((b) => b.textContent.trim() === w && b.offsetParent !== null)) }; });
+    } else {
     // legend Size tab
     await p.getByRole('button', { name: 'Size' }).click(); await sleep(300);
     seen.size = await p.locator('text=/^(Regiment|Brigade|Division) \\(/').allTextContents();
+    }
     // Help: shortcuts tab (no H row), About tab (counts, Sources)
     await key(p, '?', 700);
     await p.locator('[role="dialog"]').first().waitFor({ state: 'visible', timeout: 8000 });
     seen.helpKeys = await p.locator('[role="dialog"] kbd').allTextContents();
     seen.helpHeatmap = await p.locator('[role="dialog"] >> text=/heatmap/i').count();          // scoped: the closed Extra Features menu mentions the Ground Remembers heat map
     await p.getByRole('button', { name: 'About' }).click(); await sleep(300);
-    seen.about = await p.evaluate(() => {
+    seen.about = await p.evaluate((polish) => {
       const d = document.querySelector('[role="dialog"]'); const tx = d.innerText; const heads = [...d.querySelectorAll('div')].filter((e) => e.children.length === 0).map((e) => e.textContent.trim());
-      return { has445: /445\+/.test(tx), hundreds: /hundreds of Union and Confederate regiments and batteries/.test(tx), sourcesHeading: heads.includes('Sources'), primaryHeading: heads.includes('Primary Sources'), vignettes24: /The 24 narrative vignettes/.test(tx),
+      return { has445: /445\+/.test(tx), hundreds: /hundreds of Union and Confederate regiments and batteries/.test(tx), sourcesHeading: heads.includes('Sources'), primaryHeading: heads.includes('Primary Sources'), vignettes24: polish ? /The 24 stories are drawn from/.test(tx) && !/vignette/i.test(tx) : /The 24 narrative vignettes/.test(tx),
         paragraphStillSaysPrimary: /derived from primary sources/.test(tx) };
-    });
+    }, HAS_POLISH);
     await key(p, 'Escape', 400);
     // Street View panel
     await p.click('button[title^="Soldier"]'); await sleep(700);
@@ -196,7 +211,8 @@ suite.test('T0-CP-02', 'rendered desktop: Help About/Sources, no heatmap row, St
     assertEq(seen.speed, 1, '"1x (base speed)" count'); assertEq(seen.realTime, 0, '"1x (real time)" count');
     assertEq(seen.guide.trim(), 'User Guide (PDF)', 'guide link label');
     assert(seen.minimapTitle.includes('Click to move the map'), `minimap title: ${JSON.stringify(seen.minimapTitle)}`);
-    assertEq(seen.size, ['Regiment (about 400)', 'Brigade (about 2,000)', 'Division (about 6,000)'], 'Size legend rows');
+    if (HAS_ANIM) assertEq([seen.size, seen.markLegend], [[], { title: true, sizeLine: true, oldTabs: [] }], 'legend of an ANIM tree: the skin legend with its size line and none of the retired Size tab rows');
+    else assertEq(seen.size, ['Regiment (about 400)', 'Brigade (about 2,000)', 'Division (about 6,000)'], 'Size legend rows');
     assert(!seen.helpKeys.includes('H'), `Help still lists an H key: ${JSON.stringify(seen.helpKeys)}`); assertEq(seen.helpHeatmap, 0, 'heatmap mentions in Help');
     assertEq({ ...seen.about, paragraphStillSaysPrimary: undefined }, { has445: false, hundreds: true, sourcesHeading: true, primaryHeading: false, vignettes24: true, paragraphStillSaysPrimary: undefined }, 'Help About content');
     assertEq(seen.streetView.sub.trim(), 'Stand where history happened. Eight viewpoints open in Google Street View.', 'Street View subtitle');
@@ -249,7 +265,8 @@ suite.test('T0-CP-04', 'Help text: the desktop list keeps the held arrow and Esc
   const rows = Object.fromEntries(seen.desktop);
   t.note('desktop Help rows', rows);
   // held (D-TIME) rows are untouched by this work
-  assertEq([rows['→'], rows['←'], rows['Shift + →']], ['Advance one tick (5 minutes)', 'Go back one tick', 'Advance one hour (12 ticks)'], 'held arrow rows');
+  // CLOCK words these rows without "tick" and without "5 minutes" / "12 ticks": a frame is no longer a fixed five minutes and the hour keys move 60 battle minutes (tools/t0/CLOCK-README.md); the rows are still the arrow and hour rows, in the tree's words
+  assertEq([rows['→'], rows['←'], rows['Shift + →']], HAS_CLOCK ? ['Advance one step', 'Go back one step', 'Skip forward about one hour of battle time'] : ['Advance one tick (5 minutes)', 'Go back one tick', 'Advance one hour (12 ticks)'], 'held arrow rows');
   assertEq(rows['Tab to the map'], 'Arrow keys then pan it instead of stepping the clock, + / - zoom it, Shift + arrows rotate and tilt it; Esc gives the keys back', 'map keyboard row');
   assertEq(rows['Esc'], 'Dismiss panel / deselect unit', 'the Esc row is a held row (h04) and stays as it was');
   const P = await open({ profile: 'cp-04p', cdpPort: PORT_BASE + 4, viewport: PHONE });

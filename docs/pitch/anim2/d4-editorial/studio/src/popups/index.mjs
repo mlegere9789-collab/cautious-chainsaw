@@ -7,10 +7,10 @@ import { commandCrossout } from './command-crossout.mjs';
 import { unitCard } from './unit-card.mjs';
 import { tour } from './tour.mjs';
 import { dayBanner } from './day-banner.mjs';
-import { clockHud } from './clock-hud.mjs';
 import { legend } from './legend.mjs';
 import { minimap } from './minimap.mjs';
 import { hints } from './hints.mjs';
 import { chronicle } from './chronicle.mjs';
 
-export const POPUPS = [clockHud, dayBanner, eventCard, storyCard, commandToast, commandCrossout, unitCard, tour, legend, minimap, hints, chronicle];
+// round 2: the clock badge is the masthead's clock (the date, the time and the uncertainty are there on every screen); it no longer lies on the map
+export const POPUPS = [dayBanner, eventCard, storyCard, commandToast, commandCrossout, unitCard, tour, legend, minimap, hints, chronicle];

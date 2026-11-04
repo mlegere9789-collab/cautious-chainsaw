@@ -166,5 +166,11 @@ def run(dist, texts, cfg, train, records):
 
     # ---- sw.js (new).  The kill switch (ops/sw-kill.js) is NOT copied into dist: it must not be publicly served (release verifier 2026-09-30);
     # build.py keeps a copy beside the dist (<out>/_ops/sw-kill.js) and the L2 runbook step deploys ops/sw-kill.js AS /sw.js.
-    write_text(os.path.join(dist, 'sw.js'), _tmpl('sw.js.tmpl').replace('{{RID}}', rid))
+    sw = _tmpl('sw.js.tmpl')
+    if cfg['trains'][train].get('sw_tiles'):
+        # R1d and later: the reconstruction's tile pyramid (group BASE1863, /tiles1863/<version>/*) is cached by the worker, cache-first, bounded (t0build/swtiles.py)
+        from . import swtiles
+        sw = swtiles.sw_with_tiles(sw)
+        records.append({'group': 'R0M', 'id': 'R0M:service worker caches /tiles1863/', 'target': 'sw.js', 'expect': 1, 'found': 1, 'ok': True, 'regex': False, 'phase': 'mechanism'})
+    write_text(os.path.join(dist, 'sw.js'), sw.replace('{{RID}}', rid))
     return rel

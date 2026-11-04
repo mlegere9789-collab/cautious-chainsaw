@@ -1,0 +1,18 @@
+Batch XII-05 (50 claims, all from OR27-1-R272, Williams division and corps reports plus addendum). Full report text read.
+
+Counts per fc: passed_full_read 29, corrected 20, downgraded 1, split 0.
+
+Patterns (claims touched; some claims carry two):
+- time from another sentence: 9 (2d-06, mcdougall-01, colgrove-02, lockwood-04 "At 8 a. m." = orders, not the later position; 16 "Between 5 and 6 p. m."; lockwood-06 "quite dark"; 1d-23 "nearly 15J o'clock" = when Williams learned; greene-04 "three hours' night conflict"; 1d-19 July 3 phrase in preceding sentence). Also lockwood-08 ("during the morning" belongs to the Eastern Shore dash clause; the order is "During its continuance") and 1d-25 ("July 4" was in the next sentence).
+- non-time phrase used as when.printed: 1 (2d-08 "By some mistake").
+- merged / compiler-added clause: 2d-07 (Candy and Kane not printed), 1d-13 ("First and Eleventh Corps" gloss), 1d-mcdougall-01 ("between the Second Division and the Third Brigade"), 2d-kane-01 ("in the works"), art-pae-01 (joint result and losses of two artillery units attributed to one), 2d-10 ("morning of July 3" not in the sentence).
+- hedge/condition dropped or overstated: 12c-15 ("less than 50 yards"), 12c-16 ("as I was informed"), 1d-24 (marsh "serious obstacle", not "stopped"), colgrove-02 ("to" vs "from").
+- unit identity gloss: 1d-mcdougall-02 (passage: "one brigade of the First Division"; McDougall comes from other reports) -> downgraded to inferred; 1d-19 ("Our skirmishers" names no unit).
+- OCR digit: lockwood-03 (printed July 3; internal evidence, the 8 a. m. orders and the closing note "morning of July 2", points to July 2: date set 07-02 with basis, ocr kept, t null); 12c-14 and the July 2 chain depend on that note (dbasis added); 12c-17 ("15J" kept t null, wdesc OCR glyph only); 1d-15 (July 5 heading, flagged, unresolved).
+- meridian inferred: none.
+- compass/road gloss: none found in this batch.
+
+Systematic: the paragraph "Early on the morning of July 3" (doubtful digit) is followed by a chain of July 2 events; 20+ inferred-tier claims rest their date on the report's closing note "as taken up on the morning of July 2". Dates are given a dbasis; none was changed except lockwood-03. The "At 8 a. m." wp was copied onto four position claims although it times only the orders. 1d-14 date field holds the first of two printed days (2d and 3d) and the sentence prints "instant" in a report dated August 22 (month read as July).
+
+Ids downgraded: POS-B-us-12c-1d-mcdougall-02. Ids split: none.
+Validator last line: decisions 50 {'passed_full_read': 29, 'corrected': 20, 'downgraded': 1} new split claims 0 missing 0 errors 0

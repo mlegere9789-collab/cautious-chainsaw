@@ -5,13 +5,13 @@
  "tokens": [
   {
    "name": "color.union",
-   "value": "#62a6ff",
-   "doc": "Union: the pip, the flag and the count disc.  Azure, light enough to read on a dark aerial"
+   "value": "#6db1ff",
+   "doc": "Union: the pip, the staff and the carried-forward ring.  Azure, light enough to hold 4.5:1 on a dark aerial"
   },
   {
    "name": "color.confederate",
-   "value": "#e4522a",
-   "doc": "Confederate: vermilion.  Blue against vermilion is the colour-blind-safe pair of Okabe and Ito in spirit (not their exact values)"
+   "value": "#ff7d55",
+   "doc": "Confederate: vermilion, light enough to hold 4.5:1 on a dark aerial.  Blue against vermilion is the colour-blind-safe pair of Okabe and Ito in spirit (not their exact values)"
   },
   {
    "name": "color.unknown",
@@ -21,17 +21,17 @@
   {
    "name": "color.unionFlag",
    "value": "#2d6fd3",
-   "doc": "Union flag cloth and the count inside it: a deeper azure than the pip, so the white numeral holds 4.5:1 (4.85)"
+   "doc": "Union pennant cloth and the count inside it: a deeper azure than the pip, so the white numeral holds 4.5:1"
   },
   {
    "name": "color.confederateFlag",
    "value": "#c4401a",
-   "doc": "Confederate flag cloth: a deeper vermilion than the pip, white numeral at 5.1:1"
+   "doc": "Confederate pennant cloth: a deeper vermilion than the pip, white numeral at 5.1:1"
   },
   {
    "name": "color.glass",
    "value": "#070b11",
-   "doc": "The glass inside a carried-forward (hollow) pip or flag: dark on the night ground, paper on the day ground"
+   "doc": "The glass inside a carried-forward (hollow) pip or pennant: dark on the night ground, paper on the day ground"
   },
   {
    "name": "color.ink",
@@ -41,12 +41,12 @@
   {
    "name": "color.tintUnion",
    "value": "#d3e5ff",
-   "doc": "Lettering of a Union formation (the formation name is soft, haloed, tinted with its side)"
+   "doc": "Lettering of a Union formation or crowd (bold, tinted with its side)"
   },
   {
    "name": "color.tintConfederate",
    "value": "#ffdccd",
-   "doc": "Lettering of a Confederate formation"
+   "doc": "Lettering of a Confederate formation or crowd"
   },
   {
    "name": "color.tintUnknown",
@@ -56,27 +56,27 @@
   {
    "name": "color.tintMixed",
    "value": "#eef1f4",
-   "doc": "Lettering of an aggregate of both sides, or of a side that is not one formation"
+   "doc": "Lettering of a crowd of both sides"
   },
   {
    "name": "color.halo",
    "value": "#070b11",
-   "doc": "The dark halo behind every letter, the dark hairline round a pip and the dark glass of a carried-forward mark (on the DAY ground this is paper white)"
+   "doc": "The dark halo behind every letter and the dark glass of a carried-forward mark (on the DAY ground this is paper white)"
   },
   {
    "name": "color.ring",
    "value": "#f7fafd",
-   "doc": "The light ring of a fresh pip and the staff of a standard (on the DAY ground this is dark ink)"
+   "doc": "The light ring of a fresh pip and the edge of a pennant (on the DAY ground this is dark ink: the ring is the outermost ink of a mark, so it is the colour that stands off the ground)"
   },
   {
    "name": "color.select",
    "value": "#ffffff",
-   "doc": "The selection ring and the fainter hover ring, in the margin of the footprint"
+   "doc": "The selection ring of a mark of unknown side (a Union or Confederate mark is ringed in its own colour)"
   },
   {
    "name": "color.numeral",
    "value": "#ffffff",
-   "doc": "The count inside a standard: always light, with its own dark halo, on both grounds (the flag fill is mid-tone, so the halo carries the contrast)"
+   "doc": "The count inside a pennant: always light, with its own dark halo, on both grounds (the cloth is mid-tone, so the halo carries the contrast)"
   },
   {
    "name": "color.numeralHalo",
@@ -85,7 +85,7 @@
   },
   {
    "name": "halo.width",
-   "value": 2.4,
+   "value": 3,
    "doc": "Width of the halo stroke behind lettering",
    "min": 0,
    "max": 6,
@@ -93,7 +93,7 @@
   },
   {
    "name": "halo.alpha",
-   "value": 0.66,
+   "value": 0.8,
    "doc": "Opacity of the halo stroke",
    "min": 0,
    "max": 1
@@ -106,22 +106,15 @@
    "max": 0.6
   },
   {
-   "name": "halo.plate",
-   "value": 0,
-   "doc": "Opacity of the glass behind a mark (one rounded fill inside the footprint; costs about 3 ms per frame for 350 marks, so it is 0, lettering only, on the night ground and 0.2 on the day ground)",
-   "min": 0,
-   "max": 0.6
-  },
-  {
    "name": "text.dimAlpha",
    "value": 1,
-   "doc": "Opacity of lettering when the mark is carried forward (a fix a battle day old or more).  1: the lettering of a stale mark stays at full strength and keeps its 4.5:1 (round 0 dimmed it to 0.74 and 0.86, and a hostile reading found the stale crowds illegible); the hollow ring and flag carry the age",
+   "doc": "Opacity of lettering when the mark is carried forward (a fix a battle day old or more).  1: the lettering of a stale mark stays at full strength and keeps its 4.5:1; the hollow ring and pennant carry the age",
    "min": 0.3,
    "max": 1
   },
   {
    "name": "pip.size",
-   "value": 11,
+   "value": 12,
    "doc": "Width of the pip, ring included.  Infantry is a disc, cavalry a diamond, artillery a triangle",
    "min": 7,
    "max": 16,
@@ -129,47 +122,32 @@
   },
   {
    "name": "pip.gap",
-   "value": 4,
-   "doc": "Space between the pip and its lettering",
+   "value": 6,
+   "doc": "Space between the pip and its lettering: wide enough that the selection ring (which stands 2.2 px off the pip) never touches the first letter",
    "min": 2,
    "max": 8,
    "unit": "px"
   },
   {
    "name": "pip.ring",
-   "value": 1.25,
-   "doc": "Width of the light ring round a fresh pip (it becomes the side colour when the mark is carried forward)",
+   "value": 1.5,
+   "doc": "Width of the ring round a fresh pip: it is the outermost ink of the mark (ink on the day ground, light on the night ground), and becomes the side colour when the mark is carried forward",
    "min": 0.5,
    "max": 2.5,
    "unit": "px"
   },
   {
    "name": "pip.ringHollow",
-   "value": 1.9,
-   "doc": "Width of the side-coloured ring of a carried-forward pip: thick enough to read at the opening zoom",
+   "value": 2.2,
+   "doc": "Width of the side-coloured ring of a carried-forward pip: thick enough to hold 3:1 against the ground at the opening zoom",
    "min": 0.8,
    "max": 3,
    "unit": "px"
   },
   {
-   "name": "pip.hairlineAlpha",
-   "value": 0.62,
-   "doc": "Opacity of that hairline (the DAY ground uses a paper-white one at a higher opacity)",
-   "min": 0.2,
-   "max": 1
-  },
-  {
-   "name": "pip.hairline",
-   "value": 0.9,
-   "doc": "Width of the dark hairline outside the ring: the contrast guarantee on a pale ground",
-   "min": 0,
-   "max": 2,
-   "unit": "px"
-  },
-  {
    "name": "unit.h",
    "value": 14,
-   "doc": "Height of the body of a unit mark (the footprint adds the selection band on each side)",
+   "doc": "Height of the body of a unit mark (the footprint adds the selection margin on each side)",
    "min": 12,
    "max": 20,
    "unit": "px"
@@ -177,7 +155,7 @@
   {
    "name": "name.alpha",
    "value": 1,
-   "doc": "Opacity of the grown-in full name (the code is bolder; both are full ink)",
+   "doc": "Opacity of the grown-in full name (the same semibold cut as the code, at full ink)",
    "min": 0.4,
    "max": 1
   },
@@ -190,41 +168,49 @@
    "unit": "px"
   },
   {
+   "name": "foot.size",
+   "value": 9,
+   "doc": "Width of the pip a pennant stands on (a division stands on a slightly larger one, a corps on the largest)",
+   "min": 6,
+   "max": 14,
+   "unit": "px"
+  },
+  {
    "name": "flag.w",
-   "value": 15,
-   "doc": "Width of a standard (the flag of a formation or of an aggregate), notch included",
-   "min": 10,
-   "max": 24,
+   "value": 21,
+   "doc": "Length of a brigade pennant, swallow-tail or point included (a division flies 22 % larger, a corps 45 %)",
+   "min": 12,
+   "max": 30,
    "unit": "px"
   },
   {
    "name": "flag.h",
-   "value": 11,
-   "doc": "Height of the flag of a brigade standard; a division flies 12 % taller, a corps 26 % taller",
+   "value": 13,
+   "doc": "Height of a brigade pennant",
    "min": 8,
-   "max": 18,
+   "max": 20,
    "unit": "px"
   },
   {
    "name": "flag.notch",
-   "value": 3.5,
-   "doc": "Depth of the swallow-tail",
+   "value": 6,
+   "doc": "Depth of the swallow-tail of a Union pennant and of the point of a Confederate one: the largest device of the mark that is neither colour nor text, so the armies read apart at a glance and in greyscale",
    "min": 0,
-   "max": 7,
+   "max": 9,
    "unit": "px"
   },
   {
    "name": "flag.staff",
-   "value": 5,
-   "doc": "How far the staff runs below the flag",
-   "min": 0,
-   "max": 12,
+   "value": 6,
+   "doc": "Length of the staff between the pip and the pennant",
+   "min": 2,
+   "max": 14,
    "unit": "px"
   },
   {
    "name": "staff.width",
    "value": 1.5,
-   "doc": "Width of the staff (the flag is hung from its top, its foot stands on the true position)",
+   "doc": "Width of the staff the pennant flies from; it stands on the pip, which is the place of the unit",
    "min": 0.75,
    "max": 2.5,
    "unit": "px"
@@ -232,7 +218,7 @@
   {
    "name": "flag.gap",
    "value": 5,
-   "doc": "Space between a standard and its lettering",
+   "doc": "Space between a pennant and its lettering",
    "min": 2,
    "max": 10,
    "unit": "px"
@@ -240,23 +226,31 @@
   {
    "name": "flag.padX",
    "value": 3.5,
-   "doc": "Space round the count inside a flag that has to widen for two digits",
+   "doc": "Space round the count inside a pennant that has to widen for two digits",
    "min": 1,
    "max": 6,
    "unit": "px"
   },
   {
-   "name": "formation.h",
-   "value": 20,
-   "doc": "Height of the body of a formation or aggregate mark",
-   "min": 16,
-   "max": 26,
+   "name": "flag.edge",
+   "value": 1.1,
+   "doc": "Width of the edge of a fresh pennant (ink on the day ground, light on the night ground)",
+   "min": 0.5,
+   "max": 2,
+   "unit": "px"
+  },
+  {
+   "name": "flag.edgeHollow",
+   "value": 2,
+   "doc": "Width of the side-coloured edge of a carried-forward pennant",
+   "min": 1,
+   "max": 3,
    "unit": "px"
   },
   {
    "name": "detail.corpsNameZoom",
    "value": 11,
-   "doc": "From this zoom a corps (and an aggregate of one) says its name",
+   "doc": "From this zoom a corps (and a crowd of one) says its name",
    "min": 10,
    "max": 18,
    "unit": "zoom"
@@ -264,7 +258,7 @@
   {
    "name": "detail.divisionNameZoom",
    "value": 12.5,
-   "doc": "From this zoom a division (and an aggregate of one) says its name",
+   "doc": "From this zoom a division (and a crowd of one) says its name",
    "min": 10,
    "max": 18,
    "unit": "zoom"
@@ -279,8 +273,8 @@
   },
   {
    "name": "detail.codeZoom",
-   "value": 13,
-   "doc": "From this zoom a unit pip carries its short code (below it a pip is bare: the hover and the card say which unit it is).  13 is below the opening zoom of the site, 13.5: the first view names what it shows",
+   "value": 14,
+   "doc": "From this zoom a unit pip carries its short code (below it a pip is bare: pointing says which unit it is).  The site opens at 13.5, where the formations and crowds are named and the regiments are bare pips: half the lettering of round 1, one rank of bold",
    "min": 10,
    "max": 18,
    "unit": "zoom"
@@ -288,7 +282,7 @@
   {
    "name": "detail.crowdNameZoom",
    "value": 12,
-   "doc": "From this zoom a crowd standard says what its units share (a formation, a corps, both sides): a number alone never stands for hidden units",
+   "doc": "From this zoom a crowd pennant says what its units share (a formation, a corps, both armies): a number alone never stands for hidden units",
    "min": 10,
    "max": 18,
    "unit": "zoom"
@@ -296,7 +290,7 @@
   {
    "name": "detail.selectGrowZoom",
    "value": 15,
-   "doc": "From this zoom a selected mark grows its name (and a unit its strength hairline) and the layout makes room for it; below it the selection is a ring (the crowd standard that stands for a hidden unit gets the ring) and nothing moves, so selecting never re-flows a crowded overview",
+   "doc": "From this zoom a selected mark grows its name and the layout makes room for it; below it the selection is a ring (the crowd pennant that stands for a hidden unit gets the ring) and nothing moves, so selecting never re-flows a crowded overview",
    "min": 10,
    "max": 18,
    "unit": "zoom"
@@ -304,14 +298,14 @@
   {
    "name": "detail.selectNameMinViewport",
    "value": 560,
-   "doc": "A selected mark grows its full name only when the window is at least this wide (px); on a phone the card carries the name and the mark stays small",
+   "doc": "A selected mark grows its full name only when the window is at least this wide (px); on a phone the sheet carries the name and the mark stays small",
    "min": 320,
    "max": 2000,
    "unit": "px"
   },
   {
    "name": "detail.unitNameZoom",
-   "value": 16,
+   "value": 17,
    "doc": "From this zoom a unit says its full name: the same mark grows, there is no second box",
    "min": 14,
    "max": 18,
@@ -320,7 +314,7 @@
   {
    "name": "detail.hullZoom",
    "value": 12,
-   "doc": "From this zoom an aggregate shows the true positions of the units it stands for",
+   "doc": "From this zoom a crowd shows the true positions of the units it stands for",
    "min": 11,
    "max": 18,
    "unit": "zoom"
@@ -328,73 +322,28 @@
   {
    "name": "carried.hollow",
    "value": 1,
-   "doc": "How far a carried-forward pip or flag hollows: 0 = no change, 1 = fully hollow with a side-coloured ring",
+   "doc": "How far a carried-forward pip or pennant hollows: 0 = no change, 1 = fully hollow with a thick side-coloured ring",
    "min": 0,
    "max": 1
   },
   {
    "name": "carried.glass",
-   "value": 0.72,
+   "value": 0.6,
    "doc": "Opacity of the glass inside a hollow mark",
    "min": 0,
    "max": 1
   },
   {
    "name": "carried.tint",
-   "value": 0.3,
+   "value": 0.34,
    "doc": "How much of the side colour tints that glass (the hue stays, so a carried-forward mark is never grey)",
    "min": 0,
    "max": 0.6
   },
   {
-   "name": "tail.alpha",
-   "value": 1,
-   "doc": "Opacity of the tail of a crowd name (\", 3 unlisted\": units the order of battle gives no parent), set in regular weight beside the semibold name, at full strength",
-   "min": 0.4,
-   "max": 1
-  },
-  {
-   "name": "brig.alpha",
-   "value": 1,
-   "doc": "Opacity of a brigade name (semibold 12 px, tinted with its side: quieter than the bold 13 px of a division or a corps)",
-   "min": 0.5,
-   "max": 1
-  },
-  {
-   "name": "gauge.h",
-   "value": 3,
-   "doc": "Thickness of the strength hairline (Modelled: this keyframe's strength over the unit's reference strength; a state, not a casualty record)",
-   "min": 1,
-   "max": 4,
-   "unit": "px"
-  },
-  {
-   "name": "gauge.w",
-   "value": 22,
-   "doc": "Length of the strength hairline that joins a SELECTED unit mark after its name",
-   "min": 12,
-   "max": 40,
-   "unit": "px"
-  },
-  {
-   "name": "gauge.gap",
-   "value": 7,
-   "doc": "Space between the name and the strength hairline",
-   "min": 3,
-   "max": 14,
-   "unit": "px"
-  },
-  {
-   "name": "gauge.trackAlpha",
-   "value": 0.3,
-   "doc": "Opacity of the empty part of the hairline",
-   "min": 0,
-   "max": 0.8
-  },
-  {
    "name": "hull.dot",
    "value": 2.3,
-   "doc": "Radius of the dot on the true position of one unit an aggregate stands for (shown while the aggregate is hovered or selected)",
+   "doc": "Radius of the dot on the true position of one unit a crowd stands for (shown while the crowd is pointed at or selected)",
    "min": 1,
    "max": 4,
    "unit": "px"
@@ -402,7 +351,7 @@
   {
    "name": "hull.leader",
    "value": 0.75,
-   "doc": "Opacity of the hairlines from an aggregate to its units while it is hovered or selected",
+   "doc": "Opacity of the hairlines from a crowd to its units while it is pointed at or selected",
    "min": 0,
    "max": 1
   },
@@ -424,33 +373,34 @@
   },
   {
    "name": "leader.alpha",
-   "value": 0.78,
+   "value": 0.9,
    "doc": "Opacity of that hairline",
    "min": 0,
    "max": 1
   },
   {
-   "name": "sel.radius",
-   "value": 7,
-   "doc": "Corner radius of the selection ring",
-   "min": 2,
-   "max": 12,
+   "name": "sel.gap",
+   "value": 2.2,
+   "doc": "Space between the pip and the selection ring",
+   "min": 1,
+   "max": 5,
    "unit": "px"
   },
   {
    "name": "sel.width",
-   "value": 1.5,
-   "doc": "Width of the selection ring",
+   "value": 2,
+   "doc": "Width of the selection ring, in the mark’s own side colour under a paper hairline",
    "min": 1,
    "max": 3,
    "unit": "px"
   },
   {
-   "name": "hover.plate",
-   "value": 0.18,
-   "doc": "Extra glass behind the mark on hover",
-   "min": 0,
-   "max": 0.5
+   "name": "hover.width",
+   "value": 1.25,
+   "doc": "Width of the fainter hover ring",
+   "min": 0.5,
+   "max": 2,
+   "unit": "px"
   },
   {
    "name": "motion.selectMs",
@@ -470,25 +420,23 @@
   }
  ],
  "day": {
-  "color.union": "#1a58c4",
-  "color.confederate": "#d2441a",
-  "color.unknown": "#2a323b",
-  "color.unionFlag": "#1a58c4",
-  "color.confederateFlag": "#c4401a",
+  "color.union": "#164fb0",
+  "color.confederate": "#a63010",
+  "color.unknown": "#f2f4f7",
+  "color.unionFlag": "#164fb0",
+  "color.confederateFlag": "#a63010",
   "color.glass": "#fbf8f0",
   "color.ink": "#14202c",
-  "color.tintUnion": "#17418f",
-  "color.tintConfederate": "#8a2307",
+  "color.tintUnion": "#12398a",
+  "color.tintConfederate": "#7c2106",
   "color.tintUnknown": "#2a323b",
   "color.tintMixed": "#2a3340",
   "color.halo": "#fbf8f0",
   "color.ring": "#142231",
   "color.select": "#101a24",
-  "halo.alpha": 0.9,
-  "halo.plate": 0,
-  "pip.hairlineAlpha": 0.92,
-  "carried.glass": 0.9,
-  "carried.tint": 0.16
+  "halo.alpha": 0.92,
+  "carried.glass": 0.7,
+  "carried.tint": 0.3
  },
  "variants": {
   "night": {
@@ -496,7 +444,7 @@
     "label": "Colour-blind safe",
     "set": {
      "color.union": "#52a9e6",
-     "color.confederate": "#d98200",
+     "color.confederate": "#e08a00",
      "color.unionFlag": "#1f78b8",
      "color.confederateFlag": "#a35f00",
      "color.unknown": "#f4f6f9",
@@ -507,19 +455,17 @@
    "contrast": {
     "label": "High contrast",
     "set": {
-     "color.union": "#6db1ff",
-     "color.confederate": "#ff7a4d",
+     "color.union": "#7ab8ff",
+     "color.confederate": "#ff8a60",
      "color.unionFlag": "#1f5fc0",
      "color.confederateFlag": "#b53515",
      "color.unknown": "#f6f8fb",
      "halo.width": 4,
      "halo.alpha": 0.95,
-     "halo.plate": 0.4,
-     "pip.ring": 1.75,
-     "pip.hairline": 1.4,
+     "pip.ring": 1.9,
      "text.dimAlpha": 1,
      "name.alpha": 1,
-     "sel.width": 2.25,
+     "sel.width": 2.5,
      "leader.alpha": 1
     }
    }
@@ -529,7 +475,7 @@
     "label": "Colour-blind safe",
     "set": {
      "color.union": "#005f99",
-     "color.confederate": "#d25a00",
+     "color.confederate": "#c45300",
      "color.unionFlag": "#005f99",
      "color.confederateFlag": "#a64600",
      "color.tintUnion": "#00507f",
@@ -549,12 +495,10 @@
      "color.tintUnknown": "#14191f",
      "halo.width": 4,
      "halo.alpha": 0.96,
-     "halo.plate": 0.5,
-     "pip.ring": 1.75,
-     "pip.hairline": 1.4,
+     "pip.ring": 1.9,
      "text.dimAlpha": 1,
      "name.alpha": 1,
-     "sel.width": 2.25,
+     "sel.width": 2.5,
      "leader.alpha": 1
     }
    }

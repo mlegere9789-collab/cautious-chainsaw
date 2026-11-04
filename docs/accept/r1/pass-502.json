@@ -1,0 +1,495 @@
+{
+  "pass": 502,
+  "verdict": "DEFECTS (incomplete)",
+  "startedAt": "2026-10-20T17:42:03.510Z",
+  "finishedAt": "2026-10-20T18:03:34.587Z",
+  "args": {
+    "_": [],
+    "candidate": "tmp/r1/r1-c5.zip",
+    "baseline": "baseline/dist",
+    "pass": "502",
+    "only": "6",
+    "soak-seconds": "60",
+    "port-base": "12900",
+    "out-dir": "docs/accept/r1"
+  },
+  "harness": {
+    "digest": "c16827203af2fd6c69df1e9949212975829e83fbe8e433e8bb40f55ee38762d1",
+    "files": 32
+  },
+  "countsTowardAcceptance": false,
+  "env": {
+    "node": "v24.19.0",
+    "python": "Python 3.11.9",
+    "chrome": null,
+    "os": "Windows_NT 10.0.26200 x64",
+    "playwrightCore": "1.63.0",
+    "axeCore": "4.13.0",
+    "cpus": 16,
+    "cpuModel": "Intel(R) Core(TM) Ultra 7 265H",
+    "memGB": 34,
+    "gitHead": "17ba8ee789133164815e11c4f2e740de86524862",
+    "portBase": 12900,
+    "tileCap": 20000,
+    "tilesUsed": 0,
+    "mapboxMapLoadsSkus": 0,
+    "tilesCapBlocked": 0,
+    "soakSeconds": 60,
+    "serverHeadersApplied": {
+      "headerBlocks": 72,
+      "redirectRules": 23,
+      "redirected": 0,
+      "headersAdded": 0
+    }
+  },
+  "candidate": {
+    "path": "tmp\\r1\\r1-c5.zip",
+    "kind": "zip",
+    "sha256": "a1e18152121d93de8ea84a185cca5157b4d3b5b10ad0a3109d9a8f328fb4d2a7",
+    "bytes": 40246691,
+    "files": 2013,
+    "treeSha256": "ea600b0c99257718f50f26736278649ee8e6a3fcd333b93e8772a61da13df031",
+    "zipComment": ""
+  },
+  "baseline": "baseline\\dist",
+  "thresholds": {
+    "_comment": "Green band of the end-of-mission acceptance (docs/battle-theatre/GOVERNANCE/FINAL-ACCEPTANCE.md, step 5). Any value outside the band is a defect: there is no amber that passes. Never loosen these to make a pass clean.",
+    "webVitals": {
+      "lcpMs": 2500,
+      "cls": 0.1,
+      "inpMs": 200,
+      "tbtMs": 200
+    },
+    "frames": {
+      "p95FrameMsDesktop": 20,
+      "p95FrameMsPhone": 20,
+      "maxJankFrameMs": 100,
+      "_note": "p95 frame time of requestAnimationFrame deltas while the map animation plays at 1x and 4x. maxJankFrameMs is reported as a defect only when more than 1 percent of frames exceed it."
+    },
+    "interaction": {
+      "visibleResponseMs": 100,
+      "longTaskMs": 50,
+      "longTasksPerInteraction": 0,
+      "navigationFirstPaintMs": 1000
+    },
+    "heap": {
+      "maxGrowthPercent": 10,
+      "_note": "(heap after the final forced GC - heap after warm-up and a forced GC) / heap after warm-up, over the soak. Default soak is 120 s for dry runs; the acceptance run uses --soak-seconds 600."
+    },
+    "visual": {
+      "widths": [
+        360,
+        390,
+        768,
+        1024,
+        1440,
+        1920
+      ],
+      "heights": {
+        "360": 740,
+        "390": 844,
+        "768": 1024,
+        "1024": 768,
+        "1440": 900,
+        "1920": 1080
+      },
+      "tapTargetMinPx": 44,
+      "tapTargetAppliesUpToWidth": 1024,
+      "pointerTargetMinPx": 24,
+      "minTextPx": 12,
+      "layoutShiftMax": 0.1,
+      "horizontalOverflowTolerancePx": 1
+    },
+    "regression": {
+      "pixelColorThreshold": 0.1,
+      "maxDiffRatio": 0.002,
+      "regionGrid": [
+        8,
+        6
+      ],
+      "viewports": [
+        [
+          1440,
+          900
+        ],
+        [
+          390,
+          844
+        ]
+      ]
+    },
+    "setup": {
+      "tileCapPerRun": 20000,
+      "_note": "Mapbox requests per pass through the Referer-injecting side channel of tests/t0/lib.mjs (harness default 300 per run). Mapbox bills map loads (one sku per GL JS initialisation), not tile requests; every pass reports the number of skus it used. Override with --tile-cap."
+    }
+  },
+  "routes": [
+    "/404",
+    "/aftermath",
+    "/ar",
+    "/camera",
+    "/cinematic-export",
+    "/compare",
+    "/dashboard",
+    "/documentary",
+    "/education",
+    "/embed",
+    "/find-ancestor",
+    "/ground-remembers",
+    "/historian",
+    "/immersive",
+    "/",
+    "/living-ledger",
+    "/privacy",
+    "/regiment",
+    "/report",
+    "/sandbox",
+    "/search",
+    "/terms",
+    "/turning-points",
+    "/viewshed",
+    "/watch-together"
+  ],
+  "checks": [
+    {
+      "id": "6",
+      "title": "Accuracy (verify_release + test subset)",
+      "status": "RAN",
+      "reason": null,
+      "defectCount": 6,
+      "noteCount": 2,
+      "notRunParts": [
+        "verify_release: the train of the candidate cannot be determined (use --train) or release/null/ does not exist"
+      ],
+      "ms": 1288984,
+      "started": "2026-10-20T17:42:05.534Z",
+      "finished": "2026-10-20T18:03:34.515Z",
+      "commands": [
+        {
+          "cmd": "node tests/t0/r0.mjs --dist <candidate>",
+          "exit": 1,
+          "ms": 42135,
+          "note": "r0-acceptance: 11/13 passed, 1 skipped, 1 FAILED|r0-acceptance|11|13|1|1"
+        },
+        {
+          "cmd": "node tests/t0/journeys-desktop.spec.mjs --dist <candidate>",
+          "exit": 0,
+          "ms": 204617,
+          "note": "journeys-desktop: 41/41 passed|journeys-desktop|41|41||"
+        },
+        {
+          "cmd": "node tests/t0/deeplinks.spec.mjs --dist <candidate>",
+          "exit": 0,
+          "ms": 156989,
+          "note": "deeplinks: 12/12 passed|deeplinks|12|12||"
+        },
+        {
+          "cmd": "node tests/t0/desktop-fixes.spec.mjs --dist <candidate>",
+          "exit": 0,
+          "ms": 96788,
+          "note": "desktop-fixes: 10/10 passed|desktop-fixes|10|10||"
+        },
+        {
+          "cmd": "node tests/t0/walkthrough-guard.spec.mjs --dist <candidate>",
+          "exit": 0,
+          "ms": 112070,
+          "note": "walkthrough-guard: 17/18 passed, 1 skipped|walkthrough-guard|17|18|1|"
+        },
+        {
+          "cmd": "node tests/t0/copy.spec.mjs --dist <candidate>",
+          "exit": 1,
+          "ms": 34374,
+          "note": "copy-truthful-subset: 3/4 passed, 1 FAILED|copy-truthful-subset|3|4||1"
+        },
+        {
+          "cmd": "node tests/t0/headers.spec.mjs --dist <candidate> --no-browser",
+          "exit": 1,
+          "ms": 6932,
+          "note": "headers: 13/18 passed, 4 skipped, 1 FAILED|headers|13|18|4|1"
+        },
+        {
+          "cmd": "node tests/t0/pages-maps.spec.mjs --dist <candidate>",
+          "exit": 0,
+          "ms": 75226,
+          "note": "T0-PG (map pages, og/manifest): 34/34 passed|T0-PG (map pages, og/manifest)|34|34||"
+        },
+        {
+          "cmd": "node tests/t0/perf-fixes.spec.mjs --dist <candidate>",
+          "exit": 0,
+          "ms": 40075,
+          "note": "perf-fixes: 10/10 passed|perf-fixes|10|10||"
+        },
+        {
+          "cmd": "node tests/t0/pages-core.spec.mjs --dist <candidate>",
+          "exit": 0,
+          "ms": 311353,
+          "note": "pages-core: 28/28 passed|pages-core|28|28||"
+        },
+        {
+          "cmd": "node tools/data/manifest.mjs verify",
+          "exit": 0,
+          "ms": 87
+        },
+        {
+          "cmd": "node tools/data/validate.mjs",
+          "exit": 0,
+          "ms": 2823
+        },
+        {
+          "cmd": "node tools/data/unit_registry.mjs --check",
+          "exit": 0,
+          "ms": 219
+        },
+        {
+          "cmd": "node tools/data/facts.mjs --check",
+          "exit": 0,
+          "ms": 1182
+        },
+        {
+          "cmd": "node tools/data/rights_audit.mjs --check",
+          "exit": 0,
+          "ms": 1128
+        },
+        {
+          "cmd": "node --test tests/data/*.test.mjs",
+          "exit": 1,
+          "ms": 65113
+        },
+        {
+          "cmd": "node tools/time/build.mjs --check",
+          "exit": 0,
+          "ms": 831
+        },
+        {
+          "cmd": "node tools/time/validate.mjs --check",
+          "exit": 0,
+          "ms": 946
+        },
+        {
+          "cmd": "node tools/time/surfaces.mjs --check",
+          "exit": 0,
+          "ms": 2648
+        },
+        {
+          "cmd": "node --test tests/time/*.test.mjs",
+          "exit": 1,
+          "ms": 80530
+        },
+        {
+          "cmd": "node --test tests/historian/*.test.mjs",
+          "exit": 1,
+          "ms": 52912
+        }
+      ],
+      "metrics": {
+        "train": null,
+        "subsetNote": "fast subset only; use --full for tools/t0/run_suites.mjs"
+      },
+      "defects": [
+        {
+          "code": "suite-failed",
+          "where": "r0",
+          "detail": "exit 1; r0-acceptance: 11/13 passed, 1 skipped, 1 FAILED|r0-acceptance|11|13|1|1; FAIL  T0-R0-03     first visit: one Mapbox sku, one style request (one map session) (X1)"
+        },
+        {
+          "code": "suite-failed",
+          "where": "copy-spec",
+          "detail": "exit 1; copy-truthful-subset: 3/4 passed, 1 FAILED|copy-truthful-subset|3|4||1; FAIL  T0-CP-01     string level: each shipped row present once before / gone after, CP == exactly those replacements, held rows unchanged, no 445+, no heatmap row, no new \"undefined\""
+        },
+        {
+          "code": "suite-failed",
+          "where": "headers",
+          "detail": "exit 1; headers: 13/18 passed, 4 skipped, 1 FAILED|headers|13|18|4|1; FAIL  HDR-24       the DEFAULT R1c build (the opt-in legal group is NOT included): privacy/terms carry no draft text, and the Street View sensor delegation is ON (the Walkthrough logs no Google accelerometer error) with the generator saying that the baseline privacy text is silent about it"
+        },
+        {
+          "code": "suite-failed",
+          "where": "data-test: --test tests/data/*.test.mjs",
+          "detail": "exit 1: ...ew-norm.json', 'data-src/sources-v2/qc/review-pass1-r2.json', 'data-src/sources-v2/qc/review-pass1.json', 'data-src/sources-v2/qc/review-pass2-r2.json', 'data-src/sources-v2/qc/review-pass2.json', 'data-src/sources-v2/qc/review-queue-next.json', 'data-src/sources-v2/qc/reviewer-attested.json', 'data-src/sources-v2/qc/structural-refresh.json', 'data-src/sources-v2/qc/structural.json', 'data-src/sources-v2/registry.json' ],\n    expected: [],\n    operator: 'deepStrictEqual',\n    diff: 'simple'\n  }\n"
+        },
+        {
+          "code": "suite-failed",
+          "where": "time-test: --test tests/time/*.test.mjs",
+          "detail": "exit 1: ...c_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Suite.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Suite.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: 1,\n    expected: 0,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n"
+        },
+        {
+          "code": "suite-failed",
+          "where": "historian-test: --test tests/historian/*.test.mjs",
+          "detail": "exit 1: ...async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: false,\n    expected: true,\n    operator: '==',\n    diff: 'simple'\n  }\n"
+        }
+      ],
+      "notes": [
+        {
+          "code": "subset",
+          "where": "-",
+          "detail": "ran 15 suites; NOT in the subset: a11y.spec; pages-fixes.spec; mobile-matrix.spec / mobile-fixes.spec; red-first proofs and build self-tests (see accuracy_subset.json for why)"
+        },
+        {
+          "code": "claims",
+          "where": "-",
+          "detail": "Passing these suites shows the machinery is consistent with its own expectations; it does not prove the historical anchors are correct (that needs the named reviewer)."
+        }
+      ],
+      "raw": {
+        "suites": [
+          {
+            "id": "r0",
+            "exit": 1,
+            "seconds": 42,
+            "summary": "r0-acceptance: 11/13 passed, 1 skipped, 1 FAILED|r0-acceptance|11|13|1|1",
+            "why": "the release mechanism of the candidate: one Document on first visit, service worker controls without navigation, one Mapbox sku, the upgrade drill (old worker + old bundle)",
+            "tail": "...odal-265a0984.js\",\"BookmarkPanel-265a0984.js\",\"BookmarkPanel-265a0984.js\"],\"state\":{\"same\":true,\"kids\":1}}\nPASS  T0-R0-10     upgrade drill: after every tab closes the waiting worker activates and purges gbg-v5 only (X2)\n      {\"caches after activation\":[\"mapbox-tiles\",\"gbg-r0-265a0984\"],\"mapbox-tiles marker survived\":true}\nPASS  T0-R0-06     kill drill: /sw.js swapped for ops/sw-kill.js -> 0 registrations, 0 gbg-* caches, mapbox-tiles untouched after one navigation (X2)\n      {\"before\":{\"sw\":{\"controller\":\"http://127.0.0.1:13032/sw.js\",\"active\":\"http://127.0.0.1:13032/sw.js\",\"waiting\":false,\"installing\":false,\"hasReg\":true},\"caches\":[\"mapbox-tiles\",\"gbg-old-test\"]},\"documents right after / 12 s later (no reload loop)\":[3,3],\"after one navigation\":{\"regs\":0,\"caches\":[\"mapbox-tiles\"],\"marker\":true}}\nPASS  T0-R0-07     loader: entry 404 -> one automatic reload, then a visible \"Try again\"; the button recovers once the file is back\n      {\"documents (first load + one reload)\":2,\"caption\":\"The map could not be loaded.\"}\nSKIP  T0-R0-13     first visit on a phone viewport: the \"Choose Your Experience\" banner is part of the screen's first frame (CLS ~ 0, was 0.0497 on R0/R1a)\n      no layout chooser on this tree (data-layout=mobile): the phone shell auto-detects the layout, nothing to shift\n      {\"measurements\":{\"cls\":0.001,\"chooser\":false,\"banner\":false,\"layout\":\"mobile\"}}\nr0-acceptance: 11/13 passed, 1 skipped, 1 FAILED\nmapbox requests used this run: 10 of 300 (blocked by cap: 0)\n"
+          },
+          {
+            "id": "journeys-desktop",
+            "exit": 0,
+            "seconds": 205,
+            "summary": "journeys-desktop: 41/41 passed|journeys-desktop|41|41||",
+            "why": "the data and clock accuracy journeys J1-J8: play 30 ticks, pan/wheel/pinch, select, search, Help, day 2/3 jump (dates read July 1-3 1863, never July 4-9), ?ancestor= deep link; group B clock and data tests",
+            "tail": "...ile fails to load is not marked loaded: no exception, and a later jump retries and fills it (J3)\n      {\"units at tick 226 with day 2 unavailable\":213,\"other errors\":[],\"units after the retry\":213}\nPASS  T0-MM-01     the minimap footer (unit count and tick; on a CLOCK tree the unit count and the clock) follows the ticks during play (subscribe fix)\n      {\"minimap\":[[34,null,\"about 8:55 AM\",20],[47,null,\"about 10:25 AM\",30]],\"minimap canvas pixel checksum (tick ~30 / tick 451)\":[1673636844,268559271]}\nPASS  T0-ST-01     blocked or throwing storage still boots (onboarding guard, try/catch on the write); the app renders and the modal can be dismissed\n      {\"localStorage getter throws\":{\"toolbar\":true,\"onboarding\":true,\"errors\":0},\"setItem throws (quota)\":{\"toolbar\":true,\"onboarding\":true,\"errors\":0}}\nPASS  T0-EB-01     AMD-T0-1 error boundary: a render error in the app root AND a throw inside a useEffect of Zk (Follow Ancestor) show \"Something went wrong\" + Reload instead of a blank page\n      {\"render error in AO\":{\"reloadButton\":1,\"blank\":false,\"consoleErrors\":2},\"useEffect throw in Zk (opening Follow Your Ancestor)\":{\"reloadButton\":1,\"blank\":false,\"consoleErrors\":2}}\nPASS  T0-X3        X3: across every journey and input test of this run, 0 uncaught exceptions and 0 first-party console.error\n      {\"tile requests in the shared session\":6,\"ignored tile noise\":{\"tile\":30,\"telemetry\":0}}\njourneys-desktop: 41/41 passed\nmapbox requests used this run: 16 of 300 (blocked by cap: 0)\n"
+          },
+          {
+            "id": "deeplinks",
+            "exit": 0,
+            "seconds": 157,
+            "summary": "deeplinks: 12/12 passed|deeplinks|12|12||",
+            "why": "single URL-state reader (tick, day, unit, z, ll, ancestor, vignette), moments.json and Turning Points anchors",
+            "tail": "...\":\"/index.html?tick=551&vignette=V-016\",\"tick\":551},{\"q\":\"/?tick=275&vignette=V-010\",\"tick\":275},{\"q\":\"/?unit=U-20ME&tick=267\",\"tick\":267},{\"q\":\"/index.html?unit=U-1MN\",\"tick\":1}]}\nPASS  T0-DL-06     moments.json v0: 9 Turning Points + 8 markers + 5 tour stops, ids unique, every row unreviewed, every tick within +-3 of a chronology event, Ewell/Night Assault provisional\n      {\"kinds\":{\"turning-point\":9,\"marker\":8,\"tour-stop\":5},\"rows\":22}\nPASS  T0-DL-07     ?vignette=V-016 (and ?v=) without a tick resolves to the vignette's trigger tick (551) and shows its story; a tick given with it wins\nPASS  T0-DL-08     a deep link skips the first-run onboarding modal; a plain first visit still shows it\n      {\"modal on plain visit / on deep link\":[true,false]}\nPASS  T0-DL-09     turning-points.html: nine anchors match moments.json and each \"See this moment on the map\" link lands on that tick (Ewell 75, Longstreet 256, Chamberlain 275, Night 326, Cannonade 518, Pickett 538)\n      {\"page anchors\":[1,75,256,275,300,326,480,518,538]}\nPASS  T0-DL-10     phone 375x812 (mobile shell): ?t=268&u=U-20ME&z=15.5&ll=... lands on tick, unit panel (the phone panel needs a keyframe at the tick: 268) and camera; ?ancestor= opens the Follow panel; a junk link degrades (X7 mobile)\n      {\"phone camera\":{\"center\":[-77.2359,39.7918],\"zoom\":15.5},\"?ancestor= opens the Follow panel on the phone\":true,\"junk link tick 1\":true}\ndeeplinks: 12/12 passed\nmapbox requests used this run: 35 of 300 (blocked by cap: 0)\n"
+          },
+          {
+            "id": "desktop-fixes",
+            "exit": 0,
+            "seconds": 97,
+            "summary": "desktop-fixes: 10/10 passed|desktop-fixes|10|10||",
+            "why": "keyboard focus after click/drag, Tab to the map and Esc, unit canvas follows the map, attribution, NPS tour",
+            "tail": "...,30165,4696,30165]}\nPASS  T0-DF-07     (f) a window resize repaints the units at once and resizes the z-index 8 and 9 overlay canvases to the map\n      {\"rows\":[{\"vp\":\"1280x720\",\"ink\":10713,\"sizes\":{\"8\":[1280,672],\"9\":[1280,672],\"10\":[1280,672],\"map\":[1280,672]}},{\"vp\":\"1920x1080\",\"ink\":25294,\"sizes\":{\"8\":[1920,1032],\"9\":[1920,1032],\"10\":[1920,1032],\"map\":[1920,1032]}},{\"vp\":\"1440x900\",\"ink\":17935,\"sizes\":{\"8\":[1440,852],\"9\":[1440,852],\"10\":[1440,852],\"map\":[1440,852]}}]}\nPASS  T0-DF-08     (g) NPS Auto Tour: dots inside the panel and clear of the text, day tabs and attribution free, X and Esc give the speed back\n      {\"tour via X\":{\"panel\":{\"x\":60,\"y\":445,\"w\":1380,\"h\":282},\"dotCount\":16,\"dotsOutsidePanel\":0,\"tabs\":[\"July 1:true\",\"July 2:true\",\"July 3:true\"],\"attribHit\":true,\"logoHit\":true},\"tour via Escape\":{\"panel\":{\"x\":60,\"y\":445,\"w\":1380,\"h\":282},\"dotCount\":16,\"dotsOutsidePanel\":0,\"tabs\":[\"July 1:true\",\"July 2:true\",\"July 3:true\"],\"attribHit\":true,\"logoHit\":true}}\nPASS  T0-DF-09     static: the A2 helpers are in the built entry exactly once, and the key guard still leaves the arrows to Mapbox only while its canvas holds focus\n      {\"entry\":\"index-265a0984.js\"}\nPASS  T0-DF-X      every desktop-fix test of this run: 0 uncaught exceptions and 0 first-party console.error in the shared session\n      {\"tile requests in the shared session\":10,\"ignored tile noise\":{\"tile\":0,\"telemetry\":0}}\ndesktop-fixes: 10/10 passed\nmapbox requests used this run: 10 of 300 (blocked by cap: 0)\n"
+          },
+          {
+            "id": "walkthrough-guard",
+            "exit": 0,
+            "seconds": 112,
+            "summary": "walkthrough-guard: 17/18 passed, 1 skipped|walkthrough-guard|17|18|1|",
+            "why": "owner constraint: the Virtual Walkthrough (16 stops, 512 monuments, Monuments tab, Back without leaks) must never break",
+            "tail": "...restored map-tracking layer: any number >= 1)\n      {\"tree\":\"R1c\",\"after the first click\":{\"kind\":\"map-layer\",\"count\":394,\"onScreen\":389,\"layers\":[\"gtmon-dots\",\"gtmon-glow\",\"gtmon-ring\",\"gtmon-stars\"],\"titles\":[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]}}\nPASS  T0-WG-14     the markers follow the map: after a pan and after zooming in and out every marker that stays in view sits where the map moved it (restored behaviour; legacy/dist's overlay is screen-fixed by design and is skipped)\n      {\"tree\":\"R1c\",\"steps\":[\"pan 0.012 deg east, 0.004 south: 377 of 377 markers where the map moved them\",\"zoom in by 1: 247 of 247 markers where the map moved them\",\"zoom out by 0.7: 389 of 389 markers where the map moved them\"]}\nPASS  T0-WG-15     markers and Walkthrough do not disturb each other: nothing of the markers is drawn over the open Walkthrough, a resize while it is open does not displace them, Back shows the same markers\n      {\"tree\":\"R1c\",\"markers drawn / of those under the Walkthrough, how many it covers\":[394,390,390],\"markers on screen before / after\":[389,389]}\nPASS  T0-WG-X      every browser test of this run: 0 uncaught exceptions and 0 first-party console.error (third-party Google noise excepted); tile budget\n      {\"tree\":\"R1c\",\"shared desktop session: tile requests\":132,\"animated map boot tile requests\":5,\"mapbox requests used this run\":\"154 of 300\"}\nwalkthrough-guard: 17/18 passed, 1 skipped\ntree R1c (release 265a0984): mapbox requests used this run: 154 of 300 (blocked by cap: 0)\n"
+          },
+          {
+            "id": "copy-spec",
+            "exit": 1,
+            "seconds": 34,
+            "summary": "copy-truthful-subset: 3/4 passed, 1 FAILED|copy-truthful-subset|3|4||1",
+            "why": "the truthful-copy rows are in the bundle and Help",
+            "tail": "...,\"M\",\"?\"],\"helpHeatmap\":0,\"about\":{\"has445\":false,\"hundreds\":true,\"sourcesHeading\":true,\"primaryHeading\":false,\"vignettes24\":true,\"paragraphStillSaysPrimary\":false},\"streetView\":{\"sub\":\"Stand where history happened. Eight viewpoints open in Google Street View.\",\"rows\":8},\"walkBac\nPASS  T0-CP-03     rendered phone 375x812: the Tools footer shows Privacy, Terms and the credit (no mailto), links >= 44 px and pointing at /privacy.html and /terms.html\n      {\"footer\":{\"links\":[{\"t\":\"Privacy\",\"href\":\"/privacy.html\",\"w\":65,\"h\":44},{\"t\":\"Terms\",\"href\":\"/terms.html\",\"w\":59,\"h\":44}],\"credit\":true,\"mailtoInFooter\":false,\"inViewport\":true}}\nPASS  T0-CP-04     Help text: the desktop list keeps the held arrow and Esc rows and adds \"Tab to the map\" (arrows pan once the map has keyboard focus); the phone shell shows touch controls, not the keyboard list\n      {\"desktop Help rows\":{\"0\":\"Reset to 1x speed\",\"1\":\"Jump to the July 1 tab, about 5:00 AM\",\"2\":\"Jump to the July 2 tab, about 4:30 AM\",\"3\":\"Jump to the July 3 tab, about 4:15 AM\",\"Space\":\"Play / Pause\",\"→\":\"Advance one step\",\"←\":\"Go back one step\",\"Shift + →\":\"Skip forward about one hour of battle time\",\"Shift + ←\":\"Go back one hour\",\"-\":\"Decrease speed\",\"+  /  =\":\"Increase speed\",\"Scroll\":\"Zoom in / out\",\"Drag\":\"Pan the map\",\"Tab to the map\":\"Arrow keys then pan it instead of stepping the clock, + / - zoom it, Shift + arrows rotate and tilt it; Esc gives the keys back\",\"Click unit\":\"Select and\ncopy-truthful-subset: 3/4 passed, 1 FAILED\n"
+          },
+          {
+            "id": "headers",
+            "exit": 1,
+            "seconds": 7,
+            "summary": "headers: 13/18 passed, 4 skipped, 1 FAILED|headers|13|18|4|1",
+            "why": "generated _headers/_redirects/netlify.toml rules: one rule per header name per URL, both URL spellings, Permissions-Policy, CSP (browser part is covered by check 2)",
+            "tail": "...e, and the Permissions-Policy of / names the same two features for the same origin\nFAIL  HDR-24       the DEFAULT R1c build (the opt-in legal group is NOT included): privacy/terms carry no draft text, and the Street View sensor delegation is ON (the Walkthrough logs no Google accelerometer error) with the generator saying that the baseline privacy text is silent about it\n      Error: default build failed | == build R1c -> ../AppData/Local/Temp/accept-pass502-56804-mvgz0c1j-d8ae31/R1c-default\r | input ok: entry md5 7ef75b95f4c02700430b8aa91e3a7459, baseline baseline/dist pinned by tools/t0/baseline.lock.json, legacy/ unmodified\r | bundle groups: R0 A B DL C AX CP A2 SHELL PERF   page groups: PG-core PG-maps\r\nSKIP  HDR-20       real Chrome, cross-origin page: /embed and /embed.html frame; /, /index.html, /privacy, /dashboard(.html), /ar do not\n      --no-browser\nSKIP  HDR-21       real Chrome: every page loads under its Report-Only CSP + Permissions-Policy with 0 violations and 0 policy warnings (violation control included)\n      --no-browser\nSKIP  HDR-22       negative control: the same crawl DOES report a violation when the app policy lacks a Mapbox origin (tiles blocked: nothing leaves the machine)\n      --no-browser\nSKIP  HDR-23       ONLINE (--online): the Virtual Walkthrough opens the REAL Google Street View frame and logs no permissions-policy error; the same page without the allow attribute logs it (control)\n      --no-browser\nheaders: 13/18 passed, 4 skipped, 1 FAILED\n"
+          },
+          {
+            "id": "pages-maps",
+            "exit": 0,
+            "seconds": 75,
+            "summary": "T0-PG (map pages, og/manifest): 34/34 passed|T0-PG (map pages, og/manifest)|34|34||",
+            "why": "the eight map sub-pages load Mapbox without blocking, og card, manifest",
+            "tail": "...atch-together: Host paints \"connecting…\" first, then loads the SRI-pinned PeerJS once; Join reuses it; no exceptions\n      {\"status sequence\":\"connecting… > connecting… > connection error — try again\"}\nPASS  PG-05c       watch-together: a PeerJS load failure (wrong SRI) shows \"unavailable\", leaves the buttons usable and a second click retries\n      {\"retry scripts\":2}\nPASS  PG-06        T0-IMG-01: every og/twitter image and manifest icon/screenshot decodes with Pillow at its declared size; card 1200x630 RGB <= 150 KB\n      {\"checker\":\"check_images: 36 problem(s)\",\"card\":\"JPEG RGB 1200x630 139438 B\"}\nPASS  PG-07        og/twitter: all 21 pages point to /og/card-r1.png (200, image/png), none to the corrupt screenshots; the manifest is valid in Chrome (Page.getInstallabilityErrors)\n      {\"manifest url\":\"http://127.0.0.1:13116/manifest.json\",\"manifest parse errors\":[],\"installability errors\":[],\"icon purposes\":\"any,any,maskable,maskable\",\"chrome decoded\":\"gettysburg-card.jpg=1200x630 gettysburg-192.png=192x192 gettysburg-512.png=512x512 gettysburg-maskable-192.png=192x192 gettysburg-maskable-512.png=512x512\"}\nPASS  PG-08        Search Console verification file is served with the exact recovered bytes; no other google*.html\n      {\"bytes\":53}\nPASS  PG-SRI       the pinned SRI hashes still match the live CDN files (--online only)\n      {\"skipped\":\"pass --online to re-fetch\"}\nT0-PG (map pages, og/manifest): 34/34 passed\nmapbox requests used this run: 104 of 300 (blocked by cap: 0)\n"
+          },
+          {
+            "id": "perf-fixes",
+            "exit": 0,
+            "seconds": 40,
+            "summary": "perf-fixes: 10/10 passed|perf-fixes|10|10||",
+            "why": "non-blocking stylesheets, inlined first-paint rules, no layout shift, Mapbox shader precompile",
+            "tail": "...ayer\":{\"b1863-ground\":0,\"b1863-wide\":0,\"b1863-detail\":0,\"b1863-changed\":0,\"b1863-changed-detail\":0,\"roads-1863-line\":0,\"roads-1863-label\":10,\"rivers-line\":0,\"rivers-label\":0,\"breastworks-line\":4,\"farms-outline\":0,\"farms-label\":0,\"gtbg-locs-lbl\":8}}\nPASS  PF-09        gtPrecompile only touches what it expects: an unknown or failing Mapbox leaves the app alone, a removed or re-styled map is not touched, the symbol program carries the defines and UBO size of the draw code\n      {\"results\":{\"noStyle\":true,\"noPrecompiler\":true,\"noPainter\":true,\"resetThrows\":true,\"start\":[[\"reset\",\"repaint\"],1],\"normal\":[{\"deadline\":true,\"painter\":true,\"style\":true,\"queue\":[\"symbol:RENDER_SDF,USE_PAINT_PROPERTIES_UBO,MAX_UBO_SIZE_VEC4 4096u\",\"line:\"]}],\"stuckAfterOneRender\":[1,0],\"stuckEventually\":1,\"noUbo\":[[\"line:\"]],\"noParallel\":[[],0],\"noSymbolLayer\":[[\"line:\"]],\"removed\":0,\"restyled\":0,\"batchThrowsUncaught\":false,\"batchThrowsRan\":1}}\nPASS  PF-10        a browser without KHR_parallel_shader_compile (hidden by an init script): the app boots and draws as before, the precompile stays out of the way (nothing precompiled, no exception)\n      {\"without KHR_parallel_shader_compile\":{\"parallel\":false,\"precompiled\":0,\"onDemand\":5,\"counts\":{\"b1863-ground\":0,\"b1863-wide\":0,\"b1863-detail\":0,\"b1863-changed\":0,\"b1863-changed-detail\":0,\"roads-1863-line\":0,\"roads-1863-label\":10,\"rivers-line\":0,\"rivers-label\":0,\"breastworks-line\":4,\"farms-outline\":0,\"farms-label\":0,\"gtbg-locs-lbl\":8}}}\nperf-fixes: 10/10 passed\n"
+          },
+          {
+            "id": "pages-core",
+            "exit": 0,
+            "seconds": 311,
+            "summary": "pages-core: 28/28 passed|pages-core|28|28||",
+            "why": "the page defect pack PGC-01..27 (duplicate ids under data delay, dashboard, report, regiment, historian, living ledger ...)",
+            "tail": "...PGC-20    Watch Together: an imported tour file is validated (ticks, note length, count, size) and its notes are rendered as text\n      {\"after the first import\":{\"rows\":1,\"noteLen\":280}}\nPASS  T0-PGC-21    Watch Together: \"Add stop\" with an empty, non-numeric or out-of-range tick adds nothing and says why; a valid tick adds one stop (pages-C-51)\nPASS  T0-PGC-22    Immersive: Pause suspends the audio context (drone stops), Play resumes it (pages-C-24)\n      {\"state after Pause\":\"suspended\"}\nPASS  T0-PGC-23    AR hidden: out of every menu, the sitemap and the crawlable link list; ar.html is noindex, reachable, with an honest notice\n      {\"menu links\":19}\nPASS  T0-PGC-24    dev pages retired: /diagnostics, /diagnostics.html, /unit-rendering-reference, /unit-rendering-reference.html answer 404 (with the site 404 page)\n      {\"responses\":{\"/diagnostics\":{\"status\":404,\"is404Page\":true},\"/diagnostics.html\":{\"status\":404,\"is404Page\":true},\"/unit-rendering-reference\":{\"status\":404,\"is404Page\":true},\"/unit-rendering-reference.html\":{\"status\":404,\"is404Page\":true}}}\nPASS  T0-PGC-25    viewshed and AR carry plain copy: no build narration (\"Earlier drafts\", \"from here\")\nPASS  T0-PGC-26    0 uncaught exceptions / first-party console errors and no \"undefined\" on 12 non-map pages (desktop and phone)\n      {\"problems\":{}}\nPASS  T0-PGC-27    legacy/ untouched: git reports no change under legacy/ and the pinned tree gate passes\npages-core: 28/28 passed\nmapbox requests used this run: 0 of 300\n"
+          },
+          {
+            "id": "data-check: tools/data/manifest.mjs verify",
+            "exit": 0,
+            "seconds": 0,
+            "why": "npm run data:check without npm: data manifest, validator suite, unit registry, facts, rights audit (pure Node)",
+            "tail": "legacy-roundtrip: 71 files, 71 in manifest, missing 0, extra 0, changed 0\ncandidate manifest up to date\n"
+          },
+          {
+            "id": "data-check: tools/data/validate.mjs",
+            "exit": 0,
+            "seconds": 3,
+            "why": "npm run data:check without npm: data manifest, validator suite, unit registry, facts, rights audit (pure Node)",
+            "tail": "...0         0    0     0\nK001  E   partial        1     1         1    0     0\nL001  E   ok            18    18        18    0     0\nD001  E   ok             0     0         0    0     0\nD002  E   ok             0     0         0    0     0\nM001  E   ok           612   612       612    0     0\nE001  E   SKIPPED        0     0         0    0     0  (needs a DEM sample per coordinate (WP-DATA-14; 3DEP EPQS is a network call, not run in the offline validator))\nU001  E   ok             5     5         5    0     0\nH001  E   SKIPPED        0     0         0    0     0  (needs decisions.jsonl and the review board (WP-DATA-23, D-HIST-REVIEW))\n\nbaseline expiry: clock 2026-10-20, warning window 30 days, 51 baselined rules\n  2027-01-31  103 days  R001 R002 R003 R004 R006 R007 R008 R009 R010 R011 S005 S007 S008 X001 X002 X003 X004 X005 X006 X007\n  2027-03-31  162 days  F001 K001 N001 N002 N003 N004 N005 N006 N007 N009 N010\n  2027-06-30  253 days  C001 C002 C003 C004 G002 G003 G004 G005 G006 G007 G008 L001 M001 P001 P002 P003 T001 T002 T003 U001\nno baseline expires within 30 days (next: 2027-01-31, in 103 days)\n\nPASS: no new violations, no stale baseline entries, every rule that has to run ran.\n"
+          },
+          {
+            "id": "data-check: tools/data/unit_registry.mjs --check",
+            "exit": 0,
+            "seconds": 0,
+            "why": "npm run data:check without npm: data manifest, validator suite, unit registry, facts, rights audit (pure Node)",
+            "tail": "registry artifacts up to date\n"
+          },
+          {
+            "id": "data-check: tools/data/facts.mjs --check",
+            "exit": 0,
+            "seconds": 1,
+            "why": "npm run data:check without npm: data manifest, validator suite, unit registry, facts, rights audit (pure Node)",
+            "tail": "facts.json and candidates up to date\n"
+          },
+          {
+            "id": "data-check: tools/data/rights_audit.mjs --check",
+            "exit": 0,
+            "seconds": 1,
+            "why": "npm run data:check without npm: data manifest, validator suite, unit registry, facts, rights audit (pure Node)",
+            "tail": "rights audit up to date\n"
+          },
+          {
+            "id": "data-test: --test tests/data/*.test.mjs",
+            "exit": 1,
+            "seconds": 65,
+            "why": "validator rules and schemas (node --test tests/data)",
+            "tail": "...', 'data-src/environment/astro_by_tick.json', 'data-src/environment/source_windows.json', 'data-src/environment/visual_readings.json', 'data-src/environment/weather_by_day.json', 'data-src/ledger/conflict_ledger.json', 'data-src/ledger/source_windows.json', 'data-src/ledger/visual_readings.json', 'data-src/sources-v2/entries.json', 'data-src/sources-v2/ingest-queue.json', 'data-src/sources-v2/qc/ia-verify.json', 'data-src/sources-v2/qc/link-probe.json', 'data-src/sources-v2/qc/r3/pass1-a.json', 'data-src/sources-v2/qc/r3/pass1-b.json', 'data-src/sources-v2/qc/r3/pass2-a.json', 'data-src/sources-v2/qc/r3/pass2-b.json', 'data-src/sources-v2/qc/registry-stats.json', 'data-src/sources-v2/qc/review-norm.json', 'data-src/sources-v2/qc/review-pass1-r2.json', 'data-src/sources-v2/qc/review-pass1.json', 'data-src/sources-v2/qc/review-pass2-r2.json', 'data-src/sources-v2/qc/review-pass2.json', 'data-src/sources-v2/qc/review-queue-next.json', 'data-src/sources-v2/qc/reviewer-attested.json', 'data-src/sources-v2/qc/structural-refresh.json', 'data-src/sources-v2/qc/structural.json', 'data-src/sources-v2/registry.json' ],\n    expected: [],\n    operator: 'deepStrictEqual',\n    diff: 'simple'\n  }\n"
+          },
+          {
+            "id": "time-check: tools/time/build.mjs --check",
+            "exit": 0,
+            "seconds": 1,
+            "why": "npm run time:check: clock oracle anchors, golden values, playback, solar checks",
+            "tail": "generated files current (8)\n"
+          },
+          {
+            "id": "time-check: tools/time/validate.mjs --check",
+            "exit": 0,
+            "seconds": 1,
+            "why": "npm run time:check: clock oracle anchors, golden values, playback, solar checks",
+            "tail": "...3); 621-649 (29 ticks, 6:35 PM to 7:20 PM, July 3); 651-674 (24 ticks, 7:25 PM to 8:00 PM, July 3)\nPASS  TM-V15    0  26 fixtures, 0 failing\nFAIL  TM-V16    8  3 places print a tab number as \"July N\" (mobile header, toolbar) and 5 templates build a date from a tab number; 1 Day-tab buttons (\"July N\" as the first-light label) are allowed by chapter 04 4.5\nFAIL  TM-V17   42  42 typed AM/PM formatters and unhedged typed clock strings in code and markup (assets/index-Cg8FAMXN.js: 32, compare.html: 7, living-ledger.html: 3), 0 with an \"about\" prefix (0 found); every tick is approximate while no anchor is signed\nPASS  TM-V18    0  0 signed decisions; 0 review/accuracy claims in copy (0 unsupported)\nSKIP  TM-V19    0  skipped: moments registry not built (WP-TIME-05); data-src/time/moment_refs.json is the v0 alias file used by TM-V5\nSKIP  TM-V20    0  skipped: tick-migrations.json arrives with WP-TIME-07 (nothing has been moved: this is a candidate)\nFAIL  TM-V21   68  68 quotations in chronology and vignettes; 68 without a source field; specialist-classed unverified quotes at t525, t530 (detected here: t525 true, t530 true)\nimproved: TM-V3: fail/36 -> fail/34\nno regression vs the baseline\n"
+          },
+          {
+            "id": "time-check: tools/time/surfaces.mjs --check",
+            "exit": 0,
+            "seconds": 3,
+            "why": "npm run time:check: clock oracle anchors, golden values, playback, solar checks",
+            "tail": "...5:00 per tab, 5 min/tick, lower-case am/pm, no date (\"Day N\" shown separately) | no | 600 | 561 | 0 | 261.4 |\n| G | living-ledger.html | living-ledger.html:135@7249 | base 05:00 per tab, 5 min/tick, date = tab number (DAY_BOUNDS [1,226,451,676]) | no | 600 | 561 | 144 | 261.4 |\n| H | camera.html | camera.html:175@8984 | integer hour, base 05:00 per tab, 5 min/tick, wraps at 24 | no | 611 | 611 | 0 | 262.4 |\n| I | immersive.html | immersive.html:169@9027 | integer hour, base 05:00 per tab, 5 min/tick (same code as camera.html) | no | 611 | 611 | 0 | 262.4 |\nLegacy formulas still in use (not routed through the module): 9 of 9\n\nGeneric detectors (matches / attributed to one of the implementations above): July ${..+-N}: 4/4; literal date table: 1/0; tick*5: 8/8; 5*60|6*60|4*60: 5/5; toLocale*String|getHours|Intl.DateTimeFormat: 0/0; typed AM/PM literal: 13/13; typed clock literal: 36/0; tab expression (<=225 ? 1 : <=450 ? 2 : 3): 12/4; hour step of 12 ticks: 8/0\nUnattributed tick formulas: 0\nWall-clock (visitor's own clock, allow-listed): sandbox.html:211@11800\nClock copy counts: Tick N (visible text): 22; real time: 11; five-minute: 16; minute-by-minute: 2\nsurfaces match the baseline\n"
+          },
+          {
+            "id": "time-test: --test tests/time/*.test.mjs",
+            "exit": 1,
+            "seconds": 81,
+            "why": "clock module tests (node --test tests/time)",
+            "tail": "...ob.run (node:internal/modules/esm/module_job:439:25)\n      at async node:internal/modules/esm/loader:643:26\n      at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)\n  \n  Node.js v24.19.0\n  \n  4 PROBLEM(S):\n    CLK-55-mobile-step-back: expected 1, found 0 in assets/index-Cg8FAMXN.js\n    CLK-56-mobile-step-forward: expected 1, found 0 in assets/index-Cg8FAMXN.js\n    CLK-62-bookmark-remove-label: expected 1, found 0 in assets/BookmarkPanel-C5YT4b5k.js\n    inlined module not found in the patched bundle\n  \n  \n  1 !== 0\n  \n      at TestContext.<anonymous> (file:///C:/Users/mlege/gettysburg-map/tests/time/surfaces.test.mjs:51:12)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Suite.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Suite.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: 1,\n    expected: 0,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n"
+          },
+          {
+            "id": "historian-test: --test tests/historian/*.test.mjs",
+            "exit": 1,
+            "seconds": 53,
+            "why": "historian intent rules, text handling, sources register",
+            "tail": "... passages (60 foot-note lines found by an opening * / dagger in the last 14 lines of a leaf; 11 = 18% remain in the text) (458.6251ms)\n  AssertionError [ERR_ASSERTION]: 11 of 60 (18%) foot notes are still in the passages: p1 leaf 33: *See  Butterfield  to  Meade,  January  23, 1864,  p.  20,   | p1 leaf 131: *But  see  revised  statement,  p.  187. | p1 leaf 135: *See  Meade  to  Halleck,  February  25,  1864,  p.  120. | p1 leaf 827: *But  see  revised  statement,  p.  184. | p2 leaf 673: *For  casualties  July  1-3,  see  p.  344.\n      at TestContext.<anonymous> (file:///C:/Users/mlege/gettysburg-map/tests/historian/reverify-corpus-text.test.mjs:81:10)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: false,\n    expected: true,\n    operator: '==',\n    diff: 'simple'\n  }\n"
+          }
+        ]
+      }
+    }
+  ]
+}

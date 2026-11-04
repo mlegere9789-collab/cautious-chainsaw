@@ -1,0 +1,285 @@
+[
+ {
+  "url": "/",
+  "lost": [],
+  "changed": [
+   {
+    "k": "permissions-policy",
+    "was": "camera=(self), microphone=(), geolocation=(self), payment=(), accelerometer=(self), gyroscope=(self), magnetometer=(self)",
+    "now": "accelerometer=(self \"https://www.google.com\"), camera=(), geolocation=(), gyroscope=(self \"https://www.google.com\"), magnetometer=(), microphone=(), payment=()"
+   },
+   {
+    "k": "content-security-policy-report-only",
+    "was": "default-src 'self'; script-src 'self' 'unsafe-inline' api.mapbox.com cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' api.mapbox.com fonts.googleapis.com; fon",
+    "now": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://api.mapbox.com; font-src 'self'; con"
+   }
+  ],
+  "added": [
+   "cache-control",
+   "content-security-policy"
+  ]
+ },
+ {
+  "url": "/index.html",
+  "lost": [],
+  "changed": [
+   {
+    "k": "permissions-policy",
+    "was": "camera=(self), microphone=(), geolocation=(self), payment=(), accelerometer=(self), gyroscope=(self), magnetometer=(self)",
+    "now": "accelerometer=(self \"https://www.google.com\"), camera=(), geolocation=(), gyroscope=(self \"https://www.google.com\"), magnetometer=(), microphone=(), payment=()"
+   },
+   {
+    "k": "content-security-policy-report-only",
+    "was": "default-src 'self'; script-src 'self' 'unsafe-inline' api.mapbox.com cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' api.mapbox.com fonts.googleapis.com; fon",
+    "now": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://api.mapbox.com; font-src 'self'; con"
+   }
+  ],
+  "added": [
+   "content-security-policy"
+  ]
+ },
+ {
+  "url": "/dashboard",
+  "lost": [],
+  "changed": [
+   {
+    "k": "permissions-policy",
+    "was": "camera=(self), microphone=(), geolocation=(self), payment=(), accelerometer=(self), gyroscope=(self), magnetometer=(self)",
+    "now": "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=()"
+   },
+   {
+    "k": "content-security-policy-report-only",
+    "was": "default-src 'self'; script-src 'self' 'unsafe-inline' api.mapbox.com cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' api.mapbox.com fonts.googleapis.com; fon",
+    "now": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https:/"
+   }
+  ],
+  "added": [
+   "cache-control",
+   "content-security-policy"
+  ]
+ },
+ {
+  "url": "/dashboard.html",
+  "lost": [],
+  "changed": [
+   {
+    "k": "permissions-policy",
+    "was": "camera=(self), microphone=(), geolocation=(self), payment=(), accelerometer=(self), gyroscope=(self), magnetometer=(self)",
+    "now": "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=()"
+   },
+   {
+    "k": "content-security-policy-report-only",
+    "was": "default-src 'self'; script-src 'self' 'unsafe-inline' api.mapbox.com cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' api.mapbox.com fonts.googleapis.com; fon",
+    "now": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https:/"
+   }
+  ],
+  "added": [
+   "content-security-policy"
+  ]
+ },
+ {
+  "url": "/ar",
+  "lost": [],
+  "changed": [
+   {
+    "k": "permissions-policy",
+    "was": "camera=(self), microphone=(), geolocation=(self), payment=(), accelerometer=(self), gyroscope=(self), magnetometer=(self)",
+    "now": "accelerometer=(self), camera=(self), geolocation=(self), gyroscope=(self), magnetometer=(self), microphone=(), payment=()"
+   },
+   {
+    "k": "content-security-policy-report-only",
+    "was": "default-src 'self'; script-src 'self' 'unsafe-inline' api.mapbox.com cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' api.mapbox.com fonts.googleapis.com; fon",
+    "now": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https:/"
+   }
+  ],
+  "added": [
+   "cache-control",
+   "content-security-policy"
+  ]
+ },
+ {
+  "url": "/assets/index-2531699e.js",
+  "lost": [
+   "permissions-policy",
+   "content-security-policy-report-only"
+  ],
+  "changed": [],
+  "added": []
+ },
+ {
+  "url": "/assets/index-Cg8FAMXN.js",
+  "lost": [
+   "permissions-policy",
+   "content-security-policy-report-only"
+  ],
+  "changed": [],
+  "added": []
+ },
+ {
+  "url": "/data/terrain.json",
+  "lost": [
+   "permissions-policy",
+   "content-security-policy-report-only"
+  ],
+  "changed": [],
+  "added": []
+ },
+ {
+  "url": "/icons/icon-192.png",
+  "lost": [
+   "permissions-policy",
+   "content-security-policy-report-only"
+  ],
+  "changed": [
+   {
+    "k": "cache-control",
+    "was": "public, max-age=31536000, immutable",
+    "now": "public, max-age=86400"
+   }
+  ],
+  "added": []
+ },
+ {
+  "url": "/sw.js",
+  "lost": [
+   "permissions-policy",
+   "content-security-policy-report-only"
+  ],
+  "changed": [],
+  "added": []
+ },
+ {
+  "url": "/manifest.json",
+  "lost": [
+   "permissions-policy",
+   "content-security-policy-report-only"
+  ],
+  "changed": [],
+  "added": []
+ },
+ {
+  "url": "/embed",
+  "lost": [
+   "x-frame-options",
+   "content-security-policy-report-only"
+  ],
+  "changed": [
+   {
+    "k": "permissions-policy",
+    "was": "camera=(self), microphone=(), geolocation=(self), payment=(), accelerometer=(self), gyroscope=(self), magnetometer=(self)",
+    "now": "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=()"
+   }
+  ],
+  "added": [
+   "cache-control",
+   "content-security-policy"
+  ]
+ },
+ {
+  "url": "/embed.html",
+  "lost": [
+   "x-frame-options",
+   "content-security-policy-report-only"
+  ],
+  "changed": [
+   {
+    "k": "permissions-policy",
+    "was": "camera=(self), microphone=(), geolocation=(self), payment=(), accelerometer=(self), gyroscope=(self), magnetometer=(self)",
+    "now": "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=()"
+   }
+  ],
+  "added": []
+ },
+ {
+  "url": "/sitemap.xml",
+  "lost": [
+   "permissions-policy",
+   "content-security-policy-report-only"
+  ],
+  "changed": [],
+  "added": []
+ },
+ {
+  "url": "/robots.txt",
+  "lost": [
+   "permissions-policy",
+   "content-security-policy-report-only"
+  ],
+  "changed": [],
+  "added": []
+ },
+ {
+  "url": "/favicon.ico",
+  "lost": [
+   "permissions-policy",
+   "content-security-policy-report-only"
+  ],
+  "changed": [],
+  "added": []
+ },
+ {
+  "url": "/apple-touch-icon.png",
+  "lost": [
+   "permissions-policy",
+   "content-security-policy-report-only"
+  ],
+  "changed": [],
+  "added": []
+ },
+ {
+  "url": "/user-guide.pdf",
+  "lost": [
+   "permissions-policy",
+   "content-security-policy-report-only"
+  ],
+  "changed": [
+   {
+    "k": "content-disposition",
+    "was": "attachment; filename=\\\"Gettysburg-Interactive-Map-User-Guide.pdf\\\"",
+    "now": "attachment; filename=\"Gettysburg-Interactive-Map-User-Guide.pdf\""
+   }
+  ],
+  "added": []
+ },
+ {
+  "url": "/screenshots/day1.png",
+  "lost": [
+   "permissions-policy",
+   "content-security-policy-report-only"
+  ],
+  "changed": [],
+  "added": [
+   "cache-control"
+  ]
+ },
+ {
+  "url": "/og/card-r1.png",
+  "lost": [
+   "permissions-policy",
+   "content-security-policy-report-only"
+  ],
+  "changed": [],
+  "added": [
+   "cache-control"
+  ]
+ },
+ {
+  "url": "/404.html",
+  "lost": [],
+  "changed": [
+   {
+    "k": "permissions-policy",
+    "was": "camera=(self), microphone=(), geolocation=(self), payment=(), accelerometer=(self), gyroscope=(self), magnetometer=(self)",
+    "now": "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=()"
+   },
+   {
+    "k": "content-security-policy-report-only",
+    "was": "default-src 'self'; script-src 'self' 'unsafe-inline' api.mapbox.com cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' api.mapbox.com fonts.googleapis.com; fon",
+    "now": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https:/"
+   }
+  ],
+  "added": [
+   "content-security-policy"
+  ]
+ }
+]

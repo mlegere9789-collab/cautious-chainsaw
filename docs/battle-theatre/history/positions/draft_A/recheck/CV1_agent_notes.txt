@@ -1,0 +1,19 @@
+CV1 re-check notes (43 claims, 13 reports/passages: R337, R338, R339, R340, R343, OR27-3 D0920, D0922, D0923, D0959, D0960, D0970, D1021, D1020)
+
+Counts per fidelity: passed_full_read 24, corrected 19, downgraded 0, split 0.
+Validator (positions_A_build.py --tag CV1): no error lines for CV1, no "NO recheck decision".
+
+Corrected ids: 003, 007, 009, 010, 011, 013, 017, 018, 025, 026, 028, 030, 031, 032, 033, 037, 038, 039, 041.
+Split ids: none. Downgraded ids: none.
+
+Patterns (a claim can carry more than one):
+- compass/road/place gloss: 10 (003 road name; 007 road + west; 010 north; 011 near the seminary; 025 north-northeast; 026 "of the army"; 031 road + from Emmitsburg; 037 town named only by letterhead; 039 Emmitsburg Road; 041 west of the seminary).
+- time window or day-part not printed / from another sentence: 7 (017 and 018 "8-9 a.m." where only "about 8 o'clock" is printed; 028 "June 29-30" window; 031 and 032 "afternoon" not printed; 011 afternoon only in Gamble; 010 morning-afternoon is compiler reading). Day-part readings kept as annotations (wd) in 010, 014, 019, 024, 026, 042.
+- OCR digit / ambiguous token: 4 (038 and 039 hour "C a. m." read as 6 a.m.; 013 act claimed printed "July 9" but the OCR is "-TnW 9", date 2 settled by the next sentence; 030 "about 12 m." is noon or twelve miles, no "at"; t_iso removed).
+- hedge/condition dropped: 3 (033 "supposed to be in that vicinity"; 038 "Unless you desire otherwise"; 041 right-flank doubt).
+- unit identity gloss: 3 (009 dispatch speaks of the battle, not the division's own engagement; 039 "one division" resolved to First Division, now the Eleventh Corps; 008 annotated only: Reynolds and leading division, First Corps not printed).
+- merged second report: 0. Later order ignored: 0 (023 and 024 checked against Devin's later "retire gradually"; the formation and the line are earlier phases, claims keep their morning date).
+- other: 005 distance "4i miles" in the note is an OCR fraction (annotated); 034 "Lewistown" vs Frederick City equation is the compiler's inference (annotated).
+
+Systematic: (1) parenthesised day-part and window phrases in Buford, Gamble and Merritt claims were built from other reports or from history; the passage often prints only one end. (2) Several place.printed fields carry gazetteer-style names (seminary, Emmitsburg, "of the army") not in the sentence. (3) CV1-039 and 038 share one OCR-damaged heading, so builders should not attach a clock to either; unit of 039 should not be a named division. (4) The "12 m." token in Merritt's report is ambiguous; CV2-028 and CV2-032 (conflict partners) should not rely on it as noon.
+Footnotes "But see revised statement, p. 185" in R339 is a printed editorial footnote of the same kind as in many other reports; its target (p. 185) was not read and nothing in the passage contradicts the positions.

@@ -14,7 +14,7 @@ import { stripHeads, countHeads } from './heads.mjs';
 import { findHeader, titleOverlap } from './or27-headers.mjs';
 import { segmentDispatches } from './or27-dispatch.mjs';
 import { leafChar, leafOfLine } from './leaves.mjs';
-import { stripNotes, isHeadFragment } from './notes.mjs';
+import { stripNotes, isHeadFragment, dropHeadRemnants } from './notes.mjs';
 
 const sha8 = (s) => crypto.createHash('sha1').update(s).digest('hex').slice(0, 8);
 const words = (s) => (s.match(/\S+/g) || []).length;
@@ -293,6 +293,7 @@ export function normalizeOcr(raw, { repair = true, leaves = null } = {}) {
   for (const p of h.pages.map((q, i) => ({ ...q, i })).sort((x, y) => y.offset - x.offset || y.i - x.i)) hs = hs.slice(0, p.offset) + MARK + hs.slice(p.offset);
   const d = dehyphenate(hs, edits, compoundVotes(hs));
   let text = d.replace(/[ \t]+/g, ' ');
+  text = dropHeadRemnants(text, MARK);                                                                  // the pieces of a head the head stripper left ("[Chap. YYYTY-", "TJNION.", "30 R R - VOL XII.VII, PT III"), page marks kept
   if (repair) { const r = dictionaryRepair(text); text = r.text; edits.push(...r.edits); }
   const parts = text.split(MARK);
   if (parts.length - 1 !== h.pages.length) return { text: text.replace(//g, ''), pages: remapPages(h.text, h.pages, text.replace(//g, '')), edits, notes, pages_inferred: h.inferred || 0 };       // a mark was lost: the anchor search

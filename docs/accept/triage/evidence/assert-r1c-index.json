@@ -1,0 +1,204 @@
+{
+ "candidate": "deliver\\gettysburg-R1c-2531699e-PRODUCTION.zip",
+ "ran": 18,
+ "failed": 0,
+ "skipped": 0,
+ "validWaivers": [
+  "W-text-index-1440",
+  "W-controls-index-1440",
+  "W-screenshot-index-1440",
+  "W-screenshot-index-390",
+  "W-data-DATA-group"
+ ],
+ "invalidWaivers": [],
+ "results": [
+  {
+   "waiver": "W-text-index-1440",
+   "defects": [
+    "D44",
+    "D47"
+   ],
+   "assertion": "page-ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "49 patch(es) on index.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-text-index-1440",
+   "defects": [
+    "D44",
+    "D47"
+   ],
+   "assertion": "bundle-ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "246 patch(es) on js, help, book, css: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-text-index-1440",
+   "defects": [
+    "D44",
+    "D47"
+   ],
+   "assertion": "no-chooser-and-layout-override",
+   "type": "browser:no-chooser",
+   "status": "PASS",
+   "detail": "no chooser at 1440 (layout desktop) and 390 (layout mobile); ?layout=desktop works and Phone view returns: 1440px -> desktop; 390px -> mobile; 390px ?layout=desktop -> desktop, Phone view control visible; after Phone view -> mobile"
+  },
+  {
+   "waiver": "W-text-index-1440",
+   "defects": [
+    "D44",
+    "D47"
+   ],
+   "assertion": "desktop-replacements",
+   "type": "browser:index-desktop",
+   "status": "PASS",
+   "detail": "HUD July 3, 1863 -> July 1, 1863; minimap 70 units at the first moment (published 72); guide link \"Download Website Tutorial PDF\" -> \"User Guide (PDF)\", same href and download; timeline slider named \"Battle time\" 1..675, valuetext \"July 1, 6:00 AM\" (published: unnamed \"0\"); no sound button; \"1x (real time)\" -> \"1x (base speed)\""
+  },
+  {
+   "waiver": "W-text-index-1440",
+   "defects": [
+    "D44",
+    "D47"
+   ],
+   "assertion": "lines-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/@1440: 5 published line(s) gone; all documented; 4 replacement line(s) present"
+  },
+  {
+   "waiver": "W-text-index-1440",
+   "defects": [
+    "D44",
+    "D47"
+   ],
+   "assertion": "lines-390",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/@390: 31 published line(s) gone; all documented; 1 replacement line(s) present"
+  },
+  {
+   "waiver": "W-controls-index-1440",
+   "defects": [
+    "D45",
+    "D48"
+   ],
+   "assertion": "bundle-ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "246 patch(es) on js, help, book, css: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-controls-index-1440",
+   "defects": [
+    "D45",
+    "D48"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/@1440: 3 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-controls-index-1440",
+   "defects": [
+    "D45",
+    "D48"
+   ],
+   "assertion": "controls-390",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/@390: 12 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-controls-index-1440",
+   "defects": [
+    "D45",
+    "D48"
+   ],
+   "assertion": "phone-shell-rehoming",
+   "type": "browser:phone-shell",
+   "status": "PASS",
+   "detail": "14 Tools tiles present; More tools page links == desktop Extra Features menu page links (19 links); \"Search\" opens a panel; \"Filter\" opens Filters; \"Order of Battle\" opens Order of Battle; \"Unit Roster\" opens All Battle Units; \"Soldier's View\" opens a dialog; \"Follow Ancestor\" opens a dialog; \"Map Layers\" opens Map Layers; \"Virtual Walkthrough\" opens a dialog; \"Legend\" opens Legend; \"Bookmarks\" opens a dialog; \"Help\" opens a dialog; \"Ask the Historian\" opens /historian.html; \"Desktop View\" opens Phone view"
+  },
+  {
+   "waiver": "W-screenshot-index-1440",
+   "defects": [
+    "D46"
+   ],
+   "assertion": "page-ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "49 patch(es) on index.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-index-1440",
+   "defects": [
+    "D46"
+   ],
+   "assertion": "no-chooser-and-layout-override",
+   "type": "browser:no-chooser",
+   "status": "PASS",
+   "detail": "no chooser at 1440 (layout desktop) and 390 (layout mobile); ?layout=desktop works and Phone view returns: 1440px -> desktop; 390px -> mobile; 390px ?layout=desktop -> desktop, Phone view control visible; after Phone view -> mobile"
+  },
+  {
+   "waiver": "W-screenshot-index-1440",
+   "defects": [
+    "D46"
+   ],
+   "assertion": "desktop-replacements",
+   "type": "browser:index-desktop",
+   "status": "PASS",
+   "detail": "HUD July 3, 1863 -> July 1, 1863; minimap 70 units at the first moment (published 72); guide link \"Download Website Tutorial PDF\" -> \"User Guide (PDF)\", same href and download; timeline slider named \"Battle time\" 1..675, valuetext \"July 1, 6:00 AM\" (published: unnamed \"0\"); no sound button; \"1x (real time)\" -> \"1x (base speed)\""
+  },
+  {
+   "waiver": "W-screenshot-index-390",
+   "defects": [
+    "D49"
+   ],
+   "assertion": "page-ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "49 patch(es) on index.html: all listed; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-index-390",
+   "defects": [
+    "D49"
+   ],
+   "assertion": "no-chooser-and-layout-override",
+   "type": "browser:no-chooser",
+   "status": "PASS",
+   "detail": "no chooser at 1440 (layout desktop) and 390 (layout mobile); ?layout=desktop works and Phone view returns: 1440px -> desktop; 390px -> mobile; 390px ?layout=desktop -> desktop, Phone view control visible; after Phone view -> mobile"
+  },
+  {
+   "waiver": "W-screenshot-index-390",
+   "defects": [
+    "D49"
+   ],
+   "assertion": "desktop-replacements",
+   "type": "browser:index-desktop",
+   "status": "PASS",
+   "detail": "HUD July 3, 1863 -> July 1, 1863; minimap 70 units at the first moment (published 72); guide link \"Download Website Tutorial PDF\" -> \"User Guide (PDF)\", same href and download; timeline slider named \"Battle time\" 1..675, valuetext \"July 1, 6:00 AM\" (published: unnamed \"0\"); no sound button; \"1x (real time)\" -> \"1x (base speed)\""
+  },
+  {
+   "waiver": "W-screenshot-index-390",
+   "defects": [
+    "D49"
+   ],
+   "assertion": "phone-shell-rehoming",
+   "type": "browser:phone-shell",
+   "status": "PASS",
+   "detail": "14 Tools tiles present; More tools page links == desktop Extra Features menu page links (19 links); \"Search\" opens a panel; \"Filter\" opens Filters; \"Order of Battle\" opens Order of Battle; \"Unit Roster\" opens All Battle Units; \"Soldier's View\" opens a dialog; \"Follow Ancestor\" opens a dialog; \"Map Layers\" opens Map Layers; \"Virtual Walkthrough\" opens a dialog; \"Legend\" opens Legend; \"Bookmarks\" opens a dialog; \"Help\" opens a dialog; \"Ask the Historian\" opens /historian.html; \"Desktop View\" opens Phone view"
+  },
+  {
+   "waiver": "W-data-DATA-group",
+   "defects": [],
+   "assertion": "every-changed-data-file-is-accounted-for",
+   "type": "data-changes-accounted",
+   "status": "PASS",
+   "detail": "0 published data file(s) differ; 1 data file(s) added (data/moments.json; allowed: data/moments.json)"
+  }
+ ]
+}

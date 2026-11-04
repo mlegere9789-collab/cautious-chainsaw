@@ -1,0 +1,452 @@
+[
+ {
+  "id": "POS-A-CV2-001",
+  "fidelity": "corrected",
+  "why": "Hour, date, place, distance in one sentence (Jyily = OCR of the month only); direction_or_road 'Gettysburg-Hanover pike' was a normalised name, now the printed wording.",
+  "patch": {
+   "rd": "the pike leading from Gettysburg to Hanover"
+  }
+ },
+ {
+  "id": "POS-A-CV2-002",
+  "fidelity": "corrected",
+  "why": "Hour and arrival in one sentence for the First and Third Brigades. 'Huey's' is not printed in the passage (Second Brigade only); First Brigade commander named later in the report. Act restated.",
+  "patch": {
+   "act": "The First and Third Brigades of the Second Division arrived on the battle-field at Gettysburg July 2 about noon (the Second Brigade having been sent to Westminster) and were placed on the extreme right of the line at the intersection of the Gettysburg and Hanover turnpike with the road which ran in rear of the right of the line",
+   "note_add": "Report prints 'the First and Third Brigades' (Huey's name is not in this passage); the First Brigade's commander, Col. J. B. McIntosh, is named later in the report."
+  }
+ },
+ {
+  "id": "POS-A-CV2-003",
+  "fidelity": "passed_full_read",
+  "why": "Dispatch heading 10.40 and position sentence in the same dispatch; a. m. is not printed.",
+  "patch": {
+   "wd": "compiler reading: heading prints \"10.40\" with no a. m./p. m.; a. m. inferred from the next dispatch in the series (12.50 p. m.)"
+  }
+ },
+ {
+  "id": "POS-A-CV2-004",
+  "fidelity": "passed_full_read",
+  "why": "Pleasonton: position established about noon of July 2 at the intersection, in the same sentence group; Gregg's division and Huey's brigade left at Westminster are in the preceding sentence.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-CV2-005",
+  "fidelity": "corrected",
+  "why": "6 o'clock and the order in one sentence ('During the afternoon' precedes). Place printed phrase was 'Hanover pike position' (not in the sentence); 'McIntosh's command' printed with Col. J. B.",
+  "patch": {
+   "pp": "the hill and woods immediately in my front"
+  }
+ },
+ {
+  "id": "POS-A-CV2-006",
+  "fidelity": "corrected",
+  "why": "No time printed in this passage for the sharpshooter episode; 'afternoon-evening' came from J. I. Gregg's 6 o'clock (R355). 'my line' is the division's, not McIntosh's brigade. Unit, place and time narrowed.",
+  "patch": {
+   "u": "us-cav-2d",
+   "w": null,
+   "wd": "no time printed in the passage; July 2 from the paragraph sequence (arrival about noon, then \"On the morning of July 3\"); the afternoon-evening reading came from a different report (J. I. Gregg R355, 6 o'clock)",
+   "pp": "the center of my line; a line of stone fence",
+   "act": "An attempt to dislodge some of the enemy's sharpshooters posted in front of the center of the division's line caused the enemy to throw out two regiments deployed; the force advanced and was soon compelled to withdraw under a half dozen well-directed shells and a carbine fire from behind a line of stone fence"
+  }
+ },
+ {
+  "id": "POS-A-CV2-007",
+  "fidelity": "passed_full_read",
+  "why": "'On the morning of July 3' and the posting three-fourths of a mile nearer the Baltimore and Gettysburg turnpike; Custer named as commanding the Third Division brigade later in the report.",
+  "patch": {
+   "note_add": "Passage prints \"the First [Second] Brigade, of the Third Division\" for the brigade in the earlier position; Custer is named as its commander later in the report."
+  }
+ },
+ {
+  "id": "POS-A-CV2-008",
+  "fidelity": "corrected",
+  "why": "Pleasonton dispatch: the hour is printed 'G a. m.' (OCR; the same page prints 18G3 for 1863, but that does not settle the digit); t_iso removed, ocr flag kept, wording restated as printed.",
+  "patch": {
+   "t": null,
+   "w": "G a. m.",
+   "wd": "OCR glyph only: hour printed \"G a. m.\"; the same OCR prints \"18G3\" for 1863, which suggests 6, but the digit is not settled by the passage",
+   "act": "Pleasonton dispatch (hour printed \"G a. m.\", OCR-damaged; probably 6 a. m.) July 3: place a force of cavalry and battery to hold the ridge on the Baltimore turnpike behind the bridge, the right of Slocum's position, to the right of the road facing Gettysburg, at all hazards"
+  }
+ },
+ {
+  "id": "POS-A-CV2-009",
+  "fidelity": "corrected",
+  "why": "At 12 m. in the same sentence; 'Howard' is not named in the passage (commander of the Eleventh Army Corps).",
+  "patch": {
+   "act": "At 12 m. July 3 Gregg received a copy of a dispatch from the commander of the Eleventh Army Corps that large columns of the enemy's cavalry were moving toward the right of our line, and an order to send the First [Second] Brigade of the Third Division to join Kilpatrick on the left"
+  }
+ },
+ {
+  "id": "POS-A-CV2-010",
+  "fidelity": "corrected",
+  "why": "The regiments are posted by Gregg himself (not tied to McIntosh's brigade in the sentence) and no clock or day-part is printed (only after the 12 m. sentence and before 'nightfall'). Unit widened to the division; place restated as printed.",
+  "patch": {
+   "u": "us-cav-2d",
+   "pp": "to the right and front in a wood; to the left and front in open fields; on the Hanover turnpike",
+   "rd": "Hanover turnpike",
+   "wd": "compiler reading from order of events: follows the \"At 12 m.\" sentence and precedes \"nightfall\"; no clock of its own"
+  }
+ },
+ {
+  "id": "POS-A-CV2-011",
+  "fidelity": "passed_full_read",
+  "why": "About noon and the attack on this position in one sentence; July 3 stated in the preceding sentence of the same paragraph; defeat by Gregg printed.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-CV2-012",
+  "fidelity": "corrected",
+  "why": "'was held in reserve upon the field' is Gregg's sentence for the Third Brigade; the Chester/Randol section clause and 'on the right flank' are not in this report (Chester is in J. I. Gregg R355). Narrowed.",
+  "patch": {
+   "act": "Colonel J. I. Gregg's Third Brigade was held in reserve upon the field during the July 3 engagement (dated by the paragraph, which opens 'On the morning of July 3')",
+   "pp": "upon the field",
+   "note_add": "The Chester/Randol section clause was removed: it is in J. I. Gregg's own report (R355), not in this passage."
+  }
+ },
+ {
+  "id": "POS-A-CV2-013",
+  "fidelity": "corrected",
+  "why": "Order and position in one sentence; place wording was a paraphrase of the printed words, restored.",
+  "patch": {
+   "pp": "the road leading from Gettysburg to Baltimore, not far distant from the position occupied by General Slocum's corps; then a position near the one occupied on July 2",
+   "rd": "the road leading from Gettysburg to Baltimore"
+  }
+ },
+ {
+  "id": "POS-A-CV2-014",
+  "fidelity": "passed_full_read",
+  "why": "'Late in the afternoon of July 4' and the order to report in one sentence; placing the brigade on the extreme left in the next sentence ('In accordance with his orders').",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-CV2-015",
+  "fidelity": "passed_full_read",
+  "why": "July 4 reconnaissance to Hunterstown and the July 5-6 pursuit to Greenwood and Marion printed in the report's itinerary section.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-CV2-016",
+  "fidelity": "corrected",
+  "why": "Distance printed 'li miles' (OCR; read 1 1/2 in the claim); distance not settled by the passage. Place and act restated with the printed glyphs.",
+  "patch": {
+   "pp": "about li miles east of Gettysburg",
+   "act": "The 10th New York left its bivouac on the morning of July 5 about 'li' miles (OCR; probably 1 1/2) east of Gettysburg, passing through the village on the Chambersburg pike",
+   "ocr": true,
+   "wd": "OCR glyph only: distance printed \"li miles\"; 1 1/2 is a reading, not settled by the passage"
+  }
+ },
+ {
+  "id": "POS-A-CV2-017",
+  "fidelity": "corrected",
+  "why": "Second clause (Custer's brigade at 10 p. m.) belongs to a different unit and has its own claim (CV2-018); activity narrowed to the First Brigade.",
+  "patch": {
+   "act": "On the morning of June 29 the First Brigade (General Farnsworth) left Frederick City and marched to Littlestown, Pa."
+  }
+ },
+ {
+  "id": "POS-A-CV2-018",
+  "fidelity": "passed_full_read",
+  "why": "10 p. m. and 'the same place ... the same day' in one sentence, Littlestown named in the preceding sentence; Second Brigade (Custer) named.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-CV2-019",
+  "fidelity": "passed_full_read",
+  "why": "We reached Hanover at 10 a. m. in one sentence; June 30 in the preceding sentence; attack on the First Brigade in the continuing sentence.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-CV2-020",
+  "fidelity": "passed_full_read",
+  "why": "Advance arrived at Hanover about noon, without encountering the enemy, and the 18th Pennsylvania in rear entering the town, all in the brigade report.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-CV2-021",
+  "fidelity": "passed_full_read",
+  "why": "July 1 march to Berlin via Abbottstown to intercept Stuart, in one sentence.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-CV2-022",
+  "fidelity": "passed_full_read",
+  "why": "July 1-2 marches in consecutive sentences of Capehart's report; 'Himterstown' is OCR of Hunterstown; picketed the enemy's left wing printed.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-CV2-023",
+  "fidelity": "corrected",
+  "why": "Kilpatrick's passage prints 2 p. m., moving across the country toward the firing; the Heidlersburg direction is Pleasonton's (R336), not this passage. Place trimmed; Heidlersburg moved to a split claim from R336.",
+  "patch": {
+   "pp": "across the country in the direction of the firing; the battle-field",
+   "act": "July 2 Kilpatrick received orders to move as quickly as possible toward Gettysburg, proceeded rapidly across the country in the direction of the firing and reached the battle-field at 2 p. m.",
+   "note_add": "The 'from the direction of Heidlersburg' phrase was removed from place: it is Pleasonton's text (R336), now a separate claim. Gazetteer ref GZ-072 (town) is by inference for 'the battle-field'."
+  },
+  "add": [
+   {
+    "u": "us-cav-3d",
+    "k": "arrival_road",
+    "act": "Pleasonton: Kilpatrick's division on July 2 moved toward Gettysburg from the direction of Heidlersburg, to prevent the enemy from concentrating his forces by that road and to protect our right flank",
+    "r": "R336",
+    "q": "Kilpatrick's division on July 2 moved toward Gettysburg from the direction of Heidlersburg",
+    "w": "on July 2",
+    "d": "1863-07-02",
+    "pp": "from the direction of Heidlersburg",
+    "note": "Split from CV2-023; no clock time printed in this sentence."
+   }
+  ]
+ },
+ {
+  "id": "POS-A-CV2-024",
+  "fidelity": "passed_full_read",
+  "why": "Richmond: not engaged with the enemy during July 1 and 2, in one sentence.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-CV2-025",
+  "fidelity": "corrected",
+  "why": "Sundown and the attack in one sentence; the road is printed 'the road leading from Gettysburg to Abbottstown', not a normalised name.",
+  "patch": {
+   "rd": "the road leading from Gettysburg to Abbottstown",
+   "pp": "near Hunterstown; the road leading from Gettysburg to Abbottstown"
+  }
+ },
+ {
+  "id": "POS-A-CV2-026",
+  "fidelity": "passed_full_read",
+  "why": "Pleasonton: 'Late in the afternoon' with Hunterstown and the two-hour affair in one sentence; July 2 in the preceding sentence.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-CV2-027",
+  "fidelity": "passed_full_read",
+  "why": "At 11 p. m. order to move to Two Taverns and the arrival at daylight in one sentence; July 2 night from the sequence.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-CV2-028",
+  "fidelity": "passed_full_read",
+  "why": "At 8 a. m. with the order to move to the left of the line in one sentence; digit legible (the stray space is not OCR damage to the digit); July 3 from sequence after Two Taverns at daylight.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-CV2-029",
+  "fidelity": "corrected",
+  "why": "Custer's brigade ordered to report to Gregg: printed. 'The right flank with Gregg' is the compiler's gloss for place; 'engaged on the right' is a later sentence. Place restated.",
+  "patch": {
+   "pp": "report to General Gregg",
+   "wd": "compiler reading: July 3 from the sequence after the \"At 8 a. m.\" sentence (\"did not join me during the day\")",
+   "note_add": "Place restated to the printed words; 'on the right' appears only in a later sentence (Farnsworth and Custer 'engaged on the right'). GZ-025 is by inference."
+  }
+ },
+ {
+  "id": "POS-A-CV2-030",
+  "fidelity": "corrected",
+  "why": "The retention decision is Gregg's, after the 12 m. dispatch and after the First Brigade relieved the Third Division brigade; 'about noon' is not printed with it. Time and place narrowed to the printed text.",
+  "patch": {
+   "w": null,
+   "wd": "compiler reading: follows the \"At 12 m.\" sentence by several sentences (change of brigades, skirmish line displayed); no clock of its own",
+   "pp": "at this point, where the enemy cavalry had gained our right",
+   "note_add": "Place 'right flank (Gregg's line)' replaced by the printed words; GZ-025 is by inference."
+  }
+ },
+ {
+  "id": "POS-A-CV2-031",
+  "fidelity": "corrected",
+  "why": "At 1 p. m. with the rear and right of the enemy's position in one sentence; '(south of the Union left)' is a gloss, removed.",
+  "patch": {
+   "pp": "the rear and right of the enemy's position"
+  }
+ },
+ {
+  "id": "POS-A-CV2-032",
+  "fidelity": "passed_full_read",
+  "why": "At 3 p. m., Merritt came in on Farnsworth's left, and the enemy driven over 1 mile, in one sentence; Merritt's brigade named by Pleasonton.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-CV2-033",
+  "fidelity": "corrected",
+  "why": "At 5.30 p. m. attack with both brigades printed; 'on the Union left' is a gloss (the passage says the Regulars on the left and the stone wall), removed; Farnsworth's death is in a later sentence.",
+  "patch": {
+   "pp": "a piece of woods and a heavy stone wall (Farnsworth's charge)",
+   "note_add": "Farnsworth's death is in a later sentence of the report ('he fell'), not in the 5.30 p. m. sentence."
+  }
+ },
+ {
+  "id": "POS-A-CV2-034",
+  "fidelity": "corrected",
+  "why": "10 a. m. and the order in one sentence (to the brigade); the activity said the regiment 'charged behind stone fences' - it is the enemy that was behind the stone fences.",
+  "patch": {
+   "act": "At 10 a. m. the brigade was ordered to move to the extreme right wing of the enemy; at 3 p. m. found them in position with infantry, cavalry and artillery; the First West Virginia, led by Col. Richmond, was ordered to charge the enemy, who were behind high stone fences"
+  }
+ },
+ {
+  "id": "POS-A-CV2-035",
+  "fidelity": "passed_full_read",
+  "why": "At about 7 o'clock, the morning of July 3, the command ordered to move toward the left of the line, in one sentence; support of Elder's battery in the next.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-CV2-036",
+  "fidelity": "passed_full_read",
+  "why": "On the evening of July 2, the skirmish at Hunterstown, and the battery support, in one passage.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-CV2-037",
+  "fidelity": "corrected",
+  "why": "At about 5 p. m. in the same sentence; 'left of Round Top' is from the second Darlington letter, not this sentence; place restated to the printed words of this letter.",
+  "patch": {
+   "pp": "the left of the line of the Union army at Gettysburg",
+   "note_add": "The second Darlington letter prints 'to the left of Round Top Mountain'; GZ-009 is by inference only."
+  }
+ },
+ {
+  "id": "POS-A-CV2-038",
+  "fidelity": "passed_full_read",
+  "why": "Hunterstown, July 2, skirmishers on the right of the Second Brigade and front and right of Elder's battery, in one sentence.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-CV2-039",
+  "fidelity": "corrected",
+  "why": "'Dismounted skirmishers' applies to Companies A, D, E and I only, not the regiment; 5 p. m. and the Second Battalion in one sentence. Activity restated.",
+  "patch": {
+   "act": "July 3 the 1st Vermont had the advance in approaching the enemy's position on their extreme right (Companies A, D, E and I dismounted as skirmishers); at 5 p. m. in Farnsworth's charge the Second Battalion under Major Wells formed the right and was led by Farnsworth in person"
+  }
+ },
+ {
+  "id": "POS-A-CV2-040",
+  "fidelity": "corrected",
+  "why": "The entry is the First Michigan's, not the brigade's; 'the Two Taverns' as printed; GZ-025 is by inference.",
+  "patch": {
+   "u": "us-cav-3d-custer-1mi",
+   "act": "First Michigan: On July 3, an engagement 2 or 3 miles to the right of the Two Taverns, in which the regiment charged in close column upon Hampton's brigade, using the saber only, and drove the enemy from the field, with a loss of 6 officers and 80 men",
+   "pp": "2 or 3 miles to the right of the Two Taverns",
+   "note_add": "GZ-025 (East Cavalry Field) is by inference from the Custer fight on July 3; the passage names only Two Taverns."
+  }
+ },
+ {
+  "id": "POS-A-CV2-041",
+  "fidelity": "passed_full_read",
+  "why": "On July 2, at the battle of Hunterstown, one squadron under Captain Duggan detailed to hold the road, in one sentence (First Michigan diary).",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-CV2-042",
+  "fidelity": "corrected",
+  "why": "Printed date 'July 3' may be a 2/3 OCR confusion: the diary prints 'July 3' twice in a row and gives Hunterstown as July 2 for the 1st and 7th Michigan. Digit not settled; flagged.",
+  "patch": {
+   "ocr": true,
+   "wd": "OCR glyph only: the entry prints \"July 3\" and the next entry also \"July 3\"; other regiments of the same report put Hunterstown on July 2, so a 2/3 confusion cannot be excluded from the passage"
+  }
+ },
+ {
+  "id": "POS-A-CV2-043",
+  "fidelity": "passed_full_read",
+  "why": "At 10 a. m. moved out and met the enemy on the right at Gettysburg, in the July 3 entry (only the word 'July' is OCR-damaged); dismounted on the left of the brigade, Major Ferry killed.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-CV2-044",
+  "fidelity": "corrected",
+  "why": "The claim joined a July 2 Hunterstown clause (a separate entry) to the July 3 charge; narrowed to July 3, the July 2 clause split off. 'right flank' not printed; place trimmed.",
+  "patch": {
+   "act": "Seventh Michigan: July 3 charged the advance line of the enemy's skirmishers at Gettysburg and held the field until the advance of the First Michigan Cavalry",
+   "pp": "Gettysburg"
+  },
+  "add": [
+   {
+    "u": "us-cav-3d-custer-7mi",
+    "k": "engagement",
+    "act": "Seventh Michigan: July 2 the regiment, excepting one squadron, was advanced as dismounted skirmishers in the engagement at Hunterstown",
+    "r": "R361",
+    "q": "excepting one squadron, was advanced as dismounted skirmishers",
+    "w": "July 2",
+    "d": "1863-07-02",
+    "pp": "Hunterstown",
+    "gz": "GZ-076",
+    "note": "Split from CV2-044."
+   }
+  ]
+ },
+ {
+  "id": "POS-A-CV2-045",
+  "fidelity": "corrected",
+  "why": "The claim merged the July 3 entry with a separate entry printed 'July 1' (Hunterstown); narrowed to July 3, the Hunterstown entry split off as a flagged date.",
+  "patch": {
+   "act": "Battery M, 2nd U. S.: July 3 took up a position on the right of the line at Gettysburg and was engaged with Stuart's cavalry; the battery was engaged all day"
+  },
+  "add": [
+   {
+    "u": "us-cav-art",
+    "k": "engagement",
+    "act": "Battery M, 2nd U. S. (Custer's brigade): printed entry 'July 1' - engaged with the enemy at Hunterstown, silencing his battery; 4 horses killed, 3 wounded, 1 wheel disabled",
+    "r": "R361",
+    "q": "Was engaged with the enemy at Hunterstown, silencing his battery",
+    "w": "July 1 (printed)",
+    "d": "1863-07-01",
+    "pp": "Hunterstown",
+    "gz": "GZ-076",
+    "ocr": true,
+    "wd": "OCR glyph only / source conflict: the entry prints \"July 1\" but other entries of the report put Hunterstown on July 2; the digit is not settled by the passage",
+    "note": "Split from CV2-045. Kilpatrick puts Hunterstown at sundown July 2."
+   }
+  ]
+ },
+ {
+  "id": "POS-A-CV2-046",
+  "fidelity": "passed_full_read",
+  "why": "June 30 entry: went into position just outside of town, cavalry pickets 1.5 miles out, 'Our position on Carlisle road'.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-CV2-047",
+  "fidelity": "corrected",
+  "why": "'This was about 8 a. m.' belongs to the report of the advancing enemy and the preparations; the first gun follows several sentences later with no clock. Both sections were placed to the left of the road, not 'each side'.",
+  "patch": {
+   "act": "July 1: the enemy was reported advancing in heavy columns on the Carlisle pike (about 8 a. m.); Calef selected a position about 600 yards in front of the one held during the night, with sections on the left of the road; Lieutenant Roder then fired the first gun",
+   "pp": "about 600 yards in front of the one held during the night; sections on the left of the road",
+   "wd": "time in a different sentence: \"This was about 8 a. m.\" (belongs to the report of the advancing enemy and the preparations; the first gun is several sentences later with no clock of its own)",
+   "t": null,
+   "w": null,
+   "ap": false
+  }
+ },
+ {
+  "id": "POS-A-CV2-048",
+  "fidelity": "passed_full_read",
+  "why": "Reached Taneytown about 4 p. m. after the order on the morning of the 2d; evening of July 1 move to the left stated in the same report.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-CV2-049",
+  "fidelity": "passed_full_read",
+  "why": "Taneytown 4.30 p. m. on the 30th, left 11.30 p. m. July 1, arrived 6.30 a. m. on the 2d, reserve until nearly dark, then 2 miles back on the Baltimore pike, all in the report.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-CV2-050",
+  "fidelity": "corrected",
+  "why": "The hour of the order is printed '13 m.' (OCR; 12 m. is a reading supported only by Robertson's 'about 12 m.' in another report); 12.30 p. m. firing time is legible.",
+  "patch": {
+   "act": "Daniels' Ninth Michigan Battery (Horse Artillery) received orders (hour printed '13 m.', OCR-damaged) on July 3 from Captain Robertson to report to General Newton, was ordered to take a position on the hill and west of the town, and opened fire at 12.30 p. m.",
+   "wd": "order hour: OCR glyph only (\"13 m.\"); the 12.30 p. m. firing time is printed in the same report"
+  }
+ },
+ {
+  "id": "POS-A-CV2-051",
+  "fidelity": "downgraded",
+  "why": "Report dated August 4, 1863 says the batteries 'are still detached' with the First and Second Cavalry Divisions; no date July 1-3 and no names Buford or Gregg are printed. Passage supports detachment as of the report, not a July 1-3 position.",
+  "patch": {
+   "tier": "inferred",
+   "why": "The report of August 4, 1863 says Graham's and Randol's batteries 'are still detached with the First and Second Cavalry Divisions'; 'still' implies an earlier detachment, but the passage prints no date for July 1-3 and does not name Buford or Gregg.",
+   "w": null,
+   "wd": "no date printed: the passage is dated August 4, 1863 and says \"are still detached\"; July 1-3 is the compiler's reading",
+   "pp": "the First and Second Cavalry Divisions",
+   "act": "Horse batteries K, 1st U. S. (Graham) and E, 1st U. S. (Randol) of the Second Brigade, Horse Artillery, were detached with the First and Second Cavalry Divisions (inferred for July 1-3 from \"are still detached\", report of August 4, 1863)"
+  }
+ }
+]

@@ -20,14 +20,10 @@
   "watch-together.html",
   "ground-remembers.html"
  ],
- "problems": [
-  "CLK-55-mobile-step-back: expected 1, found 0 in assets/index-Cg8FAMXN.js",
-  "CLK-56-mobile-step-forward: expected 1, found 0 in assets/index-Cg8FAMXN.js",
-  "CLK-62-bookmark-remove-label: expected 1, found 0 in assets/BookmarkPanel-C5YT4b5k.js",
-  "inlined module not found in the patched bundle"
- ],
+ "problems": [],
  "notes": [],
  "evals": [
+  "inline module parity: 675 ticks x 9 styles, after(+-60), hour, hostile inputs: identical to src/lib/time",
   "rewritten getTickTime, JF, QF evaluate to the module strings (mobile split(\", \")[1] is the time, never 1863): ok",
   "HUD date expression routed: true",
   "compare.html approxTimeForTick: evaluates to the module",
@@ -44,7 +40,7 @@
   [
    "TM-V9",
    92,
-   67
+   64
   ],
   [
    "TM-V16",

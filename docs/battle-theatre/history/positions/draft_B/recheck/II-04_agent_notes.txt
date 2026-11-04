@@ -1,0 +1,18 @@
+Batch II-04 (Brooke's Fourth Brigade, First Division, Second Corps): R092 Brooke, R093 Baily (2nd DE), R094 Bradley (64th NY), R095 McMichael (53rd PA, 27th CT), R096 Reynolds and R097 Oliver (145th PA).
+51 claims, all read against the full report text (each report 2,000-11,500 chars, printed whole).
+
+Counts per fc: passed_full_read 44, corrected 7, downgraded 0, split 0.
+
+Corrected (pattern in brackets):
+- brooke-02: date prints "June 39" (OCR digit; own text cannot settle 29/30), t removed, ocr true, distance "31" flagged [OCR digit]. Baily R093 prints Monday, June 29, 6 a. m.: corroboration only, kept in dbasis.
+- brooke-10: right "being turned" was a report brought to him, and only the greater part of the command reformed behind stone walls [hedge/condition dropped].
+- brooke-53pa-06: "during the night" belongs to the later breastworks sentence, not the retirement/reform [time from another sentence].
+- brooke-27ct-01: passage is McMichael's statement about the 53rd PA's line with the 27th CT on its left; claim made the 27th CT the subject and added a "Wheatfield action" label [unit identity / compiler label].
+- brooke-145pa-02: wp "the next morning" is the following sentence's time; "night of July 1" was compiler reading [time from another sentence].
+- brooke-145pa-04: time (about 4 o'clock, quarter-mile move later reversed) was paired with the place of the 5 o'clock half-mile move [later/other order mismatch].
+- brooke-145pa-05: "attempting to turn the flank" had been stated flat [hedge dropped]; 5 o'clock is the order to march, wheat-field entry follows.
+
+Pattern counts: time from another sentence 2; merged second report 0; later order/time-place mismatch 1; compass/road gloss 0; hedge/condition dropped 2; unit identity/label gloss 1; OCR digit 1 corrected (plus 3 annotated while passed: 64ny-06, 53pa-03/-04 date digits settled by sequence); meridian inferred 0; other 0.
+
+Systematic: (1) Many claims have wp null or a time that sits in a continuing clause; I recorded the date basis in dbasis (diary headings, "Sunday, July 5", sequence) rather than changing them. (2) R095 and R094 are multi-report records (July 17, Aug. 3, Aug. 14); the OCR prints July 2 as "July 3" / "the 3d" in several places, settled in each case by the order of events (night bivouac, "the morning of the 3d" next) and by the same record's other reports; the builders should not read "3d" in R095/R094 without that check. (3) Conflicting times between reports of the same regiment (53rd PA 3-4 p. m. vs about 5 p. m.; 145th PA Reynolds 4 p. m. vs Oliver 5 p. m. departure) are real conflicts, not errors, and were left as conflicts.
+No claim split or downgraded. Validator: decisions 51 {'corrected': 7, 'passed_full_read': 44} new split claims 0 missing 0 errors 0.

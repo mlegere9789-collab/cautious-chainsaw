@@ -1,0 +1,14 @@
+XII-02 reader notes (16 claims; no open-gap claims in batch)
+Counts per fc: passed_full_read 8, corrected 7, downgraded 1, split 0.
+Patterns:
+- time from another sentence: 2 (art-pae-16, art-1nym-11: 'evening of July 2' belongs to the preceding sentence)
+- merged second report: 0
+- later order ignored: 0
+- compass/road gloss: 0
+- hedge/condition dropped: 2 (12c-37 'feared' / 'apprehended an immediate attack'; art-pae-14 enemy's caisson left unattributed); 2 more hedged-time cases (pae-14, 5usk-13 'About the same hour': ap set true)
+- unit identity gloss: 3 (greene-34 Newton names no brigade, downgraded; greene-35 Greene only a neighbour of Cutler, narrowed; art-18 'these batteries' antecedent undefined, stated)
+- OCR digit: 0 new (art-4usf-10, 1nym-10, pae-13 already ocr flagged; digits read from context, kept)
+- meridian inferred: 0
+- other: 12c-37 note says Meade arrived about 1 a.m.; Hunt prints about 2 a. m. of the 2d (note field, not changed). greene-34: report heading 'July 3' appears twice (2/3 OCR/misprint); date July 2 settled by the second 'July 3 - dawn of day' block, recorded in dbasis.
+Ids downgraded: POS-B-us-12c-2d-greene-34. Ids split: none.
+Systematic: strength_note/placement claims from Hunt carry a date by report context only (no printed hour); recorded in dbasis.

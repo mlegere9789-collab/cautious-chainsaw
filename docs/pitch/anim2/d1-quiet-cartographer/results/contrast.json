@@ -1,19 +1,19 @@
 {
- "generated": "2026-10-12T03:36:19.775Z",
+ "generated": "2026-10-12T11:47:34.310Z",
  "method": "ground bands read from the page's own backdrop render; marks tested against halo-over-ground",
  "bands": {
   "qc-night": {
    "field-z13.5": [
-    "#141b21",
+    "#151b21",
     "#1c232c",
     "#2c3640",
     "#394550",
     "#495562",
     "#5f6d7c",
-    "#6c7a8a"
+    "#6b7a8a"
    ],
    "angle-z15": [
-    "#161d24",
+    "#171d25",
     "#212932",
     "#343f4a",
     "#434f5b",
@@ -22,7 +22,7 @@
     "#6c7c8c"
    ],
    "wheatfield-z15": [
-    "#181e26",
+    "#181f26",
     "#222a33",
     "#343f4a",
     "#434e5b",
@@ -31,10 +31,10 @@
     "#6f7e8e"
    ],
    "cemetery-hill-z15.5": [
-    "#12171e",
-    "#1b222a",
-    "#2d3640",
-    "#3a4651",
+    "#12181e",
+    "#1b232b",
+    "#2d3641",
+    "#3b4652",
     "#4a5663",
     "#5e6c7b",
     "#6c7b8a"
@@ -45,7 +45,7 @@
     "#273039",
     "#37414d",
     "#46525f",
-    "#5f6c7a",
+    "#5e6c7a",
     "#6e7c8a"
    ]
   },
@@ -64,9 +64,9 @@
     "#9a978c",
     "#b5b1a8",
     "#c5c0b7",
-    "#cecbc2",
+    "#cecac2",
     "#dad6cd",
-    "#e3dfd7"
+    "#e2ded6"
    ],
    "wheatfield-z15": [
     "#88877f",
@@ -79,12 +79,12 @@
    ],
    "cemetery-hill-z15.5": [
     "#818079",
-    "#939086",
+    "#949086",
     "#aca89e",
     "#bbb8ae",
-    "#cac7be",
-    "#dbd8d1",
-    "#e7e4dd"
+    "#cac6be",
+    "#dbd8d0",
+    "#e5e2db"
    ],
    "three-days-z12.5": [
     "#7f7b6f",
@@ -104,29 +104,29 @@
    "sides": {
     "deltaE2000": {
      "normal": {
-      "unionConfederate": 49.1,
-      "unionContested": 25.9,
-      "confederateContested": 41.6
+      "unionConfederate": 46.5,
+      "unionContested": 23.7,
+      "confederateContested": 34.3
      },
      "protanopia": {
-      "unionConfederate": 53.8,
-      "unionContested": 25.1,
-      "confederateContested": 43.5
+      "unionConfederate": 46.8,
+      "unionContested": 22.5,
+      "confederateContested": 33
      },
      "deuteranopia": {
-      "unionConfederate": 56.1,
-      "unionContested": 28.5,
-      "confederateContested": 37.5
+      "unionConfederate": 52.5,
+      "unionContested": 25.7,
+      "confederateContested": 31.2
      },
      "tritanopia": {
-      "unionConfederate": 78.8,
-      "unionContested": 25.7,
-      "confederateContested": 39
+      "unionConfederate": 74.9,
+      "unionContested": 24.8,
+      "confederateContested": 31.3
      }
     },
-    "greyscaleLuminanceRatio": 1.52,
-    "minDeltaE": 25.1,
-    "unionVsConfederateMin": 49.1
+    "greyscaleLuminanceRatio": 1.13,
+    "minDeltaE": 22.5,
+    "unionVsConfederateMin": 46.5
    },
    "worstText": {
     "ratio": 4.85,
@@ -134,10 +134,10 @@
     "state": "fresh",
     "view": "field-z13.5",
     "band": 0.01,
-    "ground": "#141b21"
+    "ground": "#151b21"
    },
    "worstMark": {
-    "ratio": 3.18,
+    "ratio": 6.77,
     "name": "pip ring confederate (carried)",
     "view": "wheatfield-z15",
     "band": 0.99,
@@ -155,29 +155,29 @@
    "sides": {
     "deltaE2000": {
      "normal": {
-      "unionConfederate": 49.2,
+      "unionConfederate": 49.4,
       "unionContested": 28.8,
-      "confederateContested": 37.9
+      "confederateContested": 36.7
      },
      "protanopia": {
       "unionConfederate": 51.5,
       "unionContested": 25.9,
-      "confederateContested": 39.5
+      "confederateContested": 38.2
      },
      "deuteranopia": {
-      "unionConfederate": 54.7,
+      "unionConfederate": 55.1,
       "unionContested": 30.2,
-      "confederateContested": 36.1
+      "confederateContested": 35.1
      },
      "tritanopia": {
-      "unionConfederate": 55.8,
+      "unionConfederate": 55.3,
       "unionContested": 29.3,
-      "confederateContested": 36.9
+      "confederateContested": 35.5
      }
     },
-    "greyscaleLuminanceRatio": 1.14,
+    "greyscaleLuminanceRatio": 1.05,
     "minDeltaE": 25.9,
-    "unionVsConfederateMin": 49.2
+    "unionVsConfederateMin": 49.4
    },
    "worstText": {
     "ratio": 4.73,
@@ -185,10 +185,10 @@
     "state": "fresh",
     "view": "field-z13.5",
     "band": 0.01,
-    "ground": "#141b21"
+    "ground": "#151b21"
    },
    "worstMark": {
-    "ratio": 4.1,
+    "ratio": 6.36,
     "name": "pip ring confederate (carried)",
     "view": "wheatfield-z15",
     "band": 0.99,
@@ -206,40 +206,40 @@
    "sides": {
     "deltaE2000": {
      "normal": {
-      "unionConfederate": 47.1,
-      "unionContested": 27.3,
-      "confederateContested": 35.4
+      "unionConfederate": 45,
+      "unionContested": 25.4,
+      "confederateContested": 32.8
      },
      "protanopia": {
-      "unionConfederate": 48.3,
-      "unionContested": 25.4,
-      "confederateContested": 35.3
+      "unionConfederate": 45,
+      "unionContested": 23.7,
+      "confederateContested": 31.6
      },
      "deuteranopia": {
-      "unionConfederate": 53.2,
-      "unionContested": 29,
-      "confederateContested": 31.7
+      "unionConfederate": 50.4,
+      "unionContested": 27.1,
+      "confederateContested": 29.3
      },
      "tritanopia": {
-      "unionConfederate": 75.5,
-      "unionContested": 27.9,
-      "confederateContested": 38.2
+      "unionConfederate": 70.9,
+      "unionContested": 26.7,
+      "confederateContested": 35.4
      }
     },
-    "greyscaleLuminanceRatio": 1.15,
-    "minDeltaE": 25.4,
-    "unionVsConfederateMin": 47.1
+    "greyscaleLuminanceRatio": 1.12,
+    "minDeltaE": 23.7,
+    "unionVsConfederateMin": 45
    },
    "worstText": {
-    "ratio": 6.03,
-    "name": "count in a confederate flag",
-    "state": "fresh",
-    "view": "three-days-z12.5",
+    "ratio": 5.77,
+    "name": "count in a hollow union flag",
+    "state": "carried",
+    "view": "wheatfield-z15",
     "band": 0.99,
-    "ground": "#6e7c8a"
+    "ground": "#6f7e8e"
    },
    "worstMark": {
-    "ratio": 4.67,
+    "ratio": 7.37,
     "name": "pip ring confederate (carried)",
     "view": "wheatfield-z15",
     "band": 0.99,
@@ -257,44 +257,44 @@
    "sides": {
     "deltaE2000": {
      "normal": {
-      "unionConfederate": 47.7,
-      "unionContested": 22.2,
-      "confederateContested": 41.3
+      "unionConfederate": 44.6,
+      "unionContested": 53.7,
+      "confederateContested": 54.1
      },
      "protanopia": {
-      "unionConfederate": 53.8,
-      "unionContested": 27.6,
-      "confederateContested": 32.9
+      "unionConfederate": 50.4,
+      "unionContested": 50.8,
+      "confederateContested": 58.9
      },
      "deuteranopia": {
-      "unionConfederate": 61.8,
-      "unionContested": 25.1,
-      "confederateContested": 43.7
+      "unionConfederate": 56.6,
+      "unionContested": 55.1,
+      "confederateContested": 49
      },
      "tritanopia": {
-      "unionConfederate": 63.2,
-      "unionContested": 23,
-      "confederateContested": 44.4
+      "unionConfederate": 58.4,
+      "unionContested": 48,
+      "confederateContested": 55.1
      }
     },
-    "greyscaleLuminanceRatio": 1.42,
-    "minDeltaE": 22.2,
-    "unionVsConfederateMin": 47.7
+    "greyscaleLuminanceRatio": 1.1,
+    "minDeltaE": 44.6,
+    "unionVsConfederateMin": 44.6
    },
    "worstText": {
-    "ratio": 5.13,
+    "ratio": 6.88,
     "name": "count in a confederate flag",
     "state": "fresh",
-    "view": "three-days-z12.5",
-    "band": 0.99,
-    "ground": "#e5e2dc"
-   },
-   "worstMark": {
-    "ratio": 3.95,
-    "name": "pip ring confederate (carried)",
     "view": "field-z13.5",
     "band": 0.01,
     "ground": "#817d73"
+   },
+   "worstMark": {
+    "ratio": 5.47,
+    "name": "pip ring confederate (carried)",
+    "view": "three-days-z12.5",
+    "band": 0.01,
+    "ground": "#7f7b6f"
    },
    "verdict": {
     "text": true,
@@ -308,29 +308,29 @@
    "sides": {
     "deltaE2000": {
      "normal": {
-      "unionConfederate": 49.4,
-      "unionContested": 20.5,
-      "confederateContested": 43.5
+      "unionConfederate": 48.1,
+      "unionContested": 49.7,
+      "confederateContested": 45.5
      },
      "protanopia": {
-      "unionConfederate": 48.6,
-      "unionContested": 22.2,
-      "confederateContested": 37
+      "unionConfederate": 47.7,
+      "unionContested": 46.6,
+      "confederateContested": 48.7
      },
      "deuteranopia": {
-      "unionConfederate": 56.8,
-      "unionContested": 20.6,
-      "confederateContested": 46.7
+      "unionConfederate": 54.7,
+      "unionContested": 51.9,
+      "confederateContested": 41.7
      },
      "tritanopia": {
-      "unionConfederate": 62.4,
-      "unionContested": 21.1,
-      "confederateContested": 45.4
+      "unionConfederate": 61.1,
+      "unionContested": 46.6,
+      "confederateContested": 46.1
      }
     },
-    "greyscaleLuminanceRatio": 1.68,
-    "minDeltaE": 20.5,
-    "unionVsConfederateMin": 48.6
+    "greyscaleLuminanceRatio": 1.48,
+    "minDeltaE": 41.7,
+    "unionVsConfederateMin": 47.7
    },
    "worstText": {
     "ratio": 6,
@@ -341,11 +341,11 @@
     "ground": "#817d73"
    },
    "worstMark": {
-    "ratio": 3.48,
+    "ratio": 3.64,
     "name": "pip ring confederate (carried)",
-    "view": "field-z13.5",
+    "view": "three-days-z12.5",
     "band": 0.01,
-    "ground": "#817d73"
+    "ground": "#7f7b6f"
    },
    "verdict": {
     "text": true,
@@ -384,15 +384,15 @@
     "unionVsConfederateMin": 44.9
    },
    "worstText": {
-    "ratio": 7,
-    "name": "count in a confederate flag",
-    "state": "fresh",
-    "view": "field-z13.5",
+    "ratio": 6.71,
+    "name": "count in a hollow union flag",
+    "state": "carried",
+    "view": "three-days-z12.5",
     "band": 0.01,
-    "ground": "#817d73"
+    "ground": "#7f7b6f"
    },
    "worstMark": {
-    "ratio": 6.04,
+    "ratio": 5.56,
     "name": "pip ring confederate (carried)",
     "view": "three-days-z12.5",
     "band": 0.01,

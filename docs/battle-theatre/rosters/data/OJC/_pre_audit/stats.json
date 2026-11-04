@@ -1,0 +1,1417 @@
+{
+ "family": "OJC",
+ "units_in_oob": 39,
+ "units_with_names": 39,
+ "names": 55525,
+ "rows_unreadable_or_ambiguous": 15575,
+ "unreadable_share": 0.2805,
+ "name_flagged_rows": 8830,
+ "share_by_label": {
+  "Unknown": 0.6106,
+  "Present-Documented": 0.0191,
+  "Absent-Documented": 0.3703
+ },
+ "labels": {
+  "Unknown": 33906,
+  "Present-Documented": 1059,
+  "Absent-Documented": 20560
+ },
+ "roll_status": {
+  "unreadable-or-ambiguous": 15575,
+  "on-roll-undetermined": 18331,
+  "named-present": 1059,
+  "off-roll-before-battle": 9630,
+  "not-yet-enlisted": 10930
+ },
+ "units_in_oob_without_names": [],
+ "units": {
+  "U-107OH": {
+   "rows": 1186,
+   "unique_names_if_all_same_name_merged": 1133,
+   "dup_groups": 35,
+   "labels": {
+    "Unknown": 750,
+    "Present-Documented": 185,
+    "Absent-Documented": 251
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 189,
+    "on-roll-undetermined": 561,
+    "named-present": 185,
+    "off-roll-before-battle": 111,
+    "not-yet-enlisted": 140
+   },
+   "basis_codes": {
+    "OCR-DATE-LOST": 181,
+    "ONROLL-NO-STATUS": 560,
+    "CAS-REMARK": 185,
+    "SEP-BEFORE": 111,
+    "ENL-AFTER": 140,
+    "CONFLICT": 9
+   },
+   "name_flagged_rows": 79,
+   "unreadable_or_ambiguous_rows": 189,
+   "unreadable_share": 0.1594,
+   "file": "107th-ohio.csv",
+   "source_ids": [
+    "OH-ROSTER-1886-v7"
+   ],
+   "oob_designation": "107th Ohio Volunteer Infantry",
+   "oob_strength": 457,
+   "oob_casualties": 175,
+   "reconciliation": "Short: 185 named present against an OOB strength of 457 (names not recovered: 272; count, not invented names)"
+  },
+  "U-11NJ": {
+   "rows": 1770,
+   "unique_names_if_all_same_name_merged": 1690,
+   "dup_groups": 53,
+   "labels": {
+    "Unknown": 1177,
+    "Absent-Documented": 552,
+    "Present-Documented": 41
+   },
+   "roll_status": {
+    "on-roll-undetermined": 444,
+    "off-roll-before-battle": 242,
+    "named-present": 41,
+    "unreadable-or-ambiguous": 733,
+    "not-yet-enlisted": 310
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 428,
+    "SEP-BEFORE": 242,
+    "CAS-REMARK": 39,
+    "OCR-DATE-LOST": 710,
+    "CAS-OR27": 1,
+    "ENL-AFTER": 310,
+    "CONFLICT": 39,
+    "POW-BURIAL": 1
+   },
+   "name_flagged_rows": 350,
+   "unreadable_or_ambiguous_rows": 733,
+   "unreadable_share": 0.4141,
+   "file": "11th-new-jersey.csv",
+   "source_ids": [
+    "NJ-STRYKER-1876"
+   ],
+   "oob_designation": "11th New Jersey Volunteer Infantry",
+   "oob_strength": 275,
+   "oob_casualties": 126,
+   "reconciliation": "Short: 41 named present against an OOB strength of 275 (names not recovered: 234; count, not invented names)"
+  },
+  "U-12NJ": {
+   "rows": 1857,
+   "unique_names_if_all_same_name_merged": 1797,
+   "dup_groups": 39,
+   "labels": {
+    "Unknown": 1223,
+    "Absent-Documented": 602,
+    "Present-Documented": 32
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 848,
+    "off-roll-before-battle": 153,
+    "on-roll-undetermined": 375,
+    "not-yet-enlisted": 449,
+    "named-present": 32
+   },
+   "basis_codes": {
+    "CONFLICT": 21,
+    "SEP-BEFORE": 153,
+    "OCR-DATE-LOST": 831,
+    "ONROLL-NO-STATUS": 371,
+    "ENL-AFTER": 449,
+    "CAS-REMARK": 30,
+    "POW-BURIAL": 2
+   },
+   "name_flagged_rows": 278,
+   "unreadable_or_ambiguous_rows": 848,
+   "unreadable_share": 0.4567,
+   "file": "12th-new-jersey.csv",
+   "source_ids": [
+    "NJ-STRYKER-1876"
+   ],
+   "oob_designation": "12th New Jersey Volunteer Infantry",
+   "oob_strength": 400,
+   "oob_casualties": 97,
+   "reconciliation": "Short: 32 named present against an OOB strength of 400 (names not recovered: 368; count, not invented names)"
+  },
+  "U-13NJ": {
+   "rows": 1412,
+   "unique_names_if_all_same_name_merged": 1276,
+   "dup_groups": 80,
+   "labels": {
+    "Unknown": 954,
+    "Absent-Documented": 455,
+    "Present-Documented": 3
+   },
+   "roll_status": {
+    "on-roll-undetermined": 406,
+    "off-roll-before-battle": 203,
+    "unreadable-or-ambiguous": 548,
+    "not-yet-enlisted": 252,
+    "named-present": 3
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 386,
+    "SEP-BEFORE": 203,
+    "CONFLICT": 34,
+    "OCR-DATE-LOST": 534,
+    "ENL-AFTER": 252,
+    "CAS-REMARK": 2,
+    "POW-BURIAL": 1
+   },
+   "name_flagged_rows": 289,
+   "unreadable_or_ambiguous_rows": 548,
+   "unreadable_share": 0.3881,
+   "file": "13th-new-jersey.csv",
+   "source_ids": [
+    "NJ-STRYKER-1876"
+   ],
+   "oob_designation": "13th New Jersey Volunteer Infantry",
+   "oob_strength": 400,
+   "oob_casualties": 16,
+   "reconciliation": "Short: 3 named present against an OOB strength of 400 (names not recovered: 397; count, not invented names)"
+  },
+  "U-14CT": {
+   "rows": 2036,
+   "unique_names_if_all_same_name_merged": 1972,
+   "dup_groups": 50,
+   "labels": {
+    "Unknown": 676,
+    "Absent-Documented": 1330,
+    "Present-Documented": 30
+   },
+   "roll_status": {
+    "on-roll-undetermined": 592,
+    "off-roll-before-battle": 357,
+    "named-present": 30,
+    "unreadable-or-ambiguous": 84,
+    "not-yet-enlisted": 973
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 591,
+    "SEP-BEFORE": 357,
+    "CAS-REMARK": 30,
+    "OCR-DATE-LOST": 82,
+    "CONFLICT": 3,
+    "ENL-AFTER": 973
+   },
+   "name_flagged_rows": 66,
+   "unreadable_or_ambiguous_rows": 84,
+   "unreadable_share": 0.0413,
+   "file": "14th-connecticut.csv",
+   "source_ids": [
+    "CT-CAT-1869"
+   ],
+   "oob_designation": "14th Connecticut Volunteer Infantry",
+   "oob_strength": 318,
+   "oob_casualties": 95,
+   "reconciliation": "Short: 30 named present against an OOB strength of 318 (names not recovered: 288; count, not invented names)"
+  },
+  "U-17CT": {
+   "rows": 1193,
+   "unique_names_if_all_same_name_merged": 1180,
+   "dup_groups": 13,
+   "labels": {
+    "Unknown": 757,
+    "Absent-Documented": 381,
+    "Present-Documented": 55
+   },
+   "roll_status": {
+    "on-roll-undetermined": 687,
+    "off-roll-before-battle": 202,
+    "named-present": 55,
+    "unreadable-or-ambiguous": 70,
+    "not-yet-enlisted": 179
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 687,
+    "SEP-BEFORE": 202,
+    "CAS-REMARK": 55,
+    "OCR-DATE-LOST": 69,
+    "ENL-AFTER": 179,
+    "CONFLICT": 1
+   },
+   "name_flagged_rows": 28,
+   "unreadable_or_ambiguous_rows": 70,
+   "unreadable_share": 0.0587,
+   "file": "17th-connecticut.csv",
+   "source_ids": [
+    "CT-CAT-1869"
+   ],
+   "oob_designation": "17th Connecticut Volunteer Infantry",
+   "oob_strength": 386,
+   "oob_casualties": 197,
+   "reconciliation": "Short: 55 named present against an OOB strength of 386 (names not recovered: 331; count, not invented names)"
+  },
+  "U-ART-1CTB": {
+   "rows": 307,
+   "unique_names_if_all_same_name_merged": 307,
+   "dup_groups": 0,
+   "labels": {
+    "Unknown": 136,
+    "Absent-Documented": 171
+   },
+   "roll_status": {
+    "on-roll-undetermined": 131,
+    "off-roll-before-battle": 33,
+    "not-yet-enlisted": 138,
+    "unreadable-or-ambiguous": 5
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 131,
+    "SEP-BEFORE": 33,
+    "ENL-AFTER": 138,
+    "OCR-DATE-LOST": 5
+   },
+   "name_flagged_rows": 8,
+   "unreadable_or_ambiguous_rows": 5,
+   "unreadable_share": 0.0163,
+   "file": "1st-connecticut-heavy-artillery-battery-b.csv",
+   "source_ids": [
+    "CT-CAT-1869"
+   ],
+   "oob_designation": "1st Connecticut Heavy Artillery, Battery B",
+   "oob_strength": 80,
+   "oob_casualties": 0,
+   "reconciliation": "Short: 0 named present against an OOB strength of 80 (names not recovered: 80; count, not invented names)"
+  },
+  "U-ART-1CTM": {
+   "rows": 416,
+   "unique_names_if_all_same_name_merged": 412,
+   "dup_groups": 4,
+   "labels": {
+    "Absent-Documented": 227,
+    "Unknown": 189
+   },
+   "roll_status": {
+    "off-roll-before-battle": 42,
+    "on-roll-undetermined": 171,
+    "unreadable-or-ambiguous": 18,
+    "not-yet-enlisted": 185
+   },
+   "basis_codes": {
+    "SEP-BEFORE": 42,
+    "ONROLL-NO-STATUS": 171,
+    "OCR-DATE-LOST": 14,
+    "ENL-AFTER": 185,
+    "CONFLICT": 4
+   },
+   "name_flagged_rows": 13,
+   "unreadable_or_ambiguous_rows": 18,
+   "unreadable_share": 0.0433,
+   "file": "1st-connecticut-heavy-artillery-battery-m.csv",
+   "source_ids": [
+    "CT-CAT-1869"
+   ],
+   "oob_designation": "1st Connecticut Heavy Artillery, Battery M",
+   "oob_strength": 80,
+   "oob_casualties": 0,
+   "reconciliation": "Short: 0 named present against an OOB strength of 80 (names not recovered: 80; count, not invented names)"
+  },
+  "U-1NJ-CAV": {
+   "rows": 3175,
+   "unique_names_if_all_same_name_merged": 2895,
+   "dup_groups": 233,
+   "labels": {
+    "Unknown": 1247,
+    "Absent-Documented": 1928
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 586,
+    "not-yet-enlisted": 1482,
+    "on-roll-undetermined": 661,
+    "off-roll-before-battle": 446
+   },
+   "basis_codes": {
+    "OCR-DATE-LOST": 583,
+    "ENL-AFTER": 1482,
+    "ONROLL-NO-STATUS": 589,
+    "CONFLICT": 75,
+    "SEP-BEFORE": 446
+   },
+   "name_flagged_rows": 381,
+   "unreadable_or_ambiguous_rows": 586,
+   "unreadable_share": 0.1846,
+   "file": "1st-new-jersey-cavalry.csv",
+   "source_ids": [
+    "NJ-STRYKER-1876-v2"
+   ],
+   "oob_designation": "1st New Jersey Cavalry",
+   "oob_strength": 349,
+   "oob_casualties": 26,
+   "reconciliation": "Short: 0 named present against an OOB strength of 349 (names not recovered: 349; count, not invented names)"
+  },
+  "U-1NJ-1": {
+   "rows": 1297,
+   "unique_names_if_all_same_name_merged": 1229,
+   "dup_groups": 34,
+   "labels": {
+    "Unknown": 974,
+    "Absent-Documented": 323
+   },
+   "roll_status": {
+    "on-roll-undetermined": 208,
+    "off-roll-before-battle": 283,
+    "unreadable-or-ambiguous": 766,
+    "not-yet-enlisted": 40
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 191,
+    "SEP-BEFORE": 283,
+    "CONFLICT": 22,
+    "OCR-DATE-LOST": 761,
+    "ENL-AFTER": 40
+   },
+   "name_flagged_rows": 300,
+   "unreadable_or_ambiguous_rows": 766,
+   "unreadable_share": 0.5906,
+   "file": "1st-new-jersey.csv",
+   "source_ids": [
+    "NJ-STRYKER-1876"
+   ],
+   "oob_designation": "1st New Jersey Volunteer Infantry",
+   "oob_strength": 338,
+   "oob_casualties": 0,
+   "reconciliation": "Short: 0 named present against an OOB strength of 338 (names not recovered: 338; count, not invented names)"
+  },
+  "U-20CT": {
+   "rows": 1286,
+   "unique_names_if_all_same_name_merged": 1267,
+   "dup_groups": 16,
+   "labels": {
+    "Unknown": 769,
+    "Absent-Documented": 505,
+    "Present-Documented": 12
+   },
+   "roll_status": {
+    "on-roll-undetermined": 718,
+    "off-roll-before-battle": 219,
+    "unreadable-or-ambiguous": 51,
+    "named-present": 12,
+    "not-yet-enlisted": 286
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 718,
+    "SEP-BEFORE": 219,
+    "CONFLICT": 3,
+    "OCR-DATE-LOST": 48,
+    "CAS-REMARK": 12,
+    "ENL-AFTER": 286
+   },
+   "name_flagged_rows": 31,
+   "unreadable_or_ambiguous_rows": 51,
+   "unreadable_share": 0.0397,
+   "file": "20th-connecticut.csv",
+   "source_ids": [
+    "CT-CAT-1869"
+   ],
+   "oob_designation": "20th Connecticut Volunteer Infantry",
+   "oob_strength": 321,
+   "oob_casualties": 37,
+   "reconciliation": "Short: 12 named present against an OOB strength of 321 (names not recovered: 309; count, not invented names)"
+  },
+  "U-23NJ": {
+   "rows": 1028,
+   "unique_names_if_all_same_name_merged": 1007,
+   "dup_groups": 14,
+   "labels": {
+    "Absent-Documented": 176,
+    "Unknown": 852
+   },
+   "roll_status": {
+    "off-roll-before-battle": 176,
+    "on-roll-undetermined": 136,
+    "unreadable-or-ambiguous": 716
+   },
+   "basis_codes": {
+    "SEP-BEFORE": 176,
+    "ONROLL-NO-STATUS": 132,
+    "OCR-DATE-LOST": 716,
+    "CONFLICT": 4
+   },
+   "name_flagged_rows": 95,
+   "unreadable_or_ambiguous_rows": 716,
+   "unreadable_share": 0.6965,
+   "file": "23rd-new-jersey.csv",
+   "source_ids": [
+    "NJ-STRYKER-1876"
+   ],
+   "oob_designation": "23rd New Jersey Volunteer Infantry",
+   "oob_strength": 340,
+   "oob_casualties": 0,
+   "reconciliation": "Short: 0 named present against an OOB strength of 340 (names not recovered: 340; count, not invented names)"
+  },
+  "U-25OH": {
+   "rows": 2083,
+   "unique_names_if_all_same_name_merged": 2031,
+   "dup_groups": 39,
+   "labels": {
+    "Unknown": 1147,
+    "Absent-Documented": 841,
+    "Present-Documented": 95
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 505,
+    "on-roll-undetermined": 642,
+    "off-roll-before-battle": 356,
+    "named-present": 95,
+    "not-yet-enlisted": 485
+   },
+   "basis_codes": {
+    "OCR-DATE-LOST": 458,
+    "ONROLL-NO-STATUS": 642,
+    "SEP-BEFORE": 356,
+    "CAS-REMARK": 95,
+    "ENL-AFTER": 485,
+    "CONFLICT": 47
+   },
+   "name_flagged_rows": 409,
+   "unreadable_or_ambiguous_rows": 505,
+   "unreadable_share": 0.2424,
+   "file": "25th-ohio.csv",
+   "source_ids": [
+    "OH-ROSTER-1886-v3"
+   ],
+   "oob_designation": "25th Ohio Volunteer Infantry",
+   "oob_strength": 220,
+   "oob_casualties": 63,
+   "reconciliation": "Short: 95 named present against an OOB strength of 220 (names not recovered: 125; count, not invented names)"
+  },
+  "U-27CT": {
+   "rows": 852,
+   "unique_names_if_all_same_name_merged": 840,
+   "dup_groups": 3,
+   "labels": {
+    "Unknown": 680,
+    "Present-Documented": 12,
+    "Absent-Documented": 160
+   },
+   "roll_status": {
+    "on-roll-undetermined": 628,
+    "named-present": 12,
+    "off-roll-before-battle": 160,
+    "unreadable-or-ambiguous": 52
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 628,
+    "CAS-REMARK": 12,
+    "SEP-BEFORE": 160,
+    "OCR-DATE-LOST": 40,
+    "CONFLICT": 12
+   },
+   "name_flagged_rows": 44,
+   "unreadable_or_ambiguous_rows": 52,
+   "unreadable_share": 0.061,
+   "file": "27th-connecticut.csv",
+   "source_ids": [
+    "CT-CAT-1869"
+   ],
+   "oob_designation": "27th Connecticut Volunteer Infantry",
+   "oob_strength": 75,
+   "oob_casualties": 48,
+   "reconciliation": "Short: 12 named present against an OOB strength of 75 (names not recovered: 63; count, not invented names)"
+  },
+  "U-29OH": {
+   "rows": 1686,
+   "unique_names_if_all_same_name_merged": 1609,
+   "dup_groups": 41,
+   "labels": {
+    "Unknown": 1024,
+    "Absent-Documented": 650,
+    "Present-Documented": 12
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 452,
+    "on-roll-undetermined": 572,
+    "off-roll-before-battle": 388,
+    "not-yet-enlisted": 262,
+    "named-present": 12
+   },
+   "basis_codes": {
+    "OCR-DATE-LOST": 410,
+    "ONROLL-NO-STATUS": 571,
+    "SEP-BEFORE": 388,
+    "CONFLICT": 43,
+    "ENL-AFTER": 262,
+    "CAS-REMARK": 12
+   },
+   "name_flagged_rows": 349,
+   "unreadable_or_ambiguous_rows": 452,
+   "unreadable_share": 0.2681,
+   "file": "29th-ohio.csv",
+   "source_ids": [
+    "OH-ROSTER-1886-v3"
+   ],
+   "oob_designation": "29th Ohio Volunteer Infantry",
+   "oob_strength": 289,
+   "oob_casualties": 21,
+   "reconciliation": "Short: 12 named present against an OOB strength of 289 (names not recovered: 277; count, not invented names)"
+  },
+  "U-2NJ": {
+   "rows": 2064,
+   "unique_names_if_all_same_name_merged": 1955,
+   "dup_groups": 55,
+   "labels": {
+    "Unknown": 1438,
+    "Absent-Documented": 625,
+    "Present-Documented": 1
+   },
+   "roll_status": {
+    "on-roll-undetermined": 310,
+    "unreadable-or-ambiguous": 1128,
+    "off-roll-before-battle": 245,
+    "not-yet-enlisted": 380,
+    "named-present": 1
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 298,
+    "OCR-DATE-LOST": 1128,
+    "SEP-BEFORE": 245,
+    "ENL-AFTER": 380,
+    "CONFLICT": 12,
+    "CAS-REMARK": 1
+   },
+   "name_flagged_rows": 489,
+   "unreadable_or_ambiguous_rows": 1128,
+   "unreadable_share": 0.5465,
+   "file": "2nd-new-jersey.csv",
+   "source_ids": [
+    "NJ-STRYKER-1876"
+   ],
+   "oob_designation": "2nd New Jersey Volunteer Infantry",
+   "oob_strength": 370,
+   "oob_casualties": 0,
+   "reconciliation": "Short: 1 named present against an OOB strength of 370 (names not recovered: 369; count, not invented names)"
+  },
+  "U-3NJ": {
+   "rows": 990,
+   "unique_names_if_all_same_name_merged": 977,
+   "dup_groups": 6,
+   "labels": {
+    "Unknown": 800,
+    "Absent-Documented": 189,
+    "Present-Documented": 1
+   },
+   "roll_status": {
+    "on-roll-undetermined": 99,
+    "off-roll-before-battle": 175,
+    "unreadable-or-ambiguous": 701,
+    "not-yet-enlisted": 14,
+    "named-present": 1
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 81,
+    "SEP-BEFORE": 175,
+    "OCR-DATE-LOST": 700,
+    "ENL-AFTER": 14,
+    "CONFLICT": 19,
+    "CAS-REMARK": 1
+   },
+   "name_flagged_rows": 223,
+   "unreadable_or_ambiguous_rows": 701,
+   "unreadable_share": 0.7081,
+   "file": "3rd-new-jersey.csv",
+   "source_ids": [
+    "NJ-STRYKER-1876"
+   ],
+   "oob_designation": "3rd New Jersey Volunteer Infantry",
+   "oob_strength": 378,
+   "oob_casualties": 0,
+   "reconciliation": "Short: 1 named present against an OOB strength of 378 (names not recovered: 377; count, not invented names)"
+  },
+  "U-4NJ": {
+   "rows": 1604,
+   "unique_names_if_all_same_name_merged": 1563,
+   "dup_groups": 30,
+   "labels": {
+    "Unknown": 1067,
+    "Absent-Documented": 537
+   },
+   "roll_status": {
+    "on-roll-undetermined": 243,
+    "off-roll-before-battle": 203,
+    "unreadable-or-ambiguous": 824,
+    "not-yet-enlisted": 334
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 216,
+    "SEP-BEFORE": 203,
+    "OCR-DATE-LOST": 815,
+    "ENL-AFTER": 334,
+    "CONFLICT": 36
+   },
+   "name_flagged_rows": 389,
+   "unreadable_or_ambiguous_rows": 824,
+   "unreadable_share": 0.5137,
+   "file": "4th-new-jersey.csv",
+   "source_ids": [
+    "NJ-STRYKER-1876"
+   ],
+   "oob_designation": "4th New Jersey Volunteer Infantry",
+   "oob_strength": 380,
+   "oob_casualties": 0,
+   "reconciliation": "Short: 0 named present against an OOB strength of 380 (names not recovered: 380; count, not invented names)"
+  },
+  "U-4OH": {
+   "rows": 1317,
+   "unique_names_if_all_same_name_merged": 1268,
+   "dup_groups": 36,
+   "labels": {
+    "Unknown": 842,
+    "Absent-Documented": 455,
+    "Present-Documented": 20
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 186,
+    "not-yet-enlisted": 36,
+    "off-roll-before-battle": 419,
+    "on-roll-undetermined": 656,
+    "named-present": 20
+   },
+   "basis_codes": {
+    "OCR-DATE-LOST": 184,
+    "ENL-AFTER": 36,
+    "SEP-BEFORE": 419,
+    "ONROLL-NO-STATUS": 656,
+    "CAS-REMARK": 20,
+    "CONFLICT": 2
+   },
+   "name_flagged_rows": 130,
+   "unreadable_or_ambiguous_rows": 186,
+   "unreadable_share": 0.1412,
+   "file": "4th-ohio.csv",
+   "source_ids": [
+    "OH-ROSTER-1886-v2"
+   ],
+   "oob_designation": "4th Ohio Volunteer Infantry",
+   "oob_strength": 268,
+   "oob_casualties": 51,
+   "reconciliation": "Short: 20 named present against an OOB strength of 268 (names not recovered: 248; count, not invented names)"
+  },
+  "U-55OH": {
+   "rows": 1572,
+   "unique_names_if_all_same_name_merged": 1521,
+   "dup_groups": 30,
+   "labels": {
+    "Unknown": 905,
+    "Absent-Documented": 636,
+    "Present-Documented": 31
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 130,
+    "on-roll-undetermined": 775,
+    "off-roll-before-battle": 336,
+    "not-yet-enlisted": 300,
+    "named-present": 31
+   },
+   "basis_codes": {
+    "OCR-DATE-LOST": 127,
+    "ONROLL-NO-STATUS": 774,
+    "SEP-BEFORE": 336,
+    "ENL-AFTER": 300,
+    "CAS-REMARK": 31,
+    "CONFLICT": 4
+   },
+   "name_flagged_rows": 395,
+   "unreadable_or_ambiguous_rows": 130,
+   "unreadable_share": 0.0827,
+   "file": "55th-ohio.csv",
+   "source_ids": [
+    "OH-ROSTER-1886-v5"
+   ],
+   "oob_designation": "55th Ohio Volunteer Infantry",
+   "oob_strength": 304,
+   "oob_casualties": 12,
+   "reconciliation": "Short: 31 named present against an OOB strength of 304 (names not recovered: 273; count, not invented names)"
+  },
+  "U-5CT": {
+   "rows": 1806,
+   "unique_names_if_all_same_name_merged": 1752,
+   "dup_groups": 45,
+   "labels": {
+    "Unknown": 770,
+    "Absent-Documented": 1036
+   },
+   "roll_status": {
+    "on-roll-undetermined": 701,
+    "off-roll-before-battle": 437,
+    "unreadable-or-ambiguous": 69,
+    "not-yet-enlisted": 599
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 701,
+    "SEP-BEFORE": 437,
+    "OCR-DATE-LOST": 66,
+    "ENL-AFTER": 599,
+    "CONFLICT": 3
+   },
+   "name_flagged_rows": 49,
+   "unreadable_or_ambiguous_rows": 69,
+   "unreadable_share": 0.0382,
+   "file": "5th-connecticut.csv",
+   "source_ids": [
+    "CT-CAT-1869"
+   ],
+   "oob_designation": "5th Connecticut Volunteer Infantry",
+   "oob_strength": 221,
+   "oob_casualties": 20,
+   "reconciliation": "Short: 0 named present against an OOB strength of 221 (names not recovered: 221; count, not invented names)"
+  },
+  "U-5NJ": {
+   "rows": 1726,
+   "unique_names_if_all_same_name_merged": 1655,
+   "dup_groups": 61,
+   "labels": {
+    "Unknown": 1039,
+    "Absent-Documented": 659,
+    "Present-Documented": 28
+   },
+   "roll_status": {
+    "on-roll-undetermined": 336,
+    "unreadable-or-ambiguous": 703,
+    "off-roll-before-battle": 464,
+    "named-present": 28,
+    "not-yet-enlisted": 195
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 316,
+    "CONFLICT": 41,
+    "SEP-BEFORE": 464,
+    "OCR-DATE-LOST": 682,
+    "CAS-OR27": 3,
+    "ENL-AFTER": 195,
+    "CAS-REMARK": 24,
+    "POW-BURIAL": 1
+   },
+   "name_flagged_rows": 256,
+   "unreadable_or_ambiguous_rows": 703,
+   "unreadable_share": 0.4073,
+   "file": "5th-new-jersey.csv",
+   "source_ids": [
+    "NJ-STRYKER-1876"
+   ],
+   "oob_designation": "5th New Jersey Volunteer Infantry",
+   "oob_strength": 206,
+   "oob_casualties": 56,
+   "reconciliation": "Short: 28 named present against an OOB strength of 206 (names not recovered: 178; count, not invented names)"
+  },
+  "U-5OH": {
+   "rows": 1999,
+   "unique_names_if_all_same_name_merged": 1913,
+   "dup_groups": 74,
+   "labels": {
+    "Unknown": 1326,
+    "Absent-Documented": 668,
+    "Present-Documented": 5
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 459,
+    "off-roll-before-battle": 287,
+    "on-roll-undetermined": 867,
+    "not-yet-enlisted": 381,
+    "named-present": 5
+   },
+   "basis_codes": {
+    "OCR-DATE-LOST": 457,
+    "SEP-BEFORE": 287,
+    "ONROLL-NO-STATUS": 863,
+    "ENL-AFTER": 381,
+    "CONFLICT": 6,
+    "CAS-REMARK": 5
+   },
+   "name_flagged_rows": 186,
+   "unreadable_or_ambiguous_rows": 459,
+   "unreadable_share": 0.2296,
+   "file": "5th-ohio.csv",
+   "source_ids": [
+    "OH-ROSTER-1886-v2"
+   ],
+   "oob_designation": "5th Ohio Volunteer Infantry",
+   "oob_strength": 296,
+   "oob_casualties": 33,
+   "reconciliation": "Short: 5 named present against an OOB strength of 296 (names not recovered: 291; count, not invented names)"
+  },
+  "U-61OH": {
+   "rows": 1224,
+   "unique_names_if_all_same_name_merged": 1189,
+   "dup_groups": 25,
+   "labels": {
+    "Unknown": 880,
+    "Absent-Documented": 320,
+    "Present-Documented": 24
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 119,
+    "on-roll-undetermined": 761,
+    "off-roll-before-battle": 234,
+    "named-present": 24,
+    "not-yet-enlisted": 86
+   },
+   "basis_codes": {
+    "OCR-DATE-LOST": 115,
+    "ONROLL-NO-STATUS": 761,
+    "SEP-BEFORE": 234,
+    "CAS-REMARK": 22,
+    "CONFLICT": 4,
+    "ENL-AFTER": 86,
+    "CAS-OR27": 2
+   },
+   "name_flagged_rows": 347,
+   "unreadable_or_ambiguous_rows": 119,
+   "unreadable_share": 0.0972,
+   "file": "61st-ohio.csv",
+   "source_ids": [
+    "OH-ROSTER-1886-v5"
+   ],
+   "oob_designation": "61st Ohio Volunteer Infantry",
+   "oob_strength": 267,
+   "oob_casualties": 71,
+   "reconciliation": "Short: 24 named present against an OOB strength of 267 (names not recovered: 243; count, not invented names)"
+  },
+  "U-66OH": {
+   "rows": 1708,
+   "unique_names_if_all_same_name_merged": 1653,
+   "dup_groups": 45,
+   "labels": {
+    "Unknown": 855,
+    "Absent-Documented": 851,
+    "Present-Documented": 2
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 180,
+    "on-roll-undetermined": 675,
+    "off-roll-before-battle": 432,
+    "named-present": 2,
+    "not-yet-enlisted": 419
+   },
+   "basis_codes": {
+    "OCR-DATE-LOST": 175,
+    "ONROLL-NO-STATUS": 675,
+    "SEP-BEFORE": 432,
+    "CAS-REMARK": 2,
+    "ENL-AFTER": 419,
+    "CONFLICT": 5
+   },
+   "name_flagged_rows": 399,
+   "unreadable_or_ambiguous_rows": 180,
+   "unreadable_share": 0.1054,
+   "file": "66th-ohio.csv",
+   "source_ids": [
+    "OH-ROSTER-1886-v5"
+   ],
+   "oob_designation": "66th Ohio Volunteer Infantry",
+   "oob_strength": 305,
+   "oob_casualties": 47,
+   "reconciliation": "Short: 2 named present against an OOB strength of 305 (names not recovered: 303; count, not invented names)"
+  },
+  "U-6NJ": {
+   "rows": 1448,
+   "unique_names_if_all_same_name_merged": 1366,
+   "dup_groups": 35,
+   "labels": {
+    "Absent-Documented": 409,
+    "Unknown": 1033,
+    "Present-Documented": 6
+   },
+   "roll_status": {
+    "off-roll-before-battle": 346,
+    "unreadable-or-ambiguous": 803,
+    "on-roll-undetermined": 230,
+    "not-yet-enlisted": 63,
+    "named-present": 6
+   },
+   "basis_codes": {
+    "SEP-BEFORE": 346,
+    "CONFLICT": 25,
+    "ONROLL-NO-STATUS": 212,
+    "OCR-DATE-LOST": 796,
+    "ENL-AFTER": 63,
+    "CAS-REMARK": 6
+   },
+   "name_flagged_rows": 316,
+   "unreadable_or_ambiguous_rows": 803,
+   "unreadable_share": 0.5546,
+   "file": "6th-new-jersey.csv",
+   "source_ids": [
+    "NJ-STRYKER-1876"
+   ],
+   "oob_designation": "6th New Jersey Volunteer Infantry",
+   "oob_strength": 207,
+   "oob_casualties": 44,
+   "reconciliation": "Short: 6 named present against an OOB strength of 207 (names not recovered: 201; count, not invented names)"
+  },
+  "U-6OH-CAV": {
+   "rows": 1728,
+   "unique_names_if_all_same_name_merged": 1677,
+   "dup_groups": 42,
+   "labels": {
+    "Unknown": 1139,
+    "Absent-Documented": 588,
+    "Present-Documented": 1
+   },
+   "roll_status": {
+    "on-roll-undetermined": 560,
+    "off-roll-before-battle": 98,
+    "unreadable-or-ambiguous": 579,
+    "not-yet-enlisted": 490,
+    "named-present": 1
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 560,
+    "SEP-BEFORE": 98,
+    "OCR-DATE-LOST": 576,
+    "ENL-AFTER": 490,
+    "CONFLICT": 3,
+    "CAS-REMARK": 1
+   },
+   "name_flagged_rows": 285,
+   "unreadable_or_ambiguous_rows": 579,
+   "unreadable_share": 0.3351,
+   "file": "6th-ohio-cavalry.csv",
+   "source_ids": [
+    "OH-ROSTER-1886-v11"
+   ],
+   "oob_designation": "6th Ohio Cavalry",
+   "oob_strength": 340,
+   "oob_casualties": 10,
+   "reconciliation": "Short: 1 named present against an OOB strength of 340 (names not recovered: 339; count, not invented names)"
+  },
+  "U-73OH": {
+   "rows": 1551,
+   "unique_names_if_all_same_name_merged": 1496,
+   "dup_groups": 39,
+   "labels": {
+    "Unknown": 830,
+    "Absent-Documented": 607,
+    "Present-Documented": 114
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 132,
+    "on-roll-undetermined": 698,
+    "off-roll-before-battle": 311,
+    "not-yet-enlisted": 296,
+    "named-present": 114
+   },
+   "basis_codes": {
+    "OCR-DATE-LOST": 131,
+    "ONROLL-NO-STATUS": 690,
+    "SEP-BEFORE": 311,
+    "ENL-AFTER": 296,
+    "CAS-REMARK": 114,
+    "CONFLICT": 9
+   },
+   "name_flagged_rows": 301,
+   "unreadable_or_ambiguous_rows": 132,
+   "unreadable_share": 0.0851,
+   "file": "73rd-ohio.csv",
+   "source_ids": [
+    "OH-ROSTER-1886-v6"
+   ],
+   "oob_designation": "73rd Ohio Volunteer Infantry",
+   "oob_strength": 338,
+   "oob_casualties": 16,
+   "reconciliation": "Short: 114 named present against an OOB strength of 338 (names not recovered: 224; count, not invented names)"
+  },
+  "U-75OH": {
+   "rows": 1502,
+   "unique_names_if_all_same_name_merged": 1416,
+   "dup_groups": 76,
+   "labels": {
+    "Unknown": 1077,
+    "Absent-Documented": 318,
+    "Present-Documented": 107
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 325,
+    "not-yet-enlisted": 113,
+    "on-roll-undetermined": 752,
+    "named-present": 107,
+    "off-roll-before-battle": 205
+   },
+   "basis_codes": {
+    "OCR-DATE-LOST": 313,
+    "ENL-AFTER": 113,
+    "ONROLL-NO-STATUS": 752,
+    "CAS-REMARK": 107,
+    "SEP-BEFORE": 205,
+    "CONFLICT": 12
+   },
+   "name_flagged_rows": 410,
+   "unreadable_or_ambiguous_rows": 325,
+   "unreadable_share": 0.2164,
+   "file": "75th-ohio.csv",
+   "source_ids": [
+    "OH-ROSTER-1886-v6"
+   ],
+   "oob_designation": "75th Ohio Volunteer Infantry",
+   "oob_strength": 266,
+   "oob_casualties": 103,
+   "reconciliation": "Short: 107 named present against an OOB strength of 266 (names not recovered: 159; count, not invented names)"
+  },
+  "U-7NJ": {
+   "rows": 2810,
+   "unique_names_if_all_same_name_merged": 2547,
+   "dup_groups": 140,
+   "labels": {
+    "Unknown": 1784,
+    "Present-Documented": 21,
+    "Absent-Documented": 1005
+   },
+   "roll_status": {
+    "on-roll-undetermined": 590,
+    "unreadable-or-ambiguous": 1194,
+    "named-present": 21,
+    "off-roll-before-battle": 370,
+    "not-yet-enlisted": 635
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 567,
+    "OCR-DATE-LOST": 1179,
+    "CAS-OR27": 1,
+    "SEP-BEFORE": 370,
+    "ENL-AFTER": 635,
+    "CONFLICT": 38,
+    "CAS-REMARK": 19,
+    "POW-BURIAL": 1
+   },
+   "name_flagged_rows": 565,
+   "unreadable_or_ambiguous_rows": 1194,
+   "unreadable_share": 0.4249,
+   "file": "7th-new-jersey.csv",
+   "source_ids": [
+    "NJ-STRYKER-1876"
+   ],
+   "oob_designation": "7th New Jersey Volunteer Infantry",
+   "oob_strength": 275,
+   "oob_casualties": 117,
+   "reconciliation": "Short: 21 named present against an OOB strength of 275 (names not recovered: 254; count, not invented names)"
+  },
+  "U-7OH": {
+   "rows": 1428,
+   "unique_names_if_all_same_name_merged": 1377,
+   "dup_groups": 43,
+   "labels": {
+    "Unknown": 941,
+    "Absent-Documented": 477,
+    "Present-Documented": 10
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 193,
+    "on-roll-undetermined": 748,
+    "off-roll-before-battle": 469,
+    "not-yet-enlisted": 8,
+    "named-present": 10
+   },
+   "basis_codes": {
+    "OCR-DATE-LOST": 189,
+    "ONROLL-NO-STATUS": 748,
+    "SEP-BEFORE": 469,
+    "ENL-AFTER": 8,
+    "CAS-REMARK": 10,
+    "CONFLICT": 4
+   },
+   "name_flagged_rows": 155,
+   "unreadable_or_ambiguous_rows": 193,
+   "unreadable_share": 0.1352,
+   "file": "7th-ohio.csv",
+   "source_ids": [
+    "OH-ROSTER-1886-v2"
+   ],
+   "oob_designation": "7th Ohio Volunteer Infantry",
+   "oob_strength": 299,
+   "oob_casualties": 73,
+   "reconciliation": "Short: 10 named present against an OOB strength of 299 (names not recovered: 289; count, not invented names)"
+  },
+  "U-82OH": {
+   "rows": 2089,
+   "unique_names_if_all_same_name_merged": 2040,
+   "dup_groups": 40,
+   "labels": {
+    "Unknown": 1028,
+    "Absent-Documented": 930,
+    "Present-Documented": 131
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 190,
+    "on-roll-undetermined": 838,
+    "off-roll-before-battle": 367,
+    "named-present": 131,
+    "not-yet-enlisted": 563
+   },
+   "basis_codes": {
+    "OCR-DATE-LOST": 185,
+    "ONROLL-NO-STATUS": 835,
+    "SEP-BEFORE": 367,
+    "CAS-REMARK": 131,
+    "CONFLICT": 8,
+    "ENL-AFTER": 563
+   },
+   "name_flagged_rows": 458,
+   "unreadable_or_ambiguous_rows": 190,
+   "unreadable_share": 0.091,
+   "file": "82nd-ohio.csv",
+   "source_ids": [
+    "OH-ROSTER-1886-v6"
+   ],
+   "oob_designation": "82nd Ohio Volunteer Infantry",
+   "oob_strength": 284,
+   "oob_casualties": 115,
+   "reconciliation": "Short: 131 named present against an OOB strength of 284 (names not recovered: 153; count, not invented names)"
+  },
+  "U-8NJ": {
+   "rows": 2524,
+   "unique_names_if_all_same_name_merged": 2382,
+   "dup_groups": 89,
+   "labels": {
+    "Absent-Documented": 739,
+    "Unknown": 1774,
+    "Present-Documented": 11
+   },
+   "roll_status": {
+    "off-roll-before-battle": 345,
+    "unreadable-or-ambiguous": 1394,
+    "on-roll-undetermined": 380,
+    "not-yet-enlisted": 394,
+    "named-present": 11
+   },
+   "basis_codes": {
+    "SEP-BEFORE": 345,
+    "CONFLICT": 31,
+    "ONROLL-NO-STATUS": 362,
+    "OCR-DATE-LOST": 1381,
+    "ENL-AFTER": 394,
+    "CAS-REMARK": 10,
+    "CAS-OR27": 1
+   },
+   "name_flagged_rows": 483,
+   "unreadable_or_ambiguous_rows": 1394,
+   "unreadable_share": 0.5523,
+   "file": "8th-new-jersey.csv",
+   "source_ids": [
+    "NJ-STRYKER-1876"
+   ],
+   "oob_designation": "8th New Jersey Volunteer Infantry",
+   "oob_strength": 170,
+   "oob_casualties": 38,
+   "reconciliation": "Short: 11 named present against an OOB strength of 170 (names not recovered: 159; count, not invented names)"
+  },
+  "U-8OH": {
+   "rows": 1076,
+   "unique_names_if_all_same_name_merged": 1054,
+   "dup_groups": 17,
+   "labels": {
+    "Unknown": 691,
+    "Absent-Documented": 342,
+    "Present-Documented": 43
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 189,
+    "not-yet-enlisted": 7,
+    "off-roll-before-battle": 335,
+    "on-roll-undetermined": 502,
+    "named-present": 43
+   },
+   "basis_codes": {
+    "OCR-DATE-LOST": 189,
+    "ENL-AFTER": 7,
+    "SEP-BEFORE": 335,
+    "ONROLL-NO-STATUS": 502,
+    "CAS-REMARK": 42,
+    "CAS-OR27": 1
+   },
+   "name_flagged_rows": 136,
+   "unreadable_or_ambiguous_rows": 189,
+   "unreadable_share": 0.1757,
+   "file": "8th-ohio.csv",
+   "source_ids": [
+    "OH-ROSTER-1886-v2"
+   ],
+   "oob_designation": "8th Ohio Volunteer Infantry",
+   "oob_strength": 209,
+   "oob_casualties": 36,
+   "reconciliation": "Short: 43 named present against an OOB strength of 209 (names not recovered: 166; count, not invented names)"
+  },
+  "U-ART-B1NJ": {
+   "rows": 635,
+   "unique_names_if_all_same_name_merged": 629,
+   "dup_groups": 5,
+   "labels": {
+    "Unknown": 358,
+    "Absent-Documented": 272,
+    "Present-Documented": 5
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 268,
+    "on-roll-undetermined": 90,
+    "not-yet-enlisted": 242,
+    "off-roll-before-battle": 30,
+    "named-present": 5
+   },
+   "basis_codes": {
+    "OCR-DATE-LOST": 268,
+    "ONROLL-NO-STATUS": 89,
+    "ENL-AFTER": 242,
+    "CONFLICT": 1,
+    "SEP-BEFORE": 30,
+    "CAS-REMARK": 5
+   },
+   "name_flagged_rows": 69,
+   "unreadable_or_ambiguous_rows": 268,
+   "unreadable_share": 0.422,
+   "file": "battery-b-1st-new-jersey-artillery.csv",
+   "source_ids": [
+    "NJ-STRYKER-1876-v2"
+   ],
+   "oob_designation": "Battery B, 1st New Jersey Artillery (Clark's)",
+   "oob_strength": 107,
+   "oob_casualties": 19,
+   "reconciliation": "Short: 5 named present against an OOB strength of 107 (names not recovered: 102; count, not invented names)"
+  },
+  "U-ART-H1OH": {
+   "rows": 277,
+   "unique_names_if_all_same_name_merged": 277,
+   "dup_groups": 0,
+   "labels": {
+    "Unknown": 172,
+    "Absent-Documented": 103,
+    "Present-Documented": 2
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 35,
+    "on-roll-undetermined": 137,
+    "off-roll-before-battle": 44,
+    "not-yet-enlisted": 59,
+    "named-present": 2
+   },
+   "basis_codes": {
+    "OCR-DATE-LOST": 32,
+    "ONROLL-NO-STATUS": 137,
+    "SEP-BEFORE": 44,
+    "ENL-AFTER": 59,
+    "CONFLICT": 3,
+    "CAS-REMARK": 2
+   },
+   "name_flagged_rows": 13,
+   "unreadable_or_ambiguous_rows": 35,
+   "unreadable_share": 0.1264,
+   "file": "battery-h-1st-ohio-light-artillery.csv",
+   "source_ids": [
+    "OH-ROSTER-1886-v10"
+   ],
+   "oob_designation": "Battery H, 1st Ohio Artillery",
+   "oob_strength": 107,
+   "oob_casualties": 0,
+   "reconciliation": "Short: 2 named present against an OOB strength of 107 (names not recovered: 105; count, not invented names)"
+  },
+  "U-ART-I1OH": {
+   "rows": 355,
+   "unique_names_if_all_same_name_merged": 355,
+   "dup_groups": 0,
+   "labels": {
+    "Unknown": 234,
+    "Absent-Documented": 112,
+    "Present-Documented": 9
+   },
+   "roll_status": {
+    "on-roll-undetermined": 154,
+    "not-yet-enlisted": 73,
+    "unreadable-or-ambiguous": 80,
+    "off-roll-before-battle": 39,
+    "named-present": 9
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 154,
+    "ENL-AFTER": 73,
+    "OCR-DATE-LOST": 78,
+    "SEP-BEFORE": 39,
+    "CAS-REMARK": 9,
+    "CONFLICT": 2
+   },
+   "name_flagged_rows": 26,
+   "unreadable_or_ambiguous_rows": 80,
+   "unreadable_share": 0.2254,
+   "file": "battery-i-1st-ohio-light-artillery.csv",
+   "source_ids": [
+    "OH-ROSTER-1886-v10"
+   ],
+   "oob_designation": "Battery I, 1st Ohio Artillery (Dilger's Battery)",
+   "oob_strength": 107,
+   "oob_casualties": 12,
+   "reconciliation": "Short: 9 named present against an OOB strength of 107 (names not recovered: 98; count, not invented names)"
+  },
+  "U-ART-K1OH": {
+   "rows": 266,
+   "unique_names_if_all_same_name_merged": 266,
+   "dup_groups": 0,
+   "labels": {
+    "Unknown": 193,
+    "Absent-Documented": 65,
+    "Present-Documented": 8
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 26,
+    "off-roll-before-battle": 32,
+    "on-roll-undetermined": 167,
+    "named-present": 8,
+    "not-yet-enlisted": 33
+   },
+   "basis_codes": {
+    "OCR-DATE-LOST": 25,
+    "SEP-BEFORE": 32,
+    "ONROLL-NO-STATUS": 166,
+    "CAS-REMARK": 8,
+    "ENL-AFTER": 33,
+    "CONFLICT": 2
+   },
+   "name_flagged_rows": 14,
+   "unreadable_or_ambiguous_rows": 26,
+   "unreadable_share": 0.0977,
+   "file": "battery-k-1st-ohio-light-artillery.csv",
+   "source_ids": [
+    "OH-ROSTER-1886-v10"
+   ],
+   "oob_designation": "Battery K, 1st Ohio Artillery (Heckman's)",
+   "oob_strength": 80,
+   "oob_casualties": 10,
+   "reconciliation": "Short: 8 named present against an OOB strength of 80 (names not recovered: 72; count, not invented names)"
+  },
+  "U-ART-L1OH": {
+   "rows": 242,
+   "unique_names_if_all_same_name_merged": 240,
+   "dup_groups": 2,
+   "labels": {
+    "Unknown": 175,
+    "Absent-Documented": 65,
+    "Present-Documented": 2
+   },
+   "roll_status": {
+    "on-roll-undetermined": 130,
+    "unreadable-or-ambiguous": 45,
+    "off-roll-before-battle": 36,
+    "named-present": 2,
+    "not-yet-enlisted": 29
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 130,
+    "OCR-DATE-LOST": 41,
+    "SEP-BEFORE": 36,
+    "CAS-REMARK": 2,
+    "CONFLICT": 4,
+    "ENL-AFTER": 29
+   },
+   "name_flagged_rows": 16,
+   "unreadable_or_ambiguous_rows": 45,
+   "unreadable_share": 0.186,
+   "file": "battery-l-1st-ohio-light-artillery.csv",
+   "source_ids": [
+    "OH-ROSTER-1886-v10"
+   ],
+   "oob_designation": "Battery L, 1st Ohio Artillery (Gibbs's)",
+   "oob_strength": 107,
+   "oob_casualties": 1,
+   "reconciliation": "Short: 2 named present against an OOB strength of 107 (names not recovered: 105; count, not invented names)"
+  }
+ }
+}

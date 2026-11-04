@@ -126,7 +126,7 @@ sources:
           sha256: bedb0635ebb64d224229db86a16d9e972b6f07f069509e0963f78af682edb572
           bytes: 1122832
       documents: 377
-      passages: 2670
+      passages: 2668
       missing_numbers: [161]
       rights_checked: "HathiTrust catalog record (https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077699761.json): rightsCode pd; public domain, US Government publication"
   - id: or27-2
@@ -178,7 +178,7 @@ sources:
           sha256: c4d375a6b764e1639aac3dcd18c71ca3651f125fb9832db1ff04ac7420a17e23
           bytes: 1151283
       documents: 211
-      passages: 2074
+      passages: 2073
       missing_numbers: []
       rights_checked: "HathiTrust catalog record (https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077728255.json): rightsCode pd; public domain, US Government publication"
   - id: nyfr
@@ -260,7 +260,7 @@ sources:
     hosts: [archive.org, catalog.hathitrust.org]
     status: ingested
     wave: W1
-    notes: "Ingested: 3,178 dispatches, orders and itineraries cut at their datelines (June 3 - August 3, 1863, and the volume's addenda, pp. 839-857, which run to later dates, one of 1878); the header clock is the sender's own and the best clock evidence in the corpus; local times differed by several minutes."
+    notes: "Ingested: 3,222 dispatches, orders and itineraries cut at their datelines (June 3 - August 3, 1863, and the volume's addenda, pp. 839-857, which run to later dates, one of 1878); the header clock is the sender's own and the best clock evidence in the corpus; local times differed by several minutes."
     ingest:
       corpus: or27
       corpus_version: 1.0.0
@@ -289,8 +289,8 @@ sources:
           url: https://archive.org/download/warofrebellion273unit/warofrebellion273unit_hocr_searchtext.txt.gz
           sha256: 61f63f4e66f853e8be71a89605dd57a01e11438e5f935b5dbae018e5d03e5089
           bytes: 983526
-      documents: 3179
-      passages: 3661
+      documents: 3237
+      passages: 3673
       missing_numbers: []
       rights_checked: "HathiTrust catalog record (https://catalog.hathitrust.org/api/volumes/brief/htid/coo.31924077700262.json): rightsCode pd; public domain, US Government publication"
   - id: battles-leaders-3

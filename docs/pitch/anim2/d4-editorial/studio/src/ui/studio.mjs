@@ -43,7 +43,7 @@ export function createStudioUI({ root, engine, data, onSafe }) {
   el.badge = h('div', { class: 'cmpbadge before glass off', role: 'status', 'data-chrome': '' }, h('i'), 'BEFORE', h('span', null, 'production-style stepping, reproduced from the shipped code (report 01)'));
 
   // Showcase menu: tours, hotspots, replay of this view, computed scenes, (phone) tools
-  el.showcase = h('button', { class: 'btn glass tool-l', type: 'button', 'aria-haspopup': 'menu', 'aria-expanded': 'false', title: 'Guided tours, hotspots, before / after replay and scenes', onclick: () => toggleMenu() }, icon('showcase'), h('span', { class: 'lbl' }, 'Showcase'));
+  el.showcase = h('button', { class: 'btn glass tool-l', type: 'button', 'aria-haspopup': 'menu', 'aria-expanded': 'false', 'aria-label': 'Menu: the legend, the Chronicle, the look of the map, tours', title: 'Guided tours, scenes, the look of the map', onclick: () => toggleMenu() }, icon('showcase', 'ic-desk'), icon('more', 'ic-phone'), h('span', { class: 'lbl' }, 'Showcase'));
   el.btnTune = toolBtn('tune', 'Tune', 'Tuning Studio (T)', () => togglePanel('tune'));
   el.btnInspect = toolBtn('inspect', 'Inspect', 'Inspector (I)', () => togglePanel('inspect'));
   el.btnMetrics = toolBtn('metrics', 'Metrics', 'Metrics overlay (M)', () => tuning.set('metrics.overlay', !tok('metrics.overlay')));
@@ -59,7 +59,10 @@ export function createStudioUI({ root, engine, data, onSafe }) {
   function item(ic, title, sub, run, cls = '') { return h('button', { type: 'button', role: 'menuitem', class: cls, onclick: () => { closeMenu(); run(); } }, ic ? icon(ic) : null, h('b', null, title), sub ? h('span', null, sub) : null); }
   function openMenu() {
     const groups = new Map(); for (const t of kernel.tours.list()) { if (!groups.has(t.group)) groups.set(t.group, []); groups.get(t.group).push(t); }
-    const kids = [];
+    const kids = []; const phone = !!(window.matchMedia && window.matchMedia('(max-width: 760px)').matches);
+    if (phone && ui.onDoc) {                                                                                    // a phone has no row for the desktop's buttons: what they open is the first group of the menu
+      kids.push(h('h4', null, 'Read the map'), item('info', 'Legend', 'How to read the marks', () => ui.onDoc('legend:legend'), 'plain'), item('map', 'Chronicle', 'Everything that has happened so far', () => ui.onDoc('chronicle:list'), 'plain'), item('info', 'Keys and evidence labels', 'What Documented, Modelled and the rest mean', () => ui.onDoc('hints:help'), 'plain'));
+    }
     { const cur = styleOfSkin(tok('skin.id')) || { style: STYLES[0], variant: 'standard' };                     // the look of the ground and the colour set: one place, on every screen size
       kids.push(h('h4', null, 'Look'));
       for (const s of STYLES) kids.push(item(null, s.label, s.blurb, () => chooseStyle(s.id, currentVariant()), 'plain' + (cur.style.id === s.id ? ' current' : '')));
@@ -67,10 +70,10 @@ export function createStudioUI({ root, engine, data, onSafe }) {
       for (const v of VARIANTS) kids.push(item(null, v.label, v.blurb || '', () => chooseStyle(cur.style.id, v.id), 'plain' + (cur.variant === v.id ? ' current' : ''))); }
     for (const [g, list] of groups) { kids.push(h('h4', null, g)); for (const t of list) kids.push(item(g === 'Showcase' ? 'showcase' : 'target', t.label, t.blurb, () => ui.onTour && ui.onTour(t.id))); }
     kids.push(h('h4', null, 'Compare'), item('replay', 'Replay this view, before then after', 'The same ticks from where the camera is now, through the production reproduction and then the Studio, with the numbers measured on this run.', () => ui.onTour && ui.onTour('view-replay')));
-    kids.push(item('target', engine.compare === 'before' ? 'Show the Studio again (After)' : 'Show the production renderer (Before)', 'The first prototype reproduction of the shipped tile renderer: stepping, hold-then-jump, overlapping bars. Key B.', () => setCompare(engine.compare === 'before' ? 'after' : 'before'), 'plain'));
+    if (!phone) kids.push(item('target', engine.compare === 'before' ? 'Show the Studio again (After)' : 'Show the production renderer (Before)', 'The production tile renderer as it ships: stepping, hold-then-jump, overlapping bars. Key B.', () => setCompare(engine.compare === 'before' ? 'after' : 'before'), 'plain'));
     kids.push(h('h4', null, 'Scenes (computed from the data)'));
     for (const s of data.scenes) kids.push(item('map', s.name, `Tick ${s.tick} · ${s.why}`, () => { onSafe && onSafe(); engine.sceneJump(s); engine.select(null); }));
-    if (window.matchMedia && window.matchMedia('(max-width: 760px)').matches) {
+    if (phone) {
       kids.push(h('h4', null, 'Tools'), item('inspect', 'Inspect', 'Select a tile to see what the data says about it', () => togglePanel('inspect'), 'plain'), item('tune', 'Tune', 'Every dial of the engine, live', () => togglePanel('tune'), 'plain'),
         item('metrics', 'Metrics', 'Frame times, jumps, overlaps', () => tuning.set('metrics.overlay', !tok('metrics.overlay')), 'plain'), item('info', 'About', 'Legend, evidence labels and honest limits', () => togglePanel('about'), 'plain'));
     }

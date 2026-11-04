@@ -1,0 +1,413 @@
+[
+ {
+  "id": "POS-B-us-12c-1d-07",
+  "fc": "passed_full_read",
+  "why": "Date and places in the same sentence; division named; no later order."
+ },
+ {
+  "id": "POS-B-us-12c-1d-08",
+  "fc": "passed_full_read",
+  "why": "\"On June 29\" with route in the same elliptical sentence continuing the division march; OCR split \"Taney town\" only."
+ },
+ {
+  "id": "POS-B-us-12c-1d-09",
+  "fc": "passed_full_read",
+  "why": "\"on the 30th\" and both places in the same sentence; division named by the report."
+ },
+ {
+  "id": "POS-B-us-12c-1d-10",
+  "fc": "passed_full_read",
+  "why": "Quote, report of cavalry and the \"encamped for the night\" clause are in the connected sentences of the June 30 paragraph; Slocum order printed.",
+  "q2": [
+   "the division encamped for the night"
+  ],
+  "dbasis": "report context: June 30 march (\"on the 30th\" in the preceding sentences of the division report)"
+ },
+ {
+  "id": "POS-B-us-12c-1d-11",
+  "fc": "passed_full_read",
+  "why": "\"July 1\" heading directly before the sentence; Two Taverns and \"Gettysburg pike\" printed; news clause printed next."
+ },
+ {
+  "id": "POS-B-us-12c-1d-12",
+  "fc": "passed_full_read",
+  "why": "Under the July 1 heading; \"near Rock Creek\", cross-road, Hanover road and \"a mile or so east of Gettysburg\" all printed; enemy-held hill is the next sentence."
+ },
+ {
+  "id": "POS-B-us-12c-1d-13",
+  "fc": "corrected",
+  "why": "Passage says \"our forces had retired behind the town\"; \"First and Eleventh Corps\" is the compiler gloss from an earlier sentence. Act narrowed to the printed wording.",
+  "act": "First Division, about to assault the position (the eminence a mile or so east of Gettysburg), was ordered to withdraw, as our forces had retired behind the town, which had fallen into the hands of the enemy",
+  "q2": [
+   "as our forces had retired"
+  ]
+ },
+ {
+  "id": "POS-B-us-12c-1d-14",
+  "fc": "passed_full_read",
+  "why": "Printed \"2d and 3d instant\" in the sentence; Lockwood brigade composition and \"attached by orders to the division\" printed. Date field is the first of two printed days.",
+  "dbasis": "report context: the entry sits under the heading \"July 5\"; the sentence itself prints \"the 2d and 3d instant\" (month taken as July from the Gettysburg context; the report is dated August 22); the date field holds the first of the two days"
+ },
+ {
+  "id": "POS-B-us-12c-1d-15",
+  "fc": "passed_full_read",
+  "why": "Quote, burial and \"returned through Gettysburg\" are printed under the \"July 5\" heading; digit not settled by this report (no July 4 entry, July 6 follows); flagged.",
+  "wdesc": "printed heading \"July 5\"; other reports put the reconnaissance on July 4; the digit is not settled by this report and is kept as printed and flagged (ocr)"
+ },
+ {
+  "id": "POS-B-us-12c-1d-16",
+  "fc": "passed_full_read",
+  "why": "\"July 6\" entry, 3 miles toward Bruceville, halt and encampment all in the same entry."
+ },
+ {
+  "id": "POS-B-us-12c-12",
+  "fc": "passed_full_read",
+  "why": "\"On the morning of July 1\" and the corps move on the Baltimore pike in the same sentence."
+ },
+ {
+  "id": "POS-B-us-12c-13",
+  "fc": "passed_full_read",
+  "why": "\"While halting near Two Taverns\" and the news in the same sentence; Reynolds and rapid march in the next printed clauses.",
+  "dbasis": "report context: July 1 narrative of this report (\"On the morning of July 1\")"
+ },
+ {
+  "id": "POS-B-us-12c-1d-17",
+  "fc": "passed_full_read",
+  "why": "\"Before reaching Rock Creek\" and the cross-road in one sentence; brigade advancing and the fall-back news in the next sentences.",
+  "dbasis": "report context: July 1 narrative of this report (\"On the morning of July 1\")"
+ },
+ {
+  "id": "POS-B-us-12c-1d-18",
+  "fc": "passed_full_read",
+  "why": "Division named in the sentence; \"for the night\" printed; July 1 narrative.",
+  "dbasis": "report context: July 1 narrative of this report (\"On the morning of July 1\")"
+ },
+ {
+  "id": "POS-B-us-12c-2d-05",
+  "fc": "passed_full_read",
+  "why": "Second Division under Slocum, Rock Creek crossing and \"for the night on the left of the First Corps\" in one sentence.",
+  "dbasis": "report context: July 1 narrative of this report (\"On the morning of July 1\")"
+ },
+ {
+  "id": "POS-B-us-12c-1d-lockwood-03",
+  "fc": "corrected",
+  "why": "Printed \"July 3\" digit is doubtful (2/3 confusion): the paragraph goes on to the 8 a. m. orders whose line the closing note dates \"morning of July 2\". Date set to July 2 with basis, t null, ocr flagged; bracketed other-report text removed from act.",
+  "act": "Early on the morning of July 3 [digit doubtful, see date basis] Lockwood reported to Williams with a brigade of two regiments (1st Md. P.H.B., 150th N.Y.)",
+  "date": "1863-07-02",
+  "dbasis": "report context: July 2 narrative of this report; the paragraph opens \"Early on the morning of July 3\" with a doubtful 2/3 digit, but the closing note puts the line taken up on the morning of July 2",
+  "ocr": true,
+  "t": null,
+  "wdesc": "OCR glyph only: the printed digit reads \"3\" (2/3 confusion); the paragraph sequence (8 a. m. orders, new line taken up \"on the morning of July 2\") points to July 2",
+  "q2": [
+   "Eaily on the morning of July 3, Brig. Gen. H. H.",
+   "as taken up on the morning of July 2"
+  ]
+ },
+ {
+  "id": "POS-B-us-12c-1d-19",
+  "fc": "corrected",
+  "why": "\"Our skirmishers\" names no unit (compiler glued to First Division) and the early-morning time is in the preceding sentence. Act narrowed; wp cleared.",
+  "act": "Our skirmishers (unit not named; the writer's headquarters were with the First Division) were smartly engaged with the enemy toward the Bonaughtown road",
+  "wp": null,
+  "wdesc": "time in a different sentence: \"Eaily on the morning of July 3\" (preceding sentence, Lockwood's arrival; digit doubtful)",
+  "dbasis": "report context: July 2 narrative of this report; the paragraph opens \"Early on the morning of July 3\" with a doubtful 2/3 digit, but the closing note puts the line taken up on the morning of July 2",
+  "q2": [
+   "Eaily on the morning of July 3, Brig. Gen. H. H.",
+   "as taken up on the morning of July 2"
+  ]
+ },
+ {
+  "id": "POS-B-us-12c-14",
+  "fc": "passed_full_read",
+  "why": "\"At 8 a. m.\" and the order in the same sentence; two divisions, new line \"north of Rock Creek\" printed. Date rests on the closing note, not the doubtful July 3 above.",
+  "dbasis": "report context: July 2 narrative of this report; the paragraph opens \"Early on the morning of July 3\" with a doubtful 2/3 digit, but the closing note puts the line taken up on the morning of July 2",
+  "q2": [
+   "as taken up on the morning of July 2"
+  ]
+ },
+ {
+  "id": "POS-B-us-12c-2d-06",
+  "fc": "corrected",
+  "why": "\"At 8 a. m.\" is the time of the orders in an earlier sentence, not of holding the ridge. wp cleared, marked as different sentence.",
+  "wp": null,
+  "wdesc": "time in a different sentence: \"At 8 a. m.\" (orders to take up the new line, earlier in the same paragraph; the order is not the time of the later fact)",
+  "dbasis": "report context: July 2 narrative of this report; the paragraph opens \"Early on the morning of July 3\" with a doubtful 2/3 digit, but the closing note puts the line taken up on the morning of July 2",
+  "q2": [
+   "held the rest of the ridge to Rock Creek"
+  ]
+ },
+ {
+  "id": "POS-B-us-12c-1d-mcdougall-01",
+  "fc": "corrected",
+  "why": "Act placed the brigade \"between the Second Division and the Third Brigade\"; passage says only that it and the Second Division held the rest of the ridge. Act narrowed; \"At 8 a. m.\" is an earlier sentence (orders), wp cleared.",
+  "act": "First (McDougall's) Brigade, with the Second (Geary's) Division, held the rest of the ridge to Rock Creek",
+  "wp": null,
+  "wdesc": "time in a different sentence: \"At 8 a. m.\" (orders to take up the new line, earlier in the same paragraph; the order is not the time of the later fact)",
+  "dbasis": "report context: July 2 narrative of this report; the paragraph opens \"Early on the morning of July 3\" with a doubtful 2/3 digit, but the closing note puts the line taken up on the morning of July 2",
+  "q2": [
+   "held the rest of the ridge to Rock Creek"
+  ]
+ },
+ {
+  "id": "POS-B-us-12c-1d-colgrove-02",
+  "fc": "corrected",
+  "why": "\"600 to 700 yards to the Baltimore pike\" restored as printed (act said \"from\"); \"At 8 a. m.\" is an earlier sentence, wp cleared.",
+  "act": "Third Brigade (Colgrove) and Lockwood's brigade continued the line along the creek, almost at right angles to the ridge, \"600 to 700 yards to the Baltimore pike\"",
+  "wp": null,
+  "wdesc": "time in a different sentence: \"At 8 a. m.\" (orders to take up the new line, earlier in the same paragraph; the order is not the time of the later fact)",
+  "dbasis": "report context: July 2 narrative of this report; the paragraph opens \"Early on the morning of July 3\" with a doubtful 2/3 digit, but the closing note puts the line taken up on the morning of July 2",
+  "q2": [
+   "almost at right angles to the ridge",
+   "600 to 700 yards to the Baltimore pike"
+  ]
+ },
+ {
+  "id": "POS-B-us-12c-1d-lockwood-04",
+  "fc": "corrected",
+  "why": "\"At 8 a. m.\" is the earlier order sentence, not the time of the line; wp cleared. Place and act supported.",
+  "wp": null,
+  "wdesc": "time in a different sentence: \"At 8 a. m.\" (orders to take up the new line, earlier in the same paragraph; the order is not the time of the later fact)",
+  "dbasis": "report context: July 2 narrative of this report; the paragraph opens \"Early on the morning of July 3\" with a doubtful 2/3 digit, but the closing note puts the line taken up on the morning of July 2",
+  "q2": [
+   "almost at right angles to the ridge"
+  ]
+ },
+ {
+  "id": "POS-B-us-12c-15",
+  "fc": "corrected",
+  "why": "Stone fence \"less than 50 yards behind\" was written \"50 yards\"; hedge restored. \"at once\" is relative only (no clock).",
+  "act": "Strong natural position at once strengthened by construction of log breastworks along the entire crest of the ridge; a thick stone fence parallel to the ridge, less than 50 yards behind it, furnished cover for a second line",
+  "wdesc": "relative only: \"at once\" after the new line was taken up; no clock time",
+  "dbasis": "report context: July 2 narrative of this report; the paragraph opens \"Early on the morning of July 3\" with a doubtful 2/3 digit, but the closing note puts the line taken up on the morning of July 2",
+  "q2": [
+   "less than 50 yards behind it, furnished an excellent cover"
+  ]
+ },
+ {
+  "id": "POS-B-us-12c-art-pae-01",
+  "fc": "corrected",
+  "why": "Caisson, battery of eight guns and the 8 men lost belong jointly to Knap's pieces and the Fifth U.S. section; act narrowed to a joint statement.",
+  "act": "Three pieces of Knap's Independent Pennsylvania Battery (Lt. Geary) and one section of Battery K, 5th U.S. Artillery, were placed in an open space on the left of the corps; together in about thirty minutes they blew up a caisson and dislodged a battery of eight guns on an eminence in front, losing 8 men killed and wounded",
+  "dbasis": "report context: July 2 narrative of this report; the paragraph opens \"Early on the morning of July 3\" with a doubtful 2/3 digit, but the closing note puts the line taken up on the morning of July 2",
+  "q2": [
+   "placed in position in an open space on the left of the corps",
+   "The artillery lost in killed and wounded in this operation 8 men"
+  ]
+ },
+ {
+  "id": "POS-B-us-12c-art-5usk-01",
+  "fc": "passed_full_read",
+  "why": "Section, officer and \"open space on the left of the corps\" in the same sentence as \"During the afternoon\"; joint placement with Knap printed.",
+  "dbasis": "report context: July 2 narrative of this report; the paragraph opens \"Early on the morning of July 3\" with a doubtful 2/3 digit, but the closing note puts the line taken up on the morning of July 2"
+ },
+ {
+  "id": "POS-B-us-12c-1d-20",
+  "fc": "passed_full_read",
+  "why": "\"Between 5 and 6 p. m.\" and the order in the same sentence; First Division, Lockwood and Geary clauses printed.",
+  "dbasis": "report context: July 2 narrative of this report; the paragraph opens \"Early on the morning of July 3\" with a doubtful 2/3 digit, but the closing note puts the line taken up on the morning of July 2"
+ },
+ {
+  "id": "POS-B-us-12c-1d-lockwood-05",
+  "fc": "passed_full_read",
+  "why": "Time and detachment of Lockwood with the First Division in the same sentence; quote covers only the purpose, extract added.",
+  "q2": [
+   "to detach the Mi-st Division (Ruger's) and Lockwood's brigade"
+  ],
+  "dbasis": "report context: July 2 narrative of this report; the paragraph opens \"Early on the morning of July 3\" with a doubtful 2/3 digit, but the closing note puts the line taken up on the morning of July 2"
+ },
+ {
+  "id": "POS-B-us-12c-16",
+  "fc": "corrected",
+  "why": "\"Between 5 and 6 p. m.\" is the order sentence, not the march; \"as I was informed\" hedge on the Second Corps position restored. wp cleared.",
+  "act": "Williams marched with the supporting detachment, under a severe artillery fire, following the direction of the heavy firing; when near the position occupied originally by the Second Corps, as he was informed, Major McGilvery reported his battery without support",
+  "wp": null,
+  "wdesc": "time in a different sentence: \"Between 5 and 6 p. m.\" (order to detach, preceding sentence)",
+  "dbasis": "report context: July 2 narrative of this report; the paragraph opens \"Early on the morning of July 3\" with a doubtful 2/3 digit, but the closing note puts the line taken up on the morning of July 2",
+  "q2": [
+   "When near the position occupied originally by the Second Corps"
+  ]
+ },
+ {
+  "id": "POS-B-us-12c-1d-lockwood-06",
+  "fc": "corrected",
+  "why": "\"It was now quite dark\" comes two sentences after the deployment (when the commands were halted). wp cleared; recapture of three pieces added.",
+  "act": "Lockwood, whose brigade was in advance, was ordered to deploy his line and occupy the woods in front, pushed a considerable distance to the front and recaptured three pieces of artillery abandoned by the enemy",
+  "wp": null,
+  "wdesc": "time in a different sentence: \"It was now quite dark\" (two sentences later, when both commands were halted)",
+  "dbasis": "report context: July 2 narrative of this report; the paragraph opens \"Early on the morning of July 3\" with a doubtful 2/3 digit, but the closing note puts the line taken up on the morning of July 2",
+  "q2": [
+   "three pieces of artillery abandoned by the enemy"
+  ]
+ },
+ {
+  "id": "POS-B-us-12c-1d-21",
+  "fc": "passed_full_read",
+  "why": "Ruger, First Division and woods on the left of Lockwood in one sentence; \"quite dark\" and the halt are the next sentences.",
+  "dbasis": "report context: July 2 narrative of this report; the paragraph opens \"Early on the morning of July 3\" with a doubtful 2/3 digit, but the closing note puts the line taken up on the morning of July 2"
+ },
+ {
+  "id": "POS-B-us-12c-2d-07",
+  "fc": "corrected",
+  "why": "Act named Candy and Kane; the passage names only \"two brigades\" and Greene's. Removed.",
+  "act": "Geary, by direct orders from Slocum, directed to follow with two brigades, leaving Greene's brigade of his division to hold the breastworks",
+  "dbasis": "report context: July 2 narrative of this report; the paragraph opens \"Early on the morning of July 3\" with a doubtful 2/3 digit, but the closing note puts the line taken up on the morning of July 2"
+ },
+ {
+  "id": "POS-B-us-12c-2d-08",
+  "fc": "corrected",
+  "why": "\"By some mistake\" is not a time. wp cleared; sequence after Ruger's and Lockwood's departure (preceding sentence).",
+  "wp": null,
+  "wdesc": "compiler reading from order of events: follows \"Soon after Ruger's and Lockwood's commands had moved out\" (preceding sentence); no time printed",
+  "dbasis": "report context: July 2 narrative of this report; the paragraph opens \"Early on the morning of July 3\" with a doubtful 2/3 digit, but the closing note puts the line taken up on the morning of July 2"
+ },
+ {
+  "id": "POS-B-us-12c-2d-09",
+  "fc": "passed_full_read",
+  "why": "\"during the night\" and recall in the same sentence; Geary and \"two brigades\" from the preceding sentences.",
+  "dbasis": "report context: July 2 narrative of this report; the paragraph opens \"Early on the morning of July 3\" with a doubtful 2/3 digit, but the closing note puts the line taken up on the morning of July 2"
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-04",
+  "fc": "corrected",
+  "why": "\"three hours' night conflict\" is in a later sentence, not the description of the works. wp cleared; narrow-space and wall clauses given extracts.",
+  "act": "Greene's brigade occupied a portion of the breastworks which, turning at almost right angles to the line on the right, ascended a broken and rocky slope toward our left and presented a steep wall of rock toward the enemy; a narrow space between the angle of the breastworks and the open field toward the Baltimore pike was densely wooded and full of large rocks and boulders",
+  "wp": null,
+  "wdesc": "time in a different sentence: \"three hours' night conflict\" (a few sentences later)",
+  "dbasis": "report context: night of July 2 narrative of this report (after \"quite dark\" and the Slocum orders)",
+  "q2": [
+   "presented a steep wall of rock toward the enemy",
+   "was densely wooded and full of large rocks and bowlders"
+  ]
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-05",
+  "fc": "passed_full_read",
+  "why": "Duration, reinforcement by detachments and Kane's returning brigade, and the repulse are in one sentence.",
+  "dbasis": "report context: night of July 2 narrative of this report (after \"quite dark\" and the Slocum orders)"
+ },
+ {
+  "id": "POS-B-us-12c-2d-kane-01",
+  "fc": "corrected",
+  "why": "\"in the works\" is not printed; act narrowed to the printed clause.",
+  "act": "Kane's brigade, returning to its position, subsequently re-enforced Greene in the night conflict",
+  "dbasis": "report context: night of July 2 narrative of this report (after \"quite dark\" and the Slocum orders)"
+ },
+ {
+  "id": "POS-B-us-12c-1d-22",
+  "fc": "passed_full_read",
+  "why": "First Division, Lockwood, open fields behind the breastworks and the time clause in one sentence.",
+  "dbasis": "report context: night of July 2 narrative of this report (after \"quite dark\" and the Slocum orders)"
+ },
+ {
+  "id": "POS-B-us-12c-1d-lockwood-07",
+  "fc": "passed_full_read",
+  "why": "Same sentence as 1d-22; Lockwood's brigade named with the First Division.",
+  "dbasis": "report context: night of July 2 narrative of this report (after \"quite dark\" and the Slocum orders)"
+ },
+ {
+  "id": "POS-B-us-12c-1d-23",
+  "fc": "corrected",
+  "why": "\"nearly 15J o'clock at night\" is when Williams learned of the situation (next sentence), not when Ruger withdrew. wp cleared.",
+  "wp": null,
+  "wdesc": "time in a different sentence: \"nearly 15J o'clock at night\" (next sentence: when Williams learned of this state of affairs; numeral OCR-garbled)",
+  "dbasis": "report context: night of July 2 narrative of this report (after \"quite dark\" and the Slocum orders)",
+  "q2": [
+   "found the whole of his original intrenched line, as well as the stone fence"
+  ]
+ },
+ {
+  "id": "POS-B-us-12c-17",
+  "fc": "passed_full_read",
+  "why": "Hedge-free: \"I did not learn this state of affairs until\" is printed; numeral garbled \"15J\", t null and ocr flagged; Slocum orders printed in the same sentence.",
+  "wdesc": "OCR glyph only: numeral printed \"15J\" (hour not read); Slocum R271 says the return was complete \"nearly midnight\" (another report)",
+  "ocr": true,
+  "dbasis": "report context: night of July 2 narrative of this report (after \"quite dark\" and the Slocum orders)"
+ },
+ {
+  "id": "POS-B-us-12c-art-03",
+  "fc": "passed_full_read",
+  "why": "\"at daylight\", range and fifteen minutes in one sentence; \"artillery\" of the corps arranged by Williams in the preceding sentence.",
+  "dbasis": "report context: after the night of July 2 narrative; \"orders to drive the enemy ... at daylight\"; the addendum letter prints \"the morning of the 3d\""
+ },
+ {
+  "id": "POS-B-us-12c-art-04",
+  "fc": "passed_full_read",
+  "why": "Addendum letter: \"morning of the 3d\" and \"my personal command\" in the quoted sentence; position-fixing clause is its first part.",
+  "q2": [
+   "Its position was fixed by Lieutenant Muhlenberg and myself"
+  ]
+ },
+ {
+  "id": "POS-B-us-12c-2d-10",
+  "fc": "corrected",
+  "why": "\"morning of July 3\" is not in this sentence; the attack followed the daylight artillery fire. Act narrowed; duration only.",
+  "act": "Geary's division received the enemy's attack, which followed the discontinuance of the artillery fire, and the combat continued for seven hours in almost unremitting fury",
+  "wdesc": "duration only (\"seven hours\"); start follows the artillery fire \"at daylight\" in the preceding sentences",
+  "dbasis": "report context: \"at daylight\" artillery fire of July 3; the addendum prints \"the morning of the 3d\"",
+  "q2": [
+   "themselves attacked Geary's division with great fury"
+  ]
+ },
+ {
+  "id": "POS-B-us-12c-1d-lockwood-1mdeasternshore-01",
+  "fc": "passed_full_read",
+  "why": "\"strengthened during the morning by the arrival of the First Maryland Eastern Shore\" in the dash clause; brigade named; day from the July 3 combat sentence.",
+  "dbasis": "report context: July 3 combat described in the preceding sentences (\"seven hours\")"
+ },
+ {
+  "id": "POS-B-us-12c-1d-lockwood-08",
+  "fc": "corrected",
+  "why": "\"during the morning\" belongs to the dash clause on the Eastern Shore arrival; the order came \"During its continuance\" (the seven-hour combat). wp changed; act narrowed.",
+  "act": "During the seven-hour combat Lockwood's brigade was ordered to re-enforce Geary's division; afterward General Shaler's brigade of the Sixth Corps came to its support",
+  "wp": "During its continuance",
+  "wdesc": "relative: during the combat of the preceding sentence (\"seven hours\"); no clock time",
+  "dbasis": "report context: July 3 combat described in the preceding sentences",
+  "q2": [
+   "During its continuance, Lockwood's brigade"
+  ]
+ },
+ {
+  "id": "POS-B-us-12c-1d-24",
+  "fc": "corrected",
+  "why": "\"A broad marsh stopped a direct attack\" overstates the printed \"presented a serious obstacle to a direct attack\". Act narrowed.",
+  "act": "Ruger pushed a strong line of skirmishers from his position on the right into the woods and against the stone wall and breastworks on that flank, held in strength by the enemy; a broad marsh presented a serious obstacle to a direct attack",
+  "dbasis": "report context: July 3 combat described in the preceding sentences",
+  "q2": [
+   "presented a serious obstacle to a direct attack"
+  ]
+ },
+ {
+  "id": "POS-B-us-12c-1d-mcdougall-02",
+  "fc": "downgraded",
+  "why": "Passage says \"one brigade of the First Division\" without naming it; McDougall identification comes from other reports. Downgraded to inferred.",
+  "act": "One brigade of the First Division (not named) and Lockwood's brigade were detached to support the center in the afternoon of the same day, during the severe attack on our left; the enemy was repulsed without their assistance",
+  "tier": "inferred",
+  "reasoning": "The passage names only \"one brigade of the First Division\" and Lockwood's brigade; the identification of the unnamed brigade as McDougall's First Brigade rests on other reports (Ruger R273), not on this passage.",
+  "dbasis": "report context: the same day as the July 3 combat in the preceding paragraph",
+  "q2": [
+   "during the severe attack on our left"
+  ]
+ },
+ {
+  "id": "POS-B-us-12c-1d-lockwood-09",
+  "fc": "passed_full_read",
+  "why": "Lockwood named; \"In the afternoon of the same day\" and the center in the same sentence; same day is July 3 combat day.",
+  "dbasis": "report context: \"the same day\" = the July 3 combat in the preceding paragraph"
+ },
+ {
+  "id": "POS-B-us-12c-18",
+  "fc": "passed_full_read",
+  "why": "\"on the morning of the 4th\" and the withdrawal report in the preceding clause; line advanced \"at once\" to Rock Creek in the same sentence."
+ },
+ {
+  "id": "POS-B-us-12c-1d-25",
+  "fc": "corrected",
+  "why": "\"July 4\" in the claim is in the next sentence; time word in the sentence is \"Subsequently\" (after the morning of the 4th). wp changed to the printed relative word; extract added.",
+  "wp": "Subsequently",
+  "wdesc": "relative: follows \"on the morning of the 4th\" two sentences earlier; the next sentence says \"July 4 was occupied in burying the dead\"",
+  "dbasis": "report context: \"on the morning of the 4th\" in the preceding sentences",
+  "q2": [
+   "Subsequently a brigade of the First Division, under the personal direction of"
+  ]
+ }
+]

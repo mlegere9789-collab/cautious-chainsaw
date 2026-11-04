@@ -1,0 +1,84 @@
+/* frame.css - ROUND 2: THE INTERFACE IS A FRAME, NOT A LAYER.  Loaded after quiet.css, only overrides.
+   The round-1 jury found the top-bar pills and the floating dock laid over the map (a mark that came near them dissolved into a ghost), a clock card, a Legend button and a minimap on the ground, and opaque cards over
+   a third of the stage.  Now the masthead is one full-width band along the top, the dock one along the bottom (and the reading rail a full-height column on the right): the map is what the bands leave, a mark is
+   drawn whole or not at all (render/canvas.mjs, "stage"), and nothing the page owns lies on the ground except the one card a moment is about.
+   Stolen, and named: the frame idea of D4 Dispatch (masthead, stage, dock), in this direction's own paper, sans and hairlines. */
+:root { --band-top: 56px; --band-pad: 16px; --hit: 36px; }
+
+/* ---------- the masthead band ---------- */
+#app #topbar { position: absolute; left: 0; top: 0; right: var(--rail-w, 0px); height: var(--band-top); padding: 0 var(--band-pad); gap: 12px; align-items: center; background: var(--panel); border-bottom: 1px solid var(--edge); box-shadow: none; pointer-events: auto; z-index: 30; flex-wrap: nowrap; overflow: hidden; }
+#app #topbar .glass, #app #topbar .brand, #app #topbar .clockbox { background: transparent; border: 0; border-radius: 0; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; margin: 0; padding: 0; height: auto; }
+#app #topbar .brand { gap: 8px; flex: 0 0 auto; } #app #topbar .brand svg { width: 18px; height: 18px; } #app #topbar .brand b { font: 700 15px/1.1 var(--font); letter-spacing: 0; }
+#app #topbar .brand div { display: block; } #app #topbar .brand span { display: none; }
+#app #topbar .clockbox { flex: 1 1 auto; min-width: 0; max-width: 460px; padding-left: 14px; border-left: 1px solid var(--edge); display: flex; flex-direction: column; justify-content: center; gap: 1px; }
+#app #topbar .clockbox .tick { font: 700 13px/1.25 var(--font); white-space: nowrap; } #app #topbar .clockbox .clock { font: 400 11px/1.3 var(--font); color: var(--muted); white-space: normal; overflow: visible; text-overflow: clip; }
+#app #topbar .seg, #app #topbar .pop-btns, #app #topbar .toolgrp { height: var(--hit); box-sizing: border-box; background: transparent; border: 1px solid var(--edge); border-radius: var(--r1); box-shadow: none; padding: 2px; flex: 0 0 auto; }
+#app #topbar .pop-btns, #app #topbar .toolgrp { padding: 0; overflow: hidden; display: flex; align-items: stretch; }
+#app #topbar .btn.tool-l { height: var(--hit); background: transparent; border: 1px solid var(--edge); border-radius: var(--r1); flex: 0 0 auto; padding: 0 12px; }
+#app #topbar .seg button { height: 100%; padding: 0 12px; border-radius: 4px; }
+#app #topbar .pop-btns .pop-tb, #app #topbar .toolgrp .btn { font: 600 13px/1 var(--font); padding: 0 12px; min-width: var(--hit); }
+#app #topbar .toolgrp .btn { padding: 0; width: var(--hit); }
+#app #topbar .spacer { flex: 1 1 0; min-width: 0; }
+#app[data-rail="open"] .brand { display: flex; } #app[data-rail="open"] #topbar { flex-wrap: nowrap; row-gap: 0; }
+#app[data-rail="open"] .seg.styles, #app[data-rail="open"] .seg.cmp { display: flex; }
+#app[data-rail="open"] .btn.tool-l .lbl { display: none; } #app[data-rail="open"] .btn.tool-l { width: var(--hit); padding: 0; }
+@media (max-width: 1500px) { #app #topbar .brand b { font-size: 14px; } #app #topbar .btn.tool-l .lbl { display: none; } #app #topbar .btn.tool-l { width: var(--hit); padding: 0; justify-content: center; } }
+
+/* ---------- the dock band ---------- */
+#app #dock { position: absolute; left: 0; right: var(--rail-w, 0px); bottom: 0; transform: none; width: auto; border-radius: 0; border: 0; border-top: 1px solid var(--edge); background: var(--panel); box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; padding: 8px var(--band-pad) 8px; display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 20px; row-gap: 4px; align-items: center; z-index: 30; }
+.booting #app #dock, #app.booting #dock { transform: translateY(14px); }
+#app #dock .transport { grid-column: 1; flex-wrap: nowrap; }
+#app #dock .scrub { grid-column: 2; height: 44px; margin: 0; } #app #dock .scrub input[type=range]::-webkit-slider-runnable-track, #app #dock .scrub input[type=range]::-webkit-slider-thumb { height: 44px; } #app #dock .scrub input[type=range]::-moz-range-track, #app #dock .scrub input[type=range]::-moz-range-thumb { height: 44px; }
+#app #dock .honesty { grid-column: 1 / -1; margin: 0; padding-top: 6px; border-top: 1px solid var(--edge); gap: 4px 20px; font-size: 11px; flex-wrap: wrap; }
+#app #dock .honesty .ev-item { display: inline-flex; align-items: baseline; gap: 8px; }
+#app #dock .pop-strip { grid-column: 1 / -1; }
+#app .tbtn { min-width: var(--hit); height: var(--hit); } #app .speeds .tbtn { height: 30px; min-width: 38px; }
+.scrub input[type=range]::-webkit-slider-thumb { background: var(--text); box-shadow: 0 0 0 2px var(--panel); width: 3px; }
+
+/* ---------- the reading rail is a full-height column: it never covers the map ---------- */
+@media (min-width: 700px) { #app .pop-rail { top: 0; bottom: 0; border-radius: 0; box-shadow: none; } }
+@media (min-width: 761px) { #app #panel { top: var(--band-top); bottom: var(--dock-h, 96px); right: var(--rail-w, 0px); max-height: none; border-radius: 0; border-width: 0 0 0 1px; box-shadow: none; background: var(--panel); -webkit-backdrop-filter: none; backdrop-filter: none; } }      /* ROUND 2: the Tune, Inspect and About panel is the right column of the frame (flush, opaque), like the narration on the left: it is the stage's edge, not a card on the ground */
+
+/* ---------- the narration column (welcome, tour) is a left column of the frame, not a card on the ground ---------- */
+@media (min-width: 761px) { #app .nar { top: var(--band-top); bottom: var(--dock-h, 96px); left: 0; width: 340px; max-height: none; border-radius: 0; border: 0; border-right: 1px solid var(--edge); box-shadow: none; background: var(--panel); -webkit-backdrop-filter: none; backdrop-filter: none; overflow-y: auto; } }
+
+/* ---------- nothing the page owns lies on the ground except the card a moment is about ---------- */
+.pc[data-kind="hud"], .pc[data-kind="hud"] .pc-body { box-shadow: none; }
+
+/* ---------- the timeline: the day labels have their own row, the playhead runs only through the ticks ---------- */
+#app #dock .scrub input[type=range] { top: 18px; height: calc(100% - 18px); }
+#app #dock .scrub input[type=range]::-webkit-slider-runnable-track, #app #dock .scrub input[type=range]::-webkit-slider-thumb { height: 26px; }
+#app #dock .scrub input[type=range]::-moz-range-track, #app #dock .scrub input[type=range]::-moz-range-thumb { height: 26px; }
+
+/* ---------- the legend's evidence key: the chip in its own column, the sentence beside it ---------- */
+.pc-evkey { display: grid; grid-template-columns: max-content 1fr; gap: 10px 14px; margin: 10px 0 0; align-items: baseline; }
+.pc-evkey dt { margin: 0; } .pc-evkey dd { margin: 0; font-size: 12px; line-height: 1.45; color: var(--muted); }
+
+/* the small head of a block inside a rail page (the same 11 px as the heads in the legend's figure) */
+.pop-rail-body .pc-title.sm { font: 700 11px/1.3 var(--font); color: var(--muted); letter-spacing: 0; margin-top: 16px; }
+/* a rail page that is taller than the window fades out at the foot instead of being cut: the last 24 px of padding keep its end readable when scrolled to the bottom */
+@media (min-width: 761px) { .pop-rail-body { padding-bottom: 28px; -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 22px), transparent); mask-image: linear-gradient(to bottom, #000 calc(100% - 22px), transparent); } }
+
+/* a pressed control in the masthead is ink on paper reversed: the label stays readable (round 1 set white on white for the active Auto tour) */
+#app #topbar .pop-btns .pop-tb[aria-pressed="true"], #app #topbar .toolgrp .btn[aria-pressed="true"], #app #topbar .btn.tool-l[aria-pressed="true"] { background: var(--text); color: var(--accent-ink); }
+#app #topbar .pop-btns .pop-tb[aria-pressed="true"]:hover { background: color-mix(in srgb, var(--text) 88%, var(--bg)); }
+
+/* ============================ phone (up to 760 px): the same frame, 44 px hit areas ============================ */
+@media (max-width: 760px) {
+  :root { --band-top: 60px; --hit: 44px; --band-pad: 10px; }
+  #app #topbar { height: auto; min-height: var(--band-top); right: 0; padding: 8px 10px; gap: 8px; flex-wrap: nowrap; }
+  #app #topbar .brand, #app #topbar .spacer, #app #topbar .pop-btns, #app #topbar .toolgrp, #app #topbar select.btn.style-sel { display: none !important; }
+  #app #topbar .clockbox { border-left: 0; padding-left: 0; flex: 1 1 auto; min-width: 0; max-width: none; }
+  #app #topbar .clockbox .tick { font-size: 14px; } #app #topbar .clockbox .clock { font-size: 11px; line-height: 1.3; }
+  #app #topbar .seg { height: var(--hit); } #app #topbar .seg button { min-width: 50px; padding: 0 10px; font-size: 13px; }
+  #app #topbar .btn.tool-l { width: var(--hit); height: var(--hit); padding: 0; justify-content: center; }
+  #app #topbar .btn.tool-l .lbl { display: none; }
+  #app #dock { left: 0; right: 0; padding: 6px 10px 8px; grid-template-columns: auto minmax(0, 1fr); column-gap: 10px; row-gap: 2px; }
+  #app #dock .transport { display: contents; }
+  #app #dock .honesty { display: none; }
+  #app #dock .honesty-mini { grid-column: 1 / -1; grid-row: 3; display: flex; flex-wrap: wrap; gap: 2px 8px; align-items: baseline; white-space: normal; overflow: visible; font-size: 11px; line-height: 1.3; margin: 0; }
+  #app #dock .scrub { grid-column: 1 / -1; grid-row: 2; height: 44px; }
+  #app .tbtn { min-width: 44px; height: 44px; } #app .speeds .tbtn { min-width: 40px; height: 40px; }
+  .pop-rail[data-detent="peek"] .pop-rail-body { visibility: visible; overflow: hidden; -webkit-mask-image: none; mask-image: none; padding-top: 0; } .pop-rail[data-detent="peek"] .pop-rail-body > :nth-child(n+2) { display: none; }
+  .pop-rail-body { -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 18px), transparent); mask-image: linear-gradient(to bottom, #000 calc(100% - 18px), transparent); }
+}

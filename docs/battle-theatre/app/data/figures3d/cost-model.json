@@ -1,0 +1,900 @@
+{
+ "schema": "figures3d-cost-1",
+ "figures": 125000,
+ "basis": "render/results/*.json (Measured), render/PLAN.md sections 2-3 (Measured/Computed), data/figures3d/manifest.json (Computed)",
+ "triangles_per_figure": {
+  "lod0_close": {
+   "median": 43512,
+   "min": 33014,
+   "max": 55018
+  },
+  "lod1_mid": {
+   "median": 1842,
+   "max": 2156,
+   "min": 1490
+  },
+  "lod2_low": {
+   "median": 568,
+   "max": 830,
+   "min": 340
+  },
+  "impostor": {
+   "median": 2,
+   "note": "one camera-facing quad per figure"
+  },
+  "accessories_lod1_extra": "accessory mesh (cartbox, canteen, haversack, sash, scabbard, sword, cavalry set) adds up to about 330 triangles to a mid figure; included in the lod1 median below",
+  "horse": {
+   "lod0": 18636,
+   "lod1": 768,
+   "lod2": 330
+  }
+ },
+ "slopes_gpu_ms_per_Mtri": {
+  "near": {
+   "webgpu_q1": {
+    "ms_per_Mtri": 0.216,
+    "runs": 6,
+    "file": "webgpu-nearr-1080.json"
+   },
+   "webgpu_q2": {
+    "ms_per_Mtri": 0.58,
+    "runs": 6,
+    "file": "webgpu-nearr-1080_nearQ2.json"
+   },
+   "webgpu_q3": {
+    "ms_per_Mtri": 1.081,
+    "runs": 6,
+    "file": "webgpu-nearr-1080_nearQ3.json"
+   },
+   "webgl2_q1": {
+    "ms_per_Mtri": 4.597,
+    "runs": 6,
+    "file": "webgl2-nearr-1080.json"
+   },
+   "webgl2_q3": {
+    "ms_per_Mtri": 4.52,
+    "runs": 6,
+    "file": "webgl2-nearr-1080_nearQ3.json"
+   }
+  },
+  "mid": {
+   "webgpu": {
+    "ms_per_Mtri": 0.7,
+    "runs": 6,
+    "file": "webgpu-midr-1080.json"
+   },
+   "webgl2": {
+    "ms_per_Mtri": 3.125,
+    "runs": 6,
+    "file": "webgl2-midr-1080.json"
+   }
+  },
+  "note": "least-squares fit of the GPU pass sum against tris_M over each prototype scaling suite (Measured runs, Computed slope); the near slope for this module's LOD0 is interpolated in triangles per figure between the q1/q2/q3 suites"
+ },
+ "prototype_triangles_per_figure": {
+  "near_foot": 2928,
+  "near_mnt": 1364,
+  "mid_foot": 1152,
+  "mid_mnt": 1364
+ },
+ "new_triangles_per_figure": {
+  "near_foot": 43512,
+  "near_mnt": 62148,
+  "mid_foot": 1992,
+  "mid_mnt": 2610
+ },
+ "predicted_frame_ms_by_shot": {
+  "webgpu@1080p": {
+   "near_slope_ms_per_Mtri": 1.081,
+   "mid_slope_ms_per_Mtri": 0.7,
+   "shots": {
+    "overview": {
+     "frame_ms_measured": 6.64,
+     "gpu_ms_measured": 4.41,
+     "near_figures": 0,
+     "mid_figures": 0,
+     "delta_near_Mtri": 0,
+     "delta_mid_Mtri": 0,
+     "delta_gpu_ms": 0,
+     "frame_ms_predicted": 6.64,
+     "fits_16p7": true,
+     "figure_geometry_ms": 0
+    },
+    "wide": {
+     "frame_ms_measured": 7.08,
+     "gpu_ms_measured": 5.14,
+     "near_figures": 0,
+     "mid_figures": 1887,
+     "delta_near_Mtri": 0,
+     "delta_mid_Mtri": 1.585,
+     "delta_gpu_ms": 1.11,
+     "frame_ms_predicted": 8.19,
+     "fits_16p7": true,
+     "figure_geometry_ms": 2.63
+    },
+    "ridge": {
+     "frame_ms_measured": 6.77,
+     "gpu_ms_measured": 4.89,
+     "near_figures": 0,
+     "mid_figures": 376,
+     "delta_near_Mtri": 0,
+     "delta_mid_Mtri": 0.355,
+     "delta_gpu_ms": 0.25,
+     "frame_ms_predicted": 7.02,
+     "fits_16p7": true,
+     "figure_geometry_ms": 0.57
+    },
+    "ground": {
+     "frame_ms_measured": 6.92,
+     "gpu_ms_measured": 5.01,
+     "near_figures": 0,
+     "mid_figures": 705,
+     "delta_near_Mtri": 0,
+     "delta_mid_Mtri": 0.592,
+     "delta_gpu_ms": 0.41,
+     "frame_ms_predicted": 7.33,
+     "fits_16p7": true,
+     "figure_geometry_ms": 0.98
+    },
+    "line": {
+     "frame_ms_measured": 16.72,
+     "gpu_ms_measured": 14.4,
+     "near_figures": 124,
+     "mid_figures": 2252,
+     "delta_near_Mtri": 5.032,
+     "delta_mid_Mtri": 1.911,
+     "delta_gpu_ms": 6.78,
+     "frame_ms_predicted": 23.5,
+     "fits_16p7": false,
+     "figure_geometry_ms": 8.99
+    },
+    "battery": {
+     "frame_ms_measured": 8.92,
+     "gpu_ms_measured": 6.65,
+     "near_figures": 17,
+     "mid_figures": 2483,
+     "delta_near_Mtri": 0.69,
+     "delta_mid_Mtri": 2.105,
+     "delta_gpu_ms": 2.22,
+     "frame_ms_predicted": 11.14,
+     "fits_16p7": true,
+     "figure_geometry_ms": 4.28
+    },
+    "cavalry": {
+     "frame_ms_measured": 6.87,
+     "gpu_ms_measured": 4.78,
+     "near_figures": 96,
+     "mid_figures": 1063,
+     "delta_near_Mtri": 5.835,
+     "delta_mid_Mtri": 0.912,
+     "delta_gpu_ms": 6.95,
+     "frame_ms_predicted": 13.82,
+     "fits_16p7": true,
+     "figure_geometry_ms": 7.95
+    }
+   }
+  },
+  "webgpu@4K": {
+   "near_slope_ms_per_Mtri": 1.081,
+   "mid_slope_ms_per_Mtri": 0.7,
+   "shots": {
+    "overview": {
+     "frame_ms_measured": 14.08,
+     "gpu_ms_measured": 8.15,
+     "near_figures": 0,
+     "mid_figures": 0,
+     "delta_near_Mtri": 0,
+     "delta_mid_Mtri": 0,
+     "delta_gpu_ms": 0,
+     "frame_ms_predicted": 14.08,
+     "fits_16p7": true,
+     "figure_geometry_ms": 0
+    },
+    "wide": {
+     "frame_ms_measured": 16.91,
+     "gpu_ms_measured": 10.28,
+     "near_figures": 0,
+     "mid_figures": 1887,
+     "delta_near_Mtri": 0,
+     "delta_mid_Mtri": 1.585,
+     "delta_gpu_ms": 1.11,
+     "frame_ms_predicted": 18.02,
+     "fits_16p7": false,
+     "figure_geometry_ms": 2.63
+    },
+    "ridge": {
+     "frame_ms_measured": 16,
+     "gpu_ms_measured": 9.51,
+     "near_figures": 0,
+     "mid_figures": 376,
+     "delta_near_Mtri": 0,
+     "delta_mid_Mtri": 0.355,
+     "delta_gpu_ms": 0.25,
+     "frame_ms_predicted": 16.25,
+     "fits_16p7": true,
+     "figure_geometry_ms": 0.57
+    },
+    "ground": {
+     "frame_ms_measured": 13.37,
+     "gpu_ms_measured": 7.77,
+     "near_figures": 0,
+     "mid_figures": 705,
+     "delta_near_Mtri": 0,
+     "delta_mid_Mtri": 0.592,
+     "delta_gpu_ms": 0.41,
+     "frame_ms_predicted": 13.78,
+     "fits_16p7": true,
+     "figure_geometry_ms": 0.98
+    },
+    "line": {
+     "frame_ms_measured": 25.71,
+     "gpu_ms_measured": 22.35,
+     "near_figures": 124,
+     "mid_figures": 2252,
+     "delta_near_Mtri": 5.032,
+     "delta_mid_Mtri": 1.911,
+     "delta_gpu_ms": 6.78,
+     "frame_ms_predicted": 32.49,
+     "fits_16p7": false,
+     "figure_geometry_ms": 8.99
+    },
+    "battery": {
+     "frame_ms_measured": 23.05,
+     "gpu_ms_measured": 17.42,
+     "near_figures": 17,
+     "mid_figures": 2497,
+     "delta_near_Mtri": 0.69,
+     "delta_mid_Mtri": 2.117,
+     "delta_gpu_ms": 2.23,
+     "frame_ms_predicted": 25.28,
+     "fits_16p7": false,
+     "figure_geometry_ms": 4.3
+    },
+    "cavalry": {
+     "frame_ms_measured": 15.32,
+     "gpu_ms_measured": 9.16,
+     "near_figures": 96,
+     "mid_figures": 276,
+     "delta_near_Mtri": 5.835,
+     "delta_mid_Mtri": 0.232,
+     "delta_gpu_ms": 6.47,
+     "frame_ms_predicted": 21.79,
+     "fits_16p7": false,
+     "figure_geometry_ms": 6.83
+    }
+   }
+  },
+  "webgl2@1080p": {
+   "near_slope_ms_per_Mtri": 4.52,
+   "mid_slope_ms_per_Mtri": 3.125,
+   "shots": {
+    "overview": {
+     "frame_ms_measured": 8.21,
+     "gpu_ms_measured": 7.7,
+     "near_figures": 0,
+     "mid_figures": 0,
+     "delta_near_Mtri": 0,
+     "delta_mid_Mtri": 0,
+     "delta_gpu_ms": 0,
+     "frame_ms_predicted": 8.21,
+     "fits_16p7": true,
+     "figure_geometry_ms": 0
+    },
+    "wide": {
+     "frame_ms_measured": 14.86,
+     "gpu_ms_measured": 14.23,
+     "near_figures": 0,
+     "mid_figures": 1887,
+     "delta_near_Mtri": 0,
+     "delta_mid_Mtri": 1.585,
+     "delta_gpu_ms": 4.95,
+     "frame_ms_predicted": 19.81,
+     "fits_16p7": false,
+     "figure_geometry_ms": 11.75
+    },
+    "ridge": {
+     "frame_ms_measured": 8.6,
+     "gpu_ms_measured": 8.07,
+     "near_figures": 0,
+     "mid_figures": 376,
+     "delta_near_Mtri": 0,
+     "delta_mid_Mtri": 0.355,
+     "delta_gpu_ms": 1.11,
+     "frame_ms_predicted": 9.71,
+     "fits_16p7": true,
+     "figure_geometry_ms": 2.53
+    },
+    "ground": {
+     "frame_ms_measured": 10.21,
+     "gpu_ms_measured": 8.83,
+     "near_figures": 0,
+     "mid_figures": 705,
+     "delta_near_Mtri": 0,
+     "delta_mid_Mtri": 0.592,
+     "delta_gpu_ms": 1.85,
+     "frame_ms_predicted": 12.06,
+     "fits_16p7": true,
+     "figure_geometry_ms": 4.39
+    },
+    "line": {
+     "frame_ms_measured": 23.06,
+     "gpu_ms_measured": 21.34,
+     "near_figures": 124,
+     "mid_figures": 2252,
+     "delta_near_Mtri": 5.032,
+     "delta_mid_Mtri": 1.911,
+     "delta_gpu_ms": 28.72,
+     "frame_ms_predicted": 51.78,
+     "fits_16p7": false,
+     "figure_geometry_ms": 38.5
+    },
+    "battery": {
+     "frame_ms_measured": 19.86,
+     "gpu_ms_measured": 18.53,
+     "near_figures": 17,
+     "mid_figures": 2484,
+     "delta_near_Mtri": 0.69,
+     "delta_mid_Mtri": 2.106,
+     "delta_gpu_ms": 9.7,
+     "frame_ms_predicted": 29.56,
+     "fits_16p7": false,
+     "figure_geometry_ms": 18.9
+    },
+    "cavalry": {
+     "frame_ms_measured": 13.06,
+     "gpu_ms_measured": 12.12,
+     "near_figures": 96,
+     "mid_figures": 732,
+     "delta_near_Mtri": 5.835,
+     "delta_mid_Mtri": 0.615,
+     "delta_gpu_ms": 28.3,
+     "frame_ms_predicted": 41.36,
+     "fits_16p7": false,
+     "figure_geometry_ms": 31.53
+    }
+   }
+  },
+  "webgl2@4K": {
+   "near_slope_ms_per_Mtri": 4.52,
+   "mid_slope_ms_per_Mtri": 3.125,
+   "shots": {
+    "overview": {
+     "frame_ms_measured": 17.04,
+     "gpu_ms_measured": 13.06,
+     "near_figures": 0,
+     "mid_figures": 0,
+     "delta_near_Mtri": 0,
+     "delta_mid_Mtri": 0,
+     "delta_gpu_ms": 0,
+     "frame_ms_predicted": 17.04,
+     "fits_16p7": false,
+     "figure_geometry_ms": 0
+    },
+    "wide": {
+     "frame_ms_measured": 21.81,
+     "gpu_ms_measured": 19.76,
+     "near_figures": 0,
+     "mid_figures": 1887,
+     "delta_near_Mtri": 0,
+     "delta_mid_Mtri": 1.585,
+     "delta_gpu_ms": 4.95,
+     "frame_ms_predicted": 26.76,
+     "fits_16p7": false,
+     "figure_geometry_ms": 11.75
+    },
+    "ridge": {
+     "frame_ms_measured": 15.58,
+     "gpu_ms_measured": 13.98,
+     "near_figures": 0,
+     "mid_figures": 376,
+     "delta_near_Mtri": 0,
+     "delta_mid_Mtri": 0.355,
+     "delta_gpu_ms": 1.11,
+     "frame_ms_predicted": 16.69,
+     "fits_16p7": true,
+     "figure_geometry_ms": 2.53
+    },
+    "ground": {
+     "frame_ms_measured": 15.85,
+     "gpu_ms_measured": 14.05,
+     "near_figures": 0,
+     "mid_figures": 705,
+     "delta_near_Mtri": 0,
+     "delta_mid_Mtri": 0.592,
+     "delta_gpu_ms": 1.85,
+     "frame_ms_predicted": 17.7,
+     "fits_16p7": false,
+     "figure_geometry_ms": 4.39
+    },
+    "line": {
+     "frame_ms_measured": 32.53,
+     "gpu_ms_measured": 30.88,
+     "near_figures": 124,
+     "mid_figures": 2252,
+     "delta_near_Mtri": 5.032,
+     "delta_mid_Mtri": 1.911,
+     "delta_gpu_ms": 28.72,
+     "frame_ms_predicted": 61.25,
+     "fits_16p7": false,
+     "figure_geometry_ms": 38.5
+    },
+    "battery": {
+     "frame_ms_measured": 34.55,
+     "gpu_ms_measured": 31.45,
+     "near_figures": 17,
+     "mid_figures": 2522,
+     "delta_near_Mtri": 0.69,
+     "delta_mid_Mtri": 2.138,
+     "delta_gpu_ms": 9.8,
+     "frame_ms_predicted": 44.35,
+     "fits_16p7": false,
+     "figure_geometry_ms": 19.14
+    },
+    "cavalry": {
+     "frame_ms_measured": 17.88,
+     "gpu_ms_measured": 14.1,
+     "near_figures": 96,
+     "mid_figures": 0,
+     "delta_near_Mtri": 5.835,
+     "delta_mid_Mtri": 0,
+     "delta_gpu_ms": 26.38,
+     "frame_ms_predicted": 44.26,
+     "fits_16p7": false,
+     "figure_geometry_ms": 26.97
+    }
+   }
+  },
+  "webgpu_nvidia@1080p": {
+   "near_slope_ms_per_Mtri": 1.081,
+   "mid_slope_ms_per_Mtri": 0.7,
+   "shots": {
+    "overview": {
+     "frame_ms_measured": 3.16,
+     "gpu_ms_measured": 1.94,
+     "near_figures": 0,
+     "mid_figures": 0,
+     "delta_near_Mtri": 0,
+     "delta_mid_Mtri": 0,
+     "delta_gpu_ms": 0,
+     "frame_ms_predicted": 3.16,
+     "fits_16p7": true,
+     "figure_geometry_ms": 0
+    },
+    "wide": {
+     "frame_ms_measured": 3.8,
+     "gpu_ms_measured": 3.24,
+     "near_figures": 0,
+     "mid_figures": 1887,
+     "delta_near_Mtri": 0,
+     "delta_mid_Mtri": 1.585,
+     "delta_gpu_ms": 1.11,
+     "frame_ms_predicted": 4.91,
+     "fits_16p7": true,
+     "figure_geometry_ms": 2.63
+    },
+    "ridge": {
+     "frame_ms_measured": 3.29,
+     "gpu_ms_measured": 2.79,
+     "near_figures": 0,
+     "mid_figures": 376,
+     "delta_near_Mtri": 0,
+     "delta_mid_Mtri": 0.355,
+     "delta_gpu_ms": 0.25,
+     "frame_ms_predicted": 3.54,
+     "fits_16p7": true,
+     "figure_geometry_ms": 0.57
+    },
+    "ground": {
+     "frame_ms_measured": 2.9,
+     "gpu_ms_measured": 2.34,
+     "near_figures": 0,
+     "mid_figures": 705,
+     "delta_near_Mtri": 0,
+     "delta_mid_Mtri": 0.592,
+     "delta_gpu_ms": 0.41,
+     "frame_ms_predicted": 3.31,
+     "fits_16p7": true,
+     "figure_geometry_ms": 0.98
+    },
+    "line": {
+     "frame_ms_measured": 5.1,
+     "gpu_ms_measured": 4.81,
+     "near_figures": 124,
+     "mid_figures": 2252,
+     "delta_near_Mtri": 5.032,
+     "delta_mid_Mtri": 1.911,
+     "delta_gpu_ms": 6.78,
+     "frame_ms_predicted": 11.88,
+     "fits_16p7": true,
+     "figure_geometry_ms": 8.99
+    },
+    "battery": {
+     "frame_ms_measured": 4.54,
+     "gpu_ms_measured": 4.25,
+     "near_figures": 17,
+     "mid_figures": 2443,
+     "delta_near_Mtri": 0.69,
+     "delta_mid_Mtri": 2.072,
+     "delta_gpu_ms": 2.2,
+     "frame_ms_predicted": 6.74,
+     "fits_16p7": true,
+     "figure_geometry_ms": 4.23
+    },
+    "cavalry": {
+     "frame_ms_measured": 3.73,
+     "gpu_ms_measured": 3.29,
+     "near_figures": 96,
+     "mid_figures": 1335,
+     "delta_near_Mtri": 5.835,
+     "delta_mid_Mtri": 1.141,
+     "delta_gpu_ms": 7.11,
+     "frame_ms_predicted": 10.84,
+     "fits_16p7": true,
+     "figure_geometry_ms": 8.33
+    }
+   }
+  },
+  "webgpu_nvidia@4K": {
+   "near_slope_ms_per_Mtri": 1.081,
+   "mid_slope_ms_per_Mtri": 0.7,
+   "shots": {
+    "overview": {
+     "frame_ms_measured": 4.74,
+     "gpu_ms_measured": 4.14,
+     "near_figures": 0,
+     "mid_figures": 0,
+     "delta_near_Mtri": 0,
+     "delta_mid_Mtri": 0,
+     "delta_gpu_ms": 0,
+     "frame_ms_predicted": 4.74,
+     "fits_16p7": true,
+     "figure_geometry_ms": 0
+    },
+    "wide": {
+     "frame_ms_measured": 5.97,
+     "gpu_ms_measured": 5.47,
+     "near_figures": 0,
+     "mid_figures": 1887,
+     "delta_near_Mtri": 0,
+     "delta_mid_Mtri": 1.585,
+     "delta_gpu_ms": 1.11,
+     "frame_ms_predicted": 7.08,
+     "fits_16p7": true,
+     "figure_geometry_ms": 2.63
+    },
+    "ridge": {
+     "frame_ms_measured": 6.67,
+     "gpu_ms_measured": 6.16,
+     "near_figures": 0,
+     "mid_figures": 376,
+     "delta_near_Mtri": 0,
+     "delta_mid_Mtri": 0.355,
+     "delta_gpu_ms": 0.25,
+     "frame_ms_predicted": 6.92,
+     "fits_16p7": true,
+     "figure_geometry_ms": 0.57
+    },
+    "ground": {
+     "frame_ms_measured": 4.59,
+     "gpu_ms_measured": 4.03,
+     "near_figures": 0,
+     "mid_figures": 705,
+     "delta_near_Mtri": 0,
+     "delta_mid_Mtri": 0.592,
+     "delta_gpu_ms": 0.41,
+     "frame_ms_predicted": 5,
+     "fits_16p7": true,
+     "figure_geometry_ms": 0.98
+    },
+    "line": {
+     "frame_ms_measured": 10.91,
+     "gpu_ms_measured": 10.42,
+     "near_figures": 124,
+     "mid_figures": 2252,
+     "delta_near_Mtri": 5.032,
+     "delta_mid_Mtri": 1.911,
+     "delta_gpu_ms": 6.78,
+     "frame_ms_predicted": 17.69,
+     "fits_16p7": false,
+     "figure_geometry_ms": 8.99
+    },
+    "battery": {
+     "frame_ms_measured": 8.95,
+     "gpu_ms_measured": 8.48,
+     "near_figures": 17,
+     "mid_figures": 2467,
+     "delta_near_Mtri": 0.69,
+     "delta_mid_Mtri": 2.092,
+     "delta_gpu_ms": 2.21,
+     "frame_ms_predicted": 11.16,
+     "fits_16p7": true,
+     "figure_geometry_ms": 4.26
+    },
+    "cavalry": {
+     "frame_ms_measured": 5.88,
+     "gpu_ms_measured": 5.39,
+     "near_figures": 96,
+     "mid_figures": 1186,
+     "delta_near_Mtri": 5.835,
+     "delta_mid_Mtri": 1.016,
+     "delta_gpu_ms": 7.02,
+     "frame_ms_predicted": 12.9,
+     "fits_16p7": true,
+     "figure_geometry_ms": 8.12
+    }
+   }
+  }
+ },
+ "screen_space_error_lod": {
+  "rule": "a figure of projected height h px needs 0.09 h^2 triangles (PLAN section 3.4); h = 1683 / d at 1080p, 60 degree vertical field of view",
+  "switch_distance_m": {
+   "lod0_to_lod1": 2.4,
+   "lod1_to_lod2": 11.3,
+   "lod2_to_impostor": 26.3
+  },
+  "dense_formation_1p8_per_m2": {
+   "lod0_figures": 0,
+   "lod1_figures": 226,
+   "lod2_figures": 1045,
+   "impostor_figures_to_300m": 165578,
+   "triangles_M": 1.38
+  }
+ },
+ "measured_handover": {
+  "method": "MEASURED with the software rasteriser (flat colours, one key light), 1080p 60 degree FOV, 6 men x 2 views; NOT a measurement of the product shader",
+  "handover_m": {
+   "lod0_to_lod1": 10,
+   "lod1_to_lod2": 13,
+   "lod2_to_impostor_silhouette": 55
+  },
+  "gate": {
+   "err_px": 0.5,
+   "dL": 2
+  },
+  "rule": "radius rule (1080p; the distances scale with vertical resolution, since a pixel covers 1.069 mm per metre of distance at 1080p): LOD0 for d < 10 m, LOD1 for 10 <= d < 13 m, LOD2 for 13 <= d < 55 m, impostor beyond; each swap is a 15 percent dithered cross-fade centred on the distance with 10 percent hysteresis. LOD1 is the narrow bridge off the 45,000-triangle mesh: LOD2 (about 568 triangles) already matches LOD1 within the gates from 13 m; where the governor has pulled the radii in, the LOD1 band widens.",
+  "caveats": [
+   "the impostor swap meets the 0.5 px silhouette gate only from 55 m with the 48 x 64 atlas (texel 31 mm); a 96 x 128 atlas would meet it from about half that distance at 4 times the bytes (about 20 MB BC7)",
+   "the impostor mean L* step is 1.5 to 3.5 in the rasteriser test beyond 40 m (above the 2 L* gate at 55 to 100 m): per-class brightness normalisation of the baked shade is OPEN (EG-FIG-0011)",
+   "LOD1 meshes are silhouette-class representatives; the measured numbers include the representative-versus-actual mismatch (hats, weapons, trousers)"
+  ]
+ },
+ "fits_125k": {
+  "question": "do 125,000 figures still fit the 7 ms allowance for characters on WebGPU (Arc iGPU, 1080p) with 45,000-triangle LOD0?",
+  "answer": "YES for the seven prototype shots rescaled to the measured radii (see per_shot_with_the_radius_rule; the smoke-dominated line shot misses 16.7 ms as it already did unscaled); NO for the worst case, a dense formation (1.8 men per square metre) filling the whole view from 3 m: 12.0 ms of figure cost (including the far pass) against 7 ms. There the budgeted nearest-first rule keeps LOD0 to 61 figures and the adaptive bias moves the rest; G4 is then not met (stated)",
+  "dense_formation_worst_case": {
+   "figures_per_lod": {
+    "lod0": 169,
+    "lod1": 128,
+    "lod2": 5295,
+    "impostor_to_300m": 161252
+   },
+   "triangles_M": {
+    "lod0": 7.34,
+    "lod1": 0.25,
+    "lod2": 3.01
+   },
+   "figure_ms": {
+    "webgpu_arc": 12,
+    "webgl2_arc": 46.4
+   },
+   "allowance_ms": 7
+  },
+  "lod0_figures_that_fit": {
+   "webgpu_arc_1080p": 61,
+   "webgl2_arc_1080p": 0,
+   "equal_radius_in_a_dense_formation_m": {
+    "webgpu": 6.5,
+    "webgl2": 3
+   }
+  },
+  "bias_to_fit_dense_view": {
+   "webgpu_arc": 0.73,
+   "webgl2_arc": 0.39,
+   "meaning": "the largest b (every hand-over distance multiplied by b) at which the DENSE worst-case view fits the 7 ms allowance: the radius rule WebGL2 must follow in that view (WebGL2: LOD0 radius (b x 10 m), and so on); the far pass alone is 1.80 ms (WebGPU) and 3.07 ms (WebGL2, scaled 1.7), so below b about the value where the far pass fills the allowance no radius can fit and the resolution scale is the next lever"
+  },
+  "per_shot_with_the_radius_rule": {
+   "overview": {
+    "frame_ms_measured_prototype": 6.64,
+    "near_lod0_figures": 0,
+    "lod1_figures": 0,
+    "lod2_figures": 0,
+    "figure_Mtri_new": 0,
+    "figure_Mtri_prototype": 0,
+    "frame_ms_predicted": 6.64,
+    "fits_16p7": true
+   },
+   "wide": {
+    "frame_ms_measured_prototype": 7.08,
+    "near_lod0_figures": 0,
+    "lod1_figures": 1,
+    "lod2_figures": 60,
+    "figure_Mtri_new": 0.04,
+    "figure_Mtri_prototype": 2.17,
+    "frame_ms_predicted": 5.58,
+    "fits_16p7": true
+   },
+   "ridge": {
+    "frame_ms_measured_prototype": 6.77,
+    "near_lod0_figures": 0,
+    "lod1_figures": 0,
+    "lod2_figures": 12,
+    "figure_Mtri_new": 0.01,
+    "figure_Mtri_prototype": 0.43,
+    "frame_ms_predicted": 6.47,
+    "fits_16p7": true
+   },
+   "ground": {
+    "frame_ms_measured_prototype": 6.92,
+    "near_lod0_figures": 0,
+    "lod1_figures": 1,
+    "lod2_figures": 22,
+    "figure_Mtri_new": 0.01,
+    "figure_Mtri_prototype": 0.81,
+    "frame_ms_predicted": 6.36,
+    "fits_16p7": true
+   },
+   "line": {
+    "frame_ms_measured_prototype": 16.72,
+    "near_lod0_figures": 8,
+    "lod1_figures": 2,
+    "lod2_figures": 71,
+    "figure_Mtri_new": 0.38,
+    "figure_Mtri_prototype": 2.96,
+    "frame_ms_predicted": 14.91,
+    "fits_16p7": true
+   },
+   "battery": {
+    "frame_ms_measured_prototype": 8.92,
+    "near_lod0_figures": 1,
+    "lod1_figures": 2,
+    "lod2_figures": 79,
+    "figure_Mtri_new": 0.09,
+    "figure_Mtri_prototype": 2.91,
+    "frame_ms_predicted": 6.95,
+    "fits_16p7": true
+   },
+   "cavalry": {
+    "frame_ms_measured_prototype": 6.87,
+    "near_lod0_figures": 6,
+    "lod1_figures": 1,
+    "lod2_figures": 34,
+    "figure_Mtri_new": 0.28,
+    "figure_Mtri_prototype": 1.51,
+    "frame_ms_predicted": 6.01,
+    "fits_16p7": true
+   }
+  },
+  "shot_scaling_assumption": "MODELLED: the prototype shots (near radius 40 m, mid radius 300 m) are rescaled by the area ratios (R / 40)^2 and (R / 300)^2, i.e. uniform density; real formations are denser along the line, so the true LOD0 counts are higher in the shots that look along a line"
+ },
+ "webgl2_distance_rule": {
+  "distance_rule": "WebGL2 (near slope 4.52 ms per Mtri, mid 3.125: about 4.2 times the WebGPU near cost): the LOD0 disc is chosen by a triangle BUDGET, not a fixed radius: B0 = (7 ms - mid and far cost) / 4.52 ms per Mtri = about 0.00 M triangles = 0 LOD0 figures in the DENSE view (the mid and far cost alone exceed 7 ms there: the dense-view rule is the bias b = 0.39 on every distance); in the thin views of the prototype shots the budget is the formula above. LOD0 goes to the nearest figures until the budget is spent (a radius of 3.0 m in a dense formation, up to 10 m in a thin one); the rest take LOD1 and LOD2 at the same radii as WebGPU, and where the budget is short the adaptive bias below applies.",
+  "near_mesh_cap_alternative": "a hard LOD0 of about 5,000 triangles on WebGL2 (the prototype note) is NOT adopted: LOD0 stays one mesh and its radius shrinks instead"
+ },
+ "adaptive_lod_bias": {
+  "name": "adaptive LOD-bias controller (spec; implemented by the renderer, not here)",
+  "variable": "b in [0.25, 1]: every hand-over distance d_i is used as b * d_i (b = 1 is the measured gate distance)",
+  "input": "GPU time of the character passes (timestamp query) minus the fixed passes, smoothed over 8 frames; CPU fallback: the previous frame time",
+  "target": "7 ms of the 16.7 ms (PLAN section 3.4), on WebGL2 as well",
+  "law": "e = (t_fig - 7) / 7; b <- clamp(b - 0.35 e - 0.05 * integral(e), 0.25, 1); change per frame limited to 2 percent; dead band +-5 percent; recovery (b rising) limited to 0.5 percent per frame so the picture does not breathe",
+  "order_of_reduction": "the LOD0 radius is multiplied by b first (45,000 triangles per figure), the LOD1/LOD2 swap by sqrt(b), the impostor swap by b^(1/3); the resolution scale is the next lever (PLAN G1 path 5); the figure COUNT and the content are never reduced",
+  "budgeted_selection": "instead of a pure radius, the nearest-first triangle budget: a GPU histogram of figure distances in 1 m bins (one atomic per figure) gives the cumulative LOD0 triangle count; the LOD0 radius is the distance where it reaches B0 = (7 ms - rest) / slope",
+  "quality_cost": [
+   {
+    "b": 1,
+    "lod0_radius_m": 10,
+    "silhouette_error_px_at_swap": 0.5,
+    "note": "meets G4 as measured"
+   },
+   {
+    "b": 0.75,
+    "lod0_radius_m": 7.5,
+    "silhouette_error_px_at_swap": 0.67,
+    "note": "G4 missed by this factor at the swap; the dithered cross-fade hides it; logged in the frame stats"
+   },
+   {
+    "b": 0.5,
+    "lod0_radius_m": 5,
+    "silhouette_error_px_at_swap": 1,
+    "note": "G4 missed by this factor at the swap; the dithered cross-fade hides it; logged in the frame stats"
+   },
+   {
+    "b": 0.35,
+    "lod0_radius_m": 3.5,
+    "silhouette_error_px_at_swap": 1.43,
+    "note": "G4 missed by this factor at the swap; the dithered cross-fade hides it; logged in the frame stats"
+   },
+   {
+    "b": 0.25,
+    "lod0_radius_m": 2.5,
+    "silhouette_error_px_at_swap": 2,
+    "note": "G4 missed by this factor at the swap; the dithered cross-fade hides it; logged in the frame stats"
+   }
+  ],
+  "gate_status": "G4 holds only at b = 1; below that the swap is cross-faded and the gate is NOT met (stated, not hidden)"
+ },
+ "textures": {
+  "bytes_raw_MB": 12,
+  "bytes_bc7_MB": 3,
+  "layers": 18,
+  "note": "procedural material array (texmaps.json): well inside the PLAN G15 texture lines; per-kit 2048 albedo maps and commander faces are separate (owner art)",
+  "round3": {
+   "hair_card_atlas": {
+    "variants": 8,
+    "size": [
+     256,
+     512
+    ],
+    "raw_MB": 5.33,
+    "bc7_MB": 1.33
+   },
+   "head_skin_maps_crowd_24_heads_512x256": {
+    "raw_MB": 33.3,
+    "bc7_MB": 8.33
+   },
+   "head_skin_maps_hero_each_1024x512": {
+    "raw_MB": 2.8,
+    "bc7_MB": 0.7
+   },
+   "total_bc7_MB_with_material_array": 12.7,
+   "line": "PLAN G15 near-body line 14 MB: fits with 1.3 MB spare; the hero heads stream; the vertex wrinkle and coverage bytes add no bytes (the flag byte existed)",
+   "status": "MODELLED from the layer sizes (data/figures3d/hair-cards.json, head-maps.json); not measured on a GPU"
+  }
+ },
+ "bytes": {
+  "parts_bin_MB": 44.1,
+  "vertex_B": 32,
+  "instance_record_B": 16,
+  "instance_buffer_MB_125k": 1.91,
+  "variant_row_B": 80,
+  "outfit_variants_in_kit_sample": 8348,
+  "variant_table_MB_if_all_resident": 0.64,
+  "lod_bytes_MB": [
+   33.77,
+   1.62,
+   0.65
+  ],
+  "mid_composites_MB": 13.04,
+  "impostor_atlas_RGBA8_MB": 20.53,
+  "impostor_atlas_BC7_MB": 5.13,
+  "bone_matrix_clips": "ANIMATION owns this: 600 clips x 180 frames x 60 bones x 3 texels x 8 B = 156 MB (PLAN G15); the mid skeleton has 36 bones: 94 MB",
+  "human_part_ids": 273
+ },
+ "draw_calls": {
+  "near": "near figures draw their parts instanced by part id: at most one draw per distinct part id in the near list; the near list is at most 1,536 figures, a typical dense unit uses 60-120 distinct ids (24 heads + hair + coats + trousers + hats + arms); WebGPU multi-draw-indirect reduces these to 2-3 submissions",
+  "mid": "one instanced draw per silhouette class present in the mid radius (351 classes exist in the kit-wide sample; the PLAN shots saw 2,000-4,800 mid figures from a few dozen units: expect 20-80 classes) plus one per accessory class (22)",
+  "far": "1 instanced quad draw for all impostor classes (atlas indexed by class) and the sub-7-px dab pass",
+  "frame_total_estimate": "100-250 draw calls on WebGL2, under 10 submissions with multi-draw-indirect on WebGPU (Modelled)"
+ },
+ "mobile": {
+  "status": "MODELLED: no mobile GPU was measured (the PLAN lists mobile GPUs as not measured); the factors below are the largest slowdown against the Arc Pro 140T iGPU that the model tolerates, not predictions of any phone",
+  "model": "figure_ms(device) = figure_ms(Arc) x slowdown; budget = the 7 ms the PLAN leaves for characters at 60 fps (section 3.4)",
+  "far_impostor_pass_ms_on_arc_125k": 1.8,
+  "fixed_radius_lod_prototype_radii": {
+   "figure_ms_on_arc_line_shot": 10.79,
+   "max_slowdown_for_7ms": 0.65,
+   "note": "LOD radii of the prototype (near 40 m, mid 300 m) with these meshes: the design the PLAN replaces"
+  },
+  "screen_space_error_lod": {
+   "figure_ms_on_arc_dense_formation": 2.6,
+   "max_slowdown_for_7ms": 2.69,
+   "note": "the PLAN rule (section 3.4): geometry is resolution-bound; this is the shipped LOD policy"
+  },
+  "levers": [
+   "frame-time governor moves the LOD distances and the resolution scale, never the content or the figure count (PLAN G1 path 5)",
+   "LOD0 radius 0 removes the near cost entirely (all figures use LOD1/LOD2/impostor)",
+   "impostor-only beyond 13 m cuts the mid list to the 5-13 m band"
+  ],
+  "lod_budget_rule": "no figure count is capped: all 125,000 figures draw every frame (impostors); only the distance at which a richer mesh is used moves"
+ },
+ "g1_gate": {
+  "target": "60 fps with p99 <= 16.7 ms at 1080p on the iGPU, 4K on the dGPU; CPU <= 8 ms at 4x throttle",
+  "figure_budget_ms": "the PLAN leaves about 7 ms of the 16.7 ms for characters on the Arc iGPU (section 3.4)",
+  "status": "ON PAPER ONLY: verification list item 1 measures it"
+ },
+ "limits": [
+  "the near/mid counts are the prototype's (165,000-soldier world); with 125,000 figures they are an upper bound",
+  "vertex skinning cost for the 60-bone near list is the prototype's measured CPU pose + FK (1.84 us per figure) and is not changed by the meshes",
+  "the prototype's per-figure pass (shadow casters) is included in the slope because the slope is fitted to the pass sum",
+  "the face, hair and eye materials need a second shading path (SSS lite, eye gloss): not in the prototype, cost Unknown until built"
+ ]
+}

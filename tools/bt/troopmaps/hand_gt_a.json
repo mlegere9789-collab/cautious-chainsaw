@@ -1,0 +1,72 @@
+{
+ "sheet": "a",
+ "scan": "cw0325000a.jp2 (Bachelder 1876 sheet 1, First day's battle; LOC 99447491)",
+ "method": "Each ground-truth feature (gt_j1.json: 2023 Adams County building outline bbox centre of a surviving building, or Warren GCP with modern ground truth) was located by eye in 4x-4.5x crops (gtmont.py) centred on the position predicted by the chain of record plus a coarse shift, tick grid 20 px; px = predicted + shift + read offset. Reading precision about 5 px (building symbols are schematic squares 8-20 px wide).",
+ "points": [
+  {
+   "gt": "STR-TOWN-SCHMUCKER_HALL",
+   "scan_px": [
+    3883,
+    3737
+   ],
+   "sigma_read_px": 8,
+   "note": "black B block immediately right of the printed 'LUTH. T. SEM.'; shift (0,-134), read (-2,0) | EXCLUDED: identification ambiguous (the printed S.S. SCHMUCKER block 157 px south is the alternative; relative to the Chambersburg Pike the 367 m GT distance favours the southern block); not used",
+   "use": false
+  },
+  {
+   "gt": "STR-TOWN-PENN_HALL",
+   "scan_px": [
+    4717,
+    3414
+   ],
+   "sigma_read_px": 6,
+   "note": "large black block in the Pennsylvania College grounds (label 'COLLEGE'); shift (-6,-69), read (0,+1)"
+  },
+  {
+   "gt": "STR-MCLEAN-BARN1",
+   "scan_px": [
+    4154,
+    2275
+   ],
+   "sigma_read_px": 8,
+   "note": "lower of the two W symbols beside the printed 'M. McLEAN' (assignment barn/house by the 24 m E, 53 m N relative position of the house)"
+  },
+  {
+   "gt": "STR-MCLEAN-HOUSE1",
+   "scan_px": [
+    4164,
+    2215
+   ],
+   "sigma_read_px": 8,
+   "note": "upper symbol with fenced yard"
+  },
+  {
+   "gt": "STR-TOWN-BLACK_HORSE_TAVERN",
+   "scan_px": [
+    582,
+    5284
+   ],
+   "sigma_read_px": 15,
+   "note": "S-lettered block beside printed 'BLACK HO[RSE]'; two candidate symbols 25 px apart | EXCLUDED: two candidate symbols, west edge of sheet; not used",
+   "use": false
+  },
+  {
+   "gt": "W014",
+   "scan_px": [
+    6154,
+    3843
+   ],
+   "sigma_read_px": 6,
+   "note": "Hanover Rd bridge deck over Rock Creek"
+  },
+  {
+   "gt": "W015",
+   "scan_px": [
+    5981,
+    3438
+   ],
+   "sigma_read_px": 6,
+   "note": "York Pike bridge deck over Rock Creek"
+  }
+ ]
+}

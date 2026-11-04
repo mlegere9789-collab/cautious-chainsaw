@@ -100,7 +100,8 @@ suite.test('T0-R0-03', 'first visit: one Mapbox sku, one style request (one map 
   assert(tileReqs > 0, 'no Mapbox requests were observed (the map never loaded)');
   assertEq([...S.tileStats.referers], [REFERER], 'Referer on Mapbox requests');
   assertEq(skus.length, 1, 'distinct Mapbox sku values');
-  assertEq(styles, 1, 'style requests');
+  // BASE1863 (group of train R1d) draws the main map from an inline style and its own tiles: the app asks Mapbox for NO style (only for glyphs); every other tree asks for exactly one
+  assertEq(styles, VERSION && (VERSION.groups || []).includes('BASE1863') ? 0 : 1, 'style requests');
 });
 
 suite.test('T0-R0-12', 'phone viewport (375x812, touch emulation): one Document, controller without navigation, no exceptions (X1 mobile; one-sku on phones is a T0-MOB gate)', async (t) => {

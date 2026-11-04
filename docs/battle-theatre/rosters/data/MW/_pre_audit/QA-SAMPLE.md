@@ -1,0 +1,10 @@
+# QA sample, family MW (30 Oct 2026, by the builder, not independent)
+
+Pages compared with the page image: Indiana 14th Infantry IA djvu 288 (book p.280; recruits of Company D, first 14 rows), Illinois 82nd Infantry djvu 116 (book p.110; Company E tail and Company F, 14 rows), Minnesota 1st Infantry djvu 74 (book p.54; Company C, 14 rows). 42 rows in all.
+
+Findings
+* Indiana (14 rows): 11 fully right (name, residence, date, remark, label). 3 problems: the first printed row (Adams, Eli) is absent from the parsed page rows (assigned elsewhere or lost); two printed rows (Gainey, Edward B and Gainey, John M) were merged into one parsed row; one name garbled by OCR (Gainey, Wesley S read as a bullet plus rainey); one remark line (Died Lynchburg, Va., prison, Sept. '62) missing from the OCR layer, so a man who should be Absent-Documented is Unknown (weaker, not opposite).
+* Illinois (14 rows): 0 wrong names, dates or labels. The source itself prints "May 28,1963" for a discharge (Capt. Webber): left Unknown. Officer rows carry the rank heading glued into the name in places.
+* Minnesota (14 rows): 2 names lost by OCR (Miller, Samuel L; Mortimer, George F: kept with an empty name). 1 hard label defect found and FIXED: McCausland, Andrew has "discharged for disability" with the date only in the Mustered-Out column (Jan. 8, '63); the first build labelled him Unknown. The builder now uses the Mustered-Out column (rule SEP-BEFORE); all Minnesota rows were rebuilt. Rows shown as Wounded/Killed at Gettysburg were Present-Documented as printed.
+* No row of the sample received a false Present-Documented or a false Absent-Documented label. Under-labelled rows (Unknown where the page supports a firmer label): 2 of 42. Row-structure errors: 3 of 42 (merge, loss, bad name). These counts are far too small to test the 99 percent gates of PLAN 4.3; R-G1, R-G2, R-G3 are not demonstrated.
+* Because the Minnesota defect was fixed after sampling, only fresh pages count for the next test (PLAN 4.4).

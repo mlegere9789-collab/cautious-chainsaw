@@ -23,8 +23,9 @@ def draw_roads(win, img, items, prov, conf):
     groups = {}
     for it in hit(items['roads'], win):
         groups.setdefault((it['width'], it['subtype'].startswith('turnpike')), []).append(it)
-    for (w, pike), its in groups.items():
-        a, d = R.ribbon_alpha(win, [i['geom'] for i in its], w, seed=int(w * 10))
+    for (w_class, pike), its in groups.items():
+        w = max(w_class - 1.0, 1.5)       # pass 2 measured the drawn extent (ribbon, soft edge and verge shading, all labelled ROAD_ADDED) 1.6 to 2.3 m wider than the class width (drawn 4.6, 6.9, 8.8 m for 3.0, 4.5, 6.5 m); the verge shading is dropped and the ribbon narrowed by 1 m so that the labelled extent equals the class width
+        a, d = R.ribbon_alpha(win, [i['geom'] for i in its], w, seed=int(w_class * 10))
         if a.max() <= 0:
             continue
         base = R.ROAD_MACADAM if pike else R.ROAD_DIRT
@@ -41,8 +42,7 @@ def draw_roads(win, img, items, prov, conf):
         # the road replaces the ground: keep a little of the ground texture underneath (dust, stones) so the ribbon is not a flat decal
         aa = np.clip(a * 0.96, 0, 1)[..., None]
         # verge: the ground just outside the ribbon is slightly darker and greener (drainage ditch, compacted edge)
-        verge = np.clip(1 - (d - w / 2) / 1.3, 0, 1) * (d > w / 2 - 0.2) * (1 - a)
-        img[...] = (img * (1 - 0.06 * verge[..., None])) * (1 - aa) + col * aa
+        img[...] = img * (1 - aa) + col * aa
         cf = 1 if all(i['conf'] == 'Documented' for i in its) else 2
         _put(prov, conf, a > 0.35, P_ROAD, cf)
 
@@ -138,7 +138,9 @@ def draw_fences(win, img, items, prov, conf):
     img[...] = img * (1 - 0.5 * a[..., None]) + col * 0.5 * a[..., None]
     _put(prov, conf, a > 0.2, P_FENCE, 2)
 
-ROOF = {'shingle': np.array([126.0, 120.0, 112.0]), 'slate': np.array([104.0, 107.0, 113.0]), 'brick_roof': np.array([128.0, 116.0, 108.0]), 'tin': np.array([152.0, 152.0, 150.0])}
+# roof tones: weathered wood shingle, slate, tin, brick-red shingle, at the brightness of the roofs of the photograph (k-means of the mean colour of 3000 rural roofs of the 2013 NAIP: grey clusters
+# 158, 177, 200, 226 and green-grey 133,140,134; the earlier palette of 105-128 was darker than every real roof and read as brown blobs; tmp/b1863/fix/roof_stats.py)
+ROOF = {'shingle': np.array([160.0, 157.0, 150.0]), 'slate': np.array([134.0, 138.0, 140.0]), 'brick_roof': np.array([158.0, 142.0, 132.0]), 'tin': np.array([196.0, 197.0, 193.0])}
 HEIGHT = {'farmhouse': 8.0, 'house': 7.0, 'barn': 11.0, 'bank_barn': 12.0, 'building': 5.5, 'outbuilding': 4.5, 'institutional': 10.0, 'log_building': 4.5, 'farmstead': 7.0, 'stable': 6.0, 'smokehouse': 3.5, 'wagon_shed': 5.0}
 
 def _footprint(it, roads):

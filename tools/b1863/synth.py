@@ -76,7 +76,21 @@ def parcel_guide(h, w, org, bank, cell=26.0):
             best = np.where(sel, dd, best); cid = np.where(sel, (jx * 1000003 + jy) & 0x7FFFFFFF, cid)
     pick = ((cid * 2654435761) & 0xFFFFFFFF) % len(bank.feat)
     f = bank.feat[pick]
-    return f[..., :3].astype(np.float32), (f[..., 3] / 3.0).astype(np.float32)
+    return f[..., :3].astype(np.float32), (f[..., 3] / 3.0).astype(np.float32), cid
+
+def parcel_tone(out, m, cid):
+    """each parcel of the town ground gets its own tone: lot and yard ground is lawn in one lot, dusty bare earth in the next, garden or hay in a third; the quilting alone follows its overlap error from block to block and
+    flattens this to one lawn (pass 7: the Lab a variance of the town ground was 19 percent of that of photographed open ground, 60 percent needed). Offsets are drawn per parcel (hash of the global parcel id:
+    +-8 L, +-8 a, +-6 b in 8-bit Lab, uniform) so that the spread equals that of the real ground (a std 7.4, b std 4.2 on 60 random 512 px windows of open ground of the photograph)."""
+    u1 = (((cid * 2654435761) & 0xFFFF) / 65535.0 - 0.5) * 2; u2 = (((cid * 40503 + 7) * 2246822519 & 0xFFFF) / 65535.0 - 0.5) * 2; u3 = (((cid * 69069 + 3) * 3266489917 & 0xFFFF) / 65535.0 - 0.5) * 2
+    off = np.stack([u1 * 8.0, u2 * 8.0, u3 * 6.0], -1).astype(np.float32)
+    off = cv2.GaussianBlur(off, (0, 0), 1.2)
+    lab = cv2.cvtColor(np.clip(out, 0, 255).astype(np.uint8), cv2.COLOR_RGB2LAB).astype(np.float32)
+    lab[m] = np.clip(lab[m] + off[m], 0, 255)
+    rgb = cv2.cvtColor(lab.astype(np.uint8), cv2.COLOR_LAB2RGB).astype(np.float32)
+    res = out.copy()
+    res[m] = rgb[m]
+    return res
 
 def synthesize(img, tg, lc, rem, add, canopy, banks, surv=None, seed=1863, veg=None, org=(0, 0)):
     """img uint8 (h,w,3) (stage-20 image). tg target map (0/1/2/5/7), lc land cover, rem/add change maps, canopy 1 m modern canopy (0/1).
@@ -128,11 +142,13 @@ def synthesize(img, tg, lc, rem, add, canopy, banks, surv=None, seed=1863, veg=N
         m |= mask
         tx = tex_map(out, known, default=float(np.median(bank.tex)))
         if kind == 'town':
-            pg, pt = parcel_guide(h, w, org, bank)
+            pg, pt, pcid = parcel_guide(h, w, org, bank)
             g = 0.25 * g + 0.75 * pg          # the parcel colour leads, the surroundings keep a quarter (no step at the edge of the town zone)
             tx = 0.3 * tx + 0.7 * pt
         Q.quilt(out, m, bank, g, guide_tex=tx, ov=6, seed=seed + clsv + (7 if kind == 'town' else 0))
         out = Q.boundary_match(out, m, sigma=10.0)
+        if kind == 'town':
+            out = parcel_tone(out, m, pcid)
         cls[m] = clsv
     cls[town & (cls == 1)] = 4
     cls[(add == 2) & (cls == 0)] = 3

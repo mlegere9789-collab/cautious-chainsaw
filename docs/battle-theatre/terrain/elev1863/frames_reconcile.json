@@ -1,0 +1,919 @@
+{
+ "what": "Reconciliation of the two Warren px->UTM frames in the b1863 build (PDF B.9.2 step 3 needs one frame)",
+ "frames": {
+  "affine": "docs/basemap1863/maps/transforms/warren-1869.json (23 GCPs, structures/roads layers)",
+  "ffd": "docs/basemap1863/features/landcover/scripts/chamfer_fit.json + ffd_fit.json (road chamfer fit, land-cover layers)"
+ },
+ "disagreement_ffd_minus_affine_over_sheet": {
+  "n_grid_points": 30744,
+  "median_m": 61.153567989290096,
+  "mean_m": 70.65069210924797,
+  "p90_m": 143.75443786692114,
+  "p95_m": 160.744601686663,
+  "max_m": 203.0203327775251,
+  "mean_vector_E_N_m": [
+   -17.020267840259866,
+   -41.65918107872062
+  ]
+ },
+ "disagreement_by_region": {
+  "NW": {
+   "n": 5964,
+   "median_m": 130.05129757161282,
+   "p95_m": 182.58573146613435,
+   "max_m": 203.0203327775251,
+   "mean_vector_E_N_m": [
+    -60.44654395335191,
+    -113.94603712044876
+   ]
+  },
+  "NE": {
+   "n": 5964,
+   "median_m": 30.323208896008634,
+   "p95_m": 66.370655110496,
+   "max_m": 86.19064886881584,
+   "mean_vector_E_N_m": [
+    2.944602123427114,
+    -16.756558180454522
+   ]
+  },
+  "town_band": {
+   "n": 4032,
+   "median_m": 63.09017192847934,
+   "p95_m": 160.19036706075747,
+   "max_m": 175.03014048124766,
+   "mean_vector_E_N_m": [
+    -14.351224007532293,
+    -47.4063748346188
+   ]
+  },
+  "SW": {
+   "n": 7392,
+   "median_m": 80.03770054818173,
+   "p95_m": 144.2840719228139,
+   "max_m": 167.4303789379645,
+   "mean_vector_E_N_m": [
+    -44.853464860875896,
+    -66.71530533179974
+   ]
+  },
+  "SE": {
+   "n": 7392,
+   "median_m": 39.00149966809237,
+   "p95_m": 83.75384955371545,
+   "max_m": 98.25321072276627,
+   "mean_vector_E_N_m": [
+    28.28617614213839,
+    24.76223696377801
+   ]
+  },
+  "south_of_town_all": {
+   "n": 18144,
+   "median_m": 57.99203417323038,
+   "p95_m": 140.56020392839315,
+   "max_m": 174.0361894075658,
+   "mean_vector_E_N_m": [
+    -9.324031344339502,
+    -25.68826205504926
+   ]
+  }
+ },
+ "control_points": {
+  "n_points": 25,
+  "affine_rms_all_m": 21.249323393787705,
+  "ffd_rms_all_m": 29.62601009963906,
+  "affine_median_all_m": 12.07518583659763,
+  "ffd_median_all_m": 26.786472134719148,
+  "affine_rms_without_F006_F007_m": 13.894235198305662,
+  "ffd_rms_without_F006_F007_m": 26.383951185445206,
+  "affine_leave_one_out_rms_m_from_json": 16.476985924382742,
+  "note": "the affine was FITTED to these points (in-sample here; its stored leave-one-out figure is the fair comparison, 16.5 m). The FFD was fitted to modern road centrelines and never saw these points, so its error here is out-of-sample.",
+  "points": [
+   {
+    "id": "W001",
+    "name": "Culp's Hill summit",
+    "kind": "summit",
+    "affine_err_E_N_m": [
+     1.2859311101492494,
+     -12.64448248129338
+    ],
+    "affine_err_m": 12.70970322390672,
+    "ffd_err_E_N_m": [
+     19.320605572138447,
+     -9.276485124602914
+    ],
+    "ffd_err_m": 21.432194846564975
+   },
+   {
+    "id": "W010",
+    "name": "Peach Orchard crossroads (Emmitsburg Rd x Millerstown/Wheatfield Rd)",
+    "kind": "road-junction",
+    "affine_err_E_N_m": [
+     18.412000690412242,
+     2.572349145077169
+    ],
+    "affine_err_m": 18.590824337503705,
+    "ffd_err_E_N_m": [
+     -0.8664767544250935,
+     -29.005476580932736
+    ],
+    "ffd_err_m": 29.01841576745699
+   },
+   {
+    "id": "W011",
+    "name": "Baltimore St x South St",
+    "kind": "road-junction",
+    "affine_err_E_N_m": [
+     -3.2978288552258164,
+     -10.922374186106026
+    ],
+    "affine_err_m": 11.409379168897635,
+    "ffd_err_E_N_m": [
+     -3.0960037221666425,
+     -36.29833211097866
+    ],
+    "ffd_err_m": 36.430126997947376
+   },
+   {
+    "id": "W012",
+    "name": "Baltimore St / Steinwehr Ave fork (Cemetery Hill foot)",
+    "kind": "road-junction",
+    "affine_err_E_N_m": [
+     -2.228867196419742,
+     1.4160307450219989
+    ],
+    "affine_err_m": 2.6406423555876626,
+    "ffd_err_E_N_m": [
+     -0.9724543226184323,
+     -22.0598974339664
+    ],
+    "ffd_err_m": 22.08132111551971
+   },
+   {
+    "id": "W013",
+    "name": "Taneytown Rd x Wheatfield Rd",
+    "kind": "road-junction",
+    "affine_err_E_N_m": [
+     -6.613499722501729,
+     -12.026966386474669
+    ],
+    "affine_err_m": 13.725388848441488,
+    "ffd_err_E_N_m": [
+     6.224675414967351,
+     -3.636346430517733
+    ],
+    "ffd_err_m": 7.2089943393262566
+   },
+   {
+    "id": "W014",
+    "name": "Hanover Rd bridge over Rock Creek",
+    "kind": "bridge",
+    "affine_err_E_N_m": [
+     15.304455647943541,
+     12.901119814254344
+    ],
+    "affine_err_m": 20.016624469216005,
+    "ffd_err_E_N_m": [
+     25.505269906832837,
+     8.185126535594463
+    ],
+    "ffd_err_m": 26.786472134719148
+   },
+   {
+    "id": "W015",
+    "name": "York Pike bridge over Rock Creek",
+    "kind": "bridge",
+    "affine_err_E_N_m": [
+     10.556138814252336,
+     25.438218678347766
+    ],
+    "affine_err_m": 27.54151477666408,
+    "ffd_err_E_N_m": [
+     15.453190560510848,
+     13.242007410153747
+    ],
+    "ffd_err_m": 20.350721332425252
+   },
+   {
+    "id": "W016",
+    "name": "Hill summit W of Plum Run (DEM S160)",
+    "kind": "summit",
+    "affine_err_E_N_m": [
+     12.188842770119663,
+     -5.178000307641923
+    ],
+    "affine_err_m": 13.243095380636593,
+    "ffd_err_E_N_m": [
+     -1.7989707769011147,
+     -13.882560753263533
+    ],
+    "ffd_err_m": 13.998635252202165
+   },
+   {
+    "id": "W017",
+    "name": "Hill summit E of Devil's Den (DEM S149)",
+    "kind": "summit",
+    "affine_err_E_N_m": [
+     9.122161522624083,
+     4.236926447600126
+    ],
+    "affine_err_m": 10.058100047584372,
+    "ffd_err_E_N_m": [
+     4.917738650343381,
+     0.27776920702308416
+    ],
+    "ffd_err_m": 4.925577038830209
+   },
+   {
+    "id": "F001",
+    "name": "Sherfy house",
+    "kind": "farm-building",
+    "affine_err_E_N_m": [
+     -0.27641076617874205,
+     -1.1003836747258902
+    ],
+    "affine_err_m": 1.1345691443287065,
+    "ffd_err_E_N_m": [
+     -18.66254163265694,
+     -33.79389715567231
+    ],
+    "ffd_err_m": 38.604636316883116
+   },
+   {
+    "id": "F002",
+    "name": "Sherfy barn",
+    "kind": "farm-building",
+    "affine_err_E_N_m": [
+     9.114016656007152,
+     0.8912984766066074
+    ],
+    "affine_err_m": 9.157494885632044,
+    "ffd_err_E_N_m": [
+     -9.090044508164283,
+     -30.882996398955584
+    ],
+    "ffd_err_m": 32.19298643708457
+   },
+   {
+    "id": "F003",
+    "name": "Trostle barn",
+    "kind": "farm-building",
+    "affine_err_E_N_m": [
+     0.5738283622195013,
+     -14.077113028615713
+    ],
+    "affine_err_m": 14.088803718190901,
+    "ffd_err_E_N_m": [
+     -6.29443414718844,
+     -31.775047580711544
+    ],
+    "ffd_err_m": 32.392492185532355
+   },
+   {
+    "id": "F004",
+    "name": "Trostle house",
+    "kind": "farm-building",
+    "affine_err_E_N_m": [
+     -6.073751343006734,
+     1.6165685094892979
+    ],
+    "affine_err_m": 6.285200802086481,
+    "ffd_err_E_N_m": [
+     -12.272267448774073,
+     -15.05181445647031
+    ],
+    "ffd_err_m": 19.420753506654894
+   },
+   {
+    "id": "F005",
+    "name": "Rose house",
+    "kind": "farm-building",
+    "affine_err_E_N_m": [
+     -7.2814278221921995,
+     17.444850077852607
+    ],
+    "affine_err_m": 18.903491353941703,
+    "ffd_err_E_N_m": [
+     -25.276437428896315,
+     -7.8103919848799706
+    ],
+    "ffd_err_m": 26.45563289839024
+   },
+   {
+    "id": "F006",
+    "name": "J. Weikert house A",
+    "kind": "farm-building",
+    "affine_err_E_N_m": [
+     -59.10247710859403,
+     31.04793273564428
+    ],
+    "affine_err_m": 66.76134306265095,
+    "ffd_err_E_N_m": [
+     -57.701218089147005,
+     24.797029115259647
+    ],
+    "ffd_err_m": 62.80384719039384
+   },
+   {
+    "id": "F007",
+    "name": "J. Weikert house B",
+    "kind": "farm-building",
+    "affine_err_E_N_m": [
+     -43.544930452189874,
+     22.24771834537387
+    ],
+    "affine_err_m": 48.89909957924725,
+    "ffd_err_E_N_m": [
+     -41.177094561455306,
+     17.0891567543149
+    ],
+    "ffd_err_m": 44.58242249022117
+   },
+   {
+    "id": "F008",
+    "name": "Hummelbaugh farm building",
+    "kind": "farm-building",
+    "affine_err_E_N_m": [
+     -0.9837116208509542,
+     2.103121287189424
+    ],
+    "affine_err_m": 2.321811297592143,
+    "ffd_err_E_N_m": [
+     7.543694520834833,
+     -2.410513867624104
+    ],
+    "ffd_err_m": 7.919463626387939
+   },
+   {
+    "id": "F009",
+    "name": "S. Patterson house",
+    "kind": "farm-building",
+    "affine_err_E_N_m": [
+     9.998928507091478,
+     -1.8651186423376203
+    ],
+    "affine_err_m": 10.171393161210608,
+    "ffd_err_E_N_m": [
+     27.618401227868162,
+     8.067923737689853
+    ],
+    "ffd_err_m": 28.772686350438136
+   },
+   {
+    "id": "T101",
+    "name": "Baltimore St x 1st E-W alley N of Middle St",
+    "kind": "road-junction",
+    "affine_err_E_N_m": [
+     -10.141414891579188,
+     -6.554526450112462
+    ],
+    "affine_err_m": 12.07518583659763,
+    "ffd_err_E_N_m": [
+     -13.48639221675694,
+     -37.656907860189676
+    ],
+    "ffd_err_m": 39.99906854684265
+   },
+   {
+    "id": "T102",
+    "name": "Baltimore St x Middle St",
+    "kind": "road-junction",
+    "affine_err_E_N_m": [
+     -10.426721506519243,
+     -6.265865873545408
+    ],
+    "affine_err_m": 12.164604248382759,
+    "ffd_err_E_N_m": [
+     -13.328715673997067,
+     -36.704341696575284
+    ],
+    "ffd_err_m": 39.04949885590352
+   },
+   {
+    "id": "T103",
+    "name": "Baltimore St x Legion Alley",
+    "kind": "road-junction",
+    "affine_err_E_N_m": [
+     -7.981427633319981,
+     -5.7082260167226195
+    ],
+    "affine_err_m": 9.812595544702368,
+    "ffd_err_E_N_m": [
+     -10.434344591805711,
+     -35.471246963366866
+    ],
+    "ffd_err_m": 36.97411132396164
+   },
+   {
+    "id": "F010",
+    "name": "Leister house",
+    "kind": "farm-building",
+    "affine_err_E_N_m": [
+     0.08850320026976988,
+     -1.1526015410199761
+    ],
+    "affine_err_m": 1.155994432867051,
+    "ffd_err_E_N_m": [
+     5.730560288822744,
+     -13.459181292913854
+    ],
+    "ffd_err_m": 14.628358838207193
+   },
+   {
+    "id": "W004",
+    "name": "Big Round Top summit",
+    "kind": "summit",
+    "affine_err_E_N_m": [
+     -25.02716550050536,
+     17.5141953965649
+    ],
+    "affine_err_m": 30.54678466514505,
+    "ffd_err_E_N_m": [
+     -27.031514256668743,
+     18.154957390390337
+    ],
+    "ffd_err_m": 32.5623285539498
+   },
+   {
+    "id": "W003",
+    "name": "Little Round Top summit",
+    "kind": "summit",
+    "affine_err_E_N_m": [
+     -3.5471083614975214,
+     -4.714846500195563
+    ],
+    "affine_err_m": 5.900148748007289,
+    "ffd_err_E_N_m": [
+     0.2558477742713876,
+     -3.555266048759222
+    ],
+    "ffd_err_m": 3.564459953633879
+   },
+   {
+    "id": "W002",
+    "name": "Stevens Knoll summit",
+    "kind": "summit",
+    "affine_err_E_N_m": [
+     -2.765472066181246,
+     -3.9241735422983766
+    ],
+    "affine_err_m": 4.800726376175105,
+    "ffd_err_E_N_m": [
+     10.625646569649689,
+     -7.42840647418052
+    ],
+    "ffd_err_m": 12.96478259627809
+   }
+  ]
+ },
+ "road_line_points": {
+  "n": 6,
+  "affine_rms_m": 13.894201762279204,
+  "ffd_rms_m": 19.593166650479283,
+  "points": [
+   {
+    "id": "L001",
+    "road": "Emmitsburg Rd",
+    "affine_dist_to_modern_centreline_m": 2.0438421824149695,
+    "ffd_dist_to_modern_centreline_m": 14.18472650027367
+   },
+   {
+    "id": "L002",
+    "road": "Emmitsburg Rd",
+    "affine_dist_to_modern_centreline_m": 0.866801064866749,
+    "ffd_dist_to_modern_centreline_m": 2.8601667125520707
+   },
+   {
+    "id": "L003",
+    "road": "Emmitsburg Rd",
+    "affine_dist_to_modern_centreline_m": 2.9995199378942248,
+    "ffd_dist_to_modern_centreline_m": 16.119835008903024
+   },
+   {
+    "id": "L004",
+    "road": "Taneytown Rd",
+    "affine_dist_to_modern_centreline_m": 18.127375100973623,
+    "ffd_dist_to_modern_centreline_m": 5.020371497361795
+   },
+   {
+    "id": "L005",
+    "road": "Taneytown Rd",
+    "affine_dist_to_modern_centreline_m": 28.048270797832153,
+    "ffd_dist_to_modern_centreline_m": 15.546682610054205
+   },
+   {
+    "id": "L006",
+    "road": "Baltimore Pike",
+    "affine_dist_to_modern_centreline_m": 5.390740028522526,
+    "ffd_dist_to_modern_centreline_m": 39.58804751419327
+   }
+  ],
+  "note": "only 6 points; the b1863 check 2 used 45 coherent road runs (verification/check2-georeference.md section 4): affine 17.1 m rms, ffd 11.1 m rms (ffd was fitted to roads, so in-sample)"
+ },
+ "b1863_check2_reported": {
+  "affine_vs_ffd_on_45_road_runs": "rms 32.8, median 24.5, max 113 m, mean (-4.1, -22.3) m",
+  "source": "docs/basemap1863/verification/check2-georeference.md section 4"
+ },
+ "coherence": {
+  "affine": {
+   "n_fragments": 7560,
+   "median_along_contour_sd_m": 0.8803222607537793,
+   "length_weighted_mean_var_m2": 8.149511186549157,
+   "rms_along_contour_sd_m": 2.85473487149843,
+   "p90_sd_m": 2.4067024895921953,
+   "regional_best_shift_median_m": 49.47726750741192,
+   "regional_best_shift_p90_m": 67.88225099390856,
+   "median_variance_reduction_by_best_shift": 0.34914418360987554,
+   "n_cells": 25
+  },
+  "ffd": {
+   "n_fragments": 7560,
+   "median_along_contour_sd_m": 0.7497349319377529,
+   "length_weighted_mean_var_m2": 7.041774129162333,
+   "rms_along_contour_sd_m": 2.6536341362671556,
+   "p90_sd_m": 1.8604560532605694,
+   "regional_best_shift_median_m": 30.0,
+   "regional_best_shift_p90_m": 54.60791271630608,
+   "median_variance_reduction_by_best_shift": 0.1575284184624387,
+   "n_cells": 25
+  },
+  "share_of_fragments_where_affine_has_lower_variance": 0.38531746031746034,
+  "regional_best_shifts": {
+   "affine": {
+    "0": {
+     "n_pts": 9753,
+     "var_at_zero_shift_m2": 1.984262973236656,
+     "best_var_m2": 1.4512054619521195,
+     "best_shift_E_m": -12,
+     "best_shift_N_m": -48
+    },
+    "1": {
+     "n_pts": 16268,
+     "var_at_zero_shift_m2": 3.042946633052533,
+     "best_var_m2": 1.652582512726985,
+     "best_shift_E_m": 18,
+     "best_shift_N_m": -48
+    },
+    "2": {
+     "n_pts": 11425,
+     "var_at_zero_shift_m2": 2.511479150210988,
+     "best_var_m2": 1.5185456055878113,
+     "best_shift_E_m": -18,
+     "best_shift_N_m": -48
+    },
+    "3": {
+     "n_pts": 10775,
+     "var_at_zero_shift_m2": 0.7851298273118384,
+     "best_var_m2": 0.7743180937975854,
+     "best_shift_E_m": 12,
+     "best_shift_N_m": 6
+    },
+    "4": {
+     "n_pts": 2300,
+     "var_at_zero_shift_m2": 1.7554159231156743,
+     "best_var_m2": 1.1438860343754746,
+     "best_shift_E_m": 30,
+     "best_shift_N_m": 36
+    },
+    "10": {
+     "n_pts": 17346,
+     "var_at_zero_shift_m2": 1.7472818442650189,
+     "best_var_m2": 1.369648349326527,
+     "best_shift_E_m": 0,
+     "best_shift_N_m": -48
+    },
+    "11": {
+     "n_pts": 22882,
+     "var_at_zero_shift_m2": 3.1229824896282654,
+     "best_var_m2": 2.032611317859068,
+     "best_shift_E_m": -18,
+     "best_shift_N_m": -48
+    },
+    "12": {
+     "n_pts": 18572,
+     "var_at_zero_shift_m2": 0.983193876695203,
+     "best_var_m2": 0.7617401512232724,
+     "best_shift_E_m": -6,
+     "best_shift_N_m": -48
+    },
+    "13": {
+     "n_pts": 24586,
+     "var_at_zero_shift_m2": 1.2908127744895728,
+     "best_var_m2": 1.0340657692107895,
+     "best_shift_E_m": 24,
+     "best_shift_N_m": 24
+    },
+    "14": {
+     "n_pts": 5698,
+     "var_at_zero_shift_m2": 3.62330794895207,
+     "best_var_m2": 2.045507333149394,
+     "best_shift_E_m": 48,
+     "best_shift_N_m": 6
+    },
+    "20": {
+     "n_pts": 19621,
+     "var_at_zero_shift_m2": 5.4671131178768695,
+     "best_var_m2": 3.094493643700202,
+     "best_shift_E_m": -48,
+     "best_shift_N_m": -48
+    },
+    "21": {
+     "n_pts": 24694,
+     "var_at_zero_shift_m2": 2.0604146151485496,
+     "best_var_m2": 1.1342076420715173,
+     "best_shift_E_m": -42,
+     "best_shift_N_m": -48
+    },
+    "22": {
+     "n_pts": 23308,
+     "var_at_zero_shift_m2": 1.039062454567645,
+     "best_var_m2": 0.989188539235622,
+     "best_shift_E_m": 0,
+     "best_shift_N_m": -12
+    },
+    "23": {
+     "n_pts": 25627,
+     "var_at_zero_shift_m2": 3.1186954232197155,
+     "best_var_m2": 2.406163189407873,
+     "best_shift_E_m": 18,
+     "best_shift_N_m": 36
+    },
+    "24": {
+     "n_pts": 4095,
+     "var_at_zero_shift_m2": 3.126732940435103,
+     "best_var_m2": 1.7527925718477197,
+     "best_shift_E_m": 42,
+     "best_shift_N_m": 48
+    },
+    "30": {
+     "n_pts": 15490,
+     "var_at_zero_shift_m2": 3.0767876359278343,
+     "best_var_m2": 1.764650159795894,
+     "best_shift_E_m": -48,
+     "best_shift_N_m": -48
+    },
+    "31": {
+     "n_pts": 24046,
+     "var_at_zero_shift_m2": 1.0739570800256606,
+     "best_var_m2": 0.6504629052850287,
+     "best_shift_E_m": -36,
+     "best_shift_N_m": -30
+    },
+    "32": {
+     "n_pts": 19972,
+     "var_at_zero_shift_m2": 1.1070390617842871,
+     "best_var_m2": 1.0288896090201953,
+     "best_shift_E_m": 12,
+     "best_shift_N_m": 6
+    },
+    "33": {
+     "n_pts": 32642,
+     "var_at_zero_shift_m2": 70.79990650490423,
+     "best_var_m2": 67.75331409115707,
+     "best_shift_E_m": 48,
+     "best_shift_N_m": -18
+    },
+    "34": {
+     "n_pts": 6267,
+     "var_at_zero_shift_m2": 4.798838887104455,
+     "best_var_m2": 2.1225566547835633,
+     "best_shift_E_m": 48,
+     "best_shift_N_m": 48
+    },
+    "40": {
+     "n_pts": 8139,
+     "var_at_zero_shift_m2": 3.430852805464778,
+     "best_var_m2": 1.881435461865391,
+     "best_shift_E_m": -48,
+     "best_shift_N_m": -30
+    },
+    "41": {
+     "n_pts": 17604,
+     "var_at_zero_shift_m2": 1.8579714545906443,
+     "best_var_m2": 0.9706820155409118,
+     "best_shift_E_m": -36,
+     "best_shift_N_m": -30
+    },
+    "42": {
+     "n_pts": 16653,
+     "var_at_zero_shift_m2": 2.3167399583861563,
+     "best_var_m2": 2.216325628871695,
+     "best_shift_E_m": 6,
+     "best_shift_N_m": 6
+    },
+    "43": {
+     "n_pts": 20046,
+     "var_at_zero_shift_m2": 6.0136957823557875,
+     "best_var_m2": 3.3585572981060925,
+     "best_shift_E_m": 48,
+     "best_shift_N_m": 48
+    },
+    "44": {
+     "n_pts": 5434,
+     "var_at_zero_shift_m2": 5.13392395488175,
+     "best_var_m2": 3.6353283142715935,
+     "best_shift_E_m": 48,
+     "best_shift_N_m": 48
+    }
+   },
+   "ffd": {
+    "0": {
+     "n_pts": 9753,
+     "var_at_zero_shift_m2": 1.0452674638306803,
+     "best_var_m2": 0.7858545514566301,
+     "best_shift_E_m": 36,
+     "best_shift_N_m": -18
+    },
+    "1": {
+     "n_pts": 16268,
+     "var_at_zero_shift_m2": 3.024651160988145,
+     "best_var_m2": 0.7117694005089414,
+     "best_shift_E_m": 30,
+     "best_shift_N_m": -42
+    },
+    "2": {
+     "n_pts": 11425,
+     "var_at_zero_shift_m2": 1.196123632080216,
+     "best_var_m2": 0.8709637924765636,
+     "best_shift_E_m": 0,
+     "best_shift_N_m": -36
+    },
+    "3": {
+     "n_pts": 10775,
+     "var_at_zero_shift_m2": 0.7543964233589424,
+     "best_var_m2": 0.7267531712621765,
+     "best_shift_E_m": -6,
+     "best_shift_N_m": 6
+    },
+    "4": {
+     "n_pts": 2300,
+     "var_at_zero_shift_m2": 1.3367903680559565,
+     "best_var_m2": 1.044424463221074,
+     "best_shift_E_m": 30,
+     "best_shift_N_m": 36
+    },
+    "10": {
+     "n_pts": 17346,
+     "var_at_zero_shift_m2": 0.8977132567425099,
+     "best_var_m2": 0.8078094412080284,
+     "best_shift_E_m": 12,
+     "best_shift_N_m": -12
+    },
+    "11": {
+     "n_pts": 22882,
+     "var_at_zero_shift_m2": 1.2605833982412529,
+     "best_var_m2": 0.9035483941217516,
+     "best_shift_E_m": 18,
+     "best_shift_N_m": -18
+    },
+    "12": {
+     "n_pts": 18572,
+     "var_at_zero_shift_m2": 0.7031202882650383,
+     "best_var_m2": 0.6652899725698763,
+     "best_shift_E_m": 6,
+     "best_shift_N_m": -12
+    },
+    "13": {
+     "n_pts": 24586,
+     "var_at_zero_shift_m2": 0.9555197475035213,
+     "best_var_m2": 0.9468801510730505,
+     "best_shift_E_m": -6,
+     "best_shift_N_m": 6
+    },
+    "14": {
+     "n_pts": 5698,
+     "var_at_zero_shift_m2": 2.144477811169951,
+     "best_var_m2": 1.8152848841952978,
+     "best_shift_E_m": 42,
+     "best_shift_N_m": -18
+    },
+    "20": {
+     "n_pts": 19621,
+     "var_at_zero_shift_m2": 2.3882878241091117,
+     "best_var_m2": 1.7501355151876052,
+     "best_shift_E_m": -18,
+     "best_shift_N_m": 24
+    },
+    "21": {
+     "n_pts": 24694,
+     "var_at_zero_shift_m2": 1.0328491164669862,
+     "best_var_m2": 0.9613086990890772,
+     "best_shift_E_m": -6,
+     "best_shift_N_m": 12
+    },
+    "22": {
+     "n_pts": 23308,
+     "var_at_zero_shift_m2": 0.9944457111914147,
+     "best_var_m2": 0.9659421727987685,
+     "best_shift_E_m": -6,
+     "best_shift_N_m": 0
+    },
+    "23": {
+     "n_pts": 25627,
+     "var_at_zero_shift_m2": 2.0657760616553076,
+     "best_var_m2": 1.8664660246057976,
+     "best_shift_E_m": -6,
+     "best_shift_N_m": 18
+    },
+    "24": {
+     "n_pts": 4095,
+     "var_at_zero_shift_m2": 1.747778288169073,
+     "best_var_m2": 1.40551681752764,
+     "best_shift_E_m": 48,
+     "best_shift_N_m": 30
+    },
+    "30": {
+     "n_pts": 15490,
+     "var_at_zero_shift_m2": 1.765496158130507,
+     "best_var_m2": 0.9021063590274373,
+     "best_shift_E_m": -36,
+     "best_shift_N_m": 30
+    },
+    "31": {
+     "n_pts": 24046,
+     "var_at_zero_shift_m2": 0.7451111326669784,
+     "best_var_m2": 0.6277349543591929,
+     "best_shift_E_m": -6,
+     "best_shift_N_m": 24
+    },
+    "32": {
+     "n_pts": 19972,
+     "var_at_zero_shift_m2": 0.9695791344779016,
+     "best_var_m2": 0.9547900662389623,
+     "best_shift_E_m": 0,
+     "best_shift_N_m": 6
+    },
+    "33": {
+     "n_pts": 32642,
+     "var_at_zero_shift_m2": 69.142362938663,
+     "best_var_m2": 64.221813689845,
+     "best_shift_E_m": 48,
+     "best_shift_N_m": -48
+    },
+    "34": {
+     "n_pts": 6267,
+     "var_at_zero_shift_m2": 1.812654987437543,
+     "best_var_m2": 1.2106541646969857,
+     "best_shift_E_m": 0,
+     "best_shift_N_m": 48
+    },
+    "40": {
+     "n_pts": 8139,
+     "var_at_zero_shift_m2": 2.3451494347599424,
+     "best_var_m2": 1.0930075070591276,
+     "best_shift_E_m": -48,
+     "best_shift_N_m": 42
+    },
+    "41": {
+     "n_pts": 17604,
+     "var_at_zero_shift_m2": 0.9071389872411743,
+     "best_var_m2": 0.8671040855555834,
+     "best_shift_E_m": -6,
+     "best_shift_N_m": 6
+    },
+    "42": {
+     "n_pts": 16653,
+     "var_at_zero_shift_m2": 2.1074220287784313,
+     "best_var_m2": 2.0421623253031584,
+     "best_shift_E_m": 12,
+     "best_shift_N_m": 0
+    },
+    "43": {
+     "n_pts": 20046,
+     "var_at_zero_shift_m2": 3.521955771587846,
+     "best_var_m2": 2.280041555140986,
+     "best_shift_E_m": 6,
+     "best_shift_N_m": 48
+    },
+    "44": {
+     "n_pts": 5434,
+     "var_at_zero_shift_m2": 2.988637802493374,
+     "best_var_m2": 1.2622776016659132,
+     "best_shift_E_m": 18,
+     "best_shift_N_m": 48
+    }
+   }
+  }
+ },
+ "decision": {
+  "chosen_frame_for_all_elevation_work": "ffd (landcover similarity + free-form deformation, docs/basemap1863/features/landcover/scripts/chamfer_fit.json + ffd_fit.json)",
+  "not_averaged": true,
+  "evidence_for": [
+   "level-free contour coherence: along-contour variance of the modern DEM is lower in the FFD frame (7.04 vs 8.15 m2, median sd 0.75 vs 0.88 m); the affine frame is better in only 38.5 percent of the 7,560 fragments tested",
+   "regional frame shift that would still be needed to make the contours level on the modern relief: FFD median 30 m (p90 55 m), affine median 49 m (p90 68 m)",
+   "printed-label fit (the K calibration): FFD margin-label scatter 2.2 m (n=35) vs affine 3.0 m; hop-0 label-contour residual RMS 2.67 vs 3.41 m; hilltop-ring RMS about the expected +0.6 m 2.1 m",
+   "road lines: b1863 check 2 (45 road runs) FFD 11.1 m vs affine 17.1 m (the FFD was fitted to these, so this is in-sample)"
+  ],
+  "evidence_against": [
+   "23 control points (summits, junctions, bridges, farm buildings): affine leave-one-out 16.5 m (in-sample 13.9 m without two J. Weikert points) vs FFD 26.4 m (the FFD never saw these points)",
+   "6 independent road-line points: affine 13.9 m vs FFD 19.6 m"
+  ],
+  "reading": "The two kinds of evidence still conflict, as b1863 check 2 found. For a TERRAIN product the question is how well Warren relief lies on the modern relief, and three independent relief measures favour the FFD frame; the point-control evidence favours the affine. The FFD was fitted to modern road centrelines, so part of its advantage may be that valley roads follow valley floors; this cannot be separated here. The affine run is kept as a sensitivity case (error_model.json by_frame.affine).",
+  "residual_horizontal_uncertainty_m": "not below about 16 to 30 m either way; every elevation residual in this folder includes slope x this displacement",
+  "disagreement_summary": {
+   "median_m": 61.153567989290096,
+   "p95_m": 160.744601686663,
+   "max_m": 203.0203327775251
+  }
+ }
+}

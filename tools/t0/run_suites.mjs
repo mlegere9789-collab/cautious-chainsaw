@@ -37,7 +37,10 @@ const ENV = { ...process.env, T0_PORT_BASE: PORT_BASE, T0_AGENT: AGENT, PYTHONIO
 const NODE = process.execPath;
 const PY = process.env.PYTHON || 'python';
 
-const D = (t) => `release/${t}/dist`;
+// --r1-dist <dir> (or T0_R1_DIST): the Release 1 scratch candidate (python tools/accept/r1_build.py) stands in for release/R1c/dist in every R1c suite, and the suites of the candidate groups (r1.*) are added
+const R1 = opt('r1-dist', process.env.T0_R1_DIST || null);
+const R1D = R1 && R1 !== true ? R1 : null;
+const D = (t) => (t === 'R1c' && R1D ? R1D : `release/${t}/dist`);
 const J = 'tests/t0/journeys-desktop.spec.mjs', DLK = 'tests/t0/deeplinks.spec.mjs', MOB = 'tests/t0/mobile-matrix.spec.mjs', A11Y = 'tests/t0/a11y.spec.mjs';
 const CPY = 'tests/t0/copy.spec.mjs', PGC = 'tests/t0/pages-core.spec.mjs', PGM = 'tests/t0/pages-maps.spec.mjs', HDR = 'tests/t0/headers.spec.mjs', R0 = 'tests/t0/r0.mjs';
 const DFX = 'tests/t0/desktop-fixes.spec.mjs', MFX = 'tests/t0/mobile-fixes.spec.mjs', PGF = 'tests/t0/pages-fixes.spec.mjs', PERF = 'tests/t0/perf-fixes.spec.mjs';
@@ -56,6 +59,7 @@ add('static.baseline', 'baseline machinery self-test (17 cases: Netlify post-pro
 add('static.baselinelock', 'baseline/dist matches tools/t0/baseline.lock.json (per-file sha256, no network)', PY, ['tools/t0/baseline.py', 'verify'], { kind: 'check' });
 add('static.legal', 'privacy/terms fact base vs the built R1c tree', NODE, ['ops/legal-drafts/verify-facts.mjs', '--dist', D('R1c')], { kind: 'check' });
 add('static.lib', 'browser harness self-test', NODE, ['tests/t0/lib_selftest.mjs']);
+add('static.overlap.selftest', 'overlap audit self-test (6 cases incl. the failing ones: an anchor that no longer matches, an undeclared overwrite, an anchor with no source)', PY, ['tools/t0/tests/overlap_selftest.py'], { kind: 'check' });
 add('static.hygiene', 'source hygiene of tools/t0, tests/t0, tools/ship and ops: no stray control bytes (a regex escape that reached the file as BACKSPACE), every script parses, every JSON file is valid', PY, ['tools/t0/hygiene.py'], { kind: 'check' });
 add('static.ship', 'pack_zip self-test (tools/ship/pack_zip.py, the Netlify drag-and-drop zip: files at the zip root, byte-identical packs, a changed, extra or missing file or a wrong tree digest against manifest.json is refused, the staging variant differs in _headers only, the real R1c packs)', PY, ['tools/ship/pack_zip.selftest.py']);
 add('static.fixes', 'release-verifier fixes self-test (11 cases: failed builds leave nothing deployable, ledger errors, gate cache beside --out, kill switch outside dist, opt-in legal group, stage guard, verify-url exit codes, stale-dist refusal, S5 asks the previous train)', PY, ['ops/release-fixes.selftest.py']);
@@ -102,6 +106,32 @@ for (const t of ['R1a', 'R1b', 'R1c']) add(`pagesfix.${t}`, `sub-page fixes T0-P
 // the opt-in legal text: no default train contains it, so PGF-14 (the privacy table) skips above; this variant (R1c built with --with PG-legal, gates on) runs it
 add('pagesfix.R1c.legal', 'T0-PGF-14 on R1c built with the opt-in PG-legal group (the privacy table is keyboard-reachable)', NODE, [PGF, '--dist', CTL('R1c-legal'), '--filter', 'PGF-14']);
 add('static.legal.optin', 'privacy/terms fact base vs R1c built with PG-legal (exit 0 = no FAIL: the text matches the headers; the Street View delegation is disclosed, so the WARN of the default build is gone)', NODE, ['ops/legal-drafts/verify-facts.mjs', '--dist', CTL('R1c-legal')], { kind: 'check' });
+// ---- Release 1 candidate groups (only with --r1-dist): one suite per group, each against the combined candidate tree
+if (R1D) {
+  const SP = (f) => `tests/t0/${f}.spec.mjs`;
+  add('r1.clock', 'CLOCK: one clock for the whole site (T0-CLK-*) on the Release 1 candidate', NODE, [SP('clock'), '--dist', R1D]);
+  add('r1.data', 'DATA: audited displayed data (T0-DATA-*) on the Release 1 candidate', NODE, [SP('data'), '--dist', R1D]);
+  add('r1.monuments', 'MON: the Monuments layer (MONL-*) on the Release 1 candidate', NODE, [SP('monuments'), '--dist', R1D]);
+  add('r1.verifymon', 'MON verifier tests (VMON-*) on the Release 1 candidate', NODE, [SP('verify-monuments'), '--dist', R1D]);
+  add('r1.anim', 'ANIM: continuous unit motion (T0-ANIM-*) on the Release 1 candidate', NODE, [SP('anim'), '--dist', R1D]);
+  add('r1.base1863', 'BASE1863: the 1863 reconstruction as the map base (B63-*) on the Release 1 candidate', NODE, [SP('base1863'), '--dist', R1D]);
+  add('r1.images', 'IMG: only real images of Gettysburg (T0-RIMG-*) on the Release 1 candidate', NODE, [SP('images'), '--dist', R1D]);
+  add('r1.polish', 'POLISH: one name per feature, layout, targets, welcome window, historian scroll (T0-POL-*) on the Release 1 candidate', NODE, [SP('polish'), '--dist', R1D]);
+  add('r1.polish.pair', 'POLISH T0-POL-09..12 (the control and the build) on the matched pair of tools/t0/polish_pair.py (R1c + CLOCK,DATA,MON,ANIM without and with POLISH: R1e without POLISH cannot be built)', PY, ['tools/t0/polish_pair_run.py']);
+  add('r1.perf2', 'PERF2: compare/precompile/roster performance (T0-P2-*) on the Release 1 candidate', NODE, [SP('perf2'), '--dist', R1D]);
+  add('r1.acc', 'ACC: no casualty rate above 100 percent is printed as fact (T0-ACC-*): red on R1d, green from R1e', NODE, [SP('acc'), '--dist', R1D]);
+  add('r1.perf4', 'PERF4: app-route blocking time and the sliced start-up (T0-P4-*) on the Release 1 candidate, against release/R1d/dist', NODE, [SP('perf4'), '--dist', R1D, '--control', 'release/R1d/dist']);
+  add('r1.perf5', 'PERF5: first frame of the Virtual Walkthrough and of the Monuments layer, heat layer of /ground-remembers (T0-P5-*) on the Release 1 candidate, against release/R1e/dist', NODE, [SP('perf5'), '--dist', R1D, '--control', 'release/R1e/dist']);
+  add('r1.wtpeer', 'WTP: /watch-together does not close a Live Sync connection that is still being opened (T0-WTP-*, page group PG-zwt)', NODE, [SP('wtpeer'), '--dist', R1D]);
+  add('r1.perf6', 'PERF6: the Unit Roster list is virtualised, 3D Terrain off on a tilted map links no program in a frame (T0-P6-*, group PERF6 + page group PG-zperf6) on the Release 1 candidate, against release/R1f/dist', NODE, [SP('perf6'), '--dist', R1D, '--control', 'release/R1f/dist']);
+  add('r1.ztail', 'ZTAIL: the dark style fog of /ground-remembers is off for the first frames (T0-ZT-*, page group PG-ztail) on the Release 1 candidate, against release/R1f/dist', NODE, [SP('ztail'), '--dist', R1D, '--control', 'release/R1f/dist']);
+  add('r1.seo', 'SEO: titles, descriptions, canonicals, sitemap, JSON-LD, Open Graph, crawlable links, no build-method wording (T0-SEO-*, page group PG-zseo) on the Release 1 candidate', NODE, [SP('seo'), '--dist', R1D]);
+  if (!NO_RED) {
+    add('red.perf6', 'release/R1f/dist (without PERF6): the browser tests T0-P6-01/04/06 are RED (the spec asserts it under --expect-red; exit 0 = red observed)', NODE, [SP('perf6'), '--dist', 'release/R1f/dist', '--expect-red'], { kind: 'check' });
+    add('red.ztail', 'release/R1f/dist (without PG-ztail): the new-behaviour tests T0-ZT-04 and ZT-07 are RED (exit 0 = red observed)', NODE, [SP('ztail'), '--dist', 'release/R1f/dist', '--expect-red'], { kind: 'check' });
+  }
+}
+
 // ---- the Virtual Walkthrough and its Monuments tab must never break (owner decision 3 of 2026-10-04, tests/t0/walkthrough-guard.README.md): the guard pins what they do on
 // production today and runs on the baseline and on every train (the baseline row is named baseline.* so the release notes of every train show it)
 const WG = 'tests/t0/walkthrough-guard.spec.mjs';

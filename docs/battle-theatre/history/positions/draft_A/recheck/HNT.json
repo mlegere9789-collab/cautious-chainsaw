@@ -1,0 +1,35 @@
+[
+ {
+  "id": "POS-A-HNT-001",
+  "fidelity": "passed_full_read",
+  "why": "hour, unit (Hall's battery, Second Maine), order by Reynolds and place all in one sentence; printed '10. 15' read as 10.15",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-HNT-002",
+  "fidelity": "corrected",
+  "why": "Date of the earthwork not printed: passage says batteries passed through the town and were posted on Cemetery Hill, each gun 'had a small earthwork thrown up'; 'evening of July 1' is compiler reading.",
+  "patch": {
+   "act": "Hunt: the batteries of the First Corps, which passed through the town on July 1 and were placed on Cemetery Hill, were posted north of the Baltimore pike in front of the cemetery gate (Stewart, Wiedrich, Cooper, Reynolds, with Stevens in front on a knoll); each gun had a small earthwork thrown up in its front to shelter from sharpshooters",
+   "w": "(July 1, after the retreat to Cemetery Hill)",
+   "wd": "compiler reading from order of events: no clock printed; the posting follows the July 1 retreat; the passage does not say when the earthworks were thrown up (before or after Hunt's inspection about 2 a. m. July 2)",
+   "note_add": "Time of building the earthworks is NOT printed; the passage dates only the posting (after the retreat through the town on July 1). Do not use this claim to date earthwork construction. Same report for July 3: batteries outside the cemetery gate were in position very nearly the same as the previous day, Ricketts having relieved Cooper the night before."
+  }
+ },
+ {
+  "id": "POS-A-HNT-003",
+  "fidelity": "passed_full_read",
+  "why": "hour in the same sentence; 'the troops' is the Eleventh Corps (next sentence: movement of the corps; 'First Corps withdrawn about the same time as the Eleventh')",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-HNT-004",
+  "fidelity": "corrected",
+  "why": "Unit gloss: First Corps artillery is not printed; Hunt reports as the army's chief of artillery, so unit set to the Army of the Potomac. Date July 3 from context; hour in same sentence.",
+  "patch": {
+   "u": "us-aop",
+   "wd": "date from context: no date in the sentence; it follows 'At 10 a. m. I made an inspection' and 'little firing during the morning' of July 3; 'at about 1 p. m.' is in the same sentence",
+   "note_add": "Unit changed from First Corps artillery: the passage is the army chief of artillery's account of the whole line."
+  }
+ }
+]

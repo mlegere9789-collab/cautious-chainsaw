@@ -1,0 +1,111 @@
+{
+ "01": {
+  "pages": 1340,
+  "narrative_or_nonroll_pages_dropped": 276,
+  "burial_record_pages_dropped": 5,
+  "pages_without_date_column": 342,
+  "rows_parsed_in_volume": 40777,
+  "rows_emitted_to_unit_files": 26810,
+  "rows_of_regiments_not_requested": 13967,
+  "possibly_lost_roll_pages_djvu_index": [
+   608,
+   642,
+   646,
+   696,
+   824,
+   1007,
+   1029
+  ]
+ },
+ "02": {
+  "pages": 1367,
+  "narrative_or_nonroll_pages_dropped": 184,
+  "burial_record_pages_dropped": 13,
+  "pages_without_date_column": 141,
+  "rows_parsed_in_volume": 59279,
+  "rows_emitted_to_unit_files": 29158,
+  "rows_of_regiments_not_requested": 30121,
+  "possibly_lost_roll_pages_djvu_index": [
+   155,
+   491,
+   1227
+  ]
+ },
+ "03": {
+  "pages": 1386,
+  "narrative_or_nonroll_pages_dropped": 170,
+  "burial_record_pages_dropped": 33,
+  "pages_without_date_column": 128,
+  "rows_parsed_in_volume": 60217,
+  "rows_emitted_to_unit_files": 33868,
+  "rows_of_regiments_not_requested": 26349,
+  "possibly_lost_roll_pages_djvu_index": [
+   837,
+   971,
+   1189,
+   1303,
+   1331
+  ]
+ },
+ "04": {
+  "pages": 1322,
+  "narrative_or_nonroll_pages_dropped": 128,
+  "burial_record_pages_dropped": 6,
+  "pages_without_date_column": 130,
+  "rows_parsed_in_volume": 64887,
+  "rows_emitted_to_unit_files": 25992,
+  "rows_of_regiments_not_requested": 38895,
+  "possibly_lost_roll_pages_djvu_index": [
+   79,
+   183,
+   191,
+   209,
+   269,
+   307,
+   343,
+   403,
+   435,
+   491,
+   515,
+   543,
+   547,
+   579,
+   605,
+   685,
+   771,
+   777,
+   801,
+   877,
+   931,
+   983,
+   1161,
+   1193,
+   1239
+  ]
+ },
+ "00": {
+  "pages": 1445,
+  "narrative_or_nonroll_pages_dropped": 297,
+  "burial_record_pages_dropped": 19,
+  "pages_without_date_column": 169,
+  "rows_parsed_in_volume": 63129,
+  "rows_emitted_to_unit_files": 403,
+  "rows_of_regiments_not_requested": 62726,
+  "possibly_lost_roll_pages_djvu_index": [
+   241,
+   271,
+   273,
+   305,
+   431,
+   459,
+   479,
+   485,
+   541,
+   577,
+   599,
+   693,
+   931
+  ]
+ },
+ "note": "rows_of_regiments_not_requested are rolls of Pennsylvania regiments that are not in the repository OOB or that belong to other service blocks; no parsed row of a requested unit is dropped silently: pages dropped are listed by flag in derived/<vol>.pageinfo.json (tmp, reproducible)"
+}

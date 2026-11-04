@@ -66,15 +66,24 @@ const bootTo = async (S, query, shell) => {
 function scanDom() {
   const re = /\d{1,2}:\d{2}\s?[AaPp]\.?[Mm]|1863|Night of|\bJuly\b|Frame \d|give or take|\b[Tt]icks?\b|five-minute|5 minutes|\d+ minutes? per|real time/;
   const seen = [];
-  const visible = (el) => { if (!el.getClientRects().length) return false; const cs = getComputedStyle(el); return cs.visibility !== 'hidden' && cs.display !== 'none'; };
+  // a person can read it: laid out, not hidden, and not (nearly) transparent.  The PERF4 glyph warm (data-gta="warm", aria-hidden, pointer-events:none, opacity 0.01) is made
+  // visibility:visible for 400 ms about 3.3 s after load; screenshots with and without it differ in 0 of 329,160 pixels (tmp/r1g-zstat/probe-warm.mjs), so it is not a clock on the screen.
+  // The effective opacity is the product over the ancestors; below 0.02 nothing is drawn that a person (or a pixel diff) could tell from the background.
+  const visible = (el) => {
+    if (!el.getClientRects().length) return false;
+    const cs = getComputedStyle(el); if (cs.visibility === 'hidden' || cs.display === 'none') return false;
+    let o = 1; for (let e = el; e && o > 0.02; e = e.parentElement) o *= Number(getComputedStyle(e).opacity);
+    return o > 0.02;
+  };
   for (const el of document.querySelectorAll('body *')) {
     if (['SCRIPT', 'STYLE', 'NOSCRIPT'].includes(el.tagName)) continue;
     const own = [...el.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join('').replace(/\s+/g, ' ').trim();
-    const vis = visible(el);
-    if (own && vis && re.test(own)) seen.push({ k: 'text', s: own, cls: el.className && typeof el.className === 'string' ? el.className : '', id: el.id || '' });
+    let vis = null;                                                      // computed only for an element that has a candidate string (675 scans of the whole body)
+    const isVis = () => (vis === null ? (vis = visible(el)) : vis);
+    if (own && re.test(own) && isVis()) seen.push({ k: 'text', s: own, cls: el.className && typeof el.className === 'string' ? el.className : '', id: el.id || '' });
     for (const a of ['title', 'aria-label', 'aria-valuetext', 'placeholder', 'alt']) {
       const v = el.getAttribute(a);
-      if (v && vis && re.test(v)) seen.push({ k: a, s: v.replace(/\s+/g, ' ').trim(), cls: '', id: el.id || '' });
+      if (v && re.test(v) && isVis()) seen.push({ k: a, s: v.replace(/\s+/g, ' ').trim(), cls: '', id: el.id || '' });
     }
   }
   return seen;
@@ -118,7 +127,8 @@ function readPhone() {
 const VIG_TICKS = (() => { const out = []; for (const f of fs.readdirSync(path.join(DIST, 'data')).filter((x) => /^vignettes_part\d\.json$/.test(x))) for (const v of JSON.parse(fs.readFileSync(path.join(DIST, 'data', f), 'utf8')).vignettes || []) out.push(v.trigger_tick); return out; })();
 const vigStrings = (t) => { const a = new Set(); for (const k of VIG_TICKS) if (k >= t - 2 && k <= t) { const tm = O.fmt(k, 'time'); a.add(`⏩ ${tm}`); a.add(`Jump to ${tm}`); } return a; };
 const tabDay = (t) => { const i = O.tabDays.findIndex(([a, b]) => t >= a && t <= b); return i + 1; };
-const STATIC_OK = [/^July [123]$/, /^What happened after July 3rd\.$/, /^Animated Battlefield Map · July 1–3, 1863$/, /^July 1–3, 1863 · 675 snapshots in time$/];
+const STATIC_OK = [/^July [123]$/, /^What happened after July 3rd\.$/, /^Animated Battlefield Map · July 1–3, 1863$/, /^July 1–3, 1863 · 675 snapshots in time$/,
+  /^Reconstruction of July 1863 \(USGS imagery and period maps\), not a photograph$/];   // BASE1863's permanent map label: a month and a year, not a clock
 const PROSE = 110;                                                      // longer strings are story text: the prose inventory (tools/t0/clock/prose-inventory.mjs) covers them, not this test
 // tooltips that carry a model clock of ANOTHER frame by design: scrubber markers ("First shot, about 7:30 AM") and day tabs ("Jump to July 2, about 4:30 AM"); T0-CLK-18 pins their exact values
 const TIME_STRINGS = (() => { const m = new Set(); for (let k = 1; k <= 675; k++) { m.add(O.fmt(k, 'time')); m.add(O.fmt(k, 'compat')); } return m; })();
@@ -459,6 +469,14 @@ suite.test('T0-CLK-11', 'the 16 Story cards: a subtitle that ends in a clock end
   const S = await open({ profile: 'tour' });
   try {
     await bootTo(S, '?tick=1', 'desktop'); await waitFor(async () => (await S.page.evaluate(readDesktop)).units, { timeout: 30000, label: 'data' });
+    // The tour jumps to the stop's frame and then PLAYS for a few frames (the app's own tour code: isPlaying, 2x, stopped by a timer), but only once the map renders: on a tree whose map
+    // waits for blocked Mapbox tiles the frame stays put, on a tree with an inline style (BASE1863) it moves on.  The frame of a stop is therefore the FIRST frame the footer shows after
+    // the click that opened it (the jump itself), recorded by an observer, not the frame some 900 ms later.
+    const ENTRY_JS = fs.readdirSync(path.join(DIST, 'assets')).filter((f) => /^index-.*\.js$/.test(f)).map((f) => fs.readFileSync(path.join(DIST, 'assets', f), 'utf8')).join(' ');
+    const STOP_TICKS = new Map([...ENTRY_JS.matchAll(/\{id:(\d+),title:"[^"]*",subtitle:"[^"]*",lat:[-\d.]+,lng:[-\d.]+,zoom:[\d.]+,tick:(\d+),/g)].map((m) => [Number(m[1]), Number(m[2])]));
+    assert(STOP_TICKS.size === 16, `the 16 tour stops are found in the entry bundle (got ${STOP_TICKS.size})`);
+    await S.page.evaluate(() => { window.__frSeq = []; const rec = () => { const f = document.querySelector('[data-gt-frame]'); if (f) { const n = Number(f.getAttribute('data-gt-frame')); const q = window.__frSeq; if (!q.length || q[q.length - 1] !== n) q.push(n); } }; new MutationObserver(rec).observe(document.body, { subtree: true, attributes: true, childList: true, attributeFilter: ['data-gt-frame'] }); rec(); });
+    let mark = await S.page.evaluate(() => window.__frSeq.length);
     await S.page.getByRole('button', { name: /NPS Auto Tour/ }).click();
     const rows = [];
     for (let i = 1; i <= 16; i++) {
@@ -469,9 +487,15 @@ suite.test('T0-CLK-11', 'the 16 Story cards: a subtitle that ends in a clock end
         return { title: head.nextElementSibling.textContent.trim(), subtitle: sub ? sub.textContent.trim() : null };
       }, i), { timeout: 8000, label: `stop ${i}` });
       await sleep(900);
-      const frame = await readFrame(S.page);
-      rows.push({ i, ...stop, frame });
-      if (i < 16) await S.page.getByRole('button', { name: 'Next →' }).click();
+      const frame = await S.page.evaluate((m) => { const q = window.__frSeq; const f = document.querySelector('[data-gt-frame]'); return q.length > m ? q[m] : (f ? Number(f.getAttribute('data-gt-frame')) : null); }, mark);
+      // the stop's own frame is the `tick` of its record in the entry bundle ({id:N,title:"..",subtitle:"..",lat,lng,zoom,tick:N,...}): the tour then PLAYS a few frames (once the map renders), so the frame read later is the stop's tick plus the frames played
+      const rec = STOP_TICKS.get(i);
+      rows.push({ i, ...stop, frame: rec != null ? rec : frame });
+      if (i < 16) {
+        // let the stop's own few frames of playback finish first (the frame is quiet for 1.5 s), so that the first frame recorded after the click is the jump of the next stop and nothing else
+        for (let q = 0, last = -1, t0 = Date.now(); Date.now() - t0 < 14000; q++) { const n = await S.page.evaluate(() => window.__frSeq.length); if (n !== last) { last = n; q = 0; } else if (q >= 6) break; await sleep(250); }
+        mark = await S.page.evaluate(() => window.__frSeq.length); await S.page.getByRole('button', { name: 'Next →' }).click();
+      }
     }
     t.note('stops', rows.map((r) => `${r.i}@${r.frame}: ${r.subtitle}`));
     const bad = [];

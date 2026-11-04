@@ -20,7 +20,7 @@ export const hints = {
   id: 'hints', label: 'Hints', group: 'popup-hints', enabled: (tok) => tok('popup.hints.enabled'),
   preview(api) { const st = api.host.state.mod.hints; if (st) { st.shown.clear(); st.n = 0; st.t0 = api.nowMs - 2000; st.playedAt = null; st.tau0 = api.time.tau; } },
   doc: 'Contextual hints (P-38, P-31) shown once each, and the help in the rail: every key and what the evidence labels mean.',
-  toolbar: [{ id: 'help', label: '?', title: 'Keys and what the evidence labels mean (?)', run: (api) => api.host.toggleDoc('hints:help'), pressed: (host) => !!(host.rail && host.rail.id === 'hints:help') }],
+  toolbar: [],      // ROUND 2: the keys open with ? (the Legend names it); the masthead has one button less
   update(frame, api) {
     const tok = api.tok; const M = api.host.state.mod; const st = M.hints || (M.hints = { shown: new Set(), n: 0, t0: api.nowMs, playedAt: null, tau0: api.time.tau });
     const out = [{

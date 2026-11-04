@@ -95,9 +95,9 @@ export function describe(t) {
 export const CHANNELS = {
   // FORK (d1 Quiet Cartographer): the sentences are short enough for a legend card of 340 px; every one still says what the mark claims and how well it is known (the evidence label beside it).
   side: { title: 'Side', values: [
-    { id: 'union', text: 'Union (order of battle, or the U- id prefix)', evidence: 'Documented' },
-    { id: 'confederate', text: 'Confederate (order of battle, or the C- id prefix)', evidence: 'Documented' },
-    { id: 'unknown', text: 'Side unknown: hatched, never a side colour (10 ids)', evidence: 'Contested' },
+    { id: 'union', text: 'Union (order of battle)', evidence: 'Documented' },
+    { id: 'confederate', text: 'Confederate (order of battle)', evidence: 'Documented' },
+    { id: 'unknown', text: 'Side unknown: hatched, never a side colour', evidence: 'Contested' },
     { id: 'mixed', text: 'Both sides in one standard', evidence: 'Computed' } ] },
   arm: { title: 'Arm', values: [
     { id: 'infantry', text: 'Infantry: a disc', evidence: 'Documented' }, { id: 'cavalry', text: 'Cavalry: a diamond', evidence: 'Documented' },

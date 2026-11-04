@@ -1,0 +1,61 @@
+n,stratum,file,csv_row_pre_audit,unit_id,company,name_as_printed,rank_as_printed,label_pre_audit,basis_pre_audit,verdict,finding
+0,unit,maine/16th-maine-volunteer-infantry.csv,782,U-16ME,F,Whitney Alonzo M 18,privates,Absent-Documented,SEP-BEFORE,defect,"label ok (killed at Fredericksburg 13 Dec 1862); age 18 fused into the name cell, residence Gorham lost (shown as ditto). Name_clean and age fixed by the audit"
+1,unit,maine/17th-maine-volunteer-infantry.csv,682,U-17ME,G,Colomy Elbridgo 33 Berwick,joined,Present-Documented,PART-LIST,defect,"label ok (1898 list, wounded); name read Elbridgo, the 1898 list prints Elbridge (OCR); age and residence fused into the name cell. Name_clean cleaned, spelling not fixable without a second OCR"
+2,unit,maine/19th-maine-volunteer-infantry.csv,474,U-19ME,E,Colson William J,joined,Present-Documented,PART-LIST,ok,"name, company, remark and PART-LIST label agree with the 1898 list and the return"
+3,unit,maine/1st-maine-cavalry.csv,342,U-1ME-CAV,C,"Horatio S Libby 22 ,1st",privates,Unknown,ONROLL-NO-STATUS,defect,label ok (Unknown); age fused into name; rank_as_printed holds the section word privates although the return lists him as 1st Lieut. Name cleaned; rank not fixed
+4,unit,maine/20th-maine-volunteer-infantry.csv,791,U-20ME,F,James R Martin,wagoner,Unknown,ONROLL-NO-STATUS,ok,
+5,unit,maine/2nd-maine-battery-hall-s-battery.csv,149,U-ART-2ME,BTY,Wood Jerome B,privates,Unknown,ONROLL-NO-STATUS,ok,
+6,unit,maine/3rd-maine-volunteer-infantry.csv,582,U-3ME,E,George S Fuller,joined,Unknown,ONROLL-NO-STATUS,defect,label ok; residence field holds a stray 1st Lieut H (column misalignment). Not fixed
+7,unit,maine/4th-maine-volunteer-infantry.csv,1134,U-4ME,K,Welch Charles,privates,Unknown,ONROLL-NO-STATUS,ok,Unknown is right: remark In western gunboat service is dated only to the 1863 return
+8,unit,maine/5th-maine-volunteer-infantry.csv,568,U-5ME,F,McKenzie Robert II 18,privates,Unknown,DATE-NOT-SHOWN,defect,"name read II for H and age fused into the name; label Unknown although the remark Deserted June 26, 1861 has a legible year 1861 (a second reader gives Absent-Documented SEP-BEFORE). Name cleaned; label not fixed (the asterisk in June*26 blocks the date reader)"
+9,unit,maine/6th-maine-volunteer-infantry.csv,787,U-6ME,H,Andrew J Whittier,sergeants,Unknown,ONROLL-NO-STATUS,defect,label ok; remark truncated at wd. May (the 3 went into the next row). Not fixed
+10,unit,maine/7th-maine-volunteer-infantry.csv,1182,U-7ME,K,Waterhouse Gardiner J,joined,Unknown,ONROLL-NO-STATUS,ok,
+11,unit,massachusetts/10th-massachusetts-volunteer-infantry.csv,21,U-10MA,NCS,John L. Gaffney,Drum Major,Absent-Documented,SEP-BEFORE,defect,"label ok; remark text swallowed the following band entries (Hodge, Chase, Clark ...), so those men had no rows; rank_class field for Drum Major. Fixed: remark cut, 4 men recovered, class nco"
+12,unit,massachusetts/12th-massachusetts-volunteer-infantry.csv,512,U-12MA,D,"Bowman, Jeremiah A.",Priv.,Unknown,ONROLL-NO-STATUS,ok,
+13,unit,massachusetts/13th-massachusetts-volunteer-infantry.csv,1356,U-13MA,K,"Heath, Walter S. C.",Priv.,Unknown,ONROLL-NO-STATUS,ok,
+14,unit,massachusetts/15th-massachusetts-volunteer-infantry.csv,1720,U-15MA,UNASSIGNED,"March, Samuel H.",Priv.,Absent-Documented,ENL-AFTER,ok,
+15,unit,massachusetts/16th-massachusetts-volunteer-infantry.csv,39,U-16MA,BAND,"Weston, George H.",Music.,Absent-Documented,SEP-BEFORE,ok,
+16,unit,massachusetts/18th-massachusetts-volunteer-infantry.csv,901,U-18MA,G,"Goss, William H.",Priv.,Unknown,ONROLL-NO-STATUS,defect,"label Unknown is right, basis code wrong: the remark deserted between May 10 and Aug 31, 1863 spans the battle (CONFLICT or ambiguous, not ONROLL). Not fixed"
+17,unit,massachusetts/19th-massachusetts-volunteer-infantry.csv,319,U-19MA,B,"Homn, George H.",Priv.,Absent-Documented,SEP-BEFORE,ok,
+18,unit,massachusetts/1st-massachusetts-cavalry.csv,615,U-1MA-CAV,D,"George, Daniel G.",Priv.,Unknown,ONROLL-NO-STATUS,defect,"Unknown against remark prisoner June 17, 1863 (Aldie) and At Parole Camp Annapolis Aug 1863: a second reader may give Absent-Documented (PLAN 2.2 rule 9). Needs a rule decision; not changed"
+19,unit,massachusetts/1st-massachusetts-volunteer-infantry.csv,1483,U-1MA,K,"Barrie, Thomas",Priv.,Absent-Documented,SEP-BEFORE,ok,
+20,unit,massachusetts/20th-massachusetts-volunteer-infantry.csv,1308,U-20MA,F,"Perkins, Hazen K.",Priv.,Absent-Documented,ENL-AFTER,ok,
+21,unit,massachusetts/22nd-massachusetts-volunteer-infantry.csv,345,U-22MA,C,"Dale, Charles T.",Priv.,Absent-Documented,SEP-BEFORE,ok,
+22,unit,massachusetts/28th-massachusetts-volunteer-infantry.csv,1056,U-28MA,F,"Ellis, John",Priv.,Absent-Documented,ENL-AFTER,ok,
+23,unit,massachusetts/2nd-massachusetts-volunteer-infantry.csv,1342,U-2MA,H,"Doolittle, Samuel",Priv.,Unknown,ONROLL-NO-STATUS,ok,
+24,unit,massachusetts/32nd-massachusetts-volunteer-infantry.csv,245,U-32MA,B,"Besse, Ichabod",Priv.,Absent-Documented,ENL-AFTER,ok,
+25,unit,massachusetts/33rd-massachusetts-volunteer-infantry.csv,247,U-33MA,B,"Sanford, John H. T.",Priv.,Unknown,ONROLL-NO-STATUS,ok,
+26,unit,massachusetts/37th-massachusetts-volunteer-infantry.csv,1205,U-37MA,K,"Hussey, Patrick",Priv.,Present-Documented,CAS-REMARK,ok,
+27,unit,massachusetts/3rd-battery-massachusetts-volunteer-light-artillery-battery-c.csv,18,U-ART-C1MA,BTY,"Boynton, John",Priv.,Absent-Documented,SEP-BEFORE,ok,
+28,unit,massachusetts/5th-battery-massachusetts-volunteer-light-artillery-battery-e.csv,223,U-ART-5MA,BTY,"Parsons, Henry C.",Priv.,Absent-Documented,SEP-BEFORE,ok,
+29,unit,massachusetts/7th-massachusetts-volunteer-infantry.csv,579,U-7MA,E,"Nightingale, James H.",Sergt.,Unknown,ONROLL-NO-STATUS,ok,
+30,unit,massachusetts/9th-battery-massachusetts-volunteer-light-artillery.csv,112,U-ART-9MA,BTY,"Gordon, James",Priv.,Absent-Documented,ENL-AFTER,ok,
+31,unit,massachusetts/9th-massachusetts-volunteer-infantry.csv,150,U-9MA,A,"Moakler, John",Priv.,Unknown,OCR-DATE-LOST,defect,"label Unknown right; enlistment date June 11, 1861 is legible in the remark but not parsed (a semicolon was read as a dash), so the basis shows OCR-DATE-LOST. Not fixed"
+32,unit,new-hampshire/12th-new-hampshire-volunteer-infantry.csv,739,U-12NH,F,"Lane, Charles F",Sergt,Absent-Documented,SEP-BEFORE,ok,
+33,unit,new-hampshire/1st-new-hampshire-volunteer-light-battery.csv,123,U-ART-1NH,BTY,"Palmer, Irving' S",Corp,Absent-Documented,SEP-BEFORE,defect,name read Irving with a stray apostrophe; the page image prints Irving S. Label ok. name_clean fixed (apostrophe removed); name_as_printed keeps the OCR text
+34,unit,new-hampshire/2nd-new-hampshire-volunteer-infantry.csv,514,U-2NH,?P,"Cunningham, James",Priv,Absent-Documented,ENL-AFTER,ok,"company read as P by the text layer (page image prints Co. F); stored as ?P, an honest marked gap; label ok"
+35,unit,new-hampshire/5th-new-hampshire-volunteer-infantry.csv,2276,U-5NH,F,"Williams, Adelber",Priv,Absent-Documented,ENL-AFTER,ok,name Adelber is as printed (page image checked)
+36,officer,maine/19th-maine-volunteer-infantry.csv,1328,U-19ME,A,Alvirus Osborne,Second Lieutenant,Present-Documented,PART-LIST,ok,participants-list row; the rank is as printed on the 1898 list
+37,officer,massachusetts/13th-massachusetts-volunteer-infantry.csv,1082,U-13MA,H,"Jenks, Francis",2d Lieut.,Absent-Documented,SEP-BEFORE,ok,
+38,officer,massachusetts/12th-massachusetts-volunteer-infantry.csv,815,U-12MA,F,"Dehon, Arthur",2d Lieut.,Absent-Documented,SEP-BEFORE,ok,
+39,officer,massachusetts/15th-massachusetts-volunteer-infantry.csv,1246,U-15MA,H,"Derby, Richard",2d Lieut.,Absent-Documented,SEP-BEFORE,ok,
+40,officer,massachusetts/18th-massachusetts-volunteer-infantry.csv,19,U-18MA,NCS,Horace P. Sherman,Hospl. Steward,Unknown,ONROLL-NO-STATUS,ok,
+41,officer,maine/6th-maine-volunteer-infantry.csv,1286,U-6ME,D,Henry H. Waite,First Lieutenant,Present-Documented,PART-LIST,ok,
+42,officer,massachusetts/1st-massachusetts-volunteer-infantry.csv,944,U-1MA,F,"Rogers, John L.",^ 1st Lieut.,Absent-Documented,SEP-BEFORE,defect,label ok; rank_as_printed carries a stray ^. Not fixed (cosmetic)
+43,officer,massachusetts/22nd-massachusetts-volunteer-infantry.csv,74,U-22MA,A,"Connor, Henry C.",2d Lieut.,Unknown,ONROLL-NO-STATUS,ok,
+44,officer,massachusetts/1st-massachusetts-cavalry.csv,13,U-1MA-CAV,FS,Albert R. Rice,Asst. Surgeon,Absent-Documented,SEP-BEFORE,ok,
+45,officer,maine/19th-maine-volunteer-infantry.csv,1344,U-19ME,H,Stephen R. Gordon,Second Lieutenant,Present-Documented,PART-LIST,ok,
+46,officer,massachusetts/18th-massachusetts-volunteer-infantry.csv,306,U-18MA,B,"Wheaton, Cyrus M.",1st Lieut.,Absent-Documented,SEP-BEFORE,ok,
+47,officer,massachusetts/37th-massachusetts-volunteer-infantry.csv,4,U-37MA,FS,George L. Montague,Major,Unknown,ONROLL-NO-STATUS,ok,officer evidence pass pending (G07)
+48,present-doc,maine/17th-maine-volunteer-infantry.csv,110,U-17ME,A,Walker Oliver,privates,Present-Documented,PART-LIST,defect,label ok (1898 list: brigade ambulance train); residence field 8 Berwick has a stray digit. Not fixed
+49,present-doc,maine/20th-maine-volunteer-infantry.csv,881,U-20ME,G,Sweeney Eugene,privates,Present-Documented,PART-LIST,ok,
+50,present-doc,maine/4th-maine-volunteer-infantry.csv,1132,U-4ME,K,Ware Horace L,privates,Present-Documented,CAS-REMARK,ok,
+51,present-doc,maine/19th-maine-volunteer-infantry.csv,615,U-19ME,E,Smith John D 18),joined,Present-Documented,PART-LIST,defect,"HARD: Present-Documented PART-LIST although the return says Disc. for disab. Feb. 6 (1863, before the battle) and the 1898 match is a man of another company (Smith, John D., Litchfield); age and ) fused into the name. Fixed: CONFLICT (rule 10), name cleaned"
+52,present-doc,massachusetts/13th-massachusetts-volunteer-infantry.csv,688,U-13MA,E,"Jones, George F.",Priv.,Present-Documented,CAS-REMARK,ok,
+53,present-doc,massachusetts/37th-massachusetts-volunteer-infantry.csv,471,U-37MA,D,"Mills, Thomas J.",Priv.,Present-Documented,CAS-REMARK,ok,
+54,present-doc,massachusetts/13th-massachusetts-volunteer-infantry.csv,431,U-13MA,C,"McCoy, James L.",Priv.,Present-Documented,CAS-REMARK,ok,
+55,present-doc,massachusetts/20th-massachusetts-volunteer-infantry.csv,600,U-20MA,C,"Kraft, Alois",Priv.,Present-Documented,CAS-REMARK,ok,
+56,present-doc,new-hampshire/12th-new-hampshire-volunteer-infantry.csv,187,U-12NH,A,"Chamberlin, John W",Priv,Present-Documented,CAS-REMARK,ok,
+57,present-doc,new-hampshire/2nd-new-hampshire-volunteer-infantry.csv,2355,U-2NH,F,"Woodward, Samuel",Priv,Present-Documented,CAS-REMARK,ok,
+58,present-doc,new-hampshire/2nd-new-hampshire-volunteer-infantry.csv,1627,U-2NH,E,"Parker, Bdwin T",Priv,Present-Documented,CAS-REMARK,defect,name read Bdwin for Edwin (page image). Not fixed (needs second OCR)
+59,present-doc,new-hampshire/2nd-new-hampshire-volunteer-infantry.csv,358,U-2NH,H,"Chase, Charles M",Priv,Present-Documented,CAS-REMARK,ok,

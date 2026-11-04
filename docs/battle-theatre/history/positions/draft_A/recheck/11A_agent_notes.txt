@@ -1,0 +1,31 @@
+Recheck notes for tags 11A (53 claims) and 11C (33 claims). Frozen ledger copy used: _orig_A/positions_A.before_recheck.jsonl.
+Method: every report cited by the tags was printed whole (all are under 50,000 chars; R243 is 44,038) and each claim was read against the entire report text, not a window.
+
+COUNTS PER FIDELITY VALUE
+11A: passed_full_read 29, corrected 24, downgraded 0, split 0 (53)
+11C: passed_full_read 15, corrected 18, downgraded 0, split 0 (33)
+Both: passed_full_read 44, corrected 42, downgraded 0, split 0 (86). No claim needed a second-report split (no "add" entries). No tier change: every claim's own quote still supports its central fact (unit, place, activity).
+
+PATTERNS (a claim can carry more than one)
+1. Time or day-part not printed / from another sentence: 15 claims.
+   11A-012 (noon), 11A-018 (about 3 a. m. is Meade's visit, preceding sentence), 11A-029 (afternoon), 11A-030 (evening of July 1), 11A-042 (afternoon);
+   11C-006 (afternoon), 11C-007 (afternoon), 11C-016 and 11C-022 (window 10.30-noon built from Osborn/other text, audit item), 11C-017 (evening), 11C-023 (afternoon), 11C-024 (afternoon), 11C-028 (11 a. m.-noon; the 11 a. m. is the preceding sentence), 11C-032 (window 11-noon), 11C-033 (evening; passage prints "until dark").
+   Also 11C-004 (computed 10.30 by addition, kept as annotated compiler computation) and 11A-013 (the 12.30 is two sentences earlier, linked by "About this time"; note said preceding sentence).
+2. Merged second report: 0 claims split. 1 claim had a clause from other reports in the activity text (11C-018 "other reports say about 4"), moved to the note.
+3. Later order ignored: 2 claims. 11A-051 (line at 6.30 p. m. is the one after "move 1,000 steps backward", not the half-mile-north position; audit item) and 11A-050 (overstated: "received orders" to go half a mile north, then the back-1,000-steps order because the Twelfth Corps division was "about to" be pushed back). 11A-049 stays at the 2 p. m. position, annotated.
+4. Compass direction or road name not printed: 7 claims. 11A-006 (Emmitsburg Road), 11A-008 (west of Gettysburg), 11A-014 (north of the town), 11A-028 (north of the town; audit item), 11C-004 (north), 11C-016 (north), 11C-027 (east/northeast, York road).
+   Place name not printed but supplied by the compiler (Cemetery Hill, "the hill east of the cemetery", etc.): 11 claims: 11A-009, 020, 021, 023, 025, 026, 044, 11A-047 (wording), 11C-007, 11C-013, 11C-014.
+5. Hedge/condition dropped or activity overstated: 8 claims. 11A-001 (Howard "went by Creagerstown": the corps was to march by it), 11A-003 ("with the exception of one brigade" turned into "with one brigade"), 11A-031 ("toward" vs "in the neighborhood of"), 11A-050, 11C-015 ("arrived at a rapid trot"), 11C-021 ("Third Division" not printed), 11C-023, 11C-025 ("overrun" not printed).
+6. Unit identity gloss: 1 changed (11A-033: report is Harris about the Second Brigade, not the 75th Ohio; unit moved to us-11c-1d-ames). 11A-010 passed with note (Schurz as person, Third Division).
+7. OCR digit: 11A-001 (date digit "June 38" in the report; June 29 rests on the sequence "following day" and the next entry June 30; annotated), 11C-018 (2 p. m. printed plainly; other reports say about 4; kept as printed with ocr true and wd), 11C-031 ("foiir guns" word damage; consistent with two sections; annotated). No claim had a damaged hour digit that needed t removed.
+8. Other: 11C-018 act clause; 11A-019 and 11A-043 place gazetteer ids are by inference (note added).
+
+IDS
+split: none. downgraded: none.
+Patched w=null (clock/day-part removed): 11A-018, 029, 042; 11C-016, 022, 023, 024, 028, 032.
+
+SYSTEMATIC
+- The compiler wrote parenthesised day-parts "(afternoon, July 1)" / "(evening of July 1)" / "(about 10.30 a. m.-noon)" without a printed basis; when the report is a battery or regiment report with no hour for the fact, the window should be null. 17 of 86 claims in these two tags had such a phrase; those that follow from the order of events with an explicit linking sentence were kept and annotated in wd (11A-006, 007, 011, 020, 025, 037, 040; 11C-002, 008).
+- place.printed often held the compiler's gazetteer reading (Cemetery Hill, "the hill east of the cemetery", compass directions). The gazetteer id can stay when the note says it is by inference.
+- Window-from-another-report pattern: the 10.30-noon window (11C-016, 11C-022, 11C-028, 11C-032) was copied between four Eleventh Corps artillery claims; none of the four reports prints it.
+- Validator (positions_A_build.py --tag 11A and --tag 11C with --out): no error lines for either tag.

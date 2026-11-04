@@ -1,0 +1,362 @@
+[
+ {
+  "id": "POS-A-EXT-001",
+  "fidelity": "corrected",
+  "why": "No clock printed for the change of front; noon-1 p.m. window was compiler's. Place narrowed to the printed 'our right flank'; activity reworded to the passage.",
+  "patch": {
+   "act": "Baxter's brigade: the enemy appeared on its right flank, making it necessary for the 90th Pennsylvania (Lyle) to change front to meet them, which it did in perfect order, receiving a very severe fire",
+   "w": null,
+   "wd": "compiler reading from order of events: brigade arrived near the front at 11 a.m. and was 'engaged over two hours'; no clock is printed for this event",
+   "pp": "our right flank"
+  }
+ },
+ {
+  "id": "POS-A-EXT-002",
+  "fidelity": "corrected",
+  "why": "Passage says 'flank of this brigade', not 'of the enemy line'; antecedent unclear. Time is 'at this time' (continuing sentence), afternoon is compiler's reading.",
+  "patch": {
+   "act": "12th Massachusetts had a galling fire on the flank of 'this brigade' at this time, which Baxter thinks had a great influence upon 'its surrender' (the text does not name whose brigade; the surrender can only be the enemy's)",
+   "w": "at this time",
+   "wd": "printed in the continuing sentence: 'at this time' (after the charge by the 97th NY, 83rd NY and 88th PA); afternoon is the compiler's reading from order of events (arrived 11 a.m., engaged over two hours)",
+   "pp": "the flank of this brigade"
+  }
+ },
+ {
+  "id": "POS-A-EXT-003",
+  "fidelity": "corrected",
+  "why": "Quote supports the charge; place 'the ridge held by the Second Brigade' is not printed (charge site not stated) and the afternoon window is compiler's.",
+  "patch": {
+   "w": null,
+   "wd": "compiler reading from order of events: arrived 11 a.m., engaged over two hours; no clock printed for the charge",
+   "pp": null,
+   "note_add": "Re-check: the passage does not print where the charge was made."
+  }
+ },
+ {
+  "id": "POS-A-EXT-004",
+  "fidelity": "corrected",
+  "why": "Place and unit printed. 'Afternoon' unsupported: Morrow prints only 'about 9 a.m.' near the town; no later clock for the McPherson's woods fight. Time removed.",
+  "patch": {
+   "w": null,
+   "wd": "compiler reading not supported by the passage: the report prints 'about 9 a. m.' for the approach near the town and no later clock for the fight in McPherson's woods",
+   "note_add": "Gazetteer id GZ-027 is by inference."
+  }
+ },
+ {
+  "id": "POS-A-EXT-005",
+  "fidelity": "corrected",
+  "why": "Negative finding, inferred. Roster designations (B, 1st PA for Cooper) are not printed in R071; activity now lists only what Wainwright prints. Battery E, 1st NY not in R071 (R009 prints it 'attached' elsewhere).",
+  "patch": {
+   "act": "No OR passage found that places a Battery E, 1st New York Light Artillery with the First Corps artillery brigade at Gettysburg; Wainwright's report names Captain Hall (Second Maine), Captain Stevens (Fifth Maine), Captain Reynolds' six 3-inch guns, Lieutenant Wilber (Battery L, First New York), Captain Cooper's four 3-inch guns and Lieutenant Stewart (Battery B, Fourth U. S.)",
+   "note_add": "Re-check: R009 (p. ~163) prints 'Battery E, 1st New York Light Artillery, attached' after the 145th Pennsylvania entry, not in the First Corps artillery brigade list; not examined further."
+  }
+ },
+ {
+  "id": "POS-A-EXT-006",
+  "fidelity": "corrected",
+  "why": "The 5 p.m. order and the 6.30 attack are other sentences; the 41st was then ordered 1,000 steps backward, so the half-mile-north position was superseded before the attack. Narrowed to the printed post-move line.",
+  "patch": {
+   "act": "After the order to move 1,000 steps backward and keep the same front, the 41st New York's four left-wing companies (Capt. Arens) were posted connecting on their left with the 153rd Pennsylvania; the 41st had been told at 2 p.m. to support the 153rd in case of attack from the front",
+   "w": null,
+   "t": null,
+   "ap": false,
+   "pp": "move 1,000 steps backward and to keep the same front",
+   "wd": "time in a different sentence: \"at 5 p. m.\" (order to take a position half a mile north, then superseded by the 1,000-step order) and \"6.30 p. m.\" (the attack); the posting itself is undated, placed by sequence before the attack",
+   "note_add": "Re-check: the half-mile-north position was ordered at 5 p.m. and then replaced by 1,000 steps backward before the 6.30 attack; where the 153rd stood at 2 p.m. is not printed."
+  }
+ },
+ {
+  "id": "POS-A-EXT-007",
+  "fidelity": "corrected",
+  "why": "Places the 68th and 54th only by order of naming after the 153rd; 6.30 attack hour is in the preceding sentence (5 p.m. is the 41st's order, superseded). Place 'half a mile north' dropped.",
+  "patch": {
+   "act": "The 68th and 54th New York are named, after the 153rd Pennsylvania, among the units with which the 41st New York's four left companies connected on their left (relative order only by the order of naming); in the attack of 6.30 p.m. the enemy broke through the line on the left wing kept either by the 68th or the 54th New York and moved toward the batteries",
+   "w": "An attack was made by the enemy at 6.30 p. m.",
+   "wd": "printed in the preceding sentence of the continuing account: 'An attack was made by the enemy at 6.30 p. m.'; the 5 p.m. in the window is the 41st's order, superseded by the 1,000-step move",
+   "pp": "On the left wing",
+   "note_add": "Re-check: the passage names the 68th and 54th together and does not say which held which place."
+  }
+ },
+ {
+  "id": "POS-A-EXT-008",
+  "fidelity": "corrected",
+  "why": "Hour phrase 'Between 6 and 7 p. m.' is printed earlier in the continuing account; 'onward' is editorial. Clause 'drove the enemy from the rifle-pits' belongs to all four regiments, now stated so.",
+  "patch": {
+   "act": "157th NY and 61st Ohio, guided by one of the First Corps staff officers, with the 82nd Illinois and 45th NY went into a strip of woods on the right of the First Division; 'the regiments' drove the enemy from the rifle-pits, by dark, with the enemy repulsed at 9 o'clock",
+   "w": "Between 6 and 7 p. m.",
+   "wd": "printed in the continuing account: 'Between 6 and 7 p. m. the enemy made a demonstration upon our right wing. As soon as the firing commenced, you ordered...'; the entry into the woods came when 'it had meanwhile become quite dark'"
+  }
+ },
+ {
+  "id": "POS-A-EXT-009",
+  "fidelity": "passed_full_read",
+  "why": "Unit, 'left with General Ames to strengthen his right wing' in passage; time from the continuing 'As soon as the firing commenced' sentence; no later contradiction.",
+  "patch": {
+   "wd": "printed in the continuing sentences: 'Between 6 and 7 p. m. the enemy made a demonstration upon our right wing. As soon as the firing commenced, you ordered me to send one of my brigades...'"
+  }
+ },
+ {
+  "id": "POS-A-EXT-010",
+  "fidelity": "corrected",
+  "why": "Hour and unit in the same sentence group; but 'northeast end of Cemetery Hill' is printed for the First Brigade's July 1 placement, a different sentence. Place narrowed to what is printed with the charge.",
+  "patch": {
+   "pp": "the First Brigade of my division, and Wiedrich's battery",
+   "note_add": "Re-check: 'northeast end of the hill' is printed only in Steinwehr's July 1 paragraph; gazetteer id is by inference."
+  }
+ },
+ {
+  "id": "POS-A-EXT-011",
+  "fidelity": "corrected",
+  "why": "'Forenoon' is compiler's reading; 'north-northeast of the town' not printed. Activity completed with 'in check' and 'until relieved by the Eleventh Corps'.",
+  "patch": {
+   "act": "Devin placed the 9th NY in support where his skirmishers on the right were forced back by the enemy's line of battle coming from the direction of Heidlersburg, and, dismounting the rest of his available force, held the rebel line in check for two hours until relieved by the arrival of the Eleventh Corps",
+   "pp": "the right (skirmishers on the right; line coming from the direction of Heidlersburg)",
+   "wd": "compiler reading from order of events: the report opens 'On the morning of July 1' and the Heidlersburg line follows with 'About this time'; no clock printed"
+  }
+ },
+ {
+  "id": "POS-A-EXT-012",
+  "fidelity": "passed_full_read",
+  "why": "Unit, morning of July 1 and squadron to front and left in one sentence; later retirement does not contradict the forming position.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-EXT-013",
+  "fidelity": "passed_full_read",
+  "why": "'In the afternoon' printed in the continuing sentences; stone wall, ridge of woods, seminary on the right and the half-regiment clause all in the passage.",
+  "patch": {
+   "wd": "printed in the continuing sentences: 'In the afternoon, the enemy ... advanced on our left'; 'The general commanding division ordered my brigade forward at a trot' (afternoon of July 1)"
+  }
+ },
+ {
+  "id": "POS-A-EXT-014",
+  "fidelity": "corrected",
+  "why": "Quote and Wisconsin relief supported. 'Gamble's line west of the seminary' is not printed (no place in the sentence); 'forenoon' is order-of-events reading.",
+  "patch": {
+   "pp": null,
+   "wd": "compiler reading from order of events: Buford prints 'between 8 and 9 a. m.' for the opening and the First Brigade held 'more than two hours' until the infantry came up; no clock in this sentence",
+   "note_add": "Re-check: the sentence prints no place; context is the First Brigade (Gamble's) front before relief by Reynolds' leading division."
+  }
+ },
+ {
+  "id": "POS-A-EXT-015",
+  "fidelity": "passed_full_read",
+  "why": "Fourth Pennsylvania sent to Pleasonton, not with Gregg July 3, joined in the evening, all in one sentence of J. I. Gregg's report.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-EXT-016",
+  "fidelity": "passed_full_read",
+  "why": "Unit, deployment and 'continued until nightfall' (next sentences of the same account) printed; July 3 sequence after the 12 m. dispatch supports afternoon.",
+  "patch": {
+   "wd": "compiler reading from order of events: the posting follows the 12 m. dispatch on July 3; 'heavy skirmishing ... continued until nightfall' printed in a later sentence",
+   "note_add": "Gazetteer id GZ-025 is by inference."
+  }
+ },
+ {
+  "id": "POS-A-EXT-017",
+  "fidelity": "passed_full_read",
+  "why": "1st NJ posted as mounted skirmishers to the right and front in a wood, then charged the flank of the withdrawing column; both printed in the same account.",
+  "patch": {
+   "wd": "compiler reading from order of events: after the 12 m. dispatch and the repulse of the charges, before dark; no clock printed"
+  }
+ },
+ {
+  "id": "POS-A-EXT-018",
+  "fidelity": "passed_full_read",
+  "why": "First Maryland on the Hanover turnpike in position to protect the right of the line, printed with road name.",
+  "patch": {
+   "wd": "compiler reading from order of events: the posting follows the 12 m. dispatch on July 3; no clock printed for the posting"
+  }
+ },
+ {
+  "id": "POS-A-EXT-019",
+  "fidelity": "corrected",
+  "why": "Quote supports the section and retirement; 'afternoon' and 'Gregg's line on the right' are not printed. Reworded to the passage; Battery E, 1st U.S. is printed only in a July 16 section.",
+  "patch": {
+   "act": "One section of Captain Randol's battery, under Lieutenant Chester, the only part of J. I. Gregg's command to take part in the cavalry fight of July 3, was hotly engaged and obliged to retire about 300 yards because a portion of General Custer's command gave way",
+   "w": null,
+   "wd": "compiler reading: the passage prints only 'the cavalry fight of July 3'; no clock",
+   "pp": null,
+   "note_add": "Re-check: report prints 'Randol's battery (E, First U. S. Artillery)' only in the July 16 section; place not printed; gazetteer id is by inference."
+  }
+ },
+ {
+  "id": "POS-A-EXT-020",
+  "fidelity": "corrected",
+  "why": "Quote supports the posting. 'Battery E, 4th U.S.' not printed; 'morning' rests on the 7 o'clock order to move (earlier sentence). Place words narrowed to printed text.",
+  "patch": {
+   "act": "Hammond's Fifth New York Cavalry, which had been ordered to move toward the left of the line of battle, was on arriving ordered into position as supports for Elder's battery; shelled in the edge of some timber, it was ordered by General Farnsworth under cover of a ridge a little more to the left",
+   "w": null,
+   "wd": "time in a different sentence: \"At about 7 o'clock on the morning of July 3\" (order to move); the posting is 'on arriving upon the field', hour not printed",
+   "pp": "the left of our line of battle; the edge of some timber; a ridge a little more to the left"
+  }
+ },
+ {
+  "id": "POS-A-EXT-021",
+  "fidelity": "passed_full_read",
+  "why": "Sentence follows 'At 5.30 p.m. I ordered an attack with both brigades'; 'all this time' is the continuing phrase. Batteries and quote verbatim.",
+  "patch": {
+   "wd": "printed in the continuing sentence: 'At 5.30 p. m. I ordered an attack with both brigades...' then 'The artillery, under Elder and Graham, all this time was doing good execution'",
+   "note_add": "Place is the compiler's gloss of the left of the line (the 8 a.m. order to move to the left of our line)."
+  }
+ },
+ {
+  "id": "POS-A-EXT-022",
+  "fidelity": "passed_full_read",
+  "why": "Hour in the same sentence; date June 30 from the heading sentence; pickets held roads until afternoon of July 3 in the same sentence.",
+  "patch": {
+   "wd": "hour printed in the same sentence; the date June 30 is printed in the opening sentence ('separating ... at Hanover Junction, Pa., June 30'), the continuing account has no other date before July 3"
+  }
+ },
+ {
+  "id": "POS-A-EXT-023",
+  "fidelity": "passed_full_read",
+  "why": "Orders in the afternoon of July 3 to go to Emmitsburg, went as far as Westminster and bivouacked for rations: all printed in the two continuing sentences.",
+  "patch": {
+   "wd": "printed in the preceding clause: 'the afternoon of July 3, when I received orders to move my command to Emmitsburg'; the bivouac hour is not printed"
+  }
+ },
+ {
+  "id": "POS-A-EXT-024",
+  "fidelity": "passed_full_read",
+  "why": "Early morning July 4, 12 m. arrival at Emmitsburg, met Merritt, and the 1 p.m. order to report to Kilpatrick are all printed in successive sentences.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-EXT-025",
+  "fidelity": "passed_full_read",
+  "why": "Hour in the same sentence; Huey joined at this place and the road to Monterey in the following sentence.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-EXT-026",
+  "fidelity": "passed_full_read",
+  "why": "Re-run of the regexes: 'thirty-fourth New York' 1 hit (R250 p.722), '134th N' R009 and D1664, Coster 13 hits; matches the claim.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-EXT-027",
+  "fidelity": "passed_full_read",
+  "why": "Re-run: 'fifty-fourth New York' 0 hits; Coster hits are brigade-level (13); matches the claim.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-EXT-028",
+  "fidelity": "passed_full_read",
+  "why": "Re-run: 'Seventy-third Pennsylvania' and 'Seventy-third Penn' 0 hits; matches the claim.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-EXT-029",
+  "fidelity": "corrected",
+  "why": "Overstated: Steinwehr (R250) prints Coster ordered through the town, Schurz's order to take a position north and east of Gettysburg and a severe engagement; only Schurz (R253 p.729) names the railroad depot.",
+  "patch": {
+   "act": "Hour and road of arrival of Coster's First Brigade and the details of its July 1 advance north of the town: no report by Coster; Steinwehr (R250) prints only that Coster was ordered through the town, told by Schurz to take a position north and east of Gettysburg, had a severe engagement and fell back to Cemetery Hill, and Schurz (R253) that he deployed it on the right of the road junction near the railroad depot; no hour is printed"
+  }
+ },
+ {
+  "id": "POS-A-EXT-030",
+  "fidelity": "passed_full_read",
+  "why": "Gilsa regex re-run: 8 hits as listed; Einsiedel prints arrival at about 10 o'clock in the evening of July 1 (checked in R245).",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-EXT-031",
+  "fidelity": "passed_full_read",
+  "why": "Re-run: 'fifty-fourth New York' 0 hits; Einsiedel (R245) names the 54th NY only in the July 2 line (checked).",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-EXT-032",
+  "fidelity": "passed_full_read",
+  "why": "Re-run: 'Twelfth Massachusetts' 6 hits in R029, R043, R052 only; matches.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-EXT-033",
+  "fidelity": "passed_full_read",
+  "why": "Re-run: 'Eighty-third New York' 3 hits (R029, R043, R052), Moesch 7 hits; matches.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-EXT-034",
+  "fidelity": "passed_full_read",
+  "why": "Re-run: 'Ninetieth Pennsylvania' 6 hits (R029, R043, R044, R052), Lyle 16 hits; matches.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-EXT-035",
+  "fidelity": "passed_full_read",
+  "why": "Re-run: 'Nineteenth Indiana' 9 hits in R029, R033, R036 only; matches.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-EXT-036",
+  "fidelity": "passed_full_read",
+  "why": "Re-run: 'Seventeenth Pennsylvania Cavalry' 2 hits, both R339 pp.942-943; matches.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-EXT-037",
+  "fidelity": "passed_full_read",
+  "why": "Claim says 1 hit; re-run finds 3: Part 3 D0344 plus Part 2 R383 (Milroy) and R405 (Averell), other companies elsewhere, none at Gettysburg. Gap stands.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-EXT-038",
+  "fidelity": "corrected",
+  "why": "Overstated wording: R337 names the 8th Illinois only for its surgeon, R338 names Capt. Morris of the 8th Illinois on Gamble's staff wounded at Gettysburg; 'division report names it only in the June 21 action' is wrong.",
+  "patch": {
+   "act": "Own report of the 8th Illinois Cavalry for Gettysburg: none in the index; Gamble's brigade report (R338) lists it in the June 21 action and prints Captain Morris, Eighth Illinois Cavalry, serving on his staff, wounded at Gettysburg; Buford's report (R337) names only its surgeon"
+  }
+ },
+ {
+  "id": "POS-A-EXT-039",
+  "fidelity": "passed_full_read",
+  "why": "Re-run: 'Sixth Pennsylvania Cavalry' 9 hits (R336, R344, R378, D0191, D0547); R340 not among them; matches.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-EXT-040",
+  "fidelity": "passed_full_read",
+  "why": "Re-run: 'First U. S. Cavalry' 7 hits; R340 at pp.944-945 (July 7+); matches.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-EXT-041",
+  "fidelity": "passed_full_read",
+  "why": "Re-run: 'Second U. S. Cavalry' 8 hits; matches.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-EXT-042",
+  "fidelity": "passed_full_read",
+  "why": "Re-run: 'Fifth U. S. Cavalry' 9 hits (R336, R341, D0191); matches.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-EXT-043",
+  "fidelity": "passed_full_read",
+  "why": "Re-run: 'First Massachusetts Cavalry' 7 hits (R336, R345, R378); matches.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-EXT-044",
+  "fidelity": "passed_full_read",
+  "why": "Re-run: 'First Pennsylvania Cavalry' 4 hits (R350, R355, R378, unindexed); matches.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-EXT-045",
+  "fidelity": "passed_full_read",
+  "why": "Re-run: 'First Maine Cavalry' 26 hits; matches.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-EXT-046",
+  "fidelity": "passed_full_read",
+  "why": "Re-run: 'Sixteenth Pennsylvania Cavalry' 14 hits; matches.",
+  "patch": {}
+ }
+]

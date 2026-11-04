@@ -1,0 +1,40 @@
+{
+ "what": "false-positive rate of the edit rule on polygons shifted 250-450 m off the documented disturbance (3 random shifts per candidate)",
+ "n_tested": 158,
+ "n_pass": 53,
+ "false_positive_rate": 0.33544303797468356,
+ "by_kind": {
+  "AVE": {
+   "n": 17,
+   "pass_rate": 0.29411764705882354,
+   "median_abs_contrast_m": 1.5773162841796875
+  },
+  "PRK": {
+   "n": 22,
+   "pass_rate": 0.5,
+   "median_abs_contrast_m": 2.384998321533203
+  },
+  "QRY": {
+   "n": 9,
+   "pass_rate": 0.1111111111111111,
+   "median_abs_contrast_m": 1.0160369873046875
+  },
+  "RDC": {
+   "n": 34,
+   "pass_rate": 0.47058823529411764,
+   "median_abs_contrast_m": 2.3304977416992188
+  },
+  "US15": {
+   "n": 76,
+   "pass_rate": 0.2631578947368421,
+   "median_abs_contrast_m": 1.0974311828613281
+  }
+ },
+ "abs_contrast_percentiles_m": {
+  "50": 1.430938720703125,
+  "75": 3.297758102416992,
+  "90": 4.942418670654299,
+  "95": 5.958284759521486,
+  "99": 9.814596176147484
+ }
+}

@@ -12,9 +12,9 @@ let cache = null;
 export function loadDocs() { if (!cache) cache = { dataset: read('data/dataset.json'), tokens: read('tokens/tokens.json'), textTable: read('data/text-widths.json'), popupData: read('data/popup-data.json') }; return cache; }
 
 /** a fresh engine on the real data.  settings = { 'layout.dMaxPx': 40, ... } applied before the first frame */
-export function makeEngine({ settings = {}, start, viewport, kernel, skin } = {}) {
+export function makeEngine({ settings = {}, start, viewport, kernel, skin, autoQuality = false } = {}) {
   const d = loadDocs();
-  const e = createEngine({ dataset: d.dataset, tokens: d.tokens, textTable: d.textTable, start, viewport, kernel });
+  const e = createEngine({ autoQuality, dataset: d.dataset, tokens: d.tokens, textTable: d.textTable, start, viewport, kernel });
   if (skin) { e.kernel.skins.register(skin.id, skin, { replace: true }); }
   for (const [k, v] of Object.entries(settings)) e.tuning.set(k, v);
   return e;

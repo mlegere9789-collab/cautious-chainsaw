@@ -1,0 +1,61 @@
+n,stratum,csv_file_pre_audit,csv_row,unit_id,company,name_as_printed,rank,label_pre_audit,source_id,locator,verdict,defect
+1,PD,alabama/15th-alabama.csv,960,C-15AL,G,Robert Parker,Private,Present-Documented,AL-OATES-1905,"App. A, Co. G, p.",faithful,
+2,PD,florida/8th-florida.csv,77,C-8FL,A,I. M. Nelson,2nd Lieutenant,Present-Documented,FL-SOLDIERS-1903,djvu p.195 (book p.189),faithful,
+3,PD,florida/2nd-florida.csv,1173,C-2FL,L,"Peterson, J. B",Enlisted man,Present-Documented,FL-SOLDIERS-1903,djvu p.103 (book p.97),DEFECT,"Peterson, J. B.: PD taken from Parker, W. M. remark (wrapped remark on next line; page image djvu p.103) (hard error)"
+4,PD,mississippi/42nd-mississippi-infantry.csv,64,C-42MS,I,W. L. Waldron,Second Lieutenant,Present-Documented,MS-REGISTER-1908,"Register 1908, Military History of Mississippi, djvu line 41077",faithful,
+5,PD,alabama/brewer-officers-6th-alabama-infantry.csv,41,C-6AL,order 7: Wilcox,Julius A. Kimbrough,Captain,Present-Documented,AL-BREWER-1872,"Brewer 1872 War Record, djvu line 39746",faithful,
+6,PD,florida/5th-florida.csv,1058,C-5FL,K,"Baggett, M. W",Enlisted man,Present-Documented,FL-SOLDIERS-1903,djvu p.158 (book p.152),faithful,
+7,PD,texas-arkansas/1st-texas-infantry.csv,763,C-1TX,K,V.,Private,Present-Documented,TX-POLLEY-1910,"Polley 1910, muster rolls, djvu p.366 col.2",DEFECT,"name cell ""V."" unreadable, remark belongs to another man; PD asserted (hard error)"
+8,PD,texas-arkansas/5th-texas-infantry.csv,307,C-5TX,D,W. T. Hill,1st Lieut.,Present-Documented,TX-POLLEY-1910,"Polley 1910, muster rolls, djvu p.392 col.1",faithful,
+9,PD,alabama/brewer-officers-47th-alabama-infantry.csv,15,C-47AL,order 2: Tallapoosa,"Joseph Johnston, jr",Captain,Present-Documented,AL-BREWER-1872,"Brewer 1872 War Record, djvu line 43735",faithful,
+10,PD,texas-arkansas/4th-texas-infantry.csv,937,C-4TX,I,"Bales, W. H.",Private,Present-Documented,TX-POLLEY-1910,"Polley 1910, muster rolls, djvu p.386 col.1",faithful,
+11,PD,mississippi/21st-mississippi-infantry.csv,21,C-21MS,A,W. W. Wolcott,Second Lieutenant,Present-Documented,MS-REGISTER-1908,"Register 1908, Military History of Mississippi, djvu line 40154",faithful,
+12,PD,alabama/brewer-officers-9th-alabama-infantry.csv,42,C-9AL,order 9: Morgan,Gaines Smith,Captain,Present-Documented,AL-BREWER-1872,"Brewer 1872 War Record, djvu line 40064",faithful,
+13,PD,maryland/maryland-infantry-second-roster-goldsborough.csv,424,C-1MD-CSA,G,Thomas R. Stewart,First Lieutenant,Present-Documented,MD-GOLDSBOROUGH-1869,"Goldsborough roster, djvu line 7392",faithful,
+14,PD,mississippi/48th-mississippi-infantry.csv,29,C-48MS,B,William G. Conner,Lieutenant-Colonel,Present-Documented,MS-REGISTER-1908,"Register 1908, Military History of Mississippi, djvu line 41615",DEFECT,unit wrong: Jeff Davis Legion major listed under 48th Mississippi (range overlap); rank wrong; PD asserted for wrong unit (hard error)
+15,PD,mississippi/jeff-davis-legion-mississippi-cavalry.csv,5,C-Jeff-MS-CAV,FS,William G. Conner,Lieutenant-Colonel,Present-Documented,MS-REGISTER-1908,"Register 1908, Military History of Mississippi, djvu line 41615",DEFECT,"rank Lieutenant-Colonel, source says Major (multi-role paragraph)"
+16,PD,mississippi/2nd-mississippi-infantry.csv,55,C-2MS,D,Robert M. Brandon,Captain,Present-Documented,MS-REGISTER-1908,"Register 1908, Military History of Mississippi, djvu line 36078",faithful,
+17,PD,mississippi/11th-mississippi-infantry.csv,125,C-11MS,K,John T. Stanford,First Lieutenant,Present-Documented,MS-REGISTER-1908,"Register 1908, Military History of Mississippi, djvu line 36829",faithful,
+18,PD,alabama/brewer-officers-12th-alabama-infantry.csv,41,C-12AL,order 6: Macon,Robert E. Park,Captain,Present-Documented,AL-BREWER-1872,"Brewer 1872 War Record, djvu line 40422",faithful,
+19,PD,alabama/brewer-officers-15th-alabama-infantry.csv,30,C-15AL,order 6: Henry,John A. Oates,Captain,Present-Documented,AL-BREWER-1872,"Brewer 1872 War Record, djvu line 40744",faithful,
+20,PD,alabama/12th-alabama-park-lists.csv,30,C-12AL,E,John M. Walker,Private,Present-Documented,AL-PARK-1906,"Park 1906, Co. E sketch, djvu line ~499",faithful,
+21,AD,alabama/15th-alabama.csv,534,C-15AL,E,George W Fleming,Private,Absent-Documented,AL-OATES-1905,"App. A, Co. E, p.",faithful,
+22,AD,alabama/14th-alabama.csv,862,C-14AL,I,"Pitard, J M",Private,Absent-Documented,AL-HURST-1863,"roll of Co. I, djvu line 3135",DEFECT,"Pitard: label Absent taken from the next man (Pinkston, discharged) absorbed into the row (hard error); Pinkston row lost"
+23,AD,florida/8th-florida.csv,787,C-8FL,G,"Luffman, Disney McKinnie. James ^\ Mercer. William",Enlisted man,Absent-Documented,FL-SOLDIERS-1903,djvu p.206 (book p.200),DEFECT,"three men merged in one row (Luffman Disney, McKinnie James, Mercer William); two names lost"
+24,AD,texas-arkansas/4th-texas-infantry.csv,538,C-4TX,F,"Cunningham, Thos.",Private,Absent-Documented,TX-POLLEY-1910,"Polley 1910, muster rolls, djvu p.378 col.1",faithful,
+25,AD,mississippi/12th-mississippi-infantry.csv,37,C-12MS,D,W. L. Haley,Second Lieutenant,Absent-Documented,MS-REGISTER-1908,"Register 1908, Military History of Mississippi, djvu line 37171",DEFECT,W. L. Haley: Absent taken from Ramsey remark (hard error); Ramsey row lost
+26,AD,florida/5th-florida.csv,339,C-5FL,C,Council A. Bryan,Captain,Absent-Documented,FL-SOLDIERS-1903,djvu p.146 (book p.140),DEFECT,"Council A. Bryan: ENL-AFTER from ""elected to Legislature and resigned Nov 19 64"" (hard error)"
+27,AD,alabama/brewer-officers-14th-alabama-infantry.csv,11,C-14AL,FS,R. A. McCord,Major,Absent-Documented,AL-BREWER-1872,"Brewer 1872 War Record, djvu line 40589",faithful,
+28,AD,mississippi/17th-mississippi-infantry.csv,34,C-17MS,FS,Richard M. King,Second Lieutenant,Absent-Documented,MS-REGISTER-1908,"Register 1908, Military History of Mississippi, djvu line 38548",faithful,
+29,AD,florida/2nd-florida.csv,1094,C-2FL,K,"Stewart, George",Enlisted man,Absent-Documented,FL-SOLDIERS-1903,djvu p.102 (book p.96),faithful,
+30,AD,alabama/brewer-officers-6th-alabama-infantry.csv,7,C-6AL,FS,James J. Willingham,Lieutenant Colonel,Absent-Documented,AL-BREWER-1872,"Brewer 1872 War Record, djvu line 39695",faithful,
+31,OFF,mississippi/18th-mississippi-infantry.csv,182,C-18MS,K,William Baskin,First Lieutenant,Unknown,MS-REGISTER-1908,"Register 1908, Military History of Mississippi, djvu line 39236",faithful,
+32,OFF,field-officers/field-officers-C-5TX.csv,2,C-5TX,FS,"Archer, James J.",Colonel,Unknown,US-ESTES-1912,"Estes 1912, alphabetical list of field officers",faithful,
+33,OFF,mississippi/16th-mississippi-co-e-quitman-guards.csv,13,C-16MS,E,"Badon, H. B -",Private (ditto or unprinted),Unknown,MS-QUITMAN-1866,"Quitman Guards sketch, djvu line 156",faithful,
+34,OFF,field-officers/field-officers-C-21MS.csv,2,C-21MS,FS,"Brandon, Wm. L.",Colonel,Unknown,US-ESTES-1912,"Estes 1912, alphabetical list of field officers",faithful,
+35,OFF,mississippi/11th-mississippi-infantry.csv,109,C-11MS,H,L. W. Galbraith,First Lieutenant,Unknown,MS-REGISTER-1908,"Register 1908, Military History of Mississippi, djvu line 36795",faithful,
+36,OFF,texas-arkansas/4th-texas-infantry.csv,927,C-4TX,I,J. D. Caddell,Third Sergeant,Unknown,TX-POLLEY-1910,"Polley 1910, muster rolls, djvu p.385 col.1",faithful,
+37,OFF,maryland/maryland-infantry-first-roster-1861-62-goldsborough.csv,182,C-1MD-CSA,C,William P. Thomas,Second Lieutenant,Unknown,MD-GOLDSBOROUGH-1869,"Goldsborough roster, djvu line 2935",faithful,
+38,OFF,field-officers/field-officers-C-48AL.csv,3,C-48AL,FS,"Alldridge, Jesse J.",Lieutenant-Colonel,Unknown,US-ESTES-1912,"Estes 1912, alphabetical list of field officers",faithful,
+39,OFF,mississippi/21st-mississippi-infantry.csv,5,C-21MS,FS,W. L. Brandon,Lieutenant-Colonel,Unknown,MS-REGISTER-1908,"Register 1908, Military History of Mississippi, djvu line 40140",faithful,
+40,OFF,mississippi/13th-mississippi-infantry.csv,43,C-13MS,A,W. B. Johnson,Third Lieutenant,Unknown,MS-REGISTER-1908,"Register 1908, Military History of Mississippi, djvu line 37596",faithful,
+41,OFF,mississippi/12th-mississippi-infantry.csv,38,C-12MS,D,R. P. Willing,Third Lieutenant,Absent-Documented,MS-REGISTER-1908,"Register 1908, Military History of Mississippi, djvu line 37174",DEFECT,"R. P. Willing: Absent taken from Barlow remark (hard error); Ard, Barlow rows lost"
+42,OFF,mississippi/42nd-mississippi-infantry.csv,24,C-42MS,A,William E. Bamberg,Third Lieutenant,Unknown,MS-REGISTER-1908,"Register 1908, Military History of Mississippi, djvu line 40946",faithful,
+43,UNK,texas-arkansas/1st-texas-infantry.csv,66,C-1TX,A,"Sikes, B.",Private,Unknown,TX-POLLEY-1910,"Polley 1910, muster rolls, djvu p.357 col.2",faithful,
+44,UNK,texas-arkansas/5th-texas-infantry.csv,874,C-5TX,K,"Turner, Joe, 2d Sergt., 2d Lieut.",Private,Unknown,TX-POLLEY-1910,"Polley 1910, muster rolls, djvu p.401 col.1",DEFECT,"rank Private, printed 2d Sergt., 2d Lieut."
+45,UNK,texas-arkansas/4th-texas-infantry.csv,2,C-4TX,A,Dr. J. C. Jones,Surgeon,Unknown,TX-POLLEY-1910,"Polley 1910, muster rolls, djvu p.369 col.1",faithful,
+46,UNK,maryland/maryland-infantry-second-roster-goldsborough.csv,267,C-1MD-CSA,C,"Shutz, Justus",Private,Unknown,MD-GOLDSBOROUGH-1869,"Goldsborough roster, djvu line 7120",faithful,
+47,UNK,alabama/brewer-officers-3rd-alabama-infantry.csv,44,C-3AL,order 10: Mobile,Louis T. Woodruff,Captain,Unknown,AL-BREWER-1872,"Brewer 1872 War Record, djvu line 39382",faithful,
+48,UNK,mississippi/18th-mississippi-infantry.csv,189,C-18MS,K,Sessions,Third Lieutenant,Unknown,MS-REGISTER-1908,"Register 1908, Military History of Mississippi, djvu line 39244",faithful,
+49,UNK,florida/8th-florida.csv,84,C-8FL,A,"Allmans, M. G",Enlisted man,Unknown,FL-SOLDIERS-1903,djvu p.195 (book p.189),faithful,
+50,UNK,florida/5th-florida.csv,580,C-5FL,E,"Hughey, John",Enlisted man,Unknown,FL-SOLDIERS-1903,djvu p.150 (book p.144),faithful,
+51,UNK,alabama/14th-alabama.csv,553,C-14AL,F,"Ray, VV B",Private,Unknown,AL-HURST-1863,"roll of Co. F, djvu line 2242",faithful,
+52,UNK,florida/2nd-florida.csv,671,C-2FL,F,"Underwood, P. M",Enlisted man,Unknown,FL-SOLDIERS-1903,djvu p.95 (book p.89),faithful,
+53,UNK,alabama/15th-alabama.csv,1188,C-15AL,I,William P Coombs,Private,Unknown,AL-OATES-1905,"App. A, Co. I, p.",DEFECT,"label Unknown correct; basis OCR-DATE-LOST wrong (killed 25 May 1864 is dated, after the battle)"
+54,UNK,alabama/brewer-officers-8th-alabama-infantry.csv,5,C-8AL,FS,John W. Frazier,Lieutenant Colonel,Unknown,AL-BREWER-1872,"Brewer 1872 War Record, djvu line 39892",faithful,
+55,UNK,mississippi/2nd-mississippi-infantry.csv,32,C-2MS,A,Arthur M. Belsher,Second Lieutenant,Unknown,MS-REGISTER-1908,"Register 1908, Military History of Mississippi, djvu line 36029",faithful,
+56,UNK,mississippi/19th-mississippi-infantry.csv,74,C-19MS,D,T. Hinds Burch,Second Lieutenant,Unknown,MS-REGISTER-1908,"Register 1908, Military History of Mississippi, djvu line 39600",faithful,
+57,UNK,alabama/12th-alabama-park-lists.csv,65,C-12AL,H,Jourdan Waid,Private,Unknown,AL-PARK-1906,"Park 1906, Co. H sketch, djvu line ~874",DEFECT,"killed at Seven Pines (list header ""killed in battle"") left Unknown (backspace bug in park_parse.py)"
+58,UNK,mississippi/16th-mississippi-co-e-quitman-guards.csv,42,C-16MS,E,"Pearson, Holden",Private (ditto or unprinted),Unknown,MS-QUITMAN-1866,"Quitman Guards sketch, djvu line 286",faithful,
+59,UNK,alabama/brewer-officers-12th-alabama-infantry.csv,12,C-12AL,FS,Samuel B. Pickens,Major,Unknown,AL-BREWER-1872,"Brewer 1872 War Record, djvu line 40382",faithful,
+60,UNK,mississippi/13th-mississippi-infantry.csv,99,C-13MS,F,William R. McKinley,First Lieutenant,Unknown,MS-REGISTER-1908,"Register 1908, Military History of Mississippi, djvu line 37682",faithful,

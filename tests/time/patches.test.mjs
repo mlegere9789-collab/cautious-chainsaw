@@ -26,29 +26,44 @@ describe('CLOCK.json structure (T0 patch-file format)', () => {
       assert.ok(Number.isInteger(p.expect) && p.expect >= 1); assert.ok(p.note && p.note.length > 10, `${p.id} has no note`);
       if (p.regex) assert.ok(!/\\/.test(p.repl), `${p.id}: m.expand would interpret a backslash`);
     }
-    assert.equal(spec.patches.length, 57); assert.equal(spec.patches.filter((p) => p.regex).length, 3);
+    // 113 patches since the CLOCK group grew from 57 (counted from the file on 2026-10-22: 113 ids, 3 with regex; the tests below assert every one of them is applied and none is dropped).
+    // The count is pinned so that a patch removed or added without a decision is noticed; the rest of this file asserts that each of them applies.
+    assert.equal(spec.patches.length, 113); assert.equal(spec.patches.filter((p) => p.regex).length, 3);
   });
   test('it is regenerated deterministically from the module and the legacy text', () => {
     const before = readText(FILE); const r = spawnSync(process.execPath, [P('tools', 'time', 'build-clock-patches.mjs')], { encoding: 'utf8' });
     assert.equal(r.status, 0, r.stderr); assert.match(r.stdout, /unchanged/); assert.equal(readText(FILE), before);
   });
-  test('it lives in patches-next (inert): tools/t0/patches has no CLOCK file and nothing in this workstream wrote there', () => {
-    assert.ok(!fs.existsSync(P('tools', 't0', 'patches', 'CLOCK.json'))); assert.ok(!fs.existsSync(P('tools', 't0', 'patches', 'B+CLOCK.json')));
+  test('it lives in patches-next and, since train R1d registered it, tools/t0/patches/CLOCK.json is the same file (tools/t0/r1d_sync.py keeps them in step); no B+CLOCK variant exists', () => {
+    const reg = P('tools', 't0', 'patches', 'CLOCK.json');
+    if (fs.existsSync(reg)) assert.equal(readText(reg), readText(FILE), 'the registered copy differs from patches-next/CLOCK.json: run python tools/t0/r1d_sync.py');
+    assert.ok(!fs.existsSync(P('tools', 't0', 'patches', 'B+CLOCK.json')));
   });
 });
 
 describe('the checker: apply, parse, scope, evaluate', () => {
-  test('all 57 anchors match the pristine legacy text exactly as often as expected; every patched script parses; no new free names; module parity', () => {
+  test('110 anchors match the pristine legacy text exactly as often as expected and the 3 that follow the T0 groups are named; every patched script parses; no new free names; module parity', () => {
     const r = check(); assert.equal(r.status, 0, r.stdout + r.stderr);
-    assert.match(r.stdout, /57 patches in group "CLOCK" \(3 regex\), 57 applied/); assert.match(r.stdout, /scope: no new unresolved identifiers/);
-    assert.match(r.stdout, /inline module parity: 675 ticks x 9 styles/); assert.match(r.stdout, /7 routed through the module, 1 still legacy/);
+    assert.match(r.stdout, /113 patches in group "CLOCK" \(3 regex\), 110 applied to the pristine legacy text, 3 follow the T0 groups and are asserted with --after-t0 \(CLK-55-mobile-step-back, CLK-56-mobile-step-forward, CLK-62-bookmark-remove-label\)/); assert.match(r.stdout, /scope: no new unresolved identifiers/);
+    assert.match(r.stdout, /inline module parity: 675 ticks x 9 styles/); assert.match(r.stdout, /8 implementations found, 8 routed through the module, 0 still legacy \(unattributed formulas: 0\)/);
     for (const f of ['assets/index-Cg8FAMXN.js', 'assets/HelpModal-CFV9T0zH.js', 'assets/BookmarkPanel-C5YT4b5k.js', 'compare.html', 'living-ledger.html', 'camera.html', 'immersive.html', 'documentary.html', 'education.html', 'turning-points.html', 'sandbox.html', 'regiment.html', 'search.html']) assert.match(r.stdout, new RegExp(f.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ': parses'));
   });
-  test('it also applies on top of the real T0 groups (R0 A B DL C AX CP), with CLOCK at the end and right after group B (the regex anchors survive D1-D3)', () => {
-    for (const pos of ['end', 'after-B']) {
-      const r = check('--after-t0', '--position=' + pos, '--out=' + tmpdir('t0'), '--no-scope'); assert.equal(r.status, 0, pos + '\n' + r.stdout + r.stderr);
-      assert.ok(+/(\d+) T0 patches applied/.exec(r.stdout)[1] >= 125, 'the T0 groups (125 when this was written; other workstreams add more)'); assert.match(r.stdout, /0 did not apply/); assert.match(r.stdout, /57 patches in group "CLOCK" \(3 regex\), 57 applied on top of the T0 groups/);
+  test('it also applies on top of the real T0 groups (the groups before CLOCK in trains.json), with CLOCK at the end (the registered position) and right after group B (the regex anchors survive D1-D3)', () => {
+    // registered position: all 113 apply, and the T0 patches that do not apply in this emulation are only ones on index.html, which the R0 mechanism generates (the emulation starts from baseline/dist) and no CLOCK patch touches
+    const end = check('--after-t0', '--position=end', '--out=' + tmpdir('t0'), '--no-scope'); assert.equal(end.status, 0, end.stdout + end.stderr);
+    assert.ok(+/(\d+) T0 patches applied/.exec(end.stdout)[1] >= 125, 'the T0 groups (125 when this was written, 269 on 2026-10-22; other workstreams add more)');
+    assert.match(end.stdout, /113 patches in group "CLOCK" \(3 regex\), 113 applied on top of the T0 groups/);
+    assert.deepEqual(spec.patches.filter((p) => p.target === 'index.html').map((p) => p.id), [], 'no CLOCK patch targets index.html');
+    const notApplied = /did not apply in this emulation: (.*)/.exec(end.stdout);
+    if (notApplied) {
+      const perf = readJson(P('tools', 't0', 'patches', 'PERF.json')).patches, ids = notApplied[1].split(', ').map((x) => x.replace(/^t0:/, '').replace(/ \(.*$/, ''));
+      for (const id of ids) assert.equal(perf.find((p) => p.id === id)?.target, 'index.html', `${id} did not apply in the emulation and is not an index.html patch of group PERF`);
     }
+    // right after B the three patches that follow A..PERF (they anchor on text of groups C, AX ... by construction) are the only failures; the regex anchors CLK-03/04/05 on D1-D3 are not among them
+    const afterB = check('--after-t0', '--position=after-B', '--out=' + tmpdir('t0b'), '--no-scope'); assert.equal(afterB.status, 1, afterB.stdout);
+    const problems = [...afterB.stderr.matchAll(/^\s+(CLK-[\w-]+): expected/gm)].map((m) => m[1]).sort();
+    assert.deepEqual(problems, ['CLK-55-mobile-step-back', 'CLK-56-mobile-step-forward', 'CLK-62-bookmark-remove-label']);
+    assert.match(afterB.stdout, /110 applied on top of the T0 groups/);
   });
   test('validators before -> after: the 13 typed AM/PM formatters are gone, TM-V16 8 -> 2, TM-V17 and TM-V9 fall; what stays is typed clocks in prose and labels that the bridge does not rewrite (documented in clock-bridge.md)', () => {
     const out = tmpdir('val'), r = check('--out=' + out, '--no-scope'); const m = /validators, legacy -> patched: (.*)/.exec(r.stdout)[1];

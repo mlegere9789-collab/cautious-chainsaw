@@ -31,8 +31,9 @@
 //   T0-VMON-12          retired (a measurement artifact of the first probes, see the note in the code)
 //   T0-VMON-13 [medium, pre-existing] desktop window narrower than about 990 px: the "Virtual Walkthrough" toolbar button lies on top of Search, Filter, Unit Roster, Legend and Monuments, so the
 //                       restored Monuments toggle cannot be reached with a mouse in a half-width (960 px) window (control tree: identical)
-//   T0-VMON-14 [medium] static: 3 of the 20 story stars lie more than 1.4 km from every one of the 512 monuments (Iron Brigade 2.0 km, Reynolds Death Site 2.1 km, 26th North Carolina 1.5 km);
-//                       the stars are drawn where the legacy `mA` array puts them, so they are not on their statues and Jump flies to a place with no monument (data pre-existing, shown by MON)
+//   T0-VMON-14 [medium] static: every story star stands within 500 m of a monument (the 512 of the array or a Park marker in OpenStreetMap), and a star placed on a Park marker stands within 5 m of that node.
+//                       First found on the legacy `mA` array: 3 of 20 stars were 1.5 to 2.1 km from every monument (Iron Brigade, Reynolds Death Site, 26th North Carolina); MON moved them onto their own records (0 m).
+//                       Avery's star (Hoke's brigade tablet) is 528 m from the nearest array record and 0 m from the Park's own tablet: the rule counts both (see the note at the test)
 //   T0-VMON-15 [medium] phone: the open Browse list runs out of the window or under the legend / dock (320x568 bottom 571 > 568 and 0 of 6 shown rows tappable, 375x812 5 of 7, 812x375 bottom 434 > 375 and 1 of 4)
 //   T0-VMON-17 [low]    layout round trip: phone on -> Desktop View -> toolbar on -> Phone view -> tile OFF -> Desktop View: the layer is ON again and the toolbar button pressed, the user's last choice
 //                       (off) is not kept (the desktop button's own React state wins when the desktop layout is mounted again; the README says button and tile drive the same switch)
@@ -43,11 +44,14 @@ process.env.T0_PORT_BASE ??= '8900';
 import fs from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
+const { readFrame } = await import('./lib_clock.mjs');
 const { REPO, PORT_BASE, openSession, createStaticServer, createSuite, assert, sleep, waitFor, waitForApp, chooseLayout, mapView, emulateViewport, touchTap, cdpFor, tileBudget, Skip } = await import('./lib.mjs');
 
 const argv = process.argv.slice(2);
 const opt = (name, dflt) => { const i = argv.indexOf(`--${name}`); return i >= 0 ? (argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[i + 1] : true) : dflt; };
 const DIST = path.resolve(REPO, opt('dist', 'tmp/verify-monuments/mon-R1c/dist'));
+// group POLISH (marker: the menu's landmark name in index.html) renames the menu button "Extra Features" to "More to Explore"; each tree is asserted with its own name
+const MENU_NAME = (() => { try { return fs.readFileSync(path.join(DIST, 'index.html'), 'utf8').includes('aria-label="More to Explore"') ? 'More to Explore' : 'Extra Features'; } catch { return 'Extra Features'; } })();
 const FILTER = opt('filter', null);
 const EXPECT_RED = !!opt('expect-red', false);
 if (!fs.existsSync(DIST)) { console.error(`dist not found: ${DIST}\nbuild it first: python tools/t0/mon/mon_build.py --train R1c --out tmp/verify-monuments/mon-R1c`); process.exit(2); }
@@ -106,7 +110,7 @@ async function session(viewport, layout) {
   await p.goto(`${S.origin}/`, { waitUntil: 'load' });
   await waitForApp(p, 60000);
   if (layout !== 'auto') await chooseLayout(p, layout);
-  if (layout === 'desktop') { await waitFor(async () => !!(await mapView(p)), { timeout: 40000, label: 'map instance' }); await waitFor(async () => /Tick \d+\/675/.test(await text(p)), { timeout: 40000, label: 'clock' }).catch(() => {}); }
+  if (layout === 'desktop') { await waitFor(async () => !!(await mapView(p)), { timeout: 40000, label: 'map instance' }); await waitFor(async () => (await readFrame(p)) != null, { timeout: 40000, label: 'clock (data-gt-frame, or "Tick n/675" on a tree without CLOCK)' }).catch(() => {}); }
   await sleep(1500);
   return S;
 }
@@ -128,7 +132,7 @@ const phone = async (viewport) => {
 
 // ------------------------------------------------------------------ page helpers (all input is real CDP input)
 const text = (p) => p.evaluate(() => document.body.innerText.replace(/\s+/g, ' '));
-const readTick = async (p) => { const m = /Tick (\d+)\/675/.exec(await text(p)); return m ? +m[1] : null; };
+const readTick = (p) => readFrame(p);                 // the frame of the clock: data-gt-frame (group CLOCK) or the legacy "Tick n/675" text
 const monInfo = (p) => p.evaluate(() => (window.__gtmon ? window.__gtmon.info() : null));
 const setCam = (p, cam) => p.evaluate((c) => window.__t0map.jumpTo(c), cam);
 const pagePoint = (p, lng, lat) => p.evaluate(([lo, la]) => { const m = window.__t0map; const c = m.getCanvas().getBoundingClientRect(); const q = m.project([lo, la]); return { x: q.x + c.left, y: q.y + c.top }; }, [lng, lat]);
@@ -139,7 +143,18 @@ const placeAt = async (p, lng, lat, x, y, zoom = 15.4) => {
   return pagePoint(p, lng, lat);
 };
 const click = async (p, x, y) => { await p.mouse.move(x, y); await p.mouse.down(); await p.mouse.up(); };
-const clickEl = async (p, loc) => { const b = await loc.first().boundingBox(); if (!b) throw new Error(`no box for ${loc}`); await click(p, b.x + b.width / 2, b.y + b.height / 2); };
+// A real click goes to the point where the element was when its box was read.  A card fills in after it opens (the unit line, the ANIM glide), and its buttons sit side by side ("Jump to this moment" and
+// "View on Google Maps"): a click on a box read 100 ms too early landed on the Google Maps link in about 1 session of 3, which opened a tab and left the page in the background (1 frame per second,
+// the jump never seen: T0-VMON-05 failed 4 of 8 runs).  The box must be the same in two reads 80 ms apart (at most 2 s) before the click, as Playwright's own actionability wait does.
+const clickEl = async (p, loc) => {
+  let b = await loc.first().boundingBox(); if (!b) throw new Error(`no box for ${loc}`);
+  for (let k = 0; k < 25; k++) {
+    await sleep(80); const c = await loc.first().boundingBox(); if (!c) throw new Error(`no box for ${loc}`);
+    const same = Math.abs(c.x - b.x) < 0.5 && Math.abs(c.y - b.y) < 0.5 && Math.abs(c.width - b.width) < 0.5 && Math.abs(c.height - b.height) < 0.5;
+    b = c; if (same) break;
+  }
+  await click(p, b.x + b.width / 2, b.y + b.height / 2);
+};
 const cardId = (p) => p.evaluate(() => { const c = document.querySelector('[data-gtmon-card]'); return c ? c.getAttribute('data-gtmon-card') : null; });
 const active = (p) => p.evaluate(() => { const e = document.activeElement; if (!e) return null; return { tag: e.tagName, cls: String(e.className).slice(0, 40), label: (e.getAttribute('aria-label') || e.title || e.textContent || '').trim().slice(0, 50) }; });
 const monOn = async (p) => {
@@ -189,7 +204,13 @@ test('01', '[medium] Browse list: choosing a far monument flies the map there at
 // ------------------------------------------------------------------ 02
 test('02', '[medium] a monument drawn under a control inside the map (zoom in, zoom out, compass, the four attribution links): the control still receives a real click and no card opens', async (t) => {
   const S = await desk(); const p = S.page; const { A } = truth(); const m = A[300]; const rows = [];
-  const targets = [['zoom in', '.mapboxgl-ctrl-zoom-in'], ['zoom out', '.mapboxgl-ctrl-zoom-out'], ['compass', '.mapboxgl-ctrl-compass'], ['attribution link 1', '.mapboxgl-ctrl-attrib-inner a:nth-of-type(1)'], ['attribution link 2', '.mapboxgl-ctrl-attrib-inner a:nth-of-type(2)'], ['attribution link 3', '.mapboxgl-ctrl-attrib-inner a:nth-of-type(3)'], ['attribution link 4', '.mapboxgl-ctrl-attrib-inner a:nth-of-type(4)']];
+  // The attribution control is what the tree draws: the Mapbox style has four links in .mapboxgl-ctrl-attrib-inner; group BASE1863 draws its own credit as plain text (no link) and keeps the Mapbox logo link,
+  // which is a control inside the map container too (attacked in place of the missing links, only when the tree has no attribution link).  The links are therefore read from the page, and a tree must still offer the three map buttons and at least one link to be attacked.
+  const nAttr = await p.evaluate(() => document.querySelectorAll('.mapboxgl-ctrl-attrib-inner a').length), hasLogo = await p.evaluate(() => !!document.querySelector('.mapboxgl-ctrl-logo'));
+  const targets = [['zoom in', '.mapboxgl-ctrl-zoom-in'], ['zoom out', '.mapboxgl-ctrl-zoom-out'], ['compass', '.mapboxgl-ctrl-compass'],
+    ...Array.from({ length: nAttr }, (_, k) => [`attribution link ${k + 1}`, `.mapboxgl-ctrl-attrib-inner a:nth-of-type(${k + 1})`]), ...(hasLogo && nAttr === 0 ? [['Mapbox logo link', '.mapboxgl-ctrl-logo']] : [])];
+  assert(targets.length >= 4, `the map offers too few controls to attack: ${targets.map((x) => x[0]).join(', ')}`);
+  t.note('controls attacked', targets.map((x) => x[0]));
   for (const [label, sel] of targets) {
     const box = await p.evaluate((s2) => { const e = document.querySelector(s2); if (!e) return null; const r = e.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; }, sel);
     assert(box, `${label} (${sel}) not found inside the map`);
@@ -220,7 +241,11 @@ test('03', '[medium] Distance Tool: the first click on a monument places the mea
   const dist = p.locator('button[title="Distance Tool"]');
   const bareSpot = async () => {           // a screen point with no marker within 40 px (so the precondition does not depend on the data)
     const pts = await p.evaluate((ms) => { const m2 = window.__t0map, c = m2.getCanvas().getBoundingClientRect(); return ms.map(([lng, lat]) => { const q = m2.project([lng, lat]); return [q.x + c.left, q.y + c.top]; }); }, [...A.map((a) => [a.lon, a.lat]), ...MA.map((s) => [s.lng, s.lat])]);
-    for (const [x, y] of [[300, 700], [1100, 700], [250, 300], [1000, 330], [600, 650]]) if (pts.every(([px, py]) => Math.hypot(px - x, py - y) > 40)) return { x, y };
+    // bare map: no monument marker within 40 px AND the Mapbox canvas itself under the point (a tree with the engine of group ANIM draws unit marks on a canvas of its own that takes the click: a click there selects a unit, it is no click on bare map)
+    const onMap = (x, y) => p.evaluate(([a, b]) => { const e = document.elementFromPoint(a, b); return !!(e && e.classList.contains('mapboxgl-canvas')); }, [x, y]);
+    const cand = [[300, 700], [1100, 700], [250, 300], [1000, 330], [600, 650]];
+    for (let y = 160; y <= 700; y += 60) for (let x = 120; x <= 1320; x += 80) cand.push([x, y]);
+    for (const [x, y] of cand) if (pts.every(([px, py]) => Math.hypot(px - x, py - y) > 40) && await onMap(x, y)) return { x, y };
     throw new Skip('no marker-free screen point found');
   };
   await placeAt(p, m.lon, m.lat, 760, 420, 15.4);
@@ -242,26 +267,83 @@ test('04', '[medium] units within 11 px of a monument can still be selected with
   await clickEl(p, p.locator('button:text-is("July 2")')); await sleep(1800);
   const tick = await readTick(p); assert(tick, 'no clock');
   await setCam(p, { center: [-77.2380, 39.8140], zoom: 14.2, bearing: 0, pitch: 0 }); await sleep(1500);
-  const units = await p.evaluate((us) => { const m = window.__t0map, c = m.getCanvas().getBoundingClientRect(); return us.map((u) => { const q = m.project([u.lng, u.lat]); const x = q.x + c.left, y = q.y + c.top; const e = document.elementFromPoint(x, y); return { id: u.unit_id, x, y, onCanvas: !!e && e.tagName === 'CANVAS' }; }); }, unitsAt(tick));
+  // Where a unit is drawn.  Trees without group ANIM draw each unit at its latest keyframe (the data model, unitsAt).  With the engine of group ANIM the marks are the engine's own: interpolated places, pushed
+  // apart by the layout, some merged into formation marks; a unit is clicked where its mark is (the leaf marks of the engine's frame, read from the page at the moment of the click: the layout relaxes for seconds).
+  const anim = await p.evaluate(() => !!(window.__gtanim && window.__gtanim.state && window.__gtanim.state() === 1 && window.__gtanim.S && window.__gtanim.S.core));
+  const drawn = () => p.evaluate(() => { const F = window.__gtanim.S.core.frame, c = window.__t0map.getCanvas().getBoundingClientRect(); return F.tiles.filter((q) => q.kind === 'leaf' && q.life === 'live' && q.opacity > 0.99).map((q) => { const x = q.x + F.view.dx + c.left, y = q.y + F.view.dy + c.top, e = document.elementFromPoint(x, y); return { id: q.ids[0], x, y, hw: (q.w * q.scale) / 2, hh: (q.h * q.scale) / 2, onCanvas: !!e && e.tagName === 'CANVAS' }; }); });
+  const aimAt = async (a) => { await setCam(p, { center: [a.lng, a.lat], zoom: 16, bearing: 0, pitch: 0 }); await sleep(2200); };       // a unit found by the search below: bring its place to the middle of the window at zoom 16 and let the layout settle
+  const here = async (u) => {
+    if (anim && u.aim) await aimAt(u.aim);
+    if (!anim) return u;
+    const me = { ...((await drawn()).find((q) => q.id === u.id) || u), aim: u.aim };
+    return me;
+  };
+  t.note('unit positions from', anim ? 'the drawn marks of the engine (group ANIM)' : 'the latest keyframe of the data model');
+  const units = anim ? await drawn() : await p.evaluate((us) => { const m = window.__t0map, c = m.getCanvas().getBoundingClientRect(); return us.map((u) => { const q = m.project([u.lng, u.lat]); const x = q.x + c.left, y = q.y + c.top; const e = document.elementFromPoint(x, y); return { id: u.unit_id, x, y, onCanvas: !!e && e.tagName === 'CANVAS' }; }); }, unitsAt(tick));
   const marks = await p.evaluate((ms) => { const m = window.__t0map, c = m.getCanvas().getBoundingClientRect(); return ms.map(([lng, lat, k]) => { const q = m.project([lng, lat]); return { k, x: q.x + c.left, y: q.y + c.top }; }); }, [...A.map((a) => [a.lon, a.lat, 'm']), ...MA.map((s) => [s.lng, s.lat, 's'])]);
   const inWin = (q) => q.onCanvas && q.x > 380 && q.x < 1300 && q.y > 130 && q.y < 700;
   const near = (u) => marks.some((m) => Math.hypot(m.x - u.x, m.y - u.y) - (m.k === 's' ? 6 : 0) <= 12);
   t.note('drawn units in the window within the 12 px mouse reach of a monument (zoom 14.2)', `${units.filter((u) => inWin(u) && near(u)).length} of ${units.filter(inWin).length}`);
   const lonely = units.filter((u) => inWin(u) && units.every((o) => o === u || Math.hypot(o.x - u.x, o.y - u.y) >= 40));
   const shadowed = lonely.filter((u) => marks.some((m) => Math.hypot(m.x - u.x, m.y - u.y) - (m.k === 's' ? 6 : 0) <= 11)).slice(0, 5);
-  if (shadowed.length < 3) throw new Skip(`only ${shadowed.length} isolated units lie within 11 px of a monument in this view`);
+  if (anim && shadowed.length < 3) {
+    // The 40 px isolation above is stricter than what the click needs.  The engine's picker (core.pickAt) takes the topmost mark whose box, widened by the 4 px of mouse reach, holds the point, so a click on the centre
+    // of a mark selects THAT unit as long as the centre lies in no other mark's widened box.  Marks that satisfy this and lie within 11 px of a marker are real cases of "a unit under a monument dot" and are added here.
+    const boxClear = units.filter((u) => inWin(u) && u.hw != null && !shadowed.includes(u) && marks.some((m) => Math.hypot(m.x - u.x, m.y - u.y) - (m.k === 's' ? 6 : 0) <= 11)
+      && units.every((o) => o === u || Math.abs(o.x - u.x) > o.hw + 4 || Math.abs(o.y - u.y) > o.hh + 4));
+    t.note('marks within 11 px of a marker whose centre is in no other mark\'s box (picker rule), added to the 40 px set', boxClear.map((u) => u.id));
+    for (const u of boxClear) if (shadowed.length < 5) shadowed.push(u);
+  }
+  if (anim && shadowed.length < 3) {
+    // With the engine most units at zoom 14.2 are merged into formation marks, so the overview view holds few isolated unit marks that happen to lie within 11 px of a monument.  Search the data instead: units
+    // the engine draws within 10 m of a monument or story star are visited one by one at zoom 16, and kept when their mark is a leaf mark on the map canvas, 40 px clear of every other mark and within 11 px of a marker.
+    // The ticks at which most units are drawn within 10 m of a marker, from the engine's own dataset (visibleAt(t) is the state of every unit at time t, the clock is not moved to read it).
+    const best = await p.evaluate(([AA, MM]) => {
+      const bt = window.__gtanim.S.core.battle, pts = [...AA, ...MM], out = [];
+      const near = (lat, lng) => { for (const q of pts) { const dy = (lat - q[1]) * 111200; if (dy > 10 || dy < -10) continue; if (Math.hypot(dy, (lng - q[0]) * 85300) <= 10) return true; } return false; };
+      for (let tk = 1; tk <= 675; tk += 1) { let n = 0; for (const { st } of bt.visibleAt(tk)) if (near(st.lat, st.lng)) n++; out.push([tk, n]); }
+      return out.sort((x, y) => y[1] - x[1]).slice(0, 4);
+    }, [A.map((a) => [a.lon, a.lat]), MA.map((s) => [s.lng, s.lat])]);
+    const found = {}, why = [];
+    for (const [tk] of best) {
+      await p.evaluate((n) => { const r = document.querySelector('input[type="range"][aria-label="Battle time"]') || document.querySelector('input[type="range"]'); const set = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set; set.call(r, String(n)); r.dispatchEvent(new Event('input', { bubbles: true })); r.dispatchEvent(new Event('change', { bubbles: true })); }, tk);
+      await waitFor(async () => (await readTick(p)) === tk, { timeout: 5000, label: `tick ${tk}` }); await sleep(2500);
+      const near9 = await p.evaluate(([AA, MM]) => { const F = window.__gtanim.S.core.frame, d = (la1, lo1, la2, lo2) => Math.hypot((la1 - la2) * 111200, (lo1 - lo2) * 85300), out = []; for (const { u, st } of F.vis) { let best = 1e9; for (const a of AA) best = Math.min(best, d(st.lat, st.lng, a[1], a[0])); for (const s of MM) best = Math.min(best, d(st.lat, st.lng, s[1], s[0])); if (best <= 10) out.push({ id: u.id, lng: st.lng, lat: st.lat, m: Math.round(best) }); } return out; }, [A.map((a) => [a.lon, a.lat]), MA.map((s) => [s.lng, s.lat])]);
+      found['tick ' + tk] = near9.length;
+      shadowed.length = 0;
+      for (const c of near9) {
+        if (shadowed.length >= 5) break;
+        await aimAt(c);
+        const all = await drawn(), me = all.find((q) => q.id === c.id);
+        if (!me) { why.push(`${c.id}: no leaf mark (merged into a crowd mark or not drawn)`); continue; }
+        if (!me.onCanvas) { why.push(`${c.id}: the mark is under another element`); continue; }
+        if (!all.every((o) => o === me || Math.hypot(o.x - me.x, o.y - me.y) >= 40)) { why.push(`${c.id}: another mark within 40 px`); continue; }
+        const mk = await p.evaluate((ms) => { const m = window.__t0map, cc = m.getCanvas().getBoundingClientRect(); return ms.map(([lng, lat, k]) => { const q = m.project([lng, lat]); return { k, x: q.x + cc.left, y: q.y + cc.top }; }); }, [...A.map((a) => [a.lon, a.lat, 'm']), ...MA.map((s) => [s.lng, s.lat, 's'])]);
+        if (mk.some((m) => Math.hypot(m.x - me.x, m.y - me.y) - (m.k === 's' ? 6 : 0) <= 11)) shadowed.push({ ...me, aim: c }); else why.push(`${c.id}: the mark's anchor is ${Math.round(Math.min(...mk.map((m) => Math.hypot(m.x - me.x, m.y - me.y))))} px from the nearest marker`);
+      }
+      if (shadowed.length >= 3) break;
+    }
+    t.note('units drawn within 10 m of a monument or story star, at the best ticks of the dataset', found); t.note('candidates dropped by the search', why.slice(0, 12));
+    t.note('isolated unit marks within 11 px of a marker, found by the search', shadowed.map((u) => u.id));
+  }
+  if (shadowed.length < 3) throw new Skip(`only ${shadowed.length} isolated units lie within 11 px of a monument in this view${anim ? ' (group ANIM: the layout pushes a crowded mark away from its place, so no unit mark was centred within 11 px of a marker at the four ticks of the dataset with most units next to a marker: the scenario cannot be built on this tree, the test proves nothing here)' : ''}`);
   const pinned = async () => (await p.getByTitle('Unpin unit').count()) > 0;            // the unit panel of a selected unit carries this button (tests/t0/desktop-fixes.spec.mjs: "selects and pins it")
   const reset = async () => { await p.keyboard.press('Escape'); await sleep(150); await p.evaluate(() => { const a = document.activeElement; a && a.blur && a.blur(); }); await p.keyboard.press('Escape'); await sleep(250); };
   const rows = [];
-  for (const u of shadowed) { await reset(); const b = await pinned(); await click(p, u.x, u.y); await sleep(800); rows.push({ unit: u.id, selected: !b && await pinned(), card: await cardId(p) }); }
+  // the engine's own picker at the point that is clicked (core.pickAt, no side effect): what the unit picker would take there, and how far the unit's true place lies from its mark
+  const pickerAt = (x, y) => p.evaluate(([cx, cy]) => { try { const S2 = window.__gtanim.S, r = S2.canvas.getBoundingClientRect(), h = S2.core.pickAt(cx - r.left, cy - r.top, 4); return h ? (h.kind === 'unit' ? h.id : h.kind) : null; } catch { return 'n/a'; } }, [x, y]);
+  for (const u0 of shadowed) { const u = await here(u0); await reset(); const b = await pinned(); const pk = anim ? await pickerAt(u.x, u.y) : undefined; await click(p, u.x, u.y); await sleep(800); rows.push({ unit: u.id, selected: !b && await pinned(), card: await cardId(p), ...(anim ? { pickerAtPoint: pk } : {}) }); }
   await reset();
   t.note('rows (layer on)', rows);
   // the same clicks with the layer off select every one of them (precondition)
   await clickEl(p, p.locator('button[title="Monuments"]')); await sleep(600);
   const off = [];
-  for (const u of shadowed) { await reset(); const b = await pinned(); await click(p, u.x, u.y); await sleep(800); off.push(!b && await pinned()); }
+  for (const u0 of shadowed) { const u = await here(u0); await reset(); const b = await pinned(); await click(p, u.x, u.y); await sleep(800); off.push(!b && await pinned()); }
   await reset(); await clickEl(p, p.locator('button[title="Monuments"]')); await sleep(600);
   t.note('selected with the layer off', off);
+  // the defect itself first: a click on a unit's mark that opens a monument card (measured on R1d and R1e before the ANIM:mon-unitdist hook: 4 of the 5 units found; the same run also fails the layer-off precondition for one of them, so the cause is named before it)
+  const stolen = rows.filter((r) => !r.selected && r.card);
+  assert(stolen.length === 0, `${stolen.length} of ${rows.length} units cannot be selected with the layer on, a monument card opens instead: ${JSON.stringify(rows)}`);
   assert(off.every(Boolean), `precondition: with the layer off every one of the ${off.length} units must be selectable (${JSON.stringify(off)})`);
   const lost = rows.filter((r) => !r.selected);
   assert(lost.length === 0, `${lost.length} of ${rows.length} units cannot be selected with the layer on (a monument card opens instead): ${JSON.stringify(rows)}`);
@@ -279,13 +361,16 @@ test('05', '[medium] after "Jump to this moment" the app clock agrees with the c
     await waitFor(async () => (await cardId(p)) === 's' + i, { timeout: 3000, label: 'the story card' });
     const q = await p.evaluate(() => (document.querySelector('[data-gtmon-card] .gtmon-story') || {}).textContent || '');
     await clickEl(p, p.locator('[data-gtmon-card] .gtmon-jump')); await sleep(1600);
-    const hud = await p.evaluate(() => { const out = []; const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT); let n; while ((n = w.nextNode())) { const e = n.parentElement; if (!e || e.closest('.gtmon-pop,.gtmon-sheet')) continue; const m = /July \d, (\d{1,2}:\d{2}\s?[AP]M)/.exec(n.textContent); const r = e.getBoundingClientRect(); if (m && r.width > 0) out.push(m[0]); } return out; });
+    const hud = await p.evaluate(() => { const out = []; const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT); let n; while ((n = w.nextNode())) { const e = n.parentElement; if (!e || e.closest('.gtmon-pop,.gtmon-sheet')) continue; const m = /July \d, (?:about )?(\d{1,2}:\d{2}\s?[AP]M)/.exec(n.textContent); const r = e.getBoundingClientRect(); if (m && r.width > 0) out.push(m[0]); } return out; });
     const nq = TIME.exec(q), hq = hud.map((h) => TIME.exec(h)).filter(Boolean);
     rows.push({ marker: s.id, tick: s.tick, narrative: nq && nq[0], appClock: hud[0], diffHours: nq && hq.length ? +(Math.abs(mins(hq[0][1], hq[0][2], hq[0][3]) - mins(nq[1], nq[2], nq[3])) / 60).toFixed(1) : null });
     await tidy(p);
   }
   t.note('rows', rows);
-  assert(rows.length >= 9, `expected the 9 narratives that name a clock time, found ${rows.length}`);
+  // the stories that name a clock time are those of the tree's own story markers (their texts were re-worded after this test was written by CLOCK/DATA/MON: 9 named a time then, 6 do now); every one of them is visited above
+  const named = MA.filter((s) => TIME.test(s.label)).length;
+  t.note('story cards that name a clock time', named);
+  assert(named >= 1 && rows.length === named, `expected the ${named} narratives that name a clock time, found ${rows.length}`);
   const bad = rows.filter((r) => r.diffHours == null || r.diffHours > 0.6);
   assert(bad.length === 0, `${bad.length} of ${rows.length} story cards quote a time that the app clock does not show at the jump target: ${JSON.stringify(bad)}`);
 });
@@ -393,10 +478,24 @@ test('13', '[medium, pre-existing] desktop window 960 px wide: the Monuments too
 });
 
 // ------------------------------------------------------------------ 14 (static; the data the restore draws)
-test('14', '[medium] every story star lies within 500 m of one of the 512 monuments (3 of 20 do not: Iron Brigade 2.0 km, Reynolds Death Site 2.1 km, 26th North Carolina 1.5 km)', async (t) => {
+// The rule (R1e, 2026-10-22): a story star stands on a monument. The monuments are the 512 of the site's array AND the Park's own markers as OpenStreetMap maps them
+// (historic = monument or memorial, tools/t0/data/sources/osm-monuments.json, ODbL, fetched 2026-10-19): the array is a subset of what stands on the field, and the story-star spec
+// (tools/t0/mon/stars-spec.mjs, geo.osm) puts a star on a Park marker the array does not hold when there is no array record for its subject (Hoke's brigade tablet for Avery, Law's
+// brigade tablet, Iverson's, Hood's). The first form of this rule counted the array alone: it was red for three stars (Iron Brigade 2.0 km, Reynolds 2.1 km, 26th North Carolina
+// 1.5 km) that MON then moved onto their own records (0 m), and it stayed red for Avery's star at 528 m from the nearest array record although it stands on the Park's tablet for
+// his brigade. Moving that star to the nearest array record would put it on another unit's monument; the rule was too narrow, not the data wrong. The 500 m limit is unchanged,
+// and a star the spec places on an OSM marker must stand within 5 m of that very node.
+test('14', '[medium] every story star lies within 500 m of a monument (one of the 512 of the array or a Park marker in OpenStreetMap), and a star placed on a Park marker stands within 5 m of that node', async (t) => {
   const { A, MA } = truth(); const km = (a, b) => Math.hypot((a.lat - b.lat) * 111000, (a.lon - b.lon) * 85000);
-  const rows = MA.map((s, i) => { let best = null; for (const m of A) { const d = km({ lat: s.lat, lon: s.lng }, m); if (!best || d < best.d) best = { d: Math.round(d), name: m.name, no: m.no }; } return { i, id: s.id, name: s.name, nearestM: best.d, nearest: best.name }; });
-  t.note('story star -> nearest monument', rows.map((r) => `${r.id}: ${r.nearestM} m (${r.nearest.slice(0, 40)})`));
+  const osmDoc = JSON.parse(fs.readFileSync(path.join(REPO, 'tools', 't0', 'data', 'sources', 'osm-monuments.json'), 'utf8'));
+  const OSM = osmDoc.elements.filter((e) => e.type === 'node' && e.tags && /^(monument|memorial)$/.test(e.tags.historic || '')).map((e) => ({ lat: e.lat, lon: e.lon, name: e.tags.name || `OSM node ${e.id}`, id: e.id, src: 'osm' }));
+  assert(OSM.length > 500, `only ${OSM.length} OpenStreetMap markers read from the source file`);
+  const { SPEC } = await import(pathToFileURL(path.join(REPO, 'tools', 't0', 'mon', 'stars-spec.mjs')).href);
+  const rows = MA.map((s, i) => { let best = null; for (const m of [...A.map((a) => ({ ...a, src: 'array' })), ...OSM]) { const d = km({ lat: s.lat, lon: s.lng }, m); if (!best || d < best.d) best = { d: Math.round(d), name: m.name, no: m.no, src: m.src }; } return { i, id: s.id, name: s.name, nearestM: best.d, nearest: best.name, src: best.src }; });
+  t.note('story star -> nearest monument', rows.map((r) => `${r.id}: ${r.nearestM} m (${r.src}: ${String(r.nearest).slice(0, 40)})`));
+  const onNode = SPEC.filter((x) => x.geo && x.geo.osm).map((x) => { const star = MA.find((s) => s.id === x.id), node = OSM.find((o) => o.id === x.geo.osm); return { id: x.id, node: x.geo.osm, apartM: star && node ? Math.round(km({ lat: star.lat, lon: star.lng }, node)) : null }; });
+  t.note('stars placed on a Park marker: metres from that node', onNode);
+  assert(onNode.length >= 1 && onNode.every((r) => r.apartM !== null && r.apartM <= 5), `a star the spec places on an OpenStreetMap marker is not on that marker: ${JSON.stringify(onNode.filter((r) => r.apartM === null || r.apartM > 5))}`);
   const far = rows.filter((r) => r.nearestM > 500);
   // the same three stars against the monument records that carry their name: the Reynolds Killed Marker (no 85), the 24th Michigan "Iron Brigade" monument (no 220), the 26th North Carolina monument at Herbst Woods (no 37)
   const named = [['mon_reynolds', 85], ['mon_iron_brig', 220], ['mon_26nc', 37]].map(([id, no]) => { const s = MA.find((x) => x.id === id), m = A.find((x) => x.no === no); return { id, record: m && m.name, apartM: m ? Math.round(km({ lat: s.lat, lon: s.lng }, m)) : null }; });
@@ -454,7 +553,7 @@ test('17', '[low] after the phone tile switches the layer OFF it stays off when 
     await snap('Desktop View');
     await p.locator('button[title="Monuments"]').first().focus(); await p.keyboard.press('Enter'); await sleep(1200);          // keyboard: at 375 px the Walkthrough button lies on top of it
     await snap('desktop layout, toolbar Monuments on (keyboard)');
-    await tapText(/Extra Features/); await p.locator('#ef-layout').first().waitFor({ state: 'visible', timeout: 8000 });
+    await tapText(new RegExp(MENU_NAME)); await p.locator('#ef-layout').first().waitFor({ state: 'visible', timeout: 8000 });
     const pb = await p.locator('#ef-layout').first().boundingBox(); await touchTap(p, pb.x + pb.width / 2, pb.y + pb.height / 2); await sleep(3000);
     await waitFor(async () => (await shell()) === 'phone', { timeout: 15000, label: 'phone shell' });
     await snap('Phone view');

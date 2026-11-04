@@ -1,0 +1,2559 @@
+{
+ "schema": "bt-terrain-sources/1",
+ "source_document": "Gettysburg Total War animation plan, version 2, B.9.1 Tables 1-5, pdf pages 103-110; text docs/battle-theatre/BIBLE/plan-clean.txt lines 24884-26350",
+ "transcription_rules": "Cell text as printed, straight quotes, line breaks joined. URLs exactly as printed (including ones the PDF shows truncated). Null = column not printed in that table. check_* fields are observations by the task that built this file, not PDF content.",
+ "law": "Nothing here is verified by being listed. A source gives a documented basis only for what it states (PDF B.9). Tiers R1-R4 describe use as a 1863 landscape source, not archive quality.",
+ "tier_definitions": {
+  "R1": "Measured survey or measured geodata. Positional accuracy can be tested.",
+  "R2": "Near-contemporary map, photograph or record (1858 to about 1876) made by or near the people who saw the ground.",
+  "R3": "Later, derived or secondary product (restoration GIS, books, summaries, Wikipedia-level pages). Useful, but must be cross-checked.",
+  "R4": "Artistic or composite work, or a forum or blog claim. Low weight. Never the sole basis for any object."
+ },
+ "method_limits": "The research passes had several blocked endpoints: loc.gov search and JSON endpoints were blocked to the research tools, several Rumsey and NARA catalog pages returned verification screens, and the NPS Little Round Top cultural landscape report PDF failed to fetch. Items that depend on those pages are marked \"URL unverified\". Claude Code retries these during execution (Part D, Part E); the retry results go into the Evidence-Gap Register. Nothing below is presented as verified when the notes say it was not. (PDF B.9, page 104)",
+ "tables": [
+  {
+   "table": 1,
+   "title": "Table 1. 1850s to 1890s maps and drawings",
+   "printed_columns": [
+    "source",
+    "type",
+    "what_it_gives",
+    "access_url",
+    "format",
+    "scale_resolution",
+    "licence",
+    "limits",
+    "tier"
+   ],
+   "rows": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+   ]
+  },
+  {
+   "table": 2,
+   "title": "Table 2. Park GIS, reconstructions and restoration studies",
+   "printed_columns": [
+    "source",
+    "type",
+    "what_it_gives",
+    "access_url",
+    "format",
+    "scale_resolution",
+    "licence",
+    "limits"
+   ],
+   "rows": [
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20
+   ]
+  },
+  {
+   "table": 3,
+   "title": "Table 3. Modern geodata",
+   "printed_columns": [
+    "source",
+    "type",
+    "what_it_gives",
+    "access_url",
+    "format",
+    "scale_resolution",
+    "licence"
+   ],
+   "rows": [
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31
+   ]
+  },
+  {
+   "table": 4,
+   "title": "Table 4. Photographs, paintings and documents",
+   "printed_columns": [
+    "source",
+    "type",
+    "what_it_gives",
+    "access_url"
+   ],
+   "rows": [
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41
+   ]
+  },
+  {
+   "table": 5,
+   "title": "Table 5. Ecology and orchard sources",
+   "printed_columns": [
+    "source",
+    "what_it_gives",
+    "access_url",
+    "limits",
+    "tier"
+   ],
+   "rows": [
+    42,
+    43,
+    44,
+    45
+   ]
+  }
+ ],
+ "rows": [
+  {
+   "number": 1,
+   "table": 1,
+   "table_title": "Table 1. 1850s to 1890s maps and drawings",
+   "pdf_page": 104,
+   "name": "Warren, \"Battle Field of Gettysburg\", LOC 1886 Corps of Engineers tracing-linen extract (call no. G3822.G4S5 1886 .U5)",
+   "type": "Manuscript map, colored",
+   "what_it_gives": "Roads, buildings, resident names, fences, vegetation, fortifications, contours at 4-ft intervals",
+   "access_url_text": "Digitized with a IIIF manifest. https://www.loc.gov/item/99446453/",
+   "urls": [
+    {
+     "url": "https://www.loc.gov/item/99446453/",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "IIIF / JPEG",
+   "scale_resolution": "1:2400; sheet 121 x 72 cm",
+   "licence": "Free to use; credit \"Library of Congress, Geography and Map Division\"",
+   "limits": "Covers only portions of sheets 2 and 3 (south and southwest of town), not the whole field. It is an 1886 copy of a survey done 1868-69, so it post-dates the battle by about five years.",
+   "tier_printed": "R1 for geometry (error model not published), R2 for land cover",
+   "tier_codes": [
+    "R1",
+    "R2"
+   ],
+   "tier_status": "printed",
+   "pdf_unverified_flags": [
+    "PDF: item numbers for the full 1868-69 Warren sheets, the 1873 revision, Bachelder LOC editions and the Cope map are in the unverified list (LOC search and NARA catalog were blocked to the research tools)."
+   ],
+   "access_kind_from_pdf": "digital-download (IIIF)",
+   "columns_not_printed": [],
+   "column_assignment_note": null,
+   "check_notes": [
+    "check_1: the project already georeferenced a different LOC Warren item, 99448794 (call G3824.G3 187- W3, 1:12,000 reduction, full-field coverage, 23 control points, leave-one-out 16.5 m): docs/basemap1863/maps/sources.json. The PDF row names item 99446453 (a partial 1886 tracing). Both should be kept as separate catalog entries; the probe records what 99446453 answers."
+   ],
+   "access_status": "blocked",
+   "probe_summary": [
+    {
+     "url": "https://www.loc.gov/item/99446453/",
+     "status": "blocked",
+     "http_status": 403,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "reachability": "blocked"
+  },
+  {
+   "number": 2,
+   "table": 1,
+   "table_title": "Table 1. 1850s to 1890s maps and drawings",
+   "pdf_page": 104,
+   "name": "Warren, \"Battle Field of Gettysburg\", National Archives original, RG 77 Civil Works Map File, Entry 81, NAID 102279222",
+   "type": "Full large-scale survey sheets, made 1868-69, revised 1873",
+   "what_it_gives": "Full coverage at 200 ft to 1 inch (about 1:2,400), printed in multiple sheets; reduced copies exist (for example E 105-4 \"Final Proof\")",
+   "access_url_text": "NARA blog https://unwritten-record.blogs.archives.gov/?p=20249 ; catalog https://catalog.archives.gov/id/102279222 (the catalog page itself was blocked to the research tools; the ID comes from the blog)",
+   "urls": [
+    {
+     "url": "https://unwritten-record.blogs.archives.gov/?p=20249",
+     "printed_in_column": "access_url"
+    },
+    {
+     "url": "https://catalog.archives.gov/id/102279222",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "Scans (resolution not confirmed)",
+   "scale_resolution": "200 ft/in",
+   "licence": "Public (inferred, US government work)",
+   "limits": "NPS found a 72 dpi NARA copy too blurry and used the LOC tracing instead. The NARA page itself does not state the contour interval or survey method; those details come from the xyHt article about Knowles.",
+   "tier_printed": "R1",
+   "tier_codes": [
+    "R1"
+   ],
+   "tier_status": "printed",
+   "pdf_unverified_flags": [
+    "PDF: the NARA catalog page was blocked to the research tools; the ID comes from the blog.",
+    "PDF: scan resolution not confirmed.",
+    "PDF: licence is inferred, not stated."
+   ],
+   "access_kind_from_pdf": "digital-download (scans, via NARA catalog)",
+   "columns_not_printed": [],
+   "column_assignment_note": null,
+   "check_notes": [
+    "check_2: the project works from LOC 99448794 (a 1:12,000 reduction of this 1:2,400 original, per docs/basemap1863/SOURCES-landcover.md); the NARA full-size sheets were never obtained."
+   ],
+   "access_status": "partially-reachable",
+   "probe_summary": [
+    {
+     "url": "https://unwritten-record.blogs.archives.gov/?p=20249",
+     "status": "redirect",
+     "http_status": 301,
+     "location": "https://unwritten-record.blogs.archives.gov/2018/07/03/mapping-the-battle-of-gettysburg/",
+     "follow_status": "ok"
+    },
+    {
+     "url": "https://catalog.archives.gov/id/102279222",
+     "status": "robots_disallowed",
+     "http_status": null,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "reachability": "partial"
+  },
+  {
+   "number": 3,
+   "table": 1,
+   "table_title": "Table 1. 1850s to 1890s maps and drawings",
+   "pdf_page": 104,
+   "name": "Warren / War Department \"Map of the battle-field of Gettysburg\" 1895 (Julius Bien), David Rumsey (List No. 1780.095)",
+   "type": "Printed atlas plate",
+   "what_it_gives": "Contours and spot heights",
+   "access_url_text": "Zoomable viewer, no direct download. https://davidrumsey.com/maps1100223-26914.html",
+   "urls": [
+    {
+     "url": "https://davidrumsey.com/maps1100223-26914.html",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "Viewer",
+   "scale_resolution": "1:23,000; 43 x 70 cm",
+   "licence": "Noncommercial reuse only; commercial use needs permission from Cartography Associates",
+   "limits": "This is the 1895 Atlas-era product, not the 1868 survey sheet. Small scale.",
+   "tier_printed": "R3",
+   "tier_codes": [
+    "R3"
+   ],
+   "tier_status": "printed",
+   "pdf_unverified_flags": [],
+   "access_kind_from_pdf": "viewer-only",
+   "columns_not_printed": [],
+   "column_assignment_note": null,
+   "check_notes": [
+    "check_3: licence is noncommercial only; any use in the shipped product needs owner decision (owner-only legal act: permission request)."
+   ],
+   "access_status": "viewer-only",
+   "probe_summary": [
+    {
+     "url": "https://davidrumsey.com/maps1100223-26914.html",
+     "status": "redirect",
+     "http_status": 301,
+     "location": "https://www.davidrumsey.com/maps1100223-26914.html",
+     "follow_status": "not_followed_other_host"
+    }
+   ],
+   "reachability": "reachable"
+  },
+  {
+   "number": 4,
+   "table": 1,
+   "table_title": "Table 1. 1850s to 1890s maps and drawings",
+   "pdf_page": 104,
+   "name": "Bachelder, \"Map of the battle field of Gettysburg, July 1st, 2nd, 3rd 1863\" (1876, Office of the Chief of Engineers), University of Minnesota (UMedia item p16022coll230:1208)",
+   "type": "Printed map",
+   "what_it_gives": "Troop positions by day; a bounding box is in the record",
+   "access_url_text": "BTAA/MIT record https://geodata.libraries.mit.edu/record/gisogm:edu.umn:3cfe346bdd99",
+   "urls": [
+    {
+     "url": "https://geodata.libraries.mit.edu/record/gisogm:edu.umn:3cfe346bdd99",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "JPEG",
+   "scale_resolution": "Scale unstated; 72 x 68 cm",
+   "licence": "Contact the provider",
+   "limits": "Not confirmed georeferenced. Warren himself criticized Bachelder's maps for poor depiction of topography. Positions, not terrain.",
+   "tier_printed": "R2 for positions, weak for terrain",
+   "tier_codes": [
+    "R2"
+   ],
+   "tier_status": "printed",
+   "pdf_unverified_flags": [
+    "PDF: georeferencing not confirmed."
+   ],
+   "access_kind_from_pdf": "digital-download (JPEG via provider)",
+   "columns_not_printed": [],
+   "column_assignment_note": null,
+   "check_notes": [
+    "check_4: the project already georeferenced the three LOC Bachelder sheets (item 99447491) to Warren, relative error 2.2-2.4 m (docs/basemap1863/maps/README.md). Licence of this UMN copy is \"contact the provider\"; the LOC copy is free to use."
+   ],
+   "access_status": "blocked",
+   "probe_summary": [
+    {
+     "url": "https://geodata.libraries.mit.edu/record/gisogm:edu.umn:3cfe346bdd99",
+     "status": "robots_disallowed",
+     "http_status": null,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "reachability": "blocked"
+  },
+  {
+   "number": 5,
+   "table": 1,
+   "table_title": "Table 1. 1850s to 1890s maps and drawings",
+   "pdf_page": 104,
+   "name": "Bachelder day-by-day 1876 sheets, W&M special collections",
+   "type": "Finding-aid entries",
+   "what_it_gives": "July 2 and July 3 sheets listed",
+   "access_url_text": "July 2 https://scrcguides.libraries.wm.edu/repositories/2/archival_objects/212965 ; July 3 https://scrcguides.libraries.wm.edu/repositories/2/archival_objects/212966",
+   "urls": [
+    {
+     "url": "https://scrcguides.libraries.wm.edu/repositories/2/archival_objects/212965",
+     "printed_in_column": "access_url"
+    },
+    {
+     "url": "https://scrcguides.libraries.wm.edu/repositories/2/archival_objects/212966",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "Listing only",
+   "scale_resolution": "n/a",
+   "licence": "n/a",
+   "limits": "Whether images are online was not confirmed.",
+   "tier_printed": "R2",
+   "tier_codes": [
+    "R2"
+   ],
+   "tier_status": "printed",
+   "pdf_unverified_flags": [
+    "PDF: whether images are online was not confirmed."
+   ],
+   "access_kind_from_pdf": "print-only (finding-aid listing)",
+   "columns_not_printed": [],
+   "column_assignment_note": null,
+   "check_notes": [],
+   "access_status": "print-only",
+   "probe_summary": [
+    {
+     "url": "https://scrcguides.libraries.wm.edu/repositories/2/archival_objects/212965",
+     "status": "blocked",
+     "http_status": null,
+     "location": null,
+     "follow_status": null
+    },
+    {
+     "url": "https://scrcguides.libraries.wm.edu/repositories/2/archival_objects/212966",
+     "status": "blocked",
+     "http_status": null,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "reachability": "blocked"
+  },
+  {
+   "number": 6,
+   "table": 1,
+   "table_title": "Table 1. 1850s to 1890s maps and drawings",
+   "pdf_page": 104,
+   "name": "Bachelder Papers 1863-1894 (10 boxes, 7 volumes; microfilm 102264), New Hampshire Historical Society",
+   "type": "Archive: letters, copybooks, album",
+   "what_it_gives": "Correspondence with veterans; maps are not the main content",
+   "access_url_text": "Finding aid https://www.nhhistory.org/NHHS/media/NHHS-Media-Library/PDFs/Finding-Aids/Bachelder_John_B-_Papers_1921-001.pdf",
+   "urls": [
+    {
+     "url": "https://www.nhhistory.org/NHHS/media/NHHS-Media-Library/PDFs/Finding-Aids/Bachelder_John_B-_Papers_1921-001.pdf",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "Paper and microfilm",
+   "scale_resolution": "n/a",
+   "licence": "\"Available for research\"; reproduction needs permission",
+   "limits": "Not digitized. The commercial Ladd edition (3 volumes, about 2,128 pages) is copyrighted and must not be ingested or reproduced; cite only. Letters were collected 10 to 30 years after the battle.",
+   "tier_printed": "R3",
+   "tier_codes": [
+    "R3"
+   ],
+   "tier_status": "printed",
+   "pdf_unverified_flags": [],
+   "access_kind_from_pdf": "print-only (paper and microfilm; finding aid online)",
+   "columns_not_printed": [],
+   "column_assignment_note": null,
+   "check_notes": [],
+   "access_status": "print-only",
+   "probe_summary": [
+    {
+     "url": "https://www.nhhistory.org/NHHS/media/NHHS-Media-Library/PDFs/Finding-Aids/Bachelder_John_B-_Papers_1921-001.pdf",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "transcription_note": "The PDF breaks the URL after \"NHHS-Media-\"; joined here without a space (a space cannot occur in this URL path as printed).",
+   "reachability": "reachable"
+  },
+  {
+   "number": 7,
+   "table": 1,
+   "table_title": "Table 1. 1850s to 1890s maps and drawings",
+   "pdf_page": 104,
+   "name": "Cope map, NARA E 105a-1 (survey made August to October 1863 by Emmor B. Cope on horseback)",
+   "type": "Manuscript map",
+   "what_it_gives": "Topography, lines and defenses; Warren's own annotation says it was mostly from horseback sketches based on the map of Adams County",
+   "access_url_text": "Via the NARA blog above; no direct catalog URL verified",
+   "urls": [],
+   "format": "Scan",
+   "scale_resolution": "Not stated",
+   "licence": "n/a",
+   "limits": "The only survey that dates from weeks after the battle, but a rapid sketch survey. The brief said \"1862-63\"; the sources say Aug-Oct 1863, which is carried here.",
+   "tier_printed": "R2",
+   "tier_codes": [
+    "R2"
+   ],
+   "tier_status": "printed",
+   "pdf_unverified_flags": [
+    "PDF: no direct catalog URL verified; the Cope map item number is in the unverified list."
+   ],
+   "access_kind_from_pdf": "no direct URL (reachable only through the NARA blog of row 2/10)",
+   "columns_not_printed": [],
+   "column_assignment_note": null,
+   "check_notes": [],
+   "access_status": "no-url",
+   "probe_summary": [],
+   "transcription_note": "\"the NARA blog above\" is https://unwritten-record.blogs.archives.gov/?p=20249 (row 2); it is probed under rows 2 and 10.",
+   "reachability": "no_url"
+  },
+  {
+   "number": 8,
+   "table": 1,
+   "table_title": "Table 1. 1850s to 1890s maps and drawings",
+   "pdf_page": 104,
+   "name": "Hopkins, \"Map of Adams Co., Pennsylvania\" 1858 (Converse, Philadelphia), LOC call no. G3823.A3 1858 .H6, LOC 2004629149",
+   "type": "Hand-colored county map, hachured relief, Gettysburg inset",
+   "what_it_gives": "Landowner names, roads, farm locations five years before the battle",
+   "access_url_text": "IIIF. https://www.loc.gov/item/2004629149/ ; name index at ACHS https://gettysburghistory.org/our-holdings/",
+   "urls": [
+    {
+     "url": "https://www.loc.gov/item/2004629149/",
+     "printed_in_column": "access_url"
+    },
+    {
+     "url": "https://gettysburghistory.org/our-holdings/",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "IIIF",
+   "scale_resolution": "Scale not listed; 92 x 129 cm",
+   "licence": "Free",
+   "limits": "Small scale; hachures, not measured contours. Warren's Cope annotation says Cope's sketches were based on it.",
+   "tier_printed": "R2",
+   "tier_codes": [
+    "R2"
+   ],
+   "tier_status": "printed",
+   "pdf_unverified_flags": [],
+   "access_kind_from_pdf": "digital-download (IIIF)",
+   "columns_not_printed": [],
+   "column_assignment_note": null,
+   "check_notes": [
+    "check_8: already used: docs/basemap1863 georeferenced the borough inset (8 control points, fit 1.9 m, leave-one-out 2.85 m); county sheet 376 m leave-one-out."
+   ],
+   "access_status": "partially-reachable",
+   "probe_summary": [
+    {
+     "url": "https://www.loc.gov/item/2004629149/",
+     "status": "blocked",
+     "http_status": 403,
+     "location": null,
+     "follow_status": null
+    },
+    {
+     "url": "https://gettysburghistory.org/our-holdings/",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "reachability": "partial"
+  },
+  {
+   "number": 9,
+   "table": 1,
+   "table_title": "Table 1. 1850s to 1890s maps and drawings",
+   "pdf_page": 105,
+   "name": "Michler item at LOC (g3880.cw0508800)",
+   "type": "Reduced map from the 1869 Military Maps atlas",
+   "what_it_gives": "Gettysburg-to-Appomattox route map",
+   "access_url_text": "https://www.loc.gov/resource/g3880.cw0508800/",
+   "urls": [
+    {
+     "url": "https://www.loc.gov/resource/g3880.cw0508800/",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "Image",
+   "scale_resolution": "Reduced",
+   "licence": "Free",
+   "limits": "Not a Gettysburg battlefield sketch. Do not use as terrain. Listed so no one confuses it with a battlefield source.",
+   "tier_printed": "Not used",
+   "tier_codes": [],
+   "tier_status": "not_used",
+   "pdf_unverified_flags": [],
+   "access_kind_from_pdf": "digital-download (image); NOT USED as terrain",
+   "columns_not_printed": [],
+   "column_assignment_note": null,
+   "check_notes": [],
+   "access_status": "blocked",
+   "probe_summary": [
+    {
+     "url": "https://www.loc.gov/resource/g3880.cw0508800/",
+     "status": "blocked",
+     "http_status": 403,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "transcription_note": "tier cell prints \"Not used\" (no R-tier).",
+   "reachability": "blocked"
+  },
+  {
+   "number": 10,
+   "table": 1,
+   "table_title": "Table 1. 1850s to 1890s maps and drawings",
+   "pdf_page": 105,
+   "name": "Other RG 77 items described by NARA: Elliot's annotated map (graves, dead horses, defenses, field hospitals, Camp Letterman) and a large oval \"Battlefield of Gettysburg, Pa\" (roads and farms, oriented west at top)",
+   "type": "Manuscript maps",
+   "what_it_gives": "Post-battle features: burial and hospital positions, defenses",
+   "access_url_text": "NARA blog https://unwritten-record.blogs.archives.gov/?p=20249",
+   "urls": [
+    {
+     "url": "https://unwritten-record.blogs.archives.gov/?p=20249",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "Scans",
+   "scale_resolution": "Not stated",
+   "licence": "n/a",
+   "limits": "Catalog IDs not retrieved. Valuable for B.7 and B.8 hospital and defense placement.",
+   "tier_printed": "R2",
+   "tier_codes": [
+    "R2"
+   ],
+   "tier_status": "printed",
+   "pdf_unverified_flags": [
+    "PDF: catalog IDs not retrieved."
+   ],
+   "access_kind_from_pdf": "scans via NARA (IDs unknown)",
+   "columns_not_printed": [],
+   "column_assignment_note": null,
+   "check_notes": [
+    "check_10: the project holds the LOC copy of Elliott 1864 (item 99447501, cw0333000) downloaded as thumbnail only, not georeferenced (docs/basemap1863/maps/sources.json). The PDF spells \"Elliot\", LOC spells \"Elliott\"."
+   ],
+   "access_status": "reachable",
+   "probe_summary": [
+    {
+     "url": "https://unwritten-record.blogs.archives.gov/?p=20249",
+     "status": "redirect",
+     "http_status": 301,
+     "location": "https://unwritten-record.blogs.archives.gov/2018/07/03/mapping-the-battle-of-gettysburg/",
+     "follow_status": "ok"
+    }
+   ],
+   "reachability": "reachable"
+  },
+  {
+   "number": 11,
+   "table": 1,
+   "table_title": "Table 1. 1850s to 1890s maps and drawings",
+   "pdf_page": 105,
+   "name": "LOC Civil War Maps collection",
+   "type": "Collection (about 2,240 maps and charts, 76 atlases and sketchbooks, plus Hotchkiss 341 manuscript maps and sketchbooks, and Sherman)",
+   "what_it_gives": "130 hits for \"gettysburg\"; Bachelder, John B. is a contributor on 10 of them",
+   "access_url_text": "https://www.loc.gov/collections/civil-war-maps/about-this-collection/ ; JSON search https://www.loc.gov/collections/civil-war-maps/?q=gettysburg&fo=json&c=5",
+   "urls": [
+    {
+     "url": "https://www.loc.gov/collections/civil-war-maps/about-this-collection/",
+     "printed_in_column": "access_url"
+    },
+    {
+     "url": "https://www.loc.gov/collections/civil-war-maps/?q=gettysburg&fo=json&c=5",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "IIIF image URLs, GIF",
+   "scale_resolution": "Varies",
+   "licence": "Free to use unless an item carries a rights advisory (none on sampled items)",
+   "limits": "Hotchkiss Gettysburg-specific maps, Sickles/Meade headquarters sketches and a map attributed to a \"Lt. Edwin Whitney\" were not found or verified. Treat the Whitney name as unverified.",
+   "tier_printed": "R2",
+   "tier_codes": [
+    "R2"
+   ],
+   "tier_status": "printed",
+   "pdf_unverified_flags": [
+    "PDF: Hotchkiss Gettysburg-specific maps, Sickles/Meade HQ sketches and \"Lt. Edwin Whitney\" map not found or verified (also in the unverified list)."
+   ],
+   "access_kind_from_pdf": "digital-download (IIIF); JSON search endpoint was blocked to the PDF research tools",
+   "columns_not_printed": [],
+   "column_assignment_note": null,
+   "check_notes": [
+    "check_11: the project fetched LOC item pages and ?fo=json with an identifying User-Agent and 5 s spacing (LOC robots.txt Crawl-Delay: 5) successfully (docs/basemap1863/maps/README.md section 3); /search paths are robots-disallowed and were not used."
+   ],
+   "access_status": "partially-reachable",
+   "probe_summary": [
+    {
+     "url": "https://www.loc.gov/collections/civil-war-maps/about-this-collection/",
+     "status": "blocked",
+     "http_status": 403,
+     "location": null,
+     "follow_status": null
+    },
+    {
+     "url": "https://www.loc.gov/collections/civil-war-maps/?q=gettysburg&fo=json&c=5",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "transcription_note": "The PDF breaks the second URL after \"?\"; joined without a space.",
+   "reachability": "partial"
+  },
+  {
+   "number": 12,
+   "table": 1,
+   "table_title": "Table 1. 1850s to 1890s maps and drawings",
+   "pdf_page": 105,
+   "name": "OR Atlas (175 plates) on eHistory",
+   "type": "Plates",
+   "what_it_gives": "Official atlas plates",
+   "access_url_text": "https://ehistory.osu.edu/books/official-records/atlas (listed in the notes under the OR landing page https://ehistory.osu.edu/books/official-records/)",
+   "urls": [
+    {
+     "url": "https://ehistory.osu.edu/books/official-records/atlas",
+     "printed_in_column": "access_url"
+    },
+    {
+     "url": "https://ehistory.osu.edu/books/official-records/",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "Images",
+   "scale_resolution": "Varies",
+   "licence": "Public domain (pre-1929)",
+   "limits": "Which plates cover Gettysburg was not looked up.",
+   "tier_printed": "R3",
+   "tier_codes": [
+    "R3"
+   ],
+   "tier_status": "printed",
+   "pdf_unverified_flags": [
+    "PDF: Gettysburg plate numbers not looked up (unverified list)."
+   ],
+   "access_kind_from_pdf": "digital-download (images)",
+   "columns_not_printed": [],
+   "column_assignment_note": null,
+   "check_notes": [],
+   "access_status": "blocked",
+   "probe_summary": [
+    {
+     "url": "https://ehistory.osu.edu/books/official-records/atlas",
+     "status": "blocked",
+     "http_status": null,
+     "location": null,
+     "follow_status": null
+    },
+    {
+     "url": "https://ehistory.osu.edu/books/official-records/",
+     "status": "blocked",
+     "http_status": null,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "transcription_note": "The PDF breaks the second URL after \"official-\"; joined without a space.",
+   "reachability": "blocked"
+  },
+  {
+   "number": 13,
+   "table": 1,
+   "table_title": "Table 1. 1850s to 1890s maps and drawings",
+   "pdf_page": 105,
+   "name": "NPS-cited War Department and Gettysburg Battlefield Memorial Association maps of 1863, 1868 and 1872",
+   "type": "Maps cited as key sources by NPS",
+   "what_it_gives": "The cartographic base of the park's own rehabilitation",
+   "access_url_text": "https://www.nps.gov/gett/learn/news/gett-battlefield-rehab.htm",
+   "urls": [
+    {
+     "url": "https://www.nps.gov/gett/learn/news/gett-battlefield-rehab.htm",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "n/a",
+   "scale_resolution": "n/a",
+   "licence": "n/a",
+   "limits": "The page does not give item identifiers. The 1868 item is presumably the Warren survey. Not confirmed.",
+   "tier_printed": "R2",
+   "tier_codes": [
+    "R2"
+   ],
+   "tier_status": "printed",
+   "pdf_unverified_flags": [
+    "PDF: item identifiers not given; 1868 item \"presumably\" the Warren survey, not confirmed."
+   ],
+   "access_kind_from_pdf": "web page citing maps (no item access)",
+   "columns_not_printed": [],
+   "column_assignment_note": null,
+   "check_notes": [],
+   "access_status": "reachable",
+   "probe_summary": [
+    {
+     "url": "https://www.nps.gov/gett/learn/news/gett-battlefield-rehab.htm",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "reachability": "reachable"
+  },
+  {
+   "number": 14,
+   "table": 2,
+   "table_title": "Table 2. Park GIS, reconstructions and restoration studies",
+   "pdf_page": 105,
+   "name": "NPS park GIS 1863 layers (Curtis Musselman, park GIS)",
+   "type": "Vector GIS of historic roads, lanes, fence lines, property boundaries and buildings \"as they stood in 1863\", with 1895, 1927 and 1993 periods",
+   "what_it_gives": "Georeferencing method: the LOC 1886 tracing scanned at 300 dpi (a 72 dpi NARA copy was too blurry); affine registration on nine control points (building corners, fence intersections), then rubbersheeting; large-scale features (woods, fields, orchards, roads) and small-scale features (fences, lanes, trees) digitized",
+   "access_url_text": "Method: https://www.nps.gov/gis/gisday/gallery2001/GWS/musselman.htm ; layers supplied to Knowles per https://xyht.com/?p=2387",
+   "urls": [
+    {
+     "url": "https://www.nps.gov/gis/gisday/gallery2001/GWS/musselman.htm",
+     "printed_in_column": "access_url"
+    },
+    {
+     "url": "https://xyht.com/?p=2387",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "Not stated",
+   "scale_resolution": "Not stated",
+   "licence": "Unknown",
+   "limits": "No public download of the 1863 layers was found; they appear to be request-only. Claude Code therefore re-creates the same layers itself from the Warren IIIF (B.9.2) and uses a request to the NPS GIS office as a parallel route, recorded in the register as \"request not answered\" if no reply comes.",
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [
+    "PDF: no public download found; layers appear request-only; licence unknown."
+   ],
+   "access_kind_from_pdf": "request-only (method pages online)",
+   "columns_not_printed": [
+    "tier"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [
+    "check_14: a request to the NPS GIS office is a message sent on the owner's behalf; per CLAUDE.md it is an owner-only act (sending permission requests)."
+   ],
+   "access_status": "request-only",
+   "probe_summary": [
+    {
+     "url": "https://www.nps.gov/gis/gisday/gallery2001/GWS/musselman.htm",
+     "status": "not_found",
+     "http_status": 404,
+     "location": null,
+     "follow_status": null
+    },
+    {
+     "url": "https://xyht.com/?p=2387",
+     "status": "redirect",
+     "http_status": 301,
+     "location": "https://xyhtcom.kinsta.cloud/professional-surveyor-archives/feature-discovering-lees-view/",
+     "follow_status": "not_followed_other_host"
+    }
+   ],
+   "reachability": "partial"
+  },
+  {
+   "number": 15,
+   "table": 2,
+   "table_title": "Table 2. Park GIS, reconstructions and restoration studies",
+   "pdf_page": 105,
+   "name": "Knowles et al. 2013 reconstruction (Anne Kelly Knowles lead; Dan Miller, Alex Tait for 1863 terrain; Allen Carroll; Tim Montenyohl; Judith Nielsen)",
+   "type": "GIS reconstruction, story map",
+   "what_it_gives": "Digitization precedent and the only published error statement. Knowles hand-traced 4-ft contours from a 1:12,000 engraved Warren-derived map (about 1874; survey by Lt. William H. Chase under Warren), built a TIN and georectified on buildings unchanged since 1863. Hilltops and ridgelines differ from the 1996 DEM by under 50 ft; creek beds and rolling ground by much more (hundreds of feet in places per the second note). The notes phrase the 50 ft figure both as elevation difference and as displacement; the pipeline treats both as unresolved and measures its own.",
+   "access_url_text": "https://xyht.com/?p=2387 ; https://www.smithsonianmag.com/history-archaeology/A-Cutting-Edge-Second-Look-at-the-Battle-of-Gettysburg.html ; story map https://storymaps.esri.com/stories/2013/gettysburg ; viewshed coverage https://www.spokesman.com/stories/2013/jun/28/new-map-may-explain-lees-decisions-gettysburg/",
+   "urls": [
+    {
+     "url": "https://xyht.com/?p=2387",
+     "printed_in_column": "access_url"
+    },
+    {
+     "url": "https://www.smithsonianmag.com/history-archaeology/A-Cutting-Edge-Second-Look-at-the-Battle-of-Gettysburg.html",
+     "printed_in_column": "access_url"
+    },
+    {
+     "url": "https://storymaps.esri.com/stories/2013/gettysburg",
+     "printed_in_column": "access_url"
+    },
+    {
+     "url": "https://www.spokesman.com/stories/2013/jun/28/new-map-may-explain-lees-decisions-gettysburg/",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "Web",
+   "scale_resolution": "n/a",
+   "licence": "n/a",
+   "limits": "The data are not stated as downloadable. Knowles' team did not build a vegetation dataset. Author most confident about areas Lee could not see. Tested the Codori-Trostle thicket height in viewsheds.",
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [
+    "PDF: the 50 ft figure is stated both as elevation difference and as displacement; unresolved (pipeline measures its own).",
+    "PDF: data not stated as downloadable."
+   ],
+   "access_kind_from_pdf": "web only (articles / story map)",
+   "columns_not_printed": [
+    "tier"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [
+    "check_15: the PDF dates the Knowles base map \"about 1874, survey by Lt. William H. Chase under Warren\" while the project's LOC read says the Warren sheet was surveyed 1868-69 and revised on the ground 1873 by P. M. Blake (docs/basemap1863/SOURCES-landcover.md). Row 2 of the PDF also says \"1868-69, revised 1873\". The two attributions are not reconciled in the PDF; verify before citing either name."
+   ],
+   "access_status": "partially-reachable",
+   "probe_summary": [
+    {
+     "url": "https://xyht.com/?p=2387",
+     "status": "redirect",
+     "http_status": 301,
+     "location": "https://xyhtcom.kinsta.cloud/professional-surveyor-archives/feature-discovering-lees-view/",
+     "follow_status": "not_followed_other_host"
+    },
+    {
+     "url": "https://www.smithsonianmag.com/history-archaeology/A-Cutting-Edge-Second-Look-at-the-Battle-of-Gettysburg.html",
+     "status": "redirect",
+     "http_status": 301,
+     "location": "https://www.smithsonianmag.com/history-archaeology/A-Cutting-Edge-Second-Look-at-the-Battle-of-Gettysburg.html/",
+     "follow_status": "redirect"
+    },
+    {
+     "url": "https://storymaps.esri.com/stories/2013/gettysburg",
+     "status": "redirect",
+     "http_status": 301,
+     "location": "https://storymaps.esri.com/stories/2013/gettysburg/",
+     "follow_status": "ok"
+    },
+    {
+     "url": "https://www.spokesman.com/stories/2013/jun/28/new-map-may-explain-lees-decisions-gettysburg/",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "transcription_note": "The PDF breaks several URLs at hyphens; joined without spaces. The row text continues onto page 106.",
+   "reachability": "partial"
+  },
+  {
+   "number": 16,
+   "table": 2,
+   "table_title": "Table 2. Park GIS, reconstructions and restoration studies",
+   "pdf_page": 106,
+   "name": "NPS rehabilitation program",
+   "type": "Restoration program (since 2000)",
+   "what_it_gives": "Policy and quantities: 9 miles of fence rebuilt; Pickett's Charge area restored to 12 small fields; non-historic trees grown over about 65-70 years removed",
+   "access_url_text": "https://www.nps.gov/gett/learn/news/gett-battlefield-rehab.htm",
+   "urls": [
+    {
+     "url": "https://www.nps.gov/gett/learn/news/gett-battlefield-rehab.htm",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "HTML",
+   "scale_resolution": "n/a",
+   "licence": "Public",
+   "limits": "The page gives inconsistent 140 versus 147 year spans. Today's park is an interpretive proxy, not 1863.",
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [
+    "PDF: page gives inconsistent 140 versus 147 year spans."
+   ],
+   "access_kind_from_pdf": "web page",
+   "columns_not_printed": [
+    "tier"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [],
+   "access_status": "reachable",
+   "probe_summary": [
+    {
+     "url": "https://www.nps.gov/gett/learn/news/gett-battlefield-rehab.htm",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "reachability": "reachable"
+  },
+  {
+   "number": 17,
+   "table": 2,
+   "table_title": "Table 2. Park GIS, reconstructions and restoration studies",
+   "pdf_page": 106,
+   "name": "NPS Cultural Landscape Reports and Historic Structure Reports, farm histories, Seminar Papers",
+   "type": "Documents",
+   "what_it_gives": "First Day CLR 2021, Pickett's Charge CLR 2024, farm histories (Brien Farm and Family 1972, McPherson Farm 1977, Slyder Farm), Administrative History (Unrau 1991); 16 seminars with volumes 4 to 13, 15, 16",
+   "access_url_text": "https://www.npshistory.com/publications/gett/index.htm ; https://www.npshistory.com/series/symposia/gettysburg_seminars/index.htm",
+   "urls": [
+    {
+     "url": "https://www.npshistory.com/publications/gett/index.htm",
+     "printed_in_column": "access_url"
+    },
+    {
+     "url": "https://www.npshistory.com/series/symposia/gettysburg_seminars/index.htm",
+     "printed_in_column": "access_url"
+    },
+    {
+     "url": "https://irma.nps.gov/DataStore/Reference/Profile/2257218",
+     "printed_in_column": "limits"
+    },
+    {
+     "url": "https://www.nps.gov/gett/getinvolved/planning.htm",
+     "printed_in_column": "limits"
+    }
+   ],
+   "format": "PDF / HTML",
+   "scale_resolution": "n/a",
+   "licence": "US government works, generally public domain (verify per document)",
+   "limits": "Per-paper URLs not listed. The CLR \"Record of Treatment\" Vol. I-II is cited at https://irma.nps.gov/DataStore/Reference/Profile/2257218 but that page returned no content. The NPS Little Round Top CLR and Fire Management Plan sit on https://www.nps.gov/gett/getinvolved/planning.htm ; the CLR PDF failed to fetch.",
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [
+    "PDF: irma 2257218 page returned no content.",
+    "PDF: Little Round Top CLR PDF failed to fetch.",
+    "PDF: per-paper URLs not listed."
+   ],
+   "access_kind_from_pdf": "digital-download (PDF/HTML)",
+   "columns_not_printed": [
+    "tier"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [
+    "check_17: contradicts B.9.3 retry list in part. The project already read the Little Round Top CLR PDF (https://www.nps.gov/gett/getinvolved/upload/FinalCLR_LittleRoundTop_AllSections-508.pdf, pages 19, 43, 90, 121) and the CLR Record of Treatment (2018) vol. I pages 176-235 and 271-302: docs/basemap1863/SOURCES-landcover.md, SOURCES-roads.md. The NPS Historic Vegetation Study stays unfound.",
+    "check_17b: the PDF says \"First Day CLR 2021\" while the project lists \"Cultural Landscape Reports (1st Corps 2021; Record of Treatment 2018; Little Round Top 2012)\" (SOURCES-roads.md); dates agree for 2021 only if \"First Day\" = \"1st Corps\". Not verified here."
+   ],
+   "access_status": "reachable",
+   "probe_summary": [
+    {
+     "url": "https://www.npshistory.com/publications/gett/index.htm",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    },
+    {
+     "url": "https://www.npshistory.com/series/symposia/gettysburg_seminars/index.htm",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    },
+    {
+     "url": "https://irma.nps.gov/DataStore/Reference/Profile/2257218",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    },
+    {
+     "url": "https://www.nps.gov/gett/getinvolved/planning.htm",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "reachability": "reachable"
+  },
+  {
+   "number": 18,
+   "table": 2,
+   "table_title": "Table 2. Park GIS, reconstructions and restoration studies",
+   "pdf_page": 106,
+   "name": "Stone Sentinels, Farms and Buildings",
+   "type": "Aggregator, about two dozen farm and building pages (Bliss, Codori, Klingel, Rose, Trostle, Thompson House and others)",
+   "what_it_gives": "Building notes (for example Sherfy farm about 50 acres, house built 1840s, original barn burned in the battle)",
+   "access_url_text": "https://gettysburg.stonesentinels.com/?p=203",
+   "urls": [
+    {
+     "url": "https://gettysburg.stonesentinels.com/?p=203",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "HTML",
+   "scale_resolution": "n/a",
+   "licence": "Check terms",
+   "limits": "Secondary aggregator; details of most pages not captured.",
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [
+    "PDF: details of most pages not captured."
+   ],
+   "access_kind_from_pdf": "web pages",
+   "columns_not_printed": [
+    "tier"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [
+    "check_18: the farm-page base printed on page 103 is gettysburg.stonesentinels.com/battlefield-farms/, not ?p=203."
+   ],
+   "access_status": "reachable",
+   "probe_summary": [
+    {
+     "url": "https://gettysburg.stonesentinels.com/?p=203",
+     "status": "redirect",
+     "http_status": 301,
+     "location": "https://gettysburg.stonesentinels.com/battlefield-farms/sherfy-farm/",
+     "follow_status": "ok"
+    }
+   ],
+   "reachability": "reachable"
+  },
+  {
+   "number": 19,
+   "table": 2,
+   "table_title": "Table 2. Park GIS, reconstructions and restoration studies",
+   "pdf_page": 106,
+   "name": "NPS drone photogrammetry, Little Round Top west face (52 acres; senseFly eBee RTK, DJI Inspire 2)",
+   "type": "Orthomosaic, RGB point cloud, TIN, 2017",
+   "what_it_gives": "Revealed earthworks, stone walls, railroad beds and previously undocumented linear features",
+   "access_url_text": "https://support.geocue.com/wp-content/uploads/2017/07/MappingGettysburg-LittleRoundTopRevealed.pdf",
+   "urls": [
+    {
+     "url": "https://support.geocue.com/wp-content/uploads/2017/07/MappingGettysburg-LittleRoundTopRevealed.pdf",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "PDF report",
+   "scale_resolution": "Point density not reported",
+   "licence": "n/a",
+   "limits": "Not LiDAR. Dataset availability not confirmed.",
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [
+    "PDF: dataset availability not confirmed."
+   ],
+   "access_kind_from_pdf": "PDF report only (dataset not confirmed)",
+   "columns_not_printed": [
+    "tier"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [],
+   "access_status": "reachable",
+   "probe_summary": [
+    {
+     "url": "https://support.geocue.com/wp-content/uploads/2017/07/MappingGettysburg-LittleRoundTopRevealed.pdf",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "transcription_note": "The PDF breaks the URL after \"wp-\"; joined without a space.",
+   "reachability": "reachable"
+  },
+  {
+   "number": 20,
+   "table": 2,
+   "table_title": "Table 2. Park GIS, reconstructions and restoration studies",
+   "pdf_page": 106,
+   "name": "Existing game and model maps (Ultimate General discussion)",
+   "type": "Forum",
+   "what_it_gives": "Landmark accuracy disputes only (Round Tops, Stevens Run, missing landmarks)",
+   "access_url_text": "https://forum.game-labs.net/topic/19003-accuracy-of-gettysburg-map/",
+   "urls": [
+    {
+     "url": "https://forum.game-labs.net/topic/19003-accuracy-of-gettysburg-map/",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "Forum",
+   "scale_resolution": "n/a",
+   "licence": "n/a",
+   "limits": "Forum claims. Stevens Run may have been wider in 1863 per a poster. Used only as a checklist of things to verify. No open 3D tileset of 1863 Gettysburg was found.",
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [
+    "PDF: forum claims only."
+   ],
+   "access_kind_from_pdf": "web forum (checklist only)",
+   "columns_not_printed": [
+    "tier"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [],
+   "access_status": "unreachable",
+   "probe_summary": [
+    {
+     "url": "https://forum.game-labs.net/topic/19003-accuracy-of-gettysburg-map/",
+     "status": "robots_unavailable",
+     "http_status": null,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "reachability": "unreachable"
+  },
+  {
+   "number": 21,
+   "table": 3,
+   "table_title": "Table 3. Modern geodata",
+   "pdf_page": 106,
+   "name": "USGS South Central Pennsylvania 2017 QL2 LiDAR (13 counties including Adams; collected 2017-11-21 to 2017-12-21; published 2018-10-26)",
+   "type": "Airborne lidar",
+   "what_it_gives": "Bare-earth terrain, canopy, breaklines, intensity",
+   "access_url_text": "AmeriGEO record https://data.amerigeoss.org/dataset/south-central-pennsylvania-2017-ql2-lidar ; distributed via PASDA http://www.pasda.psu.edu/ ; Adams County 2-ft contours service https://mapping.adamscountypa.gov/arcgis/rest/services/AGOL/Two_Foot_Contours/MapServer",
+   "urls": [
+    {
+     "url": "https://data.amerigeoss.org/dataset/south-central-pennsylvania-2017-ql2-lidar",
+     "printed_in_column": "access_url"
+    },
+    {
+     "url": "http://www.pasda.psu.edu/",
+     "printed_in_column": "access_url"
+    },
+    {
+     "url": "https://mapping.adamscountypa.gov/arcgis/rest/services/AGOL/Two_Foot_Contours/MapServer",
+     "printed_in_column": "access_url"
+    },
+    {
+     "url": "https://www.usgs.gov/index.php/3d-elevation-program/topographic-data-quality-levels-qls",
+     "printed_in_column": "scale_resolution"
+    },
+    {
+     "url": "https://www.usgs.gov/3d-elevation-program/about-3dep-products-services",
+     "printed_in_column": "licence"
+    }
+   ],
+   "format": "LAS 1.4 (7,975 tiles of 1,500 m), 1-m DEM, 2-ft contours",
+   "scale_resolution": "Nominal pulse spacing 0.7 m; QL2 = 10 cm RMSEz, at most 0.71 m spacing, at least 2 pts/m2 (USGS QL page https://www.usgs.gov/index.php/3d-elevation-program/topographic-data-quality-levels-qls)",
+   "licence": "Free; 3DEP has no use restrictions (https://www.usgs.gov/3d-elevation-program/about-3dep-products-services)",
+   "limits": null,
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [],
+   "access_kind_from_pdf": "digital-download (LAS/DEM) and REST service",
+   "columns_not_printed": [
+    "limits",
+    "tier"
+   ],
+   "column_assignment_note": "Table 3 prints only Source, Type, What it gives, Access and exact URL, Format, Scale/resolution, License.",
+   "check_notes": [
+    "check_21: the project already ingested this dataset: USGS 3DEP project PA_South_Central_B1_2017 (lidar tiles on AWS usgs-lidar-public, EPT: https://s3-us-west-2.amazonaws.com/usgs-lidar-public/USGS_LPC_PA_South_Central_B1_2017_LAS_2019/ept.json) and the 3DEP 1 m DEM via the National Map ImageServer (docs/basemap1863/BUILD.md section 2, SOURCES-landcover.md S-3DEP-LIDAR). This settles the PDF B.9.3 gap \"exact Adams County lidar project name, Rockyweb folder and AWS bucket path\" for the AWS side; the Rockyweb folder is still not recorded.",
+    "check_21b: collected 2017-11-21 to 2017-12-21 means leaf-off winter lidar; the canopy model the project built is therefore a leaf-off structure measure (SOURCES-landcover.md calls it a 2017 canopy height model)."
+   ],
+   "access_status": "partially-reachable",
+   "probe_summary": [
+    {
+     "url": "https://data.amerigeoss.org/dataset/south-central-pennsylvania-2017-ql2-lidar",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    },
+    {
+     "url": "http://www.pasda.psu.edu/",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    },
+    {
+     "url": "https://mapping.adamscountypa.gov/arcgis/rest/services/AGOL/Two_Foot_Contours/MapServer",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    },
+    {
+     "url": "https://www.usgs.gov/index.php/3d-elevation-program/topographic-data-quality-levels-qls",
+     "status": "redirect",
+     "http_status": 301,
+     "location": "http://www.usgs.gov/3d-elevation-program/topographic-data-quality-levels-qls",
+     "follow_status": "redirect"
+    },
+    {
+     "url": "https://www.usgs.gov/3d-elevation-program/about-3dep-products-services",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "transcription_note": "The PDF breaks the QL and licence URLs across lines; joined without spaces. Tier and limits columns are not printed in Table 3.",
+   "reachability": "partial"
+  },
+  {
+   "number": 22,
+   "table": 3,
+   "table_title": "Table 3. Modern geodata",
+   "pdf_page": 106,
+   "name": "USGS 3DEP access routes",
+   "type": "Distribution",
+   "what_it_gives": "The National Map, 3DEP Lidar Explorer, Rockyweb direct downloads, WMS/WCS dynamic DEM, 1-m seamless (S1M) COG tiles in production since mid-2025, and an AWS public dataset",
+   "access_url_text": "https://www.usgs.gov/3d-elevation-program/about-3dep-products-services",
+   "urls": [
+    {
+     "url": "https://www.usgs.gov/3d-elevation-program/about-3dep-products-services",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "Various",
+   "scale_resolution": "n/a",
+   "licence": "Free",
+   "limits": null,
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [],
+   "access_kind_from_pdf": "service / download routes",
+   "columns_not_printed": [
+    "limits",
+    "tier"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [],
+   "access_status": "reachable",
+   "probe_summary": [
+    {
+     "url": "https://www.usgs.gov/3d-elevation-program/about-3dep-products-services",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "reachability": "reachable"
+  },
+  {
+   "number": 23,
+   "table": 3,
+   "table_title": "Table 3. Modern geodata",
+   "pdf_page": 106,
+   "name": "PAMAP LiDAR 2006-2008 (Adams included; Adams listed among 2007 counties, date to verify)",
+   "type": "Airborne lidar",
+   "what_it_gives": "Earlier terrain, before more recent disturbance",
+   "access_url_text": "NOAA InPort https://www.fisheries.noaa.gov/inport/item/49951 ; bulk on NOAA S3 noaa-nos-coastal-lidar-pds, ID 2574 ; acquisition report https://www.pasda.psu.edu/download/pamap/PAMAP_ancillary_data/PAMAP_LiDAR_%202006-2008_%20Acquisition%20Report_Full_Report.pdf",
+   "urls": [
+    {
+     "url": "https://www.fisheries.noaa.gov/inport/item/49951",
+     "printed_in_column": "access_url"
+    },
+    {
+     "url": "https://www.pasda.psu.edu/download/pamap/PAMAP_ancillary_data/PAMAP_LiDAR_%202006-2008_%20Acquisition%20Report_Full_Report.pdf",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "LAZ, 10,000 x 10,000 ft tiles, classes: ground, vegetation, building, water",
+   "scale_resolution": "Nominal 1.4 m spacing; open-terrain RMSEz 0.535 ft; consolidated vertical accuracy (95%) 1.134 ft; vertical target 18.5 cm",
+   "licence": "None named",
+   "limits": null,
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [
+    "PDF: Adams listed among 2007 counties, \"date to verify\"."
+   ],
+   "access_kind_from_pdf": "bulk download (NOAA S3 bucket noaa-nos-coastal-lidar-pds, ID 2574)",
+   "columns_not_printed": [
+    "limits",
+    "tier"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [
+    "check_23: not yet used by the project (no PAMAP ingest exists in docs/basemap1863 or tools/b1863)."
+   ],
+   "access_status": "reachable",
+   "probe_summary": [
+    {
+     "url": "https://www.fisheries.noaa.gov/inport/item/49951",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    },
+    {
+     "url": "https://www.pasda.psu.edu/download/pamap/PAMAP_ancillary_data/PAMAP_LiDAR_%202006-2008_%20Acquisition%20Report_Full_Report.pdf",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "transcription_note": "Row continues from page 106 to 107. The S3 bucket is named, not given as a URL, so it is not probed as a URL. The PDF prints the PASDA report URL with \"%20\" after \"LiDAR_\" and after \"2008_\".",
+   "reachability": "reachable"
+  },
+  {
+   "number": 24,
+   "table": 3,
+   "table_title": "Table 3. Modern geodata",
+   "pdf_page": 107,
+   "name": "Adams County ArcGIS server REST services",
+   "type": null,
+   "what_it_gives": "2023 aerial imagery (Aerial_MapService_2023_Pro), contours, soils",
+   "access_url_text": "https://mapping.adamscountypa.gov/arcgis/rest/services",
+   "urls": [
+    {
+     "url": "https://mapping.adamscountypa.gov/arcgis/rest/services",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "REST",
+   "scale_resolution": "n/a",
+   "licence": "Not stated",
+   "limits": null,
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [],
+   "access_kind_from_pdf": "REST service",
+   "columns_not_printed": [
+    "limits",
+    "tier"
+   ],
+   "column_assignment_note": "The printed row has one cell fewer than the header: the cell after the name is read as What it gives; Type is null.",
+   "check_notes": [
+    "check_24: the project used Adams County 2023 building outlines and centre lines to decide what to remove; the data carries no stated licence (docs/basemap1863/BUILD.md section 2 and 10)."
+   ],
+   "access_status": "reachable",
+   "probe_summary": [
+    {
+     "url": "https://mapping.adamscountypa.gov/arcgis/rest/services",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "reachability": "reachable"
+  },
+  {
+   "number": 25,
+   "table": 3,
+   "table_title": "Table 3. Modern geodata",
+   "pdf_page": 107,
+   "name": "NPS Vegetation Mapping Inventory, GETT/EISE",
+   "type": "FGDB, association-level map (NVC-based) with an added \"Cleared Land\" class, 2006",
+   "what_it_gives": "Modern vegetation, used to find where woods exist now versus 1863",
+   "access_url_text": "https://irma.nps.gov/DataStore/DownloadFile/610918?Reference=2233298 ; listing https://catalog-beta.data.gov/dataset/geospatial-data-for-the-vegetation-mapping-inventory-project-of-gettysburg-national-milita ; https://www.nps.gov/im/vmi-gett-eise.htm",
+   "urls": [
+    {
+     "url": "https://irma.nps.gov/DataStore/DownloadFile/610918?Reference=2233298",
+     "printed_in_column": "access_url"
+    },
+    {
+     "url": "https://catalog-beta.data.gov/dataset/geospatial-data-for-the-vegetation-mapping-inventory-project-of-gettysburg-national-milita",
+     "printed_in_column": "access_url"
+    },
+    {
+     "url": "https://www.nps.gov/im/vmi-gett-eise.htm",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "FGDB",
+   "scale_resolution": "Not stated",
+   "licence": "Not stated",
+   "limits": null,
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [],
+   "access_kind_from_pdf": "digital-download (FGDB)",
+   "columns_not_printed": [
+    "limits",
+    "tier"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [
+    "check_25: the project could not obtain this layer (\"no open GIS layer found on the NPS ArcGIS services; the NPS Data Store was not reachable with the tools used\": docs/basemap1863/features/landcover/SOURCES-landcover.md section 6). Printed catalog URL is cut off (\"milita\")."
+   ],
+   "access_status": "partially-reachable",
+   "probe_summary": [
+    {
+     "url": "https://irma.nps.gov/DataStore/DownloadFile/610918?Reference=2233298",
+     "status": "robots_disallowed",
+     "http_status": null,
+     "location": null,
+     "follow_status": null
+    },
+    {
+     "url": "https://catalog-beta.data.gov/dataset/geospatial-data-for-the-vegetation-mapping-inventory-project-of-gettysburg-national-milita",
+     "status": "not_found",
+     "http_status": 404,
+     "location": null,
+     "follow_status": null
+    },
+    {
+     "url": "https://www.nps.gov/im/vmi-gett-eise.htm",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "transcription_note": "The catalog-beta.data.gov URL ends \"...national-milita\" in the PDF (cut at the line end, or truncated in the source). Recorded exactly as printed; likely not resolvable as printed.",
+   "reachability": "partial"
+  },
+  {
+   "number": 26,
+   "table": 3,
+   "table_title": "Table 3. Modern geodata",
+   "pdf_page": 107,
+   "name": "NPS digital geology of GETT (from Stose and Bascom 1929, 1:62,500), IRMA ref 1041800",
+   "type": "FGDB, GeoPackage, KMZ",
+   "what_it_gives": "Bedrock units, useful for diabase outcrops and rock-field masks",
+   "access_url_text": "https://catalog.data.gov/dataset/digital-geologic-gis-map-of-gettysburg-national-military-park-pennsylvania-nps-grd-gr-1929",
+   "urls": [
+    {
+     "url": "https://catalog.data.gov/dataset/digital-geologic-gis-map-of-gettysburg-national-military-park-pennsylvania-nps-grd-gr-1929",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "FGDB / GPKG / KMZ",
+   "scale_resolution": "1:62,500; 31.8 m horizontal tolerance",
+   "licence": "Not stated",
+   "limits": null,
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [],
+   "access_kind_from_pdf": "digital-download (FGDB/GPKG/KMZ)",
+   "columns_not_printed": [
+    "limits",
+    "tier"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [],
+   "access_status": "reachable",
+   "probe_summary": [
+    {
+     "url": "https://catalog.data.gov/dataset/digital-geologic-gis-map-of-gettysburg-national-military-park-pennsylvania-nps-grd-gr-1929",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "reachability": "reachable"
+  },
+  {
+   "number": 27,
+   "table": 3,
+   "table_title": "Table 3. Modern geodata",
+   "pdf_page": 107,
+   "name": "PASDA SSURGO (gSSURGO) soils for Pennsylvania",
+   "type": "REST / gdb",
+   "what_it_gives": "Soil units for grass, crop and wetness parameters",
+   "access_url_text": "https://mapservices.pasda.psu.edu/server/rest/services/pasda/Soils_PA/MapServer/0/iteminfo",
+   "urls": [
+    {
+     "url": "https://mapservices.pasda.psu.edu/server/rest/services/pasda/Soils_PA/MapServer/0/iteminfo",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "REST / gdb",
+   "scale_resolution": "Not stated",
+   "licence": "Acknowledge NRCS",
+   "limits": null,
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [],
+   "access_kind_from_pdf": "REST service / gdb",
+   "columns_not_printed": [
+    "limits",
+    "tier"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [],
+   "access_status": "reachable",
+   "probe_summary": [
+    {
+     "url": "https://mapservices.pasda.psu.edu/server/rest/services/pasda/Soils_PA/MapServer/0/iteminfo",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "reachability": "reachable"
+  },
+  {
+   "number": 28,
+   "table": 3,
+   "table_title": "Table 3. Modern geodata",
+   "pdf_page": 107,
+   "name": "Penn Pilot historic aerials (PA Geological Survey / Penn State), 1937-42 and 1967-72",
+   "type": "Scanned aerial photographs",
+   "what_it_gives": "Pre-restoration land cover, old field boundaries and fence lines still visible in 1937-42",
+   "access_url_text": "Viewer https://www.arcgis.com/apps/View/index.html?appid=10af5f75f9f94f01866359ba398cb6a9 ; https://geo.btaa.org/catalog/pasda-1078 ; https://www.witf.org/2025/01/24/penn-pilot-exploring-pennsylvanias-history-through-aerial-photography/",
+   "urls": [
+    {
+     "url": "https://www.arcgis.com/apps/View/index.html?appid=10af5f75f9f94f01866359ba398cb6a9",
+     "printed_in_column": "access_url"
+    },
+    {
+     "url": "https://geo.btaa.org/catalog/pasda-1078",
+     "printed_in_column": "access_url"
+    },
+    {
+     "url": "https://www.witf.org/2025/01/24/penn-pilot-exploring-pennsylvanias-history-through-aerial-photography/",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "Scans",
+   "scale_resolution": "Not stated",
+   "licence": "Not stated",
+   "limits": null,
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [],
+   "access_kind_from_pdf": "viewer-only (scans via viewer; download route not stated)",
+   "columns_not_printed": [
+    "limits",
+    "tier"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [],
+   "access_status": "viewer-only",
+   "probe_summary": [
+    {
+     "url": "https://www.arcgis.com/apps/View/index.html?appid=10af5f75f9f94f01866359ba398cb6a9",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    },
+    {
+     "url": "https://geo.btaa.org/catalog/pasda-1078",
+     "status": "redirect",
+     "http_status": 301,
+     "location": "https://geo.btaa.org/resources/pasda-1078",
+     "follow_status": "ok"
+    },
+    {
+     "url": "https://www.witf.org/2025/01/24/penn-pilot-exploring-pennsylvanias-history-through-aerial-photography/",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "transcription_note": "The PDF breaks the first URL after \"index.html?\"; joined without a space.",
+   "reachability": "reachable"
+  },
+  {
+   "number": 29,
+   "table": 3,
+   "table_title": "Table 3. Modern geodata",
+   "pdf_page": 107,
+   "name": "Adams County 1996 orthophoto (about 2-ft pixels) and 1996 DEM (private firm, 5-ft contours, 1:4,800 map accuracy standard)",
+   "type": "Used by NPS and Knowles",
+   "what_it_gives": "Legacy",
+   "access_url_text": "Described at https://www.nps.gov/gis/gisday/gallery2001/GWS/musselman.htm and https://xyht.com/?p=2387",
+   "urls": [
+    {
+     "url": "https://www.nps.gov/gis/gisday/gallery2001/GWS/musselman.htm",
+     "printed_in_column": "access_url"
+    },
+    {
+     "url": "https://xyht.com/?p=2387",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "n/a",
+   "scale_resolution": "See left",
+   "licence": "n/a",
+   "limits": null,
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [],
+   "access_kind_from_pdf": "described only (no data access printed)",
+   "columns_not_printed": [
+    "limits",
+    "tier"
+   ],
+   "column_assignment_note": "Printed cells after the name are \"Used by NPS and Knowles\", \"Legacy\", URL, \"n/a\", \"See left\", \"n/a\"; assigned in header order (Type, What it gives, Access, Format, Scale, Licence). The reading of the first two cells is ambiguous.",
+   "check_notes": [],
+   "access_status": "partially-reachable",
+   "probe_summary": [
+    {
+     "url": "https://www.nps.gov/gis/gisday/gallery2001/GWS/musselman.htm",
+     "status": "not_found",
+     "http_status": 404,
+     "location": null,
+     "follow_status": null
+    },
+    {
+     "url": "https://xyht.com/?p=2387",
+     "status": "redirect",
+     "http_status": 301,
+     "location": "https://xyhtcom.kinsta.cloud/professional-surveyor-archives/feature-discovering-lees-view/",
+     "follow_status": "not_followed_other_host"
+    }
+   ],
+   "reachability": "partial"
+  },
+  {
+   "number": 30,
+   "table": 3,
+   "table_title": "Table 3. Modern geodata",
+   "pdf_page": 107,
+   "name": "PA DCNR hydrography, USGS NHD",
+   "type": "Hydrography",
+   "what_it_gives": "Stream lines; some watersheds accurate to 1:2,400; NHD recommended for 1:24,000",
+   "access_url_text": "https://www.pa.gov/agencies/dcnr/conservation/geology/digital-base-maps",
+   "urls": [
+    {
+     "url": "https://www.pa.gov/agencies/dcnr/conservation/geology/digital-base-maps",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "Various",
+   "scale_resolution": "See left",
+   "licence": "Public",
+   "limits": null,
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [],
+   "access_kind_from_pdf": "digital-download (various)",
+   "columns_not_printed": [
+    "limits",
+    "tier"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [
+    "check_30: NHD flowlines already used: features/roads-rail-water/waterways.geojson (363 flowlines; modern courses, NPS says they changed)."
+   ],
+   "access_status": "reachable",
+   "probe_summary": [
+    {
+     "url": "https://www.pa.gov/agencies/dcnr/conservation/geology/digital-base-maps",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "reachability": "reachable"
+  },
+  {
+   "number": 31,
+   "table": 3,
+   "table_title": "Table 3. Modern geodata",
+   "pdf_page": 107,
+   "name": "NPS small-scale base (1:100,000 water quality base)",
+   "type": "GIS",
+   "what_it_gives": "Not useful at this scale",
+   "access_url_text": "https://catalog.data.gov/dataset/gettysburg-national-military-park-small-scale-base-gis-data",
+   "urls": [
+    {
+     "url": "https://catalog.data.gov/dataset/gettysburg-national-military-park-small-scale-base-gis-data",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": "GIS",
+   "scale_resolution": "1:100,000",
+   "licence": "n/a",
+   "limits": null,
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [],
+   "access_kind_from_pdf": "digital-download (GIS); PDF says not useful",
+   "columns_not_printed": [
+    "limits",
+    "tier"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [],
+   "access_status": "reachable",
+   "probe_summary": [
+    {
+     "url": "https://catalog.data.gov/dataset/gettysburg-national-military-park-small-scale-base-gis-data",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "reachability": "reachable"
+  },
+  {
+   "number": 32,
+   "table": 4,
+   "table_title": "Table 4. Photographs, paintings and documents",
+   "pdf_page": 107,
+   "name": "Gardner, O'Sullivan and Gibson photographs, July 1863. Gardner and O'Sullivan reached Gettysburg 5 July 1863 and photographed Devil's Den on 6 July.",
+   "type": "Photographs",
+   "what_it_gives": "Ground truth for trees, rail-fence type, wall lines, rock positions, crop stubble and bodies at specific places",
+   "access_url_text": "NARA IDs 165-SB-40 (ARC 533314) and 165-SB-41 (ARC 533315) for the sharpshooter pair: https://prologue.blogs.archives.gov/2013/06/20/the-true-story-behind-the-gettysburg-sharpshooter ; \"Gettysburg, Pennsylvania, from Cemetery Ridge, July 1863\" (O'Sullivan negative, Gardner positive): https://hd.housedivided.dickinson.edu/node/27090",
+   "urls": [
+    {
+     "url": "https://prologue.blogs.archives.gov/2013/06/20/the-true-story-behind-the-gettysburg-sharpshooter",
+     "printed_in_column": "access_url"
+    },
+    {
+     "url": "https://hd.housedivided.dickinson.edu/node/27090",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": null,
+   "scale_resolution": null,
+   "licence": null,
+   "limits": null,
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [],
+   "access_kind_from_pdf": "photographs via NARA / LOC (IDs given for one pair)",
+   "columns_not_printed": [
+    "format",
+    "scale_resolution",
+    "licence",
+    "limits",
+    "tier"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [
+    "check_32: the project examined 19 candidate July 1863 photographs at LOC for Check 5 (rephotography), 12 rendered; poses are the checker's own estimates (tiers B/C/D), none from documented coordinates: docs/basemap1863/verification/check5-rephotography.md."
+   ],
+   "access_status": "reachable",
+   "probe_summary": [
+    {
+     "url": "https://prologue.blogs.archives.gov/2013/06/20/the-true-story-behind-the-gettysburg-sharpshooter",
+     "status": "redirect",
+     "http_status": 301,
+     "location": "https://prologue.blogs.archives.gov/2013/06/20/the-true-story-behind-the-gettysburg-sharpshooter/",
+     "follow_status": "ok"
+    },
+    {
+     "url": "https://hd.housedivided.dickinson.edu/node/27090",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "transcription_note": "The PDF breaks the first URL after \"the-\"; joined without a space. Table 4 prints only Source, Type, What it gives, Access and exact URL: format, scale, licence, limits and tier are not printed.",
+   "reachability": "reachable"
+  },
+  {
+   "number": 33,
+   "table": 4,
+   "table_title": "Table 4. Photographs, paintings and documents",
+   "pdf_page": 107,
+   "name": "LOC Civil War Photographs collection",
+   "type": "About 7,000 views and portraits including original Brady and Gardner glass negatives (purchased 1943), all digitized",
+   "what_it_gives": "July 1863 views",
+   "access_url_text": "https://www.loc.gov/pictures/collection/cwp/",
+   "urls": [
+    {
+     "url": "https://www.loc.gov/pictures/collection/cwp/",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": null,
+   "scale_resolution": null,
+   "licence": null,
+   "limits": null,
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [],
+   "access_kind_from_pdf": "digital-download (LOC pictures)",
+   "columns_not_printed": [
+    "format",
+    "scale_resolution",
+    "licence",
+    "limits",
+    "tier"
+   ],
+   "column_assignment_note": "The printed cell after the name describes the collection; in header order it is Type, and \"July 1863 views\" is What it gives.",
+   "check_notes": [],
+   "access_status": "blocked",
+   "probe_summary": [
+    {
+     "url": "https://www.loc.gov/pictures/collection/cwp/",
+     "status": "blocked",
+     "http_status": 403,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "reachability": "blocked"
+  },
+  {
+   "number": 34,
+   "table": 4,
+   "table_title": "Table 4. Photographs, paintings and documents",
+   "pdf_page": 107,
+   "name": "Frassanito, \"Gettysburg: A Journey in Time\" (1975)",
+   "type": "Rephotography research",
+   "what_it_gives": "Camera positions; showed the famous picture was one of six of the same body. NPS has rebuilt the staging wall at Devil's Den.",
+   "access_url_text": "https://en.wikipedia.org/wiki/Home_of_a_Rebel_Sharpshooter (lead only, secondary)",
+   "urls": [
+    {
+     "url": "https://en.wikipedia.org/wiki/Home_of_a_Rebel_Sharpshooter",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": null,
+   "scale_resolution": null,
+   "licence": null,
+   "limits": null,
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [
+    "PDF: lead only, secondary (Wikipedia). The book itself is copyrighted: cite, do not ingest (PDF B.9.3)."
+   ],
+   "access_kind_from_pdf": "book (print); only a Wikipedia lead URL printed",
+   "columns_not_printed": [
+    "format",
+    "scale_resolution",
+    "licence",
+    "limits",
+    "tier"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [
+    "check_34: Wikipedia is a lead, never a source for a documented claim (CLAUDE.md Law 4)."
+   ],
+   "access_status": "reachable",
+   "probe_summary": [
+    {
+     "url": "https://en.wikipedia.org/wiki/Home_of_a_Rebel_Sharpshooter",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "reachability": "reachable"
+  },
+  {
+   "number": 35,
+   "table": 4,
+   "table_title": "Table 4. Photographs, paintings and documents",
+   "pdf_page": 107,
+   "name": "NPS \"Then and Now\"",
+   "type": "Web overlays of 1863 and modern photos",
+   "what_it_gives": "Example: Gardner Stereo #257 near the Rose Woods, DeTrobriand Avenue, 5-6 July 1863",
+   "access_url_text": "https://www.nps.gov/places/gettysburg-then-now-first-rose-woods.htm ; https://www.nps.gov/gett/learn/photosmultimedia/then-and-now.htm (not opened)",
+   "urls": [
+    {
+     "url": "https://www.nps.gov/places/gettysburg-then-now-first-rose-woods.htm",
+     "printed_in_column": "access_url"
+    },
+    {
+     "url": "https://www.nps.gov/gett/learn/photosmultimedia/then-and-now.htm",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": null,
+   "scale_resolution": null,
+   "licence": null,
+   "limits": null,
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [
+    "PDF: the then-and-now.htm landing page \"not opened\"."
+   ],
+   "access_kind_from_pdf": "web pages",
+   "columns_not_printed": [
+    "format",
+    "scale_resolution",
+    "licence",
+    "limits",
+    "tier"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [
+    "check_35: Check 5 of the 1863 base map used the NPS Then and Now site descriptions (rose-woods, trostle-farm, devil-s-den, buildings-and-farms) to place cameras; none give coordinates."
+   ],
+   "access_status": "reachable",
+   "probe_summary": [
+    {
+     "url": "https://www.nps.gov/places/gettysburg-then-now-first-rose-woods.htm",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    },
+    {
+     "url": "https://www.nps.gov/gett/learn/photosmultimedia/then-and-now.htm",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "reachability": "reachable"
+  },
+  {
+   "number": 36,
+   "table": 4,
+   "table_title": "Table 4. Photographs, paintings and documents",
+   "pdf_page": 107,
+   "name": "Tyson brothers / William H. Tipton photographs",
+   "type": "Negatives and prints",
+   "what_it_gives": "Tipton (about 13 years old at the time, apprenticed to the Tysons) helped expose plates of the fresh battlefield. NPS transferred more than 1,000 Tipton negatives to NARA in 1955; ACHS holds thousands of Tipton originals.",
+   "access_url_text": "https://www.battlefields.org/learn/biographies/william-h-tipton ; NPS museum PDF https://museum.nps.gov/Media//00001/Gett%2041136,%20W.H.%20Tipton%20Photographic%20Prints%202013%20U00635923399151552978.pdf (not opened)",
+   "urls": [
+    {
+     "url": "https://www.battlefields.org/learn/biographies/william-h-tipton",
+     "printed_in_column": "access_url"
+    },
+    {
+     "url": "https://museum.nps.gov/Media//00001/Gett%2041136,%20W.H.%20Tipton%20Photographic%20Prints%202013%20U00635923399151552978.pdf",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": null,
+   "scale_resolution": null,
+   "licence": null,
+   "limits": null,
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [
+    "PDF: NPS museum PDF \"not opened\"."
+   ],
+   "access_kind_from_pdf": "photographs at NARA / ACHS (IDs not given)",
+   "columns_not_printed": [
+    "format",
+    "scale_resolution",
+    "licence",
+    "limits",
+    "tier"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [],
+   "access_status": "reachable",
+   "probe_summary": [
+    {
+     "url": "https://www.battlefields.org/learn/biographies/william-h-tipton",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    },
+    {
+     "url": "https://museum.nps.gov/Media//00001/Gett%2041136,%20W.H.%20Tipton%20Photographic%20Prints%202013%20U00635923399151552978.pdf",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "transcription_note": "The museum PDF URL is printed on one line, with %20 escapes, exactly as recorded.",
+   "reachability": "reachable"
+  },
+  {
+   "number": 37,
+   "table": 4,
+   "table_title": "Table 4. Photographs, paintings and documents",
+   "pdf_page": 107,
+   "name": "Gettysburg College, Ron Perisho Collection",
+   "type": "Albumen prints, tintypes, stereographs, lantern slides (Gardner, O'Sullivan, Gibson, Tysons, Tipton, Corlies, Weaver)",
+   "what_it_gives": "Additional period views",
+   "access_url_text": "https://www.gettysburg.edu/offices/schmucker-art-gallery/exhibitions/a-great-and-truthful-medium-photography-at-gettysburg-beyond-selections-from-the-ron-perisho-collection-at-gettysburg-college",
+   "urls": [
+    {
+     "url": "https://www.gettysburg.edu/offices/schmucker-art-gallery/exhibitions/a-great-and-truthful-medium-photography-at-gettysburg-beyond-selections-from-the-ron-perisho-collection-at-gettysburg-college",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": null,
+   "scale_resolution": null,
+   "licence": null,
+   "limits": null,
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [],
+   "access_kind_from_pdf": "exhibition page (collection access not stated)",
+   "columns_not_printed": [
+    "format",
+    "scale_resolution",
+    "licence",
+    "limits",
+    "tier"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [],
+   "access_status": "unreachable",
+   "probe_summary": [
+    {
+     "url": "https://www.gettysburg.edu/offices/schmucker-art-gallery/exhibitions/a-great-and-truthful-medium-photography-at-gettysburg-beyond-selections-from-the-ron-perisho-collection-at-gettysburg-college",
+     "status": "not_found",
+     "http_status": 404,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "transcription_note": "Row continues from page 107 to 108. The PDF breaks the URL after \"selections-\"; joined without a space.",
+   "reachability": "unreachable"
+  },
+  {
+   "number": 38,
+   "table": 4,
+   "table_title": "Table 4. Photographs, paintings and documents",
+   "pdf_page": 108,
+   "name": "Gettysburg History (Adams County Historical Society, ACHS)",
+   "type": "Archive",
+   "what_it_gives": "PastPerfect Online with over 60,000 photographs and records; Lane Photographic Collection on Flickr; Civil War Damage Claims Index (PDF); 1858 Adams County Map Name Index; 1872 Atlas Name Index; grantor/grantee deed index; tax records index; census indexes (1790, 1830 listed); newspapers on microfilm",
+   "access_url_text": "https://gettysburghistory.org/our-holdings/",
+   "urls": [
+    {
+     "url": "https://gettysburghistory.org/our-holdings/",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": null,
+   "scale_resolution": null,
+   "licence": null,
+   "limits": null,
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [],
+   "access_kind_from_pdf": "archive (online indexes; originals on site / microfilm)",
+   "columns_not_printed": [
+    "format",
+    "scale_resolution",
+    "licence",
+    "limits",
+    "tier"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [
+    "check_38: the census indexes listed are 1790 and 1830; no 1860 index is listed, yet B.9.2 step 5 relies on \"the 1860 agricultural census\"."
+   ],
+   "access_status": "reachable",
+   "probe_summary": [
+    {
+     "url": "https://gettysburghistory.org/our-holdings/",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "reachability": "reachable"
+  },
+  {
+   "number": 39,
+   "table": 4,
+   "table_title": "Table 4. Photographs, paintings and documents",
+   "pdf_page": 108,
+   "name": "Pennsylvania state damage claims (Gettysburg Campaign claims, renumbered 1868, after federal claims failed)",
+   "type": "Archival claims",
+   "what_it_gives": "Itemized losses by owner (fence rails, timber, crops, household goods)",
+   "access_url_text": "Explained at https://gettysburgcompiler.org/uncategorized/patriotism-or-greed-damage-claims-after-the-b (a student blog; the example Krauth claim, approved 1871 for $519.70, itemizes household goods and the article does not discuss fences or timber)",
+   "urls": [
+    {
+     "url": "https://gettysburgcompiler.org/uncategorized/patriotism-or-greed-damage-claims-after-the-b",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": null,
+   "scale_resolution": null,
+   "licence": null,
+   "limits": null,
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [
+    "PDF: source is a student blog; the example claim does not discuss fences or timber."
+   ],
+   "access_kind_from_pdf": "archive (Pennsylvania State Archives; no digital access printed)",
+   "columns_not_printed": [
+    "format",
+    "scale_resolution",
+    "licence",
+    "limits",
+    "tier"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [
+    "check_39: URL as printed is cut off (\"after-the-b\"); likely not resolvable as printed."
+   ],
+   "access_status": "reachable",
+   "probe_summary": [
+    {
+     "url": "https://gettysburgcompiler.org/uncategorized/patriotism-or-greed-damage-claims-after-the-b",
+     "status": "redirect",
+     "http_status": 301,
+     "location": "https://gettysburgcompiler.org/2011/05/19/patriotism-or-greed-damage-claims-after-the-b/",
+     "follow_status": "ok"
+    }
+   ],
+   "transcription_note": "The URL ends \"...after-the-b\" as printed (cut at the line end or truncated in the source); recorded exactly as printed.",
+   "reachability": "reachable"
+  },
+  {
+   "number": 40,
+   "table": 4,
+   "table_title": "Table 4. Photographs, paintings and documents",
+   "pdf_page": 108,
+   "name": "Philippoteaux Cyclorama (opened Chicago 1883, 377 x 42 ft; restored 2003-08)",
+   "type": "Painting",
+   "what_it_gives": "General sightlines from Cemetery Ridge toward the Angle, 3 July view",
+   "access_url_text": "https://www.nps.gov/gett/learn/historyculture/cyclorama.htm",
+   "urls": [
+    {
+     "url": "https://www.nps.gov/gett/learn/historyculture/cyclorama.htm",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": null,
+   "scale_resolution": null,
+   "licence": null,
+   "limits": null,
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [],
+   "access_kind_from_pdf": "web page",
+   "columns_not_printed": [
+    "format",
+    "scale_resolution",
+    "licence",
+    "limits",
+    "tier"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [
+    "check_40: the PDF tier definitions place paintings in R4 (artistic work, low weight); Table 4 prints no tier for this row."
+   ],
+   "access_status": "reachable",
+   "probe_summary": [
+    {
+     "url": "https://www.nps.gov/gett/learn/historyculture/cyclorama.htm",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "reachability": "reachable"
+  },
+  {
+   "number": 41,
+   "table": 4,
+   "table_title": "Table 4. Photographs, paintings and documents",
+   "pdf_page": 108,
+   "name": "PHMC agricultural census extracts",
+   "type": "Statistics",
+   "what_it_gives": "County agricultural census extracts for 1850, 1880, 1927 (path pattern phmc.pa.gov/Preservation/<year>-Agricultural-Census/Documents/adams_county_<year>_census_data.pdf)",
+   "access_url_text": "https://www.phmc.pa.gov/Preservation/1880-Agricultural-Census/Documents/adams_county_1880_census_data.pdf (the 1850 URL redirected; unverified)",
+   "urls": [
+    {
+     "url": "https://www.phmc.pa.gov/Preservation/1880-Agricultural-Census/Documents/adams_county_1880_census_data.pdf",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": null,
+   "scale_resolution": null,
+   "licence": null,
+   "limits": null,
+   "tier_printed": null,
+   "tier_codes": [],
+   "tier_status": "not_printed_in_table",
+   "pdf_unverified_flags": [
+    "PDF: the 1850 URL redirected; unverified."
+   ],
+   "access_kind_from_pdf": "digital-download (PDF)",
+   "columns_not_printed": [
+    "format",
+    "scale_resolution",
+    "licence",
+    "limits",
+    "tier"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [
+    "check_41: the extracts listed are 1850, 1880 and 1927. B.9.2 step 5 says \"the 1860 agricultural census and the damage claims (Table 4, rows 39 and 41)\" would convert inference to documented fact; row 41 contains no 1860 extract. The 1860 census is therefore not in the catalog; B.9.3 routes it to NARA, FamilySearch or Ancestry, two of which need accounts (CLAUDE.md: no accounts by Claude: owner-only)."
+   ],
+   "access_status": "unreachable",
+   "probe_summary": [
+    {
+     "url": "https://www.phmc.pa.gov/Preservation/1880-Agricultural-Census/Documents/adams_county_1880_census_data.pdf",
+     "status": "moved_to_search",
+     "http_status": 301,
+     "location": "https://www.pa.gov/spdocsothers/Preservation/1880-Agricultural-Census/Documents/adams_county_1880_census_data.pdf",
+     "follow_status": "redirect"
+    }
+   ],
+   "transcription_note": "The path pattern in the \"what it gives\" cell contains <year> placeholders and is not a URL; only the 1880 URL is printed in full and is probed.",
+   "reachability": "unreachable"
+  },
+  {
+   "number": 42,
+   "table": 5,
+   "table_title": "Table 5. Ecology and orchard sources",
+   "pdf_page": 108,
+   "name": "NPS natural features and ecosystems",
+   "type": null,
+   "what_it_gives": "Park of 5,989 acres; more than 1,600 acres woodlot/forest; more than 2,300 acres crop/pasture/meadow; about 148 acres palustrine wetland; forest regeneration study since 1985; 1999 General Management Plan/EIS aims to replant historic woodlots, orchards and thickets",
+   "access_url_text": "https://www.nps.gov/gett/learn/nature/naturalfeaturesandecosystems.htm and https://home.nps.gov/gett/learn/nature/naturalfeaturesandecosystems.htm",
+   "urls": [
+    {
+     "url": "https://www.nps.gov/gett/learn/nature/naturalfeaturesandecosystems.htm",
+     "printed_in_column": "access_url"
+    },
+    {
+     "url": "https://home.nps.gov/gett/learn/nature/naturalfeaturesandecosystems.htm",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": null,
+   "scale_resolution": null,
+   "licence": null,
+   "limits": "Modern.",
+   "tier_printed": "R3",
+   "tier_codes": [
+    "R3"
+   ],
+   "tier_status": "printed",
+   "pdf_unverified_flags": [],
+   "access_kind_from_pdf": "web page",
+   "columns_not_printed": [
+    "type",
+    "format",
+    "scale_resolution",
+    "licence"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [],
+   "access_status": "reachable",
+   "probe_summary": [
+    {
+     "url": "https://www.nps.gov/gett/learn/nature/naturalfeaturesandecosystems.htm",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    },
+    {
+     "url": "https://home.nps.gov/gett/learn/nature/naturalfeaturesandecosystems.htm",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "reachability": "reachable"
+  },
+  {
+   "number": 43,
+   "table": 5,
+   "table_title": "Table 5. Ecology and orchard sources",
+   "pdf_page": 108,
+   "name": "NPS plants",
+   "type": null,
+   "what_it_gives": "Modern woodlot overstory dominated by white oak, white ash, northern red oak; 553 vascular plants (410 native); invasives include ailanthus and multiflora rose; no mention of American chestnut",
+   "access_url_text": "https://nps.gov/gett/learn/nature/plants.htm",
+   "urls": [
+    {
+     "url": "https://nps.gov/gett/learn/nature/plants.htm",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": null,
+   "scale_resolution": null,
+   "licence": null,
+   "limits": "Modern species list under-represents 1863 composition (see B.10.3).",
+   "tier_printed": "R3",
+   "tier_codes": [
+    "R3"
+   ],
+   "tier_status": "printed",
+   "pdf_unverified_flags": [],
+   "access_kind_from_pdf": "web page",
+   "columns_not_printed": [
+    "type",
+    "format",
+    "scale_resolution",
+    "licence"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [],
+   "access_status": "reachable",
+   "probe_summary": [
+    {
+     "url": "https://nps.gov/gett/learn/nature/plants.htm",
+     "status": "redirect",
+     "http_status": 301,
+     "location": "https://www.nps.gov/gett/learn/nature/plants.htm",
+     "follow_status": "ok"
+    }
+   ],
+   "reachability": "reachable"
+  },
+  {
+   "number": 44,
+   "table": 5,
+   "table_title": "Table 5. Ecology and orchard sources",
+   "pdf_page": 108,
+   "name": "American Battlefield Trust, battlefield orchards",
+   "type": null,
+   "what_it_gives": "44 orchards existed on present park land during the war; since 2000 NPS planted 2,869 apple trees on 109 acres at 35 historic orchard sites; the Sherfy Peach Orchard was replanted in 2008 with 72 peach trees; 114 Sherfy trees survived the battle",
+   "access_url_text": "https://www.battlefields.org/learn/articles/nature-of-history/hidden-history-battlefield-orchards",
+   "urls": [
+    {
+     "url": "https://www.battlefields.org/learn/articles/nature-of-history/hidden-history-battlefield-orchards",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": null,
+   "scale_resolution": null,
+   "licence": null,
+   "limits": "The notes elsewhere say the Sherfy orchard was replanted in 1883 and that Gilbert Orchard was replanted in 2007; replanted extent exceeds the 1863 extent. 1863 species are unknown.",
+   "tier_printed": "R3",
+   "tier_codes": [
+    "R3"
+   ],
+   "tier_status": "printed",
+   "pdf_unverified_flags": [
+    "PDF: internal conflict on replanting dates (2008 / 1883 for Sherfy; Gilbert 2007)."
+   ],
+   "access_kind_from_pdf": "web page",
+   "columns_not_printed": [
+    "type",
+    "format",
+    "scale_resolution",
+    "licence"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [
+    "check_44: conflicting replanting dates are carried in the PDF itself (\"2008\" in this row versus \"1883\" elsewhere in its notes); keep as a conflict-register entry rather than choosing."
+   ],
+   "access_status": "reachable",
+   "probe_summary": [
+    {
+     "url": "https://www.battlefields.org/learn/articles/nature-of-history/hidden-history-battlefield-orchards",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "transcription_note": "The PDF breaks the URL after \"hidden-\"; joined without a space.",
+   "reachability": "reachable"
+  },
+  {
+   "number": 45,
+   "table": 5,
+   "table_title": "Table 5. Ecology and orchard sources",
+   "pdf_page": 108,
+   "name": "Fence evidence",
+   "type": null,
+   "what_it_gives": "Post-and-rail (posts in dug holes) and Virginia worm/sawbuck (zig-zag rails, no post holes, possibly used where ground was rocky) described along the Emmitsburg Road; post and rail lined both sides and Pickett's attackers crossed two fences. General post-and-rail dimensions (not Gettysburg-specific): rails about 11 ft, height about 5 ft, posts 6 to 6.5 ft; oak/locust/cedar posts, oak/poplar/pine rails",
+   "access_url_text": "https://www.gettysburgdaily.com/fences-constructed-along-the-emmitsburg-road/ ; http://emergingcivilwar.com/2022/09/30/fence-friday-post-and-rail/",
+   "urls": [
+    {
+     "url": "https://www.gettysburgdaily.com/fences-constructed-along-the-emmitsburg-road/",
+     "printed_in_column": "access_url"
+    },
+    {
+     "url": "http://emergingcivilwar.com/2022/09/30/fence-friday-post-and-rail/",
+     "printed_in_column": "access_url"
+    }
+   ],
+   "format": null,
+   "scale_resolution": null,
+   "licence": null,
+   "limits": "Blog-level sources. No documented list of stone walls versus rail fences by location. Feeds B.8.",
+   "tier_printed": "R3",
+   "tier_codes": [
+    "R3"
+   ],
+   "tier_status": "printed",
+   "pdf_unverified_flags": [
+    "PDF: blog-level sources only."
+   ],
+   "access_kind_from_pdf": "web pages",
+   "columns_not_printed": [
+    "type",
+    "format",
+    "scale_resolution",
+    "licence"
+   ],
+   "column_assignment_note": null,
+   "check_notes": [],
+   "access_status": "reachable",
+   "probe_summary": [
+    {
+     "url": "https://www.gettysburgdaily.com/fences-constructed-along-the-emmitsburg-road/",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    },
+    {
+     "url": "http://emergingcivilwar.com/2022/09/30/fence-friday-post-and-rail/",
+     "status": "ok",
+     "http_status": 200,
+     "location": null,
+     "follow_status": null
+    }
+   ],
+   "transcription_note": "The PDF breaks URLs at hyphens; joined without spaces.",
+   "reachability": "reachable"
+  }
+ ],
+ "unverified_list": [
+  {
+   "item": "Item numbers for the full 1868-69 Warren sheets, the 1873 revision, Bachelder's LOC editions and Cope's NARA map",
+   "why_unverified": "LOC search and NARA catalog were blocked to the research tools.",
+   "check_note": null
+  },
+  {
+   "item": "OR Atlas Gettysburg plate numbers",
+   "why_unverified": "Not looked up.",
+   "check_note": null
+  },
+  {
+   "item": "Hotchkiss Gettysburg-specific maps, Sickles or Meade headquarters sketches",
+   "why_unverified": "Not found.",
+   "check_note": null
+  },
+  {
+   "item": "A \"Lt. Edwin Whitney\" map",
+   "why_unverified": "Name appears in the brief; no source confirms it.",
+   "check_note": null
+  },
+  {
+   "item": "Warren map tree and orchard symbology",
+   "why_unverified": "No source found. Without it, woodlot extent comes from the polygons, and tree size and species come from B.10.3.",
+   "check_note": null
+  },
+  {
+   "item": "Warren map positional error (RMS)",
+   "why_unverified": "Not documented in any source found; only the Knowles anecdotes above.",
+   "check_note": "Partly resolved by the project: absolute leave-one-out 16.5 m (23 control points, affine) for LOC 99448794; this is position of the georeference, not a contour/elevation RMS: docs/basemap1863/maps/README.md. No elevation error has been measured."
+  },
+  {
+   "item": "Brady and NARA RG 111-B holdings",
+   "why_unverified": "Search budget ended before this could be verified.",
+   "check_note": null
+  },
+  {
+   "item": "HABS/HAER (and HALS) holdings for Gettysburg farms",
+   "why_unverified": "Search failed or returned irrelevant results.",
+   "check_note": "The project has since cited HABS records at LOC (pa1728 Trostle barn, pa0021, pa0020, pa1676, pa1745, pa4187, pa1793, pa1815): docs/basemap1863/maps/sources.json \"habs-1863-structures\". Partly resolved."
+  },
+  {
+   "item": "Virtual Gettysburg, American Battlefield Trust GIS/KML, Google Earth projects, open 3D tilesets",
+   "why_unverified": "Not verified. Civil War Trust maps are generally copyrighted (inferred).",
+   "check_note": null
+  },
+  {
+   "item": "Stereoview collections (NYPL, Library Company)",
+   "why_unverified": "Not verified.",
+   "check_note": null
+  },
+  {
+   "item": "Tree/orchard inventories, chestnut data, the NPS Historic Vegetation Study",
+   "why_unverified": "No verified source.",
+   "check_note": "Still unfound by the project (SOURCES-landcover.md section 6)."
+  },
+  {
+   "item": "Sanborn maps",
+   "why_unverified": "None found for 1863; the Sanborn series post-dates the war.",
+   "check_note": null
+  },
+  {
+   "item": "Esri World Imagery, Sentinel-2, Landsat, NLCD, OSM",
+   "why_unverified": "Standard products that were neither fetched nor verified; low value for 1863 beyond modern masks.",
+   "check_note": null
+  }
+ ],
+ "unverified_list_postscript": {
+  "item": "Gettysburg Compiler 1863 newspaper (printed after the list, page 109)",
+  "why_unverified": "The LOC \"Gettysburg Compiler\" runs 1866 to 1961 (https://www.loc.gov/item/sn83032044), so it is not July 1863 reporting. Chronicling America July 1863 batches exist (JSON via fo=json; https://www.loc.gov/collections/chronicling-america/) but are not terrain sources.",
+  "urls": [
+   "https://www.loc.gov/item/sn83032044",
+   "https://www.loc.gov/collections/chronicling-america/"
+  ]
+ },
+ "gaps_B93_printed": [
+  "Item numbers and full-resolution access for the complete 1868-69 Warren sheets and the 1873 revision (NARA RG 77 E 81 scans, NAID 102279222; LOC catalog entries)",
+  "Warren positional error (RMS) - the pipeline's own residual test (B.9.2 step 3)",
+  "Cope map (E 105a-1) image - NARA catalog, retry",
+  "NPS 1863 vector layers (roads, lanes, fences, boundaries, buildings) - request to NPS GIS office, and rebuild",
+  "Exact Adams County lidar project name, Rockyweb folder and AWS bucket path - listing the public 3DEP dataset",
+  "1860 agricultural census, deed and tax records, damage claims - NARA, FamilySearch or Ancestry; ACHS indexes; Pennsylvania State Archives (B.10.7)",
+  "LOC reproduction numbers and download resolutions for July 1863 photographs; Tyson/Tipton NARA series IDs - retry",
+  "Documented camera positions for Plum Run and the Rose farm - Frassanito (copyrighted; cite, do not ingest); NPS Then and Now; derive by photo-match",
+  "Warren tree and orchard symbology; NPS Historic Vegetation Study; orchard inventory - NPS CLR Record of Treatment Vol. I-II (IRMA 2257218), NPS Little Round Top CLR, NPS planning page; retry fetch",
+  "Stone wall versus rail fence by location - Warren fence symbols, damage claims, photographs, CLR text; combined in B.8",
+  "Marsh Creek and Rock Creek channel width and flow - not found in any source; plausible-procedural, flagged",
+  "An open 3D tileset of 1863 Gettysburg - none found; the pipeline builds its own"
+ ],
+ "probe": {
+  "file": "terrain_sources_probe.json",
+  "finished_utc": "2026-10-20T02:42:06+00:00",
+  "requests_made": 115,
+  "counts_by_row_access_status": {
+   "blocked": 5,
+   "no-url": 1,
+   "partially-reachable": 7,
+   "print-only": 2,
+   "reachable": 24,
+   "request-only": 1,
+   "unreachable": 3,
+   "viewer-only": 2
+  }
+ }
+}

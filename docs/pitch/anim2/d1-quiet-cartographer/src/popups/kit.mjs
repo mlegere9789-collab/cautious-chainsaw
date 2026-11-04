@@ -58,6 +58,18 @@ export function clockLine(clock, tick) {
  * the id becomes a link to that command change.  Returns { text, link } where text + the removed sentence is the source text (a test proves it for all 137 rows).
  */
 export const INTERNAL_SENTENCE = /\s*Commander succession ([A-Z]{2}-\d{3}) activates\.?/;
+/** ROUND 2: the data sets the first sentence of 25 events in capitals ("REYNOLDS KILLED. Shot through the head ...").  A card does not shout: that lead is set in title case ("Reynolds Killed."), words of the sentence kept,
+ *  acronyms (KIA, US) and ordinals (1ST -> 1st) as they should be.  The source text is untouched (displayText still strips only the internal sentence). */
+const SMALL = new Set(['of', 'the', 'and', 'at', 'in', 'to', 'on', 'for', 'a', 'an', 'by', 'from']); const KEEP = new Set(['KIA', 'US', 'CSA']);
+export function leadCase(text) {
+  const m = /^([A-Z0-9][A-Z0-9'’.,\- ]{4,}?)([.:;!?])(\s|$)/.exec(text || ''); if (!m || !/[A-Z]{2}/.test(m[1])) return text;
+  const run = m[1].split(/(\s+)/).map((w, i) => {
+    if (!w.trim() || KEEP.has(w)) return w; if (/^\d+(ST|ND|RD|TH)(['’]S)?$/.test(w)) return w.toLowerCase();
+    const low = w.toLowerCase(); if (i > 0 && SMALL.has(low)) return low; if (/^[IVX]{1,4}$/.test(w) && w.length > 1) return w;
+    return low.replace(/(^|['’\-])([a-z])/g, (q, a, b) => (a === '' || a === '-' ? a + b.toUpperCase() : a + b)).replace(/^[a-z]/, (c) => c.toUpperCase());
+  }).join('');
+  return run + m[2] + text.slice(m[0].length - m[3].length);
+}
 export function displayText(text) { const m = INTERNAL_SENTENCE.exec(text); return m ? { text: text.replace(INTERNAL_SENTENCE, '').trim(), link: m[1], removed: m[0] } : { text, link: null, removed: '' }; }
 
 /** "The Battle Begins — July 1, 7:30 AM" -> "The Battle Begins": the hand-typed clock after the dash contradicts the clock module (02-popups.md 3.4) and is not shown; the clock line replaces it */

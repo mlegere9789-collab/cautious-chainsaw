@@ -73,6 +73,23 @@ suite.test('LIB-04', 'collector: page exception, first-party console.error and (
   S.collector.clear();
 });
 
+suite.test('LIB-04b', 'collector: a Mapbox "Failed to fetch" Error logged just before a navigation is noise while tile failures are expected (the CDP event classifies it, no JSHandle round trip); any other bare Error stays', async (t) => {
+  S.setTiles('block'); S.collector.clear();
+  const ignored0 = S.collector.ignored.tile;
+  for (let i = 0; i < 12; i++) {
+    // the page logs the error and is navigated away in the same turn: the old classification (a JSHandle evaluate after the event) died with "Execution context was destroyed" and left the entry behind
+    await S.page.evaluate((n) => { const e = Object.create(Error.prototype); e.message = `Failed to fetch https://api.mapbox.com/fonts/v1/mapbox/DIN%20Offc%20Pro%20Medium/${n}-${n + 255}.pbf`; console.error(e); location.href = '/robots.txt?x=' + n; }, i * 256).catch(() => { /* the context goes away with the navigation: that is the point */ });
+    await S.page.waitForURL((u) => u.search === '?x=' + i * 256, { timeout: 8000 }); await S.page.waitForLoadState('load');
+  }
+  await sleep(300);
+  assertEq(S.collector.firstParty, [], 'twelve Mapbox fetch errors logged right before a navigation');
+  assertEq(S.collector.ignored.tile - ignored0 >= 12, true, 'they were counted as ignored tile noise');
+  await S.page.evaluate(() => { const e = Object.create(Error.prototype); e.message = 'some other failure'; console.error(e); });
+  await waitFor(() => S.collector.firstParty.length >= 1, { timeout: 5000, label: 'a bare Error that is not a Mapbox fetch stays in the collector' });
+  assertEq(S.collector.firstParty.length, 1, 'exactly the foreign error');
+  S.collector.clear(); S.setTiles('inject');
+});
+
 suite.test('LIB-05', 'real mouse input reaches the page (drag = down+move+up, wheel) and hitTest sees the top element', async (t) => {
   await S.page.evaluate(() => {
     document.body.innerHTML = '<div id="pad" style="position:fixed;left:100px;top:100px;width:300px;height:200px;background:#345"></div><button id="b" style="position:fixed;left:500px;top:100px;width:120px;height:50px">ok</button><button id="hidden" style="position:fixed;left:500px;top:300px;width:100px;height:60px">covered</button><div id="cover" style="position:fixed;left:500px;top:300px;width:100px;height:60px"></div>';

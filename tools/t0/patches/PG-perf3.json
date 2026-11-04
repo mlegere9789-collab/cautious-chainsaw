@@ -1,0 +1,143 @@
+{
+ "group": "PG-perf3",
+ "description": "CANDIDATE until registered (tools/t0/PERF3-README.md), page part 1: compare, viewshed, watch-together.  Sorts before PG-polish (no find overlaps it). r2 (2026-10-22): also the 250 ms first-paint hold of the eight map pages (PERF3-first-paint-hold-*). r2: also PERF3-immersive-start-frame. r2: also PERF3-ar-start-feedback.",
+ "train": "R1d",
+ "patches": [
+  {
+   "id": "PERF3-compare-yield",
+   "target": "compare.html",
+   "find": "    setupPane('map-a', 'slider-a', 'day-label-a', 'tick-num-a', 'time-label-a', 'a');\n    setupPane('map-b', 'slider-b', 'day-label-b', 'tick-num-b', 'time-label-b', 'b');",
+   "repl": "    setupPane('map-a', 'slider-a', 'day-label-a', 'tick-num-a', 'time-label-a', 'a');\n    // PERF3: the second map is made in the next task (two Mapbox maps, their controls and layers in one task were a 175 ms task at 4x CPU on the phone)\n    await new Promise((r) => setTimeout(r, 0));\n    setupPane('map-b', 'slider-b', 'day-label-b', 'tick-num-b', 'time-label-b', 'b');",
+   "expect": 1,
+   "note": "compare: the two panes are set up in two tasks instead of one (a Mapbox map with its controls, style and layer is 60-90 ms of main-thread work at 4x CPU; both together made one 140-180 ms task)."
+  },
+  {
+   "id": "PERF3-viewshed-prewarm",
+   "target": "viewshed.html",
+   "find": "  mapboxgl.accessToken = MAPBOX_TOKEN;\n\n  const terrain",
+   "repl": "  mapboxgl.accessToken = MAPBOX_TOKEN;\n  try { mapboxgl.prewarm(); } catch (e) {}   // PERF3: start the shared workers while terrain.json downloads\n\n  const terrain",
+   "expect": 1,
+   "note": "viewshed: prewarm, as ground-remembers and compare have it since PERF2."
+  },
+  {
+   "id": "PERF3-viewshed-styleload",
+   "target": "viewshed.html",
+   "find": "  map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');\n\n  function showVantage",
+   "repl": "  map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');\n  map.once('style.load', () => { if (window.GTBG_PRECOMPILE) window.GTBG_PRECOMPILE(map); });   // PERF3: link the satellite style's programs before its tiles arrive (PERF2 helper in site-nav.js)\n\n  function showVantage",
+   "expect": 1,
+   "note": "viewshed: the satellite style programs are linked in one task right after the style loads instead of by the GPU process while a frame waits."
+  },
+  {
+   "id": "PERF3-viewshed-layer",
+   "target": "viewshed.html",
+   "find": "          'circle-stroke-color': ['case', ['get', 'isSelected'], '#ffdd66', '#0a0a14'],\n        }\n      });\n    }",
+   "repl": "          'circle-stroke-color': ['case', ['get', 'isSelected'], '#ffdd66', '#0a0a14'],\n        }\n      });\n      if (window.GTBG_PRECOMPILE) window.GTBG_PRECOMPILE(map);   // PERF3: and the circle layer's program\n    }",
+   "expect": 1,
+   "note": "viewshed: the circle layer (which Mapbox's own precompiler skips) is linked at once."
+  },
+  {
+   "id": "PERF3-watch-prewarm",
+   "target": "watch-together.html",
+   "find": "  mapboxgl.accessToken = MAPBOX_TOKEN;\n\n  const PLACEMENT_FILES",
+   "repl": "  mapboxgl.accessToken = MAPBOX_TOKEN;\n  try { mapboxgl.prewarm(); } catch (e) {}   // PERF3: start the shared workers while the placement files download\n\n  const PLACEMENT_FILES",
+   "expect": 1,
+   "note": "watch-together: prewarm."
+  },
+  {
+   "id": "PERF3-watch-styleload",
+   "target": "watch-together.html",
+   "find": "  map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');\n\n  // Tour data",
+   "repl": "  map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');\n  map.once('style.load', () => { if (window.GTBG_PRECOMPILE) window.GTBG_PRECOMPILE(map); });   // PERF3: link the satellite style's programs before its tiles arrive\n\n  // Tour data",
+   "expect": 1,
+   "note": "watch-together: style programs linked right after the style loads."
+  },
+  {
+   "id": "PERF3-watch-layer",
+   "target": "watch-together.html",
+   "find": "        'circle-stroke-width': 1, 'circle-stroke-color': '#0a0a14',\n      }\n    });\n    if (stops.length)",
+   "repl": "        'circle-stroke-width': 1, 'circle-stroke-color': '#0a0a14',\n      }\n    });\n    if (window.GTBG_PRECOMPILE) window.GTBG_PRECOMPILE(map);   // PERF3: and the circle layer's program\n    if (stops.length)",
+   "expect": 1,
+   "note": "watch-together: the circle layer is linked at once."
+  },
+  {
+   "id": "PERF3-first-paint-hold-camera",
+   "target": "camera.html",
+   "find": "<script defer src=\"https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js\"",
+   "repl": "<style id=\"gtbg-hold\">html:not(.gtbg-go) body{visibility:hidden}</style>\n<noscript><style>body{visibility:visible!important}</style></noscript>\n<script>(function(){var r=document.documentElement,g=function(){r.classList.add('gtbg-go')},t=setTimeout(g,250);document.addEventListener('DOMContentLoaded',function(){clearTimeout(t);g()})})()</script>\n<script defer src=\"https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js\"",
+   "expect": 1,
+   "note": "r2: Mapbox GL JS (1.7 MB) is evaluated by ONE task of 225-370 ms at 4x CPU on the phone. As a deferred script it runs after the parser is done, and whether the browser painted the page BEFORE it (the evaluation is then a freeze right after first paint, counted as blocking time) or AFTER it changes from load to load: the same page measured 20-40 ms and 210-290 ms of phone blocking time at random (the published build shows the same spikes). Until the library has been evaluated (DOMContentLoaded, which also runs the page's own map set-up) or at most 250 ms, the page body is not painted: with a library that arrives in time the first paint comes with a map that is ready to be drawn instead of a page that freezes for a third of a second right after it appears; with a library that is slow or blocked the page is painted after 250 ms, as before (T0-PG-02: first paint is not tied to the library). The script stays deferred and SRI-pinned. OWNER-VISIBLE DECISION, provisional: the first paint of the eight map pages is held for at most 250 ms; delete this patch to remove it."
+  },
+  {
+   "id": "PERF3-first-paint-hold-cinematic-export",
+   "target": "cinematic-export.html",
+   "find": "<script defer src=\"https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js\"",
+   "repl": "<style id=\"gtbg-hold\">html:not(.gtbg-go) body{visibility:hidden}</style>\n<noscript><style>body{visibility:visible!important}</style></noscript>\n<script>(function(){var r=document.documentElement,g=function(){r.classList.add('gtbg-go')},t=setTimeout(g,250);document.addEventListener('DOMContentLoaded',function(){clearTimeout(t);g()})})()</script>\n<script defer src=\"https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js\"",
+   "expect": 1,
+   "note": "r2: Mapbox GL JS (1.7 MB) is evaluated by ONE task of 225-370 ms at 4x CPU on the phone. As a deferred script it runs after the parser is done, and whether the browser painted the page BEFORE it (the evaluation is then a freeze right after first paint, counted as blocking time) or AFTER it changes from load to load: the same page measured 20-40 ms and 210-290 ms of phone blocking time at random (the published build shows the same spikes). Until the library has been evaluated (DOMContentLoaded, which also runs the page's own map set-up) or at most 250 ms, the page body is not painted: with a library that arrives in time the first paint comes with a map that is ready to be drawn instead of a page that freezes for a third of a second right after it appears; with a library that is slow or blocked the page is painted after 250 ms, as before (T0-PG-02: first paint is not tied to the library). The script stays deferred and SRI-pinned. OWNER-VISIBLE DECISION, provisional: the first paint of the eight map pages is held for at most 250 ms; delete this patch to remove it."
+  },
+  {
+   "id": "PERF3-first-paint-hold-compare",
+   "target": "compare.html",
+   "find": "<script defer src=\"https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js\"",
+   "repl": "<style id=\"gtbg-hold\">html:not(.gtbg-go) body{visibility:hidden}</style>\n<noscript><style>body{visibility:visible!important}</style></noscript>\n<script>(function(){var r=document.documentElement,g=function(){r.classList.add('gtbg-go')},t=setTimeout(g,250);document.addEventListener('DOMContentLoaded',function(){clearTimeout(t);g()})})()</script>\n<script defer src=\"https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js\"",
+   "expect": 1,
+   "note": "r2: Mapbox GL JS (1.7 MB) is evaluated by ONE task of 225-370 ms at 4x CPU on the phone. As a deferred script it runs after the parser is done, and whether the browser painted the page BEFORE it (the evaluation is then a freeze right after first paint, counted as blocking time) or AFTER it changes from load to load: the same page measured 20-40 ms and 210-290 ms of phone blocking time at random (the published build shows the same spikes). Until the library has been evaluated (DOMContentLoaded, which also runs the page's own map set-up) or at most 250 ms, the page body is not painted: with a library that arrives in time the first paint comes with a map that is ready to be drawn instead of a page that freezes for a third of a second right after it appears; with a library that is slow or blocked the page is painted after 250 ms, as before (T0-PG-02: first paint is not tied to the library). The script stays deferred and SRI-pinned. OWNER-VISIBLE DECISION, provisional: the first paint of the eight map pages is held for at most 250 ms; delete this patch to remove it."
+  },
+  {
+   "id": "PERF3-first-paint-hold-ground-remembers",
+   "target": "ground-remembers.html",
+   "find": "<script defer src=\"https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js\"",
+   "repl": "<style id=\"gtbg-hold\">html:not(.gtbg-go) body{visibility:hidden}</style>\n<noscript><style>body{visibility:visible!important}</style></noscript>\n<script>(function(){var r=document.documentElement,g=function(){r.classList.add('gtbg-go')},t=setTimeout(g,250);document.addEventListener('DOMContentLoaded',function(){clearTimeout(t);g()})})()</script>\n<script defer src=\"https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js\"",
+   "expect": 1,
+   "note": "r2: Mapbox GL JS (1.7 MB) is evaluated by ONE task of 225-370 ms at 4x CPU on the phone. As a deferred script it runs after the parser is done, and whether the browser painted the page BEFORE it (the evaluation is then a freeze right after first paint, counted as blocking time) or AFTER it changes from load to load: the same page measured 20-40 ms and 210-290 ms of phone blocking time at random (the published build shows the same spikes). Until the library has been evaluated (DOMContentLoaded, which also runs the page's own map set-up) or at most 250 ms, the page body is not painted: with a library that arrives in time the first paint comes with a map that is ready to be drawn instead of a page that freezes for a third of a second right after it appears; with a library that is slow or blocked the page is painted after 250 ms, as before (T0-PG-02: first paint is not tied to the library). The script stays deferred and SRI-pinned. OWNER-VISIBLE DECISION, provisional: the first paint of the eight map pages is held for at most 250 ms; delete this patch to remove it."
+  },
+  {
+   "id": "PERF3-first-paint-hold-immersive",
+   "target": "immersive.html",
+   "find": "<script defer src=\"https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js\"",
+   "repl": "<style id=\"gtbg-hold\">html:not(.gtbg-go) body{visibility:hidden}</style>\n<noscript><style>body{visibility:visible!important}</style></noscript>\n<script>(function(){var r=document.documentElement,g=function(){r.classList.add('gtbg-go')},t=setTimeout(g,250);document.addEventListener('DOMContentLoaded',function(){clearTimeout(t);g()})})()</script>\n<script defer src=\"https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js\"",
+   "expect": 1,
+   "note": "r2: Mapbox GL JS (1.7 MB) is evaluated by ONE task of 225-370 ms at 4x CPU on the phone. As a deferred script it runs after the parser is done, and whether the browser painted the page BEFORE it (the evaluation is then a freeze right after first paint, counted as blocking time) or AFTER it changes from load to load: the same page measured 20-40 ms and 210-290 ms of phone blocking time at random (the published build shows the same spikes). Until the library has been evaluated (DOMContentLoaded, which also runs the page's own map set-up) or at most 250 ms, the page body is not painted: with a library that arrives in time the first paint comes with a map that is ready to be drawn instead of a page that freezes for a third of a second right after it appears; with a library that is slow or blocked the page is painted after 250 ms, as before (T0-PG-02: first paint is not tied to the library). The script stays deferred and SRI-pinned. OWNER-VISIBLE DECISION, provisional: the first paint of the eight map pages is held for at most 250 ms; delete this patch to remove it."
+  },
+  {
+   "id": "PERF3-first-paint-hold-sandbox",
+   "target": "sandbox.html",
+   "find": "<script defer src=\"https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js\"",
+   "repl": "<style id=\"gtbg-hold\">html:not(.gtbg-go) body{visibility:hidden}</style>\n<noscript><style>body{visibility:visible!important}</style></noscript>\n<script>(function(){var r=document.documentElement,g=function(){r.classList.add('gtbg-go')},t=setTimeout(g,250);document.addEventListener('DOMContentLoaded',function(){clearTimeout(t);g()})})()</script>\n<script defer src=\"https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js\"",
+   "expect": 1,
+   "note": "r2: Mapbox GL JS (1.7 MB) is evaluated by ONE task of 225-370 ms at 4x CPU on the phone. As a deferred script it runs after the parser is done, and whether the browser painted the page BEFORE it (the evaluation is then a freeze right after first paint, counted as blocking time) or AFTER it changes from load to load: the same page measured 20-40 ms and 210-290 ms of phone blocking time at random (the published build shows the same spikes). Until the library has been evaluated (DOMContentLoaded, which also runs the page's own map set-up) or at most 250 ms, the page body is not painted: with a library that arrives in time the first paint comes with a map that is ready to be drawn instead of a page that freezes for a third of a second right after it appears; with a library that is slow or blocked the page is painted after 250 ms, as before (T0-PG-02: first paint is not tied to the library). The script stays deferred and SRI-pinned. OWNER-VISIBLE DECISION, provisional: the first paint of the eight map pages is held for at most 250 ms; delete this patch to remove it."
+  },
+  {
+   "id": "PERF3-first-paint-hold-viewshed",
+   "target": "viewshed.html",
+   "find": "<script defer src=\"https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js\"",
+   "repl": "<style id=\"gtbg-hold\">html:not(.gtbg-go) body{visibility:hidden}</style>\n<noscript><style>body{visibility:visible!important}</style></noscript>\n<script>(function(){var r=document.documentElement,g=function(){r.classList.add('gtbg-go')},t=setTimeout(g,250);document.addEventListener('DOMContentLoaded',function(){clearTimeout(t);g()})})()</script>\n<script defer src=\"https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js\"",
+   "expect": 1,
+   "note": "r2: Mapbox GL JS (1.7 MB) is evaluated by ONE task of 225-370 ms at 4x CPU on the phone. As a deferred script it runs after the parser is done, and whether the browser painted the page BEFORE it (the evaluation is then a freeze right after first paint, counted as blocking time) or AFTER it changes from load to load: the same page measured 20-40 ms and 210-290 ms of phone blocking time at random (the published build shows the same spikes). Until the library has been evaluated (DOMContentLoaded, which also runs the page's own map set-up) or at most 250 ms, the page body is not painted: with a library that arrives in time the first paint comes with a map that is ready to be drawn instead of a page that freezes for a third of a second right after it appears; with a library that is slow or blocked the page is painted after 250 ms, as before (T0-PG-02: first paint is not tied to the library). The script stays deferred and SRI-pinned. OWNER-VISIBLE DECISION, provisional: the first paint of the eight map pages is held for at most 250 ms; delete this patch to remove it."
+  },
+  {
+   "id": "PERF3-first-paint-hold-watch-together",
+   "target": "watch-together.html",
+   "find": "<script defer src=\"https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js\"",
+   "repl": "<style id=\"gtbg-hold\">html:not(.gtbg-go) body{visibility:hidden}</style>\n<noscript><style>body{visibility:visible!important}</style></noscript>\n<script>(function(){var r=document.documentElement,g=function(){r.classList.add('gtbg-go')},t=setTimeout(g,250);document.addEventListener('DOMContentLoaded',function(){clearTimeout(t);g()})})()</script>\n<script defer src=\"https://api.mapbox.com/mapbox-gl-js/v3.24.1/mapbox-gl.js\"",
+   "expect": 1,
+   "note": "r2: Mapbox GL JS (1.7 MB) is evaluated by ONE task of 225-370 ms at 4x CPU on the phone. As a deferred script it runs after the parser is done, and whether the browser painted the page BEFORE it (the evaluation is then a freeze right after first paint, counted as blocking time) or AFTER it changes from load to load: the same page measured 20-40 ms and 210-290 ms of phone blocking time at random (the published build shows the same spikes). Until the library has been evaluated (DOMContentLoaded, which also runs the page's own map set-up) or at most 250 ms, the page body is not painted: with a library that arrives in time the first paint comes with a map that is ready to be drawn instead of a page that freezes for a third of a second right after it appears; with a library that is slow or blocked the page is painted after 250 ms, as before (T0-PG-02: first paint is not tied to the library). The script stays deferred and SRI-pinned. OWNER-VISIBLE DECISION, provisional: the first paint of the eight map pages is held for at most 250 ms; delete this patch to remove it."
+  },
+  {
+   "id": "PERF3-immersive-start-frame",
+   "target": "immersive.html",
+   "find": "  document.getElementById('enable-sound').addEventListener('click', () => {\n    initAudio();\n    document.getElementById('sound-gate').style.display = 'none';\n    document.getElementById('map').inert = false;\n    document.getElementById('play-btn').disabled = false;\n  });",
+   "repl": "  document.getElementById('enable-sound').addEventListener('click', () => {\n    initAudio();\n    // PERF3: the browser's first AudioContext of a session takes about 45 ms to create (the audio service starts): that is the whole click task now; the page changes that followed it in the same task\n    // (style and layout of the gate, the map and the button) move to the next frame, so the click is not one long task\n    requestAnimationFrame(() => {\n      document.getElementById('sound-gate').style.display = 'none';\n      document.getElementById('map').inert = false;\n      document.getElementById('play-btn').disabled = false;\n    });\n  });",
+   "expect": 1,
+   "note": "r2: acceptance check 4: 'Enable Sound & Start' was one task of 54-56 ms (limit 50): the first AudioContext of a session takes about 45 ms by itself (measured cold, with latencyHint playback and other sample rates too), the gate, map and button changes took the rest. Moved to the next frame: the click task is the audio start alone; the gate disappears one frame later."
+  },
+  {
+   "id": "PERF3-ar-start-feedback",
+   "target": "ar.html",
+   "find": "    document.getElementById('err-box').style.display = 'none';\n    await loadLocations();\n",
+   "repl": "    document.getElementById('err-box').style.display = 'none';\n    setStatus('camera', null, 'Asking for the camera...');      // PERF3: something visible in the click's own task (the locations file is fetched next, 100 ms and more)\n    await loadLocations();\n",
+   "expect": 1,
+   "note": "r2: acceptance check 4 measured 126-140 ms from the key press to the first visible change on 'Start Battlefield AR' (limit 100, flaky at that edge): the handler fetched the locations file and asked for the camera before it changed anything on screen. The status line says 'Asking for the camera...' at once; the same line is rewritten by the camera result as before."
+  }
+ ]
+}

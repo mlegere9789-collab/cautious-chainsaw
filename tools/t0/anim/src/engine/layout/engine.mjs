@@ -37,11 +37,12 @@ export function nearestFree(parts, A, P0, dMax, occ, owner, gap, stats, kCap = I
   }
   const F = [];
   const q = dMax + ext + 140;                                  // 140 >= half the widest obstacle rect, so every obstacle that can matter is queried
+  const bx0 = A.x - dMax; const bx1 = A.x + dMax; const by0 = A.y - dMax; const by1 = A.y + dMax;
   occ.query(A.x - q, A.y - q, A.x + q, A.y + q, (o) => {
     if (o.owner === owner) return;
     for (const p of parts) {
-      const f = { x0: o.x0 - gap - p.x1, x1: o.x1 + gap - p.x0, y0: o.y0 - gap - p.y1, y1: o.y1 + gap - p.y0 };
-      if (f.x1 > A.x - dMax && f.x0 < A.x + dMax && f.y1 > A.y - dMax && f.y0 < A.y + dMax) F.push(f);
+      const fx0 = o.x0 - gap - p.x1; const fx1 = o.x1 + gap - p.x0; const fy0 = o.y0 - gap - p.y1; const fy1 = o.y1 + gap - p.y0;
+      if (fx1 > bx0 && fx0 < bx1 && fy1 > by0 && fy0 < by1) F.push({ x0: fx0, x1: fx1, y0: fy0, y1: fy1 });
     }
   });
   if (F.length > 1) {                                           // identical forbidden rects (60 anchors at one coordinate) are one obstacle
@@ -80,17 +81,34 @@ export function nearestFree(parts, A, P0, dMax, occ, owner, gap, stats, kCap = I
     for (let i = (n >> 1) - 1; i >= 0; i--) down(i);
     return { out, more: (k) => { while (out.length <= k && size > 0) { out.push(u[hp[0]]); size--; if (size > 0) { hp[0] = hp[size]; down(0); } } return out.length > k; } };
   };
-  const xo = axis(X, P0.x, A.x); const yo = axis(Y, P0.y, A.y);
+  const xo = axis(X, P0.x, A.x); let yo = null;                  // (the rows are ordered only when a column that is not dead needs them)
   let best = Infinity; let out = null; let tested = 0;           // branch and bound over X x Y in order of increasing |dx| / |dy|
+  // PERF3 (results are bit-identical to the plain loop, checked on frames of real data): (i) a column whose blocked intervals cover the whole stretch the displacement circle leaves in it has no free candidate, so it is
+  // skipped at once (the plain loop tried every row of it, which is what a failing search spends its time on); (ii) Math.hypot is only called where its value decides something: the squared distance settles every
+  // comparison that is not within 1e-12 of its limit, and while no point has been found and there is no move limit the distance to the desired centre is not needed at all.
+  const limC = dMax + EPS; const lim2 = limC * limC; const noBound = maxMove === Infinity;
   for (let i = 0; xo.more(i); i++) {
     const x = xo.out[i]; const dx = Math.abs(x - P0.x); if (dx >= best || dx > maxMove) break;
     strip.length = 0; for (let k = 0; k < F.length; k++) { const f = F[k]; if (x > f.x0 + EPS && x < f.x1 - EPS) strip.push(f); }
+    const ax = x - A.x; const axx = ax * ax;
+    if (strip.length > 0) {
+      const rem = lim2 - axx; const ry = (rem > 0 ? Math.sqrt(rem) * (1 + 1e-9) : 0) + 1e-6; const lo = A.y - ry; const hi = A.y + ry;
+      let need = lo; let dead = false;
+      for (;;) {                                                   // does the union of the open intervals (y0 + EPS, y1 - EPS) cover the closed stretch [lo, hi]?  each step needs an interval that contains `need` strictly and reaches furthest
+        let reach = -Infinity; for (let k = 0; k < strip.length; k++) { const f = strip[k]; if (f.y0 + EPS < need && f.y1 - EPS > reach) reach = f.y1 - EPS; }
+        if (!(reach > need)) break; need = reach; if (need > hi) { dead = true; break; }
+      }
+      if (dead) continue;
+    }
+    if (yo === null) yo = axis(Y, P0.y, A.y);
     for (let j = 0; yo.more(j); j++) {
-      const y = yo.out[j]; const dy = Math.abs(y - P0.y); const d = Math.hypot(dx, dy); if (d >= best || d > maxMove) break;
-      if (Math.hypot(x - A.x, y - A.y) > dMax + EPS) continue;
+      const y = yo.out[j]; const dy = Math.abs(y - P0.y);
+      if (best !== Infinity || !noBound) { const d0 = Math.hypot(dx, dy); if (d0 >= best || d0 > maxMove) break; }
+      const ay = y - A.y; const c2 = axx + ay * ay;
+      if (c2 > lim2 * (1 + 1e-12) || (c2 >= lim2 * (1 - 1e-12) && Math.hypot(ax, ay) > limC)) continue;
       tested++;
       let ok = true; for (let k = 0; k < strip.length; k++) { const f = strip[k]; if (y > f.y0 + EPS && y < f.y1 - EPS) { ok = false; break; } }
-      if (ok) { best = d; out = { x, y }; break; }
+      if (ok) { best = Math.hypot(dx, dy); out = { x, y }; break; }
     }
   }
   if (stats) stats.cand += tested;
@@ -172,31 +190,40 @@ function components(tiles, dMax, gap) {
   return [...comps.values()];
 }
 
-const lcaDepth = (all, a, b) => { const sb = new Set(b.chain); for (const id of a.chain) if (sb.has(id)) return all.nodes.get(id)?.depth ?? 0; return 0; };
-
-/** best merge partner of F among `cur`: deepest common ancestor first, then nearest */
+/** best merge partner of F among `cur`: deepest common ancestor first, then nearest.  (PERF3: no Set per pair, no hypot for a pair that is plainly out of reach; the choice is the same.) */
 function bestPartner(all, F, cur, reach, skip = null) {
-  let best = null; let bs = -1e18;
+  let best = null; let bs = -1e18; const fc = F.chain; let pos = null; const dF = Math.hypot(F.chipW, F.chipH);
   for (const b of cur) {
     if (b === F || (skip && skip.has(b.key))) continue;
-    const d = Math.hypot(b.ax - F.ax, b.ay - F.ay);
-    if (d > reach + 0.5 * (Math.hypot(F.chipW, F.chipH) + Math.hypot(b.chipW, b.chipH))) continue;
-    const dep = lcaDepth(all, F, b); const sc = dep * 1e6 - d;
+    const ddx = b.ax - F.ax; const ddy = b.ay - F.ay; const R = reach + 0.5 * (dF + Math.hypot(b.chipW, b.chipH));
+    if (ddx * ddx + ddy * ddy > R * R * (1 + 1e-12)) continue;
+    const d = Math.hypot(ddx, ddy); if (d > R) continue;
+    if (pos === null) { pos = new Map(); for (let i = fc.length - 1; i >= 0; i--) pos.set(fc[i], i); }           // the first id of F's chain that b's chain also holds
+    let bi = Infinity; const bc = b.chain; for (let i = 0; i < bc.length; i++) { const k = pos.get(bc[i]); if (k !== undefined && k < bi) bi = k; }
+    const dep = bi === Infinity ? 0 : (all.nodes.get(fc[bi])?.depth ?? 0); const sc = dep * 1e6 - d;
     if (sc > bs) { bs = sc; best = { b, depth: dep, d }; }
   }
   return best;
 }
 
+/** the cooperative checkpoint of a SLICED solve (PERF3).  A solve driven by a job (strategies.mjs: begin) hands in ctl = { deadline, n }; every 8th tile the pass looks at the clock and, when the slice is spent, yields to
+ *  the caller (the job returns to the browser and resumes in the next frame).  Without ctl (every synchronous caller, the tests) the generators below never yield and run to completion in one call, with the same results. */
+const spent = (ctl) => ctl !== null && (++ctl.n & ctl.m) === 0 && performance.now() > ctl.deadline;      // ctl.m: look at the clock every (m + 1)th tile (7 for the cold start and the canon, 1 for the live solve, whose slice is a few milliseconds)
+/** run a generator that never yields (ctl === null) to its return value */
+export function drain(gen) { for (;;) { const r = gen.next(); if (r.done) return r.value; } }
+
 /** one greedy chip pass over a set of tiles (highest priority first).  Returns { placed, failed }. */
-function placePass(cur, cfg, state, tentative, dt, stats) {
+function* placePass(cur, cfg, state, tentative, dt, stats, ctl) {
   const spec = cfg.spec; const gap = spec.gap;
   const occ = new Occ(64);
   if (cfg.pinProtect) for (const t of cur) occ.add(pinRect(t, spec));
   // seniority: a tile that has existed longer is placed first, so a newcomer yields instead of pushing tiles that were already there
   const eff = (t) => t.prio + (cfg.seniority ? Math.min(state.age.get(t.key) ?? -1, 900) * cfg.seniority : 0);
-  const order = [...cur].sort((a, b) => eff(b) - eff(a) || (a.key < b.key ? -1 : 1));
+  const ev = new Map(); for (const t of cur) ev.set(t, eff(t));
+  const order = [...cur].sort((a, b) => ev.get(b) - ev.get(a) || (a.key < b.key ? -1 : 1));
   const placed = []; const failed = [];
   for (const t of order) {
+    if (spent(ctl)) yield;
     const A = { x: t.ax, y: t.ay };
     const po = cfg.inertia ? state.off.get(t.key) : null;
     let P0 = A;
@@ -273,15 +300,18 @@ function crossConflicts(groups, spec, cfg) {
 
 /** One frame.  cfg: { spec, z, dMax, pinProtect, inertia, sticky, seniority, labels, aggregate, dt (frame equivalents), static }
  *  returns { placed:[{t,cx,cy,off,chip,label,displaced}], dropped:[tile], rounds, items, labelsShown, ms, stats } */
-export function solve(all, leaves, cfg, state) {
+export function solve(all, leaves, cfg, state) { return drain(solveG(all, leaves, cfg, state, null)); }
+/** the same solve as a generator: with ctl (see `spent`) it yields between tiles when its slice is spent, and returns the layout when it is done.  state is only written at the start (clock, counters) and from section C on, which
+ *  runs without a yield, so a solve that is abandoned half way (a cut, a reset) leaves only a clock tick behind. */
+export function* solveG(all, leaves, cfg, state, ctl = null) {
   const spec = cfg.spec; const gap = spec.gap; const t0 = performance.now();
   const dt = cfg.dt ?? 1; const frame = state.time; state.time += dt; state.solves++;
   const stats = { nf: 0, cand: 0 };
   // ---- A. initial tile set: leaves, plus the aggregates of the previous frame (sticky) ------------------------------------------------------
-  let tiles = leaves.map((t) => ({ ...t }));
+  let tiles = leaves.slice();             // R1F: the tiles of a leaf ARE the leaves (nothing in the solve writes to a leaf tile; the carry between solves, strategies.mjs refresh, writes the same fields into both): 300 objects of 28 fields were copied here at every solve
   const tentative = new Map();             // leaf id -> { k, ids }  (members of an aggregate whose split is being tried this frame)
   if (cfg.aggregate && cfg.sticky) {
-    const leafById = new Map(tiles.filter((t) => t.kind === 'leaf').map((t) => [t.ids[0], t])); const nonLeaf = tiles.filter((t) => t.kind !== 'leaf');
+    const leafById = new Map(); const nonLeaf = []; for (let i = 0; i < tiles.length; i++) { const t = tiles[i]; if (t.kind === 'leaf') leafById.set(t.ids[0], t); else nonLeaf.push(t); }
     const keep = []; const due = [];
     let signer = null; const sigOf = (ids) => (signer || (signer = makeSigner(leaves, cfg, spec)))(ids);
     for (const [k, rec] of state.aggs) {
@@ -316,13 +346,13 @@ export function solve(all, leaves, cfg, state) {
     for (const group of groups.values()) { for (const g of group) tentative.delete(g.ids[0]); if (group.length >= 2) { for (const g of group) gone.add(g.key); merged.push(makeAggregate(all, group, spec, frame)); } }
     return merged.length ? [...cur.filter((t) => !gone.has(t.key)), ...merged] : null;
   };
-  const solveGroup = (cur) => {
+  const solveGroup = function* (cur) {
     for (let guard = 0; ; guard++) {
       rounds++;
-      const { placed, failed } = placePass(cur, cfg, state, tentative, dt, stats);
+      const { placed, failed } = yield* placePass(cur, cfg, state, tentative, dt, stats, ctl);
       if (failed.length === 0) {
         if (cfg.splitLookahead !== false && cur.some((t) => t.kind === 'leaf' && tentative.has(t.ids[0]))) {
-          const cold = placePass(cur, { ...cfg, inertia: false }, state, tentative, dt, stats); stats.lookaheads = (stats.lookaheads || 0) + 1;
+          const cold = yield* placePass(cur, { ...cfg, inertia: false }, state, tentative, dt, stats, ctl); stats.lookaheads = (stats.lookaheads || 0) + 1;
           if (cold.failed.length > 0) { const keepAgg = remergeTentative(cur); if (keepAgg) { stats.splitsRefused = (stats.splitsRefused || 0) + 1; cur = keepAgg; continue; } }
         }
         return { tiles: cur, placed, dropped: [] };
@@ -341,7 +371,7 @@ export function solve(all, leaves, cfg, state) {
   let groups = components(tiles, cfg.dMax, gap).map((g) => ({ in: g, res: null }));
   let certRounds = 0;
   for (;;) {
-    for (const g of groups) if (!g.res) g.res = solveGroup(g.in);
+    for (const g of groups) if (!g.res) g.res = yield* solveGroup(g.in);
     const conflicts = crossConflicts(groups, spec, cfg);
     if (conflicts.size === 0) break;
     certRounds++;

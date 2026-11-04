@@ -1,0 +1,25 @@
+BATCH XII-15 (60 claims; reports OR27-1-R307 Greene, R308 Godard, R309 Redington, R310 Hammerstein, R311 Stegman)
+Counts per fc: passed_full_read 48, corrected 12, downgraded 0, split 0 (no add claims).
+Validator: decisions 60, new split claims 0, missing 0, errors 0.
+
+Per pattern (claims):
+- time from another sentence: 3 (greene-15 and greene-18 wp cleared; candy-29oh-16 uses "soon after" as continuing-sentence phrase, pp cleared).
+- merged second report: 0 (R309 claims 60ny-11/-12/-13 and pae-04 kept inside their own report; 60ny-10 "field officer of the day" came from the R309 signature, not R308: wording restored).
+- later order ignored: 0.
+- compass/road gloss: 0 (greene-12 "T'aneytown road" is printed; "Sugar Loaf Mountain" printed).
+- hedge/condition dropped or added: 5 (60ny-03 "as I estimated"; 60ny-10 "brigade officer of the day"; greene-19 "before any further movements"; greene-25 "about" added to 1,000; 29oh-16 "sent into the trenches" not said of the 29th Ohio).
+- unit identity gloss: noted only (see ids below), 0 changed.
+- OCR digit: 5 (greene-13 hour glyph "G"; greene-14 and greene-15 share it; greene-16 "13 o'clock"; greene-30 distance "1^ miles"; 102ny-08 meridian "J), m."). greene-26 "June 38" kept: settled by the report's own "from June 28" and the next entry June 29.
+- meridian inferred: 8 (greene-22, kane-33, 5usk-04, 5usk-05, 78ny-02, 78ny-03, 78ny-06 set mer true with explanation; 102ny-08 left t null).
+- other: 78ny-06 fix of place ("breastworks" not tied to the relief; replaced by printed "old place").
+
+Unit-id notes (claim unit_id is not the unit the passage speaks of, fact kept as printed):
+- POS-B-us-12c-2d-greene-15: passage describes Second Brigade (Kane) and Williams' division, neighbours of Greene.
+- POS-B-us-12c-2d-candy-28 and POS-B-us-12c-2d-kane-32: passage prints "First and Second Brigades of the Second Division"; Candy / Kane identity from elsewhere in the same report ("Kane's (Second) brigade", Candy's brigade).
+- POS-B-us-12c-2d-candy-29: "The First Brigade" = Candy by the same report.
+- POS-B-us-12c-2d-greene-60ny-11, -12, -13 (R309): author Redington (Lt. Col., 60th NY) commands the brigade skirmishers, not the regiment; claims carry the regiment id.
+- POS-B-us-12c-art-pae-04 (R309): passage prints only "Knap's battery"; Pennsylvania / battery letter not printed.
+- POS-B-us-12c-2d-greene-25: strength note covers Greene's force plus detachments, unit id is the brigade.
+
+Systematic: (1) R309 heading prints "July 3" while the narrative is of July 2 in all other reports; the four R309 claims keep date July 2 and tier inferred (already so). (2) R311 prints "the next morning, July 3" after July 1; 102ny-02/-03 remain inferred with date July 2. (3) Dates for most claims are by report context, not printed in the claim's sentence; dbasis added. (4) 78th NY (R310) gives clock hours without a.m./p.m. for the afternoon/evening of July 2; all are settled by sequence (mer true).
+No ids split or downgraded.

@@ -1,0 +1,31 @@
+III-09 recheck notes (reports OR27-1-R164 to R171: 11th NJ, 26th PA, 84th PA, Brewster's Excelsior brigade and regiments, 70th NY, 71st NY)
+
+Counts per fc: passed_full_read 47, corrected 8, downgraded 0, split 0. Total 55 decisions; validator: 0 missing, 0 errors.
+
+Corrected (8):
+- brewster-06: unit identity gloss. Act named Humphreys; the passage prints "the brigadier-general commanding the division". Narrowed.
+- brewster-07: order stated as position. 1 o'clock is when orders to form line in rear of the First Brigade were received, not when the line stood there. Narrowed to the order.
+- brewster-73ny-04: condition dropped. "Hold at all hazards" applies only should the enemy attempt to take the crest. Restored; time is in the continuing sentence.
+- brewster-15: OCR digit. Printed strength 1,837 with loss 778 "nearly 45 per cent" is inconsistent (778 = 42 percent of 1,837; 45 percent of 1,737). ocr true, strength flagged unconfirmed.
+- brewster-70ny-04: "12 m." (noon or midnight) not settled by Hugo's report (Brewster R169: about midnight). t removed.
+- brewster-70ny-06: 1 p.m. is the time orders were received, not the advance. Narrowed.
+- brewster-70ny-07: "About" added by compiler, not printed; meridian of 4 o'clock inferred (mer true).
+- brewster-70ny-09: "About 3 p. m." hedge not printed; removed.
+
+Patterns (claims affected):
+- time from another sentence: 0 (all times were in the fact's sentence or an explicitly continuing sentence)
+- merged second report: 0
+- later order ignored: 0
+- compass/road gloss: 0
+- hedge/condition dropped: 1 (73ny-04); hedge added: 2 (70ny-07, 70ny-09)
+- unit identity gloss: 1 (brewster-06)
+- order stated as accomplished position/move: 2 (brewster-07, 70ny-06)
+- OCR digit: 2 (brewster-15 strength; 70ny-04 noon/midnight "12 m.")
+- meridian inferred: 4 annotated with mer true (brewster-08, 73ny-05 passed; 70ny-07 corrected; 70ny-04 left t null)
+- other: none
+
+Passed with annotation only: 11nj-04 (OCR "a. rii.", digits legible), 84pa-04 ("Juiy" month OCR), brewster-02 (month OCR, day legible), 26pa-01 (the "June 30" date follows the 2 p. m. without a dash; read as the date of the 2 p. m. departure, annotated in dbasis), brewster-05 (about midnight placed at 00:00 of July 2, conflicts remain registered).
+
+Ids split: none. Ids downgraded: none.
+
+Systematic: claims quoting an order ("orders received to ...", "I was directed to ...") are sometimes phrased as the move or position itself; check the verb. Hedges "about" are sometimes added where the report prints a bare hour. Part of the brigade identity gloss comes from the compiler naming a general from other reports.

@@ -134,9 +134,9 @@ def main():
                 nmap['unreviewed'] = nmap.get('unreviewed', 0) + 1
                 stats['undrawn'].append(dict(id=i, why='machine-detected symbol, not reviewed (UNKNOWN)'))
                 continue
-            if err > 45:
+            if err > 60 or (err > 45 and stt != 'reviewed_symbol_on_plate'):
                 nmap['too_far'] += 1
-                stats['undrawn'].append(dict(id=i, why='machine-detected symbol, position error > 45 m'))
+                stats['undrawn'].append(dict(id=i, why='machine-detected symbol, position error > 60 m (or > 45 m and not reviewed)'))
                 continue
             near = tree.query(gu.buffer(max(err, 15)))
             if stt in ('confirmed_by_photograph', 'reviewed_symbol_on_plate'):
@@ -175,6 +175,16 @@ def main():
         out['structures'].append(dict(id='HOP-B-%04d' % (k + 1), geom=g, sub='building', conf='Estimated', err=hopkins_error(g, hull), dims=None, material=None, roof=None, src='hopkins'))
     before = len(out['masses'])
     out['masses'] = [m for m in out['masses'] if not m['geom'].intersects(hp.buffer(25))]
+    # a building mass of the 1868-69 survey is never drawn over the real roof of a surviving building (Wade house: a mass was drawn over its kept roof)
+    nm = []
+    for m in out['masses']:
+        g = m['geom'].difference(survpolys.buffer(1.5))
+        if g.is_empty or g.area < 20:
+            continue
+        if g.geom_type == 'MultiPolygon':
+            g = max(g.geoms, key=lambda q: q.area)
+        m = dict(m); m['geom'] = g; nm.append(m)
+    out['masses'] = nm
     stats['masses_superseded_by_hopkins'] = before - len(out['masses'])
     ts = pickle.load(open(os.path.join(C.BUILD, 'hopkins_town_streets.pkl'), 'rb'))
     n_rej = 0

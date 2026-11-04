@@ -140,6 +140,30 @@
      "maximum": 120,
      "default": 48
     },
+    "layout.dMaxFarPx": {
+     "description": "How far a mark may stand from its true position once the camera is close (from the zoom below): two records are not merged into a crowd while there is free ground within this reach. The pin and the leader keep the true position.",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 48,
+     "maximum": 160,
+     "default": 72
+    },
+    "layout.dMaxFarFrom": {
+     "description": "The reach grows from the first-prototype budget at this zoom, smoothly, to the close reach at the next dial.",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 11,
+     "maximum": 18,
+     "default": 14.5
+    },
+    "layout.dMaxFarTo": {
+     "description": "From this zoom a mark may stand the close reach from its true position.",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 11,
+     "maximum": 18,
+     "default": 15.5
+    },
     "layout.gapPx": {
      "description": "Minimum free space between any two tile boxes.",
      "x-token": "layout",
@@ -189,12 +213,20 @@
      "default": 1200
     },
     "layout.labelMinZoom": {
-     "description": "From this zoom a mark whose name fits in the free ground to its right lets the name grow out of it. The hovered or selected unit grows its name at any zoom.",
+     "description": "From this zoom a unit whose full name fits in the free ground beside it lets the name grow out of its code. The hovered or selected unit grows its name at any zoom.",
      "x-token": "layout",
      "type": "number",
      "minimum": 8,
      "maximum": 18,
-     "default": 15
+     "default": 17
+    },
+    "layout.codeMinZoom": {
+     "description": "From this zoom a unit shows its short code in the free ground beside its disc (right, else left); below it the discs are bare, so a crowd opens as soon as the discs fit and the opening view stays quiet. The hovered or selected unit shows its name at any zoom.",
+     "x-token": "layout",
+     "type": "number",
+     "minimum": 11,
+     "maximum": 18,
+     "default": 14.4
     },
     "layout.kCap": {
      "description": "A neighbourhood with more obstacles than this is declared saturated and the tile aggregates (a conservative failure: never an overlap).",
@@ -225,7 +257,7 @@
       "rl",
       "rlbt"
      ],
-     "default": "r"
+     "default": "rl"
     },
     "layout.continuityPx": {
      "description": "EXPERIMENT. A tile that already has a place never jumps farther than this from it in one frame: when the only free place is farther it merges into an aggregate instead. Measured to multiply aggregate churn by ten at 14 px (see README), so it is off; the display layer travels instead. 0 = off.",
@@ -682,7 +714,7 @@
      "type": "number",
      "minimum": 1,
      "maximum": 8,
-     "default": 2
+     "default": 1
     },
     "popup.queue.aliveB": {
      "description": "How many tier B cards (high events) may be compact at once; the rest are chips.",
@@ -690,6 +722,14 @@
      "type": "number",
      "minimum": 0,
      "maximum": 6,
+     "default": 0
+    },
+    "popup.queue.floatMax": {
+     "description": "The most cards that may stand on the map at once (pinned cards and the hover tooltip excepted). The richest keeps the ground (the selection first, then the most important event); the others wait as chips in the Chronicle strip and nothing is lost.",
+     "x-token": "popups",
+     "type": "number",
+     "minimum": 1,
+     "maximum": 4,
      "default": 1
     },
     "popup.queue.aliveChips": {
@@ -1343,31 +1383,11 @@
      "type": "boolean",
      "default": true
     },
-    "popup.legend.slot": {
-     "description": "Where the legend lives. It steps aside for a tile and returns after a calm delay; the About tab always has the same legend.",
-     "x-token": "popup-legend",
-     "type": "string",
-     "enum": [
-      "tl",
-      "tr",
-      "bl",
-      "br"
-     ],
-     "default": "bl"
-    },
     "popup.minimap.enabled": {
      "description": "A small overview of every unit on the field with the viewport box (P-13). Click to fly. It pulses when a card is about something off-screen.",
      "x-token": "popup-minimap",
      "type": "boolean",
      "default": true
-    },
-    "popup.minimap.w": {
-     "description": "Width of the overview map.",
-     "x-token": "popup-minimap",
-     "type": "number",
-     "minimum": 100,
-     "maximum": 280,
-     "default": 168
     },
     "popup.minimap.slot": {
      "description": "Where the overview lives. It steps aside for a tile and returns after a calm delay.",

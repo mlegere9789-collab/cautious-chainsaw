@@ -32,6 +32,10 @@ const APP_CSS = VERSION ? `/assets/${VERSION.css}` : null;
 const ENTRY_NAME = VERSION ? VERSION.entry : ((HTML.match(/\/assets\/(index-[A-Za-z0-9_-]+\.js)/) || [])[1] || null);
 const BUNDLE = ENTRY_NAME && fs.existsSync(path.join(DIST, 'assets', ENTRY_NAME)) ? fs.readFileSync(path.join(DIST, 'assets', ENTRY_NAME), 'utf8') : '';
 const PRE_SRC = (() => { const a = BUNDLE.indexOf('function gtPrecompile('); const b = BUNDLE.indexOf('let Uc=null;function I4(', a); return a >= 0 && b > a ? BUNDLE.slice(a, b) : null; })();
+// BASE1863 (tools/t0/BASE1863-README.md) draws its own 1863 base map: the app's road LINES are hidden by default (the base shows the roads, the 10 road labels stay on the catalogue roads), so a rendered road line
+// is no sign that the app layers are up on such a tree; its road labels are
+const HAS_B63 = /\bGTB63 =/.test(BUNDLE);
+const LEAD = HAS_B63 ? 'roads-1863-label' : 'roads-1863-line';
 const PHONE = VIEWPORTS.portrait.find((v) => v.width === 412) || VIEWPORTS.portrait[0];
 const DESKTOP = { width: 1440, height: 900, dpr: 1, mobile: false };
 const needPerf = () => { if (!HAS_PERF && !EXPECT_RED) throw new Skip(`train ${VERSION ? VERSION.train : 'legacy'} has no PERF group (R0 keeps the blocking stylesheet links by design)`); };
@@ -243,7 +247,7 @@ suite.test('PF-07', "the shader programs of the app's own layers are requested a
       await S.page.goto(`${srv.url}/`, { waitUntil: 'load' });
       await waitForApp(S.page, 40000);
       let m = null;
-      await waitFor(async () => { m = appMap(await mapsInfo(S.page)); return !!(m && m.loaded && m.layers.some((l) => l.type === 'symbol') && (m.counts['roads-1863-line'] || 0) > 0); }, { timeout: 30000, label: `${name}: map with the app layers loaded` });
+      await waitFor(async () => { m = appMap(await mapsInfo(S.page)); return !!(m && m.loaded && m.layers.some((l) => l.type === 'symbol') && (m.counts[LEAD] || 0) > 0); }, { timeout: 30000, label: `${name}: map with the app layers loaded` });
       await sleep(3000);
       m = appMap(await mapsInfo(S.page));
       t.note(name, { precompiled: m.stats.precompiled, onDemand: m.stats.onDemand, totalStallMs: Math.round(m.stats.totalStallMs), stalls: m.stats.stalls, parallelCompile: m.parallel });
@@ -264,7 +268,7 @@ suite.test('PF-08', 'the app draws what it drew before: lines and labels of the 
     await S.page.goto(`${srv.url}/`, { waitUntil: 'load' });
     await waitForApp(S.page, 40000);
     let m = null;
-    await waitFor(async () => { m = appMap(await mapsInfo(S.page)); return !!(m && m.loaded && (m.counts['roads-1863-line'] || 0) > 0); }, { timeout: 30000, label: 'rendered road lines' });
+    await waitFor(async () => { m = appMap(await mapsInfo(S.page)); return !!(m && m.loaded && (m.counts[LEAD] || 0) > 0); }, { timeout: 30000, label: `rendered ${LEAD}` });
     await sleep(2500);
     m = appMap(await mapsInfo(S.page));
     const lines = m.layers.filter((l) => l.type === 'line' && l.visible).map((l) => m.counts[l.id]); const labels = m.layers.filter((l) => l.type === 'symbol' && l.visible).map((l) => m.counts[l.id]);
@@ -278,7 +282,12 @@ suite.test('PF-08', 'the app draws what it drew before: lines and labels of the 
 suite.test('PF-09', 'gtPrecompile only touches what it expects: an unknown or failing Mapbox leaves the app alone, a removed or re-styled map is not touched, the symbol program carries the defines and UBO size of the draw code', async (t) => {
   needPre();
   assert((BUNDLE.match(/function gtPrecompile\(/g) || []).length === 1, 'gtPrecompile is defined more than once');
-  assert(/"text-halo-width":2\}\}\),gtPrecompile\(c\)\}function gtPrecompile\(/.test(BUNDLE), 'gtPrecompile is not called at the end of T4 (the function that adds the app layers)');
+  // BASE1863 (tools/t0/BASE1863-README.md) refines the app layers for its own base map with ONE call placed just before gtPrecompile(c) at the end of T4; only a tree that defines GTB63 may carry it
+  // PERF4 (train R1e) adds the app layers in four timer tasks (T4 = gtSlices(c, [roads, rivers, breastworks + farms, refine + precompile])): the call is then the body of the LAST slice, after the last app layer
+  const SLICED = /function T4\(c\)\{const st=\{a:gtLast\(c\)\};gtSlices\(c,\[/.test(BUNDLE);
+  const END_OF_T4 = SLICED ? /"text-halo-width":2\}\}\)\},\(\)=>\{(?:GTB63\.refine\(c\),)?gtPrecompile\(c\)\}\]\)\}function gtLast\(/ : HAS_B63 ? /"text-halo-width":2\}\}\),(?:GTB63\.refine\(c\),)?gtPrecompile\(c\)\}function gtPrecompile\(/ : /"text-halo-width":2\}\}\),gtPrecompile\(c\)\}function gtPrecompile\(/;
+  assert(END_OF_T4.test(BUNDLE), 'gtPrecompile is not called at the end of T4 (the function that adds the app layers)');
+  if (HAS_B63) assert((SLICED ? /"text-halo-width":2\}\}\)\},\(\)=>\{GTB63\.refine\(c\),gtPrecompile\(c\)\}\]\)\}function gtLast\(/ : /"text-halo-width":2\}\}\),GTB63\.refine\(c\),gtPrecompile\(c\)\}function gtPrecompile\(/).test(BUNDLE), 'BASE1863 tree: GTB63.refine(c) is expected immediately before gtPrecompile(c) (documented hook)');
   const S = await open({ profile: 'pf-09', tiles: 'block' });
   try {
     await S.page.goto(`${srv.url}/privacy.html`, { waitUntil: 'load' });
@@ -341,7 +350,7 @@ suite.test('PF-10', 'a browser without KHR_parallel_shader_compile (hidden by an
     await S.page.goto(`${srv.url}/`, { waitUntil: 'load' });
     await waitForApp(S.page, 40000);
     let m = null;
-    await waitFor(async () => { m = appMap(await mapsInfo(S.page)); return !!(m && m.loaded && (m.counts['roads-1863-line'] || 0) > 0); }, { timeout: 30000, label: 'rendered road lines without parallel compile' });
+    await waitFor(async () => { m = appMap(await mapsInfo(S.page)); return !!(m && m.loaded && (m.counts[LEAD] || 0) > 0); }, { timeout: 30000, label: `rendered ${LEAD} without parallel compile` });
     await sleep(2500);
     m = appMap(await mapsInfo(S.page));
     t.note('without KHR_parallel_shader_compile', { parallel: m.parallel, precompiled: m.stats.precompiled, onDemand: m.stats.onDemand, counts: m.counts });

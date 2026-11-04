@@ -180,7 +180,7 @@ test('guarantee: with every skin (their own footprints, labels and legends) no v
   for (const sk of SKINS) {
     const R = rig({ zoom: 14.5, skinId: sk.id }); assert.equal(R.e.tok('skin.id'), sk.id);
     for (const t of ticks) { R.seek(t, 10, 50); for (let i = 0; i < 4; i++) { R.step(1, 50); frames++; const v = violations(R); if (v.length) bad.push(`${sk.id} tick ${t}: ${v[0]}`); } }
-    R.host.act('legend:legend', 'toggle'); R.step(40, 50); const lg = R.host.cards.get('legend:legend'); const rows = sk.legend ? sk.legend() : []; const txt = textOf(lg.spec.forms[0].content); if (R.cards().find((c) => c.id === 'legend:legend' && c.form && c.form.id === 'open')) for (const r of rows.slice(0, 3)) assert.ok(txt.includes(r.text), sk.id + ' legend row: ' + r.text);
+    R.host.toggleDoc('legend:doc'); R.step(40, 50); assert.ok(R.host.rail && R.host.rail.id === 'legend:doc', sk.id + ': the legend opens in the rail'); R.host.toggleDoc('legend:doc'); R.step(10, 50);
     assert.deepEqual(R.host.errors, [], sk.id);
   }
   console.log(`# ${SKINS.length} skins, ${frames} frames, ${bad.length} violations`); assert.deepEqual(bad.slice(0, 4), []);
@@ -311,7 +311,7 @@ test('determinism: the same inputs give the same cards, rectangles and effects, 
 });
 
 test('styles: the look dials reach the CSS variables, and every popup module is registered with a label, a doc and an enabling dial that exists', () => {
-  const R = rig({ zoom: 14.5 }); for (const p of POPUPS) { assert.ok(p.label && p.doc, p.id); assert.equal(typeof p.enabled, 'function', p.id); assert.equal(p.enabled(R.e.tok), true, p.id + ' is on by default'); }
+  const R = rig({ zoom: 14.5 }); for (const p of POPUPS) { assert.ok(p.label && p.doc, p.id); assert.equal(typeof p.enabled, 'function', p.id); assert.equal(p.enabled(R.e.tok), p.id !== 'clock-hud', p.id + (p.id === 'clock-hud' ? ' is off by default (round 2: the masthead carries the clock, nothing lies on the ground)' : ' is on by default')); }
   assert.deepEqual(POPUPS.map((p) => p.id), ['clock-hud', 'day-banner', 'event-card', 'story-card', 'command-toast', 'command-crossout', 'unit-card', 'tour', 'legend', 'minimap', 'hints', 'chronicle']);
   R.e.tuning.set('popup.enabled', false); R.step(3); assert.equal(R.out.cards.length, 0, 'the master switch hides everything'); R.e.tuning.set('popup.enabled', true);
   R.e.tuning.set('popup.event.enabled', false); R.seek(28, 20, 50); assert.ok(![...R.host.cards.keys()].some((k) => k.startsWith('event-card:event-28')), 'a module can be switched off alone'); R.e.tuning.set('popup.event.enabled', true);

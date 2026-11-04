@@ -1,0 +1,346 @@
+[
+ {
+  "id": "POS-A-CV1-001",
+  "fidelity": "passed_full_read",
+  "why": "June 29 and First and Second Brigades in the same sentence; Fairfield and enemy infantry printed"
+ },
+ {
+  "id": "POS-A-CV1-002",
+  "fidelity": "passed_full_read",
+  "why": "Date, Reserve Brigade and Mechanicstown in the same sentence"
+ },
+ {
+  "id": "POS-A-CV1-003",
+  "fidelity": "corrected",
+  "why": "Road name \"Emmitsburg road\" is not printed (only toward Emmitsburg, then the proper road to Gettysburg); road removed, gazetteer id by inference",
+  "patch": {
+   "rd": null,
+   "w": "June 30 (very early)",
+   "note_add": "RECHECK: the passage prints no road name; GZ-041 is by inference from the printed town Emmitsburg."
+  }
+ },
+ {
+  "id": "POS-A-CV1-004",
+  "fidelity": "passed_full_read",
+  "why": "11 a. m. in the same sentence as entering Gettysburg; half a mile in the next sentence about the same entry"
+ },
+ {
+  "id": "POS-A-CV1-005",
+  "fidelity": "passed_full_read",
+  "why": "afternoon in the same sentence as entering Gettysburg; enemy entering the town and withdrawal toward Cashtown printed",
+  "patch": {
+   "note_add": "RECHECK: the distance in the note is printed with an OCR-damaged fraction (4i miles); 4 1/2 is a reading."
+  }
+ },
+ {
+  "id": "POS-A-CV1-006",
+  "fidelity": "passed_full_read",
+  "why": "10.30 p. m. dispatch heading; Reserve Brigade under Merritt at Mechanicstown with trains printed in one sentence"
+ },
+ {
+  "id": "POS-A-CV1-007",
+  "fidelity": "corrected",
+  "why": "Place \"the Cashtown road west of Gettysburg\": Cashtown road and west not printed; the sentence says enemy coming down from toward Cashtown",
+  "patch": {
+   "pp": "from toward Cashtown",
+   "rd": null,
+   "note_add": "RECHECK: the passage prints no road name and no compass direction; GZ-040 is by inference."
+  }
+ },
+ {
+  "id": "POS-A-CV1-008",
+  "fidelity": "passed_full_read",
+  "why": "10.10 a. m. in heading; Reynolds advancing, within 3 miles with leading division in one sentence",
+  "patch": {
+   "note_add": "RECHECK: the dispatch names Reynolds and his leading division, not the First Corps; the corps unit id is by inference."
+  }
+ },
+ {
+  "id": "POS-A-CV1-009",
+  "fidelity": "corrected",
+  "why": "Dispatch speaks of the battle in general, not the division own engagement; place worded as printed (short cannon-range)",
+  "patch": {
+   "act": "Buford's dispatch 3.20 p. m. July 1: a tremendous battle has been raging since 9.30 a. m., and is at present raging on the road to Cashtown, within short cannon-range of the town",
+   "pp": "the road to Cashtown, within short cannon-range of this town",
+   "note_add": "RECHECK: the sentence is about the battle, not the cavalry division specifically; unit attribution rests on authorship of the dispatch."
+  }
+ },
+ {
+  "id": "POS-A-CV1-010",
+  "fidelity": "corrected",
+  "why": "North of Gettysburg not printed (on the right, four roads); day-part is the compiler reading from the order of events",
+  "patch": {
+   "pp": "on the right, by four roads",
+   "wd": "compiler reading from order of events: after the First Brigade fight and the First Corps arrival, until the Eleventh Corps leading division came; no clock or day-part printed"
+  }
+ },
+ {
+  "id": "POS-A-CV1-011",
+  "fidelity": "corrected",
+  "why": "Near the seminary and afternoon are not printed in Buford passage (seminary appears only in Gamble); place and act narrowed, day-part marked as compiler reading",
+  "patch": {
+   "act": "On July 1, after Doubleday's command was forced to fall back, Buford rushed Gamble's brigade to Doubleday's left and dismounted it in time to help the infantry and to check and break the enemy's line; partial shelter behind a low stone fence",
+   "pp": "Doubleday's left, behind a low stone fence",
+   "wd": "compiler reading from order of events: after Doubleday's command fell back; no afternoon printed in this passage (Gamble R338 prints it)",
+   "note_add": "RECHECK: GZ-037 and the seminary link are by inference from Gamble's report."
+  }
+ },
+ {
+  "id": "POS-A-CV1-012",
+  "fidelity": "passed_full_read",
+  "why": "that night in the same sentence; pickets almost to Fairfield, Cemetery Hill and Hancock arriving in neighbouring sentences"
+ },
+ {
+  "id": "POS-A-CV1-013",
+  "fidelity": "corrected",
+  "why": "Act said printed \"July 9\" but the OCR token is \"-TnW 9\"; date 2 settled by next sentence \"The next day, July 3\"; place worded as printed (on our left)",
+  "patch": {
+   "act": "July 2 (date token OCR-damaged) the division became engaged with the enemy's sharpshooters on our left and held its own until relieved by General Sickles' corps",
+   "pp": "on our left",
+   "wd": "OCR glyph only: date token printed \"-TnW 9\"; July 2 read from the following sentence \"The next day, July 3\""
+  }
+ },
+ {
+  "id": "POS-A-CV1-014",
+  "fidelity": "passed_full_read",
+  "why": "after which it moved to Taneytown and bivouacked for the night; day-part is compiler reading, date from the next sentence",
+  "patch": {
+   "wd": "compiler reading from order of events: after relief by Sickles corps, bivouacked for the night; no clock printed; date July 2 rests on the next sentence \"The next day, July 3\" (previous date token OCR-damaged)"
+  }
+ },
+ {
+  "id": "POS-A-CV1-015",
+  "fidelity": "passed_full_read",
+  "why": "The next day, July 3 in the same sentence as the move to Westminster to guard the trains"
+ },
+ {
+  "id": "POS-A-CV1-016",
+  "fidelity": "passed_full_read",
+  "why": "About 8 o clock in the same sentence; seminary building, Cashtown direction and 3 miles printed"
+ },
+ {
+  "id": "POS-A-CV1-017",
+  "fidelity": "corrected",
+  "why": "8-9 a.m. window not printed: only about 8 o clock for the notice; placement follows in sequence",
+  "patch": {
+   "w": "(after about 8 o'clock, July 1)",
+   "wd": "compiler reading from order of events: placed in line after the 8 o'clock notice in the preceding sentences; 9 a.m. is not printed"
+  }
+ },
+ {
+  "id": "POS-A-CV1-018",
+  "fidelity": "corrected",
+  "why": "8-9 a.m. window not printed; battery placed after the 8 o clock notice and the line formed",
+  "patch": {
+   "w": "(after about 8 o'clock, July 1)",
+   "wd": "compiler reading from order of events: after the 8 o'clock notice and the line of battle; 9 a.m. is not printed"
+  }
+ },
+ {
+  "id": "POS-A-CV1-019",
+  "fidelity": "passed_full_read",
+  "why": "several hours and 200 yards printed; the next sentences begin In the afternoon, so forenoon by sequence",
+  "patch": {
+   "wd": "compiler reading from order of events: several hours after the morning start; the following sentence opens \"In the afternoon\""
+  }
+ },
+ {
+  "id": "POS-A-CV1-020",
+  "fidelity": "passed_full_read",
+  "why": "Afternoon printed in the continuing sentence before the order forward at a trot; seminary on our right, stone wall and fall back printed",
+  "patch": {
+   "wd": "printed in the continuing sentence: \"In the afternoon, the enemy ... advanced on our left\", followed by the order forward"
+  }
+ },
+ {
+  "id": "POS-A-CV1-021",
+  "fidelity": "passed_full_read",
+  "why": "On the 29th, Cavetown, Monterey, Fountain Dale near Millerstown in one sentence"
+ },
+ {
+  "id": "POS-A-CV1-022",
+  "fidelity": "passed_full_read",
+  "why": "On the 30th in the same sentence: by Emmitsburg to Gettysburg and encamped; scouting in the next"
+ },
+ {
+  "id": "POS-A-CV1-023",
+  "fidelity": "passed_full_read",
+  "why": "On the morning of July 1 and right resting on the road to Mummasburg in the same passage; later retirement order is a later phase, not contradicting the formation"
+ },
+ {
+  "id": "POS-A-CV1-024",
+  "fidelity": "passed_full_read",
+  "why": "Continuous line York road to Cashtown road and pickets on three roads printed in one sentence; day-part is compiler reading",
+  "patch": {
+   "wd": "compiler reading: formed in the morning of July 1 (previous sentences), before the later order to retire gradually"
+  }
+ },
+ {
+  "id": "POS-A-CV1-025",
+  "fidelity": "corrected",
+  "why": "North-northeast and York approaches not printed (only the direction of Heidlersburg and the right); place narrowed",
+  "patch": {
+   "pp": "the right; the point where the enemy line came on from the direction of Heidlersburg",
+   "note_add": "RECHECK: no compass direction printed in the passage."
+  }
+ },
+ {
+  "id": "POS-A-CV1-026",
+  "fidelity": "corrected",
+  "why": "Place \"of the army\" not printed (the extreme left); day-part is compiler reading; July 1 from the next sentence \"The next morning, July 2\"",
+  "patch": {
+   "pp": "the extreme left",
+   "wd": "compiler reading from order of events: after relief by the Eleventh Corps and the retirement through the town; no clock printed; July 1 from the next sentence \"The next morning, July 2\""
+  }
+ },
+ {
+  "id": "POS-A-CV1-027",
+  "fidelity": "passed_full_read",
+  "why": "Ordered to Taneytown and bivouacked printed; July 2 from the sentence start \"The next morning, July 2\"",
+  "patch": {
+   "wd": "printed in the continuing sentence: \"The next morning, July 2\" opens the paragraph that includes the order to Taneytown"
+  }
+ },
+ {
+  "id": "POS-A-CV1-028",
+  "fidelity": "corrected",
+  "why": "June 29-30 window is the compiler reading; passage prints On the 29th ultimo then \"for two days\"",
+  "patch": {
+   "w": "for two days",
+   "wd": "duration printed \"for two days\" after encamping on the 29th ultimo (previous sentence); June 29-30 is the compiler reading"
+  }
+ },
+ {
+  "id": "POS-A-CV1-029",
+  "fidelity": "passed_full_read",
+  "why": "On the 2d instant we marched to Emmitsburg in one sentence; report dated July 18"
+ },
+ {
+  "id": "POS-A-CV1-030",
+  "fidelity": "corrected",
+  "why": "\"about 12 m.\" is ambiguous (noon or 12 miles; no \"at\"); t_iso removed; from Emmitsburg not printed in this sentence",
+  "patch": {
+   "t": null,
+   "ap": false,
+   "w": "about 12 m.",
+   "act": "On the 3d, on orders from corps headquarters, Merritt marched with the brigade (printed \"about 12 m.\": noon or twelve miles) to attack the enemy's right and rear and annoy him while the battle was progressing on the right",
+   "pp": "the enemy's right and rear",
+   "wd": "ambiguous printed token \"about 12 m.\": meridian or 12 miles; the passage does not settle it",
+   "note_add": "RECHECK: starting point Emmitsburg is from the previous sentence (On the 2d we marched to Emmitsburg); GZ-041 by inference."
+  }
+ },
+ {
+  "id": "POS-A-CV1-031",
+  "fidelity": "corrected",
+  "why": "Place from Emmitsburg and road form not printed; afternoon not printed (fight ended some time after cannonading ceased on the right, heavy rain)",
+  "patch": {
+   "pp": "on the Gettysburg road, about 4 miles",
+   "rd": "Gettysburg road",
+   "w": null,
+   "wd": "no clock or day-part printed; the fight lasted about four hours, ended some time after the cannonading had ceased on the right, and was closed by a heavy rain",
+   "note_add": "RECHECK: the 4 miles is counted from an unprinted starting point."
+  }
+ },
+ {
+  "id": "POS-A-CV1-032",
+  "fidelity": "corrected",
+  "why": "Afternoon not printed; In the meantime continues the fight of the same day with no clock",
+  "patch": {
+   "w": null,
+   "wd": "no clock or day-part printed; In the meantime continues the fight of the 3d instant"
+  }
+ },
+ {
+  "id": "POS-A-CV1-033",
+  "fidelity": "corrected",
+  "why": "Hedge supposed to be in that vicinity dropped from the wagon train; restored",
+  "patch": {
+   "act": "The 6th U. S. Cavalry was ordered on July 3 to proceed toward Fairfield to intercept a train of enemy wagons supposed to be in that vicinity; at Millerstown the First Squadron under Captain Cram was sent toward Fairfield and charged the enemy; Cram captured; the regiment was repulsed from Millerstown"
+  }
+ },
+ {
+  "id": "POS-A-CV1-034",
+  "fidelity": "passed_full_read",
+  "why": "On the 4th and 5th and from near Gettysburg to Frederick City, joined the division, in one sentence; Lewistown printed in the same garbled sentence",
+  "patch": {
+   "note_add": "RECHECK: the sentence prints Lewistown and Frederick City together; reading Lewistown as Frederick is the compiler inference."
+  }
+ },
+ {
+  "id": "POS-A-CV1-035",
+  "fidelity": "passed_full_read",
+  "why": "Dispatch heading June 30; headquarters at Moritz Tavern and division dispositions in the same passage"
+ },
+ {
+  "id": "POS-A-CV1-036",
+  "fidelity": "passed_full_read",
+  "why": "9.45 a. m. in heading; moving with command to Marsh Creek, about half way to Gettysburg, printed in one sentence"
+ },
+ {
+  "id": "POS-A-CV1-037",
+  "fidelity": "corrected",
+  "why": "East of Emmitsburg: the sentence prints east of the town; town identified by the letterhead Emmitsburg, Md.",
+  "patch": {
+   "pp": "east of the town, picketing the heights to the north; headquarters near the town and Gettysburg pike",
+   "note_add": "RECHECK: the town is Emmitsburg by the dispatch heading, not in the sentence."
+  }
+ },
+ {
+  "id": "POS-A-CV1-038",
+  "fidelity": "corrected",
+  "why": "Hour glyph \"C a. m.\" is OCR-damaged; 6 a. m. not safe; t_iso removed; hedge Unless you desire otherwise restored",
+  "patch": {
+   "t": null,
+   "ap": false,
+   "w": "C a. m. (OCR glyph)",
+   "act": "Howard to Reynolds, hour OCR-damaged (printed \"C a. m.\"), July 1: orders to move to within supporting distance of Reynolds at Gettysburg; one division with a battery on the road Reynolds took, the balance of the corps on the road past Horner's Mills; unless Reynolds desired otherwise, he would encamp near J. Wintz's place, about 3 miles this side of Gettysburg",
+   "wd": "OCR glyph only: hour printed \"C a. m.\" (heading \"18(J3\"); not read as a number",
+   "ocr": true
+  }
+ },
+ {
+  "id": "POS-A-CV1-039",
+  "fidelity": "corrected",
+  "why": "Hour OCR-damaged; Emmitsburg Road and First Corps and First Division not printed: passage says one division with a battery on the road on which Reynolds (Left Wing) marched",
+  "patch": {
+   "u": "us-11c",
+   "t": null,
+   "ap": false,
+   "w": "C a. m. (OCR glyph)",
+   "act": "Howard, hour OCR-damaged, July 1: one division (not named), with a battery, to move on the road on which Reynolds marched",
+   "pp": "the road on which you marched",
+   "wd": "OCR glyph only: hour printed \"C a. m.\"; not read as a number",
+   "ocr": true,
+   "note_add": "RECHECK: road name Emmitsburg Road and the First Corps are not printed (addressee is Reynolds, Commanding Left Wing); the division is not named, so the unit is the Eleventh Corps; GZ-041 by inference."
+  }
+ },
+ {
+  "id": "POS-A-CV1-040",
+  "fidelity": "passed_full_read",
+  "why": "3 p. m. in heading; two divisions of the Eleventh Corps on the right of the town and one in reserve in one sentence"
+ },
+ {
+  "id": "POS-A-CV1-041",
+  "fidelity": "corrected",
+  "why": "West of the seminary is not printed (no place in the dispatch); hedge about the right flank added; place removed",
+  "patch": {
+   "act": "Wadsworth to Doubleday or Howard, 12.10 p. m. July 1: thinks the enemy are retiring and that we should advance promptly upon them; not sure they are not moving round on our right flank, though he sees no indication of it",
+   "pp": null,
+   "gz": null,
+   "note_add": "RECHECK: the dispatch prints no place; a lull at noon is a compiler reading."
+  }
+ },
+ {
+  "id": "POS-A-CV1-042",
+  "fidelity": "passed_full_read",
+  "why": "Order to Gregg printed with Buford, who has been withdrawn; p.m. is compiler reading from the 12.55 p. m. note on the same page",
+  "patch": {
+   "wd": "meridian not printed (heading \"July 2, 1863\u20141.45.\"); p. m. is compiler reading from order: Butterfield's 12.55 p. m. note in the same passage concerns the same withdrawal"
+  }
+ },
+ {
+  "id": "POS-A-CV1-043",
+  "fidelity": "passed_full_read",
+  "why": "12.50 p. m. heading; not authorized the entire withdrawal of Buford force from the direction of Emmitsburg; Emmitsburg road pickets printed"
+ }
+]

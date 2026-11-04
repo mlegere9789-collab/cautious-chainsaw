@@ -11,10 +11,10 @@ export const minimap = {
   id: 'minimap', label: 'Overview map', group: 'popup-minimap', enabled: (tok) => tok('popup.minimap.enabled'),
   doc: 'The overview map (P-13): every tile of the frame, the camera box, click to fly, a pulse for off-screen subjects; steps aside for tiles.',
   update(frame, api) {
-    const tok = api.tok; const W = tok('popup.minimap.w'); const cw = W - 26; const ch = Math.round(cw * 0.84); const slot = tok('popup.minimap.slot'); const eng = api.engine; const st = api.host.state.mod.mini || (api.host.state.mod.mini = { last: 0, pulses: [] });
+    const tok = api.tok; const cw = 112; const ch = 94; const W = cw; const slot = tok('popup.minimap.slot'); const eng = api.engine; const st = api.host.state.mod.mini || (api.host.state.mod.mini = { last: 0, pulses: [] });
     const toXY = (lng, lat) => [(lng - EXT.west) / (EXT.east - EXT.west) * cw, (EXT.north - lat) / (EXT.north - EXT.south) * ch];
     const paint = (g, w, h) => {
-      const f = eng.frame; if (!f) return; g.clearRect(0, 0, w, h); g.fillStyle = 'rgba(128,128,128,0.10)'; g.fillRect(0, 0, w, h);
+      const f = eng.frame; if (!f) return; g.clearRect(0, 0, w, h); g.fillStyle = 'rgba(128,128,128,0.14)'; g.fillRect(0, 0, w, h);
       g.strokeStyle = 'rgba(128,128,128,0.25)'; g.lineWidth = 1; for (let i = 1; i < 4; i++) { g.beginPath(); g.moveTo(i * w / 4, 0); g.lineTo(i * w / 4, h); g.moveTo(0, i * h / 4); g.lineTo(w, i * h / 4); g.stroke(); }
       const cam = eng.camera; let n = 0;
       for (const t of f.tiles) { if (t.life !== 'live') continue; const p = cam.fromScreen(t.px + f.view.dx, t.py + f.view.dy); const [x, y] = toXY(p[0], p[1]); g.fillStyle = COL[t.side] || COL.unknown; g.fillRect(x - 1, y - 1, t.kind === 'agg' ? 3 : 2, t.kind === 'agg' ? 3 : 2); n++; }
@@ -25,6 +25,6 @@ export const minimap = {
     };
     const click = (fx, fy) => { const lng = EXT.west + fx * (EXT.east - EXT.west); const lat = EXT.north - fy * (EXT.north - EXT.south); api.flyTo({ lat, lng, glide: true, safe: false }); };
     const label = 'Overview map of the field with a box for the main map. Click to move the main map there.';
-    return [{ key: 'overview', kind: 'hud', tier: 'S', tone: 'info', priority: 4, slots: [slot, SLOT_ALT[slot]], version: W, forms: [{ id: 'full', level: 'full', w: W, content: { label, blocks: [{ t: 'canvas', w: cw, h: ch, paint, click, label }] } }] }];
+    return [{ key: 'overview', kind: 'hud', dock: 'mini', hideOnPhone: true, tier: 'S', tone: 'info', priority: 4, slots: [slot, SLOT_ALT[slot]], version: W, forms: [{ id: 'full', level: 'full', w: W, content: { label, blocks: [{ t: 'canvas', w: cw, h: ch, paint, click, label }] } }] }];
   },
 };

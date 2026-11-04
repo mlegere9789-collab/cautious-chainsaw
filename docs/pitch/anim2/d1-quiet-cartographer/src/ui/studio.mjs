@@ -15,12 +15,12 @@ export function createStudioUI({ root, engine, data, onSafe }) {
 
   // ---- top bar -------------------------------------------------------------------------------------------------------------------------------
   el.tick = h('div', { class: 'tick' }, 'Tick 1 / 675'); el.clock = h('div', { class: 'clock' }, '');
-  const brand = h('div', { class: 'brand glass' }, svgIcon(MARK), h('div', null, h('b', null, 'Gettysburg'), h('span', null, 'Quiet Cartographer')));
+  const brand = h('div', { class: 'brand glass' }, svgIcon(MARK), h('div', null, h('b', null, 'Gettysburg')));
   const clockbox = h('div', { class: 'clockbox glass', 'aria-live': 'off' }, el.tick, el.clock);
 
   // Style switcher: three families (a segmented control), a variant menu, and one select for narrow screens
   const styleBtns = STYLES.map((s) => h('button', { type: 'button', 'data-style': s.id, title: s.blurb, 'aria-pressed': 'false', onclick: () => chooseStyle(s.id, currentVariant()) }, s.label));
-  el.variant = h('select', { class: 'vsel', 'aria-label': 'Style variant', title: 'Variant: standard, colour-blind safe or high contrast', onchange: () => chooseStyle((styleOfSkin(tok('skin.id')) || { style: STYLES[0] }).style.id, el.variant.value) }, VARIANTS.map((v) => h('option', { value: v.id }, v.label)));
+  el.variant = h('select', { class: 'vsel', 'aria-label': 'Colours', title: 'Colours: standard, colour-blind safe or high contrast', onchange: () => chooseStyle((styleOfSkin(tok('skin.id')) || { style: STYLES[0] }).style.id, el.variant.value) }, VARIANTS.map((v) => h('option', { value: v.id }, v.label)));
   const segStyle = h('div', { class: 'seg glass styles', role: 'group', 'aria-label': 'Ground: day or night' }, styleBtns);      // POLISH 1: the variant menu and Before / After moved to the Tune tab (development tools, not the face of a history site)
   el.styleSel = h('select', { class: 'btn style-sel', 'aria-label': 'Style', onchange: () => { const [sid, vid] = el.styleSel.value.split('|'); chooseStyle(sid, vid); } },
     STYLES.map((s) => h('optgroup', { label: s.label }, VARIANTS.map((v) => h('option', { value: s.id + '|' + v.id }, s.label + (v.id === 'standard' ? '' : ' · ' + v.label))))), h('option', { value: '|' , hidden: true, id: 'style-other' }, 'Test skin'));
@@ -43,7 +43,7 @@ export function createStudioUI({ root, engine, data, onSafe }) {
   el.badge = h('div', { class: 'cmpbadge before glass off', role: 'status', 'data-chrome': '' }, h('i'), 'BEFORE', h('span', null, 'production-style stepping, reproduced from the shipped code (report 01)'));
 
   // Showcase menu: tours, hotspots, replay of this view, computed scenes, (phone) tools
-  el.showcase = h('button', { class: 'btn glass tool-l', type: 'button', 'aria-haspopup': 'menu', 'aria-expanded': 'false', title: 'Guided tours, hotspots, before / after replay and scenes', onclick: () => toggleMenu() }, icon('showcase'), h('span', { class: 'lbl' }, 'Showcase'));
+  el.showcase = h('button', { class: 'btn glass tool-l', type: 'button', 'aria-haspopup': 'menu', 'aria-expanded': 'false', title: 'Tours, hotspots and scenes', 'aria-label': 'Menu: tours, hotspots and scenes', onclick: () => toggleMenu() }, icon('menu'), h('span', { class: 'lbl' }, 'Menu'));
   el.btnTune = toolBtn('tune', 'Tune', 'Tuning Studio (T)', () => togglePanel('tune'));
   el.btnInspect = toolBtn('inspect', 'Inspect', 'Inspector (I)', () => togglePanel('inspect'));
   el.btnMetrics = toolBtn('metrics', 'Metrics', 'Metrics overlay (M)', () => tuning.set('metrics.overlay', !tok('metrics.overlay')));
@@ -63,14 +63,13 @@ export function createStudioUI({ root, engine, data, onSafe }) {
     const groups = new Map(); for (const t of kernel.tours.list()) { if (!groups.has(t.group)) groups.set(t.group, []); groups.get(t.group).push(t); }
     const kids = [];
     for (const [g, list] of groups) { kids.push(h('h4', null, g)); for (const t of list) kids.push(item(g === 'Showcase' ? 'showcase' : 'target', t.label, t.blurb, () => ui.onTour && ui.onTour(t.id))); }
-    kids.push(h('h4', null, 'Compare'), item('replay', 'Replay this view, before then after', 'The same ticks from where the camera is now, through the production reproduction and then the Studio, with the numbers measured on this run.', () => ui.onTour && ui.onTour('view-replay')));
     kids.push(h('h4', null, 'Scenes (computed from the data)'));
     for (const s of data.scenes) kids.push(item('map', s.name, `Tick ${s.tick} · ${s.why}`, () => { onSafe && onSafe(); engine.sceneJump(s); engine.select(null); }));
     if (window.matchMedia && window.matchMedia('(max-width: 760px)').matches) {
-      kids.push(h('h4', null, 'Tools'), item('inspect', 'Inspect', 'Select a mark to see what the data says about it', () => togglePanel('inspect'), 'plain'), item('tune', 'Tune', 'Every dial of the engine, live', () => togglePanel('tune'), 'plain'),
+      kids.push(h('h4', null, 'Read'), item('info', 'Legend', 'What each mark says, and how well that is known', () => ui.onLegend && ui.onLegend(), 'plain'), item('more', 'Chronicle', 'Everything that has happened so far', () => ui.onChronicle && ui.onChronicle(), 'plain'), h('h4', null, 'Tools'), item('inspect', 'Inspect', 'Select a mark to see what the data says about it', () => togglePanel('inspect'), 'plain'), item('tune', 'Tune', 'Every dial of the engine, live', () => togglePanel('tune'), 'plain'),
         item('metrics', 'Metrics', 'Frame times, jumps, overlaps', () => tuning.set('metrics.overlay', !tok('metrics.overlay')), 'plain'), item('info', 'About', 'Legend, evidence labels and honest limits', () => togglePanel('about'), 'plain'));
     }
-    menu = h('div', { class: 'menu', role: 'menu', 'aria-label': 'Showcase' }, kids); root.append(menu);
+    menu = h('div', { class: 'menu', role: 'menu', 'aria-label': 'Menu' }, kids); root.append(menu);
     const r = el.showcase.getBoundingClientRect(); const ar = root.getBoundingClientRect(); menu.style.left = Math.max(10, Math.min(ar.width - 320, r.left - ar.left)) + 'px'; menu.style.top = (r.bottom - ar.top + 8) + 'px';
     el.showcase.setAttribute('aria-expanded', 'true'); const first = menu.querySelector('button'); if (first) first.focus({ preventScroll: true });
     const away = (e) => { if (menu && !menu.contains(e.target) && !el.showcase.contains(e.target)) closeMenu(); };
@@ -88,7 +87,8 @@ export function createStudioUI({ root, engine, data, onSafe }) {
   el.range = h('input', { type: 'range', min: 1, max: 675, step: 0.01, value: 1, 'aria-label': 'Tick', oninput: () => transport.seek(+el.range.value, { ms: 90 }), onpointerdown: () => { ui.scrubbing = true; }, onpointerup: () => { ui.scrubbing = false; }, onpointercancel: () => { ui.scrubbing = false; } });
   el.marks = h('canvas', { 'aria-hidden': 'true' }); el.tip = h('div', { class: 'scrubtip hidden' });
   const scrub = h('div', { class: 'scrub' }, el.marks, el.range, el.tip);
-  el.honesty = h('div', { class: 'honesty' }, evBadge('Modelled'), h('span', { class: 'note' }, 'positions: hand-authored keyframes, interpolated between'), evBadge('Modelled'), h('span', { class: 'note' }, 'clock: a candidate, not reviewed'), evBadge('Measured'), h('span', { class: 'note' }, 'ground: a 2022 aerial, not 1863'));
+  const ei = (badge, text) => h('span', { class: 'ev-item' }, badge, h('span', { class: 'note' }, text));
+  el.honesty = h('div', { class: 'honesty' }, ei(evBadge('Modelled'), 'positions and clock: placed by hand, the clock is a candidate'), ei(evBadge('Measured'), 'ground: a 2022 aerial photograph, not 1863'));      // ROUND 2: one evidence line, two chips
   el.honestyMini = h('div', { class: 'honesty-mini' }, evBadge('Modelled'), 'positions and clock; ground: a 2022 aerial');
   const dock = h('section', { id: 'dock', 'aria-label': 'Transport' },
     h('div', { class: 'transport' },
@@ -131,7 +131,7 @@ export function createStudioUI({ root, engine, data, onSafe }) {
     if (def.type === 'number') control = h('input', { id, type: 'range', min: def.min, max: def.max, step: def.step, value: v, oninput: () => { try { tuning.set(def.id, +control.value); } catch (e) { ui.status = String(e.message); } } });
     else if (def.type === 'boolean') control = h('input', { id, type: 'checkbox', checked: v, onchange: () => tuning.set(def.id, control.checked), style: { justifySelf: 'end', width: '18px', height: '18px', accentColor: 'var(--accent)' } });
     else control = h('select', { id, onchange: () => { try { tuning.set(def.id, control.value); } catch (e) { ui.status = String(e.message); } } }, optionsOf(def).map((o) => h('option', { value: o.value, selected: o.value === v }, o.label)));
-    const row = h('div', { class: 'row', 'data-id': def.id }, h('label', { for: id }, def.label), def.type === 'select' || def.type === 'registry' ? h('span', { class: 'val' }, '') : (def.type === 'number' ? val : null), control, h('div', { class: 'doc' }, evBadge(def.evidence), ' ', def.doc, def.source ? h('span', { class: 'note' }, ' [' + def.source + ']') : null));
+    const row = h('div', { class: 'row', 'data-id': def.id }, h('label', { for: id }, def.label), def.type === 'select' || def.type === 'registry' ? h('span', { class: 'val' }, '') : (def.type === 'number' ? val : null), control, h('div', { class: 'doc' }, evBadge(def.evidence), ' ', def.doc, null));
     const sync = (x) => { if (def.type === 'number') { control.value = x; val.textContent = fmtVal(x); } else if (def.type === 'boolean') control.checked = x; else control.value = x; row.classList.toggle('changed', x !== def.default); };
     sync(v); rowRefs.set(def.id, sync); return row;
   }
@@ -148,7 +148,7 @@ export function createStudioUI({ root, engine, data, onSafe }) {
     out.push(h('div', { class: 'toolbar' },
       h('button', { class: 'btn', onclick: () => download('battle-studio-settings.json', JSON.stringify(tuning.export(), null, 1)) }, 'Export'), h('button', { class: 'btn', onclick: () => file.click() }, 'Import'),
       h('button', { class: 'btn', onclick: () => { tuning.reset(); ui.status = 'all dials reset'; renderChrome(); } }, 'Reset all'), file), search, status);
-    out.push(h('div', { class: 'toolbar view' }, h('span', { class: 'note' }, 'Variant'), el.variant, h('span', { class: 'note' }, 'Renderer'), segCmp));      // the two controls that left the top bar
+    out.push(h('div', { class: 'toolbar view' }, h('span', { class: 'note' }, 'Colours'), el.variant));      // ROUND 2: standard, colour-blind safe or high contrast; the Before / After switch is a development tool (key B, ?compare=before), not a control of the page
     for (const g of tuning.groups()) {
       const body = h('div', null, ui.onPreview ? previewRow(g) : null, g.tokens.map(tokenRow)); let open = !['camera'].includes(g.id) || false; body.classList.toggle('hidden', !open);
       out.push(h('h3', null, h('button', { 'aria-expanded': String(open), onclick: (e) => { open = !open; body.classList.toggle('hidden', !open); e.currentTarget.setAttribute('aria-expanded', String(open)); } }, g.label)), body);
@@ -191,13 +191,12 @@ export function createStudioUI({ root, engine, data, onSafe }) {
     const cnt = data.provenance.counts; const dsp = data.terrain.locations.filter((l) => data.terrain.disputed.includes(l.id)); const skin = kernel.skins.has(tok('skin.id')) ? kernel.skins.get(tok('skin.id')) : null; const out = [];
     out.push(h('p', { class: 'note' }, h('b', null, 'What you are looking at. '), `${cnt.units} real units and ${cnt.keyframes} real placement keyframes on ${cnt.populatedTicks} of 675 ticks, drawn on a modern aerial photograph of the ground (Measured; the 1863 landscape differed). Nothing is drawn that the data does not support; anything computed or modelled says so.`));
     out.push(h('h3', null, 'Evidence labels'));
-    for (const [k, v] of [['Documented', 'printed in a named source (order-of-battle identity, id prefix)'], ['Measured', 'read by an instrument or counted from a record'], ['Computed', 'derived from data by a stated rule (counts, aggregates, ages)'], ['Modelled', 'authored or interpolated, not recorded: every position, every strength value, every clock time'], ['Contested', `the sources disagree (${data.provenance.counts.unknownSide} ids whose state code contradicts the prefix)`], ['Unknown', 'nobody has decided yet']]) out.push(h('div', { class: 'note', style: { margin: '3px 0' } }, evBadge(k), ' ', v));
-    if (skin && skin.legend) { out.push(h('h3', null, 'Legend: ' + skin.label)); for (const e of skin.legend()) out.push(h('div', { class: 'legend' }, h('i', { style: { background: e.swatch } }), h('div', null, e.text, ' ', evBadge(e.evidence)))); }
+    for (const [k, v] of [['Documented', 'printed in a named source (the order of battle)'], ['Measured', 'read by an instrument or counted from a record'], ['Computed', 'derived from data by a stated rule (counts, aggregates, ages)'], ['Modelled', 'authored or interpolated, not recorded: every position, every strength value, every clock time'], ['Contested', `the records disagree (${data.provenance.counts.unknownSide} units whose recorded state points to the other side)`], ['Unknown', 'nobody has decided yet']]) out.push(h('div', { class: 'note', style: { margin: '3px 0' } }, evBadge(k), ' ', v));
+    out.push(h('h3', null, 'The marks'), h('p', { class: 'note' }, 'What each mark says, and how well that is known, is in the Legend (top bar).'));
     out.push(h('h3', null, 'Honest limits'),
       h('div', { class: 'warnbox' }, 'The clock is a candidate: 33 anchors, all proposed, none reviewed by a historian. Clock times are shown as ', h('b', null, 'about'), ' and with their uncertainty.'),
       h('div', { class: 'warnbox' }, `The ground is a USDA NAIP aerial photograph of 24 April to 10 May 2022, lit by a USGS elevation model: modern, leaf-off, not the 1863 landscape. Place names follow the frame the placements were authored in; ${data.terrain.disputed.length} of ${data.terrain.locations.length} places (a ring with a gap) sit ${Math.min(...dsp.map((l) => l.diffM))} to ${Math.max(...dsp.map((l) => l.diffM))} m from where production terrain.json puts them, and against the aerial the hills of this frame are up to 731 m from their summits. Which frame is right is Unknown for the units.`),
-      h('div', { class: 'warnbox' }, `Under carry-forward a unit stays at its last keyframe until the battle ends. Most marks are old keyframes; a hollow pip or a pale flag says so. Choose another visibility rule in Tune > Layout.`),
-      h('div', { class: 'warnbox' }, 'The Before view is a reproduction of the production renderer built from the shipped code and checked against the research replay (report 01). It leaves out the hit flash, the trail canvas, the fps text and the cannon sound, and it draws at the device pixel ratio where production draws at one pixel per CSS pixel.'));
+      h('div', { class: 'warnbox' }, `Under carry-forward a unit stays at its last keyframe until the battle ends. Most marks are old keyframes; a hollow pip or a pale flag says so. Choose another visibility rule in Tune > Layout.`));
     out.push(h('h3', null, 'Scenes (computed from the data)'));
     for (const s of data.scenes) out.push(h('div', { class: 'note', style: { margin: '4px 0' } }, h('b', null, s.name), ` tick ${s.tick}: ${s.why}. Nearest place in the data: ${s.nearestPlace.name}, ${s.nearestPlace.d} m (a label, not a claim).`));
     out.push(h('h3', null, 'Guarantee'), h('p', { class: 'note' }, 'Every displayed frame is checked by an independent verifier. Overlaps found so far: ', h('b', { id: 'ab-ov' }, String(engine.metricsOf('after').overlapPairs ?? 0)), '. Layout text widths: ', engine.text.source + '.'));
@@ -233,12 +232,12 @@ export function createStudioUI({ root, engine, data, onSafe }) {
     const c = el.marks; const r = c.getBoundingClientRect(); const dpr = Math.min(devicePixelRatio || 1, 2); c.width = Math.max(10, Math.round(r.width * dpr)); c.height = Math.max(10, Math.round(r.height * dpr));
     const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); const W = r.width; const H = r.height; const x = (t) => (t - 1) / 674 * (W - 4) + 2;
     const css = getComputedStyle(document.documentElement); const line = css.getPropertyValue('--line').trim() || '#2a323c'; const muted = css.getPropertyValue('--muted').trim() || '#9ba6b2';
-    g.fillStyle = css.getPropertyValue('--panel2').trim() || '#1b2128'; g.globalAlpha = 0.6; g.beginPath(); g.roundRect ? g.roundRect(0, 6, W, H - 12, 4) : g.rect(0, 6, W, H - 12); g.fill(); g.globalAlpha = 1;
+    const TOP = 18; g.fillStyle = css.getPropertyValue('--panel2').trim() || '#1b2128'; g.globalAlpha = 0.7; g.beginPath(); g.roundRect ? g.roundRect(0, TOP, W, H - TOP - 2, 4) : g.rect(0, TOP, W, H - TOP - 2); g.fill(); g.globalAlpha = 1;      // ROUND 2: the day labels have their own row above the ticks, the playhead runs only through the ticks
     g.strokeStyle = line; g.lineWidth = 1; for (const t of [226, 451]) { g.beginPath(); g.moveTo(x(t), 2); g.lineTo(x(t), H - 2); g.stroke(); }
-    g.fillStyle = muted; g.font = '11px "QC Sans", "Source Sans 3", sans-serif'; g.textBaseline = 'top'; for (const [t, s] of [[1, 'July 1'], [226, 'July 2'], [451, 'July 3']]) g.fillText(s, x(t) + 6, 2);
+    g.fillStyle = muted; g.font = '11px "QC Sans", "Source Sans 3", sans-serif'; g.textBaseline = 'top'; for (const [t, s] of [[1, 'July 1'], [226, 'July 2'], [451, 'July 3']]) g.fillText(s, x(t) + 6, 3);
     const mc = (n, d) => css.getPropertyValue(n).trim() || d;
-    for (const e of data.events) { g.strokeStyle = e.significance === 'critical' ? mc('--mark-critical', '#e0553a') : e.significance === 'high' ? mc('--mark-high', '#d9a21b') : mc('--mark-low', '#6d7782'); g.lineWidth = 1; const hh = e.significance === 'critical' ? 14 : e.significance === 'high' ? 9 : 5; g.beginPath(); g.moveTo(x(e.tick) + 0.5, H - 6); g.lineTo(x(e.tick) + 0.5, H - 6 - hh); g.stroke(); }
-    g.fillStyle = mc('--mark-scene', '#5b9bf0'); for (const s of data.scenes) { const px = x(s.tick); g.beginPath(); g.moveTo(px, 8); g.lineTo(px + 4, 12); g.lineTo(px, 16); g.lineTo(px - 4, 12); g.closePath(); g.fill(); }
+    for (const e of data.events) { g.strokeStyle = e.significance === 'critical' ? mc('--mark-critical', '#e0553a') : e.significance === 'high' ? mc('--mark-high', '#d9a21b') : mc('--mark-low', '#6d7782'); g.lineWidth = 1; const hh = e.significance === 'critical' ? 17 : e.significance === 'high' ? 11 : 6; g.beginPath(); g.moveTo(x(e.tick) + 0.5, H - 5); g.lineTo(x(e.tick) + 0.5, H - 5 - hh); g.stroke(); }
+    g.fillStyle = mc('--mark-scene', '#5b9bf0'); for (const s of data.scenes) { const px = x(s.tick); g.beginPath(); g.moveTo(px, TOP + 3); g.lineTo(px + 4, TOP + 7); g.lineTo(px, TOP + 11); g.lineTo(px - 4, TOP + 7); g.closePath(); g.fill(); }
   }
   el.range.addEventListener('pointermove', (ev) => {
     const r = el.range.getBoundingClientRect(); const t = 1 + (ev.clientX - r.left - 2) / (r.width - 4) * 674; let best = null; let bd = 1e9;
@@ -265,9 +264,8 @@ export function createStudioUI({ root, engine, data, onSafe }) {
   };
   ui.setSelection = (tile) => { ui.inspectTile = tile; if (tile) { ui.panelOpen = true; ui.tab = 'inspect'; } renderChrome(); };
   ui.togglePanel = togglePanel; ui.renderChrome = renderChrome; ui.syncMetrics = syncMetrics; ui.drawMarks = drawMarks; ui.setCompare = setCompare; ui.closeMenu = closeMenu; ui.toggleMenu = toggleMenu; ui.syncStyle = syncStyle; ui.chooseStyle = chooseStyle; ui.elements = el;
-  /** the phone (under 760 px) shows one select for the style; the desktop shows the segmented control */
-  const mq = window.matchMedia ? window.matchMedia('(max-width: 760px)') : null; const narrow = () => { const n = !!(mq && mq.matches); segStyle.style.display = n ? 'none' : ''; el.styleSel.style.display = n ? '' : 'none'; };
-  narrow(); if (mq && mq.addEventListener) mq.addEventListener('change', narrow);
+  /** ROUND 2: one two-state control (Day, Night) on every screen; the select of round 1 cost a third of the phone's header */
+  segStyle.style.display = ''; el.styleSel.style.display = 'none';
   renderChrome(); syncMetrics(); syncStyle(); syncCompare(); setTimeout(drawMarks, 0);
   return ui;
 }

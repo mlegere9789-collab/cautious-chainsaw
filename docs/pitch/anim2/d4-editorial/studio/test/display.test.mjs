@@ -53,7 +53,7 @@ test('a seek with no glide is a CUT: the old tiles fade out, the new ones fade i
   e.transport.seek(120, { glide: false }); let cuts = 0; let maxTiles = 0; let sawGhost = false;
   const { bad } = run(e, 60, () => 1000 / 60, (f) => { if (f.stats.cut) cuts++; maxTiles = Math.max(maxTiles, f.tiles.length); if (f.tiles.some((t) => t.life === 'dying')) sawGhost = true; });
   assert.deepEqual(bad, []); assert.equal(cuts, 1, 'exactly one cut frame'); assert.ok(sawGhost, 'old tiles fade rather than vanish');
-  const f = e.frame; assert.ok(f.tiles.every((t) => t.life === 'live'), 'ghosts are gone after the fade'); assert.ok(f.tiles.every((t) => t.opacity > 0.99), 'everything is fully in');
+  run(e, 90); const f = e.frame; assert.ok(f.tiles.every((t) => t.life === 'live'), 'ghosts are gone after the fade'); assert.ok(f.tiles.every((t) => t.opacity > 0.99), 'everything is fully in');
 });
 
 test('a glided seek flies through the paths (no cut), tiles come and go by fades, and every frame is clean', () => {

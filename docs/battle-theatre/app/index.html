@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0d0d18">
+<meta name="bt-home" content="../../../">
+<title>Battle Theatre · Gettysburg, 26 June – 14 July 1863</title>
+<meta name="description" content="Fly over the ground at Gettysburg and move through time from 26 June to 14 July 1863. Evidence tiers, source conflicts and every gap are marked.">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M14.5 5.5 8 12l6.5 6.5M8.5 12H20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M7.5 5.5h3v13h-3zM13.5 5.5h3v13h-3z" fill="currentColor"/></symbol>
+    <symbol id="i-prev" viewBox="0 0 24 24"><path d="M6 5.5v13M18 6l-9 6 9 6z" fill="currentColor" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="i-next" viewBox="0 0 24 24"><path d="M18 5.5v13M6 6l9 6-9 6z" fill="currentColor" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="i-events" viewBox="0 0 24 24"><path d="M5 6.5h14M5 12h14M5 17.5h9" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="19" cy="17.5" r="1.4" fill="currentColor"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s6.5-5.6 6.5-11A6.5 6.5 0 0 0 5.5 10c0 5.4 6.5 11 6.5 11z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="i-scen" viewBox="0 0 24 24"><path d="M6 5v6.5a3 3 0 0 0 3 3h6a3 3 0 0 1 3 3V19M6 5 4 7M6 5l2 2M18 19l-2-2M18 19l2-2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 4 8.5 4.5L12 13 3.5 8.5zM3.5 12.5 12 17l8.5-4.5M3.5 16.5 12 21l8.5-4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 11v5.2M12 7.7v.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 3.8v2.4M12 17.8v2.4M3.8 12h2.4M17.8 12h2.4M6.2 6.2l1.7 1.7M16.1 16.1l1.7 1.7M17.8 6.2l-1.7 1.7M7.9 16.1l-1.7 1.7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6.5 6.5 11 11M17.5 6.5l-11 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 3v2.2M12 18.8V21M3 12h2.2M18.8 12H21M5.6 5.6l1.6 1.6M16.8 16.8l1.6 1.6M18.4 5.6l-1.6 1.6M7.2 16.8l-1.6 1.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.6A7.7 7.7 0 0 1 9.4 4.5a7.7 7.7 0 1 0 10.1 10.1z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18.5h9.5a3.7 3.7 0 0 0 .5-7.4 5.5 5.5 0 0 0-10.6 1.3A3.1 3.1 0 0 0 7 18.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-rain" viewBox="0 0 24 24"><path d="M7 14.5h9.5a3.7 3.7 0 0 0 .5-7.4A5.5 5.5 0 0 0 6.400 8.400 3.100 3.100 0 0 0 7 14.500zM8.500 17.500l-1 2.500M12.500 17.500l-1 2.500M16.500 17.500l-1 2.500" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-focus" viewBox="0 0 24 24"><path d="M4 9V5h4M20 9V5h-4M4 15v4h4M20 15v4h-4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="2.2" fill="currentColor"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="m6 14.500 6-6 6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9.500 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-ext" viewBox="0 0 24 24"><path d="M14 5h5v5M19 5l-8 8M17 14v4a1.500 1.500 0 0 1-1.500 1.500h-9A1.500 1.500 0 0 1 5 18V9a1.500 1.500 0 0 1 1.500-1.500H10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<a class="skip" href="#bt-main-action">Skip to the main control</a>
+
+<!-- Landing: the page the Battle Theatre is entered from. Nothing below creates a renderer, timer or listener until the entry control is used. -->
+<main id="landing" class="landing" aria-labelledby="landing-title">
+  <div class="landing-inner">
+    <p class="kicker">Gettysburg, Pennsylvania &nbsp;·&nbsp; 26 June – 14 July 1863</p>
+    <h1 id="landing-title">Battle Theatre</h1>
+    <p class="lede">Fly over the ground, then move through time: the approach, the three days, the retreat. Every mark says how well the record supports it, and where the sources disagree you choose which account to follow.</p>
+    <div class="landing-actions">
+      <button id="bt-main-action" class="btn btn-primary" type="button" data-bt-enter>Enter the Battle Theatre</button>
+      <a class="btn btn-quiet" id="home-link" href="../../../">Return to the map</a>
+    </div>
+    <p class="status" id="landing-status" role="status" aria-live="polite"></p>
+    <dl class="facts">
+      <div><dt>Ground</dt><dd>Modern terrain: 2022 aerial photograph and 3D Elevation Program elevation. Not the 1863 landscape.</dd></div>
+      <div><dt>Figures</dt><dd>Units, arrival windows and strengths come from the plan's order of battle and ledger. A unit is drawn only where the record gives it a road and a place; the rest are marked <strong>open gap</strong>, and anything filled in is marked plausible-procedural.</dd></div>
+      <div><dt>Time</dt><dd>Local mean time at Gettysburg, with the sun and moon computed for each minute. Night is dimmed, never black.</dd></div>
+    </dl>
+  </div>
+</main>
+
+<!-- The theatre is built from this template on entry and removed whole on exit. -->
+<template id="tpl-theatre">
+<div id="theatre" class="theatre" data-ready="false">
+  <header class="top" role="banner">
+    <button class="btn-back" id="bt-back" type="button"><svg class="ic"><use href="#i-back"/></svg><span>Back</span></button>
+    <h1 class="brand"><span class="brand-main">Battle Theatre</span><span class="brand-sub">Gettysburg 1863</span></h1>
+    <p class="ribbon" id="bt-ribbon"><span class="ribbon-dot" aria-hidden="true"></span><strong>Modelled placeholder</strong><span class="ribbon-long"> · stand-in units and times, not history</span></p>
+    <nav class="tools" aria-label="Tools">
+      <button type="button" class="tool" data-panel="events" aria-expanded="false" aria-controls="bt-drawer"><svg class="ic"><use href="#i-events"/></svg><span>Events</span></button>
+      <button type="button" class="tool" data-panel="views" aria-expanded="false" aria-controls="bt-drawer"><svg class="ic"><use href="#i-pin"/></svg><span>Views</span></button>
+      <button type="button" class="tool" data-panel="scenario" aria-expanded="false" aria-controls="bt-drawer"><svg class="ic"><use href="#i-scen"/></svg><span>Sources</span></button>
+      <button type="button" class="tool" id="bt-overlay-toggle" aria-pressed="false"><svg class="ic"><use href="#i-layers"/></svg><span>Evidence</span></button>
+      <button type="button" class="tool" data-panel="info" aria-expanded="false" aria-controls="bt-drawer"><svg class="ic"><use href="#i-info"/></svg><span>About</span></button>
+      <button type="button" class="tool" data-panel="settings" aria-expanded="false" aria-controls="bt-drawer"><svg class="ic"><use href="#i-gear"/></svg><span>Settings</span></button>
+    </nav>
+  </header>
+
+  <div class="stage" id="bt-stage">
+    <canvas id="bt-canvas" class="gl" tabindex="0" role="application" aria-roledescription="battlefield view" aria-label="Battlefield view. Fly with W A S D, rise and sink with Q and E, look with the arrow keys or by dragging. Press the question mark key for all keys."></canvas>
+    <div class="grade" id="bt-grade" aria-hidden="true"></div>
+    <canvas class="rain" id="bt-rain" aria-hidden="true"></canvas>
+    <canvas class="overlay" id="bt-overlay" aria-hidden="true"></canvas>
+  </div>
+
+  <div class="leftcol" id="bt-left">
+  <section class="clockface" aria-label="Date and conditions">
+    <p class="cf-date" id="bt-date">—</p>
+    <p class="cf-time"><span id="bt-time">--:--</span><span class="cf-sec" id="bt-sec"></span></p>
+    <p class="cf-sub" id="bt-sub">Local mean time</p>
+    <ul class="chips" id="bt-chips" aria-label="Conditions"></ul>
+    <p class="cf-count" id="bt-count" aria-live="off"></p>
+  </section>
+
+  <aside class="card" id="bt-card" hidden role="complementary" aria-labelledby="bt-card-title"></aside>
+
+  <div class="legend" id="bt-legend" hidden aria-label="Evidence marks"></div>
+
+  </div>
+
+  <aside class="drawer" id="bt-drawer" hidden role="complementary" aria-labelledby="bt-drawer-title">
+    <div class="drawer-head"><h2 id="bt-drawer-title">Panel</h2><button type="button" class="icon-btn" id="bt-drawer-close" aria-label="Close panel"><svg class="ic"><use href="#i-close"/></svg></button></div>
+    <div class="drawer-body" id="bt-drawer-body" tabindex="-1"></div>
+  </aside>
+
+
+  <div class="pad" id="bt-pad" aria-hidden="true">
+    <div class="stick" id="bt-stick"><div class="stick-knob"></div></div>
+    <div class="vert"><button type="button" id="bt-rise" tabindex="-1" aria-label="Rise"><svg class="ic"><use href="#i-up"/></svg></button><button type="button" id="bt-sink" tabindex="-1" aria-label="Sink"><svg class="ic"><use href="#i-down"/></svg></button></div>
+  </div>
+
+  <footer class="dock" role="region" aria-label="Time controls">
+    <div class="dock-row">
+      <div class="transport" role="group" aria-label="Playback">
+        <button type="button" class="tbtn" id="bt-prev" aria-label="Previous event"><svg class="ic"><use href="#i-prev"/></svg></button>
+        <button type="button" class="tbtn tbtn-main" id="bt-play" aria-label="Play" aria-pressed="false"><svg class="ic"><use href="#i-play"/></svg></button>
+        <button type="button" class="tbtn" id="bt-next" aria-label="Next event"><svg class="ic"><use href="#i-next"/></svg></button>
+      </div>
+      <div class="speed" role="group" aria-label="Playback speed">
+        <button type="button" class="sbtn" id="bt-slower" aria-label="Slower">−</button>
+        <output class="sval" id="bt-speed" aria-live="polite">1×</output>
+        <button type="button" class="sbtn" id="bt-faster" aria-label="Faster">+</button>
+      </div>
+      <p class="readout" id="bt-readout" aria-hidden="true"></p>
+      <div class="chapter-btns">
+        <button type="button" class="chip-btn" id="bt-chapter" hidden></button>
+      </div>
+    </div>
+    <div class="scrub" id="bt-scrub">
+      <canvas id="bt-strip" aria-hidden="true"></canvas>
+      <input type="range" id="bt-slider" min="0" max="1" step="1" value="0" aria-label="Time">
+    </div>
+  </footer>
+
+  <div class="loading" id="bt-loading" role="status" aria-live="polite"><div class="loading-card"><p class="loading-title">Preparing the field</p><p class="loading-step" id="bt-loading-step">Starting</p><div class="bar"><span id="bt-loading-bar"></span></div></div></div>
+  <p class="sr-only" id="bt-live" role="status" aria-live="polite"></p>
+</div>
+</template>
+
+<script type="module" src="./src/main.mjs"></script>
+</body>
+</html>

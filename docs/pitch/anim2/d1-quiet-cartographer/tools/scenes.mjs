@@ -14,11 +14,12 @@ const SCENES = [
   { id: 's1a', shift: [6, 96], file: 's1a-opening-field-z13.5-t551', tick: 551, lat: 39.81592, lng: -77.23677, zoom: 13.5, safe: true },
   { id: 's1b', shift: [-60, -18], file: 's1b-angle-assault-z15-t556', tick: 556, lat: ANGLE[0], lng: ANGLE[1], zoom: 15, safe: true },
   { id: 's2', shift: [84, -96], file: 's2-wheatfield-rose-woods-z15-t295', tick: 295, lat: 39.7992, lng: -77.2414, zoom: 15, safe: true },
-  { id: 's3', shift: [120, -18], file: 's3-cemetery-hill-z15.5-t346', tick: 346, lat: 39.8189, lng: -77.2262, zoom: 15.5, safe: true },
-  { id: 's4', shift: [102, 6], file: 's4-closeup-selected-z16.5-t551', tick: 551, lat: ANGLE[0], lng: ANGLE[1], zoom: 16.5, safe: true, popups: true, tokens: QUIET_CARDS, select: 'U-71PA', after: `S.host.dismissAll(); S.host.setSelected('U-71PA'); E.select('U-71PA'); adv(90);` },
+  { id: 's3', shift: [-210, -18], file: 's3-cemetery-hill-z15.5-t346', tick: 346, lat: 39.8189, lng: -77.2262, zoom: 15.5, safe: true },
+  { id: 's4', shift: [102, 6], file: 's4-closeup-selected-z16.5-t551', tick: 551, lat: ANGLE[0], lng: ANGLE[1], zoom: 16.5, safe: true, popups: true, tokens: QUIET_CARDS, select: 'U-82NY', after: `S.host.dismissAll(); S.host.setSelected('U-82NY'); E.select('U-82NY'); adv(90);` },
   { id: 's5', file: 's5-phone-z14.5-sheet-t551', vp: [390, 844], mobile: true, tick: 551, lat: ANGLE[0], lng: ANGLE[1], zoom: 14.5, safe: true, popups: true, tokens: QUIET_CARDS, select: 'U-14VT', after: `S.host.dismissAll(); S.host.setSelected('U-14VT'); E.select('U-14VT'); adv(60); S.host.openRail('unit-card:sel-U-14VT'); adv(90);`, crop: [390, 330] },
   { id: 's6', shift: [114, 72], file: 's6-event-and-story-in-situ-t28', tick: 28, lat: HERBST[0], lng: HERBST[1], zoom: 14.5, safe: true, popups: true, pre: true },
-  { id: 's7', shift: [6, 72], file: 's7-legend-t60', tick: 60, lat: 39.8278, lng: -77.2528, zoom: 14.5, safe: true, popups: true, tokens: QUIET_CARDS, after: `S.host.act('legend:legend', 'toggle'); adv(120);` },
+  { id: 's6b', shift: [114, 72], file: 's6b-story-card-in-situ-t28', tick: 28, lat: HERBST[0], lng: HERBST[1], zoom: 14.5, safe: true, popups: true, pre: true, tokens: { 'popup.event.enabled': false, 'popup.toast.enabled': false, 'popup.crossout.enabled': false, 'popup.hints.enabled': false, 'popup.banner.enabled': false } },
+  { id: 's7', shift: [6, 72], file: 's7-legend-t60', tick: 60, lat: 39.8278, lng: -77.2528, zoom: 14.5, safe: true, popups: true, tokens: QUIET_CARDS, after: `S.host.toggleDoc('legend:doc'); adv(120);` },
   { id: 's8', shift: [-90, -114], file: 's8-hover-tooltip-z16-t551', tick: 551, lat: ANGLE[0], lng: ANGLE[1], zoom: 16, safe: true, popups: true, tokens: QUIET_CARDS, after: `const f = E.frame; const t = f.tiles.filter((q) => q.solid && q.kind === 'leaf' && q.opacity > 0.99).sort((a, b) => Math.hypot(a.x + f.view.dx - 560, a.y + f.view.dy - 380) - Math.hypot(b.x + f.view.dx - 560, b.y + f.view.dy - 380))[0]; window.__skinKit.setHover(t.key); S.host.setHover({ key: t.key, since: -9e6, x: 0, y: 0 }); adv(90); return t.key;` },
 ];
 

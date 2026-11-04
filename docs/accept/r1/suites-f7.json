@@ -1,0 +1,630 @@
+{
+ "finished": "see file mtime",
+ "seconds": 6675,
+ "portBase": "8480",
+ "totals": {
+  "suites": 26,
+  "ok": 18,
+  "notOk": 8,
+  "greenTests": 398,
+  "greenTestsTotal": 421,
+  "redProofs": 0,
+  "redProofsOk": 0,
+  "redTestsRedAsRequired": 0
+ },
+ "results": [
+  {
+   "id": "journeys.R1c",
+   "title": "desktop journeys J1-J8, inputs, group A, group B on R1c",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 204.7,
+   "passed": 41,
+   "total": 41,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 16,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"tile requests in the shared session\":6,\"ignored tile noise\":{\"tile\":28,\"telemetry\":0}}",
+    "journeys-desktop: 41/41 passed",
+    "mapbox requests used this run: 16 of 300 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "deeplinks.R1c",
+   "title": "deep links, moments.json, Turning Points (X7)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 155.8,
+   "passed": 11,
+   "total": 12,
+   "skipped": 0,
+   "failed": 1,
+   "tiles": 35,
+   "failLines": [
+    "FAIL  T0-DL-06     moments.json v0: 9 Turning Points + 8 markers + 5 tour stops, ids unique, every row unreviewed, every tick within +-3 of a chronology event, Ewell/Night Assault provisional"
+   ],
+   "ok": false,
+   "tail": [
+    "      {\"phone camera\":{\"center\":[-77.2359,39.7918],\"zoom\":15.5},\"?ancestor= opens the Follow panel on the phone\":true,\"junk link tick 1\":true}",
+    "deeplinks: 11/12 passed, 1 FAILED",
+    "mapbox requests used this run: 35 of 300 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "desktop.R1c",
+   "title": "desktop fixes T0-DF-01..09 (group A2) on R1c",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 96.8,
+   "passed": 10,
+   "total": 10,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 10,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"tile requests in the shared session\":10,\"ignored tile noise\":{\"tile\":0,\"telemetry\":0}}",
+    "desktop-fixes: 10/10 passed",
+    "mapbox requests used this run: 10 of 300 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "mobile.R1c",
+   "title": "mobile shell matrix (X5) on R1c: portrait, landscape, misc, touch slices",
+   "kind": "green",
+   "inverted": false,
+   "parts": [
+    {
+     "exit": 0,
+     "seconds": 228.6,
+     "passed": 6,
+     "total": 6,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": 58,
+     "tail": []
+    },
+    {
+     "exit": 0,
+     "seconds": 102.8,
+     "passed": 6,
+     "total": 6,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": 33,
+     "tail": []
+    },
+    {
+     "exit": 0,
+     "seconds": 49.4,
+     "passed": 4,
+     "total": 4,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": null,
+     "tail": []
+    },
+    {
+     "exit": 0,
+     "seconds": 111.5,
+     "passed": 3,
+     "total": 3,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": null,
+     "tail": []
+    }
+   ],
+   "exit": 0,
+   "seconds": 228.6,
+   "passed": 19,
+   "total": 19,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 58,
+   "ok": true,
+   "failLines": []
+  },
+  {
+   "id": "mobilefix.R1c",
+   "title": "mobile + shell fixes T0-MFIX-01..12 on R1c: three viewport slices and the desktop-shell slice",
+   "kind": "green",
+   "inverted": false,
+   "parts": [
+    {
+     "exit": 0,
+     "seconds": 360.1,
+     "passed": 8,
+     "total": 8,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": 60,
+     "tail": []
+    },
+    {
+     "exit": 0,
+     "seconds": 235.3,
+     "passed": 8,
+     "total": 8,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": 15,
+     "tail": []
+    },
+    {
+     "exit": 0,
+     "seconds": 274.6,
+     "passed": 10,
+     "total": 10,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": 35,
+     "tail": []
+    },
+    {
+     "exit": 0,
+     "seconds": 105.4,
+     "passed": 3,
+     "total": 3,
+     "skipped": 0,
+     "failed": 0,
+     "tiles": 41,
+     "tail": []
+    }
+   ],
+   "exit": 0,
+   "seconds": 360.1,
+   "passed": 29,
+   "total": 29,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 60,
+   "ok": true,
+   "failLines": []
+  },
+  {
+   "id": "perf.R1c",
+   "title": "perf PF-01..10 on R1c (PF-01..06 skip on R0: no PERF group by design)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 40.6,
+   "passed": 10,
+   "total": 10,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  PF-10        a browser without KHR_parallel_shader_compile (hidden by an init script): the app boots and draws as before, the precompile stays out of the way (nothing precompiled, no exception)",
+    "      {\"without KHR_parallel_shader_compile\":{\"parallel\":false,\"precompiled\":0,\"onDemand\":5,\"counts\":{\"b1863-ground\":0,\"b1863-wide\":0,\"b1863-detail\":0,\"b1863-changed\":0,\"b1863-changed-detail\":0,\"roads",
+    "perf-fixes: 10/10 passed"
+   ]
+  },
+  {
+   "id": "a11y.R1c",
+   "title": "a11y bridge on R1c",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 495.2,
+   "passed": 26,
+   "total": 28,
+   "skipped": 2,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "SKIP  T0-A11Y-27   Lighthouse accessibility category on / (first visit; mobile and desktop presets): 100 on trains that carry group AX, and the audits that fail otherwise are named (needs --lighthouse",
+    "      Lighthouse is not installed in this repo: pass --lighthouse <dir of an npm install of lighthouse> (or T0_LIGHTHOUSE) to run it",
+    "a11y-bridge: 26/28 passed, 2 skipped"
+   ]
+  },
+  {
+   "id": "a11y.R1c.tiles",
+   "title": "a11y with real tiles (A11Y-14, production Referer, capped)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 22.5,
+   "passed": 1,
+   "total": 1,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  T0-A11Y-14   real tiles: axe on the loaded desktop map with the production Referer (<= T0_TILE_CAP Mapbox requests) - 0 serious/critical; playback with reduced motion ON and OFF draws and advanc",
+    "      {\"tiles\":{\"seen\":5,\"statuses\":{\"200\":5,\"204\":3},\"referers\":[\"https://gettysburginteractivemap.com/\"]},\"axe with map\":{\"loaded\":[],\"help\":[],\"search\":[]},\"playback 3 s at 1x\":{\"reduce\":{\"mode\":\"r",
+    "a11y-bridge: 1/1 passed"
+   ]
+  },
+  {
+   "id": "copy.R1c",
+   "title": "truthful-copy subset (CP-01..04: copy rows, Help rows, the keyboard-route row)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 64.2,
+   "passed": 4,
+   "total": 4,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  T0-CP-04     Help text: the desktop list keeps the held arrow and Esc rows and adds \"Tab to the map\" (arrows pan once the map has keyboard focus); the phone shell shows touch controls, not the k",
+    "      {\"desktop Help rows\":{\"0\":\"Reset to 1x speed\",\"1\":\"Jump to the July 1 tab, about 5:00 AM\",\"2\":\"Jump to the July 2 tab, about 4:30 AM\",\"3\":\"Jump to the July 3 tab, about 4:15 AM\",\"Space\":\"Play / ",
+    "copy-truthful-subset: 4/4 passed"
+   ]
+  },
+  {
+   "id": "pagescore.R1c",
+   "title": "page defect pack PGC-01..27 on R1c",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 312.3,
+   "passed": 28,
+   "total": 28,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 0,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  T0-PGC-27    legacy/ untouched: git reports no change under legacy/ and the pinned tree gate passes",
+    "pages-core: 28/28 passed",
+    "mapbox requests used this run: 0 of 300"
+   ]
+  },
+  {
+   "id": "pagescore.R1c.real",
+   "title": "PGC-28 Watch Together + Immersive with the real Mapbox library",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 3,
+   "passed": 1,
+   "total": 1,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 18,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"WT mapbox requests so far\":3,\"mapbox requests used\":18}",
+    "pages-core: 1/1 passed",
+    "mapbox requests used this run: 18 of 300"
+   ]
+  },
+  {
+   "id": "pagescore.R1c.full",
+   "title": "PGC-01 duplicate-id sweep of every page under 0/300/1500/4000 ms data delay (X11)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 309.1,
+   "passed": 1,
+   "total": 1,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 0,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"pages with a problem\":{}}",
+    "pages-core: 1/1 passed",
+    "mapbox requests used this run: 0 of 300"
+   ]
+  },
+  {
+   "id": "pagesmaps.R1c",
+   "title": "map sub-pages, og card, manifest (PG-01..08) on R1c",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 75,
+   "passed": 34,
+   "total": 34,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 104,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"skipped\":\"pass --online to re-fetch\"}",
+    "T0-PG (map pages, og/manifest): 34/34 passed",
+    "mapbox requests used this run: 104 of 300 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "pagesfix.R1c",
+   "title": "sub-page fixes T0-PGF-01..19 on R1c (axe 0 serious/critical on 25 pages at 1440/375/320, no overflow, targets, focus rings; PGF-14 skips without the opt-in PG-legal table)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 595,
+   "passed": 20,
+   "total": 21,
+   "skipped": 1,
+   "failed": 0,
+   "tiles": 15,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"server requests for /icons/icon-192.png on one load of index.html (cache rule public, max-age=86400; DevTools lists a second, cache-served entry for the link icon and the manifest icon)\":0}",
+    "pages-fixes: 20/21 passed, 1 skipped",
+    "mapbox requests used this run: 15 of 300"
+   ]
+  },
+  {
+   "id": "pagesfix.R1c.legal",
+   "title": "T0-PGF-14 on R1c built with the opt-in PG-legal group (the privacy table is keyboard-reachable)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 2.6,
+   "passed": 1,
+   "total": 1,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 0,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  T0-PGF-14    Privacy: a table that scrolls sideways can be reached with the keyboard (focusable, named region)",
+    "pages-fixes: 1/1 passed",
+    "mapbox requests used this run: 0 of 300"
+   ]
+  },
+  {
+   "id": "r1.clock",
+   "title": "CLOCK: one clock for the whole site (T0-CLK-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 483.6,
+   "passed": 18,
+   "total": 18,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  T0-CLK-16    node tools/t0/clock/build-clock.mjs --check: patches-next/CLOCK.json is exactly what the anchors generate, and the derived time modules are current",
+    "      {\"output\":[\"ok   node tools/time/build.mjs --check :: generated files current (8)\",\"ok   node tools/time/build-clock-patches.mjs :: 113 patches (3 regex) -> tools/t0/patches-next/CLOCK.json unch",
+    "clock: 18/18 passed"
+   ]
+  },
+  {
+   "id": "r1.data",
+   "title": "DATA: audited displayed data (T0-DATA-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 38,
+   "passed": 18,
+   "total": 18,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  T0-DATA-X    every browser test of this run: 0 first-party console errors",
+    "      {\"browser sessions opened\":4}",
+    "data: 18/18 passed"
+   ]
+  },
+  {
+   "id": "r1.monuments",
+   "title": "MON: the Monuments layer (MONL-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 215.7,
+   "passed": 19,
+   "total": 20,
+   "skipped": 0,
+   "failed": 1,
+   "tiles": 300,
+   "failLines": [
+    "FAIL  T0-MONL-12   the Walkthrough is untouched: its code and data are byte-identical to the same train without MON; with the layer on it opens, keeps its own 512 dots (no gtmon layer), lists 100 of 512, searches; \"Open in Walkthrough list\" opens the Monuments tab with the name typed in; Back returns"
+   ],
+   "ok": false,
+   "tail": [
+    "      {\"tile requests in the desktop session\":300,\"ignored tile noise\":{\"tile\":1819,\"telemetry\":0}}",
+    "monuments: 19/20 passed, 1 FAILED",
+    "mapbox requests used this run: 300 of 300 (blocked by cap: 786)"
+   ]
+  },
+  {
+   "id": "r1.verifymon",
+   "title": "MON verifier tests (VMON-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 425,
+   "passed": 12,
+   "total": 16,
+   "skipped": 1,
+   "failed": 3,
+   "tiles": null,
+   "failLines": [
+    "FAIL  T0-VMON-10   [low] phone 320x568 and 812x375: an open card sheet does not cover the Browse monuments control",
+    "FAIL  T0-VMON-14   [medium] every story star lies within 500 m of one of the 512 monuments (3 of 20 do not: Iron Brigade 2.0 km, Reynolds Death Site 2.1 km, 26th North Carolina 1.5 km)",
+    "FAIL  T0-VMON-15   [medium] phone: the open Browse monuments list lies inside the window and the rows it shows can be tapped (320x568: bottom 571 > 568 and 0 of 6 shown rows tappable; 375x812: 5 of 7; 812x375: bottom 434 > 375 and 1 of 4)"
+   ],
+   "ok": false,
+   "tail": [
+    "PASS  T0-VMON-17   [low] after the phone tile switches the layer OFF it stays off when the user goes back to the desktop layout (it switches itself on again: phone on -> Desktop View -> button on -> P",
+    "      {\"rows\":[{\"label\":\"phone, layer on through the tile\",\"shell\":\"phone\",\"layerOn\":true,\"toolbarPressed\":null},{\"label\":\"Desktop View\",\"shell\":\"desktop\",\"layerOn\":false,\"toolbarPressed\":\"false\"},{\"l",
+    "verify-monuments: 12/16 passed, 1 skipped, 3 FAILED"
+   ]
+  },
+  {
+   "id": "r1.anim",
+   "title": "ANIM: continuous unit motion (T0-ANIM-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 354.1,
+   "passed": 21,
+   "total": 23,
+   "skipped": 1,
+   "failed": 1,
+   "tiles": null,
+   "failLines": [
+    "FAIL  T0-ANIM-B11  cost: 60 fps on the densest tick (desktop), 30 fps or more at 4x CPU on a phone, no long task above 50 ms, memory flat over 3 minutes"
+   ],
+   "ok": false,
+   "tail": [
+    "PASS  T0-ANIM-X    every browser test of this run: 0 uncaught exceptions and 0 first-party console.error",
+    "      {\"first-party errors of the shared session\":0}",
+    "anim: 21/23 passed, 1 skipped, 1 FAILED"
+   ]
+  },
+  {
+   "id": "r1.base1863",
+   "title": "BASE1863: the 1863 reconstruction as the map base (B63-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 132.1,
+   "passed": 11,
+   "total": 12,
+   "skipped": 0,
+   "failed": 1,
+   "tiles": 60,
+   "failLines": [
+    "FAIL  T0-B63-11    static: the group's anchors matched once each, the Walkthrough span is byte-identical to the control, its own map still names the Mapbox style (untouched), nothing else names a satellite style, the tile set is complete"
+   ],
+   "ok": false,
+   "tail": [
+    "      {\"ignored tile noise\":{\"tile\":0,\"telemetry\":0}}",
+    "base1863: 11/12 passed, 1 FAILED",
+    "mapbox requests used this run: 60 of 300 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "r1.images",
+   "title": "IMG: only real images of Gettysburg (T0-RIMG-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 9.4,
+   "passed": 12,
+   "total": 13,
+   "skipped": 0,
+   "failed": 1,
+   "tiles": null,
+   "failLines": [
+    "FAIL  T0-RIMG-08   no hot-linked images; the user guide PDF embeds no picture; inline SVG is UI glyphs or charts only"
+   ],
+   "ok": false,
+   "tail": [
+    "PASS  T0-RIMG-11   reproducible: build_images.py --check (committed derivatives and ledger equal what the verified sources give)",
+    "PASS  T0-RIMG-X    the Chrome pass had 0 uncaught exceptions and 0 first-party console errors",
+    "images: 12/13 passed, 1 FAILED"
+   ]
+  },
+  {
+   "id": "r1.polish",
+   "title": "POLISH: one name per feature, layout, targets, welcome window, historian scroll (T0-POL-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 1396.8,
+   "passed": 7,
+   "total": 13,
+   "skipped": 4,
+   "failed": 2,
+   "tiles": null,
+   "failLines": [
+    "FAIL  T0-POL-02    desktop layout: no card, rail, control or logo overlaps another at 1024..1920 wide (mouse and touch), over every story tick and a third of the event ticks; with a unit card open too",
+    "FAIL  T0-POL-04    phone and tablet shell, portrait and landscape: legend, overview, cards, header and the Mapbox logo never overlap; the logo stays visible above the cards"
+   ],
+   "ok": false,
+   "tail": [
+    "PASS  T0-POL-13    the User Guide link and Toggle Units are reachable at 360, 390, 768, 1024, 1320, 1440 and 1920 wide, mouse and touch: in the toolbar where it has room, otherwise in the More to Expl",
+    "      {\"homes\":\"360x740 touch mobile: guide tools, units tools; 390x844 touch mobile: guide tools, units tools; 768x1024 touch mobile: guide tools, units tools; 1024x768 touch desktop: guide menu, uni",
+    "T0-POL: 7/13 passed, 4 skipped, 2 FAILED"
+   ]
+  },
+  {
+   "id": "r1.perf2",
+   "title": "PERF2: compare/precompile/roster performance (T0-P2-*) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 1,
+   "seconds": 465.9,
+   "passed": 10,
+   "total": 12,
+   "skipped": 1,
+   "failed": 1,
+   "tiles": null,
+   "failLines": [
+    "FAIL  T0-P2-06     app (phone): the Tools sheet and the Unit Roster tile open without a long task and within 100 ms of the tap"
+   ],
+   "ok": false,
+   "tail": [
+    "SKIP  T0-P2-12     the group builds with the unmodified builder after POLISH, with and without ANIM in either order, standalone on CLOCK,DATA,MON, and gives one entry bundle whichever way ANIM is orde",
+    "      pass --build (about 5 minutes)",
+    "perf2: 10/12 passed, 1 skipped, 1 FAILED"
+   ]
+  },
+  {
+   "id": "walkguard.R1c",
+   "title": "walkthrough guard T0-WG-01..17 on R1c (every difference from production is a named capability of a group this train has; anything else fails)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 113.1,
+   "passed": 17,
+   "total": 18,
+   "skipped": 1,
+   "failed": 0,
+   "tiles": 152,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"tree\":\"R1c\",\"shared desktop session: tile requests\":130,\"animated map boot tile requests\":5,\"mapbox requests used this run\":\"152 of 300\"}",
+    "walkthrough-guard: 17/18 passed, 1 skipped",
+    "tree R1c (release 265a0984): mapbox requests used this run: 152 of 300 (blocked by cap: 0)"
+   ]
+  },
+  {
+   "id": "headers.R1c",
+   "title": "R1c generated _headers/_redirects + real-Chrome framing and CSP crawl",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 76.1,
+   "passed": 17,
+   "total": 18,
+   "skipped": 1,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "SKIP  HDR-23       ONLINE (--online): the Virtual Walkthrough opens the REAL Google Street View frame and logs no permissions-policy error; the same page without the allow attribute logs it (control)",
+    "      --online not given (this test loads https://www.google.com/maps/embed from the Walkthrough, about two page loads of the embed)",
+    "headers: 17/18 passed, 1 skipped"
+   ]
+  }
+ ]
+}

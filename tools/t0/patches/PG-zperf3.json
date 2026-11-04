@@ -1,0 +1,15 @@
+{
+ "group": "PG-zperf3",
+ "description": "CANDIDATE until registered (tools/t0/PERF3-README.md), page part 2: one patch on index.html text that PG-polish writes, so the group name sorts after PG-polish and PG-polish-legal.",
+ "train": "R1d",
+ "patches": [
+  {
+   "id": "PERF3-evt-height-raf",
+   "target": "index.html",
+   "find": "      function scan() {\n        var el = document.querySelector('[data-gtbg-card=\"1\"]');\n        if (el !== cur) { if (ro && cur) ro.unobserve(cur); cur = el; if (ro && el) ro.observe(el); }\n        set(el ? Math.ceil(el.getBoundingClientRect().height) : 0);\n      }",
+   "repl": "      var rafId = 0;\n      function measure() { rafId = 0; set(cur ? Math.ceil(cur.getBoundingClientRect().height) : 0); }\n      function scan() {\n        var el = document.querySelector('[data-gtbg-card=\"1\"]');\n        if (el !== cur) { if (ro && cur) ro.unobserve(cur); cur = el; if (ro && el) ro.observe(el); }\n        if (!rafId) rafId = requestAnimationFrame(measure);      // PERF3: one read per frame, in the frame (this ran after every React commit, inside the click, and read the height of the card: a forced style and layout of the page, 47 ms at 4x CPU on a date jump)\n      }",
+   "expect": 1,
+   "note": "The event-card height tracker (--gt-evt-h) is read in the next animation frame, once, instead of inside the mutation-observer callback that follows every React commit."
+  }
+ ]
+}

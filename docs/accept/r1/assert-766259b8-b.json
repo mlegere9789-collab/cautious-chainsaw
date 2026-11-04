@@ -1,0 +1,455 @@
+{
+ "candidate": "tmp\\r1\\f1\\dist",
+ "ran": 23,
+ "failed": 0,
+ "skipped": 0,
+ "validWaivers": [
+  "W-screenshot-watch-together",
+  "W-text-index-1440",
+  "W-controls-index-1440",
+  "W-screenshot-index-1440",
+  "W-screenshot-index-390"
+ ],
+ "invalidWaivers": [],
+ "results": [
+  {
+   "waiver": "W-screenshot-watch-together",
+   "defects": [
+    "D53"
+   ],
+   "assertion": "ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "29 patch(es) on watch-together.html: all listed; further groups with a recorded decision: CLOCK, PG-polish, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-watch-together",
+   "defects": [
+    "D53"
+   ],
+   "assertion": "shared-layer-linked",
+   "type": "contains",
+   "status": "PASS",
+   "detail": "candidate watch-together.html contains //site-nav\\.css\\?v=[0-9a-f]{8}/"
+  },
+  {
+   "waiver": "W-screenshot-watch-together",
+   "defects": [
+    "D53"
+   ],
+   "assertion": "text-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/watch-together@1440: 1 published line(s) gone; 1 of them changed by CLOCK+PG-polish+PG-zimg+DATA and substituted (REVIEW LIST in --json); 0 replacement line(s) present",
+   "review": {
+    "route": "/watch-together",
+    "vp": 1440,
+    "groups": [
+     "CLOCK",
+     "PG-polish",
+     "PG-zimg",
+     "DATA"
+    ],
+    "lost": [
+     "✓ Live Sync below connects two browsers directly to each other (peer-to-peer, over WebRTC) using a free public connection broker -- no account or server of ours involved. One person starts a session and shares a 5-letter code; anyone who enters it sees the same tick move on their own screen in real time. Because it depends on a third-party public broker rather than infrastructure we run, treat it as best-effort -- if it's ever down, Export tour / Import tour below is the reliable fallback for sharing a tour asynchronously."
+    ],
+    "gained": [
+     "✓ Live Sync below connects two browsers directly to each other (peer-to-peer, over WebRTC) using a free public connection broker -- no account or server of ours involved. One person starts a session and shares a 5-letter code; anyone who enters it sees the same moment move on their own screen in real time. Because it depends on a third-party public broker rather than infrastructure we run, treat it as best-effort -- if it's ever down, Export tour / Import tour below is the reliable fallback for sharing a tour asynchronously."
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-watch-together",
+   "defects": [
+    "D53"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/watch-together@1440: 1 published control(s) without a same-name counterpart; 1 changed by CLOCK+PG-polish+PG-zimg+DATA and re-named/moved (REVIEW LIST in --json); replacements present",
+   "review": {
+    "route": "/watch-together",
+    "vp": 1440,
+    "groups": [
+     "CLOCK",
+     "PG-polish",
+     "PG-zimg",
+     "DATA"
+    ],
+    "lost": [
+     "input|Tick (1-675)"
+    ],
+    "added": [
+     "input|frame number",
+     "input|↑ Import tour"
+    ]
+   }
+  },
+  {
+   "waiver": "W-screenshot-watch-together",
+   "defects": [
+    "D53"
+   ],
+   "assertion": "no-overflow-390",
+   "type": "overflow",
+   "status": "PASS",
+   "detail": "/watch-together@390: document scrollWidth 390 (limit 390)"
+  },
+  {
+   "waiver": "W-screenshot-watch-together",
+   "defects": [
+    "D53"
+   ],
+   "assertion": "screenshot-budget-1440",
+   "type": "screens-budget",
+   "status": "PASS",
+   "detail": "watch-together@1440: 1.577 % differ (budget 2.4 %), page height 1467 -> 1497 (+30; budget +-60)"
+  },
+  {
+   "waiver": "W-text-index-1440",
+   "defects": [
+    "D44",
+    "D47"
+   ],
+   "assertion": "page-ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "65 patch(es) on index.html: all listed; further groups with a recorded decision: DATA, PG-perf2, PG-polish, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-text-index-1440",
+   "defects": [
+    "D44",
+    "D47"
+   ],
+   "assertion": "bundle-ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "457 patch(es) on js, help, book, css: all listed; further groups with a recorded decision: CLOCK, DATA, MON, ANIM, POLISH, PERF2, BASE1863; required replacements present"
+  },
+  {
+   "waiver": "W-text-index-1440",
+   "defects": [
+    "D44",
+    "D47"
+   ],
+   "assertion": "no-chooser-and-layout-override",
+   "type": "browser:no-chooser",
+   "status": "PASS",
+   "detail": "no chooser at 1440 (layout desktop) and 390 (layout mobile); ?layout=desktop works and Phone view returns: 1440px -> desktop; 390px -> mobile; 390px ?layout=desktop -> desktop, Phone view control visible; after Phone view -> mobile"
+  },
+  {
+   "waiver": "W-text-index-1440",
+   "defects": [
+    "D44",
+    "D47"
+   ],
+   "assertion": "desktop-replacements",
+   "type": "browser:index-desktop",
+   "status": "PASS",
+   "detail": "HUD July 3, 1863 -> July 1, 1863; minimap 27 units at the first moment (published 72); guide link \"Download Website Tutorial PDF\" -> \"User Guide (PDF)The printable guide to every control and feature.\", same href and download; timeline slider named \"Battle time\" 1..675, valuetext \"July 1, about 5:00 AM\" (published: unnamed \"0\"); no sound button; \"1x (real time)\" -> \"1x (base speed)\""
+  },
+  {
+   "waiver": "W-text-index-1440",
+   "defects": [
+    "D44",
+    "D47"
+   ],
+   "assertion": "lines-1440",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/@1440: 35 published line(s) gone; 30 of them changed by CLOCK+DATA+MON+ANIM+POLISH+PERF2+BASE1863+PG-perf2+PG-polish+PG-zimg and substituted (REVIEW LIST in --json); 4 replacement line(s) present",
+   "review": {
+    "route": "/",
+    "vp": 1440,
+    "groups": [
+     "CLOCK",
+     "DATA",
+     "MON",
+     "ANIM",
+     "POLISH",
+     "PERF2",
+     "BASE1863",
+     "PG-perf2",
+     "PG-polish",
+     "PG-zimg"
+    ],
+    "lost": [
+     "Extra Features",
+     "July 1, 6:00 AM",
+     "© Mapbox © OpenStreetMap Improve this map © Maxar",
+     "Disposition",
+     "Sides",
+     "Size",
+     "Line of Battle",
+     "Holding position",
+     "Charging Line",
+     "Advancing to attack",
+     "Skirmish Line",
+     "Screening / scouting",
+     "Chaotic Retreat",
+     "Broken and falling back",
+     "Line of March",
+     "Moving toward action",
+     "Reserve",
+     "Held back awaiting orders",
+     "Bivouac",
+     "Encamped overnight",
+     "Deployed Artillery",
+     "Guns in battery, firing",
+     "Limbered Artillery",
+     "Guns moving",
+     "Mounted Cavalry",
+     "Cavalry in formation",
+     "Dismounted Cavalry",
+     "Cavalry fighting on foot",
+     "July 1, 6:00 AM",
+     "Tick 1/675"
+    ],
+    "gained": [
+     "Skip to the map",
+     "Skip to the timeline controls",
+     "Gettysburg Animated Battlefield Map",
+     "More to Explore",
+     "about 5:00 AM",
+     "User Guide (PDF)",
+     "Reconstruction, not a photograph. USDA NAIP 2013, USGS, Library of Congress, NPS, OpenStreetMap contributors",
+     "Reconstruction of July 1863 (USGS imagery and period maps), not a photograph",
+     "Show what was changed",
+     "Sources and licences",
+     "What the marks say",
+     "Union (order of battle)",
+     "DOCUMENTED",
+     "Confederate (order of battle)",
+     "DOCUMENTED",
+     "Side unknown: hatched, never a side colour",
+     "CONTESTED",
+     "Both sides in one standard",
+     "COMPUTED",
+     "A flag flies toward the enemy: Union to the right, Confederate to the left",
+     "DESIGN",
+     "Infantry: a square-ended flag",
+     "DOCUMENTED",
+     "Cavalry: a swallow-tailed flag",
+     "DOCUMENTED",
+     "Artillery: an arrow-ended flag",
+     "DOCUMENTED",
+     "Formation record (brigade, division, corps): a larger standard, no arm claimed",
+     "DOCUMENTED",
+     "Solid cloth: the latest keyframe is under half a battle day old",
+     "COMPUTED",
+     "Hollow cloth: a battle day or more old, carried forward",
+     "COMPUTED",
+     "A number in a flag: the placement records it stands for, never men",
+     "COMPUTED",
+     "Italic code: no order-of-battle record, name from the id alone",
+     "UNKNOWN",
+     "A ring on the ground round the pole: the selected mark (from zoom 15 it also grows its name)",
+     "DESIGN",
+     "Bar under a regiment flag: placement strength over reference, full",
+     "MODELLED",
+     "The same at 40 %: a placement value, not casualties",
+     "MODELLED",
+     "27 units · about 5:00 AM",
+     "July 1, 1863",
+     "1x (base speed)",
+     "July 1, about 5:00 AM",
+     "about 5:00 AM"
+    ]
+   }
+  },
+  {
+   "waiver": "W-text-index-1440",
+   "defects": [
+    "D44",
+    "D47"
+   ],
+   "assertion": "lines-390",
+   "type": "lines",
+   "status": "PASS",
+   "detail": "/@390: 33 published line(s) gone; 2 of them changed by CLOCK+DATA+MON+ANIM+POLISH+PERF2+BASE1863+PG-perf2+PG-polish+PG-zimg and substituted (REVIEW LIST in --json); 1 replacement line(s) present",
+   "review": {
+    "route": "/",
+    "vp": 390,
+    "groups": [
+     "CLOCK",
+     "DATA",
+     "MON",
+     "ANIM",
+     "POLISH",
+     "PERF2",
+     "BASE1863",
+     "PG-perf2",
+     "PG-polish",
+     "PG-zimg"
+    ],
+    "lost": [
+     "6:00 AM",
+     "Tick 1/675"
+    ],
+    "gained": [
+     "Skip to the map",
+     "Skip to the timeline controls",
+     "Gettysburg Animated Battlefield Map",
+     "Reconstruction of July 1863 (USGS imagery and period maps), not a photograph",
+     "Show what was changed",
+     "Sources and licences",
+     "about 5:00 AM",
+     "about 5:00 AM"
+    ]
+   }
+  },
+  {
+   "waiver": "W-controls-index-1440",
+   "defects": [
+    "D45",
+    "D48"
+   ],
+   "assertion": "bundle-ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "457 patch(es) on js, help, book, css: all listed; further groups with a recorded decision: CLOCK, DATA, MON, ANIM, POLISH, PERF2, BASE1863; required replacements present"
+  },
+  {
+   "waiver": "W-controls-index-1440",
+   "defects": [
+    "D45",
+    "D48"
+   ],
+   "assertion": "controls-1440",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/@1440: 12 published control(s) without a same-name counterpart; 9 changed by CLOCK+DATA+MON+ANIM+POLISH+PERF2+BASE1863+PG-perf2+PG-polish+PG-zimg and re-named/moved (REVIEW LIST in --json); replacements present",
+   "review": {
+    "route": "/",
+    "vp": 1440,
+    "groups": [
+     "CLOCK",
+     "DATA",
+     "MON",
+     "ANIM",
+     "POLISH",
+     "PERF2",
+     "BASE1863",
+     "PG-perf2",
+     "PG-polish",
+     "PG-zimg"
+    ],
+    "lost": [
+     "button|Hide Extra Features menu",
+     "button|Extra Features ▾",
+     "a|© Mapbox",
+     "a|© OpenStreetMap",
+     "a|Improve this map",
+     "a|© Maxar",
+     "button|Disposition",
+     "button|Sides",
+     "button|Size"
+    ],
+    "added": [
+     "a|Skip to the map",
+     "a|Skip to the timeline controls",
+     "button|Hide the More to Explore menu",
+     "button|More to Explore ▾",
+     "a|User Guide (PDF)",
+     "a|Mapbox homepage",
+     "button|Show what was changed",
+     "a|Sources and licences",
+     "input|Battle time"
+    ]
+   }
+  },
+  {
+   "waiver": "W-controls-index-1440",
+   "defects": [
+    "D45",
+    "D48"
+   ],
+   "assertion": "controls-390",
+   "type": "controls",
+   "status": "PASS",
+   "detail": "/@390: 12 published control(s) without a same-name counterpart; all documented; replacements present"
+  },
+  {
+   "waiver": "W-controls-index-1440",
+   "defects": [
+    "D45",
+    "D48"
+   ],
+   "assertion": "phone-shell-rehoming",
+   "type": "browser:phone-shell",
+   "status": "PASS",
+   "detail": "14 Tools tiles present; More tools page links == desktop Extra Features menu page links (19 links); \"Search\" opens a panel; \"Filter\" opens Filters; \"Order of Battle\" opens Order of Battle; \"Unit Roster\" opens All Battle Units; \"Soldier's View\" opens a dialog; \"Follow Ancestor\" opens a dialog; \"Map Layers\" opens Map Layers; \"Virtual Walkthrough\" opens a dialog; \"Legend\" opens Legend; \"Bookmarks\" opens a dialog; \"Help\" opens a dialog; \"Ask the Historian\" opens /historian.html; \"Desktop View\" opens Phone view"
+  },
+  {
+   "waiver": "W-screenshot-index-1440",
+   "defects": [
+    "D46"
+   ],
+   "assertion": "page-ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "65 patch(es) on index.html: all listed; further groups with a recorded decision: DATA, PG-perf2, PG-polish, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-index-1440",
+   "defects": [
+    "D46"
+   ],
+   "assertion": "no-chooser-and-layout-override",
+   "type": "browser:no-chooser",
+   "status": "PASS",
+   "detail": "no chooser at 1440 (layout desktop) and 390 (layout mobile); ?layout=desktop works and Phone view returns: 1440px -> desktop; 390px -> mobile; 390px ?layout=desktop -> desktop, Phone view control visible; after Phone view -> mobile"
+  },
+  {
+   "waiver": "W-screenshot-index-1440",
+   "defects": [
+    "D46"
+   ],
+   "assertion": "desktop-replacements",
+   "type": "browser:index-desktop",
+   "status": "PASS",
+   "detail": "HUD July 3, 1863 -> July 1, 1863; minimap 27 units at the first moment (published 72); guide link \"Download Website Tutorial PDF\" -> \"User Guide (PDF)The printable guide to every control and feature.\", same href and download; timeline slider named \"Battle time\" 1..675, valuetext \"July 1, about 5:00 AM\" (published: unnamed \"0\"); no sound button; \"1x (real time)\" -> \"1x (base speed)\""
+  },
+  {
+   "waiver": "W-screenshot-index-390",
+   "defects": [
+    "D49"
+   ],
+   "assertion": "page-ledger",
+   "type": "ledger",
+   "status": "PASS",
+   "detail": "65 patch(es) on index.html: all listed; further groups with a recorded decision: DATA, PG-perf2, PG-polish, PG-zimg; required replacements present"
+  },
+  {
+   "waiver": "W-screenshot-index-390",
+   "defects": [
+    "D49"
+   ],
+   "assertion": "no-chooser-and-layout-override",
+   "type": "browser:no-chooser",
+   "status": "PASS",
+   "detail": "no chooser at 1440 (layout desktop) and 390 (layout mobile); ?layout=desktop works and Phone view returns: 1440px -> desktop; 390px -> mobile; 390px ?layout=desktop -> desktop, Phone view control visible; after Phone view -> mobile"
+  },
+  {
+   "waiver": "W-screenshot-index-390",
+   "defects": [
+    "D49"
+   ],
+   "assertion": "desktop-replacements",
+   "type": "browser:index-desktop",
+   "status": "PASS",
+   "detail": "HUD July 3, 1863 -> July 1, 1863; minimap 27 units at the first moment (published 72); guide link \"Download Website Tutorial PDF\" -> \"User Guide (PDF)The printable guide to every control and feature.\", same href and download; timeline slider named \"Battle time\" 1..675, valuetext \"July 1, about 5:00 AM\" (published: unnamed \"0\"); no sound button; \"1x (real time)\" -> \"1x (base speed)\""
+  },
+  {
+   "waiver": "W-screenshot-index-390",
+   "defects": [
+    "D49"
+   ],
+   "assertion": "phone-shell-rehoming",
+   "type": "browser:phone-shell",
+   "status": "PASS",
+   "detail": "14 Tools tiles present; More tools page links == desktop Extra Features menu page links (19 links); \"Search\" opens a panel; \"Filter\" opens Filters; \"Order of Battle\" opens Order of Battle; \"Unit Roster\" opens All Battle Units; \"Soldier's View\" opens a dialog; \"Follow Ancestor\" opens a dialog; \"Map Layers\" opens Map Layers; \"Virtual Walkthrough\" opens a dialog; \"Legend\" opens Legend; \"Bookmarks\" opens a dialog; \"Help\" opens a dialog; \"Ask the Historian\" opens /historian.html; \"Desktop View\" opens Phone view"
+  }
+ ]
+}

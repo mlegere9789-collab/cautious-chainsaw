@@ -1,0 +1,19 @@
+II-05 reader notes (60 claims, OR27-1-R098..R105: Gibbon, Harrow, Heath, Joslin, Coates, Darrow, Webb, Davis)
+Counts per fc: passed_full_read 46, corrected 14, downgraded 0. Split: 0.
+Validator: decisions 60, missing 0, errors 0.
+
+Patterns (claims affected):
+- time from another sentence: 2 (harrow-15ma-01: 4 o'clock is the Third Corps advance; webb-71pa-02: "Just before the assault" is the battery sentence). Plus 1 where when.printed attaches to the wrong clause (harrow-1mn-04: "during the night" is only the sleeping clause, charge was after ~5 p.m.).
+- merged second report: 1 (webb-02: 71st/106th PA from Hancock R076 removed from activity; not split, not needed).
+- later order ignored: 0.
+- compass/road gloss: 0.
+- hedge/condition dropped: 1 (webb-08: "would probably have succeeded ... had not Hall advanced").
+- unit identity gloss: 3 (harrow-15ma-01 two regiments unnamed at the order; webb-69pa-02 "Tammany Regiment" = 42nd NY; webb-71pa-01 "to Howard" added for 71st). webb-71pa-02 unit name OCR-damaged but only the 71st fits.
+- OCR digit: 1 handled by dbasis/wdesc (webb-06 prints "assault of the 3d at about 6. 30 p. m." in a July 2 passage; settled by position before the OPERATIONS OF JULY 3 heading; t kept, dbasis explains). webb-71pa-01 "13 o'clock" stays unused.
+- meridian inferred: 2 (2d-01 "1 o'clock"; webb-69pa-02 "about 1 o'clock"), mer set true.
+- unprinted day-part word: 1 (webb-06 "evening" removed).
+- other overstatement: 5 (art-4usa-02 and art-1rib-02 "from 6.30 a.m." for battery presence; hall-01 glosses; carroll-01 "after darkness" sequencing; 2d-04 "About 3" vs "nearly 3"; harrow-15ma-05 "its left" vs "their left", 82nd's).
+
+Whole-battle strength notes (2d-02, 2d-05, 15ma-09) keep a day date as context only: annotated via dbasis, not changed.
+Systematic: compiler pulled unit/regiment names from other reports into activity (webb-02), and used "from <time>" for units whose presence is only implied by the brigade's disposition sentence (batteries). Report R104 internal conflict (6.30 p.m. assault labelled "3d"; second report puts July 2 assault at 5 p.m.) is carried as the existing conflict link, not resolved.
+R102 harrow-1mn-02: same sentence prints "morning of July 2" with "battle commenced at daylight" (fits July 1); claim kept as printed, annotated.

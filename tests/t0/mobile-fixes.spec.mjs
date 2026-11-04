@@ -47,6 +47,9 @@ const inSel = (id) => SEL.some((v) => v.id === id);
 const pick = (...ids) => ids.filter(inSel).map(vpById);
 
 // the deep-link reader (group DL) ships from R1c on; trains without it (R1b) are judged without ?t= / ?u= links (real taps on the scrubber instead)
+const { treeHas, loadOracle } = await import('./lib_clock.mjs');
+const HAS_CLOCK = treeHas(DIST, 'CLOCK');                    // CLOCK: no "Tick n/675" on the page; the frame is data-gt-frame, the dock label is the clock of the frame (tools/t0/CLOCK-README.md)
+const ORACLE = HAS_CLOCK ? await loadOracle() : null;
 const HAS_DL = (() => { try { return JSON.parse(fs.readFileSync(path.join(DIST, 'version.json'), 'utf8')).groups.includes('DL'); } catch { return true; } })();
 const srv = await createStaticServer({ root: DIST, port: PORT_BASE + 2 * SLOT });
 const ORIGIN = srv.url;
@@ -89,6 +92,7 @@ const gotoTick = async (page, tick) => {
   await touchTap(page, sc.x + (sc.w * (tick + 0.4)) / 675, sc.y);
 };
 const readTick = (page) => page.evaluate(() => {
+  const fr = document.querySelector('[data-gt-frame]'); if (fr && Number.isFinite(Number(fr.getAttribute('data-gt-frame')))) return Number(fr.getAttribute('data-gt-frame'));    // CLOCK trees
   const m = document.body.innerText.match(/Tick (\d+)\/675/); if (m) return Number(m[1]);
   const th = document.querySelector('.gtbg-m-scrub > div:last-child'); const pc = th && parseFloat(th.style.left);
   return Number.isFinite(pc) ? Math.round((pc / 100) * 675) : null;
@@ -553,7 +557,7 @@ suite.test('T0-MFIX-07', 'D-07: landscape phone: the day tabs (compact, in the t
     const g = await page.evaluate(() => {
       const r = (e) => { if (!e) return null; const b = e.getBoundingClientRect(); return { x: b.x, y: b.y, w: b.width, h: b.height, r: b.right, b: b.bottom }; };
       const days = [...document.querySelectorAll('.gtbg-m-days button')].map((b) => { const q = b.getBoundingClientRect(); const e = document.elementFromPoint(q.x + q.width / 2, q.y + q.height / 2); return { text: b.textContent.trim(), w: Math.round(q.width), h: Math.round(q.height), x: Math.round(q.x), y: Math.round(q.y), hit: !!e && (e === b || b.contains(e)), vis: getComputedStyle(b).display !== 'none' && q.width > 0 }; });
-      const tickEl = [...document.querySelectorAll('.gtbg-m-play > div')][0]; const tick = tickEl && { text: tickEl.innerText, ...r(tickEl), shown: getComputedStyle(tickEl).display !== 'none' };
+      const tickEl = [...document.querySelectorAll('.gtbg-m-play > div')][0]; const frEl = document.querySelector('[data-gt-frame]'); const tick = tickEl && { text: tickEl.innerText, frame: frEl ? Number(frEl.getAttribute('data-gt-frame')) : null, ...r(tickEl), shown: getComputedStyle(tickEl).display !== 'none' };
       const mini = document.querySelector('.gtbg-m-mini'); const leg = document.querySelector('.gtbg-m-legend'); const map = document.querySelector('.gtbg-m-map'); const dock = document.querySelector('.gtbg-m-dock'); const top = document.querySelector('.gtbg-m-top');
       const clock = document.querySelector('.gtbg-m-top > div'); const tools = [...document.querySelectorAll('.gtbg-m-top button')].find((b) => /Tools/.test(b.textContent));
       return { days, tick, mini: mini && { ...r(mini), shown: getComputedStyle(mini).display !== 'none' }, leg: r(leg), map: r(map), dock: r(dock), top: r(top), clock: r(clock), tools: r(tools), iw: innerWidth, ih: innerHeight };
@@ -564,7 +568,9 @@ suite.test('T0-MFIX-07', 'D-07: landscape phone: the day tabs (compact, in the t
     const dayL = Math.min(...g.days.map((d) => d.x)), dayR = Math.max(...g.days.map((d) => d.x + d.w));
     if (dayL < g.clock.r + 4 || dayR > g.tools.x - 4) lines.push(`${tag}: the day tabs [${dayL}..${dayR}] collide with the clock (right edge ${Math.round(g.clock.r)}) or the Tools button (left ${Math.round(g.tools.x)})`);
     if (g.days.some((d) => d.y + d.h > g.top.b + 1)) lines.push(`${tag}: day tabs run below the top bar (${Math.round(g.top.b)})`);
-    if (!g.tick || !g.tick.shown || !/Tick \d+\/675/.test(g.tick.text)) lines.push(`${tag}: no tick label in landscape (${g.tick && g.tick.text})`);
+    // the dock label of the moment: "Tick n/675" on a tree without CLOCK; the clock of the frame the row stands on (the oracle's "about 7:05 PM") on a tree with it
+    const labelOk = g.tick && g.tick.shown && (HAS_CLOCK ? g.tick.frame !== null && g.tick.text.replace(/\s+/g, ' ').trim() === ORACLE.fmt(g.tick.frame, 'time') : /Tick \d+\/675/.test(g.tick.text));
+    if (!labelOk) lines.push(`${tag}: no tick label in landscape (${g.tick && g.tick.text}${HAS_CLOCK && g.tick ? `, frame ${g.tick.frame} reads ${ORACLE.fmt(g.tick.frame || 1, 'time')}` : ''})`);
     else if (g.tick.x + g.tick.w > g.iw || g.tick.y < g.dock.y - 1) lines.push(`${tag}: tick label leaves the dock`);
     if (!g.mini || !g.mini.shown) lines.push(`${tag}: no minimap in landscape`);
     else {
@@ -678,7 +684,7 @@ suite.test('T0-MFIX-10', 'desktop shell: the Extra Features menu has a viewport-
       const open = async () => { await page.evaluate(() => document.getElementById('ef-btn').click()); await sleep(500); };
       await open();
       const m = await page.evaluate(() => {
-        const menu = document.getElementById('ef-menu'); const r = menu.getBoundingClientRect(); const items = [...menu.querySelectorAll('a.gtbg-item')];
+        const menu = document.getElementById('ef-menu'); const r = menu.getBoundingClientRect(); const items = [...menu.querySelectorAll('.gtbg-item')].filter((x) => x.offsetParent !== null);   // the entries the page shows: links, and (group POLISH, where the toolbar has no room) the Toggle Units button; entries the stylesheet hides are not entries
         return { top: Math.round(r.top), bottom: Math.round(r.bottom), left: Math.round(r.left), right: Math.round(r.right), vh: innerHeight, vw: innerWidth, sh: menu.scrollHeight, ch: menu.clientHeight, n: items.length, maxH: menu.style.maxHeight, overflowY: getComputedStyle(menu).overflowY, role: menu.getAttribute('role'), tabindex: menu.getAttribute('tabindex'), up: menu.classList.contains('gtbg-up') };
       });
       seen[tag] = m;
@@ -689,7 +695,7 @@ suite.test('T0-MFIX-10', 'desktop shell: the Extra Features menu has a viewport-
       // every entry: scroll it into view inside the menu, it must be within the viewport and hit-testable
       const reach = await page.evaluate(() => {
         const menu = document.getElementById('ef-menu'); const bad = [];
-        for (const a of menu.querySelectorAll('a.gtbg-item')) {
+        for (const a of [...menu.querySelectorAll('.gtbg-item')].filter((x) => x.offsetParent !== null)) {
           a.scrollIntoView({ block: 'nearest' }); const r = a.getBoundingClientRect(); const e = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
           const inVp = r.top >= 0 && r.bottom <= innerHeight && r.left >= 0 && r.right <= innerWidth;
           if (!(e && (e === a || a.contains(e))) || !inVp) bad.push(`${a.textContent.trim().slice(0, 24)} @${Math.round(r.top)}..${Math.round(r.bottom)} hit=${!!(e && (e === a || a.contains(e)))}`);
@@ -710,7 +716,7 @@ suite.test('T0-MFIX-10', 'desktop shell: the Extra Features menu has a viewport-
       const f1 = await page.evaluate(() => document.activeElement && document.activeElement.className);
       if (!/gtbg-item/.test(String(f1))) lines.push(`${tag}: ArrowDown from the button did not move to an entry (focus on ${f1})`);
       await page.keyboard.press('End'); await sleep(300);
-      const last = await page.evaluate(() => { const a = document.activeElement; const items = [...document.querySelectorAll('#ef-menu a.gtbg-item')]; const r = a.getBoundingClientRect(); return { isLast: a === items[items.length - 1], top: Math.round(r.top), bottom: Math.round(r.bottom), vh: innerHeight, label: a.textContent.trim().slice(0, 30) }; });
+      const last = await page.evaluate(() => { const a = document.activeElement; const items = [...document.querySelectorAll('#ef-menu .gtbg-item')].filter((x) => x.offsetParent !== null); const r = a.getBoundingClientRect(); return { isLast: a === items[items.length - 1], top: Math.round(r.top), bottom: Math.round(r.bottom), vh: innerHeight, label: a.textContent.trim().slice(0, 30) }; });
       seen[tag].lastFocus = last;
       if (!last.isLast) lines.push(`${tag}: End did not reach the last entry (${last.label})`);
       if (last.top < 0 || last.bottom > last.vh) lines.push(`${tag}: the last entry "${last.label}" is focused but off screen (${last.top}..${last.bottom} of ${last.vh})`);

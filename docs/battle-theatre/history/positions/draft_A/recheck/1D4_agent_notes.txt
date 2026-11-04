@@ -1,0 +1,27 @@
+Recheck notes, scope A, tags 1D4 (50 claims) and 1D2 (34 claims). All 84 claims re-read against the full report text (recheck_ctx.py). Validator: no errors for 1D4 or 1D2.
+
+COUNTS PER FIDELITY VALUE
+1D4: passed_full_read 29, corrected 21, downgraded 0; plus 1 added (split) claim POS-A-1D4-025-s2 (counted corrected by the builder).
+1D2: passed_full_read 17, corrected 17, downgraded 0; no splits.
+Both tags: passed 46, corrected 38 (+1 split claim), downgraded 0.
+
+SPLIT: POS-A-1D4-025 (Gates, R057): merged two sections of the same record (July 2 report: "road west of the cemetery", relieved ~11 o'clock "this a. m."; January 1864 report: Taneytown road, until 11 a. m. next day). Original narrowed to the January report; the July 2 report is the added claim POS-A-1D4-025-s2.
+DOWNGRADED: none. No claim lost its central fact; every defect was in when/place/activity wording. POS-A-1D4-014 stays tier inferred (corrected = annotation of the 2/3 OCR date only; the builder forbids passed_full_read on a non-documented claim).
+
+PATTERNS (a claim can carry more than one)
+- Time / day-part not printed in the sentence (parenthesised compiler window or clock from another sentence/report): 17 claims. 1D2: 003, 004 (the 10 a. m. is the whole brigade's, end of report), 005, 022, 023, 024, 025, 026. 1D4: 003, 007, 008, 011, 015, 019, 020, 027, 036, 037 (R058 prints no clock at all; "late morning"/"afternoon" came from R056). Where the sequence in the same report does fix the day-part (1D2-007, -008, -014, -015, -017, -029; 1D4-005, -006, -024, -031, -044) the claim was passed and the wd field records "compiler reading from order of events".
+- Merged second report / second section of the same record: 1D4-020 (30 rods vs "an eighth of a mile": two Gates reports disagree), 1D4-025 (split), 1D4-029 (place from the January report applied to the July 4 report), 1D4-034 ("Freedom Township" from the July 2 report applied to the August report), 1D2-018/-020 (w built from a previous sentence).
+- Compass/place gloss or composite place.printed: 1D2-006, -011 ("right of Cemetery Hill"), -023; 1D4-004 ("ridges west of the seminary"), -023 ("west of the seminary"), -046 ("behind the ridge"), -029, -034.
+- Hedge, condition or scope dropped: 1D2-005 (147th did not receive the order; "farther back"), -009 and -010 ("the balance of the brigade", not the whole), -027 ("partially", "part of the time in the trenches"), -012 ("night of the 2d", not evening); 1D4-046 (frequently changing position; detached at 2 p. m.), -048 ("perhaps 20 paces"), -019 (held only "a few minutes").
+- Direction/order error: 1D2-022 (passage: fell back to the woods; claim said advanced to the woods).
+- Later order ignored: none that changed a position claim beyond 1D4-019 and -046 (brief hold, later detachment); 1D4-027's right-hand Stannard regiment later moved (noted).
+- Unit identity gloss: none found; unit lines match the reports. 1D2-004 note "applies equally to 84ny" is printed in the sentence.
+- OCR digit: 1D4-009, -018 (fraction in "1^ miles" / "li miles", read as 1 1/2 with confidence), 1D4-014 and 1D2-027 (printed 3d for 2d; settled only by the report's own sequence; 1D2-027 date moved to July 2 and the claimed 027/028 conflict removed), 1D2-026 ("near position" may be "new").
+- Other: 1D4-042 anchor "We remained in the same" occurs twice (earlier "until the evening of the 2d"); anchor changed. 1D2-016 detachment date is "previously", only the joining is dated.
+
+SYSTEMATIC
+1. Parenthesised when.printed in this tag set is the main defect: about 20 of 84 claims had a day-part or clock not in their own sentence. Builders should store such phrases only in when.description.
+2. Reports of the form "report 1 (July 2), report 2 (July 4), report 3 (Jan 1864)" in one record (Gates R057, Biddle R056/R058): the compiler mixed place words across sections. Each claim must take place and time from the section that carries its quote.
+3. Distance fractions ("1^", "li") are OCR-damaged in R055/R056/R057; any "1 1/2" reading must remain a reading.
+4. Kind "night_position" for pickets (1D4-034) is inference from "picket" and the pairing with June 30; passage prints no night.
+5. 1D2-027/-028: the OCR 3d/2d resolution removes a false date conflict; the lead should check no other claim lists 1D2-027 or -028 as a conflict partner.

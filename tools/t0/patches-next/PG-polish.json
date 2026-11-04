@@ -1,0 +1,348 @@
+{
+ "group": "PG-polish",
+ "train": "R1c",
+ "optional": true,
+ "description": "CANDIDATE until registered (tools/t0/POLISH-README.md), page part of POLISH: one name per feature on the pages and in the menu, the retired words out of the static copy, the event-height observer of the layout contract, the Ask the Historian scroll. OPT-IN like PG-legal: --with PG-polish. It anchors on the finished text of the pages (after PG-core and PG-maps).",
+ "patches": [
+  {
+   "id": "POL-N01-index-nav-label",
+   "target": "index.html",
+   "find": "<nav id=\"extra-features\" aria-label=\"Extra features\">",
+   "repl": "<nav id=\"extra-features\" aria-label=\"More to Explore\">",
+   "expect": 1,
+   "note": "landmark name of the menu cluster (the element id stays)"
+  },
+  {
+   "id": "POL-N02-index-btn",
+   "target": "index.html",
+   "find": "<span>Extra Features</span> &#9662;",
+   "repl": "<span>More to Explore</span> &#9662;",
+   "expect": 1,
+   "note": "the menu button"
+  },
+  {
+   "id": "POL-N03-index-menu-label",
+   "target": "index.html",
+   "find": "'Extra features menu'",
+   "repl": "'More to Explore menu'",
+   "expect": 1
+  },
+  {
+   "id": "POL-N04-index-toggle",
+   "target": "index.html",
+   "find": "'Show Extra Features menu' : 'Hide Extra Features menu'",
+   "repl": "'Show the More to Explore menu' : 'Hide the More to Explore menu'",
+   "expect": 1
+  },
+  {
+   "id": "POL-N05-index-banner",
+   "target": "index.html",
+   "find": "<b>Extra Features</b>, top right &mdash; search",
+   "repl": "<b>More to Explore</b> &mdash; search",
+   "expect": 1,
+   "note": "the onboarding banner no longer says where the menu is: it sits in the left rail now"
+  },
+  {
+   "id": "POL-N06-index-seo",
+   "target": "index.html",
+   "find": "<a href=\"/viewshed.html\">What They Could See</a>",
+   "repl": "<a href=\"/viewshed.html\">High Ground</a>",
+   "expect": 1
+  },
+  {
+   "id": "POL-N07-nav-viewshed",
+   "target": "site-nav.js",
+   "find": "label: 'What They Could See'",
+   "repl": "label: 'High Ground'",
+   "expect": 1
+  },
+  {
+   "id": "POL-N08-nav-report",
+   "target": "site-nav.js",
+   "find": "label: 'Battle Reports'",
+   "repl": "label: 'Regiment Fact Sheets'",
+   "expect": 1
+  },
+  {
+   "id": "POL-N09-nav-cinematic",
+   "target": "site-nav.js",
+   "find": "label: 'Cinematic Export'",
+   "repl": "label: 'Export a Video'",
+   "expect": 1
+  },
+  {
+   "id": "POL-N10-report-title",
+   "target": "report.html",
+   "find": "Battle Reports — Gettysburg Animated Battlefield Map",
+   "repl": "Regiment Fact Sheets — Gettysburg Animated Battlefield Map",
+   "expect": 3,
+   "note": "title, og:title, twitter:title"
+  },
+  {
+   "id": "POL-N11-report-h1",
+   "target": "report.html",
+   "find": "<h1>Battle Reports</h1>",
+   "repl": "<h1>Regiment Fact Sheets</h1>",
+   "expect": 1
+  },
+  {
+   "id": "POL-N12-report-desc",
+   "target": "report.html",
+   "find": "Generate a printable report on any regiment or moment of the battle, for study, teaching, or reference.",
+   "repl": "Generate a printable one-page fact sheet on any regiment, for study, teaching, or reference.",
+   "expect": 3,
+   "note": "the page only does regiments"
+  },
+  {
+   "id": "POL-N13-cine-title",
+   "target": "cinematic-export.html",
+   "find": "Cinematic Export — Gettysburg Animated Battlefield Map",
+   "repl": "Export a Video — Gettysburg Animated Battlefield Map",
+   "expect": 2,
+   "note": "title, og:title"
+  },
+  {
+   "id": "POL-N14-cine-h1",
+   "target": "cinematic-export.html",
+   "find": "<h1>Cinematic Export</h1>",
+   "repl": "<h1>Export a Video</h1>",
+   "expect": 1
+  },
+  {
+   "id": "POL-N15-view-title",
+   "target": "viewshed.html",
+   "find": "What They Could See — Gettysburg Animated Battlefield Map",
+   "repl": "High Ground — Gettysburg Animated Battlefield Map",
+   "expect": 3,
+   "note": "title, og:title, twitter:title"
+  },
+  {
+   "id": "POL-N16-view-h1",
+   "target": "viewshed.html",
+   "find": "<h1>What They Could See</h1>",
+   "repl": "<h1>High Ground</h1>",
+   "expect": 1
+  },
+  {
+   "id": "POL-N17-view-desc",
+   "target": "viewshed.html",
+   "find": "Explore approximate sightlines from key battlefield vantage points, based on real elevation data.",
+   "repl": "Compare the height of 30 battlefield landmarks, ranked by elevation. Line-of-sight maps are not shown.",
+   "expect": 3,
+   "note": "the old text promised sightlines; the page's own caveat says it is elevation only"
+  },
+  {
+   "id": "POL-W04-aftermath",
+   "target": "aftermath.html",
+   "find": "not built from the same tick-by-tick regimental placement data",
+   "repl": "not built from the same moment-by-moment regimental placement data",
+   "expect": 1
+  },
+  {
+   "id": "POL-W05-compare",
+   "target": "compare.html",
+   "find": "at or before the tick you choose.",
+   "repl": "at or before the moment you choose.",
+   "expect": 1
+  },
+  {
+   "id": "POL-W06-dashboard",
+   "target": "dashboard.html",
+   "find": "around a peak tick,",
+   "repl": "around a peak moment,",
+   "expect": 1
+  },
+  {
+   "id": "POL-W07-ground",
+   "target": "ground-remembers.html",
+   "find": "instead of resetting with each tick.",
+   "repl": "instead of resetting with each moment.",
+   "expect": 1
+  },
+  {
+   "id": "POL-W08-regiment-sub",
+   "target": "regiment.html",
+   "find": "placement, and vignette data.",
+   "repl": "placement, and story data.",
+   "expect": 1
+  },
+  {
+   "id": "POL-W09-regiment-empty",
+   "target": "regiment.html",
+   "find": "No narrative vignette specifically names this unit.",
+   "repl": "No story specifically names this unit.",
+   "expect": 1
+  },
+  {
+   "id": "POL-W10-terms",
+   "target": "terms.html",
+   "find": "the written vignette scripts",
+   "repl": "the written story scripts",
+   "expect": 1
+  },
+  {
+   "id": "POL-W18-watch",
+   "target": "watch-together.html",
+   "find": "sees the same tick move on their own screen",
+   "repl": "sees the same moment move on their own screen",
+   "expect": 1
+  },
+  {
+   "id": "POL-W19-terms2",
+   "target": "terms.html",
+   "find": "excerpts of the written vignettes or the compiled data",
+   "repl": "excerpts of the written stories or the compiled data",
+   "expect": 1
+  },
+  {
+   "id": "POL-W11-hist-nohit",
+   "target": "historian.html",
+   "find": "regimental records, narrative vignettes, chronology, or terrain data.",
+   "repl": "regimental records, stories, chronology, or terrain data.",
+   "expect": 1
+  },
+  {
+   "id": "POL-W12-search-meta",
+   "target": "search.html",
+   "find": "Search every regiment, battery, vignette, and battlefield location by name.",
+   "repl": "Search every regiment, battery, story, and battlefield location by name.",
+   "expect": 3,
+   "note": "description, og:description, twitter:description"
+  },
+  {
+   "id": "POL-W13-search-aria",
+   "target": "search.html",
+   "find": "aria-label=\"Search regiments, vignettes and locations\"",
+   "repl": "aria-label=\"Search regiments, stories and locations\"",
+   "expect": 1
+  },
+  {
+   "id": "POL-W14-search-ph",
+   "target": "search.html",
+   "find": "placeholder=\"Search regiments, vignettes, locations…",
+   "repl": "placeholder=\"Search regiments, stories, locations…",
+   "expect": 1
+  },
+  {
+   "id": "POL-W15-search-chip",
+   "target": "search.html",
+   "find": "data-filter=\"vignette\">Vignettes</button>",
+   "repl": "data-filter=\"vignette\">Stories</button>",
+   "expect": 1
+  },
+  {
+   "id": "POL-W16-search-badge",
+   "target": "search.html",
+   "find": "\">${item.kind}${item.side",
+   "repl": "\">${item.kind === 'vignette' ? 'story' : item.kind}${item.side",
+   "expect": 1,
+   "note": "the result badge printed the data kind"
+  },
+  {
+   "id": "POL-W17-cine-status",
+   "target": "cinematic-export.html",
+   "find": "'End tick must be after start tick.'",
+   "repl": "'The end frame must be after the start frame.'",
+   "expect": 1
+  },
+  {
+   "id": "POL-F01-cine-clock-size",
+   "target": "cinematic-export.html",
+   "find": "#export-status { font-size: 13px; }",
+   "repl": "#export-status { font-size: 13px; }\n#start-time, #end-time { font-size: 12px; }",
+   "expect": 1,
+   "note": "the clock text CLOCK prints beside the start and end frames was a <small> at 10.8 px (acceptance check 7: text under 12 px); anchors on the stylesheet block PGF-css-cinematic-export writes"
+  },
+  {
+   "id": "POL-F02-dash-note-titles",
+   "target": "dashboard.html",
+   "find": "highest_single_regiment_rate: 'Highest regimental loss rate',\n    };",
+   "repl": "highest_single_regiment_rate: 'Highest regimental loss rate',\n      highest_union_regiment_loss: 'Highest regimental loss rate, Union',\n      a_heavy_confederate_regiment_loss: 'A heavy regimental loss, Confederate',\n    };",
+   "expect": 1,
+   "note": "group DATA renamed the two regiment notes of casualty_apportionment.json (highest_union_regiment_loss, a_heavy_confederate_regiment_loss) and writes the unit name at the start of each note; the dashboard card titles (NOTE_TITLES, written by PGC-dash-*) knew only the old key, so the cards printed the raw key in lower case (T0-PGC-11b)"
+  },
+  {
+   "id": "POL-F03-culps-hill-tick",
+   "target": "turning-points.html",
+   "find": "title: \"Culp's Hill Retaken\", tick: 460,",
+   "repl": "title: \"Culp's Hill Retaken\", tick: 480,",
+   "expect": 1,
+   "note": "group DATA moved 'Colgrove's charge' from tick 460 to 483 (OR 27/1: 7:20 AM); the XII Corps recapture of the lower works (the event this Turning Point names) is the chronology event at tick 480 (7:05 AM); the deep link /?tick=460 landed on a frame with no chronology event within 3 ticks (T0-DL-06). Needs the same change in data/moments.json (tools/accept/r1_build.py applies it to the scratch overlay; registration: tools/t0/overlay/R1c/data/moments.json tp-culps-hill-retaken tick 480)"
+  },
+  {
+   "id": "POL-F04-inline-link-height",
+   "target": "index.html",
+   "find": "@media (pointer:coarse){#root a[href]{min-width:44px;min-height:44px}}",
+   "repl": "@media (pointer:fine){#root a[href]:not(.mapboxgl-ctrl a){min-height:32px;box-sizing:border-box}}\n    @media (pointer:coarse){#root a[href]{min-width:44px;min-height:44px}}",
+   "expect": 1,
+   "note": "r2: the static crawler links are 23 px high until the app stylesheet applies POL-css's 32 px rule, then 32 px (five links moved 8 to 26 px at 0.3 s, CLS 0.0008); the same rule inline means they are 32 px in the first paint"
+  },
+  {
+   "id": "POL-L02-event-height",
+   "target": "index.html",
+   "find": "  <main id=\"root\">\n    <div id=\"seo-content\">",
+   "repl": "<script>\n    // POLISH: the height of the event card as the CSS variable --gt-evt-h (0 when there is none), so that the story card above it takes exactly the rest of the column.\n    // ResizeObserver notifies before the frame is painted: the two cards are never drawn overlapping, not even for one frame.  Without this script the stylesheet reserves 300 px.\n    (function () {\n      var root = document.documentElement, ro = null, cur = null, last = -1;\n      function set(h) { if (h !== last) { last = h; root.style.setProperty('--gt-evt-h', h + 'px'); } }\n      function scan() {\n        var el = document.querySelector('[data-gtbg-card=\"1\"]');\n        if (el !== cur) { if (ro && cur) ro.unobserve(cur); cur = el; if (ro && el) ro.observe(el); }\n        set(el ? Math.ceil(el.getBoundingClientRect().height) : 0);\n      }\n      function start() {\n        var m = document.getElementById('root'); if (!m) return;\n        if (window.ResizeObserver) ro = new ResizeObserver(scan);\n        if (window.MutationObserver) new MutationObserver(scan).observe(m, { childList: true, subtree: true });\n        scan();\n      }\n      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();\n    })();\n  </script>\n\n  <main id=\"root\">\n    <div id=\"seo-content\">",
+   "expect": 1,
+   "note": "publishes the event card height (--gt-evt-h) so that the story card above it takes the rest of the column"
+  },
+  {
+   "id": "POL-H01-addmsg-return",
+   "target": "historian.html",
+   "find": "    if (transcriptEl.children.length > 1) div.scrollIntoView({ behavior: 'smooth', block: 'end' });   // not for the greeting: the page opens at its top\n  }",
+   "repl": "    return div;\n  }\n\n  // after an answer the page brings the QUESTION to the top of the view (its answers follow it), once per question; it used to scroll to the end of every answer in turn, which left the\n  // question and the start of the first answer above the screen.  Focus never moves (preventScroll), reduced motion jumps instead of gliding.\n  function settle(el) {\n    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;\n    el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });\n  }",
+   "expect": 1,
+   "note": "Ask the Historian: no more per-message scroll to the end"
+  },
+  {
+   "id": "POL-H02-ask-start",
+   "target": "historian.html",
+   "find": "  function ask(query) {\n    addMsg('user', query.replace(/</g, '&lt;'));",
+   "repl": "  function ask(query) {\n    const asked = addMsg('user', query.replace(/</g, '&lt;'));",
+   "expect": 1
+  },
+  {
+   "id": "POL-H03-ask-nohit",
+   "target": "historian.html",
+   "find": "      return;\n    }\n    for (const { e } of ranked) {",
+   "repl": "      settle(asked);\n      return;\n    }\n    for (const { e } of ranked) {",
+   "expect": 1
+  },
+  {
+   "id": "POL-H04-ask-end",
+   "target": "historian.html",
+   "find": "      addMsg('bot', out.html, out);\n    }\n  }",
+   "repl": "      addMsg('bot', out.html, out);\n    }\n    settle(asked);\n  }",
+   "expect": 1
+  },
+  {
+   "id": "POL-H05-sugg-click",
+   "target": "historian.html",
+   "find": "b.addEventListener('click', () => { askEl.value = q; ask(q); });",
+   "repl": "b.addEventListener('click', () => { ask(q); askEl.focus({ preventScroll: true }); });",
+   "expect": 1
+  },
+  {
+   "id": "POL-H06-submit-focus",
+   "target": "historian.html",
+   "find": "    ask(q);\n    askEl.value = '';\n  });",
+   "repl": "    ask(q);\n    askEl.value = '';\n    askEl.focus({ preventScroll: true });\n  });",
+   "expect": 1
+  },
+  {
+   "id": "POL-U10-menu-tools",
+   "target": "index.html",
+   "find": "menu.innerHTML = window.GTBG_MENU.buildGroupsHtml(null);",
+   "repl": "menu.innerHTML = window.GTBG_MENU.buildGroupsHtml(null);\n        // POLISH: the User Guide link and Toggle Units, which the toolbar drops when it has no room (the stylesheet shows these entries exactly then)\n        menu.insertAdjacentHTML('beforeend', '<div class=\"gtbg-group gtbg-group-tools\"><div class=\"gtbg-group-head\"><span class=\"gtbg-group-icon\"><svg class=\"gicon\" aria-hidden=\"true\"><use href=\"#gtbg-i-book\"></use></svg></span><span><span class=\"gtbg-group-name\">Guide and Units</span><span class=\"gtbg-group-why\">Learn the controls, show or hide the units</span></span></div><div class=\"gtbg-group-items\"><a class=\"gtbg-item gtbg-tool-guide\" href=\"/user-guide.pdf\" download><span class=\"gtbg-item-icon\"><svg class=\"gicon\" aria-hidden=\"true\"><use href=\"#gtbg-i-book\"></use></svg></span><span class=\"gtbg-item-text\"><span class=\"gtbg-item-label\">User Guide (PDF)</span><span class=\"gtbg-item-desc\">The printable guide to every control and feature.</span></span></a><button type=\"button\" class=\"gtbg-item gtbg-tool-units\" aria-pressed=\"true\"><span class=\"gtbg-item-icon\"><svg class=\"gicon\" aria-hidden=\"true\"><use href=\"#gtbg-i-eye\"></use></svg></span><span class=\"gtbg-item-text\"><span class=\"gtbg-item-label\">Toggle Units</span><span class=\"gtbg-item-desc\">Units are shown on the map.</span></span></button></div></div>');\n        (function () {\n          var ub = menu.querySelector('.gtbg-tool-units'), ud = ub.querySelector('.gtbg-item-desc');\n          function show(on) { ub.setAttribute('aria-pressed', String(on)); ud.textContent = on ? 'Units are shown on the map. Select to hide them.' : 'Units are hidden. Select to show them.'; }\n          var u = window.GTBG_UNITS; show(!u || u.get());\n          ub.addEventListener('click', function (e) { e.stopPropagation(); if (window.GTBG_UNITS) window.GTBG_UNITS.toggle(); });\n          document.addEventListener('gtbg:units', function (e) { show(!!e.detail); });\n        })();",
+   "expect": 1,
+   "note": "the More to Explore menu gets a last group, Guide and Units (User Guide link, Toggle Units); the stylesheet shows it only where the toolbar has dropped them"
+  },
+  {
+   "id": "POL-U11-menu-arrows",
+   "target": "index.html",
+   "find": "var items = Array.prototype.slice.call(menu.querySelectorAll('a.gtbg-item')), i = items.indexOf(document.activeElement);",
+   "repl": "var items = Array.prototype.slice.call(menu.querySelectorAll('.gtbg-item')).filter(function (x) { return x.offsetParent !== null; }), i = items.indexOf(document.activeElement);",
+   "expect": 1,
+   "note": "arrow keys walk links and the Toggle Units button, skipping entries the stylesheet hides"
+  }
+ ]
+}

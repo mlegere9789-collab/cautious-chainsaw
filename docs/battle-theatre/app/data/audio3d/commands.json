@@ -1,0 +1,352 @@
+{
+ "_doc": "Command WORDS rendered by synth-voice.mjs. Every word is printed in a drill manual item (item ids in drill/drill_hardee.json, drill/drill_artillery.json); tests/audio3d.test.mjs checks that each cited item exists and contains the word. The utterance is a reconstruction: the 1863 voice, accent and cadence are not recorded (tier plausible-procedural); the words are documented (tier documented, primary manual, OCR-verified by the drill checker). No invented command and no quotation of a person.",
+ "tier_words": "documented (manual text)",
+ "tier_voice": "plausible-procedural",
+ "words": [
+  {
+   "word": "load",
+   "items": [
+    "HAR-S02",
+    "HAR-S16",
+    "ART-FA-12"
+   ],
+   "arm": "infantry, artillery"
+  },
+  {
+   "word": "ready",
+   "items": [
+    "HAR-S12",
+    "HAR-S29",
+    "ART-FA-13"
+   ],
+   "arm": "infantry, artillery"
+  },
+  {
+   "word": "aim",
+   "items": [
+    "HAR-S13",
+    "HAR-S29"
+   ],
+   "arm": "infantry"
+  },
+  {
+   "word": "fire",
+   "items": [
+    "HAR-S14",
+    "HAR-S29",
+    "ART-FA-13"
+   ],
+   "arm": "infantry, artillery"
+  },
+  {
+   "word": "squad",
+   "items": [
+    "HAR-S29"
+   ],
+   "arm": "infantry"
+  },
+  {
+   "word": "company",
+   "items": [
+    "HAR-C03",
+    "HAR-C06"
+   ],
+   "arm": "infantry"
+  },
+  {
+   "word": "battalion",
+   "items": [
+    "HAR-B03"
+   ],
+   "arm": "infantry"
+  },
+  {
+   "word": "commence",
+   "items": [
+    "HAR-C03",
+    "HAR-S31",
+    "ART-FA-17"
+   ],
+   "arm": "infantry, artillery"
+  },
+  {
+   "word": "cease",
+   "items": [
+    "HAR-S29",
+    "ART-FA-17"
+   ],
+   "arm": "infantry, artillery"
+  },
+  {
+   "word": "firing",
+   "items": [
+    "HAR-C03",
+    "HAR-S29",
+    "ART-FA-17"
+   ],
+   "arm": "infantry, artillery"
+  },
+  {
+   "word": "shoulder",
+   "items": [
+    "HAR-S16",
+    "HAR-S21"
+   ],
+   "arm": "infantry"
+  },
+  {
+   "word": "arms",
+   "items": [
+    "HAR-S16",
+    "HAR-S21"
+   ],
+   "arm": "infantry"
+  },
+  {
+   "word": "fix",
+   "items": [
+    "HAR-S20"
+   ],
+   "arm": "infantry"
+  },
+  {
+   "word": "bayonet",
+   "items": [
+    "HAR-S20",
+    "HAR-S21"
+   ],
+   "arm": "infantry"
+  },
+  {
+   "word": "charge",
+   "items": [
+    "HAR-S21"
+   ],
+   "arm": "infantry (Charge bayonet)"
+  },
+  {
+   "word": "rank",
+   "items": [
+    "HAR-S32"
+   ],
+   "arm": "infantry"
+  },
+  {
+   "word": "rear",
+   "items": [
+    "HAR-S32",
+    "HAR-C08"
+   ],
+   "arm": "infantry"
+  },
+  {
+   "word": "front",
+   "items": [
+    "HAR-S32"
+   ],
+   "arm": "infantry"
+  },
+  {
+   "word": "file",
+   "items": [
+    "HAR-S31"
+   ],
+   "arm": "infantry"
+  },
+  {
+   "word": "by",
+   "items": [
+    "HAR-S31",
+    "HAR-S32"
+   ],
+   "arm": "infantry"
+  },
+  {
+   "word": "wing",
+   "items": [
+    "HAR-B03"
+   ],
+   "arm": "infantry"
+  },
+  {
+   "word": "right",
+   "items": [
+    "HAR-B03"
+   ],
+   "arm": "infantry"
+  },
+  {
+   "word": "left",
+   "items": [
+    "HAR-B03"
+   ],
+   "arm": "infantry"
+  },
+  {
+   "word": "limber",
+   "items": [
+    "ART-FA-70"
+   ],
+   "arm": "artillery"
+  },
+  {
+   "word": "to",
+   "items": [
+    "ART-FA-70"
+   ],
+   "arm": "artillery"
+  },
+  {
+   "word": "the",
+   "items": [
+    "ART-FA-70"
+   ],
+   "arm": "artillery"
+  },
+  {
+   "word": "front",
+   "items": [
+    "ART-FA-70"
+   ],
+   "arm": "artillery"
+  },
+  {
+   "word": "action",
+   "items": [
+    "ART-FA-71"
+   ],
+   "arm": "artillery"
+  },
+  {
+   "word": "sponge",
+   "items": [
+    "ART-FA-21"
+   ],
+   "arm": "artillery"
+  },
+  {
+   "word": "ram",
+   "items": [
+    "ART-FA-22"
+   ],
+   "arm": "artillery"
+  }
+ ],
+ "phrases": [
+  {
+   "id": "PH-FIRE-BY-SQUAD",
+   "words": [
+    "squad",
+    "ready",
+    "aim",
+    "fire",
+    "load"
+   ],
+   "items": [
+    "HAR-S29"
+   ],
+   "gaps": [
+    0.5,
+    0.9,
+    1.2,
+    0.6
+   ]
+  },
+  {
+   "id": "PH-FIRE-BY-COMPANY",
+   "words": [
+    "company",
+    "ready",
+    "aim",
+    "fire",
+    "load"
+   ],
+   "items": [
+    "HAR-C03"
+   ],
+   "gaps": [
+    0.5,
+    0.9,
+    1.2,
+    0.6
+   ]
+  },
+  {
+   "id": "PH-COMMENCE-FIRING",
+   "words": [
+    "commence",
+    "firing"
+   ],
+   "items": [
+    "HAR-C03",
+    "HAR-S31"
+   ],
+   "gaps": [
+    0.15
+   ]
+  },
+  {
+   "id": "PH-CEASE-FIRING",
+   "words": [
+    "cease",
+    "firing"
+   ],
+   "items": [
+    "HAR-S29",
+    "ART-FA-17"
+   ],
+   "gaps": [
+    0.15
+   ]
+  },
+  {
+   "id": "PH-BAYONET",
+   "words": [
+    "fix",
+    "bayonet"
+   ],
+   "items": [
+    "HAR-S20"
+   ],
+   "gaps": [
+    0.15
+   ]
+  },
+  {
+   "id": "PH-CHARGE-BAYONET",
+   "words": [
+    "charge",
+    "bayonet"
+   ],
+   "items": [
+    "HAR-S21"
+   ],
+   "gaps": [
+    0.15
+   ]
+  },
+  {
+   "id": "PH-ART-LOAD",
+   "words": [
+    "load"
+   ],
+   "items": [
+    "ART-FA-12"
+   ],
+   "gaps": []
+  },
+  {
+   "id": "PH-ART-READY-FIRE",
+   "words": [
+    "ready",
+    "fire"
+   ],
+   "items": [
+    "ART-FA-13"
+   ],
+   "gaps": [
+    0.8
+   ]
+  }
+ ]
+}

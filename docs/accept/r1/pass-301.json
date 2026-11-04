@@ -1,0 +1,871 @@
+{
+  "pass": 301,
+  "verdict": "DEFECTS (incomplete)",
+  "startedAt": "2026-10-20T15:49:11.429Z",
+  "finishedAt": "2026-10-20T15:54:21.509Z",
+  "args": {
+    "_": [],
+    "candidate": "tmp/r1/r1-56beea36.zip",
+    "baseline": "baseline/dist",
+    "pass": "301",
+    "only": "5",
+    "soak-seconds": "60",
+    "port-base": "12400",
+    "out-dir": "docs/accept/r1"
+  },
+  "harness": {
+    "digest": "e7ef98150dcb918a4bc8905b9081d934f446a61d6daf5ea457aaf9ddd4e28ef3",
+    "files": 32
+  },
+  "countsTowardAcceptance": false,
+  "env": {
+    "node": "v24.19.0",
+    "python": "Python 3.11.9",
+    "chrome": "Chrome/155.0.8059.82",
+    "os": "Windows_NT 10.0.26200 x64",
+    "playwrightCore": "1.63.0",
+    "axeCore": "4.13.0",
+    "cpus": 16,
+    "cpuModel": "Intel(R) Core(TM) Ultra 7 265H",
+    "memGB": 34,
+    "gitHead": "17ba8ee789133164815e11c4f2e740de86524862",
+    "portBase": 12400,
+    "tileCap": 20000,
+    "tilesUsed": 482,
+    "mapboxMapLoadsSkus": 25,
+    "tilesCapBlocked": 0,
+    "soakSeconds": 60,
+    "serverHeadersApplied": {
+      "headerBlocks": 72,
+      "redirectRules": 23,
+      "redirected": 0,
+      "headersAdded": 5198
+    }
+  },
+  "candidate": {
+    "path": "tmp\\r1\\r1-56beea36.zip",
+    "kind": "zip",
+    "sha256": "24aaf4e6dd1258f7562c13b8f36de47dd997b19b99558bc388facd7f22c59f23",
+    "bytes": 40246221,
+    "files": 2013,
+    "treeSha256": "47d3f80993228c1fdbd4802e529c6dac50ae4bbdc66f7708b6e03836e9c67246",
+    "zipComment": ""
+  },
+  "baseline": "baseline\\dist",
+  "thresholds": {
+    "_comment": "Green band of the end-of-mission acceptance (docs/battle-theatre/GOVERNANCE/FINAL-ACCEPTANCE.md, step 5). Any value outside the band is a defect: there is no amber that passes. Never loosen these to make a pass clean.",
+    "webVitals": {
+      "lcpMs": 2500,
+      "cls": 0.1,
+      "inpMs": 200,
+      "tbtMs": 200
+    },
+    "frames": {
+      "p95FrameMsDesktop": 20,
+      "p95FrameMsPhone": 20,
+      "maxJankFrameMs": 100,
+      "_note": "p95 frame time of requestAnimationFrame deltas while the map animation plays at 1x and 4x. maxJankFrameMs is reported as a defect only when more than 1 percent of frames exceed it."
+    },
+    "interaction": {
+      "visibleResponseMs": 100,
+      "longTaskMs": 50,
+      "longTasksPerInteraction": 0,
+      "navigationFirstPaintMs": 1000
+    },
+    "heap": {
+      "maxGrowthPercent": 10,
+      "_note": "(heap after the final forced GC - heap after warm-up and a forced GC) / heap after warm-up, over the soak. Default soak is 120 s for dry runs; the acceptance run uses --soak-seconds 600."
+    },
+    "visual": {
+      "widths": [
+        360,
+        390,
+        768,
+        1024,
+        1440,
+        1920
+      ],
+      "heights": {
+        "360": 740,
+        "390": 844,
+        "768": 1024,
+        "1024": 768,
+        "1440": 900,
+        "1920": 1080
+      },
+      "tapTargetMinPx": 44,
+      "tapTargetAppliesUpToWidth": 1024,
+      "pointerTargetMinPx": 24,
+      "minTextPx": 12,
+      "layoutShiftMax": 0.1,
+      "horizontalOverflowTolerancePx": 1
+    },
+    "regression": {
+      "pixelColorThreshold": 0.1,
+      "maxDiffRatio": 0.002,
+      "regionGrid": [
+        8,
+        6
+      ],
+      "viewports": [
+        [
+          1440,
+          900
+        ],
+        [
+          390,
+          844
+        ]
+      ]
+    },
+    "setup": {
+      "tileCapPerRun": 20000,
+      "_note": "Mapbox requests per pass through the Referer-injecting side channel of tests/t0/lib.mjs (harness default 300 per run). Mapbox bills map loads (one sku per GL JS initialisation), not tile requests; every pass reports the number of skus it used. Override with --tile-cap."
+    }
+  },
+  "routes": [
+    "/404",
+    "/aftermath",
+    "/ar",
+    "/camera",
+    "/cinematic-export",
+    "/compare",
+    "/dashboard",
+    "/documentary",
+    "/education",
+    "/embed",
+    "/find-ancestor",
+    "/ground-remembers",
+    "/historian",
+    "/immersive",
+    "/",
+    "/living-ledger",
+    "/privacy",
+    "/regiment",
+    "/report",
+    "/sandbox",
+    "/search",
+    "/terms",
+    "/turning-points",
+    "/viewshed",
+    "/watch-together"
+  ],
+  "checks": [
+    {
+      "id": "5",
+      "title": "Performance",
+      "status": "RAN",
+      "reason": null,
+      "defectCount": 6,
+      "noteCount": 1,
+      "notRunParts": [
+        "desktop animation 1x: could not press Play",
+        "desktop animation 4x: could not press Play",
+        "phone animation 1x: could not press Play",
+        "phone animation 4x: could not press Play"
+      ],
+      "ms": 307960,
+      "started": "2026-10-20T15:49:13.500Z",
+      "finished": "2026-10-20T15:54:21.456Z",
+      "commands": [],
+      "metrics": {
+        "setup": {
+          "phoneCpuThrottle": 4,
+          "desktopCpuThrottle": 1,
+          "networkThrottle": "none (local server)",
+          "frameSeconds": 12,
+          "soakSeconds": 60
+        },
+        "chrome": "Chrome/155.0.8059.82",
+        "vitalsPages": 50,
+        "webglRenderer": "ANGLE (Intel, Intel(R) Arc(TM) Pro 140T GPU (16GB) (0x00007D51) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "frames": [],
+        "inp": [
+          {
+            "shell": "desktop",
+            "interactions": 30,
+            "inp": 72
+          },
+          {
+            "shell": "phone",
+            "interactions": 10,
+            "inp": 176
+          }
+        ],
+        "soak": [
+          {
+            "shell": "desktop",
+            "seconds": 60,
+            "samples": 6,
+            "startMB": 21.2,
+            "endMB": 23.5,
+            "growthPercent": 10.82,
+            "maxHeartbeatMs": 5,
+            "domNodes": [
+              930,
+              1000
+            ]
+          }
+        ]
+      },
+      "defects": [
+        {
+          "code": "tbt",
+          "where": "phone /ground-remembers",
+          "detail": "TBT proxy 511 ms > 200 ms (8 long tasks; cpu 4x)"
+        },
+        {
+          "code": "tbt",
+          "where": "phone /",
+          "detail": "TBT proxy 751 ms > 200 ms (16 long tasks; cpu 4x)"
+        },
+        {
+          "code": "tbt",
+          "where": "phone /sandbox",
+          "detail": "TBT proxy 369 ms > 200 ms (4 long tasks; cpu 4x)"
+        },
+        {
+          "code": "tbt",
+          "where": "phone /viewshed",
+          "detail": "TBT proxy 418 ms > 200 ms (7 long tasks; cpu 4x)"
+        },
+        {
+          "code": "tbt",
+          "where": "phone /watch-together",
+          "detail": "TBT proxy 404 ms > 200 ms (5 long tasks; cpu 4x)"
+        },
+        {
+          "code": "heap-growth",
+          "where": "desktop soak 60s",
+          "detail": "JS heap grew 10.8% (21.2 MB -> 23.5 MB after forced GC) > 10%"
+        }
+      ],
+      "notes": [
+        {
+          "code": "short-soak",
+          "where": "desktop soak 60s",
+          "detail": "soak ran 60 s; the acceptance run needs --soak-seconds 600"
+        }
+      ],
+      "raw": {
+        "vitals": [
+          {
+            "shell": "desktop",
+            "route": "/404",
+            "lcp": 148,
+            "cls": 0,
+            "fcp": 148,
+            "tbt": 0,
+            "lcpEl": "h1",
+            "ttfb": 8,
+            "load": 18
+          },
+          {
+            "shell": "desktop",
+            "route": "/aftermath",
+            "lcp": 124,
+            "cls": 0,
+            "fcp": 108,
+            "tbt": 0,
+            "lcpEl": "img 0.1:12400/img/trostle-farm-july-1863.jpg",
+            "ttfb": 5,
+            "load": 30
+          },
+          {
+            "shell": "desktop",
+            "route": "/ar",
+            "lcp": 92,
+            "cls": 0,
+            "fcp": 92,
+            "tbt": 0,
+            "lcpEl": "div",
+            "ttfb": 5,
+            "load": 30
+          },
+          {
+            "shell": "desktop",
+            "route": "/dashboard",
+            "lcp": 64,
+            "cls": 0,
+            "fcp": 64,
+            "tbt": 0,
+            "lcpEl": "p",
+            "ttfb": 9,
+            "load": 53
+          },
+          {
+            "shell": "desktop",
+            "route": "/documentary",
+            "lcp": 100,
+            "cls": 0,
+            "fcp": 52,
+            "tbt": 0,
+            "lcpEl": "div#d-script",
+            "ttfb": 7,
+            "load": 45
+          },
+          {
+            "shell": "desktop",
+            "route": "/education",
+            "lcp": 128,
+            "cls": 0,
+            "fcp": 92,
+            "tbt": 0,
+            "lcpEl": "img 00/img/gettysburg-from-the-west-1863.jpg",
+            "ttfb": 5,
+            "load": 31
+          },
+          {
+            "shell": "desktop",
+            "route": "/embed",
+            "lcp": 60,
+            "cls": 0,
+            "fcp": 40,
+            "tbt": 0,
+            "lcpEl": "div#e-blurb",
+            "ttfb": 4,
+            "load": 15
+          },
+          {
+            "shell": "desktop",
+            "route": "/find-ancestor",
+            "lcp": 64,
+            "cls": 0,
+            "fcp": 64,
+            "tbt": 0,
+            "lcpEl": "div",
+            "ttfb": 5,
+            "load": 75
+          },
+          {
+            "shell": "desktop",
+            "route": "/historian",
+            "lcp": 124,
+            "cls": 0.0052,
+            "fcp": 88,
+            "tbt": 0,
+            "lcpEl": "div",
+            "ttfb": 5,
+            "load": 68
+          },
+          {
+            "shell": "desktop",
+            "route": "/living-ledger",
+            "lcp": 124,
+            "cls": 0,
+            "fcp": 92,
+            "tbt": 0,
+            "lcpEl": "div#count",
+            "ttfb": 5,
+            "load": 69
+          },
+          {
+            "shell": "desktop",
+            "route": "/privacy",
+            "lcp": 80,
+            "cls": 0,
+            "fcp": 80,
+            "tbt": 0,
+            "lcpEl": "li",
+            "ttfb": 5,
+            "load": 14
+          },
+          {
+            "shell": "desktop",
+            "route": "/regiment",
+            "lcp": 64,
+            "cls": 0.0078,
+            "fcp": 64,
+            "tbt": 0,
+            "lcpEl": "p",
+            "ttfb": 5,
+            "load": 71
+          },
+          {
+            "shell": "desktop",
+            "route": "/report",
+            "lcp": 40,
+            "cls": 0,
+            "fcp": 40,
+            "tbt": 0,
+            "lcpEl": "p",
+            "ttfb": 4,
+            "load": 68
+          },
+          {
+            "shell": "desktop",
+            "route": "/search",
+            "lcp": 52,
+            "cls": 0,
+            "fcp": 52,
+            "tbt": 0,
+            "lcpEl": "h1",
+            "ttfb": 6,
+            "load": 72
+          },
+          {
+            "shell": "desktop",
+            "route": "/terms",
+            "lcp": 44,
+            "cls": 0,
+            "fcp": 44,
+            "tbt": 0,
+            "lcpEl": "p",
+            "ttfb": 4,
+            "load": 13
+          },
+          {
+            "shell": "desktop",
+            "route": "/turning-points",
+            "lcp": 120,
+            "cls": 0,
+            "fcp": 84,
+            "tbt": 0,
+            "lcpEl": "img /img/round-top-breastworks-july-1863.jpg",
+            "ttfb": 7,
+            "load": 67
+          },
+          {
+            "shell": "desktop",
+            "route": "/camera",
+            "lcp": 176,
+            "cls": 0.0061,
+            "fcp": 176,
+            "tbt": 0,
+            "lcpEl": "p",
+            "ttfb": 6,
+            "load": 275
+          },
+          {
+            "shell": "desktop",
+            "route": "/cinematic-export",
+            "lcp": 160,
+            "cls": 0.0069,
+            "fcp": 160,
+            "tbt": 0,
+            "lcpEl": "p",
+            "ttfb": 6,
+            "load": 274
+          },
+          {
+            "shell": "desktop",
+            "route": "/compare",
+            "lcp": 92,
+            "cls": 0.0123,
+            "fcp": 92,
+            "tbt": 0,
+            "lcpEl": "p",
+            "ttfb": 5,
+            "load": 138
+          },
+          {
+            "shell": "desktop",
+            "route": "/ground-remembers",
+            "lcp": 88,
+            "cls": 0.0038,
+            "fcp": 88,
+            "tbt": 0,
+            "lcpEl": "div",
+            "ttfb": 5,
+            "load": 135
+          },
+          {
+            "shell": "desktop",
+            "route": "/immersive",
+            "lcp": 140,
+            "cls": 0.0062,
+            "fcp": 140,
+            "tbt": 0,
+            "lcpEl": "div",
+            "ttfb": 4,
+            "load": 160
+          },
+          {
+            "shell": "desktop",
+            "route": "/",
+            "lcp": 116,
+            "cls": 0.0009,
+            "fcp": 116,
+            "tbt": 85,
+            "lcpEl": "p",
+            "ttfb": 6,
+            "load": 57
+          },
+          {
+            "shell": "desktop",
+            "route": "/sandbox",
+            "lcp": 108,
+            "cls": 0.0061,
+            "fcp": 108,
+            "tbt": 0,
+            "lcpEl": "p",
+            "ttfb": 5,
+            "load": 157
+          },
+          {
+            "shell": "desktop",
+            "route": "/viewshed",
+            "lcp": 112,
+            "cls": 0.0061,
+            "fcp": 112,
+            "tbt": 7,
+            "lcpEl": "div",
+            "ttfb": 6,
+            "load": 172
+          },
+          {
+            "shell": "desktop",
+            "route": "/watch-together",
+            "lcp": 116,
+            "cls": 0.0061,
+            "fcp": 116,
+            "tbt": 0,
+            "lcpEl": "div",
+            "ttfb": 6,
+            "load": 170
+          },
+          {
+            "shell": "phone",
+            "route": "/404",
+            "lcp": 188,
+            "cls": 0,
+            "fcp": 188,
+            "tbt": 0,
+            "lcpEl": "h1",
+            "ttfb": 6,
+            "load": 45
+          },
+          {
+            "shell": "phone",
+            "route": "/aftermath",
+            "lcp": 368,
+            "cls": 0,
+            "fcp": 336,
+            "tbt": 0,
+            "lcpEl": "img 0.1:12400/img/trostle-farm-july-1863.jpg",
+            "ttfb": 6,
+            "load": 65
+          },
+          {
+            "shell": "phone",
+            "route": "/ar",
+            "lcp": 412,
+            "cls": 0,
+            "fcp": 412,
+            "tbt": 0,
+            "lcpEl": "div",
+            "ttfb": 4,
+            "load": 93
+          },
+          {
+            "shell": "phone",
+            "route": "/dashboard",
+            "lcp": 440,
+            "cls": 0,
+            "fcp": 440,
+            "tbt": 0,
+            "lcpEl": "p",
+            "ttfb": 4,
+            "load": 116
+          },
+          {
+            "shell": "phone",
+            "route": "/documentary",
+            "lcp": 428,
+            "cls": 0,
+            "fcp": 344,
+            "tbt": 0,
+            "lcpEl": "div#d-script",
+            "ttfb": 4,
+            "load": 103
+          },
+          {
+            "shell": "phone",
+            "route": "/education",
+            "lcp": 436,
+            "cls": 0,
+            "fcp": 236,
+            "tbt": 0,
+            "lcpEl": "img 00/img/gettysburg-from-the-west-1863.jpg",
+            "ttfb": 5,
+            "load": 243
+          },
+          {
+            "shell": "phone",
+            "route": "/embed",
+            "lcp": 244,
+            "cls": 0,
+            "fcp": 108,
+            "tbt": 0,
+            "lcpEl": "div#e-blurb",
+            "ttfb": 5,
+            "load": 74
+          },
+          {
+            "shell": "phone",
+            "route": "/find-ancestor",
+            "lcp": 224,
+            "cls": 0,
+            "fcp": 224,
+            "tbt": 0,
+            "lcpEl": "div",
+            "ttfb": 4,
+            "load": 411
+          },
+          {
+            "shell": "phone",
+            "route": "/historian",
+            "lcp": 572,
+            "cls": 0,
+            "fcp": 204,
+            "tbt": 0,
+            "lcpEl": "div",
+            "ttfb": 5,
+            "load": 373
+          },
+          {
+            "shell": "phone",
+            "route": "/living-ledger",
+            "lcp": 620,
+            "cls": 0,
+            "fcp": 204,
+            "tbt": 2,
+            "lcpEl": "div",
+            "ttfb": 8,
+            "load": 431
+          },
+          {
+            "shell": "phone",
+            "route": "/privacy",
+            "lcp": 268,
+            "cls": 0,
+            "fcp": 268,
+            "tbt": 0,
+            "lcpEl": "li",
+            "ttfb": 6,
+            "load": 59
+          },
+          {
+            "shell": "phone",
+            "route": "/regiment",
+            "lcp": 216,
+            "cls": 0,
+            "fcp": 216,
+            "tbt": 117,
+            "lcpEl": "p",
+            "ttfb": 7,
+            "load": 383
+          },
+          {
+            "shell": "phone",
+            "route": "/report",
+            "lcp": 384,
+            "cls": 0,
+            "fcp": 384,
+            "tbt": 0,
+            "lcpEl": "p",
+            "ttfb": 6,
+            "load": 332
+          },
+          {
+            "shell": "phone",
+            "route": "/search",
+            "lcp": 476,
+            "cls": 0,
+            "fcp": 192,
+            "tbt": 0,
+            "lcpEl": "div",
+            "ttfb": 5,
+            "load": 344
+          },
+          {
+            "shell": "phone",
+            "route": "/terms",
+            "lcp": 228,
+            "cls": 0,
+            "fcp": 228,
+            "tbt": 0,
+            "lcpEl": "p",
+            "ttfb": 6,
+            "load": 56
+          },
+          {
+            "shell": "phone",
+            "route": "/turning-points",
+            "lcp": 600,
+            "cls": 0,
+            "fcp": 416,
+            "tbt": 0,
+            "lcpEl": "img /img/round-top-breastworks-july-1863.jpg",
+            "ttfb": 6,
+            "load": 415
+          },
+          {
+            "shell": "phone",
+            "route": "/camera",
+            "lcp": 348,
+            "cls": 0.0015,
+            "fcp": 348,
+            "tbt": 105,
+            "lcpEl": "p",
+            "ttfb": 6,
+            "load": 618
+          },
+          {
+            "shell": "phone",
+            "route": "/cinematic-export",
+            "lcp": 204,
+            "cls": 0,
+            "fcp": 204,
+            "tbt": 63,
+            "lcpEl": "p",
+            "ttfb": 5,
+            "load": 467
+          },
+          {
+            "shell": "phone",
+            "route": "/compare",
+            "lcp": 260,
+            "cls": 0.0013,
+            "fcp": 260,
+            "tbt": 156,
+            "lcpEl": "p",
+            "ttfb": 5,
+            "load": 636
+          },
+          {
+            "shell": "phone",
+            "route": "/ground-remembers",
+            "lcp": 260,
+            "cls": 0,
+            "fcp": 260,
+            "tbt": 511,
+            "lcpEl": "div",
+            "ttfb": 5,
+            "load": 594
+          },
+          {
+            "shell": "phone",
+            "route": "/immersive",
+            "lcp": 340,
+            "cls": 0.0015,
+            "fcp": 340,
+            "tbt": 184,
+            "lcpEl": "div",
+            "ttfb": 4,
+            "load": 664
+          },
+          {
+            "shell": "phone",
+            "route": "/",
+            "lcp": 408,
+            "cls": 0,
+            "fcp": 408,
+            "tbt": 751,
+            "lcpEl": "p",
+            "ttfb": 5,
+            "load": 292
+          },
+          {
+            "shell": "phone",
+            "route": "/sandbox",
+            "lcp": 280,
+            "cls": 0,
+            "fcp": 280,
+            "tbt": 369,
+            "lcpEl": "p",
+            "ttfb": 5,
+            "load": 579
+          },
+          {
+            "shell": "phone",
+            "route": "/viewshed",
+            "lcp": 240,
+            "cls": 0.0161,
+            "fcp": 240,
+            "tbt": 418,
+            "lcpEl": "div",
+            "ttfb": 4,
+            "load": 604
+          },
+          {
+            "shell": "phone",
+            "route": "/watch-together",
+            "lcp": 324,
+            "cls": 0.0009,
+            "fcp": 324,
+            "tbt": 404,
+            "lcpEl": "div",
+            "ttfb": 5,
+            "load": 742
+          }
+        ],
+        "frames": [],
+        "soak": [
+          {
+            "shell": "desktop",
+            "seconds": 60,
+            "samples": [
+              {
+                "t": 16,
+                "usedMB": 21.2,
+                "nodes": 930,
+                "listeners": 291
+              },
+              {
+                "t": 18,
+                "usedMB": 20.66,
+                "nodes": 930,
+                "listeners": 291
+              },
+              {
+                "t": 31,
+                "usedMB": 20.94,
+                "nodes": 1011,
+                "listeners": 301
+              },
+              {
+                "t": 46,
+                "usedMB": 22.36,
+                "nodes": 928,
+                "listeners": 291
+              },
+              {
+                "t": 62,
+                "usedMB": 23.78,
+                "nodes": 1000,
+                "listeners": 298
+              },
+              {
+                "t": 62,
+                "usedMB": 23.5,
+                "nodes": 1000,
+                "listeners": 298
+              }
+            ],
+            "startMB": 21.2,
+            "endMB": 23.5,
+            "growthPercent": 10.82,
+            "maxHeartbeatMs": 5,
+            "nodes0": 930,
+            "nodes1": 1000,
+            "listeners0": 291,
+            "listeners1": 298
+          }
+        ],
+        "inp": [
+          {
+            "shell": "desktop",
+            "interactions": 30,
+            "inp": 72
+          },
+          {
+            "shell": "phone",
+            "interactions": 10,
+            "inp": 176
+          }
+        ]
+      }
+    }
+  ]
+}

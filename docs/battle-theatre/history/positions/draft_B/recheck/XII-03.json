@@ -1,0 +1,102 @@
+[
+ {
+  "id": "POS-B-us-12c-1d-42",
+  "fc": "passed_full_read",
+  "why": "Division named as 'a division of the Twelfth Corps, under Brigadier-General Williams' (identified only by commander); arrival and Slocum's order in one sentence; place phrase printed; no hour; July 1 from narrative; no later contradiction.",
+  "dbasis": "report context: July 1 narrative (\"At 3 p. m. I arrived at Gettysburg and assumed the command\", before the Third Corps arrived)"
+ },
+ {
+  "id": "POS-B-us-12c-2d-40",
+  "fc": "passed_full_read",
+  "why": "'subsequently' in the fact's own sentence; Geary's division named; Hancock's order to the division follows in the same sentence; date from July 1 narrative.",
+  "dbasis": "report context: July 1 narrative (3 p. m. arrival; Slocum arrived between 5 and 6 later)"
+ },
+ {
+  "id": "POS-B-us-12c-2d-41",
+  "fc": "passed_full_read",
+  "why": "Order to the high ground near Round Top Mountain and the roads commanded are printed in the same sentence as 'subsequently'; the claim states an order, not arrival; no later order for this division in the passage.",
+  "dbasis": "report context: July 1 narrative (3 p. m. arrival; Slocum arrived between 5 and 6 later)"
+ },
+ {
+  "id": "POS-B-us-12c-40",
+  "fc": "passed_full_read",
+  "why": "'Between 5 and 6 o'clock' in the fact's own sentence; Slocum named; transfer of command printed. No a. m./p. m. printed; t stays null.",
+  "wdesc": "no a. m./p. m. printed; afternoon follows from \"At 3 p. m. I arrived at Gettysburg\" earlier and \"About dark I started\" later; t left null",
+  "dbasis": "report context: July 1 narrative"
+ },
+ {
+  "id": "POS-B-us-12c-1d-lockwood-25",
+  "fc": "corrected",
+  "why": "Removed the compiler day-part '(July 2 evening)' from the activity: not printed in the sentence ('It was nearly dark' comes two sentences later). Date from the July 2 narrative.",
+  "act": "Hancock: General Meade brought up in person a part of the Twelfth Corps, two regiments of Lockwood's brigade, which formed line and advanced against the enemy on the left of the Second Corps",
+  "wdesc": "day-part is a compiler reading: no hour in the sentence; \"It was nearly dark\" follows two sentences later",
+  "dbasis": "report context: July 2 narrative (\"no severe fighting took place until about 3 p. m., when the Third Corps advanced\")"
+ },
+ {
+  "id": "POS-B-us-12c-41",
+  "fc": "corrected",
+  "why": "Passage says the firing 'indicated' the enemy's efforts were being directed on the Twelfth Corps; claim said 'showed', dropping the inference hedge. Restored 'indicated'.",
+  "act": "Hancock: the early morning of July 3 passed in comparative quiet along the Second Corps front, but heavy and continued firing on the right indicated that the efforts of the enemy were being directed on the Twelfth Corps",
+  "dbasis": "report context: July 3 narrative (\"on the 3d instant it required every available man\" in the preceding paragraph)"
+ },
+ {
+  "id": "POS-B-us-12c-42",
+  "fc": "corrected",
+  "why": "Removed compiler day-part '(evening of July 2)': no hour or evening is printed; Caldwell gives only 'between 4 and 6 o'clock' for the earlier order. Which Twelfth Corps units relieved is not stated.",
+  "act": "Caldwell (Second Corps): after falling back, reformed his men behind a stone wall until relieved by the Twelfth Corps",
+  "wdesc": "day-part is a compiler reading: no hour in the sentence; the earlier order to Sykes came \"between 4 and 6 o'clock\"",
+  "dbasis": "report context: July 2 narrative (\"My command arrived on the field of battle on the morning of July 2\"; \"the afternoon of the 2d\")"
+ },
+ {
+  "id": "POS-B-us-12c-43",
+  "fc": "corrected",
+  "why": "Removed compiler day-part '(evening of July 2)': no hour in the sentence; 'Darkness ended the contest here' follows. Date from the July 2 narrative (Third Corps advance at 4 o'clock).",
+  "act": "Gibbon: the head of the enemy's column came through a vacancy in the line to the left of his division, opened by detaching troops; by the steadiness of troops in the immediate vicinity and the timely arrival of the Twelfth Corps this advance was checked and driven back",
+  "wdesc": "day-part is a compiler reading: no hour in the sentence; follows the 4 o'clock Third Corps advance and precedes \"Darkness ended the contest here\"",
+  "dbasis": "report context: July 2 narrative (\"At 4 o'clock the Third Corps advanced\")"
+ },
+ {
+  "id": "POS-B-us-12c-44",
+  "fc": "corrected",
+  "why": "'morning of July 2' is in the arrival sentence, formation is the next sentence with no time; moved to wdesc, wp null. Added the printed later order: after an hour or more the brigade was ordered to withdraw to a new position to the rear.",
+  "act": "Burbank (Fifth Corps regulars): arrived near Gettysburg on the morning of July 2; the brigade was formed in line of battle with its left resting on the right of the Twelfth Army Corps, and after an hour or more was ordered to withdraw to a new position somewhat to the rear",
+  "wp": null,
+  "wdesc": "time in a different sentence: \"on the morning of July 2\" (preceding sentence, the arrival); formation is the next sentence, no hour printed",
+  "dbasis": "report context: arrival on the morning of July 2 in the preceding sentence",
+  "q2": [
+   "near Gettysburg, Pa. , on the morning of July 2",
+   "orders to withdraw the brigade and to establish it in a new position"
+  ]
+ },
+ {
+  "id": "POS-B-us-12c-2d-42",
+  "fc": "corrected",
+  "why": "'At midnight' is in the next sentence and belongs to Neill's return, not to the front-line order; wp null with wdesc. Neill's arrival hour is OCR-damaged ('Gp. m.'), not used. Activity names Neill as the actor.",
+  "act": "Neill (Sixth Corps): Slocum subsequently ordered him to take position supporting the front line then held by Generals Geary and Wadsworth; at midnight he was ordered to return to his original position",
+  "wp": null,
+  "wdesc": "time in a different sentence: \"At midnight was ordered to return to my original position\" (next sentence, applies to the return only); the front-line order follows his arrival on July 2 (\"Gp. m., July 2\", hour glyph OCR-damaged, not used)",
+  "dbasis": "report context: arrival on the battle-field of Gettysburg July 2 in the preceding sentences"
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-36",
+  "fc": "downgraded",
+  "tier": "inferred",
+  "why": "Passage names only 'the Twelfth Corps, on our right'; no brigade or division; assignment to Greene's brigade is the compiler's. Time 'In the evening, at dark' is in the same sentence.",
+  "reasoning": "Dobke (45th N.Y., Eleventh Corps) prints 'In the evening, at dark, a sudden attack was made on the Twelfth Corps, on our right' and that his regiment was ordered to support; no brigade or division of the Twelfth Corps is named, so applying it to Greene's brigade is inference."
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-37",
+  "fc": "downgraded",
+  "tier": "inferred",
+  "why": "Passage names only 'the Twelfth Corps'; Greene's brigade is not named (Greene/Geary appear only in other reports). Restored the printed 'owing to some mistake' before the return to the breastworks.",
+  "act": "Bown (61st Ohio): in the evening the Sixty-first Ohio and One hundred and fifty-seventh New York, under Colonel McGroarty, were sent to support the Twelfth Corps; after having been severely repulsed, owing to some mistake, they were ordered back to their old position behind the breastworks",
+  "reasoning": "Bown prints that the 61st Ohio and 157th N.Y. were sent 'to support the Twelfth Corps' in the evening; no division or brigade of the Twelfth Corps is named, so applying it to Greene's brigade is inference."
+ },
+ {
+  "id": "POS-B-us-12c-45",
+  "fc": "corrected",
+  "why": "Day not printed in the sentence: 'In the morning' follows 'On the morning of the 2d' and 'the morning of the 3d' sentences, so July 2 is a reading. Added printed later withdrawal of these batteries to the hill.",
+  "act": "Osborn (Eleventh Corps artillery): in the morning, before General Slocum had occupied his position and while he was doing so, three batteries were placed on the right of the Baltimore road commanding the ravine between the two prominent hills on the right; later in the day, Slocum having withstood every assault without assistance, he withdrew these batteries to the hill",
+  "dbasis": "report context: day not printed in the sentence; compiler reading July 2 (preceding sentences give 'the morning of the 2d' for the request to Hunt and 'the morning of the 3d' only for the gun total)"
+ }
+]

@@ -1,0 +1,3095 @@
+{
+ "schema": "gtbg/guide-content/1",
+ "_doc": "Everything the guide says and shows. A new release needs only this file updated and the screenshots re-captured (node tools/guide/shots.mjs), then node tools/guide/build.mjs and node tools/guide/verify.mjs. Inline markup in text: **ui label** (bold), [[Key]] (a keyboard key), _emphasis_, {play} {prev} {next} {back12} {fwd12} (icons of the transport buttons). A figure's callouts point at elements named in the shot's `elements` map; the boxes are measured on the live build when the shot is captured.",
+ "release": {
+  "train": "R1d",
+  "build": "753e318f",
+  "zip": "tmp/r2/zips/gettysburg-R1d-753e318f-PRODUCTION.zip",
+  "label": "Updated October 2026",
+  "updated": "October 2026",
+  "date": "2026-10-21"
+ },
+ "meta": {
+  "title": "Gettysburg Interactive Map: User Guide",
+  "author": "Gettysburg Interactive Map",
+  "subject": "How to use the Gettysburg Interactive Map: the timeline, the map and its units, the toolbar, the Virtual Walkthrough, sharing links, the other pages, keyboard use and the phone layout.",
+  "keywords": "Gettysburg, Battle of Gettysburg, interactive map, user guide, tutorial, July 1863, timeline, keyboard shortcuts, accessibility",
+  "language": "en-US",
+  "site": "gettysburginteractivemap.com",
+  "siteUrl": "https://gettysburginteractivemap.com/",
+  "contact": "gettysburginteractivemap@gmail.com"
+ },
+ "cover": {
+  "eyebrow": "Gettysburg Interactive Map",
+  "title": "User Guide",
+  "subtitle": "July 1–3, 1863, in 675 moments. How to read the map, move through time and find your way around the site.",
+  "shot": "d-cover"
+ },
+ "intro": {
+  "title": "Before you begin",
+  "text": "This guide describes the site as it stands in {updated}. Names in **bold** are the labels you see on screen, spelled the way the screen spells them. Numbered markers on the pictures match the numbered lists beside them. Everything here was checked against the running site.",
+  "quickTitle": "Four things to try first",
+  "quick": [
+   "Press **Play** (or [[Space]]) and watch July 1 begin.",
+   "Click a unit to read its commander, strength and losses.",
+   "Press [[2]] or [[3]] to jump to the second or third day.",
+   "Press [[?]] whenever you want the list of shortcuts."
+  ]
+ },
+ "shots": {
+  "d-cover": {
+   "device": "desktop",
+   "url": "/?tick=150&z=14.6&ll=39.8095,-77.2330",
+   "steps": [
+    {
+     "do": "goto",
+     "url": "/?tick=150&z=14.6&ll=39.8095,-77.2330",
+     "ms": 5000
+    },
+    {
+     "do": "click",
+     "sel": "[role=group][aria-label=Legend] button[aria-label=Close]"
+    },
+    {
+     "do": "click",
+     "sel": "div:has(> div > span:text-is('Overview')) button[aria-label=Close]"
+    }
+   ],
+   "clip": {
+    "x": 180,
+    "y": 180,
+    "w": 860,
+    "h": 545
+   },
+   "outScale": 1.6,
+   "quality": 58,
+   "alt": "Satellite view of the Gettysburg battlefield with blue and red unit markers.",
+   "elements": {}
+  },
+  "intro-choose": {
+   "device": "desktop",
+   "onboarded": false,
+   "url": "/",
+   "settleMs": 4000,
+   "clip": {
+    "x": 470,
+    "y": 190,
+    "w": 500,
+    "h": 520
+   },
+   "outScale": 1.4,
+   "alt": "The welcome window with three choices: New to Gettysburg, History Buff and Power User, and a Skip introduction link.",
+   "elements": {}
+  },
+  "intro-step": {
+   "device": "desktop",
+   "onboarded": false,
+   "url": "/",
+   "settleMs": 4000,
+   "steps": [
+    {
+     "do": "click",
+     "sel": "text=New to Gettysburg"
+    }
+   ],
+   "clip": {
+    "x": 400,
+    "y": 270,
+    "w": 640,
+    "h": 340
+   },
+   "outScale": 1.4,
+   "alt": "The first step of the introduction: July 1, 1863, Dawn, with Skip tour and Next buttons.",
+   "elements": {}
+  },
+  "intro-power": {
+   "device": "desktop",
+   "onboarded": false,
+   "url": "/",
+   "settleMs": 4000,
+   "steps": [
+    {
+     "do": "click",
+     "sel": "text=Power User"
+    }
+   ],
+   "clip": {
+    "x": 400,
+    "y": 270,
+    "w": 640,
+    "h": 340
+   },
+   "outScale": 1.4,
+   "alt": "The Quick Reference window listing the main keyboard shortcuts, with a Start exploring button.",
+   "elements": {}
+  },
+  "d-overview": {
+   "device": "desktop",
+   "url": "/?tick=150",
+   "settleMs": 5000,
+   "alt": "The whole desktop screen: top bar, toolbar, map with units, legend, overview map, and the timeline along the bottom.",
+   "elements": {
+    "clock": ".gtbg-tb-tick",
+    "buttons": ".gtbg-tb-center",
+    "toolbar": ".gtbg-tb-right",
+    "readout": {
+     "sel": "div:has(> div:text-matches('^July [123], 1863$'))"
+    },
+    "trails": "button:has-text('Trails')",
+    "zoom": ".mapboxgl-ctrl-group:has(.mapboxgl-ctrl-zoom-in)",
+    "extras": "#ef-controls",
+    "legend": "[role=group][aria-label=Legend]",
+    "overview": "div:has(> div > span:text-is('Overview'))",
+    "timeline": {
+     "sel": "#gt-timeline",
+     "pad": 0
+    },
+    "tour": "button:has-text('NPS Auto Tour')"
+   },
+   "outScale": 1.25,
+   "quality": 80
+  },
+  "d-topbar": {
+   "device": "desktop",
+   "url": "/?tick=150",
+   "clip": {
+    "x": 0,
+    "y": 0,
+    "w": 860,
+    "h": 48
+   },
+   "outScale": 1.6,
+   "alt": "The left part of the top bar: the name, the clock, and the Toggle Units, User Guide (PDF) and Virtual Walkthrough buttons.",
+   "elements": {
+    "name": "span:text-is('GETTYSBURG')",
+    "clock": ".gtbg-tb-tick",
+    "units": "button:has-text('Toggle Units')",
+    "guide": "a:has-text('User Guide (PDF)')",
+    "walk": "button:has-text('Virtual Walkthrough')"
+   }
+  },
+  "d-toolbar": {
+   "device": "desktop",
+   "url": "/?tick=150",
+   "clip": {
+    "x": 925,
+    "y": 0,
+    "w": 515,
+    "h": 54
+   },
+   "outScale": 2,
+   "alt": "The thirteen toolbar buttons at the right of the top bar.",
+   "elements": {
+    "search": "button[aria-label='Search']",
+    "filter": "button[aria-label='Filter']",
+    "roster": "button[aria-label='Unit Roster']",
+    "legend": "button[aria-label='Legend']",
+    "monuments": "button[aria-label='Monuments']",
+    "streetview": "button[aria-label=\"Soldier's Eye View (Street View)\"]",
+    "ancestor": "button[aria-label='Follow Your Ancestor']",
+    "distance": "button[aria-label='Distance Tool']",
+    "layers": "button[aria-label='Map Layers']",
+    "locations": "button[aria-label='Locations']",
+    "find": "button[aria-label='Find Unit / Location']",
+    "bookmarks": "button[aria-label='Bookmarks']",
+    "help": "button[aria-label='Help']"
+   }
+  },
+  "d-timeline": {
+   "device": "desktop",
+   "url": "/?tick=150",
+   "clip": {
+    "x": 200,
+    "y": 752,
+    "w": 640,
+    "h": 148
+   },
+   "outScale": 2,
+   "alt": "The timeline: the clock, the three day buttons, the scrubber with event markers, the playback buttons, the speed buttons and the time of day.",
+   "elements": {
+    "clock": {
+     "sel": "#gt-timeline >> text=/^July \\d, about \\d{1,2}:\\d{2} [AP]M$/",
+     "centerW": 150,
+     "pad": 1
+    },
+    "days": {
+     "union": [
+      "#gt-timeline button:text-is('July 1')",
+      "#gt-timeline button:text-is('July 3')"
+     ],
+     "pad": 2
+    },
+    "markers": {
+     "sel": "#gt-timeline [title^='Little Round Top']",
+     "pad": 3
+    },
+    "scrubber": {
+     "sel": "input[aria-label='Battle time']",
+     "pad": 6
+    },
+    "transport": {
+     "union": [
+      "button[aria-label='Back one hour']",
+      "button[aria-label='Forward one hour']"
+     ],
+     "pad": 2
+    },
+    "speed": {
+     "union": [
+      "button:text-is('1/4x')",
+      "button:text-is('8x')"
+     ],
+     "pad": 2
+    },
+    "counter": "#gt-timeline >> text=/^about \\d{1,2}:\\d{2} [AP]M$/"
+   },
+   "steps": [
+    {
+     "do": "goto",
+     "url": "/?tick=150"
+    },
+    {
+     "do": "hide",
+     "sel": "#gt-timeline span:has-text('Created by')"
+    },
+    {
+     "do": "hide",
+     "sel": "#gt-timeline a:has-text('gettysburginteractivemap')"
+    }
+   ]
+  },
+  "d-unit": {
+   "device": "desktop",
+   "url": "/?tick=150&unit=U-20ME",
+   "clip": {
+    "sel": "#gt-unit-panel",
+    "pad": 8
+   },
+   "outScale": 2.2,
+   "alt": "The unit card for the 20th Maine Volunteer Infantry: strength, commander, key action and casualties.",
+   "elements": {
+    "name": {
+     "sel": "#gt-unit-panel > div:nth-child(1) > div:nth-child(1)",
+     "pad": -3
+    },
+    "actions": {
+     "sel": "#gt-unit-panel > div:nth-child(1) > div:nth-child(2)",
+     "pad": -3
+    },
+    "status": {
+     "sel": "#gt-unit-panel > div:nth-child(2)",
+     "pad": -3
+    },
+    "strength": {
+     "sel": "#gt-unit-panel > div:nth-child(3)",
+     "pad": -3
+    },
+    "commander": {
+     "sel": "#gt-unit-panel > div:nth-child(4)",
+     "pad": -3
+    },
+    "action": {
+     "sel": "#gt-unit-panel > div:nth-child(5)",
+     "pad": -3
+    },
+    "attick": {
+     "sel": "#gt-unit-panel > div:nth-child(6)",
+     "pad": -3
+    },
+    "losses": {
+     "sel": "#gt-unit-panel > div:nth-child(7)",
+     "pad": -3
+    }
+   }
+  },
+  "d-cards": {
+   "device": "desktop",
+   "url": "/?tick=300",
+   "clip": {
+    "x": 0,
+    "y": 44,
+    "w": 1260,
+    "h": 560
+   },
+   "outScale": 1.1,
+   "alt": "A story card (Bigelow’s Last Stand) at the top right and an event card (Critical) on the free ground of the map.",
+   "elements": {
+    "story": "[role=group][aria-label='Event details']",
+    "jump": "button[title^='Jump to about']",
+    "dismiss": "button:text-is('Dismiss')",
+    "event": "div:has(> div > button[aria-label='Close']):has-text('CRITICAL')"
+   }
+  },
+  "d-search": {
+   "device": "desktop",
+   "url": "/?tick=150",
+   "steps": [
+    {
+     "do": "press",
+     "key": "s"
+    },
+    {
+     "do": "type",
+     "text": "Maine"
+    }
+   ],
+   "clip": {
+    "x": 490,
+    "y": 46,
+    "w": 470,
+    "h": 430
+   },
+   "outScale": 2,
+   "alt": "The Search Units panel with Maine typed in and a list of matching regiments.",
+   "elements": {
+    "box": "input[placeholder*='Name']",
+    "sort": {
+     "union": [
+      "button:text-is('relevance')",
+      "button:text-is('casualties')"
+     ],
+     "pad": 3
+    }
+   }
+  },
+  "d-filter": {
+   "device": "desktop",
+   "url": "/?tick=150",
+   "steps": [
+    {
+     "do": "press",
+     "key": "f"
+    }
+   ],
+   "clip": {
+    "sel": "[role=group][aria-label=Filters]",
+    "pad": 6
+   },
+   "outScale": 2.2,
+   "alt": "The Filters panel: side, unit type, disposition and minimum strength.",
+   "elements": {
+    "side": {
+     "union": [
+      "[role=group][aria-label=Filters] button:text-is('Union')",
+      "[role=group][aria-label=Filters] button:text-is('Confederate')"
+     ],
+     "pad": 3
+    },
+    "type": {
+     "union": [
+      "[role=group][aria-label=Filters] button:text-is('Infantry')",
+      "[role=group][aria-label=Filters] button:text-is('Artillery')"
+     ],
+     "pad": 3
+    },
+    "disposition": {
+     "union": [
+      "[role=group][aria-label=Filters] button:text-is('Line of Battle')",
+      "[role=group][aria-label=Filters] button:text-is('Dismounted Cavalry')"
+     ],
+     "pad": 3
+    },
+    "strength": {
+     "sel": "[role=group][aria-label=Filters] input[type=range]",
+     "pad": 8
+    },
+    "close": "[role=group][aria-label=Filters] button:has-text('✕')"
+   }
+  },
+  "d-roster": {
+   "device": "desktop",
+   "url": "/?tick=300",
+   "steps": [
+    {
+     "do": "click",
+     "sel": "button[aria-label='Unit Roster']"
+    }
+   ],
+   "clip": {
+    "x": 0,
+    "y": 48,
+    "w": 562,
+    "h": 742
+   },
+   "outScale": 1.6,
+   "alt": "The Unit Roster: two columns, Union and Confederate, listing every unit with its commander and status.",
+   "elements": {
+    "union": {
+     "sel": "text=/^UNION — \\d+ units$/",
+     "pad": 3
+    },
+    "confed": {
+     "sel": "text=/^CONFEDERATE — \\d+ units$/",
+     "pad": 3
+    },
+    "close": ".gtbg-roster button:has-text('✕')"
+   }
+  },
+  "d-legend-1": {
+   "device": "desktop",
+   "url": "/?tick=150",
+   "clip": {
+    "sel": "[role=group][aria-label=Legend]",
+    "pad": 4
+   },
+   "outScale": 2.2,
+   "alt": "The legend, What the marks say: the flag colours for the two sides, the shapes for infantry, cavalry and artillery, each row with its evidence label.",
+   "elements": {}
+  },
+  "d-legend-2": {
+   "device": "desktop",
+   "url": "/?tick=150",
+   "steps": [
+    {
+     "do": "click",
+     "sel": "[data-gta-legend] summary:has-text('More marks')"
+    },
+    {
+     "do": "scrollTo",
+     "sel": "[data-gta=\"legend\"]",
+     "to": "bottom"
+    }
+   ],
+   "clip": {
+    "sel": "[role=group][aria-label=Legend]",
+    "pad": 4
+   },
+   "outScale": 2.2,
+   "alt": "The legend with More marks open: the marks for strength, facing, crowds, state and order-of-battle level.",
+   "elements": {}
+  },
+  "d-legend-3": {
+   "device": "desktop",
+   "url": "/?tick=150",
+   "steps": [
+    {
+     "do": "click",
+     "sel": "[data-gta-legend] summary:has-text('How the marks are drawn')"
+    },
+    {
+     "do": "scrollTo",
+     "sel": "[data-gta=\"legend\"]",
+     "to": "bottom"
+    }
+   ],
+   "clip": {
+    "sel": "[role=group][aria-label=Legend]",
+    "pad": 4
+   },
+   "outScale": 2.2,
+   "alt": "The legend with How the marks are drawn open: a flag taken apart, labelled part by part.",
+   "elements": {}
+  },
+  "d-streetview": {
+   "device": "desktop",
+   "url": "/?tick=150",
+   "steps": [
+    {
+     "do": "click",
+     "sel": "button[aria-label^='Soldier']"
+    }
+   ],
+   "clip": {
+    "panelOf": "text=Stand where history happened",
+    "pad": 3
+   },
+   "outScale": 1.6,
+   "alt": "Soldier's Eye View: a list of eight viewpoints that open in Google Street View.",
+   "elements": {}
+  },
+  "d-follow": {
+   "device": "desktop",
+   "url": "/?tick=150",
+   "steps": [
+    {
+     "do": "click",
+     "sel": "button[aria-label='Follow Your Ancestor']"
+    },
+    {
+     "do": "fill",
+     "sel": "input[placeholder^='Type regiment']",
+     "text": "20th Maine"
+    },
+    {
+     "do": "click",
+     "sel": "text=20th Maine Volunteer Infantry"
+    },
+    {
+     "do": "wait",
+     "ms": 2500
+    }
+   ],
+   "clip": {
+    "panelOf": "text=Every recorded position",
+    "pad": 3
+   },
+   "outScale": 1.5,
+   "alt": "Follow Your Ancestor showing the 20th Maine and its list of recorded positions across the three days.",
+   "elements": {}
+  },
+  "d-distance": {
+   "device": "desktop",
+   "url": "/?tick=150",
+   "steps": [
+    {
+     "do": "click",
+     "sel": "button[aria-label='Distance Tool']"
+    },
+    {
+     "do": "clickAt",
+     "x": 380,
+     "y": 330
+    },
+    {
+     "do": "clickAt",
+     "x": 900,
+     "y": 330
+    }
+   ],
+   "clip": {
+    "x": 340,
+    "y": 50,
+    "w": 620,
+    "h": 330
+   },
+   "outScale": 2,
+   "alt": "The Distance Tool with two points placed on the map and the distance in feet, yards and metres with a march time.",
+   "elements": {}
+  },
+  "d-layers": {
+   "device": "desktop",
+   "url": "/?tick=150",
+   "steps": [
+    {
+     "do": "click",
+     "sel": "button[aria-label='Map Layers']"
+    }
+   ],
+   "clip": {
+    "x": 1222,
+    "y": 54,
+    "w": 214,
+    "h": 286
+   },
+   "outScale": 2,
+   "alt": "The Map Layers panel with seven check boxes.",
+   "elements": {}
+  },
+  "d-bookmarks": {
+   "device": "desktop",
+   "url": "/?tick=150",
+   "steps": [
+    {
+     "do": "click",
+     "sel": "button[aria-label='Bookmarks']"
+    }
+   ],
+   "clip": {
+    "panelOf": "text=Bookmarks & Sharing",
+    "pad": 3
+   },
+   "outScale": 1.8,
+   "alt": "The Bookmarks and Sharing panel with a Copy Link button and an empty list of saved bookmarks.",
+   "elements": {}
+  },
+  "d-menu": {
+   "device": "desktop",
+   "url": "/?tick=150",
+   "steps": [
+    {
+     "do": "click",
+     "sel": "#ef-btn"
+    }
+   ],
+   "clip": {
+    "x": 960,
+    "y": 150,
+    "w": 480,
+    "h": 740
+   },
+   "outScale": 1.6,
+   "alt": "The More to Explore menu open, showing the Explore and Learn groups.",
+   "elements": {
+    "historian": ".gtbg-historian-pin",
+    "button": "#ef-btn",
+    "hide": "#ef-toggle",
+    "menu": "#ef-menu"
+   }
+  },
+  "d-tour": {
+   "device": "desktop",
+   "url": "/?tick=150",
+   "steps": [
+    {
+     "do": "click",
+     "sel": "button:has-text('NPS Auto Tour')"
+    },
+    {
+     "do": "wait",
+     "ms": 2500
+    }
+   ],
+   "clip": {
+    "union": [
+     "text=/^STOP \\d+ OF 16$/i",
+     "button:text-is('← Previous')",
+     "button:text-is('Next →')"
+    ],
+    "pad": 14
+   },
+   "outScale": 1.4,
+   "alt": "The NPS Auto Tour at stop 1 of 16, McPherson Ridge, with Previous, Show Video and Next buttons.",
+   "elements": {
+    "stop": {
+     "sel": "text=/^STOP \\d+ OF 16$/i",
+     "maxW": 110,
+     "pad": 2
+    },
+    "dots": {
+     "sel": "div:has(> div > button:text-is('← Previous')) > div:nth-child(3)",
+     "centerW": 150,
+     "pad": 2
+    },
+    "prev": "button:text-is('← Previous')",
+    "video": "button:has-text('Show Video')",
+    "next": "button:text-is('Next →')"
+   }
+  },
+  "d-walk": {
+   "device": "desktop",
+   "url": "/?tick=150",
+   "steps": [
+    {
+     "do": "click",
+     "sel": "button:has-text('Virtual Walkthrough')"
+    },
+    {
+     "do": "wait",
+     "ms": 2500
+    }
+   ],
+   "alt": "The Virtual Walkthrough: a map of tour stops at the left and the narration for stop 1, McPherson Ridge, at the right.",
+   "elements": {
+    "back": "button:has-text('Back to the map')",
+    "layers": {
+     "union": [
+      "label:has-text('Auto Tour Stops')",
+      "label:has-text('Monuments')"
+     ],
+     "pad": 2
+    },
+    "tabs": {
+     "union": [
+      "button:text-matches('^tour stops$', 'i')",
+      "button:text-matches('^monuments$', 'i')"
+     ],
+     "pad": 2
+    },
+    "stops": "button:has-text('McPherson Ridge') >> nth=0",
+    "text": "text=TOUR STOP 1"
+   },
+   "outScale": 1.25,
+   "quality": 80
+  },
+  "d-walk-mon": {
+   "device": "desktop",
+   "url": "/?tick=150",
+   "steps": [
+    {
+     "do": "click",
+     "sel": "button:has-text('Virtual Walkthrough')"
+    },
+    {
+     "do": "wait",
+     "ms": 2000
+    },
+    {
+     "do": "click",
+     "sel": "text=MONUMENTS >> nth=-1"
+    },
+    {
+     "do": "wait",
+     "ms": 1500
+    }
+   ],
+   "alt": "The Monuments tab of the Virtual Walkthrough: a search box, side buttons, a group menu and a list of monuments.",
+   "elements": {
+    "search": "input[placeholder^='Search by name']",
+    "side": {
+     "union": [
+      "button:text-is('all')",
+      "button:text-is('Other')"
+     ],
+     "pad": 2
+    },
+    "group": "select",
+    "count": "text=/^SHOWING \\d+ OF \\d+ MONUMENTS$/i"
+   },
+   "outScale": 1.25,
+   "quality": 80,
+   "clip": {
+    "x": 702,
+    "y": 56,
+    "w": 738,
+    "h": 430
+   }
+  },
+  "m-home": {
+   "device": "phone",
+   "url": "/?tick=150",
+   "settleMs": 5000,
+   "alt": "The phone layout: clock and Tools button at the top, the three day tabs, the map, and play controls at the bottom.",
+   "elements": {
+    "tools": "button:has-text('Tools')",
+    "days": {
+     "union": [
+      "button:text-is('July 1')",
+      "button:text-is('July 3')"
+     ]
+    },
+    "scrubber": "#gt-timeline > div:nth-child(1)",
+    "controls": {
+     "union": [
+      "button[aria-label='Previous step']",
+      "button[aria-label^='1× playback']"
+     ],
+     "pad": 2
+    }
+   },
+   "outScale": 1.6,
+   "quality": 80
+  },
+  "m-tools": {
+   "device": "phone",
+   "url": "/?tick=150",
+   "steps": [
+    {
+     "do": "click",
+     "sel": "button:has-text('Tools')"
+    }
+   ],
+   "alt": "The Tools sheet on a phone: fourteen buttons and a More Tools list.",
+   "elements": {
+    "close": "button[aria-label='Close tools']",
+    "grid": {
+     "union": [
+      "button:has-text('Search')",
+      "button:has-text('Desktop View')"
+     ]
+    }
+   },
+   "outScale": 1.6,
+   "quality": 80
+  },
+  "m-unit": {
+   "device": "phone",
+   "url": "/?tick=150&unit=U-20ME",
+   "alt": "A unit card on a phone.",
+   "elements": {},
+   "outScale": 1.6,
+   "quality": 80
+  },
+  "pg-chrome": {
+   "device": "desktop",
+   "map": false,
+   "url": "/search.html",
+   "clip": {
+    "x": 0,
+    "y": 0,
+    "w": 1440,
+    "h": 150
+   },
+   "outScale": 1.2,
+   "alt": "The top of a page opened from the More to Explore menu.",
+   "elements": {
+    "home": "a:has-text('← GETTYSBURG')",
+    "historian": "a:has-text('Ask the Historian') >> nth=0",
+    "menu": "#gtbg-menu-btn",
+    "back": "a:has-text('Back to the map')"
+   }
+  },
+  "pg-search": {
+   "device": "desktop",
+   "map": false,
+   "url": "/search.html",
+   "steps": [
+    {
+     "do": "fill",
+     "sel": "#search-box",
+     "text": "Pickett"
+    }
+   ],
+   "outScale": 0.62,
+   "alt": "Search Everything with Pickett typed in.",
+   "elements": {},
+   "quality": 76
+  },
+  "pg-compare": {
+   "device": "desktop",
+   "url": "/compare.html",
+   "settleMs": 6000,
+   "outScale": 0.62,
+   "alt": "Compare Two Moments with two maps side by side.",
+   "elements": {},
+   "quality": 76
+  },
+  "pg-camera": {
+   "device": "desktop",
+   "url": "/camera.html",
+   "settleMs": 5000,
+   "outScale": 0.62,
+   "alt": "Camera Modes.",
+   "elements": {},
+   "quality": 76
+  },
+  "pg-viewshed": {
+   "device": "desktop",
+   "url": "/viewshed.html",
+   "settleMs": 5000,
+   "outScale": 0.62,
+   "alt": "High Ground.",
+   "elements": {},
+   "quality": 76
+  },
+  "pg-sandbox": {
+   "device": "desktop",
+   "url": "/sandbox.html",
+   "settleMs": 5000,
+   "outScale": 0.62,
+   "alt": "What-If Sandbox.",
+   "elements": {},
+   "quality": 76
+  },
+  "pg-historian": {
+   "device": "desktop",
+   "map": false,
+   "url": "/historian.html",
+   "steps": [
+    {
+     "do": "fill",
+     "sel": "#ask",
+     "text": "Who commanded the 20th Maine?"
+    },
+    {
+     "do": "click",
+     "sel": "#ask-btn",
+     "ms": 2500
+    },
+    {
+     "do": "scrollTop"
+    }
+   ],
+   "outScale": 0.62,
+   "alt": "Ask the Historian with a question asked.",
+   "elements": {},
+   "quality": 76
+  },
+  "pg-documentary": {
+   "device": "desktop",
+   "map": false,
+   "url": "/documentary.html",
+   "outScale": 0.62,
+   "alt": "Documentary Mode.",
+   "elements": {},
+   "quality": 76
+  },
+  "pg-turning": {
+   "device": "desktop",
+   "map": false,
+   "url": "/turning-points.html",
+   "steps": [],
+   "outScale": 0.62,
+   "alt": "Turning Points with the first decision opened.",
+   "elements": {},
+   "quality": 76
+  },
+  "pg-education": {
+   "device": "desktop",
+   "map": false,
+   "url": "/education.html",
+   "outScale": 0.62,
+   "alt": "For Students.",
+   "elements": {},
+   "quality": 76
+  },
+  "pg-aftermath": {
+   "device": "desktop",
+   "map": false,
+   "url": "/aftermath.html",
+   "outScale": 0.62,
+   "alt": "Aftermath.",
+   "elements": {},
+   "quality": 76
+  },
+  "pg-regiment": {
+   "device": "desktop",
+   "map": false,
+   "url": "/regiment.html",
+   "outScale": 0.62,
+   "alt": "Regimental Biography.",
+   "elements": {},
+   "quality": 76
+  },
+  "pg-ancestor": {
+   "device": "desktop",
+   "map": false,
+   "url": "/find-ancestor.html",
+   "steps": [
+    {
+     "do": "select",
+     "sel": "#state",
+     "value": "Maine"
+    }
+   ],
+   "outScale": 0.62,
+   "alt": "Find Your Ancestor with Maine chosen.",
+   "elements": {},
+   "quality": 76
+  },
+  "pg-dashboard": {
+   "device": "desktop",
+   "map": false,
+   "url": "/dashboard.html",
+   "settleMs": 4000,
+   "outScale": 0.62,
+   "alt": "Casualty Dashboard.",
+   "elements": {},
+   "quality": 76
+  },
+  "pg-report": {
+   "device": "desktop",
+   "map": false,
+   "url": "/report.html",
+   "outScale": 0.62,
+   "alt": "Regiment Fact Sheets.",
+   "elements": {},
+   "quality": 76
+  },
+  "pg-immersive": {
+   "device": "desktop",
+   "url": "/immersive.html",
+   "settleMs": 5000,
+   "outScale": 0.62,
+   "alt": "Immersive Mode.",
+   "elements": {},
+   "quality": 76
+  },
+  "pg-ledger": {
+   "device": "desktop",
+   "map": false,
+   "url": "/living-ledger.html",
+   "outScale": 0.62,
+   "alt": "The Living Ledger.",
+   "elements": {},
+   "quality": 76
+  },
+  "pg-ground": {
+   "device": "desktop",
+   "url": "/ground-remembers.html",
+   "settleMs": 5000,
+   "outScale": 0.62,
+   "alt": "The Ground Remembers.",
+   "elements": {},
+   "quality": 76
+  },
+  "pg-watch": {
+   "device": "desktop",
+   "url": "/watch-together.html",
+   "settleMs": 5000,
+   "outScale": 0.62,
+   "alt": "Watch Together.",
+   "elements": {},
+   "quality": 76
+  },
+  "pg-export": {
+   "device": "desktop",
+   "url": "/cinematic-export.html",
+   "settleMs": 5000,
+   "outScale": 0.62,
+   "alt": "Export a Video.",
+   "elements": {},
+   "quality": 76
+  }
+ },
+ "chapters": [
+  {
+   "no": 1,
+   "id": "start",
+   "title": "Start here",
+   "sub": "Opening the map, your first visit, the screen at a glance",
+   "lead": "The map replays the Battle of Gettysburg, July 1–3, 1863, as 675 moments. Press play and watch the two armies move, or stop on any moment and look closely.",
+   "blocks": [
+    {
+     "t": "p",
+     "text": "Open [gettysburginteractivemap.com](https://gettysburginteractivemap.com/) in a current browser. There is nothing to install and no account to create. Phones and touch tablets up to 834 pixels wide get the phone layout (chapter 9); everything else gets the desktop layout, described first."
+    },
+    {
+     "t": "h2",
+     "text": "Your first visit"
+    },
+    {
+     "t": "p",
+     "text": "A welcome window asks how you want to explore. It does not appear again once you have skipped it or finished a path."
+    },
+    {
+     "t": "side",
+     "shot": "intro-choose",
+     "w": 2.3,
+     "caption": "The welcome window. **Skip introduction** closes it.",
+     "callouts": [],
+     "before": [
+      {
+       "t": "table",
+       "cls": "plain choice",
+       "head": [
+        "Choice",
+        "What happens"
+       ],
+       "rows": [
+        [
+         "**New to Gettysburg**",
+         "A five-step introduction: Dawn on July 1, First Artillery Fire, Reynolds Killed, The Crisis at Little Round Top and Pickett’s Charge. Each step explains what you are looking at and suggests one thing to do. **Skip tour** leaves it at any point."
+        ],
+        [
+         "**History Buff**",
+         "Goes straight to the map at July 1."
+        ],
+        [
+         "**Power User**",
+         "Shows the Quick Reference: [[Space]], the arrow keys, [[1]] [[2]] [[3]], [[+]] [[-]], [[S]], [[F]] and [[?]]. **Start exploring** closes it."
+        ]
+       ]
+      }
+     ],
+     "after": [
+      {
+       "t": "row",
+       "w": 2.0,
+       "items": [
+        {
+         "shot": "intro-step",
+         "title": "New to Gettysburg",
+         "caption": "Step 1 of 5, with **Skip tour** and **Next**."
+        },
+        {
+         "shot": "intro-power",
+         "title": "Power User",
+         "caption": "The Quick Reference, with **Start exploring**."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "t": "pagebreak"
+    },
+    {
+     "t": "h2",
+     "text": "The screen at a glance"
+    },
+    {
+     "t": "figure",
+     "shot": "d-overview",
+     "caption": "The desktop screen on July 1 at about 11:20 PM. Each number is explained below.",
+     "callouts": [
+      {
+       "n": 1,
+       "el": "clock",
+       "title": "Clock",
+       "text": "The date and time of the moment on screen.",
+       "at": "b"
+      },
+      {
+       "n": 2,
+       "el": "buttons",
+       "title": "Top-bar buttons",
+       "text": "**Toggle Units** hides or shows every unit. **User Guide (PDF)** opens this guide. **Virtual Walkthrough** opens the tour of the field. On a narrow window **Toggle Units** and **User Guide (PDF)** leave the top bar; they are then the last group of **More to Explore**, and on a phone they are tiles of **Tools**.",
+       "at": "b"
+      },
+      {
+       "n": 3,
+       "el": "toolbar",
+       "title": "Toolbar",
+       "text": "Thirteen tools for searching, filtering, measuring and sharing (chapter 4).",
+       "at": "b"
+      },
+      {
+       "n": 4,
+       "el": "readout",
+       "title": "Date and speed",
+       "text": "The day, and the playback speed with its description.",
+       "at": "r"
+      },
+      {
+       "n": 5,
+       "el": "trails",
+       "title": "Trails",
+       "text": "**Trails ON** and **Trails OFF** switch unit trails on and off.",
+       "at": "l"
+      },
+      {
+       "n": 6,
+       "el": "zoom",
+       "title": "Zoom and compass",
+       "text": "Zoom in, zoom out, and turn the map back to face north.",
+       "at": "l",
+       "dx": -90,
+       "lead": true
+      },
+      {
+       "n": 7,
+       "el": "extras",
+       "title": "Ask the Historian and More to Explore",
+       "text": "Doors to the other pages of the site (chapter 7).",
+       "at": "t"
+      },
+      {
+       "n": 8,
+       "el": "legend",
+       "title": "Legend",
+       "text": "What the marks say. [[L]] shows or hides it.",
+       "at": "tr"
+      },
+      {
+       "n": 9,
+       "el": "overview",
+       "title": "Overview",
+       "text": "A small map of every unit on the field, with a count beneath. [[M]] shows or hides it.",
+       "at": "tl"
+      },
+      {
+       "n": 10,
+       "el": "tour",
+       "title": "NPS Auto Tour",
+       "text": "Starts the guided tour, stop by stop (chapter 5).",
+       "at": "tl"
+      },
+      {
+       "n": 11,
+       "el": "timeline",
+       "title": "Timeline",
+       "text": "Day buttons, scrubber, playback and speed (chapter 2).",
+       "at": "tl",
+       "dx": 330
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": 2,
+   "id": "time",
+   "title": "Moving through time",
+   "sub": "The timeline, playback and speed",
+   "lead": "Everything on the map belongs to a moment. The timeline along the bottom of the screen chooses which one, and plays the battle forward from there.",
+   "blocks": [
+    {
+     "t": "figure",
+     "shot": "d-timeline",
+     "caption": "The timeline on July 1 at about 11:20 PM.",
+     "callouts": [
+      {
+       "n": 1,
+       "el": "clock",
+       "title": "Clock",
+       "text": "The date and time of the moment you are looking at.",
+       "at": "l"
+      },
+      {
+       "n": 2,
+       "el": "days",
+       "title": "Day buttons",
+       "text": "**July 1**, **July 2** and **July 3** jump to the first moment of that day. The current day is highlighted.",
+       "at": "l"
+      },
+      {
+       "n": 3,
+       "el": "markers",
+       "title": "Event markers",
+       "text": "Coloured dots along the bar mark key events in the battle.",
+       "at": "t"
+      },
+      {
+       "n": 4,
+       "el": "scrubber",
+       "title": "Scrubber",
+       "text": "Drag the handle, or click the bar, to go to any moment from July 1 to July 3.",
+       "at": "l"
+      },
+      {
+       "n": 5,
+       "el": "transport",
+       "title": "Playback buttons",
+       "text": "{back12} back one hour · {prev} back one step · {play} play or pause · {next} forward one step · {fwd12} forward one hour.",
+       "at": "t"
+      },
+      {
+       "n": 6,
+       "el": "speed",
+       "title": "Speed",
+       "text": "Six speeds from **1/4x** to **8x**. The one in use is highlighted.",
+       "at": "t"
+      },
+      {
+       "n": 7,
+       "el": "counter",
+       "title": "Time of day",
+       "text": "The same time again, in words, beside the speed buttons. The screen shows times of day; the numbers 1 to 675 that number the moments appear only in links (chapter 6).",
+       "at": "t"
+      }
+     ]
+    },
+    {
+     "t": "h2",
+     "text": "Play the battle"
+    },
+    {
+     "t": "steps",
+     "items": [
+      "Press {play} **Play**, or press [[Space]]. Units begin to move and the clock runs.",
+      "Press it again to pause.",
+      "Drag the scrubber, or click anywhere on the bar, to move to another moment. The map updates as you go.",
+      "Click **July 2** or **July 3**, or press [[2]] or [[3]], to jump to the start of that day. [[1]] returns to the start of July 1."
+     ]
+    },
+    {
+     "t": "h2",
+     "text": "Step and jump"
+    },
+    {
+     "t": "p",
+     "text": "The {prev} and {next} buttons move one step at a time, to the next moment of the battle. {back12} and {fwd12} move about an hour of battle time. Steps are not all the same length: a step can be a few minutes or much more, so read the clock, not the number of steps."
+    },
+    {
+     "t": "h2",
+     "text": "Change the speed"
+    },
+    {
+     "t": "p",
+     "text": "Click a speed button, or use the keys: [[+]] doubles the speed, [[-]] halves it and [[0]] returns to **1x**. The keys reach 16 times speed and one quarter speed; the buttons cover 1/4x to 8x. The label at the top left of the map names the speed, for example **1x (base speed)** or **8x (fast)**."
+    },
+    {
+     "t": "keys",
+     "caption": "Keys for time and speed",
+     "groups": [
+      {
+       "title": "Time",
+       "rows": [
+        [
+         "Space",
+         "Play or pause."
+        ],
+        [
+         "Right",
+         "Forward one step."
+        ],
+        [
+         "Left",
+         "Back one step."
+        ],
+        [
+         "Shift+Right",
+         "Forward about one hour of battle time."
+        ],
+        [
+         "Shift+Left",
+         "Back about one hour."
+        ],
+        [
+         "1",
+         "Jump to the July 1 tab, about 5:00 AM."
+        ],
+        [
+         "2",
+         "Jump to the July 2 tab, about 4:30 AM."
+        ],
+        [
+         "3",
+         "Jump to the July 3 tab, about 4:15 AM."
+        ]
+       ]
+      },
+      {
+       "title": "Speed",
+       "rows": [
+        [
+         "Minus",
+         "Slower: halves the speed."
+        ],
+        [
+         "Plus or Equals",
+         "Faster: doubles the speed."
+        ],
+        [
+         "0",
+         "Back to **1x**."
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "t": "callout",
+     "kind": "careful",
+     "title": "About the clock",
+     "text": "Times are approximate. Sources disagree by half an hour or more, and the map plays as a time-lapse."
+    }
+   ]
+  },
+  {
+   "no": 3,
+   "id": "map",
+   "title": "Reading the map",
+   "sub": "Moving the map, units, the legend, cards",
+   "lead": "Each regiment, battery and larger formation on the field is a flag on a map of the ground as it was in July 1863. The colour of a flag tells you the side and its shape the arm; a click tells you everything else.",
+   "blocks": [
+    {
+     "t": "h2",
+     "text": "Move around"
+    },
+    {
+     "t": "table",
+     "cls": "plain",
+     "head": [
+      "To",
+      "Do this"
+     ],
+     "rows": [
+      [
+       "Pan",
+       "Press on the map and drag."
+      ],
+      [
+       "Zoom",
+       "Scroll the wheel over the map, or use the **+** and **–** buttons at the top right. The compass button under them turns the map back to face north."
+      ],
+      [
+       "Use the keyboard",
+       "Press [[Tab]] until the map has focus. The arrow keys then pan the map, [[+]] and [[-]] zoom it, and [[Shift]] with the arrow keys rotates and tilts it. [[Esc]] hands the keys back to the clock."
+      ]
+     ]
+    },
+    {
+     "t": "h2",
+     "text": "The ground"
+    },
+    {
+     "t": "p",
+     "text": "The map is a reconstruction of July 1863, not a photograph of it: a 2013 aerial photograph of the field with later features removed and 1863 features added from period maps. A box at the top of the map says so in every view. **Show what was changed** colours the parts that were removed, filled, drawn or recoloured, with a key, and **Sources and licences** opens the credits. The box moves out of the way when a card needs the room."
+    },
+    {
+     "t": "h2",
+     "text": "Units"
+    },
+    {
+     "t": "p",
+     "text": "A unit is a flag on a pole; the foot of the pole is the unit’s place on the ground. Blue is Union and red is Confederate. The shape says the arm: a square-ended flag is infantry, a swallow-tailed flag is cavalry and an arrow-ended flag is artillery. A flag flies toward the enemy, the Union’s to the right and the Confederate’s to the left. A label names the unit, such as **1st Minnesota**, or the formation, such as **Early’s Div, 2nd Corps**. Where several units stand close together they are drawn as one larger flag with a number in it: the number of placement records it stands for, never a count of men. Zoom in, or click it, and it splits. The flags move as the clock runs. A unit that is not on the field at that moment is not drawn."
+    },
+    {
+     "t": "p",
+     "text": "The legend at the left of the map is called **What the marks say**. Every row says what a mark means and carries a label for how well that is known: **Documented** (printed in the order of battle), **Modelled** (placed by hand, not recorded), **Computed** (counted by a stated rule), **Contested** (the records disagree) or **Design** (drawn to be read). A mark with no record behind it says so in its own label. **More marks** opens the rest of the rows and **How the marks are drawn** opens a picture of one flag taken apart."
+    },
+    {
+     "t": "row",
+     "w": 2.3,
+     "items": [
+      {
+       "shot": "d-legend-2",
+       "title": "More marks",
+       "caption": "The rest of the rows: how old a position is, crowds, strength, the selected mark."
+      },
+      {
+       "shot": "d-legend-3",
+       "title": "How the marks are drawn",
+       "caption": "One flag, labelled part by part."
+      }
+     ]
+    },
+    {
+     "t": "table",
+     "cls": "plain",
+     "caption": "Marks and what they claim",
+     "head": [
+      "Mark",
+      "Meaning"
+     ],
+     "rows": [
+      [
+       "Blue flag",
+       "Union, from the order of battle."
+      ],
+      [
+       "Red flag",
+       "Confederate, from the order of battle."
+      ],
+      [
+       "Hatched flag",
+       "The side is not known. The flag is hatched and never takes a side colour."
+      ],
+      [
+       "Flag in both colours",
+       "A crowd of both sides in one mark."
+      ],
+      [
+       "Square-ended flag",
+       "Infantry."
+      ],
+      [
+       "Swallow-tailed flag",
+       "Cavalry."
+      ],
+      [
+       "Arrow-ended flag",
+       "Artillery."
+      ],
+      [
+       "Larger standard",
+       "A formation record (brigade, division or corps). No arm is claimed."
+      ],
+      [
+       "Solid cloth",
+       "The latest position on record is under half a battle day old."
+      ],
+      [
+       "Hollow cloth",
+       "The position is a battle day or more old and is carried forward."
+      ],
+      [
+       "A number in a flag",
+       "The placement records it stands for, never men."
+      ],
+      [
+       "Italic code",
+       "No order-of-battle record: the name comes from the unit’s id alone."
+      ],
+      [
+       "A ring round the pole",
+       "The selected mark. From zoom 15 it also shows its name."
+      ],
+      [
+       "A bar under a regiment flag",
+       "The strength in the placement record against a reference strength. A bar at 40 % is a recorded value, not a count of casualties."
+      ]
+     ]
+    },
+    {
+     "t": "h2",
+     "text": "Select a unit"
+    },
+    {
+     "t": "p",
+     "text": "Click a unit to open its card at the left of the screen. The card follows the clock: its details change as the unit’s situation changes. Press [[Esc]] or the close button to dismiss it."
+    },
+    {
+     "t": "p",
+     "text": "Rest the pointer on a flag and a small card names the unit and its formation, with the same evidence labels as the legend."
+    },
+    {
+     "t": "side",
+     "shot": "d-unit",
+     "w": 2.0,
+     "caption": "The card for the 20th Maine Volunteer Infantry on July 1 at about 11:20 PM.",
+     "callouts": [
+      {
+       "n": 1,
+       "el": "name",
+       "title": "Name and identifier",
+       "text": "The unit and its short id, here U-20ME.",
+       "at": "r"
+      },
+      {
+       "n": 2,
+       "el": "actions",
+       "title": "Card buttons",
+       "text": "Copy a link to this unit, pin or unpin the card, close it.",
+       "at": "b"
+      },
+      {
+       "n": 3,
+       "el": "status",
+       "title": "Disposition and state",
+       "text": "What the unit is doing now, and its state.",
+       "at": "r"
+      },
+      {
+       "n": 4,
+       "el": "strength",
+       "title": "Strength",
+       "text": "A bar with the share of men still effective, and the figures present now and at the start.",
+       "at": "r"
+      },
+      {
+       "n": 5,
+       "el": "commander",
+       "title": "Commander",
+       "text": "The commander and what became of them.",
+       "at": "r"
+      },
+      {
+       "n": 6,
+       "el": "action",
+       "title": "Key action",
+       "text": "A short account of what the unit did.",
+       "at": "r"
+      },
+      {
+       "n": 7,
+       "el": "attick",
+       "title": "At this moment",
+       "text": "Where the unit is at the moment on screen.",
+       "at": "r"
+      },
+      {
+       "n": 8,
+       "el": "losses",
+       "title": "Battle casualties",
+       "text": "Total losses over the three days, as a percentage.",
+       "at": "r"
+      }
+     ]
+    },
+    {
+     "t": "h2",
+     "text": "Story and event cards"
+    },
+    {
+     "t": "p",
+     "text": "At key moments the map shows cards. A **story card** tells one episode in a few paragraphs. An **event card** gives a one-line rating, the time and a summary."
+    },
+    {
+     "t": "figure",
+     "shot": "d-cards",
+     "layout": "w5",
+     "caption": "July 2 at about 7:05 PM shows both kinds of card.",
+     "callouts": [
+      {
+       "n": 1,
+       "el": "story",
+       "title": "Story card",
+       "text": "The title, how long it takes to read, and the unit it is about.",
+       "at": "tl",
+       "dx": -14
+      },
+      {
+       "n": 2,
+       "el": "jump",
+       "title": "Jump button",
+       "text": "Shows the time of the story’s moment. Click it to move the clock there.",
+       "at": "b"
+      },
+      {
+       "n": 3,
+       "el": "dismiss",
+       "title": "Dismiss",
+       "text": "Closes the story card.",
+       "at": "t"
+      },
+      {
+       "n": 4,
+       "el": "event",
+       "title": "Event card",
+       "text": "A rating such as **CRITICAL**, the time, and what happened. It has its own close button.",
+       "at": "tl"
+      }
+     ]
+    },
+    {
+     "t": "h2",
+     "text": "Trails, the overview and hiding units"
+    },
+    {
+     "t": "list",
+     "items": [
+      "**Trails ON** and **Trails OFF**, at the top right of the map, switch unit trails on and off.",
+      "**Overview** is the small map at the bottom right. It shows every unit on the field, and its caption counts them, for example **192 units · about 11:20 PM**. Close it with its close button or press [[M]].",
+      "**Toggle Units** in the top bar hides every unit at once so you can read the ground; press it again to bring them back. The clock and all other tools keep working. On a narrow window or a phone it moves into **More to Explore** or **Tools**."
+     ]
+    }
+   ]
+  },
+  {
+   "no": 4,
+   "id": "toolbar",
+   "title": "The toolbar",
+   "sub": "Search, filter, measure, follow, bookmark",
+   "lead": "Thirteen buttons at the top right of the screen open the tools of the map. Five of them also answer to a key.",
+   "blocks": [
+    {
+     "t": "figure",
+     "shot": "d-toolbar",
+     "layout": "full",
+     "cols": 1,
+     "caption": "The toolbar, left to right. The numbers match the table below.",
+     "nokey": true,
+     "callouts": [
+      {
+       "n": 1,
+       "el": "search",
+       "title": "Search",
+       "text": "",
+       "at": "b",
+       "noBox": true
+      },
+      {
+       "n": 2,
+       "el": "filter",
+       "title": "Filter",
+       "text": "",
+       "at": "b",
+       "noBox": true
+      },
+      {
+       "n": 3,
+       "el": "roster",
+       "title": "Unit Roster",
+       "text": "",
+       "at": "b",
+       "noBox": true
+      },
+      {
+       "n": 4,
+       "el": "legend",
+       "title": "Legend",
+       "text": "",
+       "at": "b",
+       "noBox": true
+      },
+      {
+       "n": 5,
+       "el": "monuments",
+       "title": "Monuments",
+       "text": "",
+       "at": "b",
+       "noBox": true
+      },
+      {
+       "n": 6,
+       "el": "streetview",
+       "title": "Soldier’s Eye View (Street View)",
+       "text": "",
+       "at": "b",
+       "noBox": true
+      },
+      {
+       "n": 7,
+       "el": "ancestor",
+       "title": "Follow Your Ancestor",
+       "text": "",
+       "at": "b",
+       "noBox": true
+      },
+      {
+       "n": 8,
+       "el": "distance",
+       "title": "Distance Tool",
+       "text": "",
+       "at": "b",
+       "noBox": true
+      },
+      {
+       "n": 9,
+       "el": "layers",
+       "title": "Map Layers",
+       "text": "",
+       "at": "b",
+       "noBox": true
+      },
+      {
+       "n": 10,
+       "el": "locations",
+       "title": "Locations",
+       "text": "",
+       "at": "b",
+       "noBox": true
+      },
+      {
+       "n": 11,
+       "el": "find",
+       "title": "Find Unit / Location",
+       "text": "",
+       "at": "b",
+       "noBox": true
+      },
+      {
+       "n": 12,
+       "el": "bookmarks",
+       "title": "Bookmarks",
+       "text": "",
+       "at": "b",
+       "noBox": true
+      },
+      {
+       "n": 13,
+       "el": "help",
+       "title": "Help",
+       "text": "",
+       "at": "b",
+       "noBox": true
+      }
+     ]
+    },
+    {
+     "t": "tools",
+     "caption": "What each button does",
+     "rows": [
+      {
+       "n": 1,
+       "name": "Search",
+       "key": "S",
+       "text": "Find a unit by name, state, commander or id."
+      },
+      {
+       "n": 2,
+       "name": "Filter",
+       "key": "F",
+       "text": "Show only some sides, unit types, dispositions or strengths."
+      },
+      {
+       "n": 3,
+       "name": "Unit Roster",
+       "text": "List every unit with its commander and status."
+      },
+      {
+       "n": 4,
+       "name": "Legend",
+       "key": "L",
+       "text": "Show or hide the legend, What the marks say."
+      },
+      {
+       "n": 5,
+       "name": "Monuments",
+       "text": "Draws the 512 battlefield monuments and the 20 story stars on the map. Click one for its card. **Browse monuments** lists them for the keyboard. Press the button again to hide them."
+      },
+      {
+       "n": 6,
+       "name": "Soldier’s Eye View (Street View)",
+       "text": "Eight viewpoints that open in Google Street View."
+      },
+      {
+       "n": 7,
+       "name": "Follow Your Ancestor",
+       "text": "Follow one regiment through all three days."
+      },
+      {
+       "n": 8,
+       "name": "Distance Tool",
+       "text": "Measure the distance between two points on the map."
+      },
+      {
+       "n": 9,
+       "name": "Map Layers",
+       "text": "Turn the road and river lines and their names, the breastworks and the farm names on and off."
+      },
+      {
+       "n": 10,
+       "name": "Locations",
+       "text": "Show or hide the place-name labels."
+      },
+      {
+       "n": 11,
+       "name": "Find Unit / Location",
+       "text": "Opens the same search panel as **Search**."
+      },
+      {
+       "n": 12,
+       "name": "Bookmarks",
+       "key": "B",
+       "text": "Copy a link to this moment, or save it."
+      },
+      {
+       "n": 13,
+       "name": "Help",
+       "key": "?",
+       "text": "Keyboard shortcuts and a short About."
+      }
+     ]
+    },
+    {
+     "t": "callout",
+     "kind": "note",
+     "title": "Good to know",
+     "text": "A highlighted button means its tool is on. **Legend** and **Locations** start highlighted."
+    },
+    {
+     "t": "h2",
+     "text": "Search"
+    },
+    {
+     "t": "side",
+     "shot": "d-search",
+     "w": 2.7,
+     "caption": "Searching for Maine.",
+     "callouts": [
+      {
+       "n": 1,
+       "el": "box",
+       "title": "Search box",
+       "text": "Type a unit name, a state, a commander or a unit id.",
+       "at": "r"
+      },
+      {
+       "n": 2,
+       "el": "sort",
+       "title": "Sort",
+       "text": "**relevance** puts the best match first; **casualties** sorts them by casualty percentage.",
+       "at": "r"
+      }
+     ],
+     "after": [
+      {
+       "t": "p",
+       "text": "Press [[S]] or click **Search**. Before you type, the panel lists a few notable units: the 20th Maine, 1st Minnesota, Iron Brigade, 26th NC, Cushing’s Battery, Armistead and 15th Alabama. Choose a result and the map moves to that unit and its card opens."
+      },
+      {
+       "t": "p",
+       "text": "**Find Unit / Location** opens this same panel."
+      }
+     ]
+    },
+    {
+     "t": "h2",
+     "text": "Filter"
+    },
+    {
+     "t": "side",
+     "shot": "d-filter",
+     "w": 2.0,
+     "caption": "The Filters panel.",
+     "callouts": [
+      {
+       "n": 1,
+       "el": "side",
+       "title": "Side",
+       "text": "Turn Union or Confederate off and on.",
+       "at": "r"
+      },
+      {
+       "n": 2,
+       "el": "type",
+       "title": "Unit type",
+       "text": "Infantry, Cavalry or Artillery.",
+       "at": "r"
+      },
+      {
+       "n": 3,
+       "el": "disposition",
+       "title": "Disposition",
+       "text": "Eleven states of what a unit is doing, such as Line of Battle or Bivouac.",
+       "at": "tr"
+      },
+      {
+       "n": 4,
+       "el": "strength",
+       "title": "Minimum strength",
+       "text": "A slider from **All** through 100 and 250 to 500+.",
+       "at": "r"
+      },
+      {
+       "n": 5,
+       "el": "close",
+       "title": "Close",
+       "text": "Closes the panel. Filters stay in force.",
+       "at": "b"
+      }
+     ],
+     "after": [
+      {
+       "t": "p",
+       "text": "Press [[F]] or click **Filter**. A badge beside the title, such as **1 active**, counts the filters in force, and **Reset** puts everything back. Filtering changes what the map draws; it does not change the clock."
+      }
+     ]
+    },
+    {
+     "t": "h2",
+     "text": "Unit Roster"
+    },
+    {
+     "t": "side",
+     "shot": "d-roster",
+     "w": 2.7,
+     "caption": "The roster on July 2 at about 7:05 PM.",
+     "callouts": [
+      {
+       "n": 1,
+       "el": "union",
+       "title": "Union column",
+       "text": "Every Union unit in the order of battle, with its count.",
+       "at": "t"
+      },
+      {
+       "n": 2,
+       "el": "confed",
+       "title": "Confederate column",
+       "text": "Every Confederate unit, with its count.",
+       "at": "t"
+      },
+      {
+       "n": 3,
+       "el": "close",
+       "title": "Close",
+       "text": "Closes the roster.",
+       "at": "l"
+      }
+     ],
+     "after": [
+      {
+       "t": "p",
+       "text": "Each row gives a unit’s name and commander. Units on the field at this moment show their status; the others read **Not on field**. The lists scroll separately."
+      }
+     ]
+    },
+    {
+     "t": "h2",
+     "text": "Soldier’s Eye View"
+    },
+    {
+     "t": "side",
+     "shot": "d-streetview",
+     "w": 3.2,
+     "caption": "Eight viewpoints.",
+     "callouts": [],
+     "after": [
+      {
+       "t": "p",
+       "text": "A list of eight places on the field: Little Round Top, The Angle, McPherson’s Ridge, Devil’s Den, the Wheatfield, Cemetery Hill, Culp’s Hill and the Peach Orchard. Each entry opens that spot in Google Street View, so you can stand where the soldiers stood. The viewer is provided by Google."
+      }
+     ]
+    },
+    {
+     "t": "h2",
+     "text": "Follow Your Ancestor"
+    },
+    {
+     "t": "side",
+     "shot": "d-follow",
+     "w": 2.8,
+     "caption": "The 20th Maine, followed through the battle.",
+     "callouts": [],
+     "after": [
+      {
+       "t": "steps",
+       "items": [
+        "Click **Follow Your Ancestor**.",
+        "Type a regiment name, such as 20th Maine, and choose it from the list.",
+        "The panel names the regiment and lists **every recorded position for this regiment, in order**, with the day, time and what happened. The unit card opens.",
+        "**Copy link** copies a link that opens the map on this regiment. **Change Regiment** goes back to the list."
+       ]
+      },
+      {
+       "t": "p",
+       "text": "The site lists regiments, not individual soldiers. To find a soldier by name, search the National Park Service’s Soldiers and Sailors System."
+      }
+     ]
+    },
+    {
+     "t": "h2",
+     "text": "Distance Tool"
+    },
+    {
+     "t": "side",
+     "shot": "d-distance",
+     "w": 3.6,
+     "caption": "Two points, measured.",
+     "callouts": [],
+     "after": [
+      {
+       "t": "steps",
+       "items": [
+        "Click **Distance Tool**. The panel reads **Click map for point A**.",
+        "Click the map for point A, then for point B.",
+        "The panel shows the distance in feet, yards and metres, and an estimated march time in minutes.",
+        "Click the map again to start a new measurement."
+       ]
+      }
+     ]
+    },
+    {
+     "t": "h2",
+     "text": "Map Layers and Locations"
+    },
+    {
+     "t": "side",
+     "shot": "d-layers",
+     "w": 1.8,
+     "caption": "Six layers.",
+     "callouts": [],
+     "after": [
+      {
+       "t": "p",
+       "text": "Each check box turns one layer on or off: **1863 Roads**, **Road Labels**, **Rivers**, **River Labels**, **Breastworks** and **Farm Labels**. **Road Labels**, **River Labels** and **Breastworks** start on; the roads, rivers and farms are already part of the reconstructed ground."
+      },
+      {
+       "t": "p",
+       "text": "**Locations** is a single button. It shows or hides the place names such as Seminary Ridge, Cemetery Hill and Culp’s Hill."
+      }
+     ]
+    },
+    {
+     "t": "h2",
+     "text": "Bookmarks"
+    },
+    {
+     "t": "side",
+     "shot": "d-bookmarks",
+     "w": 3.0,
+     "caption": "Bookmarks and Sharing.",
+     "callouts": [],
+     "after": [
+      {
+       "t": "p",
+       "text": "Press [[B]] or click **Bookmarks**. **Copy Link** copies a link to the moment on screen. **+ Bookmark current moment** asks for a name, with the moment already filled in, and **Save** adds it to the list of saved bookmarks. See chapter 6 for what a link remembers."
+      }
+     ]
+    },
+    {
+     "t": "h2",
+     "text": "Help"
+    },
+    {
+     "t": "p",
+     "text": "Press [[?]] or click **Help**. The **Keyboard Shortcuts** tab lists every key (chapter 8). The **About** tab names the sources behind the map. [[Tab]] stays inside the dialog while it is open, and [[Esc]] closes it."
+    }
+   ]
+  },
+  {
+   "no": 5,
+   "id": "walk",
+   "title": "Virtual Walkthrough and Tour",
+   "sub": "16 tour stops and 512 monuments",
+   "lead": "Two ways to see the ground as it is today: a tour of sixteen stops with narration and Street View, and a searchable list of every monument.",
+   "blocks": [
+    {
+     "t": "h2",
+     "text": "Virtual Walkthrough"
+    },
+    {
+     "t": "p",
+     "text": "Click **Virtual Walkthrough** in the top bar. The screen changes to a map at the left and a reading panel at the right. **Back to the map** returns you to the battle."
+    },
+    {
+     "t": "figure",
+     "shot": "d-walk",
+     "layout": "w6",
+     "caption": "The Virtual Walkthrough at Tour Stop 1, McPherson Ridge.",
+     "callouts": [
+      {
+       "n": 1,
+       "el": "back",
+       "title": "Back to the map",
+       "text": "Returns to the battle map.",
+       "at": "b"
+      },
+      {
+       "n": 2,
+       "el": "layers",
+       "title": "Map layers",
+       "text": "Two check boxes show or hide the numbered tour stops and the monuments.",
+       "at": "b"
+      },
+      {
+       "n": 3,
+       "el": "tabs",
+       "title": "Tabs",
+       "text": "**Tour Stops** and **Monuments**.",
+       "at": "b"
+      },
+      {
+       "n": 4,
+       "el": "stops",
+       "title": "Stop buttons",
+       "text": "Sixteen numbered buttons, one per stop. The map and the narration follow your choice.",
+       "at": "tl"
+      },
+      {
+       "n": 5,
+       "el": "text",
+       "title": "Narration",
+       "text": "The story of the stop, then a Google Street View panorama, an **Open in Google Maps** link and an NPS video link.",
+       "at": "t"
+      }
+     ]
+    },
+    {
+     "t": "table",
+     "cls": "plain",
+     "caption": "The sixteen stops",
+     "rows": [
+      [
+       "1 – 4",
+       "McPherson Ridge · Eternal Light Peace Memorial · Oak Ridge · North Carolina Memorial"
+      ],
+      [
+       "5 – 8",
+       "Virginia Memorial · Pitzer Woods · Warfield Ridge · Little Round Top"
+      ],
+      [
+       "9 – 12",
+       "The Wheatfield · The Peach Orchard · Plum Run · Pennsylvania Memorial"
+      ],
+      [
+       "13 – 16",
+       "Spangler’s Spring · East Cemetery Hill · High Water Mark · Soldiers’ National Cemetery"
+      ]
+     ]
+    },
+    {
+     "t": "h2",
+     "text": "Monuments"
+    },
+    {
+     "t": "side",
+     "shot": "d-walk-mon",
+     "w": 3.4,
+     "caption": "The Monuments tab.",
+     "callouts": [
+      {
+       "n": 1,
+       "el": "search",
+       "title": "Search",
+       "text": "Type part of a monument’s name or unit.",
+       "at": "l",
+       "dx": -4
+      },
+      {
+       "n": 2,
+       "el": "side",
+       "title": "Side",
+       "text": "**all**, **Union**, **Confederate** or **Other**.",
+       "at": "b"
+      },
+      {
+       "n": 3,
+       "el": "group",
+       "title": "Group",
+       "text": "Choose a group, such as a state or **Monuments To Individuals**.",
+       "at": "r",
+       "dx": -30
+      },
+      {
+       "n": 4,
+       "el": "count",
+       "title": "Count",
+       "text": "How many of the 512 monuments match.",
+       "at": "r",
+       "dx": -30
+      }
+     ],
+     "after": [
+      {
+       "t": "p",
+       "text": "The list shows the first 100 matches at a time. Each entry gives the monument’s name, its number, who it honours, where it stands, its latitude and longitude and a **View on map** link."
+      }
+     ]
+    },
+    {
+     "t": "h2",
+     "text": "NPS Auto Tour"
+    },
+    {
+     "t": "p",
+     "text": "The **NPS Auto Tour** button at the bottom right of the battle map starts the same sixteen stops over the live map. The map moves to each stop and the clock moves to the stop’s moment. Press [[Esc]] to leave the tour."
+    },
+    {
+     "t": "figure",
+     "shot": "d-tour",
+     "layout": "full",
+     "caption": "Stop 1 of 16. The tour covers the lower part of the map.",
+     "callouts": [
+      {
+       "n": 1,
+       "el": "stop",
+       "title": "Stop counter",
+       "text": "Which stop you are on.",
+       "at": "r",
+       "dx": 4
+      },
+      {
+       "n": 2,
+       "el": "dots",
+       "title": "Progress dots",
+       "text": "One dot for each of the sixteen stops.",
+       "at": "l"
+      },
+      {
+       "n": 3,
+       "el": "prev",
+       "title": "Previous",
+       "text": "Back one stop.",
+       "at": "t"
+      },
+      {
+       "n": 4,
+       "el": "video",
+       "title": "Show Video",
+       "text": "Shows the stop’s NPS video in the panel. The button then reads **Hide Video**.",
+       "at": "r"
+      },
+      {
+       "n": 5,
+       "el": "next",
+       "title": "Next",
+       "text": "Forward one stop.",
+       "at": "t"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": 6,
+   "id": "share",
+   "title": "Share and return",
+   "sub": "Links, bookmarks and link parameters",
+   "lead": "Every view of the map can be put in a link. Send it to someone and they open the same moment, the same unit and the same view.",
+   "blocks": [
+    {
+     "t": "h2",
+     "text": "Where links come from"
+    },
+    {
+     "t": "list",
+     "items": [
+      "**Bookmarks** ([[B]]): **Copy Link** copies a link to the moment on screen.",
+      "The unit card: its first button copies a link that selects that unit.",
+      "**Follow Your Ancestor**: **Copy link** opens the map on that regiment.",
+      "**Documentary Mode** links each story to its exact moment on the map (chapter 7)."
+     ]
+    },
+    {
+     "t": "h2",
+     "text": "Saving a bookmark"
+    },
+    {
+     "t": "steps",
+     "items": [
+      "Move to the moment you want to keep.",
+      "Press [[B]] and click **+ Bookmark current moment**.",
+      "Edit the name if you like, and click **Save**. The bookmark appears under **Saved Bookmarks**. **Cancel** discards it."
+     ]
+    },
+    {
+     "t": "pagebreak"
+    },
+    {
+     "t": "h2",
+     "text": "What a link can say"
+    },
+    {
+     "t": "p",
+     "text": "A link is the address of the map followed by a question mark and one or more settings joined with &. The map reads them when it opens. A setting it cannot use is ignored, and the map opens in its usual place instead."
+    },
+    {
+     "t": "table",
+     "cls": "plain",
+     "keep": true,
+     "caption": "Link settings",
+     "head": [
+      "Setting",
+      "Meaning"
+     ],
+     "rows": [
+      [
+       "`tick` or `t`",
+       "A moment from 1 to 675. If you give both `tick` and `day`, `tick` wins."
+      ],
+      [
+       "`day`",
+       "1, 2 or 3: the first moment of that day."
+      ],
+      [
+       "`unit` or `u`",
+       "A unit id such as U-1MN. The unit is selected and its card is pinned."
+      ],
+      [
+       "`vignette` or `v`",
+       "A story id. The map moves to the moment of that story. Used only when there is no valid `tick` or `day`."
+      ],
+      [
+       "`ancestor`",
+       "A regiment id. Opens Follow Your Ancestor on that regiment."
+      ],
+      [
+       "`z`",
+       "Zoom, kept between 11 and 18."
+      ],
+      [
+       "`ll`",
+       "Map centre as latitude,longitude, for example `39.8112,-77.2260`. Accepted only inside the battlefield. `lat` and `lng` work in place of `ll`."
+      ],
+      [
+       "`layout`",
+       "`mobile` or `desktop`: forces the phone or the desktop layout."
+      ]
+     ]
+    },
+    {
+     "t": "table",
+     "cls": "plain",
+     "caption": "Examples",
+     "head": [
+      "Add this to the address",
+      "To open"
+     ],
+     "rows": [
+      [
+       "`?day=2`",
+       "the start of July 2."
+      ],
+      [
+       "`?tick=538`",
+       "July 3 at about 3:00 PM."
+      ],
+      [
+       "`?unit=U-1MN&tick=538`",
+       "July 3 at about 3:00 PM with the 1st Minnesota selected."
+      ],
+      [
+       "`?vignette=V-017`",
+       "the moment of the story The Cannonade."
+      ],
+      [
+       "`?ancestor=U-20ME`",
+       "Follow Your Ancestor on the 20th Maine."
+      ],
+      [
+       "`?z=15&ll=39.8112,-77.2260`",
+       "the map at zoom 15, centred on that point."
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "no": 7,
+   "id": "more",
+   "title": "The other pages",
+   "sub": "Ask the Historian and the More to Explore menu",
+   "lead": "Beyond the map, the site has nineteen pages for searching, reading, researching and sharing. They all open from two buttons at the left of the map, under the day and the time.",
+   "blocks": [
+    {
+     "t": "side",
+     "shot": "d-menu",
+     "w": 2.7,
+     "caption": "The More to Explore menu.",
+     "callouts": [
+      {
+       "n": 1,
+       "el": "historian",
+       "title": "Ask the Historian",
+       "text": "Opens that page directly.",
+       "at": "l"
+      },
+      {
+       "n": 2,
+       "el": "button",
+       "title": "More to Explore",
+       "text": "Opens and closes the menu of pages.",
+       "at": "t"
+      },
+      {
+       "n": 3,
+       "el": "hide",
+       "title": "Hide button",
+       "text": "The small round button at the left hides the two buttons; press it again to bring them back.",
+       "at": "l"
+      }
+     ],
+     "before": [
+      {
+       "t": "p",
+       "text": "Click **More to Explore**. The menu groups the pages by what you want to do. Click a page to open it in the same window; every page has a **Back to the map** link."
+      }
+     ]
+    },
+    {
+     "t": "menu",
+     "groups": [
+      {
+       "name": "Explore",
+       "why": "Drive the map yourself",
+       "items": [
+        "Search Everything",
+        "Compare Moments",
+        "Camera Modes",
+        "High Ground",
+        "What-If Sandbox"
+       ]
+      },
+      {
+       "name": "Learn",
+       "why": "Get the story explained",
+       "items": [
+        "Ask the Historian",
+        "Documentary Mode",
+        "Turning Points",
+        "For Students",
+        "Aftermath"
+       ]
+      },
+      {
+       "name": "Data & Records",
+       "why": "Research a unit or ancestor",
+       "items": [
+        "Regimental Biography",
+        "Find Your Ancestor",
+        "Casualty Dashboard",
+        "Regiment Fact Sheets"
+       ]
+      },
+      {
+       "name": "Experience It",
+       "why": "Feel the scale of it",
+       "items": [
+        "Immersive Mode",
+        "The Living Ledger",
+        "The Ground Remembers"
+       ]
+      },
+      {
+       "name": "Share",
+       "why": "Bring others along",
+       "items": [
+        "Watch Together",
+        "Export a Video"
+       ]
+      },
+      {
+       "name": "Guide and Units",
+       "why": "Learn the controls, show or hide the units",
+       "items": [
+        "User Guide (PDF)",
+        "Toggle Units"
+       ]
+      }
+     ]
+    },
+    {
+     "t": "p",
+     "text": "**Guide and Units** appears at the foot of the menu on a narrow window, where **User Guide (PDF)** and **Toggle Units** no longer fit in the top bar. On a wide window they stay in the top bar and the group is not shown."
+    },
+    {
+     "t": "h2",
+     "text": "On every page"
+    },
+    {
+     "t": "figure",
+     "shot": "pg-chrome",
+     "caption": "The top of a page.",
+     "callouts": [
+      {
+       "n": 1,
+       "el": "home",
+       "title": "GETTYSBURG",
+       "text": "Returns to the map.",
+       "at": "r"
+      },
+      {
+       "n": 2,
+       "el": "historian",
+       "title": "Ask the Historian",
+       "text": "Opens the Historian from any page.",
+       "at": "b"
+      },
+      {
+       "n": 3,
+       "el": "menu",
+       "title": "Explore",
+       "text": "Opens the same menu of pages.",
+       "at": "b"
+      },
+      {
+       "n": 4,
+       "el": "back",
+       "title": "Back to the map",
+       "text": "Returns to the battle map.",
+       "at": "r"
+      }
+     ]
+    },
+    {
+     "t": "p",
+     "text": "At the foot of each page are links to **Privacy**, **Terms**, **Contact** and **User Guide (PDF)**."
+    },
+    {
+     "t": "callout",
+     "kind": "note",
+     "title": "Battlefield AR",
+     "text": "A page for use on the field, with a phone that has a camera, GPS and compass. It is in beta and is not listed in the menu; it opens at gettysburginteractivemap.com/ar.html. Compass accuracy varies by phone, so treat its markers as a guide to direction, not a survey."
+    },
+    {
+     "t": "h2",
+     "text": "The nineteen pages"
+    },
+    {
+     "t": "cards",
+     "items": [
+      {
+       "title": "Search Everything",
+       "group": "Explore",
+       "path": "search.html",
+       "shot": "pg-search",
+       "text": "Type a regiment, a story or a place. The tabs **All**, **Regiments**, **Vignettes** and **Locations** narrow the results.",
+       "check": [
+        "#search-box"
+       ]
+      },
+      {
+       "title": "Compare Moments",
+       "group": "Explore",
+       "path": "compare.html",
+       "shot": "pg-compare",
+       "text": "Two maps side by side, each with its own slider and its own style: **Satellite**, **Dark**, **Parchment** or **3D Terrain**. Compare the Union line at 4:00 PM with the same line at 6:00 PM.",
+       "check": [
+        "#slider-a",
+        "#slider-b"
+       ]
+      },
+      {
+       "title": "Camera Modes",
+       "group": "Explore",
+       "path": "camera.html",
+       "shot": "pg-camera",
+       "text": "**Director Mode** flies the camera to wherever the most units are engaged. **Follow a Unit** locks onto one regiment and tracks it through the battle.",
+       "check": [
+        "#play-btn"
+       ]
+      },
+      {
+       "title": "High Ground",
+       "group": "Explore",
+       "path": "viewshed.html",
+       "shot": "pg-viewshed",
+       "text": "Pick one of thirty places from the list, from Big Round Top (785 ft) down, and see its height. It ranks elevation only; trees, buildings and smoke often decided what a soldier could see.",
+       "check": [
+        "#vp-select"
+       ]
+      },
+      {
+       "title": "What-If Sandbox",
+       "group": "Explore",
+       "path": "sandbox.html",
+       "shot": "pg-sandbox",
+       "text": "Pick a starting moment, load it, then drag units and change their status. It is hypothetical and not history. Nothing is saved, and reloading resets it.",
+       "check": [
+        "#tick-select",
+        "#load-btn",
+        "#reset-btn"
+       ]
+      },
+      {
+       "title": "Ask the Historian",
+       "group": "Learn",
+       "path": "historian.html",
+       "shot": "pg-historian",
+       "text": "Type a question about a regiment, a commander, a place or a moment, or choose a suggestion such as 20th Maine or Pickett’s Charge, then press **Ask**. Answers come only from this site’s own records.",
+       "check": [
+        "#ask",
+        "#ask-btn"
+       ]
+      },
+      {
+       "title": "Documentary Mode",
+       "group": "Learn",
+       "path": "documentary.html",
+       "shot": "pg-documentary",
+       "text": "All 24 key moments of the battle in order, each with its full account and a link to its place on the map. **Previous** and **Next** move between them.",
+       "check": [
+        "#prev-btn",
+        "#next-btn"
+       ]
+      },
+      {
+       "title": "Turning Points",
+       "group": "Learn",
+       "path": "turning-points.html",
+       "shot": "pg-turning",
+       "text": "Nine numbered decisions where the battle could have gone differently. Click one to open what happened and how historians have argued it.",
+       "check": [
+        "summary"
+       ]
+      },
+      {
+       "title": "For Students",
+       "group": "Learn",
+       "path": "education.html",
+       "shot": "pg-education",
+       "text": "A short guide to the battle in three tabs, **Day 1: July 1**, **Day 2: July 2** and **Day 3: July 3**, told through the people who were there.",
+       "check": [
+        "button:has-text('Day 1: July 1')"
+       ]
+      },
+      {
+       "title": "Aftermath",
+       "group": "Learn",
+       "path": "aftermath.html",
+       "shot": "pg-aftermath",
+       "text": "What happened to the two armies, the town and the ground from July 4 to November 1863. It is an overview, not built from the unit-by-unit records of the map.",
+       "check": []
+      },
+      {
+       "title": "Regimental Biography",
+       "group": "Data & Records",
+       "path": "regiment.html",
+       "shot": "pg-regiment",
+       "text": "Search for a regiment or battery and read its three days as one story.",
+       "check": [
+        "#regiment-search"
+       ]
+      },
+      {
+       "title": "Find Your Ancestor",
+       "group": "Data & Records",
+       "path": "find-ancestor.html",
+       "shot": "pg-ancestor",
+       "text": "Choose a state, or type a commander’s surname, to narrow down the regiments an ancestor may have served in. It lists regiments, not individual soldiers.",
+       "check": [
+        "#surname",
+        "#state"
+       ]
+      },
+      {
+       "title": "Casualty Dashboard",
+       "group": "Data & Records",
+       "path": "dashboard.html",
+       "shot": "pg-dashboard",
+       "text": "Corps-by-corps strength across the three days. Switch Union or Confederate corps on and off, or click a legend entry to isolate one corps. The curves are modelled from each corps’ recorded engagement periods.",
+       "check": [
+        "#toggle-union",
+        "#toggle-conf"
+       ]
+      },
+      {
+       "title": "Regiment Fact Sheets",
+       "group": "Data & Records",
+       "path": "report.html",
+       "shot": "pg-report",
+       "text": "Search for a regiment and make a one-page fact sheet. Print it, or save it as a PDF with your browser’s print dialog.",
+       "check": [
+        "#report-search"
+       ]
+      },
+      {
+       "title": "Immersive Mode",
+       "group": "Experience It",
+       "path": "immersive.html",
+       "shot": "pg-immersive",
+       "text": "A soundscape made in your browser that follows how many units are engaged at each moment. You turn the sound on yourself with **Enable Sound & Start**, and set the **Volume**.",
+       "check": [
+        "#enable-sound",
+        "#volume"
+       ]
+      },
+      {
+       "title": "The Living Ledger",
+       "group": "Experience It",
+       "path": "living-ledger.html",
+       "shot": "pg-ledger",
+       "text": "A running total of casualties, split into Union and Confederate, climbing across the three days. **Play**, **Restart**, and choose 1x, 3x or 10x.",
+       "check": [
+        "#reset-btn",
+        "#play-btn",
+        "#speed"
+       ]
+      },
+      {
+       "title": "The Ground Remembers",
+       "group": "Experience It",
+       "path": "ground-remembers.html",
+       "shot": "pg-ground",
+       "text": "Every recorded unit position, accumulated on one map, so the places where units stood most often stand out. **Build up over time** replays it; the slider reveals it through any moment.",
+       "check": [
+        "#play-btn",
+        "#reveal"
+       ]
+      },
+      {
+       "title": "Watch Together",
+       "group": "Share",
+       "path": "watch-together.html",
+       "shot": "pg-watch",
+       "text": "Build a guided tour with your own stops and notes and share it as a file with **Export tour**. **Start a live session** shares a five-letter code so a second browser follows along; it can be unavailable, and exporting always works.",
+       "check": [
+        "#add-stop",
+        "#export-btn",
+        "#host-btn",
+        "#join-btn"
+       ]
+      },
+      {
+       "title": "Export a Video",
+       "group": "Share",
+       "path": "cinematic-export.html",
+       "shot": "pg-export",
+       "text": "Choose a start and end moment, a length of 8, 15 or 30 seconds and caption settings, then **Record** a video of the camera flying across that stretch. It is made in your browser and nothing is uploaded.",
+       "check": [
+        "#start-tick",
+        "#end-tick",
+        "#duration",
+        "#captions",
+        "#record-btn"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": 8,
+   "id": "keys",
+   "title": "Keyboard and accessibility",
+   "sub": "Every shortcut, and using the map without a mouse",
+   "lead": "The whole map can be driven from the keyboard, and each control has a name that a screen reader can announce.",
+   "blocks": [
+    {
+     "t": "keys",
+     "caption": "Every keyboard shortcut",
+     "groups": [
+      {
+       "title": "Time",
+       "rows": [
+        [
+         "Space",
+         "Play or pause. With a button focused, [[Space]] presses that button instead."
+        ],
+        [
+         "Right",
+         "Forward one step."
+        ],
+        [
+         "Left",
+         "Back one step."
+        ],
+        [
+         "Shift+Right",
+         "Forward about one hour of battle time."
+        ],
+        [
+         "Shift+Left",
+         "Back about one hour."
+        ],
+        [
+         "1",
+         "Jump to the July 1 tab, about 5:00 AM."
+        ],
+        [
+         "2",
+         "Jump to the July 2 tab, about 4:30 AM."
+        ],
+        [
+         "3",
+         "Jump to the July 3 tab, about 4:15 AM."
+        ]
+       ]
+      },
+      {
+       "title": "Speed",
+       "rows": [
+        [
+         "Minus",
+         "Slower."
+        ],
+        [
+         "Plus or Equals",
+         "Faster."
+        ],
+        [
+         "0",
+         "Back to **1x**."
+        ]
+       ]
+      },
+      {
+       "title": "Map",
+       "rows": [
+        [
+         "Scroll",
+         "Zoom in and out."
+        ],
+        [
+         "Drag",
+         "Pan the map. Pressing on the map hands the keyboard back to the page, so the time keys keep working."
+        ],
+        [
+         "Tab",
+         "Move focus to the map. Then the arrow keys pan, [[Plus]] and [[Minus]] zoom, and [[Shift]] with the arrow keys rotates and tilts."
+        ],
+        [
+         "Esc",
+         "Closes the open panel or card and clears the selected unit. With several things open it closes the topmost first."
+        ]
+       ]
+      },
+      {
+       "title": "Panels",
+       "rows": [
+        [
+         "F",
+         "Filter panel."
+        ],
+        [
+         "S",
+         "Unit search."
+        ],
+        [
+         "B",
+         "Bookmarks."
+        ],
+        [
+         "L",
+         "Legend."
+        ],
+        [
+         "M",
+         "Overview map."
+        ],
+        [
+         "?",
+         "Help."
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "t": "h2",
+     "text": "Using the map from the keyboard"
+    },
+    {
+     "t": "steps",
+     "items": [
+      "The first two links on the page, **Skip to the map** and **Skip to the timeline controls**, appear when you press [[Tab]]. Use them to jump past the toolbar.",
+      "Keep pressing [[Tab]] to move through the buttons. [[Enter]] or [[Space]] presses the focused button.",
+      "Press [[S]] to search. Type a name, press [[Down]] to move into the results and [[Enter]] to choose one.",
+      "Press [[Tab]] until the map has focus to pan and zoom with the keys. Press [[Esc]] to return the arrow keys to the clock."
+     ]
+    },
+    {
+     "t": "h2",
+     "text": "Screen readers"
+    },
+    {
+     "t": "list",
+     "items": [
+      "The scrubber is a slider named **Battle time**; it announces the moment as a date and time, for example July 1, 6:00 AM.",
+      "Playback buttons are named in full: **Play**, **Previous step**, **Next step**, **Back one hour** and **Forward one hour**. The toolbar buttons are named too.",
+      "The search panel announces how many results there are and how to reach them.",
+      "The unit card is a region named **Unit details**. Panels and dialogs have names, and the Help dialog keeps focus inside it until you close it."
+     ]
+    },
+    {
+     "t": "callout",
+     "kind": "tip",
+     "title": "Press ? for the list",
+     "text": "The Help dialog lists the keys with the version of the map you are using, so it is always the most current reference."
+    }
+   ]
+  },
+  {
+   "no": 9,
+   "id": "phone",
+   "title": "On a phone",
+   "sub": "The phone layout, the Tools sheet and touch",
+   "lead": "On phones and touch tablets up to 834 pixels wide, the map opens in a layout built for one hand: the clock at the top, the map in the middle and the controls at the bottom.",
+   "blocks": [
+    {
+     "t": "phones",
+     "items": [
+      {
+       "shot": "m-home",
+       "title": "The phone screen",
+       "caption": "July 1, about 11:20 PM.",
+       "callouts": [
+        {
+         "n": 1,
+         "el": "tools",
+         "title": "Tools",
+         "text": "Opens the Tools sheet.",
+         "at": "bl"
+        },
+        {
+         "n": 2,
+         "el": "days",
+         "title": "Day tabs",
+         "text": "Jump to July 1, 2 or 3.",
+         "at": "b"
+        },
+        {
+         "n": 3,
+         "el": "scrubber",
+         "title": "Timeline",
+         "text": "Drag to move through the battle.",
+         "at": "t"
+        },
+        {
+         "n": 4,
+         "el": "controls",
+         "title": "Playback",
+         "text": "Step, play, and speed.",
+         "at": "t"
+        }
+       ]
+      },
+      {
+       "shot": "m-tools",
+       "title": "The Tools sheet",
+       "caption": "Everything the toolbar does, and the other pages.",
+       "callouts": [
+        {
+         "n": 1,
+         "el": "close",
+         "title": "Close",
+         "text": "Closes the sheet.",
+         "at": "bl"
+        },
+        {
+         "n": 2,
+         "el": "grid",
+         "title": "Tool buttons",
+         "text": "Seventeen, listed below.",
+         "at": "tl"
+        }
+       ]
+      },
+      {
+       "shot": "m-unit",
+       "title": "A unit",
+       "caption": "Tap a unit to see a card at the bottom of the map.",
+       "callouts": []
+      }
+     ]
+    },
+    {
+     "t": "p",
+     "text": "The Tools sheet holds **Search**, **Filter**, **Order of Battle**, **Unit Roster**, **Monuments**, **Soldier’s View**, **Follow Ancestor**, **Map Layers**, **Virtual Walkthrough**, **Legend**, **Bookmarks**, **Help**, **User Guide (PDF)**, **Toggle Units**, **Mini Map**, **Ask the Historian** and **Desktop View**."
+    },
+    {
+     "t": "h2",
+     "text": "Touch"
+    },
+    {
+     "t": "table",
+     "cls": "plain",
+     "head": [
+      "Gesture",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Drag",
+       "Pan the map with one finger."
+      ],
+      [
+       "Pinch",
+       "Zoom in or out with two fingers."
+      ],
+      [
+       "Tap a unit",
+       "Show its details."
+      ],
+      [
+       "{play} button",
+       "Play or pause."
+      ],
+      [
+       "Step buttons",
+       "Step back or forward by one step."
+      ],
+      [
+       "Timeline",
+       "Drag the handle to move through July 1–3."
+      ],
+      [
+       "Speed button",
+       "Change the playback speed."
+      ],
+      [
+       "July 1, July 2, July 3",
+       "Jump to the start of that day."
+      ]
+     ]
+    },
+    {
+     "t": "h2",
+     "text": "Switching layouts"
+    },
+    {
+     "t": "p",
+     "text": "The Tools sheet has a **Desktop View** button that switches to the desktop layout. On the desktop layout, add `?layout=mobile` to the address to try the phone layout."
+    },
+    {
+     "t": "p",
+     "text": "Below the buttons, **More Tools** lists the other pages of the site, grouped as in chapter 7."
+    }
+   ]
+  },
+  {
+   "no": 10,
+   "id": "good",
+   "title": "Good to know",
+   "sub": "What the map does and does not claim",
+   "lead": "A few notes on how to read the map, and on places where this release differs from what its labels suggest.",
+   "blocks": [
+    {
+     "t": "h2",
+     "text": "Reading the evidence"
+    },
+    {
+     "t": "list",
+     "items": [
+      "Positions are reconstructed from published sources. Where a regiment’s exact place at a given time is not recorded, the map shows the best-supported position.",
+      "Times are approximate. Sources disagree by half an hour or more, and the map plays as a time-lapse.",
+      "Casualties are men killed, wounded, and captured or missing, added together.",
+      "The site lists regiments, not individual soldiers. To find a soldier by name, search the National Park Service’s Soldiers and Sailors System."
+     ]
+    },
+    {
+     "t": "h2",
+     "text": "In this release"
+    },
+    {
+     "t": "list",
+     "items": [
+      "The clock gives times of day: **about 11:20 PM**. Each time carries a tolerance, for example give or take 25 minutes; rest the pointer on the clock to read it. The date is always July 1, 2 or 3.",
+      "Steps are not equal in length, and **one hour** on the Help panel means about an hour of battle time on the clock. Read a step as a place in the story, not a fixed length of time.",
+      "A mark never claims more than its label says: **Documented**, **Modelled**, **Computed**, **Contested** or **Design**.",
+      "The heatmap key and the in-map sound switch of earlier versions are gone. **The Ground Remembers** shows where fighting concentrated, and **Immersive Mode** plays sound.",
+      "The ground is a reconstruction of July 1863, not a photograph: a 2013 aerial photograph with later features removed and 1863 features drawn in from period maps. **Show what was changed** shows where it was altered."
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "title": "Questions and corrections",
+  "paras": [
+   "Found something wrong, or something missing? Write to [gettysburginteractivemap@gmail.com](mailto:gettysburginteractivemap@gmail.com) and say which page and which moment you were on.",
+   "The map is at [gettysburginteractivemap.com](https://gettysburginteractivemap.com/). A copy of this guide is always at gettysburginteractivemap.com/user-guide.pdf."
+  ],
+  "credits": "Map data © Mapbox, © OpenStreetMap contributors. Imagery © Maxar. Street View is provided by Google. This guide describes the Gettysburg Interactive Map as of {updated}."
+ },
+ "helpCheck": [
+  "Keyboard Shortcuts",
+  "About",
+  "Play / Pause",
+  "Advance one step",
+  "Go back one step",
+  "Skip forward about one hour of battle time",
+  "Go back one hour",
+  "Jump to the July 1 tab, about 5:00 AM",
+  "Jump to the July 2 tab, about 4:30 AM",
+  "Jump to the July 3 tab, about 4:15 AM",
+  "Decrease speed",
+  "Increase speed",
+  "Reset to 1x speed",
+  "Zoom in / out",
+  "Pan the map",
+  "Select and pin unit details",
+  "Dismiss panel / deselect unit",
+  "Toggle filter panel",
+  "Open unit search",
+  "Open bookmarks",
+  "Toggle legend",
+  "Toggle minimap",
+  "Show / hide this help panel"
+ ]
+}

@@ -1,0 +1,280 @@
+{
+  "schema": "figures3d-socket-spec-1",
+  "written_by": "ANIMATION follow-up (2026-10-31); read by the FIGURES follow-up agent. This file is the agreement on prop proportions; skeleton.json (src/figures3d/skeleton.mjs) is FIGURES' file and is not edited from here.",
+  "why": "ANIM3D-NOTES section 8 request 1: the long_arm_sockets of skeleton.json put the lock nipple at 0.78 m, the small of the stock at 0.86 m and the fore end at 1.15 m from the butt of a 1.40 m arm. A rifle-musket's wrist (small of the stock, where the right hand grips) is about 0.30 m from the butt toe, the lock about 0.46 m, the lower band about 0.85 m. The hands of every animation clip are solved onto the numbers below (src/anim3d/figure-pose.mjs PROPS.rifle), so the mesh must use them or the hands will not meet the stock.",
+  "units": "metres along the prop's +y axis from its origin (the butt toe for the rifle); prop frame = prop_long bone frame of skeleton.json",
+  "tier": "inferred",
+  "basis": "kit/weapons.json m1861_springfield: overall length 56 in (1.422 m), barrel 40 in (1.016 m). Positions along the stock are inferred from those two printed lengths and the usual layout of a rifle-musket; they are not measured on a museum piece (no measured drawing was acquired). Registered as G-ANIM-13.",
+  "rifle_m1861": {
+    "butt": 0,
+    "wrist": 0.3,
+    "trigger_guard": 0.36,
+    "lock_nipple": 0.46,
+    "lock_nipple_offset_z_m": 0.035,
+    "lower_band": 0.85,
+    "upper_band": 1.15,
+    "ramrod_head": 1.3,
+    "muzzle": 1.42,
+    "bayonet_tip": 1.8,
+    "ramrod_stowed_y_m": 1.36,
+    "ramrod_stowed_z_m": 0.025,
+    "ramrod_length_m": 0.96
+  },
+  "grips_used_by_the_clips": {
+    "right_hand_at_carry_and_shoulder_arms": {
+      "along_m": 0.36,
+      "socket": "grip_R",
+      "note": "right hand embracing the guard (H.S.S. 139-142)"
+    },
+    "right_hand_ready_aim_fire": {
+      "along_m": 0.3,
+      "socket": "grip_R",
+      "note": "right hand at the wrist, thumb on the cock"
+    },
+    "left_hand_ready_aim_fire": {
+      "along_m": 0.72,
+      "socket": "grip_L",
+      "note": "left hand under the fore end between the guard and the lower band (the clips use 0.55 to 0.85)"
+    },
+    "left_hand_lower_band": {
+      "along_m": 0.85,
+      "socket": "grip_L"
+    },
+    "carbine_left_hand": {
+      "along_m": 0.62,
+      "note": "a cavalry carbine is shorter (about 0.99 m overall); the rider clips grip the forestock at 0.62"
+    }
+  },
+  "map_to_skeleton_long_arm_sockets": [
+    {
+      "skeleton_socket": "small_of_stock",
+      "skeleton_m_before": 0.86,
+      "agreed_m": 0.3,
+      "action": "moved to the wrist"
+    },
+    {
+      "skeleton_socket": "wrist",
+      "skeleton_m_before": null,
+      "agreed_m": 0.3,
+      "action": "added by FIGURES"
+    },
+    {
+      "skeleton_socket": "lock_nipple",
+      "skeleton_m_before": 0.78,
+      "agreed_m": 0.46,
+      "action": "moved"
+    },
+    {
+      "skeleton_socket": "lower_band",
+      "skeleton_m_before": null,
+      "agreed_m": 0.85,
+      "action": "added by FIGURES: the left-hand grip point (the old fore_end 1.15 is the upper band)"
+    },
+    {
+      "skeleton_socket": "upper_band",
+      "skeleton_m_before": null,
+      "agreed_m": 1.15,
+      "action": "added by FIGURES"
+    },
+    {
+      "skeleton_socket": "muzzle",
+      "skeleton_m_before": 1.4,
+      "agreed_m": 1.42,
+      "action": "56 in overall (1.4224 m)"
+    },
+    {
+      "skeleton_socket": "ramrod_head",
+      "skeleton_m_before": 1.38,
+      "agreed_m": 1.3,
+      "action": "the ramrod head sits 12 cm short of the muzzle when stowed"
+    },
+    {
+      "skeleton_socket": "bayonet_tip",
+      "skeleton_m_before": 1.8,
+      "agreed_m": 1.88,
+      "action": "FIGURES now has 1.879 (socket bayonet); no clip uses the tip"
+    }
+  ],
+  "other_props": {
+    "prop_pole": {
+      "uses": "ramrod (origin at its head, +y toward the small end, 0.96 m), sponge-and-rammer staff (2.0 m), shovel, axe, rail, flag staff, ladle",
+      "staff_length_m": 2
+    },
+    "prop_long_as_stretcher": {
+      "length_m": 2.1,
+      "width_m": 0.62,
+      "handle_carry_height_m": 0.8,
+      "handle_ground_height_m": 0.24,
+      "handles": "four corners; the front pair grips at 1.95 m along the prop, the rear pair at 0.15 m",
+      "tier": "plausible-procedural",
+      "gap": "G-ANIM-16"
+    },
+    "prop_long_as_handspike": {
+      "length_m": 1.5,
+      "grips_along_m": [
+        1,
+        1.4
+      ],
+      "tier": "plausible-procedural",
+      "gap": "G-ANIM-17"
+    },
+    "prop_sword": {
+      "grip_along_m": 0.1,
+      "contact_point_along_m": 0.55,
+      "blade_length_m": 0.9,
+      "note": "the paired sabre clips put the blade point 0.55 m from the hilt on the contact point of the two figures",
+      "tier": "plausible-procedural",
+      "gap": "G-ANIM-19"
+    },
+    "prop_instr": {
+      "uses": "bugle, drum, round of ammunition, cup, bucket",
+      "round_grips_along_m": [
+        0.12,
+        0.36
+      ]
+    }
+  },
+  "hand_socket_offsets_used": {
+    "grip_R": [
+      -0.01,
+      -0.05,
+      0
+    ],
+    "grip_L": [
+      0.01,
+      -0.05,
+      0
+    ],
+    "note": "from skeleton.json sockets (the palm centre); unchanged"
+  },
+  "joint_limits": "No change to the limits of skeleton.json is requested: the follow-up re-authored the clips and added a limited arm solve so that every clip stays inside them (0 frames with excess). Limits that FIGURES may wish to review with a source: the shoulder (upperarm z -20 degrees of adduction, y +-90 twist), which makes crossing the chest with a hand impossible without the elbow bent; widening them is optional and is not needed by the clips.",
+  "status": "AGREED AND APPLIED: when this file was last checked (2026-10-31) the long_arm_sockets of skeleton.json already carried the agreed numbers (written by the FIGURES follow-up). tests/anim3d.test.mjs fails if skeleton.json and this file drift apart by more than 3 cm.",
+  "reins": {
+    "written_by": "FIGURES round 3 (2026-10-31); read by the ANIMATION follow-up agent. The rest of this file is ANIMATION's; src/figures3d/horse.mjs REIN_HAND and skeleton.mjs rein_hand_* follow this section (a test compares them).",
+    "why": "Round 2 left the rider's hands 19 cm from the rein sockets (the horse sockets rein_hand_L/R were at world (+-0.04, 1.66, 0.65); the baked rider_walk left palm socket sits at (0.153, 1.666, 0.443) and the right at (-0.120, 1.640, 0.380)). The sockets are now at the measured palm position and the rein mesh passes through the closed fist.",
+    "frame": "horse frame at rest (metres): x = the horse's left, y up, z forward; rider root = saddle_seat = spine2 + (0, 0.10, -0.06) = (0, 1.54, 0.04)",
+    "hold": "BRIDLE HAND: both reins in the rider's LEFT hand, the right hand free for the sabre or carbine (plausible-procedural: no cavalry manual was read for this task; gap G-FIG-REIN-HAND). The right rein runs from the right bit ring over the crest to the left hand.",
+    "bit_rings_m": [
+      [
+        0.055,
+        1.5,
+        1.205
+      ],
+      [
+        -0.055,
+        1.5,
+        1.205
+      ]
+    ],
+    "rein_hand_L": {
+      "socket": "rein_hand_L (bone tack_rein_L, offset [0.113, 0.005, -0.657])",
+      "world_rest_m": [
+        0.153,
+        1.665,
+        0.443
+      ],
+      "role": "target of the LEFT palm socket (grip_L) of every mounted clip with a bridle hand"
+    },
+    "rein_hand_R": {
+      "socket": "rein_hand_R (bone tack_rein_R, offset [-0.113, 0.005, -0.657])",
+      "world_rest_m": [
+        -0.153,
+        1.665,
+        0.443
+      ],
+      "role": "target of the RIGHT palm socket for two-handed riders (horse-artillery mounted cannoneers, hart_* clips); the cavalry rein mesh ends at the LEFT hand only"
+    },
+    "fist_centre_m": [
+      0.122,
+      1.662,
+      0.473
+    ],
+    "fist_offset_from_palm_socket_m": [
+      -0.031,
+      -0.003,
+      0.03
+    ],
+    "rein_path_passes_through": "fist_centre_m (measured on the hand mesh of rider_walk at grip 0.92; the reins are 3.2 mm radius leather tubes: bit ring, over a sag, through the fist, then a 0.2 m tail toward the near side of the pommel)",
+    "measured_on_rider_walk": {
+      "grip_L_palm_socket_mean_m": [
+        0.153,
+        1.666,
+        0.443
+      ],
+      "grip_R_palm_socket_mean_m": [
+        -0.12,
+        1.64,
+        0.38
+      ],
+      "gripL_scalar_in_clip": 0.22,
+      "gripR_scalar_in_clip": 0.22
+    },
+    "request_to_animation": [
+      "Set gripL to 0.9 or more in every mounted clip while the bridle hand holds the reins (rider_walk has 0.22: the fingers do not close on the rein).",
+      "Solve grip_L onto rein_hand_L (tolerance 1 cm) for rider_walk, rider_sabre_carry and the other cavalry clips; the rein_hand_L socket is a spring bone child of the head, so the hand follows the head nod.",
+      "Two-handed riders: grip_L on rein_hand_L and grip_R on rein_hand_R; the right rein of the mesh then runs to the left fist (a second rein mesh variant horse:riding2 can be added if the clip needs the right rein in the right hand).",
+      "Right hand with a weapon at (-0.12, 1.64, 0.38): keep."
+    ],
+    "tolerance_m": 0.01,
+    "tier": "plausible-procedural",
+    "gap": "G-FIG-REIN-HAND"
+  },
+  "crew_stations": {
+    "written_by": "FIGURES round 3 (2026-10-31); read by the ANIMATION follow-up agent. Positions are the drill tables' (src/anim3d/drill-tables.mjs crewPosts, drill items ART-FA-02..04: gunner at the end of the trail handspike, Nos. 1 and 2 about two feet outside the wheels abreast the front of the wheel, Nos. 3 and 4 in line with the knob of the cascable covering them), in the piece frame: +z toward the muzzle, +x the piece's LEFT, origin on the axle line.",
+    "gun_geometry_m": {
+      "wheel_track_half": 0.78,
+      "wheel_radius": 0.725,
+      "muzzle_z_napoleon": 1.45,
+      "trail_end_z": -2.6
+    },
+    "posts_m": {
+      "gunner": [
+        0,
+        -2.6
+      ],
+      "n1": [
+        -1.39,
+        0
+      ],
+      "n2": [
+        1.39,
+        0
+      ],
+      "n3": [
+        -1.39,
+        -1.15
+      ],
+      "n4": [
+        1.39,
+        -1.15
+      ]
+    },
+    "working_places_in_the_clips_m": {
+      "n1": [
+        -0.45,
+        1.45
+      ],
+      "n2": [
+        0.45,
+        1.45
+      ],
+      "n3": [
+        -0.45,
+        -0.45
+      ],
+      "n4": [
+        0.45,
+        -0.45
+      ],
+      "gunner": [
+        0,
+        -2.6
+      ]
+    },
+    "finding": "The clips' workPos for Nos. 3 and 4 (x +-0.45, z -0.45) lies INSIDE the wheel track (half 0.78) and inside the wheel diameter (z -0.73..+0.73): a man standing there is between the wheel and the trail, not beside the breech as the drill has him (outside the wheel, then stepping in behind it). Nos. 1 and 2 at (+-0.45, 1.45) stand in front of the wheel beside the muzzle, which agrees with \"steps to opposite the muzzle\". The contact sheets show the detachment at the drill posts (gun_crew_napoleon.png) and at the clips' working places (gun_crew_working.png).",
+    "request_to_animation": [
+      "Re-base the working places of Nos. 3 and 4 to z -1.0 .. -1.15 at x +-0.9 (behind the wheel, reaching the vent over the trail) or document why the clip stands inside the wheel; keep the posts of the table as the idle places."
+    ],
+    "tier": "inferred (posts: documented drill text with the geometry ours)"
+  }
+}

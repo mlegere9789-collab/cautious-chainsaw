@@ -1,0 +1,16 @@
+# Gaps, family C-ALMSTX
+
+| ID | gap | what was tried | route |
+|---|---|---|---|
+| CA01 | No enlisted-man roll for the 11 Mississippi regiments and the Jeff Davis Legion | Rowland 1908 (officers only, says so); MDAH robots.txt read, database terms unread, not queried; IA title and subject searches for Mississippi regimental histories found only the Quitman Guards (Co. E 16th) | read MDAH terms; Rowland's reprint adds nothing; unit histories not on IA |
+| CA02 | No enlisted roll for 13 Alabama infantry regiments, the 5th Battalion and Hurt's battery | Brewer 1872 (captains and field officers only); Park 1906 (12th, casualties and paroles only); Montgomery Greys roster downloaded but OCR unusable; ADAH database terms unread | read ADAH terms; second OCR of the Montgomery Greys; Confederate Military History vol 8 not mined |
+| CA03 | Tennessee 1st (Provisional), 7th, 14th: field officers only | Lindsley 1886 (two volumes, downloaded) does not cover them; IA searches found no regimental roll; sos.tn.gov answered 403, not circumvented | none found open |
+| CA04 | 3rd Arkansas: only 141 Appomattox survivors plus field officers | Polley has no muster roll for it; IA searches for Arkansas rosters returned nothing relevant; digitalheritage.arkansas.gov did not resolve | recorded as failed; Arkansas State Archives not reached |
+| CA05 | OOB id C-1MD-CSA is named "1st Maryland Infantry (Confederate)" with strength 400 in Steuart's brigade. Goldsborough calls the battalion at Culp's Hill the Second Maryland Infantry; his First Maryland Infantry (1861-62) is a different, disbanded regiment | both rosters kept as separate files, flagged `unit-identity-contested`; no choice made | owner/historian decision on the unit identity |
+| CA06 | OOB artillery ids: C-ART-Brown-J (Chesapeake) and C-ART-Brown-C (4th Maryland) are one company in Goldsborough; C-ART-Doll's captain is not in Goldsborough's 2nd Maryland (Baltimore Light: Brockenbrough, Griffin) | roster filed under C-ART-Brown-C and C-ART-Doll, flagged | OOB correction |
+| CA07 | Florida OCR layer lacks about 1 name in 8; the printed page has them | row kept with empty name and flags | second OCR (needs an engine, G02) or reading from the images |
+| CA08 | Gettysburg presence documented for 702 rows only; no 30 June muster rolls available (rule 6) | all Florida, Texas, Oates remarks mined | NARA compiled service records, not open |
+| CA09 | Chilton 1911 and Montgomery Greys not parsed | downloaded and cached | parse Chilton (Co. H 4th Texas original roll, In Memoriam lists) |
+| CA10 | OR 27 officer extraction not done (22 unread leads) | regex pass, lead-only | read the reports of Law, Robertson, Perry, Wilcox, Barksdale, Posey, Hood, Pickett and Early division staff |
+| CA11 | Source conflicts carried, not resolved: Brewer officers against Hurst and Oates rolls (14th, 15th Alabama); Estes field officers against Brewer and Rowland | different files, same `unit_id` | compare when units are built |
+| CA12 | Seen on the page image of the 8th Florida Co. B (book p.191): "Campbell, M. M.: Killed at the Wilderness, April 6, '63", a year that looks misprinted (the Wilderness was 1864). The CSV row carrying this remark was not found by text search, so its parse is unverified | page image only | compare image, CSV and a second source |

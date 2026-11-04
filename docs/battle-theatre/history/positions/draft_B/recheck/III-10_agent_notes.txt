@@ -1,0 +1,21 @@
+Batch III-10 re-check (reports OR27-1-R172..R178; 55 claims, all read against the full report text)
+Counts per fc: passed_full_read 45, corrected 10, downgraded 0, split 0.
+
+Corrected (10):
+- brewster-72ny-08: "(Excelsior)" gloss removed (passage: Second Brigade, Second Division).
+- brewster-72ny-09: "advanced" narrowed to "ordered to advance".
+- burling-12: no place/destination in the sentence; pp cleared, act narrowed (nearly 4 a. m. before able to march).
+- burling-14: closing hour printed "nearly 12_^m." (OCR); 9 a. m. in the previous sentence; ocr true.
+- burling-15: "shortly after noon" replaced by "shortly after the order at nearly 12_^m." (OCR).
+- burling-16: "massed" narrowed to "ordered to mass".
+- burling-17: Poland's counter-order and the aide of Birney restored; "ordered by Birney" gloss fixed.
+- burling-5nj-02: distance printed "1^" (OCR glyph), not 1.5.
+- burling-5nj-07: later Sewell correction (duty was picket relief of 63rd Pa) added; act attributed to Woolsey.
+- burling-2nh-04: "(Ames)" not printed in Bailey; removed.
+
+Patterns (claims): time from another sentence 1 (burling-14); merged second report 0; later order ignored/superseded 2 (burling-17, 5nj-07); compass/road gloss 0; hedge/condition dropped or overstated (ordered vs done) 3 (72ny-09, burling-16, 5nj-07); unit/label gloss 2 (72ny-08 "Excelsior", 2nh-04 "Ames"); OCR digit 3 (burling-14, -15, 5nj-02); meridian inferred 2 (5nj-09, 2nh-05, annotated mer true); other 1 (burling-12 place not in sentence).
+
+Unit-id remarks (kept as printed): burling-2nh-01 and burling-7nj-01 are Burling's report of regiments detailed (regiment named in the same sentence); brewster-120ny-03 and 72ny-08/09/10 passages speak of "our brigade" or the regiment inside the brigade; burling-06..21 are brigade claims by the brigade commander (unit correct). place.printed "General Graham" (2nh-01, 7nj-01) is a person reported to, not a place.
+Source conflicts not resolved here: Cooper (7NJ) "about 5 p. m." July 3 vs Gilkyson 2 p. m. and Burling "some time after noon"; Burling 9 a. m. vs Gilkyson 8 a. m. vs Woolsey 10 a. m. arrival.
+Date basis: many claims take their date from the day-by-day order; recorded in dbasis.
+Validator: decisions 55 {'passed_full_read': 45, 'corrected': 10} new split claims 0 missing 0 errors 0

@@ -1,0 +1,93 @@
+{
+ "_doc": "Hand-reviewed verdicts for tools/approach-audit.mjs (history layer v4). `verdicts`: every usable claim of kind movement dated 3 July 1863 or earlier whose printed words name a road, and every arrival_road or march claim that names only a route, with the reason it is not the road of an approach (the builder reads a road of approach from arrival_road and march claims whose printed words name a road; the others were looked at too). `codes`: the text of each code. `for_owner`: claims that came closest and are not used, with the reason, for the Decision Log. The claims of kinds arrival_road and march are reviewed in data/claim-curation.json (approach_exclude); the claims whose road word stands only in the record text around the quote are listed by data/approach-record-scan.json and carry the code record_text_only.",
+ "codes": {
+  "movement_order": "a dispatch or an order printed as a movement (what a commander told another to do), not the road a unit marched on to the field",
+  "movement_in_field": "a move made after the unit stood on the field, or inside it; the road named is where it moved, not the road it came onto the field by",
+  "movement_road_unnamed": "no road is named: only “the road”, a wrong road, or a direction",
+  "movement_wagon_train": "a move of the wagon train or its guard; not the approach of the unit's line",
+  "movement_black_horse": "the road named is the Black Horse Tavern road, which AP-07 prints for the division and which does not cross the loaded ground (no other road is chosen for the unit)",
+  "movement_road_not_resolvable": "the road named is the “Fairfield road” or the road leading from Gettysburg to Fairfield: two roads of the road layer could carry the name (DEC-007 item 3), so none is chosen",
+  "record_text_only": "the road word stands only in the report text around the quote (a position beside a road, a camp, a crossing, a line of battle, an earlier leg, an order, or another formation's statement); the claim's own words name no road of approach for this unit (read in full, no approach statement found)",
+  "route_not_a_road": "the passage names a route by a mill or a village (Horner's Mill), not a road: the repository holds no such road, and none is inferred from the map"
+ },
+ "notes": {
+  "POS-C-0027": "Barnes's division moved up the Taneytown road between 4 and 6 p. m. on 2 July to the ground Sykes assigned, from the corps's earlier place near the Baltimore pike: a move inside the field after the arrival (the V Corps's road of arrival, the Gettysburg and Hanover road, is printed for the Second Division only, AP-11).",
+  "POS-E-US-11C-3D-001": "Ledger E (history layer v8): the commission narrative's circuitous route by Horner's Mills for Schurz's and Steinwehr's divisions: a route named by a mill (RC-07), no road",
+  "POS-E-US-11C-3D-SCHIMMELFENNIG-45NY-002": "Ledger E (history layer v8): 45th NY committee: at or near Horner's Mills, directed by a shorter route to the town: a route, no road named (RC-07)",
+  "POS-E-US-11C-3D-SCHIMMELFENNIG-45NY-004": "Ledger E (history layer v8): four companies sent out the Mummasburg Road past the College on arrival: a move made inside the field",
+  "POS-E-US-11C-3D-SCHIMMELFENNIG-45NY-007": "Ledger E (history layer v8): the retreat into the town by the Eagle Hotel and Chambersburg street: a move made inside the field",
+  "POS-E-US-11C-3D-KRZYZANOWSKI-58NY-004": "Ledger E (history layer v8): with the wagon train from Emmitsburg, road not named; the passage is about the detachment that left the train about four miles out",
+  "POS-E-US-11C-ART-1OHI-002": "Ledger E (history layer v8): the battery came up Baltimore street in the retreat of 1 July: a move made inside the field",
+  "POS-E-US-CAV-1D-DEVIN-17PA-003": "Ledger E (history layer v8): a movement on the Harrisburg pike near the town when the Eleventh Corps yielded: a move made inside the field"
+ },
+ "for_owner": [
+  {
+   "claim": "PD-2c-early-jones-05",
+   "why": "arrival_road, Brown (chief of artillery, Second Corps): Jones’ battalion came up “on the York road with Early’s division”; Early prints the Heidlersburg road for the division, which the concordance (RC-01) makes the Harrisburg Road. Two different gazetteer roads for one battalion: both are listed on the card, neither is chosen (approach_block); the owner decides which source to follow."
+  },
+  {
+   "claim": "PD-2c-johnson-06",
+   "why": "march, Johnson: “eastwardly, via Scotland, to Gettysburg”. Scotland (Franklin County) is on no period map of the repository (Hopkins covers Adams County only, Warren ends about 5 km west of the borough) and no report names the road between the mountain and the field (RC-05). A research act: a period map of Franklin County or the OR Atlas plate of the route would settle it; the 17 leaf units of Johnson’s division stay open until then."
+  },
+  {
+   "claim": "POS-A-11A-007",
+   "why": "march, Howard: the Second and Third Divisions took “the route by Horner’s Mill” (13 miles against 10 to 11). A route named by a mill, not a road: no source names the roads of the route or says where it met the road layer (RC-07). Hopkins 1858 prints Horner’s mill about 8 km south of the borough; tracing a route from it would invent the road. A research act (a period map of the Emmitsburg side)."
+  }
+ ],
+ "verdicts": {
+  "POS-A-11A-016": "movement_in_field",
+  "POS-A-11B-034": "movement_in_field",
+  "POS-A-CV1-026": "movement_in_field",
+  "POS-A-CV1-042": "movement_order",
+  "POS-A-CV1-043": "movement_order",
+  "POS-B-us-3c-13": "movement_order",
+  "POS-B-us-3c-19": "movement_road_unnamed",
+  "POS-B-us-3c-22": "movement_order",
+  "POS-B-us-3c-30": "movement_in_field",
+  "POS-B-us-3c-31": "movement_in_field",
+  "POS-B-us-3c-33": "movement_in_field",
+  "POS-B-us-3c-35": "movement_in_field",
+  "POS-B-us-3c-69": "movement_order",
+  "POS-B-us-3c-2d-09": "movement_black_horse",
+  "POS-B-us-3c-2d-15": "movement_in_field",
+  "POS-B-us-3c-2d-22": "movement_in_field",
+  "POS-B-us-3c-2d-carr-16ma-07": "movement_road_unnamed",
+  "POS-B-us-3c-2d-carr-11nj-09": "movement_road_unnamed",
+  "POS-B-us-3c-2d-carr-84pa-01": "movement_wagon_train",
+  "POS-B-us-3c-2d-carr-84pa-02": "movement_wagon_train",
+  "POS-B-us-3c-2d-carr-84pa-04": "movement_wagon_train",
+  "POS-B-us-2c-1d-02": "movement_in_field",
+  "POS-B-us-2c-1d-cross-12": "movement_in_field",
+  "POS-B-us-2c-2d-harrow-15ma-01": "movement_in_field",
+  "POS-B-us-2c-2d-harrow-15ma-02": "movement_in_field",
+  "POS-B-us-2c-2d-harrow-82ny-02": "movement_in_field",
+  "POS-B-us-2c-2d-webb-106pa-01": "movement_in_field",
+  "POS-B-us-2c-2d-webb-71pa-04": "movement_in_field",
+  "POS-B-us-2c-2d-webb-106pa-04": "movement_in_field",
+  "POS-B-us-2c-2d-harrow-15ma-11": "movement_in_field",
+  "POS-C-0009": "movement_in_field",
+  "POS-C-0027": "movement_in_field",
+  "POS-C-0167": "movement_in_field",
+  "POS-C-0401": "movement_in_field",
+  "POS-C-0423": "movement_in_field",
+  "POS-C-0467": "movement_in_field",
+  "PD-1c-04": "movement_order",
+  "PD-1c-07": "movement_in_field",
+  "PD-1c-mclaws-kershaw-05": "movement_road_not_resolvable",
+  "PD-1c-mclaws-kershaw-06": "movement_in_field",
+  "PD-1c-mclaws-kershaw-3sc-03": "movement_road_not_resolvable",
+  "PD-1c-mclaws-cabell-07": "movement_in_field",
+  "PD-1c-mclaws-cabell-11": "movement_in_field",
+  "PD-1c-hood-benning-03": "movement_road_unnamed",
+  "PD-2c-01": "movement_order",
+  "PD-2c-johnson-stonewall-02": "movement_in_field",
+  "POS-A-11A-007": "route_not_a_road",
+  "POS-E-US-11C-3D-001": "route_not_a_road",
+  "POS-E-US-11C-3D-SCHIMMELFENNIG-45NY-002": "route_not_a_road",
+  "POS-E-US-11C-3D-SCHIMMELFENNIG-45NY-004": "movement_in_field",
+  "POS-E-US-11C-3D-SCHIMMELFENNIG-45NY-007": "movement_in_field",
+  "POS-E-US-11C-3D-KRZYZANOWSKI-58NY-004": "movement_road_unnamed",
+  "POS-E-US-11C-ART-1OHI-002": "movement_in_field",
+  "POS-E-US-CAV-1D-DEVIN-17PA-003": "movement_in_field"
+ }
+}

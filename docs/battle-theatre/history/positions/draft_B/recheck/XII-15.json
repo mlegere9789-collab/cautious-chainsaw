@@ -1,0 +1,418 @@
+[
+ {
+  "id": "POS-B-us-12c-2d-greene-12",
+  "fc": "passed_full_read",
+  "why": "Brigade is the subject; Sugar Loaf Mountain and the T'aneytown road printed; no later contradiction. Date from report context only.",
+  "dbasis": "report context: report covers July 1, 2, 3; \"There were no incidents to note on this day\" precedes \"On the 2d\""
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-13",
+  "fc": "corrected",
+  "why": "Hour glyph \"G\" is OCR-damaged and nothing in this passage settles it (6 is only a cross-report reading from Godard). Removed the confident \"6 a. m.\"; t null, ocr true; crest clause added as extract.",
+  "act": "July 2 at about \"G\" a. m. (OCR glyph, hour not legible here) the brigade took position on the right of the First Corps, on the crest of the steep and rocky hill",
+  "q2": [
+   "on the crest of the steep and rocky hill"
+  ],
+  "wp": "at about G a. m.",
+  "wdesc": "OCR glyph only: hour printed \"G\"; not settled by this passage (a 6 a. m. reading comes from other reports)",
+  "t": null,
+  "ocr": true
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-14",
+  "fc": "passed_full_read",
+  "why": "Participial clause of the same sentence as \"On the 2d, we took position\"; Rock Creek (OCR \"Eock\"), 200-400 yards, rock ledges, slopes all printed. Hour is the OCR glyph \"G\", so no t.",
+  "wdesc": "OCR glyph only: hour of the sentence printed \"G a. m.\"; no t_iso",
+  "ocr": true
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-15",
+  "fc": "corrected",
+  "why": "The \"at about G a. m.\" phrase is two sentences earlier and OCR-damaged; removed as printed time. Passage describes Second Brigade (named Kane in the same report) on Greene's right and Williams' division beyond: neighbours, not Greene himself.",
+  "wp": null,
+  "wdesc": "time in a different sentence: \"at about G a. m.\" (OCR glyph; earlier sentence of the same description)",
+  "dbasis": "report context: \"On the 2d\" begins the description of the position",
+  "t": null,
+  "ocr": true
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-16",
+  "fc": "corrected",
+  "why": "Printed \"13 o'clock\" is not a valid hour (OCR digit); compiler's \"[12?]\" removed and t kept null. Breastwork materials and \"good cover\" otherwise in passage.",
+  "act": "Breastworks of logs, cord-wood, stones and earth thrown up as soon as in position; \"By 13 o'clock\" (OCR digit, hour not legible) a good cover for the men",
+  "wdesc": "OCR glyph only: \"13 o'clock\" is not a clock reading; digit unreadable and no a.m./p.m. printed",
+  "dbasis": "report context: the paragraph narrates \"On the 2d\" (position taken, entrenching, 6.30 p. m. withdrawal)",
+  "t": null,
+  "ocr": true
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-17",
+  "fc": "passed_full_read",
+  "why": "6.30 p. m. in the same sentence as the remaining in position; author Greene commands; \"picket?\" is OCR for pickets; no later contradiction.",
+  "dbasis": "report context: the paragraph narrates \"On the 2d\" (position taken, entrenching, 6.30 p. m. withdrawal)"
+ },
+ {
+  "id": "POS-B-us-12c-1d-40",
+  "fc": "passed_full_read",
+  "why": "Greene names the First (Williams') Division as ordered from his right at 6.30 p. m., same sentence; unit_id is the division, matching.",
+  "dbasis": "report context: the paragraph narrates \"On the 2d\" (position taken, entrenching, 6.30 p. m. withdrawal)"
+ },
+ {
+  "id": "POS-B-us-12c-2d-candy-28",
+  "fc": "passed_full_read",
+  "why": "Passage prints \"the First and Second Brigades of the Second Division\" ordered from my right at 6.30 p. m.; First Brigade = Candy per the same report (Candy's brigade; First Brigade returned 1.30 a. m.). Brigade-to-name is a gloss from within the report.",
+  "dbasis": "report context: the paragraph narrates \"On the 2d\" (position taken, entrenching, 6.30 p. m. withdrawal)"
+ },
+ {
+  "id": "POS-B-us-12c-2d-kane-32",
+  "fc": "passed_full_read",
+  "why": "Second Brigade of the Second Division ordered from my right at 6.30 p. m., same sentence; the report itself says \"Kane's (Second) brigade\".",
+  "dbasis": "report context: the paragraph narrates \"On the 2d\" (position taken, entrenching, 6.30 p. m. withdrawal)"
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-18",
+  "fc": "corrected",
+  "why": "The 6.30 p. m. is in the preceding sentence; the order sentence has no time of its own. wp cleared, flagged as time in a different sentence.",
+  "wp": null,
+  "wdesc": "time in a different sentence: \"until 6.30 p. m.\" (preceding sentence; the order follows the withdrawal)",
+  "dbasis": "report context: the paragraph narrates \"On the 2d\" (position taken, entrenching, 6.30 p. m. withdrawal)",
+  "t": null
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-19",
+  "fc": "corrected",
+  "why": "Compiler phrase \"before the extension could be made\" is a gloss; passage says \"Before any further movements could be made\". Narrowed to the printed wording.",
+  "act": "Before any further movements could be made, attacked on the whole of the front by a large force a few minutes before 7 p. m.",
+  "q2": [
+   "Before any further movements could be made"
+  ]
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-20",
+  "fc": "passed_full_read",
+  "why": "Four charges between 7 and 9.30 p. m. in one sentence, \"effectually resisted\" printed; t is the window start, approximate."
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-21",
+  "fc": "passed_full_read",
+  "why": "\"About 8 p. m.\" same sentence; Ireland, 137th NY, California Regiment (Col. Smith) all in the following sentences (\"At this time\"); no later contradiction."
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-22",
+  "fc": "passed_full_read",
+  "why": "Time, Kane's return, staff officer, arrival on the right all printed. No a. m./p. m.: sequence between the 8 p. m. night attack and 1.30 a. m. on the 3d settles p. m.",
+  "mer": true,
+  "wdesc": "meridian inferred: follows the 8 p. m. attack and \"this night attack\", precedes 1.30 a. m. on the 3d",
+  "dbasis": "report context: the paragraph narrates \"On the 2d\" (position taken, entrenching, 6.30 p. m. withdrawal)"
+ },
+ {
+  "id": "POS-B-us-12c-2d-kane-33",
+  "fc": "passed_full_read",
+  "why": "Kane's return, fire on the right, placement on Greene's right all printed. Meridian not printed; sequence (after 8 p. m., before 1.30 a. m.) settles 10 p. m.",
+  "mer": true,
+  "wdesc": "meridian inferred: follows the 8 p. m. attack and \"this night attack\", precedes 1.30 a. m. on the 3d",
+  "dbasis": "report context: the paragraph narrates \"On the 2d\" (position taken, entrenching, 6.30 p. m. withdrawal)"
+ },
+ {
+  "id": "POS-B-us-12c-2d-candy-29",
+  "fc": "passed_full_read",
+  "why": "\"The First Brigade returned to our support at 1.30 a. m. on the 3d\" same sentence; position in support of right in the continuing clause; First Brigade = Candy's per the report."
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-23",
+  "fc": "passed_full_read",
+  "why": "\"At 4 a. m.\" same sentence as artillery opening and general attack; date the 3d follows \"1.30 a. m. on the 3d\".",
+  "dbasis": "report context: preceding sentence \"1.30 a. m. on the 3d\""
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-24",
+  "fc": "passed_full_read",
+  "why": "10.30 a. m. retirement, pickets until night of the 4th, driven from right trenches early: all in the passage.",
+  "dbasis": "report context: continues the \"At 4 a. m.\" sentence of the 3d"
+ },
+ {
+  "id": "POS-B-us-12c-1d-lockwood-22",
+  "fc": "passed_full_read",
+  "why": "Lockwood and the three units, about 1,700 men, \"came to our support from Williams' division\" printed; 7.30 a. m. same sentence. Date from the 3d paragraph.",
+  "dbasis": "report context: follows 4 a. m. and 10.30 a. m. of the 3d"
+ },
+ {
+  "id": "POS-B-us-12c-2d-candy-7oh-17",
+  "fc": "passed_full_read",
+  "why": "Creighton with the Seventh Ohio \"arrived to my immediate support at 6 a. m.\" and was sent into trenches; 29th, 5th, 66th Ohio follow in next sentences. Date by sequence.",
+  "dbasis": "report context: paragraph of the 3d; the First Brigade left the line at 6.30 p. m. on the 2d and returned 1.30 a. m. on the 3d"
+ },
+ {
+  "id": "POS-B-us-12c-2d-candy-29oh-16",
+  "fc": "corrected",
+  "why": "Passage says the 29th Ohio arrived soon after, followed by the 5th and 66th Ohio; it does not say the 29th was sent into the trenches (only the 7th Ohio). Clause dropped; place cleared.",
+  "act": "29th Ohio (Capt. Hayes), of the First Brigade, arrived soon after the 7th Ohio, followed by the 5th Ohio (Col. Patrick) and the 66th Ohio (Lt. Col. Powell)",
+  "pp": null,
+  "wp": "soon after",
+  "wdesc": "printed in the continuing sentence: soon after (the 7th Ohio at 6 a. m. in the preceding sentence)",
+  "dbasis": "report context: paragraph of the 3d",
+  "t": null
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-25",
+  "fc": "corrected",
+  "why": "Added \"about\" before the 1,000 (Candy's brigade) removed; table figures given as printed (OCR \"1, 350\", \"Salt\" for Sent); arithmetic 1,350+355+400+1,000 = 3,105 agrees.",
+  "act": "Greene: not more than 1,300 men in the lines at any one time (force engaged at different times: his brigade 1,350; from the First Corps 355; from the Eleventh Corps 400; part of Candy's brigade 1,000; total 3,105)",
+  "q2": [
+   "My brigade 1, 350 Salt from First Corps 355 Sent from Eleventh Corps 400",
+   "Part of Colonel Candy's brigade 1, 000 Total 3, 105"
+  ]
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-26",
+  "fc": "passed_full_read",
+  "why": "Second report entry; \"June 38\" is OCR but the report's own text asks for reports \"from June 28\" and the next entry is June 29, so June 28 is settled.",
+  "wdesc": "OCR glyph in date: printed \"June 38\"; read as June 28 from the report's own text (\"from June 28\") and the next entry June 29",
+  "ocr": true
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-27",
+  "fc": "passed_full_read",
+  "why": "Date, place, distance in one entry; clear text."
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-28",
+  "fc": "passed_full_read",
+  "why": "\"June 30. - Marched to Littlestown, Pa.; 12 miles.\" one entry; clear."
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-29",
+  "fc": "passed_full_read",
+  "why": "\"July 1\" entry: Two Taverns 8 miles, thence to the left of the battle-field near Gettysburg, 5 miles; clear."
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-30",
+  "fc": "corrected",
+  "why": "Distance printed \"1^ miles\" (fraction glyph damaged); \"1.5\" read with confidence. Narrowed to the printed glyph.",
+  "act": "July 2: marched to the right of the line of battle (distance printed \"1^ miles\"; fraction glyph OCR-damaged, not read)",
+  "ocr": true
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-31",
+  "fc": "passed_full_read",
+  "why": "\"July 5\" entry: Littlestown, 13 miles; clear."
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-60ny-02",
+  "fc": "passed_full_read",
+  "why": "\"On July 2, at or about 6 a. m.\" same sentence; regiment with the brigade, right of the First Army Corps, intrenchments by Greene's order all printed."
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-60ny-03",
+  "fc": "corrected",
+  "why": "Added the author's hedge: the 1-mile distance is \"as I estimated the distance\". Rest (9 a. m. completion, brow of hill, link to 102nd NY) printed.",
+  "act": "Intrenchments completed about 9 a. m., commanding on the left and center the brow of a precipitous hill and on the right extending to low ground; connected on the right with the 102nd New York; about 1 mile from the enemy's front (author's estimate)",
+  "q2": [
+   "about 1 mile from the enemy's front, as I estimated the distance"
+  ],
+  "dbasis": "report context: \"On July 2\" opens the account"
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-60ny-04",
+  "fc": "passed_full_read",
+  "why": "\"At about 4 p. m.\" same sentence as Geary placing four guns, one in my line; wounded gunners replaced; removed before 5 p. m. All printed. Date by report context.",
+  "dbasis": "report context: \"On July 2\" opens the account; \"From 9 a. m. to 4 p. m.\""
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-60ny-05",
+  "fc": "passed_full_read",
+  "why": "\"quiet until about 7 p. m., when\" enemy infantry advanced, fire along our whole line at close range for about two hours; same sentence.",
+  "dbasis": "report context: July 2, continuing from the gun removal before 5 p. m."
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-60ny-06",
+  "fc": "passed_full_read",
+  "why": "Continuation of the same sentence (\"for about two hours, when ... nearly silenced\"); advance, about 50 prisoners, two flags printed.",
+  "dbasis": "report context: July 2, continuing sentence"
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-60ny-07",
+  "fc": "passed_full_read",
+  "why": "\"about 4 a. m. July 3\" same sentence, light firing then heavy firing on both sides; printed."
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-60ny-08",
+  "fc": "passed_full_read",
+  "why": "\"continued until 9.30 a. m.\" then retired leaving sharpshooters until about 2 p. m.; same sentence; printed.",
+  "dbasis": "report context: continues the 4 a. m. July 3 sentence"
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-60ny-09",
+  "fc": "passed_full_read",
+  "why": "About 2 p. m. relief for one hour, back in the intrenchments, remained until 2 a. m. July 4: all printed; the one-hour relief is \"about one hour\".",
+  "dbasis": "report context: July 3, continuing from the 9.30 a. m. sentence"
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-60ny-10",
+  "fc": "corrected",
+  "why": "Passage says \"brigade officer of the day\"; \"field officer of the day\" is from R309's signature, not this report. Wording restored.",
+  "act": "60th New York numbered 255 men and 16 line officers, 1 adjutant, 1 field officer (Lt. Col. Redington on July 2 being brigade officer of the day)",
+  "q2": [
+   "Lieutenant-Colonel Redington on July 2 being brigade officer of the day"
+  ]
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-60ny-11",
+  "fc": "passed_full_read",
+  "why": "Author is Lt. Col. Redington of the 60th NY commanding the brigade skirmishers, not the regiment as a whole; unit_id is the 60th NY. Relief of two companies of 7th Indiana about 8 a. m., 7 officers 170 men, front of Second Division, advance beyond the brook printed. Heading prints July 3; July 2 is inference (tier inferred correct).",
+  "wdesc": "compiler reading from order of events: the report heading prints \"July 3\"; date read as July 2 (inference, tier inferred)",
+  "dbasis": "report heading prints \"July 3\"; July 2 is an inference from other reports"
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-60ny-12",
+  "fc": "passed_full_read",
+  "why": "Author is Lt. Col. Redington of the 60th NY commanding the brigade skirmishers, not the regiment as a whole; unit_id is the 60th NY. Held line until the enemy's line of battle about 7 p. m.; 12 prisoners; half hour to the works; all printed. Date inferred as above (tier inferred).",
+  "wdesc": "compiler reading from order of events: the report heading prints \"July 3\"; date read as July 2 (inference, tier inferred)",
+  "dbasis": "report heading prints \"July 3\"; July 2 is an inference from other reports"
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-60ny-13",
+  "fc": "passed_full_read",
+  "why": "Author is Lt. Col. Redington of the 60th NY commanding the brigade skirmishers, not the regiment as a whole; unit_id is the 60th NY. \"About 4 p. m.\" same sentence as the battery; 25 sharpshooters, Knap's battery fire, position evacuated printed. Date inferred (tier inferred).",
+  "wdesc": "compiler reading from order of events: the report heading prints \"July 3\"; date read as July 2 (inference, tier inferred)",
+  "dbasis": "report heading prints \"July 3\"; July 2 is an inference from other reports"
+ },
+ {
+  "id": "POS-B-us-12c-art-pae-04",
+  "fc": "passed_full_read",
+  "why": "Passage prints \"Knap's battery\" fired on the enemy battery; \"Pennsylvania\" and the battery letter are not printed, so the unit id is a gloss. Time is the \"About 4 p. m.\" of the preceding sentence (continuing, \"also\"). Date inferred (tier inferred).",
+  "wdesc": "compiler reading from order of events: time \"About 4 p. m.\" is in the preceding sentence; heading prints \"July 3\", date read as July 2 (inference)",
+  "dbasis": "report heading prints \"July 3\"; July 2 is an inference from other reports"
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-78ny-01",
+  "fc": "passed_full_read",
+  "why": "\"On the morning of the 2d, about 6 o'clock\" same sentence; position left of the brigade, 60th NY right, First Corps left, crest of steep hill, breastwork of trees and dirt printed."
+ },
+ {
+  "id": "POS-B-us-12c-art-5usk-04",
+  "fc": "passed_full_read",
+  "why": "Battery K, 5th US Artillery named; \"at 4. 30 o'clock ordered up to occupy the position which my regiment occupied\" printed. No a. m./p. m. printed; \"the day passed till about 4 o'clock\" after the 6 o'clock morning settles p. m.",
+  "mer": true,
+  "wdesc": "meridian inferred: follows \"On the morning of the 2d, about 6 o'clock\" and \"the day passed till about 4 o'clock\"",
+  "dbasis": "report context: the 2d, per \"On the morning of the 2d\""
+ },
+ {
+  "id": "POS-B-us-12c-art-5usk-05",
+  "fc": "passed_full_read",
+  "why": "\"at 5.30 o'clock every gun of the enemy was silenced\", gunners and drivers lost, 78th volunteered: same sentence group; meridian not printed, sequence after 4.30 settles p. m.",
+  "mer": true,
+  "wdesc": "meridian inferred: follows the 4 o'clock and 4. 30 o'clock events of the afternoon of the 2d",
+  "dbasis": "report context: the 2d"
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-78ny-02",
+  "fc": "passed_full_read",
+  "why": "\"At about 6 o'clock the battery was withdrawn\", old position reoccupied, Greene's order to relieve the 28th Pa as skirmishers, volleys, fell back across the breastworks: printed. Meridian not printed; sequence after 5.30 settles p. m.",
+  "mer": true,
+  "wdesc": "meridian inferred: follows 4.30 and 5.30 o'clock of the same afternoon, precedes 6.40 o'clock attack",
+  "dbasis": "report context: the 2d"
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-78ny-03",
+  "fc": "passed_full_read",
+  "why": "\"beginning at 6.40 o'clock and ending at 9.30 o'clock\" with the 102nd NY and brigade; \"evening before\" and \"rest of the night\" confirm p. m.",
+  "mer": true,
+  "wdesc": "meridian inferred: followed by \"the evening before\" and \"the rest of the night\"",
+  "dbasis": "report context: the 2d"
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-78ny-04",
+  "fc": "passed_full_read",
+  "why": "\"at 3.30 a. m.\" order to occupy place between 102nd and 60th; \"ten minutes afterward\" attack; repulsed before 6 a. m. all printed. July 3 by sequence after the night of the 2d.",
+  "dbasis": "report context: follows \"The rest of the night\" after the 2d attack"
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-78ny-05",
+  "fc": "passed_full_read",
+  "why": "\"ten minutes afterward the attack began\" continues the 3.30 a. m. sentence; repulse before 6 a. m. printed; place from the preceding clause.",
+  "dbasis": "report context: continues the 3.30 a. m. sentence of the 3d"
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-78ny-06",
+  "fc": "corrected",
+  "why": "Passage does not say where the 78th was relieved; \"breastworks\" was an earlier sentence. Place replaced by the printed \"old place\" (9 a. m. reoccupation). Meridian of 7.40 not printed; sequence between \"before 6 a. m.\" and \"9 a. m.\" settles a. m.",
+  "pp": "old place",
+  "mer": true,
+  "wdesc": "meridian inferred: follows \"before 6 a. m.\" and precedes \"At 9 a. m.\" of the same morning",
+  "q2": [
+   "At 9 a. m. we reoccupied our old place"
+  ],
+  "dbasis": "report context: the 3d, following the 3.30 a. m. sentence"
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-78ny-07",
+  "fc": "passed_full_read",
+  "why": "\"At 9 a. m. we reoccupied our old place, remaining there until 1 p. m., only annoyed by sharpshooters. At 1 o'clock we were relieved again\" printed.",
+  "dbasis": "report context: the 3d, following the 3.30 a. m. sentence"
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-78ny-08",
+  "fc": "passed_full_read",
+  "why": "\"From 9 p. m. till 1 a. m. we were at the breastworks again\" then somewhat in the rear, enemy having abandoned his lines: printed. Date July 3 by sequence after 1 p. m.",
+  "dbasis": "report context: the 3d, following the 1 o'clock relief"
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-78ny-09",
+  "fc": "passed_full_read",
+  "why": "\"its strength being not more than 200\" and \"commanded this regiment the first time in action\" printed; date not printed (engagement of July 2-4)."
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-102ny-01",
+  "fc": "passed_full_read",
+  "why": "\"July 1, this regiment marched with the brigade from Two Taverns to a position on the extreme left of our army, then engaged ... skirmishers; were advanced\" printed, same sentence."
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-102ny-02",
+  "fc": "passed_full_read",
+  "why": "Passage prints \"until shortly after daylight the next morning, July 3\" (day after July 1 would be July 2; printed digit or slip). Tier inferred is correct; date July 2 is a reading.",
+  "wdesc": "compiler reading from order of events: printed \"the next morning, July 3\" after \"July 1\"; date read as July 2 (digit 2/3 or slip), tier inferred",
+  "dbasis": "report context: \"next morning\" after July 1 is July 2; printed digit is 3"
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-102ny-03",
+  "fc": "passed_full_read",
+  "why": "\"The division being moved to the right of the army\" continues the previous sentence; 102nd on the side of a precipitous hill, 149th right, 60th left, First Corps skirmishers in front, cord-wood and rock breastworks all printed. Date inferred.",
+  "dbasis": "report context: continuing sentence after the \"next morning, July 3\" departure; July 2 is the inferred reading"
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-102ny-04",
+  "fc": "passed_full_read",
+  "why": "\"Artillery firing took place from our immediate rear ... This occurred about 4 p. m., and continued for about an hour, perhaps more\" printed; hedge kept in act. Date by context (tier inferred).",
+  "dbasis": "report context: after the formation on the hill (July 2 inferred)"
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-102ny-05",
+  "fc": "passed_full_read",
+  "why": "\"Shortly after 6 p. m. the regiment was moved by the right flank\" to the 149th NY's intrenchments; single file; pickets retire; 78th sent to relieve: printed.",
+  "dbasis": "report context: continues the July 2 account (tier inferred)"
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-102ny-06",
+  "fc": "passed_full_read",
+  "why": "Two-hour volleys, 6th Wisconsin about 8 p. m., 45th New York about 8.30 p. m., firing ceased about 9.30 p. m., volleys about 1 a. m. and 2 a. m. all printed.",
+  "dbasis": "report context: continues the evening of July 2 (tier inferred)"
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-102ny-07",
+  "fc": "passed_full_read",
+  "why": "\"At 3.30 a. m. the engagement recommenced\"; held breastworks until nearly 9 a. m., relieved by 150th NY, relieved it in about twenty minutes, relieved again about an hour later: printed.",
+  "dbasis": "report context: morning after the night volleys of 1 a. m. and 2 a. m. (July 3)"
+ },
+ {
+  "id": "POS-B-us-12c-2d-greene-102ny-08",
+  "fc": "corrected",
+  "why": "Meridian glyph is damaged: printed \"About 4 J), m.\" (J) for p.). Act narrowed to the printed glyph; t stays null, ocr true. Rest (report to Wadsworth, reserve to his left wing, until July 5) printed.",
+  "act": "About 4 [J), m.] (meridian glyph OCR-damaged; after the 2 p. m. relief by the 60th New York) the regiment was ordered to report to Brig. Gen. Wadsworth, First Corps, who placed it in reserve to his left wing; position held until the brigade left on July 5",
+  "wp": "About 4 J), m.",
+  "wdesc": "OCR glyph only: meridian printed \"J), m.\" for \"p. m.\"; hour 4 follows \"until 2 p. m.\" in the report, but no t_iso",
+  "t": null,
+  "ocr": true,
+  "dbasis": "report context: the 3d, after \"until 2 p. m.\""
+ }
+]

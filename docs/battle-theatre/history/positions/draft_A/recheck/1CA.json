@@ -1,0 +1,265 @@
+[
+ {
+  "id": "POS-A-1CA-001",
+  "fidelity": "passed_full_read",
+  "why": "Unit, 'On the night of June 30' and 'about 2 miles from Emmitsburg' in one sentence; no later contradiction.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1CA-002",
+  "fidelity": "passed_full_read",
+  "why": "Hall's battery, bridge over Marsh Creek on the Gettysburg turnpike, report to Wadsworth, all in the same sentence as June 30 night.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1CA-003",
+  "fidelity": "corrected",
+  "why": "Time and orders quote verbatim; place 'the camps near Emmitsburg and Marsh Creek' is not printed in this sentence (compiler gloss from the June 30 sentence). Place removed.",
+  "patch": {
+   "pp": null,
+   "note_add": "Re-check: the sentence prints no place for the receipt of orders; the June 30 night positions are in the previous sentence."
+  }
+ },
+ {
+  "id": "POS-A-1CA-004",
+  "fidelity": "passed_full_read",
+  "why": "Order of march printed in the sentence after the 8 o'clock orders; Doubleday temporarily commanding; no contradiction.",
+  "patch": {
+   "wd": "printed in the continuing sentences: 'About 8 o'clock on the morning of the 1st, we received orders to march ... The corps marched in the following order'"
+  }
+ },
+ {
+  "id": "POS-A-1CA-005",
+  "fidelity": "passed_full_read",
+  "why": "Third Division by-road to the left about 4 miles this side of Gettysburg, Cooper's four 3-inch guns following: all in one sentence.",
+  "patch": {
+   "wd": "compiler reading from order of events: after the 8 o'clock orders and before the 'about 10.30 a. m.' firing in the following sentences; no clock printed"
+  }
+ },
+ {
+  "id": "POS-A-1CA-006",
+  "fidelity": "passed_full_read",
+  "why": "Firing heard within some 2 miles of Gettysburg at about 10.30 a.m.; 'I immediately joined General Doubleday' moves the three batteries across the fields toward the seminary, same sentence group.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1CA-007",
+  "fidelity": "corrected",
+  "why": "Stewart's position and 'not engaged' are printed, but no clock between the 10.30 a.m. arrival and the retreat; 'early afternoon' is compiler's. Time removed.",
+  "patch": {
+   "w": null,
+   "wd": "compiler reading from order of events: after the 10.30 a. m. arrival, before the retreat; no clock printed (Whittier R073 has orders about Stewart's battery 'a few minutes past 2', another report)"
+  }
+ },
+ {
+  "id": "POS-A-1CA-008",
+  "fidelity": "corrected",
+  "why": "Directive to Cooper printed; 'early afternoon' is not printed in R071. Time removed; 'on this ridge' read as the seminary ridge is context.",
+  "patch": {
+   "w": null,
+   "wd": "compiler reading from order of events: after the 10.30 a. m. arrival, before the retreat; no clock printed"
+  }
+ },
+ {
+  "id": "POS-A-1CA-009",
+  "fidelity": "corrected",
+  "why": "Order to Stevens and Doubleday's later move to the right of Cooper's are printed; 'early afternoon' is not printed in R071. Time removed.",
+  "patch": {
+   "w": null,
+   "wd": "compiler reading from order of events: after the 10.30 a. m. arrival, before the retreat; no clock printed (Whittier R073: orders to relieve Stewart 'a few minutes past 2', another report)"
+  }
+ },
+ {
+  "id": "POS-A-1CA-010",
+  "fidelity": "corrected",
+  "why": "Walk down the pike, trot on the clear pike, passage through the town and loss figures printed; 'then at a trot through the town' put the trot in the town (it begins on the pike). 'Afternoon' not printed.",
+  "patch": {
+   "act": "All the batteries were at once limbered to the rear and moved at a walk down the Cashtown pike until the infantry had all left it and passed under cover of the railroad embankment, then broke into a trot; the batteries passed immediately through the town; loss of the batteries during the day's engagement 83 officers and men and about 80 horses",
+   "pp": "the Cashtown pike, under cover of the railroad embankment; through the town",
+   "w": null,
+   "wd": "compiler reading from order of events: after the infantry retreat on Seminary Hill and before 'At dusk'; no clock printed"
+  }
+ },
+ {
+  "id": "POS-A-1CA-011",
+  "fidelity": "corrected",
+  "why": "Position on reaching Cemetery Hill and its purpose printed; no clock printed ('afternoon-dusk' window is compiler's). Time removed.",
+  "patch": {
+   "w": null,
+   "wd": "compiler reading from order of events: after the retreat through the town and before 'At dusk' in the next sentence; no clock printed"
+  }
+ },
+ {
+  "id": "POS-A-1CA-012",
+  "fidelity": "passed_full_read",
+  "why": "'At dusk' and the light earthworks 'thrown up in front of each gun' are in the same sentence; place printed.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1CA-013",
+  "fidelity": "corrected",
+  "why": "Four guns of Battery B across the road, two disabled, printed with 'At dusk'; but the road name 'Baltimore Pike' is not printed in the passage ('the road'). Road gloss removed.",
+  "patch": {
+   "rd": "the road",
+   "note_add": "Re-check: the passage prints only 'across the road'; the Baltimore Pike identification is by inference."
+  }
+ },
+ {
+  "id": "POS-A-1CA-014",
+  "fidelity": "passed_full_read",
+  "why": "Fifth Maine 'to the right and some 50 yards in front of this line, on a small knoll', continuing the 'At dusk' posting sentence.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1CA-015",
+  "fidelity": "corrected",
+  "why": "Hall's three guns by order of Howard on the left of the cemetery printed; 'evening of July 1' is not printed (sequence before 'On the 2d' only; Wainwright's dusk list is another report).",
+  "patch": {
+   "w": null,
+   "wd": "compiler reading from order of events: the clause comes before 'On the 2d'; no clock printed (Wainwright R071 lists the three guns in the dusk posting, another report)"
+  }
+ },
+ {
+  "id": "POS-A-1CA-016",
+  "fidelity": "passed_full_read",
+  "why": "'no engagements occurred until about 4 p. m.', wheat-field battery at 1,300 yards, reply with thirteen 3-inch guns and the hour and a half all printed under 'July 2.'",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1CA-017",
+  "fidelity": "corrected",
+  "why": "Relief by Ricketts about 7 p.m. and the order to report to Tyler printed; 'Cemetery Hill' is not printed in R075 (position is 'the crest of the hill in rear of Gettysburg'; 'General Tyler's camp'). Place narrowed.",
+  "patch": {
+   "pp": "the crest of the hill in rear of Gettysburg; General Tyler's camp",
+   "note_add": "Re-check: gazetteer id GZ-003 is by inference; the passage does not print 'Cemetery Hill' for July 2."
+  }
+ },
+ {
+  "id": "POS-A-1CA-018",
+  "fidelity": "corrected",
+  "why": "'About dusk' knoll at 1,800 yards, Rodes' attack and the gun counts printed; place 'Cemetery Hill (north front)' not printed in this sentence. Place narrowed to printed words.",
+  "patch": {
+   "pp": "a knoll on our left and front, distant 1,800 yards; the hill, which is quite steep at this corner",
+   "note_add": "Re-check: 'Rodes' Louisiana [ ?] brigade' is printed with a query bracket; gazetteer id GZ-003 is by inference."
+  }
+ },
+ {
+  "id": "POS-A-1CA-019",
+  "fidelity": "passed_full_read",
+  "why": "Camp at Marsh Creek, 4 miles from Gettysburg, and 'At 9 a. m. marched, following the advance brigade of the First Division' in two consecutive sentences.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1CA-020",
+  "fidelity": "corrected",
+  "why": "Ordered into position by Reynolds on the right of the Cashtown road, 400 yards beyond Seminary Hill, printed; the 10.30 a.m. is not printed in R072 (it is Wainwright's, R071).",
+  "patch": {
+   "w": null,
+   "wd": "time in a different report: \"at about 10.30 a. m.\" (Wainwright R071); R072 prints only 'At 9 a. m. marched' and 'opened ... at 10.45 a. m.', so the order into position falls between them"
+  }
+ },
+ {
+  "id": "POS-A-1CA-021",
+  "fidelity": "passed_full_read",
+  "why": "10.45 a.m. opening and the infantry column 25 minutes later within 60 yards printed in consecutive sentences.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1CA-022",
+  "fidelity": "passed_full_read",
+  "why": "On the 2d, opened fire at 4.15 p.m., relieved by a Reserve battery and sent to the rear by Newton's order: all in one sentence.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1CA-023",
+  "fidelity": "passed_full_read",
+  "why": "About 11 a.m. arrival after a hurried march from Emmitsburg, field west of the town in the next sentence; no contradiction.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1CA-024",
+  "fidelity": "passed_full_read",
+  "why": "About 1 p.m. order to support Tidball's battery on a knoll across a road at the front and extreme left; retired under enfilading fire; Reynolds wounded: all in the same passage.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1CA-025",
+  "fidelity": "corrected",
+  "why": "Position to the front and right of the cemetery gate, intrenched, held two days printed; 'evening of July 1' not printed. Time removed.",
+  "patch": {
+   "w": null,
+   "wd": "compiler reading from order of events: after the retreat of July 1 and before 'the 2d instant'; no clock printed"
+  }
+ },
+ {
+  "id": "POS-A-1CA-026",
+  "fidelity": "passed_full_read",
+  "why": "'until about 4 p. m., when the enemy attempted to break our lines on the left', line of batteries in front, action about four hours: printed in two consecutive sentences.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1CA-027",
+  "fidelity": "corrected",
+  "why": "Inferred date stays. Act dropped 'at first my gunners replied': the passage says the gunners first replied, then were forbidden to return the fire.",
+  "patch": {
+   "act": "A battery nearly 3,500 yards distant on the front opened at about 2 p. m. and delivered at intervals an irregular and inaccurate fire, to which at first the gunners replied but shortly after were forbidden to return the fire (the sentence prints no date)"
+  }
+ },
+ {
+  "id": "POS-A-1CA-028",
+  "fidelity": "passed_full_read",
+  "why": "'about 12 m.' (noon), position on the left of the Third Division and about twenty-five shots printed in one sentence.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1CA-029",
+  "fidelity": "passed_full_read",
+  "why": "'At about 5 p. m., all infantry support having been driven back, the battery was compelled to retire through Gettysburg to Cemetery Hill': one sentence.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1CA-030",
+  "fidelity": "passed_full_read",
+  "why": "'At about sunset ... having refilled the ammunition chests, the battery was placed in position ... on the crest of the hill in rear of Gettysburg, and fronting to the northeast': one sentence.",
+  "patch": {
+   "note_add": "Gazetteer id GZ-003 is by inference."
+  }
+ },
+ {
+  "id": "POS-A-1CA-031",
+  "fidelity": "passed_full_read",
+  "why": "4 p.m. under the July 2 narrative (9.30 a.m. July 2 ... until 4 p.m.); Parrott guns at 1,400 and 2,000 yards, silenced in about two and a half hours: printed.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1CA-032",
+  "fidelity": "passed_full_read",
+  "why": "'On the afternoon of the 3d instant, about 3 p. m., during a heavy cannonade, the battery was ordered into position among the batteries in the Second Corps front': one sentence.",
+  "patch": {}
+ },
+ {
+  "id": "POS-A-1CA-033",
+  "fidelity": "corrected",
+  "why": "'At a few minutes past 2, July 1' printed with no a.m./p.m.; p.m. is a reading from the battle context, and the other facts are printed.",
+  "patch": {
+   "ap": true,
+   "wd": "meridian supplied: the passage prints 'At a few minutes past 2, July 1' without a. m. or p. m.; p. m. is read from the context (an artillery fight on the field)"
+  }
+ },
+ {
+  "id": "POS-A-1CA-034",
+  "fidelity": "passed_full_read",
+  "why": "'During the night, temporary earthworks were thrown up covering the pieces', after the retreat through the town of July 1 and the position on the knoll.",
+  "patch": {
+   "wd": "printed in the continuing account: after the July 1 retirement through the town; the next dated sentence reads 'On the morning of the 3d instant' (2/3 digit, see POS-A-1CA-035)"
+  }
+ },
+ {
+  "id": "POS-A-1CA-035",
+  "fidelity": "corrected",
+  "why": "Inferred date July 2 stays (two 3d mornings bracket the dusk action). Place 'knoll right and rear of Cemetery Hill' belongs to the earlier July 1 sentence; kept as the position of the battery before the dusk action by inference.",
+  "patch": {
+   "note_add": "Re-check: the dusk sentence prints no place; the report returns the battery to 'the same position' at 10.30 p.m. after the action, so the knoll is inferred from that."
+  }
+ }
+]

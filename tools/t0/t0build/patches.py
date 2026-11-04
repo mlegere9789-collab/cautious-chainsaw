@@ -16,8 +16,8 @@ REQUIRED_PATCH_KEYS = {'id', 'target', 'find', 'repl', 'expect'}
 # files produced by the build itself: page/overlay data must not touch them (change the mechanism templates instead)
 RESERVED_PREFIXES = ('_ops/', 'assets/')
 RESERVED_FILES = ('sw.js', 'version.json')
-NAME_RE = re.compile(r'^(?P<group>[A-Za-z0-9]+)(?:\+(?P<part>[A-Za-z0-9._-]+))?\.json$')
-PG_RE = re.compile(r'^PG-[A-Za-z0-9._-]+\.json$')
+NAME_RE = re.compile(r'^(?P<group>[A-Za-z0-9]+)(?:\+(?P<part>[A-Za-z0-9._-]+))?(?:@(?P<at>R[0-9][a-z]*))?\.json$')
+PG_RE = re.compile(r'^(?P<group>PG-[A-Za-z0-9._-]+?)(?:@(?P<at>R[0-9][a-z]*))?\.json$')
 
 
 def valid_rel_path(p):
@@ -75,25 +75,56 @@ def validate_patch(p, where, is_pg):
             raise BuildError('%s: bad regex: %s' % (here, e))
 
 
-def load_groups(patches_dir, cfg):
+def load_groups(patches_dir, cfg, train=None):
     """Read every group file.  Returns {group: {'patches': [...], 'delete': [...], 'files': [...], 'train': str|None, 'pg': bool}}.
     Files: <GROUP>.json (main) and <GROUP>+<part>.json (extension parts, appended in filename order) for the fixed-order groups
-    named in trains.json, and PG-*.json page groups (one group per file)."""
+    named in trains.json, and PG-*.json page groups (one group per file).
+    Per-train variants: <GROUP>@<TRAIN>.json (also <GROUP>+<part>@<TRAIN>.json, PG-<name>@<TRAIN>.json) REPLACES the unsuffixed file of the same group and part for TRAIN and every later train; the earlier trains keep
+    reading the unsuffixed file, so they rebuild byte for byte.  With train=None (tools that do not build a train) only the unsuffixed files are read."""
     order = set(cfg['group_order']) | set(cfg.get('optional_groups', []))
     found = {}
     names = sorted(os.listdir(patches_dir))
+    tidx = cfg['train_order'].index(train) if train else None
+    # which file serves each (group, part): the newest variant whose train is not later than the one being built, else the unsuffixed file
+    serving = {}
+    for fn in names:
+        if not fn.endswith('.json'):
+            continue
+        pm = PG_RE.match(fn)
+        m = None if pm else NAME_RE.match(fn)
+        if pm:
+            key, at = (pm.group('group'), None), pm.group('at')
+        elif m:
+            key, at = (m.group('group'), m.group('part')), m.group('at')
+        else:
+            continue          # reported below with the other malformed names
+        if at is not None:
+            if at not in cfg['train_order']:
+                raise BuildError('%s: "@%s" is not a train of trains.json (%s)' % (os.path.join(patches_dir, fn), at, cfg['train_order']))
+            if tidx is None or cfg['train_order'].index(at) > tidx:
+                continue
+            rank = cfg['train_order'].index(at) + 1
+        else:
+            rank = 0
+        if key not in serving or rank > serving[key][0]:
+            serving[key] = (rank, fn)
     for fn in names:
         if not fn.endswith('.json'):
             continue
         path = os.path.join(patches_dir, fn)
-        if PG_RE.match(fn):
-            group, part, pg = fn[:-5], None, True
+        pm = PG_RE.match(fn)
+        if pm:
+            group, part, pg = pm.group('group'), None, True
+            if serving.get((group, None), (None, None))[1] != fn:
+                continue
         else:
             m = NAME_RE.match(fn)
             if not m or m.group('group') not in order:
                 raise BuildError('%s: file name must be <GROUP>.json / <GROUP>+<part>.json for a group in trains.json (%s) '
                                  'or PG-<name>.json' % (path, ', '.join(sorted(order))))
             group, part, pg = m.group('group'), m.group('part'), False
+            if serving.get((group, part), (None, None))[1] != fn:
+                continue
         data = load_json(path)
         if not isinstance(data, dict):
             raise BuildError('%s: top level must be an object' % path)

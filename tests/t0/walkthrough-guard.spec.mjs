@@ -660,7 +660,8 @@ suite.test('T0-WG-07', 'desktop: Back returns to the animated map: one map, the 
     for (let cycle = 1; cycle <= 3; cycle++) {
       const r = await openWalkthrough(S, 'desktop', { needMap: cycle === 1 });
       assertEq(r.via.how, 'toolbar button', 'entry point');
-      const open = await p.evaluate(() => window.__wg.glStats()); assertEq(open.mapboxMaps, 2, `cycle ${cycle}: two maps while open`);
+      // R1f (group PERF5): the Walkthrough's map is built a frame and a timer task after the overlay is painted, so the second map is waited for (3 s at most) instead of read in the same instant
+      const open = await waitFor(async () => { const x = await p.evaluate(() => window.__wg.glStats()); return x.mapboxMaps === 2 ? x : null; }, { timeout: 3000, label: `cycle ${cycle}: the Walkthrough map exists` }).catch(async () => p.evaluate(() => window.__wg.glStats())); assertEq(open.mapboxMaps, 2, `cycle ${cycle}: two maps while open`);
       if (cycle === 1) { await p.locator('button', { hasText: `7 Warfield Ridge` }).first().click(); await sleep(600); }
       await backToMap(S);
       const g = await waitFor(async () => { const x = await p.evaluate(() => window.__wg.glStats()); return x.mapboxMaps === 1 && x.alive === g0.alive ? x : null; }, { timeout: 8000, label: `cycle ${cycle}: the Walkthrough map is removed (one .mapboxgl-map, same live WebGL contexts)` }).catch(async () => ({ ...(await p.evaluate(() => window.__wg.glStats())), failed: true }));

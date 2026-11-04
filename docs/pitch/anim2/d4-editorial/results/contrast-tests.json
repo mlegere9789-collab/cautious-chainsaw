@@ -1,5 +1,5 @@
 {
- "checks": 134,
+ "checks": 146,
  "failed": 0,
  "results": [
   {
@@ -31,26 +31,44 @@
   },
   {
    "group": "glyph on fill",
-   "name": "dispatch-paper: the glyph and the count on Union, worst of the seven ages (age 0.50)",
-   "value": 6.27,
+   "name": "dispatch-paper: the glyph and the count on Union, worst of the seven ages (age 0.67)",
+   "value": 4.55,
    "bar": 4.5,
    "unit": ":1",
    "pass": true,
    "note": ""
+  },
+  {
+   "group": "age",
+   "name": "dispatch-paper: the outline of an aged Union mark against its own pale fill",
+   "value": 4.85,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "the plate keeps an edge: the outline in the side ink is at least 3:1 against the pale fill"
   },
   {
    "group": "glyph on fill",
    "name": "dispatch-paper: the glyph and the count on Confederate, worst of the seven ages (age 0.50)",
-   "value": 4.64,
+   "value": 4.52,
    "bar": 4.5,
    "unit": ":1",
    "pass": true,
    "note": ""
   },
   {
+   "group": "age",
+   "name": "dispatch-paper: the outline of an aged Confederate mark against its own pale fill",
+   "value": 4.93,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "the plate keeps an edge: the outline in the side ink is at least 3:1 against the pale fill"
+  },
+  {
    "group": "text",
    "name": "dispatch-paper: ink on its halo",
-   "value": 14.3,
+   "value": 14.7,
    "bar": 7,
    "unit": ":1",
    "pass": true,
@@ -122,7 +140,7 @@
   {
    "group": "age",
    "name": "dispatch-paper: a battle-day-old Union mark against a fresh one (the fade must be visible), CIEDE2000",
-   "value": 33.4,
+   "value": 41.59,
    "bar": 7,
    "unit": " dE2000",
    "pass": true,
@@ -131,7 +149,7 @@
   {
    "group": "age",
    "name": "dispatch-paper: a battle-day-old Union mark against a battle-day-old Confederate one (the side must survive the fade), CIEDE2000",
-   "value": 30.29,
+   "value": 20.84,
    "bar": 20,
    "unit": " dE2000",
    "pass": true,
@@ -175,26 +193,44 @@
   },
   {
    "group": "glyph on fill",
-   "name": "dispatch-paper/cvd: the glyph and the count on Union, worst of the seven ages (age 0.50)",
-   "value": 5.94,
+   "name": "dispatch-paper/cvd: the glyph and the count on Union, worst of the seven ages (age 0.67)",
+   "value": 4.64,
    "bar": 4.5,
    "unit": ":1",
    "pass": true,
    "note": ""
+  },
+  {
+   "group": "age",
+   "name": "dispatch-paper/cvd: the outline of an aged Union mark against its own pale fill",
+   "value": 4.9,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "the plate keeps an edge: the outline in the side ink is at least 3:1 against the pale fill"
   },
   {
    "group": "glyph on fill",
    "name": "dispatch-paper/cvd: the glyph and the count on Confederate, worst of the seven ages (age 0.50)",
-   "value": 4.59,
+   "value": 4.52,
    "bar": 4.5,
    "unit": ":1",
    "pass": true,
    "note": ""
   },
   {
+   "group": "age",
+   "name": "dispatch-paper/cvd: the outline of an aged Confederate mark against its own pale fill",
+   "value": 4.89,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "the plate keeps an edge: the outline in the side ink is at least 3:1 against the pale fill"
+  },
+  {
    "group": "text",
    "name": "dispatch-paper/cvd: ink on its halo",
-   "value": 14.3,
+   "value": 14.7,
    "bar": 7,
    "unit": ":1",
    "pass": true,
@@ -266,7 +302,7 @@
   {
    "group": "age",
    "name": "dispatch-paper/cvd: a battle-day-old Union mark against a fresh one (the fade must be visible), CIEDE2000",
-   "value": 31.73,
+   "value": 36.62,
    "bar": 7,
    "unit": " dE2000",
    "pass": true,
@@ -275,7 +311,7 @@
   {
    "group": "age",
    "name": "dispatch-paper/cvd: a battle-day-old Union mark against a battle-day-old Confederate one (the side must survive the fade), CIEDE2000",
-   "value": 32.47,
+   "value": 26.32,
    "bar": 20,
    "unit": " dE2000",
    "pass": true,
@@ -320,25 +356,43 @@
   {
    "group": "glyph on fill",
    "name": "dispatch-paper/contrast: the glyph and the count on Union, worst of the seven ages (age 0.67)",
-   "value": 5.83,
+   "value": 5.59,
    "bar": 4.5,
    "unit": ":1",
    "pass": true,
    "note": ""
   },
   {
+   "group": "age",
+   "name": "dispatch-paper/contrast: the outline of an aged Union mark against its own pale fill",
+   "value": 5.97,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "the plate keeps an edge: the outline in the side ink is at least 3:1 against the pale fill"
+  },
+  {
    "group": "glyph on fill",
-   "name": "dispatch-paper/contrast: the glyph and the count on Confederate, worst of the seven ages (age 0.50)",
-   "value": 6.15,
+   "name": "dispatch-paper/contrast: the glyph and the count on Confederate, worst of the seven ages (age 0.67)",
+   "value": 4.64,
    "bar": 4.5,
    "unit": ":1",
    "pass": true,
    "note": ""
+  },
+  {
+   "group": "age",
+   "name": "dispatch-paper/contrast: the outline of an aged Confederate mark against its own pale fill",
+   "value": 4.94,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "the plate keeps an edge: the outline in the side ink is at least 3:1 against the pale fill"
   },
   {
    "group": "text",
    "name": "dispatch-paper/contrast: ink on its halo",
-   "value": 14.69,
+   "value": 15.11,
    "bar": 7,
    "unit": ":1",
    "pass": true,
@@ -410,7 +464,7 @@
   {
    "group": "age",
    "name": "dispatch-paper/contrast: a battle-day-old Union mark against a fresh one (the fade must be visible), CIEDE2000",
-   "value": 37.65,
+   "value": 51.99,
    "bar": 4,
    "unit": " dE2000",
    "pass": true,
@@ -419,7 +473,7 @@
   {
    "group": "age",
    "name": "dispatch-paper/contrast: a battle-day-old Union mark against a battle-day-old Confederate one (the side must survive the fade), CIEDE2000",
-   "value": 30.13,
+   "value": 20.46,
    "bar": 20,
    "unit": " dE2000",
    "pass": true,
@@ -471,6 +525,15 @@
    "note": ""
   },
   {
+   "group": "age",
+   "name": "dispatch-aerial: the outline of an aged Union mark against its own pale fill",
+   "value": 8.33,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "the plate keeps an edge: the outline in the side ink is at least 3:1 against the pale fill"
+  },
+  {
    "group": "glyph on fill",
    "name": "dispatch-aerial: the glyph and the count on Confederate, worst of the seven ages (age 0.00)",
    "value": 5.08,
@@ -478,6 +541,15 @@
    "unit": ":1",
    "pass": true,
    "note": ""
+  },
+  {
+   "group": "age",
+   "name": "dispatch-aerial: the outline of an aged Confederate mark against its own pale fill",
+   "value": 8.19,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "the plate keeps an edge: the outline in the side ink is at least 3:1 against the pale fill"
   },
   {
    "group": "text",
@@ -554,7 +626,7 @@
   {
    "group": "age",
    "name": "dispatch-aerial: a battle-day-old Union mark against a fresh one (the fade must be visible), CIEDE2000",
-   "value": 8.75,
+   "value": 21.32,
    "bar": 7,
    "unit": " dE2000",
    "pass": true,
@@ -563,7 +635,7 @@
   {
    "group": "age",
    "name": "dispatch-aerial: a battle-day-old Union mark against a battle-day-old Confederate one (the side must survive the fade), CIEDE2000",
-   "value": 37.36,
+   "value": 20.43,
    "bar": 20,
    "unit": " dE2000",
    "pass": true,
@@ -615,6 +687,15 @@
    "note": ""
   },
   {
+   "group": "age",
+   "name": "dispatch-aerial/cvd: the outline of an aged Union mark against its own pale fill",
+   "value": 8.23,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "the plate keeps an edge: the outline in the side ink is at least 3:1 against the pale fill"
+  },
+  {
    "group": "glyph on fill",
    "name": "dispatch-aerial/cvd: the glyph and the count on Confederate, worst of the seven ages (age 0.00)",
    "value": 4.8,
@@ -622,6 +703,15 @@
    "unit": ":1",
    "pass": true,
    "note": ""
+  },
+  {
+   "group": "age",
+   "name": "dispatch-aerial/cvd: the outline of an aged Confederate mark against its own pale fill",
+   "value": 8.69,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "the plate keeps an edge: the outline in the side ink is at least 3:1 against the pale fill"
   },
   {
    "group": "text",
@@ -698,7 +788,7 @@
   {
    "group": "age",
    "name": "dispatch-aerial/cvd: a battle-day-old Union mark against a fresh one (the fade must be visible), CIEDE2000",
-   "value": 9.12,
+   "value": 21.88,
    "bar": 7,
    "unit": " dE2000",
    "pass": true,
@@ -707,7 +797,7 @@
   {
    "group": "age",
    "name": "dispatch-aerial/cvd: a battle-day-old Union mark against a battle-day-old Confederate one (the side must survive the fade), CIEDE2000",
-   "value": 39.81,
+   "value": 21.85,
    "bar": 20,
    "unit": " dE2000",
    "pass": true,
@@ -759,6 +849,15 @@
    "note": ""
   },
   {
+   "group": "age",
+   "name": "dispatch-aerial/contrast: the outline of an aged Union mark against its own pale fill",
+   "value": 8.89,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "the plate keeps an edge: the outline in the side ink is at least 3:1 against the pale fill"
+  },
+  {
    "group": "glyph on fill",
    "name": "dispatch-aerial/contrast: the glyph and the count on Confederate, worst of the seven ages (age 0.00)",
    "value": 4.78,
@@ -766,6 +865,15 @@
    "unit": ":1",
    "pass": true,
    "note": ""
+  },
+  {
+   "group": "age",
+   "name": "dispatch-aerial/contrast: the outline of an aged Confederate mark against its own pale fill",
+   "value": 8.29,
+   "bar": 3,
+   "unit": ":1",
+   "pass": true,
+   "note": "the plate keeps an edge: the outline in the side ink is at least 3:1 against the pale fill"
   },
   {
    "group": "text",
@@ -842,7 +950,7 @@
   {
    "group": "age",
    "name": "dispatch-aerial/contrast: a battle-day-old Union mark against a fresh one (the fade must be visible), CIEDE2000",
-   "value": 8.66,
+   "value": 20.75,
    "bar": 4,
    "unit": " dE2000",
    "pass": true,
@@ -851,7 +959,7 @@
   {
    "group": "age",
    "name": "dispatch-aerial/contrast: a battle-day-old Union mark against a battle-day-old Confederate one (the side must survive the fade), CIEDE2000",
-   "value": 39.35,
+   "value": 26.09,
    "bar": 20,
    "unit": " dE2000",
    "pass": true,
@@ -869,7 +977,7 @@
   {
    "group": "card text",
    "name": "light: --text on the card",
-   "value": 15.05,
+   "value": 15.55,
    "bar": 4.5,
    "unit": ":1",
    "pass": true,
@@ -878,7 +986,7 @@
   {
    "group": "card text",
    "name": "light: --muted on the card",
-   "value": 6.52,
+   "value": 7.42,
    "bar": 4.5,
    "unit": ":1",
    "pass": true,
@@ -887,7 +995,7 @@
   {
    "group": "card text",
    "name": "light: --ink-critical (the kicker of that tone) on the card",
-   "value": 6.52,
+   "value": 6.54,
    "bar": 4.5,
    "unit": ":1",
    "pass": true,
@@ -896,7 +1004,7 @@
   {
    "group": "card text",
    "name": "light: --ink-high (the kicker of that tone) on the card",
-   "value": 5.97,
+   "value": 5.99,
    "bar": 4.5,
    "unit": ":1",
    "pass": true,
@@ -905,7 +1013,7 @@
   {
    "group": "card text",
    "name": "light: --ink-medium (the kicker of that tone) on the card",
-   "value": 6.44,
+   "value": 6.46,
    "bar": 4.5,
    "unit": ":1",
    "pass": true,
@@ -914,7 +1022,7 @@
   {
    "group": "card text",
    "name": "light: --ink-story (the kicker of that tone) on the card",
-   "value": 7.58,
+   "value": 7.6,
    "bar": 4.5,
    "unit": ":1",
    "pass": true,
@@ -923,7 +1031,7 @@
   {
    "group": "card text",
    "name": "light: --ink-info (the kicker of that tone) on the card",
-   "value": 7.6,
+   "value": 7.63,
    "bar": 4.5,
    "unit": ":1",
    "pass": true,
@@ -932,15 +1040,6 @@
   {
    "group": "card text",
    "name": "light: --ink-day (the kicker of that tone) on the card",
-   "value": 7.58,
-   "bar": 4.5,
-   "unit": ":1",
-   "pass": true,
-   "note": ""
-  },
-  {
-   "group": "card text",
-   "name": "light: --ink-union (the kicker of that tone) on the card",
    "value": 7.6,
    "bar": 4.5,
    "unit": ":1",
@@ -949,8 +1048,17 @@
   },
   {
    "group": "card text",
+   "name": "light: --ink-union (the kicker of that tone) on the card",
+   "value": 7.63,
+   "bar": 4.5,
+   "unit": ":1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "group": "card text",
    "name": "light: --ink-confederate (the kicker of that tone) on the card",
-   "value": 6.28,
+   "value": 6.3,
    "bar": 4.5,
    "unit": ":1",
    "pass": true,
@@ -959,7 +1067,7 @@
   {
    "group": "card text",
    "name": "light: --ink-neutral (the kicker of that tone) on the card",
-   "value": 7.55,
+   "value": 7.58,
    "bar": 4.5,
    "unit": ":1",
    "pass": true,
@@ -968,7 +1076,7 @@
   {
    "group": "card text",
    "name": "light: --evi-Documented (an evidence label) on the card",
-   "value": 5.94,
+   "value": 5.96,
    "bar": 4.5,
    "unit": ":1",
    "pass": true,
@@ -977,7 +1085,7 @@
   {
    "group": "card text",
    "name": "light: --evi-Measured (an evidence label) on the card",
-   "value": 6.42,
+   "value": 6.44,
    "bar": 4.5,
    "unit": ":1",
    "pass": true,
@@ -986,7 +1094,7 @@
   {
    "group": "card text",
    "name": "light: --evi-Computed (an evidence label) on the card",
-   "value": 6.6,
+   "value": 6.63,
    "bar": 4.5,
    "unit": ":1",
    "pass": true,
@@ -995,7 +1103,7 @@
   {
    "group": "card text",
    "name": "light: --evi-Modelled (an evidence label) on the card",
-   "value": 5.97,
+   "value": 5.99,
    "bar": 4.5,
    "unit": ":1",
    "pass": true,
@@ -1004,7 +1112,7 @@
   {
    "group": "card text",
    "name": "light: --evi-Contested (an evidence label) on the card",
-   "value": 5.66,
+   "value": 5.68,
    "bar": 4.5,
    "unit": ":1",
    "pass": true,
@@ -1013,7 +1121,7 @@
   {
    "group": "card text",
    "name": "light: --evi-Unknown (an evidence label) on the card",
-   "value": 5.69,
+   "value": 5.71,
    "bar": 4.5,
    "unit": ":1",
    "pass": true,
@@ -1031,7 +1139,7 @@
   {
    "group": "card text",
    "name": "light: --panel on --text (the active segment, the primary button)",
-   "value": 15.05,
+   "value": 15.55,
    "bar": 4.5,
    "unit": ":1",
    "pass": true,

@@ -197,6 +197,10 @@ def finalize(dist, cfg, rel, train, groups, input_md5, ledger_path, legacy_names
             continue
         lines.append('\t'.join([name, meta['sha256'], str(meta['bytes']), '1', 'release:%s:%s' % (train, rel['rid'])]))
     head = [ln for ln in lines if ln.startswith('#')]
+    if train not in ('R0', 'R1a', 'R1b', 'R1c'):
+        # trains after R1c ship this file to the public site: its header names no build tool (the repository's own ledger, ops/used-names.txt, keeps its wording)
+        head = ['# Asset names this site has used: name, sha256, bytes, number of releases that carried it, first release.',
+                '# Names are compared case-insensitively. A new asset name must not appear here; an existing name must keep its bytes.']
 
     def public(ln):
         # the deployed copy names no archive files (zip names are the owner's private filing); releases keep their tag
@@ -240,7 +244,7 @@ def _build_train(train, args, cfg, out, state):
     print('input ok: entry md5 %s, %s' % (input_md5, 'baseline %s pinned by %s, legacy/ unmodified' % (cfg['base']['dir'], cfg['base']['lock'])
                                          if strict else 'TREE PIN SKIPPED (--legacy/--base override)'))
 
-    found = patches.load_groups(patches_dir, cfg)
+    found = patches.load_groups(patches_dir, cfg, train)
     order_cfg = dict(cfg)
     if args.order == 'runbook':
         order_cfg['group_order'] = cfg['runbook_order']
@@ -303,7 +307,7 @@ def _build_train(train, args, cfg, out, state):
     print('overlay: %d file(s) from %s' % (len(overlay), ', '.join(tcfg['overlay'])))
     hook = None
     if tcfg.get('config'):
-        hook = run_config_hook(dist, cfg, rel, train, args.config_hook)
+        hook = run_config_hook(dist, cfg, rel, train, args.config_hook or tcfg.get('config_hook'))      # trains.json trains.<T>.config_hook: a train's own hook (R1d: gen.mjs + the immutable tile class of BASE1863)
         print('config hook: %d file(s) written/changed %s' % (len(hook['changed']), hook['stdout'][:120]))
     legacy_names = {os.path.basename(p).lower() for p in walk_files(os.path.join(legacy_dir, 'assets'))}
     finalize(dist, cfg, rel, train, bundle_groups + page_groups, input_md5, ledger_path, legacy_names)
@@ -349,7 +353,7 @@ def main(argv=None):
         except (AttributeError, ValueError):
             pass
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('--train', choices=['R0', 'R1a', 'R1b', 'R1c'], help='train to build (default R0)')
+    ap.add_argument('--train', choices=['R0', 'R1a', 'R1b', 'R1c', 'R1d', 'R1e', 'R1f', 'R1g'], help='train to build (default R0)')
     ap.add_argument('--all', action='store_true', help='build every train (R0, R1a, R1b, R1c) into release/<train>')
     ap.add_argument('--out', help='output directory (default release/<train>); must be under release/ or tmp/')
     ap.add_argument('--with', dest='with_groups', action='append', default=[], metavar='GROUP',

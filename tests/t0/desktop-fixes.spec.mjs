@@ -42,6 +42,7 @@ const {
   mouseDrag, wheel, emulateViewport, tileBudget, Skip,
 } = await import('./lib.mjs');
 
+const { readFrame, parseCaption, treeHas, loadOracle, hourStepOk } = await import('./lib_clock.mjs');
 const argv = process.argv.slice(2);
 const opt = (name, dflt) => { const i = argv.indexOf(`--${name}`); return i >= 0 ? (argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[i + 1] : true) : dflt; };
 const DIST = path.resolve(REPO, opt('dist', 'release/R1c/dist'));
@@ -53,6 +54,12 @@ const VERSION = IS_LEGACY ? { groups: [] } : JSON.parse(fs.readFileSync(path.joi
 const GROUPS = VERSION.groups || [];
 const HAS_A2 = GROUPS.includes('A2');
 const HAS_B = GROUPS.includes('B') || IS_LEGACY;
+const HAS_CLOCK = treeHas(DIST, 'CLOCK');          // CLOCK: Shift+Arrow is 60 battle minutes (a frame count that varies with the anchors), not 12 frames
+const HAS_B63 = treeHas(DIST, 'BASE1863');         // BASE1863: our own tiles; the map's attribution is the reconstruction credit as plain text (no Mapbox links), the Mapbox wordmark stays (glyphs)
+const HAS_ANIM = treeHas(DIST, 'ANIM');            // ANIM: the units are marks on the engine's canvas; the engine knows where each one stands (window.__gtanim)
+const ORACLE = HAS_CLOCK ? await loadOracle() : null;
+/** the Shift+Arrow step: 12 frames on a tree without CLOCK, 60 battle minutes (the clock oracle) on a tree with it */
+const hourOk = (from, to) => (HAS_CLOCK ? hourStepOk(ORACLE, from, to, 1) : to - from === 12);
 /** an A2 test runs on a train that has the group, or on any tree under --expect-red (the proof that it fails without it) */
 const needA2 = () => { if (!HAS_A2 && !EXPECT_RED) throw new Skip(`group A2 is not in this tree (${GROUPS.join(', ') || 'legacy'})`); };
 const resultsDir = IS_LEGACY ? path.join(REPO, 'tmp', process.env.T0_AGENT) : path.dirname(DIST);
@@ -76,9 +83,10 @@ const closeSession = async (s) => { await s.close(); const i = sessions.indexOf(
 const bodyText = (p) => p.evaluate(() => document.body.innerText.replace(/\s+/g, ' '));
 const rx = (t, re) => { const m = re.exec(t); return m || null; };
 async function readState(p) {
+  // CLOCK trees print no "Tick n/675" and no "n units . tick m": the frame is the data-gt-frame attribute and the caption ends in the clock (tests/t0/lib_clock.mjs); a legacy tree keeps the old text
   const t = await bodyText(p);
-  const tick = rx(t, /Tick (\d+)\/675/), mm = rx(t, /(\d+) units · tick (\d+)/), sp = rx(t, /\b(\d+(?:\.\d+)?x) \((?:slow|base speed|real time|fast)\)/);
-  return { tick: tick ? +tick[1] : null, units: mm ? +mm[1] : null, speed: sp ? sp[1] : null, text: t };
+  const tick = await readFrame(p), cap = parseCaption(t), sp = rx(t, /\b(\d+(?:\.\d+)?x) \((?:slow|base speed|real time|fast)\)/);
+  return { tick, units: cap ? cap.units : null, speed: sp ? sp[1] : null, text: t };
 }
 const waitState = (p, pred, label, timeout = 8000) => waitFor(async () => { const s = await readState(p); return pred(s) ? s : null; }, { timeout, interval: 100, label });
 const HOME = { center: [-77.235, 39.812], zoom: 13.5, bearing: 0, pitch: 0 };
@@ -108,7 +116,32 @@ const inkAt = (p, x, y, r = 5) => p.evaluate(([px, py, rr]) => {
 }, [x, y, r]);
 /** units drawn at tick 1 (data of this tree) that sit isolated in the open view: { id, lng, lat } */
 const DAY1 = (() => { try { const j = JSON.parse(fs.readFileSync(path.join(DIST, 'data', 'placements_day1_ticks1_50.json'), 'utf8')); return (Array.isArray(j) ? j : j.placements).filter((r) => r.tick === 1); } catch { return []; } })();
+/** ANIM: the marks the engine has on screen right now: { id, x, y } page points of the live leaf tiles (the same frame the engine paints; the unit canvas holds nothing else to hit) */
+const engineMarks = (p) => p.evaluate(() => {
+  const A = window.__gtanim; if (!A || A.state() !== 1 || !A.S.core || !A.S.core.frame) return null;
+  const F = A.S.core.frame, c = A.S.map.getCanvas().getBoundingClientRect();
+  return F.tiles.filter((t) => t.kind === 'leaf' && t.life === 'live' && t.opacity > 0.99 && t.ids && t.ids.length === 1).map((t) => ({ id: t.ids[0], x: t.x + F.view.dx + c.left, y: t.y + F.view.dy + c.top }));
+});
+/**
+ * Units that sit isolated in the open view: { id, lng, lat, nn }.  A tree without ANIM: the tick-1 placements of the tree's own data file, projected.  A tree with ANIM: the marks the
+ * engine has on screen (the placement file no longer says what is drawn: the engine carries the latest keyframe of every unit, DATA changed the keyframes), isolated by 70 px.
+ */
 async function isolatedUnits(p, margin = { l: 60, r: 120, t: 80, b: 180 }) {
+  if (HAS_ANIM) {
+    const marks = await engineMarks(p);
+    if (marks) {
+      const v = await p.evaluate(() => { const c = window.__t0map.getCanvas().getBoundingClientRect(); return { l: c.left, r: c.right, t: c.top, b: c.bottom }; });
+      const out = [];
+      for (const m of marks) {
+        if (m.x < v.l + margin.l || m.x > v.r - margin.r || m.y < v.t + margin.t || m.y > v.b - margin.b) continue;
+        let nn = 1e9; for (const o of marks) if (o !== m) nn = Math.min(nn, Math.hypot(o.x - m.x, o.y - m.y));
+        if (nn <= 70) continue;
+        const ll = await p.evaluate(([x, y]) => { const m2 = window.__t0map; const c = m2.getCanvas().getBoundingClientRect(); const q = m2.unproject([x - c.left, y - c.top]); return [q.lng, q.lat]; }, [m.x, m.y]);
+        out.push({ id: m.id, lng: ll[0], lat: ll[1], nn });
+      }
+      return out.sort((a, b) => b.nn - a.nn).slice(0, 6);
+    }
+  }
   return p.evaluate(([rows, m]) => {
     const map = window.__t0map; const c = map.getCanvas().getBoundingClientRect(); const out = [];
     for (const r of rows) {
@@ -120,11 +153,39 @@ async function isolatedUnits(p, margin = { l: 60, r: 120, t: 80, b: 180 }) {
     return out.filter((u) => u.nn > 0.004).sort((a, b) => b.nn - a.nn).slice(0, 6);
   }, [DAY1, margin]);
 }
-const pagePoint = (p, lng, lat) => p.evaluate(([lo, la]) => { const m = window.__t0map; const c = m.getCanvas().getBoundingClientRect(); const q = m.project([lo, la]); return { x: q.x + c.left, y: q.y + c.top }; }, [lng, lat]);
+/**
+ * ANIM trees only: at the first moment most of the 27 units stand west of the opening view (DATA), so the home camera may show none to click.  Centre the camera on each unit the engine
+ * knows (most isolated first, 13.5 then 14.5) until isolatedUnits() finds one; the test then works on that unit exactly as on the home view.  Returns the candidates.
+ */
+async function isolatedUnitsFraming(p, margin) {
+  let c = await isolatedUnits(p, margin); if (c.length || !HAS_ANIM) return c;
+  const pts = await p.evaluate(() => { const A = window.__gtanim; if (!A || A.state() !== 1) return []; return A.S.core.frame.vis.map(({ u, st }) => ({ id: u.id, lng: st.lng, lat: st.lat })); });
+  const nn = (u) => Math.min(9, ...pts.filter((o) => o !== u).map((o) => Math.hypot(o.lng - u.lng, o.lat - u.lat)));
+  const order = pts.map((u) => ({ ...u, nn: nn(u) })).sort((a, b) => b.nn - a.nn).slice(0, 6);
+  for (const zoom of [13.5, 14.5]) for (const u of order) {
+    await setCamera(p, { center: [u.lng, u.lat], zoom, bearing: 0, pitch: 0 }); await sleep(700);
+    c = await isolatedUnits(p, margin); if (c.length) { F.cam = { center: [u.lng, u.lat], zoom, bearing: 0, pitch: 0 }; return c; }
+  }
+  return [];
+}
+/** a page point on bare ground: the tests click "empty ground" at (760, 420); with ANIM the framed unit may stand right there, so pick the point of the middle of the view farthest from every mark */
+async function emptyGround(p) {
+  const d = [760, 420];
+  if (!HAS_ANIM) return d;
+  const marks = await engineMarks(p); if (!marks || !marks.length) return d;
+  let best = d, bd = -1;
+  for (let x = 420; x <= 1100; x += 40) for (let y = 300; y <= 620; y += 40) { const m = Math.min(...marks.map((k) => Math.hypot(k.x - x, k.y - y))); if (m > bd) { bd = m; best = [x, y]; } }
+  return best;
+}
+/** where a unit is drawn now (page px): the engine's mark when ANIM is running, else its ground point projected */
+const pagePoint = async (p, lng, lat, id) => {
+  if (HAS_ANIM && id) { const mk = (await engineMarks(p) || []).find((m) => m.id === id); if (mk) return { x: mk.x, y: mk.y }; }
+  return p.evaluate(([lo, la]) => { const m = window.__t0map; const c = m.getCanvas().getBoundingClientRect(); const q = m.project([lo, la]); return { x: q.x + c.left, y: q.y + c.top }; }, [lng, lat]);
+};
 
 const F = {};
 async function shared() {
-  if (F.S) { await calm(F.S); return F.S; }
+  if (F.S) { F.cam = null; await calm(F.S); return F.S; }
   const S = await open({ profile: 'shared', viewport: { width: 1440, height: 900, dpr: 1, mobile: false } });
   F.S = S;
   await S.page.goto(`${ORIGIN}/`, { waitUntil: 'load' });
@@ -150,7 +211,7 @@ async function calm(S) {
   const s = await readState(p);
   if (s.speed && s.speed !== '1x') await p.locator('button:text-is("1x")').dispatchEvent('click');
   await clickDayTab(p, 1, false); await waitState(p, (x) => x.tick === 1, 'tick 1', 4000).catch(() => {});
-  await blurActive(p); await setCamera(p, HOME); await sleep(500);
+  await blurActive(p); await setCamera(p, F.cam || HOME); await sleep(500);        // F.cam: the camera a test framed on a unit (ANIM trees, isolatedUnitsFraming), reset by shared()
 }
 const suite = createSuite('desktop-fixes');
 { const add = suite.test.bind(suite);
@@ -159,10 +220,10 @@ const suite = createSuite('desktop-fixes');
 // ================================================================== (a) keyboard focus
 suite.test('T0-DF-01', '(a) after a click, a drag and a unit selection on the map the documented keys work (ArrowRight +1, Shift+ArrowRight +12, +/-/0 speed, Space play) and do not move the map', async (t) => {
   needA2(); const S = await shared(); const p = S.page; const e0 = S.collector.firstParty.length;
-  const cands = await isolatedUnits(p); assert(cands.length > 0, 'no isolated unit in view');
-  const u = await pagePoint(p, cands[0].lng, cands[0].lat);
-  const steps = [['click on empty ground', async () => { await p.mouse.click(760, 420); }],
-    ['drag', async () => { await mouseDrag(p, [760, 420], [700, 400]); await sleep(900); }],
+  const cands = await isolatedUnitsFraming(p); assert(cands.length > 0, 'no isolated unit in view');
+  const u = await pagePoint(p, cands[0].lng, cands[0].lat, cands[0].id), empty = await emptyGround(p);
+  const steps = [['click on empty ground', async () => { await p.mouse.click(...empty); }],
+    ['drag', async () => { await mouseDrag(p, empty, [empty[0] - 60, empty[1] - 20]); await sleep(900); }],
     ['click on a unit (selects and pins it)', async () => { await p.mouse.click(u.x, u.y); await sleep(500); }]];
   const report = [];
   for (const [name, act] of steps) {
@@ -178,13 +239,13 @@ suite.test('T0-DF-01', '(a) after a click, a drag and a unit selection on the ma
     const v1 = await mapView(p);
     report.push({ name, focus, ticks: [s0.tick, s1.tick, s2.tick, s3.tick], speeds: [s0.speed, s4.speed, s5.speed, s6.speed], mapMovedM: Math.round(mv(v0, v1)), zoomChange: +(v1.zoom - v0.zoom).toFixed(2) });
     assert(!/canvas/i.test(focus || ''), `${name}: the map canvas holds keyboard focus (${focus})`);
-    assertEq([s1.tick - s0.tick, s2.tick - s1.tick, s3.tick - s2.tick], [1, 12, -1], `${name}: ArrowRight / Shift+ArrowRight / ArrowLeft tick steps`);
+    assertEq([s1.tick - s0.tick, hourOk(s1.tick, s2.tick), s3.tick - s2.tick], [1, true, -1], `${name}: ArrowRight / Shift+ArrowRight (${HAS_CLOCK ? '60 battle minutes' : '12 frames'}) / ArrowLeft tick steps`);
     assertEq([s0.speed, s4.speed, s5.speed, s6.speed], ['1x', '2x', '0.5x', '1x'], `${name}: = then - - then 0 speed labels`);
     assert(mv(v0, v1) < 3 && Math.abs(v1.zoom - v0.zoom) < 0.01, `${name}: the keys moved or zoomed the map (${mv(v0, v1).toFixed(0)} m, ${(v1.zoom - v0.zoom).toFixed(2)} zoom)`);
   }
   t.note('per step', report);
   // Space: play, then pause, exactly once each
-  await calm(S); await p.mouse.click(760, 420); await sleep(300);
+  await calm(S); await p.mouse.click(...empty); await sleep(300);
   await p.keyboard.press(' '); const a = await waitState(p, (s) => s.tick >= 3, 'Space starts playback after a map click', 6000);
   await p.keyboard.press(' '); await sleep(500); const b = await readState(p); await sleep(900); const c = await readState(p);
   t.note('Space play/pause ticks', [a.tick, b.tick, c.tick]); assertEq(b.tick, c.tick, 'playback still running after the second Space');
@@ -216,7 +277,7 @@ suite.test('T0-DF-02', '(a) keyboard route: Tab reaches the map, arrows pan, = /
   const after = await activeDesc(p); assert(!/canvas/i.test(after || ''), `Escape left focus on the map (${after})`);
   const v3 = await mapView(p); await p.keyboard.press('ArrowRight'); await sleep(300); const s3 = await readState(p); await p.keyboard.press('Shift+ArrowRight'); await sleep(300); const s4 = await readState(p), v4 = await mapView(p);
   t.note('after Escape', { tick: [s2d.tick, s3.tick, s4.tick], panM: Math.round(mv(v3, v4)), bearing: [v3.bearing, v4.bearing] });
-  assertEq([s3.tick - s2d.tick, s4.tick - s3.tick], [1, 12], 'after Escape ArrowRight / Shift+ArrowRight did not step the clock by 1 / 12');
+  assertEq([s3.tick - s2d.tick, hourOk(s3.tick, s4.tick)], [1, true], `after Escape ArrowRight / Shift+ArrowRight did not step the clock by 1 frame / ${HAS_CLOCK ? '60 battle minutes' : '12 frames'}`);
   assert(mv(v3, v4) < 3 && Math.abs(v4.bearing - v3.bearing) < 0.5, 'the arrows after Escape still moved or rotated the map');
   await setCamera(p, HOME); await sleep(300);
   await calm(S);
@@ -227,23 +288,23 @@ suite.test('T0-DF-02', '(a) keyboard route: Tab reaches the map, arrows pan, = /
 suite.test('T0-DF-03', '(b) paused: the unit canvas follows a mouse drag and a wheel zoom (a unit stays under its place); trail canvas is empty after a move; no stale screen-fixed monument overlay', async (t) => {
   needA2(); const S = await shared(); const p = S.page; const e0 = S.collector.firstParty.length;
   await calm(S);
-  const cands = await isolatedUnits(p, { l: 380, r: 480, t: 160, b: 320 }); assert(cands.length > 0, 'no isolated unit near the middle of the view');
+  const cands = await isolatedUnitsFraming(p, { l: 380, r: 480, t: 160, b: 320 }); assert(cands.length > 0, 'no isolated unit near the middle of the view');
   const U = cands[0]; t.note('unit', U.id);
-  const p0 = await pagePoint(p, U.lng, U.lat);
+  const p0 = await pagePoint(p, U.lng, U.lat, U.id);
   await p.keyboard.press('ArrowRight'); await sleep(200); await p.keyboard.press('ArrowLeft'); await sleep(400);          // a tick step and back: a repaint, whatever the camera jump above did
   const ink0 = await inkAt(p, p0.x, p0.y); assert(ink0 > 5, `the unit is not drawn at its place before the test (${ink0} px)`);
   await mouseDrag(p, [760, 430], [690, 380]); await sleep(1500);
-  const p1 = await pagePoint(p, U.lng, U.lat);
+  const p1 = await pagePoint(p, U.lng, U.lat, U.id);
   const ink1 = await inkAt(p, p1.x, p1.y), inkOld = await inkAt(p, p0.x, p0.y);
   t.note('after drag: unit moved on screen (px)', [Math.round(p1.x - p0.x), Math.round(p1.y - p0.y)]); t.note('ink at the new place / at the old place', [ink1, inkOld]);
   assert(Math.abs(p1.x - p0.x) > 40, 'the drag did not move the map');
   assert(ink1 > 5, `after a drag the unit is not drawn at its new place (ink ${ink1}): the unit canvas does not follow the map`);
   await wheel(p, p1.x + 160, p1.y + 70, -380); await sleep(1800);
-  const p2 = await pagePoint(p, U.lng, U.lat); const ink2 = await inkAt(p, p2.x, p2.y);
+  const p2 = await pagePoint(p, U.lng, U.lat, U.id); const ink2 = await inkAt(p, p2.x, p2.y);
   t.note('after wheel zoom: ink at the unit', ink2); assert(ink2 > 5, `after a wheel zoom the unit is not drawn at its place (ink ${ink2})`);
   // flyTo (what Follow Your Ancestor / the tour do) repaints too
   await p.evaluate((u) => window.__t0map.flyTo({ center: [u.lng + 0.0015, u.lat + 0.001], zoom: 14.2, duration: 700 }), U); await sleep(1500);
-  const p3 = await pagePoint(p, U.lng, U.lat); const ink3 = await inkAt(p, p3.x, p3.y);
+  const p3 = await pagePoint(p, U.lng, U.lat, U.id); const ink3 = await inkAt(p, p3.x, p3.y);
   const inView = p3.x > 40 && p3.x < 1300 && p3.y > 70 && p3.y < 700;
   t.note('after flyTo: unit on screen / ink', [inView, ink3]); assert(inView, 'the unit is not on screen after flyTo (test geometry)'); assert(ink3 > 5, `after flyTo the unit is not drawn at its place (ink ${ink3})`);
   // trails: draw some (the canvas is sized by the resize observer), play, then move the map: nothing stale may stay
@@ -273,7 +334,7 @@ suite.test('T0-DF-04', '(c) Mapbox wordmark + attribution links are on top, abov
   const rows = [];
   for (const [w, h] of [[1024, 768], [1280, 720], [1440, 900], [1920, 1080], [2560, 1440]]) {
     await emulateViewport(p, { width: w, height: h, dpr: 1, mobile: false });
-    await waitFor(async () => (await p.evaluate(() => { const a = document.querySelector('.mapboxgl-ctrl-attrib'); return !!a && a.querySelectorAll('a').length >= 2 && a.getBoundingClientRect().width > 40; })), { timeout: 20000, label: `attribution links at ${w}x${h}` });
+    await waitFor(async () => (await p.evaluate((b63) => { const a = document.querySelector('.mapboxgl-ctrl-attrib'); return !!a && (b63 ? ((a.querySelector('.mapboxgl-ctrl-attrib-inner') || a).textContent || '').trim().length > 20 : a.querySelectorAll('a').length >= 2) && a.getBoundingClientRect().width > 40; }, HAS_B63)), { timeout: 20000, label: `attribution ${HAS_B63 ? 'credit text' : 'links'} at ${w}x${h}` });
     await sleep(500);
     const r = await p.evaluate(({ w, h }) => {
       const R = (e) => { const b = e.getBoundingClientRect(); return { x: Math.round(b.x), y: Math.round(b.y), w: Math.round(b.width), h: Math.round(b.height) }; };
@@ -283,11 +344,13 @@ suite.test('T0-DF-04', '(c) Mapbox wordmark + attribution links are on top, abov
       const dock = document.getElementById('gt-timeline'), credit = document.querySelector('a[href^="mailto:gettysburginteractivemap"]');
       const mini = document.querySelector('canvas[title="Click to move the map"], canvas[title="Click to navigate"]');
       const attrib = document.querySelector('.mapboxgl-ctrl-attrib');
-      return { w, h, innerW: innerWidth, innerH: innerHeight, links, logo: logo ? { hit: hit(logo), rect: R(logo) } : null, dock: dock && R(dock), credit: credit && R(credit),
+      const inner = attrib && attrib.querySelector('.mapboxgl-ctrl-attrib-inner');
+      return { w, h, innerText: inner ? inner.textContent.trim() : '', innerHit: inner ? hit(inner) : null, innerW: innerWidth, innerH: innerHeight, links, logo: logo ? { hit: hit(logo), rect: R(logo) } : null, dock: dock && R(dock), credit: credit && R(credit),
         minimap: mini && R(mini.parentElement), attrib: attrib && R(attrib), overflowX: document.documentElement.scrollWidth > innerWidth };
     }, { w, h });
     rows.push({ vp: `${w}x${h}`, links: r.links.map((l) => `${l.text}:${l.hit}`), logo: r.logo && (r.logo.rect.w > 0 ? r.logo.hit : 'not shown by Mapbox'), attrib: r.attrib, dock: r.dock, credit: r.credit, minimap: r.minimap });
-    assert(r.links.length >= 3, `${w}x${h}: expected at least 3 attribution links, found ${r.links.length}`);
+    if (HAS_B63) assert(/Reconstruction, not a photograph/.test(r.innerText) && r.innerHit === true, `${w}x${h}: the reconstruction credit is missing or covered (${JSON.stringify([r.innerText.slice(0, 60), r.innerHit])})`);          // BASE1863: the credit is text in the attribution control, not Mapbox links
+    else assert(r.links.length >= 3, `${w}x${h}: expected at least 3 attribution links, found ${r.links.length}`);
     const bad = r.links.filter((l) => l.hit !== true); assertEq(bad.map((l) => `${l.text}:${l.hit}`), [], `${w}x${h}: attribution links covered by another element`);
     // Mapbox GL decides itself whether the wordmark is shown (a style source with mapbox_logo:false hides it: display:none); when it is shown it must be on top
     if (r.logo && r.logo.rect.w > 0) assert(r.logo.hit === true, `${w}x${h}: the Mapbox wordmark is covered`);
@@ -313,7 +376,41 @@ const controlBoxes = (p) => p.evaluate(() => {
   const mini = document.querySelector('canvas[title="Click to move the map"], canvas[title="Click to navigate"]');
   return { zoom: R(document.querySelector('.mapboxgl-ctrl-top-right .mapboxgl-ctrl-group')), trails: R([...document.querySelectorAll('button')].find((b) => /Trails (ON|OFF)/.test(b.textContent))), minimap: R(mini && mini.parentElement), dock: R(document.getElementById('gt-timeline')) };
 });
-/** step the clock to tick n with the documented keys (Shift+arrow = 12 ticks, arrow = 1): real keyboard input, the same on every train */
+/** the ink of the unit canvas once it stops changing (ANIM fades units that come onto the field in; two reads 600 ms apart within 3 percent, at most 8 s) */
+async function settledInk(p) {
+  let prev = await inkCount(p);
+  for (let i = 0; i < 13; i++) { await sleep(600); const cur = await inkCount(p); if (Math.abs(cur - prev) <= 0.03 * Math.max(cur, prev, 1)) return cur; prev = cur; }
+  return prev;
+}
+/**
+ * The unit canvas needs units in the opening view.  At the first moment the DATA tree has 27 units, 4 of them near the home camera and under the toolbar, so the canvas is empty there; when it is,
+ * move to the first of a few later moments (the afternoon of July 1 with both sides around the town: tick 200, then 140, 100, 28) that paints units, and test there.  The assertions
+ * below are unchanged: they judge the ink of whatever moment this returns.
+ */
+async function busyMoment(p) {
+  let a = await inkCount(p); if (a > 1000) return a;
+  for (const tk of [200, 140, 100, 28]) { await goToTick(p, tk); for (let i = 0; i < 3; i++) { await p.keyboard.press('Escape'); await sleep(150); }  /* the moment's story/event cards ease the marks under them out */ a = await settledInk(p); if (a > 1000) return a; }
+  return a;
+}
+/**
+ * ANIM trees: the engine merges nearby units into crowd marks with memory (hysteresis), so the same moment can paint a different number of marks depending on how it was reached.  For a test that
+ * compares "the picture before" with "the picture after a filter round trip" frame a spot where the marks stand apart: the 15.5 zoom at the densest spot that holds at least three Union and
+ * two Confederate units within about 600 m (the zoom at which the shipped skin draws every unit as its own full mark).  No effect on a tree without ANIM.
+ */
+async function frameDenseSpot(p) {
+  if (!HAS_ANIM) return null;
+  const pts = await p.evaluate(() => { const A = window.__gtanim; if (!A || A.state() !== 1) return []; return A.S.core.frame.vis.map(({ u, st }) => ({ side: u.side, lng: st.lng, lat: st.lat })); });
+  let best = null;
+  for (const c of pts) {
+    const near = pts.filter((o) => Math.abs(o.lng - c.lng) < 0.0035 && Math.abs(o.lat - c.lat) < 0.0027);
+    const un = near.filter((o) => o.side === 'union').length, cf = near.filter((o) => o.side === 'confederate').length;
+    if (un >= 3 && cf >= 2 && (!best || near.length > best.n)) best = { n: near.length, lng: c.lng, lat: c.lat };
+  }
+  if (!best) return null;
+  await setCamera(p, { center: [best.lng, best.lat], zoom: 15.5, bearing: 0, pitch: 0 }); await sleep(900);
+  return best;
+}
+/** step the clock to tick n with the documented keys (Shift+arrow = one hour, arrow = 1 frame): real keyboard input, the same on every train; it converges on the frame wherever an hour lands */
 async function goToTick(p, n) {
   await blurActive(p);
   for (let i = 0; i < 80; i++) {
@@ -350,7 +447,7 @@ suite.test('T0-DF-05', '(d) the story and event cards leave the zoom buttons, th
   await p.keyboard.press('Escape'); await sleep(250);
   // a pinned unit goes first (tick 28: "Reynolds Falls" + the critical event)
   await calm(S);
-  const cands = await isolatedUnits(p); const u = await pagePoint(p, cands[0].lng, cands[0].lat);
+  const cands = await isolatedUnitsFraming(p); const u = await pagePoint(p, cands[0].lng, cands[0].lat, cands[0].id);
   await p.mouse.click(u.x, u.y); await sleep(500);
   const pinned = (await p.getByTitle('Unpin unit').count()) > 0; t.note('unit pinned by the click', pinned); assert(pinned, 'the click did not pin a unit');
   await showCards(p, 28);
@@ -373,15 +470,20 @@ suite.test('T0-DF-05', '(d) the story and event cards leave the zoom buttons, th
 suite.test('T0-DF-06', '(e) a filter change on a paused map is painted at once (no tick needed), and so is its reset', async (t) => {
   needA2(); const S = await shared(); const p = S.page; const e0 = S.collector.firstParty.length;
   await calm(S);
-  const a = await inkCount(p); assert(a > 1000, `the unit canvas is nearly empty before the test (${a})`);
+  let a = await busyMoment(p); const spot = await frameDenseSpot(p); if (spot) a = await settledInk(p); t.note('moment / dense spot', { tick: (await readState(p)).tick, spot });
+  assert(a > 1000, `the unit canvas is nearly empty before the test (${a})`);
   await clickTool(p.locator('button[title="Filter"]')); await waitFor(async () => (await p.locator('button:text-is("Union")').count()) > 0, { timeout: 4000, label: 'Filter panel' });
+  // ANIM lays marks out with memory (crowds merge and split with hysteresis), so the same moment reached by the arrow keys shows fewer, merged marks than after the layout has been re-solved
+  // (35 against 50 tiles at tick 200 in the same view).  One filter round trip re-solves it; the baseline for the toggles that are judged below is taken after it, with the panel open (the panel is interface: a mark under it is eased out).
+  if (HAS_ANIM) { await p.locator('button:text-is("Union")').first().click(); await sleep(500); await p.locator('button:text-is("Union")').first().click(); await sleep(700); }
+  const a2 = await settledInk(p);
   await p.locator('button:text-is("Union")').first().click(); await sleep(700);
   const b = await inkCount(p);
   await p.locator('button:text-is("Union")').first().click(); await sleep(700);
   const c = await inkCount(p);
-  t.note('ink: both sides / Union hidden / both again', [a, b, c]);
-  assert(b < a * 0.85, `hiding the Union side did not repaint the paused canvas (${a} -> ${b})`);
-  assert(c > b * 1.2 && Math.abs(c - a) < a * 0.1, `showing the Union side again did not repaint (${b} -> ${c}, was ${a})`);
+  t.note('ink: both sides / both sides with the panel open / Union hidden / both again', [a, a2, b, c]);
+  assert(b < a2 * 0.85, `hiding the Union side did not repaint the paused canvas (${a2} -> ${b})`);
+  assert(c > b * 1.2 && Math.abs(c - a2) < a2 * 0.1, `showing the Union side again did not repaint (${b} -> ${c}, was ${a2})`);
   await p.keyboard.press('Escape'); await sleep(300);
   assertEq(S.collector.firstParty.slice(e0), [], 'errors during DF-06');
 });
@@ -389,7 +491,7 @@ suite.test('T0-DF-06', '(e) a filter change on a paused map is painted at once (
 suite.test('T0-DF-07', '(f) a window resize repaints the units at once and resizes the z-index 8 and 9 overlay canvases to the map', async (t) => {
   needA2(); const S = await shared(); const p = S.page; const e0 = S.collector.firstParty.length;
   await calm(S);
-  const a = await inkCount(p); assert(a > 1000, `the unit canvas is nearly empty before the test (${a})`);
+  const a = await busyMoment(p); assert(a > 1000, `the unit canvas is nearly empty before the test (${a})`);
   const sizes = () => p.evaluate(() => { const g = document.querySelector('.mapboxgl-map'); const by = (z) => { const c = [...document.querySelectorAll('canvas')].find((cv) => getComputedStyle(cv).zIndex === z && (z !== '10' || cv.width > 400)); return c ? [c.width, c.height] : null; }; return { 8: by('8'), 9: by('9'), 10: by('10'), map: g ? [g.clientWidth, g.clientHeight] : null }; });
   const rows = [];
   for (const [w, h] of [[1280, 720], [1920, 1080], [1440, 900]]) {
@@ -419,9 +521,10 @@ suite.test('T0-DF-08', '(g) NPS Auto Tour: dots inside the panel and clear of th
       const dots = dotEls.filter((d) => panel && panel.contains(d)).map(R), outside = dotEls.filter((d) => !(panel && panel.contains(d))).length;
       const paras = panel ? [...new Set([...panel.querySelectorAll('p')].map((q) => q.parentElement))].map(R) : [];
       const tabs = ['July 1', 'July 2', 'July 3'].map((x) => { const b = [...document.querySelectorAll('button')].filter((q) => q.textContent.trim() === x).pop(); if (!b) return { x, hit: 'missing' }; const r = b.getBoundingClientRect(); const top = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return { x, hit: top === b || b.contains(top) }; });
+      // BASE1863: the credit is plain text in the attribution control, no link
       const attrib = document.querySelector('.mapboxgl-ctrl-attrib'), logo = document.querySelector('.mapboxgl-ctrl-logo');
       const cover = (e) => { if (!e) return 'missing'; const r = e.getBoundingClientRect(); if (!r.width) return true; const top = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return top === e || e.contains(top); };
-      return { panel: panel && R(panel), dots, outside, paras, tabs, attribHit: cover(attrib && attrib.querySelector('a')), logoHit: cover(logo), dock: R(document.getElementById('gt-timeline')) };
+      return { panel: panel && R(panel), dots, outside, paras, tabs, attribHit: cover(attrib && (attrib.querySelector('a') || attrib.querySelector('.mapboxgl-ctrl-attrib-inner'))), logoHit: cover(logo), dock: R(document.getElementById('gt-timeline')) };
     });
     t.note(`tour via ${via}`, { panel: g.panel, dotCount: g.dots.length, dotsOutsidePanel: g.outside, tabs: g.tabs.map((x) => `${x.x}:${x.hit}`), attribHit: g.attribHit, logoHit: g.logoHit });
     assert(g.panel, 'tour panel not found');

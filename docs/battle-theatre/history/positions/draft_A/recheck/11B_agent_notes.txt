@@ -1,0 +1,25 @@
+Tag 11B recheck notes (62 claims, reports R250-R263 of OR27-1)
+
+Counts per fidelity: passed_full_read 32, corrected 30, downgraded 0, split 0 (no "add" entries).
+
+Validator (positions_A_build.py --out ... --tag 11B): no error line for tag 11B, no "NO recheck decision" lines.
+
+Patterns among the 30 corrected claims (a claim can carry more than one):
+- time / day-part not printed in the claim's own sentence (hour from a different report, window or day-part built by the compiler): 13
+  013 (about 2 p.m. is Steinwehr R250, Smith prints none), 014 and 015 ("evening of July 1", no time printed), 006 (late afternoon), 017 (afternoon), 018 (July 2-3 not printed), 023 (about noon), 029 (3.30-4 p.m. window), 040 (evening), 044 (evening vs "late in the afternoon"), 052 (afternoon), 056 (evening of July 1), 060 (evening).
+- compass direction / modern or editorial place or road gloss in place.printed or road: 13
+  004 (of Cemetery Hill), 010, 019 (East Cemetery Hill), 033 (Culp's Hill side), 036 (east, toward York), 037 (7 miles from Emmitsburg), 039 (north of the town), 041 (Twelfth Corps front), 045 (on the right), 053 (East Cemetery Hill), 059 (north of the town; half a mile out), plus road normalisation in 017 and 052.
+- hedge or condition dropped: 6 (015 learned from Underwood's report, 017 "wall or fence", 023 "endeavor" and "partly held", 043 "Having the honor to be the advance regiment", 061 and 062 hearsay basis of Colonel Jacobs, who was on sick leave).
+- overstated activity: 2 (028 whole division fell back in disorder: passage says the Second Brigade; 009 colonel name printed Cautador in OCR, claim wrote Cantador).
+- OCR digit: 1 (058: "1.30 a. m." printed; the ledger's "evidently 1.30 p. m." is a guess, left unsettled).
+- later order ignored: 0 in this tag. Merged second report: 0 (013 borrowed a time from another report). Unit identity gloss: 0 (025/026 name First/Second Brigade of the First Division only by number in Schurz; Gilsa/Ames by roster, noted).
+
+Split ids: none. Downgraded ids: none (no central fact unsupported; all unit identity, place and activity facts stand after narrowing).
+
+Systematic observations:
+- Parenthesised when.printed phrases are the main fault source in this tag: most parenthesised-hour claims in this tag needed a change, usually because the report prints no hour and the compiler imported one from Steinwehr, Howard or later reports. The same builder should print the sequence ("compiler reading") rather than a clock window.
+- place.printed picks up gazetteer wording (East Cemetery Hill, Culp's Hill side, Twelfth Corps front, "north of the town") from neighbouring sentences or other reports.
+- Claims made from a regimental report whose parent unit is written as "your brigade" or "the First Brigade" work, but the commander's name is by roster.
+- Leftover odd note on POS-A-11B-027 ("Dilger's battery attached to the Third Division, Wheeler's? No: ...") is editorial noise; not changed (notes can only be appended).
+- POS-A-11B-053 puts two events (4 p.m. cannonade, 9 p.m. charge) in one claim with t_iso at 4 p.m.; both are in the same report, left as one claim with a note.
+- POS-A-11B-009 (and any other claim naming Colonel Cantador) should follow the OCR text "Cautador" until a non-OCR source settles the spelling.

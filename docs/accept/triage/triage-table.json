@@ -1,0 +1,889 @@
+{
+  "candidate": {
+    "build": "R1c 2531699e",
+    "zip": "deliver/gettysburg-R1c-2531699e-PRODUCTION.zip",
+    "sha256": "4b6799863d7f242edc4a2bea98be0028c2dbab214e66c621eb971e8e876d9452",
+    "note": "the CONDITIONAL entry fails on this zip by design; re-run assert_waivers.mjs on the final zip with --anchors <its release/<train>/anchors.json>"
+  },
+  "defects": [
+    {
+      "id": "D01",
+      "code": "file-missing",
+      "where": "assets/InterpolationWorker-ufiwa2-e.js",
+      "kind": "file",
+      "route": "assets/InterpolationWorker-ufiwa2-e.js",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-file-InterpolationWorker"
+      ],
+      "budget": null
+    },
+    {
+      "id": "D02",
+      "code": "data-regressed",
+      "where": "manifest.json (/orientation key removed)",
+      "kind": "data",
+      "route": "manifest.json",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-data-manifest"
+      ],
+      "budget": null
+    },
+    {
+      "id": "D03",
+      "code": "screenshot-differs",
+      "where": "aftermath@1440",
+      "kind": "screenshot",
+      "route": "/aftermath",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-aftermath"
+      ],
+      "budget": {
+        "maxRatioPercent": 4.2,
+        "maxHeightDelta": 60,
+        "observedPercent": 2.758,
+        "observedHeightDelta": 1
+      }
+    },
+    {
+      "id": "D04",
+      "code": "screenshot-differs",
+      "where": "aftermath@390",
+      "kind": "screenshot",
+      "route": "/aftermath",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-aftermath"
+      ],
+      "budget": {
+        "maxRatioPercent": 11.9,
+        "maxHeightDelta": 90,
+        "observedPercent": 7.902,
+        "observedHeightDelta": 57
+      }
+    },
+    {
+      "id": "D05",
+      "code": "text-missing",
+      "where": "ar@1440",
+      "kind": "text",
+      "route": "/ar",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-text-ar"
+      ],
+      "budget": null
+    },
+    {
+      "id": "D06",
+      "code": "screenshot-differs",
+      "where": "ar@1440",
+      "kind": "screenshot",
+      "route": "/ar",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-ar"
+      ],
+      "budget": {
+        "maxRatioPercent": 2.8,
+        "maxHeightDelta": 60,
+        "observedPercent": 1.801,
+        "observedHeightDelta": 0
+      }
+    },
+    {
+      "id": "D07",
+      "code": "text-missing",
+      "where": "ar@390",
+      "kind": "text",
+      "route": "/ar",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-text-ar"
+      ],
+      "budget": null
+    },
+    {
+      "id": "D08",
+      "code": "screenshot-differs",
+      "where": "ar@390",
+      "kind": "screenshot",
+      "route": "/ar",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-ar"
+      ],
+      "budget": {
+        "maxRatioPercent": 12.2,
+        "maxHeightDelta": 90,
+        "observedPercent": 8.095,
+        "observedHeightDelta": 55
+      }
+    },
+    {
+      "id": "D09",
+      "code": "text-missing",
+      "where": "dashboard@1440",
+      "kind": "text",
+      "route": "/dashboard",
+      "class": "CONDITIONAL",
+      "basis": "A/B",
+      "waiver": [
+        "W-text-dashboard"
+      ],
+      "budget": null
+    },
+    {
+      "id": "D10",
+      "code": "screenshot-differs",
+      "where": "dashboard@1440",
+      "kind": "screenshot",
+      "route": "/dashboard",
+      "class": "CONDITIONAL",
+      "basis": "A/B",
+      "waiver": [
+        "W-screenshot-dashboard"
+      ],
+      "budget": {
+        "maxRatioPercent": 5.1,
+        "maxHeightDelta": 230,
+        "observedPercent": 3.334,
+        "observedHeightDelta": -152
+      }
+    },
+    {
+      "id": "D11",
+      "code": "text-missing",
+      "where": "dashboard@390",
+      "kind": "text",
+      "route": "/dashboard",
+      "class": "CONDITIONAL",
+      "basis": "A/B",
+      "waiver": [
+        "W-text-dashboard"
+      ],
+      "budget": null
+    },
+    {
+      "id": "D12",
+      "code": "screenshot-differs",
+      "where": "dashboard@390",
+      "kind": "screenshot",
+      "route": "/dashboard",
+      "class": "CONDITIONAL",
+      "basis": "A/B",
+      "waiver": [
+        "W-screenshot-dashboard"
+      ],
+      "budget": {
+        "maxRatioPercent": 8.9,
+        "maxHeightDelta": 360,
+        "observedPercent": 5.898,
+        "observedHeightDelta": 234
+      }
+    },
+    {
+      "id": "D13",
+      "code": "screenshot-differs",
+      "where": "documentary@1440",
+      "kind": "screenshot",
+      "route": "/documentary",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-documentary"
+      ],
+      "budget": {
+        "maxRatioPercent": 3.5,
+        "maxHeightDelta": 60,
+        "observedPercent": 2.284,
+        "observedHeightDelta": -8
+      }
+    },
+    {
+      "id": "D14",
+      "code": "screenshot-differs",
+      "where": "documentary@390",
+      "kind": "screenshot",
+      "route": "/documentary",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-documentary"
+      ],
+      "budget": {
+        "maxRatioPercent": 11,
+        "maxHeightDelta": 70,
+        "observedPercent": 7.324,
+        "observedHeightDelta": 45
+      }
+    },
+    {
+      "id": "D15",
+      "code": "screenshot-differs",
+      "where": "education@1440",
+      "kind": "screenshot",
+      "route": "/education",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-education"
+      ],
+      "budget": {
+        "maxRatioPercent": 4.9,
+        "maxHeightDelta": 60,
+        "observedPercent": 3.205,
+        "observedHeightDelta": -16
+      }
+    },
+    {
+      "id": "D16",
+      "code": "screenshot-differs",
+      "where": "education@390",
+      "kind": "screenshot",
+      "route": "/education",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-education"
+      ],
+      "budget": {
+        "maxRatioPercent": 18.3,
+        "maxHeightDelta": 70,
+        "observedPercent": 12.135,
+        "observedHeightDelta": 45
+      }
+    },
+    {
+      "id": "D17",
+      "code": "screenshot-differs",
+      "where": "embed@1440",
+      "kind": "screenshot",
+      "route": "/embed",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-embed"
+      ],
+      "budget": {
+        "maxRatioPercent": 2,
+        "maxHeightDelta": 60,
+        "observedPercent": 1.304,
+        "observedHeightDelta": 0
+      }
+    },
+    {
+      "id": "D18",
+      "code": "screenshot-differs",
+      "where": "embed@390",
+      "kind": "screenshot",
+      "route": "/embed",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-embed"
+      ],
+      "budget": {
+        "maxRatioPercent": 10.8,
+        "maxHeightDelta": 60,
+        "observedPercent": 7.149,
+        "observedHeightDelta": 0
+      }
+    },
+    {
+      "id": "D19",
+      "code": "screenshot-differs",
+      "where": "find-ancestor@1440",
+      "kind": "screenshot",
+      "route": "/find-ancestor",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-find-ancestor"
+      ],
+      "budget": {
+        "maxRatioPercent": 2.1,
+        "maxHeightDelta": 60,
+        "observedPercent": 1.379,
+        "observedHeightDelta": 0
+      }
+    },
+    {
+      "id": "D20",
+      "code": "screenshot-differs",
+      "where": "find-ancestor@390",
+      "kind": "screenshot",
+      "route": "/find-ancestor",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-find-ancestor"
+      ],
+      "budget": {
+        "maxRatioPercent": 8,
+        "maxHeightDelta": 70,
+        "observedPercent": 5.333,
+        "observedHeightDelta": 41
+      }
+    },
+    {
+      "id": "D21",
+      "code": "text-missing",
+      "where": "historian@1440",
+      "kind": "text",
+      "route": "/historian",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-text-historian"
+      ],
+      "budget": null
+    },
+    {
+      "id": "D22",
+      "code": "screenshot-differs",
+      "where": "historian@1440",
+      "kind": "screenshot",
+      "route": "/historian",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-historian"
+      ],
+      "budget": {
+        "maxRatioPercent": 2.3,
+        "maxHeightDelta": 450,
+        "observedPercent": 1.499,
+        "observedHeightDelta": 294
+      }
+    },
+    {
+      "id": "D23",
+      "code": "text-missing",
+      "where": "historian@390",
+      "kind": "text",
+      "route": "/historian",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-text-historian"
+      ],
+      "budget": null
+    },
+    {
+      "id": "D24",
+      "code": "screenshot-differs",
+      "where": "historian@390",
+      "kind": "screenshot",
+      "route": "/historian",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-historian"
+      ],
+      "budget": {
+        "maxRatioPercent": 6.1,
+        "maxHeightDelta": 430,
+        "observedPercent": 4.001,
+        "observedHeightDelta": 281
+      }
+    },
+    {
+      "id": "D25",
+      "code": "screenshot-differs",
+      "where": "living-ledger@1440",
+      "kind": "screenshot",
+      "route": "/living-ledger",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-living-ledger"
+      ],
+      "budget": {
+        "maxRatioPercent": 1.5,
+        "maxHeightDelta": 340,
+        "observedPercent": 0.991,
+        "observedHeightDelta": 224
+      }
+    },
+    {
+      "id": "D26",
+      "code": "screenshot-differs",
+      "where": "living-ledger@390",
+      "kind": "screenshot",
+      "route": "/living-ledger",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-living-ledger"
+      ],
+      "budget": {
+        "maxRatioPercent": 6.5,
+        "maxHeightDelta": 470,
+        "observedPercent": 4.312,
+        "observedHeightDelta": 313
+      }
+    },
+    {
+      "id": "D27",
+      "code": "screenshot-differs",
+      "where": "privacy@1440",
+      "kind": "screenshot",
+      "route": "/privacy",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-privacy"
+      ],
+      "budget": {
+        "maxRatioPercent": 0.7,
+        "maxHeightDelta": 60,
+        "observedPercent": 0.138,
+        "observedHeightDelta": 21
+      }
+    },
+    {
+      "id": "D28",
+      "code": "screenshot-differs",
+      "where": "privacy@390",
+      "kind": "screenshot",
+      "route": "/privacy",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-privacy"
+      ],
+      "budget": {
+        "maxRatioPercent": 0.8,
+        "maxHeightDelta": 70,
+        "observedPercent": 0.247,
+        "observedHeightDelta": 41
+      }
+    },
+    {
+      "id": "D29",
+      "code": "screenshot-differs",
+      "where": "regiment@1440",
+      "kind": "screenshot",
+      "route": "/regiment",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-regiment"
+      ],
+      "budget": {
+        "maxRatioPercent": 1.3,
+        "maxHeightDelta": 60,
+        "observedPercent": 0.771,
+        "observedHeightDelta": 0
+      }
+    },
+    {
+      "id": "D30",
+      "code": "screenshot-differs",
+      "where": "regiment@390",
+      "kind": "screenshot",
+      "route": "/regiment",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-regiment"
+      ],
+      "budget": {
+        "maxRatioPercent": 3.9,
+        "maxHeightDelta": 60,
+        "observedPercent": 2.599,
+        "observedHeightDelta": 0
+      }
+    },
+    {
+      "id": "D31",
+      "code": "screenshot-differs",
+      "where": "report@1440",
+      "kind": "screenshot",
+      "route": "/report",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-report"
+      ],
+      "budget": {
+        "maxRatioPercent": 1.1,
+        "maxHeightDelta": 60,
+        "observedPercent": 0.596,
+        "observedHeightDelta": 0
+      }
+    },
+    {
+      "id": "D32",
+      "code": "screenshot-differs",
+      "where": "report@390",
+      "kind": "screenshot",
+      "route": "/report",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-report"
+      ],
+      "budget": {
+        "maxRatioPercent": 3.1,
+        "maxHeightDelta": 60,
+        "observedPercent": 2.042,
+        "observedHeightDelta": 0
+      }
+    },
+    {
+      "id": "D33",
+      "code": "screenshot-differs",
+      "where": "search@1440",
+      "kind": "screenshot",
+      "route": "/search",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-search"
+      ],
+      "budget": {
+        "maxRatioPercent": 3.2,
+        "maxHeightDelta": 60,
+        "observedPercent": 2.085,
+        "observedHeightDelta": 33
+      }
+    },
+    {
+      "id": "D34",
+      "code": "screenshot-differs",
+      "where": "search@390",
+      "kind": "screenshot",
+      "route": "/search",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-search"
+      ],
+      "budget": {
+        "maxRatioPercent": 11.3,
+        "maxHeightDelta": 370,
+        "observedPercent": 7.48,
+        "observedHeightDelta": 242
+      }
+    },
+    {
+      "id": "D35",
+      "code": "screenshot-differs",
+      "where": "terms@1440",
+      "kind": "screenshot",
+      "route": "/terms",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-terms"
+      ],
+      "budget": {
+        "maxRatioPercent": 0.7,
+        "maxHeightDelta": 60,
+        "observedPercent": 0.109,
+        "observedHeightDelta": 22
+      }
+    },
+    {
+      "id": "D36",
+      "code": "screenshot-differs",
+      "where": "terms@390",
+      "kind": "screenshot",
+      "route": "/terms",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-terms"
+      ],
+      "budget": {
+        "maxRatioPercent": 0.8,
+        "maxHeightDelta": 70,
+        "observedPercent": 0.252,
+        "observedHeightDelta": 43
+      }
+    },
+    {
+      "id": "D37",
+      "code": "screenshot-differs",
+      "where": "turning-points@1440",
+      "kind": "screenshot",
+      "route": "/turning-points",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-turning-points"
+      ],
+      "budget": {
+        "maxRatioPercent": 2.9,
+        "maxHeightDelta": 60,
+        "observedPercent": 1.909,
+        "observedHeightDelta": 21
+      }
+    },
+    {
+      "id": "D38",
+      "code": "screenshot-differs",
+      "where": "turning-points@390",
+      "kind": "screenshot",
+      "route": "/turning-points",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-turning-points"
+      ],
+      "budget": {
+        "maxRatioPercent": 8.3,
+        "maxHeightDelta": 180,
+        "observedPercent": 5.501,
+        "observedHeightDelta": 117
+      }
+    },
+    {
+      "id": "D39",
+      "code": "screenshot-differs",
+      "where": "camera@1440",
+      "kind": "screenshot",
+      "route": "/camera",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-camera"
+      ],
+      "budget": {
+        "maxRatioPercent": 88.8,
+        "maxHeightDelta": 60,
+        "observedPercent": 59.156,
+        "observedHeightDelta": -11
+      }
+    },
+    {
+      "id": "D40",
+      "code": "screenshot-differs",
+      "where": "cinematic-export@1440",
+      "kind": "screenshot",
+      "route": "/cinematic-export",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-cinematic-export"
+      ],
+      "budget": {
+        "maxRatioPercent": 1.5,
+        "maxHeightDelta": 60,
+        "observedPercent": 0.934,
+        "observedHeightDelta": -9
+      }
+    },
+    {
+      "id": "D41",
+      "code": "screenshot-differs",
+      "where": "compare@1440",
+      "kind": "screenshot",
+      "route": "/compare",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-compare"
+      ],
+      "budget": {
+        "maxRatioPercent": 3.7,
+        "maxHeightDelta": 60,
+        "observedPercent": 2.422,
+        "observedHeightDelta": 6
+      }
+    },
+    {
+      "id": "D42",
+      "code": "screenshot-differs",
+      "where": "ground-remembers@1440",
+      "kind": "screenshot",
+      "route": "/ground-remembers",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-ground-remembers"
+      ],
+      "budget": {
+        "maxRatioPercent": 2.4,
+        "maxHeightDelta": 60,
+        "observedPercent": 1.573,
+        "observedHeightDelta": -7
+      }
+    },
+    {
+      "id": "D43",
+      "code": "screenshot-differs",
+      "where": "immersive@1440",
+      "kind": "screenshot",
+      "route": "/immersive",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-immersive"
+      ],
+      "budget": {
+        "maxRatioPercent": 2.5,
+        "maxHeightDelta": 60,
+        "observedPercent": 1.651,
+        "observedHeightDelta": -7
+      }
+    },
+    {
+      "id": "D44",
+      "code": "text-missing",
+      "where": "index@1440",
+      "kind": "text",
+      "route": "/",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-text-index-1440"
+      ],
+      "budget": null
+    },
+    {
+      "id": "D45",
+      "code": "control-missing",
+      "where": "index@1440",
+      "kind": "controls",
+      "route": "/",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-controls-index-1440"
+      ],
+      "budget": null
+    },
+    {
+      "id": "D46",
+      "code": "screenshot-differs",
+      "where": "index@1440",
+      "kind": "screenshot",
+      "route": "/",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-index-1440"
+      ],
+      "budget": null
+    },
+    {
+      "id": "D47",
+      "code": "text-missing",
+      "where": "index@390",
+      "kind": "text",
+      "route": "/",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-text-index-1440"
+      ],
+      "budget": null
+    },
+    {
+      "id": "D48",
+      "code": "control-missing",
+      "where": "index@390",
+      "kind": "controls",
+      "route": "/",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-controls-index-1440"
+      ],
+      "budget": null
+    },
+    {
+      "id": "D49",
+      "code": "screenshot-differs",
+      "where": "index@390",
+      "kind": "screenshot",
+      "route": "/",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-index-390"
+      ],
+      "budget": null
+    },
+    {
+      "id": "D50",
+      "code": "screenshot-differs",
+      "where": "sandbox@1440",
+      "kind": "screenshot",
+      "route": "/sandbox",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-sandbox"
+      ],
+      "budget": {
+        "maxRatioPercent": 4.5,
+        "maxHeightDelta": 60,
+        "observedPercent": 2.945,
+        "observedHeightDelta": 14
+      }
+    },
+    {
+      "id": "D51",
+      "code": "text-missing",
+      "where": "viewshed@1440",
+      "kind": "text",
+      "route": "/viewshed",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-text-viewshed"
+      ],
+      "budget": null
+    },
+    {
+      "id": "D52",
+      "code": "screenshot-differs",
+      "where": "viewshed@1440",
+      "kind": "screenshot",
+      "route": "/viewshed",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-viewshed"
+      ],
+      "budget": {
+        "maxRatioPercent": 2.6,
+        "maxHeightDelta": 190,
+        "observedPercent": 1.7,
+        "observedHeightDelta": -123
+      }
+    },
+    {
+      "id": "D53",
+      "code": "screenshot-differs",
+      "where": "watch-together@1440",
+      "kind": "screenshot",
+      "route": "/watch-together",
+      "class": "INTENTIONAL",
+      "basis": "B",
+      "waiver": [
+        "W-screenshot-watch-together"
+      ],
+      "budget": {
+        "maxRatioPercent": 2.4,
+        "maxHeightDelta": 60,
+        "observedPercent": 1.571,
+        "observedHeightDelta": 30
+      }
+    }
+  ]
+}

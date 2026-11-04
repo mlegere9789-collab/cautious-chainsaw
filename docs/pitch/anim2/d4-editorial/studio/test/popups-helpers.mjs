@@ -42,7 +42,7 @@ export const rectOfCard = (c) => ({ x0: c.rect.x, y0: c.rect.y, x1: c.rect.x + c
 
 /** violations of "no visible card lies on a tile, on chrome, outside the map, or on another card" in one host output */
 export function violations(R, out = R.out, chrome = CHROME) {
-  const frame = R.e.frame; const obs = oracleObstacles(frame); const bad = []; const m = out.placeRect ? { w: Math.max(out.mapRect.w, out.placeRect.w), h: Math.max(out.mapRect.h, out.placeRect.h) } : out.mapRect; const placed = out.cards.filter((c) => c.rect && !c.lane && !c.hidden && c.opacity >= 0.2 && c.kind !== 'doc');
+  const frame = R.e.frame; const obs = oracleObstacles(frame); const bad = []; const m = out.placeRect ? { w: Math.max(out.mapRect.w, out.placeRect.w), h: Math.max(out.mapRect.h, out.placeRect.h) } : out.mapRect; const placed = out.cards.filter((c) => c.rect && !c.lane && !c.hidden && c.opacity >= 0.2 && c.kind !== 'doc' && !(c.spec && c.spec.dock));      // D4 FORK (round 2): a popup that lives in the dock (the overview map) is never placed on the map
   for (const c of placed) {
     const r0 = rectOfCard(c); const r = { x0: r0.x0, x1: r0.x1, y0: r0.y0 + c.dy, y1: r0.y1 + c.dy };          // the card as DRAWN (it rises while it enters)
     for (const o of obs) if (hit(r, o)) { bad.push(`${c.id} (${c.form && c.form.id}) lies on a ${o.kind} of ${o.owner}`); break; }

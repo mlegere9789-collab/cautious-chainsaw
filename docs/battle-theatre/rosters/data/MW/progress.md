@@ -1,0 +1,12 @@
+# MW progress (30 Oct 2026)
+- 21:56 read CLAUDE.md, DEC-019, PLAN, pilot, pipeline; unit list from baseline/dist/data/oob: 26 units.
+- 22:04 IA metadata audit of candidate items (ia_audit.json): Minnesota 1890 vol 1 usable, one restricted item skipped; only 4 Record of Service volumes exist on IA.
+- 22:05-22:20 downloads rounds 1-3 (Wisconsin vol 2, Indiana vols 2/4/5, Illinois vols 5/6/8, Minnesota, Michigan items).
+- 22:10 Wisconsin 2nd/3rd/5th/7th/26th parsed with the generalised pilot parser; company-header repair (3rd: unassigned men; 26th vol 2).
+- 22:15 Indiana tab parser; fixed company sequencing, year headers, margin fit for vol 5; nameless rows kept.
+- 22:22 Illinois 82nd, 8th and 12th Cavalry; Veterans sections marked Duplicate-Xref.
+- 22:25 Minnesota 1st; mustered-out column used for separations (found in the image check).
+- 22:30 Michigan 3rd (Record vol 3); Boies 1913 merged into all Michigan units and matching rows elsewhere.
+- 22:31 QA image check (3 pages). Lee 1902 (7th Michigan Cavalry) fetch failed three times (HTTP 504, 503, 500): recorded failed, not retried further.
+- final: stats.json, README.md, QA-SAMPLE.md, SOURCES.csv and GAPS.md rows appended.
+- 2026-10-30 AUDIT (independent, seed 41, 60 rows): see AUDIT.md. Repaired Wisconsin section parse, false Present (admin events in 1-3 July), M.O. separations, intra-regiment transfers, misread-year Absent labels, drafted-man dates, glued rank headings; 15 heading rows tombstoned. stats.json and README refreshed (27,083 rows, Present-Documented 1,447). Gates R-G1..R-G3 still NOT met; fresh PLAN 4.4 draw required.

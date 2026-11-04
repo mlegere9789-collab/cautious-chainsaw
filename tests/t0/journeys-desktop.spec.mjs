@@ -24,9 +24,13 @@ const {
   mouseDrag, wheel, touchPinch, touchSwipe, touchTap, cdpFor, hitTest, tileBudget, VIEWPORTS, Skip,
 } = await import('./lib.mjs');
 
+const { readPageState, parseCaptionCollapsed, parseClock, parseClockLabel } = await import('./lib_clock.mjs');   // CLOCK: the frame is data-gt-frame, the caption/clock wording differs per tree
+
 const argv = process.argv.slice(2);
 const opt = (name, dflt) => { const i = argv.indexOf(`--${name}`); return i >= 0 ? (argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[i + 1] : true) : dflt; };
 const DIST = path.resolve(REPO, opt('dist', 'release/R1c/dist'));
+// group POLISH (marker: the menu's landmark name in index.html) renames the menu button "Extra Features" to "More to Explore"; each tree is asserted with its own name
+const MENU_NAME = (() => { try { return fs.readFileSync(path.join(DIST, 'index.html'), 'utf8').includes('aria-label="More to Explore"') ? 'More to Explore' : 'Extra Features'; } catch { return 'Extra Features'; } })();
 const FILTER = opt('filter', null);
 const EXPECT_RED = !!opt('expect-red', false);
 const IS_LEGACY = DIST === path.resolve(REPO, 'legacy/dist');
@@ -73,15 +77,20 @@ function carryForward(days, tick) {
   for (let t = 1; t <= tick; t++) if (m[t]) for (const [u, r] of m[t]) cur.set(u, r);
   return cur;
 }
+/** units the app must show at the first moment once the data of `days` is loaded: derived from THIS tree's data files (70/71 on R1c; DATA gates arrival, 27 at the first moment) */
+const unitsAtTick1 = (days) => carryForward(days, 1).size;
 const DAYS_FOR = (tick) => (tick <= 225 ? [1] : tick <= 450 ? [1, 2] : [1, 2, 3]);
 
 const bodyText = (p) => p.evaluate(() => document.body.innerText.replace(/\s+/g, ' '));
 const rx = (t, re) => { const m = re.exec(t); return m ? m : null; };
-/** what the user can read: tick, minimap unit count, HUD date, toolbar clock */
+/** what the user can read: tick (the frame: data-gt-frame on a CLOCK tree, "Tick n/675" on an older one), minimap unit count, HUD date, toolbar clock.
+ *  mmTick = the tick the minimap caption prints ("n units . tick m"): null on a CLOCK tree, whose caption prints the clock ("n units . about 5:00 AM") in mmLabel;
+ *  mmFrame = the tick the minimap's unit count stands for (the caption's own tick on an older tree, the frame of the same snapshot on a CLOCK tree). */
 async function readState(p) {
-  const t = await bodyText(p);
-  const tick = rx(t, /Tick (\d+)\/675/), mm = rx(t, /(\d+) units · tick (\d+)/), hud = rx(t, /July (\d+), 1863/), clock = rx(t, /July (\d+), (\d{1,2}:\d{2} [AP]M)/);
-  return { tick: tick ? +tick[1] : null, units: mm ? +mm[1] : null, mmTick: mm ? +mm[2] : null, hudDay: hud ? +hud[1] : null, clockDay: clock ? +clock[1] : null, clock: clock ? clock[2] : null, text: t };
+  const { text: t, frame } = await readPageState(p);
+  const cap = parseCaptionCollapsed(t), hud = rx(t, /July (\d+), 1863/), clk = parseClock(t), lab = parseClockLabel(t);
+  return { tick: frame, units: cap ? cap.units : null, mmTick: cap ? cap.legacyTick : null, mmLabel: cap ? cap.label : null, mmFrame: cap ? (cap.legacyTick ?? frame) : null,
+    hudDay: hud ? +hud[1] : null, clockDay: clk ? clk.day : null, clock: clk ? clk.clock : null, clockLabel: lab ? lab.label : null, text: t };
 }
 /** any rendered date that reads July 4..9 in one of the formats the app prints (HUD, clock, monument tooltip, ancestor timeline) */
 const BAD_DATE = /July\s+[4-9],\s*1863|July\s+[4-9],\s*\d{1,2}:\d{2}|\d{1,2}:\d{2}\s*[AP]M\s+July\s+[4-9]\b|\d{1,2}\s+July\s+[4-9]\b/;
@@ -105,20 +114,49 @@ const playBtn = (p) => p.locator('button[title^="Play/Pause"]');
  *  and on legacy/dist the full-size overlay canvas would swallow a real click, which would mask the data/clock verdicts) */
 const clickDayTab = (p, day, real = true) => { const l = p.locator(`button:text-is("July ${day}")`).last(); return real ? l.click() : l.dispatchEvent('click'); };
 /** a unit drawn at `tick` in the current viewport whose point is not covered by any panel: { id, x, y } (page coordinates) */
-async function pickVisibleUnit(p, tick = 1, days = [1]) {
-  const rows = [...carryForward(days, tick).values()].map((r) => ({ unit_id: r.unit_id, lng: r.lng, lat: r.lat }));
-  const cands = await p.evaluate((rows) => {
+async function pickVisibleUnit(p, tick = 1, days = [1], { exact = false } = {}) {
+  const all = [...carryForward(days, tick).values()].map((r) => ({ unit_id: r.unit_id, lng: r.lng, lat: r.lat, tick: r.tick }));
+  const rows = all;
+  const cands = await p.evaluate(({ rows, exact, tick }) => {
     const m = window.__t0map; const c = m.getCanvas().getBoundingClientRect(); const out = [];
     for (const r of rows) {
+      if (exact && r.tick !== tick) continue;
       const q = m.project([r.lng, r.lat]); const x = q.x + c.left, y = q.y + c.top;
       if (x < c.left + 30 || x > c.right - 90 || y < c.top + 40 || y > c.bottom - 130) continue;
       const el = document.elementFromPoint(x, y); if (!el || el.tagName !== 'CANVAS') continue;
       let nn = 9; for (const o of rows) if (o !== r) nn = Math.min(nn, Math.hypot(o.lng - r.lng, o.lat - r.lat));
-      out.push({ id: r.unit_id, x, y, nn });
+      out.push({ id: r.unit_id, x, y, nn, lng: r.lng, lat: r.lat });
     }
     return out.sort((a, b) => b.nn - a.nn);
-  }, rows);
+  }, { rows, exact, tick });
   return cands;
+}
+/** ticks (day 1 data) that carry a keyframe row, thinned to about `n`: where a unit stands exactly at its row (no glide between rows) */
+function keyframeTicks(days, n = 14) {
+  const m = modelByTick(days); const all = Object.keys(m).map(Number).filter((t) => t >= 1 && t <= 225).sort((a, b) => a - b);
+  const step = Math.max(1, Math.floor(all.length / n)); return all.filter((_, i) => i % step === 0);
+}
+/** The tick at which a real click can select a unit at the current camera.  Tick 1 on a tree whose units all stand on the field at the first moment (R1c: 70 units, several at the home view);
+ *  on a tree with DATA's arrival gating only 27 units exist at the first moment and none is on the home view (they are marching in from Cashtown and Emmitsburg: PDF B.2.4), so the test goes
+ *  to the first moment of a keyframe row where a unit is drawn at the home view, on the toolbar slider.  Returns { tick, cands } and leaves the clock there. */
+async function seekClickableTick(p, days = [1]) {
+  // With group ANIM a mark is drawn at the unit's interpolated place, and below zoom 15 a small mark may stand up to 56 px from its unit (ANIM-README, defaults; "T0-VMON-04 ... encodes the shipped step positions"):
+  // a real click then goes to a unit that stands on its own record at this very tick (no glide) with the camera at the full-mark zoom, where marks are never nudged
+  const anim = GROUPS.includes('ANIM');
+  const settle = async (tick, cands) => {
+    if (!anim || !cands.length) return cands;
+    const u = cands[0]; await setCamera(p, { center: [u.lng, u.lat], zoom: 16 }); await sleep(900);
+    const here = await pickVisibleUnit(p, tick, days, { exact: true }); const mine = here.find((c) => c.id === u.id);
+    return mine ? [mine, ...here.filter((c) => c !== mine)] : here;
+  };
+  let cands = await pickVisibleUnit(p, 1, days, { exact: anim }); if (cands.length) return { tick: 1, cands: await settle(1, cands) };
+  for (const tick of keyframeTicks(days)) {
+    if (tick === 1) continue;
+    cands = await pickVisibleUnit(p, tick, days, { exact: anim }); if (!cands.length) continue;
+    await p_slider(p, tick); await waitState(p, (s) => s.tick === tick, `tick ${tick}`, 4000); await sleep(900);   // a paused map: units rest on their keyframe
+    cands = await pickVisibleUnit(p, tick, days, { exact: anim }); if (cands.length) return { tick, cands: await settle(tick, cands) };
+  }
+  return { tick: 1, cands: [] };
 }
 const unitPanelHas = async (p, id) => (await bodyText(p)).includes(` ${id} `) || (await p.getByText(id, { exact: true }).count()) > 0;
 /** click a toolbar button with a real mouse click; when a neighbouring toolbar element overlaps it at this window width (legacy top bar, R1a/R1b)
@@ -178,7 +216,7 @@ suite.test('T0-J1', 'J1 load: app mounts, HUD/toolbar/minimap present, units dra
   const s = await readState(S.page);
   const cnv = await S.page.evaluate(() => [...document.querySelectorAll('canvas')].map((c) => ({ w: c.width, h: c.height, pe: getComputedStyle(c).pointerEvents })));
   t.note('state', { tick: s.tick, units: s.units, hud: s.hudDay, clock: s.clock }); t.note('canvases', cnv.length);
-  assertEq(s.tick, 1, 'tick after load'); assert(s.units >= 70, `minimap unit count ${s.units}`); if (NEED('B')) assertEq(s.hudDay, 1, 'HUD day');
+  assertEq(s.tick, 1, 'tick after load'); assert(unitsAtTick1([1]) > 0 && s.units >= unitsAtTick1([1]), `minimap unit count ${s.units} (this tree's data has ${unitsAtTick1([1])} units at the first moment)`); if (NEED('B')) assertEq(s.hudDay, 1, 'HUD day');
   assertEq([...S.tileStats.skus].length, 1, 'one Mapbox sku (one map session)');
   const locs = await waitFor(() => S.page.evaluate(() => !!window.__t0map && !!window.__t0map.getLayer('gtbg-locs-lbl')), { timeout: 6000, label: 'Locations labels layer (default on, no double toggle)' }).catch(() => false);
   t.note('locations layer present', !!locs); assert(locs, 'the Locations labels layer is missing on a fresh load (G1/G2)');
@@ -193,8 +231,8 @@ suite.test('T0-J2', 'J2 play 30 ticks at 8x: tick advances, minimap follows, pau
   await playBtn(p).click();
   await sleep(400);
   const a = await readState(p); await sleep(800); const b = await readState(p);
-  t.note('tick at pause', a.tick); t.note('minimap', { units: s1.units, mmTick: s1.mmTick });
-  if (NEED('B')) assertEq(s1.units, carryForward([1], s1.mmTick).size, `minimap unit count at tick ${s1.mmTick} (played-through state)`);
+  t.note('tick at pause', a.tick); t.note('minimap', { units: s1.units, mmTick: s1.mmTick, mmFrame: s1.mmFrame, mmLabel: s1.mmLabel });
+  if (NEED('B')) assertEq(s1.units, carryForward([1], s1.mmFrame).size, `minimap unit count at tick ${s1.mmFrame} (played-through state)`);
   assert(a.tick >= 31, `tick ${a.tick}`); assertEq(a.tick, b.tick, 'tick still advancing after pause');
   await p.locator('button:text-is("1x")').click();
   await clickDayTab(p, 1); await waitState(p, (s) => s.tick === 1 && s.units, 'back to tick 1');
@@ -229,13 +267,14 @@ suite.test('T0-J4', 'J4 select a unit by real click: panel opens for exactly tha
   const S = await shared(); const p = S.page;
   await setCamera(p, HOME); await sleep(600);
   await clickDayTab(p, 1); await waitState(p, (s) => s.tick === 1, 'tick 1');
-  const cands = await pickVisibleUnit(p, 1, [1]);
-  assert(cands.length > 0, 'no unit is visible and uncovered at the home view');
-  const u = cands[0]; t.note('unit', u.id);
+  const { tick: pickTick, cands } = await seekClickableTick(p);
+  assert(cands.length > 0, 'no unit is visible and uncovered at the home view (checked at the first moment and at keyframe moments of day 1)');
+  const u = cands[0]; t.note('unit', u.id); t.note('tick of the click', pickTick);
   await p.mouse.click(u.x, u.y);
   await waitFor(() => unitPanelHas(p, u.id), { timeout: 4000, label: `unit panel for ${u.id}` });
   await p.keyboard.press('Escape');
   await waitFor(async () => !(await unitPanelHas(p, u.id)), { timeout: 3000, label: 'unit panel closed by Escape' });
+  if (pickTick !== 1) { await clickDayTab(p, 1); await waitState(p, (s) => s.tick === 1, 'tick 1'); }
   assertEq(S.collector.firstParty, [], 'errors after J4');
 });
 
@@ -267,8 +306,8 @@ suite.test('T0-J6', 'J6 Help (? key and button) and every desktop Tools button t
     await clickTool(b); await sleep(350); await clickTool(b).catch(() => {}); await sleep(250);
     await p.keyboard.press('Escape'); await sleep(150);
   }
-  await p.locator('button:has-text("Extra Features")').click().catch(() => {}); await sleep(300);
-  await p.locator('button:has-text("Extra Features")').click().catch(() => {}); await sleep(300);
+  await p.locator(`button:has-text("${MENU_NAME}")`).click().catch(() => {}); await sleep(300);   // the menu button (named "Extra Features" before group POLISH)
+  await p.locator(`button:has-text("${MENU_NAME}")`).click().catch(() => {}); await sleep(300);
   assertEq(S.collector.firstParty, [], 'errors after J6');
 });
 
@@ -293,7 +332,7 @@ suite.test('T0-J7', 'J7 day 2/3 jump by tab and by keys 2/3: data loads within 2
   await clickDayTab(p, 1); const back = await waitState(p, (s) => s.tick === 1, 'back to tick 1');
   t.note('ms to full data', timings); t.note('unit-canvas ink after each paused jump', ink); t.note('tick-1 units once all days are loaded', back.units);
   assert(Object.values(timings).every((ms) => ms <= 2000), `a day jump took longer than 2 s: ${JSON.stringify(timings)}`);
-  assert(back.units >= 71, `tick 1 shows ${back.units} units after the day 2/3 data loaded (need >= 71)`);
+  assert(back.units >= unitsAtTick1([1, 2, 3]), `tick 1 shows ${back.units} units after the day 2/3 data loaded (need >= ${unitsAtTick1([1, 2, 3])}, the played-through state of this tree's data)`);
   assertEq(S.collector.firstParty, [], 'errors after J7');
 });
 
@@ -343,7 +382,7 @@ suite.test('T0-IN-03', 'click selects a unit (nearest within the hit radius) and
   const S = await shared(); const p = S.page;
   await setCamera(p, HOME); await sleep(500);
   await clickDayTab(p, 1); await waitState(p, (s) => s.tick === 1, 'tick 1');
-  const [u] = await pickVisibleUnit(p, 1, [1]); assert(u, 'no clickable unit');
+  const { tick: pickTick, cands: [u] } = await seekClickableTick(p); assert(u, 'no clickable unit');
   await p.mouse.click(u.x, u.y);
   await waitFor(() => unitPanelHas(p, u.id), { timeout: 4000, label: `panel for ${u.id}` });
   await p.keyboard.press('Escape'); await sleep(300);
@@ -356,6 +395,7 @@ suite.test('T0-IN-03', 'click selects a unit (nearest within the hit radius) and
   await p.mouse.click(u.x, u.y);
   await waitFor(() => unitPanelHas(p, u.id), { timeout: 4000, label: 'selection works again once units are shown' });
   await p.keyboard.press('Escape');
+  if (pickTick !== 1) { await clickDayTab(p, 1); await waitState(p, (s) => s.tick === 1, 'tick 1'); }
 });
 
 suite.test('T0-IN-04', 'no full-size overlay canvas has pointer-events:auto; zoom-in button and the Distance tool (two clicks) work', async (t) => {
@@ -390,18 +430,32 @@ suite.test('T0-IN-05', 'phone 375x812 (mobile shell, real CDP touch): swipe pans
     await touchPinch(S.page, [190, 380], 60, 220); await sleep(900);
     const v2 = await mapView(S.page);
     await S.page.evaluate(() => window.__t0map.jumpTo({ center: [-77.235, 39.812], zoom: 13 })); await sleep(700);
-    const rows = [...carryForward([1], 1).values()].map((r) => ({ unit_id: r.unit_id, lng: r.lng, lat: r.lat, disposition: r.disposition, strength: r.strength }));
-    const cands = await S.page.evaluate((rows) => {
-      const m = window.__t0map; const c = m.getCanvas().getBoundingClientRect(); const out = [];
-      for (const r of rows) {
-        const q = m.project([r.lng, r.lat]); const x = q.x + c.left, y = q.y + c.top;
-        if (x < 20 || x > innerWidth - 20 || y < 110 || y > innerHeight - 220) continue;
-        const el = document.elementFromPoint(x, y); if (!el || el.tagName !== 'CANVAS') continue;
-        let nn = 9; for (const o of rows) if (o !== r) nn = Math.min(nn, Math.hypot(o.lng - r.lng, o.lat - r.lat));
-        out.push({ ...r, x, y, nn });
+    // units drawn at `tick` inside the phone viewport and not covered by a panel (page coordinates), isolated ones first
+    const phoneCands = async (tick) => {
+      const rows = [...carryForward([1], tick).values()].map((r) => ({ unit_id: r.unit_id, lng: r.lng, lat: r.lat, disposition: r.disposition, strength: r.strength }));
+      return S.page.evaluate((rows) => {
+        const m = window.__t0map; const c = m.getCanvas().getBoundingClientRect(); const out = [];
+        for (const r of rows) {
+          const q = m.project([r.lng, r.lat]); const x = q.x + c.left, y = q.y + c.top;
+          if (x < 20 || x > innerWidth - 20 || y < 110 || y > innerHeight - 220) continue;
+          const el = document.elementFromPoint(x, y); if (!el || el.tagName !== 'CANVAS') continue;
+          let nn = 9; for (const o of rows) if (o !== r) nn = Math.min(nn, Math.hypot(o.lng - r.lng, o.lat - r.lat));
+          out.push({ ...r, x, y, nn });
+        }
+        return out.sort((a, b) => b.nn - a.nn);
+      }, rows);
+    };
+    let cands = await phoneCands(1), tapTick = 1;
+    if (!cands.length) {      // DATA's arrival gating: 27 units at the first moment, none on this view; open the same phone at the first keyframe moment that has one (a link ?tick=N is the phone's way to a moment)
+      for (const tick of keyframeTicks([1])) {
+        if (tick === 1) continue;
+        const c = await phoneCands(tick); if (!c.length) continue;
+        await S.page.goto(`${ORIGIN}/?tick=${tick}`, { waitUntil: 'load' }); await waitForApp(S.page, 45000); await mapReady(S.page); await sleep(1200);
+        await S.page.evaluate(() => window.__t0map.jumpTo({ center: [-77.235, 39.812], zoom: 13 })); await sleep(900);
+        cands = await phoneCands(tick); tapTick = tick; if (cands.length) break;
       }
-      return out.sort((a, b) => b.nn - a.nn);
-    }, rows);
+    }
+    t.note('tapped at tick', tapTick);
     assert(cands.length > 0, 'no unit is visible and uncovered in the phone shell');
     const u = cands[0]; await touchTap(S.page, u.x, u.y); await sleep(900);
     const txt = await bodyText(S.page);
@@ -481,11 +535,12 @@ suite.test('T0-KEY-02', 'Escape clears the pinned unit (panel closes), not just 
   const S = await shared(); const p = S.page;
   await setCamera(p, HOME); await sleep(500);
   await clickDayTab(p, 1); await waitState(p, (s) => s.tick === 1, 'tick 1');
-  const [u] = await pickVisibleUnit(p, 1, [1]); assert(u, 'no clickable unit');
+  const { tick: pickTick, cands: [u] } = await seekClickableTick(p); assert(u, 'no clickable unit');
   await p.mouse.click(u.x, u.y); await waitFor(() => unitPanelHas(p, u.id), { timeout: 4000, label: 'panel' });
   assert((await p.getByTitle('Unpin unit').count()) > 0, 'a click did not pin the unit');
   await p.keyboard.press('Escape');
   await waitFor(async () => !(await unitPanelHas(p, u.id)) && (await p.getByTitle('Unpin unit').count()) === 0, { timeout: 3000, label: 'panel closed and unit unpinned' });
+  if (pickTick !== 1) { await clickDayTab(p, 1); await waitState(p, (s) => s.tick === 1, 'tick 1'); }
 });
 
 suite.test('T0-KEY-03', 'Ctrl/Meta/Alt combinations are inert (no preventDefault, no speed or tick change): Ctrl+F, Ctrl+=, Ctrl+-, Alt+2', async (t) => {
@@ -545,9 +600,17 @@ suite.test('T0-ATTR-01', 'the walkthrough map keeps its Mapbox attribution contr
   const S = await shared(); const p = S.page;
   const main = await p.locator('.mapboxgl-ctrl-attrib').count();
   assert(main >= 1, 'no attribution control on the main map');
-  if (NEED('A2')) {                       // Mapbox terms: the attribution links must not sit under the transport dock (group A2)
-    const hits = await p.evaluate(() => [...document.querySelectorAll('.mapboxgl-ctrl-attrib a')].map((a) => { const b = a.getBoundingClientRect(); const top = document.elementFromPoint(b.x + b.width / 2, b.y + b.height / 2); return { text: a.textContent.trim(), onTop: !!top && (top === a || a.contains(top)) }; }));
-    t.note('main attribution links on top', hits); assert(hits.length >= 2, 'the main map attribution has no links'); assertEq(hits.filter((h) => !h.onTop), [], 'main-map attribution links covered by another element (the transport dock)');
+  if (NEED('A2')) {                       // Mapbox terms: the attribution must not sit under the transport dock (group A2)
+    // BASE1863 draws its own basemap: the attribution control then holds the plain-text credit of the 1863 raster source (BASE1863-README, Attribution) and no links; the control and its text are what must stay on top
+    const hits = await p.evaluate(() => {
+      const on = (e) => { const b = e.getBoundingClientRect(); const top = document.elementFromPoint(b.x + b.width / 2, b.y + b.height / 2); return !!top && (top === e || e.contains(top)); };
+      const links = [...document.querySelectorAll('.mapboxgl-ctrl-attrib a')].map((a) => ({ text: a.textContent.trim(), onTop: on(a) }));
+      const inner = [...document.querySelectorAll('.mapboxgl-ctrl-attrib-inner')].map((e) => ({ text: e.textContent.trim().slice(0, 40), onTop: on(e) }));
+      return { links, inner };
+    });
+    t.note('main attribution links / text on top', hits);
+    if (GROUPS.includes('BASE1863')) { assert(hits.inner.length >= 1 && hits.inner.every((h) => h.text.length > 10), 'the main map attribution text is missing'); assertEq(hits.inner.filter((h) => !h.onTop), [], 'main-map attribution text covered by another element (the transport dock)'); }
+    else { assert(hits.links.length >= 2, 'the main map attribution has no links'); assertEq(hits.links.filter((h) => !h.onTop), [], 'main-map attribution links covered by another element (the transport dock)'); }
   }
   await clickTool(p.getByText('Virtual Walkthrough', { exact: false }).first());
   await waitFor(async () => (await p.locator('.mapboxgl-ctrl-attrib').count()) >= 2, { timeout: 25000, label: 'second attribution control (walkthrough map)' });
@@ -598,6 +661,9 @@ suite.test('T0-KEY-07', 'the transport bar has no second key handler: ArrowRight
 suite.test('T0-KEY-08', 'after a real click and a real drag on the map the documented keys still drive the clock (ArrowRight +1, Shift+ArrowRight +12) and do not move the map: a pointer press does not leave the map canvas focused (group A2)', async (t) => {
   needGroup('A2');
   const S = await shared(); const p = S.page;
+  // Shift+Arrow is 12 frames on a tree without CLOCK; CLOCK makes the hour keys and Shift+Arrow "60 battle minutes" (CLOCK-README, routed surfaces): the frame the oracle (written from the anchors alone) reaches
+  const oracle = GROUPS.includes('CLOCK') ? (await import('../../tools/t0/clock/oracle.mjs')).makeOracle() : null;
+  const shiftStep = (tick) => (oracle ? oracle.hourStep(tick, 1) - tick : 12);
   await setCamera(p, HOME); await sleep(400);
   await clickDayTab(p, 1, false); await waitState(p, (s) => s.tick === 1, 'tick 1');
   await p.evaluate(() => { const a = document.activeElement; a && a.blur && a.blur(); });
@@ -611,7 +677,7 @@ suite.test('T0-KEY-08', 'after a real click and a real drag on the map the docum
     const v1 = await mapView(p);
     rows.push({ name, focus, ticks: [s0.tick, s1.tick, s2.tick], mapMovedM: Math.round(mv(v0, v1)) });
     assert(!/canvas/i.test(focus || ''), `after a ${name} the map canvas holds focus (${focus})`);
-    assertEq([s1.tick - s0.tick, s2.tick - s1.tick], [1, 12], `after a ${name}: ArrowRight, Shift+ArrowRight`);
+    assertEq([s1.tick - s0.tick, s2.tick - s1.tick], [1, shiftStep(s1.tick)], `after a ${name}: ArrowRight, Shift+ArrowRight`);
     assert(mv(v0, v1) < 3, `after a ${name} the arrow keys moved the map (${mv(v0, v1).toFixed(0)} m)`);
     await clickDayTab(p, 1, false); await waitState(p, (s) => s.tick === 1, 'tick 1');
   }
@@ -640,6 +706,11 @@ suite.test('T0-ONB-01', 'onboarding: "Skip tour" from step 4 (tick 267) returns 
     await waitFor(async () => /Quick Reference/i.test(await bodyText(S.page)), { timeout: 5000, label: 'Quick Reference' });
     const ref = await bodyText(S.page); t.note('quick reference mentions heatmap', /heatmap/i.test(ref));
     assert(!/heatmap/i.test(ref), 'the onboarding quick reference still lists the Heatmap key');
+    // group POLISH (POL-O01) writes gtbg_onboarded as soon as a path is chosen, so a reload mid-tour no longer starts over: assert that, then clear it to open the chooser a second time as a first visit
+    const keyAfterChoice = await S.page.evaluate(() => { try { return localStorage.getItem('gtbg_onboarded'); } catch { return null; } });
+    t.note('gtbg_onboarded after choosing Power User', keyAfterChoice);
+    if (GROUPS.includes('POLISH')) assert(keyAfterChoice, 'choosing a path did not record the onboarding choice (POL-O01)');
+    await S.page.evaluate(() => { try { localStorage.removeItem('gtbg_onboarded'); } catch { /* blocked */ } });
     await S.page.goto(`${ORIGIN}/`, { waitUntil: 'load' }); await waitForApp(S.page, 45000); await chooseLayout(S.page, 'desktop').catch(() => {});
     await S.page.getByText('New to Gettysburg', { exact: false }).first().click();
     for (let i = 0; i < 3; i++) { await S.page.getByText(/^Next/, { exact: false }).first().click(); await sleep(250); }
@@ -693,14 +764,16 @@ suite.test('T0-CLK-02', 'phone shell: ticks 1 / 226 / 451 / 675 read JULY 1 / 2 
   needGroup('B');
   const S = await open({ profile: 'phone', tiles: 'block', viewport: VIEWPORTS.portrait[0] });
   try {
-    const seen = {};
+    const seen = {}; let seenAny = false;
     for (const [tick, day] of [[1, 1], [226, 2], [451, 3], [675, 3]]) {
+      if (seenAny) await sleep(1800);           // let the harness finish classifying the previous page's blocked-glyph console messages before this navigation destroys their handles (lib.mjs removes them asynchronously)
+      seenAny = true;
       await S.page.goto(`${ORIGIN}/?tick=${tick}`, { waitUntil: 'load' }); await waitForApp(S.page, 45000);
-      const txt = await waitFor(async () => { const x = await bodyText(S.page); return new RegExp(`Tick ${tick}/675`).test(x) ? x : null; }, { timeout: 15000, label: `phone shell at tick ${tick}` });
-      const m = /JULY\s+(\d)\s+\d{1,2}:\d{2}\s*[AP]M/i.exec(txt);
+      const txt = await waitFor(async () => { const x = await readPageState(S.page); return x.frame === tick ? x.text : null; }, { timeout: 15000, label: `phone shell at tick ${tick}` });
+      const m = /JULY\s+(\d)\s+(?:about\s+)?\d{1,2}:\d{2}\s*[AP]M/i.exec(txt);       // "JULY 2 4:00 AM" before CLOCK, "JULY 2 about 4:30 AM" with it
       seen[tick] = m && +m[1];
       assertEq(seen[tick], day, `phone clock day at tick ${tick}`);
-      assert(!/July\s+[4-9],\s*1863|July\s+[4-9]\s+\d{1,2}:\d{2}|\d{1,2}:\d{2}\s*[AP]M\s+July\s+[4-9]\b/i.test(txt), `a July 4-9 date is rendered at tick ${tick}`);
+      assert(!/July\s+[4-9],\s*1863|July\s+[4-9]\s+(?:about\s+)?\d{1,2}:\d{2}|\d{1,2}:\d{2}\s*[AP]M\s+July\s+[4-9]\b/i.test(txt), `a July 4-9 date is rendered at tick ${tick}`);
     }
     t.note('clock day by tick', seen);
     assertEq(S.collector.firstParty, [], 'errors');
@@ -714,7 +787,10 @@ suite.test('T0-CLK-03', 'static: the built entry keeps none of the three "+2" da
   const hits = [...entry.matchAll(/July \$\{\w+\+2\}|\$\{\w+\+2\}, 1863|July \$\{\w+\+2\}, /g)].map((m) => m[0]);
   t.note('"+2" formulas found', hits);
   assertEq(hits, [], 'entry still contains the +2 date formulas');
-  assert(/`July \$\{l\}, 1863`/.test(entry) && /\$\{l\} July \$\{f\}`/.test(entry) && /`July \$\{f\}, \$\{R\}:/.test(entry), 'the three corrected formulas are not in the entry');
+  if (GROUPS.includes('CLOCK')) {   // CLOCK replaces group B's three corrected template strings by calls of its one clock module (GTBGT.f(frame, style)); the dynamic proof is T0-CLK-01/02 and tests/t0/clock.spec.mjs
+    const routed = ['date', 'compat'].filter((style) => !new RegExp('GTBGT\\.f\\(\\w+,"' + style + '"\\)').test(entry));
+    assertEq(routed, [], 'the entry does not print its dates through the clock module (GTBGT.f(frame, "date" | "compat"))');
+  } else assert(/`July \$\{l\}, 1863`/.test(entry) && /\$\{l\} July \$\{f\}`/.test(entry) && /`July \$\{f\}, \$\{R\}:/.test(entry), 'the three corrected formulas are not in the entry');
 });
 
 suite.test('T0-DATA-01', 'a first load straight onto tick 451 requests all three days of data (47 files) and shows the played-through state', async (t) => {
@@ -734,7 +810,7 @@ suite.test('T0-DATA-01', 'a first load straight onto tick 451 requests all three
   } finally { await closeSession(S); }
 });
 
-suite.test('T0-DATA-02', 'tick 1 keeps >= 71 units after day 2 (and day 3) data loads: per-tick merge, not overwrite', async (t) => {
+suite.test('T0-DATA-02', 'tick 1 keeps its units (>= 71 on R1c, the own played-through count of the tree elsewhere) after day 2 (and day 3) data loads: per-tick merge, not overwrite', async (t) => {
   needGroup('B');
   const S = await open({ profile: 'blocked', tiles: 'block' });
   try {
@@ -747,8 +823,8 @@ suite.test('T0-DATA-02', 'tick 1 keeps >= 71 units after day 2 (and day 3) data 
     await sleep(600);
     await clickDayTab(S.page, 1, false); const s2 = await waitState(S.page, (s) => s.tick === 1 && s.units >= 1, 'tick 1 again', 3000);
     t.note('tick-1 units: day1 only / after day 2 / after day 3', [s0.units, s1.units, s2.units]);
-    assert(s1.units >= 71, `tick 1 shows ${s1.units} units after day 2 loaded (need >= 71)`);
-    assert(s2.units >= 71, `tick 1 shows ${s2.units} units after day 3 loaded (need >= 71)`);
+    assert(s1.units >= Math.max(s0.units, unitsAtTick1([1, 2])), `tick 1 shows ${s1.units} units after day 2 loaded (need >= ${Math.max(s0.units, unitsAtTick1([1, 2]))}: day 1 alone showed ${s0.units})`);
+    assert(s2.units >= Math.max(s0.units, unitsAtTick1([1, 2, 3])), `tick 1 shows ${s2.units} units after day 3 loaded (need >= ${Math.max(s0.units, unitsAtTick1([1, 2, 3]))})`);
     assertEq(s0.units, carryForward([1], 1).size, 'day 1 only: tick 1 units (70 have a keyframe; the intro-primed ghosts are gone)');
     assertEq(S.collector.firstParty, [], 'errors');
   } finally { await closeSession(S); }
@@ -792,22 +868,29 @@ suite.test('T0-DATA-04', 'a day whose every file fails to load is not marked loa
   } finally { srv.setBlocked([]); await closeSession(S); }
 });
 
-suite.test('T0-MM-01', 'the minimap footer (unit count and tick) follows the ticks during play (subscribe fix)', async (t) => {
+suite.test('T0-MM-01', 'the minimap footer (unit count and tick; on a CLOCK tree the unit count and the clock) follows the ticks during play (subscribe fix)', async (t) => {
   needGroup('B');
   const S = await shared(); const p = S.page;
-  await clickDayTab(p, 1); await waitState(p, (s) => s.tick === 1, 'tick 1');
+  await clickDayTab(p, 1); const s0 = await waitState(p, (s) => s.tick === 1, 'tick 1');
+  const legacyCaption = s0.mmTick !== null;                     // an older tree prints "n units . tick m"; a CLOCK tree prints "n units . about 5:00 AM" (CLOCK-README: the tick is no longer text)
   await p.locator('button:text-is("8x")').click(); await playBtn(p).click();
-  const a = await waitState(p, (s) => s.mmTick >= 20, 'minimap tick >= 20', 10000);
+  const a = await waitState(p, (s) => (legacyCaption ? s.mmTick >= 20 : s.tick >= 20 && s.mmLabel === s.clockLabel), legacyCaption ? 'minimap tick >= 20' : 'minimap clock label == toolbar clock label at tick >= 20', 10000);
   await sleep(600); const b = await readState(p);
   await playBtn(p).click(); await sleep(300);
   await p.locator('button:text-is("1x")').click();
-  t.note('minimap', [[a.units, a.mmTick], [b.units, b.mmTick]]);
+  t.note('minimap', [[a.units, a.mmTick, a.mmLabel, a.tick], [b.units, b.mmTick, b.mmLabel, b.tick]]);
   const inkPlay = await inkCount(p, 'minimap');
   await clickDayTab(p, 3); await waitState(p, (s) => s.tick === 451, 'tick 451'); await sleep(600);
   const ink3 = await inkCount(p, 'minimap'); t.note('minimap canvas pixel checksum (tick ~30 / tick 451)', [inkPlay, ink3]);
   assert(inkPlay > 0 && ink3 > 0 && ink3 !== inkPlay, 'the minimap canvas did not redraw when the tick changed (frozen at tick 1)');
-  assert(b.mmTick > a.mmTick, 'the minimap tick did not advance'); assert(a.units > 70, `minimap count did not change from the tick-1 value (${a.units})`);
-  assertEq(b.mmTick, b.tick, 'minimap tick == toolbar tick');
+  if (legacyCaption) { assert(b.mmTick > a.mmTick, 'the minimap tick did not advance'); assertEq(b.mmTick, b.tick, 'minimap tick == toolbar tick'); }
+  else {
+    // CLOCK tree: the minimap prints the clock of the frame it draws; it must equal the toolbar's clock at the same snapshot, and it must have moved off the first moment's label
+    assert(b.tick > a.tick, `the clock did not advance during play (${a.tick} -> ${b.tick})`);
+    assertEq(b.mmLabel, b.clockLabel, 'minimap clock label == toolbar clock label');
+    assert(a.mmLabel !== s0.mmLabel && b.mmLabel !== s0.mmLabel, `the minimap caption still reads the first moment's clock (${s0.mmLabel}) at tick ${b.tick}`);
+  }
+  assert(a.units > unitsAtTick1([1]), `minimap count did not change from the tick-1 value (${a.units}, tick-1 value ${unitsAtTick1([1])})`);
   await clickDayTab(p, 1); await waitState(p, (s) => s.tick === 1, 'tick 1');
 });
 

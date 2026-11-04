@@ -87,18 +87,18 @@ test('the footprint: positive, grows with detail and selection, holds its own pa
   // POLISH 1: the armies face each other, and the box hangs from the true position (the pip, the foot of the staff)
   for (const [kind, flag] of [['regiment', false], ['brigade', true]]) {
     const mk = (side) => ({ flag, side, short: '71 PA', name: flag ? "Harrow's Bde" : '71st Pennsylvania Infantry', idOnly: false, count: null, ech: flag ? 1 : 0 });
-    for (const z of [13.5, 16.5]) { const u = plan(spec, P, mk('union'), z, false); const c = plan(spec, P, mk('confederate'), z, false);
+    for (const z of (flag ? [13.5, 16.5] : [14.5, 16.5])) { const u = plan(spec, P, mk('union'), z, false); const c = plan(spec, P, mk('confederate'), z, false);      // a regiment is a bare pip (nothing to hang) below zoom 14
       assert.equal(u.w, c.w, `${kind} z${z}: the two armies reserve the same width`); assert.ok(u.dx > 0 && c.dx < 0 && Math.abs(u.dx + c.dx) < 1e-9, `${kind} z${z}: Union hangs to the right of its place, Confederate to the left: ${u.dx} ${c.dx}`);
       assert.ok(Math.abs(u.dx) <= u.w / 2, `${kind}: the true position lies inside the box`); assert.equal(u.sgn, 1); assert.equal(c.sgn, -1); }
   }
   assert.ok(plan(spec, P, { flag: true, side: 'confederate', short: 'x', name: 'x', count: null, ech: 1 }, 15, false).dy < -5, 'the box of a standard hangs above the foot of its staff');
-  const noName = plan(spec, P, { flag: false, side: 'union', short: '71 PA', name: '71st Pennsylvania Infantry', idOnly: false, count: null, ech: 0 }, 16.5, false); const code = plan(spec, P, { flag: false, side: 'union', short: '71 PA', name: '71st Pennsylvania Infantry', idOnly: false, count: null, ech: 0 }, 13.5, false);
+  const noName = plan(spec, P, { flag: false, side: 'union', short: '71 PA', name: '71st Pennsylvania Infantry', idOnly: false, count: null, ech: 0 }, 17, false); const code = plan(spec, P, { flag: false, side: 'union', short: '71 PA', name: '71st Pennsylvania Infantry', idOnly: false, count: null, ech: 0 }, 14.5, false);
   assert.ok(noName.showName && noName.codeW === 0 && code.codeW > 0 && !code.showName, 'the full name replaces the code: they are never printed side by side');
 });
 
 test('the legend: one short sentence per drawn value, each with a legal evidence label', () => {
   for (const s of QUIET_NIGHT) {
-    const rows = s.legend(); assert.ok(rows.length >= 17, `${s.id}: ${rows.length} rows`);
+    const rows = s.legend(); assert.ok(rows.length >= 10 && rows.length <= 16, `${s.id}: ${rows.length} rows (round 2: a short list, the figure above it carries the rest)`);
     for (const r of rows) { assert.ok(r.text.length > 6 && r.text.length <= 84, `${r.text.length}: ${r.text}`); assert.ok([...EVIDENCE, 'Design'].includes(r.evidence), r.evidence); assert.ok(!/:\s.*:\s/.test(r.text) || r.text.length < 80, r.text); }
   }
   for (const k of ['side', 'arm', 'fix', 'strength', 'aggregate', 'idOnly', 'selection', 'pin', 'echelon']) assert.ok(CHANNELS[k], k);
@@ -126,7 +126,7 @@ test('the pip stands on the true position of its unit (the foot of the staff on 
     let n = 0; let worst = 0; let right = 0; let left = 0;
     for (const t of e.frame.tiles) {
       if (t.life !== 'live' || t.kind !== 'leaf' || t.displaced || t.opacity < 0.99 || t.entering) continue;
-      const sgn = t.side === 'confederate' ? -1 : 1; const near = ['brigade', 'division', 'corps', 'army'].includes(t.unit.kind) ? R + 1 : R + P['pip.size'] / 2; const pip = t.x - sgn * (t.w / 2 - near); worst = Math.max(worst, Math.abs(pip - t.ax)); n++; if (sgn > 0) right++; else left++;
+      const sgn = t.side === 'confederate' ? -1 : 1; const near = ['brigade', 'division', 'corps', 'army'].includes(t.unit.kind) ? R + P['foot.size'] * ({ brigade: 1, division: 1 + 0.22 * 0.45, corps: 1 + 0.45 * 0.45, army: 1 + 0.45 * 0.45 }[t.unit.kind]) / 2 : R + P['pip.size'] / 2; const pip = t.x - sgn * (t.w / 2 - near); worst = Math.max(worst, Math.abs(pip - t.ax)); n++; if (sgn > 0) right++; else left++;
     }
     assert.ok(n > 15, `z${zoom}: ${n} undisplaced marks`); assert.ok(worst <= 1.5 + 1e-6, `z${zoom}: a mark that is not displaced stands ${worst} px from its true position (the engine calls 1.5 px displaced)`); assert.ok(right > 0 && left > 0, 'both armies on the field');
   }
@@ -134,7 +134,7 @@ test('the pip stands on the true position of its unit (the foot of the staff on 
   const e = makeEngine({ start: { tick: 551, lat: 39.8117, lng: -77.2347, zoom: 16 }, viewport: { w: 1440, h: 900 } });
   for (const s of ALL) e.kernel.skins.register(s.id, s, { replace: true }); e.tuning.set('skin.id', 'quiet-cartographer'); e.tuning.set('layout.labels', false);
   for (let i = 0; i < 90; i++) e.step(16.667);
-  const pick = e.frame.tiles.find((t) => t.life === 'live' && t.kind === 'leaf' && !t.displaced && t.opacity > 0.99 && t.unit && t.unit.id === 'C-53VA') || e.frame.tiles.find((t) => t.life === 'live' && t.kind === 'leaf' && !t.displaced && t.opacity > 0.99 && t.side === 'confederate');
+  const pick = e.frame.tiles.find((t) => t.life === 'live' && t.kind === 'leaf' && !t.displaced && t.opacity > 0.99 && t.unit && t.unit.id === 'C-53VA') || e.frame.tiles.find((t) => t.life === 'live' && t.kind === 'leaf' && !t.displaced && t.opacity > 0.99 && t.side === 'confederate' && !['brigade', 'division', 'corps', 'army'].includes(t.unit.kind) && t.unit.designation);      // a regiment: a formation's name is already out
   assert.ok(pick, 'a Confederate leaf'); const id = pick.ids[0]; let worst = 0; let w0 = null; let w1 = 0;
   for (let i = 0; i < 80; i++) { if (i === 5) e.select(id); const f = e.step(16.667); const t = f.tiles.find((q) => q.life === 'live' && q.ids[0] === id && q.kind === 'leaf'); if (!t) continue; if (w0 === null) w0 = t.w; w1 = t.w; if (!t.displaced) worst = Math.max(worst, Math.abs(t.x + (t.w / 2 - (R + P['pip.size'] / 2)) - t.ax)); }
   assert.ok(w1 > w0 + 3, `the box grew (${w0} to ${w1})`); assert.ok(worst < 0.05, `the pip moved ${worst} px while the name grew`);
@@ -149,7 +149,7 @@ test('aggregates name only what their members share: both sides, a formation, or
     assert.ok(/^\d+$/.test(a.badge), 'the badge is the plain count: ' + a.badge); assert.equal(+a.badge, a.n);
     assert.ok(a.side !== 'mixed' || (a.nSides.union > 0 && a.nSides.confederate > 0), 'a standard says both sides only for Union and Confederate units');
     if (a.side === 'mixed') assert.equal(a.short, 'Both sides');
-    else if (a.nameKind === 'scope') { assert.ok(/^(Union|Confederate|Side unknown|(I|II|III|IV|V|VI|XI|XII)(, (I|II|III|IV|V|VI|XI|XII))*? Corps|\d+ corps)$/.test(a.short), 'scope name: ' + a.short); assert.ok(a.ftail === null || /^(, \d+ unlisted|, unlisted)?(, \d+ contested)?$/.test(a.ftail), 'scope tail: ' + a.ftail); }
+    else if (a.nameKind === 'scope') { assert.ok(/^(of (\d+(st|nd|rd|th)(, \d+(st|nd|rd|th))* Corps|\d+ corps)( \+ \d+ (regiments?|artillery|cavalry|units?))?|(Union|Confederate) (regiments?|artillery|cavalry|units?)|units of unknown side)(, \d+ of unknown side)?$/.test(a.short), 'scope name: ' + a.short); assert.ok(a.ftail === null, 'scope tail: ' + a.ftail); }
     assert.ok(!/Contact|\+\d+$/.test(a.short) && !/Contact|\+\d+$/.test(a.ftail || ''), a.short);
   }
 });

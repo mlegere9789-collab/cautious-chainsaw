@@ -1,0 +1,19 @@
+XII-16 reader notes (60 claims; reports OR27-1-R312 Ireland 137th NY, R313 Barnum 149th NY, R314 Muhlenberg artillery brigade)
+Counts per fc: passed_full_read 35, corrected 25, downgraded 0, split 0 (no add[]). Validator: errors 0, missing 0.
+
+Patterns (claims may count twice):
+- time from another sentence / clause: 6 (149ny-03 6 p.m. is the skirmish sentence; art-10 and art-pae-08 hour/morning in other sentences; art-5usk-07, art-pae-06 'About noon' heads the First Division move; art-5usk-08 3.30/5 p.m. belong to Knap's guns)
+- merged second report: 0 (art-1nym-06 carried a support clause, 5th Connecticut / 13th New Jersey, not in R314: removed)
+- later order ignored: 0
+- compass/road/place gloss: 4 (137ny-12 place from earlier sentence; art-15 place 'line of intrenchments' from a later sentence; 137ny-03 'on the left'; art-1nym-06 'east of Gettysburg')
+- hedge/condition dropped or overstated: 3 (137ny-13 footnote 'But see revised statement, p. 185' and no missing figure; 149ny-06 regiment, not three companies, began to fall back; art-pae-07 enemy opening hour not 3.30)
+- unit-identity gloss: 1 (137ny-09 '(First Corps)' added; art-5usk-09 '(remaining sections)')
+- OCR digit/caliber read with confidence: 10 (art-4usf-05, art-1nym-06, art-5usk-07, art-pae-06 'li miles' read 1.5; art-pae-07, art-pae-09 'gO-pounder' read 10-pounder; art-12, art-13 'IS-pouiider' read 12-pounder; 149ny-10 guess '1 p.m.'; 149ny-06 meridian glyph kept as OCR)
+- meridian inferred: 3 (137ny-08, 137ny-10, 149ny-09; mer true)
+- compiler sums/labels: 4 (art-13 'twenty guns' sum; art-pae-12 and art-1nym-09 '(through July 3)'; art-4usf-03 'the corps marched', 'Brentsville' dropped)
+- other: 137ny-09, 149ny-09 clause trimmed
+
+Unit ids where the clause does not name the unit (identity from an earlier sentence or the author's command), kept as printed:
+art-4usf-04, art-1nym-05, art-4usf-05, art-1nym-06, art-4usf-06, art-1nym-07 (F and M named only in 'Two batteries (F ... and M ...) with First Division' earlier); art-5usk-07, art-pae-06 (K and Knap's from the earlier Second Division sentence); art-pae-08 (clause names no battery; the guns placed there in the next sentence are Knap's); art-07, art-08, art-09 and art-10..16, art-17 are brigade-level (author's own command).
+
+Systematic: 'July i' in R314 is an OCR glyph for 1, settled by the sequence (30th, 'same day', 'morning of the 2d'); recorded in dbasis, no t involved. Footnote text 'But see revised statement, p. 185' is displaced mid-text in R312/R313 normalisation; whether it qualifies the casualty list could not be settled. The 'li miles' and 'IS-pouiider'/'gO-pounder' readings recur across the artillery claims; later artillery batches should treat them alike.

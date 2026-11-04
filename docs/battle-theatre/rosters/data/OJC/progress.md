@@ -1,0 +1,13 @@
+# OJC progress (one line per step)
+
+- 2026-10-30 21:40 read CLAUDE.md, DEC-019 (owner: no permission requests, get public rosters yourself), PLAN, pilot, schema, OOB; scope fixed at 39 OOB units (13 OH inf, 12 NJ inf, 5 CT inf, 2 cavalry, 7 batteries).
+- 2026-10-30 21:56 Internet Archive advancedsearch: found Ohio vols, Stryker vols 1-2, CT Catalogue 1869 (all NOT_IN_COPYRIGHT, none access-restricted). Item-metadata requests were slow; stopped after 7, flags taken from search results.
+- 2026-10-30 22:00 downloaded Stryker vols 1-2 and CT Catalogue text; djvu.xml for each; Ohio vols 3-11 text and xml; sha256 in acquired.json. Ohio vol 2 Google copy HTTP 504 x3, second copy bwb_W9-BTC-637 fetched instead.
+- CT parser: columns anchored on the month word, ditto marks resolved; 7 units written. Found and fixed: stripped word text, per-page column shift, dropped ditto marks.
+- NJ parser: company-letter sequence rule, page ranges from the table of contents (offsets measured), cavalry and Battery B from vol 2. Fixed: company heading OCR (Gr, Or), leading row numbers, rows without name in the text layer.
+- Ohio parser: month-anchored date cell, header-measured columns, vol 2 scale 0.79, regiment page ranges from running headers (explicit for vol 2 and cavalry), light artillery batteries H, I, K, L (first attempt hit the 117th OVI / heavy artillery pages; corrected to leaves 379-458 of vol 10).
+- Label rules in lab.py; regression strings in its self-test. Page-image sample 1 (CT 681), 2 (NJ 576), 3 (Ohio v6 548), 4 (Ohio v2 160): 212 rows, 0 hard errors after fixes; defects listed in QA-SAMPLE.md.
+- Audit of all Present-Documented remarks found two false rules (date-only casualty, em-dash split); fixed and re-run on all units.
+- OR 27/1 officer lists: 40 officers read, 9 roster rows upgraded, 13 confirmed, 9 unmatched (listed).
+- stats.json, README.md, QA-SAMPLE.md, SOURCES.csv rows (U12, U14, U17 FETCHED; OJC01-OJC05), GAPS.md (G-OJC1 to G-OJC8).
+- 2026-10-30 independent audit (second agent): hashes 49 of 49 match; rights flags re-read, no lending-restricted or blocked source; seed-41 sample of 60 rows read on 57 page images: names 40 of 59 exact (R-G1 fails), 0 hard errors in the sample, 12 labels weaker than the page. Systematic defects D1 to D12 found (merged remarks, unit pages running into the next regiment, page furniture published as men, remark verbs in the wrong cell, missing separation verbs, 23rd NJ ditto marks, NJ year misreads, 8th and 75th Ohio company letters, CT staff ranks) and repaired; frozen copy in `_pre_audit/`, changes and results in `AUDIT.md`; family now 55,062 rows (1,097 P, 21,050 A, 32,915 U); R-G1, R-G2, R-G3, R-G8, R-G9 not met.

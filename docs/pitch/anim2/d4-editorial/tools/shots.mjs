@@ -24,9 +24,18 @@ const SCENES = [
   { id: 'S5-phone-z14.5-t556', q: q('scene=fresh2&tick=556&zoom=14.5', QUIET), select: '53 VA', phone: true },
   { id: 'S6-event-and-story-in-situ-z15.5-t551', q: q('scene=fresh2&tick=551&zoom=15.5', { 'popup.hints.enabled': false }), crop: true },
   { id: 'S7-legend-z15.5-t551', q: q('scene=fresh2&tick=551&zoom=15.5', QUIET), legend: true, crop: true },
-  { id: 'S8-hover-tooltip-z16.5-t556', q: q('scene=fresh2&tick=556&zoom=16.5', QUIET), hover: '53 VA', crop: true },
+  { id: 'S8-hover-tooltip-z16.5-t556', q: q('scene=fresh2&tick=556&zoom=16.5', QUIET), hover: '53 VA', crop: true, noFrame: true },
 ];
 
+// FRAME_JS: the scene is framed, not cropped: the camera is shifted by at most 90 px (never the zoom) to the place where the fewest marks stand in the band of the stage's edge (where a mark would dissolve),
+// so no hero picture shows a half-faded mark.  Layout does not depend on the view (every unit is placed), so the count is exact for the shifted frame.
+const FRAME_JS = (maxShift) => `(() => { const S = window.__studio; const f = S.engine.frame; const sr = document.getElementById('stage').getBoundingClientRect(); const W = sr.width; const H = sr.height; const band = 18;
+  const boxes = []; for (const t of f.tiles) { if (t.life !== 'live' || !t.solid) continue; const hw = t.w * t.scale / 2; const hh = t.h * t.scale / 2; let x0 = t.x - hw; let x1 = t.x + hw; let y0 = t.y - hh; let y1 = t.y + hh; const L = t.label; if (L && L.opacity > 0.05) { x0 = Math.min(x0, L.x0); x1 = Math.max(x1, L.x1); y0 = Math.min(y0, L.y0); y1 = Math.max(y1, L.y1); } boxes.push([x0, y0, x1, y1]); }
+  const cost = (dx, dy) => { let n = 0; for (const b of boxes) { const x0 = b[0] + f.view.dx + dx; const x1 = b[2] + f.view.dx + dx; const y0 = b[1] + f.view.dy + dy; const y1 = b[3] + f.view.dy + dy; if (x1 < 0 || x0 > W || y1 < 0 || y0 > H) continue; if (x0 < band || y0 < band || x1 > W - band || y1 > H - band) n++; } return n; };
+  let best = { dx: 0, dy: 0, n: cost(0, 0) }; const n0 = best.n; const M = ${maxShift};
+  for (let dx = -M; dx <= M; dx += 6) for (let dy = -M; dy <= M; dy += 6) { const n = cost(dx, dy); const pen = Math.hypot(dx, dy) / 400; if (n + pen < best.n + Math.hypot(best.dx, best.dy) / 400 - 1e-9) best = { dx, dy, n }; }
+  if (best.dx || best.dy) S.engine.shiftView(best.dx, best.dy);
+  return { before: n0, after: best.n, dx: best.dx, dy: best.dy }; })()`;
 const srv = await serve(PORT); const results = [];
 try {
   for (const phone of [false, true]) {
@@ -53,8 +62,9 @@ try {
             if (sc.phone) { await b.page.evaluate(`window.__studio.host.openRail('unit-card:sel-' + ${JSON.stringify(target)})`); await settle(b.page, 90); }
           }
         }
-        if (sc.legend) { await b.page.click('.pc[data-popup="legend"] .pc-pill'); await settle(b.page, 120); }
-        const chk = await b.page.evaluate(frameCheck);
+        if (sc.legend) { await b.page.click('#topbar button:has-text("Legend")'); await settle(b.page, 120); }
+        let framing = null; if (!sc.phone && !sc.noFrame) { framing = await b.page.evaluate(FRAME_JS(90)); if (framing.dx || framing.dy) await settle(b.page, 90); }
+        const chk = await b.page.evaluate(frameCheck); chk.framing = framing;
         const sfx = LOOK === 'paper' ? '' : '-' + LOOK; const file = path.join(OUT, sc.id + sfx + '.' + FMT);
         await b.page.screenshot(FMT === 'png' ? { path: file } : { path: file, type: 'jpeg', quality: 86 });
         let cropFile = null;

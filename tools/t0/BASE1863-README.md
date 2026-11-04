@@ -46,8 +46,15 @@ Version hash at the time of writing: `v1-65d491b8`. `BASE1863.json` embeds it; r
   `prefers-reduced-data` choose the normal level. `prefers-reduced-motion` turns the 200 ms cross-fade off.
 * **Beyond coverage**: every tile of the declared bounds exists, so a tile request never returns 404; outside the bounds nothing is requested and the ground colour shows. Tile errors (offline): a filter on the map's
   `error` event swallows errors of the `b1863-*` sources only (everything else is logged as before), shows the status line, and rebuilds the sources on `online` or the next `moveend` (at most every 8 s).
-* **Label, toggle, link**: one DOM box in the map container above the unit canvases (z-index 12): top centre on the desktop (below the toolbar, between the date widget and the zoom buttons), top left on the
-  phone (below the day tabs, clear of the attribution button, the legend and the minimap); the label wraps, the buttons are 44 px tall on touch devices. **Show what was changed** is a toggle button
+* **Label, toggle, link**: one DOM box in the map container above the unit canvases (z-index 12): home is the top of the map, right of the menu cluster and the day badge on the desktop, top left on the
+  phone; the label wraps, the buttons are 44 px tall on touch devices. **Placement** (`Placer` in `gtb63.js`): the label is permanent and must never stand on a card or other floating furniture (POLISH layout:
+  cards, unit card, legend, menu cluster, badge, overview, toasts, Mapbox controls; the phone shell's stack, pop-up, sheets, bars), so it reads their real rectangles (`FURN` selectors; a card that ANIM glides with
+  CSS `translate` counts as the hull of its start and end) and picks, among the corners at the edges of that furniture, the cheapest place where it fits, widest first (it wraps, never below 12 px text or
+  its controls); it stays while still free and returns home when home is free. It runs on a mutation of a furniture element, a resize or the end of a transition (not per frame), moves with `transform` (a move
+  is never a layout shift) and is not drawn until it is first placed (after 1.5 s at the CSS position if placement cannot run). The legend of "Show what was changed" is a panel under the box (above it when
+  there is no room), not part of the placement. On the phone shell the card stack is the one piece of furniture that may give way: when no free place exists the box takes the place that leaves the stack most
+  room and the stack is capped (`data-gtb63-room` on `.gtbg-mp-story`: portrait max-height, landscape top) as far as each card keeps 90 px; if even that is not enough the box stands where it overlaps least and
+  carries `data-conflict`. Counters: `window.__gtb63.place` (runs, moves, conflicts, yields, last). **Show what was changed** is a toggle button
   (`aria-pressed`, Enter and Space), its legend has the 15 classes with plain-language texts (colours are those of `PROVENANCE-LAYER/classes.json`), below z13 a note says to zoom in. Not remembered between visits
   (like every other tool toggle). **Show modern satellite is not offered** (the test greps the page and the entry).
 * **Attribution**: the raster source's `attribution` shows in the map's own attribution control: *Reconstruction, not a photograph. USDA NAIP 2013, USGS, Library of Congress, NPS, OpenStreetMap contributors*;

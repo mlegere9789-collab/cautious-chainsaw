@@ -1,0 +1,26 @@
+Batch XII-13: 60 claims (Candy's brigade regiments 5th/7th/29th/66th Ohio, 28th/147th PA; Kane's brigade report). Reports R295-R302.
+Validator: decisions 60, passed_full_read 48, corrected 12, downgraded 0, new split claims 1, missing 0, errors 0.
+
+Per pattern (claims touched):
+- time from another sentence: 3 (candy-5oh-11, kane-11, kane-12; plus 7oh-09 where the 11.30 p. m. was three sentences back) = 4
+- merged second report: 0
+- later order ignored: 0
+- compass/road gloss: 0
+- hedge/condition dropped or overstated activity: 4 (147pa-04 hill location; 147pa-09 "broke the line twice"; 29oh-13 relief not stated, only request and response; 5oh-10 occupation of intrenchments not tied to 11 a. m.)
+- place gloss / wrong place: 3 (7oh-12 destination "intrenchments" not named; 29oh-06 position at the firing was in rear; 29oh-12 meadow is where the enemy pressed other troops)
+- time overstated: 1 (29oh-10 order came "shortly after" 5.30, not at 5.30)
+- unit identity gloss: 0
+- OCR digit: 0 corrected (147pa-05 "2a" and 7oh-08 "1 was" are glyph slips already flagged; internal evidence settles them; noted)
+- meridian inferred: 4 annotated (7oh-11, 29oh-07, kane-15; none changed t)
+- other: dates not printed but taken from order of events were annotated with dbasis on 20+ passed claims.
+
+Split: POS-B-us-12c-2d-candy-5oh-10 (added: 5th Ohio occupied the intrenchments "very soon after this last repulse", same report R295, no hour).
+Downgraded: none.
+
+Unit-id notes: no brigade-id-on-regiment mismatches. Kane-08/09/10/11/12/13/14/15/16 are the Second Brigade and Kane's own report (matches). Candy-28pa-05 (28th PA relieved 29th Ohio) is quoted from Hayes's R298 report (29th Ohio author) but the unit is the 28th PA, which the passage names (acceptable).
+
+Systematic / for the lead:
+- kane-08 and kane-09 have place.printed = "the brigade"/"the rest of the division": unit labels, not places; kept as printed, ppd notes it.
+- 28pa-06/07 already tier inferred (printed "3d" read as July 2 from a second report, in the note); 28pa-08 "12.30 a. m. July 3" is consistent with that reading and was passed.
+- Conflict between Stevens (29oh ordered forward ~5.45), Hayes (5.30 command change then entering pits 5.45) and Flynn (28th PA relieved 29th Ohio after 12.30 a. m.) is a source conflict, not a fidelity defect; left as in the ledger.
+- Candy-29oh-10/11/12/13/14/15 take July 3 from Hayes's opening line; dbasis added.

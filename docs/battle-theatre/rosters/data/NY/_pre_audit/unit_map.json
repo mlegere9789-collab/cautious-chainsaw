@@ -1,0 +1,865 @@
+{
+ "family": "NY",
+ "note": "OOB units of the New York family (union_regiments_*.json, union_cavalry_artillery.json, union_artillery.json) with the NYSMM unit page that carries the Register PDF. roster_from names the unit whose roster file also covers this OOB entry.",
+ "units": {
+  "U-102NY": {
+   "designation": "102nd New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 262,
+   "oob_casualties": 57,
+   "brigade": "U-XII-2-3",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/102nd-infantry-regiment",
+   "roster_from": null
+  },
+  "U-104NY": {
+   "designation": "104th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 286,
+   "oob_casualties": 112,
+   "brigade": "U-I-2-1",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/104th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-107NY": {
+   "designation": "107th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 122,
+   "oob_casualties": 53,
+   "brigade": "U-I-2-1",
+   "nysmm_page": null,
+   "roster_from": null,
+   "note": "OOB DEFECT: this entry sits in Paul's brigade (U-I-2-1). OR 27 pt 1 organisation lists the 107th PENNSYLVANIA in that brigade, not a 107th New York (OR 27/1, I Corps, 2d Div, 1st Brig). The 107th New York is U-107NY-XII (Colgrove's brigade). No New York roster is built for this entry.",
+   "oob_defect": true
+  },
+  "U-107NY-XII": {
+   "designation": "107th New York Volunteer Infantry (XII Corps)",
+   "arm": "infantry",
+   "oob_strength": 319,
+   "oob_casualties": 9,
+   "brigade": "U-XII-1-3",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-2/107th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-108NY": {
+   "designation": "108th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 319,
+   "oob_casualties": 107,
+   "brigade": "U-II-3-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-2/108th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-111NY": {
+   "designation": "111th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 390,
+   "oob_casualties": 195,
+   "brigade": "U-II-3-3",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-2/111th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-119NY": {
+   "designation": "119th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 322,
+   "oob_casualties": 139,
+   "brigade": "U-XI-3-1",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-2/119th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-11NY": {
+   "designation": "11th New York Volunteer Infantry (Fire Zouaves)",
+   "arm": "infantry",
+   "oob_strength": 216,
+   "oob_casualties": 30,
+   "brigade": "U-III-2-1",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry/11th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-121NY": {
+   "designation": "121st New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 426,
+   "oob_casualties": 0,
+   "brigade": "U-VI-1-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-2/121st-infantry-regiment",
+   "roster_from": null
+  },
+  "U-122NY": {
+   "designation": "122nd New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 404,
+   "oob_casualties": 0,
+   "brigade": "U-VI-3-1",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-2/122nd-infantry-regiment",
+   "roster_from": null
+  },
+  "U-123NY": {
+   "designation": "123rd New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 463,
+   "oob_casualties": 26,
+   "brigade": "U-XII-1-1",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-2/123rd-infantry-regiment",
+   "roster_from": null
+  },
+  "U-124NY": {
+   "designation": "124th New York Volunteer Infantry (Orange Blossoms)",
+   "arm": "infantry",
+   "oob_strength": 238,
+   "oob_casualties": 129,
+   "brigade": "U-III-1-1",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-2/124th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-125NY": {
+   "designation": "125th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 392,
+   "oob_casualties": 203,
+   "brigade": "U-II-3-3",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-2/125th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-126NY": {
+   "designation": "126th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 455,
+   "oob_casualties": 229,
+   "brigade": "U-II-3-3",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-2/126th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-134NY": {
+   "designation": "134th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 357,
+   "oob_casualties": 162,
+   "brigade": "U-XI-2-1",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-2/134th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-136NY": {
+   "designation": "136th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 473,
+   "oob_casualties": 28,
+   "brigade": "U-XI-2-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-2/136th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-137NY": {
+   "designation": "137th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 423,
+   "oob_casualties": 137,
+   "brigade": "U-XII-2-3",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-2/137th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-140NY": {
+   "designation": "140th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 449,
+   "oob_casualties": 148,
+   "brigade": "U-V-2-3",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-2/140th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-145NY": {
+   "designation": "145th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 262,
+   "oob_casualties": 31,
+   "brigade": "U-XII-1-1",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-2/145th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-146NY": {
+   "designation": "146th New York Volunteer Infantry (Garrard's Zouaves)",
+   "arm": "infantry",
+   "oob_strength": 456,
+   "oob_casualties": 151,
+   "brigade": "U-V-2-3",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-2/146th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-147NY": {
+   "designation": "147th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 380,
+   "oob_casualties": 211,
+   "brigade": "U-I-1-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-2/147th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-149NY": {
+   "designation": "149th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 268,
+   "oob_casualties": 107,
+   "brigade": "U-XII-2-3",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-2/149th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-14BK": {
+   "designation": "14th Brooklyn (alias for U-84NY)",
+   "arm": "infantry",
+   "oob_strength": 0,
+   "oob_casualties": 0,
+   "brigade": "U-I-1-2",
+   "nysmm_page": null,
+   "roster_from": "U-84NY",
+   "note": "alias of the 84th NY (14th Brooklyn); same men"
+  },
+  "U-150NY": {
+   "designation": "150th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 765,
+   "oob_casualties": 91,
+   "brigade": "U-XII-1-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-2/150th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-154NY": {
+   "designation": "154th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 239,
+   "oob_casualties": 110,
+   "brigade": "U-XI-2-1",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-2/154th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-157NY": {
+   "designation": "157th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 463,
+   "oob_casualties": 155,
+   "brigade": "U-XI-3-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-2/157th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-2NY-CAV": {
+   "designation": "2nd New York Cavalry",
+   "arm": "cavalry",
+   "oob_strength": 384,
+   "oob_casualties": 10,
+   "brigade": "U-CAV-2-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/cavalry/2nd-cavalry-regiment",
+   "roster_from": null
+  },
+  "U-2NY-CAV-b": {
+   "designation": "2nd New York Cavalry (detachment, Richmond's brigade)",
+   "arm": "cavalry",
+   "oob_strength": 95,
+   "oob_casualties": 2,
+   "brigade": "U-CAV-3-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/cavalry/2nd-cavalry-regiment",
+   "roster_from": "U-2NY-CAV",
+   "note": "detachment of the 2nd NY Cavalry (Richmond's brigade); the Register does not say which men were in the detachment"
+  },
+  "U-33NY": {
+   "designation": "33rd New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 68,
+   "oob_casualties": 0,
+   "brigade": "U-VI-2-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry/33rd-infantry-regiment",
+   "roster_from": null
+  },
+  "U-39NY": {
+   "designation": "39th New York Volunteer Infantry (Garibaldi Guard)",
+   "arm": "infantry",
+   "oob_strength": 268,
+   "oob_casualties": 98,
+   "brigade": "U-II-3-3",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry/39th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-40NY": {
+   "designation": "40th New York Volunteer Infantry (Mozart Regiment)",
+   "arm": "infantry",
+   "oob_strength": 431,
+   "oob_casualties": 89,
+   "brigade": "U-III-1-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry/40th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-41NY": {
+   "designation": "41st New York Volunteer Infantry (DeKalb Regiment)",
+   "arm": "infantry",
+   "oob_strength": 218,
+   "oob_casualties": 98,
+   "brigade": "U-XI-1-1",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry/41st-infantry-regiment",
+   "roster_from": null
+  },
+  "U-42NY": {
+   "designation": "42nd New York Volunteer Infantry (Tammany Regiment)",
+   "arm": "infantry",
+   "oob_strength": 197,
+   "oob_casualties": 46,
+   "brigade": "U-II-2-3",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry/42nd-infantry-regiment",
+   "roster_from": null
+  },
+  "U-43NY": {
+   "designation": "43rd New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 259,
+   "oob_casualties": 0,
+   "brigade": "U-VI-2-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry/43rd-infantry-regiment",
+   "roster_from": null
+  },
+  "U-44NY": {
+   "designation": "44th New York Volunteer Infantry (Ellsworth Avengers)",
+   "arm": "infantry",
+   "oob_strength": 391,
+   "oob_casualties": 149,
+   "brigade": "U-V-1-3",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry/44th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-45NY": {
+   "designation": "45th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 375,
+   "oob_casualties": 125,
+   "brigade": "U-XI-3-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry/45th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-49NY": {
+   "designation": "49th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 302,
+   "oob_casualties": 0,
+   "brigade": "U-VI-2-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/49th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-4NY-CAV": {
+   "designation": "4th New York Cavalry",
+   "arm": "cavalry",
+   "oob_strength": 328,
+   "oob_casualties": 8,
+   "brigade": "U-CAV-2-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/cavalry/4th-cavalry-regiment",
+   "roster_from": null
+  },
+  "U-52NY": {
+   "designation": "52nd New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 134,
+   "oob_casualties": 37,
+   "brigade": "U-II-1-3",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/52nd-infantry-regiment",
+   "roster_from": null
+  },
+  "U-54NY": {
+   "designation": "54th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 189,
+   "oob_casualties": 74,
+   "brigade": "U-XI-1-1",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/54th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-57NY": {
+   "designation": "57th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 175,
+   "oob_casualties": 71,
+   "brigade": "U-II-1-3",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/57th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-58NY": {
+   "designation": "58th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 199,
+   "oob_casualties": 95,
+   "brigade": "U-XI-3-1",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/58th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-59NY": {
+   "designation": "59th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 66,
+   "oob_casualties": 0,
+   "brigade": "U-II-2-3",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/59th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-5NY-CAV": {
+   "designation": "5th New York Cavalry",
+   "arm": "cavalry",
+   "oob_strength": 422,
+   "oob_casualties": 18,
+   "brigade": "U-CAV-3-1",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/cavalry/5th-cavalry-regiment",
+   "roster_from": null
+  },
+  "U-5NY-CAV-b": {
+   "designation": "5th New York Cavalry (detachment, Richmond's brigade)",
+   "arm": "cavalry",
+   "oob_strength": 80,
+   "oob_casualties": 1,
+   "brigade": "U-CAV-3-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/cavalry/5th-cavalry-regiment",
+   "roster_from": "U-5NY-CAV",
+   "note": "detachment of the 5th NY Cavalry (Richmond's brigade); the Register does not say which men were in the detachment"
+  },
+  "U-60NY": {
+   "designation": "60th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 273,
+   "oob_casualties": 42,
+   "brigade": "U-XII-2-3",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/60th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-61NY": {
+   "designation": "61st New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 104,
+   "oob_casualties": 34,
+   "brigade": "U-II-1-1",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/61st-infantry-regiment",
+   "roster_from": null
+  },
+  "U-62NY": {
+   "designation": "62nd New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 253,
+   "oob_casualties": 9,
+   "brigade": "U-VI-3-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/62nd-infantry-regiment",
+   "roster_from": null
+  },
+  "U-63NY": {
+   "designation": "63rd New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 75,
+   "oob_casualties": 32,
+   "brigade": "U-II-1-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/63rd-infantry-regiment",
+   "roster_from": null
+  },
+  "U-64NY": {
+   "designation": "64th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 204,
+   "oob_casualties": 71,
+   "brigade": "U-II-1-4",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/64th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-65NY": {
+   "designation": "65th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 268,
+   "oob_casualties": 0,
+   "brigade": "U-VI-3-1",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/65th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-66NY": {
+   "designation": "66th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 147,
+   "oob_casualties": 82,
+   "brigade": "U-II-1-3",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/66th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-67NY": {
+   "designation": "67th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 281,
+   "oob_casualties": 0,
+   "brigade": "U-VI-3-1",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/67th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-68NY": {
+   "designation": "68th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 228,
+   "oob_casualties": 110,
+   "brigade": "U-XI-1-1",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/68th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-69NY": {
+   "designation": "69th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 75,
+   "oob_casualties": 36,
+   "brigade": "U-II-1-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/69th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-6NY-CAV": {
+   "designation": "6th New York Cavalry",
+   "arm": "cavalry",
+   "oob_strength": 374,
+   "oob_casualties": 16,
+   "brigade": "U-CAV-1-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/cavalry/6th-cavalry-regiment",
+   "roster_from": null
+  },
+  "U-70NY": {
+   "designation": "70th New York Volunteer Infantry (Excelsior Brigade 1st)",
+   "arm": "infantry",
+   "oob_strength": 288,
+   "oob_casualties": 71,
+   "brigade": "U-III-2-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/70th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-71NY": {
+   "designation": "71st New York Volunteer Infantry (Excelsior Brigade 2nd)",
+   "arm": "infantry",
+   "oob_strength": 243,
+   "oob_casualties": 60,
+   "brigade": "U-III-2-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/71st-infantry-regiment",
+   "roster_from": null
+  },
+  "U-72NY": {
+   "designation": "72nd New York Volunteer Infantry (Excelsior Brigade 3rd)",
+   "arm": "infantry",
+   "oob_strength": 305,
+   "oob_casualties": 88,
+   "brigade": "U-III-2-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/72nd-infantry-regiment",
+   "roster_from": null
+  },
+  "U-73NY": {
+   "designation": "73rd New York Volunteer Infantry (Excelsior Brigade 4th)",
+   "arm": "infantry",
+   "oob_strength": 349,
+   "oob_casualties": 126,
+   "brigade": "U-III-2-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/73rd-infantry-regiment",
+   "roster_from": null
+  },
+  "U-74NY": {
+   "designation": "74th New York Volunteer Infantry (Excelsior Brigade 5th)",
+   "arm": "infantry",
+   "oob_strength": 266,
+   "oob_casualties": 93,
+   "brigade": "U-III-2-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/74th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-76NY": {
+   "designation": "76th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 375,
+   "oob_casualties": 234,
+   "brigade": "U-I-1-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/76th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-77NY": {
+   "designation": "77th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 320,
+   "oob_casualties": 0,
+   "brigade": "U-VI-2-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/77th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-78NY": {
+   "designation": "78th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 198,
+   "oob_casualties": 33,
+   "brigade": "U-XII-2-3",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/78th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-80NY": {
+   "designation": "80th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 375,
+   "oob_casualties": 162,
+   "brigade": "U-I-3-1",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/80th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-82NY": {
+   "designation": "82nd New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 331,
+   "oob_casualties": 132,
+   "brigade": "U-II-2-1",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/82nd-infantry-regiment",
+   "roster_from": null
+  },
+  "U-83NY": {
+   "designation": "83rd New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 200,
+   "oob_casualties": 95,
+   "brigade": "U-I-2-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/83rd-infantry-regiment",
+   "roster_from": null
+  },
+  "U-84NY": {
+   "designation": "84th New York Volunteer Infantry (14th Brooklyn)",
+   "arm": "infantry",
+   "oob_strength": 318,
+   "oob_casualties": 135,
+   "brigade": "U-I-1-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/84th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-86NY": {
+   "designation": "86th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 287,
+   "oob_casualties": 90,
+   "brigade": "U-III-1-1",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/86th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-88NY": {
+   "designation": "88th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 90,
+   "oob_casualties": 35,
+   "brigade": "U-II-1-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/88th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-8NY-CAV": {
+   "designation": "8th New York Cavalry",
+   "arm": "cavalry",
+   "oob_strength": 339,
+   "oob_casualties": 33,
+   "brigade": "U-CAV-1-1",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/cavalry/8th-cavalry-regiment",
+   "roster_from": null
+  },
+  "U-94NY": {
+   "designation": "94th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 411,
+   "oob_casualties": 195,
+   "brigade": "U-I-2-1",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/94th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-95NY": {
+   "designation": "95th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 241,
+   "oob_casualties": 99,
+   "brigade": "U-I-1-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/95th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-97NY": {
+   "designation": "97th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": 236,
+   "oob_casualties": 102,
+   "brigade": "U-I-2-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-1/97th-infantry-regiment",
+   "roster_from": null
+  },
+  "U-9NY-CAV": {
+   "designation": "9th New York Cavalry",
+   "arm": "cavalry",
+   "oob_strength": 473,
+   "oob_casualties": 15,
+   "brigade": "U-CAV-1-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/cavalry/9th-cavalry-regiment",
+   "roster_from": null
+  },
+  "U-ART-13NY": {
+   "designation": "13th New York Battery (Wheeler's)",
+   "arm": "artillery",
+   "oob_strength": 80,
+   "oob_casualties": 4,
+   "brigade": null,
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/artillery/13th-independent-battery-light-artillery-veteran",
+   "roster_from": null
+  },
+  "U-ART-15NY": {
+   "designation": "15th New York Battery (Hart's)",
+   "arm": "artillery",
+   "oob_strength": 73,
+   "oob_casualties": 4,
+   "brigade": null,
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/artillery/15th-independent-battery-light-artillery-veteran",
+   "roster_from": null
+  },
+  "U-ART-1NYIND": {
+   "designation": "1st New York Battery Independent (Cowan's)",
+   "arm": "artillery",
+   "oob_strength": 107,
+   "oob_casualties": 8,
+   "brigade": null,
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/artillery/1st-independent-battery-light-artillery-veteran",
+   "roster_from": null
+  },
+  "U-ART-3NY": {
+   "designation": "3rd New York Battery Independent",
+   "arm": "artillery",
+   "oob_strength": 114,
+   "oob_casualties": 4,
+   "brigade": null,
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/artillery/3rd-independent-battery-light-artillery-veteran",
+   "roster_from": null
+  },
+  "U-ART-4NYIND": {
+   "designation": "4th New York Battery Independent (Smith's)",
+   "arm": "artillery",
+   "oob_strength": 107,
+   "oob_casualties": 19,
+   "brigade": null,
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/artillery/4th-independent-battery-light-artillery",
+   "roster_from": null
+  },
+  "U-ART-5NY": {
+   "designation": "5th New York Battery",
+   "arm": "artillery",
+   "oob_strength": 114,
+   "oob_casualties": 2,
+   "brigade": null,
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/artillery/5th-independent-battery-light-artillery",
+   "roster_from": null
+  },
+  "U-ART-C1NY": {
+   "designation": "Battery C, 1st New York Artillery",
+   "arm": "artillery",
+   "oob_strength": 80,
+   "oob_casualties": 0,
+   "brigade": null,
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/artillery/1st-artillery-regiment-light/battery-c-1st-artillery-regiment-light",
+   "roster_from": null,
+   "battery": "C",
+   "roster_via": "U-1NYLA-REG",
+   "note": "Roster from the 1st NY Light Artillery regiment Register (all batteries in one PDF), selected by battery at 3 July 1863. Note: OR 27/1 places 1st NY Light Battery C (Barnes) with the V Corps; the OOB lists it with the Artillery Reserve."
+  },
+  "U-ART-D1NY": {
+   "designation": "Battery D, 1st New York Artillery (Winslow's)",
+   "arm": "artillery",
+   "oob_strength": 114,
+   "oob_casualties": 7,
+   "brigade": null,
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/artillery/1st-artillery-regiment-light/battery-d-1st-artillery-regiment-light",
+   "roster_from": null,
+   "battery": "D",
+   "roster_via": "U-1NYLA-REG"
+  },
+  "U-ART-G1NY": {
+   "designation": "Battery G, 1st New York Artillery (Ames's)",
+   "arm": "artillery",
+   "oob_strength": 107,
+   "oob_casualties": 6,
+   "brigade": null,
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/artillery/1st-artillery-regiment-light/battery-g-1st-artillery-regiment-light",
+   "roster_from": null,
+   "battery": "G",
+   "roster_via": "U-1NYLA-REG"
+  },
+  "U-ART-L1NY": {
+   "designation": "Battery L, 1st New York Artillery",
+   "arm": "artillery",
+   "oob_strength": 107,
+   "oob_casualties": 3,
+   "brigade": null,
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/artillery/1st-artillery-regiment-light/battery-l-1st-artillery-regiment-light",
+   "roster_from": null,
+   "battery": "L",
+   "roster_via": "U-1NYLA-REG"
+  },
+  "U-ART-L1NY-I": {
+   "designation": "Battery L, 1st New York Artillery (I Corps)",
+   "arm": "artillery",
+   "oob_strength": 107,
+   "oob_casualties": 10,
+   "brigade": null,
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/artillery/1st-artillery-regiment-light/battery-l-1st-artillery-regiment-light",
+   "roster_from": "U-ART-L1NY",
+   "note": "same battery listed a second time under I Corps artillery"
+  },
+  "U-ART-M1NY": {
+   "designation": "Battery M, 1st New York Artillery (Winegar's)",
+   "arm": "artillery",
+   "oob_strength": 80,
+   "oob_casualties": 1,
+   "brigade": null,
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/artillery/1st-artillery-regiment-light/battery-m-1st-artillery-regiment-light",
+   "roster_from": null,
+   "battery": "M",
+   "roster_via": "U-1NYLA-REG"
+  },
+  "U-ART-NYC": {
+   "designation": "New York Battery C (Roemer's)",
+   "arm": "artillery",
+   "oob_strength": 100,
+   "oob_casualties": 3,
+   "brigade": null,
+   "nysmm_page": null,
+   "roster_from": null,
+   "note": "OOB entry \"New York Battery C (Roemer's)\" in Taft's Second Volunteer Brigade could not be tied to a New York battery: OR 27 pt 1 organisation lists for that brigade 1st Conn Heavy Battery B and M, Conn Light 2d Battery and New York Light 5th Battery only, and the name Roemer does not occur in the OR 27 part 1 text held in the repository. Not guessed; no roster built."
+  }
+ },
+ "extra_units": {
+  "EXTRA-120NY": {
+   "designation": "120th New York Volunteer Infantry",
+   "arm": "infantry",
+   "oob_strength": null,
+   "oob_casualties": null,
+   "brigade": "U-III-2-2",
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/infantry-2/120th-infantry-regiment",
+   "roster_from": null,
+   "note": "NOT IN THE OOB FILE. OR 27 pt 1 organisation lists the 120th New York in Brewster's (Excelsior) brigade, III Corps, 2d Div, 2nd Brig (alongside the 70th-74th); the repository OOB lists only the 70th-74th for that brigade (U-III-2-2).",
+   "extra": true
+  },
+  "EXTRA-B1NY": {
+   "designation": "Battery B, 1st New York Light Artillery",
+   "arm": "artillery",
+   "oob_strength": null,
+   "oob_casualties": null,
+   "brigade": null,
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/artillery/1st-artillery-regiment-light",
+   "roster_from": null,
+   "note": "NOT IN THE OOB FILE. OR 27 pt 1 lists 1st New York Light, Battery B (Rorty, Sheldon) in the II Corps Artillery Brigade (Hazard).",
+   "extra": true,
+   "battery": "B"
+  },
+  "EXTRA-I1NY": {
+   "designation": "Battery I, 1st New York Light Artillery",
+   "arm": "artillery",
+   "oob_strength": null,
+   "oob_casualties": null,
+   "brigade": null,
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/artillery/1st-artillery-regiment-light",
+   "roster_from": null,
+   "note": "NOT IN THE OOB FILE. OR 27 pt 1 lists 1st New York Light, Battery I (Wiedrich) in the XI Corps Artillery Brigade (Osborn).",
+   "extra": true,
+   "battery": "I"
+  },
+  "EXTRA-K1NY": {
+   "designation": "Battery K, 1st New York Light Artillery",
+   "arm": "artillery",
+   "oob_strength": null,
+   "oob_casualties": null,
+   "brigade": null,
+   "nysmm_page": "https://museum.dmna.ny.gov/unit-history/artillery/1st-artillery-regiment-light",
+   "roster_from": null,
+   "note": "NOT IN THE OOB FILE. OR 27 pt 1 lists 1st New York Light, Battery K (Fitzhugh) with the Artillery Reserve, Fourth Volunteer Brigade.",
+   "extra": true,
+   "battery": "K"
+  }
+ }
+}

@@ -1,0 +1,217 @@
+{
+ "map_id": "loc-99447494-july1-2to330pm",
+ "scan_file": "tmp/library/troopmaps/commons_LOC99447494_july1_2to330pm.jpg",
+ "crs": "EPSG:32618",
+ "model": "affine map px -> UTM18N (georef.Model, normalised), fitted to 12 hand-read controls",
+ "coef": {
+  "A": [
+   [
+    1.1273368748923643e-14,
+    -1.2024926665518555e-13
+   ],
+   [
+    0.9872975859374549,
+    -0.0603488345139922
+   ],
+   [
+    -0.04235315566354236,
+    -1.0042428835767696
+   ]
+  ],
+  "c": [
+   2441.25,
+   1919.5833333333333
+  ],
+  "s": 663.6414245732361,
+  "dc": [
+   308592.0833333333,
+   4410867.466666667
+  ],
+  "ds": 1290.7931482454478
+ },
+ "pairs": [
+  {
+   "id": "STR-MCLEAN-BARN1",
+   "map_px": [
+    2247,
+    828
+   ],
+   "en": [
+    308291.0,
+    4413017.1
+   ],
+   "fit_m": 18.8,
+   "loo_m": 24.3,
+   "note": "lower of the two symbols beside printed 'M.McLean'"
+  },
+  {
+   "id": "STR-MCLEAN-HOUSE1",
+   "map_px": [
+    2250,
+    795
+   ],
+   "en": [
+    308312.6,
+    4413072.4
+   ],
+   "fit_m": 14.9,
+   "loo_m": 19.6,
+   "note": "upper symbol with enclosure"
+  },
+  {
+   "id": "STR-TOWN-PENN_HALL",
+   "map_px": [
+    2529,
+    1428
+   ],
+   "en": [
+    308811.8,
+    4411828.2
+   ],
+   "fit_m": 15.2,
+   "loo_m": 17.2,
+   "note": "largest building symbol of the 'Penn College' group"
+  },
+  {
+   "id": "W014",
+   "map_px": [
+    3266,
+    1636
+   ],
+   "en": [
+    310203.4,
+    4411349.1
+   ],
+   "fit_m": 24.9,
+   "loo_m": 39.3,
+   "note": "Hanover Rd crossing of Rock Creek"
+  },
+  {
+   "id": "W015",
+   "map_px": [
+    3173,
+    1401
+   ],
+   "en": [
+    310060.5,
+    4411762.5
+   ],
+   "fit_m": 38.0,
+   "loo_m": 56.7,
+   "note": "York Pike (railroad alongside) crossing of Rock Creek"
+  },
+  {
+   "id": "STR-MCPHERSON-BARN1",
+   "map_px": [
+    1764,
+    1335
+   ],
+   "en": [
+    307360.3,
+    4412087.0
+   ],
+   "fit_m": 20.7,
+   "loo_m": 29.7,
+   "note": "centre of the McPherson symbol cluster (label 'McPherson'); barn not individually identifiable"
+  },
+  {
+   "id": "STR-TOWN-SCHULTZ_HOUSE",
+   "map_px": [
+    2112,
+    1765
+   ],
+   "en": [
+    307991.3,
+    4411223.1
+   ],
+   "fit_m": 24.0,
+   "loo_m": 27.6,
+   "note": "centre of the 3-symbol cluster south of the 'In reserve' lane"
+  },
+  {
+   "id": "STR-MCMILLAN-HOUSE1",
+   "map_px": [
+    2093,
+    2099
+   ],
+   "en": [
+    307884.6,
+    4410600.0
+   ],
+   "fit_m": 48.4,
+   "loo_m": 56.1,
+   "note": "centre of the 3-symbol cluster at the wood edge"
+  },
+  {
+   "id": "STR-TOWN-DOBBIN_HOUSE",
+   "map_px": [
+    2619,
+    2126
+   ],
+   "en": [
+    308897.5,
+    4410435.2
+   ],
+   "fit_m": 20.6,
+   "loo_m": 22.9,
+   "note": "S-lettered symbol west of Steinwehr Ave"
+  },
+  {
+   "id": "W010",
+   "map_px": [
+    1862,
+    3317
+   ],
+   "en": [
+    307373.5,
+    4408175.0
+   ],
+   "fit_m": 32.2,
+   "loo_m": 56.8,
+   "note": "Emmitsburg Rd x Millerstown/Wheatfield Rd crossing"
+  },
+  {
+   "id": "W013",
+   "map_px": [
+    2711,
+    3728
+   ],
+   "en": [
+    308973.7,
+    4407314.5
+   ],
+   "fit_m": 16.7,
+   "loo_m": 31.5,
+   "note": "Taneytown Rd x Wheatfield Rd crossing"
+  },
+  {
+   "id": "F010",
+   "map_px": [
+    2669,
+    2577
+   ],
+   "en": [
+    308944.8,
+    4409545.5
+   ],
+   "fit_m": 32.4,
+   "loo_m": 38.2,
+   "note": "Leister house symbol (X mark) beside printed 'GEN. MEADE'S HDQ'"
+  }
+ ],
+ "accuracy": {
+  "n": 12,
+  "fit_rmse_m": 27.4,
+  "loo_rmse_m": 37.7,
+  "loo_median_m": 30.6,
+  "loo_max_m": 56.8,
+  "m_per_px": [
+   1.924,
+   1.955
+  ],
+  "previous_preliminary_loo_m": 48.8,
+  "honest_bound": "about 40 m (1 sigma) in the control region (px x 1760-3270, y 790-3730); the west of the sheet (x < 1700, Herr Ridge) and the far north and east have no hand control except the unused Black Horse Tavern; treat as 60 m there"
+ },
+ "method": "Same as hand_gt_a.json: ground-truth features of gt_j1.json located by eye in 3x-3.5x crops (gtmont.py, 20 px tick grid) centred on the coarse prediction of the 11 preliminary pairs; px = predicted centre + read offset. Building symbols on this sheet are 4-8 px squares; clusters of symbols under one printed owner name are read at the cluster centre with a larger sigma. Warren GCP features (bridges, road crossings, Leister house) have modern ground truth (NAIP/TIGER/DEM, maps/gcps/warren.json).",
+ "status": "used for the hour-labelled July 1 claims, sigma 40 m transform"
+}

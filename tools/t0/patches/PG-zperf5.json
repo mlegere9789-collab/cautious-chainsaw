@@ -1,0 +1,23 @@
+{
+ "group": "PG-zperf5",
+ "description": "Release 1 round 4: /ground-remembers adds its heat layer in a task of its own (phone blocking time); sorts after PG-zperf4",
+ "train": "R1f",
+ "patches": [
+  {
+   "id": "PERF5-ground-heat-task",
+   "target": "ground-remembers.html",
+   "find": "  map.on('load', () => {\n    map.addSource('scars'",
+   "repl": "  map.on('load', () => { setTimeout(() => {\n    map.addSource('scars'",
+   "expect": 1,
+   "note": "the heat layer (addSource with the placements, addLayer, the program precompile: 20 ms at 4x) and the slider and play handlers are set up in a timer task after the 'load' render instead of inside it"
+  },
+  {
+   "id": "PERF5-ground-heat-task-end",
+   "target": "ground-remembers.html",
+   "find": "        clearInterval(intervalId);\n      }\n    });\n  });\n});\n</script>",
+   "repl": "        clearInterval(intervalId);\n      }\n    });\n  }, 0); });\n});\n</script>",
+   "expect": 1,
+   "note": "closes the timer callback of the patch before"
+  }
+ ]
+}

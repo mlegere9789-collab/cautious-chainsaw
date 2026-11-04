@@ -1,0 +1,598 @@
+{
+  "pass": 112,
+  "verdict": "INCOMPLETE",
+  "startedAt": "2026-10-20T12:41:00.613Z",
+  "finishedAt": "2026-10-20T12:42:19.899Z",
+  "args": {
+    "_": [],
+    "candidate": "tmp/r1/r1-57caf9a3.zip",
+    "baseline": "baseline/dist",
+    "pass": "112",
+    "only": "2",
+    "soak-seconds": "60",
+    "port-base": "9500",
+    "out-dir": "docs/accept/r1"
+  },
+  "harness": {
+    "digest": "21167cbfe020b09c776cca57b2bf7eeb52c95b28c892c833224294f670dab259",
+    "files": 31
+  },
+  "countsTowardAcceptance": false,
+  "env": {
+    "node": "v24.19.0",
+    "python": "Python 3.11.9",
+    "chrome": "Chrome/155.0.8059.82",
+    "os": "Windows_NT 10.0.26200 x64",
+    "playwrightCore": "1.63.0",
+    "axeCore": "4.13.0",
+    "cpus": 16,
+    "cpuModel": "Intel(R) Core(TM) Ultra 7 265H",
+    "memGB": 34,
+    "gitHead": "17ba8ee789133164815e11c4f2e740de86524862",
+    "portBase": 9500,
+    "tileCap": 20000,
+    "tilesUsed": 123,
+    "mapboxMapLoadsSkus": 13,
+    "tilesCapBlocked": 0,
+    "soakSeconds": 60,
+    "serverHeadersApplied": {
+      "headerBlocks": 72,
+      "redirectRules": 23,
+      "redirected": 0,
+      "headersAdded": 2122
+    }
+  },
+  "candidate": {
+    "path": "tmp\\r1\\r1-57caf9a3.zip",
+    "kind": "zip",
+    "sha256": "88dd97d55d760eb1c466d3d978282ab7715a9b95f30360b471b6ba612d50a520",
+    "bytes": 40236369,
+    "files": 2013,
+    "treeSha256": "be55cd86d23a8a39207e4ec27990c6466e4e13f670e1990c059692f6710432f3",
+    "zipComment": ""
+  },
+  "baseline": "baseline\\dist",
+  "thresholds": {
+    "_comment": "Green band of the end-of-mission acceptance (docs/battle-theatre/GOVERNANCE/FINAL-ACCEPTANCE.md, step 5). Any value outside the band is a defect: there is no amber that passes. Never loosen these to make a pass clean.",
+    "webVitals": {
+      "lcpMs": 2500,
+      "cls": 0.1,
+      "inpMs": 200,
+      "tbtMs": 200
+    },
+    "frames": {
+      "p95FrameMsDesktop": 20,
+      "p95FrameMsPhone": 20,
+      "maxJankFrameMs": 100,
+      "_note": "p95 frame time of requestAnimationFrame deltas while the map animation plays at 1x and 4x. maxJankFrameMs is reported as a defect only when more than 1 percent of frames exceed it."
+    },
+    "interaction": {
+      "visibleResponseMs": 100,
+      "longTaskMs": 50,
+      "longTasksPerInteraction": 0,
+      "navigationFirstPaintMs": 1000
+    },
+    "heap": {
+      "maxGrowthPercent": 10,
+      "_note": "(heap after the final forced GC - heap after warm-up and a forced GC) / heap after warm-up, over the soak. Default soak is 120 s for dry runs; the acceptance run uses --soak-seconds 600."
+    },
+    "visual": {
+      "widths": [
+        360,
+        390,
+        768,
+        1024,
+        1440,
+        1920
+      ],
+      "heights": {
+        "360": 740,
+        "390": 844,
+        "768": 1024,
+        "1024": 768,
+        "1440": 900,
+        "1920": 1080
+      },
+      "tapTargetMinPx": 44,
+      "tapTargetAppliesUpToWidth": 1024,
+      "pointerTargetMinPx": 24,
+      "minTextPx": 12,
+      "layoutShiftMax": 0.1,
+      "horizontalOverflowTolerancePx": 1
+    },
+    "regression": {
+      "pixelColorThreshold": 0.1,
+      "maxDiffRatio": 0.002,
+      "regionGrid": [
+        8,
+        6
+      ],
+      "viewports": [
+        [
+          1440,
+          900
+        ],
+        [
+          390,
+          844
+        ]
+      ]
+    },
+    "setup": {
+      "tileCapPerRun": 20000,
+      "_note": "Mapbox requests per pass through the Referer-injecting side channel of tests/t0/lib.mjs (harness default 300 per run). Mapbox bills map loads (one sku per GL JS initialisation), not tile requests; every pass reports the number of skus it used. Override with --tile-cap."
+    }
+  },
+  "routes": [
+    "/404",
+    "/aftermath",
+    "/ar",
+    "/camera",
+    "/cinematic-export",
+    "/compare",
+    "/dashboard",
+    "/documentary",
+    "/education",
+    "/embed",
+    "/find-ancestor",
+    "/ground-remembers",
+    "/historian",
+    "/immersive",
+    "/",
+    "/living-ledger",
+    "/privacy",
+    "/regiment",
+    "/report",
+    "/sandbox",
+    "/search",
+    "/terms",
+    "/turning-points",
+    "/viewshed",
+    "/watch-together"
+  ],
+  "checks": [
+    {
+      "id": "2",
+      "title": "Static hygiene",
+      "status": "RAN",
+      "reason": null,
+      "defectCount": 0,
+      "noteCount": 6,
+      "notRunParts": [],
+      "ms": 75773,
+      "started": "2026-10-20T12:41:03.988Z",
+      "finished": "2026-10-20T12:42:19.441Z",
+      "commands": [],
+      "metrics": {
+        "parsed": {
+          "html": 25,
+          "css": 2,
+          "js": 5,
+          "json": 78,
+          "inlineScripts": 50,
+          "inlineStyles": 25
+        },
+        "crawl": {
+          "internalReferences": 229,
+          "uniqueTargets": 47,
+          "externalReferences": 31,
+          "externalHosts": {
+            "catalog.archives.gov": 2,
+            "api.mapbox.com": 25,
+            "www.metmuseum.org": 1,
+            "www.nps.gov": 1,
+            "www.mapbox.com": 1,
+            "policies.google.com": 1
+          },
+          "dynamicTemplateReferencesNotResolvable": 0,
+          "unreferencedFilesNote": 1887
+        },
+        "insecureUrls": 0,
+        "chrome": "Chrome/155.0.8059.82",
+        "mapLoads": {
+          "routes": 9,
+          "tileRequestsSeen": 123,
+          "statuses": {
+            "200": 123,
+            "204": 31
+          },
+          "refererInjected": 123,
+          "skus": 10
+        },
+        "routes": 25,
+        "serviceWorker": {
+          "install": {
+            "scope": "http://127.0.0.1:9500/",
+            "active": "http://127.0.0.1:9500/sw.js",
+            "state": "activated"
+          },
+          "afterReload": {
+            "controller": "http://127.0.0.1:9500/sw.js",
+            "caches": [
+              "gbg-r0-57caf9a3",
+              "mapbox-tiles"
+            ],
+            "cachedAssets": 18
+          },
+          "update": {
+            "waiting": true,
+            "installing": false,
+            "active": "activated"
+          },
+          "afterActivate": {
+            "active": "activated",
+            "waiting": false,
+            "caches": [
+              "mapbox-tiles",
+              "gbg-r0-57caf9a3-acceptance-update"
+            ],
+            "controller": true,
+            "loads": 1
+          }
+        }
+      },
+      "defects": [],
+      "notes": [
+        {
+          "code": "crawl-ignored",
+          "where": "-",
+          "detail": "5 string literals under /mapbox-gl-js/ ignored: prefix of the Mapbox CDN path (https://api.mapbox.com/mapbox-gl-js/...): Mapbox GL appends it to its own origin at runtime"
+        },
+        {
+          "code": "fragment-target-not-static",
+          "where": "index.html",
+          "detail": "#gt-map has no static id (may be created by script)"
+        },
+        {
+          "code": "fragment-target-not-static",
+          "where": "index.html",
+          "detail": "#gt-timeline has no static id (may be created by script)"
+        },
+        {
+          "code": "external-not-checked",
+          "where": "-",
+          "detail": "31 references to 6 external hosts were NOT requested (the run is offline by design): catalog.archives.gov, api.mapbox.com, www.metmuseum.org, www.nps.gov, www.mapbox.com, policies.google.com"
+        },
+        {
+          "code": "unreferenced-files",
+          "where": "-",
+          "detail": "apple-touch-icon-precomposed.png, icons.svg, tiles1863/v1-65d491b8/11/583/776.webp, tiles1863/v1-65d491b8/11/583/777.webp, tiles1863/v1-65d491b8/11/584/776.webp, tiles1863/v1-65d491b8/11/584/777.webp, tiles1863/v1-65d491b8/11/585/776.webp, tiles1863/v1-65d491b8/11/585/777.webp, tiles1863/v1-65d491b8/12/1167/1552.webp, tiles1863/v1-65d491b8/12/1167/1553.webp, tiles1863/v1-65d491b8/12/1167/1554.webp, tiles1863/v1-65d491b8/12/1168/1552.webp, tiles1863/v1-65d491b8/12/1168/1553.webp, tiles1863/v1-65d491b8/12/1168/1554.webp, tiles1863/v1-65d491b8/12/1169/1552.webp, tiles1863/v1-65d491b8/12/1169/1553"
+        },
+        {
+          "code": "mapbox-cdn-runtime-dependency",
+          "where": "-",
+          "detail": "8 pages load mapbox-gl.js/css from https://api.mapbox.com at runtime (SRI-pinned v3.24.1); the app bundles its own copy"
+        }
+      ],
+      "raw": {
+        "routeLoads": [
+          {
+            "route": "/404",
+            "mode": "block",
+            "status": 404,
+            "ms": 1336,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/aftermath",
+            "mode": "block",
+            "status": 200,
+            "ms": 1393,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/ar",
+            "mode": "block",
+            "status": 200,
+            "ms": 1440,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/dashboard",
+            "mode": "block",
+            "status": 200,
+            "ms": 1324,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/documentary",
+            "mode": "block",
+            "status": 200,
+            "ms": 1358,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/education",
+            "mode": "block",
+            "status": 200,
+            "ms": 1390,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/embed",
+            "mode": "block",
+            "status": 200,
+            "ms": 1288,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/find-ancestor",
+            "mode": "block",
+            "status": 200,
+            "ms": 1405,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/historian",
+            "mode": "block",
+            "status": 200,
+            "ms": 1457,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/living-ledger",
+            "mode": "block",
+            "status": 200,
+            "ms": 1354,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/privacy",
+            "mode": "block",
+            "status": 200,
+            "ms": 1386,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/regiment",
+            "mode": "block",
+            "status": 200,
+            "ms": 1356,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/report",
+            "mode": "block",
+            "status": 200,
+            "ms": 1370,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/search",
+            "mode": "block",
+            "status": 200,
+            "ms": 1451,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/terms",
+            "mode": "block",
+            "status": 200,
+            "ms": 1267,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/turning-points",
+            "mode": "block",
+            "status": 200,
+            "ms": 1375,
+            "mapCanvases": 0,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/camera",
+            "mode": "inject",
+            "status": 200,
+            "ms": 4430,
+            "mapCanvases": 1,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/cinematic-export",
+            "mode": "inject",
+            "status": 200,
+            "ms": 4191,
+            "mapCanvases": 1,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/compare",
+            "mode": "inject",
+            "status": 200,
+            "ms": 4191,
+            "mapCanvases": 2,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/ground-remembers",
+            "mode": "inject",
+            "status": 200,
+            "ms": 4308,
+            "mapCanvases": 1,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/immersive",
+            "mode": "inject",
+            "status": 200,
+            "ms": 4217,
+            "mapCanvases": 1,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/",
+            "mode": "inject",
+            "status": 200,
+            "ms": 4137,
+            "mapCanvases": 1,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/sandbox",
+            "mode": "inject",
+            "status": 200,
+            "ms": 4197,
+            "mapCanvases": 1,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/viewshed",
+            "mode": "inject",
+            "status": 200,
+            "ms": 4212,
+            "mapCanvases": 1,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          },
+          {
+            "route": "/watch-together",
+            "mode": "inject",
+            "status": 200,
+            "ms": 4206,
+            "mapCanvases": 1,
+            "mapboxNoiseSuppressed": 0,
+            "console": 0,
+            "pageerrors": 0,
+            "failed": 0,
+            "bad": 0,
+            "csp": 0
+          }
+        ]
+      }
+    }
+  ]
+}

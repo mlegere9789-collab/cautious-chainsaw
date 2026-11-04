@@ -161,7 +161,7 @@ function placePass(cur, cfg, state, tentative, dt, stats) {
   const occ = new Occ(64);
   if (cfg.pinProtect) for (const t of cur) occ.add(pinRect(t, spec));
   // seniority: a tile that has existed longer is placed first, so a newcomer yields instead of pushing tiles that were already there
-  const eff = (t) => t.prio + (cfg.seniority ? Math.min(state.age.get(t.key) ?? -1, 900) * cfg.seniority : 0);
+  const eff = (t) => t.prio + (cfg.seniority ? Math.min(state.age.get(t.key) ?? -1, 900) * cfg.seniority : 0) + (cfg.selectedId && t.kind === 'leaf' && t.ids[0] === cfg.selectedId ? 1e13 : 0);       // the selected unit is placed first: it stands as itself
   const order = [...cur].sort((a, b) => eff(b) - eff(a) || (a.key < b.key ? -1 : 1));
   const placed = []; const failed = [];
   for (const t of order) {
@@ -198,8 +198,10 @@ function mergeFailures(all, cur, failed, cfg, tentative, frame) {
       const group = cur.filter((t) => t.kind === 'leaf' && tent.ids.includes(t.ids[0]) && !consumed.has(t.key));
       if (group.length >= 2) { for (const g of group) { consumed.add(g.key); tentative.delete(g.ids[0]); } merged.push(makeAggregate(all, group, spec, frame)); continue; }
     }
-    let bp = bestPartner(all, F, cur, 2 * cfg.dMax, consumed);
-    if (!bp) bp = bestPartner(all, F, cur, 1e9, consumed);          // safety net: no partner in reach -> the nearest tile of the group (progress is guaranteed while the group has >= 2 tiles)
+    const noSel = cfg.selectedId ? new Set([...consumed, cfg.selectedId]) : consumed;                     // the selected unit is the last partner a failed tile merges with
+    let bp = bestPartner(all, F, cur, 2 * cfg.dMax, noSel);
+    if (!bp) bp = bestPartner(all, F, cur, 1e9, noSel);
+    if (!bp && noSel !== consumed) bp = bestPartner(all, F, cur, 1e9, consumed);          // safety net: no partner in reach -> the nearest tile of the group (progress is guaranteed while the group has >= 2 tiles)
     const partner = bp ? bp.b : null;
     if (!partner) continue;
     consumed.add(F.key); consumed.add(partner.key);
@@ -244,7 +246,7 @@ export function solve(all, leaves, cfg, state) {
     const keep = []; const due = [];
     let signer = null; const sigOf = (ids) => (signer || (signer = makeSigner(leaves, cfg, spec)))(ids);
     for (const [k, rec] of state.aggs) {
-      const ids = rec.ids.filter((id) => leafById.has(id));
+      const ids = rec.ids.filter((id) => leafById.has(id) && id !== cfg.selectedId);                // round 2: the selected unit stands as itself, never inside a crowd (the card describes the thing the map shows)
       if (ids.length < 2) continue;                                   // fewer than two members left: the aggregate dissolves
       if (frame >= rec.next) {
         if (cfg.restLatch !== false && rec.sig !== undefined && ids.length === rec.ids.length && sigOf(ids) === rec.sig) { rec.next = frame + Math.max(1, spec.splitDwell); keep.push({ k, rec, ids }); stats.latched = (stats.latched || 0) + 1; }   // nothing around it changed: no trial

@@ -1,0 +1,346 @@
+- 2026-10-30 22:11 florida C-2FL parsed: 1274 rows -> C:\Users\mlege\gettysburg-map\docs\battle-theatre\rosters\data\C-ALMSTX\florida\2nd-florida.csv
+- 2026-10-30 22:11 florida C-5FL parsed: 1100 rows -> C:\Users\mlege\gettysburg-map\docs\battle-theatre\rosters\data\C-ALMSTX\florida\5th-florida.csv
+- 2026-10-30 22:11 florida C-8FL parsed: 1044 rows -> C:\Users\mlege\gettysburg-map\docs\battle-theatre\rosters\data\C-ALMSTX\florida\8th-florida.csv
+- 2026-10-30 22:12 florida C-2FL parsed: 1268 rows -> C:\Users\mlege\gettysburg-map\docs\battle-theatre\rosters\data\C-ALMSTX\florida\2nd-florida.csv
+- 2026-10-30 22:12 florida C-5FL parsed: 1084 rows -> C:\Users\mlege\gettysburg-map\docs\battle-theatre\rosters\data\C-ALMSTX\florida\5th-florida.csv
+- 2026-10-30 22:12 florida C-8FL parsed: 1034 rows -> C:\Users\mlege\gettysburg-map\docs\battle-theatre\rosters\data\C-ALMSTX\florida\8th-florida.csv
+- 2026-10-30 22:12 florida C-2FL parsed: 1275 rows -> C:\Users\mlege\gettysburg-map\docs\battle-theatre\rosters\data\C-ALMSTX\florida\2nd-florida.csv
+- 2026-10-30 22:12 florida C-5FL parsed: 1069 rows -> C:\Users\mlege\gettysburg-map\docs\battle-theatre\rosters\data\C-ALMSTX\florida\5th-florida.csv
+- 2026-10-30 22:12 florida C-8FL parsed: 1035 rows -> C:\Users\mlege\gettysburg-map\docs\battle-theatre\rosters\data\C-ALMSTX\florida\8th-florida.csv
+- 2026-10-30 22:13 florida C-2FL parsed: 1309 rows -> C:\Users\mlege\gettysburg-map\docs\battle-theatre\rosters\data\C-ALMSTX\florida\2nd-florida.csv
+- 2026-10-30 22:13 florida C-5FL parsed: 1133 rows -> C:\Users\mlege\gettysburg-map\docs\battle-theatre\rosters\data\C-ALMSTX\florida\5th-florida.csv
+- 2026-10-30 22:13 florida C-8FL parsed: 1165 rows -> C:\Users\mlege\gettysburg-map\docs\battle-theatre\rosters\data\C-ALMSTX\florida\8th-florida.csv
+- 2026-10-30 22:14 alabama 15th Alabama (Oates App. A) parsed: 1562 rows
+- 2026-10-30 22:14 alabama 15th Alabama (Oates App. A) parsed: 1562 rows
+- 2026-10-30 22:15 alabama 14th Alabama (Hurst 1863) parsed: 1016 rows
+- 2026-10-30 22:15 alabama 14th Alabama (Hurst 1863) parsed: 1113 rows
+- 2026-10-30 22:16 maryland maryland-infantry-second-roster-goldsborough parsed: 531 rows
+- 2026-10-30 22:16 maryland maryland-infantry-first-roster-1861-62-goldsborough parsed: 690 rows
+- 2026-10-30 22:16 maryland maryland-artillery-first-dement parsed: 146 rows
+- 2026-10-30 22:16 maryland maryland-artillery-second-baltimore-light parsed: 131 rows
+- 2026-10-30 22:16 maryland maryland-artillery-fourth-chesapeake parsed: 118 rows
+- 2026-10-30 22:16 maryland maryland-infantry-second-roster-goldsborough parsed: 531 rows
+- 2026-10-30 22:16 maryland maryland-infantry-first-roster-1861-62-goldsborough parsed: 690 rows
+- 2026-10-30 22:16 maryland maryland-artillery-first-dement parsed: 146 rows
+- 2026-10-30 22:16 maryland maryland-artillery-second-baltimore-light parsed: 131 rows
+- 2026-10-30 22:16 maryland maryland-artillery-fourth-chesapeake parsed: 118 rows
+- 2026-10-30 22:17 maryland maryland-infantry-second-roster-goldsborough parsed: 531 rows
+- 2026-10-30 22:17 maryland maryland-infantry-first-roster-1861-62-goldsborough parsed: 690 rows
+- 2026-10-30 22:17 maryland maryland-artillery-first-dement parsed: 146 rows
+- 2026-10-30 22:17 maryland maryland-artillery-second-baltimore-light parsed: 131 rows
+- 2026-10-30 22:17 maryland maryland-artillery-fourth-chesapeake parsed: 118 rows
+- 2026-10-30 22:17 maryland maryland-infantry-second-roster-goldsborough parsed: 549 rows
+- 2026-10-30 22:17 maryland maryland-infantry-first-roster-1861-62-goldsborough parsed: 693 rows
+- 2026-10-30 22:17 maryland maryland-artillery-first-dement parsed: 147 rows
+- 2026-10-30 22:17 maryland maryland-artillery-second-baltimore-light parsed: 133 rows
+- 2026-10-30 22:17 maryland maryland-artillery-fourth-chesapeake parsed: 118 rows
+- 2026-10-30 22:17 mississippi C-2MS (officers, Register 1908) parsed: 139 rows
+- 2026-10-30 22:17 mississippi C-11MS (officers, Register 1908) parsed: 132 rows
+- 2026-10-30 22:17 mississippi C-12MS (officers, Register 1908) parsed: 61 rows
+- 2026-10-30 22:17 mississippi C-13MS (officers, Register 1908) parsed: 131 rows
+- 2026-10-30 22:17 mississippi C-16MS (officers, Register 1908) parsed: 68 rows
+- 2026-10-30 22:17 mississippi C-17MS (officers, Register 1908) parsed: 160 rows
+- 2026-10-30 22:17 mississippi C-18MS (officers, Register 1908) parsed: 189 rows
+- 2026-10-30 22:17 mississippi C-19MS (officers, Register 1908) parsed: 125 rows
+- 2026-10-30 22:17 mississippi C-21MS (officers, Register 1908) parsed: 239 rows
+- 2026-10-30 22:17 mississippi C-42MS (officers, Register 1908) parsed: 70 rows
+- 2026-10-30 22:17 mississippi C-48MS (officers, Register 1908) parsed: 40 rows
+- 2026-10-30 22:17 mississippi C-Jeff-MS-CAV (officers, Register 1908) parsed: 24 rows
+- 2026-10-30 22:17 mississippi C-2MS (officers, Register 1908) parsed: 149 rows
+- 2026-10-30 22:17 mississippi C-11MS (officers, Register 1908) parsed: 138 rows
+- 2026-10-30 22:17 mississippi C-12MS (officers, Register 1908) parsed: 68 rows
+- 2026-10-30 22:17 mississippi C-13MS (officers, Register 1908) parsed: 155 rows
+- 2026-10-30 22:17 mississippi C-16MS (officers, Register 1908) parsed: 93 rows
+- 2026-10-30 22:17 mississippi C-17MS (officers, Register 1908) parsed: 169 rows
+- 2026-10-30 22:17 mississippi C-18MS (officers, Register 1908) parsed: 190 rows
+- 2026-10-30 22:17 mississippi C-19MS (officers, Register 1908) parsed: 129 rows
+- 2026-10-30 22:17 mississippi C-21MS (officers, Register 1908) parsed: 250 rows
+- 2026-10-30 22:17 mississippi C-42MS (officers, Register 1908) parsed: 71 rows
+- 2026-10-30 22:17 mississippi C-48MS (officers, Register 1908) parsed: 49 rows
+- 2026-10-30 22:17 mississippi C-Jeff-MS-CAV (officers, Register 1908) parsed: 25 rows
+- 2026-10-30 22:18 alabama C-3AL (Brewer 1872 officers) parsed: 50 rows
+- 2026-10-30 22:18 alabama C-4AL (Brewer 1872 officers) parsed: 50 rows
+- 2026-10-30 22:18 alabama C-5AL-R (Brewer 1872 officers) parsed: 43 rows
+- 2026-10-30 22:18 alabama C-6AL (Brewer 1872 officers) parsed: 72 rows
+- 2026-10-30 22:18 alabama C-8AL (Brewer 1872 officers) parsed: 46 rows
+- 2026-10-30 22:18 alabama C-9AL (Brewer 1872 officers) parsed: 41 rows
+- 2026-10-30 22:18 alabama C-10AL (Brewer 1872 officers) parsed: 62 rows
+- 2026-10-30 22:18 alabama C-11AL (Brewer 1872 officers) parsed: 37 rows
+- 2026-10-30 22:18 alabama C-12AL (Brewer 1872 officers) parsed: 51 rows
+- 2026-10-30 22:18 alabama C-13AL (Brewer 1872 officers) parsed: 39 rows
+- 2026-10-30 22:18 alabama C-14AL (Brewer 1872 officers) parsed: 44 rows
+- 2026-10-30 22:18 alabama C-15AL (Brewer 1872 officers) parsed: 40 rows
+- 2026-10-30 22:18 alabama C-26AL (Brewer 1872 officers) parsed: 23 rows
+- 2026-10-30 22:18 alabama C-44AL (Brewer 1872 officers) parsed: 44 rows
+- 2026-10-30 22:18 alabama C-47AL (Brewer 1872 officers) parsed: 29 rows
+- 2026-10-30 22:18 alabama C-48AL (Brewer 1872 officers) parsed: 37 rows
+- 2026-10-30 22:18 alabama C-5AL-H (Brewer 1872 officers) parsed: 10 rows
+- 2026-10-30 22:18 alabama C-ART-Hurt (Brewer 1872 officers) parsed: 7 rows
+- 2026-10-30 22:21 texas C-1TX (Polley muster rolls) parsed: 0 rows
+- 2026-10-30 22:21 texas C-4TX (Polley muster rolls) parsed: 0 rows
+- 2026-10-30 22:21 texas C-5TX (Polley muster rolls) parsed: 0 rows
+- 2026-10-30 22:21 texas-arkansas C-1TX Appomattox roll (Polley) parsed: 150 rows
+- 2026-10-30 22:21 texas-arkansas C-4TX Appomattox roll (Polley) parsed: 152 rows
+- 2026-10-30 22:21 texas-arkansas C-5TX Appomattox roll (Polley) parsed: 162 rows
+- 2026-10-30 22:21 texas-arkansas C-3AR Appomattox roll (Polley) parsed: 141 rows
+- 2026-10-30 22:21 texas C-1TX (Polley muster rolls) parsed: 978 rows
+- 2026-10-30 22:21 texas C-4TX (Polley muster rolls) parsed: 1237 rows
+- 2026-10-30 22:21 texas C-5TX (Polley muster rolls) parsed: 1242 rows
+- 2026-10-30 22:21 texas-arkansas C-1TX Appomattox roll (Polley) parsed: 150 rows
+- 2026-10-30 22:21 texas-arkansas C-4TX Appomattox roll (Polley) parsed: 152 rows
+- 2026-10-30 22:21 texas-arkansas C-5TX Appomattox roll (Polley) parsed: 162 rows
+- 2026-10-30 22:21 texas-arkansas C-3AR Appomattox roll (Polley) parsed: 141 rows
+- 2026-10-30 22:21 texas C-1TX (Polley muster rolls) parsed: 743 rows
+- 2026-10-30 22:21 texas C-4TX (Polley muster rolls) parsed: 818 rows
+- 2026-10-30 22:21 texas C-5TX (Polley muster rolls) parsed: 909 rows
+- 2026-10-30 22:21 texas-arkansas C-1TX Appomattox roll (Polley) parsed: 150 rows
+- 2026-10-30 22:21 texas-arkansas C-4TX Appomattox roll (Polley) parsed: 152 rows
+- 2026-10-30 22:21 texas-arkansas C-5TX Appomattox roll (Polley) parsed: 162 rows
+- 2026-10-30 22:21 texas-arkansas C-3AR Appomattox roll (Polley) parsed: 141 rows
+- 2026-10-30 22:22 texas C-1TX (Polley muster rolls) parsed: 0 rows
+- 2026-10-30 22:22 texas C-4TX (Polley muster rolls) parsed: 0 rows
+- 2026-10-30 22:22 texas C-5TX (Polley muster rolls) parsed: 0 rows
+- 2026-10-30 22:22 texas-arkansas C-1TX Appomattox roll (Polley) parsed: 150 rows
+- 2026-10-30 22:22 texas-arkansas C-4TX Appomattox roll (Polley) parsed: 152 rows
+- 2026-10-30 22:22 texas-arkansas C-5TX Appomattox roll (Polley) parsed: 162 rows
+- 2026-10-30 22:22 texas-arkansas C-3AR Appomattox roll (Polley) parsed: 141 rows
+- 2026-10-30 22:22 texas C-1TX (Polley muster rolls) parsed: 0 rows
+- 2026-10-30 22:22 texas C-4TX (Polley muster rolls) parsed: 0 rows
+- 2026-10-30 22:22 texas C-5TX (Polley muster rolls) parsed: 0 rows
+- 2026-10-30 22:22 texas-arkansas C-1TX Appomattox roll (Polley) parsed: 150 rows
+- 2026-10-30 22:22 texas-arkansas C-4TX Appomattox roll (Polley) parsed: 152 rows
+- 2026-10-30 22:22 texas-arkansas C-5TX Appomattox roll (Polley) parsed: 162 rows
+- 2026-10-30 22:22 texas-arkansas C-3AR Appomattox roll (Polley) parsed: 141 rows
+- 2026-10-30 22:24 texas C-1TX (Polley muster rolls) parsed: 940 rows
+- 2026-10-30 22:24 texas C-4TX (Polley muster rolls) parsed: 1070 rows
+- 2026-10-30 22:24 texas C-5TX (Polley muster rolls) parsed: 1012 rows
+- 2026-10-30 22:24 texas-arkansas C-1TX Appomattox roll (Polley) parsed: 150 rows
+- 2026-10-30 22:24 texas-arkansas C-4TX Appomattox roll (Polley) parsed: 152 rows
+- 2026-10-30 22:24 texas-arkansas C-5TX Appomattox roll (Polley) parsed: 162 rows
+- 2026-10-30 22:24 texas-arkansas C-3AR Appomattox roll (Polley) parsed: 141 rows
+- 2026-10-30 22:26 field officers (Estes 1912) parsed for 38 units, 278 rows
+- 2026-10-30 22:27 alabama 12th Alabama (Park 1906 lists) parsed: 96 rows
+- 2026-10-30 22:27 alabama 12th Alabama (Park 1906 lists) parsed: 108 rows
+- 2026-10-30 22:28 OR 27 report officers extracted: 22 rows over 16 units
+- 2026-10-30 22:28 OR 27 report officers extracted: 22 rows over 16 units
+- 2026-10-30 22:29 mississippi 16th MS Co. E (Quitman Guards 1866) parsed: 113 rows
+- 2026-10-30 22:29 maryland maryland-infantry-second-roster-goldsborough parsed: 549 rows
+- 2026-10-30 22:29 maryland maryland-infantry-first-roster-1861-62-goldsborough parsed: 693 rows
+- 2026-10-30 22:29 maryland maryland-artillery-first-dement parsed: 147 rows
+- 2026-10-30 22:29 maryland maryland-artillery-second-baltimore-light parsed: 133 rows
+- 2026-10-30 22:29 maryland maryland-artillery-fourth-chesapeake parsed: 118 rows
+- 2026-10-30 22:29 alabama C-3AL (Brewer 1872 officers) parsed: 48 rows
+- 2026-10-30 22:29 alabama C-4AL (Brewer 1872 officers) parsed: 49 rows
+- 2026-10-30 22:29 alabama C-5AL-R (Brewer 1872 officers) parsed: 42 rows
+- 2026-10-30 22:29 alabama C-6AL (Brewer 1872 officers) parsed: 71 rows
+- 2026-10-30 22:29 alabama C-8AL (Brewer 1872 officers) parsed: 45 rows
+- 2026-10-30 22:29 alabama C-9AL (Brewer 1872 officers) parsed: 41 rows
+- 2026-10-30 22:29 alabama C-10AL (Brewer 1872 officers) parsed: 55 rows
+- 2026-10-30 22:29 alabama C-11AL (Brewer 1872 officers) parsed: 36 rows
+- 2026-10-30 22:29 alabama C-12AL (Brewer 1872 officers) parsed: 51 rows
+- 2026-10-30 22:29 alabama C-13AL (Brewer 1872 officers) parsed: 38 rows
+- 2026-10-30 22:29 alabama C-14AL (Brewer 1872 officers) parsed: 42 rows
+- 2026-10-30 22:29 alabama C-15AL (Brewer 1872 officers) parsed: 39 rows
+- 2026-10-30 22:29 alabama C-26AL (Brewer 1872 officers) parsed: 23 rows
+- 2026-10-30 22:29 alabama C-44AL (Brewer 1872 officers) parsed: 43 rows
+- 2026-10-30 22:29 alabama C-47AL (Brewer 1872 officers) parsed: 26 rows
+- 2026-10-30 22:29 alabama C-48AL (Brewer 1872 officers) parsed: 37 rows
+- 2026-10-30 22:29 alabama C-5AL-H (Brewer 1872 officers) parsed: 9 rows
+- 2026-10-30 22:29 alabama C-ART-Hurt (Brewer 1872 officers) parsed: 7 rows
+- 2026-10-30 22:29 mississippi C-2MS (officers, Register 1908) parsed: 149 rows
+- 2026-10-30 22:29 mississippi C-11MS (officers, Register 1908) parsed: 138 rows
+- 2026-10-30 22:29 mississippi C-12MS (officers, Register 1908) parsed: 68 rows
+- 2026-10-30 22:29 mississippi C-13MS (officers, Register 1908) parsed: 155 rows
+- 2026-10-30 22:29 mississippi C-16MS (officers, Register 1908) parsed: 93 rows
+- 2026-10-30 22:29 mississippi C-17MS (officers, Register 1908) parsed: 169 rows
+- 2026-10-30 22:29 mississippi C-18MS (officers, Register 1908) parsed: 190 rows
+- 2026-10-30 22:29 mississippi C-19MS (officers, Register 1908) parsed: 129 rows
+- 2026-10-30 22:29 mississippi C-21MS (officers, Register 1908) parsed: 250 rows
+- 2026-10-30 22:29 mississippi C-42MS (officers, Register 1908) parsed: 71 rows
+- 2026-10-30 22:29 mississippi C-48MS (officers, Register 1908) parsed: 49 rows
+- 2026-10-30 22:29 mississippi C-Jeff-MS-CAV (officers, Register 1908) parsed: 25 rows
+- 2026-10-30 22:29 texas C-1TX (Polley muster rolls) parsed: 940 rows
+- 2026-10-30 22:29 texas C-4TX (Polley muster rolls) parsed: 1070 rows
+- 2026-10-30 22:29 texas C-5TX (Polley muster rolls) parsed: 1012 rows
+- 2026-10-30 22:29 texas-arkansas C-1TX Appomattox roll (Polley) parsed: 150 rows
+- 2026-10-30 22:29 texas-arkansas C-4TX Appomattox roll (Polley) parsed: 152 rows
+- 2026-10-30 22:29 texas-arkansas C-5TX Appomattox roll (Polley) parsed: 162 rows
+- 2026-10-30 22:29 texas-arkansas C-3AR Appomattox roll (Polley) parsed: 141 rows
+- 2026-10-30 22:30 florida C-2FL parsed: 1309 rows -> C:\Users\mlege\gettysburg-map\docs\battle-theatre\rosters\data\C-ALMSTX\florida\2nd-florida.csv
+- 2026-10-30 22:30 florida C-5FL parsed: 1133 rows -> C:\Users\mlege\gettysburg-map\docs\battle-theatre\rosters\data\C-ALMSTX\florida\5th-florida.csv
+- 2026-10-30 22:30 florida C-8FL parsed: 1164 rows -> C:\Users\mlege\gettysburg-map\docs\battle-theatre\rosters\data\C-ALMSTX\florida\8th-florida.csv
+- 2026-10-30 22:33 final: consolidate, QA-SAMPLE, README, GAPS, SOURCES.csv rows written
+- 2026-10-30 22:54 alabama 14th Alabama (Hurst 1863) parsed: 1174 rows
+- 2026-10-30 22:54 alabama 15th Alabama (Oates App. A) parsed: 1565 rows
+- 2026-10-30 22:54 maryland maryland-infantry-second-roster-goldsborough parsed: 549 rows
+- 2026-10-30 22:54 maryland maryland-infantry-first-roster-1861-62-goldsborough parsed: 693 rows
+- 2026-10-30 22:54 maryland maryland-artillery-first-dement parsed: 147 rows
+- 2026-10-30 22:54 maryland maryland-artillery-second-baltimore-light parsed: 133 rows
+- 2026-10-30 22:54 maryland maryland-artillery-fourth-chesapeake parsed: 118 rows
+- 2026-10-30 22:54 mississippi C-2MS (officers, Register 1908) parsed: 155 rows
+- 2026-10-30 22:54 mississippi C-11MS (officers, Register 1908) parsed: 146 rows
+- 2026-10-30 22:54 mississippi C-12MS (officers, Register 1908) parsed: 76 rows
+- 2026-10-30 22:54 mississippi C-13MS (officers, Register 1908) parsed: 162 rows
+- 2026-10-30 22:54 mississippi C-16MS (officers, Register 1908) parsed: 94 rows
+- 2026-10-30 22:54 mississippi C-17MS (officers, Register 1908) parsed: 181 rows
+- 2026-10-30 22:54 mississippi C-18MS (officers, Register 1908) parsed: 196 rows
+- 2026-10-30 22:54 mississippi C-19MS (officers, Register 1908) parsed: 131 rows
+- 2026-10-30 22:54 mississippi C-21MS (officers, Register 1908) parsed: 255 rows
+- 2026-10-30 22:54 mississippi C-42MS (officers, Register 1908) parsed: 76 rows
+- 2026-10-30 22:54 mississippi C-48MS (officers, Register 1908) parsed: 33 rows
+- 2026-10-30 22:54 mississippi C-Jeff-MS-CAV (officers, Register 1908) parsed: 27 rows
+- 2026-10-30 22:54 alabama C-3AL (Brewer 1872 officers) parsed: 48 rows
+- 2026-10-30 22:54 alabama C-4AL (Brewer 1872 officers) parsed: 49 rows
+- 2026-10-30 22:54 alabama C-5AL-R (Brewer 1872 officers) parsed: 42 rows
+- 2026-10-30 22:54 alabama C-6AL (Brewer 1872 officers) parsed: 71 rows
+- 2026-10-30 22:54 alabama C-8AL (Brewer 1872 officers) parsed: 45 rows
+- 2026-10-30 22:54 alabama C-9AL (Brewer 1872 officers) parsed: 41 rows
+- 2026-10-30 22:54 alabama C-10AL (Brewer 1872 officers) parsed: 55 rows
+- 2026-10-30 22:54 alabama C-11AL (Brewer 1872 officers) parsed: 36 rows
+- 2026-10-30 22:54 alabama C-12AL (Brewer 1872 officers) parsed: 51 rows
+- 2026-10-30 22:54 alabama C-13AL (Brewer 1872 officers) parsed: 38 rows
+- 2026-10-30 22:54 alabama C-14AL (Brewer 1872 officers) parsed: 42 rows
+- 2026-10-30 22:54 alabama C-15AL (Brewer 1872 officers) parsed: 39 rows
+- 2026-10-30 22:54 alabama C-26AL (Brewer 1872 officers) parsed: 23 rows
+- 2026-10-30 22:54 alabama C-44AL (Brewer 1872 officers) parsed: 43 rows
+- 2026-10-30 22:54 alabama C-47AL (Brewer 1872 officers) parsed: 26 rows
+- 2026-10-30 22:54 alabama C-48AL (Brewer 1872 officers) parsed: 37 rows
+- 2026-10-30 22:54 alabama C-5AL-H (Brewer 1872 officers) parsed: 9 rows
+- 2026-10-30 22:54 alabama C-ART-Hurt (Brewer 1872 officers) parsed: 7 rows
+- 2026-10-30 22:54 field officers (Estes 1912) parsed for 38 units, 278 rows
+- 2026-10-30 22:54 alabama 12th Alabama (Park 1906 lists) parsed: 104 rows
+- 2026-10-30 22:54 mississippi 16th MS Co. E (Quitman Guards 1866) parsed: 113 rows
+- 2026-10-30 22:54 OR 27 report officers extracted: 22 rows over 16 units
+- 2026-10-30 22:54 texas C-1TX (Polley muster rolls) parsed: 940 rows
+- 2026-10-30 22:54 texas C-4TX (Polley muster rolls) parsed: 1070 rows
+- 2026-10-30 22:54 texas C-5TX (Polley muster rolls) parsed: 1012 rows
+- 2026-10-30 22:54 texas-arkansas C-1TX Appomattox roll (Polley) parsed: 150 rows
+- 2026-10-30 22:54 texas-arkansas C-4TX Appomattox roll (Polley) parsed: 152 rows
+- 2026-10-30 22:54 texas-arkansas C-5TX Appomattox roll (Polley) parsed: 162 rows
+- 2026-10-30 22:54 texas-arkansas C-3AR Appomattox roll (Polley) parsed: 141 rows
+- 2026-10-30 22:54 florida C-2FL parsed: 1311 rows -> C:\Users\mlege\gettysburg-map\docs\battle-theatre\rosters\data\C-ALMSTX\florida\2nd-florida.csv
+- 2026-10-30 22:54 florida C-5FL parsed: 1150 rows -> C:\Users\mlege\gettysburg-map\docs\battle-theatre\rosters\data\C-ALMSTX\florida\5th-florida.csv
+- 2026-10-30 22:54 florida C-8FL parsed: 1190 rows -> C:\Users\mlege\gettysburg-map\docs\battle-theatre\rosters\data\C-ALMSTX\florida\8th-florida.csv
+- 2026-10-30 22:54 audit_postfix 1st-texas-infantry-appomattox-roll.csv: rank from name cell 0, labels withheld 0
+- 2026-10-30 22:54 audit_postfix 1st-texas-infantry.csv: rank from name cell 51, labels withheld 5
+- 2026-10-30 22:54 audit_postfix 3rd-arkansas-infantry-appomattox-roll.csv: rank from name cell 0, labels withheld 0
+- 2026-10-30 22:54 audit_postfix 4th-texas-infantry-appomattox-roll.csv: rank from name cell 0, labels withheld 0
+- 2026-10-30 22:54 audit_postfix 4th-texas-infantry.csv: rank from name cell 51, labels withheld 1
+- 2026-10-30 22:54 audit_postfix 5th-texas-infantry-appomattox-roll.csv: rank from name cell 0, labels withheld 0
+- 2026-10-30 22:54 audit_postfix 5th-texas-infantry.csv: rank from name cell 43, labels withheld 5
+- 2026-10-30 22:55 alabama 14th Alabama (Hurst 1863) parsed: 1189 rows
+- 2026-10-30 22:55 alabama 15th Alabama (Oates App. A) parsed: 1565 rows
+- 2026-10-30 22:55 maryland maryland-infantry-second-roster-goldsborough parsed: 549 rows
+- 2026-10-30 22:55 maryland maryland-infantry-first-roster-1861-62-goldsborough parsed: 693 rows
+- 2026-10-30 22:55 maryland maryland-artillery-first-dement parsed: 147 rows
+- 2026-10-30 22:55 maryland maryland-artillery-second-baltimore-light parsed: 133 rows
+- 2026-10-30 22:55 maryland maryland-artillery-fourth-chesapeake parsed: 118 rows
+- 2026-10-30 22:55 mississippi C-2MS (officers, Register 1908) parsed: 155 rows
+- 2026-10-30 22:55 mississippi C-11MS (officers, Register 1908) parsed: 146 rows
+- 2026-10-30 22:55 mississippi C-12MS (officers, Register 1908) parsed: 76 rows
+- 2026-10-30 22:55 mississippi C-13MS (officers, Register 1908) parsed: 162 rows
+- 2026-10-30 22:55 mississippi C-16MS (officers, Register 1908) parsed: 94 rows
+- 2026-10-30 22:55 mississippi C-17MS (officers, Register 1908) parsed: 181 rows
+- 2026-10-30 22:55 mississippi C-18MS (officers, Register 1908) parsed: 196 rows
+- 2026-10-30 22:55 mississippi C-19MS (officers, Register 1908) parsed: 131 rows
+- 2026-10-30 22:55 mississippi C-21MS (officers, Register 1908) parsed: 255 rows
+- 2026-10-30 22:55 mississippi C-42MS (officers, Register 1908) parsed: 76 rows
+- 2026-10-30 22:55 mississippi C-48MS (officers, Register 1908) parsed: 33 rows
+- 2026-10-30 22:55 mississippi C-Jeff-MS-CAV (officers, Register 1908) parsed: 27 rows
+- 2026-10-30 22:55 alabama C-3AL (Brewer 1872 officers) parsed: 48 rows
+- 2026-10-30 22:55 alabama C-4AL (Brewer 1872 officers) parsed: 49 rows
+- 2026-10-30 22:55 alabama C-5AL-R (Brewer 1872 officers) parsed: 42 rows
+- 2026-10-30 22:55 alabama C-6AL (Brewer 1872 officers) parsed: 71 rows
+- 2026-10-30 22:55 alabama C-8AL (Brewer 1872 officers) parsed: 45 rows
+- 2026-10-30 22:55 alabama C-9AL (Brewer 1872 officers) parsed: 41 rows
+- 2026-10-30 22:55 alabama C-10AL (Brewer 1872 officers) parsed: 55 rows
+- 2026-10-30 22:55 alabama C-11AL (Brewer 1872 officers) parsed: 36 rows
+- 2026-10-30 22:55 alabama C-12AL (Brewer 1872 officers) parsed: 51 rows
+- 2026-10-30 22:55 alabama C-13AL (Brewer 1872 officers) parsed: 38 rows
+- 2026-10-30 22:55 alabama C-14AL (Brewer 1872 officers) parsed: 42 rows
+- 2026-10-30 22:55 alabama C-15AL (Brewer 1872 officers) parsed: 39 rows
+- 2026-10-30 22:55 alabama C-26AL (Brewer 1872 officers) parsed: 23 rows
+- 2026-10-30 22:55 alabama C-44AL (Brewer 1872 officers) parsed: 43 rows
+- 2026-10-30 22:55 alabama C-47AL (Brewer 1872 officers) parsed: 26 rows
+- 2026-10-30 22:55 alabama C-48AL (Brewer 1872 officers) parsed: 37 rows
+- 2026-10-30 22:55 alabama C-5AL-H (Brewer 1872 officers) parsed: 9 rows
+- 2026-10-30 22:55 alabama C-ART-Hurt (Brewer 1872 officers) parsed: 7 rows
+- 2026-10-30 22:55 field officers (Estes 1912) parsed for 38 units, 278 rows
+- 2026-10-30 22:55 alabama 12th Alabama (Park 1906 lists) parsed: 104 rows
+- 2026-10-30 22:55 mississippi 16th MS Co. E (Quitman Guards 1866) parsed: 113 rows
+- 2026-10-30 22:55 OR 27 report officers extracted: 22 rows over 16 units
+- 2026-10-30 22:55 texas C-1TX (Polley muster rolls) parsed: 940 rows
+- 2026-10-30 22:55 texas C-4TX (Polley muster rolls) parsed: 1070 rows
+- 2026-10-30 22:55 texas C-5TX (Polley muster rolls) parsed: 1012 rows
+- 2026-10-30 22:55 texas-arkansas C-1TX Appomattox roll (Polley) parsed: 150 rows
+- 2026-10-30 22:55 texas-arkansas C-4TX Appomattox roll (Polley) parsed: 152 rows
+- 2026-10-30 22:55 texas-arkansas C-5TX Appomattox roll (Polley) parsed: 162 rows
+- 2026-10-30 22:55 texas-arkansas C-3AR Appomattox roll (Polley) parsed: 141 rows
+- 2026-10-30 22:55 florida C-2FL parsed: 1311 rows -> C:\Users\mlege\gettysburg-map\docs\battle-theatre\rosters\data\C-ALMSTX\florida\2nd-florida.csv
+- 2026-10-30 22:55 florida C-5FL parsed: 1150 rows -> C:\Users\mlege\gettysburg-map\docs\battle-theatre\rosters\data\C-ALMSTX\florida\5th-florida.csv
+- 2026-10-30 22:55 florida C-8FL parsed: 1190 rows -> C:\Users\mlege\gettysburg-map\docs\battle-theatre\rosters\data\C-ALMSTX\florida\8th-florida.csv
+- 2026-10-30 22:55 audit_postfix 1st-texas-infantry-appomattox-roll.csv: rank from name cell 0, labels withheld 0
+- 2026-10-30 22:55 audit_postfix 1st-texas-infantry.csv: rank from name cell 51, labels withheld 5
+- 2026-10-30 22:55 audit_postfix 3rd-arkansas-infantry-appomattox-roll.csv: rank from name cell 0, labels withheld 0
+- 2026-10-30 22:55 audit_postfix 4th-texas-infantry-appomattox-roll.csv: rank from name cell 0, labels withheld 0
+- 2026-10-30 22:55 audit_postfix 4th-texas-infantry.csv: rank from name cell 51, labels withheld 1
+- 2026-10-30 22:55 audit_postfix 5th-texas-infantry-appomattox-roll.csv: rank from name cell 0, labels withheld 0
+- 2026-10-30 22:55 audit_postfix 5th-texas-infantry.csv: rank from name cell 43, labels withheld 5
+- 2026-10-30 22:58 alabama 14th Alabama (Hurst 1863) parsed: 1189 rows
+- 2026-10-30 22:58 alabama 15th Alabama (Oates App. A) parsed: 1565 rows
+- 2026-10-30 22:58 maryland maryland-infantry-second-roster-goldsborough parsed: 549 rows
+- 2026-10-30 22:58 maryland maryland-infantry-first-roster-1861-62-goldsborough parsed: 693 rows
+- 2026-10-30 22:58 maryland maryland-artillery-first-dement parsed: 147 rows
+- 2026-10-30 22:58 maryland maryland-artillery-second-baltimore-light parsed: 133 rows
+- 2026-10-30 22:58 maryland maryland-artillery-fourth-chesapeake parsed: 118 rows
+- 2026-10-30 22:58 mississippi C-2MS (officers, Register 1908) parsed: 155 rows
+- 2026-10-30 22:58 mississippi C-11MS (officers, Register 1908) parsed: 146 rows
+- 2026-10-30 22:58 mississippi C-12MS (officers, Register 1908) parsed: 76 rows
+- 2026-10-30 22:58 mississippi C-13MS (officers, Register 1908) parsed: 162 rows
+- 2026-10-30 22:58 mississippi C-16MS (officers, Register 1908) parsed: 94 rows
+- 2026-10-30 22:58 mississippi C-17MS (officers, Register 1908) parsed: 181 rows
+- 2026-10-30 22:58 mississippi C-18MS (officers, Register 1908) parsed: 196 rows
+- 2026-10-30 22:58 mississippi C-19MS (officers, Register 1908) parsed: 131 rows
+- 2026-10-30 22:58 mississippi C-21MS (officers, Register 1908) parsed: 255 rows
+- 2026-10-30 22:58 mississippi C-42MS (officers, Register 1908) parsed: 76 rows
+- 2026-10-30 22:58 mississippi C-48MS (officers, Register 1908) parsed: 33 rows
+- 2026-10-30 22:58 mississippi C-Jeff-MS-CAV (officers, Register 1908) parsed: 27 rows
+- 2026-10-30 22:58 alabama C-3AL (Brewer 1872 officers) parsed: 48 rows
+- 2026-10-30 22:58 alabama C-4AL (Brewer 1872 officers) parsed: 49 rows
+- 2026-10-30 22:58 alabama C-5AL-R (Brewer 1872 officers) parsed: 42 rows
+- 2026-10-30 22:58 alabama C-6AL (Brewer 1872 officers) parsed: 71 rows
+- 2026-10-30 22:58 alabama C-8AL (Brewer 1872 officers) parsed: 45 rows
+- 2026-10-30 22:58 alabama C-9AL (Brewer 1872 officers) parsed: 41 rows
+- 2026-10-30 22:58 alabama C-10AL (Brewer 1872 officers) parsed: 55 rows
+- 2026-10-30 22:58 alabama C-11AL (Brewer 1872 officers) parsed: 36 rows
+- 2026-10-30 22:58 alabama C-12AL (Brewer 1872 officers) parsed: 51 rows
+- 2026-10-30 22:58 alabama C-13AL (Brewer 1872 officers) parsed: 38 rows
+- 2026-10-30 22:58 alabama C-14AL (Brewer 1872 officers) parsed: 42 rows
+- 2026-10-30 22:58 alabama C-15AL (Brewer 1872 officers) parsed: 39 rows
+- 2026-10-30 22:58 alabama C-26AL (Brewer 1872 officers) parsed: 23 rows
+- 2026-10-30 22:58 alabama C-44AL (Brewer 1872 officers) parsed: 43 rows
+- 2026-10-30 22:58 alabama C-47AL (Brewer 1872 officers) parsed: 26 rows
+- 2026-10-30 22:58 alabama C-48AL (Brewer 1872 officers) parsed: 37 rows
+- 2026-10-30 22:58 alabama C-5AL-H (Brewer 1872 officers) parsed: 9 rows
+- 2026-10-30 22:58 alabama C-ART-Hurt (Brewer 1872 officers) parsed: 7 rows
+- 2026-10-30 22:58 field officers (Estes 1912) parsed for 38 units, 278 rows
+- 2026-10-30 22:58 alabama 12th Alabama (Park 1906 lists) parsed: 104 rows
+- 2026-10-30 22:58 mississippi 16th MS Co. E (Quitman Guards 1866) parsed: 113 rows
+- 2026-10-30 22:58 OR 27 report officers extracted: 22 rows over 16 units
+- 2026-10-30 22:58 texas C-1TX (Polley muster rolls) parsed: 940 rows
+- 2026-10-30 22:58 texas C-4TX (Polley muster rolls) parsed: 1070 rows
+- 2026-10-30 22:58 texas C-5TX (Polley muster rolls) parsed: 1012 rows
+- 2026-10-30 22:58 texas-arkansas C-1TX Appomattox roll (Polley) parsed: 150 rows
+- 2026-10-30 22:58 texas-arkansas C-4TX Appomattox roll (Polley) parsed: 152 rows
+- 2026-10-30 22:58 texas-arkansas C-5TX Appomattox roll (Polley) parsed: 162 rows
+- 2026-10-30 22:58 texas-arkansas C-3AR Appomattox roll (Polley) parsed: 141 rows
+- 2026-10-30 22:58 florida C-2FL parsed: 1311 rows -> C:\Users\mlege\gettysburg-map\docs\battle-theatre\rosters\data\C-ALMSTX\florida\2nd-florida.csv
+- 2026-10-30 22:58 florida C-5FL parsed: 1150 rows -> C:\Users\mlege\gettysburg-map\docs\battle-theatre\rosters\data\C-ALMSTX\florida\5th-florida.csv
+- 2026-10-30 22:58 florida C-8FL parsed: 1190 rows -> C:\Users\mlege\gettysburg-map\docs\battle-theatre\rosters\data\C-ALMSTX\florida\8th-florida.csv
+- 2026-10-30 22:58 audit_postfix 1st-texas-infantry-appomattox-roll.csv: rank from name cell 0, labels withheld 0
+- 2026-10-30 22:58 audit_postfix 1st-texas-infantry.csv: rank from name cell 51, labels withheld 5
+- 2026-10-30 22:58 audit_postfix 3rd-arkansas-infantry-appomattox-roll.csv: rank from name cell 0, labels withheld 0
+- 2026-10-30 22:58 audit_postfix 4th-texas-infantry-appomattox-roll.csv: rank from name cell 0, labels withheld 0
+- 2026-10-30 22:58 audit_postfix 4th-texas-infantry.csv: rank from name cell 51, labels withheld 1
+- 2026-10-30 22:58 audit_postfix 5th-texas-infantry-appomattox-roll.csv: rank from name cell 0, labels withheld 0
+- 2026-10-30 22:58 audit_postfix 5th-texas-infantry.csv: rank from name cell 43, labels withheld 5

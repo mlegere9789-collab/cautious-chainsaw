@@ -1,0 +1,2019 @@
+{
+ "q11": {
+  "gate": "Q11",
+  "text": "Ephemeris check: sun and moon values equal an independent ephemeris at the site and times.",
+  "source": "recomputed live (A astropy, B own Meeus)",
+  "checks": [
+   {
+    "check": "sun altitude, max |A-B| over all table minutes",
+    "measured": 0.00225607599254829,
+    "tolerance": 0.05,
+    "unit": "deg",
+    "ok": true
+   },
+   {
+    "check": "sun azimuth, max |A-B| over all table minutes",
+    "measured": 0.008271792246006271,
+    "tolerance": 0.05,
+    "unit": "deg",
+    "ok": true
+   },
+   {
+    "check": "moon altitude, max |A-B|",
+    "measured": 0.00016368483906603615,
+    "tolerance": 0.5,
+    "unit": "deg",
+    "ok": true
+   },
+   {
+    "check": "moon azimuth, max |A-B|",
+    "measured": 0.0006036303044538727,
+    "tolerance": 0.5,
+    "unit": "deg",
+    "ok": true
+   },
+   {
+    "check": "sunrise, max |A-B| over all days",
+    "measured": 0.012684958353929687,
+    "tolerance": 2.0,
+    "unit": "min",
+    "ok": true
+   },
+   {
+    "check": "sunset, max |A-B| over all days",
+    "measured": 0.00920031059649773,
+    "tolerance": 2.0,
+    "unit": "min",
+    "ok": true
+   },
+   {
+    "check": "moonrise, max |A-B| over all days",
+    "measured": 0.0006463623831223231,
+    "tolerance": 2.0,
+    "unit": "min",
+    "ok": true
+   },
+   {
+    "check": "moonset, max |A-B| over all days",
+    "measured": 0.0008566608194087166,
+    "tolerance": 2.0,
+    "unit": "min",
+    "ok": true
+   },
+   {
+    "check": "all events (twilights, transits, rise/set), max |A-B|",
+    "measured": 0.014363930813487968,
+    "tolerance": 2.0,
+    "unit": "min",
+    "ok": true
+   },
+   {
+    "check": "events found by only one method",
+    "measured": 0,
+    "tolerance": 0,
+    "unit": "count",
+    "ok": true
+   },
+   {
+    "check": "stored ephemeris_1863.json equals fresh method A (alt)",
+    "measured": 0.0004999733924435645,
+    "tolerance": 0.0006,
+    "unit": "deg",
+    "ok": true
+   },
+   {
+    "check": "full moon 1863-07-01 06:46 UT (Moonblink via PDF), method A computed 06:45:56",
+    "measured": 0.05201809108257294,
+    "tolerance": 1.0,
+    "unit": "min",
+    "ok": true
+   },
+   {
+    "check": "full moon 1863-07-01 06:46 UT (Moonblink via PDF), method B computed 06:46:01",
+    "measured": 0.03323592245578766,
+    "tolerance": 1.0,
+    "unit": "min",
+    "ok": true
+   }
+  ],
+  "pooled_A_minus_B": {
+   "sun_alt_deg": {
+    "max_abs": 0.00225607599254829,
+    "rms": 0.001075075746251824,
+    "mean": 5.5765337492217365e-05,
+    "n": 18720
+   },
+   "sun_az_deg": {
+    "max_abs": 0.008271792246006271,
+    "rms": 0.0020597115036836643,
+    "mean": 0.0005762567031727673,
+    "n": 18720
+   },
+   "moon_alt_deg": {
+    "max_abs": 0.00016368483906603615,
+    "rms": 9.854933458746354e-05,
+    "mean": -1.4425210461478257e-05,
+    "n": 18720
+   },
+   "moon_az_deg": {
+    "max_abs": 0.0006036303044538727,
+    "rms": 0.00015701142940747462,
+    "mean": 0.00010540136373348875,
+    "n": 18720
+   },
+   "sun_alt_deg_sun_above_horizon": {
+    "max_abs": 0.00225607599254829,
+    "rms": 0.0010959633720952788,
+    "mean": 2.9257129619126486e-05,
+    "n": 10924
+   },
+   "sun_az_deg_sun_above_horizon": {
+    "max_abs": 0.008271792246006271,
+    "rms": 0.002117473224651458,
+    "mean": 0.0008359341617756001,
+    "n": 10924
+   },
+   "moon_alt_deg_moon_above_horizon": {
+    "max_abs": 0.000126429829784086,
+    "rms": 8.050837481171245e-05,
+    "mean": -6.139939714338152e-05,
+    "n": 7781
+   },
+   "moon_az_deg_moon_above_horizon": {
+    "max_abs": 0.00010378209020700524,
+    "rms": 4.823267270966038e-05,
+    "mean": 3.869830970255564e-05,
+    "n": 7781
+   },
+   "moon_illum_pct": {
+    "max_abs": 0.00225858800368961,
+    "rms": 0.001228429252588613,
+    "mean": -0.0008780844656991703,
+    "n": 18720
+   },
+   "moon_distance_km": {
+    "max_abs": 37.1673947123345,
+    "rms": 25.75110600264859,
+    "mean": 3.201496070046281,
+    "n": 18720
+   }
+  },
+  "events_A_minus_B_min": {
+   "sunrise": {
+    "max_abs_min": 0.012684958353929687,
+    "rms_min": 0.00819831889975705,
+    "n": 13
+   },
+   "sunset": {
+    "max_abs_min": 0.00920031059649773,
+    "rms_min": 0.006098052482372819,
+    "n": 13
+   },
+   "civil_dawn": {
+    "max_abs_min": 0.012975211173397838,
+    "rms_min": 0.008294175436930082,
+    "n": 13
+   },
+   "civil_dusk": {
+    "max_abs_min": 0.009290406977470411,
+    "rms_min": 0.006007656118298888,
+    "n": 13
+   },
+   "nautical_dawn": {
+    "max_abs_min": 0.013482269845553674,
+    "rms_min": 0.008494591083063927,
+    "n": 13
+   },
+   "nautical_dusk": {
+    "max_abs_min": 0.009361738158986554,
+    "rms_min": 0.005823147822110889,
+    "n": 13
+   },
+   "astronomical_dawn": {
+    "max_abs_min": 0.014363930813487968,
+    "rms_min": 0.008883987194483713,
+    "n": 13
+   },
+   "astronomical_dusk": {
+    "max_abs_min": 0.009411197911049385,
+    "rms_min": 0.005457797069986598,
+    "n": 13
+   },
+   "sun_transit": {
+    "max_abs_min": 0.010869758485569037,
+    "rms_min": 0.007088181131292749,
+    "n": 13
+   },
+   "moon_transit": {
+    "max_abs_min": 0.0001364500867566676,
+    "rms_min": 0.00013238330496702003,
+    "n": 12
+   },
+   "moonrise": {
+    "max_abs_min": 0.0006463623831223231,
+    "rms_min": 0.000355541828844018,
+    "n": 13
+   },
+   "moonset": {
+    "max_abs_min": 0.0008566608194087166,
+    "rms_min": 0.0006782674806983517,
+    "n": 12
+   },
+   "ALL": {
+    "max_abs_min": 0.014363930813487968,
+    "rms_min": 0.006331407198897688,
+    "n": 154
+   }
+  },
+  "lunar_phases": [
+   {
+    "phase": "New Moon",
+    "reference_ut_minute": "1863-06-16 07:36",
+    "A_ut": "1863-06-16 07:36:29",
+    "B_ut": "1863-06-16 07:36:38",
+    "A_minus_ref_min": 0.49021393060684204,
+    "B_minus_ref_min": 0.6468140333890915,
+    "A_minus_B_s": -9.396006166934967,
+    "A_lmt": "1863-06-16 02:27:34"
+   },
+   {
+    "phase": "First Quarter",
+    "reference_ut_minute": "1863-06-24 10:32",
+    "A_ut": "1863-06-24 10:31:37",
+    "B_ut": "1863-06-24 10:31:31",
+    "A_minus_ref_min": -0.3803258389234543,
+    "B_minus_ref_min": -0.47606058418750763,
+    "A_minus_B_s": 5.744084715843201,
+    "A_lmt": "1863-06-24 05:22:41"
+   },
+   {
+    "phase": "Full Moon",
+    "reference_ut_minute": "1863-07-01 06:46",
+    "A_ut": "1863-07-01 06:45:56",
+    "B_ut": "1863-07-01 06:46:01",
+    "A_minus_ref_min": -0.05201809108257294,
+    "B_minus_ref_min": 0.03323592245578766,
+    "A_minus_B_s": -5.115240812301636,
+    "A_lmt": "1863-07-01 01:37:01"
+   },
+   {
+    "phase": "Last Quarter",
+    "reference_ut_minute": "1863-07-07 22:29",
+    "A_ut": "1863-07-07 22:28:35",
+    "B_ut": "1863-07-07 22:28:53",
+    "A_minus_ref_min": -0.40056511759757996,
+    "B_minus_ref_min": -0.10431177914142609,
+    "A_minus_B_s": -17.775200307369232,
+    "A_lmt": "1863-07-07 17:19:40"
+   },
+   {
+    "phase": "New Moon",
+    "reference_ut_minute": "1863-07-15 22:54",
+    "A_ut": "1863-07-15 22:53:46",
+    "B_ut": "1863-07-15 22:53:51",
+    "A_minus_ref_min": -0.2260049432516098,
+    "B_minus_ref_min": -0.1381317526102066,
+    "A_minus_B_s": -5.272391438484192,
+    "A_lmt": "1863-07-15 17:44:51"
+   },
+   {
+    "phase": "Full Moon",
+    "reference_ut_minute": "1863-06-01 23:29",
+    "A_ut": "1863-06-01 23:29:47",
+    "B_ut": "1863-06-01 23:29:57",
+    "A_minus_ref_min": 0.798444002866745,
+    "B_minus_ref_min": 0.9610629826784134,
+    "A_minus_B_s": -9.757138788700104,
+    "A_lmt": "1863-06-01 18:20:52"
+   }
+  ],
+  "computation_passes": true,
+  "independence_caveats": [
+   "Both methods use the same DeltaT polynomial (about 7.2 s); effect of +-3 s is <= 0.002 deg (see ephemeris_agreement.json deltaT_sensitivity).",
+   "The Moon series of ERFA moon98 (method A) and Meeus ch.47 (method B) both descend from Chapront's ELP-2000/82, so their agreement tests the implementation, not the lunar theory. Independent anchors: NASA/Espenak phase minutes (via the repo file), astronomy-engine values stored in data-src/environment (2 s on events), and the Sun, whose VSOP-type (A) and Meeus low-accuracy (B) models are unrelated.",
+   "Altitudes are geometric (no refraction) and use the astronomical horizon; the local horizon is not modelled."
+  ]
+ },
+ "pdf_figure_table": [
+  {
+   "kind": "sun time",
+   "label": "1863-07-01 astronomical_dawn",
+   "printed": "02:33",
+   "computed": "02:33:01",
+   "diff": "+0.02",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-01 nautical_dawn",
+   "printed": "03:21",
+   "computed": "03:20:54",
+   "diff": "-0.10",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-01 civil_dawn",
+   "printed": "04:02",
+   "computed": "04:02:10",
+   "diff": "+0.17",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-01 sunrise",
+   "printed": "04:35",
+   "computed": "04:34:46",
+   "diff": "-0.23",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-01 solar noon",
+   "printed": "12:04",
+   "computed": "12:03:28",
+   "diff": "-0.54",
+   "unit": "min",
+   "status": "MARGINAL",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun alt",
+   "label": "1863-07-01 solar noon altitude",
+   "printed": 73.3,
+   "computed": "73.30",
+   "diff": "-0.00",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun az",
+   "label": "1863-07-01 solar noon azimuth",
+   "printed": 180,
+   "computed": "180.0 (by definition of transit)",
+   "diff": "0",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-01 sunset",
+   "printed": "19:32",
+   "computed": "19:31:58",
+   "diff": "-0.03",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-01 civil_dusk",
+   "printed": "20:05",
+   "computed": "20:04:32",
+   "diff": "-0.47",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-01 nautical_dusk",
+   "printed": "20:46",
+   "computed": "20:45:44",
+   "diff": "-0.27",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-01 astronomical_dusk",
+   "printed": "21:33",
+   "computed": "21:33:29",
+   "diff": "+0.49",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-02 astronomical_dawn",
+   "printed": "02:34",
+   "computed": "02:33:44",
+   "diff": "-0.26",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-02 nautical_dawn",
+   "printed": "03:21",
+   "computed": "03:21:29",
+   "diff": "+0.49",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-02 civil_dawn",
+   "printed": "04:03",
+   "computed": "04:02:41",
+   "diff": "-0.31",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-02 sunrise",
+   "printed": "04:35",
+   "computed": "04:35:15",
+   "diff": "+0.25",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-02 solar noon",
+   "printed": "12:04",
+   "computed": "12:03:39",
+   "diff": "-0.35",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun alt",
+   "label": "1863-07-02 solar noon altitude",
+   "printed": 73.2,
+   "computed": "73.23",
+   "diff": "+0.03",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun az",
+   "label": "1863-07-02 solar noon azimuth",
+   "printed": 180,
+   "computed": "180.0 (by definition of transit)",
+   "diff": "0",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-02 sunset",
+   "printed": "19:32",
+   "computed": "19:31:51",
+   "diff": "-0.15",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-02 civil_dusk",
+   "printed": "20:04",
+   "computed": "20:04:22",
+   "diff": "+0.37",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-02 nautical_dusk",
+   "printed": "20:45",
+   "computed": "20:45:30",
+   "diff": "+0.50",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-02 astronomical_dusk",
+   "printed": "21:33",
+   "computed": "21:33:07",
+   "diff": "+0.12",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-03 astronomical_dawn",
+   "printed": "02:34",
+   "computed": "02:34:29",
+   "diff": "+0.49",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-03 nautical_dawn",
+   "printed": "03:22",
+   "computed": "03:22:06",
+   "diff": "+0.11",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-03 civil_dawn",
+   "printed": "04:03",
+   "computed": "04:03:14",
+   "diff": "+0.24",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-03 sunrise",
+   "printed": "04:36",
+   "computed": "04:35:46",
+   "diff": "-0.24",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-03 solar noon",
+   "printed": "12:04",
+   "computed": "12:03:50",
+   "diff": "-0.16",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun alt",
+   "label": "1863-07-03 solar noon altitude",
+   "printed": 73.2,
+   "computed": "73.15",
+   "diff": "-0.05",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun az",
+   "label": "1863-07-03 solar noon azimuth",
+   "printed": 180,
+   "computed": "180.0 (by definition of transit)",
+   "diff": "0",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-03 sunset",
+   "printed": "19:32",
+   "computed": "19:31:42",
+   "diff": "-0.31",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-03 civil_dusk",
+   "printed": "20:04",
+   "computed": "20:04:10",
+   "diff": "+0.17",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-03 nautical_dusk",
+   "printed": "20:45",
+   "computed": "20:45:13",
+   "diff": "+0.22",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-03 astronomical_dusk",
+   "printed": "21:33",
+   "computed": "21:32:42",
+   "diff": "-0.31",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-04 astronomical_dawn",
+   "printed": "02:35",
+   "computed": "02:35:17",
+   "diff": "+0.29",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-04 nautical_dawn",
+   "printed": "03:23",
+   "computed": "03:22:46",
+   "diff": "-0.24",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-04 civil_dawn",
+   "printed": "04:04",
+   "computed": "04:03:49",
+   "diff": "-0.19",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-04 sunrise",
+   "printed": "04:36",
+   "computed": "04:36:18",
+   "diff": "+0.29",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-04 solar noon",
+   "printed": "12:04",
+   "computed": "12:04:01",
+   "diff": "+0.01",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun alt",
+   "label": "1863-07-04 solar noon altitude",
+   "printed": 73.1,
+   "computed": "73.07",
+   "diff": "-0.03",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun az",
+   "label": "1863-07-04 solar noon azimuth",
+   "printed": 180,
+   "computed": "180.0 (by definition of transit)",
+   "diff": "0",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-04 sunset",
+   "printed": "19:31",
+   "computed": "19:31:30",
+   "diff": "+0.51",
+   "unit": "min",
+   "status": "MATCH(trunc)",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-04 civil_dusk",
+   "printed": "20:04",
+   "computed": "20:03:56",
+   "diff": "-0.07",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-04 nautical_dusk",
+   "printed": "20:45",
+   "computed": "20:44:54",
+   "diff": "-0.10",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun time",
+   "label": "1863-07-04 astronomical_dusk",
+   "printed": "21:32",
+   "computed": "21:32:13",
+   "diff": "+0.22",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun alt",
+   "label": "Jul 1, 10:30 am",
+   "printed": 64.2,
+   "computed": "64.15",
+   "diff": "-0.05",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun az",
+   "label": "Jul 1, 10:30 am",
+   "printed": 123,
+   "computed": "123.24",
+   "diff": "+0.24",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun alt",
+   "label": "Jul 1, 4 pm (XI Corps collapse)",
+   "printed": 37.9,
+   "computed": "37.87",
+   "diff": "-0.03",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun az",
+   "label": "Jul 1, 4 pm (XI Corps collapse)",
+   "printed": 270,
+   "computed": "269.94",
+   "diff": "-0.06",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun alt",
+   "label": "Jul 2, 4 pm (Sickles, Peach Orchard)",
+   "printed": 37.9,
+   "computed": "37.87",
+   "diff": "-0.03",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun az",
+   "label": "Jul 2, 4 pm (Sickles, Peach Orchard)",
+   "printed": 270,
+   "computed": "269.84",
+   "diff": "-0.16",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun alt",
+   "label": "Jul 2, 6:30 pm (Wheatfield, Cemetery Ridge)",
+   "printed": 9.8,
+   "computed": "9.77",
+   "diff": "-0.03",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun az",
+   "label": "Jul 2, 6:30 pm (Wheatfield, Cemetery Ridge)",
+   "printed": 292,
+   "computed": "291.93",
+   "diff": "-0.07",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun alt",
+   "label": "Jul 2, 7 pm (Culp's Hill / East Cemetery Hill)",
+   "printed": 4.5,
+   "computed": "4.52",
+   "diff": "+0.02",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun az",
+   "label": "Jul 2, 7 pm (Culp's Hill / East Cemetery Hill)",
+   "printed": 296,
+   "computed": "296.44",
+   "diff": "+0.44",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun alt",
+   "label": "Jul 3, 5 am (Culp's Hill dawn)",
+   "printed": 3.2,
+   "computed": "3.22",
+   "diff": "+0.02",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun az",
+   "label": "Jul 3, 5 am (Culp's Hill dawn)",
+   "printed": 62,
+   "computed": "62.43",
+   "diff": "+0.43",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun alt",
+   "label": "Jul 3, 1 pm (cannonade start)",
+   "printed": 69.4,
+   "computed": "69.38",
+   "diff": "-0.02",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun az",
+   "label": "Jul 3, 1 pm (cannonade start)",
+   "printed": 219,
+   "computed": "219.36",
+   "diff": "+0.36",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun alt",
+   "label": "Jul 3, 3 pm (the Charge)",
+   "printed": 49.3,
+   "computed": "49.31",
+   "diff": "+0.01",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun az",
+   "label": "Jul 3, 3 pm (the Charge)",
+   "printed": 259,
+   "computed": "259.01",
+   "diff": "+0.01",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun alt",
+   "label": "Jul 3, 4 pm",
+   "printed": 37.9,
+   "computed": "37.86",
+   "diff": "-0.04",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun az",
+   "label": "Jul 3, 4 pm",
+   "printed": 270,
+   "computed": "269.73",
+   "diff": "-0.27",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun alt",
+   "label": "Jul 3, 7 pm",
+   "printed": 4.5,
+   "computed": "4.50",
+   "diff": "-0.00",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "sun az",
+   "label": "Jul 3, 7 pm",
+   "printed": 296,
+   "computed": "296.35",
+   "diff": "+0.35",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "shadow",
+   "label": "Jul 3 3 pm shadow length / object height",
+   "printed": 0.86,
+   "computed": "0.860",
+   "diff": "-0.000",
+   "unit": "ratio",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "shadow",
+   "label": "Jul 3 3 pm shadow azimuth ('about 79')",
+   "printed": 79,
+   "computed": "79.0",
+   "diff": "+0.0",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": true,
+   "note": ""
+  },
+  {
+   "kind": "moon time",
+   "label": "moonrise 1863-07-01",
+   "printed": "19:53",
+   "computed": "19:53:11",
+   "diff": "+0.19",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon time",
+   "label": "moonrise 1863-07-02",
+   "printed": "20:38",
+   "computed": "20:37:34",
+   "diff": "-0.43",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon time",
+   "label": "moonrise 1863-07-03",
+   "printed": "21:16",
+   "computed": "21:15:55",
+   "diff": "-0.08",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon time",
+   "label": "moonrise 1863-07-04",
+   "printed": "21:50",
+   "computed": "21:50:04",
+   "diff": "+0.06",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon time",
+   "label": "moonset 1863-07-01 (morning)",
+   "printed": "04:59",
+   "computed": "04:59:05",
+   "diff": "+0.09",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon time",
+   "label": "moonset 1863-07-02 (morning)",
+   "printed": "06:14",
+   "computed": "06:13:46",
+   "diff": "-0.24",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon time",
+   "label": "moonset 1863-07-03 (morning)",
+   "printed": "07:29",
+   "computed": "07:29:00",
+   "diff": "-0.00",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon time",
+   "label": "moonset 1863-07-04 (morning)",
+   "printed": "08:42",
+   "computed": "08:42:26",
+   "diff": "+0.43",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon time",
+   "label": "moonset 1863-07-05 (morning)",
+   "printed": "09:53",
+   "computed": "09:53:09",
+   "diff": "+0.16",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon time",
+   "label": "moonrise 1863-06-30 ('about 19:10', 'not computed')",
+   "printed": "19:10",
+   "computed": "19:01:18",
+   "diff": "-8.70",
+   "unit": "min",
+   "status": "FINDING",
+   "approx": true,
+   "note": "the PDF itself says this figure is approximate and was not computed; computed value is ~9 min earlier (the LMT/EST offset is 8.9 min)"
+  },
+  {
+   "kind": "moon alt",
+   "label": "night 1863-07-01 21:00",
+   "printed": 10,
+   "computed": "9.96",
+   "diff": "-0.04",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon az",
+   "label": "night 1863-07-01 21:00",
+   "printed": 125,
+   "computed": "125.11",
+   "diff": "+0.11",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon alt",
+   "label": "night 1863-07-01 22:00",
+   "printed": 18.5,
+   "computed": "18.49",
+   "diff": "-0.01",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon az",
+   "label": "night 1863-07-01 22:00",
+   "printed": 136,
+   "computed": "136.23",
+   "diff": "+0.23",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon alt",
+   "label": "night 1863-07-01 00:00 (next day)",
+   "printed": 30,
+   "computed": "29.96",
+   "diff": "-0.04",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon az",
+   "label": "night 1863-07-01 00:00 (next day)",
+   "printed": 164,
+   "computed": "163.84",
+   "diff": "-0.16",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon alt",
+   "label": "night 1863-07-01 02:00 (next day)",
+   "printed": 30,
+   "computed": "30.31",
+   "diff": "+0.31",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon az",
+   "label": "night 1863-07-01 02:00 (next day)",
+   "printed": 196,
+   "computed": "195.94",
+   "diff": "-0.06",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon alt",
+   "label": "night 1863-07-01 04:00 (next day)",
+   "printed": 19,
+   "computed": "19.35",
+   "diff": "+0.35",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon az",
+   "label": "night 1863-07-01 04:00 (next day)",
+   "printed": 224,
+   "computed": "224.07",
+   "diff": "+0.07",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon alt",
+   "label": "night 1863-07-02 21:00",
+   "printed": 3,
+   "computed": "3.07",
+   "diff": "+0.07",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon az",
+   "label": "night 1863-07-02 21:00",
+   "printed": 112,
+   "computed": "112.50",
+   "diff": "+0.50",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon alt",
+   "label": "night 1863-07-02 22:00",
+   "printed": 13,
+   "computed": "13.05",
+   "diff": "+0.05",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon az",
+   "label": "night 1863-07-02 22:00",
+   "printed": 122,
+   "computed": "122.45",
+   "diff": "+0.45",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon alt",
+   "label": "night 1863-07-02 00:00 (next day)",
+   "printed": 29,
+   "computed": "29.20",
+   "diff": "+0.20",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon az",
+   "label": "night 1863-07-02 00:00 (next day)",
+   "printed": 147,
+   "computed": "147.33",
+   "diff": "+0.33",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon alt",
+   "label": "night 1863-07-02 02:00 (next day)",
+   "printed": 36,
+   "computed": "35.94",
+   "diff": "-0.06",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon az",
+   "label": "night 1863-07-02 02:00 (next day)",
+   "printed": 180,
+   "computed": "180.13",
+   "diff": "+0.13",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon alt",
+   "label": "night 1863-07-02 04:00 (next day)",
+   "printed": 30,
+   "computed": "29.80",
+   "diff": "-0.20",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon az",
+   "label": "night 1863-07-02 04:00 (next day)",
+   "printed": 213,
+   "computed": "213.27",
+   "diff": "+0.27",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon alt",
+   "label": "night 1863-07-03 22:00",
+   "printed": 7,
+   "computed": "7.10",
+   "diff": "+0.10",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon az",
+   "label": "night 1863-07-03 22:00",
+   "printed": 110,
+   "computed": "109.52",
+   "diff": "-0.48",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon alt",
+   "label": "night 1863-07-03 00:00 (next day)",
+   "printed": 27,
+   "computed": "26.62",
+   "diff": "-0.38",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon az",
+   "label": "night 1863-07-03 00:00 (next day)",
+   "printed": 132,
+   "computed": "131.63",
+   "diff": "-0.37",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon alt",
+   "label": "night 1863-07-03 02:00 (next day)",
+   "printed": 39,
+   "computed": "39.28",
+   "diff": "+0.28",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon az",
+   "label": "night 1863-07-03 02:00 (next day)",
+   "printed": 163,
+   "computed": "162.79",
+   "diff": "-0.21",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon alt",
+   "label": "night 1863-07-03 04:00 (next day)",
+   "printed": 39,
+   "computed": "39.08",
+   "diff": "+0.08",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon az",
+   "label": "night 1863-07-03 04:00 (next day)",
+   "printed": 200,
+   "computed": "200.41",
+   "diff": "+0.41",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon alt",
+   "label": "night 1863-07-04 22:00",
+   "printed": 1,
+   "computed": "1.02",
+   "diff": "+0.02",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon az",
+   "label": "night 1863-07-04 22:00",
+   "printed": 97,
+   "computed": "97.25",
+   "diff": "+0.25",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon alt",
+   "label": "night 1863-07-04 00:00 (next day)",
+   "printed": 23,
+   "computed": "22.57",
+   "diff": "-0.43",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon az",
+   "label": "night 1863-07-04 00:00 (next day)",
+   "printed": 117,
+   "computed": "117.21",
+   "diff": "+0.21",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon alt",
+   "label": "night 1863-07-04 02:00 (next day)",
+   "printed": 40,
+   "computed": "39.93",
+   "diff": "-0.07",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon az",
+   "label": "night 1863-07-04 02:00 (next day)",
+   "printed": 145,
+   "computed": "144.96",
+   "diff": "-0.04",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon alt",
+   "label": "night 1863-07-04 04:00 (next day)",
+   "printed": 46,
+   "computed": "46.44",
+   "diff": "+0.44",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon az",
+   "label": "night 1863-07-04 04:00 (next day)",
+   "printed": 185,
+   "computed": "184.58",
+   "diff": "-0.42",
+   "unit": "deg",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon illum",
+   "label": "night 1863-07-01 start (at moonrise)",
+   "printed": "99%",
+   "computed": "99.0%",
+   "diff": "+0.0",
+   "unit": "pct-pt",
+   "status": "MATCH",
+   "approx": true,
+   "note": "PDF: illumination 'approximate, from geocentric elongation'"
+  },
+  {
+   "kind": "moon illum",
+   "label": "night 1863-07-01 end (at next moonset)",
+   "printed": "93%",
+   "computed": "97.7%",
+   "diff": "+4.7",
+   "unit": "pct-pt",
+   "status": "FINDING",
+   "approx": true,
+   "note": "PDF: illumination 'approximate, from geocentric elongation'"
+  },
+  {
+   "kind": "moon illum",
+   "label": "night 1863-07-02 start (at moonrise)",
+   "printed": "95%",
+   "computed": "95.0%",
+   "diff": "-0.0",
+   "unit": "pct-pt",
+   "status": "MATCH",
+   "approx": true,
+   "note": "PDF: illumination 'approximate, from geocentric elongation'"
+  },
+  {
+   "kind": "moon illum",
+   "label": "night 1863-07-02 end (at next moonset)",
+   "printed": "86%",
+   "computed": "92.3%",
+   "diff": "+6.3",
+   "unit": "pct-pt",
+   "status": "FINDING",
+   "approx": true,
+   "note": "PDF: illumination 'approximate, from geocentric elongation'"
+  },
+  {
+   "kind": "moon illum",
+   "label": "night 1863-07-03 start (at moonrise)",
+   "printed": "88%",
+   "computed": "88.2%",
+   "diff": "+0.2",
+   "unit": "pct-pt",
+   "status": "MATCH",
+   "approx": true,
+   "note": "PDF: illumination 'approximate, from geocentric elongation'"
+  },
+  {
+   "kind": "moon illum",
+   "label": "night 1863-07-03 end (at next moonset)",
+   "printed": "77%",
+   "computed": "84.3%",
+   "diff": "+7.3",
+   "unit": "pct-pt",
+   "status": "FINDING",
+   "approx": true,
+   "note": "PDF: illumination 'approximate, from geocentric elongation'"
+  },
+  {
+   "kind": "moon illum",
+   "label": "night 1863-07-04 start (at moonrise)",
+   "printed": "80%",
+   "computed": "79.4%",
+   "diff": "-0.6",
+   "unit": "pct-pt",
+   "status": "MARGINAL",
+   "approx": true,
+   "note": "PDF: illumination 'approximate, from geocentric elongation'"
+  },
+  {
+   "kind": "moon illum",
+   "label": "night 1863-07-04 end (at next moonset)",
+   "printed": "68%",
+   "computed": "74.5%",
+   "diff": "+6.5",
+   "unit": "pct-pt",
+   "status": "FINDING",
+   "approx": true,
+   "note": "PDF: illumination 'approximate, from geocentric elongation'"
+  },
+  {
+   "kind": "moon illum",
+   "label": "Jun 30 to Jul 1 maximum ('about 99 to 100%')",
+   "printed": "99-100%",
+   "computed": "99.94% (max in table)",
+   "diff": "n/a",
+   "unit": "pct",
+   "status": "MATCH",
+   "approx": true,
+   "note": ""
+  },
+  {
+   "kind": "phase",
+   "label": "full moon 1863-07-01 UT, method A",
+   "printed": "06:46",
+   "computed": "06:45:56",
+   "diff": "-0.05",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "phase",
+   "label": "full moon 1863-07-01 UT, method B",
+   "printed": "06:46",
+   "computed": "06:46:01",
+   "diff": "+0.03",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "phase",
+   "label": "full moon in LMT (PDF '01:37 LMT')",
+   "printed": "01:37",
+   "computed": "01:37:01",
+   "diff": "+0.02",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "phase",
+   "label": "previous full moon 1863-06-01 23:29 UT (PDF)",
+   "printed": "23:29",
+   "computed": "23:29:47",
+   "diff": "+0.80",
+   "unit": "min",
+   "status": "MARGINAL",
+   "approx": false,
+   "note": ""
+  },
+  {
+   "kind": "moon time",
+   "label": "Jul 2: 'moon not up until about 20:40' (moonrise 20:38 printed elsewhere)",
+   "printed": "~20:40",
+   "computed": "20:37:34",
+   "diff": "-2.43",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": true,
+   "note": ""
+  },
+  {
+   "kind": "source fig",
+   "label": "Strategypage Jul 1 sunrise 0435",
+   "printed": "04:35",
+   "computed": "04:34:46",
+   "diff": "-0.23",
+   "unit": "min",
+   "status": "INFO",
+   "approx": true,
+   "note": "figure from a historical/secondary source, time basis not stated; difference to computed LMT is for information"
+  },
+  {
+   "kind": "source fig",
+   "label": "Strategypage Jul 1 sunset 1933",
+   "printed": "19:33",
+   "computed": "19:31:58",
+   "diff": "-1.03",
+   "unit": "min",
+   "status": "INFO",
+   "approx": true,
+   "note": "figure from a historical/secondary source, time basis not stated; difference to computed LMT is for information"
+  },
+  {
+   "kind": "source fig",
+   "label": "Strategypage Jul 4 sunrise 0437",
+   "printed": "04:37",
+   "computed": "04:36:18",
+   "diff": "-0.71",
+   "unit": "min",
+   "status": "INFO",
+   "approx": true,
+   "note": "figure from a historical/secondary source, time basis not stated; difference to computed LMT is for information"
+  },
+  {
+   "kind": "source fig",
+   "label": "Strategypage Jul 4 sunset 1932",
+   "printed": "19:32",
+   "computed": "19:31:30",
+   "diff": "-0.49",
+   "unit": "min",
+   "status": "INFO",
+   "approx": true,
+   "note": "figure from a historical/secondary source, time basis not stated; difference to computed LMT is for information"
+  },
+  {
+   "kind": "source fig",
+   "label": "Freeman Jul 2 sunrise 04:32 (timeline T2-052)",
+   "printed": "04:32",
+   "computed": "04:35:15",
+   "diff": "+3.25",
+   "unit": "min",
+   "status": "INFO",
+   "approx": true,
+   "note": "figure from a historical/secondary source, time basis not stated; difference to computed LMT is for information"
+  },
+  {
+   "kind": "timeline",
+   "label": "T2-052 'USNO 04:44 EST (about 04:29 local)' sunrise Jul 2",
+   "printed": "04:29",
+   "computed": "04:35:15",
+   "diff": "+6.25",
+   "unit": "min",
+   "status": "FINDING",
+   "approx": false,
+   "note": "04:44 EST is consistent with computed 04:35 LMT (04:44:11 EST) but '04:29 local' is not; the row itself says its arithmetic line is inconsistent"
+  },
+  {
+   "kind": "clock",
+   "label": "EST = LMT + about 9 minutes",
+   "printed": "9",
+   "computed": "8.92",
+   "diff": "-0.08",
+   "unit": "min",
+   "status": "MATCH",
+   "approx": true,
+   "note": ""
+  },
+  {
+   "kind": "clock",
+   "label": "'04:36 LMT equals 05:45 on a modern EDT clock'",
+   "printed": "05:45",
+   "computed": "05:45",
+   "diff": "0",
+   "unit": "clock",
+   "status": "MATCH",
+   "approx": false,
+   "note": ""
+  }
+ ],
+ "pdf_figure_status_counts": {
+  "MATCH": 119,
+  "MARGINAL": 3,
+  "MATCH(trunc)": 1,
+  "FINDING": 6,
+  "INFO": 5
+ },
+ "pdf_findings": [
+  {
+   "kind": "moon time",
+   "label": "moonrise 1863-06-30 ('about 19:10', 'not computed')",
+   "printed": "19:10",
+   "computed": "19:01:18",
+   "diff": "-8.70",
+   "unit": "min",
+   "status": "FINDING",
+   "approx": true,
+   "note": "the PDF itself says this figure is approximate and was not computed; computed value is ~9 min earlier (the LMT/EST offset is 8.9 min)"
+  },
+  {
+   "kind": "moon illum",
+   "label": "night 1863-07-01 end (at next moonset)",
+   "printed": "93%",
+   "computed": "97.7%",
+   "diff": "+4.7",
+   "unit": "pct-pt",
+   "status": "FINDING",
+   "approx": true,
+   "note": "PDF: illumination 'approximate, from geocentric elongation'"
+  },
+  {
+   "kind": "moon illum",
+   "label": "night 1863-07-02 end (at next moonset)",
+   "printed": "86%",
+   "computed": "92.3%",
+   "diff": "+6.3",
+   "unit": "pct-pt",
+   "status": "FINDING",
+   "approx": true,
+   "note": "PDF: illumination 'approximate, from geocentric elongation'"
+  },
+  {
+   "kind": "moon illum",
+   "label": "night 1863-07-03 end (at next moonset)",
+   "printed": "77%",
+   "computed": "84.3%",
+   "diff": "+7.3",
+   "unit": "pct-pt",
+   "status": "FINDING",
+   "approx": true,
+   "note": "PDF: illumination 'approximate, from geocentric elongation'"
+  },
+  {
+   "kind": "moon illum",
+   "label": "night 1863-07-04 end (at next moonset)",
+   "printed": "68%",
+   "computed": "74.5%",
+   "diff": "+6.5",
+   "unit": "pct-pt",
+   "status": "FINDING",
+   "approx": true,
+   "note": "PDF: illumination 'approximate, from geocentric elongation'"
+  },
+  {
+   "kind": "timeline",
+   "label": "T2-052 'USNO 04:44 EST (about 04:29 local)' sunrise Jul 2",
+   "printed": "04:29",
+   "computed": "04:35:15",
+   "diff": "+6.25",
+   "unit": "min",
+   "status": "FINDING",
+   "approx": false,
+   "note": "04:44 EST is consistent with computed 04:35 LMT (04:44:11 EST) but '04:29 local' is not; the row itself says its arithmetic line is inconsistent"
+  }
+ ],
+ "q22": {
+  "gate": "Q22",
+  "text": "Weather state check: scene weather matches the weather timeline at every time. (No scene exists yet; this checks the timeline itself.)",
+  "checks": [
+   {
+    "check": "every day Jun 26 - Jul 4 present with 07:00/14:00/21:00 readings",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "27 readings equal the numbers parsed from the PDF text (Table 1)",
+    "ok": true,
+    "detail": "[]"
+   },
+   {
+    "check": "Jul 5 recorded as n/a (no readings invented)",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "no reading outside the printed range (min 60 F; max 87 F, 'highest of the battle and of July')",
+    "ok": true,
+    "detail": "min 60 max 87"
+   },
+   {
+    "check": "87 F occurs only at 14:00 on Jul 3",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "Jul 4 readings <= 76 F ('never recorded above 76 F on Jul 4 to 8')",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "PDF text contains the 87 F / 2 pm / Jul 3 statement",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "no 'chosen/default/selected' field anywhere in weather_timeline.json",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "wind conflict lists both 12 mph and 2 mph",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "Jul 4 rain conflict lists two schedules and the shared 1.39 in",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "Jul 2 sky conflict lists two states",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "Jul 3 87 F vs 'below average' lists two statements",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "Jul 2 2 pm 3/10 carried as ambiguous (both 0.3 and 0.7 covered listed)",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "PDF conflict text contains '12 mph'",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "PDF conflict text contains '2 mph'",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "PDF conflict text contains '2:15 to 4 pm'",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "PDF conflict text contains '1.39 in'",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "PDF conflict text contains '3/10'",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "PDF conflict text contains 'below average'",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "cloud fractions within [0,1]",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "wetness schedule is 0 -> about 0.3 -> 1.0 as in B.10.6 (and the PDF text says so)",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "moonlight table has the four PDF nights",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "moonlight row Jul 1 to 2 rise 19:53 equals computed 19:53:11 within 1 min",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "moonlight row Jul 2 to 3 rise 20:38 equals computed 20:37:34 within 1 min",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "moonlight row Jul 3 to 4 rise 21:16 equals computed 21:15:55 within 1 min",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "moonlight row Jul 4 to 5 rise 21:50 equals computed 21:50:04 within 1 min",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "every normalised tier is one of documented/inferred/plausible-procedural/open gap",
+    "ok": true,
+    "detail": "['documented', 'inferred', 'open gap']"
+   },
+   {
+    "check": "every tier_as_printed is present (the PDF's own wording kept)",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "every Jacobs row carries the weak-source flag",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "pdf_recommended_render is marked PENDING OWNER",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "check": "27 temperatures equal data-src/environment/weather_by_day.json",
+    "ok": true,
+    "detail": ""
+   }
+  ],
+  "computation_passes": true,
+  "pdf_vs_data_src_differences": [
+   "D1: Rain start, June 25",
+   "D2: Jul 4 rain timing",
+   "D3: 1.39 in attributed to 'July 4'",
+   "D4: Jul 2, 2 pm cloud",
+   "D6: 87 F 'shade'",
+   "D8: Sky Jun 27 - Jun 30"
+  ]
+ },
+ "note": "Computation/consistency results only. No gate's `passes` is set by this script."
+}

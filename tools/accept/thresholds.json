@@ -1,0 +1,45 @@
+{
+  "_comment": "Green band of the end-of-mission acceptance (docs/battle-theatre/GOVERNANCE/FINAL-ACCEPTANCE.md, step 5). Any value outside the band is a defect: there is no amber that passes. Never loosen these to make a pass clean.",
+  "webVitals": {
+    "lcpMs": 2500,
+    "cls": 0.1,
+    "inpMs": 200,
+    "tbtMs": 200
+  },
+  "frames": {
+    "p95FrameMsDesktop": 20,
+    "p95FrameMsPhone": 20,
+    "maxJankFrameMs": 100,
+    "_note": "p95 frame time of requestAnimationFrame deltas while the map animation plays at 1x and 4x. maxJankFrameMs is reported as a defect only when more than 1 percent of frames exceed it."
+  },
+  "interaction": {
+    "visibleResponseMs": 100,
+    "longTaskMs": 50,
+    "longTasksPerInteraction": 0,
+    "navigationFirstPaintMs": 1000
+  },
+  "heap": {
+    "maxGrowthPercent": 10,
+    "_note": "(heap after the final forced GC - heap after warm-up and a forced GC) / heap after warm-up, over the soak. Default soak is 120 s for dry runs; the acceptance run uses --soak-seconds 600."
+  },
+  "visual": {
+    "widths": [360, 390, 768, 1024, 1440, 1920],
+    "heights": { "360": 740, "390": 844, "768": 1024, "1024": 768, "1440": 900, "1920": 1080 },
+    "tapTargetMinPx": 44,
+    "tapTargetAppliesUpToWidth": 1024,
+    "pointerTargetMinPx": 24,
+    "minTextPx": 12,
+    "layoutShiftMax": 0.1,
+    "horizontalOverflowTolerancePx": 1
+  },
+  "regression": {
+    "pixelColorThreshold": 0.1,
+    "maxDiffRatio": 0.002,
+    "regionGrid": [8, 6],
+    "viewports": [[1440, 900], [390, 844]]
+  },
+  "setup": {
+    "tileCapPerRun": 20000,
+    "_note": "Mapbox requests per pass through the Referer-injecting side channel of tests/t0/lib.mjs (harness default 300 per run). Mapbox bills map loads (one sku per GL JS initialisation), not tile requests; every pass reports the number of skus it used. Override with --tile-cap."
+  }
+}

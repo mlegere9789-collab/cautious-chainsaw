@@ -1,0 +1,126 @@
+// Measures the animation system in node (no browser, no GPU) and writes data/anim3d/measured.json. Run at below-normal priority:  node docs/battle-theatre/app/tools/measure-anim3d.mjs
+// Every number in docs/ANIM3D-NOTES.md "Measured" comes from this file. tests/anim3d.test.mjs re-measures the gates with thresholds.
+import fs from 'node:fs'; import path from 'node:path'; import { fileURLToPath } from 'node:url'; import { spawnSync } from 'node:child_process';
+import { AnimSystem, FirePlan, FootPlanter, GearSprings, bakeGearTrack, slopeAt } from '../src/anim3d/index.mjs';
+import { MeshProbe, clipSteps, loopSeam, footSlip, bakeError, attachment, limitStats, percentile, demContactStats, bladePoint, unisonIndex } from '../src/anim3d/metrics.mjs';
+import { qrot } from '../src/anim3d/qmath.mjs';
+import { slopeClass, slopeSpeedFactor, SLOPE } from '../src/anim3d/terrain.mjs';
+import { sampleClip } from '../src/anim3d/clipdef.mjs';
+import { costModel } from '../src/anim3d/bake.mjs';
+
+const HERE = path.dirname(fileURLToPath(import.meta.url)), APP = path.resolve(HERE, '..');
+const sk = JSON.parse(fs.readFileSync(path.join(APP, 'data', 'figures3d', 'skeleton.json'), 'utf8'));
+const t00 = performance.now(); const A = new AnimSystem({ skeleton: sk }); const lib = A.lib, rig = lib.rig;
+const M = { schema: 'anim3d-measured-1', node: process.version, note: 'node measurements on the synthetic skinned mesh (syntheticMesh) and the rig of skeleton.json; the FIGURES mesh is not used; browser/GPU numbers are in the BROWSER-VERIFICATION-LIST' };
+const tb = performance.now(); lib.bakeAll(); M.library = { clips: lib.ids().length, registerAndBakeMs: Math.round(performance.now() - tb), floats: [...lib.clips.values()].reduce((a, c) => a + c.data.length, 0) }; M.library.megabytes = +(M.library.floats * 4 / 1e6).toFixed(2);
+const probe = new MeshProbe(rig);
+
+// gaits: stance slip at the documented speed, joint-limit violations
+M.gaits = {}; for (const id of lib.ids().filter(i => i.startsWith('march_') && lib.def(i).meta.rootSpeed != null && lib.def(i).loop)) { const c = lib.get(id), v = lib.def(id).meta.rootSpeed, s = footSlip(rig, c, v), l = limitStats(rig, c);
+  M.gaits[id] = { speedMs: +v.toFixed(4), cycleS: +c.dur.toFixed(4), stepsPerMin: lib.def(id).meta.stepsPerMin, slipZcm: +(s.worstZ * 100).toFixed(3), slipXcm: +(s.worstX * 100).toFixed(3), plantedRuns: s.runs, violFraction: +l.fraction.toFixed(3) }; }
+// slip at a playback-rate mismatch: the root moves at v but the clip plays at rate r (what a unit that is not exactly at the drill speed would show without the rate match)
+M.slip_mismatch = {}; for (const [id, r] of [['march_quick_time_shoulder', 0.9], ['march_quick_time_shoulder', 1.1], ['march_double_quick_run', 0.9], ['march_double_quick_run', 1.1]]) { const c = lib.get(id), v = lib.def(id).meta.rootSpeed, s = footSlip(rig, c, v, r); M.slip_mismatch[id + '@' + r] = { perStepCm: +(s.perStepWorst * 100).toFixed(2) }; }
+
+// loop seams and in-clip steps
+M.loops = {}; for (const id of lib.ids()) { const d = lib.def(id), c = lib.get(id); if (!d.loop || d.rig === 'horse' || d.rig === 'gun') continue; const s = loopSeam(probe, c); M.loops[id] = { wrapMm: +(s.wrap * 1000).toFixed(2), maxStepMm: +(s.max * 1000).toFixed(2), medianStepMm: +(s.median * 1000).toFixed(2), ratio: +s.ratio.toFixed(2) }; }
+const ratios = Object.values(M.loops).map(x => x.ratio); M.loops_summary = { n: ratios.length, p95Ratio: +percentile(ratios, 0.95).toFixed(2), worst: Object.entries(M.loops).sort((a, b) => b[1].ratio - a[1].ratio).slice(0, 5).map(([k, v]) => k + ' ' + v.ratio) };
+
+// bake error vs stored rate
+M.bake_error_mm = {}; for (const id of ['march_quick_time_shoulder', 'march_double_quick_run', 'fire_cycle_stand', 'fall_back', 'ready_from_shoulder']) { const c = lib.get(id); M.bake_error_mm[id] = {}; for (const hz of [15, 30, 60, 120]) { const e = bakeError(probe, c, hz); M.bake_error_mm[id][hz] = { max: +(e.max * 1000).toFixed(2), mean: +(e.mean * 1000).toFixed(3) }; } }
+
+// transitions through the state machine
+const n = 4, ua = A.addUnit({ unitId: 'MEASURE', n, arm: 'infantry', variation: k => k / n });
+const plan = FirePlan.create({ unitId: 'MEASURE', n, seed: 1, mode: 'at_will', startS: 500, endS: 560, cycleS: { min: 20, max: 30 }, files: 2 });
+const inClip = {}; const maxStep = id => (inClip[id] ??= clipSteps(probe, lib.get(id)).max);
+const edges = { 'halt->march(quick)': [[{ t0: 0, activity: 'halt' }, { t0: 100, activity: 'march', speed: 1.304 }], 100, ['stand_shoulder', 'march_quick_time_shoulder']], 'march(quick)->halt': [[{ t0: 0, activity: 'march', speed: 1.304 }, { t0: 100, activity: 'halt' }], 100, ['march_quick_time_shoulder', 'stand_shoulder']],
+  'march(common)->march(quick) in the speed gap': [[{ t0: 0, activity: 'march', speed: 1.067 }, { t0: 100, activity: 'march', speed: 1.304 }], 100, ['march_common_time_shoulder', 'march_quick_time_shoulder']], 'march(quick)->march(double quick)': [[{ t0: 0, activity: 'march', speed: 1.304 }, { t0: 100, activity: 'march', speed: 2.305 }], 100, ['march_quick_time_shoulder', 'march_double_quick_run']],
+  'march->fire (ready)': [[{ t0: 0, activity: 'march', speed: 1.304 }, { t0: 480, activity: 'fire', plan }], 480, ['march_quick_time_shoulder', 'ready_from_shoulder']], 'halt->fire': [[{ t0: 0, activity: 'halt' }, { t0: 480, activity: 'fire', plan }], 497, ['stand_shoulder', 'ready_from_shoulder']], 'fire->halt (cease firing)': [[{ t0: 480, activity: 'fire', plan }, { t0: 700, activity: 'halt' }], 700, ['stand_shoulder', 'stand_shoulder']] };
+M.transitions = {}; const fr = rig.newFrame(), pa = probe.alloc(), pb = probe.alloc();
+for (const [name, [segs, tc, ids]] of Object.entries(edges)) { ua.setSegments(segs); let worst = 0, prev = null, pbuf = probe.alloc(); for (let t = tc - 0.5; t < tc + 1.0; t += 1 / 60) { A.sampleFigure('MEASURE', 1, t, fr); probe.verts(fr, pa); if (prev) { const s = probe.step(prev, pa).max; if (s > worst) worst = s; } prev = Float32Array.from(pa); }
+  const inc = Math.max(...ids.map(maxStep), 1e-4); M.transitions[name] = { maxStepMm: +(worst * 1000).toFixed(1), inClipMaxMm: +(inc * 1000).toFixed(1), ratio: +(worst / inc).toFixed(2) }; }
+void pb;
+
+// terrain conformance
+const fp = new FootPlanter(rig); M.terrain = {};
+for (const deg of [0, 10, 20, 30]) { const slope = Math.tan(deg * Math.PI / 180), ground = (x, z) => 5 + slope * (0.6 * x + 0.8 * z); for (const id of ['march_quick_time_shoulder', 'march_double_quick_run', 'stand_shoulder']) { const c = lib.get(id), f = rig.newFrame(), before = [], after = [];
+  for (const yaw of [0, 0.8, 1.9, 3.0, 4.4]) for (let i = 0; i < c.n; i++) { sampleClip(c, i / c.fps, f); const e0 = fp.contactError(f, ground, 10, 20, yaw); const f2 = Float32Array.from(f); fp.conform(f2, ground, 10, 20, yaw); const o = {}; fp.contactError(f2, ground, 10, 20, yaw, o); if (o.contacts) { before.push(e0); after.push(o.worst); } }
+  (M.terrain[deg] ??= {})[id] = { beforeP95cm: +(percentile(before, 0.95) * 100).toFixed(2), afterP95cm: +(percentile(after, 0.95) * 100).toFixed(2), afterMaxcm: +(Math.max(...after) * 100).toFixed(2) }; } }
+
+// attachment (hands on the grips), prop pull and joint limits by family (follow-up round: the limited arm solve, the least-squares grip pull, tolerance 0.05 degrees at every frame)
+M.attachment = {}; const fam = {}; for (const id of lib.ids()) { const d = lib.def(id); if (d.rig === 'horse' || d.rig === 'gun' || !d.eval || d.meta.variantOf) continue; (fam[d.family || 'other'] ??= []).push(id); }
+const rowsAtt = {}; for (const [f, ids] of Object.entries(fam)) { const rows = ids.map(id => ({ id, ...attachment(lib.solver, lib.def(id), 0.02) })); rowsAtt[f] = rows; M.attachment[f] = { clips: ids.length, maxGripCm: +(Math.max(...rows.map(r => r.maxGrip)) * 100).toFixed(2), frac_over_1cm: +(rows.reduce((a, r) => a + r.over1cm, 0) / rows.length).toFixed(4), maxPropPullCm: +(Math.max(...rows.map(r => r.maxShift)) * 100).toFixed(1), maxFreeHandOverreachCm: +(Math.max(...rows.map(r => r.maxFree)) * 100).toFixed(1), worst: rows.sort((x, y) => y.maxGrip - x.maxGrip)[0].id }; }
+M.attachment_clips_over_1cm = Object.values(rowsAtt).flat().filter(r => r.maxGrip > 0.01).map(r => ({ id: r.id, maxGripCm: +(r.maxGrip * 100).toFixed(2), fracOver1cm: +r.over1cm.toFixed(3) }));
+M.prop_pull_over_30cm = Object.values(rowsAtt).flat().filter(r => r.maxShift > 0.30).sort((x, y) => y.maxShift - x.maxShift).map(r => ({ id: r.id, family: lib.def(r.id).family, maxPropPullCm: +(r.maxShift * 100).toFixed(0) }));
+M.limits = {}; for (const [f, ids] of Object.entries(fam)) { const rows = ids.map(id => limitStats(rig, lib.get(id), 1, 0.05)); M.limits[f] = { clips: ids.length, clipsWithAnyExcess: rows.filter(r => r.badFrames).length, meanFractionOfFramesWithExcess: +(rows.reduce((a, r) => a + r.fraction, 0) / rows.length).toFixed(4), worstDeg: +Math.max(...rows.map(r => r.worstDeg)).toFixed(2) }; }
+M.limits_horse_gun = Object.fromEntries(lib.ids().filter(i => { const r = lib.def(i).rig; return r === 'horse' || r === 'gun'; }).map(id => { const l = limitStats(lib.rigFor(lib.def(id)), lib.get(id), 1, 0.05); return [id, { framesWithExcess: l.badFrames, worstDeg: l.worstDeg }]; }));
+M.solver = { before: 'closed-form hinge IK, swivel search +-90 degrees, 3 prop-pull passes: 31 to 78 percent of the frames of drill, musketry, fall, artillery, activity and rider clips had a joint outside its limit (worst 105 degrees); hand-to-grip up to 11.5 cm (musketry), 29 cm (artillery)', after: 'closed-form swivel within 12 degrees of the previous frame; else projected damped-least-squares in the Euler box of the shoulder and the elbow range (warm-started, continuous); least-squares prop pull, 18 passes with a divergence guard; pelvis spill into the root; stowed ramrod' };
+// per-frame pops: the largest vertex step of the synthetic mesh in 1/60 s by family
+M.max_step_mm = {}; for (const [f, ids] of Object.entries(fam)) { const st = ids.map(id => ({ id, v: clipSteps(probe, lib.get(id)).max })).sort((x, y) => y.v - x.v)[0]; M.max_step_mm[f] = { id: st.id, mm: +(st.v * 1000).toFixed(0) }; }
+
+// G9 coverage: clips per family and tier, the new families, the paired sabre contact errors
+M.g9 = { totalClips: lib.ids().length, byFamily: Object.fromEntries(Object.entries(fam).map(([f, ids]) => [f, ids.length])), newFamilies: {} };
+for (const f of ['cover', 'dress', 'wheel', 'skirmish', 'stretcher', 'limber', 'hart', 'melee']) { const ids = fam[f] || []; M.g9.newFamilies[f] = { clips: ids.length, tiers: ids.reduce((o, id) => { const t = lib.def(id).meta.tier; o[t] = (o[t] || 0) + 1; return o; }, {}) }; }
+{ const m = lib.def('sabre_duel_a').meta; M.g9.sabre_duel_contact_error_cm = m.contacts.map(c => { const pa = bladePoint(lib, 'sabre_duel_a', c.tS), pb = bladePoint(lib, 'sabre_duel_b', c.tS), mb = [-pb[0], pb[1], m.pairDistanceM - pb[2]]; return +(Math.hypot(pa[0] - mb[0], pa[1] - mb[1], pa[2] - mb[2]) * 100).toFixed(1); }); }
+
+// G7 gear springs
+{ const gs = new GearSprings(rig); M.gear_springs = { items: gs.names(), count: gs.n, params: Object.fromEntries(gs.items.map(i => [i.name, { freqHz: i.freq, zeta: i.zeta, massRel: i.mass, pendulumLengthM: i.L }])), maxDeflectionDegByClip: {}, bakeMs: {} };
+  for (const id of ['stand_shoulder', 'march_common_time_shoulder', 'march_quick_time_shoulder', 'march_double_quick_run', 'fire_cycle_stand', 'fall_back', 'gun_crew_n1', 'stretcher4_carry_FL']) { const t0 = performance.now(); const g = bakeGearTrack(lib, id); M.gear_springs.maxDeflectionDegByClip[id] = +g.maxDeg.toFixed(2); M.gear_springs.bakeMs[id] = +(performance.now() - t0).toFixed(1); } }
+
+// terrain on the real heightfield of the application (render/prototype/data/height.bin, modern bare-earth 3DEP): four sites and the steepest places of the whole map
+{ const { nodeTerrain } = await import('./node-terrain.mjs'); const T = await nodeTerrain(); const gaz = JSON.parse(fs.readFileSync(path.join(APP, 'data', 'gazetteer.json'), 'utf8')).places; const clips = ['stand_shoulder', 'march_quick_time_shoulder', 'march_double_quick_run'].map(id => lib.get(id)); const planter = new FootPlanter(rig);
+  M.terrain_real_dem = { source: 'render/prototype/data/height.bin + terrain.json (N=' + T.N + ', ' + T.W.toFixed(0) + ' x ' + T.H.toFixed(0) + ' m, modern USGS 3DEP bare earth; not the 1863 landscape: G-ANIM-22)', clips: ['stand_shoulder', 'march_quick_time_shoulder', 'march_double_quick_run'], sites: {} };
+  for (const name of ['Little Round Top', "Culp's Hill", 'Cemetery Ridge', 'Seminary Ridge']) { const g = gaz.find(p => p.name === name), [cx, cz] = T.xz(g.center.lng, g.center.lat), pts = []; for (let dx = -250; dx <= 250; dx += 25) for (let dz = -250; dz <= 250; dz += 25) pts.push([cx + dx, cz + dz]);
+    const sl = {}, degs = pts.map(([x, z]) => slopeAt(T.h, x, z, 2, sl).deg); M.terrain_real_dem.sites[name] = { places: pts.length, centre: [+cx.toFixed(0), +cz.toFixed(0)], slopeDegP50: +percentile(degs, 0.5).toFixed(1), slopeDegP95: +percentile(degs, 0.95).toFixed(1), slopeDegMax: +Math.max(...degs).toFixed(1), bins: demContactStats(planter, clips, T.h, pts, slopeAt, { headings: 4, frames: 6 }).filter(b => b.samples) }; }
+  const steep = [], sl2 = {}; for (let x = -T.W / 2 + 50; x < T.W / 2 - 50; x += 12) for (let z = -T.H / 2 + 50; z < T.H / 2 - 50; z += 12) { const d = slopeAt(T.h, x, z, 2, sl2).deg; if (d > 18) steep.push([d, x, z]); } steep.sort((a, b) => b[0] - a[0]);
+  M.terrain_real_dem.steepest_300_places_of_the_map = { slopeDegRange: [+steep[299][0].toFixed(1), +steep[0][0].toFixed(1)], note: 'cliffs, quarry cuts and railway cuts of the modern DEM; beyond the 30 degree scope of gate G5', bins: demContactStats(planter, clips, T.h, steep.slice(0, 300).map(r => [r[1], r[2]]), slopeAt, { headings: 4, frames: 6, bins: [40, 50, 60, 90] }).filter(b => b.samples) };
+  const stst = []; for (let x = -T.W / 2 + 50; x < T.W / 2 - 50; x += 40) for (let z = -T.H / 2 + 50; z < T.H / 2 - 50; z += 40) stst.push([x, z]);
+  M.terrain_real_dem.whole_map_every_40m = { places: stst.length, bins: demContactStats(planter, clips, T.h, stst.filter((_, i) => i % 3 === 0), slopeAt, { headings: 2, frames: 3, bins: [5, 10, 15, 20, 25, 30, 40, 90] }).filter(b => b.samples) }; }
+
+// ===================================================================== round 3 (2026-10-31)
+// D-ANIM-01: hand-anchored props. Prop drag per clip: the clips above 30 cm and above 2 cm after the re-authoring, and the repaired list
+{ const rows = Object.values(rowsAtt).flat(); M.prop_pull_after = { clipsOver30cm: rows.filter(r => r.maxShift > 0.30).map(r => ({ id: r.id, cm: +(r.maxShift * 100).toFixed(1) })), clipsOver2cm: rows.filter(r => r.maxShift > 0.02).length, clipsTotal: rows.length,
+    top: rows.slice().sort((a, b) => b.maxShift - a.maxShift).slice(0, 25).map(r => ({ id: r.id, cm: +(r.maxShift * 100).toFixed(1) })) };
+  const rep = ['gun_crew_n1', 'gun_crew_n2', 'gun_crew_n3', 'gun_crew_gunner', 'gun_crew_n5', 'gun_crew_n6', 'fall_spin', 'fall_side_left', 'fall_back', 'fall_knee_first', 'chop_axe', 'dig_shovel', 'cook_stir', 'color_pickup', 'color_plant', 'march_carry_rail', 'orderly_water', 'rider_sabre_draw', 'rider_sabre_cut_right', 'rider_sabre_point', 'sabre_duel_a', 'sabre_duel_b'];
+  M.prop_pull_repaired = Object.fromEntries(rep.map(id => { const r = attachment(lib.solver, lib.def(id), 0.02); return [id, { propMoveCm: +(r.maxShift * 100).toFixed(2), maxGripCm: +(r.maxGrip * 100).toFixed(2) }]; }));
+  M.fall_spin_grip_cm = +(attachment(lib.solver, lib.def('fall_spin'), 0.01).maxGrip * 100).toFixed(2); }
+// sabre contacts
+{ const m = lib.def('sabre_duel_a').meta; M.g9.sabre_duel_contact_error_cm = m.contacts.map(c => { const pa = bladePoint(lib, 'sabre_duel_a', c.tS), pb = bladePoint(lib, 'sabre_duel_b', c.tS), mb = [-pb[0], pb[1], m.pairDistanceM - pb[2]]; return +(Math.hypot(pa[0] - mb[0], pa[1] - mb[1], pa[2] - mb[2]) * 100).toFixed(2); }); }
+// single-frame arm flips
+M.cover_flip = Object.fromEntries(['cover_wall_fire_L', 'cover_wall_fire_R', 'cover_tree_fire_L', 'cover_tree_fire_R'].map(id => [id, +(clipSteps(probe, lib.get(id)).max * 1000).toFixed(0)]));
+// ground clearance: the lowest point of hands, piece and ramrod over a cycle (metres above the ground plane)
+{ const pose = rig.newPose(), fk = rig.newFK(), V = new Float64Array(3), I = rig.index, fr2 = rig.newFrame(); M.ground_clearance_m = {};
+  for (const id of ['fire_cycle_stand', 'fire_cycle_kneel', 'fire_cycle_lie']) { const c = lib.get(id); let worst = 1e9, where = ''; for (let t = 0; t < c.dur; t += 1 / 30) { sampleClip(c, t, fr2); rig.expandFrame(fr2, pose); rig.fk(pose, fk); const at = (b, y) => { qrot(V, 0, fk.wq, I[b] * 4, 0, y, 0); return fk.wp[I[b] * 3 + 1] + V[1]; };
+      for (const y of [0, 0.35, 0.7, 1.05, 1.42]) { const v = at('prop_long', y); if (v < worst) { worst = v; where = 'rifle ' + y + ' m at ' + t.toFixed(2) + ' s'; } } for (const y of [0, 0.48, 0.96]) { const v = at('prop_pole', y); if (v < worst) { worst = v; where = 'ramrod ' + y + ' at ' + t.toFixed(2) + ' s'; } } for (const h of ['hand_L', 'hand_R']) { const v = fk.wp[I[h] * 3 + 1]; if (v < worst) { worst = v; where = h + ' at ' + t.toFixed(2) + ' s'; } } }
+    M.ground_clearance_m[id] = { lowest: +worst.toFixed(3), where, pullCm: +(attachment(lib.solver, lib.def(id), 0.05).maxShift * 100).toFixed(1) }; } M.ground_clearance_m.before_this_round = { fire_cycle_kneel: -0.39, fire_cycle_lie: -1.01 }; }
+// variants and unison
+{ const states = { halt: [{ t0: 0, activity: 'halt' }], common_time: [{ t0: 0, activity: 'march', speed: 1.067 }], quick_time: [{ t0: 0, activity: 'march', speed: 1.304 }], route_step: [{ t0: 0, activity: 'march', speed: 1.304, route: true }], double_quick: [{ t0: 0, activity: 'march', speed: 2.305 }], rest: [{ t0: 0, activity: 'rest' }], camp: [{ t0: 0, activity: 'camp' }], fire_at_will: null };
+  M.variants = { statesWithVariants: lib.variantsOf.size, variantsPerState: 6, clipsAdded: lib.ids().filter(i => lib.def(i).meta.variantOf).length, totalClips: lib.ids().length, unison_100_man_line: {} };
+  for (const [name, segs] of Object.entries(states)) { const row = {}; for (const useV of [false, true]) { const id = 'UN-' + name + useV, ua = A.addUnit({ unitId: id, n: 100, arm: 'infantry', variation: k => (k * 0.6180339887) % 1 }); ua.useVariants = useV; if (segs) ua.setSegments(segs); else ua.setSegments([{ t0: 0, activity: 'fire', plan: FirePlan.create({ unitId: id, n: 100, seed: 3, mode: 'at_will', startS: 0, endS: Infinity, cycleS: { min: 20, max: 30 }, files: 50 }) }]);
+      const r = unisonIndex(A, id, 100, { seconds: 20, hz: 30, t0: 100 }); row[useV ? 'with_variants' : 'without'] = { index: +r.index.toFixed(3), indexLegsFree: +r.indexFree.toFixed(3), signals: Object.fromEntries(r.signals.map(x => [x.signal, x.corr === null ? null : +x.corr.toFixed(2)])) }; } M.variants.unison_100_man_line[name] = row; } }
+// steep terrain: the real DEM, every place above 28 degrees, slope classes, which places exceed 60 degrees
+{ const { nodeTerrain } = await import('./node-terrain.mjs'); const T = await nodeTerrain(); const planter = new FootPlanter(rig), cell = T.W / (T.N - 1), sl = {}; const clips = ['stand_shoulder', 'march_quick_time_shoulder', 'march_double_quick_run'].map(id => lib.get(id));
+  const gaz = JSON.parse(fs.readFileSync(path.join(APP, 'data', 'gazetteer.json'), 'utf8')).places, pl = gaz.map(g => { const [x, z] = T.xz(g.center.lng, g.center.lat); return { name: g.name, kind: g.kind, x, z }; });
+  const all = [], pts = []; let max = 0, c = 0; for (let x = -T.W / 2 + 30; x < T.W / 2 - 30; x += cell) for (let z = -T.H / 2 + 30; z < T.H / 2 - 30; z += cell) { const d = slopeAt(T.h, x, z, 1, sl).deg; if (d > max) max = d; if (d > 28) { all.push([d, x, z]); if (c++ % 2 === 0) pts.push([x, z]); } }
+  const over = t => all.filter(a => a[0] > t).length, cl = []; for (const a of all.filter(a => a[0] > 60)) { let k = cl.find(q => Math.hypot(q.x - a[1], q.z - a[2]) < 80); if (!k) { k = { x: a[1], z: a[2], n: 0, max: 0 }; cl.push(k); } k.n++; k.max = Math.max(k.max, a[0]); }
+  const named = {}; for (const nm of ["Devil's Den", 'Little Round Top', 'Big Round Top', "Culp's Hill", 'Cemetery Hill', 'East Cemetery Hill', 'Cemetery Ridge', 'Seminary Ridge', 'Wolf Hill', "Powers' Hill"]) { const p = pl.find(q => q.name === nm); if (!p) continue; let m = 0; for (let dx = -150; dx <= 150; dx += cell) for (let dz = -150; dz <= 150; dz += cell) m = Math.max(m, slopeAt(T.h, p.x + dx, p.z + dz, 1, sl).deg); named[nm] = +m.toFixed(1); }
+  const xs = all.filter(a => a[0] > 60).map(a => a[1]), zs = all.filter(a => a[0] > 60).map(a => a[2]);
+  M.terrain_steep = { source: 'render/prototype/data/height.bin (modern USGS 3DEP bare earth, 1536 x 1536, about 4 m): G-ANIM-22', maxSlopeDeg: +max.toFixed(1), placesAbove: { 28: over(28), 45: over(45), 60: over(60), 70: over(70), 75: over(75), 80: over(80) }, areaAbove60: { xMin: +Math.min(...xs).toFixed(0), xMax: +Math.max(...xs).toFixed(0), zMin: +Math.min(...zs).toFixed(0), zMax: +Math.max(...zs).toFixed(0), clusters: cl.length, nearestNamedPlaces: pl.filter(p => p.kind !== 'line').map(p => ({ n: p.name, d: Math.round(Math.hypot(p.x - xs.reduce((a, b) => a + b) / xs.length, p.z - zs.reduce((a, b) => a + b) / zs.length)) })).sort((a, b) => a.d - b.d).slice(0, 4) },
+    maxSlopeWithin150mOf: named, slopeClasses: { walk: '<= ' + SLOPE.WALK_DEG, steep_walk: SLOPE.WALK_DEG + ' to ' + SLOPE.SCRAMBLE_DEG, scramble: SLOPE.SCRAMBLE_DEG + ' to ' + SLOPE.CLIMB_DEG, climb: '> ' + SLOPE.CLIMB_DEG }, speedFactor: Object.fromEntries([20, 28, 40, 50, 60, 70, 80].map(d => [d, +slopeSpeedFactor(d).toFixed(2)])),
+    placesTested: pts.length, bins: demContactStats(planter, clips, T.h, pts, slopeAt, { headings: 4, frames: 4, bins: [30, 40, 50, 55, 60, 65, 70, 75, 80, 90] }).filter(b => b.samples), before_this_round: { '50-60': 'max 45 cm', 'above 60': 'p95 107 cm, max 1632 cm (the first round measured 16 m)' } };
+  const t2 = performance.now(); { const f3 = rig.newFrame(), c0 = lib.get('march_quick_time_shoulder'); const g = (x, z) => 5 + Math.tan(60 * Math.PI / 180) * (0.6 * x + 0.8 * z); for (let i = 0; i < 2000; i++) { sampleClip(c0, i * 0.016, f3); planter.conform(f3, g, 10 + i * 0.001, 20, 0.3); } M.terrain_steep.conformMicrosecondsOn60Degrees = +((performance.now() - t2) / 2000 * 1000).toFixed(1); } }
+// allocation, three V8 configurations
+M.allocation = {}; for (const flags of [[], ['--no-maglev'], ['--no-turbo-inlining']]) { const r = spawnSync(process.execPath, ['--expose-gc', '--min-semi-space-size=16', ...flags, path.join(HERE, 'measure-alloc.mjs')], { encoding: 'utf8', timeout: 55000 }); if (r.status === 0) { const j = JSON.parse(r.stdout.trim().split('\n').pop()); M.allocation[flags.join(' ') || 'default'] = { perWorkloadBytes: j.workloads, averageBytes: j.allocatedPerUpdateAverage, worstBytes: j.allocatedPerUpdateWorst, retainedBytes: j.retainedBytes, gcInsideChunks: j.gcInsideChunks }; } }
+
+// fire plan: shots per man per minute by mode, timing of the first shots
+M.fire_plan = {}; for (const mode of ['volley', 'company', 'file', 'rank', 'at_will']) { const p = FirePlan.create({ unitId: 'FP', n: 280, seed: 1863, mode, startS: 0, endS: 600, cycleS: { min: 20, max: 30 }, files: 140, ranks: 2, companies: 10 }); let cnt = 0, first = Infinity, last = 0; p.shotsBetween(-1, 700, (i, t) => { cnt++; if (t < first) first = t; if (t > last) last = t; });
+  M.fire_plan[mode] = { shotsPerManPerMin: +(cnt / 280 / 10).toFixed(3), firstShotS: +first.toFixed(2), lastShotS: +last.toFixed(1) }; }
+
+// hot path timing and allocation (allocation is measured in a fresh process: tools/measure-alloc.mjs)
+const ua2 = A.units.get('MEASURE'); ua2.setSegments([{ t0: 0, activity: 'march', speed: 1.304 }]); const N = 20000; for (let i = 0; i < 5000; i++) A.sampleFigure('MEASURE', i & 3, i * 0.016, fr);
+const tp = performance.now(); for (let i = 0; i < N; i++) A.sampleFigure('MEASURE', i & 3, 10 + i * 0.016, fr); const dt = performance.now() - tp;
+M.hot_path = { sampleFigureMicroseconds: +(dt / N * 1000).toFixed(2), note: 'one figure: clip selection + sample + blend of two clips (no terrain pass)', allocation_bytes_per_call: 'see M.allocation (total heap growth over 200,000 updates per workload)' };
+const tc = performance.now(); { const c = lib.get('march_quick_time_shoulder'), f = rig.newFrame(), g = (x, z) => 5 + 0.2 * x; for (let i = 0; i < 2000; i++) { sampleClip(c, i * 0.016, f); fp.conform(f, g, 10 + i * 0.01, 20, 0.3); } } M.hot_path.terrainConformMicroseconds = +((performance.now() - tc) / 2000 * 1000).toFixed(1);
+M.cost_model = costModel(lib, lib.ids().filter(i => lib.def(i).rig !== 'horse' && lib.def(i).rig !== 'gun'));
+M.totalMs = Math.round(performance.now() - t00);
+const out = path.join(APP, 'data', 'anim3d', 'measured.json'); fs.writeFileSync(out, JSON.stringify(M, null, 1) + '\n'); console.log('wrote', out, M.totalMs + ' ms');
+console.log(JSON.stringify({ gaits: Object.fromEntries(Object.entries(M.gaits).map(([k, v]) => [k, v.slipZcm])), loops: M.loops_summary, transitions: M.transitions, terrain30: M.terrain[30], hot: M.hot_path }, null, 1));

@@ -1,0 +1,283 @@
+{
+ "map": "bachelder-1876-sheet3",
+ "scan": "cw0325000c.jp2 (LOC 99447491)",
+ "method": "By eye in 3x crops (tools/bt/troopmaps/gcp_montage.py c <ids>), grid every 20 scan px, offset of the identified feature centre from the position predicted from the Warren GCP. Reading precision stated per point.",
+ "gcps": [
+  {
+   "id": "F001",
+   "name": "Sherfy house",
+   "kind": "farm-building",
+   "scan_px": [
+    3531.3,
+    7198.1
+   ],
+   "predicted_px": [
+    3528.3,
+    7200.1
+   ],
+   "offset_px": [
+    3,
+    -2
+   ],
+   "sigma_read_px": 3,
+   "ground_en_utm18n": [
+    307457.4,
+    4408401.2
+   ],
+   "source_gcp": "docs/basemap1863/maps/gcps/warren.json"
+  },
+  {
+   "id": "F002",
+   "name": "Sherfy barn",
+   "kind": "farm-building",
+   "scan_px": [
+    3537.3,
+    7266.8
+   ],
+   "predicted_px": [
+    3535.3,
+    7266.8
+   ],
+   "offset_px": [
+    2,
+    0
+   ],
+   "sigma_read_px": 3,
+   "ground_en_utm18n": [
+    307451.4,
+    4408330.5
+   ],
+   "source_gcp": "docs/basemap1863/maps/gcps/warren.json"
+  },
+  {
+   "id": "F003",
+   "name": "Trostle barn",
+   "kind": "farm-building",
+   "scan_px": [
+    4105.3,
+    7367.5
+   ],
+   "predicted_px": [
+    4103.3,
+    7362.5
+   ],
+   "offset_px": [
+    2,
+    5
+   ],
+   "sigma_read_px": 4,
+   "ground_en_utm18n": [
+    308015.2,
+    4408208.9
+   ],
+   "source_gcp": "docs/basemap1863/maps/gcps/warren.json"
+  },
+  {
+   "id": "F004",
+   "name": "Trostle house",
+   "kind": "farm-building",
+   "scan_px": [
+    4133.8,
+    7403.9
+   ],
+   "predicted_px": [
+    4133.8,
+    7401.9
+   ],
+   "offset_px": [
+    0,
+    2
+   ],
+   "sigma_read_px": 3,
+   "ground_en_utm18n": [
+    308049.8,
+    4408150.9
+   ],
+   "source_gcp": "docs/basemap1863/maps/gcps/warren.json"
+  },
+  {
+   "id": "F005",
+   "name": "Rose house",
+   "kind": "farm-building",
+   "scan_px": [
+    3539.1,
+    7923.2
+   ],
+   "predicted_px": [
+    3536.1,
+    7923.2
+   ],
+   "offset_px": [
+    3,
+    0
+   ],
+   "sigma_read_px": 4,
+   "ground_en_utm18n": [
+    307433.3,
+    4407642.0
+   ],
+   "source_gcp": "docs/basemap1863/maps/gcps/warren.json"
+  },
+  {
+   "id": "F009",
+   "name": "S. Patterson house",
+   "kind": "farm-building",
+   "scan_px": [
+    5396.0,
+    7531.4
+   ],
+   "predicted_px": [
+    5396.0,
+    7532.4
+   ],
+   "offset_px": [
+    0,
+    -1
+   ],
+   "sigma_read_px": 4,
+   "ground_en_utm18n": [
+    309272.6,
+    4407937.9
+   ],
+   "source_gcp": "docs/basemap1863/maps/gcps/warren.json"
+  },
+  {
+   "id": "F010",
+   "name": "Leister house",
+   "kind": "farm-building",
+   "scan_px": [
+    4971.4,
+    5988.1
+   ],
+   "predicted_px": [
+    4970.4,
+    5989.1
+   ],
+   "offset_px": [
+    1,
+    -1
+   ],
+   "sigma_read_px": 4,
+   "ground_en_utm18n": [
+    308944.8,
+    4409545.5
+   ],
+   "source_gcp": "docs/basemap1863/maps/gcps/warren.json"
+  },
+  {
+   "id": "W010",
+   "name": "Peach Orchard crossroads (Emmitsburg Rd x Millerstown/Wheatfield Rd)",
+   "kind": "road-junction",
+   "scan_px": [
+    3466.2,
+    7418.4
+   ],
+   "predicted_px": [
+    3474.2,
+    7421.4
+   ],
+   "offset_px": [
+    -8,
+    -3
+   ],
+   "sigma_read_px": 8,
+   "ground_en_utm18n": [
+    307373.5,
+    4408175.0
+   ],
+   "source_gcp": "docs/basemap1863/maps/gcps/warren.json"
+  },
+  {
+   "id": "W013",
+   "name": "Taneytown Rd x Wheatfield Rd",
+   "kind": "road-junction",
+   "scan_px": [
+    5108.1,
+    8172.8
+   ],
+   "predicted_px": [
+    5110.1,
+    8169.8
+   ],
+   "offset_px": [
+    -2,
+    3
+   ],
+   "sigma_read_px": 6,
+   "ground_en_utm18n": [
+    308973.7,
+    4407314.5
+   ],
+   "source_gcp": "docs/basemap1863/maps/gcps/warren.json"
+  },
+  {
+   "id": "W014",
+   "name": "Hanover Rd bridge over Rock Creek",
+   "kind": "bridge",
+   "scan_px": [
+    6169.4,
+    4141.6
+   ],
+   "predicted_px": [
+    6167.4,
+    4143.6
+   ],
+   "offset_px": [
+    2,
+    -2
+   ],
+   "sigma_read_px": 5,
+   "ground_en_utm18n": [
+    310203.4,
+    4411349.1
+   ],
+   "source_gcp": "docs/basemap1863/maps/gcps/warren.json"
+  },
+  {
+   "id": "W015",
+   "name": "York Pike bridge over Rock Creek",
+   "kind": "bridge",
+   "scan_px": [
+    5988.6,
+    3741.7
+   ],
+   "predicted_px": [
+    5996.6,
+    3739.7
+   ],
+   "offset_px": [
+    -8,
+    2
+   ],
+   "sigma_read_px": 6,
+   "ground_en_utm18n": [
+    310060.5,
+    4411762.5
+   ],
+   "source_gcp": "docs/basemap1863/maps/gcps/warren.json"
+  },
+  {
+   "id": "W012",
+   "name": "Baltimore St / Steinwehr Ave fork (Cemetery Hill foot)",
+   "kind": "road-junction",
+   "scan_px": [
+    5040.0,
+    4914.1
+   ],
+   "predicted_px": [
+    5035.0,
+    4926.1
+   ],
+   "offset_px": [
+    5,
+    -12
+   ],
+   "sigma_read_px": 8,
+   "ground_en_utm18n": [
+    309064.1,
+    4410635.6
+   ],
+   "source_gcp": "docs/basemap1863/maps/gcps/warren.json"
+  }
+ ]
+}

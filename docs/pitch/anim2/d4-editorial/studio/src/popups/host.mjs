@@ -22,7 +22,7 @@
 //   A legacy card { key, anchor, size, render|html, priority } is still accepted (one form).
 import { dampStep } from '../interp/damp.mjs';
 import { Hash } from '../layout/geom.mjs';
-import { Occupancy, rectOf, overlaps, inflate, clampPt, findSpot } from './geom.mjs';
+import { Occupancy, rectOf, overlaps, inflate, clampPt, findSpot, elbowPath, pathLen } from './geom.mjs';
 import { look, leaderProgress, pulse } from './motion.mjs';
 import { estimateHeight, textOf, tickIndex, firstSentence, clamp } from './kit.mjs';
 
@@ -77,9 +77,11 @@ export function placeCard({ w, h, anchor = null, obstacles, viewport, margin = 1
   return null;
 }
 
+const EDGE_BAND = 14;      // the safe area: a mark whose box is within this of an edge of the map is faded (skins/editorial.mjs edge.fadePx), so the ring that points at it is faded with it
+const edgeFactor = (r, m) => { const d = Math.min(r.x0, r.y0, m.w - r.x1, m.h - r.y1); if (d >= EDGE_BAND) return 1; if (d <= 0) return 0; const q = d / EDGE_BAND; return q * q * (3 - 2 * q); };
 const NO_CHROME = () => ({ rects: [], safe: { top: 0, right: 0, bottom: 0, left: 0 } });
 const EMPTY_PD = { events: [], stories: [], successions: [], tour: [], oob: {}, fileSources: {} };
-const tileRectOf = (t, view) => { const hw = t.w * t.scale / 2; const hh = t.h * t.scale / 2; return { x0: t.x + view.dx - hw, y0: t.y + view.dy - hh, x1: t.x + view.dx + hw, y1: t.y + view.dy + hh, gx: t.x + view.dx - (t.hx || 0), gy: t.y + view.dy - (t.hy || 0), gr: Math.max(8, Math.min(t.h / 2 - 1, 14)) }; };      // gx, gy, gr: the mark's glyph (D4 FORK: a leader ends on the glyph, not on the middle of the text run)
+const tileRectOf = (t, view) => { const hw = t.w * t.scale / 2; const hh = t.h * t.scale / 2; const mw = t.mw || 2 * Math.min(hh, 14); const mh = t.mh || mw; return { x0: t.x + view.dx - hw, y0: t.y + view.dy - hh, x1: t.x + view.dx + hw, y1: t.y + view.dy + hh, gx: t.x + view.dx - (t.hx || 0), gy: t.y + view.dy - (t.hy || 0), gr: Math.max(8, Math.min(Math.min(mw, mh) / 2, 15)), mw, mh, side: t.side, owner: t.key }; };      // gx, gy, gr: the mark's glyph (D4 FORK: a leader ends on the glyph, not on the middle of the text run); mw, mh: the mark's own size, for its ring
 
 /**
  * @param {object} engine the Battle Studio engine (createEngine)
@@ -377,6 +379,12 @@ export function createPopupHost(engine, env = {}) {
       const group = floating.filter((c) => c.spec.tier === tier && c.phase !== 'out' && !c.pinned && Math.max(c.allowed, c.forceLevel) < 2).sort((a, b) => rank(b) - rank(a));
       group.slice(tier === 'A' ? tok('popup.queue.aliveA') : tok('popup.queue.aliveB')).forEach((c) => { c.forceLevel = 2; c.demoted = true; });
     }
+    {                                                                                              // round 2: ONE floating card at a time.  The richest (the selection's, then the most important event) keeps the ground; the rest wait as chips in the Chronicle strip, nothing is lost.
+      const cur = floating.filter((c) => c.phase !== 'out' && !c.pinned && Math.max(c.allowed, c.forceLevel) < 2).sort((a, b) => rank(b) - rank(a));
+      const pinnedLive = floating.some((c) => c.pinned && c.phase !== 'out' && c.rect && !c.lane && !c.hidden);
+      cur.slice(pinnedLive ? 0 : tok('popup.queue.floatMax')).forEach((c) => { if (c.spec.forms.some((f) => f.lane)) { c.forceLevel = 2; c.demoted = true; } else if (c.fired) startExit(c); });      // a card with no chip form (the cross-out of a command change) leaves: the toast says the same
+    }
+    if (S.rail) for (const c of floating) if (c.id === S.rail.id && c.phase !== 'out') { S.dismissed.set(c.id, c.tick); startExit(c); }        // round 2: a unit is shown once: the card that opened in the rail leaves the map (the rail has it, the ring and the leader stay)
     const minShow = tok('popup.queue.chipMinShowMs');   // a chip is never pushed out before it has been on show this long (at 16x a new one arrives every half second)
     floating.filter((c) => c.phase !== 'out' && !c.pinned && (Math.max(c.allowed, c.forceLevel) >= 2 || c.lane)).sort((a, b) => b.seq - a.seq).slice(tok('popup.queue.aliveChips')).filter((c) => nowMs - c.born >= minShow).forEach((c) => startExit(c));
     const chipMax = tok('popup.dwell.chipMaxMs'); for (const c of floating) if (c.demoted && c.holdLeft != null && c.holdLeft > chipMax) c.holdLeft = chipMax;
@@ -390,6 +398,7 @@ export function createPopupHost(engine, env = {}) {
     if (sf.left > 0) band({ x0: 0, y0: 0, x1: sf.left, y1: m.h }); if (sf.right > 0) band({ x0: m.w - sf.right, y0: 0, x1: m.w, y1: m.h });
     for (const r of chrome.rects || []) occ.add(r, 4, { kind: 'chrome', owner: 'chrome' });
     occ.build();
+    S.leaderObs = obs.filter((o) => o.kind === 'chip' || o.kind === 'label' || o.kind === 'pin');
     const hitsRaw = (r) => obs.some((o) => overlaps(r, o, 0)); const nearRaw = (r, pad) => obs.some((o) => overlaps(r, o, pad));
     const chromeRects = occ.rects.filter((q) => q.kind === 'chrome'); const outOrChrome = (r) => r.x0 < 0 || r.y0 < 0 || r.x1 > m.w || r.y1 > m.h || chromeRects.some((q) => overlaps(r, q, 0));
     const reserve = new Map(); for (const c of S.cards.values()) if (!c.done && c.rect && !c.lane && !c.hidden) reserve.set(c.id, c.pending ? [c.rect.r, c.pending.r] : [c.rect.r]);
@@ -404,6 +413,7 @@ export function createPopupHost(engine, env = {}) {
       c.subj = resolveSubjects(c.spec, frame, tileByKey);
       c.anchorRect = c.subj.tiles.length ? tileRectOf(c.subj.tiles[0].t, frame.view) : c.subj.point ? rectOf(c.subj.point.x, c.subj.point.y, 0, 0) : null;
       if (P.phone && c.spec.hideOnPhone) { c.hidden = true; c.rect = null; P.reserve.delete(c.id); continue; }
+      if (c.spec.dock) { c.hidden = false; c.lane = false; c.rect = { x: -9999, y: -9999, w: 1, h: 1, r: rectOf(-9999, -9999, 1, 1) }; P.reserve.delete(c.id); continue; }       // round 2: a popup that lives in the dock (the overview map) is never placed on the map
       if (c.spec.kind === 'hud') placeHud(c, P); else placeFloating(c, P);
     }
     const tpMs = (typeof performance !== 'undefined' ? performance.now() : 0) - tp0; S.stats.placeMsSum += tpMs; if (tpMs > S.stats.maxPlaceMs) S.stats.maxPlaceMs = tpMs;
@@ -429,6 +439,10 @@ export function createPopupHost(engine, env = {}) {
   function syncSize(c, P) {
     if (c.lane || c.hidden || !c.rect || c.phase === 'out' && false) return; const f = c.spec.forms[Math.min(c.fi, c.spec.forms.length - 1)]; if (!f) return; const sz = measure(c, f);
     if (Math.abs(sz.h - c.rect.h) > 0.5 || Math.abs(sz.w - c.rect.w) > 0.5) { c.rect = { x: c.rect.x, y: c.rect.y, w: sz.w, h: sz.h, r: rectOf(c.rect.x, c.rect.y, sz.w, sz.h) }; P.reserve.set(c.id, c.pending ? [c.rect.r, c.pending.r] : [c.rect.r]); if (c.pending) { c.pending = { ...c.pending, w: sz.w, h: sz.h, r: rectOf(c.pending.x, c.pending.y, sz.w, sz.h) }; } }
+  }
+  /** the obstacles a leader must not cross: every mark, name and pin of the map; the subject's own glyph is exempt, its own name is not (a leader never crosses the text of the mark it points at) */
+  function leaderRects(anchorRect, own) {
+    return (S.leaderObs || []).map((o) => (o.owner !== own ? o : o.kind === 'label' ? o : (o.kind === 'chip' && o.x1 - anchorRect.gx > (anchorRect.gr || 8) + 7 ? { ...o, x0: Math.max(o.x0, anchorRect.gx + (anchorRect.gr || 8) + 5), kind: 'label', owner: own + ':text' } : null))).filter(Boolean);
   }
   // ---- placement of one floating card ------------------------------------------------------------------------------------------------------------------------
   function placeFloating(c, P) {
@@ -459,7 +473,11 @@ export function createPopupHost(engine, env = {}) {
           for (const s of spec.slots) { const xy = slotXY(s, sz.w, sz.h, P); if (occ.isFree(xy.x, xy.y, sz.w, sz.h) && !taken.some((t) => overlaps(rectOf(xy.x, xy.y, sz.w, sz.h), t, gap * 0.5))) { spot = xy; break; } }
           if (!spot) { const x0 = slotXY(spec.slots[0], sz.w, sz.h, P); spot = findSpot({ w: sz.w, h: sz.h, anchor: rectOf(x0.x + sz.w / 2, x0.y + sz.h / 2, 0, 0), occ, taken, gap, margin: P.margin, prefer: prev ? { x: prev.x, y: prev.y } : null, tok: { ...P.placeTok, offset: 0 } }); }
         }
-        else spot = findSpot({ w: sz.w, h: sz.h, anchor: c.anchorRect, occ, taken, gap, margin: P.margin, prefer: prev ? { x: prev.x, y: prev.y } : null, tok: P.placeTok, skipOwner: c.subj && c.subj.tiles[0] ? c.subj.tiles[0].t.key : undefined });
+        else {
+          const ar = c.anchorRect; const own = c.subj && c.subj.tiles[0] ? c.subj.tiles[0].t.key : undefined; const pt = ar && c.subj && !c.subj.tiles.length; const arE = pt ? { gx: (ar.x0 + ar.x1) / 2, gy: (ar.y0 + ar.y1) / 2, gr: 6 } : ar; const rects = ar && c.subj ? (pt ? (S.leaderObs || []) : leaderRects(ar, own)).concat(taken.map((r) => ({ ...r, kind: 'chip', owner: 'card' }))) : null;
+          const pathFn = rects ? (x, y, w, h) => { const p = elbowPath(rectOf(x, y, w, h), arE, rects, undefined, tok('popup.place.leaderShowPx')); return p ? pathLen(p) : null; } : null;
+          spot = findSpot({ w: sz.w, h: sz.h, anchor: c.anchorRect, occ, taken, gap, margin: P.margin, prefer: prev ? { x: prev.x, y: prev.y } : null, tok: { ...P.placeTok, pathFn, reachPx: tok('popup.place.leaderShowPx') }, skipOwner: own });
+        }
         if (spot && c.anchorRect && forms.some((q) => q.lane)) {                                    // a card whose leader would run across the map is worse than a chip with an arrival cue
           const ax = clamp((c.anchorRect.x0 + c.anchorRect.x1) / 2, 0, m.w); const ay = clamp((c.anchorRect.y0 + c.anchorRect.y1) / 2, 0, m.h); const e = clampPt(rectOf(spot.x, spot.y, sz.w, sz.h), ax, ay);
           if (Math.hypot(e[0] - ax, e[1] - ay) > P.maxLeader) spot = null;
@@ -535,17 +553,28 @@ export function createPopupHost(engine, env = {}) {
   function buildOut(frame, nowMs, M, tileByKey, overlap) {
     const reduced = M.reduced; const leaders = []; const rings = []; const places = []; const arrows = []; const stripChips = []; const cards = []; const m = mapSize(); const T = S.T;
     const leaderMs = tok('popup.motion.leaderMs'); const pulseMs = tok('popup.motion.pulseMs');
+    const cardRects = []; for (const c of S.cards.values()) if (c.rect && !c.lane && !c.hidden && c.phase !== 'out') cardRects.push({ ...c.rect.r, kind: 'chip', owner: c.id });
     const fxFor = (subj, tone, leaderT0, pulseT0, anchorRect, from, alpha) => {
+      const sideT = subj.tiles.length && subj.tiles[0].t.side; const sideTone = sideT === 'union' ? 'union' : sideT === 'confederate' ? 'confederate' : null;
       const p = leaderProgress(nowMs, leaderT0, leaderMs, reduced); const pu = pulse(nowMs, pulseT0, pulseMs, reduced);
       subj.tiles.forEach((st, i) => {
-        const r = tileRectOf(st.t, frame.view); const on = r.x1 > 0 && r.x0 < m.w && r.y1 > 0 && r.y0 < m.h;
-        if (on) rings.push({ rect: r, tone, strength: i === 0 ? 1 : 0.5, pulse: i === 0 ? pu : null, alpha, via: st.via, dashed: st.via === 'parent' });
+        const r = tileRectOf(st.t, frame.view); const on = r.x1 > 0 && r.x0 < m.w && r.y1 > 0 && r.y0 < m.h; const ef = edgeFactor(r, m);
+        if (on && ef > 0.02) rings.push({ rect: r, tone: (i === 0 && sideTone) || tone, strength: i === 0 ? 1 : 0.55, pulse: i === 0 ? pu : null, alpha: alpha * ef, via: st.via, dashed: st.via === 'parent' });
         else if (i === 0) { const cx = clamp((r.x0 + r.x1) / 2, 14, m.w - 14); const cy = clamp((r.y0 + r.y1) / 2, 14, m.h - 14); arrows.push({ x: cx, y: cy, ang: Math.atan2((r.y0 + r.y1) / 2 - cy, (r.x0 + r.x1) / 2 - cx), tone, alpha }); }
       });
       if (subj.point) { const q = subj.point; if (q.x > 0 && q.x < m.w && q.y > 0 && q.y < m.h) places.push({ x: q.x, y: q.y, r: 20, tone, alpha, label: subj.placeLL && subj.placeLL.label }); else { const cx = clamp(q.x, 14, m.w - 14); const cy = clamp(q.y, 14, m.h - 14); arrows.push({ x: cx, y: cy, ang: Math.atan2(q.y - cy, q.x - cx), tone, alpha }); } }
-      if (from && anchorRect) {
+      if (from && anchorRect && subj.tiles.length) {                                                // round 2: a short elbow that never crosses a mark or a name, at most leaderShowPx long; none when there is no clear path (the ring pulses instead)
         const tx = (anchorRect.x0 + anchorRect.x1) / 2; const ty = (anchorRect.y0 + anchorRect.y1) / 2;
-        if (tx > 0 && tx < m.w && ty > 0 && ty < m.h) { let e = subj.tiles.length ? clampPt(anchorRect, from.x, from.y) : [tx, ty]; if (subj.tiles.length && anchorRect.gx != null) { const dx = anchorRect.gx - from.x; const dy = anchorRect.gy - from.y; const d = Math.hypot(dx, dy) || 1; e = [anchorRect.gx - dx / d * (anchorRect.gr + 1.5), anchorRect.gy - dy / d * (anchorRect.gr + 1.5)]; } if (Math.hypot(e[0] - from.x, e[1] - from.y) <= tok('popup.place.leaderShowPx')) leaders.push({ x0: from.x, y0: from.y, x1: e[0], y1: e[1], tone, p, alpha, onTile: subj.tiles.length > 0 }); }       // D4 round 1: a line longer than this is not drawn (a 900 px hairline across the map is noise): the subject is highlighted and pulses, the card names it
+        if (tx > 0 && tx < m.w && ty > 0 && ty < m.h && edgeFactor(anchorRect, m) > 0.6) {
+          const cr = from.rect || { x0: from.x, y0: from.y, x1: from.x, y1: from.y }; const own = subj.tiles[0].t.key;                       // the subject's own name is an obstacle too: a leader never crosses the text of the mark it points at (only the glyph's own box is exempt)
+          const mine = leaderRects(anchorRect, own);
+          const rects = mine.concat(cardRects.filter((q) => q.owner !== from.owner));
+          const pts = elbowPath(cr, anchorRect, rects, undefined, tok('popup.place.leaderShowPx'));
+          if (pts) leaders.push({ pts, tone: sideTone || tone, p, alpha, onTile: true });
+        }
+      } else if (from && anchorRect && !subj.tiles.length) {                                      // a place on the ground: the same elbow, to the ring of the place's dot, never across a mark or a name
+        const tx = (anchorRect.x0 + anchorRect.x1) / 2; const ty = (anchorRect.y0 + anchorRect.y1) / 2;
+        if (tx > 0 && tx < m.w && ty > 0 && ty < m.h) { const cr = from.rect || { x0: from.x, y0: from.y, x1: from.x, y1: from.y }; const pts = elbowPath(cr, { gx: tx, gy: ty, gr: 6 }, (S.leaderObs || []).concat(cardRects.filter((q) => q.owner !== from.owner)), undefined, tok('popup.place.leaderShowPx')); if (pts) leaders.push({ pts, tone, p, alpha, onTile: false }); }
       }
     };
     let newestLane = null; for (const c of S.cards.values()) if (c.lane && c.phase !== 'out' && c.spec.kind === 'card' && (!newestLane || c.seq > newestLane.seq)) newestLane = c;
@@ -556,14 +585,14 @@ export function createPopupHost(engine, env = {}) {
         tick: c.tick, seq: c.seq, version: spec.version ?? 0, kind: spec.kind, tier: spec.tier, tone: spec.tone, level: f ? f.level : 'full', hudSlot: c.hudSlot, anchorRect: c.anchorRect, leader: null, subjectVia: c.subj && c.subj.tiles[0] ? c.subj.tiles[0].via : null };
       cards.push(rec);
       if (c.subj && spec.kind !== 'hud' && spec.kind !== 'doc' && c.phase !== 'out' || (c.phase === 'out' && c.opacity > 0.02)) {
-        if (c.rect && !c.lane && !c.hidden && c.anchorRect) { const a = c.anchorRect; const fp = clampPt(c.rect.r, (a.x0 + a.x1) / 2, (a.y0 + a.y1) / 2); rec.leader = [fp[0], fp[1], (a.x0 + a.x1) / 2, (a.y0 + a.y1) / 2]; fxFor(c.subj, spec.tone || 'info', c.leaderT0, c.pulseT0, c.anchorRect, { x: fp[0], y: fp[1] }, c.opacity); }
-        else if (inLane) { const lr = S.laneRects[c.id]; const held = c.hovered || c.focused || c.pinned; const cueMs = tok('popup.motion.arrivalCueMs'); const age = nowMs - c.born; const cue = held ? 1 : (c === newestLane && age < cueMs ? 1 - age / cueMs : 0); if (cue > 0.02) fxFor(c.subj, spec.tone || 'info', c.leaderT0, c.pulseT0, c.anchorRect, lr ? { x: (lr.x0 + lr.x1) / 2, y: lr.y0 } : null, cue); }
+        if (c.rect && !c.lane && !c.hidden && c.anchorRect) { const a = c.anchorRect; const fp = clampPt(c.rect.r, (a.x0 + a.x1) / 2, (a.y0 + a.y1) / 2); rec.leader = [fp[0], fp[1], (a.x0 + a.x1) / 2, (a.y0 + a.y1) / 2]; fxFor(c.subj, spec.tone || 'info', c.leaderT0, c.pulseT0, c.anchorRect, { x: fp[0], y: fp[1], rect: c.rect.r, owner: c.id }, c.opacity); }
+        else if (inLane) { const lr = S.laneRects[c.id]; const held = c.hovered || c.focused || c.pinned; const cueMs = tok('popup.motion.arrivalCueMs'); const age = nowMs - c.born; const cue = held ? 1 : (c === newestLane && age < cueMs ? 1 - age / cueMs : 0); if (cue > 0.02) fxFor(c.subj, spec.tone || 'info', c.leaderT0, c.pulseT0, c.anchorRect, lr ? { x: (lr.x0 + lr.x1) / 2, y: lr.y0, rect: lr } : null, cue); }
       }
       if (inLane) stripChips.push(rec);
     }
     if (S.rail && S.rail.doc && S.rail.doc.subjects) {
       const subj = resolveSubjects(S.rail.doc, frame, tileByKey); const ar = subj.tiles.length ? tileRectOf(subj.tiles[0].t, frame.view) : subj.point ? rectOf(subj.point.x, subj.point.y, 0, 0) : null;
-      if (ar) fxFor(subj, S.rail.doc.tone || 'info', S.rail.openedAt, S.rail.openedAt, ar, { x: m.w, y: clamp((ar.y0 + ar.y1) / 2, 16, m.h - 16) }, 0.7);
+      if (ar) fxFor(subj, S.rail.doc.tone || 'info', S.rail.openedAt, S.rail.openedAt, ar, isPhone() ? null : { x: m.w, y: clamp((ar.y0 + ar.y1) / 2, 16, m.h - 16), rect: { x0: m.w, x1: m.w + 4, y0: clamp((ar.y0 + ar.y1) / 2, 16, m.h - 16) - 12, y1: clamp((ar.y0 + ar.y1) / 2, 16, m.h - 16) + 12 } }, 0.7);
     }
     const idx = allRows(); stripChips.sort((a, b) => b.seq - a.seq);
     const rail = S.rail ? { id: S.rail.id, doc: S.rail.doc, live: S.rail.live, openedAt: S.rail.openedAt, widthPx: S.inset.right, phone: isPhone(), detent: S.sheet, progress: S.inset.right ? S.inset.vr / S.inset.right : S.inset.bottom ? S.inset.vb / S.inset.bottom : 1, tick: S.rail.tick } : null;

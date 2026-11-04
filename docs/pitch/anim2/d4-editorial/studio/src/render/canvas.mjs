@@ -32,20 +32,24 @@ export function createRenderer({ canvas, engine, data }) {
     if (skin.draw.place) { c.save(); skin.draw.place(c, frame, env, focusInfo); c.restore(); }            // D4 FORK: place names, drawn by the skin so they can step aside for the marks
     const on = (t) => { const x = t.x + view.dx; const y = t.y + view.dy; return x > -120 && x < cssW + 120 && y > -60 && y < cssH + 60; };
     const D = skin.draw; let drawn = 0;
+    // the safe area (D4 round 2): a mark whose box (and its label) is within the band of an edge of the map fades out whole, so no mark is ever cut in two by the masthead, the dock, the rail or the screen
+    const skP = skin.skin && skin.skin.P; const band = (skP && skP['edge.fadePx']) || 0; const EW = mapRect ? mapRect.w : cssW; const EH = mapRect ? mapRect.h : cssH;
+    const edgeOf = (t) => { if (!band) return 1; const x = t.x + view.dx; const y = t.y + view.dy; const hw = t.w * t.scale / 2; const hh = t.h * t.scale / 2; let x0 = x - hw; let x1 = x + hw; let y0 = y - hh; let y1 = y + hh; const L = t.label; if (L && L.opacity > 0.05) { x0 = Math.min(x0, L.x0 + view.dx); x1 = Math.max(x1, L.x1 + view.dx); y0 = Math.min(y0, L.y0 + view.dy); y1 = Math.max(y1, L.y1 + view.dy); } const d = Math.min(x0, y0, EW - x1, EH - y1); if (d >= band) return 1; if (d <= 0) return 0; const q = d / band; return q * q * (3 - 2 * q); };
+    for (const t of frame.tiles) t._edge = edgeOf(t);
     // 2b. popup ink beneath the tiles: leader lines, place rings, arrows, pulses (a tile always paints over them)
     if (popupFx) drawBeneath(c, popupFx, toneColors);
     if (skin.draw.focus) { c.save(); skin.draw.focus(c, frame, env, focusInfo); c.restore(); }            // D4 FORK: the soft hull of the formation the pointer or the selection is on, beneath every mark
     // 3. leaders and aggregate member dots (beneath every chip)
     for (const t of frame.tiles) {
-      if (!on(t) || t.opacity < 0.02) continue;
-      c.globalAlpha = t.opacity;
+      if (!on(t) || t.opacity * t._edge < 0.02) continue;
+      c.globalAlpha = t.opacity * t._edge;
       if (t.displaced && tok('scene.leaders') && D.leader) D.leader(c, t, env, [t.px + view.dx, t.py + view.dy], [t.x + view.dx, t.y + view.dy]);
       if (t.kind === 'agg' && t.members && tok('scene.hulls') && D.hull) D.hull(c, t, env, t.members.map((m) => [m.ax + view.dx, m.ay + view.dy]));
     }
     // 4. chips
     for (const t of frame.tiles) {
-      if (!on(t) || t.opacity < 0.02) continue;
-      const s = dpr * t.scale; c.setTransform(s, 0, 0, s, (t.x + view.dx) * dpr, (t.y + view.dy) * dpr); c.globalAlpha = t.opacity;
+      if (!on(t) || t.opacity * t._edge < 0.02) continue;
+      const s = dpr * t.scale; c.setTransform(s, 0, 0, s, (t.x + view.dx) * dpr, (t.y + view.dy) * dpr); c.globalAlpha = t.opacity * t._edge;
       D.tile(c, t, env); drawn++;
       if (!skin.ownsHover && hoverKey === t.key && t.solid) { c.globalAlpha = 1; c.strokeStyle = 'rgba(255,255,255,0.95)'; c.lineWidth = 1; c.strokeRect(-t.w / 2 + 1.5, -t.h / 2 + 1.5, t.w - 3, t.h - 3); c.strokeStyle = 'rgba(0,0,0,0.55)'; c.strokeRect(-t.w / 2 + 0.5, -t.h / 2 + 0.5, t.w - 1, t.h - 1); }
     }
@@ -54,11 +58,11 @@ export function createRenderer({ canvas, engine, data }) {
     c.setTransform(dpr, 0, 0, dpr, 0, 0);
     if (D.label) for (const t of frame.tiles) {
       const L = t.label; if (!L || !on(t)) continue;
-      c.setTransform(dpr, 0, 0, dpr, (L.x0 + view.dx) * dpr, (L.y0 + view.dy) * dpr); c.globalAlpha = Math.min(1, L.opacity) * Math.min(1, t.opacity + 0.0); D.label(c, t, env);
+      c.setTransform(dpr, 0, 0, dpr, (L.x0 + view.dx) * dpr, (L.y0 + view.dy) * dpr); c.globalAlpha = Math.min(1, L.opacity) * Math.min(1, t.opacity + 0.0) * t._edge; D.label(c, t, env);
     }
     if (D.pin && tok('scene.pins')) for (const t of frame.tiles) {
-      if (!t.displaced || !on(t) || t.opacity < 0.02) continue;
-      c.setTransform(dpr, 0, 0, dpr, (t.px + view.dx) * dpr, (t.py + view.dy) * dpr); c.globalAlpha = t.opacity; D.pin(c, t, env);
+      if (!t.displaced || !on(t) || t.opacity * t._edge < 0.02) continue;
+      c.setTransform(dpr, 0, 0, dpr, (t.px + view.dx) * dpr, (t.py + view.dy) * dpr); c.globalAlpha = t.opacity * t._edge; D.pin(c, t, env);
     }
     c.setTransform(dpr, 0, 0, dpr, 0, 0); c.globalAlpha = 1;
     for (const l of popupLeaders) { c.strokeStyle = 'rgba(30,30,30,0.7)'; c.lineWidth = 1; c.beginPath(); c.moveTo(l[0], l[1]); c.lineTo(l[2], l[3]); c.stroke(); c.fillStyle = 'rgba(30,30,30,0.85)'; c.beginPath(); c.arc(l[0], l[1], 2.5, 0, Math.PI * 2); c.fill(); }

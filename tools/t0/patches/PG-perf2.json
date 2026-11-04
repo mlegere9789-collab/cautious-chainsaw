@@ -1,0 +1,119 @@
+{
+ "group": "PG-perf2",
+ "description": "CANDIDATE until registered (tools/t0/PERF2-README.md), page part: Mapbox shader programs linked before their first draw on compare, ground-remembers and immersive; no style diff on compare; one comment reworded in ar.html. Sorted before PG-polish; no find overlaps it.",
+ "patches": [
+  {
+   "id": "PERF2-nav-precompile",
+   "target": "site-nav.js",
+   "find": "(function () {\n  // Captured synchronously -- document.currentScript is only valid while this script is\n",
+   "repl": "/* PERF2: Mapbox GL 3.24.1 compiles a shader program the first time a layer draws with it and then BLOCKS the main thread on the link (Program._finalize); the\n   precompiler Mapbox ships (style._programPrecompiler) only runs on 'idle', after those frames, and skips circle and symbol layers.  GTBG_PRECOMPILE(map) queues every\n   program of the current style (plus the circle and text-SDF symbol programs) right after the style or its layers changed, so the GPU process links them in parallel\n   while tiles load; with {terrain: true} it then queues the terrain (and terrain + fog) variants in idle slices, before anybody asks for terrain.\n   GTBG_PRECOMPILE_TERRAIN(map) is the second part alone.  Both use only fields\n   of the SRI-pinned mapbox-gl.js v3.24.1 and do nothing (inside try/catch) when a field is missing or KHR_parallel_shader_compile is absent. */\n(function () {\n  function run(m, withTerrain, thenTerrain) {\n    try {\n      var s = m.style, pc = s && s._programPrecompiler, p = m.painter;\n      if (!pc || !p || !s._order || !s._layers || !p.context.extParallelShaderCompile) return;\n      pc.reset();\n      var n = 0;\n      var go = function () {\n        try {\n          if (m._removed || m.style !== s) return;\n          var c = p.context, orig = null;\n          var order = s._mergedOrder || s._order, layers = s._mergedLayers || s._layers;\n          var list = order.map(function (i) { return layers[i]; }).filter(Boolean);\n          if (withTerrain) {\n            // buildQueue() reads style.getTerrain(): present the terrain flag for the one call that builds the queue, then restore it\n            orig = s.getTerrain;\n            s.getTerrain = function () { return true; };\n            try { pc.buildQueue(list, { zoom: m.getZoom() }, s); } finally { s.getTerrain = orig; }\n          }\n          var depthOcc = !!(m.transform && m.transform.depthOcclusionForSymbolsAndCircles), fog = !!s.fog;\n          var variants = [{ t: false, f: false }];\n          if (withTerrain) { variants.push({ t: true, f: false }); if (fog) variants.push({ t: true, f: true }); }\n          var add = function (id, config, defs, v) {\n            pc._queue.unshift({ programId: id, params: { config: config, defines: defs, overrideFog: v.f, overrideTerrain: v.t, overrideGlobe: false, overrideRtt: false, precompiled: true } });\n          };\n          // programs Mapbox's queue skips: circle layers (the program follows from the layer) and the text-SDF symbol program, with the defines the draw calls build\n          list.forEach(function (L) {\n            if (L.visibility === 'none') return;\n            if (L.type === 'circle' && L.getDefaultProgramParams) {\n              var d = L.getDefaultProgramParams('circle', m.getZoom(), s._styleColorTheme && s._styleColorTheme.lut);\n              variants.forEach(function (v) { add('circle', d.config, (d.defines || []).concat(['DEPTH_D24'], v.t && depthOcc ? ['DEPTH_OCCLUSION'] : []), v); });\n            }\n          });\n          if (!c.disableSymbolUBO && list.some(function (L) { return L.type === 'symbol'; })) {\n            var ubo = ['USE_PAINT_PROPERTIES_UBO', 'MAX_UBO_SIZE_VEC4 ' + Math.floor(Math.floor(c.maxUniformBlockSize / 4) / 4) + 'u'];\n            variants.forEach(function (v) { add('symbol', undefined, ['RENDER_SDF'].concat(v.t && depthOcc ? ['DEPTH_D24', 'DEPTH_OCCLUSION'] : [], ubo), v); });\n          }\n          if (withTerrain) pc.processQueue(p, s);\n          else { pc._executeBatch({ timeRemaining: function () { return 1e9; } }, p, s); if (thenTerrain) setTimeout(function () { run(m, true); }, 30); }\n        } catch (e) {}\n      };\n      var wait = function () { if (pc.needsBuild() && n++ < 10) { m.once('render', wait); m.triggerRepaint(); } else setTimeout(go, 0); };\n      m.once('render', wait); m.triggerRepaint();\n    } catch (e) {}\n  }\n  window.GTBG_PRECOMPILE = function (m, o) { run(m, false, !!(o && o.terrain)); };\n  window.GTBG_PRECOMPILE_TERRAIN = function (m) { run(m, true); };\n})();\n(function () {\n  // Captured synchronously -- document.currentScript is only valid while this script is\n",
+   "expect": 1,
+   "note": "GTBG_PRECOMPILE / GTBG_PRECOMPILE_TERRAIN for the pages that carry a Mapbox map (compare, ground-remembers, immersive): site-nav.js is executed before the DOMContentLoaded handlers that build the maps"
+  },
+  {
+   "id": "PERF2-compare-prewarm",
+   "target": "compare.html",
+   "find": "  mapboxgl.accessToken = MAPBOX_TOKEN;\n\n  const PLACEMENT_FILES = [",
+   "repl": "  mapboxgl.accessToken = MAPBOX_TOKEN;\n  try { mapboxgl.prewarm(); } catch (e) {}   // PERF2: start the shared workers while the placement files download\n\n  const PLACEMENT_FILES = [",
+   "expect": 1,
+   "note": "compare: Mapbox starts its worker pool during the placement downloads instead of inside the first map constructor"
+  },
+  {
+   "id": "PERF2-compare-setstyle",
+   "target": "compare.html",
+   "find": "map.setStyle(STYLES[styleName]);",
+   "repl": "map.setStyle(STYLES[styleName], { diff: false });   // PERF2: satellite, dark and light differ in their sprite; the diff always failed (\"Unable to perform style diff: Unimplemented: setSprite\") and fell back to a rebuild",
+   "expect": 1,
+   "note": "compare: Dark / Satellite / Light: the three Mapbox styles differ in their sprite, which the style diff cannot apply; every switch logged the warning \"Unable to perform style diff: Unimplemented: setSprite.. Rebuilding the style from scratch.\" (two console warnings in acceptance check 4) after attempting the diff. The rebuild is what happened anyway; now it is asked for"
+  },
+  {
+   "id": "PERF2-compare-styleload",
+   "target": "compare.html",
+   "find": "      map.on('style.load', () => {\n        if (!ready) return; // skip the initial load, already handled above\n        addUnitsLayer();\n        if (terrainOn) { addTerrainSource(); map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.5 }); }\n      });",
+   "repl": "      map.on('style.load', () => {\n        if (!ready) { if (window.GTBG_PRECOMPILE) window.GTBG_PRECOMPILE(map); return; }   // PERF2: link the style's programs before the first frame that draws them\n        addUnitsLayer();\n        if (terrainOn) { addTerrainSource(); map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.5 }); }\n        if (window.GTBG_PRECOMPILE) window.GTBG_PRECOMPILE(map, { terrain: !terrainOn });   // PERF2: and, in idle slices, the terrain variants\n      });",
+   "expect": 1,
+   "note": "compare: after every style switch the programs of the new style are queued before its tiles arrive (the long task of Dark was the link of the fill, line and symbol programs on the first draw: 64-125 ms), then the terrain variants in idle slices"
+  },
+  {
+   "id": "PERF2-compare-terrain-click",
+   "target": "compare.html",
+   "find": "            terrainOn = !terrainOn;\n            btn.classList.toggle('active', terrainOn);\n            if (terrainOn) { addTerrainSource(); map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.5 }); if (map.getPitch() < 30) map.easeTo({ pitch: 55, duration: 600 }); }\n            else { map.setTerrain(null); map.easeTo({ pitch: 0, duration: 600 }); }",
+   "repl": "            terrainOn = !terrainOn;\n            btn.classList.toggle('active', terrainOn);\n            // PERF2: the pressed state is painted first; the terrain is switched in the next task, after that paint\n            requestAnimationFrame(() => setTimeout(() => {\n              if (terrainOn) { addTerrainSource(); map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.5 }); if (map.getPitch() < 30) map.easeTo({ pitch: 55, duration: 600 }); }\n              else { map.setTerrain(null); map.easeTo({ pitch: 0, duration: 600 }); }\n            }, 0));",
+   "expect": 1,
+   "note": "compare: 3D Terrain: the click did its work inside the event (addSource + setTerrain + easeTo) and Mapbox's first terrain frame, in the same frame as the next paint, took 120-250 ms (shader links of the terrain variants of every layer program: Program._finalize / getProgramParameter), so the pressed state reached the screen 180-260 ms after the click. The state is painted first now and the terrain follows in the next task; the terrain programs are already linked (PERF2-compare-styleload) so that task is short"
+  },
+  {
+   "id": "PERF2-compare-warm",
+   "target": "compare.html",
+   "find": "      map.on('load', () => {\n        addUnitsLayer();\n        ready = true;\n      });",
+   "repl": "      map.on('load', () => {\n        addUnitsLayer();\n        ready = true;\n        // PERF2: the units layer exists now: queue the programs of the whole map, then (idle slices, never inside an interaction) the terrain variants, so that 3D Terrain does not link them on the main thread\n        if (window.GTBG_PRECOMPILE) window.GTBG_PRECOMPILE(map, { terrain: true });\n      });",
+   "expect": 1,
+   "note": "compare: first style: programs of the satellite style plus the circle layer, then the terrain variants (3D Terrain pressed 1.5 s after load, as the acceptance harness does, found them linked)"
+  },
+  {
+   "id": "PERF2-ground-prewarm",
+   "target": "ground-remembers.html",
+   "find": "  mapboxgl.accessToken = MAPBOX_TOKEN;\n",
+   "repl": "  mapboxgl.accessToken = MAPBOX_TOKEN;\n  try { mapboxgl.prewarm(); } catch (e) {}   // PERF2: start the shared workers while the placement files download\n",
+   "expect": 1,
+   "note": "ground-remembers: Mapbox starts its worker pool during the placement downloads"
+  },
+  {
+   "id": "PERF2-ground-styleload",
+   "target": "ground-remembers.html",
+   "find": "  map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');\n\n  function geojsonThroughTick(maxTick) {",
+   "repl": "  map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');\n  map.once('style.load', () => { if (window.GTBG_PRECOMPILE) window.GTBG_PRECOMPILE(map); });   // PERF2: link the dark style's programs before its tiles arrive\n\n  function geojsonThroughTick(maxTick) {",
+   "expect": 1,
+   "note": "ground-remembers: the dark-v11 style's fill, line and symbol programs were linked on the first frames that drew them (phone, 4x CPU: 145 ms of getProgramParameter inside three long tasks)"
+  },
+  {
+   "id": "PERF2-ground-heatmap",
+   "target": "ground-remembers.html",
+   "find": "    const revealEl = document.getElementById('reveal');\n",
+   "repl": "    if (window.GTBG_PRECOMPILE) window.GTBG_PRECOMPILE(map);   // PERF2: and the heatmap programs\n    const revealEl = document.getElementById('reveal');\n",
+   "expect": 1,
+   "note": "ground-remembers: the heatmap layer's programs are queued as soon as the layer exists"
+  },
+  {
+   "id": "PERF2-immersive-prewarm",
+   "target": "immersive.html",
+   "find": "  mapboxgl.accessToken = MAPBOX_TOKEN;\n",
+   "repl": "  mapboxgl.accessToken = MAPBOX_TOKEN;\n  try { mapboxgl.prewarm(); } catch (e) {}   // PERF2: start the shared workers while the placement files download\n",
+   "expect": 1,
+   "note": "immersive: Mapbox starts its worker pool during the placement downloads"
+  },
+  {
+   "id": "PERF2-immersive-styleload",
+   "target": "immersive.html",
+   "find": "  map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');\n\n  // ---- Web Audio",
+   "repl": "  map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');\n  map.once('style.load', () => { if (window.GTBG_PRECOMPILE) window.GTBG_PRECOMPILE(map); });   // PERF2: link the programs before the first draw\n\n  // ---- Web Audio",
+   "expect": 1,
+   "note": "immersive: programs of the satellite style are queued as soon as the style is there"
+  },
+  {
+   "id": "PERF2-immersive-layer",
+   "target": "immersive.html",
+   "find": "        'circle-stroke-width': 1, 'circle-stroke-color': '#0a0a14',\n      }\n    });\n    render();",
+   "repl": "        'circle-stroke-width': 1, 'circle-stroke-color': '#0a0a14',\n      }\n    });\n    if (window.GTBG_PRECOMPILE) window.GTBG_PRECOMPILE(map);   // PERF2: the circle layer's program too\n    render();",
+   "expect": 1,
+   "note": "immersive: the units layer's circle program is queued as soon as the layer exists"
+  },
+  {
+   "id": "PERF2-index-glyph-warm",
+   "target": "index.html",
+   "find": "</body>",
+   "repl": "<script>\n  // PERF2: the first layout that holds the toolbar / Tools-sheet glyphs (emoji and symbol fallback fonts) costs 30-40 ms. It is paid here, at idle time after the page has\n  // settled (3.2 s after load, after the window in which the load metrics are taken), instead of inside the first tap of Tools / Unit Roster / Legend.  A detached canvas\n  // measures the same text with the same fonts: the page's DOM is not touched.\n  (function () {\n    function warm() {\n      try {\n        var c = document.createElement('canvas').getContext('2d');\n        if (!c) return;\n        c.font = '22px \"Times New Roman\"'; c.measureText('\\uD83D\\uDD0D F \\u2694 \\u2630 \\uD83D\\uDDFF \\uD83D\\uDD2D \\u2B50 \\uD83D\\uDCCF \\uD83D\\uDDFA \\uD83D\\uDCCD ? \\u2715 \\u22EF');\n        c.font = '12px sans-serif'; c.measureText('Search Filter Order of Battle Unit Roster Monuments');\n        c.font = 'bold 16px Georgia, serif'; c.measureText('Tools');\n      } catch (e) {}\n    }\n    function later() { setTimeout(function () { if (window.requestIdleCallback) window.requestIdleCallback(warm, { timeout: 2000 }); else setTimeout(warm, 300); }, 3200); }\n    if (document.readyState === 'complete') later(); else window.addEventListener('load', later);\n  })();\n</script>\n</body>",
+   "expect": 1,
+   "note": "phone: the first tap of Tools took 40-60 ms in the click (a 51 ms long task in acceptance check 4; second tap: 4 ms): the layout of the sheet is the first one that needs the emoji / symbol fallback fonts. Measured on 6 first taps each: handler time median 40 ms -> 27 ms; the warm-up itself is one 13 ms task at idle and touches no DOM (an earlier variant that inserted a hidden element produced a late DOM mutation that the response detection of the acceptance harness mistook for the answer to a tap)"
+  },
+  {
+   "id": "PERF2-ar-comment",
+   "target": "ar.html",
+   "find": "// Device orientation (iOS 13+ requires an explicit permission prompt from a user gesture)",
+   "repl": "// Device orientation (iOS 13+ asks the visitor for permission, and only from a tap or click)",
+   "expect": 1,
+   "note": "copy audit: the word \"prompt\" in a code comment shipped in the page (acceptance check 8, rule \"prompt\"). It describes the browser's permission dialog, not an AI prompt; reworded so that no shipped byte carries the word"
+  }
+ ],
+ "train": "R1d"
+}

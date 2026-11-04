@@ -1,0 +1,149 @@
+{
+ "schema": "figures3d-headmaps-1",
+ "tier": "plausible-procedural (TIERS.json F-SKIN-MAPS)",
+ "note": "two RGBA8 maps per head in the head-skin UV space (NR: normal xy, roughness, cavity; AM: luminance, redness, stubble density, dirt) baked in code from the head parameters; not stored beyond head-maps-preview.png (heads 0..3, albedo-like composite)",
+ "size_crowd": [
+  512,
+  256
+ ],
+ "size_hero": [
+  1024,
+  512
+ ],
+ "heads": 24,
+ "age_years": [
+  17,
+  45
+ ],
+ "flag": "skin-grid vertices carry vertex flag 64",
+ "bytes": {
+  "crowd_per_head_raw_with_mips": 349525,
+  "crowd_24_raw_MB": 8,
+  "crowd_24_bc7_MB": 2,
+  "hero_per_head_raw_with_mips": 1398101,
+  "hero_bc7_MB_each": 0.33,
+  "budget": "PLAN G15: near bodies 14 MB, commander heads streamed: 24 crowd pairs fit in the near-body line; hero heads stream"
+ },
+ "heads_hashes": [
+  {
+   "head": 0,
+   "years": 35.9,
+   "sha256": "37e1aa07a91979d7569f9390ba8bee18f138fa154c9f4117b36a5219dd51d71c"
+  },
+  {
+   "head": 1,
+   "years": 42,
+   "sha256": "bca1f9e0d26a5c50e147e6ba3e63a829ee5493e1d7aa486234ac5e9014de5ccd"
+  },
+  {
+   "head": 2,
+   "years": 18.3,
+   "sha256": "67537f6191bf8508baa8b2183bd7593b294b45082efb0924da31dbf714ac8bf2"
+  },
+  {
+   "head": 3,
+   "years": 22.4,
+   "sha256": "e95a610cf25ab9e0cd549477d8c0a260a7df6dedb8e5ec134c7bccdb1da8b514"
+  },
+  {
+   "head": 4,
+   "years": 23.5,
+   "sha256": "260eaef74d6619c36963afb8fa29115814a66e2d52ab7e4bef9179f32d244d09"
+  },
+  {
+   "head": 5,
+   "years": 43.8,
+   "sha256": "75c9bdca2e6c3001443fbd422abcf596987c321ab0989c18e4114914d2ca4dbf"
+  },
+  {
+   "head": 6,
+   "years": 19.8,
+   "sha256": "561007a5e58df89f0801a12227adef75312d75009fc2c4d52bc51c9dfb84eabb"
+  },
+  {
+   "head": 7,
+   "years": 38.2,
+   "sha256": "c85331fd610f8878d288fecabb0436e0a5a2a0a6de6840e36407e27d82ef4b1e"
+  },
+  {
+   "head": 8,
+   "years": 28.8,
+   "sha256": "032193fa6cfd78f4e8a4a1fcbb36b3ef5a436da75891ec725e525436f9b9dc6d"
+  },
+  {
+   "head": 9,
+   "years": 18.1,
+   "sha256": "973759c50d10fd26db72af7089ca9a9eeb991e8b247a2298aac63e45d6d90c6b"
+  },
+  {
+   "head": 10,
+   "years": 25.9,
+   "sha256": "cc0f13a78cf546dc3ea2d7bfd7dea68f393c1148e7d12385e4e911c56a892416"
+  },
+  {
+   "head": 11,
+   "years": 30.3,
+   "sha256": "ccc96228852ddecb9ab91593ced766fe2e3a8196fbe78ad48046aec743e1aac5"
+  },
+  {
+   "head": 12,
+   "years": 28.2,
+   "sha256": "ddba69feadfa7067df5fe546929db299b0e7d8a451d65398e82e56d2993bf021"
+  },
+  {
+   "head": 13,
+   "years": 17,
+   "sha256": "1b781dfc72f882714a7ca9539caffe6679228efac13c2fe59977131b104ec322"
+  },
+  {
+   "head": 14,
+   "years": 38.2,
+   "sha256": "6e07ec0c83dd729da0da2ffa9c74b13e3f44f558687d6a1e2ba60569e3647118"
+  },
+  {
+   "head": 15,
+   "years": 34.2,
+   "sha256": "bfc4000b3ffe94b866c9fb14a6e31de61d83e02476f9be5bf63f1b8c10b62249"
+  },
+  {
+   "head": 16,
+   "years": 21,
+   "sha256": "973b52c3ab0905590b2cc4339c37929c880ed5ef154525de4eb93533bc38d494"
+  },
+  {
+   "head": 17,
+   "years": 43.7,
+   "sha256": "2fbc9b74f0b0557990fd2f879fda54ab244ecf53daf221befb652602e64f5e8d"
+  },
+  {
+   "head": 18,
+   "years": 20.9,
+   "sha256": "c1fa3351d241bac29f8dad84cc8f29d173a896f0b93a553eebccf76e3f50174d"
+  },
+  {
+   "head": 19,
+   "years": 29.8,
+   "sha256": "4e05c8ed7ad8e41112e696293a117227a26df09a550f834e5a0d5ea2f2864496"
+  },
+  {
+   "head": 20,
+   "years": 17,
+   "sha256": "52c76c6e89332dd5b8bb345ebb3c680e46726a17107950717154ea4a783c361d"
+  },
+  {
+   "head": 21,
+   "years": 18.1,
+   "sha256": "28088b9e4462277a8bd57dc0c8565610cc277874981809f1cc52d6f1268132cc"
+  },
+  {
+   "head": 22,
+   "years": 27.4,
+   "sha256": "c1a7ece16a7ad3edfd9b6144f1bb38f080343f2db232f347d2f4a8cac566ac1b"
+  },
+  {
+   "head": 23,
+   "years": 21.5,
+   "sha256": "9ac0eb1046b3df5e4109bbc62f7175c21c35caf0f9598d8bf17b2235a12445a5"
+  }
+ ]
+}

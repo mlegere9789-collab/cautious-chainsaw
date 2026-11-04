@@ -1,0 +1,78 @@
+{
+ "group": "POLISH",
+ "description": "CANDIDATE until registered (tools/t0/POLISH-README.md), bundle part: the layout contract and tap-target stylesheet block, the retired words in the app and Help, onboarding that stays dismissed. Apply AFTER MON (and ANIM). Its page part is PG-polish.json (a page group: the builder applies page groups after every fixed group).",
+ "patches": [
+  {
+   "id": "POL-css",
+   "target": "css",
+   "find": "@media (forced-colors:active){button,[role=button],input,select{border:1px solid ButtonText!important}:focus-visible{outline:2px solid Highlight!important;box-shadow:none!important}canvas{forced-color-adjust:none}}",
+   "repl": "@media (forced-colors:active){button,[role=button],input,select{border:1px solid ButtonText!important}:focus-visible{outline:2px solid Highlight!important;box-shadow:none!important}canvas{forced-color-adjust:none}}\n/* ===== POLISH layout contract (tools/t0/patches-next/POLISH.json, POLISH-README.md) =====\r\n   One place for every floating piece of the interface, so that nothing lands on anything else at any viewport:\r\n   LEFT RAIL (desktop, x 14..296): day badge (56..99), the Extra-menu dock (108, one row, or two rows under 1100 px), then the unit card and the Filters panel from --gt-rail-top down,\r\n   the legend at the bottom (above the Mapbox logo).  When the unit card and the legend are both open they share the rail 62 / 38.\r\n   RIGHT: zoom + Trails (top), the toast stack below them (180 px wide: it never reaches the story card), the story card left of the toasts, the overview at the bottom.\r\n   CENTRE-BOTTOM: the event card (left-anchored from 312 px under 1180 px so that it clears the rail). */\r\n:root{--gt-dock-h:148px}\n@media (pointer:coarse){:root{--gt-dock-h:184px}}\n:root{--gt-rail-top:160px;--gt-rail-bot:33px;--gt-rail-avail:calc(100dvh - var(--gt-rail-top) - var(--gt-dock-h,127px) - var(--gt-rail-bot))}\r\n@media (pointer:coarse){:root{--gt-rail-bot:60px}}\r\n@media (max-width:1099px){:root{--gt-rail-top:212px}}\r\nhtml[data-layout=\"desktop\"] #extra-features{top:108px!important;left:14px!important;right:auto!important;bottom:auto!important;transform:none!important;justify-content:flex-start;max-width:min(440px,calc(100vw - 28px))}\r\n@media (max-width:1099px){html[data-layout=\"desktop\"] #extra-features{max-width:270px}html[data-layout=\"desktop\"] #ef-controls{flex-wrap:wrap;max-width:calc(100% - 52px)}}\r\nhtml[data-layout=\"desktop\"] #gt-unit-panel{top:var(--gt-rail-top)!important;max-height:calc(100dvh - var(--gt-rail-top) - var(--gt-dock-h,127px) - 12px)!important}\r\nhtml[data-layout=\"desktop\"]:has([role=\"group\"][aria-label=\"Legend\"]) #gt-unit-panel{max-height:calc(var(--gt-rail-avail) * .62 - 8px)!important}\r\nhtml[data-layout=\"desktop\"] [role=\"group\"][aria-label=\"Filters\"]{top:var(--gt-rail-top)!important;left:16px!important;border-radius:8px!important;max-height:calc(100dvh - var(--gt-rail-top) - var(--gt-dock-h,127px) - 12px)!important}\r\nhtml[data-layout=\"desktop\"] [role=\"group\"][aria-label=\"Legend\"],html[data-layout=\"desktop\"] button[title=\"Show legend\"]{bottom:calc(var(--gt-dock-h,127px) + var(--gt-rail-bot))!important}\r\nhtml[data-layout=\"desktop\"] [role=\"group\"][aria-label=\"Legend\"]>div:last-child{max-height:max(48px,min(320px,calc(var(--gt-rail-avail) - 64px)))!important}\r\nhtml[data-layout=\"desktop\"]:has(#gt-unit-panel) [role=\"group\"][aria-label=\"Legend\"]>div:last-child{max-height:max(48px,min(320px,calc(var(--gt-rail-avail) * .38 - 64px)))!important}\r\nhtml[data-layout=\"desktop\"] [data-gtbg-card=\"2\"]{right:216px!important;max-width:min(340px,calc(100vw - 232px))!important}\r\nhtml[data-layout=\"desktop\"] [role=\"log\"][aria-label=\"Battle events\"]{top:164px!important;right:16px!important;max-width:180px!important;max-height:calc(100dvh - 500px);overflow:hidden;justify-content:flex-end}\r\nhtml[data-layout=\"desktop\"] [data-gtbg-card=\"1\"]{bottom:calc(var(--gt-dock-h,127px) + 30px)!important}\n@media (max-width:1179px){html[data-layout=\"desktop\"] [data-gtbg-card=\"1\"]{left:312px!important;bottom:calc(var(--gt-dock-h,127px) + 30px)!important;transform:none!important;width:min(460px,calc(100vw - 533px))!important}}\r\nhtml[data-layout=\"desktop\"]:has([data-gtbg-card=\"1\"]) [data-gtbg-card=\"2\"]{max-height:max(120px,min(calc(100dvh - 400px),calc(100dvh - var(--gt-dock-h,127px) - 102px - var(--gt-evt-h,300px))))!important}\r\nhtml[data-layout=\"desktop\"] .gtbg-tour-btn{bottom:calc(var(--gt-dock-h,127px) - 45px)!important}\n/* ---- phone shell (data-layout=\"mobile\"): the legend and the overview clear the Mapbox logo (88 x 44 at the bottom-left of the map); the cards stand above the logo too; a card hides the two small panels it would cover ---- */\r\nhtml[data-layout=\"mobile\"] .gtbg-m-legend,html[data-layout=\"mobile\"] .gtbg-m-mini{bottom:calc(var(--gt-dock) + var(--gt-sab) + 60px)!important}\r\n@media (orientation:portrait){\r\nhtml[data-layout=\"mobile\"] .gtbg-mp-story{bottom:calc(var(--gt-dock) + var(--gt-sab) + 52px)}\r\nhtml[data-layout=\"mobile\"] .gtbg-m-popup{bottom:calc(var(--gt-dock) + var(--gt-sab) + 52px)!important}\r\nhtml[data-layout=\"mobile\"] .gtbg-m-root:has(.gtbg-mp-story>*) :is(.gtbg-m-legend,.gtbg-m-mini),html[data-layout=\"mobile\"] .gtbg-m-root:has(>.gtbg-m-popup) :is(.gtbg-m-legend,.gtbg-m-mini){visibility:hidden}\r\n}\r\n@media (orientation:landscape) and (max-height:480px){html[data-layout=\"mobile\"] .gtbg-m-popup{left:auto!important;width:min(420px,52vw)!important;box-sizing:border-box}}\r\nhtml[data-layout=\"mobile\"] .gtbg-mp-toast{right:calc(max(8px,var(--gt-sar)) + 36px)}\r\n@media (orientation:landscape) and (max-height:480px){html[data-layout=\"mobile\"] .gtbg-mp-story{right:calc(max(8px,var(--gt-sar)) + 40px)}}\r\n@media (orientation:portrait){\r\nhtml[data-layout=\"mobile\"] .gtmon-sheet:not(.gtmon-side){bottom:calc(var(--gt-dock,0px) + var(--gt-sab,0px) + 52px)!important}\r\n}\r\nhtml[data-layout=\"mobile\"]:has(.gtmon-sheet) :is(.gtbg-m-legend,.gtbg-m-mini){visibility:hidden}\r\n@media (orientation:landscape) and (max-height:480px){html[data-layout=\"mobile\"] .gtmon-sheet.gtmon-side{max-height:max(120px,calc(var(--gt-maph) - 62px))!important}}\r\nhtml[data-layout=\"mobile\"]:has(.gtmon-sheet) .gtbg-mp-story{visibility:hidden;pointer-events:none}\n/* ---- targets: 32 px minimum for every control of the map on a fine pointer; on touch the shipped rule above already gives 44 px, and the toolbar's icon buttons get as much width as the bar has ---- */\r\n@media (pointer:fine){\r\n#root button,#extra-features button,#extra-features a{min-height:32px}\r\n#root a[href]:not(.mapboxgl-ctrl a){min-height:32px;box-sizing:border-box}\r\nhtml #ef-toggle{width:32px;height:32px}\r\n.mapboxgl-ctrl-group button{min-width:32px;min-height:32px}\r\n#gt-timeline div:has(>input[aria-label=\"Battle time\"]){height:32px!important}\r\n#gt-timeline input[aria-label=\"Battle time\"]{height:32px!important}\r\n}\r\n@media (pointer:fine) and (min-width:1100px){#root button:not(.mapboxgl-ctrl button):not([aria-hidden=\"true\"]){min-width:32px}}\r\n@media (pointer:coarse){#gt-timeline div:has(>input[aria-label=\"Battle time\"]){height:44px!important}#gt-timeline input[aria-label=\"Battle time\"]{height:44px!important}}\r\n@media (pointer:coarse) and (min-width:1000px){#root .gtbg-tb-right button{min-width:44px}}\r\n@media (pointer:coarse) and (min-width:835px) and (max-width:1319px){html[data-layout=\"desktop\"] .gtbg-tb-center a[download]{display:none!important}}\r\n@media (pointer:coarse) and (min-width:835px) and (max-width:1099px){html[data-layout=\"desktop\"] .gtbg-tb-center>div>button:first-child{display:none!important}}\r\n#root a[href^=\"mailto:\"]{display:inline-flex;align-items:center;min-height:32px}\r\n@media (pointer:coarse){#root a[href^=\"mailto:\"]{min-height:44px}}\n/* ---- User Guide and Toggle Units keep a home at every width: the toolbar drops them when it has no room (the shipped rules hide the guide link under 990 px and Toggle Units under 850 px; on touch the rules above hide them under 1320 and 1100 px), so the More to Explore menu carries them exactly then (see PG-polish POL-U10) ---- */\n#ef-menu .gtbg-group-tools .gtbg-item{width:100%;box-sizing:border-box;margin:0;background:none;border:0;font:inherit;color:inherit;text-align:left;cursor:pointer;min-height:44px}\n#ef-menu .gtbg-group-tools .gtbg-item[aria-pressed=\"false\"] .gtbg-item-icon{opacity:.55}\n@media (pointer:fine) and (min-width:850px){#ef-menu .gtbg-tool-units{display:none}}\n@media (pointer:coarse) and (min-width:1100px){#ef-menu .gtbg-tool-units{display:none}}\n@media (pointer:fine) and (min-width:990px){#ef-menu .gtbg-tool-guide{display:none}}\n@media (pointer:coarse) and (min-width:1320px){#ef-menu .gtbg-tool-guide{display:none}}\n@media (pointer:fine) and (min-width:990px){#ef-menu .gtbg-group-tools{display:none}}\n@media (pointer:coarse) and (min-width:1320px){#ef-menu .gtbg-group-tools{display:none}}",
+   "expect": 1,
+   "note": "layout contract + phone furniture + tap targets (one appended block; the anchor is the last rule of the stylesheet); the menu entries for the User Guide and Toggle Units appear only where the toolbar has dropped them; r2: --gt-dock-h defaults to the measured dock height (148 px fine pointer, 184 px touch) so the first frame already stands where the app's own measurement (inline style on <html>) will put it: no 21 px shift of the minimap and tour button at 0.5 s; r2: the event card stands 30 px above the dock at every desktop width (it was 9 px above it from 1180 px: BASE1863's longer attribution line ran under it, 10 px)"
+  },
+  {
+   "id": "POL-W01-onb-step",
+   "target": "js",
+   "find": "[\"→ / ←\",\"Step tick\"]",
+   "repl": "[\"→ / ←\",\"Step one moment\"]",
+   "expect": 1,
+   "note": "onboarding quick reference"
+  },
+  {
+   "id": "POL-W02-event-more",
+   "target": "js",
+   "find": "\" more event\",H.length>2?\"s\":\"\",\" this tick\"",
+   "repl": "\" more event\",H.length>2?\"s\":\"\",\" at this moment\"",
+   "expect": 1,
+   "note": "event card"
+  },
+  {
+   "id": "POL-W03-help-stories",
+   "target": "help",
+   "find": "The 24 narrative vignettes are drawn from",
+   "repl": "The 24 stories are drawn from",
+   "expect": 1,
+   "note": "Help, About tab"
+  },
+  {
+   "id": "POL-L01-tour-hook",
+   "target": "js",
+   "find": "style:Zr.launchBtn,children:",
+   "repl": "className:\"gtbg-tour-btn\",style:Zr.launchBtn,children:",
+   "expect": 1,
+   "note": "class hook for the tour button so that its offset follows the dock height (the dock grows with the 32/44 px controls)"
+  },
+  {
+   "id": "POL-O01-onb-persist",
+   "target": "js",
+   "find": "function he(Ie){H(Ie.id),Ie.id===\"newcomer\"",
+   "repl": "function he(Ie){try{localStorage.setItem(\"gtbg_onboarded\",\"1\")}catch(e){}H(Ie.id),Ie.id===\"newcomer\"",
+   "expect": 1,
+   "note": "same key and value as the existing close handler; storage can be blocked"
+  },
+  {
+   "id": "POL-U01-units-hook",
+   "target": "js",
+   "find": "showUnits:!0,toggleFilterPanel:",
+   "repl": "showUnits:(window.GTBG_UNITS={get:function(){return yn.getState().showUnits!==!1},toggle:function(){yn.getState().toggleUnits()}},!0),toggleFilterPanel:",
+   "expect": 1,
+   "note": "a hook to read and toggle the unit markers from the More to Explore menu (the store is module-private); yn is read lazily, after the store exists"
+  },
+  {
+   "id": "POL-U02-units-event",
+   "target": "js",
+   "find": "toggleUnits:()=>c(x=>({showUnits:!x.showUnits}))",
+   "repl": "toggleUnits:()=>c(x=>{var u=!x.showUnits;try{document.dispatchEvent(new CustomEvent(\"gtbg:units\",{detail:u}))}catch(e){}return{showUnits:u}})",
+   "expect": 1,
+   "note": "announces the new state so that the menu entry's pressed state follows the toolbar button too"
+  },
+  {
+   "id": "POL-U03-phone-tools",
+   "target": "js",
+   "find": "{icon:\"?\",label:\"Help\",action:()=>{oH&&oH(),vi(!1)}},",
+   "repl": "{icon:\"?\",label:\"Help\",action:()=>{oH&&oH(),vi(!1)}},{icon:\"📖\",label:\"User Guide (PDF)\",action:()=>{(()=>{const a=document.createElement(\"a\");a.href=\"/user-guide.pdf\";a.download=\"\";document.body.appendChild(a);a.click();a.remove()})(),vi(!1)}},{icon:\"👁\",label:\"Toggle Units\",action:()=>{yn.getState().toggleUnits(),vi(!1)}},",
+   "expect": 1,
+   "note": "phone and tablet shell: the toolbar does not exist there, so the guide and Toggle Units become tiles of the Tools sheet, next to Help; the guide tile clicks a real download link (the file is served as an attachment, like the toolbar link), so no pop-up is opened"
+  }
+ ]
+}

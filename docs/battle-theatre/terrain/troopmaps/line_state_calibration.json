@@ -1,0 +1,254 @@
+{
+ "method": "30 claims (10 per sheet, random.Random(20261030).sample over each file) read twice by eye. Pass 1: per-claim crops at 3x (300 x 220 scan px minimum window, legend swatches of the sheet and colour beside; these first-pass crops were superseded by the stored native-resolution crops in crops_state/, which cover the same windows). Pass 2, blind: claim ids hidden, order shuffled, numbered 1-30, in 2x tiles of 330 x 235 scan px (tmp/troopmaps/ls_mont/cal2_*.jpg, index cal_index.json). Agreement is between the two reads, not against an external truth (none exists). The full pass then used 5x (Union anchored) / 3.5x (Confederate anchored) / 2.33x (label-only) tiles, a larger zoom than either calibration pass, after 5x checks showed that the wedge of the Union first-position bars is hidden in the dense blue ink below 5x (TMJ1-020/037/038/048).",
+ "pass1": {
+  "TMJ1-070": [
+   "unreadable",
+   "thin solid blue line (Devin skirmish line), ends outside the window, no end ticks seen; a thin line without ticks is not one legend style"
+  ],
+  "TMJ1-029": [
+   "evening",
+   "solid dark bars (143/149/150 Pa) beside the label; clock 4 P.M. in the same run"
+  ],
+  "TMJ1-072": [
+   "first",
+   "outlined bars with a dark wedge fill tapering along the bar (74 Pa, 45 NY)"
+  ],
+  "TMJ1-043": [
+   "unreadable",
+   "staff label (Col. Wainwright, chief of artillery), no line symbol"
+  ],
+  "TMJ1-111": [
+   "all_day",
+   "outlined bars with a dark band of constant width along one long side"
+  ],
+  "TMJ1-053": [
+   "intermediate",
+   "thin line beside the label; thin line is the intermediate style (end ticks not seen); clock 2.30 P.M."
+  ],
+  "TMJ1-005": [
+   "first",
+   "outlined bar with a dark wedge filling one end and tapering"
+  ],
+  "TMJ1-094": [
+   "unreadable",
+   "artillery comb symbol (gun rows), no line-state style"
+  ],
+  "TMJ1-102": [
+   "evening",
+   "solid red bars either side of the label"
+  ],
+  "TMJ1-067": [
+   "evening",
+   "solid red bars (44', 21', 12') along the label; clock 3.30 P.M. in the run"
+  ],
+  "TM2-152": [
+   "all_day",
+   "outlined regiment bars with a dark band along one long side (28 Ms, 69 NY, 88 NY, 63 NY)"
+  ],
+  "TM2-068": [
+   "intermediate",
+   "thin lines with end ticks (12 NH, 16 Ms, 11 Ms); clock 6 P.M. beside"
+  ],
+  "TM2-163": [
+   "unreadable",
+   "corps commander label (Wright), no line symbol"
+  ],
+  "TM2-070": [
+   "unreadable",
+   "battery label with gun comb symbol, no line-state style"
+  ],
+  "TM2-032": [
+   "unreadable",
+   "division label with clock 8 P.M. beside a dashed movement arrow; no bar"
+  ],
+  "TM2-087": [
+   "evening",
+   "solid wide red bar along the label"
+  ],
+  "TM2-074": [
+   "evening",
+   "solid short dark bars (20 Ms, 20 NY, 151 Pa)"
+  ],
+  "TM2-106": [
+   "evening",
+   "solid dark bar beside KELLY"
+  ],
+  "TM2-037": [
+   "evening",
+   "solid wide red bar along the label"
+  ],
+  "TM2-169": [
+   "first",
+   "outlined bars with a wedge fill (4', 47', 17')"
+  ],
+  "TM3-038": [
+   "unreadable",
+   "headquarters label, no line symbol"
+  ],
+  "TM3-042": [
+   "evening",
+   "solid dark regiment bars (70-73, 120 NY)"
+  ],
+  "TM3-022": [
+   "evening",
+   "solid red bars"
+  ],
+  "TM3-007": [
+   "unreadable",
+   "division label text only, no line symbol"
+  ],
+  "TM3-073": [
+   "evening",
+   "solid short red bars"
+  ],
+  "TM3-037": [
+   "evening",
+   "solid dark regiment bars at Cushing"
+  ],
+  "TM3-090": [
+   "unreadable",
+   "script label on a dashed movement arrow; legend: dotted lines and arrows are movements, no line state"
+  ],
+  "TM3-113": [
+   "evening",
+   "long solid red bar (48', 44', 4')"
+  ],
+  "TM3-139": [
+   "unreadable",
+   "division label in an overprinted zone; not tied to one bar at this zoom"
+  ],
+  "TM3-107": [
+   "unreadable",
+   "division label text only, no line symbol"
+  ]
+ },
+ "pass2_blind": {
+  "TMJ1-070": [
+   "unreadable",
+   "blind tile #15 (2x)"
+  ],
+  "TMJ1-029": [
+   "evening",
+   "blind tile #27 (2x)"
+  ],
+  "TMJ1-072": [
+   "first",
+   "blind tile #28 (2x)"
+  ],
+  "TMJ1-043": [
+   "unreadable",
+   "blind tile #9 (2x)"
+  ],
+  "TMJ1-111": [
+   "all_day",
+   "blind tile #17 (2x)"
+  ],
+  "TMJ1-053": [
+   "intermediate",
+   "blind tile #22 (2x)"
+  ],
+  "TMJ1-005": [
+   "first",
+   "blind tile #4 (2x)"
+  ],
+  "TMJ1-094": [
+   "unreadable",
+   "blind tile #20 (2x)"
+  ],
+  "TMJ1-102": [
+   "evening",
+   "blind tile #2 (2x)"
+  ],
+  "TMJ1-067": [
+   "evening",
+   "blind tile #19 (2x)"
+  ],
+  "TM2-152": [
+   "all_day",
+   "blind tile #29 (2x)"
+  ],
+  "TM2-068": [
+   "intermediate",
+   "blind tile #8 (2x)"
+  ],
+  "TM2-163": [
+   "unreadable",
+   "blind tile #24 (2x)"
+  ],
+  "TM2-070": [
+   "unreadable",
+   "blind tile #10 (2x)"
+  ],
+  "TM2-032": [
+   "unreadable",
+   "blind tile #5 (2x)"
+  ],
+  "TM2-087": [
+   "evening",
+   "blind tile #26 (2x)"
+  ],
+  "TM2-074": [
+   "evening",
+   "blind tile #11 (2x)"
+  ],
+  "TM2-106": [
+   "evening",
+   "blind tile #3 (2x)"
+  ],
+  "TM2-037": [
+   "evening",
+   "blind tile #1 (2x)"
+  ],
+  "TM2-169": [
+   "first",
+   "blind tile #21 (2x)"
+  ],
+  "TM3-038": [
+   "unreadable",
+   "blind tile #14 (2x)"
+  ],
+  "TM3-042": [
+   "evening",
+   "blind tile #16 (2x)"
+  ],
+  "TM3-022": [
+   "evening",
+   "blind tile #6 (2x)"
+  ],
+  "TM3-007": [
+   "unreadable",
+   "blind tile #18 (2x)"
+  ],
+  "TM3-073": [
+   "evening",
+   "blind tile #7 (2x)"
+  ],
+  "TM3-037": [
+   "evening",
+   "blind tile #23 (2x)"
+  ],
+  "TM3-090": [
+   "unreadable",
+   "blind tile #13 (2x)"
+  ],
+  "TM3-113": [
+   "evening",
+   "blind tile #12 (2x)"
+  ],
+  "TM3-139": [
+   "unreadable",
+   "blind tile #25 (2x)"
+  ],
+  "TM3-107": [
+   "unreadable",
+   "blind tile #30 (2x)"
+  ]
+ },
+ "agreement": {
+  "agree": 30,
+  "of": 30,
+  "disagreements": [],
+  "threshold": "28 of 30 (brief)",
+  "result": "proceed"
+ }
+}

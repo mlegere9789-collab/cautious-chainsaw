@@ -1,0 +1,1753 @@
+{
+ "family": {
+  "family": "NE",
+  "scope": "Maine, Massachusetts, New Hampshire, Vermont (units of the repository OOB: 37 infantry regiments, 3 cavalry regiments, 7 batteries)",
+  "units_in_oob": 47,
+  "units_with_names": 36,
+  "names": 51016,
+  "rows_unreadable_or_ambiguous": 1283,
+  "unreadable_share": 0.0251,
+  "share_by_label": {
+   "Unknown": 0.3797,
+   "Absent-Documented": 0.4895,
+   "Present-Documented": 0.122,
+   "Duplicate-Xref": 0.0087
+  },
+  "label_rows": {
+   "Unknown": 19370,
+   "Absent-Documented": 24974,
+   "Present-Documented": 6226,
+   "Duplicate-Xref": 446
+  },
+  "name_garbled_rows": 1928,
+  "not_covered": [
+   {
+    "unit_id": "U-13VT",
+    "designation": "13th Vermont Volunteer Infantry"
+   },
+   {
+    "unit_id": "U-14VT",
+    "designation": "14th Vermont Volunteer Infantry"
+   },
+   {
+    "unit_id": "U-16VT",
+    "designation": "16th Vermont Volunteer Infantry"
+   },
+   {
+    "unit_id": "U-1VT-CAV",
+    "designation": "1st Vermont Cavalry"
+   },
+   {
+    "unit_id": "U-2VT",
+    "designation": "2nd Vermont Volunteer Infantry"
+   },
+   {
+    "unit_id": "U-3VT",
+    "designation": "3rd Vermont Volunteer Infantry"
+   },
+   {
+    "unit_id": "U-4VT",
+    "designation": "4th Vermont Volunteer Infantry"
+   },
+   {
+    "unit_id": "U-5VT",
+    "designation": "5th Vermont Volunteer Infantry"
+   },
+   {
+    "unit_id": "U-6VT",
+    "designation": "6th Vermont Volunteer Infantry"
+   },
+   {
+    "unit_id": "U-ART-MAE",
+    "designation": "Massachusetts Battery E (10th)"
+   },
+   {
+    "unit_id": "U-ART-MAF",
+    "designation": "Massachusetts Battery F"
+   }
+  ],
+  "note": "names = CSV rows (one row per man per printed entry; same-name rows within a unit are flagged duplicate-group and not merged)"
+ },
+ "units": {
+  "U-10MA": {
+   "unit_id": "U-10MA",
+   "designation": "10th Massachusetts Volunteer Infantry",
+   "oob_strength": 286,
+   "oob_casualties": 0,
+   "covered": true,
+   "file": "massachusetts/10th-massachusetts-volunteer-infantry.csv",
+   "rows": 1257,
+   "labels": {
+    "Unknown": 652,
+    "Absent-Documented": 598,
+    "Present-Documented": 7
+   },
+   "roll_status": {
+    "on-roll-undetermined": 641,
+    "off-roll-before-battle": 571,
+    "not-yet-enlisted": 27,
+    "unreadable-or-ambiguous": 11,
+    "named-present": 7
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 641,
+    "SEP-BEFORE": 571,
+    "ENL-AFTER": 27,
+    "OCR-DATE-LOST": 3,
+    "CAS-REMARK": 7,
+    "DATE-NOT-SHOWN": 7,
+    "CONFLICT": 1
+   },
+   "named_present": 7,
+   "on_roll_undetermined": 641,
+   "absent_documented": 598,
+   "unreadable_or_ambiguous": 11,
+   "share_unreadable": 0.0088,
+   "share_by_label": {
+    "Unknown": 0.5187,
+    "Absent-Documented": 0.4757,
+    "Present-Documented": 0.0056
+   },
+   "cas_remark_rows": 7,
+   "name_garbled_rows": 5,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-12MA": {
+   "unit_id": "U-12MA",
+   "designation": "12th Massachusetts Volunteer Infantry",
+   "oob_strength": 261,
+   "oob_casualties": 149,
+   "covered": true,
+   "file": "massachusetts/12th-massachusetts-volunteer-infantry.csv",
+   "rows": 1592,
+   "labels": {
+    "Absent-Documented": 949,
+    "Present-Documented": 124,
+    "Unknown": 519
+   },
+   "roll_status": {
+    "off-roll-before-battle": 526,
+    "named-present": 124,
+    "on-roll-undetermined": 497,
+    "not-yet-enlisted": 423,
+    "unreadable-or-ambiguous": 22
+   },
+   "basis_codes": {
+    "SEP-BEFORE": 526,
+    "CAS-REMARK": 123,
+    "ONROLL-NO-STATUS": 497,
+    "ENL-AFTER": 423,
+    "DATE-NOT-SHOWN": 10,
+    "OCR-DATE-LOST": 10,
+    "CONFLICT": 2,
+    "CAS-REMARK-DATE": 1
+   },
+   "named_present": 124,
+   "on_roll_undetermined": 497,
+   "absent_documented": 949,
+   "unreadable_or_ambiguous": 22,
+   "share_unreadable": 0.0138,
+   "share_by_label": {
+    "Absent-Documented": 0.5961,
+    "Present-Documented": 0.0779,
+    "Unknown": 0.326
+   },
+   "cas_remark_rows": 124,
+   "name_garbled_rows": 14,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-12NH": {
+   "unit_id": "U-12NH",
+   "designation": "12th New Hampshire Volunteer Infantry",
+   "oob_strength": 224,
+   "oob_casualties": 71,
+   "covered": true,
+   "file": "new-hampshire/12th-new-hampshire-volunteer-infantry.csv",
+   "rows": 1336,
+   "labels": {
+    "Unknown": 574,
+    "Absent-Documented": 657,
+    "Present-Documented": 95,
+    "Duplicate-Xref": 10
+   },
+   "roll_status": {
+    "on-roll-undetermined": 536,
+    "not-yet-enlisted": 397,
+    "named-present": 95,
+    "off-roll-before-battle": 260,
+    "unreadable-or-ambiguous": 38,
+    "xref": 10
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 536,
+    "ENL-AFTER": 397,
+    "CAS-REMARK": 95,
+    "SEP-BEFORE": 260,
+    "OCR-DATE-LOST": 22,
+    "XREF-ONLY": 10,
+    "DATE-NOT-SHOWN": 16
+   },
+   "named_present": 95,
+   "on_roll_undetermined": 536,
+   "absent_documented": 657,
+   "unreadable_or_ambiguous": 38,
+   "share_unreadable": 0.0284,
+   "share_by_label": {
+    "Unknown": 0.4296,
+    "Absent-Documented": 0.4918,
+    "Present-Documented": 0.0711,
+    "Duplicate-Xref": 0.0075
+   },
+   "cas_remark_rows": 95,
+   "name_garbled_rows": 0,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-13MA": {
+   "unit_id": "U-13MA",
+   "designation": "13th Massachusetts Volunteer Infantry",
+   "oob_strength": 284,
+   "oob_casualties": 137,
+   "covered": true,
+   "file": "massachusetts/13th-massachusetts-volunteer-infantry.csv",
+   "rows": 1444,
+   "labels": {
+    "Present-Documented": 191,
+    "Unknown": 459,
+    "Absent-Documented": 794
+   },
+   "roll_status": {
+    "named-present": 191,
+    "on-roll-undetermined": 425,
+    "off-roll-before-battle": 588,
+    "not-yet-enlisted": 206,
+    "unreadable-or-ambiguous": 34
+   },
+   "basis_codes": {
+    "CAS-REMARK": 182,
+    "ONROLL-NO-STATUS": 425,
+    "SEP-BEFORE": 588,
+    "ENL-AFTER": 206,
+    "OCR-DATE-LOST": 30,
+    "CAS-REMARK-DATE": 9,
+    "CONFLICT": 2,
+    "DATE-NOT-SHOWN": 2
+   },
+   "named_present": 191,
+   "on_roll_undetermined": 425,
+   "absent_documented": 794,
+   "unreadable_or_ambiguous": 34,
+   "share_unreadable": 0.0235,
+   "share_by_label": {
+    "Present-Documented": 0.1323,
+    "Unknown": 0.3179,
+    "Absent-Documented": 0.5499
+   },
+   "cas_remark_rows": 191,
+   "name_garbled_rows": 26,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-13VT": {
+   "unit_id": "U-13VT",
+   "designation": "13th Vermont Volunteer Infantry",
+   "oob_strength": 649,
+   "oob_casualties": 82,
+   "covered": false
+  },
+  "U-14VT": {
+   "unit_id": "U-14VT",
+   "designation": "14th Vermont Volunteer Infantry",
+   "oob_strength": 647,
+   "oob_casualties": 136,
+   "covered": false
+  },
+  "U-15MA": {
+   "unit_id": "U-15MA",
+   "designation": "15th Massachusetts Volunteer Infantry",
+   "oob_strength": 239,
+   "oob_casualties": 149,
+   "covered": true,
+   "file": "massachusetts/15th-massachusetts-volunteer-infantry.csv",
+   "rows": 1726,
+   "labels": {
+    "Absent-Documented": 1087,
+    "Present-Documented": 155,
+    "Unknown": 484
+   },
+   "roll_status": {
+    "off-roll-before-battle": 814,
+    "named-present": 155,
+    "on-roll-undetermined": 470,
+    "not-yet-enlisted": 273,
+    "unreadable-or-ambiguous": 14
+   },
+   "basis_codes": {
+    "SEP-BEFORE": 814,
+    "CAS-REMARK": 155,
+    "ONROLL-NO-STATUS": 470,
+    "ENL-AFTER": 273,
+    "OCR-DATE-LOST": 4,
+    "DATE-NOT-SHOWN": 9,
+    "CONFLICT": 1
+   },
+   "named_present": 155,
+   "on_roll_undetermined": 470,
+   "absent_documented": 1087,
+   "unreadable_or_ambiguous": 14,
+   "share_unreadable": 0.0081,
+   "share_by_label": {
+    "Absent-Documented": 0.6298,
+    "Present-Documented": 0.0898,
+    "Unknown": 0.2804
+   },
+   "cas_remark_rows": 155,
+   "name_garbled_rows": 15,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-16MA": {
+   "unit_id": "U-16MA",
+   "designation": "16th Massachusetts Volunteer Infantry",
+   "oob_strength": 243,
+   "oob_casualties": 68,
+   "covered": true,
+   "file": "massachusetts/16th-massachusetts-volunteer-infantry.csv",
+   "rows": 1368,
+   "labels": {
+    "Absent-Documented": 742,
+    "Unknown": 545,
+    "Present-Documented": 81
+   },
+   "roll_status": {
+    "off-roll-before-battle": 527,
+    "on-roll-undetermined": 519,
+    "named-present": 81,
+    "not-yet-enlisted": 215,
+    "unreadable-or-ambiguous": 26
+   },
+   "basis_codes": {
+    "SEP-BEFORE": 527,
+    "ONROLL-NO-STATUS": 519,
+    "CAS-REMARK": 79,
+    "ENL-AFTER": 215,
+    "OCR-DATE-LOST": 20,
+    "DATE-NOT-SHOWN": 5,
+    "CAS-REMARK-DATE": 2,
+    "CONFLICT": 1
+   },
+   "named_present": 81,
+   "on_roll_undetermined": 519,
+   "absent_documented": 742,
+   "unreadable_or_ambiguous": 26,
+   "share_unreadable": 0.019,
+   "share_by_label": {
+    "Absent-Documented": 0.5424,
+    "Unknown": 0.3984,
+    "Present-Documented": 0.0592
+   },
+   "cas_remark_rows": 81,
+   "name_garbled_rows": 17,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-16ME": {
+   "unit_id": "U-16ME",
+   "designation": "16th Maine Volunteer Infantry",
+   "oob_strength": 298,
+   "oob_casualties": 232,
+   "covered": true,
+   "file": "maine/16th-maine-volunteer-infantry.csv",
+   "rows": 1538,
+   "labels": {
+    "Unknown": 652,
+    "Absent-Documented": 465,
+    "Present-Documented": 421
+   },
+   "roll_status": {
+    "on-roll-undetermined": 593,
+    "off-roll-before-battle": 194,
+    "named-present": 421,
+    "unreadable-or-ambiguous": 59,
+    "not-yet-enlisted": 271
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 593,
+    "SEP-BEFORE": 194,
+    "PART-LIST": 415,
+    "DATE-NOT-SHOWN": 33,
+    "OCR-DATE-LOST": 21,
+    "ENL-AFTER": 271,
+    "CAS-REMARK": 6,
+    "CONFLICT": 5
+   },
+   "named_present": 421,
+   "on_roll_undetermined": 593,
+   "absent_documented": 465,
+   "unreadable_or_ambiguous": 59,
+   "share_unreadable": 0.0384,
+   "share_by_label": {
+    "Unknown": 0.4239,
+    "Absent-Documented": 0.3023,
+    "Present-Documented": 0.2737
+   },
+   "cas_remark_rows": 6,
+   "name_garbled_rows": 163,
+   "reconciliation": "Contested",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-16VT": {
+   "unit_id": "U-16VT",
+   "designation": "16th Vermont Volunteer Infantry",
+   "oob_strength": 612,
+   "oob_casualties": 117,
+   "covered": false
+  },
+  "U-17ME": {
+   "unit_id": "U-17ME",
+   "designation": "17th Maine Volunteer Infantry",
+   "oob_strength": 350,
+   "oob_casualties": 133,
+   "covered": true,
+   "file": "maine/17th-maine-volunteer-infantry.csv",
+   "rows": 1279,
+   "labels": {
+    "Unknown": 491,
+    "Absent-Documented": 285,
+    "Present-Documented": 503
+   },
+   "roll_status": {
+    "on-roll-undetermined": 432,
+    "off-roll-before-battle": 144,
+    "named-present": 503,
+    "unreadable-or-ambiguous": 59,
+    "not-yet-enlisted": 141
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 432,
+    "SEP-BEFORE": 144,
+    "PART-LIST": 479,
+    "CAS-REMARK": 24,
+    "DATE-NOT-SHOWN": 23,
+    "OCR-DATE-LOST": 33,
+    "ENL-AFTER": 141,
+    "CONFLICT": 3
+   },
+   "named_present": 503,
+   "on_roll_undetermined": 432,
+   "absent_documented": 285,
+   "unreadable_or_ambiguous": 59,
+   "share_unreadable": 0.0461,
+   "share_by_label": {
+    "Unknown": 0.3839,
+    "Absent-Documented": 0.2228,
+    "Present-Documented": 0.3933
+   },
+   "cas_remark_rows": 24,
+   "name_garbled_rows": 213,
+   "reconciliation": "Contested",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-18MA": {
+   "unit_id": "U-18MA",
+   "designation": "18th Massachusetts Volunteer Infantry",
+   "oob_strength": 139,
+   "oob_casualties": 20,
+   "covered": true,
+   "file": "massachusetts/18th-massachusetts-volunteer-infantry.csv",
+   "rows": 1371,
+   "labels": {
+    "Absent-Documented": 737,
+    "Unknown": 613,
+    "Present-Documented": 21
+   },
+   "roll_status": {
+    "off-roll-before-battle": 536,
+    "on-roll-undetermined": 546,
+    "unreadable-or-ambiguous": 67,
+    "not-yet-enlisted": 201,
+    "named-present": 21
+   },
+   "basis_codes": {
+    "SEP-BEFORE": 536,
+    "ONROLL-NO-STATUS": 546,
+    "OCR-DATE-LOST": 50,
+    "ENL-AFTER": 201,
+    "DATE-NOT-SHOWN": 16,
+    "CAS-REMARK": 21,
+    "CONFLICT": 1
+   },
+   "named_present": 21,
+   "on_roll_undetermined": 546,
+   "absent_documented": 737,
+   "unreadable_or_ambiguous": 67,
+   "share_unreadable": 0.0489,
+   "share_by_label": {
+    "Absent-Documented": 0.5376,
+    "Unknown": 0.4471,
+    "Present-Documented": 0.0153
+   },
+   "cas_remark_rows": 21,
+   "name_garbled_rows": 33,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-19MA": {
+   "unit_id": "U-19MA",
+   "designation": "19th Massachusetts Volunteer Infantry",
+   "oob_strength": 163,
+   "oob_casualties": 82,
+   "covered": true,
+   "file": "massachusetts/19th-massachusetts-volunteer-infantry.csv",
+   "rows": 1938,
+   "labels": {
+    "Absent-Documented": 1412,
+    "Unknown": 444,
+    "Present-Documented": 82
+   },
+   "roll_status": {
+    "off-roll-before-battle": 641,
+    "on-roll-undetermined": 389,
+    "named-present": 82,
+    "not-yet-enlisted": 771,
+    "unreadable-or-ambiguous": 55
+   },
+   "basis_codes": {
+    "SEP-BEFORE": 641,
+    "ONROLL-NO-STATUS": 389,
+    "CAS-REMARK": 82,
+    "ENL-AFTER": 771,
+    "OCR-DATE-LOST": 40,
+    "DATE-NOT-SHOWN": 11,
+    "CONFLICT": 4
+   },
+   "named_present": 82,
+   "on_roll_undetermined": 389,
+   "absent_documented": 1412,
+   "unreadable_or_ambiguous": 55,
+   "share_unreadable": 0.0284,
+   "share_by_label": {
+    "Absent-Documented": 0.7286,
+    "Unknown": 0.2291,
+    "Present-Documented": 0.0423
+   },
+   "cas_remark_rows": 82,
+   "name_garbled_rows": 34,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-19ME": {
+   "unit_id": "U-19ME",
+   "designation": "19th Maine Volunteer Infantry",
+   "oob_strength": 439,
+   "oob_casualties": 202,
+   "covered": true,
+   "file": "maine/19th-maine-volunteer-infantry.csv",
+   "rows": 1341,
+   "labels": {
+    "Unknown": 389,
+    "Present-Documented": 595,
+    "Absent-Documented": 357
+   },
+   "roll_status": {
+    "on-roll-undetermined": 326,
+    "unreadable-or-ambiguous": 63,
+    "named-present": 595,
+    "off-roll-before-battle": 132,
+    "not-yet-enlisted": 225
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 326,
+    "CONFLICT": 15,
+    "PART-LIST": 569,
+    "CAS-REMARK": 26,
+    "SEP-BEFORE": 132,
+    "DATE-NOT-SHOWN": 23,
+    "ENL-AFTER": 225,
+    "OCR-DATE-LOST": 25
+   },
+   "named_present": 595,
+   "on_roll_undetermined": 326,
+   "absent_documented": 357,
+   "unreadable_or_ambiguous": 63,
+   "share_unreadable": 0.047,
+   "share_by_label": {
+    "Unknown": 0.2901,
+    "Present-Documented": 0.4437,
+    "Absent-Documented": 0.2662
+   },
+   "cas_remark_rows": 26,
+   "name_garbled_rows": 153,
+   "reconciliation": "Contested",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-1MA": {
+   "unit_id": "U-1MA",
+   "designation": "1st Massachusetts Volunteer Infantry",
+   "oob_strength": 321,
+   "oob_casualties": 97,
+   "covered": true,
+   "file": "massachusetts/1st-massachusetts-volunteer-infantry.csv",
+   "rows": 1695,
+   "labels": {
+    "Absent-Documented": 901,
+    "Unknown": 658,
+    "Present-Documented": 136
+   },
+   "roll_status": {
+    "off-roll-before-battle": 881,
+    "on-roll-undetermined": 633,
+    "not-yet-enlisted": 20,
+    "named-present": 136,
+    "unreadable-or-ambiguous": 25
+   },
+   "basis_codes": {
+    "SEP-BEFORE": 881,
+    "ONROLL-NO-STATUS": 633,
+    "ENL-AFTER": 20,
+    "CAS-REMARK": 136,
+    "OCR-DATE-LOST": 17,
+    "DATE-NOT-SHOWN": 3,
+    "CONFLICT": 5
+   },
+   "named_present": 136,
+   "on_roll_undetermined": 633,
+   "absent_documented": 901,
+   "unreadable_or_ambiguous": 25,
+   "share_unreadable": 0.0147,
+   "share_by_label": {
+    "Absent-Documented": 0.5316,
+    "Unknown": 0.3882,
+    "Present-Documented": 0.0802
+   },
+   "cas_remark_rows": 136,
+   "name_garbled_rows": 4,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-1MA-CAV": {
+   "unit_id": "U-1MA-CAV",
+   "designation": "1st Massachusetts Cavalry",
+   "oob_strength": 421,
+   "oob_casualties": 21,
+   "covered": true,
+   "file": "massachusetts/1st-massachusetts-cavalry.csv",
+   "rows": 2339,
+   "labels": {
+    "Absent-Documented": 1253,
+    "Unknown": 1083,
+    "Present-Documented": 3
+   },
+   "roll_status": {
+    "off-roll-before-battle": 406,
+    "on-roll-undetermined": 1065,
+    "not-yet-enlisted": 847,
+    "unreadable-or-ambiguous": 18,
+    "named-present": 3
+   },
+   "basis_codes": {
+    "SEP-BEFORE": 406,
+    "ONROLL-NO-STATUS": 1065,
+    "ENL-AFTER": 847,
+    "CONFLICT": 3,
+    "DATE-NOT-SHOWN": 7,
+    "OCR-DATE-LOST": 8,
+    "CAS-REMARK": 2,
+    "CAS-REMARK-DATE": 1
+   },
+   "named_present": 3,
+   "on_roll_undetermined": 1065,
+   "absent_documented": 1253,
+   "unreadable_or_ambiguous": 18,
+   "share_unreadable": 0.0077,
+   "share_by_label": {
+    "Absent-Documented": 0.5357,
+    "Unknown": 0.463,
+    "Present-Documented": 0.0013
+   },
+   "cas_remark_rows": 3,
+   "name_garbled_rows": 69,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-1ME-CAV": {
+   "unit_id": "U-1ME-CAV",
+   "designation": "1st Maine Cavalry",
+   "oob_strength": 421,
+   "oob_casualties": 19,
+   "covered": true,
+   "file": "maine/1st-maine-cavalry.csv",
+   "rows": 1618,
+   "labels": {
+    "Present-Documented": 612,
+    "Unknown": 849,
+    "Absent-Documented": 157
+   },
+   "roll_status": {
+    "named-present": 612,
+    "on-roll-undetermined": 808,
+    "unreadable-or-ambiguous": 41,
+    "off-roll-before-battle": 156,
+    "not-yet-enlisted": 1
+   },
+   "basis_codes": {
+    "PART-LIST": 611,
+    "ONROLL-NO-STATUS": 808,
+    "DATE-NOT-SHOWN": 24,
+    "SEP-BEFORE": 156,
+    "CONFLICT": 4,
+    "OCR-DATE-LOST": 13,
+    "CAS-REMARK": 1,
+    "ENL-AFTER": 1
+   },
+   "named_present": 612,
+   "on_roll_undetermined": 808,
+   "absent_documented": 157,
+   "unreadable_or_ambiguous": 41,
+   "share_unreadable": 0.0253,
+   "share_by_label": {
+    "Present-Documented": 0.3782,
+    "Unknown": 0.5247,
+    "Absent-Documented": 0.097
+   },
+   "cas_remark_rows": 1,
+   "name_garbled_rows": 478,
+   "reconciliation": "Contested",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-1VT-CAV": {
+   "unit_id": "U-1VT-CAV",
+   "designation": "1st Vermont Cavalry",
+   "oob_strength": 611,
+   "oob_casualties": 36,
+   "covered": false
+  },
+  "U-20MA": {
+   "unit_id": "U-20MA",
+   "designation": "20th Massachusetts Volunteer Infantry",
+   "oob_strength": 243,
+   "oob_casualties": 127,
+   "covered": true,
+   "file": "massachusetts/20th-massachusetts-volunteer-infantry.csv",
+   "rows": 2482,
+   "labels": {
+    "Absent-Documented": 1864,
+    "Present-Documented": 130,
+    "Unknown": 488
+   },
+   "roll_status": {
+    "off-roll-before-battle": 777,
+    "not-yet-enlisted": 1087,
+    "named-present": 130,
+    "on-roll-undetermined": 466,
+    "unreadable-or-ambiguous": 22
+   },
+   "basis_codes": {
+    "SEP-BEFORE": 777,
+    "ENL-AFTER": 1087,
+    "CAS-REMARK": 130,
+    "ONROLL-NO-STATUS": 466,
+    "DATE-NOT-SHOWN": 8,
+    "OCR-DATE-LOST": 12,
+    "CONFLICT": 2
+   },
+   "named_present": 130,
+   "on_roll_undetermined": 466,
+   "absent_documented": 1864,
+   "unreadable_or_ambiguous": 22,
+   "share_unreadable": 0.0089,
+   "share_by_label": {
+    "Absent-Documented": 0.751,
+    "Present-Documented": 0.0524,
+    "Unknown": 0.1966
+   },
+   "cas_remark_rows": 130,
+   "name_garbled_rows": 14,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-20ME": {
+   "unit_id": "U-20ME",
+   "designation": "20th Maine Volunteer Infantry",
+   "oob_strength": 386,
+   "oob_casualties": 130,
+   "covered": true,
+   "file": "maine/20th-maine-volunteer-infantry.csv",
+   "rows": 1347,
+   "labels": {
+    "Unknown": 572,
+    "Absent-Documented": 247,
+    "Present-Documented": 528
+   },
+   "roll_status": {
+    "on-roll-undetermined": 520,
+    "off-roll-before-battle": 210,
+    "unreadable-or-ambiguous": 52,
+    "named-present": 528,
+    "not-yet-enlisted": 37
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 520,
+    "SEP-BEFORE": 213,
+    "OCR-DATE-LOST": 14,
+    "PART-LIST": 528,
+    "DATE-NOT-SHOWN": 35,
+    "ENL-AFTER": 37
+   },
+   "named_present": 528,
+   "on_roll_undetermined": 520,
+   "absent_documented": 247,
+   "unreadable_or_ambiguous": 52,
+   "share_unreadable": 0.0386,
+   "share_by_label": {
+    "Unknown": 0.4246,
+    "Absent-Documented": 0.1834,
+    "Present-Documented": 0.392
+   },
+   "cas_remark_rows": 0,
+   "name_garbled_rows": 0,
+   "reconciliation": "Contested",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-22MA": {
+   "unit_id": "U-22MA",
+   "designation": "22nd Massachusetts Volunteer Infantry",
+   "oob_strength": 137,
+   "oob_casualties": 21,
+   "covered": true,
+   "file": "massachusetts/22nd-massachusetts-volunteer-infantry.csv",
+   "rows": 1451,
+   "labels": {
+    "Absent-Documented": 973,
+    "Unknown": 444,
+    "Present-Documented": 34
+   },
+   "roll_status": {
+    "off-roll-before-battle": 710,
+    "on-roll-undetermined": 434,
+    "not-yet-enlisted": 263,
+    "named-present": 34,
+    "unreadable-or-ambiguous": 10
+   },
+   "basis_codes": {
+    "SEP-BEFORE": 710,
+    "ONROLL-NO-STATUS": 434,
+    "ENL-AFTER": 263,
+    "CAS-REMARK": 34,
+    "DATE-NOT-SHOWN": 4,
+    "OCR-DATE-LOST": 4,
+    "CONFLICT": 2
+   },
+   "named_present": 34,
+   "on_roll_undetermined": 434,
+   "absent_documented": 973,
+   "unreadable_or_ambiguous": 10,
+   "share_unreadable": 0.0069,
+   "share_by_label": {
+    "Absent-Documented": 0.6706,
+    "Unknown": 0.306,
+    "Present-Documented": 0.0234
+   },
+   "cas_remark_rows": 34,
+   "name_garbled_rows": 9,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-28MA": {
+   "unit_id": "U-28MA",
+   "designation": "28th Massachusetts Volunteer Infantry",
+   "oob_strength": 224,
+   "oob_casualties": 99,
+   "covered": true,
+   "file": "massachusetts/28th-massachusetts-volunteer-infantry.csv",
+   "rows": 2065,
+   "labels": {
+    "Absent-Documented": 1479,
+    "Unknown": 479,
+    "Present-Documented": 107
+   },
+   "roll_status": {
+    "off-roll-before-battle": 591,
+    "on-roll-undetermined": 460,
+    "named-present": 107,
+    "not-yet-enlisted": 888,
+    "unreadable-or-ambiguous": 19
+   },
+   "basis_codes": {
+    "SEP-BEFORE": 591,
+    "ONROLL-NO-STATUS": 460,
+    "CAS-REMARK": 106,
+    "ENL-AFTER": 888,
+    "DATE-NOT-SHOWN": 11,
+    "CAS-REMARK-DATE": 1,
+    "OCR-DATE-LOST": 6,
+    "CONFLICT": 2
+   },
+   "named_present": 107,
+   "on_roll_undetermined": 460,
+   "absent_documented": 1479,
+   "unreadable_or_ambiguous": 19,
+   "share_unreadable": 0.0092,
+   "share_by_label": {
+    "Absent-Documented": 0.7162,
+    "Unknown": 0.232,
+    "Present-Documented": 0.0518
+   },
+   "cas_remark_rows": 107,
+   "name_garbled_rows": 15,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-2MA": {
+   "unit_id": "U-2MA",
+   "designation": "2nd Massachusetts Volunteer Infantry",
+   "oob_strength": 316,
+   "oob_casualties": 136,
+   "covered": true,
+   "file": "massachusetts/2nd-massachusetts-volunteer-infantry.csv",
+   "rows": 2013,
+   "labels": {
+    "Absent-Documented": 1230,
+    "Unknown": 645,
+    "Present-Documented": 138
+   },
+   "roll_status": {
+    "off-roll-before-battle": 599,
+    "not-yet-enlisted": 631,
+    "on-roll-undetermined": 621,
+    "named-present": 138,
+    "unreadable-or-ambiguous": 24
+   },
+   "basis_codes": {
+    "SEP-BEFORE": 599,
+    "ENL-AFTER": 631,
+    "ONROLL-NO-STATUS": 621,
+    "CAS-REMARK": 138,
+    "OCR-DATE-LOST": 15,
+    "DATE-NOT-SHOWN": 8,
+    "CONFLICT": 1
+   },
+   "named_present": 138,
+   "on_roll_undetermined": 621,
+   "absent_documented": 1230,
+   "unreadable_or_ambiguous": 24,
+   "share_unreadable": 0.0119,
+   "share_by_label": {
+    "Absent-Documented": 0.611,
+    "Unknown": 0.3204,
+    "Present-Documented": 0.0686
+   },
+   "cas_remark_rows": 138,
+   "name_garbled_rows": 7,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-2NH": {
+   "unit_id": "U-2NH",
+   "designation": "2nd New Hampshire Volunteer Infantry",
+   "oob_strength": 354,
+   "oob_casualties": 193,
+   "covered": true,
+   "file": "new-hampshire/2nd-new-hampshire-volunteer-infantry.csv",
+   "rows": 2379,
+   "labels": {
+    "Absent-Documented": 1385,
+    "Duplicate-Xref": 348,
+    "Unknown": 489,
+    "Present-Documented": 157
+   },
+   "roll_status": {
+    "off-roll-before-battle": 646,
+    "xref": 348,
+    "not-yet-enlisted": 739,
+    "on-roll-undetermined": 445,
+    "named-present": 157,
+    "unreadable-or-ambiguous": 44
+   },
+   "basis_codes": {
+    "SEP-BEFORE": 646,
+    "XREF-ONLY": 348,
+    "ENL-AFTER": 739,
+    "ONROLL-NO-STATUS": 445,
+    "CAS-REMARK": 155,
+    "DATE-NOT-SHOWN": 15,
+    "OCR-DATE-LOST": 27,
+    "CAS-REMARK-DATE": 2,
+    "CONFLICT": 2
+   },
+   "named_present": 157,
+   "on_roll_undetermined": 445,
+   "absent_documented": 1385,
+   "unreadable_or_ambiguous": 44,
+   "share_unreadable": 0.0185,
+   "share_by_label": {
+    "Absent-Documented": 0.5822,
+    "Duplicate-Xref": 0.1463,
+    "Unknown": 0.2055,
+    "Present-Documented": 0.066
+   },
+   "cas_remark_rows": 157,
+   "name_garbled_rows": 0,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-2VT": {
+   "unit_id": "U-2VT",
+   "designation": "2nd Vermont Volunteer Infantry",
+   "oob_strength": 374,
+   "oob_casualties": 0,
+   "covered": false
+  },
+  "U-32MA": {
+   "unit_id": "U-32MA",
+   "designation": "32nd Massachusetts Volunteer Infantry",
+   "oob_strength": 263,
+   "oob_casualties": 72,
+   "covered": true,
+   "file": "massachusetts/32nd-massachusetts-volunteer-infantry.csv",
+   "rows": 2168,
+   "labels": {
+    "Absent-Documented": 1474,
+    "Unknown": 606,
+    "Present-Documented": 88
+   },
+   "roll_status": {
+    "off-roll-before-battle": 402,
+    "on-roll-undetermined": 588,
+    "not-yet-enlisted": 1072,
+    "named-present": 88,
+    "unreadable-or-ambiguous": 18
+   },
+   "basis_codes": {
+    "SEP-BEFORE": 402,
+    "ONROLL-NO-STATUS": 588,
+    "ENL-AFTER": 1072,
+    "CAS-REMARK": 88,
+    "DATE-NOT-SHOWN": 10,
+    "OCR-DATE-LOST": 8
+   },
+   "named_present": 88,
+   "on_roll_undetermined": 588,
+   "absent_documented": 1474,
+   "unreadable_or_ambiguous": 18,
+   "share_unreadable": 0.0083,
+   "share_by_label": {
+    "Absent-Documented": 0.6799,
+    "Unknown": 0.2795,
+    "Present-Documented": 0.0406
+   },
+   "cas_remark_rows": 88,
+   "name_garbled_rows": 12,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-33MA": {
+   "unit_id": "U-33MA",
+   "designation": "33rd Massachusetts Volunteer Infantry",
+   "oob_strength": 527,
+   "oob_casualties": 51,
+   "covered": true,
+   "file": "massachusetts/33rd-massachusetts-volunteer-infantry.csv",
+   "rows": 1282,
+   "labels": {
+    "Absent-Documented": 409,
+    "Unknown": 827,
+    "Present-Documented": 46
+   },
+   "roll_status": {
+    "off-roll-before-battle": 200,
+    "on-roll-undetermined": 822,
+    "not-yet-enlisted": 209,
+    "named-present": 46,
+    "unreadable-or-ambiguous": 5
+   },
+   "basis_codes": {
+    "SEP-BEFORE": 200,
+    "ONROLL-NO-STATUS": 822,
+    "ENL-AFTER": 209,
+    "CAS-REMARK": 46,
+    "OCR-DATE-LOST": 3,
+    "DATE-NOT-SHOWN": 2
+   },
+   "named_present": 46,
+   "on_roll_undetermined": 822,
+   "absent_documented": 409,
+   "unreadable_or_ambiguous": 5,
+   "share_unreadable": 0.0039,
+   "share_by_label": {
+    "Absent-Documented": 0.319,
+    "Unknown": 0.6451,
+    "Present-Documented": 0.0359
+   },
+   "cas_remark_rows": 46,
+   "name_garbled_rows": 8,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-37MA": {
+   "unit_id": "U-37MA",
+   "designation": "37th Massachusetts Volunteer Infantry",
+   "oob_strength": 590,
+   "oob_casualties": 0,
+   "covered": true,
+   "file": "massachusetts/37th-massachusetts-volunteer-infantry.csv",
+   "rows": 1310,
+   "labels": {
+    "Unknown": 788,
+    "Absent-Documented": 475,
+    "Present-Documented": 47
+   },
+   "roll_status": {
+    "on-roll-undetermined": 776,
+    "off-roll-before-battle": 136,
+    "not-yet-enlisted": 339,
+    "named-present": 47,
+    "unreadable-or-ambiguous": 12
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 776,
+    "SEP-BEFORE": 136,
+    "ENL-AFTER": 339,
+    "CAS-REMARK": 46,
+    "OCR-DATE-LOST": 6,
+    "DATE-NOT-SHOWN": 6,
+    "CAS-REMARK-DATE": 1
+   },
+   "named_present": 47,
+   "on_roll_undetermined": 776,
+   "absent_documented": 475,
+   "unreadable_or_ambiguous": 12,
+   "share_unreadable": 0.0092,
+   "share_by_label": {
+    "Unknown": 0.6015,
+    "Absent-Documented": 0.3626,
+    "Present-Documented": 0.0359
+   },
+   "cas_remark_rows": 47,
+   "name_garbled_rows": 3,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-3ME": {
+   "unit_id": "U-3ME",
+   "designation": "3rd Maine Volunteer Infantry",
+   "oob_strength": 210,
+   "oob_casualties": 84,
+   "covered": true,
+   "file": "maine/3rd-maine-volunteer-infantry.csv",
+   "rows": 1366,
+   "labels": {
+    "Unknown": 599,
+    "Absent-Documented": 424,
+    "Present-Documented": 343
+   },
+   "roll_status": {
+    "on-roll-undetermined": 525,
+    "unreadable-or-ambiguous": 74,
+    "off-roll-before-battle": 133,
+    "named-present": 343,
+    "not-yet-enlisted": 291
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 525,
+    "OCR-DATE-LOST": 14,
+    "SEP-BEFORE": 133,
+    "CAS-REMARK": 24,
+    "PART-LIST": 319,
+    "DATE-NOT-SHOWN": 59,
+    "ENL-AFTER": 291,
+    "CONFLICT": 1
+   },
+   "named_present": 343,
+   "on_roll_undetermined": 525,
+   "absent_documented": 424,
+   "unreadable_or_ambiguous": 74,
+   "share_unreadable": 0.0542,
+   "share_by_label": {
+    "Unknown": 0.4385,
+    "Absent-Documented": 0.3104,
+    "Present-Documented": 0.2511
+   },
+   "cas_remark_rows": 24,
+   "name_garbled_rows": 60,
+   "reconciliation": "Contested",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-3VT": {
+   "unit_id": "U-3VT",
+   "designation": "3rd Vermont Volunteer Infantry",
+   "oob_strength": 349,
+   "oob_casualties": 0,
+   "covered": false
+  },
+  "U-4ME": {
+   "unit_id": "U-4ME",
+   "designation": "4th Maine Volunteer Infantry",
+   "oob_strength": 287,
+   "oob_casualties": 145,
+   "covered": true,
+   "file": "maine/4th-maine-volunteer-infantry.csv",
+   "rows": 1303,
+   "labels": {
+    "Unknown": 645,
+    "Present-Documented": 359,
+    "Absent-Documented": 299
+   },
+   "roll_status": {
+    "on-roll-undetermined": 558,
+    "named-present": 359,
+    "off-roll-before-battle": 150,
+    "unreadable-or-ambiguous": 87,
+    "not-yet-enlisted": 149
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 558,
+    "PART-LIST": 327,
+    "SEP-BEFORE": 150,
+    "CAS-REMARK": 32,
+    "DATE-NOT-SHOWN": 64,
+    "OCR-DATE-LOST": 18,
+    "CONFLICT": 5,
+    "ENL-AFTER": 149
+   },
+   "named_present": 359,
+   "on_roll_undetermined": 558,
+   "absent_documented": 299,
+   "unreadable_or_ambiguous": 87,
+   "share_unreadable": 0.0668,
+   "share_by_label": {
+    "Unknown": 0.495,
+    "Present-Documented": 0.2755,
+    "Absent-Documented": 0.2295
+   },
+   "cas_remark_rows": 32,
+   "name_garbled_rows": 77,
+   "reconciliation": "Contested",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-4VT": {
+   "unit_id": "U-4VT",
+   "designation": "4th Vermont Volunteer Infantry",
+   "oob_strength": 320,
+   "oob_casualties": 0,
+   "covered": false
+  },
+  "U-5ME": {
+   "unit_id": "U-5ME",
+   "designation": "5th Maine Volunteer Infantry",
+   "oob_strength": 395,
+   "oob_casualties": 0,
+   "covered": true,
+   "file": "maine/5th-maine-volunteer-infantry.csv",
+   "rows": 1059,
+   "labels": {
+    "Unknown": 571,
+    "Absent-Documented": 119,
+    "Present-Documented": 369
+   },
+   "roll_status": {
+    "on-roll-undetermined": 530,
+    "off-roll-before-battle": 106,
+    "named-present": 369,
+    "unreadable-or-ambiguous": 41,
+    "not-yet-enlisted": 13
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 530,
+    "SEP-BEFORE": 106,
+    "PART-LIST": 369,
+    "DATE-NOT-SHOWN": 27,
+    "CONFLICT": 9,
+    "OCR-DATE-LOST": 5,
+    "ENL-AFTER": 13
+   },
+   "named_present": 369,
+   "on_roll_undetermined": 530,
+   "absent_documented": 119,
+   "unreadable_or_ambiguous": 41,
+   "share_unreadable": 0.0387,
+   "share_by_label": {
+    "Unknown": 0.5392,
+    "Absent-Documented": 0.1124,
+    "Present-Documented": 0.3484
+   },
+   "cas_remark_rows": 0,
+   "name_garbled_rows": 97,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-5NH": {
+   "unit_id": "U-5NH",
+   "designation": "5th New Hampshire Volunteer Infantry",
+   "oob_strength": 179,
+   "oob_casualties": 69,
+   "covered": true,
+   "file": "new-hampshire/5th-new-hampshire-volunteer-infantry.csv",
+   "rows": 2351,
+   "labels": {
+    "Absent-Documented": 1713,
+    "Unknown": 506,
+    "Present-Documented": 46,
+    "Duplicate-Xref": 86
+   },
+   "roll_status": {
+    "off-roll-before-battle": 537,
+    "unreadable-or-ambiguous": 73,
+    "on-roll-undetermined": 433,
+    "not-yet-enlisted": 1176,
+    "named-present": 46,
+    "xref": 86
+   },
+   "basis_codes": {
+    "SEP-BEFORE": 537,
+    "DATE-NOT-SHOWN": 27,
+    "ONROLL-NO-STATUS": 433,
+    "ENL-AFTER": 1176,
+    "CAS-REMARK": 45,
+    "OCR-DATE-LOST": 44,
+    "XREF-ONLY": 86,
+    "CAS-REMARK-DATE": 1,
+    "CONFLICT": 2
+   },
+   "named_present": 46,
+   "on_roll_undetermined": 433,
+   "absent_documented": 1713,
+   "unreadable_or_ambiguous": 73,
+   "share_unreadable": 0.0311,
+   "share_by_label": {
+    "Absent-Documented": 0.7286,
+    "Unknown": 0.2152,
+    "Present-Documented": 0.0196,
+    "Duplicate-Xref": 0.0366
+   },
+   "cas_remark_rows": 46,
+   "name_garbled_rows": 0,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-5VT": {
+   "unit_id": "U-5VT",
+   "designation": "5th Vermont Volunteer Infantry",
+   "oob_strength": 313,
+   "oob_casualties": 0,
+   "covered": false
+  },
+  "U-6ME": {
+   "unit_id": "U-6ME",
+   "designation": "6th Maine Volunteer Infantry",
+   "oob_strength": 381,
+   "oob_casualties": 0,
+   "covered": true,
+   "file": "maine/6th-maine-volunteer-infantry.csv",
+   "rows": 1267,
+   "labels": {
+    "Unknown": 583,
+    "Absent-Documented": 211,
+    "Present-Documented": 473
+   },
+   "roll_status": {
+    "on-roll-undetermined": 532,
+    "off-roll-before-battle": 193,
+    "named-present": 473,
+    "unreadable-or-ambiguous": 51,
+    "not-yet-enlisted": 18
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 532,
+    "SEP-BEFORE": 193,
+    "PART-LIST": 473,
+    "OCR-DATE-LOST": 14,
+    "CONFLICT": 16,
+    "DATE-NOT-SHOWN": 21,
+    "ENL-AFTER": 18
+   },
+   "named_present": 473,
+   "on_roll_undetermined": 532,
+   "absent_documented": 211,
+   "unreadable_or_ambiguous": 51,
+   "share_unreadable": 0.0403,
+   "share_by_label": {
+    "Unknown": 0.4601,
+    "Absent-Documented": 0.1665,
+    "Present-Documented": 0.3733
+   },
+   "cas_remark_rows": 0,
+   "name_garbled_rows": 205,
+   "reconciliation": "Contested",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-6VT": {
+   "unit_id": "U-6VT",
+   "designation": "6th Vermont Volunteer Infantry",
+   "oob_strength": 230,
+   "oob_casualties": 0,
+   "covered": false
+  },
+  "U-7MA": {
+   "unit_id": "U-7MA",
+   "designation": "7th Massachusetts Volunteer Infantry",
+   "oob_strength": 359,
+   "oob_casualties": 0,
+   "covered": true,
+   "file": "massachusetts/7th-massachusetts-volunteer-infantry.csv",
+   "rows": 1171,
+   "labels": {
+    "Absent-Documented": 533,
+    "Unknown": 629,
+    "Present-Documented": 9
+   },
+   "roll_status": {
+    "off-roll-before-battle": 528,
+    "on-roll-undetermined": 614,
+    "named-present": 9,
+    "unreadable-or-ambiguous": 15,
+    "not-yet-enlisted": 5
+   },
+   "basis_codes": {
+    "SEP-BEFORE": 528,
+    "ONROLL-NO-STATUS": 614,
+    "CAS-REMARK": 9,
+    "CONFLICT": 3,
+    "DATE-NOT-SHOWN": 5,
+    "OCR-DATE-LOST": 7,
+    "ENL-AFTER": 5
+   },
+   "named_present": 9,
+   "on_roll_undetermined": 614,
+   "absent_documented": 533,
+   "unreadable_or_ambiguous": 15,
+   "share_unreadable": 0.0128,
+   "share_by_label": {
+    "Absent-Documented": 0.4552,
+    "Unknown": 0.5371,
+    "Present-Documented": 0.0077
+   },
+   "cas_remark_rows": 9,
+   "name_garbled_rows": 6,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-7ME": {
+   "unit_id": "U-7ME",
+   "designation": "7th Maine Volunteer Infantry",
+   "oob_strength": 225,
+   "oob_casualties": 0,
+   "covered": true,
+   "file": "maine/7th-maine-volunteer-infantry.csv",
+   "rows": 1221,
+   "labels": {
+    "Unknown": 730,
+    "Present-Documented": 252,
+    "Absent-Documented": 239
+   },
+   "roll_status": {
+    "on-roll-undetermined": 634,
+    "named-present": 252,
+    "off-roll-before-battle": 168,
+    "unreadable-or-ambiguous": 96,
+    "not-yet-enlisted": 71
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 634,
+    "PART-LIST": 250,
+    "SEP-BEFORE": 168,
+    "DATE-NOT-SHOWN": 58,
+    "CAS-REMARK": 2,
+    "ENL-AFTER": 71,
+    "CONFLICT": 26,
+    "OCR-DATE-LOST": 12
+   },
+   "named_present": 252,
+   "on_roll_undetermined": 634,
+   "absent_documented": 239,
+   "unreadable_or_ambiguous": 96,
+   "share_unreadable": 0.0786,
+   "share_by_label": {
+    "Unknown": 0.5979,
+    "Present-Documented": 0.2064,
+    "Absent-Documented": 0.1957
+   },
+   "cas_remark_rows": 2,
+   "name_garbled_rows": 136,
+   "reconciliation": "Contested",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-9MA": {
+   "unit_id": "U-9MA",
+   "designation": "9th Massachusetts Volunteer Infantry",
+   "oob_strength": 412,
+   "oob_casualties": 133,
+   "covered": true,
+   "file": "massachusetts/9th-massachusetts-volunteer-infantry.csv",
+   "rows": 1665,
+   "labels": {
+    "Absent-Documented": 955,
+    "Unknown": 692,
+    "Present-Documented": 18
+   },
+   "roll_status": {
+    "off-roll-before-battle": 706,
+    "on-roll-undetermined": 670,
+    "not-yet-enlisted": 249,
+    "unreadable-or-ambiguous": 22,
+    "named-present": 18
+   },
+   "basis_codes": {
+    "SEP-BEFORE": 706,
+    "ONROLL-NO-STATUS": 670,
+    "ENL-AFTER": 249,
+    "OCR-DATE-LOST": 13,
+    "DATE-NOT-SHOWN": 8,
+    "CAS-REMARK": 17,
+    "CAS-REMARK-DATE": 1,
+    "CONFLICT": 1
+   },
+   "named_present": 18,
+   "on_roll_undetermined": 670,
+   "absent_documented": 955,
+   "unreadable_or_ambiguous": 22,
+   "share_unreadable": 0.0132,
+   "share_by_label": {
+    "Absent-Documented": 0.5736,
+    "Unknown": 0.4156,
+    "Present-Documented": 0.0108
+   },
+   "cas_remark_rows": 18,
+   "name_garbled_rows": 37,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-ART-1NH": {
+   "unit_id": "U-ART-1NH",
+   "designation": "1st New Hampshire Battery",
+   "oob_strength": 107,
+   "oob_casualties": 11,
+   "covered": true,
+   "file": "new-hampshire/1st-new-hampshire-volunteer-light-battery.csv",
+   "rows": 173,
+   "labels": {
+    "Absent-Documented": 71,
+    "Unknown": 98,
+    "Present-Documented": 2,
+    "Duplicate-Xref": 2
+   },
+   "roll_status": {
+    "off-roll-before-battle": 28,
+    "on-roll-undetermined": 95,
+    "not-yet-enlisted": 43,
+    "named-present": 2,
+    "unreadable-or-ambiguous": 3,
+    "xref": 2
+   },
+   "basis_codes": {
+    "SEP-BEFORE": 28,
+    "ONROLL-NO-STATUS": 95,
+    "ENL-AFTER": 43,
+    "CAS-REMARK-DATE": 1,
+    "DATE-NOT-SHOWN": 3,
+    "XREF-ONLY": 2,
+    "CAS-REMARK": 1
+   },
+   "named_present": 2,
+   "on_roll_undetermined": 95,
+   "absent_documented": 71,
+   "unreadable_or_ambiguous": 3,
+   "share_unreadable": 0.0173,
+   "share_by_label": {
+    "Absent-Documented": 0.4104,
+    "Unknown": 0.5665,
+    "Present-Documented": 0.0116,
+    "Duplicate-Xref": 0.0116
+   },
+   "cas_remark_rows": 2,
+   "name_garbled_rows": 0,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-ART-2ME": {
+   "unit_id": "U-ART-2ME",
+   "designation": "2nd Maine Battery (Hall's Battery)",
+   "oob_strength": 107,
+   "oob_casualties": 18,
+   "covered": true,
+   "file": "maine/2nd-maine-battery-hall-s-battery.csv",
+   "rows": 183,
+   "labels": {
+    "Unknown": 147,
+    "Absent-Documented": 33,
+    "Present-Documented": 3
+   },
+   "roll_status": {
+    "on-roll-undetermined": 136,
+    "off-roll-before-battle": 33,
+    "unreadable-or-ambiguous": 11,
+    "named-present": 3
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 136,
+    "SEP-BEFORE": 33,
+    "OCR-DATE-LOST": 3,
+    "DATE-NOT-SHOWN": 8,
+    "CAS-REMARK": 3
+   },
+   "named_present": 3,
+   "on_roll_undetermined": 136,
+   "absent_documented": 33,
+   "unreadable_or_ambiguous": 11,
+   "share_unreadable": 0.0601,
+   "share_by_label": {
+    "Unknown": 0.8033,
+    "Absent-Documented": 0.1803,
+    "Present-Documented": 0.0164
+   },
+   "cas_remark_rows": 3,
+   "name_garbled_rows": 12,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-ART-5MA": {
+   "unit_id": "U-ART-5MA",
+   "designation": "5th Massachusetts Battery (E)",
+   "oob_strength": 104,
+   "oob_casualties": 10,
+   "covered": true,
+   "file": "massachusetts/5th-battery-massachusetts-volunteer-light-artillery-battery-e.csv",
+   "rows": 331,
+   "labels": {
+    "Present-Documented": 16,
+    "Unknown": 164,
+    "Absent-Documented": 151
+   },
+   "roll_status": {
+    "named-present": 16,
+    "on-roll-undetermined": 101,
+    "off-roll-before-battle": 58,
+    "unreadable-or-ambiguous": 63,
+    "not-yet-enlisted": 93
+   },
+   "basis_codes": {
+    "CAS-REMARK": 15,
+    "ONROLL-NO-STATUS": 101,
+    "SEP-BEFORE": 58,
+    "OCR-DATE-LOST": 62,
+    "ENL-AFTER": 93,
+    "CONFLICT": 1,
+    "CAS-REMARK-DATE": 1
+   },
+   "named_present": 16,
+   "on_roll_undetermined": 101,
+   "absent_documented": 151,
+   "unreadable_or_ambiguous": 63,
+   "share_unreadable": 0.1903,
+   "share_by_label": {
+    "Present-Documented": 0.0483,
+    "Unknown": 0.4955,
+    "Absent-Documented": 0.4562
+   },
+   "cas_remark_rows": 16,
+   "name_garbled_rows": 2,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-ART-9MA": {
+   "unit_id": "U-ART-9MA",
+   "designation": "9th Massachusetts Battery (Bigelow's)",
+   "oob_strength": 104,
+   "oob_casualties": 28,
+   "covered": true,
+   "file": "massachusetts/9th-battery-massachusetts-volunteer-light-artillery.csv",
+   "rows": 329,
+   "labels": {
+    "Unknown": 108,
+    "Absent-Documented": 192,
+    "Present-Documented": 29
+   },
+   "roll_status": {
+    "on-roll-undetermined": 108,
+    "not-yet-enlisted": 168,
+    "off-roll-before-battle": 24,
+    "named-present": 29
+   },
+   "basis_codes": {
+    "ONROLL-NO-STATUS": 108,
+    "ENL-AFTER": 168,
+    "SEP-BEFORE": 24,
+    "CAS-REMARK": 29
+   },
+   "named_present": 29,
+   "on_roll_undetermined": 108,
+   "absent_documented": 192,
+   "unreadable_or_ambiguous": 0,
+   "share_unreadable": 0.0,
+   "share_by_label": {
+    "Unknown": 0.3283,
+    "Absent-Documented": 0.5836,
+    "Present-Documented": 0.0881
+   },
+   "cas_remark_rows": 29,
+   "name_garbled_rows": 2,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-ART-C1MA": {
+   "unit_id": "U-ART-C1MA",
+   "designation": "Battery C, 1st Massachusetts Artillery",
+   "oob_strength": 107,
+   "oob_casualties": 0,
+   "covered": true,
+   "file": "massachusetts/3rd-battery-massachusetts-volunteer-light-artillery-battery-c.csv",
+   "rows": 258,
+   "labels": {
+    "Present-Documented": 6,
+    "Unknown": 148,
+    "Absent-Documented": 104
+   },
+   "roll_status": {
+    "named-present": 6,
+    "on-roll-undetermined": 139,
+    "off-roll-before-battle": 55,
+    "unreadable-or-ambiguous": 9,
+    "not-yet-enlisted": 49
+   },
+   "basis_codes": {
+    "CAS-REMARK": 5,
+    "ONROLL-NO-STATUS": 139,
+    "SEP-BEFORE": 55,
+    "OCR-DATE-LOST": 7,
+    "ENL-AFTER": 49,
+    "DATE-NOT-SHOWN": 2,
+    "CAS-REMARK-DATE": 1
+   },
+   "named_present": 6,
+   "on_roll_undetermined": 139,
+   "absent_documented": 104,
+   "unreadable_or_ambiguous": 9,
+   "share_unreadable": 0.0349,
+   "share_by_label": {
+    "Present-Documented": 0.0233,
+    "Unknown": 0.5736,
+    "Absent-Documented": 0.4031
+   },
+   "cas_remark_rows": 6,
+   "name_garbled_rows": 2,
+   "reconciliation": "Short",
+   "reconciliation_note": "S_doc = repository OOB strength (second-hand, Busey and Martin via the OOB file); named present (Present-Documented) compared at +-3 percent per PLAN 2.3; Present-Probable is not assigned"
+  },
+  "U-ART-MAE": {
+   "unit_id": "U-ART-MAE",
+   "designation": "Massachusetts Battery E (10th)",
+   "oob_strength": 107,
+   "oob_casualties": 0,
+   "covered": false
+  },
+  "U-ART-MAF": {
+   "unit_id": "U-ART-MAF",
+   "designation": "Massachusetts Battery F",
+   "oob_strength": 67,
+   "oob_casualties": 1,
+   "covered": false
+  }
+ }
+}

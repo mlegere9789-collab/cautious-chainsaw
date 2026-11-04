@@ -1,0 +1,4028 @@
+{
+ "family": "PA",
+ "user_agent": "gettysburg-map-research/1.0",
+ "files": [
+  {
+   "url": "https://archive.org/advancedsearch.php?q=title%3A%28history+of+pennsylvania+volunteers%29+AND+mediatype%3Atexts&fl%5B%5D=identifier&fl%5B%5D=title&fl%5B%5D=volume&fl%5B%5D=year&fl%5B%5D=creator&rows=60&output=json",
+   "file": "tmp/library/rosters/PA/search/q0.json",
+   "bytes": 16147,
+   "sha256": "9b0e1e37c5e13c2f118b2e5606e1f7cd9f7df7c08a898fe4e90cfbb59de39d49",
+   "content_type": "application/json",
+   "status": 200,
+   "retrieved": "2026-10-30T21:56:10"
+  },
+  {
+   "url": "https://archive.org/advancedsearch.php?q=title%3A%28bates+pennsylvania+volunteers%29+AND+mediatype%3Atexts&fl%5B%5D=identifier&fl%5B%5D=title&fl%5B%5D=volume&fl%5B%5D=year&fl%5B%5D=creator&rows=60&output=json",
+   "file": "tmp/library/rosters/PA/search/q1.json",
+   "bytes": 313,
+   "sha256": "b9ef149249c5d0eb05feaa114edb1ae9defee0e5f247c66702af0ca0aa707353",
+   "content_type": "application/json",
+   "status": 200,
+   "retrieved": "2026-10-30T21:56:13"
+  },
+  {
+   "url": "https://archive.org/advancedsearch.php?q=title%3A%28pennsylvania+at+gettysburg%29+AND+mediatype%3Atexts&fl%5B%5D=identifier&fl%5B%5D=title&fl%5B%5D=volume&fl%5B%5D=year&fl%5B%5D=creator&rows=60&output=json",
+   "file": "tmp/library/rosters/PA/search/q2.json",
+   "bytes": 23241,
+   "sha256": "8e766bb03e1e2465d9598116527971652f0c0340c11568c0ea93e330d333a132",
+   "content_type": "application/json",
+   "status": 200,
+   "retrieved": "2026-10-30T21:56:16"
+  },
+  {
+   "url": "https://archive.org/advancedsearch.php?q=creator%3A%28bates%2C+samuel+p%29+AND+mediatype%3Atexts&fl%5B%5D=identifier&fl%5B%5D=title&fl%5B%5D=volume&fl%5B%5D=year&fl%5B%5D=creator&rows=60&output=json",
+   "file": "tmp/library/rosters/PA/search/q3.json",
+   "bytes": 12223,
+   "sha256": "14b8e91943dbf6f5411900aa1fca4917bcc8d982468d7a2c1ec07e7b93dcbe29",
+   "content_type": "application/json",
+   "status": 200,
+   "retrieved": "2026-10-30T21:56:19"
+  },
+  {
+   "url": "https://archive.org/metadata/historyofpennsyl01bate",
+   "file": "tmp/library/rosters/PA/meta/historyofpennsyl01bate.json",
+   "bytes": 241706,
+   "sha256": "7ed18ac5ff6667c69cd3488de3121b70593f3ef0392390603f149778904288fe",
+   "content_type": "application/json",
+   "status": 200,
+   "retrieved": "2026-10-30T21:56:40"
+  },
+  {
+   "url": "https://archive.org/metadata/historyofpennsyl02bate",
+   "file": "tmp/library/rosters/PA/meta/historyofpennsyl02bate.json",
+   "bytes": 243128,
+   "sha256": "b3e0209a22abcaad9c2913b27fafa410cc28f0db93ae7dfab456e798fbcbf94e",
+   "content_type": "application/json",
+   "status": 200,
+   "retrieved": "2026-10-30T21:57:30"
+  },
+  {
+   "url": "https://archive.org/metadata/historyofpennsyl03bate",
+   "file": "tmp/library/rosters/PA/meta/historyofpennsyl03bate.json",
+   "bytes": 248725,
+   "sha256": "445ad821b36f45f96ce4a979d1c306dc0999a0c05ef08277803f2675ea55bd7a",
+   "content_type": "application/json",
+   "status": 200,
+   "retrieved": "2026-10-30T21:57:33"
+  },
+  {
+   "url": "https://archive.org/metadata/historyofpennsyl04bate",
+   "file": "tmp/library/rosters/PA/meta/historyofpennsyl04bate.json",
+   "bytes": 239727,
+   "sha256": "16f259feaf2f4695c879d6c48b817efb196cafe1f9b5241c64d050de52605075",
+   "content_type": "application/json",
+   "status": 200,
+   "retrieved": "2026-10-30T21:57:38"
+  },
+  {
+   "url": "https://archive.org/metadata/historyofpennsyl00bate",
+   "file": "tmp/library/rosters/PA/meta/historyofpennsyl00bate.json",
+   "bytes": 258532,
+   "sha256": "5b04587b3ed92b061910cd170d8f1eccbcdcbe00aeeb8e24c9d5488e6bdd8d4d",
+   "content_type": "application/json",
+   "status": 200,
+   "retrieved": "2026-10-30T21:57:47"
+  },
+  {
+   "url": "https://archive.org/metadata/pennsgettysburg01reynrich",
+   "file": "tmp/library/rosters/PA/meta/pennsgettysburg01reynrich.json",
+   "bytes": 136225,
+   "sha256": "c7278d147d36258901b45d8dd0af162d934946d2f93029257efec391ec9550ac",
+   "content_type": "application/json",
+   "status": 200,
+   "retrieved": "2026-10-30T21:57:53"
+  },
+  {
+   "url": "https://archive.org/metadata/pennsgettysburg02reynrich",
+   "file": "tmp/library/rosters/PA/meta/pennsgettysburg02reynrich.json",
+   "bytes": 149196,
+   "sha256": "907a1e525bd1bef1bc2bcb9276d365f089e48ea4197457a7c72a9dce465018c4",
+   "content_type": "application/json",
+   "status": 200,
+   "retrieved": "2026-10-30T21:58:04"
+  },
+  {
+   "url": "https://archive.org/download/historyofpennsyl01bate/historyofpennsyl01bate_djvu.txt",
+   "file": "tmp/library/rosters/PA/historyofpennsyl01bate/historyofpennsyl01bate_djvu.txt",
+   "bytes": 6608167,
+   "sha256": "fb021cd805b8f83bfdd4ade564e4bf21c38af910fcd2aeea4914a9a17dbf0f54",
+   "content_type": "text/plain; charset=utf-8",
+   "status": 200,
+   "retrieved": "2026-10-30T21:58:43"
+  },
+  {
+   "url": "https://archive.org/download/historyofpennsyl02bate/historyofpennsyl02bate_djvu.txt",
+   "file": "tmp/library/rosters/PA/historyofpennsyl02bate/historyofpennsyl02bate_djvu.txt",
+   "bytes": 7523801,
+   "sha256": "fc5b5fb1d004b10390822e7214ae90cfe6d5e7e5f904363ce49a2cdf340f8eb9",
+   "content_type": "text/plain; charset=utf-8",
+   "status": 200,
+   "retrieved": "2026-10-30T22:01:04"
+  },
+  {
+   "url": "https://archive.org/download/historyofpennsyl03bate/historyofpennsyl03bate_djvu.txt",
+   "file": "tmp/library/rosters/PA/historyofpennsyl03bate/historyofpennsyl03bate_djvu.txt",
+   "bytes": 7776906,
+   "sha256": "043b69e83fde9f8e414b60cd9cd6f751bd5106e4a0d032592e40db649b6c55cb",
+   "content_type": "text/plain; charset=utf-8",
+   "status": 200,
+   "retrieved": "2026-10-30T22:01:11"
+  },
+  {
+   "url": "https://archive.org/download/historyofpennsyl04bate/historyofpennsyl04bate_djvu.txt",
+   "file": "tmp/library/rosters/PA/historyofpennsyl04bate/historyofpennsyl04bate_djvu.txt",
+   "bytes": 7715971,
+   "sha256": "ca5cd6c97179e1cfef230928cf96cabfaadd81eeec06d9ce5316e7e09b4be1f3",
+   "content_type": "text/plain; charset=utf-8",
+   "status": 200,
+   "retrieved": "2026-10-30T22:01:19"
+  },
+  {
+   "url": "https://archive.org/download/historyofpennsyl00bate/historyofpennsyl00bate_djvu.txt",
+   "file": "tmp/library/rosters/PA/historyofpennsyl00bate/historyofpennsyl00bate_djvu.txt",
+   "bytes": 8689746,
+   "sha256": "f0ef722db3f348e554b0cf47e147292ff45940ff430f5c626d854955c68628be",
+   "content_type": "text/plain; charset=utf-8",
+   "status": 200,
+   "retrieved": "2026-10-30T22:01:24"
+  },
+  {
+   "url": "https://archive.org/download/historyofpennsyl01bate/historyofpennsyl01bate_djvu.xml",
+   "file": "tmp/library/rosters/PA/historyofpennsyl01bate/historyofpennsyl01bate_djvu.xml",
+   "bytes": 81339700,
+   "sha256": "7b4068ddaf7869904222bede72ff2723a2ea767abb695d435f03196cf0610f03",
+   "content_type": "text/xml; charset=utf-8",
+   "status": 200,
+   "retrieved": "2026-10-30T22:02:18"
+  },
+  {
+   "url": "https://archive.org/download/historyofpennsyl02bate/historyofpennsyl02bate_djvu.xml",
+   "file": "tmp/library/rosters/PA/historyofpennsyl02bate/historyofpennsyl02bate_djvu.xml",
+   "bytes": 93392803,
+   "sha256": "de137f42d052b294ad6293250337b0f2e7e46bc8eff98b7dc876b656f4008e97",
+   "content_type": "text/xml; charset=utf-8",
+   "status": 200,
+   "retrieved": "2026-10-30T22:14:57"
+  },
+  {
+   "url": "https://archive.org/download/historyofpennsyl03bate/historyofpennsyl03bate_djvu.xml",
+   "file": "tmp/library/rosters/PA/historyofpennsyl03bate/historyofpennsyl03bate_djvu.xml",
+   "bytes": 98890957,
+   "sha256": "188353a5774a0612637f9d1e304f2f7e4cfd531fd15c70b8a6ea62c24299df22",
+   "content_type": "text/xml; charset=utf-8",
+   "status": 200,
+   "retrieved": "2026-10-30T22:15:07"
+  },
+  {
+   "url": "https://archive.org/download/historyofpennsyl04bate/historyofpennsyl04bate_djvu.xml",
+   "file": "tmp/library/rosters/PA/historyofpennsyl04bate/historyofpennsyl04bate_djvu.xml",
+   "bytes": 96863361,
+   "sha256": "57ecb7029a50952f9d40f9d98cc6f27611b1a4e5be23fc9ba14c7a63de563fdd",
+   "content_type": "text/xml; charset=utf-8",
+   "status": 200,
+   "retrieved": "2026-10-30T22:15:15"
+  },
+  {
+   "url": "https://archive.org/download/historyofpennsyl00bate/historyofpennsyl00bate_djvu.xml",
+   "file": "tmp/library/rosters/PA/historyofpennsyl00bate/historyofpennsyl00bate_djvu.xml",
+   "bytes": 106172156,
+   "sha256": "fd9fc792ee50052743bff6c4fe51c8881a8441e2e2a2d4b439a564c2e91e2a6a",
+   "content_type": "text/xml; charset=utf-8",
+   "status": 200,
+   "retrieved": "2026-10-30T22:15:36"
+  },
+  {
+   "url": "https://archive.org/download/historyofpennsyl04bate/page/n443_w1200.jpg",
+   "file": "tmp/library/rosters/PA/img/historyofpennsyl04bate_n443.jpg",
+   "bytes": 1239938,
+   "sha256": "d752e45b8b0d0f765a371ee5bc05477181e5e52ce44e23c7125358299a88afcb",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:34:29"
+  },
+  {
+   "url": "https://archive.org/metadata/revisedreportma00cemegoog",
+   "file": "tmp/library/rosters/PA/meta/revisedreportma00cemegoog.json",
+   "bytes": 7057,
+   "sha256": "a8e766da60283de96c512afe6949b5dee6cc8120abea575f1c058744f54a6d0b",
+   "content_type": "application/json",
+   "status": 200,
+   "retrieved": "2026-10-30T22:37:35"
+  },
+  {
+   "url": "https://archive.org/download/revisedreportma00cemegoog/revisedreportma00cemegoog_djvu.txt",
+   "file": "tmp/library/rosters/PA/revisedreportma00cemegoog/revisedreportma00cemegoog_djvu.txt",
+   "bytes": 431377,
+   "sha256": "a0df3b96b1c246f9a35a9839c8f0bf76c9bd8dbe6cd2e5b17f16058e7847a28d",
+   "content_type": "text/plain; charset=utf-8",
+   "status": 200,
+   "retrieved": "2026-10-30T22:37:41"
+  },
+  {
+   "url": "https://archive.org/download/revisedreportma00cemegoog/revisedreportma00cemegoog_djvu.xml",
+   "file": "tmp/library/rosters/PA/revisedreportma00cemegoog/revisedreportma00cemegoog_djvu.xml",
+   "bytes": 5382130,
+   "sha256": "80780fdb489c10f6fe9a7d3ec70b9f3a2c20b4469c573739056f5bd4f954ddf1",
+   "content_type": "text/xml; charset=utf-8",
+   "status": 200,
+   "retrieved": "2026-10-30T22:37:51"
+  },
+  {
+   "url": "https://archive.org/download/pennsgettysburg02reynrich/pennsgettysburg02reynrich_djvu.txt",
+   "file": "tmp/library/misc/pennsgettysburg02reynrich_djvu.txt",
+   "bytes": 1987191,
+   "sha256": "24b14e4292d5899988b11cc0325fac813d865202b26ccd0270ace7ba63ee7a7b",
+   "content_type": "text/plain",
+   "status": "pre-existing local copy",
+   "retrieved": "(earlier session; hashed 2026-10-30)"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$443/700,400,520,3300/full/0/default.jpg",
+   "file": "tmp/library/rosters/PA/img/iiif_test.jpg",
+   "bytes": 326831,
+   "sha256": "7c3bd4832938b66646d98a3fbaf5a145f12e92d525a3b98f8f2d8943b5b9c3c4",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:41:03"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$442/700,400,520,1200/full/0/default.jpg",
+   "file": "tmp/library/rosters/PA/img/iiif_test_442.jpg",
+   "bytes": 122610,
+   "sha256": "eae9b3cda711caba5fcb967a7a5916036698b348f24f5da3430bc68086be04f5",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:41:50"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$444/700,400,520,1200/full/0/default.jpg",
+   "file": "tmp/library/rosters/PA/img/iiif_test_444.jpg",
+   "bytes": 127172,
+   "sha256": "ca9128f2c9dedeb8d1472a1dce5d8c9cd1de9d8c97aa4d8fd85538c85891f9fd",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:41:53"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$445/700,400,520,1200/full/0/default.jpg",
+   "file": "tmp/library/rosters/PA/img/iiif_test_445.jpg",
+   "bytes": 100479,
+   "sha256": "7ed1117162c67acb09a4f4971dcd54a099fe4e2844df341af0a6bae2b89c6d38",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:41:56"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate/manifest.json",
+   "file": "tmp/library/rosters/PA/meta/iiif_manifest_04.json",
+   "bytes": 1459180,
+   "sha256": "6e93a089dd9bd2795da49a449ad10371a6571f2d0a450677f1207eb8a687bde4",
+   "content_type": "application/ld+json",
+   "status": 200,
+   "retrieved": "2026-10-30T22:42:48"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$436/1100,600,900,700/full/0/default.jpg",
+   "file": "tmp/library/rosters/PA/img/iiif_t2_436.jpg",
+   "bytes": 139800,
+   "sha256": "54dc12b1e9a964ce137cd9f13af1740b408da6225ccaf830777ad8eb50985742",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:43:14"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$438/1100,600,900,700/full/0/default.jpg",
+   "file": "tmp/library/rosters/PA/img/iiif_t2_438.jpg",
+   "bytes": 94285,
+   "sha256": "14dd0dab892429753c4de5e1051509c64dc6a09898a8877b2ae77e16d42be7d7",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:43:26"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$440/1100,600,900,700/full/0/default.jpg",
+   "file": "tmp/library/rosters/PA/img/iiif_t2_440.jpg",
+   "bytes": 119111,
+   "sha256": "f9809390d5c43a581755f6131cfda137634077636af07bd1f604e85f480db6ba",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:43:30"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$443/1100,600,900,700/full/0/default.jpg",
+   "file": "tmp/library/rosters/PA/img/iiif_t2_443.jpg",
+   "bytes": 115591,
+   "sha256": "c983cd6e83d39015f46cb5e826da451d21c2fb2dfb47210a084ebf359b030246",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:43:33"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$446/1100,600,900,700/full/0/default.jpg",
+   "file": "tmp/library/rosters/PA/img/iiif_t2_446.jpg",
+   "bytes": 146773,
+   "sha256": "5beaa7636094c78a49b58739560dbdc945e6ca1cb6e1b0ff48e30c3d3ccfd244",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:43:36"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$448/1100,600,900,700/full/0/default.jpg",
+   "file": "tmp/library/rosters/PA/img/iiif_t2_448.jpg",
+   "bytes": 118711,
+   "sha256": "0a716bf16e5ef58143f3695a050c6c7121fd5298fe4f75c22026ddfc8581d008",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:43:39"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$450/1100,600,900,700/full/0/default.jpg",
+   "file": "tmp/library/rosters/PA/img/iiif_t2_450.jpg",
+   "bytes": 160038,
+   "sha256": "4be232669f1df32b433b7d2dc7a846473593f0477ae1534e137ec7c75654a9a5",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:43:43"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$452/1100,600,900,700/full/0/default.jpg",
+   "file": "tmp/library/rosters/PA/img/iiif_t2_452.jpg",
+   "bytes": 160382,
+   "sha256": "300c7eb7606853d7856caa34e3a2de44033b715bf8af3a51d9fef3c47d7303a8",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:43:48"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$455/1100,600,900,700/full/0/default.jpg",
+   "file": "tmp/library/rosters/PA/img/iiif_t2_455.jpg",
+   "bytes": 135885,
+   "sha256": "c8b66b4682c98c7bec002ac7dcd7e608a4e2a8424698130f2f666194756b0916",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:43:50"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$717/697,300,560,3497/full/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol/04_709.jpg",
+   "bytes": 339511,
+   "sha256": "6a6ad103d31f23722292fe10b5aaae39e4a519450e54c51de45235ca70faeb4f",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:44:58"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$718/688,300,560,3497/full/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol/04_710.jpg",
+   "bytes": 372040,
+   "sha256": "d0185c4c671690031f92acfccd34f7957281d3e13cbf88299d82ca7f463216a5",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:45:07"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$717/697,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_709.jpg",
+   "bytes": 245248,
+   "sha256": "5ff21d1f8f156f2957294cf69f11cd6ba7e5a7cf1da0b838eff530f81890faaa",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:45:30"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$718/688,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_710.jpg",
+   "bytes": 271337,
+   "sha256": "e49561a1a99116e252d17ff94ef186aef67d9e45fd4678783d342e926fc0d3ba",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:45:36"
+  },
+  {
+   "url": "https://archive.org/download/historyofpennsyl04bate/historyofpennsyl04bate_scandata.xml",
+   "file": "tmp/library/rosters/PA/meta/scandata_04.xml",
+   "bytes": 711533,
+   "sha256": "7541592492aab9290901e344997c66f971de796d5bbd85baebb16feb778af6e9",
+   "content_type": "text/xml; charset=utf-8",
+   "status": 200,
+   "retrieved": "2026-10-30T22:46:06"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$719/732,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_711.jpg",
+   "bytes": 263978,
+   "sha256": "cafdee517f86b1440f0621b1effe3334c6357ec3ab01fc9b4fc19e9bdda2de66",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:49:12"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$720/660,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_712.jpg",
+   "bytes": 257503,
+   "sha256": "088ef3b70259615e8f298c686bd0d48b50f09223dea7c7325f95fe008a0bee31",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:49:16"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$721/693,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_713.jpg",
+   "bytes": 272790,
+   "sha256": "7342144756b9c4c331801dd4a9d2739d3ab222a4c985059799d0eda890c77dd1",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:49:26"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$722/715,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_714.jpg",
+   "bytes": 263485,
+   "sha256": "7a048bcb21d7ce38829b401bfcea0a2340a50b8c6f29e904b2666025d39c2d10",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:49:30"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$723/657,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_715.jpg",
+   "bytes": 283156,
+   "sha256": "8ef4364f6a8a901638447f80c132acadc288a8e966275f00fc5a6892422db42a",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:49:34"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$724/728,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_716.jpg",
+   "bytes": 261474,
+   "sha256": "a6c8e96ffc9c9fc69661e9d5eebbcec57111e349003cf86f68cf255716431f21",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:49:39"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$725/655,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_717.jpg",
+   "bytes": 256249,
+   "sha256": "5779c5315e5d6068c7701789d9adc52e8e168e420f0ccdca46f1d0aa2fbf4339",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:49:45"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$726/709,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_718.jpg",
+   "bytes": 242474,
+   "sha256": "1e7702dcca8ad3027281e8d8b66f020c2580cf5bb9b8507766b9e5cec40762fa",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:49:51"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$727/689,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_719.jpg",
+   "bytes": 259599,
+   "sha256": "06064c9f00652d7f49950b3dfe889e4e2f31bdb76c4b094b6773244f4f3dd851",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:49:58"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$728/713,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_720.jpg",
+   "bytes": 242786,
+   "sha256": "a58729becc2da99ed50cd257b8c812fc205e9b78b4ebc034e61b77f2fbb401a3",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:50:01"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$729/683,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_721.jpg",
+   "bytes": 253517,
+   "sha256": "68b0027e9b3e3e870eabfea56610d75f877e64963f52a2dc7142618473a24774",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:50:05"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$730/690,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_722.jpg",
+   "bytes": 240147,
+   "sha256": "a4dc79bbd98a78208f5dfa11ed411d86916ab76d59b3fa7485905ecb51f5229a",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:50:08"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$731/695,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_723.jpg",
+   "bytes": 257782,
+   "sha256": "684f1c478bb1ce75d071764b1cbd23666664e0e753861ce072624ff0fd2e56b0",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:50:12"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$732/651,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_724.jpg",
+   "bytes": 242407,
+   "sha256": "6e326716164c64aeace9f21c4f551c4d67dc39ff6606670037927e7e14825a3b",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:50:16"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$733/680,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_725.jpg",
+   "bytes": 261086,
+   "sha256": "f8afb5763fbb25c3ca2fb30efd394afaea3e18683ad875b88ec54eff2113e362",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:50:19"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$736/701,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_728.jpg",
+   "bytes": 213965,
+   "sha256": "df0b2256e0bb11ddd6af6887fe6018c316484801f3734cd1e27b02559a586579",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:50:22"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$813/667,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_805.jpg",
+   "bytes": 231049,
+   "sha256": "f38403486ef07d4adb571217fdb153f78cbc8122ad079514e011579c8e20385d",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:50:27"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$814/781,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_806.jpg",
+   "bytes": 293690,
+   "sha256": "4766cb99083e0c549f30f0db1b92c123a5806d9dc07e45449322ec138dedb7c4",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:50:31"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$815/608,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_807.jpg",
+   "bytes": 269046,
+   "sha256": "c779f97e63d3733f0e87cdebc33fdff2189bb51153b1017fcdc583b06d2a0dbe",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:50:37"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$816/828,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_808.jpg",
+   "bytes": 299492,
+   "sha256": "84c1c823f8a13757718c5db21c02005636f5f64509229ef9eb7ad065a0fdd128",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:50:40"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$818/754,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_810.jpg",
+   "bytes": 262285,
+   "sha256": "b51dd1c280a71d35ab09b9dc51d3c31f6039f55ff0d2ca7d00c65d8724c2bece",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:50:44"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$819/619,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_811.jpg",
+   "bytes": 283344,
+   "sha256": "d692f32573cae67e3209ed0fdf98b3fdb67db05689d6cf7386cf9f1e976972ae",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:50:47"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$820/797,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_812.jpg",
+   "bytes": 273250,
+   "sha256": "aa7f818d9527a70ccc18236dd94f474814a812d23bbaec44efc971adb4cffda9",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:50:51"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$821/591,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_813.jpg",
+   "bytes": 282506,
+   "sha256": "7f1adb6674db0e65fa0742b442cbc4b8e6c1deebef10ce4580f352115b2bba55",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:50:56"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$822/799,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_814.jpg",
+   "bytes": 284100,
+   "sha256": "b19e80185bfa7295078e0d1e63e40822abb4036bfeb3990fb13342440ae127a3",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:51:00"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$823/664,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_815.jpg",
+   "bytes": 273830,
+   "sha256": "5502bbbe831ffc8a1ae6c5f9ad8988164a706f6ac3247768b65d141432161a2a",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:51:03"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$824/670,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_816.jpg",
+   "bytes": 275829,
+   "sha256": "14cd8ed458ba2da7cdf79f1d00b905f8fe8e8b4369aa7f33263576ab80f5b4b6",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:51:07"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$825/650,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_817.jpg",
+   "bytes": 271355,
+   "sha256": "14b5721cceebcd2690dee48bc5ea6a95eb486dd51ea31bfa52e7f261299f6402",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:51:10"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$827/694,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_819.jpg",
+   "bytes": 266216,
+   "sha256": "b30f08bec6256e50d8e093839a310dc29cc9ffe609ca5f9cfa22c5b524300e6f",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:51:14"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$829/620,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_821.jpg",
+   "bytes": 276807,
+   "sha256": "b79e762958e7f7e53ec4f15ad29f2a444ec0326475c34752b8b8664e7837fb60",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:51:18"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$831/612,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_823.jpg",
+   "bytes": 223802,
+   "sha256": "ba4d449082c123fb14953e9d7430a7b1d7e4ade6ac99af377f5e83c63b1da8f6",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:51:21"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$650/761,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_642.jpg",
+   "bytes": 258782,
+   "sha256": "7e6bda0c078dcc2e914500af44c1a010400e6b4b7135ab67e6be7c8a734132bf",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:51:27"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$651/595,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_643.jpg",
+   "bytes": 293663,
+   "sha256": "328cdab5af807b6545164a833d3e39fd7ec6cc9914230c3fff09d86398004128",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:51:33"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$652/754,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_644.jpg",
+   "bytes": 275347,
+   "sha256": "53082b215211e49252931650be656cff513a287f2e2f6edc3bb2fd113aed7d78",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:51:38"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$653/658,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_645.jpg",
+   "bytes": 288636,
+   "sha256": "699b837fde4b7908cef0ca6fb42c2dd4c0f8471687e5d63ce05b9a3610f3ff85",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:51:42"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$654/742,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_646.jpg",
+   "bytes": 276568,
+   "sha256": "6e5804a5234e42203e0c564bdfd3a7f8e6a81a81f954035cb2dd4cf692b9e797",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:51:46"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$655/713,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_647.jpg",
+   "bytes": 316414,
+   "sha256": "cd626f8c0dfac09c1bd2d498888f351ee0e74e2ffe8249d72e6bfecbcb8fa2f1",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:51:50"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$656/729,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_648.jpg",
+   "bytes": 239001,
+   "sha256": "2597353c07da4cba83aba9218cce8d85e1b057dee0ebd728fab6d58bb27fcbf8",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:51:54"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$657/667,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_649.jpg",
+   "bytes": 275025,
+   "sha256": "fb6f14a2d89be174e2f777802a25a6085ce79552fffece37926ef8394c92ecc2",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:52:00"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$658/766,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_650.jpg",
+   "bytes": 250303,
+   "sha256": "cd96ef726d29670bfa790690e8eb65feb0119f6d46733bcc6057497b1f04d648",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:52:06"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$659/658,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_651.jpg",
+   "bytes": 257508,
+   "sha256": "ff720ec97bb21da7c7898f9fc09c27d9cb9216e0cb01479adc4301ad4a265e75",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:52:10"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$660/773,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_652.jpg",
+   "bytes": 263513,
+   "sha256": "2283f5945df695cfd740941e696c9f7252ea50030ac9d81c6f943ada19949ef8",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:52:21"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$661/663,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_653.jpg",
+   "bytes": 231066,
+   "sha256": "75e262b0729d129efc49835ddaeaca5c081b9eac85839e89fe4f07d612562cb1",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:52:25"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$662/751,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_654.jpg",
+   "bytes": 235034,
+   "sha256": "8c74cfc8ee64963ace5054387132d85fe23b7ccd1b096e8cfafe86bd6d9b28a7",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:52:30"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$663/673,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_655.jpg",
+   "bytes": 259366,
+   "sha256": "3736e9f2e004bbe10c51304faf2d896b61e4f04daab2483416622ecec9062856",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:52:35"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$664/742,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_656.jpg",
+   "bytes": 248719,
+   "sha256": "301e32528ddffb3dc2bb634baf12641322dc38d633c2ce15828650fd56d7152c",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:52:41"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$665/663,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_657.jpg",
+   "bytes": 280530,
+   "sha256": "62a36a16fb257482b2378d22abb3b5178cee3eaaa848b6177e0df00103ed081e",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:52:45"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$666/691,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_658.jpg",
+   "bytes": 245816,
+   "sha256": "39f237a9af80a3e22faec5913e970b9bebba0683ba9b4bcd485d99251edfb535",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:52:49"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$667/669,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_659.jpg",
+   "bytes": 244526,
+   "sha256": "41f05cf159783898e9a75ed36466d32ff52b375dde8872576611d678c0ee2c93",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:52:52"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$668/692,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_660.jpg",
+   "bytes": 258865,
+   "sha256": "5d465415d7be626d75a9adcc344a6b7c59e5ba124fbe37d00596de5b0ba0d924",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:52:56"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$669/681,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_661.jpg",
+   "bytes": 271232,
+   "sha256": "16813d39939ea7398b488b93f1ba3c180c5ace02192d8796c09e879ee4dca2b9",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:53:00"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$670/687,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_662.jpg",
+   "bytes": 242239,
+   "sha256": "34f457b30dabce2fb153324c293b7adeee5d18763736139bb358093740399d2e",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:53:05"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$671/692,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_663.jpg",
+   "bytes": 272193,
+   "sha256": "6abfb5ab42cc12c0293eb45375d0572fcf12f6060d8ce4f53aadc388ec82b76e",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:53:12"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$672/712,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_664.jpg",
+   "bytes": 245316,
+   "sha256": "d6592dcad352d63cdf7887f6ab723ca4f4247e5387aba7f7dc4b12600e9adc2d",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:53:15"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$674/759,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_666.jpg",
+   "bytes": 267351,
+   "sha256": "8a4abebe7deea2d8ac2797bc337a641670692dc39cc9bf6d7b7aadeaa6ca62ad",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:53:19"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$675/695,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_667.jpg",
+   "bytes": 285220,
+   "sha256": "3d2fc0bbb23754b5a2ef62c6fbd15aae44d07c51d099093befda77d6cf6b356c",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:53:22"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$677/691,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_669.jpg",
+   "bytes": 275534,
+   "sha256": "327be9920bd32730560824063452a3f6e8e85e0632f6b2a52d7ece347ec20f23",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:53:27"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$678/720,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_670.jpg",
+   "bytes": 264937,
+   "sha256": "8147dee5b0623136889a78213324049229ef95fb044943b98cd4519fef632e1b",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:53:31"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$679/669,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_671.jpg",
+   "bytes": 278075,
+   "sha256": "e3808a65c1c804f40d865dad83c7761e3846aaaf8da240ce05b7744d5d885421",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:53:35"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$446/744,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_438.jpg",
+   "bytes": 256462,
+   "sha256": "d1035c39d494fae36431d881889351cdb47b778ba61a4c6a998104e36486617b",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:53:41"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$447/610,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_439.jpg",
+   "bytes": 280549,
+   "sha256": "1141c4794ea8c170512791781927e6824e7ec1430db200c719bc990bfc0bf4e3",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:53:47"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$448/737,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_440.jpg",
+   "bytes": 252086,
+   "sha256": "6d5ad31238f1235096ad35327215ea5c839ba972effcfe0d8f5dc39d6d1289ee",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:53:55"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$449/651,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_441.jpg",
+   "bytes": 287021,
+   "sha256": "7523c7d1bc4b6797f035fe6535e210d10c8f934fe7cab061e7e94c0251c74953",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:54:12"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$450/754,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_442.jpg",
+   "bytes": 275278,
+   "sha256": "e07a93a267241630174f68efc68645f7a088146160744430ef56533db05ebcaa",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:54:20"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$451/628,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_443.jpg",
+   "bytes": 269774,
+   "sha256": "db96417ca82f9379febef610aaf88fa98c9b1a0c546ec5de505ad8937e30bbb4",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:54:27"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$452/736,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_444.jpg",
+   "bytes": 272407,
+   "sha256": "8ef7858194fe77ad2adf2d5ef19663114d46e5196a091452c2c22beb1cb8d14f",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:54:32"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$453/588,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_445.jpg",
+   "bytes": 262639,
+   "sha256": "1feca7d1b64d822772adf36aadd7ac4f5e0041a1258549d1a63863880122f9c3",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:54:38"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$454/758,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_446.jpg",
+   "bytes": 305201,
+   "sha256": "2e4131dfbc724f8219b51af577aefafeb0e083bf2c811b57ab367d58b3e607a8",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:54:42"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$455/655,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_447.jpg",
+   "bytes": 259993,
+   "sha256": "0c256ef74af0ecbedaeeb4141631f962711f163a8767d70919802898beacacff",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:54:45"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$456/701,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_448.jpg",
+   "bytes": 278774,
+   "sha256": "e1fe466c0eee13ac76d43427c0d1358dee9870204e3fdd8f19c683f4f0d10ca1",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:54:49"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$457/672,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_449.jpg",
+   "bytes": 280374,
+   "sha256": "23fc0eb0812513d7fc3a88a9e4d3ac21753b8198e43c54d8a57c40f71914766d",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:54:52"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$458/710,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_450.jpg",
+   "bytes": 251097,
+   "sha256": "fc9f0987002500832ee0f5972fdfb312ee3c10a125354d2571c36405160127fe",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:54:56"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$459/671,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_451.jpg",
+   "bytes": 250323,
+   "sha256": "3b59ec976783b3da44d36a0502e19ba25edcf7d8d299d103f04e5fa2ee20baa6",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:54:59"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$460/653,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_452.jpg",
+   "bytes": 277112,
+   "sha256": "7a293af6ea596916fe46b72b86df88defaa155c27b0f8146e9f7eb96ada45561",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:55:03"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$461/689,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_453.jpg",
+   "bytes": 284134,
+   "sha256": "8ec46218dd241530bd09d01c6c4873f14f18516b45f176fa10c5501dd990862b",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:55:06"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$462/718,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_454.jpg",
+   "bytes": 284305,
+   "sha256": "f36d9b8ef0869996923523533cdc25e6bdd38682e96514a8ecca7e23897d21eb",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:55:10"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$463/670,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_455.jpg",
+   "bytes": 305530,
+   "sha256": "9ee70cef809236f8f2ec5bd043463b636a8b078fe2c37b4f36ca1141d346c189",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:55:15"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$464/723,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_456.jpg",
+   "bytes": 270412,
+   "sha256": "ae3822fa7e128365bb1eb31d39b205638bf38a6cdb87409863ac947ea65716fc",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:55:18"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$465/674,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_457.jpg",
+   "bytes": 272761,
+   "sha256": "0fd1f9ba7e17ea5c295883eba924699d3059582b679ccbb5fce5a982f1d26143",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:55:22"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$466/700,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_458.jpg",
+   "bytes": 238960,
+   "sha256": "581ce62d6f247c8ff90ba5e212e29447a86bea4e3ea3db1920a988081e58cbcd",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:55:30"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$467/722,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_459.jpg",
+   "bytes": 285579,
+   "sha256": "999d225ed952e90782b94b8322b2dbc72501c5b7d5b26d647368dca9f8074687",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:55:37"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$468/639,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_460.jpg",
+   "bytes": 130996,
+   "sha256": "a4e40f265b2bd401a8efeb409bc1f22714ad81dd8fcd0b478e75f32c872f0f48",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:55:41"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate/manifest.json",
+   "file": "tmp/library/rosters/PA/meta/iiif_manifest_02.json",
+   "bytes": 1491355,
+   "sha256": "604c3944c8506852f743631ee4592913ad8fbedde48696f0513a2ae524b8bd49",
+   "content_type": "application/ld+json",
+   "status": 200,
+   "retrieved": "2026-10-30T22:56:05"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$726/561,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_724.jpg",
+   "bytes": 208339,
+   "sha256": "29dc0bdce28f54f169115f4b40eed98a19d338c4da17f8b52d89d6f5fc3cf62a",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:56:13"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$727/488,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_725.jpg",
+   "bytes": 235391,
+   "sha256": "50a280852ddf50224fc97bac6a0df66929538b796450a6202771e4aea2ee87ed",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:56:16"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$728/511,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_726.jpg",
+   "bytes": 244184,
+   "sha256": "2746be08b27ab1900d05250095b05f7f6b1279963cc845020e8dda694e654bc2",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:56:21"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$729/461,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_727.jpg",
+   "bytes": 214638,
+   "sha256": "df8207b6939c975d9c98fb2eb11eedc06437f7152d90debc6289ebe55727517c",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:56:24"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$730/556,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_728.jpg",
+   "bytes": 219466,
+   "sha256": "838fd33235e3b6c3c2957a2a42037235e480c17d335cc5bee54479f43fa70876",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:56:28"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$731/515,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_729.jpg",
+   "bytes": 224781,
+   "sha256": "03b46d7f8d2d4d25d7448065b6c13ed975ef9fd25c4ae591ebb0762da9ed9114",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:56:35"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$732/558,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_730.jpg",
+   "bytes": 236435,
+   "sha256": "74526e9f6863fb351d167f9c214966566e76fadb6f0fbc75a3d688aa81c99617",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:56:40"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$733/446,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_731.jpg",
+   "bytes": 204219,
+   "sha256": "82075527f47735325d7828ac57218aec85275b39de5fb3d25edccfda0098f2ce",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:56:43"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$734/535,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_732.jpg",
+   "bytes": 209426,
+   "sha256": "c6653f65cfa91a95b070a19f761424a03a7099d6e11750556c8539eeca5e4490",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:56:47"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$735/461,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_733.jpg",
+   "bytes": 224275,
+   "sha256": "5854913ebc011eec9211b16028281e51f11762a1a644639597f047eca0d8a6e0",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:56:51"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$736/579,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_734.jpg",
+   "bytes": 233961,
+   "sha256": "6a2585123e9e617e0dc01fb7676caaab81c2a30ff48231019f88c2b36c11f604",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:56:56"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$738/553,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_736.jpg",
+   "bytes": 248074,
+   "sha256": "1dd5c2fae9f377e2542fbdf03b15426ca75ced079aa89827b7a1b0bd736b3867",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:56:59"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$739/450,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_737.jpg",
+   "bytes": 219187,
+   "sha256": "3ae49c21b268816458260ce4ff99231862021e2f187e9f29979a686390b5d84c",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:57:03"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$740/536,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_738.jpg",
+   "bytes": 203810,
+   "sha256": "1bbe97cf8a798aa8f4826a34dac4e2b955621229d3e013fd1c79da693f0ba795",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:57:09"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$741/468,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_739.jpg",
+   "bytes": 218736,
+   "sha256": "de7cbbb0750eaae96456c9828ffb83648a57b4853ac234034fea353cd56737b4",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:57:13"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$742/541,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_740.jpg",
+   "bytes": 245872,
+   "sha256": "87abf4e27ae63358b90b826bf738ee9caf0e034b44038d43b49a805141db4aef",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:57:20"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$743/432,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_741.jpg",
+   "bytes": 185690,
+   "sha256": "6fd9ac69f20ed9b10ba5954759d8c3b404453311a34266d65172f9871374812a",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:57:24"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$744/555,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_742.jpg",
+   "bytes": 231991,
+   "sha256": "93c54af37f27d64564bbaea863115a9e4143a93d49360b34d3fcd569dd6449f6",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:57:28"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$745/452,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_743.jpg",
+   "bytes": 220370,
+   "sha256": "77773f4c6bad4f0aaa96a1430c485c03b9aa002563edbb65002a8c2073a30454",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:57:34"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$746/567,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_744.jpg",
+   "bytes": 202535,
+   "sha256": "09b1c34e6bb421543014235b9993b0b1a8e4f5576182cfd84868f096d6b9d09a",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:57:38"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$747/447,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_745.jpg",
+   "bytes": 206903,
+   "sha256": "e8029a942f8177cc8670ae2c2824b6292c8a6a47a3db4d5be7267cb7a03dd419",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:57:45"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$748/561,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_746.jpg",
+   "bytes": 236302,
+   "sha256": "c544d04a447d0f560be8f5984abf9885476ffe9e8bf795b7fed384df5f97e4f7",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:57:49"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$750/565,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_748.jpg",
+   "bytes": 231265,
+   "sha256": "b78c002fa48c61647f2e57870f36021b789358215dcb373a9e8f8f9ab1d5492b",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:57:56"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$751/457,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_749.jpg",
+   "bytes": 244836,
+   "sha256": "5a76683d5bada6f3d101e5f828dfe006d22a77d84563d5e34b0547efcefda5e4",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:58:02"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$752/569,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_750.jpg",
+   "bytes": 195433,
+   "sha256": "3d70706bf76fa7f5efca2e0c2285a38d396de94c382ee0805bed51df7812dbb2",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:58:07"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$753/412,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_751.jpg",
+   "bytes": 213794,
+   "sha256": "2be50ae4db60ff9b2d2d71019bad326a88b87044edfc0a61ef5012f3199b3b38",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:58:15"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$754/547,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_752.jpg",
+   "bytes": 244519,
+   "sha256": "051a0287d0941c66c40457fb89812f41c353d6e395eaad004e1620df8fd28b28",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:58:19"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$755/412,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_753.jpg",
+   "bytes": 209910,
+   "sha256": "cf93ef821889bf2feb5c51c18880e5a019416d9b6465b249094f6909b2ae25e9",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:58:23"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$756/609,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_754.jpg",
+   "bytes": 234346,
+   "sha256": "88669a6dcb07bcf46bdbec2f3d391411dc9a8db5a0605f9f66b1882c096f3553",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:58:27"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$757/515,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_755.jpg",
+   "bytes": 212197,
+   "sha256": "329ea37d7ea112c38e9e50cbc09f271b01593421c9a6f82b63d2f255c82ab621",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:58:31"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$758/570,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_756.jpg",
+   "bytes": 171507,
+   "sha256": "b93be7e939a589abc27adb1e9a751503f7c97fffbf615e932d63cc7f2c0bea67",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:58:38"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate/manifest.json",
+   "file": "tmp/library/rosters/PA/meta/iiif_manifest_01.json",
+   "bytes": 1476183,
+   "sha256": "d9c960127024a5e5ec168eda7eab070e91780e48996ba0525bd5c2907afa73a0",
+   "content_type": "application/ld+json",
+   "status": 200,
+   "retrieved": "2026-10-30T22:59:10"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$383/682,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_383.jpg",
+   "bytes": 284509,
+   "sha256": "f48a7ac1557217096ec6170843c1e69abe6e9c00464871c64d5eaa48df579600",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:59:17"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$384/691,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_384.jpg",
+   "bytes": 331587,
+   "sha256": "7ff12ddb1525ae805b776e3bc777f51d8b1ca4bb8a14d34381bb49fa0545d134",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:59:23"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$385/706,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_385.jpg",
+   "bytes": 346726,
+   "sha256": "fc61422342fb5980de288e3b1116984d97cf48f040123786a378f33f8edbc5b0",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:59:30"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$386/690,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_386.jpg",
+   "bytes": 267706,
+   "sha256": "a9de66bd12a779f2171c457de274483616255cc82cf9eedf34db3b99f6e9d461",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:59:51"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$387/719,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_387.jpg",
+   "bytes": 314451,
+   "sha256": "f38fb65f01599f8a9a1d56057c66c764491362a498542c2dc29a78129c4815a1",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T22:59:55"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$388/700,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_388.jpg",
+   "bytes": 286605,
+   "sha256": "bcc7af6bdecf446a04a71e1bc6543869b527c9f6f9f83eecfadd857698052149",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:00:03"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$389/702,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_389.jpg",
+   "bytes": 325321,
+   "sha256": "b1092525f9a8493ffbc0174ca24893926e9355b7a3e095d92b48de70ff36a76b",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:00:13"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$390/707,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_390.jpg",
+   "bytes": 298278,
+   "sha256": "a81b1d52d4022401f5584352d4b55393ac41b48d39530abac77b9c71badfe11a",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:00:17"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$392/713,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_392.jpg",
+   "bytes": 307960,
+   "sha256": "fab881c191680e7d896d971927eb9d6f2e5d3f91e1eaa8bd33d08cb8bf845059",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:00:23"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$393/710,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_393.jpg",
+   "bytes": 317562,
+   "sha256": "fb203165555a55ca8c270ce6232553d02087ada5942ab0d03ff8f00d78c9e99b",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:00:26"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$394/726,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_394.jpg",
+   "bytes": 307773,
+   "sha256": "ac26a4e3a5b5e116d8460364ff9cd98f7e6598051826b76d2fc9d6cf13018ff7",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:00:31"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$395/700,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_395.jpg",
+   "bytes": 349143,
+   "sha256": "b4438531c3a522eb698ea1f00a830b593e84a17961ec2055c855f5fdc508e8da",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:00:34"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$396/718,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_396.jpg",
+   "bytes": 308953,
+   "sha256": "d6d1ab6d5e24e7033a57e0b2d7826859a6779f188ca4386263f598534ff97933",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:00:37"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$397/713,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_397.jpg",
+   "bytes": 327922,
+   "sha256": "7eb2d87f542f1f7a469cb901490c374bcefca335e102c82e807bd326069a86cc",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:00:43"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$398/742,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_398.jpg",
+   "bytes": 273223,
+   "sha256": "469f60068eb4cd3bb1ccb27958dba8a9cd903f7d2729f72b15538da25858ec6f",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:00:47"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$399/658,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_399.jpg",
+   "bytes": 294293,
+   "sha256": "24f94e2049e5e794c1648267bd99a2be430a70c49e48be188d4806868a656b18",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:00:51"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$400/733,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_400.jpg",
+   "bytes": 293776,
+   "sha256": "0eb9ed472aa70275ecd1368983ef2cddba81592df6ff33fe2608f7c651826a4a",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:00:55"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$401/733,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_401.jpg",
+   "bytes": 307708,
+   "sha256": "79a8abb091a64c43ebb6690eae9cb73af46f96429fcaa14fc20c5851ac4852a7",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:00:59"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$402/667,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_402.jpg",
+   "bytes": 279839,
+   "sha256": "f024379809b23cc3ecb0cba9360c60db84006684049eb9debf9dd05f5aa0ed01",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:01:02"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$403/730,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_403.jpg",
+   "bytes": 287372,
+   "sha256": "5d18a844fc83ee2031327d78ef2d22a6fb686993e7b0890b5d4db6f222526c45",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:01:07"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$404/725,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_404.jpg",
+   "bytes": 307667,
+   "sha256": "e5cff163b942c8d54f6f528beb7c64d39506664b985d382bf0cdec2a6c7f4a49",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:01:11"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$405/716,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_405.jpg",
+   "bytes": 315156,
+   "sha256": "24b99fe4bb31ad48fe5b9952bd9a470ae83aeacff9ccd61d99b2b0e7d28aad7b",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:01:15"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$406/701,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_406.jpg",
+   "bytes": 278259,
+   "sha256": "9365fb2dd2e50ef4c0eb0941c2ad88f929fb3f05e4b5013dac3ebe4d9315babe",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:01:21"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$408/703,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_408.jpg",
+   "bytes": 293337,
+   "sha256": "f9d27f64e09e05c7d84b572517cfa4fa44f49429cdfd6f860f4fb134fa45ee9d",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:01:27"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$474/750,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_466.jpg",
+   "bytes": 226599,
+   "sha256": "cdbe219cce25f73404b505ea8455854d9412167b4261f693b2fe3d7471e48c92",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:01:32"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$476/741,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_468.jpg",
+   "bytes": 282049,
+   "sha256": "438482e3c76e733e517e1aa512957cacb2b6479f6c8235491adf2095c548b8ff",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:01:38"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$477/610,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_469.jpg",
+   "bytes": 256319,
+   "sha256": "793b8ca9c88e1a2ba0afadd8e8c1c75940ceda4fac1066b84199ea550c40e93c",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:01:43"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$478/776,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_470.jpg",
+   "bytes": 268043,
+   "sha256": "720c111d730c65555b57821d66ed09b8cab7a7a355836524c0193446757e80ab",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:01:47"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$479/636,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_471.jpg",
+   "bytes": 247828,
+   "sha256": "1aeeece6b6ab3c4e954f5f771e3c505b7ce5d59cec0576e68850c9033430a3dc",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:01:54"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$480/724,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_472.jpg",
+   "bytes": 285419,
+   "sha256": "e5d9942ddf68ff73a67480c9c966ed2edcfa0daddd452472e2d71e316b6cf20f",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:01:59"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$481/645,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_473.jpg",
+   "bytes": 265494,
+   "sha256": "78c9a8e2a2464182fb95dff75a88342b56265d82233e97af1957c2be89802776",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:02:02"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$482/697,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_474.jpg",
+   "bytes": 291755,
+   "sha256": "4d27035e4734232a2765eb204cf41c28757736b099fc0c5431bf0243f4ce1299",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:02:08"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$483/706,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_475.jpg",
+   "bytes": 270767,
+   "sha256": "def0fb88ca75a6a340223bdcbac8821a181d109c6351c9dfb5d3cc44ddd71b02",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:02:14"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$484/697,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_476.jpg",
+   "bytes": 264378,
+   "sha256": "e4e9808ad5253c049182192a66978e55bff7f6124db56263201dd7cf9edfd217",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:02:18"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$485/680,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_477.jpg",
+   "bytes": 250167,
+   "sha256": "5bbd7681bd2d9b85ee844cc885d15d6770866716b16c4f5c519ecdd6b94ece20",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:02:24"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$486/688,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_478.jpg",
+   "bytes": 261830,
+   "sha256": "db12bb5abd85a5812845e9ffff3356e02b842005562f112e219da16fc53a8a2c",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:02:28"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$487/674,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_479.jpg",
+   "bytes": 241404,
+   "sha256": "c43718f1245bb4f9667048dc7b31dacdf59b5d323e87b73ff3788b4f9af28853",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:02:32"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$488/710,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_480.jpg",
+   "bytes": 275183,
+   "sha256": "79e5cda35da00dcdc4fd447c9ccc73407c1664c881d07cb4f728c91a4e8611d6",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:02:35"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$489/674,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_481.jpg",
+   "bytes": 282476,
+   "sha256": "074ee699f68a4de30f854e6ac41f32eb19a857de7c67aad51594a3f83d7ae110",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:02:39"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$490/725,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_482.jpg",
+   "bytes": 295006,
+   "sha256": "9da9fda6af2d17fc962d93142bd951295a192ed20eb9b39407196a328681570b",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:02:43"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$491/625,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_483.jpg",
+   "bytes": 245353,
+   "sha256": "ee7073d4b421d09d52b5f9f5ea508e75bbdd1ddca4ee262c2166e50aded9e7fc",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:02:46"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$492/779,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_484.jpg",
+   "bytes": 262811,
+   "sha256": "93d0689a781c455b1137c92f6a120d781efcedba26d06346d7dd92ca4aa8126f",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:02:50"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$493/651,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_485.jpg",
+   "bytes": 241450,
+   "sha256": "d1f0fcf2a8b1c061d51648300b433037427c1fd2adc8d815d01efaa066427f67",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:02:53"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$494/755,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_486.jpg",
+   "bytes": 260089,
+   "sha256": "10440899dea53d5d946a6c56c96519b1574c9f6bffe8cbdd1423b7e8da342de5",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:02:58"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$495/691,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_487.jpg",
+   "bytes": 189655,
+   "sha256": "f908bbd6b240b1318122090b864d954b78012417189f4d17f448df3e3191ee5b",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:03:03"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate/manifest.json",
+   "file": "tmp/library/rosters/PA/meta/iiif_manifest_03.json",
+   "bytes": 1521553,
+   "sha256": "4bacabb8911fc94410df09beddee720c409f5311c9c2a7ebae63f6159d94ddab",
+   "content_type": "application/ld+json",
+   "status": 200,
+   "retrieved": "2026-10-30T23:03:16"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$892/762,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_886.jpg",
+   "bytes": 258123,
+   "sha256": "bcf909dd302d6768f51487672ebf9fa6c7731b5cb7dfc96ae2f3fd3ef18ba600",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:03:22"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$893/703,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_887.jpg",
+   "bytes": 239833,
+   "sha256": "6710169a7fd01a33cbeede4e2e5f7286b776356d53a2aab495bdadd9f19f310a",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:03:26"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$894/745,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_888.jpg",
+   "bytes": 291810,
+   "sha256": "4a867a6d8f6a3cccd223687612046a31fd6fd5535433efba7a6b2ce47f15604f",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:03:38"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$895/658,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_889.jpg",
+   "bytes": 289671,
+   "sha256": "31aa014643eabc4a15b7eabfe8522703ba64e4e6258a0b15e3fa35db9534646c",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:03:46"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$896/765,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_890.jpg",
+   "bytes": 289091,
+   "sha256": "f870b3446a1fe787417ea836fae47862c212593bd3db4002474ce6e76b75e856",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:03:50"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$897/661,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_891.jpg",
+   "bytes": 233141,
+   "sha256": "5b351f3b2eb2ee0a60222cd5846d9b5b891416200360dede5ec4237460afedb8",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:03:53"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$898/764,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_892.jpg",
+   "bytes": 292389,
+   "sha256": "3f30e5e7f9a94a243dfee3e8464dbb4e4079efae33d50de005f65c0624952439",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:03:57"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$899/666,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_893.jpg",
+   "bytes": 289730,
+   "sha256": "570d8586bc7ec2deab2930caa3e2d13821b2efbf4211119bda80d29230385a1a",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:04:02"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$900/756,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_894.jpg",
+   "bytes": 274863,
+   "sha256": "000f54bb3f7ea51e02702f1f6f7e6a177ccdb2360f1ddd2047e1640a566b6668",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:04:06"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$901/636,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_895.jpg",
+   "bytes": 283802,
+   "sha256": "26e41f833792b6afe25ea6b9a350bb4aee4302acae997a130d46a0b126d756f9",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:04:10"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$902/764,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_896.jpg",
+   "bytes": 285352,
+   "sha256": "b2f82bd6f70d12634d02de8124d285fad785ff7e2144e0fc52e0b19a70d0ce93",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:04:15"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$903/604,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_897.jpg",
+   "bytes": 288955,
+   "sha256": "b10c5e7633f3040be23ac89534bd994b8e6e2959db73363dfc50df2ee8d01c28",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:04:18"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$904/802,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_898.jpg",
+   "bytes": 255972,
+   "sha256": "929b59b51bd0b43f3fe3938933e14781cdb19bfc2049ea9019e69002829da02f",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:04:23"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$905/622,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_899.jpg",
+   "bytes": 305442,
+   "sha256": "7dbce1687e8c171a3d6ff40788307d24992d4f01d1f495d05d639583b281ba76",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:04:27"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$906/824,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_900.jpg",
+   "bytes": 291977,
+   "sha256": "592c81ed430ab25b186cace84c28725b74f8ad17f83fb8c9d418317eddddaabc",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:04:31"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$907/626,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_901.jpg",
+   "bytes": 269959,
+   "sha256": "05a110d497866cab514afa55da5224a8f80d3f35df1365c28738550406efbe86",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:04:35"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$908/822,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_902.jpg",
+   "bytes": 304992,
+   "sha256": "bd1309e9e72d0579e1baa016d7f2b9429bb8da118ef6d626baef2fc9c79e6ad0",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:04:39"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$909/662,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_903.jpg",
+   "bytes": 305758,
+   "sha256": "96a9cd5f8b31b1fe3bf2f46999ab0ac823617776af25d95aeb9e8714b6c51f4f",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:04:42"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$910/792,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_904.jpg",
+   "bytes": 260318,
+   "sha256": "023ea6b3dd204590f17368535b9ad2c412fc34519715c989a288e1f313cae623",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:04:46"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$911/659,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_905.jpg",
+   "bytes": 275933,
+   "sha256": "35bd0225727925f266525bdcc1ed52fbc5f1957c70cea3b880b83226d7460b3e",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:04:51"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$912/784,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_906.jpg",
+   "bytes": 321395,
+   "sha256": "52475ee53103a981a777464b694b3df837a0c0707d97b14979d357574db57cb9",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:04:55"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$913/651,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_907.jpg",
+   "bytes": 298714,
+   "sha256": "1930be2c1cbb56847ef8380b2c8ebf6ded80291e804980dc63440cae70382782",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:04:58"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$914/792,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_908.jpg",
+   "bytes": 273715,
+   "sha256": "f0cac9192cfceb7cccb170e3d741f20f7b4fcd7f99cac7cfcb75f3eb679e79c0",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:05:02"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$915/595,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_909.jpg",
+   "bytes": 310238,
+   "sha256": "a3eab1c5b1cdd2947eefeabe917281eb8c7ded823af35ce695ec1dc464aa338f",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:05:07"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$916/821,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_910.jpg",
+   "bytes": 299446,
+   "sha256": "ba5ffc471e631306b86f562439c64e1c9e354182b8f8df3f0a3fdcd951419751",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:05:10"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$917/586,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_911.jpg",
+   "bytes": 263439,
+   "sha256": "413b3a62670379fc43ac22d46906a808b9ee30a89c64f4deb21dadbaa275000b",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:05:15"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$920/764,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_912.jpg",
+   "bytes": 282243,
+   "sha256": "b47eb6cdfd891003ecc858f688e3b80033ab8ddbbf91f6e32501a45109179fb0",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:05:18"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$921/660,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_913.jpg",
+   "bytes": 276884,
+   "sha256": "b3a88dbd3e7d7c03216d455afaa3519590d70302c530435f881525bb82319f04",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:05:22"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$922/775,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_914.jpg",
+   "bytes": 285858,
+   "sha256": "506c69b655c3f41aa6fb810941a23f3f3ffd6315095f925fb24da613adb7ca5f",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:05:25"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$923/679,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_915.jpg",
+   "bytes": 251454,
+   "sha256": "6f9117224bf4d69ec6ae07dde90cec068c5ec07992d3092d7d033c98800bdd4a",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:05:29"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$924/757,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_916.jpg",
+   "bytes": 277491,
+   "sha256": "252640fdb81d7253188e31149c163c1cf1c15ab5cef10ad3342bdf3d94df8ccd",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:05:32"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$925/682,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_917.jpg",
+   "bytes": 293947,
+   "sha256": "16c0c059fb8affffde8b4194144e468e0d3ec76e1308c14ea665bdbf1be0d85a",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:05:36"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$927/699,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_919.jpg",
+   "bytes": 307954,
+   "sha256": "11b78f13638397b5119f40c550576875846e3abac74092b3c4c419c2bf17f58f",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:05:40"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$928/712,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_920.jpg",
+   "bytes": 310017,
+   "sha256": "d2f28bddf6b363684e17e53ea2edee453d21169a05b342cc44aa7f122bac29a4",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:05:44"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$938/764,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_930.jpg",
+   "bytes": 245398,
+   "sha256": "f6686a15a17166a0a26c65f2c43a602f2ac93638854eb1132e7386945f53afae",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:05:48"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$501/618,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_493.jpg",
+   "bytes": 237818,
+   "sha256": "118c8173229cdbb508616b5f9c6fbcaff6508eadf01028a458b7c3d88dbd9fe6",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:05:51"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$502/738,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_494.jpg",
+   "bytes": 264286,
+   "sha256": "6d360084b37c377da2163302cd87b802f8a2fbb684c6eeda4ccd88d17e1274d9",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:05:55"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$503/673,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_495.jpg",
+   "bytes": 294613,
+   "sha256": "c2afe0518ed4e9d5a7c490e9aff8430d03c26f6395da67c04c212f0e8a37d218",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:06:01"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$504/699,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_496.jpg",
+   "bytes": 277516,
+   "sha256": "9d8806ca18f2dcc58b2b2928fce71df955533578b22c45e47d83bda347a53810",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:06:05"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$505/647,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_497.jpg",
+   "bytes": 276736,
+   "sha256": "3067745a83e409b413fc0481e953f4df5cfb8e8e1150aa854d9785db668c7906",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:06:09"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$506/707,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_498.jpg",
+   "bytes": 290710,
+   "sha256": "15618fa4ff55cf889e2a787a6ee9cde512f7652a2104eafad5cfad705988c1e4",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:06:14"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$507/687,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_499.jpg",
+   "bytes": 291222,
+   "sha256": "219b8e50f7e8d5d407c9824725ad9e82281e7811e74b74b58e4682ac37642528",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:06:19"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$508/681,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_500.jpg",
+   "bytes": 251479,
+   "sha256": "ba8fa286fa5d3c6be9a7096f9b291a67e0753a847cf6d5ca4fb12a83680b818a",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:06:22"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$509/674,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_501.jpg",
+   "bytes": 287430,
+   "sha256": "1905783381eccedb5c1ef322cbdf35483618b4ee09524c6bcec55c587a32387e",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:06:25"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$510/778,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_502.jpg",
+   "bytes": 257295,
+   "sha256": "1fc39a60e4fa6e41858d4427d0401b58c981e8ffa3f7052b0a323bcdb01ef932",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:06:28"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$511/657,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_503.jpg",
+   "bytes": 308200,
+   "sha256": "69f92dafd2c934fa2d22efa6426aa21cbf5616938249bb7a0f42da13d024cf11",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:06:35"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$513/674,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_505.jpg",
+   "bytes": 282881,
+   "sha256": "1847e7d9230dbcb19ed1c46cfc13cd284de0d80623f2db1c2f49246c63aa7b9b",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:06:41"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$514/766,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_506.jpg",
+   "bytes": 306158,
+   "sha256": "ae4c5a47c5608d16f2d89c2c351af2782ea2e2e80d0111a4cebb099917f6783f",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:06:45"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$515/673,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_507.jpg",
+   "bytes": 282252,
+   "sha256": "e834d3be43d7fd762b69f47d21ca7f3b08610e2b9b07d13ffc2fb706345fd8fc",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:06:49"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$516/750,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_508.jpg",
+   "bytes": 309699,
+   "sha256": "03d94628dde6eb8486919714f9d7fd2cbec124211ec2a1045e7b715cb43a4558",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:06:53"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$517/634,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_509.jpg",
+   "bytes": 281317,
+   "sha256": "3eebed25ffcf7994ce66ed57fa429fd16c777d644e5943a253b975f3b3bdd021",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:07:02"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$518/740,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_510.jpg",
+   "bytes": 263583,
+   "sha256": "8eba51c93d409d042d790533377d7912a808e0a59d98966244977a7d2e115d33",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:07:05"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$694/753,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_686.jpg",
+   "bytes": 227568,
+   "sha256": "b6c77b90a3c70c288bde856207d41e9619a40a0eb3737cc516fdb14a5eaf3530",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:07:09"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$695/673,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_687.jpg",
+   "bytes": 265967,
+   "sha256": "ef1b72694ecf467b08609c86b88db27e802ef7ecbce49db20de9345059dfe43b",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:07:13"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$696/709,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_688.jpg",
+   "bytes": 254527,
+   "sha256": "908cbf2a8d574d3e1759134de2dbf2008e6fef9949fb9132a4a2105c2d1e9afd",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:07:17"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$697/688,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_689.jpg",
+   "bytes": 281147,
+   "sha256": "b9933fe3cb4235460f9f66e4fb6f7e40be6056aeb10384a5562e7ee30eb67ad0",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:07:20"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$698/736,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_690.jpg",
+   "bytes": 254606,
+   "sha256": "44cdb79c4d32b6ba9ecd9e1cbdcd6a817f9a65282bb344050ee80980f613e6ac",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:07:26"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$699/719,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_691.jpg",
+   "bytes": 300735,
+   "sha256": "27d718f8ba0df9ff2c8234ccb2ac2c628a134fd570b775ca808c2414be50f675",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:07:29"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$700/703,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_692.jpg",
+   "bytes": 238196,
+   "sha256": "95668c05ee269e56d3f1892ad8f9ce9c4c11a6d1c3ecd74b6feb836e1c60d7d4",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:07:32"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$701/656,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_693.jpg",
+   "bytes": 284428,
+   "sha256": "f20805f4f34179cae11b6558b6a43c15c8cacc6312113e703228636a96acd7ce",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:07:36"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$702/747,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_694.jpg",
+   "bytes": 273051,
+   "sha256": "e11a93e91f667281f2daa93777c9e4a8301cb287c0e5dbea15b491cf9cef2b8f",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:07:42"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$703/677,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_695.jpg",
+   "bytes": 276492,
+   "sha256": "4a01637e270b24d8c03ad53b4f8a030551b2b20a82ec8c43ffe36301246f5ba5",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:07:46"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$704/712,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_696.jpg",
+   "bytes": 262517,
+   "sha256": "e368fa2da676718d2f22b5019932da904c538cda50ec47f6f73f28a8c09e2ba2",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:07:49"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$705/674,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_697.jpg",
+   "bytes": 253456,
+   "sha256": "ed5c1383cc65d452825f3ed18d1c5773ec48b42e14b21ab8886b099124b9162f",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:07:55"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$706/725,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_698.jpg",
+   "bytes": 267168,
+   "sha256": "810a568cc638a9fc559fb57562d20b02e1e11a318e754e089009f3b7e8de9a34",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:08:02"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$707/679,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_699.jpg",
+   "bytes": 267762,
+   "sha256": "f43a67220a52a09eb0c6c830198d23b9170a4b81ba185d0a78ff585a8b2ecff7",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:08:06"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$708/709,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_700.jpg",
+   "bytes": 251177,
+   "sha256": "eccb209ccff28ca8032c9bc13d0494a72d688f89271d15597df30af172c67f57",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:08:10"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$709/675,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_701.jpg",
+   "bytes": 277482,
+   "sha256": "4038e069e6ab44577193a88869b31d20eedf3aafa1f070355e2d14e77704248a",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:08:15"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$710/720,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_702.jpg",
+   "bytes": 278229,
+   "sha256": "2e1887bb4dab9cf793fe3ebb4f506a1fdacaec073784f914d4c7bf26938d7f67",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:08:21"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$711/670,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_703.jpg",
+   "bytes": 289322,
+   "sha256": "25b4bb6cda8f846719afc585d065b0688ba268ef5558d215e98eae24da069853",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:08:25"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$712/745,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_704.jpg",
+   "bytes": 237935,
+   "sha256": "1f7ca73285acda85d380b5926d87e852fd1dde125a0034e03b63b5bff33a769a",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:08:29"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$295/721,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_295.jpg",
+   "bytes": 265638,
+   "sha256": "b8b9193d1bc88609c98f960134224a2373de94c4a5a943fe1da162544b6e8bb0",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:08:34"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$296/700,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_296.jpg",
+   "bytes": 269942,
+   "sha256": "23a82910f1ce35d875b7b659c61933b1ba864fe5e279b742dc921bb9e44be7d4",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:08:39"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$297/741,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_297.jpg",
+   "bytes": 311238,
+   "sha256": "f861c889477989fa0483667e682bed481f98b0e3503fab317e703edc4c0a06f1",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:08:43"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$298/696,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_298.jpg",
+   "bytes": 327619,
+   "sha256": "16d437871054703f74461c632788e778788e6f473a43167725abe20c061dfe1d",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:08:51"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$299/716,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_299.jpg",
+   "bytes": 322084,
+   "sha256": "370a5db1c202a227d60430cbbe4d1fa9b278b928136c65d7a3f7e35831fc36fa",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:08:55"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$300/693,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_300.jpg",
+   "bytes": 263092,
+   "sha256": "31c0d29dedd332cc60c9925a39831aa4c4ce2785cff66c77dff008c6dd4f4721",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:08:59"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$301/713,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_301.jpg",
+   "bytes": 326434,
+   "sha256": "2e34000ec367ac2e8279b20f0a0c7ccce05f5fd6e7f7b3bb8d63655c008faf0d",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:09:08"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$302/699,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_302.jpg",
+   "bytes": 330118,
+   "sha256": "bbb524ebda8b048402ffcd4d1d9e737e4ed245346a8fceaaa013bfaecfa85678",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:09:12"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$303/689,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_303.jpg",
+   "bytes": 302844,
+   "sha256": "5e2ed92c4bb9582a47187cccf8ff88b089caa5c61d8a5259bd99dca8955f7b54",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:09:16"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$304/713,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_304.jpg",
+   "bytes": 296147,
+   "sha256": "ef9beb5904a443d367648261e9ab48e27c953657184932cfe002589b151d61db",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:09:19"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$305/720,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_305.jpg",
+   "bytes": 319405,
+   "sha256": "79ab7c29f2547b6498869dcd7f0a6d619da4b2dbe27a770e73ce7ad8cf90e4eb",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:09:22"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$306/675,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_306.jpg",
+   "bytes": 325549,
+   "sha256": "58cd1af550f87c28a66a91b40a0334213a3028090ed52a307c6f62e164b185c9",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:09:28"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$307/726,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_307.jpg",
+   "bytes": 289915,
+   "sha256": "1888040ac9f1ec2238bf027432669b59119722fa8a9d398311f067feb8803948",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:09:32"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$308/690,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_308.jpg",
+   "bytes": 281864,
+   "sha256": "215a296fdbe3f1f6b769134c797afc20fcee8d4395a5656d54980230402c99fc",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:09:37"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$309/699,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_309.jpg",
+   "bytes": 353538,
+   "sha256": "eb569a27c29c3105dbca8abba126c547e8b250a8488a464dcbbff363612ef068",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:09:41"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$310/723,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_310.jpg",
+   "bytes": 337864,
+   "sha256": "2c60fe4bdcecbe1bb16b004dc201e71acdfaa611ce1f3e7457ee07c7bb75e51d",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:09:44"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$311/685,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_311.jpg",
+   "bytes": 267478,
+   "sha256": "646d2fb9e8c780b1c39e218027eb06d80b4e3c5432ed4c4a533b311db0387556",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:09:48"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$312/705,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_312.jpg",
+   "bytes": 304416,
+   "sha256": "7ae70219f7d648bb61722c81e1275835a01bb745e0e5ae462670c1d5aecec301",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:09:51"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$313/715,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_313.jpg",
+   "bytes": 326053,
+   "sha256": "c4c68183717d328a36734c01567ef0dc4046d854a26f5898271212417a25e411",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:09:57"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$314/663,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_314.jpg",
+   "bytes": 311810,
+   "sha256": "56c254eb3c246ffc10f6ec107e0be9e8df817a6be25fb69edd83b7de1ff50ac4",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:10:01"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$316/655,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_316.jpg",
+   "bytes": 297835,
+   "sha256": "a12aad44150baeb38f94643e56ff044b207115a431e66eecb98a69ea6d541447",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:10:05"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$317/714,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_317.jpg",
+   "bytes": 329463,
+   "sha256": "6cc37126bd2c1df89676051be1cf32b1226eacbb17a0b4aaef4f2c060e37b698",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:10:09"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$318/690,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_318.jpg",
+   "bytes": 275638,
+   "sha256": "2970b8e94ff60cdf4bf28dd7c87854bf6bb5047e7d2644b830f9d40c2a9de764",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:10:13"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$320/684,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_320.jpg",
+   "bytes": 321362,
+   "sha256": "b22bbd8323ef4cdd6a66ab209cecd6af7abbf4d7443fcead187a8ee5e8bc6a3e",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:10:16"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$321/696,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_321.jpg",
+   "bytes": 334197,
+   "sha256": "69f5aa027d5ba3884f8d9ede01c1f610adcec5e9d1a9a4b893431c2a87fe74e5",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:10:22"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$322/693,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_322.jpg",
+   "bytes": 263125,
+   "sha256": "80c0a891ead2b418aad99ddce3eae2b95f4897886bcf27897f105d6c10bf13dc",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:10:26"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$323/701,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_323.jpg",
+   "bytes": 286524,
+   "sha256": "41ea39f786af14b062a66b1fa55471acf4a45bce3a57f962418d09ed0c9f82be",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:10:29"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$324/658,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_324.jpg",
+   "bytes": 299626,
+   "sha256": "b681c9979ce1eaabc9cd9ae1430921f1c6dd3e354482bb9fe320d2b96a39bb62",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:10:33"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$325/738,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_325.jpg",
+   "bytes": 315400,
+   "sha256": "1e1d0449ed0046209edcae79a219530adc845bbb959c3eb7534b8ebca6745fa9",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:10:36"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$326/709,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_326.jpg",
+   "bytes": 257776,
+   "sha256": "9de1c8985a0ed7388269302889e238ff4be00138dc3883db0603729e076ff933",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:10:41"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$327/714,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_327.jpg",
+   "bytes": 312163,
+   "sha256": "1357ea9a983722cf3b34de6721b1f9b2de20d2e037c8f620fae939906dc04aae",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:10:45"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$328/707,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_328.jpg",
+   "bytes": 297575,
+   "sha256": "ef3eaca1e4fe10bdfefe124e4cbf02b89f6eff0790c5ea68900614fc14b8ff97",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:10:49"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$329/673,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_329.jpg",
+   "bytes": 289445,
+   "sha256": "a4109a5fd810961614f692d1c0fc7a1b86b196748957d7695b3d0d6af86550ce",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:10:52"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$331/699,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_331.jpg",
+   "bytes": 314118,
+   "sha256": "25ff167ce7983d1b505287c8b69fd495a36adc6e48e19fe11d087efb2ea082c5",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:10:56"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl01bate$333/712,300,560,3549/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/01_333.jpg",
+   "bytes": 328618,
+   "sha256": "ff2c7d8c9cdf90a7d303ddb941dd1a4a83b97fe829a22f5b8a2bfd3a111d3f20",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:11:00"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$696/569,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_694.jpg",
+   "bytes": 188237,
+   "sha256": "6b71bdd60543f44d950b5365391e24a92b7aaa2bf75f2a951960f9d75160c197",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:11:03"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$697/475,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_695.jpg",
+   "bytes": 201352,
+   "sha256": "cb2f791a130be57319e45a21d1a0c9b0dc628a59a639b0d700b46f3ca7691e48",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:11:09"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$698/519,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_696.jpg",
+   "bytes": 216716,
+   "sha256": "a6410ca576e0ee4e772ef4888a641663cc24e46847961b9268922321fb181e55",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:11:12"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$699/528,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_697.jpg",
+   "bytes": 221473,
+   "sha256": "199bda6ca69f27f3d9a1a8e1a9d2640fb1863582e35273bc97567ced3b03b949",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:11:16"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$700/488,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_698.jpg",
+   "bytes": 226749,
+   "sha256": "e755de9f5314d1e602ff2d95f8a13fc98682ab55f476f725cdb9646a570b42e2",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:11:19"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$701/503,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_699.jpg",
+   "bytes": 209569,
+   "sha256": "879c5cc79f9aaf95e84d45f223f04fb56d75d076be502a18110a812a0e9a0c99",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:11:26"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$702/486,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_700.jpg",
+   "bytes": 221549,
+   "sha256": "a390603760ebba3172be6b5a6cd10f8b9ddf7ca488e67a0a3dbf9b5b66418224",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:11:30"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$703/480,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_701.jpg",
+   "bytes": 224443,
+   "sha256": "53f7ee680f5d8d979c397e8f48822c9cf0f17fc172f3543fcece206ae8b89ef4",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:11:34"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$704/503,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_702.jpg",
+   "bytes": 218398,
+   "sha256": "e9f32fe58905d24925511c8e136b18ce69a722d84c2ea64ca1a40f4fef7fde26",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:11:37"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$705/512,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_703.jpg",
+   "bytes": 220775,
+   "sha256": "e3d93bc762401c251f01801a9ec49cd8457b09643ab8c15a9688152aea667292",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:11:41"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$706/546,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_704.jpg",
+   "bytes": 223829,
+   "sha256": "264ee115a3b9e1d95425e3fdc6b19ec2ef444c8b5bd2bc8f77a422b1849f2197",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:11:46"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$707/467,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_705.jpg",
+   "bytes": 218479,
+   "sha256": "a567f81a46d2b4ad7841f8c98982ea33572f9228d292afcaca0cd8c5f8b2cad0",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:11:53"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$708/541,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_706.jpg",
+   "bytes": 235509,
+   "sha256": "92f05234793cad29296ac015f8d4a51137343da11c54e4fe46325b5602ccdfb9",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:11:56"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$709/473,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_707.jpg",
+   "bytes": 199680,
+   "sha256": "c622afd00f4e6a9d0a708574fe1d264dba9606d43899ae76f4ee5d22d3318c61",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:12:00"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$710/578,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_708.jpg",
+   "bytes": 251862,
+   "sha256": "8048dbca0022d40728fd49988393bfb46e9642fa509c7e7d8db5827fd44520e6",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:12:04"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$711/481,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_709.jpg",
+   "bytes": 200146,
+   "sha256": "7190728644dd447f3e0bd9a6eaf3e86999cc26497794bdf354ee2b05c0e73050",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:12:09"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$712/536,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_710.jpg",
+   "bytes": 236142,
+   "sha256": "e6cd3f3e384601570b2d4e84f7e3bc238d4223b08145d57d5963b46733faf5ed",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:12:17"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$713/472,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_711.jpg",
+   "bytes": 193968,
+   "sha256": "1b2bfa8c450c74ed5e1922d88778c881c1d2aa81429076041da78536ed6db631",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:12:21"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$714/497,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_712.jpg",
+   "bytes": 172789,
+   "sha256": "6b98625045a6628a5f297165a3daad86f614954f9f7638d82d66701be5269d75",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:12:26"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$725/466,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_723.jpg",
+   "bytes": 182202,
+   "sha256": "1a2880d69d3ae81133605aae9a0adc0e22a78e5daa0fef75eb33dd5749c87229",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:12:29"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$940/480,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_938.jpg",
+   "bytes": 204687,
+   "sha256": "b2c145f2d4da5f04782286019f97eb894e0863f5643c0e577981625909ce2734",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:12:32"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$941/605,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_939.jpg",
+   "bytes": 196863,
+   "sha256": "c063199f130a6f44b52748542da4ab67590d0e2d06656908fac5a7bb04a6bb76",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:12:38"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$942/492,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_940.jpg",
+   "bytes": 255183,
+   "sha256": "32fdfb27bb0863801c4b5f98f8bd8baeccebc3281729d648ee9196af70497d66",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:12:46"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$943/549,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_941.jpg",
+   "bytes": 216303,
+   "sha256": "9bc987e4495c7c4ebce4737fa864d05740aa41d019e9008173fbbe556f48c6fd",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:12:49"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$944/493,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_942.jpg",
+   "bytes": 258031,
+   "sha256": "adb17d9f2cd99436d8130b4d0b3cec7f738df60f6cac926acd66053c830bfed0",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:12:53"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$945/515,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_943.jpg",
+   "bytes": 223057,
+   "sha256": "d92bcdbc1305bca9eb306524ff4faff76f34058eef69964457aca73ab35ccebb",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:12:57"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$946/572,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_944.jpg",
+   "bytes": 240020,
+   "sha256": "1a24372c96500e2c6214e7c9659a75604852e9891af8ba1e42429449b1304787",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:13:05"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$947/511,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_945.jpg",
+   "bytes": 214258,
+   "sha256": "34d91f8bfcaa4dcd0b65cfdc07e929e596d060f111e523b587e223681437414f",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:13:10"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$948/536,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_946.jpg",
+   "bytes": 255862,
+   "sha256": "433b39865bb67bffe712f3d090a1eb1ddd4c56002490486fb49782d801a81c4d",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:13:14"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$949/484,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_947.jpg",
+   "bytes": 211822,
+   "sha256": "2342465252ea74c2290df227c0add1b4c24c746a67d6fac101b13ccc5a7891ba",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:13:17"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$950/482,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_948.jpg",
+   "bytes": 227823,
+   "sha256": "a0abb2b32bbb536fe1964937b3c67348c206df7eeef7a805b4401429ff5e3fd2",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:13:21"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$951/466,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_949.jpg",
+   "bytes": 236327,
+   "sha256": "3ca4635ac1da62e3f9f4a20e6c07a93d53e10cb5eccdf8bb5d4070000f65bec4",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:13:25"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$952/522,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_950.jpg",
+   "bytes": 225103,
+   "sha256": "0416734ac9cc8c428e8f0b72cd2ff53f2ffbbcc7b340a5762481052a1ec0b126",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:13:29"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$953/473,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_951.jpg",
+   "bytes": 224343,
+   "sha256": "87d1a741cdb7ce59554a37bedfe1713f584d811c21030afd58dfbfff1d6d8886",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:13:34"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$954/517,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_952.jpg",
+   "bytes": 229916,
+   "sha256": "59a255a0f81cfc01c54a52324843e18a44b4da6ac96cc5596a2361f6472aa2e3",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:13:37"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$955/428,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_953.jpg",
+   "bytes": 240552,
+   "sha256": "d165c6b45b1c21f98fde609ae6243f99239b4bf173d3ae2c73b561b8119691ee",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:13:40"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$956/487,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_954.jpg",
+   "bytes": 228450,
+   "sha256": "0a0f4795beb7416e030a05566b42d798feba33325f0a8ebb3ac87c7922d3e1bc",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:13:45"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$957/501,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_955.jpg",
+   "bytes": 229495,
+   "sha256": "777c8fef90cb05d5089c8adab55c790dd29c2dca809442ea1de7680b64d09dd0",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:13:48"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$958/468,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_956.jpg",
+   "bytes": 217085,
+   "sha256": "c0a8181034ed5a4c491e604c106860b39760bb49cff1a76c48c4a78f34174837",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:13:51"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$959/508,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_957.jpg",
+   "bytes": 222961,
+   "sha256": "a6bd21ea99eaf0d0cfc13284bbdce10ee59daf626e7c8158f1c5680154f671d6",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:13:55"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$960/461,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_958.jpg",
+   "bytes": 236426,
+   "sha256": "5fe38b919d95391c0a44038c0a90de088392cb0ab4ce256df569d9d9387871cf",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:13:59"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$961/500,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_959.jpg",
+   "bytes": 209993,
+   "sha256": "6055f0f2e80d1e5f1aa7be8f0d983d398ebeb56e33237bbb2394e01902559441",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:14:02"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$962/556,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_960.jpg",
+   "bytes": 169705,
+   "sha256": "a1375ea1f2bf053d61207a1915627dfa43349d397be6f807985c5ffb43412d4f",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:14:05"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$968/512,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_966.jpg",
+   "bytes": 210176,
+   "sha256": "9a86d751a8bce6c6e8266e30ea91417daffd04a4e4db9f4e83c97155628624f6",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:14:10"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$969/552,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_967.jpg",
+   "bytes": 179540,
+   "sha256": "7a3cdf3c20f17bbbbfed09e38fbb7d582789b1d6c14661343d703113a28ddc83",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:14:15"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$534/781,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_532.jpg",
+   "bytes": 233807,
+   "sha256": "1a02830e9142af3bbf0ec05ada3aef1a800a9d757cc126fc473ede6c1f29426e",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:14:19"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$535/675,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_533.jpg",
+   "bytes": 254647,
+   "sha256": "8dc831703fd85523a421c1353084d468942844f41deedff12bfb008e6fcd2339",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:14:22"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$536/754,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_534.jpg",
+   "bytes": 294251,
+   "sha256": "73c7d20aff2f468388cf6c0fa233901410b7b32dc25281577df7645fd47c31c4",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:14:26"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$537/644,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_535.jpg",
+   "bytes": 287871,
+   "sha256": "e53e8d0ef363cd1441ba10a7dbe677e17212dca52351a7d000808dff2f185c0e",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:14:30"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$538/761,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_536.jpg",
+   "bytes": 259863,
+   "sha256": "617334e2e94c02bec2d24fff6beddc051acaad94e43af28411999af46bfee6f4",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:14:37"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$539/637,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_537.jpg",
+   "bytes": 248594,
+   "sha256": "30c72103297829af30fcede39f5795d99f11d3fcbe41e0c7ae1262086086b8a3",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:14:41"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$540/739,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_538.jpg",
+   "bytes": 298166,
+   "sha256": "56ae570773d446474dfee8c4f0df9085c85bd58ccc798407982085e8a8c8e6a1",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:14:52"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$541/661,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_539.jpg",
+   "bytes": 303173,
+   "sha256": "ec1d2fafbf7edb472e8206c9117c786f56b46146ec6b0d5454ff466efc51b5ba",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:14:57"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$542/722,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_540.jpg",
+   "bytes": 266888,
+   "sha256": "a397e482489d49eea6d26d7324b8cb7cfefd32cc91d16b2a4078e3f22caf5dc0",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:15:03"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$543/642,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_541.jpg",
+   "bytes": 246315,
+   "sha256": "cfa603f83775a8c62bac1282927ccf2ca7afc7456a0afacc807c6c8a2402ddb2",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:15:07"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$544/719,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_542.jpg",
+   "bytes": 276307,
+   "sha256": "531802d63aec73acd0c4f4d0d11e5e0889acf96858398efc5b78e0c3c3ed9711",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:15:11"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$545/658,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_543.jpg",
+   "bytes": 300462,
+   "sha256": "a1de156ba6abf98c6d028a6dd8141f64e08f7a6a9e72258ce594da962f5621d3",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:15:17"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$548/756,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_544.jpg",
+   "bytes": 279207,
+   "sha256": "aad4550884740c8ac13fdcf9077cbf96aaa6c85f93a0fa79040c61d98c8cc94c",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:15:21"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$549/687,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_545.jpg",
+   "bytes": 241484,
+   "sha256": "15c72dd1a6d0121d7721e8a6c52b64b3bbc8c86ac31a25716dc3433d7c11f7dc",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:15:24"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$550/747,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_546.jpg",
+   "bytes": 276362,
+   "sha256": "a4c54254fc1b4cacacec8815f745c5e6e259861d91b1a1d3c52f78fae859f12d",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:15:28"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$551/661,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_547.jpg",
+   "bytes": 274754,
+   "sha256": "2278b00b2c551d28e9ff51e2bc43e70091d8f973fd4230141eb784ab758d3b41",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:15:31"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$552/741,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_548.jpg",
+   "bytes": 280025,
+   "sha256": "c3ed02b455acb3a6c73b21a236c47984124fddca02a0c3c8354f1185ff2be93d",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:15:39"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$554/729,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_550.jpg",
+   "bytes": 270108,
+   "sha256": "47132615f658ac87613f8b00d1afb68fd47fdf23c15f1f788d8764f8673d2480",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:15:44"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$555/689,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_551.jpg",
+   "bytes": 279986,
+   "sha256": "dacfa7b94e67094d860bd295b90ac3a813c97b5a16d83293cb9107f843ab9841",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:15:47"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$556/739,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_552.jpg",
+   "bytes": 218519,
+   "sha256": "4c104038bc1d88976eb954cc98139d3e0edd0acea64c3eb580a3bbc8dd04aa9a",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:15:52"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$557/688,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_553.jpg",
+   "bytes": 282910,
+   "sha256": "3aaa32be23d915967859687aef11a00aeb150938127e9b1e620b0d60302096b1",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:15:55"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$558/744,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_554.jpg",
+   "bytes": 252691,
+   "sha256": "a6a497c55802a89dec299d29d8cddf4d0c1c386e487a66ed8b78ece33acf0113",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:16:02"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$559/677,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_555.jpg",
+   "bytes": 245553,
+   "sha256": "53f9b38e3d6dcf2097c685e011ef4c588a4c85f8ccad69ca0b74c9d50b966861",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:16:07"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$560/746,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_556.jpg",
+   "bytes": 231655,
+   "sha256": "e5f0570097624f8ee93a9fb2b05f224024dd6dc7d64f68ea14fd30951648334a",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:16:10"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$561/663,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_557.jpg",
+   "bytes": 273946,
+   "sha256": "c088270e243b36c7f755601770741f2657256dee5aa28bbca34887ca904d4df2",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:16:14"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$562/798,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_558.jpg",
+   "bytes": 243212,
+   "sha256": "9e158512498104a7993bf57c7a95ece3cbfcfc36fb97e0d7b5dae70a8bcb2d8d",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:16:20"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$563/618,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_559.jpg",
+   "bytes": 243538,
+   "sha256": "fed100053c5b0e11ae503d17f7d274b6562a9c9660b45a3084fe2656e491db4a",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:16:26"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$564/754,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_560.jpg",
+   "bytes": 280202,
+   "sha256": "a8a51448fc8519b0d20355af903ad778e448bee8ca52b2517a66b1e4fed29968",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:16:30"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$565/647,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_561.jpg",
+   "bytes": 260391,
+   "sha256": "e818790311640a837c93dd5b32f35fc99f17ce4f0cf9e011fc830d16a9083779",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:16:34"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$566/744,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_562.jpg",
+   "bytes": 260331,
+   "sha256": "05155c674d722312ed2eff53e7287f3156754c9a069c007e6ade0f1773419e17",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:16:38"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$567/657,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_563.jpg",
+   "bytes": 241391,
+   "sha256": "836ee9fde7964ed9fd1d0bb9d7b484cb68bedd22335c5fc0d40a48c2f67db4e4",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:16:42"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$568/821,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_564.jpg",
+   "bytes": 312496,
+   "sha256": "44300adecc82a0a53ca74be2578f225ebd78b7c521d35347b8393442de1dd8f1",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:16:51"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$569/597,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_565.jpg",
+   "bytes": 292729,
+   "sha256": "a6dd7f57fdf61e0ee65f714b63f2d54ecdac8e259fd3b2f2f3179f9f74040bc4",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:16:55"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$570/770,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_566.jpg",
+   "bytes": 242616,
+   "sha256": "4539aa47f648079861d5728b2497f73c26fecf7ffdfaff63fc1a3e9ce74ba121",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:16:58"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$571/646,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_567.jpg",
+   "bytes": 253926,
+   "sha256": "af8b3a0d07bd16444665f61989220100f842ec43076ab87187a5c7530102fdad",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:17:02"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$572/733,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_568.jpg",
+   "bytes": 268922,
+   "sha256": "f73e9c06280e23cff56a5e820608c1fac05faba4b7dd0b1a27d1a9a4cceb6f3a",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:17:06"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$573/646,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_569.jpg",
+   "bytes": 260997,
+   "sha256": "910645b2ba9f45f0ccaa19231e96e7fb5f489f55f23b9345f7b303e2d68f5c4b",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:17:09"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl03bate$574/752,300,560,3538/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/03_570.jpg",
+   "bytes": 204575,
+   "sha256": "95fc1db4f4391d2f369ec923e6d058cdb6e609cbad76626150d410da806a28ff",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:17:12"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$821/501,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_819.jpg",
+   "bytes": 224908,
+   "sha256": "3d8afb379d07d4f8f360de63b2acda76fc599b5a43dacdc90052e6cafdc38419",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:17:16"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$822/508,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_820.jpg",
+   "bytes": 261996,
+   "sha256": "96eebea8bc45751ae56e978f528f7ee83e97f63a7866bdb3f97dc29d81da7fb3",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:17:20"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$823/496,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_821.jpg",
+   "bytes": 221400,
+   "sha256": "bed2d407c5f89c42d1923f1e35b91bcc4ad0f245b85cc639176d62c749df62bd",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:17:26"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$824/499,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_822.jpg",
+   "bytes": 256711,
+   "sha256": "a101924ab5ec8884d639efad6b2ac165c2ac87da905d200dbd973c9045de9c64",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:17:29"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$825/489,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_823.jpg",
+   "bytes": 208913,
+   "sha256": "a3372b948ad7cd1fb9c6e67557a91c1f7cddc68434026ca0719dc317fc34c6ac",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:17:33"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$826/516,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_824.jpg",
+   "bytes": 252064,
+   "sha256": "f269345036877fc25ae7b8dead211d3f9031f1a0d9d6b379948be45afafc7b75",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:17:36"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$827/471,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_825.jpg",
+   "bytes": 241115,
+   "sha256": "b78164317c533629facc82a6949e580f38999a67a297db1ca8f7795c4c1813f0",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:17:40"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$828/569,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_826.jpg",
+   "bytes": 232467,
+   "sha256": "f99e57c4f2e68c61aef55a84440781fd550fcd0872a51545b638a41ce0b3d5d9",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:17:43"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$829/456,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_827.jpg",
+   "bytes": 234904,
+   "sha256": "74d8b8efa87951b17eed60c738135d636fff914dcd11f4a7d091be234cd559f4",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:17:46"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$830/567,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_828.jpg",
+   "bytes": 221519,
+   "sha256": "d7797dd5dc5bfb6c79ef6e14df5cf6568857f879da29ea7ffe3f0c4d5a0ab624",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:17:49"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$831/403,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_829.jpg",
+   "bytes": 220337,
+   "sha256": "388fc026dcedddcfdd742a81b94e9b44f19ec18e8480475b530b405a5f8c39da",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:17:54"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$832/591,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_830.jpg",
+   "bytes": 268872,
+   "sha256": "ec2bfbbe155361d03b07a003debf0db8625f91c9cc1c8e663e28c5d62211b4af",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:17:57"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$833/496,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_831.jpg",
+   "bytes": 214782,
+   "sha256": "8153263c0407fea37e9b1318754df2def8db3dfb18b24bfcf186ca109b66f2a6",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:18:01"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$834/590,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_832.jpg",
+   "bytes": 262562,
+   "sha256": "7b438efd186ea411140b16d7f691fa04564e8ae3b2da3a0e6f9fbc8873bbfde4",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:18:05"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$835/457,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_833.jpg",
+   "bytes": 217927,
+   "sha256": "7583c2e3073bba1835066ecc49b1cab1f420e436204841848a87d8515fec4aec",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:18:09"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$836/550,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_834.jpg",
+   "bytes": 265549,
+   "sha256": "a98439af9750f9f6d8bd4da3108556a22cfbf20776c48e673ae418c47d7a7a1f",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:18:14"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$837/490,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_835.jpg",
+   "bytes": 220362,
+   "sha256": "34a497ef8dc9a60c49b17ed0f6d36a33e2622655fe8a7cea1c8cc0363d152728",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:18:19"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$838/560,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_836.jpg",
+   "bytes": 229492,
+   "sha256": "bff26a110e64dcc8db88805b49ee6da163bf39c2632ddf556eba45b7a3440017",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:18:23"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$839/474,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_837.jpg",
+   "bytes": 243642,
+   "sha256": "4e1101b09d5a556a0a1c835754fa8782775591cfb04328cb7342751234947fe1",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:18:27"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$840/494,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_838.jpg",
+   "bytes": 255812,
+   "sha256": "ec4b750009ce06f031ff806b0f470d0afabca9dd422363e1e124fdf06805a073",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:18:30"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$841/506,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_839.jpg",
+   "bytes": 205139,
+   "sha256": "64752501d4ee9296a2b153469efbedf058b13804c92770be45148476ce988999",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:18:34"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$842/496,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_840.jpg",
+   "bytes": 237934,
+   "sha256": "655263804d67f9528c7971863f844c65fcdea2e74e981ef7f2bbeb16f745841c",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:18:38"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$843/479,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_841.jpg",
+   "bytes": 226391,
+   "sha256": "7f960164ac5c15b35ae3d00caf66acd2b9074901d54f0278523baccc633ec8ef",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:18:41"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$844/510,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_842.jpg",
+   "bytes": 236649,
+   "sha256": "86fa847b1b86d574a5c564897d9df869948232b2a531c903cbbf50b7e19b6723",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:18:52"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$845/493,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_843.jpg",
+   "bytes": 248114,
+   "sha256": "e35511cd809cb8ea2b6e737e7dec038a3d108418e28eb79566208cbb743db759",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:19:00"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$852/588,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_850.jpg",
+   "bytes": 180259,
+   "sha256": "2731fb2746b284480c82ba2a7b0ba58375cce1a1777cde974020f8092ee8ec90",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:19:07"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$853/500,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_851.jpg",
+   "bytes": 197414,
+   "sha256": "07a5ff2a7043f59af764f3b28c18421d424b4e3f369bdfc7a2ca8c0b27335c18",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:19:31"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$854/596,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_852.jpg",
+   "bytes": 259501,
+   "sha256": "366699c21a884af7c4e1b20971f4d6d092987abf66e88a1b7d31ca3d8a1c4471",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:19:35"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$855/557,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_853.jpg",
+   "bytes": 252765,
+   "sha256": "918d9ceb0f13b63fec5f4eff00b8c024dc7b7a27c8d03b43ab99f1b7472a4c90",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:20:00"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$856/565,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_854.jpg",
+   "bytes": 226071,
+   "sha256": "1068958d2b965b7e504eac18969168af3f94c0a417f843b7b52d94021d9bb0a7",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:20:07"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$857/533,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_855.jpg",
+   "bytes": 248061,
+   "sha256": "f9499eadc560285cd96abe756fd13c1fb9ce4f19575b9f1f62810ee21bc95415",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:20:14"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$858/493,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_856.jpg",
+   "bytes": 233099,
+   "sha256": "c6d007fa065d040da1bfc57f8a5919a936c9d047a4995adeaccfe2c45576db69",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:20:21"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$859/535,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_857.jpg",
+   "bytes": 207026,
+   "sha256": "8d7e958fc9dd8ae9a6adf3a2e09bb91ddca996a9a6de4e5205a105ffc8a32533",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:20:25"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$860/529,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_858.jpg",
+   "bytes": 244623,
+   "sha256": "3ed32e6612895fc57de1cbea6be1f0245cafa510876c4e6f1b6151f88a26d706",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:20:30"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl02bate$861/526,300,560,2398/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/02_859.jpg",
+   "bytes": 217625,
+   "sha256": "be1dab407c5852666e91827e4ae69c1d789080933e604adc44ad4df3b758ef5f",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:20:34"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$524/716,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_516.jpg",
+   "bytes": 240696,
+   "sha256": "bb6931d3a6fe968d17f8c0441e30f7839eacefa28468f5125aaa523a6fe4f48d",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:20:40"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$525/645,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_517.jpg",
+   "bytes": 297171,
+   "sha256": "b5ee1adbadd48ab1deb024feaae92d26b6cb4882dd2c610c05f20a552003b4ca",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:20:44"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$526/755,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_518.jpg",
+   "bytes": 317242,
+   "sha256": "dfb5326fa003cb92f6e12d64cc0848dc6f986ff41df026faff5090c9154b2732",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:20:52"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$527/649,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_519.jpg",
+   "bytes": 265617,
+   "sha256": "57331b2adc7aac3a7af2b87ff11e30cdae27e2ad498013619ebed9253efeb03b",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:20:58"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$528/749,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_520.jpg",
+   "bytes": 287297,
+   "sha256": "b5a07fa0ef85778539989d6365a04c670912a764667344b25ef83310ca7b5145",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:21:07"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$529/636,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_521.jpg",
+   "bytes": 329545,
+   "sha256": "a0b428ea92f04a22c767c230f002d9be924e434267d1d4e3dc0fd15c5b777852",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:21:12"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$530/778,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_522.jpg",
+   "bytes": 279026,
+   "sha256": "221e0672879b063922a9f89986d801c70189a8902d145117883a62e4af602201",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:21:16"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$531/638,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_523.jpg",
+   "bytes": 312765,
+   "sha256": "b6a7f3bd46e3254ee9e8318493e38e1c8e6471afff79877ed35ec65aad57affa",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:21:20"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$532/740,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_524.jpg",
+   "bytes": 274348,
+   "sha256": "0f55b225049e9909b8541782be5cd07bed41ca71b68127d38bd84c563ffb2f7d",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:21:24"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$533/640,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_525.jpg",
+   "bytes": 309855,
+   "sha256": "f09e0d42dedb198b5cfea4eba4ddaef44df95111f0a30c6340d29f98157a397e",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:21:28"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$534/723,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_526.jpg",
+   "bytes": 299510,
+   "sha256": "085e059a36ba3ad9e9b4f1b202ba5a18725ccf5c674eac28eebe734b2578fec6",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:21:37"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$535/665,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_527.jpg",
+   "bytes": 282546,
+   "sha256": "5526681f0817e4bce3e9285e9dd0e66cbb44df0b7da2ad08e90586d54f73f6aa",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:21:40"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$536/718,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_528.jpg",
+   "bytes": 281754,
+   "sha256": "3e371d906c02b2dd14d984a815c2a637b626add4f18a4b6ddfa6236cfdca0ff5",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:21:44"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$537/643,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_529.jpg",
+   "bytes": 291573,
+   "sha256": "d3ee9c4eced81a6b75d2cb0e322f4f1b66f2a17664b6a6024e36f57e9218b9b7",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:21:47"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$538/727,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_530.jpg",
+   "bytes": 287431,
+   "sha256": "04e1b6846b0fab989e0306c2801c94f6fc1d71e4a33dec7a1d3b98cdc329ce14",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:21:54"
+  },
+  {
+   "url": "https://iiif.archive.org/iiif/historyofpennsyl04bate$539/673,300,560,3497/pct:80/0/default.jpg",
+   "file": "tmp/library/rosters/PA/datecol80/04_531.jpg",
+   "bytes": 301914,
+   "sha256": "1d696ddf26f50c5201f596dddc107ac69f2008b7203e708e78893c6fbdec7e9c",
+   "content_type": "image/jpeg",
+   "status": 200,
+   "retrieved": "2026-10-30T23:21:58"
+  }
+ ],
+ "blocked": [
+  {
+   "url": "https://www.phmc.pa.gov/robots.txt",
+   "status": 200,
+   "reason": "bot challenge page; not saved, not circumvented (PA State Archives Civil War Veterans Card File host)",
+   "date": "2026-10-30"
+  }
+ ]
+}

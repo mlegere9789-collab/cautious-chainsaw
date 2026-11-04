@@ -1,0 +1,482 @@
+{
+ "schema": "figures3d-rifle-sockets-1",
+ "spec": {
+  "overall_in": 56,
+  "barrel_in": 40,
+  "wrist": 0.3,
+  "lock": 0.46,
+  "lower_band": 0.85,
+  "upper_band": 1.15,
+  "ramrod_head": 1.3,
+  "bayonet_blade_m": 0.457,
+  "tier": "inferred",
+  "basis": "ANIM3D-NOTES section 8; kit/weapons.json m1861_springfield overall 56 in, barrel 40 in"
+ },
+ "note": "data/figures3d/socket-spec.json (written by the ANIMATION follow-up) was not present when this was built; the numbers are those of ANIM3D-NOTES section 8. Tier inferred.",
+ "arms": {
+  "m1861_springfield": {
+   "overall_m": 1.4224,
+   "wrist_m": 0.3,
+   "lock_m": 0.46,
+   "lower_band_m": 0.85,
+   "upper_band_m": 1.15,
+   "muzzle_m": 1.4224,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.3,
+    "lock": 0.46,
+    "lower_band": 0.85,
+    "upper_band": 1.15
+   },
+   "swivels": false,
+   "breech_loader": false
+  },
+  "m1863_rifle_musket": {
+   "overall_m": 1.4224,
+   "wrist_m": 0.3,
+   "lock_m": 0.46,
+   "lower_band_m": 0.85,
+   "upper_band_m": 1.15,
+   "muzzle_m": 1.4224,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.3,
+    "lock": 0.46,
+    "lower_band": 0.85,
+    "upper_band": 1.15
+   },
+   "swivels": false,
+   "breech_loader": false
+  },
+  "m1855_springfield": {
+   "overall_m": 1.4224,
+   "wrist_m": 0.3,
+   "lock_m": 0.46,
+   "lower_band_m": 0.85,
+   "upper_band_m": 1.15,
+   "muzzle_m": 1.4224,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.3,
+    "lock": 0.46,
+    "lower_band": 0.85,
+    "upper_band": 1.15
+   },
+   "swivels": false,
+   "breech_loader": false
+  },
+  "harpers_ferry_rifle_m1855": {
+   "overall_m": 1.2446,
+   "wrist_m": 0.2625,
+   "lock_m": 0.4025,
+   "lower_band_m": 0.7438,
+   "upper_band_m": 1.0062,
+   "muzzle_m": 1.2446,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.2625,
+    "lock": 0.4025,
+    "lower_band": 0.7438,
+    "upper_band": 1.0062
+   },
+   "swivels": false,
+   "breech_loader": false
+  },
+  "m1841_mississippi": {
+   "overall_m": 1.2192,
+   "wrist_m": 0.2571,
+   "lock_m": 0.3943,
+   "lower_band_m": 0.7286,
+   "upper_band_m": 0.9857,
+   "muzzle_m": 1.2192,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.2571,
+    "lock": 0.3943,
+    "lower_band": 0.7286,
+    "upper_band": 0.9857
+   },
+   "swivels": false,
+   "breech_loader": false
+  },
+  "m1842_smoothbore": {
+   "overall_m": 1.4732,
+   "wrist_m": 0.3107,
+   "lock_m": 0.4764,
+   "lower_band_m": 0.8804,
+   "upper_band_m": 1.1911,
+   "muzzle_m": 1.4732,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.3107,
+    "lock": 0.4764,
+    "lower_band": 0.8804,
+    "upper_band": 1.1911
+   },
+   "swivels": false,
+   "breech_loader": false
+  },
+  "p1853_enfield": {
+   "overall_m": 1.397,
+   "wrist_m": 0.2946,
+   "lock_m": 0.4518,
+   "lower_band_m": 0.8348,
+   "upper_band_m": 1.1295,
+   "muzzle_m": 1.397,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.2946,
+    "lock": 0.4518,
+    "lower_band": 0.8348,
+    "upper_band": 1.1295
+   },
+   "swivels": true,
+   "breech_loader": false
+  },
+  "p1856_58_enfield_short": {
+   "overall_m": 1.2192,
+   "wrist_m": 0.2571,
+   "lock_m": 0.3943,
+   "lower_band_m": 0.7286,
+   "upper_band_m": 0.9857,
+   "muzzle_m": 1.2192,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.2571,
+    "lock": 0.3943,
+    "lower_band": 0.7286,
+    "upper_band": 0.9857
+   },
+   "swivels": true,
+   "breech_loader": false
+  },
+  "lorenz_m1854": {
+   "overall_m": 1.3208,
+   "wrist_m": 0.2786,
+   "lock_m": 0.4271,
+   "lower_band_m": 0.7893,
+   "upper_band_m": 1.0679,
+   "muzzle_m": 1.3208,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.2786,
+    "lock": 0.4271,
+    "lower_band": 0.7893,
+    "upper_band": 1.0679
+   },
+   "swivels": true,
+   "breech_loader": false
+  },
+  "richmond_rifle": {
+   "overall_m": 1.2446,
+   "wrist_m": 0.2625,
+   "lock_m": 0.4025,
+   "lower_band_m": 0.7438,
+   "upper_band_m": 1.0062,
+   "muzzle_m": 1.2446,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.2625,
+    "lock": 0.4025,
+    "lower_band": 0.7438,
+    "upper_band": 1.0062
+   },
+   "swivels": true,
+   "breech_loader": false
+  },
+  "richmond_carbine": {
+   "overall_m": 1.0414,
+   "wrist_m": 0.2196,
+   "lock_m": 0.3368,
+   "lower_band_m": 0.6223,
+   "upper_band_m": 0.842,
+   "muzzle_m": 1.0414,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.2196,
+    "lock": 0.3368,
+    "lower_band": 0.6223,
+    "upper_band": 0.842
+   },
+   "swivels": true,
+   "breech_loader": false
+  },
+  "whitworth_rifle": {
+   "overall_m": 1.2954,
+   "wrist_m": 0.2732,
+   "lock_m": 0.4189,
+   "lower_band_m": 0.7741,
+   "upper_band_m": 1.0473,
+   "muzzle_m": 1.2954,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.2732,
+    "lock": 0.4189,
+    "lower_band": 0.7741,
+    "upper_band": 1.0473
+   },
+   "swivels": true,
+   "breech_loader": false
+  },
+  "kerr_rifle": {
+   "overall_m": 1.3208,
+   "wrist_m": 0.2786,
+   "lock_m": 0.4271,
+   "lower_band_m": 0.7893,
+   "upper_band_m": 1.0679,
+   "muzzle_m": 1.3208,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.2786,
+    "lock": 0.4271,
+    "lower_band": 0.7893,
+    "upper_band": 1.0679
+   },
+   "swivels": true,
+   "breech_loader": false
+  },
+  "enfield_musketoon": {
+   "overall_m": 1.016,
+   "wrist_m": 0.2143,
+   "lock_m": 0.3286,
+   "lower_band_m": 0.6071,
+   "upper_band_m": 0.8214,
+   "muzzle_m": 1.016,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.2143,
+    "lock": 0.3286,
+    "lower_band": 0.6071,
+    "upper_band": 0.8214
+   },
+   "swivels": true,
+   "breech_loader": false
+  },
+  "imported_arms_not_covered": {
+   "overall_m": 1.397,
+   "wrist_m": 0.2946,
+   "lock_m": 0.4518,
+   "lower_band_m": 0.8348,
+   "upper_band_m": 1.1295,
+   "muzzle_m": 1.397,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.2946,
+    "lock": 0.4518,
+    "lower_band": 0.8348,
+    "upper_band": 1.1295
+   },
+   "swivels": false,
+   "breech_loader": false
+  },
+  "springfield_model_unspecified": {
+   "overall_m": 1.4224,
+   "wrist_m": 0.3,
+   "lock_m": 0.46,
+   "lower_band_m": 0.85,
+   "upper_band_m": 1.15,
+   "muzzle_m": 1.4224,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.3,
+    "lock": 0.46,
+    "lower_band": 0.85,
+    "upper_band": 1.15
+   },
+   "swivels": false,
+   "breech_loader": false
+  },
+  "smoothbore_69_musket_unspecified": {
+   "overall_m": 1.4732,
+   "wrist_m": 0.3107,
+   "lock_m": 0.4764,
+   "lower_band_m": 0.8804,
+   "upper_band_m": 1.1911,
+   "muzzle_m": 1.4732,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.3107,
+    "lock": 0.4764,
+    "lower_band": 0.8804,
+    "upper_band": 1.1911
+   },
+   "swivels": false,
+   "breech_loader": false
+  },
+  "scoped_target_rifle": {
+   "overall_m": 1.2192,
+   "wrist_m": 0.2571,
+   "lock_m": 0.3943,
+   "lower_band_m": 0.7286,
+   "upper_band_m": 0.9857,
+   "muzzle_m": 1.2192,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.2571,
+    "lock": 0.3943,
+    "lower_band": 0.7286,
+    "upper_band": 0.9857
+   },
+   "swivels": false,
+   "breech_loader": false
+  },
+  "sharps_rifle_m1859": {
+   "overall_m": 1.1938,
+   "wrist_m": 0.2518,
+   "lock_m": 0.3861,
+   "lower_band_m": 0.7134,
+   "upper_band_m": 0.9652,
+   "muzzle_m": 1.1938,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.2518,
+    "lock": 0.3861,
+    "lower_band": 0.7134,
+    "upper_band": 0.9652
+   },
+   "swivels": true,
+   "breech_loader": true
+  },
+  "sharps_carbine": {
+   "overall_m": 0.9398,
+   "wrist_m": 0.1982,
+   "lock_m": 0.3039,
+   "lower_band_m": 0.5616,
+   "upper_band_m": 0.7598,
+   "muzzle_m": 0.9398,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.1982,
+    "lock": 0.3039,
+    "lower_band": 0.5616,
+    "upper_band": 0.7598
+   },
+   "swivels": true,
+   "breech_loader": true
+  },
+  "sharps_unspecified_pattern": {
+   "overall_m": 1.1938,
+   "wrist_m": 0.2518,
+   "lock_m": 0.3861,
+   "lower_band_m": 0.7134,
+   "upper_band_m": 0.9652,
+   "muzzle_m": 1.1938,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.2518,
+    "lock": 0.3861,
+    "lower_band": 0.7134,
+    "upper_band": 0.9652
+   },
+   "swivels": true,
+   "breech_loader": true
+  },
+  "burnside_carbine": {
+   "overall_m": 0.9906,
+   "wrist_m": 0.2089,
+   "lock_m": 0.3204,
+   "lower_band_m": 0.592,
+   "upper_band_m": 0.8009,
+   "muzzle_m": 0.9906,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.2089,
+    "lock": 0.3204,
+    "lower_band": 0.592,
+    "upper_band": 0.8009
+   },
+   "swivels": true,
+   "breech_loader": true
+  },
+  "gallager_carbine": {
+   "overall_m": 0.9906,
+   "wrist_m": 0.2089,
+   "lock_m": 0.3204,
+   "lower_band_m": 0.592,
+   "upper_band_m": 0.8009,
+   "muzzle_m": 0.9906,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.2089,
+    "lock": 0.3204,
+    "lower_band": 0.592,
+    "upper_band": 0.8009
+   },
+   "swivels": true,
+   "breech_loader": true
+  },
+  "smith_carbine": {
+   "overall_m": 0.9906,
+   "wrist_m": 0.2089,
+   "lock_m": 0.3204,
+   "lower_band_m": 0.592,
+   "upper_band_m": 0.8009,
+   "muzzle_m": 0.9906,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.2089,
+    "lock": 0.3204,
+    "lower_band": 0.592,
+    "upper_band": 0.8009
+   },
+   "swivels": true,
+   "breech_loader": true
+  },
+  "merrill_carbine": {
+   "overall_m": 0.9906,
+   "wrist_m": 0.2089,
+   "lock_m": 0.3204,
+   "lower_band_m": 0.592,
+   "upper_band_m": 0.8009,
+   "muzzle_m": 0.9906,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.2089,
+    "lock": 0.3204,
+    "lower_band": 0.592,
+    "upper_band": 0.8009
+   },
+   "swivels": true,
+   "breech_loader": true
+  },
+  "sharps_hankins_carbine": {
+   "overall_m": 0.9652,
+   "wrist_m": 0.2036,
+   "lock_m": 0.3121,
+   "lower_band_m": 0.5768,
+   "upper_band_m": 0.7804,
+   "muzzle_m": 0.9652,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.2036,
+    "lock": 0.3121,
+    "lower_band": 0.5768,
+    "upper_band": 0.7804
+   },
+   "swivels": true,
+   "breech_loader": true
+  },
+  "spencer_repeater": {
+   "overall_m": 1.1938,
+   "wrist_m": 0.2518,
+   "lock_m": 0.3861,
+   "lower_band_m": 0.7134,
+   "upper_band_m": 0.9652,
+   "muzzle_m": 1.1938,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.2518,
+    "lock": 0.3861,
+    "lower_band": 0.7134,
+    "upper_band": 0.9652
+   },
+   "swivels": true,
+   "breech_loader": true
+  },
+  "henry_rifle": {
+   "overall_m": 1.0922,
+   "wrist_m": 0.2304,
+   "lock_m": 0.3532,
+   "lower_band_m": 0.6527,
+   "upper_band_m": 0.883,
+   "muzzle_m": 1.0922,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.2304,
+    "lock": 0.3532,
+    "lower_band": 0.6527,
+    "upper_band": 0.883
+   },
+   "swivels": true,
+   "breech_loader": true
+  },
+  "revolving_and_other_breechloaders_gap": {
+   "overall_m": 1.2192,
+   "wrist_m": 0.2571,
+   "lock_m": 0.3943,
+   "lower_band_m": 0.7286,
+   "upper_band_m": 0.9857,
+   "muzzle_m": 1.2192,
+   "expected_from_M1861_scaled_by_length": {
+    "wrist": 0.2571,
+    "lock": 0.3943,
+    "lower_band": 0.7286,
+    "upper_band": 0.9857
+   },
+   "swivels": false,
+   "breech_loader": true
+  }
+ }
+}

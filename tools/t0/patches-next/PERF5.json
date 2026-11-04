@@ -1,0 +1,78 @@
+{
+ "group": "PERF5",
+ "description": "Release 1 round 4: the first frame of the Virtual Walkthrough and of the Monuments layer in tasks of their own, programs linked before they are drawn (desktop check 4, long task over 50 ms); tools/t0/PERF5-README.md",
+ "patches": [
+  {
+   "id": "PERF5-stepper",
+   "target": "js",
+   "find": "function gtSlices(c,a){",
+   "repl": "function gtStepper(m,q,alive,end,pre){let i=0;const fin=()=>{try{end&&end()}catch(e){}},wt=cb=>{let n=0,d=0,t;const nx=()=>{if(d)return;d=1;clearTimeout(t);m.off(\"render\",tk);setTimeout(cb,0)},tk=()=>{++n>=2&&nx()};m.on(\"render\",tk);t=setTimeout(nx,120);m.triggerRepaint()},go=()=>{if(m._removed||alive&&!alive())return void fin();try{q[i++]()}catch(e){console.warn(\"step\",e)}if(i>=q.length)return void fin();wt(go)};pre?wt(go):go()}function gtPreIds(m,ids,icons,done,own){const dn=()=>{try{done&&done()}catch(e){}};try{const s=m.style,pc=s&&s._programPrecompiler,p=m.painter;if(m._removed||!pc||!p||!s._layers||!p.context.extParallelShaderCompile)return void dn();const c=p.context,L=s._mergedLayers||s._layers,q=[],u=rs=>q.push({programId:\"symbol\",params:{defines:rs.concat([\"USE_PAINT_PROPERTIES_UBO\",\"MAX_UBO_SIZE_VEC4 \"+Math.floor(Math.floor(c.maxUniformBlockSize/4)/4)+\"u\"]),overrideFog:!1,overrideTerrain:!1,overrideGlobe:!1,overrideRtt:!1,precompiled:!0}});if(own&&pc.needsBuild()){pc.buildQueue(s._order.map(i=>s._layers[i]),{zoom:m.getZoom()},s);q.push(...pc._queue.splice(0,pc._queue.length))}for(const id of ids){const y=L[id];if(!y||y.type!==\"circle\"||!y.getDefaultProgramParams)continue;const d=y.getDefaultProgramParams(\"circle\",m.getZoom(),s._styleColorTheme&&s._styleColorTheme.lut);q.push({programId:\"circle\",params:{config:d.config,defines:(d.defines||[]).concat([\"DEPTH_D24\"]),overrideFog:!1,overrideTerrain:!1,overrideGlobe:!1,overrideRtt:!1,precompiled:!0}})}if(!c.disableSymbolUBO){u([\"RENDER_SDF\"]);icons&&u([])}const run=()=>{try{if(m._removed||m.style!==s||!q.length)return void dn();pc._queue.unshift(q.shift());pc._executeBatch({timeRemaining:()=>0},p,s);if(pc._idleHandle!=null&&typeof cancelIdleCallback<\"u\"){cancelIdleCallback(pc._idleHandle);pc._idleHandle=null}}catch(e){return void dn()}setTimeout(run,0)};run()}catch(e){dn()}}function gtSlices(c,a){",
+   "expect": 1,
+   "note": "two helpers next to PERF4's gtSlices: gtStepper (steps in tasks of their own, two renders apart) and gtPreIds (program precompile of named layers, hidden or not)"
+  },
+  {
+   "id": "PERF5-wt-defer-map",
+   "target": "js",
+   "find": "pt.useEffect(()=>{var el=document.getElementById(\"gtbg-wt-map\");if(!el||M.current)return;z_.accessToken=a2;",
+   "repl": "pt.useEffect(()=>{var gtq=0,gtr=requestAnimationFrame(function(){gtq=setTimeout(function(){gtq=0;var el=document.getElementById(\"gtbg-wt-map\");if(!el||M.current)return;z_.accessToken=a2;",
+   "expect": 1,
+   "note": "the Walkthrough map is built in a task after the first paint of the overlay (the click task was React + a forced layout + the Mapbox constructor)"
+  },
+  {
+   "id": "PERF5-wt-style-load",
+   "target": "js",
+   "find": "M.current.on(\"load\",function(){M.current.addSource(\"wt-stops\",{",
+   "repl": "M.current.once(\"style.load\",function(){if(!M.current)return;M.current.addSource(\"wt-stops\",{",
+   "expect": 1,
+   "note": "the sources and layers are added when the style has loaded (was: at load)"
+  },
+  {
+   "id": "PERF5-wt-gated-circle",
+   "target": "js",
+   "find": "M.current.addLayer({id:\"wt-stops-circle\",type:\"circle\",source:\"wt-stops\",paint:",
+   "repl": "M.current.addLayer({id:\"wt-stops-circle\",type:\"circle\",source:\"wt-stops\",minzoom:24,paint:",
+   "expect": 1,
+   "note": "added out of its zoom range (24 to 24, which the original does not have): Mapbox treats it as hidden, loads no tiles for it and draws nothing, yet its programs can be queued; shown at load by setLayerZoomRange(0, 24), the default range"
+  },
+  {
+   "id": "PERF5-wt-gated-num",
+   "target": "js",
+   "find": "source:\"wt-stops\",layout:{\"text-field\"",
+   "repl": "source:\"wt-stops\",minzoom:24,layout:{\"text-field\"",
+   "expect": 1,
+   "note": "added out of its zoom range, like the circle layer"
+  },
+  {
+   "id": "PERF5-wt-gated-dots",
+   "target": "js",
+   "find": "M.current.addLayer({id:\"wt-mons-dots\",type:\"circle\",source:\"wt-mons\",paint:",
+   "repl": "M.current.addLayer({id:\"wt-mons-dots\",type:\"circle\",source:\"wt-mons\",minzoom:24,paint:",
+   "expect": 1,
+   "note": "added out of its zoom range, like the circle layer"
+  },
+  {
+   "id": "PERF5-wt-reveal",
+   "target": "js",
+   "find": "\"circle-opacity\":0.75}});});return function(){if(M.current){M.current.remove();",
+   "repl": "\"circle-opacity\":0.75}});var gtm=M.current;setTimeout(function(){gtPreIds(gtm,[\"wt-stops-circle\",\"wt-mons-dots\"],0,null,1)},0);gtm.on(\"load\",function(){gtStepper(gtm,[function(){gtm.setLayerZoomRange(\"wt-stops-circle\",0,24);gtm.setLayerZoomRange(\"wt-stops-num\",0,24)},function(){gtm.setLayerZoomRange(\"wt-mons-dots\",0,24)}],function(){return M.current===gtm})});});},0)});return function(){cancelAnimationFrame(gtr);clearTimeout(gtq);if(M.current){M.current.remove();",
+   "expect": 1,
+   "note": "programs of the circle layers and the text-SDF symbol program are queued when the style has loaded, so the GPU process links them while the satellite tiles load; at load the stops (circle + number: one source) are shown, one step later the monument dots, each step in a task of its own after two renders. Both stop layers are revealed in the same task because they share one GeoJSON source: a layer change while that source is loading reloads it and Mapbox can then lose the symbol bucket (PERF4 note T0-P4-10)"
+  },
+  {
+   "id": "PERF5-mon-layers",
+   "target": "js",
+   "find": "layers().forEach(function(L){if(m.getLayer(L.id))m.setLayoutProperty(L.id,\"visibility\",\"visible\");else m.addLayer(L)});typeof gtPrecompile",
+   "repl": "(function(){var Ls=layers(),put=function(L){if(m.getLayer(L.id)){m.setLayoutProperty(L.id,\"visibility\",\"visible\");m.setLayerZoomRange(L.id,0,24)}else m.addLayer(L)},miss=Ls.filter(function(L){return!m.getLayer(L.id)});if(typeof gtStepper!==\"function\"||typeof gtPreIds!==\"function\"||miss.length!==Ls.length)Ls.forEach(put);else{Ls.forEach(function(L){m.addLayer(Object.assign({minzoom:24},L))});o.stg=1;setTimeout(function(){gtPreIds(m,[LD,LG,LR],1)},0);gtStepper(m,[function(){put(Ls[0])},function(){put(Ls[1]);put(Ls[2]);put(Ls[3])}],function(){return o.enabled},function(){o.stg=0},1)}})();typeof gtPrecompile",
+   "expect": 1,
+   "note": "first toggle: the four layers are added in the click as before but out of their zoom range (not drawn, no tiles), their programs are queued, the dots are shown two renders later and the glow, ring and stars (one source) two renders after that; the toggle off/on in between or later shows all four at once as before (put() also restores the zoom range)"
+  },
+  {
+   "id": "PERF5-mon-fix-guard",
+   "target": "js",
+   "find": "if(!need)return;o.fixing=true",
+   "repl": "if(!need||o.stg)return;o.fixing=true",
+   "expect": 1,
+   "note": "the style-data repair of the layers does not run while the first toggle is still showing them"
+  }
+ ]
+}

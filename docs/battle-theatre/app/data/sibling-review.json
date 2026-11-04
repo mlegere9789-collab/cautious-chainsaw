@@ -1,0 +1,395 @@
+{
+ "_doc": "Hand-read class of every claim that names a road (or a route) on the line of command of an undrawn leaf unit, for the sibling-road rule (DEC-015, tools/sibling-rule.mjs). The claims are the rows of APPROACH-AUDIT.md (the claims the audit examined); the class says what the printed words are: a place or movement inside the field, an order, no road, a compiler's gloss, an earlier march, a road the repository cannot place, another road of approach, a road outside the loaded ground, or a disagreement. A class in `blocks` stops the sibling rule for every unit under the claim. `by_code` is the default class of an audit code; `claims` overrides it for a claim (and, with `code`, names the reason shown when the claim blocks) and carries the note of the claims that sit on the line of command of a unit the rule draws (each of those was read in full; tests/sibling.test.mjs checks that none is missing). No claim here is a road of approach: a road of approach is a record of data/placement.json or data/placement-claims.json.",
+ "version": 1,
+ "blocks": [
+  "unplaceable",
+  "other_approach",
+  "outside_ground",
+  "disagree"
+ ],
+ "classes": {
+  "in_field": "the road named is where the unit stood or moved after it was on the field (a line along a road, a crossing, a battery by the pike): a place or a movement inside the field, not a road of approach",
+  "order": "a dispatch or an order printed as a movement (what a commander told another to do): not the road a unit marched on to the field",
+  "no_road": "the passage names no road (a direction, a town, “the road”, “road not named”)",
+  "gloss": "the road stands only in the compiler’s bracketed gloss or summary, not in the claim’s printed words (a bracketed gloss is never evidence); it names no road other than the sibling road",
+  "unverifiable": "an inferred claim with no verbatim quote: the road cannot be checked against printed words; it names no road other than the sibling road",
+  "earlier": "a march before the battle (outside the loaded ground), not the approach to the field",
+  "another_place": "the road named is a road of another place (the road to Carlisle from Chambersburg), not the gazetteer road of the same name",
+  "not_the_unit": "a move of the wagon train or its guard, not the approach of the unit’s line",
+  "divisions_differ": "a statement that different divisions of the corps took different roads: it is evidence that the sibling formations disagree, not a road of approach for the unit",
+  "unplaceable": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed",
+  "other_approach": "a report of the line of command names another road of approach than the sibling road",
+  "outside_ground": "a road of approach is printed for the line of command but it does not cross the loaded ground (Black Horse Tavern Road)",
+  "disagree": "the reports of the same formation print different roads; none is chosen",
+  "brigades_differ": "a report of the line of command prints a continuation of the march that differs from that of another brigade of the same division (one turns off a pike, the other goes left past a hill): evidence that the formations disagree, not a road of approach for the unit; it does not block the sibling rule (the formations' own roads are the siblings)"
+ },
+ "by_code": {
+  "no_road_named": "no_road",
+  "movement_road_unnamed": "no_road",
+  "road_not_printed": "gloss",
+  "no_quote": "unverifiable",
+  "movement_order": "order",
+  "movement_in_field": "in_field",
+  "position_in_field": "in_field",
+  "position_not_approach": "in_field",
+  "earlier_march": "earlier",
+  "earlier_leg": "earlier",
+  "road_of_another_place": "another_place",
+  "movement_wagon_train": "not_the_unit",
+  "road_not_resolvable": "unplaceable",
+  "route_not_a_road": "unplaceable",
+  "movement_road_not_resolvable": "unplaceable",
+  "road_name_ambiguous": "unplaceable",
+  "movement_black_horse": "outside_ground",
+  "reports_disagree": "disagree"
+ },
+ "claims": {
+  "PD-1c-02": {
+   "class": "no_road",
+   "audit_code": "no_road_named",
+   "note": "Read in full (APPROACH-AUDIT.md row): march claim of cs-1c, 1863-06-30; printed: “Chambersburg to Gettysburg road (Greenwood is on it; road not named by Longstreet)”"
+  },
+  "PD-1c-03": {
+   "class": "gloss",
+   "audit_code": "road_not_printed",
+   "note": "Read in full (APPROACH-AUDIT.md row): march claim of cs-1c, 1863-07-01; printed: “Troops (except Pickett and Law's brigade) set out for Gettysburg on July 1; the march was greatly delayed by Johnson's division of the Secon”"
+  },
+  "PD-1c-04": {
+   "class": "order",
+   "audit_code": "movement_order",
+   "note": "Read in full (APPROACH-AUDIT.md row): movement claim of cs-1c, 1863-07-02; printed: “Emmitsburg road”"
+  },
+  "PD-1c-07": {
+   "class": "in_field",
+   "audit_code": "movement_in_field",
+   "note": "Read in full (APPROACH-AUDIT.md row): movement claim of cs-1c, 1863-07-03; printed: “my line was withdrawn to the Gettysburg road on the right, the left uniting”"
+  },
+  "PD-1c-hood-01": {
+   "class": "gloss",
+   "audit_code": "road_not_printed",
+   "note": "Read in full (APPROACH-AUDIT.md row): arrival_road claim of cs-1c-hood, 1863-07-01; printed: “[compiler gloss, not printed] the Chambersburg-Gettysburg road; the passage names no road for this sentence”"
+  },
+  "PD-1c-hood-anderson-04": {
+   "class": "gloss",
+   "audit_code": "road_not_printed",
+   "note": "Read in full (APPROACH-AUDIT.md row): arrival_road claim of cs-1c-hood-anderson, 1863-07-01; printed: “G. T. Anderson's Georgia brigade came with Hood's division to within nearly 4 miles of Gettysburg about midnight July 1-2 (Longstreet); the ”"
+  },
+  "PD-1c-hood-benning-01": {
+   "class": "gloss",
+   "audit_code": "road_not_printed",
+   "note": "Read in full (APPROACH-AUDIT.md row): arrival_road claim of cs-1c-hood-benning, 1863-07-01; printed: “[compiler gloss, not printed] the Chambersburg pike; the passage says only 'the mountain pass, by way of Cashtown'”"
+  },
+  "PD-1c-hood-benning-02": {
+   "class": "gloss",
+   "audit_code": "road_not_printed",
+   "note": "Read in full (APPROACH-AUDIT.md row): arrival_road claim of cs-1c-hood-benning, 1863-07-01; printed: “2nd Georgia arrived after a tiresome march through the mountains in the neighborhood of the July 1 battle-field, bivouacked a few hours, res”"
+  },
+  "PD-1c-hood-benning-03": {
+   "class": "no_road",
+   "audit_code": "movement_road_unnamed",
+   "note": "Read in full (APPROACH-AUDIT.md row): movement claim of cs-1c-hood-benning, 1863-07-02; printed: “At 1 p. m. the 2nd Georgia took up the march by a circuitous route to the right; just before reaching its position it advanced by the right ”"
+  },
+  "PD-1c-hood-henry-02": {
+   "class": "no_road",
+   "audit_code": "no_road_named",
+   "note": "Read in full (APPROACH-AUDIT.md row): arrival_road claim of cs-1c-hood-henry, 1863-07-01; printed: “road to Gettysburg”"
+  },
+  "PD-1c-hood-law-05": {
+   "class": "no_road",
+   "audit_code": "no_road_named",
+   "note": "Read in full (APPROACH-AUDIT.md row): march claim of cs-1c-hood-law, 1863-07-02; printed: “not named (New Guilford is on the road toward Emmitsburg per Longstreet)”"
+  },
+  "PD-1c-hood-law-48al-01": {
+   "class": "no_road",
+   "audit_code": "no_road_named",
+   "note": "Read in full (APPROACH-AUDIT.md row): march claim of cs-1c-hood-law-48al, 1863-07-02; printed: “road not named”"
+  },
+  "PD-1c-hood-law-4al-01": {
+   "class": "no_road",
+   "audit_code": "no_road_named",
+   "note": "Read in full (APPROACH-AUDIT.md row): march claim of cs-1c-hood-law-4al, 1863-07-02; printed: “toward Gettysburg (road not named)”"
+  },
+  "PD-1c-hood-robertson-05": {
+   "class": "gloss",
+   "audit_code": "road_not_printed",
+   "note": "Read in full (APPROACH-AUDIT.md row): arrival_road claim of cs-1c-hood-robertson, 1863-07-01; printed: “Robertson's Texas brigade came with Hood's division to within nearly 4 miles of Gettysburg about midnight July 1-2 (Longstreet); the road is”"
+  },
+  "PD-1c-mclaws-01": {
+   "class": "gloss",
+   "audit_code": "road_not_printed",
+   "note": "Read in full (APPROACH-AUDIT.md row): arrival_road claim of cs-1c-mclaws, 1863-07-01; printed: “[compiler gloss, not printed] the Chambersburg-Gettysburg road; the passage says only that the march was delayed by Johnson's division comin”"
+  },
+  "PD-1c-mclaws-barksdale-03": {
+   "class": "in_field",
+   "audit_code": "position_in_field",
+   "note": "Read in full (APPROACH-AUDIT.md row): position claim of cs-1c-mclaws-barksdale, 1863-07-02; printed: “road parallel to Wilcox's front into the Emmitsburg road”"
+  },
+  "PD-1c-mclaws-barksdale-07": {
+   "class": "gloss",
+   "audit_code": "road_not_printed",
+   "note": "Read in full (APPROACH-AUDIT.md row): arrival_road claim of cs-1c-mclaws-barksdale, 1863-07-01; printed: “[inferred] Kershaw prints 'the Gettysburg road' from Fayetteville for his brigade; Longstreet names no road for the division's march; 'Chamb”"
+  },
+  "PD-1c-mclaws-cabell-02": {
+   "class": "gloss",
+   "audit_code": "road_not_printed",
+   "note": "Read in full (APPROACH-AUDIT.md row): arrival_road claim of cs-1c-mclaws-cabell, 1863-07-01; printed: “Battalion encamped a few miles from Gettysburg on July 1 (no road named).”"
+  },
+  "PD-1c-mclaws-cabell-03": {
+   "class": "in_field",
+   "audit_code": "position_in_field",
+   "note": "Read in full (APPROACH-AUDIT.md row): position claim of cs-1c-mclaws-cabell, 1863-07-02; printed: “Emmitsburg road”"
+  },
+  "PD-1c-mclaws-cabell-05": {
+   "class": "in_field",
+   "audit_code": "position_in_field",
+   "note": "Read in full (APPROACH-AUDIT.md row): position claim of cs-1c-mclaws-cabell, 1863-07-03; printed: “Emmitsburg road”"
+  },
+  "PD-1c-mclaws-cabell-07": {
+   "class": "in_field",
+   "audit_code": "movement_in_field",
+   "note": "Read in full (APPROACH-AUDIT.md row): movement claim of cs-1c-mclaws-cabell, 1863-07-03; printed: “After Pickett's division was ordered back, McCarthy and Motes moved forward onto the road, the left flank of the extended line; the guns hel”"
+  },
+  "PD-1c-mclaws-cabell-11": {
+   "class": "in_field",
+   "audit_code": "movement_in_field",
+   "note": "Read in full (APPROACH-AUDIT.md row): movement claim of cs-1c-mclaws-cabell, 1863-07-02; printed: “was ordered to advance on a road that intersected at right angles the Emmitsburg”"
+  },
+  "PD-1c-pickett-07": {
+   "class": "another_place",
+   "audit_code": "road_of_another_place",
+   "note": "Read in full (APPROACH-AUDIT.md row): night_position claim of cs-1c-pickett, 1863-07-02; printed: “road to Carlisle (battalion encampment)”"
+  },
+  "PD-1c-pickett-dearing-01": {
+   "class": "no_road",
+   "audit_code": "no_road_named",
+   "note": "Read in full (APPROACH-AUDIT.md row): march claim of cs-1c-pickett-dearing, 1863-06-27; printed: “through Chambersburg, encamping about 3 miles north of that place, and on the road”"
+  },
+  "PD-1c-res-art-alexander-01": {
+   "class": "no_road",
+   "audit_code": "no_road_named",
+   "note": "Read in full (APPROACH-AUDIT.md row): march claim of cs-1c-res-art-alexander, 1863-07-02; printed: “Chambersburg to Gettysburg road (not named)”"
+  },
+  "PD-1c-res-art-washington-01": {
+   "class": "gloss",
+   "audit_code": "road_not_printed",
+   "note": "Read in full (APPROACH-AUDIT.md row): march claim of cs-1c-res-art-washington, 1863-07-01; printed: “[not named in the report] the road through Cashtown Gap”"
+  },
+  "PD-2c-03": {
+   "class": "divisions_differ",
+   "note": "Corps-level statement of the roads of the divisions (the Middletown road for Rodes, the Heidlersburg road for Early): it shows that the documented siblings of the Second Corps name different roads; it is not a road of approach of a unit."
+  },
+  "POS-A-CV1-038": {
+   "class": "unplaceable",
+   "code": "route_not_a_road",
+   "note": "Howard to Reynolds, 1 July (OR27-3-D0959 p. 457): one division on the road Reynolds took, “the balance of the corps on the road past Horner’s Mills”. A road named by a mill: the repository holds no such road (road-concordance RC-07, unresolved). It stands on the line of command of every Eleventh Corps unit, so the corps stays open (brief sibling-roads, rule 1)."
+  },
+  "POS-C-0002": {
+   "class": "gloss",
+   "audit_code": "road_not_printed",
+   "note": "Read in full (APPROACH-AUDIT.md row): march claim of us-5c, 1863-06-30; printed: “marched 23 miles to Union Mills and encamped on Big Pipe Creek along the Westminster-Gettysburg turnpike”"
+  },
+  "POS-C-0007": {
+   "class": "in_field",
+   "audit_code": "position_in_field",
+   "note": "Read in full (APPROACH-AUDIT.md row): position claim of us-5c, 1863-07-02; printed: “near the bridge over Rock Creek, on the Baltimore and Gettysburg pike”"
+  },
+  "POS-C-0009": {
+   "class": "in_field",
+   "audit_code": "movement_in_field",
+   "note": "Read in full (APPROACH-AUDIT.md row): movement claim of us-5c, 1863-07-02; printed: “I rode rapidly to the Taneytown pike to bring up the remaining troops”"
+  },
+  "POS-C-0027": {
+   "class": "in_field",
+   "audit_code": "movement_in_field",
+   "note": "Read in full (APPROACH-AUDIT.md row): movement claim of us-5c-1d, 1863-07-02; printed: “moved rapidly up by the Taneytown road to the ground assigned to the division”"
+  },
+  "POS-C-0166": {
+   "class": "in_field",
+   "audit_code": "position_not_approach",
+   "note": "Read in full (APPROACH-AUDIT.md row): arrival_road claim of us-5c-3d, 1863-07-02; printed: “the position of the First and Second Divisions, near the Gettysburg and Hanover turnpike”"
+  },
+  "POS-C-0167": {
+   "class": "in_field",
+   "audit_code": "movement_in_field",
+   "note": "Read in full (APPROACH-AUDIT.md row): movement claim of us-5c-3d, 1863-07-02; printed: “order to form at once and proceed toward the left flank; the First Division, which it was to follow, took a different road; guided by Capt. ”"
+  },
+  "POS-C-0207": {
+   "class": "in_field",
+   "audit_code": "position_in_field",
+   "note": "Read in full (APPROACH-AUDIT.md row): position claim of us-5c-art-1ohl, 1863-07-02; printed: “to the right of the Baltimore pike, in a field of wheat, 100 yards in front of infantry support, 60 yards behind the skirmish line”"
+  },
+  "POS-C-0208": {
+   "class": "in_field",
+   "audit_code": "position_in_field",
+   "note": "Read in full (APPROACH-AUDIT.md row): night_position claim of us-5c-art-1ohl, 1863-07-02; printed: “crossing the Baltimore pike, and going into park on the left of it”"
+  },
+  "POS-E-CS-1C-MCLAWS-001": {
+   "class": "in_field",
+   "audit_code": "movement_in_field",
+   "note": "Read in full (ledger E, history layer v8): McLaws marched from Seminary Ridge on 2 July toward the ground for the attack, \"following up the direction of the Emmitsburg road\": a move inside the field, not a road of approach"
+  },
+  "POS-E-CS-CAV-DIV-002": {
+   "class": "in_field",
+   "audit_code": "movement_in_field",
+   "note": "Read in full (ledger E, history layer v8): Stuart moved out the York turnpike and by a country road to Cress' ridge on 3 July: a move inside the field after arrival"
+  },
+  "POS-E-US-11C-3D-001": {
+   "class": "unplaceable",
+   "audit_code": "route_not_a_road",
+   "note": "Read in full (ledger E, history layer v8): the commission narrative has Schurz's and Steinwehr's divisions on \"the circuitous route by Horner's Mills\" (RC-07: a route named by a mill, not placed by the repository); Steinwehr's division also has the Emmitsburg Pike (POS-E-US-11C-2D-004, AP of the division), the third division has no gazetteer road in ledger E",
+   "code": "route_not_a_road"
+  },
+  "POS-E-US-11C-3D-SCHIMMELFENNIG-45NY-002": {
+   "class": "unplaceable",
+   "audit_code": "route_not_a_road",
+   "note": "Read in full (ledger E, history layer v8): 45th NY committee: \"at or near Horner's Mills ... directed by a shorter route to the town of Gettysburg\" (RC-07; the last leg is not named)",
+   "code": "route_not_a_road"
+  },
+  "POS-E-US-11C-3D-SCHIMMELFENNIG-45NY-004": {
+   "class": "in_field",
+   "audit_code": "movement_in_field",
+   "note": "Read in full (ledger E, history layer v8): four companies sent out the Mummasburg Road past the College on arrival, 1 July: a move inside the field"
+  },
+  "POS-E-US-11C-3D-SCHIMMELFENNIG-45NY-007": {
+   "class": "in_field",
+   "audit_code": "movement_in_field",
+   "note": "Read in full (ledger E, history layer v8): the retreat into the town by way of the Eagle Hotel and Chambersburg street, 1 July: a move inside the field"
+  },
+  "POS-E-US-11C-3D-SCHIMMELFENNIG-157NY-002": {
+   "class": "in_field",
+   "audit_code": "position_in_field",
+   "note": "Read in full (ledger E, history layer v8): the regiment's monument near the Carlisle Road north of the town: a place inside the field"
+  },
+  "POS-E-US-11C-3D-KRZYZANOWSKI-58NY-001": {
+   "class": "in_field",
+   "audit_code": "position_in_field",
+   "note": "Read in full (ledger E, history layer v8): the regiment's monument north of the town near the Carlisle Road: a place inside the field"
+  },
+  "POS-E-US-11C-3D-KRZYZANOWSKI-58NY-004": {
+   "class": "no_road",
+   "audit_code": "no_road_named",
+   "note": "Read in full (ledger E, history layer v8): arrived at Gettysburg with the detachment that left the wagon train from Emmitsburg; the road is not named"
+  },
+  "POS-E-US-11C-3D-KRZYZANOWSKI-58NY-008": {
+   "class": "in_field",
+   "audit_code": "position_in_field",
+   "note": "Read in full (ledger E, history layer v8): a position behind a stone fence beside the Baltimore Pike on 3 July: a place inside the field"
+  },
+  "POS-E-US-11C-3D-KRZYZANOWSKI-75PA-003": {
+   "class": "in_field",
+   "audit_code": "position_in_field",
+   "note": "Read in full (ledger E, history layer v8): the regiment took up its position on the west side of the Carlisle road near the almshouse: a place inside the field"
+  },
+  "POS-E-US-11C-3D-KRZYZANOWSKI-82OH-001": {
+   "class": "in_field",
+   "audit_code": "position_in_field",
+   "note": "Read in full (ledger E, history layer v8): a position west of the Carlisle road near the county almshouse: a place inside the field"
+  },
+  "POS-E-US-11C-ART-13NY-003": {
+   "class": "in_field",
+   "audit_code": "movement_in_field",
+   "note": "Read in full (ledger E, history layer v8): the battery galloped through the town and out on the Carlisle Road to its position: a move inside the field"
+  },
+  "POS-E-US-11C-ART-1OHI-001": {
+   "class": "in_field",
+   "audit_code": "position_in_field",
+   "note": "Read in full (ledger E, history layer v8): a battery position behind the 45th New York north of the town: a place inside the field"
+  },
+  "POS-E-US-11C-ART-1OHI-002": {
+   "class": "in_field",
+   "audit_code": "movement_in_field",
+   "note": "Read in full (ledger E, history layer v8): the battery came up Baltimore street in the retreat of 1 July: a move inside the field"
+  },
+  "POS-E-US-CAV-1D-001": {
+   "class": "in_field",
+   "audit_code": "position_in_field",
+   "note": "Read in full (ledger E, history layer v8): a line of battle along Seminary Ridge with its right on the Mummasburg Road: a place inside the field"
+  },
+  "POS-E-US-CAV-1D-002": {
+   "class": "in_field",
+   "audit_code": "position_in_field",
+   "note": "Read in full (ledger E, history layer v8): a semicircle of pickets across the roads round the town on the night of 30 June: a place inside the field"
+  },
+  "POS-E-US-CAV-1D-003": {
+   "class": "unplaceable",
+   "audit_code": "road_not_resolvable",
+   "note": "Read in full (ledger E, history layer v8): Hunt prints the Boonsboro and Fairfield route up the Cumberland valley for Gamble and Devin (RC-08: \"the Fairfield road\" could be two gazetteer roads), against the regiments' Emmitsburg itinerary (6th NY, 8th NY): the siblings disagree and the road is not placed",
+   "code": "road_not_resolvable"
+  },
+  "POS-E-US-CAV-1D-DEVIN-001": {
+   "class": "in_field",
+   "audit_code": "position_in_field",
+   "note": "Read in full (ledger E, history layer v8): the brigade's line with its right on the road to Mummasburg and pickets on the roads: a place inside the field"
+  },
+  "POS-E-US-CAV-1D-DEVIN-17PA-002": {
+   "class": "in_field",
+   "audit_code": "position_in_field",
+   "note": "Read in full (ledger E, history layer v8): the line of the Second Brigade covering the Harrisburg and York roads: a place inside the field"
+  },
+  "POS-E-US-CAV-1D-DEVIN-17PA-003": {
+   "class": "in_field",
+   "audit_code": "movement_in_field",
+   "note": "Read in full (ledger E, history layer v8): a movement on the Harrisburg pike near the town when the Eleventh Corps yielded, 1 July: a move inside the field"
+  },
+  "POS-E-US-CAV-1D-DEVIN-6NY-002": {
+   "class": "in_field",
+   "audit_code": "position_in_field",
+   "note": "Read in full (ledger E, history layer v8): the monument line on the Mummasburg road: a place inside the field"
+  },
+  "POS-E-US-CAV-1D-DEVIN-9NY-001": {
+   "class": "in_field",
+   "audit_code": "position_in_field",
+   "note": "Read in full (ledger E, history layer v8): a picket line across the roads north of the town on the evening of 30 June: a place inside the field"
+  },
+  "POS-E-US-CAV-1D-GAMBLE-8NY-001": {
+   "class": "in_field",
+   "audit_code": "position_in_field",
+   "note": "Read in full (ledger E, history layer v8): bivouac beside the Cashtown Pike near the Seminary and a squadron picketed across the Cashtown Road: places inside the field; no road of approach is named"
+  },
+  "POS-E-US-CAV-3D-003": {
+   "class": "in_field",
+   "audit_code": "movement_in_field",
+   "note": "Read in full (ledger E, history layer v8): Kilpatrick, inside the Union lines near Gettysburg, then out on the road to Abbottstown to Hunterstown on 2 July: a move away from the field after arrival"
+  },
+  "POS-E-US-CAV-3D-CUSTER-003": {
+   "class": "brigades_differ",
+   "audit_code": "other_reviewed",
+   "note": "Read in full (ledger E, history layer v8): Custer's brigade is on the Baltimore pike at Two Taverns at 3 a. m. on 3 July but turns off it toward the Hanover road (POS-E-US-CAV-3D-CUSTER-004) while Farnsworth's brigade goes left past Round Top: the reports of the division print different continuations; none is chosen"
+  },
+  "POS-E-US-CAV-3D-CUSTER-004": {
+   "class": "brigades_differ",
+   "audit_code": "other_reviewed",
+   "note": "Read in full (ledger E, history layer v8): Custer's brigade follows Farnsworth on the road from Two Taverns (the Baltimore pike) and then turns off to the right toward the Hanover road, while Farnsworth's brigade goes left past Round Top: the reports of the division differ; none is chosen"
+  },
+  "POS-E-US-CAV-3D-CUSTER-005": {
+   "class": "in_field",
+   "audit_code": "position_in_field",
+   "note": "Read in full (ledger E, history layer v8): a position on 3 July covering the Hanover road and the Low Dutch road east of the loaded ground: a place after arrival"
+  },
+  "POS-E-US-CAV-3D-CUSTER-1MI-002": {
+   "class": "in_field",
+   "audit_code": "position_in_field",
+   "note": "Read in full (ledger E, history layer v8): a position on the right of the long branch of Custer's line on 3 July: a place after arrival"
+  },
+  "POS-E-US-CAV-3D-CUSTER-6MI-006": {
+   "class": "in_field",
+   "audit_code": "position_in_field",
+   "note": "Read in full (ledger E, history layer v8): a position on 3 July covering the pike east of the loaded ground: a place after arrival"
+  },
+  "POS-E-US-CAV-3D-FARNSWORTH-003": {
+   "class": "in_field",
+   "audit_code": "position_in_field",
+   "note": "Read in full (ledger E, history layer v8): the Baltimore pike is named only as the place of a short rest at its junction with Rock Creek, on the way around the left of the enemy's line: a place, not a stated road of approach"
+  },
+  "POS-E-US-CAV-3D-FARNSWORTH-18PA-004": {
+   "class": "in_field",
+   "audit_code": "position_in_field",
+   "note": "Read in full (ledger E, history layer v8): a position in the woods in the rear of the monument with a skirmish line toward the Emmitsburg road on 3 July: a place inside the field"
+  },
+  "POS-E-CS-1C-PICKETT-002": {
+   "class": "no_road",
+   "audit_code": "no_road_named",
+   "note": "Read in full (ledger E, history layer v8): Pickett joined the corps at Gettysburg from Chambersburg on the night of 2 July; the road is not named in the printed words (the ledger road field says \"by inference\"), so no road is read from it. It sits on the line of command of Dearing's battalion, which the sibling rule draws on the Chambersburg Pike"
+  }
+ }
+}

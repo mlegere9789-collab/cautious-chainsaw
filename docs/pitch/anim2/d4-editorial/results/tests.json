@@ -1,10 +1,10 @@
 {
  "quick": false,
  "lines": [
-  "editorial (this language: sizing, anchors, layout and played frames with its footprint, names, hull, legend, colour): **15 of 15 pass** (14 s)",
-  "engine: layout, display, interpolation, time, data, tuning, extension, production reproduction, build: **88 of 88 pass** (58 s)",
-  "engine: fuzz (random actions on every API, three seeds), popups, assembled tours: **56 of 56 pass** (162 s)",
-  "colour tests (tools/contrast-tests.mjs): **134 of 134 pass** (0 s)"
+  "editorial (this language: sizing, anchors, layout and played frames with its footprint, names, hull, legend, colour): **15 of 15 pass** (17 s)",
+  "engine: layout, display, interpolation, time, data, tuning, extension, production reproduction, build: **83 of 88 pass**, 5 FAIL (59 s)",
+  "engine: fuzz (random actions on every API, three seeds), popups, assembled tours: **45 of 56 pass**, 11 FAIL (150 s)",
+  "colour tests (tools/contrast-tests.mjs): **146 of 146 pass** (0 s)"
  ],
- "failed": 0
+ "failed": 16
 }

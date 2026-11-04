@@ -1,0 +1,339 @@
+[
+ {
+  "id": "POS-B-us-3c-1d-06",
+  "fc": "downgraded",
+  "why": "Passage says only 'a division of the Third Corps' relieved the Vermont regiment on picket; 'First Division' (us-3c-1d) comes from Craig R139, not this passage. Unit identity is the compiler's. Activity narrowed to what is printed.",
+  "act": "Doubleday: after the enemy's retreat, the Vermont regiment on picket was relieved, through the kindness of General Birney, by a division of the Third Corps (division not numbered in the passage)",
+  "tier": "inferred",
+  "reasoning": "The passage says only that a division of the Third Corps relieved the Vermont regiment on picket after the enemy's retreat; it does not say which division. Attribution to the First Division rests on Craig R139 (105th Pennsylvania relieved the Vermont Brigade at 9 p. m. on July 3), a different report.",
+  "dbasis": "report context: Doubleday's account of July 3; sentence follows 'After the retreat of the enemy'"
+ },
+ {
+  "id": "POS-B-us-3c-43",
+  "fc": "corrected",
+  "why": "Activity said 'on the morning of July 3'; 'morning' is not printed with this fact (the sentence follows 'By about 12 o'clock', OCR '13'). Narrowed to July 3.",
+  "act": "Newton: the Third Corps under Birney, which had suffered severely the previous day, was found posted directly in rear of his line of battle on July 3",
+  "wdesc": "compiler reading from order of events: July 3 section, after 'By about 13 o'clock' (OCR for 12) in the preceding sentence",
+  "dbasis": "report context: Newton's July 3 section"
+ },
+ {
+  "id": "POS-B-us-3c-44",
+  "fc": "passed_full_read",
+  "why": "'With the first movement of the assaulting column' in same sentence; Birney named; 'first for one and subsequently for another division, which were promptly sent' printed; no later contradiction.",
+  "dbasis": "report context: Newton's July 3 section"
+ },
+ {
+  "id": "POS-B-us-3c-24",
+  "fc": "passed_full_read",
+  "why": "Dispatch heading prints '5.25 [p. M., July 1, 1863,]' (time of writing); present-tense 'as yet, no troops on the left' in the body; Third Corps named; no later contradiction.",
+  "wdesc": "time of writing printed in the dispatch heading, with editorial bracket for p. m. and date"
+ },
+ {
+  "id": "POS-B-us-3c-25",
+  "fc": "corrected",
+  "why": "Activity said 'Hancock saw ... shortly after 5-6 o'clock'. Passage: Slocum arrived between 5 and 6 o'clock and Hancock transferred command; head of the Third Corps 'appeared in sight shortly afterward, on the Emmitsburg road'. Observer not named; time anchored to Slocum's arrival.",
+  "act": "Hancock: after Slocum arrived between 5 and 6 o'clock and he transferred command to him, the head of the Third Corps appeared in sight shortly afterward on the Emmitsburg road (July 1)",
+  "q2": [
+   "on the Emmitsburg road"
+  ],
+  "dbasis": "report context: Hancock's account of July 1; 'Between 5 and 6 o'clock' is in the preceding sentence and 'shortly afterward' continues it"
+ },
+ {
+  "id": "POS-B-us-3c-31",
+  "fc": "passed_full_read",
+  "why": "'about 3 p. m.' in same sentence as the Third Corps advance toward the Emmitsburg road; Hancock's own account of July 2; no later contradiction in passage.",
+  "dbasis": "report context: July 2 (arrival 'about 7 a. m. of the 2d' printed earlier in the same account)"
+ },
+ {
+  "id": "POS-B-us-3c-35",
+  "fc": "passed_full_read",
+  "why": "Sentence prints 'right of the Third Corps rested near the brick house, near the Emmitsburg road ... in front of Gibbon's division'; no clock time claimed.",
+  "wdesc": "compiler reading from order of events: describes the line after the advance of about 3 p. m. (preceding sentences)",
+  "dbasis": "report context: July 2 account"
+ },
+ {
+  "id": "POS-B-us-3c-40",
+  "fc": "corrected",
+  "why": "Activity said Hancock assumed command. Passage: Meade 'directed me to assume command of the Third Corps in addition to that of my own', and by this arrangement immediate command devolved on Birney. Narrowed to the direction given; 'About this time' continues the sequence.",
+  "act": "Hancock: Meade informed him that Sickles had been wounded and directed him to assume command of the Third Corps in addition to his own; by this arrangement immediate command of the Third Corps devolved on Birney",
+  "q2": [
+   "and that of the Third upon General Birney"
+  ],
+  "dbasis": "report context: July 2 account"
+ },
+ {
+  "id": "POS-B-us-3c-33",
+  "fc": "passed_full_read",
+  "why": "'At 4 o'clock the Third Corps advanced, and, swinging round its left flank, took up a position along the Emmitsburg road' in one sentence; same report's earlier 'advance of the Third Corps at 4 p. m.'.",
+  "mer": true,
+  "wdesc": "meridian inferred: the same report prints 'At the advance of the Third Corps at 4 p. m.' for this advance",
+  "dbasis": "report context: report covers July 2 and 3; Third Corps advance on the 2d"
+ },
+ {
+  "id": "POS-B-us-3c-41",
+  "fc": "passed_full_read",
+  "why": "Gibbon: 'About this time the command of the corps was turned over to me by Major-General Hancock'; opening paragraph of the same report says Hancock was ordered to take the Third Corps during the battle of the 2d. Corps = Second Corps by the report's own wording.",
+  "dbasis": "report context: battle of the 2d"
+ },
+ {
+  "id": "POS-B-us-3c-60",
+  "fc": "passed_full_read",
+  "why": "Hall: 'Until 4.30 p. m. the firing ... confined to artillery and the pickets. About this time the Third Corps ... was advanced, and the engagement became general'; continuing sentence, unit and position as claimed.",
+  "wdesc": "printed in the continuing sentence: \"About this time\" after \"Until 4.30 p. m.\""
+ },
+ {
+  "id": "POS-B-us-3c-52",
+  "fc": "passed_full_read",
+  "why": "French (July 9 report): details from this corps 'buried the following number of dead on the battle-field of Gettysburg, July 4 and 5'; tables by division follow.",
+  "dbasis": "report context: date range July 4 and 5 printed; date field gives first day"
+ },
+ {
+  "id": "POS-B-us-3c-53",
+  "fc": "corrected",
+  "why": "Removed 'he was not at Gettysburg' (compiler inference; passage says only that the main body engaged the enemy at and about Gettysburg while his troops were around Frederick). July 7 is the date of the orders; joining and assuming command on July 9 printed later in the report.",
+  "act": "French (with the Harper's Ferry troops then under his command): by orders from army headquarters dated July 7, at Frederick, joined the Third Army Corps; he assumed command of the corps on July 9",
+  "q2": [
+   "and assumed command on July 9"
+  ]
+ },
+ {
+  "id": "POS-B-us-3c-art-4ny-08",
+  "fc": "passed_full_read",
+  "why": "French, Sept. 13: no guns lost 'with the exception of three Parrott guns of the Fourth New York Independent Battery, during the engagement of July 2'.",
+  "dbasis": "date printed in the same sentence: engagement of July 2"
+ },
+ {
+  "id": "POS-B-us-3c-01",
+  "fc": "corrected",
+  "why": "Activity said Sickles 'resumed command'; passage says he 'reported for duty and relieved me from the command of the corps' ('resumed' is a gloss). Date digit OCR 'June 38': report opens 'from June 28 to July 3' and next date is June 30, so 28 is settled by the report itself.",
+  "act": "Third Corps, under Birney's command, marched from Middletown, Md., to Frederick, where Major-General Sickles reported for duty and relieved Birney from command of the corps; Birney resumed command of his division",
+  "dbasis": "report opens 'from June 28 to July 3'; OCR 'June 38' read as June 28 by the report's own date sequence",
+  "ocr": true
+ },
+ {
+  "id": "POS-B-us-3c-38",
+  "fc": "corrected",
+  "why": "Time 'At 6 o'clock' is in the same sentence. Removed '(corps)': the passage says only 'took command of the troops'. Meridian not printed; sequence (fight from 4, relief 'toward dusk', Hancock about 7.30) settles p. m.",
+  "act": "Birney found Major-General Sickles seriously wounded at 6 o'clock and, at his request, took command of the troops",
+  "mer": true,
+  "wdesc": "meridian inferred: follows the 4 o'clock fight and precedes Hancock's arrival 'about 7.30 o'clock'",
+  "dbasis": "report context: July 2 narrative"
+ },
+ {
+  "id": "POS-B-us-3c-42",
+  "fc": "passed_full_read",
+  "why": "'toward dusk' in same sentence; 'My division' (Birney's First Division) relieved from the front line by the Second and Fifth Corps. Note: act names the First Division though unit_id is the corps (builder issue).",
+  "dbasis": "report context: July 2 narrative"
+ },
+ {
+  "id": "POS-B-us-3c-1d-03",
+  "fc": "passed_full_read",
+  "why": "Heading 'In the Field, July 4, 1863' is the date of writing and the verb is present tense ('is on the front line, on the left of the Second Corps'); Eustis' brigade named.",
+  "wdesc": "date of writing printed in the document heading; present-tense statement"
+ },
+ {
+  "id": "POS-B-us-3c-1d-04",
+  "fc": "corrected",
+  "why": "'this division' is not named in the sentence; the First Division is the compiler's reading from the preceding sentence ('A portion of the First Division ...'). 'Since yesterday' (July 3) is relative to the July 4 heading. Narrowed and hedged.",
+  "act": "Birney (July 4): four regiments from 'this division' (the First Division by the preceding sentence; not named in this sentence) have been detached with the Second Corps since yesterday; he asks that they be relieved and returned to his command",
+  "q2": [
+   "I respectfully request that they be relieved and returned to my command"
+  ],
+  "dbasis": "date of writing printed in the document heading (July 4, 1863); 'since yesterday' = July 3"
+ },
+ {
+  "id": "POS-B-us-3c-2d-01",
+  "fc": "passed_full_read",
+  "why": "Heading July 4, 1863; 'The Second Division is held in reserve, supporting the right of General Sykes' line and the left of the Second Corps' printed in present tense.",
+  "wdesc": "date of writing printed in the document heading; present-tense statement"
+ },
+ {
+  "id": "POS-B-us-3c-1d-07",
+  "fc": "passed_full_read",
+  "why": "Same sentence continues after 'On the morning of June 38': 'I resumed command of this division, and marched to Walkersville, on the road to Taneytown, and bivouacked beyond the town'. Tier already inferred (date not printed for the Walkersville march).",
+  "dbasis": "report context: continuing sentence after 'June 38' (OCR for June 28); no separate date printed for the Walkersville march"
+ },
+ {
+  "id": "POS-B-us-3c-1d-08",
+  "fc": "passed_full_read",
+  "why": "'On June 30, it remained in bivouac until 3 p. m.' same sentence; 'it' = the division of the preceding sentence; place not printed, none claimed."
+ },
+ {
+  "id": "POS-B-us-3c-1d-09",
+  "fc": "passed_full_read",
+  "why": "'and I then received orders to proceed immediately to Emmitsburg' continues the 'until 3 p. m.' sentence; Birney is the division commander."
+ },
+ {
+  "id": "POS-B-us-3c-1d-10",
+  "fc": "corrected",
+  "why": "Distance is OCR-damaged ('1^ miles') but was read as 1.5 with confidence. Marked OCR: fraction unreadable. 'night of' not printed; sequence follows 'On June 30' orders.",
+  "act": "Division bivouacked within 1 and a fraction miles (printed '1^ miles'; fraction unreadable in OCR) of Emmitsburg on June 30, under Sickles' orders",
+  "ocr": true,
+  "wdesc": "OCR glyph only: distance '1^ miles' fraction unreadable; date by continuing sequence after 'On June 30'"
+ },
+ {
+  "id": "POS-B-us-3c-1d-11",
+  "fc": "passed_full_read",
+  "why": "'On the morning of July 1, the division took position beyond Emmitsburg, toward Gettysburg, covering the road from Fairfield and Gettysburg' one sentence; all place words printed."
+ },
+ {
+  "id": "POS-B-us-3c-1d-12",
+  "fc": "passed_full_read",
+  "why": "'During the afternoon of the same day, at 2 o'clock, I was ordered by Major-General Sickles to proceed immediately to Gettysburg with my First and Second Brigades and three batteries, reporting to ... Howard': afternoon printed in same sentence."
+ },
+ {
+  "id": "POS-B-us-3c-1d-13",
+  "fc": "passed_full_read",
+  "why": "'My command reached Gettysburg at 5.30 p. m.' with mud/First and Eleventh Corps road clause in the same sentence; 'my command' = First and Second Brigades and batteries of the preceding sentence (Third Brigade left at Emmitsburg)."
+ },
+ {
+  "id": "POS-B-us-3c-1d-14",
+  "fc": "passed_full_read",
+  "why": "'At 7 a. m., under orders from Major-General Sickles, I relieved Geary's division, and formed a line, resting its left on the Sugar Loaf Mountain' etc. all in one sentence; later change of front is a separate later event."
+ },
+ {
+  "id": "POS-B-us-3c-1d-15",
+  "fc": "corrected",
+  "why": "Time 'At 7 a. m.' is in the preceding sentence, not this one; the picket-line sentence has no explicit time connector. Time removed from when.printed.",
+  "wp": null,
+  "wdesc": "time in a different sentence: \"At 7 a. m.\" (preceding sentence, forming the line)",
+  "dbasis": "report context: July 2 narrative before 'At 12 m.'"
+ },
+ {
+  "id": "POS-B-us-3c-1d-ward-1ussharpshooters-01",
+  "fc": "corrected",
+  "why": "'At 12 m.' times Birney's receiving permission, not the sending or arrival. Activity narrowed; Millerstown road is in the next sentence about the advance, so place cleared.",
+  "act": "At 12 m. Birney received permission from Major-General Sickles to send 100 of Berdan's Sharpshooters, with the Third Maine Regiment as a support, to feel the enemy's right; he sent Capt. Briscoe of his staff with the reconnaissance, under Colonel Berdan",
+  "pp": null,
+  "ppd": "Millerstown road is printed only in the next sentence, about the advance"
+ },
+ {
+  "id": "POS-B-us-3c-1d-ward-3me-01",
+  "fc": "corrected",
+  "why": "'At 12 m.' times Birney's receiving permission to send the force, not the Third Maine's movement; peach orchard is in the next sentence. Narrowed; place cleared.",
+  "act": "At 12 m. Birney received permission from Major-General Sickles to send 100 of Berdan's Sharpshooters with the Third Maine Regiment as a support, to feel the enemy's right",
+  "pp": null,
+  "ppd": "peach orchard is printed only in the next sentence, about the advance"
+ },
+ {
+  "id": "POS-B-us-3c-1d-ward-1ussharpshooters-02",
+  "fc": "corrected",
+  "why": "'At 12 m.' is two sentences before the advance and is the time of the permission; no explicit continuing time word. Time removed.",
+  "wp": null,
+  "wdesc": "time in a different sentence: \"At 12 m.\" (permission to send the reconnaissance, two sentences earlier)"
+ },
+ {
+  "id": "POS-B-us-3c-1d-ward-1ussharpshooters-03",
+  "fc": "corrected",
+  "why": "Time 'At 12 m.' is several sentences earlier. Passage says the three columns were 'marching to our left' (not 'Union left'). Narrowed.",
+  "act": "Reconnaissance driven back by overwhelming numbers with a loss of about 60, killed and wounded; three columns of the enemy's forces were found marching to our left",
+  "q2": [
+   "but three columns of their forces were found marching to our left"
+  ],
+  "wp": null,
+  "wdesc": "time in a different sentence: \"At 12 m.\" (permission to send the reconnaissance, several sentences earlier)"
+ },
+ {
+  "id": "POS-B-us-3c-1d-ward-3me-02",
+  "fc": "corrected",
+  "why": "Time 'At 12 m.' is several sentences earlier; 'The force sent by me' (sharpshooters with the Third Maine as support) was driven back. Time removed.",
+  "wp": null,
+  "wdesc": "time in a different sentence: \"At 12 m.\" (permission to send the reconnaissance, several sentences earlier)"
+ },
+ {
+  "id": "POS-B-us-3c-1d-16",
+  "fc": "passed_full_read",
+  "why": "'I was ordered by that officer to change my front ... I did this by advancing my left 500 yards, and swinging around the right so as to rest on the Emmitsburg road at the peach orchard'; no clock time claimed.",
+  "wdesc": "compiler reading from order of events: after the reconnaissance driven back, before 'say at 3.30 p. m.'",
+  "dbasis": "report context: July 2 narrative"
+ },
+ {
+  "id": "POS-B-us-3c-1d-17",
+  "fc": "corrected",
+  "why": "Time 'At 4 o'clock' belongs to the enemy's artillery return two sentences earlier; this sentence ('As the fight was now furious, and my thin line reached ...') has no clock phrase. t removed.",
+  "t": null,
+  "wp": null,
+  "wdesc": "time in a different sentence: \"At 4 o'clock\" (enemy returned the artillery fire, two sentences earlier)"
+ },
+ {
+  "id": "POS-B-us-3c-1d-18",
+  "fc": "passed_full_read",
+  "why": "'At 4 o'clock the enemy returned the artillery fire on my entire front, and advanced their infantry en masse' one sentence; preceding sentence prints 'say at 3.30 p. m.'.",
+  "mer": true,
+  "wdesc": "meridian inferred: preceding sentence prints 'say at 3.30 p. m.'"
+ },
+ {
+  "id": "POS-B-us-3c-1d-19",
+  "fc": "corrected",
+  "why": "'Fifth Corps' is not printed here (passage says 'Major-General Sykes' and 'his command'); the 4 o'clock phrase is in the preceding sentence; Barnes later withdrew 300 yards to the rear, which the claim omitted.",
+  "act": "Major-General Sykes reached Birney's left opportunely and protected that flank; part of his command under General Barnes had been placed in rear of the right of De Trobriand's brigade, but during the fight Barnes withdrew his force and formed some 300 yards farther in the rear",
+  "q2": [
+   "he withdrew his force, and formed some 300 yards farther in the rear"
+  ],
+  "wp": null,
+  "wdesc": "time in a different sentence: \"At 4 o'clock\" (enemy's advance, preceding sentence)"
+ },
+ {
+  "id": "POS-B-us-3c-1d-21",
+  "fc": "passed_full_read",
+  "why": "'During July 3, this division, under command of General Ward, was held in reserve, and during the heavy artillery fire of that day was brought up under it to support General Newton's line' one sentence; 'repulsed without its assistance' follows."
+ },
+ {
+  "id": "POS-B-us-3c-1d-22",
+  "fc": "passed_full_read",
+  "why": "'My line was formed with Ward on the left, resting on the mountain'; Ward's brigade named; no clock time claimed.",
+  "wdesc": "compiler reading from order of events: line formed after the change of front",
+  "dbasis": "report context: July 2 narrative"
+ },
+ {
+  "id": "POS-B-us-3c-1d-graham-01",
+  "fc": "passed_full_read",
+  "why": "'Graham on my right in the peach orchard, with his right on the Emmitsburg road' same sentence as the line formed after the change of front; no clock time claimed.",
+  "wdesc": "compiler reading from order of events: line formed after the change of front",
+  "dbasis": "report context: July 2 narrative"
+ },
+ {
+  "id": "POS-B-us-3c-1d-trobriand-01",
+  "fc": "passed_full_read",
+  "why": "'De Trobriand in the center' of the line formed after the change of front; same sentence as Ward and Graham.",
+  "wdesc": "compiler reading from order of events: line formed after the change of front",
+  "dbasis": "report context: July 2 narrative"
+ },
+ {
+  "id": "POS-B-us-3c-1d-graham-02",
+  "fc": "passed_full_read",
+  "why": "'Graham's brigade was subjected at the point of the angle of the line on the Emmitsburg road to a fearful artillery fire, enfilading his line' one sentence; no clock time claimed.",
+  "dbasis": "report context: July 2 narrative"
+ },
+ {
+  "id": "POS-B-us-3c-1d-graham-03",
+  "fc": "passed_full_read",
+  "why": "'this brigade, with the assistance of the Third Maine ... and the Third Michigan ... held the peach orchard until nearly dusk, when, finding the right unsupported, it fell back to the next ridge'; all in one sentence.",
+  "dbasis": "report context: July 2 narrative"
+ },
+ {
+  "id": "POS-B-us-3c-1d-graham-04",
+  "fc": "passed_full_read",
+  "why": "'General Graham was wounded and fell into the hands of the enemy, with Lieutenant-Colonel Cavada ... and Major Neeper'; regiments named in the sentence; no clock time claimed.",
+  "dbasis": "report context: July 2 narrative"
+ },
+ {
+  "id": "POS-B-us-3c-1d-trobriand-02",
+  "fc": "corrected",
+  "why": "'at 2 o'clock' is in the preceding sentence (the order for the First and Second Brigades); the Third Brigade sentence has no time connector. Time removed from when.printed.",
+  "wp": null,
+  "wdesc": "time in a different sentence: \"at 2 o'clock\" (order to proceed to Gettysburg, preceding sentence)",
+  "dbasis": "report context: afternoon of July 1"
+ },
+ {
+  "id": "POS-B-us-3c-1d-trobriand-07",
+  "fc": "passed_full_read",
+  "why": "'On the morning of July 2, about 9 o'clock, the Third Brigade, Colonel De Trobriand, relieved by orders of the commanding general, rejoined the division' one sentence."
+ },
+ {
+  "id": "POS-B-us-3c-2d-burling-22",
+  "fc": "passed_full_read",
+  "why": "'regiments from Burling's brigade. Second Division (the Fifth, Sixth, and Seventh New Jersey ... and Second New Hampshire). These regiments were sent to me during the contest'; Birney's division; no clock time claimed.",
+  "dbasis": "report context: July 2 narrative"
+ }
+]

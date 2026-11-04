@@ -1,0 +1,284 @@
+[
+{
+"id": "POS-A-1D2-001",
+"fidelity": "passed_full_read",
+"why": "Cutler R037: 'moved from camp early on the 1st instant (being the leading brigade of the corps) on toward Gettysburg'; one sentence; 7th Indiana excepted as printed.",
+"patch": {}
+},
+{
+"id": "POS-A-1D2-002",
+"fidelity": "passed_full_read",
+"why": "'when within about 2 miles of the town ... ordered to move obliquely to the left ... to the ridge near the seminary, west of the town'; time, place, unit all printed in the one sentence.",
+"patch": {}
+},
+{
+"id": "POS-A-1D2-003",
+"fidelity": "corrected",
+"why": "'(about 10 a. m.)' is not in the sentence; 10 a. m. appears only at the end of the report as the whole brigade's action span. Removed w.",
+"patch": {
+"w": null,
+"wd": "time in a different sentence: 'having been in action from 10 a. m. until 4 p. in.' (end of report, applied to the balance of the brigade)"
+}
+},
+{
+"id": "POS-A-1D2-004",
+"fidelity": "corrected",
+"why": "No hour in the sentence about the 95th NY and 14th Brooklyn detached by Reynolds; 10 a. m. belongs to the whole brigade later in the report. Removed w.",
+"patch": {
+"w": null,
+"wd": "time in a different sentence: 'having been in action from 10 a. m. until 4 p. in.' (end of report, whole brigade); detachment is pluperfect ('had been detached'), no hour printed"
+}
+},
+{
+"id": "POS-A-1D2-005",
+"fidelity": "corrected",
+"why": "'late morning to noon' not printed; passage has no clock for the fall-back. Also: the 147th did not receive the order and the report adds 'and subsequently farther back'; act narrowed.",
+"patch": {
+"w": null,
+"wd": "compiler reading from order of events: after the start of action and before the 'until 2 o'clock' sentence; no clock printed for the fall-back",
+"act": "Three regiments under Cutler held their ground until ordered by Wadsworth to fall back to the woods on the next ridge (56th PA and 76th NY fell back; the 147th NY did not receive the order); after falling back to the woods and subsequently farther back, ordered again to advance and occupy the crest; occupied the old ground from half to three-quarters of an hour"
+}
+},
+{
+"id": "POS-A-1D2-006",
+"fidelity": "corrected",
+"why": "place.printed 'right of the line near the seminary ridge woods' is a compiler composite; passage gives only 'the old ground' / crest of the ridge and the enemy on the right flank. Hour '2 o'clock' is in the same sentence (meridian not printed).",
+"patch": {
+"pp": "the crest of the ridge (old ground)",
+"note_add": "Meridian of '2 o'clock' not printed (afternoon by sequence after the 10 a. m. start). Place is the crest of the ridge Cutler was ordered to occupy again; no more exact place printed."
+}
+},
+{
+"id": "POS-A-1D2-007",
+"fidelity": "passed_full_read",
+"why": "'came into line on Robinson's left, where I remained until out of ammunition ... fell back under the hill'; follows the 2 o'clock sentence so afternoon is supported by sequence.",
+"patch": {
+"wd": "compiler reading from order of events: follows the 'until 2 o'clock' sentence in the same paragraph"
+}
+},
+{
+"id": "POS-A-1D2-008",
+"fidelity": "passed_full_read",
+"why": "railroad, three regiments to the seminary, 'moved off on the railroad embankment', through town to Cemetery Hill all printed; late afternoon is sequence reading after 2 o'clock and before the 4 p. m. end.",
+"patch": {
+"wd": "compiler reading from order of events: after the 2 o'clock sentence, before 'until 4 p. in.'; no clock in the sentences themselves"
+}
+},
+{
+"id": "POS-A-1D2-009",
+"fidelity": "corrected",
+"why": "Passage says 'the balance of the brigade' (7th Indiana had just joined and was sent elsewhere) 'having been in action from 10 a. m. until 4 p. in.'; claim said whole brigade.",
+"patch": {
+"act": "The balance of the brigade (not the 7th Indiana, which joined on Cemetery Hill) 'having been in action from 10 a. m. until 4 p. m.' on July 1",
+"note_add": "'p. in.' is OCR for 'p. m.'; the digits 10 and 4 are legible."
+}
+},
+{
+"id": "POS-A-1D2-010",
+"fidelity": "corrected",
+"why": "Passage: the Seventh went to hold the crest of a hill to the right, and 'the balance of the brigade' was allowed to rest; claim said the brigade rested.",
+"patch": {
+"act": "After passing through town to Cemetery Hill the brigade was joined by the 7th Indiana, which Wadsworth sent to hold the crest of a hill to the right; the balance of the brigade was allowed to rest for the night",
+"wd": "compiler reading from order of events: sentence precedes 'Early on the morning of the 2d instant'"
+}
+},
+{
+"id": "POS-A-1D2-011",
+"fidelity": "corrected",
+"why": "place.printed added '(right of Cemetery Hill)', not in this sentence (it says only 'the hill'); gazetteer id by inference only.",
+"patch": {
+"pp": "the hill",
+"note_add": "The sentence says only 'the hill'; 'a hill to the right' is the Seventh Indiana's position in the preceding sentence; the gazetteer id is inference."
+}
+},
+{
+"id": "POS-A-1D2-012",
+"fidelity": "corrected",
+"why": "'evening of July 2' is not printed: Cutler's text for the efforts to turn the right says 'on the night of the 2d' (Kellogg paragraph); act corrected to night.",
+"patch": {
+"act": "Fighting on July 2 and 3 was 'mostly in the trenches' with small loss to the brigade; on the night of the 2d the enemy were making strenuous efforts to turn the right flank and re-enforcements were moved to the right (Kellogg paragraph)",
+"note_add": "Date digits: heading and the 'operations of the 3d and 3d instant' sentence print 3d; 'night of the 2d' is printed in the Kellogg paragraph."
+}
+},
+{
+"id": "POS-A-1D2-013",
+"fidelity": "passed_full_read",
+"why": "'The loss of this gallant regiment was fearful ... 207 out of 380 men and officers within half an hour'; 12+195=207 matches printed components; digits legible.",
+"patch": {}
+},
+{
+"id": "POS-A-1D2-014",
+"fidelity": "passed_full_read",
+"why": "'The Seventy-sixth New York fared no better. They went in with 348 men and 27 officers'; digits legible (stray bullet before 348); at-the-opening reading is sequence of the sentence group.",
+"patch": {
+"wd": "compiler reading: 'went in' is the start of the engagement described in the preceding sentences; no clock printed"
+}
+},
+{
+"id": "POS-A-1D2-015",
+"fidelity": "passed_full_read",
+"why": "'They went into action with 17 officers and 235 men'; Hofmann R042 prints the same 17 and 235, which corroborates the digits.",
+"patch": {
+"wd": "compiler reading: 'went into action' is the start of the engagement; no clock printed"
+}
+},
+{
+"id": "POS-A-1D2-016",
+"fidelity": "corrected",
+"why": "'previously detached at Emmitsburg' has no date; July 1 afternoon belongs to joining the brigade at Gettysburg. Act narrowed to say so.",
+"patch": {
+"act": "7th Indiana had been previously detached at Emmitsburg by order of Reynolds (date not printed) and joined the brigade at Gettysburg on the afternoon of July 1",
+"note_add": "The date July 1 is that of joining the brigade; the detachment date is not printed ('previously')."
+}
+},
+{
+"id": "POS-A-1D2-017",
+"fidelity": "passed_full_read",
+"why": "'By command of General Wadsworth, we took up a position on the hill east of Gettysburg, forming at that time the extreme right of our lines'; follows 'On the afternoon of July 1' in the continuing narrative.",
+"patch": {
+"wd": "printed in the continuing sentence: 'On the afternoon of July 1' (previous sentence)"
+}
+},
+{
+"id": "POS-A-1D2-018",
+"fidelity": "corrected",
+"why": "w was a compiler composite; only 'immediately' is printed in this sentence; the afternoon of July 1 comes from the preceding sentences.",
+"patch": {
+"w": "immediately",
+"wd": "printed in the continuing sentence: 'On the afternoon of July 1' (earlier in the paragraph); 'We immediately commenced' continues from the position taken"
+}
+},
+{
+"id": "POS-A-1D2-019",
+"fidelity": "passed_full_read",
+"why": "'continued to occupy until the evening of the 3d instant ... ordered, with two other regiments of the brigade, to the support of a portion of the Eleventh Corps on Cemetery Hill'; later morning order (advance through town, countermanded) follows, no contradiction.",
+"patch": {}
+},
+{
+"id": "POS-A-1D2-020",
+"fidelity": "corrected",
+"why": "w 'the day after July 5' is the compiler's; printed phrase is 'On the following day', continuing from 'On the morning of July 5'.",
+"patch": {
+"w": "On the following day",
+"wd": "printed in the continuing sentence: 'On the morning of July 5, we took up position on the battle-field south of town' (previous sentence)"
+}
+},
+{
+"id": "POS-A-1D2-021",
+"fidelity": "passed_full_read",
+"why": "Cook R039: 'on July 1, at about 10.30 a. m., being the extreme advance regiment of the First Corps, we reached the battle-field near the seminary'; one sentence; hedge 'about' kept.",
+"patch": {}
+},
+{
+"id": "POS-A-1D2-022",
+"fidelity": "corrected",
+"why": "Direction error: passage says the regiment took its old ground, held it, 'then fell back to the woods on the brow of the hill'; claim said advanced to the woods. Day-part also compiler reading.",
+"patch": {
+"act": "Fell back when Major Grover fell mortally wounded and the brigade commander ordered it; the line reformed on the railroad track near the seminary; again advanced and took its old ground, held it for some time, then fell back to the woods on the brow of the hill",
+"w": null,
+"wd": "compiler reading from order of events: follows the 'about 10.30 a. m.' sentence; no later clock printed"
+}
+},
+{
+"id": "POS-A-1D2-023",
+"fidelity": "corrected",
+"why": "'(midday)' is not supported by any clock in R039; place.printed was a composite ('right-oblique of the woods'); passage: advanced right-oblique from the woods on the brow of the hill, enemy behind a fence in the hollow.",
+"patch": {
+"w": null,
+"wd": "compiler reading from order of events: after the 10.30 a. m. arrival and the fall-back to the woods; no clock printed, so 'midday' is not a reading",
+"pp": "a fence in the hollow, advanced right-oblique from the woods on the brow of the hill"
+}
+},
+{
+"id": "POS-A-1D2-024",
+"fidelity": "corrected",
+"why": "'On entering the field' is the opening event of July 1 (heading July 1, 2, 3) but 'morning' is not printed in R040. Removed w.",
+"patch": {
+"w": null,
+"wd": "compiler reading from order of events: 'On entering the field' is the first event of the report; no day-part printed in R040 (Pye R041 says the right wing was engaged 'in the morning')"
+}
+},
+{
+"id": "POS-A-1D2-025",
+"fidelity": "corrected",
+"why": "No clock or day-part printed for the charge at the railroad cut; '(morning)' is compiler reading. Removed w.",
+"patch": {
+"w": null,
+"wd": "compiler reading from order of events: before 'the remainder of the day' sentence; no day-part printed"
+}
+},
+{
+"id": "POS-A-1D2-026",
+"fidelity": "corrected",
+"why": "'(afternoon)' not printed; the same sentence says 'during the remainder of the day'. Printed 'near position' (probably OCR for 'new') hedged in act.",
+"patch": {
+"w": "during the remainder of the day",
+"wd": "printed in the same sentence: 'participated in the action of the brigade during the remainder of the day, and the retreat through Gettysburg'",
+"act": "Participated in the action of the brigade during the remainder of the day and in the retreat through Gettysburg to 'near position on Cemetery Heights' (printed so)",
+"ocr": true,
+"note_add": "'near position' may be OCR for 'new position'."
+}
+},
+{
+"id": "POS-A-1D2-027",
+"fidelity": "corrected",
+"why": "Printed 'On the 3d' is 2/3 OCR confusion, settled by 'On the morning of the 3d ... ordered again' later: the night was July 2. Dropped hedges restored ('partially', 'part of the time in the trenches'); 'brigade' after Greene not printed.",
+"patch": {
+"d": "1863-07-02",
+"w": "until near dark",
+"wd": "OCR glyph: printed 'On the 3d instant' is the 2d by the report's own sequence ('On the morning of the 3d ... ordered again to the right' follows 'relieved shortly after sunrise'); 'until near dark' printed in the same sentence",
+"pp": "on the right, with General Greene",
+"act": "Remained in the second line of the brigade position until near dark, then ordered to re-enforce General Greene on the right; became engaged partially with a regiment 'supposed to be the Tenth Virginia' that had penetrated inside our lines; remained with Greene all night, part of the time in the trenches; relieved shortly after sunrise and returned to the brigade",
+"note_add": "The date field is now July 2 (supersedes the earlier 'date field is the PRINTED date' sentence above): the printed 3d is OCR for 2d by the report's own sequence. The earlier date conflict with POS-A-1D2-028 therefore falls away (cf removed).",
+"cf": []
+}
+},
+{
+"id": "POS-A-1D2-028",
+"fidelity": "passed_full_read",
+"why": "'On the morning of the 3d instant, we were ordered again to the right, to re-enforce General Geary. Fought in the trenches, and lay in reserve until 5 p. m.'; one sentence group, legible digits.",
+"patch": {
+"pp": "the right, to re-enforce General Geary",
+"cf": [],
+"note_add": "Earlier conflict with POS-A-1D2-027 removed: that claim's printed 3d is OCR for 2d (night of July 2)."
+}
+},
+{
+"id": "POS-A-1D2-029",
+"fidelity": "passed_full_read",
+"why": "'We were next ordered to a position on the right of the Theological Seminary, and again engaged the enemy ... retired along with the whole First Army Corps'; afternoon follows 'in the morning' earlier in the same report.",
+"patch": {
+"wd": "compiler reading from order of events: follows 'the ground where the right wing had been engaged in the morning' in the same paragraph; no clock printed"
+}
+},
+{
+"id": "POS-A-1D2-030",
+"fidelity": "passed_full_read",
+"why": "'On the 2d instant, we occupied the intrenchments on the right, and aided in repelling the enemy. No casualties occurred.' One sentence group.",
+"patch": {}
+},
+{
+"id": "POS-A-1D2-031",
+"fidelity": "passed_full_read",
+"why": "'continued in the same intrenchments until about 3 p. m., when we were ordered, with the Fifty-sixth ... and Seventh Indiana, to support the left at a point near the cemetery'; stayed the night; returned morning of 4th.",
+"patch": {}
+},
+{
+"id": "POS-A-1D2-032",
+"fidelity": "passed_full_read",
+"why": "Hofmann R042: 'On the morning of the 1st instant, the regiment ... left camp on the Emmitsburg and Gettysburg road, near Marsh Creek'; all in one sentence.",
+"patch": {}
+},
+{
+"id": "POS-A-1D2-033",
+"fidelity": "passed_full_read",
+"why": "'We marched to Gettysburg, and engaged the enemy at 11 a. m. ... In twenty minutes our loss in killed and wounded was over 70'; hour and numbers in the same sentence group.",
+"patch": {}
+},
+{
+"id": "POS-A-1D2-034",
+"fidelity": "passed_full_read",
+"why": "'On the 2d instant, we engaged the enemy on the ridge in rear of the town. Our loss here was 2 enlisted men killed and 3 wounded.' Ridge not named, as claim notes.",
+"patch": {}
+}
+]

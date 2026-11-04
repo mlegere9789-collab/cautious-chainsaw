@@ -1,0 +1,24 @@
+{
+  "_doc": "Ledger of external sources used by the FIGURES part (figure models). One row per source; claims lists exactly what was taken from it. Nothing else in src/figures3d is sourced: every other dimension is plausible-procedural (data/figures3d/TIERS.json).",
+  "entries": [
+    {
+      "id": "FIG-L-GOULD-1869",
+      "title": "Investigations in the military and anthropological statistics of American soldiers (B. A. Gould, U.S. Sanitary Commission, New York: Hurd and Houghton, 1869)",
+      "where": "Internet Archive item investigationsi00goulgoog (Google scan; metadata year 1869, flagged not in copyright); full text https://archive.org/stream/investigationsi00goulgoog/investigationsi00goulgoog_djvu.txt (918,209 characters)",
+      "licence": "public domain (US publication of 1869; the Internet Archive item is marked not in copyright)",
+      "accessed": "2026-10-31",
+      "how_read": "read through the WebFetch tool in 100,000-character windows (offsets 0, 120000, 560000, 660000, 760000); NOT downloaded to disk, so no file hash exists (sha256: not recorded); the figures below were returned by the fetch tool's summariser with the running-header page numbers, which can be a page off: VERIFY against the scan before anything is called documented",
+      "claims_used": [
+        {"claim": "mean height of the white soldiers measured: 67.240 in (1.708 m)", "page": "251 (running header)", "used_for": "stature scale of the instance record: the rig is 1.73 m, the scale now spans 0.93-1.045 with mean 0.9875 so the population mean is 1.708 m"},
+        {"claim": "mean girth of neck (usual vigor, nearly 9,300 men): 13.638 in (0.346 m); mean breadth of neck 4.22 in (0.107 m)", "page": "259-260", "used_for": "neck of the head part: elliptical, girth 0.346 m at mid height (tested within 12 percent)"},
+        {"claim": "length of head and neck (stature minus height to the 7th cervical vertebra) as a proportion of stature: 0.1481 for 10,876 white soldiers (later series; 0.1488 for 7,904 earlier series); in inches about 9.94", "page": "299 and 825 (approximate)", "used_for": "head and neck proportion of the figure (model: 0.151, 2 percent above)"},
+        {"claim": "mean distance between the acromion tips 12.781 in (0.325 m)", "page": "261", "used_for": "cross-check only; the shoulder width of the body table was NOT changed in this round"}
+      ],
+      "lookups_failed": [
+        "head circumference, breadth and length in inches: the chapter promised for the head ('Dimensions and Proportions of Head', listed in the table of contents) was not found in the windows read (the remaining text from offset 860000 was not read); the head dimensions of the model (0.153 x 0.194 x 0.224 m) therefore remain plausible-procedural and agree only with the head-and-neck proportion above"
+      ],
+      "tier": "inferred (a retrieved public-domain primary source, read through a summarising tool, not yet verified against the scan)",
+      "register": "EG-FIG-0008 (dimensions): note updated in FIGURES3D-NOTES section 9.10"
+    }
+  ]
+}

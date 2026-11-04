@@ -1,0 +1,664 @@
+{
+ "schema": "figures3d-texmaps-1",
+ "tier": "plausible-procedural (TIERS.json F-TEXMAPS)",
+ "note": "generated in code (src/figures3d/texmaps.mjs); not stored; mesh UV are surface metres (16.384 m range at 0.25 mm), a layer tiles every tile_m metres",
+ "size": 256,
+ "mip_levels": 9,
+ "maps": {
+  "NR": "R normal x, G normal y, B roughness, A height/cavity",
+  "AM": "R albedo luminance modulation (128 = 1.0), G micro tint, B wear mask, A dirt mask; worn where B < wear_level*255, dirty where A < dirt_level*255"
+ },
+ "layers": [
+  {
+   "index": 0,
+   "name": "wool_twill",
+   "tile_m": 0.05,
+   "normal_strength": 2.2,
+   "wear_gain": 0.9,
+   "dirt_gain": 0.8,
+   "note": "kersey / broadcloth uniform wool (coats, trousers, kepi): 2/2 diagonal twill, nap fuzz",
+   "sha256": "d0aca740844c533d71ff4ad6f7dcf8091405b96876f82632808b2b7f802ba326"
+  },
+  {
+   "index": 1,
+   "name": "wool_flannel",
+   "tile_m": 0.05,
+   "normal_strength": 1.6,
+   "wear_gain": 0.9,
+   "dirt_gain": 0.8,
+   "note": "shirt flannel, blankets, sashes: plain weave with slubs and heavy nap",
+   "sha256": "2a928e9c31400079121c26baab5fda147ab1371fd1b0c892c018397f5fbbf2f1"
+  },
+  {
+   "index": 2,
+   "name": "jean_cloth",
+   "tile_m": 0.04,
+   "normal_strength": 2.6,
+   "wear_gain": 1,
+   "dirt_gain": 0.9,
+   "note": "cotton-wool jean (Confederate jackets and trousers): tight twill with a ridge",
+   "sha256": "1d690a8229bad0cf5e4ac5360939c6205b6f04bfe438f38c835fe3e35b1c3526"
+  },
+  {
+   "index": 3,
+   "name": "canvas",
+   "tile_m": 0.05,
+   "normal_strength": 2,
+   "wear_gain": 0.9,
+   "dirt_gain": 1,
+   "note": "haversack, knapsack, shelter half: coarse plain weave",
+   "sha256": "9af7eb35cdbd09d415ad150a9345e0bbceeba2f7bebd8a087fbcab67bd1bed70"
+  },
+  {
+   "index": 4,
+   "name": "leather",
+   "tile_m": 0.06,
+   "normal_strength": 1.8,
+   "wear_gain": 1,
+   "dirt_gain": 0.7,
+   "note": "black and russet leather: cellular grain",
+   "sha256": "51e275a434d380e840e76f98422c8f3521b81e830a867f735c176b4144e213f4"
+  },
+  {
+   "index": 5,
+   "name": "brass",
+   "tile_m": 0.05,
+   "normal_strength": 0.6,
+   "wear_gain": 0.7,
+   "dirt_gain": 0.5,
+   "note": "buttons, plates, furniture: brushed with tarnish",
+   "sha256": "ce2dc05ab7daf5e6c4f1f635ab1e72006ac2eeecd2d9b0f666b9767a04fd1b1c"
+  },
+  {
+   "index": 6,
+   "name": "steel_iron",
+   "tile_m": 0.05,
+   "normal_strength": 0.8,
+   "wear_gain": 0.9,
+   "dirt_gain": 0.6,
+   "note": "barrels, locks, blades, tires: scratches and light rust",
+   "sha256": "744eda88bd241da8265c5121585dc10716b769caa39961dd3ab3831e3de32738"
+  },
+  {
+   "index": 7,
+   "name": "wood_grain",
+   "tile_m": 0.1,
+   "normal_strength": 1,
+   "wear_gain": 0.8,
+   "dirt_gain": 0.7,
+   "note": "stocks, staffs, carriage: growth rings and fibre",
+   "sha256": "b4ed9cd2a5648e35b3f18c054f23f5b9ea4e822f6fc69a2d396953c181f1cde5"
+  },
+  {
+   "index": 8,
+   "name": "skin",
+   "tile_m": 0.06,
+   "normal_strength": 1.2,
+   "wear_gain": 0,
+   "dirt_gain": 0.9,
+   "note": "pores, fine lines and redness; stubble is a separate rule (stubble_rule)",
+   "sha256": "43ec3450b1c0e186549a36697cf3181c0a5a8e737a615e830c58e90f9425f829"
+  },
+  {
+   "index": 9,
+   "name": "hair_strands",
+   "tile_m": 0.04,
+   "normal_strength": 1.4,
+   "wear_gain": 0,
+   "dirt_gain": 0.6,
+   "note": "strands along v with per-strand brightness and tint (hair, beards, manes, tails)",
+   "sha256": "07ec3d79ab273a99bd92dbfa476b4eadd549aa3bca7737f2a64df8974079be8b"
+  },
+  {
+   "index": 10,
+   "name": "felt",
+   "tile_m": 0.05,
+   "normal_strength": 1,
+   "wear_gain": 0.9,
+   "dirt_gain": 0.9,
+   "note": "hat felt: short dense fibre",
+   "sha256": "a316aa9906d1a81e75714fcf60a9d62413ac659c4dae64b48e47e051db89e2a3"
+  },
+  {
+   "index": 11,
+   "name": "gum_rubber",
+   "tile_m": 0.08,
+   "normal_strength": 0.9,
+   "wear_gain": 0.8,
+   "dirt_gain": 0.5,
+   "note": "gum blanket and poncho: cracks",
+   "sha256": "1c2c5a7fef576e1bbac5f927d9f11198b0138935cd9952d0b4115c19feb84168"
+  },
+  {
+   "index": 12,
+   "name": "horse_coat",
+   "tile_m": 0.12,
+   "normal_strength": 0.7,
+   "wear_gain": 0,
+   "dirt_gain": 1,
+   "note": "short hair streaks with patchy tone",
+   "sha256": "addc5a882dd953a38a2968d53b4992760865c935afbf69b5e97482b1f463d719"
+  },
+  {
+   "index": 13,
+   "name": "hoof",
+   "tile_m": 0.05,
+   "normal_strength": 1.6,
+   "wear_gain": 0.6,
+   "dirt_gain": 1,
+   "note": "horn: vertical ridges",
+   "sha256": "1576b3feca6e5d6c421e5f1f22ed1ee754fe578a2bd95e6cb75ac758870114bb"
+  },
+  {
+   "index": 14,
+   "name": "cotton_white",
+   "tile_m": 0.04,
+   "normal_strength": 1.2,
+   "wear_gain": 1,
+   "dirt_gain": 1,
+   "note": "gaiters, drum head, shirt linen: fine plain weave",
+   "sha256": "98aff3781f521780c50f68f14b3cc7c0d5e82399b9285721476e94566fc25523"
+  },
+  {
+   "index": 15,
+   "name": "bunting",
+   "tile_m": 0.06,
+   "normal_strength": 1,
+   "wear_gain": 1,
+   "dirt_gain": 0.9,
+   "note": "flag wool bunting: fine plain weave (the flag pattern stays its own texture)",
+   "sha256": "bbdf32e9b3cd0cb023a7ae5298c178352266cc9abc388e55af5ed74c9a74a987"
+  },
+  {
+   "index": 16,
+   "name": "carriage_paint",
+   "tile_m": 0.1,
+   "normal_strength": 0.8,
+   "wear_gain": 1,
+   "dirt_gain": 1,
+   "note": "olive carriage paint over wood: brush marks and chips (wear = chipping)",
+   "sha256": "7863c16b6f43ca48fd2d0c03efd962365da6cdd13d95dbc9af85d4629ae86720"
+  },
+  {
+   "index": 17,
+   "name": "cloth_folds",
+   "tile_m": 0.2,
+   "normal_strength": 3.2,
+   "wear_gain": 0,
+   "dirt_gain": 0,
+   "note": "overlay: creases and drape folds, strength from the vertex wrinkle byte (low 6 bits; bit 7 = vertical drape)",
+   "sha256": "b355ea6f57cc0ef8aa86178319e58188442d60a5fb71374eb9c689872676cf3c"
+  }
+ ],
+ "root_sha256": "51c1487e46db9c93e33626fcdec84b3829544a70ba22d08a80da2b9ab19b7d00",
+ "bytes": {
+  "layers": 18,
+  "maps_per_layer": 2,
+  "mip_levels": 9,
+  "texels_per_layer_per_map_with_mips": 87381,
+  "raw_rgba8_bytes": 12582864,
+  "bc7_bytes": 3145716,
+  "budget_raw_bytes": 16777216,
+  "budget_bc7_bytes": 4194304
+ },
+ "material_map": {
+  "1": {
+   "layer": 8,
+   "layer_name": "skin",
+   "tile_m": 0.06,
+   "nrm": 1.2,
+   "wear": 0,
+   "dirt": 0.9,
+   "albedo_mod": 1,
+   "stubble_rule": {
+    "layer": 8,
+    "applies": "clean-shaven men whose identity hash h5 < 0.35",
+    "region_uv_m": {
+     "v_min": 0.235,
+     "v_max": 0.3,
+     "u_abs_max": 0.085
+    },
+    "note": "a dot-density mask thresholded by 0.35; hair colour at 60 percent value; plausible-procedural, not looked up"
+   }
+  },
+  "2": {
+   "layer": 8,
+   "layer_name": "skin",
+   "tile_m": 0.06,
+   "nrm": 1.2,
+   "wear": 0,
+   "dirt": 0.9,
+   "albedo_mod": 1
+  },
+  "3": {
+   "layer": 9,
+   "layer_name": "hair_strands",
+   "tile_m": 0.04,
+   "nrm": 1.4,
+   "wear": 0,
+   "dirt": 0.6,
+   "albedo_mod": 1
+  },
+  "4": {
+   "layer": -1,
+   "note": "eye shader: sclera veins and wet gloss are shader-side, no tiled map"
+  },
+  "5": {
+   "layer": -1,
+   "note": "iris radial fibre pattern is shader-side (polar noise)"
+  },
+  "7": {
+   "layer": 0,
+   "layer_name": "wool_twill",
+   "tile_m": 0.05,
+   "nrm": 2.2,
+   "wear": 0.9,
+   "dirt": 0.8,
+   "albedo_mod": 1,
+   "army_override": {
+    "army": 1,
+    "layer": 2
+   }
+  },
+  "8": {
+   "layer": 0,
+   "layer_name": "wool_twill",
+   "tile_m": 0.05,
+   "nrm": 2.2,
+   "wear": 0.9,
+   "dirt": 0.8,
+   "albedo_mod": 1
+  },
+  "9": {
+   "layer": 1,
+   "layer_name": "wool_flannel",
+   "tile_m": 0.05,
+   "nrm": 1.6,
+   "wear": 0.9,
+   "dirt": 0.8,
+   "albedo_mod": 1
+  },
+  "10": {
+   "layer": 0,
+   "layer_name": "wool_twill",
+   "tile_m": 0.05,
+   "nrm": 2.2,
+   "wear": 0.9,
+   "dirt": 0.8,
+   "albedo_mod": 1,
+   "army_override": {
+    "army": 1,
+    "layer": 2
+   }
+  },
+  "11": {
+   "layer": 0,
+   "layer_name": "wool_twill",
+   "tile_m": 0.05,
+   "nrm": 2.2,
+   "wear": 0.9,
+   "dirt": 0.8,
+   "albedo_mod": 1
+  },
+  "12": {
+   "layer": 10,
+   "layer_name": "felt",
+   "tile_m": 0.05,
+   "nrm": 1,
+   "wear": 0.9,
+   "dirt": 0.9,
+   "albedo_mod": 1
+  },
+  "13": {
+   "layer": 5,
+   "layer_name": "brass",
+   "tile_m": 0.05,
+   "nrm": 0.6,
+   "wear": 0.7,
+   "dirt": 0.5,
+   "albedo_mod": 1
+  },
+  "14": {
+   "layer": 5,
+   "layer_name": "brass",
+   "tile_m": 0.05,
+   "nrm": 0.6,
+   "wear": 0.7,
+   "dirt": 0.5,
+   "albedo_mod": 1
+  },
+  "15": {
+   "layer": 4,
+   "layer_name": "leather",
+   "tile_m": 0.06,
+   "nrm": 1.8,
+   "wear": 1,
+   "dirt": 0.7,
+   "albedo_mod": 1
+  },
+  "16": {
+   "layer": 4,
+   "layer_name": "leather",
+   "tile_m": 0.06,
+   "nrm": 1.8,
+   "wear": 1,
+   "dirt": 0.7,
+   "albedo_mod": 1
+  },
+  "17": {
+   "layer": 3,
+   "layer_name": "canvas",
+   "tile_m": 0.05,
+   "nrm": 2,
+   "wear": 0.9,
+   "dirt": 1,
+   "albedo_mod": 1
+  },
+  "18": {
+   "layer": 1,
+   "layer_name": "wool_flannel",
+   "tile_m": 0.05,
+   "nrm": 1.6,
+   "wear": 0.9,
+   "dirt": 0.8,
+   "albedo_mod": 1
+  },
+  "19": {
+   "layer": 4,
+   "layer_name": "leather",
+   "tile_m": 0.06,
+   "nrm": 1.8,
+   "wear": 1,
+   "dirt": 0.7,
+   "albedo_mod": 1
+  },
+  "20": {
+   "layer": 7,
+   "layer_name": "wood_grain",
+   "tile_m": 0.1,
+   "nrm": 1,
+   "wear": 0.8,
+   "dirt": 0.7,
+   "albedo_mod": 1
+  },
+  "21": {
+   "layer": 6,
+   "layer_name": "steel_iron",
+   "tile_m": 0.05,
+   "nrm": 0.8,
+   "wear": 0.9,
+   "dirt": 0.6,
+   "albedo_mod": 1
+  },
+  "22": {
+   "layer": 5,
+   "layer_name": "brass",
+   "tile_m": 0.05,
+   "nrm": 0.6,
+   "wear": 0.7,
+   "dirt": 0.5,
+   "albedo_mod": 1
+  },
+  "23": {
+   "layer": 6,
+   "layer_name": "steel_iron",
+   "tile_m": 0.05,
+   "nrm": 0.8,
+   "wear": 0.9,
+   "dirt": 0.6,
+   "albedo_mod": 1
+  },
+  "24": {
+   "layer": 15,
+   "layer_name": "bunting",
+   "tile_m": 0.06,
+   "nrm": 1,
+   "wear": 1,
+   "dirt": 0.9,
+   "albedo_mod": 1
+  },
+  "25": {
+   "layer": 15,
+   "layer_name": "bunting",
+   "tile_m": 0.06,
+   "nrm": 1,
+   "wear": 1,
+   "dirt": 0.9,
+   "albedo_mod": 1
+  },
+  "26": {
+   "layer": 15,
+   "layer_name": "bunting",
+   "tile_m": 0.06,
+   "nrm": 1,
+   "wear": 1,
+   "dirt": 0.9,
+   "albedo_mod": 1
+  },
+  "27": {
+   "layer": 15,
+   "layer_name": "bunting",
+   "tile_m": 0.06,
+   "nrm": 1,
+   "wear": 1,
+   "dirt": 0.9,
+   "albedo_mod": 1
+  },
+  "28": {
+   "layer": 15,
+   "layer_name": "bunting",
+   "tile_m": 0.06,
+   "nrm": 1,
+   "wear": 1,
+   "dirt": 0.9,
+   "albedo_mod": 1
+  },
+  "29": {
+   "layer": 1,
+   "layer_name": "wool_flannel",
+   "tile_m": 0.05,
+   "nrm": 1.6,
+   "wear": 0.9,
+   "dirt": 0.8,
+   "albedo_mod": 1
+  },
+  "30": {
+   "layer": 14,
+   "layer_name": "cotton_white",
+   "tile_m": 0.04,
+   "nrm": 1.2,
+   "wear": 1,
+   "dirt": 1,
+   "albedo_mod": 1
+  },
+  "31": {
+   "layer": 0,
+   "layer_name": "wool_twill",
+   "tile_m": 0.05,
+   "nrm": 2.2,
+   "wear": 0.9,
+   "dirt": 0.8,
+   "albedo_mod": 1
+  },
+  "32": {
+   "layer": 0,
+   "layer_name": "wool_twill",
+   "tile_m": 0.05,
+   "nrm": 2.2,
+   "wear": 0.9,
+   "dirt": 0.8,
+   "albedo_mod": 1
+  },
+  "33": {
+   "layer": 0,
+   "layer_name": "wool_twill",
+   "tile_m": 0.05,
+   "nrm": 2.2,
+   "wear": 0.9,
+   "dirt": 0.8,
+   "albedo_mod": 1
+  },
+  "34": {
+   "layer": 6,
+   "layer_name": "steel_iron",
+   "tile_m": 0.05,
+   "nrm": 0.8,
+   "wear": 0.9,
+   "dirt": 0.6,
+   "albedo_mod": 1
+  },
+  "35": {
+   "layer": 12,
+   "layer_name": "horse_coat",
+   "tile_m": 0.12,
+   "nrm": 0.7,
+   "wear": 0,
+   "dirt": 1,
+   "albedo_mod": 1
+  },
+  "36": {
+   "layer": 9,
+   "layer_name": "hair_strands",
+   "tile_m": 0.04,
+   "nrm": 1.4,
+   "wear": 0,
+   "dirt": 0.6,
+   "albedo_mod": 1
+  },
+  "37": {
+   "layer": 13,
+   "layer_name": "hoof",
+   "tile_m": 0.05,
+   "nrm": 1.6,
+   "wear": 0.6,
+   "dirt": 1,
+   "albedo_mod": 1
+  },
+  "38": {
+   "layer": 4,
+   "layer_name": "leather",
+   "tile_m": 0.06,
+   "nrm": 1.8,
+   "wear": 1,
+   "dirt": 0.7,
+   "albedo_mod": 1
+  },
+  "39": {
+   "layer": 1,
+   "layer_name": "wool_flannel",
+   "tile_m": 0.05,
+   "nrm": 1.6,
+   "wear": 0.9,
+   "dirt": 0.8,
+   "albedo_mod": 1
+  },
+  "40": {
+   "layer": 14,
+   "layer_name": "cotton_white",
+   "tile_m": 0.04,
+   "nrm": 1.2,
+   "wear": 1,
+   "dirt": 1,
+   "albedo_mod": 1
+  },
+  "41": {
+   "layer": 16,
+   "layer_name": "carriage_paint",
+   "tile_m": 0.1,
+   "nrm": 0.8,
+   "wear": 1,
+   "dirt": 1,
+   "albedo_mod": 1
+  },
+  "42": {
+   "layer": 5,
+   "layer_name": "brass",
+   "tile_m": 0.05,
+   "nrm": 0.6,
+   "wear": 0.7,
+   "dirt": 0.5,
+   "albedo_mod": 1
+  },
+  "43": {
+   "layer": 6,
+   "layer_name": "steel_iron",
+   "tile_m": 0.05,
+   "nrm": 0.8,
+   "wear": 0.9,
+   "dirt": 0.6,
+   "albedo_mod": 1
+  },
+  "44": {
+   "layer": 9,
+   "layer_name": "hair_strands",
+   "tile_m": 0.04,
+   "nrm": 1.4,
+   "wear": 0,
+   "dirt": 0.6,
+   "albedo_mod": 1
+  },
+  "46": {
+   "layer": 15,
+   "layer_name": "bunting",
+   "tile_m": 0.06,
+   "nrm": 1,
+   "wear": 1,
+   "dirt": 0.9,
+   "albedo_mod": 1
+  },
+  "47": {
+   "layer": 6,
+   "layer_name": "steel_iron",
+   "tile_m": 0.05,
+   "nrm": 0.8,
+   "wear": 0.9,
+   "dirt": 0.6,
+   "albedo_mod": 1
+  },
+  "48": {
+   "layer": 3,
+   "layer_name": "canvas",
+   "tile_m": 0.05,
+   "nrm": 2,
+   "wear": 0.9,
+   "dirt": 1,
+   "albedo_mod": 1
+  },
+  "49": {
+   "layer": 11,
+   "layer_name": "gum_rubber",
+   "tile_m": 0.08,
+   "nrm": 0.9,
+   "wear": 0.8,
+   "dirt": 0.5,
+   "albedo_mod": 1
+  },
+  "52": {
+   "layer": 14,
+   "layer_name": "cotton_white",
+   "tile_m": 0.04,
+   "nrm": 1.2,
+   "wear": 1,
+   "dirt": 1,
+   "albedo_mod": 1
+  },
+  "53": {
+   "layer": 8,
+   "layer_name": "skin",
+   "tile_m": 0.06,
+   "nrm": 1.2,
+   "wear": 0,
+   "dirt": 0.9,
+   "albedo_mod": 1
+  },
+  "56": {
+   "layer": 4,
+   "layer_name": "leather",
+   "tile_m": 0.06,
+   "nrm": 1.8,
+   "wear": 1,
+   "dirt": 0.7,
+   "albedo_mod": 1
+  }
+ }
+}

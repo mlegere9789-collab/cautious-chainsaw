@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-12T04:03:25.119Z",
+ "generated": "2026-10-12T10:28:22.028Z",
  "method": "4 s of 4x play, pause, frames until engine.busy() is false (the limit is 1800 frames = 30 s; -1 = never)",
  "quietCartographer": [
   {
    "scene": "fresh2",
    "tick": 548,
    "zoom": 14,
-   "framesToRest": 351,
-   "seconds": 5.8
+   "framesToRest": 260,
+   "seconds": 4.3
   },
   {
    "scene": "fresh2",
@@ -20,15 +20,15 @@
    "scene": "field",
    "tick": 620,
    "zoom": 13.5,
-   "framesToRest": 247,
-   "seconds": 4.1
+   "framesToRest": 277,
+   "seconds": 4.6
   },
   {
    "scene": "carry1",
    "tick": 295,
    "zoom": 14,
-   "framesToRest": 365,
-   "seconds": 6.1
+   "framesToRest": 306,
+   "seconds": 5.1
   },
   {
    "scene": "evening1",
@@ -62,205 +62,8 @@
    "scene": "field",
    "tick": 620,
    "zoom": 12,
-   "framesToRest": 412,
-   "seconds": 6.9
+   "framesToRest": 135,
+   "seconds": 2.3
   }
- ],
- "prototype": {
-  "war-room": [
-   {
-    "scene": "fresh2",
-    "tick": 548,
-    "zoom": 14,
-    "framesToRest": 379,
-    "seconds": 6.3
-   },
-   {
-    "scene": "fresh2",
-    "tick": 556,
-    "zoom": 15,
-    "framesToRest": -1,
-    "seconds": null
-   },
-   {
-    "scene": "field",
-    "tick": 620,
-    "zoom": 13.5,
-    "framesToRest": 224,
-    "seconds": 3.7
-   },
-   {
-    "scene": "carry1",
-    "tick": 295,
-    "zoom": 14,
-    "framesToRest": 450,
-    "seconds": 7.5
-   },
-   {
-    "scene": "evening1",
-    "tick": 120,
-    "zoom": 14,
-    "framesToRest": 190,
-    "seconds": 3.2
-   },
-   {
-    "scene": "fresh1",
-    "tick": 451,
-    "zoom": 16,
-    "framesToRest": 305,
-    "seconds": 5.1
-   },
-   {
-    "scene": "field",
-    "tick": 226,
-    "zoom": 13.5,
-    "framesToRest": 368,
-    "seconds": 6.1
-   },
-   {
-    "scene": "field",
-    "tick": 538,
-    "zoom": 14,
-    "framesToRest": 435,
-    "seconds": 7.3
-   },
-   {
-    "scene": "field",
-    "tick": 620,
-    "zoom": 12,
-    "framesToRest": 227,
-    "seconds": 3.8
-   }
-  ],
-  "field-manual": [
-   {
-    "scene": "fresh2",
-    "tick": 548,
-    "zoom": 14,
-    "framesToRest": 355,
-    "seconds": 5.9
-   },
-   {
-    "scene": "fresh2",
-    "tick": 556,
-    "zoom": 15,
-    "framesToRest": 1397,
-    "seconds": 23.3
-   },
-   {
-    "scene": "field",
-    "tick": 620,
-    "zoom": 13.5,
-    "framesToRest": 337,
-    "seconds": 5.6
-   },
-   {
-    "scene": "carry1",
-    "tick": 295,
-    "zoom": 14,
-    "framesToRest": 320,
-    "seconds": 5.3
-   },
-   {
-    "scene": "evening1",
-    "tick": 120,
-    "zoom": 14,
-    "framesToRest": 274,
-    "seconds": 4.6
-   },
-   {
-    "scene": "fresh1",
-    "tick": 451,
-    "zoom": 16,
-    "framesToRest": 1052,
-    "seconds": 17.5
-   },
-   {
-    "scene": "field",
-    "tick": 226,
-    "zoom": 13.5,
-    "framesToRest": 375,
-    "seconds": 6.3
-   },
-   {
-    "scene": "field",
-    "tick": 538,
-    "zoom": 14,
-    "framesToRest": 384,
-    "seconds": 6.4
-   },
-   {
-    "scene": "field",
-    "tick": 620,
-    "zoom": 12,
-    "framesToRest": 198,
-    "seconds": 3.3
-   }
-  ],
-  "map-1863": [
-   {
-    "scene": "fresh2",
-    "tick": 548,
-    "zoom": 14,
-    "framesToRest": -1,
-    "seconds": null
-   },
-   {
-    "scene": "fresh2",
-    "tick": 556,
-    "zoom": 15,
-    "framesToRest": 242,
-    "seconds": 4
-   },
-   {
-    "scene": "field",
-    "tick": 620,
-    "zoom": 13.5,
-    "framesToRest": 136,
-    "seconds": 2.3
-   },
-   {
-    "scene": "carry1",
-    "tick": 295,
-    "zoom": 14,
-    "framesToRest": 336,
-    "seconds": 5.6
-   },
-   {
-    "scene": "evening1",
-    "tick": 120,
-    "zoom": 14,
-    "framesToRest": 133,
-    "seconds": 2.2
-   },
-   {
-    "scene": "fresh1",
-    "tick": 451,
-    "zoom": 16,
-    "framesToRest": 305,
-    "seconds": 5.1
-   },
-   {
-    "scene": "field",
-    "tick": 226,
-    "zoom": 13.5,
-    "framesToRest": 381,
-    "seconds": 6.3
-   },
-   {
-    "scene": "field",
-    "tick": 538,
-    "zoom": 14,
-    "framesToRest": 380,
-    "seconds": 6.3
-   },
-   {
-    "scene": "field",
-    "tick": 620,
-    "zoom": 12,
-    "framesToRest": 239,
-    "seconds": 4
-   }
-  ]
- }
+ ]
 }

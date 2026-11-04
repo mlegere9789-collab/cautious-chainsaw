@@ -1,7 +1,7 @@
 // styles/index.mjs - THE STYLES of this fork: a style is a skin family, the real ground it was drawn for and the interface theme that sits beside it.  Nothing here draws anything: it sets two dials
 // (skin.id, backdrop.id) and tells the shell which theme to wear.  Add a style: register the skin (skins/index.mjs), add an entry here, run node build.mjs.
 export const STYLES = [
-  { id: 'dispatch-paper', family: 'dispatch-paper', label: 'Paper', blurb: 'The survey print: the aerial ghosted into warm paper, brown relief, dark ink with a pale halo.', backdrop: 'real-paper', theme: 'light' },
+  { id: 'dispatch-paper', family: 'dispatch-paper', label: 'Paper', blurb: 'The survey print: the aerial ghosted into cool grey-green paper, relief and contours, dark ink with a pale halo.', backdrop: 'real-paper', theme: 'light' },
   { id: 'dispatch-aerial', family: 'dispatch-aerial', label: 'Aerial', blurb: 'The photograph, dimmed and calmed: white ink with a dark halo.', backdrop: 'real-dim', theme: 'dark' },
 ];
 

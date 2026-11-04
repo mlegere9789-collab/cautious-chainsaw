@@ -1,0 +1,13 @@
+II-07 recheck notes (56 claims, 11 reports R115-R120, R122-R127; Hays/Smyth/Carroll regiment claims, 3d Division, II Corps)
+Counts: passed_full_read 34, corrected 22, downgraded 0. New split claims: 2 (same report R119, from 4oh-04). Validator: errors 0, missing 0.
+Patterns (claims, a claim can have more than one):
+- time from another sentence: 2 (smyth-12nj-01 "during the day"; smyth-14ct-02 non-time wp and compiler "forenoon")
+- merged second report: 0. Merged separate times/positions within one report: 1 (carroll-4oh-04: 9.30 a.m., 4 p.m., 6 p.m. and the 6 p.m. place under a 4 p.m. t; split into 3 claims)
+- later event ignored / hedge dropped: 4 (smyth-05 Thompson retired; smyth-1de-05 "About dark"; 3d-03 "nearly 2" vs "about 2" and Hays hedge on eighty pieces; carroll-06 "driven from there" misattached)
+- compass/road/compiler gloss: 6 (willard-01 "(Hancock)"; carroll-02 "(Eleventh Corps)"; carroll-08 "right of the road"; carroll-07 place phrase belongs to enemy; carroll-4oh-02 road imported from the July 2 position; smyth-03 "Night of")
+- unit identity gloss: 0
+- OCR digit read with confidence: 4 (carroll-4oh-01 "13 m."; carroll-4oh-02 "1-J"; smyth-02 "13 m." read as 12; carroll-8oh-04 "sixty-tour")
+- meridian inferred: 4 (3d-03, carroll-07, carroll-4oh-05 corrected; carroll-7wv-02 passed, mer true)
+- other (unsupported date/duration/label added): smyth-01 "(July 2-3)", smyth-14ct-05 "(July 3)", smyth-108ny-01 "later", smyth-06 "(sic)", smyth-12nj-05 subject was the balance of the command only.
+Ids split: carroll-4oh-04 (adds 9.30 a.m. detachment and 6 p.m. move). Downgraded: none.
+Systematic: (1) compiler parenthetical glosses "(Hancock)", "(Eleventh Corps)", "(July x)", "(sic)" appear in activity text; (2) place phrases borrowed from an adjacent sentence about the enemy (stone wall) were attached to the brigade; (3) times with 2/3-style or digit glyph damage ("13 m.") were normalised to 12 m. in activity; (4) claims with one t_iso carrying several times/places in the activity (4oh-04). Source conflicts noticed but not defects: carroll-8oh-02 (Sawyer 4 p.m.) vs carroll-8oh-01 (Carroll about 1 p.m.); 14in-02 4.30 p.m. vs 4oh-04 4 p.m.; smyth-05 2 p.m. vs 12nj-02 5 p.m.

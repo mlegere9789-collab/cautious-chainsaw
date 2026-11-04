@@ -1,0 +1,17 @@
+# C-VASCGA progress (one line per step; times are the machine's clock on 30 October 2026)
+
+1. Read CLAUDE.md, DEC-019 (owner: no permission requests, find the public rosters; the standing no-account, no-circumvention rules stay), PLAN sections 1.4, 2, 3, 4.1, pipeline README, pilot CSV headers, SOURCES.csv, GAPS.md. DONE.
+2. Unit list: 143 units (89 infantry, 21 cavalry, 33 artillery) from `baseline/dist/data/oob` into `oob_scope.json`. DONE.
+3. Discovery on the Internet Archive (advancedsearch, about 160 queries, 2 s apart; title, subject, collection and per-regiment ordinal sweeps for 41 Georgia, 41 Virginia, 9 South Carolina regiments): 12 usable rosters or lists found; metadata (`possible-copyright-status`, `access-restricted-item`) read for each before download. DONE.
+4. Doles-Cook (4th, 12th, 21st, 44th Georgia) fetched and parsed: 5,654 rows; recall check recovered 137 missed headers. DONE.
+5. Salley vol. II (2nd, 3rd South Carolina) fetched and parsed; muster-roll status rules (rule 6, rule 9) built; officer cross-references grouped: 4,383 rows (881 xref). DONE.
+6. Tompkins Co. K 14th SC, Irby Co. G 18th VA, Beale 9th VA Cavalry, Nichols 61st GA (B to K), Page's Battery parsed. DONE.
+7. Warren 11th GA and Loehr 1st VA rebuilt from word coordinates (`_djvu.xml`); Warren names heavily damaged, flagged. DONE.
+8. SHSP vol. 27 hospital rolls (87 rows for this family) and SHSP vol. 15 officers' paroles (380 rows, 65 units) parsed. DONE.
+9. Page-image self-check on four pages (87 rows): 3 label errors, 1 silent row drop found and fixed; rules widened (event date is not enlistment, re-enlistment, transfers, roll omission). `QA-SAMPLE.md`. DONE.
+10. Blocked or declined, recorded in `acquired.json`, `SOURCES.csv`, `../../GAPS.md`: Chronicling America (HTTP 403 on robots.txt), Henderson Georgia roster (lending-restricted, not opened), Georgia Archives Virtual Vault muster rolls (manuscript images, certificate failure not bypassed), researchonline.net and ahgp.org (no reuse licence / "do not copy"), Georgia Historic Newspapers (text and XML disallowed), FamilySearch, Fold3, Ancestry, Find a Grave and NPS CWSS (not touched). DONE.
+11. `stats.json`, `units.csv`, `sources.json`, README, SOURCES.csv and GAPS.md updated. DONE.
+
+Next, in order of yield: (a) Appomattox enlisted paroles, SHSP 15, by coordinates plus page images (about 40 more units named); (b) Georgia Archives Confederate Muster Rolls images (the 30 June 1863 rolls for the Georgia regiments, if a reading route is approved by the owner under G02); (c) Salley vols. I and III by another identifier; (d) second reading of the Warren pages; (e) the independent sample of PLAN 4.4.
+
+12. Independent audit (30 October 2026, `AUDIT.md`): seed-41 sample of 61 rows plus rounds of 60 and 60, whole-corpus name-in-source check, stats recount, hash and restricted-source check. 12 defect classes repaired in the parsers (Salley headings and out-of-order scan pages, Beale company K and field and staff, Irby, Nichols run-on names, Loehr column leak, Warren headings and status words, Doles-Cook post-war deaths and staff cross-references, Tompkins rank). Rows 15,535 to 15,551; Absent-Documented 4,155 to 4,279; Present-Documented 540 to 541. Frozen pre-audit copy in `_pre_audit/`. Gates R-G1, R-G3, R-G9 not passed; Warren names and the 3rd SC Company F scan order remain open. DONE (repairs); OPEN (formal sample).

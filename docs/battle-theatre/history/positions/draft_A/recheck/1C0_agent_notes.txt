@@ -1,0 +1,28 @@
+Recheck notes, scope A, tags 1C0 (68), FIL (7), RG2 (6), HNT (4) = 85 claims. Every claim read against its full report passage (R029, R030, R007, R340, D0986, D0988, R359, R367, R336, R344, R355 for the split, R070, R069, R251, R338, R028).
+
+Counts per fidelity
+ 1C0: passed_full_read 44, corrected 24, downgraded 0
+ FIL: passed_full_read 3, corrected 4, downgraded 0 (FIL-001 was already tier inferred; corrected = act/why narrowed)
+ RG2: passed_full_read 1, corrected 5, downgraded 0
+ HNT: passed_full_read 2, corrected 2, downgraded 0
+ total: passed 50, corrected 35, downgraded 0
+
+Patterns (claims may carry more than one)
+ time from another sentence / hour not printed: 1C0-006 (7-8 o'clock and "about 8 a. m." are other sentences), 1C0-014/015/019 ("just after Reynolds' death", "afternoon" not supported; arrival is "just previous to" Howard's message), 1C0-034/035/036/037 ("early on July 2", "July 2-3" not printed), RG2-002 (04:00 is the start of the artillery attack, move is "during its continuance"), RG2-004 (3.30-4 p. m. is the compiler's sum of two sentences), HNT-002 (date of the earthwork not printed): 12 claims.
+ merged second report: FIL-007 (J. I. Gregg to the front on the left is R355, not R344): split, 1 added claim (POS-A-FIL-007-s2). FIL-001 (Buford's 10.30 p. m. fact from R337 moved to the reasoning). RG2-005 (73rd Ohio lost most to sharpshooters is Steinwehr R250). 1C0-054 (two itinerary entries, narrowed to July 5): 4 claims.
+ later order ignored: 1C0-026 (Howard's immediate contrary order and the delay were dropped), RG2-006 (kept, later fall-back noted): 1 corrected, 1 annotated.
+ compass/road/place gloss: 1C0-007 (Emmitsburg road, McPherson Ridge), 1C0-009, 010, 013, 021, 027, 028, 031, 032 (place not printed in the sentence), FIL-004, FIL-006, FIL-007, RG2-001, RG2-003: about 15 claims.
+ hedge/condition dropped or overstated: 1C0-028 (only the "remaining regiments"; 12th and 15th on wagon guard), 1C0-009 ("took command of the corps"), RG2-001 (rocky points attributed to the 14th too), RG2-005: 4 claims.
+ unit identity gloss: 1C0-015 (Paul's brigade; passage names Robinson: unit changed to us-1c-2d), HNT-004 (First Corps artillery; passage is the army chief of artillery: unit changed to us-aop), 1C0-013 (Tidball's battery resolved by inference, noted): 3 claims.
+ OCR digit: 1C0-033 to 040 (R030 first section heading prints "July 3" for what is July 2; settled by internal evidence - second heading "The dawn of day" and the appendix "evening of the 2d July" - but flagged ocr true with wd); 1C0-030 "w&st" noted. 9 claims.
+ day-part parenthesised readings annotated in wd (passed): 1C0-008, 011, 012, 016, 017, 018, 020, 022, 023, 024, 045, FIL-005.
+
+Split: POS-A-FIL-007 (add: us-cav-2d-gregg, R355). Downgraded: none.
+
+Systematic points for builders
+ 1. Parenthesised when.printed clocks and day-parts in R029 were all compiler readings of narrative order; Doubleday prints only a handful of clocks (10.15 for Reynolds, about 4 p. m., about 2 p. m., toward 5 o'clock, twilight).
+ 2. place.printed was often a compiler label (front line, field at Gettysburg, line west of the seminary); several were removed (pp null) because the sentence prints no place.
+ 3. R030 (Newton): the 2/3 digit in the first "July 3" heading must be carried as ocr; the Eleventh/First Corps July 2 claims depend on internal evidence only.
+ 4. R007 itinerary claims: 22 claims checked, 21 passed and 1 corrected (1C0-054) (dates are the printed day headings, route words printed); the itinerary is a compiled list, not a field report.
+ 5. HNT-002 earthwork claim: Hunt does not date the earthworks; do not use it as a construction-time anchor (Law 4, earthworks rule).
+ 6. FIL-001 remains an inference: Pleasonton's July 1 order to Merritt does not say where he was.

@@ -95,6 +95,21 @@ export function findSpot({ w, h, anchor, occ, taken = [], gap = 8, margin = 10, 
     }
     for (const n of near) cands.push({ x: n.x, y: n.y });
   }
+  // round 2: when the caller can say how long the card's elbow leader would be (pathFn returns the length, or null when no clear path exists) every free position within reach is judged by it:
+  // a card with a short clear leader beats a nearer one whose leader would have to cross a mark (so a card is never parked far from its subject with no line)
+  if (tok.pathFn && anchor) {
+    const step = Math.max(occ.cell, tok.scanStep ?? 8) * 2; const reach = (tok.reachPx ?? 360) + Math.max(w, h); const seen = new Set(cands.map((c) => c.x + ',' + c.y));
+    for (let y = margin; y <= maxY; y += step) for (let x = margin; x <= maxX; x += step) {
+      if (Math.hypot(x + w / 2 - ac[0], y + h / 2 - ac[1]) > reach || seen.has(x + ',' + y) || !ok(x, y)) continue; cands.push({ x, y }); seen.add(x + ',' + y);
+    }
+    let bestP = null;
+    for (const c of cands) {
+      const L = tok.pathFn(c.x, c.y, w, h); const cx = c.x + w / 2; const cy = c.y + h / 2; let sc = 0.5 * Math.hypot(cx - ac[0], cy - ac[1]) + (L == null ? 1000 : L);
+      if (prefer) sc += pull * Math.hypot(c.x - prefer.x, c.y - prefer.y);
+      if (!bestP || sc < bestP.score) bestP = { x: c.x, y: c.y, score: sc, crossings: L == null ? 1 : 0, pathLen: L };
+    }
+    if (bestP && bestP.pathLen != null) return bestP;
+  }
   let best = null;
   for (const c of cands) { const sc = score(c.x, c.y); if (!best || sc.s < best.score) best = { x: c.x, y: c.y, score: sc.s, crossings: sc.cr }; }
   return best;
@@ -104,4 +119,35 @@ export function findSpot({ w, h, anchor, occ, taken = [], gap = 8, margin = 10, 
 export function firstFreeSlot(slots, w, h, occ, taken = [], gap = 8) {
   for (const s of slots) { if (!occ.isFree(s.x, s.y, w, h)) continue; const r = rectOf(s.x, s.y, w, h); if (taken.some((t) => overlaps(r, t, gap))) continue; return { ...s }; }
   return null;
+}
+
+/** the length of a polyline */
+export const pathLen = (pts) => { let n = 0; for (let i = 1; i < pts.length; i++) n += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]); return n; };
+/** does a polyline cross any of the rectangles (other than those of `skipOwner`)? */
+export function pathHits(pts, rects, skipOwner, pad = 1) {
+  for (let i = 1; i < pts.length; i++) for (const r of rects) { if (skipOwner !== undefined && r.owner === skipOwner) continue; if (r.kind === 'chrome' || r.kind === 'leader' || r.kind === 'dot') continue; if (segHitsRect(pts[i - 1][0], pts[i - 1][1], pts[i][0], pts[i][1], { x0: r.x0 - pad, y0: r.y0 - pad, x1: r.x1 + pad, y1: r.y1 + pad })) return true; }
+  return false;
+}
+/**
+ * The leader of a card (round 2): a short ELBOW from the card's edge to the ring of its subject, in the fewest right angles, that never crosses a mark, a name or a pin (the subject's own excepted).
+ *   card    { x0, y0, x1, y1 } of the card;  a { gx, gy, gr } the subject's glyph and the radius of its ring;  rects the obstacles;  maxLen the longest leader drawn
+ * Candidates, shortest first: a straight line, a horizontal leg then a vertical one, a vertical leg then a horizontal one.  Returns a polyline [[x, y], ...] or null (no clear path: the ring pulses instead).
+ */
+export function elbowPath(card, a, rects, skipOwner, maxLen = 300) {
+  const R = (a.gr || 8) + 2.5; const bx = a.gx; const by = a.gy; const cands = [];
+  const inX = bx >= card.x0 && bx <= card.x1; const inY = by >= card.y0 && by <= card.y1; if (inX && inY) return null;      // the subject under the card: the placement never allows it
+  const clampX = (v) => Math.max(card.x0 + 10, Math.min(card.x1 - 10, v)); const clampY = (v) => Math.max(card.y0 + 10, Math.min(card.y1 - 10, v));
+  const ys = [clampY(by), card.y0 + 12, (card.y0 + card.y1) / 2, card.y1 - 12, card.y0 + (card.y1 - card.y0) * 0.3, card.y0 + (card.y1 - card.y0) * 0.7];
+  const xs = [clampX(bx), card.x0 + 12, (card.x0 + card.x1) / 2, card.x1 - 12];
+  const s = (v) => (v < 0 ? -1 : 1);
+  if (!inX) {                                                                                       // the subject is to the right or the left of the card
+    const sx = bx > card.x1 ? card.x1 : card.x0;
+    for (const sy of ys) { if (Math.abs(sy - by) < 1.5) cands.push([[sx, by], [bx - s(bx - sx) * R, by]]); else cands.push([[sx, sy], [bx, sy], [bx, by - s(by - sy) * R]]); }        // along the card's height, or a horizontal leg and a vertical one
+    if (by < card.y0 || by > card.y1) { const ty = by < card.y0 ? card.y0 : card.y1; for (const sx2 of xs) cands.push([[sx2, ty], [sx2, by], [bx - s(bx - sx2) * R, by]]); }        // a vertical leg off the top or the bottom edge, then a horizontal one
+  } else {                                                                                          // above or below the card
+    const sy = by > card.y1 ? card.y1 : card.y0;
+    for (const sx of xs) { if (Math.abs(sx - bx) < 1.5) cands.push([[bx, sy], [bx, by - s(by - sy) * R]]); else cands.push([[sx, sy], [sx, by], [bx - s(bx - sx) * R, by]]); cands.push([[sx, sy], [bx, sy], [bx, by - s(by - sy) * R]]); }
+  }
+  let best = null; for (const p of cands) { const L = pathLen(p); if (L > maxLen || L < 6) continue; if (pathHits(p, rects, skipOwner)) continue; if (!best || L < best.L) best = { p, L }; }
+  return best ? best.p : null;
 }

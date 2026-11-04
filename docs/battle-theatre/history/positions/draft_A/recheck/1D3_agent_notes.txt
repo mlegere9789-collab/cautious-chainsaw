@@ -1,0 +1,26 @@
+TAG 1D3 (Robinson's 2d Division, I Corps: reports R043-R054), 90 claims, all re-read against the full report passage.
+Validator (positions_A_build.py --out ... --tag 1D3): no error lines; 91 claims for the tag (90 + one split).
+
+Counts per fidelity value (90 decisions): passed_full_read 60, corrected 30 (+1 claim added by split = 31 corrected rows in output), downgraded 0.
+
+Pattern counts among the 30 corrected decisions (a claim can carry two):
+- time from another sentence / another report: 3 (1D3-011 'July 1' from the addendum; 017 '5 p.m.' from Coulter's second report; 032 'afternoon' from R046).
+- day-part or window not printed (compiler reading unsupported by the passage's sequence): 6 (002, 013, 029, 036, 038, 045).
+- merged second report: 0. Same-report merge of two sentences: 1 (067 July 2 and July 3 strengths, split; new claim POS-A-1D3-067-s2).
+- later order ignored: 0 as such; 009 (noon is the notice, the move came 'at the moment' of the cannonade; 'if the line gave way' had been turned into a breaking enemy).
+- compass/road/place gloss: 15 (001 road, 005, 009, 021, 025, 026, 027, 034, 056, 061, 069 'west of Gettysburg', 070, 071 'the ridge' not in Baxter's text, 076, 085).
+- hedge/condition dropped or activity overstated: 6 (005, 009, 015, 052 'a portion of the Second Corps', 070 'brigade' where four regiments, 079 'Late').
+- unit identity gloss: 1 (001 'corps' column).
+- OCR digit: 2 corrected (037 '1 32' spaced figure; 090 hour digit beside a damaged glyph, t_iso removed); 2 passed with ocr flag set and a note (048 'SOth', 089 two 'July 3' headings).
+- other: 034 kind night_position changed to position (halt and line of battle, no night stay printed).
+
+Split claims: POS-A-1D3-067 (-> 067 July 2 strengths, new POS-A-1D3-067-s2 for July 3 strengths with its own quote).
+Downgraded claims: none (every central fact was in its own passage).
+
+Systematic observations:
+1. Parenthesised day-part phrases for reports without hours ("forenoon-noon", "late afternoon", "afternoon", "night") were the main time defect; this tag's reports (regimental diaries and short reports) rarely give an hour for the arrival and the retreat. Those were nulled where the passage's sequence did not fix the day-part and kept (with a 'compiler reading from order of events' wd) where it did (016, 051, 062, 072).
+2. 'Place' fields repeatedly carry the compiler's reference point (from Emmitsburg, west of Gettysburg, Third Corps front, the ridge).
+3. Meridian is never printed for 'about 1 o'clock' (049), 'About 2 o'clock of that day' (054), 'About 5 o'clock' (073); p.m. is read from the sequence and annotated in wd; claims kept documented.
+4. Date by elimination (033, 089): reports with OCR-damaged headings (July 6 twice; July 3 twice) were settled by sequence and annotated.
+5. Unit identity in R044 (Coulter) rests on the report's two parts (Second Brigade part, First Brigade part); noted in 012.
+6. Not checked and not changed: conflict labels (cf), gazetteer ids.

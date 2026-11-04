@@ -139,3 +139,14 @@ export function firstSentence(text) { const m = /^(.+?[.!?])(\s|$)/.exec((text |
 
 /** names of units for a card: drop a name that another listed name already contains ("First Corps" inside "First Brigade, ... First Corps (Iron Brigade)") */
 export function dedupeNames(names) { const u = [...new Set(names)]; return u.filter((n) => !u.some((m) => m !== n && m.includes(n))); }
+
+// ---- typography of the words on a card (round 2) --------------------------------------------------------------------------------------------------------------------------------------------
+const SMALL = new Set(['a', 'an', 'and', 'at', 'by', 'for', 'in', 'of', 'on', 'or', 'over', 'the', 'to', 'with']);
+/** "word -- word" is an em dash; nothing else about the text changes (the words are the data's own) */
+export const tidy = (t) => String(t == null ? '' : t).replace(/\s--\s/g, ' \u2014 ').replace(/(\w)--(\w)/g, '$1\u2014$2');
+/** a chronology row opens with a headline in capitals ("ARMISTEAD LEADS MEN OVER THE WALL."): it is set as a bold sentence in headline case, the rest of the text follows in the text face.  null when the text has none. */
+export function headlineOf(text) {
+  const m = /^([A-Z0-9][A-Z0-9 ,'’&.\-:;]{9,}?[.!?])(\s+)(?=[A-Z])/.exec(text); if (!m) return null; const head = m[1]; if (/[a-z]/.test(head)) return null;
+  const words = head.toLowerCase().split(' ').map((w, i) => (i > 0 && SMALL.has(w) ? w : w.replace(/(^|-)([a-z])/g, (q, a, b) => a + b.toUpperCase()).replace(/^([A-Za-z])['’]([a-z])/, (q, a, b) => a + '’' + b.toUpperCase())));
+  return { head: words.join(' '), rest: text.slice(m[0].length) };
+}

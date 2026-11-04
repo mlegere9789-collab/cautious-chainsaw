@@ -1,0 +1,21 @@
+BATCH II-01 reader notes (45 claims; reports OR27-1-R076 Hancock 41, OR27-1-R006 Meade 2, OR27-1-R028 Hunt 3)
+
+Counts per fc: passed_full_read 14, corrected 31, downgraded 0, split 0 (no add[] entries).
+Validator: decisions 45, missing 0, errors 0.
+
+Patterns (claims may carry more than one):
+- Time from another sentence / non-time wp (most frequent, 20): wp was the corps arrival "about 7 a. m. of the 2d" (3 division claims), "about 3 p. m." Third Corps advance applied to the dispatch of Caldwell (1d-10), "It was nearly dark" belonging to the next paragraph (111ny-07), "the evening of the 2d July" dating a council, not Carroll's arrival (carroll-11), "early in the action" belonging to the Zook clause only (cross-14, brooke-17).
+  Also wp values that are not times at all ("from right to left as follows" x5 artillery + art-08, a purpose clause x2 Harrow, "had not arrived on the ground" x2 Hall, "Brown's battery", "The enemy was now attacking...", "I had just before received an order"). These were removed (wp null, wdesc explains, dbasis gives the report context date).
+- Merged second sentence / far clause of same report (not a second report): 82ny-06 (retirement, Huston killed), art-1rib-05 (gun lost), willard-07 (establishment and engagement ~1,800 chars later), 2c-02, 1d-10, 2c-13 (1h45 duration, which is an interval after which the fire became less furious). Extracts (q2) added. No claim merged a second report.
+- Later order ignored: none found.
+- Compass / road gloss: 19me-06 (brick house / Emmitsburg road is where the enemy came from, not the unit's place; pp/rd narrowed). 15ma-11 keeps rd 'Emmitsburg road' (printed in the preceding sentence).
+- Place not printed for the unit: zook-08, cross-14 (division place from preceding sentence; pp and gz removed).
+- Hedge/condition/label: 71pa-06 ("believing", not "supposed fight"); 12 (parenthetical "held the same line" dropped); 4usa-04 ("(center)" label dropped); 82ny-06 ("fence-rail" not printed); willard-07 ("met Birney retreating"); 1mn-07 (three-fourths loss belongs to the later advance); carroll-11 ("Eleventh Corps batteries" vs "our batteries"); 1d-10 ("Third Corps front").
+- Unit identity gloss: none; 8oh-05 restated as the printed exception (the passage names an exception, not the 8th Ohio's action).
+- OCR digit: 2c-07 "1..30" kept (digits legible, only a doubled point); ocr stays true, explained in wdesc. No 2/3 or glyph digit problem in this batch.
+- Meridian inferred: 2c-13 "About 1 o'clock" settled by preceding "From 11 a. m. until 1 p. m." (mer true).
+- Day-part words: "morning" removed from the act of 2c-10 and the three division claims.
+
+Ids downgraded: none. Ids split: none.
+
+Systematic: the builder's wp for Hancock list-type claims (battery order, division placement) used a heading phrase or the arrival time from an earlier sentence; the date is right but the time should be recorded as report context. Gibbon's letter inside Meade's R006 (carroll-11) is dated by the council it answers, not the fact. Claim 2c-3d-carroll-10 / 8oh-05 / 09 pass or correct on a continuing-sentence basis (preceding sentence prints the date or "nearly dark").

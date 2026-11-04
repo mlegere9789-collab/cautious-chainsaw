@@ -1,0 +1,992 @@
+{
+ "version": 1,
+ "_doc": "Printed engagement windows of formations, from rows of the PDF master timeline (seeded_unverified), built by app/tools/build-engagements.mjs from app/tools/engagement-clauses.mjs. Time is minutes since 1863-06-01 00:00 LMT. A unit takes the windows of every formation above it. Nothing here is a casualty figure.",
+ "conventions": {
+  "time_unit": "minutes since 1863-06-01 00:00 local mean time",
+  "window_basis": [
+   "timeline_window",
+   "point_plus_printed_duration"
+  ],
+  "tier": "inferred (rows are seeded_unverified; never documented)"
+ },
+ "clauses": [
+  {
+   "id": "EN-001",
+   "row": "T1-098",
+   "kind": "fight",
+   "units": [
+    "us-1c-1d-meredith",
+    "cs-3c-heth-archer"
+   ],
+   "phrases": [
+    "Iron Brigade hits Archer"
+   ],
+   "window": {
+    "from": 43800,
+    "to": 43830,
+    "from_iso": "1863-07-01T10:00",
+    "to_iso": "1863-07-01T10:30",
+    "basis": "timeline_window",
+    "raw": "Jul 1 ≈10:00-10:30"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "SUPPORTED_BY_OR",
+    "differs_from_row": null,
+    "ocr_uncertain": true
+   },
+   "note": "Herbst Woods: the Iron Brigade against Archer"
+  },
+  {
+   "id": "EN-002",
+   "row": "T1-103",
+   "kind": "fight",
+   "units": [
+    "us-1c-1d-cutler-147ny"
+   ],
+   "phrases": [
+    "147th NY",
+    "stays and loses 207 of 380"
+   ],
+   "window": {
+    "from": 43830,
+    "to": 43845,
+    "from_iso": "1863-07-01T10:30",
+    "to_iso": "1863-07-01T10:45",
+    "basis": "timeline_window",
+    "raw": "Jul 1 ≈10:30-10:45"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "SUPPORTED_BY_OR",
+    "differs_from_row": null,
+    "ocr_uncertain": false
+   },
+   "note": "the 147th NY holds Cutler’s line; the regimental figure printed in the row is NOT used (see CASUALTIES-NOTES.md)"
+  },
+  {
+   "id": "EN-003",
+   "row": "T1-107",
+   "kind": "fight",
+   "units": [
+    "us-1c-1d-meredith",
+    "cs-3c-heth-archer"
+   ],
+   "phrases": [
+    "Iron Brigade takes prisoners",
+    "Archer’s brigade"
+   ],
+   "window": {
+    "from": 43845,
+    "to": 43860,
+    "from_iso": "1863-07-01T10:45",
+    "to_iso": "1863-07-01T11:00",
+    "basis": "timeline_window",
+    "raw": "Jul 1 ≈10:45-11:00"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "SUPPORTED_BY_OR",
+    "differs_from_row": null,
+    "ocr_uncertain": false
+   },
+   "note": "the Iron Brigade captures Archer’s party"
+  },
+  {
+   "id": "EN-004",
+   "row": "T1-108",
+   "kind": "fight",
+   "units": [
+    "us-1c-1d-meredith-6wi",
+    "us-1c-1d-cutler-95ny",
+    "us-1c-1d-cutler-84ny",
+    "cs-3c-heth-davis"
+   ],
+   "phrases": [
+    "6th WI (Lt. Col. Dawes), 95th NY, 84th NY",
+    "vs Davis’s brigade",
+    "hand-to-hand"
+   ],
+   "window": {
+    "from": 43860,
+    "to": 43890,
+    "from_iso": "1863-07-01T11:00",
+    "to_iso": "1863-07-01T11:30",
+    "basis": "point_plus_printed_duration",
+    "raw": "Jul 1 ≈11:00",
+    "duration_phrase": "under 30 min"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "SUPPORTED_BY_OR",
+    "differs_from_row": "Prisoner count: Dawes 7 officers and about 225 men (about 232) matches the row's 'over 200 (W-FD)'; the row's 'about 300 (W-RRcut)' and Union loss 390-440 / Confederate 500+200 of 1,707 are not stated in the OR passages. No clock time is given by Dawes ('about 11:00' not in OR).",
+    "ocr_uncertain": false
+   },
+   "note": "the railroad cut; the row prints a point (about 11:00) and “under 30 min”"
+  },
+  {
+   "id": "EN-005",
+   "row": "T1-126",
+   "kind": "fight",
+   "units": [
+    "cs-2c-rodes"
+   ],
+   "phrases": [
+    "Rodes’ division",
+    "uncoordinated attack on I Corps’ right flank"
+   ],
+   "window": {
+    "from": 44010,
+    "to": 44040,
+    "from_iso": "1863-07-01T13:30",
+    "to_iso": "1863-07-01T14:00",
+    "basis": "timeline_window",
+    "raw": "Jul 1 ≈13:30-14:00"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "SUPPORTED_BY_OR",
+    "differs_from_row": null,
+    "ocr_uncertain": true
+   },
+   "note": "Rodes’ division attacks from Oak Ridge"
+  },
+  {
+   "id": "EN-006",
+   "row": "T1-129",
+   "kind": "fight",
+   "units": [
+    "cs-2c-rodes-iverson",
+    "us-1c-2d-baxter"
+   ],
+   "phrases": [
+    "Iverson’s brigade (NC) vs Baxter’s six regiments"
+   ],
+   "window": {
+    "from": 44040,
+    "to": 44070,
+    "from_iso": "1863-07-01T14:00",
+    "to_iso": "1863-07-01T14:30",
+    "basis": "timeline_window",
+    "raw": "Jul 1 ≈14:00-14:30"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "AMBIGUOUS_IN_OR",
+    "differs_from_row": "OR disagrees on who moved first: Rodes' order to Iverson and O'Neal was simultaneous (sentence order puts Iverson first), Iverson says he advanced after the Alabama brigade began to move (O'Neal first), Ewell says both were ordered to attack. Neither the 800 of 1,350 nor the times 14:00-14:30 are in the OR (tables unreadable; Iverson's report has no casualty digits).",
+    "ocr_uncertain": true
+   },
+   "note": "Iverson against Baxter"
+  },
+  {
+   "id": "EN-007",
+   "row": "T1-131",
+   "kind": "fight",
+   "units": [
+    "cs-2c-rodes-oneal"
+   ],
+   "phrases": [
+    "O’Neal’s brigade",
+    "Attacks piecemeal, repulsed"
+   ],
+   "window": {
+    "from": 44040,
+    "to": 44100,
+    "from_iso": "1863-07-01T14:00",
+    "to_iso": "1863-07-01T15:00",
+    "basis": "timeline_window",
+    "raw": "Jul 1 ≈14:00-15:00"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "SUPPORTED_BY_OR",
+    "differs_from_row": null,
+    "ocr_uncertain": false
+   },
+   "note": "O’Neal attacks and is repulsed (the defenders are not named in the row)"
+  },
+  {
+   "id": "EN-008",
+   "row": "T1-145",
+   "kind": "fight",
+   "units": [
+    "us-11c-1d",
+    "cs-2c-early"
+   ],
+   "phrases": [
+    "Barlow’s division",
+    "Early’s division",
+    "Gordon attacks"
+   ],
+   "window": {
+    "from": 44100,
+    "to": 44160,
+    "from_iso": "1863-07-01T15:00",
+    "to_iso": "1863-07-01T16:00",
+    "basis": "timeline_window",
+    "raw": "Jul 1 ≈15:00-16:00"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "SUPPORTED_BY_OR",
+    "differs_from_row": null,
+    "ocr_uncertain": true
+   },
+   "note": "Barlow’s Knoll"
+  },
+  {
+   "id": "EN-009",
+   "row": "T1-147",
+   "kind": "fight",
+   "units": [
+    "us-1c-3d-biddle",
+    "us-1c-1d-meredith",
+    "cs-3c-heth-pettigrew"
+   ],
+   "phrases": [
+    "Biddle’s brigade",
+    "Meredith’s Iron Brigade",
+    "vs Pettigrew"
+   ],
+   "window": {
+    "from": 44100,
+    "to": 44130,
+    "from_iso": "1863-07-01T15:00",
+    "to_iso": "1863-07-01T15:30",
+    "basis": "timeline_window",
+    "raw": "Jul 1 ≈15:00-15:30"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "SUPPORTED_BY_OR",
+    "differs_from_row": "OR: Morrow was wounded and left on the field, falling into enemy hands with the wounded (consistent with 'captured' only after the wound). The exact figures 337/467 and 399/496 are not readable in these reports.",
+    "ocr_uncertain": true
+   },
+   "note": "Pettigrew’s assault on the McPherson Ridge line; the regimental figures printed in the row are NOT used"
+  },
+  {
+   "id": "EN-010",
+   "row": "T1-148",
+   "kind": "fight",
+   "units": [
+    "us-1c-3d-stone",
+    "cs-2c-rodes-daniel"
+   ],
+   "phrases": [
+    "Stone’s “Bucktail” brigade vs Daniel"
+   ],
+   "window": {
+    "from": 44100,
+    "to": 44160,
+    "from_iso": "1863-07-01T15:00",
+    "to_iso": "1863-07-01T16:00",
+    "basis": "timeline_window",
+    "raw": "Jul 1 ≈15:00-16:00"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "SUPPORTED_BY_OR",
+    "differs_from_row": null,
+    "ocr_uncertain": false
+   },
+   "note": "the pike and the railroad cut"
+  },
+  {
+   "id": "EN-011",
+   "row": "T1-161",
+   "kind": "fight",
+   "units": [
+    "us-1c-2d-paul-16me"
+   ],
+   "phrases": [
+    "16th Maine (Col. Tilden)",
+    "Rear guard"
+   ],
+   "window": {
+    "from": 44160,
+    "to": 44220,
+    "from_iso": "1863-07-01T16:00",
+    "to_iso": "1863-07-01T17:00",
+    "basis": "timeline_window",
+    "raw": "Jul 1 ≈16:00-17:00"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "SUPPORTED_BY_OR",
+    "differs_from_row": "OR loss for the 16th Maine is 223 killed, wounded and missing; a 298-man regiment with 35 survivors implies about 263 lost. The captured colonel (Tilden) and the Mummasburg Rd stone wall are not named in Farnham's report.",
+    "ocr_uncertain": false
+   },
+   "note": "the 16th Maine rear guard; the regimental figure printed in the row is NOT used"
+  },
+  {
+   "id": "EN-012",
+   "row": "T2-143",
+   "kind": "fight",
+   "units": [
+    "us-3c-1d-ward-124ny"
+   ],
+   "phrases": [
+    "124th New York (Ellis, Cromwell)",
+    "Counterattacks"
+   ],
+   "window": {
+    "from": 45630,
+    "to": 45660,
+    "from_iso": "1863-07-02T16:30",
+    "to_iso": "1863-07-02T17:00",
+    "basis": "timeline_window",
+    "raw": "Jul 2 ~16:30 to 17:00"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "SUPPORTED_BY_OR",
+    "differs_from_row": "Ellis and Cromwell killed is in the OR; the counterattack across a stone-fenced field and the hour are not in this passage.",
+    "ocr_uncertain": false
+   },
+   "note": "Houck’s Ridge"
+  },
+  {
+   "id": "EN-013",
+   "row": "T2-144",
+   "kind": "fight",
+   "units": [
+    "cs-1c-hood-law"
+   ],
+   "phrases": [
+    "Law’s brigade",
+    "First attacks"
+   ],
+   "window": {
+    "from": 45630,
+    "to": 45660,
+    "from_iso": "1863-07-02T16:30",
+    "to_iso": "1863-07-02T17:00",
+    "basis": "timeline_window",
+    "raw": "Jul 2 ~16:30 to 17:00"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "SUPPORTED_BY_OR",
+    "differs_from_row": "Supported: repeated assaults thrown back and the long march (20-24 miles). 'Out of water' and the specific regiments 47th Alabama and 4th/5th Texas are in other reports not read here.",
+    "ocr_uncertain": false
+   },
+   "note": "Law on the south-west slope of Little Round Top"
+  },
+  {
+   "id": "EN-014",
+   "row": "T2-151",
+   "kind": "fight",
+   "units": [
+    "us-3c-1d-ward-20in",
+    "us-3c-1d-ward-99pa",
+    "us-3c-1d-ward-4me",
+    "us-3c-1d-trobriand-40ny"
+   ],
+   "phrases": [
+    "20th Indiana; 99th Pennsylvania; 4th Maine; 40th NY; 6th NJ"
+   ],
+   "window": {
+    "from": 45630,
+    "to": 45690,
+    "from_iso": "1863-07-02T16:30",
+    "to_iso": "1863-07-02T17:30",
+    "basis": "timeline_window",
+    "raw": "Jul 2 ~16:30 to 17:30"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "SUPPORTED_BY_OR",
+    "differs_from_row": "Supported: 20th Indiana attacked about 16:00, its colonel and many men lost (28 killed, 109 wounded); 40th NY and 6th NJ in the gully. Not found: 'over half in 30 minutes' and the 99th PA's role in these passages. 4th Maine specifics remain a gap (only casualty counts, OCR table).",
+    "ocr_uncertain": true
+   },
+   "note": "Houck’s Ridge (the 6th NJ is not in the roster’s III Corps and is not applied)"
+  },
+  {
+   "id": "EN-015",
+   "row": "T2-152",
+   "kind": "fight",
+   "units": [
+    "cs-1c-hood-anderson",
+    "us-3c-1d-trobriand"
+   ],
+   "phrases": [
+    "G. T. Anderson’s brigade",
+    "Trobriand’s brigade",
+    "repulsed"
+   ],
+   "window": {
+    "from": 45630,
+    "to": 45690,
+    "from_iso": "1863-07-02T16:30",
+    "to_iso": "1863-07-02T17:30",
+    "basis": "timeline_window",
+    "raw": "Jul 2 ~16:30 to 17:30"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "SUPPORTED_BY_OR",
+    "differs_from_row": "Anderson wounded and a gap filled by De Trobriand's brigade are in the OR; Anderson's brigade being 'repulsed' at that gap is not stated in these passages (no Anderson or Georgia regimental report read for the point).",
+    "ocr_uncertain": false
+   },
+   "note": "Anderson hits the gap by Trobriand’s brigade"
+  },
+  {
+   "id": "EN-016",
+   "row": "T2-160",
+   "kind": "fight",
+   "units": [
+    "us-3c-1d-trobriand-3mi",
+    "cs-1c-mclaws-kershaw"
+   ],
+   "phrases": [
+    "3rd Michigan (Pierce) vs Kershaw’s brigade"
+   ],
+   "window": {
+    "from": 45660,
+    "to": 45690,
+    "from_iso": "1863-07-02T17:00",
+    "to_iso": "1863-07-02T17:30",
+    "basis": "timeline_window",
+    "raw": "Jul 2 ~17:00 to 17:30"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "SUPPORTED_BY_OR",
+    "differs_from_row": "Same unit and place; Pierce does not name Kershaw or give 17:00-17:30 (he holds until about 19:00 after Graham's retreat).",
+    "ocr_uncertain": false
+   },
+   "note": "Peach Orchard"
+  },
+  {
+   "id": "EN-017",
+   "row": "T2-184",
+   "kind": "fight",
+   "units": [
+    "us-2c-2d-harrow-1mn",
+    "cs-3c-anderson-wilcox"
+   ],
+   "phrases": [
+    "1st Minnesota (Colvill, Harrow’s brigade)",
+    "Charges Wilcox’s brigade"
+   ],
+   "window": {
+    "from": 45750,
+    "to": 45780,
+    "from_iso": "1863-07-02T18:30",
+    "to_iso": "1863-07-02T19:00",
+    "basis": "timeline_window",
+    "raw": "Jul 2 ~18:30 to 19:00"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "SUPPORTED_BY_OR",
+    "differs_from_row": "Supported: the charge on Hancock's ground and losses over two-thirds (the row's 215 of 262 is 82%). Hour: Coates places the engagement after about 5 p.m.; the row 18:30-19:00 is consistent with 'later'. Wilcox's brigade as target is not named; 'on Hancock's order' is Hancock's account (own report).",
+    "ocr_uncertain": false
+   },
+   "note": "the 1st Minnesota’s charge; the regimental figure printed in the row is NOT used"
+  },
+  {
+   "id": "EN-018",
+   "row": "T2-185",
+   "kind": "fight",
+   "units": [
+    "cs-3c-anderson-perry",
+    "us-1c-3d-stannard-13vt",
+    "cs-3c-anderson-wright",
+    "us-2c-2d-harrow-15ma",
+    "us-2c-2d-harrow-82ny",
+    "us-2c-2d-webb"
+   ],
+   "phrases": [
+    "Lang’s Floridians",
+    "13th Vermont recaptures them",
+    "Wright’s Georgia brigade overruns the 15th Massachusetts and 82nd NY",
+    "Webb’s brigade repels Wright"
+   ],
+   "window": {
+    "from": 45750,
+    "to": 45780,
+    "from_iso": "1863-07-02T18:30",
+    "to_iso": "1863-07-02T19:00",
+    "basis": "timeline_window",
+    "raw": "Jul 2 ~18:30 to 19:00"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "AMBIGUOUS_IN_OR",
+    "differs_from_row": "The OR carries both sides: Wright says he reached the crest of the heights and was forced out for lack of support (NPS side of the dispute); the Union reports describe the 82nd NY and 15th Mass. falling back and the First Minnesota/19th Maine holding the batteries. Not found: the Floridians capturing Weir's guns, the 13th Vermont (Jul 3 in Stannard's brigade) and Cushing's engagement time. Wright's advance hour is about 17:00.",
+    "ocr_uncertain": false
+   },
+   "note": "Emmitsburg Road and the Codori farm"
+  },
+  {
+   "id": "EN-019",
+   "row": "T2-192",
+   "kind": "fight",
+   "units": [
+    "cs-2c-johnson-steuart",
+    "cs-2c-johnson-nicholls",
+    "cs-2c-johnson-jones",
+    "us-12c-2d-greene"
+   ],
+   "phrases": [
+    "Johnson’s division: Steuart, J. M. Williams (Nicholls’s Louisiana), J. M. Jones",
+    "vs Greene"
+   ],
+   "window": {
+    "from": 45780,
+    "to": 45810,
+    "from_iso": "1863-07-02T19:00",
+    "to_iso": "1863-07-02T19:30",
+    "basis": "timeline_window",
+    "raw": "Jul 2 ~19:00 to 19:30"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": true,
+   "or27_audit": {
+    "verdict": "SUPPORTED_BY_OR",
+    "differs_from_row": "Greene's 19:00 is in the OR (claim check p3); Johnson places the infantry assault at the base after dark; Walker (Stonewall Brigade) staying on the Hanover road and rejoining after dark is in the OR. Strengths (4,700 vs 1,400) not found in these passages.",
+    "ocr_uncertain": false
+   },
+   "note": "the first attack on Culp’s Hill"
+  },
+  {
+   "id": "EN-020",
+   "row": "T2-193",
+   "kind": "fight",
+   "units": [
+    "us-5c-3d-mccandless",
+    "cs-1c-mclaws-wofford"
+   ],
+   "phrases": [
+    "Crawford’s Pennsylvania Reserves (McCandless)",
+    "Wofford pushed back to Stony Hill"
+   ],
+   "window": {
+    "from": 45780,
+    "to": 45810,
+    "from_iso": "1863-07-02T19:00",
+    "to_iso": "1863-07-02T19:30",
+    "basis": "timeline_window",
+    "raw": "Jul 2 ~19:00 to 19:30"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": true,
+   "or27_audit": {
+    "verdict": "SUPPORTED_BY_OR",
+    "differs_from_row": "Supported: the Reserves' counterattack on Jul 2 evening and VI Corps support. Not found: an hour (the report gives none), Nevin's brigade by name, and 'Wofford pushed back to Stony Hill' (Wofford is named in Kershaw's report only as advancing). The next-day wheat-field charge (5 p.m. Jul 3 per OCR) is a separate event.",
+    "ocr_uncertain": false
+   },
+   "note": "the counterattack toward the Wheatfield"
+  },
+  {
+   "id": "EN-021",
+   "row": "T2-194",
+   "kind": "fight",
+   "units": [
+    "cs-1c-mclaws-wofford",
+    "cs-1c-hood-anderson",
+    "cs-1c-mclaws-semmes",
+    "cs-1c-mclaws-kershaw"
+   ],
+   "phrases": [
+    "Wofford; Anderson, Semmes, Kershaw",
+    "Wofford advances; the others push east"
+   ],
+   "window": {
+    "from": 45780,
+    "to": 45810,
+    "from_iso": "1863-07-02T19:00",
+    "to_iso": "1863-07-02T19:30",
+    "basis": "timeline_window",
+    "raw": "Jul 2 ~19:00 to 19:30"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": true,
+   "or27_audit": {
+    "verdict": "SUPPORTED_BY_OR",
+    "differs_from_row": "Supported: Wofford's advance carrying Kershaw's wing to the foot of the mountain; no clock hour; Anderson's role not in this passage; 'Valley of Death' is a later name.",
+    "ocr_uncertain": false
+   },
+   "note": "Wheatfield Road"
+  },
+  {
+   "id": "EN-022",
+   "row": "T2-202",
+   "kind": "fight",
+   "units": [
+    "cs-2c-johnson-steuart",
+    "us-12c-2d-greene-149ny",
+    "us-12c-2d-greene-137ny"
+   ],
+   "phrases": [
+    "Steuart’s brigade",
+    "against the 149th and 137th NY"
+   ],
+   "window": {
+    "from": 45825,
+    "to": 45990,
+    "from_iso": "1863-07-02T19:45",
+    "to_iso": "1863-07-02T22:30",
+    "basis": "timeline_window",
+    "raw": "Jul 2 ~19:45 to 22:30"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "SUPPORTED_BY_OR",
+    "differs_from_row": "Supported: Steuart's regiments (23rd, 37th, 10th Virginia, 1st Maryland Bn) entering the lightly held works and the 137th NY turning its right; the 6th Wisconsin and 14th Brooklyn reinforcing Greene. Not found: the 149th NY, the mistaken 1st NC volley and the Wisconsin regiment running into fire. Hours: Steuart began moving about 17:00 per his report (the row says after dark).",
+    "ocr_uncertain": false
+   },
+   "note": "Culp’s Hill, the lower swale"
+  },
+  {
+   "id": "EN-023",
+   "row": "T2-204",
+   "kind": "fight",
+   "units": [
+    "us-12c-2d-greene-137ny"
+   ],
+   "phrases": [
+    "137th NY (Ireland)",
+    "loses nearly a third"
+   ],
+   "window": {
+    "from": 45840,
+    "to": 45960,
+    "from_iso": "1863-07-02T20:00",
+    "to_iso": "1863-07-02T22:00",
+    "basis": "timeline_window",
+    "raw": "Jul 2 ~20:00 to 22:00"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "SUPPORTED_BY_OR",
+    "differs_from_row": "Supported with a difference: Greene lists three XI Corps regiments (82nd Illinois, 45th NY, 61st Ohio; about 400 men), not four; the total reinforcement is about 756 (the row's 'about 750'). The 137th NY's loss 'nearly a third' is not in these passages.",
+    "ocr_uncertain": false
+   },
+   "note": "the 137th NY on Greene’s right"
+  },
+  {
+   "id": "EN-024",
+   "row": "T2-205",
+   "kind": "fight",
+   "units": [
+    "cs-2c-johnson-jones",
+    "us-12c-2d-greene-60ny",
+    "cs-2c-johnson-nicholls",
+    "us-12c-2d-greene-78ny",
+    "us-12c-2d-greene-102ny"
+   ],
+   "phrases": [
+    "Jones’s brigade vs 60th NY",
+    "Nicholls’s brigade vs 78th and 102nd NY"
+   ],
+   "window": {
+    "from": 45840,
+    "to": 45960,
+    "from_iso": "1863-07-02T20:00",
+    "to_iso": "1863-07-02T22:00",
+    "basis": "timeline_window",
+    "raw": "Jul 2 ~20:00 to 22:00"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "SUPPORTED_BY_OR",
+    "differs_from_row": "Supported: Jones wounded, Greene holding, the attack ending about 22:00 after about 2.5 hours (Geary) or from 19:00 to 21:30 (Greene). The 60th NY / 78th and 102nd NY pairings and the '4 hours' (W-CH) are not stated.",
+    "ocr_uncertain": false
+   },
+   "note": "Culp’s Hill"
+  },
+  {
+   "id": "EN-025",
+   "row": "T2-158",
+   "kind": "fight",
+   "units": [
+    "us-cav-2d",
+    "cs-2c-johnson-stonewall"
+   ],
+   "phrases": [
+    "D. M. Gregg’s division",
+    "2nd Va (Stonewall Brigade, Walker)"
+   ],
+   "window": {
+    "from": 45660,
+    "to": 45960,
+    "from_iso": "1863-07-02T17:00",
+    "to_iso": "1863-07-02T22:00",
+    "basis": "timeline_window",
+    "raw": "Jul 2 ~17:00 to 22:00"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "SUPPORTED_BY_OR",
+    "differs_from_row": "Supported: Stonewall Brigade vs Union cavalry on the Hanover road on Jul 2 (hour OCR-uncertain, 'about t; p. m.', probably 4 or 5 p.m.), the 2nd Virginia advancing and being checked, Gregg's stone-fence line. Not found: McIntosh dismounting, 1st NJ ammunition and revolvers, the final night attack and the 22:00 withdrawal. The OR says Gregg's heavy fight was on Jul 3.",
+    "ocr_uncertain": true
+   },
+   "note": "Brinkerhoff Ridge, the Hanover Road (the Union side is the division as named; the 2nd Va is a regiment of the Stonewall Brigade and the brigade takes the window)"
+  },
+  {
+   "id": "EN-026",
+   "row": "T2-242",
+   "kind": "fight",
+   "units": [
+    "cs-2c-johnson-steuart"
+   ],
+   "phrases": [
+    "Opens on Steuart’s brigade in the works"
+   ],
+   "window": {
+    "from": 46290,
+    "to": 46350,
+    "from_iso": "1863-07-03T03:30",
+    "to_iso": "1863-07-03T04:30",
+    "basis": "timeline_window",
+    "raw": "Jul 3 ~03:30 to 04:30"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "SUPPORTED_BY_OR",
+    "differs_from_row": "The OR carries both hours (Geary 03:30, Hunt 04:30 for the first two batteries, 05:30 for all) - they differ from each other (Geary's 14 pieces; the row's 24 guns come from a soldier's letter). 'Ewell: too late to recall' is Ewell's own report.",
+    "ocr_uncertain": false
+   },
+   "note": "Union artillery on Steuart’s brigade (the batteries are not named in the row)"
+  },
+  {
+   "id": "EN-027",
+   "row": "T3-039",
+   "kind": "fight",
+   "units": [
+    "cs-2c-johnson-steuart",
+    "us-12c-2d-greene",
+    "us-12c-2d-kane"
+   ],
+   "phrases": [
+    "Steuart’s brigade attacks",
+    "Greene’s and Kane’s lines"
+   ],
+   "window": {
+    "from": 46380,
+    "to": 46410,
+    "from_iso": "1863-07-03T05:00",
+    "to_iso": "1863-07-03T05:30",
+    "basis": "timeline_window",
+    "raw": "Jul 3 ~05:00-05:30 (hour"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "open gap",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "CONTRADICTED_BY_OR",
+    "differs_from_row": "Hour: row ~05:00-05:30 vs OR attack/fire onset 03:30 (Geary, Kane), 03:45 (Candy), 04:00 (Greene), \"daylight\" (Steuart). Hunt's 04:30 and 05:30 are artillery times, not the infantry attack hour. The PDF printed hour (05:00-05:30) is outside every OR value for the start of the dawn fight.",
+    "ocr_uncertain": true
+   },
+   "note": "the dawn attack on Culp’s Hill; the row’s hour is disputed (Hunt 04:30 vs 05:30)"
+  },
+  {
+   "id": "EN-028",
+   "row": "T3-085",
+   "kind": "fight",
+   "units": [
+    "us-cav-2d-mcintosh",
+    "cs-cav-hampton"
+   ],
+   "phrases": [
+    "McIntosh (right of Hampton)",
+    "Flank attacks"
+   ],
+   "window": {
+    "from": 46890,
+    "to": 46905,
+    "from_iso": "1863-07-03T13:30",
+    "to_iso": "1863-07-03T13:45",
+    "basis": "timeline_window",
+    "raw": "Jul 3 ~13:30-13:45"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "AMBIGUOUS_IN_OR",
+    "differs_from_row": "Time: row anchors ~13:30-13:45 (13:00 primary, 15:00 alternate). OR: about noon (Pleasonton), fighting until nightfall with the enemy withdrawing at dark (Gregg), Hampton's order about 4.30 p.m. The 40-minute duration and the totals (3,250/3,430, 254/219/181/56) are not in the OR: Gregg's own loss is 295 including Jul 2.",
+    "ocr_uncertain": false
+   },
+   "note": "East Cavalry Field (the row prints about 40 minutes of fighting; the window is the row’s 13:30-13:45)"
+  },
+  {
+   "id": "EN-029",
+   "row": "T3-109",
+   "kind": "fight",
+   "units": [
+    "us-cav-1d-merritt",
+    "cs-1c-hood-benning",
+    "cs-1c-hood-anderson"
+   ],
+   "phrases": [
+    "Merritt’s Reserve Bde",
+    "Anderson’s Georgians",
+    "Benning’s Georgians"
+   ],
+   "window": {
+    "from": 46980,
+    "to": 47130,
+    "from_iso": "1863-07-03T15:00",
+    "to_iso": "1863-07-03T17:30",
+    "basis": "timeline_window",
+    "raw": "Jul 3 ~15:00-17:30"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "AMBIGUOUS_IN_OR",
+    "differs_from_row": "The charge hour differs inside the OR: 15:00 (Capehart, 1st W.Va), 17:00 (Preston, 1st Vt), 17:30 (Kilpatrick). Kilpatrick says a fierce enemy attack on the left of the main line preceded his 5.30 attack (supports Farnsworth after Pickett's repulse). \"Merritt's attack stalls in ~15 minutes\", the Georgia/Alabama regiments, and the 15th Ala are not in the OR text; Merritt says his fight lasted about four hours until rain.",
+    "ocr_uncertain": false
+   },
+   "note": "Bushman’s woods and the Slyder farm"
+  },
+  {
+   "id": "EN-030",
+   "row": "T3-110",
+   "kind": "fight",
+   "units": [
+    "cs-3c-heth-pettigrew",
+    "cs-1c-pickett-garnett",
+    "cs-1c-pickett-kemper",
+    "cs-1c-pickett-armistead"
+   ],
+   "phrases": [
+    "Pettigrew’s and Pickett’s men",
+    "slow the advance"
+   ],
+   "window": {
+    "from": 47010,
+    "to": 47055,
+    "from_iso": "1863-07-03T15:30",
+    "to_iso": "1863-07-03T16:15",
+    "basis": "timeline_window",
+    "raw": "Jul 3 15:30-16:15 (ABT"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "NOT_FOUND_IN_OR",
+    "differs_from_row": null,
+    "ocr_uncertain": false
+   },
+   "note": "the advance across the Emmitsburg Road fences"
+  },
+  {
+   "id": "EN-031",
+   "row": "T3-112",
+   "kind": "fight",
+   "units": [
+    "cs-1c-pickett-garnett",
+    "cs-1c-pickett-kemper",
+    "cs-1c-pickett-armistead",
+    "us-2c-2d-webb"
+   ],
+   "phrases": [
+    "Garnett (mortally wounded), Kemper (wounded), Armistead",
+    "The fight at the wall"
+   ],
+   "window": {
+    "from": 47025,
+    "to": 47055,
+    "from_iso": "1863-07-03T15:45",
+    "to_iso": "1863-07-03T16:15",
+    "basis": "timeline_window",
+    "raw": "Jul 3 ~15:45-16:15 peak"
+   },
+   "tier": "inferred",
+   "row_status": "seeded_unverified",
+   "row_tier": "documented",
+   "weak_source_flag": false,
+   "or27_audit": {
+    "verdict": "SUPPORTED_BY_OR",
+    "differs_from_row": "Numbers: OR (Webb) \"probably over 100\" crossing with Armistead, vs the row's 150/250/2,500-3,000; Garnett is \"killed\" in Longstreet and Lee (row: mortally wounded). Phase times (road contact, canister range) not stated. Brigade strengths 940/268 and the 59th NY bolting are not in the OR text found. The row also contains appended text for T3-122, T3-123, T3-150, T3-219, T3-063/079/083/085 and T3-078/109/120 (see those rows).",
+    "ocr_uncertain": false
+   },
+   "note": "the Angle and the Copse"
+  }
+ ]
+}

@@ -1,0 +1,160 @@
+{
+ "schema": "figures3d-manifest-1",
+ "version": "figures3d-1",
+ "root_sha256": "3b249ddd319d224f80829e1d0b4ba43822201ec98d2af99cccb21cb7fb3bd44b",
+ "catalog_size": 293,
+ "human_triangles_per_figure": {
+  "lod0_close": {
+   "min": 33014,
+   "median": 43512,
+   "max": 55018,
+   "units_sampled": 327
+  },
+  "lod1_parts_sum": {
+   "min": 1606,
+   "median": 2094,
+   "max": 2556,
+   "units_sampled": 327
+  },
+  "lod2_parts_sum": {
+   "min": 368,
+   "median": 644,
+   "max": 806,
+   "units_sampled": 327
+  },
+  "note": "sum of the parts a figure draws, one sample man per kit unit at the date 1863-07-02; the merged mid/low meshes are in classes.json"
+ },
+ "population": {
+  "manifests": 23544,
+  "outfit_variants": 8348,
+  "silhouette_classes": 355,
+  "accessory_classes": 22,
+  "impostor_classes": 219
+ },
+ "files": {
+  "skeleton.json": {
+   "bytes": 64905,
+   "sha256": "a9ac79dc344bac1c7c0711443b7b236676d5ae4f6a9812d3c19cd8eb056413c1"
+  },
+  "parts.bin": {
+   "bytes": 46238764,
+   "sha256": "a342b4db17d767511aef819cd1dd58c892087cd826d9049307333f014d961500"
+  },
+  "parts.json": {
+   "bytes": 554425,
+   "sha256": "27df564c2660b30f38d8daef08564963c9a25587ea099328081f07c18e33b0d4"
+  },
+  "materials.json": {
+   "bytes": 8919,
+   "sha256": "feaa31b2ce6bd08383fe3b1cb3056e6ef630be2fa8ceb95848d78e80026bcb37"
+  },
+  "textures/flag_us_national_intact.png": {
+   "bytes": 1001,
+   "sha256": "3dac5dce4f665ce7ca8bebaa9a4aff068da4377bd3a3fa35e8baf82c8ae990e8"
+  },
+  "textures/flag_us_regimental_gap_intact.png": {
+   "bytes": 952,
+   "sha256": "a55ead8d28ff987c8fa0867a9f9452e608aa9e8854887a1d7939137b0232c647"
+  },
+  "textures/flag_irish_green_gap_intact.png": {
+   "bytes": 860,
+   "sha256": "ba08a8c0a108598f2a19ed492399c7d71899b25f81d6af7e399b03608900fd07"
+  },
+  "textures/flag_anv_battle_intact.png": {
+   "bytes": 2016,
+   "sha256": "93cb58e34d8f528b2233a2035ecc1088d66021424366c3a4e83f1054f4b7c68a"
+  },
+  "textures/flag_anv_battle_torn.png": {
+   "bytes": 3546,
+   "sha256": "a3a0f4d4a14e0c82df7c591f0ab76f9168889b1a5bcda6dda50d32f0977c56d5"
+  },
+  "textures/flag_cav_guidon_intact.png": {
+   "bytes": 1001,
+   "sha256": "3dac5dce4f665ce7ca8bebaa9a4aff068da4377bd3a3fa35e8baf82c8ae990e8"
+  },
+  "textures/flag_ambulance_gap_intact.png": {
+   "bytes": 952,
+   "sha256": "a55ead8d28ff987c8fa0867a9f9452e608aa9e8854887a1d7939137b0232c647"
+  },
+  "texmaps-preview.png": {
+   "bytes": 477187,
+   "sha256": "665710e3c14ea813760509e0d40c14b662eef5afc410ed00e277823b43ca1bba"
+  },
+  "texmaps.json": {
+   "bytes": 13562,
+   "sha256": "d2a25dcc132f2a9584f60a653a755831aadb3c9d4f6bda176a5dc258c8f7a7d4"
+  },
+  "flag-mean-colours.json": {
+   "bytes": 503,
+   "sha256": "7c2e4777929cb5313f3dfce9afb6ae407feaa0e9ef3cf9d848f8013b8f28bd42"
+  },
+  "TIERS.json": {
+   "bytes": 24824,
+   "sha256": "b05b9daff33e2d9ed71a5c2c4a8b985db0322257c18b643598c8414da0d040c2"
+  },
+  "classes.json": {
+   "bytes": 110665,
+   "sha256": "b8803cbdddbe1615fedc00fc0f2d309402de8bf1171591443edb19b0b9859323"
+  },
+  "impostor-atlas.png": {
+   "bytes": 2798476,
+   "sha256": "95ad58e6742efa653be57073c392ff236d33462fb45c08ef1601abbbd5158c96"
+  },
+  "impostor-atlas.json": {
+   "bytes": 24445,
+   "sha256": "52e4c37ed858a01fcd94c301ea36a347376c4e88be5201af250045aa9ca6a9c1"
+  },
+  "gltf/iron_brigade_private.glb": {
+   "bytes": 2935220,
+   "sha256": "273b63e752357065404cbb0ffc5f947bd28c9d500c378553d27f04701b0e9411"
+  },
+  "gltf/zouave_114pa_flagbearer.glb": {
+   "bytes": 2893624,
+   "sha256": "5583dafade56586316be9a3804498aefbb7fc6e19d908bba83dee20b8b69b056"
+  },
+  "gltf/confederate_default_private.glb": {
+   "bytes": 2639892,
+   "sha256": "1d8283e6a4a25733b0ff192761ea4c701826f574809cf4475f9acb60f5e2c0f0"
+  },
+  "gltf/union_cavalry_officer.glb": {
+   "bytes": 2548056,
+   "sha256": "0a8c18c4c2a9bffb23178e94abab522573c650e2eecfa47c34a0ee31119ed266"
+  },
+  "gltf/union_musician.glb": {
+   "bytes": 2444200,
+   "sha256": "c22b85a08606db3905a242d0fa56033d4abc26f1590735359d1be9b0d2082aad"
+  },
+  "gltf/horse_riding.glb": {
+   "bytes": 1131128,
+   "sha256": "5854e0bbc53a80cb467c8602fc0ba216aae312478b3b02a0fab1422583f974df"
+  },
+  "gltf/napoleon_12pdr_gun.glb": {
+   "bytes": 1026124,
+   "sha256": "5e470ff2c536c26f67589b191ba115557184f497251ed3e31fbaeb998475c32e"
+  },
+  "rifle-sockets.json": {
+   "bytes": 11023,
+   "sha256": "7d8ef56c046ea4117c30b1acce0ecda7caa5e4652c85b6514f0c6608f6903232"
+  },
+  "textures/hair_cards.png": {
+   "bytes": 784414,
+   "sha256": "95a111f30a1b717eac65bf38214182f04d5f6348d1177d3cc9444d083ee79cbc"
+  },
+  "hair-cards.json": {
+   "bytes": 2308,
+   "sha256": "99028e9df68aa93282e9b4a4ba91265c6da3d171cc46d0d1ee436ca4b164ecd7"
+  },
+  "head-maps-preview.png": {
+   "bytes": 203340,
+   "sha256": "3d6307f142104362120429a2e9a1e40b5005829f7891431552e5b80583547250"
+  },
+  "head-maps.json": {
+   "bytes": 3758,
+   "sha256": "56cace95c6e5679e4853497b95be694ed6fde4acd4db157d3f4d5c42a8349a25"
+  },
+  "hashes.json": {
+   "bytes": 184723,
+   "sha256": "bc88df810e4320987da3199557e93facbbda3d6e1d509528588329e63d077417"
+  }
+ }
+}

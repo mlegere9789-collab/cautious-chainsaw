@@ -1,0 +1,5309 @@
+{
+ "_comment": "PROPOSED waivers for check 3 (regression against the published build), produced by the regression triage of 2026-10-20 (docs/accept/triage/REGRESSION-TRIAGE.md). NOT applied: tools/accept/regression_waivers.json is unchanged. Every entry names the defect ids it covers, the decision or documentation it rests on (evidence), and automated assertions (docs/accept/triage/assert_waivers.mjs) that prove the intentional replacement exists in the candidate and that nothing else changed on that surface; a waiver is valid only while all of them pass (and the waivers it dependsOn). `waivers` (33) cover the 53 defects; `supportingChecks` holds the shared sub-page layer that the screenshot waivers depend on; `predictedForFinalBuild` holds the data waiver for the DATA group, which has no defect in the R1c dry run but will have about 33 in the final one. Fields kind/target/reason/approvedBy/date keep the format of regression_waivers.json. approvedBy is deliberately NOT a person: the integrator records who accepted it. || R1 variant (2026-10-20, Release 1 integration): allowGroups also names the page-group spellings PG-zimg (IMG staged as a page group) and PG-zcopy2 (COPY2 staged as a page group); W-data-manifest also tolerates the removal of the \"screenshots\" key by IMG (owner decision 2026-10-19 item 2 and IMG-overlay.json: the PWA screenshots were never screenshots).",
+ "schema": "regression_waivers.proposed/1",
+ "candidate": {
+  "build": "R1c 2531699e",
+  "zip": "deliver/gettysburg-R1c-2531699e-PRODUCTION.zip",
+  "sha256": "4b6799863d7f242edc4a2bea98be0028c2dbab214e66c621eb971e8e876d9452",
+  "note": "the CONDITIONAL entry fails on this zip by design; re-run assert_waivers.mjs on the final zip with --anchors <its release/<train>/anchors.json>"
+ },
+ "allowGroups": {
+  "CLOCK": "docs/decisions/OWNER-DECISIONS-2026-10-05.md:6 (correct the clock now)",
+  "DATA": "docs/decisions/OWNER-DECISIONS-2026-10-05.md:7 (wrong displayed data must be fixed); docs/data-audit/AUDIT.md",
+  "MON": "docs/decisions/OWNER-DECISIONS-2026-10-04.md:5 and OWNER-DECISIONS-2026-10-05.md:8 (restore the Monuments feature)",
+  "ANIM": "docs/decisions/OWNER-DECISIONS-2026-10-05.md:9 (smooth professional unit movement)",
+  "POLISH": "tools/t0/POLISH-README.md (fixes of the independent reviewer's defects on R1c); CLAUDE.md:32 (design polish is part of the acceptance)",
+  "PG-polish": "tools/t0/POLISH-README.md; CLAUDE.md:32",
+  "COPY2": "CLAUDE.md:32 (copy audit: nothing about AI or how the site was built in any shipped file)",
+  "PERF2": "tools/t0/patches-next/PERF2.json (candidate, not registered: Unit Roster slices, Monuments precompile; the acceptance thresholds, CLAUDE.md:32 \"performance all green\")",
+  "PG-perf2": "tools/t0/patches-next/PG-perf2.json (candidate, not registered: shader precompile on compare, ground-remembers, immersive, viewshed; no style diff on compare)",
+  "IMG": "docs/decisions/OWNER-DECISIONS-2026-10-19.md:4 (only actual images of Gettysburg)",
+  "BASE1863": "docs/decisions/OWNER-DECISIONS-2026-10-19.md:3 (1863 reconstruction as the main-map background)",
+  "R0M": "tools/t0/README.md:57 (the R0 mechanism rows)",
+  "PG-zimg": "docs/decisions/OWNER-DECISIONS-2026-10-19.md:4 (only actual images of Gettysburg)",
+  "PG-zcopy2": "CLAUDE.md:32 (copy audit: nothing about AI or how the site was built in any shipped file)"
+ },
+ "waivers": [
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-file-InterpolationWorker",
+   "kind": "file",
+   "target": "assets/InterpolationWorker-ufiwa2-e.js",
+   "defects": [
+    "D01"
+   ],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: repo documentation (build mechanism, plan chapters 04/05, release notes); no owner decision needed, nothing user-visible",
+   "reason": "Orphan build artefact deleted on purpose by the R0 mechanism: the 672-byte script (a main-thread-free lerp of lat/lng/bearing/strength between two ticks) is named by no file of the published build (not the entry bundle, not index.html, not sw.js), so the published app never started it. The map animation is the bundle's own requestAnimationFrame loop, which the candidate keeps (groups B and later change what it draws, not that it exists).",
+   "evidence": [
+    {
+     "doc": "tools/t0/trains.json",
+     "line": 11,
+     "quote": "\"orphans\": [\"assets/InterpolationWorker-ufiwa2-e.js\"],"
+    },
+    {
+     "doc": "tools/t0/README.md",
+     "line": 57,
+     "quote": "deletes the five legacy assets (entry, both chunks, CSS, orphan `InterpolationWorker-*.js`)"
+    },
+    {
+     "doc": "docs/plan/FINAL/05-performance-to-green.md",
+     "line": 34,
+     "quote": "`InterpolationWorker` (672 B) unreferenced"
+    },
+    {
+     "doc": "docs/plan/FINAL/04-time-model-and-historical-accuracy.md",
+     "line": 51,
+     "quote": "time-facts-09: `InterpolationWorker` is dead code."
+    },
+    {
+     "doc": "ops/release-notes/R1c.md",
+     "line": 19,
+     "quote": "Files removed from the baseline: ... `assets/InterpolationWorker-ufiwa2-e.js` ..."
+    }
+   ],
+   "assertions": [
+    {
+     "id": "baseline-bytes",
+     "type": "baseline-file-sha",
+     "file": "assets/InterpolationWorker-ufiwa2-e.js",
+     "sha256": "a44f17c2727fd84ee437c9f732884767a2fdf305c6c082731c6d96dc6b7c865b"
+    },
+    {
+     "id": "never-referenced",
+     "type": "unreferenced",
+     "file": "assets/InterpolationWorker-ufiwa2-e.js",
+     "token": "InterpolationWorker"
+    },
+    {
+     "id": "hash-token",
+     "type": "unreferenced",
+     "file": "assets/InterpolationWorker-ufiwa2-e.js",
+     "token": "ufiwa2"
+    },
+    {
+     "id": "no-app-worker",
+     "type": "no-same-origin-worker"
+    },
+    {
+     "id": "absent",
+     "type": "file-absent",
+     "file": "assets/InterpolationWorker-ufiwa2-e.js"
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-data-manifest",
+   "kind": "data",
+   "target": "manifest.json",
+   "defects": [
+    "D02"
+   ],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: plan default WP-T0-14 / D-SHELL, listed as deviation row 8 with \"Needs the owner: no\"",
+   "reason": "The published manifest says \"orientation\": \"landscape\". On an installed (standalone) PWA that locks the app to landscape on phones, which the phone shell (portrait, 390x844 and the other portrait widths of tests/t0/mobile-matrix.spec.mjs) is built for; WCAG 1.3.4 fails with it. Removing the key lets the installed app follow the device. Browser tabs were never affected. The same edit adds \"id\": \"/\", two maskable icons and keeps every other key; nothing else was removed.",
+   "evidence": [
+    {
+     "doc": "ops/T0-DEVIATIONS.md",
+     "line": 16,
+     "quote": "row 8: `orientation` deleted, `id: \"/\"` added; ... two NEW maskable icons; the two existing icons say `purpose: \"any\"`"
+    },
+    {
+     "doc": "docs/plan/FINAL/02-tranche0-hotfix-runbook.md",
+     "line": 180,
+     "quote": "`manifest.json`: add `\"id\":\"/\"`, delete `orientation` and the two corrupt `screenshots` entries"
+    },
+    {
+     "doc": "docs/plan/FINAL/01-decision-register.md",
+     "line": 192,
+     "quote": "manifest orientation lock removed"
+    },
+    {
+     "doc": "docs/plan/FINAL/01-decision-register.md",
+     "line": 237,
+     "quote": "set `manifest.id = \"/\"` NOW ... drop `orientation`"
+    },
+    {
+     "doc": "docs/plan/FINAL/16-audit-corrections-and-new-findings.md",
+     "line": 57,
+     "quote": "`orientation` affects only an installed standalone PWA, not a browser tab; but landscape is unusable (map 141 px at 812x375)"
+    },
+    {
+     "doc": "docs/plan/FINAL/07-accessibility.md",
+     "line": 264,
+     "quote": "WCAG 1.3.4 fail -> pass (orientation removed ...)"
+    },
+    {
+     "doc": "tools/t0/assets-src/build_assets.py",
+     "line": 196,
+     "quote": "bad.append('manifest still has orientation')"
+    }
+   ],
+   "assertions": [
+    {
+     "id": "manifest-shape",
+     "type": "manifest",
+     "allowRemovedKeys": [
+      "screenshots"
+     ]
+    },
+    {
+     "id": "build-guard",
+     "type": "contains",
+     "file": "manifest.json",
+     "regex": "\"id\"\\s*:\\s*\"/\""
+    },
+    {
+     "id": "portrait-phone",
+     "type": "overflow",
+     "route": "/",
+     "vp": [
+      390,
+      844
+     ]
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-screenshot-aftermath",
+   "kind": "screenshot",
+   "target": "/aftermath",
+   "defects": [
+    "D03",
+    "D04"
+   ],
+   "dependsOn": [
+    "W-shared-subpage-layer"
+   ],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "reason": "back link and footer links 44 px, intro 14 px, dates 12 px, caveat 13 px (PGF-css-aftermath); text is identical.",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    }
+   ],
+   "patches": [
+    "PGC-v-css-aftermath",
+    "PGC-v-js-aftermath",
+    "maps:og:aftermath:og-image",
+    "maps:og:aftermath:twitter-image",
+    "PGF-css-aftermath"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "aftermath.html"
+     ],
+     "allowIds": [
+      "PGC-v-css-aftermath",
+      "PGC-v-js-aftermath",
+      "maps:og:aftermath:og-image",
+      "maps:og:aftermath:twitter-image",
+      "PGF-css-aftermath"
+     ],
+     "requireIds": []
+    },
+    {
+     "id": "shared-layer-linked",
+     "type": "contains",
+     "file": "aftermath.html",
+     "regex": "/site-nav\\.css\\?v=[0-9a-f]{8}"
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/aftermath",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/aftermath",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "no-overflow-390",
+     "type": "overflow",
+     "route": "/aftermath",
+     "vp": [
+      390,
+      844
+     ]
+    },
+    {
+     "id": "screenshot-budget-1440",
+     "type": "screens-budget",
+     "tag": "aftermath@1440",
+     "maxRatioPercent": 6.9,
+     "maxHeightDelta": 570,
+     "observed": {
+      "percent": 2.758,
+      "heightDelta": 1
+     },
+     "maxRatioPercent_R1c": 4.2,
+     "maxHeightDelta_R1c": 60,
+     "r1Measured": {
+      "percent": 6.219,
+      "heightDelta": 511,
+      "cause": "IMG adds one captioned period photograph (IMG:figure:aftermath, owner decision 2026-10-19 item 2)"
+     }
+    },
+    {
+     "id": "screenshot-budget-390",
+     "type": "screens-budget",
+     "tag": "aftermath@390",
+     "maxRatioPercent": 13.0,
+     "maxHeightDelta": 480,
+     "observed": {
+      "percent": 7.902,
+      "heightDelta": 57
+     },
+     "maxRatioPercent_R1c": 11.9,
+     "maxHeightDelta_R1c": 90,
+     "r1Measured": {
+      "percent": 11.776,
+      "heightDelta": 435,
+      "cause": "IMG adds one captioned period photograph (IMG:figure:aftermath, owner decision 2026-10-19 item 2)"
+     }
+    },
+    {
+     "id": "text-390",
+     "type": "lines",
+     "route": "/aftermath",
+     "vp": [
+      390,
+      844
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-text-ar",
+   "kind": "text",
+   "target": "/ar",
+   "defects": [
+    "D05",
+    "D07"
+   ],
+   "dependsOn": [],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "reason": "caveat paragraph replaced (PGC-ar-notice), noindex (PGC-ar-noindex), 12 px text (PGF-css-ar).",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    },
+    {
+     "doc": "docs/plan/FINAL/11-copy-docs-content.md",
+     "line": 364,
+     "quote": "ar.html:56 \"...which we haven't been able to do from here.\" -> \"Battlefield AR needs a phone with a camera, GPS and compass, and works best outdoors on the field. ...\" + D-AR (Beta)"
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGC-ar-notice, PGC-ar-noindex, PGC-nav-hide-ar, PGC-sitemap-ar (D-SCOPE-TIERS hide-now)"
+    },
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 47,
+     "quote": "AR is hidden and `noindex`"
+    }
+   ],
+   "patches": [
+    "PGC-v-css-ar",
+    "PGC-v-js-ar",
+    "PGC-ar-noindex",
+    "PGC-ar-notice",
+    "maps:og:ar:og-image",
+    "PGF-css-ar"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "ar.html"
+     ],
+     "allowIds": [
+      "PGC-v-css-ar",
+      "PGC-v-js-ar",
+      "PGC-ar-noindex",
+      "PGC-ar-notice",
+      "maps:og:ar:og-image",
+      "PGF-css-ar"
+     ],
+     "requireIds": [
+      "PGC-ar-notice",
+      "PGC-ar-noindex"
+     ]
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/ar",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [
+      "re:^This needs a phone: its camera, GPS, and compass, all live"
+     ],
+     "gainedRequired": [
+      "re:^Beta\\. Battlefield AR needs a phone with a camera, GPS and compass"
+     ]
+    },
+    {
+     "id": "text-390",
+     "type": "lines",
+     "route": "/ar",
+     "vp": [
+      390,
+      844
+     ],
+     "lostAllowed": [
+      "re:^This needs a phone: its camera, GPS, and compass, all live"
+     ],
+     "gainedRequired": [
+      "re:^Beta\\. Battlefield AR needs a phone with a camera, GPS and compass"
+     ]
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/ar",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "ar-stays-reachable",
+     "type": "browser",
+     "check": "ar-hidden"
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-screenshot-ar",
+   "kind": "screenshot",
+   "target": "/ar",
+   "defects": [
+    "D06",
+    "D08"
+   ],
+   "dependsOn": [
+    "W-shared-subpage-layer"
+   ],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "reason": "caveat paragraph replaced (PGC-ar-notice), noindex (PGC-ar-noindex), 12 px text (PGF-css-ar).",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    },
+    {
+     "doc": "docs/plan/FINAL/11-copy-docs-content.md",
+     "line": 364,
+     "quote": "ar.html:56 \"...which we haven't been able to do from here.\" -> \"Battlefield AR needs a phone with a camera, GPS and compass, and works best outdoors on the field. ...\" + D-AR (Beta)"
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGC-ar-notice, PGC-ar-noindex, PGC-nav-hide-ar, PGC-sitemap-ar (D-SCOPE-TIERS hide-now)"
+    },
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 47,
+     "quote": "AR is hidden and `noindex`"
+    }
+   ],
+   "patches": [
+    "PGC-v-css-ar",
+    "PGC-v-js-ar",
+    "PGC-ar-noindex",
+    "PGC-ar-notice",
+    "maps:og:ar:og-image",
+    "PGF-css-ar"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "ar.html"
+     ],
+     "allowIds": [
+      "PGC-v-css-ar",
+      "PGC-v-js-ar",
+      "PGC-ar-noindex",
+      "PGC-ar-notice",
+      "maps:og:ar:og-image",
+      "PGF-css-ar"
+     ],
+     "requireIds": [
+      "PGC-ar-notice",
+      "PGC-ar-noindex"
+     ]
+    },
+    {
+     "id": "shared-layer-linked",
+     "type": "contains",
+     "file": "ar.html",
+     "regex": "/site-nav\\.css\\?v=[0-9a-f]{8}"
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/ar",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [
+      "re:^This needs a phone: its camera, GPS, and compass, all live"
+     ],
+     "gainedRequired": [
+      "re:^Beta\\. Battlefield AR needs a phone with a camera, GPS and compass"
+     ]
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/ar",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "no-overflow-390",
+     "type": "overflow",
+     "route": "/ar",
+     "vp": [
+      390,
+      844
+     ]
+    },
+    {
+     "id": "screenshot-budget-1440",
+     "type": "screens-budget",
+     "tag": "ar@1440",
+     "maxRatioPercent": 2.8,
+     "maxHeightDelta": 60,
+     "observed": {
+      "percent": 1.801,
+      "heightDelta": 0
+     }
+    },
+    {
+     "id": "screenshot-budget-390",
+     "type": "screens-budget",
+     "tag": "ar@390",
+     "maxRatioPercent": 12.2,
+     "maxHeightDelta": 90,
+     "observed": {
+      "percent": 8.095,
+      "heightDelta": 55
+     }
+    },
+    {
+     "id": "ar-stays-reachable",
+     "type": "browser",
+     "check": "ar-hidden"
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-text-dashboard",
+   "kind": "text",
+   "target": "/dashboard",
+   "defects": [
+    "D09",
+    "D11"
+   ],
+   "dependsOn": [],
+   "class": "CONDITIONAL",
+   "approvalBasis": "A for the data fix (owner decision 2026-10-05 item 3, group DATA); B for the layout and copy",
+   "reason": "chart scales with its card and no longer overflows a phone (published page was 448 px wide at 390), titled stat cards instead of a raw key and \"undefined\", developer data note and warning glyphs removed, legend entries are keyboard buttons (PGC-dash-*, PGF-css-dashboard, PGF-dashboard-legend-*). VALID ONLY WHILE the casualty data no longer contradicts itself (assertion source-data-consistent): R1c alone fails it, the DATA group passes it.",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGC-css-reserve-mounts: reserve the nav height; keep main about a screen tall so the JS-injected footer starts below the fold (the footer CLS was 0.09-0.55; comment in site-nav.css)"
+    },
+    {
+     "doc": "docs/plan/FINAL/11-copy-docs-content.md",
+     "line": 365,
+     "quote": "dashboard.html:261-263, :244-248 \"Data note: ... should be reconciled\"; card `highest_single_regiment_rate` / `undefined` -> delete the footnote code; cards \"Most compressed fight, Union\", ..."
+    },
+    {
+     "doc": "docs/plan/FINAL/08a-subpages-A-B.md",
+     "line": 169,
+     "quote": "Nested `highest_single_regiment_rate` prints the raw key + `undefined` ... developer \"Data note\" and glyphs (`:257-265`); fixed 1000 px SVG ... a modeled curve labelled \"effective strength\""
+    },
+    {
+     "doc": "docs/plan/FINAL/08a-subpages-A-B.md",
+     "line": 171,
+     "quote": "WP-17 reconciliation: Keep U-I `total_casualties` 6,059 ... recompute every `overall_rate` (U-I 49.6 vs 52.3, C-CAV 6.1 vs 5.1)"
+    },
+    {
+     "doc": "docs/decisions/OWNER-DECISIONS-2026-10-05.md",
+     "line": 7,
+     "quote": "Wrong displayed data must be fixed. Every displayed time, place, number and name is either verified against a cited source, labelled as an estimate with its uncertainty, or removed."
+    },
+    {
+     "doc": "tools/t0/patches-next/DATA.json",
+     "quote": "DATA-cas-UI-day1 (OR 27/1 p.174, p.187: I Corps 6,059; Day 1 = 6,059 minus the 335 allocated to Day 3), DATA-dash-card-union, DATA-dash-card-conf"
+    }
+   ],
+   "patches": [
+    "PGC-fill-dashboard",
+    "PGC-v-css-dashboard",
+    "PGC-v-js-dashboard",
+    "PGC-dash-css-num",
+    "PGC-dash-css-grid",
+    "PGC-dash-css-chart",
+    "PGC-dash-svg",
+    "PGC-dash-chart-note",
+    "PGC-dash-error-copy",
+    "PGC-dash-capture",
+    "PGC-dash-svg-ref",
+    "PGC-dash-tooltip-warning",
+    "PGC-dash-legend-warning",
+    "PGC-dash-cards",
+    "PGC-dash-footnote",
+    "PGC-a11y-dashboard-chart-wrap",
+    "maps:og:dashboard:og-image",
+    "maps:og:dashboard:twitter-image",
+    "PGF-css-dashboard",
+    "PGF-dashboard-legend-kbd",
+    "PGF-dashboard-legend-pressed"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "dashboard.html"
+     ],
+     "allowIds": [
+      "PGC-fill-dashboard",
+      "PGC-v-css-dashboard",
+      "PGC-v-js-dashboard",
+      "PGC-dash-css-num",
+      "PGC-dash-css-grid",
+      "PGC-dash-css-chart",
+      "PGC-dash-svg",
+      "PGC-dash-chart-note",
+      "PGC-dash-error-copy",
+      "PGC-dash-capture",
+      "PGC-dash-svg-ref",
+      "PGC-dash-tooltip-warning",
+      "PGC-dash-legend-warning",
+      "PGC-dash-cards",
+      "PGC-dash-footnote",
+      "PGC-a11y-dashboard-chart-wrap",
+      "maps:og:dashboard:og-image",
+      "maps:og:dashboard:twitter-image",
+      "PGF-css-dashboard",
+      "PGF-dashboard-legend-kbd",
+      "PGF-dashboard-legend-pressed"
+     ],
+     "requireIds": [
+      "PGC-dash-cards",
+      "PGC-dash-footnote",
+      "PGC-dash-legend-warning",
+      "PGC-dash-chart-note"
+     ]
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/dashboard",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [
+      "re:^\\(\\d+(\\.\\d+)?% casualties ⚠\\)$",
+      "U-III (Third Corps)",
+      "MOST COMPRESSED UNION",
+      "re:^Nearly 4,200 casualties",
+      "C-I-3 (Pickett's Division)",
+      "MOST COMPRESSED CONFEDERATE",
+      "re:^Approximately 2,700 casualties",
+      "U-XII and C-II-2 (Culp's Hill)",
+      "LONGEST SUSTAINED ACTION",
+      "re:^Seven hours of continuous fighting",
+      "highest_single_regiment_rate",
+      "HIGHEST SINGLE REGIMENT RATE",
+      "undefined",
+      "re:^⚠ Data note: "
+     ],
+     "gainedRequired": [
+      "re:^These curves are modeled from each corps",
+      "Third Corps",
+      "MOST COMPRESSED FIGHT, UNION",
+      "MOST INTENSE HALF HOUR, CONFEDERATE",
+      "LONGEST SUSTAINED FIGHT",
+      "re:^HIGHEST REGIMENTAL LOSS RATE|^A HEAVY CONFEDERATE REGIMENT LOSS"
+     ]
+    },
+    {
+     "id": "text-390",
+     "type": "lines",
+     "route": "/dashboard",
+     "vp": [
+      390,
+      844
+     ],
+     "lostAllowed": [
+      "re:^\\(\\d+(\\.\\d+)?% casualties ⚠\\)$",
+      "U-III (Third Corps)",
+      "MOST COMPRESSED UNION",
+      "re:^Nearly 4,200 casualties",
+      "C-I-3 (Pickett's Division)",
+      "MOST COMPRESSED CONFEDERATE",
+      "re:^Approximately 2,700 casualties",
+      "U-XII and C-II-2 (Culp's Hill)",
+      "LONGEST SUSTAINED ACTION",
+      "re:^Seven hours of continuous fighting",
+      "highest_single_regiment_rate",
+      "HIGHEST SINGLE REGIMENT RATE",
+      "undefined",
+      "re:^⚠ Data note: "
+     ],
+     "gainedRequired": [
+      "re:^These curves are modeled from each corps",
+      "Third Corps",
+      "MOST COMPRESSED FIGHT, UNION",
+      "MOST INTENSE HALF HOUR, CONFEDERATE",
+      "LONGEST SUSTAINED FIGHT",
+      "re:^HIGHEST REGIMENTAL LOSS RATE|^A HEAVY CONFEDERATE REGIMENT LOSS"
+     ]
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/dashboard",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "dom",
+     "type": "browser",
+     "check": "dashboard-dom"
+    },
+    {
+     "id": "source-data-consistent",
+     "type": "data-dashboard-no-mismatch"
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-screenshot-dashboard",
+   "kind": "screenshot",
+   "target": "/dashboard",
+   "defects": [
+    "D10",
+    "D12"
+   ],
+   "dependsOn": [
+    "W-shared-subpage-layer"
+   ],
+   "class": "CONDITIONAL",
+   "approvalBasis": "A for the data fix (owner decision 2026-10-05 item 3, group DATA); B for the layout and copy",
+   "reason": "chart scales with its card and no longer overflows a phone (published page was 448 px wide at 390), titled stat cards instead of a raw key and \"undefined\", developer data note and warning glyphs removed, legend entries are keyboard buttons (PGC-dash-*, PGF-css-dashboard, PGF-dashboard-legend-*). VALID ONLY WHILE the casualty data no longer contradicts itself (assertion source-data-consistent): R1c alone fails it, the DATA group passes it.",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGC-css-reserve-mounts: reserve the nav height; keep main about a screen tall so the JS-injected footer starts below the fold (the footer CLS was 0.09-0.55; comment in site-nav.css)"
+    },
+    {
+     "doc": "docs/plan/FINAL/11-copy-docs-content.md",
+     "line": 365,
+     "quote": "dashboard.html:261-263, :244-248 \"Data note: ... should be reconciled\"; card `highest_single_regiment_rate` / `undefined` -> delete the footnote code; cards \"Most compressed fight, Union\", ..."
+    },
+    {
+     "doc": "docs/plan/FINAL/08a-subpages-A-B.md",
+     "line": 169,
+     "quote": "Nested `highest_single_regiment_rate` prints the raw key + `undefined` ... developer \"Data note\" and glyphs (`:257-265`); fixed 1000 px SVG ... a modeled curve labelled \"effective strength\""
+    },
+    {
+     "doc": "docs/plan/FINAL/08a-subpages-A-B.md",
+     "line": 171,
+     "quote": "WP-17 reconciliation: Keep U-I `total_casualties` 6,059 ... recompute every `overall_rate` (U-I 49.6 vs 52.3, C-CAV 6.1 vs 5.1)"
+    },
+    {
+     "doc": "docs/decisions/OWNER-DECISIONS-2026-10-05.md",
+     "line": 7,
+     "quote": "Wrong displayed data must be fixed. Every displayed time, place, number and name is either verified against a cited source, labelled as an estimate with its uncertainty, or removed."
+    },
+    {
+     "doc": "tools/t0/patches-next/DATA.json",
+     "quote": "DATA-cas-UI-day1 (OR 27/1 p.174, p.187: I Corps 6,059; Day 1 = 6,059 minus the 335 allocated to Day 3), DATA-dash-card-union, DATA-dash-card-conf"
+    }
+   ],
+   "patches": [
+    "PGC-fill-dashboard",
+    "PGC-v-css-dashboard",
+    "PGC-v-js-dashboard",
+    "PGC-dash-css-num",
+    "PGC-dash-css-grid",
+    "PGC-dash-css-chart",
+    "PGC-dash-svg",
+    "PGC-dash-chart-note",
+    "PGC-dash-error-copy",
+    "PGC-dash-capture",
+    "PGC-dash-svg-ref",
+    "PGC-dash-tooltip-warning",
+    "PGC-dash-legend-warning",
+    "PGC-dash-cards",
+    "PGC-dash-footnote",
+    "PGC-a11y-dashboard-chart-wrap",
+    "maps:og:dashboard:og-image",
+    "maps:og:dashboard:twitter-image",
+    "PGF-css-dashboard",
+    "PGF-dashboard-legend-kbd",
+    "PGF-dashboard-legend-pressed"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "dashboard.html"
+     ],
+     "allowIds": [
+      "PGC-fill-dashboard",
+      "PGC-v-css-dashboard",
+      "PGC-v-js-dashboard",
+      "PGC-dash-css-num",
+      "PGC-dash-css-grid",
+      "PGC-dash-css-chart",
+      "PGC-dash-svg",
+      "PGC-dash-chart-note",
+      "PGC-dash-error-copy",
+      "PGC-dash-capture",
+      "PGC-dash-svg-ref",
+      "PGC-dash-tooltip-warning",
+      "PGC-dash-legend-warning",
+      "PGC-dash-cards",
+      "PGC-dash-footnote",
+      "PGC-a11y-dashboard-chart-wrap",
+      "maps:og:dashboard:og-image",
+      "maps:og:dashboard:twitter-image",
+      "PGF-css-dashboard",
+      "PGF-dashboard-legend-kbd",
+      "PGF-dashboard-legend-pressed"
+     ],
+     "requireIds": [
+      "PGC-dash-cards",
+      "PGC-dash-footnote",
+      "PGC-dash-legend-warning",
+      "PGC-dash-chart-note"
+     ]
+    },
+    {
+     "id": "shared-layer-linked",
+     "type": "contains",
+     "file": "dashboard.html",
+     "regex": "/site-nav\\.css\\?v=[0-9a-f]{8}"
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/dashboard",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [
+      "re:^\\(\\d+(\\.\\d+)?% casualties ⚠\\)$",
+      "U-III (Third Corps)",
+      "MOST COMPRESSED UNION",
+      "re:^Nearly 4,200 casualties",
+      "C-I-3 (Pickett's Division)",
+      "MOST COMPRESSED CONFEDERATE",
+      "re:^Approximately 2,700 casualties",
+      "U-XII and C-II-2 (Culp's Hill)",
+      "LONGEST SUSTAINED ACTION",
+      "re:^Seven hours of continuous fighting",
+      "highest_single_regiment_rate",
+      "HIGHEST SINGLE REGIMENT RATE",
+      "undefined",
+      "re:^⚠ Data note: "
+     ],
+     "gainedRequired": [
+      "re:^These curves are modeled from each corps",
+      "Third Corps",
+      "MOST COMPRESSED FIGHT, UNION",
+      "MOST INTENSE HALF HOUR, CONFEDERATE",
+      "LONGEST SUSTAINED FIGHT",
+      "re:^HIGHEST REGIMENTAL LOSS RATE|^A HEAVY CONFEDERATE REGIMENT LOSS"
+     ]
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/dashboard",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "no-overflow-390",
+     "type": "overflow",
+     "route": "/dashboard",
+     "vp": [
+      390,
+      844
+     ]
+    },
+    {
+     "id": "screenshot-budget-1440",
+     "type": "screens-budget",
+     "tag": "dashboard@1440",
+     "maxRatioPercent": 5.1,
+     "maxHeightDelta": 230,
+     "observed": {
+      "percent": 3.334,
+      "heightDelta": -152
+     }
+    },
+    {
+     "id": "screenshot-budget-390",
+     "type": "screens-budget",
+     "tag": "dashboard@390",
+     "maxRatioPercent": 8.9,
+     "maxHeightDelta": 480,
+     "observed": {
+      "percent": 5.898,
+      "heightDelta": 234
+     },
+     "maxRatioPercent_R1c": 8.9,
+     "maxHeightDelta_R1c": 360,
+     "r1Measured": {
+      "percent": 6.278,
+      "heightDelta": 432,
+      "cause": "DATA rewrites two dashboard cards with their caveat text (DATA-dash-card-union/conf) and CLOCK/PG-polish wording"
+     }
+    },
+    {
+     "id": "dom",
+     "type": "browser",
+     "check": "dashboard-dom"
+    },
+    {
+     "id": "source-data-consistent",
+     "type": "data-dashboard-no-mismatch"
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-screenshot-documentary",
+   "kind": "screenshot",
+   "target": "/documentary",
+   "defects": [
+    "D13",
+    "D14"
+   ],
+   "dependsOn": [
+    "W-shared-subpage-layer"
+   ],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "reason": "sub 14 px, eyebrow 12 px, main kept about one screen tall (PGF-css-documentary, PGC-fill-documentary).",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGC-css-reserve-mounts: reserve the nav height; keep main about a screen tall so the JS-injected footer starts below the fold (the footer CLS was 0.09-0.55; comment in site-nav.css)"
+    }
+   ],
+   "patches": [
+    "PGC-fill-documentary",
+    "PGC-v-css-documentary",
+    "PGC-v-js-documentary",
+    "maps:og:documentary:og-image",
+    "maps:og:documentary:twitter-image",
+    "PGF-css-documentary"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "documentary.html"
+     ],
+     "allowIds": [
+      "PGC-fill-documentary",
+      "PGC-v-css-documentary",
+      "PGC-v-js-documentary",
+      "maps:og:documentary:og-image",
+      "maps:og:documentary:twitter-image",
+      "PGF-css-documentary"
+     ],
+     "requireIds": []
+    },
+    {
+     "id": "shared-layer-linked",
+     "type": "contains",
+     "file": "documentary.html",
+     "regex": "/site-nav\\.css\\?v=[0-9a-f]{8}"
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/documentary",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/documentary",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "no-overflow-390",
+     "type": "overflow",
+     "route": "/documentary",
+     "vp": [
+      390,
+      844
+     ]
+    },
+    {
+     "id": "screenshot-budget-1440",
+     "type": "screens-budget",
+     "tag": "documentary@1440",
+     "maxRatioPercent": 3.5,
+     "maxHeightDelta": 110,
+     "observed": {
+      "percent": 2.284,
+      "heightDelta": -8
+     },
+     "maxRatioPercent_R1c": 3.5,
+     "maxHeightDelta_R1c": 60,
+     "r1Measured": {
+      "percent": 2.242,
+      "heightDelta": -96,
+      "cause": "CLOCK/PG-polish wording (times instead of frame numbers, one name per feature) shortens the page; listed in the ledger and text assertions"
+     }
+    },
+    {
+     "id": "screenshot-budget-390",
+     "type": "screens-budget",
+     "tag": "documentary@390",
+     "maxRatioPercent": 11,
+     "maxHeightDelta": 200,
+     "observed": {
+      "percent": 7.324,
+      "heightDelta": 45
+     },
+     "maxRatioPercent_R1c": 11,
+     "maxHeightDelta_R1c": 70,
+     "r1Measured": {
+      "percent": 7.447,
+      "heightDelta": -175,
+      "cause": "CLOCK/PG-polish wording (times instead of frame numbers, one name per feature) shortens the page; listed in the ledger and text assertions"
+     }
+    },
+    {
+     "id": "text-390",
+     "type": "lines",
+     "route": "/documentary",
+     "vp": [
+      390,
+      844
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-screenshot-education",
+   "kind": "screenshot",
+   "target": "/education",
+   "defects": [
+    "D15",
+    "D16"
+   ],
+   "dependsOn": [
+    "W-shared-subpage-layer"
+   ],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "reason": "back link keeps its own 14 px, main kept about one screen tall (PGF-css-education, PGC-fill-education).",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGC-css-reserve-mounts: reserve the nav height; keep main about a screen tall so the JS-injected footer starts below the fold (the footer CLS was 0.09-0.55; comment in site-nav.css)"
+    }
+   ],
+   "patches": [
+    "PGC-fill-education",
+    "PGC-v-css-education",
+    "PGC-v-js-education",
+    "maps:og:education:og-image",
+    "maps:og:education:twitter-image",
+    "PGF-css-education"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "education.html"
+     ],
+     "allowIds": [
+      "PGC-fill-education",
+      "PGC-v-css-education",
+      "PGC-v-js-education",
+      "maps:og:education:og-image",
+      "maps:og:education:twitter-image",
+      "PGF-css-education"
+     ],
+     "requireIds": []
+    },
+    {
+     "id": "shared-layer-linked",
+     "type": "contains",
+     "file": "education.html",
+     "regex": "/site-nav\\.css\\?v=[0-9a-f]{8}"
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/education",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/education",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "no-overflow-390",
+     "type": "overflow",
+     "route": "/education",
+     "vp": [
+      390,
+      844
+     ]
+    },
+    {
+     "id": "screenshot-budget-1440",
+     "type": "screens-budget",
+     "tag": "education@1440",
+     "maxRatioPercent": 7.2,
+     "maxHeightDelta": 600,
+     "observed": {
+      "percent": 3.205,
+      "heightDelta": -16
+     },
+     "maxRatioPercent_R1c": 4.9,
+     "maxHeightDelta_R1c": 60,
+     "r1Measured": {
+      "percent": 6.461,
+      "heightDelta": 541,
+      "cause": "IMG adds one captioned period photograph (IMG:figure:education)"
+     }
+    },
+    {
+     "id": "screenshot-budget-390",
+     "type": "screens-budget",
+     "tag": "education@390",
+     "maxRatioPercent": 18.3,
+     "maxHeightDelta": 490,
+     "observed": {
+      "percent": 12.135,
+      "heightDelta": 45
+     },
+     "maxRatioPercent_R1c": 18.3,
+     "maxHeightDelta_R1c": 70,
+     "r1Measured": {
+      "percent": 14.645,
+      "heightDelta": 439,
+      "cause": "IMG adds one captioned period photograph (IMG:figure:education)"
+     }
+    },
+    {
+     "id": "text-390",
+     "type": "lines",
+     "route": "/education",
+     "vp": [
+      390,
+      844
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-screenshot-embed",
+   "kind": "screenshot",
+   "target": "/embed",
+   "defects": [
+    "D17",
+    "D18"
+   ],
+   "dependsOn": [
+    "W-shared-subpage-layer"
+   ],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "reason": "12 px text, readable link colour, 44 px link and button targets (PGF-css-embed; the page is iframed on other sites).",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    }
+   ],
+   "patches": [
+    "PGF-css-embed"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "embed.html"
+     ],
+     "allowIds": [
+      "PGF-css-embed"
+     ],
+     "requireIds": []
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/embed",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/embed",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "no-overflow-390",
+     "type": "overflow",
+     "route": "/embed",
+     "vp": [
+      390,
+      844
+     ]
+    },
+    {
+     "id": "screenshot-budget-1440",
+     "type": "screens-budget",
+     "tag": "embed@1440",
+     "maxRatioPercent": 2,
+     "maxHeightDelta": 60,
+     "observed": {
+      "percent": 1.304,
+      "heightDelta": 0
+     }
+    },
+    {
+     "id": "screenshot-budget-390",
+     "type": "screens-budget",
+     "tag": "embed@390",
+     "maxRatioPercent": 10.8,
+     "maxHeightDelta": 60,
+     "observed": {
+      "percent": 7.149,
+      "heightDelta": 0
+     }
+    },
+    {
+     "id": "text-390",
+     "type": "lines",
+     "route": "/embed",
+     "vp": [
+      390,
+      844
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-screenshot-find-ancestor",
+   "kind": "screenshot",
+   "target": "/find-ancestor",
+   "defects": [
+    "D19",
+    "D20"
+   ],
+   "dependsOn": [
+    "W-shared-subpage-layer"
+   ],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "reason": "labels on the two inputs, 44 px result rows, 12-14 px text (PGF-label-*, PGF-css-find-ancestor).",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    }
+   ],
+   "patches": [
+    "PGC-v-css-find-ancestor",
+    "PGC-v-js-find-ancestor",
+    "maps:og:find-ancestor:og-image",
+    "PGF-label-find-surname",
+    "PGF-label-find-state",
+    "PGF-css-find-ancestor"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "find-ancestor.html"
+     ],
+     "allowIds": [
+      "PGC-v-css-find-ancestor",
+      "PGC-v-js-find-ancestor",
+      "maps:og:find-ancestor:og-image",
+      "PGF-label-find-surname",
+      "PGF-label-find-state",
+      "PGF-css-find-ancestor"
+     ],
+     "requireIds": []
+    },
+    {
+     "id": "shared-layer-linked",
+     "type": "contains",
+     "file": "find-ancestor.html",
+     "regex": "/site-nav\\.css\\?v=[0-9a-f]{8}"
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/find-ancestor",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/find-ancestor",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "no-overflow-390",
+     "type": "overflow",
+     "route": "/find-ancestor",
+     "vp": [
+      390,
+      844
+     ]
+    },
+    {
+     "id": "screenshot-budget-1440",
+     "type": "screens-budget",
+     "tag": "find-ancestor@1440",
+     "maxRatioPercent": 2.1,
+     "maxHeightDelta": 60,
+     "observed": {
+      "percent": 1.379,
+      "heightDelta": 0
+     }
+    },
+    {
+     "id": "screenshot-budget-390",
+     "type": "screens-budget",
+     "tag": "find-ancestor@390",
+     "maxRatioPercent": 8,
+     "maxHeightDelta": 70,
+     "observed": {
+      "percent": 5.333,
+      "heightDelta": 41
+     }
+    },
+    {
+     "id": "text-390",
+     "type": "lines",
+     "route": "/find-ancestor",
+     "vp": [
+      390,
+      844
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-text-historian",
+   "kind": "text",
+   "target": "/historian",
+   "defects": [
+    "D21",
+    "D23"
+   ],
+   "dependsOn": [],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B (copy rows of the docs-copy chapter; the \"not an AI\" wording itself is an owner decision, see COPY2 and tools/accept/copy_whitelist.json)",
+   "reason": "how-it-works sentence rewritten with computed counts, answers carry a source line, 44 px source links, main kept about one screen tall (page is now taller than 900 px at 1440), no per-message jump (PGC-hist-*, PGF-*, PGC-fill-historian).",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGC-css-reserve-mounts: reserve the nav height; keep main about a screen tall so the JS-injected footer starts below the fold (the footer CLS was 0.09-0.55; comment in site-nav.css)"
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGC-hist-how (pages-C-16: hard-coded counts and the claim that every answer links to a row of data -- chronology answers had no source), PGC-hist-src-note, PGC-hist-chron (all 137 chronology answers printed \"undefined\")"
+    },
+    {
+     "doc": "docs/plan/FINAL/11-copy-docs-content.md",
+     "line": 104,
+     "quote": "Historian `historian.html:113-125`: one implementation, owned by WP-HIST-01 (chapter 14 section E, same R1 release)"
+    }
+   ],
+   "patches": [
+    "PGC-fill-historian",
+    "PGC-v-css-historian",
+    "PGC-v-js-historian",
+    "PGC-hist-css-scroll",
+    "PGC-hist-how",
+    "PGC-hist-esc",
+    "PGC-hist-skip-alias",
+    "PGC-hist-no-ids",
+    "PGC-hist-chron",
+    "PGC-hist-counts",
+    "PGC-hist-src-note",
+    "maps:og:historian:og-image",
+    "PGF-label-historian-ask",
+    "PGF-css-historian",
+    "PGF-historian-greeting-scroll"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "historian.html"
+     ],
+     "allowIds": [
+      "PGC-fill-historian",
+      "PGC-v-css-historian",
+      "PGC-v-js-historian",
+      "PGC-hist-css-scroll",
+      "PGC-hist-how",
+      "PGC-hist-esc",
+      "PGC-hist-skip-alias",
+      "PGC-hist-no-ids",
+      "PGC-hist-chron",
+      "PGC-hist-counts",
+      "PGC-hist-src-note",
+      "maps:og:historian:og-image",
+      "PGF-label-historian-ask",
+      "PGF-css-historian",
+      "PGF-historian-greeting-scroll"
+     ],
+     "requireIds": [
+      "PGC-hist-how",
+      "PGC-hist-src-note"
+     ]
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/historian",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [
+      "re:^This runs entirely in your browser and answers only from this site's own published data"
+     ],
+     "gainedRequired": [
+      "re:^Answers come only from this site's own records"
+     ]
+    },
+    {
+     "id": "text-390",
+     "type": "lines",
+     "route": "/historian",
+     "vp": [
+      390,
+      844
+     ],
+     "lostAllowed": [
+      "re:^This runs entirely in your browser and answers only from this site's own published data"
+     ],
+     "gainedRequired": [
+      "re:^Answers come only from this site's own records"
+     ]
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/historian",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "claims",
+     "type": "browser",
+     "check": "historian"
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-screenshot-historian",
+   "kind": "screenshot",
+   "target": "/historian",
+   "defects": [
+    "D22",
+    "D24"
+   ],
+   "dependsOn": [
+    "W-shared-subpage-layer"
+   ],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "reason": "how-it-works sentence rewritten with computed counts, answers carry a source line, 44 px source links, main kept about one screen tall (page is now taller than 900 px at 1440), no per-message jump (PGC-hist-*, PGF-*, PGC-fill-historian).",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGC-css-reserve-mounts: reserve the nav height; keep main about a screen tall so the JS-injected footer starts below the fold (the footer CLS was 0.09-0.55; comment in site-nav.css)"
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGC-hist-how (pages-C-16: hard-coded counts and the claim that every answer links to a row of data -- chronology answers had no source), PGC-hist-src-note, PGC-hist-chron (all 137 chronology answers printed \"undefined\")"
+    },
+    {
+     "doc": "docs/plan/FINAL/11-copy-docs-content.md",
+     "line": 104,
+     "quote": "Historian `historian.html:113-125`: one implementation, owned by WP-HIST-01 (chapter 14 section E, same R1 release)"
+    }
+   ],
+   "patches": [
+    "PGC-fill-historian",
+    "PGC-v-css-historian",
+    "PGC-v-js-historian",
+    "PGC-hist-css-scroll",
+    "PGC-hist-how",
+    "PGC-hist-esc",
+    "PGC-hist-skip-alias",
+    "PGC-hist-no-ids",
+    "PGC-hist-chron",
+    "PGC-hist-counts",
+    "PGC-hist-src-note",
+    "maps:og:historian:og-image",
+    "PGF-label-historian-ask",
+    "PGF-css-historian",
+    "PGF-historian-greeting-scroll"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "historian.html"
+     ],
+     "allowIds": [
+      "PGC-fill-historian",
+      "PGC-v-css-historian",
+      "PGC-v-js-historian",
+      "PGC-hist-css-scroll",
+      "PGC-hist-how",
+      "PGC-hist-esc",
+      "PGC-hist-skip-alias",
+      "PGC-hist-no-ids",
+      "PGC-hist-chron",
+      "PGC-hist-counts",
+      "PGC-hist-src-note",
+      "maps:og:historian:og-image",
+      "PGF-label-historian-ask",
+      "PGF-css-historian",
+      "PGF-historian-greeting-scroll"
+     ],
+     "requireIds": [
+      "PGC-hist-how",
+      "PGC-hist-src-note"
+     ]
+    },
+    {
+     "id": "shared-layer-linked",
+     "type": "contains",
+     "file": "historian.html",
+     "regex": "/site-nav\\.css\\?v=[0-9a-f]{8}"
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/historian",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [
+      "re:^This runs entirely in your browser and answers only from this site's own published data"
+     ],
+     "gainedRequired": [
+      "re:^Answers come only from this site's own records"
+     ]
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/historian",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "no-overflow-390",
+     "type": "overflow",
+     "route": "/historian",
+     "vp": [
+      390,
+      844
+     ]
+    },
+    {
+     "id": "screenshot-budget-1440",
+     "type": "screens-budget",
+     "tag": "historian@1440",
+     "maxRatioPercent": 2.3,
+     "maxHeightDelta": 450,
+     "observed": {
+      "percent": 1.499,
+      "heightDelta": 294
+     }
+    },
+    {
+     "id": "screenshot-budget-390",
+     "type": "screens-budget",
+     "tag": "historian@390",
+     "maxRatioPercent": 6.1,
+     "maxHeightDelta": 430,
+     "observed": {
+      "percent": 4.001,
+      "heightDelta": 281
+     }
+    },
+    {
+     "id": "claims",
+     "type": "browser",
+     "check": "historian"
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-screenshot-living-ledger",
+   "kind": "screenshot",
+   "target": "/living-ledger",
+   "defects": [
+    "D25",
+    "D26"
+   ],
+   "dependsOn": [
+    "W-shared-subpage-layer"
+   ],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "reason": "main kept about one screen tall, cumulative curve fixed (tick 1 read 4 and tick 675 read 47,001 against a period total of 46,163: PGC-ledger-curve), 12 px labels, labelled speed select.",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGC-css-reserve-mounts: reserve the nav height; keep main about a screen tall so the JS-injected footer starts below the fold (the footer CLS was 0.09-0.55; comment in site-nav.css)"
+    }
+   ],
+   "patches": [
+    "PGC-fill-living-ledger",
+    "PGC-v-css-living-ledger",
+    "PGC-v-js-living-ledger",
+    "PGC-ledger-curve",
+    "PGC-ledger-clock-lookup",
+    "PGC-a11y-ledger-speed",
+    "maps:og:living-ledger:og-image",
+    "PGF-css-living-ledger"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "living-ledger.html"
+     ],
+     "allowIds": [
+      "PGC-fill-living-ledger",
+      "PGC-v-css-living-ledger",
+      "PGC-v-js-living-ledger",
+      "PGC-ledger-curve",
+      "PGC-ledger-clock-lookup",
+      "PGC-a11y-ledger-speed",
+      "maps:og:living-ledger:og-image",
+      "PGF-css-living-ledger"
+     ],
+     "requireIds": [
+      "PGC-ledger-curve"
+     ]
+    },
+    {
+     "id": "shared-layer-linked",
+     "type": "contains",
+     "file": "living-ledger.html",
+     "regex": "/site-nav\\.css\\?v=[0-9a-f]{8}"
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/living-ledger",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/living-ledger",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "no-overflow-390",
+     "type": "overflow",
+     "route": "/living-ledger",
+     "vp": [
+      390,
+      844
+     ]
+    },
+    {
+     "id": "screenshot-budget-1440",
+     "type": "screens-budget",
+     "tag": "living-ledger@1440",
+     "maxRatioPercent": 1.5,
+     "maxHeightDelta": 340,
+     "observed": {
+      "percent": 0.991,
+      "heightDelta": 224
+     }
+    },
+    {
+     "id": "screenshot-budget-390",
+     "type": "screens-budget",
+     "tag": "living-ledger@390",
+     "maxRatioPercent": 6.5,
+     "maxHeightDelta": 470,
+     "observed": {
+      "percent": 4.312,
+      "heightDelta": 313
+     }
+    },
+    {
+     "id": "text-390",
+     "type": "lines",
+     "route": "/living-ledger",
+     "vp": [
+      390,
+      844
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-screenshot-privacy",
+   "kind": "screenshot",
+   "target": "/privacy",
+   "defects": [
+    "D27",
+    "D28"
+   ],
+   "dependsOn": [
+    "W-shared-subpage-layer"
+   ],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "reason": "Back-to-map link and mailto links are 44 px targets, wide tables scroll in a focusable region (PGF-css-privacy, PGF-privacy-tablewrap); the text is unchanged (the legal group is opt-in and not in this build).",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    }
+   ],
+   "patches": [
+    "PGF-css-privacy",
+    "PGF-privacy-tablewrap"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "privacy.html"
+     ],
+     "allowIds": [
+      "PGF-css-privacy",
+      "PGF-privacy-tablewrap"
+     ],
+     "requireIds": []
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/privacy",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/privacy",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "no-overflow-390",
+     "type": "overflow",
+     "route": "/privacy",
+     "vp": [
+      390,
+      844
+     ]
+    },
+    {
+     "id": "screenshot-budget-1440",
+     "type": "screens-budget",
+     "tag": "privacy@1440",
+     "maxRatioPercent": 0.7,
+     "maxHeightDelta": 60,
+     "observed": {
+      "percent": 0.138,
+      "heightDelta": 21
+     }
+    },
+    {
+     "id": "screenshot-budget-390",
+     "type": "screens-budget",
+     "tag": "privacy@390",
+     "maxRatioPercent": 0.8,
+     "maxHeightDelta": 70,
+     "observed": {
+      "percent": 0.247,
+      "heightDelta": 41
+     }
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-screenshot-regiment",
+   "kind": "screenshot",
+   "target": "/regiment",
+   "defects": [
+    "D29",
+    "D30"
+   ],
+   "dependsOn": [
+    "W-shared-subpage-layer"
+   ],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "reason": "search box id renamed (the sprite symbol id=\"search\" won getElementById: PGC-regiment-input), alias stubs no longer searchable (PGC-regiment-alias), missing casualty rate computed (PGC-regiment-rate), 44 px result rows (PGF-css-regiment).",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    }
+   ],
+   "patches": [
+    "PGC-v-css-regiment",
+    "PGC-v-js-regiment",
+    "PGC-regiment-css-search",
+    "PGC-regiment-css-focus",
+    "PGC-regiment-input",
+    "PGC-regiment-capture",
+    "PGC-regiment-dropped-lookups",
+    "PGC-regiment-alias",
+    "PGC-regiment-rate",
+    "PGC-regiment-preselect",
+    "maps:og:regiment:og-image",
+    "PGF-css-regiment",
+    "PGF-regiment-row-space"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "regiment.html"
+     ],
+     "allowIds": [
+      "PGC-v-css-regiment",
+      "PGC-v-js-regiment",
+      "PGC-regiment-css-search",
+      "PGC-regiment-css-focus",
+      "PGC-regiment-input",
+      "PGC-regiment-capture",
+      "PGC-regiment-dropped-lookups",
+      "PGC-regiment-alias",
+      "PGC-regiment-rate",
+      "PGC-regiment-preselect",
+      "maps:og:regiment:og-image",
+      "PGF-css-regiment",
+      "PGF-regiment-row-space"
+     ],
+     "requireIds": []
+    },
+    {
+     "id": "shared-layer-linked",
+     "type": "contains",
+     "file": "regiment.html",
+     "regex": "/site-nav\\.css\\?v=[0-9a-f]{8}"
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/regiment",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/regiment",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "no-overflow-390",
+     "type": "overflow",
+     "route": "/regiment",
+     "vp": [
+      390,
+      844
+     ]
+    },
+    {
+     "id": "screenshot-budget-1440",
+     "type": "screens-budget",
+     "tag": "regiment@1440",
+     "maxRatioPercent": 1.3,
+     "maxHeightDelta": 60,
+     "observed": {
+      "percent": 0.771,
+      "heightDelta": 0
+     }
+    },
+    {
+     "id": "screenshot-budget-390",
+     "type": "screens-budget",
+     "tag": "regiment@390",
+     "maxRatioPercent": 3.9,
+     "maxHeightDelta": 60,
+     "observed": {
+      "percent": 2.599,
+      "heightDelta": 0
+     }
+    },
+    {
+     "id": "text-390",
+     "type": "lines",
+     "route": "/regiment",
+     "vp": [
+      390,
+      844
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-screenshot-report",
+   "kind": "screenshot",
+   "target": "/report",
+   "defects": [
+    "D31",
+    "D32"
+   ],
+   "dependsOn": [
+    "W-shared-subpage-layer"
+   ],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "reason": "search box id renamed (PGC-report-input), alias stubs no longer searchable, rows without data hidden instead of printed as a dash (PGC-report-show), 44 px keyboard result rows (PGF-report-match-kbd).",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    }
+   ],
+   "patches": [
+    "PGC-v-css-report",
+    "PGC-v-js-report",
+    "PGC-report-css-search",
+    "PGC-report-css-print",
+    "PGC-report-input",
+    "PGC-report-capture",
+    "PGC-report-dropped-lookups",
+    "PGC-report-alias",
+    "PGC-report-show",
+    "maps:og:report:og-image",
+    "maps:og:report:twitter-image",
+    "PGF-css-report",
+    "PGF-report-match-kbd"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "report.html"
+     ],
+     "allowIds": [
+      "PGC-v-css-report",
+      "PGC-v-js-report",
+      "PGC-report-css-search",
+      "PGC-report-css-print",
+      "PGC-report-input",
+      "PGC-report-capture",
+      "PGC-report-dropped-lookups",
+      "PGC-report-alias",
+      "PGC-report-show",
+      "maps:og:report:og-image",
+      "maps:og:report:twitter-image",
+      "PGF-css-report",
+      "PGF-report-match-kbd"
+     ],
+     "requireIds": []
+    },
+    {
+     "id": "shared-layer-linked",
+     "type": "contains",
+     "file": "report.html",
+     "regex": "/site-nav\\.css\\?v=[0-9a-f]{8}"
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/report",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/report",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "no-overflow-390",
+     "type": "overflow",
+     "route": "/report",
+     "vp": [
+      390,
+      844
+     ]
+    },
+    {
+     "id": "screenshot-budget-1440",
+     "type": "screens-budget",
+     "tag": "report@1440",
+     "maxRatioPercent": 1.1,
+     "maxHeightDelta": 60,
+     "observed": {
+      "percent": 0.596,
+      "heightDelta": 0
+     }
+    },
+    {
+     "id": "screenshot-budget-390",
+     "type": "screens-budget",
+     "tag": "report@390",
+     "maxRatioPercent": 3.1,
+     "maxHeightDelta": 60,
+     "observed": {
+      "percent": 2.042,
+      "heightDelta": 0
+     }
+    },
+    {
+     "id": "text-390",
+     "type": "lines",
+     "route": "/report",
+     "vp": [
+      390,
+      844
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-screenshot-search",
+   "kind": "screenshot",
+   "target": "/search",
+   "defects": [
+    "D33",
+    "D34"
+   ],
+   "dependsOn": [
+    "W-shared-subpage-layer"
+   ],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "reason": "filter chips 44 px with a background of their own (PGC-search-chip: 1.10:1 contrast before), labelled search box, 12-13 px result tags (PGF-css-search), main kept about one screen tall.",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGC-css-reserve-mounts: reserve the nav height; keep main about a screen tall so the JS-injected footer starts below the fold (the footer CLS was 0.09-0.55; comment in site-nav.css)"
+    }
+   ],
+   "patches": [
+    "PGC-fill-search",
+    "PGC-v-css-search",
+    "PGC-v-js-search",
+    "PGC-search-chip",
+    "maps:og:search:og-image",
+    "maps:og:search:twitter-image",
+    "PGF-label-search-box",
+    "PGF-css-search"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "search.html"
+     ],
+     "allowIds": [
+      "PGC-fill-search",
+      "PGC-v-css-search",
+      "PGC-v-js-search",
+      "PGC-search-chip",
+      "maps:og:search:og-image",
+      "maps:og:search:twitter-image",
+      "PGF-label-search-box",
+      "PGF-css-search"
+     ],
+     "requireIds": []
+    },
+    {
+     "id": "shared-layer-linked",
+     "type": "contains",
+     "file": "search.html",
+     "regex": "/site-nav\\.css\\?v=[0-9a-f]{8}"
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/search",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/search",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "no-overflow-390",
+     "type": "overflow",
+     "route": "/search",
+     "vp": [
+      390,
+      844
+     ]
+    },
+    {
+     "id": "screenshot-budget-1440",
+     "type": "screens-budget",
+     "tag": "search@1440",
+     "maxRatioPercent": 3.2,
+     "maxHeightDelta": 60,
+     "observed": {
+      "percent": 2.085,
+      "heightDelta": 33
+     }
+    },
+    {
+     "id": "screenshot-budget-390",
+     "type": "screens-budget",
+     "tag": "search@390",
+     "maxRatioPercent": 11.3,
+     "maxHeightDelta": 370,
+     "observed": {
+      "percent": 7.48,
+      "heightDelta": 242
+     }
+    },
+    {
+     "id": "text-390",
+     "type": "lines",
+     "route": "/search",
+     "vp": [
+      390,
+      844
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    },
+    {
+     "id": "controls-390",
+     "type": "controls",
+     "route": "/search",
+     "vp": [
+      390,
+      844
+     ],
+     "lostAllowed": []
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-screenshot-terms",
+   "kind": "screenshot",
+   "target": "/terms",
+   "defects": [
+    "D35",
+    "D36"
+   ],
+   "dependsOn": [
+    "W-shared-subpage-layer"
+   ],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "reason": "Back-to-map and mailto links are 44 px targets (PGF-css-terms); the text is unchanged.",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    }
+   ],
+   "patches": [
+    "PGF-css-terms"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "terms.html"
+     ],
+     "allowIds": [
+      "PGF-css-terms"
+     ],
+     "requireIds": []
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/terms",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/terms",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "no-overflow-390",
+     "type": "overflow",
+     "route": "/terms",
+     "vp": [
+      390,
+      844
+     ]
+    },
+    {
+     "id": "screenshot-budget-1440",
+     "type": "screens-budget",
+     "tag": "terms@1440",
+     "maxRatioPercent": 1.4,
+     "maxHeightDelta": 60,
+     "observed": {
+      "percent": 0.109,
+      "heightDelta": 22
+     },
+     "maxRatioPercent_R1c": 0.7,
+     "maxHeightDelta_R1c": 60,
+     "r1Measured": {
+      "percent": 1.261,
+      "heightDelta": 48,
+      "cause": "PG-polish renamed features in the terms text (one name per feature)"
+     }
+    },
+    {
+     "id": "screenshot-budget-390",
+     "type": "screens-budget",
+     "tag": "terms@390",
+     "maxRatioPercent": 1.3,
+     "maxHeightDelta": 70,
+     "observed": {
+      "percent": 0.252,
+      "heightDelta": 43
+     },
+     "maxRatioPercent_R1c": 0.8,
+     "maxHeightDelta_R1c": 70,
+     "r1Measured": {
+      "percent": 1.172,
+      "heightDelta": 43,
+      "cause": "PG-polish renamed features in the terms text (one name per feature)"
+     }
+    },
+    {
+     "id": "text-390",
+     "type": "lines",
+     "route": "/terms",
+     "vp": [
+      390,
+      844
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-screenshot-turning-points",
+   "kind": "screenshot",
+   "target": "/turning-points",
+   "defects": [
+    "D37",
+    "D38"
+   ],
+   "dependsOn": [
+    "W-shared-subpage-layer"
+   ],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "reason": "six anchor ticks repointed to the site's own chronology (DL-turning-points-anchor x6: Ewell 175 -> 75, Longstreet 240 -> 256, Chamberlain 267 -> 275, Night Assault 340 -> 326, Cannonade 540 -> 518, Pickett 560 -> 538), 12 px labels (PGF-css-turning-points).",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    }
+   ],
+   "patches": [
+    "DL-turning-points-anchor 175->75 (Ewell's Discretion on Cemete)",
+    "DL-turning-points-anchor 240->256 (Longstreet's Delayed Attack)",
+    "DL-turning-points-anchor 267->275 (Chamberlain's Bayonet Charge)",
+    "DL-turning-points-anchor 340->326 (The Night Assault on Culp's )",
+    "DL-turning-points-anchor 540->518 (The Cannonade and Its Effect)",
+    "DL-turning-points-anchor 560->538 (Pickett's Charge and the Dec)",
+    "PGC-v-css-turning-points",
+    "PGC-v-js-turning-points",
+    "maps:og:turning-points:og-image",
+    "PGF-css-turning-points"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "turning-points.html"
+     ],
+     "allowIds": [
+      "DL-turning-points-anchor 175->75 (Ewell's Discretion on Cemete)",
+      "DL-turning-points-anchor 240->256 (Longstreet's Delayed Attack)",
+      "DL-turning-points-anchor 267->275 (Chamberlain's Bayonet Charge)",
+      "DL-turning-points-anchor 340->326 (The Night Assault on Culp's )",
+      "DL-turning-points-anchor 540->518 (The Cannonade and Its Effect)",
+      "DL-turning-points-anchor 560->538 (Pickett's Charge and the Dec)",
+      "PGC-v-css-turning-points",
+      "PGC-v-js-turning-points",
+      "maps:og:turning-points:og-image",
+      "PGF-css-turning-points"
+     ],
+     "requireIds": [
+      "DL-turning-points-anchor 175->75 (Ewell's Discretion on Cemete)"
+     ]
+    },
+    {
+     "id": "shared-layer-linked",
+     "type": "contains",
+     "file": "turning-points.html",
+     "regex": "/site-nav\\.css\\?v=[0-9a-f]{8}"
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/turning-points",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/turning-points",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "no-overflow-390",
+     "type": "overflow",
+     "route": "/turning-points",
+     "vp": [
+      390,
+      844
+     ]
+    },
+    {
+     "id": "screenshot-budget-1440",
+     "type": "screens-budget",
+     "tag": "turning-points@1440",
+     "maxRatioPercent": 5.0,
+     "maxHeightDelta": 620,
+     "observed": {
+      "percent": 1.909,
+      "heightDelta": 21
+     },
+     "maxRatioPercent_R1c": 2.9,
+     "maxHeightDelta_R1c": 60,
+     "r1Measured": {
+      "percent": 4.51,
+      "heightDelta": 560,
+      "cause": "IMG adds one captioned period photograph (IMG:figure:turning-points)"
+     }
+    },
+    {
+     "id": "screenshot-budget-390",
+     "type": "screens-budget",
+     "tag": "turning-points@390",
+     "maxRatioPercent": 9.2,
+     "maxHeightDelta": 600,
+     "observed": {
+      "percent": 5.501,
+      "heightDelta": 117
+     },
+     "maxRatioPercent_R1c": 8.3,
+     "maxHeightDelta_R1c": 180,
+     "r1Measured": {
+      "percent": 8.29,
+      "heightDelta": 544,
+      "cause": "IMG adds one captioned period photograph (IMG:figure:turning-points)"
+     }
+    },
+    {
+     "id": "text-390",
+     "type": "lines",
+     "route": "/turning-points",
+     "vp": [
+      390,
+      844
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    },
+    {
+     "id": "controls-390",
+     "type": "controls",
+     "route": "/turning-points",
+     "vp": [
+      390,
+      844
+     ],
+     "lostAllowed": []
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-screenshot-camera",
+   "kind": "screenshot",
+   "target": "/camera",
+   "defects": [
+    "D39"
+   ],
+   "dependsOn": [
+    "W-shared-subpage-layer"
+   ],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "reason": "Mapbox script/stylesheet non-blocking with SRI, DOMContentLoaded wrapper (maps:camera:*), 14 px sub (PGF-css-camera); the 59 % diff is the c3 screenshot method (section 7.3), the map itself renders identically.",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    },
+    {
+     "doc": "tools/t0/patches/PG-maps.json",
+     "quote": "description: WP-T0-13 (8 map pages: non-blocking Mapbox GL with SRI, PeerJS on demand) and WP-T0-14 (og:image/twitter:image -> /og/card-r1.png on 21 pages)"
+    },
+    {
+     "doc": "ops/T0-DEVIATIONS.md",
+     "line": 24,
+     "quote": "row 16: WP-T0-13: non-blocking Mapbox, plus SRI on `mapbox-gl.js`, `mapbox-gl.css` and PeerJS (fails closed) and 7 CLS guards"
+    },
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 41,
+     "quote": "P1/P4 on the 8 map sub-pages (non-blocking Mapbox, PeerJS on demand)"
+    }
+   ],
+   "patches": [
+    "PGC-v-css-camera",
+    "PGC-v-js-camera",
+    "maps:camera:css",
+    "maps:camera:js",
+    "maps:camera:dcl-open",
+    "maps:camera:dcl-close",
+    "maps:og:camera:og-image",
+    "maps:og:camera:twitter-image",
+    "PGF-css-camera"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "camera.html"
+     ],
+     "allowIds": [
+      "PGC-v-css-camera",
+      "PGC-v-js-camera",
+      "maps:camera:css",
+      "maps:camera:js",
+      "maps:camera:dcl-open",
+      "maps:camera:dcl-close",
+      "maps:og:camera:og-image",
+      "maps:og:camera:twitter-image",
+      "PGF-css-camera"
+     ],
+     "requireIds": []
+    },
+    {
+     "id": "shared-layer-linked",
+     "type": "contains",
+     "file": "camera.html",
+     "regex": "/site-nav\\.css\\?v=[0-9a-f]{8}"
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/camera",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/camera",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "no-overflow-390",
+     "type": "overflow",
+     "route": "/camera",
+     "vp": [
+      390,
+      844
+     ]
+    },
+    {
+     "id": "screenshot-budget-1440",
+     "type": "screens-budget",
+     "tag": "camera@1440",
+     "maxRatioPercent": 88.8,
+     "maxHeightDelta": 60,
+     "observed": {
+      "percent": 59.156,
+      "heightDelta": -11
+     }
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-screenshot-cinematic-export",
+   "kind": "screenshot",
+   "target": "/cinematic-export",
+   "defects": [
+    "D40"
+   ],
+   "dependsOn": [
+    "W-shared-subpage-layer"
+   ],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "reason": "non-blocking Mapbox (maps:cinematic-export:*), labels bound to their inputs (PGF-label-cinematic-*), loading notice out of flow (CLS), 12 px labels.",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    },
+    {
+     "doc": "tools/t0/patches/PG-maps.json",
+     "quote": "description: WP-T0-13 (8 map pages: non-blocking Mapbox GL with SRI, PeerJS on demand) and WP-T0-14 (og:image/twitter:image -> /og/card-r1.png on 21 pages)"
+    },
+    {
+     "doc": "ops/T0-DEVIATIONS.md",
+     "line": 24,
+     "quote": "row 16: WP-T0-13: non-blocking Mapbox, plus SRI on `mapbox-gl.js`, `mapbox-gl.css` and PeerJS (fails closed) and 7 CLS guards"
+    },
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 41,
+     "quote": "P1/P4 on the 8 map sub-pages (non-blocking Mapbox, PeerJS on demand)"
+    }
+   ],
+   "patches": [
+    "PGC-v-css-cinematic-export",
+    "PGC-v-js-cinematic-export",
+    "maps:cinematic-export:css",
+    "maps:cinematic-export:js",
+    "maps:cinematic-export:dcl-open",
+    "maps:cinematic-export:dcl-close",
+    "maps:cinematic-export:cls-loading",
+    "maps:og:cinematic-export:og-image",
+    "PGF-label-cinematic-start-tick",
+    "PGF-label-cinematic-end-tick",
+    "PGF-label-cinematic-duration",
+    "PGF-label-cinematic-captions",
+    "PGF-css-cinematic-export"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "cinematic-export.html"
+     ],
+     "allowIds": [
+      "PGC-v-css-cinematic-export",
+      "PGC-v-js-cinematic-export",
+      "maps:cinematic-export:css",
+      "maps:cinematic-export:js",
+      "maps:cinematic-export:dcl-open",
+      "maps:cinematic-export:dcl-close",
+      "maps:cinematic-export:cls-loading",
+      "maps:og:cinematic-export:og-image",
+      "PGF-label-cinematic-start-tick",
+      "PGF-label-cinematic-end-tick",
+      "PGF-label-cinematic-duration",
+      "PGF-label-cinematic-captions",
+      "PGF-css-cinematic-export"
+     ],
+     "requireIds": []
+    },
+    {
+     "id": "shared-layer-linked",
+     "type": "contains",
+     "file": "cinematic-export.html",
+     "regex": "/site-nav\\.css\\?v=[0-9a-f]{8}"
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/cinematic-export",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/cinematic-export",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "no-overflow-390",
+     "type": "overflow",
+     "route": "/cinematic-export",
+     "vp": [
+      390,
+      844
+     ]
+    },
+    {
+     "id": "screenshot-budget-1440",
+     "type": "screens-budget",
+     "tag": "cinematic-export@1440",
+     "maxRatioPercent": 1.5,
+     "maxHeightDelta": 60,
+     "observed": {
+      "percent": 0.934,
+      "heightDelta": -9
+     }
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-screenshot-compare",
+   "kind": "screenshot",
+   "target": "/compare",
+   "defects": [
+    "D41"
+   ],
+   "dependsOn": [
+    "W-shared-subpage-layer"
+   ],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "reason": "non-blocking Mapbox, split container hidden with visibility instead of display (CLS), toggle row wraps, phone layout, named sliders and canvases (PGF-compare-*, PGC-compare-toggle-wrap, PGC-a11y-compare-slider-*).",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    },
+    {
+     "doc": "tools/t0/patches/PG-maps.json",
+     "quote": "description: WP-T0-13 (8 map pages: non-blocking Mapbox GL with SRI, PeerJS on demand) and WP-T0-14 (og:image/twitter:image -> /og/card-r1.png on 21 pages)"
+    },
+    {
+     "doc": "ops/T0-DEVIATIONS.md",
+     "line": 24,
+     "quote": "row 16: WP-T0-13: non-blocking Mapbox, plus SRI on `mapbox-gl.js`, `mapbox-gl.css` and PeerJS (fails closed) and 7 CLS guards"
+    },
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 41,
+     "quote": "P1/P4 on the 8 map sub-pages (non-blocking Mapbox, PeerJS on demand)"
+    }
+   ],
+   "patches": [
+    "PGC-v-css-compare",
+    "PGC-v-js-compare",
+    "PGC-compare-toggle-wrap",
+    "PGC-a11y-compare-slider-a",
+    "PGC-a11y-compare-slider-b",
+    "maps:compare:css",
+    "maps:compare:js",
+    "maps:compare:dcl-open",
+    "maps:compare:dcl-close",
+    "maps:compare:cls-loading",
+    "maps:compare:cls-split-hidden",
+    "maps:compare:cls-split-show",
+    "maps:compare:cls-split-error",
+    "maps:og:compare:og-image",
+    "maps:og:compare:twitter-image",
+    "PGF-compare-dom-a",
+    "PGF-compare-dom-ab",
+    "PGF-compare-dom-b",
+    "PGF-compare-canvas-names",
+    "PGF-css-compare"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "compare.html"
+     ],
+     "allowIds": [
+      "PGC-v-css-compare",
+      "PGC-v-js-compare",
+      "PGC-compare-toggle-wrap",
+      "PGC-a11y-compare-slider-a",
+      "PGC-a11y-compare-slider-b",
+      "maps:compare:css",
+      "maps:compare:js",
+      "maps:compare:dcl-open",
+      "maps:compare:dcl-close",
+      "maps:compare:cls-loading",
+      "maps:compare:cls-split-hidden",
+      "maps:compare:cls-split-show",
+      "maps:compare:cls-split-error",
+      "maps:og:compare:og-image",
+      "maps:og:compare:twitter-image",
+      "PGF-compare-dom-a",
+      "PGF-compare-dom-ab",
+      "PGF-compare-dom-b",
+      "PGF-compare-canvas-names",
+      "PGF-css-compare"
+     ],
+     "requireIds": []
+    },
+    {
+     "id": "shared-layer-linked",
+     "type": "contains",
+     "file": "compare.html",
+     "regex": "/site-nav\\.css\\?v=[0-9a-f]{8}"
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/compare",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/compare",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "no-overflow-390",
+     "type": "overflow",
+     "route": "/compare",
+     "vp": [
+      390,
+      844
+     ]
+    },
+    {
+     "id": "screenshot-budget-1440",
+     "type": "screens-budget",
+     "tag": "compare@1440",
+     "maxRatioPercent": 3.7,
+     "maxHeightDelta": 60,
+     "observed": {
+      "percent": 2.422,
+      "heightDelta": 6
+     }
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-screenshot-ground-remembers",
+   "kind": "screenshot",
+   "target": "/ground-remembers",
+   "defects": [
+    "D42"
+   ],
+   "dependsOn": [
+    "W-shared-subpage-layer"
+   ],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "reason": "non-blocking Mapbox, slider label shrinks to the screen (PGF-css-ground-remembers), 14 px sub, 13 px caveat.",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    },
+    {
+     "doc": "tools/t0/patches/PG-maps.json",
+     "quote": "description: WP-T0-13 (8 map pages: non-blocking Mapbox GL with SRI, PeerJS on demand) and WP-T0-14 (og:image/twitter:image -> /og/card-r1.png on 21 pages)"
+    },
+    {
+     "doc": "ops/T0-DEVIATIONS.md",
+     "line": 24,
+     "quote": "row 16: WP-T0-13: non-blocking Mapbox, plus SRI on `mapbox-gl.js`, `mapbox-gl.css` and PeerJS (fails closed) and 7 CLS guards"
+    },
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 41,
+     "quote": "P1/P4 on the 8 map sub-pages (non-blocking Mapbox, PeerJS on demand)"
+    }
+   ],
+   "patches": [
+    "PGC-v-css-ground-remembers",
+    "PGC-v-js-ground-remembers",
+    "maps:ground-remembers:css",
+    "maps:ground-remembers:js",
+    "maps:ground-remembers:dcl-open",
+    "maps:ground-remembers:dcl-close",
+    "maps:og:ground-remembers:og-image",
+    "PGF-css-ground-remembers"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "ground-remembers.html"
+     ],
+     "allowIds": [
+      "PGC-v-css-ground-remembers",
+      "PGC-v-js-ground-remembers",
+      "maps:ground-remembers:css",
+      "maps:ground-remembers:js",
+      "maps:ground-remembers:dcl-open",
+      "maps:ground-remembers:dcl-close",
+      "maps:og:ground-remembers:og-image",
+      "PGF-css-ground-remembers"
+     ],
+     "requireIds": []
+    },
+    {
+     "id": "shared-layer-linked",
+     "type": "contains",
+     "file": "ground-remembers.html",
+     "regex": "/site-nav\\.css\\?v=[0-9a-f]{8}"
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/ground-remembers",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/ground-remembers",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "no-overflow-390",
+     "type": "overflow",
+     "route": "/ground-remembers",
+     "vp": [
+      390,
+      844
+     ]
+    },
+    {
+     "id": "screenshot-budget-1440",
+     "type": "screens-budget",
+     "tag": "ground-remembers@1440",
+     "maxRatioPercent": 2.4,
+     "maxHeightDelta": 60,
+     "observed": {
+      "percent": 1.573,
+      "heightDelta": -7
+     }
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-screenshot-immersive",
+   "kind": "screenshot",
+   "target": "/immersive",
+   "defects": [
+    "D43"
+   ],
+   "dependsOn": [
+    "W-shared-subpage-layer"
+   ],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "reason": "non-blocking Mapbox, Pause now silences the drone (PGC-imm-pause), labelled volume, inert map until the sound gate is passed (PGF-immersive-gate-*).",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    },
+    {
+     "doc": "tools/t0/patches/PG-maps.json",
+     "quote": "description: WP-T0-13 (8 map pages: non-blocking Mapbox GL with SRI, PeerJS on demand) and WP-T0-14 (og:image/twitter:image -> /og/card-r1.png on 21 pages)"
+    },
+    {
+     "doc": "ops/T0-DEVIATIONS.md",
+     "line": 24,
+     "quote": "row 16: WP-T0-13: non-blocking Mapbox, plus SRI on `mapbox-gl.js`, `mapbox-gl.css` and PeerJS (fails closed) and 7 CLS guards"
+    },
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 41,
+     "quote": "P1/P4 on the 8 map sub-pages (non-blocking Mapbox, PeerJS on demand)"
+    }
+   ],
+   "patches": [
+    "PGC-v-css-immersive",
+    "PGC-v-js-immersive",
+    "PGC-imm-pause",
+    "PGC-a11y-immersive-volume",
+    "maps:immersive:css",
+    "maps:immersive:js",
+    "maps:immersive:dcl-open",
+    "maps:immersive:dcl-close",
+    "maps:immersive:cls-loading",
+    "maps:og:immersive:og-image",
+    "PGF-immersive-gate-dom",
+    "PGF-immersive-gate-open",
+    "PGF-css-immersive"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "immersive.html"
+     ],
+     "allowIds": [
+      "PGC-v-css-immersive",
+      "PGC-v-js-immersive",
+      "PGC-imm-pause",
+      "PGC-a11y-immersive-volume",
+      "maps:immersive:css",
+      "maps:immersive:js",
+      "maps:immersive:dcl-open",
+      "maps:immersive:dcl-close",
+      "maps:immersive:cls-loading",
+      "maps:og:immersive:og-image",
+      "PGF-immersive-gate-dom",
+      "PGF-immersive-gate-open",
+      "PGF-css-immersive"
+     ],
+     "requireIds": []
+    },
+    {
+     "id": "shared-layer-linked",
+     "type": "contains",
+     "file": "immersive.html",
+     "regex": "/site-nav\\.css\\?v=[0-9a-f]{8}"
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/immersive",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/immersive",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "no-overflow-390",
+     "type": "overflow",
+     "route": "/immersive",
+     "vp": [
+      390,
+      844
+     ]
+    },
+    {
+     "id": "screenshot-budget-1440",
+     "type": "screens-budget",
+     "tag": "immersive@1440",
+     "maxRatioPercent": 2.5,
+     "maxHeightDelta": 60,
+     "observed": {
+      "percent": 1.651,
+      "heightDelta": -7
+     }
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-screenshot-sandbox",
+   "kind": "screenshot",
+   "target": "/sandbox",
+   "defects": [
+    "D50"
+   ],
+   "dependsOn": [
+    "W-shared-subpage-layer"
+   ],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "reason": "non-blocking Mapbox, map wrapped so the edit pop-up stays inside it (PGF-sandbox-wrap, PGF-sandbox-popup), hint and list colours raised for contrast, phone layout (PGF-css-sandbox).",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    },
+    {
+     "doc": "tools/t0/patches/PG-maps.json",
+     "quote": "description: WP-T0-13 (8 map pages: non-blocking Mapbox GL with SRI, PeerJS on demand) and WP-T0-14 (og:image/twitter:image -> /og/card-r1.png on 21 pages)"
+    },
+    {
+     "doc": "ops/T0-DEVIATIONS.md",
+     "line": 24,
+     "quote": "row 16: WP-T0-13: non-blocking Mapbox, plus SRI on `mapbox-gl.js`, `mapbox-gl.css` and PeerJS (fails closed) and 7 CLS guards"
+    },
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 41,
+     "quote": "P1/P4 on the 8 map sub-pages (non-blocking Mapbox, PeerJS on demand)"
+    }
+   ],
+   "patches": [
+    "PGC-v-css-sandbox",
+    "PGC-v-js-sandbox",
+    "maps:sandbox:css",
+    "maps:sandbox:js",
+    "maps:sandbox:dcl-open",
+    "maps:sandbox:dcl-close",
+    "maps:og:sandbox:og-image",
+    "maps:og:sandbox:twitter-image",
+    "PGF-sandbox-wrap",
+    "PGF-sandbox-popup",
+    "PGF-sandbox-contrast-hint",
+    "PGF-sandbox-contrast-list",
+    "PGF-sandbox-contrast-time",
+    "PGF-css-sandbox"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "sandbox.html"
+     ],
+     "allowIds": [
+      "PGC-v-css-sandbox",
+      "PGC-v-js-sandbox",
+      "maps:sandbox:css",
+      "maps:sandbox:js",
+      "maps:sandbox:dcl-open",
+      "maps:sandbox:dcl-close",
+      "maps:og:sandbox:og-image",
+      "maps:og:sandbox:twitter-image",
+      "PGF-sandbox-wrap",
+      "PGF-sandbox-popup",
+      "PGF-sandbox-contrast-hint",
+      "PGF-sandbox-contrast-list",
+      "PGF-sandbox-contrast-time",
+      "PGF-css-sandbox"
+     ],
+     "requireIds": []
+    },
+    {
+     "id": "shared-layer-linked",
+     "type": "contains",
+     "file": "sandbox.html",
+     "regex": "/site-nav\\.css\\?v=[0-9a-f]{8}"
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/sandbox",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/sandbox",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "no-overflow-390",
+     "type": "overflow",
+     "route": "/sandbox",
+     "vp": [
+      390,
+      844
+     ]
+    },
+    {
+     "id": "screenshot-budget-1440",
+     "type": "screens-budget",
+     "tag": "sandbox@1440",
+     "maxRatioPercent": 4.5,
+     "maxHeightDelta": 60,
+     "observed": {
+      "percent": 2.945,
+      "heightDelta": 14
+     }
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-text-viewshed",
+   "kind": "text",
+   "target": "/viewshed",
+   "defects": [
+    "D51"
+   ],
+   "dependsOn": [],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "reason": "non-blocking Mapbox, caveat shortened to \"Elevation only ...\" (PGC-viewshed-caveat), select shrinks to the screen (PGF-css-viewshed).",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    },
+    {
+     "doc": "tools/t0/patches/PG-maps.json",
+     "quote": "description: WP-T0-13 (8 map pages: non-blocking Mapbox GL with SRI, PeerJS on demand) and WP-T0-14 (og:image/twitter:image -> /og/card-r1.png on 21 pages)"
+    },
+    {
+     "doc": "ops/T0-DEVIATIONS.md",
+     "line": 24,
+     "quote": "row 16: WP-T0-13: non-blocking Mapbox, plus SRI on `mapbox-gl.js`, `mapbox-gl.css` and PeerJS (fails closed) and 7 CLS guards"
+    },
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 41,
+     "quote": "P1/P4 on the 8 map sub-pages (non-blocking Mapbox, PeerJS on demand)"
+    },
+    {
+     "doc": "docs/plan/FINAL/11-copy-docs-content.md",
+     "line": 363,
+     "quote": "viewshed.html:46 \"Earlier drafts of this tool tried...\" -> \"Elevation only. This page ranks the height of 30 places on the field. It is not a line-of-sight map: trees, buildings, fences and gun smoke often decided what a soldier could see.\""
+    },
+    {
+     "doc": "docs/plan/FINAL/01-decision-register.md",
+     "line": 310,
+     "quote": "D-VIEWSHED DEFAULT: state \"Elevation only. Line-of-sight maps are not shown on this page\""
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGC-viewshed-caveat (docs-copy / chapter 11 Appendix A row 1)"
+    }
+   ],
+   "patches": [
+    "PGC-v-css-viewshed",
+    "PGC-v-js-viewshed",
+    "PGC-viewshed-caveat",
+    "maps:viewshed:css",
+    "maps:viewshed:js",
+    "maps:viewshed:dcl-open",
+    "maps:viewshed:dcl-close",
+    "maps:og:viewshed:og-image",
+    "maps:og:viewshed:twitter-image",
+    "PGF-css-viewshed"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "viewshed.html"
+     ],
+     "allowIds": [
+      "PGC-v-css-viewshed",
+      "PGC-v-js-viewshed",
+      "PGC-viewshed-caveat",
+      "maps:viewshed:css",
+      "maps:viewshed:js",
+      "maps:viewshed:dcl-open",
+      "maps:viewshed:dcl-close",
+      "maps:og:viewshed:og-image",
+      "maps:og:viewshed:twitter-image",
+      "PGF-css-viewshed"
+     ],
+     "requireIds": [
+      "PGC-viewshed-caveat"
+     ]
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/viewshed",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [
+      "re:^⚠ This shows relative elevation, not a computed sightline"
+     ],
+     "gainedRequired": [
+      "re:^⚠ Elevation only\\."
+     ]
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/viewshed",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "viewshed-ranks-30",
+     "type": "browser",
+     "check": "viewshed"
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-screenshot-viewshed",
+   "kind": "screenshot",
+   "target": "/viewshed",
+   "defects": [
+    "D52"
+   ],
+   "dependsOn": [
+    "W-shared-subpage-layer"
+   ],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "reason": "non-blocking Mapbox, caveat shortened to \"Elevation only ...\" (PGC-viewshed-caveat), select shrinks to the screen (PGF-css-viewshed).",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    },
+    {
+     "doc": "tools/t0/patches/PG-maps.json",
+     "quote": "description: WP-T0-13 (8 map pages: non-blocking Mapbox GL with SRI, PeerJS on demand) and WP-T0-14 (og:image/twitter:image -> /og/card-r1.png on 21 pages)"
+    },
+    {
+     "doc": "ops/T0-DEVIATIONS.md",
+     "line": 24,
+     "quote": "row 16: WP-T0-13: non-blocking Mapbox, plus SRI on `mapbox-gl.js`, `mapbox-gl.css` and PeerJS (fails closed) and 7 CLS guards"
+    },
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 41,
+     "quote": "P1/P4 on the 8 map sub-pages (non-blocking Mapbox, PeerJS on demand)"
+    },
+    {
+     "doc": "docs/plan/FINAL/11-copy-docs-content.md",
+     "line": 363,
+     "quote": "viewshed.html:46 \"Earlier drafts of this tool tried...\" -> \"Elevation only. This page ranks the height of 30 places on the field. It is not a line-of-sight map: trees, buildings, fences and gun smoke often decided what a soldier could see.\""
+    },
+    {
+     "doc": "docs/plan/FINAL/01-decision-register.md",
+     "line": 310,
+     "quote": "D-VIEWSHED DEFAULT: state \"Elevation only. Line-of-sight maps are not shown on this page\""
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGC-viewshed-caveat (docs-copy / chapter 11 Appendix A row 1)"
+    }
+   ],
+   "patches": [
+    "PGC-v-css-viewshed",
+    "PGC-v-js-viewshed",
+    "PGC-viewshed-caveat",
+    "maps:viewshed:css",
+    "maps:viewshed:js",
+    "maps:viewshed:dcl-open",
+    "maps:viewshed:dcl-close",
+    "maps:og:viewshed:og-image",
+    "maps:og:viewshed:twitter-image",
+    "PGF-css-viewshed"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "viewshed.html"
+     ],
+     "allowIds": [
+      "PGC-v-css-viewshed",
+      "PGC-v-js-viewshed",
+      "PGC-viewshed-caveat",
+      "maps:viewshed:css",
+      "maps:viewshed:js",
+      "maps:viewshed:dcl-open",
+      "maps:viewshed:dcl-close",
+      "maps:og:viewshed:og-image",
+      "maps:og:viewshed:twitter-image",
+      "PGF-css-viewshed"
+     ],
+     "requireIds": [
+      "PGC-viewshed-caveat"
+     ]
+    },
+    {
+     "id": "shared-layer-linked",
+     "type": "contains",
+     "file": "viewshed.html",
+     "regex": "/site-nav\\.css\\?v=[0-9a-f]{8}"
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/viewshed",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [
+      "re:^⚠ This shows relative elevation, not a computed sightline"
+     ],
+     "gainedRequired": [
+      "re:^⚠ Elevation only\\."
+     ]
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/viewshed",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "no-overflow-390",
+     "type": "overflow",
+     "route": "/viewshed",
+     "vp": [
+      390,
+      844
+     ]
+    },
+    {
+     "id": "screenshot-budget-1440",
+     "type": "screens-budget",
+     "tag": "viewshed@1440",
+     "maxRatioPercent": 2.6,
+     "maxHeightDelta": 190,
+     "observed": {
+      "percent": 1.7,
+      "heightDelta": -123
+     }
+    },
+    {
+     "id": "viewshed-ranks-30",
+     "type": "browser",
+     "check": "viewshed"
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-screenshot-watch-together",
+   "kind": "screenshot",
+   "target": "/watch-together",
+   "defects": [
+    "D53"
+   ],
+   "dependsOn": [
+    "W-shared-subpage-layer"
+   ],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in the release notes and the patch ledger",
+   "reason": "non-blocking Mapbox, PeerJS loaded on demand with SRI (maps:watch-together:peerjs-*), imported tours validated and rendered with textContent (PGC-wt-*: stored XSS), labelled inputs, 44 px controls (PGF-wt-*).",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    },
+    {
+     "doc": "tools/t0/patches/PG-maps.json",
+     "quote": "description: WP-T0-13 (8 map pages: non-blocking Mapbox GL with SRI, PeerJS on demand) and WP-T0-14 (og:image/twitter:image -> /og/card-r1.png on 21 pages)"
+    },
+    {
+     "doc": "ops/T0-DEVIATIONS.md",
+     "line": 24,
+     "quote": "row 16: WP-T0-13: non-blocking Mapbox, plus SRI on `mapbox-gl.js`, `mapbox-gl.css` and PeerJS (fails closed) and 7 CLS guards"
+    },
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 41,
+     "quote": "P1/P4 on the 8 map sub-pages (non-blocking Mapbox, PeerJS on demand)"
+    }
+   ],
+   "patches": [
+    "PGC-v-css-watch-together",
+    "PGC-v-js-watch-together",
+    "PGC-wt-clean",
+    "PGC-wt-render",
+    "PGC-wt-import",
+    "PGC-wt-add-msg",
+    "PGC-wt-add",
+    "maps:watch-together:css",
+    "maps:watch-together:js",
+    "maps:watch-together:dcl-open",
+    "maps:watch-together:dcl-close",
+    "maps:watch-together:cls-loading",
+    "maps:watch-together:peerjs-tag",
+    "maps:watch-together:peerjs-loader",
+    "maps:watch-together:host-open",
+    "maps:watch-together:host-close",
+    "maps:watch-together:join-open",
+    "maps:watch-together:join-close",
+    "maps:og:watch-together:og-image",
+    "PGF-wt-import-focusable",
+    "PGF-wt-label-tick",
+    "PGF-wt-label-note",
+    "PGF-wt-label-join",
+    "PGF-wt-remove-label",
+    "PGF-css-watch-together"
+   ],
+   "assertions": [
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "watch-together.html"
+     ],
+     "allowIds": [
+      "PGC-v-css-watch-together",
+      "PGC-v-js-watch-together",
+      "PGC-wt-clean",
+      "PGC-wt-render",
+      "PGC-wt-import",
+      "PGC-wt-add-msg",
+      "PGC-wt-add",
+      "maps:watch-together:css",
+      "maps:watch-together:js",
+      "maps:watch-together:dcl-open",
+      "maps:watch-together:dcl-close",
+      "maps:watch-together:cls-loading",
+      "maps:watch-together:peerjs-tag",
+      "maps:watch-together:peerjs-loader",
+      "maps:watch-together:host-open",
+      "maps:watch-together:host-close",
+      "maps:watch-together:join-open",
+      "maps:watch-together:join-close",
+      "maps:og:watch-together:og-image",
+      "PGF-wt-import-focusable",
+      "PGF-wt-label-tick",
+      "PGF-wt-label-note",
+      "PGF-wt-label-join",
+      "PGF-wt-remove-label",
+      "PGF-css-watch-together"
+     ],
+     "requireIds": []
+    },
+    {
+     "id": "shared-layer-linked",
+     "type": "contains",
+     "file": "watch-together.html",
+     "regex": "/site-nav\\.css\\?v=[0-9a-f]{8}"
+    },
+    {
+     "id": "text-1440",
+     "type": "lines",
+     "route": "/watch-together",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [],
+     "gainedRequired": []
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/watch-together",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": []
+    },
+    {
+     "id": "no-overflow-390",
+     "type": "overflow",
+     "route": "/watch-together",
+     "vp": [
+      390,
+      844
+     ]
+    },
+    {
+     "id": "screenshot-budget-1440",
+     "type": "screens-budget",
+     "tag": "watch-together@1440",
+     "maxRatioPercent": 2.4,
+     "maxHeightDelta": 60,
+     "observed": {
+      "percent": 1.571,
+      "heightDelta": 30
+     }
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-text-index-1440",
+   "kind": "text",
+   "target": "/",
+   "defects": [
+    "D44",
+    "D47"
+   ],
+   "dependsOn": [],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: plan defaults D-ENTRY and D-SOUND, the +2 date fix that the T0 plan always allowed, copy rows CP; the O-T0-3 intro deletion and the O-T0-9 device bound still need the owner's yes",
+   "reason": "HARNESS DEFECT behind most of this row: tools/accept/checks/c3_regression.mjs calls lib.chooseLayout, which gives up after 1.5 s because the published app only shows its \"Choose Your Experience\" screen after the ~3.5 s intro fast-forward; the baseline was therefore captured AT the chooser. The assertions below compare the real published app (chooser clicked through, tick 1) with the candidate. Real differences at 1440: \"Download Website Tutorial PDF\" is now \"User Guide (PDF)\" (same href); tick-1 HUD reads July 1, 1863 (published: July 3, the +2 bug); tick 1 draws 70 units (published: 72 intro-primed ghosts standing at later positions, O-T0-3); \"1x (real time)\" is \"1x (base speed)\"; the sound button is gone (D-SOUND). The layout chooser is deleted: the layout is chosen by media query and a Phone view control returns from the desktop layout.",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R0.md",
+     "line": 48,
+     "quote": "The intro is gone: the app shows the layout chooser/map at once. Tick 1 now draws 70 (Day 1 loaded) to 71 (all days) units instead of the intro-primed ghosts ... Sign-off O-T0-3."
+    },
+    {
+     "doc": "docs/plan/FINAL/02-tranche0-hotfix-runbook.md",
+     "line": 330,
+     "quote": "`R0-intro-delete` removes that, so R0 ... is the first release that draws 70-71 units at tick 1 ... until WP-T0-07's stateless `i2` ships."
+    },
+    {
+     "doc": "docs/plan/FINAL/01-decision-register.md",
+     "line": 257,
+     "quote": "D-ENTRY DEFAULT 1: No modal gates: layout by CSS/`matchMedia` with a Settings override; fast-forward, chooser, onboarding modal and injected banner deleted"
+    },
+    {
+     "doc": "ops/T0-DEVIATIONS.md",
+     "line": 22,
+     "quote": "row 14: D-SHELL / WP-T0-08: layout query 820 px -> 834 px ... Needs the owner: **yes** when the devices have been tried"
+    },
+    {
+     "doc": "ops/T0-DEVIATIONS.md",
+     "line": 32,
+     "quote": "row 24: ... from R1b group C auto-detects the layout and the chooser is never shown"
+    },
+    {
+     "doc": "ops/release-notes/R1b.md",
+     "line": 27,
+     "quote": "Group C: layout auto-detect `(max-width:834px) and (pointer:coarse), (max-height:480px) and (pointer:coarse)` ... the Tools sheet (Help, Bookmarks, Layers wired, NPS tile became Virtual Walkthrough ...)"
+    },
+    {
+     "doc": "tools/t0/patches/CP.json",
+     "quote": "cp:b10 \"1x (real time)\" -> \"1x (base speed)\" (\"real time\" is not true after the time model); cp:b11 \"Download Website Tutorial PDF\" -> \"User Guide (PDF)\" (matches the site footer label)"
+    },
+    {
+     "doc": "docs/plan/FINAL/11-copy-docs-content.md",
+     "line": 376,
+     "quote": "row 14: \"1x (real time)\"; \"Tick 538/675\" -> \"1x\" + tooltip \"Base playback speed\""
+    },
+    {
+     "doc": "docs/plan/FINAL/01-decision-register.md",
+     "line": 300,
+     "quote": "D-SOUND DEFAULT. Remove: delete `yO`/`vO` ... (T0 patch B ...); fix banner, guide, Help."
+    },
+    {
+     "doc": "docs/plan/FINAL/16-audit-corrections-and-new-findings.md",
+     "line": 106,
+     "quote": "NF-05 `CanvasRenderer` is an undefined global: turning sound on freezes playback or blanks the app (owner wanted no audio: D-SOUND)"
+    },
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 47,
+     "quote": "the sound button is gone"
+    },
+    {
+     "doc": "tools/t0/patches/A.json",
+     "quote": "A-sound-remove-button (D-SOUND default): function yO(){return null}; bug:B-sound-ReferenceError"
+    },
+    {
+     "doc": "ops/release-notes/R1c.md",
+     "line": 27,
+     "quote": "Group B (13 patches): the July +2 date bug (HUD, monument tooltip, ancestor timeline) ..."
+    },
+    {
+     "doc": "docs/decisions/OWNER-DECISIONS-2026-10-05.md",
+     "line": 3,
+     "quote": "They supersede the T0 rule \"no clock-label changes except +2\" (the +2 date fix is the one clock-label change that rule always allowed; the clock itself is corrected by group CLOCK)"
+    },
+    {
+     "doc": "tools/t0/patches/B.json",
+     "quote": "bug:D1-hud-date"
+    }
+   ],
+   "assertions": [
+    {
+     "id": "page-ledger",
+     "type": "ledger",
+     "files": [
+      "index.html"
+     ],
+     "allowIds": [
+      "R0M:modulepreload removed",
+      "R0M:css preload swap -> plain stylesheet",
+      "R0M:head hint removed: <link rel=\"preconnect\" href=\"https://events.mapbox.com\" crossorigin />",
+      "R0M:head hint removed: <link rel=\"preconnect\" href=\"https://a.tiles.mapbox.com\" crossorigin /",
+      "R0M:head hint removed: <link rel=\"preconnect\" href=\"https://b.tiles.mapbox.com\" crossorigin /",
+      "R0M:head hint removed: <link rel=\"dns-prefetch\" href=\"https://api.mapbox.com\" />",
+      "R0M:head hint removed: <link rel=\"preconnect\" href=\"https://www.google.com\" crossorigin />",
+      "R0M:head hint removed: <link rel=\"preconnect\" href=\"https://maps.googleapis.com\" crossorigin ",
+      "R0M:head hint removed: <link rel=\"preconnect\" href=\"https://streetviewpixels-pa.googleapis.co",
+      "R0M:head hint removed: <link rel=\"dns-prefetch\" href=\"https://maps.googleapis.com\" />",
+      "R0M:head hint removed: <link rel=\"dns-prefetch\" href=\"https://www.google.com\" />",
+      "R0M:color-scheme meta added",
+      "R0M:boot splash fade removed",
+      "R0M:onboarding banner added in the same frame as the chooser (CLS 0.0497 -> 0)",
+      "R0M:service-worker script block replaced",
+      "R0M:site-nav.js deferred",
+      "R0M:module script -> boot-after-first-paint loader",
+      "mob:HF-12a viewport (viewport-fit=cover; apple-* and color-scheme metas dropped)",
+      "mob:HF-12b mapbox !important height",
+      "mob:HF-12c css",
+      "C:live-hide-legacy-bar-superseded",
+      "AX-shell-skiplinks-h1-nav (index.html)",
+      "AX-shell-nav-close (index.html)",
+      "AX-shell-main-open-h2 (index.html)",
+      "AX-shell-splash-title (index.html)",
+      "AX-shell-main-close (index.html)",
+      "AX-shell-css-splash-title (index.html)",
+      "AX-shell-css-seo-h2 (index.html)",
+      "cp:banner (index.html:377: no \"AI-style\", no \"live sound\", no AR, no count)",
+      "SHELL-css",
+      "SHELL-phone-button",
+      "SHELL-menu-fit",
+      "SHELL-menu-open-focus",
+      "SHELL-menu-keys",
+      "SHELL-reposition-legacy",
+      "SHELL-modal-churn-phone",
+      "PERF-css-app-nonblocking",
+      "PERF-css-nav-nonblocking",
+      "PERF-loader-applies-css",
+      "PERF-critical-css-inline",
+      "PGC-index-use-historian",
+      "PGC-index-use-menu",
+      "PGC-index-use-eye",
+      "PGC-index-use-banner",
+      "PGC-index-seo-nav-ar",
+      "PGC-v-css-index",
+      "PGC-v-js-index",
+      "maps:og:index:og-image",
+      "maps:og:index:twitter-image"
+     ],
+     "requireIds": [
+      "R0M:module script -> boot-after-first-paint loader",
+      "SHELL-phone-button"
+     ]
+    },
+    {
+     "id": "bundle-ledger",
+     "type": "ledger",
+     "files": [
+      "js",
+      "help",
+      "book",
+      "css"
+     ],
+     "allowIds": [
+      "R0-intro-delete (perf-cwv-04)",
+      "R0-mapbox-precompile (perf)",
+      "bug:A1-C5-selectHandler",
+      "bug:A2-C5-trailSegment",
+      "bug:A3-C5-changeRegiment",
+      "bug:A4-honest-copy",
+      "bug:B-sound-ReferenceError",
+      "A-sound-remove-button (D-SOUND default)",
+      "A-KF-loop-off (perf-runtime-39 A)",
+      "A-onMapReady-ref (perf-runtime-39 D)",
+      "mob:HF-3b desktop overlay canvas pointer-events:none",
+      "mob:HF-3c desktop map click handler",
+      "A-keys-guard (bug:E1 + a11y:C merged)",
+      "bug:E2-escape-set",
+      "a11:B-io-wrapper",
+      "bug:E4-day-keys",
+      "A-wt-attribution (Mapbox ToS, walkthrough map)",
+      "A-heatmap-key-remove (D-HEATMAP)",
+      "A-heatmap-tour-row-remove (D-HEATMAP)",
+      "A-heatmap-help-row-remove (D-HEATMAP, copy h09)",
+      "bug:G1-locations-start",
+      "bug:G2-locations-deps",
+      "A-onboarded-guard (bug:H1 + deep-link suppress)",
+      "bug:H2-onboarded-write",
+      "bug:I-dt-cap",
+      "bug:K-skip-tour",
+      "A-error-boundary (AMD-T0-1, moved here from EB.json: owner asked for the full plan)",
+      "A+chooser-dialog",
+      "A+chooser-card-desktop",
+      "A+chooser-card-mobile",
+      "bug:D1-hud-date",
+      "bug:D2-monument-tooltip",
+      "bug:D3-ancestor-timeline",
+      "bug:J1-jumpToDay",
+      "bug:J2-setTick",
+      "bug:J3-zp",
+      "bug:J4-redraw-on-data",
+      "B-M1-addPlacements-merge (app-bugs missed M1)",
+      "B-i2-stateless-carry-forward (app-latent-08 / app-bugs-07)",
+      "bug:C-minimap-GF",
+      "B-minimap-draw-carry",
+      "B-minimap-count-carry",
+      "B-ancestor-loads-days (Follow panel + ?ancestor= need every day; app-bugs-06 \"217 of 478 units missing from Follow Your Ancestor\")",
+      "DL-deeplink-reader (NEW, D-URLSTATE T0 subset)",
+      "mob:HF-1a AO gate desktop overlays",
+      "mob:HF-1b AO gate desktop unit panel",
+      "mob:HF-2 rehome panels in pO",
+      "mob:HF-3a mobile overlay canvas -> pointer-events:none + map click",
+      "mob:HF-4 mobile map options",
+      "mob:HF-5a layout init",
+      "mob:HF-5b layout attr effect",
+      "mob:HF-5c pO props wiring",
+      "mob:HF-5d pO signature",
+      "mob:D02-store-mapref",
+      "mob:D02-select-popup",
+      "mob:D02-draw-selected-load",
+      "mob:D02-draw-selected-paused",
+      "mob:HF-6a drop dead Monuments tile",
+      "mob:HF-6b NPS tour tile -> Virtual Walkthrough",
+      "mob:HF-6c layers",
+      "mob:HF-6d bookmarks",
+      "mob:HF-6e help",
+      "mob:HF-6f historian tile + desktop view",
+      "mob:HF-6g append Extra Features groups to sheet",
+      "mob:HF-6h grid",
+      "mob:HF-6i panel",
+      "mob:HF-6j icon colour (was default black on dark)",
+      "mob:HF-6k label size/contrast",
+      "mob:HF-6l close label+target",
+      "mob:HF-6m walkthrough (mobile branch) map container never initialised: missing id",
+      "mob:HF-7a step back",
+      "mob:HF-7b step fwd",
+      "mob:HF-7c play",
+      "mob:HF-7d speed",
+      "mob:HF-7e tickInfo",
+      "mob:HF-7f clockDay",
+      "mob:HF-7g day tab",
+      "mob:HF-7h legend offset (clear Mapbox logo)",
+      "mob:HF-7i minimap offset",
+      "mob:HF-7j unit popup close target",
+      "mob:HF-7k unit popup name padding",
+      "mob:C-scrub44",
+      "mob:C-slide-close44",
+      "mob:C-wt-head-hook",
+      "mob:C-layers-hook",
+      "mob:C-help-overlay-hook",
+      "mob:C-book-overlay-hook",
+      "mob:C-roster-hook",
+      "mob:C-popup-hook",
+      "mob:HF-9a root/map",
+      "mob:HF-9b top",
+      "mob:HF-9c days",
+      "mob:HF-9d dock",
+      "mob:HF-9e scrub",
+      "mob:D13-scrub-end-zones",
+      "mob:HF-9f play",
+      "mob:HF-9g minimap",
+      "mob:HF-9h legend",
+      "mob:HF-9i tools panel",
+      "mob:HF-11a hide Power User on touch",
+      "mob:HF-11b touch copy",
+      "mob:C-tour-touch-1",
+      "mob:C-tour-touch-2",
+      "mob:C-tour-touch-3",
+      "mob:C-tour-touch-4",
+      "mob:C-tour-touch-5",
+      "mob:C-tour-touch-6",
+      "mob:C-tour-touch-7",
+      "mob:HF-11c tour skip target/contrast",
+      "mob:HF-11d tour hero contrast",
+      "mob:C-onboarding-fit",
+      "mob:HF-8a root",
+      "mob:HF-8b map box",
+      "mob:HF-8d dayTabs top",
+      "mob:HF-8e bottomBar",
+      "mob:HF-8f unitPopup",
+      "mob:HF-8c topBar",
+      "C-topBar-padding-shorthand (app-mobile MISSED-3)",
+      "a11:A-slider",
+      "a11:D-toolbar-vs",
+      "a11:G-close-generic",
+      "a11:G-close-mobile",
+      "a11:H-filter-range",
+      "a11:H-search-input",
+      "a11:H-ancestor-input",
+      "a11:H-mon-search-1",
+      "a11:H-mon-search-2",
+      "AX-map-container-id (skip-link target, a11y verifier 01b)",
+      "a11:I-toast-log",
+      "a11:J2-glow-pulse",
+      "a11:J3-no-subtick-interp",
+      "AX-flags-and-dialog-helper",
+      "AX-toolbar-center-flow",
+      "AX-toolbar-hook-tick",
+      "AX-toolbar-hook-right",
+      "AX-toolbar-hook-center",
+      "AX-key-s-no-typed-char",
+      "AX-hud-paused-opacity",
+      "AX-walkthrough-chipN-contrast",
+      "AX-walkthrough-star-swatch",
+      "AX-legend-scroll-region",
+      "AX-transport-back1h",
+      "AX-transport-prev",
+      "AX-transport-play",
+      "AX-transport-next",
+      "AX-transport-fwd1h",
+      "AX-day-btn-pressed",
+      "AX-speed-btn-pressed",
+      "AX-scroll-search-results",
+      "AX-search-result-row",
+      "AX-search-quick-links",
+      "AX-search-select-focus",
+      "AX-unit-panel-region",
+      "AX-search-panel-focus-return",
+      "AX-search-status",
+      "AX-scroll-ancestor-results",
+      "AX-scroll-ancestor-journey",
+      "AX-scroll-roster-union",
+      "AX-scroll-roster-confederate",
+      "AX-scroll-story-text",
+      "AX-scroll-event-panel",
+      "AX-scroll-viewpoints",
+      "AX-scroll-roster-desktop-columns",
+      "AX-scroll-mobile-legend",
+      "AX-walkthrough-day-badge-contrast",
+      "AX-close-X (Layers, Distance)",
+      "AX-layers-checkbox-name",
+      "AX-onboarding-dialog",
+      "AX-mobile-map-id (after C HF-9a)",
+      "AX-mobile-dock-id (after C HF-9d)",
+      "AX-help-dialog",
+      "AX-help-close",
+      "AX-book-dialog",
+      "AX-book-close",
+      "AX-book-remove",
+      "AX-book-input",
+      "AX-book-row-keyboard",
+      "AX-css-shim (app stylesheet)",
+      "AX-ancestor-dialog",
+      "AX-ancestor-result-row",
+      "AX-ancestor-select-focus",
+      "AX-ancestor-change-focus",
+      "AX-ancestor-journey-row",
+      "AX-viewpoints-dialog",
+      "AX-viewpoint-row",
+      "AX-viewpoint-viewer",
+      "AX-viewpoint-back",
+      "AX-onboarding-esc-focus",
+      "AX-onboarding-step-title-tour",
+      "AX-onboarding-step-title-keys",
+      "AX-walkthrough-dialog-mobile",
+      "AX-walkthrough-dialog-desktop",
+      "AX-walkthrough-back-mobile",
+      "AX-walkthrough-back-desktop",
+      "AX-panel-filter",
+      "AX-panel-legend",
+      "AX-panel-roster",
+      "AX-panel-layers",
+      "AX-help-phone-list",
+      "AX-help-phone-tab",
+      "AX-help-phone-render",
+      "AX-tools-sheet-dialog",
+      "cp:b01",
+      "cp:b10",
+      "cp:b11",
+      "cp:b13",
+      "cp:b14",
+      "cp:b15",
+      "cp:b16",
+      "cp:b17",
+      "cp:b18",
+      "cp:b41",
+      "cp:b43",
+      "cp:b44",
+      "cp:b49",
+      "cp:b50",
+      "cp:b51",
+      "cp:b52",
+      "cp:h01 (445+ -> hundreds; no number without the facts pipeline)",
+      "cp:h03",
+      "cp:h-map-keys",
+      "cp:mobile-tools-footer (Privacy, Terms, credit; after group C HF-6g)",
+      "cp:walkthrough-streetview-allow",
+      "A2-helpers",
+      "A2-map-attribution-and-setup",
+      "A2-resize-repaint",
+      "A2-resize-z9",
+      "A2-filter-repaint",
+      "A2-open-flags",
+      "A2-story-card-position",
+      "A2-story-card-esc",
+      "A2-event-card-position",
+      "A2-event-card-esc",
+      "A2-minimap-position",
+      "A2-minimap-fab-position",
+      "A2-tour-panel-position",
+      "A2-tour-panel-esc",
+      "A2-tour-dots-remove",
+      "A2-tour-dots-in-panel",
+      "A2-tour-dots-style",
+      "A2-tour-speed-save",
+      "A2-tour-speed-restore",
+      "R0M:entry->HelpModal import specifier",
+      "R0M:entry->BookmarkPanel import specifier",
+      "R0M:HelpModal->entry import",
+      "R0M:BookmarkPanel->entry import"
+     ],
+     "requireIds": [
+      "R0-intro-delete (perf-cwv-04)",
+      "bug:D1-hud-date",
+      "cp:b10",
+      "cp:b11",
+      "A-sound-remove-button (D-SOUND default)",
+      "mob:HF-1a AO gate desktop overlays",
+      "mob:HF-5a layout init",
+      "mob:HF-6a drop dead Monuments tile",
+      "mob:HF-6b NPS tour tile -> Virtual Walkthrough",
+      "mob:HF-6f historian tile + desktop view",
+      "mob:HF-6g append Extra Features groups to sheet"
+     ]
+    },
+    {
+     "id": "no-chooser-and-layout-override",
+     "type": "browser",
+     "check": "no-chooser"
+    },
+    {
+     "id": "desktop-replacements",
+     "type": "browser",
+     "check": "index-desktop"
+    },
+    {
+     "id": "lines-1440",
+     "type": "lines",
+     "route": "/",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [
+      "Download Website Tutorial PDF",
+      "72 units · tick 1",
+      "July 3, 1863",
+      "1x (real time)",
+      "🔇",
+      "Choose Your Experience",
+      "SELECT THE FORMAT THAT BEST FITS YOUR DEVICE",
+      "🖥",
+      "Desktop",
+      "re:^Full-featured experience with side panels",
+      "re:^Select Desktop",
+      "📱",
+      "Mobile",
+      "re:^Touch-optimized layout",
+      "re:^Select Mobile",
+      "You can switch at any time from the settings menu"
+     ],
+     "gainedRequired": [
+      "User Guide (PDF)",
+      "re:^\\d+ units · ",
+      "July 1, 1863",
+      "1x (base speed)"
+     ]
+    },
+    {
+     "id": "lines-390",
+     "type": "lines",
+     "route": "/",
+     "vp": [
+      390,
+      844
+     ],
+     "lostAllowed": [
+      "Extra Features",
+      "Disposition",
+      "Sides",
+      "Size",
+      "re:^(Line of Battle|Holding position|Charging Line|Advancing to attack|Skirmish Line|Screening / scouting|Chaotic Retreat|Broken and falling back|Line of March|Moving toward action|Reserve|Held back awaiting orders|Bivouac|Encamped overnight|Deployed Artillery|Guns in battery, firing|Limbered Artillery|Guns moving|Mounted Cavalry|Cavalry in formation|Dismounted Cavalry|Cavalry fighting on foot)$",
+      "1 units · tick 1",
+      "July 3, 1863",
+      "1x (real time)",
+      "🎖 NPS Auto Tour",
+      "🔇",
+      "Choose Your Experience",
+      "SELECT THE FORMAT THAT BEST FITS YOUR DEVICE",
+      "🖥",
+      "Desktop",
+      "re:^Full-featured experience with side panels",
+      "re:^Select Desktop",
+      "📱",
+      "Mobile",
+      "re:^Touch-optimized layout",
+      "re:^Select Mobile",
+      "You can switch at any time from the settings menu"
+     ],
+     "gainedRequired": [
+      "re:^⋯ Tools$"
+     ]
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-controls-index-1440",
+   "kind": "controls",
+   "target": "/",
+   "defects": [
+    "D45",
+    "D48"
+   ],
+   "dependsOn": [],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B (plan defaults, release notes R0/R1a/R1b; AX group names the slider)",
+   "reason": "HARNESS DEFECT behind most of this row: tools/accept/checks/c3_regression.mjs calls lib.chooseLayout, which gives up after 1.5 s because the published app only shows its \"Choose Your Experience\" screen after the ~3.5 s intro fast-forward; the baseline was therefore captured AT the chooser. The assertions below compare the real published app (chooser clicked through, tick 1) with the candidate. Real differences at 1440: the guide link is renamed, the timeline slider (published name \"0\") is now \"Battle time\", the dead-since-D-SOUND sound button is removed. At 390 the desktop overlays that leaked into the published phone layout (Extra Features pill and menu, Ask the Historian pin, the desktop legend panel with Disposition/Sides/Size, NPS Auto Tour, sound) are gated out and re-homed: the Extra Features menu is the \"More tools\" part of the Tools sheet, Ask the Historian is a tile, the legend is the Legend tile, the glyph-only prev/next buttons are named \"Step back/forward 5 minutes\". The published \"NPS Auto Tour\" tile never worked on a phone (it called the layout setter with true), so the tile became the Virtual Walkthrough.",
+   "evidence": [
+    {
+     "doc": "docs/plan/FINAL/06-ux-ui-mobile-desktop.md",
+     "line": 46,
+     "quote": "F3: Search, Filter, story, event card and unit panels sit under the opaque mobile root: invisible on phones. 14 mobile tiles (5 dead: Layers, Bookmarks, Help, NPS Auto Tour, Monuments ...)"
+    },
+    {
+     "doc": "docs/plan/FINAL/16-audit-corrections-and-new-findings.md",
+     "line": 103,
+     "quote": "NF-02: 15 desktop overlays render with no layout guard in the Mobile layout; `IO` ties the mobile root at z100 and covers dock and Tools sheet"
+    },
+    {
+     "doc": "docs/plan/FINAL/16-audit-corrections-and-new-findings.md",
+     "line": 105,
+     "quote": "NF-04: Five of 14 mobile Tools tiles are dead (Help, Bookmarks, Map Layers, Monuments, NPS Auto Tour); Walkthrough, Distance, Locations, Sound have no mobile entry."
+    },
+    {
+     "doc": "tools/t0/patches/C.json",
+     "quote": "mob:HF-1a (gate desktop overlays out of the phone layout), HF-6a (drop dead Monuments tile), HF-6b (NPS tour tile -> Virtual Walkthrough), HF-6f (Ask the Historian tile), HF-6g (append the Extra Features groups to the sheet)"
+    },
+    {
+     "doc": "ops/release-notes/R1b.md",
+     "line": 46,
+     "quote": "Phones and coarse-pointer tablets up to 834 px wide (and landscape phones) get the mobile shell ..."
+    },
+    {
+     "doc": "ops/release-notes/R0.md",
+     "line": 48,
+     "quote": "The intro is gone: the app shows the layout chooser/map at once. Tick 1 now draws 70 (Day 1 loaded) to 71 (all days) units instead of the intro-primed ghosts ... Sign-off O-T0-3."
+    },
+    {
+     "doc": "docs/plan/FINAL/02-tranche0-hotfix-runbook.md",
+     "line": 330,
+     "quote": "`R0-intro-delete` removes that, so R0 ... is the first release that draws 70-71 units at tick 1 ... until WP-T0-07's stateless `i2` ships."
+    },
+    {
+     "doc": "docs/plan/FINAL/01-decision-register.md",
+     "line": 257,
+     "quote": "D-ENTRY DEFAULT 1: No modal gates: layout by CSS/`matchMedia` with a Settings override; fast-forward, chooser, onboarding modal and injected banner deleted"
+    },
+    {
+     "doc": "ops/T0-DEVIATIONS.md",
+     "line": 22,
+     "quote": "row 14: D-SHELL / WP-T0-08: layout query 820 px -> 834 px ... Needs the owner: **yes** when the devices have been tried"
+    },
+    {
+     "doc": "ops/T0-DEVIATIONS.md",
+     "line": 32,
+     "quote": "row 24: ... from R1b group C auto-detects the layout and the chooser is never shown"
+    },
+    {
+     "doc": "ops/release-notes/R1b.md",
+     "line": 27,
+     "quote": "Group C: layout auto-detect `(max-width:834px) and (pointer:coarse), (max-height:480px) and (pointer:coarse)` ... the Tools sheet (Help, Bookmarks, Layers wired, NPS tile became Virtual Walkthrough ...)"
+    },
+    {
+     "doc": "docs/plan/FINAL/01-decision-register.md",
+     "line": 300,
+     "quote": "D-SOUND DEFAULT. Remove: delete `yO`/`vO` ... (T0 patch B ...); fix banner, guide, Help."
+    },
+    {
+     "doc": "docs/plan/FINAL/16-audit-corrections-and-new-findings.md",
+     "line": 106,
+     "quote": "NF-05 `CanvasRenderer` is an undefined global: turning sound on freezes playback or blanks the app (owner wanted no audio: D-SOUND)"
+    },
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 47,
+     "quote": "the sound button is gone"
+    },
+    {
+     "doc": "tools/t0/patches/A.json",
+     "quote": "A-sound-remove-button (D-SOUND default): function yO(){return null}; bug:B-sound-ReferenceError"
+    },
+    {
+     "doc": "tools/t0/patches/AX.json",
+     "quote": "AX: timeline slider as an integer 1..675 slider with `aria-valuetext` (R1b.md:28)"
+    }
+   ],
+   "assertions": [
+    {
+     "id": "bundle-ledger",
+     "type": "ledger",
+     "files": [
+      "js",
+      "help",
+      "book",
+      "css"
+     ],
+     "allowIds": [
+      "R0-intro-delete (perf-cwv-04)",
+      "R0-mapbox-precompile (perf)",
+      "bug:A1-C5-selectHandler",
+      "bug:A2-C5-trailSegment",
+      "bug:A3-C5-changeRegiment",
+      "bug:A4-honest-copy",
+      "bug:B-sound-ReferenceError",
+      "A-sound-remove-button (D-SOUND default)",
+      "A-KF-loop-off (perf-runtime-39 A)",
+      "A-onMapReady-ref (perf-runtime-39 D)",
+      "mob:HF-3b desktop overlay canvas pointer-events:none",
+      "mob:HF-3c desktop map click handler",
+      "A-keys-guard (bug:E1 + a11y:C merged)",
+      "bug:E2-escape-set",
+      "a11:B-io-wrapper",
+      "bug:E4-day-keys",
+      "A-wt-attribution (Mapbox ToS, walkthrough map)",
+      "A-heatmap-key-remove (D-HEATMAP)",
+      "A-heatmap-tour-row-remove (D-HEATMAP)",
+      "A-heatmap-help-row-remove (D-HEATMAP, copy h09)",
+      "bug:G1-locations-start",
+      "bug:G2-locations-deps",
+      "A-onboarded-guard (bug:H1 + deep-link suppress)",
+      "bug:H2-onboarded-write",
+      "bug:I-dt-cap",
+      "bug:K-skip-tour",
+      "A-error-boundary (AMD-T0-1, moved here from EB.json: owner asked for the full plan)",
+      "A+chooser-dialog",
+      "A+chooser-card-desktop",
+      "A+chooser-card-mobile",
+      "bug:D1-hud-date",
+      "bug:D2-monument-tooltip",
+      "bug:D3-ancestor-timeline",
+      "bug:J1-jumpToDay",
+      "bug:J2-setTick",
+      "bug:J3-zp",
+      "bug:J4-redraw-on-data",
+      "B-M1-addPlacements-merge (app-bugs missed M1)",
+      "B-i2-stateless-carry-forward (app-latent-08 / app-bugs-07)",
+      "bug:C-minimap-GF",
+      "B-minimap-draw-carry",
+      "B-minimap-count-carry",
+      "B-ancestor-loads-days (Follow panel + ?ancestor= need every day; app-bugs-06 \"217 of 478 units missing from Follow Your Ancestor\")",
+      "DL-deeplink-reader (NEW, D-URLSTATE T0 subset)",
+      "mob:HF-1a AO gate desktop overlays",
+      "mob:HF-1b AO gate desktop unit panel",
+      "mob:HF-2 rehome panels in pO",
+      "mob:HF-3a mobile overlay canvas -> pointer-events:none + map click",
+      "mob:HF-4 mobile map options",
+      "mob:HF-5a layout init",
+      "mob:HF-5b layout attr effect",
+      "mob:HF-5c pO props wiring",
+      "mob:HF-5d pO signature",
+      "mob:D02-store-mapref",
+      "mob:D02-select-popup",
+      "mob:D02-draw-selected-load",
+      "mob:D02-draw-selected-paused",
+      "mob:HF-6a drop dead Monuments tile",
+      "mob:HF-6b NPS tour tile -> Virtual Walkthrough",
+      "mob:HF-6c layers",
+      "mob:HF-6d bookmarks",
+      "mob:HF-6e help",
+      "mob:HF-6f historian tile + desktop view",
+      "mob:HF-6g append Extra Features groups to sheet",
+      "mob:HF-6h grid",
+      "mob:HF-6i panel",
+      "mob:HF-6j icon colour (was default black on dark)",
+      "mob:HF-6k label size/contrast",
+      "mob:HF-6l close label+target",
+      "mob:HF-6m walkthrough (mobile branch) map container never initialised: missing id",
+      "mob:HF-7a step back",
+      "mob:HF-7b step fwd",
+      "mob:HF-7c play",
+      "mob:HF-7d speed",
+      "mob:HF-7e tickInfo",
+      "mob:HF-7f clockDay",
+      "mob:HF-7g day tab",
+      "mob:HF-7h legend offset (clear Mapbox logo)",
+      "mob:HF-7i minimap offset",
+      "mob:HF-7j unit popup close target",
+      "mob:HF-7k unit popup name padding",
+      "mob:C-scrub44",
+      "mob:C-slide-close44",
+      "mob:C-wt-head-hook",
+      "mob:C-layers-hook",
+      "mob:C-help-overlay-hook",
+      "mob:C-book-overlay-hook",
+      "mob:C-roster-hook",
+      "mob:C-popup-hook",
+      "mob:HF-9a root/map",
+      "mob:HF-9b top",
+      "mob:HF-9c days",
+      "mob:HF-9d dock",
+      "mob:HF-9e scrub",
+      "mob:D13-scrub-end-zones",
+      "mob:HF-9f play",
+      "mob:HF-9g minimap",
+      "mob:HF-9h legend",
+      "mob:HF-9i tools panel",
+      "mob:HF-11a hide Power User on touch",
+      "mob:HF-11b touch copy",
+      "mob:C-tour-touch-1",
+      "mob:C-tour-touch-2",
+      "mob:C-tour-touch-3",
+      "mob:C-tour-touch-4",
+      "mob:C-tour-touch-5",
+      "mob:C-tour-touch-6",
+      "mob:C-tour-touch-7",
+      "mob:HF-11c tour skip target/contrast",
+      "mob:HF-11d tour hero contrast",
+      "mob:C-onboarding-fit",
+      "mob:HF-8a root",
+      "mob:HF-8b map box",
+      "mob:HF-8d dayTabs top",
+      "mob:HF-8e bottomBar",
+      "mob:HF-8f unitPopup",
+      "mob:HF-8c topBar",
+      "C-topBar-padding-shorthand (app-mobile MISSED-3)",
+      "a11:A-slider",
+      "a11:D-toolbar-vs",
+      "a11:G-close-generic",
+      "a11:G-close-mobile",
+      "a11:H-filter-range",
+      "a11:H-search-input",
+      "a11:H-ancestor-input",
+      "a11:H-mon-search-1",
+      "a11:H-mon-search-2",
+      "AX-map-container-id (skip-link target, a11y verifier 01b)",
+      "a11:I-toast-log",
+      "a11:J2-glow-pulse",
+      "a11:J3-no-subtick-interp",
+      "AX-flags-and-dialog-helper",
+      "AX-toolbar-center-flow",
+      "AX-toolbar-hook-tick",
+      "AX-toolbar-hook-right",
+      "AX-toolbar-hook-center",
+      "AX-key-s-no-typed-char",
+      "AX-hud-paused-opacity",
+      "AX-walkthrough-chipN-contrast",
+      "AX-walkthrough-star-swatch",
+      "AX-legend-scroll-region",
+      "AX-transport-back1h",
+      "AX-transport-prev",
+      "AX-transport-play",
+      "AX-transport-next",
+      "AX-transport-fwd1h",
+      "AX-day-btn-pressed",
+      "AX-speed-btn-pressed",
+      "AX-scroll-search-results",
+      "AX-search-result-row",
+      "AX-search-quick-links",
+      "AX-search-select-focus",
+      "AX-unit-panel-region",
+      "AX-search-panel-focus-return",
+      "AX-search-status",
+      "AX-scroll-ancestor-results",
+      "AX-scroll-ancestor-journey",
+      "AX-scroll-roster-union",
+      "AX-scroll-roster-confederate",
+      "AX-scroll-story-text",
+      "AX-scroll-event-panel",
+      "AX-scroll-viewpoints",
+      "AX-scroll-roster-desktop-columns",
+      "AX-scroll-mobile-legend",
+      "AX-walkthrough-day-badge-contrast",
+      "AX-close-X (Layers, Distance)",
+      "AX-layers-checkbox-name",
+      "AX-onboarding-dialog",
+      "AX-mobile-map-id (after C HF-9a)",
+      "AX-mobile-dock-id (after C HF-9d)",
+      "AX-help-dialog",
+      "AX-help-close",
+      "AX-book-dialog",
+      "AX-book-close",
+      "AX-book-remove",
+      "AX-book-input",
+      "AX-book-row-keyboard",
+      "AX-css-shim (app stylesheet)",
+      "AX-ancestor-dialog",
+      "AX-ancestor-result-row",
+      "AX-ancestor-select-focus",
+      "AX-ancestor-change-focus",
+      "AX-ancestor-journey-row",
+      "AX-viewpoints-dialog",
+      "AX-viewpoint-row",
+      "AX-viewpoint-viewer",
+      "AX-viewpoint-back",
+      "AX-onboarding-esc-focus",
+      "AX-onboarding-step-title-tour",
+      "AX-onboarding-step-title-keys",
+      "AX-walkthrough-dialog-mobile",
+      "AX-walkthrough-dialog-desktop",
+      "AX-walkthrough-back-mobile",
+      "AX-walkthrough-back-desktop",
+      "AX-panel-filter",
+      "AX-panel-legend",
+      "AX-panel-roster",
+      "AX-panel-layers",
+      "AX-help-phone-list",
+      "AX-help-phone-tab",
+      "AX-help-phone-render",
+      "AX-tools-sheet-dialog",
+      "cp:b01",
+      "cp:b10",
+      "cp:b11",
+      "cp:b13",
+      "cp:b14",
+      "cp:b15",
+      "cp:b16",
+      "cp:b17",
+      "cp:b18",
+      "cp:b41",
+      "cp:b43",
+      "cp:b44",
+      "cp:b49",
+      "cp:b50",
+      "cp:b51",
+      "cp:b52",
+      "cp:h01 (445+ -> hundreds; no number without the facts pipeline)",
+      "cp:h03",
+      "cp:h-map-keys",
+      "cp:mobile-tools-footer (Privacy, Terms, credit; after group C HF-6g)",
+      "cp:walkthrough-streetview-allow",
+      "A2-helpers",
+      "A2-map-attribution-and-setup",
+      "A2-resize-repaint",
+      "A2-resize-z9",
+      "A2-filter-repaint",
+      "A2-open-flags",
+      "A2-story-card-position",
+      "A2-story-card-esc",
+      "A2-event-card-position",
+      "A2-event-card-esc",
+      "A2-minimap-position",
+      "A2-minimap-fab-position",
+      "A2-tour-panel-position",
+      "A2-tour-panel-esc",
+      "A2-tour-dots-remove",
+      "A2-tour-dots-in-panel",
+      "A2-tour-dots-style",
+      "A2-tour-speed-save",
+      "A2-tour-speed-restore",
+      "R0M:entry->HelpModal import specifier",
+      "R0M:entry->BookmarkPanel import specifier",
+      "R0M:HelpModal->entry import",
+      "R0M:BookmarkPanel->entry import"
+     ],
+     "requireIds": [
+      "R0-intro-delete (perf-cwv-04)",
+      "bug:D1-hud-date",
+      "cp:b10",
+      "cp:b11",
+      "A-sound-remove-button (D-SOUND default)",
+      "mob:HF-1a AO gate desktop overlays",
+      "mob:HF-5a layout init",
+      "mob:HF-6a drop dead Monuments tile",
+      "mob:HF-6b NPS tour tile -> Virtual Walkthrough",
+      "mob:HF-6f historian tile + desktop view",
+      "mob:HF-6g append Extra Features groups to sheet"
+     ]
+    },
+    {
+     "id": "controls-1440",
+     "type": "controls",
+     "route": "/",
+     "vp": [
+      1440,
+      900
+     ],
+     "lostAllowed": [
+      "a|Download Website Tutorial PDF",
+      "input|0",
+      "button|🔇"
+     ],
+     "candidateHas": [
+      "a|User Guide (PDF)",
+      "input|Battle time"
+     ]
+    },
+    {
+     "id": "controls-390",
+     "type": "controls",
+     "route": "/",
+     "vp": [
+      390,
+      844
+     ],
+     "lostAllowed": [
+      "button|Hide Extra Features menu",
+      "a|Ask the Historian",
+      "button|Extra Features ▾",
+      "button|◀",
+      "button|▶",
+      "button|Disposition",
+      "button|Sides",
+      "button|Size",
+      "button|✕",
+      "button|🎖 NPS Auto Tour",
+      "button|🔇"
+     ],
+     "candidateHas": [
+      "re:^button|.*Tools$",
+      "re:^button|(Step back 5 minutes|Previous step)$",
+      "re:^button|(Step forward 5 minutes|Next step)$"
+     ]
+    },
+    {
+     "id": "phone-shell-rehoming",
+     "type": "browser",
+     "check": "phone-shell",
+     "tiles": [
+      "Search",
+      "Filter",
+      "Order of Battle",
+      "Unit Roster",
+      "Soldier's View",
+      "Follow Ancestor",
+      "Map Layers",
+      "Virtual Walkthrough",
+      "Legend",
+      "Bookmarks",
+      "Help",
+      "Mini Map",
+      "Ask the Historian",
+      "Desktop View"
+     ],
+     "opens": {
+      "Search": {
+       "input": true
+      },
+      "Filter": {
+       "text": "Filters"
+      },
+      "Order of Battle": {
+       "text": "Order of Battle"
+      },
+      "Unit Roster": {
+       "text": "All Battle Units"
+      },
+      "Soldier's View": {
+       "dialog": true
+      },
+      "Follow Ancestor": {
+       "dialog": true
+      },
+      "Map Layers": {
+       "text": "Map Layers"
+      },
+      "Virtual Walkthrough": {
+       "dialog": true
+      },
+      "Legend": {
+       "text": "Legend"
+      },
+      "Bookmarks": {
+       "dialog": true
+      },
+      "Help": {
+       "dialog": true
+      },
+      "Ask the Historian": {
+       "url": "/historian.html"
+      },
+      "Desktop View": {
+       "text": "Phone view"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-screenshot-index-1440",
+   "kind": "screenshot",
+   "target": "/",
+   "defects": [
+    "D46"
+   ],
+   "dependsOn": [],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B as W-text-index-1440 and W-controls-index-1440",
+   "reason": "HARNESS DEFECT behind most of this row: tools/accept/checks/c3_regression.mjs calls lib.chooseLayout, which gives up after 1.5 s because the published app only shows its \"Choose Your Experience\" screen after the ~3.5 s intro fast-forward; the baseline was therefore captured AT the chooser. The assertions below compare the real published app (chooser clicked through, tick 1) with the candidate. The pixel diff compares the published chooser screen with the candidate map, so the ratio says nothing about the app. Against the real published app the visible differences are: no intro-primed ghost units at tick 1 (O-T0-3), HUD date July 1, the guide link, no sound button.",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R0.md",
+     "line": 48,
+     "quote": "The intro is gone: the app shows the layout chooser/map at once. Tick 1 now draws 70 (Day 1 loaded) to 71 (all days) units instead of the intro-primed ghosts ... Sign-off O-T0-3."
+    },
+    {
+     "doc": "docs/plan/FINAL/02-tranche0-hotfix-runbook.md",
+     "line": 330,
+     "quote": "`R0-intro-delete` removes that, so R0 ... is the first release that draws 70-71 units at tick 1 ... until WP-T0-07's stateless `i2` ships."
+    },
+    {
+     "doc": "docs/plan/FINAL/01-decision-register.md",
+     "line": 257,
+     "quote": "D-ENTRY DEFAULT 1: No modal gates: layout by CSS/`matchMedia` with a Settings override; fast-forward, chooser, onboarding modal and injected banner deleted"
+    },
+    {
+     "doc": "ops/T0-DEVIATIONS.md",
+     "line": 22,
+     "quote": "row 14: D-SHELL / WP-T0-08: layout query 820 px -> 834 px ... Needs the owner: **yes** when the devices have been tried"
+    },
+    {
+     "doc": "ops/T0-DEVIATIONS.md",
+     "line": 32,
+     "quote": "row 24: ... from R1b group C auto-detects the layout and the chooser is never shown"
+    },
+    {
+     "doc": "ops/release-notes/R1b.md",
+     "line": 27,
+     "quote": "Group C: layout auto-detect `(max-width:834px) and (pointer:coarse), (max-height:480px) and (pointer:coarse)` ... the Tools sheet (Help, Bookmarks, Layers wired, NPS tile became Virtual Walkthrough ...)"
+    }
+   ],
+   "assertions": [
+    {
+     "id": "page-ledger",
+     "type": "ledger",
+     "files": [
+      "index.html"
+     ],
+     "allowIds": [
+      "R0M:modulepreload removed",
+      "R0M:css preload swap -> plain stylesheet",
+      "R0M:head hint removed: <link rel=\"preconnect\" href=\"https://events.mapbox.com\" crossorigin />",
+      "R0M:head hint removed: <link rel=\"preconnect\" href=\"https://a.tiles.mapbox.com\" crossorigin /",
+      "R0M:head hint removed: <link rel=\"preconnect\" href=\"https://b.tiles.mapbox.com\" crossorigin /",
+      "R0M:head hint removed: <link rel=\"dns-prefetch\" href=\"https://api.mapbox.com\" />",
+      "R0M:head hint removed: <link rel=\"preconnect\" href=\"https://www.google.com\" crossorigin />",
+      "R0M:head hint removed: <link rel=\"preconnect\" href=\"https://maps.googleapis.com\" crossorigin ",
+      "R0M:head hint removed: <link rel=\"preconnect\" href=\"https://streetviewpixels-pa.googleapis.co",
+      "R0M:head hint removed: <link rel=\"dns-prefetch\" href=\"https://maps.googleapis.com\" />",
+      "R0M:head hint removed: <link rel=\"dns-prefetch\" href=\"https://www.google.com\" />",
+      "R0M:color-scheme meta added",
+      "R0M:boot splash fade removed",
+      "R0M:onboarding banner added in the same frame as the chooser (CLS 0.0497 -> 0)",
+      "R0M:service-worker script block replaced",
+      "R0M:site-nav.js deferred",
+      "R0M:module script -> boot-after-first-paint loader",
+      "mob:HF-12a viewport (viewport-fit=cover; apple-* and color-scheme metas dropped)",
+      "mob:HF-12b mapbox !important height",
+      "mob:HF-12c css",
+      "C:live-hide-legacy-bar-superseded",
+      "AX-shell-skiplinks-h1-nav (index.html)",
+      "AX-shell-nav-close (index.html)",
+      "AX-shell-main-open-h2 (index.html)",
+      "AX-shell-splash-title (index.html)",
+      "AX-shell-main-close (index.html)",
+      "AX-shell-css-splash-title (index.html)",
+      "AX-shell-css-seo-h2 (index.html)",
+      "cp:banner (index.html:377: no \"AI-style\", no \"live sound\", no AR, no count)",
+      "SHELL-css",
+      "SHELL-phone-button",
+      "SHELL-menu-fit",
+      "SHELL-menu-open-focus",
+      "SHELL-menu-keys",
+      "SHELL-reposition-legacy",
+      "SHELL-modal-churn-phone",
+      "PERF-css-app-nonblocking",
+      "PERF-css-nav-nonblocking",
+      "PERF-loader-applies-css",
+      "PERF-critical-css-inline",
+      "PGC-index-use-historian",
+      "PGC-index-use-menu",
+      "PGC-index-use-eye",
+      "PGC-index-use-banner",
+      "PGC-index-seo-nav-ar",
+      "PGC-v-css-index",
+      "PGC-v-js-index",
+      "maps:og:index:og-image",
+      "maps:og:index:twitter-image"
+     ],
+     "requireIds": [
+      "R0M:module script -> boot-after-first-paint loader",
+      "SHELL-phone-button"
+     ]
+    },
+    {
+     "id": "no-chooser-and-layout-override",
+     "type": "browser",
+     "check": "no-chooser"
+    },
+    {
+     "id": "desktop-replacements",
+     "type": "browser",
+     "check": "index-desktop"
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-screenshot-index-390",
+   "kind": "screenshot",
+   "target": "/",
+   "defects": [
+    "D49"
+   ],
+   "dependsOn": [],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B as W-text-index-1440 and W-controls-index-1440",
+   "reason": "HARNESS DEFECT behind most of this row: tools/accept/checks/c3_regression.mjs calls lib.chooseLayout, which gives up after 1.5 s because the published app only shows its \"Choose Your Experience\" screen after the ~3.5 s intro fast-forward; the baseline was therefore captured AT the chooser. The assertions below compare the real published app (chooser clicked through, tick 1) with the candidate. The pixel diff compares the published chooser screen with the candidate map, so the ratio says nothing about the app. Against the real published app the visible differences are: no intro-primed ghost units at tick 1 (O-T0-3), HUD date July 1, the guide link, no sound button, and the phone shell instead of the leaked desktop overlays.",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R0.md",
+     "line": 48,
+     "quote": "The intro is gone: the app shows the layout chooser/map at once. Tick 1 now draws 70 (Day 1 loaded) to 71 (all days) units instead of the intro-primed ghosts ... Sign-off O-T0-3."
+    },
+    {
+     "doc": "docs/plan/FINAL/02-tranche0-hotfix-runbook.md",
+     "line": 330,
+     "quote": "`R0-intro-delete` removes that, so R0 ... is the first release that draws 70-71 units at tick 1 ... until WP-T0-07's stateless `i2` ships."
+    },
+    {
+     "doc": "docs/plan/FINAL/01-decision-register.md",
+     "line": 257,
+     "quote": "D-ENTRY DEFAULT 1: No modal gates: layout by CSS/`matchMedia` with a Settings override; fast-forward, chooser, onboarding modal and injected banner deleted"
+    },
+    {
+     "doc": "ops/T0-DEVIATIONS.md",
+     "line": 22,
+     "quote": "row 14: D-SHELL / WP-T0-08: layout query 820 px -> 834 px ... Needs the owner: **yes** when the devices have been tried"
+    },
+    {
+     "doc": "ops/T0-DEVIATIONS.md",
+     "line": 32,
+     "quote": "row 24: ... from R1b group C auto-detects the layout and the chooser is never shown"
+    },
+    {
+     "doc": "ops/release-notes/R1b.md",
+     "line": 27,
+     "quote": "Group C: layout auto-detect `(max-width:834px) and (pointer:coarse), (max-height:480px) and (pointer:coarse)` ... the Tools sheet (Help, Bookmarks, Layers wired, NPS tile became Virtual Walkthrough ...)"
+    },
+    {
+     "doc": "docs/plan/FINAL/06-ux-ui-mobile-desktop.md",
+     "line": 46,
+     "quote": "F3: Search, Filter, story, event card and unit panels sit under the opaque mobile root: invisible on phones. 14 mobile tiles (5 dead: Layers, Bookmarks, Help, NPS Auto Tour, Monuments ...)"
+    },
+    {
+     "doc": "docs/plan/FINAL/16-audit-corrections-and-new-findings.md",
+     "line": 103,
+     "quote": "NF-02: 15 desktop overlays render with no layout guard in the Mobile layout; `IO` ties the mobile root at z100 and covers dock and Tools sheet"
+    },
+    {
+     "doc": "docs/plan/FINAL/16-audit-corrections-and-new-findings.md",
+     "line": 105,
+     "quote": "NF-04: Five of 14 mobile Tools tiles are dead (Help, Bookmarks, Map Layers, Monuments, NPS Auto Tour); Walkthrough, Distance, Locations, Sound have no mobile entry."
+    },
+    {
+     "doc": "tools/t0/patches/C.json",
+     "quote": "mob:HF-1a (gate desktop overlays out of the phone layout), HF-6a (drop dead Monuments tile), HF-6b (NPS tour tile -> Virtual Walkthrough), HF-6f (Ask the Historian tile), HF-6g (append the Extra Features groups to the sheet)"
+    },
+    {
+     "doc": "ops/release-notes/R1b.md",
+     "line": 46,
+     "quote": "Phones and coarse-pointer tablets up to 834 px wide (and landscape phones) get the mobile shell ..."
+    }
+   ],
+   "assertions": [
+    {
+     "id": "page-ledger",
+     "type": "ledger",
+     "files": [
+      "index.html"
+     ],
+     "allowIds": [
+      "R0M:modulepreload removed",
+      "R0M:css preload swap -> plain stylesheet",
+      "R0M:head hint removed: <link rel=\"preconnect\" href=\"https://events.mapbox.com\" crossorigin />",
+      "R0M:head hint removed: <link rel=\"preconnect\" href=\"https://a.tiles.mapbox.com\" crossorigin /",
+      "R0M:head hint removed: <link rel=\"preconnect\" href=\"https://b.tiles.mapbox.com\" crossorigin /",
+      "R0M:head hint removed: <link rel=\"dns-prefetch\" href=\"https://api.mapbox.com\" />",
+      "R0M:head hint removed: <link rel=\"preconnect\" href=\"https://www.google.com\" crossorigin />",
+      "R0M:head hint removed: <link rel=\"preconnect\" href=\"https://maps.googleapis.com\" crossorigin ",
+      "R0M:head hint removed: <link rel=\"preconnect\" href=\"https://streetviewpixels-pa.googleapis.co",
+      "R0M:head hint removed: <link rel=\"dns-prefetch\" href=\"https://maps.googleapis.com\" />",
+      "R0M:head hint removed: <link rel=\"dns-prefetch\" href=\"https://www.google.com\" />",
+      "R0M:color-scheme meta added",
+      "R0M:boot splash fade removed",
+      "R0M:onboarding banner added in the same frame as the chooser (CLS 0.0497 -> 0)",
+      "R0M:service-worker script block replaced",
+      "R0M:site-nav.js deferred",
+      "R0M:module script -> boot-after-first-paint loader",
+      "mob:HF-12a viewport (viewport-fit=cover; apple-* and color-scheme metas dropped)",
+      "mob:HF-12b mapbox !important height",
+      "mob:HF-12c css",
+      "C:live-hide-legacy-bar-superseded",
+      "AX-shell-skiplinks-h1-nav (index.html)",
+      "AX-shell-nav-close (index.html)",
+      "AX-shell-main-open-h2 (index.html)",
+      "AX-shell-splash-title (index.html)",
+      "AX-shell-main-close (index.html)",
+      "AX-shell-css-splash-title (index.html)",
+      "AX-shell-css-seo-h2 (index.html)",
+      "cp:banner (index.html:377: no \"AI-style\", no \"live sound\", no AR, no count)",
+      "SHELL-css",
+      "SHELL-phone-button",
+      "SHELL-menu-fit",
+      "SHELL-menu-open-focus",
+      "SHELL-menu-keys",
+      "SHELL-reposition-legacy",
+      "SHELL-modal-churn-phone",
+      "PERF-css-app-nonblocking",
+      "PERF-css-nav-nonblocking",
+      "PERF-loader-applies-css",
+      "PERF-critical-css-inline",
+      "PGC-index-use-historian",
+      "PGC-index-use-menu",
+      "PGC-index-use-eye",
+      "PGC-index-use-banner",
+      "PGC-index-seo-nav-ar",
+      "PGC-v-css-index",
+      "PGC-v-js-index",
+      "maps:og:index:og-image",
+      "maps:og:index:twitter-image"
+     ],
+     "requireIds": [
+      "R0M:module script -> boot-after-first-paint loader",
+      "SHELL-phone-button"
+     ]
+    },
+    {
+     "id": "no-chooser-and-layout-override",
+     "type": "browser",
+     "check": "no-chooser"
+    },
+    {
+     "id": "desktop-replacements",
+     "type": "browser",
+     "check": "index-desktop"
+    },
+    {
+     "id": "phone-shell-rehoming",
+     "type": "browser",
+     "check": "phone-shell",
+     "tiles": [
+      "Search",
+      "Filter",
+      "Order of Battle",
+      "Unit Roster",
+      "Soldier's View",
+      "Follow Ancestor",
+      "Map Layers",
+      "Virtual Walkthrough",
+      "Legend",
+      "Bookmarks",
+      "Help",
+      "Mini Map",
+      "Ask the Historian",
+      "Desktop View"
+     ],
+     "opens": {
+      "Search": {
+       "input": true
+      },
+      "Filter": {
+       "text": "Filters"
+      },
+      "Order of Battle": {
+       "text": "Order of Battle"
+      },
+      "Unit Roster": {
+       "text": "All Battle Units"
+      },
+      "Soldier's View": {
+       "dialog": true
+      },
+      "Follow Ancestor": {
+       "dialog": true
+      },
+      "Map Layers": {
+       "text": "Map Layers"
+      },
+      "Virtual Walkthrough": {
+       "dialog": true
+      },
+      "Legend": {
+       "text": "Legend"
+      },
+      "Bookmarks": {
+       "dialog": true
+      },
+      "Help": {
+       "dialog": true
+      },
+      "Ask the Historian": {
+       "url": "/historian.html"
+      },
+      "Desktop View": {
+       "text": "Phone view"
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "supportingChecks": [
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-shared-subpage-layer",
+   "kind": "screenshot",
+   "target": "(shared nav and footer of every sub-page)",
+   "defects": [],
+   "class": "INTENTIONAL",
+   "approvalBasis": "B: documented in ops/release-notes/R1a.md:48 (\"Visible behaviour changes to sign off\") and T0-DEVIATIONS row 17; owner sign-off of that list is not recorded in docs/decisions",
+   "reason": "Cause of the position shifts behind most screenshot defects: shared navigation bar with 44 px controls inside the same 55 px bar and a reserved 55 px mount, footer re-flowed into 44 px rows with contrast-corrected colours, no page-entrance fade, no infinite glow animation, zero-specificity button reset.",
+   "evidence": [
+    {
+     "doc": "ops/release-notes/R1a.md",
+     "line": 48,
+     "quote": "Sub-pages: no horizontal scroll on a phone, 44 px targets, no text under 12 px, a gold focus ring, the shared navigation is a little taller on a phone, footers wrap into rows."
+    },
+    {
+     "doc": "tools/t0/patches/PG-core.json",
+     "quote": "PGF-nav-css, PGC-css-reserve-mounts, PGC-css-footer-contrast, PGC-css-footer-link-contrast, PGC-css-group-why-contrast (patch notes carry the reasons)"
+    },
+    {
+     "doc": "ops/T0-DEVIATIONS.md",
+     "line": 25,
+     "quote": "row 17: `PG-core` also carries page copy and a11y fixes ... one pass over each page"
+    },
+    {
+     "doc": "ops/T0-DEVIATIONS.md",
+     "line": 21,
+     "quote": "row 13: the owner authorised the full plan; the closed list was a floor"
+    }
+   ],
+   "assertions": [
+    {
+     "id": "css-layer",
+     "type": "contains",
+     "file": "site-nav.css",
+     "text": "Sub-page shared layer (pages-fixes)"
+    },
+    {
+     "id": "css-mount",
+     "type": "contains",
+     "file": "site-nav.css",
+     "regex": "#gtbg-nav-mount\\s*\\{\\s*display:\\s*block;\\s*min-height:\\s*55px"
+    },
+    {
+     "id": "css-footer-contrast",
+     "type": "contains",
+     "file": "site-nav.css",
+     "text": "#gtbg-footer a { color: #9aa3b8;"
+    },
+    {
+     "id": "css-no-fade",
+     "type": "not-contains",
+     "file": "site-nav.css",
+     "text": "gtbg-page-in 340ms"
+    },
+    {
+     "id": "css-no-glow",
+     "type": "not-contains",
+     "file": "site-nav.css",
+     "text": "animation: gtbg-pin-glow 3.4s"
+    },
+    {
+     "id": "ledger",
+     "type": "ledger",
+     "files": [
+      "site-nav.css",
+      "site-nav.js"
+     ],
+     "allowIds": [
+      "R0M:site-nav.css body entrance animation removed",
+      "PGC-css-button-reset",
+      "PGC-css-pin-glow-off",
+      "PGC-css-reserve-mounts",
+      "PGC-css-footer-contrast",
+      "PGC-css-footer-link-contrast",
+      "PGC-css-group-why-contrast",
+      "PGF-nav-css",
+      "PGC-nav-sprite-ids",
+      "PGC-nav-icon-use",
+      "PGC-nav-hide-ar",
+      "PGF-nav-aria-controls",
+      "PGF-nav-keyboard"
+     ],
+     "requireIds": [
+      "PGF-nav-css",
+      "PGC-css-reserve-mounts",
+      "PGC-css-footer-contrast",
+      "R0M:site-nav.css body entrance animation removed"
+     ]
+    }
+   ]
+  }
+ ],
+ "predictedForFinalBuild": [
+  {
+   "date": "2026-10-20",
+   "approvedBy": "PROPOSED by the regression triage; to be recorded by the integrator after review (the owner decision / documentation it rests on is in `evidence`)",
+   "id": "W-data-DATA-group",
+   "kind": "data",
+   "target": "data/**",
+   "defects": [],
+   "dependsOn": [],
+   "class": "CONDITIONAL",
+   "approvalBasis": "A: owner decision 2026-10-05 item 3 (wrong displayed data must be fixed: verified, labelled as an estimate, or removed)",
+   "reason": "NOT one of the 53 defects of the R1c dry run (R1c edits no /data file). Check 3 flags a data file when a key disappears or an array shrinks. The DATA group does both on purpose (about 33 files: unsupported commander fates and position notes removed, contradictory or pre-arrival duplicate position rows removed, the raw `highest_single_regiment_rate` note replaced); each of its 2,364 data patches is listed with class, source and what was before in docs/data-audit/fixes.json. This waiver is valid for a data file only while a patch of a group with a recorded decision accounts for it.",
+   "evidence": [
+    {
+     "doc": "docs/decisions/OWNER-DECISIONS-2026-10-05.md",
+     "line": 7,
+     "quote": "Every displayed time, place, number and name is either verified against a cited source, labelled as an estimate with its uncertainty, or removed."
+    },
+    {
+     "doc": "tools/t0/DATA-README.md",
+     "quote": "About 2,470 small, exact edits. Each one says what it finds ..., what it puts instead, which source it rests on, and what was wrong before ... What nothing supports is taken out."
+    }
+   ],
+   "assertions": [
+    {
+     "id": "every-changed-data-file-is-accounted-for",
+     "type": "data-changes-accounted",
+     "allowAdded": [
+      "data/moments.json"
+     ],
+     "addedEvidence": "ops/release-notes/R1c.md:21 and :28 (group DL adds data/moments.json v0; it is a new file, not a change of a published one)"
+    }
+   ]
+  }
+ ]
+}

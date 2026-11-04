@@ -1,0 +1,30 @@
+Scope A full-passage re-check, reader notes for tags CV2 (51 claims) and 1D1 (34 claims). Files: recheck/CV2.json, recheck/1D1.json.
+Every claim read against the report passage in recheck_ctx.py output (whole report when <= 14,000 chars, windows otherwise).
+
+COUNTS (decisions; 85 claims)
+  passed_full_read 44 (1D1 20, CV2 24); corrected 40 (1D1 14, CV2 26); downgraded 1 (CV2-051).
+  Split-off claims added (all fidelity corrected, each with its own verified quote): POS-A-CV2-023-s2 (Pleasonton R336, Heidlersburg direction), POS-A-CV2-044-s2 (7th Michigan, July 2 Hunterstown entry), POS-A-CV2-045-s2 (Battery M entry printed "July 1", Hunterstown).
+  Ledger effect: 85 claims -> 88 rows.
+
+PATTERNS (claims can show more than one)
+  time from another sentence / unsupported day-part: 8  (1D1-012 afternoon, 1D1-013 evening, 1D1-025 afternoon, 1D1-027 evening; CV2-006 afternoon-evening from R355, CV2-030 about noon, CV2-047 "about 8 a. m." applies to the report of the advance, not the first gun, CV2-051 July 1-3 never printed).
+  merged second report: 2  (CV2-012 Chester clause is in R355, CV2-023 Heidlersburg is Pleasonton R336).
+  merged second entry / unit inside one report: 3  (CV2-017 Custer's 10 p. m. in a First Brigade claim, CV2-044 July 2 + July 3, CV2-045 July 1 + July 3).
+  later order ignored: 0 found in these tags.
+  compass / road / place gloss: 16  (1D1-002 Chambersburg Pike in road field, 1D1-015 "Emmitsburg road" for "pike", 1D1-028/029 road name; CV2-001, 005 "Hanover pike position", 010, 013, 023, 025, 029 "right flank", 030, 031 "south of the Union left", 033 "Union left", 037 Round Top, 047 "each side of the road" (both sections were to the left)).
+  hedge or condition dropped: 0 clean cases; overstated activity instead: 6  (1D1-018 "second Confederate advance" label, CV2-002 "Huey's" not printed, CV2-009 "Howard" not printed, CV2-034 "charged behind stone fences" (the enemy was behind them), CV2-039 "dismounted skirmishers" was four companies, 1D1-015 "of the brigade").
+  unit identity gloss: 10  (1D1: regiment's "we" recorded as the brigade in 008, 009, 012, 028, 030, 033, 034 (Morrow and Robinson write for their regiments); CV2-006 "my line" is the division's, CV2-010 regiments not tied to McIntosh in the sentence, CV2-040 First Michigan entry recorded under the brigade).
+  OCR digit / glyph: 5  (CV2-008 "G a. m.", CV2-016 "li miles", CV2-042 printed "July 3" twice in a row (2/3 confusion), CV2-045-s2 printed "July 1", CV2-050 "13 m.").
+
+IDS
+  split: CV2-023 (-s2), CV2-044 (-s2), CV2-045 (-s2).
+  downgraded: CV2-051 (Tidball Aug 4 report says "are still detached"; no July 1-3 date, Buford and Gregg not named; now tier inferred).
+
+SYSTEMATIC
+  - Reports written by regiment commanders (Morrow R033, Robinson R036, Dawes R035, Mansfield R034) use "we/the regiment"; the compiler often recorded brigade-level units. Check the unit for every such claim.
+  - Parenthesised editorial day-parts "(afternoon)", "(evening of July 1)" were not always supported by the sequence in the passage; where the passage prints no hour for the stretch of narrative, the day-part was dropped (w null, wd says so).
+  - Road fields carry normalised names ("Gettysburg-Hanover pike", "Emmitsburg road") instead of the printed words.
+  - Place strings that paraphrase the printed words (CV2-013, CV2-010, CV2-047) can change the sense; use the printed phrase.
+  - Diary-style reports (Custer R361) hold several entries for different dates; one claim must not carry two entries.
+  - Where a "passed" claim relies on the compiler's reading of the order of events, the wd field now says so (1D1 003, 010, 011, 017, 019, 020, 021, 022, 023, 026, 031, 032; CV2 003).
+  - Validator: python -I tools/bt/positions_A_build.py --out %TEMP%/chk_CV2.jsonl --tag CV2,1D1 printed no error lines for either tag.

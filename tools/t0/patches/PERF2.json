@@ -1,0 +1,78 @@
+{
+ "group": "PERF2",
+ "description": "CANDIDATE until registered (tools/t0/PERF2-README.md), bundle part: Unit Roster mounted in slices, names for the two inline SVGs, Mapbox program precompile for circle and icon layers (Monuments). Apply AFTER POLISH (and ANIM; the two commute). Its page part is PG-perf2.json.",
+ "patches": [
+  {
+   "id": "PERF2-roster-slices-1",
+   "target": "js",
+   "find": "function gA({units:c,isUnion:f,currentPlacements:x}){const M=f?\"#3a6bc4\":\"#c43a3a\",P=f?\"UNION\":\"CONFEDERATE\";return V.jsxs(",
+   "repl": "const gtHO=pt.memo(hO);function gA({units:c,isUnion:f,currentPlacements:x}){const M=f?\"#3a6bc4\":\"#c43a3a\",P=f?\"UNION\":\"CONFEDERATE\",[gtN,gtSetN]=pt.useState(24);pt.useEffect(()=>{if(gtN>=c.length)return;const ric=window.requestIdleCallback,id=ric?ric(()=>gtSetN(n=>n+48),{timeout:150}):setTimeout(()=>gtSetN(n=>n+48),16);return()=>{ric?window.cancelIdleCallback(id):clearTimeout(id)}},[gtN,c.length]);return V.jsxs(",
+   "expect": 1,
+   "note": "Unit Roster: the panel mounted all ~600 unit rows (about 5,000 DOM nodes, 600 KB of markup) inside the click: React render + the forced style and layout of the dialog focus took 90-130 ms (long task, 104-136 ms to the next paint). The first 24 rows of each column mount at once (about a screenful), the rest in slices of 48 on idle time (every row ends up in the DOM, the list is unchanged); rows are memoised (React.memo) so that a playing clock, which re-renders the panel every step, only touches the rows whose placement object changed."
+  },
+  {
+   "id": "PERF2-roster-slices-2",
+   "target": "js",
+   "find": "children:c.map(([z,H])=>{const l=Math.max(0,Math.min((z.match(/-/g)||[]).length-1,4));return V.jsx(hO,{id:z,entry:H,placement:x[z],isUnion:f,depth:l},z)})})]})}",
+   "repl": "children:c.slice(0,gtN).map(([z,H])=>{const l=Math.max(0,Math.min((z.match(/-/g)||[]).length-1,4));return V.jsx(gtHO,{id:z,entry:H,placement:x[z],isUnion:f,depth:l},z)})})]})}",
+   "expect": 1,
+   "note": "the rows come from the first gtN units (see PERF2-roster-slices-1) through the memoised row component"
+  },
+  {
+   "id": "PERF2-focus-next-frame",
+   "target": "js",
+   "find": "el.contains(document.activeElement)||!modal&&Date.now()-seen>2e3||el.focus({preventScroll:!0})}else Promise.resolve()",
+   "repl": "el.contains(document.activeElement)||!modal&&Date.now()-seen>2e3||requestAnimationFrame(()=>{el.isConnected&&!el.contains(document.activeElement)&&el.focus({preventScroll:!0})})}else Promise.resolve()",
+   "expect": 1,
+   "note": "the accessibility shim (AX) moves the focus into every dialog / panel the moment React attaches it (ref callback, inside the commit of the click). focus() forces a synchronous style recalculation and layout of everything the commit just added: 62 ms for the Unit Roster, 31-39 ms for the first open of the phone Tools sheet, inside the click task. The focus is now given in the next animation frame, before that frame paints (the layout that focus() forced had to happen in that frame anyway), so it leaves the click task. A panel that is gone by then, or already holds the focus, is left alone."
+  },
+  {
+   "id": "PERF2-svg-day-ring",
+   "target": "js",
+   "find": "V.jsxs(\"svg\",{width:28,height:28,style:Sd.arc,children:[",
+   "repl": "V.jsxs(\"svg\",{width:28,height:28,style:Sd.arc,role:\"img\",\"aria-label\":\"Day \"+l+\" progress: \"+Math.max(0,Math.min(100,Math.round(100*yF(x,l))))+\" percent\",children:[",
+   "expect": 1,
+   "note": "the ring around the day badge is a progress indicator drawn as an inline SVG with no name and no role (acceptance check 7: \"inline svg that is not hidden from assistive tech and has no name or role\", at 1024, 1440 and 1920 px and in the first-visit state). It is now role=\"img\" named from what it shows: the share of the current day that has played."
+  },
+  {
+   "id": "PERF2-svg-legend-glyph",
+   "target": "js",
+   "find": "V.jsx(\"svg\",{width:22,height:22,children:V.jsx(\"circle\",{cx:11,cy:11,r:P.r,",
+   "repl": "V.jsx(\"svg\",{width:22,height:22,\"aria-hidden\":\"true\",focusable:\"false\",children:V.jsx(\"circle\",{cx:11,cy:11,r:P.r,",
+   "expect": 1,
+   "note": "the dot-size sample in the Legend is decorative (the row label next to it says the same in words): hidden from assistive technology"
+  },
+  {
+   "id": "PERF2-precompile-extra-call",
+   "target": "js",
+   "find": "pc._executeBatch({timeRemaining:()=>1e9},p,s)}catch(e){}},wait=",
+   "repl": "gtPrecompileExtra(m,s,pc,c);pc._executeBatch({timeRemaining:()=>1e9},p,s)}catch(e){}},wait=",
+   "expect": 1,
+   "note": "gtPrecompile (R0-mapbox-precompile) queues what Mapbox's precompiler can derive plus the text-SDF symbol program. Circle layers and icon symbols are skipped by Mapbox's queue, so the first draw of a circle layer (Monuments: three of them) or of an icon (the Monuments stars) linked its program on the main thread (11-14 ms per circle program, 67 ms for the icon symbol program: the long task of the first Monuments press). The extra entries are derived from the layers themselves and carry the defines the draw calls build, so the cache keys match (verified: Mapbox's own compile statistics show no on-demand program after the press)."
+  },
+  {
+   "id": "PERF2-precompile-extra-def",
+   "target": "js",
+   "find": "let Uc=null;function I4(c){",
+   "repl": "function gtPrecompileExtra(m,s,pc,c){try{if(!m.__gtExtra)return;const L=(s._mergedOrder||s._order).map(i=>(s._mergedLayers||s._layers)[i]).filter(Boolean);for(const y of L){if(y.visibility===\"none\"||y.type!==\"circle\"||!y.getDefaultProgramParams)continue;const d=y.getDefaultProgramParams(\"circle\",m.getZoom(),s._styleColorTheme&&s._styleColorTheme.lut);pc._queue.unshift({programId:\"circle\",params:{config:d.config,defines:(d.defines||[]).concat([\"DEPTH_D24\"]),overrideFog:!1,overrideTerrain:!1,overrideGlobe:!1,overrideRtt:!1,precompiled:!0}})}if(!c.disableSymbolUBO&&L.some(y=>y.type===\"symbol\"))pc._queue.push({programId:\"symbol\",params:{defines:[\"USE_PAINT_PROPERTIES_UBO\",\"MAX_UBO_SIZE_VEC4 \"+Math.floor(Math.floor(c.maxUniformBlockSize/4)/4)+\"u\"],overrideFog:!1,overrideTerrain:!1,overrideGlobe:!1,overrideRtt:!1,precompiled:!0}})}catch(e){}}let Uc=null;function I4(c){",
+   "expect": 1,
+   "note": "definition of gtPrecompileExtra (see PERF2-precompile-extra-call); inside try/catch, uses only fields of the pinned Mapbox GL 3.24.1 bundle"
+  },
+  {
+   "id": "PERF2-mon-precompile",
+   "target": "js",
+   "find": "o.err=null;return true}catch(e){if(!quiet)o.err=String(e&&e.message||e);return false}}",
+   "repl": "typeof gtPrecompile===\"function\"&&!m.__gtmonPre&&(m.__gtmonPre=1,m.__gtExtra=1,gtPrecompile(m));o.err=null;return true}catch(e){if(!quiet)o.err=String(e&&e.message||e);return false}}",
+   "expect": 1,
+   "note": "Monuments: once the layers of the first press are on the map, the precompiler queue is rebuilt and run (once per map), so the circle and icon programs link in parallel while the geojson tiles are made, instead of on the first frame that draws them"
+  },
+  {
+   "id": "PERF2-mon-star-canvas",
+   "target": "js",
+   "find": "c.width=c.height=n;g=c.getContext(\"2d\");g.beginPath();for(i=0;i<p.length;i+=2)",
+   "repl": "c.width=c.height=n;g=c.getContext(\"2d\",{willReadFrequently:!0});g.beginPath();for(i=0;i<p.length;i+=2)",
+   "expect": 1,
+   "note": "Monuments: the two star icons are drawn on a 64 px canvas and read back with getImageData; on a GPU-backed canvas that read-back is a synchronous GPU stall (25 ms of the first press). willReadFrequently keeps the canvas in memory."
+  }
+ ]
+}

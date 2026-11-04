@@ -6,3 +6,8 @@ release/
 archive/
 tmp/
 .DS_Store
+
+# Battle Theatre large derived rasters (regenerate with tools/bt/elev1863_*.py)
+docs/battle-theatre/terrain/elev1863/*.tif
+docs/battle-theatre/terrain/elev1863/*.geojson.gz
+tools/t0/overlay/R1d/tiles1863/

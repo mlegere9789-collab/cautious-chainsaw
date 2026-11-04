@@ -1,0 +1,15 @@
+{
+ "group": "PG-zperf6",
+ "description": "Release 1 round 5: the precompile queue holds the circle/symbol variant terrain off + fog on, so switching 3D Terrain off on a tilted map links no program in a frame; sorts after PG-zperf5",
+ "train": "R1g",
+ "patches": [
+  {
+   "id": "PERF6-nav-terrain-fog-variant",
+   "target": "site-nav.js",
+   "find": "if (withTerrain) { variants.push({ t: true, f: false }); if (fog) variants.push({ t: true, f: true }); }",
+   "repl": "if (withTerrain) {\n            // PERF6: the circle and symbol programs of the terrain stage, with every combination of terrain and fog that a frame can draw: terrain on, with and without fog (the pitch decides),\n            // and terrain OFF with fog (switching 3D Terrain off while the map is still tilted: the fog follows the pitch, the circle layer of the units is drawn with the FOG define and no terrain).\n            // The last one was missing: its first draw linked the program inside Mapbox's render frame (getProgramParameter 34 ms, a frame of 45 ms) the first time a browser profile met it.\n            variants.push({ t: true, f: false });\n            if (fog) variants.push({ t: true, f: true }, { t: false, f: true });\n          }",
+   "expect": 1,
+   "note": "GTBG_PRECOMPILE: with terrain variants queued, the circle and symbol programs also get the variant terrain off + fog on (map tilted, 3D Terrain just switched off), queued in the same idle slices as the other terrain variants"
+  }
+ ]
+}

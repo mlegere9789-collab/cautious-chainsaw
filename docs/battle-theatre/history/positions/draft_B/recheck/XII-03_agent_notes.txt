@@ -1,0 +1,19 @@
+Batch XII-03 (13 claims, all read against the full passage; validator: 13 decisions, 0 missing, 0 errors)
+
+Counts per fc: passed_full_read 4, corrected 7, downgraded 2. Split: 0.
+
+Patterns (claims affected):
+- Day-part supplied by compiler, not printed ("evening" in the activity): 3 (12c-1d-lockwood-25, 12c-42, 12c-43); removed from act, moved to wdesc.
+- Time from a different sentence: 2 (12c-44 "morning of July 2" is the arrival sentence; 12c-2d-42 "At midnight" belongs to the return, next sentence).
+- Later order in the passage not stated: 1 (12c-44, brigade withdrawn after an hour or more); added to act.
+- Later withdrawal omitted: 1 (12c-45, batteries withdrawn to the hill later in the day).
+- Hedge dropped: 1 (12c-41, "indicated" became "showed").
+- Unit identity gloss: 2 downgraded (12c-2d-greene-36 and -37: passage names only "the Twelfth Corps"; Greene's brigade is the compiler's).
+  Also noted (passed): 12c-1d-42 identifies the division only by commander (Williams).
+- Date not settled by passage: 1 (12c-45, "In the morning" with no day printed; dbasis states the July 2 reading is the compiler's).
+- Meridian not printed: 1 (12c-40, "between 5 and 6 o'clock", t left null; annotated).
+- OCR digit: 1 noted (12c-2d-42, Neill's arrival hour "Gp. m." is OCR-damaged; not used).
+- Merged second report: 0. Compass/road gloss: 0 (12c-45 "Baltimore road" is printed).
+
+Downgraded ids: POS-B-us-12c-2d-greene-36, POS-B-us-12c-2d-greene-37.
+Systematic: claims on Twelfth Corps units built from other corps' reports (Dobke, Bown, Burbank, Caldwell, Gibbon) name only "the Twelfth Corps" in the passage; sub-corps unit ids (Greene's brigade) are not supported by those passages. POS-B-us-12c-45 was already tier inferred in the frozen ledger.

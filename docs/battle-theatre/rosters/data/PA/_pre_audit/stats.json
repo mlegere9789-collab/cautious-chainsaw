@@ -1,0 +1,2357 @@
+{
+ "family": "PA",
+ "units_in_oob": 77,
+ "units_with_names": 74,
+ "detachment_units_covered_via_parent": 3,
+ "names": 116298,
+ "rows_unreadable_or_ambiguous": 30296,
+ "unreadable_share": 0.2605,
+ "share_by_label": {
+  "Present-Documented": 0.0223,
+  "Absent-Documented": 0.3795,
+  "Unknown": 0.5982
+ },
+ "counts_by_label": {
+  "Present-Documented": 2593,
+  "Absent-Documented": 44140,
+  "Unknown": 69565
+ },
+ "counts_by_roll_status": {
+  "named-present": 2593,
+  "off-roll-before-battle": 22099,
+  "on-roll-undetermined": 39269,
+  "not-yet-enlisted": 22041,
+  "unreadable-or-ambiguous": 30296
+ },
+ "extra_units_not_in_oob": [
+  "X-46PA",
+  "X-107PA",
+  "X-139PA"
+ ],
+ "units_in_oob_without_names": [],
+ "per_unit": {
+  "U-11PA": {
+   "rows": 2085,
+   "labels": {
+    "Present-Documented": 73,
+    "Absent-Documented": 1116,
+    "Unknown": 896
+   },
+   "roll_status": {
+    "named-present": 73,
+    "off-roll-before-battle": 431,
+    "on-roll-undetermined": 628,
+    "not-yet-enlisted": 685,
+    "unreadable-or-ambiguous": 268
+   },
+   "flags": {
+    "name-garbled": 52,
+    "no-month-in-date-column": 216,
+    "second-ocr-date-uncorroborated": 44,
+    "muster-date-second-ocr": 373,
+    "intra-regiment-transfer": 5,
+    "name-missing": 35,
+    "date-missing": 167,
+    "gettysburg-mention-nonbattle": 10,
+    "place-not-named": 3,
+    "rank-ditto-unresolved": 7,
+    "muster-year-inferred": 8,
+    "company-inferred-from-officer-run": 175,
+    "muster-date-implausible-ocr": 1
+   },
+   "gettysburg_token_but_not_present": 8,
+   "unreadable_share": 0.1285,
+   "in_oob": true
+  },
+  "U-23PA": {
+   "rows": 1506,
+   "labels": {
+    "Unknown": 1013,
+    "Absent-Documented": 493
+   },
+   "roll_status": {
+    "on-roll-undetermined": 620,
+    "off-roll-before-battle": 370,
+    "unreadable-or-ambiguous": 393,
+    "not-yet-enlisted": 123
+   },
+   "flags": {
+    "intra-regiment-transfer": 132,
+    "date-missing": 207,
+    "no-month-in-date-column": 278,
+    "muster-year-inferred": 19,
+    "name-garbled": 31,
+    "rank-ditto-unresolved": 10,
+    "gettysburg-mention-nonbattle": 2,
+    "muster-date-implausible-ocr": 1,
+    "name-missing": 13
+   },
+   "gettysburg_token_but_not_present": 2,
+   "unreadable_share": 0.261,
+   "in_oob": true
+  },
+  "U-26PA": {
+   "rows": 1553,
+   "labels": {
+    "Absent-Documented": 651,
+    "Unknown": 792,
+    "Present-Documented": 110
+   },
+   "roll_status": {
+    "off-roll-before-battle": 481,
+    "on-roll-undetermined": 630,
+    "named-present": 110,
+    "unreadable-or-ambiguous": 162,
+    "not-yet-enlisted": 170
+   },
+   "flags": {
+    "name-missing": 25,
+    "muster-date-second-ocr": 515,
+    "no-month-in-date-column": 150,
+    "gettysburg-mention-nonbattle": 11,
+    "muster-year-inferred": 18,
+    "intra-regiment-transfer": 35,
+    "name-garbled": 43,
+    "second-ocr-date-uncorroborated": 21,
+    "date-missing": 113,
+    "company-letter-ocr": 150,
+    "rank-ditto-unresolved": 6
+   },
+   "gettysburg_token_but_not_present": 11,
+   "unreadable_share": 0.1043,
+   "in_oob": true
+  },
+  "U-27PA": {
+   "rows": 1378,
+   "labels": {
+    "Present-Documented": 28,
+    "Unknown": 814,
+    "Absent-Documented": 536
+   },
+   "roll_status": {
+    "named-present": 28,
+    "unreadable-or-ambiguous": 368,
+    "off-roll-before-battle": 452,
+    "on-roll-undetermined": 446,
+    "not-yet-enlisted": 84
+   },
+   "flags": {
+    "no-month-in-date-column": 162,
+    "name-garbled": 106,
+    "muster-year-inferred": 93,
+    "intra-regiment-transfer": 34,
+    "name-missing": 56,
+    "date-missing": 61,
+    "rank-ditto-unresolved": 18,
+    "place-not-named": 2,
+    "gettysburg-mention-nonbattle": 1,
+    "company-inferred-from-recruited-line": 134,
+    "muster-date-implausible-ocr": 1
+   },
+   "gettysburg_token_but_not_present": 1,
+   "unreadable_share": 0.2671,
+   "in_oob": true
+  },
+  "U-28PA": {
+   "rows": 2732,
+   "labels": {
+    "Unknown": 1292,
+    "Absent-Documented": 1428,
+    "Present-Documented": 12
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 660,
+    "on-roll-undetermined": 632,
+    "off-roll-before-battle": 823,
+    "named-present": 12,
+    "not-yet-enlisted": 605
+   },
+   "flags": {
+    "no-month-in-date-column": 342,
+    "section-heading-missing": 3,
+    "date-missing": 269,
+    "name-garbled": 192,
+    "intra-regiment-transfer": 89,
+    "rank-ditto-unresolved": 4,
+    "name-missing": 83,
+    "muster-year-inferred": 83,
+    "muster-date-implausible-ocr": 1,
+    "company-inferred-from-recruited-line": 240
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.2416,
+   "in_oob": true
+  },
+  "U-29PA": {
+   "rows": 2087,
+   "labels": {
+    "Absent-Documented": 927,
+    "Unknown": 1131,
+    "Present-Documented": 29
+   },
+   "roll_status": {
+    "off-roll-before-battle": 340,
+    "on-roll-undetermined": 614,
+    "not-yet-enlisted": 587,
+    "named-present": 29,
+    "unreadable-or-ambiguous": 517
+   },
+   "flags": {
+    "name-garbled": 61,
+    "no-month-in-date-column": 164,
+    "date-missing": 113,
+    "rank-ditto-unresolved": 27,
+    "muster-year-inferred": 76,
+    "gettysburg-mention-nonbattle": 1,
+    "place-not-named": 4,
+    "intra-regiment-transfer": 30,
+    "name-missing": 139,
+    "company-inferred-from-recruited-line": 26,
+    "new-block-company-restart": 208
+   },
+   "gettysburg_token_but_not_present": 1,
+   "unreadable_share": 0.2477,
+   "in_oob": true
+  },
+  "U-1PA-R": {
+   "rows": 1154,
+   "labels": {
+    "Absent-Documented": 413,
+    "Unknown": 727,
+    "Present-Documented": 14
+   },
+   "roll_status": {
+    "off-roll-before-battle": 386,
+    "on-roll-undetermined": 483,
+    "unreadable-or-ambiguous": 244,
+    "not-yet-enlisted": 27,
+    "named-present": 14
+   },
+   "flags": {
+    "muster-year-inferred": 92,
+    "name-garbled": 36,
+    "no-month-in-date-column": 174,
+    "intra-regiment-transfer": 5,
+    "name-missing": 23,
+    "date-missing": 122,
+    "company-letter-ocr": 112,
+    "gettysburg-mention-nonbattle": 1
+   },
+   "gettysburg_token_but_not_present": 1,
+   "unreadable_share": 0.2114,
+   "in_oob": true
+  },
+  "U-2PA-R": {
+   "rows": 871,
+   "labels": {
+    "Absent-Documented": 345,
+    "Unknown": 492,
+    "Present-Documented": 34
+   },
+   "roll_status": {
+    "off-roll-before-battle": 307,
+    "on-roll-undetermined": 300,
+    "unreadable-or-ambiguous": 192,
+    "not-yet-enlisted": 38,
+    "named-present": 34
+   },
+   "flags": {
+    "no-month-in-date-column": 81,
+    "date-missing": 49,
+    "name-garbled": 14,
+    "intra-regiment-transfer": 10,
+    "muster-year-inferred": 17,
+    "company-letter-ocr": 81,
+    "name-missing": 4,
+    "contested": 1
+   },
+   "gettysburg_token_but_not_present": 1,
+   "unreadable_share": 0.2204,
+   "in_oob": true
+  },
+  "U-5PA-R": {
+   "rows": 1068,
+   "labels": {
+    "Unknown": 600,
+    "Absent-Documented": 467,
+    "Present-Documented": 1
+   },
+   "roll_status": {
+    "on-roll-undetermined": 479,
+    "unreadable-or-ambiguous": 121,
+    "not-yet-enlisted": 45,
+    "off-roll-before-battle": 422,
+    "named-present": 1
+   },
+   "flags": {
+    "no-month-in-date-column": 103,
+    "intra-regiment-transfer": 3,
+    "rank-ditto-unresolved": 12,
+    "name-garbled": 29,
+    "muster-year-inferred": 59,
+    "date-missing": 73,
+    "company-letter-ocr": 97,
+    "name-missing": 30,
+    "muster-date-implausible-ocr": 1
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.1133,
+   "in_oob": true
+  },
+  "U-6PA-R": {
+   "rows": 1078,
+   "labels": {
+    "Unknown": 630,
+    "Absent-Documented": 443,
+    "Present-Documented": 5
+   },
+   "roll_status": {
+    "on-roll-undetermined": 446,
+    "off-roll-before-battle": 432,
+    "unreadable-or-ambiguous": 184,
+    "not-yet-enlisted": 11,
+    "named-present": 5
+   },
+   "flags": {
+    "intra-regiment-transfer": 5,
+    "no-month-in-date-column": 55,
+    "muster-year-inferred": 108,
+    "name-missing": 7,
+    "date-missing": 38,
+    "name-garbled": 30,
+    "company-letter-ocr": 104,
+    "muster-date-implausible-ocr": 1,
+    "rank-ditto-unresolved": 3,
+    "place-not-named": 1
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.1707,
+   "in_oob": true
+  },
+  "U-9PA-R": {
+   "rows": 1113,
+   "labels": {
+    "Absent-Documented": 482,
+    "Unknown": 631
+   },
+   "roll_status": {
+    "off-roll-before-battle": 466,
+    "unreadable-or-ambiguous": 187,
+    "on-roll-undetermined": 444,
+    "not-yet-enlisted": 16
+   },
+   "flags": {
+    "no-month-in-date-column": 80,
+    "muster-year-inferred": 29,
+    "intra-regiment-transfer": 7,
+    "date-missing": 50,
+    "name-garbled": 26,
+    "rank-ditto-unresolved": 3,
+    "name-missing": 19,
+    "company-letter-ocr": 106
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.168,
+   "in_oob": true
+  },
+  "U-10PA-R": {
+   "rows": 1122,
+   "labels": {
+    "Unknown": 687,
+    "Absent-Documented": 433,
+    "Present-Documented": 2
+   },
+   "roll_status": {
+    "on-roll-undetermined": 451,
+    "off-roll-before-battle": 390,
+    "unreadable-or-ambiguous": 236,
+    "not-yet-enlisted": 43,
+    "named-present": 2
+   },
+   "flags": {
+    "name-missing": 7,
+    "muster-year-inferred": 101,
+    "name-garbled": 21,
+    "date-missing": 90,
+    "no-month-in-date-column": 104,
+    "rank-ditto-unresolved": 60,
+    "company-inferred-from-recruited-line": 63,
+    "intra-regiment-transfer": 5,
+    "muster-date-implausible-ocr": 2
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.2103,
+   "in_oob": true
+  },
+  "U-11PA-R": {
+   "rows": 1184,
+   "labels": {
+    "Absent-Documented": 516,
+    "Unknown": 659,
+    "Present-Documented": 9
+   },
+   "roll_status": {
+    "off-roll-before-battle": 489,
+    "on-roll-undetermined": 418,
+    "not-yet-enlisted": 27,
+    "unreadable-or-ambiguous": 241,
+    "named-present": 9
+   },
+   "flags": {
+    "name-garbled": 23,
+    "no-month-in-date-column": 106,
+    "muster-year-inferred": 79,
+    "date-missing": 77,
+    "gettysburg-mention-nonbattle": 1,
+    "intra-regiment-transfer": 2,
+    "muster-date-implausible-ocr": 1,
+    "rank-ditto-unresolved": 6,
+    "name-missing": 3
+   },
+   "gettysburg_token_but_not_present": 1,
+   "unreadable_share": 0.2035,
+   "in_oob": true
+  },
+  "U-12PA-R": {
+   "rows": 1103,
+   "labels": {
+    "Absent-Documented": 432,
+    "Unknown": 669,
+    "Present-Documented": 2
+   },
+   "roll_status": {
+    "off-roll-before-battle": 407,
+    "unreadable-or-ambiguous": 254,
+    "on-roll-undetermined": 415,
+    "named-present": 2,
+    "not-yet-enlisted": 25
+   },
+   "flags": {
+    "name-garbled": 20,
+    "muster-year-inferred": 61,
+    "intra-regiment-transfer": 77,
+    "no-month-in-date-column": 185,
+    "rank-ditto-unresolved": 29,
+    "date-missing": 175,
+    "name-missing": 15,
+    "muster-date-implausible-ocr": 2
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.2303,
+   "in_oob": true
+  },
+  "U-13PA-R": {
+   "rows": 1202,
+   "labels": {
+    "Absent-Documented": 409,
+    "Present-Documented": 20,
+    "Unknown": 773
+   },
+   "roll_status": {
+    "off-roll-before-battle": 399,
+    "named-present": 20,
+    "on-roll-undetermined": 460,
+    "not-yet-enlisted": 10,
+    "unreadable-or-ambiguous": 313
+   },
+   "flags": {
+    "rank-ditto-unresolved": 14,
+    "name-garbled": 21,
+    "no-month-in-date-column": 136,
+    "muster-year-inferred": 53,
+    "intra-regiment-transfer": 8,
+    "date-missing": 84,
+    "name-missing": 21,
+    "company-inferred-from-recruited-line": 106,
+    "gettysburg-mention-nonbattle": 1
+   },
+   "gettysburg_token_but_not_present": 1,
+   "unreadable_share": 0.2604,
+   "in_oob": true
+  },
+  "U-1PA-CAV": {
+   "rows": 1643,
+   "labels": {
+    "Absent-Documented": 535,
+    "Unknown": 1106,
+    "Present-Documented": 2
+   },
+   "roll_status": {
+    "off-roll-before-battle": 381,
+    "on-roll-undetermined": 686,
+    "unreadable-or-ambiguous": 420,
+    "not-yet-enlisted": 154,
+    "named-present": 2
+   },
+   "flags": {
+    "no-month-in-date-column": 201,
+    "muster-year-inferred": 147,
+    "date-missing": 155,
+    "intra-regiment-transfer": 57,
+    "name-missing": 22,
+    "name-garbled": 21,
+    "rank-ditto-unresolved": 2
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.2556,
+   "in_oob": true
+  },
+  "U-49PA": {
+   "rows": 1511,
+   "labels": {
+    "Unknown": 903,
+    "Absent-Documented": 608
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 392,
+    "on-roll-undetermined": 511,
+    "off-roll-before-battle": 202,
+    "not-yet-enlisted": 406
+   },
+   "flags": {
+    "no-month-in-date-column": 176,
+    "section-heading-missing": 9,
+    "name-garbled": 30,
+    "muster-year-inferred": 32,
+    "intra-regiment-transfer": 341,
+    "date-missing": 108,
+    "name-missing": 21,
+    "rank-ditto-unresolved": 7,
+    "company-letter-ocr": 158,
+    "new-block-company-restart": 96
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.2594,
+   "in_oob": true
+  },
+  "U-53PA": {
+   "rows": 2284,
+   "labels": {
+    "Unknown": 1425,
+    "Absent-Documented": 851,
+    "Present-Documented": 8
+   },
+   "roll_status": {
+    "on-roll-undetermined": 522,
+    "unreadable-or-ambiguous": 903,
+    "not-yet-enlisted": 781,
+    "off-roll-before-battle": 70,
+    "named-present": 8
+   },
+   "flags": {
+    "new-regiment-by-company-A-restart": 213,
+    "rank-ditto-unresolved": 54,
+    "muster-year-inferred": 104,
+    "no-month-in-date-column": 206,
+    "name-garbled": 64,
+    "name-missing": 104,
+    "date-missing": 78,
+    "company-inferred-from-officer-run": 220,
+    "company-heading-skipped": 244,
+    "company-inferred-from-recruited-line": 153,
+    "intra-regiment-transfer": 1,
+    "new-block-company-restart": 17
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.3954,
+   "in_oob": true
+  },
+  "U-56PA": {
+   "rows": 1220,
+   "labels": {
+    "Unknown": 684,
+    "Absent-Documented": 522,
+    "Present-Documented": 14
+   },
+   "roll_status": {
+    "on-roll-undetermined": 91,
+    "off-roll-before-battle": 97,
+    "not-yet-enlisted": 425,
+    "unreadable-or-ambiguous": 593,
+    "named-present": 14
+   },
+   "flags": {
+    "new-regiment-by-company-A-restart": 165,
+    "name-garbled": 60,
+    "no-month-in-date-column": 470,
+    "date-missing": 380,
+    "muster-year-inferred": 5,
+    "name-missing": 7,
+    "company-heading-skipped": 279,
+    "muster-date-implausible-ocr": 2,
+    "gettysburg-mention-nonbattle": 3,
+    "rank-ditto-unresolved": 20,
+    "company-letter-ocr": 151,
+    "intra-regiment-transfer": 5
+   },
+   "gettysburg_token_but_not_present": 3,
+   "unreadable_share": 0.4861,
+   "in_oob": true
+  },
+  "U-57PA": {
+   "rows": 1717,
+   "labels": {
+    "Unknown": 1077,
+    "Absent-Documented": 619,
+    "Present-Documented": 21
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 678,
+    "off-roll-before-battle": 132,
+    "on-roll-undetermined": 399,
+    "named-present": 21,
+    "not-yet-enlisted": 487
+   },
+   "flags": {
+    "no-month-in-date-column": 256,
+    "name-missing": 43,
+    "name-garbled": 45,
+    "muster-year-inferred": 51,
+    "date-missing": 136,
+    "intra-regiment-transfer": 29,
+    "rank-ditto-unresolved": 40,
+    "gettysburg-mention-nonbattle": 1,
+    "place-not-named": 3,
+    "company-letter-guess": 165,
+    "company-heading-skipped": 374,
+    "muster-date-implausible-ocr": 1
+   },
+   "gettysburg_token_but_not_present": 1,
+   "unreadable_share": 0.3949,
+   "in_oob": true
+  },
+  "U-62PA": {
+   "rows": 1516,
+   "labels": {
+    "Unknown": 1032,
+    "Absent-Documented": 440,
+    "Present-Documented": 44
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 509,
+    "on-roll-undetermined": 523,
+    "off-roll-before-battle": 332,
+    "named-present": 44,
+    "not-yet-enlisted": 108
+   },
+   "flags": {
+    "new-regiment-by-company-A-restart": 213,
+    "no-month-in-date-column": 75,
+    "name-garbled": 48,
+    "intra-regiment-transfer": 6,
+    "muster-year-inferred": 85,
+    "date-missing": 16,
+    "rank-ditto-unresolved": 33,
+    "company-heading-skipped": 112,
+    "place-not-named": 3,
+    "name-missing": 32,
+    "contested": 1,
+    "muster-date-implausible-ocr": 1
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.3358,
+   "in_oob": true
+  },
+  "U-63PA": {
+   "rows": 2592,
+   "labels": {
+    "Unknown": 1757,
+    "Absent-Documented": 826,
+    "Present-Documented": 9
+   },
+   "roll_status": {
+    "on-roll-undetermined": 526,
+    "unreadable-or-ambiguous": 1231,
+    "off-roll-before-battle": 366,
+    "not-yet-enlisted": 460,
+    "named-present": 9
+   },
+   "flags": {
+    "no-month-in-date-column": 321,
+    "name-missing": 42,
+    "muster-year-inferred": 101,
+    "name-garbled": 97,
+    "date-missing": 100,
+    "intra-regiment-transfer": 59,
+    "rank-ditto-unresolved": 25,
+    "company-inferred-from-recruited-line": 340,
+    "death-at-gettysburg-no-wound-stated": 1,
+    "place-not-named": 2,
+    "company-inferred-from-officer-run": 193,
+    "new-block-company-restart": 204,
+    "muster-date-implausible-ocr": 4
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.4749,
+   "in_oob": true
+  },
+  "U-68PA": {
+   "rows": 1036,
+   "labels": {
+    "Unknown": 646,
+    "Present-Documented": 71,
+    "Absent-Documented": 319
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 244,
+    "on-roll-undetermined": 402,
+    "named-present": 71,
+    "off-roll-before-battle": 278,
+    "not-yet-enlisted": 41
+   },
+   "flags": {
+    "name-missing": 25,
+    "no-month-in-date-column": 214,
+    "name-garbled": 54,
+    "intra-regiment-transfer": 20,
+    "muster-year-inferred": 18,
+    "contested": 1,
+    "date-missing": 59,
+    "muster-date-second-ocr": 100,
+    "muster-date-implausible-ocr": 1,
+    "place-not-named": 2,
+    "second-ocr-date-uncorroborated": 11,
+    "rank-ditto-unresolved": 9,
+    "gettysburg-mention-nonbattle": 4,
+    "company-inferred-from-recruited-line": 232,
+    "company-heading-skipped": 106
+   },
+   "gettysburg_token_but_not_present": 5,
+   "unreadable_share": 0.2355,
+   "in_oob": true
+  },
+  "U-69PA": {
+   "rows": 1689,
+   "labels": {
+    "Unknown": 828,
+    "Present-Documented": 114,
+    "Absent-Documented": 747
+   },
+   "roll_status": {
+    "on-roll-undetermined": 491,
+    "named-present": 114,
+    "off-roll-before-battle": 419,
+    "not-yet-enlisted": 328,
+    "unreadable-or-ambiguous": 337
+   },
+   "flags": {
+    "muster-date-second-ocr": 428,
+    "new-regiment-by-company-A-restart": 212,
+    "no-month-in-date-column": 159,
+    "rank-ditto-unresolved": 127,
+    "intra-regiment-transfer": 5,
+    "second-ocr-date-uncorroborated": 69,
+    "name-garbled": 64,
+    "date-missing": 51,
+    "name-missing": 86,
+    "company-inferred-from-recruited-line": 693,
+    "gettysburg-mention-nonbattle": 7,
+    "place-not-named": 1,
+    "muster-year-inferred": 41,
+    "company-inferred-from-officer-run": 161,
+    "contested": 2
+   },
+   "gettysburg_token_but_not_present": 9,
+   "unreadable_share": 0.1995,
+   "in_oob": true
+  },
+  "U-71PA": {
+   "rows": 2162,
+   "labels": {
+    "Unknown": 1189,
+    "Absent-Documented": 915,
+    "Present-Documented": 58
+   },
+   "roll_status": {
+    "on-roll-undetermined": 712,
+    "off-roll-before-battle": 767,
+    "named-present": 58,
+    "unreadable-or-ambiguous": 477,
+    "not-yet-enlisted": 148
+   },
+   "flags": {
+    "new-regiment-by-company-A-restart": 175,
+    "intra-regiment-transfer": 105,
+    "date-missing": 61,
+    "no-month-in-date-column": 226,
+    "muster-date-second-ocr": 711,
+    "muster-year-inferred": 80,
+    "name-garbled": 65,
+    "name-missing": 49,
+    "company-inferred-from-recruited-line": 815,
+    "muster-date-implausible-ocr": 1,
+    "rank-ditto-unresolved": 25,
+    "second-ocr-date-uncorroborated": 42,
+    "company-inferred-from-officer-run": 411,
+    "gettysburg-mention-nonbattle": 3,
+    "place-not-named": 1,
+    "new-block-company-restart": 157
+   },
+   "gettysburg_token_but_not_present": 3,
+   "unreadable_share": 0.2206,
+   "in_oob": true
+  },
+  "U-72PA": {
+   "rows": 1337,
+   "labels": {
+    "Absent-Documented": 459,
+    "Present-Documented": 45,
+    "Unknown": 833
+   },
+   "roll_status": {
+    "off-roll-before-battle": 410,
+    "named-present": 45,
+    "on-roll-undetermined": 452,
+    "unreadable-or-ambiguous": 381,
+    "not-yet-enlisted": 49
+   },
+   "flags": {
+    "no-month-in-date-column": 175,
+    "date-missing": 33,
+    "name-garbled": 51,
+    "name-missing": 17,
+    "muster-year-inferred": 95,
+    "intra-regiment-transfer": 16,
+    "company-letter-guess": 380,
+    "rank-ditto-unresolved": 18,
+    "company-inferred-from-officer-run": 128,
+    "company-letter-ocr": 145,
+    "place-not-named": 1,
+    "company-heading-skipped": 145,
+    "company-inferred-from-recruited-line": 367,
+    "gettysburg-mention-nonbattle": 1,
+    "muster-date-implausible-ocr": 1
+   },
+   "gettysburg_token_but_not_present": 1,
+   "unreadable_share": 0.285,
+   "in_oob": true
+  },
+  "U-73PA": {
+   "rows": 1065,
+   "labels": {
+    "Absent-Documented": 339,
+    "Unknown": 717,
+    "Present-Documented": 9
+   },
+   "roll_status": {
+    "not-yet-enlisted": 40,
+    "unreadable-or-ambiguous": 325,
+    "on-roll-undetermined": 392,
+    "off-roll-before-battle": 299,
+    "named-present": 9
+   },
+   "flags": {
+    "no-month-in-date-column": 93,
+    "company-letter-guess": 151,
+    "date-missing": 26,
+    "muster-year-inferred": 93,
+    "rank-ditto-unresolved": 25,
+    "intra-regiment-transfer": 107,
+    "gettysburg-mention-nonbattle": 1,
+    "name-garbled": 26,
+    "name-missing": 47,
+    "company-heading-skipped": 153,
+    "company-inferred-from-recruited-line": 151,
+    "contested": 1
+   },
+   "gettysburg_token_but_not_present": 2,
+   "unreadable_share": 0.3052,
+   "in_oob": true
+  },
+  "U-74PA": {
+   "rows": 942,
+   "labels": {
+    "Absent-Documented": 593,
+    "Unknown": 348,
+    "Present-Documented": 1
+   },
+   "roll_status": {
+    "not-yet-enlisted": 585,
+    "on-roll-undetermined": 86,
+    "unreadable-or-ambiguous": 262,
+    "off-roll-before-battle": 8,
+    "named-present": 1
+   },
+   "flags": {
+    "new-regiment-by-company-A-restart": 87,
+    "name-missing": 15,
+    "name-garbled": 40,
+    "no-month-in-date-column": 86,
+    "date-missing": 36,
+    "company-inferred-from-recruited-line": 183,
+    "company-heading-skipped": 300,
+    "muster-year-inferred": 70,
+    "intra-regiment-transfer": 2,
+    "rank-ditto-unresolved": 14
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.2781,
+   "in_oob": true
+  },
+  "U-75PA": {
+   "rows": 1353,
+   "labels": {
+    "Unknown": 789,
+    "Present-Documented": 70,
+    "Absent-Documented": 494
+   },
+   "roll_status": {
+    "on-roll-undetermined": 452,
+    "named-present": 70,
+    "off-roll-before-battle": 364,
+    "not-yet-enlisted": 130,
+    "unreadable-or-ambiguous": 337
+   },
+   "flags": {
+    "no-month-in-date-column": 173,
+    "intra-regiment-transfer": 27,
+    "date-missing": 38,
+    "muster-date-second-ocr": 309,
+    "name-garbled": 63,
+    "name-missing": 28,
+    "second-ocr-date-uncorroborated": 53,
+    "rank-ditto-unresolved": 75,
+    "muster-year-inferred": 13,
+    "gettysburg-mention-nonbattle": 2,
+    "company-heading-skipped": 179,
+    "place-not-named": 2,
+    "muster-date-implausible-ocr": 1,
+    "company-inferred-from-recruited-line": 31
+   },
+   "gettysburg_token_but_not_present": 2,
+   "unreadable_share": 0.2491,
+   "in_oob": true
+  },
+  "U-81PA": {
+   "rows": 1471,
+   "labels": {
+    "Absent-Documented": 508,
+    "Unknown": 951,
+    "Present-Documented": 12
+   },
+   "roll_status": {
+    "off-roll-before-battle": 153,
+    "on-roll-undetermined": 540,
+    "unreadable-or-ambiguous": 411,
+    "not-yet-enlisted": 355,
+    "named-present": 12
+   },
+   "flags": {
+    "name-garbled": 35,
+    "date-missing": 63,
+    "no-month-in-date-column": 195,
+    "name-missing": 139,
+    "intra-regiment-transfer": 27,
+    "company-letter-guess": 164,
+    "rank-ditto-unresolved": 12,
+    "muster-year-inferred": 69,
+    "company-heading-skipped": 52,
+    "company-inferred-from-recruited-line": 167,
+    "gettysburg-mention-nonbattle": 2
+   },
+   "gettysburg_token_but_not_present": 2,
+   "unreadable_share": 0.2794,
+   "in_oob": true
+  },
+  "U-82PA": {
+   "rows": 2183,
+   "labels": {
+    "Absent-Documented": 748,
+    "Unknown": 1434,
+    "Present-Documented": 1
+   },
+   "roll_status": {
+    "off-roll-before-battle": 275,
+    "on-roll-undetermined": 660,
+    "not-yet-enlisted": 473,
+    "unreadable-or-ambiguous": 774,
+    "named-present": 1
+   },
+   "flags": {
+    "name-missing": 49,
+    "no-month-in-date-column": 384,
+    "name-garbled": 112,
+    "muster-year-inferred": 88,
+    "intra-regiment-transfer": 225,
+    "date-missing": 142,
+    "company-inferred-from-recruited-line": 269,
+    "place-not-named": 1,
+    "rank-ditto-unresolved": 12,
+    "gettysburg-mention-nonbattle": 1
+   },
+   "gettysburg_token_but_not_present": 1,
+   "unreadable_share": 0.3546,
+   "in_oob": true
+  },
+  "U-83PA": {
+   "rows": 2328,
+   "labels": {
+    "Unknown": 1158,
+    "Absent-Documented": 1126,
+    "Present-Documented": 44
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 696,
+    "on-roll-undetermined": 462,
+    "off-roll-before-battle": 494,
+    "named-present": 44,
+    "not-yet-enlisted": 632
+   },
+   "flags": {
+    "date-missing": 132,
+    "no-month-in-date-column": 315,
+    "muster-year-inferred": 71,
+    "name-garbled": 122,
+    "intra-regiment-transfer": 11,
+    "name-missing": 20,
+    "rank-ditto-unresolved": 20,
+    "contested": 2,
+    "place-not-named": 3,
+    "company-letter-ocr": 189,
+    "company-inferred-from-recruited-line": 428,
+    "muster-date-implausible-ocr": 2,
+    "gettysburg-mention-nonbattle": 2,
+    "company-inferred-from-officer-run": 283,
+    "new-block-company-restart": 490,
+    "death-at-gettysburg-no-wound-stated": 1
+   },
+   "gettysburg_token_but_not_present": 4,
+   "unreadable_share": 0.299,
+   "in_oob": true
+  },
+  "U-3PA-CAV": {
+   "rows": 2344,
+   "labels": {
+    "Unknown": 1515,
+    "Absent-Documented": 819,
+    "Present-Documented": 10
+   },
+   "roll_status": {
+    "on-roll-undetermined": 742,
+    "off-roll-before-battle": 312,
+    "unreadable-or-ambiguous": 773,
+    "not-yet-enlisted": 507,
+    "named-present": 10
+   },
+   "flags": {
+    "muster-year-inferred": 138,
+    "name-garbled": 107,
+    "no-month-in-date-column": 301,
+    "date-missing": 88,
+    "rank-ditto-unresolved": 53,
+    "name-missing": 67,
+    "intra-regiment-transfer": 30,
+    "company-inferred-from-recruited-line": 659,
+    "muster-date-implausible-ocr": 1,
+    "new-block-company-restart": 182
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.3298,
+   "in_oob": true
+  },
+  "U-6PA-CAV": {
+   "rows": 1940,
+   "labels": {
+    "Absent-Documented": 648,
+    "Unknown": 1289,
+    "Present-Documented": 3
+   },
+   "roll_status": {
+    "not-yet-enlisted": 486,
+    "unreadable-or-ambiguous": 639,
+    "off-roll-before-battle": 162,
+    "on-roll-undetermined": 650,
+    "named-present": 3
+   },
+   "flags": {
+    "date-missing": 28,
+    "no-month-in-date-column": 226,
+    "muster-year-inferred": 36,
+    "intra-regiment-transfer": 479,
+    "name-garbled": 53,
+    "name-missing": 65,
+    "company-letter-guess": 174,
+    "muster-date-implausible-ocr": 1,
+    "company-inferred-from-recruited-line": 185,
+    "company-heading-skipped": 573,
+    "rank-ditto-unresolved": 21
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.3294,
+   "in_oob": true
+  },
+  "U-88PA": {
+   "rows": 2057,
+   "labels": {
+    "Absent-Documented": 848,
+    "Unknown": 1193,
+    "Present-Documented": 16
+   },
+   "roll_status": {
+    "off-roll-before-battle": 363,
+    "on-roll-undetermined": 520,
+    "named-present": 16,
+    "not-yet-enlisted": 485,
+    "unreadable-or-ambiguous": 673
+   },
+   "flags": {
+    "name-garbled": 92,
+    "no-month-in-date-column": 205,
+    "intra-regiment-transfer": 134,
+    "name-missing": 4,
+    "date-missing": 70,
+    "muster-year-inferred": 74,
+    "rank-ditto-unresolved": 23,
+    "company-letter-ocr": 195,
+    "company-inferred-from-recruited-line": 231,
+    "muster-date-implausible-ocr": 1
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.3272,
+   "in_oob": true
+  },
+  "U-90PA": {
+   "rows": 1588,
+   "labels": {
+    "Unknown": 934,
+    "Present-Documented": 9,
+    "Absent-Documented": 645
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 287,
+    "on-roll-undetermined": 647,
+    "named-present": 9,
+    "off-roll-before-battle": 254,
+    "not-yet-enlisted": 391
+   },
+   "flags": {
+    "no-month-in-date-column": 121,
+    "muster-year-inferred": 29,
+    "name-garbled": 65,
+    "date-missing": 61,
+    "rank-ditto-unresolved": 3,
+    "intra-regiment-transfer": 167,
+    "name-missing": 50,
+    "muster-date-implausible-ocr": 1
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.1807,
+   "in_oob": true
+  },
+  "U-91PA": {
+   "rows": 2193,
+   "labels": {
+    "Unknown": 1067,
+    "Absent-Documented": 1108,
+    "Present-Documented": 18
+   },
+   "roll_status": {
+    "on-roll-undetermined": 535,
+    "off-roll-before-battle": 458,
+    "not-yet-enlisted": 650,
+    "unreadable-or-ambiguous": 532,
+    "named-present": 18
+   },
+   "flags": {
+    "name-garbled": 121,
+    "place-not-named": 1,
+    "muster-year-inferred": 48,
+    "no-month-in-date-column": 91,
+    "intra-regiment-transfer": 108,
+    "date-missing": 10,
+    "name-missing": 11,
+    "rank-ditto-unresolved": 18
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.2426,
+   "in_oob": true
+  },
+  "U-93PA": {
+   "rows": 2003,
+   "labels": {
+    "Absent-Documented": 1211,
+    "Unknown": 785,
+    "Present-Documented": 7
+   },
+   "roll_status": {
+    "off-roll-before-battle": 478,
+    "on-roll-undetermined": 516,
+    "not-yet-enlisted": 733,
+    "unreadable-or-ambiguous": 269,
+    "named-present": 7
+   },
+   "flags": {
+    "intra-regiment-transfer": 27,
+    "name-garbled": 77,
+    "no-month-in-date-column": 120,
+    "name-missing": 38,
+    "company-letter-ocr": 208,
+    "date-missing": 64,
+    "rank-ditto-unresolved": 52,
+    "muster-year-inferred": 4,
+    "muster-date-implausible-ocr": 2,
+    "company-heading-skipped": 162,
+    "gettysburg-mention-nonbattle": 1,
+    "place-not-named": 2
+   },
+   "gettysburg_token_but_not_present": 1,
+   "unreadable_share": 0.1343,
+   "in_oob": true
+  },
+  "U-95PA": {
+   "rows": 2332,
+   "labels": {
+    "Unknown": 1414,
+    "Absent-Documented": 917,
+    "Present-Documented": 1
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 519,
+    "off-roll-before-battle": 489,
+    "not-yet-enlisted": 428,
+    "on-roll-undetermined": 895,
+    "named-present": 1
+   },
+   "flags": {
+    "no-month-in-date-column": 226,
+    "name-garbled": 133,
+    "intra-regiment-transfer": 329,
+    "muster-year-inferred": 78,
+    "muster-date-implausible-ocr": 3,
+    "name-missing": 9,
+    "rank-ditto-unresolved": 1,
+    "date-missing": 72,
+    "new-block-company-restart": 215
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.2226,
+   "in_oob": true
+  },
+  "U-96PA": {
+   "rows": 1196,
+   "labels": {
+    "Absent-Documented": 527,
+    "Unknown": 669
+   },
+   "roll_status": {
+    "off-roll-before-battle": 463,
+    "on-roll-undetermined": 460,
+    "unreadable-or-ambiguous": 209,
+    "not-yet-enlisted": 64
+   },
+   "flags": {
+    "no-month-in-date-column": 115,
+    "name-garbled": 62,
+    "intra-regiment-transfer": 62,
+    "name-missing": 11,
+    "date-missing": 48,
+    "muster-year-inferred": 28,
+    "muster-date-implausible-ocr": 2
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.1747,
+   "in_oob": true
+  },
+  "U-98PA": {
+   "rows": 1973,
+   "labels": {
+    "Unknown": 1142,
+    "Absent-Documented": 820,
+    "Present-Documented": 11
+   },
+   "roll_status": {
+    "on-roll-undetermined": 534,
+    "off-roll-before-battle": 260,
+    "unreadable-or-ambiguous": 608,
+    "not-yet-enlisted": 560,
+    "named-present": 11
+   },
+   "flags": {
+    "no-month-in-date-column": 193,
+    "intra-regiment-transfer": 28,
+    "muster-year-inferred": 34,
+    "muster-date-implausible-ocr": 2,
+    "name-garbled": 84,
+    "date-missing": 74,
+    "name-missing": 16,
+    "place-not-named": 1,
+    "company-letter-ocr": 177,
+    "rank-ditto-unresolved": 30
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.3082,
+   "in_oob": true
+  },
+  "U-99PA": {
+   "rows": 2164,
+   "labels": {
+    "Unknown": 1344,
+    "Absent-Documented": 755,
+    "Present-Documented": 65
+   },
+   "roll_status": {
+    "on-roll-undetermined": 945,
+    "off-roll-before-battle": 62,
+    "not-yet-enlisted": 693,
+    "unreadable-or-ambiguous": 399,
+    "named-present": 65
+   },
+   "flags": {
+    "muster-date-second-ocr": 318,
+    "no-month-in-date-column": 251,
+    "name-garbled": 123,
+    "date-missing": 87,
+    "intra-regiment-transfer": 112,
+    "second-ocr-date-uncorroborated": 40,
+    "muster-year-inferred": 31,
+    "muster-date-implausible-ocr": 3,
+    "rank-ditto-unresolved": 35,
+    "gettysburg-mention-nonbattle": 3,
+    "company-letter-ocr": 232,
+    "name-missing": 4,
+    "place-not-named": 1
+   },
+   "gettysburg_token_but_not_present": 3,
+   "unreadable_share": 0.1844,
+   "in_oob": true
+  },
+  "U-102PA": {
+   "rows": 2092,
+   "labels": {
+    "Unknown": 1046,
+    "Absent-Documented": 1046
+   },
+   "roll_status": {
+    "on-roll-undetermined": 620,
+    "off-roll-before-battle": 405,
+    "unreadable-or-ambiguous": 426,
+    "not-yet-enlisted": 641
+   },
+   "flags": {
+    "no-month-in-date-column": 167,
+    "intra-regiment-transfer": 7,
+    "name-garbled": 82,
+    "date-missing": 72,
+    "rank-ditto-unresolved": 7,
+    "muster-year-inferred": 78,
+    "name-missing": 12,
+    "company-letter-guess": 198
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.2036,
+   "in_oob": true
+  },
+  "U-105PA": {
+   "rows": 1990,
+   "labels": {
+    "Unknown": 870,
+    "Absent-Documented": 1084,
+    "Present-Documented": 36
+   },
+   "roll_status": {
+    "on-roll-undetermined": 444,
+    "off-roll-before-battle": 473,
+    "unreadable-or-ambiguous": 426,
+    "not-yet-enlisted": 611,
+    "named-present": 36
+   },
+   "flags": {
+    "name-missing": 20,
+    "name-garbled": 112,
+    "no-month-in-date-column": 206,
+    "gettysburg-mention-nonbattle": 3,
+    "muster-year-inferred": 35,
+    "intra-regiment-transfer": 16,
+    "muster-date-implausible-ocr": 3,
+    "company-inferred-from-recruited-line": 219,
+    "date-missing": 130,
+    "rank-ditto-unresolved": 47
+   },
+   "gettysburg_token_but_not_present": 3,
+   "unreadable_share": 0.2141,
+   "in_oob": true
+  },
+  "U-106PA": {
+   "rows": 1042,
+   "labels": {
+    "Absent-Documented": 366,
+    "Unknown": 663,
+    "Present-Documented": 13
+   },
+   "roll_status": {
+    "off-roll-before-battle": 275,
+    "on-roll-undetermined": 447,
+    "unreadable-or-ambiguous": 216,
+    "not-yet-enlisted": 91,
+    "named-present": 13
+   },
+   "flags": {
+    "name-missing": 14,
+    "name-garbled": 46,
+    "no-month-in-date-column": 120,
+    "intra-regiment-transfer": 82,
+    "muster-year-inferred": 47,
+    "company-letter-ocr": 92,
+    "rank-ditto-unresolved": 27,
+    "death-at-gettysburg-no-wound-stated": 1,
+    "date-missing": 51
+   },
+   "gettysburg_token_but_not_present": 1,
+   "unreadable_share": 0.2073,
+   "in_oob": true
+  },
+  "U-109PA": {
+   "rows": 1059,
+   "labels": {
+    "Unknown": 914,
+    "Absent-Documented": 144,
+    "Present-Documented": 1
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 286,
+    "off-roll-before-battle": 65,
+    "on-roll-undetermined": 628,
+    "not-yet-enlisted": 79,
+    "named-present": 1
+   },
+   "flags": {
+    "no-month-in-date-column": 127,
+    "section-heading-missing": 4,
+    "name-garbled": 105,
+    "intra-regiment-transfer": 188,
+    "date-missing": 41,
+    "muster-year-inferred": 25,
+    "name-missing": 15,
+    "company-heading-skipped": 195,
+    "muster-date-implausible-ocr": 1,
+    "new-block-company-restart": 146,
+    "rank-ditto-unresolved": 2
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.2701,
+   "in_oob": true
+  },
+  "U-110PA": {
+   "rows": 1538,
+   "labels": {
+    "Unknown": 1189,
+    "Absent-Documented": 333,
+    "Present-Documented": 16
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 455,
+    "off-roll-before-battle": 111,
+    "named-present": 16,
+    "on-roll-undetermined": 734,
+    "not-yet-enlisted": 222
+   },
+   "flags": {
+    "name-garbled": 72,
+    "no-month-in-date-column": 216,
+    "muster-year-inferred": 52,
+    "name-missing": 24,
+    "date-missing": 129,
+    "rank-ditto-unresolved": 4,
+    "intra-regiment-transfer": 87,
+    "contested": 1,
+    "gettysburg-mention-nonbattle": 1,
+    "death-at-gettysburg-no-wound-stated": 1
+   },
+   "gettysburg_token_but_not_present": 2,
+   "unreadable_share": 0.2958,
+   "in_oob": true
+  },
+  "U-111PA": {
+   "rows": 1930,
+   "labels": {
+    "Unknown": 974,
+    "Absent-Documented": 935,
+    "Present-Documented": 21
+   },
+   "roll_status": {
+    "on-roll-undetermined": 573,
+    "not-yet-enlisted": 447,
+    "off-roll-before-battle": 488,
+    "unreadable-or-ambiguous": 401,
+    "named-present": 21
+   },
+   "flags": {
+    "name-garbled": 101,
+    "no-month-in-date-column": 140,
+    "intra-regiment-transfer": 21,
+    "name-missing": 6,
+    "muster-year-inferred": 25,
+    "muster-date-implausible-ocr": 2,
+    "gettysburg-mention-nonbattle": 1,
+    "date-missing": 64,
+    "place-not-named": 1,
+    "rank-ditto-unresolved": 46
+   },
+   "gettysburg_token_but_not_present": 1,
+   "unreadable_share": 0.2078,
+   "in_oob": true
+  },
+  "U-114PA": {
+   "rows": 1119,
+   "labels": {
+    "Unknown": 789,
+    "Absent-Documented": 282,
+    "Present-Documented": 48
+   },
+   "roll_status": {
+    "on-roll-undetermined": 472,
+    "off-roll-before-battle": 255,
+    "not-yet-enlisted": 27,
+    "unreadable-or-ambiguous": 317,
+    "named-present": 48
+   },
+   "flags": {
+    "no-month-in-date-column": 69,
+    "name-garbled": 44,
+    "intra-regiment-transfer": 53,
+    "muster-year-inferred": 76,
+    "rank-ditto-unresolved": 1,
+    "name-missing": 23,
+    "date-missing": 40,
+    "gettysburg-mention-nonbattle": 4,
+    "company-letter-guess": 113,
+    "contested": 1
+   },
+   "gettysburg_token_but_not_present": 5,
+   "unreadable_share": 0.2833,
+   "in_oob": true
+  },
+  "U-115PA": {
+   "rows": 788,
+   "labels": {
+    "Unknown": 700,
+    "Absent-Documented": 79,
+    "Present-Documented": 9
+   },
+   "roll_status": {
+    "on-roll-undetermined": 499,
+    "unreadable-or-ambiguous": 201,
+    "not-yet-enlisted": 19,
+    "off-roll-before-battle": 60,
+    "named-present": 9
+   },
+   "flags": {
+    "name-missing": 27,
+    "name-garbled": 35,
+    "no-month-in-date-column": 89,
+    "intra-regiment-transfer": 88,
+    "gettysburg-mention-nonbattle": 2,
+    "date-missing": 42,
+    "rank-ditto-unresolved": 3,
+    "muster-year-inferred": 7,
+    "company-heading-skipped": 140
+   },
+   "gettysburg_token_but_not_present": 2,
+   "unreadable_share": 0.2551,
+   "in_oob": true
+  },
+  "U-116PA": {
+   "rows": 1703,
+   "labels": {
+    "Absent-Documented": 644,
+    "Unknown": 1031,
+    "Present-Documented": 28
+   },
+   "roll_status": {
+    "off-roll-before-battle": 83,
+    "not-yet-enlisted": 561,
+    "unreadable-or-ambiguous": 224,
+    "on-roll-undetermined": 807,
+    "named-present": 28
+   },
+   "flags": {
+    "date-missing": 32,
+    "no-month-in-date-column": 67,
+    "name-garbled": 53,
+    "gettysburg-mention-nonbattle": 4,
+    "muster-year-inferred": 129,
+    "intra-regiment-transfer": 262,
+    "name-missing": 55,
+    "rank-ditto-unresolved": 25
+   },
+   "gettysburg_token_but_not_present": 4,
+   "unreadable_share": 0.1315,
+   "in_oob": true
+  },
+  "U-118PA": {
+   "rows": 1330,
+   "labels": {
+    "Unknown": 971,
+    "Absent-Documented": 350,
+    "Present-Documented": 9
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 313,
+    "on-roll-undetermined": 658,
+    "off-roll-before-battle": 220,
+    "not-yet-enlisted": 130,
+    "named-present": 9
+   },
+   "flags": {
+    "no-month-in-date-column": 186,
+    "date-missing": 70,
+    "name-garbled": 46,
+    "muster-year-inferred": 40,
+    "name-missing": 17,
+    "intra-regiment-transfer": 15,
+    "company-letter-ocr": 244,
+    "company-heading-skipped": 114,
+    "rank-ditto-unresolved": 6
+   },
+   "gettysburg_token_but_not_present": 1,
+   "unreadable_share": 0.2353,
+   "in_oob": true
+  },
+  "U-8PA-CAV": {
+   "rows": 1923,
+   "labels": {
+    "Absent-Documented": 551,
+    "Unknown": 1372
+   },
+   "roll_status": {
+    "off-roll-before-battle": 173,
+    "on-roll-undetermined": 789,
+    "unreadable-or-ambiguous": 583,
+    "not-yet-enlisted": 378
+   },
+   "flags": {
+    "muster-year-inferred": 64,
+    "no-month-in-date-column": 257,
+    "date-missing": 144,
+    "name-garbled": 91,
+    "intra-regiment-transfer": 232,
+    "name-missing": 26,
+    "company-letter-guess": 230,
+    "company-heading-skipped": 336
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.3032,
+   "in_oob": true
+  },
+  "U-119PA": {
+   "rows": 1227,
+   "labels": {
+    "Unknown": 916,
+    "Absent-Documented": 311
+   },
+   "roll_status": {
+    "on-roll-undetermined": 472,
+    "off-roll-before-battle": 143,
+    "unreadable-or-ambiguous": 444,
+    "not-yet-enlisted": 168
+   },
+   "flags": {
+    "name-garbled": 38,
+    "muster-year-inferred": 64,
+    "no-month-in-date-column": 170,
+    "date-missing": 103,
+    "rank-ditto-unresolved": 12,
+    "intra-regiment-transfer": 10,
+    "name-missing": 4
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.3619,
+   "in_oob": true
+  },
+  "U-121PA": {
+   "rows": 902,
+   "labels": {
+    "Unknown": 594,
+    "Absent-Documented": 268,
+    "Present-Documented": 40
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 153,
+    "on-roll-undetermined": 441,
+    "off-roll-before-battle": 246,
+    "not-yet-enlisted": 22,
+    "named-present": 40
+   },
+   "flags": {
+    "no-month-in-date-column": 75,
+    "name-garbled": 35,
+    "gettysburg-mention-nonbattle": 1,
+    "muster-year-inferred": 36,
+    "date-missing": 33,
+    "intra-regiment-transfer": 1,
+    "name-missing": 8,
+    "company-inferred-from-officer-run": 100
+   },
+   "gettysburg_token_but_not_present": 1,
+   "unreadable_share": 0.1696,
+   "in_oob": true
+  },
+  "U-127PA": {
+   "rows": 833,
+   "labels": {
+    "Absent-Documented": 571,
+    "Unknown": 262
+   },
+   "roll_status": {
+    "off-roll-before-battle": 571,
+    "on-roll-undetermined": 121,
+    "unreadable-or-ambiguous": 141
+   },
+   "flags": {
+    "no-month-in-date-column": 89,
+    "name-garbled": 47,
+    "date-missing": 26,
+    "muster-year-inferred": 17,
+    "company-letter-ocr": 99,
+    "name-missing": 7,
+    "company-heading-skipped": 98,
+    "rank-ditto-unresolved": 11
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.1693,
+   "in_oob": true
+  },
+  "U-140PA": {
+   "rows": 1143,
+   "labels": {
+    "Present-Documented": 146,
+    "Unknown": 784,
+    "Absent-Documented": 213
+   },
+   "roll_status": {
+    "named-present": 146,
+    "on-roll-undetermined": 560,
+    "unreadable-or-ambiguous": 224,
+    "not-yet-enlisted": 109,
+    "off-roll-before-battle": 104
+   },
+   "flags": {
+    "no-month-in-date-column": 92,
+    "rank-ditto-unresolved": 24,
+    "muster-date-second-ocr": 130,
+    "intra-regiment-transfer": 23,
+    "muster-year-inferred": 59,
+    "name-garbled": 52,
+    "name-missing": 5,
+    "second-ocr-date-uncorroborated": 9,
+    "gettysburg-mention-nonbattle": 4,
+    "death-at-gettysburg-no-wound-stated": 2,
+    "contested": 1,
+    "place-not-named": 3,
+    "date-missing": 29,
+    "muster-date-implausible-ocr": 1
+   },
+   "gettysburg_token_but_not_present": 5,
+   "unreadable_share": 0.196,
+   "in_oob": true
+  },
+  "U-141PA": {
+   "rows": 1067,
+   "labels": {
+    "Unknown": 718,
+    "Absent-Documented": 256,
+    "Present-Documented": 93
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 296,
+    "off-roll-before-battle": 197,
+    "on-roll-undetermined": 422,
+    "named-present": 93,
+    "not-yet-enlisted": 59
+   },
+   "flags": {
+    "date-missing": 55,
+    "no-month-in-date-column": 127,
+    "section-heading-missing": 5,
+    "name-garbled": 40,
+    "muster-date-second-ocr": 85,
+    "gettysburg-mention-nonbattle": 9,
+    "intra-regiment-transfer": 13,
+    "muster-year-inferred": 59,
+    "rank-ditto-unresolved": 11,
+    "company-letter-ocr": 98,
+    "name-missing": 2,
+    "second-ocr-date-uncorroborated": 4
+   },
+   "gettysburg_token_but_not_present": 9,
+   "unreadable_share": 0.2774,
+   "in_oob": true
+  },
+  "U-142PA": {
+   "rows": 960,
+   "labels": {
+    "Unknown": 664,
+    "Present-Documented": 79,
+    "Absent-Documented": 217
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 217,
+    "named-present": 79,
+    "on-roll-undetermined": 447,
+    "off-roll-before-battle": 204,
+    "not-yet-enlisted": 13
+   },
+   "flags": {
+    "no-month-in-date-column": 127,
+    "name-garbled": 38,
+    "muster-date-second-ocr": 128,
+    "muster-year-inferred": 10,
+    "intra-regiment-transfer": 4,
+    "rank-ditto-unresolved": 16,
+    "place-not-named": 1,
+    "muster-date-implausible-ocr": 1,
+    "date-missing": 80,
+    "second-ocr-date-uncorroborated": 3,
+    "gettysburg-mention-nonbattle": 3,
+    "name-missing": 4,
+    "contested": 1
+   },
+   "gettysburg_token_but_not_present": 4,
+   "unreadable_share": 0.226,
+   "in_oob": true
+  },
+  "U-143PA": {
+   "rows": 1534,
+   "labels": {
+    "Unknown": 997,
+    "Absent-Documented": 485,
+    "Present-Documented": 52
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 495,
+    "on-roll-undetermined": 502,
+    "off-roll-before-battle": 162,
+    "not-yet-enlisted": 323,
+    "named-present": 52
+   },
+   "flags": {
+    "no-month-in-date-column": 120,
+    "section-heading-missing": 8,
+    "name-garbled": 72,
+    "muster-year-inferred": 69,
+    "intra-regiment-transfer": 4,
+    "rank-ditto-unresolved": 55,
+    "date-missing": 30,
+    "company-letter-guess": 84,
+    "new-block-company-restart": 154,
+    "place-not-named": 6,
+    "muster-date-implausible-ocr": 2,
+    "death-at-gettysburg-no-wound-stated": 1,
+    "name-missing": 8
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.3227,
+   "in_oob": true
+  },
+  "U-145PA": {
+   "rows": 1538,
+   "labels": {
+    "Unknown": 927,
+    "Absent-Documented": 576,
+    "Present-Documented": 35
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 492,
+    "on-roll-undetermined": 435,
+    "off-roll-before-battle": 294,
+    "not-yet-enlisted": 282,
+    "named-present": 35
+   },
+   "flags": {
+    "no-month-in-date-column": 161,
+    "name-garbled": 66,
+    "intra-regiment-transfer": 24,
+    "gettysburg-mention-nonbattle": 2,
+    "muster-year-inferred": 148,
+    "date-missing": 51,
+    "company-letter-ocr": 144,
+    "rank-ditto-unresolved": 86,
+    "place-not-named": 1,
+    "name-missing": 1
+   },
+   "gettysburg_token_but_not_present": 2,
+   "unreadable_share": 0.3199,
+   "in_oob": true
+  },
+  "U-147PA": {
+   "rows": 1161,
+   "labels": {
+    "Unknown": 780,
+    "Absent-Documented": 373,
+    "Present-Documented": 8
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 484,
+    "on-roll-undetermined": 296,
+    "off-roll-before-battle": 201,
+    "not-yet-enlisted": 172,
+    "named-present": 8
+   },
+   "flags": {
+    "intra-regiment-transfer": 9,
+    "name-garbled": 78,
+    "muster-year-inferred": 20,
+    "date-missing": 196,
+    "no-month-in-date-column": 250,
+    "muster-date-implausible-ocr": 2,
+    "rank-ditto-unresolved": 8,
+    "name-missing": 11
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.4169,
+   "in_oob": true
+  },
+  "U-148PA": {
+   "rows": 1391,
+   "labels": {
+    "Unknown": 909,
+    "Absent-Documented": 434,
+    "Present-Documented": 48
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 385,
+    "on-roll-undetermined": 524,
+    "off-roll-before-battle": 146,
+    "not-yet-enlisted": 288,
+    "named-present": 48
+   },
+   "flags": {
+    "no-month-in-date-column": 93,
+    "date-missing": 20,
+    "name-garbled": 63,
+    "muster-year-inferred": 34,
+    "place-not-named": 2,
+    "intra-regiment-transfer": 39,
+    "name-missing": 7,
+    "rank-ditto-unresolved": 44,
+    "gettysburg-mention-nonbattle": 1
+   },
+   "gettysburg_token_but_not_present": 1,
+   "unreadable_share": 0.2768,
+   "in_oob": true
+  },
+  "U-149PA": {
+   "rows": 1554,
+   "labels": {
+    "Unknown": 781,
+    "Absent-Documented": 585,
+    "Present-Documented": 188
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 366,
+    "on-roll-undetermined": 415,
+    "not-yet-enlisted": 458,
+    "named-present": 188,
+    "off-roll-before-battle": 127
+   },
+   "flags": {
+    "muster-date-second-ocr": 206,
+    "second-ocr-date-uncorroborated": 35,
+    "no-month-in-date-column": 125,
+    "intra-regiment-transfer": 2,
+    "date-missing": 34,
+    "rank-ditto-unresolved": 87,
+    "contested": 2,
+    "name-garbled": 111,
+    "muster-year-inferred": 46,
+    "gettysburg-mention-nonbattle": 7,
+    "company-heading-skipped": 143,
+    "place-not-named": 3,
+    "new-block-company-restart": 150,
+    "death-at-gettysburg-no-wound-stated": 2,
+    "name-missing": 5
+   },
+   "gettysburg_token_but_not_present": 9,
+   "unreadable_share": 0.2355,
+   "in_oob": true
+  },
+  "U-150PA": {
+   "rows": 1042,
+   "labels": {
+    "Unknown": 771,
+    "Present-Documented": 78,
+    "Absent-Documented": 193
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 308,
+    "on-roll-undetermined": 463,
+    "named-present": 78,
+    "off-roll-before-battle": 155,
+    "not-yet-enlisted": 38
+   },
+   "flags": {
+    "no-month-in-date-column": 130,
+    "gettysburg-mention-nonbattle": 8,
+    "muster-date-second-ocr": 195,
+    "name-garbled": 52,
+    "intra-regiment-transfer": 7,
+    "muster-year-inferred": 60,
+    "place-not-named": 8,
+    "company-inferred-from-officer-run": 90,
+    "second-ocr-date-uncorroborated": 26,
+    "date-missing": 41,
+    "rank-ditto-unresolved": 6,
+    "company-heading-skipped": 115,
+    "name-missing": 1
+   },
+   "gettysburg_token_but_not_present": 8,
+   "unreadable_share": 0.2956,
+   "in_oob": true
+  },
+  "U-151PA": {
+   "rows": 962,
+   "labels": {
+    "Present-Documented": 277,
+    "Unknown": 604,
+    "Absent-Documented": 81
+   },
+   "roll_status": {
+    "named-present": 277,
+    "on-roll-undetermined": 441,
+    "off-roll-before-battle": 81,
+    "unreadable-or-ambiguous": 163
+   },
+   "flags": {
+    "muster-date-second-ocr": 222,
+    "name-missing": 7,
+    "muster-year-inferred": 82,
+    "no-month-in-date-column": 79,
+    "name-garbled": 56,
+    "gettysburg-mention-nonbattle": 6,
+    "company-letter-guess": 97,
+    "date-missing": 64,
+    "rank-ditto-unresolved": 30,
+    "company-heading-skipped": 90,
+    "place-not-named": 6,
+    "company-inferred-from-officer-run": 83,
+    "second-ocr-date-uncorroborated": 3,
+    "company-letter-ocr": 98
+   },
+   "gettysburg_token_but_not_present": 6,
+   "unreadable_share": 0.1694,
+   "in_oob": true
+  },
+  "U-153PA": {
+   "rows": 943,
+   "labels": {
+    "Unknown": 666,
+    "Present-Documented": 219,
+    "Absent-Documented": 58
+   },
+   "roll_status": {
+    "on-roll-undetermined": 609,
+    "named-present": 219,
+    "off-roll-before-battle": 57,
+    "unreadable-or-ambiguous": 57,
+    "not-yet-enlisted": 1
+   },
+   "flags": {
+    "muster-date-second-ocr": 62,
+    "muster-year-inferred": 18,
+    "gettysburg-mention-nonbattle": 5,
+    "no-month-in-date-column": 65,
+    "name-garbled": 31,
+    "death-at-gettysburg-no-wound-stated": 1,
+    "name-missing": 12,
+    "place-not-named": 5,
+    "company-letter-ocr": 34,
+    "rank-ditto-unresolved": 15,
+    "contested": 1,
+    "date-missing": 30,
+    "intra-regiment-transfer": 1
+   },
+   "gettysburg_token_but_not_present": 6,
+   "unreadable_share": 0.0604,
+   "in_oob": true
+  },
+  "U-155PA": {
+   "rows": 1584,
+   "labels": {
+    "Unknown": 986,
+    "Absent-Documented": 588,
+    "Present-Documented": 10
+   },
+   "roll_status": {
+    "on-roll-undetermined": 533,
+    "unreadable-or-ambiguous": 453,
+    "not-yet-enlisted": 385,
+    "off-roll-before-battle": 203,
+    "named-present": 10
+   },
+   "flags": {
+    "name-garbled": 118,
+    "no-month-in-date-column": 182,
+    "name-missing": 6,
+    "muster-year-inferred": 39,
+    "intra-regiment-transfer": 72,
+    "rank-ditto-unresolved": 46,
+    "date-missing": 70,
+    "company-letter-ocr": 147,
+    "company-letter-guess": 149,
+    "company-heading-skipped": 160,
+    "gettysburg-mention-nonbattle": 1
+   },
+   "gettysburg_token_but_not_present": 1,
+   "unreadable_share": 0.286,
+   "in_oob": true
+  },
+  "U-16PA-CAV": {
+   "rows": 2924,
+   "labels": {
+    "Unknown": 2004,
+    "Absent-Documented": 918,
+    "Present-Documented": 2
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 854,
+    "on-roll-undetermined": 1150,
+    "not-yet-enlisted": 687,
+    "off-roll-before-battle": 231,
+    "named-present": 2
+   },
+   "flags": {
+    "no-month-in-date-column": 236,
+    "intra-regiment-transfer": 291,
+    "name-garbled": 99,
+    "name-missing": 18,
+    "muster-year-inferred": 139,
+    "new-block-company-restart": 283,
+    "date-missing": 109,
+    "muster-date-implausible-ocr": 3,
+    "rank-ditto-unresolved": 9,
+    "company-heading-skipped": 244
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.2921,
+   "in_oob": true
+  },
+  "U-17PA-CAV": {
+   "rows": 2000,
+   "labels": {
+    "Unknown": 1336,
+    "Absent-Documented": 664
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 539,
+    "on-roll-undetermined": 797,
+    "off-roll-before-battle": 205,
+    "not-yet-enlisted": 459
+   },
+   "flags": {
+    "no-month-in-date-column": 122,
+    "name-garbled": 66,
+    "intra-regiment-transfer": 4,
+    "gettysburg-mention-nonbattle": 1,
+    "rank-ditto-unresolved": 6,
+    "muster-year-inferred": 68,
+    "name-missing": 25,
+    "date-missing": 29
+   },
+   "gettysburg_token_but_not_present": 1,
+   "unreadable_share": 0.2695,
+   "in_oob": true
+  },
+  "U-18PA-CAV": {
+   "rows": 2141,
+   "labels": {
+    "Unknown": 1302,
+    "Absent-Documented": 835,
+    "Present-Documented": 4
+   },
+   "roll_status": {
+    "on-roll-undetermined": 672,
+    "not-yet-enlisted": 657,
+    "off-roll-before-battle": 178,
+    "unreadable-or-ambiguous": 630,
+    "named-present": 4
+   },
+   "flags": {
+    "name-garbled": 75,
+    "date-missing": 147,
+    "no-month-in-date-column": 201,
+    "muster-year-inferred": 61,
+    "gettysburg-mention-nonbattle": 1,
+    "intra-regiment-transfer": 2,
+    "rank-ditto-unresolved": 53,
+    "place-not-named": 1,
+    "name-missing": 46,
+    "muster-date-implausible-ocr": 3
+   },
+   "gettysburg_token_but_not_present": 2,
+   "unreadable_share": 0.2943,
+   "in_oob": true
+  },
+  "U-ART-B1PA": {
+   "rows": 331,
+   "labels": {
+    "Unknown": 153,
+    "Absent-Documented": 170,
+    "Present-Documented": 8
+   },
+   "roll_status": {
+    "on-roll-undetermined": 102,
+    "off-roll-before-battle": 77,
+    "not-yet-enlisted": 93,
+    "unreadable-or-ambiguous": 51,
+    "named-present": 8
+   },
+   "flags": {
+    "gettysburg-mention-nonbattle": 2,
+    "date-missing": 69,
+    "no-month-in-date-column": 73,
+    "muster-year-inferred": 2,
+    "name-garbled": 2,
+    "intra-regiment-transfer": 1,
+    "contested": 1
+   },
+   "gettysburg_token_but_not_present": 3,
+   "unreadable_share": 0.1541,
+   "in_oob": true
+  },
+  "U-ART-F1PA": {
+   "rows": 266,
+   "labels": {
+    "Unknown": 157,
+    "Absent-Documented": 103,
+    "Present-Documented": 6
+   },
+   "roll_status": {
+    "on-roll-undetermined": 83,
+    "off-roll-before-battle": 27,
+    "not-yet-enlisted": 76,
+    "unreadable-or-ambiguous": 74,
+    "named-present": 6
+   },
+   "flags": {
+    "no-month-in-date-column": 5,
+    "name-garbled": 4,
+    "name-missing": 16,
+    "date-missing": 1
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.2782,
+   "in_oob": true
+  },
+  "U-ART-EPA": {
+   "rows": 403,
+   "labels": {
+    "Absent-Documented": 146,
+    "Unknown": 254,
+    "Present-Documented": 3
+   },
+   "roll_status": {
+    "off-roll-before-battle": 26,
+    "on-roll-undetermined": 86,
+    "unreadable-or-ambiguous": 168,
+    "not-yet-enlisted": 120,
+    "named-present": 3
+   },
+   "flags": {
+    "name-garbled": 4,
+    "no-month-in-date-column": 30,
+    "date-missing": 19,
+    "muster-year-inferred": 6,
+    "muster-date-implausible-ocr": 1,
+    "rank-ditto-unresolved": 12,
+    "name-missing": 14
+   },
+   "gettysburg_token_but_not_present": 0,
+   "unreadable_share": 0.4169,
+   "in_oob": true
+  },
+  "X-46PA": {
+   "rows": 1810,
+   "labels": {
+    "Unknown": 873,
+    "Absent-Documented": 935,
+    "Present-Documented": 2
+   },
+   "roll_status": {
+    "on-roll-undetermined": 302,
+    "unreadable-or-ambiguous": 571,
+    "off-roll-before-battle": 359,
+    "not-yet-enlisted": 576,
+    "named-present": 2
+   },
+   "flags": {
+    "name-garbled": 33,
+    "muster-year-inferred": 51,
+    "intra-regiment-transfer": 5,
+    "no-month-in-date-column": 136,
+    "rank-ditto-unresolved": 30,
+    "name-missing": 30,
+    "date-missing": 36,
+    "company-inferred-from-recruited-line": 189,
+    "gettysburg-mention-nonbattle": 1,
+    "muster-date-implausible-ocr": 3
+   },
+   "gettysburg_token_but_not_present": 1,
+   "unreadable_share": 0.3155,
+   "in_oob": false
+  },
+  "X-107PA": {
+   "rows": 1849,
+   "labels": {
+    "Unknown": 665,
+    "Absent-Documented": 1093,
+    "Present-Documented": 91
+   },
+   "roll_status": {
+    "unreadable-or-ambiguous": 301,
+    "off-roll-before-battle": 419,
+    "on-roll-undetermined": 364,
+    "named-present": 91,
+    "not-yet-enlisted": 674
+   },
+   "flags": {
+    "no-month-in-date-column": 142,
+    "section-heading-missing": 8,
+    "muster-date-second-ocr": 177,
+    "muster-year-inferred": 15,
+    "name-garbled": 92,
+    "intra-regiment-transfer": 8,
+    "gettysburg-mention-nonbattle": 1,
+    "name-missing": 19,
+    "second-ocr-date-uncorroborated": 20,
+    "place-not-named": 6,
+    "date-missing": 45,
+    "rank-ditto-unresolved": 10,
+    "muster-date-implausible-ocr": 3,
+    "contested": 1,
+    "company-heading-skipped": 169
+   },
+   "gettysburg_token_but_not_present": 2,
+   "unreadable_share": 0.1628,
+   "in_oob": false
+  },
+  "X-139PA": {
+   "rows": 1144,
+   "labels": {
+    "Present-Documented": 21,
+    "Absent-Documented": 215,
+    "Unknown": 908
+   },
+   "roll_status": {
+    "named-present": 21,
+    "off-roll-before-battle": 135,
+    "on-roll-undetermined": 544,
+    "unreadable-or-ambiguous": 364,
+    "not-yet-enlisted": 80
+   },
+   "flags": {
+    "muster-year-inferred": 106,
+    "no-month-in-date-column": 86,
+    "name-garbled": 48,
+    "name-missing": 6,
+    "intra-regiment-transfer": 16,
+    "date-missing": 18,
+    "gettysburg-mention-nonbattle": 2,
+    "company-inferred-from-recruited-line": 36
+   },
+   "gettysburg_token_but_not_present": 2,
+   "unreadable_share": 0.3182,
+   "in_oob": false
+  }
+ },
+ "generated": "2026-10-30"
+}

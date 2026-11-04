@@ -1,0 +1,251 @@
+[
+ {
+  "id": "POS-A-11C-001",
+  "fidelity": "passed_full_read",
+  "why": "\"on the morning of the 1st instant\", order of march, five batteries and total 26 guns all printed in the opening sentence group."
+ },
+ {
+  "id": "POS-A-11C-002",
+  "fidelity": "passed_full_read",
+  "why": "Five or six miles and Howard's notice printed; \"(forenoon)\" is the compiler reading and follows from the next sentence, \"A little after 10 a. m. the first battery reached the town\".",
+  "patch": {
+   "wd": "compiler reading from order of events: the notice precedes \"A little after 10 a. m. the first battery (Dilger's) reached the town\"; no hour of its own"
+  }
+ },
+ {
+  "id": "POS-A-11C-003",
+  "fidelity": "passed_full_read",
+  "why": "\"A little after 10 a. m.\" in the same sentence as Dilger reaching the town; Schurz's order and the 1,000-yard duel in the same sentence."
+ },
+ {
+  "id": "POS-A-11C-004",
+  "fidelity": "corrected",
+  "why": "\"north of the town\" is not printed; passage says only that Wheeler was ordered to report to Dilger half an hour later than Dilger's arrival. Act \"report to him\" ambiguous. Half-hour offset computed from the previous sentence.",
+  "patch": {
+   "pp": "report to Captain Dilger",
+   "act": "Wheeler's battery arrived half an hour after Dilger's and Osborn ordered Wheeler to report to Captain Dilger",
+   "wd": "compiler computation: \"half an hour later\" counted from \"A little after 10 a. m.\" in the preceding sentence; no clock time of its own",
+   "note_add": "The report gives no place for Wheeler beyond reporting to Dilger (who was at the front of and 300 yards beyond the town); GZ-072 and the front north of the town are by inference."
+  }
+ },
+ {
+  "id": "POS-A-11C-005",
+  "fidelity": "passed_full_read",
+  "why": "\"About 11 a. m.\" in the same sentence as Wilkeson reaching the field and the order to report to Barlow; three-fourths of a mile from the town left of the York pike printed."
+ },
+ {
+  "id": "POS-A-11C-006",
+  "fidelity": "corrected",
+  "why": "\"(afternoon, July 1 to July 3)\" not printed: passage gives the assignment \"on his arrival upon the field\" with no hour; \"same position during the three days' fighting\" printed.",
+  "patch": {
+   "w": "on his arrival upon the field; the same position during the three days' fighting",
+   "wd": "compiler reading: no hour of arrival printed in this report (\"afternoon\" withdrawn); Wainwright took command \"on this p. m.\" (afternoon of July 1) per the same paragraph"
+  }
+ },
+ {
+  "id": "POS-A-11C-007",
+  "fidelity": "corrected",
+  "why": "\"(afternoon)\" not printed and the town as the place is not stated; passage: ordered in when the corps began to fall back, position not named, then sent to the rear. Place narrowed.",
+  "patch": {
+   "w": "until the corps had begun to fall back",
+   "pp": "sent to the rear",
+   "wd": "compiler reading from order of events: no hour printed; \"when the corps had begun to fall back\" on the first day",
+   "note_add": "The position in which Heckman was put is not named; the passage speaks of holding the enemy until the corps had time to retire through the town to the hill beyond."
+  }
+ },
+ {
+  "id": "POS-A-11C-008",
+  "fidelity": "passed_full_read",
+  "why": "Dilger on the right next to the Baltimore road, order of batteries, Taft and Huntington in rear, 52 guns on the morning of the 3d, all printed; July 3 from \"On the morning of the 3d, we were in position the same as on the 2d\".",
+  "patch": {
+   "wd": "printed in a later sentence: \"On the morning of the 3d, we were in position the same as on the 2d\""
+  }
+ },
+ {
+  "id": "POS-A-11C-009",
+  "fidelity": "passed_full_read",
+  "why": "\"Between 7 and 8 o'clock in the evening\" in the same sentence; July 2 by sequence (before \"On the morning of the 3d\"); Wiedrich's battery printed."
+ },
+ {
+  "id": "POS-A-11C-010",
+  "fidelity": "passed_full_read",
+  "why": "\"About 3 p. m.\" in the same sentence as the unbroken line of artillery and heavy fire on the right flank; July 3 from \"On the morning of the 3d\" sentence group."
+ },
+ {
+  "id": "POS-A-11C-011",
+  "fidelity": "passed_full_read",
+  "why": "\"On arriving on the 1st instant\" with the order to take position on a hill north of the Baltimore turnpike near the cemetery and east of the city, one sentence."
+ },
+ {
+  "id": "POS-A-11C-012",
+  "fidelity": "passed_full_read",
+  "why": "\"about 5 p. m.\" in the same sentence as the repulse of the infantry; the change of direction, shells and canister printed in the same sentence group."
+ },
+ {
+  "id": "POS-A-11C-013",
+  "fidelity": "corrected",
+  "why": "\"the hill east of the cemetery\" is not printed (the hill is \"east of the city\" and near the cemetery); passage ties the position to \"the position first taken\". Place restated.",
+  "patch": {
+   "pp": "the intrenchments of my battery; the position first taken near the cemetery and east of the city"
+  }
+ },
+ {
+  "id": "POS-A-11C-014",
+  "fidelity": "corrected",
+  "why": "\"the hill east of the cemetery\" is not printed; passage speaks of the position first taken, near the cemetery and east of the city. Time \"until about 1 p. m.\" and Friday sequence printed.",
+  "patch": {
+   "pp": "the position first taken near the cemetery and east of the city",
+   "note_add": "Date July 3 from \"Friday\" after \"Thursday, July 2\" in the same report."
+  }
+ },
+ {
+  "id": "POS-A-11C-015",
+  "fidelity": "corrected",
+  "why": "Act said the battery \"arrived at a rapid trot\"; passage says it was ordered forward at double-quick, \"proceeding at a rapid trot\". Unit, date and place printed in the same sentence.",
+  "patch": {
+   "act": "On July 1 the 13th NY Battery marched from Emmitsburg with the Second Division (Steinwehr); within about 5 miles of Gettysburg it was ordered to move forward at double-quick and proceeded at a rapid trot"
+  }
+ },
+ {
+  "id": "POS-A-11C-016",
+  "fidelity": "corrected",
+  "why": "Window \"10.30 a. m.-noon\" is not printed in this report (no hour at all); \"north of the town\" is not printed. Passage: through the town to the front, on Dilger's right.",
+  "patch": {
+   "w": null,
+   "pp": "the front, on Captain Dilger's right",
+   "wd": "compiler reading: the report gives no hour; the 10.30-noon window was built from Osborn (R264) and is withdrawn",
+   "note_add": "\"North of the town\" and GZ-072 are by inference; the report prints \"to move through the town to the front\"."
+  }
+ },
+ {
+  "id": "POS-A-11C-017",
+  "fidelity": "corrected",
+  "why": "\"(evening of July 1)\" is not printed; passage places the assignment after the retreat through the town, before \"On the morning of July 2\".",
+  "patch": {
+   "w": null,
+   "wd": "compiler reading from order of events: follows the retreat through the town, precedes \"On the morning of July 2\"; no hour printed (\"evening\" withdrawn)"
+  }
+ },
+ {
+  "id": "POS-A-11C-018",
+  "fidelity": "corrected",
+  "why": "Hour \"At about 2 p. m.\" printed as read; act carried a clause from other reports (\"other reports say about 4\"), moved to the note. The 2 is a plain glyph in the text; conflict with other reports is not an OCR proof, so ocr stays true as recorded.",
+  "patch": {
+   "act": "At about 2 p. m. the rebel batteries opened along the front and on the right flank; at about 5.30 p. m. the ammunition was exhausted and another battery was sent to relieve",
+   "wd": "printed in the sentence as \"At about 2 p. m.\"; other reports give about 4 (see note); recorded as printed, not corrected"
+  }
+ },
+ {
+  "id": "POS-A-11C-019",
+  "fidelity": "passed_full_read",
+  "why": "\"from 1 to 3 p. m.\" in the same sentence; \"lay in reserve behind Cemetery Hill\" in the preceding sentence of July 3; horses lost printed."
+ },
+ {
+  "id": "POS-A-11C-020",
+  "fidelity": "passed_full_read",
+  "why": "\"At about 4 p. m.\" in the same sentence as the order to assist the Second Corps; Hancock, Pettit's battery on the right and the 400-yard range printed in following sentences."
+ },
+ {
+  "id": "POS-A-11C-021",
+  "fidelity": "corrected",
+  "why": "Time \"about 10 a. m.\" and arrival in the same sentence. \"Third Division\" is not printed in Dilger (report prints the division of Schurz, commanded by Schimmelfennig); act narrowed.",
+  "patch": {
+   "act": "The battery arrived at Gettysburg at about 10 a. m. July 1 attached to the division of Schurz, commanded by Brig. Gen. Schimmelfennig, who ordered it to a position (printed) between the Taneytown and Baltimore road"
+  }
+ },
+ {
+  "id": "POS-A-11C-022",
+  "fidelity": "corrected",
+  "why": "Audit item: window \"10.30 a. m.-noon\" is not printed; the passage has no hour for the advance of Weidman's section (it follows a \"short time afterward\" after the 10 a. m. arrival). w removed.",
+  "patch": {
+   "w": null,
+   "wd": "compiler reading: no hour printed for the advance; the 10.30-noon window is withdrawn (the only hour is \"about 10 a. m.\" for arrival, in an earlier sentence)"
+  }
+ },
+ {
+  "id": "POS-A-11C-023",
+  "fidelity": "corrected",
+  "why": "\"(afternoon)\" not printed (the report gives no hour for the retreat); \"one piece\" is \"1 piece disabled\" in the passage. Place printed.",
+  "patch": {
+   "w": null,
+   "wd": "compiler reading: no hour printed; follows the final retreat of the first day (\"on this day\")",
+   "act": "Final retreat executed like the advance; one section of each battery kept to command the entrance of the town; the battery went around the town and rejoined on Cemetery Hill, having lost on this day 14 men, 34 horses and 1 piece disabled"
+  }
+ },
+ {
+  "id": "POS-A-11C-024",
+  "fidelity": "corrected",
+  "why": "\"(afternoon)\" is not printed: report says only \"On July 1, in obedience to your order\" (place and enemy in range printed). w removed.",
+  "patch": {
+   "w": null,
+   "wd": "compiler reading: no hour printed in this report (\"afternoon\" withdrawn)"
+  }
+ },
+ {
+  "id": "POS-A-11C-025",
+  "fidelity": "corrected",
+  "why": "\"After being overrun\" is not printed: passage says the enemy had gotten very close, the limber order came too late, two pieces were left in enemy hands.",
+  "patch": {
+   "act": "The battery fell back through the town leaving two pieces in the hands of the enemy, was not engaged again during the battle, and by Osborn's order went to the rear"
+  }
+ },
+ {
+  "id": "POS-A-11C-026",
+  "fidelity": "passed_full_read",
+  "why": "\"at 9 a. m. July 1\" and \"left camp, near Emmitsburg\" in the same clause; unit is the battery under Wilkeson (Bancroft reporting)."
+ },
+ {
+  "id": "POS-A-11C-027",
+  "fidelity": "corrected",
+  "why": "\"east/northeast\" and \"to the York road\" are not printed here; passage: turning to the right, in rear of our lines of batteries, about 1 mile through some fields. Hour and the 2-mile trot clause are printed.",
+  "patch": {
+   "pp": "the town; turning to the right, in rear of our lines of batteries, about 1 mile through some fields",
+   "note_add": "East/northeast and the York road (GZ-072 for the town) are by inference; the next sentence names the York road for the sections' position."
+  }
+ },
+ {
+  "id": "POS-A-11C-028",
+  "fidelity": "corrected",
+  "why": "Window \"11 a. m.-noon\" is not printed; the 11 a. m. is in the preceding sentence (battery reached the town), and the sentence of the claim has no hour. w removed.",
+  "patch": {
+   "w": null,
+   "wd": "time in a different sentence: \"at 11 a. m.\" (the battery reached the town; preceding sentence), followed by \"moved about 1 mile ... and immediately engaged the enemy\"; the claim sentence has no hour, and noon is not printed"
+  }
+ },
+ {
+  "id": "POS-A-11C-029",
+  "fidelity": "passed_full_read",
+  "why": "\"at 5 p. m.\" in the same sentence as the position in the cemetery on the south side of the village; the retirement through Gettysburg is in the same sentence group."
+ },
+ {
+  "id": "POS-A-11C-030",
+  "fidelity": "passed_full_read",
+  "why": "\"On the 2d instant\" ... \"until 4.30 p. m., when it went into action at the cemetery\" in one sentence; field in rear of the cemetery facing the Baltimore road printed."
+ },
+ {
+  "id": "POS-A-11C-031",
+  "fidelity": "passed_full_read",
+  "why": "\"At about 2 p. m.\" with the order into action and the cemetery position in the same sentence, repulse \"about 5 p. m.\" in the same sentence; \"foiir guns\" is an OCR word, consistent with two sections.",
+  "patch": {
+   "note_add": "The word \"four\" is OCR-damaged (\"foiir\") in the source; four guns agrees with the right and center sections."
+  }
+ },
+ {
+  "id": "POS-A-11C-032",
+  "fidelity": "corrected",
+  "why": "Window \"11 a. m.-noon\" not printed (no hour in Merkle's report); date July 1 is by context (Wilkeson assigned him a position). Place distance and direction printed.",
+  "patch": {
+   "w": null,
+   "wd": "compiler reading: no hour or date printed in this report; July 1 follows from Wilkeson assigning the position (Wilkeson mortally wounded July 1 per R269); the 11-to-noon window from R269/R264 is withdrawn"
+  }
+ },
+ {
+  "id": "POS-A-11C-033",
+  "fidelity": "corrected",
+  "why": "\"(evening of July 1)\" not printed; passage prints \"until dark\" for holding the position. w restated.",
+  "patch": {
+   "w": "until dark",
+   "wd": "compiler reading from order of events: after retiring toward and through the town on the first day; the report prints \"I remained in that position until dark\""
+  }
+ }
+]

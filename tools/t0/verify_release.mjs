@@ -38,7 +38,8 @@ const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '.
 const argv = process.argv.slice(2);
 const opt = (n, d) => { const i = argv.indexOf(`--${n}`); return i >= 0 ? argv[i + 1] : d; };
 const all = (n) => argv.flatMap((a, i) => (a === `--${n}` ? [argv[i + 1]] : []));
-const TRAINS = all('train').length ? all('train') : ['R0', 'R1a', 'R1b', 'R1c'];
+const DEFAULT_TRAINS = ['R0', 'R1a', 'R1b', 'R1c', 'R1d', 'R1e', 'R1f', 'R1g'];  // the default checks every train that is built (R0..R1c always: a missing one is a failure)
+const TRAINS = all('train').length ? all('train') : DEFAULT_TRAINS.filter((t, i) => i < 4 || fs.existsSync(path.resolve(REPO, opt('release-dir', 'release'), t, 'dist')));
 const PORT = Number(opt('port', 8489));
 const JSON_OUT = opt('json', null);
 const RELEASE_DIR = path.resolve(REPO, opt('release-dir', 'release'));      // tests point this at a mutated copy
@@ -270,6 +271,14 @@ for (const t of TRAINS) {
     const dataDiff = [];
     for (const f of walk(baseDist).filter((x) => x.startsWith('data/'))) { const np = path.join(dist, f); if (!fs.existsSync(np) || sha(fs.readFileSync(np)) !== sha(fs.readFileSync(path.join(baseDist, f)))) dataDiff.push(f); }
     if (dataDiff.length) diffs.push(`data/* changed or removed: ${dataDiff.join(', ')}`);
+    // Train R1d changes some page identities ON PURPOSE (the one-name-per-feature renames of group POLISH, the corrected counts of group CLOCK/DATA, the reconstruction): each is listed, with its reason, in
+    // tools/t0/identity-R1d.json. The check then demands EXACTLY that list: an unlisted difference fails, and so does a listed one that is no longer there.
+    if (process.env.VERIFY_DUMP_IDENTITY) fs.writeFileSync(process.env.VERIFY_DUMP_IDENTITY, JSON.stringify(diffs, null, 1));
+    if (t === 'R1d' || t === 'R1e' || t === 'R1f' || t === 'R1g') {
+      const listed = JSON.parse(fs.readFileSync(path.join(REPO, 'tools', 't0', fs.existsSync(path.join(REPO, 'tools', 't0', 'identity-' + t + '.json')) ? 'identity-' + t + '.json' : 'identity-R1d.json'), 'utf8')).differences.map((x) => x.diff);
+      const extra = diffs.filter((d) => !listed.includes(d)).map((d) => 'not listed in identity-' + t + '.json (or identity-R1d.json): ' + d), missing = listed.filter((d) => !diffs.includes(d)).map((d) => 'listed but absent: ' + d);
+      diffs.length = 0; diffs.push(...extra, ...missing);
+    }
     T.checks.identity = { pagesCompared: walk(baseDist).filter((x) => /^[^/]+\.html$/.test(x)).length, differences: diffs };
     if (diffs.length) fail(T, 'V6', `${diffs.length} identity difference(s) versus the baseline`, diffs.slice(0, 12));
   }
@@ -288,7 +297,7 @@ for (const t of TRAINS) {
 // V7 cumulative trains
 const v7 = { train: 'cumulative', failures: [], checks: {} };
 {
-  const order = ['R0', 'R1a', 'R1b', 'R1c'].filter((t) => TRAINS.includes(t));
+  const order = ['R0', 'R1a', 'R1b', 'R1c', 'R1d', 'R1e', 'R1f', 'R1g'].filter((t) => TRAINS.includes(t));
   const info = {};
   for (const t of order) {
     const dist = path.join(RELEASE_DIR, t, 'dist');
@@ -296,6 +305,11 @@ const v7 = { train: 'cumulative', failures: [], checks: {} };
     try { ids = new Set(JSON.parse(fs.readFileSync(path.join(RELEASE_DIR, t, 'anchors.json'), 'utf8')).patches.map((p) => p.id)); } catch { fail(v7, 'V7', `release/${t}/anchors.json unreadable`); }
     try { groups = JSON.parse(fs.readFileSync(path.join(dist, 'version.json'), 'utf8')).groups; } catch { /* reported by V4 */ }
     try { deleted = JSON.parse(fs.readFileSync(path.join(RELEASE_DIR, t, 'manifest.json'), 'utf8')).deleted || []; } catch { /* reported by V1 */ }
+    // The image group (PG-zimg, owner decision 2026-10-19 item 2: the site shows only photographs of Gettysburg) removes five files that train R1c added through
+    // its overlay, and names them in "remove_from_overlay" of tools/t0/images/IMG-overlay.json; the build manifest's "deleted" list covers only files of the
+    // baseline. They are deleted on purpose in every train that applies the image group (their replacements gettysburg-*.png / og/gettysburg-card.jpg are in the
+    // dist); a file of that list that is still present, or any other lost file, still fails.
+    if (groups.includes('PG-zimg')) { try { deleted = [...deleted, ...JSON.parse(fs.readFileSync(path.join(REPO, 'tools', 't0', 'images', 'IMG-overlay.json'), 'utf8')).remove_from_overlay.filter((f) => !fs.existsSync(path.join(dist, f)))]; } catch { /* the overlay record is unreadable: the lost files are then reported */ } }
     info[t] = { ids, groups, deleted, files: fs.existsSync(dist) ? new Set(walk(dist).filter((f) => !f.startsWith('assets/'))) : new Set() };
   }
   for (let i = 1; i < order.length; i++) {

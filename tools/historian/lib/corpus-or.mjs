@@ -12,6 +12,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { splitSentences, normalizeWs, tokenize, stem } from '../../../historian-src/core/text.js';
+import { embeddedDispatches } from '../../../historian-src/core/embedded.js';
 import { TX_FIELDS_CORPUS, PER_SHARD_CORPUS, encodeCorpusPassage } from '../../../historian-src/core/corpus.js';
 import { buildPostings, buildEntityPostings, IX_BUCKETS, EN_BUCKETS } from './postings.mjs';
 import { createOrLinker } from '../ingest/link.mjs';
@@ -32,6 +33,18 @@ export function nameStems(text, { upper = false } = {}) {
     for (const t of tokenize(w)) if (t.length >= 3) out.add(stem(t));                          // the question side looks up stem(token): "Williams" is william there, so it must be here
   }
   return [...out];
+}
+/** the dispatches the volume prints inside a report (Parts 1 and 2, core/embedded.js) tag their passage as a dispatch: K:dispatch, D:<date>, F:<sender stem>, A:<addressee stems>. A Part 3 passage is a whole dispatch and is tagged by its document. */
+export function embTags(r) {
+  if (r.part === 3) return [];
+  const bl = embeddedDispatches(r.text); if (!bl.length) return [];
+  const t = new Set(['K:dispatch']);
+  for (const b of bl) {
+    t.add('D:' + b.written);
+    for (const x of nameStems(b.addressee)) t.add('A:' + x);
+    if (b.sender) for (const x of nameStems(String(b.sender).split(/\s+/).slice(-1)[0], { upper: true })) t.add('F:' + x);
+  }
+  return [...t];
 }
 export function loadOrRows({ rawDir, corpusDir }) {
   const pf = path.join(rawDir, 'passages.jsonl');
@@ -75,7 +88,7 @@ export function finalizeOr(rows, reports, { idx, link, signers = new Map(), rout
     num: i, id: r.id, doc: r.doc, rec: r.rec, kind: r.kind, day: r.day, text: r.text, sb: r.sb, ents: ents.get(r.id) || [], clk: r.clk, source_id: r.source_id,
     prior: +((OR_PRIOR[r.kind] ?? 0.5) * (r.scope === 'campaign' ? 0.7 : 1)).toFixed(3), sens: [], pg: r.pg, scope: r.scope, part: r.part,
     cite: { short: r.cite.short, author_line: r.cite.author_line }, persp: r.persp, ia: r.cite.ia, words: r.words,
-    tags: (() => { const q = route.get(r.doc); const days = [...new Set((r.clk || []).map((e) => (Array.isArray(e) ? e[1] : 0)).filter(Boolean))].map((d) => 'C:' + String(d).padStart(4, '0')); return [...(q ? [...q.addressed.map((x) => 'A:' + x), ...q.from.map((x) => 'F:' + x), ...(q.from.length ? [] : ['F:none'])] : []), ...days, ...(r.ds || []).map((d) => 'Y:' + String(d).padStart(4, '0'))]; })(),
+    tags: (() => { const q = route.get(r.doc); const days = [...new Set((r.clk || []).map((e) => (Array.isArray(e) ? e[1] : 0)).filter(Boolean))].map((d) => 'C:' + String(d).padStart(4, '0')); return [...(q ? [...q.addressed.map((x) => 'A:' + x), ...q.from.map((x) => 'F:' + x), ...(q.from.length ? [] : ['F:none'])] : []), ...days, ...(r.ds || []).map((d) => 'Y:' + String(d).padStart(4, '0')), ...embTags(r)]; })(),
   }));
   return { P, linkStats: stats };
 }

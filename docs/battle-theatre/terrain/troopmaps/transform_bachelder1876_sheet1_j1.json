@@ -1,0 +1,225 @@
+{
+ "map_id": "bachelder-1876-sheet1-july1",
+ "scan": "cw0325000a.jp2 (LOC 99447491, sheet 1, First day), full-resolution px; the roads-task field is on the 50% render: px50 = scan/2",
+ "crs": "EPSG:32618",
+ "model": "ground EN -> px50 = base affine + bilinear displacement field (450 px grid) [docs/basemap1863/features/roads-rail-water/registration_sheet_a.json]; scan->EN by Newton inversion (tools/bt/troopmaps/fieldmodel_a.py)",
+ "source_registration": {
+  "file": "docs/basemap1863/features/roads-rail-water/registration_sheet_a.json",
+  "constraints": {
+   "warren_gcps_mapped_to_sheet_a": 23,
+   "hand_read_road_lines": 26
+  },
+  "leave_one_out_m": {
+   "gcp_rms": 18.6,
+   "gcp_median": 15.6,
+   "gcp_max": 36.7,
+   "road_rms": 14.3,
+   "road_median": 7.6,
+   "road_max": 29.9
+  },
+  "fit_residual_m": {
+   "gcp_rms": 11.5,
+   "road_rms": 10.0
+  },
+  "caveats": [
+   "Sheet-a constraints are dense along the Chambersburg, Mummasburg, Hagerstown, Carlisle, Harrisburg, Hanover, Baltimore, Taneytown and Emmitsburg roads and sparse in the far north-west, the south-west and the east beyond Rock Creek; outside the constrained band the displacement field decays to zero and the error is larger than the stated figures.",
+   "The hand-read road lines assume the modern TIGER centreline lies on the 1863 road line (a modern realignment would be absorbed into the registration).",
+   "The numbers are leave-one-out values on 23 Warren GCPs and 26 hand-read stations, not an independent ground survey."
+  ]
+ },
+ "committed_chain_for_comparison": "docs/basemap1863/maps/transforms/bachelder-1876-sheet1.json (TPS to Warren px + Warren affine): the same hand-read buildings are 70-138 m out in the north-west with the chain",
+ "independent_validation": {
+  "n": 3,
+  "field_model_rms_m": 26.5,
+  "field_model_median_m": 25.2,
+  "field_model_max_m": 35.2,
+  "chain_rms_m": 83.0,
+  "points_used": "single-building reads McLean barn, McLean house, Pennsylvania Hall; ambiguous identifications (Schmucker Hall, Black Horse Tavern) are excluded and listed",
+  "cluster_level_checks": "McPherson, Shultz and McMillan symbol clusters, Thompson house area: the county building outlines drawn through the field model fall inside the printed symbol clusters, 10-25 px (about 10-25 m) from the cluster centres (tmp view vecover.py af; not tabulated as numbers)"
+ },
+ "honest_bound": "1-sigma about 30 m over Seminary Ridge / McPherson Ridge / Oak Ridge south of McLean farm / the town and east to Rock Creek. Beyond it (Herr Ridge and the far west, the north beyond McLean farm, east of Rock Creek) not quantified: use 50 m.",
+ "points": [
+  {
+   "id": "STR-TOWN-SCHMUCKER_HALL",
+   "name": "Schmucker Hall, Lutheran Theological Seminary",
+   "gt_en": [
+    307961.5,
+    4411485.5
+   ],
+   "sigma_gt_m": 10,
+   "scan_px": [
+    3883,
+    3737
+   ],
+   "sigma_read_px": 8,
+   "used": false,
+   "note": "black B block immediately right of the printed 'LUTH. T. SEM.'; shift (0,-134), read (-2,0) | EXCLUDED: identification ambiguous (the printed S.S. SCHMUCKER block 157 px south is the alternative; relative to the Chambersburg Pike the 367 m GT distance favours the southern block); not used",
+   "field_model_err_m": 81.1,
+   "field_err_en": [
+    -6.5,
+    80.8
+   ],
+   "chain_err_m": 138.0,
+   "chain_err_en": [
+    4.6,
+    137.9
+   ]
+  },
+  {
+   "id": "STR-TOWN-PENN_HALL",
+   "name": "Pennsylvania Hall (\"Old Dorm\"), Pennsylvania College",
+   "gt_en": [
+    308811.8,
+    4411828.2
+   ],
+   "sigma_gt_m": 10,
+   "scan_px": [
+    4717,
+    3414
+   ],
+   "sigma_read_px": 6,
+   "used": true,
+   "note": "large black block in the Pennsylvania College grounds (label 'COLLEGE'); shift (-6,-69), read (0,+1)",
+   "field_model_err_m": 35.2,
+   "field_err_en": [
+    -9.0,
+    34.1
+   ],
+   "chain_err_m": 70.4,
+   "chain_err_en": [
+    -2.3,
+    70.3
+   ]
+  },
+  {
+   "id": "STR-MCLEAN-BARN1",
+   "name": "McClean barn",
+   "gt_en": [
+    308291.0,
+    4413017.1
+   ],
+   "sigma_gt_m": 6,
+   "scan_px": [
+    4154,
+    2275
+   ],
+   "sigma_read_px": 8,
+   "used": true,
+   "note": "lower of the two W symbols beside the printed 'M. McLEAN' (assignment barn/house by the 24 m E, 53 m N relative position of the house)",
+   "field_model_err_m": 15.5,
+   "field_err_en": [
+    -7.9,
+    13.3
+   ],
+   "chain_err_m": 86.7,
+   "chain_err_en": [
+    18.2,
+    84.8
+   ]
+  },
+  {
+   "id": "STR-MCLEAN-HOUSE1",
+   "name": "McClean house (original narrow house)",
+   "gt_en": [
+    308312.6,
+    4413072.4
+   ],
+   "sigma_gt_m": 10,
+   "scan_px": [
+    4164,
+    2215
+   ],
+   "sigma_read_px": 8,
+   "used": true,
+   "note": "upper symbol with fenced yard",
+   "field_model_err_m": 25.2,
+   "field_err_en": [
+    -17.2,
+    18.4
+   ],
+   "chain_err_m": 90.6,
+   "chain_err_en": [
+    9.6,
+    90.1
+   ]
+  },
+  {
+   "id": "STR-TOWN-BLACK_HORSE_TAVERN",
+   "name": "Black Horse Tavern, Fairfield Road (Confederate Heth division area, July 1)",
+   "gt_en": [
+    304527.2,
+    4410161.7
+   ],
+   "sigma_gt_m": 8,
+   "scan_px": [
+    582,
+    5284
+   ],
+   "sigma_read_px": 15,
+   "used": false,
+   "note": "S-lettered block beside printed 'BLACK HO[RSE]'; two candidate symbols 25 px apart | EXCLUDED: two candidate symbols, west edge of sheet; not used",
+   "field_model_err_m": 71.8,
+   "field_err_en": [
+    71.5,
+    -6.6
+   ],
+   "chain_err_m": 131.5,
+   "chain_err_en": [
+    88.2,
+    97.5
+   ]
+  },
+  {
+   "id": "W014",
+   "name": "Hanover Rd bridge over Rock Creek",
+   "gt_en": [
+    310203.4,
+    4411349.1
+   ],
+   "sigma_gt_m": 10,
+   "scan_px": [
+    6154,
+    3843
+   ],
+   "sigma_read_px": 6,
+   "used": true,
+   "note": "Hanover Rd bridge deck over Rock Creek",
+   "field_model_err_m": 22.8,
+   "field_err_en": [
+    14.2,
+    17.7
+   ],
+   "chain_err_m": 14.6,
+   "chain_err_en": [
+    9.4,
+    11.1
+   ]
+  },
+  {
+   "id": "W015",
+   "name": "York Pike bridge over Rock Creek",
+   "gt_en": [
+    310060.5,
+    4411762.5
+   ],
+   "sigma_gt_m": 10,
+   "scan_px": [
+    5981,
+    3438
+   ],
+   "sigma_read_px": 6,
+   "used": true,
+   "note": "York Pike bridge deck over Rock Creek",
+   "field_model_err_m": 21.3,
+   "field_err_en": [
+    2.9,
+    21.1
+   ],
+   "chain_err_m": 23.8,
+   "chain_err_en": [
+    1.3,
+    23.8
+   ]
+  }
+ ]
+}

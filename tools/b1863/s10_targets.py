@@ -50,8 +50,10 @@ def main():
             n, lab = cv2.connectedComponents(bm, connectivity=8)
             hit = np.unique(lab[foot & (bm > 0)]); hit = hit[hit > 0]
             keep = np.isin(lab, hit)
-            near = cv2.dilate(foot.astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (29, 29))).astype(bool)
+            near = cv2.dilate(foot.astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (13, 13))).astype(bool)      # 6 m: the roof, its eaves and the shadow edge; the modern annexes, yards and parking beside it are removed (pass 6: H05 to H07, H33 to H36)
             keep &= near
+            footb = C.rasterize([g.buffer(1.0)], r0, r0 + h, c0, c0 + w).astype(bool)      # the roof outline itself (and 1 m of eaves) is protected whatever the mask says or any later rule adds
+            keep |= footb
             sub[keep] = 0
             survm[r0:r0 + h, c0:c0 + w][keep] = 1
             kept.append((f['properties']['id'], int(keep.sum())))
@@ -171,6 +173,11 @@ def main():
     area = (m == C.M_AREA); water = (m == C.M_WATER)
     out[area] = 5
     out[water] = 7
+    # thin pixels next to a wide target belong to it: a removed lot is one piece of ground, filled in one go from the real ground around the whole of it. (Filled apart, the narrow bays between the aisles
+    # of a parking lot were patched from a context that held the blurred pale surface of the wide part, and stayed as beige ghosts of the old layout: pass 6, H13 to H16.)
+    wide = (out == 2) | (out == 5) | (out == 7)
+    near_wide = cv2.dilate(wide.astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (31, 31))) > 0
+    out[(out == 1) & near_wide] = 2
     # Soldiers' National Cemetery (OSM way 131108963): founded by Pennsylvania in autumn 1863, after the battle; its graves, paths and layout did not exist on 1-3 July 1863.
     # Hoffman/Evergreen pasture then: retextured as open ground. (Evergreen Cemetery, 1854, existed and is kept; its later sections cannot be separated: UNKNOWN.)
     import json as _j

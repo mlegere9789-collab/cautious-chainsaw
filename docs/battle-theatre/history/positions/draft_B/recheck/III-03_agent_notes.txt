@@ -1,0 +1,17 @@
+Batch III-03 (3rd Corps, 1st Division: Ward and Graham brigades) - reader notes
+Reports read in full: OR27-1-R135 (Ward), R138 (Tippin), R139 (Craig), R137 (Danks), R136 (Nelson).
+Claims: 52, all decided. Validator: decisions 52, passed_full_read 42, corrected 10, downgraded 0, split 0, errors 0.
+
+Counts per fc: passed_full_read 42 / corrected 10 / downgraded 0 / split 0.
+
+Corrected (by pattern):
+- time from another sentence or over-precise time (5): ward-02 (3 p. m. is the ARRIVAL hour, the order came later "while making dispositions"; t removed), ward-05 (change of position only "subsequently"; morning phrase dates the first position), ward-1ussharpshooters-05 and ward-3me-03 (detachment is "Previous to this", morning phrase in the preceding sentence), ward-2ussharpshooters-01 ("On the morning of the 2d" several sentences earlier; wp now "After placing my brigade in the position assigned"). graham-10 also belongs here (afternoon of the 1st opens the narrative; the bivouac is the night after the march): 6 in all.
+- unit identity gloss (2): art-4ny-01 ("Captain Smith's battery") and art-1nyd-01 ("Captain Winslow's battery"): passage does not print 4th NY / 1st NY Battery D; identification kept as a declared compiler reading, unit ids unchanged.
+- other glosses (2): graham-105pa-09 ("(de Trobriand)" for the Third Brigade not printed; "quite dark" added as same-sentence time phrase); graham-68pa-03 ("take command" is not stated as of the brigade).
+- merged second report: 0. later order ignored: 0. compass/road gloss: 0. hedge/condition dropped: 0 (ward-05 restored "subsequently"). OCR digit: 0 new (ward-05, 63pa-01, 57pa-01 already ocr True; 57pa-01 digit "2" is legible, only "Aoout" is damaged). meridian inferred: 0 (all clock times print a. m./p. m.).
+
+Systematic remarks:
+- The compiler habitually attaches the paragraph-opening day-part ("On the morning of the 2d") to every later sentence of a Ward/Tippin/Craig narrative; where the later sentence is only "subsequently", "Previous to this" or "After placing", the day-part is not that sentence's time.
+- Artillery batteries named by captain only in infantry reports were resolved to regiment-style unit ids by the compiler.
+- The 63rd PA "10 a. m." (Danks) vs about 3 p. m. (Craig, Nelson, Bowen) is a genuine source conflict, left as is; digits legible.
+- Notes fields cite other reports (Birney R133, Berdan R149, etc.); none of that text was found repeated in any activity beyond the two glosses above.

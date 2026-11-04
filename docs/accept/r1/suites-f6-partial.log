@@ -1,0 +1,41 @@
+run_suites: 26 suite(s), port base 8480, agent r1
+PASS    journeys.R1c           41/41            207.3 s  tiles 16/300  desktop journeys J1-J8, inputs, group A, group B on R1c
+FAIL    deeplinks.R1c          11/12 1 failed     158 s  tiles 32/300  deep links, moments.json, Turning Points (X7)
+        FAIL  T0-DL-06     moments.json v0: 9 Turning Points + 8 markers + 5 tour stops, ids unique, every row unreviewed, every tick within +-3 of a chronology event, Ewell/Night Assault provisional
+PASS    desktop.R1c            10/10             97.7 s  tiles 10/300  desktop fixes T0-DF-01..09 (group A2) on R1c
+FAIL    mobile.R1c             18/19 1 failed     229 s  tiles 58/300  mobile shell matrix (X5) on R1c: portrait, landscape, misc, touch slices
+        FAIL  T0-MOB-09    story + event panels (tick 12) and commander toasts render under the mobile root: on screen, above the dock, 44 px dismiss targets
+FAIL    mobilefix.R1c          28/29 1 failed   365.4 s  tiles 60/300  mobile + shell fixes T0-MFIX-01..12 on R1c: three viewport slices and the desktop-shell slice
+        FAIL  T0-MFIX-04   D-04: story + event cards stack: exactly one expanded, the other a 44 px chip (tap swaps), the stack clears the day tabs and never covers the map (all viewports)
+FAIL    perf.R1c               9/10 1 failed     47.5 s  perf PF-01..10 on R1c (PF-01..06 skip on R0: no PERF group by design)
+        FAIL  PF-06        first visit on a phone and on a desktop viewport: CLS ~ 0, no preload / missing-CSS warning, no failed request, one Document
+FAIL    a11y.R1c               25/28 (+2 skipped) 1 failed  527.3 s  a11y bridge on R1c
+        FAIL  T0-A11Y-02   axe: 0 serious/critical in the other desktop panels and dialogs (roster, filter, unit panel, ancestor, layers, distance, bookmarks, walkthrough ...)
+PASS    a11y.R1c.tiles         1/1               24.2 s  a11y with real tiles (A11Y-14, production Referer, capped)
+FAIL    copy.R1c               3/4 1 failed      70.9 s  truthful-copy subset (CP-01..04: copy rows, Help rows, the keyboard-route row)
+        FAIL  T0-CP-02     rendered desktop: Help About/Sources, no heatmap row, Street View subtitle (8 viewpoints), speed label, guide link, size legend, minimap title, walkthrough link, "Copy link"
+FAIL    pagescore.R1c          19/27 8 failed   314.6 s  page defect pack PGC-01..27 on R1c
+        FAIL  T0-PGC-11    dashboard: notable-intensity cards read as titled Union/Confederate cards; no undefined, raw keys, developer data note or warning glyphs (C7, H7)
+        FAIL  T0-PGC-14    report: Confederate cavalry shows its brigade without "undefined"; alias stub is not offered; computed rate replaces the dash; empty rows are hidden
+        FAIL  T0-PGC-15    regiment: alias stub is not searchable, ?unit=U-14BK opens the real unit, cavalry shows no "undefined", rate computed instead of a dash
+        FAIL  T0-PGC-16    ledger: opens at 0 (not 4), ends on the dataset total (not +838), and its clock runs (sprite <symbol id="clock">) (pages-C-75)
+        FAIL  T0-PGC-17    historian: chronology answers print the event (not "undefined"), no raw formation ids in prose, counts computed from the loaded data (pages-C-16)
+        FAIL  T0-PGC-18    historian: the newest answer clears the sticky ask bar after a question (desktop and phone) (pages-C-14)
+        FAIL  T0-PGC-19    Watch Together: a stored tour with markup in a note or tick renders as text and runs nothing (stored XSS, pages-C-46)
+        FAIL  T0-PGC-21    Watch Together: "Add stop" with an empty, non-numeric or out-of-range tick adds nothing and says why; a valid tick adds one stop (pages-C-51)
+PASS    pagescore.R1c.real     1/1                4.9 s  tiles 31/300  PGC-28 Watch Together + Immersive with the real Mapbox library
+PASS    pagescore.R1c.full     1/1              313.9 s  PGC-01 duplicate-id sweep of every page under 0/300/1500/4000 ms data delay (X11)
+FAIL    pagesmaps.R1c          31/34 3 failed    83.7 s  tiles 107/300  map sub-pages, og card, manifest (PG-01..08) on R1c
+        FAIL  PG-03b-camera-ui camera: the handlers bound inside the DOMContentLoaded callback work (Follow mode, Play advances the tick)
+        FAIL  PG-06        T0-IMG-01: every og/twitter image and manifest icon/screenshot decodes with Pillow at its declared size; card 1200x630 RGB <= 150 KB
+        FAIL  PG-07        og/twitter: all 21 pages point to /og/card-r1.png (200, image/png), none to the corrupt screenshots; the manifest is valid in Chrome (Page.getInstallabilityErrors)
+PASS    pagesfix.R1c           20/21 (+1 skipped)  619.7 s  tiles 15/300  sub-page fixes T0-PGF-01..19 on R1c (axe 0 serious/critical on 25 pages at 1440/375/320, no overflow, targets, focus rings; PGF-14 skips without the opt-in PG-legal table)
+PASS    pagesfix.R1c.legal     1/1                3.7 s  T0-PGF-14 on R1c built with the opt-in PG-legal group (the privacy table is keyboard-reachable)
+FAIL    r1.clock               17/18 1 failed   480.5 s  CLOCK: one clock for the whole site (T0-CLK-*) on the Release 1 candidate
+        FAIL  T0-CLK-11    the 16 Story cards: a subtitle that ends in a clock ends in the oracle clock of the frame the card flies to; none keeps a typed clock that differs; no July 4-9 date
+FAIL    r1.data                17/18 1 failed    42.7 s  DATA: audited displayed data (T0-DATA-*) on the Release 1 candidate
+        FAIL  T0-DATA-01   build proof: DATA is in the tree, its anchors matched exactly, every other gate row passes
+FAIL    r1.monuments           17/20 3 failed   226.6 s  tiles 300/300  MON: the Monuments layer (MONL-*) on the Release 1 candidate
+        FAIL  T0-MONL-04   click: a dot opens the card of THAT monument (name, side, group, honors, location, Google Maps link), a second click replaces it, the unit picker stays out of it, bare map and Esc close it, the keys st
+        FAIL  T0-MONL-12   the Walkthrough is untouched: its code and data are byte-identical to the same train without MON; with the layer on it opens, keeps its own 512 dots (no gtmon layer), lists 100 of 512, searches; "Open 
+        FAIL  T0-MONL-13   static: the 29 anchors of the group matched once each, the entry carries the runtime once, KF is a thin hook (the legacy per-frame loop cannot run), no screen-fixed star overlay script

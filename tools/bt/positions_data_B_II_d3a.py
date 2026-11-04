@@ -1,0 +1,151 @@
+"""Scope B, II Corps, Third Division (Hays): Hays R115, Carroll's First Brigade R116-R122, Smyth's Second Brigade R123-R127."""
+from positions_claims import claim, gap
+
+HY = 'OR27-1-R115'
+CA = 'OR27-1-R116'
+CO = 'OR27-1-R117'
+CP = 'OR27-1-R119'
+SW = 'OR27-1-R120'
+LK = 'OR27-1-R122'
+SM = 'OR27-1-R123'
+EL = 'OR27-1-R124'
+DT = 'OR27-1-R125'
+HI = 'OR27-1-R126'
+HP = 'OR27-1-R127'
+D = 'us-2c-3d'
+JULY3_OTHERS = ['label:cal_noon', 'label:burke_10am', 'label:mul_noon', 'label:crs_2pm', 'label:mck_4pm3', 'label:sch_12', 'label:coa_10am', 'label:hanc_1pm', 'label:gib_1pm', 'label:hal_1pm']
+ITEMS = [
+    # ------------------------------------------------------------ Hays (R115)
+    claim(D, 'arrival_road', HY, r'the division, moving on the Taneytown road, arrived within about a', 'Division moving on the Taneytown road arrived within about a mile of the town and was assigned a position on a ridge nearly parallel with the road, facing west, with a stone wall just below the crest and half a mile of open ground in front',
+          when_printed='On July 2', date='1863-07-02', approx=True, place_printed='a ridge nearly parallel with the road, facing westward', road='Taneytown road', gz='GZ-042',
+          note='Clock time of arrival is not printed in the division report; Dent (1st Del) says about 4 a. m., Smyth 4 a. m.'),
+    claim(D + '-smyth-12nj', 'engagement', HY, r'sorties were made from our position by the Twelfth New Jersey', 'Twice at least sorties were made from the position by the 12th NJ, 1st Delaware and 14th Connecticut against a barn and house one-fourth of a mile in advance, returning each time with prisoners',
+          when_printed='during the day', date='1863-07-02', approx=True, place_printed='a barn and house one-fourth of a mile in advance of our position'),
+    claim(D + '-smyth-1de', 'engagement', HY, r'sorties were made from our position by the Twelfth New Jersey', 'Sorties by the 1st Delaware (with the 12th NJ and 14th Conn) against the barn and house, July 2',
+          date='1863-07-02', approx=True, place_printed='a barn and house one-fourth of a mile in advance of our position'),
+    claim(D + '-smyth-14ct', 'engagement', HY, r'sorties were made from our position by the Twelfth New Jersey', 'Sorties by the 14th Connecticut (with the 12th NJ and 1st Del) against the barn and house, July 2',
+          date='1863-07-02', approx=True, place_printed='a barn and house one-fourth of a mile in advance of our position'),
+    claim(D + '-willard', 'movement', HY, r'was early in the day withdrawn from the division by the major-general', 'Colonel Willard, commanding the Third Brigade, was early in the day withdrawn from the division by the major-general commanding (Hancock) and took a prominent part on the left; Willard killed, then Sherrill (July 3), MacDougall and Hildebrandt wounded; the brigade rejoined the division later',
+          when_printed='early in the day', date='1863-07-02', approx=True, place_printed='the engagement on our left', label='hay_willard', conflicts=['label:bul_4pm'],
+          note='Hays says Willard\'s brigade was withdrawn "early in the day"; Bull (R128) has the brigade move to the left at about 4 p. m.; Seeley (111th NY) about 5 p. m.; Haskell (125th NY) "just before sunset". Hays also says Sherrill fell "next day" (July 3) although Bull has Sherrill killed in the July 2 evening charge and again names about 4 p. m. for his death; the Hays report contradicts Hancock (R076), who has Willard killed and Sherrill commanding on July 2.'),
+    claim(D + '-smyth', 'position', HY, r'remained continuously in protection of our front along the stone wall', 'Smyth\'s Second Brigade remained continuously along the stone wall protecting the front and supporting the line of skirmishers (July 2-3)',
+          when_printed='continuously', date='1863-07-02', approx=True, place_printed='along the stone wall'),
+    claim(D + '-carroll', 'movement', HY, r'went to the relief of the troops on our right', 'Carroll\'s brigade went to the relief of the troops on the right (Eleventh Corps); "the darkness of night was no obstacle"',
+          when_printed='The darkness of night', date='1863-07-02', approx=True, place_printed='the troops on our right'),
+    claim(D, 'engagement', HY, r'About 11 a\. m\. an entire lull occurred', 'July 3: skirmishing and desultory artillery in the forenoon; about 11 a. m. an entire lull until nearly 2 p. m.; the house and barn in front were burned',
+          when_printed='About 11 a. m.', date='1863-07-03', t_iso='1863-07-03T11:00', approx=True, place_printed='our front'),
+    claim(D, 'engagement', HY, r'continued uninterruptedly until 4\.30 o\'clock', 'July 3: at the hour of about 2 p. m. the enemy opened a terrific and uninterrupted artillery fire (not less than eighty pieces) continuing until 4.30 o\'clock, when a heavy column in three lines debouched from the wood opposite and advanced; fire opened at 100 yards; fifteen colors taken',
+          when_printed='until 4.30 o\'clock', date='1863-07-03', t_iso='1863-07-03T16:30', place_printed='from the wood opposite our line', label='hay_430', conflicts=JULY3_OTHERS + ['label:smy_2to5', 'label:hay_2pm'],
+          note='Hays gives the end of the cannonade and the advance of the infantry at 4.30 p. m.; Gibbon/Harrow have the infantry advancing at about 3 p. m.'),
+    claim(D, 'engagement', HY, r'nearly 2 p\. m\. Anticipating the', 'July 3: the lull lasted until nearly 2 p. m.; at the hour last named the enemy opened the cannonade',
+          when_printed='nearly 2 p. m.', date='1863-07-03', t_iso='1863-07-03T14:00', approx=True, place_printed='our front', label='hay_2pm', conflicts=['label:hanc_1pm'] + JULY3_OTHERS),
+    claim(D, 'march', HY, r'marched through Taneji;own to within about 3 miles of Gettysburg', 'July 1: marched through Taneytown to within about 3 miles of Gettysburg; July 2 moved to Gettysburg and took position in line of battle',
+          when_printed='On July 1', date='1863-07-01', place_printed='within about 3 miles of Gettysburg', gz='GZ-072', ocr=True, note='"Taneji;own" is OCR for Taneytown (supplementary report of Aug. 15).'),
+    claim(D, 'march', HY, r'marched at 1 p\. m\. through Liberty', 'June 29: the division marched at 1 p. m. through Liberty, Johnsville and Union Bridge to Uniontown (over 30 miles), encamped at 3 a. m. June 30',
+          when_printed='On the 29th, marched at 1 p. m.', date='1863-06-29', t_iso='1863-06-29T13:00', place_printed='Uniontown, Md.'),
+    claim(D, 'departure', HY, r'On July 5, moved from vicijiity of Gettysburg, Pa\., to Two Taverns', 'July 5: the division moved from the vicinity of Gettysburg to Two Taverns, remaining in camp the 6th',
+          when_printed='On July 5', date='1863-07-05', place_printed='Two Taverns', ocr=True),
+    claim(D, 'strength_note', HY, r'the entire loss of the division in the two days\' action', 'Entire loss of the division in the two days\' action 1,385 killed, wounded and missing',
+          date='1863-07-03', place_printed='in the two days\' action', support=True, note='Casualty total, not strength; no strength figure for the division in this report.'),
+    # ------------------------------------------------------------ Carroll (R116)
+    claim(D + '-carroll', 'position', CA, r'between Woodruff\'s battery on the left and the Taney town road on the right', 'At about 8 a. m. July 2, by Hays\' command, the brigade was formed in line of regiments, right in front, between Woodruff\'s battery on the left and the Taneytown road on the right',
+          when_printed='at about 8 a. m.', date='1863-07-02', t_iso='1863-07-02T08:00', approx=True, place_printed='between Woodruff\'s battery on the left and the Taney town road on the right', road='Taney town road', gz='GZ-042', ocr=True, label='car_8am',
+          note='Print "Taney town" for Taneytown.'),
+    claim(D + '-carroll-4oh', 'engagement', CA, r'four companies from the Fourth Ohio Volunteers were sent out', 'An hour after forming (about 9 a. m.), four companies of the 4th Ohio were sent to the front to support the skirmishers; relieved at noon by two others',
+          when_printed='An hour afterward', date='1863-07-02', approx=True, place_printed='to the front as a support to the skirmishers'),
+    claim(D + '-carroll', 'engagement', CA, r'About 1\s+p\. m\. the enemy opened upon our position with shell', 'About 1 p. m. July 2 the enemy opened upon the position with shell (a dozen or two rounds); then his skirmishers advanced; the Eighth Ohio was taken some 300 yards to the front to relieve the Fourth Ohio companies',
+          when_printed='About 1 p. m.', date='1863-07-02', t_iso='1863-07-02T13:00', approx=True, place_printed='our position'),
+    claim(D + '-carroll-8oh', 'movement', CA, r'I immediately took the Eighth Ohio out some 300 yards to the front', 'The 8th Ohio was taken some 300 yards to the front to the skirmish line',
+          when_printed='About 1 p. m.', date='1863-07-02', approx=True, place_printed='some 300 yards to the front'),
+    claim(D + '-carroll', 'movement', CA, r'move three regiments \(Fourteenth Indiana, Fourth Ohio', 'About 6 p. m. ordered three regiments (14th Indiana, 4th Ohio, 7th West Virginia) by the left flank to a position on the left of the Second Brigade; held a few minutes; two regiments returned to the old position and the 4th Ohio was left on the left of the Second Brigade',
+          when_printed='About 6 p. m.', date='1863-07-02', t_iso='1863-07-02T18:00', approx=True, place_printed='on the left of the Second Brigade'),
+    claim(D + '-carroll', 'movement', CA, r'About dark, I received orders through Major Norvell', 'About dark ordered to move immediately to the assistance of the Eleventh Corps supporting batteries on Cemetery Hill (guided by an aide of Howard); moved with three regiments, the 14th Indiana leading; found the enemy among the front guns of the batteries on the road; drove them off',
+          when_printed='About dark', date='1863-07-02', approx=True, place_printed='the Eleventh Corps supporting batteries on Cemetery Hill', gz='GZ-003', label='car_dark',
+          note='Hancock (R076) says "nearly dark" when he directed Gibbon to send the brigade. Placement PO-21 carries 20:00 at East Cemetery Hill.'),
+    claim(D + '-carroll', 'engagement', CA, r'The firing continued until about 10\.20', 'The fight continued until about 10.20 p. m. when the enemy fell back; skirmishers advanced; Ames\' division then connected on right and left',
+          when_printed='until about 10.20', date='1863-07-02', t_iso='1863-07-02T22:20', approx=True, place_printed='a stone wall on the right of the road'),
+    claim(D + '-carroll', 'night_position', CA, r'This position we maintained until the 5th', 'Carroll\'s brigade maintained the position (right of the road at the batteries, between Ames\' division) until the 5th; the Eighth Ohio held its post in front of the extreme right of the corps until relieved after the fighting of the 3d',
+          when_printed='until the 5th', date='1863-07-02', approx=True, place_printed='the batteries on the road', gz='GZ-003', note='Hancock R076 p.372: Carroll\'s brigade retained by Howard on July 3.'),
+    # ------------------------------------------------------------ Coons (R117): 14th Indiana
+    claim(D + '-carroll-14in', 'position', CO, r'to support Woodruff\'s battery, which was in position near the center', '14th Indiana moved forward with the brigade July 2 to support Woodruff\'s battery near the center of the line; skirmishers from other regiments in front',
+          when_printed='on July 2', date='1863-07-02', approx=True, place_printed='near the center of our line of battle'),
+    claim(D + '-carroll-14in', 'engagement', CO, r'At 4\.30 p\. m\. the enemy opened upon our position with artillery', 'At 4.30 p. m. the enemy opened with heavy continuous artillery; at 6 o\'clock ordered to support the 8th Ohio (skirmishers); a report came that Howard\'s position was attacked',
+          when_printed='At 4.30 p. m.', date='1863-07-02', t_iso='1863-07-02T16:30', place_printed='our position', conflicts=['label:cur_415']),
+    claim(D + '-carroll-14in', 'movement', CO, r'About dark, under orders from Colonel Carroll, I moved to the right', 'About dark moved to the right with the brigade to support the batteries on the right of the cemetery; found the Eleventh Corps support gone and a gun in enemy hands; advanced with fixed bayonets, drove them down the hill over a stone fence 100 yards in front of the battery; formed along the stone fence, 7th WV on left, 4th Ohio on right',
+          when_printed='About dark', date='1863-07-02', approx=True, place_printed='the batteries on the right of the cemetery', gz='GZ-003'),
+    # ------------------------------------------------------------ Carpenter (R119): 4th Ohio
+    claim(D + '-carroll-4oh', 'night_position', CP, r'a point about 1-J miles in rear of the cemetery', 'Night of July 1 bivouacked about 1 1/2 miles in rear of the cemetery; early July 2 moved to a little in rear of Cemetery Hill with the right resting on the road from Taneytown to Gettysburg, facing Gettysburg',
+          when_printed='the night of the 1st', date='1863-07-01', place_printed='about 1-J miles in rear of the cemetery', ocr=True, road='the road leading from Taneytown to Gettysburg', gz='GZ-042',
+          note='OCR "1-J" for 1 1/2 miles. Distance from Gettysburg of the Third Division\'s July 1 camp: Hays ~3 miles; Smyth ~3; Dent ~3; Carpenter 1 1/2 miles in rear of the cemetery.'),
+    claim(D + '-carroll-4oh', 'position', CP, r'with my right resting on the road leading from Taneytown to Gettysburg', 'Early on the morning of July 2 the 4th Ohio took position a little in rear of Cemetery Hill with its right resting on the Taneytown-to-Gettysburg road, facing Gettysburg',
+          when_printed='On the 2d, early in the morning', date='1863-07-02', approx=True, place_printed='a little in rear of Cemetery Hill', gz='GZ-003', road='the road leading from Taneytown to Gettysburg'),
+    claim(D + '-carroll-4oh', 'engagement', CP, r'At 4 p\. m\. the enemy opened with his artillery', '9.30 a. m. four companies to support the pickets (relieved at 3 p. m. by two companies); at 4 p. m. the enemy opened with artillery for two hours; at 6 p. m. moved farther left between two batteries at right angles to the former line for one and a half hours',
+          when_printed='At 4 p. m.', date='1863-07-02', t_iso='1863-07-02T16:00', place_printed='farther to the left', conflicts=['label:hal_430']),
+    claim(D + '-carroll-4oh', 'movement', CP, r'moved across the Taneytown road, and formed in line of battle', 'At 7.30 p. m. moved, guided by Captain Gregg, across the Taneytown road and formed in line of battle to the right of the cemetery; drove the enemy from a part of the line; stayed there during the night',
+          when_printed='At 7.30 o\'clock', date='1863-07-02', t_iso='1863-07-02T19:30', place_printed='to the right of the cemetery', road='Taneytown road', gz='GZ-042'),
+    claim(D + '-carroll-4oh', 'strength_note', CP, r'numbered on going into the fight 22 commissioned officers and 277 enlisted men', '4th Ohio numbered on going into the fight 22 commissioned officers and 277 enlisted men',
+          date='1863-07-02', place_printed='going into the fight', support=True),
+    # ------------------------------------------------------------ Sawyer (R120): 8th Ohio
+    claim(D + '-carroll-8oh', 'movement', SW, r'about 4 p\. m\. of the 2d instant, when I received an order', 'About 4 p. m. July 2 ordered forward to the picket line in front of the position and on the left of the Eleventh Corps pickets; four companies thrown forward as an advanced line; held "to the last man"',
+          when_printed='about 4 p. m. of the 2d instant', date='1863-07-02', t_iso='1863-07-02T16:00', approx=True, place_printed='the picket line in front of our position'),
+    claim(D + '-carroll-8oh', 'engagement', SW, r'did not advance upon us in force until about 4 p\. m\.', 'The enemy did not advance in force until about 4 p. m. of the 3d; the position was maintained twenty-four hours without relief; losses to noon of the 3d: 4 killed, 1 captain, 1 lieutenant, the sergeant-major and 38 men wounded',
+          when_printed='about 4 p. m. of the 3d', date='1863-07-03', t_iso='1863-07-03T16:00', approx=True, place_printed='the picket line', conflicts=['label:hay_430']),
+    claim(D + '-carroll-8oh', 'engagement', SW, r'Soon after 2 p\. m\. the enemy opened a terrific fire', 'Soon after 2 p. m. July 3 the enemy opened from sixty-four pieces of artillery in a semicircle enclosing the position, for nearly two hours; then two divisions of infantry advanced and the 8th Ohio changed front forward on the left company and fired into the flank of the column, taking about 200 prisoners and 3 stand of colors',
+          when_printed='Soon after 2 p. m.', date='1863-07-03', t_iso='1863-07-03T14:00', approx=True, place_printed='a semicircle which inclosed my position', label='saw_2pm', conflicts=['label:hanc_1pm'] + JULY3_OTHERS),
+    # ------------------------------------------------------------ Lockwood (R122): 7th West Virginia
+    claim(D + '-carroll-7wv', 'position', LK, r'About 8 a\. m\. on the 2d instant, under the command of Colonel Carroll', 'About 8 a. m. July 2 under Carroll, the 7th WV with the 14th Indiana, 4th and 8th Ohio were massed in front of the enemy and near their center',
+          when_printed='About 8 a. m. on the 2d', date='1863-07-02', t_iso='1863-07-02T08:00', approx=True, place_printed='massed in front of the enemy and near their center'),
+    claim(D + '-carroll-7wv', 'movement', LK, r'until about 8 o\'clock, at which time, in connection with the Fourteenth Indiana', 'About 4 p. m. changed position with the 14th Indiana to the left of the enemy\'s right center, was soon ordered back to protect the 4th US Artillery under heavy fire until about 8 o\'clock; then with the 14th Indiana ordered to the right of Cemetery Hill in support of Battery L, 1st NY Artillery and charged the enemy that was about to take the battery',
+          when_printed='about 8 o\'clock', date='1863-07-02', t_iso='1863-07-02T20:00', approx=True, place_printed='the right of Cemetery Hill', gz='GZ-003', label='lok_8pm', conflicts=['label:car_dark'],
+          note='Time of the Cemetery Hill movement: Lockwood about 8 o\'clock; Carroll "about dark"; Carpenter (4th Ohio) 7.30 p. m.; Hancock "nearly dark". Not resolved.'),
+    # ------------------------------------------------------------ Smyth (R123): Second Brigade
+    claim(D + '-smyth', 'march', SM, r'I received an order to march at 6\.30 a\. m\.', 'July 1: from camp at Uniontown, ordered to march at 6.30 a. m.; marched to Taneytown and halted until 12 m. (printed 13 m.), then resumed toward Gettysburg and encamped about 3 miles from the town',
+          when_printed='6.30 a. m.', date='1863-07-01', t_iso='1863-07-01T06:30', place_printed='Taneytown', ocr=True, note='"13 m." in the print for the noon halt (OCR/typographic; 12 m.). Compare Hancock R076: corps at Taneytown 11 a. m., march resumed 1.30 p. m.; Hays supplement: marched through Taneytown.'),
+    claim(D + '-smyth', 'night_position', SM, r'encamped about 3 miles from the town', 'Night of July 1 encamped about 3 miles from Gettysburg',
+          when_printed='encamped about 3 miles from the town', date='1863-07-01', place_printed='about 3 miles from the town', gz='GZ-072'),
+    claim(D + '-smyth', 'position', SM, r'At 4 a\. m\. on the, 2d, the brigade was placed in position', 'At 4 a. m. July 2 the brigade was placed in position on the hills overlooking the town, on the left of the First Brigade; occupied until the end of the action on the night of the 3d',
+          when_printed='At 4 a. m. on the, 2d', date='1863-07-02', t_iso='1863-07-02T04:00', place_printed='the hills overlooking the town', label='smy_4am', conflicts=['label:car_8am']),
+    claim(D + '-smyth-1de', 'engagement', SM, r'the First Delaware Volunteers were sent out as skirmishers', 'At 8 a. m. July 2 the 1st Delaware sent out as skirmishers and the 108th NY assigned to support Woodruff\'s battery',
+          when_printed='At 8 a. m.', date='1863-07-02', t_iso='1863-07-02T08:00', place_printed='skirmishers'),
+    claim(D + '-smyth-108ny', 'position', SM, r'the One hundred and eighth New York Volunteers were assigned to the support of', '108th NY assigned to the support of Woodruff\'s battery at 8 a. m. July 2; later assisted in maneuvering the guns; lost about half of the regiment in action',
+          when_printed='At 8 a. m.', date='1863-07-02', t_iso='1863-07-02T08:00', approx=True, place_printed='Woodruff\'s battery'),
+    claim(D + '-smyth', 'engagement', SM, r'At 2 p\. m\. the enemy opened upon us with a severe fire of artillery', 'At 2 p. m. July 2 the enemy opened with a severe artillery fire accompanied by an infantry advance that drove in the skirmishers; four companies of the 12th NJ retook the barn about 400 yards in front, capturing 92 prisoners, and the enemy retook it; the 1st Delaware and four more companies of the 12th NJ again took it; firing ceased about 9 p. m.',
+          when_printed='At 2 p. m.', date='1863-07-02', t_iso='1863-07-02T14:00', place_printed='a large barn about 400 yards in front of our line', label='smy_2pm_jul2', conflicts=['label:hil_5pm'],
+          note='Hill (12th NJ, R126) puts the barn assault at 5 p. m. July 2; Smyth\'s account of "At 2 p. m." is the artillery opening and the infantry advance.'),
+    claim(D + '-smyth', 'engagement', SM, r'continued without intermission until 5 p\. m\.', 'July 3: lull from 10.30 a. m. to 2 p. m.; at 2 p. m. a most terrific cannonade by the simultaneous discharge of a whole battery, continued without intermission until 5 p. m. (sic); infantry in three lines preceded by skirmishers advanced when the fire slackened; the brigade fired at 50 yards; 9 battle-flags (14th CT 4, 1st Del 3, 12th NJ 2)',
+          when_printed='At 2 p. m.', date='1863-07-03', t_iso='1863-07-03T14:00', place_printed='our front', label='smy_2to5', conflicts=['label:hanc_1pm', 'label:hay_430'] + JULY3_OTHERS,
+          note='Smyth gives the cannonade from 2 p. m. continuing to 5 p. m.; Hays 2 to 4.30; Hancock 1 to about 2:45; Harrow 1 to nearly 3.'),
+    claim(D + '-smyth-14ct', 'engagement', SM, r'The Fourteenth Connecticut Volunteers was detailed on this service', 'July 3 forenoon the 14th Connecticut was detailed to take the house and barn at all hazards and hold it; later the buildings were fired by order',
+          when_printed='an order was received from General Hays', date='1863-07-03', approx=True, place_printed='the house and barn'),
+    # ------------------------------------------------------------ Ellis (R124): 14th CT
+    claim(D + '-smyth-14ct', 'march', EL, r'We arrived on the ground on the morning of the 2d instant', 'The 14th Connecticut arrived on the ground on the morning of July 2 after being out the night before on picket some 3 miles back; rejoined the brigade; forenoon supported Woodruff\'s battery, then moved farther left to support Arnold\'s battery, where it spent the night',
+          when_printed='on the morning of the 2d instant', date='1863-07-02', approx=True, place_printed='on picket some 3 miles back'),
+    claim(D + '-smyth-14ct', 'night_position', EL, r'Here we remained all night, with a slight change of position', 'The night of July 2 spent supporting Arnold\'s (1st RI) battery with a slight change of position, pickets to the front',
+          when_printed='all night', date='1863-07-02', place_printed='Arnold\'s (First Rhode Island) battery'),
+    claim(D + '-smyth-14ct', 'engagement', EL, r'The regiment went into action with about 160 muskets', 'The 14th Connecticut went into action with about 160 muskets (July 3)',
+          date='1863-07-03', place_printed='into action', support=True),
+    # ------------------------------------------------------------ Dent (R125): 1st Delaware
+    claim(D + '-smyth-1de', 'night_position', DT, r'bivouacked to the right of the Taneytown road, within 3 miles of Gettysburg', 'Evening of July 1 the regiment bivouacked to the right of the Taneytown road, within 3 miles of Gettysburg',
+          when_printed='On the evening of July 1', date='1863-07-01', approx=True, place_printed='the right of the Taneytown road, within 3 miles of Gettysburg', road='Taneytown road', gz='GZ-042'),
+    claim(D + '-smyth-1de', 'arrival_road', DT, r'We arrived on the field about 4 a\. m\.', 'Early on July 2 the line of march was resumed; arrived on the field about 4 a. m. and massed in column behind Woodruff\'s battery for about an hour',
+          when_printed='about 4 a. m.', date='1863-07-02', t_iso='1863-07-02T04:00', approx=True, place_printed='behind Woodruff\'s battery', label='den_4am', conflicts=['label:car_8am']),
+    claim(D + '-smyth-1de', 'position', DT, r'behind a fallen stone wall to the left of Woodruff\'s', 'About 4 p. m. (ammunition exhausted) the right wing was withdrawn from the skirmish line and the regiment assigned a position behind a fallen stone wall to the left of Woodruff\'s and right of Arnold\'s batteries; the left wing was driven in at dark',
+          when_printed='About 4 p. m.', date='1863-07-02', t_iso='1863-07-02T16:00', approx=True, place_printed='behind a fallen stone wall to the left of Woodruff\'s and right of Arnold\'s batteries'),
+    claim(D + '-smyth-1de', 'engagement', DT, r'received the united attack of the Pickett and Pender columns', 'July 3: the regiment, in the same position, received the united attack of the Pickett and Pender columns converging in front; countercharged over the wall; late in the afternoon charged the ruins of the burnt barn',
+          when_printed='the day of the 3d', date='1863-07-03', approx=True, place_printed='the same position'),
+    # ------------------------------------------------------------ Hill (R126): 12th NJ
+    claim(D + '-smyth-12nj', 'engagement', HI, r'At 5 p\. m\. on the 2d instant, four companies', 'At 5 p. m. July 2 four companies (B, H, E, G) detailed to take a barn on the picket line; captured 92 prisoners, losing 2 officers and 40 men',
+          when_printed='At 5 p. m.', date='1863-07-02', t_iso='1863-07-02T17:00', place_printed='a large barn on our picket line', label='hil_5pm', conflicts=['label:smy_2pm_jul2']),
+    claim(D + '-smyth-12nj', 'position', HI, r'the balance of my command moved to the front line', 'At 6 p. m. the balance of the regiment moved to the front line, behind a stone fence to the left of Kirby\'s battery, remaining until the afternoon of the 6th',
+          when_printed='At 6 p. m. the same day', date='1863-07-02', t_iso='1863-07-02T18:00', place_printed='behind a stone fence to the left of Kirby\'s battery'),
+    claim(D + '-smyth-12nj', 'engagement', HI, r'At 4 p\. m\. of the 3d instant, the whole line became engaged', 'July 3 at 7.30 a. m. five companies again drove the enemy from the barn; at 4 p. m. the whole line became engaged in repulsing the attack; about 500 prisoners and 2 colors',
+          when_printed='At 4 p. m. of the 3d instant', date='1863-07-03', t_iso='1863-07-03T16:00', place_printed='the whole line', label='hil_4pm', conflicts=['label:hay_430']),
+    claim(D + '-smyth-12nj', 'departure', HI, r'until the afternoon of the 6th instant', 'The regiment remained in the stone-fence position until the afternoon of July 6',
+          when_printed='the afternoon of the 6th instant', date='1863-07-06', approx=True, place_printed='behind a stone fence', conflicts=['label:web_noon5'],
+          note='Other regiments of the division left on July 5 (Hays supplement: July 5 to Two Taverns).'),
+    # ------------------------------------------------------------ Hopper (R127): 10th NY Battalion
+    claim(D + '-smyth-10nybn', 'position', HP, r'to deploy in the rear of the Third Division', 'Afternoon of July 2 the 10th NY Battalion received orders to deploy in the rear of the Third Division to arrest stragglers; July 3 encamped at division headquarters until the afternoon fight, then deployed again',
+          when_printed='On the afternoon of the 2d instant', date='1863-07-02', approx=True, place_printed='the rear of the Third Division'),
+    claim(D + '-smyth-10nybn', 'movement', HP, r'At about 3 p\. m\. was ordered to assemble my command', 'At about 3 p. m. July 3 ordered to assemble and go to the front; some 1,800 prisoners turned over to it; about 4 p. m. ordered to General Patrick\'s headquarters in charge of the prisoners, arriving about 6 p. m. and encamping there',
+          when_printed='At about 3 p. m.', date='1863-07-03', t_iso='1863-07-03T15:00', approx=True, place_printed='General Patrick\'s headquarters'),
+]

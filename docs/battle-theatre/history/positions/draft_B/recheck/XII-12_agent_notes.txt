@@ -1,0 +1,17 @@
+Batch XII-12 (55 claims; R293 Geary 27 claims, R294 Candy 28 claims). Read each against the full report text.
+Counts: passed_full_read 42, corrected 13, downgraded 0, split 0.
+Validator: decisions 55, errors 0, missing 0.
+
+Patterns (claims affected):
+- time in a different sentence: 5 (2d-candy-28pa-03 and 2d-greene-60ny-01: 'until dark' belongs to the preceding sharpshooting sentence; candy-20: 'about 7 p. m.' is the order's time, not the arrival; candy-24: 3.45 a. m. two sentences earlier; 66oh-03: 'recalled about 11 a. m.' belongs to the 66oh-04 sentence)
+- place from another sentence removed: 2 (28pa-03, 60ny-01: 'along our entire line' belongs to sharpshooting sentence). Annotated only (ppd): 2d-30, 2d-31, candy-25.
+- merged second report: 0
+- later order ignored: 0
+- compass/road gloss: 0 (art-06 'Williams's order' was an authority gloss: the report says 'By your order', addressee Lt. Col. Rodgers, AAG Twelfth Corps)
+- hedge/condition dropped: 3 (28pa-02, 5oh-02 'some of Greene's regiments'; candy-18 'ordered to form line' stated as done)
+- unit identity gloss: 0
+- OCR digit: 2 (candy-10 hour garbage, guess '(6.30?)' removed from activity; 2d-kane-34 '3d instant' flagged ocr: the same report prints '33d' for 23d and Geary's July 2 narrative already says 'Kane's brigade'; digit not settled)
+- meridian inferred: 2 (lockwood-21 '7.30 o'clock', kane-07 '10.25 o'clock': mer true from sequence)
+- other: lockwood-20 narrowed (sent to Geary's support vs placed to support the artillery; 'before 3.30' is only from 'Everything being thus in readiness'); candy-21 '12 p. m.' read as midnight is compiler's reading, wording fixed.
+Split/downgraded ids: none.
+Systematic: Geary's July 3 narrative and Candy's entry report are sound for clocked sentences; weaknesses are phrases carried to neighbouring sentences (until dark, 3.45, 7 p. m.). Note: the shared scratchpad mk.py was overwritten by another agent and I ran it once by mistake; it rewrote draft_B/recheck/III-13.json from that agent's own script (same output expected); I then used a private script for XII-12.

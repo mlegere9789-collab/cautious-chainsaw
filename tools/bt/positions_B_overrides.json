@@ -1,0 +1,23 @@
+{
+ "_doc": "Post-build corrections applied by positions_claims.py main() for scope B. drop_t_iso: the printed clock is OCR-damaged, a range, or does not match the computed time, so t_iso is removed (policy of scope D); printed: when.printed replaced by the verbatim clock phrase inside the claim's own quote; description goes to when.description.",
+ "POS-B-us-3c-2d-carr-16ma-08": {"drop_t_iso": true, "ocr": true, "description": "OCR glyph only: 'la. m.' (hour digit damaged, read by the editor as 1 a. m.); no t_iso"},
+ "POS-B-us-12c-2d-greene-11": {"drop_t_iso": true, "ocr": true, "description": "OCR glyph only: 'lOp. m.' (hour digits damaged); no t_iso"},
+ "POS-B-us-12c-2d-greene-13": {"drop_t_iso": true, "ocr": true, "description": "OCR glyph only: 'G a. m.' (hour digit damaged); no t_iso"},
+ "POS-B-us-12c-2d-greene-14": {"ocr": true, "description": "OCR glyph only: 'G a. m.' (hour digit damaged); no t_iso"},
+ "POS-B-us-12c-2d-greene-15": {"ocr": true, "description": "OCR glyph only: 'G a. m.' (hour digit damaged); no t_iso"},
+ "POS-B-us-12c-65": {"drop_t_iso": true, "ocr": true, "description": "OCR glyph only: 'G a. m.' (hour digit damaged); no t_iso"},
+ "POS-B-us-12c-2d-greene-149ny-06": {"drop_t_iso": true, "ocr": true, "description": "OCR glyph only: '8 ]j. m.' (meridian glyph damaged); no t_iso"},
+ "POS-B-us-3c-art-4usk-13": {"drop_t_iso": true, "ocr": true, "description": "OCR glyph only: '7.80 p. m.' (minute digits not a valid reading; 7.30 suspected but unconfirmed); no t_iso"},
+ "POS-B-us-3c-1d-ward-86ny-04": {"drop_t_iso": true, "ocr": true, "description": "OCR glyph only: 'About 13 m.' (noon printed as 13 m.); no t_iso"},
+ "POS-B-us-12c-2d-greene-102ny-08": {"drop_t_iso": true, "ocr": true, "printed": "About 4 J), m.", "description": "OCR glyph only: 'About 4 J), m.' (meridian glyph damaged in the passage); no t_iso"},
+ "POS-B-us-12c-40": {"drop_t_iso": true, "description": "range 'between 5 and 6 o'clock': no single clock time printed; the earlier midpoint t_iso is removed"},
+ "POS-B-us-12c-1d-colgrove-27in-13": {"drop_t_iso": true, "description": "range 'between 5 and 6 o'clock': no single clock time printed; the earlier midpoint t_iso is removed"},
+ "POS-B-us-12c-1d-39": {"drop_t_iso": true, "description": "printed hour is the 7 p. m. order to Geary's division; the first division left 'nearly half an hour previously' (computed 18:30, not printed); t_iso removed"},
+ "POS-B-us-3c-1d-08": {"printed": "3 p. m."},
+ "POS-B-us-3c-1d-trobriand-17me-03": {"printed": "4.30 o'clock"},
+ "POS-B-us-12c-1d-mcdougall-5ct-34": {"printed": "7 a. m."},
+ "POS-B-us-12c-1d-mcdougall-145ny-14": {"printed": "10.30 o'clock"},
+ "POS-B-us-12c-2d-kane-29pa-01": {"printed": "7 a. m.", "description": "t_iso is the 7 a. m. departure from Littlestown stated in the quote; the arrival within 3 miles of Gettysburg is 'in the afternoon'"},
+ "POS-B-us-2c-22": {"description": "date line OCR glyph ('1803' for 1863); the clock digits '7.30 p. m.' are legible"},
+ "POS-B-us-2c-23": {"description": "date line OCR glyph ('18G3'); the clock digits '6.15 a. m.' are legible"}
+}

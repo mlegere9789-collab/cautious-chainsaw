@@ -1,0 +1,15 @@
+Batch XII-11 (reader). Reports: OR27-1-R292 (Hawley, 3rd Wisconsin), OR27-1-R293 (Geary, Second Division). 49 claims, all read against the whole report text.
+Counts per fc: passed_full_read 36, corrected 13, downgraded 0, split 0 (no claim merged a second report).
+Corrected ids: colgrove-3wi-09, -10, -13; 2d-24; 2d-greene-07; art-pae-02; art-5usk-03; 1d-39; 2d-greene-08; 2d-candy-03; 2d-kane-04; 2d-greene-11; 2d-kane-06.
+Patterns (claims):
+- time in a different sentence: 8 corrected (art-pae-02 and art-5usk-03: 4 p. m. belongs to the enemy-attack sentence, not the order to the batteries; greene-08, candy-03, kane-04: 7 p. m. is the order time, not the movement; kane-06: 9 p. m. order several sentences earlier; greene-07: 5 a. m. placement sentence; 1d-39). t_iso removed where present.
+- not a time phrase used as when.printed: 1 (colgrove-3wi-09 'by your order').
+- hedge / wording overstated: 2 (colgrove-3wi-10 'in the dark' vs 'Darkness coming on'; colgrove-3wi-13 constant fire was the regiment's).
+- compiler carry-over in activity: 1 (2d-24 night positions of brigades not printed in that sentence).
+- OCR digit: 1 (2d-greene-11 'lOp. m.', l/O for 1/0; t already null, act now shows the token, wdesc 'OCR glyph only').
+- place gloss: 1 (1d-39 pp 'left' not a place phrase; cleared).
+- meridian inferred: 2 annotated (2d-28 and 2d-29 '7.30 o'clock', no a. m./p. m. printed; t kept, mer true, sequence after the 7 p. m. order).
+- continuing-sentence times annotated (passed): 2d-22, candy-01, greene-06.
+- merged second report, later order ignored, unit identity gloss, compass/road gloss: 0 found.
+Systematic: the compiler repeatedly attached the time of an order or of the enemy attack to the later movement/placement sentence ('7 p. m.', '4 p. m.', '9 p. m.' in Geary). 2d-kane-02 act parenthesis 'Kane/Cobham' is from Geary p. 832 (same report), kept. 1d-39 stays tier inferred (6.30 p. m. is compiler arithmetic).
+Validator last line: decisions 49 {'passed_full_read': 36, 'corrected': 13} new split claims 0 missing 0 errors 0

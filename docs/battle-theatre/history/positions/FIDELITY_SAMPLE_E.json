@@ -1,0 +1,63 @@
+{
+ "seed": 23,
+ "method": "ledger E; documented claims sorted by claim_id; random.Random(23) shuffle per kind; 4 per kind over 7 kinds = 28, then 2 extra from largest remaining kinds; inferred: 10 round-robin by kind (sorted kind names), shuffled with random.Random(23). Additional specified claims (PA1B-S027 supply-train, XI Corps 2D Emmitsburg Pike/Black Horse Tavern) audited as targeted extras if not drawn.",
+ "n_documented_eligible": 90,
+ "documented_ids": [
+  "POS-E-US-3C-2D-CARR-26PA-003",
+  "POS-E-US-CAV-1D-DEVIN-6NY-002",
+  "POS-E-US-11C-2D-COSTER-73PA-004",
+  "POS-E-US-3C-2D-BREWSTER-120NY-001",
+  "POS-E-US-11C-3D-KRZYZANOWSKI-119NY-002",
+  "POS-E-US-11C-3D-SCHIMMELFENNIG-45NY-004",
+  "POS-E-US-3C-2D-BREWSTER-73NY-002",
+  "POS-E-US-11C-3D-SCHIMMELFENNIG-45NY-007",
+  "POS-E-US-11C-2D-COSTER-005",
+  "POS-E-US-11C-3D-KRZYZANOWSKI-75PA-002",
+  "POS-E-US-CAV-3D-FARNSWORTH-002",
+  "POS-E-US-CAV-3D-CUSTER-7MI-001",
+  "POS-E-US-CAV-3D-003",
+  "POS-E-US-11C-2D-COSTER-73PA-003",
+  "POS-E-US-11C-3D-SCHIMMELFENNIG-45NY-002",
+  "POS-E-US-CAV-1D-DEVIN-6NY-001",
+  "POS-E-US-11C-3D-KRZYZANOWSKI-75PA-004",
+  "POS-E-US-CAV-3D-FARNSWORTH-18PA-002",
+  "POS-E-US-3C-2D-CARR-26PA-006",
+  "POS-E-US-CAV-1D-DEVIN-9NY-003",
+  "POS-E-US-CAV-1D-002",
+  "POS-E-US-CAV-1D-DEVIN-9NY-001",
+  "POS-E-US-11C-2D-COSTER-73PA-007",
+  "POS-E-US-CAV-1D-DEVIN-6NY-003",
+  "POS-E-US-11C-3D-SCHIMMELFENNIG-45NY-012",
+  "POS-E-US-11C-3D-KRZYZANOWSKI-75PA-001",
+  "POS-E-US-CAV-3D-CUSTER-5MI-003",
+  "POS-E-US-11C-3D-SCHIMMELFENNIG-45NY-001",
+  "POS-E-US-11C-3D-SCHIMMELFENNIG-157NY-002",
+  "POS-E-US-11C-3D-SCHIMMELFENNIG-45NY-006"
+ ],
+ "inferred_ids": [
+  "POS-E-US-11C-3D-SCHIMMELFENNIG-61OH-001",
+  "POS-E-US-11C-3D-KRZYZANOWSKI-58NY-003",
+  "POS-E-US-CAV-1D-GAMBLE-8IL-001",
+  "POS-E-US-11C-ART-1NYI-002",
+  "POS-E-US-3C-2D-BREWSTER-001",
+  "POS-E-US-11C-2D-COSTER-134NY-001",
+  "POS-E-US-11C-2D-COSTER-27PA-005",
+  "POS-E-US-11C-2D-COSTER-27PA-002",
+  "POS-E-US-11C-2D-SMITH-136NY-007",
+  "POS-E-US-11C-ART-1NYI-006"
+ ],
+ "targeted_extras_documented": [
+  "POS-E-US-3C-2D-CARR-84PA-001",
+  "POS-E-US-3C-2D-CARR-84PA-002",
+  "POS-E-US-3C-2D-CARR-84PA-003",
+  "POS-E-US-3C-2D-CARR-26PA-002"
+ ],
+ "targeted_extras_inferred": [
+  "POS-E-US-11C-2D-004",
+  "POS-E-US-11C-2D-COSTER-154NY-003",
+  "POS-E-US-11C-2D-002",
+  "POS-E-US-11C-2D-001"
+ ],
+ "n_inferred_eligible": 109,
+ "total_audited": 48
+}

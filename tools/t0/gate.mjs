@@ -341,7 +341,15 @@ function refsOf(root, list) {
   const modified = ldata.filter((f) => ddata.has(f) && sha256(fs.readFileSync(path.join(legacyDir, f))) !== sha256(fs.readFileSync(path.join(distDir, f))));
   const removed = ldata.filter((f) => !ddata.has(f));
   const added = [...ddata].filter((f) => !ldata.includes(f));
-  check('data-untouched', modified.length === 0 && removed.length === 0, { legacyDataFiles: ldata.length, modified, removed, added });
+  // Owner decision 2026-10-05 (item 3): the optional group DATA corrects served data files. A file may differ from the baseline ONLY when the
+  // builder's anchor report shows an applied patch of group DATA that targets exactly that file; any other change, and any removal, still fails.
+  let dataTargets = new Set();
+  try {
+    const rep = JSON.parse(fs.readFileSync(anchorsFile, 'utf8'));
+    dataTargets = new Set((rep.patches || []).filter((p) => p.group === 'DATA' && p.ok && p.found > 0 && /^data\//.test(p.target || '')).map((p) => p.target));
+  } catch { /* no anchor report: nothing is excused */ }
+  const unexplained = modified.filter((f) => !dataTargets.has(f));
+  check('data-untouched', unexplained.length === 0 && removed.length === 0, { legacyDataFiles: ldata.length, modified: unexplained, removed, added, changedByGroupDATA: modified.length - unexplained.length });
 }
 
 // ------------------------------------------------------------------ bytes

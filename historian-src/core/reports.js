@@ -9,6 +9,7 @@
 // The module is inert unless the KB has the corpus (createReports returns null), so the site-only KB answers exactly as before.
 import { tokenize, stem, normalizeWs, STOP } from './text.js';
 import { selectQuotes } from './select.js';
+import { embeddedDispatches } from './embedded.js';
 
 const REPORT_NOUN = /\b(?:official records?|reports?|reported|reporting|dispatch(?:es)?|despatch(?:es)?|telegrams?|telegraph(?:ed|s)?|wired)\b/;
 const DISPATCH_WORD = /\b(?:dispatch(?:es)?|despatch(?:es)?|telegrams?|telegraph(?:ed|s)?|wired)\b/;                // the question asks for what was SENT at the time, not for a report written afterwards
@@ -30,8 +31,15 @@ const REPORT_TO = /\b(?:report(?:ed|ing|s)?|dispatch(?:ed)?) (?:to|for duty|in p
 const SAY = /\b(?:say|said|says|saying|write|wrote|writes|written|state|stated|states|claim|claimed|claims|recall|recalled|mention|mentioned|describe|described|describes|note|noted|declare|declared|give|gave|given)\b/;
 const TIME_Q = /\b(?:what time|at what time|what hour|at what hour|which hour|when|how early|how late)\b/;
 const QWORD = /^(?:what|how|where|when|did|does|do|according|in|which|why|who)\b/;
+// "what did Halleck tell Heintzelman on July 5", "... ask ...", "... order Schenck to do ...", "... send to ...", "... report to ...": the verbs of a message, asked of a day. Without a date the question is about speech
+// or a movement ("reported to Meade") and is not taken here
+const SEND_VERBS = 'tell|told|tells|ask|asked|asks|order|ordered|orders|send|sent|sends|message|messaged|wire|wired|inform|informed|report(?:ed|s)?(?=\\s+to\\b)|request|requested|advise|advised|direct|directed';   // "report" only as "report to X": "what did Lee report about the assault on July 3" asks for his report, not his dispatches
+const SEND_Q = new RegExp(`\\bwhat\\s+(?:did|does|was)\\s+[^?]{1,60}?\\b(?:${SEND_VERBS})\\b[^?]{0,70}\\b(?:jun|jul|aug)[a-z]*\\.?\\s*\\d`, 'i');
+// "who wrote to Doubleday or Howard at 12.10 p. m. on July 1": the sender is what is asked; the addressees, the day and the clock are the filter
+const WHO_TO = /^who\s+(?:wrote|telegraphed|wired|sent|messaged|dispatched|ordered|asked|told)\b[^?]{0,25}?\bto\b/;
+const SEND_VERB_AT =new RegExp(`^(?:${SEND_VERBS})$`, 'i');
 // words that are the question's frame, not its topic
-const FRAME = new Set(['report', 'reports', 'reported', 'reporting', 'dispatch', 'dispatches', 'official', 'record', 'records', 'say', 'said', 'says', 'write', 'wrote', 'writes', 'written', 'state', 'stated', 'claim', 'claimed', 'recall', 'recalled', 'mention', 'mentioned', 'describe', 'described', 'describes', 'according', 'give', 'gave', 'given', 'time', 'hour', 'author', 'officer', 'general', 'colonel', 'captain', 'major', 'lieutenant', 'commander', 'confederate', 'union', 'federal', 'rebel', 'did', 'does', 'about', 'regarding', 'concerning', 'telegraph', 'telegraphed', 'telegram', 'telegrams', 'wired', 'send', 'sent', 'july', 'june', 'august', 'tell', 'told'].map(stem));
+const FRAME = new Set(['report', 'reports', 'reported', 'reporting', 'dispatch', 'dispatches', 'official', 'record', 'records', 'say', 'said', 'says', 'write', 'wrote', 'writes', 'written', 'state', 'stated', 'claim', 'claimed', 'recall', 'recalled', 'mention', 'mentioned', 'describe', 'described', 'describes', 'according', 'give', 'gave', 'given', 'time', 'hour', 'author', 'officer', 'general', 'colonel', 'captain', 'major', 'lieutenant', 'commander', 'confederate', 'union', 'federal', 'rebel', 'did', 'does', 'about', 'regarding', 'concerning', 'telegraph', 'telegraphed', 'telegram', 'telegrams', 'wired', 'send', 'sent', 'july', 'june', 'august', 'tell', 'told', 'ask', 'asked', 'order', 'ordered', 'message', 'messaged', 'inform', 'informed', 'request', 'requested', 'advise', 'advised', 'direct', 'directed', 'sends'].map(stem));
 const MONTHS = ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const dateText = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || ''); return m ? `${MONTHS[+m[2]]} ${+m[3]}, ${m[1]}` : null; };
 // words that say the same thing in a report of 1863 ("the assault began" / "the attack was commenced" / "the movement was begun"): used to find the sentence, never shown
@@ -49,16 +57,22 @@ export function createReports(kb, { corpus = 'or27' } = {}) {
   /** does this question ask for what someone reported (or at what time a report says something)? -> null | { kind, timeQ, authorIdx, mention } */
   function detect(S, parts) {
     const norm = S.norm || '';
-    if (!norm || REPORT_TO.test(norm) && !/\breports? (?:of|by|on|about)\b/.test(norm)) return null;
+    if (!norm || REPORT_TO.test(norm) && !SEND_Q.test(norm) && !/\breports? (?:of|by|on|about)\b/.test(norm)) return null;
     if (OTHER_SOURCE.test(norm)) return null;
-    const cue = REPORT_NOUN.test(norm) || WRITE_TO.test(norm), say = SAY.test(norm);
+    if (WHO_TO.test(norm) && dateOf(norm)) {
+      const after = String(S.text || '').replace(/^[\s\S]*?\bto\b/i, ''), cut = after.split(/\b(?:at|on|in|during|between|around|about)\b/i)[0];
+      const names = (cut.match(/\b[A-Z][a-z’']{2,}\b/g) || []).filter((w) => !/^(?:June|July|August|Union|Confederate|General|Colonel|Major|Captain)$/.test(w));
+      if (names.length) return { kind: 'who', timeQ: false, names, authorIdx: null, cands: [], prefer: null, mention: null };
+    }
+    const sendQ = SEND_Q.test(norm), cue = REPORT_NOUN.test(norm) || WRITE_TO.test(norm) || sendQ, say = SAY.test(norm);
     if (!cue && !say) return null;
     const timeQ = TIME_Q.test(norm);
     // "what did Lee say to his men" is about speech, not a document: without the word report, dispatch or official records only a question about a TIME that someone says / states / claims is taken
     if (!cue && !(timeQ && QWORD.test(norm.trim()))) return null;
     const persons = parts.persons.filter((r) => r.k === 'person'), units = parts.units;
     const toks = S.tokens || [];
-    const cueAt = toks.map((t, i) => (/^(?:report|reports|reported|reporting|dispatch|dispatches|telegraph|telegraphed|telegram|telegrams|wired|official|say|said|says|write|wrote|writes|written|state|stated|claim|claimed|recall|recalled|mention|mentioned|describe|described|according)$/.test(t) ? i : -1)).filter((i) => i >= 0);
+    const cueAt = toks.map((t, i) => (/^(?:report|reports|reported|reporting|dispatch|dispatches|telegraph|telegraphed|telegram|telegrams|wired|official|say|said|says|write|wrote|writes|written|state|stated|claim|claimed|recall|recalled|mention|mentioned|describe|described|according|tell|told|tells|ask|asked|asks|order|ordered|orders|send|sent|sends|message|messaged|wire|inform|informed|request|requested|advise|advised|direct|directed)$/.test(t) ? i : -1)).filter((i) => i >= 0);
+    const verbIdx = sendQ ? toks.findIndex((t) => SEND_VERB_AT.test(t)) : -1;
     // the author is the person (or unit) named next to the cue: "Lee's report", "report of General Lee", "what did Lee report", "what time did Longstreet say"
     const near = (m) => { if (!cueAt.length) return 99; const mid = (m.start + m.end) / 2; return Math.min(...cueAt.map((c) => Math.abs(c - mid))); };
     const ms = (S.mentions || []).filter((m) => m.kind !== 'unit-miss' && m.ids && m.ids.length && (m.start !== undefined));
@@ -68,6 +82,7 @@ export function createReports(kb, { corpus = 'or27' } = {}) {
     for (const m of ms) {
       if (sideWord && m.start !== undefined && toks.slice(m.start, m.end).every((t) => stem(t) === stem(sideWord[1]))) continue;                  // "Union reports": an adjective, not the Army of the Potomac
       if (m.start > 0 && toks[m.start - 1] === 'to') continue;                                                                                      // "telegraph to Meade": the addressee, not the author
+      if (sendQ && verbIdx >= 0 && m.start >= verbIdx) continue;                                                                                  // "what did Halleck tell Heintzelman": the man after the verb is the addressee
       // the words that name the author may name several records ("Buford": the man, his division; "Hays": two men): which of them WROTE something is decided in run(), from the corpus
       const base = m.kind === 'unit' ? [m.best] : m.ids.slice();
       // a surname alone ("Buford") may be read as the unit named after him (his division): the men of that surname are candidates too
@@ -80,7 +95,8 @@ export function createReports(kb, { corpus = 'or27' } = {}) {
     // an author the site's registry does not hold ("what did Ruger report"): the capitalised words of the question that name no site entity are candidates; run() asks the corpus (F:<stem>) whether one of them wrote anything
     if (!best && (cue || (timeQ && QWORD.test(norm.trim()))) && !REPORTS_NOUN.test(norm)) {
       const covered = new Set(); for (const m of S.mentions || []) for (let k = m.start; k < m.end; k++) if (toks[k]) covered.add(stem(toks[k]));
-      const names = [...new Set((String(S.text || '').match(/\b[A-Z][a-z’']{3,}\b/g) || []).filter((w) => !(S.text.startsWith(w)) && !STOP.has(w.toLowerCase()) && !FRAME.has(stem(w.toLowerCase())) && !covered.has(stem(w.toLowerCase())) && !/^(?:June|July|August|Union|Confederate|Federal|Rebel|Army|Corps|Division|Brigade|Gettysburg)$/.test(w)))];
+      const vpos = sendQ ? String(S.text || '').search(new RegExp(`\\b(?:${SEND_VERBS})\\b`, 'i')) : -1;      // "what did Halleck tell Heintzelman": the sender stands before the verb
+      const names = [...new Set([...String(S.text || '').matchAll(/\b[A-Z][a-z’']{3,}\b/g)].filter((m) => !(sendQ && vpos >= 0 && m.index >= vpos)).map((m) => m[0]).filter((w) => !(S.text.startsWith(w)) && !STOP.has(w.toLowerCase()) && !FRAME.has(stem(w.toLowerCase())) && !covered.has(stem(w.toLowerCase())) && !/^(?:June|July|August|Union|Confederate|Federal|Rebel|Army|Corps|Division|Brigade|Gettysburg)$/.test(w)))];
       if (names.length) return { kind: 'unregistered', timeQ: timeQ && (cue || say), names, authorIdx: null, cands: [], prefer: null, mention: null };
     }
     if (!best && !persons.length && !units.length && !cue) return null;
@@ -138,7 +154,7 @@ export function createReports(kb, { corpus = 'or27' } = {}) {
     if (q.kind === 'author' && !q.timeQ && topic.length >= 3) ctx.windowOk = (p, s, e) => { const st = new Set(tokenize(p.text.slice(s, e)).map(stem)); return [...ctx.qStems].filter((t) => st.has(t)).length >= 2; };
     let nums = [], authorRec = null, quotes = [], mode = 'answer', kindLabel = null, docMeta = null, relaxedNote = '', yesSet = null;
     const norm = S.norm || '';
-    const askD = DISPATCH_WORD.test(norm) || WRITE_TO.test(norm) || WRITE_DATED.test(norm), askR = REPORT_WORD.test(norm) && !askD;
+    const askD = WHO_TO.test(norm) || DISPATCH_WORD.test(norm) || WRITE_TO.test(norm) || WRITE_DATED.test(norm) || SEND_Q.test(norm), askR = REPORT_WORD.test(norm) && !askD;
     const dateIso = dateOf(norm); const dateWords = dateIso ? `${MONTHS[+dateIso.slice(5, 7)]} ${+dateIso.slice(8)}, 1863` : null;
     const dayCode = dateIso ? +dateIso.slice(5, 7) * 100 + +dateIso.slice(8) : null;
     const sideM = SIDE_ONLY.exec(norm); const sideOnly = sideM ? (/^(?:confederate|rebel)$/.test(sideM[1]) ? 'confederate' : 'union') : null;
@@ -151,7 +167,17 @@ export function createReports(kb, { corpus = 'or27' } = {}) {
     // A question that names a day and asks for a report (not a time): the passages that speak of that day (Y:<month*100+day>, the build's own reading of the dates written in the passage: "July 3", "the 3d instant", "on the 3d"),
     // never "the closest passages" of another day.
     const ySet = async () => (dayCode ? withTag('Y:' + String(dayCode).padStart(4, '0')) : null);
-    const toWho = askD && /\sto\s/.test(norm) && topic.length > 0;
+    const toWho = askD && (/\sto\s/.test(norm) || SEND_Q.test(norm)) && topic.length > 0;
+    // A dispatch the volume prints inside a report (Part 1 and 2: Meade's telegrams to Halleck, Hooker's to the President) is a block of its passage (core/embedded.js). A window quoted for a dispatch question lies inside a block
+    // that matches the question: its date, its sender (a block with no printed signature is not claimed for a named sender), its addressee when the question names one. Part 3 passages are whole dispatches and are not restricted.
+    let senderStems = null, toWhoStems = toWho ? topic.slice() : null;
+    const stemsOf = (t) => tokenize(String(t || '')).map(stem);
+    // a block with no printed signature (the passage is cut, or the print drops it) is the author of the report it is printed in only when the question names that author: Meade's telegram in Meade's own report
+    const blockOk = (b, p) => (!dateIso || b.written === dateIso) && (!senderStems || senderStems.some((x) => stemsOf(b.sender || (p && p.cite && p.cite.author_line ? p.cite.author_line.replace(/\bto\b.*$/, '') : '')).includes(x))) && (!toWhoStems || (!!b.addressee && toWhoStems.some((x) => stemsOf(b.addressee).includes(x))));
+    // a quote of such a dispatch starts where the dispatch starts (its header, or the first lines of its body), so that it shows what the dispatch begins with and not only its address line at the foot
+    const embOk = (p, s, e) => { if (!/^or27-[12]:/.test(p.id)) return true; return embeddedDispatches(p.text).some((b) => s >= b.s - 1 && s <= b.h + 120 && e <= b.e + 1 && blockOk(b, p)); };
+    if (askD && toWho) ctx.requireTopic = false;                                                  // the addressee is a filter (the A: tags and the block above), not a word the quoted window must hold: a letter's address stands at its foot
+    if (askD) { const prevOk = ctx.windowOk; ctx.windowOk = (p, s, e) => (prevOk ? prevOk(p, s, e) : true) && embOk(p, s, e); }
     const addrOf = (p) => { const m = /\bto (.+)$/.exec((p.cite && p.cite.author_line) || ''); return m ? m[1] : null; };
     // An author the site's registry does not hold ("what did Ruger report": the registry has the 706 officers of the battle, not every colonel who reported): the capitalised words of the question that name no site
     // entity are candidates, and the first that the corpus itself marks as a sender (F:<surname stem>: the signature of a dispatch, the author of a report) is the author. Nothing about him is invented: his label is
@@ -164,8 +190,46 @@ export function createReports(kb, { corpus = 'or27' } = {}) {
         const labels = [...new Set([...byDoc.values()].map((p) => String((p.cite && p.cite.author_line) || '').replace(/ to .*$/, '').replace(/,\s.*$/, '').trim()).filter(Boolean))];
         hit = { nm, st, nums: [...t].sort((a, b) => a - b), label: labels.length === 1 ? labels[0] : nm }; break;
       }
-      if (!hit) { if (!q.fallback) return null; q = q.fallback; }
-      else { q = { ...q, kind: 'author', unreg: hit }; authorRec = { id: null, k: 'person', label: hit.label, attrs: { surname: hit.nm } }; nums = hit.nums; }
+      if (!hit) {
+        // a dispatch asked of a named sender whom no signature of the volume carries ("what did Sherman telegraph to Meade on July 5"): said, not answered with the card of the army he is asked to write to
+        if (askD && !q.fallback && q.names && q.names.length) {
+          const nm = q.names[0]; S.intent = q.timeQ ? 'reported-time' : 'report-of'; S.quotes = [];
+          return { mode: 'partial', blocks: [lead([`I did not find a dispatch or letter signed ${nm} in the Official Records (series I, volume 27) as held here.`]), note('no-dispatch', `What I searched: the printed signatures of the dispatches, letters and orders of the volume and the authors of its reports; none reads “${nm}”. A signature the scan garbled is not among them.`)], src: [], limited: true };
+        }
+        if (!q.fallback) return null; q = q.fallback;
+      }
+      else {
+        q = { ...q, kind: 'author', unreg: hit }; authorRec = { id: null, k: 'person', label: hit.label, attrs: { surname: hit.nm } }; nums = hit.nums;
+        // the sender's own name is not a topic of the question ("what did Halleck tell Heintzelman": the topic is Heintzelman), nor is the registry's repair of a name as written ("Kelley" read as "Kelly" by the typo repair)
+        const repaired = (S.notes || []).filter((n) => n.kind === 'fuzzy' && n.to).map((n) => stem(String(n.to).toLowerCase()));
+        topic = topic.filter((x) => x !== hit.st && !repaired.includes(x)); if (toWhoStems) toWhoStems = toWhoStems.filter((x) => x !== hit.st && !repaired.includes(x)); if (!topic.length) ctx.requireTopic = false;
+      }
+    }
+    if (q.kind === 'who') {
+      // the dispatches of the day addressed to one of the names (A:<stem>), at the clock asked when the question gives one (the header prints it); the sender is read from the dispatch, never guessed
+      const stems = q.names.map((n) => stem(n.toLowerCase())); toWhoStems = stems; topic = []; ctx.requireTopic = false; ctx.qStems = new Set();
+      const dTag = await withTag('K:dispatch'), aTag = await withTag(...stems.map((x) => 'A:' + x)), dd = dateIso ? await withTag('D:' + dateIso) : null;
+      let pool = dTag && aTag ? [...aTag].filter((n) => dTag.has(n) && (!dd || dd.has(n))).sort((a, b) => a - b) : [];
+      const ck = /\b(\d{1,2})(?:\s?[.:]\s?(\d{2}))?\s*([ap])\.?\s?m\b/i.exec(String(S.text || ''));
+      const names = q.names.join(' or ');
+      const ckText = ck ? `${+ck[1]}${ck[2] ? '.' + ck[2] : ''} ${ck[3].toLowerCase()}. m.` : '';
+      const decline = (text, why) => { S.intent = 'report-of'; S.quotes = []; return { mode: 'partial', blocks: [lead([text]), note('no-dispatch', why)], src: [], limited: true }; };
+      if (ck && pool.length) {
+        const h = +ck[1], m = ck[2] || '00', hh = [String(h), String(h).padStart(2, '0')], re = new RegExp(String.raw`(?:^|[^0-9])(?:${hh.join('|')})\s?[.:]\s?${m}\s?${ck[3]}\b`, 'i'), reH = ck[2] ? null : new RegExp(String.raw`(?:^|[^0-9])(?:${hh.join('|')})\s?${ck[3]}\b`, 'i');
+        const P0 = await kb.passages(pool.slice(0, 400)); pool = pool.filter((n) => { const p = P0.get(n); if (!p) return false; const head = p.text.slice(0, 700); return re.test(head) || (reH && reH.test(head)); });
+        if (!pool.length) return decline(`I did not find a dispatch or letter addressed to ${names} at ${ckText} on ${dateWords.replace(', 1863', '')} in the Official Records (series I, volume 27) as held here.`, 'What I searched: the dispatches, letters and orders of the volume whose addressee reads that name, dated that day; none prints that hour in its header. I did not offer the nearest hour in its place.');
+      }
+      if (!pool.length) return decline(`I did not find a dispatch or letter addressed to ${names}${dateWords ? ' dated ' + dateWords : ''} in the Official Records (series I, volume 27) as held here.`, 'What I searched: the dispatches, letters and orders of the volume (the addressee line of each and the day it is dated).');
+      S.intent = 'report-of';
+      const P1 = await kb.passages(pool.slice(0, 12)); const list1 = pool.slice(0, 12).map((n) => ({ p: P1.get(n), score: 1 })).filter((x) => x.p);
+      const qs = selectQuotes(kb, list1, ctx, { max: 3, minScore: 0, sameRec: true, maxWords: 80, maxSents: 3, rerank: false }).filter((x) => x.text);
+      if (!qs.length) return decline(`I found ${pool.length} dispatch${pool.length === 1 ? '' : 'es'} addressed to ${names} on ${dateWords.replace(', 1863', '')}, but no passage of it to quote.`, 'The words are only offered as printed.');
+      S.quotes = qs;
+      const senders = [...new Set(qs.map((x) => String((x.cite && x.cite.author_line) || '').replace(/ to .*$/, '').trim()).filter(Boolean))];
+      const outBlocks = [lead([`${pool.length === 1 ? 'One dispatch' : pool.length + ' dispatches'} in the volume ${pool.length === 1 ? 'is' : 'are'} addressed to ${names} on ${dateWords.replace(', 1863', '')}${ck ? ' at ' + ckText : ''}${senders.length ? '; ' + (senders.length === 1 ? 'it was written by ' : 'written by ') + senders.join(' and ') : ''}. Each is quoted as printed:`])];
+      for (const x of qs) outBlocks.push(x);
+      outBlocks.push(note('contemporary', 'A dispatch is written at the time it is dated; the clock is the sender’s own, and local times differed by several minutes. The words are machine-read from the 1889 print and may carry scanning errors.'));
+      return { mode: 'answer', blocks: outBlocks, src: [] };
     }
     if (q.kind === 'author' && !q.unreg) {
       // the words that name the author may name several records; the one that WROTE something in the corpus (role 2) is the author: a man over his division ("Buford"), the only one of two with a report
@@ -181,7 +245,14 @@ export function createReports(kb, { corpus = 'or27' } = {}) {
         // several of that name wrote something: the one the engine reads as the prominent one ("Hancock" is the corps commander, not the captain of a regular regiment), else the only person; else the ordinary flow
         const pref = q.prefer !== null && q.prefer !== undefined && R[q.prefer] ? R[q.prefer].id : null;
         const ps = who.filter(isPerson);
-        pickId = pref && who.includes(pref) ? pref : ps.length === 1 ? ps[0] : null; if (!pickId) return null;
+        pickId = pref && who.includes(pref) ? pref : ps.length === 1 ? ps[0] : null;
+        // several men of that surname wrote in the volume and the question does not say which ("what time did Williams telegraph to Crawford on June 23"): a dispatch question is asked of the signatures that read that
+        // surname, as for an author the registry does not hold, and the label is the one the corpus prints; naming one of the men would be a guess
+        if (!pickId && askD && q.mention && q.mention.phrase) {
+          const ph = String(q.mention.phrase).trim().split(/\s+/).pop().toLowerCase(), word = (String(S.text || '').match(/[A-Za-z’']+/g) || []).find((w) => w.toLowerCase() === ph || stem(w.toLowerCase()) === stem(ph)) || ph;    // the name as the question wrote it
+          if (/^[A-Za-z’']{3,}$/.test(word)) return run(S, { kind: 'unregistered', timeQ: q.timeQ, names: [word[0].toUpperCase() + word.slice(1)], authorIdx: null, cands: [], prefer: null, mention: null }, { said });
+        }
+        if (!pickId) return null;
       }
       else { const ps = candIds.filter(isPerson); pickId = ps.length === 1 ? ps[0] : candIds.length === 1 ? candIds[0] : null; if (!pickId) return null; }
       authorRec = R[cands[candIds.indexOf(pickId)]];
@@ -192,6 +263,7 @@ export function createReports(kb, { corpus = 'or27' } = {}) {
         // to the register's man: 3 of 4 dispatches carry no link). Nothing is called absent that was not searched for by its signature, and what was searched is said.
         const dTag = await withTag('K:dispatch'); const isDisp = (n) => !!dTag && dTag.has(n);
         const sn = authorRec.attrs && authorRec.attrs.surname; const stemKey = sn ? (tokenize(String(sn))[0] ? stem(tokenize(String(sn))[0]) : null) : null;
+        if (stemKey) senderStems = [stemKey];
         const sigTag = stemKey ? await withTag('F:' + stemKey) : null;
         const byLink = nums.filter(isDisp); const bySig = sigTag ? [...sigTag].filter(isDisp) : [];
         let pool = [...new Set([...byLink, ...bySig])].sort((a, b) => a - b);
@@ -216,7 +288,7 @@ export function createReports(kb, { corpus = 'or27' } = {}) {
           const t = await withTag(...topic.map((x) => 'A:' + x)); const r = t ? pool.filter((n) => t.has(n)) : [];
           if (r.length) pool = r;
           else { const P = await kb.passages(pool.slice(0, 40)); const tos = [...new Set([...P.values()].map(addrOf).filter(Boolean).map((a) => a.replace(/,.*$/, '')))].slice(0, 4);
-            topic = []; ctx.requireTopic = false; ctx.qStems = new Set();                                  // the addressee was only a filter: with none addressed, the dispatches of the day are shown, not searched for his name
+            toWhoStems = null; topic = []; ctx.requireTopic = false; ctx.qStems = new Set();                                  // the addressee was only a filter: with none addressed, the dispatches of the day are shown, not searched for his name
             relaxedNote = `None of ${name}’s dispatches${dateWords ? ' of ' + dateWords.replace(', 1863', '') : ''} is addressed to “${tw}”; ${pool.length === 1 ? 'the one' : 'the ' + pool.length}${dateWords ? ' he wrote that day' : ' I found'} went to ${tos.join(' and ') || 'others'}. `; }
         }
         nums = pool;
@@ -265,7 +337,7 @@ export function createReports(kb, { corpus = 'or27' } = {}) {
       }
     } else if (q.unreg) {
       // the author is a sender of the corpus the registry does not hold: the same restrictions as for a registered one (a kind, a day, a clock of a day), each said when it leaves nothing
-      const sur = q.unreg.nm; const decline = (code, text, why) => { S.intent = q.timeQ ? 'reported-time' : 'report-of'; S.quotes = []; return { mode: 'partial', blocks: [lead([text]), note(code, why)], src: [], limited: true }; };
+      const sur = q.unreg.nm; senderStems = [q.unreg.st]; const decline = (code, text, why) => { S.intent = q.timeQ ? 'reported-time' : 'report-of'; S.quotes = []; return { mode: 'partial', blocks: [lead([text]), note(code, why)], src: [], limited: true }; };
       const isD = await withTag('K:dispatch'), isR = await withTag('K:report'); const nD = isD ? nums.filter((n) => isD.has(n)).length : 0, nR = isR ? nums.filter((n) => isR.has(n)).length : 0;
       const held = `What I searched: the ${nums.length} passage${nums.length === 1 ? '' : 's'} of the volume whose printed signature or report author reads “${sur}” (${nD} of dispatches, letters and orders, ${nR} of reports). A signature the scan garbled is not among them.`;
       if (askD && isD) { const r = nums.filter((n) => isD.has(n)); if (!r.length) return decline('no-dispatch', `I did not find a dispatch or letter signed ${sur} in the Official Records (series I, volume 27) as held here.`, held); nums = r; }
@@ -279,7 +351,7 @@ export function createReports(kb, { corpus = 'or27' } = {}) {
       }
       if (toWho) {                                                                                       // "what did Kelley write to Averell": the dispatches addressed to him; when none is, the others, and it is said
         const t = await withTag(...topic.map((x) => 'A:' + x)); const r = t ? nums.filter((n) => t.has(n)) : [];
-        if (r.length) nums = r; else { topic = []; ctx.requireTopic = false; ctx.qStems = new Set(); relaxedNote = `None of ${authorRec.label}’s dispatches${dateWords ? ' of ' + dateWords.replace(', 1863', '') : ''} is addressed to “${tw}”. `; }
+        if (r.length) nums = r; else { toWhoStems = null; topic = []; ctx.requireTopic = false; ctx.qStems = new Set(); relaxedNote = `None of ${authorRec.label}’s dispatches${dateWords ? ' of ' + dateWords.replace(', 1863', '') : ''} is addressed to “${tw}”. `; }
       }
       if (q.timeQ && dayCode) { const c = await withTag('C:' + String(dayCode).padStart(4, '0')); const r = c ? nums.filter((n) => c.has(n)) : []; if (!r.length) return decline('no-time-day', `${authorRec.label} gives no clock time for ${dateWords.replace(', 1863', '')} in the volume that I could find.`, 'Only the clock times a passage says about that day are offered for it; times of other days are not given in their place.'); nums = r; }
     } else {
@@ -321,7 +393,7 @@ export function createReports(kb, { corpus = 'or27' } = {}) {
       list = list.slice(0, 4);
       if (!list.length) return null;
     }
-    quotes = selectQuotes(kb, list, ctx, q.kind === 'generic' ? { max: 3, minScore: 0.3, maxWords: 55, maxSents: 2, rerank: true } : { max: q.timeQ ? 3 : 2, minScore: 0.3, sameRec: true, maxWords: q.timeQ ? 90 : 70, maxSents: q.timeQ ? 4 : 3, rerank: true });
+    quotes = selectQuotes(kb, list, ctx, q.kind === 'generic' ? { max: 3, minScore: 0.3, maxWords: 55, maxSents: 2, rerank: true } : { max: q.timeQ ? 3 : askD && dateIso ? 4 : 2, minScore: 0.3, sameRec: true, maxWords: q.timeQ ? 90 : 70, maxSents: q.timeQ ? 4 : 3, rerank: true });
     if (q.timeQ) quotes = quotes.filter((x) => x.clk);
     if (topic.length > 1) {
       // the topic as the question words it: the longest run of consecutive topic words ("railroad cut"), then the rarest word of it ("culp", not "hill"); each only narrows the quotes while two or more are left
@@ -355,10 +427,21 @@ export function createReports(kb, { corpus = 'or27' } = {}) {
     }
     // a topic the best passages do not touch is said, not hidden behind the nearest sentence
     const first = list.find((x) => x.p.id === quotes[0].passage).p;
-    docMeta = first.persp || {};
+    // a quote that lies inside a dispatch printed within a report is a dispatch: written at the date of the block, not a retrospective report
+    const embPersp = (x, p) => { if (!askD || !/^or27-[12]:/.test(p.id) || (p.persp && p.persp.contemporaneous)) return p.persp || {}; const b = embeddedDispatches(p.text).find((y) => x.s >= y.s - 1 && x.e <= y.e + 1 && blockOk(y, p)); return b ? { ...(p.persp || {}), contemporaneous: true, retrospective: false, composite: false, written: b.written, lag_days: null } : (p.persp || {}); };
+    docMeta = embPersp(quotes[0], first);
+    // the attribution of a quote that lies inside a dispatch printed within a report names the dispatch (its date, its signer, its addressee) and the report it is printed in, never "official report, written after the fact"
+    if (askD) for (const x of quotes) {
+      const p = list.find((y) => y.p.id === x.passage).p; if (!/^or27-[12]:/.test(p.id) || (p.persp && p.persp.contemporaneous)) continue;
+      const b = embeddedDispatches(p.text).find((y) => x.s >= y.s - 1 && x.e <= y.e + 1 && blockOk(y, p)); if (!b) continue;
+      const short = p.cite && p.cite.short ? p.cite.short : ''; const page = typeof x.attrib === 'string' && short && x.attrib.startsWith(short + ', ') ? x.attrib.slice(short.length + 2) : '';
+      const al = p.cite && p.cite.author_line ? p.cite.author_line : 'the report';
+      const orPart = short.split('; ').pop(); const clean = (t) => String(t).replace(/[\s,.;:]+$/, '');
+      x.attrib = `dispatch dated ${dateText(b.written)}${b.sender ? ', signed ' + clean(b.sender) : ''}${b.addressee ? ', to ' + clean(b.addressee) : ''}, as printed within the report of ${al}; ${orPart}${page ? ', ' + page : ''}`;
+    }
     const blocks = [];
     // what the quotes come from: one document (its own date and kind lead), several dispatches, or a mix of reports and dispatches
-    const srcDocs = new Map(); for (const x of quotes) { const p = list.find((y) => y.p.id === x.passage).p; srcDocs.set(p.doc, p.persp || {}); }
+    const srcDocs = new Map(); for (const x of quotes) { const p = list.find((y) => y.p.id === x.passage).p; srcDocs.set(p.doc + (embPersp(x, p).contemporaneous && !(p.persp && p.persp.contemporaneous) ? '#d' : ''), embPersp(x, p)); }
     const kinds = new Set([...srcDocs.values()].map((m) => !!m.contemporaneous));
     const mixed = kinds.size > 1, allDispatch = kinds.size === 1 && kinds.has(true);
     if (q.kind === 'author' && srcDocs.size > 1) {

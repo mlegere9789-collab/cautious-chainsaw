@@ -1,0 +1,393 @@
+[
+ {
+  "id": "POS-A-11A-001",
+  "fidelity": "corrected",
+  "why": "Act said Howard went by Creagerstown: passage says the Eleventh Corps was to march by Creagerstown (order). Date June 29 from sequence (heading OCR June 38; following day; next entry June 30). \"by 7 p. m.\" is a limit.",
+  "patch": {
+   "act": "The Eleventh Corps was in camp at Emmitsburg by 7 p. m. after about 20 miles (ordered to leave the turnpike and march by Creagerstown)",
+   "ap": true,
+   "wd": "date from sequence: the report prints \"June 38\" (OCR) for the morning of the previous day; the order of march was for \"the following day\"; next dated entry is June 30. Hour printed in the same sentence (\"by 7 p. m.\")."
+  }
+ },
+ {
+  "id": "POS-A-11A-002",
+  "fidelity": "passed_full_read",
+  "why": "Hour and date in the same sentence (\"At 8. 30 a. m. June 30\"); place printed; evening-at-Emmitsburg clause is in the same report (Aug 31 section)."
+ },
+ {
+  "id": "POS-A-11A-003",
+  "fidelity": "corrected",
+  "why": "Act said the corps \"with one brigade and the supply train at Emmitsburg\"; passage says \"with the exception of one brigade and the supply train\" (they were at Emmitsburg). Rest supported.",
+  "patch": {
+   "act": "On the evening of June 30 the First Corps, except one brigade and the supply train at Emmitsburg, was located in the vicinity of Marsh Run on the direct road from Emmitsburg to Gettysburg, nearly midway between those towns"
+  }
+ },
+ {
+  "id": "POS-A-11A-004",
+  "fidelity": "passed_full_read",
+  "why": "Hour in same sentence; unit and order printed; Emmitsburg place stated two sentences earlier (\"I then returned to Emmitsburg\")."
+ },
+ {
+  "id": "POS-A-11A-005",
+  "fidelity": "passed_full_read",
+  "why": "Hour in same sentence; \"him\" is Reynolds (named earlier); march order and \"at once set in motion\" printed."
+ },
+ {
+  "id": "POS-A-11A-006",
+  "fidelity": "corrected",
+  "why": "Road gloss \"(Emmitsburg Road)\" not printed (passage: \"the direct route\", \"the direct road\"); \"(morning)\" is the compiler reading of the continuing sentence after \"At 8 a. m.\"",
+  "patch": {
+   "pp": "the direct route",
+   "rd": "the direct route",
+   "wd": "compiler reading from order of events: sentence continues \"The column was at once set in motion\" after \"At 8 a. m.\"; no hour of its own",
+   "note_add": "Emmitsburg Road and GZ-041 are by inference; the report prints only \"the direct route\"."
+  }
+ },
+ {
+  "id": "POS-A-11A-007",
+  "fidelity": "passed_full_read",
+  "why": "Divisions, route by Horner's Mill, four batteries under Osborn and about 13 miles all in the same passage; morning follows the 8 a. m. start.",
+  "patch": {
+   "wd": "compiler reading from order of events: same sentence group as \"At 8 a. m.\" ... \"the column was at once set in motion\""
+  }
+ },
+ {
+  "id": "POS-A-11A-008",
+  "fidelity": "corrected",
+  "why": "\"west of Gettysburg\" is not printed; dispatch says Reynolds moved \"to the front of the town\". Time 11.15 a. m. is in the same sentence.",
+  "patch": {
+   "pp": "the front of the town"
+  }
+ },
+ {
+  "id": "POS-A-11A-009",
+  "fidelity": "corrected",
+  "why": "Time is in the same sentence. The place \"(Howard on a high building facing west)\" is the earlier sentence; where Howard stood when Riddle came is not stated. Narrowed.",
+  "patch": {
+   "pp": "Gettysburg",
+   "note_add": "Howard was on the top of a high building in Gettysburg before the report of the wound reached him; the report does not say where he stood when Riddle brought the news."
+  }
+ },
+ {
+  "id": "POS-A-11A-010",
+  "fidelity": "passed_full_read",
+  "why": "Time and place in the same two sentences (\"Here General Schurz joined me before 12 m.\"; HQ near the cemetery on the highest point north of the Baltimore pike). Unit is Schurz as person.",
+  "patch": {
+   "note_add": "Unit id is Schurz's Third Division; Schurz was then instructed to take command of the Eleventh Corps."
+  }
+ },
+ {
+  "id": "POS-A-11A-011",
+  "fidelity": "passed_full_read",
+  "why": "Order text printed; \"(before 12.30 p. m.)\" is the compiler reading: it follows \"Schurz joined me before 12 m.\" and precedes \"About 12.30 [p. m.] General Buford sent me word\".",
+  "patch": {
+   "wd": "compiler reading from order of events: no hour for the order; it follows \"before 12 m.\" and precedes \"About 12.30 [p. m.]\""
+  }
+ },
+ {
+  "id": "POS-A-11A-012",
+  "fidelity": "corrected",
+  "why": "\"(July 1, noon)\" is not printed: the order has no hour, it falls between \"before 12 m.\" and \"About 12.30\". Window restated.",
+  "patch": {
+   "w": "(before 12.30 p. m., July 1)",
+   "wd": "compiler reading from order of events: no hour for this order; it follows \"Schurz joined me before 12 m.\" and precedes \"About 12.30 [p. m.] General Buford sent me word\""
+  }
+ },
+ {
+  "id": "POS-A-11A-013",
+  "fidelity": "corrected",
+  "why": "Act said the 12.30 is the preceding sentence; it is two sentences earlier (\"About 12.30 [p. m.] General Buford sent me word\", then the prisoners sentence), tied by the phrase \"About this time\".",
+  "patch": {
+   "act": "About this time (about 12.30 p. m., the time given two sentences earlier) the head of column of the Eleventh Corps entered and passed through the town",
+   "wd": "printed in the continuing sentence: \"About this time\" refers back two sentences to \"About 12.30 [p. m.]\"; \"[p. m.]\" is bracketed editorial text",
+   "note_add": "Correction: the 12.30 sentence is two sentences earlier (Buford word, then prisoners), not the immediately preceding sentence."
+  }
+ },
+ {
+  "id": "POS-A-11A-014",
+  "fidelity": "corrected",
+  "why": "Time \"(2.45 p. m.)\" in same sentence. \"north of the town\" not printed here; passage says in front of the Eleventh Corps, batteries on a slope between the Mummasburg and Harrisburg roads.",
+  "patch": {
+   "pp": "in front of the Eleventh Corps; a prominent slope between the Mummasburg and the Harrisburg roads"
+  }
+ },
+ {
+  "id": "POS-A-11A-015",
+  "fidelity": "passed_full_read",
+  "why": "\"About 4 p. m.\" in same sentence; fall-back order to Doubleday printed with Cemetery Hill and left of the Baltimore pike; hedge \"if he could not hold out longer\" kept."
+ },
+ {
+  "id": "POS-A-11A-016",
+  "fidelity": "passed_full_read",
+  "why": "\"At 4.10 p. m.\" in same sentence; orders to First and Eleventh Corps and their positions printed; no later contradiction."
+ },
+ {
+  "id": "POS-A-11A-017",
+  "fidelity": "passed_full_read",
+  "why": "\"At 4.30 p. m.\" in same sentence; columns reached Cemetery Hill, Wiedrich's battery broke a single attempt on the right, all printed."
+ },
+ {
+  "id": "POS-A-11A-018",
+  "fidelity": "corrected",
+  "why": "\"about 3 a. m.\" belongs to the preceding sentence (Meade met Howard at the cemetery gate); the disposition sentence has no hour. t removed.",
+  "patch": {
+   "w": null,
+   "t": null,
+   "ap": false,
+   "act": "Disposition of the Eleventh Corps on the morning of July 2 (after Meade's early visit): center near the Baltimore pike, First Division (Ames) on the right, Third (Schurz) in the center, Second (Steinwehr) on the left",
+   "wd": "time in a different sentence: \"about 3 a. m.\" (Meade met Howard at the cemetery gate; preceding sentence); the disposition sentence itself has no hour"
+  }
+ },
+ {
+  "id": "POS-A-11A-019",
+  "fidelity": "passed_full_read",
+  "why": "Hour range, direction, \"said to be\" hedge and \"within the batteries\" all in the passage (the last in the following continuing sentence). East Cemetery Hill in the place is by inference.",
+  "patch": {
+   "note_add": "\"(East Cemetery Hill)\" and GZ-005 are by inference from \"front of Ames\"; the report prints only \"along the front of Ames to the town of Gettysburg\"."
+  }
+ },
+ {
+  "id": "POS-A-11A-020",
+  "fidelity": "corrected",
+  "why": "\"(July 2, evening)\" is the compiler reading (follows the 7-8 p. m. attack sentence); place \"the right\" is ambiguous: \"upon his right\" follows Wadsworth. Narrowed to printed words.",
+  "patch": {
+   "pp": "to support General Ames; another brigade to the support of General Wadsworth, upon his right",
+   "wd": "compiler reading from order of events: follows the sentence \"commenced between 7 and 8 p. m.\"; no hour of its own"
+  }
+ },
+ {
+  "id": "POS-A-11A-021",
+  "fidelity": "corrected",
+  "why": "Time \"At 9.30 p. m.\" in same sentence. Place \"Cemetery Hill (original position)\": passage prints only \"the old position\"; Cemetery Hill is the earlier-described position by inference.",
+  "patch": {
+   "pp": "the old position",
+   "note_add": "Cemetery Hill (GZ-003) is by inference: the old position is the disposition described earlier for July 2."
+  }
+ },
+ {
+  "id": "POS-A-11A-022",
+  "fidelity": "passed_full_read",
+  "why": "\"At about 1 p. m.\" in same sentence; cannonade from west, northwest, north, northeast on the cemetery grounds printed."
+ },
+ {
+  "id": "POS-A-11A-023",
+  "fidelity": "corrected",
+  "why": "Time in heading and sentence; place \"Cemetery Hill\" not printed in the dispatch, which says \"this point\" (Headquarters Eleventh Corps).",
+  "patch": {
+   "pp": "this point",
+   "note_add": "The dispatch is headed Headquarters Eleventh Corps; \"this point\" is read as Cemetery Hill by inference."
+  }
+ },
+ {
+  "id": "POS-A-11A-024",
+  "fidelity": "passed_full_read",
+  "why": "\"At 3.30 p. m.\" in same sentence; \"Soon after\" ... infantry appeared on Seminary Ridge printed."
+ },
+ {
+  "id": "POS-A-11A-025",
+  "fidelity": "corrected",
+  "why": "\"(after 3.30 p. m.)\" is compiler reading from sequence; \"of Cemetery Hill\" after \"left and front\" is not printed. Narrowed.",
+  "patch": {
+   "pp": "the left and front",
+   "wd": "compiler reading from order of events: follows the 3.30 p. m. cease-fire and the repulse of the infantry line; no hour of its own"
+  }
+ },
+ {
+  "id": "POS-A-11A-026",
+  "fidelity": "corrected",
+  "why": "Dispatch dated July 4; positions printed. \"Cemetery Hill\" is not printed in this dispatch (it mentions a sketch of the position); place narrowed.",
+  "patch": {
+   "pp": "my right extending 300 yards east of the Two Taverns road"
+  }
+ },
+ {
+  "id": "POS-A-11A-027",
+  "fidelity": "passed_full_read",
+  "why": "\"On the evening of the 5th\" and \"that night\" continue into the encampment sentence; July 6 order for Emmitsburg printed in following sentences."
+ },
+ {
+  "id": "POS-A-11A-028",
+  "fidelity": "corrected",
+  "why": "\"north of the town\" is not printed (audit item): passage says pushed through the town and took a position near the pike leading toward Harrisburg. Road name Harrisburg road normalised; restored to printed wording.",
+  "patch": {
+   "pp": "the pike leading toward Harrisburg",
+   "rd": "the pike leading toward Harrisburg",
+   "note_add": "No compass direction is printed; the compiler reading \"north of the town\" and the name \"Harrisburg road\" (GZ-045) are by inference only."
+  }
+ },
+ {
+  "id": "POS-A-11A-029",
+  "fidelity": "corrected",
+  "why": "\"(afternoon)\" is not supported by this report: no hour printed for the brigade's successive positions or the rout. w removed.",
+  "patch": {
+   "w": null,
+   "wd": "compiler reading from order of events: the report gives no hour for this position or for being driven from it (\"afternoon\" is not printed); it follows \"left Emmitsburg early in the morning\" and several other positions"
+  }
+ },
+ {
+  "id": "POS-A-11A-030",
+  "fidelity": "corrected",
+  "why": "\"evening of July 1\" is not printed; passage says the hill was occupied after passing through the town and the division stayed there \"the two following days, the 2d and 3d\".",
+  "patch": {
+   "w": "the two following days, the 2d and 3d",
+   "wd": "compiler reading from order of events: the hill was occupied after the retreat through the town on July 1 (no hour printed); the report prints \"the two following days, the 2d and 3d\""
+  }
+ },
+ {
+  "id": "POS-A-11A-031",
+  "fidelity": "corrected",
+  "why": "Passage: left 100 men and 3 officers \"to scout the country in the neighborhood of the Greencastle road\"; claim said \"toward\" the road. Wording restored.",
+  "patch": {
+   "act": "75th Ohio marched from Emmitsburg on the morning of July 1 with about 160 officers and men, leaving 100 enlisted men and 3 commissioned officers to scout the country in the neighborhood of the Greencastle road"
+  }
+ },
+ {
+  "id": "POS-A-11A-032",
+  "fidelity": "passed_full_read",
+  "why": "\"about 1 p. m.\" and the northwest part of the city in the same sentence group (\"was sent immediately\"); regiment is the unit (Harris commanding)."
+ },
+ {
+  "id": "POS-A-11A-033",
+  "fidelity": "corrected",
+  "why": "Second report (April 1864) is about the Second Brigade, Harris assuming command, not the 75th Ohio regiment; unit changed to the brigade. Time \"late in the afternoon of the 1st of July\" is in the same sentence.",
+  "patch": {
+   "u": "us-11c-1d-ames",
+   "act": "Late afternoon July 1 Harris assumed command of the Second Brigade and took position by order of Ames at a stone wall on the right, nearly at right angles with the Baltimore road, throwing a heavy line of skirmishers into the edge of the town",
+   "note_add": "Unit changed from the 75th Ohio to the Second Brigade: the passage speaks of the brigade only."
+  }
+ },
+ {
+  "id": "POS-A-11A-034",
+  "fidelity": "passed_full_read",
+  "why": "\"until about 4 p. m., when we were again ordered ... the Seventy-fifth was placed at the stone wall\" is one sentence; \"about dusk\" attack, 17th Connecticut on the left and its removal all printed."
+ },
+ {
+  "id": "POS-A-11A-035",
+  "fidelity": "passed_full_read",
+  "why": "Both dates and orders are printed in the second report (before day on the 3d; early on the morning of the 4th, first to enter the town); unit is the Second Brigade."
+ },
+ {
+  "id": "POS-A-11A-036",
+  "fidelity": "passed_full_read",
+  "why": "Hour range and march through to the lower end of the town in the same sentence; unit named (17th Connecticut)."
+ },
+ {
+  "id": "POS-A-11A-037",
+  "fidelity": "passed_full_read",
+  "why": "Place and orders printed; \"(afternoon)\" is the compiler reading and follows from \"immediately ordered\" after the 1-2 p. m. arrival.",
+  "patch": {
+   "wd": "compiler reading from order of events: \"Four companies were immediately ordered out\" after the arrival \"between 1 and 2 p. m.\"; no hour of its own"
+  }
+ },
+ {
+  "id": "POS-A-11A-038",
+  "fidelity": "passed_full_read",
+  "why": "\"until 2 o'clock of the 2d instant\" printed with the picket duty; a.m./p.m. not printed (no t_iso); place printed."
+ },
+ {
+  "id": "POS-A-11A-039",
+  "fidelity": "passed_full_read",
+  "why": "\"7 p. m., when we were ordered to the extreme right\" and the lane/wall/battery place printed in one sentence; July 2 continuing from \"2 o'clock of the 2d\"."
+ },
+ {
+  "id": "POS-A-11A-040",
+  "fidelity": "passed_full_read",
+  "why": "Anchor \"We remained at this wall all night\" and \"during the whole of the 3d\" printed in the same sentence; relief by the 4th Ohio and change of front printed just before; \"(night of July 2; July 3)\" is the compiler reading of the continuing narrative.",
+  "patch": {
+   "wd": "compiler reading from order of events: follows the 7 p. m. fight of July 2; the same sentence prints \"all night and during the whole of the 3d instant\""
+  }
+ },
+ {
+  "id": "POS-A-11A-041",
+  "fidelity": "passed_full_read",
+  "why": "Both strength figures printed in the passage; report dated July 4."
+ },
+ {
+  "id": "POS-A-11A-042",
+  "fidelity": "corrected",
+  "why": "\"(afternoon)\" is not printed (report prints only \"upon the first day of the engagement\"). Place restated in printed words; battery identification [G, Fourth Artillery] is bracketed editorial text.",
+  "patch": {
+   "w": null,
+   "pp": "the extreme right; the woods on the left of the position occupied by the section of battery; fronting upon a small stream of water",
+   "wd": "compiler reading: no hour printed in this report; \"upon the first day of the engagement\" only, so afternoon is withdrawn",
+   "note_add": "\"[G, Fourth Artillery]\" is the editors' bracketed identification in the printed report."
+  }
+ },
+ {
+  "id": "POS-A-11A-043",
+  "fidelity": "passed_full_read",
+  "why": "\"On the evening of the 1st\" and \"until 2 p. m. of the 2d\" in the same sentence; place printed; Cemetery Hill gazetteer id by inference.",
+  "patch": {
+   "note_add": "GZ-003 is by inference; the report prints only \"the heights in the rear of Gettysburg\"."
+  }
+ },
+ {
+  "id": "POS-A-11A-044",
+  "fidelity": "corrected",
+  "why": "Time \"About 7 p. m.\" in the same sentence. Place \"the line on the hill (Second Brigade)\" is the compiler's; the sentence names no place. Removed.",
+  "patch": {
+   "pp": null,
+   "note_add": "The report names no place for the 7 p. m. engagement; the last stated position is \"about 100 rods in the rear\" of the heights after relief at 2 p. m."
+  }
+ },
+ {
+  "id": "POS-A-11A-045",
+  "fidelity": "passed_full_read",
+  "why": "\"at about 1 p. m. July 1\" in the same sentence; Gettysburg printed. The later 3 p. m. clause is the continuation of the same sentence (also claim 046)."
+ },
+ {
+  "id": "POS-A-11A-046",
+  "fidelity": "passed_full_read",
+  "why": "\"at about 3 p. m. marched through the town to the front, and engaged the enemy about half a mile north of the town\", lasted to about 4 p. m.: one sentence group; later move to the south end follows at an unstated hour."
+ },
+ {
+  "id": "POS-A-11A-047",
+  "fidelity": "corrected",
+  "why": "Hour and enemy appearance in same sentence. Place: passage says retiring \"behind a stone wall and in front of a battery\"; claim restated as printed.",
+  "patch": {
+   "pp": "behind a stone wall and in front of a battery"
+  }
+ },
+ {
+  "id": "POS-A-11A-048",
+  "fidelity": "passed_full_read",
+  "why": "Hour, date, cemetery and stone-fence location all in one sentence; Emmitsburg origin printed; no later order moves it before the 2 p. m. entry."
+ },
+ {
+  "id": "POS-A-11A-049",
+  "fidelity": "passed_full_read",
+  "why": "\"At 2 p. m.\" in same sentence as the move to the front of the two batteries and the support instruction for the 153rd PA; July 2 from the preceding \"On July 2, at 4 a. m.\".",
+  "patch": {
+   "note_add": "The regiment stayed in this position until 5 p. m. (next claim)."
+  }
+ },
+ {
+  "id": "POS-A-11A-050",
+  "fidelity": "corrected",
+  "why": "Passage: at 5 p. m. the regiment \"received orders\" to take a position half a mile north; because the enemy was \"about to push back\" a Twelfth Corps division, the order was then to move 1,000 steps backward. Claim said it took the position and that the division was pushed back.",
+  "patch": {
+   "act": "At 5 p. m. July 2 the regiment received orders to take a position about half a mile north of its position near the batteries; because the rebel infantry was about to push back a division of the Twelfth Corps on the right wing and threatened to attack in the rear, it then received the order to move 1,000 steps backward and keep the same front as before",
+   "pp": "about half a mile north from the above position; then 1,000 steps backward"
+  }
+ },
+ {
+  "id": "POS-A-11A-051",
+  "fidelity": "corrected",
+  "why": "Later order ignored (audit item): the line at 6.30 p. m. is the one after the order to move 1,000 steps backward keeping the same front, not the half-mile-north position. Place restated; activity (hedged 68th or 54th NY) is printed.",
+  "patch": {
+   "pp": "move 1,000 steps backward and keep the same front as before",
+   "wd": null,
+   "note_add": "The report does not say where the 1,000-step move left the line relative to the batteries; \"the line half a mile north of the batteries\" is withdrawn (it was the ordered position that the later order superseded)."
+  }
+ },
+ {
+  "id": "POS-A-11A-052",
+  "fidelity": "passed_full_read",
+  "why": "\"between 12 m. and 1 p. m.\" in the same sentence as the heavy artillery fire; July 3 stated at the start of the paragraph; same position as before the attack printed."
+ },
+ {
+  "id": "POS-A-11A-053",
+  "fidelity": "passed_full_read",
+  "why": "Morning of July 4 and two hours afterward printed in the same sentence; brigade marched to Gettysburg and regiment retook its former position near the cemetery."
+ }
+]

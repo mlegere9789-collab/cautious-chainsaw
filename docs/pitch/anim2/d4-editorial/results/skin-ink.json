@@ -3,81 +3,1467 @@
  "scenes": [
   {
    "scene": "The Angle, z15.5",
-   "tiles": 181,
-   "states": 724,
-   "over": [],
-   "labels": 79,
-   "labelOver": [],
-   "pins": 72,
+   "tiles": 174,
+   "states": 696,
+   "over": [
+    {
+     "key": "II + V Corps",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "II + V Corps",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "II + V Corps",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "II + V Corps",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "in Walker's Bde",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "in Walker's Bde",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "in Walker's Bde",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "in Walker's Bde",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "in 2nd Bde, 1st Div",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "in 2nd Bde, 1st Div",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "in 2nd Bde, 1st Div",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "in 2nd Bde, 1st Div",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "in 1st Div, XI Corps",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "in 1st Div, XI Corps",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "in 1st Div, XI Corps",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "in 1st Div, XI Corps",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "in Wofford's Bde",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "in Wofford's Bde",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "in Wofford's Bde",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "in Wofford's Bde",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "I + XI Corps",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "I + XI Corps",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "I + XI Corps",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "I + XI Corps",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "I + XI Corps, 2 of 4",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "I + XI Corps, 2 of 4",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "I + XI Corps, 2 of 4",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "I + XI Corps, 2 of 4",
+     "state": "arriving",
+     "over": 1.5
+    }
+   ],
+   "labels": 86,
+   "labelOver": [
+    {
+     "key": "Alexander",
+     "over": 63.5
+    },
+    {
+     "key": "McIntosh",
+     "over": 57.5
+    },
+    {
+     "key": "Page",
+     "over": 33
+    },
+    {
+     "key": "Pegram III",
+     "over": 61
+    },
+    {
+     "key": "B1NJ",
+     "over": 32.5
+    },
+    {
+     "key": "C4US",
+     "over": 37.5
+    },
+    {
+     "key": "109 PA",
+     "over": 43
+    },
+    {
+     "key": "19 MA",
+     "over": 39.5
+    },
+    {
+     "key": "78 NY",
+     "over": 39
+    },
+    {
+     "key": "111 PA",
+     "over": 38
+    },
+    {
+     "key": "28 MA",
+     "over": 41.5
+    },
+    {
+     "key": "97 NY",
+     "over": 39
+    },
+    {
+     "key": "15 MA",
+     "over": 39.5
+    },
+    {
+     "key": "95 NY",
+     "over": 39.5
+    },
+    {
+     "key": "107 PA",
+     "over": 40.5
+    },
+    {
+     "key": "4 VA",
+     "over": 31
+    },
+    {
+     "key": "114 PA",
+     "over": 40.5
+    },
+    {
+     "key": "1 MN",
+     "over": 32.5
+    },
+    {
+     "key": "22 NC",
+     "over": 39.5
+    },
+    {
+     "key": "16 MI",
+     "over": 34
+    },
+    {
+     "key": "105 PA",
+     "over": 43
+    },
+    {
+     "key": "88 PA",
+     "over": 38
+    },
+    {
+     "key": "III 3",
+     "over": 24.5
+    }
+   ],
+   "pins": 73,
    "pinOver": [],
-   "maxOver": 0,
-   "worst": null,
-   "maxLabelOver": 0
+   "maxOver": 1.5,
+   "worst": {
+    "key": "II + V Corps",
+    "state": "rest",
+    "over": 1.5,
+    "box": [
+     115,
+     30
+    ],
+    "ink": [
+     -55.5,
+     -15,
+     52,
+     16.5
+    ]
+   },
+   "maxLabelOver": 63.5
   },
   {
    "scene": "Wheatfield, z15",
-   "tiles": 156,
-   "states": 624,
-   "over": [],
-   "labels": 61,
-   "labelOver": [],
-   "pins": 60,
+   "tiles": 161,
+   "states": 644,
+   "over": [
+    {
+     "key": "4 states",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "4 states",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "4 states",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "4 states",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "II + V Corps",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "II + V Corps",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "II + V Corps",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "II + V Corps",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "I Corps, 2 of 4",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "I Corps, 2 of 4",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "I Corps, 2 of 4",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "I Corps, 2 of 4",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "Cavalry Corps, 1 of 2",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "Cavalry Corps, 1 of 2",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "Cavalry Corps, 1 of 2",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "Cavalry Corps, 1 of 2",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "McLaws's + Hood's Div, I Corps",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "McLaws's + Hood's Div, I Corps",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "McLaws's + Hood's Div, I Corps",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "McLaws's + Hood's Div, I Corps",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "Scales's + Lane's Bde",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "Scales's + Lane's Bde",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "Scales's + Lane's Bde",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "Scales's + Lane's Bde",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "I + XI Corps",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "I + XI Corps",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "I + XI Corps",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "I + XI Corps",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "in 2nd Div, XI Corps",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "in 2nd Div, XI Corps",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "in 2nd Div, XI Corps",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "in 2nd Div, XI Corps",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "III + V Corps, 2 of 4",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "III + V Corps, 2 of 4",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "III + V Corps, 2 of 4",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "III + V Corps, 2 of 4",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "in Early's Div, II Corps",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "in Early's Div, II Corps",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "in Early's Div, II Corps",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "in Early's Div, II Corps",
+     "state": "arriving",
+     "over": 1.5
+    }
+   ],
+   "labels": 79,
+   "labelOver": [
+    {
+     "key": "Page",
+     "over": 33
+    },
+    {
+     "key": "61 NY",
+     "over": 37.5
+    },
+    {
+     "key": "A4US",
+     "over": 37.5
+    },
+    {
+     "key": "14 TN",
+     "over": 37
+    },
+    {
+     "key": "19 MA",
+     "over": 39.5
+    },
+    {
+     "key": "78 NY",
+     "over": 39
+    },
+    {
+     "key": "13 NC",
+     "over": 37.5
+    },
+    {
+     "key": "97 NY",
+     "over": 39
+    },
+    {
+     "key": "15 MA",
+     "over": 39.5
+    },
+    {
+     "key": "7 TN",
+     "over": 31
+    },
+    {
+     "key": "1 DE",
+     "over": 28
+    },
+    {
+     "key": "56 PA",
+     "over": 37.5
+    },
+    {
+     "key": "107 PA",
+     "over": 40.5
+    },
+    {
+     "key": "26 NC",
+     "over": 40
+    },
+    {
+     "key": "114 PA",
+     "over": 40.5
+    },
+    {
+     "key": "88 PA",
+     "over": 38
+    },
+    {
+     "key": "60 NY",
+     "over": 40.5
+    },
+    {
+     "key": "27 PA",
+     "over": 36.5
+    },
+    {
+     "key": "2 WI",
+     "over": 30
+    },
+    {
+     "key": "16 GA",
+     "over": 35.5
+    },
+    {
+     "key": "38 GA",
+     "over": 39
+    },
+    {
+     "key": "16 NC",
+     "over": 38
+    },
+    {
+     "key": "11 NC",
+     "over": 33.5
+    },
+    {
+     "key": "8 NY",
+     "over": 32.5
+    }
+   ],
+   "pins": 61,
    "pinOver": [],
-   "maxOver": 0.5,
+   "maxOver": 1.5,
    "worst": {
-    "key": "44 AL",
-    "state": "arriving",
-    "over": 0.5,
+    "key": "4 states",
+    "state": "rest",
+    "over": 1.5,
     "box": [
-     66,
-     24
+     150,
+     30
     ],
     "ink": [
-     -33.5,
-     -12.5,
-     30,
-     12.5
+     -73,
+     -15,
+     63,
+     16.5
     ]
    },
-   "maxLabelOver": 0
+   "maxLabelOver": 40.5
   },
   {
    "scene": "whole field, z13.5",
-   "tiles": 99,
-   "states": 396,
-   "over": [],
+   "tiles": 138,
+   "states": 552,
+   "over": [
+    {
+     "key": "V/3/2",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "V/3/2",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "V/3/2",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "V/3/2",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "II/3/2",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "II/3/2",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "II/3/2",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "II/3/2",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "1",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "1",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "1",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "1",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "CAV/2/2",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "CAV/2/2",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "CAV/2/2",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "CAV/2/2",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "1",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "1",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "1",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "1",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "II/3/5",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "II/3/5",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "II/3/5",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "II/3/5",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "2",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "2",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "2",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "2",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "CAV/2/1",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "CAV/2/1",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "CAV/2/1",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "CAV/2/1",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "CAV/2/3",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "CAV/2/3",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "CAV/2/3",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "CAV/2/3",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "I/2/1",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "I/2/1",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "I/2/1",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "I/2/1",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "CAV/2/1",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "CAV/2/1",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "CAV/2/1",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "CAV/2/1",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "1",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "1",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "1",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "1",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "CAV/1",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "CAV/1",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "CAV/1",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "CAV/1",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "CAV/2",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "CAV/2",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "CAV/2",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "CAV/2",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "in Kane's Bde",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "in Kane's Bde",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "in Kane's Bde",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "in Kane's Bde",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "6 states",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "6 states",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "6 states",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "6 states",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "in Candy's Bde",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "in Candy's Bde",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "in Candy's Bde",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "in Candy's Bde",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "in Pickett's Div",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "in Pickett's Div",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "in Pickett's Div",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "in Pickett's Div",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "I Corps, 1 of 2",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "I Corps, 1 of 2",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "I Corps, 1 of 2",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "I Corps, 1 of 2",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "in Heth's Div, III Corps",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "in Heth's Div, III Corps",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "in Heth's Div, III Corps",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "in Heth's Div, III Corps",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "MI",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "MI",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "MI",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "MI",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "XI Corps, 2 of 3",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "XI Corps, 2 of 3",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "XI Corps, 2 of 3",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "XI Corps, 2 of 3",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "6 states",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "6 states",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "6 states",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "6 states",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "V Corps, 4 of 5",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "V Corps, 4 of 5",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "V Corps, 4 of 5",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "V Corps, 4 of 5",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "in 3rd Div, I Corps",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "in 3rd Div, I Corps",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "in 3rd Div, I Corps",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "in 3rd Div, I Corps",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "III + V Corps",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "III + V Corps",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "III + V Corps",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "III + V Corps",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "Both armies",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "Both armies",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "Both armies",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "Both armies",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "in II Corps",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "in II Corps",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "in II Corps",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "in II Corps",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "III Corps, 5 of 6",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "III Corps, 5 of 6",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "III Corps, 5 of 6",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "III Corps, 5 of 6",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "I + XI Corps, 16 of 23",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "I + XI Corps, 16 of 23",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "I + XI Corps, 16 of 23",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "I + XI Corps, 16 of 23",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "in Pender's Div",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "in Pender's Div",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "in Pender's Div",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "in Pender's Div",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "NY",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "NY",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "NY",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "NY",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "Both armies",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "Both armies",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "Both armies",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "Both armies",
+     "state": "arriving",
+     "over": 1.5
+    },
+    {
+     "key": "in II Corps",
+     "state": "rest",
+     "over": 2
+    },
+    {
+     "key": "in II Corps",
+     "state": "hover",
+     "over": 2
+    },
+    {
+     "key": "in II Corps",
+     "state": "selected",
+     "over": 2
+    },
+    {
+     "key": "in II Corps",
+     "state": "arriving",
+     "over": 2
+    }
+   ],
    "labels": 0,
    "labelOver": [],
-   "pins": 62,
+   "pins": 96,
    "pinOver": [],
-   "maxOver": 0,
-   "worst": null
+   "maxOver": 2,
+   "worst": {
+    "key": "in II Corps",
+    "state": "rest",
+    "over": 2,
+    "box": [
+     118,
+     30
+    ],
+    "ink": [
+     -57,
+     -15,
+     50,
+     17
+    ]
+   }
   },
   {
    "scene": "The Angle, z16.5",
-   "tiles": 166,
-   "states": 664,
+   "tiles": 164,
+   "states": 656,
+   "over": [
+    {
+     "key": "in Armistead's Bde",
+     "state": "rest",
+     "over": 1.5
+    },
+    {
+     "key": "in Armistead's Bde",
+     "state": "hover",
+     "over": 1.5
+    },
+    {
+     "key": "in Armistead's Bde",
+     "state": "selected",
+     "over": 1.5
+    },
+    {
+     "key": "in Armistead's Bde",
+     "state": "arriving",
+     "over": 1.5
+    }
+   ],
+   "labels": 90,
+   "labelOver": [
+    {
+     "key": "Pegram III",
+     "over": 61
+    },
+    {
+     "key": "1NYIND",
+     "over": 48
+    },
+    {
+     "key": "C4US",
+     "over": 37.5
+    },
+    {
+     "key": "D1NY",
+     "over": 35
+    },
+    {
+     "key": "57 NY",
+     "over": 39
+    },
+    {
+     "key": "78 NY",
+     "over": 39
+    },
+    {
+     "key": "90 PA",
+     "over": 38
+    },
+    {
+     "key": "25 OH",
+     "over": 39.5
+    },
+    {
+     "key": "28 MA",
+     "over": 41.5
+    }
+   ],
+   "pins": 56,
+   "pinOver": [],
+   "maxOver": 1.5,
+   "worst": {
+    "key": "in Armistead's Bde",
+    "state": "rest",
+    "over": 1.5,
+    "box": [
+     158,
+     30
+    ],
+    "ink": [
+     -77,
+     -15,
+     72,
+     16.5
+    ]
+   },
+   "maxLabelOver": 61
+  },
+  {
+   "scene": "Cemetery Hill, z17, dark family",
+   "tiles": 152,
+   "states": 608,
    "over": [],
-   "labels": 80,
-   "labelOver": [],
+   "labels": 94,
+   "labelOver": [
+    {
+     "key": "Page",
+     "over": 88
+    },
+    {
+     "key": "B1NJ",
+     "over": 200.5
+    },
+    {
+     "key": "C4US",
+     "over": 153
+    },
+    {
+     "key": "D1NY",
+     "over": 35
+    },
+    {
+     "key": "19 MA",
+     "over": 227.5
+    },
+    {
+     "key": "5 NH",
+     "over": 225.5
+    },
+    {
+     "key": "78 NY",
+     "over": 196.5
+    },
+    {
+     "key": "28 MA",
+     "over": 41.5
+    },
+    {
+     "key": "13 NC",
+     "over": 163.5
+    },
+    {
+     "key": "97 NY",
+     "over": 196
+    },
+    {
+     "key": "15 MA",
+     "over": 227
+    },
+    {
+     "key": "114 PA",
+     "over": 222
+    },
+    {
+     "key": "71 PA",
+     "over": 34
+    },
+    {
+     "key": "102 NY",
+     "over": 205.5
+    },
+    {
+     "key": "16 MI",
+     "over": 192.5
+    },
+    {
+     "key": "75 OH",
+     "over": 39
+    },
+    {
+     "key": "105 PA",
+     "over": 224
+    },
+    {
+     "key": "88 PA",
+     "over": 219
+    }
+   ],
    "pins": 52,
    "pinOver": [],
    "maxOver": 0,
    "worst": null,
-   "maxLabelOver": 0
-  },
-  {
-   "scene": "Cemetery Hill, z17, dark family",
-   "tiles": 148,
-   "states": 592,
-   "over": [],
-   "labels": 85,
-   "labelOver": [],
-   "pins": 44,
-   "pinOver": [],
-   "maxOver": 0,
-   "worst": null,
-   "maxLabelOver": 0
+   "maxLabelOver": 227.5
   }
  ]
 }

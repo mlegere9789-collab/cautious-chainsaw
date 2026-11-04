@@ -1,0 +1,22 @@
+{
+ "group": "PERF3",
+ "description": "CANDIDATE until registered (tools/t0/PERF3-README.md), bundle part: the unit canvas of the shipped routine no longer forces a layout inside the click.  Apply AFTER PERF2 (nothing overlaps).  Its page parts are PG-perf3.json and PG-zperf3.json.",
+ "patches": [
+  {
+   "id": "PERF3-lS-canvas-size",
+   "target": "js",
+   "find": "function lS(c,f,x,M,P,z,H,l,R){if(!c||!f||!x)return;const he=c.getContext(\"2d\"),Ee=f.getZoom(),{width:Se,height:Ie}=c.getBoundingClientRect();",
+   "repl": "function gtCvSize(c,f){var t=f.transform;return t&&t.width>0&&t.height>0&&c.parentNode===f.getContainer()?{width:t.width,height:t.height}:c.getBoundingClientRect()}function lS(c,f,x,M,P,z,H,l,R){if(!c||!f||!x)return;const he=c.getContext(\"2d\"),Ee=f.getZoom(),{width:Se,height:Ie}=gtCvSize(c,f);",
+   "expect": 1,
+   "note": "The shipped unit-canvas routine read the canvas size with getBoundingClientRect() at the top of every repaint.  A repaint from a click (the date jump, the step buttons) runs right after the React commit has changed the DOM, so the read forced the whole style and layout of the page inside the click handler (60-78 ms at 4x CPU on the phone, a 130 ms task).  The canvas fills the map container (position:absolute; inset:0) and Mapbox keeps that size in its transform (kept up to date by its own resize observer, which also fires the move event that repaints), so the size is read from there; a canvas that is not a direct child of the map container still asks the DOM.  The layout the new content needs is then done by the frame that paints it: the click no longer waits for it, the long task is not shorter (T0-P3-09 reports both)."
+  },
+  {
+   "id": "PERF3-entry-yield",
+   "target": "js",
+   "find": "var R4=Ok.exports;const z_=cS(R4);",
+   "repl": "var R4=Ok.exports;const z_=cS(R4);await new Promise(gtR=>setTimeout(gtR,0));",
+   "expect": 1,
+   "note": "r2: the entry module's evaluation is one task of 120-150 ms at 4x CPU on the phone, of which about 105 ms is the bundled Mapbox GL's own module code (its chunks are executed by the UMD wrapper that ends here) and the rest is the app's and the engine's module code that follows. A module may await at its top level: the task is cut right after Mapbox GL has been evaluated, so the long task counted by the blocking-time metric is the Mapbox part alone (about 105 ms) instead of both (about 150 ms): about 45-55 ms less on the 4x phone (interleaved n=5: median 385 -> 330). Nothing in the module runs between the two parts in a different order: the await is a timer turn, the statements after it are the statements that followed. The page's loader imports the entry with import(), which resolves when the module has finished evaluating, as before."
+  }
+ ]
+}

@@ -93,7 +93,8 @@ for (const f of ['netlify.toml', '_headers']) {
 }
 
 // ---- 2. storage keys and cache names ---------------------------------------------------------------------------------------
-const invKeys = [...inv.storage.localStorage, ...inv.storage.sessionStorage, ...inv.storage.cacheStorage].map((k) => k.match);
+const devSwitches = inv.storage.developer_switches || [];
+const invKeys = [...inv.storage.localStorage, ...inv.storage.sessionStorage, ...inv.storage.cacheStorage, ...devSwitches].map((k) => k.match);
 const litKeys = new Map();
 let dynamicSites = 0;
 const ST_RE = /\b(local|session)Storage\s*\.\s*(?:getItem|setItem|removeItem)\s*\(\s*(?:(["'`])([^"'`]+)\2|([A-Za-z_$][\w$]*))/g;
@@ -117,6 +118,17 @@ for (const [k, fs_] of [...litKeys].sort()) {
 }
 if (!badKeys) add('PASS', 'storage', `${[...litKeys.keys()].filter((k) => !k.startsWith('known:')).length} literal storage/cache names found, all inventoried (plus ${dynamicSites} dynamic accessor sites: Mapbox library keys built from "mapbox.eventData")`);
 for (const k of invKeys) if (!scanFiles.some((f) => read(f).includes(k))) add('WARN', 'storage-stale', `inventory key ${k} does not appear in this tree (fine for keys of a later train, e.g. gtbg_layout before R1b)`);
+
+// developer switches: a key the code can write but a visitor's ordinary use never does.  It is inventoried without a policy row ONLY while every file that writes it also carries the gate that
+// opens the developer panel (writer_gate, e.g. the ?tune query of the animation tuning panel); a write anywhere else FAILS, so a new writer cannot hide behind the exemption.
+for (const k of devSwitches) {
+  const esc = k.match.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const setRe = new RegExp('setItem\\s*\\(\\s*["\'`]' + esc + '["\'`]');
+  const writers = scanFiles.filter((f) => setRe.test(read(f)));
+  const ungated = writers.filter((f) => !read(f).includes(k.writer_gate));
+  if (ungated.length) add('FAIL', 'dev-switch', `${k.key} is written in ${ungated.join(', ')} without the developer-panel gate ${k.writer_gate}: it is a visitor-reachable write, disclose it in privacy.html (move the row to storage.localStorage)`);
+  else add('PASS', 'dev-switch', `${k.key}: ${writers.length ? `written only in ${writers.join(', ')}, which also carry ${k.writer_gate} (the hidden tuning panel)` : 'not written in this tree'}; read-only for a visitor, not listed in the privacy text (provisional decision G2)`);
+}
 
 for (const k of [...inv.storage.localStorage, ...inv.storage.sessionStorage].filter((x) => x.read_only)) {
   const esc = k.match.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');

@@ -12,10 +12,13 @@ export const CHROME_CSS = `
 }
 [data-gta]:not([data-gta="tip"]):not([data-gta="toast"]) { background: var(--gta-glass) !important; border: 1px solid var(--gta-edge) !important; border-top-color: color-mix(in srgb, var(--gta-brass) 55%, var(--gta-edge)) !important;
   border-radius: 5px !important; box-shadow: var(--gta-shadow) !important; -webkit-backdrop-filter: blur(12px) saturate(1.05) !important; backdrop-filter: blur(12px) saturate(1.05) !important; color: var(--gta-ink) !important; font-family: var(--gta-font) !important; }
-[data-gta]:not([data-gta="tip"]):not([data-gta="toast"])::before { content: ""; position: absolute; top: 14px; left: -1px; width: 4px; height: 30px; border-radius: 0 2px 2px 0; background: var(--gta-tone, var(--gta-brass)); pointer-events: none; }
+[data-gta]:not([data-gta="tip"]):not([data-gta="toast"]):not([data-collapsed])::before { content: ""; position: absolute; top: 14px; left: -1px; width: 4px; height: 30px; border-radius: 0 2px 2px 0; background: var(--gta-tone, var(--gta-brass)); pointer-events: none; }
 [data-gta="event"] { --gta-tone: var(--gta-high); } [data-gta="story"] { --gta-tone: var(--gta-story); } [data-gta="tour"] { --gta-tone: var(--gta-info); } [data-gta="unit"] { --gta-tone: var(--gta-brass); }
 [data-gta="hud"], [data-gta="minimap"] { background: var(--gta-glass-lo) !important; }
-[data-gta] * { font-family: var(--gta-font); } [data-gta] [style*="Georgia"], [data-gta] [style*="serif"] { font-family: var(--gta-serif) !important; color: var(--gta-title) !important; }
+[data-gta] * { font-family: var(--gta-font); } [data-gta] [style*="Georgia"], [data-gta] [style*="serif"]:not([style*="sans-serif"]) { font-family: var(--gta-serif) !important; color: var(--gta-title) !important; }      /* (not "sans-serif": it contains "serif" and used to turn every small label of the unit panel into cream Georgia, the Bivouac chip with it) */
+/* the app's own small inks on its dark card: the side letters U and C (#4477cc, #cc4433, #cc4444: 4.2:1 and 3.9:1) and its greys (#888 4.49:1, #777, #666: the day badge, the unit panel's second lines); they take the skin's lighter inks of the same hue (4.5:1 and more).  Elements that carry a background of their own are left alone. */
+[data-gta] [style*="color: rgb(68, 119, 204)"]:not([style*="background"]) { color: var(--gta-union) !important; } [data-gta] [style*="color: rgb(204, 68, 51)"]:not([style*="background"]), [data-gta] [style*="color: rgb(204, 68, 68)"]:not([style*="background"]) { color: var(--gta-confederate) !important; }
+[data-gta] [style*="color: rgb(136, 136, 136)"]:not([style*="background"]), [data-gta] [style*="color: rgb(119, 119, 119)"]:not([style*="background"]), [data-gta] [style*="color: rgb(102, 102, 102)"]:not([style*="background"]) { color: var(--gta-faint) !important; }
 [data-gta] button { font-family: var(--gta-font) !important; transition: background 140ms var(--gta-ease), color 140ms var(--gta-ease), border-color 140ms var(--gta-ease); }
 [data-gta] button[aria-label="Close"], [data-gta] button[aria-label^="Close"] { color: var(--gta-faint) !important; width: 24px; height: 24px; border-radius: 3px !important; display: inline-flex; align-items: center; justify-content: center; }
 [data-gta] button[aria-label="Close"]:hover, [data-gta] button[aria-label^="Close"]:hover { background: rgba(244,236,216,.12) !important; color: var(--gta-ink) !important; }
@@ -26,7 +29,7 @@ export const CHROME_CSS = `
 [data-gta="event"][data-gta-form="1"] > div:last-child[style*="italic"], [data-gta="event"][data-gta-form="2"] > div:last-child[style*="italic"] { display: none !important; }
 [data-gta="event"][data-gta-form="2"] { width: 330px !important; }
 /* an event card and a toast only tell: they have no action in their body, so the map under them stays draggable; their buttons keep the pointer */
-[data-gta="event"], [data-gta="toast"] { pointer-events: none !important; } [data-gta="event"] button, [data-gta="toast"] button { pointer-events: auto !important; }
+[data-gta="event"]:not([data-collapsed]), [data-gta="toast"] { pointer-events: none !important; } [data-gta="event"] button, [data-gta="toast"] button { pointer-events: auto !important; }
 [data-gta="story"][data-gta-form="1"] { max-height: 300px !important; } [data-gta="story"][data-gta-form="2"] { max-height: 200px !important; width: 300px !important; }
 
 /* the command toasts: the same glass, a flag-tab each */
@@ -35,21 +38,26 @@ export const CHROME_CSS = `
 [data-gta="toast"] > div * { font-family: var(--gta-font) !important; }
 
 /* the legend: the skin's own */
-[data-gta="legend"] > div:first-child > div:first-child, [data-gta="legend"] > [role="group"] { display: none !important; }
-[data-gta="legend"] > div:first-child { border-bottom: 0 !important; padding: 8px 8px 0 12px !important; justify-content: flex-end !important; position: absolute; right: 0; top: 0; z-index: 2; background: transparent !important; }
+[data-gta="legend"]:has(> [data-gta-legend]) > div:first-child > div:first-child, [data-gta="legend"]:has(> [data-gta-legend]) > [role="group"] { display: none !important; }      /* only once the skin's own legend is in the card: until then (engine not drawing yet, or switched off) the shipped legend keeps its tabs */
+[data-gta="legend"]:has(> [data-gta-legend]) > div:first-child { border-bottom: 0 !important; padding: 8px 8px 0 12px !important; justify-content: flex-end !important; position: absolute; right: 0; top: 0; z-index: 2; background: transparent !important; }
 [data-gta="legend"] { width: min(352px, calc(100vw - 32px)) !important; max-height: min(70vh, 640px); overflow-y: auto; }
+@media (max-width: 1239px) { html[data-layout="desktop"] [data-gta="legend"] { width: min(282px, calc(100vw - 32px)) !important; } }   /* the left rail is x 14..296: under 1240 px the event card stands at 312, so the legend stays inside the rail */
 [data-gta-legend] { padding: 12px 14px 14px; font-family: var(--gta-font); color: var(--gta-ink); }
 [data-gta-legend] .gl-title { font: 700 13px/1.2 var(--gta-font); letter-spacing: .01em; color: var(--gta-title); margin: 0 28px 8px 0; }
 [data-gta-legend] canvas.gl-fig { display: block; margin: 0 0 8px; max-width: 100%; }
+[data-gta-legend] details { border-top: 1px solid var(--gta-line); } [data-gta-legend] details > ul.gl-rows { margin-top: 0; }
+[data-gta-legend] summary { display: flex; align-items: center; min-height: 44px; cursor: pointer; font: 600 12px/1.2 var(--gta-font); color: var(--gta-ink); list-style: none; } [data-gta-legend] summary::-webkit-details-marker { display: none; }
+[data-gta-legend] summary::before { content: ""; flex: none; margin-right: 9px; border: solid transparent; border-width: 4px 0 4px 6px; border-left-color: currentColor; transition: transform 140ms var(--gta-ease); } [data-gta-legend] details[open] > summary::before { transform: rotate(90deg); }
+[data-gta-legend] summary:focus-visible { outline: 2px solid #fff; outline-offset: 2px; box-shadow: 0 0 0 4px rgba(0,0,0,.55); }
 [data-gta-legend] ul.gl-rows { list-style: none; margin: 0; padding: 0; } [data-gta-legend] li { display: grid; grid-template-columns: 22px 1fr auto; column-gap: 8px; align-items: start; padding: 5px 0; border-top: 1px solid var(--gta-line); font: 400 12px/1.35 var(--gta-font); }
 [data-gta-legend] .gl-sw { width: 20px; height: 14px; background-size: 100% 100%; background-repeat: no-repeat; border-radius: 2px; margin-top: 1px; } [data-gta-legend] .gl-tx { color: var(--gta-ink); }
-[data-gta-legend] em.ev, #gta-tip span.ev { font: 600 10px/1.2 var(--gta-font); font-style: normal; letter-spacing: .04em; text-transform: uppercase; padding: 1px 5px; border: 1px solid currentColor; border-radius: 2px; white-space: nowrap; }
+[data-gta-legend] em.ev, #gta-tip span.ev { font: 600 12px/1.2 var(--gta-font); font-style: normal; letter-spacing: .02em; text-transform: uppercase; padding: 1px 5px; border: 1px solid currentColor; border-radius: 2px; white-space: nowrap; }
 .ev-Documented { color: #7fd6b2; } .ev-Modelled { color: #e8bf5a; } .ev-Computed { color: #a9bff0; } .ev-Contested { color: #f2905a; } .ev-Measured { color: #7fd0e0; } .ev-Unknown { color: #b6bcc6; } .ev-Design { color: #c6b6ee; }
 
 /* the hover card */
 #gta-tip { position: fixed; left: 0; top: 0; z-index: 600; width: 250px; padding: 9px 12px 10px; border-radius: 5px; background: var(--gta-glass); border: 1px solid var(--gta-edge); border-top-color: color-mix(in srgb, var(--gta-brass) 55%, var(--gta-edge)); box-shadow: var(--gta-shadow); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); color: var(--gta-ink); font-family: var(--gta-font); transition: opacity 140ms var(--gta-ease); pointer-events: none; }
 #gta-tip::before { content: ""; position: absolute; top: 10px; left: -1px; width: 4px; height: 24px; border-radius: 0 2px 2px 0; background: var(--gta-brass); } #gta-tip[data-tone="union"]::before { background: var(--gta-union); } #gta-tip[data-tone="confederate"]::before { background: var(--gta-confederate); }
-#gta-tip .gt-kick { font: 700 10px/1.2 var(--gta-font); letter-spacing: .1em; text-transform: uppercase; color: var(--gta-brass); } #gta-tip[data-tone="union"] .gt-kick { color: var(--gta-union); } #gta-tip[data-tone="confederate"] .gt-kick { color: var(--gta-confederate); }
+#gta-tip .gt-kick { font: 700 12px/1.2 var(--gta-font); letter-spacing: .06em; text-transform: uppercase; color: var(--gta-brass); } #gta-tip[data-tone="union"] .gt-kick { color: var(--gta-union); } #gta-tip[data-tone="confederate"] .gt-kick { color: var(--gta-confederate); }
 #gta-tip .gt-title { font: 700 14px/1.25 var(--gta-font); color: var(--gta-title); margin: 3px 0 4px; } #gta-tip .gt-line { font: 400 12px/1.4 var(--gta-font); color: var(--gta-muted); } #gta-tip .gt-ev { margin-top: 6px; display: flex; gap: 6px; flex-wrap: wrap; }
 @media (prefers-reduced-motion: reduce) { [data-gta], [data-gta] *, #gta-tip { transition: none !important; } }
 @media (max-width: 700px) { #gta-tip { display: none; } }

@@ -24,6 +24,9 @@ import { dayTracker } from '../../tools/historian/ingest/times.mjs';
 const RAW = path.join(ROOT, 'historian-src/raw/or27'), TABLES = path.join(ROOT, 'historian-src/corpus/or27');
 const need = available() ? false : NEED;
 const J = (f) => JSON.parse(fs.readFileSync(path.join(ROOT, f), 'utf8'));
+// A quote of a dispatch is a document of Part 3 or, since the engine reads the dispatches that Parts 1 and 2 print inside a report (historian-src/core/embedded.js), a quote whose attribution says it is a dispatch printed within a report. The
+// first form of these tests held that every quote is of Part 3, when only Part 3 was indexed as dispatches; a dispatch of Halleck's to Hooker printed at pt. 1, p. 41 is a dispatch Halleck wrote to Hooker (changed 2026-10-22, R1e-ACC).
+const isDispatchQuote = (b) => /^or27-3:/.test(b.passage) || (/^or27-[12]:/.test(b.passage) && /^dispatch dated /.test(String(b.attrib)));
 const seg = (text) => segmentDispatches({ text, pages: [{ offset: 0, page: 1 }] }, { part: 3 }).docs;
 
 // ---- RB-PG ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -136,9 +139,9 @@ test('RB-EN-1 (c) the engine never claims there is no dispatch without saying wh
   assert.equal(a.mode, 'partial'); assert.match(a.text, /did not find a dispatch or letter from .*Pleasonton dated June 4, 1863/); assert.match(a.text, /What I searched: the \d+ passages of dispatches, letters and orders in Part 3 whose printed signature reads “Pleasonton”/);
   assert.match(a.text, /The volume prints \d+ passages of dispatches dated June 4/, 'and what exists that day'); assert.match(a.text, /A signature the scan garbled is not among those, so this does not show that none was written/, 'and why the answer is not "none exists"');
   a = await ask('what did Pleasonton write to Meade on June 9');
-  assert.equal(a.mode, 'answer'); assert.match(a.text, /None of .*Pleasonton.* dispatches of June 9 is addressed to “Meade”; the \d+ he wrote that day went to .*Stahel.*Hooker/s); assert.ok(quotesOf(a).length >= 1 && quotesOf(a).every((b) => /^or27-3:/.test(b.passage)));
+  assert.equal(a.mode, 'answer'); assert.match(a.text, /None of .*Pleasonton.* dispatches of June 9 is addressed to “Meade”; the \d+ he wrote that day went to .*Stahel.*Hooker/s); assert.ok(quotesOf(a).length >= 1 && quotesOf(a).every((b) => isDispatchQuote(b)));
   a = await ask('what did Slocum telegraph on July 2'); assert.ok(quotesOf(a).length >= 1 && !/print no dispatch/.test(a.text));
-  a = await ask('what did Pleasonton write on June 20'); assert.ok(quotesOf(a).length >= 1 && quotesOf(a).every((b) => /dated June 20, 1863/.test(a.text) && /^or27-3:/.test(b.passage)), 'a dated "write" is a question of the dispatches of that day');
+  a = await ask('what did Pleasonton write on June 20'); assert.ok(quotesOf(a).length >= 1 && quotesOf(a).every((b) => /dated June 20, 1863/.test(a.text) && isDispatchQuote(b)), 'a dated "write" is a question of the dispatches of that day');
   a = await ask('what did Kelley write to Averell'); assert.ok(quotesOf(a).length >= 1 && quotesOf(a).every((b) => /Averell/.test(b.text.slice(0, 80))), 'a name the typo repair would turn into a registry name ("Kelly") is asked of the corpus as written first');
 });
 test('RB-EN-2 (d) a time asked of a day is answered with that day\'s clocks or the answer says the author gives none for it and which days he does give', { skip: need, timeout: 600000 }, async () => {
@@ -162,7 +165,7 @@ test('RB-EN-4 an author the site\'s registry does not hold is answered from the 
   const k = await or27(); const eng = k.fresh();
   let a = await eng.ask('what time did Ruger say fire was opened on the enemy’s position on the morning of July 3'); assert.equal(a.intent, 'reported-time'); assert.ok(quotesOf(a).some((b) => /4\.30 o/.test(b.text))); assert.match(a.text, /Thomas H\. Ruger/);
   a = await eng.ask('what time did Dobke say the enemy’s batteries opened on July 2'); assert.ok(quotesOf(a).some((b) => /4 p\. m\. of July 2/.test(b.text)));
-  a = await eng.ask('what did Halleck write to Hooker'); assert.ok(quotesOf(a).length >= 1 && quotesOf(a).every((b) => /^or27-3:/.test(b.passage) && /Hooker/.test(b.text.slice(0, 120))));
+  a = await eng.ask('what did Halleck write to Hooker'); assert.ok(quotesOf(a).length >= 1 && quotesOf(a).every((b) => isDispatchQuote(b) && /Hooker/.test(b.text.slice(0, 120))));
   a = await eng.ask('what did Smithwick report about Gettysburg'); assert.equal(quotesOf(a).length, 0); assert.doesNotMatch(a.text, /Smithwick wrote/);
 });
 

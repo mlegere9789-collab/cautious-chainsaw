@@ -136,6 +136,12 @@ export function dayRefs(sentence, { month = 7 } = {}) {
   for (const m of s.matchAll(new RegExp(String.raw`\b(${MON_RE})\.?\s*${ORD}(?![\d:.]\s?\d{2}\s?[ap])(?!\s?(?:[ap]\.?\s?m\b|o.?clock))`, 'gi'))) {
     const mo = MONTHS[m[1].replace(/\s/g, '').slice(0, 3).toLowerCase()], d = +m[2]; if (d >= 1 && d <= 31) out.push({ m: mo, d, kind: 'date', at: m.index });
   }
+  // the OCR prints the figure 1 as a lower-case i or l in a journal's day heading ("July i. - Anderson's and Johnson's divisions ..." in the diary of Kershaw's brigade, 3 passages of volume 27 part 2):
+  // read as the 1st only where the heading is what it is, a month name and the letter alone, closed by a full stop or a comma and followed by a dash or a capital (never "July l, 1863" inside a sentence about a unit)
+  for (const m of s.matchAll(new RegExp(String.raw`(?:^|[\s.])(${MON_RE})\.?\s*([il])(?=[.,]\s*(?:[-–—·�]|[A-Z]))`, 'g'))) {
+    const mo = MONTHS[m[1].replace(/\s/g, '').slice(0, 3).toLowerCase()];
+    out.push({ m: mo, d: 1, kind: 'date', at: m.index + m[0].match(/^[\s.]*/)[0].length });
+  }
   for (const m of s.matchAll(new RegExp(String.raw`\b${ORD}\s+(instant|inst\b\.?|ultimo|ult\b\.?|proximo|prox\b\.?)`, 'gi'))) {
     const d = +m[1]; if (d < 1 || d > 31) continue; const w = m[2].toLowerCase();
     out.push({ m: /^ult/.test(w) ? (month === 1 ? 12 : month - 1) : /^prox/.test(w) ? month + 1 : month, d, kind: 'ord', at: m.index, rel: w });
@@ -175,11 +181,19 @@ export const isoDay = (st, y = 1863) => (st ? `${y}-${String(st.m).padStart(2, '
  *   basis 'none'     no day has been named yet
  * ctx.month is the month of the document's own date (for "instant" and "ultimo"); ctx.start is a day the document opens with (a dispatch's dateline)
  */
+/** a sentence in which the unit settles for the night ("My division bivouacked for the night on the ground occupied by us", "we lay on our arms for the night"): what the report says next, at a clock before evening, happened the next day */
+const NIGHT = /\b(?:bivouac(?:k)?ed|encamped|camped|rested|slept|lay|halted|stopped|remained|went into camp|were left)\b[^.;]{0,60}?\bfor\s+the\s+night\b/i;
 export function dayTracker({ month = 7, start = null } = {}) {
   let cur = start ? { m: start.m, d: start.d } : null;
   let age = 0, touched = false;                                   // sentences since the register was set; whether this sentence set it
+  let pendingNight = false;                                       // a sentence said the unit settled "for the night": the next clock before 6 p. m. is of the next day (see NIGHT)
   const inWindow = (m, d) => m === 6 ? d >= 28 : m === 7 ? d <= 5 : false;
-  const apply = (r) => {
+  // "had had nothing to eat since the morning of the 2d": a day named as the START of a state that goes on is where the state began, not where the narrative stands (Wilcox, whose report of the 3d
+  // named the 2d once in passing and had the register moved back to it for the 3.20 p. m. of the same account)
+  const SINCE = /\bsince\b[^.;:,\n]{0,36}$/i;
+  const apply = (r, sentence = '') => {
+    if (cur && sentence && r.at !== undefined && (r.kind === 'date' || r.kind === 'ord' || r.kind === 'weekday') && SINCE.test(sentence.slice(Math.max(0, r.at - 44), r.at))) return null;
+    pendingNight = false;
     if (r.kind === 'date') { cur = { m: r.m, d: r.d }; age = 0; touched = true; return 'same'; }
     // a weekday names a day of the battle week only where the report is about that week (the register is in it, or nothing is known): "Thursday" in a report of June 25 is not July 2
     if (r.kind === 'weekday') { if (cur && !inWindow(cur.m, cur.d)) return null; cur = { m: r.m, d: r.d }; age = 0; touched = true; return 'same'; }
@@ -223,7 +237,12 @@ export function dayTracker({ month = 7, start = null } = {}) {
     let ri = 0, basis = null, once = null;
     for (const sp of spans) {
       const pos = typeof sp === 'number' ? sp : sp.s, end = typeof sp === 'number' ? sp : sp.e;
-      while (ri < refs.length && refs[ri].at < pos) { const b = apply(refs[ri]); if (b === 'rel-once') once = refs[ri]; else { once = null; if (b) basis = b; } ri++; }
+      while (ri < refs.length && refs[ri].at < pos) { const b = apply(refs[ri], sentence); if (b === 'rel-once') once = refs[ri]; else { once = null; if (b) basis = b; } ri++; }
+      // the unit settled for the night in an earlier sentence and this clock is before 6 p. m. with no day of its own: it is the next day ("My division bivouacked for the night ... About 2 p. m. a terrific artillery fire opened")
+      if (pendingNight && cur && !basis && !once && typeof sp !== 'number' && sp.min !== null && sp.min !== undefined) {
+        if (sp.min < 1080 && !after(sentence + ahead, end, refs)) { cur = addDay(cur, 1); age = 0; touched = true; basis = 'rel'; }
+        pendingNight = false;
+      }
       const aft = typeof sp === 'number' ? null : after(sentence + ahead, end, refs);
       const ad = aft ? (aft.kind === 'rel' ? (cur ? addDay(cur, aft.delta) : null) : dayOfRef(aft)) : null;
       if (ad) out.push({ day: ad, basis: aft.kind === 'rel' ? 'rel' : 'same', age: 0 });
@@ -235,7 +254,8 @@ export function dayTracker({ month = 7, start = null } = {}) {
         out.push(later ? { day: { m: later.m || month, d: later.d }, basis: 'later', age: 0 } : { day: null, basis: 'none', age: 0 });
       }
     }
-    while (ri < refs.length) { const b = apply(refs[ri]); ri++; if (b && b !== 'rel-once') basis = b; }
+    while (ri < refs.length) { const b = apply(refs[ri], sentence); ri++; if (b && b !== 'rel-once') basis = b; }
+    if (NIGHT.test(sentence) && cur && !(refs.length && refs[refs.length - 1].at > (NIGHT.exec(sentence) || { index: 0 }).index)) pendingNight = true;
     if (!touched) age++;
     return out;
   };

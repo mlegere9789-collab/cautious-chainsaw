@@ -8,7 +8,7 @@
 //   LayoutResult = { placed:[{t, cx, cy, off:{ox,oy}, chip, label, displaced}], dropped:[], items:[...], labelsShown, ms, rounds, stats }   (layout px, origin = tiles.ORIGIN at zoom z)
 import { solve, newState, chipRect, pinRect, plain } from './engine.mjs';
 import { buildLeaves, refreshTile } from './tiles.mjs';
-import { FRAME_MS } from './spec.mjs';
+import { FRAME_MS, dMaxAt } from './spec.mjs';
 
 const certified = {
   id: 'certified', label: 'Certified hybrid (zero overlap)',
@@ -18,15 +18,16 @@ const certified = {
     return {
       reset() { state = newState(); },
       solve({ vis, z, dtMs, selectedId, spec, cold = false }) {
-        const leaves = buildLeaves(vis, z, spec, selectedId);
-        const cfg = { spec, z, dMax: spec.dMax, pinProtect: spec.pinProtect, inertia: true, sticky: true, seniority: 1e7, labels: spec.labels, aggregate: true, dt: Math.max(0.01, dtMs / FRAME_MS), static: cold };
+        spec.zoom = z; dMaxAt(spec, z); const leaves = buildLeaves(vis, z, spec, selectedId);
+        const cfg = { spec, z, selectedId, dMax: spec.dMax, pinProtect: spec.pinProtect, inertia: true, sticky: true, seniority: 1e7, labels: spec.labels, aggregate: true, dt: Math.max(0.01, dtMs / FRAME_MS), static: cold };
         const r = solve(ctx.all, leaves, cfg, state);
         r.leaves = leaves; return r;
       },
       /** between two solves: move the solved tiles with their units (same offsets, new true positions).  false = the set of units changed, solve again. */
       refresh(L, { vis, z, spec, selectedId }) {
+        dMaxAt(spec, z);
         if (!L || vis.length !== L.leaves.length) return false;
-        const leaves = buildLeaves(vis, z, spec, selectedId); const map = new Map(leaves.map((l) => [l.ids[0], l]));
+        spec.zoom = z; const leaves = buildLeaves(vis, z, spec, selectedId); const map = new Map(leaves.map((l) => [l.ids[0], l]));
         for (const l of L.leaves) if (!map.has(l.ids[0])) return false;
         for (const p of L.placed) { refreshTile(p.t, map); p.cx = p.t.ax + p.off.ox; p.cy = p.t.ay + p.off.oy; }
         L.leaves = leaves; L.ms = 0; return true;

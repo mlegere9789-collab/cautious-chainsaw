@@ -1,0 +1,20 @@
+III-04 re-check notes (54 claims; reports OR27-1-R140 to R147; open gaps none in batch)
+
+Counts per fc: passed_full_read 44, corrected 10, downgraded 0, split 0.
+
+Corrected (10): graham-114pa-08, graham-114pa-09, POS-B-us-3c-82, graham-141pa-02, ward-3me-07, ward-3me-12, ward-3me-13, ward-4me-03, ward-4me-04, ward-86ny-09.
+
+Per pattern (claims):
+- time from another sentence: 1 (POS-B-us-3c-82: "forenoon of July 2" dates the 141st Pa move, not Sickles' headquarters; wp removed)
+- merged second report: 0
+- later order ignored / merged positions: 1 (ward-4me-03: advance to rocky hill and later change of position to left of battery merged)
+- compass/road gloss: 0 (POS-B-us-3c-82: "on the road" wording corrected; a road leads from the house to the pike)
+- hedge/condition dropped: 2 (graham-114pa-08 "get ready to be relieved"; ward-86ny-09 "say 300 yards", "about 100 yards")
+- unit identity gloss: 0 corrected; 2 flagged, not fixable by decision fields (graham-11 and graham-12 carry unit_id us-3c-1d-graham, brigade, but the activity text is the 141st Pa's own figures/movement; Madill commands the 141st. Lead may want to re-home graham-11 to us-3c-1d-graham-141pa.)
+- OCR digit: 3 annotated, no change in t (ward-3me-04 "early mom."; ward-86ny-04 and -05 "About 13 m." already t null, ocr true; wdesc set to 'OCR glyph only')
+- meridian inferred: 0 (all clock phrases print a.m./p.m. or "m.")
+- other: place.printed was a person ("General Webb", ward-3me-12) replaced by printed unit/battery phrases; activity overstated ("with the sharpshooters" ward-3me-07; "relieving the Second Corps skirmishers" ward-3me-13; wounding placed on the rocky hill ward-4me-04; "lay in rear of the batteries July 4-5" graham-114pa-09; "as the battery withdrew" graham-141pa-02).
+
+Gazetteer: GZ-041 (graham-141pa-01), GZ-014 (ward-3me-08), GZ-013 (ward-86ny-05) kept but marked by inference in ppd; passages print no road or owner for the field, peach orchard and wheat-field.
+
+Systematic: claims whose activity is a compiler paraphrase of a long narrative (position changes within one paragraph) tend to merge two moments; the quote often covers only the first. Dates for claims without a date phrase rest on report context (dbasis added). No second-report merges in this batch; the note fields mentioning other reports (3me-12) were not repeated in activity.

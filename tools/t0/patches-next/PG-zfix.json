@@ -1,0 +1,63 @@
+{
+ "group": "PG-zfix",
+ "description": "Release 1 round 4 acceptance fixes: /watch-together does not close a Live Sync connection while it is still being opened (no console warning on a repeated Host or Join); sorts after PG-zperf5",
+ "train": "R1f",
+ "patches": [
+  {
+   "id": "R1F-wt-retire-fn",
+   "target": "watch-together.html",
+   "find": "  document.getElementById('host-btn').addEventListener('click', () => {\n    setSyncStatus('connecting…', 'connecting');\n    withPeerJs(startHost);",
+   "repl": "  // R1F: a peer whose connection to the broker is still being opened is destroyed once it has opened or failed, not while it connects (closing a connecting WebSocket makes the browser log a warning)\n  function retirePeer(p) {\n    if (!p) return;\n    if (p.open || p.destroyed || p.disconnected) { p.destroy(); return; }\n    const settle = () => { try { p.destroy(); } catch (e) {} };\n    p.on('open', settle); p.on('error', settle); p.on('disconnected', settle);\n  }\n\n  document.getElementById('host-btn').addEventListener('click', () => {\n    setSyncStatus('connecting…', 'connecting');\n    withPeerJs(startHost);",
+   "expect": 1,
+   "note": "the helper, placed before the Host handler"
+  },
+  {
+   "id": "R1F-wt-host-retire",
+   "target": "watch-together.html",
+   "find": "    if (peer) peer.destroy();\n    isHost = true; connections = [];",
+   "repl": "    retirePeer(peer);\n    isHost = true; connections = [];",
+   "expect": 1,
+   "note": "startHost retires the previous peer without closing a connecting socket"
+  },
+  {
+   "id": "R1F-wt-host-me",
+   "target": "watch-together.html",
+   "find": "    peer = new Peer('gtbg-wt-' + code);\n    peer.on('open', () => {\n      setSyncStatus('hosting",
+   "repl": "    const me = peer = new Peer('gtbg-wt-' + code);\n    peer.on('open', () => {\n      if (peer !== me) return;\n      setSyncStatus('hosting",
+   "expect": 1,
+   "note": "the handlers of a retired host peer do not touch the page"
+  },
+  {
+   "id": "R1F-wt-host-error",
+   "target": "watch-together.html",
+   "find": "    peer.on('error', (err) => setSyncStatus('connection error — try again', 'error'));",
+   "repl": "    peer.on('error', (err) => { if (peer === me) setSyncStatus('connection error — try again', 'error'); });",
+   "expect": 1,
+   "note": "a retired host peer reports no error"
+  },
+  {
+   "id": "R1F-wt-join-retire",
+   "target": "watch-together.html",
+   "find": "    if (peer) peer.destroy();\n    isHost = false; connections = [];",
+   "repl": "    retirePeer(peer);\n    isHost = false; connections = [];",
+   "expect": 1,
+   "note": "startJoin retires the previous peer without closing a connecting socket"
+  },
+  {
+   "id": "R1F-wt-join-me",
+   "target": "watch-together.html",
+   "find": "    peer = new Peer();\n    peer.on('open', () => {\n      const conn = peer.connect(",
+   "repl": "    const me = peer = new Peer();\n    peer.on('open', () => {\n      if (peer !== me) return;\n      const conn = peer.connect(",
+   "expect": 1,
+   "note": "the handlers of a retired joining peer do not touch the page"
+  },
+  {
+   "id": "R1F-wt-join-error",
+   "target": "watch-together.html",
+   "find": "    peer.on('error', () => setSyncStatus('could not connect — check the code', 'error'));\n  }",
+   "repl": "    peer.on('error', () => { if (peer === me) setSyncStatus('could not connect — check the code', 'error'); });\n  }",
+   "expect": 1,
+   "note": "a retired joining peer reports no error"
+  }
+ ]
+}

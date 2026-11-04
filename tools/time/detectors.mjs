@@ -28,6 +28,7 @@
 import fs from 'node:fs';
 import * as acorn from 'acorn';
 import { P } from './lib.mjs';
+import { uncertaintyFnSource } from '../t0/clock/uncertainty-fn.mjs';
 
 // month names: full names in any case (july, JULY), abbreviations capitalised or upper case (Jul, JUL); not `may`, `mar`, `sep`, `oct`, `dec` in lower case (modal verbs, prose)
 const ci = (w) => w.replace(/[A-Za-z]/g, (c) => `[${c.toUpperCase()}${c.toLowerCase()}]`);
@@ -455,7 +456,12 @@ export const moduleInline = () => (fs.existsSync(INLINE) ? fs.readFileSync(INLIN
 export function exemptModule(files) {
   const inl = moduleInline();
   if (!inl) return files;
+  // The module's own text is more than the inlined module: the CLOCK group appends the "how sure is the clock" tooltip function (GTBGT.u / GTBGTime.u), generated from the anchors
+  // file by tools/t0/clock/uncertainty-fn.mjs. Its `Math.round(u/5)*5` rounds an UNCERTAINTY to five minutes (u is a bound in minutes, not a frame number) and was reported as
+  // an unattributed tick formula in every patched tree. It is exempt by exact bytes, like the module: an edited copy of it is not (the mutation tests keep that true).
+  const own = [inl];
+  try { const doc = JSON.parse(fs.readFileSync(P('data-src', 'time', 'time_anchors.json'), 'utf8')); own.push(uncertaintyFnSource(doc)); } catch { /* no anchors file: only the module itself is exempt */ }
   const out = {};
-  for (const [f, t] of Object.entries(files)) out[f] = t.includes(inl) ? t.split(inl).join('null'.padEnd(inl.length)) : t;
+  for (const [f, t] of Object.entries(files)) { let s = t; for (const x of own) if (x && s.includes(x)) s = s.split(x).join('null'.padEnd(x.length)); out[f] = s; }
   return out;
 }

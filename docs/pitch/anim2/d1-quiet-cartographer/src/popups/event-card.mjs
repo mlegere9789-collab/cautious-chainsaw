@@ -7,7 +7,7 @@
 //   * a ladder of forms: full (critical, slow playback) > compact > chip in the Chronicle strip; tier A for critical, B for high, C for medium; `low` rows are listed in the Chronicle only;
 //   * it points: the units named by the row get a leader line and a ring (the row's `units_involved`, the parent tile when a unit has none), the place text is shown;
 //   * its life is READING TIME in wall-clock seconds (popups/kit.mjs readMs), and the Chronicle can bring it back.
-import { clockLine, displayText, words, readMs, chipText, firstSentence, tickIndex, dedupeNames, ev, TONES } from './kit.mjs';
+import { clockLine, displayText, leadCase, words, readMs, chipText, firstSentence, tickIndex, dedupeNames, ev, TONES } from './kit.mjs';
 
 const cache = new WeakMap();
 const indexOf = (pd) => { let i = cache.get(pd.events); if (!i) { i = tickIndex(pd.events); cache.set(pd.events, i); } return i; };
@@ -16,7 +16,7 @@ const SIG_PRIORITY = { critical: 42, high: 20, medium: 10, low: 0 };
 
 /** the descriptor of one event card (exported for the tests and for the Chronicle, which re-creates a card from its row) */
 export function buildEventCard(e, api, via = 'play') {
-  const tok = api.tok; const sig = e.sig; const clk = clockLine(api.clock, e.tick); const { text, link } = displayText(e.text);
+  const tok = api.tok; const sig = e.sig; const clk = clockLine(api.clock, e.tick); const { text: rawText, link } = displayText(e.text); const text = leadCase(rawText);
   const tier = sig === 'critical' ? 'A' : sig === 'high' ? (tok('popup.event.highAs') === 'card' ? 'B' : 'C') : 'C';
   const names = dedupeNames(e.units.map(api.unitName)); const linked = link ? successionOf(api.pd, link) : null;
   const narrMode = tok('popup.event.narrative'); const inline = !!e.narrative && narrMode === 'inline';
@@ -68,5 +68,5 @@ export const eventCard = {
     const land = tok('popup.event.landTicks'); for (const e of api.landed(idx, land)) raise(e, 'land', land);
     return [];
   },
-  rows(ctx) { return ctx.pd.events.map((e) => ({ id: 'event-' + e.tick, tick: e.tick, kind: 'event', tone: e.sig, title: TONES[e.sig].label, text: displayText(e.text).text, place: e.place, low: e.sig === 'low', make: (api) => buildEventCard(e, api, 'reopen') })); },
+  rows(ctx) { return ctx.pd.events.map((e) => ({ id: 'event-' + e.tick, tick: e.tick, kind: 'event', tone: e.sig, title: TONES[e.sig].label, text: leadCase(displayText(e.text).text), place: e.place, low: e.sig === 'low', make: (api) => buildEventCard(e, api, 'reopen') })); },
 };

@@ -1,0 +1,114 @@
+"""Scope B, II Corps, Second Division: First Brigade regiments (R101-R103), Webb's Second Brigade (R104) and its regiments (R105-R108)."""
+from positions_claims import claim, gap
+
+J = 'OR27-1-R101'
+CO = 'OR27-1-R102'
+DA = 'OR27-1-R103'
+W = 'OR27-1-R104'
+DV = 'OR27-1-R105'
+SP = 'OR27-1-R106'
+HS = 'OR27-1-R107'
+CU = 'OR27-1-R108'
+D = 'us-2c-2d'
+JULY3_OTHERS = ['label:cal_noon', 'label:burke_10am', 'label:mul_noon', 'label:crs_2pm', 'label:mck_4pm3', 'label:sch_12', 'label:hanc_1pm']
+ITEMS = [
+    # ------------------------------------------------------------ Joslin (R101): 15th Mass
+    claim(D + '-harrow-15ma', 'position', J, r'we moved from our place of -bivouac, immediately in the', 'Early on the morning of July 2 moved from its bivouac, immediately in rear of the First Minnesota, and took position in close column by regiments near the battle-field, stacked arms; remained until about 4 p. m.',
+          when_printed='Early on the morning of the 2', date='1863-07-02', approx=True, place_printed='immediately in the rear of the First Minnesota', ocr=True,
+          note='The print reads "2(1" (OCR for 2d) and "-bivouac".'),
+    claim(D + '-harrow-15ma', 'movement', J, r'moved by order of General Harrow to the front of our batteries', 'About 4 p. m. (when the enemy opened fire from their batteries) Colonel Ward moved the regiment by order of Harrow to the front of the batteries; took position on the right of the 82nd NY, its left near a brick house about 200 yards to the front, nothing connecting on the right; built a small rail breastwork behind the fence',
+          when_printed='about 4 o\'clock in the afternoon', date='1863-07-02', t_iso='1863-07-02T16:00', approx=True, place_printed='a brick house about 200 yards to the front'),
+    claim(D + '-harrow-15ma', 'engagement', J, r'We now opened a\s+rapid fire, but being left alone', 'About half an hour after the move the pickets were driven in; the 82nd NY became engaged, then fell back; Colonel Ward mortally wounded; the 15th retired in some disorder, losing prisoners; reformed in rear of the batteries and rejoined the brigade',
+          when_printed='about half an hour', date='1863-07-02', approx=True, place_printed='in rear of the batteries'),
+    claim(D + '-harrow-15ma', 'night_position', J, r'moved after dark to the front line', 'After dark the brigade moved to the front line; the 15th Mass took position on the left of the First Minnesota, the extreme left of the brigade, and remained there until about 2.30 p. m. of the following day',
+          when_printed='after dark', date='1863-07-02', place_printed='on the left of the First Minnesota'),
+    claim(D + '-harrow-15ma', 'engagement', J, r'About 1 p\. m\. the enemy opened a heavy fire of artillery', 'July 3: about 1 p. m. the enemy opened a heavy artillery fire (1 man killed, 2 wounded); soon after an infantry attack on the right of the lines; the regiment moved by the right flank a short distance and fought about an hour; then deployed as skirmishers to the front until relieved about 8 a. m. July 4',
+          when_printed='About 1 p. m.', date='1863-07-03', t_iso='1863-07-03T13:00', approx=True, place_printed='the right of our lines', label='jos_1pm', conflicts=JULY3_OTHERS),
+    claim(D + '-harrow-15ma', 'strength_note', J, r'We went into action with 18 officers and 221 men', 'The 15th Mass went into action with 18 officers and 221 men',
+          date='1863-07-02', place_printed='into action', support=True),
+    # ------------------------------------------------------------ Coates (R102): 1st Minnesota
+    claim(D + '-harrow-1mn', 'position', CO, r'About 3 o\'clock on the morning of July 2, we were ordered into', '1st Minnesota ordered into position about 3 a. m. July 2 near the center of the line, to the left of the town',
+          when_printed='About 3 o\'clock on the morning of July 2', date='1863-07-02', t_iso='1863-07-02T03:00', approx=True, place_printed='to the left of the town', note='"he battle commenced at daylight" (OCR) in the same sentence is a misstatement of July 1 events as printed.'),
+    claim(D + '-harrow-1mn', 'movement', CO, r'we were moved to support Battery C, Fourth', 'About 5 p. m. the regiment, not actively engaged until then under artillery fire, moved to support Battery C, 4th US Artillery; Company F detached as skirmishers, Company L as sharpshooters; then ordered to advance at double-quick down the slope upon the rebel line',
+          date='1863-07-02', approx=True, place_printed='down the slope of the hill', ocr=True, note='The print has "5 p.m.." with a stray period; the unit it supported (Lieutenant Thomas\'s Battery C, 4th US) belongs to the Artillery Reserve (scope C).'),
+    claim(D + '-harrow-1mn', 'engagement', CO, r'lost in killed and wounded more than two-tnirds', 'Charged down the slope upon the rebel line, stopped the advance and lost more than two-thirds of those engaged; Colonel Colvill, Lt. Col. Adams and Major Downie severely wounded; the regiment was then moved to the right near its first position and slept on arms',
+          when_printed='during the night', date='1863-07-02', approx=True, place_printed='near the position first occupied by us', ocr=True),
+    claim(D + '-harrow-1mn', 'engagement', CO, r'about 10 a\. m\. opened upon the center', 'July 3: about 10 a. m. the enemy opened a most severe artillery fire on the center, continued without intermission until 3 p. m., when heavy infantry columns advanced; the regiment moved by the right flank to oppose them and helped capture about 500 prisoners',
+          when_printed='about 10 a. m.', date='1863-07-03', t_iso='1863-07-03T10:00', approx=True, place_printed='the center, where we were posted', label='coa_10am', conflicts=JULY3_OTHERS + ['label:har_1pm', 'label:gib_1pm'],
+          note='The cannonade is said to have run "without intermission" from about 10 a. m. to 3 p. m.; the other First/Second Division reports put its start at noon to 4 p. m.'),
+    # ------------------------------------------------------------ Darrow (R103): 82nd NY
+    claim(D + '-harrow-82ny', 'position', DA, r'were sent to the front as a picket support', 'The 82nd NY arrived on the field under Lt. Col. Huston and was sent to the front as a picket support with the 15th Mass on its right; companies 9 and 10 sent to a brick house near the left of the line with orders to burn it if necessary',
+          when_printed='We arrived on the field', date='1863-07-02', approx=True, place_printed='a brick house near the left of our line'),
+    claim(D + '-harrow-82ny', 'engagement', DA, r'About 6 p\. m\. the enemy advanced in our front and turned', 'About 6 p. m. the enemy advanced in front and turned the left flank; the regiment held a short time, retired to its first line, reformed under fire, advanced and regained its former position, taking the colors of the 48th Georgia; lost 13 officers and 140 men',
+          when_printed='About 6 p. m.', date='1863-07-02', t_iso='1863-07-02T18:00', approx=True, place_printed='our first line', label='dar_6pm',
+          note='Joslin (15th Mass, the next regiment) puts the 82nd NY engaged about half an hour after the 4 p. m. move; Darrow\'s 6 p. m. is the engagement time of the 82nd NY.'),
+    claim(D + '-harrow-82ny', 'engagement', DA, r'we were ordered to the right toward a small grove', 'July 3: lost men during the cannonade; when the enemy advanced ordered to the right toward a small grove and charged through it, capturing two flags (1st and 7th Virginia); then took its former position on the right of the brigade',
+          when_printed='In the action of the 3d', date='1863-07-03', approx=True, place_printed='a small grove'),
+    # ------------------------------------------------------------ Webb (R104): Second Brigade
+    claim(D + '-webb', 'position', W, r'this brigade was put in position at 6\.30 a\. m\. on the 2d', 'At 6.30 a. m. July 2 the brigade was put in position by Gibbon on Granite Ridge on the right of the division, its right on Cushing\'s battery (A, 4th US) and its left on Brown\'s battery (B, 1st RI); the 69th PA behind a fence a little in advance of the ridge, the other three regiments under cover of the hill in rear',
+          when_printed='6.30 a. m. on the 2d', date='1863-07-02', t_iso='1863-07-02T06:30', place_printed='Granite Ridge', label='web_630', conflicts=['label:bad_700'],
+          note='"Granite Ridge" is Webb\'s name for the ridge; it is not a gazetteer place. Compare the arrivals of 64th NY (7 a. m. in mass) and 2nd DE (6 a. m. in line); not a conflict between brigades but between the entry times of the two brigades.'),
+    claim('us-2c-art-4usa', 'position', W, r'its right resting on Cushing\'s battery \(A, Fourth U\. S\. Artillery\)', 'Cushing\'s battery (A, 4th US) at the right of Webb\'s brigade on Granite Ridge from 6.30 a. m. July 2',
+          when_printed='6.30 a. m. on the 2d', date='1863-07-02', t_iso='1863-07-02T06:30', place_printed='on Granite Ridge', note='Position given by the brigade commander; the battery\'s own commander (Cushing) died July 3 and his report is not in the index.'),
+    claim('us-2c-art-1rib', 'position', W, r'its left on Battery B,\s+First Rhode Island Artillery, Lieutenant Brown commanding', 'Brown\'s battery (B, 1st RI) at the left of Webb\'s brigade on Granite Ridge from 6.30 a. m. July 2; later in the day moved to the front of the 69th PA, where it remained until the assault',
+          when_printed='6.30 a. m. on the 2d', date='1863-07-02', t_iso='1863-07-02T06:30', place_printed='on Granite Ridge'),
+    claim(D + '-webb', 'engagement', W, r'until the assault at 6\.30 p\. m\.', 'July 2 evening: the assault reached Brown\'s battery (moved in front of the 69th); the 71st advanced to support the 69th; 106th and 72nd PA (moved left by Hancock) pursued the enemy to the Emmitsburg road, taking about 250 prisoners including 1 colonel',
+          when_printed='6.30 p. m.', date='1863-07-02', t_iso='1863-07-02T18:30', approx=True, place_printed='the front of the Sixty-ninth Regiment', ocr=True, label='web_630pm', conflicts=['label:web_5pm', 'label:dar_6pm'],
+          note='The print says "the assault of the 3d at about 6. 30 p. m." in a passage that belongs to July 2 (before the heading "Operations of July 3", with Brown\'s battery, the 106th ordered to Howard a little before dark); read as July 2 evening. Webb\'s second report (Aug. 14) puts the July 2 assault at 5 p. m.'),
+    claim(D + '-webb-106pa', 'movement', W, r'ordered back from the Emmitsburg road a little before dark', 'The 106th PA was ordered back from the Emmitsburg road a little before dark and ordered to report to Howard (Eleventh Corps), then near the cemetery',
+          when_printed='a little before dark', date='1863-07-02', approx=True, place_printed='near the cemetery', road='Emmitsburg road', gz='GZ-041'),
+    claim(D + '-webb-71pa', 'movement', W, r'was detached to report at the\s+same place a little after dark', 'The 71st PA was detached to report to Howard at the same place a little after dark; it returned at about 13 [sic] o\'clock without orders',
+          when_printed='a little after dark', date='1863-07-02', approx=True, place_printed='the same place', ocr=True, note='"13 o\'clock" is as printed (an OCR or printer\'s error; Hancock R076 says "about midnight").'),
+    claim(D + '-webb', 'engagement', W, r'About 1 p\. m\. the enemy opened with more than twenty', 'July 3: about 1 p. m. the enemy opened with more than twenty batteries; by 2.45 had silenced the RI battery and all but one gun of Cushing\'s; at 2 p. m. Webb sent Captain Banes for two batteries to replace them; at 3 o\'clock the enemy\'s line left the woods, crossed the Emmitsburg road and formed in the hollow in front',
+          when_printed='About 1 p. m.', date='1863-07-03', t_iso='1863-07-03T13:00', approx=True, place_printed='the Emmitsburg road', road='Emmitsburg road', gz='GZ-041', label='web_1pm', conflicts=JULY3_OTHERS),
+    claim(D + '-webb-71pa', 'position', W, r'were advanced to the wall on the right of the Sixty-ninth', 'July 3 shortly before the assault the 71st PA was advanced to the wall on the right of the 69th; two companies were thrown behind the stone wall on the right of Cushing\'s battery, 60 paces retired from the point of attack; part of the 71st driven out as Armistead crossed the fence',
+          when_printed='Just before the assault', date='1863-07-03', approx=True, place_printed='the wall on the right of the Sixty-ninth Pennsylvania', ocr=True, note='The OCR of this passage has dropped characters ("Seyfiatjrfirst"); the units are the 71st PA and Cushing\'s guns.'),
+    claim(D + '-webb-72pa', 'position', W, r'were held in reserve under', 'July 3: the 72nd PA was held in reserve under the crest of the hill and was ordered up to hold the crest, advancing to within 40 paces of the enemy line',
+          date='1863-07-03', approx=True, place_printed='tEe crest of the hill', ocr=True),
+    claim(D + '-webb', 'engagement', W, r'had not Colonal Hall advanced with several of his regiments', 'Colonel Hall advanced with several of his regiments to support Webb; the enemy was defeated; General Armistead was left mortally wounded within Webb\'s lines; the brigade captured nearly 1,000 prisoners and 6 battle-flags',
+          date='1863-07-03', approx=True, place_printed='the fence', ocr=True),
+    claim(D + '-webb', 'march', W, r'Marched to within about 4 miles of Gettysburg', 'July 1: marched to within about 4 miles of Gettysburg; put in position with the division to cover the retreat of the First Corps should that be ordered',
+          when_printed='July 1', date='1863-07-01', place_printed='within about 4 miles of Gettysburg', label='web_4mi', conflicts=['label:brk_930', 'label:bai_9pm', 'label:kel_10pm'],
+          note='Distance from Gettysburg at the July 1 night camp, by brigade: Webb about 4 miles; Brooke about 3; Baily (2nd DE) 5 or 6; Kelly 2 or 3 (arrived about 10 p. m.); Hancock (corps) about 3.'),
+    claim(D + '-webb', 'engagement', W, r'repelled assault of the enemy at 5 p\. m\.', 'Second report (Aug. 14): July 2 marched to the Gettysburg battlefield, took post on Granite Ridge and repelled the assault of the enemy at 5 p. m.',
+          when_printed='at 5 p. m.', date='1863-07-02', t_iso='1863-07-02T17:00', place_printed='Granite Ridge', label='web_5pm', conflicts=['label:web_630pm']),
+    claim(D + '-webb', 'engagement', W, r'Remained on the battle-field; repelled assault at 3 p\. m\.', 'Second report: July 3 repelled assault at 3 p. m.',
+          when_printed='at 3 p. m.', date='1863-07-03', t_iso='1863-07-03T15:00', place_printed='the battle-field'),
+    claim(D + '-webb', 'departure', W, r'Marched at 12 m\. from the battle-field; encamped at Two Taverns', 'July 5: marched at noon from the battlefield and encamped at Two Taverns; July 7 at 5 a. m. marched to Taneytown',
+          when_printed='Marched at 12 m.', date='1863-07-05', t_iso='1863-07-05T12:00', place_printed='Two Taverns', label='web_noon5', conflicts=['label:brk_5th4', 'label:mcm_noon5', 'label:bai_3pm']),
+    # ------------------------------------------------------------ Davis (R105): 69th PA
+    claim(D + '-webb-69pa', 'position', DV, r'we took up our line of position behind a temporary breastwork', '69th PA took up its line behind a temporary breastwork of fence rails strengthened with stone on the morning of July 3 and remained there until the enemy advanced upon it; the 1st RI battery was immediately in its front',
+          when_printed='on the morning of July 3', date='1863-07-03', approx=True, place_printed='a temporary breastwork', ocr=True,
+          note='OCR "f ewce-" for fence. Hancock (R076 p.374) places the 69th and 71st behind a low stone wall with a slight breastwork built by them.'),
+    claim(D + '-webb-69pa', 'engagement', DV, r'At about 1 o\'clock a most fierce cannonading', 'July 3: about 1 o\'clock a most fierce cannonade, until about 3 o\'clock, when the rebels advanced a large infantry force against the whole line; the enemy came on top of the regiment from the right; the brigade, helped by the Tammany regiment (42nd NY) and the 20th Mass, drove them back',
+          when_printed='About 1 o\'clock', date='1863-07-03', t_iso='1863-07-03T13:00', approx=True, place_printed='our whole line', label='dav_1pm', conflicts=JULY3_OTHERS + ['label:dav_4pm'],
+          note='The report gives two times for the same event inside itself: the first paragraph has the enemy advancing "about 4 o\'clock in the afternoon" and "the battle commenced on the 3d instant at about 4 p. m."; the second has the cannonade from about 1 to about 3 o\'clock.'),
+    claim(D + '-webb-69pa', 'engagement', DV, r'enemy advanced upon us, about 4 o\'clock in the afternoon', 'Same report, first paragraph: the enemy advanced upon the regiment "about 4 o\'clock in the afternoon"; the First RI battery in front had cannonaded for two hours before; the regiment fought an hour or more before the enemy fled',
+          when_printed='about 4 o\'clock in the afternoon', date='1863-07-03', t_iso='1863-07-03T16:00', approx=True, place_printed='behind a temporary breastwork', label='dav_4pm', conflicts=['label:dav_1pm']),
+    # ------------------------------------------------------------ Smith (R106): 71st PA
+    claim(D + '-webb-71pa', 'engagement', SP, r'I went to the support of the Sixty-ninth Pennsylvania', 'In the afternoon of July 2 the 71st PA went to the support of the 69th PA on the front, engaged the enemy, took about 20 prisoners and retook a brass cannon and limber',
+          when_printed='In the afternoon of the 2d instant', date='1863-07-02', approx=True, place_printed='on the front'),
+    claim(D + '-webb-71pa', 'movement', SP, r'About dark of this day, by an order through Captain Duffy', 'About dark ordered by Captain Duffy to the support of a portion of the Eleventh Corps; no general to report to; directed forward by an adjutant-general; engaged the enemy on the front and attacked on the right and rear; retired to the road in rear and returned to camp against orders',
+          when_printed='About dark', date='1863-07-02', approx=True, place_printed='a portion of the Eleventh Corps'),
+    claim(D + '-webb-71pa', 'position', SP, r'protected by a stone wall from an infantry attack', 'July 3: some 50 men assisted in working Cushing\'s battery while the rest were in position protected by a stone wall from the infantry attack; took about 500 prisoners and 3 colors',
+          when_printed='On the 3d instant', date='1863-07-03', approx=True, place_printed='a stone wall'),
+    # ------------------------------------------------------------ Hesser (R107): 72nd PA
+    claim(D + '-webb-72pa', 'movement', HS, r'the regiment supported a battery until 6 p\. m\.', 'July 2: the regiment supported a battery until 6 p. m., when (the first line giving way) ordered to advance and assist in reoccupying the ground lost, without becoming directly engaged',
+          when_printed='until 6 p. m.', date='1863-07-02', t_iso='1863-07-02T18:00', place_printed='supported a battery'),
+    claim(D + '-webb-72pa', 'engagement', HS, r'until 3 p\. m\., at which time they were ordered to advance', 'July 3: supported a battery under a terrific artillery fire until 3 p. m., then ordered to advance upon the stone wall; engaged Pickett\'s division about half an hour, routed the enemy and occupied the wall, captured two colors',
+          when_printed='until 3 p. m.', date='1863-07-03', t_iso='1863-07-03T15:00', place_printed='the stone wall on our immediate front'),
+    claim(D + '-webb-72pa', 'departure', HS, r'until the withdrawal of the brigade on the morning of the 5th', 'The regiment held the wall until the withdrawal of the brigade on the morning of the 5th',
+          when_printed='on the morning of the 5th', date='1863-07-05', approx=True, place_printed='the wall', conflicts=['label:web_noon5'], note='Webb (R104) has the brigade marching at noon (12 m.) July 5.'),
+    # ------------------------------------------------------------ Curry (R108): 106th PA
+    claim(D + '-webb-106pa', 'position', CU, r'front and center of tlie line', 'After arriving on the morning of July 2 the 106th PA was placed by Webb\'s order near the front and center of the line; Companies A and B deployed as skirmishers in front',
+          when_printed='the morning of the 2d instant', date='1863-07-02', approx=True, place_printed='front and center of tlie line', ocr=True),
+    claim(D + '-webb-106pa', 'engagement', CU, r'We pursued the fleeing enemy to the Emmitsburg road', 'By Webb\'s order advanced to the crest, fired, charged and pursued the enemy to the Emmitsburg road, recovered three guns, captured about 250 prisoners including Colonel Gibson of the 48th Georgia, then withdrew to its original position by order',
+          when_printed='Shortly after', date='1863-07-02', approx=True, place_printed='the Emmitsburg road', road='Emmitsburg road', gz='GZ-041'),
+    claim(D + '-webb-106pa', 'movement', CU, r'report to Major-General Howard, commanding the Eleventh Corps', 'Ten minutes after returning, the 106th ordered toward the firing on the right to report to Howard (Eleventh Corps), who assigned it to General Ames; placed in the front line on the right of the Gettysburg road near the cemetery',
+          when_printed='Ten minutes after we returned', date='1863-07-02', approx=True, place_printed='on the right of the Gettysburg road and near the cemetery', gz='GZ-003', road='Gettysburg road'),
+    claim(D + '-webb-106pa', 'night_position', CU, r'We remained there until the morning of July 4', 'The 106th remained in the front line near the cemetery until the morning of July 4 under fire from three batteries; early July 4 marched by Ames through the town to a slight eminence north of the town, then back to the original position near the cemetery until the morning of July 5',
+          when_printed='until the morning of July 4', date='1863-07-03', approx=True, place_printed='near the cemetery', gz='GZ-003', conflicts=['label:hanc_106'],
+          note='Hancock R076 p.371 says the 106th "remained until relieved next day"; Curry says until the morning of July 5 with a July 4 excursion through the town.'),
+    claim(D + '-webb-106pa', 'departure', CU, r'By direction of the commanding general', 'Relieved from duty with the Eleventh Corps by written order of July 5 from Eleventh Corps headquarters and directed to rejoin its own corps',
+          when_printed='July 5, 1863', date='1863-07-05', approx=True, place_printed='Gettysburg, Pa.', ocr=True, note='The quoted line of the order is OCR-damaged ("reliesfidlrom dutyjwithjthis corns" in the print); the claim stands on the order\'s heading and the visible words.'),
+]
