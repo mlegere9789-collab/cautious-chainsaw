@@ -28,6 +28,13 @@ passing = sum(s['passes'] for s in subs)
 linked = sum((not s['passes']) and bool(s['register_ids']) for s in subs)
 unlinked = len(subs) - passing - linked
 notes.append(f'sub-requirements {len(subs)}: passing {passing}, linked to open register entry {linked}, UNLINKED (unfinished work) {unlinked}')
+# horde evidence links (informational only: links are not passes, counts above are unchanged)
+_lp = os.path.join(G, 'subreq_links.json')
+if os.path.exists(_lp):
+    _l = json.load(open(_lp, encoding='utf-8'))
+    _known = [k for k in _l if k in {s['id'] for s in subs}]
+    _unl = [s['id'] for s in subs if not s['passes'] and not s['register_ids'] and s['id'] not in _l]
+    notes.append(f'horde evidence links (subreq_links.json, informational, not passes): {len(_known)} sub-requirements have a shard evidence row; still without register link or evidence row: {len(_unl)}')
 # register completeness
 reg = J('register_index.json'); regids = {e['id'] for e in reg}
 need = ['title', 'rids', 'cat', 'desc', 'why', 'searched', 'subst', 'recon', 'tier', 'marking', 'status']
