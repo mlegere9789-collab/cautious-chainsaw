@@ -31,7 +31,10 @@ const WORK = { march_drill: ['MARCH', 100, 150, 1 / 60], march_speed_gap_blend: 
 
 function run(uid, t0, span, dt, i0, n) { const steps = Math.round(span / dt); for (let j = 0; j < n; j++) { const i = i0 + j; S.sampleFigure(uid, i & 7, t0 + (i % steps) * dt, fr); } }
 const obs = new PerformanceObserver(() => { }); obs.observe({ entryTypes: ['gc'] });
-for (const [uid, t0, span, dt] of Object.values(WORK)) run(uid, t0, span, dt, 0, WARMUP);                 // warm-up of every workload first: V8 compiles and settles in whatever tier it chooses (and the lazily baked clips are baked)
+// Warm-up of every workload first: V8 compiles and settles in whatever tier it chooses (and the lazily baked clips are baked). One pass is not enough: measured with a forced GC after each pass, the live heap still steps up by
+// 30-330 KB when TurboFan/Maglev finish compiling a workload's functions and allocate their feedback, code and deopt data on the heap after the baseline (a one-off, bimodal from run to run, ~0.15 KB per 20,000 updates afterwards, independent of
+// load). That is JIT warm-up, not a per-update leak, and it would be booked as "retained". So warm up in passes until the GC'd live heap is stable (growth under 4 KB for two passes in a row; at most 12 passes); the ceiling (128 KB) is unchanged.
+{ let stable = 0, prev = -1; for (let pass = 0; pass < 12 && stable < 2; pass++) { for (const [uid, t0, span, dt] of Object.values(WORK)) run(uid, t0, span, dt, 0, WARMUP); gc(); gc(); const h = process.memoryUsage().heapUsed; stable = prev >= 0 && Math.abs(h - prev) < 4096 ? stable + 1 : 0; prev = h; } }
 gc(); gc(); const heapStart = process.memoryUsage().heapUsed;
 const res = { flags: process.execArgv.join(' '), node: process.version, updatesPerWorkload: UPDATES, chunk: CHUNK, workloads: {} }; let sumAll = 0, worst = 0, gcInside = 0;
 for (const [name, [uid, t0, span, dt]] of Object.entries(WORK)) {
