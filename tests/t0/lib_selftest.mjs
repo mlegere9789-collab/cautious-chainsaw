@@ -8,7 +8,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {
   REPO, PORT_BASE, REFERER, openSession, createStaticServer, createSuite, assert, assertEq, sleep, waitFor, waitForApp, chooseLayout,
-  emulateViewport, mouseDrag, wheel, touchTap, touchSwipe, touchPinch, hitTest, screenshot, mapView, tileBudget, Skip, VIEWPORTS, ALL_VIEWPORTS, TMP,
+  emulateViewport, mouseDrag, wheel, touchTap, touchSwipe, touchPinch, hitTest, screenshot, mapView, tileBudget, Skip, VIEWPORTS, ALL_VIEWPORTS, TMP, MAPBOX_UNREACHABLE_OK,
 } from './lib.mjs';
 
 const NO_MAP = process.argv.includes('--no-map');
@@ -88,6 +88,22 @@ suite.test('LIB-04b', 'collector: a Mapbox "Failed to fetch" Error logged just b
   await waitFor(() => S.collector.firstParty.length >= 1, { timeout: 5000, label: 'a bare Error that is not a Mapbox fetch stays in the collector' });
   assertEq(S.collector.firstParty.length, 1, 'exactly the foreign error');
   S.collector.clear(); S.setTiles('inject');
+});
+
+suite.test('LIB-04c', 'collector (machine that cannot reach Mapbox): a Mapbox "Failed to fetch" Error after a real failed Mapbox request is noise only with T0_MAPBOX_UNREACHABLE=1; without it the error stays (negative control); a foreign Error always stays', async (t) => {
+  const F = await openSession({ profile: 'lib04c', cdpPort: PORT_BASE + 6, tiles: 'inject' });   // a fresh session: no earlier status >= 400 or cap block may already make tile failures "expected"
+  try {
+    await F.page.goto(`${srv.url}/robots.txt`);
+    const reached = await F.page.evaluate(async () => { try { const r = await fetch('https://api.mapbox.com/fonts/v1/mapbox/DIN%20Offc%20Pro%20Medium/0-255.pbf'); return r.status; } catch (e) { return 'failed'; } });
+    if (reached !== 'failed') throw new Skip(`api.mapbox.com answered (${reached}): this check needs a machine that cannot reach it`);
+    await sleep(500); F.collector.clear();
+    await F.page.evaluate(() => { const e = Object.create(Error.prototype); e.message = 'Failed to fetch https://api.mapbox.com/fonts/v1/mapbox/DIN%20Offc%20Pro%20Medium/256-511.pbf'; console.error(e); });
+    await sleep(500);
+    assertEq(F.collector.firstParty.length, MAPBOX_UNREACHABLE_OK ? 0 : 1, MAPBOX_UNREACHABLE_OK ? 'flag on: the Mapbox fetch error after a failed wire request is noise' : 'flag off: the Mapbox fetch error is a console error (negative control)');
+    await F.page.evaluate(() => { const e = Object.create(Error.prototype); e.message = 'some other failure'; console.error(e); });
+    await sleep(300);
+    assertEq(F.collector.firstParty.length, MAPBOX_UNREACHABLE_OK ? 1 : 2, 'a foreign Error always stays');
+  } finally { await F.close(); }
 });
 
 suite.test('LIB-05', 'real mouse input reaches the page (drag = down+move+up, wheel) and hitTest sees the top element', async (t) => {

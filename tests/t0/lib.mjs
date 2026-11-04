@@ -19,6 +19,9 @@ export const CHROME = process.env.T0_CHROME || 'C:/Program Files/Google/Chrome/A
 export const PORT_BASE = Number(process.env.T0_PORT_BASE || 8300);
 export const REFERER = 'https://gettysburginteractivemap.com/';
 export const TILE_CAP = Number(process.env.T0_TILE_CAP || 300);
+/** Opt-in for a machine that cannot reach Mapbox at all (a sandbox or CI container behind a proxy: the connection itself fails, there is no HTTP status).  Only then is a Mapbox "Failed to fetch" console error
+ *  tolerated as tile noise, and only after the wire has shown a failed Mapbox request in that session (Network.loadingFailed net::ERR_*).  Off by default: on the acceptance machine a failed Mapbox fetch is a defect. */
+export const MAPBOX_UNREACHABLE_OK = process.env.T0_MAPBOX_UNREACHABLE === '1';
 export const VIEWPORTS = JSON.parse(fs.readFileSync(path.join(path.dirname(fileURLToPath(import.meta.url)), 'viewports.json'), 'utf8'));
 export const ALL_VIEWPORTS = [...VIEWPORTS.portrait, ...VIEWPORTS.landscape];
 
@@ -163,11 +166,11 @@ async function attachSession({ chrome, cdp, profileDir, onboarded, tiles, viewpo
   let tileMode = tiles;
   const net = new NetLog();
   const collector = new Collector();
-  const tileStats = { seen: 0, referer: 0, blocked: 0, capBlocked: 0, telemetryStubbed: 0, status: {}, skus: new Set(), referers: new Set() };
+  const tileStats = { netFailed: 0, seen: 0, referer: 0, blocked: 0, capBlocked: 0, telemetryStubbed: 0, status: {}, skus: new Set(), referers: new Set() };
   const targets = new Map();
   const claimed = new Set();
   const mapboxReq = new Map();                                             // requestId -> true for Mapbox requests (to read the extra-info Referer)
-  collector.tileFailuresExpected = () => tileMode !== 'inject' || tileStats.capBlocked > 0 || Object.keys(tileStats.status).some((k) => Number(k) >= 400);
+  collector.tileFailuresExpected = () => tileMode !== 'inject' || tileStats.capBlocked > 0 || Object.keys(tileStats.status).some((k) => Number(k) >= 400) || (MAPBOX_UNREACHABLE_OK && tileStats.netFailed > 0);
   const patterns = ['https://api.mapbox.com/*', 'https://*.tiles.mapbox.com/*', 'https://events.mapbox.com/*', 'https://*.mapbox.com/*'].map((urlPattern) => ({ urlPattern, requestStage: 'Request' }));
 
   cdp.on('Network.requestWillBeSent', (p, sid) => {
@@ -182,6 +185,9 @@ async function attachSession({ chrome, cdp, profileDir, onboarded, tiles, viewpo
     if (!mapboxReq.has(p.requestId)) return;
     const h = p.headers || {}; const ref = h.Referer || h.referer;
     if (ref) tileStats.referers.add(ref);
+  });
+  cdp.on('Network.loadingFailed', (p) => {
+    if (mapboxReq.has(p.requestId) && !p.canceled && /^net::ERR_/.test(p.errorText || '') && !/BLOCKED_BY_CLIENT/.test(p.errorText)) tileStats.netFailed++;
   });
   cdp.on('Network.responseReceived', (p) => {
     if (isMapbox(p.response.url)) tileStats.status[p.response.status] = (tileStats.status[p.response.status] || 0) + 1;
