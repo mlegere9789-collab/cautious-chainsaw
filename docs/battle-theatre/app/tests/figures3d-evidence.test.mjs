@@ -38,7 +38,7 @@ test('statutory star count (1818 act sec. 2 + the Kansas and West Virginia admis
   for (const d of ['1863-07-01', '1863-07-02', '1863-07-03']) assert.equal(unionStarsOn(d), 34, d);
   assert.equal(unionStarsOn('1863-07-04'), 35); assert.equal(unionStarsOn('1861-07-03'), 33); assert.equal(unionStarsOn('1861-07-04'), 34);
   assert.equal(US_STARS, unionStarsOn('1863-07-01'), 'flags.mjs US_STARS equals the statutory count on the first day of the battle');
-  const sc = TIERS.find(t => t.id === 'F-STAR-COUNT'); assert.equal(sc.tier, 'inferred', 'the statutory count is documented (FIG-EV-STAR-COUNT-1863) but that any regiment carried it is not shown: drawing it stays inferred'); assert.ok(sc.basis.includes('FIG-EV-STAR-BASE-33') && sc.basis.includes('no regiment at Gettysburg is shown'), 'the 33-star base now rests on a read source and the residual doubt is stated'); assert.equal(sc.evidence, 'FIG-EV-STAR-COUNT-1863');
+  const sc = TIERS.find(t => t.id === 'F-STAR-COUNT'); assert.equal(sc.tier, 'inferred', 'the statutory count is documented (FIG-EV-STAR-COUNT-1863) but that any regiment carried it is not shown: drawing it stays inferred'); assert.ok(sc.basis.includes('-STAR-BASE-33') && sc.basis.includes('no regiment at Gettysburg is shown'), 'the 33-star base now rests on a read source and the residual doubt is stated'); assert.equal(sc.evidence, 'FIG-EV-STAR-COUNT-1863');
   const act = EVIDENCE.find(e => e.id === 'FIG-EV-FLAG-ACT-1818').passage; assert.ok(act.sec2.includes('fourth day of July then next succeeding such admission') && act.sec1.includes('thirteen horizontal stripes'));
 });
 

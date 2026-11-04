@@ -313,7 +313,7 @@ def build_overlays():
             continue
         g = shape(f['geometry'])
         g = simp(g, 3.0)
-        road_feats.append({'type': 'Feature', 'properties': {'id': f['id'], 'name': nm, 'label': True, 'rank': 0 if nm in major else 1, 'confidence': p.get('confidence'),
+        road_feats.append({'type': 'Feature', 'properties': {'id': f.get('id', p.get('id')), 'name': nm, 'label': True, 'rank': 0 if nm in major else 1, 'confidence': p.get('confidence'),
                                                              'error_m': p.get('positional_error_m')},
                            'geometry': {'type': 'MultiLineString', 'coordinates': coords(g)}})
     water = json.load(open(os.path.join(D, 'waterways.geojson'), encoding='utf-8'))['features']

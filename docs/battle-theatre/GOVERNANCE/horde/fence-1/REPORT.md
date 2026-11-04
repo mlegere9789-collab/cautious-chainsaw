@@ -15,3 +15,15 @@ Other conflicts carried, no default chosen: E-07 (Kane "before sundown"), E-10 (
 Gaps: lunette form, traverse, Lockwood Jul 2, Confederate works other than Jul 3-4, all church and farm hospitals, McMillan fences.
 
 No items remain unprocessed. Files: results.jsonl, lookups.jsonl, proposed-register/.
+
+## Audit pass 2026-11-04
+
+Slice check: expected R14.0000, E-01..E-18, S-001..S-016 (35); found exactly these, no missing, duplicate, out-of-slice or malformed rows. Status counts after audit: verified 24, inferred 5, failed_lookup 5, gap 1.
+
+Fixes: (1) every source entry now also carries `quote`, `quote_verified` and `passage_ref` (character offsets in the raw OCR plus printed page), matching the sibling fence shards' schema; the original `exact_quote` and `offsets_in_raw_file` are kept. (2) Two conflicts that had no register entry now have one: E-07 Kane "before sundown" vs PDF morning (fence-1-EG-14) and E-10 empty vs defended works (fence-1-EG-15). Register entries: 15. No verified row lacked a citation.
+
+own_checks (spot verification, second local witness; see limits):
+- R14.E-10 Johnson, OR27-2-R481 p.504, "carried a line of breastworks which ran perpendicular": same report id, page and sentence in library/timeline_audit_T2.jsonl.
+- R14.E-12 Hunt, OR27-1-R028 p.232, "had a small earthwork thrown up in its front": same in timeline_audit_T2.jsonl and positions_A.jsonl.
+- R14.E-17 Gibbon, OR27-1-R098 p.416, "tore down the fences and constructed breastworks": same in timeline_audit_T3.jsonl.
+Also 58 of 92 quotes in this shard reappear verbatim in local non-horde files. Verification limits of this audit (2026-11-04): the raw OR Ser. I vol. 27 OCR (tmp/library/or27) is NOT present in this checkout, so tools/bt/or27_find.py could not be re-run. The web proxy returned 403 for loc.gov, archive.org, gutenberg.org, ehistory.osu.edu and nps.gov, so no web re-fetch was possible; those lookups are recorded as failed for this pass, none circumvented. Spot checks therefore use independent local extractions of the same OR passages (docs/battle-theatre/library/timeline_audit_T1-T3.jsonl, library/or27_claim_checks.json, history/positions/positions_A.jsonl and positions_B.jsonl, tests/historian/fixtures/golden-or27.json), matched on quote text, report id and printed page. These are second local witnesses made by earlier sessions, not the raw scan.
