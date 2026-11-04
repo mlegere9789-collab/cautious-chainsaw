@@ -158,12 +158,12 @@
     "R06"
    ],
    "category": "evidence missing",
-   "description": "Eight Commons Army Bands calls (Fatigue, Church, Drill, School, Double Time, To Arms, Fire Call, First Call) were not fetched: Wikimedia answered HTTP 429 and the pass was stopped to respect the access policy.",
-   "evidence_searched": "tmp/audio-research/dl_commons.log.",
-   "substitute_applied": "Retry with 60 s spacing in a later session.",
+   "description": "CLOSED 2026-11-04. Eight Commons US Army Bands / Marine calls (Fatigue, Church, Drill, School, Double Time, To Arms, Fire Call, First Call) were first blocked by HTTP 429, then fetched (six on 2026-10-31 after the pass ended, Fatigue and Church on 2026-11-04 at 60 s spacing); sha1 equals the Commons value, ledgered WC-* in audio/pilot2/LEDGER2.csv and sources.json (Public domain). They are modern recordings: the 1863 notes remain open under AUD-G02, and only same-name calls (Fatigue, Church, Drill, School) are mapped, by name only.",
+   "evidence_searched": "horde/vis-audio/dl.log, commons-recheck.json (Commons imageinfo, licence and sha1 re-read 2026-11-04), ledger-round3.mjs; test AUD-G11 in tests/audio3d-round2.test.mjs.",
+   "substitute_applied": "None needed for availability; stand-in status of the recordings stays marked (caveats field).",
    "tier": "open gap",
    "product_marking": "sources.json blocked list.",
-   "status": "open",
+   "status": "closed",
    "owner_decision": "DEC-001 (labeling) for AUD-G01..G04; none requested for the others"
   },
   {
