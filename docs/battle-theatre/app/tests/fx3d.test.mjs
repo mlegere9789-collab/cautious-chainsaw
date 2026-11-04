@@ -3,11 +3,11 @@
 import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import path from 'node:path'; import crypto from 'node:crypto';
 import { nodeWorld, BT } from './node-world.mjs';
 import { makeGeo } from '../src/geo.mjs'; import { Environment } from '../src/environment.mjs'; import { minOf, isoToMin } from '../src/clock.mjs';
-import { createFx, REPLAY_S } from '../src/fx3d/index.mjs';
+import { createFx, REPLAY_S, gaitSteps } from '../src/fx3d/index.mjs';
 import { puffState, density, rayOpticalDepth, visibleLifetime, spriteOpacity, erf, u01, spriteOffsets, TWO_PI_32, SPRITE_K } from '../src/fx3d/core.mjs';
 import { Wind, windVector, windFromHistory, windAge, WIND_HIST_N } from '../src/fx3d/wind.mjs';
 import { Store, F, STRIDE, T, rec, SMOKE_TYPES } from '../src/fx3d/store.mjs';
-import { Emitter, airFor, resolveWeapon, chargeKg } from '../src/fx3d/emit.mjs';
+import { Emitter, airFor, resolveWeapon, chargeKg, burstOz, designation, canisterHalfWidth } from '../src/fx3d/emit.mjs';
 import { FogAggregator, FogMap, sightlineOD, visibilityM } from '../src/fx3d/fog.mjs';
 import { marchDust, dustiness, dustRatePerMetre } from '../src/fx3d/dust.mjs';
 import { Fires } from '../src/fx3d/fire.mjs';
@@ -44,7 +44,9 @@ test('weapon charges: 60 grains documented for the rifled musket; smoothbore fie
   assert.equal(W.napoleon_12pdr_m1857.charge.lb, 2.5); assert.equal(W.napoleon_12pdr_m1857.charge.tier, 'documented'); assert.equal(W['6pdr_field_gun'].charge.lb, 1.25); assert.equal(W['12pdr_howitzer'].charge.lb, 1.0); assert.equal(W['24pdr_howitzer'].charge.lb, 2.0);
   assert.equal(W.napoleon_12pdr_m1857.charge_by_proj.shell.lb, 2.0); assert.equal(chargeKg(W.napoleon_12pdr_m1857, 'shell'), 2.0 * P.physical.lb_kg);
   assert.equal(W.m1842_smoothbore.charge.tier, 'plausible-procedural'); assert.match(W.m1842_smoothbore.charge.basis, /bore area/);
-  assert.ok(W['3inch_ordnance_rifle'].charge.tier !== 'documented', 'kit weak-source charge is never raised to documented');
+  // rifled field guns: the 1863 field-artillery manual (printed p. 7 note) prints 1 lb (10-pdr Parrott, 3-inch gun) and 2 lb (20-pdr Parrott): documented; pieces with no printed charge stay below documented
+  for (const [id, lb] of [['10pdr_parrott', 1], ['3inch_ordnance_rifle', 1], ['20pdr_parrott', 2]]) { assert.equal(W[id].charge.lb, lb); assert.equal(W[id].charge.tier, 'documented'); assert.match(W[id].charge.basis, /printed p\. 7/); assert.ok(Math.abs(W[id].charge.kg - lb * P.physical.lb_kg) < 1e-8); }
+  for (const id of ['14pdr_james_rifle', '12pdr_whitworth', 'blakely_12pdr', '3inch_navy_rifle', 'ames_rifled_bronze_napoleon', '12pdr_mountain_howitzer']) assert.ok(W[id].charge.tier !== 'documented', id + ': no printed charge reached, never raised to documented');
   const A = data.weapons.aliases; assert.equal(A.audio_ids[10], 'napoleon_12pdr_m1857'); assert.equal(resolveWeapon(data, 0).id, 'm1861_springfield'); assert.equal(resolveWeapon(data, 'no such gun').known, false);
 });
 
@@ -370,13 +372,14 @@ test('no tracer effect for muskets: small arms never create fuse events', () => 
   const fx = mkFx(), t = at(7, 2, 23); for (const w of ['m1861_springfield', 'sharps_carbine', 'spencer_repeater', 'colt_army_1860']) fx.onFire('U', 1, t, w, [0, 2, 0], [0, 0, 1]);
   for (let i = 0; i < fx.store.n; i++) assert.notEqual(fx.store.a[i * STRIDE + F.TYPE], T.FUSE);
 });
-test('ground impact: dry ground gives a dust cloud and hops, wet ground (Jul 4) stops the shot and gives no dust; case burst has the documented 1.0 oz charge', () => {
+test('ground impact: dry ground gives a dust cloud and hops, wet ground (Jul 4) stops the shot and gives no dust; case burst has the documented 4.5 oz charge (Ordnance Manual 1861, Roberts 1861)', () => {
   const fx = mkFx(), dry = at(7, 2, 15), wet = at(7, 4, 12);
   fx.onFire('B', 1, dry, 'napoleon_12pdr_m1857', [0, 5, 0], [0, 0, 1], { proj: 'solid', shotId: 9 }); const a = fx.onBurst({ t: dry + 1.5, kind: 'solid', pos: [0, 0, 400], dir: [0, 0, 1], fireId: 9, weapon: 'napoleon_12pdr_m1857' });
   fx.onFire('B', 2, wet, 'napoleon_12pdr_m1857', [0, 5, 0], [0, 0, 1], { proj: 'solid', shotId: 10 }); const b = fx.onBurst({ t: wet + 1.5, kind: 'solid', pos: [0, 0, 400], dir: [0, 0, 1], fireId: 10, weapon: 'napoleon_12pdr_m1857' });
   assert.ok(a.length > 1 && a[0][F.MASS] > 0); assert.equal(b.length, 1); assert.equal(b[0][F.MASS], 0);
-  near(P.projectile.case_burst_charge_oz, 1.0, 0); assert.equal(tiers.params['projectile.case_burst_charge_oz'].tier, 'documented');
-  assert.equal(tiers.params['projectile.shell_burst_charge_oz'].tier, 'plausible-procedural');
+  near(P.projectile.case_burst_charge_oz, 4.5, 0); assert.equal(tiers.params['projectile.case_burst_charge_oz'].tier, 'documented');
+  assert.equal(tiers.params['projectile.shell_burst_charge_oz'].tier, 'inferred', 'the 12-pdr table value applied to the Napoleon is an inference');
+  assert.equal(tiers.params['projectile.shell_burst_charge_by_designation_oz'].tier, 'documented'); assert.equal(tiers.params['projectile.shell_burst_charge_unlisted_oz'].tier, 'plausible-procedural');
 });
 
 // ------------------------------------------------------------------------------------------------------------------------------------ the BT-EVENTS interface (docs/BT-EVENTS.md v1)
@@ -408,4 +411,57 @@ test('gpu cull path: every live event is packed unculled, the camera uniform blo
   assert.equal(fl[40 + 2], P.lod.n_full.gun); assert.equal(fl[40 + 1], P.lod.n_full.musket);
   assert.match(WGSL_COMPUTE, /struct Cam/); assert.match(WGSL_COMPUTE, /@workgroup_size\(1024\)/);
   const f2 = fx.update(t + 0.5, cam); assert.ok(f2.nSprites >= 0, 'the CPU path still works on the same system');
+});
+
+
+// ------------------------------------------------------------------------------------------------------------------------------------ vis-fx round: gaps closed from printed manuals
+const OZ = P.physical.oz_kg;
+test('bursting charges: shell and case by designation from the printed tables; the OCR reading of 1863 is a selectable scenario; unlisted pieces use the marked stand-in', () => {
+  const W = data.weapons.weapons, nap = W.napoleon_12pdr_m1857, how24 = W['24pdr_howitzer'], six = W['6pdr_field_gun'], rifle = W['3inch_ordnance_rifle'];
+  assert.equal(designation(nap), '12'); assert.equal(designation(W['12pdr_howitzer']), '12'); assert.equal(designation(how24), '24'); assert.equal(designation(six), '6'); assert.equal(designation(rifle), null, 'rifled shells have no printed table');
+  // Roberts 1861 p. 108: to burst 12-pdr 5 oz, 24-pdr 8 oz; case 6-pdr 2.5, 12-pdr 4.5, 24-pdr 6
+  near(burstOz(P, nap, 'shell'), 5, 0); near(burstOz(P, how24, 'shell'), 8, 0); near(burstOz(P, nap, 'case'), 4.5, 0); near(burstOz(P, how24, 'case'), 6, 0); near(burstOz(P, six, 'case'), 2.5, 0);
+  assert.ok(burstOz(P, six, 'shell') === P.projectile.shell_burst_charge_unlisted_oz && burstOz(P, rifle, 'shell') === P.projectile.shell_burst_charge_unlisted_oz, 'not in the table: stand-in, tier plausible-procedural');
+  // the competing OCR reading of Instruction for Field Artillery 1863 is carried, not dropped
+  near(burstOz(P, nap, 'case', { caseBurstSource: 'fa1863_ocr' }), 1.0, 0); near(burstOz(P, six, 'case', { caseBurstSource: 'fa1863_ocr' }), 0.5, 0); near(burstOz(P, rifle, 'case', { caseBurstSource: 'fa1863_ocr' }), 1.0, 0);
+  assert.equal(tiers.params['projectile.case_burst_charge_by_designation_fa1863_ocr_oz'].tier, 'inferred'); assert.match(tiers.params['projectile.case_burst_charge_oz'].basis, /PENDING OWNER/);
+  // the emitted burst mass follows the chosen source and the piece
+  const burstMass = (choices, weapon, kind) => { const fx = mkFx({ choices }), t = at(7, 2, 15); fx.onFire('B', 1, t, weapon, [0, 5, 0], [0, 0, 1], { proj: kind, shotId: 5 }); return fx.onBurst({ t: t + 2, kind, pos: [0, 30, 300], dir: [0, 0, 1], fireId: 5, weapon })[0][F.MASS]; };
+  near(burstMass({}, 'napoleon_12pdr_m1857', 'case'), 4.5 * OZ * P.smoke.yield_frac, 1e-12); near(burstMass({ caseBurstSource: 'fa1863_ocr' }, 'napoleon_12pdr_m1857', 'case'), 1.0 * OZ * P.smoke.yield_frac, 1e-12);
+  near(burstMass({}, 'napoleon_12pdr_m1857', 'shell'), 5 * OZ * P.smoke.yield_frac, 1e-12); near(burstMass({}, '24pdr_howitzer', 'shell'), 8 * OZ * P.smoke.yield_frac, 1e-12);
+});
+test('canister: the pattern width is one tenth of the range (Gibbon 1860); half-angle derived from it; the wide reading is selectable and recorded in the event', () => {
+  near(P.projectile.canister_spread_frac, 0.10, 0); near(P.projectile.canister_cone_deg, Math.atan(0.05) * 180 / Math.PI, 1e-3); near(Math.atan(P.projectile.canister_spread_frac_alt / 2) * 180 / Math.PI, 5.711, 1e-3);
+  assert.equal(tiers.params['projectile.canister_cone_deg'].tier, 'inferred'); assert.match(tiers.params['projectile.canister_spread_frac'].basis, /one tenth of the range/);
+  near(canisterHalfWidth(P, 300), 15, 1e-9); near(canisterHalfWidth(P, 300, { canisterSpread: 'wide' }), 30, 1e-9);
+  const strike = choices => { const fx = mkFx({ choices }), t = at(7, 2, 15), out = []; for (let i = 0; i < 30; i++) fx.onFire('B', i, t + i * 7, 'napoleon_12pdr_m1857', [0, 5, 0], [0, 0, 1], { proj: 'canister' }); for (let i = 0; i < fx.store.n; i++) if (fx.store.a[i * STRIDE + F.TYPE] === T.CANISTER) out.push(fx.store.a.subarray(i * STRIDE, (i + 1) * STRIDE)); out.sort((x, y) => x[F.T0] - y[F.T0]); return out; };
+  const a = strike({}), b = strike({ canisterSpread: 'wide' }); assert.equal(a.length, 30); assert.equal(b.length, 30);
+  for (let i = 0; i < 30; i++) { const rr = a[i][F.A1]; near(a[i][F.SIG], 3 + 0.5 * 0.5 * rr * 0.10, 1e-9); near(b[i][F.SIG], 3 + 0.5 * 0.5 * rr * 0.20, 1e-9); assert.equal(rr, b[i][F.A1], 'same strike range, only the width differs'); }
+  near(a[0][F.A2], 2.862, 1e-3); near(b[0][F.A2], 5.711, 1e-3);
+});
+test('march cadence: the Hardee rates are a documented table and fill in a unit_march event that gives none; horse strikes stay plausible-procedural', () => {
+  const g = P.dust.gait_steps_per_min; assert.deepEqual(g, { common_time: 90, quick_time: 110, route_step: 110, double_quick: 165, urgent: 180 });
+  assert.equal(tiers.params['dust.gait_steps_per_min'].tier, 'documented'); assert.equal(tiers.params['dust.steps_per_min_default'].tier, 'documented'); assert.equal(tiers.params['dust.horse_strikes_per_min'].tier, 'plausible-procedural');
+  assert.equal(gaitSteps(P, 'double_quick'), 165); assert.equal(gaitSteps(P, 'quick_time'), 110); assert.equal(gaitSteps(P, 'trot'), 90, 'unknown gait: common time');
+  // the dust of a unit marching at double quick with no cadence given equals that with 165 given, and scales with the cadence
+  const t = at(7, 2, 9), gy = groundAt(300, 300), mass = (steps, gait) => { const fx = mkFx(); fx.update(t - 1, CAM(0, gy + 8, 0)); fx.onUnitMarch('U', t, 400, steps, 2.3, [300, gy, 300], 0.5, gait); fx.onUnitMarch('U', t + 3, 400, steps, 2.3, [300, gy, 300], 0.5, gait); let m = 0; for (let i = 0; i < fx.store.n; i++) if (fx.store.a[i * STRIDE + F.TYPE] === T.DUST) m += fx.store.a[i * STRIDE + F.MASS]; return m; };
+  const m0 = mass(undefined, 'double_quick'), m1 = mass(165, 'double_quick'), m2 = mass(90, 'double_quick'); assert.ok(m1 > 0); near(m0, m1, 1e-12); near(m1 / m2, 165 / 90, 1e-6);
+});
+test('gaps file: the closed gaps say what is closed and what stays open; every gap still has a status', () => {
+  const by = Object.fromEntries(gaps.gaps.map(g => [g.id, g]));
+  for (const id of ['FX-G03', 'FX-G04', 'FX-G05', 'FX-G07', 'FX-G10']) assert.equal(by[id].status, 'partly_closed');
+  assert.match(by['FX-G04'].description, /fa1863_ocr/); assert.match(by['FX-G04'].description, /STILL OPEN/); assert.match(by['FX-G07'].description, /STILL OPEN/); assert.match(by['FX-G10'].description, /Lookups of this round that found nothing/); assert.match(by['FX-G10'].description, /STILL OPEN/); assert.match(by['FX-G03'].description, /FRANKLIN County/); assert.match(by['FX-G03'].description, /does not call it covered/); assert.equal(by['FX-G03'].tier, 'inferred');
+  for (const g of gaps.gaps) assert.ok(['open', 'partly_closed'].includes(g.status));
+});
+
+test('vis-fx round 2: bursting-charge tables are corroborated by a third printed source; a documented charge always names its printed page; rifled shell stays a marked stand-in', () => {
+  for (const k of ['projectile.shell_burst_charge_by_designation_oz', 'projectile.case_burst_charge_by_designation_oz']) {
+    assert.equal(tiers.params[k].tier, 'documented'); assert.match(tiers.params[k].basis, /fieldmanualforus00conf/); assert.match(tiers.params[k].basis, /printed p\. 76/);
+  }
+  assert.deepEqual(P.projectile.shell_burst_charge_by_designation_oz, { '12': 5, '24': 8, '32': 11 }); assert.deepEqual(P.projectile.case_burst_charge_by_designation_oz, { '6': 2.5, '12': 4.5, '24': 6, '32': 8 });
+  assert.match(tiers.params['projectile.case_burst_charge_by_designation_oz'].basis, /p\. 23/, 'the 1 oz prose of the same manual is recorded, not hidden');
+  const W = data.weapons.weapons;
+  for (const w of Object.values(W)) if (w.kit_category === 'artillery' && w.charge.tier === 'documented') assert.match(w.charge.basis, /Instruction for Field Artillery/, w.id + ': documented charge names its manual');
+  assert.equal(tiers.params['projectile.shell_burst_charge_unlisted_oz'].tier, 'plausible-procedural', 'rifled shell burster: no printed value reached (Confederate Ordnance Manual 1863, Field Manual 1862, Instruction for Field Artillery 1864 searched)');
+  assert.equal(designation(W['10pdr_parrott']), null);
 });

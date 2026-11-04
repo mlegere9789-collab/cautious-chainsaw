@@ -12,6 +12,7 @@
 import { BANDS, spectrumWeights, airLossDb, groundLossDb, designPropagationFilter, spreadingDb, dbToLin, FULL_SCALE_DB_SPL, RURAL_NOISE_FLOOR_DB, makeAtmosphere, travelTime, directionFromListener, itdSeconds, equalPowerPan, ildGains, dopplerFactor, radialToward, dist3, powToDb } from './physics.mjs';
 import { SOUNDS, soundForWeapon, burstSoundForProjectile, impactSoundForSurface, flightSoundForGun, HANDLING_BY_STEP } from './catalog.mjs';
 import { WORD_PHONES } from './synth-voice.mjs';
+import { woodsEffect } from './woods.mjs';
 import { unit, hash3 } from './rng.mjs';
 
 export const DEFAULT_BUDGET = Object.freeze({
@@ -22,6 +23,7 @@ export const DEFAULT_BUDGET = Object.freeze({
   windowS: 0.1,
   cullBelowAmbientDb: 15,  // a sound this far under the ambient floor is inaudible and not made (counted)
   maxRangeM: 12000,        // beyond this only the far layer (statistical bed) is used
+  woodsReverbBoost: 0.15,  // added to the reverb send at full woods weight (woods.mjs woodsEffect); needs a woods mask on the terrain. ASSUMED magnitude, 0 turns it off (AUD-G08)
 });
 
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -87,7 +89,14 @@ export function createPlanner({ atmosphere = makeAtmosphere(), terrain = null, l
     // echoes and reverb
     let echoes = [];
     if (terrain && d > 150 && (snd.kind === 'shot' || snd.kind === 'burst') && levelDb > ambient + 6) echoes = terrain.echoes(src, lp, atm.c).map((t) => ({ delay: t.delay, gainLin: t.gain, azimuthRad: t.azimuthRad - (L.yaw || 0), fc: Math.max(300, filt.fc * 0.6), tier: t.tier, kind: t.kind }));
-    const reverbSend = Math.min(0.6, 0.05 + 0.5 * (1 - Math.exp(-d / 700)));
+    let reverbSend = Math.min(0.6, 0.05 + 0.5 * (1 - Math.exp(-d / 700)));
+    // woods (documented qualitatively: the woods echoed and increased the roar): a reverb-send boost when source, listener or the path is in woods. No attenuation is applied (no source).
+    let woods = null;
+    if (terrain && terrain.woodsAt && B.woodsReverbBoost > 0 && d > 30) {
+      const fr = terrain.woodsFraction(src, lp) || 0, we = woodsEffect({ srcIn: terrain.woodsAt(src[0], src[2]) > 0.5, lstIn: terrain.woodsAt(lp[0], lp[2]) > 0.5, fraction: fr }, B.woodsReverbBoost);
+      woods = { fraction: fr, weight: we.weight, reverbAdd: we.reverbAdd, applied: we.applied, tier: 'plausible-procedural' };
+      if (we.applied) reverbSend = Math.min(0.75, reverbSend + we.reverbAdd);
+    }
     const variant = variantOverride != null ? variantOverride : Math.floor(unit(seed, hash3(id ?? 0, seedExtra, variantKey), 7) * snd.variants);
     const gainLin = dbToLin(levelDb - FULL_SCALE_DB_SPL + trimDb);
     return {
@@ -95,7 +104,7 @@ export function createPlanner({ atmosphere = makeAtmosphere(), terrain = null, l
       levelDb, ambientDb: ambient, marginDb: levelDb - ambient, gainLin, filter: { gainDb: filt.gainDb, fc: filt.fc, Q: filt.Q, stages: filt.stages, rmsDb: filt.rmsDb },
       shadow: shadow ? { blocked: shadow.blocked, zMax: shadow.zMax, maxLossDb: Math.max(...shadow.lossDb), applied: !!shadowed } : null,
       pan: { az: dir.az, el: dir.el, bearing: dir.bearing, itd, lr, vec: [Math.sin(dir.az) * Math.cos(dir.el), Math.sin(dir.el), -Math.cos(dir.az) * Math.cos(dir.el)] },
-      doppler: { rate, sourceRadial: vs, listenerRadial: vl }, echoes, reverbSend, tag, loop: !!snd.loop,
+      doppler: { rate, sourceRadial: vs, listenerRadial: vl }, echoes, reverbSend, woods, tag, loop: !!snd.loop,
       priority: snd.priority, score: levelDb - ambient + 10 * Math.log10(snd.priority) + (d < B.protectRadiusM ? 12 : 0), protected: d < B.protectRadiusM,
       src: [src[0], src[1], src[2]], voiceWords, call,
     };

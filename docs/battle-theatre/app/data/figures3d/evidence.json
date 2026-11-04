@@ -1,0 +1,140 @@
+{
+ "schema": "figures3d-evidence-1",
+ "note": "Primary-source passages read for the figure models (2026-11-04) and exactly what each supports; TIERS.json entries cite these ids. Failed lookups are recorded as failed.",
+ "base_stars_before_kansas_not_from_a_source_read": 33,
+ "admissions": [
+  {
+   "state": "Kansas",
+   "admitted": "1861-01-29",
+   "evidence": "FIG-EV-KANSAS-1861"
+  },
+  {
+   "state": "West Virginia",
+   "admitted": "1863-06-20",
+   "evidence": "FIG-EV-WESTVA-1863"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "FIG-EV-FLAG-ACT-1818",
+   "status": "verified",
+   "tier": "documented",
+   "supports": "the statute that fixes the US flag: 13 horizontal stripes, a union of stars in a blue field, one star added for every new state, the addition taking effect on the fourth of July next succeeding the admission",
+   "source": "Statutes at Large of the United States of America, vol. 3, 15th Congress, 1st Session, chapter 34 (\"An Act to establish the flag of the United States\"), approved 4 April 1818, p. 415",
+   "where": "https://www.govinfo.gov/content/pkg/STATUTE-3/pdf/STATUTE-3-Pg415.pdf (page image with text layer, read 2026-11-04)",
+   "passage": {
+    "sec1": "the flag of the United States be thirteen horizontal stripes, alternate red and white",
+    "sec2": "on the admission of every new state into the Union, one star be added to the union of the flag; and that such addition shall take effect on the fourth day of July then next succeeding such admission"
+   },
+   "not_supported": "the arrangement of the stars, the size, any regiment's actual flag"
+  },
+  {
+   "id": "FIG-EV-KANSAS-1861",
+   "status": "verified",
+   "tier": "documented",
+   "supports": "Kansas was declared admitted into the Union by an act approved 29 January 1861 (so its star took effect on 4 July 1861 under FIG-EV-FLAG-ACT-1818)",
+   "source": "Statutes at Large, vol. 12, 36th Congress, 2nd Session, chapter 20 (\"An Act for the Admission of Kansas into the Union\"), approved 29 January 1861, p. 126",
+   "where": "https://www.govinfo.gov/content/pkg/STATUTE-12/pdf/STATUTE-12-Pg126.pdf",
+   "passage": {
+    "sec1": "the State of Kansas shall be, and is hereby declared to be, one of the United States of America, and admitted into the Union on an equal footing with the original States"
+   },
+   "not_supported": "the ordinal number of the state (that Kansas was the 34th is not stated by the act)"
+  },
+  {
+   "id": "FIG-EV-WESTVA-1863",
+   "status": "verified",
+   "tier": "documented",
+   "supports": "the act of 31 December 1862 admitted West Virginia on the condition of a proclamation; the proclamation of 20 April 1863 put the act in force from and after sixty days from its date, so West Virginia was a state from 20 June 1863 and its star took effect on 4 July 1863 (after the battle)",
+   "source": "Statutes at Large, vol. 12, 37th Congress, 3rd Session, chapter 6, approved 31 December 1862, pp. 633-634 (act); vol. 13, Appendix, Proclamation No. 3 of 20 April 1863, p. 731 (proclamation)",
+   "where": "https://www.govinfo.gov/content/pkg/STATUTE-12/pdf/STATUTE-12-Pg633.pdf, ...Pg634.pdf; https://www.govinfo.gov/content/pkg/STATUTE-13/pdf/STATUTE-13-Pg731.pdf",
+   "passage": {
+    "act": "this act shall take effect and be in force from and after sixty days from the date of said proclamation",
+    "proclamation": "the said act shall take effect and be in force from and after sixty days from the date hereof (dated 20 April 1863)"
+   },
+   "not_supported": "the date arithmetic (20 April + 60 days) is ours: from and after the 60th day gives 20 June 1863"
+  },
+  {
+   "id": "FIG-EV-STAR-COUNT-1863",
+   "status": "inferred",
+   "tier": "inferred",
+   "supports": "the statutory union on 1-3 July 1863 had 34 stars: the star of Kansas (4 July 1861) was the last in force and the star of West Virginia took effect on 4 July 1863",
+   "source": "derived from FIG-EV-FLAG-ACT-1818, FIG-EV-KANSAS-1861, FIG-EV-WESTVA-1863",
+   "where": "src/figures3d/evidence.mjs unionStarsOn()",
+   "passage": {},
+   "not_supported": "the base count of 33 stars before Kansas (the 33 earlier admissions were NOT read in this round: supplied from memory) and that any regiment carried a flag with the statutory count; secondary pages (Smithsonian object record, NPS Petersburg page) were found by search but could not be read (403, 404), so they are NOT cited"
+  },
+  {
+   "id": "FIG-EV-STAR-ARRANGEMENT",
+   "status": "gap",
+   "tier": "plausible-procedural",
+   "supports": "nothing: the 1818 act does not prescribe how the stars are arranged; no source for the arrangement of period flags was read",
+   "source": "-",
+   "where": "-",
+   "passage": {},
+   "not_supported": "arrangement 6-5-6-5-6-6, canton size"
+  },
+  {
+   "id": "FIG-EV-BRIDLE-HAND-1841",
+   "status": "verified",
+   "tier": "documented",
+   "supports": "the US cavalry drill (Cavalry Tactics, Part 2, School of the Trooper, mounted) prescribes the BRIDLE-HAND position in the LEFT hand: both reins with their slide in the left hand, the little finger between the reins, the thumb on the second joint of the first finger, the elbow slightly detached from the body, the hand 4 in. above the pommel of the saddle, the fingers 6 in. from the body and turned towards it, the right hand at the side; in the first lessons one rein of the snaffle is held in each hand (para. 270), and the command \"cross reins, in left hand\" (para. 274) puts both reins in the left hand",
+   "source": "Cavalry Tactics, Second Part (School of the Trooper, of the Platoon and of the Squadron, mounted), \"printed by order of the War Department\", Washington: J. and G. S. Gideon, 1841; paras. 270 (position of the trooper mounted, snaffle reins one in each hand), 274 (to cross the reins in the left hand), 349 (position of the bridle-hand), 354 (principal movements of the bridle-hand); about pp. 9-10, 13-14, 58-61 (OCR pagination)",
+   "where": "https://archive.org/details/cavalrytactics03deptgoog (Google scan; plain-text OCR read 2026-11-04). The same drill text is in the 1855 Lippincott, Grambo reprint (archive.org cavalrytactics00deptgoog; the OCR of para. 349 there is too garbled to quote, paras. 270 and 274 are legible)",
+   "passage": {
+    "para349": "The reins with their slide in the left hand, the little finger between the reins ... the hand 4 inches above the pommel of the saddle, the fingers 6 inches from, and turned towards the body ... the right hand at the side",
+    "para274": "place in it [the left hand] the part of the rein that was in the right; reclose the left hand, and let the right fall to the side"
+   },
+   "not_supported": "that every Gettysburg trooper rode in this position (practice varied, and the revised manual of 1861 (Cooke) has a School of the Trooper whose text was NOT located in this round, so any change in it is unchecked); how a man holds the reins in a charge or with sabre drawn"
+  },
+  {
+   "id": "FIG-EV-CARRY-SIDE-1861",
+   "status": "verified",
+   "tier": "documented",
+   "supports": "the US Army regulations of 1861 prescribe that the haversack and canteen are worn on the LEFT side on marches, guard and when paraded for detached service, the canteen outside the haversack; the Confederate regulations (revised from the old US regulations of 1857) carry the same sentence",
+   "source": "Revised Regulations for the Army of the United States, 1861 (Philadelphia edition, archive.org revisedregulati01deptgoog), para. 112 on the marking of knapsacks and haversacks (OCR reading; the section heading is not legible in the OCR); the Harper edition of Regulations for the Army of the United States 1861 (archive.org regulationsfora04deptgoog) prints the same sentence (para. 107 in its numbering, OCR reading); Army Regulations adopted for the use of the Army of the Confederate States (archive.org armyregulations00conf), same sentence",
+   "where": "https://archive.org/details/revisedregulati01deptgoog ; https://archive.org/details/regulationsfora04deptgoog ; https://archive.org/details/armyregulations00conf (plain-text OCR read 2026-11-04)",
+   "passage": {
+    "sentence": "It will be worn on the left side on marches, guard, and when paraded for detached service - the canteen outside the haversack"
+   },
+   "not_supported": "what men actually did in the field (the 1863 practice of the haversack and canteen sides, the strap runs and the shoulder each strap crossed are NOT in the regulation); the sentence is about wearing on the three named occasions, not about fighting order. The model currently hangs the haversack on the RIGHT hip: it deviates from this passage (TIERS F-CARRY-SIDE, EG-FIG-0009)"
+  }
+ ],
+ "failed_lookups": [
+  {
+   "what": "Flag Act of 1818 text via loc.gov (llsl-v3, p. 415)",
+   "result": "HTTP 403, not retried or worked around"
+  },
+  {
+   "what": "tile.loc.gov llsl-c15 PDF",
+   "result": "larger than the 10 MB fetch limit, not read"
+  },
+  {
+   "what": "thecaptainsclerk.com copy of the 1818 act",
+   "result": "certificate host mismatch, not read"
+  },
+  {
+   "what": "museum.dmna.ny.gov flag history PDF",
+   "result": "text streams unreadable in the fetch tool; not used"
+  },
+  {
+   "what": "Smithsonian flag facts and 34-star object record (avpreservation.si.edu, si.edu)",
+   "result": "HTTP 403, not read, not cited"
+  },
+  {
+   "what": "NPS Our Flag (parkhistory/online_books/flag/h_doc_100-247/sec8.htm)",
+   "result": "fetched page was a landing page without the passage"
+  },
+  {
+   "what": "NPS Petersburg flags-of-the-civil-war page",
+   "result": "HTTP 404"
+  },
+  {
+   "what": "Cooke 1861 Cavalry Tactics, Part 1 School of the Trooper text on archive.org",
+   "result": "identifiers cavalrytacticso00deptgoog and cavalrytactics04deptgoog read: they hold other parts (no rein text); Part 1 not located"
+  },
+  {
+   "what": "Regulations for the Army 1857 (archive.org 0255005.nlm.nih.gov djvu text)",
+   "result": "HTTP 404"
+  }
+ ]
+}

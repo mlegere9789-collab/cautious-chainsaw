@@ -12,6 +12,7 @@ import { GUN_CYCLE_NOMINAL_S } from './clips-artillery.mjs';
 import { smooth, clamp } from './qmath.mjs';
 import { gaitId } from './library.mjs';
 import { VARIANTS } from './variants.mjs';
+import { gaitBasis, mountedGait, mountedRate, GAIT_NAMES } from './gaits.mjs';
 
 export const CONTRACT_ACTIVITIES = ['march', 'double_quick', 'halt', 'stand', 'rest', 'fire', 'serve_guns', 'gallop', 'build_works', 'camp'];
 export const EXTRA_ACTIVITIES = ['advance', 'retreat', 'charge', 'skirmish', 'night_camp', 'picket', 'wounded_walk', 'carry_wounded', 'walk', 'trot', 'canter', 'halt_mounted', 'cheer', 'bury'];
@@ -46,12 +47,12 @@ class Slot { constructor() { this.c = 0; this.d = new Float64Array(1); } get t()
 export class Seg {
   constructor(s) {
     this.t0 = s.t0; this.activity = s.activity; this.speed = s.speed ?? 0; this.route = !!s.route; this.posture = s.posture || 'stand'; this.plan = s.plan || null; this.night = !!s.night; this.carry = s.carry || ''; this.dismounted = !!s.dismounted;
-    this.surface = s.surface || ''; this.lengthM = s.lengthM || 0; this.mode = s.mode || ''; this.i = 0; this.prev = null; this.kind = ''; this.g = null; this.phi0 = 0; this.blend = 0.3; this.cid = null; this.cidx = null;
+    this.surface = s.surface || ''; this.lengthM = s.lengthM || 0; this.mode = s.mode || ''; this.i = 0; this.prev = null; this.kind = ''; this.g = null; this.phi0 = 0; this.blend = 0.3; this.cid = null; this.cidx = null; this.gi = 0; this.mr = 1;
   }
 }
 export class UnitAnimator {
   constructor(lib, o) {
-    this.lib = lib; this.unitId = o.unitId; this.n = o.n; this.seed = o.seed ?? 1863; this.arm = o.arm || 'infantry'; this.cpg = o.crewPerGun || 8;
+    this.lib = lib; this.gb = gaitBasis(o.gaitBasis || 'modern_range'); this.unitId = o.unitId; this.n = o.n; this.seed = o.seed ?? 1863; this.arm = o.arm || 'infantry'; this.cpg = o.crewPerGun || 8;
     this.varOf = o.variation || (() => 0.5); this.segs = []; this.fallT = null; this.fate = null; this.var = []; this.ids = {};
     this.vphase = new Float64Array(this.n); this.vrate = new Float64Array(this.n); this.vscale = new Float64Array(this.n); this.vstyle = new Uint8Array(this.n); this.vpick = new Float64Array(this.n);
     const tmp = {}; for (let k = 0; k < this.n; k++) { figureVariation(this.varOf(k), k, this.seed, tmp); this.vphase[k] = tmp.phase; this.vrate[k] = tmp.rate; this.vscale[k] = tmp.scale; this.vstyle[k] = tmp.style; this.vpick[k] = tmp.pick; }
@@ -79,6 +80,7 @@ export class UnitAnimator {
       s.i = i; s.prev = i > 0 ? this.segs[i - 1] : null; s.kind = this._kind(s);
       if (s.kind === 'march') { const g = this.pickGait(s.speed, s.route, s.activity); s.g = g; s.phi0 = prevMarch ? phi : 0; const nxt = this.segs[i + 1]; if (nxt) { phi = s.phi0 + (nxt.t0 - s.t0) * g.freq; } prevMarch = true; }
       else prevMarch = false;
+      if (s.kind === 'mounted') { s.gi = mountedGait(this.gb, s.speed); s.mr = mountedRate(this.gb, s.gi, s.speed); }   // gaits.mjs: the gait clip and its cadence for this ground speed
       s.blend = BLEND_S[s.kind] ?? BLEND_S.default;
       if (s.kind === 'march' || s.kind === 'mounted') s.blend = 0.35;
       if (s.kind === 'camp') { s.cid = this._campIds(s); s.cidx = s.cid.map(id => this.idx(id)); }
@@ -162,8 +164,8 @@ export class UnitAnimator {
     if (out) out.d[SEL_RATE] = g.rateA;
   }
   _mounted(seg, k, t, A, out) {
-    const sp = seg.speed, gait = sp < 2.4 ? 'walk' : sp < 4.6 ? 'trot' : sp < 7.0 ? 'canter' : 'gallop', T = MOUNT_T[gait];
-    const f = (((t - seg.t0) / T) * (0.97 + 0.06 * this.vphase[k]) + this.vphase[k]) % 1;
+    const gait = GAIT_NAMES[seg.gi], T = MOUNT_T[gait];
+    const f = (((t - seg.t0) / T) * seg.mr * (0.97 + 0.06 * this.vphase[k]) + this.vphase[k]) % 1;
     A.c = this.iRider[gait]; A.d[0] = f * T; if (out) { out.h = this.iHorse[gait]; out.d[SEL_TH] = f * T; out.d[SEL_RATE] = 1; }
   }
   _guns(seg, k, t, A) {

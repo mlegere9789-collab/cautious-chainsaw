@@ -1,0 +1,298 @@
+{
+ "schema": "anim3d-gait-sources-1",
+ "note": "Printed speeds of the paces of manoeuvre. The sources disagree; each is a selectable basis (AnimSystem option gaitBasis). The default stays modern_range until the owner decides (PENDING OWNER).",
+ "default": "modern_range",
+ "gallopMargin": 1.15,
+ "cadenceClamp": [
+  0.75,
+  1.3
+ ],
+ "mapping": "manual walk -> clip walk; manual trot -> clip trot; manual gallop -> clip canter (nearest clip speed); a speed above gallop x gallopMargin -> clip gallop (full-speed charge, no printed speed)",
+ "sources": [
+  {
+   "id": "GS-WHEELER-1863",
+   "work": "Wheeler, Joseph. A Revised System of Cavalry Tactics for the Use of the Cavalry and Mounted Infantry, C.S.A. Mobile: S. H. Goetzel & Co., 1863.",
+   "archive": "archive.org/details/revisedsystemofc00whee",
+   "items": [
+    {
+     "ref": "Basis of Instruction, \"Practice of Paces for Manoeuvre\", p. 87",
+     "walk_mph": 3.75,
+     "trot_mph": 7.5,
+     "gallop_mph": 10,
+     "passage": "walk 3 3/4 miles an hour, trot 7 1/2 miles an hour, gallop 10 miles an hour; a half mile to be walked in 8 minutes, trotted in 4, galloped in 3"
+    },
+    {
+     "ref": "Squadron, Mounted, para 333 \"To regulate the rapidity of the gaits\", p. 177",
+     "mile_min": {
+      "walk": 16,
+      "trot": 8,
+      "gallop": 6
+     },
+     "passage": "the mile at a walk in sixteen minutes, at a trot in eight, at the gallop in six"
+    }
+   ],
+   "tier": "documented",
+   "note": "a Confederate manual of 1863 (the cavalry of the Army of Tennessee); paras 333 and the Basis of Instruction agree (3.75 / 7.5 / 10 mph)"
+  },
+  {
+   "id": "GS-COOPER-1861",
+   "work": "Cooper's Cavalry Tactics, for the Use of Volunteers; to which is added a Manual for Colt's Revolver. New Orleans and Jackson, Miss.: 1861 (Confederate publication of the Cooke system).",
+   "archive": "archive.org/details/cooperscavalryta01coop",
+   "items": [
+    {
+     "ref": "Definitions, \"Paces\", p. 7",
+     "walk_mph": [
+      3.5,
+      4
+     ],
+     "trot_mph": 8.5,
+     "gallop_mph": 11,
+     "passage": "the walk three and a half to four miles an hour, the trot eight miles and a half an hour, the gallop eleven miles an hour (OCR reads \"three and a h ilf\")"
+    }
+   ],
+   "tier": "documented",
+   "note": "the same page says the gallop is not considered applicable to general manoeuvre, and that the pace is reckoned at one yard"
+  },
+  {
+   "id": "GS-FA-1863",
+   "work": "Instruction for Field Artillery. Prepared by a Board of Artillery Officers. Washington: Government Printing Office, 1863 (War Department order of March 1, 1863).",
+   "archive": "archive.org/details/cu31924030759330 (acquired copy; cross-checked in instructionforf01deptgoog, whose pagination differs: pp. 28 and 31)",
+   "items": [
+    {
+     "ref": "Pointing and Ranges, p. 42 (para on the charge of cavalry against a battery)",
+     "yards_per_phase": [
+      {
+       "yd": 400,
+       "min": 4.5,
+       "gait": "walk approaching a gentle trot"
+      },
+      {
+       "yd": 400,
+       "min": 2,
+       "gait": "round trot (\"a little more than two minutes\")"
+      },
+      {
+       "yd": 200,
+       "min": 0.5,
+       "gait": "gallop (\"about half a minute\")"
+      }
+     ],
+     "passage": "cavalry 1,000 yards from the battery: first 400 yards at a walk approaching a gentle trot in about four and a half minutes; next 400 at a round trot in a little more than two minutes; last 200 at a gallop in about half a minute; about seven minutes in all"
+    },
+    {
+     "ref": "Management of a Battery, Art. Fourth, p. 47",
+     "yd400_min": {
+      "walk": 4.5,
+      "trot": 2,
+      "gallop": 1
+     },
+     "passage": "A horse travels the distance of 400 yards at a walk in 4 1/2 minutes; at a trot in 2 minutes; at a gallop in 1 minute"
+    }
+   ],
+   "tier": "documented",
+   "note": "the one statement at p. 47 gives the three paces as horse speeds; p. 42 is an estimate of an enemy charge (rounded times)"
+  },
+  {
+   "id": "GS-CAV-1841",
+   "work": "Cavalry Tactics (United States War Department, Second Part, School of the Trooper, of the Platoon and of the Squadron, Mounted), Washington: J. and G. S. Gideon, 1841 (superseded by Cooke's system, War Department notice 1 Nov 1861).",
+   "archive": "archive.org/details/cavalrytactics00deptgoog",
+   "items": [
+    {
+     "ref": "para 600 \"To regulate the rapidity of the gaits\", p. 196",
+     "walk_paces_per_min": [
+      100,
+      110
+     ],
+     "trot_paces_per_min": [
+      200,
+      230
+     ],
+     "passage": "at the walk from 100 to 110 paces per minute, at the trot from 200 to 230 per minute; the figure for the gallop is cut off in the OCR (\"about 300\")"
+    }
+   ],
+   "tier": "inferred",
+   "note": "an older edition (OCR damaged); NOT used as a basis, kept as corroboration of the Wheeler and Cooper walk and trot (paces taken as yards after Cooper p. 7)"
+  }
+ ],
+ "bases": {
+  "modern_range": {
+   "label": "modern equestrian ranges (the behaviour before this module)",
+   "tier": "plausible-procedural",
+   "src": [],
+   "speeds_ms": null,
+   "bounds_ms": [
+    2.4,
+    4.6,
+    7
+   ],
+   "scaleCadence": false,
+   "clips": {
+    "walk": {
+     "clipSpeed_ms": 1.55,
+     "cadenceAt_ms": null,
+     "cadenceFactor": 1
+    },
+    "trot": {
+     "clipSpeed_ms": 3.6,
+     "cadenceAt_ms": null,
+     "cadenceFactor": 1
+    },
+    "canter": {
+     "clipSpeed_ms": 5.6,
+     "cadenceAt_ms": null,
+     "cadenceFactor": 1
+    },
+    "gallop": {
+     "clipSpeed_ms": 8.3,
+     "cadenceAt_ms": null,
+     "cadenceFactor": 1
+    }
+   }
+  },
+  "wheeler_1863": {
+   "label": "Wheeler, Revised System of Cavalry Tactics, C.S.A., 1863",
+   "tier": "documented",
+   "src": [
+    "GS-WHEELER-1863"
+   ],
+   "speeds_ms": {
+    "walk": 1.6764,
+    "trot": 3.3528,
+    "gallop": 4.4704
+   },
+   "bounds_ms": [
+    2.5146,
+    3.9116,
+    5.14096
+   ],
+   "scaleCadence": true,
+   "clips": {
+    "walk": {
+     "clipSpeed_ms": 1.55,
+     "cadenceAt_ms": 1.6764,
+     "cadenceFactor": 1.081548
+    },
+    "trot": {
+     "clipSpeed_ms": 3.6,
+     "cadenceAt_ms": 3.3528,
+     "cadenceFactor": 0.931333
+    },
+    "canter": {
+     "clipSpeed_ms": 5.6,
+     "cadenceAt_ms": 4.4704,
+     "cadenceFactor": 0.798286
+    },
+    "gallop": {
+     "clipSpeed_ms": 8.3,
+     "cadenceAt_ms": 5.14096,
+     "cadenceFactor": 0.75
+    }
+   }
+  },
+  "cooper_1861": {
+   "label": "Cooper's Cavalry Tactics, 1861 (walk taken at the middle of 3.5 to 4 mph)",
+   "tier": "documented",
+   "src": [
+    "GS-COOPER-1861"
+   ],
+   "speeds_ms": {
+    "walk": 1.6764,
+    "trot": 3.79984,
+    "gallop": 4.91744
+   },
+   "bounds_ms": [
+    2.73812,
+    4.35864,
+    5.655056
+   ],
+   "scaleCadence": true,
+   "clips": {
+    "walk": {
+     "clipSpeed_ms": 1.55,
+     "cadenceAt_ms": 1.6764,
+     "cadenceFactor": 1.081548
+    },
+    "trot": {
+     "clipSpeed_ms": 3.6,
+     "cadenceAt_ms": 3.79984,
+     "cadenceFactor": 1.055511
+    },
+    "canter": {
+     "clipSpeed_ms": 5.6,
+     "cadenceAt_ms": 4.91744,
+     "cadenceFactor": 0.878114
+    },
+    "gallop": {
+     "clipSpeed_ms": 8.3,
+     "cadenceAt_ms": 5.655056,
+     "cadenceFactor": 0.75
+    }
+   }
+  },
+  "fa_1863": {
+   "label": "Instruction for Field Artillery, 1863 (horse: 400 yd in 4.5 / 2 / 1 minute)",
+   "tier": "documented",
+   "src": [
+    "GS-FA-1863"
+   ],
+   "speeds_ms": {
+    "walk": 1.354667,
+    "trot": 3.048,
+    "gallop": 6.096
+   },
+   "bounds_ms": [
+    2.201333,
+    4.572,
+    7.0104
+   ],
+   "scaleCadence": true,
+   "clips": {
+    "walk": {
+     "clipSpeed_ms": 1.55,
+     "cadenceAt_ms": 1.354667,
+     "cadenceFactor": 0.873978
+    },
+    "trot": {
+     "clipSpeed_ms": 3.6,
+     "cadenceAt_ms": 3.048,
+     "cadenceFactor": 0.846667
+    },
+    "canter": {
+     "clipSpeed_ms": 5.6,
+     "cadenceAt_ms": 6.096,
+     "cadenceFactor": 1.088571
+    },
+    "gallop": {
+     "clipSpeed_ms": 8.3,
+     "cadenceAt_ms": 7.0104,
+     "cadenceFactor": 0.844627
+    }
+   }
+  }
+ },
+ "charge_schedule": {
+  "src": "GS-WHEELER-1863 paras 292, 410-411",
+  "tier": "documented",
+  "phases": [
+   {
+    "gait": "walk",
+    "paces": 20
+   },
+   {
+    "gait": "trot",
+    "paces": 60
+   },
+   {
+    "gait": "gallop",
+    "paces": 80
+   },
+   {
+    "gait": "charge",
+    "paces": 60
+   }
+  ],
+  "totalPaces": 220,
+  "totalM": 201.168,
+  "note": "the pace of the charge (\"quicken the gallop to nearly full speed\", para 189) has no printed speed; the horses must not be fatigued, \"it should be as short as possible\" (p. 210)"
+ }
+}

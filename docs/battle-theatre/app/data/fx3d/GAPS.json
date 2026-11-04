@@ -30,36 +30,36 @@
   {
    "id": "FX-G03",
    "title": "Caledonia Furnace and the Gettysburg covered bridge",
-   "description": "Burning documented (T1-005, T1-015, W-BG) but no position for either in the structures data.",
-   "substitute": "Not drawn. A position needs a source (HABS, 1850s maps).",
-   "tier": "open gap",
+   "description": "Furnace: burned by Early's division on June 26, 1863 per the Pennsylvania state historical marker (ExplorePAHistory marker 1-A-1DE, dedicated 1947, at US 30 and PA 233, Caledonia State Park, east of Fayetteville, FRANKLIN County; secondary, so inferred, not documented); Early's own OR reports do not mention it (T1-005 NOT_FOUND_IN_OR). The site is in Franklin County, so the plan's \"about 2 miles out on the Cashtown road\" is not supported by the marker and the furnace lies off the loaded terrain. Bridge: Early's OR report (printed p. 465) says a \"small railroad bridge near the place\" was burned with the 10 or 12 cars; the OR does not call it covered (T1-014, T1-015), so \"covered\" is a plan-row claim with no supporting source. The structures data has a point for the Rock Creek trestle (fx-fire-rock-creek-trestle, T1-016, sources vary 26 or 27 June); that it is the bridge Early's report means is an inference (the OR gives no name), and no survey position exists for the furnace buildings.",
+   "substitute": "Furnace not drawn (off terrain, county-level location only). Bridge drawn only as the marked Rock Creek trestle fire; the word \"covered\" is not used for it.",
+   "tier": "inferred",
    "requirement_ids": [
     "R06",
     "R13"
    ],
-   "status": "open"
+   "status": "partly_closed"
   },
   {
    "id": "FX-G04",
-   "title": "Common-shell bursting charge",
-   "description": "The repository holds the 1.0 oz spherical-case bursting charge (ORD-PRJ-CASE) but no shell charge.",
-   "substitute": "Stand-in 1.5 oz (plausible-procedural), marked.",
-   "tier": "plausible-procedural",
+   "title": "Bursting charge of common shell and spherical case",
+   "description": "CLOSED for the 12-pdr, 24-pdr and 32-pdr smoothbore shell (Hand-book of Artillery, Richmond 1861, p. 108: to burst 5, 8 and 11 oz) and for spherical case (6-pdr 2.5, 12-pdr 4.5, 24-pdr 6, 32-pdr 8 oz; Ordnance Manual 1861 p. 256 and Roberts p. 108). The 1.0 oz case charge read earlier from the OCR of Instruction for Field Artillery 1863 p. 13 (76 balls) conflicts with both and is kept as the selectable scenario fa1863_ocr (PENDING OWNER). STILL OPEN: the 6-pdr shell, the mountain howitzer and all rifled shells (no printed table reached).",
+   "substitute": "Table values by designation; rifled and 6-pdr shells use the 12-pdr value (plausible-procedural stand-in), marked.",
+   "tier": "documented",
    "requirement_ids": [
     "R13"
    ],
-   "status": "open"
+   "status": "partly_closed"
   },
   {
    "id": "FX-G05",
    "title": "Canister cone angle and ground-strike pattern",
-   "description": "PDF B.6.14.2 gives 27 balls inside 350-400 yd; no spread angle.",
-   "substitute": "Fan half-angle 12 degrees (plausible-procedural), marked.",
-   "tier": "plausible-procedural",
+   "description": "Gibbon 1860 (Practice of fire, printed p. 268-269): canister and grape leave the piece in a cone, most balls near the centre, the extreme ones separating about one tenth of the range; good results at 300-600 yd, maximum effect 400-450 yd. The width is documented; reading it as the full width (half-angle 2.86 degrees) rather than as each extreme ball one tenth off the axis (5.71 degrees) is inferred, so both readings are carried (choices.canisterSpread). The density profile inside the cone and the ground-strike pattern are not described (Gibbon: most balls near the centre).",
+   "substitute": "Half-angle 2.86 degrees (inferred) by default, 5.71 degrees as the alternative; lateral sigma = half width / 2 (plausible-procedural look parameter).",
+   "tier": "inferred",
    "requirement_ids": [
     "R13"
    ],
-   "status": "open"
+   "status": "partly_closed"
   },
   {
    "id": "FX-G06",
@@ -76,13 +76,13 @@
   {
    "id": "FX-G07",
    "title": "March cadence and dust accounts",
-   "description": "drill/*.json has no marching cadence; the PDF says \"no direct dust accounts\".",
-   "substitute": "Gait comes from the animation; 90 steps/min fallback, marked inferred. Dust drawn only when the ground is dry by the wetness model.",
-   "tier": "inferred",
+   "description": "CLOSED for infantry cadence: Hardee prints common time 90, quick time 110, route step 110, double quick 165 and 180 under urgent need (verified in the OCR of three Hardee editions in tmp/library/misc), now a documented table used when a unit_march event gives no stepsPerMin. STILL OPEN: the PDF says \"no direct dust accounts\" (the dust yield stays a look parameter), and the cadence of horse gaits is not documented (the printed paces of 1861-63 give speeds only, e.g. Wheeler 1863 p. 87: walk 3.75, trot 7.5, gallop 10 mph; Cooper 1861 p. 7; Instruction for Field Artillery 1863 p. 47: 400 yd in 4.5, 2 and 1 minute; see app/data/anim3d/gait-sources.json; none prints a hoof or stride rate, so strikes per minute stay a look parameter).",
+   "substitute": "Dust drawn only when the ground is dry by the wetness model; horse strikes per minute stay plausible-procedural.",
+   "tier": "documented",
    "requirement_ids": [
     "R13"
    ],
-   "status": "open"
+   "status": "partly_closed"
   },
   {
    "id": "FX-G08",
@@ -110,13 +110,13 @@
   {
    "id": "FX-G10",
    "title": "Powder charge of small arms other than the .58 rifle-musket; charges of rifled field guns and gap pieces",
-   "description": "Only the 60-grain rifled-musket charge and the smoothbore field-gun and howitzer service charges are in printed manuals in the repository.",
-   "substitute": "Other arms scaled by bore area from the documented 60 grains (plausible-procedural); rifled guns use the kit table (inferred, weak source).",
+   "description": "Only the 60-grain rifled-musket charge and the smoothbore field-gun and howitzer service charges are in printed manuals in the repository. Lookups of this round that found nothing: Ordnance Manual 3rd ed. 1862 OCR (archive.org ordnancemanualfo00unitrich): no Parrott, no 3-inch rifle service charge, no small-arms cartridge powder weight reached by the patterns tried; Roberts 1861 has no rifled field gun. Gibbon 1860 prints 60 grains of powder for the rifled musket at 200 and 600 yd (already used). PARTLY CLOSED (vis-fx round 2): Instruction for Field Artillery (adopted 1863-03-03, New York 1864, printed p. 7 note) prints one pound for the 10-pounder Parrott and the 3-inch gun and two pounds for the 20-pounder Parrott, now documented. STILL OPEN: the 14-pdr James, 12-pdr Whitworth, Blakely, 3-inch navy rifle and Ames rifled bronze piece (no printed charge reached) and every small arm other than the .58 rifle-musket.",
+   "substitute": "Other arms scaled by bore area from the documented 60 grains (plausible-procedural); the 14-pdr James and Whitworth use the kit table (inferred, weak source); Blakely, navy rifle and Ames use a 1.0 lb stand-in (plausible-procedural).",
    "tier": "plausible-procedural",
    "requirement_ids": [
     "R13"
    ],
-   "status": "open"
+   "status": "partly_closed"
   },
   {
    "id": "FX-G11",

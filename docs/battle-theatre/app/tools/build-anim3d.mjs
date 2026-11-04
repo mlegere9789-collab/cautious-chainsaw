@@ -9,6 +9,7 @@ import { PROPS } from '../src/anim3d/figure-pose.mjs';
 import { cycleDurations, NOMINAL_CYCLE_S } from '../src/anim3d/musketry.mjs';
 import { gunSegments, GUN_CYCLE_NOMINAL_S } from '../src/anim3d/clips-artillery.mjs';
 import { FALL_END } from '../src/anim3d/unit-anim.mjs';
+import { gaitTable } from '../src/anim3d/gaits.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url)), APP = path.resolve(HERE, '..'), BT = path.resolve(APP, '..'), ROOT = path.resolve(BT, '..', '..');
 const OUT = path.join(APP, 'data', 'anim3d'), MISC = path.join(ROOT, 'tmp', 'library', 'misc');
@@ -66,6 +67,7 @@ export function buildAll({ misc = MISC } = {}) {
     map: { march: 'locomotion by ground speed: common time 1.067, quick time / route step 1.304, double quick 2.305, urgent 2.515, run; carry shoulder / right shoulder shift / arms at will / trail', double_quick: 'march_double_quick_*', advance: 'march', retreat: 'march; at double quick or faster the running retreat looks back', charge: 'double quick at trail arms', halt: 'stand_shoulder (stand_rss after a route step)', stand: 'stand_shoulder', rest: 'stand_rest',
       fire: 'ready_from_shoulder, fire_cycle_{stand|kneel|lie} time-warped to the fire plan, shoulder_from_ready', skirmish: 'fire (at will)', serve_guns: 'gun_crew_{gunner|n1..n8|chief} on the gun plan', gallop: 'rider_{walk|trot|canter|gallop} + horse_{...} by speed', build_works: 'dig_shovel, chop_axe, lay_stone, march_carry_rail', camp: 'by day sit_fire, cook_stir, eat_hardtack, stand_rest', night_camp: 'by night sleep_side, sit_fire, stand_picket', picket: 'stand_picket', wounded_walk: 'walk_wounded', carry_wounded: 'carry_litter_front / carry_litter_rear',
       killed_or_wounded: 'fall_{back|front|side_left|side_right|knee_first|spin|clutch_wound|drop_rifle} then lie_{dead|wounded}_{back|front|side_left|side_right}' }, fall_end: FALL_END };
+  files['gait-sources.json'] = gaitTable();
   files['layout.json'] = { schema: 'anim3d-layout-1', conventions: '+Y up, +Z forward, +X the figure\'s left; pose = local quaternion relative to rest (skeleton.json); frame layout as in clips.json', skin_matrix: '3 rows x 4 floats [R | t], t = p - R * restHead (inverseBind = translate(-head)), 3 texels per bone (RGBA)', bone_texture: 'rows = frames, columns = 3 * bones; bones = lod.mid.bones (36) or all (61)', vat: 'texel = frame * nvPad + vertex, RGB = position', mid_bones: rig.lod.mid.bones.map(i => rig.names[i]), hash: 'FNV-1a 32 over the float32 bytes of the baked clip' };
   return files;
 }

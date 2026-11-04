@@ -1,0 +1,30 @@
+[
+ {
+  "n": 1,
+  "date": "2026-11-04",
+  "tool": "WebSearch",
+  "query": "Camp Letterman general hospital Gettysburg opened July 1863 nps.gov",
+  "result": "NPS pages returned; one gives July 20 to November 19, 1863 and \"over four thousand\" treated; another \"over twenty thousand\"; no exact opening day; status: partial"
+ },
+ {
+  "n": 2,
+  "date": "2026-11-04",
+  "tool": "WebSearch",
+  "query": "Spangler Farm field hospital Gettysburg number of wounded treated nps.gov",
+  "result": "no NPS page with a Spangler patient count; status: failed_lookup"
+ },
+ {
+  "n": 3,
+  "date": "2026-11-04",
+  "tool": "WebFetch",
+  "url": "https://www.nps.gov/gett/learn/historyculture/gettysburg-overview.htm",
+  "result": "total casualties \"over 51,000 soldiers dead, wounded, or missing\"; no per-army breakdown; Camp Letterman \"established east of Gettysburg\", no date; \"over 20,000\" passed through wards; Union strength absent; status: partial"
+ },
+ {
+  "n": 4,
+  "date": "2026-11-04",
+  "tool": "tools/bt/or27_find.py",
+  "query": "about 40 regex and verify queries over OR Ser.I vol.27 pts 1-3 (local OCR)",
+  "result": "see results.jsonl; Sherfy 0 hits; wind-speed 0 hits; Lee Jul 1 arrival 0 hits; 3,155/14,531 casualty breakdown 0 hits"
+ }
+]

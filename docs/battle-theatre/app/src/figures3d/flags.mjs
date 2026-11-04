@@ -1,13 +1,14 @@
 // Flags, colours and guidons. Cloth meshes (hoist along the staff, wave weight per vertex for the wind/animation pass) and procedural patterns (RGBA textures).
 // EVIDENCE RULES (CLAUDE.md Law cl.4, brief): the repository documents NO regimental or state colour description and no Gettysburg-specific Confederate pattern (PDF B.6.5 G11: Gettysburg pattern open).
 //  * US national colour: stars and stripes, 13 stripes, STAR COUNT 34 (tier INFERRED: the count in law on 1-3 July 1863 was set by admissions before 4 July 1863; West Virginia, admitted 20 June 1863,
-//    could take the 35th star only on 4 July 1863. This is statutory reasoning recalled from memory, not a source read in this task: lookup NOT performed, register EG-FIG-0002). The star ARRANGEMENT is
+//    could take the 35th star only on 4 July 1863. The statute (3 Stat. 415), the admission acts of Kansas and West Virginia, the NPS statement of 33 stars to 3 July 1861 and the state order were READ on 2026-11-04 (evidence.mjs: the statutory count is documented); that each colour carried it stays inferred: register EG-FIG-0002). The star ARRANGEMENT is
 //    plausible-procedural (period flags varied; no regiment's arrangement is documented here).
 //  * Regimental colour (every Union infantry regiment): NOT drawn from any record. A plain flag of a neutral GAP colour with hatching marks it (tier gap; EG-FIG-0003). The kit item
 //    `regimental_color_union` says "pattern not specified in B.6".
 //  * Irish Brigade green flag (kit item flag_green_irish, tier inferred): a plain green field, device unspecified (the harp etc. is not in any record), edge-hatched as a gap.
 //  * Confederate: the ANV square battle flag of the documented TYPE (PDF p.70: St Andrew's cross, 12 stars as printed there, deep red wool), tier plausible-procedural until the Gettysburg regimental pattern is
-//    confirmed; flag_state intact | torn | bearer_down is carried as printed. Stars: 12 as the PDF page prints for the issues it describes (the Gettysburg-era count is part of the open G11).
+//    confirmed; flag_state intact | torn | bearer_down is carried as printed. Stars: SOURCE CONFLICT carried as a scenario (ANV_STAR_SCENARIOS): 12 as the PDF page 70 prints (default, owner's governing text) and 13 as the
+//    NPS pages state for the type and for the 13th Alabama's Gettysburg flag (evidence FIG-EV-ANV-13-STARS). The default is not an owner decision: PENDING OWNER (EG-FIG-0005).
 //  * Cavalry guidon: swallow-tail, stars and stripes with the regimental designation, per the kit item label (unsourced in the notes: tier gap-inferred); the designation text is not drawn.
 import { v3 } from './mathlib.mjs';
 import { Mesh } from './meshkit.mjs';
@@ -48,7 +49,10 @@ function star(buf, W, H_, cx, cy, r, col) {                                     
     if (ins) buf.set(col, (y * W + x) * 4);
   }
 }
-export function flagPattern(kind, state = 'intact', W = 256, Hh = 192) {
+/** Star-count scenarios of the ANV battle flag (a source conflict, not decided): pdf_p70 = 12 stars on the arms; nps = 13 (the 12 plus a centre star; NPS states the count, not the arrangement: the centre star is plausible-procedural). */
+export const ANV_STAR_SCENARIOS = { pdf_p70: { stars: 12, source: 'PDF p.70 (cites FOTW, not read)' }, nps: { stars: 13, source: 'NPS Antietam flags page; NPS 13th Alabama battle flag article (evidence FIG-EV-ANV-13-STARS)' } };
+export const ANV_STAR_DEFAULT = 'pdf_p70';                                                                    // PENDING OWNER: the default view of the conflicting sources is the owner's decision (Law cl.6)
+export function flagPattern(kind, state = 'intact', W = 256, Hh = 192, opts = {}) {
   const buf = new Uint8Array(W * Hh * 4), put = (x, y, c) => buf.set(c, (y * W + x) * 4);
   const red = rgba(COLOUR.flag_red), white = rgba(COLOUR.flag_white), blue = rgba(COLOUR.flag_blue), gap = rgba(COLOUR.gap_marker);
   if (kind === 'us_national' || kind === 'cav_guidon') {
@@ -61,7 +65,9 @@ export function flagPattern(kind, state = 'intact', W = 256, Hh = 192) {
     const bw = 0.17, ew = 0.03;                                                                              // saltire half-width and white edge, in unit square units
     for (let y = 0; y < Hh; y++) for (let x = 0; x < W; x++) { const u = x / (W - 1), v = y / (Hh - 1), d = Math.min(Math.abs(u - v), Math.abs(u + v - 1)) / Math.SQRT2; if (d < bw / 2 + ew) put(x, y, d < bw / 2 ? b : white); }
     let n = 0; for (let k = 0; k < 4; k++) for (let s = 0; s < 3; s++) { const t = 0.16 + s * 0.12, ux = k < 2 ? t : 1 - t, uy = (k % 2 === 0) ? t : 1 - t; star(buf, W, Hh, ux * W, uy * Hh, W * 0.034, white); n++; }
-    if (n !== 12) throw new Error('anv stars');
+    const sc = ANV_STAR_SCENARIOS[opts.anvScenario ?? ANV_STAR_DEFAULT]; if (!sc) throw new Error('anv scenario ' + opts.anvScenario);
+    if (sc.stars === 13) { star(buf, W, Hh, 0.5 * W, 0.5 * Hh, W * 0.034, white); n++; }
+    if (n !== sc.stars) throw new Error('anv stars');
     // (the 12 stars follow the PDF page 70 count; centre star omitted: the arrangement is plausible-procedural)
   } else {
     const base = kind === 'irish_green_gap' ? rgba(COLOUR.flag_green) : gap; for (let i = 0; i < W * Hh; i++) buf.set(base, i * 4);
@@ -72,10 +78,10 @@ export function flagPattern(kind, state = 'intact', W = 256, Hh = 192) {
 }
 // tier / evidence record of each flag kind (also written into TIERS.json)
 export const FLAG_EVIDENCE = {
-  us_national: { tier: 'inferred', stars: US_STARS, note: 'stars and stripes; 34 stars by the statutory reasoning in the header (lookup not performed); arrangement and size plausible-procedural' },
+  us_national: { tier: 'inferred', stars: US_STARS, note: 'stars and stripes; 34 stars: the 1818 act and the admission acts of Kansas (1861) and West Virginia (star effective 4 July 1863) were read (evidence FIG-EV-*), the 33 earlier stars were not; arrangement and size plausible-procedural' },
   us_regimental_gap: { tier: 'gap', note: 'regimental colour pattern not specified in any repository record (kit item regimental_color_union); drawn as a hatched GAP-colour flag', register: 'EG-FIG-0003' },
   irish_green_gap: { tier: 'inferred', note: 'kit item flag_green_irish: a green flag (the 28th MA First the only usable green flag); device and size not in any record: plain green with hatched edge', register: 'EG-FIG-0003' },
-  anv_battle: { tier: 'plausible-procedural', note: 'ANV square battle flag of the documented type (PDF B.6.5 p.70); Gettysburg regimental pattern open (G11)', register: 'EG-FIG-0005' },
+  anv_battle: { tier: 'plausible-procedural', note: 'ANV square battle flag of the documented type (PDF B.6.5 p.70: 12 stars; NPS: 13 stars on the 13th Alabama Gettysburg flag and the type; selectable scenario, PENDING OWNER); other brigades\' regimental patterns open (G11)', register: 'EG-FIG-0005', evidence: 'FIG-EV-ANV-13-STARS', scenarios: ANV_STAR_SCENARIOS, default_scenario: ANV_STAR_DEFAULT },
   cav_guidon: { tier: 'gap', note: 'swallow-tail guidon with stars and stripes and designation, "unsourced in the notes" (kit item guidon_swallowtail_cav); designation not drawn', register: 'EG-FIG-0003' },
   ambulance_gap: { tier: 'gap', note: 'Ambulance Corps flag: pattern not in any record', register: 'EG-FIG-0003' },
 };

@@ -25,6 +25,8 @@ import { rec } from './store.mjs';
 
 export const REPLAY_S = 300;          // the host re-sends the fire events of [t - REPLAY_S, t] after a seek
 const ADDITIVE = new Set([T.FLASH, T.FUSE, T.EMBER]);
+/** Steps per minute printed in Hardee for an infantry gait (common_time 90, quick_time 110, route_step 110, double_quick 165, urgent 180); unknown gait: common time (documented default). */
+export const gaitSteps = (P, gait) => (P.dust.gait_steps_per_min && P.dust.gait_steps_per_min[gait]) || P.dust.steps_per_min_default;
 const vec = v => (Array.isArray(v) || ArrayBuffer.isView(v) ? [v[0], v[1], v[2]] : [v.x, v.y, v.z]);
 
 export function createFx(opts) {
@@ -33,7 +35,7 @@ export function createFx(opts) {
   const fxenv = opts.fxenv || new FxEnv(environment, P, { choices, seed });
   const wind = fxenv.wind;
   const store = new Store(budget.maxEvents); store.wind = wind;
-  const emitter = new Emitter(data, r => store.push(r), { seed });
+  const emitter = new Emitter(data, r => store.push(r), { seed, choices });
   const agg = new FogAggregator(r => store.push(r));
   const fires = new Fires(data.fires, P, { toXZ: geo ? geo.xz : null, groundAt, scenario: fireScenario, contact });
   const gov = new Governor(P, budget.ms);
@@ -83,6 +85,7 @@ export function createFx(opts) {
   // BT-EVENTS 3.5 unit_march(unitId, t, nFigures, stepsPerMin, speedMs, centroid, headingRad, gait): a column of fours about nFigures / column_men_per_m long, centred on the centroid
   const MOUNTED = new Set(['walk', 'trot', 'canter', 'gallop']);
   function onUnitMarch(unitId, t, nFigures, stepsPerMin, speedMs, centroid, headingRad, gait, info = {}) {
+    if (!(stepsPerMin > 0)) stepsPerMin = gaitSteps(P, gait);                       // cadence missing: the printed Hardee rate of the gait (FX-G07), else common time
     const c = vec(centroid), mounted = MOUNTED.has(gait), length = Math.max(8, info.lengthM || nFigures / P.dust.column_men_per_m), dir = [Math.sin(headingRad), Math.cos(headingRad)];
     const head = [c[0] + dir[0] * length / 2, groundAt(c[0], c[2]), c[2] + dir[1] * length / 2];
     const col = mounted ? { kind: 'horse', count: nFigures, stepsPerMin: stepsPerMin * 4, length, head, dir, surface: info.surface || 'unknown' } : { kind: 'foot', men: nFigures, stepsPerMin, length, head, dir, surface: info.surface || 'unknown' };

@@ -195,8 +195,26 @@
   }
  },
  "projectile": {
-  "case_burst_charge_oz": 1,
-  "shell_burst_charge_oz": 1.5,
+  "case_burst_charge_oz": 4.5,
+  "case_burst_charge_by_designation_oz": {
+   "6": 2.5,
+   "12": 4.5,
+   "24": 6,
+   "32": 8
+  },
+  "case_burst_charge_by_designation_fa1863_ocr_oz": {
+   "6": 0.5,
+   "12": 1,
+   "24": 1.2,
+   "32": 1.4
+  },
+  "shell_burst_charge_oz": 5,
+  "shell_burst_charge_by_designation_oz": {
+   "12": 5,
+   "24": 8,
+   "32": 11
+  },
+  "shell_burst_charge_unlisted_oz": 5,
   "burst_sigma0_m": 1.6,
   "burst_flash_ms": [
    20,
@@ -211,7 +229,10 @@
   ],
   "impact_dust_kg_per_kj": 0.0001,
   "clods_per_impact": 24,
-  "canister_cone_deg": 12,
+  "canister_spread_frac": 0.1,
+  "canister_spread_frac_alt": 0.2,
+  "canister_cone_deg": 2.862,
+  "canister_sigma_per_halfwidth": 0.5,
   "canister_dust_range_m": [
    60,
    320
@@ -224,6 +245,13 @@
   "wetness_dust_free": 0.25,
   "drying_tau_h": 21,
   "steps_per_min_default": 90,
+  "gait_steps_per_min": {
+   "common_time": 90,
+   "quick_time": 110,
+   "route_step": 110,
+   "double_quick": 165,
+   "urgent": 180
+  },
   "surface_factor": {
    "dirt": 1,
    "macadam": 0.35,

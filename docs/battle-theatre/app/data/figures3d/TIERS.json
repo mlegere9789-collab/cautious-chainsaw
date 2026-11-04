@@ -6,7 +6,7 @@
   "us_national": {
    "tier": "inferred",
    "stars": 34,
-   "note": "stars and stripes; 34 stars by the statutory reasoning in the header (lookup not performed); arrangement and size plausible-procedural"
+   "note": "stars and stripes; 34 stars: the 1818 act and the admission acts of Kansas (1861) and West Virginia (star effective 4 July 1863) were read (evidence FIG-EV-*), the 33 earlier stars were not; arrangement and size plausible-procedural"
   },
   "us_regimental_gap": {
    "tier": "gap",
@@ -129,10 +129,11 @@
    "id": "F-REIN-HAND",
    "area": "horse",
    "choice": "reins from the bit rings to the LEFT (bridle) hand of the rider, both reins in one hand, passing through the closed fist, with the rein socket moved to the measured palm position of the baked clip",
-   "tier": "plausible-procedural",
-   "basis": "which hand holds the reins and how is recalled, not looked up in a cavalry manual (gap G-FIG-REIN-HAND); the positions are measured on the baked clip rider_walk",
+   "tier": "inferred",
+   "basis": "the US cavalry drill prescribes the bridle hand in the LEFT hand, both reins with their slide in it, hand 4 in. above the pommel, right hand at the side (Cavalry Tactics Part 2, 1841, paras. 349 and 274, evidence FIG-EV-BRIDLE-HAND-1841: the passage is documented; applying it to every 1863 rider is inferred, the 1861 Cooke text was not located). The fist is 0.08 m above the pommel top (prescribed 0.10 m); its distance ahead of the body (about 0.4 m from the pelvis centre) is more than the prescribed 6 in. from the body: a finding for the rider clips. Rein routing and socket are measured on the baked clip rider_walk",
    "mark": "tier overlay",
-   "register": "EG-FIG-0001"
+   "register": "EG-FIG-0001",
+   "evidence": "FIG-EV-BRIDLE-HAND-1841"
   },
   {
    "id": "F-CREW-POSTS",
@@ -274,9 +275,11 @@
    "area": "equipment",
    "choice": "haversack on the right hip behind the cartridge box, canteen on the left hip behind the scabbard, straps crossing the chest",
    "tier": "plausible-procedural",
-   "basis": "the catalogue says cartridge box right hip, cap pouch on the belt front, scabbard on the belt; it does not give the sides of canteen and haversack",
+   "basis": "the catalogue says cartridge box right hip, cap pouch on the belt front, scabbard on the belt; it does not give the sides of canteen and haversack. The US Army regulations of 1861 (and the Confederate regulations copied from them) prescribe haversack and canteen on the LEFT side on marches, guard and detached service, the canteen outside the haversack (evidence FIG-EV-CARRY-SIDE-1861, documented). THE MODEL DEVIATES: the haversack hangs on the right hip. Practice in the field is not recorded in any source read; changing the geometry needs the gear contact sheet, the interpenetration check and a browser look (BROWSER-VERIFICATION-LIST item F1)",
    "mark": "tier overlay",
-   "register": "EG-FIG-0009"
+   "register": "EG-FIG-0009",
+   "evidence": "FIG-EV-CARRY-SIDE-1861",
+   "deviates_from_documented": true
   },
   {
    "id": "F-WEAPON-DIMS",
@@ -319,9 +322,10 @@
    "area": "flags",
    "choice": "US flag: 34 stars",
    "tier": "inferred",
-   "basis": "statutory reasoning (West Virginia admitted 20 June 1863; a star is added on the following 4 July) recalled from memory: the lookup was NOT performed in this task and no repository text states a count",
+   "basis": "the 1818 Flag Act (3 Stat. 415) adds one star per admission effective the next 4 July; Kansas was admitted 29 Jan 1861 (12 Stat. 126), West Virginia from 20 June 1863 (12 Stat. 633-634 with the proclamation of 20 April 1863, 13 Stat. 731): the star of West Virginia took effect on 4 July 1863, after the battle (evidence FIG-EV-FLAG-ACT-1818, -KANSAS-1861, -WESTVA-1863: documented). The number 34 additionally needs the 33 stars before Kansas, which were NOT read in this round (memory), so the count stays inferred; no regiment is shown to have carried the statutory count",
    "mark": "tier overlay on the flag; EG-FIG-0002",
-   "register": "EG-FIG-0002"
+   "register": "EG-FIG-0002",
+   "evidence": "FIG-EV-STAR-COUNT-1863"
   },
   {
    "id": "F-STAR-ARRANGEMENT",

@@ -18,6 +18,8 @@ import { gunImpact } from './ballistics.mjs';
 import { LOAD9, MARCH, stepsPerMin } from './drill-tables.mjs';
 import { hash4, strId } from '../../../sim/rng.mjs';
 import { hyp2 } from './qmath.mjs';
+import { GAIT_NAMES, GAIT_BASES, GAIT_SOURCES, CHARGE_SCHEDULE, gaitBasis, gaitTable } from './gaits.mjs';
+export { GAIT_NAMES, GAIT_BASES, GAIT_SOURCES, CHARGE_SCHEDULE, gaitBasis, gaitTable };
 export { ClipLibrary, UnitAnimator, FirePlan, AnimBus, FootPlanter, GAIT_SPEEDS, ClipSel, Seg };
 export * from './bake.mjs';
 export { slopeAt, slopeAlong, slopeClass, slopeSpeedFactor, SLOPE } from './terrain.mjs';
@@ -33,8 +35,8 @@ const CMD_TEXT = { volley: ['Fire by company', 'Company', 'Ready', 'Aim', 'Fire'
   at_will: ['Fire at will', '', '', 'Commence firing', '', ''], skirmish: ['Commence firing', '', '', '', '', ''], by_piece: ['Load', '', 'Commence firing', '', '', ''], battery_fire: ['Load', '', 'Commence firing', '', '', ''] };
 
 export class AnimSystem {
-  constructor({ skeleton, seed = 1863 } = {}) {
-    this.seed = seed >>> 0; this.lib = new ClipLibrary(skeleton); this.bus = new AnimBus(); this.units = new Map(); this.unitList = []; this.placement = null; this.nearSet = new Map();
+  constructor({ skeleton, seed = 1863, gaitBasis: gb = 'modern_range' } = {}) {
+    this.gaitBasis = gb; gaitBasis(gb); this.seed = seed >>> 0; this.lib = new ClipLibrary(skeleton); this.bus = new AnimBus(); this.units = new Map(); this.unitList = []; this.placement = null; this.nearSet = new Map();
     this.unitMarchPeriodS = 1.0; this.misfireRate = 0; this.planter = new FootPlanter(this.lib.rig); this.fa = this.lib.rig.newFrame(); this.fb = this.lib.rig.newFrame();
     this.q = { t: new Float64Array(1024), type: new Uint8Array(1024), unit: new Int32Array(1024), fig: new Int32Array(1024), aux: new Float64Array(1024), aux2: new Int32Array(1024), n: 0, order: new Uint32Array(1024) };
     this.cmp = (a, b) => (this.q.t[a] - this.q.t[b]) || (this.q.unit[a] - this.q.unit[b]) || (this.q.fig[a] - this.q.fig[b]) || (a - b);
@@ -48,7 +50,7 @@ export class AnimSystem {
       this.muzzle[p] = { px: fk.wp[b * 3] + dx * vy, py: fk.wp[b * 3 + 1] + dy * vy, pz: fk.wp[b * 3 + 2] + dz * vy, dx, dy, dz }; }
   }
   setPlacement(fn) { this.placement = fn; return this; }                           // fn(unitId, k, t, out{x, y, z, yaw}) -> boolean (k = -1: the unit's centroid)
-  addUnit(o) { const ua = new UnitAnimator(this.lib, { ...o, seed: o.seed ?? this.seed }); ua.uidx = this.unitList.length; ua.uid = strId(o.unitId); this.units.set(o.unitId, ua); this.unitList.push(ua); ua.opts = o; return ua; }
+  addUnit(o) { const ua = new UnitAnimator(this.lib, { ...o, seed: o.seed ?? this.seed, gaitBasis: o.gaitBasis ?? this.gaitBasis }); ua.uidx = this.unitList.length; ua.uid = strId(o.unitId); this.units.set(o.unitId, ua); this.unitList.push(ua); ua.opts = o; return ua; }
   setSegments(unitId, segs) { this.units.get(unitId).setSegments(segs); return this; }
   setFalls(unitId, fallT, fate) { this.units.get(unitId).setFalls(fallT, fate); return this; }
   setNearSet(unitId, indices) { this.nearSet.set(unitId, indices); return this; }
@@ -100,8 +102,8 @@ export class AnimSystem {
       if (near) { const g = s.g; for (let m = 0; m < near.length; m++) { const k = near[m]; const w = g.drill ? 1 : ua.vrate[k], f = g.freq * w, ph0 = g.drill ? (ua.vphase[k] - 0.5) * 0.12 : ua.vphase[k];
         // left heel strike at phase integer, right at integer + 0.5: t = t0 + (n - phi0 - ph0) / f
         for (let side = 0; side < 2; side++) { const base = s.phi0 + ph0 + (side ? 0.5 : 0); let nn = Math.ceil(base + (lo - s.t0) * f); for (; ; nn++) { const tt = s.t0 + (nn - base) / f; if (tt >= hi) break; if (tt >= lo) this._push(tt, EV.FOOT, ua.uidx, k, side, 0); } } } } }
-    if (s.kind === 'mounted' && near) { const sp = s.speed, gait = sp < 2.4 ? 'walk' : sp < 4.6 ? 'trot' : sp < 7.0 ? 'canter' : 'gallop', T = { walk: 1.10, trot: 0.66, canter: 0.56, gallop: 0.46 }[gait], beats = { walk: 4, trot: 2, canter: 3, gallop: 4 }[gait];
-      for (let m = 0; m < near.length; m++) { const k = near[m], per = T / (0.97 + 0.06 * ua.vphase[k]); for (let nn = Math.ceil((lo - s.t0) / (per / beats)); ; nn++) { const tt = s.t0 + nn * per / beats; if (tt >= hi) break; this._push(tt, EV.HOOF, ua.uidx, k, beats, 0); } } }
+    if (s.kind === 'mounted' && near) { const gait = GAIT_NAMES[s.gi], T = { walk: 1.10, trot: 0.66, canter: 0.56, gallop: 0.46 }[gait], beats = { walk: 4, trot: 2, canter: 3, gallop: 4 }[gait];
+      for (let m = 0; m < near.length; m++) { const k = near[m], per = T / (s.mr * (0.97 + 0.06 * ua.vphase[k])); for (let nn = Math.ceil((lo - s.t0) / (per / beats)); ; nn++) { const tt = s.t0 + nn * per / beats; if (tt >= hi) break; this._push(tt, EV.HOOF, ua.uidx, k, beats, 0); } } }
   }
   _flush() {
     const q = this.q, n = q.n, bus = this.bus; for (let i = 0; i < n; i++) q.order[i] = i; const view = q.order.subarray(0, n); view.sort(this.cmp);
@@ -118,7 +120,7 @@ export class AnimSystem {
           bus.pos[0] = P.x; bus.pos[1] = P.y + 1.3; bus.pos[2] = P.z;
           if (q.type[i] === EV.RELOAD) bus.emit('reload', id, fig, t, STEP_NAME[stepId], q.aux2[i], D[stepId] ?? 0, bus.pos, info); else bus.emit('drill_step', id, fig, t, stepId === 'aim' ? 'INF-FIRE-02' : 'INF-FIRE-01', stepId, 0, bus.pos); break; }
         case EV.FOOT: { bus.pos[0] = P.x; bus.pos[1] = P.y; bus.pos[2] = P.z; const s = ua.segs[ua.segIndexAt(t)]; bus.emit('footfall', id, fig, t, q.aux[i], bus.pos, s ? s.speed : 0, bus.footInfo); break; }
-        case EV.HOOF: { const s = ua.segs[ua.segIndexAt(t)]; bus.pos[0] = P.x; bus.pos[1] = P.y; bus.pos[2] = P.z; bus.emit('hoofbeat', id, fig, t, s && s.speed < 2.4 ? 'walk' : s && s.speed < 4.6 ? 'trot' : s && s.speed < 7 ? 'canter' : 'gallop', bus.pos, s ? s.speed : 0); break; }
+        case EV.HOOF: { const s = ua.segs[ua.segIndexAt(t)]; bus.pos[0] = P.x; bus.pos[1] = P.y; bus.pos[2] = P.z; bus.emit('hoofbeat', id, fig, t, s ? GAIT_NAMES[s.gi] : 'gallop', bus.pos, s ? s.speed : 0); break; }
         case EV.UMARCH: { const s = ua.segs[q.aux[i]]; bus.cen[0] = P.x; bus.cen[1] = P.y; bus.cen[2] = P.z; const g = s.g; const spm = g ? stepsPerMin(MARCH[g.A.name]) * g.rateA : 0; let alive = ua.n; if (ua.fallT) { alive = 0; for (let k = 0; k < ua.n; k++) if (ua.fallT[k] > t) alive++; }
           bus.marchInfo.surface = s.surface || 'unknown'; bus.marchInfo.lengthM = s.lengthM || 0; bus.emit('unit_march', id, t, alive, spm, s.speed, bus.cen, P.yaw, g ? g.A.name : s.activity, bus.marchInfo); break; }
         case EV.CMD: { const s = ua.segs[q.aux2[i]], p = s && s.plan, text = q.aux[i] === 7 ? 'Cease firing' : (CMD_TEXT[p ? p.mode : 'at_will'] || CMD_TEXT.at_will)[q.aux[i]]; const kind = q.aux[i] === 0 ? 'caution' : q.aux[i] === 1 ? 'preparatory' : q.aux[i] === 7 ? 'execution' : 'execution'; bus.pos[0] = P.x; bus.pos[1] = P.y + 1.6; bus.pos[2] = P.z;

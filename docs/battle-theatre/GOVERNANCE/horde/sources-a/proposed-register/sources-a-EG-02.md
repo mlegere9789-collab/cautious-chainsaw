@@ -1,0 +1,21 @@
+# sources-a-EG-02: Cope map NARA E 105a-1: survey date unsupported; NPS 1863/1868/1872 maps unidentified
+
+| Field | Content |
+|---|---|
+| ID | sources-a-EG-02 |
+| Requirement IDs | R02, R12 |
+| Category | evidence missing |
+| Description | The PDF dates the Cope survey August to October 1863. No source read in this pass states that: NARA gives NAID 176246318 and Warren's annotation (horseback sketches based on the Adams County map) with no date; LOC 99447498 (Cope and Hewitt print) is dated 1863 only. NPS names War Department and GBMA maps of 1863, 1868 and 1872 without identifiers; only 1868 is plausibly Warren. The 1872 map is unidentified. |
+| Why literal 100% is not possible or blocked | The sources read do not contain the date or the identifiers (Law cl.4). |
+| Evidence searched | NARA blog 2018-07-03; LOC 99447498; NPS rehabilitation page; shard results R12.007, R12.013. |
+| Autonomous substitute applied | None; the date is not asserted anywhere. |
+| Strongest evidence-based reconstruction | Carry "1863, survey dates unstated" until a primary statement is found (Cope report, Warren annotation text, LOC catalog bibliography). |
+| Confidence tier | plausible-procedural |
+| Competing values | PDF: Aug-Oct 1863. Sources: 1863 only. |
+| Product marking | Evidence-layer marker on any content derived from the Cope sketch |
+| Visual and audio impact | Defence and line placement only |
+| Review status | internal review only (DEC-006: no public review label) |
+| Owner decision requested | None. |
+| Agent recommendation | Search the NARA Guide to Civil War Maps and the LOC bibliography (Stephenson) for the date, not a blog. |
+| Status | proposed (shard sources-a; not yet merged into register/) |
+| Owner decision and date | (filled only from the Decision Log) |

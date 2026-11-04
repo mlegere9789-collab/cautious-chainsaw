@@ -1,0 +1,21 @@
+# r22-oa-EG-04: Closure note: Imboden summons and train departure (supersedes tl-11-EG-011 for 4 July)
+
+| Field | Content |
+|---|---|
+| ID | r22-oa-EG-04 |
+| Requirement IDs | R05, R22 |
+| Category | evidence found |
+| Description | Imboden's narrative (Battles and Leaders III, pp.420-428) and Lee's written order to Imboden (OR27-3-D1877, pp.966-967) were located in the local library. They put the summons near 23:00 on 3 Jul, the conference to about 02:00, the head of the train moving near 16:00 on 4 Jul, Imboden leaving after dark, the head at Greencastle at dawn on 5 Jul and the train at Williamsport on the afternoon of 5 Jul. |
+| Why literal 100% is not possible or blocked | Memoir written about 24 years later; hours are approximate; Imboden's own official report is not in the OR27 index. |
+| Evidence searched | tmp/library/misc/battlesleadersof03cent_djvu.txt (20 phrases verified verbatim by script after whitespace normalisation), or27_find --verify for the OR papers. |
+| Autonomous substitute applied | Use the 4 Jul departure; keep the single-account 5 Jul 20:00 alternative as a marked scenario. |
+| Strongest evidence-based reconstruction | Documented with a participant source. |
+| Confidence tier | documented |
+| Competing values | 4 Jul about 16:00 (Imboden) / by 17:00 (Lee order) vs 5 Jul about 20:00 (W-RET) |
+| Product marking | None needed beyond the scenario marker |
+| Visual and audio impact | Wagon train animation and sound (wails of the wounded p.424) |
+| Review status | internal review only (DEC-006: no public review label) |
+| Owner decision requested | None. |
+| Agent recommendation | Close tl-11-EG-011, tl-12-EG-10 on integration; also close tl-12-EG-06 (axes at Greencastle, Imboden p.425). |
+| Status | open |
+| Owner decision and date | (filled only from the Decision Log) |

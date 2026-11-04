@@ -868,7 +868,7 @@
    "id": "G-ANIM-07",
    "title": "Cavalry and horse-artillery gait speeds",
    "tier": "plausible-procedural",
-   "text": "Cooke's Cavalry Tactics (1862) and the Light Artillery Board's horse-artillery chapter were not read for gait rates; modern equestrian ranges are used (walk 1.4-1.8, trot 3-4, canter 5-6.5, gallop 7-10 m/s) and marked plausible-procedural."
+   "text": "NARROWED (vis-anim round of 2026-11-04): the speeds of the walk, trot and gallop of manoeuvre are printed in Wheeler 1863 (CS; p. 87, para 333), Cooper 1861 (p. 7) and the 1863 Instruction for Field Artillery (pp. 42, 47) and are data in gaits.mjs (documented; the three sources disagree on the gallop, 10 / 11 / 13.6 mph, so each is a selectable basis and the owner has not chosen a default). Still open: the speed of the full-speed charge (no number is printed), the mapping of the manual's three paces onto the four clips, the default basis, and any horse-artillery rate distinct from the foot battery's. The default behaviour is still the modern equestrian ranges (walk 1.4-1.8, trot 3-4, canter 5-6.5, gallop 7-10 m/s)."
   },
   {
    "id": "G-ANIM-08",

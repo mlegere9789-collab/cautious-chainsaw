@@ -11,6 +11,7 @@ import { FLAG_KINDS, FLAG_STATES } from '../src/figures3d/flags.mjs';
 import { pngEncode } from '../src/figures3d/png.mjs';
 import { buildGlb } from '../src/figures3d/gltf.mjs';
 import { TIERS, GAP_NOTE } from '../src/figures3d/tiers.mjs';
+import { EVIDENCE, FAILED_LOOKUPS, ADMISSIONS, BASE_STARS_BEFORE_KANSAS } from '../src/figures3d/evidence.mjs';
 import { Kit, manifestFor } from '../src/history/manifest.mjs';
 import { resolveColours } from '../src/figures3d/variants.mjs';
 import { partsForFigure, partsAtLod } from '../src/figures3d/library.mjs';
@@ -62,6 +63,7 @@ write('materials.json', stable({ schema: 'figures3d-materials-1', note: 'rows ar
   slots: Object.entries(MAT).map(([name, id]) => ({ id, name, row: GLOBAL_MATERIALS[id], variant_slot: VARIANT_SLOTS.includes(id) })), variant_slots: VARIANT_SLOTS, skin_sss: SKIN_SSS, alpha_modes: { [MAT.HAIR_CARD]: 'alpha-to-coverage', [MAT.BEARD_CARD]: 'alpha-to-coverage' }, vertex_flag_byte: { skin_grid: '64 = head skin map region (skinmap.mjs)', thin_skin: '255 = lids, ears, lips (scatter boost)', cloth: 'low 6 bits = wrinkle intensity 0..63 (fold normal map strength), bit 7 = vertical drape (swap u and v of the fold layer)', strand_cards: 'low 5 bits = coverage 0..31 (fibres whose id exceeds the coverage are dropped), bits 5..7 = strand variant 0..7 (hairtex.mjs)' }, thin_skin_flag: 'vertex flag byte 255 marks thin skin (ear, nostril wing, lids, lips) for scatter_strength x thin_boost; 0 elsewhere' }));
 // ---- flag patterns
 for (const kind of FLAG_KINDS) for (const st of (kind === 'anv_battle' ? ['intact', 'torn'] : ['intact'])) { const p = flagPattern(kind, st); const png = pngEncode(p.width, p.height, p.rgba); write(`textures/flag_${kind}_${st}.png`, png); hashes[`flag:${kind}:${st}`] = sha(Buffer.from(p.rgba)); }
+{ const p = flagPattern('anv_battle', 'intact', 256, 192, { anvScenario: 'nps' }); write('textures/flag_anv_battle_13stars_intact.png', pngEncode(p.width, p.height, p.rgba)); hashes['flag:anv_battle:intact:nps13'] = sha(Buffer.from(p.rgba)); }   // star-count scenario (source conflict, PENDING OWNER)
 // ---- procedural material maps (texmaps.mjs): layer hashes, byte budget, per-material mapping; a small preview PNG (albedo modulation over normal) for inspection. The maps themselves are regenerated in code at load.
 { const t0 = Date.now(), L = buildMaterialArray(), bytes = arrayBytes(), S = 96, cols = 6, rows = Math.ceil(L.length / cols), W = cols * S, H = rows * S * 2, prev = new Uint8Array(W * H * 4);
   L.forEach((l, i) => { const cx = (i % cols) * S, cy = Math.floor(i / cols) * S * 2; for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) { const p = (Math.floor(y * TEX_SIZE / S) * TEX_SIZE + Math.floor(x * TEX_SIZE / S)) * 4, a = l.am[0][p]; prev.set([a, a, a, 255], ((cy + y) * W + cx + x) * 4); prev.set([l.nr[0][p], l.nr[0][p + 1], 200, 255], ((cy + S + y) * W + cx + x) * 4); } });
@@ -75,6 +77,8 @@ const flagMean = {}; for (const kind of FLAG_KINDS) { const p = flagPattern(kind
 write('flag-mean-colours.json', stable({ schema: 'figures3d-flagmean-1', note: 'sRGB mean of each flag pattern; the impostor bakes the flag cloth as material FLAG_WHITE and the renderer substitutes this colour per variant flag kind', mean: flagMean }));
 // ---- TIERS.json
 write('TIERS.json', stable({ schema: 'figures3d-tiers-1', note: 'Every undocumented visual choice with its tier. The kit manifest field tiers (documented / inferred / plausible-procedural) are inherited by the corresponding visual; nothing here is documented.', gap_rule: GAP_NOTE, flags: FLAG_EVIDENCE, choices: TIERS }));
+
+write('evidence.json', stable({ schema: 'figures3d-evidence-1', note: 'Primary-source passages read for the figure models (2026-11-04) and exactly what each supports; TIERS.json entries cite these ids. Failed lookups are recorded as failed.', base_stars_before_kansas_not_from_a_source_read: BASE_STARS_BEFORE_KANSAS, admissions: ADMISSIONS, evidence: EVIDENCE, failed_lookups: FAILED_LOOKUPS }));
 
 // ---- the population (kit-wide: every unit that was at Gettysburg x 3 ranks x 2 dates x 12 men) -> variants, classes, impostor atlas, glTF samples
 const kit = new Kit({ specs: J('kit_specs.json'), weapons: J('weapons.json'), artillery: J('artillery_batteries.json'), cavalry: J('cavalry_units.json') });

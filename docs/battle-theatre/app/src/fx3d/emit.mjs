@@ -21,6 +21,22 @@ const PROJ_ALIAS = { solid_shot: 'solid', common_shell: 'shell', spherical_case:
 
 export function chargeKg(w, proj) { const p = PROJ_ALIAS[proj] || proj; return (w.charge_by_proj && w.charge_by_proj[p] && w.charge_by_proj[p].kg) || w.charge.kg; }
 
+// Pounder designation of a smoothbore piece from its bore (the designation of a shell is the weight of the solid shot of the same diameter: Instruction for Field Artillery 1863 p. 12).
+// Rifled pieces have no entry in the printed tables (gap FX-G04): null.
+export function designation(w) {
+  if (w.rifled || typeof w.bore_in !== 'number') return null;
+  const b = w.bore_in; return b > 3.5 && b < 3.8 ? '6' : b > 4.5 && b < 4.7 ? '12' : b > 5.7 && b < 5.9 ? '24' : b > 6.3 && b < 6.6 ? '32' : null;
+}
+// Bursting charge in ounces of a spherical case or common shell. Case: the printed tables of the Ordnance Manual 1861 and Roberts 1861 (default), or the Instruction for Field Artillery 1863 OCR reading when
+// choices.caseBurstSource === 'fa1863_ocr' (source conflict, PENDING OWNER). Shell: Roberts 1861 table by designation; pieces without an entry use the marked stand-in.
+export function burstOz(P, w, kind, choices = {}) {
+  const pr = P.projectile, d = designation(w);
+  if (kind === 'case') { const tab = choices.caseBurstSource === 'fa1863_ocr' ? pr.case_burst_charge_by_designation_fa1863_ocr_oz : pr.case_burst_charge_by_designation_oz; return d && tab[d] != null ? tab[d] : (choices.caseBurstSource === 'fa1863_ocr' ? pr.case_burst_charge_by_designation_fa1863_ocr_oz['12'] : pr.case_burst_charge_oz); }
+  return d && pr.shell_burst_charge_by_designation_oz[d] != null ? pr.shell_burst_charge_by_designation_oz[d] : (d === '12' ? pr.shell_burst_charge_oz : pr.shell_burst_charge_unlisted_oz);
+}
+// Half width in metres of the canister pattern at range rr: Gibbon 1860, the extreme balls separate about one tenth of the range (reading chosen by choices.canisterSpread: 'wide' = 0.2).
+export const canisterHalfWidth = (P, rr, choices = {}) => 0.5 * rr * (choices.canisterSpread === 'wide' ? P.projectile.canister_spread_frac_alt : P.projectile.canister_spread_frac);
+
 // diffusion, buoyancy and dissipation of smoke from the air at the cause time
 export function airFor(P, env) {
   const damp = env ? env.damp.v : 0.25, ws = env ? env.windSpeed : P.smoke.dissipation_tau_s.ref_wind_ms, S = P.smoke;
@@ -40,7 +56,7 @@ function smokeLife(P, mass0, sigma0, K, beta, tauDis, kappa = P.smoke.kappa_m2_p
 }
 
 export class Emitter {
-  constructor(data, sink, { seed = FX_SEED } = {}) { this.d = data; this.P = data.params; this.sink = sink; this.seed = seed; this.stats = { shots: 0, misfires: 0, unknownWeapon: 0, rejectedBursts: 0, orphanBursts: 0, byType: {} }; this.causes = new Map(); }
+  constructor(data, sink, { seed = FX_SEED, choices = {} } = {}) { this.d = data; this.P = data.params; this.choices = choices; this.sink = sink; this.seed = seed; this.stats = { shots: 0, misfires: 0, unknownWeapon: 0, rejectedBursts: 0, orphanBursts: 0, byType: {} }; this.causes = new Map(); }
   _push(r) { this.sink(r); const n = r[F.TYPE]; this.stats.byType[n] = (this.stats.byType[n] || 0) + 1; }
   shotSeed(unitId, figureIdx, t, wid) { return (strHash(String(unitId)) ^ Math.imul(figureIdx + 1, 0x9e3779b1) ^ Math.imul(Math.floor(t * 100) + 1, 0x85ebca6b) ^ Math.imul(wid + 1, 0xc2b2ae35) ^ this.seed) >>> 0; }
 
@@ -81,7 +97,7 @@ export class Emitter {
     if (proj === 'canister' && !extra.impactsProvided) {
       const R = P.projectile.canister_dust_range_m, wet = env ? env.wetness.v : 0, rr = lerp(R[0], R[1], u(5)), vball = 400, ta = tm + rr / vball;
       const fx = mx + ux * rr, fz = mz + uz * rr;
-      out.push(rec({ X: fx, Y: ground, Z: fz, T0: ta, TYPE: T.CANISTER, SEED: seed, MASS: 0.03 * (1 - 0.7 * wet) * (proj0 === 'double_canister' ? 2 : 1), SIG: 3 + rr * Math.tan(P.projectile.canister_cone_deg * Math.PI / 180) * 0.35, VX: ux * 4, VY: 1.5, VZ: uz * 4, TAUD: 0.6, VB: 0.4, TAUB: 1.5, TAUDIS: P.dust.dissipation_tau_s, K: P.smoke.diffusion.K_h_m2s, BETA: P.smoke.diffusion.beta_h_m2s3, VR: 0.4, G: ground, LIFE: 25, A1: rr, A2: P.projectile.canister_cone_deg, CAUSE: cause }));
+      out.push(rec({ X: fx, Y: ground, Z: fz, T0: ta, TYPE: T.CANISTER, SEED: seed, MASS: 0.03 * (1 - 0.7 * wet) * (proj0 === 'double_canister' ? 2 : 1), SIG: 3 + P.projectile.canister_sigma_per_halfwidth * canisterHalfWidth(P, rr, this.choices), VX: ux * 4, VY: 1.5, VZ: uz * 4, TAUD: 0.6, VB: 0.4, TAUB: 1.5, TAUDIS: P.dust.dissipation_tau_s, K: P.smoke.diffusion.K_h_m2s, BETA: P.smoke.diffusion.beta_h_m2s3, VR: 0.4, G: ground, LIFE: 25, A1: rr, A2: this.choices.canisterSpread === 'wide' ? Math.atan(P.projectile.canister_spread_frac_alt / 2) * 180 / Math.PI : P.projectile.canister_cone_deg, CAUSE: cause }));
     }
     for (const r of out) this._push(r);
     return out;
@@ -96,7 +112,7 @@ export class Emitter {
     const out = [], cause = fireId != null ? fireId >>> 0 : seed;
     const mk = o => rec({ SEED: seed, CAUSE: cause, G: ground, ...o });
     if (kind === 'case' || kind === 'shell') {
-      const oz = kind === 'case' ? P.projectile.case_burst_charge_oz : P.projectile.shell_burst_charge_oz, m = oz * P.physical.oz_kg * P.smoke.yield_frac;
+      const oz = burstOz(P, w, kind, this.choices), m = oz * P.physical.oz_kg * P.smoke.yield_frac;
       const fl = P.projectile.burst_flash_ms;
       out.push(mk({ X: pos[0], Y: pos[1], Z: pos[2], T0: t, TYPE: kind === 'case' ? T.CASE : T.SHELL, MASS: m, SIG: P.projectile.burst_sigma0_m, VB: 0.6 * air.buoy, TAUB: 2, TAUD: 0.4, TAUDIS: air.tauDis, K: air.K, BETA: air.beta, VR: air.vr, LIFE: smokeLife(P, m, P.projectile.burst_sigma0_m, air.K, air.beta, air.tauDis), A1: kind === 'case' ? (extra.balls || 78) : 0, A2: 0 }));
       out.push(mk({ X: pos[0], Y: pos[1], Z: pos[2], T0: t, TYPE: T.FLASH, MASS: 40, SIG: 12, LIFE: 0.2, A1: 1.5, A2: (fl[0] + (fl[1] - fl[0]) * u(1)) / 1000 }));
