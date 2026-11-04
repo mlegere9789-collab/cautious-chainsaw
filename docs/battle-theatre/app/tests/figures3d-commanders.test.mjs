@@ -31,3 +31,9 @@ test('lieutenant to general all resolve (R04); distinct commanders in one unit a
 test('commanders.json on disk is what the generator writes; the TIERS entry F-COMMANDERS keeps the register link', () => {
   const D = JSON.parse(fs.readFileSync(path.join(APP, 'data/figures3d/commanders.json'), 'utf8')); assert.equal(D.schema, 'figures3d-commanders-1'); assert.deepEqual(D.commanders, JSON.parse(JSON.stringify(reg)));
 });
+test('ANV battle flag star count is a selectable scenario (PDF p.70: 12; NPS: 13), the default is the PENDING OWNER value, and the two renders differ only by the centre star', async () => {
+  const F = await import('../src/figures3d/flags.mjs'); assert.deepEqual(Object.keys(F.ANV_STAR_SCENARIOS).sort(), ['nps', 'pdf_p70']); assert.equal(F.ANV_STAR_SCENARIOS.pdf_p70.stars, 12); assert.equal(F.ANV_STAR_SCENARIOS.nps.stars, 13);
+  assert.ok(F.ANV_STAR_SCENARIOS.nps.source.includes('NPS') && F.ANV_STAR_SCENARIOS.pdf_p70.source.includes('not read'));
+  const a = F.flagPattern('anv_battle', 'intact', 256, 192, { anvScenario: 'pdf_p70' }), b = F.flagPattern('anv_battle', 'intact', 256, 192, { anvScenario: 'nps' }); let diff = 0; for (let i = 0; i < a.rgba.length; i++) if (a.rgba[i] !== b.rgba[i]) diff++;
+  assert.ok(diff > 0 && diff < a.rgba.length * 0.01, 'differing bytes ' + diff);
+});

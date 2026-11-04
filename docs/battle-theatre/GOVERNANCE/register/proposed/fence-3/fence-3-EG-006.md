@@ -1,0 +1,21 @@
+# fence-3-EG-006: Soldiers' National Cemetery fences on Nov 19 1863 (iron fence, dividing fence, broken fences)
+
+| Field | Content |
+|---|---|
+| ID | fence-3-EG-006 |
+| Requirement IDs | R14, R21 |
+| Category | conflict between sources / evidence missing |
+| Description | PDF S-082..S-084 (W-CONS) say an iron fence separated the new cemetery from Evergreen and that broken fences were visible. One non-primary source says the iron fence was not present in 1863; NPS mentions the iron fence only in the present tense. Platform position relative to the fence disagrees across non-primary sources. |
+| Why literal 100% is not possible or blocked | No contemporary description retrieved; Wills 1992 and Frassanito 1995 are books not accessed. |
+| Evidence searched | NPS Soldiers National Monument page; searches; HMDB 403. |
+| Autonomous substitute applied | Carry fence material and position as a scenario; mark all as inferred. |
+| Strongest evidence-based reconstruction | A boundary between the cemeteries in some form is plausible; material unknown. |
+| Confidence tier | inferred |
+| Competing values | iron fence present (PDF) vs not present (one source) |
+| Product marking | Scenario + tier overlay |
+| Visual and audio impact | Nov 19 scene |
+| Review status | internal review only (DEC-006: no public review label) |
+| Owner decision requested | No default. |
+| Agent recommendation | Obtain Frassanito/Wills passages or 1863 plans. |
+| Status | open (proposed by shard fence-3; not yet merged into register/) |
+| Owner decision and date | (filled only from the Decision Log) |

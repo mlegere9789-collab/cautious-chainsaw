@@ -1,0 +1,21 @@
+# r22-oa-EG-10: Owner-chat items OA03 (roster section) and OA09 (site-wide image provenance) not met
+
+| Field | Content |
+|---|---|
+| ID | r22-oa-EG-10 |
+| Requirement IDs | OA03, OA09 |
+| Category | owner decision / implementation gap tied to evidence |
+| Description | OA03: per-man presence on 1-3 Jul cannot be sourced from rosters (roll-only men present between 36% and 72% of the time in three pilots); bulk-use rights for FamilySearch/NPS need written permission only the owner can send; no roster section exists in the app. OA09: the base map is a source-traced reconstruction (2013 NAIP with modern features removed), no 1863 elevation surface exists, and the site-wide image audit was not part of this shard. |
+| Why literal 100% is not possible or blocked | Rights and evidence are blocked; literal presence per name is impossible from the record. |
+| Evidence searched | rosters/PLAN.md section 0, rosters/GAPS.md G01, docs/basemap1863/BUILD.md section 1 (read by the shard). |
+| Autonomous substitute applied | Roster section as a name list with presence stated as a probability range, not a per-man claim; image provenance panel per tile. |
+| Strongest evidence-based reconstruction | As substitute. |
+| Confidence tier | plausible-procedural (presence); inferred (base map) |
+| Competing values | n/a |
+| Product marking | Roster presence shown as range with basis; provenance layer visible. |
+| Visual and audio impact | Roster page; map imagery |
+| Review status | internal review only (DEC-006: no public review label) |
+| Owner decision requested | Send the permission requests (owner-only act); decide whether OA09 audit covers the whole site. |
+| Agent recommendation | Owner sends requests; schedule the site-wide image audit as its own feature session. |
+| Status | open (proposed by shard r22-oa; not yet integrated) |
+| Owner decision and date | (filled only from the Decision Log) |

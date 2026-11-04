@@ -1,0 +1,21 @@
+# fence-2-EG-05: Klingle and Leister fences: start state and removal
+
+| Field | Content |
+|---|---|
+| ID | fence-2-EG-05 |
+| Requirement IDs | R14, R21 |
+| Category | evidence missing |
+| Description | S-021, S-046. The PDF prints Klingle fences all missing when Klingel returned Jul 4, and Leister rails all burned Jul 2-3, both on Stone Sentinels keys (leads only). No primary passage exists in OR27 parts 1-3 or the ten acquired state and battle texts; the Pennsylvania damage claims were not reachable. |
+| Why literal 100% is not possible or blocked | No accessible non-lead source. |
+| Evidence searched | OR27 parts 1-3 (names and fence terms), acquired texts; web lookups returned no claim text. |
+| Autonomous substitute applied | Show the PDF states with a "removal time unknown" marker; no flame drawn (EG-FX-G14). |
+| Strongest evidence-based reconstruction | Plausible-procedural removal inside the PDF windows. |
+| Confidence tier | plausible-procedural |
+| Competing values | Missing by Jul 4 / burned Jul 2-3 |
+| Product marking | Time-uncertain marker. |
+| Visual and audio impact | Cemetery Ridge farms |
+| Review status | internal review only (DEC-006: no public review label) |
+| Owner decision requested | None |
+| Agent recommendation | Read the Pennsylvania State Archives damage claims when they become reachable. |
+| Status | open (proposed by shard fence-2; not yet integrated) |
+| Owner decision and date | (filled only from the Decision Log) |

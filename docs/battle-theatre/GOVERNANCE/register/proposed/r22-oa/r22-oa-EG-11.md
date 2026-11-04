@@ -1,0 +1,21 @@
+# r22-oa-EG-11: Failed or search-only lookups for the epilogue (Nov 1863)
+
+| Field | Content |
+|---|---|
+| ID | r22-oa-EG-11 |
+| Requirement IDs | R22 |
+| Category | evidence missing |
+| Description | LK-02 (NPS dedication page) returned HTTP 404; LK-03 and LK-07 were search summaries or catalogue titles only (Lambert 1894 and Hale 1925 titles seen, not opened) and are not evidence. A re-fetch of loc.gov during the 2026-11-04 audit was not possible (proxy 403), so the earlier LOC results (LK-01, LK-06, LK-08) are recorded as fetched by the shard run and not re-verified. |
+| Why literal 100% is not possible or blocked | Lookups failed or were not evidence; none circumvented (Law cl.4). |
+| Evidence searched | See results.jsonl LK rows. |
+| Autonomous substitute applied | Mark the dependent rows inferred; do not cite these lookups. |
+| Strongest evidence-based reconstruction | As substitute. |
+| Confidence tier | inferred |
+| Competing values | n/a |
+| Product marking | Rows keep tier marking. |
+| Visual and audio impact | Epilogue chapter |
+| Review status | internal review only (DEC-006: no public review label) |
+| Owner decision requested | None needed beyond record-keeping. |
+| Agent recommendation | Retry through an allowed route. |
+| Status | open (proposed by shard r22-oa; not yet integrated) |
+| Owner decision and date | (filled only from the Decision Log) |

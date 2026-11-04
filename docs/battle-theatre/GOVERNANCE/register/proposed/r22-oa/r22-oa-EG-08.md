@@ -1,0 +1,21 @@
+# r22-oa-EG-08: Epilogue rows with no retrieved source: Harper house, troops saluting, Marine Band, church service
+
+| Field | Content |
+|---|---|
+| ID | r22-oa-EG-08 |
+| Requirement IDs | R22 (E-002, E-005, E-008, E-014) |
+| Category | evidence missing |
+| Description | Four epilogue rows have no support in any page fetched (NPS Wills House, NPS Soldiers National Cemetery, LOC exhibit and guide): E-002 (Harper house, Nov 18 evening), E-005 (troops saluting at the cemetery), E-008 (U.S. Marine Band), E-014 (church service). Also not found: the 18:00 hour, William McDougall and the Seward address in E-001. The PDF tier for these rows is "documented" but its sources are encyclopedia or blog leads. |
+| Why literal 100% is not possible or blocked | No non-lead source retrieved; primary papers (Wills, Nicolay, Hay, 1863 newspapers) unread (Law cl.3, cl.4). |
+| Evidence searched | NPS and LOC pages fetched 2026-11-04 (see results.jsonl LK-01..LK-08). loc.gov and archive.org are blocked for later passes by the proxy (403); a later audit could not re-fetch them. |
+| Autonomous substitute applied | Row stays in the epilogue chapter marked plausible-procedural; no invented detail (no named bandsmen, no hour) is shown. |
+| Strongest evidence-based reconstruction | Show only what a fetched page states; mark the remainder as a visible gap. |
+| Confidence tier | plausible-procedural (nothing documented) |
+| Competing values | PDF rows vs no supporting source |
+| Product marking | Visible gap marker on each of the four cards; tier overlay. |
+| Visual and audio impact | Epilogue chapter |
+| Review status | internal review only (DEC-006: no public review label) |
+| Owner decision requested | Accept visible-gap marking until primary newspapers (Hale, AP, Philadelphia Press via Chronicling America) are read? |
+| Agent recommendation | Read the 1863 newspaper accounts through a source the proxy allows; record failures. |
+| Status | open (proposed by shard r22-oa; not yet integrated) |
+| Owner decision and date | (filled only from the Decision Log) |

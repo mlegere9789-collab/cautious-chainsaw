@@ -50,7 +50,7 @@ const sha = (b) => crypto.createHash('sha256').update(b).digest('hex');
 const md5 = (b) => crypto.createHash('md5').update(b).digest('hex');
 function walk(root, rel = '') {
   const out = [];
-  for (const e of fs.readdirSync(path.join(root, rel), { withFileTypes: true }).sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0))) {  // sorted: the order of the readdir call differs by file system (NTFS sorted, Linux not) and V6 compares a joined list
+  for (const e of fs.readdirSync(path.join(root, rel), { withFileTypes: true }).sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase() ? -1 : a.name.toUpperCase() > b.name.toUpperCase() ? 1 : 0))) {  // sorted: the order of the readdir call differs by file system (NTFS sorts by upper-cased name, Linux does not sort) and V6 compares a joined list
     const r = rel ? `${rel}/${e.name}` : e.name;
     if (e.isDirectory()) out.push(...walk(root, r)); else out.push(r);
   }

@@ -1,0 +1,21 @@
+# terrain-1-EG-14: Confederate Jul 3 gun count, line length, per-battalion table
+
+| Field | Content |
+|---|---|
+| ID | terrain-1-EG-14 |
+| Requirement IDs | R13, R13.G-14 |
+| Category | evidence missing / source conflict |
+| Description | OR counts nearly 150 / 140+ / 115-150 / 100-120; the 138-179 and 2-mile figures are not in the OR; Pendleton's battalion table is unreadable. |
+| Why literal 100% is not possible or blocked | The record read (OR Ser. I vol. 27) does not state it; no second primary witness acquired (Law cl.3). |
+| Evidence searched | OR27-2-R428 Pendleton p.352-356; OR27-1-R318 McGilvery p.883; OR27-1-R076 Hancock p.373; OR27-1-R028 Hunt p.239. |
+| Autonomous substitute applied | Range with declared basis; per-battalion counts from a second witness. |
+| Strongest evidence-based reconstruction | Totals documented as range. |
+| Confidence tier | documented (range); gap (per-battalion) |
+| Competing values | OR totals 115-150 vs PDF 138-179 |
+| Product marking | Tier overlay glyph on the emplacement; gap marker where counts or shapes are unknown |
+| Visual and audio impact | Gun emplacement meshes and crew counts |
+| Review status | internal review only (DEC-006: no public review label) |
+| Owner decision requested | None. |
+| Agent recommendation | Carry as scenarios; do not pick a default (Law cl.6). |
+| Status | open (proposed by shard terrain-1; not yet in register/) |
+| Owner decision and date | (filled only from the Decision Log) |

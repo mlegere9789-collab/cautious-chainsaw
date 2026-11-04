@@ -1,0 +1,21 @@
+# fence-2-EG-06: Wheatfield, Rose, Trostle and Little Round Top walls and fences: layout and wall identification
+
+| Field | Content |
+|---|---|
+| ID | fence-2-EG-06 |
+| Requirement IDs | R14, R21 |
+| Category | evidence missing |
+| Description | S-032, S-033, S-038, S-039, S-043. Stone fences and walls are documented in the Wheatfield area (Sweitzer R193 p.611, Crawford R218 p.653, de Trobriand R152 p.520, Burbank R211 p.645, Brooke R092 p.401, Kershaw R432 pp.367-368), but nothing places each wall on a map or says which is the 17th Maine wall. The Trostle wall of Bigelow's fight (P-06) has no acquired primary. No rail use on Little Round Top was found, and whether E-14 reused existing wall is unstated. |
+| Why literal 100% is not possible or blocked | No wall-by-wall locations; the 9th Massachusetts material is not acquired. |
+| Evidence searched | OR27 parts 1-3; acquired state histories. Bachelder sheet 2 is on file but was not read in this slice. |
+| Autonomous substitute applied | Place walls from the 1863 vector layer (Warren map) and tag type as inferred where no 1863 photograph shows it, per PDF B.8.3. |
+| Strongest evidence-based reconstruction | Warren-map walls with inferred type. |
+| Confidence tier | inferred |
+| Competing values | Layout unknown |
+| Product marking | Type tagged inferred. |
+| Visual and audio impact | Wheatfield, Rose farm, Trostle farm, Little Round Top |
+| Review status | internal review only (DEC-006: no public review label) |
+| Owner decision requested | None |
+| Agent recommendation | Read Bachelder sheet 2 and the Massachusetts at Gettysburg volume for the Trostle wall. |
+| Status | open (proposed by shard fence-2; not yet integrated) |
+| Owner decision and date | (filled only from the Decision Log) |

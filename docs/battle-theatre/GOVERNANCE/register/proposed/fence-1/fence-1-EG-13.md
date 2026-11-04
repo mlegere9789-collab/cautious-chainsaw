@@ -1,0 +1,21 @@
+# fence-1-EG-13: McMillan fence felling on Jul 1
+
+| Field | Content |
+|---|---|
+| ID | fence-1-EG-13 |
+| Requirement IDs | R14 |
+| Category | evidence missing |
+| Description | OR is silent on a neighbor felling McMillan's fences for Union troops. Lane gives the stone fence and peach orchard near McMillan's house only. |
+| Why literal 100% is not possible or blocked | The record found does not support it (Law cl.3). |
+| Evidence searched | OR27 Parts 1-3 McMillan. Web lookups: none made. OCR is unverified single witness. |
+| Autonomous substitute applied | Show fences standing until a primary source is found. |
+| Strongest evidence-based reconstruction | As stated in the substitute; geometry beyond the OR is from seed, not record. |
+| Confidence tier | inferred |
+| Competing values | - |
+| Product marking | Tier overlay. |
+| Visual and audio impact | McMillan farm, Jul 1 |
+| Review status | internal review only (DEC-006: no public review label) |
+| Owner decision requested | None needed unless the PDF wording itself is to change (E-17). Next evidence to seek: Claims files and ECW source behind ECW-Bliss. |
+| Agent recommendation | Hold the conservative option; do not pick a default among competing values. |
+| Status | open |
+| Owner decision and date | (filled only from the Decision Log) |

@@ -1,0 +1,21 @@
+# fence-1-EG-04: Lockwood's brigade Jul 2 position and work
+
+| Field | Content |
+|---|---|
+| ID | fence-1-EG-04 |
+| Requirement IDs | R14 |
+| Category | evidence missing |
+| Description | Lockwood's report says only that the brigade was later ordered to occupy the breastworks on the right (Jul 3 evening). |
+| Why literal 100% is not possible or blocked | The record found does not support it (Law cl.3). |
+| Evidence searched | OR27 Part 1, Lockwood R282 pp.804-805, Greene p.857. Web lookups: none made. OCR is unverified single witness. |
+| Autonomous substitute applied | Place the brigade only where the OR does (Greene p.857 at 07:30 Jul 3); no construction animation. |
+| Strongest evidence-based reconstruction | As stated in the substitute; geometry beyond the OR is from seed, not record. |
+| Confidence tier | plausible-procedural |
+| Competing values | - |
+| Product marking | Tier overlay on the brigade position before 07:30 Jul 3. |
+| Visual and audio impact | Culp's Hill, Jul 2-3 |
+| Review status | internal review only (DEC-006: no public review label) |
+| Owner decision requested | None needed unless the PDF wording itself is to change (E-17). Next evidence to seek: Maulsby (1st Md PHB) and Ketcham (150th NY) reports. |
+| Agent recommendation | Hold the conservative option; do not pick a default among competing values. |
+| Status | open |
+| Owner decision and date | (filled only from the Decision Log) |

@@ -115,6 +115,8 @@ def main():
         seen = collections.Counter()
         for r in rows:
             rid = row_id(r)
+            if isinstance(r.get('norm'), dict):
+                r = dict({k: v for k, v in r['norm'].items() if v not in (None, '', [], {})}, **{k: v for k, v in r.items() if k != 'norm' and v not in (None, '', [], {})})
             if not rid:
                 problems.append((sh, '?', 'no-id', flat(r.get('topic') or r.get('item'))[:60]))
                 continue
@@ -123,8 +125,8 @@ def main():
             status = flat(r.get('status'))
             cite = first(r, CITE_KEYS)
             pref = first(r, PASS_KEYS)
-            nested_c = dig(r.get('sources'), ('citation', 'source', 'report_id', 'url')) if isinstance(r.get('sources'), (list, dict)) else []
-            nested_p = dig(r.get('sources'), ('exact_quote', 'passage', 'passage_ref', 'quote')) if isinstance(r.get('sources'), (list, dict)) else []
+            nested_c = dig(r.get('sources'), ('citation', 'source', 'report_id', 'url', 'ref')) if isinstance(r.get('sources'), (list, dict)) else []
+            nested_p = dig(r.get('sources'), ('exact_quote', 'passage', 'passage_ref', 'quote', 'supports')) if isinstance(r.get('sources'), (list, dict)) else []
             cite = cite if (cite and not isinstance(cite, (list, dict))) or not nested_c else '; '.join(nested_c)
             pref = pref or ('; '.join(nested_p) if nested_p else None)
             claims_doc = tier == 'documented' or (status == 'verified' and tier != 'not-applicable')
@@ -155,6 +157,8 @@ def main():
                 sid = sub_by_text_row[rid]
             elif ('R03.' + rid) in subs:
                 sid = 'R03.' + rid
+            elif (rid + '.0000') in subs:
+                sid = rid + '.0000'
             elif r.get('item') and re.match(r'^R\d\d\.', rid) is None:
                 pass
             if sid:

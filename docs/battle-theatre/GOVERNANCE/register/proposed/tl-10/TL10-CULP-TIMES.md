@@ -1,0 +1,21 @@
+# TL10-CULP-TIMES: Culp's Hill Jul 3: 147th PA / 1st Md PHB, fight end and casualty totals
+
+| Field | Content |
+|---|---|
+| ID | TL10-CULP-TIMES |
+| Requirement IDs | R11 |
+| Category | source conflict |
+| Description | OR has the 147th PA charge at 05:00 (Geary p.828) and the 1st Md PHB attack at about 04:00 (Maulsby p.806); the row has about 10:00. The fighting ended 10:30 (Slocum, Greene) vs row about 11:00 (Geary 11:00 66th Ohio recall, Maulsby about 12:00). Johnson's own whole-battle loss is 1,823, not about 2,000 for Jul 3. |
+| Why literal 100% is not possible or blocked | Record missing or sources disagree (Law cl.3, cl.4, cl.6). |
+| Evidence searched | OR Ser.I vol.27 OCR regex searches via tools/bt/or27_find.py (2026-11-04) and the prior audit docs/battle-theatre/library/timeline_audit_T3.jsonl. |
+| Autonomous substitute applied | Carry all values as selectable scenarios. |
+| Strongest evidence-based reconstruction | Primary OR values: 04:00, 05:00, end 10:30; 1,823. |
+| Confidence tier | documented (OR) / inferred (row values) |
+| Competing values | 05:00 vs about 10:00; 10:30 vs 11:00; 1,823 vs about 2,000. |
+| Product marking | Scenario selector |
+| Visual and audio impact | T3-058, T3-061, T3-062 |
+| Review status | internal review only (DEC-006: no public review label) |
+| Owner decision requested | Default view where sources conflict (Law cl.6); none otherwise. |
+| Agent recommendation | Owner to pick default view (Law cl.6). Not decided here. |
+| Status | open |
+| Owner decision and date | (filled only from the Decision Log) |

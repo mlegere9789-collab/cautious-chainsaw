@@ -1,0 +1,21 @@
+# sources-a-EG-10: Existing game and model maps (Ultimate General Gettysburg and similar): lookup failed, nothing used
+
+| Field | Content |
+|---|---|
+| ID | sources-a-EG-10 |
+| Requirement IDs | R12 (item 20), R21 |
+| Category | evidence missing |
+| Description | Catalogue item 20 (existing game and model maps) could not be examined: the Game-Labs forum robots.txt lookup failed (name resolution failure, 2026-11-04). Nothing from such maps is used or claimed, and in any case a game map is not a primary terrain source. |
+| Why literal 100% is not possible or blocked | The lookup failed; a game map would be tier plausible-procedural at best (Law cl.3). |
+| Evidence searched | forum.game-labs.net/robots.txt, failed; no further request made (no circumvention). |
+| Autonomous substitute applied | Item stays unused; terrain relies on Warren, lidar and the other catalogued sources. |
+| Strongest evidence-based reconstruction | Not applicable (not used). |
+| Confidence tier | none |
+| Competing values | n/a |
+| Product marking | Not applicable |
+| Visual and audio impact | Terrain sources panel lists item 20 as not used |
+| Review status | internal review only (DEC-006: no public review label) |
+| Owner decision requested | Confirm the item may be recorded as not used (Law cl.6). |
+| Agent recommendation | Record as not used; revisit only if a licensed model is offered. |
+| Status | open (proposed by shard sources-a; not yet integrated) |
+| Owner decision and date | (filled only from the Decision Log) |
