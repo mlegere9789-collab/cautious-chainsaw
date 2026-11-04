@@ -67,7 +67,7 @@ class Cdp {
 
 // ------------------------------------------------------------------ Chrome process
 const liveChromes = new Set();
-function killTree(pid) { try { spawnSync('taskkill', ['/PID', String(pid), '/T', '/F'], { stdio: 'ignore' }); } catch { /* not windows */ try { process.kill(pid, 'SIGKILL'); } catch { /* gone */ } } }
+function killTree(pid) { if (process.platform !== 'win32') { try { process.kill(pid, 'SIGKILL'); } catch { /* gone */ } return; } try { spawnSync('taskkill', ['/PID', String(pid), '/T', '/F'], { stdio: 'ignore' }); } catch { try { process.kill(pid, 'SIGKILL'); } catch { /* gone */ } } }
 process.on('exit', () => { for (const p of liveChromes) killTree(p); });
 for (const sig of ['SIGINT', 'SIGTERM']) process.on(sig, () => { for (const p of liveChromes) killTree(p); process.exit(130); });
 

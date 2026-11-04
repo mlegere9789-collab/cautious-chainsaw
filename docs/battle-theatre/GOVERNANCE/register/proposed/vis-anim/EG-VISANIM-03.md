@@ -1,0 +1,21 @@
+# EG-VISANIM-03: Clip coverage of the plan's G9 list (397 of about 600 clips)
+
+| Field | Content |
+|---|---|
+| ID | EG-VISANIM-03: Clip coverage of the plan's G9 list (397 of about 600 clips) |
+| Requirement IDs | OA07, R17, R05 |
+| Category | work owed (narrowed, not dropped) |
+| Description | G9 asks for about 75 states x 6 variants (about 600 clips). 397 clips exist in 20 families; six variants per crowd state exist (locomotion, stand, lie, activity); stretcher, limber, cover, wheel, dress, skirmish, hart, melee and gun families have fewer variants. Tiers: documented 131, inferred 39, plausible-procedural 227. |
+| Why literal 100% is not possible or blocked | Not a record gap: authoring effort, plus the sources listed in EG-ANIM-09, -11 and EG-VISANIM-01. |
+| Evidence searched | app/data/anim3d/clips.json; ANIM3D-NOTES sections 3, 10.3, 11.5. |
+| Autonomous substitute applied | Per-figure seeded modulation on top of the authored variants (G-ANIM-23). |
+| Strongest evidence-based reconstruction | As built. |
+| Confidence tier | mixed (see counts) |
+| Competing values | - |
+| Product marking | Clip tier in clips.json. |
+| Visual and audio impact | Variety of motion in crowds. |
+| Review status | internal review only (DEC-006: no public review label); nothing seen in a browser |
+| Owner decision requested | None; continue authoring. |
+| Agent recommendation | Continue; add variants to the families listed, then re-run the unison gate (anim3d.test.mjs:450). |
+| Status | open (partly met) |
+| Owner decision and date | (filled only from the Decision Log) |

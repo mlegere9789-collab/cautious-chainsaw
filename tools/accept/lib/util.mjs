@@ -105,7 +105,7 @@ export function runCmdAsync(cmd, args, { cwd = REPO, timeoutMs = 600000, env = {
   return new Promise((resolve) => {
     const t0 = Date.now(); let out = '', err = '', timedOut = false;
     const p = spawn(cmd, args, { cwd, env: { ...process.env, PYTHONIOENCODING: 'utf-8', ...env }, windowsHide: true });
-    const to = setTimeout(() => { timedOut = true; try { spawnSync('taskkill', ['/PID', String(p.pid), '/T', '/F'], { stdio: 'ignore' }); } catch { p.kill('SIGKILL'); } }, timeoutMs);
+    const to = setTimeout(() => { timedOut = true; if (process.platform !== 'win32') p.kill('SIGKILL'); else try { spawnSync('taskkill', ['/PID', String(p.pid), '/T', '/F'], { stdio: 'ignore' }); } catch { p.kill('SIGKILL'); } }, timeoutMs);
     p.stdout.on('data', (d) => { out += d; }); p.stderr.on('data', (d) => { err += d; });
     p.on('close', (code, signal) => { clearTimeout(to); resolve({ cmd: [cmd, ...args].join(' '), exit: code, signal, timedOut, ms: Date.now() - t0, stdout: out, stderr: err, error: null }); });
     p.on('error', (e) => { clearTimeout(to); resolve({ cmd: [cmd, ...args].join(' '), exit: null, signal: null, timedOut, ms: Date.now() - t0, stdout: out, stderr: err, error: String(e.message) }); });
