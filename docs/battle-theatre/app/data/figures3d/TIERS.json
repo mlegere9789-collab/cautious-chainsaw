@@ -20,8 +20,20 @@
   },
   "anv_battle": {
    "tier": "plausible-procedural",
-   "note": "ANV square battle flag of the documented type (PDF B.6.5 p.70); Gettysburg regimental pattern open (G11)",
-   "register": "EG-FIG-0005"
+   "note": "ANV square battle flag of the documented type (PDF B.6.5 p.70: 12 stars; NPS: 13 stars on the 13th Alabama Gettysburg flag and the type; selectable scenario, PENDING OWNER); other brigades' regimental patterns open (G11)",
+   "register": "EG-FIG-0005",
+   "evidence": "FIG-EV-ANV-13-STARS",
+   "scenarios": {
+    "pdf_p70": {
+     "stars": 12,
+     "source": "PDF p.70 (cites FOTW, not read)"
+    },
+    "nps": {
+     "stars": 13,
+     "source": "NPS Antietam flags page; NPS 13th Alabama battle flag article (evidence FIG-EV-ANV-13-STARS)"
+    }
+   },
+   "default_scenario": "pdf_p70"
   },
   "cav_guidon": {
    "tier": "gap",
@@ -322,7 +334,7 @@
    "area": "flags",
    "choice": "US flag: 34 stars",
    "tier": "inferred",
-   "basis": "the 1818 Flag Act (3 Stat. 415) adds one star per admission effective the next 4 July; Kansas was admitted 29 Jan 1861 (12 Stat. 126), West Virginia from 20 June 1863 (12 Stat. 633-634 with the proclamation of 20 April 1863, 13 Stat. 731): the star of West Virginia took effect on 4 July 1863, after the battle (evidence FIG-EV-FLAG-ACT-1818, -KANSAS-1861, -WESTVA-1863: documented). The number 34 additionally needs the 33 stars before Kansas, which were NOT read in this round (memory), so the count stays inferred; no regiment is shown to have carried the statutory count",
+   "basis": "the STATUTORY union on 1-3 July 1863 had 34 stars and that is documented: 33 stars from 4 July 1859 to 3 July 1861 (NPS Fort Sumter articles), Kansas the 34th state (National Archives) with its star effective 4 July 1861 (1818 Flag Act, 3 Stat. 415; Kansas act, 12 Stat. 126), West Virginia the 35th state from 20 June 1863 (Senate; 12 Stat. 633-634 and 13 Stat. 731) with its star effective 4 July 1863, after the battle (evidence FIG-EV-FLAG-ACT-1818, -KANSAS-1861, -WESTVA-1863, -STAR-BASE-33, -STATE-ORDER, -STAR-COUNT-1863: documented). Drawing the statutory count on every Union national colour stays inferred: NPS Vicksburg records a Union flag with 36 stars before the 36th was official and star arrangements that were not uniform (FIG-EV-STAR-PATTERN-VARIED), and no regiment at Gettysburg is shown to have carried the statutory count",
    "mark": "tier overlay on the flag; EG-FIG-0002",
    "register": "EG-FIG-0002",
    "evidence": "FIG-EV-STAR-COUNT-1863"
@@ -332,9 +344,10 @@
    "area": "flags",
    "choice": "star arrangement 6-5-6-5-6-6 and canton width",
    "tier": "plausible-procedural",
-   "basis": "period flags varied; no regiment's arrangement is documented in the repository",
+   "basis": "documented that NO standard arrangement existed in the 1860s and that arrangements were not uniform (evidence FIG-EV-STAR-PATTERN-VARIED); the 6-5-6-5-6-6 rows are one plausible choice and no regiment's arrangement is documented in the repository",
    "mark": "tier overlay",
-   "register": "EG-FIG-0002"
+   "register": "EG-FIG-0002",
+   "evidence": "FIG-EV-STAR-PATTERN-VARIED"
   },
   {
    "id": "F-FLAG-SIZE",
@@ -366,11 +379,13 @@
   {
    "id": "F-ANV-BATTLE",
    "area": "flags",
-   "choice": "Confederate colours: ANV square battle flag (St Andrew's cross, 12 stars as printed in the PDF p.70, deep red field)",
+   "choice": "Confederate colours: ANV square battle flag (St Andrew's cross, deep red field), star count a SELECTABLE SCENARIO: default 12 as printed in the PDF p.70, alternative 13 (NPS)",
    "tier": "plausible-procedural",
-   "basis": "the PDF documents the TYPE and marks the Gettysburg regimental pattern open (G11); intact / torn / bearer-down states carried as printed",
+   "basis": "SOURCE CONFLICT, undecided: the owner's PDF p.70 prints 12 stars (its cited source was not read); the National Park Service pages for Antietam and for the 13th Alabama flag brought to Gettysburg (third bunting issue, colours received by Archer's Brigade in June 1863) state THIRTEEN stars (evidence FIG-EV-ANV-13-STARS, documented for that flag and for the type). Both are carried (flags.mjs ANV_STAR_SCENARIOS, flagPattern option anvStars); the default stays the PDF figure and the choice is PENDING OWNER (register EG-FIG-0005, proposal vis-figures-EG-FIG-ANV-STARS). The regimental pattern, size, cross width and edging of other brigades remain open (G11). Intact / torn / bearer-down states carried as printed",
    "mark": "tier overlay",
-   "register": "EG-FIG-0005"
+   "register": "EG-FIG-0005",
+   "evidence": "FIG-EV-ANV-13-STARS",
+   "conflict": "pdf_p70_12_vs_nps_13"
   },
   {
    "id": "F-GUIDON",

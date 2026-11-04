@@ -54,14 +54,77 @@
    "not_supported": "the date arithmetic (20 April + 60 days) is ours: from and after the 60th day gives 20 June 1863"
   },
   {
+   "id": "FIG-EV-STAR-BASE-33",
+   "status": "verified",
+   "tier": "documented",
+   "supports": "the official US flag had 33 stars from 4 July 1859 to 3 July 1861 (so 33 stars were in force before the star of Kansas, the 34th state, took effect on 4 July 1861)",
+   "source": "US National Park Service (Fort Sumter and Fort Moultrie National Historical Park), articles \"The Fort Sumter Garrison Flag\" and \"The Fort Sumter Storm Flag\" (institutional interpretive articles, not primary documents)",
+   "where": "https://www.nps.gov/articles/000/the-fort-sumter-garrison-flag.htm ; https://www.nps.gov/articles/000/the-fort-sumter-storm-flag.htm (fetched 2026-11-04)",
+   "passage": {
+    "garrison": "The United States flag between July 4, 1859 and July 3, 1861 had 33 stars, with each star representing one state.",
+    "storm": "The official flag of the United States between July 4, 1859 and July 3, 1861 had 33 stars."
+   },
+   "not_supported": "which 33 states the stars stood for (the pages do not list them); any regiment's actual flag; the star arrangement (the pages say 33-star flags differed in pattern)"
+  },
+  {
+   "id": "FIG-EV-STATE-ORDER",
+   "status": "verified",
+   "tier": "documented",
+   "supports": "Kansas was the 34th state (29 January 1861), West Virginia the 35th (20 June 1863) and Nevada the 36th (31 October 1864): no state was admitted between Kansas and West Virginia, and none between West Virginia and the end of the battle",
+   "source": "US National Archives, \"Kansas Statehood, January 29, 1861\" (legislative features page); US Senate, \"States in the Senate\" timelines for West Virginia and Nevada (institutional pages)",
+   "where": "https://www.archives.gov/legislative/features/kansas ; https://www.senate.gov/states/WV/timeline.htm ; https://www.senate.gov/states/NV/timeline.shtml (fetched 2026-11-04)",
+   "passage": {
+    "kansas": "On January 29, 1861 Kansas became the 34th state",
+    "westVirginia": "[West Virginia] became the 35th state in the Union (heading date June 20, 1863)",
+    "nevada": "President Abraham Lincoln proclaimed Nevada to be the 36th state of the Union (31 October 1864)"
+   },
+   "not_supported": "the date a star was added to the flag (the Senate and Archives pages give no flag date; the date rule is the 1818 act, FIG-EV-FLAG-ACT-1818)"
+  },
+  {
    "id": "FIG-EV-STAR-COUNT-1863",
-   "status": "inferred",
-   "tier": "inferred",
-   "supports": "the statutory union on 1-3 July 1863 had 34 stars: the star of Kansas (4 July 1861) was the last in force and the star of West Virginia took effect on 4 July 1863",
-   "source": "derived from FIG-EV-FLAG-ACT-1818, FIG-EV-KANSAS-1861, FIG-EV-WESTVA-1863",
-   "where": "src/figures3d/evidence.mjs unionStarsOn()",
-   "passage": {},
-   "not_supported": "the base count of 33 stars before Kansas (the 33 earlier admissions were NOT read in this round: supplied from memory) and that any regiment carried a flag with the statutory count; secondary pages (Smithsonian object record, NPS Petersburg page) were found by search but could not be read (403, 404), so they are NOT cited"
+   "status": "verified",
+   "tier": "documented",
+   "supports": "the STATUTORY union of the US flag on 1, 2 and 3 July 1863 had 34 stars: 33 stars to 3 July 1861 (FIG-EV-STAR-BASE-33), plus the star of Kansas, the 34th state (FIG-EV-STATE-ORDER, FIG-EV-KANSAS-1861), effective 4 July 1861 (FIG-EV-FLAG-ACT-1818); West Virginia, the 35th state, was admitted 20 June 1863 and its star took effect on 4 July 1863 (FIG-EV-WESTVA-1863), after the battle; Nevada followed in 1864",
+   "source": "derived by date arithmetic from FIG-EV-FLAG-ACT-1818, FIG-EV-KANSAS-1861, FIG-EV-WESTVA-1863, FIG-EV-STAR-BASE-33 and FIG-EV-STATE-ORDER",
+   "where": "https://www.govinfo.gov/content/pkg/STATUTE-3/pdf/STATUTE-3-Pg415.pdf ; https://www.nps.gov/articles/000/the-fort-sumter-garrison-flag.htm (derivation in src/figures3d/evidence.mjs unionStarsOn())",
+   "passage": {
+    "base33": "FIG-EV-STAR-BASE-33",
+    "kansas": "FIG-EV-KANSAS-1861",
+    "order": "FIG-EV-STATE-ORDER",
+    "rule": "FIG-EV-FLAG-ACT-1818",
+    "westVirginia": "FIG-EV-WESTVA-1863"
+   },
+   "not_supported": "that any regiment carried a flag with the statutory count: NPS Vicksburg states of a Union flag that it had 36 stars although the 36th was officially added after the war, and that the arrangement of stars was not uniform (FIG-EV-STAR-PATTERN-VARIED); the date arithmetic is ours"
+  },
+  {
+   "id": "FIG-EV-STAR-PATTERN-VARIED",
+   "status": "verified",
+   "tier": "documented",
+   "supports": "no standard arrangement of the stars existed in the 1860s (the pattern was not standardized until the 20th century) and Union flags in the field did not all carry the statutory count or the same arrangement; regimental banners were individually made",
+   "source": "US National Park Service: Fort Sumter Storm Flag article (pattern not standardized until the 20th century); Vicksburg National Military Park, \"Banners of Glory Key\" (Grant headquarters flag: 36 stars although the 36th was officially added after the war; arrangement of the stars not uniform; a Union regimental banner described as unique)",
+   "where": "https://www.nps.gov/articles/000/the-fort-sumter-storm-flag.htm ; https://www.nps.gov/vick/learn/education/banners-of-glory-key.htm (fetched 2026-11-04)",
+   "passage": {
+    "sumter": "The star pattern of the flag ... was not standardized until the 20th century",
+    "vicksburg_stars": "It had 36 stars, although officially the 36th star (for Nevada) was added after the Civil War.",
+    "vicksburg_arrangement": "The arrangement of the stars was not uniform",
+    "vicksburg_banners": "every flag was unique and each was a work of art"
+   },
+   "not_supported": "what pattern any particular Gettysburg regiment carried; the Vicksburg statements are about the flags shown there, not a census of Union flags"
+  },
+  {
+   "id": "FIG-EV-ANV-13-STARS",
+   "status": "verified",
+   "tier": "documented",
+   "supports": "the Army of Northern Virginia battle flag is a red square with a blue St Andrew's cross and THIRTEEN stars (NPS Antietam), and the 13th Alabama Infantry (Archer's Brigade) brought a third-bunting-issue flag of that type to Gettysburg, the brigade having received new colours of the type in June 1863; the image caption describes thirteen white stars on the blue lines and a red background with diagonal blue lines; wool bunting replaced silk because of the lack of silk",
+   "source": "US National Park Service, article \"13th Alabama Battle Flag\"; Antietam National Battlefield, \"Flags at Antietam\" (institutional interpretive pages)",
+   "where": "https://www.nps.gov/articles/000/13th-alabama-battle-flag.htm ; https://www.nps.gov/anti/learn/historyculture/flags.htm (fetched 2026-11-04)",
+   "passage": {
+    "gettysburg": "It is this flag that the 13th Alabama Infantry brought to Gettysburg.",
+    "issue": "In June 1863, all of Archer's Brigade received new regimental colors of this type.",
+    "caption": "thirteen white stars on the blue lines",
+    "antietam": "a red square with the blue St. Andrews Cross and thirteen stars"
+   },
+   "not_supported": "the star arrangement beyond \"on the blue lines\" (a centre star is not stated), flag size, cross width and edging (the pages state none), the patterns of other Confederate brigades at Gettysburg. CONFLICT: the owner's PDF page 70 prints 12 stars (source cited there: FOTW, not read); the model keeps 12 as the default and offers 13 as a selectable scenario until the owner decides (see the vis-figures proposed register entry)"
   },
   {
    "id": "FIG-EV-STAR-ARRANGEMENT",
@@ -119,6 +182,18 @@
   {
    "what": "Smithsonian flag facts and 34-star object record (avpreservation.si.edu, si.edu)",
    "result": "HTTP 403, not read, not cited"
+  },
+  {
+   "what": "Smithsonian NMAH Confederate battle flag object record nmah_439645 (americanhistory.si.edu), second attempt for the star arrangement",
+   "result": "HTTP 403, not read, not cited (a search snippet said three stars on each arm and one in the centre: unverified, a lead only)"
+  },
+  {
+   "what": "NPS Petersburg flags-of-the-civil-war page at home.nps.gov/pete/learn/education/flags-of-the-civil-war.htm",
+   "result": "HTTP 404 again, not cited"
+  },
+  {
+   "what": "archives.gov Kansas page and the Senate WV and NV timelines for the date a star was added to the flag",
+   "result": "read; they state the state order only, no flag date (the date rule rests on the 1818 act)"
   },
   {
    "what": "NPS Our Flag (parkhistory/online_books/flag/h_doc_100-247/sec8.htm)",
