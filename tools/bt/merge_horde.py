@@ -121,7 +121,10 @@ def main():
                 problems.append((sh, '?', 'no-id', flat(r.get('topic') or r.get('item'))[:60]))
                 continue
             seen[rid] += 1
-            tier = tier_class(r.get('tier') or r.get('recommended_tier') or r.get('tier_recommended') or r.get('tier_assessment') or r.get('row_tier'))
+            _t = r.get('tier') or r.get('recommended_tier') or r.get('tier_recommended') or r.get('tier_assessment') or r.get('row_tier')
+            if isinstance(_t, dict):                      # tl-09 style {'seed':..., 'proposed':...}: the shard's proposal is the tier
+                _t = _t.get('proposed') or _t.get('seed')
+            tier = tier_class(_t)
             status = flat(r.get('status'))
             cite = first(r, CITE_KEYS)
             pref = first(r, PASS_KEYS)

@@ -8,21 +8,18 @@
 
 ## Timeline tier/status counts (normalized)
 
-- documented / verified: 416
-- inferred / failed_lookup: 15
-- inferred / gap: 41
-- inferred / inferred: 34
-- inferred / verified: 36
+- documented / verified: 452
+- inferred / failed_lookup: 16
+- inferred / gap: 52
+- inferred / inferred: 38
+- inferred / verified: 38
 - open gap / failed_lookup: 6
 - open gap / gap: 61
 - open gap / verified: 4
-- plausible-procedural / gap: 8
+- plausible-procedural / gap: 12
 - plausible-procedural / inferred: 6
 - plausible-procedural / verified: 1
-- unclassified / failed_lookup: 1
-- unclassified / gap: 20
-- unclassified / inferred: 4
-- unclassified / verified: 38
+- unclassified / gap: 5
 
 ## Problems
 
