@@ -112,3 +112,6 @@ const bind = attachAudio(audio, anim.bus);                                 // BT
 // UI: audio.panel() for the 'What you are seeing' drawer; audio.badge() (null in panel-only mode); audio.status().text for the voice line.
 ```
 Frame: x east, y up, z **south** (`geo.mjs`); `audio/contract/FIRE_EVENT.md` says z north, the app is authoritative. The existing leak tests count AudioContexts (`tests/lib.mjs INSTRUMENT`): the engine creates exactly one context and must be closed with `engine.dispose()` on teardown. An AudioContext starts only after a user gesture (`engine.resume()`).
+
+## 13. Host module and a latent double time-warp (2026-11-11)
+`src/audio-host.mjs` (docs/AUDIO-HOST-CONTRACT.md) now drives this engine. Finding: `index.update({ warp })` builds the atmosphere with `timeWarp: warp` (planner delay `d / (c k)`) and then `engine.anchor(battleNow, warp)` divides by `k` again, so at speed k the wall delay would be `d / (c k^2)`. audio3d is unchanged; the host calls `update` with warp 1 and anchors the engine with the real speed itself (tested: 2 km at 8x is `5.8 s / 8` of wall time). The test A9 of the verification list stays valid. The owner of audio3d may fix `update` instead.

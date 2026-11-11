@@ -50,3 +50,19 @@ Use headphones for B1 to B5. Defaults: the Web Audio graph at trim +22 dB; reduc
 2. Master trim, limiter and reverb time (RT60 2.4 s is a guess).
 3. Whether to ship recordings (and which: the packaging, and the CC BY credit lines) or synthesis only.
 4. Whether to ask Jari Villanueva for permission to use his Civil War calls (an owner act) or to transcribe the notation from the Casey page images (a Claude task: locate the leaves behind the 32 plates of vol. 1).
+
+## D. Audio host and sound panel (added 2026-11-11; `src/audio-host.mjs`, `src/ui/sound-panel.mjs`; nothing below has been run or heard)
+
+| # | check | how | pass criterion |
+|---|---|---|---|
+| D1 | sound off on entry | enter the theatre, no click | `__instSnapshot().audio === 0`; `AudioHost.stats().liveContexts === 0`; the panel says "Sound is off" |
+| D2 | start needs the gesture | click Start sound in Settings (or the Sound drawer) | one AudioContext, state running; Chrome, Firefox, Safari; no console error |
+| D3 | leak: Back | `leak.spec.mjs` sound test (5 cycles) | audio 0, `stats().liveNodes === 0`, `liveContexts === 0` after each Back; timers/listeners equal the baseline |
+| D4 | mixer | move master, music, effects, voices, mute while a Day 2 volley and a bugle call play | each slider changes only its channel; mute is silent with no click; the levels are remembered after reload |
+| D5 | scrub is silent and causal | play at 1x in a battle, drag the time bar back 30 s then release | silent while dragging; on release only shots fired in the previous 12 s and still in the air are heard; no shot of the old future |
+| D6 | pause, speed | pause; set 15x, 30x, 60x; set 8x | paused and above 8x: silent with the panel line; 8x: a 2 km shot is heard after 5.8 s / 8 |
+| D7 | seek by event jump | press `]` several times during a cannonade | no sound from the future after each jump (voice count falls to 0 at the jump) |
+| D8 | DEC-001 setting | switch both options in the panel; screenshot each | pdf: badge and tags; panel-only: none; the "what is in this build" list identical; the choice survives reload; default is pdf until the owner decides |
+| D9 | tab hidden | switch tab and back | context suspends and resumes, no burst of queued sound |
+| D10 | listening | headphones, listening part B again with the mixer in the path | levels as in B13; the owner's judgement; **no claim about sound quality is made by the node tests** |
+| D11 | camera yaw and Doppler | turn the camera in place; fly at 30 m/s past a battery | a source ahead is centred and one to the camera's right is on the right; pitch shifts while flying |

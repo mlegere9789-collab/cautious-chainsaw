@@ -75,3 +75,26 @@ test('the browser Back button and the #theatre link take the same path as the Ba
   await page.waitForFunction(() => window.__instSnapshot().gpuLive === 0);
   assert.deepEqual(log.errors, []); assert.deepEqual(log.pageerrors, []); await ctx.close();
 });
+
+// Sound (src/audio-host.mjs): off on entry, one AudioContext once started, and Back closes it and leaves 0 live Web Audio nodes (the host is disposed through the theatre scope).
+// The page must initialise the host with { scope: theatre.scope, bus: anim bus }; when it does not (not wired yet) this test wires its own host onto the same scope, which tests the scope path.
+test('sound: off until started; started inside the theatre it is one AudioContext with live nodes; Back closes it and leaves 0 nodes, 0 contexts, no timers or listeners behind', async () => {
+  const { ctx, page, log } = await open(B, S.base); await page.click('#landing-title'); await page.waitForTimeout(200);
+  await enter(page); await leave(page); await page.waitForTimeout(200); const base = await page.evaluate(() => window.__instSnapshot());
+  for (let i = 1; i <= 5; i++) {
+    await enter(page);
+    const during = await page.evaluate(async () => {
+      const m = await import('./src/audio-host.mjs'); const th = window.btApp.theatre; let h = m.getCurrent(); const wired = !!h; if (!h) h = m.init({ scope: th.scope, bus: th.anim && th.anim.bus, T: th.T, search: location.search });
+      const off = { ...window.__instSnapshot(), wired, started: h.started, nodes: m.stats().liveNodes }; const ok = await h.start();
+      for (let k = 0; k < 6; k++) h.update({ t: th.state.t, playing: true, speed: 1, dt: 0.1, cam: { x: th.cam.x, y: th.cam.y, z: th.cam.z, yaw: th.cam.yaw || 0 }, weather: th.wx, sun: th.sample });
+      return { off, ok, snap: window.__instSnapshot(), stats: m.stats(), voices: h.status().voices };
+    });
+    assert.equal(during.off.audio, 0, `cycle ${i}: no AudioContext before the user starts sound`); assert.equal(during.off.started, false); assert.equal(during.off.nodes, 0);
+    assert.equal(during.ok, true, `cycle ${i}: sound started`); assert.equal(during.snap.audio, 1, `cycle ${i}: exactly one AudioContext while sound is on`); assert.ok(during.stats.liveNodes > 10, `cycle ${i}: nodes tracked ${during.stats.liveNodes}`); assert.equal(during.stats.liveContexts, 1);
+    await leave(page); await page.waitForTimeout(150);
+    const after = await page.evaluate(async () => { const m = await import('./src/audio-host.mjs'); return { snap: window.__instSnapshot(), stats: m.stats() }; });
+    assert.equal(after.snap.audio, 0, `cycle ${i}: AudioContext closed after Back`); assert.equal(after.stats.liveNodes, 0, `cycle ${i}: live Web Audio nodes after Back`); assert.equal(after.stats.liveContexts, 0); assert.equal(after.stats.hasHost, false);
+    assert.equal(after.snap.timers, base.timers, `cycle ${i}: timers`); assert.equal(after.snap.listeners, base.listeners, `cycle ${i}: listeners`); assert.equal(after.snap.rafs, 0);
+  }
+  assert.deepEqual(log.errors, [], 'no console errors'); assert.deepEqual(log.pageerrors, []); await ctx.close();
+});

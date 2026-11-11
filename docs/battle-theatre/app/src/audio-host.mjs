@@ -173,7 +173,7 @@ export class AudioHost {
         this.audio = audio; if (this.settings.labelMode) audio.setLabelMode(this.settings.labelMode);
         if (mixer && audio.engine) { this._patch(audio.engine, mixer); mixer.attach(audio.engine); mixer.apply(this.settings); }
         if (h.bus) this.bind = attachAudio(this._guarded(audio), h.bus);
-        if (audio.engine) await audio.engine.resume();
+        if (audio.engine) audio.engine.resume().catch(() => { });      // not awaited: without a user gesture a context stays suspended and the promise stays pending
         this.started = true; this.error = null; this.silentReason = 'waiting for the first frame'; this._emit(); return true;
       } catch (e) { this.error = String(e && e.message || e); this._teardown(); return false; }
       finally { this.starting = null; }
