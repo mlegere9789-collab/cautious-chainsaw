@@ -6,7 +6,7 @@
 import { sampleClip } from '../anim3d/clipdef.mjs';
 import { half } from '../anim3d/bake.mjs';
 
-export const BANK_FPS = 30;
+export const BANK_FPS = 30, BANK_MAX_FRAMES = 360;     // a clip is sampled at 30 Hz, or less when it is long (a 40 s gun-crew loop is stored at 9 Hz, 360 frames)
 export const CORE = [
   'march_common_time_shoulder', 'march_common_time_order', 'march_quick_time_shoulder', 'march_quick_time_rss', 'march_quick_time_atwill', 'march_route_step_atwill', 'march_route_step_rss', 'march_double_quick_run', 'march_double_quick_trail',
   'march_double_quick_urgent_run', 'march_run_run', 'march_run_lookback', 'stand_shoulder', 'stand_order', 'stand_rss', 'stand_rest', 'ready_from_shoulder', 'shoulder_from_ready', 'fire_cycle_stand', 'fire_cycle_kneel', 'fire_cycle_lie',
@@ -23,22 +23,22 @@ class Bank {
     this.data = new Uint16Array(this.width * this.rows * 4); this.dirty = null; this.byClip = new Map(); this.pose = rig.newPose(); this.fk = rig.newFK(); this.fr = rig.newFrame(); this.M = new Float32Array(this.nb * 12);
   }
   add(clip, idx) {
-    const n = clip.loop ? Math.max(1, Math.round(clip.dur * BANK_FPS)) : Math.round(clip.dur * BANK_FPS) + 1;
+    const fps0 = Math.min(BANK_FPS, BANK_MAX_FRAMES / clip.dur), n = clip.loop ? Math.max(1, Math.round(clip.dur * fps0)) : Math.round(clip.dur * fps0) + 1;
     if (this.next + n > this.capFrames) throw new Error(`clip bank ${this.name} is full (${this.capFrames} frames)`);
     const rig = this.rig, f0 = this.next; this.next += n;
     for (let f = 0; f < n; f++) {
-      const t = clip.loop ? (f / n) * clip.dur : Math.min(clip.dur, f / BANK_FPS);
+      const t = clip.loop ? (f / n) * clip.dur : Math.min(clip.dur, f / fps0);
       sampleClip(clip, t, this.fr); rig.expandFrame(this.fr, this.pose); rig.fk(this.pose, this.fk); rig.skin(this.fk, this.M, this.list);
       const g = f0 + f, o = ((g >> 1) * this.width + (g & 1) * this.tpf) * 4; for (let q = 0; q < this.nb * 12; q++) this.data[o + q] = half(this.M[q]);
     }
-    const e = { idx, f0, n, fps: clip.loop ? n / clip.dur : BANK_FPS, loop: clip.loop, dur: clip.dur }; this.byClip.set(idx, e);
+    const e = { idx, f0, n, fps: clip.loop ? n / clip.dur : fps0, loop: clip.loop, dur: clip.dur }; this.byClip.set(idx, e);
     const r0 = f0 >> 1, r1 = (f0 + n - 1) >> 1; this.dirty = this.dirty ? [Math.min(this.dirty[0], r0), Math.max(this.dirty[1], r1)] : [r0, r1]; return e;
   }
   takeDirty() { const d = this.dirty; this.dirty = null; return d; }
 }
 
 export class ClipBank {
-  constructor(lib, capHuman = 12288, capHorse = 1024) {
+  constructor(lib, capHuman = 16384, capHorse = 1024) {
     this.lib = lib; this.rig = this.lib.rig; this.index = new Map(this.lib.order.map((id, i) => [id, i]));
     this.human = new Bank(this.rig, this.rig.lod.mid.bones, 'human', capHuman); this.horse = new Bank(this.lib.horseRig, Array.from({ length: this.lib.horseRig.n }, (_, i) => i), 'horse', capHorse);
     this.baseOf = new Int32Array(this.lib.order.length); for (let i = 0; i < this.baseOf.length; i++) this.baseOf[i] = i;
