@@ -26,7 +26,7 @@ function walk(dir) { const o = []; for (const e of fs.readdirSync(dir, { withFil
 
 export function trace() {
   const files = new Set(), problems = [], seen = new Set();
-  const add = (abs, why) => { if (!fs.existsSync(abs) || fs.statSync(abs).isDirectory()) { problems.push(`missing: ${posix(path.relative(BT, abs))} (${why})`); return false; } files.add(abs); return true; };
+  const add = (abs, why) => { if (fs.existsSync(abs) && fs.statSync(abs).isDirectory() && /URLS\.data/.test(why)) { let any = false; for (const f of walk(abs)) { files.add(f); any = true; } if (any) return true; } if (!fs.existsSync(abs) || fs.statSync(abs).isDirectory()) { problems.push(`missing: ${posix(path.relative(BT, abs))} (${why})`); return false; } files.add(abs); return true; };
   const queue = [path.join(BT, 'app/src/main.mjs')];
   while (queue.length) {
     const f = queue.pop(); if (seen.has(f)) continue; seen.add(f); if (!add(f, 'module')) continue;
