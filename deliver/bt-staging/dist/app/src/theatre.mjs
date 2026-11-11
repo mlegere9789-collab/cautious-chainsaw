@@ -23,6 +23,8 @@ import { mountCard } from './ui/card.mjs';
 import { mountObjectCard } from './ui/object-card.mjs';
 import { Structures, loadStructureInputs, DEFAULT_LAYERS } from './structures/index.mjs';
 import { drawStructureMarks } from './structures/overlay.mjs';
+import * as fxHost from './fx-host.mjs';
+import * as AudioHost from './audio-host.mjs';
 import { perspective, lookAt, mul, frustumPlanes } from '../../render/prototype/src/math.mjs';
 
 const warm = { T: null, base: null };                // parsed ground and the placeholder crowd, kept between visits (plain arrays; no GPU or DOM objects)
@@ -85,11 +87,22 @@ export class Theatre {
       const ropts = { base: URLS.proto, nearQ: +qs.get('nearQ') || 1, midQ: +qs.get('midQ') || .35, nearR: +qs.get('nearR') || S.nearR, midR: +qs.get('midR') || S.midR, shadowSize: +qs.get('shadow') || 2048, midMode: qs.get('mid') || 'vat', fxAlpha: .75, exposure: 1 };
       this.host = await RenderHost.create({ canvas: this.els.canvas, world: this.world, api, opts: ropts, replaceCanvas: () => this.replaceCanvas() }); if (this.dead) { this.host.destroy(); this.host = null; return; }
       const r0 = performance.now(); this.els.canvas = this.host.canvas; this.sizeCanvas(true); this.perf.resizeMs = performance.now() - r0;
+      // the figures: every drawn figure with the figures3d models and the anim3d state machine (the placeholder layer has no kit manifests and keeps the prototype's soldier; ?crowd=off keeps it on the real layer too)
+      if (!this.layer.meta.stub && this.layer.figures && qs.get('crowd') !== 'off') {
+        try { await this.host.attachCrowd({ layer: this.layer, world: this.world, stage: this.stage, T: this.T, settings: S, progress: (f, txt) => step(txt, 0.6 + 0.2 * f) }); if (this.dead) return; }
+        catch (e) { console.warn('figures not drawn, the prototype soldier is used:', e); this.crowdError = String(e.message || e); this.host.crowd = null; this.host.R.o.flags.near = this.host.R.o.flags.mid = this.host.R.o.flags.far = 1; this.host.setLod(S.nearR, S.midR); }
+      }
       if (qs.get('structures') !== 'off') {
         step('Drawing the structures', 0.8); await idle(); if (this.dead) return;
         try { const inputs = await loadStructureInputs(rawHist); if (this.dead) return; this.structs = new Structures(this, inputs, this.T); await this.structs.attach(this.host); this.host.structures = this.structs.gpu; this.structs.gpu.markDirty(); }
         catch (e) { console.warn('structures not drawn:', e); this.structsError = String(e.message || e); this.structs = null; }
       }
+      if (this.structs && this.host.crowd) this.host.crowd.setExtrasSource(tMin => { const L = this.structs.drawLists(tMin); if (L.error) return L; const w = this.structs.ws6().works; return { ...L, workMesh: L.works && L.works.segs && L.works.segs.length ? w.mesh(L.works) : null }; });
+      try {                                         // effects (weather, smoke, dust: src/fx-host.mjs) and sound (src/audio-host.mjs)
+        const anim = this.host.crowd ? this.host.crowd.driver.anim : null; this.anim3d = anim;
+        this.fxOn = qs.get('fx') === 'off' ? null : await fxHost.init(this.host, { environment: this.env, anim, choices: () => this.state.scenario.choices, nightFloor: S.nightFloor });
+        this.audio = AudioHost.init({ scope: sc, bus: anim ? anim.bus : null, replay: anim ? (a, b) => anim.advance(a, b) : null, T: this.T, search: location.search });
+      } catch (e) { console.warn('effects or sound not started:', e); this.fxOn = null; }
       step('Building the controls', 0.9); await idle(); if (this.dead) return;
       this.controls = new Controls({ cam, canvas: this.els.canvas, T: this.T, scope: sc, reduceMotion: () => this.reduceMotion, onTap: (x, y, type) => this.tap(x, y, type), onHover: (x, y) => this.hoverAt(x, y), onMove: done => { if (done) this.bus.emit('camera-settled'); } });
       this.overlay = new Overlay({ canvas: this.els.overlay, stage: this.stage, layer: this.layer, cam, T: this.T, scope: sc }); this.sizeCanvas(true);
@@ -186,6 +199,7 @@ export class Theatre {
       if (st.t >= r.to - 1 / 60) { st.t = r.to - 1 / 60; st.playing = false; st.rate = 0; this.bus.emit('play'); }
       this.bus.emit('tick');
     }
+    if (this.needSeek) this._seekedForAudio = true;
     if (this.needSeek) { this.anim.t = 40 + (st.t * 60) % 7200; this.needSeek = false; this.stage.rebase(); }
     if (this.anim.t > 2e5) { this.anim.t = 40 + (st.t * 60) % 7200; this.needFx = true; this.stage.rebase(); }
     const p0 = performance.now(); this.controls.update(dt);
@@ -203,6 +217,8 @@ export class Theatre {
     if (this.structs) this.structsFrame(st.t);
     const p3 = performance.now(); if (this.needFx) { this.needFx = false; this.replayFx(); this.counters.replays++; }
     this.stats = stats; const p4 = performance.now();
+    if (this.fxOn) { try { this.fxInfo = fxHost.update({ tMin: st.t, cam: this.cam, choices: st.scenario.choices }); } catch (e) { console.warn('effects stopped:', e); this.fxOn = null; } }
+    if (this.audio) AudioHost.update({ t: st.t, playing: st.playing, speed: st.speed, rate: st.rate, dt, seeked: this._seekedForAudio === true, scrubbing: !!this.scrubbing, cam: this.cam, weather: this.wx, sun: this.sample }); this._seekedForAudio = false;
     const rs = this.host.frame(this.anim.t, this.cam); this.rs = rs; this.counters.frames++; const p5 = performance.now();
     this.inflight = (this.inflight || 0) + 1; this.host.done().then(() => { this.inflight--; }, () => { this.inflight = 0; });
     // overlay and rain
@@ -264,6 +280,8 @@ export class Theatre {
     if (this.dead) return; this.dead = true;
     try { if (window.btApp) delete window.btApp; } catch { /* ignore */ }
     this.scope.dispose();                       // listeners, timers, animation frames, observers
+    try { fxHost.dispose(); } catch (e) { console.warn('effects teardown', e); }
+    try { AudioHost.dispose(); } catch (e) { console.warn('sound teardown', e); }
     if (this.host) { this.host.destroy(); this.host = null; }
     this.bus.clear(); if (this.root) { this.root.remove(); this.root = null; }
     for (const k of Object.keys(this)) if (k !== 'dead') this[k] = null;       // a finished visit holds nothing: no DOM, no closure over the DOM

@@ -3,7 +3,7 @@
 // drives the Web Audio graph (webaudio.mjs) and the offline renderer (offline.mjs) and is testable in node. Same inputs always give the same plan (no Math.random, no clocks).
 //
 // Physics per event (all from physics.mjs, numbers from audio/model/acoustics.mjs, ISO 9613):
-//   delay      exact moving-air travel time  t = d / (c + w.u) with c = 331.3 sqrt(1 + T/273.15) from the documented weather temperature; c * timeWarp when the clock is warped
+//   delay      exact moving-air travel time  t = d / (c + w.u) with c = 331.3 sqrt(1 + T/273.15) from the documented weather temperature; arrival times are battle seconds whatever the clock speed (the engine divides by the warp once, in wallTime)
 //   level      peak(1 m) + muzzle directivity - 20 log10 d + weighted band loss (air absorption, ground effect OR diffraction over a ridge, optional rain)
 //   filter     one gain + one biquad low-pass fitted to the band losses
 //   direction  azimuth / elevation in the listener frame, interaural time and level difference for the non-HRTF path

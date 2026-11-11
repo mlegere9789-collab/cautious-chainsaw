@@ -20,7 +20,7 @@ import { SEED } from './config.mjs';
 
 export const HIDDEN = 1e6;                 // hidden units and guns are parked here: far outside every frustum and culled on the CPU
 export const FALL_NEVER = 1e9;             // the prototype's “never falls” time in the soldier table
-const UNIT_STRIDE = 12, TURN_S = 25;
+const UNIT_STRIDE = 12, TURN_S = 25, MAX_TURN_EDGE_MS = 4.4;      // TURN_S: the shortest turn; MAX_TURN_EDGE_MS: the fastest the outer edge of a formation may move while it turns (a train turned in 25 s moved its far end at 30 m/s)
 const NEVER = { from: Infinity, to: null };      // a unit with no arrival record (not on the field, or no gate) is never present
 const smooth = x => { x = Math.min(1, Math.max(0, x)); return x * x * (3 - 2 * x); };
 const bearingToH = deg => Math.PI - deg * Math.PI / 180;
@@ -56,7 +56,12 @@ export class Stage {
     if (e.type === 'enter') return { x: e.x, z: e.z, path: null, act: 'stand', head: null, headFrom: null, actT: e.t, t0: e.t, loss: null, fb0: 0, fb1: 0, ft0: e.t, fdur: 1 };
     if (!cur) return cur;                                                  // events for a unit that is not on the field do nothing
     if (e.type === 'path') return { ...cur, path: e.path };
-    if (e.type === 'activity') return cur.head == null ? { ...cur, act: e.activity, head: e.head ?? 0, headFrom: e.head ?? 0, actT: e.t } : { ...cur, headFrom: this._heading(cur, e.t), act: e.activity, head: e.head ?? cur.head, actT: e.t };
+    if (e.type === 'activity') {
+      if (cur.head == null) return { ...cur, act: e.activity, head: e.head ?? 0, headFrom: e.head ?? 0, actT: e.t, turnS: TURN_S };
+      const from = this._heading(cur, e.t), to = e.head ?? cur.head, bb = this.bbox[this.index.get(e.unit)] || [-1, 1, -1, 1], ext = Math.max(Math.abs(bb[0]), Math.abs(bb[1]), Math.abs(bb[2]), Math.abs(bb[3]));
+      const dA = Math.abs(((to - from + Math.PI) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI) - Math.PI);
+      return { ...cur, headFrom: from, act: e.activity, head: to, actT: e.t, turnS: Math.min(900, Math.max(TURN_S, dA * ext / MAX_TURN_EDGE_MS)) };      // a block turns as a rigid body: its outer edge may not move faster than 4.4 m/s
+    }
     if (e.type === 'state') return { ...cur, loss: e.loss };
     if (e.type === 'formation') return { ...cur, fb0: this._blend(cur, e.t), fb1: e.target, ft0: e.t, fdur: e.dur };
     if (e.type === 'leave') return null;
@@ -109,10 +114,33 @@ export class Stage {
       this.dt[i] = { loss: L, alt, k: 0, sig: null }; this.detail.push(i); this._restoreUnit(i);
     }
     this.rebaseFlag = true; this.dirtySlots = this.dirtyFalls = true;
+    this.segs = null; this.segsVersion = (this.segsVersion || 0) + 1;                // the crowd (src/crowd) asks for the activity timelines lazily: unitSegments(i)
     this.lastKey = null; return { events: events.length, rejected: cache.rejected.length, unsupported: this.unsupported.length };
   }
+  // ---- what the animation needs from the history: each unit's ACTIVITY TIMELINE in simulation seconds, from the same admitted events the cache holds (so it can never disagree with where the unit is).
+  // A segment is { t0, activity, speed, night }: the ground speed is the speed of the path leg the unit is on (0 outside the path), a unit that moves is 'march' (or 'double_quick' above 2 m/s) whatever the last activity
+  // event said, a unit that does not move keeps the activity the layer named. Night is the local-time convention 19:30 - 04:30 (plausible-procedural; it only chooses the camp clips: sleeping or sitting at the fire).
+  unitSegments(i) {
+    if (!this.segs) this.segs = new Array(this.nL).fill(undefined);
+    if (this.segs[i] !== undefined) return this.segs[i];
+    const tr = this.track[i]; if (!tr || !tr.length) return (this.segs[i] = []);
+    const ev = tr.slice().sort((a, b) => a.t - b.t), times = new Set(); let leaveT = Infinity;
+    for (const e of ev) { if (e.type === 'enter' || e.type === 'activity' || e.type === 'path' || e.type === 'leave') times.add(e.t); if (e.type === 'path') for (const t of e.path.t) times.add(t); if (e.type === 'leave') leaveT = Math.min(leaveT, e.t); }
+    const T = [...times].filter(t => t <= leaveT).sort((a, b) => a - b), out = []; let act = 'stand', path = null, on = false, ei = 0;
+    for (const tb of T) {
+      while (ei < ev.length && ev[ei].t <= tb) { const e = ev[ei++]; if (e.type === 'enter') { on = true; act = 'stand'; path = null; } else if (!on) continue; else if (e.type === 'path') path = e.path; else if (e.type === 'activity') act = e.activity; else if (e.type === 'leave') on = false; }
+      if (!on) continue;
+      let v = 0; if (path) { const p = path, k = p.t.length - 1; if (tb >= p.t[0] && tb < p.t[k]) { let j = 0; while (p.t[j + 1] <= tb) j++; const dt = p.t[j + 1] - p.t[j]; v = dt > 0 ? Math.hypot(p.x[j + 1] - p.x[j], p.z[j + 1] - p.z[j]) / dt : 0; } }
+      const moving = v > 0.15, a = moving ? (v > 2.0 ? 'double_quick' : 'march') : (act === 'march' || act === 'double_quick' ? 'stand' : act), sp = moving ? v : 0, prev = out[out.length - 1];
+      if (prev && prev.activity === a && Math.abs(prev.speed - sp) < 0.02) continue;
+      const tod = (tb / 60) % 1440; out.push({ t0: tb, activity: a, speed: sp, night: tod < 270 || tod >= 1170 });
+    }
+    return (this.segs[i] = out);
+  }
+  // the men who fall in unit i: { t (seconds), agent, fate (0 killed, 1 wounded), anim } sorted by time; missing men are listed with anim 0 (they do not fall in the picture)
+  fallInfo(i) { const d = this.dt[i], L = d && d.loss; if (!L) return null; return { t: L.t, agent: L.agent, fate: L.fate, anim: L.anim }; }
   _restoreUnit(i) { const w = this.w.units[i], s = this.w.sold, s1 = this.w.sold1, s0 = this.sold0; for (let a = 0; a < w.count; a++) { const g = w.first + a; s[g * 4] = s0[g * 4]; s[g * 4 + 1] = s0[g * 4 + 1]; s1[g * 4] = FALL_NEVER; } w.radius = w.r0; }
-  _heading(rec, t) { return rec.head == null ? 0 : angleLerp(rec.headFrom, rec.head, smooth((t - rec.actT) / TURN_S)); }
+  _heading(rec, t) { return rec.head == null ? 0 : angleLerp(rec.headFrom, rec.head, smooth((t - rec.actT) / (rec.turnS || TURN_S))); }
   _pos(rec, t, out) {   // out = [x, z, sigma_m]
     const p = rec.path;
     if (!p) { out[0] = rec.x; out[1] = rec.z; out[2] = 200; return out; }
@@ -128,7 +156,7 @@ export class Stage {
 
   // state at a time (pure). Fills the CPU unit table the LOD code reads and marks what must be uploaded. animT: the renderer's animation clock now (see rebase()).
   apply(tMin, animT = this.animT) {
-    const tSec = tMin * 60, cache = this.cache;
+    const tSec = tMin * 60, cache = this.cache; this.tNow = tMin;
     if (tSec > this.builtTo + 3600) { cache.build(tSec + 7200); this.builtTo = tSec + 7200; }
     const st = cache.at(tSec), f = this.w.unitF, o2 = [0, 0, 0], pres = this.presence, ids = this.layer.units, nL = this.nL;
     let units = 0, soldiers = 0, uni = 0, con = 0, mounted = 0, changed = false;

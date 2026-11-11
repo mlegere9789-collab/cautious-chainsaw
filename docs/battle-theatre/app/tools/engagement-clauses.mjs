@@ -8,7 +8,7 @@
 //    and the duration phrase must be literally in the row;
 //  * a row names the formations that fought; a unit takes the windows of every formation above it (a regiment takes its brigade's, division's, corps' windows), nothing else;
 //  * a row that is about arrival, movement, headquarters, weather or light is not an engagement and is not here; a row that names only the other side is not applied to the unnamed side;
-//  * the row stays seeded_unverified (CLAUDE.md): the window tier is "inferred" at best, never documented; the OR27 audit verdict of the row (library/timeline_audit_T*.jsonl) is carried beside it, and a
+//  * the row stays seeded_unverified (the project Law): the window tier is "inferred" at best, never documented; the OR27 audit verdict of the row (library/timeline_audit_T*.jsonl) is carried beside it, and a
 //    row the audit CONTRADICTS is kept (the PDF row is the project default) with its verdict visible.
 // phrases: every phrase must occur in the row text with the cell separators " | " turned into spaces and white space collapsed (apostrophes and quotation marks as printed).
 export const CLAUSES = [

@@ -1,5 +1,5 @@
 // Skeleton definitions for the Battle Theatre figure models: human (foot soldier, officer, musician, cavalryman, gun crew), horse, and the gun/limber/caisson rig.
-// This module GENERATES data/figures3d/skeleton.json (the contract with the ANIMATION agent); nothing here is mocap or a historical measurement.
+// This module GENERATES data/figures3d/skeleton.json (the contract with the animation module); nothing here is mocap or a historical measurement.
 // Conventions (also written into the JSON):
 //  * units metres; right-handed; +y up; +z = the direction the figure faces; +x = the figure's LEFT (glTF). Bone names ending _L are on +x, _R on -x.
 //  * REST POSE: A-pose, arms hang 20 degrees out from the body, palms in, feet flat and parallel, knees straight. Every bone's rest rotation is IDENTITY: a bone's rest local
@@ -155,7 +155,7 @@ function midSet(rig) {
   return { bones: list, map: Array.from(map), count: list.length };
 }
 
-// ---------------------------------------------------------------- sockets (attach points the ANIMATION agent aims props at; offsets are in the PARENT BONE's rest frame, metres)
+// ---------------------------------------------------------------- sockets (attach points the animation module aims props at; offsets are in the PARENT BONE's rest frame, metres)
 function humanSockets(rig) {
   const S = (name, bone, off, note, rotdeg = [0, 0, 0]) => ({ name, bone, offset: off, rot_euler_deg: rotdeg, note });
   return [
@@ -171,7 +171,7 @@ function humanSockets(rig) {
 export const LONG_ARM_SOCKETS = [
   { name: 'butt', offset: [0, 0, 0] }, { name: 'wrist', offset: [0, 0.30, 0.0], note: 'small of the stock: the right-hand grip (conformed to ANIM3D-NOTES section 8: M1861 wrist 0.30 m)' }, { name: 'lock_nipple', offset: [0, 0.46, 0.03], note: 'lock 0.46 m: where the percussion cap is placed and the hammer falls (conformed to ANIM3D-NOTES section 8)' },
   { name: 'small_of_stock', offset: [0, 0.30, 0.0], note: 'same as wrist' }, { name: 'lower_band', offset: [0, 0.85, 0.012], note: 'lower band 0.85 m: the left-hand grip at aim / carry (conformed to section 8)' }, { name: 'upper_band', offset: [0, 1.15, 0.012] }, { name: 'fore_end', offset: [0, 1.15, 0.0] },
-  { name: 'muzzle', offset: [0, 1.4224, 0.02], note: 'bore axis end of the 56 in. M1861: muzzle flash/smoke emitter point for the FX agent' }, { name: 'ramrod_head', offset: [0, 1.30, -0.004], note: 'the ramrod head stowed under the barrel (section 8: 1.30 m)' }, { name: 'bayonet_tip', offset: [0.026, 1.879, 0.012], note: 'fixed socket bayonet, 18 in. blade (0.457 m) beyond the muzzle: the animation notes use 1.80 m; the mesh blade is the 18 in. of the weapon record' },
+  { name: 'muzzle', offset: [0, 1.4224, 0.02], note: 'bore axis end of the 56 in. M1861: muzzle flash/smoke emitter point for the effects module' }, { name: 'ramrod_head', offset: [0, 1.30, -0.004], note: 'the ramrod head stowed under the barrel (section 8: 1.30 m)' }, { name: 'bayonet_tip', offset: [0.026, 1.879, 0.012], note: 'fixed socket bayonet, 18 in. blade (0.457 m) beyond the muzzle: the animation notes use 1.80 m; the mesh blade is the 18 in. of the weapon record' },
 ];
 
 export function buildSkeletonJson() {

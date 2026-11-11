@@ -120,7 +120,7 @@ export function makeStateEngine({ structures, sched, works, hospitals = null }) 
     if (id.includes('#') && !partIds.has(id)) throw new Error('unknown part id: ' + id);
     const s = byId.get(base);
     if (s && s.kind === 'avenue_not_in_1863') return { structure_id: id, time: isoOf(t), scenario, state: 'does_not_exist_in_1863', status: 'never_placed', present: false, rows: [] };
-    if (s && /^E-\d\d$/.test(base) && W[base]) return workState(base, t, scenario, seed);
+    if (s && /^(E-\d\d|X-E\d\d)$/.test(base) && W[base]) return workState(base, t, scenario, seed);       // X-E nn: a work added by a delegated decision (src/structures/works3d.mjs adds it to a copy of the data, never to the shared files)
     const [rs, notes] = rowsFor(id, scenario);
     if (s && s.preexisting === true && s.kind === 'preexisting_wall_or_fence' && !rs.length) return { structure_id: id, time: isoOf(t), scenario, state: 'present at frame one (pre-existing; no construction)', status: 'certain', present: true, rows: [] };
     const res = { structure_id: id, time: isoOf(t), scenario, rows: [], suppressed: notes.map(n => n[0]).sort() };

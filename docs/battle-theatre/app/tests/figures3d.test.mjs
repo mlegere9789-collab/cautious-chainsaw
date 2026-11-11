@@ -110,9 +110,9 @@ test('deterministic: a second library builds the same bytes; the exported hashes
   assert.ok(compared > 60); for (const k of ['us_national', 'anv_battle']) assert.equal(sha(Buffer.from(flagPattern(k, 'intact').rgba)), H[`flag:${k}:intact`]);
 });
 
-test('flags: US national colour has 34 stars on 13 stripes (tier inferred, lookup not performed), the regimental colour is a marked gap, the ANV battle flag has 12 stars (PDF p.70) and is plausible-procedural; torn state opens the fly', () => {
-  const us = flagPattern('us_national'), anv = flagPattern('anv_battle'); assert.equal(us.width * us.height * 4, us.rgba.length);   // flagPattern throws if the star count is not 34 / 12
-  assert.equal(FLAG_EVIDENCE.us_national.stars, 34); assert.equal(FLAG_EVIDENCE.us_national.tier, 'inferred'); assert.equal(FLAG_EVIDENCE.us_regimental_gap.tier, 'gap'); assert.equal(FLAG_EVIDENCE.anv_battle.tier, 'plausible-procedural');
+test('flags: US national colour has 34 stars on 13 stripes (tier inferred, lookup not performed), the regimental colour is a marked gap, the ANV battle flag defaults to 13 stars (DD-01, NPS; 12 from PDF p.70 stays selectable) and is plausible-procedural; torn state opens the fly', () => {
+  const us = flagPattern('us_national'), anv = flagPattern('anv_battle'); assert.equal(us.width * us.height * 4, us.rgba.length);   // flagPattern throws if the star count is not 34 / the scenario's count (13 by default)
+  assert.equal(FLAG_EVIDENCE.anv_battle.default_scenario, 'nps'); assert.equal(FLAG_EVIDENCE.anv_battle.scenarios.nps.stars, 13); assert.equal(FLAG_EVIDENCE.anv_battle.scenarios.pdf_p70.stars, 12); assert.equal(FLAG_EVIDENCE.us_national.stars, 34); assert.equal(FLAG_EVIDENCE.us_national.tier, 'inferred'); assert.equal(FLAG_EVIDENCE.us_regimental_gap.tier, 'gap'); assert.equal(FLAG_EVIDENCE.anv_battle.tier, 'plausible-procedural');
   const torn = flagPattern('anv_battle', 'torn'); let holes = 0; for (let i = 3; i < torn.rgba.length; i += 4) if (torn.rgba[i] === 0) holes++; assert.ok(holes > 500);
   const hatch = flagPattern('us_regimental_gap'); const colours = new Set(); for (let i = 0; i < hatch.rgba.length; i += 4) colours.add(hatch.rgba[i] + ',' + hatch.rgba[i + 1]); assert.equal(colours.size, 2, 'regimental gap flag is a two-tone hatch');
   const seen = new Set(); for (const m of POP) { const r = sys.instance(m); if (r.variant.flag) seen.add(r.variant.flag); } assert.ok(seen.has('us_national') && seen.has('anv_battle')); for (const f of seen) assert.ok(FLAG_EVIDENCE[f], 'evidence record for ' + f);

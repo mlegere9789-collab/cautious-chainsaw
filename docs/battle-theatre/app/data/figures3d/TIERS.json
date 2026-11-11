@@ -20,7 +20,7 @@
   },
   "anv_battle": {
    "tier": "plausible-procedural",
-   "note": "ANV square battle flag of the documented type (PDF B.6.5 p.70: 12 stars; NPS: 13 stars on the 13th Alabama Gettysburg flag and the type; selectable scenario, PENDING OWNER); other brigades' regimental patterns open (G11)",
+   "note": "ANV square battle flag of the documented type (NPS: 13 stars on the 13th Alabama Gettysburg flag and the type, documented for that flag, inferred for other brigades; PDF B.6.5 p.70 prints 12, selectable; default 13 under delegated decision DD-01, reversible by the owner; arrangement of the 13th star plausible-procedural); other brigades' regimental patterns open (G11)",
    "register": "EG-FIG-0005",
    "evidence": "FIG-EV-ANV-13-STARS",
    "scenarios": {
@@ -33,7 +33,7 @@
      "source": "NPS Antietam flags page; NPS 13th Alabama battle flag article (evidence FIG-EV-ANV-13-STARS)"
     }
    },
-   "default_scenario": "pdf_p70"
+   "default_scenario": "nps"
   },
   "cav_guidon": {
    "tier": "gap",
@@ -379,9 +379,9 @@
   {
    "id": "F-ANV-BATTLE",
    "area": "flags",
-   "choice": "Confederate colours: ANV square battle flag (St Andrew's cross, deep red field), star count a SELECTABLE SCENARIO: default 12 as printed in the PDF p.70, alternative 13 (NPS)",
+   "choice": "Confederate colours: ANV square battle flag (St Andrew's cross, deep red field), star count a SELECTABLE SCENARIO: default 13 (NPS; delegated decision DD-01, reversible by the owner), 12 as printed in the PDF p.70 selectable",
    "tier": "plausible-procedural",
-   "basis": "SOURCE CONFLICT, undecided: the owner's PDF p.70 prints 12 stars (its cited source was not read); the National Park Service pages for Antietam and for the 13th Alabama flag brought to Gettysburg (third bunting issue, colours received by Archer's Brigade in June 1863) state THIRTEEN stars (evidence FIG-EV-ANV-13-STARS, documented for that flag and for the type). Both are carried (flags.mjs ANV_STAR_SCENARIOS, flagPattern option anvStars); the default stays the PDF figure and the choice is PENDING OWNER (register EG-FIG-0005, proposal vis-figures-EG-FIG-ANV-STARS). The regimental pattern, size, cross width and edging of other brigades remain open (G11). Intact / torn / bearer-down states carried as printed",
+   "basis": "SOURCE CONFLICT, both carried; default 13 shown first under delegated decision DD-01 (reversible by the owner, tier documented for the 13th Alabama flag, inferred for other brigades, the arrangement of the 13th star plausible-procedural): the owner's PDF p.70 prints 12 stars (its cited source was not read); the National Park Service pages for Antietam and for the 13th Alabama flag brought to Gettysburg (third bunting issue, colours received by Archer's Brigade in June 1863) state THIRTEEN stars (evidence FIG-EV-ANV-13-STARS, documented for that flag and for the type). Both are carried (flags.mjs ANV_STAR_SCENARIOS, flagPattern option anvStars); the PDF figure (12) stays selectable (register EG-FIG-0005, proposal vis-figures-EG-FIG-ANV-STARS). The regimental pattern, size, cross width and edging of other brigades remain open (G11). Intact / torn / bearer-down states carried as printed",
    "mark": "tier overlay",
    "register": "EG-FIG-0005",
    "evidence": "FIG-EV-ANV-13-STARS",
@@ -536,7 +536,7 @@
    "area": "weapons",
    "choice": "wrist 0.30 m, lock 0.46 m, lower band 0.85 m, upper band 1.15 m from the butt toe of the 56 in. M1861; other arms scaled by length",
    "tier": "inferred",
-   "basis": "ANIM3D-NOTES section 8 (inferred from the M1861 overall 56 in. and barrel 40 in.; positions along the stock not measured); socket-spec.json from the ANIMATION follow-up was not present",
+   "basis": "ANIM3D-NOTES section 8 (inferred from the M1861 overall 56 in. and barrel 40 in.; positions along the stock not measured); socket-spec.json from the animation module was not present",
    "mark": "tier overlay",
    "register": null
   },

@@ -5,7 +5,7 @@ import { URLS } from './config.mjs';
 import { mulberry32 } from '../../render/prototype/src/math.mjs';
 
 export class RenderHost {
-  constructor() { this.api = null; this.R = null; this.destroyed = false; this.inflight = 0; this.canvas = null; this.TW = 2048; this.padUnits = null; this.log = []; }
+  constructor() { this.api = null; this.R = null; this.destroyed = false; this.inflight = 0; this.canvas = null; this.TW = 2048; this.padUnits = null; this.log = []; this.crowd = null; this._userExt = null; }
   static async create({ canvas, world, api = 'auto', opts, replaceCanvas }) {
     const h = new RenderHost(); h.canvas = canvas; h.world = world;
     const tryGPU = (api === 'auto' || api === 'webgpu') && 'gpu' in navigator;
@@ -14,12 +14,20 @@ export class RenderHost {
       catch (e) { h.log.push('webgpu unavailable: ' + (e.message || e)); h.R = null; if (api === 'webgpu') throw e; canvas = h.canvas = replaceCanvas(); }
     }
     if (!h.R) { const m = await import(URLS.proto + 'src/webgl2.mjs'); h.R = await m.GLRenderer.create(canvas, world, opts); h.api = 'webgl2'; }
-    return h;
+    h._wireExt(); return h;
   }
+  // the prototype renderer has ONE extension slot (R.ext: scene and shadow hooks); the structures set it. It becomes an accessor: the crowd (figures) is drawn first, whoever sets R.ext afterwards is drawn after it.
+  _wireExt() {
+    const h = this, comp = { scene: (p, r) => { if (h.crowd) h.crowd.scene(p); if (h._userExt) h._userExt.scene(p, r); }, shadow: (p, c, r) => { if (h.crowd) h.crowd.shadow(p, c); if (h._userExt) h._userExt.shadow(p, c, r); } };
+    Object.defineProperty(this.R, 'ext', { configurable: true, enumerable: true, get() { return comp; }, set(v) { h._userExt = v || null; } });
+  }
+  // the figures (src/crowd): the prototype's single soldier model is switched off and every figure is drawn with the figures3d models and the anim3d state machine. `o.progress(frac, text)` reports loading.
+  async attachCrowd(o) { const { Crowd } = await import('./crowd/crowd.mjs'); this.crowd = await Crowd.create(this, o); return this.crowd; }
+  setCrowd(c) { this.crowd = c; }
   get info() { return this.R.adapterInfo || { renderer: this.R.rendererName }; }
   resize(w, h) { this.canvas.width = w; this.canvas.height = h; this.R.resize(w, h); }
   setLight(sunDir, exposure) { this.R.o.sunDir = sunDir; this.R.o.exposure = exposure; }
-  setLod(nearR, midR) { this.R.o.nearR = nearR; this.R.o.midR = midR; this.R.cfg.nearR = nearR; this.R.cfg.midR = midR; }
+  setLod(nearR, midR) { this.R.o.nearR = nearR; this.R.o.midR = midR; if (!this.crowd) { this.R.cfg.nearR = nearR; this.R.cfg.midR = midR; } }      // with the crowd the prototype's selection stays off: the crowd reads the same two values from the settings
   // the unit and gun tables are static in the prototype; the shell rewrites them when the stage changes
   uploadUnits() {
     const R = this.R, w = this.world;
@@ -56,12 +64,16 @@ export class RenderHost {
     for (let t = t0; t < to; t += step) { applyAt(t); fx.update(t, cam); }
     applyAt(to); fx.update(to, cam);
   }
-  frame(t, cam) { return this.R.frame(t, cam); }
+  frame(t, cam) {
+    if (this.crowd) this.crowd.prepare(cam, t);
+    return this.R.frame(t, cam);
+  }
   done() { return this.R.onDone(); }
   memoryBytes() { return this.R.memoryBytes(); }
   get gpuMs() { return this.R.gpuMs || {}; }
   destroy() {
     if (this.destroyed) return; this.destroyed = true; const R = this.R;
+    if (this.crowd) { try { this.crowd.destroy(); } catch (e) { console.warn('crowd teardown', e); } this.crowd = null; }
     if (this.structures) { try { this.structures.destroy(); } catch (e) { console.warn('structures teardown', e); } this.structures = null; }
     try {
       if (this.api === 'webgpu') {

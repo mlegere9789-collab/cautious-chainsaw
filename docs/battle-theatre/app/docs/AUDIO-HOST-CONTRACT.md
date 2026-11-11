@@ -44,7 +44,7 @@ Listener yaw for the planner is `pi - cam.yaw` (`listenerYaw`, tested against `d
 
 ## 4. Time rules (causality)
 
-* The planner receives warp 1 (arrival times stay `t + distance / c(T)` in battle seconds); the engine converts battle seconds to wall seconds with the real speed once (`anchor(t, speed)`). audio3d's own `update({warp})` would compress the flight twice (planner `c*k`, then the engine's `/ k`); see the note in AUDIO3D-NOTES.md.
+* The host passes the real speed to `update({warp})`. The planner's arrival times stay `t + distance / c(T)` in battle seconds (the atmosphere is never warped); the engine converts battle seconds to wall seconds with the speed once (`anchor`). The earlier double compression (planner `c*k`, then the engine's `/ k`) is fixed in audio3d; see AUDIO3D-NOTES.md.
 * An event is accepted only if `t <= now + 2 s` (frame-ordering slack) and `t >= now - 40 s`; later events are dropped and counted (`droppedFuture`), never queued. The engine wrapper refuses a voice whose event is after the clock (`causalityViolations`, expected 0).
 * **Any jump** (seek, scrub, backward time, pause, speed change, speed above `AUDIO_MAX_WARP` = 8) flushes the queue, stops every voice **and every echo tap** (all sources are tracked), fades the beds and the folded-shot bed. Sound resumes only through `replay`, so nothing from the old future can sound.
 * Silent reasons (shown in the panel in words, never hidden): `off`, `starting`, `paused`, `scrubbing`, `speed` (above 8x events pass faster than they can be heard: silent, not removed).

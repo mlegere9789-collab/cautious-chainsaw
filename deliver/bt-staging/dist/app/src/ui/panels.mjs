@@ -8,6 +8,7 @@ import { glyphSVG } from '../overlay.mjs';
 import { esc, ic, pill, regLink, fmtN, debounce } from './util.mjs';
 import { strengthDrawn } from '../history/contract.mjs';
 import { mountLayersBlock, mountStructScenarios } from './structures-ui.mjs';
+import { soundPanel, mountSoundBlock } from './sound-panel.mjs';
 
 export const PANELS = {};
 const own = (name, th, fn) => { const ps = new Scope(name); PANELS[name].dispose = () => { ps.dispose(); PANELS[name].dispose = null; }; fn(ps); };
@@ -216,9 +217,12 @@ PANELS.settings = {
       bind('st-mid', v => { S.midR = v; th.host.setLod(S.nearR, S.midR); }, v => v + ' m');
       ps.on(body.querySelector('#st-works'), 'change', e => { S.works = e.target.checked; });
       ps.on(body.querySelector('#st-motion'), 'change', e => { S.reduceMotion = e.target.checked; });
+      mountSoundBlock(body, th, ps);
     });
   },
 };
+
+PANELS.sound = soundPanel;      // also drawn at the end of Settings; opened alone with th.openPanel('sound') or a toolbar button
 
 // panels are drawn on demand by ui/chrome.mjs; nothing needs to exist before one is opened
 export function mountPanels(th) { th.PANELS = PANELS; }

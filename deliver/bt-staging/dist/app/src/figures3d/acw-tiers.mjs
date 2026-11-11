@@ -1,0 +1,6 @@
+// Tier rows of the ACW mod provider. Same convention as tiers.mjs (documented / inferred / plausible-procedural / gap) but kept apart: TIERS.json is hashed by the figure build. Nothing here is documented.
+export const TIERS_ACW = [
+  { id: 'F-ACW-SWATCH', area: 'colour', choice: 'mean colour of a mod-painted Confederate shell-jacket texture sheet offered as a lead colour for the units the mod table links to that variant', tier: 'plausible-procedural', basis: 'the mod artist\'s painting (Subversion committer ACW_Primergy, 2011); a modern game asset, not a garment measurement', register: 'EG-FIG-0011' },
+  { id: 'F-ACW-UNIT-LINK', area: 'dress', choice: 'kit unit to mod uniform variant by the regiment token of the mod key (77 of 135 kit units; 19 ambiguous)', tier: 'plausible-procedural', basis: 'lead-derived inference from the mod\'s Gettysburg uniform tables (acw-leads ACW-L03, L04); the mod says what the modders chose, not what the regiment wore', register: 'EG-FIG-0011' },
+  { id: 'F-ACW-NO-MESH', area: 'figures', choice: 'procedural figures kept for every soldier, officer, flag, gun and horse', tier: 'gap', basis: 'no mod mesh passes the licence-scope evidence rules and the decode checks', register: 'EG-FIG-0012' },
+];

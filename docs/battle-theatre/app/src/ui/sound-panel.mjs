@@ -60,7 +60,7 @@ export const soundPanel = {
 /** The persistent audio marking of the PDF rule (S.1 / Q23 / C.10): one line, drawn only while the setting is 'pdf' and sound is started. */
 export function mountSoundBadge(th) {
   const A = th.audio || getCurrent(); if (!A) return null; const el = document.createElement('div'); el.className = 'bt-audio-badge'; el.setAttribute('role', 'note');
-  el.style.cssText = 'position:absolute;left:8px;bottom:8px;z-index:5;padding:3px 8px;border-radius:6px;font:12px system-ui,sans-serif;background:rgba(10,12,20,.7);color:#ecebe6;pointer-events:none';
+  el.style.cssText = 'position:absolute;left:var(--gut,16px);bottom:calc(var(--dock-h,118px) + var(--safe-b,0px) + 6px);z-index:12;padding:3px 8px;border-radius:6px;font:12px system-ui,sans-serif;background:rgba(10,12,20,.7);color:#ecebe6;pointer-events:none';
   const paint = () => { const b = A.started ? A.badge() : null; el.hidden = !b; el.textContent = b || ''; };
   th.root.append(el); paint(); const off = A.onChange(paint); th.scope.add(() => { off(); el.remove(); }); return el;
 }

@@ -32,7 +32,7 @@ Data: `sources.json` (ledger, 42 recordings after round 3, 8 blocked or rejected
 
 | item | model | tier |
 |---|---|---|
-| delay | exact moving-air travel time (uniform wind; reduces to `d / c`); `c = 331.3 sqrt(1 + T/273.15)` from the **documented** temperature (Jacobs readings via `Environment.weatherAt().tempF`; 79 F gives 346.4 m/s); with time warp `c * k` | documented input, physics exact |
+| delay | exact moving-air travel time (uniform wind; reduces to `d / c`); `c = 331.3 sqrt(1 + T/273.15)` from the **documented** temperature (Jacobs readings via `Environment.weatherAt().tempF`; 79 F gives 346.4 m/s); arrival times stay in battle seconds under time warp; the engine divides by `k` once when it converts to wall time | documented input, physics exact |
 | spreading | `-20 log10 d` (tests: 6.02 dB per doubling; the planner level equals the analytic chain) | physics |
 | air absorption | ISO 9613-1 per octave band at the atmosphere's T, RH, pressure (99.3 kPa from 170 m); test: the standard table values to 3 percent | physics; RH 60 to 85 percent **inferred**, pressure computed |
 | ground effect | ISO 9613-2 Table 3, grass G = 1, faded out as the camera rises (zero at 40 m) | physics; G assumed |
@@ -114,4 +114,4 @@ const bind = attachAudio(audio, anim.bus);                                 // BT
 Frame: x east, y up, z **south** (`geo.mjs`); `audio/contract/FIRE_EVENT.md` says z north, the app is authoritative. The existing leak tests count AudioContexts (`tests/lib.mjs INSTRUMENT`): the engine creates exactly one context and must be closed with `engine.dispose()` on teardown. An AudioContext starts only after a user gesture (`engine.resume()`).
 
 ## 13. Host module and a latent double time-warp (2026-11-11)
-`src/audio-host.mjs` (docs/AUDIO-HOST-CONTRACT.md) now drives this engine. Finding: `index.update({ warp })` builds the atmosphere with `timeWarp: warp` (planner delay `d / (c k)`) and then `engine.anchor(battleNow, warp)` divides by `k` again, so at speed k the wall delay would be `d / (c k^2)`. audio3d is unchanged; the host calls `update` with warp 1 and anchors the engine with the real speed itself (tested: 2 km at 8x is `5.8 s / 8` of wall time). The test A9 of the verification list stays valid. The owner of audio3d may fix `update` instead.
+`src/audio-host.mjs` (docs/AUDIO-HOST-CONTRACT.md) drives this engine. Fixed: `index.update({ warp })` used to build the atmosphere with `timeWarp: warp` (planner delay `d / (c k)`) and then `engine.anchor(battleNow, warp)` divided by `k` again (wall delay `d / (c k^2)`). The atmosphere now always has `timeWarp: 1`; the engine divides by the warp once; the host passes the real speed to `update` (tests: audio3d.test.mjs and audio-host.test.mjs, 2 km at 8x is `5.8 s / 8` of wall time). The test A9 of the verification list stays valid.

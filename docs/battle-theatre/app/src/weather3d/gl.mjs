@@ -10,10 +10,6 @@ import { val } from './params.mjs';
 export const EV_W = 6144, EV_PER_ROW = 1024, CUM_W = 4096;        // events live in a 6144-wide texture, 1024 events (6 texels each) per row: no event limit from MAX_TEXTURE_SIZE
 // fx3d's vertex shader addresses event e at texel (k, e); re-address into the wide layout
 export const patchFxVertex = src => { const n = (src.match(/ivec2\(\d, e\)/g) || []).length; if (n !== 6) throw new Error('fx3d vertex shader changed: expected 6 event texel reads, found ' + n); let out = src.replace(/ivec2\((\d), e\)/g, `ivec2(((e & ${EV_PER_ROW - 1}) * 6 + $1), e >> 10)`);
-  // two type errors in fx3d/shaders.mjs found by the first real compile (float assigned to vec3): fixed here, reported to the fx3d owner (docs/FX-HOST-CONTRACT.md, section 7)
-  const fix = [['vec3 lit = uLight.z * (uLight.x + uLight.y * hgPhase(cosT, uLight.w) * shadow);', 'vec3 lit = vec3(uLight.z * (uLight.x + uLight.y * hgPhase(cosT, uLight.w) * shadow));'],
-    ['vec3 lit = max(uLight.z * (uLight.x + uLight.y * hgPhase(dot(-uSun, v), uLight.w)), vec3(uLight.z * uExtra.x));', 'vec3 lit = max(vec3(uLight.z * (uLight.x + uLight.y * hgPhase(dot(-uSun, v), uLight.w))), vec3(uLight.z * uExtra.x));']];
-  for (const [a, b] of fix) { if (!out.includes(a)) throw new Error('fx3d vertex shader changed: type fix not applicable'); out = out.replace(a, b); }
   return out; };
 export const fxSources = () => ({ vs: patchFxVertex(GLSL_VERT), fs: patchFxFragment(GLSL_FRAG) });
 

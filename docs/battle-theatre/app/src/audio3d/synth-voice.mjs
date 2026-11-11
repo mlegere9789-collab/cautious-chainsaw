@@ -3,7 +3,7 @@
 // utterance is presented as a quote. How a 1863 officer sounded is not recorded: pitch, accent and timing here are the builder's (tier plausible-procedural), the words themselves documented.
 import { makeRng, whiteNoise, filt, biquad, tunableBp, applyEnv, addInto, normalize, fadeOut, makeLoop, TAU, clamp, lerp } from './dsp.mjs';
 
-// General acoustic-phonetics averages for adult male vowels (Peterson & Barney 1952 order of magnitude): the builder's constants, not read from a source in this session.
+// General acoustic-phonetics averages for adult male vowels (Peterson & Barney 1952 order of magnitude): the builder's constants, not read from a source.
 const V = { AH: [730, 1090, 2440], EH: [530, 1840, 2480], IH: [390, 1990, 2550], EE: [270, 2290, 3010], OH: [570, 840, 2410], OW: [450, 800, 2400], OO: [300, 870, 2240], AE: [660, 1720, 2410], ER: [490, 1350, 1690], UH: [640, 1190, 2390], AW: [590, 880, 2540], AY1: [730, 1090, 2440], AY2: [390, 1990, 2550] };
 // token -> { kind: 'v'|'n'|'f'|'p'|'a', ... }
 const PH = {

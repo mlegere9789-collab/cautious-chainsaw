@@ -1,6 +1,6 @@
 {
   "schema": "figures3d-socket-spec-1",
-  "written_by": "ANIMATION follow-up (2026-10-31); read by the FIGURES follow-up agent. This file is the agreement on prop proportions; skeleton.json (src/figures3d/skeleton.mjs) is FIGURES' file and is not edited from here.",
+  "written_by": "animation module (2026-10-31); read by the figures module. This file is the agreement on prop proportions; skeleton.json (src/figures3d/skeleton.mjs) is FIGURES' file and is not edited from here.",
   "why": "ANIM3D-NOTES section 8 request 1: the long_arm_sockets of skeleton.json put the lock nipple at 0.78 m, the small of the stock at 0.86 m and the fore end at 1.15 m from the butt of a 1.40 m arm. A rifle-musket's wrist (small of the stock, where the right hand grips) is about 0.30 m from the butt toe, the lock about 0.46 m, the lower band about 0.85 m. The hands of every animation clip are solved onto the numbers below (src/anim3d/figure-pose.mjs PROPS.rifle), so the mesh must use them or the hands will not meet the stock.",
   "units": "metres along the prop's +y axis from its origin (the butt toe for the rifle); prop frame = prop_long bone frame of skeleton.json",
   "tier": "inferred",
@@ -147,10 +147,10 @@
     ],
     "note": "from skeleton.json sockets (the palm centre); unchanged"
   },
-  "joint_limits": "No change to the limits of skeleton.json is requested: the follow-up re-authored the clips and added a limited arm solve so that every clip stays inside them (0 frames with excess). Limits that FIGURES may wish to review with a source: the shoulder (upperarm z -20 degrees of adduction, y +-90 twist), which makes crossing the chest with a hand impossible without the elbow bent; widening them is optional and is not needed by the clips.",
-  "status": "AGREED AND APPLIED: when this file was last checked (2026-10-31) the long_arm_sockets of skeleton.json already carried the agreed numbers (written by the FIGURES follow-up). tests/anim3d.test.mjs fails if skeleton.json and this file drift apart by more than 3 cm.",
+  "joint_limits": "No change to the limits of skeleton.json is requested: the clips were re-authored and added a limited arm solve so that every clip stays inside them (0 frames with excess). Limits that FIGURES may wish to review with a source: the shoulder (upperarm z -20 degrees of adduction, y +-90 twist), which makes crossing the chest with a hand impossible without the elbow bent; widening them is optional and is not needed by the clips.",
+  "status": "AGREED AND APPLIED: when this file was last checked (2026-10-31) the long_arm_sockets of skeleton.json already carried the agreed numbers (written by the figures module). tests/anim3d.test.mjs fails if skeleton.json and this file drift apart by more than 3 cm.",
   "reins": {
-    "written_by": "FIGURES round 3 (2026-10-31); read by the ANIMATION follow-up agent. The rest of this file is ANIMATION's; src/figures3d/horse.mjs REIN_HAND and skeleton.mjs rein_hand_* follow this section (a test compares them).",
+    "written_by": "figures module, round 3 (2026-10-31); read by the animation module. The rest of this file is ANIMATION's; src/figures3d/horse.mjs REIN_HAND and skeleton.mjs rein_hand_* follow this section (a test compares them).",
     "why": "Round 2 left the rider's hands 19 cm from the rein sockets (the horse sockets rein_hand_L/R were at world (+-0.04, 1.66, 0.65); the baked rider_walk left palm socket sits at (0.153, 1.666, 0.443) and the right at (-0.120, 1.640, 0.380)). The sockets are now at the measured palm position and the rein mesh passes through the closed fist.",
     "frame": "horse frame at rest (metres): x = the horse's left, y up, z forward; rider root = saddle_seat = spine2 + (0, 0.10, -0.06) = (0, 1.54, 0.04)",
     "hold": "BRIDLE HAND: both reins in the rider's LEFT hand, the right hand free for the sabre or carbine (plausible-procedural: no cavalry manual was read for this task; gap G-FIG-REIN-HAND). The right rein runs from the right bit ring over the crest to the left hand.",
@@ -220,7 +220,7 @@
     "gap": "G-FIG-REIN-HAND"
   },
   "crew_stations": {
-    "written_by": "FIGURES round 3 (2026-10-31); read by the ANIMATION follow-up agent. Positions are the drill tables' (src/anim3d/drill-tables.mjs crewPosts, drill items ART-FA-02..04: gunner at the end of the trail handspike, Nos. 1 and 2 about two feet outside the wheels abreast the front of the wheel, Nos. 3 and 4 in line with the knob of the cascable covering them), in the piece frame: +z toward the muzzle, +x the piece's LEFT, origin on the axle line.",
+    "written_by": "figures module, round 3 (2026-10-31); read by the animation module. Positions are the drill tables' (src/anim3d/drill-tables.mjs crewPosts, drill items ART-FA-02..04: gunner at the end of the trail handspike, Nos. 1 and 2 about two feet outside the wheels abreast the front of the wheel, Nos. 3 and 4 in line with the knob of the cascable covering them), in the piece frame: +z toward the muzzle, +x the piece's LEFT, origin on the axle line.",
     "gun_geometry_m": {
       "wheel_track_half": 0.78,
       "wheel_radius": 0.725,

@@ -1,0 +1,434 @@
+{
+ "meta": {
+  "schema": "fx3d-params-1",
+  "built_by": "app/tools/build-fx3d-data.mjs",
+  "note": "plain values; the tier and basis of each path are in TIERS.json"
+ },
+ "physical": {
+  "g_ms2": 9.80665,
+  "c_sound_ms": 343,
+  "grain_kg": 0.00006479891,
+  "lb_kg": 0.45359237,
+  "oz_kg": 0.028349523125
+ },
+ "smoke": {
+  "kappa_m2_per_kg": 3000,
+  "yield_frac": 0.5,
+  "albedo": 0.8,
+  "hg_g": 0.35,
+  "visible_od": 0.2,
+  "opaque_od": 2,
+  "diffusion": {
+   "K_h_m2s": 0.08,
+   "beta_h_m2s3": 0.0004,
+   "vertical_ratio_open": 0.6,
+   "vertical_ratio_damp": 0.25
+  },
+  "dissipation_tau_s": {
+   "breeze": 5,
+   "calm": 110,
+   "ref_wind_ms": 1.8
+  },
+  "buoyancy_scale": {
+   "dry": 1,
+   "damp": 0.35
+  }
+ },
+ "classes": {
+  "rifle_musket": {
+   "flash": {
+    "jet_k_m_per_cbrt_kg": 3.8,
+    "dur_ms": [
+     10,
+     40
+    ],
+    "cap_flash_lead_ms": [
+     3,
+     8
+    ],
+    "radius_light_m": 6,
+    "peak_radiance": 30
+   },
+   "smoke": {
+    "sigma0_k_m_per_cbrt_kg": 3.2,
+    "v0_ms": 8,
+    "tau_drag_s": 0.12,
+    "vb0_ms": 0.9,
+    "tau_b_s": 1.5
+   }
+  },
+  "smoothbore_musket": {
+   "flash": {
+    "jet_k_m_per_cbrt_kg": 3.8,
+    "dur_ms": [
+     15,
+     50
+    ],
+    "cap_flash_lead_ms": [
+     3,
+     8
+    ],
+    "radius_light_m": 7,
+    "peak_radiance": 34
+   },
+   "smoke": {
+    "sigma0_k_m_per_cbrt_kg": 3.2,
+    "v0_ms": 8,
+    "tau_drag_s": 0.12,
+    "vb0_ms": 0.9,
+    "tau_b_s": 1.5
+   }
+  },
+  "breechloader": {
+   "flash": {
+    "jet_k_m_per_cbrt_kg": 3.8,
+    "dur_ms": [
+     10,
+     35
+    ],
+    "cap_flash_lead_ms": [
+     2,
+     6
+    ],
+    "radius_light_m": 5,
+    "peak_radiance": 28
+   },
+   "smoke": {
+    "sigma0_k_m_per_cbrt_kg": 3.2,
+    "v0_ms": 8,
+    "tau_drag_s": 0.12,
+    "vb0_ms": 0.9,
+    "tau_b_s": 1.5
+   }
+  },
+  "repeater": {
+   "flash": {
+    "jet_k_m_per_cbrt_kg": 3.8,
+    "dur_ms": [
+     8,
+     30
+    ],
+    "cap_flash_lead_ms": [
+     0,
+     0
+    ],
+    "radius_light_m": 5,
+    "peak_radiance": 26
+   },
+   "smoke": {
+    "sigma0_k_m_per_cbrt_kg": 3.2,
+    "v0_ms": 8,
+    "tau_drag_s": 0.12,
+    "vb0_ms": 0.9,
+    "tau_b_s": 1.5
+   }
+  },
+  "revolver": {
+   "flash": {
+    "jet_k_m_per_cbrt_kg": 3.8,
+    "dur_ms": [
+     8,
+     25
+    ],
+    "cap_flash_lead_ms": [
+     2,
+     6
+    ],
+    "radius_light_m": 3,
+    "peak_radiance": 22
+   },
+   "smoke": {
+    "sigma0_k_m_per_cbrt_kg": 3.2,
+    "v0_ms": 6,
+    "tau_drag_s": 0.1,
+    "vb0_ms": 0.7,
+    "tau_b_s": 1.2
+   }
+  },
+  "field_gun": {
+   "flash": {
+    "jet_k_m_per_cbrt_kg": 3.8,
+    "dur_ms": [
+     50,
+     150
+    ],
+    "cap_flash_lead_ms": [
+     0,
+     0
+    ],
+    "radius_light_m": 40,
+    "peak_radiance": 60
+   },
+   "smoke": {
+    "sigma0_k_m_per_cbrt_kg": 3.2,
+    "v0_ms": 30,
+    "tau_drag_s": 0.25,
+    "vb0_ms": 3,
+    "tau_b_s": 2.5,
+    "ring_speed_ms": 25,
+    "ring_tau_s": 0.3
+   }
+  },
+  "howitzer": {
+   "flash": {
+    "jet_k_m_per_cbrt_kg": 3.8,
+    "dur_ms": [
+     50,
+     150
+    ],
+    "cap_flash_lead_ms": [
+     0,
+     0
+    ],
+    "radius_light_m": 30,
+    "peak_radiance": 50
+   },
+   "smoke": {
+    "sigma0_k_m_per_cbrt_kg": 3.2,
+    "v0_ms": 26,
+    "tau_drag_s": 0.25,
+    "vb0_ms": 2.6,
+    "tau_b_s": 2.5,
+    "ring_speed_ms": 22,
+    "ring_tau_s": 0.3
+   }
+  }
+ },
+ "projectile": {
+  "case_burst_charge_oz": 4.5,
+  "case_burst_charge_by_designation_oz": {
+   "6": 2.5,
+   "12": 4.5,
+   "24": 6,
+   "32": 8
+  },
+  "case_burst_charge_by_designation_fa1863_ocr_oz": {
+   "6": 0.5,
+   "12": 1,
+   "24": 1.2,
+   "32": 1.4
+  },
+  "shell_burst_charge_oz": 5,
+  "shell_burst_charge_by_designation_oz": {
+   "12": 5,
+   "24": 8,
+   "32": 11
+  },
+  "shell_burst_charge_unlisted_oz": 5,
+  "burst_sigma0_m": 1.6,
+  "burst_flash_ms": [
+   20,
+   60
+  ],
+  "fuze_max_s": 5.5,
+  "fuze_sparks_trail_ms": 40,
+  "fuze_trail_min_dark": 0.5,
+  "impact_throw_speed_ms": [
+   14,
+   22
+  ],
+  "impact_dust_kg_per_kj": 0.0001,
+  "clods_per_impact": 24,
+  "canister_spread_frac": 0.1,
+  "canister_spread_frac_alt": 0.2,
+  "canister_cone_deg": 2.862,
+  "canister_sigma_per_halfwidth": 0.5,
+  "canister_dust_range_m": [
+   60,
+   320
+  ],
+  "ricochet_hops_dry": 5,
+  "ricochet_restitution": 0.6,
+  "ricochet_wet_stop": 0.7
+ },
+ "dust": {
+  "wetness_dust_free": 0.25,
+  "drying_tau_h": 21,
+  "steps_per_min_default": 90,
+  "gait_steps_per_min": {
+   "common_time": 90,
+   "quick_time": 110,
+   "route_step": 110,
+   "double_quick": 165,
+   "urgent": 180
+  },
+  "surface_factor": {
+   "dirt": 1,
+   "macadam": 0.35,
+   "unknown": 0.7
+  },
+  "kg_per_man_step": 0.00015,
+  "horse_strikes_per_min": 220,
+  "wagon_speed_ms_default": 1.3,
+  "wheels_per_vehicle": 4,
+  "column_men_per_m": 4.4,
+  "kg_per_fall": 0.002,
+  "kg_per_hoof_strike": 0.0004,
+  "kg_per_wheel_m": 0.003,
+  "sigma0_m": 0.8,
+  "kick_up_ms": 1.1,
+  "settle_ms": 0.05,
+  "dissipation_tau_s": 25,
+  "puff_interval_s": 0.5,
+  "puff_spacing_m": 4,
+  "kappa_m2_per_kg": 1500
+ },
+ "fire": {
+  "smoke_mass_rate_kg_s_barn": 0.35,
+  "smoke_mass_rate_kg_s_house": 0.25,
+  "smoke_mass_rate_kg_s_small": 0.08,
+  "plume_vb0_ms": 5,
+  "plume_tau_b_s": 9,
+  "plume_sigma0_m": 3,
+  "plume_puff_interval_s": 1.5,
+  "flame_height_m": {
+   "barn": [
+    5,
+    12
+   ],
+   "house": [
+    4,
+    9
+   ],
+   "small": [
+    1.5,
+    4
+   ]
+  },
+  "growth_min": {
+   "barn": 12,
+   "house": 18,
+   "small": 6
+  },
+  "peak_min": {
+   "barn": 60,
+   "house": 75,
+   "small": 25
+  },
+  "decline_min": {
+   "barn": 90,
+   "house": 120,
+   "small": 40
+  },
+  "smoulder_h": 10,
+  "uncertain_intensity": 0.5,
+  "light_radius_m": 60,
+  "ember_rate_per_s": 8,
+  "flicker_hz": [
+   3,
+   9
+  ],
+  "campfire": {
+   "smoke_mass_rate_kg_s": 0.004,
+   "light_radius_m": 6,
+   "contact_clearance_m": 600
+  }
+ },
+ "light": {
+  "flash_decay_tau_ms": 18,
+  "max_lights": 48,
+  "smoke_ambient_floor": 0.06,
+  "flash_light_peak": 1
+ },
+ "wind": {
+  "gust_amp": 0.3,
+  "gust_corr_s": 25,
+  "meander_deg": 12,
+  "calm_charge_scale": 0.15,
+  "pre_storm_gust_boost": 1.6,
+  "s_to_ssw_deg": [
+   180,
+   202.5
+  ]
+ },
+ "air": {
+  "damp_base": 0.25,
+  "damp_humid_day": 0.6,
+  "damp_fog_dawn": 0.85,
+  "fog_dawn_end_sun_alt_deg": 8,
+  "damp_wet_ground": 0.8,
+  "damp_rain": 1
+ },
+ "lod": {
+  "near_radius_m": 150,
+  "hysteresis": 0.2,
+  "bands_m": [
+   30,
+   120,
+   400,
+   1200
+  ],
+  "band_factor": [
+   1,
+   0.5,
+   0.2,
+   0.08,
+   0.03
+  ],
+  "n_full": {
+   "musket": 14,
+   "gun": 64,
+   "ring": 24,
+   "fog": 20,
+   "burst": 40,
+   "canister": 48,
+   "earth": 48,
+   "dust": 10,
+   "plume": 28,
+   "flame": 40,
+   "ember": 16,
+   "fuse": 24
+  },
+  "min_pixels": 1.5
+ },
+ "budget": {
+  "n_max_per_event": 64,
+  "ns_per_particle_arc": 13,
+  "ns_per_particle_arc_ablation": 22,
+  "g12_ms": 4,
+  "mobile_factor": 3,
+  "tiers": {
+   "desktop": {
+    "ms": 4,
+    "cost_factor": 1,
+    "max_events": 16384,
+    "lights": 48
+   },
+   "laptop": {
+    "ms": 3,
+    "cost_factor": 1,
+    "max_events": 12288,
+    "lights": 32
+   },
+   "tablet": {
+    "ms": 2,
+    "cost_factor": 2,
+    "max_events": 8192,
+    "lights": 16
+   },
+   "phone": {
+    "ms": 1.5,
+    "cost_factor": 3,
+    "max_events": 4096,
+    "lights": 8
+   }
+  },
+  "class_floor": 0.08,
+  "class_priority": [
+   "flash",
+   "burst",
+   "gun",
+   "fire",
+   "musket",
+   "dust",
+   "fog"
+  ],
+  "min_per_event": 1,
+  "governor": {
+   "up": 0.05,
+   "down": 0.85,
+   "target_ratio": 0.9,
+   "floor": 0.1
+  }
+ }
+}

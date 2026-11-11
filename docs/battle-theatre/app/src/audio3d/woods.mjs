@@ -7,7 +7,7 @@
 // WHAT THE MASK IS USED FOR (planner.mjs): the two documented accounts of echo in woods (Culp's Hill: "the echoing of the woods increased the appalling roar",
 // NY-GB-1900; "For seven hours the woods echoed with the crashing musketry", 78th NY, documented-reports.json) are qualitative. The engine therefore applies a
 // REVERB-SEND BOOST (plausible-procedural, magnitude ASSUMED, `woodsReverbBoost` in the planner budget) to a sound whose source stands in woods, whose listener
-// stands in woods, or whose straight path runs through woods. It does NOT apply any foliage attenuation: no source for a number was checked this session, so
+// stands in woods, or whose straight path runs through woods. It does NOT apply any foliage attenuation: no source for a number was checked, so
 // none is invented (gap EG-AUD-G08 keeps that item open).
 
 /** Winding-free ray cast: is (x, y) inside the ring? ring = [[x, y], ...] closed or open. */

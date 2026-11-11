@@ -73,7 +73,7 @@ Every weather field carries a tier and basis (`weather.marks`): sun and moon doc
 
 ## 7. Findings for other owners
 
-* **fx3d GLSL had two compile errors** (found by the first real compile): `fx3d/shaders.mjs` lines `vec3 lit = uLight.z * (...)` (smoke) and `vec3 lit = max(uLight.z * (...), vec3(...))` (blast ring) assign a float to a vec3. fx-host patches both at load (`weather3d/gl.mjs patchFxVertex`, asserted by a test); the fx3d owner should fix the source and the patch then throws "type fix not applicable" as a reminder to delete it.
+* **fx3d GLSL type errors: fixed at the source** (`fx3d/shaders.mjs`, the smoke and blast-ring `vec3 lit` lines now wrap the float in `vec3(...)`). The load-time patch is removed; `weather3d/gl.mjs patchFxVertex` only re-addresses the event texels. Verified on SwiftShader webgl2 with `tests/weather3d-shots.mjs` (smoke day and night, `fxDraws` > 0, no GL log), and by a test on the unpatched source.
 * fx3d's vertex shader addresses event `e` at texel `(k, e)`, which caps events at `MAX_TEXTURE_SIZE` rows (16,384 desktop budget + 64 exceeds it on common GPUs). fx-host re-addresses it as `((e & 1023) * 6 + k, e >> 10)` in a 6144-wide texture (patch + test of one-to-one addressing).
 * `fx3d` `Wind._grow` integrates from 25 Jun at 10 s nodes the first time a late date is asked: jumping straight to 19 Nov builds about 1 million nodes once (seconds). The weather pass avoids it for clouds (15 minute table); the effects' wind history does not.
 * The prototype GL renderer applies `fogged()` to every geometry class, including structures: the weather pass's fog undo is therefore valid for all of them. Any new geometry that skips `fogged()` would come out too bright at distance.

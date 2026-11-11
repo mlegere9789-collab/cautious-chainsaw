@@ -98,13 +98,14 @@ test('sky geometry: sun and moon directions come from the project ephemeris; sun
   for (const t of battleMinutes(60)) { const s = w.at(t, {}); const len = Math.hypot(...s.sky.sunDir); assert.ok(Math.abs(len - 1) < 1e-9); }
   const full = w.at(at(7, 2, 1), {}); assert.ok(full.sky.moonIllum > 95);
 });
-test('shaders: weather GLSL is balanced, both modes defined, uniform names match gl.mjs; fx3d GLSL patches apply and stay balanced', () => {
+test('shaders: weather GLSL is balanced, both modes defined, uniform names match gl.mjs; fx3d GLSL patches apply and stay balanced', async () => {
   for (const [src, name] of [[WEATHER_VS, 'weather vs'], [WEATHER_FS, 'weather fs']]) { for (const [o, c] of ['()', '[]', '{}']) assert.equal(src.split(o).length, src.split(c).length, name + ' ' + o + c); assert.ok(!/\t/.test(src)); }
   const mul = withDefs(WEATHER_FS, 'mul'), add = withDefs(WEATHER_FS, 'add'); assert.match(mul, /^#version 300 es\n#define MODE_MUL\n/); assert.match(add, /#define MODE_ADD/); assert.ok(WEATHER_FS.includes(`uLPos[${MAX_LIGHTS}]`));
   const gl = fs.readFileSync(path.join(APP, 'src/weather3d/gl.mjs'), 'utf8'); const uniforms = [...WEATHER_FS.matchAll(/uniform\s+(?:sampler2D|vec[234]|int)\s+(u\w+)/g)].map(x => x[1]);
   for (const u of uniforms) if (u !== 'uDepth' && u !== 'uHeight') assert.ok(gl.includes('L.' + u), 'gl.mjs sets ' + u);
   const { vs, fs: fsx } = fxSources(); assert.equal((vs.match(/e >> 10/g) || []).length, 6); assert.ok(!/ivec2\(\d, e\)/.test(vs)); assert.ok(fsx.includes('linD(texelFetch(uDepth')); assert.ok(fsx.includes('uniform vec2 uNF'));
   assert.ok(!/vec3 lit = uLight\.z \* \(/.test(vs) && !/max\(uLight\.z \*/.test(vs), 'the two float-to-vec3 errors are fixed');
+  { const { GLSL_VERT } = await import('../src/fx3d/shaders.mjs'); assert.ok(!/vec3 lit = uLight\.z \* \(/.test(GLSL_VERT) && !/max\(uLight\.z \*/.test(GLSL_VERT), 'fixed at the source, no load-time patch'); assert.ok(!/type fix/.test(gl), 'gl.mjs carries no shader type patch'); }
   for (const [o, c] of ['()', '[]', '{}']) { assert.equal(vs.split(o).length, vs.split(c).length); assert.equal(fsx.split(o).length, fsx.split(c).length); }
   assert.throws(() => patchFxFragment('void main(){}'), /changed/); assert.throws(() => patchFxVertex('void main(){}'), /changed/);
   assert.equal(EV_W, EV_PER_ROW * 6);

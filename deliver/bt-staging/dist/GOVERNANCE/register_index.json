@@ -157,7 +157,7 @@
   "desc": "C-044 Camp Letterman opens Jul 20 vs T3 table Jul 22; C-026 Sherfy fire Jul 2 evening vs T3-132/B.8.2/S-037 Jul 3 afternoon; C-034 wagons 150 vs 250; C-028 Hunt guns 05:30 vs 04:30/04:00; Spencers at Hanover documented vs disputed; \"21\" vs 22 requirements; gate order Q27/Q28.",
   "why": "Authoring inconsistencies.",
   "searched": "Own reading",
-  "subst": "Carry all values as selectable scenarios; no default chosen by Claude",
+  "subst": "Carry all values as selectable scenarios; no default chosen without an owner decision",
   "recon": "See DEC-005",
   "tier": "inferred",
   "competing": "both values each",
@@ -177,7 +177,7 @@
   "cat": "evidence conflicting",
   "desc": "PDF \"known correction\": regulation blue, Zouave Jan 1864. An earlier agent read the 146th NY history stating both 140th and 146th received Zouave dress on 3 Jun 1863.",
   "why": "Neither primary source read.",
-  "searched": "W-140NY, W-146NY via PDF; agent read of 146th NY history",
+  "searched": "W-140NY, W-146NY via PDF; agent read of 146th NY history [History 2026-11-11, ws9 source review: New York at Gettysburg vol. 3 (cu31924052145475) read: only the 146th NY is stated to have adopted the Zouave uniform \"in 1863\" (p.968).]",
   "subst": "Carry as dispute",
   "recon": "Kit validator must not hard-code either until a primary source is read",
   "tier": "inferred",
@@ -187,7 +187,15 @@
   "owner_q": "",
   "rec": "",
   "status": "open",
-  "id": "EG-0009"
+  "id": "EG-0009",
+  "history": [
+   {
+    "date": "2026-11-11",
+    "source": "horde/ws9-sources/proposed-register-updates",
+    "decision": "applied-narrowed",
+    "note": "Failed lookup recorded: \"In 1863 the One hundred and forty-sixth adopted the Zouave uniform.\" The volume has no dress statement for the 140th NY (all Zouave hits checked; the 140th is named only in brigade composition). Neither \"regulation blue, Zouave Jan 1864\" nor \"3 Jun 1863\" for the 140th is supported by this text. Tier inferred and status open unchanged."
+   }
+  ]
  },
  {
   "title": "Hancock countermand of Hunt's ceasefire",
@@ -381,7 +389,7 @@
   "cat": "evidence missing",
   "desc": "Only secondary summaries.",
   "why": "Originals at NARA/NOAA.",
-  "searched": "PDF v2 research notes only (secondary: Wikipedia, NPS, ABT, Stone Sentinels). The PDF authors did not read the Official Records, Busey & Martin, Coddington, Pfanz or Thomas. Our pass on 2026-10-19 read the PDF only.",
+  "searched": "PDF v2 research notes only (secondary: Wikipedia, NPS, ABT, Stone Sentinels). The PDF authors did not read the Official Records, Busey & Martin, Coddington, Pfanz or Thomas. Our pass on 2026-10-19 read the PDF only. [History 2026-11-11, ws9 source review: Jacobs 1864 and Fremantle 1864 read for the Jun 25/26 and Jul 4 rain only (see EG-0026 History).]",
   "subst": "Scenario presets",
   "recon": "See B.10",
   "tier": "inferred",
@@ -391,7 +399,15 @@
   "owner_q": "",
   "rec": "",
   "status": "open",
-  "id": "EG-0019"
+  "id": "EG-0019",
+  "history": [
+   {
+    "date": "2026-11-11",
+    "source": "horde/ws9-sources/proposed-register-updates",
+    "decision": "applied-narrowed",
+    "note": "Only the rain sub-claims are touched, by the same passages as EG-0026 (Jacobs 1864 pp.14, 16: heavy rain the night of 25 Jun and most of 26 Jun; Fremantle pp.274, 276: rain about 13:00 and after 21:00 on 4 Jul). Jacobs original table, humidity, pressure, Jul 3 rainfall, Jul 13-14 weather: not found, unchanged. Tier inferred, status open."
+   }
+  ]
  },
  {
   "title": "Vegetation and crop state, orchard fruit, species, grass height, Warren tree symbology",
@@ -525,9 +541,9 @@
   "cat": "evidence conflicting",
   "desc": "PDF says rain began 8 am Jun 25 (Jacobs 1885 text: 8 p.m.); Jul 4 rain timing in the Jacobs-derived text matches TeachersFirst, not Strategypage; 87 F \"in shade\" is an inference not a record; PDF omits Jun 27-30 sky readings; Jul 2 14:00 cloud ambiguity unchanged.",
   "why": "Secondary-source transcription.",
-  "searched": "ENV-NOTES.md D1-D8",
+  "searched": "ENV-NOTES.md D1-D8 [History 2026-11-11, ws9 source review: Jacobs 1864 Notes (notesonrebelinva00jaco) pp.14-16 and Fremantle 1864 (threemonthsinsou00frem) pp.274-276 read; Letterman 1866 p.156. Jacobs thermometer/barometer table not in the 1864 Notes (no hit). Still unread: Jacobs 1885 transcription, NARA sheets.]",
   "subst": "Carry all as scenarios",
-  "recon": "Jacobs original sheets at NARA still unread",
+  "recon": "Jacobs original sheets at NARA still unread [History 2026-11-11: Sub-claim narrowed only; entry tier stays inferred, status stays open.]",
   "tier": "inferred",
   "competing": "see ENV-NOTES",
   "marking": "Flag",
@@ -535,7 +551,15 @@
   "owner_q": "",
   "rec": "",
   "status": "open",
-  "id": "EG-0026"
+  "id": "EG-0026",
+  "history": [
+   {
+    "date": "2026-11-11",
+    "source": "horde/ws9-sources/proposed-register-updates",
+    "decision": "applied-narrowed",
+    "note": "Jacobs 1864 (published eyewitness, Gettysburg resident), under the printed heading \"Thursday, June 25.\": \"Late on Thursday evening, however, 100 picked ... But the heavy rain of that night caused them to be detained\" (p.14). Under the heading \"Friday, June 26.\": \"Being wet from the rain which had fallen during the most of the day\" (p.16). Supports: heavy rain the night of 25 Jun and rain most of 26 Jun. Sub-claim tier: documented (single published eyewitness, no clock time). It gives no start hour for the 25 Jun rain, so it neither confirms the PDF \"8 am\" nor the 1885 \"8 p.m.\"; the proposal word \"contradicted\" is NOT adopted (rain earlier on the 25th is not excluded by \"that night\"). Fremantle (British observer with the Confederate army), diary of 4 Jul: \"At 1 p. M. the rain began to descend in toiTents\" (p.274, OCR) and \"Shortly after 9 p. m. the rain began to descend in torrents.\" (p.276); the following entry has \"thunder and lightning, torrents of rain\". Sub-claim tier: documented as one witness statement (his clock, Confederate side, place not stated). Added as a selectable Jul 4 rain scenario (13:00 and after 21:00). Existing schedules are not deleted and not refuted. Comparison with the named preset schedules was not re-checked in this review. Letterman 1866 p.156: \"drenching rain which fell after the battle\" (no hour). NOT touched: humidity, pressure, 87 F in shade, Jul 2 14:00 cloud, Jul 3 rainfall, Union-side Jul 4 clock. Entry remains open."
+   }
+  ]
  },
  {
   "title": "1863 elevation surface: Warren-derived coverage 14% of the sheet; disturbances unconfirmable",
@@ -3770,18 +3794,26 @@
    "R21"
   ],
   "cat": "evidence conflict",
-  "desc": "S-045. The PDF prints Jul 2 (detail times not given). Howard (OR27 pt1 R243 p.706) writes of the cannonade from about 13:00 smashing fences and overturning tombstones in the cemetery grounds, which is the Jul 3 bombardment. No primary found for iron-fenced lots or monuments destroyed. The Adams Sentinel of 21 Jul 1863 (Crossroads of War index summary) says only that the cemetery was filled with debris and more or less destroyed. The passage \"the fences are all down\" is attributed on Wikipedia and is not accepted as a source.",
+  "desc": "S-045. The PDF prints Jul 2 (detail times not given). Howard (OR27 pt1 R243 p.706) writes of the cannonade from about 13:00 smashing fences and overturning tombstones in the cemetery grounds, which is the Jul 3 bombardment. No primary found for iron-fenced lots or monuments destroyed. The Adams Sentinel of 21 Jul 1863 (Crossroads of War index summary) says only that the cemetery was filled with debris and more or less destroyed. The passage \"the fences are all down\" is attributed on Wikipedia and is not accepted as a source. [History 2026-11-11: Basis now the Adams Sentinel of 21 Jul 1863 read directly (\"sad appearance\", batteries posted), not the index summary; no date, no fence mention.]",
   "why": "No primary source with a clock time; the two candidate windows belong to different events.",
-  "searched": "OR27 parts 1-3; web search and one fetch (Crossroads of War newspaper index, summary only); Wikipedia seen as a lead only.",
+  "searched": "OR27 parts 1-3; web search and one fetch (Crossroads of War newspaper index, summary only); Wikipedia seen as a lead only. [History 2026-11-11, ws9 source review: Adams Sentinel 21 Jul 1863 (adams-sentinel-1863-07-21) read directly (column-interleaved OCR).]",
   "subst": "Carry both windows as selectable scenarios; the default is for the owner (Law cl.6).",
-  "recon": "Fence smashing starting with the Jul 2 evening assault and completed in the Jul 3 cannonade, shown with a time-uncertain marker.",
+  "recon": "Fence smashing starting with the Jul 2 evening assault and completed in the Jul 3 cannonade, shown with a time-uncertain marker. [History 2026-11-11: Basis corrected only; tier inferred, no date resolved.]",
   "tier": "inferred",
   "competing": "Jul 2 (PDF) / Jul 3 about 13:00-15:30 (Howard)",
   "marking": "Time-uncertain marker and tier overlay.",
   "impact": "Cemetery Hill and Evergreen Cemetery",
   "owner_q": "Choose a default window, or keep both as scenarios?",
   "status": "open",
-  "proposed_file": "register/proposed/fence-2/fence-2-EG-02.md"
+  "proposed_file": "register/proposed/fence-2/fence-2-EG-02.md",
+  "history": [
+   {
+    "date": "2026-11-11",
+    "source": "horde/ws9-sources/proposed-register-updates",
+    "decision": "applied-narrowed",
+    "note": "The Sentinel prints: \"The once beautiful Evergreen Cemetery now presents a sad appearance. From its commanding site, it was found necessary to post a number of batteries\" (OCR; remainder interleaved). This replaces the earlier basis (the Crossroads index summary: \"filled with debris\"). The words \"filled with debris\" and any mention of fences were NOT found in the legible OCR; the text gives no date of destruction (Jul 2 vs Jul 3). \"The fences are all down\" stays unaccepted. Tier inferred, status open."
+   }
+  ]
  },
  {
   "id": "EG-0088",
@@ -4179,16 +4211,24 @@
   "cat": "evidence missing / record conflict",
   "desc": "No OR report gives an hour for Hood or McLaws reaching the ridge, Longstreet at Lee's headquarters (C-006), or Lee's attack order (C-008). Longstreet's 1896 memoir (raw text read) says: the stars were shining when he reported; Hood's and McLaws's commands filed off the road at sunrise; the order was issued at eleven o'clock. Kershaw's OR report (p.366) says his brigade left camp about sunrise and halted until about noon, which does not fit the memoir for McLaws's division. Hood filed no report in the OR index.",
   "why": "The surviving record does not state it; participant reports are estimates (Law cl.3).",
-  "searched": "OR27-2 R430 (Longstreet), R432 (Kershaw), R464 (Alexander), R426 (Lee); Longstreet, From Manassas to Appomattox, ch. XXVII, via Project Gutenberg #38418 (raw text, lookup LK-R03-1-R01). Not read: Taylor 1875 statement, Law postwar essay, McLaws and Hood postwar writings, Bachelder collection.",
+  "searched": "OR27-2 R430 (Longstreet), R432 (Kershaw), R464 (Alexander), R426 (Lee); Longstreet, From Manassas to Appomattox, ch. XXVII, via Project Gutenberg #38418 (raw text, lookup LK-R03-1-R01). Not read: Taylor 1875 statement, Law postwar essay, McLaws and Hood postwar writings, Bachelder collection. [History 2026-11-11, ws9 source review: Fremantle 1864 pp.256-259; Alexander 1907 pp.391-395; Law in Battles and Leaders vol. 3 pp.319-323 (archive id battlesleadersof03cent, re-fetched hash-verified). Still unread: Hood and McLaws own postwar writings, Taylor 1875, Bachelder collection.]",
   "subst": "Carry the OR bounds, the memoir values and the plan clocks as separate scenarios; do not merge or choose.",
-  "recon": "Carry the OR bounds, the memoir values and the plan clocks as separate scenarios; do not merge or choose.",
+  "recon": "Carry the OR bounds, the memoir values and the plan clocks as separate scenarios; do not merge or choose. [History 2026-11-11: Additional witness values carried as separate scenarios; none chosen; no merge; tier unchanged.]",
   "tier": "inferred",
   "competing": "See results.jsonl items C-005, C-006, C-007, C-008",
   "marking": "Inferred sunrise (about 04:35 computed) and 11:00 order marked as single-memoir recollections; plan clocks 05:30-08:00 marked unverified.",
   "impact": "Hood/McLaws march gate; headquarters scene lighting (pre-dawn stars)",
   "owner_q": "Which of the scenarios is the default for the Hood/McLaws gate.",
   "status": "open",
-  "proposed_file": "register/proposed/r03-1/r03-1-EG-04.md"
+  "proposed_file": "register/proposed/r03-1/r03-1-EG-04.md",
+  "history": [
+   {
+    "date": "2026-11-11",
+    "source": "horde/ws9-sources/proposed-register-updates",
+    "decision": "applied-narrowed",
+    "note": "Fremantle (diary, 2 Jul): up at 3.30 A.M.; \"arrived at 5 A. M. at the same commanding position\" where \"Generals Lee, Hill, Longstreet, and Hood\" were \"in consultation\" (p.257): scenario value 05:00 for Hood and Longstreet with Lee. Tier inferred (one diary witness, clock his own). Fremantle p.257: \"At Y A. M. I rode over part of the ground with General Longstreet, and saw him disposing of M'Laws's division\". The OCR prints the hour as \"Y\"; 7 is a reading inferred from the sequence of hours, NOT a printed value. Recorded as \"07:00 (OCR-uncertain; page-image check required)\" and not to be used as a scenario clock until checked. Alexander 1907 (participant, retrospective) p.391: \"About 11 A.M., his orders were issued.\" Second retrospective witness for 11:00; independence from Longstreet 1896 not shown. Hood attack: Alexander p.394 Hood crossed the Emmitsburg road \"about 3 P.M.\"; p.395 \"about 3.45 P.M., 36 guns were in action\" and \"After this cannonade had continued for perhaps 30 minutes, Hood received the order to advance\" (an order about 16:15 is arithmetic from those two statements, not printed). Fremantle p.258-259: \"A dead silence reigned till 4.45 p. m.\" then \"Longstreet suddenly commenced a heavy cannonade\". Law pp.320, 323: \"past 4 o'clock\" in position; \"near 5 o'clock p. M. when we advanced to the attack\"; artillery \"warmly engaged for about fifteen minutes\". The clocks are mutually inconsistent within about an hour; they support a window, not a point. Law p.319: moved at 3 o'clock on the morning of the 2d, \"arrived there shortly before noon\" (his brigade only, not Hood himself). Fremantle p.258 \"Pickett being still in the rear\" on 2 Jul is noted for C-021 only; gate Q04 not moved. The register statement that no OR report gives an hour remains true. Tier stays inferred (nothing promoted), status stays open."
+   }
+  ]
  },
  {
   "id": "EG-0107",
@@ -4200,7 +4240,7 @@
   "cat": "evidence missing / record conflict",
   "desc": "Neither the Union nor the Confederate OR reports read give an interval. A claim-check search of 18 records and an added search of Oates's report found no 10, 15 or 20 minute figure. Law filed no OR report. A web search for Law's postwar essay (Battles and Leaders) returned no text (failed lookup LK-R03-1-R02).",
   "why": "The surviving record does not state it; participant reports are estimates (Law cl.3).",
-  "searched": "OR27-1 R195 (Rice), R196 (Chamberlain); OR27-2 R444 (Oates); library claim check m4; one WebSearch, no primary text.",
+  "searched": "OR27-1 R195 (Rice), R196 (Chamberlain); OR27-2 R444 (Oates); library claim check m4; one WebSearch, no primary text. [History 2026-11-11, ws9 source review: Law, Battles and Leaders vol. 3 pp.318-330 read in OCR (hash-verified re-fetch): no interval figure and no 48th Alabama position found.]",
   "subst": "If a lead is animated it is a procedural interval within the documented 'about 4 p.m.' window.",
   "recon": "If a lead is animated it is a procedural interval within the documented 'about 4 p.m.' window.",
   "tier": "plausible-procedural",
@@ -4209,7 +4249,15 @@
   "impact": "Little Round Top approach sequence, if drawn",
   "owner_q": "Provide a source for 10/15 minutes (Law's postwar essay in Battles and Leaders, volume and page not checked) or keep as procedural.",
   "status": "open",
-  "proposed_file": "register/proposed/r03-1/r03-1-EG-05.md"
+  "proposed_file": "register/proposed/r03-1/r03-1-EG-05.md",
+  "history": [
+   {
+    "date": "2026-11-11",
+    "source": "horde/ws9-sources/proposed-register-updates",
+    "decision": "applied-narrowed",
+    "note": "Lookup record updated from \"no text\" to \"text read, no supporting passage\" (LK-R03-1-R02 as named in the entry). The essay prints \"exposed it to a flank attack on the right by fresh troops (Vincent's brigade)\" (p.324) with no clock or interval. Tier plausible-procedural and status open unchanged."
+   }
+  ]
  },
  {
   "id": "EG-0108",
@@ -4306,16 +4354,24 @@
   "cat": "evidence missing / record conflict",
   "desc": "OR gives the date only (Stuart report p.697; Hampton at Hunterstown on Jul 2, p.724); no hour. The plan's four values (noon-13:00, mid-afternoon, afternoon, evening) are from secondary timelines. A targeted search of Lee's report for Stuart joined/arrived/reached found no Jul 2 hour. Lee's Jan 1864 report and brigade reports are not fully mined.",
   "why": "The surviving record does not state it; participant reports are estimates (Law cl.3).",
-  "searched": "OR27-2 R565, R567, R426; library claim check j1.",
+  "searched": "OR27-2 R565, R567, R426; library claim check j1. [History 2026-11-11, ws9 source review: Alexander 1907 p.376 read.]",
   "subst": "Stuart is not drawn before a documented event requires him; carry all four values as scenarios.",
-  "recon": "Stuart is not drawn before a documented event requires him; carry all four values as scenarios.",
+  "recon": "Stuart is not drawn before a documented event requires him; carry all four values as scenarios. [History 2026-11-11: One retrospective scenario value added; the four existing values and the PDF default stay selectable.]",
   "tier": "documented",
   "competing": "See results.jsonl items C-023",
   "marking": "'Date documented; hour not documented.'",
   "impact": "Cavalry arrival gates",
   "owner_q": "Source for an hour.",
   "status": "open",
-  "proposed_file": "register/proposed/r03-1/r03-1-EG-10.md"
+  "proposed_file": "register/proposed/r03-1/r03-1-EG-10.md",
+  "history": [
+   {
+    "date": "2026-11-11",
+    "source": "horde/ws9-sources/proposed-register-updates",
+    "decision": "applied-narrowed",
+    "note": "Alexander (participant, 1907) p.376: \"When Stuart, at last, reported in person, late in the afternoon of the 2d\" (and, quoting Stuart's report, the column reached Gettysburg \"that afternoon\", the OR date-only statement already carried). New scenario value: Stuart in person to Lee, late afternoon of 2 Jul. Value tier: inferred (single retrospective witness). Does not give the hours of the cavalry brigades. Entry tier, status (open) and the 19:32 arrivals gate unchanged."
+   }
+  ]
  },
  {
   "id": "EG-0113",
@@ -4445,7 +4501,7 @@
   "competing": "see results.jsonl R03.C-046",
   "marking": "Dead counts shown as a range with a source panel; no single number.",
   "impact": "Casualty readouts, grave and burial scenes",
-  "owner_q": "Declare the range basis for dead (Law cl.6; CLAUDE.md casualties are ranges with a declared basis).",
+  "owner_q": "Declare the range basis for dead (Law cl.6; standing owner rule: casualties are ranges with a declared basis).",
   "status": "open",
   "proposed_file": "register/proposed/r03-2/r03-2-EG-05.md"
  },
@@ -4461,7 +4517,7 @@
   "cat": "evidence missing / source conflict",
   "desc": "Union casualties 23,049 (OR return last cell, OCR) vs 23,055; Confederate 22,709, 22,822, 23,231, 28,063; strengths 93,921 vs 91,699 (Union) and 71,699 vs 68,612 (Confederate) depending on basis. OR strength tables are unreadable in the OCR; the legible council memorandum gives 58,000 effectives. history/units.json holds single printed B.3 figures with no declared range.",
   "why": "Record missing or sources disagree (Law cl.3, cl.4, cl.6); no qualifying non-lead primary source found for exactly this claim.",
-  "searched": "OR Ser.I vol.27 pts 1-3 OCR searched with tools/bt/or27_find.py on 2026-11-04; library/OR27-CLAIM-CHECKS.md; library/timeline_audit_T1/T2/T3.jsonl; horde tl-* results. history/ARRIVALS-NOTES.md; rosters/GAPS.md G01, G04. NPS overview (WebFetch 2026-11-04): over 51,000 total casualties, no Union strength.",
+  "searched": "OR Ser.I vol.27 pts 1-3 OCR searched with tools/bt/or27_find.py on 2026-11-04; library/OR27-CLAIM-CHECKS.md; library/timeline_audit_T1/T2/T3.jsonl; horde tl-* results. history/ARRIVALS-NOTES.md; rosters/GAPS.md G01, G04. NPS overview (WebFetch 2026-11-04): over 51,000 total casualties, no Union strength. [History 2026-11-11, ws9 source review: Letterman 1866 pp.159-160 wounded totals read (see EG-0124).]",
   "subst": "Ranges shown; one-to-one instancing up to a strength figure awaits an owner-approved basis.",
   "recon": "Union casualties 23,049 documented in the return; all other totals secondary.",
   "tier": "plausible-procedural",
@@ -4470,7 +4526,15 @@
   "impact": "Army-wide totals, crowd instancing counts",
   "owner_q": "Choose the declared basis for strengths and casualty ranges (Law cl.6).",
   "status": "open",
-  "proposed_file": "register/proposed/r03-2/r03-2-EG-06.md"
+  "proposed_file": "register/proposed/r03-2/r03-2-EG-06.md",
+  "history": [
+   {
+    "date": "2026-11-11",
+    "source": "horde/ws9-sources/proposed-register-updates",
+    "decision": "applied-narrowed",
+    "note": "Added as one source value only: Letterman prints 14,193 Union wounded and 6,802 Confederate wounded in Union hands, 20,995 together, for \"these three days\". These are wounded, not total casualties, and not a basis choice. No tier change, status open; EG-0118 (dead) is not touched."
+   }
+  ]
  },
  {
   "id": "EG-0120",
@@ -4482,16 +4546,24 @@
   "cat": "conflicting sources",
   "desc": "B.12 requires the address text versions and several ceremony facts to be selectable alternatives; conflict_register.json has only C-001..C-047, none about November 1863.",
   "why": "Record conflicts between PDF-cited secondary pages and official pages; no recording of Lincoln exists; delivered wording is not established.",
-  "searched": "NPS soldiers-national-cemetery and Wills House pages; LOC exhibit and research guide (all fetched 2026-11-04); PDF B.12.2.",
+  "searched": "NPS soldiers-national-cemetery and Wills House pages; LOC exhibit and research guide (all fetched 2026-11-04); PDF B.12.2. [History 2026-11-11, ws9 source review: Everett 1864 pamphlet (addressofhone3521ever) pp.12, 20, 24-25, 82-85 and Adams Sentinel 24 Nov 1863 (adams-sentinel-1863-11-24, noisy OCR) read; NPS pages as before.]",
   "subst": "Carry every value as a scenario: procession 09:30 / 10:00 planned / about 11:00 actual (PDF) / 10:00 (NPS); position of the dirge (after Everett per NPS Wills page, after Lincoln per PDF); lodging (Wills house per NPS, \"lead to verify\" per PDF); speech 2 min (NPS) vs under 2 vs a few minutes; crowd over 10,000 (NPS cemetery page), about 15,000 to 20,000 (PDF), up to 20,000 (search summary of another NPS page, not fetched); reburial start 17 or 27 Oct (PDF; NPS gives no date); address text: Nicolay, Hay, Everett, Bancroft, Bliss copies plus the newspaper versions as printed.",
-  "recon": "Scenario set, none chosen as default (PDF defaults stay PENDING OWNER).",
+  "recon": "Scenario set, none chosen as default (PDF defaults stay PENDING OWNER). [History 2026-11-11: Scenario values added; no default chosen; tier unchanged; status open.]",
   "tier": "documented",
   "competing": "see substitute",
   "marking": "Selector in the viewer; scenario marked on the card",
   "impact": "Epilogue chapter only",
   "owner_q": "Choose defaults (Law cl.6).",
   "status": "open",
-  "proposed_file": "register/proposed/r22-oa/r22-oa-EG-01.md"
+  "proposed_file": "register/proposed/r22-oa/r22-oa-EG-01.md",
+  "history": [
+   {
+    "date": "2026-11-11",
+    "source": "horde/ws9-sources/proposed-register-updates",
+    "decision": "applied-narrowed",
+    "note": "Procession start: Everett p.24 programme \"The head of the column will move at precisely ten o'clock, A. M.\" (a plan); Adams Sentinel (OCR) \"About ten o'clock ... the line of the procession was formed, and moved forward to the grounds of the Cemetery\" (the OCR reads \"litoe\", \"pro cession\"; line read as printed context). Carried as scenario values beside the existing ones, not as resolution of the \"about 11:00 actual\" value. Dirge position: the programme (Everett p.25) lists Dedicatory Remarks by the President then \"Dirge, sung by Choir selected for the occasion\" then Benediction. That is the PLANNED order only (supports the \"after Lincoln\" scenario as planned, not as performed). It does not settle the NPS \"after Everett\" value. Crowd: Adams Sentinel (OCR \"thousah d\") \"estimated ... from twenty to forty thousand\": new upper scenario value, a newspaper estimate as printed. Sky: Adams Sentinel (OCR \"tinclouded\") Thursday dawned \"with an unclouded sky\" (OCR-reconstructed word). A scenario value for the morning; not resolved against other values. Address text: the Everett pamphlet prints \"that the nation shall, under God, have a new birth of freedom\" (one printed version for the selectable text set; the delivered wording is not established by it). Departure: Sentinel prints \"President Lincoln and party left late in the evening in a special car.\""
+   }
+  ]
  },
  {
   "id": "EG-0121",
@@ -4571,16 +4643,24 @@
   "cat": "evidence missing",
   "desc": "Meade's circular of 4 Jul (OR27-3 p.519-520) required corps burial counts and arms returns; these returns were not found. Carry paths to aid stations and burials (gate Q26) have no data and no code (anim3d stretcher / ambulance clips unwired).",
   "why": "The returns are not in the OR27 index; secondary counts conflict (8,000 / 8,900 / 3,100 + 4,700).",
-  "searched": "OR27 pt.1 searches (Candy p.837, Halleck p.16, Letterman pp.196-198), pt.3 D1074.",
+  "searched": "OR27 pt.1 searches (Candy p.837, Halleck p.16, Letterman pp.196-198), pt.3 D1074. [History 2026-11-11, ws9 source review: Letterman 1866 (medicalrecollect00lettuoft) pp.156-160 read. Camp Letterman opening, burial returns, carry paths: not in this text.]",
   "subst": "Procedural burial parties near each corps line during 4-6 Jul, tier plausible-procedural, marked.",
-  "recon": "Orders documented; counts not.",
+  "recon": "Orders documented; counts not. [History 2026-11-11: One sub-claim documented; entry tier stays plausible-procedural; status stays open.]",
   "tier": "plausible-procedural",
   "competing": "dead on field counts as above",
   "marking": "Glyph 2",
   "impact": "Burial and hospital scenes",
   "owner_q": "None.",
   "status": "open",
-  "proposed_file": "register/proposed/r22-oa/r22-oa-EG-05.md"
+  "proposed_file": "register/proposed/r22-oa/r22-oa-EG-05.md",
+  "history": [
+   {
+    "date": "2026-11-11",
+    "source": "horde/ws9-sources/proposed-register-updates",
+    "decision": "applied-narrowed",
+    "note": "Letterman (Medical Director, Army of the Potomac) p.158: \"Before daylight on the morning of the 4th all the wounded within our lines (numbering on these two days about twelve thousand) were removed to the hospitals.\" Sub-claim tier: documented (single authoritative witness, official memoir published 1866): aggregate removal of about 12,000 wounded to the hospitals before daylight on 4 Jul. It does not give the routes, the carry paths or hospital-by-hospital flow. pp.159-160: \"The wounded in these three days amounted to fourteen thousand one hundred and ninety-three, and those of the enemy ... six thousand eight hundred and two, making twenty thousand nine hundred and ninety-five\" (14,193 + 6,802 = 20,995, arithmetic checked). One Medical Director range member for wounded in Union care; not a dead count. p.158-159 (not quoted verbatim here): Surgeon Henry Janes took charge of the wounded; four wagons and six ambulances per corps were retained for supplies and for the wounded to be sent on. Burial returns, carry paths, 4-6 Jul per-corps counts: unchanged and open."
+   }
+  ]
  },
  {
   "id": "EG-0125",
@@ -4635,16 +4715,24 @@
   "cat": "evidence missing",
   "desc": "Four epilogue rows have no support in any page fetched (NPS Wills House, NPS Soldiers National Cemetery, LOC exhibit and guide): E-002 (Harper house, Nov 18 evening), E-005 (troops saluting at the cemetery), E-008 (U.S. Marine Band), E-014 (church service). Also not found: the 18:00 hour, William McDougall and the Seward address in E-001. The PDF tier for these rows is \"documented\" but its sources are encyclopedia or blog leads.",
   "why": "No non-lead source retrieved; primary papers (Wills, Nicolay, Hay, 1863 newspapers) unread (Law cl.3, cl.4).",
-  "searched": "NPS and LOC pages fetched 2026-11-04 (see results.jsonl LK-01..LK-08). loc.gov and archive.org are blocked for later passes by the proxy (403); a later audit could not re-fetch them.",
+  "searched": "NPS and LOC pages fetched 2026-11-04 (see results.jsonl LK-01..LK-08). loc.gov and archive.org are blocked for later passes by the proxy (403); a later audit could not re-fetch them. [History 2026-11-11, ws9 source review: Everett 1864 pp.12, 20-21, 25 and Adams Sentinel 24 Nov 1863 read for E-001, E-005, E-008, E-014. E-002 (Harper house, Baltimore Glee Club), McDougall and the 18:00 hour: searched in both texts, no statement (Sentinel hit for Harper is a Philadelphia councilman, unrelated).]",
   "subst": "Row stays in the epilogue chapter marked plausible-procedural; no invented detail (no named bandsmen, no hour) is shown.",
-  "recon": "Show only what a fetched page states; mark the remainder as a visible gap.",
+  "recon": "Show only what a fetched page states; mark the remainder as a visible gap. [History 2026-11-11: Sub-claim tiers recorded below; entry stays plausible-procedural and open because E-002, McDougall, 18:00 and E-001 walk to the Wills house remain unsupported.]",
   "tier": "plausible-procedural",
   "competing": "PDF rows vs no supporting source",
   "marking": "Visible gap marker on each of the four cards; tier overlay.",
   "impact": "Epilogue chapter",
   "owner_q": "Accept visible-gap marking until primary newspapers (Hale, AP, Philadelphia Press via Chronicling America) are read?",
   "status": "open",
-  "proposed_file": "register/proposed/r22-oa/r22-oa-EG-08.md"
+  "proposed_file": "register/proposed/r22-oa/r22-oa-EG-08.md",
+  "history": [
+   {
+    "date": "2026-11-11",
+    "source": "horde/ws9-sources/proposed-register-updates",
+    "decision": "applied-narrowed",
+    "note": "E-001 (Nov 18), narrowed: Everett p.20 \"In the afternoon of the 18th, the President and the distinguished personages accompanying him arrived at Gettysburg, by a special train. In the course of the evening, the President and Secretary of State were serenaded, and the following remarks were made by Mr. Seward\" (p.20-21); the Sentinel prints that Seward \"was serenaded at his lodgings in the Square\" with \"a brief speech\" (no date printed in the fragment). Sub-claims documented: arrival by special train in the afternoon of the 18th; evening serenade; Seward remarks. NOT supported: 18:00 hour, William McDougall, walk uphill to the Wills house, lodging location. The Sentinel line \"President ... serenaded twice during the evening\" sits in an undated dispatch column (OCR) and is NOT used. E-008 (Marine Band), applied-narrowed: Everett p.12 \"The Presidential party was accompanied by the Marine Band from the Navy Yard at Washington\"; programme p.25 lists \"Music, by the Marine Band.\" after the prayer; the Sentinel procession list shows a Marine Band entry. Sub-claim tier documented for presence with the Presidential party and for the programmed music; that it played at the platform at that point is programmed, not reported as performed. E-005 (troops salute), applied-narrowed: only the programme p.24 states the military will form in line \"for the purpose of saluting the President\" (OCR \"saluthig\"). A plan, not an account. Sub-claim tier: inferred (planned). No report of the act was found. E-014 (church), applied-narrowed with rewording: Sentinel prints \"at 5 o'clock p. M. Col. Anderson ... delivered an able address in the Presbyterian church\" with \"The President of the United States and suite ... occupied seats in the pulpit\", and that John Burns \"went to church in the evening\" arm in arm with the President and Secretary of State (OCR noisy). Reworded sub-claim: 5 p.m. address by Col. Anderson in the Presbyterian church with the President present (the day is placed as the 19th by the article's order, the fragment itself prints no date). Tier documented (one local newspaper, as printed). A religious service and \"leaves by train about 18:00\" are NOT supported; the Sentinel prints only \"left late in the evening\". E-002: no statement found; unchanged gap."
+   }
+  ]
  },
  {
   "id": "EG-0128",
@@ -5560,7 +5648,7 @@
   "competing": "10 rods (55 yd) / 75 yd / 125 ft / under 50 yd",
   "marking": "Tier badge on the feature; flagged where the seed and the OR disagree",
   "impact": "Wall/fence/gun-position geometry and state at frame one",
-  "owner_q": "Owner decides the default scenario (CLAUDE.md: no default chosen by Claude)",
+  "owner_q": "Owner decides the default scenario (standing owner rule: no default chosen without an owner decision)",
   "status": "open",
   "proposed_file": "register/proposed/terrain-2/terrain-2-EG-05.md"
  },
@@ -10171,7 +10259,7 @@
   "why": "The record or the source set retrieved in this pass does not settle the point (Law cl.3, cl.4).",
   "searched": "docs/battle-theatre/library/timeline_audit_T3.jsonl; OR Ser.I vol.27 via tools/bt/or27_find.py; web lookups listed in horde/tl-12/web_lookups.json; see horde/tl-12/results.jsonl",
   "subst": "None; values carried unresolved",
-  "recon": "Carry ranges with declared basis (CLAUDE.md).",
+  "recon": "Carry ranges with declared basis (the project Law).",
   "tier": "documented",
   "competing": "23,049 vs 23,055; 28,063 vs 23,231 vs up to 28,000",
   "marking": "Evidence-layer marker on the affected timeline rows; conflicts offered as selectable scenarios",
@@ -10314,5 +10402,72 @@
   "owner_q": "Decide the default star count for the ANV battle flag (or keep both selectable and say which is shown first).",
   "status": "open",
   "proposed_file": "register/proposed/vis-figures/EG-VISFIG-01.md"
+ },
+ {
+  "id": "EG-FIG-0010",
+  "title": "Rights basis of the ACWII mod assets: verbal permission only; authorship of each file evidenced only by Subversion committer records",
+  "rids": [
+   "R03",
+   "R04",
+   "R17"
+  ],
+  "cat": "evidence missing (rights)",
+  "desc": "The owner reported on 2026-11-11 that the mod licence was verified by phone with the mod maker and ordered the ACW models used. Recorded as: owner-reported verbal permission from the mod author, 2026-11-11; no written text on file. The mod author (Subversion author ACW_Primergy, ACWII, 2011) can license only files he made. The pack data carries Subversion records for 78 files (all committer ACW_Primergy, md5 equal to the committed bytes); a committer record proves who committed a file, not who drew it. Of 2,200 asset-pack files listed (213 Subversion and housekeeping files are read as evidence, not listed), 24 pass the evidence rules (tools/bt/acw/policy.py) and are shipped; every other file is listed with its reason in data/figures3d/acw/manifest.json.",
+  "why": "No written licence, readme or credits exists in the archive (acw-leads ACW-L02); only the owner can obtain or record permission (standing owner rule: legal acts are owner-only).",
+  "searched": "ACW.zip (sha256 8efdb262...c9ed): every .svn/entries (78 file records), mod_details.lua, localisation, launcher strings (read as text, never run). Not searched: the mod's Discord, manual or update pages (links found in the launcher; not visited).",
+  "subst": "Only files with a committer record and no base-game marker are shipped; every unclear file is excluded and listed. The credit line is in data/figures3d/acw/credits.json.",
+  "recon": "Procedural figures for everything not cleared; 24 mod-painted Confederate jacket texture sheets as lead swatches.",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "Credit line \"ACWII mod by ACW_Primergy and team (used with the author's permission)\" in the product credits data; tier mark on every use; the mod is no historical evidence (ACW-L01..L31).",
+  "impact": "Which soldier, officer, gun and horse models can be used (none today).",
+  "owner_q": "Ask the mod author for a short written confirmation (an email is enough) that names which files are his own work and which derive from the base game (norwegian_ski_troops meshes, field_carriage and euro_cannon_barrel textures, the base-game Euro heads and equipment); with it the excluded files can be re-evaluated and shipped by re-running tools/bt/acw/convert_acw.py.",
+  "rec": "Keep the evidence rules: exclude when unclear. Do not ship base-game derived meshes on a verbal permission.",
+  "status": "open"
+ },
+ {
+  "id": "EG-FIG-0011",
+  "title": "ACW mod links of Gettysburg units and mod swatch colours are lead-derived inferences, not records of what a regiment wore",
+  "rids": [
+   "R03",
+   "R04"
+  ],
+  "cat": "evidence missing",
+  "desc": "data/figures3d/acw/unit-map.json joins 77 of the 135 kit units to the mod's Gettysburg uniform tables by the regiment token of the mod key (hc_us_1_inf_19IN to US.19IN); 19 joins are ambiguous (several mod rows share the token) and no row is chosen; 58 kit units have no join (brigade-level kit units such as CS.LAW); 675 mod keys have no kit unit. The mod table records the modders' choices (acw-leads ACW-L03, L04, L06, L07), not regimental dress. The cleared jacket swatches are the mean colour of mod-painted texture sheets.",
+  "why": "Whether regiment X wore Y is a question for regimental histories, quartermaster returns and surviving garments, none of which was read here (Law 4).",
+  "searched": "The mod uniform tables (decoded Gettysburg_Union_Uniforms 444 rows, Gettysburg_Confed_Uniforms 355 rows) and unit_variant part lists; kit/kit_specs.json. Not searched: any real source for any regiment.",
+  "subst": "Each link carries the label \"lead-derived inference\" and this gap id; the kit manifest remains the dress authority; the swatch is a lead colour only.",
+  "recon": "The kit manifest's dress (documented/inferred/plausible per field) drives the figure; the mod link is shown as a lead.",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "F-ACW-UNIT-LINK and F-ACW-SWATCH in src/figures3d/acw-tiers.mjs; every link labelled in unit-map.json.",
+  "impact": "No figure changes: links and swatches are metadata until a cleared mesh exists.",
+  "owner_q": "Authorise the real-source lookup per regiment (state regimental histories, quartermaster returns, museum garments) so the links can be confirmed or dropped.",
+  "rec": "Keep the links as leads; never promote them.",
+  "status": "open"
+ },
+ {
+  "id": "EG-FIG-0012",
+  "title": "No ACW mod mesh is cleared for the Battle Theatre: soldier, officer, flag, gun and horse figures stay procedural",
+  "rids": [
+   "R03",
+   "R04",
+   "R10",
+   "R16",
+   "R17"
+  ],
+  "cat": "evidence missing",
+  "desc": "Decoded and verified (rendered headless): variant_weighted_mesh (86 of 87; geometry, UV, bone weights, rest pose recovered from the mesh data) and DDS textures. Decoded with partial verification: variant_part_mesh (68 of 70; LOD sections, UV and hat/belt placement verified; torso and legs bone binding not verified). Not decoded: rigid_model / animatable_rigid_model geometry (header and texture names only). Every soldier and officer mesh carries base-game sub-mesh names (85 files) or has no Subversion record; the heads, hands, skeleton and motion clips are the base game and are not in the mod; the part textures are mostly placeholder images (180 of 307); the guns share carriage geometry and base-game texture names; the one SVN-recorded limber is a four-fold byte copy; there is no horse mesh and no flag cloth model.",
+  "why": "A figure from the mod would need base-game heads, skeleton and animation that the mod does not contain and the owner's order excludes, and the mod author can license only his own files.",
+  "searched": "All six asset packs (2,200 listed files): classification in manifest.json; decoder self-test renders (union infantry and the modern \"babydoll\" figure) viewed in a software-GL chromium.",
+  "subst": "The existing procedural figures (data/figures3d, 61-bone rig, one-to-one instancing, LOD) stay for every capability.",
+  "recon": "Procedural figures with tier marks.",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "F-ACW-NO-MESH in acw-tiers.mjs; sys.acw.coverage() lists each capability with its reason; BROWSER-VERIFICATION-LIST-ACW.md.",
+  "impact": "Every figure keeps its current look.",
+  "owner_q": "See EG-FIG-0010: a written statement of which meshes are the author's own work. For a mesh to be used the base-game heads, hands and skeleton it needs must also be licensed or replaced by our own (our rig and heads already exist).",
+  "rec": "Keep procedural; reconsider per file after the written confirmation.",
+  "status": "open"
  }
 ]

@@ -21,6 +21,7 @@ import { mountDock } from './ui/dock.mjs';
 import { mountPanels } from './ui/panels.mjs';
 import { mountCard } from './ui/card.mjs';
 import { mountObjectCard } from './ui/object-card.mjs';
+import { mountSoundBadge } from './ui/sound-panel.mjs';
 import { Structures, loadStructureInputs, DEFAULT_LAYERS } from './structures/index.mjs';
 import { drawStructureMarks } from './structures/overlay.mjs';
 import * as fxHost from './fx-host.mjs';
@@ -106,7 +107,7 @@ export class Theatre {
       step('Building the controls', 0.9); await idle(); if (this.dead) return;
       this.controls = new Controls({ cam, canvas: this.els.canvas, T: this.T, scope: sc, reduceMotion: () => this.reduceMotion, onTap: (x, y, type) => this.tap(x, y, type), onHover: (x, y) => this.hoverAt(x, y), onMove: done => { if (done) this.bus.emit('camera-settled'); } });
       this.overlay = new Overlay({ canvas: this.els.overlay, stage: this.stage, layer: this.layer, cam, T: this.T, scope: sc }); this.sizeCanvas(true);
-      const m0 = performance.now(); mountChrome(this); const m1 = performance.now(); mountDock(this); const m2 = performance.now(); mountPanels(this); mountCard(this); mountObjectCard(this);
+      const m0 = performance.now(); mountChrome(this); const m1 = performance.now(); mountDock(this); const m2 = performance.now(); mountPanels(this); mountCard(this); mountObjectCard(this); if (this.audio) { try { mountSoundBadge(this); } catch (e) { console.warn('sound badge not mounted:', e); } }
       this.setView('overview', true); this.installResize(); this.installKeys(); this.perf.mount = { chrome: m1 - m0, dock: m2 - m1, rest: performance.now() - m2 };
       this.ready = true; this.root.dataset.ready = 'true'; this.els.loading.dataset.done = 'true'; sc.timeout(() => { if (this.els?.loading) this.els.loading.hidden = true; }, 420);
       step('Ready', 1); this.perf.entryMs = Math.round(performance.now() - t0);

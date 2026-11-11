@@ -323,3 +323,13 @@ test('the slicer finds the onsets of impulsive recordings (three synthesized sho
   const bank = Bank.createBank({ sr: SR }); bank.setRecordings(new Map([['arms.rifle_musket', [{ buf: sl[0].buf, ledgerId: 'FS-347647', mainAtSamples: sl[0].mainAtSamples }]]])); assert.equal(bank.get('arms.rifle_musket', 3).provenance.ledgerId, 'FS-347647', 'a registered recording replaces the synthesis and carries its ledger id'); assert.equal(bank.get('arms.carbine', 0).provenance.synthesized, true);
   const data = { sources: J(path.join(D, 'sources.json')) }; const a = await Idx.createAudio3D({ data }); a.setRecordings(new Map([['arms.rifle_musket', [{ buf: sl[0].buf, ledgerId: 'FS-347647' }]]])); assert.equal(a.panel().rows.find((r) => r.id === 'small_arms').kind, 'real_type'); assert.equal(a.panel().credits.length, 1);
 });
+test('update({warp}) warps time once: the planner stays in battle seconds (d / c) at any speed, the engine alone divides by the warp', async () => {
+  const data = { sources: J(path.join(D, 'sources.json')) };
+  const a1 = await Idx.createAudio3D({ data }), a8 = await Idx.createAudio3D({ data }), env = { weather: { tempF: 79, wind: { mph: [0, 0] } }, min: 600, listener: { pos: [0, 2, 0] } };
+  a1.update({ battleNow: 36000, warp: 1, ...env }); a8.update({ battleNow: 36000, warp: 8, ...env });
+  assert.equal(a8.planner.atmosphere.timeWarp, 1, 'the atmosphere is not warped'); assert.equal(a8.planner.atmosphere.cEff, a8.planner.atmosphere.c);
+  const ev = { type: 'fire', id: 1, t: 36000, weapon: 'napoleon_12pdr_m1857', x: 2000, y: 1.5, z: 0 };
+  const p1 = a1.planner.planEvent(ev), p8 = a8.planner.planEvent(ev);
+  assert.ok(Math.abs((p8.tArrive - 36000) - (p1.tArrive - 36000)) < 1e-9, 'battle-second delay is identical at warp 1 and 8');
+  assert.ok(Math.abs((p8.tArrive - 36000) / (2000 / a8.planner.atmosphere.c) - 1) < 0.03, 'and equals d / c');
+});

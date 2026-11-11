@@ -1,0 +1,942 @@
+{
+ "meta": {
+  "schema": "fx3d-weapons-1",
+  "built_by": "app/tools/build-fx3d-data.mjs",
+  "sources": [
+   "kit/weapons.json",
+   "audio/contract/weapons.json",
+   "drill/drill_infantry.json INF-AMMO-06",
+   "drill/ordnance_tables.json ORD-CHG-FA"
+  ],
+  "proj_codes": [
+   "ball_or_minie",
+   "buck_and_ball",
+   "blank",
+   "solid_shot",
+   "common_shell",
+   "spherical_case",
+   "canister",
+   "double_canister"
+  ]
+ },
+ "weapons": {
+  "m1861_springfield": {
+   "id": "m1861_springfield",
+   "label": "Springfield M1861 rifle-musket",
+   "class": "rifle_musket",
+   "kit_category": "long_arm",
+   "caliber_in": 0.58,
+   "charge": {
+    "grains": 60,
+    "kg": 0.0038879346,
+    "tier": "documented",
+    "basis": "Gibbon 1860: charge of the new rifled musket is sixty grains of musket powder (drill/drill_infantry.json INF-AMMO-06); the M1855 and M1861 are the arms that manual names; other arms of the same family follow"
+   },
+   "rate_per_min": [
+    2,
+    3
+   ],
+   "placeholder": false,
+   "barred": false
+  },
+  "m1863_rifle_musket": {
+   "id": "m1863_rifle_musket",
+   "label": "Springfield M1863",
+   "class": "rifle_musket",
+   "kit_category": "long_arm",
+   "caliber_in": null,
+   "charge": {
+    "grains": 60,
+    "kg": 0.0038879346,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.58 in, caliber not in kit data, taken as .58)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": true
+  },
+  "m1855_springfield": {
+   "id": "m1855_springfield",
+   "label": "Springfield M1855 rifle-musket",
+   "class": "rifle_musket",
+   "kit_category": "long_arm",
+   "caliber_in": 0.58,
+   "charge": {
+    "grains": 60,
+    "kg": 0.0038879346,
+    "tier": "documented",
+    "basis": "Gibbon 1860: charge of the new rifled musket is sixty grains of musket powder (drill/drill_infantry.json INF-AMMO-06); the M1855 and M1861 are the arms that manual names; other arms of the same family follow"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "harpers_ferry_rifle_m1855": {
+   "id": "harpers_ferry_rifle_m1855",
+   "label": "Harpers Ferry rifle (M1855 rifle)",
+   "class": "rifle_musket",
+   "kit_category": "long_arm",
+   "caliber_in": null,
+   "charge": {
+    "grains": 60,
+    "kg": 0.0038879346,
+    "tier": "documented",
+    "basis": "Gibbon 1860: charge of the new rifled musket is sixty grains of musket powder (drill/drill_infantry.json INF-AMMO-06); the M1855 and M1861 are the arms that manual names; other arms of the same family follow"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "m1841_mississippi": {
+   "id": "m1841_mississippi",
+   "label": "M1841 \"Mississippi\" rifle",
+   "class": "rifle_musket",
+   "kit_category": "long_arm",
+   "caliber_in": 0.58,
+   "charge": {
+    "grains": 60,
+    "kg": 0.0038879346,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.58 in)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "p1853_enfield": {
+   "id": "p1853_enfield",
+   "label": "Pattern 1853 Enfield rifle-musket",
+   "class": "rifle_musket",
+   "kit_category": "long_arm",
+   "caliber_in": 0.577,
+   "charge": {
+    "grains": 59.4,
+    "kg": 0.00384905525,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.577 in)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "p1856_58_enfield_short": {
+   "id": "p1856_58_enfield_short",
+   "label": "P1856/P1858 Enfield short rifle",
+   "class": "rifle_musket",
+   "kit_category": "long_arm",
+   "caliber_in": null,
+   "charge": {
+    "grains": 60,
+    "kg": 0.0038879346,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.58 in, caliber not in kit data, taken as .58)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "lorenz_m1854": {
+   "id": "lorenz_m1854",
+   "label": "Austrian Lorenz M1854",
+   "class": "rifle_musket",
+   "kit_category": "long_arm",
+   "caliber_in": 0.54,
+   "charge": {
+    "grains": 52,
+    "kg": 0.00336954332,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.54 in)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "richmond_rifle": {
+   "id": "richmond_rifle",
+   "label": "Richmond rifle (rifle-musket)",
+   "class": "rifle_musket",
+   "kit_category": "long_arm",
+   "caliber_in": null,
+   "charge": {
+    "grains": 60,
+    "kg": 0.0038879346,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.58 in, caliber not in kit data, taken as .58)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "richmond_carbine": {
+   "id": "richmond_carbine",
+   "label": "Richmond carbine",
+   "class": "rifle_musket",
+   "kit_category": "carbine",
+   "caliber_in": null,
+   "charge": {
+    "grains": 60,
+    "kg": 0.0038879346,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.58 in, caliber not in kit data, taken as .58)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "whitworth_rifle": {
+   "id": "whitworth_rifle",
+   "label": "Whitworth rifle",
+   "class": "rifle_musket",
+   "kit_category": "long_arm",
+   "caliber_in": 0.451,
+   "charge": {
+    "grains": 36.3,
+    "kg": 0.00235220043,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.451 in)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "kerr_rifle": {
+   "id": "kerr_rifle",
+   "label": "Kerr",
+   "class": "rifle_musket",
+   "kit_category": "long_arm",
+   "caliber_in": 0.442,
+   "charge": {
+    "grains": 34.8,
+    "kg": 0.00225500207,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.442 in)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "enfield_musketoon": {
+   "id": "enfield_musketoon",
+   "label": "Enfield musketoon",
+   "class": "rifle_musket",
+   "kit_category": "carbine",
+   "caliber_in": null,
+   "charge": {
+    "grains": 60,
+    "kg": 0.0038879346,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.58 in, caliber not in kit data, taken as .58)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "imported_arms_not_covered": {
+   "id": "imported_arms_not_covered",
+   "label": "Brunswick, Prussian, Belgian, French, Dresden imports; Tower",
+   "class": "rifle_musket",
+   "kit_category": "long_arm",
+   "caliber_in": null,
+   "charge": {
+    "grains": 60,
+    "kg": 0.0038879346,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.58 in, caliber not in kit data, taken as .58)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "springfield_model_unspecified": {
+   "id": "springfield_model_unspecified",
+   "label": "Springfield, model unspecified",
+   "class": "rifle_musket",
+   "kit_category": "long_arm",
+   "caliber_in": null,
+   "charge": {
+    "grains": 60,
+    "kg": 0.0038879346,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.58 in, caliber not in kit data, taken as .58)"
+   },
+   "rate_per_min": null,
+   "placeholder": true,
+   "barred": false
+  },
+  "scoped_target_rifle": {
+   "id": "scoped_target_rifle",
+   "label": "Custom muzzleloading target rifle with scope (makers Hawkins and Morgan James; W.D. Langdon; Merrill rifles)",
+   "class": "rifle_musket",
+   "kit_category": "long_arm",
+   "caliber_in": null,
+   "charge": {
+    "grains": 60,
+    "kg": 0.0038879346,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.58 in, caliber not in kit data, taken as .58)"
+   },
+   "rate_per_min": null,
+   "placeholder": true,
+   "barred": false
+  },
+  "field_finds_any_arm": {
+   "id": "field_finds_any_arm",
+   "label": "Field finds: nearly any arm among Confederate Gettysburg finds",
+   "class": "rifle_musket",
+   "kit_category": "note",
+   "caliber_in": null,
+   "charge": {
+    "grains": 60,
+    "kg": 0.0038879346,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.58 in, caliber not in kit data, taken as .58)"
+   },
+   "rate_per_min": null,
+   "placeholder": true,
+   "barred": false
+  },
+  "m1842_smoothbore": {
+   "id": "m1842_smoothbore",
+   "label": "M1842 smoothbore musket",
+   "class": "smoothbore_musket",
+   "kit_category": "long_arm",
+   "caliber_in": 0.69,
+   "charge": {
+    "grains": 84.9,
+    "kg": 0.00550142746,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.69 in)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "buck_and_ball_load": {
+   "id": "buck_and_ball_load",
+   "label": "Buck and ball load (ammunition for .69 smoothbores)",
+   "class": "smoothbore_musket",
+   "kit_category": "ammunition_load",
+   "caliber_in": null,
+   "charge": {
+    "grains": 60,
+    "kg": 0.0038879346,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.58 in, caliber not in kit data, taken as .58)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "smoothbore_69_musket_unspecified": {
+   "id": "smoothbore_69_musket_unspecified",
+   "label": "'.69 muskets', pattern unspecified",
+   "class": "smoothbore_musket",
+   "kit_category": "long_arm",
+   "caliber_in": null,
+   "charge": {
+    "grains": 60,
+    "kg": 0.0038879346,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.58 in, caliber not in kit data, taken as .58)"
+   },
+   "rate_per_min": null,
+   "placeholder": true,
+   "barred": false
+  },
+  "sharps_rifle_m1859": {
+   "id": "sharps_rifle_m1859",
+   "label": "Sharps rifle",
+   "class": "breechloader",
+   "kit_category": "long_arm",
+   "caliber_in": 0.52,
+   "charge": {
+    "grains": 48.2,
+    "kg": 0.00312330746,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.52 in)"
+   },
+   "rate_per_min": [
+    8,
+    10
+   ],
+   "placeholder": false,
+   "barred": false
+  },
+  "sharps_carbine": {
+   "id": "sharps_carbine",
+   "label": "Sharps carbine",
+   "class": "breechloader",
+   "kit_category": "carbine",
+   "caliber_in": null,
+   "charge": {
+    "grains": 60,
+    "kg": 0.0038879346,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.58 in, caliber not in kit data, taken as .58)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "sharps_unspecified_pattern": {
+   "id": "sharps_unspecified_pattern",
+   "label": "Sharps, pattern (rifle vs carbine) not stated",
+   "class": "breechloader",
+   "kit_category": "long_arm",
+   "caliber_in": null,
+   "charge": {
+    "grains": 60,
+    "kg": 0.0038879346,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.58 in, caliber not in kit data, taken as .58)"
+   },
+   "rate_per_min": null,
+   "placeholder": true,
+   "barred": false
+  },
+  "burnside_carbine": {
+   "id": "burnside_carbine",
+   "label": "Burnside carbine",
+   "class": "breechloader",
+   "kit_category": "carbine",
+   "caliber_in": 0.54,
+   "charge": {
+    "grains": 52,
+    "kg": 0.00336954332,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.54 in)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "gallager_carbine": {
+   "id": "gallager_carbine",
+   "label": "Gallager",
+   "class": "breechloader",
+   "kit_category": "carbine",
+   "caliber_in": 0.52,
+   "charge": {
+    "grains": 48.2,
+    "kg": 0.00312330746,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.52 in)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "smith_carbine": {
+   "id": "smith_carbine",
+   "label": "Smith",
+   "class": "breechloader",
+   "kit_category": "carbine",
+   "caliber_in": 0.5,
+   "charge": {
+    "grains": 44.6,
+    "kg": 0.00289003139,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.5 in)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "merrill_carbine": {
+   "id": "merrill_carbine",
+   "label": "Merrill",
+   "class": "breechloader",
+   "kit_category": "carbine",
+   "caliber_in": 0.54,
+   "charge": {
+    "grains": 52,
+    "kg": 0.00336954332,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.54 in)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "sharps_hankins_carbine": {
+   "id": "sharps_hankins_carbine",
+   "label": "Sharps & Hankins",
+   "class": "breechloader",
+   "kit_category": "carbine",
+   "caliber_in": 0.52,
+   "charge": {
+    "grains": 48.2,
+    "kg": 0.00312330746,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.52 in)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "revolving_and_other_breechloaders_gap": {
+   "id": "revolving_and_other_breechloaders_gap",
+   "label": "Colt revolving rifle, Starr, Joslyn, Maynard",
+   "class": "breechloader",
+   "kit_category": "long_arm",
+   "caliber_in": null,
+   "charge": {
+    "grains": 60,
+    "kg": 0.0038879346,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.58 in, caliber not in kit data, taken as .58)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "spencer_repeater": {
+   "id": "spencer_repeater",
+   "label": "Spencer",
+   "class": "repeater",
+   "kit_category": "repeater",
+   "caliber_in": null,
+   "charge": {
+    "grains": 60,
+    "kg": 0.0038879346,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.58 in, caliber not in kit data, taken as .58)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "henry_rifle": {
+   "id": "henry_rifle",
+   "label": "Henry",
+   "class": "repeater",
+   "kit_category": "repeater",
+   "caliber_in": 0.44,
+   "charge": {
+    "grains": 34.5,
+    "kg": 0.00223556239,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.44 in)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": true
+  },
+  "colt_army_1860": {
+   "id": "colt_army_1860",
+   "label": "Colt Army 1860",
+   "class": "revolver",
+   "kit_category": "handgun",
+   "caliber_in": 0.44,
+   "charge": {
+    "grains": 34.5,
+    "kg": 0.00223556239,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.44 in)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "colt_navy_1851": {
+   "id": "colt_navy_1851",
+   "label": "Colt Navy 1851",
+   "class": "revolver",
+   "kit_category": "handgun",
+   "caliber_in": null,
+   "charge": {
+    "grains": 60,
+    "kg": 0.0038879346,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.58 in, caliber not in kit data, taken as .58)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "colt_36_unconfirmed": {
+   "id": "colt_36_unconfirmed",
+   "label": "Colt .36 (Buford ordnance report)",
+   "class": "revolver",
+   "kit_category": "handgun",
+   "caliber_in": null,
+   "charge": {
+    "grains": 60,
+    "kg": 0.0038879346,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.58 in, caliber not in kit data, taken as .58)"
+   },
+   "rate_per_min": null,
+   "placeholder": true,
+   "barred": false
+  },
+  "remington_1858": {
+   "id": "remington_1858",
+   "label": "Remington 1858",
+   "class": "revolver",
+   "kit_category": "handgun",
+   "caliber_in": null,
+   "charge": {
+    "grains": 60,
+    "kg": 0.0038879346,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.58 in, caliber not in kit data, taken as .58)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "lemat": {
+   "id": "lemat",
+   "label": "LeMat",
+   "class": "revolver",
+   "kit_category": "handgun",
+   "caliber_in": null,
+   "charge": {
+    "grains": 60,
+    "kg": 0.0038879346,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.58 in, caliber not in kit data, taken as .58)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "other_revolvers_gap": {
+   "id": "other_revolvers_gap",
+   "label": "Starr, Whitney, Adams, Kerr revolvers",
+   "class": "revolver",
+   "kit_category": "handgun",
+   "caliber_in": null,
+   "charge": {
+    "grains": 60,
+    "kg": 0.0038879346,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.58 in, caliber not in kit data, taken as .58)"
+   },
+   "rate_per_min": null,
+   "placeholder": false,
+   "barred": false
+  },
+  "revolver_unspecified": {
+   "id": "revolver_unspecified",
+   "label": "Revolver / personal handgun (model not stated)",
+   "class": "revolver",
+   "kit_category": "handgun",
+   "caliber_in": null,
+   "charge": {
+    "grains": 60,
+    "kg": 0.0038879346,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.58 in, caliber not in kit data, taken as .58)"
+   },
+   "rate_per_min": null,
+   "placeholder": true,
+   "barred": false
+  },
+  "colt_pocket_revolver": {
+   "id": "colt_pocket_revolver",
+   "label": "Colt pocket revolver (2nd USSS)",
+   "class": "revolver",
+   "kit_category": "handgun",
+   "caliber_in": null,
+   "charge": {
+    "grains": 60,
+    "kg": 0.0038879346,
+    "tier": "plausible-procedural",
+    "basis": "no charge for this arm in the repository (open gap FX-G10): scaled from the documented 60 grains at .58 by bore area (0.58 in, caliber not in kit data, taken as .58)"
+   },
+   "rate_per_min": null,
+   "placeholder": true,
+   "barred": false
+  },
+  "6pdr_field_gun": {
+   "id": "6pdr_field_gun",
+   "label": "6-pdr field gun",
+   "class": "field_gun",
+   "kit_category": "artillery",
+   "bore_in": 3.67,
+   "charge": {
+    "lb": 1.25,
+    "kg": 0.566990463,
+    "tier": "documented",
+    "basis": "Instruction for Field Artillery 1863 service charge (drill/ordnance_tables.json ORD-CHG-FA); the kit table agrees"
+   },
+   "charge_by_proj": {
+    "case": {
+     "lb": 1,
+     "kg": 0.45359237,
+     "tier": "documented",
+     "basis": "Gibbon 1860 ORD-RNG-GB-6: spherical case 1.0 lb"
+    }
+   },
+   "rifled": false,
+   "projectile_lb": 6.1,
+   "mv_ft_s": 1439,
+   "range_5deg_yd": 1523
+  },
+  "napoleon_12pdr_m1857": {
+   "id": "napoleon_12pdr_m1857",
+   "label": "M1857 12-pdr Napoleon",
+   "class": "field_gun",
+   "kit_category": "artillery",
+   "bore_in": 4.62,
+   "charge": {
+    "lb": 2.5,
+    "kg": 1.13398093,
+    "tier": "documented",
+    "basis": "Instruction for Field Artillery 1863 service charge (drill/ordnance_tables.json ORD-CHG-FA); the kit table agrees"
+   },
+   "charge_by_proj": {
+    "shell": {
+     "lb": 2,
+     "kg": 0.90718474,
+     "tier": "inferred",
+     "basis": "kit extra_detail: powder 2.0 lb for common shell (Wikipedia M1857 Napoleon, weak source); Gibbon ORD-RNG-GB-NEW12 prints the shell charge 2.0 lb for the new 12-pdr (documented)"
+    }
+   },
+   "rifled": false,
+   "projectile_lb": 12.9,
+   "mv_ft_s": 1440,
+   "range_5deg_yd": 1619
+  },
+  "12pdr_howitzer": {
+   "id": "12pdr_howitzer",
+   "label": "12-pdr howitzer",
+   "class": "howitzer",
+   "kit_category": "artillery",
+   "bore_in": 4.62,
+   "charge": {
+    "lb": 1,
+    "kg": 0.45359237,
+    "tier": "documented",
+    "basis": "Instruction for Field Artillery 1863 service charge (drill/ordnance_tables.json ORD-CHG-FA); the kit table agrees"
+   },
+   "charge_by_proj": {
+    "case": {
+     "lb": 0.75,
+     "kg": 0.340194278,
+     "tier": "documented",
+     "basis": "Gibbon 1860 ORD-RNG-GB-12HOW: spherical case 0.75 lb"
+    }
+   },
+   "rifled": false,
+   "projectile_lb": 8.9,
+   "mv_ft_s": 1054,
+   "range_5deg_yd": 1072
+  },
+  "12pdr_mountain_howitzer": {
+   "id": "12pdr_mountain_howitzer",
+   "label": "12-pdr mountain howitzer",
+   "class": "howitzer",
+   "kit_category": "artillery",
+   "bore_in": 4.62,
+   "charge": {
+    "lb": 0.5,
+    "kg": 0.226796185,
+    "tier": "inferred",
+    "basis": "kit/weapons.json artillery.pieces.12pdr_mountain_howitzer.table.charge_lb (source Wiki-FieldArtACW; kit tier inferred: weak source)"
+   },
+   "charge_by_proj": {},
+   "rifled": false,
+   "projectile_lb": 8.9,
+   "mv_ft_s": "n/a",
+   "range_5deg_yd": 1005
+  },
+  "24pdr_howitzer": {
+   "id": "24pdr_howitzer",
+   "label": "24-pdr howitzer",
+   "class": "howitzer",
+   "kit_category": "artillery",
+   "bore_in": 5.82,
+   "charge": {
+    "lb": 2,
+    "kg": 0.90718474,
+    "tier": "documented",
+    "basis": "Instruction for Field Artillery 1863 service charge (drill/ordnance_tables.json ORD-CHG-FA); the kit table agrees"
+   },
+   "charge_by_proj": {},
+   "rifled": false,
+   "projectile_lb": 18.4,
+   "mv_ft_s": 1060,
+   "range_5deg_yd": 1322
+  },
+  "10pdr_parrott": {
+   "id": "10pdr_parrott",
+   "label": "10-pdr Parrott",
+   "class": "field_gun",
+   "kit_category": "artillery",
+   "bore_in": "2.9 or 3.0",
+   "charge": {
+    "lb": 1,
+    "kg": 0.45359237,
+    "tier": "documented",
+    "basis": "Instruction for Field Artillery (War Dept. adoption 1863-03-03; New York 1864), printed p. 7 note: charge of the 10-pounder Parrott and 3-inch gun one pound, of the 20-pounder Parrott two pounds (OCR of archive.org instructionforf03deptgoog; page by OCR running head; the 3-inch ordnance gun named p. 6 note); the kit table agrees"
+   },
+   "charge_by_proj": {},
+   "rifled": true,
+   "projectile_lb": 9.5,
+   "mv_ft_s": 1230,
+   "range_5deg_yd": 1850
+  },
+  "3inch_ordnance_rifle": {
+   "id": "3inch_ordnance_rifle",
+   "label": "3-inch Ordnance rifle",
+   "class": "field_gun",
+   "kit_category": "artillery",
+   "bore_in": 3,
+   "charge": {
+    "lb": 1,
+    "kg": 0.45359237,
+    "tier": "documented",
+    "basis": "Instruction for Field Artillery (War Dept. adoption 1863-03-03; New York 1864), printed p. 7 note: charge of the 10-pounder Parrott and 3-inch gun one pound, of the 20-pounder Parrott two pounds (OCR of archive.org instructionforf03deptgoog; page by OCR running head; the 3-inch ordnance gun named p. 6 note); the kit table agrees"
+   },
+   "charge_by_proj": {},
+   "rifled": true,
+   "projectile_lb": 9.5,
+   "mv_ft_s": 1215,
+   "range_5deg_yd": 1830
+  },
+  "14pdr_james_rifle": {
+   "id": "14pdr_james_rifle",
+   "label": "14-pdr James rifle",
+   "class": "field_gun",
+   "kit_category": "artillery",
+   "bore_in": 3.8,
+   "charge": {
+    "lb": 1.25,
+    "kg": 0.566990463,
+    "tier": "inferred",
+    "basis": "kit/weapons.json artillery.pieces.14pdr_james_rifle.table.charge_lb (source Wiki-FieldArtACW; kit tier inferred: weak source)"
+   },
+   "charge_by_proj": {},
+   "rifled": true,
+   "projectile_lb": 14,
+   "mv_ft_s": "n/a",
+   "range_5deg_yd": 1530
+  },
+  "20pdr_parrott": {
+   "id": "20pdr_parrott",
+   "label": "20-pdr Parrott",
+   "class": "field_gun",
+   "kit_category": "artillery",
+   "bore_in": 3.67,
+   "charge": {
+    "lb": 2,
+    "kg": 0.90718474,
+    "tier": "documented",
+    "basis": "Instruction for Field Artillery (War Dept. adoption 1863-03-03; New York 1864), printed p. 7 note: charge of the 10-pounder Parrott and 3-inch gun one pound, of the 20-pounder Parrott two pounds (OCR of archive.org instructionforf03deptgoog; page by OCR running head; the 3-inch ordnance gun named p. 6 note); the kit table agrees"
+   },
+   "charge_by_proj": {},
+   "rifled": true,
+   "projectile_lb": 20,
+   "mv_ft_s": 1250,
+   "range_5deg_yd": 1900
+  },
+  "12pdr_whitworth": {
+   "id": "12pdr_whitworth",
+   "label": "12-pdr Whitworth (breechloader)",
+   "class": "field_gun",
+   "kit_category": "artillery",
+   "bore_in": 2.75,
+   "charge": {
+    "lb": 1.75,
+    "kg": 0.793786648,
+    "tier": "inferred",
+    "basis": "kit/weapons.json artillery.pieces.12pdr_whitworth.table.charge_lb (source Wiki-FieldArtACW; kit tier inferred: weak source)"
+   },
+   "charge_by_proj": {},
+   "rifled": true,
+   "projectile_lb": 12,
+   "mv_ft_s": 1500,
+   "range_5deg_yd": 2800
+  },
+  "blakely_12pdr": {
+   "id": "blakely_12pdr",
+   "label": "12-pdr Blakely",
+   "class": "field_gun",
+   "kit_category": "artillery",
+   "charge": {
+    "lb": 1,
+    "kg": 0.45359237,
+    "tier": "plausible-procedural",
+    "basis": "piece is a gap row in the kit data (no table): stand-in 1.0 lb (open gap FX-G10)"
+   },
+   "charge_by_proj": {},
+   "rifled": true
+  },
+  "3inch_navy_rifle": {
+   "id": "3inch_navy_rifle",
+   "label": "3-inch Navy rifle",
+   "class": "field_gun",
+   "kit_category": "artillery",
+   "charge": {
+    "lb": 1,
+    "kg": 0.45359237,
+    "tier": "plausible-procedural",
+    "basis": "piece is a gap row in the kit data (no table): stand-in 1.0 lb (open gap FX-G10)"
+   },
+   "charge_by_proj": {},
+   "rifled": true
+  },
+  "ames_rifled_bronze_napoleon": {
+   "id": "ames_rifled_bronze_napoleon",
+   "label": "Ames rifled bronze Napoleons",
+   "class": "field_gun",
+   "kit_category": "artillery",
+   "charge": {
+    "lb": 1,
+    "kg": 0.45359237,
+    "tier": "plausible-procedural",
+    "basis": "piece is a gap row in the kit data (no table): stand-in 1.0 lb (open gap FX-G10)"
+   },
+   "charge_by_proj": {},
+   "rifled": true
+  }
+ },
+ "aliases": {
+  "audio_ids": {
+   "0": "m1861_springfield",
+   "1": "m1863_rifle_musket",
+   "2": "p1853_enfield",
+   "3": "lorenz_m1854",
+   "4": "m1842_smoothbore",
+   "5": "sharps_carbine",
+   "6": "burnside_carbine",
+   "7": "spencer_repeater",
+   "8": "henry_rifle",
+   "9": "colt_army_1860",
+   "10": "napoleon_12pdr_m1857",
+   "11": "3inch_ordnance_rifle",
+   "12": "10pdr_parrott",
+   "13": "20pdr_parrott",
+   "14": "12pdr_whitworth",
+   "15": "blakely_12pdr",
+   "16": "12pdr_howitzer",
+   "17": "24pdr_howitzer"
+  },
+  "classes": {
+   "musket": "m1861_springfield",
+   "rifle": "m1861_springfield",
+   "rifle_musket": "m1861_springfield",
+   "smoothbore": "m1842_smoothbore",
+   "carbine": "sharps_carbine",
+   "repeater": "spencer_repeater",
+   "revolver": "colt_army_1860",
+   "pistol": "colt_army_1860",
+   "gun": "napoleon_12pdr_m1857",
+   "cannon": "napoleon_12pdr_m1857",
+   "napoleon": "napoleon_12pdr_m1857",
+   "rifled_gun": "3inch_ordnance_rifle",
+   "howitzer": "12pdr_howitzer",
+   "long_arm": "m1861_springfield",
+   "handgun": "colt_army_1860"
+  },
+  "bus_kinds": {
+   "note": "BT-EVENTS weaponKind classes when info.weaponId is null: the stand-in is counted as unknownWeapon and flagged",
+   "carbine": "sharps_carbine",
+   "repeater": "spencer_repeater",
+   "cannon": "napoleon_12pdr_m1857"
+  }
+ }
+}
