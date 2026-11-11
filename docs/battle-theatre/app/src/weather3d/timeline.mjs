@@ -86,7 +86,7 @@ export class WeatherTimeline {
     const pal = skyPalette(L, s, out.cloud.cover);
     const sunTrue = dirOf(s.sunAz, s.sunAlt), moonTrue = dirOf(s.moonAz, s.moonAlt);
     const sv = val('stars.visible_sun_alt_deg'), moonLum = s.moonUp ? (s.moonIllum / 100) * smooth(0, 25, s.moonAlt) : 0;
-    const starVis = smooth(sv[0], sv[1], -s.sunAlt) * (1 - val('stars.moon_washout') * moonLum) * Math.pow(1 - clamp(out.cloud.cover), val('stars.cloud_exponent')) * (1 - 0.8 * smooth(0, 1, out.fog.mist));
+    const starVis = smooth(sv[0], sv[1], s.sunAlt) * (1 - val('stars.moon_washout') * moonLum) * Math.pow(1 - clamp(out.cloud.cover), val('stars.cloud_exponent')) * (1 - 0.8 * smooth(0, 1, out.fog.mist));
     const siderealDays = (min / 1440) * val('clock.sidereal_ratio');
     out.sky = { sunAlt: s.sunAlt, sunAz: s.sunAz, moonAlt: s.moonAlt, moonAz: s.moonAz, moonUp: s.moonUp, moonIllum: s.moonIllum, src: s.src, band: s.band, dayW: L.dayW, exposure: L.exposure, nightFloor: this.nightFloor ?? 0.34, lightSunDir: L.sunDir.slice(), sunDir: sunTrue, moonDir: moonTrue,
       palette: pal, stars: { visibility: clamp(starVis), rotation: ((siderealDays % 1) + 1) % 1 * TWO_PI, poleAltDeg: LAT_DEG, density: val('stars.cells_per_radian'), fraction: val('stars.star_fraction'), gain: val('stars.gain'), tier: 'plausible-procedural' } };

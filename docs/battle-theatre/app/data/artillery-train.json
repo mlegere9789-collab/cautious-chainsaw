@@ -1,0 +1,107 @@
+{
+ "version": 1,
+ "_doc": "Parameters of the artillery train (guns beyond the 124 stated ones, limbers, caissons, teams of horses and drivers, battery wagon and forge) read by app/src/structures/artillery.mjs. Every value is copied from the PDF text (BIBLE/plan-clean.txt B.6.14.4 and B.6.14.6, pages 78-82), from the printed manuals read for drill/ (FIELDART-1863 paras 95-96, 118, 126 and the Field Service chapter; drill/drill_artillery.json item ids) or is a labelled plausible-procedural parameter. Nothing here is a measured 1863 fact unless its tier says documented. Law cl.4: no count is invented; where the record gives none, the count comes from a printed default of the PDF and is marked plausible-procedural (Evidence-Gap Register entries GOVERNANCE/horde/ws6-structures/proposed-register/ws6-EG-01..).",
+ "status": "seeded_unverified: no source was opened by this workstream; the manual items are the ones docs/battle-theatre/drill/ already extracted",
+ "scenario_defaults": {
+  "gun_policy": "plausible_fill",
+  "caisson_rule": "teams_row",
+  "pending_owner": "Both defaults are the reading of the PDF as printed and are PENDING OWNER (Law cl.6). The viewer can switch either through state.trainChoice (gun_policy: plausible_fill | stated_only; caisson_rule: teams_row | war_establishment). A stated_only reading draws only the 124 stated pieces and is carried for the owner to rule on; it is not the default because the requirement (every gun is drawn) stands until the owner decides a reduction."
+ },
+ "gun_policies": {
+  "plausible_fill": {
+   "label": "Every drawn battery gets guns: the count the kit data STATES where there is one, the printed PDF default where there is none (marked plausible-procedural, never documented)",
+   "union_guns_per_battery": 6,
+   "union_basis": "PDF B.6.14.4 'Typical size': Union batteries usually six guns (some four); the PDF flags this line as unverified background knowledge in its notes. 29 of 125 kit batteries state a count and 22 of them are six, three four (data/battery-guns.json).",
+   "confederate_guns_per_battery": 4,
+   "confederate_basis": "PDF B.6.14.4 and B.6.14.6 notes: Confederate batteries often four; 'use the 4-gun-per-battery default and the inventory in B.6.14.1 as a total check (inferred, plausible-procedural where applied)'. The kit meta says the default is usable only as a total check; here it is applied as a marked fill, so the owner can switch to stated_only.",
+   "tier": "plausible-procedural",
+   "combined_entry_rule": "a kit entry that joins batteries (3rd US F&K, Pa. Independent C & F, 1st Pennsylvania F&G) keeps its printed total and is divided evenly between the roster batteries it joins (remainder to the first): the printed total is preserved, the division is plausible-procedural",
+   "battalion_rule": "a roster leaf that is an artillery battalion gets the number of batteries the kit lists for that battalion (formation table below) times the Confederate fill; a battalion with no kit battery list (Cutts's, Poague's, Andrews's, the 1st Va. Artillery Bn) is left without extra guns: open gap, never a guessed number"
+  },
+  "stated_only": {
+   "label": "Only the guns whose count the kit data states (124 pieces of 22 batteries at history layer v8)",
+   "tier": "documented where the kit cites a non-weak source; inferred otherwise"
+  }
+ },
+ "or_counts": {
+  "_doc": "Counts the Official Records give for four batteries the kit data leaves as gaps, as read by shard terrain-1 (GOVERNANCE/horde/terrain-1/proposed-register/terrain-1-EG-17.md: Hunt p.229-231, Osborn p.747). The raw OR text is not in this checkout, so this workstream could not re-verify them: tier inferred, not documented. Using them is a patch of the kit gap rows that the owner has not authorised (EG-17 owner decision requested); they are applied only under plausible_fill and are shown as such.",
+  "us-1c-art-2me": { "count": 6, "type_id": "3inch_ordnance_rifle", "cite": "OR27-1-R028 Hunt p.229-230 (shard terrain-1)" },
+  "us-1c-art-5me": { "count": 6, "type_id": "napoleon_12pdr_m1857", "cite": "OR27-1-R028 Hunt p.229-231 (shard terrain-1; the shard prints 'six 12-pdr')" },
+  "us-1c-art-4usb": { "count": 6, "type_id": "napoleon_12pdr_m1857", "cite": "OR27-1-R028 Hunt p.229-231 (shard terrain-1; 'six 12-pdr'; the same shard records four on the evening of 1 July, two disabled: a conflict carried, not resolved)" },
+  "us-11c-art-1nyi": { "count": 6, "type_id": "3inch_ordnance_rifle", "cite": "OR27-1-R264 Osborn p.747 (shard terrain-1; the same shard records four of six serving on the evening of 1 July)" },
+  "tier": "inferred"
+ },
+ "battalions": {
+  "_doc": "Roster leaf artillery battalions that map to a kit formation (artillery_batteries.json formations/batteries). batteries = the number of kit batteries whose parent is that formation (computed in the test from kit/artillery_batteries.json and compared with this table). A roster name that differs from the kit name (Andrews's vs Latimer's) is NOT mapped: the identification is not in the repository.",
+  "cs-1c-mclaws-cabell": { "formation": "ARTBN.Cabell", "batteries": 4 },
+  "cs-1c-pickett-dearing": { "formation": "ARTBN.Dearing", "batteries": 4 },
+  "cs-1c-hood-henry": { "formation": "ARTBN.Henry", "batteries": 4 },
+  "cs-1c-res-art-washington": { "formation": "ARTBN.Washington", "batteries": 4 },
+  "cs-2c-early-jones": { "formation": "ARTBN.Jones", "batteries": 4 },
+  "cs-2c-rodes-carter": { "formation": "ARTBN.Carter", "batteries": 4 },
+  "cs-2c-res-art-nelson": { "formation": "ARTBN.Nelson", "batteries": 3 },
+  "cs-3c-heth-garnett": { "formation": "ARTBN.Garnett", "batteries": 4 },
+  "cs-3c-res-art-mcintosh": { "formation": "ARTBN.Walker_reserve_McIntosh_battalion", "batteries": 4 },
+  "cs-3c-res-art-pegram": { "formation": "ARTBN.Pegram", "batteries": 5 },
+  "cs-cav-horse-art": { "formation": "ARTBN.Stuart_Horse_Artillery", "batteries": 6, "printed_total_guns": 13, "total_basis": "PDF B.6.14.6: Stuart had 13 guns on East Cavalry Field (tier inferred, weak): the printed total replaces the 4-per-battery fill" }
+ },
+ "inventory_total_check": {
+  "union": { "low": 366, "high": 372 },
+  "confederate": { "low": 281, "high": 282 },
+  "basis": "PDF B.6.14.1 'Total guns on the field': 366 / 282 (StrategyPage), 372 / 281 (HistoryNet); documented (secondary), the two totals conflict and both are carried. A total check, never a target: no gun is added to reach it."
+ },
+ "team": {
+  "horses": 6, "pairs": 3, "drivers": 3, "drivers_ride": "the three left-hand horses (the driver of each pair rides the left horse and holds the reins of the right)",
+  "tier": "inferred", "weak_source": true, "source_keys": ["Wiki-FieldArtACW", "RegCav-HorseArt"],
+  "basis": "PDF B.6.14.4 Teams row: each six-horse team has three drivers riding the left horses and holding the reins of the right; about 700 lb pull per horse (Wikipedia field artillery; Regular Cavalry horse-artillery blog: both weak keys, so inferred)",
+  "pair_spacing_m": 2.4, "pair_spacing_tier": "plausible-procedural", "pair_spacing_basis": "no horse or harness dimension is in the repository; 2.4 m is a generic length of a horse pair with its traces (tuning value)",
+  "pair_halfwidth_m": 0.6, "wheelers_from_axle_m": 3.0, "wheelers_basis": "plausible-procedural: pole length is not in the repository"
+ },
+ "rules": {
+  "teams_row": {
+   "label": "PDF B.6.14.4 Teams row as printed: two six-horse teams per gun (gun limber and caisson limber): one caisson per gun",
+   "caissons_per_gun": 1, "horses_per_gun": 12, "drivers_per_gun": 6,
+   "tier": "inferred", "weak_source": true, "source_keys": ["Wiki-FieldArtACW", "RegCav-HorseArt"],
+   "note": "Equals the PDF's own six-Napoleon ammunition stock of 768 rounds = 24 chests x 32 = one caisson per gun (drill/DRILL-NOTES.md: 'inferred by arithmetic')"
+  },
+  "war_establishment": {
+   "label": "The printed manual's war establishment (drill/DRILL-NOTES.md) and the table of organisation quoted in B.6.14.4: two caissons per gun (12 caissons for a six-gun 12-pdr battery, 36 gun horses and 72 caisson horses)",
+   "caissons_per_gun": 2, "horses_per_gun": 18, "drivers_per_gun": 9,
+   "tier": "inferred", "weak_source": true, "source_keys": ["FIELDART-1863", "CWTalk-BatteryTOE"],
+   "note": "The manual figure is inferred by arithmetic from the printed chest table (not stated as a count); the table of organisation is a forum quote of a manual (weak). The two readings conflict and both are carried; neither is chosen (PENDING OWNER)."
+  }
+ },
+ "vehicles": {
+  "limber": { "per_gun": 1, "tier": "inferred", "basis": "PDF B.6.14.4: carries one ammunition chest; the piece is limbered to it; FIELDART-1863 para 96 / ART-FA-09 and ART-FA-72 (documented, printed manual): the limber stands behind the unlimbered piece with the end of its pole 6 yards from the end of the trail handspike" },
+  "caisson": { "tier": "inferred", "basis": "PDF B.6.14.4: two-wheeled, two chests and a spare wheel, with its own limber (drawn as one vehicle with its team); FIELDART-1863 ART-FA-80: no positive rule for caissons in action" },
+  "battery_wagon": { "per_battery": 1, "tier": "inferred", "weak_source": true, "basis": "PDF B.6.14.4: each battery had one battery wagon and one forge (Regular Cavalry blog, CivilWarTalk: weak)" },
+  "forge": { "per_battery": 1, "tier": "inferred", "weak_source": true, "basis": "as the battery wagon" },
+  "wagon_team_horses": 6, "wagon_team_basis": "PDF B.6.14.4 table of organisation (forum quote, weak): 6 horses for the battery wagon, 6 for the forge",
+  "wagon_teams_have_drivers": true, "wagon_team_drivers": 3, "wagon_driver_basis": "plausible-procedural: the same three-driver team as the guns; the table of organisation (52 drivers for 72 horses of six guns) is not itemised per vehicle"
+ },
+ "layout": {
+  "_doc": "Offsets in the battery's own frame (x to the right of the heading, z toward the muzzle, origin at the battery's slot; the same frame as the stage's gun records: x = cx + dx cos h + dz sin h, z = cz - dx sin h + dz cos h). The gun line is where src/world-from-units.mjs puts the stated guns: dz_gun = ceil(nOwn/4)*1.0/2 + 12, pieces GUN_INTERVAL_M apart.",
+  "gun_interval_m": 14, "gun_interval_basis": "the stage's value (a tuning value; the drill texts hold no interval)",
+  "crew_per_gun": 9, "crew_basis": "FIELDART-1863 para 94 / ART-FA-01: nine men including the gunner, No. 8 the chief of the caisson (documented, printed manual)",
+  "trail_end_from_axle_m": 2.8, "trail_basis": "src/world-from-units.mjs CREW_POSTS puts the gunner at the trail handspike end 2.8 m behind the axle (plausible-procedural: no carriage dimension in the repository)",
+  "limber_pole_end_from_trail_yd": 6, "limber_pole_basis": "FIELDART-1863 para 96 and 126 (ART-FA-09, ART-FA-72): documented",
+  "limber_pole_m": 3.0, "limber_pole_tier": "plausible-procedural",
+  "limber_back_from_axle_m": 11.3, "limber_back_basis": "2.8 m (trail) + 6 yd (5.49 m, documented) + 3.0 m (pole, procedural) = 11.29 m, i.e. 12.3 yd: inside the PDF B.6.14.9 inference of 10-15 yd behind (weak)",
+  "limber_back_tier": "inferred",
+  "limber_facing": "rear", "limber_facing_basis": "plausible-procedural. The paraphrase of para 96 says the limber stands 'facing' the piece with the pole end 6 yd from the trail; a team hitched to that pole cannot stand inside those 6 yd, and the repository holds no text on where the team stands. The limber and its team are drawn on the far side from the piece, facing away from the enemy (as the PDF's 'horses and drivers with the limbers'), and this is registered as an open question (ws6-EG-04).",
+  "caisson_back_from_axle_m": 35, "caisson_back_tier": "plausible-procedural", "caisson_back_basis": "ART-FA-80: the manual gives no positive rule for caissons in action; the PDF puts them 'farther back (third line)': 35 m is a tuning value that clears the limber team (about 23 m behind the axle)",
+  "second_caisson_extra_back_m": 18, "second_caisson_basis": "war_establishment only: clears the first caisson team",
+  "rear_park_back_from_axle_m": 75, "rear_park_basis": "PDF B.6.14.4 'battery wagon and forge in the rear park': 75 m is a tuning value; wagon and forge stand 12 m left and right of the battery centre line",
+  "rear_park_half_gap_m": 12,
+  "battalion_gap_m": 28, "battalion_gap_basis": "plausible-procedural gap between the gun rows of the batteries of a battalion",
+  "guns_per_row_battalion": 4
+ },
+ "settle": {
+  "_doc": "The train is rigidly attached to the battery's frame at all times: on the march it moves with the stage's block (the renderer has one slot layout per unit), so no column of vehicles along the road is modelled; that limit is registered (ws6-EG-04)."
+ },
+ "not_drawn": [
+  { "item": "spare horses (10 per battery of six guns), saddle horses of NCOs, artificers and buglers (8 sergeants, 6 artificers, 2 buglers, 2 spare), staff, quartermaster sergeant, six reserve caissons of a horse battery", "why": "only a forum quote of a manual (B.6.14.4, weak) states them for one battery type; no per-battery figure exists; the men are inside the battery's strength figure and are not given horses here", "register": "ws6-EG-05" },
+  { "item": "horse casualties (Calef 13, Hart 25, Bigelow 65 or 80, Smith 11, Brown 24 killed and 6 disabled, Cabell 67 killed and 13 disabled, Alexander 116) and batteries short of horses (Hart fielded teams for three guns)", "why": "the PDF prints loss counts without times; no shot-horse state is scheduled; the teams are drawn complete and the printed counts are listed, not animated", "register": "ws6-EG-05" },
+  { "item": "horse artillery of the cavalry (cavalry horse artillery brigade has no battery in the roster) and batteries the roster does not draw", "why": "no battery, no arrival: nothing to tie a gun to", "register": "ws6-EG-02" }
+ ]
+}

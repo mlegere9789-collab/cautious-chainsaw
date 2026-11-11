@@ -35,7 +35,7 @@ export const PARAMS = {
   },
   stars: {
     cells_per_radian: P(115, 'plausible-procedural', 'Procedural star lattice density. THERE IS NO STAR CATALOGUE in the repository: the positions are not the 1863 sky (EG-W3D-G03). Only their rotation about the celestial pole (latitude 39.83 N) follows the clock.'),
-    star_fraction: P(0.045, 'plausible-procedural', 'Share of lattice cells that hold a star.'),
+    star_fraction: P(0.012, 'plausible-procedural', 'Share of lattice cells that hold a star.'),
     gain: P(2.4, 'plausible-procedural', 'HDR radiance of the brightest star.'),
     visible_sun_alt_deg: P([-6, -15], 'inferred', 'Stars fade in between civil twilight end (sun -6) and -15 degrees (astronomical twilight ends at -18); standard twilight bands, the same ones environment.mjs uses.'),
     moon_washout: P(0.75, 'plausible-procedural', 'Share of star brightness lost at a full moon high in the sky.'),

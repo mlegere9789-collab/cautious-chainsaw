@@ -81,9 +81,9 @@ vec3 skyColor(vec3 d) {
   // cloud layer
   if (uCloud.x > 0.01 && d.y > 0.012) {
     float t = (uCloud.y - cam.y) / d.y; vec2 uvp = (cam.xz + d.xz * t) / uCloud.z + uCOff;
-    float n = fbm(uvp * 1.3), cov = clamp(uCloud.x, 0.0, 1.0);
+    float n = fbm(uvp), cov = clamp(uCloud.x, 0.0, 1.0);
     float th = 1.0 - cov * 1.12 - 0.04; float a = smoothstep(th, th + uCloud.w, n); if (cov > 0.93) a = max(a, smoothstep(0.93, 1.0, cov) * 0.97);
-    float n2 = fbm((uvp + uSunDir.xz * 0.12 / max(uSunDir.y, 0.2)) * 1.3); float dens = clamp(0.5 + (n - n2) * 5.0 + (n - th) * 0.6, 0.0, 1.0);
+    float n2 = fbm(uvp + uSunDir.xz * 0.12 / max(uSunDir.y, 0.2)); float dens = clamp(0.5 + (n - n2) * 5.0 + (n - th) * 0.6, 0.0, 1.0);
     vec3 cc = mix(uCShade, uCLit, dens * (1.0 - 0.55 * cov));
     float fade = smoothstep(0.012, 0.16, d.y);                                                               // far clouds melt into the horizon
     c = mix(c, max(cc, uFloor * 1.2), a * fade);
@@ -97,7 +97,7 @@ void main() {
   vec3 dv = wp - cam.xyz; float dist = length(dv); vec3 d = dv / max(dist, 1e-4);
   vec3 Dm = vec3(1.0), Ad = vec3(0.0);
   if (dep >= 0.999999) {
-    Dm = vec3(0.0); Ad = skyColor(normalize((invVp * vec4(vN, 1.0, 1.0)).xyz / (invVp * vec4(vN, 1.0, 1.0)).w - cam.xyz));
+    Dm = vec3(0.0); Ad = skyColor(d);
   } else {
     // 1. undo the prototype's baked fog toward its daylight sky
     float fp = 0.0; vec3 Sd = vec3(0.0);
