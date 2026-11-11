@@ -32,6 +32,14 @@ def keep(r):
     if '1863' not in d or re.search(r'Nov|June|May', d): return False
     t = (r.get('title') or '') + ' ' + ' '.join(r.get('subjects') or [])
     return 'ettysburg' in t
+EXCL = re.compile(r'August|Nov\.|November|Hanover Junction|Pender|Sanitary Commission|Christian|General Hospital|Pennsylvania College|Dedication|Burns|Waud|prisoners|Seminary', re.I)
+STAGED = re.compile(r'sharpshooter|devil.s den', re.I)
+def flags(title):
+    f = {}
+    f['in_scope_july_1863_terrain'] = not EXCL.search(title or '')
+    f['staged_flag'] = bool(STAGED.search(title or ''))
+    if f['staged_flag']: f['staged_basis'] = 'PDF plan (BIBLE/plan-clean.txt, Devil\'s Den section): the Devil\'s Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.'
+    return f
 def main():
     cat = []
     for r in search():
@@ -44,7 +52,7 @@ def main():
             'medium': it.get('medium_brief') or (it.get('mediums') or [{}])[0].get('medium'), 'formats': [f['title'] for f in it.get('formats', [])],
             'notes_loc': [n for n in notes if not n.startswith(('Forms part', 'General information', 'Credit line', 'Selected Civil', 'Corresponding print'))],
             'rights_information': it.get('rights_information'), 'licence_basis': 'LOC record states: no known restrictions on publication (PD basis: 1863 photograph, creator d. before 1900)' if 'No known restrictions' in (it.get('rights_information') or '') else 'UNCLEAR: not used',
-            'image_urls': {'medium': it.get('service_medium'), 'thumb': it.get('thumb_gallery')}})
+            **flags(it.get('title')), 'image_urls': {'medium': it.get('service_medium'), 'thumb': it.get('thumb_gallery')}})
     cat.sort(key=lambda c: c['loc_id'])
     json.dump({'_doc': 'Q16 photograph catalogue. Source: LOC Civil War Photographs (cwp) JSON, fields copied verbatim; filter = catalogued 1863 (not Nov/June/May), Gettysburg in title or subjects. Dates/titles that LOC says come from Frassanito are LOC statements, recorded as such; no Frassanito text or image is used. Built by tools/bt/photomatch/catalogue.py', 'count': len(cat), 'photographs': cat}, open(OUT, 'w'), indent=1, ensure_ascii=False)
     print(len(cat), 'photographs')

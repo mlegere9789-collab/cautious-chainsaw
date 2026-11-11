@@ -97,10 +97,10 @@ test('bugle calls map to recordings by EXACT name only: Fatigue, Church, Drill, 
 
 test('DEC-001 as an in-page setting: setLabelMode switches badge and per-sound tags, the panel rows stay identical, unknown values change nothing, the engine follows', async () => {
   const a = await Idx.createAudio3D({ data: { sources: srcJson, commands: J(path.join(D, 'commands.json')), calls: callsJson } });
-  assert.equal(a.mode, 'pdf'); assert.ok(a.badge()); const p1 = a.panel(); assert.ok(p1.rows.every((r) => r.onSound));
-  assert.equal(a.setLabelMode('panel-only'), 'panel-only'); assert.equal(a.mode, 'panel-only'); assert.equal(a.override, true); assert.equal(a.badge(), null);
-  const p2 = a.panel(); assert.ok(p2.rows.every((r) => r.onSound == null)); assert.deepEqual(p2.rows.map((r) => [r.id, r.kind, r.tier, r.gap]), p1.rows.map((r) => [r.id, r.kind, r.tier, r.gap]), 'nothing is hidden: the panel is identical');
-  assert.equal(a.setLabelMode('nonsense'), 'panel-only'); assert.equal(a.setLabelMode('pdf'), 'pdf'); assert.equal(a.override, false);
-  const s = a.labelSetting(); assert.equal(s.decision, 'DEC-001'); assert.equal(s.default, 'pdf'); assert.deepEqual(s.options.map((o) => o.id), ['pdf', 'panel-only']); assert.match(s.decisionStatus, /OPEN/);
-  const b = await Idx.createAudio3D({ data: { sources: srcJson, commands: J(path.join(D, 'commands.json')), calls: callsJson }, search: '?audioLabel=panel-only' }); assert.equal(b.mode, 'panel-only'); assert.equal(b.override, true);
+  assert.equal(a.mode, 'panel-only'); assert.equal(a.badge(), null); const p2 = a.panel(); assert.ok(p2.rows.every((r) => r.onSound == null));
+  assert.equal(a.setLabelMode('pdf'), 'pdf'); assert.equal(a.mode, 'pdf'); assert.equal(a.override, true); assert.ok(a.badge());
+  const p1 = a.panel(); assert.ok(p1.rows.every((r) => r.onSound)); assert.deepEqual(p2.rows.map((r) => [r.id, r.kind, r.tier, r.gap]), p1.rows.map((r) => [r.id, r.kind, r.tier, r.gap]), 'nothing is hidden: the panel is identical');
+  assert.equal(a.setLabelMode('nonsense'), 'pdf'); assert.equal(a.setLabelMode('panel-only'), 'panel-only'); assert.equal(a.override, false);
+  const s = a.labelSetting(); assert.equal(s.decision, 'DEC-001'); assert.equal(s.default, 'panel-only'); assert.deepEqual(s.options.map((o) => o.id), ['pdf', 'panel-only']); assert.match(s.decisionStatus, /delegated authority/);
+  const b = await Idx.createAudio3D({ data: { sources: srcJson, commands: J(path.join(D, 'commands.json')), calls: callsJson }, search: '?audioLabel=pdf' }); assert.equal(b.mode, 'pdf'); assert.equal(b.override, true);
 });

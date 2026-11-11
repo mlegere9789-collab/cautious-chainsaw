@@ -127,8 +127,8 @@ test('scenario options carry every printed value: all 47 register rows split int
   for (const c of r) {
     const src = reg.find(x => x.id === c.id).text.split(' | ').slice(1).join(' '); assert.ok(c.printed.values != null, `${c.id} split into columns`);
     assert.equal(norm(`${c.printed.values} ${c.printed.recommended} ${c.printed.others}`), norm(src), `${c.id}: printed columns equal the register text`);
-    assert.equal(c.options[0].key, 'recommended'); assert.equal(c.options.at(-1).key, 'range'); assert.ok(c.options.length >= 3, `${c.id} offers its values`);
+    assert.equal(c.options[0].key, 'delegated'); assert.equal(c.options[1].key, 'recommended'); assert.equal(c.options.at(-1).key, 'range'); assert.ok(c.options.length >= 3, `${c.id} offers its values`);
   }
-  const c4 = r.find(c => c.id === 'C-004'); assert.deepEqual(c4.options.map(o => o.label).slice(1, -1), ['22:30 Jul 1', 'at dawn', '06:00', '07:00 Jul 2']);
+  const c4 = r.find(c => c.id === 'C-004'); assert.deepEqual(c4.options.filter(o => /^v\d/.test(o.key)).map(o => o.label), ['22:30 Jul 1', 'at dawn', '06:00', '07:00 Jul 2']);
   const w = conf.filter(c => c.kind === 'weather'); assert.ok(w.length >= 5 && w.every(c => c.options[0].key === 'recommended' && c.options.length >= 2));
 });

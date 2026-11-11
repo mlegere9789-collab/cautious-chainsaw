@@ -1,0 +1,224 @@
+{
+ "_doc": "Registered camera-pose assumptions for Q16 (one entry per photograph view). Nothing here is a measured 1863 camera position: every position, heading and focal length is an ASSUMPTION with its basis and tier. position: anchor = gazetteer place (app/data/gazetteer.json, tier inferred, sigma_m shown), snap = optional rule applied on the modern DEM (summit = highest DEM cell within snap_r_m of the anchor), offset_m = [east, north] metres. heading: toward = bearing from the camera to a gazetteer place; or fixed deg. fov_h_deg: the focal length is NOT documented in any source read; 40 deg horizontal is a generic view-camera assumption (plausible-procedural), the report states the effect of +-10 deg. agl_m: camera height above DEM, 1.6 m (tripod, assumption). The DEM is modern bare ground, not 1863 land cover (no trees, crops, 1863 contour corrections).",
+ "defaults": {
+  "fov_h_deg": 40,
+  "agl_m": 1.6,
+  "pitch_deg": 0
+ },
+ "poses": [
+  {
+   "id": "P01",
+   "photo_key": "LOC2018666303-L",
+   "loc_id": "2018666303",
+   "caption_basis": "LOC title: 'The center of the Federal position viewed from Little Round Top' (Gardner)",
+   "position": {
+    "anchor": "GZ-009",
+    "snap": "summit",
+    "snap_r_m": 150,
+    "tier": "plausible-procedural",
+    "basis": "caption names Little Round Top; the exact tripod spot is not stated in any source read"
+   },
+   "heading": {
+    "toward": "GZ-007",
+    "tier": "plausible-procedural",
+    "basis": "caption names the Federal centre; The Angle taken as its gazetteer stand-in (a Cemetery Ridge point, not a documented camera target)"
+   },
+   "photo_crop_1600": [
+    45,
+    130,
+    1560,
+    1440
+   ],
+   "photo_horizon_frac": 0.4
+  },
+  {
+   "id": "P03",
+   "photo_key": "LOC2018670702-L",
+   "loc_id": "2018670702",
+   "caption_basis": "LOC title: 'The cemetery gatehouse' (Gardner)",
+   "position": {
+    "anchor": "GZ-004",
+    "offset_m": [
+     0,
+     -35
+    ],
+    "tier": "plausible-procedural",
+    "basis": "photographer stood some distance from the Evergreen Cemetery gatehouse; distance and side not stated in the caption, 35 m south is a guess"
+   },
+   "heading": {
+    "toward": "GZ-004",
+    "tier": "inferred",
+    "basis": "the subject is the gatehouse itself"
+   },
+   "photo_crop_1600": [
+    95,
+    90,
+    1565,
+    1540
+   ]
+  },
+  {
+   "id": "P04",
+   "photo_key": "MET268204",
+   "loc_id": null,
+   "caption_basis": "Met/archive.org title 'Gettysburg from the West' (attribution in the item: O'Sullivan; date 1863)",
+   "position": {
+    "anchor": "GZ-073",
+    "offset_m": [
+     0,
+     0
+    ],
+    "snap": "summit",
+    "snap_r_m": 200,
+    "tier": "plausible-procedural",
+    "basis": "'from the West' fixes a general side of the town only; Seminary Ridge is a guess for the standpoint"
+   },
+   "heading": {
+    "toward": "GZ-072",
+    "tier": "inferred",
+    "basis": "toward the borough, from the caption"
+   },
+   "photo_crop_1600": [
+    25,
+    20,
+    1575,
+    1215
+   ],
+   "photo_horizon_frac": 0.38
+  },
+  {
+   "id": "P05",
+   "photo_key": "MET268205",
+   "loc_id": null,
+   "caption_basis": "Met/archive.org title 'Gettysburg from the West' (attribution in the item: Brady; date 1863)",
+   "position": {
+    "anchor": "GZ-073",
+    "offset_m": [
+     0,
+     0
+    ],
+    "snap": "summit",
+    "snap_r_m": 200,
+    "tier": "plausible-procedural",
+    "basis": "as P04"
+   },
+   "heading": {
+    "toward": "GZ-072",
+    "tier": "inferred",
+    "basis": "toward the borough, from the caption"
+   },
+   "photo_crop_1600": [
+    25,
+    15,
+    1575,
+    1190
+   ],
+   "photo_horizon_frac": 0.38
+  },
+  {
+   "id": "P06",
+   "photo_key": null,
+   "loc_id": "2014646001",
+   "caption_basis": "LOC title: 'View of Gettysburg from Cemetery Hill' (O'Sullivan)",
+   "position": {
+    "anchor": "GZ-003",
+    "snap": "summit",
+    "snap_r_m": 150,
+    "tier": "plausible-procedural",
+    "basis": "caption names Cemetery Hill"
+   },
+   "heading": {
+    "toward": "GZ-072",
+    "tier": "inferred",
+    "basis": "toward the borough, from the caption"
+   }
+  },
+  {
+   "id": "P07",
+   "photo_key": null,
+   "loc_id": "2018671576",
+   "caption_basis": "LOC title: 'Gettysburg from the cemetery' (Gibson)",
+   "position": {
+    "anchor": "GZ-003",
+    "snap": "summit",
+    "snap_r_m": 150,
+    "tier": "plausible-procedural",
+    "basis": "caption names the cemetery"
+   },
+   "heading": {
+    "toward": "GZ-072",
+    "tier": "inferred",
+    "basis": "toward the borough, from the caption"
+   }
+  },
+  {
+   "id": "P08",
+   "photo_key": null,
+   "loc_id": "2012647712",
+   "caption_basis": "LOC title: 'Scene of the charge of the Louisiana Tigers. View taken from Cemetery Hill at about position of right gun of Wiedrich's Battery'",
+   "position": {
+    "anchor": "GZ-005",
+    "snap": "summit",
+    "snap_r_m": 150,
+    "tier": "plausible-procedural",
+    "basis": "caption states East Cemetery Hill (Wiedrich's battery); the right gun's own coordinates are not in the repository"
+   },
+   "heading": {
+    "fixed_deg": 45,
+    "toward": null,
+    "tier": "plausible-procedural",
+    "basis": "caption gives no direction; 45 deg (north-east, toward the ground the attack crossed) is a placeholder assumption"
+   }
+  },
+  {
+   "id": "P09",
+   "photo_key": null,
+   "loc_id": "2018666302",
+   "caption_basis": "LOC title: 'Breastworks on Little Round Top; Round Top in distance' (O'Sullivan)",
+   "position": {
+    "anchor": "GZ-009",
+    "snap": "summit",
+    "snap_r_m": 150,
+    "tier": "plausible-procedural",
+    "basis": "caption names Little Round Top"
+   },
+   "heading": {
+    "toward": "GZ-010",
+    "tier": "inferred",
+    "basis": "toward Big Round Top, from the caption"
+   }
+  }
+ ],
+ "no_pose": [
+  {
+   "loc_id": "2018670894",
+   "reason": "Trostle's barn view: caption names the barn, not the camera spot or direction"
+  },
+  {
+   "loc_id": "2018666297",
+   "reason": "Lee headquarters (Thompson house): building is mapped (STR-TOWN-THOMPSON_HOUSE) but camera side and distance not stated"
+  },
+  {
+   "loc_id": "2018666301",
+   "reason": "'View of Little Round Top': camera spot not stated in the caption"
+  },
+  {
+   "loc_id": "2018666298",
+   "reason": "Bryan house: camera spot not stated"
+  },
+  {
+   "loc_id": "MET268201",
+   "reason": "Burns house: no mapped building (no Burns house in structures3d.json)"
+  },
+  {
+   "loc_id": "MET268202",
+   "reason": "'Wheat Field' title is a Harper's Weekly misnomer per the Met description; place not identified"
+  },
+  {
+   "loc_id": "2018666304",
+   "photo_key": "LOC2018666304-L",
+   "reason": "Interior view of breastworks on the extreme left: hill, spot and direction not stated in the caption; a heading would have to be fitted to the picture, which is tuning, not a documented viewpoint"
+  }
+ ],
+ "_crop_note": "photo_crop_1600 = print area inside the plate border, [x0,y0,x1,y1] in the 1600-px working copy, set by eye. photo_horizon_frac = horizon row / crop height, read by eye from the working copy (about +-0.02)."
+}

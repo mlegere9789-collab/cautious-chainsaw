@@ -1,7 +1,7 @@
 // Per-figure kit manifests (PDF B.6.12). A LINE-FOR-LINE PORT of manifest_for and its helpers in tools/bt/check_kit.py (which stays the reference and the validator): the same integer mixing
 // (sim/rng.mjs = the Python port), the same draws in the same order, so a manifest made here is bit-identical to the one Python makes for the same (soldier id, unit, seed, date, rank, role, variant).
-// tests/manifest.test.mjs compares both on golden cases written by tools/bt/gen_golden_manifests.py. The B.6.12 validator itself is NOT ported: tools/bt/check_figures.py runs it, in Python, over
-// the figures the shell actually draws (exported by tools/export-figures.mjs).
+// tests/manifest.test.mjs compares both on golden cases. The B.6.12 validator itself is NOT ported: tools/bt/check_figures.py runs it, in Python, over
+// the figures the shell actually draws (the exported list).
 // Determinism: Math.imul / >>> 0 only, no clock, no Math.random.
 import { hash4, rand, strId } from '../../../sim/rng.mjs';
 

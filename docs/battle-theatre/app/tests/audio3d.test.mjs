@@ -113,8 +113,8 @@ test('inaudible sounds are culled and counted, not made (a musket 20 km away)', 
 });
 
 // ------------------------------------------------------------------ 4. provenance flag (DEC-001)
-test('DEC-001: the default follows the PDF (marking on); the single flag turns the on-sound marking off but the panel lists everything either way', () => {
-  assert.equal(Pv.AUDIO_CONFIG.labelMode, 'pdf');
+test('DEC-001: the default is the delegated one (disclosure in the panel, nothing on the sound); the PDF marking stays selectable; the single flag turns the on-sound marking off but the panel lists everything either way', () => {
+  assert.equal(Pv.AUDIO_CONFIG.labelMode, 'panel-only');
   const fam = Cat.resolveFamilies(Object.fromEntries(J(path.join(D, 'sources.json')).sources.map((s) => [s.ledgerId, s])), new Set());
   const pdf = Pv.buildPanel(fam, { mode: 'pdf' }), own = Pv.buildPanel(fam, { mode: 'panel-only' });
   assert.ok(pdf.badge && /modern reconstruction/i.test(pdf.badge)); assert.equal(own.badge, null);
@@ -123,8 +123,8 @@ test('DEC-001: the default follows the PDF (marking on); the single flag turns t
   assert.ok(pdf.disclosure === own.disclosure && /No recording of the 1863 battle exists/.test(own.disclosure));
   assert.ok(pdf.rows.find((r) => r.id === 'small_arms').onSound !== null);
   assert.equal(Pv.onSoundMark({ kind: 'synthesized' }, 'pdf'), 'Synthesized black-powder audio: modern reconstruction'); assert.equal(Pv.onSoundMark({ kind: 'synthesized' }, 'panel-only'), null);
-  assert.deepEqual(Pv.resolveMode('panel-only'), { mode: 'panel-only', override: true }); assert.deepEqual(Pv.resolveMode(null), { mode: 'pdf', override: false }); assert.equal(Pv.modeFromSearch('?x=1&audioLabel=panel-only'), 'panel-only'); assert.equal(Pv.modeFromSearch('?audioLabel=bogus'), null);
-  assert.match(pdf.decisionStatus, /OPEN/); assert.ok(own.gaps.length >= 8, 'every gap is listed in both modes');
+  assert.deepEqual(Pv.resolveMode('panel-only'), { mode: 'panel-only', override: false }); assert.deepEqual(Pv.resolveMode(null), { mode: 'panel-only', override: false }); assert.deepEqual(Pv.resolveMode('pdf'), { mode: 'pdf', override: true }); assert.equal(Pv.modeFromSearch('?x=1&audioLabel=panel-only'), 'panel-only'); assert.equal(Pv.modeFromSearch('?audioLabel=bogus'), null);
+  assert.match(pdf.decisionStatus, /delegated authority/); assert.ok(own.gaps.length >= 8, 'every gap is listed in both modes');
 });
 test('provenance is decided by what is loaded: nothing loaded = synthesized; a loaded musket recording = real_type with its licence and credit', () => {
   const src = J(path.join(D, 'sources.json')), by = Object.fromEntries(src.sources.map((s) => [s.ledgerId, s]));
@@ -143,8 +143,8 @@ test('the ledger: every file exists with the recorded sha256, shippable is false
 });
 test('headless engine: default mode pdf, ?audioLabel=panel-only overrides and says so in the panel', async () => {
   const data = { sources: J(path.join(D, 'sources.json')), commands: J(path.join(D, 'commands.json')), calls: J(path.join(D, 'calls.json')) };
-  const a = await Idx.createAudio3D({ data }), b = await Idx.createAudio3D({ data, search: '?audioLabel=panel-only' });
-  assert.equal(a.mode, 'pdf'); assert.ok(a.badge()); assert.equal(b.mode, 'panel-only'); assert.equal(b.badge(), null); assert.match(b.panel().labelModeText, /preview override/); assert.equal(a.panel().rows.length, b.panel().rows.length);
+  const a = await Idx.createAudio3D({ data }), b = await Idx.createAudio3D({ data, search: '?audioLabel=pdf' });
+  assert.equal(a.mode, 'panel-only'); assert.equal(a.badge(), null); assert.equal(b.mode, 'pdf'); assert.ok(b.badge()); assert.match(b.panel().labelModeText, /preview override/); assert.equal(a.panel().rows.length, b.panel().rows.length);
   a.update({ battleNow: 0, listener: { pos: [0, 2, 0] }, weather: { tempF: 79, wind: { mph: [2, 6] } }, min: 600 }); a.onFire('u1', 3, 5, 'm1861_springfield', [250, 1.5, 0], [1, 0, 0]); const r = a.pump(60); assert.equal(r.voices.length, 1);
   assert.ok(Math.abs(r.voices[0].delay - 250 / Ph.speedOfSound(Ph.fToC(79))) < 0.02, 'delay uses the documented temperature');
 });

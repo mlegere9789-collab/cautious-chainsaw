@@ -49,7 +49,7 @@ test('off until started: init creates no AudioContext, no node, no timer; the la
   const { A, log } = await mk(); let made = 0; A.host.createContext = () => { made++; return mockContext().ctx; };
   assert.equal(made, 0); assert.equal(A.started, false); assert.equal(A.status().silentReason, 'off'); assert.equal(A.liveNodes(), 0); assert.equal(log.nodes.length, 1, 'only the mock destination exists');
   assert.equal(H.update(frame(1000)), 'off'); assert.equal(H.stats().liveContexts, 0);
-  const L = A.labelSetting(); assert.deepEqual(L.options.map((o) => o.id).sort(), ['panel-only', 'pdf'], 'every DEC-001 option is present'); assert.equal(L.decision, 'DEC-001'); assert.match(L.decisionStatus, /OPEN/);
+  const L = A.labelSetting(); assert.deepEqual(L.options.map((o) => o.id).sort(), ['panel-only', 'pdf'], 'every DEC-001 option is present'); assert.equal(L.decision, 'DEC-001'); assert.match(L.decisionStatus, /delegated authority/);
   assert.equal(A.settings.muted, false); clean();
 });
 
@@ -147,13 +147,13 @@ test('ambient beds start with the weather on the effects bus and fade when sound
 });
 
 test('DEC-001 as a setting: both options always present, the choice is the viewer\'s and is remembered, unknown values change nothing, the panel rows are identical in both modes', async () => {
-  const { A, storage } = await mk(); const first = A.labelMode; assert.equal(first, 'pdf', 'shipped default is the engine flag (decision still OPEN, not picked here)'); assert.ok(A.badge());
-  await A.ensureCatalog(); const pdf = A.panel(); assert.equal(pdf.labelMode, 'pdf');
-  assert.equal(A.setLabelMode('panel-only'), 'panel-only'); assert.equal(A.badge(), null); assert.equal(A.labelSetting().chosenByViewer, true); assert.equal(A.setLabelMode('nonsense'), 'panel-only');
-  const po = A.panel(); assert.equal(po.labelMode, 'panel-only'); assert.equal(po.badge, null);
+  const { A, storage } = await mk(); const first = A.labelMode; assert.equal(first, 'panel-only', 'shipped default is the engine flag (DD-14, delegated, reversible)'); assert.equal(A.badge(), null);
+  await A.ensureCatalog(); const po0 = A.panel(); assert.equal(po0.labelMode, 'panel-only');
+  assert.equal(A.setLabelMode('pdf'), 'pdf'); assert.ok(A.badge()); assert.equal(A.labelSetting().chosenByViewer, true); assert.equal(A.setLabelMode('nonsense'), 'pdf');
+  const pdf = A.panel(), po = po0; assert.equal(pdf.labelMode, 'pdf'); assert.equal(po.badge, null);
   const strip = (p) => p.rows.map(({ onSound, ...r }) => r); assert.deepEqual(strip(po), strip(pdf), 'the list is the same in both options'); assert.ok(pdf.rows.every((r) => r.onSound) && po.rows.every((r) => r.onSound === null));
-  assert.equal(JSON.parse(storage.m.get('bt.audio.settings.v1')).labelMode, 'panel-only'); assert.equal(A.labelSetting().options.length, 2); clean();
-  const { A: B } = await mk({ storage }); assert.equal(B.labelMode, 'panel-only', 'remembered in this browser'); assert.equal(B.labelSetting().default, 'pdf'); await B.start(); assert.equal(B.audio.mode, 'panel-only'); assert.equal(B.audio.engine.labelMode, 'panel-only'); B.setLabelMode('pdf'); assert.equal(B.audio.engine.labelMode, 'pdf'); clean();
+  assert.equal(JSON.parse(storage.m.get('bt.audio.settings.v1')).labelMode, 'pdf'); assert.equal(A.labelSetting().options.length, 2); clean();
+  const { A: B } = await mk({ storage }); assert.equal(B.labelMode, 'pdf', 'remembered in this browser'); assert.equal(B.labelSetting().default, 'panel-only'); await B.start(); assert.equal(B.audio.mode, 'pdf'); assert.equal(B.audio.engine.labelMode, 'pdf'); B.setLabelMode('panel-only'); assert.equal(B.audio.engine.labelMode, 'panel-only'); clean();
 });
 
 test('settings: remembered levels and mute; unavailable or corrupt storage falls back to defaults without throwing', async () => {

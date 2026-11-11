@@ -92,3 +92,9 @@ Reversibility for all of A: set the default scenario id in `conflict_defaults.js
 ## C. What only the owner can do
 Purchases (Frassanito), accounts (NARA, Ancestry), sending any NPS or FamilySearch request, licence acceptance, commissioning modern capture, raising budget caps, replacing the verbal ACW permission with written text, publishing the zip.
 
+
+## D. Added later on 2026-11-11 (DELEGATED, reversible by the owner, not owner decisions)
+
+| id | question | options | chosen default | evidence | tier | reversibility | product marking |
+|---|---|---|---|---|---|---|---|
+| DD-27 | Default renderer API of the shell | WebGPU first with WebGL2 fallback (as before); WebGL2 by default, WebGPU on request | WebGL2 by default; WebGPU only with ?api=webgpu (?api=auto asks for WebGPU first) | The weather and effects layers draw on WebGL2 only; on WebGPU the state is computed and nothing is drawn (EG-W3D-G08) and no WebGPU capture exists, so that picture has not been seen. The software WebGL2 run is the verified path (browser verification lists, staging request-log run) | n/a (a product setting) | app/src/config.mjs chooseApi; one line | status line and About panel name the renderer; the tutorial and the staging notes state the default and that WebGPU is unseen |

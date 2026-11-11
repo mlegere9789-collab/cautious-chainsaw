@@ -8,18 +8,19 @@
 //   labelMode 'panel-only' : the owner's chat wish (no 'synthesized' label on the sound). The audio badge and per-sound tags are not drawn. NOTHING is hidden:
 //                            the panel still lists every sound family with its provenance kind, licence and gap, and the provenance overlay reads the same records.
 //
-// DEC-001 is OPEN in GOVERNANCE/decision_log.md, so the default is the PDF's ('pdf'). Changing the default is the owner's decision; this file is the only place.
+// DEC-001 (option a) is recorded as a DELEGATED DECISION (decision_log DEC-DELEG-G, DD-14, reversible by the owner): the default is 'panel-only', the disclosure stands in the panel and the
+// provenance overlay, modern recordings are never called period sound, and tier marking of non-documented content stays. The PDF's marking ('pdf') stays selectable. This file is the only place.
 // A viewer may preview the other mode with ?audioLabel=panel-only; the panel then says it is a preview override.
 
 export const AUDIO_CONFIG = Object.freeze({
-  labelMode: 'pdf',                         // 'pdf' | 'panel-only'   <-- the single flag
+  labelMode: 'panel-only',                  // 'pdf' | 'panel-only'   <-- the single flag (delegated default DD-14)
   decision: 'DEC-001',
-  decisionStatus: 'OPEN (owner): default follows the PDF until decided',
+  decisionStatus: 'Default chosen under delegated authority, reversible by the owner: disclosure in the panel and the provenance overlay; the PDF marking stays selectable',
 });
 
 export const LABEL_MODES = Object.freeze({
   'pdf': 'PDF rule: audio labelled as modern reconstruction',
-  'panel-only': 'Owner preference: disclosed in the panel and provenance overlay, not on the sound',
+  'panel-only': 'Default (delegated, reversible): disclosed in the panel and provenance overlay, not on the sound',
 });
 
 /**

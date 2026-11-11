@@ -1,0 +1,1734 @@
+{
+ "label": "Default chosen under delegated authority (2026-11-11), reversible by the owner",
+ "conflicts": {
+  "C-001": {
+   "topic": "Meade reaches Gettysburg (Jul 1-2)",
+   "pdf_recommended_default": "about 01:00, then a pre-dawn inspection of the line",
+   "default_scenario_id": "C-001-DEFAULT",
+   "default_label": "about 01:00 on Jul 2, inspection of the line at first light",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-001-S1",
+     "label": "after midnight (SS1, W-D1)",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-001-S2",
+     "label": "about 04:00 (EPP)",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-001-S3",
+     "label": "PDF recommended default: about 01:00, then a pre-dawn inspection of the line",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-001-S4",
+     "label": "about 01:00 (OR, PDF)",
+     "source": "added from the primary record (nothing deleted)"
+    },
+    {
+     "id": "C-001-DEFAULT",
+     "label": "about 01:00 on Jul 2, inspection of the line at first light",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "Meade R006 p.115: \"arriving there at 1 a. m. of the 2d\"; \"So soon as it was light, I proceeded to inspect\". PDF default agrees on 01:00; its word \"pre-dawn\" is first light in Meade. 04:00 (EPP) has no OR support and stays selectable.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-002": {
+   "topic": "Humphreys reaches the field",
+   "pdf_recommended_default": "02:00",
+   "default_scenario_id": "C-002-DEFAULT",
+   "default_label": "01:00 on Jul 2 (Humphreys own report; a third value)",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-002-S1",
+     "label": "00:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-002-S2",
+     "label": "02:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-002-S3",
+     "label": "PDF recommended default: 02:00",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-002-S4",
+     "label": "01:00 (OR, added)",
+     "source": "added from the primary record (nothing deleted)"
+    },
+    {
+     "id": "C-002-DEFAULT",
+     "label": "01:00 on Jul 2 (Humphreys own report; a third value)",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "Humphreys bivouac 1 a.m. east of the Emmitsburg road. Both PDF values (00:00, 02:00) lack OR backing. PDF default 02:00 disagrees; kept selectable.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-003": {
+   "topic": "V Corps arrival Jul 2",
+   "pdf_recommended_default": "head at 08:00 near Power's Hill",
+   "default_scenario_id": "C-003-DEFAULT",
+   "default_label": "window 07:00-08:00 Jul 2 (head of column); 05:00 kept flagged",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-003-S1",
+     "label": "05:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-003-S2",
+     "label": "08:00 (head of column)",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-003-S3",
+     "label": "PDF recommended default: head at 08:00 near Power's Hill",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-003-S4",
+     "label": "07:00 (OR, added)",
+     "source": "added from the primary record (nothing deleted)"
+    },
+    {
+     "id": "C-003-DEFAULT",
+     "label": "window 07:00-08:00 Jul 2 (head of column); 05:00 kept flagged",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "Chamberlain R196 p.622-623 and Meade give about 07:00, Sykes 08:00; Slocum 05:00. OR itself conflicts, so a window not a point. PDF default (head at 08:00) lies inside it.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-004": {
+   "topic": "II Corps arrival",
+   "pdf_recommended_default": "06:00 Jul 2 (head), tails later",
+   "default_scenario_id": "C-004-DEFAULT",
+   "default_label": "window 06:30-07:00 Jul 2",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-004-S1",
+     "label": "22:30 Jul 1",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-004-S2",
+     "label": "at dawn",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-004-S3",
+     "label": "06:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-004-S4",
+     "label": "07:00 Jul 2",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-004-S5",
+     "label": "PDF recommended default: 06:00 Jul 2 (head), tails later",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-004-S6",
+     "label": "06:30 (OR, added)",
+     "source": "added from the primary record (nothing deleted)"
+    },
+    {
+     "id": "C-004-DEFAULT",
+     "label": "window 06:30-07:00 Jul 2",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "07:00 and 06:30 (Webb in position) documented; 22:30 Jul 1 contradicted by OR; 06:00 and dawn not stated. PDF default 06:00 has no stated unit basis; kept selectable. Gate: earliest documented, never earlier.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-005": {
+   "topic": "Hood at Seminary Ridge",
+   "pdf_recommended_default": "06:30",
+   "default_scenario_id": "C-005-DEFAULT",
+   "default_label": "06:30 (PDF midpoint), marked plausible-procedural, gap",
+   "tier": "plausible-procedural",
+   "basis": "gap",
+   "scenarios": [
+    {
+     "id": "C-005-S1",
+     "label": "05:30",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-005-S2",
+     "label": "06:30",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-005-S3",
+     "label": "07:30 (EPP, FREE, PADRE)",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-005-S4",
+     "label": "PDF recommended default: 06:30",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-005-S5",
+     "label": "by sunrise about 04:35 computed (memoir, inferred, added)",
+     "source": "added from the primary record (nothing deleted)"
+    },
+    {
+     "id": "C-005-DEFAULT",
+     "label": "06:30 (PDF midpoint), marked plausible-procedural, gap",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "No OR clock for Hood; Longstreet 1896 memoir has Hood/McLaws at Lee HQ area by sunrise (inferred) against Kershaw OR \"left camp about sunrise\". No value is better supported, so the PDF value is kept as first view, marked. Memoir \"by sunrise\" added as a scenario.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: plausible-procedural"
+  },
+  "C-006": {
+   "topic": "Longstreet at Lee's headquarters",
+   "pdf_recommended_default": "08:00",
+   "default_scenario_id": "C-006-DEFAULT",
+   "default_label": "pre-dawn \"stars bright\", no clock (memoir, inferred)",
+   "tier": "inferred",
+   "basis": "memoir",
+   "scenarios": [
+    {
+     "id": "C-006-S1",
+     "label": "05:15",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-006-S2",
+     "label": "08:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-006-S3",
+     "label": "\"stars bright\" (pre-dawn)",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-006-S4",
+     "label": "PDF recommended default: 08:00",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-006-DEFAULT",
+     "label": "pre-dawn \"stars bright\", no clock (memoir, inferred)",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "Longstreet 1896 raw text read: stars shining, single retrospective witness. Sunrise about 04:35, so 05:15 and 08:00 do not fit the quote. PDF default 08:00 has no source; kept selectable.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: inferred"
+  },
+  "C-007": {
+   "topic": "McLaws on the ridge",
+   "pdf_recommended_default": "08:00",
+   "default_scenario_id": "C-007-DEFAULT",
+   "default_label": "08:00 (PDF), marked plausible-procedural, gap",
+   "tier": "plausible-procedural",
+   "basis": "gap",
+   "scenarios": [
+    {
+     "id": "C-007-S1",
+     "label": "08:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-007-S2",
+     "label": "08:30",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-007-S3",
+     "label": "PDF recommended default: 08:00",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-007-DEFAULT",
+     "label": "08:00 (PDF), marked plausible-procedural, gap",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "Neither 08:00 nor 08:30 sourced; Kershaw OR (departure about sunrise, halt to noon) and the memoir disagree. Conflict carried, not resolved.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: plausible-procedural"
+  },
+  "C-008": {
+   "topic": "Lee's attack order",
+   "pdf_recommended_default": "11:00",
+   "default_scenario_id": "C-008-DEFAULT",
+   "default_label": "11:00 (Longstreet 1896 memoir; OR bound before about noon)",
+   "tier": "inferred",
+   "basis": "memoir",
+   "scenarios": [
+    {
+     "id": "C-008-S1",
+     "label": "about 09:00 (forum, weak, CWT)",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-008-S2",
+     "label": "11:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-008-S3",
+     "label": "PDF recommended default: 11:00",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-008-DEFAULT",
+     "label": "11:00 (Longstreet 1896 memoir; OR bound before about noon)",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "Single memoir witness, OR terminus ante quem about noon; 09:00 forum/CWT unsupported and flagged weak. Agrees with PDF.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: inferred"
+  },
+  "C-009": {
+   "topic": "Berdan's reconnaissance start",
+   "pdf_recommended_default": "11:15",
+   "default_scenario_id": "C-009-DEFAULT",
+   "default_label": "11:00 (Berdan own report)",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-009-S1",
+     "label": "11:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-009-S2",
+     "label": "11:15",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-009-S3",
+     "label": "noon",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-009-S4",
+     "label": "PDF recommended default: 11:15",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-009-DEFAULT",
+     "label": "11:00 (Berdan own report)",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "Berdan 11:00, Birney and Hunt noon documented; 11:15 only a timeline site. PDF default 11:15 disagrees; kept selectable.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-010": {
+   "topic": "Sickles' advance to the Peach Orchard",
+   "pdf_recommended_default": "14:00",
+   "default_scenario_id": "C-010-DEFAULT",
+   "default_label": "about 14:00 forming line (Hunt p.234); window to 16:00",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-010-S1",
+     "label": "noon",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-010-S2",
+     "label": "14:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-010-S3",
+     "label": "16:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-010-S4",
+     "label": "PDF recommended default: 14:00",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-010-S5",
+     "label": "15:00 and 15:30 (OR, added)",
+     "source": "added from the primary record (nothing deleted)"
+    },
+    {
+     "id": "C-010-DEFAULT",
+     "label": "about 14:00 forming line (Hunt p.234); window to 16:00",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "Hunt R028 p.234 \"About 2 p. m. General Sickles formed his corps in line\"; 15:00, 15:30, 16:00 documented in other reports; \"advance\" means different acts. Agrees with PDF.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-011": {
+   "topic": "Hood's attack",
+   "pdf_recommended_default": "16:30",
+   "default_scenario_id": "C-011-DEFAULT",
+   "default_label": "guns about 16:00, infantry soon afterwards (window 16:00-16:30)",
+   "tier": "inferred",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-011-S1",
+     "label": "16:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-011-S2",
+     "label": "16:30 (SS2, HESS)",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-011-S3",
+     "label": "PDF recommended default: 16:30",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-011-DEFAULT",
+     "label": "guns about 16:00, infantry soon afterwards (window 16:00-16:30)",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "Guns about 16:00 documented, infantry \"soon afterward\"; Hood filed no report; Robertson p.404. 16:30 (PDF) gap; kept selectable.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: inferred"
+  },
+  "C-012": {
+   "topic": "Vincent's lead over Law at Little Round Top",
+   "pdf_recommended_default": "10 minutes",
+   "default_scenario_id": "C-012-DEFAULT",
+   "default_label": "10 minutes (PDF), marked plausible-procedural, no source",
+   "tier": "plausible-procedural",
+   "basis": "gap",
+   "scenarios": [
+    {
+     "id": "C-012-S1",
+     "label": "10 minutes",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-012-S2",
+     "label": "15 minutes",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-012-S3",
+     "label": "PDF recommended default: 10 minutes",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-012-DEFAULT",
+     "label": "10 minutes (PDF), marked plausible-procedural, no source",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "Zero OR hits and a failed lookup for Law essay. Both values unsourced; the figure is shown only with its gap mark.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: plausible-procedural"
+  },
+  "C-013": {
+   "topic": "Chamberlain's charge",
+   "pdf_recommended_default": "17:30 (labelled inferred)",
+   "default_scenario_id": "C-013-DEFAULT",
+   "default_label": "about 17:30, labelled inferred, window 16:00 to dusk",
+   "tier": "inferred",
+   "basis": "inferred",
+   "scenarios": [
+    {
+     "id": "C-013-S1",
+     "label": "17:30",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-013-S2",
+     "label": "no clock time in the sources",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-013-S3",
+     "label": "PDF recommended default: 17:30 (labelled inferred)",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-013-DEFAULT",
+     "label": "about 17:30, labelled inferred, window 16:00 to dusk",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "No OR clock; Chamberlain: severe fight an hour before the bayonet order. Agrees with PDF; \"no clock time\" scenario selectable.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: inferred"
+  },
+  "C-014": {
+   "topic": "Prisoners taken, 20th Maine front",
+   "pdf_recommended_default": "218-368 range shown",
+   "default_scenario_id": "C-014-DEFAULT",
+   "default_label": "range 368-425 (Barnes 368; Chamberlain 400+25); 500+ brigade-wide shown separately",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-014-S1",
+     "label": "218-368",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-014-S2",
+     "label": "400+25",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-014-S3",
+     "label": "PDF recommended default: 218-368 range shown",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-014-S4",
+     "label": "368-425 (OR, added)",
+     "source": "added from the primary record (nothing deleted)"
+    },
+    {
+     "id": "C-014-DEFAULT",
+     "label": "range 368-425 (Barnes 368; Chamberlain 400+25); 500+ brigade-wide shown separately",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "Barnes 368, Chamberlain 400+25, Rice 500+; 218 has no OR source. PDF range 218-368 kept as scenario flagged unsourced low bound.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-015": {
+   "topic": "20th Maine strength",
+   "pdf_recommended_default": "385",
+   "default_scenario_id": "C-015-DEFAULT",
+   "default_label": "386 (Chamberlain: 386 all told, 358 guns)",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-015-S1",
+     "label": "385",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-015-S2",
+     "label": "386",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-015-S3",
+     "label": "PDF recommended default: 385",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-015-DEFAULT",
+     "label": "386 (Chamberlain: 386 all told, 358 guns)",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "385 not found in OR. One-man spread; PDF default 385 kept selectable. Instancing follows the chosen scenario.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-016": {
+   "topic": "48th Alabama position",
+   "pdf_recommended_default": "Little Round Top",
+   "default_scenario_id": "C-016-DEFAULT",
+   "default_label": "Little Round Top (PDF), marked gap",
+   "tier": "plausible-procedural",
+   "basis": "gap",
+   "scenarios": [
+    {
+     "id": "C-016-S1",
+     "label": "Devil's Den",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-016-S2",
+     "label": "Little Round Top",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-016-S3",
+     "label": "PDF recommended default: Little Round Top",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-016-DEFAULT",
+     "label": "Little Round Top (PDF), marked gap",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "OR names neither place; Law filed no report. Both selectable.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: plausible-procedural"
+  },
+  "C-017": {
+   "topic": "Who replaced Sickles",
+   "pdf_recommended_default": "Birney (corps), Hancock overseeing the sector",
+   "default_scenario_id": "C-017-DEFAULT",
+   "default_label": "Birney (corps), Hancock overseeing the sector",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-017-S1",
+     "label": "Birney",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-017-S2",
+     "label": "Hancock",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-017-S3",
+     "label": "PDF recommended default: Birney (corps), Hancock overseeing the sector",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-017-DEFAULT",
+     "label": "Birney (corps), Hancock overseeing the sector",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "PDF default supported exactly by OR.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-018": {
+   "topic": "Wright's brigade stopped by",
+   "pdf_recommended_default": "stopped short of the crest, attribution unresolved",
+   "default_scenario_id": "C-018-DEFAULT",
+   "default_label": "attribution unresolved; Wright claims the crest (his claim, documented as a claim)",
+   "tier": "open gap",
+   "basis": "gap",
+   "scenarios": [
+    {
+     "id": "C-018-S1",
+     "label": "Webb",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-018-S2",
+     "label": "Stannard",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-018-S3",
+     "label": "reached the crest or not",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-018-S4",
+     "label": "PDF recommended default: stopped short of the crest, attribution unresolved",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-018-DEFAULT",
+     "label": "attribution unresolved; Wright claims the crest (his claim, documented as a claim)",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "Union reports do not name him; T2-185, T2-189, T2-190. No unit is shown as stopping him by default; Webb, Stannard and crest/not crest selectable. Agrees with PDF.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: open gap"
+  },
+  "C-019": {
+   "topic": "Johnson's attack on Culp's Hill",
+   "pdf_recommended_default": "19:00",
+   "default_scenario_id": "C-019-DEFAULT",
+   "default_label": "19:00 (Greene, a few minutes before 7 p.m.)",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-019-S1",
+     "label": "19:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-019-S2",
+     "label": "19:30",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-019-S3",
+     "label": "20:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-019-S4",
+     "label": "PDF recommended default: 19:00",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-019-DEFAULT",
+     "label": "19:00 (Greene, a few minutes before 7 p.m.)",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "about 18:00 for one regiment; sunset computed 19:32. Agrees with PDF.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-020": {
+   "topic": "East Cemetery Hill assault",
+   "pdf_recommended_default": "19:30",
+   "default_scenario_id": "C-020-DEFAULT",
+   "default_label": "about 20:00, window 19:30-20:00 (Hays, Ricketts, Osborn, Wiedrich)",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-020-S1",
+     "label": "19:30",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-020-S2",
+     "label": "20:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-020-S3",
+     "label": "20:00-21:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-020-S4",
+     "label": "PDF recommended default: 19:30",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-020-S5",
+     "label": "20:00 (OR)",
+     "source": "added from the primary record (nothing deleted)"
+    },
+    {
+     "id": "C-020-DEFAULT",
+     "label": "about 20:00, window 19:30-20:00 (Hays, Ricketts, Osborn, Wiedrich)",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "Hays \"a little before 8\", Ricketts \"about 8\", Osborn \"between 7 and 8\", Wiedrich \"about 8\". PDF 19:30 inside the window; sole value 19:30 has no OR statement.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-021": {
+   "topic": "Pickett's arrival",
+   "pdf_recommended_default": "on the field the morning of Jul 3 (conservative: not shown before dawn Jul 3)",
+   "default_scenario_id": "C-021-DEFAULT",
+   "default_label": "on the field the morning of Jul 3; Q04 gate (Jul 3 04:36) not moved",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-021-S1",
+     "label": "night of Jul 2 (W-D2, PHIF)",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-021-S2",
+     "label": "Jul 3 (SS2)",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-021-S3",
+     "label": "marches from 06:00 Jul 2 (EPP)",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-021-S4",
+     "label": "no order to be up by daylight Jul 3 (W-PC)",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-021-S5",
+     "label": "PDF recommended default: on the field the morning of Jul 3 (conservative: not shown before dawn Jul 3)",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-021-S6",
+     "label": "afternoon of Jul 2 (Lee 1864, OR, added)",
+     "source": "added from the primary record (nothing deleted)"
+    },
+    {
+     "id": "C-021-DEFAULT",
+     "label": "on the field the morning of Jul 3; Q04 gate (Jul 3 04:36) not moved",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "Lee 1863 and Peyton (about 9 a.m.) give Jul 3 morning; Lee 1864 says afternoon of Jul 2; night of Jul 2 and 06:00 march have no OR. A gate is never moved earlier; earlier scenarios selectable but owner-gated.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-022": {
+   "topic": "VI Corps",
+   "pdf_recommended_default": "head 14:00, main body 17:00",
+   "default_scenario_id": "C-022-DEFAULT",
+   "default_label": "head 15:00-16:00, first brigades in action about 17:00",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-022-S1",
+     "label": "head about 14:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-022-S2",
+     "label": "main body about 17:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-022-S3",
+     "label": "PDF recommended default: head 14:00, main body 17:00",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-022-DEFAULT",
+     "label": "head 15:00-16:00, first brigades in action about 17:00",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "Meade 15:00, Wright 16:00, first brigades about 17:00. PDF 14:00 has no OR basis; kept selectable.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-023": {
+   "topic": "Stuart's arrival",
+   "pdf_recommended_default": "Stuart himself early afternoon, brigades in the evening",
+   "default_scenario_id": "C-023-DEFAULT",
+   "default_label": "Stuart himself early afternoon, brigades evening (existing arrivals gate 19:32 not moved)",
+   "tier": "plausible-procedural",
+   "basis": "gap",
+   "scenarios": [
+    {
+     "id": "C-023-S1",
+     "label": "noon-13:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-023-S2",
+     "label": "mid-afternoon",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-023-S3",
+     "label": "afternoon",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-023-S4",
+     "label": "evening",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-023-S5",
+     "label": "PDF recommended default: Stuart himself early afternoon, brigades in the evening",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-023-DEFAULT",
+     "label": "Stuart himself early afternoon, brigades evening (existing arrivals gate 19:32 not moved)",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "Date documented (Jul 2), every clock gap. PDF value kept as marked first view.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: plausible-procedural"
+  },
+  "C-024": {
+   "topic": "Council of war (Union)",
+   "pdf_recommended_default": "window 21:00-24:00",
+   "default_scenario_id": "C-024-DEFAULT",
+   "default_label": "window 21:00-24:00 (evening of Jul 2); two sittings possible",
+   "tier": "inferred",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-024-S1",
+     "label": "21:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-024-S2",
+     "label": "midnight",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-024-S3",
+     "label": "late",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-024-S4",
+     "label": "PDF recommended default: window 21:00-24:00",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-024-DEFAULT",
+     "label": "window 21:00-24:00 (evening of Jul 2); two sittings possible",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "Date documented, no start hour in OR. Agrees with PDF.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: inferred"
+  },
+  "C-025": {
+   "topic": "Geary back to Culp's Hill",
+   "pdf_recommended_default": "window 02:00-04:00",
+   "default_scenario_id": "C-025-DEFAULT",
+   "default_label": "night Jul 2-3, evening to about 01:30 (OR returns)",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-025-S1",
+     "label": "overnight",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-025-S2",
+     "label": "23:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-025-S3",
+     "label": "04:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-025-S4",
+     "label": "PDF recommended default: window 02:00-04:00",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-025-S5",
+     "label": "evening to 01:30 (OR, added)",
+     "source": "added from the primary record (nothing deleted)"
+    },
+    {
+     "id": "C-025-DEFAULT",
+     "label": "night Jul 2-3, evening to about 01:30 (OR returns)",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "Every OR return time is evening to 01:30; PDF window 02:00-04:00 lies after them. 23:00 (EPP) and 04:00 (CWN) are secondary. PDF window kept selectable, disagreement stated.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-026": {
+   "topic": "Sherfy barn fire",
+   "pdf_recommended_default": "Jul 2 evening",
+   "default_scenario_id": "C-026-DEFAULT",
+   "default_label": "Jul 2 evening (PDF), date unsourced, marked gap",
+   "tier": "plausible-procedural",
+   "basis": "gap",
+   "scenarios": [
+    {
+     "id": "C-026-S1",
+     "label": "Jul 2 evening",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-026-S2",
+     "label": "Jul 3",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-026-S3",
+     "label": "PDF recommended default: Jul 2 evening",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-026-DEFAULT",
+     "label": "Jul 2 evening (PDF), date unsourced, marked gap",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "Word Sherfy occurs 0 times in OR. Fire effect only in the marked window; Jul 3 selectable (structures scenarios exist).",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: plausible-procedural"
+  },
+  "C-027": {
+   "topic": "Buford's destination",
+   "pdf_recommended_default": "Westminster, marked unresolved",
+   "default_scenario_id": "C-027-DEFAULT",
+   "default_label": "Jul 3: Westminster (documented); Jul 2 night: place unresolved, marked",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-027-S1",
+     "label": "Taneytown",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-027-S2",
+     "label": "Westminster",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-027-S3",
+     "label": "Emmitsburg",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-027-S4",
+     "label": "PDF recommended default: Westminster, marked unresolved",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-027-DEFAULT",
+     "label": "Jul 3: Westminster (documented); Jul 2 night: place unresolved, marked",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "Largely reconciled by day and unit in the OR; the Jul 2 date label is OCR-garbled. Taneytown, Westminster, Emmitsburg all selectable.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-028": {
+   "topic": "Hunt's guns open Jul 3",
+   "pdf_recommended_default": "05:30",
+   "default_scenario_id": "C-028-DEFAULT",
+   "default_label": "two events: 04:30 batteries open (Hunt p.237), 05:30 retained as its own event",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-028-S1",
+     "label": "04:30",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-028-S2",
+     "label": "05:30",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-028-S3",
+     "label": "PDF recommended default: 05:30",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-028-DEFAULT",
+     "label": "two events: 04:30 batteries open (Hunt p.237), 05:30 retained as its own event",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "Both values are true events for different batteries. Not a pure conflict.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-029": {
+   "topic": "Cannonade end",
+   "pdf_recommended_default": "14:30",
+   "default_scenario_id": "C-029-DEFAULT",
+   "default_label": "14:30 (documented); later OR values 15:00 and 16:30-17:00 selectable",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-029-S1",
+     "label": "14:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-029-S2",
+     "label": "14:30",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-029-S3",
+     "label": "15:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-029-S4",
+     "label": "PDF recommended default: 14:30",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-029-S5",
+     "label": "16:30-17:00 (OR, added)",
+     "source": "added from the primary record (nothing deleted)"
+    },
+    {
+     "id": "C-029-DEFAULT",
+     "label": "14:30 (documented); later OR values 15:00 and 16:30-17:00 selectable",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "OR carries 14:30, about 15:00, 16:30-17:00; PDF 14:00 not an OR end hour. Agrees with PDF default.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-030": {
+   "topic": "Infantry step-off",
+   "pdf_recommended_default": "15:00",
+   "default_scenario_id": "C-030-DEFAULT",
+   "default_label": "about 15:00 (OR range 14:30-16:30 shown)",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-030-S1",
+     "label": "14:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-030-S2",
+     "label": "15:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-030-S3",
+     "label": "PDF recommended default: 15:00",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-030-S4",
+     "label": "14:30, 16:00, 16:30 (OR, added)",
+     "source": "added from the primary record (nothing deleted)"
+    },
+    {
+     "id": "C-030-DEFAULT",
+     "label": "about 15:00 (OR range 14:30-16:30 shown)",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "OR 14:30, about 15:00, 16:00, 16:30; Longstreet gives no hour. PDF 14:00 unsupported, selectable.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-031": {
+   "topic": "Culp's Hill, final charge Jul 3",
+   "pdf_recommended_default": "10:00",
+   "default_scenario_id": "C-031-DEFAULT",
+   "default_label": "10:00 (Ruger p.781); 10:30 also documented",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-031-S1",
+     "label": "10:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-031-S2",
+     "label": "noon",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-031-S3",
+     "label": "PDF recommended default: 10:00",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-031-S4",
+     "label": "10:30 (OR, added)",
+     "source": "added from the primary record (nothing deleted)"
+    },
+    {
+     "id": "C-031-DEFAULT",
+     "label": "10:00 (Ruger p.781); 10:30 also documented",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "noon not found in OR. Agrees with PDF; noon kept flagged.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-032": {
+   "topic": "East Cavalry Field fight",
+   "pdf_recommended_default": "13:00",
+   "default_scenario_id": "C-032-DEFAULT",
+   "default_label": "about noon (OR)",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-032-S1",
+     "label": "13:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-032-S2",
+     "label": "15:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-032-S3",
+     "label": "PDF recommended default: 13:00",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-032-S4",
+     "label": "about noon (OR, added)",
+     "source": "added from the primary record (nothing deleted)"
+    },
+    {
+     "id": "C-032-DEFAULT",
+     "label": "about noon (OR)",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "PDF 13:00 and 15:00 both later than OR. The earliest-value rule would pick noon, not in the PDF list; adopted here on evidence. Disagrees with PDF.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-033": {
+   "topic": "Imboden departs",
+   "pdf_recommended_default": "Jul 4 afternoon",
+   "default_scenario_id": "C-033-DEFAULT",
+   "default_label": "Jul 4, evening start (wounded train ordered off)",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-033-S1",
+     "label": "Jul 4",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-033-S2",
+     "label": "Jul 5",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-033-S3",
+     "label": "PDF recommended default: Jul 4 afternoon",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-033-DEFAULT",
+     "label": "Jul 4, evening start (wounded train ordered off)",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "OR supports Jul 4 evening; Jul 5 20:00 conflicts with Pendleton p.353. PDF \"Jul 4 afternoon\" kept selectable.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-034": {
+   "topic": "Monterey Pass wagon counts",
+   "pdf_recommended_default": "150 (range shown)",
+   "default_scenario_id": "C-034-DEFAULT",
+   "default_label": "range 40 to 500 as printed (40, 300, 400-500), scope per report",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-034-S1",
+     "label": "40",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-034-S2",
+     "label": "150",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-034-S3",
+     "label": "300",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-034-S4",
+     "label": "400-500",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-034-S5",
+     "label": "PDF recommended default: 150 (range shown)",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-034-S6",
+     "label": "40-500 range (OR, added)",
+     "source": "added from the primary record (nothing deleted)"
+    },
+    {
+     "id": "C-034-DEFAULT",
+     "label": "range 40 to 500 as printed (40, 300, 400-500), scope per report",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "Three OR values; PDF 150 has no OR source. No headline number; 150 kept flagged unsourced.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-035": {
+   "topic": "Falling Waters prisoners",
+   "pdf_recommended_default": "500",
+   "default_scenario_id": "C-035-DEFAULT",
+   "default_label": "500-511 (Buford over 500; Gamble about 511, 61 turned to Kilpatrick)",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-035-S1",
+     "label": "500",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-035-S2",
+     "label": "1,000-2,000",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-035-S3",
+     "label": "PDF recommended default: 500",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-035-S4",
+     "label": "511 (OR, added)",
+     "source": "added from the primary record (nothing deleted)"
+    },
+    {
+     "id": "C-035-DEFAULT",
+     "label": "500-511 (Buford over 500; Gamble about 511, 61 turned to Kilpatrick)",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "1,000-2,000 secondary only, plausible-procedural, selectable. 511 added.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-036": {
+   "topic": "Williamsport date",
+   "pdf_recommended_default": "Jul 6",
+   "default_scenario_id": "C-036-DEFAULT",
+   "default_label": "Jul 6 (documented); Jul 7 shown with the contradiction",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-036-S1",
+     "label": "Jul 6",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-036-S2",
+     "label": "Jul 7",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-036-S3",
+     "label": "PDF recommended default: Jul 6",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-036-DEFAULT",
+     "label": "Jul 6 (documented); Jul 7 shown with the contradiction",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "Jul 7 contradicted by OR but not deleted. Agrees with PDF.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-037": {
+   "topic": "Barksdale's death",
+   "pdf_recommended_default": "Jul 2 (wounded), death Jul 2-3 shown as a range",
+   "default_scenario_id": "C-037-DEFAULT",
+   "default_label": "wounded Jul 2 (documented); death Jul 2-3 as a range, marked gap",
+   "tier": "open gap",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-037-S1",
+     "label": "Jul 2",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-037-S2",
+     "label": "Jul 3",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-037-S3",
+     "label": "PDF recommended default: Jul 2 (wounded), death Jul 2-3 shown as a range",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-037-DEFAULT",
+     "label": "wounded Jul 2 (documented); death Jul 2-3 as a range, marked gap",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "No OR date of death; Lee 1863 \"killed\", Lee 1864 \"mortally wounded\". Agrees with PDF.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: open gap"
+  },
+  "C-038": {
+   "topic": "Spangler Farm wounded",
+   "pdf_recommended_default": "1,500",
+   "default_scenario_id": "C-038-DEFAULT",
+   "default_label": "range 1,000-2,000, all five values listed, no headline number",
+   "tier": "open gap",
+   "basis": "gap",
+   "scenarios": [
+    {
+     "id": "C-038-S1",
+     "label": "1,000",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-038-S2",
+     "label": "1,500",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-038-S3",
+     "label": "1,800",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-038-S4",
+     "label": "1,900",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-038-S5",
+     "label": "2,000",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-038-S6",
+     "label": "PDF recommended default: 1,500",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-038-DEFAULT",
+     "label": "range 1,000-2,000, all five values listed, no headline number",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "No primary or institutional count found. PDF 1,500 kept selectable.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: open gap"
+  },
+  "C-039": {
+   "topic": "Hancock arrives Jul 1",
+   "pdf_recommended_default": "about 15:00-16:00",
+   "default_scenario_id": "C-039-DEFAULT",
+   "default_label": "about 15:00-16:00",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-039-S1",
+     "label": "about 15:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-039-S2",
+     "label": "before 16:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-039-S3",
+     "label": "16:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-039-S4",
+     "label": "16:30",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-039-S5",
+     "label": "PDF recommended default: about 15:00-16:00",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-039-DEFAULT",
+     "label": "about 15:00-16:00",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "All four values occur in or are compatible with the OR. Agrees with PDF.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-040": {
+   "topic": "Reynolds' death",
+   "pdf_recommended_default": "10:30",
+   "default_scenario_id": "C-040-DEFAULT",
+   "default_label": "window 10:15-11:15 (OR values mutually inconsistent)",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-040-S1",
+     "label": "10:15",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-040-S2",
+     "label": "10:30",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-040-S3",
+     "label": "10:40-10:50",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-040-S4",
+     "label": "PDF recommended default: 10:30",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-040-S5",
+     "label": "11:15 and 11:30 (OR, added)",
+     "source": "added from the primary record (nothing deleted)"
+    },
+    {
+     "id": "C-040-DEFAULT",
+     "label": "window 10:15-11:15 (OR values mutually inconsistent)",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "OR: shot about 10:15, killed 11:15, news 11:30; PDF 10:30 and 10:40-10:50 not in OR. 11:15 and 11:30 approved as added scenarios. PDF 10:30 plausible-procedural, selectable.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-041": {
+   "topic": "Rodes' attack start",
+   "pdf_recommended_default": "14:00",
+   "default_scenario_id": "C-041-DEFAULT",
+   "default_label": "14:00 inside window 13:30-14:30 (inferred)",
+   "tier": "inferred",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-041-S1",
+     "label": "13:30",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-041-S2",
+     "label": "14:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-041-S3",
+     "label": "14:30",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-041-S4",
+     "label": "PDF recommended default: 14:00",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-041-DEFAULT",
+     "label": "14:00 inside window 13:30-14:30 (inferred)",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "No Rodes clock in OR; Doubleday about 13:30 for Ewell advance. Union/Confederate clock offset about 20 min (B.2.2) not applied.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: inferred"
+  },
+  "C-042": {
+   "topic": "Lee on the field Jul 1",
+   "pdf_recommended_default": "13:30",
+   "default_scenario_id": "C-042-DEFAULT",
+   "default_label": "13:30 (PDF), marked gap",
+   "tier": "plausible-procedural",
+   "basis": "gap",
+   "scenarios": [
+    {
+     "id": "C-042-S1",
+     "label": "13:30 (SS1)",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-042-S2",
+     "label": "14:30 (W-D1)",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-042-S3",
+     "label": "PDF recommended default: 13:30",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-042-DEFAULT",
+     "label": "13:30 (PDF), marked gap",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "No OR hour; both secondary.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: plausible-procedural"
+  },
+  "C-043": {
+   "topic": "Union retreat order Jul 1",
+   "pdf_recommended_default": "16:00",
+   "default_scenario_id": "C-043-DEFAULT",
+   "default_label": "16:00 inside documented window 15:45-17:00",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-043-S1",
+     "label": "15:45",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-043-S2",
+     "label": "16:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-043-S3",
+     "label": "16:30",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-043-S4",
+     "label": "17:00",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-043-S5",
+     "label": "PDF recommended default: 16:00",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-043-S6",
+     "label": "15:45 and 17:00 (OR, added)",
+     "source": "added from the primary record (nothing deleted)"
+    },
+    {
+     "id": "C-043-DEFAULT",
+     "label": "16:00 inside documented window 15:45-17:00",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "Wadsworth 15:45, about 16:00, nearly 17:00 are related but different orders; 16:30 secondary. Agrees with PDF.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-044": {
+   "topic": "Camp Letterman opening",
+   "pdf_recommended_default": "Jul 20",
+   "default_scenario_id": "C-044-DEFAULT",
+   "default_label": "Jul 20",
+   "tier": "inferred",
+   "basis": "institutional",
+   "scenarios": [
+    {
+     "id": "C-044-S1",
+     "label": "Jul 20",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-044-S2",
+     "label": "Jul 22",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-044-S3",
+     "label": "PDF recommended default: Jul 20",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-044-DEFAULT",
+     "label": "Jul 20",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "NPS institutional page for Jul 20; Jul 22 not retrieved. The PDF itself prints Jul 22 with Jul 20 flagged elsewhere (B.2.3 p.55); internal inconsistency stated.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: inferred"
+  },
+  "C-045": {
+   "topic": "Wind on Jul 2-3",
+   "pdf_recommended_default": "2 mph (light)",
+   "default_scenario_id": "C-045-DEFAULT",
+   "default_label": "light wind, render range 2-6 mph (includes 2 mph)",
+   "tier": "plausible-procedural",
+   "basis": "gap",
+   "scenarios": [
+    {
+     "id": "C-045-S1",
+     "label": "12 mph",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-045-S2",
+     "label": "2 mph",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-045-S3",
+     "label": "PDF recommended default: 2 mph (light)",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-045-S4",
+     "label": "2-6 mph (PDF weather section, added)",
+     "source": "added from the primary record (nothing deleted)"
+    },
+    {
+     "id": "C-045-DEFAULT",
+     "label": "light wind, render range 2-6 mph (includes 2 mph)",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "No wind speed in OR; PDF register says 2 mph, PDF weather section 2-6 mph. The range covers both; 12 mph selectable.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: plausible-procedural"
+  },
+  "C-046": {
+   "topic": "Dead counts (battle)",
+   "pdf_recommended_default": "range shown",
+   "default_scenario_id": "C-046-DEFAULT",
+   "default_label": "range with declared basis: OR returns plus the full source spread; no headline number",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-046-S1",
+     "label": "several totals in the notes",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-046-S2",
+     "label": "PDF recommended default: range shown",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-046-DEFAULT",
+     "label": "range with declared basis: OR returns plus the full source spread; no headline number",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "Guild Confederate killed 2,592 (OR); every PDF total secondary. Basis declared with each figure.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  },
+  "C-047": {
+   "topic": "Strength and casualty totals",
+   "pdf_recommended_default": "range shown",
+   "default_scenario_id": "C-047-DEFAULT",
+   "default_label": "printed unit strength figure drives instancing (DEC-008 item 1); army-level spread shown as range",
+   "tier": "documented",
+   "basis": "OR",
+   "scenarios": [
+    {
+     "id": "C-047-S1",
+     "label": "several totals in the notes",
+     "source": "conflict_register / PDF B.2.5 value"
+    },
+    {
+     "id": "C-047-S2",
+     "label": "PDF recommended default: range shown",
+     "source": "PDF B.2.5"
+    },
+    {
+     "id": "C-047-DEFAULT",
+     "label": "printed unit strength figure drives instancing (DEC-008 item 1); army-level spread shown as range",
+     "source": "default chosen under delegated authority"
+    }
+   ],
+   "rationale": "OR Union casualty grand total 23,049 (OCR single cell), Guild 2,592/12,709; OR strength tables unreadable. Soldiers stay one-to-one with the chosen strength; no capping.",
+   "product_label": "Default chosen under delegated authority (2026-11-11), reversible by the owner; tier: documented"
+  }
+ }
+}

@@ -13,6 +13,7 @@ import { smooth, clamp } from './qmath.mjs';
 import { gaitId } from './library.mjs';
 import { VARIANTS } from './variants.mjs';
 import { gaitBasis, mountedGait, mountedRate, GAIT_NAMES } from './gaits.mjs';
+import { LED, mountRoles, horseDownWithRider, HORSE_LOSS } from '../history/cavalry.mjs';       // ws10: led horses, horse-holders, the horse that goes down with its rider
 
 export const CONTRACT_ACTIVITIES = ['march', 'double_quick', 'halt', 'stand', 'rest', 'fire', 'serve_guns', 'gallop', 'build_works', 'camp'];
 export const EXTRA_ACTIVITIES = ['advance', 'retreat', 'charge', 'skirmish', 'night_camp', 'picket', 'wounded_walk', 'carry_wounded', 'walk', 'trot', 'canter', 'halt_mounted', 'cheer', 'bury'];
@@ -35,9 +36,10 @@ export function figureVariation(v, k, seed, out = {}) {
 // the result of clipAt: a FIXED-shape record (a, b, h: clip indices; the times / weight / rate live in ONE Float64Array `d` [ta, tb, w, th, rate] so that no store of a double can allocate a heap number, whatever tier V8 has compiled
 // the caller in: a double stored into an object field was measured to cost 16 bytes per store in optimised code, 11 stores = 177 B per clipAt, depending on the tier and on inlining (DEC-ANIM-03).
 // a: clip index of the main clip, ta: its time; b, tb, w: the clip blended in and its weight (b = -1: none); h, th: the horse clip of a mounted figure; rate: playback rate. ta, tb, w, th, rate stay readable as properties. Callers must pass one of these.
-export const SEL_TA = 0, SEL_TB = 1, SEL_W = 2, SEL_TH = 3, SEL_RATE = 4;
+export const SEL_TA = 0, SEL_TB = 1, SEL_W = 2, SEL_TH = 3, SEL_RATE = 4, SEL_HX = 5, SEL_HZ = 6, SEL_MZ = 7;
+// ws10 (cavalry): ClipSel.m = 0 the figure rides (or is not cavalry); 1 afoot, his horse is led to the rear; 2 afoot holding horses. d[SEL_HX], d[SEL_HZ]: the horse's offset from the figure's slot, metres, in the unit's frame (x right, z ahead); d[SEL_MZ]: the man's own offset ahead (a holder stands with the horses).
 export class ClipSel {
-  constructor() { this.a = 0; this.b = -1; this.h = -1; this.d = new Float64Array(5); this.d[SEL_RATE] = 1; }
+  constructor() { this.a = 0; this.b = -1; this.h = -1; this.m = 0; this.d = new Float64Array(8); this.d[SEL_RATE] = 1; }
   get ta() { return this.d[SEL_TA]; } set ta(v) { this.d[SEL_TA] = v; } get tb() { return this.d[SEL_TB]; } set tb(v) { this.d[SEL_TB] = v; } get w() { return this.d[SEL_W]; } set w(v) { this.d[SEL_W] = v; }
   get th() { return this.d[SEL_TH]; } set th(v) { this.d[SEL_TH] = v; } get rate() { return this.d[SEL_RATE]; } set rate(v) { this.d[SEL_RATE] = v; }
 }
@@ -46,7 +48,7 @@ class Slot { constructor() { this.c = 0; this.d = new Float64Array(1); } get t()
 // a segment of a unit's activity timeline with a FIXED shape (monomorphic property access in the hot path)
 export class Seg {
   constructor(s) {
-    this.t0 = s.t0; this.activity = s.activity; this.speed = s.speed ?? 0; this.route = !!s.route; this.posture = s.posture || 'stand'; this.plan = s.plan || null; this.night = !!s.night; this.carry = s.carry || ''; this.dismounted = !!s.dismounted;
+    this.t0 = s.t0; this.activity = s.activity; this.speed = s.speed ?? 0; this.route = !!s.route; this.posture = s.posture || 'stand'; this.plan = s.plan || null; this.night = !!s.night; this.carry = s.carry || ''; this.dismounted = !!s.dismounted; this.dm = s.dm || 0; this.roles = null;
     this.surface = s.surface || ''; this.lengthM = s.lengthM || 0; this.mode = s.mode || ''; this.i = 0; this.prev = null; this.kind = ''; this.g = null; this.phi0 = 0; this.blend = 0.3; this.cid = null; this.cidx = null; this.gi = 0; this.mr = 1;
   }
 }
@@ -54,6 +56,7 @@ export class UnitAnimator {
   constructor(lib, o) {
     this.lib = lib; this.gb = gaitBasis(o.gaitBasis || 'modern_range'); this.unitId = o.unitId; this.n = o.n; this.seed = o.seed ?? 1863; this.arm = o.arm || 'infantry'; this.cpg = o.crewPerGun || 8;
     this.varOf = o.variation || (() => 0.5); this.segs = []; this.fallT = null; this.fate = null; this.var = []; this.ids = {};
+    this.cav = this.arm === 'cavalry'; this.horseP = o.horseWithRider ?? HORSE_LOSS.perMan.point; this.horseDown = null;     // ws10: p = the share of fallen troopers whose horse goes down with them (history/cavalry.mjs, EG-CAV-02)
     this.vphase = new Float64Array(this.n); this.vrate = new Float64Array(this.n); this.vscale = new Float64Array(this.n); this.vstyle = new Uint8Array(this.n); this.vpick = new Float64Array(this.n);
     const tmp = {}; for (let k = 0; k < this.n; k++) { figureVariation(this.varOf(k), k, this.seed, tmp); this.vphase[k] = tmp.phase; this.vrate[k] = tmp.rate; this.vscale[k] = tmp.scale; this.vstyle[k] = tmp.style; this.vpick[k] = tmp.pick; }
     // variants (variants.mjs): vt[clipIndex * VARIANTS + v] = the clip index of variant v of that clip (-1: none); vk[k] = the variant this figure plays, drawn from the manifest scalar through an integer hash (stream 15)
@@ -67,7 +70,7 @@ export class UnitAnimator {
     this.nomStart = {}; { let t = 0; for (const s of CYCLE_STEPS) { this.nomStart[s] = t; t += this.nomD[s]; } }
     this.actD = {}; this.actStart = {}; this.iFall = FALL_STYLES.map(st => this.idx('fall_' + st)); this.iLie = { dead: {}, wounded: {} }; for (const e of ['back', 'front', 'side_left', 'side_right']) { this.iLie.dead[e] = this.idx('lie_dead_' + e); this.iLie.wounded[e] = this.idx('lie_wounded_' + e); }
     this.iGun = ROLE_ORDER.map(r => this.idx('gun_crew_' + r)); this.iRider = {}; this.iHorse = {}; for (const g of ['walk', 'trot', 'canter', 'gallop']) { this.iRider[g] = this.idx('rider_' + g); this.iHorse[g] = this.idx('horse_' + g); }
-    this.iRiderCarry = this.idx('rider_sabre_carry'); this.iRiderCarbine = this.idx('rider_carbine_fire'); this.iHorseIdle = this.idx('horse_idle'); this.iLitterF = this.idx('carry_litter_front'); this.iLitterR = this.idx('carry_litter_rear');
+    this.iHolder = this.idx('horse_holder'); this.iHorseFall = this.idx('horse_fall'); this.iRiderCarry = this.idx('rider_sabre_carry'); this.iRiderCarbine = this.idx('rider_carbine_fire'); this.iHorseIdle = this.idx('horse_idle'); this.iLitterF = this.idx('carry_litter_front'); this.iLitterR = this.idx('carry_litter_rear');
     this.iStandShoulder = this.idx('stand_shoulder'); this.iStandOrder = this.idx('stand_order'); this.iStandRss = this.idx('stand_rss'); this.iStandRest = this.idx('stand_rest'); this.iReady = this.idx('ready_from_shoulder'); this.iShoulderReady = this.idx('shoulder_from_ready');
     this.iFire = { fire_cycle_stand: this.idx('fire_cycle_stand'), fire_cycle_kneel: this.idx('fire_cycle_kneel'), fire_cycle_lie: this.idx('fire_cycle_lie') }; this.iWork = ['dig_shovel', 'dig_shovel', 'chop_axe', 'lay_stone', 'march_carry_rail'].map(id => this.idx(id));
     this.dArr = new Float64Array(14); this.nomDA = Float64Array.from(CYCLE_STEPS.map(id => this.nomD[id])); this.nomStartA = Float64Array.from(CYCLE_STEPS.map(id => this.nomStart[id]));
@@ -77,7 +80,7 @@ export class UnitAnimator {
   setSegments(segs) {
     this.segs = segs.map(s => new Seg(s)).sort((a, b) => a.t0 - b.t0); let phi = 0, prevMarch = false;
     this.segs.forEach((s, i) => {
-      s.i = i; s.prev = i > 0 ? this.segs[i - 1] : null; s.kind = this._kind(s);
+      s.i = i; s.prev = i > 0 ? this.segs[i - 1] : null; s.kind = this._kind(s); if (this.cav && s.dm > 0) s.roles = mountRoles(this.unitId, this.n, s.dm, this.seed);
       if (s.kind === 'march') { const g = this.pickGait(s.speed, s.route, s.activity); s.g = g; s.phi0 = prevMarch ? phi : 0; const nxt = this.segs[i + 1]; if (nxt) { phi = s.phi0 + (nxt.t0 - s.t0) * g.freq; } prevMarch = true; }
       else prevMarch = false;
       if (s.kind === 'mounted') { s.gi = mountedGait(this.gb, s.speed); s.mr = mountedRate(this.gb, s.gi, s.speed); }   // gaits.mjs: the gait clip and its cadence for this ground speed
@@ -87,9 +90,14 @@ export class UnitAnimator {
     });
     return this;
   }
-  setFalls(fallT, fate) { this.fallT = fallT; this.fate = fate; return this; }                // fallT[k] in sim seconds (Infinity = never), fate[k]: 0 killed, 1 wounded
+  setFalls(fallT, fate) {
+    this.fallT = fallT; this.fate = fate; this.horseDown = null;
+    if (this.cav && fallT) { const hd = this.horseDown = new Uint8Array(this.n); for (let k = 0; k < this.n; k++) if (fallT[k] < Infinity && horseDownWithRider(this.unitId, k, this.seed, this.horseP)) hd[k] = 1; }
+    return this;
+  }                // fallT[k] in sim seconds (Infinity = never), fate[k]: 0 killed, 1 wounded
   _kind(s) {
     const a = s.activity;
+    if (this.cav && s.dm > 0 && (a === 'fire' || a === 'skirmish' || a === 'stand' || a === 'halt' || a === 'halt_mounted' || a === 'rest')) return 'dismount';       // ws10: part of the regiment fights afoot, the horses are led to the rear
     if (a === 'fire' || a === 'skirmish') return this.arm === 'cavalry' && s.dismounted !== true ? 'mounted_fire' : 'fire';
     if (a === 'serve_guns') return 'guns'; if (a === 'march' || a === 'double_quick' || a === 'advance' || a === 'retreat' || a === 'charge' || a === 'wounded_walk') return this.arm === 'cavalry' && !s.dismounted ? 'mounted' : 'march';
     if (a === 'gallop' || a === 'walk' || a === 'trot' || a === 'canter') return 'mounted'; if (a === 'build_works' || a === 'bury') return 'work'; if (a === 'camp' || a === 'night_camp' || a === 'picket') return 'camp';
@@ -121,11 +129,35 @@ export class UnitAnimator {
 
   // ---- the pure evaluation. out: ClipSel { a, b, h, d[ta, tb, w, th, rate] } (clip indices into lib.order, clip times in seconds; b = -1 when no blend; h = horse clip for mounted figures, -1 otherwise)
   // Allocation: every double is written into a Float64Array (out.d, A.d, wv, loc) and never passed as an argument to a non-inlined call or stored in an object field, so the update allocates (almost) nothing in any V8 tier.
-  clipAt(k, t, out) {
-    const od = out.d, Ad = this.A.d; out.b = -1; od[SEL_W] = 0; out.h = -1; od[SEL_TH] = 0; od[SEL_TB] = 0; od[SEL_RATE] = 1;
+  clipAt(k, t, out) { this._clip(k, t, out); if (this.cav) this._mountHorse(k, t, out); return out; }
+  // ---- ws10 cavalry. The dismounted arrangement in force at t: the segment itself, or (for LED_S after it ends) the one before it, because the horses are led forward again before the men mount
+  _dmSeg(t, seg) { if (!seg) return null; if (seg.dm > 0) return seg; const p = seg.prev; return p && p.dm > 0 && t - seg.t0 < LED.led_s ? p : null; }
+  _dmMan(dseg, seg, k, t, A, out) {
+    const role = dseg.roles[k], Ad = A.d, od = out.d;
+    if (role === 0) { A.c = this.iRiderCarry; Ad[0] = t + this.vphase[k] * 3; }
+    else if (role === 2) { A.c = this.iHolder; Ad[0] = (t - dseg.t0) * this.vrate[k] + this.vphase[k] * 6; }
+    else if (seg === dseg && seg.activity === 'fire') this._fire(seg, k, t, A);
+    else { A.c = this.iStandShoulder; Ad[0] = (t - dseg.t0) * this.vrate[k] + this.vphase[k] * 6; }
+    out.a = A.c; od[SEL_TA] = Ad[0];
+    if (seg === dseg && seg.prev && t - seg.t0 < seg.blend) { this._eval(seg.prev, k, t, this.Bq, null); out.b = this.Bq.c; od[SEL_TB] = this.Bq.d[0]; od[SEL_W] = 1 - smooth(0, seg.blend, t - seg.t0); }
+  }
+  // the horse of a cavalry figure: led to the rear (and back) for a man afoot; down with its rider when the rider falls (history/cavalry.mjs EG-CAV-02); standing when the rider fell and it did not
+  _mountHorse(k, t, out) {
+    const od = out.d, si = this.segIndexAt(t), seg = si >= 0 ? this.segs[si] : null, dseg = this._dmSeg(t, seg), ft = this.fallT ? this.fallT[k] : Infinity, role = dseg ? dseg.roles[k] : 0;
+    if (role === 0) {
+      if (ft <= t) { if (this.horseDown && this.horseDown[k]) { out.h = this.iHorseFall; od[SEL_TH] = t - ft; } else { out.h = this.iHorseIdle; od[SEL_TH] = t + this.vphase[k] * 6; } }
+      return;
+    }
+    const u = dseg === seg ? (t - seg.t0) / LED.led_s : (t - seg.t0) / LED.led_s, sm = u <= 0 ? 0 : u >= 1 ? 1 : u * u * (3 - 2 * u), led = dseg === seg ? sm : 1 - sm, moving = u > 0 && u < 1;
+    out.m = role; od[SEL_HX] = 0; od[SEL_HZ] = -LED.back_m * led; od[SEL_MZ] = role === 2 ? od[SEL_HZ] : 0;
+    out.h = moving ? this.iHorse.walk : this.iHorseIdle; od[SEL_TH] = moving ? (u * LED.led_s) % MOUNT_T.walk : t + this.vphase[k] * 6;
+  }
+  _clip(k, t, out) {
+    const od = out.d, Ad = this.A.d; out.b = -1; od[SEL_W] = 0; out.h = -1; out.m = 0; od[SEL_TH] = 0; od[SEL_TB] = 0; od[SEL_RATE] = 1; od[SEL_HX] = 0; od[SEL_HZ] = 0; od[SEL_MZ] = 0;
     const ft = this.fallT ? this.fallT[k] : Infinity;
     const si = this.segIndexAt(t), seg = si >= 0 ? this.segs[si] : null;
     if (ft <= t) { this._fall(k, t, ft, seg, out); this._variant(k, out); return out; }
+    if (this.cav) { const dseg = this._dmSeg(t, seg); if (dseg) { this._dmMan(dseg, seg, k, t, this.A, out); this._variant(k, out); return out; } }
     if (!seg) { this.A.c = this.iStandShoulder; Ad[0] = t + this.vphase[k] * 6; out.a = this.A.c; od[SEL_TA] = Ad[0]; return out; }
     this._eval(seg, k, t, this.A, out); out.a = this.A.c; od[SEL_TA] = Ad[0];
     if (seg.prev && t - seg.t0 < seg.blend) { this._eval(seg.prev, k, t, this.Bq, null); out.b = this.Bq.c; od[SEL_TB] = this.Bq.d[0]; od[SEL_W] = 1 - smooth(0, seg.blend, t - seg.t0); }       // weight of the OLD clip B: 1 at the change, 0 when the blend ends

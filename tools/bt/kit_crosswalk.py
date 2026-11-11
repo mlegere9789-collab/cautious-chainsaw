@@ -76,7 +76,7 @@ def main():
         if p and p in inv and len(inv[p]) == 1 and by[p]['level'] == 'brigade':
             put(hid, inv[p][0], 'brigade', 'the record of its brigade %s' % p); continue
         put(hid, None, 'default', 'no kit record for this unit or its brigade')
-    doc = {'_doc': 'Built by tools/bt/kit_crosswalk.py. kit: the kit unit id whose spec the unit’s figures use, or null (then the default of the unit’s army and arm, tier plausible-procedural). Never guessed: aliases carry their evidence.',
+    doc = {'_doc': 'Crosswalk of the history units to the kit specifications. kit: the kit unit id whose spec the unit’s figures use, or null (then the default of the unit’s army and arm, tier plausible-procedural). Never guessed: aliases carry their evidence.',
            'counts': dict(sorted(counts.items())), 'units': dict(sorted(out.items()))}
     with open(OUT, 'w', encoding='utf-8') as f:
         json.dump(doc, f, ensure_ascii=False, indent=0)

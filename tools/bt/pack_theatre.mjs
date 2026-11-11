@@ -1,8 +1,10 @@
 // Packs the Battle Theatre page shell (docs/battle-theatre/app) as a separate, drag-and-drop-able staging site.
 //   node tools/bt/pack_theatre.mjs [--out deliver/bt-staging/dist] [--zip-dir deliver] [--no-zip]
 // Emits a deterministic dist (same inputs -> same bytes, same zip, same hash): the shell plus exactly the sibling files it loads at runtime,
-// found by tracing (1) the ES-module import graph from app/src/main.mjs and (2) every `URLS.<key> + 'file'` literal in the modules of that graph,
-// plus the renderer's terrain folder. The directory layout of docs/battle-theatre is kept (the shell resolves its siblings by relative URL), so
+// found by tracing (1) the ES-module import graph from app/src/main.mjs (static import, export-from, import('...')), (2) every `URLS.<key> + 'file'` literal and
+// `URLS.<key> + \`prefix${...}\`` template in the modules of that graph (a path that ends in '/' or is a prefix takes the whole folder / every file with that prefix),
+// (3) `new URL('relative', import.meta.url)` and fetch('literal') references, (4) the explicit INCLUDE list of data the features load through a base path the scan cannot
+// follow (audio and animation data, the figures' data), plus the renderer's terrain folder. The result is checked by a REAL run: tools/bt/verify_staging.mjs. The directory layout of docs/battle-theatre is kept (the shell resolves its siblings by relative URL), so
 // nothing is rewritten except app/index.html (home links, noindex, build stamp). Nothing is uploaded or deployed by this tool.
 import fs from 'node:fs'; import path from 'node:path'; import crypto from 'node:crypto'; import zlib from 'node:zlib'; import { fileURLToPath } from 'node:url';
 
@@ -16,29 +18,47 @@ const posix = p => p.split(path.sep).join('/');
 export const URL_KEYS = { app: 'app/', proto: 'render/prototype/', gov: 'GOVERNANCE/', env: 'environment/', data: 'app/data/', hist: 'history/', structures: 'structures/', kit: 'kit/' };
 // loaded through a base path the literal scan cannot see (renderer: base + 'data/aerial.jpg', world: terrain.json / height.bin)
 export const EXTRA_DIRS = ['render/prototype/data'];
+// explicit include list (dynamic loads the scan cannot see; each entry is a folder or file under docs/battle-theatre, relative to it). Verified by tools/bt/verify_staging.mjs.
+export const INCLUDE = ['app/data/audio3d', 'app/data/anim3d', 'app/data/fx3d'];
+// files of a folder that no feature of the shell loads (checked by the same real run); left out to keep the zip small
+export const EXCLUDE = [];
 // not loaded by the shell today; listed in the manifest so the owner can see they were considered, never shipped
 export const NOT_LOADED = ['GOVERNANCE/timeline_verified.jsonl', 'GOVERNANCE/decisions/conflict_defaults.json'];
 
 const IMPORT_RE = /(?:import|export)\s*(?:[^'";]*?\sfrom\s*)?['"]([^'"]+)['"]|import\(\s*['"]([^'"]+)['"]\s*\)/g;
 const URLS_RE = /URLS\.([a-z]+)\s*\+\s*'([^']+)'/g;
+const URLS_TPL_RE = /URLS\.([a-z]+)\s*\+\s*`([^`$]*)/g;                       // URLS.data + `figures3d/${name}.json` : the literal prefix before the first ${
+const META_RE = /new URL\(\s*'([^']+)'\s*,\s*import\.meta\.url\s*\)/g;               // new URL('../../data/audio3d/', import.meta.url)
+const FETCH_RE = /fetch\(\s*'([^':]+)'\s*\)/g;                                       // fetch('relative/file.json')
 
 function walk(dir) { const o = []; for (const e of fs.readdirSync(dir, { withFileTypes: true }).sort((a, b) => a.name < b.name ? -1 : 1)) { const p = path.join(dir, e.name); if (e.isDirectory()) o.push(...walk(p)); else o.push(p); } return o; }
 
 export function trace() {
   const files = new Set(), problems = [], seen = new Set();
-  const add = (abs, why) => { if (fs.existsSync(abs) && fs.statSync(abs).isDirectory() && /URLS\.data/.test(why)) { let any = false; for (const f of walk(abs)) { files.add(f); any = true; } if (any) return true; } if (!fs.existsSync(abs) || fs.statSync(abs).isDirectory()) { problems.push(`missing: ${posix(path.relative(BT, abs))} (${why})`); return false; } files.add(abs); return true; };
+  const addDir = abs => { let any = false; for (const f of walk(abs)) { files.add(f); any = true; } return any; };
+  const addPrefix = (abs, why) => { const dir = path.dirname(abs), pre = path.basename(abs); if (!fs.existsSync(dir)) { problems.push(`missing folder: ${posix(path.relative(BT, dir))} (${why})`); return; } let any = false; for (const f of walk(dir)) if (path.basename(f).startsWith(pre) && (f === abs || path.dirname(f) === dir)) { files.add(f); any = true; } if (!any) problems.push(`no file with prefix ${posix(path.relative(BT, abs))} (${why})`); };
+  const add = (abs, why) => { if (fs.existsSync(abs) && fs.statSync(abs).isDirectory()) { if (addDir(abs)) return true; } if (!fs.existsSync(abs) || fs.statSync(abs).isDirectory()) { problems.push(`missing: ${posix(path.relative(BT, abs))} (${why})`); return false; } files.add(abs); return true; };
   const queue = [path.join(BT, 'app/src/main.mjs')];
   while (queue.length) {
     const f = queue.pop(); if (seen.has(f)) continue; seen.add(f); if (!add(f, 'module')) continue;
     const src = fs.readFileSync(f, 'utf8'); let m;
     IMPORT_RE.lastIndex = 0; while ((m = IMPORT_RE.exec(src))) { const s = m[1] || m[2]; if (s.startsWith('.')) queue.push(path.resolve(path.dirname(f), s)); }
+    const rel = posix(path.relative(BT, f));
     URLS_RE.lastIndex = 0; while ((m = URLS_RE.exec(src))) {
-      const base = URL_KEYS[m[1]]; if (!base) { problems.push(`unknown URLS key ${m[1]} in ${posix(path.relative(BT, f))}`); continue; }
-      const abs = path.join(BT, base, m[2]); add(abs, `URLS.${m[1]} in ${posix(path.relative(BT, f))}`); if (/\.mjs$/.test(abs)) queue.push(abs);
+      const base = URL_KEYS[m[1]]; if (!base) { problems.push(`unknown URLS key ${m[1]} in ${rel}`); continue; }
+      const abs = path.join(BT, base, m[2]); add(abs, `URLS.${m[1]} in ${rel}`); if (/\.mjs$/.test(abs)) queue.push(abs);
     }
+    URLS_TPL_RE.lastIndex = 0; while ((m = URLS_TPL_RE.exec(src))) {
+      const base = URL_KEYS[m[1]]; if (!base) { problems.push(`unknown URLS key ${m[1]} in ${rel}`); continue; }
+      const abs = path.join(BT, base, m[2]); if (m[2] === '' || m[2].endsWith('/')) add(abs, `URLS.${m[1]} template in ${rel}`); else addPrefix(abs, `URLS.${m[1]} template in ${rel}`);
+    }
+    META_RE.lastIndex = 0; while ((m = META_RE.exec(src))) { if (!m[1].startsWith('.')) continue; const abs = path.resolve(path.dirname(f), m[1]); if (fs.existsSync(abs)) { add(abs, `new URL in ${rel}`); if (/\.mjs$/.test(abs)) queue.push(abs); } else problems.push(`missing: ${posix(path.relative(BT, abs))} (new URL in ${rel})`); }
+    FETCH_RE.lastIndex = 0; while ((m = FETCH_RE.exec(src))) { if (/^(https?:|data:|blob:)/.test(m[1])) continue; const abs = path.resolve(path.dirname(f), m[1]); if (fs.existsSync(abs) && fs.statSync(abs).isFile()) files.add(abs); }
   }
   for (const p of ['app/index.html', 'app/styles.css']) add(path.join(BT, p), 'page');
   for (const d of EXTRA_DIRS) for (const f of walk(path.join(BT, d))) files.add(f);
+  for (const d of INCLUDE) { const abs = path.join(BT, d); if (!fs.existsSync(abs)) { problems.push(`missing: ${d} (INCLUDE)`); continue; } if (fs.statSync(abs).isDirectory()) addDir(abs); else files.add(abs); }
+  for (const d of EXCLUDE) { const abs = path.join(BT, d); for (const f of [...files]) if (f === abs || f.startsWith(abs + path.sep)) files.delete(f); }
   return { files: [...files].map(f => posix(path.relative(BT, f))).sort(), problems };
 }
 
@@ -102,7 +122,7 @@ export function makeZip(entries) {   // entries: [{name, data}] sorted by caller
 }
 
 // ---- copy audit: nothing in the shipped files may say how the site was made
-export const AUDIT_RE = /\b(claude|anthropic|chatgpt|openai|gpt-?\d|large language model|LLM|subagents?|sub-agents?|artificial intelligence|AI[- ](?:generated|assisted|written|made|built|reviewed)|(?:generated|written|built|made|reviewed|authored) (?:by|with) (?:an? )?(?:AI|automated|machine))\b/i;
+export const AUDIT_RE = /\b(claude|anthropic|chatgpt|openai|gpt-?\d|large language model|LLM|subagents?|sub-agents?|artificial intelligence|AI[- ](?:generated|assisted|written|made|built|reviewed)|(?:generated|written|built|made|reviewed|authored) (?:by|with) (?:an? )?(?:AI|automated|machine))\b|\b(?:(?:auto-?|machine-)?generated|written|built|produced|made|derived|exported) (?:by|with|from) (?:the |a |an )?(?:tools\/|script|generator|build script|program)|do not edit by hand|\bhand-edit/i;
 export function audit(dist) {
   const hits = [];
   for (const f of walk(dist)) {

@@ -1,0 +1,61 @@
+{
+ "_doc": "Candid per-pose verdicts. Allowed: 'matches', 'roughly', 'does not', 'cannot judge'. A verdict of matches/roughly requires reviewed_image=true (the composite was opened and looked at). Every verdict is conditional on the ASSUMED pose in poses.json; none is a finding about the 1863 landscape alone.",
+ "verdicts": [
+  {
+   "pose": "P01",
+   "loc_id": "2018666303",
+   "reviewed_image": true,
+   "verdict": "does not",
+   "why": "At the assumed Little Round Top summit pose the render has its horizon at 0.51 of the frame, the photograph's at about 0.40 (camera tilt/standpoint differ); the photograph's near-field is dominated by boulders and a tree that the DEM does not contain; the distant tree-clump ridge cannot be matched to mapped features because the DEM has no 1863 trees. Cannot be separated into terrain error vs pose error."
+  },
+  {
+   "pose": "P03",
+   "loc_id": "2018670702",
+   "reviewed_image": true,
+   "verdict": "does not",
+   "why": "Camera placed 35 m south of the gazetteer gatehouse point looking north: the render shows no gatehouse (its footprint is hidden behind the modern DEM's rise or the camera is not where the photographer stood); the photograph shows the gatehouse filling the frame. The gatehouse footprint in the repository is a 2023-outline, tier inferred."
+  },
+  {
+   "pose": "P04",
+   "loc_id": null,
+   "reviewed_image": true,
+   "verdict": "does not",
+   "why": "Standpoint on Seminary Ridge looking at the borough is contradicted by the photograph itself: a large cupola building and the town appear at distance with a road curving across the foreground, i.e. the camera stands further out; only 'from the West' is in the caption, no position. The render has the borough masses on the horizon only. Horizon 0.50 vs photo 0.38."
+  },
+  {
+   "pose": "P05",
+   "loc_id": null,
+   "reviewed_image": true,
+   "verdict": "does not",
+   "why": "Same assumed pose as P04 although the two photographs have different standpoints (P05 has a brick house in the near middle ground). One pose cannot be right for both; the caption gives no position. Horizon 0.50 vs photo 0.38."
+  },
+  {
+   "pose": "P06",
+   "loc_id": "2014646001",
+   "reviewed_image": false,
+   "verdict": "cannot judge",
+   "why": "The image bytes of this LOC record are not reachable from this container (tile.loc.gov / cdn.loc.gov refused by the proxy; no archive.org copy of this record found). Render only."
+  },
+  {
+   "pose": "P07",
+   "loc_id": "2018671576",
+   "reviewed_image": false,
+   "verdict": "cannot judge",
+   "why": "As P06: image bytes unreachable. Render only."
+  },
+  {
+   "pose": "P08",
+   "loc_id": "2012647712",
+   "reviewed_image": false,
+   "verdict": "cannot judge",
+   "why": "Image unreachable; caption gives East Cemetery Hill (right gun of Wiedrich's battery) but no direction; heading 45 deg is a placeholder."
+  },
+  {
+   "pose": "P09",
+   "loc_id": "2018666302",
+   "reviewed_image": false,
+   "verdict": "cannot judge",
+   "why": "Image unreachable. Render toward Big Round Top shows a hill mass; not compared."
+  }
+ ]
+}

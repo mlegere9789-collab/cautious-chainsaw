@@ -1,6 +1,6 @@
 // One visit to the Battle Theatre: builds the page, loads the data, starts the renderer and the frame loop, and tears all of it down again.
 // A Theatre owns a Scope; leaving the theatre disposes the scope, destroys the GPU device, removes the DOM and returns the page to its landing state.
-import { URLS, DEFAULTS, SEED, SIM_CODE } from './config.mjs';
+import { URLS, DEFAULTS, SEED, SIM_CODE, chooseApi } from './config.mjs';
 import { Scope, Bus } from './scope.mjs';
 import { loadTerrain, buildWorld } from '../../render/prototype/src/world.mjs';
 import { Camera } from '../../render/prototype/src/camera.mjs';
@@ -8,7 +8,7 @@ import { RenderHost } from './render-host.mjs';
 import { makeGeo } from './geo.mjs';
 import { BATTLE, EPILOGUE, chapterOf, clampT, minOf, fmtDate, fmtTime, fmtShort } from './clock.mjs';
 import { Environment, BAND_NAMES } from './environment.mjs';
-import { loadTimeline, loadConflicts, loadEnvironmentFiles, loadBookmarks, loadHistoryData, DEFAULT_SCENARIO } from './data.mjs';
+import { loadTimeline, loadConflicts, loadEnvironmentFiles, loadBookmarks, loadHistoryData, DEFAULT_SCENARIO, scenarioIsDefault } from './data.mjs';
 import { createStubHistory, STUB_LINKS } from './history/stub.mjs';
 import { createRealHistory } from './history/real.mjs';
 import { worldFromUnits } from './world-from-units.mjs';
@@ -58,7 +58,7 @@ export class Theatre {
     try {
       step('Reading the timeline, sources and sky tables', 0.04);
       const [timeline, conflicts, [eph, wxf], bookmarks] = await Promise.all([loadTimeline(), loadConflicts(), loadEnvironmentFiles(), loadBookmarks()]); if (this.dead) return;
-      this.timeline = timeline; this.conflicts = conflicts; this.bookmarks = bookmarks; this.env = new Environment(eph, wxf);
+      this.timeline = timeline; this.conflicts = conflicts; this.state.scenario = DEFAULT_SCENARIO(conflicts); this.bookmarks = bookmarks; this.env = new Environment(eph, wxf);
       this.timed = timeline.filter(e => e.t != null && e.t >= BATTLE.from && e.t < BATTLE.to);
       step('Loading the ground', 0.2); await idle();
       if (!warm.T) warm.T = await loadTerrain(URLS.proto); if (this.dead) return;
@@ -84,9 +84,10 @@ export class Theatre {
       step('Starting the renderer', 0.6); await idle(); if (this.dead) return;
       this.stage.apply(this.state.t);
       const cam = this.cam = new Camera(); this.sizeCanvas();
-      const o = this.opts, api = qs.get('api') || 'auto', S = this.state.settings;
+      const o = this.opts, api = chooseApi(location.search), S = this.state.settings;
       const ropts = { base: URLS.proto, nearQ: +qs.get('nearQ') || 1, midQ: +qs.get('midQ') || .35, nearR: +qs.get('nearR') || S.nearR, midR: +qs.get('midR') || S.midR, shadowSize: +qs.get('shadow') || 2048, midMode: qs.get('mid') || 'vat', fxAlpha: .75, exposure: 1 };
       this.host = await RenderHost.create({ canvas: this.els.canvas, world: this.world, api, opts: ropts, replaceCanvas: () => this.replaceCanvas() }); if (this.dead) { this.host.destroy(); this.host = null; return; }
+      if (this.host.api === 'webgpu') { const rb = this.root.querySelector('#bt-ribbon'); if (rb) rb.insertAdjacentHTML('beforeend', '<span class="ribbon-long"> · WebGPU: weather and effects are not drawn, they have not been seen on this path (WebGL2 is the default)</span>'); }
       const r0 = performance.now(); this.els.canvas = this.host.canvas; this.sizeCanvas(true); this.perf.resizeMs = performance.now() - r0;
       // the figures: every drawn figure with the figures3d models and the anim3d state machine (the placeholder layer has no kit manifests and keeps the prototype's soldier; ?crowd=off keeps it on the real layer too)
       if (!this.layer.meta.stub && this.layer.figures && qs.get('crowd') !== 'off') {
@@ -134,7 +135,7 @@ export class Theatre {
     const sc = this.state.scenario, byId = new Map(this.conflicts.map(c => [c.id, c]));
     sc.optionText = {}; for (const id of (this.layer.meta.linkedConflicts || Object.keys(STUB_LINKS))) { const c = byId.get(id); if (!c) continue; const key = sc.choices[id] || 'recommended', opt = c.options.find(o => o.key === key); sc.optionText[id] = opt ? opt.text : ''; }
     const info = this.stage.loadScenario(sc); this.rejected = this.stage.rejected; this._wxDirty = true; this.needSeek = true; this.needFx = true; this.stage.apply(this.state.t); this.bus.emit('scenario');
-    if (announce) this.announce('Sources updated. ' + (Object.keys(sc.choices).length ? 'Custom choices are in effect.' : 'Following the plan recommended values, pending owner.'));
+    if (announce) this.announce('Sources updated. ' + (scenarioIsDefault(sc, this.conflicts) ? 'Following the delegated defaults, reversible by the owner.' : 'Your choices are in effect.'));
     return info;
   }
   // ---- time

@@ -107,7 +107,7 @@ def main(argv):
         tot['figures'] += n * len(variants)
         tot['fail'] += rec['fail']
         tot['flag'] += rec['flag']
-    doc = {'_doc': 'Written by tools/bt/check_figures.py: the B.6.12 validator run in Python over every figure the shell draws. export_digest ties it to the shell figures (a changed unit, figure count, kit unit or manifest changes the digest and the test fails until this is re-run).',
+    doc = {'_doc': 'The B.6.12 validator run in Python over every figure the shell draws. export_digest ties it to the shell figures (a changed unit, figure count, kit unit or manifest changes the digest and the test fails until this is re-run).',
            'export_digest': exp['export_digest'], 'seed': seed, 'totals': {**tot, 'units': len(units_out), 'flag_codes': dict(sorted(flag_codes.items()))},
            'units': dict(sorted(units_out.items()))}
     if not quiet:

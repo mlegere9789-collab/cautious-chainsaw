@@ -72,7 +72,7 @@ export class AnimSystem {
     for (const ua of this.unitList) { const S = ua.segs; if (!S.length) continue; const nearList = this.nearSet.get(ua.unitId) || null;
       for (let si = 0; si < S.length; si++) { const s = S[si], sEnd = si + 1 < S.length ? S[si + 1].t0 : Infinity; if (sEnd <= t0 || s.t0 >= t1 + 30) continue;
         if (s.t0 >= t0 && s.t0 < t1) this._push(s.t0, EV.ACT, ua.uidx, -1, si, si > 0 ? si - 1 : -1);
-        if ((s.kind === 'fire' || s.kind === 'guns') && s.plan) this._planEvents(ua, s, sEnd, t0, t1, nearList);
+        if ((s.kind === 'fire' || s.kind === 'guns' || (s.kind === 'dismount' && s.activity === 'fire')) && s.plan) this._planEvents(ua, s, sEnd, t0, t1, nearList);
         if (s.kind === 'march' || s.kind === 'mounted') this._marchEvents(ua, s, sEnd, t0, t1, nearList);
       }
       if (ua.fallT) for (let k = 0; k < ua.n; k++) { const ft = ua.fallT[k]; if (ft >= t0 && ft < t1) this._push(ft, EV.FALL, ua.uidx, k, ua.vstyle[k]); const ld = ft + 1.05; if (isFinite(ft) && ld >= t0 && ld < t1) this._push(ld, EV.LIE, ua.uidx, k, ua.vstyle[k]); }
@@ -85,13 +85,13 @@ export class AnimSystem {
     if (p.startS - 8 < hi && p.startS + 5 > lo) { const text = CMD_TEXT[p.mode] || CMD_TEXT.at_will, tt = [p.startS - 6, p.startS - 5, p.startS - 0.4, p.startS + 1.6, p.startS + 2.9, p.startS + 6]; for (let i = 0; i < 6; i++) if (text[i] && tt[i] >= t0 && tt[i] < t1) this._push(tt[i], EV.CMD, ua.uidx, -1, i, s.i); }
     if (p.endS !== Infinity && p.endS >= lo && p.endS < hi) this._push(p.endS, EV.CMD, ua.uidx, -1, 7, s.i);
     // shots (every figure present, whatever its LOD), clipped to the segment and to the figure's life
-    const fa = ua.fallT;
-    p.shotsBetween(lo, hi, (i, ts, k, rb) => { const fig = s.kind === 'guns' ? ua.gunFigure(i) : i; if (fa && fa[fig] <= ts) return; this._push(ts, (this.misfireRate > 0 && (hash4(ua.uid, i, k, 99) / 4294967296) < this.misfireRate) ? EV.MISFIRE : EV.FIRE, ua.uidx, fig, rb, (i << 12) ^ (k & 4095)); });
+    const fa = ua.fallT;       // ws10: s.roles (cavalry afoot): only the men afoot who fight (role 1) fire; the holders and the men still mounted do not
+    p.shotsBetween(lo, hi, (i, ts, k, rb) => { const fig = s.kind === 'guns' ? ua.gunFigure(i) : i; if (fa && fa[fig] <= ts) return; if (s.roles && s.roles[fig] !== 1) return; this._push(ts, (this.misfireRate > 0 && (hash4(ua.uid, i, k, 99) / 4294967296) < this.misfireRate) ? EV.MISFIRE : EV.FIRE, ua.uidx, fig, rb, (i << 12) ^ (k & 4095)); });
     // impacts of gun rounds when the plan has a target
     if (p.target && s.kind === 'guns') { const imp = this._impactOf(p); if (imp) p.shotsBetween(lo - imp.burstAtS - 1, hi - imp.burstAtS + 1, (i, ts) => { const ti = ts + imp.burstAtS; if (ti >= t0 && ti < t1) this._push(ti, EV.IMPACT, ua.uidx, ua.gunFigure(i), ts, i); }); }
     if (s.kind === 'guns') p.shotsBetween(lo, hi, (i, ts) => { this._push(ts, EV.GUN, ua.uidx, ua.gunFigure(i), 0, i); this._push(ts + 0.43, EV.GUN, ua.uidx, ua.gunFigure(i), 1, i); this._push(ts + 2.3, EV.GUN, ua.uidx, ua.gunFigure(i), 2, i); });
     // reload and drill steps for the near set only
-    if (near && s.kind === 'fire') for (let m = 0; m < near.length; m++) { const i = near[m]; if (i < 0 || i >= p.n) continue; let kc = p.cycleIndexAt(i, lo - 1); if (kc < 0) kc = 0; const last = p.lastCycle(i);
+    if (near && (s.kind === 'fire' || s.kind === 'dismount') && !s.roles) for (let m = 0; m < near.length; m++) { const i = near[m]; if (i < 0 || i >= p.n) continue; let kc = p.cycleIndexAt(i, lo - 1); if (kc < 0) kc = 0; const last = p.lastCycle(i);
       for (let k = Math.max(0, kc - 1); k <= last && k <= kc + 2; k++) { const b = p.boundary(i, k); if (b > hi) break; const C = p.cycleLength(i, k), D = cycleDurations(C, 0.6, this.tmpD || (this.tmpD = {})); let ta = b;
         for (let c = 0; c < CYCLE_STEPS.length; c++) { const id = CYCLE_STEPS[c]; if (ta >= lo && ta < hi && id !== 'pause' && id !== 'fire') this._push(ta, id === 'aim' || id === 'ready' ? EV.DRILL : EV.RELOAD, ua.uidx, i, c, STEP_INDEX[id] ?? 0); ta += D[id]; } } }
   }
