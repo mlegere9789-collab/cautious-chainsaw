@@ -183,6 +183,27 @@ def main():
         tl_out.append(dict(pick[-1], seed_page=seed_by_id[sid_]['page'], time_window_raw=seed_by_id[sid_]['time_window_raw']))
     extra = [i for i in tl_rows if i not in seed_by_id]
 
+    # OR primary-text recheck (horde/OR-RECHECK/results.jsonl, written by or_recheck.py against the restored OR vol 27 text)
+    rc_rows, _ = load_jsonl(os.path.join(H, 'OR-RECHECK', 'results.jsonl'))
+    rc = collections.defaultdict(lambda: collections.Counter())
+    for r in rc_rows:
+        rc[r['row_id']][r['found'] + ('/' + r['kind'] if r.get('kind') else '')] += 1
+    n_ok = n_fail = n_none = 0
+    for r in tl_out:
+        c = rc.get(r['id'])
+        if not c:
+            r['or_recheck'] = None; r['status_effective'] = r['status']; n_none += 1; continue
+        ok = sum(v for k, v in c.items() if k.startswith(('yes', 'fuzzy')))
+        no = sum(v for k, v in c.items() if k.startswith('no'))
+        nc = sum(v for k, v in c.items() if k.startswith('not_checkable'))
+        r['or_recheck'] = {'found': ok, 'not_found': no, 'not_checkable': nc}
+        # a 'verified' row whose every checkable quote was not found in the primary text is not verified
+        if r['status'] == 'verified' and no and not ok:
+            r['status_effective'] = 'recheck_failed'; n_fail += 1
+        elif r['status'] == 'verified' and ok:
+            r['status_effective'] = 'verified_against_or_text'; n_ok += 1
+        else:
+            r['status_effective'] = r['status']
     # register copy
     reg_copied = 0
     if not a.dry:
@@ -221,6 +242,7 @@ def main():
             f.write(f'- timeline rows normalized: {len(tl_out)} of {len(seed_ids)} (extra ids not in seed: {extra})\n')
             f.write(f'- sub-requirements with an evidence link: {len(out_links)} of {len(subs)} (links are not passes)\n')
             f.write(f'- proposed register entries copied to register/proposed/: {reg_copied}\n')
+            f.write(f'- OR text recheck: {n_ok} verified rows confirmed against the OR text, {n_fail} rows whose checkable quotes were all not found (status_effective=recheck_failed), {n_none} rows with no recheck data\n')
             f.write(f'- rows flagged (documented/verified claimed without citation+passage): {len(flagged_rows)}\n\n')
             f.write('## Timeline tier/status counts (normalized)\n\n')
             for (t, s), n in sorted(stat.items()):
