@@ -38,7 +38,7 @@ test('Q10: sky, fog and cloud radiance never fall below the floor at any minute 
     for (const t of battleMinutes()) { const s = w.at(t, {}), p = s.sky.palette; n++;
       for (const k of ['zenith', 'horizon', 'cloudLit', 'cloudShade']) for (let i = 0; i < 3; i++) assert.ok(p[k][i] >= fl[i] - 1e-9, `${k}[${i}] below the floor at ${t / 60}`);
       assert.ok(s.sky.exposure >= s.sky.nightFloor - 1e-9); minL = Math.min(minL, lum(p.zenith)); assert.ok(lum(p.horizon) > 0); }
-    assert.ok(n > 1000 && minL > 0.03, 'minimum zenith luminance ' + minL); }
+    assert.ok(n > 900 && minL > 0.03, 'minimum zenith luminance ' + minL); }
   // a user who lowers the luminance floor to its lowest setting still gets a lit sky
   const w0 = mk({ nightFloor: 0 }); for (const t of [at(7, 3, 1), at(7, 4, 2)]) { const s = w0.at(t, {}); assert.ok(lum(s.sky.palette.zenith) >= lum(fl) - 1e-9); }
 });

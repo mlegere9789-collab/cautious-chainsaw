@@ -109,8 +109,31 @@ export class Stage {
       this.dt[i] = { loss: L, alt, k: 0, sig: null }; this.detail.push(i); this._restoreUnit(i);
     }
     this.rebaseFlag = true; this.dirtySlots = this.dirtyFalls = true;
+    this.segs = null; this.segsVersion = (this.segsVersion || 0) + 1;                // the crowd (src/crowd) asks for the activity timelines lazily: unitSegments(i)
     this.lastKey = null; return { events: events.length, rejected: cache.rejected.length, unsupported: this.unsupported.length };
   }
+  // ---- what the animation needs from the history: each unit's ACTIVITY TIMELINE in simulation seconds, from the same admitted events the cache holds (so it can never disagree with where the unit is).
+  // A segment is { t0, activity, speed, night }: the ground speed is the speed of the path leg the unit is on (0 outside the path), a unit that moves is 'march' (or 'double_quick' above 2 m/s) whatever the last activity
+  // event said, a unit that does not move keeps the activity the layer named. Night is the local-time convention 19:30 - 04:30 (plausible-procedural; it only chooses the camp clips: sleeping or sitting at the fire).
+  unitSegments(i) {
+    if (!this.segs) this.segs = new Array(this.nL).fill(undefined);
+    if (this.segs[i] !== undefined) return this.segs[i];
+    const tr = this.track[i]; if (!tr || !tr.length) return (this.segs[i] = []);
+    const ev = tr.slice().sort((a, b) => a.t - b.t), times = new Set(); let leaveT = Infinity;
+    for (const e of ev) { if (e.type === 'enter' || e.type === 'activity' || e.type === 'path' || e.type === 'leave') times.add(e.t); if (e.type === 'path') for (const t of e.path.t) times.add(t); if (e.type === 'leave') leaveT = Math.min(leaveT, e.t); }
+    const T = [...times].filter(t => t <= leaveT).sort((a, b) => a - b), out = []; let act = 'stand', path = null, on = false, ei = 0;
+    for (const tb of T) {
+      while (ei < ev.length && ev[ei].t <= tb) { const e = ev[ei++]; if (e.type === 'enter') { on = true; act = 'stand'; path = null; } else if (!on) continue; else if (e.type === 'path') path = e.path; else if (e.type === 'activity') act = e.activity; else if (e.type === 'leave') on = false; }
+      if (!on) continue;
+      let v = 0; if (path) { const p = path, k = p.t.length - 1; if (tb >= p.t[0] && tb < p.t[k]) { let j = 0; while (p.t[j + 1] <= tb) j++; const dt = p.t[j + 1] - p.t[j]; v = dt > 0 ? Math.hypot(p.x[j + 1] - p.x[j], p.z[j + 1] - p.z[j]) / dt : 0; } }
+      const moving = v > 0.15, a = moving ? (v > 2.0 ? 'double_quick' : 'march') : (act === 'march' || act === 'double_quick' ? 'stand' : act), sp = moving ? v : 0, prev = out[out.length - 1];
+      if (prev && prev.activity === a && Math.abs(prev.speed - sp) < 0.02) continue;
+      const tod = (tb / 60) % 1440; out.push({ t0: tb, activity: a, speed: sp, night: tod < 270 || tod >= 1170 });
+    }
+    return (this.segs[i] = out);
+  }
+  // the men who fall in unit i: { t (seconds), agent, fate (0 killed, 1 wounded), anim } sorted by time; missing men are listed with anim 0 (they do not fall in the picture)
+  fallInfo(i) { const d = this.dt[i], L = d && d.loss; if (!L) return null; return { t: L.t, agent: L.agent, fate: L.fate, anim: L.anim }; }
   _restoreUnit(i) { const w = this.w.units[i], s = this.w.sold, s1 = this.w.sold1, s0 = this.sold0; for (let a = 0; a < w.count; a++) { const g = w.first + a; s[g * 4] = s0[g * 4]; s[g * 4 + 1] = s0[g * 4 + 1]; s1[g * 4] = FALL_NEVER; } w.radius = w.r0; }
   _heading(rec, t) { return rec.head == null ? 0 : angleLerp(rec.headFrom, rec.head, smooth((t - rec.actT) / TURN_S)); }
   _pos(rec, t, out) {   // out = [x, z, sigma_m]

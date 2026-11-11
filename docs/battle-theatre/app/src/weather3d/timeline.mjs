@@ -71,7 +71,7 @@ export class WeatherTimeline {
     const wad = val('wet.albedo_drop'), pf = val('wet.puddle_from'); out.ground = { albedoMul: 1 - wad * v, puddle: clamp((v - pf) / (1 - pf)), puddleDarken: val('wet.puddle_darken'), puddleScale: val('wet.puddle_scale_m'), tolerance: val('wet.ground_tolerance_m') };
     if (v >= pf) mark('puddles', 'plausible-procedural', 'puddles on Jul 4 are documented as occurring; where they stood is not (noise mask)', 'W3D-G05');
     // ---- fog and haze (extinction added on top of the prototype renderer\'s baked 0.00006)
-    const damp = this.fxenv.damp(tSec), mr = val('fog.mist_from_damp'), mist = smooth(mr[0], mr[1], damp.v), rain = clamp(pr.intensity);
+    const damp = this.fxenv.damp(tSec), mr = val('fog.mist_from_damp'), mistRaw = smooth(mr[0], mr[1], damp.v), mist = mistRaw * (/rain|fog/i.test(damp.basis) ? 1 : val('fog.humid_share')), rain = clamp(pr.intensity);
     const ext = mist * val('fog.mist_extinction_per_m') + rain * val('fog.rain_extinction_per_m'); const beta = val('fog.haze_extinction_per_m') + ext;
     out.fog = { extra: ext, mist, damp: damp.v, dampBasis: damp.basis, scaleHeight: val('fog.scale_height_m'), visibilityM: 3.912 / beta, tier: ext > 0 ? 'plausible-procedural' : 'inferred' };
     if (ext > 0) mark('fog', 'plausible-procedural', 'mist from air dampness (' + damp.basis + '), rain ' + rain.toFixed(2) + '; extinction is a look parameter', 'W3D-G02');

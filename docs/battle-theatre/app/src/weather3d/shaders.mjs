@@ -35,7 +35,9 @@ layout(location = 0) out vec4 o;
 float h31(vec3 p) { uvec3 q = uvec3(ivec3(floor(p)) + ivec3(65536)); uint n = q.x * 73856093u ^ q.y * 19349663u ^ q.z * 83492791u; n = (n ^ 61u) ^ (n >> 16u); n *= 0x27d4eb2du; n ^= n >> 15u; n *= 0x2c1b3c6du; n ^= n >> 13u; return float(n) / 4294967296.0; }
 float h21(ivec2 c) { uvec2 q = uvec2(c & ivec2(255)); uint n = q.x * 73856093u ^ q.y * 19349663u; n = (n ^ 61u) ^ (n >> 16u); n *= 0x27d4eb2du; n ^= n >> 15u; n *= 0x2c1b3c6du; n ^= n >> 13u; return float(n) / 4294967296.0; }
 float vn(vec2 p) { vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f); ivec2 c = ivec2(i); return mix(mix(h21(c), h21(c + ivec2(1, 0)), f.x), mix(h21(c + ivec2(0, 1)), h21(c + ivec2(1, 1)), f.x), f.y); }
-float fbm(vec2 p) { float a = 0.5, s = 0.0; for (int i = 0; i < 5; i++) { s += a * vn(p); p = p * 2.0 + vec2(17.0, 9.0); a *= 0.5; } return s / 0.96875; }
+// fbm with a footprint (fw: lattice cells per pixel at this point): an octave fades out as its cell shrinks toward the pixel, so distant cloud does not alias into stripes
+float fbmF(vec2 p, float fw) { float a = 0.5, s = 0.0, wsum = 0.0, f = 1.0; for (int i = 0; i < 5; i++) { float w = 1.0 - smoothstep(0.3, 0.8, fw * f); s += a * w * vn(p); wsum += a * w; p = p * 2.0 + vec2(17.0, 9.0); a *= 0.5; f *= 2.0; } return wsum > 1e-4 ? s / wsum : 0.5; }
+float fbm(vec2 p) { return fbmF(p, 0.0); }
 float hAt(float x, float z) { vec2 uv = vec2(x / terr.x + 0.5, z / terr.y + 0.5); float n = terr.z; return textureLod(uHeight, (uv * (n - 1.0) + 0.5) / n, 0.0).r; }
 // the prototype renderer's own sky colour (webgl2.mjs skyCol), used only to undo its baked fog on geometry
 vec3 protoSky(vec3 d) { float h = clamp(d.y, -0.2, 1.0); vec3 c = mix(vec3(0.78, 0.84, 0.92), vec3(0.22, 0.38, 0.72), pow(max(h, 0.0), 0.45)); float sd = max(dot(d, sun.xyz), 0.0); c += vec3(1.0, 0.8, 0.55) * (pow(sd, 8.0) * 0.25 + pow(sd, 800.0) * 12.0); return c * 1.1; }
@@ -81,9 +83,9 @@ vec3 skyColor(vec3 d) {
   // cloud layer
   if (uCloud.x > 0.01 && d.y > 0.012) {
     float t = (uCloud.y - cam.y) / d.y; vec2 uvp = (cam.xz + d.xz * t) / uCloud.z + uCOff;
-    float n = fbm(uvp), cov = clamp(uCloud.x, 0.0, 1.0);
+    float pa = 2.0 * misc.x * scr.w; float fw = t * pa / max(d.y, 0.02) / uCloud.z; float n = fbmF(uvp, fw), cov = clamp(uCloud.x, 0.0, 1.0);
     float th = 1.0 - cov * 1.12 - 0.04; float a = smoothstep(th, th + uCloud.w, n); if (cov > 0.93) a = max(a, smoothstep(0.93, 1.0, cov) * 0.97);
-    float n2 = fbm(uvp + uSunDir.xz * 0.12 / max(uSunDir.y, 0.2)); float dens = clamp(0.5 + (n - n2) * 5.0 + (n - th) * 0.6, 0.0, 1.0);
+    float n2 = fbmF(uvp + uSunDir.xz * 0.12 / max(uSunDir.y, 0.2), fw); float dens = clamp(0.5 + (n - n2) * 5.0 + (n - th) * 0.6, 0.0, 1.0);
     vec3 cc = mix(uCShade, uCLit, dens * (1.0 - 0.55 * cov));
     float fade = smoothstep(0.012, 0.16, d.y);                                                               // far clouds melt into the horizon
     c = mix(c, max(cc, uFloor * 1.2), a * fade);

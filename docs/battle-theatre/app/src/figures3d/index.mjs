@@ -5,6 +5,7 @@
 //   sys.variantRows()                                      // Uint8Array, VARIANT_ROW_BYTES per outfit variant (GPU table)
 //   sys.mesh(partId, lod) / sys.part(partId, lod)          // raw / finalized (+ shape-key deltas) parts at LOD 0 close, 1 mid, 2 low
 //   sys.midMesh(silhouetteKey) / sys.accessoryMesh(key,army) / sys.impostor(silhouetteKey)   // merged mid meshes (mid skeleton bone space) and baked 8-view impostor atlases
+//   sys.acw                                                // ACW mod provider (acw.mjs): credit(), linkFor(unitId), figurePlan(unitId, role), coverage(), costModel(); inert unless cleared mod assets are passed in opts.acw
 // Contract with ANIMATION: data/figures3d/skeleton.json (src/figures3d/skeleton.mjs). Contract with FX: sockets muzzle (arm/gun meta), the fire event position comes from the animated prop bone.
 import { VariantTable, instanceWords, unpackInstance, variantFromManifest, identityFromSeed, resolveColours, midClassKey, impostorClassKey, INSTANCE_BYTES, INSTANCE_WORDS, FLAG_BITS, ROLES, DIST } from './variants.mjs';
 import { FigureLibrary, trouserEnv, partsForFigure, partsAtLod, composeMerged, silhouetteOf, silhouetteKey, partsForSilhouette, accessoryKey, partsForAccessories, midBoneMap } from './library.mjs';
@@ -16,12 +17,13 @@ import { WEAPON_VISUALS } from './visuals.mjs';
 import { MAT, COLOUR, GLOBAL_MATERIALS, HORSE_COATS, SKIN_TONES, HAIR_COLOURS, EYE_COLOURS } from './palette.mjs';
 import { FLAG_EVIDENCE, flagPattern } from './flags.mjs';
 import { PIECES } from './guns.mjs';
+import { createAcwProvider, ACW_CREDIT_LINE, ACW_LICENCE_BASIS } from './acw.mjs';
 
 export const FIGURES3D_VERSION = 'figures3d-1';
 export { MAT, COLOUR, GLOBAL_MATERIALS, HORSE_COATS, SKIN_TONES, HAIR_COLOURS, EYE_COLOURS, INSTANCE_BYTES, INSTANCE_WORDS, FLAG_BITS, ROLES, DIST, VARIANT_ROW_BYTES, unpackInstance, variantFromManifest, identityFromSeed, resolveColours,
-  midClassKey, impostorClassKey, partsForFigure, partsAtLod, silhouetteOf, silhouetteKey, buildSkeletonJson, humanRig, horseRig, gunRig, FigureLibrary, buildCatalog, FLAG_EVIDENCE, flagPattern, PIECES, WEAPON_VISUALS };
+  midClassKey, impostorClassKey, partsForFigure, partsAtLod, silhouetteOf, silhouetteKey, buildSkeletonJson, humanRig, horseRig, gunRig, FigureLibrary, buildCatalog, FLAG_EVIDENCE, flagPattern, PIECES, WEAPON_VISUALS, createAcwProvider, ACW_CREDIT_LINE, ACW_LICENCE_BASIS };
 
-export function createFigureSystem() {
+export function createFigureSystem(opts = {}) {   // opts.acw: data for the ACW mod provider ({manifest, unitMap, swatches}); absent = the provider is empty (procedural figures only)
   const table = new VariantTable(), lib = new FigureLibrary(), catalog = buildCatalog(), catIndex = new Map(catalog.map((id, i) => [id, i])), skel = buildSkeletonJson(), bmap = midBoneMap(skel);
   const silo = new Map(), accs = new Map(), mids = new Map(), imps = new Map();
   const cat = id => (id && catIndex.has(id) ? catIndex.get(id) : 0xffff);
@@ -47,7 +49,7 @@ export function createFigureSystem() {
     void idx; return buf;
   }
   return {
-    version: FIGURES3D_VERSION, table, lib, catalog, skeleton: skel,
+    version: FIGURES3D_VERSION, table, lib, catalog, skeleton: skel, acw: createAcwProvider(opts.acw || {}),
     instance(manifest) { const r = instanceWords(manifest, table); classesOf(r.variant); return r; },
     instanceFromHistory(figures, unitId, k, tMin, scenario, variantName = null) {
       const m = figures.manifest(unitId, k, tMin, scenario); if (m === null) return null;

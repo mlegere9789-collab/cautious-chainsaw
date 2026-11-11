@@ -13,6 +13,7 @@ export const PARAMS = {
   fog: {
     haze_extinction_per_m: P(0.00006, 'inferred', 'The prototype renderer already fogs the terrain with exp(-d * 0.00006); this layer adds only the excess above it, so clear days are unchanged.'),
     mist_extinction_per_m: P(0.0035, 'plausible-procedural', 'Extra extinction at full mist (about 1.1 km meteorological visibility). Jul 2 "foggy dawn" is one source (Strategypage), no visibility figure is recorded.'),
+    humid_share: P(0.35, 'plausible-procedural', 'Wet ground and a humid day (no fog report) thicken the air only as haze: the mist from dampness is multiplied by this share unless the dampness comes from rain or the foggy dawn.'),
     rain_extinction_per_m: P(0.0011, 'plausible-procedural', 'Extra extinction at rain intensity 1 (about 3.5 km visibility). Rain intensity values are render parameters of the environment layer (inferred).'),
     mist_from_damp: P([0.4, 0.95], 'inferred', 'Mist amount is smoothstep of the air dampness of fx3d/env.mjs between these values; dampness is itself inferred (0.85 at the Jul 2 foggy dawn).'),
     scale_height_m: P(160, 'plausible-procedural', 'Fog thins with height; the e-folding height of the extra extinction.'),
