@@ -1,0 +1,1710 @@
+{
+ "version": 1,
+ "built_by": "tools/build-sibling-approach.mjs",
+ "decision": "DEC-015",
+ "register": "EG-0070",
+ "note": "MODELLED roads of approach (kind sibling, tier plausible-procedural) and the verdict for every leaf unit that was an open gap in v5. Rule: tools/sibling-rule.mjs; hand-read classes: data/sibling-review.json; the loader (src/history/placement.mjs, validateSibling) recomputes the documented siblings of every record and refuses the file unless each record is complete, unanimous and crosses the loaded ground. Nothing here is a coordinate, a time or a quotation.",
+ "rule": [
+  "1. A leaf unit with no road of approach anywhere on its line of command takes the road documented for the OTHER formations of its corps only if every documented sibling formation (an approach record of v5 attached strictly under the corps and not on the unit’s own line of command) names the same gazetteer road, that road crosses the loaded ground, and no report for the unit or any formation above it names a road the repository cannot place, another road of approach, or a road outside the loaded ground (every claim of the audit on the line of command has a class in sibling-review.json), and the reports of the line do not disagree.",
+  "2. Stuart’s cavalry: the sibling rule is not applied; it is drawn only by a road documented for its own brigade or division.",
+  "3. The unit must have a gate and a single-label day position (a Bachelder sheet); otherwise it is not drawn (it would only stand in a column at the edge).",
+  "4. The record is attached at the highest formation below the corps all of whose leaf units are drawn by it or already have a nearer road. Tier plausible-procedural, marked modelled; it lists every sibling it rests on."
+ ],
+ "codes": {
+  "siblings_disagree": "the documented sibling formations of the corps name different roads (for example the Second Corps: Early the Harrisburg Road, Rodes the Carlisle Road): none is chosen",
+  "no_sibling_road": "no other formation of the corps has a documented road of approach, so there is nothing to take the road from",
+  "sibling_road_no_day_position": "the sibling road is available, but the unit has no single-label day position (a Bachelder sheet), so a drawn unit would only stand in a column at the edge of the ground: not drawn",
+  "cavalry_own_road_only": "Stuart’s cavalry: drawn only by a road documented for its own brigade or division, and only earlier marches are printed (no day position either)"
+ },
+ "blocking_classes": [
+  "unplaceable",
+  "other_approach",
+  "outside_ground",
+  "disagree"
+ ],
+ "approach": [
+  {
+   "id": "AP-44",
+   "kind": "sibling",
+   "unit": "us-5c-1d",
+   "formation": "us-5c",
+   "road": "Hanover Road",
+   "modelled": true,
+   "tier": "plausible-procedural",
+   "decision": "DEC-015",
+   "register": "EG-0070",
+   "added_in": "v6",
+   "siblings": [
+    {
+     "ap": "AP-04",
+     "unit": "us-5c-1d-vincent-20me",
+     "unit_name": "20th ME (Vincent (mw)/Rice)",
+     "road": "Hanover Road",
+     "tier": "inferred",
+     "source": "ledger_row",
+     "row": "us-5c",
+     "cell": "night_positions",
+     "phrase": "Jul 1 night: night march from Hanover (20th Maine)",
+     "phrase_in": "ledger_cell"
+    },
+    {
+     "ap": "AP-11",
+     "unit": "us-5c-2d",
+     "unit_name": "2nd Div Ayres",
+     "road": "Hanover Road",
+     "tier": "inferred",
+     "source": "claim",
+     "claim": "POS-C-0105",
+     "claims": [
+      "POS-C-0105"
+     ],
+     "report": "OR27-1-R203",
+     "page": "634",
+     "ledger": "C",
+     "claim_tier": "documented",
+     "phrase": "Gettysburg and Hanover road",
+     "phrase_in": "quote",
+     "identification": "printed as the Gettysburg and Hanover road; the gazetteer road is Hanover Road (the ledger references GZ-043)"
+    }
+   ],
+   "claims": [
+    "POS-C-0105"
+   ],
+   "leaves": [
+    "us-5c-1d-tilton-18ma",
+    "us-5c-1d-tilton-22ma",
+    "us-5c-1d-tilton-1mi",
+    "us-5c-1d-tilton-118pa",
+    "us-5c-1d-sweitzer-9ma",
+    "us-5c-1d-sweitzer-4mi",
+    "us-5c-1d-sweitzer-62pa",
+    "us-5c-1d-vincent-16mi",
+    "us-5c-1d-vincent-44ny",
+    "us-5c-1d-vincent-83pa"
+   ],
+   "reviewed": [
+    "POS-C-0002",
+    "POS-C-0007",
+    "POS-C-0009",
+    "POS-C-0027"
+   ],
+   "note": "us-5c-1d has no road of approach on its line of command. Every documented formation of us-5c (2) names Hanover Road; no report on the line of command names another road, one the repository cannot place, or one outside the loaded ground (the claims read are in reviewed). The road is MODELLED from the siblings, not printed for this unit."
+  },
+  {
+   "id": "AP-45",
+   "kind": "sibling",
+   "unit": "us-5c-3d",
+   "formation": "us-5c",
+   "road": "Hanover Road",
+   "modelled": true,
+   "tier": "plausible-procedural",
+   "decision": "DEC-015",
+   "register": "EG-0070",
+   "added_in": "v6",
+   "siblings": [
+    {
+     "ap": "AP-04",
+     "unit": "us-5c-1d-vincent-20me",
+     "unit_name": "20th ME (Vincent (mw)/Rice)",
+     "road": "Hanover Road",
+     "tier": "inferred",
+     "source": "ledger_row",
+     "row": "us-5c",
+     "cell": "night_positions",
+     "phrase": "Jul 1 night: night march from Hanover (20th Maine)",
+     "phrase_in": "ledger_cell"
+    },
+    {
+     "ap": "AP-11",
+     "unit": "us-5c-2d",
+     "unit_name": "2nd Div Ayres",
+     "road": "Hanover Road",
+     "tier": "inferred",
+     "source": "claim",
+     "claim": "POS-C-0105",
+     "claims": [
+      "POS-C-0105"
+     ],
+     "report": "OR27-1-R203",
+     "page": "634",
+     "ledger": "C",
+     "claim_tier": "documented",
+     "phrase": "Gettysburg and Hanover road",
+     "phrase_in": "quote",
+     "identification": "printed as the Gettysburg and Hanover road; the gazetteer road is Hanover Road (the ledger references GZ-043)"
+    }
+   ],
+   "claims": [
+    "POS-C-0105"
+   ],
+   "leaves": [
+    "us-5c-3d-mccandless-1pareserves",
+    "us-5c-3d-mccandless-2pareserves",
+    "us-5c-3d-mccandless-6pareserves",
+    "us-5c-3d-mccandless-13pareserves",
+    "us-5c-3d-fisher-5pareserves",
+    "us-5c-3d-fisher-9pareserves",
+    "us-5c-3d-fisher-10pareserves",
+    "us-5c-3d-fisher-11pareserves",
+    "us-5c-3d-fisher-12pareserves"
+   ],
+   "reviewed": [
+    "POS-C-0002",
+    "POS-C-0007",
+    "POS-C-0009",
+    "POS-C-0166",
+    "POS-C-0167"
+   ],
+   "note": "us-5c-3d has no road of approach on its line of command. Every documented formation of us-5c (2) names Hanover Road; no report on the line of command names another road, one the repository cannot place, or one outside the loaded ground (the claims read are in reviewed). The road is MODELLED from the siblings, not printed for this unit."
+  },
+  {
+   "id": "AP-46",
+   "kind": "sibling",
+   "unit": "us-5c-art",
+   "formation": "us-5c",
+   "road": "Hanover Road",
+   "modelled": true,
+   "tier": "plausible-procedural",
+   "decision": "DEC-015",
+   "register": "EG-0070",
+   "added_in": "v6",
+   "siblings": [
+    {
+     "ap": "AP-04",
+     "unit": "us-5c-1d-vincent-20me",
+     "unit_name": "20th ME (Vincent (mw)/Rice)",
+     "road": "Hanover Road",
+     "tier": "inferred",
+     "source": "ledger_row",
+     "row": "us-5c",
+     "cell": "night_positions",
+     "phrase": "Jul 1 night: night march from Hanover (20th Maine)",
+     "phrase_in": "ledger_cell"
+    },
+    {
+     "ap": "AP-11",
+     "unit": "us-5c-2d",
+     "unit_name": "2nd Div Ayres",
+     "road": "Hanover Road",
+     "tier": "inferred",
+     "source": "claim",
+     "claim": "POS-C-0105",
+     "claims": [
+      "POS-C-0105"
+     ],
+     "report": "OR27-1-R203",
+     "page": "634",
+     "ledger": "C",
+     "claim_tier": "documented",
+     "phrase": "Gettysburg and Hanover road",
+     "phrase_in": "quote",
+     "identification": "printed as the Gettysburg and Hanover road; the gazetteer road is Hanover Road (the ledger references GZ-043)"
+    }
+   ],
+   "claims": [
+    "POS-C-0105"
+   ],
+   "leaves": [
+    "us-5c-art-3ma",
+    "us-5c-art-1nyc",
+    "us-5c-art-1ohl",
+    "us-5c-art-5usd",
+    "us-5c-art-5usi"
+   ],
+   "reviewed": [
+    "POS-C-0002",
+    "POS-C-0007",
+    "POS-C-0009",
+    "POS-C-0207",
+    "POS-C-0208"
+   ],
+   "note": "us-5c-art has no road of approach on its line of command. Every documented formation of us-5c (2) names Hanover Road; no report on the line of command names another road, one the repository cannot place, or one outside the loaded ground (the claims read are in reviewed). The road is MODELLED from the siblings, not printed for this unit."
+  },
+  {
+   "id": "AP-47",
+   "kind": "sibling",
+   "unit": "cs-1c-mclaws-barksdale",
+   "formation": "cs-1c",
+   "road": "Chambersburg Pike",
+   "modelled": true,
+   "tier": "plausible-procedural",
+   "decision": "DEC-015",
+   "register": "EG-0070",
+   "added_in": "v6",
+   "siblings": [
+    {
+     "ap": "AP-41",
+     "unit": "cs-1c-mclaws-kershaw",
+     "unit_name": "Kershaw",
+     "road": "Chambersburg Pike",
+     "tier": "inferred",
+     "source": "claim",
+     "claim": "PD-1c-mclaws-kershaw-02",
+     "claims": [
+      "PD-1c-mclaws-kershaw-02"
+     ],
+     "report": "OR27-2-R432",
+     "page": "366",
+     "ledger": "D",
+     "claim_tier": "documented",
+     "phrase": "a point on the Gettysburg road, some 2 miles from that place",
+     "phrase_in": "quote",
+     "concordance": "RC-03",
+     "printed_name": "Gettysburg road",
+     "identification": "printed as the Gettysburg road, from Fayetteville: RC-03, the Chambersburg Pike, for this passage only (tier inferred); not a name of a road elsewhere"
+    }
+   ],
+   "claims": [
+    "PD-1c-mclaws-kershaw-02"
+   ],
+   "leaves": [
+    "cs-1c-mclaws-barksdale-13ms",
+    "cs-1c-mclaws-barksdale-17ms",
+    "cs-1c-mclaws-barksdale-18ms",
+    "cs-1c-mclaws-barksdale-21ms"
+   ],
+   "reviewed": [
+    "PD-1c-02",
+    "PD-1c-03",
+    "PD-1c-04",
+    "PD-1c-07",
+    "PD-1c-mclaws-01",
+    "PD-1c-mclaws-barksdale-03",
+    "PD-1c-mclaws-barksdale-07",
+    "POS-E-CS-1C-MCLAWS-001"
+   ],
+   "note": "cs-1c-mclaws-barksdale has no road of approach on its line of command. Every documented formation of cs-1c (1) names Chambersburg Pike; no report on the line of command names another road, one the repository cannot place, or one outside the loaded ground (the claims read are in reviewed). The road is MODELLED from the siblings, not printed for this unit."
+  },
+  {
+   "id": "AP-48",
+   "kind": "sibling",
+   "unit": "cs-1c-mclaws-cabell",
+   "formation": "cs-1c",
+   "road": "Chambersburg Pike",
+   "modelled": true,
+   "tier": "plausible-procedural",
+   "decision": "DEC-015",
+   "register": "EG-0070",
+   "added_in": "v6",
+   "siblings": [
+    {
+     "ap": "AP-41",
+     "unit": "cs-1c-mclaws-kershaw",
+     "unit_name": "Kershaw",
+     "road": "Chambersburg Pike",
+     "tier": "inferred",
+     "source": "claim",
+     "claim": "PD-1c-mclaws-kershaw-02",
+     "claims": [
+      "PD-1c-mclaws-kershaw-02"
+     ],
+     "report": "OR27-2-R432",
+     "page": "366",
+     "ledger": "D",
+     "claim_tier": "documented",
+     "phrase": "a point on the Gettysburg road, some 2 miles from that place",
+     "phrase_in": "quote",
+     "concordance": "RC-03",
+     "printed_name": "Gettysburg road",
+     "identification": "printed as the Gettysburg road, from Fayetteville: RC-03, the Chambersburg Pike, for this passage only (tier inferred); not a name of a road elsewhere"
+    }
+   ],
+   "claims": [
+    "PD-1c-mclaws-kershaw-02"
+   ],
+   "leaves": [
+    "cs-1c-mclaws-cabell"
+   ],
+   "reviewed": [
+    "PD-1c-02",
+    "PD-1c-03",
+    "PD-1c-04",
+    "PD-1c-07",
+    "PD-1c-mclaws-01",
+    "PD-1c-mclaws-cabell-02",
+    "PD-1c-mclaws-cabell-03",
+    "PD-1c-mclaws-cabell-05",
+    "PD-1c-mclaws-cabell-07",
+    "PD-1c-mclaws-cabell-11",
+    "POS-E-CS-1C-MCLAWS-001"
+   ],
+   "note": "cs-1c-mclaws-cabell has no road of approach on its line of command. Every documented formation of cs-1c (1) names Chambersburg Pike; no report on the line of command names another road, one the repository cannot place, or one outside the loaded ground (the claims read are in reviewed). The road is MODELLED from the siblings, not printed for this unit."
+  },
+  {
+   "id": "AP-49",
+   "kind": "sibling",
+   "unit": "cs-1c-pickett-dearing",
+   "formation": "cs-1c",
+   "road": "Chambersburg Pike",
+   "modelled": true,
+   "tier": "plausible-procedural",
+   "decision": "DEC-015",
+   "register": "EG-0070",
+   "added_in": "v6",
+   "siblings": [
+    {
+     "ap": "AP-41",
+     "unit": "cs-1c-mclaws-kershaw",
+     "unit_name": "Kershaw",
+     "road": "Chambersburg Pike",
+     "tier": "inferred",
+     "source": "claim",
+     "claim": "PD-1c-mclaws-kershaw-02",
+     "claims": [
+      "PD-1c-mclaws-kershaw-02"
+     ],
+     "report": "OR27-2-R432",
+     "page": "366",
+     "ledger": "D",
+     "claim_tier": "documented",
+     "phrase": "a point on the Gettysburg road, some 2 miles from that place",
+     "phrase_in": "quote",
+     "concordance": "RC-03",
+     "printed_name": "Gettysburg road",
+     "identification": "printed as the Gettysburg road, from Fayetteville: RC-03, the Chambersburg Pike, for this passage only (tier inferred); not a name of a road elsewhere"
+    }
+   ],
+   "claims": [
+    "PD-1c-mclaws-kershaw-02"
+   ],
+   "leaves": [
+    "cs-1c-pickett-dearing"
+   ],
+   "reviewed": [
+    "PD-1c-02",
+    "PD-1c-03",
+    "PD-1c-04",
+    "PD-1c-07",
+    "PD-1c-pickett-07",
+    "PD-1c-pickett-dearing-01",
+    "POS-E-CS-1C-PICKETT-002"
+   ],
+   "note": "cs-1c-pickett-dearing has no road of approach on its line of command. Every documented formation of cs-1c (1) names Chambersburg Pike; no report on the line of command names another road, one the repository cannot place, or one outside the loaded ground (the claims read are in reviewed). The road is MODELLED from the siblings, not printed for this unit."
+  },
+  {
+   "id": "AP-50",
+   "kind": "sibling",
+   "unit": "cs-1c-hood",
+   "formation": "cs-1c",
+   "road": "Chambersburg Pike",
+   "modelled": true,
+   "tier": "plausible-procedural",
+   "decision": "DEC-015",
+   "register": "EG-0070",
+   "added_in": "v6",
+   "siblings": [
+    {
+     "ap": "AP-41",
+     "unit": "cs-1c-mclaws-kershaw",
+     "unit_name": "Kershaw",
+     "road": "Chambersburg Pike",
+     "tier": "inferred",
+     "source": "claim",
+     "claim": "PD-1c-mclaws-kershaw-02",
+     "claims": [
+      "PD-1c-mclaws-kershaw-02"
+     ],
+     "report": "OR27-2-R432",
+     "page": "366",
+     "ledger": "D",
+     "claim_tier": "documented",
+     "phrase": "a point on the Gettysburg road, some 2 miles from that place",
+     "phrase_in": "quote",
+     "concordance": "RC-03",
+     "printed_name": "Gettysburg road",
+     "identification": "printed as the Gettysburg road, from Fayetteville: RC-03, the Chambersburg Pike, for this passage only (tier inferred); not a name of a road elsewhere"
+    }
+   ],
+   "claims": [
+    "PD-1c-mclaws-kershaw-02"
+   ],
+   "leaves": [
+    "cs-1c-hood-law-4al",
+    "cs-1c-hood-law-15al",
+    "cs-1c-hood-law-44al",
+    "cs-1c-hood-law-47al",
+    "cs-1c-hood-law-48al",
+    "cs-1c-hood-robertson-3ar",
+    "cs-1c-hood-robertson-1tx",
+    "cs-1c-hood-robertson-4tx",
+    "cs-1c-hood-robertson-5tx",
+    "cs-1c-hood-anderson-7ga",
+    "cs-1c-hood-anderson-8ga",
+    "cs-1c-hood-anderson-9ga",
+    "cs-1c-hood-anderson-11ga",
+    "cs-1c-hood-anderson-59ga",
+    "cs-1c-hood-benning-2ga",
+    "cs-1c-hood-benning-15ga",
+    "cs-1c-hood-benning-17ga",
+    "cs-1c-hood-benning-20ga",
+    "cs-1c-hood-henry"
+   ],
+   "reviewed": [
+    "PD-1c-02",
+    "PD-1c-03",
+    "PD-1c-04",
+    "PD-1c-07",
+    "PD-1c-hood-01",
+    "PD-1c-hood-anderson-04",
+    "PD-1c-hood-benning-01",
+    "PD-1c-hood-benning-02",
+    "PD-1c-hood-benning-03",
+    "PD-1c-hood-henry-02",
+    "PD-1c-hood-law-05",
+    "PD-1c-hood-law-48al-01",
+    "PD-1c-hood-law-4al-01",
+    "PD-1c-hood-robertson-05"
+   ],
+   "note": "cs-1c-hood has no road of approach on its line of command. Every documented formation of cs-1c (1) names Chambersburg Pike; no report on the line of command names another road, one the repository cannot place, or one outside the loaded ground (the claims read are in reviewed). The road is MODELLED from the siblings, not printed for this unit."
+  },
+  {
+   "id": "AP-51",
+   "kind": "sibling",
+   "unit": "cs-1c-res-art",
+   "formation": "cs-1c",
+   "road": "Chambersburg Pike",
+   "modelled": true,
+   "tier": "plausible-procedural",
+   "decision": "DEC-015",
+   "register": "EG-0070",
+   "added_in": "v6",
+   "siblings": [
+    {
+     "ap": "AP-41",
+     "unit": "cs-1c-mclaws-kershaw",
+     "unit_name": "Kershaw",
+     "road": "Chambersburg Pike",
+     "tier": "inferred",
+     "source": "claim",
+     "claim": "PD-1c-mclaws-kershaw-02",
+     "claims": [
+      "PD-1c-mclaws-kershaw-02"
+     ],
+     "report": "OR27-2-R432",
+     "page": "366",
+     "ledger": "D",
+     "claim_tier": "documented",
+     "phrase": "a point on the Gettysburg road, some 2 miles from that place",
+     "phrase_in": "quote",
+     "concordance": "RC-03",
+     "printed_name": "Gettysburg road",
+     "identification": "printed as the Gettysburg road, from Fayetteville: RC-03, the Chambersburg Pike, for this passage only (tier inferred); not a name of a road elsewhere"
+    }
+   ],
+   "claims": [
+    "PD-1c-mclaws-kershaw-02"
+   ],
+   "leaves": [
+    "cs-1c-res-art-alexander-ashland",
+    "cs-1c-res-art-alexander-bedford",
+    "cs-1c-res-art-alexander-brookssc",
+    "cs-1c-res-art-alexander-madisonla",
+    "cs-1c-res-art-alexander-richmond",
+    "cs-1c-res-art-alexander-bath",
+    "cs-1c-res-art-washington"
+   ],
+   "reviewed": [
+    "PD-1c-02",
+    "PD-1c-03",
+    "PD-1c-04",
+    "PD-1c-07",
+    "PD-1c-res-art-alexander-01",
+    "PD-1c-res-art-washington-01"
+   ],
+   "note": "cs-1c-res-art has no road of approach on its line of command. Every documented formation of cs-1c (1) names Chambersburg Pike; no report on the line of command names another road, one the repository cannot place, or one outside the loaded ground (the claims read are in reviewed). The road is MODELLED from the siblings, not printed for this unit."
+  }
+ ],
+ "leaves": {
+  "us-3c-2d-carr-1ma": {
+   "status": "open",
+   "code": "road_outside_ground",
+   "why": "the road \"Black Horse Tavern Road\" does not cross into the loaded ground; AP-07 prints it for us-3c-2d",
+   "v5_code": "road_outside_ground",
+   "day_position": true
+  },
+  "us-3c-2d-carr-11ma": {
+   "status": "open",
+   "code": "road_outside_ground",
+   "why": "the road \"Black Horse Tavern Road\" does not cross into the loaded ground; AP-07 prints it for us-3c-2d",
+   "v5_code": "road_outside_ground",
+   "day_position": true
+  },
+  "us-3c-2d-carr-16ma": {
+   "status": "open",
+   "code": "road_outside_ground",
+   "why": "the road \"Black Horse Tavern Road\" does not cross into the loaded ground; AP-07 prints it for us-3c-2d",
+   "v5_code": "road_outside_ground",
+   "day_position": true
+  },
+  "us-3c-2d-carr-12nh": {
+   "status": "open",
+   "code": "road_outside_ground",
+   "why": "the road \"Black Horse Tavern Road\" does not cross into the loaded ground; AP-07 prints it for us-3c-2d",
+   "v5_code": "road_outside_ground",
+   "day_position": true
+  },
+  "us-3c-2d-carr-11nj": {
+   "status": "open",
+   "code": "road_outside_ground",
+   "why": "the road \"Black Horse Tavern Road\" does not cross into the loaded ground; AP-07 prints it for us-3c-2d",
+   "v5_code": "road_outside_ground",
+   "day_position": true
+  },
+  "us-3c-2d-carr-26pa": {
+   "status": "open",
+   "code": "road_outside_ground",
+   "why": "the road \"Black Horse Tavern Road\" does not cross into the loaded ground; AP-07 prints it for us-3c-2d",
+   "v5_code": "road_outside_ground",
+   "day_position": true
+  },
+  "us-3c-2d-brewster-70ny": {
+   "status": "open",
+   "code": "road_outside_ground",
+   "why": "the road \"Black Horse Tavern Road\" does not cross into the loaded ground; AP-07 prints it for us-3c-2d",
+   "v5_code": "road_outside_ground",
+   "day_position": false
+  },
+  "us-3c-2d-brewster-71ny": {
+   "status": "open",
+   "code": "road_outside_ground",
+   "why": "the road \"Black Horse Tavern Road\" does not cross into the loaded ground; AP-07 prints it for us-3c-2d",
+   "v5_code": "road_outside_ground",
+   "day_position": false
+  },
+  "us-3c-2d-brewster-72ny": {
+   "status": "open",
+   "code": "road_outside_ground",
+   "why": "the road \"Black Horse Tavern Road\" does not cross into the loaded ground; AP-07 prints it for us-3c-2d",
+   "v5_code": "road_outside_ground",
+   "day_position": false
+  },
+  "us-3c-2d-brewster-73ny": {
+   "status": "open",
+   "code": "road_outside_ground",
+   "why": "the road \"Black Horse Tavern Road\" does not cross into the loaded ground; AP-07 prints it for us-3c-2d",
+   "v5_code": "road_outside_ground",
+   "day_position": false
+  },
+  "us-3c-2d-brewster-74ny": {
+   "status": "open",
+   "code": "road_outside_ground",
+   "why": "the road \"Black Horse Tavern Road\" does not cross into the loaded ground; AP-07 prints it for us-3c-2d",
+   "v5_code": "road_outside_ground",
+   "day_position": false
+  },
+  "us-3c-2d-brewster-120ny": {
+   "status": "open",
+   "code": "road_outside_ground",
+   "why": "the road \"Black Horse Tavern Road\" does not cross into the loaded ground; AP-07 prints it for us-3c-2d",
+   "v5_code": "road_outside_ground",
+   "day_position": false
+  },
+  "us-5c-1d-tilton-18ma": {
+   "status": "drawn",
+   "approach": "AP-44",
+   "road": "Hanover Road",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of us-5c: Hanover Road"
+  },
+  "us-5c-1d-tilton-22ma": {
+   "status": "drawn",
+   "approach": "AP-44",
+   "road": "Hanover Road",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of us-5c: Hanover Road"
+  },
+  "us-5c-1d-tilton-1mi": {
+   "status": "drawn",
+   "approach": "AP-44",
+   "road": "Hanover Road",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of us-5c: Hanover Road"
+  },
+  "us-5c-1d-tilton-118pa": {
+   "status": "drawn",
+   "approach": "AP-44",
+   "road": "Hanover Road",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of us-5c: Hanover Road"
+  },
+  "us-5c-1d-sweitzer-9ma": {
+   "status": "drawn",
+   "approach": "AP-44",
+   "road": "Hanover Road",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of us-5c: Hanover Road"
+  },
+  "us-5c-1d-sweitzer-4mi": {
+   "status": "drawn",
+   "approach": "AP-44",
+   "road": "Hanover Road",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of us-5c: Hanover Road"
+  },
+  "us-5c-1d-sweitzer-62pa": {
+   "status": "drawn",
+   "approach": "AP-44",
+   "road": "Hanover Road",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of us-5c: Hanover Road"
+  },
+  "us-5c-1d-vincent-16mi": {
+   "status": "drawn",
+   "approach": "AP-44",
+   "road": "Hanover Road",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of us-5c: Hanover Road"
+  },
+  "us-5c-1d-vincent-44ny": {
+   "status": "drawn",
+   "approach": "AP-44",
+   "road": "Hanover Road",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of us-5c: Hanover Road"
+  },
+  "us-5c-1d-vincent-83pa": {
+   "status": "drawn",
+   "approach": "AP-44",
+   "road": "Hanover Road",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of us-5c: Hanover Road"
+  },
+  "us-5c-3d-mccandless-1pareserves": {
+   "status": "drawn",
+   "approach": "AP-45",
+   "road": "Hanover Road",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of us-5c: Hanover Road"
+  },
+  "us-5c-3d-mccandless-2pareserves": {
+   "status": "drawn",
+   "approach": "AP-45",
+   "road": "Hanover Road",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of us-5c: Hanover Road"
+  },
+  "us-5c-3d-mccandless-6pareserves": {
+   "status": "drawn",
+   "approach": "AP-45",
+   "road": "Hanover Road",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of us-5c: Hanover Road"
+  },
+  "us-5c-3d-mccandless-13pareserves": {
+   "status": "drawn",
+   "approach": "AP-45",
+   "road": "Hanover Road",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of us-5c: Hanover Road"
+  },
+  "us-5c-3d-fisher-5pareserves": {
+   "status": "drawn",
+   "approach": "AP-45",
+   "road": "Hanover Road",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of us-5c: Hanover Road"
+  },
+  "us-5c-3d-fisher-9pareserves": {
+   "status": "drawn",
+   "approach": "AP-45",
+   "road": "Hanover Road",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of us-5c: Hanover Road"
+  },
+  "us-5c-3d-fisher-10pareserves": {
+   "status": "drawn",
+   "approach": "AP-45",
+   "road": "Hanover Road",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of us-5c: Hanover Road"
+  },
+  "us-5c-3d-fisher-11pareserves": {
+   "status": "drawn",
+   "approach": "AP-45",
+   "road": "Hanover Road",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of us-5c: Hanover Road"
+  },
+  "us-5c-3d-fisher-12pareserves": {
+   "status": "drawn",
+   "approach": "AP-45",
+   "road": "Hanover Road",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of us-5c: Hanover Road"
+  },
+  "us-5c-art-3ma": {
+   "status": "drawn",
+   "approach": "AP-46",
+   "road": "Hanover Road",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of us-5c: Hanover Road"
+  },
+  "us-5c-art-1nyc": {
+   "status": "drawn",
+   "approach": "AP-46",
+   "road": "Hanover Road",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of us-5c: Hanover Road"
+  },
+  "us-5c-art-1ohl": {
+   "status": "drawn",
+   "approach": "AP-46",
+   "road": "Hanover Road",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of us-5c: Hanover Road"
+  },
+  "us-5c-art-5usd": {
+   "status": "drawn",
+   "approach": "AP-46",
+   "road": "Hanover Road",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of us-5c: Hanover Road"
+  },
+  "us-5c-art-5usi": {
+   "status": "drawn",
+   "approach": "AP-46",
+   "road": "Hanover Road",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of us-5c: Hanover Road"
+  },
+  "us-11c-3d-schimmelfennig-82il": {
+   "status": "open",
+   "code": "route_not_a_road",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (POS-A-CV1-038: “the balance of the corps on the road past Horner's Mills”)",
+   "v5_code": "no_road_named",
+   "day_position": true
+  },
+  "us-11c-3d-schimmelfennig-45ny": {
+   "status": "open",
+   "code": "route_not_a_road",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (POS-A-CV1-038: “the balance of the corps on the road past Horner's Mills”)",
+   "v5_code": "no_road_named",
+   "day_position": true
+  },
+  "us-11c-3d-schimmelfennig-157ny": {
+   "status": "open",
+   "code": "route_not_a_road",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (POS-A-CV1-038: “the balance of the corps on the road past Horner's Mills”)",
+   "v5_code": "no_road_named",
+   "day_position": true
+  },
+  "us-11c-3d-schimmelfennig-61oh": {
+   "status": "open",
+   "code": "route_not_a_road",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (POS-A-CV1-038: “the balance of the corps on the road past Horner's Mills”)",
+   "v5_code": "no_road_named",
+   "day_position": true
+  },
+  "us-11c-3d-schimmelfennig-74pa": {
+   "status": "open",
+   "code": "route_not_a_road",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (POS-A-CV1-038: “the balance of the corps on the road past Horner's Mills”)",
+   "v5_code": "no_road_named",
+   "day_position": true
+  },
+  "us-11c-3d-krzyzanowski-58ny": {
+   "status": "open",
+   "code": "route_not_a_road",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (POS-A-CV1-038: “the balance of the corps on the road past Horner's Mills”)",
+   "v5_code": "no_road_named",
+   "day_position": true
+  },
+  "us-11c-3d-krzyzanowski-119ny": {
+   "status": "open",
+   "code": "route_not_a_road",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (POS-A-CV1-038: “the balance of the corps on the road past Horner's Mills”)",
+   "v5_code": "no_road_named",
+   "day_position": true
+  },
+  "us-11c-3d-krzyzanowski-82oh": {
+   "status": "open",
+   "code": "route_not_a_road",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (POS-A-CV1-038: “the balance of the corps on the road past Horner's Mills”)",
+   "v5_code": "no_road_named",
+   "day_position": true
+  },
+  "us-11c-3d-krzyzanowski-75pa": {
+   "status": "open",
+   "code": "route_not_a_road",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (POS-A-CV1-038: “the balance of the corps on the road past Horner's Mills”)",
+   "v5_code": "no_road_named",
+   "day_position": true
+  },
+  "us-11c-3d-krzyzanowski-26wi": {
+   "status": "open",
+   "code": "route_not_a_road",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (POS-A-CV1-038: “the balance of the corps on the road past Horner's Mills”)",
+   "v5_code": "no_road_named",
+   "day_position": true
+  },
+  "us-11c-art-13ny": {
+   "status": "open",
+   "code": "route_not_a_road",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (POS-A-CV1-038: “the balance of the corps on the road past Horner's Mills”)",
+   "v5_code": "no_road_named",
+   "day_position": true
+  },
+  "us-11c-art-1ohi": {
+   "status": "open",
+   "code": "route_not_a_road",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (POS-A-CV1-038: “the balance of the corps on the road past Horner's Mills”)",
+   "v5_code": "no_road_named",
+   "day_position": true
+  },
+  "us-11c-art-1ohk": {
+   "status": "open",
+   "code": "route_not_a_road",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (POS-A-CV1-038: “the balance of the corps on the road past Horner's Mills”)",
+   "v5_code": "no_road_named",
+   "day_position": true
+  },
+  "us-11c-art-4usg": {
+   "status": "open",
+   "code": "route_not_a_road",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (POS-A-CV1-038: “the balance of the corps on the road past Horner's Mills”)",
+   "v5_code": "position_not_approach",
+   "day_position": true
+  },
+  "us-cav-1d-gamble-8il": {
+   "status": "open",
+   "code": "road_not_resolvable",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (POS-E-US-CAV-1D-003: “via Boonsboro and Fairfield (the Fairfield road)”)",
+   "v5_code": "movement_order",
+   "day_position": false
+  },
+  "us-cav-1d-gamble-12il": {
+   "status": "open",
+   "code": "road_not_resolvable",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (POS-E-US-CAV-1D-003: “via Boonsboro and Fairfield (the Fairfield road)”)",
+   "v5_code": "movement_order",
+   "day_position": false
+  },
+  "us-cav-1d-gamble-3in": {
+   "status": "open",
+   "code": "road_not_resolvable",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (POS-E-US-CAV-1D-003: “via Boonsboro and Fairfield (the Fairfield road)”)",
+   "v5_code": "movement_order",
+   "day_position": false
+  },
+  "us-cav-1d-gamble-8ny": {
+   "status": "open",
+   "code": "road_not_resolvable",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (POS-E-US-CAV-1D-003: “via Boonsboro and Fairfield (the Fairfield road)”)",
+   "v5_code": "movement_order",
+   "day_position": false
+  },
+  "us-cav-1d-devin-6ny": {
+   "status": "open",
+   "code": "road_not_resolvable",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (POS-E-US-CAV-1D-003: “via Boonsboro and Fairfield (the Fairfield road)”)",
+   "v5_code": "movement_order",
+   "day_position": false
+  },
+  "us-cav-1d-devin-9ny": {
+   "status": "open",
+   "code": "road_not_resolvable",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (POS-E-US-CAV-1D-003: “via Boonsboro and Fairfield (the Fairfield road)”)",
+   "v5_code": "movement_order",
+   "day_position": false
+  },
+  "us-cav-1d-devin-17pa": {
+   "status": "open",
+   "code": "road_not_resolvable",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (POS-E-US-CAV-1D-003: “via Boonsboro and Fairfield (the Fairfield road)”)",
+   "v5_code": "movement_order",
+   "day_position": false
+  },
+  "us-cav-1d-devin-3wvaandc": {
+   "status": "open",
+   "code": "road_not_resolvable",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (POS-E-US-CAV-1D-003: “via Boonsboro and Fairfield (the Fairfield road)”)",
+   "v5_code": "movement_order",
+   "day_position": false
+  },
+  "us-cav-3d-farnsworth-5ny": {
+   "status": "open",
+   "code": "siblings_disagree",
+   "why": "the documented sibling formations of the corps name different roads (for example the Second Corps: Early the Harrisburg Road, Rodes the Carlisle Road): none is chosen (Emmitsburg Road (AP-05, us-cav-1d-merritt); Hanover Road (AP-13, us-cav-2d-gregg); Hanover Road (AP-35, us-cav-2d))",
+   "v5_code": "road_not_printed",
+   "day_position": true
+  },
+  "us-cav-3d-farnsworth-18pa": {
+   "status": "open",
+   "code": "siblings_disagree",
+   "why": "the documented sibling formations of the corps name different roads (for example the Second Corps: Early the Harrisburg Road, Rodes the Carlisle Road): none is chosen (Emmitsburg Road (AP-05, us-cav-1d-merritt); Hanover Road (AP-13, us-cav-2d-gregg); Hanover Road (AP-35, us-cav-2d))",
+   "v5_code": "road_not_printed",
+   "day_position": true
+  },
+  "us-cav-3d-farnsworth-1vt": {
+   "status": "open",
+   "code": "siblings_disagree",
+   "why": "the documented sibling formations of the corps name different roads (for example the Second Corps: Early the Harrisburg Road, Rodes the Carlisle Road): none is chosen (Emmitsburg Road (AP-05, us-cav-1d-merritt); Hanover Road (AP-13, us-cav-2d-gregg); Hanover Road (AP-35, us-cav-2d))",
+   "v5_code": "road_not_printed",
+   "day_position": true
+  },
+  "us-cav-3d-farnsworth-1wv": {
+   "status": "open",
+   "code": "siblings_disagree",
+   "why": "the documented sibling formations of the corps name different roads (for example the Second Corps: Early the Harrisburg Road, Rodes the Carlisle Road): none is chosen (Emmitsburg Road (AP-05, us-cav-1d-merritt); Hanover Road (AP-13, us-cav-2d-gregg); Hanover Road (AP-35, us-cav-2d))",
+   "v5_code": "road_not_printed",
+   "day_position": true
+  },
+  "us-cav-3d-custer-1mi": {
+   "status": "open",
+   "code": "siblings_disagree",
+   "why": "the documented sibling formations of the corps name different roads (for example the Second Corps: Early the Harrisburg Road, Rodes the Carlisle Road): none is chosen (Emmitsburg Road (AP-05, us-cav-1d-merritt); Hanover Road (AP-13, us-cav-2d-gregg); Hanover Road (AP-35, us-cav-2d))",
+   "v5_code": "road_not_printed",
+   "day_position": false
+  },
+  "us-cav-3d-custer-5mi": {
+   "status": "open",
+   "code": "siblings_disagree",
+   "why": "the documented sibling formations of the corps name different roads (for example the Second Corps: Early the Harrisburg Road, Rodes the Carlisle Road): none is chosen (Emmitsburg Road (AP-05, us-cav-1d-merritt); Hanover Road (AP-13, us-cav-2d-gregg); Hanover Road (AP-35, us-cav-2d))",
+   "v5_code": "earlier_march",
+   "day_position": false
+  },
+  "us-cav-3d-custer-6mi": {
+   "status": "open",
+   "code": "siblings_disagree",
+   "why": "the documented sibling formations of the corps name different roads (for example the Second Corps: Early the Harrisburg Road, Rodes the Carlisle Road): none is chosen (Emmitsburg Road (AP-05, us-cav-1d-merritt); Hanover Road (AP-13, us-cav-2d-gregg); Hanover Road (AP-35, us-cav-2d))",
+   "v5_code": "earlier_march",
+   "day_position": false
+  },
+  "us-cav-3d-custer-7mi": {
+   "status": "open",
+   "code": "siblings_disagree",
+   "why": "the documented sibling formations of the corps name different roads (for example the Second Corps: Early the Harrisburg Road, Rodes the Carlisle Road): none is chosen (Emmitsburg Road (AP-05, us-cav-1d-merritt); Hanover Road (AP-13, us-cav-2d-gregg); Hanover Road (AP-35, us-cav-2d))",
+   "v5_code": "earlier_march",
+   "day_position": false
+  },
+  "us-cav-art": {
+   "status": "open",
+   "code": "siblings_disagree",
+   "why": "the documented sibling formations of the corps name different roads (for example the Second Corps: Early the Harrisburg Road, Rodes the Carlisle Road): none is chosen (Emmitsburg Road (AP-05, us-cav-1d-merritt); Hanover Road (AP-13, us-cav-2d-gregg); Hanover Road (AP-35, us-cav-2d))",
+   "v5_code": "movement_in_field",
+   "day_position": false
+  },
+  "cs-1c-mclaws-barksdale-13ms": {
+   "status": "drawn",
+   "approach": "AP-47",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-mclaws-barksdale-17ms": {
+   "status": "drawn",
+   "approach": "AP-47",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-mclaws-barksdale-18ms": {
+   "status": "drawn",
+   "approach": "AP-47",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-mclaws-barksdale-21ms": {
+   "status": "drawn",
+   "approach": "AP-47",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-mclaws-semmes-10ga": {
+   "status": "open",
+   "code": "sibling_road_no_day_position",
+   "why": "the sibling road is available, but the unit has no single-label day position (a Bachelder sheet), so a drawn unit would only stand in a column at the edge of the ground: not drawn",
+   "v5_code": "no_road_named",
+   "day_position": false
+  },
+  "cs-1c-mclaws-semmes-50ga": {
+   "status": "open",
+   "code": "sibling_road_no_day_position",
+   "why": "the sibling road is available, but the unit has no single-label day position (a Bachelder sheet), so a drawn unit would only stand in a column at the edge of the ground: not drawn",
+   "v5_code": "no_road_named",
+   "day_position": false
+  },
+  "cs-1c-mclaws-semmes-51ga": {
+   "status": "open",
+   "code": "sibling_road_no_day_position",
+   "why": "the sibling road is available, but the unit has no single-label day position (a Bachelder sheet), so a drawn unit would only stand in a column at the edge of the ground: not drawn",
+   "v5_code": "no_road_named",
+   "day_position": false
+  },
+  "cs-1c-mclaws-semmes-53ga": {
+   "status": "open",
+   "code": "sibling_road_no_day_position",
+   "why": "the sibling road is available, but the unit has no single-label day position (a Bachelder sheet), so a drawn unit would only stand in a column at the edge of the ground: not drawn",
+   "v5_code": "no_road_named",
+   "day_position": false
+  },
+  "cs-1c-mclaws-wofford-16ga": {
+   "status": "open",
+   "code": "sibling_road_no_day_position",
+   "why": "the sibling road is available, but the unit has no single-label day position (a Bachelder sheet), so a drawn unit would only stand in a column at the edge of the ground: not drawn",
+   "v5_code": "no_road_named",
+   "day_position": false
+  },
+  "cs-1c-mclaws-wofford-18ga": {
+   "status": "open",
+   "code": "sibling_road_no_day_position",
+   "why": "the sibling road is available, but the unit has no single-label day position (a Bachelder sheet), so a drawn unit would only stand in a column at the edge of the ground: not drawn",
+   "v5_code": "no_road_named",
+   "day_position": false
+  },
+  "cs-1c-mclaws-wofford-24ga": {
+   "status": "open",
+   "code": "sibling_road_no_day_position",
+   "why": "the sibling road is available, but the unit has no single-label day position (a Bachelder sheet), so a drawn unit would only stand in a column at the edge of the ground: not drawn",
+   "v5_code": "no_road_named",
+   "day_position": false
+  },
+  "cs-1c-mclaws-wofford-cobbslegion": {
+   "status": "open",
+   "code": "sibling_road_no_day_position",
+   "why": "the sibling road is available, but the unit has no single-label day position (a Bachelder sheet), so a drawn unit would only stand in a column at the edge of the ground: not drawn",
+   "v5_code": "no_road_named",
+   "day_position": false
+  },
+  "cs-1c-mclaws-wofford-phillipslegion": {
+   "status": "open",
+   "code": "sibling_road_no_day_position",
+   "why": "the sibling road is available, but the unit has no single-label day position (a Bachelder sheet), so a drawn unit would only stand in a column at the edge of the ground: not drawn",
+   "v5_code": "no_road_named",
+   "day_position": false
+  },
+  "cs-1c-mclaws-wofford-3gasharpshooters": {
+   "status": "open",
+   "code": "sibling_road_no_day_position",
+   "why": "the sibling road is available, but the unit has no single-label day position (a Bachelder sheet), so a drawn unit would only stand in a column at the edge of the ground: not drawn",
+   "v5_code": "no_road_named",
+   "day_position": false
+  },
+  "cs-1c-mclaws-cabell": {
+   "status": "drawn",
+   "approach": "AP-48",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-pickett-garnett-8va": {
+   "status": "open",
+   "code": "sibling_road_no_day_position",
+   "why": "the sibling road is available, but the unit has no single-label day position (a Bachelder sheet), so a drawn unit would only stand in a column at the edge of the ground: not drawn",
+   "v5_code": "no_road_named",
+   "day_position": false
+  },
+  "cs-1c-pickett-garnett-18va": {
+   "status": "open",
+   "code": "sibling_road_no_day_position",
+   "why": "the sibling road is available, but the unit has no single-label day position (a Bachelder sheet), so a drawn unit would only stand in a column at the edge of the ground: not drawn",
+   "v5_code": "no_road_named",
+   "day_position": false
+  },
+  "cs-1c-pickett-garnett-19va": {
+   "status": "open",
+   "code": "sibling_road_no_day_position",
+   "why": "the sibling road is available, but the unit has no single-label day position (a Bachelder sheet), so a drawn unit would only stand in a column at the edge of the ground: not drawn",
+   "v5_code": "no_road_named",
+   "day_position": false
+  },
+  "cs-1c-pickett-garnett-28va": {
+   "status": "open",
+   "code": "sibling_road_no_day_position",
+   "why": "the sibling road is available, but the unit has no single-label day position (a Bachelder sheet), so a drawn unit would only stand in a column at the edge of the ground: not drawn",
+   "v5_code": "no_road_named",
+   "day_position": false
+  },
+  "cs-1c-pickett-garnett-56va": {
+   "status": "open",
+   "code": "sibling_road_no_day_position",
+   "why": "the sibling road is available, but the unit has no single-label day position (a Bachelder sheet), so a drawn unit would only stand in a column at the edge of the ground: not drawn",
+   "v5_code": "no_road_named",
+   "day_position": false
+  },
+  "cs-1c-pickett-kemper-1va": {
+   "status": "open",
+   "code": "sibling_road_no_day_position",
+   "why": "the sibling road is available, but the unit has no single-label day position (a Bachelder sheet), so a drawn unit would only stand in a column at the edge of the ground: not drawn",
+   "v5_code": "no_quote",
+   "day_position": false
+  },
+  "cs-1c-pickett-kemper-3va": {
+   "status": "open",
+   "code": "sibling_road_no_day_position",
+   "why": "the sibling road is available, but the unit has no single-label day position (a Bachelder sheet), so a drawn unit would only stand in a column at the edge of the ground: not drawn",
+   "v5_code": "no_quote",
+   "day_position": false
+  },
+  "cs-1c-pickett-kemper-7va": {
+   "status": "open",
+   "code": "sibling_road_no_day_position",
+   "why": "the sibling road is available, but the unit has no single-label day position (a Bachelder sheet), so a drawn unit would only stand in a column at the edge of the ground: not drawn",
+   "v5_code": "no_quote",
+   "day_position": false
+  },
+  "cs-1c-pickett-kemper-11va": {
+   "status": "open",
+   "code": "sibling_road_no_day_position",
+   "why": "the sibling road is available, but the unit has no single-label day position (a Bachelder sheet), so a drawn unit would only stand in a column at the edge of the ground: not drawn",
+   "v5_code": "no_quote",
+   "day_position": false
+  },
+  "cs-1c-pickett-kemper-24va": {
+   "status": "open",
+   "code": "sibling_road_no_day_position",
+   "why": "the sibling road is available, but the unit has no single-label day position (a Bachelder sheet), so a drawn unit would only stand in a column at the edge of the ground: not drawn",
+   "v5_code": "no_quote",
+   "day_position": false
+  },
+  "cs-1c-pickett-armistead-9va": {
+   "status": "open",
+   "code": "sibling_road_no_day_position",
+   "why": "the sibling road is available, but the unit has no single-label day position (a Bachelder sheet), so a drawn unit would only stand in a column at the edge of the ground: not drawn",
+   "v5_code": "no_quote",
+   "day_position": false
+  },
+  "cs-1c-pickett-armistead-14va": {
+   "status": "open",
+   "code": "sibling_road_no_day_position",
+   "why": "the sibling road is available, but the unit has no single-label day position (a Bachelder sheet), so a drawn unit would only stand in a column at the edge of the ground: not drawn",
+   "v5_code": "no_quote",
+   "day_position": false
+  },
+  "cs-1c-pickett-armistead-38va": {
+   "status": "open",
+   "code": "sibling_road_no_day_position",
+   "why": "the sibling road is available, but the unit has no single-label day position (a Bachelder sheet), so a drawn unit would only stand in a column at the edge of the ground: not drawn",
+   "v5_code": "no_quote",
+   "day_position": false
+  },
+  "cs-1c-pickett-armistead-53va": {
+   "status": "open",
+   "code": "sibling_road_no_day_position",
+   "why": "the sibling road is available, but the unit has no single-label day position (a Bachelder sheet), so a drawn unit would only stand in a column at the edge of the ground: not drawn",
+   "v5_code": "no_quote",
+   "day_position": false
+  },
+  "cs-1c-pickett-armistead-57va": {
+   "status": "open",
+   "code": "sibling_road_no_day_position",
+   "why": "the sibling road is available, but the unit has no single-label day position (a Bachelder sheet), so a drawn unit would only stand in a column at the edge of the ground: not drawn",
+   "v5_code": "no_quote",
+   "day_position": false
+  },
+  "cs-1c-pickett-dearing": {
+   "status": "drawn",
+   "approach": "AP-49",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-hood-law-4al": {
+   "status": "drawn",
+   "approach": "AP-50",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-hood-law-15al": {
+   "status": "drawn",
+   "approach": "AP-50",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-hood-law-44al": {
+   "status": "drawn",
+   "approach": "AP-50",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-hood-law-47al": {
+   "status": "drawn",
+   "approach": "AP-50",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-hood-law-48al": {
+   "status": "drawn",
+   "approach": "AP-50",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-hood-robertson-3ar": {
+   "status": "drawn",
+   "approach": "AP-50",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-hood-robertson-1tx": {
+   "status": "drawn",
+   "approach": "AP-50",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-hood-robertson-4tx": {
+   "status": "drawn",
+   "approach": "AP-50",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-hood-robertson-5tx": {
+   "status": "drawn",
+   "approach": "AP-50",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-hood-anderson-7ga": {
+   "status": "drawn",
+   "approach": "AP-50",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-hood-anderson-8ga": {
+   "status": "drawn",
+   "approach": "AP-50",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-hood-anderson-9ga": {
+   "status": "drawn",
+   "approach": "AP-50",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-hood-anderson-11ga": {
+   "status": "drawn",
+   "approach": "AP-50",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-hood-anderson-59ga": {
+   "status": "drawn",
+   "approach": "AP-50",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-hood-benning-2ga": {
+   "status": "drawn",
+   "approach": "AP-50",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-hood-benning-15ga": {
+   "status": "drawn",
+   "approach": "AP-50",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-hood-benning-17ga": {
+   "status": "drawn",
+   "approach": "AP-50",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-hood-benning-20ga": {
+   "status": "drawn",
+   "approach": "AP-50",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-hood-henry": {
+   "status": "drawn",
+   "approach": "AP-50",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-res-art-alexander-ashland": {
+   "status": "drawn",
+   "approach": "AP-51",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-res-art-alexander-bedford": {
+   "status": "drawn",
+   "approach": "AP-51",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-res-art-alexander-brookssc": {
+   "status": "drawn",
+   "approach": "AP-51",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-res-art-alexander-madisonla": {
+   "status": "drawn",
+   "approach": "AP-51",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-res-art-alexander-richmond": {
+   "status": "drawn",
+   "approach": "AP-51",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-res-art-alexander-bath": {
+   "status": "drawn",
+   "approach": "AP-51",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-1c-res-art-washington": {
+   "status": "drawn",
+   "approach": "AP-51",
+   "road": "Chambersburg Pike",
+   "code": "sibling",
+   "why": "drawn by the road of the sibling formations of cs-1c: Chambersburg Pike"
+  },
+  "cs-2c-early-jones": {
+   "status": "open",
+   "code": "reports_disagree",
+   "why": "a road of approach is printed for cs-2c-early (Harrisburg Road), but reports of this unit print another (York road (Brown, chief of artillery, OR27-2-R468 pp. 456-458: “coming up on the York road with Early’s division”); Heidlersburg road = the Harrisburg Road (Early, OR27-2-R470 p. 468, concordance RC-01)) and disagree: none is chosen (PD-2c-early-jones-05, PD-2c-early-06)",
+   "v5_code": "reports_disagree",
+   "day_position": true
+  },
+  "cs-2c-johnson-steuart-1mdbn": {
+   "status": "open",
+   "code": "road_not_resolvable",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (PD-2c-johnson-07: “Gettysburg and York Railroad”)",
+   "v5_code": "road_not_resolvable",
+   "day_position": true
+  },
+  "cs-2c-johnson-steuart-1nc": {
+   "status": "open",
+   "code": "road_not_resolvable",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (PD-2c-johnson-07: “Gettysburg and York Railroad”)",
+   "v5_code": "road_not_resolvable",
+   "day_position": true
+  },
+  "cs-2c-johnson-steuart-3nc": {
+   "status": "open",
+   "code": "road_not_resolvable",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (PD-2c-johnson-07: “Gettysburg and York Railroad”)",
+   "v5_code": "road_not_resolvable",
+   "day_position": true
+  },
+  "cs-2c-johnson-steuart-10va": {
+   "status": "open",
+   "code": "road_not_resolvable",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (PD-2c-johnson-07: “Gettysburg and York Railroad”)",
+   "v5_code": "road_not_resolvable",
+   "day_position": true
+  },
+  "cs-2c-johnson-steuart-23va": {
+   "status": "open",
+   "code": "road_not_resolvable",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (PD-2c-johnson-07: “Gettysburg and York Railroad”)",
+   "v5_code": "road_not_resolvable",
+   "day_position": true
+  },
+  "cs-2c-johnson-steuart-37va": {
+   "status": "open",
+   "code": "road_not_resolvable",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (PD-2c-johnson-07: “Gettysburg and York Railroad”)",
+   "v5_code": "road_not_resolvable",
+   "day_position": true
+  },
+  "cs-2c-johnson-stonewall-2va": {
+   "status": "open",
+   "code": "road_not_resolvable",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (PD-2c-johnson-07: “Gettysburg and York Railroad”)",
+   "v5_code": "road_not_resolvable",
+   "day_position": true
+  },
+  "cs-2c-johnson-stonewall-4va": {
+   "status": "open",
+   "code": "road_not_resolvable",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (PD-2c-johnson-07: “Gettysburg and York Railroad”)",
+   "v5_code": "road_not_resolvable",
+   "day_position": true
+  },
+  "cs-2c-johnson-stonewall-5va": {
+   "status": "open",
+   "code": "road_not_resolvable",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (PD-2c-johnson-07: “Gettysburg and York Railroad”)",
+   "v5_code": "road_not_resolvable",
+   "day_position": true
+  },
+  "cs-2c-johnson-stonewall-27va": {
+   "status": "open",
+   "code": "road_not_resolvable",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (PD-2c-johnson-07: “Gettysburg and York Railroad”)",
+   "v5_code": "road_not_resolvable",
+   "day_position": true
+  },
+  "cs-2c-johnson-stonewall-33va": {
+   "status": "open",
+   "code": "road_not_resolvable",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (PD-2c-johnson-07: “Gettysburg and York Railroad”)",
+   "v5_code": "road_not_resolvable",
+   "day_position": true
+  },
+  "cs-2c-johnson-jones-21va": {
+   "status": "open",
+   "code": "road_not_resolvable",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (PD-2c-johnson-07: “Gettysburg and York Railroad”)",
+   "v5_code": "road_not_resolvable",
+   "day_position": true
+  },
+  "cs-2c-johnson-jones-25va": {
+   "status": "open",
+   "code": "road_not_resolvable",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (PD-2c-johnson-07: “Gettysburg and York Railroad”)",
+   "v5_code": "road_not_resolvable",
+   "day_position": true
+  },
+  "cs-2c-johnson-jones-42va": {
+   "status": "open",
+   "code": "road_not_resolvable",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (PD-2c-johnson-07: “Gettysburg and York Railroad”)",
+   "v5_code": "road_not_resolvable",
+   "day_position": true
+  },
+  "cs-2c-johnson-jones-44va": {
+   "status": "open",
+   "code": "road_not_resolvable",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (PD-2c-johnson-07: “Gettysburg and York Railroad”)",
+   "v5_code": "road_not_resolvable",
+   "day_position": true
+  },
+  "cs-2c-johnson-jones-48va": {
+   "status": "open",
+   "code": "road_not_resolvable",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (PD-2c-johnson-07: “Gettysburg and York Railroad”)",
+   "v5_code": "road_not_resolvable",
+   "day_position": true
+  },
+  "cs-2c-johnson-jones-50va": {
+   "status": "open",
+   "code": "road_not_resolvable",
+   "why": "a report of the line of command names a road or a route that the repository cannot place (the road from Scotland, the route by Horner’s Mill, a railroad, a road named only by a village or a mill): none is guessed (PD-2c-johnson-07: “Gettysburg and York Railroad”)",
+   "v5_code": "road_not_resolvable",
+   "day_position": true
+  },
+  "cs-2c-res-art-1vaartbn": {
+   "status": "open",
+   "code": "siblings_disagree",
+   "why": "the documented sibling formations of the corps name different roads (for example the Second Corps: Early the Harrisburg Road, Rodes the Carlisle Road): none is chosen (Chambersburg Pike (AP-19, cs-2c-johnson-nicholls); Chambersburg Pike (AP-20, cs-2c-johnson-andrews); Harrisburg Road (AP-36, cs-2c-early); Harrisburg Road (AP-37, cs-2c-early-hays); Harrisburg Road (AP-38, cs-2c-early-hoke); Carlisle Road (AP-39, cs-2c-rodes); Carlisle Road (AP-40, cs-2c-rodes-carter))",
+   "v5_code": "movement_order",
+   "day_position": false
+  },
+  "cs-2c-res-art-nelson": {
+   "status": "open",
+   "code": "siblings_disagree",
+   "why": "the documented sibling formations of the corps name different roads (for example the Second Corps: Early the Harrisburg Road, Rodes the Carlisle Road): none is chosen (Chambersburg Pike (AP-19, cs-2c-johnson-nicholls); Chambersburg Pike (AP-20, cs-2c-johnson-andrews); Harrisburg Road (AP-36, cs-2c-early); Harrisburg Road (AP-37, cs-2c-early-hays); Harrisburg Road (AP-38, cs-2c-early-hoke); Carlisle Road (AP-39, cs-2c-rodes); Carlisle Road (AP-40, cs-2c-rodes-carter))",
+   "v5_code": "movement_order",
+   "day_position": true
+  },
+  "cs-cav-flee-1mdbn": {
+   "status": "open",
+   "code": "cavalry_own_road_only",
+   "why": "Stuart’s cavalry: drawn only by a road documented for its own brigade or division, and only earlier marches are printed (no day position either)",
+   "v5_code": "earlier_march",
+   "day_position": false
+  },
+  "cs-cav-flee-1va": {
+   "status": "open",
+   "code": "cavalry_own_road_only",
+   "why": "Stuart’s cavalry: drawn only by a road documented for its own brigade or division, and only earlier marches are printed (no day position either)",
+   "v5_code": "earlier_march",
+   "day_position": false
+  },
+  "cs-cav-flee-2va": {
+   "status": "open",
+   "code": "cavalry_own_road_only",
+   "why": "Stuart’s cavalry: drawn only by a road documented for its own brigade or division, and only earlier marches are printed (no day position either)",
+   "v5_code": "earlier_march",
+   "day_position": false
+  },
+  "cs-cav-flee-3va": {
+   "status": "open",
+   "code": "cavalry_own_road_only",
+   "why": "Stuart’s cavalry: drawn only by a road documented for its own brigade or division, and only earlier marches are printed (no day position either)",
+   "v5_code": "earlier_march",
+   "day_position": false
+  },
+  "cs-cav-flee-4va": {
+   "status": "open",
+   "code": "cavalry_own_road_only",
+   "why": "Stuart’s cavalry: drawn only by a road documented for its own brigade or division, and only earlier marches are printed (no day position either)",
+   "v5_code": "earlier_march",
+   "day_position": false
+  },
+  "cs-cav-flee-5va": {
+   "status": "open",
+   "code": "cavalry_own_road_only",
+   "why": "Stuart’s cavalry: drawn only by a road documented for its own brigade or division, and only earlier marches are printed (no day position either)",
+   "v5_code": "earlier_march",
+   "day_position": false
+  },
+  "cs-cav-jenkins-14va": {
+   "status": "open",
+   "code": "cavalry_own_road_only",
+   "why": "Stuart’s cavalry: drawn only by a road documented for its own brigade or division, and only earlier marches are printed (no day position either)",
+   "v5_code": "earlier_march",
+   "day_position": false
+  },
+  "cs-cav-jenkins-16va": {
+   "status": "open",
+   "code": "cavalry_own_road_only",
+   "why": "Stuart’s cavalry: drawn only by a road documented for its own brigade or division, and only earlier marches are printed (no day position either)",
+   "v5_code": "earlier_march",
+   "day_position": false
+  },
+  "cs-cav-jenkins-17va": {
+   "status": "open",
+   "code": "cavalry_own_road_only",
+   "why": "Stuart’s cavalry: drawn only by a road documented for its own brigade or division, and only earlier marches are printed (no day position either)",
+   "v5_code": "earlier_march",
+   "day_position": false
+  },
+  "cs-cav-jenkins-34vabn": {
+   "status": "open",
+   "code": "cavalry_own_road_only",
+   "why": "Stuart’s cavalry: drawn only by a road documented for its own brigade or division, and only earlier marches are printed (no day position either)",
+   "v5_code": "earlier_march",
+   "day_position": false
+  },
+  "cs-cav-jenkins-36vabn": {
+   "status": "open",
+   "code": "cavalry_own_road_only",
+   "why": "Stuart’s cavalry: drawn only by a road documented for its own brigade or division, and only earlier marches are printed (no day position either)",
+   "v5_code": "earlier_march",
+   "day_position": false
+  },
+  "cs-cav-chambliss-2nc": {
+   "status": "open",
+   "code": "cavalry_own_road_only",
+   "why": "Stuart’s cavalry: drawn only by a road documented for its own brigade or division, and only earlier marches are printed (no day position either)",
+   "v5_code": "earlier_march",
+   "day_position": false
+  },
+  "cs-cav-chambliss-9va": {
+   "status": "open",
+   "code": "cavalry_own_road_only",
+   "why": "Stuart’s cavalry: drawn only by a road documented for its own brigade or division, and only earlier marches are printed (no day position either)",
+   "v5_code": "earlier_march",
+   "day_position": false
+  },
+  "cs-cav-chambliss-10va": {
+   "status": "open",
+   "code": "cavalry_own_road_only",
+   "why": "Stuart’s cavalry: drawn only by a road documented for its own brigade or division, and only earlier marches are printed (no day position either)",
+   "v5_code": "earlier_march",
+   "day_position": false
+  },
+  "cs-cav-chambliss-13va": {
+   "status": "open",
+   "code": "cavalry_own_road_only",
+   "why": "Stuart’s cavalry: drawn only by a road documented for its own brigade or division, and only earlier marches are printed (no day position either)",
+   "v5_code": "earlier_march",
+   "day_position": false
+  },
+  "cs-cav-horse-art": {
+   "status": "open",
+   "code": "cavalry_own_road_only",
+   "why": "Stuart’s cavalry: drawn only by a road documented for its own brigade or division, and only earlier marches are printed (no day position either)",
+   "v5_code": "earlier_march",
+   "day_position": false
+  },
+  "us-aop-hq": {
+   "status": "open",
+   "code": "no_figure",
+   "why": "a headquarters, staff or grouping entry: the record gives it no figure",
+   "v5_code": "no_figure",
+   "day_position": false
+  },
+  "us-hancock-acting": {
+   "status": "open",
+   "code": "no_figure",
+   "why": "a headquarters, staff or grouping entry: the record gives it no figure",
+   "v5_code": "no_figure",
+   "day_position": false
+  },
+  "cs-anv-hq": {
+   "status": "open",
+   "code": "no_figure",
+   "why": "a headquarters, staff or grouping entry: the record gives it no figure",
+   "v5_code": "no_figure",
+   "day_position": false
+  },
+  "cs-1c-art": {
+   "status": "open",
+   "code": "no_figure",
+   "why": "a headquarters, staff or grouping entry: the record gives it no figure",
+   "v5_code": "no_figure",
+   "day_position": false
+  }
+ },
+ "reviewed_claims": [
+  "PD-1c-02",
+  "PD-1c-03",
+  "PD-1c-04",
+  "PD-1c-07",
+  "PD-1c-hood-01",
+  "PD-1c-hood-anderson-04",
+  "PD-1c-hood-benning-01",
+  "PD-1c-hood-benning-02",
+  "PD-1c-hood-benning-03",
+  "PD-1c-hood-henry-02",
+  "PD-1c-hood-law-05",
+  "PD-1c-hood-law-48al-01",
+  "PD-1c-hood-law-4al-01",
+  "PD-1c-hood-robertson-05",
+  "PD-1c-mclaws-01",
+  "PD-1c-mclaws-barksdale-03",
+  "PD-1c-mclaws-barksdale-07",
+  "PD-1c-mclaws-cabell-02",
+  "PD-1c-mclaws-cabell-03",
+  "PD-1c-mclaws-cabell-05",
+  "PD-1c-mclaws-cabell-07",
+  "PD-1c-mclaws-cabell-11",
+  "PD-1c-pickett-07",
+  "PD-1c-pickett-dearing-01",
+  "PD-1c-res-art-alexander-01",
+  "PD-1c-res-art-washington-01",
+  "POS-C-0002",
+  "POS-C-0007",
+  "POS-C-0009",
+  "POS-C-0027",
+  "POS-C-0166",
+  "POS-C-0167",
+  "POS-C-0207",
+  "POS-C-0208",
+  "POS-E-CS-1C-MCLAWS-001",
+  "POS-E-CS-1C-PICKETT-002"
+ ],
+ "counts": {
+  "open_leaves_v5": 164,
+  "drawn": 56,
+  "records": 8
+ }
+}

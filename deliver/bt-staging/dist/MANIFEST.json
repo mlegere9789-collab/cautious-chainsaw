@@ -1,0 +1,486 @@
+{
+ "name": "Battle Theatre staging",
+ "version": "cdec3129",
+ "source": "docs/battle-theatre",
+ "files": [
+  {
+   "path": "GOVERNANCE/conflict_register.json",
+   "bytes": 11781,
+   "sha256": "fee015befd8c0bfadc0e887141fd7feca0b643acfc399a007ec8955a234b8c22"
+  },
+  {
+   "path": "GOVERNANCE/conflicts_structured.json",
+   "bytes": 18048,
+   "sha256": "e21953ec5a4e4a9e69bd25e8f207d4abd84ba7d10619fb9bdd66518459421e4a"
+  },
+  {
+   "path": "GOVERNANCE/register_index.json",
+   "bytes": 570971,
+   "sha256": "e9b34616cd6b8318fb635be8cfaebd3fd5b36abe1cbab14981d8295f3f5915a8"
+  },
+  {
+   "path": "GOVERNANCE/timeline_seed.jsonl",
+   "bytes": 400293,
+   "sha256": "3c763c8802d5d5b9ab9ca8a8336cc0956f9e0cb8316c8a805b8bcfebc78af2b0"
+  },
+  {
+   "path": "GOVERNANCE/timeline_windows.jsonl",
+   "bytes": 206091,
+   "sha256": "c1adf7f0d30dc426b8d787e0ac9a5aab0eee389c32040b42be7accef81612b23"
+  },
+  {
+   "path": "_headers",
+   "bytes": 575,
+   "sha256": "e4685d9ace0402e886eca4aa5f8b12c73b70890f032d939ed1918539d7a89e95"
+  },
+  {
+   "path": "app/data/battery-guns.json",
+   "bytes": 16499,
+   "sha256": "94a5c1d83a46496b767c1fa07827fd8a158ab4d841cf1a54c1a83184a762b260"
+  },
+  {
+   "path": "app/data/casualty-sources.json",
+   "bytes": 3838,
+   "sha256": "f237363da495c3416e1256682589c8e18c1404c3ad30a02a423107072ca1a08b"
+  },
+  {
+   "path": "app/data/daypositions.json",
+   "bytes": 971091,
+   "sha256": "bfa45fe00a45629a3254e129e78cace86802e66484e2af92e8df4a010739800d"
+  },
+  {
+   "path": "app/data/engagements.json",
+   "bytes": 30055,
+   "sha256": "d57993be15acebade93d4022442024cda904b4d509d4805a1278d56dad77a6b9"
+  },
+  {
+   "path": "app/data/figures-validation.json",
+   "bytes": 134364,
+   "sha256": "94f1c3a7e731b1ef100dd1b76fa96b63ac56b6f1f1c53c46910a52289f28a50b"
+  },
+  {
+   "path": "app/data/gazetteer.json",
+   "bytes": 168779,
+   "sha256": "004ca17282a789cda0ba4b4e8f612f5a7c0ec3c84d6afea6763b27df2c77e0ab"
+  },
+  {
+   "path": "app/data/kit-crosswalk.json",
+   "bytes": 67372,
+   "sha256": "c2a68b88574269f573c731ecfa02ae2df364c394c00ca4ade6e73177a70f5c2b"
+  },
+  {
+   "path": "app/data/placement-claims.json",
+   "bytes": 367951,
+   "sha256": "ef5e1ec2845c7f896a59f360fa4be61a1a2cc9fd56089b7bbbe827eedf626ea8"
+  },
+  {
+   "path": "app/data/placement.json",
+   "bytes": 214122,
+   "sha256": "879acb9447acc3fbc4562aa3650b9f0fdb5e5945c3963ca460557272c644f1ae"
+  },
+  {
+   "path": "app/data/sibling-approach.json",
+   "bytes": 71838,
+   "sha256": "9a9f8fa7b885b090481bbe53a5e21a3db190e87d59a00e408110e9c4f3e1535b"
+  },
+  {
+   "path": "app/data/site-bookmarks.json",
+   "bytes": 95356,
+   "sha256": "4aebf577df1d55e033bb210c0f50c57751447440a31d24155a7e3ba0d4a56d63"
+  },
+  {
+   "path": "app/data/structures3d.json",
+   "bytes": 469623,
+   "sha256": "a9fc7ee84a0498ae8b90e45ff2764d78b93cfc26046bbbea84277860ad1c3637"
+  },
+  {
+   "path": "app/index.html",
+   "bytes": 12961,
+   "sha256": "73418f598fa22e2c94b7dec62efff7ae538ca91c59639a8e81b146a787200a5b"
+  },
+  {
+   "path": "app/src/astro.mjs",
+   "bytes": 4228,
+   "sha256": "7ef33451d294efbba8a57b4178857a626a874d01a13a298a69ed65ab3bbe0ace"
+  },
+  {
+   "path": "app/src/clock.mjs",
+   "bytes": 3030,
+   "sha256": "763ded967f5a9486d1d1e5fcd85ac28a7e9497a08499938d666cc2ed79bc3178"
+  },
+  {
+   "path": "app/src/config.mjs",
+   "bytes": 1873,
+   "sha256": "2732c0c7870309ab01fcf17d02520d5db5b1e81e33e8907c7eb06f92cafcd0fb"
+  },
+  {
+   "path": "app/src/controls.mjs",
+   "bytes": 7029,
+   "sha256": "98cc95bb84f62e5bb486aa40527d1ed0e6b114058fa180fbd64f8cf56f06a4fb"
+  },
+  {
+   "path": "app/src/data.mjs",
+   "bytes": 8349,
+   "sha256": "ec10c185db2545028fbfb998f06f9208f983b8a077c9b6aece4164f3b4203b66"
+  },
+  {
+   "path": "app/src/environment.mjs",
+   "bytes": 11070,
+   "sha256": "80313579369cf8165cc73f17143e120d41d573311ec5b5f7d85f049fc16d87ac"
+  },
+  {
+   "path": "app/src/geo.mjs",
+   "bytes": 993,
+   "sha256": "3eb386183bbb368a5edbc2cd9f38aba90df666a380de7f2f9e492acda7e5231e"
+  },
+  {
+   "path": "app/src/history/arrivals.mjs",
+   "bytes": 8285,
+   "sha256": "7d9c818856d0b7d1650ef3d9b91270acf5c3ef832d14d4081924c56194cdd787"
+  },
+  {
+   "path": "app/src/history/casualties.mjs",
+   "bytes": 9102,
+   "sha256": "a3226894a95d4c0521324ece73b084d0a9a71ec8ef2fea5036432486c1caac4c"
+  },
+  {
+   "path": "app/src/history/claim-clock.mjs",
+   "bytes": 2948,
+   "sha256": "824824176a7d7a3cdbf868ab0b328644e6e2aea9d48d371042d46e56a0f4b710"
+  },
+  {
+   "path": "app/src/history/contract.mjs",
+   "bytes": 20143,
+   "sha256": "3ef4d638376a35ad8a655adf37471b665ab9469573640c09dfdc0f984a82d13a"
+  },
+  {
+   "path": "app/src/history/daypos.mjs",
+   "bytes": 21176,
+   "sha256": "43a85bd85ab10e127f642d797a77969c69394f68ae286ff057e14523b0f333c0"
+  },
+  {
+   "path": "app/src/history/figures.mjs",
+   "bytes": 7719,
+   "sha256": "ad01fb514ab9182bcc7cea195c2da35f8325900cd49a9988e0f5400037589f4a"
+  },
+  {
+   "path": "app/src/history/gazetteer.mjs",
+   "bytes": 6866,
+   "sha256": "a51c9617b8738fef1955027b4a86f771e925c0e5e9312243d773e5c821369efc"
+  },
+  {
+   "path": "app/src/history/kit.mjs",
+   "bytes": 3523,
+   "sha256": "d693910a813342de0cca378ac9f98fea4706ed7b8b2cfd8900f2c530b2ecf2c9"
+  },
+  {
+   "path": "app/src/history/manifest.mjs",
+   "bytes": 13467,
+   "sha256": "14b0bcadb8045920aee4f665dd4d49200b5afaaf7fd60e201da1d462149d3c36"
+  },
+  {
+   "path": "app/src/history/objects.mjs",
+   "bytes": 4143,
+   "sha256": "5365eeda8d9124e27b1deb074cccc90fd3d8d2829452cbd26fdb97ab4ce8e54c"
+  },
+  {
+   "path": "app/src/history/placement.mjs",
+   "bytes": 45660,
+   "sha256": "02c23fb1134573e8cdb6b696b55246f1c3d1f846b3c8dc652d68e6715cca4553"
+  },
+  {
+   "path": "app/src/history/real.mjs",
+   "bytes": 75467,
+   "sha256": "6562f264db7208240610bd1e70a1114ee4624c6fec06e0ff0e79f36a734ab8fb"
+  },
+  {
+   "path": "app/src/history/strength.mjs",
+   "bytes": 5846,
+   "sha256": "fb1cf5a54656af70ee655975f3b10afd795477b3bf968be120f32b9ef8eec7c2"
+  },
+  {
+   "path": "app/src/history/stub.mjs",
+   "bytes": 11612,
+   "sha256": "35d4c4e1150b356712dd8ab919ed29c925d7569224d747ebf50d9ccf566a92be"
+  },
+  {
+   "path": "app/src/layout.mjs",
+   "bytes": 2490,
+   "sha256": "07387ff5b8b811ffe460d4dd995b888bb541da318cfaaedd0ff5478b9726f515"
+  },
+  {
+   "path": "app/src/main.mjs",
+   "bytes": 2660,
+   "sha256": "a06bc871096b70a0c34d10dee6b8998ddea599c1386507f46632b7dcef61bbf2"
+  },
+  {
+   "path": "app/src/overlay.mjs",
+   "bytes": 10024,
+   "sha256": "67b31abc7adfd54bb4d829f55de5d473f70e8dfe78bc8de29e91ee3f43d85518"
+  },
+  {
+   "path": "app/src/render-host.mjs",
+   "bytes": 5824,
+   "sha256": "e2bc7f5bca05a779def6b469283dc22d0b88494d9242b7f4ddf62027fc047f6d"
+  },
+  {
+   "path": "app/src/scope.mjs",
+   "bytes": 2485,
+   "sha256": "62d8098388539e2fde985b4d51b4f39de6d4ee3692a85742b5c07543eef3c60d"
+  },
+  {
+   "path": "app/src/stage.mjs",
+   "bytes": 22092,
+   "sha256": "4e1b70e4e642928ca48db997bf076f905ae9ba2d24ebe2424ca58c30e79a3a19"
+  },
+  {
+   "path": "app/src/structures/geom.mjs",
+   "bytes": 15973,
+   "sha256": "a0fb4f533514169234d951406000987e7756679eb73590c58e6affac28554272"
+  },
+  {
+   "path": "app/src/structures/gpu.mjs",
+   "bytes": 17625,
+   "sha256": "62e8f33b0802df3f6b8851044e200856712dec26e333a4a8a80a6012e6516b5b"
+  },
+  {
+   "path": "app/src/structures/index.mjs",
+   "bytes": 3297,
+   "sha256": "38fb94d46aaa33b3b837bacafeb115e7a24bf21fabc598c88993c31f6e63f244"
+  },
+  {
+   "path": "app/src/structures/model.mjs",
+   "bytes": 20273,
+   "sha256": "2b2bc7e5297b1f175650f1a4dabba922b4f23eb31df65e7849ceaf387d050f16"
+  },
+  {
+   "path": "app/src/structures/overlay.mjs",
+   "bytes": 7252,
+   "sha256": "6850ce5a4b9b459c00c35d98004057a14afe32bd6b060eb9cea42fedd0b12707"
+  },
+  {
+   "path": "app/src/structures/shaders.mjs",
+   "bytes": 19833,
+   "sha256": "688c6e000bdef21c4e46b1abcee757b8bfa28f195ad0cf9848162b868f5782b0"
+  },
+  {
+   "path": "app/src/structures/state.mjs",
+   "bytes": 13341,
+   "sha256": "31afec7343fcc0667eab0a2b0ce3f0c5e6df4a6dd5c38710ace05e27677600b5"
+  },
+  {
+   "path": "app/src/structures/visual-state.mjs",
+   "bytes": 3371,
+   "sha256": "7273e1c47f480903f7ac2ae466a897d426a6211c4b49ae847b183f97341f7f58"
+  },
+  {
+   "path": "app/src/theatre.mjs",
+   "bytes": 27285,
+   "sha256": "226801d96bc05d7f75f3505240eb11e0780921a161ebf014cb33cd32895d75a5"
+  },
+  {
+   "path": "app/src/ui/card-sections.mjs",
+   "bytes": 29454,
+   "sha256": "b4ed75ece4a1f61f58f3d41c2a78178771624491c57de5f59f9821162d3b9792"
+  },
+  {
+   "path": "app/src/ui/card.mjs",
+   "bytes": 6798,
+   "sha256": "bbb83b5d48b7f9bc7da6a8e62e3dc81a37efeb5cebf1cb8fb3729528301cdca8"
+  },
+  {
+   "path": "app/src/ui/chrome.mjs",
+   "bytes": 9630,
+   "sha256": "6b0a999880eefcff8153234620c8f3041e760e18fcac98a2298851aeae202cbf"
+  },
+  {
+   "path": "app/src/ui/dock.mjs",
+   "bytes": 8604,
+   "sha256": "8a029b746999f1c6063b92f3e17215b9493fac5cc0ad418a3017ebf4399a7f0c"
+  },
+  {
+   "path": "app/src/ui/object-card.mjs",
+   "bytes": 10954,
+   "sha256": "ce6dde02ec215560c5f2e936d5ac99b445cada6e050b80612f59a04efc36ec91"
+  },
+  {
+   "path": "app/src/ui/panels.mjs",
+   "bytes": 28554,
+   "sha256": "166fc58250a5c25666d3f58d7e1b28352eaa90376068d027a7aa81e36fc6dce3"
+  },
+  {
+   "path": "app/src/ui/structures-ui.mjs",
+   "bytes": 5169,
+   "sha256": "1640ae470334ffc7787b6a647c24116d094ee9592e397705ddd3a8dba7a397a8"
+  },
+  {
+   "path": "app/src/ui/util.mjs",
+   "bytes": 1118,
+   "sha256": "20736bb923fe29704e3f97cda42e68fe83fe47f2cc75c2933be6e84fd3acb1a4"
+  },
+  {
+   "path": "app/src/world-from-units.mjs",
+   "bytes": 7661,
+   "sha256": "b9c1d5cc691ef5266e9ce2edaf5707f6f0616bad81f6ef92ddb3e889b21fe5b9"
+  },
+  {
+   "path": "app/styles.css",
+   "bytes": 25009,
+   "sha256": "5aca3d01ab58188c2ff0342e712d7aa63833a012caee1155146891553824986c"
+  },
+  {
+   "path": "environment/ephemeris_1863.json",
+   "bytes": 756731,
+   "sha256": "c8e548d1eccf08110ea665f8db5d438c9edb544e3de361b3bc5f39cc4f2e677c"
+  },
+  {
+   "path": "environment/weather_timeline.json",
+   "bytes": 31744,
+   "sha256": "a0aeb7681c4a6318710b612409b1f862959285091e7ab1cbf86b2b8f3701854d"
+  },
+  {
+   "path": "history/arrivals.json",
+   "bytes": 324831,
+   "sha256": "373d3a167a43219241ca8cdf0d536d302ae3e745b35b04e278d8d3dc5397d3f1"
+  },
+  {
+   "path": "history/not_on_field.json",
+   "bytes": 7468,
+   "sha256": "1ff7c3f4a07130a4dd53f0c40eb503f799d2db0a79b2e51a7cfc01f1c93cbc1f"
+  },
+  {
+   "path": "history/units.json",
+   "bytes": 366046,
+   "sha256": "0957b6e9e24644d5a8f79504f721a315088a371e17856aca808f25bda66c42be"
+  },
+  {
+   "path": "index.html",
+   "bytes": 759,
+   "sha256": "f91107fe22d69113531f566e13ccf8c1acd128a53124b1bf463601caa09e2b24"
+  },
+  {
+   "path": "kit/artillery_batteries.json",
+   "bytes": 407500,
+   "sha256": "5b4edcd212a6622b539b3cab82cb3612a2aab4233dee45d14aa9dd7524a6f988"
+  },
+  {
+   "path": "kit/cavalry_units.json",
+   "bytes": 138991,
+   "sha256": "5aa0dd24154ea4163dd5452e147ef0441df439e365f1eab1eea79be12a06d117"
+  },
+  {
+   "path": "kit/kit_specs.json",
+   "bytes": 636286,
+   "sha256": "d00977f4c5858320de2ef2ab1acd0371a2e285c57630ffc6d5ac6be366929132"
+  },
+  {
+   "path": "kit/weapons.json",
+   "bytes": 171348,
+   "sha256": "e8e86b247a0011fb57d673d55599fa54651dd4972b5d1ad7c53c63b2061de02e"
+  },
+  {
+   "path": "netlify.toml",
+   "bytes": 149,
+   "sha256": "27f987c1600c879330b5a54977089e489dfc388bf635117b732c143ca871d52e"
+  },
+  {
+   "path": "render/prototype/data/aerial.jpg",
+   "bytes": 1096087,
+   "sha256": "e920b71d5f0e5521a63e66a9f304b90419fc78eb11d7fdc8022d17b5507f9070"
+  },
+  {
+   "path": "render/prototype/data/height.bin",
+   "bytes": 4718592,
+   "sha256": "a0a00ba55b5de6f4ed58f4751f852a4986884a6ce131b9e1f6c15694f7dd8eba"
+  },
+  {
+   "path": "render/prototype/data/terrain.json",
+   "bytes": 492,
+   "sha256": "2352910b42af31b355cb2fbc56a756c13581d13774b115a086931ec12700a80f"
+  },
+  {
+   "path": "render/prototype/src/camera.mjs",
+   "bytes": 3164,
+   "sha256": "3c02212b91df5020a2d646dce16e2b244f0688f2fca910453e90903288d1bd85"
+  },
+  {
+   "path": "render/prototype/src/characters.mjs",
+   "bytes": 28020,
+   "sha256": "42e40c9d271335bb89959b47b3aa8d1210e04b76b914e5bddd84bf6498acefa8"
+  },
+  {
+   "path": "render/prototype/src/fx.mjs",
+   "bytes": 4019,
+   "sha256": "e91f42a3174a62b9f132c6cec7aeb88228066e483a35cb563c217d622ae856df"
+  },
+  {
+   "path": "render/prototype/src/lod.mjs",
+   "bytes": 2142,
+   "sha256": "591f25a215a84608cb83254c6f6d418c41dbb2e81ecec42ea326e695bd720014"
+  },
+  {
+   "path": "render/prototype/src/math.mjs",
+   "bytes": 5851,
+   "sha256": "80a3d08c08828d354e02df9c51c70358b2092491ba6fa9800902c0fe6d004a14"
+  },
+  {
+   "path": "render/prototype/src/shaders.mjs",
+   "bytes": 27354,
+   "sha256": "56ce572e52a4f1bc778fc8934b63072f8ea89a09576795d3614c45cd70d021fd"
+  },
+  {
+   "path": "render/prototype/src/webgl2.mjs",
+   "bytes": 54554,
+   "sha256": "74aa09e0568d18662b1873bc3259897b676ea33870d1f43769b416516f4bfcb1"
+  },
+  {
+   "path": "render/prototype/src/webgpu.mjs",
+   "bytes": 33523,
+   "sha256": "d4093261902b68f2653e18e36308c872a7f17926964a62fb524ec7ef537dc0ae"
+  },
+  {
+   "path": "render/prototype/src/world.mjs",
+   "bytes": 16159,
+   "sha256": "dc581e1e411b83196da2f8a0ab70577186dcb38b01cbf509b91441f2229a3a30"
+  },
+  {
+   "path": "sim/cache.mjs",
+   "bytes": 4021,
+   "sha256": "c4ce890ebb6791121733207ead42b1ea48f449f5ae66f7b34767fa3a0e5fda81"
+  },
+  {
+   "path": "sim/loss_solver.mjs",
+   "bytes": 3250,
+   "sha256": "7adb19c2c926c501831fd98f2484907dd286c460928b665a88f96a7153500a51"
+  },
+  {
+   "path": "sim/rng.mjs",
+   "bytes": 1430,
+   "sha256": "f233b49b7f9028851f5d39afba2fa2a8d8d2606962c6b4328537a9ba854fee4b"
+  },
+  {
+   "path": "structures/hospitals.json",
+   "bytes": 38856,
+   "sha256": "85ceb22e4078f7f6103ab127ffe588af0729a70e1f98da8baa133dd56da3ef29"
+  },
+  {
+   "path": "structures/state_schedule.json",
+   "bytes": 122192,
+   "sha256": "980d4420bf98c0d0f8715697936ebb8df5a40ec1bd6909ae5a66f576aff3a44d"
+  },
+  {
+   "path": "structures/structures.json",
+   "bytes": 137639,
+   "sha256": "b223dacf386d9983167d24561dc05a8466248096a7715a23dd25fa5bd2b1ad53"
+  },
+  {
+   "path": "structures/works_stages.json",
+   "bytes": 23443,
+   "sha256": "22c0c950efa34172d259260085effe210fe43dca64710747d0c5207b996209c2"
+  }
+ ],
+ "notLoadedByShell": [
+  "GOVERNANCE/timeline_verified.jsonl",
+  "GOVERNANCE/decisions/conflict_defaults.json"
+ ]
+}

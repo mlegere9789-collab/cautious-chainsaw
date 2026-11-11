@@ -1,0 +1,243 @@
+{
+ "_doc": "PDF B.2.4 closing tables \"Union units never or only partly on the field\" and \"Confederate units never or only partly on the field\", plus the animation gating rules (PDF page 63, lines 16709-16716). unit ids are in units.json.",
+ "union": [
+  {
+   "unit_printed": "Huey’s 2nd Brigade, 2nd Cavalry Division",
+   "status_printed": "Sent to Westminster; not engaged",
+   "source_keys": [
+    "SS2D"
+   ],
+   "lines": [
+    16031,
+    16033
+   ],
+   "pdf_page": 60
+  },
+  {
+   "unit_printed": "VI Corps, 2nd Division, 1st Brigade (Howe)",
+   "status_printed": "Detached, not on the field",
+   "source_keys": [
+    "W-OOBU"
+   ],
+   "lines": [
+    16034,
+    16036
+   ],
+   "pdf_page": 60
+  },
+  {
+   "unit_printed": "1st Connecticut Heavy Artillery B and M (2nd Volunteer Bde)",
+   "status_printed": "Not at Gettysburg (Westminster)",
+   "source_keys": [
+    "STONE-RES"
+   ],
+   "lines": [
+    16037,
+    16039
+   ],
+   "pdf_page": 60
+  },
+  {
+   "unit_printed": "4th NJ (train guard) and 32nd Mass Co. C",
+   "status_printed": "Reserve guard companies",
+   "source_keys": [
+    "STONE-RES"
+   ],
+   "lines": [
+    16040,
+    16042
+   ],
+   "pdf_page": 60
+  }
+ ],
+ "confederate": [
+  {
+   "unit_printed": "13th and 58th Va",
+   "status_printed": "Detached at Winchester",
+   "source_keys": [
+    "OOB-C"
+   ],
+   "lines": [
+    16436,
+    16438
+   ],
+   "pdf_page": 62
+  },
+  {
+   "unit_printed": "44th NC and Corse’s Brigade",
+   "status_printed": "Detached at Hanover Junction",
+   "source_keys": [
+    "OOB-C"
+   ],
+   "lines": [
+    16439,
+    16441
+   ],
+   "pdf_page": 62
+  },
+  {
+   "unit_printed": "Robertson’s and W. E. Jones’s cavalry brigades; Imboden’s command",
+   "status_printed": "Listed in the OOB but not in the main battle; Jones fights at Fairfield Jul 3",
+   "source_keys": [
+    "OOB-C",
+    "W-FF"
+   ],
+   "lines": [
+    16442,
+    16444
+   ],
+   "pdf_page": 62
+  }
+ ],
+ "units": [
+  {
+   "id": "us-cav-2d-huey",
+   "status": "never_on_field",
+   "table_row": 0,
+   "army": "US"
+  },
+  {
+   "id": "us-6c-2d-1brig",
+   "status": "never_on_field",
+   "table_row": 1,
+   "army": "US"
+  },
+  {
+   "id": "us-art-reserve-taft-1ctheavy-b",
+   "status": "never_on_field",
+   "table_row": 2,
+   "army": "US"
+  },
+  {
+   "id": "us-art-reserve-taft-1ctheavy-m",
+   "status": "never_on_field",
+   "table_row": 2,
+   "army": "US"
+  },
+  {
+   "id": "us-4nj-train-guard",
+   "status": "never_on_field",
+   "table_row": 3,
+   "army": "US"
+  },
+  {
+   "id": "us-5c-1d-sweitzer-32ma-co-c",
+   "status": "never_on_field",
+   "table_row": 3,
+   "army": "US"
+  },
+  {
+   "id": "cs-13va-winchester",
+   "status": "never_on_field",
+   "table_row": 0,
+   "army": "CS"
+  },
+  {
+   "id": "cs-58va-winchester",
+   "status": "never_on_field",
+   "table_row": 0,
+   "army": "CS"
+  },
+  {
+   "id": "cs-44nc-hanover-junction",
+   "status": "never_on_field",
+   "table_row": 1,
+   "army": "CS"
+  },
+  {
+   "id": "cs-corse-hanover-junction",
+   "status": "never_on_field",
+   "table_row": 1,
+   "army": "CS"
+  }
+ ],
+ "partly_on_field_parents": {
+  "us-art-reserve-taft-1ctheavy": [
+   "us-art-reserve-taft-1ctheavy-b",
+   "us-art-reserve-taft-1ctheavy-m"
+  ],
+  "us-5c-1d-sweitzer-32ma": [
+   "us-5c-1d-sweitzer-32ma-co-c"
+  ]
+ },
+ "listed_in_ledger_as_not_on_field": [
+  {
+   "id": "cs-cav-robertson-jones-imboden",
+   "status": "never_main_field",
+   "detached_role": "Jones: Fairfield Jul 3 (date only)"
+  },
+  {
+   "id": "us-cav-2d-huey",
+   "status": "never_on_field",
+   "text": "ledger: '2nd Brigade Huey at Westminster, never on the field'"
+  }
+ ],
+ "unnamed_in_pdf": [
+  "\"two Vermont regiments guarding trains\" (B.3 text after the strength table; the PDF does not name them)"
+ ],
+ "gating_rules": [
+  {
+   "rule_no": 1,
+   "pdf_lines": [
+    16710,
+    16711
+   ],
+   "pdf_text": "A unit is not drawn on the field before the earliest time in its “first on the field” cell. Where a range is given, the default is the middle or the better-sourced value (see B.2.5) and the earliest value is selectable.",
+   "summary": "A unit is not drawn before the earliest time in its first-on-field cell; where a range is printed the default is the middle or the better-sourced value (B.2.5) and the earliest value stays selectable.",
+   "check": "presence_ok is False before gate.earliest for the chosen scenario",
+   "applies_to": "all ledger rows with printed clock times"
+  },
+  {
+   "rule_no": 2,
+   "pdf_lines": [
+    16712
+   ],
+   "pdf_text": "Units listed as never or only partly on the field are not drawn, or are drawn only in the detached role stated.",
+   "summary": "Units listed as never or only partly on the field are not drawn, or only in the stated detached role.",
+   "check": "presence_ok is False for status never_on_field / never_main_field units unless a detached role matches the location and time",
+   "applies_to": "not_on_field.json units"
+  },
+  {
+   "rule_no": 3,
+   "pdf_lines": [
+    16713
+   ],
+   "pdf_text": "Unknown arrival times are open gaps: the unit appears no earlier than the next documented event that required it (for example a brigade named in a report), and carries an “inferred” tier tag.",
+   "summary": "Unknown arrival times are open gaps: the unit appears no earlier than the next documented event that required it and carries an inferred tier tag.",
+   "check": "rows with parse_status gap use the event_floor / date_floor / subunit first-documented-event gate; tier = inferred",
+   "applies_to": "gap rows and subunits"
+  },
+  {
+   "rule_no": 4,
+   "pdf_lines": [
+    16714,
+    16715
+   ],
+   "pdf_text": "Stuart’s cavalry brigades are gated to the evening of Jul 2 by default for their arrival at Lee’s lines (Hampton’s rear guard and the Union cavalry at Hunterstown, about 16:30 on Jul 2, are exempt from that gate and are shown at Hunterstown on their own rows); Pickett’s division is gated to the morning of Jul 3 by default.",
+   "summary": "Stuart's cavalry brigades are gated to the evening of Jul 2 by default; Hampton's rear guard and the Union cavalry at Hunterstown (about 16:30 Jul 2) are exempt and are shown at Hunterstown on their own rows.",
+   "check": "cs-cav-hampton, cs-cav-flee-chambliss (and children), cs-cav-jenkins are False before 1863-07-02T19:32 (start of the [DUSK] band, convention) except cs-cav-hampton at location hunterstown from 1863-07-02T16:30",
+   "applies_to": "cs-cav-hampton, cs-cav-flee-chambliss, cs-cav-jenkins (Jenkins is gated by the checker as a Stuart brigade: reading of the ledger, see notes)"
+  },
+  {
+   "rule_no": 5,
+   "pdf_lines": [
+    16715
+   ],
+   "pdf_text": "from that gate and are shown at Hunterstown on their own rows); Pickett’s division is gated to the morning of Jul 3 by default.",
+   "summary": "Pickett's division is gated to the morning of Jul 3 by default.",
+   "check": "cs-1c-pickett and descendants are False before 1863-07-03T04:36 (sunrise Jul 3, C-021 default) in the default scenario; the earliest scenario starts 1863-07-02T20:04 (night of Jul 2)",
+   "applies_to": "cs-1c-pickett"
+  },
+  {
+   "rule_no": 6,
+   "pdf_lines": [
+    16716
+   ],
+   "pdf_text": "Hospitals and trains follow their own rows in B.2.2 and the day-3 section.",
+   "summary": "Hospitals and trains follow their own rows in B.2.2 and the day-3 section.",
+   "check": "not handled in this layer",
+   "applies_to": "out of scope of this file",
+   "note": "printed in the same block; the brief counts five gating rules (1-5)"
+  }
+ ]
+}

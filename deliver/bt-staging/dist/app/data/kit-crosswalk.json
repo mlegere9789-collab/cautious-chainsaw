@@ -1,0 +1,2803 @@
+{
+"_doc": "Built by tools/bt/kit_crosswalk.py. kit: the kit unit id whose spec the unit’s figures use, or null (then the default of the unit’s army and arm, tier plausible-procedural). Never guessed: aliases carry their evidence.",
+"counts": {
+"alias": 9,
+"brigade": 118,
+"default": 250,
+"kit_presence": 92,
+"name": 47,
+"rule": 42
+},
+"units": {
+"cs-13va-winchester": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-1c-art": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"cs-1c-hood-anderson-11ga": {
+"kit": "CS.ANDERSON_GA",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-hood-anderson"
+},
+"cs-1c-hood-anderson-59ga": {
+"kit": "CS.ANDERSON_GA",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-hood-anderson"
+},
+"cs-1c-hood-anderson-7ga": {
+"kit": "CS.ANDERSON_GA",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-hood-anderson"
+},
+"cs-1c-hood-anderson-8ga": {
+"kit": "CS.ANDERSON_GA",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-hood-anderson"
+},
+"cs-1c-hood-anderson-9ga": {
+"kit": "CS.ANDERSON_GA",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-hood-anderson"
+},
+"cs-1c-hood-benning-15ga": {
+"kit": "CS.BENNING",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-hood-benning"
+},
+"cs-1c-hood-benning-17ga": {
+"kit": "CS.BENNING",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-hood-benning"
+},
+"cs-1c-hood-benning-20ga": {
+"kit": "CS.BENNING",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-hood-benning"
+},
+"cs-1c-hood-benning-2ga": {
+"kit": "CS.BENNING",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-hood-benning"
+},
+"cs-1c-hood-henry": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"cs-1c-hood-law-15al": {
+"kit": "CS.LAW",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-hood-law"
+},
+"cs-1c-hood-law-44al": {
+"kit": "CS.LAW",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-hood-law"
+},
+"cs-1c-hood-law-47al": {
+"kit": "CS.LAW",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-hood-law"
+},
+"cs-1c-hood-law-48al": {
+"kit": "CS.LAW",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-hood-law"
+},
+"cs-1c-hood-law-4al": {
+"kit": "CS.LAW",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-hood-law"
+},
+"cs-1c-hood-robertson-1tx": {
+"kit": "CS.1TX",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"cs-1c-hood-robertson-3ar": {
+"kit": "CS.3AR",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"cs-1c-hood-robertson-4tx": {
+"kit": "CS.4TX",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"cs-1c-hood-robertson-5tx": {
+"kit": "CS.5TX",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"cs-1c-mclaws-barksdale-13ms": {
+"kit": "CS.BARKSDALE",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-mclaws-barksdale"
+},
+"cs-1c-mclaws-barksdale-17ms": {
+"kit": "CS.BARKSDALE",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-mclaws-barksdale"
+},
+"cs-1c-mclaws-barksdale-18ms": {
+"kit": "CS.BARKSDALE",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-mclaws-barksdale"
+},
+"cs-1c-mclaws-barksdale-21ms": {
+"kit": "CS.BARKSDALE",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-mclaws-barksdale"
+},
+"cs-1c-mclaws-cabell": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"cs-1c-mclaws-kershaw-15sc": {
+"kit": "CS.KERSHAW",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-mclaws-kershaw"
+},
+"cs-1c-mclaws-kershaw-2sc": {
+"kit": "CS.KERSHAW",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-mclaws-kershaw"
+},
+"cs-1c-mclaws-kershaw-3sc": {
+"kit": "CS.KERSHAW",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-mclaws-kershaw"
+},
+"cs-1c-mclaws-kershaw-3scbn": {
+"kit": "CS.KERSHAW",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-mclaws-kershaw"
+},
+"cs-1c-mclaws-kershaw-7sc": {
+"kit": "CS.KERSHAW",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-mclaws-kershaw"
+},
+"cs-1c-mclaws-kershaw-8sc": {
+"kit": "CS.KERSHAW",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-mclaws-kershaw"
+},
+"cs-1c-mclaws-semmes-10ga": {
+"kit": "CS.SEMMES",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-mclaws-semmes"
+},
+"cs-1c-mclaws-semmes-50ga": {
+"kit": "CS.SEMMES",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-mclaws-semmes"
+},
+"cs-1c-mclaws-semmes-51ga": {
+"kit": "CS.SEMMES",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-mclaws-semmes"
+},
+"cs-1c-mclaws-semmes-53ga": {
+"kit": "CS.SEMMES",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-mclaws-semmes"
+},
+"cs-1c-mclaws-wofford-16ga": {
+"kit": "CS.WOFFORD",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-mclaws-wofford"
+},
+"cs-1c-mclaws-wofford-18ga": {
+"kit": "CS.WOFFORD",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-mclaws-wofford"
+},
+"cs-1c-mclaws-wofford-24ga": {
+"kit": "CS.WOFFORD",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-mclaws-wofford"
+},
+"cs-1c-mclaws-wofford-3gasharpshooters": {
+"kit": "CS.3GASSBN",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"cs-1c-mclaws-wofford-cobbslegion": {
+"kit": "CS.WOFFORD",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-mclaws-wofford"
+},
+"cs-1c-mclaws-wofford-phillipslegion": {
+"kit": "CS.WOFFORD",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-mclaws-wofford"
+},
+"cs-1c-pickett-armistead-14va": {
+"kit": "CS.ARMISTEAD",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-pickett-armistead"
+},
+"cs-1c-pickett-armistead-38va": {
+"kit": "CS.ARMISTEAD",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-pickett-armistead"
+},
+"cs-1c-pickett-armistead-53va": {
+"kit": "CS.ARMISTEAD",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-pickett-armistead"
+},
+"cs-1c-pickett-armistead-57va": {
+"kit": "CS.ARMISTEAD",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-pickett-armistead"
+},
+"cs-1c-pickett-armistead-9va": {
+"kit": "CS.ARMISTEAD",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-pickett-armistead"
+},
+"cs-1c-pickett-dearing": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"cs-1c-pickett-garnett-18va": {
+"kit": "CS.GARNETT",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-pickett-garnett"
+},
+"cs-1c-pickett-garnett-19va": {
+"kit": "CS.GARNETT",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-pickett-garnett"
+},
+"cs-1c-pickett-garnett-28va": {
+"kit": "CS.GARNETT",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-pickett-garnett"
+},
+"cs-1c-pickett-garnett-56va": {
+"kit": "CS.GARNETT",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-pickett-garnett"
+},
+"cs-1c-pickett-garnett-8va": {
+"kit": "CS.GARNETT",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-pickett-garnett"
+},
+"cs-1c-pickett-kemper-11va": {
+"kit": "CS.KEMPER",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-pickett-kemper"
+},
+"cs-1c-pickett-kemper-1va": {
+"kit": "CS.KEMPER",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-pickett-kemper"
+},
+"cs-1c-pickett-kemper-24va": {
+"kit": "CS.KEMPER",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-pickett-kemper"
+},
+"cs-1c-pickett-kemper-3va": {
+"kit": "CS.KEMPER",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-pickett-kemper"
+},
+"cs-1c-pickett-kemper-7va": {
+"kit": "CS.KEMPER",
+"how": "brigade",
+"note": "the record of its brigade cs-1c-pickett-kemper"
+},
+"cs-1c-res-art-alexander-ashland": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"cs-1c-res-art-alexander-bath": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"cs-1c-res-art-alexander-bedford": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"cs-1c-res-art-alexander-brookssc": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"cs-1c-res-art-alexander-madisonla": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"cs-1c-res-art-alexander-richmond": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"cs-1c-res-art-washington": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"cs-2c-early-35vacavalrybn": {
+"kit": "CS.CAV.35VABN",
+"how": "alias",
+"note": "35th Virginia Cavalry Battalion"
+},
+"cs-2c-early-gordon-13ga": {
+"kit": "CS.GORDON",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-early-gordon"
+},
+"cs-2c-early-gordon-26ga": {
+"kit": "CS.GORDON",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-early-gordon"
+},
+"cs-2c-early-gordon-31ga": {
+"kit": "CS.GORDON",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-early-gordon"
+},
+"cs-2c-early-gordon-38ga": {
+"kit": "CS.GORDON",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-early-gordon"
+},
+"cs-2c-early-gordon-60ga": {
+"kit": "CS.GORDON",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-early-gordon"
+},
+"cs-2c-early-gordon-61ga": {
+"kit": "CS.GORDON",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-early-gordon"
+},
+"cs-2c-early-hays-5la": {
+"kit": "CS.5LA",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"cs-2c-early-hays-6la": {
+"kit": "CS.6LA",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"cs-2c-early-hays-7la": {
+"kit": "CS.7LA",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"cs-2c-early-hays-8la": {
+"kit": "CS.8LA",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"cs-2c-early-hays-9la": {
+"kit": "CS.9LA",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"cs-2c-early-hoke-21nc": {
+"kit": "CS.HOKE",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-early-hoke"
+},
+"cs-2c-early-hoke-57nc": {
+"kit": "CS.HOKE",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-early-hoke"
+},
+"cs-2c-early-hoke-6nc": {
+"kit": "CS.HOKE",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-early-hoke"
+},
+"cs-2c-early-jones": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"cs-2c-early-smith-31va": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-2c-early-smith-49va": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-2c-early-smith-52va": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-2c-johnson-andrews": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"cs-2c-johnson-jones-21va": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-2c-johnson-jones-25va": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-2c-johnson-jones-42va": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-2c-johnson-jones-44va": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-2c-johnson-jones-48va": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-2c-johnson-jones-50va": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-2c-johnson-nicholls-10la": {
+"kit": "CS.10LA",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"cs-2c-johnson-nicholls-14la": {
+"kit": "CS.14LA",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"cs-2c-johnson-nicholls-15la": {
+"kit": "CS.15LA",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"cs-2c-johnson-nicholls-1la": {
+"kit": "CS.1LA",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"cs-2c-johnson-nicholls-2la": {
+"kit": "CS.2LA",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"cs-2c-johnson-steuart-10va": {
+"kit": "CS.STEUART_NC",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-johnson-steuart"
+},
+"cs-2c-johnson-steuart-1mdbn": {
+"kit": "CS.STEUART_NC",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-johnson-steuart"
+},
+"cs-2c-johnson-steuart-1nc": {
+"kit": "CS.STEUART_NC",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-johnson-steuart"
+},
+"cs-2c-johnson-steuart-23va": {
+"kit": "CS.STEUART_NC",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-johnson-steuart"
+},
+"cs-2c-johnson-steuart-37va": {
+"kit": "CS.STEUART_NC",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-johnson-steuart"
+},
+"cs-2c-johnson-steuart-3nc": {
+"kit": "CS.STEUART_NC",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-johnson-steuart"
+},
+"cs-2c-johnson-stonewall-27va": {
+"kit": "CS.STONEWALL",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-johnson-stonewall"
+},
+"cs-2c-johnson-stonewall-2va": {
+"kit": "CS.STONEWALL",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-johnson-stonewall"
+},
+"cs-2c-johnson-stonewall-33va": {
+"kit": "CS.STONEWALL",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-johnson-stonewall"
+},
+"cs-2c-johnson-stonewall-4va": {
+"kit": "CS.STONEWALL",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-johnson-stonewall"
+},
+"cs-2c-johnson-stonewall-5va": {
+"kit": "CS.STONEWALL",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-johnson-stonewall"
+},
+"cs-2c-res-art-1vaartbn": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"cs-2c-res-art-nelson": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"cs-2c-rodes-carter": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"cs-2c-rodes-daniel-2ncbn": {
+"kit": "CS.DANIEL",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-rodes-daniel"
+},
+"cs-2c-rodes-daniel-32nc": {
+"kit": "CS.DANIEL",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-rodes-daniel"
+},
+"cs-2c-rodes-daniel-43nc": {
+"kit": "CS.DANIEL",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-rodes-daniel"
+},
+"cs-2c-rodes-daniel-45nc": {
+"kit": "CS.DANIEL",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-rodes-daniel"
+},
+"cs-2c-rodes-daniel-53nc": {
+"kit": "CS.DANIEL",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-rodes-daniel"
+},
+"cs-2c-rodes-doles-12ga": {
+"kit": "CS.DOLES",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-rodes-doles"
+},
+"cs-2c-rodes-doles-21ga": {
+"kit": "CS.DOLES",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-rodes-doles"
+},
+"cs-2c-rodes-doles-44ga": {
+"kit": "CS.DOLES",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-rodes-doles"
+},
+"cs-2c-rodes-doles-4ga": {
+"kit": "CS.DOLES",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-rodes-doles"
+},
+"cs-2c-rodes-iverson-12nc": {
+"kit": "CS.IVERSON",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-rodes-iverson"
+},
+"cs-2c-rodes-iverson-20nc": {
+"kit": "CS.IVERSON",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-rodes-iverson"
+},
+"cs-2c-rodes-iverson-23nc": {
+"kit": "CS.IVERSON",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-rodes-iverson"
+},
+"cs-2c-rodes-iverson-5nc": {
+"kit": "CS.IVERSON",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-rodes-iverson"
+},
+"cs-2c-rodes-oneal-12al": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-2c-rodes-oneal-26al": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-2c-rodes-oneal-3al": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-2c-rodes-oneal-5al": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-2c-rodes-oneal-6al": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-2c-rodes-ramseur-14nc": {
+"kit": "CS.RAMSEUR",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-rodes-ramseur"
+},
+"cs-2c-rodes-ramseur-2nc": {
+"kit": "CS.RAMSEUR",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-rodes-ramseur"
+},
+"cs-2c-rodes-ramseur-30nc": {
+"kit": "CS.RAMSEUR",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-rodes-ramseur"
+},
+"cs-2c-rodes-ramseur-4nc": {
+"kit": "CS.RAMSEUR",
+"how": "brigade",
+"note": "the record of its brigade cs-2c-rodes-ramseur"
+},
+"cs-3c-anderson-cutts": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"cs-3c-anderson-mahone-12va": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-3c-anderson-mahone-16va": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-3c-anderson-mahone-41va": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-3c-anderson-mahone-61va": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-3c-anderson-mahone-6va": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-3c-anderson-perry-2fl": {
+"kit": "CS.PERRY",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-anderson-perry"
+},
+"cs-3c-anderson-perry-5fl": {
+"kit": "CS.PERRY",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-anderson-perry"
+},
+"cs-3c-anderson-perry-8fl": {
+"kit": "CS.PERRY",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-anderson-perry"
+},
+"cs-3c-anderson-posey-12ms": {
+"kit": "CS.POSEY",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-anderson-posey"
+},
+"cs-3c-anderson-posey-16ms": {
+"kit": "CS.POSEY",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-anderson-posey"
+},
+"cs-3c-anderson-posey-19ms": {
+"kit": "CS.POSEY",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-anderson-posey"
+},
+"cs-3c-anderson-posey-48ms": {
+"kit": "CS.POSEY",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-anderson-posey"
+},
+"cs-3c-anderson-wilcox-10al": {
+"kit": "CS.WILCOX",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-anderson-wilcox"
+},
+"cs-3c-anderson-wilcox-11al": {
+"kit": "CS.WILCOX",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-anderson-wilcox"
+},
+"cs-3c-anderson-wilcox-14al": {
+"kit": "CS.WILCOX",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-anderson-wilcox"
+},
+"cs-3c-anderson-wilcox-8al": {
+"kit": "CS.WILCOX",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-anderson-wilcox"
+},
+"cs-3c-anderson-wilcox-9al": {
+"kit": "CS.WILCOX",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-anderson-wilcox"
+},
+"cs-3c-anderson-wright-22ga": {
+"kit": "CS.WRIGHT",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-anderson-wright"
+},
+"cs-3c-anderson-wright-2gabn": {
+"kit": "CS.WRIGHT",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-anderson-wright"
+},
+"cs-3c-anderson-wright-3ga": {
+"kit": "CS.WRIGHT",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-anderson-wright"
+},
+"cs-3c-anderson-wright-48ga": {
+"kit": "CS.WRIGHT",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-anderson-wright"
+},
+"cs-3c-heth-archer-13al": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-3c-heth-archer-14tn": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-3c-heth-archer-1tnprov": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-3c-heth-archer-5albn": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-3c-heth-archer-7tn": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-3c-heth-brockenbrough-22vabn": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-3c-heth-brockenbrough-40va": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-3c-heth-brockenbrough-47va": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-3c-heth-brockenbrough-55va": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-3c-heth-davis-11ms": {
+"kit": "CS.DAVIS",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-heth-davis"
+},
+"cs-3c-heth-davis-2ms": {
+"kit": "CS.DAVIS",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-heth-davis"
+},
+"cs-3c-heth-davis-42ms": {
+"kit": "CS.DAVIS",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-heth-davis"
+},
+"cs-3c-heth-davis-55nc": {
+"kit": "CS.DAVIS",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-heth-davis"
+},
+"cs-3c-heth-garnett": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"cs-3c-heth-pettigrew-11nc": {
+"kit": "CS.PETTIGREW",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-heth-pettigrew"
+},
+"cs-3c-heth-pettigrew-26nc": {
+"kit": "CS.26NC",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"cs-3c-heth-pettigrew-47nc": {
+"kit": "CS.PETTIGREW",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-heth-pettigrew"
+},
+"cs-3c-heth-pettigrew-52nc": {
+"kit": "CS.PETTIGREW",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-heth-pettigrew"
+},
+"cs-3c-pender-lane-18nc": {
+"kit": "CS.LANE",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-pender-lane"
+},
+"cs-3c-pender-lane-28nc": {
+"kit": "CS.LANE",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-pender-lane"
+},
+"cs-3c-pender-lane-33nc": {
+"kit": "CS.LANE",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-pender-lane"
+},
+"cs-3c-pender-lane-37nc": {
+"kit": "CS.LANE",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-pender-lane"
+},
+"cs-3c-pender-lane-7nc": {
+"kit": "CS.LANE",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-pender-lane"
+},
+"cs-3c-pender-mcgowan-12sc": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-3c-pender-mcgowan-13sc": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-3c-pender-mcgowan-14sc": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-3c-pender-mcgowan-1scprov": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-3c-pender-mcgowan-1scrifles": {
+"kit": "CS.1SCRIFLES",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"cs-3c-pender-poague": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"cs-3c-pender-scales-13nc": {
+"kit": "CS.SCALES",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-pender-scales"
+},
+"cs-3c-pender-scales-16nc": {
+"kit": "CS.SCALES",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-pender-scales"
+},
+"cs-3c-pender-scales-22nc": {
+"kit": "CS.SCALES",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-pender-scales"
+},
+"cs-3c-pender-scales-34nc": {
+"kit": "CS.SCALES",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-pender-scales"
+},
+"cs-3c-pender-scales-38nc": {
+"kit": "CS.SCALES",
+"how": "brigade",
+"note": "the record of its brigade cs-3c-pender-scales"
+},
+"cs-3c-pender-thomas-14ga": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-3c-pender-thomas-35ga": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-3c-pender-thomas-45ga": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-3c-pender-thomas-49ga": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-3c-res-art-mcintosh": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"cs-3c-res-art-pegram": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"cs-44nc-hanover-junction": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-58va-winchester": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"cs-cav-chambliss-10va": {
+"kit": "CS.CAV.10VA",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"cs-cav-chambliss-13va": {
+"kit": "CS.CAV.13VA",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"cs-cav-chambliss-2nc": {
+"kit": "CS.CAV.2NC",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"cs-cav-chambliss-9va": {
+"kit": "CS.CAV.9VA",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"cs-cav-flee-1mdbn": {
+"kit": "CS.CAV.1MDBN",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"cs-cav-flee-1va": {
+"kit": "CS.CAV.1VA",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"cs-cav-flee-2va": {
+"kit": "CS.CAV.2VA",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"cs-cav-flee-3va": {
+"kit": "CS.CAV.3VA",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"cs-cav-flee-4va": {
+"kit": "CS.CAV.4VA",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"cs-cav-flee-5va": {
+"kit": "CS.CAV.5VA",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"cs-cav-hampton-1nc": {
+"kit": "CS.CAV.1NC",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"cs-cav-hampton-1sc": {
+"kit": "CS.CAV.1SC",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"cs-cav-hampton-2sc": {
+"kit": "CS.CAV.2SC",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"cs-cav-hampton-cobbslegion": {
+"kit": "CS.CAV.COBB",
+"how": "alias",
+"note": "Cobb's Legion"
+},
+"cs-cav-hampton-jeffdavislegion": {
+"kit": "CS.CAV.JDAVIS",
+"how": "alias",
+"note": "Jeff Davis Legion"
+},
+"cs-cav-hampton-phillipslegion": {
+"kit": "CS.CAV.PHILLIPS",
+"how": "alias",
+"note": "Phillips Legion"
+},
+"cs-cav-horse-art": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"cs-cav-imboden": {
+"kit": null,
+"how": "default",
+"note": "no cavalry kit record of that name"
+},
+"cs-cav-jenkins-14va": {
+"kit": "CS.CAV.14VA",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"cs-cav-jenkins-16va": {
+"kit": "CS.CAV.16VA",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"cs-cav-jenkins-17va": {
+"kit": "CS.CAV.17VA",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"cs-cav-jenkins-34vabn": {
+"kit": "CS.34VACAVBN",
+"how": "alias",
+"note": "34th Virginia Cavalry Battalion (kit id is spelled CS.34VACAVBN)"
+},
+"cs-cav-jenkins-36vabn": {
+"kit": "CS.CAV.36VABN",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"cs-cav-jones": {
+"kit": null,
+"how": "default",
+"note": "no cavalry kit record of that name"
+},
+"cs-cav-robertson": {
+"kit": null,
+"how": "default",
+"note": "no cavalry kit record of that name"
+},
+"cs-corse-hanover-junction": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-11c-1d-ames-107oh": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-11c-1d-ames-17ct": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-11c-1d-ames-25oh": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-11c-1d-ames-75oh": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-11c-1d-gilsa-153pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-11c-1d-gilsa-41ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-11c-1d-gilsa-54ny": {
+"kit": "US.54NY",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-11c-1d-gilsa-68ny": {
+"kit": "US.68NY",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-11c-2d-coster-134ny": {
+"kit": "US.134NY",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-11c-2d-coster-154ny": {
+"kit": "US.154NY",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-11c-2d-coster-27pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-11c-2d-coster-73pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-11c-2d-smith-136ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-11c-2d-smith-33ma": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-11c-2d-smith-55oh": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-11c-2d-smith-73oh": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-11c-3d-krzyzanowski-119ny": {
+"kit": "US.119NY",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-11c-3d-krzyzanowski-26wi": {
+"kit": "US.26WI",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-11c-3d-krzyzanowski-58ny": {
+"kit": "US.58NY",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-11c-3d-krzyzanowski-75pa": {
+"kit": "US.75PA",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-11c-3d-krzyzanowski-82oh": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-11c-3d-schimmelfennig-157ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-11c-3d-schimmelfennig-45ny": {
+"kit": "US.45NY",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-11c-3d-schimmelfennig-61oh": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-11c-3d-schimmelfennig-74pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-11c-3d-schimmelfennig-82il": {
+"kit": "US.82IL",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-11c-art-13ny": {
+"kit": "US.ART.13th_NY",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-11c-art-1nyi": {
+"kit": "US.ART.1st_NY_I",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-11c-art-1ohi": {
+"kit": "US.ART.1st_Ohio_I",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-11c-art-1ohk": {
+"kit": "US.ART.1st_Ohio_K",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-11c-art-4usg": {
+"kit": "US.ART.4th_US_G",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-12c-1d-colgrove-107ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-1d-colgrove-13nj": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-1d-colgrove-27in": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-1d-colgrove-2ma": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-1d-colgrove-3wi": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-1d-lockwood-150ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-1d-lockwood-1mdeasternshore": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-1d-lockwood-1mdphb": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-1d-mcdougall-123ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-1d-mcdougall-145ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-1d-mcdougall-20ct": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-1d-mcdougall-3md": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-1d-mcdougall-46pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-1d-mcdougall-5ct": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-2d-candy-147pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-2d-candy-28pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-2d-candy-29oh": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-2d-candy-5oh": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-2d-candy-66oh": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-2d-candy-7oh": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-2d-greene-102ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-2d-greene-137ny": {
+"kit": "US.137NY",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-12c-2d-greene-149ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-2d-greene-60ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-2d-greene-78ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-2d-kane-109pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-2d-kane-111pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-2d-kane-29pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-12c-art-1nym": {
+"kit": "US.ART.1st_NY_M",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-12c-art-4usf": {
+"kit": "US.ART.4th_US_F",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-12c-art-5usk": {
+"kit": "US.ART.5th_US_K",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-12c-art-pae": {
+"kit": "US.ART.Pa_E",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-1c-1d-cutler-147ny": {
+"kit": "US.147NY",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-1c-1d-cutler-56pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-1c-1d-cutler-76ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-1c-1d-cutler-7in": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-1c-1d-cutler-84ny": {
+"kit": "US.84NY",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-1c-1d-cutler-95ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-1c-1d-meredith-19in": {
+"kit": "US.19IN",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-1c-1d-meredith-24mi": {
+"kit": "US.24MI",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-1c-1d-meredith-2wi": {
+"kit": "US.2WI",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-1c-1d-meredith-6wi": {
+"kit": "US.6WI",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-1c-1d-meredith-7wi": {
+"kit": "US.7WI",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-1c-2d-baxter-11pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-1c-2d-baxter-12ma": {
+"kit": "US.12MA",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-1c-2d-baxter-83ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-1c-2d-baxter-88pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-1c-2d-baxter-90pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-1c-2d-baxter-97ny": {
+"kit": "US.97NY",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-1c-2d-paul-104ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-1c-2d-paul-107pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-1c-2d-paul-13ma": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-1c-2d-paul-16me": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-1c-2d-paul-94ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-1c-3d-biddle-121pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-1c-3d-biddle-142pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-1c-3d-biddle-151pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-1c-3d-biddle-80ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-1c-3d-stannard-13vt": {
+"kit": "US.13VT",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-1c-3d-stannard-14vt": {
+"kit": "US.14VT",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-1c-3d-stannard-16vt": {
+"kit": "US.16VT",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-1c-3d-stone-143pa": {
+"kit": "US.143PA",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-1c-3d-stone-149pa": {
+"kit": "US.149PA",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-1c-3d-stone-150pa": {
+"kit": "US.150PA",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-1c-art-1nye": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"us-1c-art-1nyl": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"us-1c-art-1pab": {
+"kit": "US.ART.1st_Pa_B",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-1c-art-2me": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"us-1c-art-4usb": {
+"kit": "US.ART.4th_US_B",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-1c-art-5me": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"us-2c-1d-brooke-145pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-1d-brooke-27ct": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-1d-brooke-2de": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-1d-brooke-53pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-1d-brooke-64ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-1d-cross-148pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-1d-cross-5nh": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-1d-cross-61ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-1d-cross-81pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-1d-kelly-116pa": {
+"kit": "US.116PA",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-2c-1d-kelly-28ma": {
+"kit": "US.28MA",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-2c-1d-kelly-63ny": {
+"kit": "US.63NY",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-2c-1d-kelly-69ny": {
+"kit": "US.69NY",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-2c-1d-kelly-88ny": {
+"kit": "US.88NY",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-2c-1d-zook-140pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-1d-zook-52ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-1d-zook-57ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-1d-zook-66ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-2d-1comass": {
+"kit": "US.1MASSSS",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-2c-2d-hall-19ma": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-2d-hall-20ma": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-2d-hall-42ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-2d-hall-59ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-2d-hall-7mi": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-2d-harrow-15ma": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-2d-harrow-19me": {
+"kit": "US.19ME",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-2c-2d-harrow-1mn": {
+"kit": "US.1MN",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-2c-2d-harrow-82ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-2d-webb-106pa": {
+"kit": "US.106PA",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-2c-2d-webb-69pa": {
+"kit": "US.69PA",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-2c-2d-webb-71pa": {
+"kit": "US.71PA",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-2c-2d-webb-72pa": {
+"kit": "US.72PA",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-2c-3d-carroll-14in": {
+"kit": "US.14IN",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-2c-3d-carroll-4oh": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-3d-carroll-7wv": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-3d-carroll-8oh": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-3d-smyth-108ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-3d-smyth-10nybn": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-3d-smyth-12nj": {
+"kit": "US.12NJ",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-2c-3d-smyth-14ct": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-3d-smyth-1de": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-3d-willard-111ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-3d-willard-125ny": {
+"kit": "US.125NY",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-2c-3d-willard-126ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-2c-3d-willard-39ny": {
+"kit": "US.39NY",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-2c-art-1nyb": {
+"kit": "US.ART.1st_NY_B",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-2c-art-1ria": {
+"kit": "US.ART.1st_RI_A",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-2c-art-1rib": {
+"kit": "US.ART.1st_RI_B",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-2c-art-1usi": {
+"kit": "US.ART.1st_US_I",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-2c-art-4usa": {
+"kit": "US.ART.4th_US_A",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-3c-1d-graham-105pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-1d-graham-114pa": {
+"kit": "US.114PA",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-3c-1d-graham-141pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-1d-graham-57pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-1d-graham-63pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-1d-graham-68pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-1d-trobriand-110pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-1d-trobriand-17me": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-1d-trobriand-3mi": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-1d-trobriand-40ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-1d-trobriand-5mi": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-1d-ward-124ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-1d-ward-1ussharpshooters": {
+"kit": "US.1USS",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-3c-1d-ward-20in": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-1d-ward-2ussharpshooters": {
+"kit": "US.2USS",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-3c-1d-ward-3me": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-1d-ward-4me": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-1d-ward-86ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-1d-ward-99pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-2d-brewster-120ny": {
+"kit": "US.120NY",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-3c-2d-brewster-70ny": {
+"kit": "US.70NY",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-3c-2d-brewster-71ny": {
+"kit": "US.71NY",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-3c-2d-brewster-72ny": {
+"kit": "US.72NY",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-3c-2d-brewster-73ny": {
+"kit": "US.73NY",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-3c-2d-brewster-74ny": {
+"kit": "US.74NY",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-3c-2d-burling-115pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-2d-burling-2nh": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-2d-burling-5nj": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-2d-burling-6nj": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-2d-burling-7nj": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-2d-burling-8nj": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-2d-carr-11ma": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-2d-carr-11nj": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-2d-carr-12nh": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-2d-carr-16ma": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-2d-carr-1ma": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-2d-carr-26pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-2d-carr-84pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-3c-art-1njb": {
+"kit": "US.ART.1st_NJ_B",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-3c-art-1nyd": {
+"kit": "US.ART.1st_NY_D",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-3c-art-1rie": {
+"kit": "US.ART.1st_RI_E",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-3c-art-4ny": {
+"kit": "US.ART.4th_NY",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-3c-art-4usk": {
+"kit": "US.ART.4th_US_K",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-4nj-train-guard": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-5c-1d-sweitzer-32ma-co-c": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-5c-1d-sweitzer-4mi": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-5c-1d-sweitzer-62pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-5c-1d-sweitzer-9ma": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-5c-1d-tilton-118pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-5c-1d-tilton-18ma": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-5c-1d-tilton-1mi": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-5c-1d-tilton-22ma": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-5c-1d-vincent-16mi": {
+"kit": "US.16MI",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-5c-1d-vincent-20me": {
+"kit": "US.20ME",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-5c-1d-vincent-44ny": {
+"kit": "US.44NY",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-5c-1d-vincent-83pa": {
+"kit": "US.83PA",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-5c-2d-burbank-10us": {
+"kit": "US.10US",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-5c-2d-burbank-11us": {
+"kit": "US.11US",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-5c-2d-burbank-17us": {
+"kit": "US.17US",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-5c-2d-burbank-2us": {
+"kit": "US.2US",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-5c-2d-burbank-7us": {
+"kit": "US.7US",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-5c-2d-day-12us": {
+"kit": "US.12US",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-5c-2d-day-14us": {
+"kit": "US.14US",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-5c-2d-day-3us": {
+"kit": "US.3US",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-5c-2d-day-4us": {
+"kit": "US.4US",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-5c-2d-day-6us": {
+"kit": "US.6US",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-5c-2d-weed-140ny": {
+"kit": "US.140NY",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-5c-2d-weed-146ny": {
+"kit": "US.146NY",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-5c-2d-weed-155pa": {
+"kit": "US.155PA",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-5c-2d-weed-91pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-5c-3d-fisher-10pareserves": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-5c-3d-fisher-11pareserves": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-5c-3d-fisher-12pareserves": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-5c-3d-fisher-5pareserves": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-5c-3d-fisher-9pareserves": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-5c-3d-mccandless-13pareserves": {
+"kit": "US.13PAR",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-5c-3d-mccandless-1pareserves": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-5c-3d-mccandless-2pareserves": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-5c-3d-mccandless-6pareserves": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-5c-art-1nyc": {
+"kit": "US.ART.1st_NY_C",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-5c-art-1ohl": {
+"kit": "US.ART.1st_Ohio_L",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-5c-art-3ma": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"us-5c-art-5usd": {
+"kit": "US.ART.5th_US_D",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-5c-art-5usi": {
+"kit": "US.ART.5th_US_I",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-6c-1d-bartlett-121ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-1d-bartlett-5me": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-1d-bartlett-95pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-1d-bartlett-96pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-1d-russell-119pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-1d-russell-49pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-1d-russell-5wi": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-1d-russell-6me": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-1d-torbert-15nj": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-1d-torbert-1nj": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-1d-torbert-2nj": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-1d-torbert-3nj": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-2d-1brig": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-2d-grant-2vt": {
+"kit": "US.VI_2VT",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-6c-2d-grant-3vt": {
+"kit": "US.VI_3VT",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-6c-2d-grant-4vt": {
+"kit": "US.VI_4VT",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-6c-2d-grant-5vt": {
+"kit": "US.VI_5VT",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-6c-2d-grant-6vt": {
+"kit": "US.VI_6VT",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-6c-2d-neill-33ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-2d-neill-43ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-2d-neill-49ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-2d-neill-61pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-2d-neill-77ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-2d-neill-7me": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-3d-eustis-10ma": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-3d-eustis-2ri": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-3d-eustis-37ma": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-3d-eustis-7ma": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-3d-shaler-122ny": {
+"kit": "US.122NY",
+"how": "kit_presence",
+"note": "tools/bt/kit_presence.py crosswalk"
+},
+"us-6c-3d-shaler-23pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-3d-shaler-65ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-3d-shaler-67ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-3d-shaler-82pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-3d-wheaton-139pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-3d-wheaton-62ny": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-3d-wheaton-93pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-3d-wheaton-98pa": {
+"kit": null,
+"how": "default",
+"note": "no kit record for this unit or its brigade"
+},
+"us-6c-art-1maa": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"us-6c-art-1ny": {
+"kit": "US.ART.1st_NY",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-6c-art-1ric": {
+"kit": "US.ART.1st_RI_C",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-6c-art-1rig": {
+"kit": "US.ART.1st_RI_G",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-6c-art-2usd": {
+"kit": "US.ART.2nd_US_D",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-6c-art-2usg": {
+"kit": "US.ART.2nd_US_G",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-6c-art-3ny": {
+"kit": "US.ART.3rd_NY",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-6c-art-5usf": {
+"kit": "US.ART.5th_US_F",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-art-reserve-fitzhugh-1nj": {
+"kit": "US.ART.1st_NJ",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-art-reserve-fitzhugh-1nyg": {
+"kit": "US.ART.1st_NY_G",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-art-reserve-fitzhugh-1nyk": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"us-art-reserve-fitzhugh-6me": {
+"kit": "US.ART.6th_Maine",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-art-reserve-fitzhugh-mda": {
+"kit": "US.ART.Md_A",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-art-reserve-huntington-1nh": {
+"kit": "US.ART.1st_New_Hampshire",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-art-reserve-huntington-1ohh": {
+"kit": "US.ART.1st_Ohio_H",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-art-reserve-huntington-1paf": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"us-art-reserve-huntington-1pag": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"us-art-reserve-huntington-wvc": {
+"kit": "US.ART.W_Va_C",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-art-reserve-mcgilvery-15ny": {
+"kit": "US.ART.15th_New_York",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-art-reserve-mcgilvery-5ma": {
+"kit": "US.ART.5th_Massachusetts",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-art-reserve-mcgilvery-9ma": {
+"kit": "US.ART.9th_Massachusetts",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-art-reserve-mcgilvery-pac": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"us-art-reserve-mcgilvery-paf": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"us-art-reserve-ransom-1ush": {
+"kit": "US.ART.1st_US_H",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-art-reserve-ransom-3usf": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"us-art-reserve-ransom-3usk": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"us-art-reserve-ransom-4usc": {
+"kit": "US.ART.4th_US_C",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-art-reserve-ransom-5usc": {
+"kit": "US.ART.5th_US_C",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-art-reserve-taft-1ctheavy-b": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"us-art-reserve-taft-1ctheavy-m": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+},
+"us-art-reserve-taft-2ct": {
+"kit": "US.ART.2nd_Connecticut",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-art-reserve-taft-5ny": {
+"kit": "US.ART.5th_New_York",
+"how": "name",
+"note": "same normalised battery name"
+},
+"us-cav-1d-devin-17pa": {
+"kit": "US.CAV.17PA",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"us-cav-1d-devin-3wvaandc": {
+"kit": null,
+"how": "default",
+"note": "no cavalry kit record of that name"
+},
+"us-cav-1d-devin-6ny": {
+"kit": "US.CAV.6NY",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"us-cav-1d-devin-9ny": {
+"kit": "US.CAV.9NY",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"us-cav-1d-gamble-12il": {
+"kit": "US.CAV.12IL",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"us-cav-1d-gamble-3in": {
+"kit": "US.CAV.3IN",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"us-cav-1d-gamble-8il": {
+"kit": "US.CAV.8IL",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"us-cav-1d-gamble-8ny": {
+"kit": "US.CAV.8NY",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"us-cav-1d-merritt-1us": {
+"kit": "US.CAV.1US",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"us-cav-1d-merritt-2us": {
+"kit": "US.CAV.2US",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"us-cav-1d-merritt-5us": {
+"kit": "US.CAV.5US",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"us-cav-1d-merritt-6pa": {
+"kit": "US.CAV.6PA",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"us-cav-1d-merritt-6us": {
+"kit": "US.CAV.6US",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"us-cav-2d-gregg-10ny": {
+"kit": "US.CAV.10NY",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"us-cav-2d-gregg-16pa": {
+"kit": "US.CAV.16PA",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"us-cav-2d-gregg-1me": {
+"kit": "US.CAV.1ME",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"us-cav-2d-gregg-4pa": {
+"kit": "US.CAV.4PA",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"us-cav-2d-huey": {
+"kit": null,
+"how": "default",
+"note": "no cavalry kit record of that name"
+},
+"us-cav-2d-mcintosh-1ma": {
+"kit": "US.CAV.1MA",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"us-cav-2d-mcintosh-1md": {
+"kit": "US.CAV.1MD",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"us-cav-2d-mcintosh-1nj": {
+"kit": "US.CAV.1NJ",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"us-cav-2d-mcintosh-1pa": {
+"kit": "US.CAV.1PA",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"us-cav-2d-mcintosh-3pa": {
+"kit": "US.CAV.3PA",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"us-cav-3d-custer-1mi": {
+"kit": "US.CAV.1MICH",
+"how": "alias",
+"note": "1st Michigan Cavalry: MI/MICH spelling"
+},
+"us-cav-3d-custer-5mi": {
+"kit": "US.CAV.5MICH",
+"how": "alias",
+"note": "5th Michigan Cavalry: MI/MICH spelling"
+},
+"us-cav-3d-custer-6mi": {
+"kit": "US.CAV.6MICH",
+"how": "alias",
+"note": "6th Michigan Cavalry: MI/MICH spelling"
+},
+"us-cav-3d-custer-7mi": {
+"kit": "US.CAV.7MICH",
+"how": "alias",
+"note": "7th Michigan Cavalry: MI/MICH spelling"
+},
+"us-cav-3d-farnsworth-18pa": {
+"kit": "US.CAV.18PA",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"us-cav-3d-farnsworth-1vt": {
+"kit": "US.CAV.1VT",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"us-cav-3d-farnsworth-1wv": {
+"kit": "US.CAV.1WV",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"us-cav-3d-farnsworth-5ny": {
+"kit": "US.CAV.5NY",
+"how": "rule",
+"note": "suffix of the history id"
+},
+"us-cav-art": {
+"kit": null,
+"how": "default",
+"note": "no kit battery of that name"
+}
+}
+}

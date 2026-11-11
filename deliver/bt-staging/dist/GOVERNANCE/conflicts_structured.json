@@ -1,0 +1,984 @@
+{
+ "_doc": "PDF B.2.5 conflict register, structured. pdf_recommended_default is the PDF's recommendation, NOT an owner decision. Every value stays selectable (PDF B.2.5 rule).",
+ "conflicts": [
+  {
+   "id": "C-001",
+   "topic": "Meade reaches Gettysburg (Jul 1-2)",
+   "values": [
+    {
+     "label": "after midnight (SS1, W-D1)"
+    },
+    {
+     "label": "about 04:00 (EPP)"
+    }
+   ],
+   "pdf_recommended_default": "about 01:00, then a pre-dawn inspection of the line",
+   "selectable_alternatives": [
+    "both"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-002",
+   "topic": "Humphreys reaches the field",
+   "values": [
+    {
+     "label": "00:00"
+    },
+    {
+     "label": "02:00"
+    }
+   ],
+   "pdf_recommended_default": "02:00",
+   "selectable_alternatives": [
+    "both"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-003",
+   "topic": "V Corps arrival Jul 2",
+   "values": [
+    {
+     "label": "05:00"
+    },
+    {
+     "label": "08:00 (head of column)"
+    }
+   ],
+   "pdf_recommended_default": "head at 08:00 near Power's Hill",
+   "selectable_alternatives": [
+    "05:00"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-004",
+   "topic": "II Corps arrival",
+   "values": [
+    {
+     "label": "22:30 Jul 1"
+    },
+    {
+     "label": "at dawn"
+    },
+    {
+     "label": "06:00"
+    },
+    {
+     "label": "07:00 Jul 2"
+    }
+   ],
+   "pdf_recommended_default": "06:00 Jul 2 (head), tails later",
+   "selectable_alternatives": [
+    "all four"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-005",
+   "topic": "Hood at Seminary Ridge",
+   "values": [
+    {
+     "label": "05:30"
+    },
+    {
+     "label": "06:30"
+    },
+    {
+     "label": "07:30 (EPP, FREE, PADRE)"
+    }
+   ],
+   "pdf_recommended_default": "06:30",
+   "selectable_alternatives": [
+    "05:30",
+    "07:30"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-006",
+   "topic": "Longstreet at Lee's headquarters",
+   "values": [
+    {
+     "label": "05:15"
+    },
+    {
+     "label": "08:00"
+    },
+    {
+     "label": "\"stars bright\" (pre-dawn)"
+    }
+   ],
+   "pdf_recommended_default": "08:00",
+   "selectable_alternatives": [
+    "other two"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-007",
+   "topic": "McLaws on the ridge",
+   "values": [
+    {
+     "label": "08:00"
+    },
+    {
+     "label": "08:30"
+    }
+   ],
+   "pdf_recommended_default": "08:00",
+   "selectable_alternatives": [
+    "08:30"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-008",
+   "topic": "Lee's attack order",
+   "values": [
+    {
+     "label": "about 09:00 (forum, weak, CWT)"
+    },
+    {
+     "label": "11:00"
+    }
+   ],
+   "pdf_recommended_default": "11:00",
+   "selectable_alternatives": [
+    "09:00 (flagged weak)"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-009",
+   "topic": "Berdan's reconnaissance start",
+   "values": [
+    {
+     "label": "11:00"
+    },
+    {
+     "label": "11:15"
+    },
+    {
+     "label": "noon"
+    }
+   ],
+   "pdf_recommended_default": "11:15",
+   "selectable_alternatives": [
+    "11:00",
+    "noon"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-010",
+   "topic": "Sickles' advance to the Peach Orchard",
+   "values": [
+    {
+     "label": "noon"
+    },
+    {
+     "label": "14:00"
+    },
+    {
+     "label": "16:00"
+    }
+   ],
+   "pdf_recommended_default": "14:00",
+   "selectable_alternatives": [
+    "noon",
+    "16:00"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-011",
+   "topic": "Hood's attack",
+   "values": [
+    {
+     "label": "16:00"
+    },
+    {
+     "label": "16:30 (SS2, HESS)"
+    }
+   ],
+   "pdf_recommended_default": "16:30",
+   "selectable_alternatives": [
+    "16:00"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-012",
+   "topic": "Vincent's lead over Law at Little Round Top",
+   "values": [
+    {
+     "label": "10 minutes"
+    },
+    {
+     "label": "15 minutes"
+    }
+   ],
+   "pdf_recommended_default": "10 minutes",
+   "selectable_alternatives": [
+    "15 minutes"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-013",
+   "topic": "Chamberlain's charge",
+   "values": [
+    {
+     "label": "17:30"
+    },
+    {
+     "label": "no clock time in the sources"
+    }
+   ],
+   "pdf_recommended_default": "17:30 (labelled inferred)",
+   "selectable_alternatives": [
+    "none"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-014",
+   "topic": "Prisoners taken, 20th Maine front",
+   "values": [
+    {
+     "label": "218-368"
+    },
+    {
+     "label": "400+25"
+    }
+   ],
+   "pdf_recommended_default": "218-368 range shown",
+   "selectable_alternatives": [
+    "400+25"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-015",
+   "topic": "20th Maine strength",
+   "values": [
+    {
+     "label": "385"
+    },
+    {
+     "label": "386"
+    }
+   ],
+   "pdf_recommended_default": "385",
+   "selectable_alternatives": [
+    "386"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-016",
+   "topic": "48th Alabama position",
+   "values": [
+    {
+     "label": "Devil's Den"
+    },
+    {
+     "label": "Little Round Top"
+    }
+   ],
+   "pdf_recommended_default": "Little Round Top",
+   "selectable_alternatives": [
+    "Devil's Den"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-017",
+   "topic": "Who replaced Sickles",
+   "values": [
+    {
+     "label": "Birney"
+    },
+    {
+     "label": "Hancock"
+    }
+   ],
+   "pdf_recommended_default": "Birney (corps), Hancock overseeing the sector",
+   "selectable_alternatives": [
+    "Hancock"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-018",
+   "topic": "Wright's brigade stopped by",
+   "values": [
+    {
+     "label": "Webb"
+    },
+    {
+     "label": "Stannard"
+    },
+    {
+     "label": "reached the crest or not"
+    }
+   ],
+   "pdf_recommended_default": "stopped short of the crest, attribution unresolved",
+   "selectable_alternatives": [
+    "all"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-019",
+   "topic": "Johnson's attack on Culp's Hill",
+   "values": [
+    {
+     "label": "19:00"
+    },
+    {
+     "label": "19:30"
+    },
+    {
+     "label": "20:00"
+    }
+   ],
+   "pdf_recommended_default": "19:00",
+   "selectable_alternatives": [
+    "19:30",
+    "20:00"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-020",
+   "topic": "East Cemetery Hill assault",
+   "values": [
+    {
+     "label": "19:30"
+    },
+    {
+     "label": "20:00"
+    },
+    {
+     "label": "20:00-21:00"
+    }
+   ],
+   "pdf_recommended_default": "19:30",
+   "selectable_alternatives": [
+    "20:00",
+    "20:00-21:00"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-021",
+   "topic": "Pickett's arrival",
+   "values": [
+    {
+     "label": "night of Jul 2 (W-D2, PHIF)"
+    },
+    {
+     "label": "Jul 3 (SS2)"
+    },
+    {
+     "label": "marches from 06:00 Jul 2 (EPP)"
+    },
+    {
+     "label": "no order to be up by daylight Jul 3 (W-PC)"
+    }
+   ],
+   "pdf_recommended_default": "on the field the morning of Jul 3 (conservative: not shown before dawn Jul 3)",
+   "selectable_alternatives": [
+    "night of Jul 2"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-022",
+   "topic": "VI Corps",
+   "values": [
+    {
+     "label": "head about 14:00"
+    },
+    {
+     "label": "main body about 17:00"
+    }
+   ],
+   "pdf_recommended_default": "head 14:00, main body 17:00",
+   "selectable_alternatives": [
+    "each"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-023",
+   "topic": "Stuart's arrival",
+   "values": [
+    {
+     "label": "noon-13:00"
+    },
+    {
+     "label": "mid-afternoon"
+    },
+    {
+     "label": "afternoon"
+    },
+    {
+     "label": "evening"
+    }
+   ],
+   "pdf_recommended_default": "Stuart himself early afternoon, brigades in the evening",
+   "selectable_alternatives": [
+    "all"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-024",
+   "topic": "Council of war (Union)",
+   "values": [
+    {
+     "label": "21:00"
+    },
+    {
+     "label": "midnight"
+    },
+    {
+     "label": "late"
+    }
+   ],
+   "pdf_recommended_default": "window 21:00-24:00",
+   "selectable_alternatives": [
+    "each"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-025",
+   "topic": "Geary back to Culp's Hill",
+   "values": [
+    {
+     "label": "overnight"
+    },
+    {
+     "label": "23:00"
+    },
+    {
+     "label": "04:00"
+    }
+   ],
+   "pdf_recommended_default": "window 02:00-04:00",
+   "selectable_alternatives": [
+    "each"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-026",
+   "topic": "Sherfy barn fire",
+   "values": [
+    {
+     "label": "Jul 2 evening"
+    },
+    {
+     "label": "Jul 3"
+    }
+   ],
+   "pdf_recommended_default": "Jul 2 evening",
+   "selectable_alternatives": [
+    "Jul 3"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-027",
+   "topic": "Buford's destination",
+   "values": [
+    {
+     "label": "Taneytown"
+    },
+    {
+     "label": "Westminster"
+    },
+    {
+     "label": "Emmitsburg"
+    }
+   ],
+   "pdf_recommended_default": "Westminster, marked unresolved",
+   "selectable_alternatives": [
+    "others"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-028",
+   "topic": "Hunt's guns open Jul 3",
+   "values": [
+    {
+     "label": "04:30"
+    },
+    {
+     "label": "05:30"
+    }
+   ],
+   "pdf_recommended_default": "05:30",
+   "selectable_alternatives": [
+    "04:30"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-029",
+   "topic": "Cannonade end",
+   "values": [
+    {
+     "label": "14:00"
+    },
+    {
+     "label": "14:30"
+    },
+    {
+     "label": "15:00"
+    }
+   ],
+   "pdf_recommended_default": "14:30",
+   "selectable_alternatives": [
+    "14:00",
+    "15:00"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-030",
+   "topic": "Infantry step-off",
+   "values": [
+    {
+     "label": "14:00"
+    },
+    {
+     "label": "15:00"
+    }
+   ],
+   "pdf_recommended_default": "15:00",
+   "selectable_alternatives": [
+    "14:00"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-031",
+   "topic": "Culp's Hill, final charge Jul 3",
+   "values": [
+    {
+     "label": "10:00"
+    },
+    {
+     "label": "noon"
+    }
+   ],
+   "pdf_recommended_default": "10:00",
+   "selectable_alternatives": [
+    "noon"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-032",
+   "topic": "East Cavalry Field fight",
+   "values": [
+    {
+     "label": "13:00"
+    },
+    {
+     "label": "15:00"
+    }
+   ],
+   "pdf_recommended_default": "13:00",
+   "selectable_alternatives": [
+    "15:00"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-033",
+   "topic": "Imboden departs",
+   "values": [
+    {
+     "label": "Jul 4"
+    },
+    {
+     "label": "Jul 5"
+    }
+   ],
+   "pdf_recommended_default": "Jul 4 afternoon",
+   "selectable_alternatives": [
+    "Jul 5"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-034",
+   "topic": "Monterey Pass wagon counts",
+   "values": [
+    {
+     "label": "40"
+    },
+    {
+     "label": "150"
+    },
+    {
+     "label": "300"
+    },
+    {
+     "label": "400-500"
+    }
+   ],
+   "pdf_recommended_default": "150 (range shown)",
+   "selectable_alternatives": [
+    "all"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-035",
+   "topic": "Falling Waters prisoners",
+   "values": [
+    {
+     "label": "500"
+    },
+    {
+     "label": "1,000-2,000"
+    }
+   ],
+   "pdf_recommended_default": "500",
+   "selectable_alternatives": [
+    "1,000-2,000"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-036",
+   "topic": "Williamsport date",
+   "values": [
+    {
+     "label": "Jul 6"
+    },
+    {
+     "label": "Jul 7"
+    }
+   ],
+   "pdf_recommended_default": "Jul 6",
+   "selectable_alternatives": [
+    "Jul 7"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-037",
+   "topic": "Barksdale's death",
+   "values": [
+    {
+     "label": "Jul 2"
+    },
+    {
+     "label": "Jul 3"
+    }
+   ],
+   "pdf_recommended_default": "Jul 2 (wounded), death Jul 2-3 shown as a range",
+   "selectable_alternatives": [
+    "Jul 3"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-038",
+   "topic": "Spangler Farm wounded",
+   "values": [
+    {
+     "label": "1,000"
+    },
+    {
+     "label": "1,500"
+    },
+    {
+     "label": "1,800"
+    },
+    {
+     "label": "1,900"
+    },
+    {
+     "label": "2,000"
+    }
+   ],
+   "pdf_recommended_default": "1,500",
+   "selectable_alternatives": [
+    "all"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 62
+  },
+  {
+   "id": "C-039",
+   "topic": "Hancock arrives Jul 1",
+   "values": [
+    {
+     "label": "about 15:00"
+    },
+    {
+     "label": "before 16:00"
+    },
+    {
+     "label": "16:00"
+    },
+    {
+     "label": "16:30"
+    }
+   ],
+   "pdf_recommended_default": "about 15:00-16:00",
+   "selectable_alternatives": [
+    "16:00",
+    "16:30"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 63
+  },
+  {
+   "id": "C-040",
+   "topic": "Reynolds' death",
+   "values": [
+    {
+     "label": "10:15"
+    },
+    {
+     "label": "10:30"
+    },
+    {
+     "label": "10:40-10:50"
+    }
+   ],
+   "pdf_recommended_default": "10:30",
+   "selectable_alternatives": [
+    "other two"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 63
+  },
+  {
+   "id": "C-041",
+   "topic": "Rodes' attack start",
+   "values": [
+    {
+     "label": "13:30"
+    },
+    {
+     "label": "14:00"
+    },
+    {
+     "label": "14:30"
+    }
+   ],
+   "pdf_recommended_default": "14:00",
+   "selectable_alternatives": [
+    "13:30",
+    "14:30"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 63
+  },
+  {
+   "id": "C-042",
+   "topic": "Lee on the field Jul 1",
+   "values": [
+    {
+     "label": "13:30 (SS1)"
+    },
+    {
+     "label": "14:30 (W-D1)"
+    }
+   ],
+   "pdf_recommended_default": "13:30",
+   "selectable_alternatives": [
+    "14:30"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 63
+  },
+  {
+   "id": "C-043",
+   "topic": "Union retreat order Jul 1",
+   "values": [
+    {
+     "label": "15:45"
+    },
+    {
+     "label": "16:00"
+    },
+    {
+     "label": "16:30"
+    },
+    {
+     "label": "17:00"
+    }
+   ],
+   "pdf_recommended_default": "16:00",
+   "selectable_alternatives": [
+    "other three"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 63
+  },
+  {
+   "id": "C-044",
+   "topic": "Camp Letterman opening",
+   "values": [
+    {
+     "label": "Jul 20"
+    },
+    {
+     "label": "Jul 22"
+    }
+   ],
+   "pdf_recommended_default": "Jul 20",
+   "selectable_alternatives": [
+    "Jul 22"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 63
+  },
+  {
+   "id": "C-045",
+   "topic": "Wind on Jul 2-3",
+   "values": [
+    {
+     "label": "12 mph"
+    },
+    {
+     "label": "2 mph"
+    }
+   ],
+   "pdf_recommended_default": "2 mph (light)",
+   "selectable_alternatives": [
+    "12 mph"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 63
+  },
+  {
+   "id": "C-046",
+   "topic": "Dead counts (battle)",
+   "values": [
+    {
+     "label": "several totals in the notes"
+    }
+   ],
+   "pdf_recommended_default": "range shown",
+   "selectable_alternatives": [
+    "all"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 63
+  },
+  {
+   "id": "C-047",
+   "topic": "Strength and casualty totals",
+   "values": [
+    {
+     "label": "several totals in the notes"
+    }
+   ],
+   "pdf_recommended_default": "range shown",
+   "selectable_alternatives": [
+    "all"
+   ],
+   "owner_decision": null,
+   "status": "PENDING OWNER",
+   "page": 63
+  }
+ ]
+}

@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "_doc": "Army-level casualty figures of the Gettysburg campaign as the project holds them: the PDF B.1 table (secondary sources: Wikipedia, Stone Sentinels, Busey and Martin as cited there, the Civil War Medicine museum) and the OR27 figures confirmed by the claim check (library/or27_claim_checks.json, items n and s). They are the ONLY inputs to the fate split and to the total-loss range of a unit; no regimental casualty number is in this file or anywhere in the layer. Every number is checked against BIBLE/plan-clean.txt or the claim check by tests/casualties.test.mjs.",
+  "armies": {
+    "union": {
+      "corps_basis": "SS",
+      "total_sources": [
+        { "key": "SS", "label": "Stone Sentinels (the source of the corps rows in the PDF B.3 table)", "total": 22822, "where": "PDF B.1: Casualties, Stone Sentinels 22,822 (24%)", "weak": true },
+        { "key": "WIKI", "label": "Wikipedia as tabulated in PDF B.1", "total": [23049, 23055], "where": "PDF B.1: Casualties, Wikipedia 23,049-23,055", "weak": true },
+        { "key": "CWM", "label": "Civil War Medicine museum as tabulated in PDF B.1", "total": 23049, "where": "PDF B.1: 3,155 / 14,529 / 5,365", "weak": true },
+        { "key": "OR27-RETURN", "label": "OR vol. 27 part 1, Return of Casualties, grand total cell (claim check s1)", "total": 23049, "where": "library/or27_claim_checks.json item s, s1: CONFIRMED, one OCR-read cell, second witness not done", "weak": false }
+      ],
+      "fate_sources": [
+        { "key": "WIKI", "killed": 3155, "wounded": 14531, "missing": 5369, "total": 23055, "where": "PDF B.1: 3,155 killed, 14,531 wounded, 5,369 captured/missing", "weak": true },
+        { "key": "CWM", "killed": 3155, "wounded": 14529, "missing": 5365, "total": 23049, "where": "PDF B.1: 3,155 / 14,529 / 5,365", "weak": true },
+        { "key": "OR27-LETTERMAN", "wounded": 14193, "total": 23049, "where": "Letterman, OR27-1-R016 p.198: wounded 14,193 (claim check n1: CONFIRMED; Letterman’s footnote refers to a revised statement); divided by the OR27 grand total 23,049", "weak": false, "partial": true }
+      ]
+    },
+    "confederate": {
+      "corps_basis": "SS",
+      "total_sources": [
+        { "key": "SS", "label": "Stone Sentinels (the source of the corps rows in the PDF B.3 table), flagged under-reported in the PDF", "total": 22709, "where": "PDF B.1: Casualties, Stone Sentinels 22,709 (33%), flagged under-reported", "weak": true },
+        { "key": "BM", "label": "Busey and Martin as quoted in PDF B.1 (print source, not read here)", "total": 23231, "where": "PDF B.1: Busey and Martin 23,231 (4,708 / 12,693 / 5,830)", "weak": true },
+        { "key": "CWM", "label": "Civil War Medicine museum as tabulated in PDF B.1", "total": 28063, "where": "PDF B.1: 3,903 / 18,735 / 5,425 (sums to 28,063)", "weak": true }
+      ],
+      "fate_sources": [
+        { "key": "BM", "killed": 4708, "wounded": 12693, "missing": 5830, "total": 23231, "where": "PDF B.1: Busey and Martin 23,231 (4,708 / 12,693 / 5,830)", "weak": true },
+        { "key": "CWM", "killed": 3903, "wounded": 18735, "missing": 5425, "total": 28063, "where": "PDF B.1: 3,903 / 18,735 / 5,425 (sums to 28,063)", "weak": true }
+      ],
+      "not_usable": [
+        { "key": "OR27-GUILD", "what": "Guild’s recapitulation prints killed 2,592 and wounded 12,709; the missing column and the grand total are OCR-garbled, so no fraction can be formed (claim check s2: AMBIGUOUS)" },
+        { "key": "WIKI-RANGE", "what": "Wikipedia gives only a total range 23,000-28,000 (PDF B.1), no split" }
+      ]
+    }
+  },
+  "pdf_text_checks": ["22,822 (24%)", "22,709 (33%)", "3,155 killed, 14,531 wounded, 5,369", "23,049-23,055", "3,155 / 14,529 / 5,365", "3,903 / 18,735 / 5,425", "sums to 28,063", "Busey and Martin 23,231 (4,708 /", "12,693 / 5,830)"]
+}

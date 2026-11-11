@@ -46,6 +46,16 @@ for e in reg:
 for s in subs:
     for rid in s['register_ids']:
         if rid not in regids: fails.append(f'{s["id"]}: dangling register id {rid}')
+# link + coverage reporting (informational: never counted as a pass, never a hard failure; see tools/bt/check_coverage.py)
+_open = {e['id'] for e in reg if e['status'] != 'closed'}
+_lk = sum(1 for s in subs if not s['passes'] and set(s['register_ids']) & _open)
+_ev_only = [s['id'] for s in subs if not s['passes'] and not (set(s['register_ids']) & _open) and s['id'] in (_l if os.path.exists(_lp) else {}) and _l[s['id']].get('status') == 'verified']
+notes.append(f'links: {_lk} sub-requirements linked to an OPEN register entry (links are not passes); {len(_ev_only)} more have only a verified evidence row and no register entry (not counted as linked); {len(subs) - passing - _lk} not passing and without an open register link')
+sys.path.insert(0, os.path.dirname(__file__))
+import check_coverage
+cov = check_coverage.coverage()
+for _q, _c in cov.items():
+    notes.append(f'coverage {_q}: ' + ('PASS' if _c['ok'] else 'FAIL (unfinished work, reported not hidden)') + ' ' + json.dumps({k: v for k, v in _c.items() if k != 'ok' and not k.endswith('_sample')}))
 # timeline seed (Q02 partial, Q17 inputs)
 rows = [json.loads(l) for l in open(os.path.join(G, 'timeline_seed.jsonl'), encoding='utf-8')]
 if len(rows) != 691: fails.append(f'timeline rows {len(rows)} != 691')
@@ -62,7 +72,7 @@ decided = [l for l in dl.split(chr(10)) if 'DECIDED' in l and 'DECIDED BY OWNER'
 if decided: fails.append('Law cl.6: a decision is marked decided without an owner entry')
 for c in conf:
     if ('DEC-' + c['id']) not in dl: fails.append(f'decision log lacks {c["id"]}')
-rep = {'ok': not fails, 'fails': fails, 'notes': notes, 'counts': {'requirements': len(rids), 'sub_requirements': len(subs), 'register_entries': len(reg), 'timeline_rows': len(rows), 'conflicts': len(conf), 'gates': len(gates)}}
+rep = {'ok': not fails, 'fails': fails, 'notes': notes, 'counts': {'requirements': len(rids), 'sub_requirements': len(subs), 'register_entries': len(reg), 'timeline_rows': len(rows), 'conflicts': len(conf), 'gates': len(gates), 'linked_open_register': _lk, 'passing': passing}, 'coverage': {k: v['ok'] for k, v in cov.items()}}
 json.dump(rep, open(os.path.join(G, 'check_report.json'), 'w', encoding='utf-8'), indent=1)
 print(json.dumps(rep, indent=1)[:2500])
 sys.exit(0 if not fails else 1)

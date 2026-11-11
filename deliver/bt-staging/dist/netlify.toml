@@ -1,0 +1,7 @@
+# Static site, no build step: drop the folder or the zip.
+[build]
+  publish = "."
+[[redirects]]
+  from = "/"
+  to = "/app/index.html"
+  status = 200

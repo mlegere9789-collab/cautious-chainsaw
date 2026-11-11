@@ -1,0 +1,4882 @@
+{
+ "meta": {
+  "source": "Gettysburg Total War animation plan, version 2 (tmp/pdf/plan-clean.txt)",
+  "sections": "B.7.2, B.7.3, B.7.5, B.8.2, B.8.3, B.8.4, B.8.5, B.8.6, B.8.7, B.12.3",
+  "status": "seeded_unverified: transcribed from the PDF text; no primary source read",
+  "pdf_defaults_status": "PENDING OWNER (Law cl.6): no default view of a conflicting source has been chosen here",
+  "time_convention": "naive ISO-8601 local mean time as printed (Union and Confederate clocks differed by about 20 minutes; no correction applied)",
+  "tier_rule": "tier = printed PDF tier AND >=1 cited key outside the weak set; weak set = Wikipedia (Wiki-*, W-CONS), forums (CWT*), blogs the PDF flags (WHB*, GC-COMP), Stone Sentinels (SS-*, SStone-*). Mechanical only: no source opened to confirm it supports the exact claim.",
+  "weak_patterns": [
+   "^Wiki-",
+   "^W-CONS$",
+   "^CWT",
+   "^WHB",
+   "^GC-COMP$",
+   "^SS-",
+   "^SStone-"
+  ],
+  "generator": "tools/bt/build_structures.py",
+  "row_count": 88,
+  "rule_count": 4,
+  "window_semantics": "time.window = [earliest, latest, default]. granularity \"clock\": at least one bound is a printed clock time. granularity \"date\": bounds are the start (00:00) and 23:59 of the printed date(s); the position inside the day is NOT known and state_at reports it as indeterminate. \"default\" is non-null only where the PDF prints a single time for the transition. earliest null = not printed (\"by X\"); state_at then places the change at the latest bound and flags it.",
+  "scenarios": "Scenario \"default\" = the row as the engine reads it in B.8.7 (not a choice between conflicting sources). Named scenarios expose the PDF alternatives."
+ },
+ "rows": [
+  {
+   "id": "S-001",
+   "object_printed": "Rock Creek railroad bridge / trestle",
+   "object_ids": [
+    "bld-rock-creek-rr-bridge"
+   ],
+   "from_state": "Intact",
+   "to_state": "Burned",
+   "time": {
+    "printed": "Jun 26-27 (sources vary)",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-06-26T00:00",
+     "1863-06-27T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Early's division",
+   "flag": "sources vary 26 or 27",
+   "source_keys": [
+    "Wiki-GBRR"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {
+    "jun26": {
+     "window": [
+      "1863-06-26T00:00",
+      "1863-06-26T23:59",
+      null
+     ],
+     "note": "B.8.2: \"sources vary 26 or 27\""
+    },
+    "jun27": {
+     "window": [
+      "1863-06-27T00:00",
+      "1863-06-27T23:59",
+      null
+     ],
+     "note": "B.8.2: \"sources vary 26 or 27\""
+    }
+   },
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D (date flag)",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-GBRR"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-002",
+   "object_printed": "Pennsylvania Hall cupola",
+   "object_ids": [
+    "bld-pennsylvania-hall#cupola"
+   ],
+   "from_state": "Unused",
+   "to_state": "Union signal post",
+   "time": {
+    "printed": "Jun 30",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-06-30T00:00",
+     "1863-06-30T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Union signal officers",
+   "flag": null,
+   "source_keys": [
+    "Wiki-PennHall"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-PennHall"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-003",
+   "object_printed": "McPherson fences along the railroad grade",
+   "object_ids": [
+    "FEN-mcpherson-railroad-grade"
+   ],
+   "from_state": "Fenced",
+   "to_state": "Partly dismantled",
+   "time": {
+    "printed": "Jun 30",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-06-30T00:00",
+     "1863-06-30T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Cavalry firewood / breastwork (Harrison)",
+   "flag": "contested (Harrison vs a critic who says no wartime account describes fences along the cut)",
+   "source_keys": [
+    "GD-Fences"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {
+    "critic_no_wartime_account": {
+     "window": null,
+     "no_change": true,
+     "note": "B.8.3: a critic says no wartime account describes fences along the cut; modelled as no state change; the PDF prints no default for this dispute"
+    }
+   },
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "contested",
+   "tier_printed": "contested",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-004",
+   "object_printed": "Presbyterian Church (208 Baltimore St)",
+   "object_ids": [
+    "bld-presbyterian-church",
+    "H-01"
+   ],
+   "from_state": "Church",
+   "to_state": "Cavalry Corps 1st Division hospital",
+   "time": {
+    "printed": "Jun 30",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-06-30T00:00",
+     "1863-06-30T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Corps medical staff",
+   "flag": null,
+   "source_keys": [
+    "HMDB-17939"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-005",
+   "object_printed": "Fence along McPherson Ridge",
+   "object_ids": [
+    "FEN-gamble-cavalry"
+   ],
+   "from_state": "Intact",
+   "to_state": "Used as cover, Gamble's carbines",
+   "time": {
+    "printed": "From about 07:30 Jul 1",
+    "time_parse": "clock",
+    "granularity": "clock",
+    "window": [
+     "1863-07-01T07:30",
+     null,
+     "1863-07-01T07:30"
+    ],
+    "part_of_day": null,
+    "approx": true,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "pdf_printed_single_time"
+   },
+   "trigger": "Gamble's cavalry",
+   "flag": null,
+   "source_keys": [
+    "Wiki-D1"
+   ],
+   "out_of_battle_scope": false,
+   "notes": "open-ended (\"From\"); latest not printed",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-D1"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-006",
+   "object_printed": "Chambersburg Pike post-and-rail fences",
+   "object_ids": [
+    "FEN-chambersburg-pike"
+   ],
+   "from_state": "Intact",
+   "to_state": "Intact (documented Jul 1)",
+   "time": {
+    "printed": "Jul 1",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-01T00:00",
+     "1863-07-01T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "n/a",
+   "flag": null,
+   "source_keys": [
+    "GD-Fences"
+   ],
+   "out_of_battle_scope": false,
+   "notes": "from-state equals to-state: a documented-present row, not a transition",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-007",
+   "object_printed": "Unfinished railroad cut",
+   "object_ids": [
+    "P-12"
+   ],
+   "from_state": "Open grade",
+   "to_state": "Cover for infantry; attack on Davis's brigade",
+   "time": {
+    "printed": "About 11:00 Jul 1",
+    "time_parse": "clock",
+    "granularity": "clock",
+    "window": [
+     "1863-07-01T11:00",
+     "1863-07-01T11:00",
+     "1863-07-01T11:00"
+    ],
+    "part_of_day": null,
+    "approx": true,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "pdf_printed_single_time"
+   },
+   "trigger": "6th Wisconsin, 95th NY, 84th NY",
+   "flag": null,
+   "source_keys": [
+    "Wiki-D1"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-D1"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-008",
+   "object_printed": "St. Francis Xavier church",
+   "object_ids": [
+    "bld-st-francis-xavier",
+    "H-02"
+   ],
+   "from_state": "Church",
+   "to_state": "Hospital, pews removed, boards laid",
+   "time": {
+    "printed": "By noon Jul 1",
+    "time_parse": "clock",
+    "granularity": "clock",
+    "window": [
+     null,
+     "1863-07-01T12:00",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Wounded arrive",
+   "flag": null,
+   "source_keys": [
+    "Aleteia"
+   ],
+   "out_of_battle_scope": false,
+   "notes": "\"By noon\": earliest not printed; placed at the latest bound by state_at and flagged",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-009",
+   "object_printed": "McMillan fences",
+   "object_ids": [
+    "FEN-mcmillan"
+   ],
+   "from_state": "Standing",
+   "to_state": "Felled for Union troops",
+   "time": {
+    "printed": "Jul 1",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-01T00:00",
+     "1863-07-01T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Neighbor reportedly",
+   "flag": null,
+   "source_keys": [
+    "ECW-Bliss"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D (secondary)",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-010",
+   "object_printed": "Seminary Ridge fences",
+   "object_ids": [
+    "FEN-seminary-ridge",
+    "E-01"
+   ],
+   "from_state": "Standing",
+   "to_state": "Dismantled to a rail barricade (about 600 yd)",
+   "time": {
+    "printed": "Jul 1 afternoon, before about 16:00",
+    "time_parse": "clock",
+    "granularity": "clock",
+    "window": [
+     null,
+     "1863-07-01T16:00",
+     null
+    ],
+    "part_of_day": "afternoon",
+    "approx": true,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "I Corps",
+   "flag": null,
+   "source_keys": [
+    "HN-Pender",
+    "Wiki-D1"
+   ],
+   "out_of_battle_scope": false,
+   "notes": "earliest clock not printed (only \"afternoon\"); latest 16:00",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "Wiki-D1"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-011",
+   "object_printed": "Seminary rail barricade",
+   "object_ids": [
+    "E-01"
+   ],
+   "from_state": "Complete",
+   "to_state": "Overrun",
+   "time": {
+    "printed": "About 16:00-16:30 Jul 1",
+    "time_parse": "clock",
+    "granularity": "clock",
+    "window": [
+     "1863-07-01T16:00",
+     "1863-07-01T16:30",
+     null
+    ],
+    "part_of_day": null,
+    "approx": true,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Pender's attack",
+   "flag": null,
+   "source_keys": [
+    "Wiki-D1"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-D1"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-012",
+   "object_printed": "Seminary / Schmucker Hall",
+   "object_ids": [
+    "bld-schmucker-hall",
+    "H-03"
+   ],
+   "from_state": "Intact",
+   "to_state": "I Corps hospital; lost window glass, bullet holes, crack",
+   "time": {
+    "printed": "Day 1 onward",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-01T00:00",
+     "1863-07-01T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "I Corps medical staff; fighting",
+   "flag": "open-ended (\"onward\"); no clock printed",
+   "source_keys": [
+    "SS-Seminary"
+   ],
+   "out_of_battle_scope": false,
+   "notes": "date-only: the day-1 window is the plain reading of \"Day 1\"",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Seminary"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-013",
+   "object_printed": "Seminary",
+   "object_ids": [
+    "bld-schmucker-hall",
+    "H-03"
+   ],
+   "from_state": "Union hospital",
+   "to_state": "Confederate-held",
+   "time": {
+    "printed": "Late afternoon Jul 1 on",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-01T00:00",
+     "1863-07-01T23:59",
+     null
+    ],
+    "part_of_day": "late afternoon",
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Confederate advance",
+   "flag": "open-ended (\"on\")",
+   "source_keys": [
+    "HN-Top"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-014",
+   "object_printed": "Culp's Hill north slope (Wadsworth, 6th Wisconsin)",
+   "object_ids": [
+    "E-02"
+   ],
+   "from_state": "Bare ground",
+   "to_state": "Rudimentary line",
+   "time": {
+    "printed": "Jul 1 evening (about 18:00-21:00, I)",
+    "time_parse": "clock",
+    "granularity": "clock",
+    "window": [
+     "1863-07-01T18:00",
+     "1863-07-01T21:00",
+     null
+    ],
+    "part_of_day": "evening",
+    "approx": true,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "6th Wisconsin first, then the division",
+   "flag": "clock window is inferred (tier I)",
+   "source_keys": [
+    "HN-Walls"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D (clock window I)",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-015",
+   "object_printed": "Culp's Hill lower summit (123rd NY)",
+   "object_ids": [
+    "E-03"
+   ],
+   "from_state": "Bare ground",
+   "to_state": "Breastwork",
+   "time": {
+    "printed": "Jul 1",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-01T00:00",
+     "1863-07-01T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "123rd NY",
+   "flag": null,
+   "source_keys": [
+    "HN-Hundreds"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-016",
+   "object_printed": "Spangler farm",
+   "object_ids": [
+    "bld-spangler-farm",
+    "H-06"
+   ],
+   "from_state": "Farm",
+   "to_state": "XI Corps hospital",
+   "time": {
+    "printed": "Mid-afternoon Jul 1; wounded by about 16:00",
+    "time_parse": "clock",
+    "granularity": "clock",
+    "window": [
+     null,
+     "1863-07-01T16:00",
+     null
+    ],
+    "part_of_day": "mid-afternoon",
+    "approx": true,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "XI Corps medical staff",
+   "flag": null,
+   "source_keys": [
+    "HN-Spangler"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-017",
+   "object_printed": "McPherson farmhouse and barn",
+   "object_ids": [
+    "bld-mcpherson-farm#house",
+    "bld-mcpherson-farm#barn",
+    "H-05"
+   ],
+   "from_state": "Farm",
+   "to_state": "Aid station / hospital; barn intact all battle",
+   "time": {
+    "printed": "Evening Jul 1",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-01T00:00",
+     "1863-07-01T23:59",
+     null
+    ],
+    "part_of_day": "evening",
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Wounded",
+   "flag": null,
+   "source_keys": [
+    "ECW-Hosp",
+    "SS-McPherson"
+   ],
+   "out_of_battle_scope": false,
+   "notes": "\"barn intact all battle\" is a hold rule (see RULE-01), not a state change of the barn",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "SS-McPherson"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-018",
+   "object_printed": "Pennsylvania Hall and town buildings",
+   "object_ids": [
+    "bld-pennsylvania-hall"
+   ],
+   "from_state": "Union-held",
+   "to_state": "Confederate-controlled",
+   "time": {
+    "printed": "Evening Jul 1",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-01T00:00",
+     "1863-07-01T23:59",
+     null
+    ],
+    "part_of_day": "evening",
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Confederate occupation",
+   "flag": null,
+   "source_keys": [
+    "Wiki-PennHall"
+   ],
+   "out_of_battle_scope": false,
+   "notes": "\"town buildings\" generic; only Pennsylvania Hall is linked",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-PennHall"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-019",
+   "object_printed": "Cavalry and town hospitals",
+   "object_ids": [
+    "H-01",
+    "H-22"
+   ],
+   "from_state": "Union",
+   "to_state": "Confederate custody",
+   "time": {
+    "printed": "Evening Jul 1",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-01T00:00",
+     "1863-07-01T23:59",
+     null
+    ],
+    "part_of_day": "evening",
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Town falls",
+   "flag": null,
+   "source_keys": [
+    "HMDB-17939"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-020",
+   "object_printed": "Cemetery Hill",
+   "object_ids": [
+    "E-04"
+   ],
+   "from_state": "Open",
+   "to_state": "Occupied and fortified (vague)",
+   "time": {
+    "printed": "Jul 1 afternoon-night",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-01T00:00",
+     "1863-07-01T23:59",
+     null
+    ],
+    "part_of_day": "afternoon-night",
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "von Steinwehr, Howard, Hancock",
+   "flag": null,
+   "source_keys": [
+    "Wiki-D1"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D (vague)",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-D1"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-021",
+   "object_printed": "Klingle house",
+   "object_ids": [
+    "bld-klingle-farm"
+   ],
+   "from_state": "Occupied",
+   "to_state": "Sheltering 14-16 wounded Confederates",
+   "time": {
+    "printed": "Night Jul 1",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-01T00:00",
+     "1863-07-01T23:59",
+     null
+    ],
+    "part_of_day": "night",
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Wounded",
+   "flag": null,
+   "source_keys": [
+    "SS-Klingle"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Klingle"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-022",
+   "object_printed": "Town buildings",
+   "object_ids": [
+    "bld-sweney-rupp-mccreary#sweney_house",
+    "bld-town-belfry"
+   ],
+   "from_state": "Quiet",
+   "to_state": "Sniper posts (Sweney House, church belfry)",
+   "time": {
+    "printed": "From dawn Jul 2",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-02T00:00",
+     "1863-07-02T23:59",
+     null
+    ],
+    "part_of_day": "dawn",
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Confederate sharpshooters",
+   "flag": null,
+   "source_keys": [
+    "GD-Town",
+    "Wiki-Battlefield"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "Wiki-Battlefield"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-023",
+   "object_printed": "Culp's Hill main line (Greene)",
+   "object_ids": [
+    "E-05",
+    "E-06"
+   ],
+   "from_state": "Bare ground",
+   "to_state": "Stage 5 complete",
+   "time": {
+    "printed": "About 06:00 to 09:00-10:00 (to about noon, flag) Jul 2",
+    "time_parse": "clock",
+    "granularity": "clock",
+    "window": [
+     "1863-07-02T06:00",
+     "1863-07-02T12:00",
+     null
+    ],
+    "part_of_day": null,
+    "approx": true,
+    "begin": [
+     "1863-07-02T06:00",
+     "1863-07-02T06:00",
+     "1863-07-02T06:00"
+    ],
+    "finish": [
+     "1863-07-02T09:00",
+     "1863-07-02T10:00",
+     null
+    ],
+    "sub_events": [
+     {
+      "what": "PDF B.7.4 default: start 06:00, end between 09:00 and 10:00",
+      "begin": "1863-07-02T06:00",
+      "end_range": [
+       "1863-07-02T09:00",
+       "1863-07-02T10:00"
+      ]
+     }
+    ],
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Greene's order",
+   "flag": "start-time conflict (about 06:00 vs night of Jul 1-2); finished by about 10:00 (DMNA) or about noon (Gettysburg Daily)",
+   "source_keys": [
+    "HMDB-13997",
+    "HN-King",
+    "GD-219",
+    "DMNA-60NY"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {
+    "default": {
+     "begin": [
+      "1863-07-02T06:00",
+      "1863-07-02T06:00",
+      "1863-07-02T06:00"
+     ],
+     "finish": [
+      "1863-07-02T09:00",
+      "1863-07-02T10:00",
+      null
+     ],
+     "src": "B.7.4 (printed default)"
+    },
+    "start_night_jul1_2_dmna": {
+     "begin": [
+      "1863-07-01T00:00",
+      "1863-07-02T06:00",
+      null
+     ],
+     "finish": [
+      "1863-07-02T09:00",
+      "1863-07-02T10:00",
+      null
+     ],
+     "src": "DMNA-60NY; no clock printed for the night start; latest 06:00 is the other sources' start",
+     "gran": "date_start"
+    },
+    "finish_about_10_dmna": {
+     "begin": [
+      "1863-07-02T06:00",
+      "1863-07-02T06:00",
+      "1863-07-02T06:00"
+     ],
+     "finish": [
+      "1863-07-02T10:00",
+      "1863-07-02T10:00",
+      "1863-07-02T10:00"
+     ],
+     "src": "DMNA-60NY \"finished by about 10:00\""
+    },
+    "finish_about_noon_gd": {
+     "begin": [
+      "1863-07-02T06:00",
+      "1863-07-02T06:00",
+      "1863-07-02T06:00"
+     ],
+     "finish": [
+      "1863-07-02T12:00",
+      "1863-07-02T12:00",
+      "1863-07-02T12:00"
+     ],
+     "src": "GD-219 \"finished about noon\""
+    }
+   },
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D (start flag)",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-024",
+   "object_printed": "Culp's Hill (Kane, Williams, Wadsworth's men)",
+   "object_ids": [
+    "E-07",
+    "E-08"
+   ],
+   "from_state": "Bare ground",
+   "to_state": "Breastworks",
+   "time": {
+    "printed": "Jul 2 morning",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-02T00:00",
+     "1863-07-02T23:59",
+     null
+    ],
+    "part_of_day": "morning",
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Brigades take position",
+   "flag": null,
+   "source_keys": [
+    "HN-King",
+    "HN-Walls"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D (general)",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-025",
+   "object_printed": "Culp's Hill traverse and extra head logs",
+   "object_ids": [
+    "E-06"
+   ],
+   "from_state": "Absent",
+   "to_state": "Complete",
+   "time": {
+    "printed": "Jul 2 morning through the day",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-02T00:00",
+     "1863-07-02T23:59",
+     null
+    ],
+    "part_of_day": "morning through the day",
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Greene",
+   "flag": null,
+   "source_keys": [
+    "DMNA-60NY"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-026",
+   "object_printed": "East Cemetery Hill lunettes",
+   "object_ids": [
+    "E-12",
+    "G-03"
+   ],
+   "from_state": "Absent",
+   "to_state": "Existing",
+   "time": {
+    "printed": "Between Jul 1 evening and 16:00 Jul 2 (I; builder unknown)",
+    "time_parse": "clock",
+    "granularity": "clock",
+    "window": [
+     null,
+     "1863-07-02T16:00",
+     null
+    ],
+    "part_of_day": "Jul 1 evening (earliest, no clock)",
+    "approx": true,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Battery crews, infantry details (assumed)",
+   "flag": null,
+   "source_keys": [
+    "Wiki-ECH"
+   ],
+   "out_of_battle_scope": false,
+   "notes": "earliest printed as \"Jul 1 evening\" with no clock; B.7.2 E-12 adds \"noon Jul 2\" as the latest start",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "I (existence D)",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-ECH"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-027",
+   "object_printed": "Weikert house",
+   "object_ids": [
+    "bld-weikert-farm",
+    "H-08"
+   ],
+   "from_state": "Farm",
+   "to_state": "V Corps hospital operating",
+   "time": {
+    "printed": "Morning Jul 2",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-02T00:00",
+     "1863-07-02T23:59",
+     null
+    ],
+    "part_of_day": "morning",
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Surgeons arrive",
+   "flag": null,
+   "source_keys": [
+    "HN-Weikert"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-028",
+   "object_printed": "Granite Schoolhouse",
+   "object_ids": [
+    "bld-granite-schoolhouse",
+    "H-07"
+   ],
+   "from_state": "School",
+   "to_state": "II Corps 1st Division hospital",
+   "time": {
+    "printed": "Jul 2-3",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-02T00:00",
+     "1863-07-03T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Wounded",
+   "flag": null,
+   "source_keys": [
+    "HN-Spangler"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-029",
+   "object_printed": "Trostle house",
+   "object_ids": [
+    "bld-trostle-farm#house"
+   ],
+   "from_state": "Farm",
+   "to_state": "Sickles HQ",
+   "time": {
+    "printed": "Jul 2",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-02T00:00",
+     "1863-07-02T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Sickles",
+   "flag": null,
+   "source_keys": [
+    "SS-Trostle"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Trostle"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-030",
+   "object_printed": "Sherfy family",
+   "object_ids": [
+    "bld-sherfy-farm#family"
+   ],
+   "from_state": "At home",
+   "to_state": "Gone from farm",
+   "time": {
+    "printed": "Morning or midday Jul 2",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-02T00:00",
+     "1863-07-02T23:59",
+     null
+    ],
+    "part_of_day": "morning or midday",
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Fighting nears",
+   "flag": "B.8.2: \"morning or midday Jul 2\"",
+   "source_keys": [
+    "SS-Sherfy"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Sherfy"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-031",
+   "object_printed": "Benner's Hill / East Cemetery Hill",
+   "object_ids": [
+    "G-04"
+   ],
+   "from_state": "Quiet",
+   "to_state": "Artillery duel; Confederate guns driven off",
+   "time": {
+    "printed": "About 16:00 Jul 2",
+    "time_parse": "clock",
+    "granularity": "clock",
+    "window": [
+     "1863-07-02T16:00",
+     "1863-07-02T16:00",
+     "1863-07-02T16:00"
+    ],
+    "part_of_day": null,
+    "approx": true,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "pdf_printed_single_time"
+   },
+   "trigger": "Latimer's battalion",
+   "flag": null,
+   "source_keys": [
+    "Wiki-ECH",
+    "ECW-Benner"
+   ],
+   "out_of_battle_scope": false,
+   "notes": "Cells wrap across the p.100/p.101 break: object \"Benner's Hill / East | Cemetery Hill\" and to-state \"Artillery duel; Confederate | guns driven off\".",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "Wiki-ECH"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-032",
+   "object_printed": "Rose house, Rose barn; Bushman barn; Slyder house",
+   "object_ids": [
+    "bld-rose-farm#house",
+    "bld-rose-farm#barn",
+    "bld-bushman-farm#barn",
+    "bld-slyder-farm#house",
+    "H-21"
+   ],
+   "from_state": "Farm",
+   "to_state": "Confederate cover and hospital (Bushman: 8 buried)",
+   "time": {
+    "printed": "Afternoon Jul 2",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-02T00:00",
+     "1863-07-02T23:59",
+     null
+    ],
+    "part_of_day": "afternoon",
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Hood's advance",
+   "flag": null,
+   "source_keys": [
+    "SS-Rose",
+    "SS-Bushman",
+    "SS-Slyder"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Bushman",
+    "SS-Rose",
+    "SS-Slyder"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-033",
+   "object_printed": "Wheatfield wheat",
+   "object_ids": [
+    "ENV-wheatfield-wheat"
+   ],
+   "from_state": "Standing",
+   "to_state": "Trampled / clipped by fire",
+   "time": {
+    "printed": "From about 16:30 Jul 2",
+    "time_parse": "clock",
+    "granularity": "clock",
+    "window": [
+     "1863-07-02T16:30",
+     null,
+     "1863-07-02T16:30"
+    ],
+    "part_of_day": null,
+    "approx": true,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "pdf_printed_single_time"
+   },
+   "trigger": "Fighting",
+   "flag": "forum citing Pfanz; low reliability",
+   "source_keys": [
+    "CWT-Wheat"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "I (a forum citing Pfanz; flag)",
+   "tier_mixed": true,
+   "weak_source": true,
+   "weak_keys": [
+    "CWT-Wheat"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-034",
+   "object_printed": "Peach Orchard trees, fences and Sherfy orchard",
+   "object_ids": [
+    "bld-sherfy-farm#orchard_fences",
+    "FEN-sherfy-orchard"
+   ],
+   "from_state": "Standing",
+   "to_state": "Destroyed",
+   "time": {
+    "printed": "Afternoon-evening Jul 2 on",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-02T00:00",
+     "1863-07-02T23:59",
+     null
+    ],
+    "part_of_day": "afternoon-evening, open-ended",
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Guns and infantry",
+   "flag": "open-ended (\"on\")",
+   "source_keys": [
+    "SS-Sherfy"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Sherfy"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-035",
+   "object_printed": "Peach Orchard Union guns",
+   "object_ids": [
+    "G-07"
+   ],
+   "from_state": "Absent",
+   "to_state": "Hart fires from about 16:30; canister about 17:30",
+   "time": {
+    "printed": "Jul 2 afternoon",
+    "time_parse": "clock",
+    "granularity": "clock",
+    "window": [
+     "1863-07-02T16:30",
+     "1863-07-02T16:30",
+     "1863-07-02T16:30"
+    ],
+    "part_of_day": "afternoon",
+    "approx": true,
+    "begin": null,
+    "finish": null,
+    "sub_events": [
+     {
+      "what": "Hart fires",
+      "at": "1863-07-02T16:30",
+      "approx": true
+     },
+     {
+      "what": "canister",
+      "at": "1863-07-02T17:30",
+      "approx": true
+     }
+    ],
+    "derived": null,
+    "default_basis": "pdf_printed_single_time"
+   },
+   "trigger": "Hunt orders",
+   "flag": null,
+   "source_keys": [
+    "Wiki-15NY"
+   ],
+   "out_of_battle_scope": false,
+   "notes": "Clock times are printed in the to-state cell; the time cell prints only \"Jul 2 afternoon\". Window = first embedded clock; both kept in sub-events.",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-15NY"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-036",
+   "object_printed": "Sherfy house",
+   "object_ids": [
+    "bld-sherfy-farm#house"
+   ],
+   "from_state": "Intact",
+   "to_state": "7+ shell hits, scarred south and west walls, roof punctured",
+   "time": {
+    "printed": "Jul 2 evening or Jul 3 (flag)",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-02T00:00",
+     "1863-07-03T23:59",
+     null
+    ],
+    "part_of_day": "evening (Jul 2) or Jul 3",
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Fighting",
+   "flag": "window flagged by the PDF",
+   "source_keys": [
+    "SS-Sherfy"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {
+    "jul2_evening": {
+     "window": [
+      "1863-07-02T00:00",
+      "1863-07-02T23:59",
+      null
+     ],
+     "note": "\"Jul 2 evening\""
+    },
+    "jul3": {
+     "window": [
+      "1863-07-03T00:00",
+      "1863-07-03T23:59",
+      null
+     ],
+     "note": "\"Jul 3\""
+    }
+   },
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D (flag)",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Sherfy"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-037",
+   "object_printed": "Sherfy barn",
+   "object_ids": [
+    "bld-sherfy-farm#barn"
+   ],
+   "from_state": "Intact",
+   "to_state": "Burned",
+   "time": {
+    "printed": "Flag window: Jul 2 evening to Jul 3 afternoon; most-supported reading, Jul 3 during the afternoon artillery",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-03T00:00",
+     "1863-07-03T23:59",
+     null
+    ],
+    "part_of_day": "afternoon (during the afternoon artillery)",
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": [
+     {
+      "what": "trigger alternative",
+      "value": "shell ignition",
+      "src": "GD-12590; CWT-Sherfy"
+     },
+     {
+      "what": "trigger alternative",
+      "value": "Union fire",
+      "src": "one forum (weak)"
+     },
+     {
+      "what": "trigger alternative",
+      "value": "Confederates set it on fire",
+      "src": "WHB (blog, unreliable)"
+     }
+    ],
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Shell ignition (Gettysburg Daily); Union fire (one forum); Confederate (blog, unreliable)",
+   "flag": "timing conflict; PDF B.8.7 prints Jul 3 afternoon as the most-supported reading, PDF register C-026 prints Jul 2 evening as the recommended default (PENDING OWNER)",
+   "source_keys": [
+    "GD-12590",
+    "CWT-Sherfy",
+    "SS-Sherfy",
+    "WHB"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {
+    "default": {
+     "window": [
+      "1863-07-03T00:00",
+      "1863-07-03T23:59",
+      null
+     ],
+     "src": "B.8.7 S-037 \"most-supported reading, Jul 3 during the afternoon artillery\""
+    },
+    "jul3_afternoon_b87": {
+     "window": [
+      "1863-07-03T00:00",
+      "1863-07-03T23:59",
+      null
+     ],
+     "src": "B.8.7 S-037; B.2.3 conflict highlights p.55 \"most plausible Jul 3 afternoon (inferred)\""
+    },
+    "jul2_evening_c026": {
+     "window": [
+      "1863-07-02T00:00",
+      "1863-07-02T23:59",
+      null
+     ],
+     "src": "B.2.5 C-026 recommended default \"Jul 2 evening\"",
+     "note": "conflicts with Stone Sentinels (barn standing morning Jul 3) only if burned before that morning"
+    },
+    "flag_window_full": {
+     "window": [
+      "1863-07-02T00:00",
+      "1863-07-03T23:59",
+      null
+     ],
+     "src": "B.8.7 S-037 flag window \"Jul 2 evening to Jul 3 afternoon\""
+    }
+   },
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D (burned), I (timing)",
+   "tier_mixed": true,
+   "weak_source": false,
+   "weak_keys": [
+    "CWT-Sherfy",
+    "SS-Sherfy",
+    "WHB"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-038",
+   "object_printed": "Little Round Top",
+   "object_ids": [
+    "G-06",
+    "E-15"
+   ],
+   "from_state": "Bare slope",
+   "to_state": "Hazlett's guns hauled up; first fire 17:45",
+   "time": {
+    "printed": "16:30-17:45 Jul 2",
+    "time_parse": "clock",
+    "granularity": "clock",
+    "window": [
+     "1863-07-02T16:30",
+     "1863-07-02T17:45",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "V Corps",
+   "flag": null,
+   "source_keys": [
+    "NPS-Hazlett",
+    "SS-8009"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "SS-8009"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-039",
+   "object_printed": "Bigelow's guns",
+   "object_ids": [
+    "G-10"
+   ],
+   "from_state": "Wheatfield Road",
+   "to_state": "Retired by prolonge about 400 yd; overrun at Trostle wall about 18:30",
+   "time": {
+    "printed": "16:30-18:30 Jul 2",
+    "time_parse": "clock",
+    "granularity": "clock",
+    "window": [
+     "1863-07-02T16:30",
+     "1863-07-02T18:30",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "21st Mississippi",
+   "flag": null,
+   "source_keys": [
+    "CWE-9Mass"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-040",
+   "object_printed": "Trostle barn",
+   "object_ids": [
+    "bld-trostle-farm#barn"
+   ],
+   "from_state": "Intact",
+   "to_state": "Shell hole south side; bullets east; dead horses in yard",
+   "time": {
+    "printed": "Evening Jul 2",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-02T00:00",
+     "1863-07-02T23:59",
+     null
+    ],
+    "part_of_day": "evening",
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Fighting",
+   "flag": null,
+   "source_keys": [
+    "SS-Trostle"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Trostle"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-041",
+   "object_printed": "Culp's Hill line",
+   "object_ids": [
+    "E-09"
+   ],
+   "from_state": "About 300 yd, brigades present",
+   "to_state": "Greene alone on about 800 yd, thin",
+   "time": {
+    "printed": "18:30 Jul 2",
+    "time_parse": "clock",
+    "granularity": "clock",
+    "window": [
+     "1863-07-02T18:30",
+     "1863-07-02T18:30",
+     "1863-07-02T18:30"
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "pdf_printed_single_time"
+   },
+   "trigger": "Corps ordered left",
+   "flag": "800 yd figure is inferred (tier I)",
+   "source_keys": [
+    "HMDB-13997",
+    "GD-219"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D (800 yd I)",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-042",
+   "object_printed": "Culp's Hill lower works",
+   "object_ids": [
+    "E-10"
+   ],
+   "from_state": "Empty",
+   "to_state": "Occupied by Steuart",
+   "time": {
+    "printed": "After dark Jul 2 to dawn Jul 3",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-02T00:00",
+     "1863-07-03T23:59",
+     null
+    ],
+    "part_of_day": "after dark to dawn",
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Johnson's attacks",
+   "flag": null,
+   "source_keys": [
+    "HN-King"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {
+    "e10_clock_19_22": {
+     "window": [
+      "1863-07-02T19:00",
+      "1863-07-02T22:00",
+      null
+     ],
+     "src": "B.7.2 E-10 \"about 19:00-22:00; Johnson's attacks ended by about 10 p.m.\"",
+     "note": "B.2.5 C-019 default for Johnson's attack is 19:00 (alternatives 19:30, 20:00)"
+    }
+   },
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-043",
+   "object_printed": "Little Round Top south slope",
+   "object_ids": [
+    "E-14"
+   ],
+   "from_state": "Bare",
+   "to_state": "Stone breastworks",
+   "time": {
+    "printed": "Evening Jul 2 (about 20:00, I) into Jul 3",
+    "time_parse": "clock",
+    "granularity": "clock",
+    "window": [
+     "1863-07-02T20:00",
+     "1863-07-03T23:59",
+     null
+    ],
+    "part_of_day": "evening",
+    "approx": true,
+    "begin": [
+     "1863-07-02T20:00",
+     null,
+     null
+    ],
+    "finish": [
+     null,
+     "1863-07-03T23:59",
+     null
+    ],
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Weed's brigade, Reserves",
+   "flag": "conflict: NPS says built on July 2; Wikipedia says evening of July 2 or after",
+   "source_keys": [
+    "NPS-LRT",
+    "Wiki-LRT"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D (conflict)",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "Wiki-LRT"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-044",
+   "object_printed": "Evergreen Cemetery gatehouse",
+   "object_ids": [
+    "bld-evergreen-gatehouse"
+   ],
+   "from_state": "Intact",
+   "to_state": "Moderate damage",
+   "time": {
+    "printed": "Evening Jul 2 (dusk attack, about 19:30-21:00)",
+    "time_parse": "clock",
+    "granularity": "clock",
+    "window": [
+     "1863-07-02T19:30",
+     "1863-07-02T21:00",
+     null
+    ],
+    "part_of_day": "evening",
+    "approx": true,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Hays/Avery attack",
+   "flag": null,
+   "source_keys": [
+    "NPS-Bldgs"
+   ],
+   "out_of_battle_scope": false,
+   "notes": "B.2.5 C-020 default for the East Cemetery Hill assault is 19:30 (alternatives 20:00, 20:00-21:00)",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-045",
+   "object_printed": "Evergreen Cemetery",
+   "object_ids": [
+    "ENV-evergreen-cemetery",
+    "FEN-evergreen-cemetery"
+   ],
+   "from_state": "Orderly",
+   "to_state": "Fences knocked down, iron fences and monuments destroyed, obelisks toppled, tombstones laid flat",
+   "time": {
+    "printed": "Jul 2 (detail times not given)",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-02T00:00",
+     "1863-07-02T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Fighting; Union defense",
+   "flag": "detail times not given",
+   "source_keys": [
+    "Wiki-Evergreen"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D (flag times)",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-Evergreen"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-046",
+   "object_printed": "Leister house",
+   "object_ids": [
+    "bld-leister-house"
+   ],
+   "from_state": "Meade council of war",
+   "to_state": "Meade HQ",
+   "time": {
+    "printed": "Evening Jul 2",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-02T00:00",
+     "1863-07-02T23:59",
+     null
+    ],
+    "part_of_day": "evening",
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Council",
+   "flag": null,
+   "source_keys": [
+    "SS-Leister"
+   ],
+   "out_of_battle_scope": false,
+   "notes": "State labels as printed. The from/to order reads oddly (the council is held at the HQ); S-059 then starts from \"Meade HQ\".",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Leister"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-047",
+   "object_printed": "Weikert hospital",
+   "object_ids": [
+    "bld-weikert-farm",
+    "H-08"
+   ],
+   "from_state": "Operating",
+   "to_state": "Weed dies in basement before dawn Jul 3; moves east early Jul 3",
+   "time": {
+    "printed": "Overnight Jul 2-3",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-02T00:00",
+     "1863-07-03T23:59",
+     null
+    ],
+    "part_of_day": "overnight",
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Hospital move",
+   "flag": null,
+   "source_keys": [
+    "HN-Weikert"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-048",
+   "object_printed": "III and V Corps hospitals",
+   "object_ids": [
+    "H-09",
+    "H-10"
+   ],
+   "from_state": "Taneytown Road houses",
+   "to_state": "Relocated to White Run / Rock Creek",
+   "time": {
+    "printed": "Night Jul 2",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-02T00:00",
+     "1863-07-02T23:59",
+     null
+    ],
+    "part_of_day": "night",
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Corps staff",
+   "flag": null,
+   "source_keys": [
+    "HMDB-17931",
+    "HMDB-17934"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-049",
+   "object_printed": "Spangler barn forebay",
+   "object_ids": [
+    "bld-spangler-farm#barn_forebay",
+    "H-06"
+   ],
+   "from_state": "Hospital",
+   "to_state": "Four tables operating by lantern",
+   "time": {
+    "printed": "Night Jul 2-3, continuing",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-02T00:00",
+     "1863-07-03T23:59",
+     null
+    ],
+    "part_of_day": "night, continuing",
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Surgeons",
+   "flag": null,
+   "source_keys": [
+    "HN-Spangler"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-050",
+   "object_printed": "Culp's Hill works",
+   "object_ids": [
+    "E-05",
+    "E-09",
+    "E-11"
+   ],
+   "from_state": "Occupied",
+   "to_state": "Damaged by shelling",
+   "time": {
+    "printed": "About 04:00 Jul 3, 30 min to 3 hours (flag)",
+    "time_parse": "clock",
+    "granularity": "clock",
+    "window": [
+     "1863-07-03T04:00",
+     "1863-07-03T07:00",
+     null
+    ],
+    "part_of_day": null,
+    "approx": true,
+    "begin": [
+     "1863-07-03T04:00",
+     "1863-07-03T04:00",
+     "1863-07-03T04:00"
+    ],
+    "finish": [
+     "1863-07-03T04:30",
+     "1863-07-03T07:00",
+     null
+    ],
+    "sub_events": [
+     {
+      "what": "duration range printed",
+      "min_minutes": 30,
+      "max_minutes": 180
+     },
+     {
+      "what": "battle ended about",
+      "at": "1863-07-03T11:00",
+      "src": "B.7.2 E-11"
+     }
+    ],
+    "derived": "finish earliest/latest = printed start 04:00 + printed duration 30 min / 3 h (arithmetic on printed values; the PDF prints no end clock)",
+    "default_basis": "none"
+   },
+   "trigger": "Five batteries / 24 guns (conflict)",
+   "flag": "shelling length 30 min to 3 hours; damage state is inferred",
+   "source_keys": [
+    "Wiki-Culp",
+    "HN-Hundreds"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D (damage I)",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "Wiki-Culp"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-051",
+   "object_printed": "Ginnie Wade house",
+   "object_ids": [
+    "bld-wade-house"
+   ],
+   "from_state": "Intact",
+   "to_state": "150+ bullet strikes; Wade killed",
+   "time": {
+    "printed": "About 08:00 Jul 3",
+    "time_parse": "clock",
+    "granularity": "clock",
+    "window": [
+     "1863-07-03T08:00",
+     "1863-07-03T08:00",
+     "1863-07-03T08:00"
+    ],
+    "part_of_day": null,
+    "approx": true,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "pdf_printed_single_time"
+   },
+   "trigger": "Sharpshooter fire",
+   "flag": null,
+   "source_keys": [
+    "Wiki-Wade"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-Wade"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-052",
+   "object_printed": "Bliss house and barn",
+   "object_ids": [
+    "bld-bliss-farm#house",
+    "bld-bliss-farm#barn"
+   ],
+   "from_state": "Intact",
+   "to_state": "Burned",
+   "time": {
+    "printed": "Morning Jul 3 (late morning per one forum, unreliable); before the cannonade",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-03T00:00",
+     "1863-07-03T23:59",
+     null
+    ],
+    "part_of_day": "morning",
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": [
+     {
+      "what": "before the cannonade",
+      "note": "the cannonade start time printed elsewhere is about 13:00 (G-14, S-061); not used as a parsed bound here"
+     }
+    ],
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Hays/Smyth order; 14th Connecticut sets fires with hay, straw, cartridge paper",
+   "flag": "exact clock time open (B.8.2); forum \"late morning\" is unreliable",
+   "source_keys": [
+    "ECW-Bliss",
+    "HMDB-16570",
+    "SS-Bliss",
+    "CWT-Query"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {
+    "default": {
+     "window": [
+      "1863-07-03T00:00",
+      "1863-07-03T23:59",
+      null
+     ],
+     "pod": "morning",
+     "src": "B.8.7 S-052 / HMDB-16570"
+    },
+    "late_morning_forum_unreliable": {
+     "window": [
+      "1863-07-03T00:00",
+      "1863-07-03T23:59",
+      null
+     ],
+     "pod": "late morning",
+     "src": "CWT-Query (forum, unreliable)",
+     "note": "still Jul 3 morning"
+    }
+   },
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "CWT-Query",
+    "SS-Bliss"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-053",
+   "object_printed": "Taney house",
+   "object_ids": [
+    "bld-taney-farm"
+   ],
+   "from_state": "Occupied by Confederate sharpshooters",
+   "to_state": "Shelled; ruins",
+   "time": {
+    "printed": "Jul 3",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-03T00:00",
+     "1863-07-03T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "1st NY Battery M",
+   "flag": null,
+   "source_keys": [
+    "SS-Taney"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Taney"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-054",
+   "object_printed": "Rummel barn",
+   "object_ids": [
+    "bld-rummel-farm#barn"
+   ],
+   "from_state": "Plank walls",
+   "to_state": "Loopholes cut",
+   "time": {
+    "printed": "Jul 3",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-03T00:00",
+     "1863-07-03T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Stuart's men",
+   "flag": null,
+   "source_keys": [
+    "SS-Rummel"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Rummel"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-055",
+   "object_printed": "Rummel fences",
+   "object_ids": [
+    "FEN-rummel"
+   ],
+   "from_state": "Standing",
+   "to_state": "Destroyed; 30+ dead horses",
+   "time": {
+    "printed": "Jul 3",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-03T00:00",
+     "1863-07-03T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "East Cavalry Field fighting",
+   "flag": null,
+   "source_keys": [
+    "SS-Rummel"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Rummel"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-056",
+   "object_printed": "Culp's Hill final action",
+   "object_ids": [
+    "E-11"
+   ],
+   "from_state": "Fighting",
+   "to_state": "Battle ended about 11:00; Pardee Field wall attacked",
+   "time": {
+    "printed": "About 10:00-11:00 Jul 3",
+    "time_parse": "clock",
+    "granularity": "clock",
+    "window": [
+     "1863-07-03T10:00",
+     "1863-07-03T11:00",
+     null
+    ],
+    "part_of_day": null,
+    "approx": true,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Geary's counterattack",
+   "flag": null,
+   "source_keys": [
+    "Wiki-Culp"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {
+    "c031_default_10_00": {
+     "window": [
+      "1863-07-03T10:00",
+      "1863-07-03T10:00",
+      "1863-07-03T10:00"
+     ],
+     "src": "B.2.5 C-031 recommended default 10:00"
+    },
+    "c031_alt_noon": {
+     "window": [
+      "1863-07-03T12:00",
+      "1863-07-03T12:00",
+      "1863-07-03T12:00"
+     ],
+     "src": "B.2.5 C-031 selectable alternative noon"
+    }
+   },
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-Culp"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-057",
+   "object_printed": "Powers Hill guns",
+   "object_ids": [
+    "G-17"
+   ],
+   "from_state": "Quiet",
+   "to_state": "Fire at Culp's Hill",
+   "time": {
+    "printed": "Morning Jul 3",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-03T00:00",
+     "1863-07-03T23:59",
+     null
+    ],
+    "part_of_day": "morning",
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Meade's HQ moves",
+   "flag": null,
+   "source_keys": [
+    "HN-Thunder"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-058",
+   "object_printed": "Cushing's battery",
+   "object_ids": [
+    "G-12"
+   ],
+   "from_state": "In line",
+   "to_state": "Three limbers exploded (morning); four of six guns knocked out; guns run to the wall",
+   "time": {
+    "printed": "Morning to about 15:30 Jul 3",
+    "time_parse": "clock",
+    "granularity": "clock",
+    "window": [
+     null,
+     "1863-07-03T15:30",
+     null
+    ],
+    "part_of_day": "morning (earliest, no clock)",
+    "approx": true,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Confederate fire",
+   "flag": null,
+   "source_keys": [
+    "Iron-9699",
+    "WHN-Cushing"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-059",
+   "object_printed": "Leister house",
+   "object_ids": [
+    "bld-leister-house",
+    "FEN-leister"
+   ],
+   "from_state": "Meade HQ",
+   "to_state": "Many shot holes, porch supports and steps down, bedstead broken, 17 dead horses, apple trees destroyed, peach tree dies, fence rails burned, hay lost, spring spoiled",
+   "time": {
+    "printed": "About 13:00-15:00 Jul 3",
+    "time_parse": "clock",
+    "granularity": "clock",
+    "window": [
+     "1863-07-03T13:00",
+     "1863-07-03T15:00",
+     null
+    ],
+    "part_of_day": null,
+    "approx": true,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Bombardment",
+   "flag": null,
+   "source_keys": [
+    "SS-Leister",
+    "NPS-Bldgs"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "SS-Leister"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-060",
+   "object_printed": "Meade HQ",
+   "object_ids": [
+    "bld-leister-house"
+   ],
+   "from_state": "Leister house",
+   "to_state": "Powers Hill",
+   "time": {
+    "printed": "During the bombardment, Jul 3",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-03T00:00",
+     "1863-07-03T23:59",
+     null
+    ],
+    "part_of_day": "during the bombardment",
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Untenable",
+   "flag": null,
+   "source_keys": [
+    "HN-Thunder"
+   ],
+   "out_of_battle_scope": false,
+   "notes": "The bombardment window printed in S-059 is about 13:00-15:00; this row prints no clock of its own",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-061",
+   "object_printed": "Confederate and Union gun lines",
+   "object_ids": [
+    "G-13",
+    "G-14"
+   ],
+   "from_state": "Quiet",
+   "to_state": "Full exchange; Union slowdown; Union lull",
+   "time": {
+    "printed": "13:00; slow about 13:30-14:00; lull to about 14:45-15:00",
+    "time_parse": "clock",
+    "granularity": "clock",
+    "window": [
+     "1863-07-03T13:00",
+     "1863-07-03T15:00",
+     null
+    ],
+    "part_of_day": null,
+    "approx": true,
+    "begin": null,
+    "finish": null,
+    "sub_events": [
+     {
+      "what": "full exchange",
+      "at": "1863-07-03T13:00"
+     },
+     {
+      "what": "Union slowdown",
+      "from_": "1863-07-03T13:30",
+      "to": "1863-07-03T14:00",
+      "approx": true
+     },
+     {
+      "what": "lull",
+      "to_range": [
+       "1863-07-03T14:45",
+       "1863-07-03T15:00"
+      ],
+      "approx": true
+     }
+    ],
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Alexander signal; Hunt orders",
+   "flag": "duration conflict; date (Jul 3) is not printed in the cell and is taken from the neighbouring rows, B.8.8 and G-13/G-14",
+   "source_keys": [
+    "NPS-HB9",
+    "Wiki-PC"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {
+    "c029_end_14_30_default": {
+     "window": [
+      "1863-07-03T13:00",
+      "1863-07-03T14:30",
+      null
+     ],
+     "src": "B.2.5 C-029 recommended default cannonade end 14:30",
+     "note": "alternatives 14:00 and 15:00"
+    },
+    "c029_end_14_00": {
+     "window": [
+      "1863-07-03T13:00",
+      "1863-07-03T14:00",
+      null
+     ],
+     "src": "B.2.5 C-029 alternative"
+    },
+    "c029_end_15_00": {
+     "window": [
+      "1863-07-03T13:00",
+      "1863-07-03T15:00",
+      null
+     ],
+     "src": "B.2.5 C-029 alternative"
+    }
+   },
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D (duration conflict)",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "Wiki-PC"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-062",
+   "object_printed": "Emmitsburg Road fences",
+   "object_ids": [
+    "FEN-emmitsburg-road",
+    "P-10"
+   ],
+   "from_state": "Intact",
+   "to_state": "Splintered / breached; attackers climbing",
+   "time": {
+    "printed": "About 15:30-16:15 Jul 3",
+    "time_parse": "clock",
+    "granularity": "clock",
+    "window": [
+     "1863-07-03T15:30",
+     "1863-07-03T16:15",
+     null
+    ],
+    "part_of_day": null,
+    "approx": true,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Pickett's Charge",
+   "flag": null,
+   "source_keys": [
+    "ABT-Charge"
+   ],
+   "out_of_battle_scope": false,
+   "notes": "B.2.5 C-030 infantry step-off default 15:00 (alternative 14:00)",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D (slowing); I (breach points)",
+   "tier_mixed": true,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-063",
+   "object_printed": "Brian fences",
+   "object_ids": [
+    "FEN-brian"
+   ],
+   "from_state": "Standing",
+   "to_state": "Nearly destroyed",
+   "time": {
+    "printed": "Jul 3",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-03T00:00",
+     "1863-07-03T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Fighting",
+   "flag": "time flag",
+   "source_keys": [
+    "SS-Brian"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D (time flag)",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Brian"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-064",
+   "object_printed": "Leister house/barn",
+   "object_ids": [
+    "bld-leister-house",
+    "H-16"
+   ],
+   "from_state": "Fired on",
+   "to_state": "Aid station / hospital",
+   "time": {
+    "printed": "After the firing ceased, Jul 3",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-03T00:00",
+     "1863-07-03T23:59",
+     null
+    ],
+    "part_of_day": "after the firing ceased",
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Wounded",
+   "flag": null,
+   "source_keys": [
+    "ECW-Hosp"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-065",
+   "object_printed": "Granite Schoolhouse",
+   "object_ids": [
+    "bld-granite-schoolhouse",
+    "H-07"
+   ],
+   "from_state": "Hospital",
+   "to_state": "Evacuated toward McAllister's Mill",
+   "time": {
+    "printed": "Jul 3",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-03T00:00",
+     "1863-07-03T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Overshots",
+   "flag": null,
+   "source_keys": [
+    "HN-Spangler"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-066",
+   "object_printed": "Spangler",
+   "object_ids": [
+    "bld-spangler-farm#summer_kitchen",
+    "H-06"
+   ],
+   "from_state": "Hospital",
+   "to_state": "Armistead arrives about 20:00 Jul 3 (carried to the summer kitchen)",
+   "time": {
+    "printed": "Jul 3 evening",
+    "time_parse": "clock",
+    "granularity": "clock",
+    "window": [
+     "1863-07-03T20:00",
+     "1863-07-03T20:00",
+     "1863-07-03T20:00"
+    ],
+    "part_of_day": "evening",
+    "approx": true,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "pdf_printed_single_time"
+   },
+   "trigger": "Ambulance",
+   "flag": null,
+   "source_keys": [
+    "HN-Spangler"
+   ],
+   "out_of_battle_scope": false,
+   "notes": "Clock time is printed in the to-state cell; the time cell prints \"Jul 3 evening\".",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-067",
+   "object_printed": "Confederate position",
+   "object_ids": [
+    "ENV-confederate-position"
+   ],
+   "from_state": "Held",
+   "to_state": "Withdrawal ordered at midnight; ambulance trains leave Jul 4",
+   "time": {
+    "printed": "Midnight Jul 3 to Jul 4",
+    "time_parse": "clock",
+    "granularity": "clock",
+    "window": [
+     "1863-07-04T00:00",
+     "1863-07-04T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Lee",
+   "flag": "\"midnight\" read as 1863-07-04T00:00; the end of the window is the end of Jul 4 (trains leave Jul 4)",
+   "source_keys": [
+    "Guild-OR"
+   ],
+   "out_of_battle_scope": false,
+   "notes": "To-state cell wraps across the p.101/p.102 break (\"Withdrawal ordered at | midnight; ambulance trains leave Jul 4\").",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-068",
+   "object_printed": "Klingle farm",
+   "object_ids": [
+    "bld-klingle-farm",
+    "FEN-klingle"
+   ],
+   "from_state": "Abandoned",
+   "to_state": "Owner returns; all fences missing",
+   "time": {
+    "printed": "Jul 4",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-04T00:00",
+     "1863-07-04T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Confederate retreat",
+   "flag": null,
+   "source_keys": [
+    "SS-Klingle"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Klingle"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-069",
+   "object_printed": "Plum Run and low ground",
+   "object_ids": [
+    "ENV-plum-run"
+   ],
+   "from_state": "Normal",
+   "to_state": "Overflowed; some wounded drowned; heavy rain",
+   "time": {
+    "printed": "Jul 4 (heavy from about 21:00)",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-04T00:00",
+     "1863-07-04T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": [
+     {
+      "what": "heavy rain from about",
+      "at": "1863-07-04T21:00",
+      "approx": true
+     }
+    ],
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Storm",
+   "flag": null,
+   "source_keys": [
+    "AMS",
+    "SP-Meteo"
+   ],
+   "out_of_battle_scope": false,
+   "notes": "B.2.5 weather conflict table (p.55) gives other rain hours; not part of this row",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-070",
+   "object_printed": "Hospital sites",
+   "object_ids": [
+    "GROUP-hospital-sites"
+   ],
+   "from_state": "Operating",
+   "to_state": "Cold rain on exposed wounded",
+   "time": {
+    "printed": "Jul 4",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-04T00:00",
+     "1863-07-04T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Weather",
+   "flag": null,
+   "source_keys": [
+    "HN-Spangler"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-071",
+   "object_printed": "Hummelbaugh",
+   "object_ids": [
+    "bld-hummelbaugh-farm"
+   ],
+   "from_state": "Hospital",
+   "to_state": "Pleasonton HQ",
+   "time": {
+    "printed": "Jul 4-6",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-04T00:00",
+     "1863-07-06T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Cavalry",
+   "flag": null,
+   "source_keys": [
+    "SS-Hummelbaugh"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Hummelbaugh"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-072",
+   "object_printed": "Armistead",
+   "object_ids": [
+    "PERSON-armistead",
+    "bld-spangler-farm#summer_kitchen"
+   ],
+   "from_state": "Alive",
+   "to_state": "Dies in summer kitchen",
+   "time": {
+    "printed": "Jul 5",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-05T00:00",
+     "1863-07-05T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Wounds",
+   "flag": null,
+   "source_keys": [
+    "HN-Spangler"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-073",
+   "object_printed": "Trostle hospital",
+   "object_ids": [
+    "H-13"
+   ],
+   "from_state": "Operating",
+   "to_state": "Abandoned",
+   "time": {
+    "printed": "By Jul 6",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     null,
+     "1863-07-06T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Staff move",
+   "flag": null,
+   "source_keys": [
+    "ECW-Hosp"
+   ],
+   "out_of_battle_scope": false,
+   "notes": "\"By Jul 6\": earliest not printed; placed at the latest bound (end of Jul 6) and flagged",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-074",
+   "object_printed": "Pierce house",
+   "object_ids": [
+    "bld-pierce-house"
+   ],
+   "from_state": "Vacant",
+   "to_state": "Tillie returns",
+   "time": {
+    "printed": "Jul 7",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-07T00:00",
+     "1863-07-07T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "n/a",
+   "flag": null,
+   "source_keys": [
+    "Wiki-Pierce"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-Pierce"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-075",
+   "object_printed": "Leister wall, gatehouse",
+   "object_ids": [
+    "P-13",
+    "bld-evergreen-gatehouse"
+   ],
+   "from_state": "As after battle",
+   "to_state": "Photographed",
+   "time": {
+    "printed": "Jul 6 (Gardner); Jul 7 (gatehouse)",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-06T00:00",
+     "1863-07-07T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Photographers",
+   "flag": null,
+   "source_keys": [
+    "GD-14708",
+    "GD-Housch"
+   ],
+   "out_of_battle_scope": false,
+   "notes": "Evidence-date row: photographing is not a visible state change of the structure.",
+   "scenarios": {
+    "leister_wall_jul6": {
+     "window": [
+      "1863-07-06T00:00",
+      "1863-07-06T23:59",
+      null
+     ],
+     "src": "GD-14708"
+    },
+    "gatehouse_jul7": {
+     "window": [
+      "1863-07-07T00:00",
+      "1863-07-07T23:59",
+      null
+     ],
+     "src": "GD-Housch"
+    }
+   },
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-076",
+   "object_printed": "Railroad",
+   "object_ids": [
+    "RD-gettysburg-railroad",
+    "bld-rr-station"
+   ],
+   "from_state": "Cut",
+   "to_state": "Traffic resumes",
+   "time": {
+    "printed": "Jul 10",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-10T00:00",
+     "1863-07-10T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Repairs",
+   "flag": "one source says 1865 (B.8.2: \"internally inconsistent\")",
+   "source_keys": [
+    "Wiki-Station"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {
+    "resumed_jul10": {
+     "window": [
+      "1863-07-10T00:00",
+      "1863-07-10T23:59",
+      null
+     ],
+     "src": "B.8.2 / B.8.7"
+    },
+    "one_source_1865": {
+     "window": null,
+     "no_change": true,
+     "out_of_window": true,
+     "src": "B.8.2 \"one passage says 1865\"",
+     "note": "1865 is outside the Jun 26 - Nov 20 1863 timeline; modelled as not occurring in the film window"
+    }
+   },
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D (one source says 1865)",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "Wiki-Station"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-077",
+   "object_printed": "Camp Letterman",
+   "object_ids": [
+    "H-23"
+   ],
+   "from_state": "Farm",
+   "to_state": "Construction July 10; opens July 20 or 22 (flag); closes Nov 20",
+   "time": {
+    "printed": "Jul 10 - Nov 20",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-07-10T00:00",
+     "1863-11-20T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Medical Dept.",
+   "flag": "opening date conflict: Jul 20 (ABT) vs Jul 22 (CWN, Wikipedia summary); PDF register C-044 default Jul 20; PDF B.2.3 conflict table p.55 default \"Open Jul 22 with Jul 20 flagged\"; PENDING OWNER",
+   "source_keys": [
+    "CWMed-Letterman",
+    "ABT-Letterman",
+    "CWN-Letterman"
+   ],
+   "out_of_battle_scope": false,
+   "notes": null,
+   "scenarios": {
+    "open_jul20": {
+     "window": [
+      "1863-07-10T00:00",
+      "1863-11-20T23:59",
+      null
+     ],
+     "phase_open": [
+      "1863-07-20T00:00",
+      "1863-07-20T23:59",
+      null
+     ],
+     "src": "ABT-Letterman"
+    },
+    "open_jul22": {
+     "window": [
+      "1863-07-10T00:00",
+      "1863-11-20T23:59",
+      null
+     ],
+     "phase_open": [
+      "1863-07-22T00:00",
+      "1863-07-22T23:59",
+      null
+     ],
+     "src": "CWN-Letterman"
+    }
+   },
+   "phases": [
+    {
+     "state": "Construction",
+     "printed": "Construction July 10",
+     "window": [
+      "1863-07-10T00:00",
+      "1863-07-10T23:59",
+      null
+     ]
+    },
+    {
+     "state": "Open",
+     "printed": "opens July 20 or 22 (flag)",
+     "window": [
+      "1863-07-20T00:00",
+      "1863-07-22T23:59",
+      null
+     ],
+     "scenarios": {
+      "open_jul20": {
+       "window": [
+        "1863-07-20T00:00",
+        "1863-07-20T23:59",
+        null
+       ],
+       "src": "ABT-Letterman; B.2.5 C-044 recommended default"
+      },
+      "open_jul22": {
+       "window": [
+        "1863-07-22T00:00",
+        "1863-07-22T23:59",
+        null
+       ],
+       "src": "CWN-Letterman; Wikipedia summary; B.2.3 p.55 recommended default"
+      }
+     }
+    },
+    {
+     "state": "Closed",
+     "printed": "closes Nov 20",
+     "window": [
+      "1863-11-20T00:00",
+      "1863-11-20T23:59",
+      null
+     ]
+    }
+   ],
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "documented",
+   "tier_printed": "D (conflict)",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-078",
+   "object_printed": "McPherson house",
+   "object_ids": [
+    "bld-mcpherson-farm#house"
+   ],
+   "from_state": "Standing",
+   "to_state": "Burned 1895",
+   "time": {
+    "printed": "Later",
+    "time_parse": "phrase",
+    "granularity": null,
+    "window": null,
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Not part of the battle animation",
+   "flag": null,
+   "source_keys": [
+    "SS-McPherson"
+   ],
+   "out_of_battle_scope": true,
+   "notes": "out of battle scope: 1895; not scheduled",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-McPherson"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-079",
+   "object_printed": "Rose barn, Codori barn",
+   "object_ids": [
+    "bld-rose-farm#barn",
+    "bld-codori-farm#barn"
+   ],
+   "from_state": "Standing",
+   "to_state": "Burned 1910; torn down 1882",
+   "time": {
+    "printed": "Later",
+    "time_parse": "phrase",
+    "granularity": null,
+    "window": null,
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": "Not part of the battle animation",
+   "flag": null,
+   "source_keys": [
+    "SS-Rose",
+    "SS-Codori"
+   ],
+   "out_of_battle_scope": true,
+   "notes": "out of battle scope: Rose barn 1910, Codori barn 1882; not scheduled",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.8.7",
+   "tier": "inferred",
+   "tier_printed": "D",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "SS-Codori",
+    "SS-Rose"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (Stone Sentinels) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-080",
+   "object_printed": "Land",
+   "object_ids": [
+    "WS-080-land"
+   ],
+   "from_state": null,
+   "to_state": "17 acres bought by Wills for about $2,475.87 in late July and August.",
+   "time": {
+    "printed": "State on Nov 19, 1863 (column header of B.12.3)",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-11-19T00:00",
+     "1863-11-19T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": [
+     {
+      "what": "purchase",
+      "printed": "late July and August 1863 (no day printed)"
+     }
+    ],
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": null,
+   "flag": null,
+   "source_keys": [
+    "W-CONS",
+    "GC-COMP"
+   ],
+   "derived": false,
+   "out_of_battle_scope": false,
+   "notes": null,
+   "gap_printed": "Parcel boundary against Warren and later maps.",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.12.3",
+   "from_state_note": "B.12.3 prints only the state on Nov 19, 1863; no from-state, no trigger",
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "GC-COMP",
+    "W-CONS"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (blog (Gettysburg Compiler student post), wikipedia (consecration article)) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-081",
+   "object_printed": "Reburials",
+   "object_ids": [
+    "WS-081-reburials"
+   ],
+   "from_state": null,
+   "to_state": "The first of 3,512 Union bodies moved on October 27; 1,258 reburied by November 19; work due to finish March 1864. Sources date the start differently (Oct 17 and Oct 27 appear in the timeline tail T3-218).",
+   "time": {
+    "printed": "State on Nov 19, 1863 (column header of B.12.3)",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-11-19T00:00",
+     "1863-11-19T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": [
+     {
+      "what": "count by Nov 19",
+      "value": 1258
+     },
+     {
+      "what": "total",
+      "value": 3512
+     },
+     {
+      "what": "work due to finish",
+      "printed": "March 1864"
+     }
+    ],
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": null,
+   "flag": "start date conflict Oct 17 vs Oct 27",
+   "source_keys": [
+    "W-CONS",
+    "GC-COMP"
+   ],
+   "derived": false,
+   "out_of_battle_scope": false,
+   "notes": null,
+   "gap_printed": "Grave-by-grave progress and which plots were open.",
+   "scenarios": {
+    "start_oct27": {
+     "window": [
+      "1863-10-27T00:00",
+      "1863-10-27T23:59",
+      null
+     ],
+     "src": "S-081 text \"first ... moved on October 27\""
+    },
+    "start_oct17": {
+     "window": [
+      "1863-10-17T00:00",
+      "1863-10-17T23:59",
+      null
+     ],
+     "src": "S-081 text / T3-218"
+    }
+   },
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.12.3",
+   "from_state_note": "B.12.3 prints only the state on Nov 19, 1863; no from-state, no trigger",
+   "tier": "inferred",
+   "tier_printed": "documented, with a date conflict",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "GC-COMP",
+    "W-CONS"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (blog (Gettysburg Compiler student post), wikipedia (consecration article)) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-082",
+   "object_printed": "Layout",
+   "object_ids": [
+    "WS-082-layout"
+   ],
+   "from_state": null,
+   "to_state": "Semicircular burial plots (Saunders design); an iron fence separated the new cemetery from Evergreen Cemetery.",
+   "time": {
+    "printed": "State on Nov 19, 1863 (column header of B.12.3)",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-11-19T00:00",
+     "1863-11-19T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": null,
+   "flag": null,
+   "source_keys": [
+    "W-CONS"
+   ],
+   "derived": false,
+   "out_of_battle_scope": false,
+   "notes": null,
+   "gap_printed": "Plot geometry, gate positions and path widths.",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.12.3",
+   "from_state_note": "B.12.3 prints only the state on Nov 19, 1863; no from-state, no trigger",
+   "tier": "inferred",
+   "tier_printed": "documented",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "W-CONS"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia (consecration article)) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-083",
+   "object_printed": "Platform",
+   "object_ids": [
+    "WS-083-platform"
+   ],
+   "from_state": null,
+   "to_state": "Built by November 19. Garry Wills (1992) and William Frassanito (1995) place it on the Evergreen Cemetery side of the dividing fence, not at the later monument site; the park marker and brochure now say Evergreen. Earlier park materials said otherwise.",
+   "time": {
+    "printed": "State on Nov 19, 1863 (column header of B.12.3)",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     null,
+     "1863-11-19T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": null,
+   "flag": "platform position dispute (Evergreen side vs later monument site)",
+   "source_keys": [
+    "W-CONS"
+   ],
+   "derived": false,
+   "out_of_battle_scope": false,
+   "notes": null,
+   "gap_printed": "Exact footprint, height, flags and bunting, rail, seating plan.",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.12.3",
+   "from_state_note": "B.12.3 prints only the state on Nov 19, 1863; no from-state, no trigger",
+   "tier": "inferred",
+   "tier_printed": "documented, with a dispute",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "W-CONS"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia (consecration article)) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-084",
+   "object_printed": "Surrounding ground",
+   "object_ids": [
+    "WS-084-surrounding-ground"
+   ],
+   "from_state": null,
+   "to_state": "Cut and scarred trees, broken fences, rifle pits and discarded gear still visible around the cemetery; the Blue Ridge visible in the distance.",
+   "time": {
+    "printed": "State on Nov 19, 1863 (column header of B.12.3)",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-11-19T00:00",
+     "1863-11-19T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": null,
+   "flag": null,
+   "source_keys": [
+    "W-CONS"
+   ],
+   "derived": false,
+   "out_of_battle_scope": false,
+   "notes": null,
+   "gap_printed": "Which trees, which fences.",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.12.3",
+   "from_state_note": "B.12.3 prints only the state on Nov 19, 1863; no from-state, no trigger",
+   "tier": "inferred",
+   "tier_printed": "documented (one account)",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "W-CONS"
+   ],
+   "tier_reason": "downgraded: PDF printed documented but every cited key is weak (wikipedia (consecration article)) or none cited",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-085",
+   "object_printed": "Season",
+   "object_ids": [
+    "WS-085-season"
+   ],
+   "from_state": null,
+   "to_state": "Late autumn: trees assumed leaf-off or nearly so, grass dormant.",
+   "time": {
+    "printed": "State on Nov 19, 1863 (column header of B.12.3)",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-11-19T00:00",
+     "1863-11-19T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": null,
+   "flag": null,
+   "source_keys": [],
+   "derived": true,
+   "out_of_battle_scope": false,
+   "notes": null,
+   "gap_printed": "No Nov 19 vegetation source retrieved. Fetch Nov 1863 observations.",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.12.3",
+   "from_state_note": "B.12.3 prints only the state on Nov 19, 1863; no from-state, no trigger",
+   "tier": "inferred",
+   "tier_printed": "inferred",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-086",
+   "object_printed": "Sun and sky",
+   "object_ids": [
+    "WS-086-sun-sky"
+   ],
+   "from_state": null,
+   "to_state": "Sun position and shadow direction computed from the ephemeris for 39.82 N, 77.23 W; cloud default cloudy clearing to sun at the prayer.",
+   "time": {
+    "printed": "State on Nov 19, 1863 (column header of B.12.3)",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-11-19T00:00",
+     "1863-11-19T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": null,
+   "flag": "weather conflict (E-007): cloudy (W-CONS) vs \"perfect\" morning (GC-COMP)",
+   "source_keys": [
+    "W-CONS"
+   ],
+   "derived": true,
+   "out_of_battle_scope": false,
+   "notes": null,
+   "gap_printed": "Actual cloud timing.",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.12.3",
+   "from_state_note": "B.12.3 prints only the state on Nov 19, 1863; no from-state, no trigger",
+   "tier": "inferred",
+   "tier_printed": "inferred",
+   "tier_mixed": false,
+   "weak_source": true,
+   "weak_keys": [
+    "W-CONS"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-087",
+   "object_printed": "Crowd",
+   "object_ids": [
+    "WS-087-crowd"
+   ],
+   "from_state": null,
+   "to_state": "About 15,000 (W-CONS) to 15,000 to 20,000 (EWH); soldiers, civilians, widows, boys at the edge (a photo), six governors, reporters.",
+   "time": {
+    "printed": "State on Nov 19, 1863 (column header of B.12.3)",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-11-19T00:00",
+     "1863-11-19T23:59",
+     null
+    ],
+    "part_of_day": null,
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": [
+     {
+      "what": "crowd size range as printed",
+      "value": "About 15,000 (W-CONS) to 15,000 to 20,000 (EWH)"
+     }
+    ],
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": null,
+   "flag": null,
+   "source_keys": [
+    "W-CONS",
+    "EWH"
+   ],
+   "derived": false,
+   "out_of_battle_scope": false,
+   "notes": null,
+   "gap_printed": "Composition and civilian dress by group: plausible-procedural, period-correct.",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.12.3",
+   "from_state_note": "B.12.3 prints only the state on Nov 19, 1863; no from-state, no trigger",
+   "tier": "documented",
+   "tier_printed": "documented, range",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [
+    "W-CONS"
+   ],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  },
+  {
+   "id": "S-088",
+   "object_printed": "Torch-lit evening before",
+   "object_ids": [
+    "WS-088-torch-lit-evening"
+   ],
+   "from_state": null,
+   "to_state": "Celebrating crowds, bands and alcohol in the streets on the night of November 18.",
+   "time": {
+    "printed": "Nov 18, 1863 (night; see note)",
+    "time_parse": "date",
+    "granularity": "date",
+    "window": [
+     "1863-11-18T00:00",
+     "1863-11-18T23:59",
+     null
+    ],
+    "part_of_day": "night of November 18",
+    "approx": false,
+    "begin": null,
+    "finish": null,
+    "sub_events": null,
+    "derived": null,
+    "default_basis": "none"
+   },
+   "trigger": null,
+   "flag": null,
+   "source_keys": [
+    "EWH"
+   ],
+   "derived": false,
+   "out_of_battle_scope": false,
+   "notes": "The table header says \"State on Nov 19, 1863\" but this row describes the night of November 18.",
+   "gap_printed": "-",
+   "scenarios": {},
+   "phases": null,
+   "parse_status": "parsed",
+   "section": "B.12.3",
+   "from_state_note": "B.12.3 prints only the state on Nov 19, 1863; no from-state, no trigger",
+   "tier": "documented",
+   "tier_printed": "documented (one account)",
+   "tier_mixed": false,
+   "weak_source": false,
+   "weak_keys": [],
+   "tier_reason": "printed tier kept",
+   "claim_support_verified": false
+  }
+ ],
+ "rules": [
+  {
+   "id": "RULE-01",
+   "printed": "the McPherson barn does not burn on July 1 or at any time in the battle",
+   "structs": [
+    "bld-mcpherson-farm#barn"
+   ],
+   "kind": "never_state",
+   "forbidden_state_regex": "burn",
+   "forbidden_from": "1863-06-26T00:00",
+   "forbidden_to": "1863-11-20T23:59",
+   "check": "Q09",
+   "related_rows": [
+    "S-017",
+    "S-078"
+   ],
+   "note": "House burned 1895 (S-078) and is outside the battle animation.",
+   "type": "rule",
+   "source": "B.8.7 \"Rows the engine must never schedule\" (p.102)"
+  },
+  {
+   "id": "RULE-02",
+   "printed": "the Bliss buildings do not burn on July 2",
+   "structs": [
+    "bld-bliss-farm#house",
+    "bld-bliss-farm#barn"
+   ],
+   "kind": "not_before",
+   "forbidden_state_regex": "burn",
+   "not_before": "1863-07-03T00:00",
+   "check": "Q09",
+   "related_rows": [
+    "S-052"
+   ],
+   "type": "rule",
+   "source": "B.8.7 \"Rows the engine must never schedule\" (p.102)"
+  },
+  {
+   "id": "RULE-03",
+   "printed": "the Emmitsburg Road fences are not destroyed before July 2-3",
+   "structs": [
+    "FEN-emmitsburg-road"
+   ],
+   "kind": "not_before",
+   "forbidden_state_regex": "destroy|breach|splinter|missing|burn|dismantl|nearly destroyed",
+   "not_before": "1863-07-02T00:00",
+   "check": "Q07",
+   "related_rows": [
+    "S-062"
+   ],
+   "type": "rule",
+   "source": "B.8.7 \"Rows the engine must never schedule\" (p.102)"
+  },
+  {
+   "id": "RULE-04",
+   "printed": "no avenue exists before the park era",
+   "structs": [
+    "RD-avenues"
+   ],
+   "kind": "never_exists",
+   "exists_in_1863": false,
+   "check": "Q09",
+   "related_rows": [],
+   "note": "B.8.4: avenues were added by the GBMA and War Department (17 miles by 1896). Do not place them in the scene.",
+   "type": "rule",
+   "source": "B.8.7 \"Rows the engine must never schedule\" (p.102)"
+  }
+ ],
+ "pdf_defaults_log": [
+  {
+   "id": "PD-01",
+   "topic": "Sherfy barn fire",
+   "conflict_id": "C-026",
+   "rows": [
+    "S-037",
+    "S-036"
+   ],
+   "printed": [
+    {
+     "where": "B.2.5 C-026 (p.62)",
+     "default": "Jul 2 evening",
+     "alternatives": "Jul 3"
+    },
+    {
+     "where": "B.8.7 S-037 (p.101)",
+     "default": "most-supported reading, Jul 3 during the afternoon artillery",
+     "alternatives": "flag window Jul 2 evening to Jul 3 afternoon"
+    },
+    {
+     "where": "B.2.3 conflict highlights (p.55)",
+     "default": "flag window Jul 2 evening to Jul 3 afternoon, most plausible Jul 3 afternoon (inferred)"
+    }
+   ],
+   "contradiction": true,
+   "status": "PENDING OWNER",
+   "scenarios": [
+    "default",
+    "jul3_afternoon_b87",
+    "jul2_evening_c026",
+    "flag_window_full"
+   ],
+   "note": "The register default (Jul 2 evening) contradicts the schedule and the p.55 table (Jul 3 afternoon). Also logged as EG-0008. state_at scenario \"default\" follows the row the engine reads (B.8.7 S-037); this is not a choice between the sources."
+  },
+  {
+   "id": "PD-02",
+   "topic": "Camp Letterman opening",
+   "conflict_id": "C-044",
+   "rows": [
+    "S-077"
+   ],
+   "printed": [
+    {
+     "where": "B.2.5 C-044 (p.63)",
+     "default": "Jul 20",
+     "alternatives": "Jul 22"
+    },
+    {
+     "where": "B.2.3 p.55 conflict table",
+     "default": "Open Jul 22 with Jul 20 flagged"
+    },
+    {
+     "where": "B.8.7 S-077",
+     "default": "none printed (\"opens July 20 or 22 (flag)\")"
+    }
+   ],
+   "contradiction": true,
+   "status": "PENDING OWNER",
+   "scenarios": [
+    "open_jul20",
+    "open_jul22"
+   ],
+   "note": "state_at scenario \"default\" for S-077 leaves the opening inside the Jul 20-22 window (not decided)."
+  },
+  {
+   "id": "PD-03",
+   "topic": "Culp's Hill main line (E-05) start and finish",
+   "conflict_id": null,
+   "rows": [
+    "S-023"
+   ],
+   "printed": [
+    {
+     "where": "B.7.4 (p.93)",
+     "default": "window start 06:00, end between 09:00 and 10:00"
+    },
+    {
+     "where": "B.7.2 E-05 / S-023",
+     "default": "none stated beyond the printed windows (about 06:00; 09:00-10:00; to about noon flagged)"
+    }
+   ],
+   "contradiction": false,
+   "status": "PENDING OWNER",
+   "scenarios": [
+    "default",
+    "start_night_jul1_2_dmna",
+    "finish_about_10_dmna",
+    "finish_about_noon_gd"
+   ]
+  },
+  {
+   "id": "PD-04",
+   "topic": "Culp's Hill final charge Jul 3",
+   "conflict_id": "C-031",
+   "rows": [
+    "S-056"
+   ],
+   "printed": [
+    {
+     "where": "B.2.5 C-031",
+     "default": "10:00",
+     "alternatives": "noon"
+    },
+    {
+     "where": "B.8.7 S-056",
+     "default": "About 10:00-11:00 Jul 3"
+    }
+   ],
+   "contradiction": false,
+   "status": "PENDING OWNER",
+   "scenarios": [
+    "c031_default_10_00",
+    "c031_alt_noon"
+   ]
+  },
+  {
+   "id": "PD-05",
+   "topic": "Cannonade end",
+   "conflict_id": "C-029",
+   "rows": [
+    "S-061"
+   ],
+   "printed": [
+    {
+     "where": "B.2.5 C-029",
+     "default": "14:30",
+     "alternatives": "14:00, 15:00"
+    },
+    {
+     "where": "B.8.7 S-061",
+     "default": "lull to about 14:45-15:00"
+    }
+   ],
+   "contradiction": false,
+   "status": "PENDING OWNER",
+   "scenarios": [
+    "c029_end_14_30_default",
+    "c029_end_14_00",
+    "c029_end_15_00"
+   ],
+   "note": "C-029 prints the cannonade end (14:00 / 14:30 / 15:00); S-061 prints a Union lull to about 14:45-15:00. The PDF does not state how the two relate; not reconciled here."
+  },
+  {
+   "id": "PD-06",
+   "topic": "Johnson's attack on Culp's Hill",
+   "conflict_id": "C-019",
+   "rows": [
+    "S-042"
+   ],
+   "printed": [
+    {
+     "where": "B.2.5 C-019",
+     "default": "19:00",
+     "alternatives": "19:30, 20:00"
+    },
+    {
+     "where": "B.7.2 E-10",
+     "default": "about 19:00-22:00"
+    }
+   ],
+   "contradiction": false,
+   "status": "PENDING OWNER",
+   "scenarios": [
+    "e10_clock_19_22"
+   ]
+  },
+  {
+   "id": "PD-07",
+   "topic": "East Cemetery Hill assault",
+   "conflict_id": "C-020",
+   "rows": [
+    "S-044"
+   ],
+   "printed": [
+    {
+     "where": "B.2.5 C-020",
+     "default": "19:30",
+     "alternatives": "20:00, 20:00-21:00"
+    },
+    {
+     "where": "B.8.7 S-044",
+     "default": "dusk attack, about 19:30-21:00"
+    }
+   ],
+   "contradiction": false,
+   "status": "PENDING OWNER",
+   "scenarios": []
+  },
+  {
+   "id": "PD-08",
+   "topic": "Infantry step-off (Pickett's Charge) vs fence window",
+   "conflict_id": "C-030",
+   "rows": [
+    "S-062"
+   ],
+   "printed": [
+    {
+     "where": "B.2.5 C-030",
+     "default": "15:00",
+     "alternatives": "14:00"
+    },
+    {
+     "where": "B.8.7 S-062",
+     "default": "About 15:30-16:15 Jul 3"
+    }
+   ],
+   "contradiction": false,
+   "status": "PENDING OWNER",
+   "scenarios": []
+  },
+  {
+   "id": "PD-09",
+   "topic": "Spangler wounded count",
+   "conflict_id": "C-038",
+   "rows": [],
+   "hospital_conflict": "HC-05",
+   "printed": [
+    {
+     "where": "B.2.5 C-038",
+     "default": "1,500",
+     "alternatives": "1,000; 1,800; 1,900; 2,000"
+    },
+    {
+     "where": "B.8.5.2",
+     "default": "lead figure about 1,900 treated"
+    }
+   ],
+   "contradiction": true,
+   "status": "PENDING OWNER",
+   "scenarios": []
+  },
+  {
+   "id": "PD-10",
+   "topic": "Barksdale's death",
+   "conflict_id": "C-037",
+   "rows": [],
+   "hospital_conflict": "HC-06",
+   "printed": [
+    {
+     "where": "B.2.5 C-037",
+     "default": "Jul 2 (wounded), death Jul 2-3 shown as a range",
+     "alternatives": "Jul 3"
+    }
+   ],
+   "contradiction": false,
+   "status": "PENDING OWNER",
+   "scenarios": []
+  },
+  {
+   "id": "PD-11",
+   "topic": "Bliss buildings burn",
+   "conflict_id": null,
+   "rows": [
+    "S-052"
+   ],
+   "printed": [
+    {
+     "where": "B.8.7 S-052 / B.2.3 p.55",
+     "default": "morning Jul 3; Bliss burned before the cannonade",
+     "alternatives": "late morning per one forum (unreliable)"
+    }
+   ],
+   "contradiction": false,
+   "status": "PENDING OWNER",
+   "scenarios": [
+    "default",
+    "late_morning_forum_unreliable"
+   ],
+   "note": "Not disputed as a date by any reliable source; only the clock time is open."
+  }
+ ]
+}

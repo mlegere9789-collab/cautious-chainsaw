@@ -1,0 +1,14 @@
+# Staging copy: keep out of search engines, always revalidate (Netlify serves a content ETag, so unchanged files return 304).
+/*
+  X-Robots-Tag: noindex, nofollow
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  Cache-Control: public, max-age=0, must-revalidate
+
+/*.mjs
+  Content-Type: text/javascript; charset=utf-8
+/*.jsonl
+  Content-Type: application/x-ndjson; charset=utf-8
+/*.bin
+  Content-Type: application/octet-stream
+# No Cross-Origin-Opener-Policy / Cross-Origin-Embedder-Policy: the shell uses no SharedArrayBuffer and no cross-origin isolation.

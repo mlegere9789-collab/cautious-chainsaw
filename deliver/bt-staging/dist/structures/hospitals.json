@@ -1,0 +1,1359 @@
+{
+ "meta": {
+  "source": "Gettysburg Total War animation plan, version 2 (tmp/pdf/plan-clean.txt)",
+  "sections": "B.7.2, B.7.3, B.7.5, B.8.2, B.8.3, B.8.4, B.8.5, B.8.6, B.8.7, B.12.3",
+  "status": "seeded_unverified: transcribed from the PDF text; no primary source read",
+  "pdf_defaults_status": "PENDING OWNER (Law cl.6): no default view of a conflicting source has been chosen here",
+  "time_convention": "naive ISO-8601 local mean time as printed (Union and Confederate clocks differed by about 20 minutes; no correction applied)",
+  "tier_rule": "tier = printed PDF tier AND >=1 cited key outside the weak set; weak set = Wikipedia (Wiki-*, W-CONS), forums (CWT*), blogs the PDF flags (WHB*, GC-COMP), Stone Sentinels (SS-*, SStone-*). Mechanical only: no source opened to confirm it supports the exact claim.",
+  "weak_patterns": [
+   "^Wiki-",
+   "^W-CONS$",
+   "^CWT",
+   "^WHB",
+   "^GC-COMP$",
+   "^SS-",
+   "^SStone-"
+  ],
+  "generator": "tools/bt/build_structures.py",
+  "section": "B.8.5.1, B.8.5.2, B.8.5.3, B.8.5.4, B.8.6",
+  "hospital_count": 23
+ },
+ "hospitals": [
+  {
+   "id": "H-01",
+   "hospital": "Presbyterian Church and nearby buildings",
+   "corps_or_side": "Cavalry Corps 1st Division",
+   "location": "208 Baltimore St, town",
+   "setup_time_printed": "Jun 30",
+   "patients_printed": "n/a",
+   "staff_printed": "Medical director George Pancoast",
+   "closing_or_move_printed": "Fell to Confederates evening Jul 1",
+   "source_keys": [
+    "HMDB-17939"
+   ],
+   "structure_ids": [
+    "bld-presbyterian-church"
+   ],
+   "section": "B.8.5.2",
+   "weak_source": false,
+   "claim_support_verified": false,
+   "parse_status": "parsed",
+   "setup_window": {
+    "window": [
+     "1863-06-30T00:00",
+     "1863-06-30T23:59",
+     null
+    ],
+    "time_parse": "date",
+    "granularity": "date"
+   },
+   "closing_window": {
+    "window": [
+     "1863-07-01T00:00",
+     "1863-07-01T23:59",
+     null
+    ],
+    "time_parse": "date"
+   }
+  },
+  {
+   "id": "H-02",
+   "hospital": "St. Francis Xavier church",
+   "corps_or_side": "Both",
+   "location": "Town",
+   "setup_time_printed": "Receiving amputations by noon Jul 1",
+   "patients_printed": "n/a",
+   "staff_printed": "14 Sisters of Charity after the fighting",
+   "closing_or_move_printed": "n/a",
+   "source_keys": [
+    "Aleteia"
+   ],
+   "structure_ids": [
+    "bld-st-francis-xavier"
+   ],
+   "section": "B.8.5.2",
+   "weak_source": false,
+   "claim_support_verified": false,
+   "parse_status": "parsed",
+   "setup_window": {
+    "window": [
+     null,
+     "1863-07-01T12:00",
+     null
+    ],
+    "time_parse": "clock",
+    "granularity": "clock"
+   },
+   "closing_window": null
+  },
+  {
+   "id": "H-03",
+   "hospital": "Seminary, Pennsylvania College, courthouse, churches",
+   "corps_or_side": "I Corps",
+   "location": "Seminary Ridge and town",
+   "setup_time_printed": "Jul 1 afternoon",
+   "patients_printed": "Seminary 600-700 at peak (\"second-largest\"); about 700 over 2 months, about 70 died; over 400 Confederates",
+   "staff_printed": "Chief medical officers stayed when the Confederates took them",
+   "closing_or_move_printed": "Pennsylvania Hall to about Jul 29",
+   "source_keys": [
+    "HMDB-17936",
+    "McF",
+    "InTrust",
+    "SS-Seminary"
+   ],
+   "structure_ids": [
+    "bld-schmucker-hall",
+    "bld-pennsylvania-hall",
+    "bld-courthouse"
+   ],
+   "section": "B.8.5.2",
+   "weak_source": false,
+   "claim_support_verified": false,
+   "parse_status": "parsed",
+   "setup_window": {
+    "window": [
+     "1863-07-01T00:00",
+     "1863-07-01T23:59",
+     null
+    ],
+    "time_parse": "date",
+    "granularity": "date"
+   },
+   "closing_window": {
+    "window": [
+     "1863-07-29T00:00",
+     "1863-07-29T23:59",
+     null
+    ],
+    "time_parse": "date"
+   }
+  },
+  {
+   "id": "H-04",
+   "hospital": "I Corps July 2 site",
+   "corps_or_side": "I Corps",
+   "location": "Near White Church (Marks German Reformed), Baltimore Pike",
+   "setup_time_printed": "Jul 2",
+   "patients_printed": "2,379 wounded",
+   "staff_printed": "Medical director J.T. Heard; hospital officer A.J. Ward",
+   "closing_or_move_printed": "n/a",
+   "source_keys": [
+    "HMDB-17936"
+   ],
+   "structure_ids": [],
+   "section": "B.8.5.2",
+   "weak_source": false,
+   "claim_support_verified": false,
+   "parse_status": "parsed",
+   "setup_window": {
+    "window": [
+     "1863-07-02T00:00",
+     "1863-07-02T23:59",
+     null
+    ],
+    "time_parse": "date",
+    "granularity": "date"
+   },
+   "closing_window": null
+  },
+  {
+   "id": "H-05",
+   "hospital": "McPherson farm",
+   "corps_or_side": "I Corps and Confederate",
+   "location": "Chambersburg Pike",
+   "setup_time_printed": "Evening Jul 1 (aid station); barn",
+   "patients_printed": "n/a",
+   "staff_printed": "n/a",
+   "closing_or_move_printed": "n/a",
+   "source_keys": [
+    "ECW-Hosp"
+   ],
+   "structure_ids": [
+    "bld-mcpherson-farm"
+   ],
+   "section": "B.8.5.2",
+   "weak_source": false,
+   "claim_support_verified": false,
+   "parse_status": "parsed",
+   "setup_window": {
+    "window": [
+     "1863-07-01T00:00",
+     "1863-07-01T23:59",
+     null
+    ],
+    "time_parse": "date",
+    "granularity": "date"
+   },
+   "closing_window": null
+  },
+  {
+   "id": "H-06",
+   "hospital": "Spangler farm",
+   "corps_or_side": "XI Corps",
+   "location": "Hospital Road, southeast of Granite Schoolhouse",
+   "setup_time_printed": "Mid-afternoon Jul 1; first wounded by about 16:00",
+   "patients_printed": "About 1,900 treated (50-100 Confederates); other counts: about 2,000 incl. 100-200 Confederates; about 1,500; about 1,800 at one time over 37 days; 1,000 at one point per Brinton. About 140 died, mostly buried in the orchard",
+   "staff_printed": "Brinton, Potter; volunteer nurses Marilla Hovey, Rebecca Price. Four operating tables \"night and day\" in the forebay with lanterns; about 80 amputees in the barn per a soldier letter",
+   "closing_or_move_printed": "Wounded gone by August; closed Aug 6",
+   "source_keys": [
+    "HN-Spangler",
+    "ReconEra",
+    "GExp",
+    "WHB-1555"
+   ],
+   "structure_ids": [
+    "bld-spangler-farm"
+   ],
+   "section": "B.8.5.2",
+   "weak_source": false,
+   "claim_support_verified": false,
+   "parse_status": "parsed",
+   "setup_window": {
+    "window": [
+     null,
+     "1863-07-01T16:00",
+     null
+    ],
+    "time_parse": "clock",
+    "granularity": "clock"
+   },
+   "closing_window": {
+    "window": [
+     "1863-08-06T00:00",
+     "1863-08-06T23:59",
+     null
+    ],
+    "time_parse": "date"
+   }
+  },
+  {
+   "id": "H-07",
+   "hospital": "Granite Schoolhouse",
+   "corps_or_side": "II Corps 1st Division",
+   "location": "Quarter mile from Spangler",
+   "setup_time_printed": "Jul 2",
+   "patients_printed": "Zook examined, Cross died",
+   "staff_printed": "Asst. Surg. Moore mortally hit Jul 3 (died Jul 6)",
+   "closing_or_move_printed": "Moved toward McAllister's Mill after the Jul 3 overshots",
+   "source_keys": [
+    "HN-Spangler",
+    "HMDB"
+   ],
+   "structure_ids": [
+    "bld-granite-schoolhouse"
+   ],
+   "section": "B.8.5.2",
+   "weak_source": false,
+   "claim_support_verified": false,
+   "parse_status": "parsed",
+   "setup_window": {
+    "window": [
+     "1863-07-02T00:00",
+     "1863-07-02T23:59",
+     null
+    ],
+    "time_parse": "date",
+    "granularity": "date"
+   },
+   "closing_window": {
+    "window": [
+     "1863-07-03T00:00",
+     "1863-07-03T23:59",
+     null
+    ],
+    "time_parse": "date"
+   }
+  },
+  {
+   "id": "H-08",
+   "hospital": "Weikert farm",
+   "corps_or_side": "V Corps 2nd Division (HistoryNet)",
+   "location": "Taneytown Road",
+   "setup_time_printed": "Surgeons arrived morning Jul 2",
+   "patients_printed": "Up to about 950, some Confederates",
+   "staff_printed": "Amputation pile outside a window",
+   "closing_or_move_printed": "Moved east toward Baltimore Pike early Jul 3",
+   "source_keys": [
+    "HN-Weikert"
+   ],
+   "structure_ids": [
+    "bld-weikert-farm"
+   ],
+   "section": "B.8.5.2",
+   "weak_source": false,
+   "claim_support_verified": false,
+   "parse_status": "parsed",
+   "parse_note": "The Staff cell holds \"Amputation pile outside a window\" exactly as printed (not a staff description).",
+   "setup_window": {
+    "window": [
+     "1863-07-02T00:00",
+     "1863-07-02T23:59",
+     null
+    ],
+    "time_parse": "date",
+    "granularity": "date"
+   },
+   "closing_window": {
+    "window": [
+     "1863-07-03T00:00",
+     "1863-07-03T23:59",
+     null
+    ],
+    "time_parse": "date"
+   }
+  },
+  {
+   "id": "H-09",
+   "hospital": "V Corps",
+   "corps_or_side": "V Corps",
+   "location": "Weikert and other houses Jul 2; overnight 1st Div south of White Run on the Fiscel farm, 2nd Div near the Clapsaddle house, 3rd Div west of Two Taverns",
+   "setup_time_printed": "Jul 2",
+   "patients_printed": "About 1,400",
+   "staff_printed": "Medical director John Milhau; officer A.M. Clark",
+   "closing_or_move_printed": "Operated to Aug 2",
+   "source_keys": [
+    "HMDB-17934"
+   ],
+   "structure_ids": [],
+   "section": "B.8.5.2",
+   "weak_source": false,
+   "claim_support_verified": false,
+   "parse_status": "parsed",
+   "parse_note": "The extracted row has \"Jul 2\" twice (once ending the location text, once as set-up); read as location text + set-up \"Jul 2\".",
+   "setup_window": {
+    "window": [
+     "1863-07-02T00:00",
+     "1863-07-02T23:59",
+     null
+    ],
+    "time_parse": "date",
+    "granularity": "date"
+   },
+   "closing_window": {
+    "window": [
+     "1863-08-02T00:00",
+     "1863-08-02T23:59",
+     null
+    ],
+    "time_parse": "date"
+   }
+  },
+  {
+   "id": "H-10",
+   "hospital": "III Corps",
+   "corps_or_side": "III Corps",
+   "location": "Taneytown Road (Schoolhouse Rd to Mill Rd) Jul 2; that night moved to the south side of White Run about 300 yd from Rock Creek",
+   "setup_time_printed": "Jul 2",
+   "patients_printed": "Over 2,500",
+   "staff_printed": "Medical director Thomas Sim; officer Thaddeus Hildreth",
+   "closing_or_move_printed": "Closed about Aug 6",
+   "source_keys": [
+    "HMDB-17931"
+   ],
+   "structure_ids": [],
+   "section": "B.8.5.2",
+   "weak_source": false,
+   "claim_support_verified": false,
+   "parse_status": "parsed",
+   "setup_window": {
+    "window": [
+     "1863-07-02T00:00",
+     "1863-07-02T23:59",
+     null
+    ],
+    "time_parse": "date",
+    "granularity": "date"
+   },
+   "closing_window": {
+    "window": [
+     "1863-08-06T00:00",
+     "1863-08-06T23:59",
+     null
+    ],
+    "time_parse": "date"
+   }
+  },
+  {
+   "id": "H-11",
+   "hospital": "II Corps",
+   "corps_or_side": "II Corps",
+   "location": "Both sides of Rock Creek east of the Bushman house; southwest of the George Bushman house on Hospital Road",
+   "setup_time_printed": "Jul 2",
+   "patients_printed": "n/a",
+   "staff_printed": "n/a",
+   "closing_or_move_printed": "Medical work ended Jul 7",
+   "source_keys": [
+    "HMDB-13265",
+    "PARoots"
+   ],
+   "structure_ids": [],
+   "section": "B.8.5.2",
+   "weak_source": false,
+   "claim_support_verified": false,
+   "parse_status": "parsed",
+   "setup_window": {
+    "window": [
+     "1863-07-02T00:00",
+     "1863-07-02T23:59",
+     null
+    ],
+    "time_parse": "date",
+    "granularity": "date"
+   },
+   "closing_window": {
+    "window": [
+     "1863-07-07T00:00",
+     "1863-07-07T23:59",
+     null
+    ],
+    "time_parse": "date"
+   }
+  },
+  {
+   "id": "H-12",
+   "hospital": "Hummelbaugh farm",
+   "corps_or_side": "II Corps",
+   "location": "Cemetery Ridge rear",
+   "setup_time_printed": "Jul 2",
+   "patients_printed": "Barksdale treated",
+   "staff_printed": "n/a",
+   "closing_or_move_printed": "n/a",
+   "source_keys": [
+    "SS-157"
+   ],
+   "structure_ids": [
+    "bld-hummelbaugh-farm"
+   ],
+   "section": "B.8.5.2",
+   "weak_source": true,
+   "claim_support_verified": false,
+   "parse_status": "parsed",
+   "setup_window": {
+    "window": [
+     "1863-07-02T00:00",
+     "1863-07-02T23:59",
+     null
+    ],
+    "time_parse": "date",
+    "granularity": "date"
+   },
+   "closing_window": null
+  },
+  {
+   "id": "H-13",
+   "hospital": "Trostle farm",
+   "corps_or_side": "III and V Corps (VI Corps tablet: Trostle house east of Rock Creek)",
+   "location": "Plum Run",
+   "setup_time_printed": "After Jul 2",
+   "patients_printed": "Some Confederates also",
+   "staff_printed": "n/a",
+   "closing_or_move_printed": "Abandoned by Jul 6",
+   "source_keys": [
+    "ECW-Hosp"
+   ],
+   "structure_ids": [
+    "bld-trostle-farm"
+   ],
+   "section": "B.8.5.2",
+   "weak_source": false,
+   "claim_support_verified": false,
+   "parse_status": "parsed",
+   "setup_window": {
+    "window": null,
+    "time_parse": "phrase",
+    "granularity": "phrase"
+   },
+   "closing_window": {
+    "window": [
+     null,
+     "1863-07-06T23:59",
+     null
+    ],
+    "time_parse": "date"
+   }
+  },
+  {
+   "id": "H-14",
+   "hospital": "VI Corps",
+   "corps_or_side": "VI Corps",
+   "location": "North of Trostle house near Goulden Road",
+   "setup_time_printed": "n/a",
+   "patients_printed": "n/a",
+   "staff_printed": "n/a",
+   "closing_or_move_printed": "n/a",
+   "source_keys": [
+    "PARoots"
+   ],
+   "structure_ids": [],
+   "section": "B.8.5.2",
+   "weak_source": false,
+   "claim_support_verified": false,
+   "parse_status": "parsed",
+   "setup_window": null,
+   "closing_window": null
+  },
+  {
+   "id": "H-15",
+   "hospital": "Bushman farm",
+   "corps_or_side": "XII Corps",
+   "location": "West of the Bushman house near Rock Creek",
+   "setup_time_printed": "Jul 2-3 (inferred from tablet)",
+   "patients_printed": "n/a",
+   "staff_printed": "n/a",
+   "closing_or_move_printed": "n/a",
+   "source_keys": [
+    "HMDB-13265"
+   ],
+   "structure_ids": [
+    "bld-bushman-farm"
+   ],
+   "section": "B.8.5.2",
+   "weak_source": false,
+   "claim_support_verified": false,
+   "parse_status": "parsed",
+   "setup_window": {
+    "window": [
+     "1863-07-02T00:00",
+     "1863-07-03T23:59",
+     null
+    ],
+    "time_parse": "date",
+    "granularity": "date"
+   },
+   "closing_window": null
+  },
+  {
+   "id": "H-16",
+   "hospital": "Leister house/barn",
+   "corps_or_side": "Aid station",
+   "location": "Taneytown Road",
+   "setup_time_printed": "After the Jul 3 firing ceased",
+   "patients_printed": "n/a",
+   "staff_printed": "n/a",
+   "closing_or_move_printed": "n/a",
+   "source_keys": [
+    "ECW-Hosp"
+   ],
+   "structure_ids": [
+    "bld-leister-house"
+   ],
+   "section": "B.8.5.2",
+   "weak_source": false,
+   "claim_support_verified": false,
+   "parse_status": "parsed",
+   "setup_window": {
+    "window": [
+     "1863-07-03T00:00",
+     "1863-07-03T23:59",
+     null
+    ],
+    "time_parse": "date",
+    "granularity": "date"
+   },
+   "closing_window": null
+  },
+  {
+   "id": "H-17",
+   "hospital": "Rock Creek-White Run complex",
+   "corps_or_side": "I, II, III, V, VI, XII Corps",
+   "location": "Schwartz, Shaeffer, Trostle, Lewis Bushman, Diener, Conover, Lightner, Beitler farms and White's Church (NRHP 2000)",
+   "setup_time_printed": "Jul 2 on",
+   "patients_printed": "n/a",
+   "staff_printed": "n/a",
+   "closing_or_move_printed": "n/a",
+   "source_keys": [
+    "Wiki-RCWR"
+   ],
+   "structure_ids": [],
+   "section": "B.8.5.2",
+   "weak_source": true,
+   "claim_support_verified": false,
+   "parse_status": "parsed",
+   "setup_window": {
+    "window": [
+     "1863-07-02T00:00",
+     null,
+     null
+    ],
+    "time_parse": "date",
+    "granularity": "date"
+   },
+   "closing_window": null
+  },
+  {
+   "id": "H-18",
+   "hospital": "Other minor sites",
+   "corps_or_side": "Union",
+   "location": "Hankey's (Mummasburg Rd), Poorhouse Orchard, Daniel Lady's, Wolf's field",
+   "setup_time_printed": "n/a",
+   "patients_printed": "n/a",
+   "staff_printed": "n/a",
+   "closing_or_move_printed": "n/a",
+   "source_keys": [
+    "PARoots"
+   ],
+   "structure_ids": [],
+   "section": "B.8.5.2",
+   "weak_source": false,
+   "claim_support_verified": false,
+   "parse_status": "parsed",
+   "setup_window": null,
+   "closing_window": null
+  },
+  {
+   "id": "H-19",
+   "hospital": "Daniel Lady farm",
+   "corps_or_side": "Confederate",
+   "location": "n/a",
+   "setup_time_printed": "n/a",
+   "patients_printed": "Count unknown",
+   "staff_printed": "n/a",
+   "closing_or_move_printed": "n/a",
+   "source_keys": [
+    "GBPA"
+   ],
+   "structure_ids": [
+    "bld-daniel-lady-farm"
+   ],
+   "section": "B.8.5.2",
+   "weak_source": false,
+   "claim_support_verified": false,
+   "parse_status": "parsed",
+   "setup_window": null,
+   "closing_window": null
+  },
+  {
+   "id": "H-20",
+   "hospital": "Seminary (Confederate use), McPherson barn",
+   "corps_or_side": "Confederate",
+   "location": "Seminary Ridge",
+   "setup_time_printed": "From late afternoon Jul 1; held about two days",
+   "patients_printed": "Over 400 Confederate wounded recovered at the Seminary",
+   "staff_printed": "Some Confederate surgeons ordered to stay with wounded left behind",
+   "closing_or_move_printed": "n/a",
+   "source_keys": [
+    "InTrust",
+    "CWN-Letterman"
+   ],
+   "structure_ids": [
+    "bld-schmucker-hall",
+    "bld-mcpherson-farm"
+   ],
+   "section": "B.8.5.2",
+   "weak_source": false,
+   "claim_support_verified": false,
+   "parse_status": "parsed",
+   "setup_window": {
+    "window": [
+     "1863-07-01T00:00",
+     "1863-07-01T23:59",
+     null
+    ],
+    "time_parse": "date",
+    "granularity": "date"
+   },
+   "closing_window": null
+  },
+  {
+   "id": "H-21",
+   "hospital": "Rose, Slyder, Bushman barns",
+   "corps_or_side": "Confederate",
+   "location": "Farms listed in B.8.2",
+   "setup_time_printed": "Jul 2",
+   "patients_printed": "Bushman barn: 8 Confederates buried",
+   "staff_printed": "n/a",
+   "closing_or_move_printed": "n/a",
+   "source_keys": [
+    "SS-Rose",
+    "SS-Slyder",
+    "SS-Bushman"
+   ],
+   "structure_ids": [
+    "bld-rose-farm",
+    "bld-slyder-farm",
+    "bld-bushman-farm"
+   ],
+   "section": "B.8.5.2",
+   "weak_source": true,
+   "claim_support_verified": false,
+   "parse_status": "parsed",
+   "setup_window": {
+    "window": [
+     "1863-07-02T00:00",
+     "1863-07-02T23:59",
+     null
+    ],
+    "time_parse": "date",
+    "granularity": "date"
+   },
+   "closing_window": null
+  },
+  {
+   "id": "H-22",
+   "hospital": "Town as \"one vast hospital\"",
+   "corps_or_side": "Both",
+   "location": "Town",
+   "setup_time_printed": "By Jul 4",
+   "patients_printed": "Of 106 medical officers left, perhaps 35 could operate; Dr. Harry McAbee had about 1,000 men with three assistants; houses marked with red flags",
+   "staff_printed": "n/a",
+   "closing_or_move_printed": "n/a",
+   "source_keys": [
+    "HN-Storm"
+   ],
+   "structure_ids": [],
+   "section": "B.8.5.2",
+   "weak_source": false,
+   "claim_support_verified": false,
+   "parse_status": "parsed",
+   "setup_window": {
+    "window": [
+     null,
+     "1863-07-04T23:59",
+     null
+    ],
+    "time_parse": "date",
+    "granularity": "date"
+   },
+   "closing_window": null
+  },
+  {
+   "id": "H-23",
+   "hospital": "General hospital Camp Letterman",
+   "corps_or_side": "General",
+   "location": "York Pike, about 80 acres of George Wolf's farm",
+   "setup_time_printed": "Construction began Jul 10; opening conflicts (below)",
+   "patients_printed": "Jul 22: 11,425 evacuated by rail; Jul 24 total 16,125; Aug 10: 1,772 patients and about 400 staff (NPS essay) vs \"over 4,000\" (Civil War News)",
+   "staff_printed": "About 400 volunteers; Letterman left about 100 surgeons; Cornelia Hancock arrived night of Jul 6; nurses Sophronia Bucklin, Euphemia Goldsboro, Ellen Harris, Eliza Farnham, Emily Souder; Christian Commission eight delegates, five tents, HQ in a newspaper office, arrived Jul 4-5",
+   "closing_or_move_printed": "Closed Nov 20; commissions' posts closed Nov 10; cemetery dedication Nov 19",
+   "source_keys": [
+    "CWMed-Letterman",
+    "ABT-Letterman",
+    "CWN-Letterman",
+    "NPS-Essay5",
+    "Wiki-Hancock",
+    "HN-Storm",
+    "ABT-USCC"
+   ],
+   "structure_ids": [],
+   "section": "B.8.5.2",
+   "weak_source": false,
+   "claim_support_verified": false,
+   "parse_status": "parsed",
+   "setup_window": {
+    "window": [
+     "1863-07-10T00:00",
+     "1863-07-10T23:59",
+     null
+    ],
+    "time_parse": "date",
+    "granularity": "date"
+   },
+   "closing_window": {
+    "window": [
+     "1863-11-20T00:00",
+     "1863-11-20T23:59",
+     null
+    ],
+    "time_parse": "date"
+   }
+  }
+ ],
+ "conflicts": [
+  {
+   "id": "HC-01",
+   "topic": "Camp Letterman opening",
+   "hospital": "H-23",
+   "alternatives": [
+    {
+     "value": "Jul 20",
+     "sources": [
+      "ABT-Letterman"
+     ],
+     "note": "American Battlefield Trust"
+    },
+    {
+     "value": "Jul 22",
+     "sources": [
+      "CWN-Letterman",
+      "Wikipedia (summary; key not given in B.8)"
+     ],
+     "note": "Civil War News, Wikipedia summary"
+    },
+    {
+     "value": "construction Jul 10 to Jul 22",
+     "sources": [
+      "CWMed-Letterman"
+     ],
+     "note": "National Museum of Civil War Medicine says construction ran from July 10 to July 22"
+    },
+    {
+     "value": "about 500 tents with patients moved in Jul 22-27",
+     "sources": [
+      "NPS-Essay5"
+     ],
+     "note": "NPS essay"
+    },
+    {
+     "value": "over 400 tents ten feet apart with 12 patients per tent",
+     "sources": [
+      "ABT-Letterman"
+     ],
+     "note": "the Trust"
+    }
+   ],
+   "pdf_defaults": [
+    {
+     "where": "B.2.5 C-044 (p.63)",
+     "printed_default": "Jul 20",
+     "alternatives_printed": "Jul 22",
+     "status": "PENDING OWNER"
+    },
+    {
+     "where": "B.2.3 conflict table, Camp Letterman row (p.55)",
+     "printed_default": "Open Jul 22 with Jul 20 flagged; close Nov 20",
+     "status": "PENDING OWNER"
+    },
+    {
+     "where": "B.8.7 S-077 (p.102)",
+     "printed_default": "none: \"opens July 20 or 22 (flag)\"",
+     "status": "PENDING OWNER"
+    }
+   ],
+   "chosen_default": null,
+   "note": "The PDF prints Jul 20 in C-044 and Jul 22 in the p.55 table: a contradiction between its own defaults (register EG-0008)."
+  },
+  {
+   "id": "HC-02",
+   "topic": "Camp Letterman deaths",
+   "hospital": "H-23",
+   "alternatives": [
+    {
+     "value": "over 1,200",
+     "sources": [
+      "ABT-Letterman"
+     ],
+     "note": "the Trust"
+    },
+    {
+     "value": "about 17 per day recalled in October",
+     "sources": [],
+     "note": "source key not printed"
+    }
+   ],
+   "pdf_defaults": [],
+   "chosen_default": null
+  },
+  {
+   "id": "HC-03",
+   "topic": "Camp Letterman patient count on Aug 10",
+   "hospital": "H-23",
+   "alternatives": [
+    {
+     "value": "1,772 patients and about 400 staff",
+     "sources": [
+      "NPS-Essay5"
+     ]
+    },
+    {
+     "value": "over 4,000",
+     "sources": [
+      "CWN-Letterman"
+     ]
+    }
+   ],
+   "pdf_defaults": [],
+   "chosen_default": null
+  },
+  {
+   "id": "HC-04",
+   "topic": "Camp Letterman closing",
+   "hospital": "H-23",
+   "alternatives": [
+    {
+     "value": "Nov 20",
+     "sources": [
+      "CWMed-Letterman",
+      "ABT-Letterman"
+     ],
+     "note": "keys as printed in the B.2.3 p.55 table: CWMED-CL, ABT-CL"
+    },
+    {
+     "value": "by January 1864",
+     "sources": [
+      "W-CL"
+     ],
+     "note": "key as printed in the B.2.3 p.55 table; Wikipedia Camp Letterman"
+    }
+   ],
+   "pdf_defaults": [
+    {
+     "where": "B.2.3 conflict table (p.55)",
+     "printed_default": "close Nov 20",
+     "status": "PENDING OWNER"
+    },
+    {
+     "where": "B.8.5.2 / S-077",
+     "printed_default": "Closed Nov 20",
+     "status": "PENDING OWNER"
+    }
+   ],
+   "chosen_default": null,
+   "note": "The \"by January 1864\" alternative is printed only outside B.8 (B.2.3 p.55 and the evidence-limits summary)."
+  },
+  {
+   "id": "HC-05",
+   "topic": "Spangler farm wounded count",
+   "hospital": "H-06",
+   "alternatives": [
+    {
+     "value": "1,000 (Brinton, at one point)"
+    },
+    {
+     "value": "about 1,500"
+    },
+    {
+     "value": "about 1,800 at one time over 37 days"
+    },
+    {
+     "value": "about 1,900 treated (50-100 Confederates)"
+    },
+    {
+     "value": "about 2,000 incl. 100-200 Confederates"
+    }
+   ],
+   "pdf_defaults": [
+    {
+     "where": "B.2.5 C-038 (p.62)",
+     "printed_default": "1,500",
+     "status": "PENDING OWNER"
+    },
+    {
+     "where": "B.8.5.2 hospital table",
+     "printed_default": "lead figure \"About 1,900 treated\"; no default stated",
+     "status": "PENDING OWNER"
+    }
+   ],
+   "chosen_default": null,
+   "note": "The table leads with about 1,900 while the register default is 1,500."
+  },
+  {
+   "id": "HC-06",
+   "topic": "Barksdale's death (Hummelbaugh)",
+   "hospital": "H-12",
+   "alternatives": [
+    {
+     "value": "Jul 2",
+     "sources": [
+      "SS-Hummelbaugh"
+     ]
+    },
+    {
+     "value": "Jul 3",
+     "sources": [
+      "others (keys not printed)"
+     ]
+    }
+   ],
+   "pdf_defaults": [
+    {
+     "where": "B.2.5 C-037 (p.62)",
+     "printed_default": "Jul 2 (wounded), death Jul 2-3 shown as a range",
+     "status": "PENDING OWNER"
+    }
+   ],
+   "chosen_default": null
+  },
+  {
+   "id": "HC-07",
+   "topic": "Casualty totals as hospital population",
+   "hospital": null,
+   "alternatives": [
+    {
+     "value": "14,193 Union wounded + 6,802 Confederate wounded taken = 20,995 total; over 650 medical officers (106 left behind, 544 with the army); 47 more reported the night of Jul 9",
+     "sources": [
+      "Letterman-Exc"
+     ]
+    },
+    {
+     "value": "about 14,501 Union and about 12,355 Confederate wounded",
+     "sources": [
+      "NPS-Essay5"
+     ]
+    },
+    {
+     "value": "1914 tablet: twenty thousand wounded of both armies",
+     "sources": [
+      "tablet (key not printed)"
+     ]
+    }
+   ],
+   "pdf_defaults": [
+    {
+     "where": "B.2.5 C-046/C-047",
+     "printed_default": "range shown",
+     "status": "PENDING OWNER"
+    }
+   ],
+   "chosen_default": null,
+   "note": "PDF: corps counts do not sum to 14,193 because many men were counted at several sites and in town (inferred)."
+  },
+  {
+   "id": "HC-08",
+   "topic": "Ambulances per infantry regiment",
+   "hospital": null,
+   "alternatives": [
+    {
+     "value": "two two-horse ambulances, one four-horse ambulance, one medical wagon",
+     "sources": [
+      "Wiki-Amb"
+     ]
+    },
+    {
+     "value": "one cart and two ambulances per regiment",
+     "sources": [
+      "HN-Letterman"
+     ]
+    }
+   ],
+   "pdf_defaults": [],
+   "chosen_default": null,
+   "note": "B.8.5.1 prints \"Unsettled\"."
+  }
+ ],
+ "conflicts_note": "Alternatives are carried as selectable values. No default is chosen here; each printed PDF default is logged as PENDING OWNER.",
+ "letterman_roles": [
+  {
+   "role": "Regimental aid / field dressing station",
+   "notes": "Just behind the line",
+   "tier": "documented",
+   "src": "NMCWM-Letterman"
+  },
+  {
+   "role": "Division / corps field hospital",
+   "notes": "Further back; major surgery. Staffed by one surgeon in charge plus two assistants (supplies, records); the three best operators, not the highest-ranking, did the cutting",
+   "tier": "documented",
+   "src": "NMCWM-Letterman"
+  },
+  {
+   "role": "General hospital",
+   "notes": "Cities; later Camp Letterman",
+   "tier": "documented",
+   "src": "NMCWM-Letterman"
+  },
+  {
+   "role": "Ambulance Corps",
+   "notes": "Created Aug 1862 under medical control. Command ladder: captain per corps, 1st lieutenant per division, 2nd lieutenant per brigade, sergeant per regiment. Each ambulance: a driver and two stretcher-bearers (three privates)",
+   "tier": "documented",
+   "src": "Wiki-Amb"
+  },
+  {
+   "role": "Ambulances per unit",
+   "notes": "Per infantry regiment two two-horse ambulances, one four-horse ambulance, one medical wagon (Wikipedia); another source: one cart and two ambulances per regiment. Unsettled; four-wheel spring ambulances had largely replaced two-wheel by 1862-63; each carries two stretchers",
+   "tier": "documented, with conflict",
+   "src": "Wiki-Amb; HN-Letterman"
+  },
+  {
+   "role": "Army of the Potomac ambulances",
+   "notes": "About 928 in the permanent corps (NPS essay)",
+   "tier": "documented",
+   "src": "NPS-Essay5"
+  },
+  {
+   "role": "Gettysburg reality",
+   "notes": "Hooker cut medical transport in June 1863 to about two wagons per brigade; on Jul 1-2 supply trains were sent about 25 miles to the rear; medicine wagons came with ambulances, tents did not reach the field until Jul 5; Brinton's supplies arrived the evening of Jul 4. Each corps left six ambulances and four wagons to carry wounded to the rail depot; the Cavalry Corps left four",
+   "tier": "documented",
+   "src": "Letterman-Exc"
+  },
+  {
+   "role": "Ambulance Corps losses",
+   "notes": "1 officer and 4 privates killed, 17 wounded; some wounded fetched after daylight from beyond the farthest pickets under fire. By early morning Jul 4 no wounded remained on the field within Union lines",
+   "tier": "documented",
+   "src": "Letterman-Exc"
+  },
+  {
+   "role": "Confederate side",
+   "notes": "Lafayette Guild, Lee's medical director. Ambulance trains left Jul 4 by two routes (Cashtown and Fairfield) with \"broken-down\" cavalry escort; the Fairfield column was hit by Union cavalry; wounded were concentrated at Williamsport and crossed the Potomac by raft and ferry. Guild says every available means of transport was used and describes no ambulance shortage",
+   "tier": "documented",
+   "src": "Guild-OR; Wiki-Guild"
+  },
+  {
+   "role": "Confederate evacuation animation",
+   "notes": "The \"shortage of ambulances\" claim is widely repeated but is not in Guild's report. Animate improvised wagons (requisitioned local and captured vehicles), flagged unverified",
+   "tier": "inferred",
+   "src": "notes inference"
+  },
+  {
+   "role": "Stretcher-bearer methods, bandsmen, blankets as litters, wheelbarrows, hospital stewards, 1863 training",
+   "notes": "No source retrieved",
+   "tier": "open gap",
+   "src": "n/a"
+  }
+ ],
+ "casualty_behaviours": [
+  {
+   "behaviour": "Wounded walk or are helped to regimental aid station behind the line",
+   "actors": "Walking wounded, comrades",
+   "window": "Continuous during each engagement",
+   "tier": "inferred",
+   "basis": "Three-tier system; no source details walk-off"
+  },
+  {
+   "behaviour": "Stretcher-bearers carry wounded to ambulance; two bearers and a driver per ambulance; two stretchers per ambulance",
+   "actors": "Ambulance Corps privates and drivers",
+   "window": "From first casualties Jul 1; peak Jul 2 afternoon-night and Jul 3 afternoon",
+   "tier": "documented",
+   "basis": "Wiki-Amb; NPS-Field"
+  },
+  {
+   "behaviour": "Ambulance haul along Taneytown Road / Baltimore Pike corridor to division and corps hospitals",
+   "actors": "Ambulance Corps",
+   "window": "Jul 2-4",
+   "tier": "inferred",
+   "basis": "Hospital geography; the shortage was in rail and supply wagons more than line ambulances"
+  },
+  {
+   "behaviour": "Hospital hand-offs: Weikert to Rock Creek / White Run; III and V Corps shift overnight; Granite Schoolhouse moved Jul 3",
+   "actors": "Hospital staff",
+   "window": "Night Jul 2-3; midday Jul 3",
+   "tier": "documented",
+   "basis": "HMDB; HN-Spangler"
+  },
+  {
+   "behaviour": "Ambulance trains to rail depot; about 2,000 waiting at the tracks Jul 8; 11,425 evacuated Jul 22",
+   "actors": "Ambulance Corps; medical staff",
+   "window": "From Jul 4; Jul 8; Jul 22",
+   "tier": "documented",
+   "basis": "NPS-Essay5"
+  },
+  {
+   "behaviour": "Wounded fetched after daylight from beyond the pickets under fire; Ambulance Corps takes casualties",
+   "actors": "Ambulance Corps",
+   "window": "Jul 4-5",
+   "tier": "documented",
+   "basis": "Letterman-Exc"
+  },
+  {
+   "behaviour": "Confederate wounded loaded into improvised wagons and ambulances; trains leave by Cashtown and Fairfield roads",
+   "actors": "Confederate train and escort",
+   "window": "Jul 4",
+   "tier": "documented (trains), inferred (wagon types)",
+   "basis": "Guild-OR"
+  },
+  {
+   "behaviour": "Burial details bury dead; horse carcasses burned with kerosene",
+   "actors": "Details",
+   "window": "From Jul 4 on",
+   "tier": "documented (burning, 3,000-5,000 horses and mules); open gap (details)",
+   "basis": "HN-Storm"
+  }
+ ],
+ "camp_letterman_features_printed": "Camp features: dead house, embalming tent, cookhouse, warehouse tent, cemetery of about 1,200 graves, amputated limbs buried in barrels and later sent to the Army Medical Museum.",
+ "night_operations_B853": "Surgeons operated in the open on tables near the field, sometimes under tarpaulins, \"day and night\" until July 6 (July 7 for II Corps) (NPS-Essay5; Letterman-Exc). Spangler: four operating tables worked night and day under the barn forebay, lanterns burning (HN-Spangler; ReconEra; GExp). Weikert: amputated limbs piled outside a window; hospital moved east early July 3 (HN-Weikert). XII Corps: wounded removed, sheltered, fed and dressed within six hours; capital operations within 24 hours (Letterman-Exc). Rain: cold, constant rain July 4 (HN-Spangler). Plum Run overflowed and drowned some wounded in low ground (AMS).",
+ "horses": {
+  "rows": [
+   {
+    "place": "Trostle farm",
+    "count": "16+ dead in the yard; 100+ on the farm",
+    "src": "SS-Trostle",
+    "structs": [
+     "bld-trostle-farm"
+    ],
+    "tier_note": "B.8.6 prints no tier column",
+    "source_keys": [
+     "SS-Trostle"
+    ]
+   },
+   {
+    "place": "Leister farm",
+    "count": "17 dead in the yard (Jul 3 bombardment)",
+    "src": "SS-Leister",
+    "structs": [
+     "bld-leister-house"
+    ],
+    "tier_note": "B.8.6 prints no tier column",
+    "source_keys": [
+     "SS-Leister"
+    ]
+   },
+   {
+    "place": "Sherfy farm",
+    "count": "48 dead horses",
+    "src": "SS-Sherfy",
+    "structs": [
+     "bld-sherfy-farm"
+    ],
+    "tier_note": "B.8.6 prints no tier column",
+    "source_keys": [
+     "SS-Sherfy"
+    ]
+   },
+   {
+    "place": "Rummel farm",
+    "count": "30+ dead",
+    "src": "SS-Rummel",
+    "structs": [
+     "bld-rummel-farm"
+    ],
+    "tier_note": "B.8.6 prints no tier column",
+    "source_keys": [
+     "SS-Rummel"
+    ]
+   },
+   {
+    "place": "Seeley's battery",
+    "count": "28 horses lost",
+    "src": "buildings note (secondary)",
+    "structs": [],
+    "tier_note": "B.8.6 prints no tier column",
+    "source_keys": [
+     "buildings note (secondary)"
+    ]
+   },
+   {
+    "place": "Calef",
+    "count": "13 horses killed",
+    "src": "SS-7820 note",
+    "structs": [
+     "G-01"
+    ],
+    "tier_note": "B.8.6 prints no tier column",
+    "source_keys": [
+     "SS-7820 note"
+    ]
+   },
+   {
+    "place": "Bigelow, 9th Mass.",
+    "count": "65 horses lost (narrative) vs 80 of 88 (Civil War News)",
+    "src": "conflict, CWE-9Mass; CWN-2025",
+    "structs": [
+     "G-10"
+    ],
+    "conflict": true,
+    "tier_note": "B.8.6 prints no tier column",
+    "source_keys": [
+     "conflict, CWE-9Mass",
+     "CWN-2025"
+    ]
+   },
+   {
+    "place": "Hart, 15th NY",
+    "count": "25 killed or wounded",
+    "src": "Wiki-15NY",
+    "structs": [
+     "G-07"
+    ],
+    "note": "the cell does not say horses vs men",
+    "tier_note": "B.8.6 prints no tier column",
+    "source_keys": [
+     "Wiki-15NY"
+    ]
+   },
+   {
+    "place": "Smith, 4th NY",
+    "count": "11 killed",
+    "src": "SS-NY1958",
+    "structs": [
+     "G-05"
+    ],
+    "note": "the cell does not say horses vs men",
+    "tier_note": "B.8.6 prints no tier column",
+    "source_keys": [
+     "SS-NY1958"
+    ]
+   },
+   {
+    "place": "Brown, 1st RI B",
+    "count": "24 killed, 6 disabled",
+    "src": "Iron-9699",
+    "structs": [],
+    "tier_note": "B.8.6 prints no tier column",
+    "source_keys": [
+     "Iron-9699"
+    ]
+   },
+   {
+    "place": "Rorty, 1st NY B",
+    "count": "13 disabled",
+    "src": "Iron-9699",
+    "structs": [],
+    "tier_note": "B.8.6 prints no tier column",
+    "source_keys": [
+     "Iron-9699"
+    ]
+   },
+   {
+    "place": "Wheeler, 13th NY",
+    "count": "12 killed",
+    "src": "13NY",
+    "structs": [],
+    "tier_note": "B.8.6 prints no tier column",
+    "source_keys": [
+     "13NY"
+    ]
+   },
+   {
+    "place": "Alexander's battalion",
+    "count": "116 horses lost",
+    "src": "Alexander-OR",
+    "structs": [
+     "G-08"
+    ],
+    "tier_note": "B.8.6 prints no tier column",
+    "source_keys": [
+     "Alexander-OR"
+    ]
+   },
+   {
+    "place": "Cabell's battalion",
+    "count": "67 killed, 13 disabled",
+    "src": "Cabell-OR",
+    "structs": [
+     "G-09"
+    ],
+    "tier_note": "B.8.6 prints no tier column",
+    "source_keys": [
+     "Cabell-OR"
+    ]
+   },
+   {
+    "place": "Carter: Page's battery",
+    "count": "17 horses",
+    "src": "Carter-OR",
+    "structs": [
+     "G-15"
+    ],
+    "tier_note": "B.8.6 prints no tier column",
+    "source_keys": [
+     "Carter-OR"
+    ]
+   },
+   {
+    "place": "Cushing",
+    "count": "all but three horses disabled",
+    "src": "SS-7888",
+    "structs": [
+     "G-12"
+    ],
+    "tier_note": "B.8.6 prints no tier column",
+    "source_keys": [
+     "SS-7888"
+    ]
+   },
+   {
+    "place": "Overall",
+    "count": "3,000-5,000 horses and mules killed (Wikipedia, HistoryNet); \"3,000+ carcasses burned\" (Wikipedia). This is an estimate, not a count. Burned with kerosene where possible",
+    "src": "Wiki-Battle; HN-Storm",
+    "structs": [],
+    "estimate": true,
+    "tier_note": "B.8.6 prints no tier column",
+    "source_keys": [
+     "Wiki-Battle",
+     "HN-Storm"
+    ]
+   }
+  ],
+  "engine_rule": "Engine use: place horse carcasses at the documented farms and battery positions at the documented times (B.8.7); distribute the remainder to reach the flagged overall estimate as plausible-procedural.",
+  "overall_is_estimate_not_count": true
+ }
+}
