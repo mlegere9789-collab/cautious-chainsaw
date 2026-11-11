@@ -1,0 +1,325 @@
+{
+ "version": 1,
+ "_doc": "Construction states of the field works for app/src/structures/works3d.mjs. The TIMES come only from the state engine (src/structures/state.mjs: the port of tools/bt/check_structures.py state_at over structures/works_stages.json and structures/state_schedule.json, gate Q08); this file adds no time except the two labelled conventions below. The FOOTPRINTS are plausible-procedural: no work of the record has a mapped line in the repository (only a named place with its sigma), so each is drawn as a contour-following line of the printed or assumed length anchored at the gazetteer place, marked plausible-procedural and shown with the place's sigma. The PROFILES are drawn only from the sourced description (PDF B.7.4: log close-fence with stone and earth, about 5 ft high, Culp's Hill: tier inferred) or from labelled assumptions (plausible-procedural); nothing is taken from the modern lidar surface of Culp's Hill or Little Round Top or from the rebuilt walls (PDF B.7.6, works_stages.json modern_profile_rule). No source was opened by this workstream.",
+ "status": "seeded_unverified",
+ "params": {
+  "segment_run_m": 40,
+  "segment_run_basis": "PDF B.7.4: 'each segment (roughly one regiment front or a fixed run of yards)'; 40 m is a fixed run chosen here (tuning value, plausible-procedural)",
+  "front_m": 80,
+  "front_basis": "plausible-procedural: the length of one regiment's front in the line of works (no figure is printed; a regiment of 400 in two ranks covers about 100 m)",
+  "offset_max_frac": 0.5,
+  "offset_basis": "PDF B.7.4 assumption 2: each segment starts within a seeded offset of the work's start so the line does not rise in lockstep; the offset is at most half the window and every segment still ends at the work's finish (so none starts before the documented start)",
+  "stage_height_frac": {
+   "0": 0,
+   "1": 0.03,
+   "2": 0.18,
+   "3": 0.55,
+   "4": 0.85,
+   "5": 1.0,
+   "6": 0.8,
+   "unresolved_in_progress": 0.45
+  },
+  "stage_height_basis": "PDF B.7.4 stage table: 1 layout (marks only), 2 felling and gathering (stones, logs and cordwood moved), 3 stacking (log fence, earth thrown behind), 4 head logs laid, 5 completed full height, 6 damaged (splintered head logs, scattered stone); the fractions of the full height are plausible-procedural (the PDF prints no per-stage height)",
+  "unresolved_basis": "A window with no clock (a date only, or only a bound on the start) cannot place a segment inside the build: it is shown half-built for the whole printed window and marked uncertain, as the buildings with a date-only change are (DEC-016 (2)); the end of the window is the only instant the engine reports as complete",
+  "thickness_base_m": 1.8,
+  "thickness_top_m": 0.9,
+  "thickness_basis": "plausible-procedural (PDF B.7.4 labelled assumption 3: 'the notes give no thickness'); NOT measured from the modern works",
+  "crew_per_segment": 6,
+  "crew_basis": "plausible-procedural: the stand-in crew of a 40 m run; the documented figure is the 12 tools of the 6th Wisconsin (B.7.4), used as the cap for E-02",
+  "crew_cap": {
+   "E-02": 12
+  },
+  "stand_in_label": "stand-in crew (builder unknown or not on the field in this layer): plausible-procedural",
+  "contour_step_m": 8,
+  "contour_basis": "plausible-procedural: a breastwork on a slope follows the contour; the line is traced from the place along the horizontal of the (modern) ground and carries the place's sigma",
+  "conventions": {
+   "afternoon": {
+    "clock": "12:00",
+    "basis": "'afternoon' begins at noon (the meaning of the word); applied only where the record prints the part of day and no earliest clock"
+   },
+   "evening": {
+    "clock": "19:32",
+    "basis": "the labelled convention of src/history/placement.mjs PERIODS (evening = dusk = 19:32), owner may replace"
+   }
+  }
+ },
+ "works": {
+  "E-01": {
+   "draw": true,
+   "kind": "rail barricade",
+   "place": "Schmucker Hall",
+   "length_m": 548.64,
+   "length_tier": "inferred",
+   "length_basis": "PDF B.7.2 E-01: about 600 yd long (Wikipedia first day: weak, so inferred)",
+   "height_m": 1.2,
+   "height_tier": "plausible-procedural",
+   "height_basis": "PDF B.7.4 assumption 4: height and rail layout are assumptions; 1.2 m (4 ft) is a stand-in for stacked fence rails",
+   "profile_tier": "plausible-procedural",
+   "material": "rail",
+   "builders": [],
+   "builder_text": "I Corps remnants under Wainwright's artillery; no crew list printed",
+   "convention": {
+    "pod": "afternoon"
+   }
+  },
+  "E-02": {
+   "draw": true,
+   "kind": "earthwork",
+   "place": "Culp's Hill",
+   "uphill_m": 0,
+   "along_m": -120,
+   "length_m": 80,
+   "length_tier": "plausible-procedural",
+   "length_basis": "one regiment front (6th Wisconsin): the rest of Wadsworth's division is named without a front",
+   "height_m": 1.524,
+   "height_tier": "inferred",
+   "height_basis": "PDF B.7.4 stage 5: about 5 ft (Culp's Hill), the only height figure found; the profile (log close-fence with stone and earth) is the sourced description",
+   "profile_tier": "inferred",
+   "material": "log_stone_earth",
+   "builders": [
+    "us-1c-1d-meredith-6wi"
+   ],
+   "builder_text": "6th Wisconsin (Dawes), then the rest of Wadsworth's division"
+  },
+  "E-03": {
+   "draw": true,
+   "kind": "breastwork",
+   "place": "Culp's Hill",
+   "uphill_m": -90,
+   "along_m": 0,
+   "length_m": 80,
+   "length_tier": "plausible-procedural",
+   "length_basis": "one regiment front (123rd NY); the location text says lower hill: placed downhill of the upper works (the distance is a procedural stand-in)",
+   "height_m": 1.524,
+   "height_tier": "inferred",
+   "height_basis": "PDF B.7.4 Culp's Hill group, about 5 ft",
+   "profile_tier": "inferred",
+   "material": "log_stone_earth",
+   "builders": [
+    "us-12c-1d-mcdougall-123ny"
+   ],
+   "builder_text": "123rd NY (1st Division, XII Corps)",
+   "scenarios": {
+    "or_morning_jul2": {
+     "begin_earliest": "1863-07-02T00:00",
+     "begin_latest": "1863-07-02T23:59",
+     "begin_gran": "date",
+     "label": "the 123rd NY's own report puts the breastwork on the morning of 2 July, not 1 July (shard fence-1, E-03 / S-015); the window is the date only"
+    }
+   }
+  },
+  "E-04": {
+   "draw": true,
+   "kind": "fortification_undetailed",
+   "place": "Cemetery Hill",
+   "uphill_m": 0,
+   "along_m": 0,
+   "length_m": 80,
+   "length_tier": "plausible-procedural",
+   "length_basis": "the record calls it 'fortification (vague)': one front as a stand-in",
+   "height_m": 1.2,
+   "height_tier": "plausible-procedural",
+   "height_basis": "no height in the record",
+   "profile_tier": "plausible-procedural",
+   "material": "earth",
+   "builders": [],
+   "builder_text": "Von Steinwehr's division and two batteries; Howard left infantry and artillery",
+   "convention": {
+    "pod": "afternoon"
+   }
+  },
+  "E-05": {
+   "draw": true,
+   "kind": "breastwork",
+   "place": "Culp's Hill",
+   "uphill_m": 40,
+   "along_m": 0,
+   "length_m": 274.32,
+   "length_tier": "inferred",
+   "length_basis": "PDF B.7.2/B.7.4: about 300 yd at first (GD-219), single thin line of about 800 yd after 18:30 (E-09); weak keys, so inferred",
+   "height_m": 1.524,
+   "height_tier": "inferred",
+   "height_basis": "PDF B.7.4 stage 5: about 5 ft; log close-fence with stone and earth",
+   "profile_tier": "inferred",
+   "material": "log_stone_earth",
+   "builders": [
+    "us-12c-2d-greene-60ny",
+    "us-12c-2d-greene-78ny",
+    "us-12c-2d-greene-102ny",
+    "us-12c-2d-greene-137ny",
+    "us-12c-2d-greene-149ny"
+   ],
+   "builder_text": "Greene's 3rd Brigade, XII Corps",
+   "damage": {
+    "rows": [
+     "S-050"
+    ],
+    "begin": "1863-07-03T04:00",
+    "finish_latest": "1863-07-03T07:00",
+    "basis": "state_schedule S-050 and works_stages E-05 damage_stage (derived window, inferred)"
+   }
+  },
+  "E-06": {
+   "draw": true,
+   "kind": "traverse",
+   "place": "Baltimore Pike",
+   "uphill_m": 0,
+   "along_m": 0,
+   "length_m": 40,
+   "length_tier": "plausible-procedural",
+   "length_basis": "one run: a traverse is short (no length printed)",
+   "height_m": 1.2,
+   "height_tier": "plausible-procedural",
+   "height_basis": "no height in the record",
+   "profile_tier": "plausible-procedural",
+   "material": "earth",
+   "builders": [
+    "us-12c-2d-greene-137ny"
+   ],
+   "builder_text": "Greene (supervised personally); 137th NY traversing trench"
+  },
+  "E-07": {
+   "draw": true,
+   "kind": "breastwork",
+   "place": "Culp's Hill",
+   "before": "E-05",
+   "length_m": 240,
+   "length_tier": "plausible-procedural",
+   "length_basis": "three regiment fronts (Kane's 29th, 109th, 111th PA) of 80 m: assumption",
+   "height_m": 1.524,
+   "height_tier": "inferred",
+   "height_basis": "PDF B.7.4 Culp's Hill group, about 5 ft",
+   "profile_tier": "inferred",
+   "material": "log_stone_earth",
+   "builders": [
+    "us-12c-2d-kane-29pa",
+    "us-12c-2d-kane-109pa",
+    "us-12c-2d-kane-111pa"
+   ],
+   "builder_text": "Kane's 2nd Brigade (Greene's right) and Wadsworth's I Corps men (Greene's left)"
+  },
+  "E-08": {
+   "draw": true,
+   "kind": "breastwork",
+   "place": "Culp's Hill",
+   "uphill_m": -90,
+   "along_m": 160,
+   "length_m": 240,
+   "length_tier": "plausible-procedural",
+   "length_basis": "three regiment fronts of 80 m: assumption (Lockwood's position unconfirmed)",
+   "height_m": 1.524,
+   "height_tier": "inferred",
+   "height_basis": "PDF B.7.4 Culp's Hill group, about 5 ft",
+   "profile_tier": "inferred",
+   "material": "log_stone_earth",
+   "builders": [],
+   "builder_prefixes": [
+    "us-12c-1d-"
+   ],
+   "builder_text": "Williams's division, XII Corps (including Lockwood's brigade, position unconfirmed)"
+  },
+  "E-09": {
+   "draw": true,
+   "kind": "line_extension",
+   "place": "Culp's Hill",
+   "after": "E-05",
+   "length_m": 457.2,
+   "length_tier": "inferred",
+   "length_basis": "800 yd total (PDF S-041, GD-219) minus the first 300 yd = 500 yd: arithmetic on weak keys, so inferred",
+   "height_m": 1.524,
+   "height_tier": "inferred",
+   "height_basis": "PDF B.7.4 Culp's Hill group; 'single thin line': thinner than the first 300 yd, drawn at the same height",
+   "profile_tier": "inferred",
+   "material": "log_stone_earth",
+   "builders": [
+    "us-12c-2d-greene-60ny",
+    "us-12c-2d-greene-78ny",
+    "us-12c-2d-greene-102ny",
+    "us-12c-2d-greene-137ny",
+    "us-12c-2d-greene-149ny"
+   ],
+   "builder_text": "Greene's brigade alone (plus about 750 reinforcements from I and XI Corps later)",
+   "damage": {
+    "rows": [
+     "S-050"
+    ],
+    "begin": "1863-07-03T04:00",
+    "finish_latest": "1863-07-03T07:00",
+    "basis": "state_schedule S-050 object list names E-09 (damaged by shelling); window as E-05"
+   }
+  },
+  "E-12": {
+   "draw": true,
+   "kind": "lunette",
+   "place": "East Cemetery Hill",
+   "uphill_m": 0,
+   "along_m": 0,
+   "length_m": 120,
+   "length_tier": "plausible-procedural",
+   "length_basis": "four lunettes of 30 m (one for each battery the record names: Wiedrich, Ricketts, Stewart, Battery L 1st NY): assumption; the lunette plan is not in the repository, so each is a straight run",
+   "height_m": 1.0,
+   "height_tier": "plausible-procedural",
+   "height_basis": "no height in the record; the OR describes 'a small earthwork thrown up in its front' for each gun (shard terrain-1, G-03)",
+   "profile_tier": "plausible-procedural",
+   "material": "earth",
+   "builders": [],
+   "builder_text": "Union batteries; builders unnamed (inference); labelled stand-in crew, builder unknown (PDF B.7.1)",
+   "alias": [
+    "G-03"
+   ],
+   "convention": {
+    "pod": "evening"
+   },
+   "scenarios": {
+    "or_small_earthworks_jul1_evening": {
+     "begin_earliest": "1863-07-01T00:00",
+     "begin_latest": "1863-07-01T23:59",
+     "begin_gran": "date",
+     "finish_earliest": "1863-07-01T00:00",
+     "finish_latest": "1863-07-01T23:59",
+     "label": "the Official Records put a small earthwork in front of each gun at dusk on 1 July, not lunettes by 16:00 on 2 July (shards fence-1 EG-06 and terrain-1 EG-03); the window is the date only, no clock is invented"
+    }
+   }
+  },
+  "E-14": {
+   "draw": true,
+   "kind": "stone_breastwork",
+   "place": "Little Round Top",
+   "uphill_m": 0,
+   "along_m": 0,
+   "length_m": 240,
+   "length_tier": "plausible-procedural",
+   "length_basis": "three regiment fronts of 80 m: assumption; NOT the rebuilt Little Round Top works",
+   "height_m": 1.0,
+   "height_tier": "plausible-procedural",
+   "height_basis": "no height in the record; a stand-in low stone breastwork; NOT derived from the modern rehabilitation reconstruction (B.7.6)",
+   "profile_tier": "plausible-procedural",
+   "material": "stone",
+   "builders": [],
+   "builder_prefixes": [
+    "us-5c-3d-"
+   ],
+   "builder_text": "Weed's brigade, five Pennsylvania Reserve regiments, an Ohio battery (the OR names Fisher's brigade on the morning of 3 July: conflict carried, register fence-1/terrain-2)"
+  }
+ },
+ "not_drawn": {
+  "E-10": "occupation of the empty lower-hill works by Steuart, not a construction (state_schedule S-042); the works are those of E-03/E-08 and stay as they are",
+  "E-11": "the shelling damage of Culp's Hill (stage 6): applied to E-05 and E-09 through their damage windows, not a work of its own",
+  "E-13": "no construction attributed (natural ledges and boulders)",
+  "E-15": "improvised hand-hauled gun position (S-038): unlimbered guns on natural ground, no earth",
+  "E-16": "no works at Devil's Den (Ward lacked time or inclination)",
+  "E-17": "open gap in the PDF: the OR documents rail breastworks on Cemetery Ridge (shard fence-1, EG-08) but gives no dimensions, continuity or start times; nothing is drawn, and rail piles are not animated as documented",
+  "E-18": "open gap: no Confederate works found for 2-3 July",
+  "G-03": "drawn as E-12 (the same prepared lunettes, row S-026)",
+  "G-12": "prepared in line (Cushing's battery): the PDF rule says built on screen, but no schedule row or work record prints a window for it and no OR report mentions an earthwork (shard terrain-1, EG-12): not drawn, open gap, never pre-placed",
+  "G-11": "improvised (McGilvery's line); the OR mentions a slight earthwork (shard terrain-1, EG-11): carried in the register, not drawn",
+  "G-18": "the seed says no works; the OR documents earthworks at Stevens' battery (shard terrain-2, EG-11 / G-18): carried in the register, not drawn"
+ },
+ "gun_emplacement_rule": {
+  "improvised": "improvised position: no earth is built (PDF B.7.5 engine rules and works_stages gun_emplacement_engine_rules): guns unlimbered on natural ground",
+  "no_works_described": "no works described: open-ground battery position, logged as a gap (never a pre-placed pit)",
+  "not_described": "no works described: open-ground battery position, logged as a gap",
+  "open_positions": "positions not given: nothing drawn, logged as a gap",
+  "mixed": "mixed (Hunt's ridge line): the record gives no work; nothing drawn"
+ }
+}

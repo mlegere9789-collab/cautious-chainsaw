@@ -204,6 +204,19 @@ def main():
             r['status_effective'] = 'verified_against_or_text'; n_ok += 1
         else:
             r['status_effective'] = r['status']
+    # OR-RECHECK-2: claim-level check (supports exactly the claim?) for rows that had no quote to match
+    cc = {}
+    for d in glob.glob(os.path.join(H, 'OR-RECHECK-2', '*', 'results.jsonl')):
+        for r in load_jsonl(d)[0]:
+            cc[r['id']] = r
+    n_cc = collections.Counter()
+    for r in tl_out:
+        c = cc.get(r['id'])
+        r['or_claim_check'] = None if not c else {'verdict': c.get('verdict'), 'report_id': c.get('report_id'), 'printed_page': c.get('printed_page'), 'tier_suggestion': c.get('tier_suggestion'), 'note': (c.get('note') or '')[:300]}
+        if c:
+            n_cc[c.get('verdict')] += 1
+            if r['status'] == 'verified' and r.get('or_recheck') is None:
+                r['status_effective'] = {'supported': 'verified_against_or_text', 'supported_partial': 'partially_verified'}.get(c.get('verdict'), 'claim_unsupported_by_or_text')
     # register copy
     reg_copied = 0
     if not a.dry:
@@ -243,6 +256,7 @@ def main():
             f.write(f'- sub-requirements with an evidence link: {len(out_links)} of {len(subs)} (links are not passes)\n')
             f.write(f'- proposed register entries copied to register/proposed/: {reg_copied}\n')
             f.write(f'- OR text recheck: {n_ok} verified rows confirmed against the OR text, {n_fail} rows whose checkable quotes were all not found (status_effective=recheck_failed), {n_none} rows with no recheck data\n')
+            f.write(f'- OR claim check (rows without a quote): {dict(n_cc)}\n')
             f.write(f'- rows flagged (documented/verified claimed without citation+passage): {len(flagged_rows)}\n\n')
             f.write('## Timeline tier/status counts (normalized)\n\n')
             for (t, s), n in sorted(stat.items()):
