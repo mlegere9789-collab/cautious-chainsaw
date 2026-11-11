@@ -1,5 +1,5 @@
 // CAVALRY HORSES AND DISMOUNTED CAVALRY (workstream ws10: riders, horses, horse casualties, led horses, horse-holders).
-// Pure functions and constants, no I/O, no Math.random: every choice is a hash of (seed, unit, figure), so the same time gives the same pixels (scrub purity, Q12).
+// Pure functions and constants, no I/O, no random-number call: every choice is a hash of (seed, unit, figure), so the same time gives the same pixels (scrub purity, Q12).
 //
 // What the record holds and what it does not (Law cl.3, cl.4, cl.7; every number below carries its tier and its basis):
 //  * HORSES PER MAN. No regimental mounted strength is in the repository. Three observations of the kit data (kit/cavalry_units.json `horses`, `strengths`) bound the share of men who had a serviceable horse:
@@ -97,7 +97,7 @@ export function mountRoles(unitId, n, share, seed = 1863) {
   return roles;
 }
 
-// ---- gaps registered by this module (proposed-register entries are written by tools/build-cavalry-horses.mjs)
+// ---- gaps registered by this module (the proposed register entries come from the cavalry horse builder)
 export const GAPS = [
   { id: 'EG-CAV-01', title: 'Mounted strength of every cavalry regiment (horses per man)', tier: 'plausible-procedural', text: 'No regimental present-for-duty or mounted strength is in the record (Busey and Martin print-only; kit strengths_note). Three weak observations bound the share of men with a serviceable horse from 0.47 to 0.77; the range card shows that share up to one horse per man and the picture draws one horse per drawn trooper.' },
   { id: 'EG-CAV-02', title: 'Horse casualties of cavalry', tier: 'plausible-procedural', text: 'One regimental horse figure is printed in the ledgers (6th US, 292 horses with 290 men, OCR digits). Horses killed under unhurt riders, horses lost with missing men, wounded horses led off and horse losses of the other regiments are not in the record and are not drawn; the time of each loss is the time of the rider\'s fall.' },
@@ -105,6 +105,28 @@ export const GAPS = [
   { id: 'EG-CAV-04', title: 'Dismounted shares: squadron arithmetic and unstated fractions', tier: 'plausible-procedural', text: 'Where the report names squadrons the share rests on two companies to the squadron (not printed in any acquired text) and the kit\'s company count; where it names companies without a total (1st Vermont), a number of squadrons without a company count (6th Michigan) or says only "the rest" (9th New York) no fraction exists and the unit is drawn mounted with this gap listed. The hours of a fight are the engagement windows of the timeline rows (seeded_unverified).' },
   { id: 'EG-CAV-05', title: 'Spare, remount, pack and officers\' horses of cavalry', tier: 'open gap', text: 'No acquired source gives spare or led horses of a cavalry regiment beyond the horses of the dismounted men (the artillery case, ws6-EG-05, rests on one forum quote). Remounts (about 17,000 to the Cavalry Corps May-July 1863, HistoryNet) are an aggregate, not a unit figure. No spare horse is drawn.' },
   { id: 'EG-CAV-06', title: 'The mounted charge: path and full-speed pace', tier: 'plausible-procedural', text: 'The charge clauses of the layer (AC-12, the Jul 3 15:00 attack of the 3rd Division) carry no path, so a charging unit has no ground speed and stands. The manual\'s schedule (Wheeler paras 292, 410-411: walk 20, trot 60, gallop 80, charge 60 paces) is data in gaits.mjs; the speed of the last pace ("nearly full speed", para 189) has no printed number. A unit whose path runs faster than the Wheeler gallop plays the gallop clip.' },
-  { id: 'EG-CAV-07', title: 'Cavalry that the layer does not draw', tier: 'open gap', text: 'Of the 72 cavalry units of the order of battle, the real layer draws the 5 regiments of the Reserve Brigade, the 5 of McIntosh, the 4 of J. I. Gregg\'s, 6 of Hampton\'s and the 35th Virginia Battalion; Gamble\'s and Devin\'s regiments, Custer\'s Michigan Brigade, Farnsworth\'s brigade and the rest of Stuart\'s command have no road of approach or place in the ledgers and are drawn with 0 figures. This is the history layer\'s open gap, not narrowed here.' },
+  { id: 'EG-CAV-07', title: 'Cavalry that the layer does not draw', tier: 'open gap', text: 'Of the 55 cavalry regiments and battalions of the order of battle, the real layer draws 21:  the 5 regiments of the Reserve Brigade, the 5 of McIntosh, the 4 of J. I. Gregg\'s, 6 of Hampton\'s and the 35th Virginia Battalion; Gamble\'s and Devin\'s regiments, Custer\'s Michigan Brigade, Farnsworth\'s brigade and the rest of Stuart\'s command have no road of approach or place in the ledgers and are drawn with 0 figures. This is the history layer\'s open gap, not narrowed here.' },
   { id: 'EG-CAV-08', title: 'Draught-horse losses of the batteries: times', tier: 'plausible-procedural', text: 'Counts are printed for six batteries (kit losses: 15th NY 25 killed or wounded, 1st NY B 13 disabled, 1st RI B 24 killed and 6 disabled, 4th NY 11, 13th NY 12, 2nd US A 13); no time is printed. Each loss is placed by the counter-based RNG inside the battery\'s engagement windows. 2nd US A (Calef, horse artillery) is not a drawn leaf unit of the layer.' },
 ];
+
+// ---- horse artillery and field artillery: draught horses lost (kit/artillery_batteries.json `losses`, the batteries the kit gives a structured horse figure for; join to the layer by app/data/kit-crosswalk.json how 'name').
+// The counts are printed without a time: each fall is placed by the counter-based RNG inside the battery's engagement windows (EG-CAV-08, ws6-EG-05). `down` = killed + disabled (a disabled horse is out of the team).
+export const BATTERY_HORSE_LOSSES = {
+  'us-2c-art-1rib': { kit: 'US.ART.1st_RI_B', killed: 24, disabled: 6, down: 30, source_keys: ['IronBrigader-Hazard'], tier: 'inferred', weak_source: true },
+  'us-2c-art-1nyb': { kit: 'US.ART.1st_NY_B', killed: null, disabled: 13, down: 13, source_keys: [], tier: 'inferred', weak_source: true, note: 'the kit lists 13 horses disabled; no source key on the loss row' },
+  'us-3c-art-4ny': { kit: 'US.ART.4th_NY', killed: 11, disabled: null, down: 11, source_keys: [], tier: 'inferred', weak_source: true },
+  'us-11c-art-13ny': { kit: 'US.ART.13th_NY', killed: 12, disabled: null, down: 12, source_keys: [], tier: 'inferred', weak_source: true },
+  'us-art-reserve-mcgilvery-15ny': { kit: 'US.ART.15th_New_York', killed_or_wounded: 25, down: 25, source_keys: ['Wiki-15NYBty'], tier: 'inferred', weak_source: true },
+};
+// serials: the draught horses of the battery in the draw list (any order). Returns Map(serial -> fall time in seconds) for exactly min(down, serials.length) horses (rank by hash of (seed, unit, serial)); the time is drawn
+// from the windows [[from_s, to_s]] (weighted by length, the counter-based RNG); no window, no fall.
+export function batteryHorseFalls(unitId, serials, windows, seed = 1863) {
+  const L = BATTERY_HORSE_LOSSES[unitId], out = new Map(); if (!L || !windows || !windows.length || !serials.length) return out;
+  const u = strId(unitId) >>> 0, order = serials.slice().sort((a, b) => (hash4(seed >>> 0, u, a >>> 0, 33) - hash4(seed >>> 0, u, b >>> 0, 33)) || a - b), total = windows.reduce((s, w) => s + (w[1] - w[0]), 0);
+  for (let i = 0; i < Math.min(L.down, order.length); i++) {
+    let x = hash4(seed >>> 0, u, order[i] >>> 0, 34) / U * total, t = windows[windows.length - 1][1];
+    for (const w of windows) { const l = w[1] - w[0]; if (x < l) { t = w[0] + x; break; } x -= l; }
+    out.set(order[i], t);
+  }
+  return out;
+}

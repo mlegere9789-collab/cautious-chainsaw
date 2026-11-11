@@ -14,7 +14,7 @@ import { ClipBank, CORE } from './clips.mjs';
 import { MeshStore } from './meshes.mjs';
 import { buildPal, PAL_W, PAL_H, NSLOT } from './tables.mjs';
 import { partsForFigure, partsAtLod, unpackInstance } from '../figures3d/index.mjs';
-import { LED } from '../history/cavalry.mjs';
+import { LED, BATTERY_HORSE_LOSSES, batteryHorseFalls } from '../history/cavalry.mjs';
 import { SEL_TH, SEL_HX, SEL_HZ, SEL_MZ } from '../anim3d/unit-anim.mjs';
 import { perspective, lookAt, mul, frustumPlanes, sphereInFrustum } from '../../../render/prototype/src/math.mjs';
 import { soldierPlace } from '../../../render/prototype/src/world.mjs';
@@ -63,7 +63,7 @@ export class Crowd {
     this.horseM = [0, 1, 2].map(l => this.meshes.add('h:' + l, sys.horse(l).finalize()));
     // the artillery train and the works (structures draw lists): rigid props are skinned to an identity frame of the horse bank; one generic Napoleon tube (the layer names no piece for a train gun: plausible-procedural)
     this.ex = { carriage: this.meshes.add('x:carriage', sys.carriage(2).finalize()), tube: this.meshes.add('x:tube', sys.gunTube('napoleon_12pdr_m1857', 2).finalize()), limber: this.meshes.add('x:limber', sys.limber(2).finalize()), caisson: this.meshes.add('x:caisson', sys.caisson(2).finalize()), draught: this.meshes.add('x:draught', sys.horse(2, 'draught').finalize()) };
-    this.idRow = this.bank.horse.addIdentity(); this.horseIdleIdx = this.bank.index.get('horse_idle'); this.crewIdx = ['stand_shoulder', 'chop_axe', 'dig_shovel', 'march_carry_rail'].map(id => this.bank.index.get(id)); this.driverIdx = this.bank.index.get('rider_walk'); await tick();
+    this.idRow = this.bank.horse.addIdentity(); this.horseIdleIdx = this.bank.index.get('horse_idle'); this.horseFallIdx = this.bank.index.get('horse_fall'); this._hf = new Map(); this.crewIdx = ['stand_shoulder', 'chop_axe', 'dig_shovel', 'march_carry_rail'].map(id => this.bank.index.get(id)); this.driverIdx = this.bank.index.get('rider_walk'); await tick();
     const imp = this.imp = { w: 0, h: 0, layers: cl.impostors.length, data: null, meta: null }; s0 = performance.now(); let atl = null;
     for (let i = 0; i < cl.impostors.length; i++) {
       const a = sys.impostor(cl.impostors[i].key); if (!atl) { imp.w = a.width; imp.h = a.height; atl = new Uint8Array(imp.w * imp.h * 4 * imp.layers); imp.meta = new Float32Array(imp.layers * 4); }
@@ -129,6 +129,17 @@ export class Crowd {
       this.workEntry = this.meshes.setDynamic('x:works', { nv, pos, nrm, mat, idx: M.idx }); }
     return L;
   }
+  // ws10: the draught horses of a battery that go down (history/cavalry.mjs BATTERY_HORSE_LOSSES, EG-CAV-08): Map(unitIndex * 100000 + serial -> fall time, simulation seconds). Cached per (unit, horse count): the list does not depend on the camera.
+  _trainHorseFalls(list) {
+    const per = new Map(); for (let q = 0; q + 7 < list.length; q += 8) { const bi = list[q + 4] | 0; let a = per.get(bi); if (!a) per.set(bi, a = []); a.push(list[q + 5] | 0); }
+    const out = new Map(), nL = this.driver.nL;
+    for (const [bi, serials] of per) {
+      if (bi >= nL) continue; const lu = this.layer.units[bi]; if (!BATTERY_HORSE_LOSSES[lu.id]) continue; const key = bi + ':' + serials.length + ':' + this.driver.version; let c = this._hf.get(bi);
+      if (!c || c.key !== key) { const wins = ((lu.casualties && lu.casualties.windows) || []).map(w => [w.from * 60, w.to * 60]); this._hf.set(bi, c = { key, falls: batteryHorseFalls(lu.id, serials, wins, this.driver.seed) }); }
+      for (const [sr, t] of c.falls) out.set(bi * 100000 + sr, t);
+    }
+    return out;
+  }
   _ensureAnimators(budgetMs) { const t0 = performance.now(), st = this.stage; for (let ui = 0; ui < this.nUnits && performance.now() - t0 < budgetMs; ui++) if (st.present[ui] === 1) this.driver.get(ui); }
   _build(n, tSec) {
     const w = this.world, D = this.D, drv = this.driver, bank = this.bank, sel = drv.sel, rows = this.rowsTmp, T = this.T, sys = this.sys;
@@ -137,7 +148,7 @@ export class Crowd {
     for (let j = 0; j < n; j++) {
       const ui = this.wUnit[j], k = this.wK[j], lod = this.wLod[j]; drv.clipAt(ui, k, tSec);
       if (sel.m) {                                                           // ws10: a cavalryman afoot: his horse is led to the rear, a holder stands with the horses (heading h: ahead = (sin h, cos h), right = (cos h, -sin h))
-        const hh = this.wH[j], sn = Math.sin(hh), cs = Math.cos(hh), hx = sel.d[SEL_HX], hz = sel.d[SEL_HZ], mz = sel.d[SEL_MZ];
+        const hh = this.wH[j], sn = Math.sin(hh), cs = Math.cos(hh), hx = sel.x[SEL_HX], hz = sel.x[SEL_HZ], mz = sel.x[SEL_MZ];
         this.wHXa[j] = this.wX[j] + hx * cs + hz * sn; this.wHZa[j] = this.wZ[j] - hx * sn + hz * cs; this.wX[j] += mz * sn; this.wZ[j] += mz * cs;
       }
       if (lod === 0) { this.wFA[j] = nPose; drv.pose(ui, k, tSec, this.wX[j], this.wZ[j], this.wH[j], T.h, this.pose, nPose * 61 * 12); nPose++; c0++; }
@@ -197,7 +208,7 @@ export class Crowd {
         for (const [name, entries] of [['guns', [this.ex.carriage, this.ex.tube]], ['limbers', [this.ex.limber]], ['caissons', [this.ex.caisson]], ['wagons', [this.ex.caisson]]]) {
           const arr = art[name]; if (!arr || !arr.length) continue; for (const e of entries) { const first = rec; const c = each(arr, (A, q) => rigid(A[q], A[q + 1], A[q + 2], figOf(A[q + 4] | 0), this.idRow, 0)); run(e, first, c, 'horse'); }
         }
-        if (art.horses && art.horses.length) { const first = rec, c = each(art.horses, (A, q) => { this.bank.rows(this.horseIdleIdx, tSec + (A[q + 5] % 11) * 0.37, this.rowsTmp, 0); rigid(A[q], A[q + 1], A[q + 2], figOf(A[q + 4] | 0), this.rowsTmp[0] | 0, this.rowsTmp[2]); this.instU[(rec - 1) * REC + 9] = this.rowsTmp[0] | (this.rowsTmp[1] << 16); }); run(this.ex.draught, first, c, 'horse'); }
+        if (art.horses && art.horses.length) { const hfall = this._trainHorseFalls(art.horses), first = rec, c = each(art.horses, (A, q) => { const hft = hfall.get((A[q + 4] | 0) * 100000 + (A[q + 5] | 0)); if (hft !== undefined && tSec >= hft) this.bank.rows(this.horseFallIdx, tSec - hft, this.rowsTmp, 0); else this.bank.rows(this.horseIdleIdx, tSec + (A[q + 5] % 11) * 0.37, this.rowsTmp, 0); rigid(A[q], A[q + 1], A[q + 2], figOf(A[q + 4] | 0), this.rowsTmp[0] | 0, this.rowsTmp[2]); this.instU[(rec - 1) * REC + 9] = this.rowsTmp[0] | (this.rowsTmp[1] << 16); }); run(this.ex.draught, first, c, 'horse'); }
         if (art.drivers && art.drivers.length) {
           const byCls = new Map(); each(art.drivers, (A, q) => { const fg = figOf(A[q + 4] | 0), k = D.varInfo[(D.inst[fg * 4] & 0xffff) * 4]; let l = byCls.get(k); if (!l) byCls.set(k, l = []); l.push(A, q, fg); });
           for (const [k, l] of byCls) { const first = rec; for (let q = 0; q < l.length; q += 3) { const A = l[q], i = l[q + 1]; this.bank.rows(this.driverIdx, tSec + (A[i + 5] % 7) * 0.3, this.rowsTmp, 0); const o = rec * REC; f32[o] = A[i]; f32[o + 1] = A[i + 1]; f32[o + 2] = A[i + 2]; f32[o + 3] = 1; f32[o + 4] = this.rowsTmp[2]; f32[o + 5] = 0; f32[o + 6] = 0; f32[o + 7] = 0; u32[o + 8] = l[q + 2]; u32[o + 9] = this.rowsTmp[0] | (this.rowsTmp[1] << 16); u32[o + 10] = u32[o + 9]; u32[o + 11] = 0; rec++; } run(mid.low[k], first, l.length / 3, 'human'); }

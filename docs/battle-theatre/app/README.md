@@ -14,10 +14,10 @@ Contract 1.3 added casualties (procedural shares of printed losses, placed only 
 
 ```
 node docs/battle-theatre/app/tools/serve.mjs 10760          # any static server rooted at docs/battle-theatre works
-http://127.0.0.1:10760/app/index.html                        # Chrome with WebGPU; add #theatre to open straight into it
+http://127.0.0.1:10760/app/index.html                        # opens on WebGL2 (the path that draws weather and effects); add ?api=webgpu for WebGPU, #theatre to open straight into it
 ```
 
-Query: `?history=stub` (the placeholder layer: 992 stand-in units, 165,000 figures; every datum labelled *Modelled placeholder*), `?api=webgl2` (fallback tier), `?demo=tiers` (labels some placeholder units with other tiers only to show the three overlay colours; the card says so), `?home=<url>` (target of "Return to the map"; or the `bt-home` meta tag), and the prototype's own `nearQ midQ nearR midR shadow mid`.
+Query: `?history=stub` (the placeholder layer: 992 stand-in units, 165,000 figures; every datum labelled *Modelled placeholder*), `?api=webgl2` (the default since DD-27; `?api=webgpu` asks for WebGPU, `?api=auto` for WebGPU first), `?demo=tiers` (labels some placeholder units with other tiers only to show the three overlay colours; the card says so), `?home=<url>` (target of "Return to the map"; or the `bt-home` meta tag), and the prototype's own `nearQ midQ nearR midR shadow mid`.
 
 Tests (system Chrome with WebGPU; each file starts its own server and browser):
 

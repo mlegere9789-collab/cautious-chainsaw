@@ -2,6 +2,7 @@
 import { fmtShort, fmtTime, isoToMin } from '../clock.mjs';
 import { esc, pill, fmtN } from './util.mjs';
 import { FIELD_ORDER } from '../history/manifest.mjs';
+import { horseRange, horseLossRange, dismountRecord, dismountShare, dismountCounts, HOLDER, LED, HORSE_LOSS } from '../history/cavalry.mjs';
 
 const rng = r => (r.min === r.max ? fmtN(r.min) : `${fmtN(r.min)}-${fmtN(r.max)}`);
 const FATE_LABEL = { killed: 'Killed', wounded: 'Wounded', missing: 'Missing' };
@@ -171,4 +172,20 @@ export function daySection(th, u) {
   }
   if (!rows.length) return '';
   return `<h3>Troop-map positions <span class="mini">(Bachelder 1876; day level, line states read by eye)</span></h3><p class="mini">What the sheets print for this unit${u.drawn ? '' : ' (it is not drawn: no road of approach is printed for it or any unit above it)'}. A brigade’s position is laid out over its regiments (plausible-procedural slots); a division or corps label places nothing by itself. A label’s line state (the legend’s First Position, Intermediate, Evening or All Day style) gives its window in the day: ${esc(dp.evening_basis || '')}.</p><table class="table">${rows.join('')}</table>`;
+}
+
+// ---- cavalry (ws10): riders and horses as a range with its basis, horse casualties tied to the man casualties, and the printed dismounted fight with the horse-holders. Every number carries its tier.
+export function horseSection(th, u) {
+  if (u.arm !== 'cavalry') return '';
+  const n = u.strength && u.strength.drawn || 0; if (!n) return `<h3>Riders and horses</h3><p class="mini">Not drawn (no road of approach or place in the ledgers, EG-CAV-07): no rider and no horse is shown.</p>`;
+  const hr = horseRange(n), c = u.casualties, down = c && c.kind !== 'none' ? { min: c.fates.killed.min + c.fates.wounded.min, max: c.fates.killed.max + c.fates.wounded.max, point: c.fates.killed.point + c.fates.wounded.point } : null, hl = down ? horseLossRange(down) : null;
+  const rec = dismountRecord(u.id), share = rec && dismountShare(rec), cnt = share ? dismountCounts(n, share) : null;
+  return `<h3>Riders and horses <span class="mini">(range with its basis)</span></h3>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px">${pill(hr.tier)}<span class="pill">weak source</span></div>
+    <dl><div class="row"><dt>Riders</dt><dd>${fmtN(n)} (one figure each)</dd></div>
+    <div class="row"><dt>Horses</dt><dd>${fmtN(hr.horses.min)}-${fmtN(hr.horses.max)} (drawn: ${fmtN(hr.horses.point)}, one per rider)</dd></div>
+    ${hl ? `<div class="row"><dt>Horses down</dt><dd>${fmtN(hl.min)}-${fmtN(hl.max)} (drawn: ${fmtN(hl.point)}, with the fallen rider)</dd></div>` : ''}</dl>
+    <p class="mini">Basis: ${esc(hr.basis)} Gap ${esc(hr.gap)}.</p>${hl ? `<p class="mini">Horse losses: ${esc(hl.basis)}. Gap ${esc(hl.gap)}. Observation: ${esc(HORSE_LOSS.observation.cite)}.</p>` : ''}
+    ${rec ? `<h3>Fought dismounted <span class="mini">(${esc(rec.tier)}; ${share ? esc(rec.share_tier) + ' share' : 'no share printed'})</span></h3><p class="mini">${esc(rec.cite)}. Claims ${rec.claims.map(x => `<code>${esc(x)}</code>`).join(', ')}.</p>
+    ${cnt ? `<p class="mini">${fmtN(cnt.dismounted)} of ${fmtN(n)} afoot: ${fmtN(cnt.fighters)} fight, ${fmtN(cnt.holders)} hold the horses (${esc(HOLDER.basis)}); the led horses stand ${LED.back_m} m behind the line (${esc(LED.basis)}). Shown only inside the unit's engagement windows that lie in ${esc(rec.when_basis)}.</p>` : '<p class="mini">The report gives no fraction: the unit is drawn mounted (gap EG-CAV-04).</p>'}` : ''}`;
 }

@@ -43,7 +43,7 @@ fxHost.dispose();
 * Sets `R.o.flags.sky = false` and `R.o.flags.particles = false` (the prototype's own sky and particle passes would double the sky and the smoke); `dispose()` restores both. If any of our three programs fails to build, nothing is switched off and `info.log` says why.
 * In `ext.scene`: blit the scene depth to `R.fbDepthCopy`, then (1) two full-screen draws (weather: multiply then add), (2) one instanced sprite draw of the fx3d effects. It saves and restores program, VAO, framebuffer, active texture, bindings of units 0 and 12 to 15, blend, depth test and mask, cull, viewport.
 * Reads from the renderer: `R.gl`, `R.W`, `R.H`, `R.glVp` (GL-clip view-projection of this frame), `R.t.height`, `R.t.depthCopy`, `R.fbScene`, `R.fbDepthCopy`, the `FU` uniform block bound at point 0 (`cam`, `sun`, `invVp`, `terr`), `R.o.flags`. These are the names in `render/prototype/src/webgl2.mjs`; renaming them breaks fx-host.
-* WebGPU (`host.api === 'webgpu'`): state, events and the returned info are computed, **nothing is drawn** (gap EG-W3D-G08). The prototype's own sky and particles stay on.
+* WebGPU (`host.api === 'webgpu'`): state, events and the returned info are computed, **nothing is drawn** (gap EG-W3D-G08). The prototype's own sky and particles stay on. Because of this the shell opens on WebGL2 by default (delegated decision DD-27, `config.mjs` `chooseApi`); WebGPU only with `?api=webgpu` (`?api=auto` asks for WebGPU first); the ribbon and the About panel say so.
 
 ## 3. What the host must do so the effects are right
 

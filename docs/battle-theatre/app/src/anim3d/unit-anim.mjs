@@ -36,10 +36,10 @@ export function figureVariation(v, k, seed, out = {}) {
 // the result of clipAt: a FIXED-shape record (a, b, h: clip indices; the times / weight / rate live in ONE Float64Array `d` [ta, tb, w, th, rate] so that no store of a double can allocate a heap number, whatever tier V8 has compiled
 // the caller in: a double stored into an object field was measured to cost 16 bytes per store in optimised code, 11 stores = 177 B per clipAt, depending on the tier and on inlining (DEC-ANIM-03).
 // a: clip index of the main clip, ta: its time; b, tb, w: the clip blended in and its weight (b = -1: none); h, th: the horse clip of a mounted figure; rate: playback rate. ta, tb, w, th, rate stay readable as properties. Callers must pass one of these.
-export const SEL_TA = 0, SEL_TB = 1, SEL_W = 2, SEL_TH = 3, SEL_RATE = 4, SEL_HX = 5, SEL_HZ = 6, SEL_MZ = 7;
-// ws10 (cavalry): ClipSel.m = 0 the figure rides (or is not cavalry); 1 afoot, his horse is led to the rear; 2 afoot holding horses. d[SEL_HX], d[SEL_HZ]: the horse's offset from the figure's slot, metres, in the unit's frame (x right, z ahead); d[SEL_MZ]: the man's own offset ahead (a holder stands with the horses).
+export const SEL_TA = 0, SEL_TB = 1, SEL_W = 2, SEL_TH = 3, SEL_RATE = 4, SEL_HX = 0, SEL_HZ = 1, SEL_MZ = 2;
+// ws10 (cavalry): ClipSel.m = 0 the figure rides (or is not cavalry); 1 afoot, his horse is led to the rear; 2 afoot holding horses. x[SEL_HX], x[SEL_HZ]: the horse's offset from the figure's slot, metres, in the unit's frame (x right, z ahead); x[SEL_MZ]: the man's own offset ahead (a holder stands with the horses).
 export class ClipSel {
-  constructor() { this.a = 0; this.b = -1; this.h = -1; this.m = 0; this.d = new Float64Array(8); this.d[SEL_RATE] = 1; }
+  constructor() { this.a = 0; this.b = -1; this.h = -1; this.m = 0; this.d = new Float64Array(5); this.x = new Float64Array(3); this.d[SEL_RATE] = 1; }
   get ta() { return this.d[SEL_TA]; } set ta(v) { this.d[SEL_TA] = v; } get tb() { return this.d[SEL_TB]; } set tb(v) { this.d[SEL_TB] = v; } get w() { return this.d[SEL_W]; } set w(v) { this.d[SEL_W] = v; }
   get th() { return this.d[SEL_TH]; } set th(v) { this.d[SEL_TH] = v; } get rate() { return this.d[SEL_RATE]; } set rate(v) { this.d[SEL_RATE] = v; }
 }
@@ -149,11 +149,11 @@ export class UnitAnimator {
       return;
     }
     const u = dseg === seg ? (t - seg.t0) / LED.led_s : (t - seg.t0) / LED.led_s, sm = u <= 0 ? 0 : u >= 1 ? 1 : u * u * (3 - 2 * u), led = dseg === seg ? sm : 1 - sm, moving = u > 0 && u < 1;
-    out.m = role; od[SEL_HX] = 0; od[SEL_HZ] = -LED.back_m * led; od[SEL_MZ] = role === 2 ? od[SEL_HZ] : 0;
+    out.m = role; out.x[SEL_HX] = 0; out.x[SEL_HZ] = -LED.back_m * led; out.x[SEL_MZ] = role === 2 ? out.x[SEL_HZ] : 0;
     out.h = moving ? this.iHorse.walk : this.iHorseIdle; od[SEL_TH] = moving ? (u * LED.led_s) % MOUNT_T.walk : t + this.vphase[k] * 6;
   }
   _clip(k, t, out) {
-    const od = out.d, Ad = this.A.d; out.b = -1; od[SEL_W] = 0; out.h = -1; out.m = 0; od[SEL_TH] = 0; od[SEL_TB] = 0; od[SEL_RATE] = 1; od[SEL_HX] = 0; od[SEL_HZ] = 0; od[SEL_MZ] = 0;
+    const od = out.d, Ad = this.A.d; out.b = -1; od[SEL_W] = 0; out.h = -1; out.m = 0; od[SEL_TH] = 0; od[SEL_TB] = 0; od[SEL_RATE] = 1; out.x[SEL_HX] = 0; out.x[SEL_HZ] = 0; out.x[SEL_MZ] = 0;
     const ft = this.fallT ? this.fallT[k] : Infinity;
     const si = this.segIndexAt(t), seg = si >= 0 ? this.segs[si] : null;
     if (ft <= t) { this._fall(k, t, ft, seg, out); this._variant(k, out); return out; }

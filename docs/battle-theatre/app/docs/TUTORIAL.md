@@ -27,9 +27,10 @@ Useful additions to the address:
 | Add this | What it does |
 |---|---|
 | `#theatre` | opens straight into the theatre |
-| `?api=webgl2` | forces the WebGL2 renderer. Use it to see the weather and effects (see section 8) |
-| `?api=webgpu` | forces the WebGPU renderer |
-| `?audioLabel=panel-only` or `?audioLabel=pdf` | previews either sound-marking option (section 6) |
+| `?api=webgl2` | the WebGL2 renderer. **This is the default**: it is the only one that draws the weather and effects (see section 8), so the page opens on it without this addition |
+| `?api=webgpu` | asks for the WebGPU renderer instead. The weather and effects are not drawn there and the picture has not been seen (section 8); the ribbon at the top says so |
+| `?api=auto` | WebGPU first, WebGL2 if WebGPU is not available |
+| `?audioLabel=pdf` or `?audioLabel=panel-only` | previews either sound-marking option; the default is `panel-only` (section 6) |
 | `?history=stub` | the older placeholder layer: 992 stand-in units, every one labelled "Modelled placeholder". For comparison only |
 
 Use a desktop browser, Chrome preferred. The page works on a phone (a touch pad appears), but it has been checked only in software rendering and emulation.
@@ -103,11 +104,14 @@ Explains what you are seeing, how a unit comes to be placed, the tier definition
 
 Open **Sources**. There is one entry for each of the 47 conflicts C-001 to C-047 in the plan, plus the weather conflicts (five), and a block of readings for how the structures follow them. Each entry shows the values as printed, the value the plan recommends, and a drop-down.
 
-- **Nothing is chosen for you.** Every entry starts at "PDF recommended, pending owner". That is the plan's own default and it is still awaiting your decision.
-- **To switch the view:** pick another value in the drop-down. The label at the top shows how many choices differ from the default. The theatre follows the choice where it can: entries marked "Used in this preview" change what you see (they move the arrival gates linked to them, by a clock the value prints or a labelled convention). The rest are carried and listed but do not yet change the picture. A value with no clock, such as "mid-afternoon", leaves the gate where it is and the card says so.
-- **To go back:** **Reset** returns every entry to the plan's default. Search the list by id or topic.
+- **Every entry opens on a default chosen under delegated authority, reversible by you.** On 11 November 2026 the pending decisions were delegated, and the 47 defaults are recorded in `GOVERNANCE/decisions/conflict_defaults.json` and in the delegated-decisions file. For most conflicts the default follows the Official Records value; where no source supports any value, the plan's value stays first and is marked plausible-procedural with its gap. Each entry shows its tier mark and the words "Default chosen under delegated authority, reversible by the owner", with the reason under "Why this default". These are not your decisions; you can overrule any of them.
+- **Nothing is removed.** The plan's recommended value, every printed value and the values added from the record stay in the drop-down. The weather conflicts, which have no delegated default, still open on the plan's value.
+- **To see the plan's values instead:** press **Switch to the PDF's recommended values** (every entry at once, 47 of them), or "Use the PDF's recommended value" under one entry.
+- **To switch the view:** pick another value in the drop-down. The label at the top shows how many choices differ from the delegated defaults. The theatre follows the choice where it can: entries marked "Used in this preview" change what you see (they move the arrival gates linked to them, by a clock the value prints or a labelled convention). The rest are carried and listed but do not yet change the picture. A value with no clock, such as "mid-afternoon", leaves the gate where it is and the card says so.
+- **To go back:** **Back to the delegated defaults** returns every entry to its default ("Use the delegated default" does one entry). Search the list by id or topic.
 - **Your choices are not remembered.** They last for the visit. There is no button yet that makes a new default for everyone.
-- **A separate set of recorded defaults exists** (`GOVERNANCE/decisions/conflict_defaults.json`): for most conflicts it prefers the Official Records value and keeps the plan's value as a selectable scenario. **This build does not read that file.** The page default is still the plan's recommendation. If you want the recorded defaults shown first, that wiring is still to be done, and it is your call.
+- **A default can move the picture.** Where a default prints a clock (for example II Corps at 06:30 on 2 July, Humphreys at 01:00), the units linked to that conflict arrive by it, never earlier than the record allows; a default with no clock leaves the arrival gate where it is, and the card says so. Switching to the plan's values moves them back.
+- **Other delegated defaults.** Gait basis (Wheeler 1863 for cavalry, the 1863 artillery manual for horse artillery), the Confederate battle flag with 13 stars (12 stays selectable), the works defaults of DD-02 to DD-05 (breastworks built on screen in the Official Records window; walls that already existed get no construction), and the sound marking (section 6) are likewise delegated and reversible.
 
 ## 6. Sound
 
@@ -118,9 +122,9 @@ Open **Settings**, then scroll to **Sound**. (There is no separate toolbar butto
 - **When it is silent on purpose:** while time is paused, while you drag the scrubber (nothing from the future is played), and above 8x speed. Slow down to hear it. After a jump in time, sounds already in the air arrive on schedule. Sound travels at the speed of sound: a gun 2 km away is heard about 5.8 seconds after the flash at normal speed.
 - **Marking of the sound.** The panel offers two options, always both:
   1. *PDF rule:* audio is labelled as modern reconstruction. A one-line badge reads "Audio: modern reconstruction. No recording of 1863 exists." and each sound carries a tag.
-  2. *Owner preference:* nothing is printed on the sound; it is disclosed in the panel list and the evidence overlay only.
+  2. *Disclosure in the panel:* nothing is printed on the sound; it is disclosed in the panel list and the evidence overlay only.
 
-  The list "What is in this build" is identical in both options: every sound family, whether it is a real recording, a reconstruction or synthesised, its tier, licence and gap. Only the badge and the tags change. Your pick is remembered in this browser only. **Shipped default in this build: the PDF rule.** The decision log records option 2 as the preferred outcome, but the single switch in the code has not been flipped, so the build still starts with the badge. Changing the shipped default is a one-line change; say if you want it.
+  The list "What is in this build" is identical in both options: every sound family, whether it is a real recording, a reconstruction or synthesised, its tier, licence and gap. Only the badge and the tags change. Your pick is remembered in this browser only. **Shipped default in this build: option 2, disclosure in the panel** (a delegated decision, DEC-001 option a, reversible by you). Modern recordings are never called period sound, and the tier marks on non-documented content stay. The PDF rule is one choice away in the panel (or `?audioLabel=pdf`); changing the shipped default back is a one-line change.
 
 ## 7. What the marks mean
 
@@ -147,7 +151,7 @@ Please read this section. The build is a staging copy for your test, and it has 
 
 **Nothing has been timed or seen on a real graphics card.** Everything was run in software rendering or in code tests. There is no real-GPU frame timing. The performance targets (smooth frames with all 127,572 figures at 1080p and 4K, phone budgets) are modelled on paper and unmeasured. Your first run on your own machine is the first real measurement.
 
-**WebGPU has not been seen.** On a desktop Chrome with WebGPU the page uses WebGPU first. In the software test it compiled and ran without errors, but the picture could not be captured, so nobody has looked at it. The weather and effects layers (sky, clouds, stars, mist, wet ground, smoke, flashes, dust, fires) are drawn only on WebGL2; on WebGPU their state is computed but nothing is drawn. **To see the weather and effects, add `?api=webgl2` to the address.**
+**WebGPU has not been seen, so the page opens on WebGL2.** The weather and effects layers (sky, clouds, stars, mist, wet ground, smoke, flashes, dust, fires) are drawn only on WebGL2; on WebGPU their state is computed but nothing is drawn, and in the software test the WebGPU picture could not be captured, so nobody has looked at it. By a delegated decision (DD-27, reversible) the page therefore uses WebGL2 unless the address says `?api=webgpu` (or `?api=auto`). The About panel and, on WebGPU, the ribbon at the top say which renderer is running and that the weather and effects are not drawn on WebGPU.
 
 **The modded ACW meshes are not used.** Every soldier, officer, flag, gun and horse is a procedural figure. The mod's meshes carry base-game parts or have no ownership record, so none could be cleared. Only 24 texture sheets (Confederate shell-jacket colours) are cleared and held as lead swatches; the viewer does not use them by default. The rights rest on the mod author's verbal permission, with no written text on file. Pending: a short written statement from the author of which files are his own work.
 
@@ -159,7 +163,7 @@ Please read this section. The build is a staging copy for your test, and it has 
 - Dress is fixed at the unit's arrival date.
 - The first-visit build of the figure table takes seconds and is not yet cached.
 
-**Sound has not been heard by anyone.** The engine passes its tests, but no listening check has been done. No licensed recordings are loaded unless the panel list says "(loaded)". Most families are synthesised, and the panel says so. Also, the packing tool did not pick up the small sound data files (`app/data/audio3d`, loaded by a relative path it cannot trace), and the animation data folder is likewise absent from the zip. The code tolerates a missing file, but the "What is in this build" list may therefore be shorter than described, or say it could not be loaded. If so, that is a packing gap to fix, not a fault in your test. Please report what the list shows.
+**Sound has not been heard by anyone.** The engine passes its tests, but no listening check has been done. No licensed recordings are loaded unless the panel list says "(loaded)". Most families are synthesised, and the panel says so. The sound data files (`app/data/audio3d`) and the animation data (`app/data/anim3d`) are in the zip: the packing tool now follows those loads, and a real run of the packed site (figures on, sound started, the scene run for some frames, the browser's request log compared with the zip) found no missing file. Please report what the "What is in this build" list shows.
 
 **Places and units not in the picture:**
 - 108 leaf units have no road of approach and are not drawn (open gaps; reasons on their cards and in `HISTORY-LAYER-NOTES.md`).
@@ -224,23 +228,24 @@ Tick each line. If a result differs, note the line number, the date and time sho
 
 **Sources**
 
-- [ ] Open Sources. *Expected: 47 conflicts plus the weather ones; the label reads the plan's default; Reset is greyed.*
-- [ ] Change one entry marked "Used in this preview". *Expected: the label changes; the count of events refused by the arrival rule in About may change; Reset becomes active.*
-- [ ] Press **Reset**. *Expected: back to the default.*
+- [ ] Open Sources. *Expected: 47 conflicts plus the weather ones; the label reads "Delegated defaults (reversible by the owner)"; each of the 47 shows a tier mark and "Default chosen under delegated authority, reversible by the owner"; "Back to the delegated defaults" is greyed.*
+- [ ] Change one entry marked "Used in this preview". *Expected: the label reads "Custom: 1 choice differs from the delegated defaults"; the count of events refused by the arrival rule in About may change; the button becomes active.*
+- [ ] Press **Switch to the PDF's recommended values**. *Expected: every one of the 47 reads "PDF recommended, pending owner"; the label reads "PDF recommended values, pending owner".*
+- [ ] Press **Back to the delegated defaults**. *Expected: back to the defaults.*
 
-**Weather** (reload with `?api=webgl2` first)
+**Weather** (the default WebGL2 address; the About panel's Renderer row reads webgl2)
 
 - [ ] Go to 3 July 14:00. *Expected: a partly cloudy sky; the chip shows the temperature as "about" a figure.*
 - [ ] Go to a night hour. *Expected: stars and a moon disc; the picture is dim but never black.*
 - [ ] Settings: lower **Night floor** to its minimum. *Expected: darker, still not black.*
 - [ ] Go to 4 July afternoon. *Expected: a rain or storm chip and rain streaks unless Reduce motion is on. (The timing of the 4 July rain is itself one of the conflicts in Sources, so the choice there moves it.)*
-- [ ] Open the same time on the default (WebGPU) address. *Expected, as stated in section 8: no weather or effects drawn.*
+- [ ] Open the same time on the `?api=webgpu` address. *Expected, as stated in section 8: no weather or effects drawn, and the ribbon says so.*
 
 **Sound**
 
 - [ ] Settings, Sound: press **Start sound**, press Play near a battery on 3 July afternoon. *Expected: the state line says sound is running; guns are heard late in proportion to their distance.*
 - [ ] Drag the scrubber. *Expected: silence while dragging.*
-- [ ] Choose each marking option. *Expected: the badge appears in one and not the other; the list of sounds is the same.*
+- [ ] Choose each marking option. *Expected: no badge on the default (disclosure in the panel); the badge appears with the PDF rule; the list of sounds is the same.*
 - [ ] Reload and open Settings. *Expected: your level, mute and marking choice are remembered; sound itself is off.*
 
 **Settings and phone**

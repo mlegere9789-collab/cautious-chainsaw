@@ -73,30 +73,33 @@ test('a unit that has not arrived is not drawn (pixels), is absent from the unit
   await page.evaluate(() => { window.btApp.lock(false); window.btApp.select(-1); });
 });
 
-test('scenario selector: carries all 47 register conflicts and the weather conflicts; default is "PDF recommended, pending owner"; a choice moves the units the ledger links to it', async () => {
+test('scenario selector: carries all 47 register conflicts and the weather conflicts; default is the delegated defaults (tier and label shown); the PDF values are one button away; a choice moves the units the ledger links to it', async () => {
   await page.click('[data-panel=scenario]'); const body = page.locator('#bt-drawer-body');
-  assert.match(await body.locator('#sc-label').innerText(), /^PDF recommended, pending owner$/);
+  assert.match(await body.locator('#sc-label').innerText(), /^Delegated defaults \(reversible by the owner\)$/);
+  assert.match(await body.locator('.conflict[data-id="C-004"]').innerText(), /Default chosen under delegated authority, reversible by the owner/); assert.equal(await body.locator('.conflict .deleg').count(), 47, 'each of the 47 shows its tier and the delegated label');
   const ids = await body.locator('.conflict h3 .id').allInnerTexts(); const reg = ids.filter(x => /^C-\d+$/.test(x)), wx = ids.filter(x => /^CF-/.test(x));
   assert.equal(reg.length, 47); assert.deepEqual(reg.sort(), Array.from({ length: 47 }, (_, i) => 'C-' + String(i + 1).padStart(3, '0'))); assert.ok(wx.length >= 5);
   const printed = await body.locator('.conflict[data-id="C-004"] .printed').innerText(); assert.match(printed, /22:30 Jul 1/); assert.match(printed, /06:00 Jul 2/);
   const opts = await body.locator('.conflict[data-id="C-004"] select option').allInnerTexts(); for (const v of ['22:30 Jul 1', 'at dawn', '06:00', '07:00 Jul 2']) assert.ok(opts.some(o => o.includes(v)), `option ${v}`);
   // the real layer links C-004 to the II Corps arrival (and the ledger rows citing it)
   const grp = () => page.evaluate(() => [...window.btApp.stage.arrivals.values()].filter(a => a.unit.startsWith('us-2c')).map(a => ({ u: a.unit, d: a.default, e: a.earliest, c: a.conflict })));
-  const before = await grp(); assert.ok(before.length > 40 && before.every(a => a.d === minOf(7, 2, 6)), 'recommended: every II Corps unit arrives at the printed 06:00 Jul 2'); assert.ok(before.every(a => a.c === 'C-004'), 'and each says it follows C-004');
+  const before = await grp(); assert.ok(before.length > 40 && before.every(a => a.d === minOf(7, 2, 6, 30)), 'recommended: every II Corps unit arrives at the delegated default 06:30 Jul 2 (window 06:30-07:00)'); assert.ok(before.every(a => a.c === 'C-004'), 'and each says it follows C-004');
   await body.locator('.conflict[data-id="C-004"] select').selectOption({ label: '22:30 Jul 1' }); await frames(4);
-  assert.match(await body.locator('#sc-label').innerText(), /Custom: 1 choice/);
+  assert.match(await body.locator('#sc-label').innerText(), /Custom: 1 choice differs/);
   const after = await grp(); assert.equal(after.length, before.length); assert.equal(Math.min(...after.map(a => a.d)), minOf(7, 1, 22, 30), 'the corps follows the printed value'); assert.ok(after.every(a => a.d >= minOf(7, 1, 22, 30)), 'no II Corps unit is drawn before the chosen time');
   assert.ok(after.some(a => a.d === minOf(7, 2, 0) && a.c === null), 'a division whose own gate is only a date (Jul 2) stays at that date, is never drawn before the corps, and no longer claims to follow C-004');
-  await page.click('#sc-reset'); await frames(3); assert.match(await body.locator('#sc-label').innerText(), /^PDF recommended, pending owner$/);
-  assert.deepEqual(await grp(), before, 'reset restores the recommended values');
+  await page.click('#sc-reset'); await frames(3); assert.match(await body.locator('#sc-label').innerText(), /^Delegated defaults \(reversible by the owner\)$/);
+  assert.deepEqual(await grp(), before, 'reset restores the delegated defaults');
+  await page.click('#sc-pdf'); await frames(4); assert.match(await body.locator('#sc-label').innerText(), /^PDF recommended values, pending owner$/); assert.equal(await page.evaluate(() => Object.values(window.btApp.state.scenario.choices).filter(v => v === 'recommended').length), 47);
+  const pdfGrp = await grp(); assert.ok(pdfGrp.every(a => a.d === minOf(7, 2, 6)), 'the PDF values: the printed 06:00 Jul 2'); await page.click('#sc-reset'); await frames(4); assert.deepEqual(await grp(), before);
   // a drawn unit follows its conflict: the 20th Maine arrives with V Corps (C-003: 05:00 or 08:00); only the chosen time lets it exist
   const id = 'us-5c-1d-vincent-20me'; const pres = t => page.evaluate(({ id, t }) => { const a = window.btApp; a.setTime(t); return a.frames(2).then(() => a.stage.present[a.stage.index.get(id)]); }, { id, t });
-  const def = await page.evaluate(id => window.btApp.stage.arrivals.get(id).default, id); assert.equal(def, minOf(7, 2, 8));
-  assert.equal(await pres(minOf(7, 2, 7, 59)), 0);
+  const def = await page.evaluate(id => window.btApp.stage.arrivals.get(id).default, id); assert.equal(def, minOf(7, 2, 7));
+  assert.equal(await pres(minOf(7, 2, 6, 59)), 0);
   const c3 = await page.evaluate(() => window.btApp.theatre.conflicts.find(c => c.id === 'C-003').options.map(o => ({ k: o.key, t: o.text })));
   await body.locator('.conflict[data-id="C-003"] select').selectOption({ label: c3.find(o => o.k === 'v0').t }); await frames(4);
   assert.equal(await page.evaluate(id => window.btApp.stage.arrivals.get(id).default, id), minOf(7, 2, 5)); assert.equal(await pres(minOf(7, 2, 4, 59)), 0); assert.equal(await pres(minOf(7, 2, 5)), 1, 'the unit exists from the chosen time');
-  await page.click('#sc-reset'); await frames(3); assert.equal(await pres(minOf(7, 2, 5)), 0, 'and not before the recommended 08:00 once the choice is reset');
+  await page.click('#sc-reset'); await frames(3); assert.equal(await pres(minOf(7, 2, 5)), 0, 'and not before the delegated 07:00 once the choice is reset');
   // a weather conflict changes the weather state it is linked to
   await at(minOf(7, 4, 15)); const rainDefault = await page.evaluate(() => window.btApp.theatre.wx.precip.intensity);
   await body.locator('.conflict[data-id="CF-JUL4-RAIN-TIMING"] select').selectOption({ index: 2 }); await frames(30); const rainAlt = await page.evaluate(() => window.btApp.theatre.wx.precip);

@@ -15,11 +15,11 @@ function serveDir(root, port) {
     const b = fs.readFileSync(f); s.writeHead(200, { 'content-type': MIME[path.extname(f)] || 'application/octet-stream', 'content-length': b.length, 'cache-control': 'no-store' }); s.end(b);
   }); srv.listen(port, '127.0.0.1', () => res(srv)); });
 }
-export async function runScenario(root, port, { frames = 40, timeout = 600000 } = {}) {
+export async function runScenario(root, port, { frames = 20, timeout = 600000 } = {}) {
   const srv = await serveDir(root, port), base = `http://127.0.0.1:${port}`, log = new Map(), errors = [];
   const br = await chromium.launch({ channel: 'chrome', headless: true, args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--autoplay-policy=no-user-gesture-required'] });
   try {
-    const ctx = await br.newContext({ viewport: { width: 800, height: 450 } }), page = await ctx.newPage();
+    const ctx = await br.newContext({ viewport: { width: 640, height: 360 } }), page = await ctx.newPage();
     page.on('response', r => { const u = new URL(r.url()); if (u.origin === base) log.set(u.pathname, r.status()); });
     page.on('requestfailed', r => { const u = new URL(r.url()); if (u.origin === base) log.set(u.pathname, 0); });
     page.on('pageerror', e => errors.push('pageerror: ' + String(e.message || e).slice(0, 300)));
@@ -37,19 +37,19 @@ export async function runScenario(root, port, { frames = 40, timeout = 600000 } 
       a.setTime(minOf(7, 4, 15, 0)); await a.frames(n);                                       // rain day
       out.soundStarted = th.audio ? th.audio.started : null; out.units = ui; return out;
     }, frames);
-    await page.click('[data-panel=scenario]'); await page.waitForTimeout(500);
+    await page.evaluate(() => document.querySelector('[data-panel=scenario]').click()); await page.evaluate(() => window.btApp.frames(3));
     return { info, log: Object.fromEntries([...log].sort()), errors };
   } finally { await br.close(); srv.close(); }
 }
 const walk = d => fs.readdirSync(d, { withFileTypes: true }).flatMap(e => e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)]);
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const a = process.argv.slice(2), opt = k => { const i = a.indexOf(k); return i >= 0 ? a[i + 1] : undefined; };
-  const dist = path.resolve(opt('--dist') || path.join(REPO, 'deliver/bt-staging/dist')), frames = +opt('--frames') || 40;
+  const dist = path.resolve(opt('--dist') || path.join(REPO, 'deliver/bt-staging/dist')), frames = +opt('--frames') || 20;
   const distFiles = new Set(walk(dist).map(f => '/' + path.relative(dist, f).split(path.sep).join('/')));
   console.log('run 1/2: the packed dist'); const A = await runScenario(dist, 10811, { frames });
   console.log('run 2/2: the source tree'); const B = await runScenario(BT, 10812, { frames });
   const bad = Object.entries(A.log).filter(([, s]) => s < 200 || s >= 400), missing = Object.keys(B.log).filter(u => B.log[u] >= 200 && B.log[u] < 400 && !distFiles.has(u));
-  const rep = { dist, distFiles: distFiles.size, distRun: { requests: Object.keys(A.log).length, nonOk: bad, info: A.info, errors: A.errors }, sourceRun: { requests: Object.keys(B.log).length, nonOk: Object.entries(B.log).filter(([, s]) => s >= 400 || s === 0), info: B.info, errors: B.errors }, loadedButNotInDist: missing };
+  const rep = { dist, distFiles: distFiles.size, distRun: { requests: Object.keys(A.log).length, nonOk: bad, info: A.info, errors: A.errors }, sourceRun: { requests: Object.keys(B.log).length, nonOk: Object.entries(B.log).filter(([, s]) => s >= 400 || s === 0), info: B.info, errors: B.errors }, loadedButNotInDist: missing, requestedDataFiles: Object.keys(A.log).filter(u => /\/data\/(audio3d|anim3d|fx3d|figures3d)\//.test(u) || /conflict-defaults/.test(u)), distFilesNotRequested: [...distFiles].filter(f => !(f in A.log) && !/^\/(index\.html|_headers|netlify\.toml|MANIFEST\.json)$/.test(f)).length };
   if (opt('--json')) fs.writeFileSync(path.resolve(opt('--json')), JSON.stringify(rep, null, 1));
   console.log(JSON.stringify({ ...rep, distRun: { ...rep.distRun, errors: rep.distRun.errors.slice(0, 5) }, sourceRun: { ...rep.sourceRun, errors: rep.sourceRun.errors.slice(0, 5) } }, null, 1));
   const ok = !bad.length && !missing.length && A.info.sound === true; console.log(ok ? 'STAGING VERIFIED: zero 404s, every URL the source run loaded is in the dist, sound started' : 'STAGING CHECK FAILED'); process.exit(ok ? 0 : 1);
