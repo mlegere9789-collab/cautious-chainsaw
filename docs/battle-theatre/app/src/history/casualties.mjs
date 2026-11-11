@@ -1,4 +1,4 @@
-// CASUALTIES (PDF B.1, B.5 and D.3.2 items 3-4; CLAUDE.md: strengths and casualties are ranges with a declared basis, never a fabricated number).
+// CASUALTIES (PDF B.1, B.5 and D.3.2 items 3-4; the project Law: strengths and casualties are ranges with a declared basis, never a fabricated number).
 //
 // What the record holds: a single printed loss figure for 13 corps rows and 8 brigades (Stone Sentinels, a weak source; PDF B.3 table), and army-level totals and
 // killed/wounded/missing splits from several sources (PDF B.1, OR vol. 27: data/casualty-sources.json). It holds NO regimental casualty number (Busey and Martin is print-only).

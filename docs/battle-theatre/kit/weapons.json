@@ -20,7 +20,7 @@
    "drill_states": 12
   }
  },
- "tier_rule": "Small arms dictionary (PDF B.6.9), unit-to-weapon table (B.6.10), ammunition and drill (B.6.11).\nSpec text is the PDF cell text, wrapped lines joined; nothing is paraphrased in 'printed' fields.\n\nTier rule (CLAUDE.md Law cl.4): B.6.9 prints a source list per ROW but no tier per row and no claim-to-source map. A row is\n'documented' only if at least one cited key is non-weak (kit_sources.SOURCES); a Wikipedia/forum/blog/auction-only row is\n'inferred' with weak_source true.  A row with no specs at all is an OPEN GAP (tier 'gap', gap_ids) and gets no tier, as\nthe PDF requires (B.6.14 intro: GAP rows are listed as open gaps and are not given a tier).",
+ "tier_rule": "Small arms dictionary (PDF B.6.9), unit-to-weapon table (B.6.10), ammunition and drill (B.6.11).\nSpec text is the PDF cell text, wrapped lines joined; nothing is paraphrased in 'printed' fields.\n\nTier rule (the project Law cl.4): B.6.9 prints a source list per ROW but no tier per row and no claim-to-source map. A row is\n'documented' only if at least one cited key is non-weak (kit_sources.SOURCES); a Wikipedia/forum/blog/auction-only row is\n'inferred' with weak_source true.  A row with no specs at all is an OPEN GAP (tier 'gap', gap_ids) and gets no tier, as\nthe PDF requires (B.6.14 intro: GAP rows are listed as open gaps and are not given a tier).",
  "weapons": {
   "m1861_springfield": {
    "id": "m1861_springfield",
