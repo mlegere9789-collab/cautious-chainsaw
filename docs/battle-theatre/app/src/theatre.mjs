@@ -23,6 +23,8 @@ import { mountCard } from './ui/card.mjs';
 import { mountObjectCard } from './ui/object-card.mjs';
 import { Structures, loadStructureInputs, DEFAULT_LAYERS } from './structures/index.mjs';
 import { drawStructureMarks } from './structures/overlay.mjs';
+import * as fxHost from './fx-host.mjs';
+import * as AudioHost from './audio-host.mjs';
 import { perspective, lookAt, mul, frustumPlanes } from '../../render/prototype/src/math.mjs';
 
 const warm = { T: null, base: null };                // parsed ground and the placeholder crowd, kept between visits (plain arrays; no GPU or DOM objects)
@@ -90,7 +92,11 @@ export class Theatre {
         try { await this.host.attachCrowd({ layer: this.layer, world: this.world, stage: this.stage, T: this.T, settings: S, progress: (f, txt) => step(txt, 0.6 + 0.2 * f) }); if (this.dead) return; }
         catch (e) { console.warn('figures not drawn, the prototype soldier is used:', e); this.crowdError = String(e.message || e); this.host.crowd = null; this.host.R.o.flags.near = this.host.R.o.flags.mid = this.host.R.o.flags.far = 1; this.host.setLod(S.nearR, S.midR); }
       }
-      try { const flags = await (await fetch(URLS.app + 'src/host-modules.json')).json(); await this.host.attachHostModules(flags); } catch (e) { console.warn('host modules not read:', e); }
+      try {                                         // effects (weather, smoke, dust: src/fx-host.mjs) and sound (src/audio-host.mjs)
+        const anim = this.host.crowd ? this.host.crowd.driver.anim : null; this.anim3d = anim;
+        this.fxOn = await fxHost.init(this.host, { environment: this.env, anim, choices: () => this.state.scenario.choices, nightFloor: S.nightFloor });
+        this.audio = AudioHost.init({ scope: sc, bus: anim ? anim.bus : null, replay: anim ? (a, b) => anim.advance(a, b) : null, T: this.T, search: location.search });
+      } catch (e) { console.warn('effects or sound not started:', e); this.fxOn = null; }
       if (qs.get('structures') !== 'off') {
         step('Drawing the structures', 0.8); await idle(); if (this.dead) return;
         try { const inputs = await loadStructureInputs(rawHist); if (this.dead) return; this.structs = new Structures(this, inputs, this.T); await this.structs.attach(this.host); this.host.structures = this.structs.gpu; this.structs.gpu.markDirty(); }
@@ -192,6 +198,7 @@ export class Theatre {
       if (st.t >= r.to - 1 / 60) { st.t = r.to - 1 / 60; st.playing = false; st.rate = 0; this.bus.emit('play'); }
       this.bus.emit('tick');
     }
+    if (this.needSeek) this._seekedForAudio = true;
     if (this.needSeek) { this.anim.t = 40 + (st.t * 60) % 7200; this.needSeek = false; this.stage.rebase(); }
     if (this.anim.t > 2e5) { this.anim.t = 40 + (st.t * 60) % 7200; this.needFx = true; this.stage.rebase(); }
     const p0 = performance.now(); this.controls.update(dt);
@@ -209,6 +216,8 @@ export class Theatre {
     if (this.structs) this.structsFrame(st.t);
     const p3 = performance.now(); if (this.needFx) { this.needFx = false; this.replayFx(); this.counters.replays++; }
     this.stats = stats; const p4 = performance.now();
+    if (this.fxOn) { try { this.fxInfo = fxHost.update({ tMin: st.t, cam: this.cam, choices: st.scenario.choices }); } catch (e) { console.warn('effects stopped:', e); this.fxOn = null; } }
+    if (this.audio) AudioHost.update({ t: st.t, playing: st.playing, speed: st.speed, rate: st.rate, dt, seeked: this._seekedForAudio === true, scrubbing: !!this.scrubbing, cam: this.cam, weather: this.wx, sun: this.sample }); this._seekedForAudio = false;
     const rs = this.host.frame(this.anim.t, this.cam); this.rs = rs; this.counters.frames++; const p5 = performance.now();
     this.inflight = (this.inflight || 0) + 1; this.host.done().then(() => { this.inflight--; }, () => { this.inflight = 0; });
     // overlay and rain
@@ -270,6 +279,8 @@ export class Theatre {
     if (this.dead) return; this.dead = true;
     try { if (window.btApp) delete window.btApp; } catch { /* ignore */ }
     this.scope.dispose();                       // listeners, timers, animation frames, observers
+    try { fxHost.dispose(); } catch (e) { console.warn('effects teardown', e); }
+    try { AudioHost.dispose(); } catch (e) { console.warn('sound teardown', e); }
     if (this.host) { this.host.destroy(); this.host = null; }
     this.bus.clear(); if (this.root) { this.root.remove(); this.root = null; }
     for (const k of Object.keys(this)) if (k !== 'dead') this[k] = null;       // a finished visit holds nothing: no DOM, no closure over the DOM

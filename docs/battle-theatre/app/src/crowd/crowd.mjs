@@ -71,6 +71,7 @@ export class Crowd {
     const R = this.host.R; R.o.flags.near = 0; R.o.flags.mid = 0; R.o.flags.far = 0; R.cfg.nearR = 0.01; R.cfg.midR = 0.01;            // the prototype soldiers off: its selection pass sees no unit in range
     if (this.api === 'webgpu') { const { CrowdGPU } = await import('./gpu.mjs'); this.be = new CrowdGPU(this.host, this); } else { const { CrowdGL } = await import('./gl.mjs'); this.be = new CrowdGL(this.host, this); }
     this.be.init(S); this.host.setCrowd(this);
+    this.driver.anim.setPlacement((id, k, t, out) => this.placement(id, k, out));
     this.stats.buildMs = Math.round(performance.now() - t0); this.stats.classes = nC; progress(1, 'Figures ready');
   }
   scene(p) { if (!this.dead && this.be) this.be.scene(p); }
@@ -101,10 +102,19 @@ export class Crowd {
     // the LOD0 triangle budget: the nearest keep LOD0, the others are drawn at LOD1 (nobody is dropped)
     let n0 = 0; for (let j = 0; j < n; j++) if (this.wLod[j] === 0) n0++;
     if (n0 > this.nearCap) { const ix = []; for (let j = 0; j < n; j++) if (this.wLod[j] === 0) ix.push(j); ix.sort((a, b) => this.wD2[a] - this.wD2[b] || this.wFig[a] - this.wFig[b]); for (let q = this.nearCap; q < ix.length; q++) this.wLod[ix[q]] = 1; n0 = this.nearCap; }
+    this.host.animT = animT; if (this.driver.anim.bus.stats && (this.host.fxWants !== false)) this._ensureAnimators(6);
     const t1 = performance.now(); this._build(n, tSec); const t2 = performance.now();
     this.stats.selectMs = t1 - t0; this.stats.animMs = t2 - t1; this.stats.bakeMs = this.bank.bakeMs; this.stats.far = w.count - n; this.stats.listed = n; void D;
     const F = this.frameData; F.impostors = true; F.nWorld = w.count; F.r2 = rad.r2; this.be.upload(F);
   }
+  // anim3d placement hook (events carry world positions): k = -1 the unit's centre; the current frame's tables (events of the window just before now)
+  placement(id, k, out) {
+    const ui = this.driver.byId.get(id); if (ui === undefined || this.stage.present[ui] !== 1) return false; const w = this.world.units[ui], f = this.world.unitF;
+    if (k < 0 || k >= w.count) { out.x = f[ui * 12]; out.z = f[ui * 12 + 1]; out.yaw = f[ui * 12 + 2]; } else { soldierPlace(this.world, w.first + k, this.host.animT ?? 0, this.tmp); out.x = this.tmp[0]; out.z = this.tmp[1]; out.yaw = this.tmp[2]; }
+    out.y = this.T.h(out.x, out.z); return true;
+  }
+  // every unit that is on the field gets its animator (events of the whole field, drawn or not): a few milliseconds a frame
+  _ensureAnimators(budgetMs) { const t0 = performance.now(), st = this.stage; for (let ui = 0; ui < this.nUnits && performance.now() - t0 < budgetMs; ui++) if (st.present[ui] === 1) this.driver.get(ui); }
   _build(n, tSec) {
     const w = this.world, D = this.D, drv = this.driver, bank = this.bank, sel = drv.sel, rows = this.rowsTmp, T = this.T, sys = this.sys;
     let c0 = 0, c1 = 0, c2 = 0, nh = 0, nPose = 0; const mid = this.cls;

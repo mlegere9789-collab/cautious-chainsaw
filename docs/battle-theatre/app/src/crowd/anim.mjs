@@ -14,7 +14,7 @@ export const CREW_PER_GUN = 9;
 export class CrowdAnim {
   constructor({ skeleton, world, layer, stage, seed = 1863 }) {
     this.world = world; this.layer = layer; this.stage = stage; this.seed = seed; this.nL = layer.units.length;
-    this.anim = new AnimSystem({ skeleton, seed }); this.lib = this.anim.lib; this.ua = new Array(world.units.length).fill(null); this.version = -1; this.sel = new ClipSel(); this.built = 0;
+    this.anim = new AnimSystem({ skeleton, seed }); this.byId = new Map(); world.units.forEach((_, ui) => this.byId.set(this.unitId(ui), ui)); this.lib = this.anim.lib; this.ua = new Array(world.units.length).fill(null); this.version = -1; this.sel = new ClipSel(); this.built = 0;
   }
   unitId(ui) { const u = this.world.units[ui]; return ui < this.nL ? this.layer.units[ui].id : `${this.layer.units[u.parent].id}#gun${u.gun}`; }
   // forget every animator (a scenario change moves arrivals, activities and losses)
@@ -40,7 +40,7 @@ export class CrowdAnim {
   get(ui) {
     if (this.version !== this.stage.segsVersion) this.reset();
     let ua = this.ua[ui]; if (ua) return ua; const w = this.world.units[ui], lu = this.layer.units[ui < this.nL ? ui : w.parent], s1 = this.world.sold1, first = w.first;
-    ua = this.anim.addUnit({ unitId: this.unitId(ui), n: w.count, arm: lu.arm === 'cavalry' ? 'cavalry' : 'infantry', crewPerGun: CREW_PER_GUN, variation: k => s1[(first + k) * 4 + 3] });
+    ua = this.anim.addUnit({ unitId: this.unitId(ui), n: w.count, arm: lu.arm === 'cavalry' ? 'cavalry' : 'infantry', crewPerGun: CREW_PER_GUN, gaitBasis: lu.arm === 'cavalry' ? 'wheeler_1863' : lu.arm === 'artillery' ? 'fa_1863' : undefined, variation: k => s1[(first + k) * 4 + 3] });      // DD-10: Wheeler 1863 for cavalry, the 1863 field artillery manual for horse artillery; modern_range stays selectable
     ua.setSegments(this._segsOf(ui));
     if (ui < this.nL) { const fi = this.stage.fallInfo(ui); if (fi) { const fallT = new Float64Array(w.count).fill(Infinity), fate = new Uint8Array(w.count); for (let j = 0; j < fi.t.length; j++) if (fi.anim[j] && fi.agent[j] < w.count) { fallT[fi.agent[j]] = fi.t[j]; fate[fi.agent[j]] = fi.fate[j]; } ua.setFalls(fallT, fate); } }
     this.ua[ui] = ua; this.built++; return ua;
