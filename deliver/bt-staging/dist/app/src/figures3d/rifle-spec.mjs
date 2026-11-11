@@ -1,3 +1,3 @@
 // Rifle socket proportions: the numbers the animation's hand sockets assume (ANIM3D-NOTES section 8; src/anim3d/figure-pose.mjs PROPS.rifle), metres from the butt toe of the M1861 rifle-musket (56 in. overall,
-// 40 in. barrel). Tier inferred (positions along the stock are inferred, not measured). data/figures3d/socket-spec.json, when the ANIMATION follow-up writes it, must agree (a test compares them).
+// 40 in. barrel). Tier inferred (positions along the stock are inferred, not measured). data/figures3d/socket-spec.json, when the animation module writes it, must agree (a test compares them).
 export const M1861 = Object.freeze({ overall_in: 56, barrel_in: 40, wrist: 0.30, lock: 0.46, lower_band: 0.85, upper_band: 1.15, ramrod_head: 1.30, bayonet_blade_m: 0.457, tier: 'inferred', basis: 'ANIM3D-NOTES section 8; kit/weapons.json m1861_springfield overall 56 in, barrel 40 in' });

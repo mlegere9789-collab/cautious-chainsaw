@@ -1,4 +1,4 @@
-// Rig adapter: reads one section (human | horse | gun) of data/figures3d/skeleton.json (written by the FIGURES agent, schema figures3d-skeleton-1) and gives the animation system
+// Rig adapter: reads one section (human | horse | gun) of data/figures3d/skeleton.json (written by the figures module, schema figures3d-skeleton-1) and gives the animation system
 //  * topology, rest offsets, joint limits, IK chains, sockets;
 //  * the "core" (animated) joint set and the clip FRAME layout (what a clip stores per sample);
 //  * forward kinematics (allocation-free), skin-matrix output (3 x vec4 per bone), and a hinge two-bone IK that keeps the middle joint a pure X hinge (knee / elbow limits z = 0).

@@ -72,7 +72,7 @@ void main(){
     vOD = 3.0 * od; vKind = (ty == 10 || ty == 8 || ty == 9 || ty == 7) ? 1.0 : 0.0;
     vec3 v = normalize(uCam - c); float cosT = dot(-uSun, v);
     float shadow = exp(-0.5 * min(od * n, 8.0));
-    vec3 lit = uLight.z * (uLight.x + uLight.y * hgPhase(cosT, uLight.w) * shadow);
+    vec3 lit = vec3(uLight.z * (uLight.x + uLight.y * hgPhase(cosT, uLight.w) * shadow));
     lit = max(lit, vec3(uLight.z * uExtra.x));                                                     // luminance floor: never black (gate Q10)
     vec3 tint = vKind > 0.5 ? vec3(0.78, 0.70, 0.58) : (ty == 13 ? vec3(0.42, 0.40, 0.40) : vec3(1.0));
     vCol = vec4(lit * tint, 1.0);
@@ -84,7 +84,7 @@ void main(){
     float sh = sqrt(sig0 * sig0 + 2.0 * K * age + beta * age * age * age); float rs = max(0.6, SPRITE_K * sh + 0.15 * R); size = rs; vRs = rs;
     float mass = mass0 * exp(-age / tauDis); float od = uKappa.x * (mass / n) / (3.14159265 * rs * rs);
     vOD = 3.0 * od; vec3 v = normalize(uCam - c);
-    vec3 lit = max(uLight.z * (uLight.x + uLight.y * hgPhase(dot(-uSun, v), uLight.w)), vec3(uLight.z * uExtra.x)); vCol = vec4(lit, 1.0);
+    vec3 lit = max(vec3(uLight.z * (uLight.x + uLight.y * hgPhase(dot(-uSun, v), uLight.w))), vec3(uLight.z * uExtra.x)); vCol = vec4(lit, 1.0);
   } else if (ty == 8 || ty == 9){                                                                   // clods: ballistic, gravity 9.80665
     float th = 6.2831853 * u01(seed, ui, 5u, 4u), sp = A1 * (0.4 + 0.6 * u01(seed, ui, 6u, 4u)), el = 0.9 + 0.5 * u01(seed, ui, 7u, 4u);
     vec3 v0 = vec3(cos(th) * sp * 0.5, sp * el, sin(th) * sp * 0.5); float tt = min(age, 2.0 * v0.y / 9.80665);

@@ -47,7 +47,7 @@ export async function createAudio3D({ baseUrl = new URL('../../data/audio3d/', i
     update({ battleNow: bn, warp: w = 1, listener, weather = null, sun = null, min = null } = {}) {
       battleNow = bn ?? battleNow; warp = w;
       if (listener) planner.setListener(listener);
-      if (weather !== null || min !== null) { env.atm = atmosphereFromWeather(weather, min ?? bn / 60, { timeWarp: warp }); planner.setAtmosphere(env.atm); env.amb = ambientState(weather, sun, env.atm); planner.setAmbientDb(env.amb.ambientFloorDb); }
+      if (weather !== null || min !== null) { env.atm = atmosphereFromWeather(weather, min ?? bn / 60, { timeWarp: 1 }); planner.setAtmosphere(env.atm); env.amb = ambientState(weather, sun, env.atm); planner.setAmbientDb(env.amb.ambientFloorDb); }
       if (engine) engine.anchor(battleNow, warp);
     },
     pump(lookaheadS = 30) {

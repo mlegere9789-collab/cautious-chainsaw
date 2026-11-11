@@ -1,5 +1,5 @@
 // Flags, colours and guidons. Cloth meshes (hoist along the staff, wave weight per vertex for the wind/animation pass) and procedural patterns (RGBA textures).
-// EVIDENCE RULES (CLAUDE.md Law cl.4, brief): the repository documents NO regimental or state colour description and no Gettysburg-specific Confederate pattern (PDF B.6.5 G11: Gettysburg pattern open).
+// EVIDENCE RULES (project Law cl.4): the repository documents NO regimental or state colour description and no Gettysburg-specific Confederate pattern (PDF B.6.5 G11: Gettysburg pattern open).
 //  * US national colour: stars and stripes, 13 stripes, STAR COUNT 34 (tier INFERRED: the count in law on 1-3 July 1863 was set by admissions before 4 July 1863; West Virginia, admitted 20 June 1863,
 //    could take the 35th star only on 4 July 1863. The statute (3 Stat. 415), the admission acts of Kansas and West Virginia, the NPS statement of 33 stars to 3 July 1861 and the state order were READ on 2026-11-04 (evidence.mjs: the statutory count is documented); that each colour carried it stays inferred: register EG-FIG-0002). The star ARRANGEMENT is
 //    plausible-procedural (period flags varied; no regiment's arrangement is documented here).

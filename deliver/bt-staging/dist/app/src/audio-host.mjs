@@ -235,10 +235,8 @@ export class AudioHost {
     const ground = T && typeof T.h === 'function' ? T.h(cam.x, cam.z) : null, hAbove = cam.hAbove ?? (ground == null ? 1.6 : Math.max(0.5, cam.y - ground));
     const listener = { pos: [cam.x, cam.y, cam.z], vel, yaw: listenerYaw(cam.yaw || 0), hAbove };
     const envDue = !this.active || Math.abs(frame.t - this.envAt) > 0.25 || frame.weatherChanged;
-    // The planner is given warp 1 on purpose: its arrival times stay in battle seconds (t + d / c). The engine converts battle seconds to wall seconds with the real
-    // speed (anchor below). Passing the speed to audio.update would compress the flight twice (planner c*k, then the engine's / k).
-    this.audio.update({ battleNow: tS, warp: 1, listener, weather: envDue ? frame.weather ?? null : null, sun: envDue ? frame.sun ?? null : null, min: envDue ? frame.t : null });
-    if (this.audio.engine) this.audio.engine.anchor(tS, speed);
+    // audio.update plans in battle seconds (t + d / c) and anchors the engine, which converts battle seconds to wall seconds with the speed once.
+    this.audio.update({ battleNow: tS, warp: speed, listener, weather: envDue ? frame.weather ?? null : null, sun: envDue ? frame.sun ?? null : null, min: envDue ? frame.t : null });
     const wasActive = this.active; this.active = true;
     if (!wasActive) this._prime(tS);
     if (envDue) { this.envAt = frame.t; this._environment(frame, tS, listener, !wasActive); }

@@ -1,5 +1,5 @@
 // The drill timing tables the animation consumes: every number carries its source item ids (drill/drill_*.json, or the ANIM-* items re-found in the Hardee/Casey OCR by tests/anim3d.test.mjs) and its tier.
-// Tier vocabulary (CLAUDE.md): documented = a primary manual states it; inferred = arithmetic or reading of documented figures; plausible-procedural = authored, declared range, registered gap.
+// Tier vocabulary (the project Law): documented = a primary manual states it; inferred = arithmetic or reading of documented figures; plausible-procedural = authored, declared range, registered gap.
 // NOTHING here is an invented historical rate: where the manuals give only a training standard or nothing, the table carries a RANGE with `basis` and the gap id (GAPS below).
 export const INCH = 0.0254, YARD = 0.9144;
 
