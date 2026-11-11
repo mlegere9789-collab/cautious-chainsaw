@@ -92,16 +92,16 @@ export class Theatre {
         try { await this.host.attachCrowd({ layer: this.layer, world: this.world, stage: this.stage, T: this.T, settings: S, progress: (f, txt) => step(txt, 0.6 + 0.2 * f) }); if (this.dead) return; }
         catch (e) { console.warn('figures not drawn, the prototype soldier is used:', e); this.crowdError = String(e.message || e); this.host.crowd = null; this.host.R.o.flags.near = this.host.R.o.flags.mid = this.host.R.o.flags.far = 1; this.host.setLod(S.nearR, S.midR); }
       }
-      try {                                         // effects (weather, smoke, dust: src/fx-host.mjs) and sound (src/audio-host.mjs)
-        const anim = this.host.crowd ? this.host.crowd.driver.anim : null; this.anim3d = anim;
-        this.fxOn = await fxHost.init(this.host, { environment: this.env, anim, choices: () => this.state.scenario.choices, nightFloor: S.nightFloor });
-        this.audio = AudioHost.init({ scope: sc, bus: anim ? anim.bus : null, replay: anim ? (a, b) => anim.advance(a, b) : null, T: this.T, search: location.search });
-      } catch (e) { console.warn('effects or sound not started:', e); this.fxOn = null; }
       if (qs.get('structures') !== 'off') {
         step('Drawing the structures', 0.8); await idle(); if (this.dead) return;
         try { const inputs = await loadStructureInputs(rawHist); if (this.dead) return; this.structs = new Structures(this, inputs, this.T); await this.structs.attach(this.host); this.host.structures = this.structs.gpu; this.structs.gpu.markDirty(); }
         catch (e) { console.warn('structures not drawn:', e); this.structsError = String(e.message || e); this.structs = null; }
       }
+      try {                                         // effects (weather, smoke, dust: src/fx-host.mjs) and sound (src/audio-host.mjs)
+        const anim = this.host.crowd ? this.host.crowd.driver.anim : null; this.anim3d = anim;
+        this.fxOn = qs.get('fx') === 'off' ? null : await fxHost.init(this.host, { environment: this.env, anim, choices: () => this.state.scenario.choices, nightFloor: S.nightFloor });
+        this.audio = AudioHost.init({ scope: sc, bus: anim ? anim.bus : null, replay: anim ? (a, b) => anim.advance(a, b) : null, T: this.T, search: location.search });
+      } catch (e) { console.warn('effects or sound not started:', e); this.fxOn = null; }
       step('Building the controls', 0.9); await idle(); if (this.dead) return;
       this.controls = new Controls({ cam, canvas: this.els.canvas, T: this.T, scope: sc, reduceMotion: () => this.reduceMotion, onTap: (x, y, type) => this.tap(x, y, type), onHover: (x, y) => this.hoverAt(x, y), onMove: done => { if (done) this.bus.emit('camera-settled'); } });
       this.overlay = new Overlay({ canvas: this.els.overlay, stage: this.stage, layer: this.layer, cam, T: this.T, scope: sc }); this.sizeCanvas(true);

@@ -131,7 +131,7 @@ export class Crowd {
     }
     this.stats.lod0 = c0; this.stats.lod1 = c1; this.stats.lod2 = c2; this.stats.horse = nh;
     // 2. instance records and draws. capacity: LOD0 parts (about 30 per man), LOD1 / LOD2 x (class + accessory), horses
-    const need = (c0 * 40 + (c1 + c2) * 2 + nh) * REC; if (need * 4 > this.inst.byteLength) { this.inst = new ArrayBuffer(Math.max(need * 4, this.inst.byteLength * 2)); this.instF = new Float32Array(this.inst); this.instU = new Uint32Array(this.inst); }
+    const need = (c0 * 40 + (c1 + c2) * 2 + nh) * REC; if (need * 4 > this.inst.byteLength) { this.inst = new ArrayBuffer(Math.max(need * 4, this.inst.byteLength * 2)); this.instF = new Float32Array(this.inst); this.instU = new Uint32Array(this.inst); this.inst8 = null; }
     const F = this.frameData || (this.frameData = { draws: [], inst: null, instBytes: 0, pose: this.pose, nPose: 0 }); const draws = F.draws; draws.length = 0; let rec = 0; const f32 = this.instF, u32 = this.instU;
     const put = (j, x1, x2, x3, u1, u2, u3) => { const o = rec * REC; f32[o] = this.wX[j]; f32[o + 1] = this.wZ[j]; f32[o + 2] = this.wH[j]; f32[o + 3] = 1; f32[o + 4] = x1; f32[o + 5] = x2; f32[o + 6] = x3; f32[o + 7] = 0; u32[o + 8] = this.wFig[j]; u32[o + 9] = u1; u32[o + 10] = u2; u32[o + 11] = u3; rec++; };
     // LOD0: per part, the men that wear it
@@ -165,7 +165,7 @@ export class Crowd {
       const first = rec; let cnt = 0; for (let j = 0; j < n; j++) if (this.wMt[j] && this.wLod[j] === lod) { put(j, this.wHF[j], 0, 0, this.wHR[j], this.wHR[j], 0); cnt++; }
       if (cnt) { const e = this.horseM[lod]; draws.push({ near: false, bank: 'horse', first: e.firstIndex, count: e.indexCount, off: first * 48, n: cnt }); }
     }
-    F.inst = this.inst; F.instBytes = rec * 48; F.nPose = nPose; F.pose = this.pose; this.stats.records = rec; this.stats.draws = draws.length; this.stats.tris = draws.reduce((a, d) => a + d.count / 3 * d.n, 0);
+    F.inst = this.inst8 || (this.inst8 = new Uint8Array(this.inst)); F.instBytes = rec * 48; F.nPose = nPose; F.pose = this.pose; this.stats.records = rec; this.stats.draws = draws.length; this.stats.tris = draws.reduce((a, d) => a + d.count / 3 * d.n, 0);
   }
 
   destroy() {

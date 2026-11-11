@@ -1,0 +1,165 @@
+{
+ "_doc": "library/status_2.json (workstream 9, 2026-11-11). New statuses per source; status.json itself is NOT edited. Statuses: ingested, partial, blocked, scheduled, print-only. \"ingested\" here means the full OCR text is acquired and hash-recorded, not that every claim was mined. All text is raw unverified OCR.",
+ "sources": [
+  {
+   "id": "OR-27-1",
+   "status": "ingested",
+   "reason": "archive.org cu31924077699761; sha256 in library/acquired.json; local text tmp/library/or27 (present, used by tools/bt/or27_find.py)"
+  },
+  {
+   "id": "OR-27-2",
+   "status": "ingested",
+   "reason": "archive.org cu31924077728255; as above"
+  },
+  {
+   "id": "OR-27-3",
+   "status": "ingested",
+   "reason": "archive.org cu31924077700262; as above"
+  },
+  {
+   "id": "OR-ATLAS",
+   "status": "partial",
+   "reason": "archive.org atlastoaccompany00unit: only the 398,645-byte index text and the PDF were acquired; plates are images, too coarse for brigade labels (see TM-OR-ATLAS-GETTYSBURG in status.json); no plate text"
+  },
+  {
+   "id": "PA-GB",
+   "status": "ingested",
+   "reason": "Pennsylvania at Gettysburg vol. 1 (1904, 1914 x2) and vol. 2 (1914) acquired 2026-10-19/10-30; re-fetched and sha256-matched 2026-11-11 (PA-GB-1904, PA-GB-1914-v2); library/acquired.json"
+  },
+  {
+   "id": "NY-GB",
+   "status": "ingested",
+   "reason": "New York at Gettysburg vols 1-3 (several OCR witnesses) in library/acquired.json; NY-GB-1900, -v2 and -v3 re-fetched and sha256-matched 2026-11-11"
+  },
+  {
+   "id": "ME-GB",
+   "status": "ingested",
+   "reason": "archive.org maineatgettysbu01commgoog (1898); re-fetched, sha256 matches acquired.json (the maine.gov host is not reachable; not needed)"
+  },
+  {
+   "id": "MI-GB",
+   "status": "ingested",
+   "reason": "archive.org cu31924030924736 (1889, 352,794 bytes); re-fetched, sha256 matches; HathiTrust not reachable (not needed)"
+  },
+  {
+   "id": "STATE-OTHER",
+   "status": "partial",
+   "reason": "Acquired 2026-11-11 (library/acquired_2.json): New Jersey (Toombs 1888; Final Report 1891), Vermont (1890; 1914), Ohio (dedication 1887, 13 KB only; 8th Ohio 1889), Indiana (1913), 1st Minnesota (1916), Boston burial committee report (1863). NOT acquired: Massachusetts at Gettysburg (no archive.org item found), Wisconsin (only the Haskell reprint located), Virginia, North Carolina, Georgia, Alabama, South Carolina, Texas (not searched). Raw text only; not yet mined claim by claim."
+  },
+  {
+   "id": "SHSP",
+   "status": "partial",
+   "reason": "Vols 4, 5, 6, 11, 12 of 52 acquired (archive ids southernhistoricv4sout, v5sout, v6sout, v11sout, southernhistoric12sout); the rest not acquired; keyword filter and Lost Cause tier handling not run. Vol. 4 reprints Kershaw and Benning reports already in the OR."
+  },
+  {
+   "id": "FOX",
+   "status": "ingested",
+   "reason": "archive.org reglossescivilwar00foxwrich (1889); re-fetched, sha256 matches acquired.json; table OCR not yet extracted"
+  },
+  {
+   "id": "WITNESS",
+   "status": "partial",
+   "reason": "Acquired: Fremantle 1864, Haskell (1908 ed.), E. P. Alexander 1907, Longstreet 1896, Meade Life and Letters (2 vols), Tillie Pierce 1889; F. M. Pierce 1914 is a secondary history (not a witness source). Not acquired: Gibbon (no archive.org result), Sorrel, Broadhead, Wills (only via the 1867 Revised Report), Chamberlain (Passing of the Armies is the final campaign; his Gettysburg report is in the OR and Maine at Gettysburg)."
+  },
+  {
+   "id": "NEWS",
+   "status": "partial",
+   "reason": "Gettysburg Compiler (30 weekly issues, Jun-Dec 1863) and Adams Sentinel (31 issues, Jun-Dec 1863) acquired from archive.org; OCR is multi-column and heavily garbled; no Compiler issue for 1863-07-06 on archive.org. Chronicling America: chroniclingamerica.loc.gov refused by the proxy; www.loc.gov item JSON reachable (one probe) but bulk OCR of the 1-10 Jul 1863 papers NOT fetched (deferred, not dropped)."
+  },
+  {
+   "id": "LOC-MAPS",
+   "status": "blocked-to-prior-research",
+   "reason": "unchanged by this pass (maps, not text); see status.json and TM-HOSTS-BLOCKED"
+  },
+  {
+   "id": "LOC-PHOTO",
+   "status": "scheduled",
+   "reason": "not attempted in this pass: images, not full text; IDs still not retrieved"
+  },
+  {
+   "id": "NARA-WARREN",
+   "status": "blocked-to-prior-research",
+   "reason": "unchanged; catalog.archives.gov root probe returned no connection 2026-11-11"
+  },
+  {
+   "id": "NPS-SEM",
+   "status": "blocked",
+   "reason": "npshistory.com root probe returned no connection (curl 000, proxy refusal) 2026-11-11; not circumvented; retry when the host is allowed"
+  },
+  {
+   "id": "NPS-CLR",
+   "status": "partial",
+   "reason": "unchanged; npshistory.com unreachable 2026-11-11"
+  },
+  {
+   "id": "LIDAR-3DEP",
+   "status": "scheduled",
+   "reason": "data, not text: outside this workstream"
+  },
+  {
+   "id": "LIDAR-PA17",
+   "status": "scheduled",
+   "reason": "data, not text: outside this workstream"
+  },
+  {
+   "id": "LIDAR-PAMAP",
+   "status": "scheduled",
+   "reason": "data, not text: outside this workstream"
+  },
+  {
+   "id": "PENN-PILOT",
+   "status": "scheduled",
+   "reason": "imagery: outside this workstream"
+  },
+  {
+   "id": "BACHELDER",
+   "status": "print-only",
+   "reason": "Bachelder Papers originals / Ladd edition remain print-only (copyrighted edition); Bachelder own pre-1929 publications are acquired separately as BACHELDER-PD-PUBS"
+  },
+  {
+   "id": "BACHELDER-PD-PUBS",
+   "status": "ingested",
+   "reason": "NEW row. Key to isometrical drawing 1864, painting of the Repulse 1870 and 1904 story, What to See 1873 and 1889 (archive ids keytobacheldersi00bach, paintingoftherepulse00bachrich, storybattlegett00bachgoog, gettysburgwhatto00bach, gettysburgwhatt00bach); Long, Gettysburg and Vicinity 1891 is a map: text layer is a legend only (unusable)"
+  },
+  {
+   "id": "PRINT",
+   "status": "print-only",
+   "reason": "unchanged: Coddington and other in-copyright works skipped by instruction"
+  },
+  {
+   "id": "ORDNANCE",
+   "status": "ingested",
+   "reason": "Ordnance Manual 1861, Gibbon Artillerist Manual 1860, Field Artillery 1863, Hardee x2, Casey x2 in library/acquired.json (2026-10-19); not re-fetched in this pass"
+  },
+  {
+   "id": "JACOBS-1864",
+   "status": "ingested",
+   "reason": "NEW row. Notes on the Rebel Invasion of Maryland and Pennsylvania, 1864 (archive id notesonrebelinva00jaco, 83 KB). Contains no thermometer table; the 1885 meteorological article was not located"
+  },
+  {
+   "id": "LETTERMAN-1866",
+   "status": "ingested",
+   "reason": "NEW row. Medical Recollections of the Army of the Potomac, 1866 (archive id medicalrecollect00lettuoft). Letterman OR report is already inside OR vol. 27 pt. 1"
+  },
+  {
+   "id": "CEMETERY-1863-74",
+   "status": "ingested",
+   "reason": "NEW row. Everett 1864 pamphlet, Revised Report 1867, Bartlett 1874, Indiana 1865 (Nov 1863 consecration texts)"
+  },
+  {
+   "id": "OR-25-PT2",
+   "status": "partial",
+   "reason": "NEW row. Ser. I vol. XXV Part II (correspondence) acquired as archive id warofrebellionco0025unit; Part I (reports) not located"
+  },
+  {
+   "id": "OR-29-PT2",
+   "status": "partial",
+   "reason": "NEW row. Ser. I vol. XXIX Part II (correspondence) acquired as archive id warofrebellionco0029unit_v5r6; Part I not located"
+  },
+  {
+   "id": "OR-SER3",
+   "status": "partial",
+   "reason": "NEW row. Ser. III vol. 2 acquired (archive id warofrebellionof0000unse); vol. 3 (the 1863 year) not found"
+  }
+ ]
+}
