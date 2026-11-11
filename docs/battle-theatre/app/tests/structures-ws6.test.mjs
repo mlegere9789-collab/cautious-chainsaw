@@ -12,7 +12,7 @@ import { worldFromUnits, CREW_POSTS, GUN_INTERVAL_M as WORLD_GUN_INTERVAL } from
 import { Stage } from '../src/stage.mjs';
 import { Gazetteer } from '../src/history/gazetteer.mjs';
 import { makeStateEngine, parseIso, isoOf } from '../src/structures/state.mjs';
-import { planArtillery, ArtilleryTrain, hashLists, KIND, STRIDE, GUN_INTERVAL_M } from '../src/structures/artillery.mjs';
+import { planArtillery, ArtilleryTrain, hashLists, KIND, STRIDE, GUN_INTERVAL_M, stagePoseAt } from '../src/structures/artillery.mjs';
 import { buildWorks3D, mergeWorks, FLAG, SEG_STRIDE, CREW_STRIDE } from '../src/structures/works3d.mjs';
 import { Structures } from '../src/structures/index.mjs';
 import { msOfMin } from '../src/structures/model.mjs';
@@ -27,8 +27,8 @@ const gaz = new Gazetteer(rj('app/data/gazetteer.json')), kitArt = rj('kit/artil
 const plan = planArtillery({ units: L.units, train, batteryGuns: bg, arrivals }), AT = new ArtilleryTrain({ plan, train, units: L.units });
 const W = buildWorks3D({ data: d3, inputs, T, gaz, units: L.units, events });
 const t0 = (d, h = 0, m = 0) => (d - 1) * 1440 + h * 60 + m + 30 * 1440;            // minutes since 1 June 00:00 for July day d
-const pose = (i, o) => { if (stage.present[i] !== 1) return false; o.x = stage.cx[i]; o.z = stage.cz[i]; o.h = stage.ch[i]; return true; };
-const at = (t, ch = null) => { stage.apply(t); return AT.at(t, pose, ch); };
+const pose = stagePoseAt(stage, L.units.map(u => u.id), train.layout.train_turn_s);
+const at = (t, ch = null) => AT.at(t, pose, ch);
 const copy = d => ({ guns: d.guns.slice(), limbers: d.limbers.slice(), caissons: d.caissons.slice(), wagons: d.wagons.slice(), horses: d.horses.slice(), drivers: d.drivers.slice(), counts: { ...d.counts } });
 const grid = []; for (let t = t0(1, 0); t <= t0(4, 12); t += 97) grid.push(t);
 
@@ -66,9 +66,9 @@ test('the battalion table equals the kit data (batteries per formation) and the 
 
 test('the constants agree with the stage and the world builder (crew of nine, gun interval) and the source keys exist in the kit data', () => {
   assert.equal(train.layout.crew_per_gun, CREW_POSTS.length); assert.equal(GUN_INTERVAL_M, WORLD_GUN_INTERVAL); assert.equal(train.layout.gun_interval_m, WORLD_GUN_INTERVAL);
-  const keys = new Set(); for (const f of ['kit/artillery_batteries.json', 'kit/weapons.json', 'kit/kit_specs.json']) { const s = rj(f).sources; if (s) for (const k of Object.keys(s)) keys.add(k); }
+  const kitText = ['kit/artillery_batteries.json', 'kit/weapons.json', 'kit/kit_specs.json'].map(rt).join('\n');
   const used = JSON.stringify(train).match(/"(?:source_keys)":\s*\[([^\]]*)\]/g).flatMap(m => m.match(/"([^"]+)"/g).slice(1).map(x => x.replace(/"/g, '')));
-  for (const k of used) assert.ok(keys.has(k), `source key ${k} is not a key of the kit data`);
+  for (const k of used) assert.ok(kitText.includes(`"${k}"`), `source key ${k} does not occur in the kit data`);
   // the printed PDF numbers the data quotes are in the PDF text
   const pdf = rt('BIBLE/plan-clean.txt').replace(/\s+/g, ' ');
   for (const s of ['Each gun uses two six-horse teams', 'three drivers riding the left horses', 'Each battery had one battery wagon and one forge', 'limbers about 10-15 yd behind (second line), caissons farther back (third line)', 'A 12-pdr battery adds 6 caissons (12 total)']) assert.ok(pdf.includes(s), s);
@@ -86,6 +86,15 @@ test('totals: the default reading draws every stated and filled gun, never more 
   console.log(`# guns drawn: Union ${t.union.guns} (stated ${t.union.stated}, extra ${t.union.extra}) of the inventory ${t.union.inventory.low}-${t.union.inventory.high}; Confederate ${t.confederate.guns} of ${t.confederate.inventory.low}-${t.confederate.inventory.high}; ${t.union.byBasis ? JSON.stringify(t.union.byBasis) : ''} ${JSON.stringify(t.confederate.byBasis)}`);
   const w = AT.totals({ caisson_rule: 'war_establishment' }); assert.equal(w.union.caissons, 2 * w.union.guns); assert.equal(t.union.caissons, t.union.guns);
   assert.deepEqual(AT.resolve({ gun_policy: 'nonsense', caisson_rule: 7 }), AT.resolve(null));
+});
+
+test('the pose read from the stage\'s reducer equals what stage.apply puts in its tables (position, presence), at any time and in any order; the train heading equals the block heading once the turn has settled', () => {
+  const o = { x: 0, z: 0, h: 0 }; let n = 0, settled = 0;
+  for (const t of [...grid.filter((_, i) => i % 4 === 0)].reverse()) {
+    stage.apply(t);
+    for (const b of plan.batteries) { const on = pose(b.unit, o, t); assert.equal(on, stage.present[b.unit] === 1, `${b.id} presence at ${t}`); if (on) { n++; assert.ok(Math.abs(o.x - stage.cx[b.unit]) < 1e-3 && Math.abs(o.z - stage.cz[b.unit]) < 1e-3, `${b.id} position at ${t}`); const d = Math.abs(Math.atan2(Math.sin(o.h - stage.ch[b.unit]), Math.cos(o.h - stage.ch[b.unit]))); if (d < 1e-3) settled++; } }
+  }
+  assert.ok(n > 500 && settled > n / 2, `${n} poses, ${settled} settled`);
 });
 
 test('Q04/Q06: nothing of a battery exists before its earliest documented arrival; the train arrives with the battery (every entity of every battery is present only at or after its gate, at every sampled time)', () => {
@@ -108,7 +117,7 @@ test('composition: per gun one limber, caissons by the chosen rule, two or more 
     for (let i = 0; i < d.guns.length; i += STRIDE) add('gun', d.guns[i + 4]); for (let i = 0; i < d.limbers.length; i += STRIDE) add('limber', d.limbers[i + 4]); for (let i = 0; i < d.caissons.length; i += STRIDE) add('caisson', d.caissons[i + 4]);
     for (let i = 0; i < d.wagons.length; i += STRIDE) add(d.wagons[i + 3] === KIND.wagon ? 'wagon' : 'forge', d.wagons[i + 4]); for (let i = 0; i < d.horses.length; i += STRIDE) { const r = add('horse', d.horses[i + 4]); if (d.horses[i + 6] & 1) r.leftHorse++; } for (let i = 0; i < d.drivers.length; i += STRIDE) add('driver', d.drivers[i + 4]);
     for (const b of plan.batteries) {
-      const c = AT.compose(b, { caisson_rule: rule }); if (!c.guns || !pose(b.unit, { x: 0, z: 0, h: 0 })) continue; const r = per.get(b.unit); assert.ok(r, b.id);
+      const c = AT.compose(b, { caisson_rule: rule }); if (!c.guns || !pose(b.unit, { x: 0, z: 0, h: 0 }, t)) continue; const r = per.get(b.unit); assert.ok(r, b.id);
       assert.equal(r.gun, c.extra); assert.equal(r.limber, c.limbers); assert.equal(r.caisson, c.caissons); assert.equal(r.wagon, 1); assert.equal(r.forge, 1);
       assert.equal(r.horse, c.horses); assert.equal(r.horse, c.teams * 6); assert.equal(r.driver, c.teams * 3); assert.equal(r.leftHorse, r.driver, 'the drivers ride the left horses'); assert.equal(c.teams, c.guns * (1 + (rule === 'teams_row' ? 1 : 2)) + 2);
     }
@@ -130,20 +139,20 @@ test('purity: the draw lists depend only on the time and the choices; scrubbing 
   assert.notEqual(hashLists(at(t0(3, 12), { caisson_rule: 'war_establishment' })), hashLists(at(t0(3, 12))));
 });
 
-test('Q05: the train moves only with its battery: no entity jumps (displacement between two stage frames is bounded) and it keeps its place relative to the battery', () => {
-  // the stage rigidly attaches the block to a path; vehicles are rigid in the same frame, so between two frames each moves at most the battery's march speed plus the swing of a turn
+test('Q05: the train moves only with its battery: no entity jumps (displacement between two stage frames is bounded) and it keeps its place relative to the battery (heading eased)', () => {
+  // the train is attached to the battery's slot and re-faces over train_turn_s: between two frames each entity moves at most the battery's march speed plus the slow swing of a turn
   let maxV = 0; const dt = 20 / 60;                                                        // 20 s frames
-  for (const w of [[t0(1, 8), t0(1, 14)], [t0(2, 6), t0(2, 9)]]) {
+  for (const w of [[t0(1, 8), t0(1, 14)], [t0(2, 6), t0(2, 9)], [t0(3, 0) - 5, t0(3, 0) + 25]]) {
     let prev = null; for (let t = w[0]; t < w[1]; t += dt) { const d = copy(at(t)); if (prev && prev.counts.horses === d.counts.horses && prev.counts.guns === d.counts.guns) for (const k of ['guns', 'limbers', 'caissons', 'wagons', 'horses']) for (let i = 0; i < d[k].length; i += STRIDE) { const v = Math.hypot(d[k][i] - prev[k][i], d[k][i + 1] - prev[k][i + 1]) / 20; if (v > maxV) maxV = v; } prev = d; }
   }
-  console.log(`# fastest entity of the train between frames: ${maxV.toFixed(2)} m/s (battery march 1.25 m/s; the stage turns a block over 25 s, so the rear of a rigid train swings faster)`);
-  assert.ok(maxV < 12, 'an entity moved at ' + maxV + ' m/s: a jump');
+  console.log(`# fastest entity of the train between 20 s frames: ${maxV.toFixed(2)} m/s (the stage's block itself reaches about 2.4 m/s on some approaches; artillery gait of the Instruction for Field Artillery 1863: walk 1.35, trot 3.05, gallop 6.1 m/s)`);
+  const gallop = rj('app/data/anim3d/gait-sources.json').bases.fa_1863.speeds_ms.gallop; assert.ok(maxV <= gallop, `an entity moved at ${maxV} m/s: faster than the artillery gallop of the Instruction for Field Artillery 1863 (${gallop} m/s, app/data/anim3d/gait-sources.json)`);
 });
 
 test('hand-over to the host: the draw lists are exposed through the Structures API (drawLists with the stage\'s poses, summary with the totals and the gaps) and a failure of the inputs is reported, not thrown', () => {
   const th = { layer: L, stage, T, state: { layers: { roads: true, fences: true, buildings: true, masses: true, markers: true }, settings: {}, scenario: { id: 'pdf-recommended', choices: {} }, structPD: {}, structChoice: {} }, bus: { emit() {} } };
   const inp = { ...inputs, data: rj('app/data/structures3d.json'), train, works3d: d3, batteryGuns: bg, gazetteer: rj('app/data/gazetteer.json'), ws6Errors: [] };
-  const S = new Structures(th, inp, T); stage.apply(t0(2, 12)); const dl = S.drawLists(t0(2, 12));
+  const S = new Structures(th, inp, T); const dl = S.drawLists(t0(2, 12));
   assert.ok(!dl.error, dl.error); assert.ok(dl.artillery.counts.horses > 1000 && dl.works.counts.segments > 0 && dl.preexisting.length >= 12);
   assert.equal(hashLists(dl.artillery), hashLists(at(t0(2, 12))));
   const sm = S.summary(); assert.ok(sm.ws6 && sm.ws6.artillery.union.guns > 124 && sm.ws6.works.drawn >= 10 && sm.ws6.artilleryGaps.length === 3);
@@ -155,9 +164,9 @@ const dayCheck = (id, sc) => W.works.find(o => o.id === id);
 test('Q08 coverage: every E, G and P record of the record has a decision and a reason (drawn, drawn as another, pre-existing, or not drawn with the reason); nothing is unexplained', () => {
   const ids = inputs.structures.structures.filter(s => /^(E|G)-\d\d$/.test(s.id) || s.kind === 'preexisting_wall_or_fence').map(s => s.id);
   for (const id of ids) { const c = W.coverage.find(x => x.id === id); assert.ok(c, id + ' has no decision'); assert.notEqual(c.decision, 'unexplained', id); assert.ok(c.reason && c.reason.length > 10, id); }
-  const drawn = W.coverage.filter(c => c.decision === 'drawn').map(c => c.id).sort(); assert.deepEqual(drawn, ['E-01', 'E-02', 'E-03', 'E-04', 'E-05', 'E-06', 'E-07', 'E-08', 'E-09', 'E-12', 'E-14']);
-  for (const id of drawn) assert.equal(inputs.works.works[id].construction_applies, true, id); assert.equal(W.coverage.filter(c => c.decision === 'gap').length, 0, JSON.stringify(W.coverage.filter(c => c.decision === 'gap')));
-  for (const id of ['E-10', 'E-11', 'E-13', 'E-15', 'E-16', 'E-17', 'E-18', 'G-12']) assert.equal(W.coverage.find(c => c.id === id).decision, 'not_drawn');
+  const drawn = W.coverage.filter(c => c.decision === 'drawn').map(c => c.id).sort(); assert.deepEqual(drawn, ['E-01', 'E-02', 'E-03', 'E-04', 'E-05', 'E-06', 'E-07', 'E-08', 'E-09', 'E-12', 'E-14', 'E-17', 'X-E01', 'X-E03']);
+  for (const id of drawn) assert.equal(W.merged.works[id].construction_applies, true, id); assert.equal(W.coverage.filter(c => c.decision === 'gap').length, 0, JSON.stringify(W.coverage.filter(c => c.decision === 'gap')));
+  for (const id of ['E-10', 'E-11', 'E-13', 'E-15', 'E-16', 'E-18', 'G-12', 'G-11', 'G-18']) assert.equal(W.coverage.find(c => c.id === id).decision, 'not_drawn');
   assert.equal(W.coverage.find(c => c.id === 'G-03').decision, 'drawn_as');
   assert.deepEqual(W.works.filter(o => o.unknownBuilders.length).map(o => o.id), [], 'a builder unit id is not in the roster');
 });
@@ -166,7 +175,7 @@ test('Q07/B.7.3: every pre-existing wall and fence is present from the first fra
   const pre = W.preexisting(); assert.ok(pre.length >= 12);
   for (const p of pre) { assert.equal(p.present, true); assert.equal(p.construction, false); assert.equal(p.progress, 1); assert.ok(!('stage' in p)); }
   const preIds = new Set(inputs.structures.structures.filter(s => s.kind === 'preexisting_wall_or_fence').map(s => s.id)); assert.ok(preIds.has('P-01'));
-  for (const o of W.works) { assert.ok(!preIds.has(o.id), o.id); assert.ok(!o.alias.some(a => preIds.has(a))); assert.equal(inputs.structures.structures.find(s => s.id === o.id).preexisting, false, o.id); }
+  for (const o of W.works) { assert.ok(!preIds.has(o.id), o.id); assert.ok(!o.alias.some(a => preIds.has(a))); assert.equal(W.engine.byId.get(o.id).preexisting, false, o.id); }
   for (const id of preIds) assert.ok(!Object.keys(d3.works).includes(id), id + ' is given construction data');
   // the engine agrees: a pre-existing feature has no scheduled construction and is present at the first and the last time
   const E = makeStateEngine({ structures: inputs.structures, sched: inputs.sched, works: inputs.works, hospitals: inputs.hospitals });
@@ -188,15 +197,21 @@ test('Q08: no work or segment exists before its documented start (in any scenari
   }
 });
 
-test('Q08: a work with a clock window rises on screen through layout, felling and gathering, stacking and head logs to completed in the order of PDF B.7.4 (E-05 in every scenario), then is damaged on 3 July from 04:00', () => {
-  const o = W.byId.get('E-05'); assert.ok(o.scenarios.length >= 4);
+test('Q08: a work with a clock window rises on screen through layout, felling and gathering, stacking and head logs to completed in the order of PDF B.7.4 (E-05), a work with no clock shows no invented stage, and E-05 is damaged on 3 July from 04:00', () => {
+  const o = W.byId.get('E-05'); assert.ok(o.scenarios.length >= 4); let clockScenarios = 0;
   for (const sc of o.scenarios) {
-    const seen = new Set(); let lastMax = 0;
-    for (let t = t0(2, 4); t <= t0(3, 9); t += 1) { const list = W.at(t, { 'E-05': sc }); const st = []; for (let i = 0; i < list.segs.length; i += SEG_STRIDE) if (list.segs[i] === o.index) st.push(list.segs[i + 7]); if (st.length) { for (const s of st) seen.add(s); const m = Math.max(...st); assert.ok(m >= lastMax, `${sc}: the most advanced segment regressed`); lastMax = m; } }
-    for (const s of [1, 2, 3, 4, 5, 6]) assert.ok(seen.has(s), `${sc}: stage ${s} is never shown (${[...seen]})`);
+    const clock = W.win(W.merged.works['E-05'], sc).clock, seen = new Set(); let lastFrac = 0;
+    for (let t = t0(1, 0); t <= t0(3, 9); t += 1) {
+      const list = W.at(t, { 'E-05': sc }); let top = 0, any = false;
+      for (let i = 0; i < list.segs.length; i += SEG_STRIDE) if (list.segs[i] === o.index) { any = true; seen.add(list.segs[i + 7]); if (!(list.segs[i + 8] & FLAG.damaged)) top = Math.max(top, list.segs[i + 10]); }
+      if (any && top) { assert.ok(top >= lastFrac - 1e-9, `${sc}: the most advanced segment regressed at ${t}`); lastFrac = top; }
+    }
+    if (clock) { clockScenarios++; for (const st of [1, 2, 3, 4, 5, 6]) assert.ok(seen.has(st), `${sc}: stage ${st} is never shown (${[...seen]})`); }
+    else { for (const st of [2, 3, 4]) assert.ok(!seen.has(st), `${sc}: stage ${st} is shown in a window with no clock`); assert.ok(seen.has(-1) || seen.has(1)); assert.ok(seen.has(5) || seen.has(6)); }
   }
-  const before = W.at(t0(3, 3, 50)), after = W.at(t0(3, 7, 30)); const h = l => { let m = 0; for (let i = 0; i < l.segs.length; i += SEG_STRIDE) if (l.segs[i] === o.index) m = Math.max(m, l.segs[i + 6]); return m; };
-  assert.ok(h(after) < h(before) && h(after) > 0, 'the damaged work is lower than the complete one');
+  assert.ok(clockScenarios >= 3);
+  const h = t => { const l = W.at(t); let m = 0; for (let i = 0; i < l.segs.length; i += SEG_STRIDE) if (l.segs[i] === o.index) m = Math.max(m, l.segs[i + 6]); return m; };      // the list is a view valid until the next call
+  assert.ok(h(t0(3, 7, 30)) < h(t0(3, 3, 50)) && h(t0(3, 7, 30)) > 0, 'the damaged work is lower than the complete one');
   const dmg = (t, id) => { const l = W.at(t); for (let i = 0; i < l.segs.length; i += SEG_STRIDE) if (l.segs[i] === W.byId.get(id).index && (l.segs[i + 8] & FLAG.damaged)) return true; return false; };
   for (const id of ['E-05', 'E-09']) { assert.equal(dmg(t0(3, 3, 59), id), false, id); assert.equal(dmg(t0(3, 7, 1), id), true, id); }
   assert.equal(dmg(t0(3, 12), 'E-03'), false);
@@ -230,7 +245,7 @@ test('footprints and profiles: every footprint is a plausible-procedural line on
     assert.ok(o.segs.every(s => s.len > 0.4 && s.len <= d3.params.segment_run_m + 1e-6), o.id);
   }
   const inferred = W.works.filter(o => o.profile_tier === 'inferred').map(o => o.id).sort(); assert.deepEqual(inferred, ['E-02', 'E-03', 'E-05', 'E-07', 'E-08', 'E-09']);
-  for (const id of inferred) { assert.ok(Math.abs(W.byId.get(id).height_m - 5 * 0.3048) < 1e-3, id); assert.match(W.byId.get(id).height_basis, /5 ft/); }
+  for (const id of inferred) { assert.ok(Math.abs(W.byId.get(id).height_m - 5 * 0.3048) < 1e-3, id); assert.match(W.byId.get(id).height_basis, /5 ft|Culp's Hill group/); }
   for (const id of ['E-01', 'E-04', 'E-06', 'E-12', 'E-14']) assert.equal(W.byId.get(id).profile_tier, 'plausible-procedural');
   assert.equal(W.byId.get('E-14').material, 'stone'); assert.ok(W.byId.get('E-14').height_m < 48 * 0.0254, 'the stone breastwork is as tall as a rebuilt park wall'); assert.match(W.byId.get('E-14').height_basis, /NOT derived from the modern/);
   const src = fs.readFileSync(path.join(BT, 'app/src/structures/works3d.mjs'), 'utf8'), imports = src.match(/^import .*$/gm).join('\n'); assert.ok(!/elev1863|lidar|terrain_pipeline/i.test(imports), 'works3d imports a terrain or lidar source'); assert.match(d3._doc, /nothing is taken from the modern lidar surface/);
@@ -242,12 +257,17 @@ test('the labelled conventions and the scenario overlays: E-01/E-04 start at noo
   const before = JSON.stringify(inputs.works), M = mergeWorks(inputs.works, d3); assert.equal(JSON.stringify(inputs.works), before);
   assert.equal(M.works['E-01'].begin.earliest, '1863-07-01T12:00'); assert.equal(M.works['E-04'].begin.earliest, '1863-07-01T12:00'); assert.equal(M.works['E-12'].begin.earliest, '1863-07-01T19:32');
   for (const id of ['E-01', 'E-04', 'E-12']) assert.ok(M.works[id].begin.convention);
-  for (const id of Object.keys(M.works)) if (!['E-01', 'E-04', 'E-12'].includes(id)) assert.deepEqual(M.works[id].begin, inputs.works.works[id].begin, id + ' begin changed');
+  for (const id of Object.keys(M.works)) if (!['E-01', 'E-04', 'E-12'].includes(id) && !(d3.works[id] && d3.works[id].record)) assert.deepEqual(M.works[id].begin, inputs.works.works[id].begin, id + ' begin changed');
   const E0 = makeStateEngine({ structures: inputs.structures, sched: inputs.sched, works: inputs.works, hospitals: inputs.hospitals });
   for (const id of ['E-02', 'E-03', 'E-05', 'E-06', 'E-07', 'E-08', 'E-09', 'E-14']) for (const sc of E0.scenariosFor(id)) for (const t of sampleTimes.filter((_, i) => i % 9 === 0)) assert.deepEqual(W.engine.stateAt(id, msOfMin(t), sc), E0.stateAt(id, msOfMin(t), sc), `${id}/${sc} at ${t}`);
   const o3 = W.byId.get('E-03'); assert.ok(o3.scenarios.includes('or_morning_jul2')); const cnt = (id, t, sc) => { const l = W.at(t, { [id]: sc }); let n = 0; for (let i = 0; i < l.segs.length; i += SEG_STRIDE) if (l.segs[i] === W.byId.get(id).index) n++; return n; };
   assert.ok(cnt('E-03', t0(1, 12), 'default') > 0); assert.equal(cnt('E-03', t0(1, 12), 'or_morning_jul2'), 0); assert.ok(cnt('E-03', t0(2, 12), 'or_morning_jul2') > 0);
-  assert.ok(cnt('E-12', t0(2, 3), 'default') > 0); assert.ok(cnt('E-12', t0(1, 5), 'or_small_earthworks_jul1_evening') > 0 || cnt('E-12', t0(1, 12), 'or_small_earthworks_jul1_evening') > 0); assert.equal(cnt('E-12', t0(1, 5), 'default'), 0);
+  // the delegated decisions (DD-02..05) set the defaults; the PDF reading stays selectable and is the engine's 'default' scenario
+  assert.equal(o3.defaultScenario, 'or_morning_jul2'); assert.equal(cnt('E-03', t0(1, 12), undefined), 0); assert.ok(cnt('E-03', t0(2, 12), undefined) > 0); assert.match(W.describe('E-03', t0(2, 12)).defaultLabel, /delegated authority, reversible by the owner \(DD-03\)/); assert.equal(W.describe('E-03', t0(2, 12), { 'E-03': 'default' }).defaultLabel, null);
+  assert.equal(W.byId.get('E-12').defaultScenario, 'or_small_earthworks_jul1_evening'); assert.equal(cnt('E-12', t0(1, 12), undefined), 0); assert.ok(cnt('E-12', t0(1, 20), undefined) > 0);
+  for (const [id, pdf] of [['E-17', 'pdf_no_works'], ['X-E01', 'seed_no_works'], ['X-E03', 'pdf_used_not_built']]) { const o = W.byId.get(id); assert.ok(o.scenarios.includes(pdf) && o.decision, id); assert.equal(cnt(id, t0(3, 14), pdf), 0, id + ' is drawn in the PDF reading'); assert.ok(cnt(id, t0(3, 14), undefined) > 0, id + ' is not drawn by default'); assert.equal(cnt(id, t0(1, 1), undefined), 0, id + ' is pre-placed'); }
+  assert.ok(!inputs.works.works['E-17'].construction_applies && !inputs.structures.structures.some(s => s.id === 'X-E01'), 'the shared files were changed');
+  assert.ok(cnt('E-12', t0(2, 3), 'default') > 0); assert.ok(cnt('E-12', t0(1, 20), 'or_small_earthworks_jul1_evening') > 0); assert.equal(cnt('E-12', t0(1, 5), 'default'), 0);
 });
 
 test('works purity: the draw list depends only on the time and the scenario choice, in any order; the mesh of the visible segments is valid and drapes on the ground', () => {

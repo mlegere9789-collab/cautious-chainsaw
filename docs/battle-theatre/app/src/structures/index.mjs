@@ -3,7 +3,7 @@ import { URLS } from '../config.mjs';
 import { makeStateEngine } from './state.mjs';
 import { buildModel, CLASSES } from './model.mjs';
 import { StructuresGPU } from './gpu.mjs';
-import { planArtillery, ArtilleryTrain } from './artillery.mjs';
+import { planArtillery, ArtilleryTrain, stagePoseAt } from './artillery.mjs';
 import { buildWorks3D } from './works3d.mjs';
 import { Gazetteer } from '../history/gazetteer.mjs';
 
@@ -26,7 +26,7 @@ export class Structures {
     this.pd = inputs.sched.pdf_defaults_log || [];
   }
   // ---- workstream 6 draw lists: the artillery train (guns beyond the stated ones, limbers, caissons, teams) and the construction states of the works (src/structures/artillery.mjs, works3d.mjs).
-  // Pure functions of (time, the stage's poses, the viewer's choices). Nothing is computed per frame unless the host asks: call drawLists(tMin) after stage.apply(tMin), or pass a pose function.
+  // Pure functions of (time, the stage's unit events, the viewer's choices): the pose is read from the stage's own reducer at the asked time, so no stage.apply is needed first. Nothing is computed per frame unless the host asks: call drawLists(tMin), or pass a pose function.
   ws6() {
     const th = this.th, sc = th.state && th.state.scenario, key = JSON.stringify(sc && sc.choices || {}) + '|' + (sc && sc.id || '');
     if (this._w6 && this._w6.key === key) return this._w6;
@@ -40,7 +40,7 @@ export class Structures {
     } catch (e) { w.error = String(e.message || e); console.warn('workstream 6 lists not built:', w.error); }
     return this._w6 = w;
   }
-  stagePose() { const st = this.th.stage; return (i, o) => { if (!st || st.present[i] !== 1) return false; o.x = st.cx[i]; o.z = st.cz[i]; o.h = st.ch[i]; return true; }; }
+  stagePose() { return stagePoseAt(this.th.stage, this.th.layer.units.map(u => u.id), this.inputs.train && this.inputs.train.layout ? this.inputs.train.layout.train_turn_s : 240); }
   drawLists(tMin, o = {}) {
     const w = this.ws6(); if (w.error) return { error: w.error };
     const pose = o.pose || this.stagePose(), tc = o.trainChoice !== undefined ? o.trainChoice : (this.th.state && this.th.state.trainChoice) || null, wc = o.workChoice !== undefined ? o.workChoice : this.choice();

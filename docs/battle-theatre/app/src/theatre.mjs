@@ -85,6 +85,12 @@ export class Theatre {
       const ropts = { base: URLS.proto, nearQ: +qs.get('nearQ') || 1, midQ: +qs.get('midQ') || .35, nearR: +qs.get('nearR') || S.nearR, midR: +qs.get('midR') || S.midR, shadowSize: +qs.get('shadow') || 2048, midMode: qs.get('mid') || 'vat', fxAlpha: .75, exposure: 1 };
       this.host = await RenderHost.create({ canvas: this.els.canvas, world: this.world, api, opts: ropts, replaceCanvas: () => this.replaceCanvas() }); if (this.dead) { this.host.destroy(); this.host = null; return; }
       const r0 = performance.now(); this.els.canvas = this.host.canvas; this.sizeCanvas(true); this.perf.resizeMs = performance.now() - r0;
+      // the figures: every drawn figure with the figures3d models and the anim3d state machine (the placeholder layer has no kit manifests and keeps the prototype's soldier; ?crowd=off keeps it on the real layer too)
+      if (!this.layer.meta.stub && this.layer.figures && qs.get('crowd') !== 'off') {
+        try { await this.host.attachCrowd({ layer: this.layer, world: this.world, stage: this.stage, T: this.T, settings: S, progress: (f, txt) => step(txt, 0.6 + 0.2 * f) }); if (this.dead) return; }
+        catch (e) { console.warn('figures not drawn, the prototype soldier is used:', e); this.crowdError = String(e.message || e); this.host.crowd = null; this.host.R.o.flags.near = this.host.R.o.flags.mid = this.host.R.o.flags.far = 1; this.host.setLod(S.nearR, S.midR); }
+      }
+      try { const flags = await (await fetch(URLS.app + 'src/host-modules.json')).json(); await this.host.attachHostModules(flags); } catch (e) { console.warn('host modules not read:', e); }
       if (qs.get('structures') !== 'off') {
         step('Drawing the structures', 0.8); await idle(); if (this.dead) return;
         try { const inputs = await loadStructureInputs(rawHist); if (this.dead) return; this.structs = new Structures(this, inputs, this.T); await this.structs.attach(this.host); this.host.structures = this.structs.gpu; this.structs.gpu.markDirty(); }

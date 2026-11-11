@@ -14,6 +14,7 @@
 //    wagon and forge in a rear park. The train is rigidly attached to the battery's block (the renderer has one slot layout per unit): no column on the road is modelled (ws6-EG-04).
 //  * figures: drivers and the nine-man detachment of an EXTRA gun are men of the battery's own strength figure (one soldier per figure, no cap): `figures` per battery says how many the host must take
 //    out of the block and whether the strength figure covers them. Horses are not soldiers and are extra.
+//  * heading: the train re-faces over layout.train_turn_s (240 s) after the block turns (the stage turns a block in 25 s; a rigid 100 m train would sweep its outer vehicles at 30 m/s): gate Q05.
 // Draw lists: Float32Array views, stride 8 = [x, z, heading, kind, battery (layer unit index), serial, flags, tier], valid until the next call of at() (copy to keep).
 export const STRIDE = 8, KIND = { gun: 0, limber: 1, caisson: 2, wagon: 3, forge: 4, horse: 5, driver: 6 };
 export const TIER_CODE = { documented: 0, inferred: 1, 'plausible-procedural': 2, 'open gap': 3 };
@@ -55,6 +56,30 @@ export function planArtillery({ units, train, batteryGuns, arrivals = null }) {
   return { batteries: out, gaps, layout: L };
 }
 
+// the pose of a battery from the stage, as a pure function of time (the stage's own reducer over the unit's events: no stage.apply is needed); h is the TRAIN heading, the block's heading eased over turnS.
+// It uses three methods of the stage (_replay, _pos, _heading) and the unit's presence window; tests/structures-ws6.test.mjs pins them. A stage without them falls back to the block's last-applied pose.
+const smooth = x => { x = Math.min(1, Math.max(0, x)); return x * x * (3 - 2 * x); };
+export function stagePoseAt(stage, ids, turnS = 240) {
+  const o2 = [0, 0, 0], tw = Math.PI * 2, lerpA = (a, b, f) => { let d = (b - a) % tw; if (d > Math.PI) d -= tw; if (d < -Math.PI) d += tw; return a + d * f; };
+  // the train heading is the block's heading target eased over turnS, event by event: a new heading starts from the heading the train has at that moment (continuous, never a jump)
+  const trainHeading = (i, tSec) => {
+    const tr = stage.track && stage.track[i]; let tgt = null, from = 0, t0 = 0;
+    const val = t => (tgt == null ? 0 : lerpA(from, tgt, smooth((t - t0) / turnS)));
+    if (tr) for (const e of tr) {
+      if (e.t > tSec) break;
+      if (e.type === 'enter') { tgt = null; continue; }
+      if (e.type !== 'activity') continue;
+      const nh = e.head != null ? e.head : (tgt != null ? tgt : 0);
+      if (tgt == null) { tgt = nh; from = nh; t0 = e.t; } else if (nh !== tgt) { from = val(e.t); tgt = nh; t0 = e.t; }
+    }
+    return val(tSec);
+  };
+  return (i, o, tMin) => {
+    if (typeof stage._replay !== 'function') { if (stage.present[i] !== 1) return false; o.x = stage.cx[i]; o.z = stage.cz[i]; o.h = stage.ch[i]; return true; }
+    const tSec = tMin * 60, rec = stage._replay(i, tSec), p = stage.presence && stage.presence[ids[i]]; if (!rec || !p || tSec < p.from || (p.to != null && tSec > p.to)) return false;
+    stage._pos(rec, tSec, o2); o.x = o2[0]; o.z = o2[1]; o.h = stage.track && stage.track[i] ? trainHeading(i, tSec) : (rec.head == null ? 0 : lerpA(rec.headFrom, rec.head, smooth((tSec - rec.actT) / turnS))); return true;
+  };
+}
 const ahead = (n, G, crew) => Math.ceil(Math.max(0, n - G * crew) / 4) * 1.0 / 2 + 12;      // the stage's gun-line distance ahead of the battery's slot (world-from-units.mjs)
 
 // ---- the train
@@ -89,14 +114,14 @@ export class ArtilleryTrain {
     const b = this.plan.batteries.find(x => x.unit === unitIdx); if (!b) return null; const c = this.compose(b, choice);
     return { id: b.id, name: b.name, composition: c, count: { total: c.guns, tier: b.stated ? b.statedTier : b.fill ? b.fill.tier : 'open gap', source: b.stated ? 'kit data (stated)' : b.fill ? b.fill.source : 'none', basis: b.stated ? `stated in the kit data (data/battery-guns.json)` : b.fill ? b.fill.basis : 'no basis for a count in the repository: open gap' }, earliest: b.earliest };
   }
-  // pose(i, out) -> true when the battery is on the field now, filling out = {x, z, h} in the renderer's frame (h as the stage's heading: x = cx + dx cos h + dz sin h, z = cz - dx sin h + dz cos h).
+  // pose(i, out, tMin) -> true when the battery is on the field at tMin, filling out = {x, z, h} in the renderer's frame (h as the stage's heading: x = cx + dx cos h + dz sin h, z = cz - dx sin h + dz cos h); see stagePoseAt.
   at(tMin, pose, choice = null) {
     const ch = this.resolve(choice), rule = this.train.rules[ch.caisson_rule], L = this.L, Tm = this.T, o = { x: 0, z: 0, h: 0 }, B = this.buf, n = { guns: 0, limbers: 0, caissons: 0, wagons: 0, horses: 0, drivers: 0, present: 0 };
     const put = (list, x, z, h, kind, unit, serial, flags, tier) => { const a = B[list], k = n[list] * STRIDE; a[k] = x; a[k + 1] = z; a[k + 2] = h; a[k + 3] = kind; a[k + 4] = unit; a[k + 5] = serial; a[k + 6] = flags; a[k + 7] = tier; n[list]++; };
     for (const b of this.plan.batteries) {
       if (b.earliest == null || tMin < b.earliest) continue;                  // the arrival rule: nothing of a battery exists before its earliest documented arrival (Q04)
       const c = this.compose(b, ch); if (!c.guns) continue;
-      if (!pose(b.unit, o)) continue; n.present++;
+      if (!pose(b.unit, o, tMin)) continue; n.present++;
       const cs = Math.cos(o.h), sn = Math.sin(o.h), place = (dx, dz) => [o.x + dx * cs + dz * sn, o.z - dx * sn + dz * cs], rear = o.h + Math.PI;
       const dzGun = ahead(b.strength, c.guns, L.crew_per_gun), rows = b.kind === 'battalion' ? L.guns_per_row_battalion : c.guns, perRowW = Math.min(rows, c.guns) * L.gun_interval_m + L.battalion_gap_m, nRows = Math.ceil(c.guns / rows);
       const countTier = b.stated ? (b.statedTier || 'inferred') : (b.fill ? b.fill.tier : 'plausible-procedural');

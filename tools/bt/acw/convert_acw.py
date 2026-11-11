@@ -119,8 +119,8 @@ def main():
             mask = im[..., :3].sum(2) > 24; swatches['%s/%s' % (group, variant)] = dict(mean_srgb=[int(round(x)) for x in im[..., :3][mask].mean(0)], mean_linear=[round(float(x), 5) for x in lin[mask].mean(0)], basis='mean of non-black texels of the mod-painted jacket UV sheet; a lead colour of the mod artist, not a measurement of any 1863 garment')
     out_scope = []
     for pack in ('ACW_Animations', 'ACW_Battles', 'ACW_Data', 'ACW_Effects', 'ACW_Environment1', 'ACW_Environment2', 'ACW_Luac', 'Flags', 'SFX_Music', 'SFX_Troop', 'Unit_Icons', 'User_Interface', 'acw_local', 'boot'):
-        idx = os.path.join(files_root, pack + '.index.tsv')
-        if os.path.exists(idx):
+        idx = next((q for q in (os.path.join(files_root, pack + '.index.tsv'), os.path.join(os.path.dirname(files_root), pack + '.index.tsv')) if os.path.exists(q)), None)   # listing of a pack that was not unpacked
+        if idx:
             n = sum(1 for _ in open(idx, encoding='utf8', errors='replace'))
             out_scope.append(dict(pack=pack, files_listed=n, reason={'SFX_Music': 'game audio: owner excluded music/sfx from the game', 'SFX_Troop': 'game audio: owner excluded sfx from the game', 'Flags': 'UI flag icons (HUD badges) of unknown authorship; the flag requirement keeps the procedural flags (EG-FIG-0003)', 'Unit_Icons': 'UI icons', 'User_Interface': 'UI skins and loading pictures', 'boot': 'UI textures', 'ACW_Data': 'database tables: leads only (acw-leads), not art assets', 'ACW_Environment1': 'terrain presets: never used for 1863 terrain (CLAUDE.md)', 'ACW_Environment2': 'terrain presets: never used for 1863 terrain (CLAUDE.md)', 'ACW_Effects': 'effect textures: out of the figures scope (FX part keeps its own)', 'ACW_Animations': 'animation fragment text only; the .anim motion clips are the base game and are not in the mod', 'ACW_Battles': 'battle radar pictures and tables', 'ACW_Luac': 'compiled UI scripts', 'acw_local': 'localisation text'}.get(pack, 'out of scope')))
     counts = collections.Counter(); reasons = collections.Counter(); kinds = collections.Counter()
@@ -135,6 +135,7 @@ def main():
                codes=policy.CODES, summary=dict(asset_pack_files_scanned=len(allfiles), svn_and_housekeeping_files_not_listed=meta_files, included=len(inc_rows), excluded=len(excluded), excluded_by_code=dict(sorted(reasons.items())), by_pack_excluded=dict(counts), extensions=dict(sorted(kinds.items())), included_bytes=sum(r['output_bytes'] for r in inc_rows)),
                included=inc_rows, excluded=excluded, out_of_scope_packs=out_scope, swatches=swatches)
     json.dump(man, open(os.path.join(out, 'manifest.json'), 'w'), indent=1, sort_keys=False); json.dump(dict(schema='acw-swatches-1', note='lead colours (see basis)', swatches=swatches), open(os.path.join(out, 'swatches.json'), 'w'), indent=1)
+    json.dump(dict(schema='acw-credits-1', credit_line=policy.CREDIT, licence_basis=policy.LICENCE_BASIS, recorded='2026-11-11', active=len(inc_rows) > 0, shown_with='the tier mark (plausible-procedural); the mod is a game asset and no historical evidence', applies_to='any figure, texture or colour that comes from a file listed under included in manifest.json', ledger='GOVERNANCE/library/figures-ledger.json FIG-L-ACWII-MOD'), open(os.path.join(out, 'credits.json'), 'w'), indent=1)
     print('scanned', len(allfiles), 'included', len(inc_rows), 'excluded', len(excluded), 'bytes', man['summary']['included_bytes']); print('excluded by code', dict(reasons))
     if a.selftest_dir:
         if os.path.abspath(a.selftest_dir).startswith(os.path.dirname(out)): raise SystemExit('selftest output must be outside the app data')

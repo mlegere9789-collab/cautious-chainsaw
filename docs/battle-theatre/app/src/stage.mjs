@@ -151,7 +151,7 @@ export class Stage {
 
   // state at a time (pure). Fills the CPU unit table the LOD code reads and marks what must be uploaded. animT: the renderer's animation clock now (see rebase()).
   apply(tMin, animT = this.animT) {
-    const tSec = tMin * 60, cache = this.cache;
+    const tSec = tMin * 60, cache = this.cache; this.tNow = tMin;
     if (tSec > this.builtTo + 3600) { cache.build(tSec + 7200); this.builtTo = tSec + 7200; }
     const st = cache.at(tSec), f = this.w.unitF, o2 = [0, 0, 0], pres = this.presence, ids = this.layer.units, nL = this.nL;
     let units = 0, soldiers = 0, uni = 0, con = 0, mounted = 0, changed = false;

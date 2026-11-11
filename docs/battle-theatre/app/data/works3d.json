@@ -1,6 +1,6 @@
 {
  "version": 1,
- "_doc": "Construction states of the field works for app/src/structures/works3d.mjs. The TIMES come only from the state engine (src/structures/state.mjs: the port of tools/bt/check_structures.py state_at over structures/works_stages.json and structures/state_schedule.json, gate Q08); this file adds no time except the two labelled conventions below. The FOOTPRINTS are plausible-procedural: no work of the record has a mapped line in the repository (only a named place with its sigma), so each is drawn as a contour-following line of the printed or assumed length anchored at the gazetteer place, marked plausible-procedural and shown with the place's sigma. The PROFILES are drawn only from the sourced description (PDF B.7.4: log close-fence with stone and earth, about 5 ft high, Culp's Hill: tier inferred) or from labelled assumptions (plausible-procedural); nothing is taken from the modern lidar surface of Culp's Hill or Little Round Top or from the rebuilt walls (PDF B.7.6, works_stages.json modern_profile_rule). No source was opened by this workstream.",
+ "_doc": "Construction states of the field works for app/src/structures/works3d.mjs. The TIMES come only from the state engine (src/structures/state.mjs: the port of tools/bt/check_structures.py state_at over structures/works_stages.json and structures/state_schedule.json, gate Q08); this file adds no time except the labelled conventions below (afternoon, evening, night) and the windows of the delegated decisions DD-02..DD-05 (see dd_note). The FOOTPRINTS are plausible-procedural: no work of the record has a mapped line in the repository (only a named place with its sigma), so each is drawn as a contour-following line of the printed or assumed length anchored at the gazetteer place, marked plausible-procedural and shown with the place's sigma. The PROFILES are drawn only from the sourced description (PDF B.7.4: log close-fence with stone and earth, about 5 ft high, Culp's Hill: tier inferred) or from labelled assumptions (plausible-procedural); nothing is taken from the modern lidar surface of Culp's Hill or Little Round Top or from the rebuilt walls (PDF B.7.6, works_stages.json modern_profile_rule). No source was opened by this workstream.",
  "status": "seeded_unverified",
  "params": {
   "segment_run_m": 40,
@@ -40,8 +40,13 @@
    "evening": {
     "clock": "19:32",
     "basis": "the labelled convention of src/history/placement.mjs PERIODS (evening = dusk = 19:32), owner may replace"
+   },
+   "night": {
+    "clock": "20:04",
+    "basis": "the labelled convention of src/history/placement.mjs PERIODS (night = 20:04), owner may replace"
    }
-  }
+  },
+  "default_basis": "Defaults follow the delegated decisions of GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md (DD-02, DD-03, DD-04, DD-05): where the Official Records contradict the PDF the default is the OR reading and the PDF reading stays selectable (scenario 'default' = the PDF row as printed). Every such default is labelled 'Default chosen under delegated authority, reversible by the owner'. The OR evidence is the shards' second-witness extraction (the raw OR scan is not in this checkout)."
  },
  "works": {
   "E-01": {
@@ -102,11 +107,13 @@
    "scenarios": {
     "or_morning_jul2": {
      "begin_earliest": "1863-07-02T00:00",
-     "begin_latest": "1863-07-02T23:59",
-     "begin_gran": "date",
-     "label": "the 123rd NY's own report puts the breastwork on the morning of 2 July, not 1 July (shard fence-1, E-03 / S-015); the window is the date only"
+     "begin_latest": "1863-07-02T12:00",
+     "begin_gran": "clock",
+     "label": "DD-03: the 123rd NY built its breastwork the morning of 2 July (Rogers, OR27-1-R279 p.798: 'next morning'); the window is that morning, before noon (the meaning of the word); the PDF's 1 July is scenario 'default'. No finish is printed, so the work stays flagged unfinished after the morning"
     }
-   }
+   },
+   "default_scenario": "or_morning_jul2",
+   "decision": "DD-03"
   },
   "E-04": {
    "draw": true,
@@ -250,7 +257,7 @@
   },
   "E-12": {
    "draw": true,
-   "kind": "lunette",
+   "kind": "per-gun small earthworks (lunettes in the PDF)",
    "place": "East Cemetery Hill",
    "uphill_m": 0,
    "along_m": 0,
@@ -272,14 +279,15 @@
    },
    "scenarios": {
     "or_small_earthworks_jul1_evening": {
-     "begin_earliest": "1863-07-01T00:00",
+     "begin_earliest": "1863-07-01T19:32",
      "begin_latest": "1863-07-01T23:59",
      "begin_gran": "date",
-     "finish_earliest": "1863-07-01T00:00",
      "finish_latest": "1863-07-01T23:59",
-     "label": "the Official Records put a small earthwork in front of each gun at dusk on 1 July, not lunettes by 16:00 on 2 July (shards fence-1 EG-06 and terrain-1 EG-03); the window is the date only, no clock is invented"
+     "label": "DD-04: a small earthwork in front of each gun thrown up the evening of 1 July (Hunt OR27-1-R028 p.232; Wainwright p.357), not lunettes by 16:00 on 2 July (the PDF reading is scenario 'default'); the evening starts at the dusk convention 19:32 (placement PERIODS) and the finish is the end of that date: a labelled bound, not a printed clock"
     }
-   }
+   },
+   "default_scenario": "or_small_earthworks_jul1_evening",
+   "decision": "DD-04"
   },
   "E-14": {
    "draw": true,
@@ -300,6 +308,212 @@
     "us-5c-3d-"
    ],
    "builder_text": "Weed's brigade, five Pennsylvania Reserve regiments, an Ohio battery (the OR names Fisher's brigade on the morning of 3 July: conflict carried, register fence-1/terrain-2)"
+  },
+  "E-17": {
+   "draw": true,
+   "decision": "DD-02",
+   "kind": "rail and stone breastwork",
+   "place": "Cemetery Ridge",
+   "uphill_m": 0,
+   "along_m": 0,
+   "length_m": 320,
+   "length_tier": "plausible-procedural",
+   "length_basis": "four regiment fronts of 80 m (Harrow's brigade, the 69th PA): assumption; the OR gives no length (shard fence-1, EG-08)",
+   "height_m": 1.0,
+   "height_tier": "plausible-procedural",
+   "height_basis": "no height in the record; 'slight breastwork' (Hancock p.370): a stand-in, NOT the 48-52 in. of the rebuilt park walls",
+   "profile_tier": "plausible-procedural",
+   "material": "rail_stone",
+   "builders": [
+    "us-2c-2d-harrow-82ny",
+    "us-2c-2d-harrow-15ma",
+    "us-2c-2d-webb-69pa"
+   ],
+   "builder_text": "Harrow's regiments (82nd NY, 15th Mass.), Joslin, the 69th PA (OR: Gibbon p.416, Harrow p.419, Joslin p.423, Davis p.431)",
+   "default_scenario": "or_built_jul2_16h",
+   "suppress_scenarios": [
+    "pdf_no_works"
+   ],
+   "scenarios": {
+    "or_built_jul2_16h": {
+     "begin_earliest": "1863-07-02T16:00",
+     "begin_latest": "1863-07-03T12:00",
+     "begin_gran": "clock",
+     "finish_latest": "1863-07-03T12:00",
+     "label": "DD-02: the OR documents fence rails taken down and piled into breastworks (Gibbon OR27-1-R098 p.416, about 16:00 on 2 July; Harrow p.419; Joslin p.423; Davis OR27-1-R105 p.431: strengthened with stone the morning of 3 July); the window runs from 16:00 on 2 July to the end of the morning of 3 July; no start clock inside it is printed"
+    }
+   },
+   "record": {
+    "id": "E-17",
+    "unit": "Harrow's and Webb's regiments, II Corps (OR)",
+    "location": "Cemetery Ridge",
+    "construction_applies": true,
+    "builder_known": true,
+    "start_printed": "about 16:00 Jul 2 (Gibbon)",
+    "end_printed": "morning of Jul 3 (Davis)",
+    "crew": "Harrow's regiments, Joslin (15th Mass.), the 69th PA",
+    "begin": {
+     "printed": "about 16:00 Jul 2 (Gibbon, OR27-1-R098 p.416)",
+     "earliest": "1863-07-02T16:00",
+     "latest": "1863-07-03T12:00",
+     "default": null,
+     "approx": true,
+     "gran": "clock",
+     "date": "1863-07-02T00:00",
+     "time_parse": "clock"
+    },
+    "finish": {
+     "printed": "morning of Jul 3 (Davis, OR27-1-R105 p.431)",
+     "earliest": null,
+     "latest": "1863-07-03T12:00",
+     "default": null,
+     "approx": true,
+     "gran": "clock",
+     "date": "1863-07-03T00:00",
+     "time_parse": "clock"
+    }
+   }
+  },
+  "X-E01": {
+   "draw": true,
+   "decision": "DD-04",
+   "kind": "small earthwork at a battery",
+   "place": "Stevens' Knoll",
+   "uphill_m": 0,
+   "along_m": 0,
+   "length_m": 40,
+   "length_tier": "plausible-procedural",
+   "length_basis": "one run for the one battery (Stevens' 5th Maine): assumption",
+   "height_m": 0.9,
+   "height_tier": "plausible-procedural",
+   "height_basis": "no height in the record ('a small earthwork thrown up in its front')",
+   "profile_tier": "plausible-procedural",
+   "material": "earth",
+   "builders": [
+    "us-1c-art-5me"
+   ],
+   "builder_text": "Stevens' 5th Maine Battery (OR27-1-R073 Whittier p.361; Hunt p.232)",
+   "default_scenario": "or_hunt_jul1_evening",
+   "suppress_scenarios": [
+    "seed_no_works"
+   ],
+   "scenarios": {
+    "or_hunt_jul1_evening": {
+     "begin_earliest": "1863-07-01T19:32",
+     "begin_latest": "1863-07-01T23:59",
+     "begin_gran": "date",
+     "finish_latest": "1863-07-01T23:59",
+     "label": "DD-04: earthworks at Stevens' battery (Whittier OR27-1-R073 p.361); the window is inferred from Hunt p.232 (the evening of 1 July); the seed's 'no works' is scenario seed_no_works"
+    }
+   },
+   "structure": {
+    "kind": "earthwork",
+    "name": "Earthworks at Stevens' Knoll battery (G-18, split by DD-04)",
+    "tier": "inferred",
+    "added_by": "DD-04"
+   },
+   "record": {
+    "id": "X-E01",
+    "unit": "Stevens' 5th Maine Battery",
+    "location": "Stevens' Knoll",
+    "construction_applies": true,
+    "builder_known": true,
+    "start_printed": "evening Jul 1 (inferred from Hunt p.232)",
+    "end_printed": "not stated",
+    "crew": "Stevens' battery",
+    "begin": {
+     "printed": "evening Jul 1",
+     "earliest": "1863-07-01T19:32",
+     "latest": "1863-07-01T23:59",
+     "default": null,
+     "approx": true,
+     "gran": "date",
+     "date": "1863-07-01T00:00",
+     "time_parse": "date"
+    },
+    "finish": {
+     "printed": "by the end of Jul 1 (bound)",
+     "earliest": null,
+     "latest": "1863-07-01T23:59",
+     "default": null,
+     "approx": true,
+     "gran": "date",
+     "date": "1863-07-01T00:00",
+     "time_parse": "date"
+    }
+   }
+  },
+  "X-E03": {
+   "draw": true,
+   "decision": "DD-05",
+   "kind": "stone wall built on Round Top",
+   "place": "Big Round Top",
+   "uphill_m": 0,
+   "along_m": 0,
+   "length_m": 160,
+   "length_tier": "plausible-procedural",
+   "length_basis": "two regiment fronts of 80 m: assumption (the OR gives no length: shard terrain-2, P-14)",
+   "height_m": 1.0,
+   "height_tier": "plausible-procedural",
+   "height_basis": "no height in the record; NOT derived from the rehabilitated Little Round Top or Round Top walls (PDF B.7.6)",
+   "profile_tier": "plausible-procedural",
+   "material": "stone",
+   "builders": [
+    "us-5c-2d-weed-146ny"
+   ],
+   "builder_prefixes": [
+    "us-5c-3d-fisher-"
+   ],
+   "builder_text": "Garrard's brigade (146th NY) and Fisher's brigade (OR: Garrard OR27-1-R217 p.652, Fisher R220 p.658, D. P. Hancock R213 p.647)",
+   "default_scenario": "or_built_jul2_night",
+   "suppress_scenarios": [
+    "pdf_used_not_built"
+   ],
+   "scenarios": {
+    "or_built_jul2_night": {
+     "begin_earliest": "1863-07-02T20:04",
+     "begin_latest": "1863-07-03T12:00",
+     "begin_gran": "clock",
+     "finish_latest": "1863-07-03T12:00",
+     "label": "DD-05: stone walls BUILT on the night of 2 July and the morning of 3 July on the Round Top ridge (shard terrain-2, P-14); the night starts at the 20:04 convention (placement PERIODS) and the window ends with the morning; the PDF's 'used, not built' is scenario pdf_used_not_built. The two named P-14 walls (Chamberlain's sharpshooters, 20th Maine Co. B) stay open gap and are not drawn"
+    }
+   },
+   "structure": {
+    "kind": "earthwork",
+    "name": "Stone walls built on Round Top on 2-3 July (DD-05)",
+    "tier": "inferred",
+    "added_by": "DD-05"
+   },
+   "record": {
+    "id": "X-E03",
+    "unit": "Garrard's and Fisher's brigades (OR)",
+    "location": "Big Round Top",
+    "construction_applies": true,
+    "builder_known": true,
+    "start_printed": "night of Jul 2 (OR)",
+    "end_printed": "morning of Jul 3 (OR)",
+    "crew": "Garrard's and Fisher's brigades",
+    "begin": {
+     "printed": "night of Jul 2",
+     "earliest": "1863-07-02T20:04",
+     "latest": "1863-07-03T12:00",
+     "default": null,
+     "approx": true,
+     "gran": "clock",
+     "date": "1863-07-02T00:00",
+     "time_parse": "clock"
+    },
+    "finish": {
+     "printed": "morning of Jul 3",
+     "earliest": null,
+     "latest": "1863-07-03T12:00",
+     "default": null,
+     "approx": true,
+     "gran": "clock",
+     "date": "1863-07-03T00:00",
+     "time_parse": "clock"
+    }
+   }
   }
  },
  "not_drawn": {
@@ -308,12 +522,11 @@
   "E-13": "no construction attributed (natural ledges and boulders)",
   "E-15": "improvised hand-hauled gun position (S-038): unlimbered guns on natural ground, no earth",
   "E-16": "no works at Devil's Den (Ward lacked time or inclination)",
-  "E-17": "open gap in the PDF: the OR documents rail breastworks on Cemetery Ridge (shard fence-1, EG-08) but gives no dimensions, continuity or start times; nothing is drawn, and rail piles are not animated as documented",
   "E-18": "open gap: no Confederate works found for 2-3 July",
   "G-03": "drawn as E-12 (the same prepared lunettes, row S-026)",
   "G-12": "prepared in line (Cushing's battery): the PDF rule says built on screen, but no schedule row or work record prints a window for it and no OR report mentions an earthwork (shard terrain-1, EG-12): not drawn, open gap, never pre-placed",
-  "G-11": "improvised (McGilvery's line); the OR mentions a slight earthwork (shard terrain-1, EG-11): carried in the register, not drawn",
-  "G-18": "the seed says no works; the OR documents earthworks at Stevens' battery (shard terrain-2, EG-11 / G-18): carried in the register, not drawn"
+  "G-11": "DD-04 splits G-11 into 11a (2 July evening, improvised: no earth) and 11b (3 July slight earthwork, McGilvery OR pp.882-884): 11b has no usable place (the gazetteer's only 'Plum Run' entry has a sigma of 4.6 km) and no window beyond the date: carried in the register, not drawn (ws6-EG-09)",
+  "G-18": "split by DD-04: the earthworks at Stevens' Knoll battery are drawn as X-E01; the OR also documents earthworks of the XII Corps batteries (Whittier p.361) with no window of their own: carried in the register, not drawn"
  },
  "gun_emplacement_rule": {
   "improvised": "improvised position: no earth is built (PDF B.7.5 engine rules and works_stages gun_emplacement_engine_rules): guns unlimbered on natural ground",
@@ -321,5 +534,6 @@
   "not_described": "no works described: open-ground battery position, logged as a gap",
   "open_positions": "positions not given: nothing drawn, logged as a gap",
   "mixed": "mixed (Hunt's ridge line): the record gives no work; nothing drawn"
- }
+ },
+ "dd_note": "E-17 (DD-02), X-E01 (G-18 split, DD-04) and X-E03 (Round Top, DD-05) are works added by the delegated decisions: E-17 patches the engine record of works_stages (record), X-E01 and X-E03 are added to a COPY of the structures and works (never to the shared files); the PDF reading of each is carried as a suppress scenario"
 }

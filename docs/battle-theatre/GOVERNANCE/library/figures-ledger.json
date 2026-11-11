@@ -19,6 +19,35 @@
       ],
       "tier": "inferred (a retrieved public-domain primary source, read through a summarising tool, not yet verified against the scan)",
       "register": "EG-FIG-0008 (dimensions): note updated in FIGURES3D-NOTES section 9.10"
+    },
+    {
+      "id": "FIG-L-ACWII-MOD",
+      "title": "ACWII (Napoleon: Total War American Civil War mod): ACW.zip, assets by the mod author ACW_Primergy and team",
+      "where": "ACW.zip (36 entries, 21 PFH0 packs), provided by the owner; scratch copy outside the repository; not published here. Subversion origin recorded in the pack data: https://subversion.assembla.com/svn/empire_american_civil_war.4 (uuid 4ca84c4f-01e6-4a0a-bfcb-691c0f47ad24), committer ACW_Primergy, 2011-05-21 to 2011-11-09; mod_details.lua 'ACW2 - 2.0 (Dev Ver)'.",
+      "sha256": "8efdb2627d76678b906a6a44d019fcc698eb3d0d7e79555e390be440d013c9ed",
+      "bytes": 2161900663,
+      "licence": "owner-reported verbal permission from the mod author, 2026-11-11; no written text on file",
+      "licence_basis_note": "The owner stated in chat on 2026-11-11 that the licence was verified by phone with the mod maker and ordered 'use the acw models' (decision log DEC-DELEG-F). The mod author can license only files he made, so base-game (Napoleon / Creative Assembly) assets inside the packs are excluded and each file is decided by evidence; an unclear file is excluded. A Subversion committer record is evidence of who committed a file, not proof of who created it.",
+      "credit": "ACWII mod by ACW_Primergy and team (used with the author's permission)",
+      "accessed": "2026-11-11",
+      "how_read": "unpacked into a scratch directory with tools/bt/acw/pfh0.py and parsed with python3 -I; the launcher exe and every other file in the archive were never executed; no site was visited",
+      "shipped": "docs/battle-theatre/app/data/figures3d/acw/ : 24 WebP texture sheets (8 mod-painted Confederate shell-jacket variants x diffuse, normal, gloss; 1,795,040 bytes), manifest.json (every file of 2,200 listed with sha256, evidence and reason codes), swatches.json, unit-map.json, credits.json",
+      "claims_used": [
+        {
+          "claim": "mean colour of 8 mod-painted Confederate shell-jacket texture sheets (committer ACW_Primergy, rev 96, 2011-09-10, md5 equal to the committed bytes)",
+          "used_for": "lead swatches only (F-ACW-SWATCH, plausible-procedural, gap EG-FIG-0011); not evidence of any 1863 garment"
+        },
+        {
+          "claim": "mod uniform tables Gettysburg_Union_Uniforms (444 rows) and Gettysburg_Confed_Uniforms (355 rows) join regiment keys to uniform variants",
+          "used_for": "unit-map.json: 77 lead-derived links with their gap (F-ACW-UNIT-LINK, EG-FIG-0011); never used as dress evidence"
+        }
+      ],
+      "excluded_summary": "no mesh shipped: 85 soldier/officer/general meshes carry base-game sub-mesh names; the remaining meshes have no Subversion record, are placeholders, are unverified or are out of scope (codes in manifest.json); see EG-FIG-0010 and EG-FIG-0012",
+      "register": [
+        "EG-FIG-0010",
+        "EG-FIG-0011",
+        "EG-FIG-0012"
+      ]
     }
   ]
 }

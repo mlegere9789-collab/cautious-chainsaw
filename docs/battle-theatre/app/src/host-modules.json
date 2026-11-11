@@ -1,0 +1,5 @@
+{
+  "note": "Which sibling modules the render host imports. A module is imported only when its flag is true (a missing file would cost a failed request and a console error). Each exports init(host), update(frame), dispose(): see RenderHost.frameInfo in render-host.mjs. tests/crowd.test.mjs fails when a src/*-host.mjs file exists and its flag is false, or the flag is true and the file is missing.",
+  "fx-host.mjs": false,
+  "audio-host.mjs": false
+}

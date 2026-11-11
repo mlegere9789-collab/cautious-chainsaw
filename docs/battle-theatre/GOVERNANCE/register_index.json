@@ -10314,5 +10314,72 @@
   "owner_q": "Decide the default star count for the ANV battle flag (or keep both selectable and say which is shown first).",
   "status": "open",
   "proposed_file": "register/proposed/vis-figures/EG-VISFIG-01.md"
+ },
+ {
+  "id": "EG-FIG-0010",
+  "title": "Rights basis of the ACWII mod assets: verbal permission only; authorship of each file evidenced only by Subversion committer records",
+  "rids": [
+   "R03",
+   "R04",
+   "R17"
+  ],
+  "cat": "evidence missing (rights)",
+  "desc": "The owner reported on 2026-11-11 that the mod licence was verified by phone with the mod maker and ordered the ACW models used. Recorded as: owner-reported verbal permission from the mod author, 2026-11-11; no written text on file. The mod author (Subversion author ACW_Primergy, ACWII, 2011) can license only files he made. The pack data carries Subversion records for 78 files (all committer ACW_Primergy, md5 equal to the committed bytes); a committer record proves who committed a file, not who drew it. Of 2,200 asset-pack files listed (213 Subversion and housekeeping files are read as evidence, not listed), 24 pass the evidence rules (tools/bt/acw/policy.py) and are shipped; every other file is listed with its reason in data/figures3d/acw/manifest.json.",
+  "why": "No written licence, readme or credits exists in the archive (acw-leads ACW-L02); only the owner can obtain or record permission (CLAUDE.md: legal acts are owner-only).",
+  "searched": "ACW.zip (sha256 8efdb262...c9ed): every .svn/entries (78 file records), mod_details.lua, localisation, launcher strings (read as text, never run). Not searched: the mod's Discord, manual or update pages (links found in the launcher; not visited).",
+  "subst": "Only files with a committer record and no base-game marker are shipped; every unclear file is excluded and listed. The credit line is in data/figures3d/acw/credits.json.",
+  "recon": "Procedural figures for everything not cleared; 24 mod-painted Confederate jacket texture sheets as lead swatches.",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "Credit line \"ACWII mod by ACW_Primergy and team (used with the author's permission)\" in the product credits data; tier mark on every use; the mod is no historical evidence (ACW-L01..L31).",
+  "impact": "Which soldier, officer, gun and horse models can be used (none today).",
+  "owner_q": "Ask the mod author for a short written confirmation (an email is enough) that names which files are his own work and which derive from the base game (norwegian_ski_troops meshes, field_carriage and euro_cannon_barrel textures, the base-game Euro heads and equipment); with it the excluded files can be re-evaluated and shipped by re-running tools/bt/acw/convert_acw.py.",
+  "rec": "Keep the evidence rules: exclude when unclear. Do not ship base-game derived meshes on a verbal permission.",
+  "status": "open"
+ },
+ {
+  "id": "EG-FIG-0011",
+  "title": "ACW mod links of Gettysburg units and mod swatch colours are lead-derived inferences, not records of what a regiment wore",
+  "rids": [
+   "R03",
+   "R04"
+  ],
+  "cat": "evidence missing",
+  "desc": "data/figures3d/acw/unit-map.json joins 77 of the 135 kit units to the mod's Gettysburg uniform tables by the regiment token of the mod key (hc_us_1_inf_19IN to US.19IN); 19 joins are ambiguous (several mod rows share the token) and no row is chosen; 58 kit units have no join (brigade-level kit units such as CS.LAW); 675 mod keys have no kit unit. The mod table records the modders' choices (acw-leads ACW-L03, L04, L06, L07), not regimental dress. The cleared jacket swatches are the mean colour of mod-painted texture sheets.",
+  "why": "Whether regiment X wore Y is a question for regimental histories, quartermaster returns and surviving garments, none of which was read here (Law 4).",
+  "searched": "The mod uniform tables (decoded Gettysburg_Union_Uniforms 444 rows, Gettysburg_Confed_Uniforms 355 rows) and unit_variant part lists; kit/kit_specs.json. Not searched: any real source for any regiment.",
+  "subst": "Each link carries the label \"lead-derived inference\" and this gap id; the kit manifest remains the dress authority; the swatch is a lead colour only.",
+  "recon": "The kit manifest's dress (documented/inferred/plausible per field) drives the figure; the mod link is shown as a lead.",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "F-ACW-UNIT-LINK and F-ACW-SWATCH in src/figures3d/acw-tiers.mjs; every link labelled in unit-map.json.",
+  "impact": "No figure changes: links and swatches are metadata until a cleared mesh exists.",
+  "owner_q": "Authorise the real-source lookup per regiment (state regimental histories, quartermaster returns, museum garments) so the links can be confirmed or dropped.",
+  "rec": "Keep the links as leads; never promote them.",
+  "status": "open"
+ },
+ {
+  "id": "EG-FIG-0012",
+  "title": "No ACW mod mesh is cleared for the Battle Theatre: soldier, officer, flag, gun and horse figures stay procedural",
+  "rids": [
+   "R03",
+   "R04",
+   "R10",
+   "R16",
+   "R17"
+  ],
+  "cat": "evidence missing",
+  "desc": "Decoded and verified (rendered headless): variant_weighted_mesh (86 of 87; geometry, UV, bone weights, rest pose recovered from the mesh data) and DDS textures. Decoded with partial verification: variant_part_mesh (68 of 70; LOD sections, UV and hat/belt placement verified; torso and legs bone binding not verified). Not decoded: rigid_model / animatable_rigid_model geometry (header and texture names only). Every soldier and officer mesh carries base-game sub-mesh names (85 files) or has no Subversion record; the heads, hands, skeleton and motion clips are the base game and are not in the mod; the part textures are mostly placeholder images (180 of 307); the guns share carriage geometry and base-game texture names; the one SVN-recorded limber is a four-fold byte copy; there is no horse mesh and no flag cloth model.",
+  "why": "A figure from the mod would need base-game heads, skeleton and animation that the mod does not contain and the owner's order excludes, and the mod author can license only his own files.",
+  "searched": "All six asset packs (2,200 listed files): classification in manifest.json; decoder self-test renders (union infantry and the modern \"babydoll\" figure) viewed in a software-GL chromium.",
+  "subst": "The existing procedural figures (data/figures3d, 61-bone rig, one-to-one instancing, LOD) stay for every capability.",
+  "recon": "Procedural figures with tier marks.",
+  "tier": "plausible-procedural",
+  "competing": "-",
+  "marking": "F-ACW-NO-MESH in acw-tiers.mjs; sys.acw.coverage() lists each capability with its reason; BROWSER-VERIFICATION-LIST-ACW.md.",
+  "impact": "Every figure keeps its current look.",
+  "owner_q": "See EG-FIG-0010: a written statement of which meshes are the author's own work. For a mesh to be used the base-game heads, hands and skeleton it needs must also be licensed or replaced by our own (our rig and heads already exist).",
+  "rec": "Keep procedural; reconsider per file after the written confirmation.",
+  "status": "open"
  }
 ]

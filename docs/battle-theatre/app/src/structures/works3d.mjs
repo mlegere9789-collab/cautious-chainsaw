@@ -30,12 +30,20 @@ const clone = o => JSON.parse(JSON.stringify(o));
 export function mergeWorks(works, data) {
   const W = clone(works), conv = data.params.conventions;
   for (const [id, d] of Object.entries(data.works)) {
+    if (d.record) W.works[id] = { ...(W.works[id] || {}), ...clone(d.record) };           // a delegated decision's record (DD-02: E-17 built; DD-04, DD-05: works added)
     const w = W.works[id]; if (!w) continue;
     const pod = d.convention && d.convention.pod, c = pod && conv[pod], dateOnly = w.begin && w.begin.gran === 'date' && String(w.begin.earliest).endsWith('T00:00');
     if (c && w.begin && (w.begin.earliest == null || dateOnly) && (w.begin.date || '').length >= 10) { w.begin.earliest = `${w.begin.date.slice(0, 10)}T${c.clock}`; w.begin.convention = `${pod} = ${c.clock}: ${c.basis}`; }
     if (d.scenarios) { w.scenarios = w.scenarios || {}; for (const [name, sc] of Object.entries(d.scenarios)) w.scenarios[name] = { ...sc }; }
   }
   return W;
+}
+
+// the structures with the works that the delegated decisions add (a copy; X-E nn have no record in structures.json)
+export function mergeStructures(structures, data) {
+  const S = clone(structures), have = new Set(S.structures.map(s => s.id));
+  for (const [id, d] of Object.entries(data.works)) if (d.structure && !have.has(id)) S.structures.push({ id, preexisting: false, parts: [], state_changes: [], source_keys: [], location: d.record && d.record.location, ...clone(d.structure) });
+  return S;
 }
 
 // ---- footprint: a line traced along the contour of the ground
@@ -68,13 +76,13 @@ function sliceRuns(pts, run) {                       // cut a polyline into runs
 }
 
 export function buildWorks3D({ data, inputs, T, gaz, units = [], events = [] }) {
-  const P = data.params, merged = mergeWorks(inputs.works, data), engine = makeStateEngine({ structures: inputs.structures, sched: inputs.sched, works: merged, hospitals: inputs.hospitals });
+  const P = data.params, merged = mergeWorks(inputs.works, data), mstruct = mergeStructures(inputs.structures, data), engine = makeStateEngine({ structures: mstruct, sched: inputs.sched, works: merged, hospitals: inputs.hospitals });
   const unitIds = new Set(units.map(u => u.id)), leafIds = units.filter(u => !(u.children && u.children.length)).map(u => u.id);
   // builder activity per unit from the layer's events (minutes): the latest enter/activity/leave at or before t says whether the unit is building
   const act = new Map(); for (const e of events) if (e.type === 'enter' || e.type === 'activity' || e.type === 'leave') (act.get(e.unit) || act.set(e.unit, []).get(e.unit)).push(e);
   for (const a of act.values()) a.sort((p, q) => p.t - q.t);
   const building = (uid, t) => { const a = act.get(uid); if (!a) return false; let st = null; for (const e of a) { if (e.t > t) break; st = e.type === 'leave' ? null : e.type === 'enter' ? 'stand' : e.activity; } return st === 'build_works'; };
-  const S = new Map(inputs.structures.structures.map(s => [s.id, s]));
+  const S = new Map(mstruct.structures.map(s => [s.id, s]));
   const works = [], coverage = [], byId = new Map();
   const place = d => { const p = gaz.resolve(d.place); return p ? { name: p.name, lng: p.center.lng, lat: p.center.lat, sigma_m: p.sigma_m, tier: p.tier } : null; };
 
@@ -100,7 +108,7 @@ export function buildWorks3D({ data, inputs, T, gaz, units = [], events = [] }) 
     const builders = [...(d.builders || []), ...((d.builder_prefixes || []).flatMap(pre => leafIds.filter(x => x.startsWith(pre))))], unknown = builders.filter(b => !unitIds.has(b));
     const o = { id, index: works.length, name: rec.name, kind: d.kind, place: pl, length_m: arcLen(pts), length_tier: d.length_tier, length_basis: d.length_basis, height_m: d.height_m, height_tier: d.height_tier, height_basis: d.height_basis, profile_tier: d.profile_tier, material: d.material,
       tier: rec.tier, footprint: { tier: 'plausible-procedural', basis: `${P.contour_basis}; anchored at ${pl.name} (sigma ${pl.sigma_m} m)`, sigma_m: pl.sigma_m }, pts, segs, builders, builderText: d.builder_text, unknownBuilders: unknown, alias: d.alias || [], damage: d.damage || null,
-      builderKnown: w.builder_known !== false && builders.length > 0, scenarios: engine.scenariosFor(id), hasFinish: !!(w.finish && (w.finish.latest || w.finish.earliest)) };
+      builderKnown: w.builder_known !== false && builders.length > 0, scenarios: [...engine.scenariosFor(id), ...(d.suppress_scenarios || [])].sort(), suppress: d.suppress_scenarios || [], defaultScenario: d.default_scenario || 'default', decision: d.decision || null, hasFinish: !!(w.finish && (w.finish.latest || w.finish.earliest)) };
     works.push(o); byId.set(id, o);
     coverage.push({ id, decision: 'drawn', reason: `construction states from the state engine; footprint plausible-procedural; profile ${d.profile_tier}`, aliases: o.alias });
   }
@@ -125,9 +133,11 @@ export function buildWorks3D({ data, inputs, T, gaz, units = [], events = [] }) 
     const startClock = bd != null ? bd : (be != null && be === bl ? be : null), clock = b.gran === 'clock' && startClock != null && f.gran === 'clock' && fl != null && fl > startClock;
     return { startClock, finish: fl, clock, floor: be != null ? be : parseIso(b.date), latest: bl };
   };
-  const scenarioOf = (o, choice) => { const c = choice && (choice[o.id] || o.alias.map(a => choice[a]).find(Boolean)); return c && o.scenarios.includes(c) ? c : 'default'; };
+  // the viewer's choice if it names a scenario of the work; else the default of the delegated decision where there is one (DD-02..05: the OR reading, the PDF reading stays selectable), else the PDF row as the engine reads it
+  const scenarioOf = (o, choice) => { const c = choice && (choice[o.id] || o.alias.map(a => choice[a]).find(Boolean)); return c && o.scenarios.includes(c) ? c : o.defaultScenario; };
   function stateOf(o, tMin, choice) {
-    const ms = msOfMin(tMin), sc = scenarioOf(o, choice), w = merged.works[o.id], r = engine.stateAt(o.id, ms, sc), W = win(w, sc), res = { work: r, scenario: sc, kind: 'absent', segs: [] }, hf = P.stage_height_frac;
+    const ms = msOfMin(tMin), sc = scenarioOf(o, choice), w = merged.works[o.id], r = o.suppress.includes(sc) ? { status: 'scenario_suppresses_work', present: false } : engine.stateAt(o.id, ms, sc), W = win(w, sc), res = { work: r, scenario: sc, kind: 'absent', segs: [] }, hf = P.stage_height_frac;
+    if (o.suppress.includes(sc)) return res;
     if (r.status === 'not_a_construction' || r.status === 'open_gap' || r.status === 'certain_before_documented_start' || r.present === false || (r.status === 'certain_by_window' && r.stage === 0)) return res;
     res.kind = r.status;
     let dmg = null; if (o.damage) { const da = parseIso(o.damage.begin), dl = parseIso(o.damage.finish_latest); if (ms >= da) dmg = Math.min(1, (ms - da) / (dl - da)); }
@@ -175,7 +185,7 @@ export function buildWorks3D({ data, inputs, T, gaz, units = [], events = [] }) 
   function describe(id, tMin, choice = null) {
     const o = byId.get(id); if (!o) return null; const st = stateOf(o, tMin, choice);
     return { id, name: o.name, kind: o.kind, place: o.place, footprint: o.footprint, length: { m: o.length_m, tier: o.length_tier, basis: o.length_basis }, height: { m: o.height_m, tier: o.height_tier, basis: o.height_basis }, profileTier: o.profile_tier, tier: o.tier, builders: o.builders, builderText: o.builderText,
-      unitsBuilding: unitCrewBuilding(o, tMin), standIn: !o.builderKnown || !unitCrewBuilding(o, tMin).length, state: st.work, scenario: st.scenario, scenarios: o.scenarios, kindNow: st.kind, damage: o.damage, segments: o.segs.length, hasFinish: o.hasFinish };
+      unitsBuilding: unitCrewBuilding(o, tMin), standIn: !o.builderKnown || !unitCrewBuilding(o, tMin).length, state: st.work, scenario: st.scenario, scenarios: o.scenarios, defaultScenario: o.defaultScenario, decision: o.decision, defaultLabel: o.decision && st.scenario === o.defaultScenario ? 'Default chosen under delegated authority, reversible by the owner (' + o.decision + ')' : null, kindNow: st.kind, damage: o.damage, segments: o.segs.length, hasFinish: o.hasFinish };
   }
   // a triangle mesh of the visible segments (draped on the ground): vertices [x, y, z, nx, ny, nz, work, stage, frac, tier], stride 10, for a host that draws it with its own material
   function mesh(list) {
