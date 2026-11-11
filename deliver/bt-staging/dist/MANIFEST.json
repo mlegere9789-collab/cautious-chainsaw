@@ -1,6 +1,6 @@
 {
  "name": "Battle Theatre staging",
- "version": "0d365128",
+ "version": "bb0d74d2",
  "source": "docs/battle-theatre",
  "files": [
   {
@@ -34,9 +34,84 @@
    "sha256": "e4685d9ace0402e886eca4aa5f8b12c73b70890f032d939ed1918539d7a89e95"
   },
   {
+   "path": "app/data/anim3d/activity-map.json",
+   "bytes": 2214,
+   "sha256": "e3bfb23e05bc515b2f97e715ebcc111619354949167e665833c4177b69041406"
+  },
+  {
+   "path": "app/data/anim3d/clips.json",
+   "bytes": 286267,
+   "sha256": "c726d10cfce960175f4769b4873f426e612f6318e3baec7a870400b17fc7f01d"
+  },
+  {
+   "path": "app/data/anim3d/drill-march-extras.json",
+   "bytes": 9693,
+   "sha256": "766b75f27cc6e333c2bba7077f986120c2c86452cd89e13c576e62484fdb976d"
+  },
+  {
+   "path": "app/data/anim3d/drill-timing.json",
+   "bytes": 27508,
+   "sha256": "0bc720c8a29647e3ea4dd0fa5a7deaa21bcd3b90c85a52a1c94a5f9c0de11c7d"
+  },
+  {
+   "path": "app/data/anim3d/gait-sources.json",
+   "bytes": 8492,
+   "sha256": "52b1d4dda93ba59087f5525dee5f99385a8744ed91d0482e38585e2df6cdac32"
+  },
+  {
+   "path": "app/data/anim3d/layout.json",
+   "bytes": 1058,
+   "sha256": "5070f9ac44bbac8c7d6ff20db5a3c3b0cfd3443cf32e7f85e25e673abb515ad0"
+  },
+  {
+   "path": "app/data/anim3d/measured.json",
+   "bytes": 81209,
+   "sha256": "ebbc162edb74186e2f8a37efdd83593afa3ca7f4980fbb1ac53ccd06f3fec90e"
+  },
+  {
    "path": "app/data/artillery-train.json",
    "bytes": 14667,
    "sha256": "6737bb8bbde0ca44dc087f4cf928b971271d3ab721b3c99858082ba7d44ac030"
+  },
+  {
+   "path": "app/data/audio3d/calls.json",
+   "bytes": 18259,
+   "sha256": "6273b3225b89500af22dac803c4ac5580d739d7a3e93ade9c3b872df766a1bf2"
+  },
+  {
+   "path": "app/data/audio3d/commands.json",
+   "bytes": 5164,
+   "sha256": "40c801c32060be1b94177571fb3db50ceb59514573539f40295647adb43e0656"
+  },
+  {
+   "path": "app/data/audio3d/documented-reports.json",
+   "bytes": 8516,
+   "sha256": "6855404c1c973582bad5419064ecd4c3787cbb995ca0ecc1f775c033bf426f76"
+  },
+  {
+   "path": "app/data/audio3d/gaps.json",
+   "bytes": 11482,
+   "sha256": "78ee7b05e67a94211d3f069bc34535eb8a59f9f958463602171771d7b67dce60"
+  },
+  {
+   "path": "app/data/audio3d/measurements.json",
+   "bytes": 22936,
+   "sha256": "bc4713083b85648c96ac9d293b3e51abebbd601060bb398c92a3cf84be6a8e01"
+  },
+  {
+   "path": "app/data/audio3d/sources.json",
+   "bytes": 52345,
+   "sha256": "5eff983ec5d1a7f95a8a17cdeb77a76658cb3aac927d417b24c551933ef8e294"
+  },
+  {
+   "path": "app/data/audio3d/weapons-sound-map.json",
+   "bytes": 14159,
+   "sha256": "8997e2fe33e0e37e6aa26d97329acb1f9a3ea318f4e8ab75727a7f164f1f002f"
+  },
+  {
+   "path": "app/data/audio3d/woods-mask.json",
+   "bytes": 318845,
+   "sha256": "4842bcc3208372c799f084d203ea0e7e659de00241816f1b9e82fa9cf33c35b5"
   },
   {
    "path": "app/data/battery-guns.json",
@@ -47,6 +122,11 @@
    "path": "app/data/casualty-sources.json",
    "bytes": 3838,
    "sha256": "f237363da495c3416e1256682589c8e18c1404c3ad30a02a423107072ca1a08b"
+  },
+  {
+   "path": "app/data/conflict-defaults.json",
+   "bytes": 56691,
+   "sha256": "7f38491fa44e05fac176ffeb698b594aa2887e4225cb62ccc8f63bddc58fe93f"
   },
   {
    "path": "app/data/daypositions.json",
@@ -60,8 +140,8 @@
   },
   {
    "path": "app/data/figures-validation.json",
-   "bytes": 134364,
-   "sha256": "94f1c3a7e731b1ef100dd1b76fa96b63ac56b6f1f1c53c46910a52289f28a50b"
+   "bytes": 134326,
+   "sha256": "590ca88df6a75a67f5011370742a314119f7fdfa8ce181708c0b483da95b944e"
   },
   {
    "path": "app/data/figures3d/flag-mean-colours.json",
@@ -105,18 +185,18 @@
   },
   {
    "path": "app/data/kit-crosswalk.json",
-   "bytes": 67372,
-   "sha256": "c2a68b88574269f573c731ecfa02ae2df364c394c00ca4ade6e73177a70f5c2b"
+   "bytes": 67394,
+   "sha256": "a3b97cb15ca6efc1a35ebc698bd6171cbafe0301c3d42c4f4ae977fefe100564"
   },
   {
    "path": "app/data/placement-claims.json",
-   "bytes": 367951,
-   "sha256": "ef5e1ec2845c7f896a59f360fa4be61a1a2cc9fd56089b7bbbe827eedf626ea8"
+   "bytes": 367856,
+   "sha256": "a3f736b5787d755ad255d478042bafdaf78ae4c5d2a7b9b341a04b1179bf8393"
   },
   {
    "path": "app/data/placement.json",
-   "bytes": 214122,
-   "sha256": "879acb9447acc3fbc4562aa3650b9f0fdb5e5945c3963ca460557272c644f1ae"
+   "bytes": 214030,
+   "sha256": "edde37b1721e192478b1cf5e064cea63d5b2dd8d0ed4f113107f023eccb017dd"
   },
   {
    "path": "app/data/sibling-approach.json",
@@ -141,7 +221,7 @@
   {
    "path": "app/index.html",
    "bytes": 12917,
-   "sha256": "ef7bdfa0be32a95e849e7da0a13ed6992b0155e5df236e6c3f0de4f9283650ee"
+   "sha256": "022c34e24154013525bab20c0f422bb4626f3251fa47bfb60bddf26a4719a674"
   },
   {
    "path": "app/src/anim3d/authoring.mjs",
@@ -220,8 +300,8 @@
   },
   {
    "path": "app/src/anim3d/index.mjs",
-   "bytes": 18428,
-   "sha256": "a175dedd31b6132a54505a9bc2315858b617770922a887adc199c19f7ff38f57"
+   "bytes": 18550,
+   "sha256": "e9e20a0587619e24e2db95d979ffa6252c8bfe28ab360d531ad883f1d4687206"
   },
   {
    "path": "app/src/anim3d/library.mjs",
@@ -232,6 +312,11 @@
    "path": "app/src/anim3d/locomotion.mjs",
    "bytes": 13153,
    "sha256": "1b25cf212f55400f776daa047a02a439700f413d1f38b50bfb45cd34ce0324d1"
+  },
+  {
+   "path": "app/src/anim3d/metrics.mjs",
+   "bytes": 12814,
+   "sha256": "6ae4ce329cd7dcbc5b77f1705daaef75dddaa99d257033ecdfda289a8b4a15e3"
   },
   {
    "path": "app/src/anim3d/musketry.mjs",
@@ -265,8 +350,8 @@
   },
   {
    "path": "app/src/anim3d/unit-anim.mjs",
-   "bytes": 21574,
-   "sha256": "fadece63690633d27c94c1f717613a8c25086d9629a5441188feab663703b6c9"
+   "bytes": 25340,
+   "sha256": "bb928206d4f83038119c6421d31be67163f2cdf337178c24e1b836069a1d0114"
   },
   {
    "path": "app/src/anim3d/variants.mjs",
@@ -280,8 +365,8 @@
   },
   {
    "path": "app/src/audio-host.mjs",
-   "bytes": 25566,
-   "sha256": "aa91bdd742cd920ebdad0e7154a29a69d5b93061deb754043badbce2824f1464"
+   "bytes": 25628,
+   "sha256": "40f899cde79fa3381126903206030316fc794b75704088943a53b6ad02c6b2ea"
   },
   {
    "path": "app/src/audio3d/atmosphere.mjs",
@@ -307,6 +392,11 @@
    "path": "app/src/audio3d/dsp.mjs",
    "bytes": 9607,
    "sha256": "df91b60326319fbb06c4e4358fb8caa4abd0859f2d596a841b85d5de6ffed384"
+  },
+  {
+   "path": "app/src/audio3d/far.mjs",
+   "bytes": 4347,
+   "sha256": "014bda2d6673acdf80a68b3a775f53a0eb48aafdfc1443bb2f87ae2aa8fe7c4b"
   },
   {
    "path": "app/src/audio3d/index.mjs",
@@ -335,8 +425,8 @@
   },
   {
    "path": "app/src/audio3d/provenance.mjs",
-   "bytes": 7125,
-   "sha256": "3455516da63a1c9553d7e58afc502653d4a14b9797f5c665bfb047b633d41fac"
+   "bytes": 7490,
+   "sha256": "b694c9340afcedec4542a6c45129682eb395840fdab64a2881d7e7f19a71c074"
   },
   {
    "path": "app/src/audio3d/rng.mjs",
@@ -385,8 +475,8 @@
   },
   {
    "path": "app/src/config.mjs",
-   "bytes": 1873,
-   "sha256": "2732c0c7870309ab01fcf17d02520d5db5b1e81e33e8907c7eb06f92cafcd0fb"
+   "bytes": 2590,
+   "sha256": "a3fb4c4a185e4c098c88ad84eb0f59f2355d6eb057687a0702a0c1bdd96f92b8"
   },
   {
    "path": "app/src/controls.mjs",
@@ -395,8 +485,8 @@
   },
   {
    "path": "app/src/crowd/anim.mjs",
-   "bytes": 6023,
-   "sha256": "c31cfbd885be1fb7967870a273cd64aefe547f8f1430a35df5ea2a527a8af063"
+   "bytes": 8032,
+   "sha256": "d43eb01b25676eb0d57ad4c109147902332d4c3bb6bc2908e9c80b8b1cd8242f"
   },
   {
    "path": "app/src/crowd/clips.mjs",
@@ -405,8 +495,8 @@
   },
   {
    "path": "app/src/crowd/crowd.mjs",
-   "bytes": 25617,
-   "sha256": "79c20a74f9bbaeb136424e3588cc41023036570ae04373ffde9e53db312ec404"
+   "bytes": 27895,
+   "sha256": "ad3483204543845358e3342c6e14173b172893cb488d3269ff801882060e69f9"
   },
   {
    "path": "app/src/crowd/data.mjs",
@@ -429,6 +519,11 @@
    "sha256": "43eb800ff54388f846084453f4e31b3ca04e1f091f47895d3148c40b99036ca7"
   },
   {
+   "path": "app/src/crowd/node-crypto-shim.mjs",
+   "bytes": 339,
+   "sha256": "140d3ce8f09c494a3b0302b9f660a2344a42b948454cdc43e1ba11d73d71bc4f"
+  },
+  {
    "path": "app/src/crowd/shaders-gl.mjs",
    "bytes": 9725,
    "sha256": "c289c9c25b850db0b2320348afc0b21eae550fc518feec4745f638c3cc099105"
@@ -445,8 +540,8 @@
   },
   {
    "path": "app/src/data.mjs",
-   "bytes": 8349,
-   "sha256": "ec10c185db2545028fbfb998f06f9208f983b8a077c9b6aece4164f3b4203b66"
+   "bytes": 9211,
+   "sha256": "fcc99e6a2e2318a9c81d009473fc5fa150c74ec4802d3c1338389537e6c26511"
   },
   {
    "path": "app/src/environment.mjs",
@@ -474,9 +569,19 @@
    "sha256": "d2cfb48e95d4826c85e8f946736ad41e7c24be6473a80937cfc28efcc9ab6d2b"
   },
   {
+   "path": "app/src/figures3d/commanders.mjs",
+   "bytes": 4799,
+   "sha256": "64beae17d7fe155860565de348024a638e7a376b8d13b61f2751db55405e2f44"
+  },
+  {
    "path": "app/src/figures3d/detail.mjs",
    "bytes": 13365,
    "sha256": "b9d1a88dd0e04d356d975fd61ab6a70544b0bbbfb291c643ebdda26a4a27a283"
+  },
+  {
+   "path": "app/src/figures3d/evidence.mjs",
+   "bytes": 17564,
+   "sha256": "c51139cc1b978b50ffc9b75bc29b3fa39fe0e3b9242a138a3e6a5d07d69ade6f"
   },
   {
    "path": "app/src/figures3d/flags.mjs",
@@ -492,6 +597,11 @@
    "path": "app/src/figures3d/gear.mjs",
    "bytes": 54106,
    "sha256": "098e5fce68e4d6fba6c06b5a69401c5f631891ab98292bf42dc31b602d8945dc"
+  },
+  {
+   "path": "app/src/figures3d/gltf.mjs",
+   "bytes": 4885,
+   "sha256": "c04081f03f6372a1a282fa6caa95f07c475769bb2a816d7a6514580e7e9a5521"
   },
   {
    "path": "app/src/figures3d/guns.mjs",
@@ -524,6 +634,11 @@
    "sha256": "36ea7142e952258aef1529b71d3de305d7e418cbb0467ef80bf1b34e8330d54f"
   },
   {
+   "path": "app/src/figures3d/interpen.mjs",
+   "bytes": 4615,
+   "sha256": "c57f122a0ac486b21da5affd2e8c742b4e6f1be0b446e2d9a02d9d2f24bed0f5"
+  },
+  {
    "path": "app/src/figures3d/library.mjs",
    "bytes": 17996,
    "sha256": "a7489212967f2d3882dce4e3694133c9e4f34c5b78e626446d8b485f9e01ab13"
@@ -544,6 +659,11 @@
    "sha256": "6a4e21cd052fcbc7724f5d020821d66fbf9dde76f9720838774ad34b55fddb1b"
   },
   {
+   "path": "app/src/figures3d/png.mjs",
+   "bytes": 1446,
+   "sha256": "27825d905e9c2e38e0a48388533349a41284686e7180f6a9fd64b05552c3718a"
+  },
+  {
    "path": "app/src/figures3d/raster.mjs",
    "bytes": 5325,
    "sha256": "9768ff2c385ec7df53aefc4bb4e3eb19c5705582f6a92b5baf6f0ab034157e85"
@@ -554,9 +674,44 @@
    "sha256": "ea512c18988fdaad3f3fb9b6260a02b84be17d11924eba7cbab74c30a0f46af3"
   },
   {
+   "path": "app/src/figures3d/shaded.mjs",
+   "bytes": 12267,
+   "sha256": "a851078abab56f66f92a666d10e30bfb2a1bed95821526e518c9dade47ddf371"
+  },
+  {
+   "path": "app/src/figures3d/shader.mjs",
+   "bytes": 18225,
+   "sha256": "e21a44815cc81434031ae9ba6335c3187409a0d0fc73f0a00d653e5f393526d2"
+  },
+  {
+   "path": "app/src/figures3d/shape.mjs",
+   "bytes": 883,
+   "sha256": "0bec6305fd9e88452e47b08bca79f0ec8439631bb8b19fa8b8d6486fe311eb36"
+  },
+  {
+   "path": "app/src/figures3d/sheet.mjs",
+   "bytes": 7518,
+   "sha256": "7c703cc88d3ffd4197350c405dc663bb4c5e9264c0c797b85b6a5198ecfbc926"
+  },
+  {
    "path": "app/src/figures3d/skeleton.mjs",
    "bytes": 25249,
    "sha256": "5eaea34c2bf60ca7aa161f4f947ccb86cfae0c5da33238dc24ebd95ec9e08eae"
+  },
+  {
+   "path": "app/src/figures3d/skinmap.mjs",
+   "bytes": 11545,
+   "sha256": "428c9baa26c3090cfacd9b6c7bd5d2a96ee4784adc40e4d4251b6e11fb4ff5fd"
+  },
+  {
+   "path": "app/src/figures3d/texmaps.mjs",
+   "bytes": 19879,
+   "sha256": "bd24ce1eaccf40d2363819407b754148bf59c34b80486fb6cd444affe1584fe3"
+  },
+  {
+   "path": "app/src/figures3d/tiers.mjs",
+   "bytes": 24980,
+   "sha256": "a9ece8f73ea8425a3a759cd7c6f8ac27767d958065053d10bc702395be988c32"
   },
   {
    "path": "app/src/figures3d/variants.mjs",
@@ -654,6 +809,11 @@
    "sha256": "51724d9f70b432ba606f431e3450017c904cb3b77d653399c0b6aa63be216aa2"
   },
   {
+   "path": "app/src/history/cavalry.mjs",
+   "bytes": 19887,
+   "sha256": "5ea0627a68ac369a57f03642b9ea2ba82259fe055193ae0f98d1e3ed19111d59"
+  },
+  {
    "path": "app/src/history/claim-clock.mjs",
    "bytes": 2948,
    "sha256": "824824176a7d7a3cdbf868ab0b328644e6e2aea9d48d371042d46e56a0f4b710"
@@ -685,8 +845,8 @@
   },
   {
    "path": "app/src/history/manifest.mjs",
-   "bytes": 13467,
-   "sha256": "14b0bcadb8045920aee4f665dd4d49200b5afaaf7fd60e201da1d462149d3c36"
+   "bytes": 13404,
+   "sha256": "d46da531182f4899ea516ce1dde0d26c3a5be3bd563d62c66916cc79e419aa48"
   },
   {
    "path": "app/src/history/objects.mjs",
@@ -700,8 +860,8 @@
   },
   {
    "path": "app/src/history/real.mjs",
-   "bytes": 75467,
-   "sha256": "6562f264db7208240610bd1e70a1114ee4624c6fec06e0ff0e79f36a734ab8fb"
+   "bytes": 75406,
+   "sha256": "ccbc2dda6d012629be76ef5670d7bb5a5e891acd0f6ab1da4a6fc7ed818ffdf7"
   },
   {
    "path": "app/src/history/strength.mjs",
@@ -732,6 +892,11 @@
    "path": "app/src/render-host.mjs",
    "bytes": 7101,
    "sha256": "e1c9fd70c3cbedc405397afc14b46e9d8b20ce0f621492a9882e08d4b9f945c7"
+  },
+  {
+   "path": "app/src/scenario-defaults.mjs",
+   "bytes": 4972,
+   "sha256": "575a72c3875297d6126c9d6f43349354a3b6386bc2681de9375064cc91a8f7ce"
   },
   {
    "path": "app/src/scope.mjs",
@@ -795,18 +960,18 @@
   },
   {
    "path": "app/src/theatre.mjs",
-   "bytes": 29679,
-   "sha256": "1536cbf086a7856e85e7c1b161836e7de6634685ead3b1832e497a828127a08c"
+   "bytes": 30053,
+   "sha256": "c2cd19f0211e7d6e2d9918234b2a22d31b2a74f614b68081af18d7f912e73137"
   },
   {
    "path": "app/src/ui/card-sections.mjs",
-   "bytes": 29454,
-   "sha256": "b4ed75ece4a1f61f58f3d41c2a78178771624491c57de5f59f9821162d3b9792"
+   "bytes": 31807,
+   "sha256": "2cdb2cc4969be618d48fc9a8c426784f240ea6426cc48082c81d4e15a7fb9476"
   },
   {
    "path": "app/src/ui/card.mjs",
-   "bytes": 6798,
-   "sha256": "bbb83b5d48b7f9bc7da6a8e62e3dc81a37efeb5cebf1cb8fb3729528301cdca8"
+   "bytes": 6793,
+   "sha256": "931cd44acd7f91a510acc6c55897deede4876276c92a91002a2eb806c865ca58"
   },
   {
    "path": "app/src/ui/chrome.mjs",
@@ -825,8 +990,8 @@
   },
   {
    "path": "app/src/ui/panels.mjs",
-   "bytes": 28791,
-   "sha256": "bfcefe983fdfeed5594f09c4b4e774a7d5cdb5b18b47039598b9af055f62b3ac"
+   "bytes": 31779,
+   "sha256": "50b1ede1e2a7300a70cf0ee73b88bfebf38f7c9a7852bae8b678c20d49e113a3"
   },
   {
    "path": "app/src/ui/sound-panel.mjs",
@@ -835,8 +1000,8 @@
   },
   {
    "path": "app/src/ui/structures-ui.mjs",
-   "bytes": 5169,
-   "sha256": "1640ae470334ffc7787b6a647c24116d094ee9592e397705ddd3a8dba7a397a8"
+   "bytes": 5339,
+   "sha256": "ceec01884d902c1ef1d4deb17ee199711de13e7e548c3d1b6bb0c6d0e3fe4778"
   },
   {
    "path": "app/src/ui/util.mjs",
@@ -901,7 +1066,7 @@
   {
    "path": "index.html",
    "bytes": 759,
-   "sha256": "d256f0149511e0d9298f18c29db63b02fd66395744d58c9e10e6faf259e76eb8"
+   "sha256": "a39b04d7111f505201397d30e3088dccde8e26e265e77db17b6b483425a0b3b7"
   },
   {
    "path": "kit/artillery_batteries.json",
@@ -910,18 +1075,18 @@
   },
   {
    "path": "kit/cavalry_units.json",
-   "bytes": 138991,
-   "sha256": "5aa0dd24154ea4163dd5452e147ef0441df439e365f1eab1eea79be12a06d117"
+   "bytes": 138983,
+   "sha256": "04542360d10e34b929a787bb3dfd517fb345a97236f08b1368af5463d7e8c717"
   },
   {
    "path": "kit/kit_specs.json",
-   "bytes": 636288,
-   "sha256": "a26788011a7389b912c32a3599a632feab6abb56754ab92701294f9999aa01fe"
+   "bytes": 636280,
+   "sha256": "0472aeb0edb01b4a0a8068cb0ff6874effbbe89c0b983d7934ca45de31f63756"
   },
   {
    "path": "kit/weapons.json",
-   "bytes": 171350,
-   "sha256": "0611dc9489e657e58e60aff8881cc6f5050b712619a300184179a8cd87b30b27"
+   "bytes": 171342,
+   "sha256": "df4d69306f2f1d81fc7485f9d911431d904da43db7cf384a54a284a6161745f1"
   },
   {
    "path": "netlify.toml",

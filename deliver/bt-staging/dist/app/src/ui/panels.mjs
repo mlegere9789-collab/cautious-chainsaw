@@ -1,8 +1,9 @@
 // The drawers: Events (timeline), Views (camera bookmarks), Sources (conflict scenarios), About (what you are seeing), Settings.
 import { Scope } from '../scope.mjs';
-import { TIERS, TIER_STYLE, SPEEDS, DEFAULTS, GROUND_NOTE, LABEL_PLACEHOLDER } from '../config.mjs';
+import { TIERS, TIER_STYLE, SPEEDS, DEFAULTS, GROUND_NOTE, LABEL_PLACEHOLDER, API_NOTE } from '../config.mjs';
 import { BATTLE, EPILOGUE, fmtDate, fmtTime, fmtShort, parts, minOf } from '../clock.mjs';
-import { scenarioIsDefault, scenarioLabel, DEFAULT_SCENARIO, timelineWindowsHref } from '../data.mjs';
+import { scenarioIsDefault, scenarioLabel, timelineWindowsHref } from '../data.mjs';
+import { DELEGATED_KEY, PDF_KEY, DELEGATED_NOTE, withDefault, currentKey, optionLabel, setChoice, resetToDelegated, switchToPdf, scenarioKind } from '../scenario-defaults.mjs';
 import { STUB_LINKS } from '../history/stub.mjs';
 import { glyphSVG } from '../overlay.mjs';
 import { esc, ic, pill, regLink, fmtN, debounce } from './util.mjs';
@@ -131,25 +132,38 @@ PANELS.scenario = {
   title: 'Where sources disagree',
   render(body, th) {
     own('scenario', th, ps => {
-      const sc = th.state.scenario; let q = '';
+      const sc = th.state.scenario; let q = ''; const C = th.conflicts, hasDef = withDefault(C).length > 0;
       const linked = new Set([...(th.layer.meta.linkedConflicts || Object.keys(STUB_LINKS)), 'CF-WIND-SPEED', 'CF-JUL4-RAIN-TIMING', 'CF-JUL2-SKY', 'CF-JUL2-CLOUD-2PM']);
-      body.innerHTML = `<p class="mini" style="margin-bottom:12px">Each entry is a place where the sources give different values. Nothing is chosen for you. The default follows the plan's recommended value, which is <b style="color:var(--text)">pending the owner's decision</b>. Pick any value to see the theatre follow it where it can; entries marked "Used in this preview" change what you see, the rest are carried and listed.</p>
-        <div style="display:flex;align-items:center;gap:10px;justify-content:space-between;margin-bottom:12px"><span class="pill" id="sc-label"></span><button type="button" class="btn-s" id="sc-reset">Reset</button></div>
-        <input class="field" type="search" placeholder="Search ${th.conflicts.length} conflicts" aria-label="Search conflicts" id="sc-q" data-autofocus><p class="mini" id="sc-count" style="margin-top:6px" aria-live="polite"></p><div id="sc-list"></div>`;
+      body.innerHTML = `<p class="mini" style="margin-bottom:12px">${hasDef
+        ? `Each entry is a place where the sources give different values. Every entry opens on a <b style="color:var(--text)">default chosen under delegated authority, reversible by the owner</b>, shown with its tier. Every other value, including the plan's own recommended value, stays selectable. Pick any value to see the theatre follow it where it can; entries marked "Used in this preview" change what you see, the rest are carried and listed.`
+        : `Each entry is a place where the sources give different values. The delegated defaults were not read, so the default is the plan's recommended value, <b style="color:var(--text)">pending the owner's decision</b>.`}</p>
+        <div style="display:flex;align-items:center;gap:10px;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap"><span class="pill" id="sc-label"></span><span style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn-s" id="sc-reset">${hasDef ? 'Back to the delegated defaults' : 'Reset'}</button>${hasDef ? `<button type="button" class="btn-s" id="sc-pdf">Switch to the PDF's recommended values</button>` : ''}</span></div>
+        <input class="field" type="search" placeholder="Search ${C.length} conflicts" aria-label="Search conflicts" id="sc-q" data-autofocus><p class="mini" id="sc-count" style="margin-top:6px" aria-live="polite"></p><div id="sc-list"></div>`;
       const list = body.querySelector('#sc-list'), label = body.querySelector('#sc-label');
-      const paintLabel = () => { label.textContent = scenarioLabel(sc); body.querySelector('#sc-reset').disabled = scenarioIsDefault(sc); };
+      const paintLabel = () => { label.textContent = scenarioLabel(sc, C); label.dataset.kind = hasDef ? scenarioKind(sc, C).kind : 'pdf'; body.querySelector('#sc-reset').disabled = scenarioIsDefault(sc, C); const bp = body.querySelector('#sc-pdf'); if (bp) bp.disabled = scenarioKind(sc, C).kind === 'pdf'; };
+      const status = (c, cur) => {
+        if (!c.delegated) return '';
+        const d = c.delegated, onDef = cur === DELEGATED_KEY, onPdf = cur === PDF_KEY;
+        return `<p class="mini deleg" data-on="${onDef}" style="margin-top:8px;display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap">${pill(d.tier)}<span>${onDef ? `${esc(DELEGATED_NOTE)}.` : onPdf ? 'Showing the PDF\'s recommended value.' : 'Showing a value you picked.'} ${onDef ? '' : `Delegated default: ${esc(d.label)}.`}</span></p>
+          ${onDef ? '' : '<button type="button" class="btn-s" data-act="deleg" style="margin-top:6px;min-height:30px">Use the delegated default</button> '}${onPdf ? '' : '<button type="button" class="btn-s" data-act="pdf" style="margin-top:6px;min-height:30px">Use the PDF\'s recommended value</button>'}
+          <details style="margin-top:6px"><summary class="mini">Why this default</summary><p class="mini" style="margin-top:4px">${esc(d.rationale)} The plan recommends: ${esc(d.pdf)}. Tier: ${esc(d.tier)}${d.basis ? ' · basis: ' + esc(d.basis) : ''}.</p></details>`;
+      };
       function draw() {
-        const ql = q.toLowerCase(), rows = th.conflicts.filter(c => !ql || c.id.toLowerCase().includes(ql) || c.topic.toLowerCase().includes(ql));
-        list.innerHTML = rows.map(c => { const cur = sc.choices[c.id] || 'recommended', p = c.printed;
-          return `<section class="conflict" data-id="${esc(c.id)}" data-changed="${cur !== 'recommended'}"><h3><span class="id">${esc(c.id)}</span>${esc(c.topic)}</h3>
+        const ql = q.toLowerCase(), rows = C.filter(c => !ql || c.id.toLowerCase().includes(ql) || c.topic.toLowerCase().includes(ql));
+        list.innerHTML = rows.map(c => { const cur = currentKey(sc, c), base = c.delegated ? DELEGATED_KEY : PDF_KEY, p = c.printed;
+          return `<section class="conflict" data-id="${esc(c.id)}" data-changed="${cur !== base}" data-current="${esc(cur)}"><h3><span class="id">${esc(c.id)}</span>${esc(c.topic)}</h3>
             <p class="printed">${p.values != null ? `<b>Values printed:</b> ${esc(p.values)}<br><b>Plan recommends:</b> ${esc(p.recommended)}${p.others ? `<br><b>Others:</b> ${esc(p.others)}` : ''}` : `<b>As printed:</b> ${esc(p.whole)}`}</p>
-            <select aria-label="Value for ${esc(c.id)} ${esc(c.topic)}" data-id="${esc(c.id)}">${c.options.map(o => `<option value="${o.key}" ${o.key === cur ? 'selected' : ''}>${o.key === 'recommended' ? 'PDF recommended, pending owner' : esc(o.label)}</option>`).join('')}</select>
+            <select aria-label="Value for ${esc(c.id)} ${esc(c.topic)}" data-id="${esc(c.id)}">${c.options.map(o => `<option value="${esc(o.key)}" ${o.key === cur ? 'selected' : ''}>${esc(optionLabel(c, o))}</option>`).join('')}</select>
+            <div class="deleg-box">${status(c, cur)}</div>
             ${linked.has(c.id) ? '<p class="mini" style="margin-top:6px;color:var(--gold-2)">Used in this preview: the theatre follows this choice.</p>' : ''}</section>`; }).join('') || '<p class="empty">No conflict matches.</p>';
-        body.querySelector('#sc-count').textContent = `${rows.length} of ${th.conflicts.length} conflicts`;
+        body.querySelector('#sc-count').textContent = `${rows.length} of ${C.length} conflicts`;
       }
+      const choose = (id, key) => { const c = C.find(x => x.id === id); if (!c) return; setChoice(sc, C, c, key); const sec = list.querySelector(`.conflict[data-id="${CSS.escape(id)}"]`); if (sec) { const cur = currentKey(sc, c); sec.dataset.changed = String(cur !== (c.delegated ? DELEGATED_KEY : PDF_KEY)); sec.dataset.current = cur; sec.querySelector('select').value = cur; sec.querySelector('.deleg-box').innerHTML = status(c, cur); } paintLabel(); th.applyScenario(true); };
       ps.on(body.querySelector('#sc-q'), 'input', debounce(th, e => { q = e.target.value; draw(); }, 120));
-      ps.on(list, 'change', e => { const s = e.target.closest('select'); if (!s) return; const id = s.dataset.id; if (s.value === 'recommended') delete sc.choices[id]; else sc.choices[id] = s.value; s.closest('.conflict').dataset.changed = String(s.value !== 'recommended'); paintLabel(); th.applyScenario(true); });
-      ps.on(body.querySelector('#sc-reset'), 'click', () => { sc.choices = {}; paintLabel(); draw(); th.applyScenario(true); });
+      ps.on(list, 'change', e => { const s = e.target.closest('select'); if (!s) return; choose(s.dataset.id, s.value); });
+      ps.on(list, 'click', e => { const b = e.target.closest('button[data-act]'); if (!b) return; choose(b.closest('.conflict').dataset.id, b.dataset.act === 'pdf' ? PDF_KEY : DELEGATED_KEY); });
+      ps.on(body.querySelector('#sc-reset'), 'click', () => { if (hasDef) resetToDelegated(sc, C); else { sc.choices = {}; } paintLabel(); draw(); th.applyScenario(true); });
+      const bp = body.querySelector('#sc-pdf'); if (bp) ps.on(bp, 'click', () => { switchToPdf(sc, C); paintLabel(); draw(); th.applyScenario(true); });
       paintLabel(); draw(); mountStructScenarios(body, th, ps);
     });
   },
@@ -179,15 +193,15 @@ PANELS.info = {
         <h3>How well the record supports a mark</h3>
         <dl>${TIERS.map(t => `<dt>${glyphSVG(t, 16)} ${esc(TIER_STYLE[t].label)}</dt><dd>${{ documented: 'A source that is not just a lead supports exactly this.', inferred: 'Reasoned from sources; not stated outright.', 'plausible-procedural': 'Filled in where the record is silent, and marked so.', 'open gap': 'No source found. Shown as a gap, never hidden.' }[t]}</dd>`).join('')}</dl>
         <p>Turn on <b>Evidence</b> to outline every unit by tier, then click a mark for its sources and register entry.</p>
-        <h3>Where sources disagree</h3><p>Open <b>Sources</b> to see every conflicting value. The default follows the plan's recommended value, pending the owner's decision.</p>
+        <h3>Where sources disagree</h3><p>Open <b>Sources</b> to see every conflicting value. Each entry opens on a default chosen under delegated authority, reversible by the owner, with its tier; the plan's recommended value and every other value stay selectable, and one button switches every entry to the plan's value.</p>
         <h3>Keys</h3>
         <table class="table keys"><tr><td><span class="kbd">W</span> <span class="kbd">A</span> <span class="kbd">S</span> <span class="kbd">D</span></td><td>fly</td></tr><tr><td><span class="kbd">Q</span> <span class="kbd">E</span></td><td>down, up</td></tr><tr><td><span class="kbd">←</span><span class="kbd">→</span><span class="kbd">↑</span><span class="kbd">↓</span></td><td>look (or drag)</td></tr><tr><td><span class="kbd">Shift</span></td><td>faster</td></tr><tr><td>Wheel</td><td>move forward or back</td></tr><tr><td><span class="kbd">Space</span></td><td>play or pause</td></tr><tr><td><span class="kbd">,</span> <span class="kbd">.</span></td><td>10 minutes back, forward (with Shift, one hour)</td></tr><tr><td><span class="kbd">[</span> <span class="kbd">]</span></td><td>previous, next event</td></tr><tr><td><span class="kbd">-</span> <span class="kbd">+</span></td><td>speed ${SPEEDS[0]}× to ${SPEEDS[SPEEDS.length - 1]}×</td></tr><tr><td><span class="kbd">O</span></td><td>evidence marks</td></tr><tr><td><span class="kbd">Home</span></td><td>whole field</td></tr><tr><td><span class="kbd">Esc</span></td><td>close a panel or clear the selection</td></tr></table>
         <h3>Data in this view</h3>
-        <table class="table"><tr><th>Source of units</th><td>${esc(th.layer.meta.label)} (history layer contract ${esc(th.layer.meta.contract)})</td></tr><tr><th>Events</th><td>${fmtN(hd.events)} accepted, <span id="in-rej">${hd.rejected}</span> refused by the arrival rule</td></tr><tr><th>Seed · code</th><td>${hd.seed} · ${esc(hd.code)}</td></tr><tr><th>Input hash</th><td><code>${esc(hd.inputHash)}</code></td></tr><tr><th>Sources</th><td id="in-scn">${esc(scenarioLabel(th.state.scenario))}</td></tr><tr><th>Renderer</th><td>${esc(th.host.api)}${th.host.info.vendor ? ' · ' + esc(th.host.info.vendor) : ''}</td></tr></table>
+        <table class="table"><tr><th>Source of units</th><td>${esc(th.layer.meta.label)} (history layer contract ${esc(th.layer.meta.contract)})</td></tr><tr><th>Events</th><td>${fmtN(hd.events)} accepted, <span id="in-rej">${hd.rejected}</span> refused by the arrival rule</td></tr><tr><th>Seed · code</th><td>${hd.seed} · ${esc(hd.code)}</td></tr><tr><th>Input hash</th><td><code>${esc(hd.inputHash)}</code></td></tr><tr><th>Sources</th><td id="in-scn">${esc(scenarioLabel(th.state.scenario, th.conflicts))}</td></tr><tr><th>Renderer</th><td>${esc(th.host.api)}${th.host.info.vendor ? ' · ' + esc(th.host.info.vendor) : ''}<br><span class="mini">${esc(API_NOTE)}</span></td></tr></table>
       </div>`;
       const now = body.querySelector('#in-now'); const paint = () => { const k = th.stats; if (k) now.textContent = `${fmtDate(th.state.t)} ${fmtTime(th.state.t)}: ${k.soldiers ? (th.layer.meta.stub ? `${fmtN(k.soldiers)} soldiers, ${k.guns} guns and ${k.units} units are on the field in this model. All are ${LABEL_PLACEHOLDER}s.` : `${fmtN(k.soldiers)} figures in ${k.units} placed units are on the field in this model.`) : (th.layer.meta.stub ? 'no unit is on the field in this model at this time.' : 'no unit the record can place is on the field at this time.')}`; };
       paint(); let at = 0; th.bus.on('frame', () => { const n = performance.now(); if (n - at > 500) { at = n; paint(); } }, ps);
-      th.bus.on('scenario', () => { const h = th.stage.header(); body.querySelector('#in-rej').textContent = h.rejected; body.querySelector('#in-scn').textContent = scenarioLabel(th.state.scenario); }, ps);
+      th.bus.on('scenario', () => { const h = th.stage.header(); body.querySelector('#in-rej').textContent = h.rejected; body.querySelector('#in-scn').textContent = scenarioLabel(th.state.scenario, th.conflicts); }, ps);
     });
   },
 };

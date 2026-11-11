@@ -1,6 +1,6 @@
 # Battle Theatre: owner tutorial
 
-Staging build 0d365128 · Gettysburg, 26 June to 14 July 1863 · written 11 November 2026
+Staging build bb0d74d2 · Gettysburg, 26 June to 14 July 1863 · written 11 November 2026
 
 This guide is for you, the owner. It assumes no programming. It says what the Battle Theatre is, how to open the test copy, what every control does, what the marks mean, what this build does not do yet, how to put it on Netlify by drag and drop, and what to check afterwards. Where something is built but not yet seen working on real hardware, the guide says so in plain words.
 
@@ -183,15 +183,15 @@ Netlify screens change names from time to time. **Every Netlify label below is f
 
 **Do not drop this zip onto your real site.** The theatre is a separate site and has not passed final acceptance.
 
-1. In `deliver/`, find the newest `gettysburg-BT-staging-<id>.zip`. The id at the time of writing is `0d365128`. Its checksum file sits beside it. SHA-256 of that zip:
-   `706378f1b394d31273dd171789a247f8a865fe27d547420317b275f75ff9af2f`
-   (205 files, about 7.3 MB zipped, 15 MB unzipped.) To check on Windows, open a command window in `deliver` and run `certutil -hashfile gettysburg-BT-staging-0d365128.zip SHA256`; it must equal the line above and the `.sha256` file.
+1. In `deliver/`, find the newest `gettysburg-BT-staging-<id>.zip`. The id at the time of writing is `bb0d74d2`. Its checksum file sits beside it. SHA-256 of that zip:
+   `8c9df2c4f73c9a56f724ce29e9695d3bcd4e3a91bac08d9c3bd239bc306dd774`
+   (238 files, about 7.2 MB zipped, 16 MB unzipped.) To check on Windows, open a command window in `deliver` and run `certutil -hashfile gettysburg-BT-staging-bb0d74d2.zip SHA256`; it must equal the line above and the `.sha256` file.
 2. In Netlify, add a **new site by dropping a folder or zip**. Drop the zip, or the unzipped `dist` folder from `deliver/bt-staging`. Netlify gives a random `netlify.app` address.
 3. Open it and follow the checklist in section 10.
 4. Send the address back so the same checks can be run against it.
 5. When done, delete the throwaway site. There is nothing to roll back, because your real site was never touched. (Your real site's undo, as in earlier guides, is Deploys, the deploy that begins `6abd6d62`, Publish deploy.)
 
-What the zip contains: the page (`app/`), the renderers, the data it loads (history, structures, kit, environment, figures, effects) and `_headers` and `netlify.toml`. Left out: tests, screenshots, notes and tools. No headers for cross-origin isolation are needed. The site sends `X-Robots-Tag: noindex, nofollow` and a robots meta tag, so search engines ignore it, and `Referrer-Policy: no-referrer`. "Return to the map" goes to the staging root, not your main map.
+What the zip contains: the page (`app/`), the renderers, the data it loads (history, structures, kit, environment, the figures' data, effects, sound and animation data) and `_headers` and `netlify.toml`. Left out: tests, screenshots, notes and tools. No headers for cross-origin isolation are needed. The site sends `X-Robots-Tag: noindex, nofollow` and a robots meta tag, so search engines ignore it, and `Referrer-Policy: no-referrer`. "Return to the map" goes to the staging root, not your main map.
 
 ## 10. What to test, and what you should see
 
@@ -200,7 +200,7 @@ Tick each line. If a result differs, note the line number, the date and time sho
 **Start**
 
 - [ ] The address opens the landing page: "Battle Theatre", the three facts (Ground, Figures, Time) and two buttons. *Expected: no error text.*
-- [ ] The lower-left stamp shows the same id as the zip. *Expected: `0d365128`.*
+- [ ] The lower-left stamp shows the same id as the zip. *Expected: `bb0d74d2`.*
 - [ ] Press **Enter the Battle Theatre**. *Expected: a status line while loading, then the landscape with the top bar, clock face and dock. A first visit can take many seconds.*
 - [ ] Open the browser's console (F12). *Expected: no red errors. Warnings about effects or sound not started are worth reporting.*
 

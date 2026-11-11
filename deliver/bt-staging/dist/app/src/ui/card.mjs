@@ -3,7 +3,7 @@ import { fmtDate, fmtTime, fmtShort } from '../clock.mjs';
 import { LABEL_PLACEHOLDER } from '../config.mjs';
 import { validateKit, strengthText } from '../history/contract.mjs';
 import { esc, ic, pill, sidePill, regLink, fmtN } from './util.mjs';
-import { lossSection, lossLive, gunsRows, formationRows, formationLive, figuresSection, provenanceSection, daySection } from './card-sections.mjs';
+import { lossSection, lossLive, gunsRows, formationRows, formationLive, figuresSection, provenanceSection, daySection, horseSection } from './card-sections.mjs';
 
 const ACT = { march: 'Marching', double_quick: 'Double-quick', halt: 'Halted', stand: 'Standing', rest: 'Resting', fire: 'Firing', serve_guns: 'Serving the guns', gallop: 'Galloping', build_works: 'Building works', camp: 'In camp' };
 const dms = (v, pos, neg) => `${Math.abs(v).toFixed(5)}° ${v >= 0 ? pos : neg}`;
@@ -30,6 +30,7 @@ export function mountCard(th) {
         </dl>
         <p class="mini">Strength basis: ${esc(u.strength.basis)}</p>${a && a.note ? `<p class="mini">Arrival: ${esc(a.note)}</p>` : ''}
         ${u.stub ? '' : lossSection(th, u)}
+        ${u.stub ? '' : horseSection(th, u)}
         <h3>Evidence</h3>
         <table class="table"><tr><th>Tier</th><td>${pill(u.tier)}</td></tr>${srcs.map(s => `<tr><th>Source key</th><td><code>${esc(s.key)}</code> ${esc(s.label)}${s.weak ? ' <span class="mini">(not a historical source)</span>' : ''}<br><span class="mini">${esc(s.citation)}</span></td></tr>`).join('')}</table>
         ${u.stub ? '' : provenanceSection(u)}

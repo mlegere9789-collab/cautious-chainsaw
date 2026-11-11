@@ -1,6 +1,7 @@
 // Read-only loaders for the governance and environment files the page shows. Nothing here writes or modifies a source file.
 import { URLS } from './config.mjs';
 import { isoToMin, minOf } from './clock.mjs';
+import { applyDelegatedDefaults, newScenario, withDefault, scenarioText, scenarioIsDefault as isDefaultFor } from './scenario-defaults.mjs';
 
 const getJSON = async (url) => { const r = await fetch(url); if (!r.ok) throw new Error(`${url}: HTTP ${r.status}`); return r.json(); };
 const getLines = async (url) => { const r = await fetch(url); if (!r.ok) throw new Error(`${url}: HTTP ${r.status}`); return (await r.text()).split(/\r?\n/).filter(Boolean).map(l => JSON.parse(l)); };
@@ -31,7 +32,7 @@ export async function loadTimeline() {
 
 // ---- source conflicts: C-001..C-047 (PDF B.2.5) and the weather file's carried conflicts; every printed value is carried
 export async function loadConflicts() {
-  const [reg, wx] = await Promise.all([getJSON(URLS.gov + 'conflict_register.json'), getJSON(URLS.env + 'weather_timeline.json')]);
+  const [reg, wx, defaults] = await Promise.all([getJSON(URLS.gov + 'conflict_register.json'), getJSON(URLS.env + 'weather_timeline.json'), getJSON(URLS.data + 'conflict-defaults.json').catch(e => { console.warn('delegated defaults not read, the plan\'s values are the default view:', e.message || e); return null; })]);
   const out = [];
   // six rows of the register wrap their printed columns over more than four cells; these are the same words cut at the column boundaries (checked below against the printed text)
   const COLS = {
@@ -57,11 +58,13 @@ export async function loadConflicts() {
     if (c.id === 'CF-JUL2-CLOUD-2PM') { options.length = 1; options.push({ key: 'opt0', label: 'Read as 3/10 covered (mostly clear)', text: '3/10 covered' }, { key: 'opt1', label: 'Read as 7/10 covered (mostly cloud)', text: '7/10 covered' }); }
     out.push({ id: c.id, kind: 'weather', topic: c.element, printed: { values: (c.candidates || []).map(k => `${k.source}: ${k.value_mph != null ? k.value_mph + ' mph' : k.schedule || k.state || k.statement || k.reading}`).join('; '), recommended: c.pdf_handling, others: (c.agreed || []).join('; ') }, options, status: 'PDF_RECOMMENDED_DEFAULT_PENDING_OWNER_DECISION' });
   }
+  applyDelegatedDefaults(out, defaults);          // the 47 delegated defaults (data/conflict-defaults.json); every other value stays selectable
   return out;
 }
-export const DEFAULT_SCENARIO = () => ({ id: 'pdf-recommended', label: 'PDF recommended, pending owner', choices: {} });
-export const scenarioIsDefault = s => Object.keys(s.choices).length === 0;
-export const scenarioLabel = s => scenarioIsDefault(s) ? 'PDF recommended, pending owner' : `Custom: ${Object.keys(s.choices).length} choice${Object.keys(s.choices).length > 1 ? 's' : ''} changed`;
+// the scenario the theatre opens on: every conflict on its delegated default (the plan's values when the defaults file is not there)
+export const DEFAULT_SCENARIO = (conflicts = []) => withDefault(conflicts).length ? newScenario(conflicts) : { id: 'pdf-recommended', label: 'PDF recommended, pending owner', choices: {} };
+export const scenarioIsDefault = (s, conflicts = []) => withDefault(conflicts).length ? isDefaultFor(s, conflicts) : Object.keys(s.choices || {}).length === 0;
+export const scenarioLabel = (s, conflicts = []) => withDefault(conflicts).length ? scenarioText(s, conflicts) : (Object.keys(s.choices || {}).length ? `Custom: ${Object.keys(s.choices).length} choice${Object.keys(s.choices).length > 1 ? 's' : ''} changed` : 'PDF recommended, pending owner');
 
 export const loadEnvironmentFiles = () => Promise.all([getJSON(URLS.env + 'ephemeris_1863.json'), getJSON(URLS.env + 'weather_timeline.json')]);
 export const loadBookmarks = () => getJSON(URLS.data + 'site-bookmarks.json');

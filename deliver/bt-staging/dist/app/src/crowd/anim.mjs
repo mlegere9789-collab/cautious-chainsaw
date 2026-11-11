@@ -5,6 +5,7 @@
 //   * a unit that fires uses mode 'at_will' with a per-man cycle of 20 to 30 s (ANIM3D-NOTES 2.3: battle rate of a rifle-musket 2-3 rounds a minute; the real tempo of any unit at any minute is not documented, G-ANIM-01);
 //   * a battery's own gun detachments ('serve_guns') fire by piece, one round in 30 to 60 s (ANIM3D-NOTES 2.3: Gibbon, Light Artillery Board);
 //   * a mounted unit that does not move stands at 'halt_mounted'; a unit that is not on the move and has no named activity stands at shoulder arms.
+import { LED, dismountRecord, dismountShare, dismountWindows } from '../history/cavalry.mjs';
 import { AnimSystem, FirePlan, ClipSel } from '../anim3d/index.mjs';
 
 const FIRE_CYCLE = { min: 20, max: 30, basis: 'ANIM3D-NOTES 2.3: battle rate of a rifle-musket (kit/weapons.json rate_rounds_per_min; PDF 2-3 a minute), weak sources; the tempo of a real unit at a real minute is an open gap (G-ANIM-01)' };
@@ -30,12 +31,31 @@ export class CrowdAnim {
       const o = { t0: b.t0, activity: a, speed: b.speed, night: b.night };
       if (a === 'fire') o.mode = 'at_will'; segs.push(o);
     }
+    if (cav && !crew) { const dm = this._dismounts(lu, segs); if (dm) { segs.length = 0; segs.push(...dm); } }
     for (let s = 0; s < segs.length; s++) {
       const g = segs[s], end = s + 1 < segs.length ? segs[s + 1].t0 : Infinity;
-      if (g.activity === 'fire') g.plan = FirePlan.create({ unitId: this.unitId(ui), n: w.count, seed: this.seed, mode: 'at_will', startS: g.t0, endS: end, cycleS: FIRE_CYCLE, files: Math.max(1, Math.ceil(w.count / 2)), ranks: 2, weapon: 'long_arm', tier: 'plausible-procedural' });
+      if (g.activity === 'fire') g.plan = FirePlan.create({ unitId: this.unitId(ui), n: w.count, seed: this.seed, mode: 'at_will', startS: g.t0 + (g.dm ? LED.led_s : 0), endS: end, cycleS: FIRE_CYCLE, files: Math.max(1, Math.ceil(w.count / 2)), ranks: 2, weapon: 'long_arm', tier: 'plausible-procedural' });
       else if (g.activity === 'serve_guns') g.plan = FirePlan.create({ unitId: this.unitId(ui), n: crew ? 1 : Math.max(1, Math.floor(w.count / CREW_PER_GUN)), seed: this.seed, mode: 'by_piece', startS: g.t0, endS: end, cycleS: GUN_CYCLE, weapon: 'cannon', fireAtFrac: 0.72, tier: 'inferred' });
     }
     return segs;
+  }
+  // ws10: where the record prints that part of a cavalry regiment fought afoot (history/cavalry.mjs DISMOUNTS), and the unit's engagement windows lie inside the record's range and the unit stands, the standing segment
+  // becomes one dismounted segment (activity fire, dm = the printed share); the horses are led back over LED.led_s. No window = no hour printed = no dismounting (EG-CAV-04). Returns the new segment list or null.
+  _dismounts(lu, segs) {
+    const rec = dismountRecord(lu.id), share = rec && dismountShare(rec); if (!share) return null;
+    const wins = dismountWindows(rec, lu.casualties && lu.casualties.windows).map(w => [w.from * 60, w.to * 60]); if (!wins.length) return null;
+    const standing = a => a === 'stand' || a === 'halt' || a === 'rest' || a === 'halt_mounted' || a === 'fire' || a === 'skirmish', inWin = t => wins.some(([a, b]) => t >= a && t < b), out = []; let any = false;
+    for (let s = 0; s < segs.length; s++) {
+      const g = segs[s], end = s + 1 < segs.length ? segs[s + 1].t0 : Infinity;
+      if (!standing(g.activity)) { out.push(g); continue; }
+      const cuts = [g.t0]; for (const [a, b] of wins) for (const c of [a, b]) if (c > g.t0 && c < end) cuts.push(c); cuts.sort((x, y) => x - y); cuts.push(end);
+      for (let q = 0; q + 1 < cuts.length; q++) {
+        const p0 = cuts[q], p1 = cuts[q + 1], mid = Number.isFinite(p1) ? (p0 + p1) / 2 : p0 + 1, last = out[out.length - 1];
+        if (inWin(mid)) { any = true; if (last && last.dm === share && last.activity === 'fire') continue; out.push({ ...g, t0: p0, activity: 'fire', mode: 'at_will', dm: share }); }
+        else if (!(last && last.activity === g.activity && !last.dm && q > 0)) out.push({ ...g, t0: p0, dm: 0 });
+      }
+    }
+    return any ? out : null;
   }
   get(ui) {
     if (this.version !== this.stage.segsVersion) this.reset();

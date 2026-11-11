@@ -8,7 +8,7 @@
 // What this module adds on top of audio3d (it does not change audio3d):
 //   * a mixer: master -> mute -> destination, and three channel buses (music = bugle and drum signals, effects = everything else, voices = commands and shouts)
 //     that feed the engine's dry bus, so the reverb send follows the channel level. Levels are user settings (remembered per browser, never required).
-//   * DEC-001 as a user setting: both labelling options are always present (the shipped default is the engine's AUDIO_CONFIG flag; the decision stays OPEN, not picked here).
+//   * DEC-001 as a user setting: both labelling options are always present (the shipped default is the engine's AUDIO_CONFIG flag, 'panel-only' under delegated decision DD-14, reversible by the owner; the PDF marking stays selectable).
 //   * the causal clock: no voice is ever planned from an event after the theatre clock, and every jump (scrub, seek, speed change, pause) silences all voices and
 //     every echo tap that was scheduled for a time that has not happened in the new timeline; sound resumes by re-emitting [now - 12 s, now) (host.replay).
 //   * a node registry: every Web Audio node the engine creates is tracked, released when its voice ends, and all of it is gone after dispose() (liveNodes() === 0).

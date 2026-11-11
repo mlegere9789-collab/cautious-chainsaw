@@ -24,3 +24,10 @@ export const TIER_STYLE = {                       // colour + shape + outline pa
 export const SPEEDS = [0.25, 0.5, 1, 2, 4, 8, 15, 30, 60];
 export const DEFAULTS = { nightFloor: 0.34, renderScale: 1, nearR: 40, midR: 300 };
 export const GROUND_NOTE = 'The ground is the modern landscape (2022 aerial photograph and 3D Elevation Program terrain), not the 1863 landscape.';
+// The renderer API the shell asks for. The weather and the effects are drawn on WebGL2 only (the WebGPU path computes their state but draws nothing, and it has not been seen),
+// so WebGL2 is the default. WebGPU is used only when the address says ?api=webgpu; ?api=auto asks for WebGPU first with a WebGL2 fallback; ?api=webgl2 is the default spelled out.
+export function chooseApi(search = '') {
+  let v = null; try { v = new URLSearchParams(search).get('api'); } catch { /* none */ }
+  return v === 'webgpu' ? 'webgpu' : v === 'auto' ? 'auto' : 'webgl2';
+}
+export const API_NOTE = 'WebGL2 is the default renderer: it draws the weather and the effects. WebGPU (?api=webgpu) has not been seen drawing them.';
