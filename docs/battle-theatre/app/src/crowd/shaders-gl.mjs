@@ -35,7 +35,7 @@ const OUT = `out vec3 vWp; out vec3 vN; flat out uint vMat; flat out uint vFl; f
 const ATTR = `layout(location=0) in vec3 aPos; layout(location=1) in vec4 aNrm; layout(location=2) in uvec2 aMF; layout(location=3) in uvec4 aJ; layout(location=4) in vec4 aW;
 layout(location=5) in vec4 iP; layout(location=6) in vec4 iA; layout(location=7) in uvec4 iI;`;
 const FINISH = `
-  uvec4 w = wordsOf(iI.x); float sc = statureOf(w); vec3 wp = vec3(iP.x, hAt(iP.x, iP.y), iP.y) + rotY(iP.z, sp * sc);
+  uvec4 w = wordsOf(iI.x); float sc = iP.w > 1.5 ? 1.0 : statureOf(w); vec3 wp = vec3(iP.x, hAt(iP.x, iP.y), iP.y) + rotY(iP.z, sp * sc);
   vWp = wp; vN = rotY(iP.z, normalize(sn + vec3(1e-6))); vMat = aMF.x; vFl = aMF.y; vW = w; gl_Position = vp * vec4(wp, 1.0);`;
 
 // LOD1, LOD2 and horses: bone-matrix texture, two clips x two frames (A, B blended by iA.z); iI.y = rowsA (frame0 | frame1 << 16), iI.z = rowsB, iA.x / iA.y = the fraction between the frames

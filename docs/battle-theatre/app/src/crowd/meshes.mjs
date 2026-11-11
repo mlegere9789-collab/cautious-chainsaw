@@ -27,6 +27,16 @@ export class MeshStore {
     const dV = this.dirtyV, dI = this.dirtyI; this.dirtyV = dV ? [Math.min(dV[0], v0), this.nv] : [v0, this.nv]; this.dirtyI = dI ? [Math.min(dI[0], i0), this.ni] : [i0, this.ni];
     const e = { firstIndex: i0, indexCount: m.idx.length, firstVertex: v0, nv: m.nv, tris: m.idx.length / 3 }; this.entries.set(key, e); return e;
   }
+  // a mesh that changes (the works): written in place into a reserved slice (capacity doubles when it outgrows it), the rest of the slice is degenerate triangles
+  setDynamic(key, m) {
+    let e = this.entries.get(key);
+    if (!e || m.nv > e.capV || m.idx.length > e.capI) { const capV = Math.max(256, m.nv * 2), capI = Math.max(768, m.idx.length * 2); this._grow(capV, capI); e = { firstIndex: this.ni, firstVertex: this.nv, capV, capI, indexCount: 0, nv: 0, tris: 0, dynamic: true }; this.nv += capV; this.ni += capI; this.entries.set(key, e); }
+    const dv = new DataView(this.vb.buffer), v0 = e.firstVertex;
+    for (let i = 0; i < m.nv; i++) { const o = (v0 + i) * VERTEX_STRIDE; for (let k = 0; k < 3; k++) { dv.setFloat32(o + k * 4, m.pos[i * 3 + k], true); dv.setInt8(o + 12 + k, Math.max(-127, Math.min(127, Math.round(m.nrm[i * 3 + k] * 127)))); } dv.setInt8(o + 15, 0); this.vb[o + 16] = m.mat[i]; this.vb[o + 17] = 0; this.vb[o + 18] = 0; this.vb[o + 19] = 0; this.vb[o + 20] = 0; this.vb[o + 21] = 0; this.vb[o + 22] = 0; this.vb[o + 23] = 0; this.vb[o + 24] = 255; this.vb[o + 25] = this.vb[o + 26] = this.vb[o + 27] = 0; }
+    for (let i = 0; i < m.idx.length; i++) this.ib[e.firstIndex + i] = m.idx[i] + v0;
+    e.indexCount = m.idx.length; e.nv = m.nv; e.tris = m.idx.length / 3;
+    const dV = this.dirtyV, dI = this.dirtyI, ve = v0 + m.nv, ie = e.firstIndex + m.idx.length; this.dirtyV = dV ? [Math.min(dV[0], v0), Math.max(dV[1], ve)] : [v0, ve]; this.dirtyI = dI ? [Math.min(dI[0], e.firstIndex), Math.max(dI[1], ie)] : [e.firstIndex, ie]; return e;
+  }
   takeDirty() { const d = { v: this.dirtyV, i: this.dirtyI, version: this.version }; this.dirtyV = this.dirtyI = null; return d; }
   get bytes() { return this.nv * VERTEX_STRIDE + this.ni * 4; }
 }

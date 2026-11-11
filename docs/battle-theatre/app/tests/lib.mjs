@@ -45,7 +45,7 @@ export function watchConsole(page) {
 }
 // history: 'stub' opens the placeholder layer (the shell's own tests that need the 165,000-figure crowd); omitted = the real layer
 export async function open(browser, base, { w = 1440, h = 900, init = true, touch = false, scale = 1, extra = '', history = null } = {}) {
-  const qp = [history ? 'history=' + history : '', extra.replace(/^\?/, '')].filter(Boolean); extra = qp.length ? '?' + qp.join('&') : '';
+  const qp = [history ? 'history=' + history : '', process.env.BT_API ? 'api=' + process.env.BT_API : '', process.env.BT_EXTRA || '', extra.replace(/^\?/, '')].filter(Boolean); extra = qp.length ? '?' + qp.join('&') : '';
   const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: scale, hasTouch: touch, isMobile: touch });
   const page = await ctx.newPage(); if (init) await page.addInitScript(INSTRUMENT); const log = watchConsole(page);
   await page.goto(base + extra, { waitUntil: 'load' }); return { ctx, page, log };

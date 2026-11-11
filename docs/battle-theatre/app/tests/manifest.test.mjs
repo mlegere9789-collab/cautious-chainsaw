@@ -67,7 +67,7 @@ test('the renderer’s variation scalar of every drawn figure is derived from it
       assert.ok(v >= 0 && v < 1); assert.equal(Math.fround(v), s1); const fr = (13.7 * v) % 1; assert.ok(Math.abs(fr - Math.min(0.9999, 1 - m.wear_state.level)) < 1e-4, `${u.id}:${k} coat brightness class`); checked++;
     }
   }
-  assert.ok(checked > 500); assert.ok(L.rendererSupport.drawn.length === 1 && L.rendererSupport.not_drawn.length >= 10);
+  assert.ok(checked > 500); assert.ok(L.rendererSupport.drawn.length === 1 && L.rendererSupport.not_drawn.length >= 4)      // the figure pass draws the whole manifest; what it still does not draw is listed (src/crowd);
   assert.match(figuresSection({ layer: L, state: { t: minOf(7, 2, 12), scenario: {} } }, L.units.find(x => x.id === 'us-1c-1d-meredith-19in'), minOf(7, 2, 12)), /Hardee hat|hardee/i);
   assert.match(figuresSection({ layer: L, state: { t: minOf(7, 1, 6), scenario: {} } }, L.units.find(x => x.id === 'us-1c-1d-meredith-19in'), minOf(7, 1, 6)), /before the unit enters/);
   assert.match(figuresSection({ layer: L, state: { t: 1, scenario: {} } }, L.units.find(x => x.render.status === 'not_drawn'), 1), /No figure is drawn/);

@@ -59,7 +59,10 @@ export class Crowd {
       if (performance.now() - s0 > 25) { progress(0.7 + 0.15 * c / nC, 'Building the figure models'); await tick(); s0 = performance.now(); if (this.dead) return; }
     }
     cl.accessories.forEach((a, i) => { const [k, army] = a.key.split('|'); this.cls.acc1[i] = this.meshes.add('a1:' + i, sys.accessoryMesh(k, army, 1).finalize()); this.cls.acc2[i] = this.meshes.add('a2:' + i, sys.accessoryMesh(k, army, 2).finalize()); });
-    this.horseM = [0, 1, 2].map(l => this.meshes.add('h:' + l, sys.horse(l).finalize())); await tick();
+    this.horseM = [0, 1, 2].map(l => this.meshes.add('h:' + l, sys.horse(l).finalize()));
+    // the artillery train and the works (structures draw lists): rigid props are skinned to an identity frame of the horse bank; one generic Napoleon tube (the layer names no piece for a train gun: plausible-procedural)
+    this.ex = { carriage: this.meshes.add('x:carriage', sys.carriage(2).finalize()), tube: this.meshes.add('x:tube', sys.gunTube('napoleon_12pdr_m1857', 2).finalize()), limber: this.meshes.add('x:limber', sys.limber(2).finalize()), caisson: this.meshes.add('x:caisson', sys.caisson(2).finalize()), draught: this.meshes.add('x:draught', sys.horse(2, 'draught').finalize()) };
+    this.idRow = this.bank.horse.addIdentity(); this.horseIdleIdx = this.bank.index.get('horse_idle'); this.crewIdx = ['stand_shoulder', 'chop_axe', 'dig_shovel', 'march_carry_rail'].map(id => this.bank.index.get(id)); this.driverIdx = this.bank.index.get('rider_walk'); await tick();
     const imp = this.imp = { w: 0, h: 0, layers: cl.impostors.length, data: null, meta: null }; s0 = performance.now(); let atl = null;
     for (let i = 0; i < cl.impostors.length; i++) {
       const a = sys.impostor(cl.impostors[i].key); if (!atl) { imp.w = a.width; imp.h = a.height; atl = new Uint8Array(imp.w * imp.h * 4 * imp.layers); imp.meta = new Float32Array(imp.layers * 4); }
@@ -107,6 +110,8 @@ export class Crowd {
     this.stats.selectMs = t1 - t0; this.stats.animMs = t2 - t1; this.stats.bakeMs = this.bank.bakeMs; this.stats.far = w.count - n; this.stats.listed = n; void D;
     const F = this.frameData; F.impostors = true; F.nWorld = w.count; F.r2 = rad.r2; this.be.upload(F);
   }
+  // the structures' draw lists (Structures.drawLists + the works mesh): a function of the time in minutes; null when the structures layer is off
+  setExtrasSource(fn) { this.extraSrc = fn; this._exT = null; }
   // anim3d placement hook (events carry world positions): k = -1 the unit's centre; the current frame's tables (events of the window just before now)
   placement(id, k, out) {
     const ui = this.driver.byId.get(id); if (ui === undefined || this.stage.present[ui] !== 1) return false; const w = this.world.units[ui], f = this.world.unitF;
@@ -114,6 +119,15 @@ export class Crowd {
     out.y = this.T.h(out.x, out.z); return true;
   }
   // every unit that is on the field gets its animator (events of the whole field, drawn or not): a few milliseconds a frame
+  _extraLists(tMin) {
+    if (this._exT === tMin && this._exL !== undefined) return this._exL; this._exT = tMin; let L = null;
+    try { L = this.extraSrc(tMin); } catch (e) { if (!this._exWarned) { console.warn('structure draw lists not used:', e); this._exWarned = true; } }
+    if (L && L.error) L = null; this._exL = L;
+    if (L && L.workMesh && L.workMesh.idx.length) { const M = L.workMesh, nv = M.verts.length / 10, pos = new Float32Array(nv * 3), nrm = new Float32Array(nv * 3), mat = new Uint8Array(nv).fill(63), y0 = this.T.h(0, 0);
+      for (let i = 0; i < nv; i++) { pos[i * 3] = M.verts[i * 10]; pos[i * 3 + 1] = M.verts[i * 10 + 1] - y0; pos[i * 3 + 2] = M.verts[i * 10 + 2]; nrm.set([M.verts[i * 10 + 3], M.verts[i * 10 + 4], M.verts[i * 10 + 5]], i * 3); }
+      this.workEntry = this.meshes.setDynamic('x:works', { nv, pos, nrm, mat, idx: M.idx }); }
+    return L;
+  }
   _ensureAnimators(budgetMs) { const t0 = performance.now(), st = this.stage; for (let ui = 0; ui < this.nUnits && performance.now() - t0 < budgetMs; ui++) if (st.present[ui] === 1) this.driver.get(ui); }
   _build(n, tSec) {
     const w = this.world, D = this.D, drv = this.driver, bank = this.bank, sel = drv.sel, rows = this.rowsTmp, T = this.T, sys = this.sys;
@@ -131,7 +145,7 @@ export class Crowd {
     }
     this.stats.lod0 = c0; this.stats.lod1 = c1; this.stats.lod2 = c2; this.stats.horse = nh;
     // 2. instance records and draws. capacity: LOD0 parts (about 30 per man), LOD1 / LOD2 x (class + accessory), horses
-    const need = (c0 * 40 + (c1 + c2) * 2 + nh) * REC; if (need * 4 > this.inst.byteLength) { this.inst = new ArrayBuffer(Math.max(need * 4, this.inst.byteLength * 2)); this.instF = new Float32Array(this.inst); this.instU = new Uint32Array(this.inst); this.inst8 = null; }
+    const need = (c0 * 40 + (c1 + c2) * 2 + nh + 6000) * REC; if (need * 4 > this.inst.byteLength) { this.inst = new ArrayBuffer(Math.max(need * 4, this.inst.byteLength * 2)); this.instF = new Float32Array(this.inst); this.instU = new Uint32Array(this.inst); this.inst8 = null; }
     const F = this.frameData || (this.frameData = { draws: [], inst: null, instBytes: 0, pose: this.pose, nPose: 0 }); const draws = F.draws; draws.length = 0; let rec = 0; const f32 = this.instF, u32 = this.instU;
     const put = (j, x1, x2, x3, u1, u2, u3) => { const o = rec * REC; f32[o] = this.wX[j]; f32[o + 1] = this.wZ[j]; f32[o + 2] = this.wH[j]; f32[o + 3] = 1; f32[o + 4] = x1; f32[o + 5] = x2; f32[o + 6] = x3; f32[o + 7] = 0; u32[o + 8] = this.wFig[j]; u32[o + 9] = u1; u32[o + 10] = u2; u32[o + 11] = u3; rec++; };
     // LOD0: per part, the men that wear it
@@ -164,6 +178,34 @@ export class Crowd {
     if (nh) for (const lod of [0, 1, 2]) {
       const first = rec; let cnt = 0; for (let j = 0; j < n; j++) if (this.wMt[j] && this.wLod[j] === lod) { put(j, this.wHF[j], 0, 0, this.wHR[j], this.wHR[j], 0); cnt++; }
       if (cnt) { const e = this.horseM[lod]; draws.push({ near: false, bank: 'horse', first: e.firstIndex, count: e.indexCount, off: first * 48, n: cnt }); }
+    }
+    // the artillery train and the works
+    const exl = this.extraSrc ? this._extraLists(tSec / 60) : null;
+    if (exl) {
+      const cam = this.cam, planes = this.pl.planes, lim = 350 * 350, near = (x, z) => { const dx = x - cam.x, dz = z - cam.z; return dx * dx + dz * dz < lim && sphereInFrustum(planes, x, T.h(x, z) + 1, z, 12); };
+      const rigid = (x, z, h, fig, row, frac) => { const o = rec * REC; f32[o] = x; f32[o + 1] = z; f32[o + 2] = h; f32[o + 3] = 2; f32[o + 4] = frac; f32[o + 5] = 0; f32[o + 6] = 0; f32[o + 7] = 0; u32[o + 8] = fig; u32[o + 9] = row | (row << 16); u32[o + 10] = row | (row << 16); u32[o + 11] = 0; rec++; };
+      const figOf = bi => { const u = w.units[bi]; return u && u.count ? u.first : 0; };
+      const run = (e, first, nn, bankName) => { if (nn && e && e.indexCount) draws.push({ near: false, bank: bankName, first: e.firstIndex, count: e.indexCount, off: first * 48, n: nn }); };
+      const art = exl.artillery;
+      if (art) {
+        const each = (arr, fn) => { let c = 0; for (let q = 0; q + 7 < arr.length; q += 8) if (near(arr[q], arr[q + 1])) { fn(arr, q); c++; } return c; };
+        for (const [name, entries] of [['guns', [this.ex.carriage, this.ex.tube]], ['limbers', [this.ex.limber]], ['caissons', [this.ex.caisson]], ['wagons', [this.ex.caisson]]]) {
+          const arr = art[name]; if (!arr || !arr.length) continue; for (const e of entries) { const first = rec; const c = each(arr, (A, q) => rigid(A[q], A[q + 1], A[q + 2], figOf(A[q + 4] | 0), this.idRow, 0)); run(e, first, c, 'horse'); }
+        }
+        if (art.horses && art.horses.length) { const first = rec, c = each(art.horses, (A, q) => { this.bank.rows(this.horseIdleIdx, tSec + (A[q + 5] % 11) * 0.37, this.rowsTmp, 0); rigid(A[q], A[q + 1], A[q + 2], figOf(A[q + 4] | 0), this.rowsTmp[0] | 0, this.rowsTmp[2]); this.instU[(rec - 1) * REC + 9] = this.rowsTmp[0] | (this.rowsTmp[1] << 16); }); run(this.ex.draught, first, c, 'horse'); }
+        if (art.drivers && art.drivers.length) {
+          const byCls = new Map(); each(art.drivers, (A, q) => { const fg = figOf(A[q + 4] | 0), k = D.varInfo[(D.inst[fg * 4] & 0xffff) * 4]; let l = byCls.get(k); if (!l) byCls.set(k, l = []); l.push(A, q, fg); });
+          for (const [k, l] of byCls) { const first = rec; for (let q = 0; q < l.length; q += 3) { const A = l[q], i = l[q + 1]; this.bank.rows(this.driverIdx, tSec + (A[i + 5] % 7) * 0.3, this.rowsTmp, 0); const o = rec * REC; f32[o] = A[i]; f32[o + 1] = A[i + 1]; f32[o + 2] = A[i + 2]; f32[o + 3] = 1; f32[o + 4] = this.rowsTmp[2]; f32[o + 5] = 0; f32[o + 6] = 0; f32[o + 7] = 0; u32[o + 8] = l[q + 2]; u32[o + 9] = this.rowsTmp[0] | (this.rowsTmp[1] << 16); u32[o + 10] = u32[o + 9]; u32[o + 11] = 0; rec++; } run(mid.low[k], first, l.length / 3, 'human'); }
+        }
+      }
+      const wk = exl.works;
+      if (wk && wk.crew && wk.crew.length) {
+        const fg = D.sources.length ? D.sources[0].first : 0, k = D.varInfo[(D.inst[fg * 4] & 0xffff) * 4], byClip = [[], [], [], []];
+        for (let q = 0; q + 7 < wk.crew.length; q += 8) if (near(wk.crew[q], wk.crew[q + 1])) byClip[wk.crew[q + 5] | 0].push(q);
+        for (let c = 0; c < 4; c++) for (const q of byClip[c]) { this.bank.rows(this.crewIdx[c], tSec + (q % 13) * 0.4, this.rowsTmp, 0); const o = rec * REC; f32[o] = wk.crew[q]; f32[o + 1] = wk.crew[q + 1]; f32[o + 2] = wk.crew[q + 2]; f32[o + 3] = 1; f32[o + 4] = this.rowsTmp[2]; f32[o + 5] = 0; f32[o + 6] = 0; f32[o + 7] = 0; u32[o + 8] = fg; u32[o + 9] = this.rowsTmp[0] | (this.rowsTmp[1] << 16); u32[o + 10] = u32[o + 9]; u32[o + 11] = 0; rec++; }
+        const nCrew = byClip.reduce((a, l) => a + l.length, 0); if (nCrew) draws.push({ near: false, bank: 'human', first: mid.low[k].firstIndex, count: mid.low[k].indexCount, off: (rec - nCrew) * 48, n: nCrew });     // one class mesh for all crew: instances are in clip order, one run
+      }
+      if (exl.workMesh && this.workEntry && this.workEntry.indexCount) { const first = rec; rigid(0, 0, 0, D.sources.length ? D.sources[0].first : 0, this.idRow, 0); draws.push({ near: false, bank: 'horse', first: this.workEntry.firstIndex, count: this.workEntry.indexCount, off: first * 48, n: 1 }); }
     }
     F.inst = this.inst8 || (this.inst8 = new Uint8Array(this.inst)); F.instBytes = rec * 48; F.nPose = nPose; F.pose = this.pose; this.stats.records = rec; this.stats.draws = draws.length; this.stats.tris = draws.reduce((a, d) => a + d.count / 3 * d.n, 0);
   }

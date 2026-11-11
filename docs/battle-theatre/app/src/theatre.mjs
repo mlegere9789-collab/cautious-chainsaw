@@ -97,6 +97,7 @@ export class Theatre {
         try { const inputs = await loadStructureInputs(rawHist); if (this.dead) return; this.structs = new Structures(this, inputs, this.T); await this.structs.attach(this.host); this.host.structures = this.structs.gpu; this.structs.gpu.markDirty(); }
         catch (e) { console.warn('structures not drawn:', e); this.structsError = String(e.message || e); this.structs = null; }
       }
+      if (this.structs && this.host.crowd) this.host.crowd.setExtrasSource(tMin => { const L = this.structs.drawLists(tMin); if (L.error) return L; const w = this.structs.ws6().works; return { ...L, workMesh: L.works && L.works.segs && L.works.segs.length ? w.mesh(L.works) : null }; });
       try {                                         // effects (weather, smoke, dust: src/fx-host.mjs) and sound (src/audio-host.mjs)
         const anim = this.host.crowd ? this.host.crowd.driver.anim : null; this.anim3d = anim;
         this.fxOn = qs.get('fx') === 'off' ? null : await fxHost.init(this.host, { environment: this.env, anim, choices: () => this.state.scenario.choices, nightFloor: S.nightFloor });

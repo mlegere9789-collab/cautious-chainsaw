@@ -34,6 +34,12 @@ class Bank {
     const e = { idx, f0, n, fps: clip.loop ? n / clip.dur : fps0, loop: clip.loop, dur: clip.dur }; this.byClip.set(idx, e);
     const r0 = f0 >> 1, r1 = (f0 + n - 1) >> 1; this.dirty = this.dirty ? [Math.min(this.dirty[0], r0), Math.max(this.dirty[1], r1)] : [r0, r1]; return e;
   }
+  // one frame of identity matrices (the rest pose of whatever mesh is skinned to it): rigid props (gun carriages, limbers, caissons, the works)
+  addIdentity() {
+    if (this.identity != null) return this.identity; const g = this.next++, o = ((g >> 1) * this.width + (g & 1) * this.tpf) * 4, one = half(1);
+    for (let b = 0; b < this.nb; b++) { this.data[o + b * 12] = one; this.data[o + b * 12 + 5] = one; this.data[o + b * 12 + 10] = one; }
+    const r = g >> 1; this.dirty = this.dirty ? [Math.min(this.dirty[0], r), Math.max(this.dirty[1], r)] : [r, r]; return (this.identity = g);
+  }
   takeDirty() { const d = this.dirty; this.dirty = null; return d; }
 }
 

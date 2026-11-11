@@ -11,6 +11,7 @@ export const CLOTH_SLOTS = [MAT.COAT, MAT.COAT_TRIM, MAT.SHIRT, MAT.TROUSERS, MA
 export function buildPal(flagMean = {}) {
   const a = new Float32Array(PAL_W * PAL_H * 4), set = (row, x, r, g, b, w) => { const o = (row * PAL_W + x) * 4; a[o] = r; a[o + 1] = g; a[o + 2] = b; a[o + 3] = w; };
   for (let m = 0; m < 64; m++) { const g = GLOBAL_MATERIALS[m]; set(0, m, lin(g[0]), lin(g[1]), lin(g[2]), g[3]); set(1, m, g[4] > 0.5 ? 1 : 0, ROW_SLOT_ORDER.indexOf(m), CLOTH_SLOTS.includes(m) ? 1 : 0, 0); }
+  set(0, 63, lin(104), lin(84), lin(58), 0.95); set(1, 63, 0, -1, 0, 0);                  // material 63: bare earth of the works (plausible-procedural colour)
   SKIN_TONES.forEach((c, i) => set(0, 64 + i, lin(c[0]), lin(c[1]), lin(c[2]), 0.55)); HAIR_COLOURS.forEach((h, i) => set(0, 80 + i, lin(h.rgb[0]), lin(h.rgb[1]), lin(h.rgb[2]), 0.7)); EYE_COLOURS.forEach((e, i) => set(0, 88 + i, lin(e.rgb[0]), lin(e.rgb[1]), lin(e.rgb[2]), 0.3));
   const kinds = ['us_national', 'us_regimental_gap', 'irish_green_gap', 'anv_battle', 'cav_guidon', 'ambulance_gap'];
   kinds.forEach((k, i) => { const c = flagMean[k] || [128, 128, 128]; set(2, 1 + i, lin(c[0]), lin(c[1]), lin(c[2]), 0.9); });

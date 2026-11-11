@@ -10,9 +10,9 @@ import { parts } from '../clock.mjs';
 
 export const FIGURE_SEED = 1863;
 export const RENDERER_SUPPORT = {
-  drawn: [{ category: 'wear_state', how: 'the coat’s brightness class (the renderer’s per-figure variation scalar, sold1.w, drives a ±18% brightness on coat, trousers, hat and canvas): the more worn (soiled) the figure’s wear level, the darker the coat. The other materials vary freely with the same scalar.', tier: 'inferred' }],
-  not_drawn: ['headgear (one hat model)', 'coat cut and colour class (one coat model; one palette per army)', 'shirt', 'trousers', 'shoes', 'accoutrements', 'weapon (one rifle model)', 'bayonet', 'sidearm or sword', 'sash', 'pack state', 'corps badge', 'colours or instrument', 'horse coat colour (the kit data holds none: PDF gap)'],
-  note: 'The prototype renderer has one soldier model, one colour palette per army and one per-figure variation scalar; it is imported unchanged, so the manifest is shown in the card and drawn only through that scalar.',
+  drawn: [{ category: 'whole_manifest', how: 'every drawn figure is dressed from its own manifest by the figure pass (src/crowd, figures3d models): headgear, coat cut and colour, shirt, trousers, shoes, accoutrements, long arm and bayonet, sidearm or sword, sash, pack state, corps badge, colours or instrument; the wear level fades the cloth, the dye lot tints it. LOD0 within 10 m, LOD1 to 13 m, LOD2 to 75 m, baked far views beyond (every figure, no cap).', tier: 'plausible-procedural' }],
+  not_drawn: ['textures of the material maps (cloth weave, skin pores, folds: the procedural maps are not sampled yet)', 'body shape keys (the 12 builds are not applied to the coats)', 'regimental colour patterns (a flag is drawn in the mean colour of its pattern; the Union regimental colour and the guidon are gap flags)', 'horse coat colour (the kit data holds none: PDF gap)', 'the dress of a unit whose dress is disputed in the sources (the 140th New York): drawn in the army\u2019s generic infantry dress, flagged, none of the readings chosen'],
+  note: 'Drawn by src/crowd (figures3d models, anim3d poses); the prototype soldier is used only by ?history=stub and ?crowd=off.',
 };
 const TIER_RANK = { documented: 3, inferred: 2, 'plausible-procedural': 1, gap: 0 };
 const iso = tMin => { const p = parts(tMin); return `1863-${String(p.month).padStart(2, '0')}-${String(p.dom).padStart(2, '0')}`; };
