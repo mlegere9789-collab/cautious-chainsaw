@@ -3,7 +3,7 @@
 // (tools/accept/accuracy_subset.json, with the reason for every entry), (c) with --full the whole tools/t0/run_suites.mjs (about 2.5 hours).
 import fs from 'node:fs';
 import path from 'node:path';
-import { Check, ACCEPT, REPO, readJson, runCmdAsync, tail, sha256File, walk } from '../lib/util.mjs';
+import { Check, ACCEPT, REPO, readJson, runCmdAsync, tail, sha256File, walk, loadOf } from '../lib/util.mjs';
 
 const summaryLine = (out) => { const m = [...out.matchAll(/^(.+?): (\d+)\/(\d+) passed(?:, (\d+) skipped)?(?:, (\d+) FAILED)?$/gm)]; return m.length ? m[m.length - 1].slice(0, 6).join('|') : null; };
 
@@ -27,7 +27,7 @@ export async function run(ctx) {
     fs.cpSync(ctx.dist, path.join(rd, train, 'dist'), { recursive: true });
     const jsonOut = path.join(ctx.artDir, 'verify_release.json');
     const r = await runCmdAsync(process.execPath, ['tools/t0/verify_release.mjs', '--train', train, '--release-dir', rd, '--port', String(base), '--json', jsonOut], { timeoutMs: 600000 });
-    c.commands.push({ cmd: r.cmd.replace(rd, '<scratch>/release-dir'), exit: r.exit, ms: r.ms, note: 'candidate bytes substituted for release/' + train + '/dist' });
+    c.commands.push({ cmd: r.cmd.replace(rd, '<scratch>/release-dir'), exit: r.exit, ms: r.ms, ...loadOf(r), note: 'candidate bytes substituted for release/' + train + '/dist' });
     c.raw.verify_release = tail(r.stdout + r.stderr, 6000);
     if (r.exit !== 0) {
       const lines = (r.stdout + r.stderr).split('\n').filter((l) => /^FAIL|FAIL /.test(l));
@@ -55,7 +55,7 @@ export async function run(ctx) {
       else {
         const out = path.join(ctx.artDir, 'run_suites-summary.json');
         const r = await runCmdAsync(process.execPath, ['tools/t0/run_suites.mjs', '--json', out, '--port-base', String(base + 300), '--no-network'], { timeoutMs: 4 * 3600 * 1000, env: { T0_AGENT: path.relative(path.join(REPO, 'tmp'), ctx.scratch) } });
-        c.commands.push({ cmd: r.cmd, exit: r.exit, ms: r.ms });
+        c.commands.push({ cmd: r.cmd, exit: r.exit, ms: r.ms, ...loadOf(r) });
         c.raw.run_suites = tail(r.stdout, 5000);
         if (r.exit !== 0) c.defect('run_suites', 'tools/t0/run_suites.mjs', `exit ${r.exit}: ${tail(r.stdout + r.stderr, 500)}`);
         try { const sj = readJson(out); c.metrics.fullSuites = sj.totals; } catch { /* no summary */ }
@@ -73,8 +73,8 @@ export async function run(ctx) {
       const env = { T0_PORT_BASE: String(base + 20 + i * 12), T0_AGENT: path.relative(path.join(REPO, 'tmp'), ctx.scratch), T0_TILE_CAP: String(ctx.args['suite-tile-cap'] || 300) };
       let r; try { r = await runCmdAsync(process.execPath, args, { timeoutMs: Math.max(900, (s.approxSeconds || 300) * 5) * 1000, env }); } catch (e) { c.notRunParts.push(`${s.id}: could not start (${e.message})`); continue; }
       const sum = summaryLine(r.stdout);
-      c.commands.push({ cmd: `node ${s.args.join(' ').replace('{dist}', '<candidate>')}`, exit: r.exit, ms: r.ms, note: sum });
-      (c.raw.suites ||= []).push({ id: s.id, exit: r.exit, seconds: Math.round(r.ms / 1000), summary: sum, why: s.why, tail: tail(r.stdout + r.stderr, 1500) });
+      c.commands.push({ cmd: `node ${s.args.join(' ').replace('{dist}', '<candidate>')}`, exit: r.exit, ms: r.ms, ...loadOf(r), note: sum });
+      (c.raw.suites ||= []).push({ id: s.id, exit: r.exit, seconds: Math.round(r.ms / 1000), ...loadOf(r), summary: sum, why: s.why, tail: tail(r.stdout + r.stderr, 1500) });
       if (r.exit !== 0 || r.timedOut) {
         const fails = (r.stdout.match(/^FAIL .*$/gm) || []).slice(0, 6).join(' | ');
         c.defect('suite-failed', s.id, `exit ${r.exit}${r.timedOut ? ' (timed out)' : ''}; ${sum || ''}; ${fails || tail(r.stdout + r.stderr, 400)}`);
@@ -84,8 +84,8 @@ export async function run(ctx) {
       if (only && !only.test(s.id)) continue;
       for (const step of s.steps) {
         const r = await runCmdAsync(process.execPath, step, { timeoutMs: 15 * 60000 });
-        c.commands.push({ cmd: `node ${step.join(' ')}`, exit: r.exit, ms: r.ms });
-        (c.raw.suites ||= []).push({ id: `${s.id}: ${step.join(' ')}`, exit: r.exit, seconds: Math.round(r.ms / 1000), why: s.why, tail: tail(r.stdout + r.stderr, 1200) });
+        c.commands.push({ cmd: `node ${step.join(' ')}`, exit: r.exit, ms: r.ms, ...loadOf(r) });
+        (c.raw.suites ||= []).push({ id: `${s.id}: ${step.join(' ')}`, exit: r.exit, seconds: Math.round(r.ms / 1000), ...loadOf(r), why: s.why, tail: tail(r.stdout + r.stderr, 1200) });
         if (r.exit !== 0) c.defect('suite-failed', `${s.id}: ${step.join(' ')}`, `exit ${r.exit}: ${tail(r.stdout + r.stderr, 500)}`);
       }
     }

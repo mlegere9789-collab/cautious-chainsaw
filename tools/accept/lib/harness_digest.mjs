@@ -6,7 +6,7 @@ import { REPO, ACCEPT, walk, sha256File, sha256 } from './util.mjs';
 
 export function harnessDigest() {
   const own = walk(ACCEPT).filter((f) => !f.startsWith('node_modules')).map((f) => path.join(ACCEPT, f));
-  const extra = ['tests/t0/lib.mjs', 'tools/t0/serve.mjs', 'tools/t0/verify_release.mjs', 'tools/ship/pack_zip.py', 'package.json'].map((f) => path.join(REPO, f));
+  const extra = ['tests/t0/lib.mjs', 'tools/t0/serve.mjs', 'tools/t0/verify_release.mjs', 'tools/t0/child_env.mjs', 'tools/ship/pack_zip.py', 'package.json'].map((f) => path.join(REPO, f));
   const lines = [...own, ...extra].filter((f) => fs.existsSync(f)).sort().map((f) => `${path.relative(REPO, f).split(path.sep).join('/')} ${sha256File(f)}`);
   return { digest: sha256(lines.join('\n')), files: lines.length };
 }

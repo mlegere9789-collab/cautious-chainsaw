@@ -1,0 +1,562 @@
+{
+ "_doc": "Catalogue of National Park Service reports on the 1863 Gettysburg landscape considered by workstream bt-web (task nps-landscape). listing_title is the title as printed on the npshistory.com index page that links the file (index pages fetched 2026-11-13; saved under tmp/library/web/nps/_pages). Authors and dates are taken from each document itself and recorded in INDEX.md, not here.",
+ "index_pages": [
+  "https://www.npshistory.com/publications/gett/index.htm",
+  "https://www.npshistory.com/publications/eise/index.htm",
+  "https://www.npshistory.com/series/symposia/gettysburg_seminars/index.htm"
+ ],
+ "items": [
+  {
+   "id": "NPS-DEV-POLICY",
+   "url": "https://www.npshistory.com/publications/gett/dev-policy.pdf",
+   "listing_title": "Development Policy for Gettysburg National Military Park (Farm Lands and Farm Structures)",
+   "topics": [
+    "fields",
+    "buildings"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-HSR-SLYDER",
+   "url": "https://www.npshistory.com/publications/gett/hsr-slyder-farm-p1.pdf",
+   "listing_title": "Historic Structure Report: J. Slyder Farm Buildings (Part I), Gettysburg National Military Park",
+   "topics": [
+    "buildings",
+    "fields"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-HS-SPANGLER-HENRY",
+   "url": "https://www.npshistory.com/publications/gett/spangler-farm.pdf",
+   "listing_title": "Historical Statement: Henry Spangler Farm Buildings",
+   "topics": [
+    "buildings"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-BRIEN-FARM",
+   "url": "https://www.npshistory.com/publications/gett/brien-farm.pdf",
+   "listing_title": "The Brien Farm and Family",
+   "topics": [
+    "buildings",
+    "fences",
+    "fields"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-BRT-ECOLOGY",
+   "url": "https://www.npshistory.com/publications/gett/big-round-top-eco.pdf",
+   "listing_title": "The Ecology of Big Round Top",
+   "topics": [
+    "woodlots"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-MON-LOC-1932",
+   "url": "https://www.npshistory.com/publications/gett/mon-locations-1932.pdf",
+   "listing_title": "The Locations of the Monuments, Markers and Tablets on the Battlefield of Gettysburg",
+   "topics": [
+    "monuments"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-MON-LOC-1993",
+   "url": "https://www.npshistory.com/publications/gett/mon-locations-1993.pdf",
+   "listing_title": "The Location of the Monuments Markers, and Tablets on Gettysburg Battlefield",
+   "topics": [
+    "monuments"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-MCMILLAN-HOUSE",
+   "url": "https://www.npshistory.com/publications/gett/mcmillan-house-as.pdf",
+   "listing_title": "Report on McMillan House: Architectural section, Gettysburg National Military Park",
+   "topics": [
+    "buildings"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-CLI-CEMETERY",
+   "url": "https://www.npshistory.com/publications/gett/cli-cemetery.pdf",
+   "listing_title": "Cultural Landscapes Inventory: Gettysburg National Cemetery, Gettysburg National Military Park",
+   "topics": [
+    "monuments",
+    "fences",
+    "cemetery"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-EXTENSION-1940",
+   "url": "https://www.npshistory.com/publications/gett/extension-1940.pdf",
+   "listing_title": "Report on Proposed Extension of Gettysburg Borough Line Southward Along Emmitsburg Road and a Historical Statement Relating to the Significance of This Area",
+   "topics": [
+    "fields",
+    "buildings"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-HSR-MCCLEAN-BARN",
+   "url": "https://www.npshistory.com/publications/gett/hsr-mcclean-barn.pdf",
+   "listing_title": "Historic Structure Report: The McClean Barn, Gettysburg National Military Park",
+   "topics": [
+    "buildings"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-HCSR",
+   "url": "https://www.npshistory.com/publications/gett/hcsr.pdf",
+   "listing_title": "Historic Cemetery Survey Report: Gettysburg National Military Park",
+   "topics": [
+    "cemetery",
+    "buildings"
+   ],
+   "priority": 2
+  },
+  {
+   "id": "NPS-HSR-LEISTER-BARN",
+   "url": "https://www.npshistory.com/publications/gett/hsr-leister-barn.pdf",
+   "listing_title": "Historic Structure Report: Physical Fabric Section, Leister Barn, Gettysburg National Military Park, Gettysburg, Pennsylvania",
+   "topics": [
+    "buildings"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-CLI-LANDSCAPE",
+   "url": "https://www.npshistory.com/publications/gett/cli-gettsyburg-landscape.pdf",
+   "listing_title": "Cultural Landscapes Inventory: Gettysburg Landscape, Gettysburg National Military Park",
+   "topics": [
+    "fields",
+    "woodlots",
+    "fences",
+    "buildings",
+    "monuments"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-HARMON-FARM",
+   "url": "https://www.npshistory.com/publications/gett/harmon-farm-springs-hotel-woods.pdf",
+   "listing_title": "The Significance of the Harmon Farm and the Springs Hotel Woods",
+   "topics": [
+    "buildings",
+    "woodlots",
+    "fields"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-SPANGLERS-SPRING",
+   "url": "https://www.npshistory.com/publications/gett/spanglers-spring-culps-hill.pdf",
+   "listing_title": "Proposed Restoration of the Spangler's Spring-Culp's Hill Area and the Re-Location of Avenues in the Area of the Spring",
+   "topics": [
+    "woodlots",
+    "earthworks"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-MCCLEAN-HOUSE-BARN",
+   "url": "https://www.npshistory.com/publications/gett/mcclean-house-barn.pdf",
+   "listing_title": "McClean House and Barn, Gettysburg National Military Park, Pa.",
+   "topics": [
+    "buildings"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-ROCK-CREEK",
+   "url": "https://www.npshistory.com/publications/gett/rock-creek.pdf",
+   "listing_title": "Historical Importance of Rock Creek, Gettysburg National Military Park",
+   "topics": [
+    "fields",
+    "woodlots",
+    "hospitals"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-VISTA-CUTTING",
+   "url": "https://www.npshistory.com/publications/gett/vista-cutting.pdf",
+   "listing_title": "Vista Cutting Project: Area of Little Round Top, Devil's Den, the Wheatfield, and Peach Orchard",
+   "topics": [
+    "woodlots",
+    "fields"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-BRYAN-HOUSE",
+   "url": "https://www.npshistory.com/publications/gett/bryan-house-restoration.pdf",
+   "listing_title": "Report on the Proposed Restoration of the Bryan House",
+   "topics": [
+    "buildings",
+    "fences"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-HS-MCPHERSON",
+   "url": "https://www.npshistory.com/publications/gett/hs-mcpherson-farm.pdf",
+   "listing_title": "Edward McPherson Farm: Historical Study",
+   "topics": [
+    "buildings",
+    "fields",
+    "fences",
+    "hospitals"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-CLI-1STDAY",
+   "url": "https://www.npshistory.com/publications/gett/cli-first-day-ufcb.pdf",
+   "listing_title": "Cultural Landscapes Inventory: First Day - Union 1st Corps Battlefield, Gettysburg National Military Park",
+   "topics": [
+    "fields",
+    "woodlots",
+    "fences",
+    "buildings",
+    "monuments"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-CEM-ENCLOSURES",
+   "url": "https://www.npshistory.com/publications/gett/cemetery-enclosures.pdf",
+   "listing_title": "The Development and Care of the Soldiers' National Cemetery Enclosures at Gettysburg",
+   "topics": [
+    "fences",
+    "cemetery"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-CLR-LRT",
+   "url": "https://www.npshistory.com/publications/gett/clr-little-round-top.pdf",
+   "listing_title": "Cultural Landscape Report, Treatment & Management Plan: Little Round Top, Gettysburg National Military Park",
+   "topics": [
+    "woodlots",
+    "fences",
+    "earthworks",
+    "monuments"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-CLI-LRT",
+   "url": "https://www.npshistory.com/publications/gett/cli-little-round-top.pdf",
+   "listing_title": "Cultural Landscapes Inventory: Little Round Top, Gettysburg National Military Park",
+   "topics": [
+    "woodlots",
+    "fences",
+    "earthworks",
+    "monuments"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-CLI-ERR",
+   "url": "https://www.npshistory.com/publications/gett/cli-emmitsburg-rd-ridge-battlefield.pdf",
+   "listing_title": "Cultural Landscapes Inventory: Emmitsburg Road Ridge Battlefield, Gettysburg National Military Park",
+   "topics": [
+    "fields",
+    "woodlots",
+    "fences",
+    "buildings",
+    "monuments"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-TPG-COMMEM",
+   "url": "https://www.npshistory.com/publications/gett/tpg-battlefield-com-area.pdf",
+   "listing_title": "Treatment Philosophy and Guidelines for the Battlefield Commemorative Area, Gettysburg National Military Park",
+   "topics": [
+    "monuments"
+   ],
+   "priority": 2
+  },
+  {
+   "id": "NPS-CLI-PCB",
+   "url": "https://www.npshistory.com/publications/gett/cli-picketts-charge-battlefield.pdf",
+   "listing_title": "Cultural Landscapes Inventory: Pickett's Charge Battlefield, Gettysburg National Military Park",
+   "topics": [
+    "fields",
+    "woodlots",
+    "fences",
+    "buildings",
+    "monuments"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-CLR-1STDAY",
+   "url": "https://www.npshistory.com/publications/gett/clr-1-day-union-1-corps.pdf",
+   "listing_title": "Cultural Landscape Report for First Day \u2014 Union 1st Corps Battlefield, Gettysburg National Military Park",
+   "topics": [
+    "fields",
+    "woodlots",
+    "fences",
+    "buildings",
+    "monuments"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-CLR-ROT-V2",
+   "url": "https://www.npshistory.com/publications/gett/clr-v2.pdf",
+   "listing_title": "Cultural Landscape Report for Gettysburg National Military Park \u2014 Record of Treatment: Volume II",
+   "topics": [
+    "fields",
+    "woodlots",
+    "fences",
+    "buildings"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-CLR-ROT-V1",
+   "url": "https://www.npshistory.com/publications/gett/clr-v1.pdf",
+   "listing_title": "Cultural Landscape Report for Gettysburg National Military Park \u2014 Record of Treatment: Volume I",
+   "topics": [
+    "fields",
+    "woodlots",
+    "fences",
+    "buildings"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-CLR-CEMETERY",
+   "url": "https://www.npshistory.com/publications/gett/clr-cemetery.pdf",
+   "listing_title": "Cultural Landscape Report for Gettysburg National Cemetery, Gettysburg National Military Park",
+   "topics": [
+    "cemetery",
+    "monuments",
+    "fences"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-GMP-1999-V1",
+   "url": "https://www.npshistory.com/publications/gett/fgmp-eis-v1-1999.pdf",
+   "listing_title": "Final General Management Plan and Environmental Impact Statement: Volume 1, Gettysburg National Military Park",
+   "topics": [
+    "fields",
+    "woodlots",
+    "fences",
+    "buildings",
+    "monuments"
+   ],
+   "priority": 1
+  },
+  {
+   "id": "NPS-ADHI",
+   "url": "https://www.npshistory.com/publications/gett/adhi.pdf",
+   "listing_title": "Administrative History: Gettysburg National Military Park and National Cemetery, Pennsylvania",
+   "topics": [
+    "monuments",
+    "buildings",
+    "fences"
+   ],
+   "priority": 2
+  },
+  {
+   "id": "NPS-SLAUGHTER-PEN",
+   "url": "https://www.npshistory.com/publications/gett/slaughter-pen.pdf",
+   "listing_title": "\"Our Principal Loss Was in This Place\": Action at the Slaughter Pen and at the South End of Houck's Ridge, July 2, 1863",
+   "topics": [
+    "fields",
+    "woodlots",
+    "fences"
+   ],
+   "priority": 2
+  },
+  {
+   "id": "NPS-CEM-DEDICATION",
+   "url": "https://www.npshistory.com/publications/gett/cemetery-dedication.pdf",
+   "listing_title": "Circumstances Surrounding the Dedication of the Soldiers' National Cemetery and of the Delivery by Abraham Lincoln of his Gettysburg Address, November 19, 1863",
+   "topics": [
+    "cemetery"
+   ],
+   "priority": 2
+  },
+  {
+   "id": "NPS-NRCA-2017",
+   "url": "https://www.npshistory.com/publications/gett/nrr-2017-1369.pdf",
+   "listing_title": "Natural Resource Condition Assessment, Gettysburg National Military Park and Eisenhower National Historic Site",
+   "topics": [
+    "woodlots",
+    "fields"
+   ],
+   "priority": 2
+  },
+  {
+   "id": "NPS-BOUNDARY-1988",
+   "url": "https://www.npshistory.com/publications/gett/boundary-study-1988.pdf",
+   "listing_title": "Boundary Study, Gettysburg National Military Park: Draft Report to Congress / Environmental Assessment",
+   "topics": [
+    "hospitals",
+    "fields"
+   ],
+   "priority": 2
+  },
+  {
+   "id": "NPS-CARE-WOUNDED-GUIDE",
+   "url": "https://www.npshistory.com/publications/gett/care-of-wounded-guide.pdf",
+   "listing_title": "Care of the Wounded Student Program",
+   "topics": [
+    "hospitals"
+   ],
+   "priority": 2
+  },
+  {
+   "id": "NPS-SLYDER-GUIDE",
+   "url": "https://www.npshistory.com/publications/gett/slyder-farm-guide.pdf",
+   "listing_title": "Impact of War: The Slyder Family Farm Teachers' Guide",
+   "topics": [
+    "buildings",
+    "fields"
+   ],
+   "priority": 2
+  },
+  {
+   "id": "NPS-COMMON-PRIDE-1",
+   "url": "https://www.npshistory.com/publications/gett/common-pride-fame-1.pdf",
+   "listing_title": "\"A Common Pride and Fame\": The Attack and Repulse of Pickett's Division, July 3, 1863 \u2014 Part I",
+   "topics": [
+    "fields",
+    "fences"
+   ],
+   "priority": 2
+  },
+  {
+   "id": "NPS-COMMON-PRIDE-2",
+   "url": "https://www.npshistory.com/publications/gett/common-pride-fame-2.pdf",
+   "listing_title": "\"A Common Pride and Fame\": The Attack and Repulse of Pickett's Division, July 3, 1863 \u2014 Part II",
+   "topics": [
+    "fields",
+    "fences"
+   ],
+   "priority": 2
+  },
+  {
+   "id": "NPS-COMMON-PRIDE-3",
+   "url": "https://www.npshistory.com/publications/gett/common-pride-fame-3.pdf",
+   "listing_title": "\"A Common Pride and Fame\": The Attack and Repulse of Pickett's Division, July 3, 1863 \u2014 Part III",
+   "topics": [
+    "fields",
+    "fences"
+   ],
+   "priority": 2
+  },
+  {
+   "id": "NPS-DCP-LRT",
+   "url": "https://www.npshistory.com/publications/gett/dcp-ea-little-round-top.pdf",
+   "listing_title": "Draft Development Concept Plan/Environmental Assessment: Little Round Top/Devil's Den, Gettysburg National Military Park, Pennsylvania",
+   "topics": [
+    "woodlots"
+   ],
+   "priority": 3
+  },
+  {
+   "id": "NPS-DCP-GUINN",
+   "url": "https://www.npshistory.com/publications/gett/dcp-guinn-woods.pdf",
+   "listing_title": "Development Concept Plan: Guinn Woods Administrative Site Gettysburg National Military Park, Pennsylvania",
+   "topics": [
+    "woodlots"
+   ],
+   "priority": 3
+  },
+  {
+   "id": "NPS-DESIGN-GUIDE",
+   "url": "https://www.npshistory.com/publications/gett/design-guide.pdf",
+   "listing_title": "Gettysburg Design Guide: A Guide for Maintaining and Rehabilitating Buildings in the Gettysburg Historic District",
+   "topics": [
+    "buildings"
+   ],
+   "priority": 3
+  },
+  {
+   "id": "NPS-HB9-1954",
+   "url": "https://www.npshistory.com/handbooks/historical/9-1954.pdf",
+   "listing_title": "Gettysburg National Military Park: Historic Handbook #9 (1954)",
+   "topics": [
+    "general"
+   ],
+   "priority": 3
+  },
+  {
+   "id": "NPS-HB9-1962",
+   "url": "https://www.npshistory.com/handbooks/historical/9-1962.pdf",
+   "listing_title": "Gettysburg National Military Park: Historic Handbook #9 (1962)",
+   "topics": [
+    "general"
+   ],
+   "priority": 3
+  },
+  {
+   "id": "NPS-FD-2016",
+   "url": "https://www.npshistory.com/publications/foundation-documents/gett-fd-2016.pdf",
+   "listing_title": "Foundation Document, Gettysburg National Military Park, Pennsylvania",
+   "topics": [
+    "general"
+   ],
+   "priority": 3
+  },
+  {
+   "id": "NPS-EISE-HRS",
+   "url": "https://www.npshistory.com/publications/eise/hrs.pdf",
+   "listing_title": "Historic Resource Study and Historical Base Map: Eisenhower Farm, 1762-1967, Eisenhower National Historic Site",
+   "topics": [
+    "buildings",
+    "fields",
+    "hospitals"
+   ],
+   "priority": 2
+  },
+  {
+   "id": "NPS-EISE-CLI-REDDING-2004",
+   "url": "https://www.npshistory.com/publications/eise/cli-clement-redding-farm-2004.pdf",
+   "listing_title": "Cultural Landscapes Inventory: Clement Redding Farm, Eisenhower National Historic Site (2004)",
+   "topics": [
+    "buildings",
+    "fields",
+    "fences"
+   ],
+   "priority": 2
+  },
+  {
+   "id": "NPS-EISE-CLI-LANDSCAPE",
+   "url": "https://www.npshistory.com/publications/eise/cli-landscape.pdf",
+   "listing_title": "Cultural Landscapes Inventory: Eisenhower NHS Landscape, Eisenhower National Historic Site",
+   "topics": [
+    "buildings",
+    "fields",
+    "fences"
+   ],
+   "priority": 2
+  },
+  {
+   "id": "NPS-EISE-CLR1",
+   "url": "https://www.npshistory.com/publications/eise/clr1.pdf",
+   "listing_title": "Cultural Landscape Report for Eisenhower National Historic Site, Volume 1: Site History, Existing Conditions, and Analysis",
+   "topics": [
+    "buildings",
+    "fields",
+    "fences"
+   ],
+   "priority": 2
+  }
+ ]
+}

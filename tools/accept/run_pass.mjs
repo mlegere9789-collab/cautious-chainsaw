@@ -12,7 +12,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { createRequire } from 'node:module';
-import { REPO, ACCEPT, parseArgs, freshTmp, extractZip, sha256File, walk, writeJson, readJson, loadThresholds, runCmd, sha256, mdEscape, Check } from './lib/util.mjs';
+import { REPO, ACCEPT, parseArgs, freshTmp, extractZip, sha256File, walk, writeJson, readJson, loadThresholds, runCmd, sha256, mdEscape, Check, load1, loadText } from './lib/util.mjs';
 import { startNetlifyServer } from './lib/netlify_server.mjs';
 import { initLib, Sessions } from './lib/browser.mjs';
 import { harnessDigest } from './lib/harness_digest.mjs';
@@ -44,6 +44,7 @@ const gitHead = () => { const r = runCmd('git', ['rev-parse', 'HEAD'], { timeout
 
 async function main() {
   const startedAt = new Date().toISOString();
+  const passLoadStart = load1();          // 1-minute load average of the machine (null on Windows); also recorded around every check: a timing result is only evidence with its load
   const scratch = freshTmp(`accept-pass${N}`);
   const distDir = path.join(scratch, 'dist');
   const isZip = fs.statSync(candidatePath).isFile();
@@ -80,13 +81,14 @@ async function main() {
   const results = [];
   for (const [id, mod, title] of CHECKS) {
     if (only && !only.includes(id)) continue;
-    const t0 = Date.now();
+    const t0 = Date.now(), checkLoadStart = load1();
     console.log(`\n=== pass ${N}: check ${id} - ${title}`);
     let c;
     try { c = await (await import(`./checks/${mod}.mjs`)).run(ctx); }
     catch (e) { c = new Check(id, title); c.notRun(`harness error (the check did not finish): ${e && e.stack ? e.stack.split('\n').slice(0, 5).join(' | ') : e}`); c.finish(); }
-    c.id = id; c.title = title; c.ms = Date.now() - t0;
-    console.log(`    -> ${c.status}${(c.notRunParts || []).length ? ' (PARTIAL: ' + c.notRunParts.length + ' part(s) not run)' : ''}${c.reason ? ' (' + c.reason.slice(0, 160) + ')' : ''}; defects: ${c.defects.length}; notes: ${c.notes.length}; ${(c.ms / 1000).toFixed(1)} s`);
+    c.id = id; c.title = title; c.ms = Date.now() - t0; c.load1Start = checkLoadStart; c.load1End = load1();
+    const ld = loadText(c.load1Start, c.load1End);
+    console.log(`    -> ${c.status}${(c.notRunParts || []).length ? ' (PARTIAL: ' + c.notRunParts.length + ' part(s) not run)' : ''}${c.reason ? ' (' + c.reason.slice(0, 160) + ')' : ''}; defects: ${c.defects.length}; notes: ${c.notes.length}; ${(c.ms / 1000).toFixed(1)} s${ld ? `; load ${ld}` : ''}`);
     results.push(c);
     await sessions.closeAll();
   }
@@ -101,12 +103,13 @@ async function main() {
     playwrightCore: require(path.join(REPO, 'node_modules/playwright-core/package.json')).version, axeCore: require(path.join(REPO, 'node_modules/axe-core/package.json')).version,
     cpus: os.cpus().length, cpuModel: os.cpus()[0] && os.cpus()[0].model, memGB: Math.round(os.totalmem() / 1e9), gitHead: gitHead(),
     portBase, tileCap, tilesUsed: lib.tileBudget.used, mapboxMapLoadsSkus: sessions.allSkus.size, tilesCapBlocked: lib.tileBudget.blocked, soakSeconds, serverHeadersApplied: cand.applied,
+    load1Start: passLoadStart, load1End: load1(),
   };
   const out = {
     pass: N, verdict, startedAt, finishedAt: new Date().toISOString(), args: { ...args }, harness: harnessDigest(), countsTowardAcceptance: verdict === 'CLEAN' && soakSeconds >= 600, env,
     candidate: { path: path.relative(REPO, candidatePath), kind: isZip ? 'zip' : 'dir', sha256: candidateSha, bytes: candidateSize, files: files.length, treeSha256: treeSha, zipComment: extraction ? extraction.zip.comment : null },
     baseline: baselineDir ? path.relative(REPO, baselineDir) : null, thresholds, routes: routes.map((r) => r.path),
-    checks: results.map((c) => ({ id: c.id, title: c.title, status: c.status, reason: c.reason, defectCount: c.defects.length, noteCount: c.notes.length, notRunParts: c.notRunParts || [], ms: c.ms, started: c.started, finished: c.finished, commands: c.commands, metrics: c.metrics, defects: c.defects, notes: c.notes, raw: c.raw })),
+    checks: results.map((c) => ({ id: c.id, title: c.title, status: c.status, reason: c.reason, defectCount: c.defects.length, noteCount: c.notes.length, notRunParts: c.notRunParts || [], ms: c.ms, load1Start: c.load1Start ?? null, load1End: c.load1End ?? null, started: c.started, finished: c.finished, commands: c.commands, metrics: c.metrics, defects: c.defects, notes: c.notes, raw: c.raw })),
   };
   fs.mkdirSync(outDir, { recursive: true });
   writeJson(path.join(outDir, `pass-${N}.json`), out);
@@ -128,15 +131,16 @@ function renderMd(o) {
   L.push('| | |', '|---|---|');
   L.push(`| Candidate | \`${o.candidate.path}\` (${o.candidate.kind}) |`, `| Candidate SHA-256 | \`${o.candidate.sha256 || '(directory)'}\` |`, `| Tree digest (sha256 of path+hash list) | \`${o.candidate.treeSha256}\` |`, `| Files | ${o.candidate.files} |`);
   L.push(`| Baseline (published build) | \`${o.baseline || 'NOT GIVEN'}\` |`, `| Harness digest | \`${o.harness.digest}\` (${o.harness.files} files) |`);
-  L.push(`| Node / Python | ${o.env.node} / ${o.env.python} |`, `| Chrome | ${o.env.chrome || 'n/a'} |`, `| Playwright-core / axe-core | ${o.env.playwrightCore} / ${o.env.axeCore} |`, `| OS / CPU | ${o.env.os}; ${o.env.cpus} x ${o.env.cpuModel}; ${o.env.memGB} GB |`, `| Repo HEAD | ${o.env.gitHead} |`, `| Mapbox tile requests | ${o.env.tilesUsed} of cap ${o.env.tileCap} (cap-blocked ${o.env.tilesCapBlocked}) |`, `| Soak | ${o.env.soakSeconds} s |`, '');
+  L.push(`| Node / Python | ${o.env.node} / ${o.env.python} |`, `| Chrome | ${o.env.chrome || 'n/a'} |`, `| Playwright-core / axe-core | ${o.env.playwrightCore} / ${o.env.axeCore} |`, `| OS / CPU | ${o.env.os}; ${o.env.cpus} x ${o.env.cpuModel}; ${o.env.memGB} GB |`, `| Repo HEAD | ${o.env.gitHead} |`, `| Mapbox tile requests | ${o.env.tilesUsed} of cap ${o.env.tileCap} (cap-blocked ${o.env.tilesCapBlocked}) |`, `| Soak | ${o.env.soakSeconds} s |`,
+    `| Load average (1 min) | ${o.env.load1Start == null && o.env.load1End == null ? 'not available on this platform' : `${o.env.load1Start ?? '?'} at the start, ${o.env.load1End ?? '?'} at the end of the pass`} |`, '');
   L.push('A pass is CLEAN only if all eight checks RAN and found zero defects. A check that did not run is never a pass.', '');
-  L.push('## Summary', '', '| # | Check | Status | Defects | Notes | Time |', '|---|---|---|---|---|---|');
-  for (const c of o.checks) L.push(`| ${c.id} | ${c.title} | ${c.status === 'RAN' ? ((c.notRunParts || []).length ? 'PARTIAL (parts NOT RUN)' : c.defectCount ? 'RAN, DEFECTS' : 'RAN, clean') : 'NOT RUN'} | ${c.defectCount} | ${c.noteCount} | ${(c.ms / 1000).toFixed(0)} s |`);
+  L.push('## Summary', '', '| # | Check | Status | Defects | Notes | Time | Load (1 min) start > end |', '|---|---|---|---|---|---|---|');
+  for (const c of o.checks) L.push(`| ${c.id} | ${c.title} | ${c.status === 'RAN' ? ((c.notRunParts || []).length ? 'PARTIAL (parts NOT RUN)' : c.defectCount ? 'RAN, DEFECTS' : 'RAN, clean') : 'NOT RUN'} | ${c.defectCount} | ${c.noteCount} | ${(c.ms / 1000).toFixed(0)} s | ${loadText(c.load1Start, c.load1End) || 'n/a'} |`);
   L.push('');
   for (const c of o.checks) {
     L.push(`## Check ${c.id}: ${c.title}`, '', `Status: **${c.status}**${c.reason ? ` - ${c.reason}` : ''}. Defects: ${c.defectCount}. Notes: ${c.noteCount}.`, '');
     if ((c.notRunParts || []).length) { L.push('**Parts of this check that did NOT run (a pass cannot be clean with these):**', ''); for (const p of c.notRunParts) L.push(`- ${mdEscape(p)}`); L.push(''); }
-    if (c.commands && c.commands.length) { L.push('Commands:', ''); for (const cm of c.commands) L.push(`- \`${cm.cmd}\` -> exit ${cm.exit} in ${(cm.ms / 1000).toFixed(1)} s${cm.note ? ' (' + cm.note + ')' : ''}`); L.push(''); }
+    if (c.commands && c.commands.length) { L.push('Commands:', ''); for (const cm of c.commands) L.push(`- \`${cm.cmd}\` -> exit ${cm.exit} in ${(cm.ms / 1000).toFixed(1)} s${loadText(cm.load1Start, cm.load1End) ? `, load ${loadText(cm.load1Start, cm.load1End)}` : ''}${cm.note ? ' (' + cm.note + ')' : ''}`); L.push(''); }
     if (c.metrics && Object.keys(c.metrics).length) { L.push('Metrics:', '', '```json', JSON.stringify(c.metrics, null, 1).slice(0, 6000), '```', ''); }
     if (c.defects.length) {
       const byCode = {}; for (const d of c.defects) byCode[d.code] = (byCode[d.code] || 0) + 1;

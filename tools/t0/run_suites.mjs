@@ -17,10 +17,17 @@
 // tile cap is per run (harness default 300 requests through the Referer-injecting side channel; this runner never raises it).
 // A "green" row is a suite whose summary line reads N/N passed (skips are reported, never hidden); a "red-first" row is a run against
 // legacy/dist with --expect-red that must FAIL every selected test (proof that the suite discriminates).
+//
+// Behind an HTTPS proxy (HTTPS_PROXY set) every child process also gets NODE_USE_ENV_PROXY=1 and NODE_EXTRA_CA_CERTS (each only when it is not set
+// already), so that Node's own fetch() in a suite reaches the network without any manual environment; with no proxy the children get exactly the
+// environment they always got (tools/t0/child_env.mjs).  The summary names the variables that were added ("childEnv"), never their values.
+// Every row of the summary carries load1Start and load1End: the 1-minute load average of the machine when the suite started and when it ended
+// (null on Windows, which has no load average); the console line shows them as "load a>b".  A timing result is only evidence with its load.
 import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { childEnv, childEnvRecord, load1, loadText, machineRecord } from './child_env.mjs';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const argv = process.argv.slice(2);
@@ -33,7 +40,9 @@ const IMPORT_LOG = opt('import-log', null);
 const MERGE = !!opt('merge', false) || !!IMPORT_LOG;          // keep the rows of an earlier summary for suites that are not re-run (rows whose id left the table are dropped)
 const PORT_BASE = String(opt('port-base', process.env.T0_PORT_BASE || 8480));
 const AGENT = process.env.T0_AGENT || 'integrator';
-const ENV = { ...process.env, T0_PORT_BASE: PORT_BASE, T0_AGENT: AGENT, PYTHONIOENCODING: 'utf-8' };
+const ENV_BASE = { ...process.env, T0_PORT_BASE: PORT_BASE, T0_AGENT: AGENT, PYTHONIOENCODING: 'utf-8' };
+const ENV = childEnv(ENV_BASE);                     // ENV_BASE itself unless an HTTPS proxy is named and a Node proxy variable is missing (see the header)
+const CHILD_ENV = childEnvRecord(ENV_BASE);         // { httpsProxy, added: [names] } for the summary
 const NODE = process.execPath;
 const PY = process.env.PYTHON || 'python';
 
@@ -196,15 +205,17 @@ function parse(out) {
 }
 
 const results = [];
-// rows of an earlier (stopped) run, read from its console log: the lines the runner itself printed ("PASS  id  N/M (+K skipped)  S s  tiles a/b  title")
+// rows of an earlier (stopped) run, read from its console log: the lines the runner itself printed ("PASS  id  N/M (+K skipped)  S s  load a>b  tiles c/d  title";
+// logs written before the load was recorded have no "load" part: their rows get load1Start and load1End null)
 function importLog(file) {
   const rows = [], byId = new Map(S.map((x) => [x.id, x]));
-  const re = /^(PASS|FAIL|RED-OK|NOT-RED)\s+(\S+)\s+(.*?)\s+([0-9.]+) s\s+(?:tiles (\d+)\/\d+\s+)?(.*)$/;
+  const re = /^(PASS|FAIL|RED-OK|NOT-RED)\s+(\S+)\s+(.*?)\s+([0-9.]+) s\s+(?:load ([0-9.]+|\?)>([0-9.]+|\?)\s+)?(?:tiles (\d+)\/\d+\s+)?(.*)$/;
+  const num = (s) => (s === undefined || s === '?' ? null : Number(s));
   for (const line of fs.readFileSync(path.resolve(REPO, file), 'utf8').split(/\r?\n/)) {
     const m = re.exec(line);
     if (!m || !byId.has(m[2])) continue;
     const def = byId.get(m[2]), res = m[3].trim();
-    const rec = { id: def.id, title: def.title, kind: def.kind, inverted: def.inverted, ok: m[1] === 'PASS' || m[1] === 'RED-OK', seconds: Number(m[4]), tiles: m[5] ? Number(m[5]) : null, passed: null, total: null, skipped: 0, failed: 0, exit: null, recovered_from_log: path.basename(file) };
+    const rec = { id: def.id, title: def.title, kind: def.kind, inverted: def.inverted, ok: m[1] === 'PASS' || m[1] === 'RED-OK', seconds: Number(m[4]), tiles: m[7] ? Number(m[7]) : null, passed: null, total: null, skipped: 0, failed: 0, exit: null, load1Start: num(m[5]), load1End: num(m[6]), recovered_from_log: path.basename(file) };
     const t = /^(\d+)\/(\d+)(?: \(\+(\d+) skipped\))?(?: (\d+) failed)?/.exec(res), e = /^exit (\S+)/.exec(res);
     if (t) Object.assign(rec, { passed: Number(t[1]), total: Number(t[2]), skipped: Number(t[3] || 0), failed: Number(t[4] || 0), exit: rec.ok ? 0 : 1 });
     else if (e) rec.exit = Number(e[1]);
@@ -225,6 +236,8 @@ function writeSummary(fresh, final) {
   const green = rows.filter((r) => r.kind !== 'red'), red = rows.filter((r) => r.kind === 'red');
   const summary = {
     finished: final ? 'see file mtime' : 'PARTIAL: the run was still going (or was stopped) when this was written', seconds: MERGE ? Math.round(rows.reduce((a, r) => a + (r.seconds || 0), 0)) : Math.round((Date.now() - tAll) / 1000), portBase: PORT_BASE,
+    // of THIS invocation (merged rows of an earlier one keep their own load1Start/load1End): the machine, its 1-minute load average when the run started and when this file was written, and what the children's environment got
+    machine: MACHINE, load1: { start: LOAD_START, end: load1() }, childEnv: CHILD_ENV,
     totals: { suites: rows.length, ok: rows.filter((r) => r.ok).length, notOk: rows.filter((r) => !r.ok).length,
       greenTests: green.reduce((a, r) => a + (r.kind === 'green' ? (r.passed || 0) : 0), 0), greenTestsTotal: green.reduce((a, r) => a + (r.kind === 'green' ? (r.total || 0) : 0), 0),
       redProofs: red.length, redProofsOk: red.filter((r) => r.ok).length, redTestsRedAsRequired: red.reduce((a, r) => a + (r.ok ? (r.failed || 0) + (r.inverted ? (r.passed || 0) : 0) : 0), 0) },
@@ -236,9 +249,12 @@ function writeSummary(fresh, final) {
 
 const selected = S.filter((s) => !ONLY.length || ONLY.some((p) => s.id === p || s.id.startsWith(p)));
 console.log(`run_suites: ${selected.length} suite(s), port base ${PORT_BASE}, agent ${AGENT}`);
+const MACHINE = machineRecord(), LOAD_START = load1();
+console.log(`run_suites: child environment ${CHILD_ENV.added.length ? `+ ${CHILD_ENV.added.join(', ')} (an HTTPS proxy is set)` : `unchanged (${CHILD_ENV.httpsProxy ? 'an HTTPS proxy is set, the Node proxy variables are set already' : 'no HTTPS proxy set'})`}; load average (1 min) ${LOAD_START ?? 'not available on this platform'}, ${MACHINE.cpus} CPUs`);
 const tAll = Date.now();
 for (const s of selected) {
   let rec = { id: s.id, title: s.title, kind: s.kind, inverted: s.inverted };
+  const loadStart = load1();
   if (s.cmd === 'gates') {
     const gates = ['R0', 'R1a', 'R1b', 'R1c'].map((t) => { try { const g = JSON.parse(fs.readFileSync(path.join(REPO, 'release', t, 'gate.json'), 'utf8')); return { train: t, ok: !!g.ok, checks: (g.checks || []).length, failed: (g.checks || []).filter((c) => !c.ok).map((c) => c.id) }; } catch (e) { return { train: t, ok: false, error: String(e.message) }; } });
     Object.assign(rec, { exit: gates.every((g) => g.ok) ? 0 : 1, gates, seconds: 0, ok: gates.every((g) => g.ok), passed: gates.filter((g) => g.ok).length, total: gates.length, skipped: 0, failed: gates.filter((g) => !g.ok).length, tiles: 0 });
@@ -259,11 +275,14 @@ for (const s of selected) {
     else rec.ok = r.code === 0 && p.total !== null && p.failed === 0 && p.passed === p.total - p.skipped;
     rec.tail = r.out.split(/\r?\n/).filter(Boolean).slice(-3).map((l) => l.slice(0, 200));
   }
+  rec.load1Start = loadStart; rec.load1End = load1();
   results.push(rec);
   writeSummary(results, false);
-  console.log(`${s.kind === 'red' ? (rec.ok ? 'RED-OK ' : 'NOT-RED') : (rec.ok ? 'PASS   ' : 'FAIL   ')} ${s.id.padEnd(22)} ${rec.total !== null && rec.total !== undefined ? `${rec.passed}/${rec.total}${rec.skipped ? ` (+${rec.skipped} skipped)` : ''}${rec.failed ? ` ${rec.failed} failed` : ''}` : 'exit ' + rec.exit}`.padEnd(46) + ` ${String(rec.seconds).padStart(6)} s${rec.tiles ? `  tiles ${rec.tiles}/300` : ''}  ${s.title}`);
+  const ld = loadText(rec.load1Start, rec.load1End);
+  console.log(`${s.kind === 'red' ? (rec.ok ? 'RED-OK ' : 'NOT-RED') : (rec.ok ? 'PASS   ' : 'FAIL   ')} ${s.id.padEnd(22)} ${rec.total !== null && rec.total !== undefined ? `${rec.passed}/${rec.total}${rec.skipped ? ` (+${rec.skipped} skipped)` : ''}${rec.failed ? ` ${rec.failed} failed` : ''}` : 'exit ' + rec.exit}`.padEnd(46) + ` ${String(rec.seconds).padStart(6)} s${ld ? `  load ${ld}` : ''}${rec.tiles ? `  tiles ${rec.tiles}/300` : ''}  ${s.title}`);
   for (const l of rec.failLines || []) console.log(`        ${l.slice(0, 220)}`);
 }
 const summary = writeSummary(results, true);
+if (summary.load1.start !== null || summary.load1.end !== null) console.log(`\nrun_suites: load average (1 min) ${loadText(summary.load1.start, summary.load1.end)} from the start to the end of this run, ${MACHINE.cpus} CPUs`);
 console.log(`\nrun_suites: ${summary.totals.ok}/${summary.totals.suites} suites OK; green tests ${summary.totals.greenTests}/${summary.totals.greenTestsTotal}; red-first proofs ${summary.totals.redProofsOk}/${summary.totals.redProofs} (${summary.totals.redTestsRedAsRequired} legacy tests red as required); ${summary.seconds}s -> ${path.relative(REPO, JSON_OUT).replace(/\\/g, '/')}`);
 process.exit(summary.totals.notOk ? 1 : 0);

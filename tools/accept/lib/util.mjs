@@ -6,6 +6,9 @@ import zlib from 'node:zlib';
 import crypto from 'node:crypto';
 import { spawnSync, spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { childEnv, load1, loadText } from '../../t0/child_env.mjs';
+
+export { load1, loadText };
 
 export const HERE = path.dirname(fileURLToPath(import.meta.url));
 export const ACCEPT = path.resolve(HERE, '..');
@@ -96,21 +99,26 @@ export function crc32(buf) {
 }
 
 // ------------------------------------------------------------------ processes
+// Every child process of the acceptance harness starts here.  Its environment is this process's own plus PYTHONIOENCODING and the caller's `env`; behind an HTTPS proxy
+// (HTTPS_PROXY set) childEnv() adds NODE_USE_ENV_PROXY=1 and NODE_EXTRA_CA_CERTS when they are not set, so Node's own fetch() in a suite reaches the network; with no
+// proxy nothing is added (tools/t0/child_env.mjs).  Every result carries load1Start and load1End, the machine's 1-minute load average around the command (null on Windows).
 export function runCmd(cmd, args, { cwd = REPO, timeoutMs = 600000, env = {} } = {}) {
-  const t0 = Date.now();
-  const r = spawnSync(cmd, args, { cwd, encoding: 'utf8', timeout: timeoutMs, maxBuffer: 256 * 1024 * 1024, env: { ...process.env, PYTHONIOENCODING: 'utf-8', ...env } });
-  return { cmd: [cmd, ...args].join(' '), exit: r.status, signal: r.signal, timedOut: !!(r.error && r.error.code === 'ETIMEDOUT'), ms: Date.now() - t0, stdout: r.stdout || '', stderr: r.stderr || '', error: r.error ? String(r.error.message) : null };
+  const t0 = Date.now(), load1Start = load1();
+  const r = spawnSync(cmd, args, { cwd, encoding: 'utf8', timeout: timeoutMs, maxBuffer: 256 * 1024 * 1024, env: childEnv({ ...process.env, PYTHONIOENCODING: 'utf-8', ...env }) });
+  return { cmd: [cmd, ...args].join(' '), exit: r.status, signal: r.signal, timedOut: !!(r.error && r.error.code === 'ETIMEDOUT'), ms: Date.now() - t0, stdout: r.stdout || '', stderr: r.stderr || '', error: r.error ? String(r.error.message) : null, load1Start, load1End: load1() };
 }
 export function runCmdAsync(cmd, args, { cwd = REPO, timeoutMs = 600000, env = {} } = {}) {
   return new Promise((resolve) => {
-    const t0 = Date.now(); let out = '', err = '', timedOut = false;
-    const p = spawn(cmd, args, { cwd, env: { ...process.env, PYTHONIOENCODING: 'utf-8', ...env }, windowsHide: true });
+    const t0 = Date.now(), load1Start = load1(); let out = '', err = '', timedOut = false;
+    const p = spawn(cmd, args, { cwd, env: childEnv({ ...process.env, PYTHONIOENCODING: 'utf-8', ...env }), windowsHide: true });
     const to = setTimeout(() => { timedOut = true; if (process.platform !== 'win32') p.kill('SIGKILL'); else try { spawnSync('taskkill', ['/PID', String(p.pid), '/T', '/F'], { stdio: 'ignore' }); } catch { p.kill('SIGKILL'); } }, timeoutMs);
     p.stdout.on('data', (d) => { out += d; }); p.stderr.on('data', (d) => { err += d; });
-    p.on('close', (code, signal) => { clearTimeout(to); resolve({ cmd: [cmd, ...args].join(' '), exit: code, signal, timedOut, ms: Date.now() - t0, stdout: out, stderr: err, error: null }); });
-    p.on('error', (e) => { clearTimeout(to); resolve({ cmd: [cmd, ...args].join(' '), exit: null, signal: null, timedOut, ms: Date.now() - t0, stdout: out, stderr: err, error: String(e.message) }); });
+    p.on('close', (code, signal) => { clearTimeout(to); resolve({ cmd: [cmd, ...args].join(' '), exit: code, signal, timedOut, ms: Date.now() - t0, stdout: out, stderr: err, error: null, load1Start, load1End: load1() }); });
+    p.on('error', (e) => { clearTimeout(to); resolve({ cmd: [cmd, ...args].join(' '), exit: null, signal: null, timedOut, ms: Date.now() - t0, stdout: out, stderr: err, error: String(e.message), load1Start, load1End: load1() }); });
   });
 }
+/** the load fields of a command result, for the JSON of a check: { load1Start, load1End } */
+export const loadOf = (r) => ({ load1Start: r.load1Start ?? null, load1End: r.load1End ?? null });
 export const tail = (s, n = 4000) => (s.length > n ? '...' + s.slice(-n) : s);
 
 export function freshTmp(prefix) {
