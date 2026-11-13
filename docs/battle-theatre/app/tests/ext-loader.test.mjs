@@ -7,8 +7,8 @@
 //   node --test docs/battle-theatre/app/tests/ext-loader.test.mjs
 import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'; import { fileURLToPath, pathToFileURL } from 'node:url';
 import { Extensions, INDEX, INIT_WAIT_MS, tierMark, tierName, liveChoices, badPath, looksAbsent } from '../src/ui/extensions.mjs';
-import { moreHTML, togglesHTML, drawAdded, MORE } from '../src/ui/ext-panel.mjs';
-import { Bus } from '../src/scope.mjs';
+import { moreHTML, togglesHTML, drawAdded, mountExtensionsUI, MORE } from '../src/ui/ext-panel.mjs';
+import { Bus, Scope } from '../src/scope.mjs';
 import { TIERS, TIER_STYLE, URLS } from '../src/config.mjs';
 import { RenderHost } from '../src/render-host.mjs';
 
@@ -222,6 +222,31 @@ test('the More drawer: switches with their state, panels, what is not running; t
   assert.match(togglesHTML(X, 'More layers'), /^<h3>More layers<\/h3><label class="check">/);
   const text = h.replace(/<[^>]+>/g, ' '); assert.ok(!/\b(AI|A\.I\.|Claude|Anthropic|LLM|language model|generated|automated|subagent|agent|prompt)\b/i.test(text), 'the copy rule of tests/real.spec.mjs');
   X.dispose();
+});
+
+// ---------------------------------------------------------------- the More tool (mountExtensionsUI of ui/ext-panel.mjs, with a stand-in button and theatre: no page needed)
+test('the More tool: hidden until something is registered or has failed; the dot and the accessible name say how many parts are not running; panelFor reaches the added panels', async () => {
+  const mkBtn = () => ({ hidden: true, dataset: {}, title: '', attrs: {}, setAttribute(k, v) { this.attrs[k] = String(v); }, removeAttribute(k) { delete this.attrs[k]; }, getAttribute(k) { return k in this.attrs ? this.attrs[k] : null; } });
+  const wire = mods => { const th = fakeTheatre(), btn = mkBtn(); th.scope = new Scope('visit'); th.root = { querySelector: s => (s === '#bt-more' ? btn : null) }; const m = mk(mods, { th }); th.ext = m.X; mountExtensionsUI(th); return { ...m, btn }; };
+  // nothing added: the tool stays hidden and says nothing
+  let w = wire({}); assert.equal(w.btn.hidden, true); await w.X.load(); assert.equal(w.btn.hidden, true); assert.equal(w.btn.getAttribute('aria-label'), null); assert.equal(w.btn.title, '');
+  // one failed module: the tool shows, with the dot (data-alert), a title and a name that says it; singular
+  w = wire({ [INDEX]: { default: ['bad.mjs'] }, 'bad.mjs': { init() { throw new Error('x'); } } }); await w.X.load();
+  assert.equal(w.btn.hidden, false); assert.equal(w.btn.dataset.alert, 'true'); assert.equal(w.btn.title, '1 part of the page not running'); assert.equal(w.btn.getAttribute('aria-label'), 'More, 1 part of the page not running');
+  // a working module and two that fail: plural; the switch and the panel are counted for the tool, the failures for the dot
+  let on = false; w = wire({ [INDEX]: { default: ['a.mjs', 'bad.mjs', 'gone.mjs'] }, 'a.mjs': { init(c) { c.registerLayerToggle('t', 'Switch T', () => on, v => { on = v; }); c.registerPanel('p', 'Panel P', () => {}); } }, 'bad.mjs': { init() { throw new Error('x'); } } }); await w.X.load();
+  assert.equal(w.btn.hidden, false); assert.equal(w.btn.title, '2 parts of the page not running'); assert.equal(w.btn.getAttribute('aria-label'), 'More, 2 parts of the page not running');
+  // panelFor: the shell's own panels first, then the More panel, then an added panel by its id; nothing else
+  const th = w.th, p = th.panelFor('p'); assert.equal(th.panelFor('events'), th.PANELS.events); assert.equal(th.panelFor(MORE).title, 'More layers and panels'); assert.equal(th.panelFor(MORE), th.panelFor(MORE), 'one More panel per visit');
+  assert.equal(p.title, 'Panel P'); assert.equal(typeof p.render, 'function'); assert.equal(th.panelFor('nobody'), null);
+  // only a working module with only a switch: the tool shows, no dot, no accessible name of its own
+  w = wire({ [INDEX]: { default: ['a.mjs'] }, 'a.mjs': { init(c) { c.registerLayerToggle('t', 'Switch T', () => false, () => {}); } } }); await w.X.load();
+  assert.equal(w.btn.hidden, false); assert.equal(w.btn.dataset.alert, 'false'); assert.equal(w.btn.getAttribute('aria-label'), null); assert.equal(w.btn.title, '');
+  // the open added panel goes away with its module (an update that throws): the drawer goes back to the list; the list closes when nothing is left
+  let boom = false; w = wire({ [INDEX]: { default: ['u.mjs'] }, 'u.mjs': { init(c) { c.registerPanel('up', 'Panel U', () => {}); }, update() { if (boom) throw new Error('update broke'); } } }); await w.X.load();
+  w.th.state.panel = 'up'; boom = true; w.X.update(1, 16, CAM, false, 1); assert.deepEqual(w.th.opened, [MORE], 'the panel of the stopped module is replaced by the list'); assert.equal(w.btn.getAttribute('aria-label'), 'More, 1 part of the page not running');
+  let h2; const x2 = wire({ [INDEX]: { default: ['q.mjs'] }, 'q.mjs': { init(c) { h2 = c.registerPanel('only', 'Only panel', () => {}); } } }); await x2.X.load(); assert.equal(x2.btn.hidden, false);
+  x2.th.state.panel = MORE; x2.th.closed = 0; x2.th.closePanel = () => { x2.th.closed++; x2.th.state.panel = null; }; h2.remove(); assert.equal(x2.btn.hidden, true, 'nothing left: the tool is hidden again'); assert.equal(x2.th.closed, 1, 'and the open list is closed');
 });
 
 // ---------------------------------------------------------------- one drawing of an added panel (drawAdded of ui/ext-panel.mjs, with a stand-in box: no page needed)

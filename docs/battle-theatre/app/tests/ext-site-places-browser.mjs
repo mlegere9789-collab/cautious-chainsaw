@@ -27,10 +27,10 @@ async function session(query, o = {}) {
   await page.goto(base + '?' + query, { waitUntil: 'load' });
   const enter = async () => { const t0 = Date.now(); await page.click('[data-bt-enter]'); await page.waitForFunction(() => (window.btApp && window.btApp.ready) || document.querySelector('.loading .fail'), null, { timeout: WAIT }); const ok = await page.evaluate(() => !!(window.btApp && window.btApp.ready)); if (!ok) throw new Error('the theatre did not start: ' + await page.evaluate(() => document.querySelector('.loading .fail')?.textContent)); await page.evaluate(() => window.btApp.ext.whenSettled()); await page.evaluate(() => window.btApp.frames(2)); return Date.now() - t0; };
   const leave = async () => { await page.click('#bt-back'); await page.waitForSelector('#landing:not([hidden])', { timeout: 120000 }); await page.waitForFunction(() => !window.btApp, null, { timeout: 60000 }); };
-  const shot = async name => { const f = path.join(out, name + '.png'); await page.screenshot({ path: f }); results.shots.push(f); };
+  const shot = async name => { const f = path.join(out, name + '.png'); await page.screenshot({ path: f, timeout: 600000 }); results.shots.push(f); };       // on software GL a frame of the whole scene takes seconds: a screenshot waits for one
   // a flight of the camera ends: the shell clears th.controls.flight when it arrives
   const drawerShown = async () => { await page.waitForFunction(() => { const d = document.querySelector('#bt-drawer'); return d && !d.hidden && getComputedStyle(d).opacity === '1'; }, null, { timeout: 60000 }); await page.waitForTimeout(150); };
-  const settle = async () => { await page.waitForFunction(() => !window.btApp.theatre.controls.flight, null, { timeout: 120000 }); await page.evaluate(() => window.btApp.frames(3)); };
+  const settle = async () => { await page.waitForFunction(() => !window.btApp.theatre.controls.flight, null, { timeout: 600000 }); await page.evaluate(() => window.btApp.frames(3)); };
   return { ctx, page, log, enter, leave, shot, settle, drawerShown, frames: n => page.evaluate(k => window.btApp.frames(k), n) };
 }
 // the pure helpers of the page, imported by the same address the theatre uses (so it is the same module instance)

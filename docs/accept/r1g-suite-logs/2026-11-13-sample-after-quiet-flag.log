@@ -1,0 +1,12 @@
+run_suites: 6 suite(s), port base 8480, agent r1g-harness2-sample
+run_suites: child environment + NODE_USE_ENV_PROXY, NODE_OPTIONS (extended) (an HTTPS proxy is set); load average (1 min) 12.49, 4 CPUs
+PASS    a11y.R1a.chooser       1/1               13.9 s  load 12.49>12.34  a11y: the legacy layout chooser is a keyboard-operable dialog on R1a (A11Y-28, group A extension A+chooser; R0 keeps the legacy chooser by design)
+PASS    pagesmaps.R1a          34/34            110.6 s  load 12.34>13.01  tiles 100/300  map sub-pages, og card, manifest (PG-01..08) on R1a
+PASS    pagesfix.R1c.legal     1/1                4.8 s  load 13.01>12.93  T0-PGF-14 on R1c built with the opt-in PG-legal group (the privacy table is keyboard-reachable)
+PASS    r1.acc                 6/6               15.4 s  load 12.93>11.74  ACC: no casualty rate above 100 percent is printed as fact (T0-ACC-*): red on R1d, green from R1e
+PASS    r1.seo                 17/17              0.4 s  load 11.74>11.74  SEO: titles, descriptions, canonicals, sitemap, JSON-LD, Open Graph, crawlable links, no build-method wording (T0-SEO-*, page group PG-zseo) on the Release 1 candidate
+PASS    staging.R0             10/10              8.3 s  load 11.74>11.44  staging-verify --local rehearsal on R0 (S0-S10 against local emulators; S5 and the manual S11 are not part of a rehearsal)
+
+run_suites: load average (1 min) 12.49>11.44 from the start to the end of this run, 4 CPUs
+
+run_suites: 6/6 suites OK; green tests 59/59; red-first proofs 0/0 (0 legacy tests red as required); 153s -> tmp/r1g-harness2/sample-after.json

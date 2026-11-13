@@ -70,9 +70,9 @@ Administrative History: Gettysburg National Military Park and National Cemetery,
   - Context (PDF p. 103): "Their accomplishments in developing, expanding, and operating the park during 1895-1905 brought the park largely to what it is today."
 - **840 monuments on the battlefield in 1925** (`NPSX-ADHI-p135-01`)
   - State date: **1925** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 135
-  - Claim: Superintendent Cope's 1925 description of the park (cited in the report's note as Cope, 'Gettysburg National Military Park,' [1925]) went on to note that there were 840 monuments on the battlefield
+  - Claim: Superintendent Cope's 1925 study 'Gettysburg National Military Park' went on to note that there were 840 monuments on the battlefield
   - Quote: "The superintendent went on to note that there were 840 monuments on the battlefield."
-  - Context (PDF p. 135): "Cope, "Gettysburg National Military Park," [1925], pp. 2-3,10,13,17,19."
+  - Context (PDF p. 134): "Only about half of the Emmitsburg Road (from Wheatfield Road to South Confederate Avenue) was re-ceded at this time.7 In 1925 Superintendent Cope prepared a study entitled "Gettysburg National Military Park" at the request of the War Department."
 
 ## NPS-CLI-1STDAY
 
@@ -85,8 +85,8 @@ Cultural Landscapes Inventory: First Day - Union 1st Corps Battlefield, Gettysbu
   - Quote: "Buford Avenue was added in 1889, and Robinson Avenue shortly before 1895."
 - **Eternal Light Peace Memorial** (`NPSX-CLI-1STDAY-p081-04`)
   - State date: **1938** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 81 [Page 79 of 105]
-  - Claim: The Eternal Light Peace Memorial (designed by Paul Cret) is a later feature of Oak Hill
-  - Quote: "The Peace Memorial retains its historic character as designed by Paul Cret,"
+  - Claim: The Eternal Light Peace Memorial retains its historic character as designed by Paul Cret, except for the replacement of the limestone parapet walls with granite
+  - Quote: "(CLR 2021: 400-401) --CLR/CLI evaluation: Contributing --NR evaluation: Contributing (Doubleday and North Confederate Avenues Stone Walls) Eternal Light Peace Memorial. (Figure 34) The Peace Memorial retains its historic character as designed by Paul Cret, except for replacement of the limestone parapet walls with granite, which has diminished the visual integration with the limestone shaft."
 - **Oak Ridge observation tower** (`NPSX-CLI-1STDAY-p081-05`)
   - State date: **park commission era (after 1895)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 81 [Page 79 of 105]
   - Claim: The Oak Ridge observation tower, now shortened to a platform, was built by the park commission
@@ -124,7 +124,7 @@ Cultural Landscapes Inventory: Pickett's Charge Battlefield, Gettysburg National
 
 - **Earliest monument in the Pickett's Charge area** (`NPSX-CLI-PCB-p041-10`)
   - State date: **1884** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 41 [Page 36 of 131]
-  - Claim: The earliest monument or marker listed for this area dates from 1884 (14th Connecticut position markers)
+  - Claim: The inventory's chronology records the erection in 1884 of the 14th Connecticut Infantry Monument position markers
   - Quote: "CE 1884 Memorialized Monument/marker is erected: 14th Connecticut Infantry Monument Position Markers."
 - **Berdan Avenue** (`NPSX-CLI-PCB-p042-01`)
   - State date: **1887** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 42 [Page 37 of 131]
@@ -206,7 +206,7 @@ Treatment Philosophy and Guidelines for the Battlefield Commemorative Area, Gett
 - **Four steel observation towers completed November 1895** (`NPSX-TPG-COMMEM-p043-01`)
   - State date: **1895** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 43 [27]
   - Claim: Construction of the four steel observation towers (planned for Oak Ridge, Big Round Top, West Confederate Avenue and Culp's Hill) was completed in November 1895
-  - Quote: "Production was contracted to the Variety Iron Works of Cleveland, Ohio, and construction on all four was completed in November 1895"
+  - Quote: "The commission initially planned four towers—at Oak Ridge, on Big Round Top, along West Confederate Avenue, and on Culp’s Hill. Production was contracted to the Variety Iron Works of Cleveland, Ohio, and construction on all four was completed in November 1895"
 - **Fifth observation tower in Ziegler's Grove, 1896** (`NPSX-TPG-COMMEM-p043-02`)
   - State date: **1896** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 43 [27]
   - Claim: A fifth tower, in Ziegler's Grove, was built the year after the four completed in November 1895
@@ -220,7 +220,7 @@ Confederate Monuments - Gettysburg National Military Park (U.S. National Park Se
 - **Monuments on the battlefield today** (`NPSX-WEB-CS-MONUMENTS-p001-01`)
   - State date: **modern count (monuments erected after the battle)** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
   - Claim: The page says there are 1,328 monuments, memorials, markers and plaques on the battlefield, roughly a quarter honouring southern states
-  - Quote: "There are 1,328 monuments, memorials, markers, and plaques on the battlefield"
+  - Quote: "There are 1,328 monuments, memorials, markers, and plaques on the battlefield that commemorate and memorialize the men who fought and died during the Battle of Gettysburg and continue to reflect how that battle has been remembered by different generations of Americans. Roughly a quarter of these memorials honor southern states whose men served in the Confederate Army of Northern Virginia."
 - **Confederate memorials erected predominantly in the early and mid-20th century** (`NPSX-WEB-CS-MONUMENTS-p001-02`)
   - State date: **early and mid-20th century** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 1
   - Claim: The page says the southern-state memorials were erected predominantly in the early and mid-20th century

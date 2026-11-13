@@ -3,7 +3,7 @@
 // rules are proved before the real tree uses them: added modules loaded by computed path, a static section beside the shell, an import map, style-sheet addresses, withheld
 // and reduced working files.
 import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'; import crypto from 'node:crypto'; import { execFileSync } from 'node:child_process';
-import { pack, trace, audit, auditReview, makeZip, URL_KEYS, BT, stampHTML, AUDIT_RE, AUDIT_CS_RE, WITHHELD, PROJECT } from '../../tools/bt/pack_theatre.mjs';
+import { pack, trace, audit, auditReview, makeZip, URL_KEYS, BT, stampHTML, AUDIT_RE, AUDIT_CS_RE, WITHHELD, PROJECT, EXCLUDE } from '../../tools/bt/pack_theatre.mjs';
 import { makeFixture, FIXTURE_CFG } from './fixture.mjs';
 
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'btpack-')); let A, B;
@@ -35,7 +35,7 @@ test('trimmed: no tests, screenshots, notes or tools; the dynamic data of the wi
   const names = fs.readdirSync(path.join(A.out, 'app'), { recursive: true }).map(String);
   for (const n of names) assert.doesNotMatch(n, /(^|\/)(tests|tools|docs)(\/|$)|\.(md)$/i, n);
   const all = new Set(distFiles(A.out));
-  for (const f of ['app/data/audio3d/sources.json', 'app/data/audio3d/commands.json', 'app/data/audio3d/calls.json', 'app/data/audio3d/woods-mask.json', 'app/data/anim3d/clips.json', 'app/data/anim3d/gait-sources.json', 'app/data/fx3d/params.json', 'app/data/figures3d/skeleton.json', 'app/data/figures3d/flag-mean-colours.json', 'app/data/conflict-defaults.json', 'app/src/scenario-defaults.mjs']) assert.ok(all.has(f), f);
+  for (const f of ['app/data/audio3d/sources.json', 'app/data/audio3d/commands.json', 'app/data/audio3d/calls.json', 'app/data/audio3d/woods-mask.json', 'app/data/fx3d/params.json', 'app/data/fx3d/weapons.json', 'app/data/fx3d/fires.json', 'app/data/figures3d/skeleton.json', 'app/data/figures3d/flag-mean-colours.json', 'app/data/conflict-defaults.json', 'app/src/scenario-defaults.mjs']) assert.ok(all.has(f), f);
   assert.ok(!all.has('GOVERNANCE/decisions/conflict_defaults.json'), 'the working decisions file is not shipped, the cleaned copy is');
   assert.ok(A.bytes < 40e6, 'dist ' + A.bytes);
 });
@@ -67,6 +67,20 @@ test('tripwire: recorded sounds. Nothing in the shell loads them today; when a m
   if (!callers.length) return;
   const wanted = (JSON.parse(fs.readFileSync(path.join(BT, 'app/data/audio3d/sources.json'), 'utf8')).sources || []).filter(s => s.shippable && s.file).map(s => s.file), have = new Set(distFiles(A.out));
   assert.deepEqual(wanted.filter(f => !have.has(f)), [], `${callers.join(', ')} loads recordings, but the build lacks their files: add the folder to INCLUDE in tools/bt/pack_theatre.mjs (the zip grows by their size) and say so in NETLIFY-STAGING.md`);
+});
+// Files of a shipped folder that no page loads are left out (EXCLUDE: audio3d and fx3d hold files that only tools read; app/data/anim3d is not named by any module at all, so nothing ships it).
+// The evidence is twofold: the real run (tools/bt/verify_staging.mjs) never asked for them, and this test: no shipped module names one outside a comment. The day a module does,
+// this fails and says which: take the entry out of EXCLUDE (the file then ships again) and run the real run.
+const stripComments = src => src.replace(/\/\*[\s\S]*?\*\//g, '').split('\n').map(l => l.replace(/(^|[^:'"`\w])\/\/.*$/, '$1')).join('\n');
+test('left out: no page loads the files of EXCLUDE; no shipped module names one outside a comment; MANIFEST.json lists them; nothing of anim3d data ships', () => {
+  const names = EXCLUDE.map(e => (typeof e === 'string' ? e : e.path)), all = new Set(distFiles(A.out)), m = JSON.parse(fs.readFileSync(path.join(A.out, 'MANIFEST.json'), 'utf8'));
+  for (const f of all) assert.ok(!names.some(n => f === n || f.startsWith(n + '/')), 'a left-out file is in the build: ' + f);
+  assert.ok(![...all].some(f => f.startsWith('app/data/anim3d/')), 'no animation catalogue file ships: no module names one');
+  const codeFiles = [...all].filter(f => /\.(mjs|js|html)$/.test(f)), code = codeFiles.map(f => [f, stripComments(fs.readFileSync(path.join(A.out, f), 'utf8'))]);
+  const candidates = [...names.flatMap(n => { const abs = path.join(BT, n); return fs.existsSync(abs) && fs.statSync(abs).isDirectory() ? fs.readdirSync(abs).map(x => path.join(n, x)) : [n]; }), ...fs.readdirSync(path.join(BT, 'app/data/anim3d')).map(x => 'app/data/anim3d/' + x)];
+  // a loader passes the whole name as a string ('params.json', URLS.data + 'fx3d/GAPS.json'); prose that mentions a file of the same name (figures3d/TIERS.json in a tier table) is not a load
+  for (const n of candidates) { const b = path.basename(n).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), re = new RegExp('([\'"`])(?:[\\w./-]*/)?' + b + '\\1'), hit = code.filter(([, s]) => re.test(s)).map(([f]) => f); assert.deepEqual(hit, [], `${n} is left out of the build but ${hit.join(', ')} names it as a string outside a comment: take it out of EXCLUDE and run the real run`); }
+  assert.deepEqual(m.leftOut.map(l => l.path).sort(), names.filter(n => fs.existsSync(path.join(BT, n))).sort(), 'MANIFEST.json lists every left-out entry that exists');
 });
 test('computed imports: every one in the tree is of a form the trace follows (or is on the reviewed list)', () => {
   const bad = trace().computedImports.filter(c => c.status === 'unresolved');

@@ -185,12 +185,16 @@ test('the ground-cover mesh covers every unit, in short triangles, and stays on 
   
   assert.ok(D.triangles > 20000 && D.triangles < 400000, 'triangles: ' + D.triangles);
   for (let k = 0; k < D.verts.length; k += 12) for (const [a, b] of [[0, 4], [4, 8], [8, 0]]) assert.ok(Math.hypot(D.verts[k + a] - D.verts[k + b], D.verts[k + a + 1] - D.verts[k + b + 1]) <= 40 * Math.SQRT2 + 1e-3, 'no triangle longer than the diagonal of a lattice square');
-  // the triangles of a unit add up to its area (for outlines that clipped cleanly)
+  // the triangles of EVERY unit add up to the area of its outline as projected (a piece the ear clipping cannot do is made again from the whole outline's triangles: nothing is painted outside the outline)
   let o = 0; const off = []; for (let i = 0; i < M.units.length; i++) { off.push(o); o += D.perUnit[i] * 12; }
-  for (const i of [0, 1, 5, 400, 600, 700, 800].filter(i => i < M.units.length)) {
-    let a = 0; for (let k = off[i]; k < off[i] + D.perUnit[i] * 12; k += 12) { assert.equal(D.verts[k + 2], i); a += triArea(D.verts[k], D.verts[k + 1], D.verts[k + 4], D.verts[k + 5], D.verts[k + 8], D.verts[k + 9]); assert.equal(D.verts[k + 3], LAYER[M.units[i].cls]); }
-    const exp = M.units[i].area_ac * 4046.86; assert.ok(Math.abs(a - exp) / exp < 0.08, `${M.units[i].id}: ${Math.round(a)} m2 of triangles against ${Math.round(exp)}`);
+  const shoelace = u => { const r = u.rings[0]; let s = 0; const n = r.length / 2; const P = []; for (let k = 0; k < r.length; k += 2) P.push(FLAT(r[k], r[k + 1])); for (let k = 0; k < n; k++) { const j = (k + 1) % n; s += P[k][0] * P[j][1] - P[j][0] * P[k][1]; } return Math.abs(s / 2); };
+  let worst = 0, worstId = '';
+  for (let i = 0; i < M.units.length; i++) {
+    let a = 0; for (let k = off[i]; k < off[i] + D.perUnit[i] * 12; k += 12) { if (i % 37 === 0) { assert.equal(D.verts[k + 2], i); assert.equal(D.verts[k + 3], LAYER[M.units[i].cls]); } a += triArea(D.verts[k], D.verts[k + 1], D.verts[k + 4], D.verts[k + 5], D.verts[k + 8], D.verts[k + 9]); }
+    const exp = shoelace(M.units[i]), e = Math.abs(a - exp) / exp; if (e > worst) { worst = e; worstId = M.units[i].id; }
   }
+  assert.ok(worst < 0.01, `every unit is covered by its outline and nothing else: the worst is ${worstId}, off by ${(100 * worst).toFixed(2)} %`);
+  assert.ok(D.notClean < D.triangles / 10, 'few squares need the second way: ' + D.notClean);
 });
 
 test('trees: chunked, sorted, counted, all inside the ground', () => {

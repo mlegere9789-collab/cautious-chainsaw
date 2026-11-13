@@ -1,0 +1,150 @@
+{
+ "limit": 6,
+ "rows": [
+  {
+   "case": "day-clouds-jul3-1400",
+   "what": "daytime clouds",
+   "all": {
+    "meanAbs": 0.429,
+    "rmse": 2.149,
+    "p99": 2,
+    "max": 126,
+    "over8": 0.0034,
+    "over24": 0.0008
+   },
+   "top": {
+    "meanAbs": 0.333,
+    "rmse": 0.577,
+    "p99": 1,
+    "max": 1,
+    "over8": 0,
+    "over24": 0
+   },
+   "bottom": {
+    "meanAbs": 0.605,
+    "rmse": 3.547,
+    "p99": 8,
+    "max": 126,
+    "over8": 0.0096,
+    "over24": 0.0023
+   },
+   "meanLumGL": 194.922,
+   "meanLumGPU": 194.895,
+   "minLumGL": 65.36,
+   "minLumGPU": 65.36,
+   "blackGL": 0,
+   "blackGPU": 0,
+   "spritesGL": null,
+   "spritesGPU": null
+  },
+  {
+   "case": "dry-ground-jul2-1400",
+   "what": "dry ground (reference)",
+   "all": {
+    "meanAbs": 0.43,
+    "rmse": 2.464,
+    "p99": 1,
+    "max": 125,
+    "over8": 0.0028,
+    "over24": 0.0009
+   },
+   "top": {
+    "meanAbs": 0.533,
+    "rmse": 3.937,
+    "p99": 2,
+    "max": 125,
+    "over8": 0.0047,
+    "over24": 0.0018
+   },
+   "bottom": {
+    "meanAbs": 0.333,
+    "rmse": 0.577,
+    "p99": 1,
+    "max": 1,
+    "over8": 0,
+    "over24": 0
+   },
+   "meanLumGL": 166.183,
+   "meanLumGPU": 166.163,
+   "minLumGL": 79.82,
+   "minLumGPU": 79.82,
+   "blackGL": 0,
+   "blackGPU": 0,
+   "spritesGL": null,
+   "spritesGPU": null
+  },
+  {
+   "case": "line-wet-jul4-1400",
+   "what": "men on wet ground stay dry",
+   "all": {
+    "meanAbs": 0.363,
+    "rmse": 1.205,
+    "p99": 1,
+    "max": 155,
+    "over8": 0.0004,
+    "over24": 0.0002
+   },
+   "top": {
+    "meanAbs": 0.333,
+    "rmse": 0.577,
+    "p99": 1,
+    "max": 1,
+    "over8": 0,
+    "over24": 0
+   },
+   "bottom": {
+    "meanAbs": 0.379,
+    "rmse": 1.285,
+    "p99": 2,
+    "max": 155,
+    "over8": 0.0001,
+    "over24": 0.0001
+   },
+   "meanLumGL": 180.57,
+   "meanLumGPU": 180.582,
+   "minLumGL": 2,
+   "minLumGPU": 1.79,
+   "blackGL": 0,
+   "blackGPU": 0,
+   "spritesGL": null,
+   "spritesGPU": null
+  },
+  {
+   "case": "wet-ground-jul4-1400",
+   "what": "wet ground and puddles",
+   "all": {
+    "meanAbs": 0.433,
+    "rmse": 2.543,
+    "p99": 2,
+    "max": 127,
+    "over8": 0.0028,
+    "over24": 0.0009
+   },
+   "top": {
+    "meanAbs": 0.537,
+    "rmse": 4.066,
+    "p99": 2,
+    "max": 127,
+    "over8": 0.0047,
+    "over24": 0.0018
+   },
+   "bottom": {
+    "meanAbs": 0.332,
+    "rmse": 0.576,
+    "p99": 1,
+    "max": 1,
+    "over8": 0,
+    "over24": 0
+   },
+   "meanLumGL": 158.339,
+   "meanLumGPU": 158.319,
+   "minLumGL": 73.67,
+   "minLumGPU": 73.67,
+   "blackGL": 0,
+   "blackGPU": 0,
+   "spritesGL": null,
+   "spritesGPU": null
+  }
+ ],
+ "problems": []
+}

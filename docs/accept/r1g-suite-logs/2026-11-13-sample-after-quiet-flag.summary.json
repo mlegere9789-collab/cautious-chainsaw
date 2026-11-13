@@ -1,0 +1,167 @@
+{
+ "finished": "see file mtime",
+ "seconds": 153,
+ "portBase": "8480",
+ "machine": {
+  "platform": "linux",
+  "cpus": 4,
+  "node": "v22.23.4"
+ },
+ "load1": {
+  "start": 12.49,
+  "end": 11.44
+ },
+ "childEnv": {
+  "httpsProxy": true,
+  "added": [
+   "NODE_USE_ENV_PROXY"
+  ],
+  "extended": [
+   "NODE_OPTIONS"
+  ]
+ },
+ "totals": {
+  "suites": 6,
+  "ok": 6,
+  "notOk": 0,
+  "greenTests": 59,
+  "greenTestsTotal": 59,
+  "redProofs": 0,
+  "redProofsOk": 0,
+  "redTestsRedAsRequired": 0
+ },
+ "results": [
+  {
+   "id": "a11y.R1a.chooser",
+   "title": "a11y: the legacy layout chooser is a keyboard-operable dialog on R1a (A11Y-28, group A extension A+chooser; R0 keeps the legacy chooser by design)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 13.9,
+   "passed": 1,
+   "total": 1,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  T0-A11Y-28   layout chooser (\"Choose Your Experience\") on a first visit, desktop and phone: with group C it is never reached (layout auto-detected); where it is still shown (legacy, R0, R1a) it ",
+    "      {\"first visit\":{\"desktop\":{\"state\":\"chooser\",\"dialog\":true,\"modal\":\"true\",\"name\":\"Choose your experience\",\"inside\":true,\"tab\":[\"div|🖥DesktopFull-featured experience with s\",\"div|📱MobileTouch-o",
+    "a11y-bridge: 1/1 passed"
+   ],
+   "load1Start": 12.49,
+   "load1End": 12.34
+  },
+  {
+   "id": "pagesmaps.R1a",
+   "title": "map sub-pages, og card, manifest (PG-01..08) on R1a",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 110.6,
+   "passed": 34,
+   "total": 34,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 100,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      {\"skipped\":\"pass --online to re-fetch\"}",
+    "T0-PG (map pages, og/manifest): 34/34 passed",
+    "mapbox requests used this run: 100 of 300 (blocked by cap: 0)"
+   ],
+   "load1Start": 12.34,
+   "load1End": 13.01
+  },
+  {
+   "id": "pagesfix.R1c.legal",
+   "title": "T0-PGF-14 on R1c built with the opt-in PG-legal group (the privacy table is keyboard-reachable)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 4.8,
+   "passed": 1,
+   "total": 1,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": 0,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  T0-PGF-14    Privacy: a table that scrolls sideways can be reached with the keyboard (focusable, named region)",
+    "pages-fixes: 1/1 passed",
+    "mapbox requests used this run: 0 of 300"
+   ],
+   "load1Start": 13.01,
+   "load1End": 12.93
+  },
+  {
+   "id": "r1.acc",
+   "title": "ACC: no casualty rate above 100 percent is printed as fact (T0-ACC-*): red on R1d, green from R1e",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 15.4,
+   "passed": 6,
+   "total": 6,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  T0-ACC-05    /report: 64.7 % for the 107th Pennsylvania, no rate row for the 6th US Cavalry",
+    "PASS  T0-ACC-06    the guard: a record that says 135.2 %, or has 140 losses over 100 men and no rate, prints no rate on either page",
+    "acc: 6/6 passed"
+   ],
+   "load1Start": 12.93,
+   "load1End": 11.74
+  },
+  {
+   "id": "r1.seo",
+   "title": "SEO: titles, descriptions, canonicals, sitemap, JSON-LD, Open Graph, crawlable links, no build-method wording (T0-SEO-*, page group PG-zseo) on the Release 1 candidate",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 0.4,
+   "passed": 17,
+   "total": 17,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS T0-SEO-14 no mention of AI, Claude, Anthropic or how the site was built in a shipped text file",
+    "PASS T0-SEO-15 no production page restricts following or snippets with a robots meta",
+    "17/17 passed (release/R1g/dist)"
+   ],
+   "load1Start": 11.74,
+   "load1End": 11.74
+  },
+  {
+   "id": "staging.R0",
+   "title": "staging-verify --local rehearsal on R0 (S0-S10 against local emulators; S5 and the manual S11 are not part of a rehearsal)",
+   "kind": "check",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 8.3,
+   "passed": 10,
+   "total": 10,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "       expected: every item ticked in the log row",
+    "       actual:   soak on staging: 48 h, then re-run this script once more (a deploy that decays is a finding) | tests/t0/journeys-manual.md part A on the staging URL (the map is blank there: tiles ans",
+    "staging-verify: 10 pass, 0 FAIL, 1 skipped, 1 manual  -> GREEN: every automatic step passed (the manual list S11 is still yours)"
+   ],
+   "load1Start": 11.74,
+   "load1End": 11.44
+  }
+ ]
+}

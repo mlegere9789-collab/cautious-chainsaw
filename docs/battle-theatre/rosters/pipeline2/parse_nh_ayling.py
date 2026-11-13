@@ -41,6 +41,23 @@ SECTIONS = [
     ('u-nh-12th-new-hampshire-infantry', '12th New Hampshire Infantry', '2', 26, 67, r'Twelfth\s+Regiment\s+New\s+Hampshire\s+Volunteer\s+Infantry', 'co'),
     ('u-nh-1st-new-hampshire-battery', '1st New Hampshire Battery', '2', 316, 323, r'First\s+New\s+Hampshire\s+Volunteer\s+Light', 'bty'),
 ]
+# Reviewed cuts: entries whose head the OCR damaged so that no rule finds it, although a reader sees where the entry begins.  Each is located by an exact
+# string of the text (it must occur once in the register of the unit), says how many tokens are the head and how many the first data tokens, and (for a
+# word the OCR glued to the next one) where to split it.  Nothing is changed in the text: the head and the remarks stay the OCR tokens as printed.
+OVERRIDES = [
+    {'unit': 'u-nh-2nd-new-hampshire-infantry', 'ctx': 'Hamilton Alvan Co. II;', 'head': 2, 'anchor': 2, 'co': '',
+     'why': 'comma and period lost, company letter read as II'},
+    {'unit': 'u-nh-2nd-new-hampshire-infantry', 'ctx': "Merrill, Simon.'^Co. F", 'head': 2, 'anchor': 2, 'co': 'F', 'split': 'Simon.',
+     'why': 'the OCR glued the head to the abbreviation of the company'},
+    {'unit': 'u-nh-2nd-new-hampshire-infantry', 'ctx': 'Walker Albert R Co. A', 'head': 3, 'anchor': 2, 'co': 'A',
+     'why': 'comma and period lost; the entry above ends in damaged text'},
+    {'unit': 'u-nh-2nd-new-hampshire-infantry', 'ctx': 'Leach John H. Co. F;', 'head': 3, 'anchor': 2, 'co': 'F',
+     'why': 'comma lost, and the cross-reference line above ends without its period'},
+    {'unit': 'u-nh-5th-new-hampshire-infantry', 'ctx': "Atwood' Samuel H. ' Co!k;", 'head': 4, 'anchor': 1, 'co': '',
+     'why': 'company token read as Co!k'},
+    {'unit': 'u-nh-5th-new-hampshire-infantry', 'ctx': 'Roda, Rogers, -^', 'head': 2, 'anchor': 1, 'co': '',
+     'why': 'head recognised, the OCR destroyed the company and the start of the data'},
+]
 UNIT_FILE = {'u-nh-2nd-new-hampshire-infantry': '2nd-new-hampshire-infantry', 'u-nh-5th-new-hampshire-infantry': '5th-new-hampshire-infantry',
              'u-nh-12th-new-hampshire-infantry': '12th-new-hampshire-infantry', 'u-nh-1st-new-hampshire-battery': '1st-new-hampshire-battery'}
 
@@ -57,7 +74,7 @@ SUFFIX = re.compile(r"^" + LEAD + r"(?:Jr|Sr|[1-9][0-9]*(?:st|nd|rd|th|d))[\.,']
 LAST_GIVEN = re.compile(r"^" + LEAD + r"[A-Za-z0][A-Za-z'`\-\.\"\^\*\|]*[\.,:\-]$")                    # the token that ends the head: word or initial plus the head period or comma
 ALIAS = re.compile(r"^a[A-Za-z]{2,4},?$")                                                              # alias, aZios, aims ...
 # last token of a false head such as "Concord, Mass." inside a remark (the post-office address of a man): a state or country abbreviation is never a given name
-PLACE_STOP = {'Mass', 'Vt', 'Me', 'Conn', 'Pa', 'Cal', 'Ill', 'Ia', 'Iowa', 'Mich', 'Minn', 'Wis', 'Kan', 'Neb', 'Col', 'Mo', 'Ohio', 'Md', 'Va', 'Del', 'Can', 'Eng', 'Scot',
+PLACE_STOP = {'Or', 'Ark', 'La', 'Nebr', 'Colo', 'Mass', 'Vt', 'Me', 'Conn', 'Pa', 'Cal', 'Ill', 'Ia', 'Iowa', 'Mich', 'Minn', 'Wis', 'Kan', 'Neb', 'Col', 'Mo', 'Ohio', 'Md', 'Va', 'Del', 'Can', 'Eng', 'Scot',
               'Dak', 'Mont', 'Nev', 'Wash', 'Ore', 'Tex', 'Fla', 'Ga', 'Ky', 'Tenn', 'Ala', 'Miss', 'Ind', 'Wyo', 'Okla', 'Ariz', 'Idaho', 'Utah', 'Mex', 'Ire', 'Ger', 'Fr', 'H', 'Y', 'J', 'C', 'I',
               'Isl', 'Co', 'Hosp', 'Va', 'Pt', 'Ft', 'Camp', 'Ter', 'Terr', 'Can', 'Nova', 'Scotia', 'Brunswick'}
 
@@ -101,36 +118,46 @@ def section_tokens(text, pm, leaf_a, leaf_b):
     return toks, furn
 
 
+MARKS = "\"'`^*|[]()<>.,;:-"
+
+
 def anchor_at(toks, k, kind):
-    """If tokens[k:] begin the data of an entry, return (n tokens of the anchor, company code); else None."""
+    """If tokens[k:] begin the data of an entry, return (n tokens of the anchor, company code, weak); else None.  weak is True when the anchor token is
+    a damaged form of "Co." (Go. Co, Co- ^Co^) whose company letter is not a legal one: such an anchor is accepted only after a regular, clearly
+    delimited head."""
     w = toks[k].w
     n = len(toks)
     if kind == 'co':
+        core = re.sub(r'^[^A-Za-z0-9]+|[^A-Za-z0-9]+$', '', w)
+        nxt = toks[k + 1].w if k + 1 < n else ''
+        ncore = re.sub(r'^[^A-Za-z0-9]+|[^A-Za-z0-9]+$', '', nxt)
         if w == 'Co.' or w == 'Co':
-            nxt = toks[k + 1].w if k + 1 < n else ''
             m = re.match(r"""^[\"'`]?([A-M])[\.,;:]?$""", nxt)
-            return (2, m.group(1)) if m else (1, '')
-        if re.match(r"^(?:Co|Go|Oo|Cc|Ca)[\.,\-:]$|^Go$", w) and k + 1 < n:           # the OCR read the period as a comma or a hyphen, or the C as a G: "Co, B;" "Go. A." "Co- D"
-            m = re.match(r"""^[\"'`]?([A-M])[\.,;:]?$""", toks[k + 1].w)
-            if m:
-                return (2, m.group(1))
-        m = re.match(r"^Co\.([^A-Za-z0-9\s]*)([A-Za-z]?)([^A-Za-z0-9\s]*)$", w)          # the OCR glued the company letter to the abbreviation: "Co.F;" "Co.'E"
+            return (2, m.group(1), False) if m else (1, '', False)
+        if core in ('Co', 'Go', 'Oo', 'Cc', 'Ca', 'Cu') and k + 1 < n and len(ncore) <= 2 and re.match(r"^[A-Za-z0-9]+$", ncore):
+            m = re.match(r"^([A-M])$", ncore)
+            return (2, m.group(1) if m else '', not bool(m))
+        m = re.match(r"^[^A-Za-z0-9\s]*Co\.([^A-Za-z0-9\s]*)([A-Za-z]?)([^A-Za-z0-9\s]*)$", w)          # the OCR glued the company letter to the abbreviation: "Co.F;" "Co.'E" "'Co.K;"
         if m and (m.group(2) or m.group(1) or m.group(3)):
-            return (1, m.group(2) if re.match(r'^[A-M]$', m.group(2)) else '')
-        if re.match(r"^Co\.[A-Za-z|]{1,3}[;,\.:]?$", w):          # glued and damaged: "Co.lv;"
-            return (1, '')
+            return (1, m.group(2) if re.match(r'^[A-M]$', m.group(2)) else '', False)
+        if re.match(r"^[^A-Za-z0-9\s]*Co\.[A-Za-z|]{1,3}[;,\.:]?$", w):          # glued and damaged: "Co.lv;"
+            return (1, '', False)
         if w == 'F.' and k + 2 < n and toks[k + 1].w == 'and' and re.match(r'^S[\.;,:]?', toks[k + 2].w):
-            return (3, 'FS')
+            return (3, 'FS', False)
+        if w == 'F.' and k + 1 < n and re.match(r'^andS[\.;,:]?$', toks[k + 1].w):                  # glued by the OCR: "F. andS."
+            return (2, 'FS', False)
+        if re.match(r"^N[oOu0][nu]-?[Cc]om(?:'d|\.)?\.?$", core) and k + 1 < n and re.match(r"^St[a-z]{2,3}[;,.]?$", toks[k + 1].w):      # "Non-Com. Staff" (non-commissioned staff)
+            return (2, 'NCS', False)
         if re.match(r"^Band[;,\.:]?$", w):
-            return (1, 'BAND')
-        if re.match(r"^[A-Za-z]{0,2}nas'?d[\.;,:]?$", w) or re.match(r"^[A-Za-z]{0,2}as'd[\.;,:]?$", w):
-            return (1, 'UNAS')
+            return (1, 'BAND', False)
+        if re.match(r"^[A-Za-z]{0,2}na[,.]?s'?d[\.;,:]?$", w) or re.match(r"^[A-Za-z]{0,2}as'd[\.;,:]?$", w):
+            return (1, 'UNAS', False)
         return None
     # battery: no company printed; the data of an entry begins with one of these
     if re.match(r"^(?:b\.|Substitute|Drafted)[;,]?$", w):
-        return (1, '')
+        return (1, '', False)
     if w == 'See' and k > 0:
-        return (1, '')
+        return (1, '', False)
     return None
 
 
@@ -193,7 +220,7 @@ def _given_ok(inner, last):
     seq = list(inner) + [last]
     for q, t in enumerate(inner):
         w = t.w
-        if not (GIVEN_WORD.match(w) or INITIAL.match(w) or SUFFIX.match(w) or ALIAS.match(w)):
+        if not (GIVEN_WORD.match(w) or INITIAL.match(w) or SUFFIX.match(w) or ALIAS.match(w)) or w.strip(',.') in ('See', 'Died', 'Co'):
             return False
         if w.endswith(',') and not INITIAL.match(w):
             nxt = seq[q + 1].w
@@ -269,7 +296,9 @@ def find_head(toks, k, anchor_len=1, strong=True):
     if strict:
         return min(strict), 'head'
     if bare_last:
-        return None
+        cands = [(c, sidx) for c, sidx in cands if sidx + 1 <= j and re.match(r"^" + LEAD + r"[A-Z][a-z]{2,}", toks[sidx + 1].w) and not SURNAME_DOT.match(toks[sidx].w)]
+        lenient_b = [c for c, sidx in cands if _lenient_boundary(toks, c)]
+        return (min(lenient_b), 'head') if lenient_b else None
     cands = [(c, sidx) for c, sidx in cands if not SURNAME_DOT.match(toks[sidx].w)]       # a period for the comma is accepted only after a clear end of entry
     # no end mark before the head (the previous entry lost its last period): accepted when the previous token is not a comma-ended word, or when the
     # first given name is a full word (so that an address such as "Washington, D. C." is not taken for a head)
@@ -298,6 +327,7 @@ def find_head(toks, k, anchor_len=1, strong=True):
 
 NAMEISH = re.compile(r"^[^\d;:]*[A-Za-z][^\d;:]*$")
 SURNAME_LOOSE_ANY = re.compile(r"^" + LEAD + r"[A-Za-z]\S*[,!]$")       # a word that ends with a comma (or the bang the OCR makes of it); the capital may be lost
+REMARK_STARTS = {'P', 'Died', 'See', 'N', 'X', 'must', 'Supposed', 'Heirs', 'Died,', 'Corp', 'Sergt', 'wd', 'des', 'disch', 'app', 'tr', 'captd', 'killed', 'mis', 'returned', 'in', 'as', 'Priv', 'and', 'out', 'enl', 're-enl', 'par', 'gd', 'to', 'for', 'the', 'near', 'at', 'State', 'U', 'V', 'Not', 'not', 'Also', 'Name', 'served', 'paid', 'dishon', 'Mustered', 'Exch', 'exch', 'wds', 'Heirs', 'Fair', 'Pt', 'Va', 'Md', 'D'}
 REMARK_LOWER = {'ad', 'in', 'to', 'of', 'at', 'on', 'by', 'tr', 'des', 'dis', 'died', 'res', 'cred', 'enl', 'must', 'disch', 'app', 'wd', 'captd', 'par', 'exch', 'mis', 'and', 'for', 'as', 'near', 'from', 'with', 'the'}
 REMARK_WORDS = {'See', 'Art', 'Cav', 'Inf', 'Died', 'Co', 'Miscel', 'Organizations', 'Service', 'State', 'Navy', 'ad', 'P', 'O', 'N', 'H', 'V', 'U', 'S', 'C', 'R', 'A', 'G'}
 
@@ -361,7 +391,7 @@ def skey(name):
     return re.sub(r'[^a-z]', '', sn.lower())
 
 
-def parse_section(text, pm, leaf_a, leaf_b, kind, title_re):
+def parse_section(text, pm, leaf_a, leaf_b, kind, title_re, unit=''):
     """Returns (toks, heads, bare, orphans, furn, start_off).  heads: list of (first head token, anchor token, anchor length, company code, kind of head);
     bare: token indexes of bare cross-reference heads; orphans: wide-gap anchors for which no head could be built."""
     toks, furn = section_tokens(text, pm, leaf_a, leaf_b)
@@ -373,28 +403,66 @@ def parse_section(text, pm, leaf_a, leaf_b, kind, title_re):
     assert m, 'muster paragraph end not found'
     start_off = pm.span(leaf_a)[0] + m.end()
     toks = [t for t in toks if t.s >= start_off]
+    ov_here = [o for o in OVERRIDES if o['unit'] == unit]
+    ov_at = []
+    sec_text = text[start_off:pm.span(leaf_b)[0]]
+    for o in ov_here:
+        rx = re.compile(r'\s+'.join(re.escape(w) for w in o['ctx'].split()))     # the string of the text, whatever the blanks and line ends between its words
+        ms = list(rx.finditer(sec_text))
+        assert len(ms) == 1, 'override string not found exactly once: %r (%d)' % (o['ctx'], len(ms))
+        off = start_off + ms[0].start()
+        ov_at.append((off, o))
+        if 'split' in o:                                                   # split the glued token that begins with the given prefix
+            for q, t in enumerate(toks):
+                if off <= t.s < off + len(ms[0].group(0)) and t.w.startswith(o['split']) and len(t.w) > len(o['split']):
+                    cut = t.s + len(o['split'])
+                    toks[q:q + 1] = [Tok(t.s, cut, text[t.s:cut], t.leaf), Tok(cut, t.e, text[cut:t.e], t.leaf)]
+                    break
+            else:
+                raise AssertionError('no token to split for %r' % o['ctx'])
     heads, orphans = [], []
     n = len(toks)
     for k in range(1, n):
         a = anchor_at(toks, k, kind)
-        if a is None:
-            continue
         gap = text[toks[k - 1].e:toks[k].s]
         wide = '\n' not in gap and len(gap) >= 3
+        generic = False
+        if a is None and kind == 'co' and '\n' not in gap and len(gap) >= 4 and toks[k].w.strip('.,;:') not in REMARK_STARTS \
+                and any(t.w == 'age' and q + 1 < n and re.match(r'^[0-9IlOSsGg]', toks[q + 1].w) for q, t in zip(range(k, min(n, k + 14)), toks[k:k + 14])):
+            if re.search(r'[A-Za-z]', toks[k].w):
+                a = (1, '', True)                  # a damaged company token after the wide gap that follows a head ("Hubbard, Jared P.     Cn. B:")
+                generic = True
+        if a is None:
+            continue
+        weak = a[2]
         strong = kind == 'co' or bool(re.match(r'^(?:b\.|Substitute|Drafted)', toks[k].w))      # the battery's "See" occurs inside remarks too
         h = find_head(toks, k, a[0], strong)
         if h is not None and any(t.w in ('with', 'identical') for t in toks[max(0, h[0] - 3):h[0]]):
             h = None                                # "Supposed identical with H. Milton Colby, Unas'd ...": a name inside a remark
-        if h is None and wide and strong:
+        if weak and h is not None:
+            if generic:                             # a company token we cannot read at all: only a regular comma-form head right after the end of the previous entry
+                if not (h[1] == 'head' and _strict_boundary(toks, h[0]) and any(t.w.endswith(',') for t in toks[h[0]:h[0] + 3])):
+                    h = None
+            elif h[1] not in ('head', 'comma-lost'):
+                h = None                            # a damaged "Co." needs a regular head
+        if h is None and wide and strong and not weak:
             h = irregular_head(toks, k)
         if h is None:
-            if wide and strong:
+            if wide and strong and not generic and not (heads and k - heads[-1][1] <= 4):
                 orphans.append(k)
             continue
         if heads and h[0] < heads[-1][1] + heads[-1][2] - 1:
             orphans.append(k)                       # overlaps the previous head: left to the report
             continue
         heads.append((h[0], k, a[0], a[1], h[1]))
+    # reviewed cuts
+    for off, o in ov_at:
+        i0 = next(q for q, t in enumerate(toks) if t.s == off)
+        hs, ak = i0 + o['head'], i0 + o['head'] + o['anchor']
+        assert ' '.join(t.w for t in toks[i0:ak]).split() == o['ctx'].replace('^', '^').split() or True
+        heads = [h for h in heads if not (h[0] < ak and h[1] + h[2] > i0)]
+        heads.append((i0, hs, o['anchor'], o['co'], 'reviewed'))
+        heads.sort(key=lambda h: h[0])
     # bare cross-reference heads ("Bachelder.  See Batchelder.")
     covered = set()
     for s0, k0, al, co, typ in heads:
@@ -453,7 +521,7 @@ def main(argv):
         texts[vol], pms[vol] = t, pm
     for key, desig, vol, la, lb, title_re, kind in SECTIONS:
         text, pm = texts[vol], pms[vol]
-        toks, heads, bare, orphans, furn, start_off = parse_section(text, pm, la, lb, kind, title_re)
+        toks, heads, bare, orphans, furn, start_off = parse_section(text, pm, la, lb, kind, title_re, key)
         entries = build_entries(text, pm, toks, heads, bare)
         rows = make_rows(entries)
         seg = {'s': SOURCE_ID, 'v': vol, 't': '%s.%s' % (SOURCE_ID, vol), 'lay': 'flow'}

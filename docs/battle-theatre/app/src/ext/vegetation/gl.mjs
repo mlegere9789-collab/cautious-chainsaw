@@ -21,6 +21,8 @@ float hv2(vec2 p) { ivec2 q = ivec2(floor(p)); return hsh((uint(q.x + 8192) * 73
 float vn2(vec2 p) { vec2 i = floor(p); vec2 f = fract(p); vec2 u = f * f * (3.0 - 2.0 * f); return mix(mix(hv2(i), hv2(i + vec2(1.0, 0.0)), u.x), mix(hv2(i + vec2(0.0, 1.0)), hv2(i + vec2(1.0, 1.0)), u.x), u.y); }
 vec3 terrN(vec3 p) { float e = 3.0; float hx = hAt(p.x + e, p.z) - hAt(p.x - e, p.z); float hz = hAt(p.x, p.z + e) - hAt(p.x, p.z - e); return normalize(vec3(-hx, 2.0 * e, -hz)); }
 const vec4 HID = vec4(2.0, 2.0, 2.0, 1.0);
+float hln(float x, float period, float w) { float d = abs(fract(x / period) - 0.5) * 2.0; return smoothstep(1.0 - w, 1.0, d); }      // a thin line at every whole period
+vec3 s2l(vec3 c) { return pow(max(c, vec3(0.0)), vec3(2.2)); }                 // the data's colours are sRGB (0 to 1); the renderer lights linear albedo (the same 2.2 the structures use)
 `;
 
 const DECAL_VS = /* glsl */`
@@ -38,7 +40,7 @@ in vec3 vWp; flat in float vU; out vec4 o;
 void main() {
   int u = int(vU + 0.5);
   vec4 s0 = stx(u, 0), s1 = stx(u, 1), s2 = stx(u, 2), s3 = stx(u, 3);
-  vec3 alb = s0.rgb; int crop = int(s0.w + 0.5);
+  vec3 alb = s2l(s0.rgb); int crop = int(s0.w + 0.5);
   float hgt = s1.x, tr = s1.y, cutf = s1.z, lodge = s1.w; float tier = s2.x; float rows = s2.w; float stage = s3.x;
   vec2 xz = vWp.xz; float dist = length(vWp - cam.xyz);
   float n1 = vn2(xz * 0.045), n2 = vn2(xz * 0.31), n3 = vn2(xz * 1.9), n4 = vn2(xz * 7.3);
@@ -64,8 +66,8 @@ void main() {
   col = mix(col, col * vec3(0.9, 0.88, 0.78), lodged * 0.5);
   if (uOverlay > 0.5) {
     int ti = int(tier + 0.5); vec3 tc = uTierCol[ti]; float hatch = 0.0;
-    if (ti == 1) hatch = 1.0 - smoothstep(0.0, 0.18, abs(fract((xz.x + xz.y) / 7.0) - 0.5) * 2.0 - 0.82);
-    else if (ti == 2) hatch = max(1.0 - smoothstep(0.0, 0.18, abs(fract((xz.x + xz.y) / 5.0) - 0.5) * 2.0 - 0.8), 1.0 - smoothstep(0.0, 0.18, abs(fract((xz.x - xz.y) / 5.0) - 0.5) * 2.0 - 0.8));
+    if (ti == 1) hatch = hln(xz.x + xz.y, 7.0, 0.2);
+    else if (ti == 2) hatch = max(hln(xz.x + xz.y, 5.0, 0.2), hln(xz.x - xz.y, 5.0, 0.2));
     else if (ti == 3) hatch = step(0.5, fract(xz.x / 6.0)) * step(0.5, fract(xz.y / 6.0));
     col = mix(col, tc, 0.28 + 0.5 * hatch);
   }
@@ -122,13 +124,13 @@ void main() {
   float seed = vInfo.y; float leaf = vInfo.z; float stripT = vInfo.w; int sp = int(vInfo.x + 0.5);
   vec3 N = normalize(vN);
   vec3 col;
-  if (vPart < 0.5) { col = vec3(0.24, 0.18, 0.12) * (0.8 + 0.4 * hv2(vWp.xz * 3.0)); }
+  if (vPart < 0.5) { col = s2l(vec3(0.24, 0.18, 0.12)) * (0.8 + 0.4 * hv2(vWp.xz * 3.0)); }
   else {
     float cover = clamp(leaf, 0.0, 1.0);
     float keep = hsh(uint(gl_FragCoord.x) * 1973u + uint(gl_FragCoord.y) * 9277u + uint(seed * 65535.0));
     if (keep > 0.15 + 0.85 * cover) discard;
     vec3 green = mix(uSpA[sp], uSpB[sp], fract(seed * 7.31));
-    vec3 bare = vec3(0.27, 0.22, 0.17) * (0.8 + 0.4 * fract(seed * 3.7));
+    vec3 bare = s2l(vec3(0.27, 0.22, 0.17)) * (0.8 + 0.4 * fract(seed * 3.7));
     col = mix(bare, green, smoothstep(0.35, 0.8, cover));
     col *= 0.82 + 0.3 * vV * 0.5 + 0.1 * hv2(vWp.xz * 1.7 + vWp.y);
     col = mix(col, col * vec3(0.7, 0.66, 0.6), stripT * 0.6);
@@ -191,8 +193,8 @@ export class VegGL {
     for (const [a, b] of [[gl.TEXTURE_MIN_FILTER, gl.NEAREST], [gl.TEXTURE_MAG_FILTER, gl.NEAREST], [gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE], [gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE]]) gl.texParameteri(gl.TEXTURE_2D, a, b);
     this.mem += this.stateBuf.byteLength;
     this.visitTex = null; this.grid = null; this.tq = null; this.choicesKey = null;
-    this.spA = new Float32Array(24 * 3); this.spB = new Float32Array(24 * 3); model.speciesList.forEach((n, i) => { const c = model.species[n].color; this.spA.set(c[0], i * 3); this.spB.set(c[1], i * 3); });
-    this.tierCol = new Float32Array([0.30, 0.78, 0.38, 0.95, 0.72, 0.18, 0.62, 0.36, 0.86, 0.60, 0.60, 0.60]);
+    this.spA = new Float32Array(24 * 3); this.spB = new Float32Array(24 * 3); const lin = c => c.map(v => Math.pow(Math.max(0, v), 2.2)); model.speciesList.forEach((n, i) => { const c = model.species[n].color; this.spA.set(lin(c[0]), i * 3); this.spB.set(lin(c[1]), i * 3); });
+    this.tierCol = new Float32Array([0.30, 0.78, 0.38, 0.95, 0.72, 0.18, 0.62, 0.36, 0.86, 0.60, 0.60, 0.60].map(v => Math.pow(v, 2.2)));
     this.vp = new Float32Array(16); this.view = new Float32Array(16); this.proj = new Float32Array(16); this.planes = new Float32Array(24);
     gl.activeTexture(gl.TEXTURE0);
   }

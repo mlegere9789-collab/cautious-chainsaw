@@ -16,15 +16,15 @@ Administrative History: Gettysburg National Military Park and National Cemetery,
 - **Hancock Avenue stone wall in 1925: 'practically the same as at the time of the battle'** (`NPSX-ADHI-p135-03`)
   - State date: **1925 statement (wall restored 1895-1905)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 135
   - Repository ids: `P-01`, `FEN-cemetery-ridge-walls`
-  - Claim: Cope's 1925 description says the stone wall on the west side of Hancock Avenue, from the Taneytown road to south of the Angle, is well preserved and practically the same as at the time of the battle
+  - Claim: Superintendent Cope's 1925 study says the stone wall on the west side of Hancock Avenue, from the Taneytown road to south of the Angle, is well preserved and practically the same as at the time of the battle
   - Quote: "The stone wall along the west side of Hancock Avenue, extending from the Taneytown road to some distance south of the Angle where Armistead crossed it in Pickett's Charge is well preserved and practically the same as at the time of the battle."
-  - Context (PDF p. 135): "Cope, "Gettysburg National Military Park," [1925], pp. 2-3,10,13,17,19."
+  - Context (PDF p. 134): "Only about half of the Emmitsburg Road (from Wheatfield Road to South Confederate Avenue) was re-ceded at this time.7 In 1925 Superintendent Cope prepared a study entitled "Gettysburg National Military Park" at the request of the War Department."
 - **Little Round Top, Big Round Top and Seminary Ridge walls in 1925** (`NPSX-ADHI-p135-04`)
   - State date: **1925 statement (walls restored 1895-1905)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 135
   - Repository ids: `P-14`
-  - Claim: In Cope's 1925 description stone walls on the south side of Little Round Top were erected and used by Union forces, long lines at the base of Big Round Top were erected and used by Confederates, and a long line along Seminary Ridge was used by Confederates and is well preserved
+  - Claim: In Superintendent Cope's 1925 study stone walls on the south side of Little Round Top were erected and used by Union forces, long lines at the base of Big Round Top were erected and used by Confederates, and a long line along Seminary Ridge was used by Confederates and is well preserved
   - Quote: "There are some stone walls on the south side of Little Round Top that were erected and used by the Union forces. At the base of Big Round Top there are long lines of stone walls that were erected and used by the Confederates. Along Seminary Ridge there is a long line of stone wall that was used by the Confederates and is well preserved."
-  - Context (PDF p. 135): "Cope, "Gettysburg National Military Park," [1925], pp. 2-3,10,13,17,19."
+  - Context (PDF p. 134): "Only about half of the Emmitsburg Road (from Wheatfield Road to South Confederate Avenue) was re-ceded at this time.7 In 1925 Superintendent Cope prepared a study entitled "Gettysburg National Military Park" at the request of the War Department."
 
 ## NPS-CLI-1STDAY
 
@@ -46,8 +46,9 @@ Cultural Landscapes Inventory: First Day - Union 1st Corps Battlefield, Gettysbu
 - **Herbst farm fences** (`NPSX-CLI-1STDAY-p057-08`)
   - State date: **modern 2021 (battle-era fences missing)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 57 [Page 55 of 105]
   - Repository ids: `bld-herbst`
-  - Claim: The battle-era fences of the Herbst fields are missing on all sides today
+  - Claim: The battle-era fences of Herbst Field 1 are missing on all four sides
   - Quote: "Missing battle-era fences on all four sides."
+  - Context (PDF p. 57): "(CLR 2021: 350-351) --CLR/CLI evaluation: Contributing --NR evaluation: Contributing (Herbst Farm Fields) _Field #1 is an open meadow with extensive Union burials in west half, 1863."
 - **McPherson farm Field 3c south side worm fence** (`NPSX-CLI-1STDAY-p058-04`)
   - State date: **modern 2021 description** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 58 [Page 56 of 105]
   - Repository ids: `bld-mcpherson-farm`, `FEN-mcpherson-railroad-grade`
@@ -58,22 +59,24 @@ Cultural Landscapes Inventory: First Day - Union 1st Corps Battlefield, Gettysbu
   - State date: **1933 shift (present line is not the 1863 line)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 58 [Page 56 of 105]
   - Repository ids: `bld-mcpherson-farm`, `FEN-chambersburg-pike`
   - Claim: The Chambersburg Road fence at the McPherson farm was shifted south into the field in 1933 and stands south of its 1863 alignment
-  - Quote: "Chambersburg Road fence shifted south into field, 1933."
+  - Quote: "Combined with Field #4b, post-1863; Stone Avenue built along western edge, 1886; acquired by U.S., 1904; Chambersburg Road fence shifted south into field, 1933. Split-rail fence on west side in non-historic location; Chambersburg Road fence located south of 1863 alignment."
+  - Context (PDF p. 58): "(Figure 23) McPherson Farm Fields is comprised of fourteen open fields."
 - **McPherson farm reconstructed fences** (`NPSX-CLI-1STDAY-p059-06`)
   - State date: **reconstruction (modern, date not given on the page)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 59 [Page 57 of 105]
   - Repository ids: `bld-mcpherson-farm`, `FEN-mcpherson-railroad-grade`
-  - Claim: Battle-period fences have been re-established by the park on several McPherson field boundaries
-  - Quote: "Post-1933 successional woods along portions of north side (railroad); battle-period fences reestablished on south and west sides."
+  - Claim: Battle-period fences have been reestablished on the south and west sides of McPherson Field 9
+  - Quote: "_Field #9 was an open field used for growing wheat, oats, or grass, with Confederate burials in eastern end, 1863. Bisected by Oak Ridge Public Road, 1870, and Reynolds Avenue, 1886; combined with Field #8, post-1895. Post-1933 successional woods along portions of north side (railroad); battle-period fences reestablished on south and west sides."
+  - Context (PDF p. 58): "(Figure 23) McPherson Farm Fields is comprised of fourteen open fields."
 - **Forney Field 5, eastern fence line** (`NPSX-CLI-1STDAY-p060-10`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: inferred (source wording: conflict) | PDF p. 60 [Page 58 of 105]
   - Claim: The documentation of the 1863 eastern fence line of Forney Field 5 is not conclusive; a battle-era fence has been reestablished on its north side and its other sides are open to adjoining fields
-  - Quote: "Battle-era fence reestablished on north side; other sides open to adjoining fields. Documentation on 1863 eastern fence line not conclusive."
-  - Context (PDF p. 60): "_Field #5 was an open field with timothy grass and Confederate burials, 1863."
+  - Quote: "_Field #5 was an open field with timothy grass and Confederate burials, 1863. Site of Gettysburg Airport runway, 1927-1947. Acquired by park, 1948. Battle-era fence reestablished on north side; other sides open to adjoining fields. Documentation on 1863 eastern fence line not conclusive."
+  - Context (PDF p. 60): "(CLR 2021: 385) --CLR/CLI evaluation: Contributing --NR evaluation: none Forney Fields."
 - **Forney Field 6, eastern fence line** (`NPSX-CLI-1STDAY-p060-12`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: inferred (source wording: conflict) | PDF p. 60 [Page 58 of 105]
   - Claim: The documentation of the 1863 eastern fence line of Forney Field 6 is not conclusive; a battle-era fence has been reestablished on its south side and its other sides are open to adjoining fields
-  - Quote: "Battle-era fence reestablished on south side; other sides open to adjoining fields. Documentation on 1863 eastern fence line not conclusive."
-  - Context (PDF p. 60): "_Field #6 was an open field with timothy grass and Confederate burials (Iverson’s Pits), 1863."
+  - Quote: "_Field #6 was an open field with timothy grass and Confederate burials (Iverson’s Pits), 1863. Site of Gettysburg Airport runway, 1927-1947. Acquired by park, 1948. Battle-era fence reestablished on south side; other sides open to adjoining fields. Documentation on 1863 eastern fence line not conclusive."
+  - Context (PDF p. 60): "(CLR 2021: 385) --CLR/CLI evaluation: Contributing --NR evaluation: none Forney Fields."
 - **Seminary Avenue stone wall (Rodes's Division breastworks)** (`NPSX-CLI-1STDAY-p080-01`)
   - State date: **1895-1912 commemorative-era construction** | use for the July 1863 scene: **indirect** | tier proposed: inferred (source wording: hedged) | PDF p. 80 [Page 78 of 105]
   - Repository ids: `E-18`
@@ -91,7 +94,7 @@ Cultural Landscapes Inventory: Emmitsburg Road Ridge Battlefield, Gettysburg Nat
 - **Klingel, Trostle and Codori farms: fence types** (`NPSX-CLI-ERR-p040-04`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 40 [Page 35 of 117]
   - Repository ids: `bld-klingle-farm`, `bld-trostle-farm`, `bld-codori-farm`, `FEN-klingle`
-  - Claim: In 1863 fences on these farms were typically wooden post and rail, worm, or wooden post and board; a few stone walls also stood in the area
+  - Claim: In 1863 fence construction on these farms was typically wooden post and rail, worm, or wooden post and board; a few stone walls were also found within the project area
   - Quote: "Typically, fence construction was wooden post and rail, worm, or wooden post and board. A few stone walls were also found within the project area."
 - **Trostle farm lane gate and fence openings** (`NPSX-CLI-ERR-p042-05`)
   - State date: **1863-07-02** | use for the July 1863 scene: **direct** | tier proposed: inferred (source wording: hedged) | PDF p. 42 [Page 37 of 117]
@@ -151,10 +154,11 @@ Cultural Landscapes Inventory: Emmitsburg Road Ridge Battlefield, Gettysburg Nat
   - Repository ids: `bld-trostle-farm`
   - Claim: A stone wall with a narrow gate stood on the Trostle lane; the wall stayed standing, the gate was blocked by an overturned limber and four guns of Bigelow's battery were trapped and captured by the 21st Mississippi
   - Quote: "Because the stone wall adjacent to the gate remained standing, the narrow gate opening became an obstacle to the orderly retreat of Union forces from the Peach Orchard line. When the gate was blocked by an overturned limber, four guns of Bigelow’s Battery were trapped and captured by the 21st Mississippi Regiment."
+  - Context (PDF p. 79): "As one example, the Trostle farm stone wall and gate provided the key access point from the Trostle Lane to the Peach Orchard battle line for artillery and infantry units."
 - **Stone walls at the Codori woodlot and the Neinstedt field** (`NPSX-CLI-ERR-p079-05`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 79 [Page 74 of 117]
   - Repository ids: `bld-codori-farm`
-  - Claim: Other stone walls separated the Codori woodlot from the Neinstedt field and the Neinstedt field from the George Weikert field
+  - Claim: Other stone walls separated the Codori woodlot and Neinstedt field, and the Neinstedt field and the George Weikart field (the report's spelling)
   - Quote: "Other stone walls separated the Codori woodlot and Neinstedt field, and the Neinstedt field and the George Weikart field."
 - **Trostle farm stone wall rebuilt by 1927** (`NPSX-CLI-ERR-p080-04`)
   - State date: **rebuilt by 1927** | use for the July 1863 scene: **indirect** | tier proposed: inferred (source wording: hedged) | PDF p. 80 [Page 75 of 117]
@@ -165,21 +169,22 @@ Cultural Landscapes Inventory: Emmitsburg Road Ridge Battlefield, Gettysburg Nat
   - State date: **pre-1863 origin; dimensions as surveyed today (modern)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 82 [Page 77 of 117]
   - Repository ids: `bld-trostle-farm`
   - Claim: The field stone wall of the Abraham Trostle farm (inventory date pre-1863, contributing) is of dry-laid granite stones of varying width and height, measuring around 1.5 to 3 (the sentence continues on the next page)
-  - Quote: "(pre-1863, Contributing) This wall features dry-laid granite stones of varying width and height, measuring around 1.5 to 3"
+  - Quote: "(NR 2004, Sec.7: 15; HSI) --Field Stone Wall, Abraham Trostle Farm. (pre-1863, Contributing) This wall features dry-laid granite stones of varying width and height, measuring around 1.5 to 3 Cultural Landscapes Inventory Page 77 of 117"
 - **Field stone wall, Trostle farm** (`NPSX-CLI-ERR-p083-01`)
   - State date: **pre-1863 origin; dimensions as surveyed today (modern)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 83 [Page 78 of 117]
   - Repository ids: `bld-trostle-farm`
-  - Claim: A rider fence stands atop a portion of the field wall of the A. Trostle Farm; its total overall length is 1,200 feet, not including Bigelow's Battery Walls, and it separates fields, running perpendicular to and between United States Avenue and Wheatfield Road just southeast of the farmhouse
+  - Claim: The dry-laid field wall of the Abraham Trostle farm (pre-1863, granite stones of varying width and height, around 1.5 to 3 feet) has a rider fence atop a portion; its total overall length is 1,200 feet, not including Bigelow's Battery Walls, and it separates fields, running perpendicular to and between United States Avenue and Wheatfield Road just southeast of the farmhouse
   - Quote: "A rider fence stands atop a portion of wall. The total overall length is 1,200 feet, not including Bigelow’s Battery Walls. The wall separates fields on the A. Trostle Farm, running perpendicular to and between United States Avenue and Wheatfield Road just southeast of the farmhouse."
+  - Context (PDF p. 82): "(NR 2004, Sec.7: 15; HSI) --Field Stone Wall, Abraham Trostle Farm. (pre-1863, Contributing) This wall features dry-laid granite stones of varying width and height, measuring around 1.5 to 3 Cultural Landscapes Inventory Page 77 of 117"
 - **Bigelow's Battery stone walls (Trostle farm)** (`NPSX-CLI-ERR-p083-02`)
   - State date: **pre-1863 origin; dimensions as surveyed today (modern)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 83 [Page 78 of 117]
   - Repository ids: `bld-trostle-farm`
-  - Claim: The L-shaped stone wall in front of and across the road from the Trostle farmhouse was built by Peter Trostle before 1863; about 4 feet wide, 2 feet high and 960 feet long as surveyed today
-  - Quote: "The wall measures about 4 feet in width by 2 feet in height by 960 feet in length. Built by Peter Trostle but associated with A. Trostle Farm during the battle."
+  - Claim: Bigelow's Battery Stone Walls (inventory date pre-1863, contributing) form an L-shaped wall in front of and across the road from the A. Trostle farmhouse, about 4 feet wide, 2 feet high and 960 feet long, built by Peter Trostle but associated with the A. Trostle Farm during the battle
+  - Quote: "(HSI; NR 2004, Sec.7: 104-106) --Bigelow’s Battery Stone Walls. (pre-1863, Contributing) The wall forms an L-shape, with the east-west section running parallel to United States Avenue in front of the A. Trostle farmhouse (Figure 33). The north-south section is across the road from the house and runs perpendicular to the road. The wall measures about 4 feet in width by 2 feet in height by 960 feet in length. Built by Peter Trostle but associated with A. Trostle Farm during the battle."
 - **Boundary stone wall, Neinstedt field** (`NPSX-CLI-ERR-p083-03`)
   - State date: **pre-1863 origin; dimensions as surveyed today (modern)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 83 [Page 78 of 117]
-  - Claim: The Neinstedt field boundary wall west of the George Weikert farmhouse is pre-1863; 3 to 4 feet wide and 2.5 to 3 feet high as surveyed today, with a rider fence on the east-west section today
-  - Quote: "The dry-laid granite wall of varying size stones measures 3-4 feet in width by 2.5-3 feet in height."
+  - Claim: The Boundary Stone Wall of the Conrad Neinstedt Field (inventory date pre-1863, contributing) is a dry-laid granite wall of varying size stones, 3-4 feet in width by 2.5-3 feet in height, forming an L with an east-west section running parallel to United States Avenue just west of George Weikert's farmhouse; the east-west section has a rider fence atop the stone wall
+  - Quote: "(LCS; NR 2004, Sec.7: 199) --Boundary Stone Wall, Conrad Neinstedt Field (portion). (pre-1863, Contributing) The dry-laid granite wall of varying size stones measures 3-4 feet in width by 2.5-3 feet in height. The wall forms an L, with an east-west section running parallel to United States Avenue, just west of George Weikert’s farmhouse. This section has a rider fence atop the stone wall (Figure 34)."
 
 ## NPS-CLI-LRT
 
@@ -208,6 +213,7 @@ Cultural Landscapes Inventory: Little Round Top, Gettysburg National Military Pa
   - Repository ids: `P-14`
   - Claim: The inventory says stone walls and fences that existed at the time of the battle at Little Round Top have been restored or replaced, including defensive walls, and that new wall sections now stand at the Sykes Avenue lot
   - Quote: "At Little Round Top, stone walls and fences that existed as part of the farm complexes at the time of the battle have been restored or replaced, including walls built for defensive purposes."
+  - Context (PDF p. 73): "Located along Wheatfield Road and its future intersection with Sedgwick and Sykes avenues, the building was proximate to Round Top Park across the road."
 - **Field stone wall, Jacob Weikert farm / Company B 20th Maine: built before 1863** (`NPSX-CLI-LRT-p074-01`)
   - State date: **pre-1863 (built)** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 74 [Page 69 of 107]
   - Repository ids: `P-14`, `bld-weikert-farm`
@@ -255,8 +261,8 @@ Cultural Landscapes Inventory: Pickett's Charge Battlefield, Gettysburg National
 - **Emmitsburg Road and Fairfield (Millerstown) Road, Codori to Sherfy** (`NPSX-CLI-PCB-p049-09`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 49 [Page 44 of 131]
   - Repository ids: `FEN-emmitsburg-road`
-  - Claim: In 1863 the Emmitsburg Road and the Fairfield (now Millerstown) Road in the Codori-Sherfy area were lined predominantly by worm and post and rail fencing
-  - Quote: "These circulation routes were lined predominantly by worm and post and rail fencing."
+  - Claim: In 1863 the Emmitsburg Road, extending southwest from the southern end of the Borough, and the Fairfield Road (presently Millerstown Road) were lined predominantly by worm and post and rail fencing
+  - Quote: "Emmitsburg Road extended southwest from the southern end of the Borough and Fairfield Road (presently, Millerstown Road) continued in a westward direction from the intersection of Wheatfield and Emmitsburg Roads. These circulation routes were lined predominantly by worm and post and rail fencing."
 - **Farmsteads and fence lines on the field of Pickett's Charge** (`NPSX-CLI-PCB-p050-01`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 50 [Page 45 of 131]
   - Repository ids: `FEN-emmitsburg-road`
@@ -287,55 +293,60 @@ Cultural Landscapes Inventory: Pickett's Charge Battlefield, Gettysburg National
   - Repository ids: `bld-rogers-house`
   - Claim: On the second day of the battle the Federal skirmish line stood at the fence on the west boundary of the Rogers field, where it prepared for and slowed the Confederate attack that came during the later afternoon
   - Quote: "On the second day of the battle. Union troops were exposed to artillery and small arms fire while crossing this field between the Emmitsburg Road and the fence that formed its west boundary. At the fence along this western boundary, the Federal skirmish line prepared for and slowed the Confederate attack that came during the later afternoon."
+  - Context (PDF p. 81): "(Contributing) This small rectangular field fronted on the Emmitsburg Road and continued westward behind the Rogers buildings in the direction of the Henry Spangler farm."
 - **S. R. Russell field and Long Lane** (`NPSX-CLI-PCB-p082-02`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 82 [Page 77 of 131]
   - Claim: The Russell field was a fence-enclosed outlot and Long Lane, which abutted its southeastern edge, was fence-enclosed
   - Quote: "Access from the town was by way of Long Lane, which was fence-enclosed and abutted the southeastern edge of the field."
+  - Context (PDF p. 82): "This fenceenclosed outlot owned by town resident Russell may have been leased or used by one of the neighboring farmers."
 - **Sherfy farm west boundary** (`NPSX-CLI-PCB-p082-05`)
   - State date: **1863-07-01 (night) to 07-02** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 82 [Page 77 of 131]
   - Repository ids: `bld-sherfy-farm`
   - Claim: Fencing and a hedgerow formed the western boundary of the Sherfy farm, where Union skirmishers were posted from the night of July 1
   - Quote: "The western fields were first occupied by Union troops on the night of July 1 when skirmishers and pickets were thrown out along the fencing and hedgerow that formed the western boundary of the farm."
+  - Context (PDF p. 82): "(Contributing) The Emmitsburg Road bisected the Sherfy farm into two almost equal halves and the Wheatfield Road/Millerstown Road formed their southern boundary."
 - **Stone wall on the east boundary of Shultz Woods** (`NPSX-CLI-PCB-p084-05`)
   - State date: **modern 2024 description (wall dated pre-1863 elsewhere in the inventory)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 84 [Page 79 of 131]
   - Claim: A stone wall delineates the eastern boundary of Shultz Woods
   - Quote: "Commemorative-era monumentation marking Confederate artillery positions are located within the edge of the woods and along the stone wall that delineates its eastern boundary."
+  - Context (PDF p. 84): "(CLR RoT 2018: 139-142,160) Shultz Woods."
 - **Barrett Field north boundary stone wall with rider fence** (`NPSX-CLI-PCB-p095-03`)
   - State date: **modern survey; shown on the park 1863 existing-condition map** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 95 [Page 90 of 131]
   - Claim: A stone wall with rider fence on the north boundary of Barrett Field (315 feet as surveyed today, parts missing) matches the stone wall and rider fence on a park 1863 existing-condition map; the dimensions are the present ones
   - Quote: "Stone wall and rider fence 315 feet long, 1.5-3 feet wide, and up to 3 feet high (Figure 30). Portions of the wall and fence are missing. The wall location matches the stone wall and rider fence shown on 1863 Existing Condition map No. 9 by Kathy Harrison, and labeled “Barrett Field North Boundary Fence and Rider Fence.”"
 - **Stone wall on Seminary Ridge east of Confederate Avenue (Pegram's Battalion stone wall)** (`NPSX-CLI-PCB-p097-01`)
   - State date: **pre-1863 origin; dimensions as surveyed today (modern)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 97 [Page 92 of 131]
-  - Claim: A dry-laid stone wall along Seminary Ridge from near the McMillan house southward was built before 1863 as a farm field boundary and was used by the armies; its 2,400 feet, 3.5 feet width and 3 feet height are the present measurements
-  - Quote: "The wall is 2,400 feet long and averages 3.5 feet in width and 3 feet in height."
+  - Claim: Pegram's Battalion Stone Wall (inventory date pre-1863, contributing) is a dry-laid wall of irregular granite and ironstone boulders, 2,400 feet long and averaging 3.5 feet wide and 3 feet high, running along the east side of Confederate Avenue from the vicinity of the McMillan House; the stone wall was erected as a farm field boundary and then incorporated by the armies into battle positions
+  - Quote: "(NR 2004, Sec.7: 202; HSI) Pegram’s Battalion Stone Wall. (pre-1863, Contributing) Dry-laid wall with irregular-size and shape granite and ironstone boulders. The wall is 2,400 feet long and averages 3.5 feet in width and 3 feet in height. The wall runs along the east side of Confederate Avenue (see Cover and see Figure 30). The north terminus is at vicinity of McMillan House and the south terminus extends 600 feet beyond the North Carolina Monument. The stone wall was erected as a farm field boundary and then incorporated by the armies into battle positions."
 - **Stone wall on Seminary Ridge east of Confederate Avenue (Pegram's Battalion stone wall), origin** (`NPSX-CLI-PCB-p097-02`)
   - State date: **pre-1863** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 97 [Page 92 of 131]
   - Claim: The wall was erected as a farm field boundary and then incorporated by the armies into battle positions
   - Quote: "The north terminus is at vicinity of McMillan House and the south terminus extends 600 feet beyond the North Carolina Monument. The stone wall was erected as a farm field boundary and then incorporated by the armies into battle positions."
 - **Stone wall on the east edge of Shultz's Woods (Pender's Division stone wall)** (`NPSX-CLI-PCB-p097-03`)
   - State date: **pre-1863 origin; dimensions as surveyed today (modern)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 97 [Page 92 of 131]
-  - Claim: A dry-laid stone wall along the east edge of Shultz's Woods from the Fairfield Road southward was a pre-1863 farm field boundary; 1,348 feet long, 3 feet wide and 3 feet high as surveyed today
-  - Quote: "It is 1,348 feet long, 3 feet wide and 3 feet high. Located along the eastern edge of Shultz’s Woods, from Fairfield Road/Middle Street to opposite from the former Armory."
+  - Claim: Pender's Division Stone Wall (inventory date pre-1863, contributing), a dry-laid wall of irregular-sized granite and ironstone boulders along the eastern edge of Shultz's Woods from Fairfield Road/Middle Street to opposite the former Armory, is 1,348 feet long, 3 feet wide and 3 feet high; it was erected as a farm field boundary and then incorporated by the armies into battle positions
+  - Quote: "(NR 2004, Sec.7: 103-104; HSI) Pender’s Division Stone Wall. (pre-1863, Contributing) Dry-laid wall with irregular-sized and shaped granite and ironstone boulders. It is 1,348 feet long, 3 feet wide and 3 feet high. Located along the eastern edge of Shultz’s Woods, from Fairfield Road/Middle Street to opposite from the former Armory. The stone wall was erected as a farm field boundary and then incorporated by the armies into battle positions."
 - **Stone wall on the north edge of Pitzer Woods** (`NPSX-CLI-PCB-p097-04`)
   - State date: **pre-1863 origin; dimensions as surveyed today (modern)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 97 [Page 92 of 131]
-  - Claim: A dry-laid stone wall on the northern edge of Pitzer Woods (1,300 feet long, 2 feet wide and 2 feet high as surveyed today) was a pre-1863 farm field boundary; its location matches a rider fence on the park 1863 existing-condition map
-  - Quote: "It is 1,300 feet long, 2 feet wide, and 2 feet high. Located on northern edge of Pitzer Woods on Seminary Ridge near Spangler Run."
+  - Claim: Pitzer's Woods Stone Wall (inventory date pre-1863, contributing) is a dry-laid wall of irregular-shaped granite boulders, 1,300 feet long, 2 feet wide and 2 feet high, on the northern edge of Pitzer Woods on Seminary Ridge near Spangler Run; it was erected as a farm field boundary and then incorporated by the armies into battle positions, and its location matches the rider fence depicted on 1863 Existing Condition map No. 12
+  - Quote: "(NR 2004, Sec.7: 103-104; HSI) Pitzer’s Woods Stone Wall. (pre-1863, Contributing) Dry-laid wall with irregular-shaped granite boulders. It is 1,300 feet long, 2 feet wide, and 2 feet high. Located on northern edge of Pitzer Woods on Seminary Ridge near Spangler Run. Wall seems to start just east of the Company F, 1st US (Vermont) Sharpshooters Monument. The stone wall was erected as a farm field boundary and then incorporated by the armies into battle positions. The location matches the rider fence depicted on 1863 Existing Condition map No. 12 by Kathy Harrison."
 - **Stone wall on the north edge of Pitzer Woods, rider fence** (`NPSX-CLI-PCB-p097-05`)
   - State date: **1863-07 (per the park 1863 existing-condition map)** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 97 [Page 92 of 131]
-  - Claim: The location of the Pitzer Woods wall matches the rider fence drawn on the park 1863 existing-condition map No. 12
+  - Claim: The location of the Pitzer's Woods Stone Wall matches the rider fence depicted on 1863 Existing Condition map No. 12 by Kathy Harrison
   - Quote: "The location matches the rider fence depicted on 1863 Existing Condition map No. 12 by Kathy Harrison."
+  - Context (PDF p. 97): "(NR 2004, Sec.7: 103-104; HSI) Pitzer’s Woods Stone Wall."
 - **Staub Field 4 west boundary stone wall with rider fence** (`NPSX-CLI-PCB-p098-04`)
   - State date: **modern survey; shown on the park 1863 existing-condition map** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 98 [Page 93 of 131]
   - Claim: A stone wall 150 feet long, 1-1.5 feet wide and up to 1.5 feet high, partly collapsed or missing, generally matches the stone wall and fence labelled 'Staub Field No.4 West Boundary Fence and Rider Fence' on the park's 1863 Existing Condition map No. 15; the rider fence atop the wall is no longer present
   - Quote: "(nd, Undetermined) Stone wall 150 feet long, 1-1.5 feet wide, and up to 1.5 feet high. Portions of the wall are collapsed or missing. The wall location generally matches the stone wall and fence shown on 1863 Existing Condition map No. 15 by Kathy Harrison, and labeled “Staub Field No.4 West Boundary Fence and Rider Fence.” The rider fence atop the wall is no longer present."
 - **Stone wall west of the Henry Spangler farm (Wilcox's Brigade stone wall)** (`NPSX-CLI-PCB-p099-01`)
   - State date: **pre-1863 origin; dimensions as surveyed today (modern)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 99
-  - Claim: A dry-laid wall east of West Confederate Avenue and west of the H. Spangler farm was a pre-1863 farm field boundary; 1,200 feet long, 3 feet wide and 1 foot high as surveyed today
-  - Quote: "It is 1,200 feet long, 3 feet wide, and 1 foot high. Located east of West Confederate Ave and west of the H. Spangler Farm."
+  - Claim: A dry-laid wall of irregular-sized granite boulders (inventory date pre-1863, contributing), east of West Confederate Avenue and west of the H. Spangler Farm, is 1,200 feet long, 3 feet wide and 1 foot high and was erected as a farm field boundary and then incorporated by the armies into battle positions
+  - Quote: "(pre-1863, Contributing) This wall features dry-laid, irregular-sized and shaped granite boulders. It is 1,200 feet long, 3 feet wide, and 1 foot high. Located east of West Confederate Ave and west of the H. Spangler Farm. Generally runs north-south but is heavily covered by thick vegetation including trees and poison ivy. The stone wall was erected as a farm field boundary and then incorporated by the armies into battle positions."
 - **Reconstructed fences on the Pickett's Charge field** (`NPSX-CLI-PCB-p115-01`)
   - State date: **2004-2024 reconstruction (modern)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 115 [Page 110 of 131]
   - Repository ids: `FEN-emmitsburg-road`
-  - Claim: The fences now standing on the Pickett's Charge field are reconstructions built since 2004 from historic photographs and maps
+  - Claim: Since 2004 the park has reconstructed thousands of feet of fencing based on historic photographs and maps
   - Quote: "Since 2004, the park has reconstructed thousands of feet of fencing based on historic photographs and maps."
 - **Fences standing in the early 2000s** (`NPSX-CLI-PCB-p115-02`)
   - State date: **2004 (National Register documentation)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 115 [Page 110 of 131]
@@ -461,6 +472,7 @@ Cultural Landscapes Inventory: Pickett's Charge Battlefield, Gettysburg National
   - Repository ids: `bld-sherfy-farm`
   - Claim: The sources for the Sherfy field fences disagree: a narrative from Barksdale's Brigade supports post and rail, a Tipton photograph of about 1890 supports post and slab; the park built post and slab in 2012
   - Quote: "The narrative from Barksdale’s Brigade, published 51 years after the battle, and the circa 1890 Tipton photograph support either a post and rail fence type or a post and slab fence type respectively. Differences in these sources may reflect variations in terminology, challenges with memory, or different iterations of fence construction over time. The park’s GIS notes that prior to 2012, these fence lines were last replaced in 1993."
+  - Context (PDF p. 117): "In 2012, the park completed the installation of 1,111 feet of post and slab fence and two gates along the boundaries of Sherfy Fields 1, 2, and 5."
 - **Sherfy yard picket fences** (`NPSX-CLI-PCB-p117-02`)
   - State date: **historic imagery (date not given); rebuilt 2011** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 117
   - Repository ids: `bld-sherfy-farm`
@@ -512,6 +524,7 @@ Cultural Landscape Report for First Day - Union 1st Corps Battlefield, Gettysbur
   - Repository ids: `bld-thompson-house`
   - Claim: By the eve of the war Mary Thompson kept a vine-covered arbor and garden bed on the south side of her stone house, bordered by a whitewashed picket fence
   - Quote: "She maintained a vine-covered arbor and garden bed along the south side, bordered by a whitewashed picket fence."
+  - Context (PDF p. 42): "Cultural Landscape Report for First Day - Union 1st Corps Battlefield, Gettysburg National Military Park 20 Anna Marie “Mary” Long Thompson had moved into the stone house north of the turnpike along with her eight children at some point prior to the 1846 sale to Stevens."
 - **James Thompson house: whitewashed plank fence** (`NPSX-CLR-1STDAY-p042-03`)
   - State date: **1860-1863** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 42 [20]
   - Repository ids: `bld-thompson-house`
@@ -522,10 +535,12 @@ Cultural Landscape Report for First Day - Union 1st Corps Battlefield, Gettysbur
   - Repository ids: `FEN-seminary-ridge`
   - Claim: Along the eastern boundary of the Forney farm on Oak Ridge, on the later line of Doubleday Avenue, ran a stone fence with a jog that followed the old Mount Pleasant property line
   - Quote: "Along the eastern property boundary on Oak Ridge, along the later alignment of Doubleday Avenue, was a stone fence that had a jog that followed the original Mount Pleasant property line."
+  - Context (PDF p. 46): "Forney Farm Extending south from Oak Hill was a 111-acre farm that on the eve of the Civil War was owned by John S. Forney (see fig. 1.13).The farm was originally part of lot 35 of the Manor of Maske, which was claimed by John and Robert Stuart in 1770."
 - **Stone fence on the Forney boundary of the Gilbert outlots** (`NPSX-CLR-1STDAY-p049-02`)
   - State date: **1860-1863** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 49 [27]
   - Claim: A stone fence along the Forney boundary formed the western edge of the Gilbert outlots
   - Quote: "The stone fence along the Forney boundary formed the western edge of the lots."
+  - Context (PDF p. 49): "27 Site HiStory to 1863 Gilbert Outlots On the slopes of Oak Ridge south of the McClean Farm, bordering the Wills and Forney farms and the McPherson outlots, were three town outlots covering approximately twelve acres that were owned or farmed during the mid-nineteenth century by John Gilbert (see fig. 1.13).The Gilbert lots were part of lot 17 of the Manor of Maske, which was warranted to Samuel Gettys in 1765, acquired by Alexander Cobean in 1798, and subsequently subdivided into town outlots."
 - **Fences as obstacles and as breastwork material** (`NPSX-CLR-1STDAY-p057-01`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 57 [35]
   - Repository ids: `E-01`, `E-18`
@@ -552,16 +567,17 @@ Cultural Landscape Report for First Day - Union 1st Corps Battlefield, Gettysbur
   - Quote: "Leaper also claimed damage to his garden and loss of hay in his stable, plus destruction of 357 feet of board fence."
 - **Legend of fence types on the 1863 drawing** (`NPSX-CLR-1STDAY-p075-01`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 75 [Drawing 1.1]
-  - Claim: The report's 1863 drawing distinguishes stone fence, Virginia worm fence, 5-rail post-and-rail fence, sawn or slab board fence, paling or picket fence, stacked-rail fence and undetermined fence
-  - Quote: "Virginia Worm Fence 5-Rail Post & Rail Fence Sawn or Slab Board Fence"
+  - Claim: The legend of the report's period plan (Drawing 1.1) distinguishes stone fence, Virginia worm fence, 5-rail post and rail fence, sawn or slab board fence, stacked rail fence, paling or picket fence, and fence (undetermined, or boundary)
+  - Quote: "Stone Fence Building Dead Horse Virginia Worm Fence 5-Rail Post & Rail Fence Sawn or Slab Board Fence Fence, Undetermined, or Boundary Contours, 5’ Interval Cut or Bank Gate Breastwork - Union 1863 Property Boundary Current Park Boundary Stacked Rail Fence x x x Union Graves Confederate Graves Paling or Picket Fence ‘ Drawing 1.1 Seminary Ridge, McPherson Ridge, Herr’s Ridge"
 - **Drawing note: fence lines shown pre-battle** (`NPSX-CLR-1STDAY-p075-02`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 75 [Drawing 1.1]
   - Claim: A note on the report's period plan states that fence lines are shown as they stood before the battle and that the extent of battle damage is not indicated
   - Quote: "Fence lines shown pre-battle; extent of damage not indicated"
 - **Insufficient documentation for all fence lines and types, 1863-1895** (`NPSX-CLR-1STDAY-p131-01`)
   - State date: **1863-1895 drawing note** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 131 [Drawing 1.3]
-  - Claim: A note on the report's plan of the GBMA period states that there is insufficient documentation to determine all fence lines and types
+  - Claim: A note on the report's plan of the GBMA Period (1863–1895) states that there is insufficient documentation to determine all fence lines and types
   - Quote: "Insufficient documentation to determine all fence lines/types"
+  - Context (PDF p. 131): "GBMA Period, 1863–1895"
 - **Reconstructed battle-period fences of Virginia worm or post-and-rail type** (`NPSX-CLR-1STDAY-p288-01`)
   - State date: **2016-2019 condition (modern, reconstructed)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 288 [262]
   - Claim: Battle-period wood fences found on the 1st Corps field today are mostly Virginia worm or post-and-rail types and delineate some but not all of the battle-period fields
@@ -571,10 +587,12 @@ Cultural Landscape Report for First Day - Union 1st Corps Battlefield, Gettysbur
   - Repository ids: `P-07`
   - Claim: A battle-era stone fence, used as a breastwork and modified after the battle, extends along the east boundary of the Forney farm
   - Quote: "A battle-era stone fence, used as a breastwork and modified after the battle, extends along the east boundary."
+  - Context (PDF p. 299): "The Forney Farm extends from Oak Hill south across Mummasburg Road, roughly bounded by Buford, Doubleday, and North Confederate Avenues."
 - **Gilbert outlots: three fields in 1863, stone fence on the west** (`NPSX-CLR-1STDAY-p301-01`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 301 [275]
   - Claim: The Gilbert outlots contained three fields in 1863 and were lined on the west side by a battle-era stone fence on the Forney property line
   - Quote: "The outlots, which contained three fields in 1863, are lined on the west side by a battle-era stone fence on the Forney property line."
+  - Context (PDF p. 301): "275 Existing Conditions South of the McClean Farm are the Gilbert Outlots along the crest and east face of Oak Ridge, east of the Forney and Wills farms."
 - **Battle-era field fences: purposes and types** (`NPSX-CLR-1STDAY-p349-01`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 349 [321]
   - Claim: The small farm fields of the 1st Corps field were enclosed by a variety of fences to keep livestock in, protect crops or mark boundaries
@@ -630,6 +648,7 @@ Cultural Landscape Report for First Day - Union 1st Corps Battlefield, Gettysbur
   - Repository ids: `P-07`
   - Claim: The Oak Ridge stone fence was probably built in the 18th century and by the time of the battle may have been tumbled down and covered by brush
   - Quote: "It was probably built in the 18th century and by the time of the battle may have been in a tumbled-down condition, covered by brush."
+  - Context (PDF p. 428): "LANDSCAPE FEATURES INVENTORY — OAK RIDGE First Day Union 1st Corps Battlefield, Gettysburg National Military Park Feature Name (Drawing #) Other Ownership Other Resource Inventory Evaluation Status Evaluation Historic period: 1863–1927, 1938 (Peace Memorial) Existing Conditions Photo Reference Bender Storage House (3.3) NR Resource (Building “Storage House”) FMSS Location: 66081 Contributing Context: Battlefield (C.S. Advance) History: In ca. 1890, a small gable-roof frame shed on a rubble stone foundation was built at the rear of the Bender farmhouse, probably under the ownership of Jeremiah Bender."
 - **No conclusive documentation of the 1863 fence between Forney fields 5/6 and 7/8** (`NPSX-CLR-1STDAY-p463-01`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 463
   - Claim: A drawing of the Peace Memorial area carries the note: inconclusive documentation on 1863 fence between Forney fields 5/6 and 7/8
@@ -678,7 +697,7 @@ Cultural Landscape Report for Gettysburg National Military Park: Record of Treat
 - **39 miles of 1863 fences lost to modern agriculture (GMP 1999)** (`NPSX-CLR-ROT-V1-p075-01`)
   - State date: **1999 estimate (modern)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 75 [49]
   - Claim: In 1999 the park's GMP estimated that 39 miles of 1863 fences had been lost to modern agricultural practice; the fences that remained did not reflect the height, mass and tightness of the 1863 fences
-  - Quote: "In 1999, the park’s GMP estimated that 39 miles of 1863 fences had been lost to modern agricultural practices within the preserved battlefield landscape."
+  - Quote: "In 1999, the park’s GMP estimated that 39 miles of 1863 fences had been lost to modern agricultural practices within the preserved battlefield landscape. The fences that remained did not reflect the height, mass, and tightness of the 1863 fences."
 - **Where no documentation exists but a map shows a fence: simple three-rail fence** (`NPSX-CLR-ROT-V1-p075-02`)
   - State date: **2004 treatment rule (modern)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 75 [49]
   - Claim: Where no documentation is available but historic maps note the presence of a fence, the park will install a simple fence, such as three-rail post and rail, to indicate the presence of a fence
@@ -726,8 +745,8 @@ Cultural Landscape Report for Gettysburg National Military Park: Record of Treat
   - Quote: "Russell claimed the loss of 55 panels of post and rail fence along his south boundary with Jacob Culp’s property."
 - **Post and rail fencing around the Russell corn field documented in photographs** (`NPSX-CLR-ROT-V1-p176-02`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 176 [150]
-  - Claim: The post and rail fencing of the Sheely or Jacob Ziegler Field and Russell Corn Field is documented in park photographs
-  - Quote: "The post and rail fencing is documented in photographs from the park’s historical collection (Figure 115)."
+  - Claim: The post and rail fencing on the south boundary of the Russell Corn Field is documented in photographs from the park's historical collection; in 2008 the park installed 552 feet of post and rail fence there
+  - Quote: "The post and rail fencing is documented in photographs from the park’s historical collection (Figure 115). In 2008, the park installed 552 feet of post and rail fence along the south boundary of the Russell Corn Field."
 - **Post and rail fence rebuilt 2008-2009 on the Russell Corn Field** (`NPSX-CLR-ROT-V1-p176-03`)
   - State date: **2008-2009 reconstruction (modern)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 176 [150]
   - Claim: In 2008 the park installed 552 feet and in 2009 947 feet of post and rail fence on the Russell Corn Field boundaries
@@ -740,6 +759,7 @@ Cultural Landscape Report for Gettysburg National Military Park: Record of Treat
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 178 [152]
   - Claim: The post and rail fence type of the Jacob Culp Field is documented in the 1868 Warren map and in park photographs
   - Quote: "The post and rail fence type is documented in the 1868 Warren Map and in photographs from the park’s historical collection"
+  - Context (PDF p. 178): "Jacob Culp Field Post and Rail Fence Installation [GIS IDs 1060, 1061, 1062, 1319]"
 - **Myers Fields 1 and 2 post and rail fence lines (entry heading 'Myers Fields 1 and 2 Post and Rail Fence Installation')** (`NPSX-CLR-ROT-V1-p180-01`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 180 [154]
   - Claim: Under that heading the report says the post and rail fence lines are documented in the 1863 Bachelder map and the post and rail type in the 1868 Warren map and park photographs
@@ -788,8 +808,9 @@ Cultural Landscape Report for Gettysburg National Military Park: Record of Treat
 - **Codori thicket south boundary worm fence (entry heading 'Codori Thicket South Boundary Worm Fence Installation')** (`NPSX-CLR-ROT-V1-p396-01`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 396 [370]
   - Repository ids: `bld-codori-farm`
-  - Claim: Under that heading the report says the fence is documented in the 1863 Bachelder map and the 1868 Warren map and obstructed Union troops
+  - Claim: Under the heading Codori Thicket South Boundary Worm Fence Installation the report says the fence created an obstacle to Union troops and is documented in the 1863 Bachelder Map and the 1868 Warren Map
   - Quote: "This direction was continued for two hundred yards or so, when it brought the right of the line to the edge of some marshy ground, and the left near a fence.”14 This fencing type created an obstacle to Union troops and is documented in the 1863 Bachelder Map [GIS ID 1338] and in the 1868 Warren Map [GIS ID 1339]"
+  - Context (PDF p. 396): "Codori Thicket South Boundary Worm Fence Installation [GIS IDs 1338, 1339]"
 - **Trostle-Wigert Lane fence (Trostle Field 10 south boundary)** (`NPSX-CLR-ROT-V1-p406-01`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 406 [380]
   - Repository ids: `bld-trostle-farm`
@@ -855,6 +876,7 @@ Cultural Landscape Report for Gettysburg National Military Park: Record of Treat
   - Repository ids: `P-01`, `E-17`, `FEN-cemetery-ridge-walls`
   - Claim: The study says Gibbon's Division, posted since the morning of July 2, strengthened its positions by throwing earth over the existing stone wall, which in places was surmounted by a common post-and-rail fence
   - Quote: "This division, posted since the morning of the 2nd, had strengthened their positions where possible by throwing earth over the existing stone wall. In places this wall was surmounted by “a common post-and-rail fence”."
+  - Context (PDF p. 24): "The Comte de Paris described this line succintly:--Gibbon's Division covered four hundred and fifty yards southward from the Angle wall."
 - **20th Massachusetts behind a slight earth breastwork against a low stone fence topped with rails** (`NPSX-COMMON-PRIDE-1-p027-01`)
   - State date: **1863-07-03** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 27
   - Repository ids: `P-01`, `E-17`
@@ -870,6 +892,7 @@ Cultural Landscape Report for Gettysburg National Military Park: Record of Treat
   - Repository ids: `FEN-emmitsburg-road`
   - Claim: A soldier's account quoted by the study says there were two fences at that road but they were no impediment
   - Quote: "There were two fences at that road, but they were no impediment."
+  - Context (PDF p. 120): ""We were neaxing the Emmittsburg road ."
 - **First plank or slab fence on the Emmitsburg Road (a soldier's account)** (`NPSX-COMMON-PRIDE-1-p128-01`)
   - State date: **1863-07-03** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 128
   - Repository ids: `FEN-emmitsburg-road`
@@ -888,7 +911,7 @@ Cultural Landscape Report for Gettysburg National Military Park: Record of Treat
 - **Emmitsburg Road fences near Codori's house nearly destroyed the day before** (`NPSX-COMMON-PRIDE-1-p131-01`)
   - State date: **1863-07-02** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 131
   - Repository ids: `FEN-emmitsburg-road`, `bld-codori-farm`
-  - Claim: The passage (an account in the study) says the fences of the Emmitsburg Road near Codori's house had been nearly destroyed the day before, in the battle 'on our right'
+  - Claim: The passage (an account in the study) says the fences of the Emmitsburg road near 'Cordovie's house' (the report's spelling; the Codori house) had been nearly destroyed the day before in the battle 'on our right'
   - Quote: "The fences of the Emmitsburg road, near Cordovie’s house, had been nearly destroyed the day before in the battle on our right."
 
 ## NPS-HARMON-FARM
@@ -907,8 +930,8 @@ Historic Structure Report: Physical Fabric Section, Leister Barn, Gettysburg Nat
 - **Fencing beside the Leister barn: post and rail east of the shed meeting a north-south wall and rider fence** (`NPSX-HSR-LEISTER-BARN-p025-01`)
   - State date: **1863-07 (the pattern appears to have changed)** | use for the July 1863 scene: **direct** | tier proposed: inferred (source wording: hedged) | PDF p. 25
   - Repository ids: `bld-leister-house`, `FEN-leister`, `P-13`
-  - Claim: The report says the fencing pattern next to the barn appears to have changed from the 1863 one, with two units of post and rail extending east from the shed's SE corner to a north-south wall and rider fence
-  - Quote: "Fencing: The fencing pattern adjacent to the barn appears to have changed:"
+  - Claim: The report says the fencing pattern adjacent to the barn appears to have changed: two units of post and rail fence extend outward (east) from the SE corner of the shed to meet a north/south wall and rider fence, and together they enclosed an eastern barnyard
+  - Quote: "The fencing pattern adjacent to the barn appears to have changed: extend outward two units of post and rail fence (east) from the SE corner of the shed to meet a north/south wall and rider fence. Together, they enclosed an eastern barnyard."
 
 ## NPS-HSR-SLYDER
 

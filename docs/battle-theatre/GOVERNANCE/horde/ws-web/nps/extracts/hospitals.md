@@ -36,6 +36,7 @@ Boundary Study, Gettysburg National Military Park: Draft Report to Congress / En
   - Repository ids: `H-03`, `bld-schmucker-hall`
   - Claim: The Old Dorm of the Lutheran Seminary served during the battle as an observation post, signal station and hospital
   - Quote: "It served as a classroom and dormitory building and, during the battle, as a observation post, signal station and hospital."
+  - Context (PDF p. 62): "Old Dorm, Lutheran Theological Seminary This classroom and dormitory building was constructed in 1832 and is probably the oldest Lutheran Seminary building in existence in the country."
 - **Jacob Weikert farm: field hospitals for Little Round Top and Wheatfield Road casualties** (`NPSX-BOUNDARY-1988-p062-02`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 62
   - Repository ids: `bld-weikert-farm`, `H-08`
@@ -44,7 +45,7 @@ Boundary Study, Gettysburg National Military Park: Draft Report to Congress / En
 - **Black Horse Tavern (McClellan homestead): large Confederate hospital** (`NPSX-BOUNDARY-1988-p063-01`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 63
   - Claim: The buildings of the Black Horse Tavern complex were used as a large Confederate hospital during and after the battle
-  - Quote: "The tavern served the area for many years, but the buildings were also used as a large Confederate hospital during and after the battle."
+  - Quote: "Black Horse Tavern (McClellan Homestead) The Black Horse Tavern complex along the Fairfield road is important for a number of reasons. The tavern served the area for many years, but the buildings were also used as a large Confederate hospital during and after the battle."
 
 ## NPS-CARE-WOUNDED-GUIDE
 
@@ -73,16 +74,19 @@ Cultural Landscapes Inventory: Emmitsburg Road Ridge Battlefield, Gettysburg Nat
   - Repository ids: `bld-trostle-farm`
   - Claim: The Trostle house was used for hospital purposes at the close of the battle
   - Quote: "Although the house was used for hospital purposes at the close of the battle,"
+  - Context (PDF p. 79): "Because no Confederate battle line attacked through the Trostle farm complex, the buildings were not obstacles to the movement of either army."
 - **Trostle house (after July 5)** (`NPSX-CLI-ERR-p082-02`)
   - State date: **1863-07-05 and after** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 82 [Page 77 of 117]
   - Repository ids: `bld-trostle-farm`
   - Claim: The Trostle house was used for temporary hospital purposes after the Confederate army left on July 5
   - Quote: "It was used for temporary hospital purposes after the evacuation of the Confederate army on July 5."
+  - Context (PDF p. 81): "(LCS; NR 2004, Sec.7: 14) --Abraham (Catherine) Trostle Farm House."
 - **Trostle barn (after July 5)** (`NPSX-CLI-ERR-p082-04`)
   - State date: **1863-07-05 and after** | use for the July 1863 scene: **direct** | tier proposed: inferred (source wording: hedged) | PDF p. 82 [Page 77 of 117]
   - Repository ids: `bld-trostle-farm`
   - Claim: It is likely that the Trostle barn served temporarily for hospital purposes after the fighting
   - Quote: "It is likely that the barn served temporarily for hospital purposes after close of the fighting on July 5."
+  - Context (PDF p. 82): "(NR 2004, Sec.7: 11) --Abraham (Catherine) Trostle Farm Barn."
 
 ## NPS-CLI-PCB
 
@@ -92,20 +96,24 @@ Cultural Landscapes Inventory: Pickett's Charge Battlefield, Gettysburg National
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: inferred (source wording: hedged) | PDF p. 73 [Page 68 of 131]
   - Claim: The Henry Spangler farm may have served as a temporary hospital
   - Quote: "The farm may have served as a temporary hospital."
+  - Context (PDF p. 73): "(NR 2004, Sec.7: 80) Henry Spangler Farmstead."
 - **Shultz house (Seminary Ridge, former Oak Ridge Academy building)** (`NPSX-CLI-PCB-p073-03`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 73 [Page 68 of 131]
   - Claim: During and after the battle the Shultz house was used for emergency aid and as a temporary hospital
   - Quote: "During and after the battle, the house was used for emergency aid and temporary hospital purposes."
+  - Context (PDF p. 73): "(NR 2004, Sec.7: 60) Shultz House [inholding]."
 - **Nicholas Codori house (shelter for wounded)** (`NPSX-CLI-PCB-p096-02`)
   - State date: **1863-07-02 to 07-03** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 96 [Page 91 of 131]
   - Repository ids: `bld-codori-farm`
   - Claim: On July 2 two regiments of Harrow's brigade moved forward to the road beside the Codori house and were overrun, and wounded sought shelter within the house; on July 3 the house was an obstacle to Garnett's Virginia brigade in the Pickett-Pettigrew Assault, and Confederate wounded joined the Union wounded in the house until the conclusion of the battle
   - Quote: "On July 2, two regiments of Harrow’s Union brigade moved forward to the road astride the house to confront a major attack by Confederate infantry. Their position was overrun; wounded sought shelter within the house. On July 3, the house proved an obstacle to Garnett’s Virginia brigade as it participated in the Pickett-Pettigrew Assault. Confederate wounded joined Union wounded in the house until the conclusion of the battle."
+  - Context (PDF p. 96): "Pickett's Charge Battlefield Gettysburg National Military Park Nicholas Codori Farm: House."
 - **Joseph Sherfy barn (shelter for wounded)** (`NPSX-CLI-PCB-p097-09`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 97 [Page 92 of 131]
   - Repository ids: `bld-sherfy-farm`
   - Claim: The Sherfy barn had been used as a shelter for wounded Union soldiers, many of whom died when it burned
   - Quote: "It had been used as a shelter for wounded Union soldiers, many of whom died in the ensuing fire that consumed the barn."
+  - Context (PDF p. 97): "(NR 2004, Sec.7: 8; HSI) Joseph Sherfy Farm: Barn."
 
 ## NPS-CLR-1STDAY
 
@@ -135,6 +143,7 @@ Cultural Landscape Report for First Day - Union 1st Corps Battlefield, Gettysbur
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 68 [46]
   - Claim: The Michael Crist farmhouse on Herr's Ridge remained standing and was pressed into service as a field hospital
   - Quote: "Both Herr’s Tavern and Crist farmhouse remained standing, and the latter was pressed into service as a field hospital."
+  - Context (PDF p. 68): "Cultural Landscape Report for First Day - Union 1st Corps Battlefield, Gettysburg National Military Park 46 farmstead that he rented to William Job apparently was undamaged.127 Herr’s Ridge (Drawings 1.1, 1.2) The Wible (Herr) and Michael Crist farms on the top of Herr’s Ridge, although the site of Confederate artillery, were apparently far enough west of the front lines that they suffered comparatively little damage."
 - **Abraham Spangler and Leaper buildings used as Confederate hospitals** (`NPSX-CLR-1STDAY-p068-04`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 68 [46]
   - Claim: The buildings on the Abraham Spangler and Isaac Leaper properties north of the pike were used as Confederate hospitals
@@ -144,6 +153,7 @@ Cultural Landscape Report for First Day - Union 1st Corps Battlefield, Gettysbur
   - Repository ids: `H-05`, `bld-mcpherson-farm`
   - Claim: During the battle the McPherson barn sheltered Union regiments and sharpshooters fired from narrow window openings in its stone gable walls, and it served as a shelter and hospital after the fighting
   - Quote: "During the battle, the barn sheltered various Union regiments; sharpshooters occupied the barn and fired from narrow window openings in the stone gable walls. The barn served as a shelter and hospital after fighting ceased."
+  - Context (PDF p. 393): "McPherson Barn (3.4) 072 CRIS- HS:000463 NR Resources (Building, Object) Contributing Context: Battlefield (U.S. Observation, Cover) History: In ca. 1811, Reverend David McConaughy, owner of the McPherson Farm, replaced an old log barn with a large stone and frame bank barn, which maintained the east-facing orientation of the farmstead with the barn in front of (north) of the farmhouse with respect to Chambersburg Pike built in 1812."
 
 ## NPS-CLR-ROT-V1
 
@@ -172,11 +182,13 @@ Cultural Landscape Report for Gettysburg National Military Park: Record of Treat
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 329 [23]
   - Claim: The Lightner farm complex served as a Union field hospital and headquarters of the 12th Corps commander Gen. Williams from July 2 until the morning of July 5
   - Quote: "Additionally, the farm complex served as a Union field hospital and headquarters for the 12th Corps commander, General Alpheus S. Williams, from July 2 until the morning of July 5."
+  - Context (PDF p. 329): "Located immediately west of Baltimore Pike, a major avenue of approach, the Lightner Farm served as a location for communications and logistical support for the Union Army of the Potomac."
 - **George Spangler farm complex: cover for Union reserves, 11th Corps field hospital** (`NPSX-CLR-ROT-V1-p333-01`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 333 [307]
   - Repository ids: `bld-spangler-farm`, `H-06`
   - Claim: The Spangler farm complex gave cover to 5th Corps reserve units and the Artillery Reserve and served as the 11th Corps field hospital; the 1863 period plan shows a stone and rider fence on the east boundary of Field 8
   - Quote: "The complex provided cover and concealment for Union reserve units of the 5th Corps and the Artillery Reserve and additionally served as the 11th Corps field hospital.9 The park’s 1863 period plan shows the east boundary for Field 8 marked with a stone and rider fence."
+  - Context (PDF p. 333): "The George Spangler Farm complex was developed in the early nineteenth century and at the time of the battle, was surrounded by cultivated felds and pastures."
 - **Sickles taken to a field hospital along Taneytown Road** (`NPSX-CLR-ROT-V1-p389-01`)
   - State date: **1863-07-02** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 389 [363]
   - Claim: Sickles, struck in the right leg, was taken to a field hospital along Taneytown Road
@@ -191,6 +203,7 @@ Cultural Landscape Report for Gettysburg National Military Park: Record of Treat
   - Repository ids: `bld-spangler-farm`, `H-06`
   - Claim: Dr. D. G. Brinton was in charge of the 2nd Division, 11th Corps Union hospital at the George Spangler farm, where General Armistead was brought to die
   - Quote: "Dr. D. G. Brinton, in charge of the 2nd Division, 11th Corps Union hospital at the George Spangler farm, was the attending physician to the Virginia general."
+  - Context (PDF p. 184): "Union officer came to them while Holland was with Armistead, and that was the man who directed the ambulance to the field hospital."
 
 ## NPS-HSR-LEISTER-BARN
 
@@ -210,4 +223,4 @@ Civilians at Gettysburg (U.S. National Park Service) (web page, undated unless n
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 1
   - Repository ids: `H-02`, `bld-st-francis-xavier`
   - Claim: The page says the Catholic church in town held hundreds of wounded US and Confederate soldiers, where Sallie Myers nursed, and that Camp Letterman General Hospital lay east of town
-  - Quote: "the Catholic church where hundreds of wounded US and Confederate soldiers were hospitalized"
+  - Quote: "Elizabeth Salome (Sallie) Myers With little warning, this 21-year-old Gettysburg schoolteacher was suddenly thrust into the role of a nurse, tending to injured soldiers at her father's home and in the Catholic church where hundreds of wounded US and Confederate soldiers were hospitalized. She later provided food and nursing assistance at Camp Letterman General Hospital east of town."

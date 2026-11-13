@@ -28,11 +28,16 @@ def load_rows(source, unit):
 
 
 def write_flags(path, unit, n, groups, on_rolls):
+    basis = sorted(set(b for _, _, b in on_rolls))
+    bid = {b: i for i, b in enumerate(basis)}
+    orl = {'rule': 'inferred only from printed dates: a muster (enlistment) date printed on the line, or a ditto mark taking the date of the line above, '
+                   'and a separation (discharge, desertion, death, transfer, dropped) date printed in the remark; every other line is unknown',
+           'basis': basis, 'yes': [[i, bid[b]] for i, c, b in on_rolls if c == 'yes'], 'no': [[i, bid[b]] for i, c, b in on_rolls if c == 'no']}
     d = {'f': 'roster2-flags/1', 'u': unit, 'n': n,
          'about': 'row numbers count the rows of the unit file in file order from 0; "ocr_uncertain" = the line is damaged in the text layer '
                   '(any of the codes N R C G P U); the rows are never repaired; "on_rolls" is inferred from printed enlistment and separation dates only',
          'codes': M.FLAG_TEXT, 'rows': {k: v for k, v in sorted(groups.items())}, 'ocr_uncertain': sorted(set(i for k, v in groups.items() if k in M.OCR_FLAGS for i in v)),
-         'on_rolls': on_rolls}
+         'on_rolls_july_1863': orl}
     raw = (json.dumps(d, ensure_ascii=False, separators=(',', ':')) + '\n').encode('utf-8')
     with open(path, 'wb') as f:
         with gzip.GzipFile(filename='', mode='wb', fileobj=f, compresslevel=9, mtime=0) as g:
@@ -45,7 +50,7 @@ def main(only=None):
     for key, desig, rel in M.UNITS:
         if only and key not in only:
             continue
-        segs, groups, on_rolls, idx = [], collections.defaultdict(list), {}, 0
+        segs, groups, on_rolls, idx = [], collections.defaultdict(list), [], 0
         per_seg = []
         for (src, wseg), segobj in M.SEGMENTS:
             rows_in = load_rows(src, key).get(wseg, [])
@@ -58,7 +63,7 @@ def main(only=None):
                 for ch in set(a[7]):
                     groups[ch].append(idx)
                 if len(a) > 10 and a[10]:
-                    on_rolls[str(idx)] = a[10]
+                    on_rolls.append((idx, a[10][0], a[10][1]))
                 idx += 1
             segs.append((segobj, rows))
             per_seg.append({'text_id': segobj['t'], 'rows': len(rows)})
@@ -73,3 +78,29 @@ def main(only=None):
 
 if __name__ == '__main__':
     main(sys.argv[1:] or None)
+
+
+def assemble_other():
+    """The candidate pool of the 1867 index: lines whose unit cell cannot be read, kept beside the unit files, never filed to a unit."""
+    key = '_other-ME-SUPP-1867'
+    segs = []
+    p = os.path.join(M.WORK, 'ME-SUPP-1867', 'rows-_other.jsonl')
+    if not os.path.exists(p):
+        return None
+    byseg = collections.defaultdict(list)
+    for ln in open(p, encoding='utf-8'):
+        a = json.loads(ln)
+        byseg[a[9]].append(a)
+    for (src, wseg), segobj in M.SEGMENTS:
+        if src != 'ME-SUPP-1867' or wseg not in byseg:
+            continue
+        rows_in = sorted(byseg[wseg], key=lambda a: a[5])
+        segs.append((segobj, [R.row(a[0], a[1], a[2], a[3], a[4], a[5], a[6]) for a in rows_in]))
+    path = os.path.join(M.D2, 'union', 'me', key + '.jsonl.gz')
+    info = R.write_unit(path, key, 'union', 'me', 'Index lines of the Maine 1867 index whose regiment or corps cell cannot be read (candidate pool, not filed to a unit)', segs)
+    print(key, info['n'], info['raw'], info['gz'])
+    return info
+
+
+if __name__ == '__main__' and len(sys.argv) == 1:
+    assemble_other()

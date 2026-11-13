@@ -38,11 +38,14 @@ const area2 = pts => { let a = 0; const n = pts.length / 2; for (let i = 0; i < 
 
 /**
  * The ground-cover mesh: vertices (x, z, unit index, layer) in triples, non-indexed. Every outline is laid over a lattice of squares fixed to the ground (opts.cell metres, default 40):
- * a square wholly inside the outline is two triangles, a square the outline cuts is cut along it and fanned. So no triangle is longer than a square and the pieces are of even size;
- * the shader lays each vertex on the terrain. `project(lng, lat) -> [x, z]`.
+ * a square wholly inside the outline is two triangles; a square the outline passes through is cut along it, and the cut piece is triangulated and checked (the triangles must add up to the
+ * piece). A piece the ear clipping cannot do exactly (the outline leaves the square and comes back, so the piece has zero-width bridges) is made again from the triangles of the whole outline,
+ * each clipped to the square (every part convex, fanned without any guess). So no triangle is longer than a square, what is covered is the outline and nothing else, and the shader lays each
+ * vertex on the terrain. `project(lng, lat) -> [x, z]`. notClean counts the squares made by the second way.
  */
 export function buildDecals(model, project, opts = {}) {
   const C = opts.cell || 40, tri = [], units = model.units, per = new Int32Array(units.length); let bad = 0, n = 0;
+  const triAreaOf = (p, tr) => { let s = 0; for (let k = 0; k < tr.length; k += 3) { const A = p[tr[k]], B = p[tr[k + 1]], D = p[tr[k + 2]]; s += Math.abs((B[0] - A[0]) * (D[1] - A[1]) - (D[0] - A[0]) * (B[1] - A[1])) / 2; } return s; };
   for (let u = 0; u < units.length; u++) {
     const r = units[u].rings[0], pts = new Float64Array(r.length); let a = 1e9, b = 1e9, c = -1e9, d = -1e9;
     for (let k = 0; k < r.length; k += 2) { const p = project(r[k], r[k + 1]); pts[k] = p[0]; pts[k + 1] = p[1]; if (p[0] < a) a = p[0]; if (p[0] > c) c = p[0]; if (p[1] < b) b = p[1]; if (p[1] > d) d = p[1]; }
@@ -51,6 +54,9 @@ export function buildDecals(model, project, opts = {}) {
     const nx = i1 - i0 + 1, ny = j1 - j0 + 1, edge = new Uint8Array(nx * ny), np = pts.length / 2;
     for (let k = 0; k < np; k++) { const k2 = (k + 1) % np, ex0 = Math.min(pts[2 * k], pts[2 * k2]), ex1 = Math.max(pts[2 * k], pts[2 * k2]), ez0 = Math.min(pts[2 * k + 1], pts[2 * k2 + 1]), ez1 = Math.max(pts[2 * k + 1], pts[2 * k2 + 1]);
       for (let j = Math.floor(ez0 / C); j <= Math.floor(ez1 / C); j++) for (let i = Math.floor(ex0 / C); i <= Math.floor(ex1 / C); i++) edge[(j - j0) * nx + (i - i0)] = 1; }
+    // the outline in triangles, made only when a square needs them
+    let whole = null;
+    const wholeTris = () => { if (!whole) { const pr = []; for (let k = 0; k < np; k++) pr.push([pts[2 * k], pts[2 * k + 1]]); const T = triangulate(pr); whole = { pr, tris: T.tris }; } return whole; };
     for (let j = j0; j <= j1; j++) for (let i = i0; i <= i1; i++) {
       const X0 = i * C, Z0 = j * C, X1 = X0 + C, Z1 = Z0 + C;
       if (!edge[(j - j0) * nx + (i - i0)]) {
@@ -60,9 +66,17 @@ export function buildDecals(model, project, opts = {}) {
       }
       const q = clipRect(ring, X0, Z0, X1, Z1); if (q.length < 6) continue; const A = Math.abs(area2(q)); if (A < 0.25) continue;
       if (A > C * C * 0.9999) { tri.push(X0, Z0, X1, Z0, X1, Z1, X0, Z0, X1, Z1, X0, Z1); continue; }
-      const pr = []; for (let k = 0; k < q.length; k += 2) pr.push([q[k], q[k + 1]]);
-      const t = triangulate(pr); if (!t.ok) bad++;
-      for (let k = 0; k < t.tris.length; k += 3) { const A1 = pr[t.tris[k]], B1 = pr[t.tris[k + 1]], C1 = pr[t.tris[k + 2]]; tri.push(A1[0], A1[1], B1[0], B1[1], C1[0], C1[1]); }
+      const qp = []; for (let k = 0; k < q.length; k += 2) qp.push([q[k], q[k + 1]]);
+      const t = triangulate(qp);
+      if (t.ok && Math.abs(triAreaOf(qp, t.tris) - A) <= 1e-4 * A + 1e-6) { for (let k = 0; k < t.tris.length; k += 3) { const A1 = qp[t.tris[k]], B1 = qp[t.tris[k + 1]], C1 = qp[t.tris[k + 2]]; tri.push(A1[0], A1[1], B1[0], B1[1], C1[0], C1[1]); } continue; }
+      // the second way: the pieces of the whole outline's triangles that fall inside this square
+      bad++; const W = wholeTris();
+      for (let k = 0; k < W.tris.length; k += 3) {
+        const P = W.pr[W.tris[k]], Q = W.pr[W.tris[k + 1]], R = W.pr[W.tris[k + 2]];
+        if (Math.max(P[0], Q[0], R[0]) < X0 || Math.min(P[0], Q[0], R[0]) > X1 || Math.max(P[1], Q[1], R[1]) < Z0 || Math.min(P[1], Q[1], R[1]) > Z1) continue;
+        const f = clipRect([P[0], P[1], Q[0], Q[1], R[0], R[1]], X0, Z0, X1, Z1), cnt = f.length / 2;                      // convex: a fan from its first corner
+        for (let m = 1; m + 1 < cnt; m++) { const x1 = f[2 * m], z1 = f[2 * m + 1], x2 = f[2 * m + 2], z2 = f[2 * m + 3]; if (Math.abs((x1 - f[0]) * (z2 - f[1]) - (x2 - f[0]) * (z1 - f[1])) / 2 < 1e-6) continue; tri.push(f[0], f[1], x1, z1, x2, z2); }
+      }
     }
     per[u] = (tri.length - before) / 6; n += per[u];
   }

@@ -77,6 +77,22 @@
       "summary": "docs/accept/r1g-suite-logs/2026-11-13-static-light-after-quiet-flag.summary.json",
       "original_summary": "tmp/r1g-harness2/light-after.json",
       "conditions": "Cloud container, 2026-11-13, six static rows (--only static.baseline,static.legal,static.overlap.selftest,static.ship: the suite that regressed in the run before, and the light rows), started directly (not through the machine lock: each is a few seconds of CPU) with the final proxy-aware runner and no manual environment: the console line of the run says it added NODE_USE_ENV_PROXY and extended NODE_OPTIONS. Load recorded in the log (10.08 at the start, 11.15 at the end, 4 CPUs, shared with other work: the durations are not timing evidence). static.baseline is 17/17 here."
+    },
+    {
+      "log": "docs/accept/r1g-suite-logs/2026-11-13-static-after-quiet-flag.log",
+      "original_log": "tmp/r1g-harness2/static-after.log",
+      "time_utc": "2026-11-13T20:30:37Z",
+      "summary": "docs/accept/r1g-suite-logs/2026-11-13-static-after-quiet-flag.summary.json",
+      "original_summary": "tmp/r1g-harness2/static-after.json",
+      "conditions": "Cloud container, 2026-11-13, the 16 static rows (--only static), through the machine lock, with the final proxy-aware runner and no manual environment (its summary says the children's environment got: added NODE_USE_ENV_PROXY; extended NODE_OPTIONS). Load recorded: 12.47 at the start and 12.49 at the end of the run, 4 CPUs, shared with other work: the durations are not timing evidence. The run reached its final line. This entry was written by a script (tmp/r1g-harness2/post-add-sources.mjs) when the queued job ended; it makes no diagnosis."
+    },
+    {
+      "log": "docs/accept/r1g-suite-logs/2026-11-13-sample-after-quiet-flag.log",
+      "original_log": "tmp/r1g-harness2/sample-after.log",
+      "time_utc": "2026-11-13T20:33:11Z",
+      "summary": "docs/accept/r1g-suite-logs/2026-11-13-sample-after-quiet-flag.summary.json",
+      "original_summary": "tmp/r1g-harness2/sample-after.json",
+      "conditions": "Cloud container, 2026-11-13, six rows from other groups (--only pagesfix.R1c.legal,pagesmaps.R1a,r1.seo,r1.acc,staging.R0,a11y.R1a.chooser), through the machine lock, with the final proxy-aware runner and no manual environment (its summary says the children's environment got: added NODE_USE_ENV_PROXY; extended NODE_OPTIONS). Load recorded: 12.49 at the start and 11.44 at the end of the run, 4 CPUs, shared with other work: the durations are not timing evidence. The run reached its final line. This entry was written by a script (tmp/r1g-harness2/post-add-sources.mjs) when the queued job ended; it makes no diagnosis."
     }
   ]
 }

@@ -32,13 +32,23 @@ export const PAGES = ['app/index.html'];
 // loaded through a base path the literal scan cannot see (renderer: base + 'data/aerial.jpg', world: terrain.json / height.bin)
 export const EXTRA_DIRS = ['render/prototype/data'];
 // explicit include list (dynamic loads the scan cannot see; each entry is a folder or file under docs/battle-theatre, relative to it). Verified by tools/bt/verify_staging.mjs.
-export const INCLUDE = ['app/data/audio3d', 'app/data/anim3d', 'app/data/fx3d'];
+export const INCLUDE = ['app/data/audio3d', 'app/data/fx3d'];
 // module folders that ship whole: a module the page reaches only through a computed import is then never missing. Modules in them that no page loads are scanned too (superset).
 export const SHIP_WHOLE = ['app/src'];
 // static sections beside the shell (pages with no build step). Shipped whole when the folder exists; every page, script, style sheet and index file in them is scanned.
 export const SECTIONS = ['app/roster'];
-// files of a folder that no feature of the shell loads (checked by the same real run); left out to keep the zip small
-export const EXCLUDE = [];
+// files of a shipped folder that no page of this build loads. Each entry says how that was found out: no shipped module names the file outside a comment (tests/bt-pack/pack.test.mjs
+// checks it again on every run and fails when a module starts to name one), and the real run of 2026-11-13 (tools/bt/verify_staging.mjs, 227 requests, the whole theatre with figures,
+// effects, sound, drawers and added layers) never asked for it. They are folders that ship whole because a loader names its folder (`new URL('../../data/audio3d/', import.meta.url)`,
+// `URLS.data + 'fx3d/'`) and lists the files it needs by name; the rest of the folder is left out so that the zip holds what the page loads and nothing else. Listed in MANIFEST.json ("leftOut").
+export const EXCLUDE = [
+  { path: 'app/data/audio3d/documented-reports.json', why: 'not requested by any page of this build' },
+  { path: 'app/data/audio3d/gaps.json', why: 'not requested by any page of this build' },
+  { path: 'app/data/audio3d/measurements.json', why: 'not requested by any page of this build' },
+  { path: 'app/data/audio3d/weapons-sound-map.json', why: 'not requested by any page of this build' },
+  { path: 'app/data/fx3d/GAPS.json', why: 'not requested by any page of this build' },
+  { path: 'app/data/fx3d/TIERS.json', why: 'not requested by any page of this build' },
+];
 // not loaded by the shell today; listed in the manifest so the owner can see they were considered, never shipped
 export const NOT_LOADED = ['GOVERNANCE/timeline_verified.jsonl', 'GOVERNANCE/decisions/conflict_defaults.json'];
 // referenced by the shell but not shippable as they stand. Never copied into the build; listed in MANIFEST.json; the real run reports every link that reaches one (a failing check).
@@ -235,7 +245,8 @@ export function trace(opts = {}) {
     again = false;
     for (const [abs, whys] of [...files]) if (/\.json$/i.test(abs) && !seenJson.has(abs) && [...whys].some(w => cfg.sections.some(sec => w.includes(' in ' + sec + '/')))) { const n = files.size; scanJson(abs, path.dirname(abs)); if (files.size > n) again = true; }
   }
-  for (const d of cfg.exclude) { const abs = path.join(root, d); for (const f of [...files.keys()]) if (f === abs || f.startsWith(abs + path.sep)) files.delete(f); }
+  const leftOut = [];
+  for (const e of cfg.exclude) { const d = typeof e === 'string' ? e : e.path, abs = path.join(root, d), gone = []; for (const f of [...files.keys()]) if (f === abs || f.startsWith(abs + path.sep)) { files.delete(f); gone.push(rel(f)); } if (gone.length) leftOut.push({ path: d, files: gone.length, why: typeof e === 'string' ? '' : e.why || '' }); }
   // ---- working files that are shipped reduced: every shipped module that names one must be a listed reader, reading it the listed way
   const projected = [];
   for (const p of cfg.project) { const abs = path.join(root, p.path); if (!files.has(abs)) continue; const base = path.basename(p.path); let ok = true;
@@ -248,7 +259,7 @@ export function trace(opts = {}) {
   const held = new Set(); for (const w of withheld.values()) for (const r of w.files) { const seg = r.split('/'); for (let i = 0; i < seg.length; i++) held.add(seg.slice(i).join('/')); }
   const unshipped = new Map(); for (const l of literals) { const k = l.literal.replace(/^(?:\.{0,2}\/)+/, ''); if (tails.has(k)) continue; const id = `${k} in ${l.file}`; if (!unshipped.has(id)) unshipped.set(id, { literal: l.literal, file: l.file, comment: l.comment, withheld: held.has(k) }); }
   const why = {}; for (const [f, s] of files) why[rel(f)] = [...s].sort();
-  return { root, files: shipped, problems: [...new Set(problems)], notes: [...new Set(notes)].sort(), why, urlKeys: cfg.urlKeys,
+  return { root, files: shipped, leftOut, problems: [...new Set(problems)], notes: [...new Set(notes)].sort(), why, urlKeys: cfg.urlKeys,
     withheld: [...withheld.values()].map(w => ({ id: w.id, pattern: w.pattern, why: w.why, files: w.files.size, referencedBy: [...w.referencedBy].sort() })),
     projected, sections, pages: [...seenPage].map(rel).sort(), modules: { loaded: [...seenMod].filter(([, m]) => m === 'reached').map(([f]) => rel(f)).sort(), shippedOnly: [...seenMod].filter(([f, m]) => m === 'shipped' && files.has(f)).map(([f]) => rel(f)).sort() },
     computedImports: computed, unshippedLiterals: [...unshipped.values()].sort((a, b) => (a.file + a.literal < b.file + b.literal ? -1 : 1)), external: [...external].sort() };
@@ -374,7 +385,7 @@ export function pack({ root = BT, out = path.join(REPO, 'deliver/bt-staging/dist
   const blank = build('00000000'), version = sha(Buffer.from([...blank.keys()].sort().map(r => r + ' ' + sha(blank.get(r))).join('\n'))).slice(0, 8), emitted = build(version);
   fs.rmSync(out, { recursive: true, force: true }); fs.mkdirSync(out, { recursive: true });
   const manifest = { name: 'Battle Theatre staging', version, source: 'docs/battle-theatre', files: [...emitted].map(([r, b]) => ({ path: r, bytes: b.length, sha256: sha(b) })).sort((a, b) => a.path < b.path ? -1 : 1),
-    notLoadedByShell: NOT_LOADED, withheld: t.withheld.map(w => ({ pattern: w.pattern, files: w.files, why: w.why })), reduced: t.projected.map(p => ({ path: p.path, keeps: p.keeps, why: p.why })) };
+    notLoadedByShell: NOT_LOADED, leftOut: t.leftOut.map(l => ({ path: l.path, files: l.files, why: l.why })), withheld: t.withheld.map(w => ({ pattern: w.pattern, files: w.files, why: w.why })), reduced: t.projected.map(p => ({ path: p.path, keeps: p.keeps, why: p.why })) };
   emitted.set('MANIFEST.json', Buffer.from(JSON.stringify(manifest, null, 1) + '\n'));
   const names = [...emitted.keys()].sort();
   for (const n of names) { const p = path.join(out, n); fs.mkdirSync(path.dirname(p), { recursive: true }); fs.writeFileSync(p, emitted.get(n)); }

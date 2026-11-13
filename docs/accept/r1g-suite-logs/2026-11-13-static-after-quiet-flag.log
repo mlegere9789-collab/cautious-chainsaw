@@ -1,0 +1,22 @@
+run_suites: 16 suite(s), port base 8480, agent r1g-harness2-static
+run_suites: child environment + NODE_USE_ENV_PROXY, NODE_OPTIONS (extended) (an HTTPS proxy is set); load average (1 min) 12.47, 4 CPUs
+PASS    static.gates           4/4                  0 s  load 12.47>12.47  build gates of the four trains (gate.json written by build.py)
+PASS    static.overlap         exit 0            38.1 s  load 12.47>11.03  geometric overlap audit of the patch set
+PASS    static.verify          10/10              1.9 s  load 11.03>11.03  verify_release: manifest, static crawl, dev pages, names, identity vs the baseline, cumulative, legacy and baseline pinned
+PASS    static.selftest        10/10             65.1 s  load 11.03>9.97  build system self-test (10 properties incl. determinism and ledger)
+PASS    static.baseline        17/17             15.4 s  load 9.97>9.85  baseline machinery self-test (17 cases: Netlify post-processing model, lock and build refusal, CRLF-aware patching, overlay guard, verify-live against a local Netlify fake, mirror -> reconstruct -> prove, JS/Python model parity, compare-zip of a downloaded deploy)
+PASS    static.baselinelock    exit 0             0.1 s  load 9.85>9.85  baseline/dist matches tools/t0/baseline.lock.json (per-file sha256, no network)
+PASS    static.legal           13/13              0.5 s  load 9.85>9.85  privacy/terms fact base vs the built R1c tree
+PASS    static.lib             9/10 (+1 skipped)   33.2 s  load 9.85>9.28  tiles 118/300  browser harness self-test
+PASS    static.runner          18/19 (+1 skipped)   40.2 s  load 9.28>10.61  runner self-test (no browser): behind an HTTPS proxy every child process of this runner and of the tools/accept runners gets NODE_USE_ENV_PROXY and NODE_EXTRA_CA_CERTS unless they are set (and, where it turns the first on, the flag that silences the one Node proxy warning is appended to NODE_OPTIONS), with no proxy the environment is passed on unchanged; the 1-minute load average at the start and end of every suite is in the summary, the console line, --merge and --import-log
+PASS    static.overlap.selftest 1/1               0.1 s  load 10.61>10.61  overlap audit self-test (6 cases incl. the failing ones: an anchor that no longer matches, an undeclared overwrite, an anchor with no source)
+PASS    static.hygiene         1/1               25.7 s  load 10.61>10.85  source hygiene of tools/t0, tests/t0, tools/ship and ops: no stray control bytes (a regex escape that reached the file as BACKSPACE), every script parses, every JSON file is valid
+PASS    static.ship            11/11              3.2 s  load 10.85>10.94  pack_zip self-test (tools/ship/pack_zip.py, the Netlify drag-and-drop zip: files at the zip root, byte-identical packs, a changed, extra or missing file or a wrong tree digest against manifest.json is refused, the staging variant differs in _headers only, the real R1c packs)
+PASS    static.fixes           11/11            137.7 s  load 10.94>11.91  release-verifier fixes self-test (11 cases: failed builds leave nothing deployable, ledger errors, gate cache beside --out, kill switch outside dist, opt-in legal group, stage guard, verify-url exit codes, stale-dist refusal, S5 asks the previous train)
+PASS    static.determinism     8/8              177.5 s  load 11.91>14.35  determinism: every train rebuilt into release/check/<train> is byte-identical to release/<train> (dist, manifest, anchors, gate, kill-switch copy)
+PASS    static.controls        exit 0              22 s  load 14.35>12.49  control trees for the red-first proofs and the opt-in legal variant built (R1c without A2, without the Mapbox precompile, without the mobile + shell fixes, and R1c with PG-legal with its gates on; each differs from the real R1c)
+PASS    static.legal.optin     19/19              0.5 s  load 12.49>12.49  privacy/terms fact base vs R1c built with PG-legal (exit 0 = no FAIL: the text matches the headers; the Street View delegation is disclosed, so the WARN of the default build is gone)
+
+run_suites: load average (1 min) 12.47>12.49 from the start to the end of this run, 4 CPUs
+
+run_suites: 16/16 suites OK; green tests 88/90; red-first proofs 0/0 (0 legacy tests red as required); 561s -> tmp/r1g-harness2/static-after.json

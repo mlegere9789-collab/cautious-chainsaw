@@ -1,12 +1,21 @@
 {
  "checked": {
-  "extracts": 701,
-  "exact": 535,
-  "cleaned": 166,
-  "with_context": 20
+  "extracts": 702,
+  "exact": 533,
+  "cleaned": 169,
+  "with_context": 140
  },
  "problems": [],
- "warnings": [],
+ "warnings": [
+  "NPSX-CLI-PCB-p096-01: name 'L-shaped' of the claim is in neither the quote nor the context quote",
+  "NPSX-CLI-ERR-p083-02: name 'L-shaped' of the claim is in neither the quote nor the context quote",
+  "NPSX-HARMON-FARM-p010-02: name 'Harman' of the claim is in neither the quote nor the context quote",
+  "NPSX-BRIEN-FARM-p007-01: name 'Brien' of the claim is in neither the quote nor the context quote",
+  "NPSX-HSR-LEISTER-BARN-p009-02: name 'Leister' of the claim is in neither the quote nor the context quote",
+  "NPSX-HSR-LEISTER-BARN-p013-01: name 'Leister' of the claim is in neither the quote nor the context quote",
+  "NPSX-MCCLEAN-HOUSE-BARN-p023-01: name 'McClean' of the claim is in neither the quote nor the context quote",
+  "NPSX-MCCLEAN-HOUSE-BARN-p026-01: name \"McClean's\" of the claim is in neither the quote nor the context quote"
+ ],
  "sources_with_extracts": [
   "NPS-ADHI",
   "NPS-BOUNDARY-1988",

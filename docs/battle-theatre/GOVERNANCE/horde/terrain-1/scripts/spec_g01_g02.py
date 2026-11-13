@@ -12,7 +12,7 @@ ROWS.append(R(
     sub=[
         S('a', 'unit', "Unit and guns: Battery A, 2nd US Artillery (Lt John H. Calef), six 3-inch.", 'documented', 'supported', [
             C('OR1', 'R028', "Calef's horse battery (A, Second United States, six 3-inch)"),
-            C('OR1', 'R374', "Report of Lieut. John H. Calef, Battery A,- Second U. S. Artillery", note="heading of the report (OCR comma-dash)") if False else C('OR1', 'R374', "Colonel Gamble, commanding the brigade of cavalry to which my battery was attached")]),
+            C('OR1', 'R374', "Colonel Gamble, commanding the brigade of cavalry to which my battery was attached")]),
         S('b', 'count', "Guns serving on 2 Jul: five (short of men).", 'documented', 'supported', [
             C('OR1', 'R374', "For want of men, I could serve but five guns")]),
         S('c', 'place', "Night of 30 Jun: 'just outside of town' on the road Calef calls the Carlisle road. The PDF's 'in a hollow' is in no source read.", 'documented', 'partial', [

@@ -42,6 +42,20 @@ def repo_ids():
     return ids | base
 
 
+GENERIC = set("""The A An In On At Of For By To As It Its This That These Those Today Both Most Part Between Before After During Since Under Over From
+With Without Not No Some Several Many One Two Three Four Five Six Seven Eight Nine Ten July June August Union Confederate Confederates Federal Park
+Battle Battlefield Road Avenue Ridge Field Fields Farm House Barn Hill Woods Orchard Corps Division Brigade Regiment Army National Military Gettysburg
+Pennsylvania Report Day First War Department Commission General Peace Memorial Little Round Top East West""".split())
+# explanatory words of a claim that are deliberate and not part of the quoted text
+NAME_OK = {
+    'NPSX-CLI-PCB-p080-04': {'service'},
+    'NPSX-CLI-LANDSCAPE-p055-06': {'culp'},
+    'NPSX-CLI-LANDSCAPE-p056-03': {'nps'},
+    'NPSX-CLR-1STDAY-p049-03': {'harman'},
+    'NPSX-COMMON-PRIDE-1-p131-01': {'codori'},
+}
+
+
 def numbers(s):
     """The numbers written in a text: digit groups with decimals; thousands commas dropped; the half sign read as 1/2."""
     s = (s or '').replace('½', '1/2')
@@ -137,6 +151,16 @@ def main():
         for y in sorted(set(re.findall(r'\b(1[6-9]\d\d|20[0-2]\d)\b', r['state_date']))):
             if y != '1863' and y not in whole and y != str(m.group(1) if m else ''):
                 warnings.append('%s: state-date year %s is found nowhere in the saved text of %s' % (x, y, sid))
+        # names written in the claim should stand in the quote or the context quote (warning only; the entry heading
+        # that names the farm or feature belongs in the context quote)
+        qn = re.sub(r"[^a-z0-9' ]+", ' ', (q + ' ' + (cq or '')).replace('\u2019', "'").lower())
+        title_norm = re.sub(r"[^a-z0-9' ]+", ' ', str(s.get('title') or '').lower())
+        for t in re.findall(r"(?<![.!?] )(?<!^)\b([A-Z][a-zA-Z'\-]{2,})\b", r['claim'].replace('\u2019', "'")):
+            b = re.sub(r"'s$", '', t.lower())
+            if t in GENERIC or b in NAME_OK.get(x, ()) or b in title_norm or b[:5] in title_norm:
+                continue
+            if b not in qn and b[:5] not in qn:
+                warnings.append('%s: name %r of the claim is in neither the quote nor the context quote' % (x, t))
         for k in r.get('repo_keys', []):
             if k not in known and not re.fullmatch(r'R\d\d\.[A-Za-z0-9-]+', k):
                 unknown_keys[k] = unknown_keys.get(k, 0) + 1

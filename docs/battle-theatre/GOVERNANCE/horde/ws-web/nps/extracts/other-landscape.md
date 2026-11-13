@@ -11,14 +11,15 @@ Administrative History: Gettysburg National Military Park and National Cemetery,
 
 - **Defense works resodded, relaid and rebuilt, 1895-1905** (`NPSX-ADHI-p103-04`)
   - State date: **1895-1905 rebuilt works (later than 1863)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 103
-  - Claim: The park commission resodded, relaid and rebuilt defense works where necessary, so surviving works are not unaltered 1863 profiles
+  - Claim: In 1895-1905 defense works were resodded, relaid and rebuilt where necessary under the park commission
   - Quote: "Defense works were resodded, relaid, and rebuilt where necessary."
+  - Context (PDF p. 103): "Their accomplishments in developing, expanding, and operating the park during 1895-1905 brought the park largely to what it is today."
 - **Culp's Hill earthworks and East Cemetery Hill lunettes in 1925** (`NPSX-ADHI-p135-02`)
   - State date: **1925 statement (works rebuilt 1895-1905)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 135
   - Repository ids: `E-05`, `E-12`
-  - Claim: In Cope's 1925 description a line of earthworks thrown up by the Twelfth Corps survived on Culp's Hill and a number of lunettes at the Union battery positions on East Cemetery Hill
+  - Claim: In Superintendent Cope's 1925 study a line of earthworks thrown up by the Twelfth Corps survived on Culp's Hill and a number of lunettes at the Union battery positions on East Cemetery Hill
   - Quote: "There is a line of earth-works on Culp's Hill which was thrown up by the Union troops of the Twelfth Corps. On East Cemetery Hill there are a number of lunettes at the positions held by the Union batteries."
-  - Context (PDF p. 135): "Cope, "Gettysburg National Military Park," [1925], pp. 2-3,10,13,17,19."
+  - Context (PDF p. 134): "Only about half of the Emmitsburg Road (from Wheatfield Road to South Confederate Avenue) was re-ceded at this time.7 In 1925 Superintendent Cope prepared a study entitled "Gettysburg National Military Park" at the request of the War Department."
 
 ## NPS-CLI-1STDAY
 
@@ -125,7 +126,7 @@ Cultural Landscapes Inventory: Little Round Top, Gettysburg National Military Pa
 - **GBMA restacked the walls in 1882-1887: the extant walls are restored** (`NPSX-CLI-LRT-p075-03`)
   - State date: **1882-1887 restacking (modern profile, not 1863)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 75 [Page 70 of 107]
   - Repository ids: `E-14`
-  - Claim: Between 1882 and 1887 the GBMA restacked the stone walls, most of which are extant, so the present walls show where troops stood but are restored
+  - Claim: Between 1882 and 1887 the GBMA restacked the stone walls, and most are extant today, providing evidence of the location of troops during the battle
   - Quote: "Between 1882-1887, the GBMA restacked the stone walls, and most are extant today, providing evidence of the location of troops during the battle."
 - **Extant breastwork lines south and west of the summit: dry-laid diabase boulders and rubble** (`NPSX-CLI-LRT-p075-04`)
   - State date: **2020 condition (restored walls, not an 1863 profile)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 75 [Page 70 of 107]
@@ -152,7 +153,7 @@ Cultural Landscapes Inventory: Pickett's Charge Battlefield, Gettysburg National
   - Quote: "CE 1863 Built Documented defenseworks include McMillan Woods earthworks, McMillan Woods rifle pits, Pender's Division earthworks, Poague's Battalion lunettes, and Spangler Woods defense works."
 - **Poague's Battalion lunettes** (`NPSX-CLI-PCB-p043-03`)
   - State date: **1901 reconstruction or rehabilitation** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 43 [Page 38 of 131]
-  - Claim: Poague's Battalion lunettes were reconstructed or rehabilitated in 1901 by either the Gettysburg Battlefield Memorial Association or the War Department
+  - Claim: Poague's Battalion lunettes were reconstructed or rehabilitated in 1901 by either the GBMA or the War Department
   - Quote: "CE 1901 Rehabilitated Poague’s Battalion lunettes are reconstructed or rehabilitated by either the GBMA or the War Department."
 - **Gettysburg region before the battle** (`NPSX-CLI-PCB-p049-01`)
   - State date: **pre-1863 to 1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 49 [Page 44 of 131]
@@ -168,19 +169,21 @@ Cultural Landscapes Inventory: Pickett's Charge Battlefield, Gettysburg National
   - Quote: "They also left behind the kinds of consummate destruction visible in the thrown-down farm fencing, trampled crops, rearranged stone walls and fencing forming breastworks, maimed and splintered woodlands and orchards, and dead livestock."
 - **McMillan Woods entrenchments** (`NPSX-CLI-PCB-p080-05`)
   - State date: **1863-07-03 (after the repulse)** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 80 [Page 75 of 131]
-  - Claim: After the repulse of Pickett's Charge Confederate infantry built entrenchments in McMillan Woods
-  - Quote: "After the repulse of Pickett’s Charge, Confederate infantrymen retreated to this wood and constructed entrenchments for a defensive line in expectation of a Union counterattack."
+  - Claim: After the repulse of Pickett's Charge Confederate infantrymen retreated to McMillan Woods and constructed entrenchments for a defensive line in expectation of a Union counterattack
+  - Quote: "(NR 2004, Sec.7: 57-58; CLR RoT 2018: 144-146,160) McMillan Woods. (Contributing) This deciduous woodlot provided cover for infantry of the Confederate army as it lay in support of Confederate artillery on the crest of the ridge. The wood was also used for cover in anticipation of attacking Union positions on Cemetery Ridge on July 3. After the repulse of Pickett’s Charge, Confederate infantrymen retreated to this wood and constructed entrenchments for a defensive line in expectation of a Union counterattack."
 - **Samuel Pitzer Woods breastworks** (`NPSX-CLI-PCB-p081-03`)
   - State date: **1863-07-04** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 81 [Page 76 of 131]
   - Claim: On July 4 Confederate troops built breastworks through Pitzer Woods
   - Quote: "On July 4, Confederate troops re-established defensive positions within the woods and constructed breastworks through them."
+  - Context (PDF p. 81): "(Review comments, J. Irwin, 16 August 2024) S. Pitzer Woods."
 - **Shultz Woods earthworks** (`NPSX-CLI-PCB-p084-07`)
   - State date: **1863-07-03 (after the repulse)** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 84 [Page 79 of 131]
   - Claim: After the repulse of Pickett's Charge Confederate infantry built earthworks through Shultz Woods
   - Quote: "After the repulse of Pickett’s Charge, Confederate infantrymen constructed earthworks through these woods in expectation of a Union counterattack."
+  - Context (PDF p. 84): "(CLR RoT 2018: 139-142,160) Shultz Woods."
 - **Anderson's Division breastworks (stone wall near Pitzer's Woods)** (`NPSX-CLI-PCB-p095-02`)
   - State date: **modern survey of a feature dated 1863** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 95 [Page 90 of 131]
-  - Claim: A stone wall 420 feet long and up to 3 feet high (as surveyed today) generally matches breastworks shown on a park 1863 existing-condition map; the dimensions are the present ones
+  - Claim: A stone wall 420 feet long, 1-1.5 feet wide and up to 3 feet high generally matches the breastworks shown on the park's 1863 Existing Condition map No.12 and labeled 'Anderson's Division Breastworks'
   - Quote: "Stone wall 420 feet long, 1-1.5 feet wide, and up to 3 feet high. The wall location generally matches the breastworks shown on 1863 Existing Condition map No.12 by Kathy Harrison, and labeled “Anderson’s Division Breastworks.”"
 
 ## NPS-CLR-1STDAY
@@ -197,6 +200,7 @@ Cultural Landscape Report for First Day - Union 1st Corps Battlefield, Gettysbur
   - Repository ids: `RD-chambersburg-pike`
   - Claim: The Chambersburg Pike was a macadam road completed through Cumberland Township in 1812 with a fifty-foot right-of-way
   - Quote: "Surveyed in 1811, the macadam road was completed through Cumberland Township in 1812 along a new alignment with a fiftyfoot right-of-way."
+  - Context (PDF p. 38): "A post-war photograph of Chambersburg Turnpike looking west from McPherson Ridge toward Herr’s Ridge, ca. 1885."
 - **Unfinished railroad grade north of the pike** (`NPSX-CLR-1STDAY-p039-02`)
   - State date: **1838-1863** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 39 [17]
   - Repository ids: `P-12`
@@ -217,6 +221,7 @@ Cultural Landscape Report for First Day - Union 1st Corps Battlefield, Gettysbur
   - Repository ids: `E-01`
   - Claim: Frederick Law Olmsted, visiting two weeks after the battle, described the Union breastworks as not more than three feet high, like the slightest New England stone fence, with a tree trunk, fence rails, a broken wagon and sometimes a dead horse laid in
   - Quote: "They are not more than three feet high and are just like the slightest kind of stone fence of our New England sheep-pastures. A tree-trunk, fence rails, a broken waggon [sic] and sometimes a dead horse had been laid in when it came handy"
+  - Context (PDF p. 57): "Troops used stone fences, such as along Oak Ridge, as breastworks, but also built new breastworks out of stacked rails from the miles of wooden fences in the area, which were often reinforced with earth, trees, broken wagons, dead horses, and other debris.97 The character of the Union breastworks on the Gettysburg battlefield were described by Frederick Law Olmsted, the eminent American landscape architect who visited two weeks after the battle in his role as head of the U.S. Sanitary Commission: There were some stone fences on the federal hill [Cemetery Hill] and rail fences in the valley."
 - **Gamble's right-angle rail breastwork on McPherson Ridge** (`NPSX-CLR-1STDAY-p060-01`)
   - State date: **1863-07-01** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 60 [38]
   - Repository ids: `FEN-gamble-cavalry`
@@ -237,6 +242,7 @@ Cultural Landscape Report for First Day - Union 1st Corps Battlefield, Gettysbur
   - Repository ids: `P-07`
   - Claim: Baxter's and Paul's brigades entrenched along the stone walls of the Forney farm boundary on Oak Ridge north to Mummasburg Road and added rail breastworks; the walls were overgrown and tumbled down
   - Quote: "Both brigades entrenched along stone walls on Oak Ridge along the Forney Farm boundary extending north to Mummasburg Road, and built additional breastworks out of fence rails."
+  - Context (PDF p. 62): "By 2:00 p.m., Paul’s and Baxter’s brigades had formed a new Union line along Oak Ridge against the coming attack from Ewell’s 2nd Corps from the north and west."
 - **Confederate rail breastworks built on July 4 along Seminary Ridge** (`NPSX-CLR-1STDAY-p063-01`)
   - State date: **1863-07-04** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 63 [41]
   - Repository ids: `E-18`
@@ -246,6 +252,7 @@ Cultural Landscape Report for First Day - Union 1st Corps Battlefield, Gettysbur
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 65 [43]
   - Claim: Professor Jacobs wrote that after the battle fences were swept away, houses shattered and the fields trodden down like a highway
   - Quote: "Fences were swept away, houses shattered, and the fields trodden down like a highway."
+  - Context (PDF p. 65): "Professor Michael Jacobs closely observed the battlefield that surrounded his office at Pennsylvania College"
 - **Seminary fences destroyed; Schmucker's rail loss** (`NPSX-CLR-1STDAY-p066-01`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 66 [44]
   - Repository ids: `bld-schmucker-hall`
@@ -279,6 +286,7 @@ Cultural Landscape Report for First Day - Union 1st Corps Battlefield, Gettysbur
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 67 [45]
   - Claim: The two armies burned 3,891 Forney fence rails, damaged the peach and apple trees and destroyed 32 acres of wheat, 30 of timothy, 10 of oats and 10 acres of the cornfield
   - Quote: "The two armies had burned 3,891 of their fence rails, damaged their peach and apple trees, and destroyed 32 acres of wheat, 30 acres of timothy, and 10 acres of oats, and a 10-acre part of the cornfield."
+  - Context (PDF p. 67): "At least two Confederate soldiers were buried in the Forney garden."
 - **McClean farm fences and crops** (`NPSX-CLR-1STDAY-p067-09`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 67 [45]
   - Claim: Moses McClean reported loss of much of his fencing and trampling of his hayfields and crops of oats, wheat and corn
@@ -341,6 +349,7 @@ Cultural Landscape Report for Gettysburg National Military Park: Record of Treat
   - Repository ids: `E-17`
   - Claim: The report quotes Frey's claim that the soldiers used the fencing to erect breastworks extending through the land
   - Quote: "The farm was within Union lines and the soldiers used the fencing to erect breastworks “extending through the land…some of which was carried on the land of other persons, and of course after the battle was claimed by them.”"
+  - Context (PDF p. 223): "The following description is among the historical documentation referencing the fence at the time of the battle: In his application for compensation for losses due to the battle, Peter Frey noted that the damage on his two tracts included the destruction of his fencing."
 
 ## NPS-COMMON-PRIDE-1
 
@@ -349,7 +358,7 @@ Cultural Landscape Report for Gettysburg National Military Park: Record of Treat
 - **A regiment's slight barricade of stones, fence rails and dirt-filled knapsacks, knee-high** (`NPSX-COMMON-PRIDE-1-p087-01`)
   - State date: **1863-07-03** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 87
   - Repository ids: `E-17`
-  - Claim: The study describes a regiment's breastwork on Cemetery Ridge as a slight barricade of stones, fence rails and knapsacks filled with dirt a little over knee-high
+  - Claim: The study describes a regiment's breastwork as a slight barricade of stones, fence rails and knapsacks filled with dirt a little over knee-high
   - Quote: "It was described as a “slight barricade of stones, fence rails and knapsacks filled with dirt a little over knee-high."
 
 ## NPS-HARMON-FARM
@@ -399,11 +408,13 @@ Proposed Restoration of the Spangler's Spring-Culp's Hill Area and the Re-Locati
   - Repository ids: `E-02`, `E-03`, `E-05`
   - Claim: Certain sections of the earthworks, where the soil is deeper and more easily turned, appear to have been constructed largely of earth and are higher than the general line of works (the sentence continues on the next page with a section some 200 yards west of Culp's Hill)
   - Quote: "Certain sections of the earthworks, where the soil is deeper and more easily turned,/ appear to have been constructed largely of earth and are higher than the general line of works, a section some 200"
+  - Context (PDF p. 15): "According to Brady and Tipton photographs, the earthworks along the battle line extending from Spangler's Spring to Culp's Hill were largely constructed of earth, loose stones and logs and were built up to an average height of 20 inches."
 - **Culp's Hill works near Stevens' Knoll 30 inches, 100 yards west of Culp's Hill 26 inches (1940 measure)** (`NPSX-SPANGLERS-SPRING-p016-01`)
   - State date: **1940 measurement of surviving works** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 16
   - Repository ids: `E-02`, `E-05`
-  - Claim: The 1940 report records a section of earthworks near Stevens' Knoll, west of Culp's Hill, measuring 30 inches in height and a section extending 100 yards westward from Culp's Hill averaging 26 inches (the first sentence begins at the foot of the previous page)
+  - Claim: The 1940 report records a section of the earthworks some 200 yards west of Culp's Hill, near Stevens' Knoll, measuring 30 inches in height, and a section extending 100 yards westward from Culp's Hill averaging 26 inches
   - Quote: "yards west of Culp’s Hill, near Stevens’ Knoll, measuring 30” in height. A section extending 100 yards-westward from Culp’s Hill averages 26” in height."
+  - Context (PDF p. 15): "Certain sections of the earthworks, where the soil is deeper and more easily turned,/ appear to have been constructed largely of earth and are higher than the general line of works, a section some 200"
 - **Lunettes on East Cemetery Hill and Stevens' Knoll: earth, 30 inches at highest** (`NPSX-SPANGLERS-SPRING-p016-02`)
   - State date: **1940 measurement of surviving works** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 16
   - Repository ids: `E-12`
@@ -449,7 +460,7 @@ Culp's Hill - Gettysburg National Military Park (U.S. National Park Service) (we
   - State date: **1863-07-02** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 1
   - Repository ids: `E-05`
   - Claim: The page quotes General Greene's report: as soon as the brigade was in position it began to intrench and throw up breastworks
-  - Quote: "As soon as we were in position, we began to intrench ourselves and throw up breastworks"
+  - Quote: "At mid-morning on July 2, elements of the Twelfth Corps arrived to reinforce the hill, including the 1,400 man brigade of George S. Greene. He reported, “As soon as we were in position, we began to intrench ourselves and throw up breastworks...”"
 
 ## NPSGOV-GRASSLANDS
 
@@ -493,7 +504,7 @@ Plants - Gettysburg National Military Park (U.S. National Park Service) (web pag
   - State date: **park goal (modern)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 1
   - Repository ids: `R12.043`
   - Claim: The page states the park's natural resource goal to restore and perpetuate the battlefield as it appeared at the time of the battle in July 1863 and to preserve compatible fauna and flora
-  - Quote: "to (1) restore and perpetuate the battlefield as it appeared at the time of the Battle of Gettysburg in July 1863"
+  - Quote: "Vegetation management is an important responsibility of the park’s natural resource staff. The primary goals of Natural Resource Planning at Gettysburg and Eisenhower are to (1) restore and perpetuate the battlefield as it appeared at the time of the Battle of Gettysburg in July 1863 and to (2) preserve resident fauna and flora that are compatible with the goal of historic accuracy."
 
 ## NPSGOV-WARFIELD-HOUSE
 

@@ -1,0 +1,582 @@
+{
+ "limit": 6,
+ "rows": [
+  {
+   "case": "dawn-fog-jul2-0430",
+   "what": "mist at the horizon, fog colour",
+   "all": {
+    "meanAbs": 0.339,
+    "rmse": 0.784,
+    "p99": 1,
+    "max": 144,
+    "over8": 0.0001,
+    "over24": 0.0001
+   },
+   "top": {
+    "meanAbs": 0.335,
+    "rmse": 0.579,
+    "p99": 1,
+    "max": 2,
+    "over8": 0,
+    "over24": 0
+   },
+   "bottom": {
+    "meanAbs": 0.333,
+    "rmse": 0.577,
+    "p99": 1,
+    "max": 2,
+    "over8": 0,
+    "over24": 0
+   },
+   "meanLumGL": 105.708,
+   "meanLumGPU": 105.704,
+   "minLumGL": 44.22,
+   "minLumGPU": 44.15,
+   "blackGL": 0,
+   "blackGPU": 0,
+   "spritesGL": 0,
+   "spritesGPU": 0
+  },
+  {
+   "case": "day-clouds-jul3-1400",
+   "what": "daytime clouds",
+   "all": {
+    "meanAbs": 0.376,
+    "rmse": 1.232,
+    "p99": 1,
+    "max": 69,
+    "over8": 0.0011,
+    "over24": 0.0005
+   },
+   "top": {
+    "meanAbs": 0.333,
+    "rmse": 0.577,
+    "p99": 1,
+    "max": 2,
+    "over8": 0,
+    "over24": 0
+   },
+   "bottom": {
+    "meanAbs": 0.455,
+    "rmse": 1.927,
+    "p99": 3,
+    "max": 69,
+    "over8": 0.003,
+    "over24": 0.0014
+   },
+   "meanLumGL": 201.063,
+   "meanLumGPU": 201.052,
+   "minLumGL": 97.65,
+   "minLumGPU": 97.58,
+   "blackGL": 0,
+   "blackGPU": 0,
+   "spritesGL": 32,
+   "spritesGPU": 32
+  },
+  {
+   "case": "dry-ground-jul2-1400",
+   "what": "dry ground (reference)",
+   "all": {
+    "meanAbs": 0.458,
+    "rmse": 3.007,
+    "p99": 2,
+    "max": 152,
+    "over8": 0.0036,
+    "over24": 0.001
+   },
+   "top": {
+    "meanAbs": 0.585,
+    "rmse": 4.795,
+    "p99": 3,
+    "max": 152,
+    "over8": 0.0063,
+    "over24": 0.002
+   },
+   "bottom": {
+    "meanAbs": 0.334,
+    "rmse": 0.578,
+    "p99": 1,
+    "max": 1,
+    "over8": 0,
+    "over24": 0
+   },
+   "meanLumGL": 164.868,
+   "meanLumGPU": 164.841,
+   "minLumGL": 75.61,
+   "minLumGPU": 70.34,
+   "blackGL": 0,
+   "blackGPU": 0,
+   "spritesGL": 0,
+   "spritesGPU": 0
+  },
+  {
+   "case": "dusk-jul2-2000",
+   "what": "twilight glow toward the sun",
+   "all": {
+    "meanAbs": 0.444,
+    "rmse": 2.012,
+    "p99": 2,
+    "max": 120,
+    "over8": 0.0045,
+    "over24": 0.0019
+   },
+   "top": {
+    "meanAbs": 0.332,
+    "rmse": 0.576,
+    "p99": 1,
+    "max": 1,
+    "over8": 0,
+    "over24": 0
+   },
+   "bottom": {
+    "meanAbs": 0.333,
+    "rmse": 0.579,
+    "p99": 1,
+    "max": 16,
+    "over8": 0,
+    "over24": 0
+   },
+   "meanLumGL": 65.519,
+   "meanLumGPU": 65.502,
+   "minLumGL": 8,
+   "minLumGPU": 23.07,
+   "blackGL": 0,
+   "blackGPU": 0,
+   "spritesGL": 0,
+   "spritesGPU": 0
+  },
+  {
+   "case": "dust-march-jul2-1100",
+   "what": "road dust of a marching column and dust at falls",
+   "all": {
+    "meanAbs": 0.345,
+    "rmse": 0.779,
+    "p99": 1,
+    "max": 62,
+    "over8": 0.0005,
+    "over24": 0.0003
+   },
+   "top": {
+    "meanAbs": 0.334,
+    "rmse": 0.578,
+    "p99": 1,
+    "max": 1,
+    "over8": 0,
+    "over24": 0
+   },
+   "bottom": {
+    "meanAbs": 0.333,
+    "rmse": 0.577,
+    "p99": 1,
+    "max": 1,
+    "over8": 0,
+    "over24": 0
+   },
+   "meanLumGL": 181.125,
+   "meanLumGPU": 181.12,
+   "minLumGL": 113.98,
+   "minLumGPU": 113.98,
+   "blackGL": 0,
+   "blackGPU": 0,
+   "spritesGL": 14951,
+   "spritesGPU": 14951
+  },
+  {
+   "case": "fire-sherfy-jul3-1500",
+   "what": "barn fire inside its window, half intensity (time uncertain)",
+   "all": {
+    "meanAbs": 0.347,
+    "rmse": 0.742,
+    "p99": 1,
+    "max": 75,
+    "over8": 0.0006,
+    "over24": 0.0001
+   },
+   "top": {
+    "meanAbs": 0.334,
+    "rmse": 0.578,
+    "p99": 1,
+    "max": 2,
+    "over8": 0,
+    "over24": 0
+   },
+   "bottom": {
+    "meanAbs": 0.333,
+    "rmse": 0.577,
+    "p99": 1,
+    "max": 1,
+    "over8": 0,
+    "over24": 0
+   },
+   "meanLumGL": 183.062,
+   "meanLumGPU": 183.059,
+   "minLumGL": 103.94,
+   "minLumGPU": 103.94,
+   "blackGL": 0,
+   "blackGPU": 0,
+   "spritesGL": 2250,
+   "spritesGPU": 2250
+  },
+  {
+   "case": "flash-night-jul2-2330",
+   "what": "muzzle flashes light the ground and men at night",
+   "all": {
+    "meanAbs": 0.359,
+    "rmse": 1.133,
+    "p99": 1,
+    "max": 104,
+    "over8": 0.0009,
+    "over24": 0.0005
+   },
+   "top": {
+    "meanAbs": 0.335,
+    "rmse": 0.59,
+    "p99": 1,
+    "max": 33,
+    "over8": 0,
+    "over24": 0
+   },
+   "bottom": {
+    "meanAbs": 0.332,
+    "rmse": 0.576,
+    "p99": 1,
+    "max": 1,
+    "over8": 0,
+    "over24": 0
+   },
+   "meanLumGL": 96.5,
+   "meanLumGPU": 96.503,
+   "minLumGL": 0,
+   "minLumGPU": 0,
+   "blackGL": 0.00001,
+   "blackGPU": 0.00001,
+   "spritesGL": 1127,
+   "spritesGPU": 1127
+  },
+  {
+   "case": "line-wet-jul4-1400",
+   "what": "men on wet ground stay dry",
+   "all": {
+    "meanAbs": 0.348,
+    "rmse": 0.819,
+    "p99": 1,
+    "max": 126,
+    "over8": 0.0001,
+    "over24": 0
+   },
+   "top": {
+    "meanAbs": 0.334,
+    "rmse": 0.578,
+    "p99": 1,
+    "max": 2,
+    "over8": 0,
+    "over24": 0
+   },
+   "bottom": {
+    "meanAbs": 0.369,
+    "rmse": 1.111,
+    "p99": 2,
+    "max": 126,
+    "over8": 0.0001,
+    "over24": 0.0001
+   },
+   "meanLumGL": 170.857,
+   "meanLumGPU": 170.873,
+   "minLumGL": 16.86,
+   "minLumGPU": 16.86,
+   "blackGL": 0,
+   "blackGPU": 0,
+   "spritesGL": 0,
+   "spritesGPU": 0
+  },
+  {
+   "case": "moon-jul3-2330",
+   "what": "moon with phase, stars, floor",
+   "all": {
+    "meanAbs": 0.339,
+    "rmse": 0.586,
+    "p99": 1,
+    "max": 9,
+    "over8": 0,
+    "over24": 0
+   },
+   "top": {
+    "meanAbs": 0.336,
+    "rmse": 0.579,
+    "p99": 1,
+    "max": 2,
+    "over8": 0,
+    "over24": 0
+   },
+   "bottom": {
+    "meanAbs": 0.343,
+    "rmse": 0.597,
+    "p99": 1,
+    "max": 9,
+    "over8": 0,
+    "over24": 0
+   },
+   "meanLumGL": 89.783,
+   "meanLumGPU": 89.78,
+   "minLumGL": 34.5,
+   "minLumGPU": 34.5,
+   "blackGL": 0,
+   "blackGPU": 0,
+   "spritesGL": 1,
+   "spritesGPU": 1
+  },
+  {
+   "case": "moon-zoom-jul2-2200",
+   "what": "moon disc, second night",
+   "all": {
+    "meanAbs": 0.356,
+    "rmse": 1.009,
+    "p99": 1,
+    "max": 151,
+    "over8": 0.0003,
+    "over24": 0.0001
+   },
+   "top": {
+    "meanAbs": 0.338,
+    "rmse": 0.583,
+    "p99": 1,
+    "max": 3,
+    "over8": 0,
+    "over24": 0
+   },
+   "bottom": {
+    "meanAbs": 0.345,
+    "rmse": 0.589,
+    "p99": 1,
+    "max": 3,
+    "over8": 0,
+    "over24": 0
+   },
+   "meanLumGL": 65.276,
+   "meanLumGPU": 65.274,
+   "minLumGL": 40.16,
+   "minLumGPU": 40.16,
+   "blackGL": 0,
+   "blackGPU": 0,
+   "spritesGL": 0,
+   "spritesGPU": 0
+  },
+  {
+   "case": "moon-zoom-jul3-2330",
+   "what": "moon disc and phase",
+   "all": {
+    "meanAbs": 0.337,
+    "rmse": 0.58,
+    "p99": 1,
+    "max": 2,
+    "over8": 0,
+    "over24": 0
+   },
+   "top": {
+    "meanAbs": 0.336,
+    "rmse": 0.58,
+    "p99": 1,
+    "max": 2,
+    "over8": 0,
+    "over24": 0
+   },
+   "bottom": {
+    "meanAbs": 0.335,
+    "rmse": 0.579,
+    "p99": 1,
+    "max": 2,
+    "over8": 0,
+    "over24": 0
+   },
+   "meanLumGL": 106.505,
+   "meanLumGPU": 106.487,
+   "minLumGL": 53.16,
+   "minLumGPU": 52.95,
+   "blackGL": 0,
+   "blackGPU": 0,
+   "spritesGL": 1,
+   "spritesGPU": 1
+  },
+  {
+   "case": "night-floor-jul2-0100",
+   "what": "night is never black: ground, men and sky",
+   "all": {
+    "meanAbs": 0.34,
+    "rmse": 0.815,
+    "p99": 1,
+    "max": 134,
+    "over8": 0.0001,
+    "over24": 0.0001
+   },
+   "top": {
+    "meanAbs": 0.334,
+    "rmse": 0.578,
+    "p99": 1,
+    "max": 2,
+    "over8": 0,
+    "over24": 0
+   },
+   "bottom": {
+    "meanAbs": 0.332,
+    "rmse": 0.576,
+    "p99": 1,
+    "max": 1,
+    "over8": 0,
+    "over24": 0
+   },
+   "meanLumGL": 103.175,
+   "meanLumGPU": 103.174,
+   "minLumGL": 21.94,
+   "minLumGPU": 21.94,
+   "blackGL": 0,
+   "blackGPU": 0,
+   "spritesGL": 0,
+   "spritesGPU": 0
+  },
+  {
+   "case": "smoke-jul3-1400",
+   "what": "musketry and cannon smoke, flashes, bursts, by day",
+   "all": {
+    "meanAbs": 0.337,
+    "rmse": 0.614,
+    "p99": 1,
+    "max": 24,
+    "over8": 0.0001,
+    "over24": 0
+   },
+   "top": {
+    "meanAbs": 0.333,
+    "rmse": 0.577,
+    "p99": 1,
+    "max": 2,
+    "over8": 0,
+    "over24": 0
+   },
+   "bottom": {
+    "meanAbs": 0.334,
+    "rmse": 0.578,
+    "p99": 1,
+    "max": 4,
+    "over8": 0,
+    "over24": 0
+   },
+   "meanLumGL": 198.81,
+   "meanLumGPU": 198.81,
+   "minLumGL": 93.12,
+   "minLumGPU": 92.9,
+   "blackGL": 0,
+   "blackGPU": 0,
+   "spritesGL": 6379,
+   "spritesGPU": 6379
+  },
+  {
+   "case": "smoke-night-jul2-2200",
+   "what": "smoke and flash light at night",
+   "all": {
+    "meanAbs": 0.364,
+    "rmse": 0.828,
+    "p99": 1,
+    "max": 60,
+    "over8": 0.0013,
+    "over24": 0.0002
+   },
+   "top": {
+    "meanAbs": 0.335,
+    "rmse": 0.58,
+    "p99": 1,
+    "max": 3,
+    "over8": 0,
+    "over24": 0
+   },
+   "bottom": {
+    "meanAbs": 0.333,
+    "rmse": 0.578,
+    "p99": 1,
+    "max": 3,
+    "over8": 0,
+    "over24": 0
+   },
+   "meanLumGL": 66.625,
+   "meanLumGPU": 66.615,
+   "minLumGL": 27.71,
+   "minLumGPU": 27.71,
+   "blackGL": 0,
+   "blackGPU": 0,
+   "spritesGL": 1640,
+   "spritesGPU": 1640
+  },
+  {
+   "case": "stars-jun28-0200",
+   "what": "stars and the night floor over the field",
+   "all": {
+    "meanAbs": 0.349,
+    "rmse": 0.694,
+    "p99": 1,
+    "max": 121,
+    "over8": 0.0001,
+    "over24": 0
+   },
+   "top": {
+    "meanAbs": 0.355,
+    "rmse": 0.703,
+    "p99": 1,
+    "max": 59,
+    "over8": 0.0001,
+    "over24": 0.0001
+   },
+   "bottom": {
+    "meanAbs": 0.342,
+    "rmse": 0.74,
+    "p99": 1,
+    "max": 121,
+    "over8": 0.0001,
+    "over24": 0
+   },
+   "meanLumGL": 33.986,
+   "meanLumGPU": 33.984,
+   "minLumGL": 25.52,
+   "minLumGPU": 25.52,
+   "blackGL": 0,
+   "blackGPU": 0,
+   "spritesGL": 117,
+   "spritesGPU": 117
+  },
+  {
+   "case": "wet-ground-jul4-1400",
+   "what": "wet ground and puddles",
+   "all": {
+    "meanAbs": 0.334,
+    "rmse": 0.604,
+    "p99": 1,
+    "max": 107,
+    "over8": 0,
+    "over24": 0
+   },
+   "top": {
+    "meanAbs": 0.334,
+    "rmse": 0.648,
+    "p99": 1,
+    "max": 107,
+    "over8": 0,
+    "over24": 0
+   },
+   "bottom": {
+    "meanAbs": 0.332,
+    "rmse": 0.577,
+    "p99": 1,
+    "max": 2,
+    "over8": 0,
+    "over24": 0
+   },
+   "meanLumGL": 174.48,
+   "meanLumGPU": 174.48,
+   "minLumGL": 107,
+   "minLumGPU": 107.07,
+   "blackGL": 0,
+   "blackGPU": 0,
+   "spritesGL": 0,
+   "spritesGPU": 0
+  }
+ ],
+ "problems": []
+}
