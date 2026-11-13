@@ -5,23 +5,26 @@
   "timeline.mjs": "ed0c76fc7ce2",
   "gazetteer.mjs": "aa363b063f5e",
   "query.mjs": "c9bc5de3e463",
-  "schema.mjs": "291f99673ea0",
+  "schema.mjs": "98cacf10af9e",
   "checks.mjs": "a888273d5bff",
-  "check.mjs": "88d270f50c64",
+  "check.mjs": "3baa5e50a5f1",
   "names.mjs": "9acfb7e29b57",
-  "mutations.json": "c63d42719e47"
+  "mutations.json": "a432ce3481df"
  },
  "tests": {
-  "realize-rules.test.mjs": "51e0e4a0947d",
-  "realize.test.mjs": "dc29d55269e0",
-  "realize-inputs.test.mjs": "7ab5c9e8ddb5"
+  "realize-rules.test.mjs": "29de62f11c28",
+  "realize.test.mjs": "1ca04833b740",
+  "realize-inputs.test.mjs": "0a73456e9079"
  },
- "total": 131,
- "killed": 5,
+ "total": 144,
+ "killed": 12,
  "survived": 0,
- "not_run": 126,
+ "not_run": 132,
  "survivors": [],
- "notes": {},
+ "notes": {
+  "checks-arrival-before": "EQUIVALENT mutant: unit_arrives asks whether the unit is on the field one second before its arrival minute; the stage's presence window starts at that minute (unitAt: tSec >= presence.from), so it never is. The guard is defensive.",
+  "checks-realized-needs-results": "EQUIVALENT mutant: a record in which no assertion ran has either no checks (checks_missing), an unknown assertion type (assert_type) or a check restricted to a scenario the record does not run (check_scenario_unlisted): each is a problem that makes the record not realized without the results.length guard."
+ },
  "results": [
   {
    "id": "lib-quote-boundary",
@@ -45,7 +48,12 @@
    "id": "lib-quote-minlen",
    "file": "tools/bt/realize/lib.mjs",
    "rule": "hasQuote: a quote of fewer than 3 characters is not found",
-   "status": "not run"
+   "status": "killed",
+   "killed_by": "realize-rules.test.mjs",
+   "detail": "rule: a quote is found only by whole words, apostrophes and quotation marks folded (lib.mjs hasQuote)",
+   "tests_run": [
+    "rules"
+   ]
   },
   {
    "id": "lib-time-minutes",
@@ -141,7 +149,12 @@
    "id": "schema-motion-needs",
    "file": "tools/bt/realize/schema.mjs",
    "rule": "a motion record relates the motion to a place",
-   "status": "not run"
+   "status": "killed",
+   "killed_by": "realize-rules.test.mjs",
+   "detail": "rule: every kind needs the assertion that can prove it (schema.mjs KIND_NEEDS), and every needed type is a known assertion type",
+   "tests_run": [
+    "rules"
+   ]
   },
   {
    "id": "schema-activity-needs",
@@ -315,7 +328,12 @@
    "id": "checks-mode-all",
    "file": "tools/bt/realize/checks.mjs",
    "rule": "unit_at, mode all: at every minute",
-   "status": "not run"
+   "status": "killed",
+   "killed_by": "realize-rules.test.mjs",
+   "detail": "rule: position (unit_at), activity minutes, arrival place, absence (checks.mjs)",
+   "tests_run": [
+    "rules"
+   ]
   },
   {
    "id": "checks-activity-minutes",
@@ -638,7 +656,7 @@
   {
    "id": "check-merge-keep-old",
    "file": "tools/bt/realize/check.mjs",
-   "rule": "a partial run is merged over the earlier file",
+   "rule": "a partial run is merged over the earlier file: the rows it does not replace are kept",
    "status": "not run"
   },
   {
@@ -759,7 +777,12 @@
    "id": "names-state",
    "file": "tools/bt/realize/names.mjs",
    "rule": "a state code after a name is structural evidence",
-   "status": "not run"
+   "status": "killed",
+   "killed_by": "realize-inputs.test.mjs",
+   "detail": "the gazetteer lists every name with evidence of being a place that no repository file carries: the towns too (names.mjs; the defect: Taneytown, Williamsport, Falling Waters, Hagerstown, Hanover, Westminster, Greenwood were not listed)",
+   "tests_run": [
+    "inputs"
+   ]
   },
   {
    "id": "names-place-field",
@@ -837,6 +860,100 @@
     "rules",
     "main"
    ]
+  },
+  {
+   "id": "check-merge-file-replaces-only-records",
+   "file": "tools/bt/realize/check.mjs",
+   "rule": "a records file replaces only the rows it has a record for",
+   "status": "not run"
+  },
+  {
+   "id": "schema-window-bad",
+   "file": "tools/bt/realize/schema.mjs",
+   "rule": "a window that does not parse is refused",
+   "status": "killed",
+   "killed_by": "realize-rules.test.mjs",
+   "detail": "rule: a theatre-clock window, a window inside the row, an assertion time inside the record window (schema.mjs)",
+   "tests_run": [
+    "rules"
+   ]
+  },
+  {
+   "id": "schema-window-missing",
+   "file": "tools/bt/realize/schema.mjs",
+   "rule": "a record needs a window",
+   "status": "killed",
+   "killed_by": "realize-rules.test.mjs",
+   "detail": "rule: a theatre-clock window, a window inside the row, an assertion time inside the record window (schema.mjs)",
+   "tests_run": [
+    "rules"
+   ]
+  },
+  {
+   "id": "schema-quantifier",
+   "file": "tools/bt/realize/schema.mjs",
+   "rule": "a quantifier is all or any",
+   "status": "killed",
+   "killed_by": "realize.test.mjs",
+   "detail": "wrong: the units are not the row's, are not on the field, are in the wrong place, do the wrong thing",
+   "tests_run": [
+    "rules",
+    "main"
+   ]
+  },
+  {
+   "id": "schema-not-shown-list",
+   "file": "tools/bt/realize/schema.mjs",
+   "rule": "not_shown is a non-empty list",
+   "status": "not run"
+  },
+  {
+   "id": "schema-not-shown-on-missing",
+   "file": "tools/bt/realize/schema.mjs",
+   "rule": "not_shown belongs on a realized record",
+   "status": "not run"
+  },
+  {
+   "id": "schema-missing-on-realized",
+   "file": "tools/bt/realize/schema.mjs",
+   "rule": "missing belongs on a not_realized record",
+   "status": "not run"
+  },
+  {
+   "id": "schema-entities-missing",
+   "file": "tools/bt/realize/schema.mjs",
+   "rule": "a record lists its entities",
+   "status": "not run"
+  },
+  {
+   "id": "schema-entities-unknown",
+   "file": "tools/bt/realize/schema.mjs",
+   "rule": "an entity list is one the harness knows",
+   "status": "not run"
+  },
+  {
+   "id": "schema-scenario-bad",
+   "file": "tools/bt/realize/schema.mjs",
+   "rule": "a scenario is default, pdf, conflicts or an object",
+   "status": "not run"
+  },
+  {
+   "id": "checks-scenario-duplicate",
+   "file": "tools/bt/realize/checks.mjs",
+   "rule": "a scenario is listed once",
+   "status": "not run"
+  },
+  {
+   "id": "checks-place-unknown",
+   "file": "tools/bt/realize/checks.mjs",
+   "rule": "a place no file carries is unknown, never guessed",
+   "status": "not run"
+  },
+  {
+   "id": "checks-place-off-ground",
+   "file": "tools/bt/realize/checks.mjs",
+   "rule": "a place off the loaded ground cannot be used for a position",
+   "status": "not run"
   }
  ]
 }

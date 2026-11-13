@@ -541,8 +541,23 @@ def analyse(spec, idents, first_leaf=None, rank_vocab=None):
     S = Section()
     S.spec = spec
     S.text, S.pm = load_volume(spec['vol'], idents)
-    S.leaf_a, S.leaf_b = leaf_range(spec, S.pm, first_leaf)
+    S.leaf_a, S.leaf_b = leaf_range(spec, S.pm, first_leaf if first_leaf is not None else spec.get('first_leaf'))
+    if spec.get('last_leaf') is not None:                          # the roster ends on this leaf; the leaves after it hold no entry (asserted by the caller)
+        S.leaf_b = spec['last_leaf'] + 1
     S.toks, S.heads, S.furn = tokenize_section(S.text, S.pm, S.leaf_a, S.leaf_b)
+    S.tail_dropped = []
+    if spec.get('end_note'):                                       # a printed note after the last entry is no part of the entry
+        a0, b0 = S.pm.span(S.leaf_b - 1)
+        m = re.search(spec['end_note'], S.text[a0:b0])
+        if not m:
+            raise ValueError('%s: end note not found' % spec['key'])
+        cut = a0 + m.start()
+        keep = [t for t in S.toks if t.s < cut]
+        S.tail_dropped.append(('end note', cut, ' '.join(t.w for t in S.toks if t.s >= cut)))
+        S.toks = keep
+    while S.toks and (strip_marks(S.toks[-1].w) == '' or (re.fullmatch(r'\d{1,4}', S.toks[-1].w) and len(S.toks) > 1 and S.toks[-2].w.endswith('.'))):
+        t = S.toks.pop()                                           # a printer's mark or a bare folio number after the last entry
+        S.tail_dropped.append(('stray mark or folio', t.s, t.w))
     S.pieces = make_pieces(S.toks)
     S.ents = find_entries(S.pieces, rank_vocab)
     hoffs = [h[0] for h in S.heads]
@@ -583,3 +598,55 @@ def count_ranks(S):
         if e.kind == 'reg':
             c[rank_text(S, e)] += 1
     return c
+
+
+# --------------------------------------------------------------------------- rows
+CODE_FOR_NO_HEADING = {'infantry': 'FS', 'cavalry': 'FS'}
+
+
+def _junkonly(w):
+    return strip_marks(w) == ''
+
+
+def build_rows(S):
+    """the 7-field rows of the section (r2lib): [name, rank, co, remarks, page, off, rd], and a parallel list of dicts (entry, stray marks, ...).  Stray marks of the
+    scan (a lone ^ ■ • ' and the like) at the edges of the name, at the edges of the rank and between the second dash and Res. are not part of any field: they are
+    listed in info['marks'] as (offset, text, where) and written to the flag file."""
+    rows, info = [], []
+    ents = S.ents
+    hoffs = [h[0] for h in S.heads]
+    for i, e in enumerate(ents):
+        marks = []
+        n0, ne = e.n0, e.ne
+        while ne - 1 > n0 and _junkonly(S.pieces[ne - 1].w) and not S.pieces[ne - 1].dash:
+            ne -= 1
+            marks.append((S.pieces[ne].s, S.pieces[ne].w, 'after name'))
+        rk0, rk1 = e.rk0, e.rk1
+        while rk0 < rk1 and _junkonly(S.pieces[rk0].w) and not S.pieces[rk0].dash:
+            marks.append((S.pieces[rk0].s, S.pieces[rk0].w, 'before rank'))
+            rk0 += 1
+        while rk1 - 1 >= rk0 and _junkonly(S.pieces[rk1 - 1].w) and not S.pieces[rk1 - 1].dash:
+            rk1 -= 1
+            marks.append((S.pieces[rk1].s, S.pieces[rk1].w, 'after rank'))
+        for k in range(e.rk1, e.res):                                 # between the second dash and Res.
+            pc = S.pieces[k]
+            if not pc.dash and _junkonly(pc.w) and not (k == e.rk1 and 'd2-damaged' in e.kind):
+                marks.append((pc.s, pc.w, 'before Res.'))
+        marks.sort()
+        a = S.pieces[n0]
+        off = a.s
+        name = ' '.join(S.pieces[k].w for k in range(n0, ne))
+        rank = ' '.join(S.pieces[k].w for k in range(rk0, rk1))
+        res = S.pieces[e.res]
+        raw0 = res.raw
+        raw_end = S.pieces[ents[i + 1].n0].raw if i + 1 < len(ents) else len(S.toks)
+        first = S.text[res.s:S.toks[raw0].e]
+        rest = [S.toks[k].w for k in range(raw0 + 1, raw_end)]
+        remarks = ' '.join([first] + rest)
+        k = bisect.bisect_right(hoffs, off) - 1
+        code = S.heads[k][1] if k >= 0 else CODE_FOR_NO_HEADING.get(S.spec['arm'], '')
+        leaf = S.pm.leaf(off)
+        page = S.pm.printed(leaf)
+        rows.append([name, rank, code, remarks, page, off, res.s - off])
+        info.append({'entry': e, 'marks': marks, 'damaged_heading': bool(k >= 0 and S.heads[k][2]), 'leaf': leaf, 'heading_index': k})
+    return rows, info

@@ -21,7 +21,7 @@ R = L.R
 # leaf range of every unit: first leaf = the title leaf of the regiment, last leaf = the leaf before the next regiment's title leaf
 RANGES = {
     'u-vt-2nd-vermont-infantry': (42, 81), 'u-vt-3rd-vermont-infantry': (82, 120), 'u-vt-4th-vermont-infantry': (121, 156),
-    'u-vt-5th-vermont-infantry': (157, 191), 'u-vt-6th-vermont-infantry': (192, 234), 'u-vt-1st-vermont-cavalry': (235, 281),
+    'u-vt-5th-vermont-infantry': (157, 191), 'u-vt-6th-vermont-infantry': (192, 228), 'u-vt-1st-vermont-cavalry': (229, 281),
     'u-vt-12th-vermont-infantry': (473, 494), 'u-vt-13th-vermont-infantry': (495, 518), 'u-vt-14th-vermont-infantry': (519, 540),
     'u-vt-15th-vermont-infantry': (541, 561), 'u-vt-16th-vermont-infantry': (562, 584),
 }
@@ -85,15 +85,72 @@ def make_row(r, info, text, pm, leaf, rowno):
     return {'row': row, 'facts': facts}, None
 
 
-_rank_cache = {}
+class TokenIndex:
+    """The white-space tokens of every leaf of the pinned text with, for each distinct token, the sorted list of its positions (token numbers) in the leaf:
+    the same facts r2lib._match_tokens walks through one regular-expression search at a time, here with a binary search."""
+
+    def __init__(self, text, pm):
+        self.text, self.pm = text, pm
+        self.leaf_tokens = {}      # leaf -> (offsets list, tokens list, {token: [positions]})
+        self.low = text.casefold() if len(text.casefold()) == len(text) else None
+
+    def leaf(self, leaf):
+        t = self.leaf_tokens.get(leaf)
+        if t is None:
+            a, b = self.pm.span(leaf)
+            offs, toks, pos = [], [], collections.defaultdict(list)
+            for m in re.finditer(r'\S+', self.text[a:b]):
+                pos[m.group(0)].append(len(toks))
+                offs.append(a + m.start())
+                toks.append(m.group(0))
+            t = (offs, toks, pos)
+            self.leaf_tokens[leaf] = t
+        return t
 
 
-def assert_rows(rows, text, pm):
-    """The parser's assertion for every row (same rules as r2lib.verify_rows, V1 to V4, with the heading search made cheap).
-    Returns {'rows','name_ok','remark_ok','remark_gap_rows','page_ok','rank_ok'} and the list of (index, kinds) of the rows that fail V1, V2 or V3."""
+def _in_order(ti, leaf, off, tokens):
+    """The tokens stand in the text in order from the offset (the first one exactly at it, the rest one after the other, other tokens may be
+    stepped over inside the leaf); the last token may be followed by glued punctuation.  Same rule as r2lib._match_tokens with the leaf as gap."""
+    import bisect
+    offs, toks, pos = ti.leaf(leaf)
+    i = bisect.bisect_right(offs, off) - 1
+    if i < 0:
+        return False
+    first = tokens[0]
+    # the first token must start exactly at off (off may point inside a text token)
+    if ti.text[off:off + len(first)] != first:
+        return False
+    cur = i
+    for k in range(1, len(tokens)):
+        tok = tokens[k]
+        last = k == len(tokens) - 1
+        lst = pos.get(tok)
+        j = None
+        if lst:
+            q = bisect.bisect_right(lst, cur)
+            if q < len(lst):
+                j = lst[q]
+        if last:                                  # glued punctuation after the last token: any token that starts with it
+            cand = None
+            for jj in range(cur + 1, len(toks)):
+                if toks[jj].startswith(tok):
+                    cand = jj
+                    break
+            if cand is not None and (j is None or cand < j):
+                j = cand
+        if j is None:
+            return False
+        cur = j
+    return True
+
+
+def assert_rows(rows, text, pm, ti=None):
+    """The parser's assertion for every row (the rules of r2lib.verify_rows, V1 to V4, with the token and heading searches made cheap).
+    Returns the counts and the list of (index, kinds) of the rows that fail V1, V2 or V3 (V4 is counted)."""
+    import bisect
+    ti = ti or TokenIndex(text, pm)
     st = collections.Counter()
     bad = []
-    low = text.casefold() if len(text.casefold()) == len(text) else None
     for i, (name, rank, co, rem, page, off, rd) in enumerate(rows):
         st['rows'] += 1
         kinds = []
@@ -103,28 +160,25 @@ def assert_rows(rows, text, pm):
             kinds.append('name-not-at-offset')
         leaf = pm.leaf(off)
         if rem:
-            g = (pm.span(leaf)[1] - (off + rd)) if leaf is not None else 0
-            m2 = R._match_tokens(text, off + rd, rem.split(), g)
-            if m2 and m2[0] > pm.span(leaf)[1]:
-                m2 = None
-            if m2:
+            ok = leaf is not None and _in_order(ti, leaf, off + rd, rem.split())
+            if ok:
                 st['remark_ok'] += 1
-                if m2[1]:
-                    st['remark_gap_rows'] += 1
+                a, b = pm.span(leaf)
+                if len(rem.split()) > 1 and rd >= 0 and False:
+                    pass
             else:
                 kinds.append('remark-not-at-offset')
         if leaf is not None and pm.printed(leaf) == page:
             st['page_ok'] += 1
         else:
             kinds.append('page-mismatch')
-        if rank:
-            key = rank[1:].casefold() if rank.startswith('^') else None
-            if key is not None:
-                hay = (low if low is not None else text.casefold())[max(0, off - 400000):off]
-                if all(t in hay for t in key.split()):
-                    st['rank_ok'] += 1
-                else:
-                    kinds.append('rank-not-above')
+        if rank.startswith('^'):
+            lowtext = ti.low if ti.low is not None else text.casefold()
+            hay = lowtext[max(0, off - 400000):off]
+            if all(t in hay for t in rank[1:].casefold().split()):
+                st['rank_ok'] += 1
+            else:
+                kinds.append('rank-not-above')
         if kinds:
             bad.append((i, kinds))
     return dict(st), bad

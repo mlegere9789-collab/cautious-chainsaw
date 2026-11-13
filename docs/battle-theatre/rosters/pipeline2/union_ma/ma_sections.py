@@ -14,7 +14,7 @@ IDENT = {str(v): 'massachusettssol%d1931mass' % v for v in range(1, 9)}
 # leaf has no text layer, so the page is the one the running heads give), printed page of the title leaf of the NEXT unit of the volume
 # (None: the roster runs to the last leaf that carries entries), regexp of the unit title (case-insensitive, OCR-tolerant), arm
 SECTIONS = [
-    dict(key='u-ma-1st-massachusetts-infantry', file='1st-massachusetts-infantry', name='1st Massachusetts Infantry', vol='1', page=1, next_page=69,
+    dict(key='u-ma-1st-massachusetts-infantry', file='1st-massachusetts-infantry', name='1st Massachusetts Infantry', vol='1', page=1, next_page=69, first_leaf=15,
          title=r'FIRST\s+REGIMENT\s+MASSACHUSETTS', arm='infantry'),
     dict(key='u-ma-2nd-massachusetts-infantry', file='2nd-massachusetts-infantry', name='2nd Massachusetts Infantry', vol='1', page=69, next_page=148,
          title=r'SECOND\s+REGIMENT\s+.?MASSACHUSETTS', arm='infantry'),
@@ -24,11 +24,12 @@ SECTIONS = [
          title=r'NINTH\s+REGIMENT', arm='infantry'),
     dict(key='u-ma-10th-massachusetts-infantry', file='10th-massachusetts-infantry', name='10th Massachusetts Infantry', vol='1', page=682, next_page=735,
          title=r'TENTH\s+REGIMENT', arm='infantry'),
-    dict(key='u-ma-11th-massachusetts-infantry', file='11th-massachusetts-infantry', name='11th Massachusetts Infantry', vol='1', page=735, next_page=None,
+    dict(key='u-ma-11th-massachusetts-infantry', file='11th-massachusetts-infantry', name='11th Massachusetts Infantry', vol='1', page=735, next_page=None, last_leaf=830,
          title=r'ELEVENTH\s+REGIMENT', arm='infantry'),
-    dict(key='u-ma-12th-massachusetts-infantry', file='12th-massachusetts-infantry', name='12th Massachusetts Infantry', vol='2', page=1, next_page=69,
+    dict(key='u-ma-12th-massachusetts-infantry', file='12th-massachusetts-infantry', name='12th Massachusetts Infantry', vol='2', page=1, next_page=69, first_leaf=11,
          title=r'TWELFTH\s+REGIMENT', arm='infantry'),
     dict(key='u-ma-13th-massachusetts-infantry', file='13th-massachusetts-infantry', name='13th Massachusetts Infantry', vol='2', page=69, next_page=131,
+         end_note=r'The\s+14th\s+Regiment\s+Massachusetts\s+Volunteer\s+Infantry\s+is\s+omitted',
          title=r'THIRTEENTH\s+REGIMENT|THIRTEEXTH', arm='infantry'),
     dict(key='u-ma-15th-massachusetts-infantry', file='15th-massachusetts-infantry', name='15th Massachusetts Infantry', vol='2', page=131, next_page=205,
          title=r'FIFTEENTH\s+REGIMENT', arm='infantry'),
@@ -50,7 +51,7 @@ SECTIONS = [
          title=r'THIRTY-SECOND\s+REGIMENT', arm='infantry'),
     dict(key='u-ma-33rd-massachusetts-infantry', file='33rd-massachusetts-infantry', name='33rd Massachusetts Infantry', vol='3', page=536, next_page=588,
          title=r'THIRTY-THIRD\s+REGIMENT', arm='infantry'),
-    dict(key='u-ma-37th-massachusetts-infantry', file='37th-massachusetts-infantry', name='37th Massachusetts Infantry', vol='3', page=769, next_page=None,
+    dict(key='u-ma-37th-massachusetts-infantry', file='37th-massachusetts-infantry', name='37th Massachusetts Infantry', vol='3', page=769, next_page=None, last_leaf=834,
          title=r'THIRTY-SEVENTH\s+REGIMENT', arm='infantry'),
     dict(key='u-ma-1st-massachusetts-cavalry', file='1st-massachusetts-cavalry', name='1st Massachusetts Cavalry', vol='6', page=129, next_page=228,
          title=r'FIRST\s+REGIMENT\s+MASSACHUSETTS\s+VOLUNTEER\s+CAVALRY', arm='cavalry'),

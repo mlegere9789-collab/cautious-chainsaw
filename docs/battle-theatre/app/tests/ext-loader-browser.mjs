@@ -35,6 +35,7 @@ export async function init(c) {
     G.renders++;
     body.innerHTML = '<p class="mini" id="demo-p">Drawn at minute ' + theatre.state.t.toFixed(1) + ' of the theatre clock.</p><p style="display:flex;flex-wrap:wrap;gap:6px;margin:10px 0" id="demo-pills">' + c.tierMark.tiers.map(t => c.tierMark(t)).join('') + '</p>'
       + '<p id="demo-long">' + c.tierMark('documented (secondary); the spot is plausible-procedural') + '</p><p id="demo-none" style="margin:8px 0">' + c.tierMark('seeded_unverified') + '</p>'
+      + '<p id="demo-hedged" style="margin:8px 0">' + c.tierMark('partially documented') + '</p>'
       + '<p><button type="button" class="btn-s" id="demo-btn" data-autofocus>Count</button> <output id="demo-n">0</output></p>';
     let n = 0; scope.on(body.querySelector('#demo-btn'), 'click', () => { body.querySelector('#demo-n').textContent = String(++n); }); scope.add(() => { G.cleanups++; });
   });
@@ -126,10 +127,10 @@ try {
   await s.shot('2-layer-on');
   // the panel
   await P.click('.xp-item[data-xpanel="demo-panel"]'); await P.waitForSelector('.xp-body[data-xpanel="demo-panel"] #demo-p'); await P.waitForTimeout(80);
-  const pn = await P.evaluate(() => { const q = s => document.querySelector(s); return { title: q('#bt-drawer-title').textContent, panel: window.btApp.state.panel, expanded: q('#bt-more').getAttribute('aria-expanded'), pills: [...document.querySelectorAll('#demo-pills .pill')].map(p => p.dataset.tier + ':' + p.textContent.trim() + ':' + !!p.querySelector('svg')), long: q('#demo-long .tier-mark .pill')?.dataset.tier + '|' + q('#demo-long .tier-note')?.textContent, none: q('#demo-none .pill')?.dataset.tier + '|' + q('#demo-none .pill')?.textContent, focus: document.activeElement?.id, back: q('.xp-back button')?.textContent.trim(), renders: globalThis.__extDemo.renders }; });
+  const pn = await P.evaluate(() => { const q = s => document.querySelector(s); return { title: q('#bt-drawer-title').textContent, panel: window.btApp.state.panel, expanded: q('#bt-more').getAttribute('aria-expanded'), pills: [...document.querySelectorAll('#demo-pills .pill')].map(p => p.dataset.tier + ':' + p.textContent.trim() + ':' + !!p.querySelector('svg')), long: q('#demo-long .tier-mark .pill')?.dataset.tier + '|' + q('#demo-long .tier-note')?.textContent, none: q('#demo-none .pill')?.dataset.tier + '|' + q('#demo-none .pill')?.textContent, hedged: q('#demo-hedged .pill')?.dataset.tier + '|' + q('#demo-hedged .pill')?.textContent, focus: document.activeElement?.id, back: q('.xp-back button')?.textContent.trim(), renders: globalThis.__extDemo.renders }; });
   check('the panel opens from the list: title, the More tool stays marked, renderFn got (body, theatre, scope)', pn.title === 'Stand-in panel' && pn.panel === 'demo-panel' && pn.expanded === 'true' && pn.renders === 1 && pn.back === 'All added layers and panels', pn);
   check('tierMark in the page: four pills with glyph and label', pn.pills.join('|') === 'documented:Documented:true|inferred:Inferred:true|plausible-procedural:Plausible-procedural:true|open gap:Open gap:true', pn.pills);
-  check('tierMark: a longer statement is marked by its weakest tier and stays visible; an unknown one says "Tier not stated"', pn.long === 'plausible-procedural|documented (secondary); the spot is plausible-procedural' && pn.none === 'none|Tier not stated: seeded_unverified', { long: pn.long, none: pn.none });
+  check('tierMark: a longer statement is marked by its weakest tier and stays visible; an unknown one or a hedged one ("partially documented") says "Tier not stated"', pn.long === 'plausible-procedural|documented (secondary); the spot is plausible-procedural' && pn.none === 'none|Tier not stated: seeded_unverified' && pn.hedged === 'none|Tier not stated: partially documented', { long: pn.long, none: pn.none, hedged: pn.hedged });
   check('data-autofocus in an added panel receives the focus', pn.focus === 'demo-btn', pn.focus);
   await P.click('#demo-btn'); await P.click('#demo-btn'); check('a listener registered through the panel scope works', await P.evaluate(() => document.querySelector('#demo-n').textContent) === '2');
   await s.shot('3-panel');

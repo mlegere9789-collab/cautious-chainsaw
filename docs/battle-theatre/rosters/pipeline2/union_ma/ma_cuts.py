@@ -16,5 +16,7 @@ NAME_CUTS = [
     ('u-ma-28th-massachusetts-infantry', 'McLelland Moore', 'the entry above ends in "Officer U. S. A." (initials)'),
     ('u-ma-32nd-massachusetts-infantry', 'Francis J. Parker', 'the first entry follows the unit sketch, which ends in the word INFANTRY set as a heading'),
     ('u-ma-1st-company-massachusetts-sharpshooters', 'Littlefield.DavidM.', 'the OCR printed the surname, the comma and the given name as one token'),
+    ('u-ma-15th-massachusetts-infantry', 'Charles Devens', 'the first entry follows the unit sketch, which ends in the word INFANTRY set as a heading'),
+    ('u-ma-20th-massachusetts-infantry', 'John W. Nye', 'the entry above ends in "V. R. C." (initials)'),
     ('u-ma-11th-massachusetts-infantry', 'Poole William', 'the comma is lost in the text layer; the entry above ends in "as John Pickins." which the period rule would have taken for the surname'),
 ]

@@ -219,9 +219,25 @@ for path in sorted(glob.glob(os.path.join(GOV, 'evidence_corrections', '*.jsonl'
             add('blocked_host_entry', {'file': rp(path), 'locator': 'line %d id=%s status' % (ln, rid), 'orig_id': '%s#status' % rid, 'shard': r.get('shard')}, 'blocked_host',
                 'row %s has status blocked_host (%s)' % (rid, (r.get('corrected_claim') or '')[:200]), '', [], affects=[rid], kind='blocked_host_entry')
 
-# number the rows
+# stable ids: family prefix + shard/file + locator (not a running number, so that other engineers' appends cannot renumber rows)
+import re as _re
+def _slug(x):
+    return _re.sub(r'[^A-Za-z0-9._#-]+', '_', str(x)).strip('_')
+seen = {}
 for i, r in enumerate(rows, 1):
-    r['lk_id'] = 'LKR-%04d' % i
+    o = r['origin']
+    if r['family'] == 'timeline_row':
+        base = 'LKR-' + o['orig_id']
+    elif r['family'] == 'blocked_host_entry':
+        base = 'LKR-BH-' + _slug(os.path.basename(o['file']).replace('.jsonl', '')) + '-' + _slug(o['orig_id'])
+    elif r['family'] == 'lookup_log':
+        base = 'LKR-' + _slug(o['shard']) + '-L' + _slug(o['locator'].replace('line ', ''))
+    else:
+        base = 'LKR-' + _slug(o['orig_id'])
+    n = seen.get(base, 0) + 1
+    seen[base] = n
+    r['lk_id'] = base if n == 1 else '%s-%d' % (base, n)
+    r['seq'] = i
 with open(OUT, 'w') as f:
     for r in rows:
         f.write(json.dumps(r, ensure_ascii=False, sort_keys=True) + '\n')

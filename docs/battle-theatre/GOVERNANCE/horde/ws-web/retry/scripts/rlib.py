@@ -168,7 +168,7 @@ def find_quote(text, quote, start=0):
 
 
 def file_text(path):
-    with open(path, 'r', encoding='utf-8', errors='replace') as f:
+    with open(path, 'r', encoding='utf-8', errors='replace', newline='') as f:
         return f.read()
 
 

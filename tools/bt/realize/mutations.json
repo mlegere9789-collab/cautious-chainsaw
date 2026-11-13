@@ -1128,9 +1128,9 @@
  {
   "id": "check-merge-keep-old",
   "file": "tools/bt/realize/check.mjs",
-  "find": "doc = { ...doc, rows: { ...old.rows, ...doc.rows }",
-  "replace": "doc = { ...doc, rows: { ...doc.rows }",
-  "rule": "a partial run is merged over the earlier file",
+  "find": "const pick = (ids, mine, olds, rep) => Object.fromEntries(ids.filter(id => rep.has(id) || id in olds || id in mine).map(id => [id, rep.has(id) ? mine[id] : id in olds ? olds[id] : mine[id]]));",
+  "replace": "const pick = (ids, mine, olds, rep) => Object.fromEntries(ids.filter(id => id in mine).map(id => [id, mine[id]]));",
+  "rule": "a partial run is merged over the earlier file: the rows it does not replace are kept",
   "tests": [
    "inputs"
   ],
@@ -1442,6 +1442,149 @@
   "find": "\"town\": 350,",
   "replace": "\"town\": 400,",
   "rule": "the floor of a town is the product gazetteer builder's (350 m)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-merge-file-replaces-only-records",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "const replace = new Set(Object.entries(doc.rows).filter(([, e]) => e.record || !files).map(([id]) => id)),",
+  "replace": "const replace = new Set(Object.entries(doc.rows).map(([id]) => id)),",
+  "rule": "a records file replaces only the rows it has a record for",
+  "tests": [
+   "inputs"
+  ],
+  "pattern": "partial run written"
+ },
+ {
+  "id": "schema-window-bad",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "add('window_bad', String(e.message || e));",
+  "replace": "/* no window_bad */;",
+  "rule": "a window that does not parse is refused",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-window-missing",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (!span) add('window_missing',",
+  "replace": "if (false) add('window_missing',",
+  "rule": "a record needs a window",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-quantifier",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "!['all', 'any'].includes(a.quantifier)) add('assert_quantifier'",
+  "replace": "false) add('assert_quantifier'",
+  "rule": "a quantifier is all or any",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-not-shown-list",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (!Array.isArray(rec.not_shown) || !rec.not_shown.length) add('not_shown_bad'",
+  "replace": "if (false) add('not_shown_bad'",
+  "rule": "not_shown is a non-empty list",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-not-shown-on-missing",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (rec.kind === 'not_realized') add('not_shown_on_not_realized'",
+  "replace": "if (false) add('not_shown_on_not_realized'",
+  "rule": "not_shown belongs on a realized record",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-missing-on-realized",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "} else if (rec.missing) add('missing_on_realized'",
+  "replace": "} else if (false) add('missing_on_realized'",
+  "rule": "missing belongs on a not_realized record",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-entities-missing",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (!E) add('entities_missing'",
+  "replace": "if (false) add('entities_missing'",
+  "rule": "a record lists its entities",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-entities-unknown",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "['units', 'structures', 'places', 'schedule', 'works', 'cards'].includes(k)) add('entities_unknown'",
+  "replace": "['units', 'structures', 'places', 'schedule', 'works', 'cards', 'foo'].includes(k) || true) add('entities_unknown_off'",
+  "rule": "an entity list is one the harness knows",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-scenario-bad",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "for (const x of list) if (!specOk(x)) add('scenario_bad'",
+  "replace": "for (const x of list) if (false) add('scenario_bad'",
+  "rule": "a scenario is default, pdf, conflicts or an object",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-scenario-duplicate",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (seen.has(id)) { res.problems.push({ code: 'scenario_duplicate'",
+  "replace": "if (false) { res.problems.push({ code: 'scenario_duplicate'",
+  "rule": "a scenario is listed once",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-place-unknown",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (r.status === 'unknown') { res.problems.push({ code: 'place_unknown', detail: `place \"${name}\" is not in the gazetteer",
+  "replace": "if (false) { res.problems.push({ code: 'place_unknown', detail: `place \"${name}\" is not in the gazetteer",
+  "rule": "a place no file carries is unknown, never guessed",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-place-off-ground",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "const p = r.place; if (!p.on_ground) {",
+  "replace": "const p = r.place; if (false) {",
+  "rule": "a place off the loaded ground cannot be used for a position",
   "tests": [
    "rules",
    "main"

@@ -144,10 +144,12 @@ async function main() {
     if (exists(target)) {
       let old = null; try { old = readJSON(target); } catch { old = null; }
       if (old && old.rows) {
-        const sameDigests = old.harness === doc.harness && old.harness_digest === doc.harness_digest && old.inputs_digest === doc.inputs_digest, carried = [...Object.keys(old.rows).filter(id => !(id in doc.rows)), ...Object.keys(old.epilogue || {}).filter(id => !(id in doc.epilogue))];
-        doc = { ...doc, rows: { ...old.rows, ...doc.rows }, epilogue: { ...(old.epilogue || {}), ...doc.epilogue }, examples: { ...(old.examples || {}), ...doc.examples } };
-        const order = TL.rows.map(r => r.id).filter(id => id in doc.rows); doc.rows = Object.fromEntries(order.map(id => [id, doc.rows[id]]));
-        doc.scope = { ...doc.scope, timeline_rows: Object.keys(doc.rows).length, epilogue_rows: Object.keys(doc.epilogue).length, files: [...new Set([...(old.scope && old.scope.files || []), ...doc.scope.files])].sort(), partial: Object.keys(doc.rows).length < TLcount || Object.keys(doc.epilogue).length < EPcount, merged_over_earlier_file: true, rows_replaced: Object.keys(inRows).length + Object.keys(inEp).length, rows_carried_over: carried.length };
+        // the rows this run REPLACES: every row it ran (a shard, a list of rows) and, for a records file (--file), only the rows that file has a record for (the other rows of that run are "no record" because the file is not theirs)
+        const replace = new Set(Object.entries(doc.rows).filter(([, e]) => e.record || !files).map(([id]) => id)), replaceEp = new Set(Object.entries(doc.epilogue).filter(([, e]) => e.record || !files).map(([id]) => id));
+        const sameDigests = old.harness === doc.harness && old.harness_digest === doc.harness_digest && old.inputs_digest === doc.inputs_digest, carried = [...Object.keys(old.rows).filter(id => !replace.has(id)), ...Object.keys(old.epilogue || {}).filter(id => !replaceEp.has(id))];
+        const pick = (ids, mine, olds, rep) => Object.fromEntries(ids.filter(id => rep.has(id) || id in olds || id in mine).map(id => [id, rep.has(id) ? mine[id] : id in olds ? olds[id] : mine[id]]));
+        doc = { ...doc, rows: pick(TL.rows.map(r => r.id), doc.rows, old.rows, replace), epilogue: pick(EP.map(r => r.id), doc.epilogue, old.epilogue || {}, replaceEp), examples: { ...(old.examples || {}), ...doc.examples } };
+        doc.scope = { ...doc.scope, timeline_rows: Object.keys(doc.rows).length, epilogue_rows: Object.keys(doc.epilogue).length, files: [...new Set([...(old.scope && old.scope.files || []), ...doc.scope.files])].sort(), partial: Object.keys(doc.rows).length < TLcount || Object.keys(doc.epilogue).length < EPcount, merged_over_earlier_file: true, rows_replaced: replace.size + replaceEp.size, rows_carried_over: carried.length };
         if (!sameDigests && carried.length) doc.rows_from_other_digests = { _doc: 'these rows were computed by an earlier run under other digests (previous_digests); the file is not valid for a gate until a full run (check.mjs without --shard) replaces them', ids: carried, previous_digests: { harness_digest: old.harness_digest, inputs_digest: old.inputs_digest } };
       }
     }

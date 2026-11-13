@@ -21,6 +21,7 @@ test('rule: a quote is found only by whole words, apostrophes and quotation mark
   assert.equal(hasQuote('rain "most of the day"', 'rain most of the day'), true, 'quotation marks fold');
   assert.equal(hasQuote('rain most of the day', ''), false, 'an empty quote is not found');
   assert.equal(hasQuote('rain most of the day', 'ra'), false, 'a quote shorter than 3 characters is not found');
+  assert.equal(hasQuote('a march of men', 'of'), false, 'a whole word of two characters is still too short to be a quote'); assert.equal(hasQuote('a march of men', 'march'), true);
   assert.equal(fold('Early’s  Division |  (Ewell’s II Corps)'), 'earlys division (ewells ii corps)');
   assert.equal(hasQuote('Camp west of Cashtown to | Cashtown Pike', 'Cashtown to Cashtown Pike'), true, 'a quote may cross the cells the table wrapped');
 });
@@ -56,6 +57,11 @@ test('rule: every kind needs the assertion that can prove it (schema.mjs KIND_NE
     const res = await run(r); assert.equal(res.realized, false, k); assert.ok(codesOf(res).has('kind_needs'), `${k}: a record whose only assertion cannot prove the kind must say kind_needs (got ${[...codesOf(res)].join(', ')})`);
   }
   const mot = rec('K-001', 'unit_motion', '1863-07-01T12:00', '1863-07-01T12:30', 'Cutler’s brigade stands', { units: ['us-1c-1d-cutler'] }, [{ type: 'unit_moves', unit: 'us-1c-1d-cutler', min_minutes: 0 }]); await mustFail(mot, 'assert_field', 'unit_moves with no place relation');
+  A('K-002', 'Iron Brigade 19th Indiana advances', '1863-07-01T10:20', '1863-07-01T10:50');
+  const walk = () => rec('K-002', 'unit_motion', '1863-07-01T10:20', '1863-07-01T10:50', '19th Indiana advances', { units: ['us-1c-1d-meredith-19in'] }, [{ type: 'unit_moves', unit: 'us-1c-1d-meredith-19in' }]);
+  await mustFail(walk(), 'assert_field', 'a motion that names no place must say so'); await mustFail(walk(), 'kind_needs', 'and a motion record needs a place relation or place_unspecified (kind_needs)');
+  const walked = walk(); walked.place_unspecified = 'the row names no place'; await mustPass(walked, 'a motion row that names no place says why, and is checked for its marching and displacement only');
+  walked.checks[0].min_displacement_m = 100000; await mustFail(walked, 'unit_not_moving', 'and still has to move');
   const act = rec('K-001', 'unit_activity', '1863-07-01T12:00', '1863-07-01T12:30', 'Cutler’s brigade stands', { units: ['us-1c-1d-cutler'] }, [{ type: 'unit_activity', unit: 'us-1c-1d-cutler', activities: ['stand'] }]); await mustFail(act, 'kind_needs', 'an activity with no place and no place_unspecified');
   act.place_unspecified = 'the row names no place'; await mustPass(act, 'an activity that says why it has no place');
 });
@@ -100,12 +106,16 @@ test('rule: motion (unit_moves): displacement, minutes, closing, start, line (ch
   const mode = mv({}); mode.checks[0].t = { from: '1863-07-01T10:00', to: '1863-07-01T10:50', mode: 'all' }; A('M-002', 'Iron Brigade 19th Indiana advances toward McPherson Ridge', '1863-07-01T10:00', '1863-07-01T10:50'); mode.id = 'M-002'; mode.window = { from: '1863-07-01T10:00', to: '1863-07-01T10:50' }; await mustFail(mode, 'unit_not_on_field', 'mode all: not on the field before its arrival');
 });
 test('rule: position (unit_at), activity minutes, arrival place, absence (checks.mjs)', async () => {
-  A('P-001', 'McPherson Ridge Cutler’s brigade stands in line; Iron Brigade 19th IN arrives', '1863-07-01T10:00', '1863-07-01T12:30');
+  A('P-001', 'McPherson Ridge Cutler’s brigade stands in line; Iron Brigade 19th IN arrives on the Emmitsburg Road', '1863-07-01T10:00', '1863-07-01T12:30');
   const C = 'us-1c-1d-cutler';
   const at = (t, extra = {}) => rec('P-001', 'unit_activity', '1863-07-01T10:00', '1863-07-01T12:30', 'Cutler’s brigade stands in line', { units: [C], places: ['McPherson Ridge'] }, [{ type: 'unit_present', unit: C }, { type: 'unit_at', unit: C, place: 'McPherson Ridge', t, ...extra }]);
   await mustPass(at(whole('1863-07-01T12:00', '1863-07-01T12:30')));
   await mustFail(at(whole('1863-07-01T11:00', '1863-07-01T12:30')), 'unit_wrong_place', 'mode all: the brigade is elsewhere in part of the window');
   await mustPass(at({ from: '1863-07-01T11:00', to: '1863-07-01T12:30' }), 'mode any: it is there at some minute');
+  const road = (t) => rec('P-001', 'unit_activity', '1863-07-01T10:15', '1863-07-01T10:30', '19th IN arrives on the Emmitsburg Road', { units: ['us-1c-1d-meredith-19in'], places: ['Emmitsburg Road'] }, [{ type: 'unit_present', unit: 'us-1c-1d-meredith-19in' }, { type: 'unit_at', unit: 'us-1c-1d-meredith-19in', place: 'Emmitsburg Road', t }]);
+  await mustPass(road(whole('1863-07-01T10:20', '1863-07-01T10:25')), 'on the road at every minute from its arrival');
+  await mustFail(road(whole('1863-07-01T10:15', '1863-07-01T10:25')), 'unit_not_on_field', 'mode all: the brigade is not on the field before its arrival, which is not "at the road"');
+  await mustPass(road({ from: '1863-07-01T10:15', to: '1863-07-01T10:25' }), 'mode any: at some minute');
   const act = (extra) => rec('P-001', 'unit_activity', '1863-07-01T12:00', '1863-07-01T12:30', 'Cutler’s brigade stands in line', { units: [C] }, [{ type: 'unit_activity', unit: C, activities: ['stand'], ...extra }], { place_unspecified: 'x' });
   await mustPass(act({ min_minutes: 30 }));
   await mustFail(act({ min_minutes: 400 }), 'unit_wrong_activity', 'more minutes of an activity than the window has');

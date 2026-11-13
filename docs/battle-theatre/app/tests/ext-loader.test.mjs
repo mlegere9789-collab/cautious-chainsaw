@@ -7,11 +7,12 @@
 // Nothing here opens a browser: the drawer in the page is tests/ext-loader-browser.mjs.
 //   node --test docs/battle-theatre/app/tests/ext-loader.test.mjs
 import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'; import { fileURLToPath, pathToFileURL } from 'node:url';
-import { Extensions, INDEX, INIT_WAIT_MS, tierMark, tierName, readTierWords, TIER_WORDS, plain, liveChoices, badPath, looksAbsent } from '../src/ui/extensions.mjs';
+import { Extensions, INDEX, INIT_WAIT_MS, tierMark, tierName, readTierWords, TIER_WORDS, tierReading, plain, liveChoices, badPath, looksAbsent } from '../src/ui/extensions.mjs';
 import { moreHTML, togglesHTML, drawAdded, mountExtensionsUI, failedHTML, MORE } from '../src/ui/ext-panel.mjs';
 import { Bus, Scope } from '../src/scope.mjs';
 import { TIERS, TIER_STYLE, URLS } from '../src/config.mjs';
 import { RenderHost } from '../src/render-host.mjs';
+import { FxHost } from '../src/fx-host.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), APP = path.resolve(here, '..');
 const CTX_KEYS = ['choices', 'env', 'history', 'host', 'registerLayerToggle', 'registerPanel', 'state', 'structures', 'theatre', 'tierMark', 'urls'];
@@ -425,6 +426,7 @@ test('tierMark: what a hedge or a negation does is the same for every word of it
   assert.equal(tierName('probably accurate; documented'), 'documented'); assert.equal(tierName('documented (secondary source, probably accurate)'), 'documented'); assert.equal(tierName('not documented. Inferred.'), 'inferred');
   // the reading itself: how each tier word is said
   assert.deepEqual(readTierWords('partly documented; open; not inferred').map(x => [x.word, x.how]), [['documented', 'hedged'], ['open', 'plain'], ['inferred', 'negated']]);
+  assert.deepEqual(tierReading('Partly DOCUMENTED; open_gap; Not inferred').map(x => [x.word, x.rank, x.how]), [['documented', 0, 'hedged'], ['open', 3, 'plain'], ['gap', 3, 'plain'], ['inferred', 1, 'negated']], 'tierReading cleans the statement first'); assert.deepEqual(tierReading(Object.create(null)), []);
   assert.deepEqual(readTierWords('documented, but only in part').map(x => x.how), ['hedged']); assert.deepEqual(readTierWords('documented (secondary)').map(x => x.how), ['plain']); assert.deepEqual(readTierWords('nothing here'), []);
 });
 
@@ -483,4 +485,25 @@ test('render-host: addSceneHook draws after the figures and the structures witho
     assert.throws(() => h.addSceneHook(null), TypeError); assert.throws(() => h.addSceneHook({}), TypeError);
     h.addSceneHook({ scene() {} }); h.destroyed = true; h._hooks = []; assert.equal(typeof h.addSceneHook({ scene() {} }), 'function'); assert.equal(h._hooks.length, 0, 'nothing is added to a destroyed host');
   } finally { console.error = err; }
+});
+
+test('the order a hook relies on, with the real RenderHost and the real chain of the effects host: figures, structures, the hooks, then the weather and the effects; on WebGPU the effects come in the pass after the scene pass', () => {
+  const h = new RenderHost(), R = h.R = {}, trace = []; h._wireExt();
+  h.crowd = { scene: () => trace.push('crowd'), shadow: () => trace.push('crowd.shadow') };
+  R.ext = { scene: () => trace.push('structures'), shadow: () => trace.push('structures.shadow') };               // what the structures do: host.R.ext = structures
+  h.addSceneHook({ scene: (p, r) => trace.push('hook:' + p + ':' + (r === R)), shadow: (p, c) => trace.push('hook.shadow' + c) });
+  const fx = Object.create(FxHost.prototype); FxHost.prototype._chainExt.call(fx, R, { scene: () => trace.push('weather+effects') });                 // WebGL2: the effects host draws inside the scene pass
+  R.ext.scene('gl', R); assert.deepEqual(trace, ['crowd', 'structures', 'hook:gl:true', 'weather+effects'], 'the hooks are drawn after the figures and the structures and before the weather and the effects');
+  trace.length = 0; R.ext.shadow('gl', 1, R); assert.deepEqual(trace, ['crowd.shadow', 'structures.shadow', 'hook.shadow1'], 'the shadow passes: the effects host draws no shadow');
+  trace.length = 0; R.ext = { scene: () => trace.push('structures, attached later') }; R.ext.scene('gl', R); assert.deepEqual(trace, ['crowd', 'structures, attached later', 'hook:gl:true', 'weather+effects'], 'whoever sets the slot afterwards stays inside the chain, in the same place');
+  // WebGPU: the effects host chains `after` (the renderer calls it after the scene pass has ended); the hooks stay inside the scene pass
+  const h2 = new RenderHost(), R2 = h2.R = {}, t2 = []; h2._wireExt(); h2.addSceneHook({ scene: (p, r) => t2.push('hook') });
+  const fx2 = Object.create(FxHost.prototype); FxHost.prototype._chainExt.call(fx2, R2, { after: enc => t2.push('weather+effects:' + enc) });
+  R2.ext.scene('pass', R2); assert.deepEqual(t2, ['hook']); R2.ext.after('enc', R2); assert.deepEqual(t2, ['hook', 'weather+effects:enc']);
+  // the renderers call the slot where the hook needs it (source order: webgpu.mjs and webgl2.mjs are the prototype's, imported unchanged)
+  const gpu = fs.readFileSync(path.join(APP, '../render/prototype/src/webgpu.mjs'), 'utf8'), gl = fs.readFileSync(path.join(APP, '../render/prototype/src/webgl2.mjs'), 'utf8'), at = (src, x, from = 0) => { const i = src.indexOf(x, from); assert.ok(i >= 0, 'the renderer no longer contains: ' + x); return i; };
+  const sc = at(gpu, 'this.ext.scene(p, this)'), end = at(gpu, 'p.end(); }', sc), after = at(gpu, 'this.ext.after(enc, this)', end), part = at(gpu, 'this.P.part', after);
+  assert.ok(at(gpu, 'drawChars(\'\', p)') < sc && sc < end && end < after && after < part, 'WebGPU: figures, then the hooks inside the scene pass, then the pass ends, then `after` (weather and effects), then the prototype\'s own particles');
+  const gsc = at(gl, 'this.ext.scene(gl, this)'), gpart = at(gl, "qpass('particles'", gsc), gend = at(gl, 'this.ext.shadow(gl, c, this)');
+  assert.ok(at(gl, "drawChars('')") < gsc && gsc < gpart && gend < at(gl, "qpass('scene'"), 'WebGL2: figures, then the hooks and the effects host inside the scene pass, before the prototype\'s own particles; the shadow passes come before the scene pass');
 });

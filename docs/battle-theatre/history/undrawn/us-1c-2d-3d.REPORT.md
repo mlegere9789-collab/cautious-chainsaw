@@ -1,16 +1,18 @@
 # us-1c-2d-3d: Union I Corps, Robinson's division (Paul, Baxter) and Doubleday/Rowley's division (Biddle, Stone, Stannard): report of the group
 
-Workstream bt-units, group `us-1c-2d-3d`, 2026-11-13. File: `docs/battle-theatre/history/undrawn/us-1c-2d-3d.jsonl` (200 records).
+Workstream bt-units, group `us-1c-2d-3d`, 2026-11-13. File: `docs/battle-theatre/history/undrawn/us-1c-2d-3d.jsonl` (217 records).
 
 ## 1. What was run and what it says
 
 | Check | Result |
 |---|---|
-| `python3 -I docs/battle-theatre/history/undrawn/tools/check_undrawn.py us-1c-2d-3d --complete` | exit 0: 200 records, 29 units named, 0 errors, 0 warnings, 0 of 87 items owed (87 = the missing words of the 21 leaf units, a day without a place counted once) |
+| `python3 -I docs/battle-theatre/history/undrawn/tools/check_undrawn.py us-1c-2d-3d --complete` | exit 0: 217 records, 29 units named, 0 errors, 0 warnings, 0 of 87 items owed (87 = the missing words of the 21 leaf units, a day without a place counted once) |
 | `check_undrawn.py --all` (ids across the group files present) | no claim id of this group is used in another file |
 | Browser, node suite, `check_governance.py` | not run (the task is a data file; nothing of the layer, the roster or a ledger was changed) |
 
-Records by tier: 101 documented, 93 inferred, 2 open gap, 4 source records. By kind: arrival 43, arrival_road 15, road_identification 7, march 4, position 26, movement 10, engagement 7, night_position 17, strength 50, absent 10, unit 3, line_order 2, gap 2, source 4. Fifteen conflict groups are carried (section 5); no value is chosen anywhere.
+Records by tier: 104 documented, 107 inferred, 2 open gap, 4 source records. By kind: arrival 43, arrival_road 15, road_identification 7, march 4, position 31, movement 14, engagement 10, night_position 22, strength 50, absent 10, unit 3, line_order 2, gap 2, source 4. Fifteen conflict groups are carried (section 5); no value is chosen anywhere.
+
+Before the last build every statement was compared with the passage that carries it (a scratch script lists the numbers, names and other words of a statement that the passage does not contain, and each was read): clauses that went beyond the passage were cut or the passage was widened to hold them (for example the Wolf Run Shoals place and a wrong "five and a half months" on the three Vermont figures of 15 February 1863, which are about four and a half months before 1 July; a "Fifth United States Artillery" that Stannard's report does not print; "for 30 June" in Fox's footnote on the First Corps returns).
 
 ## 2. The 21 leaf units: how each missing word is closed
 
@@ -33,12 +35,12 @@ Records by tier: 101 documented, 93 inferred, 2 open gap, 4 source records. By k
 | 121st PA (Biddle) | own (A. Biddle R058) | brigade: the Hagerstown road (McFarland, documented) | own, 2 and 3 July (R056) | 258 muskets, 7 officers on 30 June (A. Biddle, narrative in PA2) |
 | 142nd PA (Biddle) | brigade (C. Biddle, about 11 a. m.) | brigade (documented) | own, 2 and 3 July (R059) | 80 for duty on 1 July night (R059); 336 present (PA2, inferred) |
 | 151st PA (Biddle) | own, 10.30 a. m. (R060) | own: the Hagerstown road (R060) | own, 2 and 3 July (R060, R057) | 21 officers, 446 men (R060); 8 officers, 113 men on 2 July |
-| 143rd PA (Stone) | brigade, 11 a. m. and noon | brigade: the Emmitsburg road (Johnson 1889, documented) | none owed | 465 (R063, R064; Fox) |
-| 149th PA (Stone) | brigade; march of Irvin (R066) | own: the Emmitsburg direction (R065); brigade (Johnson 1889) | none owed | about 450 (R063, R065, R066) |
-| 150th PA (Stone) | own, about noon (R067) | brigade (Johnson 1889) | none owed | 400 (R063, R067, R029); Fox 417: carried |
-| 13th VT (Stannard) | own, about 5 p. m. (R070) | brigade: the Emmittsburg road (Benedict 1888, inferred) | none owed (ledger holds them) | 831 on 15 February 1863 (Benedict, a floor, not the strength of 1 July) |
-| 14th VT (Stannard) | brigade (Randall, Stannard, Benedict) | brigade (Benedict) | none owed | 777 on 15 February 1863 (same) |
-| 16th VT (Stannard) | brigade (same) | brigade (Benedict) | none owed | 684 on 15 February 1863 (same; the OCR prints G84, the printed total shows 684) |
+| 143rd PA (Stone) | brigade, 11 a. m. and noon | brigade: the Emmitsburg road (Johnson 1889, documented) | none owed; brigade records of 1 to 3 July added (R062, R063) | 465 (R063, R064; Fox) |
+| 149th PA (Stone) | brigade; march of Irvin (R066) | own: the Emmitsburg direction (R065); brigade (Johnson 1889) | none owed; own night record of 2 July (advanced some 600 yards, R063) | about 450 (R063, R065, R066) |
+| 150th PA (Stone) | own, about noon (R067) | brigade (Johnson 1889) | none owed; own night record of 2 July (same) | 400 (R063, R067, R029); Fox 417: carried |
+| 13th VT (Stannard) | own, about 5 p. m. (R070) | brigade: the Emmittsburg road (Benedict 1888, inferred) | none owed; own records of 2 and 3 July (Randall R070) | 831 on 15 February 1863 (Benedict; a dated figure about four and a half months before the battle, not the strength of 1 July) |
+| 14th VT (Stannard) | brigade (Randall, Stannard, Benedict) | brigade (Benedict) | none owed; own movement of 3 July, 4 a. m. (R069) | 777 on 15 February 1863 (same) |
+| 16th VT (Stannard) | brigade (same) | brigade (Benedict) | none owed; own picket record of 2 to 3 July (R069) | 684 on 15 February 1863 (same; the OCR prints G84, the printed total shows 684) |
 
 The 7 formation rows have records of their own: Robinson's division (arrival, the road, the strength), Baxter's brigade (arrival by three witnesses, the pike, the line of 1 and 2 July, strength), Paul's brigade (the Emmitsburg Pike), Rowley's division (arrival toward 11 o'clock), Biddle's brigade (arrival, the Hagerstown road, strength, the line of 2 July, line order), Stone's brigade (arrival by four witnesses, the Emmitsburg road, strength), Stannard's brigade (arrival by eight witnesses, the road, the night position, the footnote).
 
@@ -100,7 +102,7 @@ Found and not acquired (leads for round 2): Gates, The "Ulster Guard" (20th N. Y
 ## 9. What is still owed (round 2) and what was not done
 
 - Strength of the 97th New York, the 90th and 11th Pennsylvania, the 104th New York (the two gap records); the figure of the Vermont regiments for 1 July (only the 15 February 1863 figures are printed in the texts read); a re-read of NY2 p. 755 on the scan.
-- Positions of 2 and 3 July of Stone's and Stannard's regiments were not owed (the ledger and the troop maps hold places) and were not extended by new records; no new evidence was found for them in the passages read.
+- Positions of 1 to 3 July of Stone's and Stannard's brigades were not owed (the ledger and the troop maps hold places); they were nevertheless entered from the reports of Dana, Wister, Stannard and Randall (night of 1 July, 2 July morning and afternoon, the advance of the 149th and 150th, the breastwork and the second line of 3 July; the brigade of Stannard at the break in the line, its front held for twenty-six hours, the 13th Vermont's two days). Not done: the 14th and 16th Vermont's own accounts (none is in the Official Records text read), the 143rd, 149th and 150th as separate units on 3 July, and the 13th Vermont's flank attack and pursuit as separate movement records.
 - 3 July positions of Baxter's regiments (their places come from the troop map) were not extended beyond the 12th Massachusetts.
 - The regiments' own accounts of the 90th Pennsylvania (Sellers 1888) and the 11th Pennsylvania were searched, not read in full.
 - No record states an exact hour from a digit damaged in the OCR; the hours of the 13th Massachusetts (about 11), the 16th Maine (9 a. m. departure in words) and the 150th (perhaps 9.45, without a. m. or p. m.) are carried as printed, without a machine-readable clock.

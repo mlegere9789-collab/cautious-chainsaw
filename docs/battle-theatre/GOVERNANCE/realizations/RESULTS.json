@@ -1,12 +1,12 @@
 {
  "harness": "bt-realize-1",
- "harness_digest": "7c5d34f2fb0d82e2",
- "inputs_digest": "23c2d67c1d25f754",
+ "harness_digest": "6d4fdb978dd32bbc",
+ "inputs_digest": "bf8f02819c2ea82b",
  "inputs_parts": {
   "governance": "bb8fd7fb13e12f2e",
-  "app_src": "c84a3fd28b88d60c",
-  "data": "18351642149595bc",
-  "records": "4bd430b1ae3fa9f2"
+  "app_src": "83699ba23f5cab08",
+  "data": "c192f854a26787fc",
+  "records": "89b42b4d2e2c3c3d"
  },
  "inputs_files": {
   "governance": 10,
@@ -1515,7 +1515,7 @@
   "T1-015": {
    "realized": true,
    "kind": "structure_state",
-   "why": "the checks hold in the product; PARTIAL: 3 part(s) of the row are not shown",
+   "why": "the checks hold in the product; PARTIAL: 4 part(s) of the row are not shown",
    "codes": [],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:15",
    "window": {
@@ -1598,6 +1598,10 @@
     {
      "words": "the track is destroyed",
      "why": "the railroad is drawn as a line whose only scheduled change is the reopening on 10 Jul (S-076); the destruction of the track on 26 Jun has no state"
+    },
+    {
+     "words": "the centre span of the bridge was burnt and fell in",
+     "why": "the corrected claim carries two readings (A: Early, a small bridge burnt; B: the Compiler, the centre span burnt and fell in and the other two spans standing but badly damaged) and no default; the product draws one state for the whole bridge (burned, damage 0.3), which is reading A: reading B (one span gone, two standing) is not drawn"
     }
    ],
    "from_examples": true,
@@ -1661,7 +1665,7 @@
   "T1-016": {
    "realized": true,
    "kind": "structure_state",
-   "why": "the checks hold in the product; PARTIAL: 2 part(s) of the row are not shown",
+   "why": "the checks hold in the product; PARTIAL: 3 part(s) of the row are not shown",
    "codes": [],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:16",
    "window": {
@@ -1788,6 +1792,10 @@
     {
      "words": "further bridges on the line are burned by White's cavalry from Jun 27",
      "why": "no other bridge of the Gettysburg Railroad is a structure of the product"
+    },
+    {
+     "words": "the centre span burnt and fell in",
+     "why": "the product draws one state for the whole bridge (burned, damage 0.3), not a burned centre span with two spans standing (the Compiler's account, reading B of the corrected claim of T1-015)"
     }
    ],
    "from_examples": true,
@@ -16729,14 +16737,14 @@
   "T1-015": {
    "realized": true,
    "kind": "structure_state",
-   "why": "the checks hold in the product; PARTIAL: 3 part(s) of the row are not shown",
+   "why": "the checks hold in the product; PARTIAL: 4 part(s) of the row are not shown",
    "codes": [],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:15"
   },
   "T1-016": {
    "realized": true,
    "kind": "structure_state",
-   "why": "the checks hold in the product; PARTIAL: 2 part(s) of the row are not shown",
+   "why": "the checks hold in the product; PARTIAL: 3 part(s) of the row are not shown",
    "codes": [],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:16"
   },

@@ -4,3 +4,20 @@ TAP version 13
 # \# renderer: ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver) (SOFTWARE; hardware flags); WebGPU adapter: google swiftshader; serving the frozen source snapshot /home/user/cautious-chainsaw/tmp/bt-spec/snap-9e1e1777/docs/battle-theatre
 # \# slow renderer: frame 8542 ms on this page, wait scale K = 85.4, entry took 61 s
 # \# 19th IN (Meredith’s Iron Brigade) (366 figures), one minute before its window opens: 0.000% of the pixels around its place differ from the empty field
+# \# after it has marched in (activity: stand): 46.51% of the pixels around its place differ
+# Subtest: a unit that has not arrived is not drawn (pixels), is absent from the unit list and says so on its card; then it marches in from the edge and is drawn
+ok 1 - a unit that has not arrived is not drawn (pixels), is absent from the unit list and says so on its card; then it marches in from the edge and is drawn
+  ---
+  duration_ms: 933683.670762
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 935394.425423
+# end 2026-11-13T21:56:31Z  seconds 935  exit 0  source changed during the run: yes: 1794606730.8867713280 docs/battle-theatre/app/src/ui/extensions.mjs

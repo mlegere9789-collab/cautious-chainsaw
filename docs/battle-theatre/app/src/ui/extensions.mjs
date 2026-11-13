@@ -61,6 +61,8 @@ export function readTierWords(s) {
   }
   return out;
 }
+/** The reading of any tier statement (cleaned first): how each of its tier words is said. For the tests and the gate runner; tierName() is the answer drawn from it. */
+export const tierReading = tier => readTierWords(clean(tier));
 export function tierName(tier) {
   const s = clean(tier); if (!s) return null; if (SHORT.has(s)) return TIERS[SHORT.get(s)];
   let strong = -1, lower = -1;

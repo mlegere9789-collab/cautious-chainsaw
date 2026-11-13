@@ -1,0 +1,66 @@
+{
+ "id": "ver-hist-node",
+ "route": "source-rebuild",
+ "evidence": null,
+ "checked_at": "2026-11-13T21:54:18.126Z",
+ "files": [
+  "tools/historian/ingest/times.mjs",
+  "tests/historian/times-node22.test.mjs",
+  "candidates/r1h/ver-hist-node/HANDOFF.md"
+ ],
+ "tests": [
+  {
+   "cmd": "node --test tests/historian/times-node22.test.mjs",
+   "exit": 0,
+   "ms": 457,
+   "tail": "...informed\") and \"Am\" are not\n  ---\n  duration_ms: 6.636372\n  type: 'test'\n  ...\n# Subtest: pinned readings: 263 inputs, 240 readings, as the file gave them before the meridiem pattern was spelled out\nok 3 - pinned readings: 263 inputs, 240 readings, as the file gave them before the meridiem pattern was spelled out\n  ---\n  duration_ms: 10.267428\n  type: 'test'\n  ...\n# Subtest: the meridiem in every spelling is read exactly when the rule says so, as a clock, as the end of a range and after a spelled hour\nok 4 - the meridiem in every spelling is read exactly when the rule says so, as a clock, as the end of a range and after a spelled hour\n  ---\n  duration_ms: 124.428701\n  type: 'test'\n  ...\n1..4\n# tests 4\n# suites 0\n# pass 4\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 309.586723\n"
+  },
+  {
+   "cmd": "/opt/node24/bin/node --test tests/historian/times-node22.test.mjs",
+   "exit": 0,
+   "ms": 585,
+   "tail": "✔ no tool, test or source file of the historian holds a regular-expression modifier group (Node 22 cannot compile one) (17.553703ms)\n✔ the meridiem: \"a. m.\", \"A. M.\", \"P.M.\", \"AM\" and \"10 p.m.\" are read; a bare lower-case \"am\" or \"pm\" (\"1 am informed\") and \"Am\" are not (4.730718ms)\n✔ pinned readings: 263 inputs, 240 readings, as the file gave them before the meridiem pattern was spelled out (7.161092ms)\n✔ the meridiem in every spelling is read exactly when the rule says so, as a clock, as the end of a range and after a spelled hour (84.685029ms)\nℹ tests 4\nℹ suites 0\nℹ pass 4\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 497.903112\n"
+  },
+  {
+   "cmd": "node --test tests/historian/verify-ingest-clock.test.mjs",
+   "exit": 0,
+   "ms": 484,
+   "tail": "...e 3d, Muhlenberg's battery\"\nok 2 - VI-CK-2 \"the 3d\" is a day when a comma and a word follow it: \"on the morning of the 3d, in compliance with your order\", \"of the 2d, in the woods\", \"of the 3d, Muhlenberg's battery\"\n  ---\n  duration_ms: 23.12554\n  type: 'test'\n  ...\n# Subtest: VI-CK-3 over the corpus: a clock followed by \"of/on the Nd\" is said about day N (10 of 255 claims carry another day today)\nok 3 - VI-CK-3 over the corpus: a clock followed by \"of/on the Nd\" is said about day N (10 of 255 claims carry another day today) # SKIP SKIPPED LOUDLY: historian-src/raw/or27 is not built here; run  node tools/historian/ingest/corpus.mjs build\n  ---\n  duration_ms: 0.236105\n  type: 'test'\n  ...\n1..3\n# tests 3\n# suites 0\n# pass 2\n# fail 0\n# cancelled 0\n# skipped 1\n# todo 0\n# duration_ms 244.17634\n"
+  },
+  {
+   "cmd": "/opt/node24/bin/node --test tests/historian/verify-ingest-clock.test.mjs",
+   "exit": 0,
+   "ms": 412,
+   "tail": "✔ VI-CK-1 \"1 am informed\" is not a clock: the OCR prints the letter I as the digit 1, and a bare \"am\" is documented as never read (5.931008ms)\n✔ VI-CK-2 \"the 3d\" is a day when a comma and a word follow it: \"on the morning of the 3d, in compliance with your order\", \"of the 2d, in the woods\", \"of the 3d, Muhlenberg's battery\" (6.108264ms)\n﹣ VI-CK-3 over the corpus: a clock followed by \"of/on the Nd\" is said about day N (10 of 255 claims carry another day today) (0.124119ms) # SKIPPED LOUDLY: historian-src/raw/or27 is not built here; run  node tools/historian/ingest/corpus.mjs build\nℹ tests 3\nℹ suites 0\nℹ pass 2\nℹ fail 0\nℹ cancelled 0\nℹ skipped 1\nℹ todo 0\nℹ duration_ms 104.276258\n"
+  },
+  {
+   "cmd": "node --test tests/historian/atime.test.mjs",
+   "exit": 0,
+   "ms": 23238,
+   "tail": "...bout something else is not\n  ---\n  duration_ms: 260.731286\n  type: 'test'\n  ...\n# Subtest: \"what time did X begin\" carries the model's time for X, approximate, with the range where the anchor is contested, and never a legacy label\nok 22 - \"what time did X begin\" carries the model's time for X, approximate, with the range where the anchor is contested, and never a legacy label\n  ---\n  duration_ms: 79.371248\n  type: 'test'\n  ...\n# Subtest: I2 for clocks: every clock label in a lead, list or note is derived from a baked minute value\nok 23 - I2 for clocks: every clock label in a lead, list or note is derived from a baked minute value\n  ---\n  duration_ms: 171.120582\n  type: 'test'\n  ...\n1..23\n# tests 23\n# suites 0\n# pass 23\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 22493.775712\n"
+  },
+  {
+   "cmd": "/opt/node24/bin/node --test tests/historian/atime.test.mjs",
+   "exit": 0,
+   "ms": 24286,
+   "tail": "...sks which day, with one chip per day (8.567382ms)\n✔ a clock without am / pm is not guessed either (22.264098ms)\n✔ a date outside the battle is an honest limitation, not a summary of another day (3.534151ms)\n✔ the map's \"Ask about this\" context supplies the day when the question gives only a clock (2.279121ms)\n✔ a question that merely mentions a time is still a clock question, a question about something else is not (21.022707ms)\n✔ \"what time did X begin\" carries the model's time for X, approximate, with the range where the anchor is contested, and never a legacy label (5.022442ms)\n✔ I2 for clocks: every clock label in a lead, list or note is derived from a baked minute value (21.099092ms)\nℹ tests 23\nℹ suites 0\nℹ pass 23\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 24017.252157\n"
+  },
+  {
+   "cmd": "node candidates/r1h/ver-hist-node/check-totals.mjs",
+   "exit": 1,
+   "ms": 92,
+   "tail": "{\n \"ok\": false,\n \"problems\": [\n  \"suite-node22.log is missing (run run-suites.sh)\",\n  \"suite-node24.log is missing (run run-suites.sh)\"\n ]\n}\n"
+  }
+ ],
+ "red_first": {
+  "cmd": "node --test tests/historian/atime.test.mjs",
+  "exit": 1,
+  "log": "candidates/r1h/ver-hist-node/red-atime-node22.log"
+ },
+ "handoff_exists": true,
+ "passes": false,
+ "problems": [
+  "a test command failed"
+ ],
+ "state": "built"
+}

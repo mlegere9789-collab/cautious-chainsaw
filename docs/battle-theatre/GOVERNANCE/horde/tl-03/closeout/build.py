@@ -226,6 +226,7 @@ def main():
             rows += importlib.import_module(mod).ROWS
         except ModuleNotFoundError:
             if '--partial' not in sys.argv: raise
+    rows.sort(key=lambda r: int(r['id'].split('-')[1]))     # the row modules are not in id order (T1-124 sits beside T1-119)
     seed = [json.loads(l) for l in open(os.path.join(G, 'timeline_seed.jsonl'), encoding='utf-8')][115:172]
     seed_by = {r['id']: r for r in seed}
     # The "before" values must be those of the shard as it was BEFORE the close-out, whatever the number of times this builder runs:

@@ -115,7 +115,7 @@ def estimate_tilt(ws):
 
 
 # ------------------------------------------------------------------------------------------------ leaf analysis
-FOOTNOTE_RE = re.compile(r'nlisted\s+for\s+one\s+[yv]e', re.I)
+FOOTNOTE_RE = re.compile(r'nlisted\s+for\s+one', re.I)
 HDR_KEYS = ['residence', 'remarks', 'enlistment', 'muster', 'commisn', 'commiss', 'issue', 'rank', 'name']
 MONTHS = ('jan', 'feb', 'mch', 'mar', 'apr', 'may', 'june', 'july', 'aug', 'sept', 'sep', 'oct', 'nov', 'dec')
 
@@ -246,14 +246,14 @@ def classify_lines(lines, bx, E=None):
             k['kind'] = 'title'
         elif re.match(r'^\W*FINAL\s+STATEMENT', line_text(l), re.I):
             k['kind'] = 'title'
-        elif FOOTNOTE_RE.search(line_text(l)):
+        elif left and FOOTNOTE_RE.search(line_text(left)):
             k['kind'] = 'footnote'
         elif left and is_prose(l, left, right, E):
             k['kind'] = 'prose'
         elif left:
             ltxt = line_text(left)
             h, exact = heading_of(ltxt)
-            if h and not any(month_like(w['w']) for w in right):
+            if h and len(left) <= 4 and (exact or not any(month_like(w['w']) or re.search(r'\d', w['w']) for w in right)):
                 k['kind'] = 'heading'
                 k['heading'] = (h, exact)
             else:
@@ -402,7 +402,7 @@ def analyse_leaf(leaf, L, state):
         if kind == 'heading':
             close()
             state['rk'] = line_text(k['left'])
-            if k['right'] and junk_line(k['right']):
+            if k['right'] and (junk_line(k['right']) or not any(month_like(w['w']) or re.search(r'\d', w['w']) for w in k['right'])):
                 events.append(('heading-noise-dropped', y, line_text(k['right'])))
             elif k['right']:
                 stray.extend(k['right'])

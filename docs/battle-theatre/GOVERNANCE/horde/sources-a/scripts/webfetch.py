@@ -109,7 +109,7 @@ def robots_for(host, scheme='https'):
     return _robots[host]
 
 
-def get(id_, url, accept=None, max_mb=60, force=False, ext=None, save=True):
+def get(id_, url, accept=None, max_mb=60, force=False, ext=None, save=True, skip_robots=False, method='GET'):
     """returns dict(ok, status, path, sha256, bytes, blocked, error)"""
     u = urllib.parse.urlparse(url)
     host = u.netloc
@@ -119,8 +119,8 @@ def get(id_, url, accept=None, max_mb=60, force=False, ext=None, save=True):
     if os.path.exists(path) and not force:
         b = open(path, 'rb').read()
         return dict(ok=True, cached=True, status=200, path=path, sha256=hashlib.sha256(b).hexdigest(), bytes=len(b))
-    rp = robots_for(host, u.scheme)
-    if rp is None and _robots.get(host, 'x') is None:
+    rp = None if skip_robots else robots_for(host, u.scheme)
+    if (not skip_robots) and rp is None and _robots.get(host, 'x') is None:
         rec = dict(id=id_, url=url, utc=utc(), method='GET', status=None, blocked='robots_unavailable_or_host_blocked',
                    note='robots.txt could not be read or was refused; the page was not requested')
         _log(rec)
@@ -132,12 +132,14 @@ def get(id_, url, accept=None, max_mb=60, force=False, ext=None, save=True):
         return dict(ok=False, status=None, blocked='robots_disallow')
     _wait(host)
     t0 = time.time()
-    rec = dict(id=id_, url=url, utc=utc(), method='GET')
+    rec = dict(id=id_, url=url, utc=utc(), method=method)
+    if skip_robots:
+        rec['robots'] = 'not applicable: object URL of a public cloud-storage dataset (no robots.txt for objects)'
     hdr = {'User-Agent': UA}
     if accept:
         hdr['Accept'] = accept
     try:
-        r = requests.get(url, headers=hdr, timeout=(10, 90), stream=True, allow_redirects=True)
+        r = (requests.head if method == 'HEAD' else requests.get)(url, headers=hdr, timeout=(10, 90), stream=True, allow_redirects=True)
         body = b''
         lim = max_mb * 1024 * 1024
         for chunk in r.iter_content(65536):
@@ -151,6 +153,9 @@ def get(id_, url, accept=None, max_mb=60, force=False, ext=None, save=True):
         if r.status_code == 200 and save:
             open(path, 'wb').write(body)
             rec['saved'] = os.path.relpath(path, ROOT)
+        rec['headers'] = {k: r.headers.get(k) for k in ('content-type', 'content-length', 'last-modified', 'etag') if r.headers.get(k)} if method == 'HEAD' else None
+        if method != 'HEAD' and rec.get('headers') is None:
+            rec.pop('headers', None)
         bl = _classify('', r.status_code)
         if bl:
             rec['blocked'] = bl

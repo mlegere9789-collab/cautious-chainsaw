@@ -1,0 +1,7 @@
+
+## Added layers: tier reading and the list step (bt-renderer, 2026-11-13)
+| module path | function | inputs | output |
+|---|---|---|---|
+| app/src/ui/extensions.mjs | `tierReading(statement)` | a tier statement (any value; text is made of it without throwing) | `[{ word, rank, how }]` per tier word of the statement, in order: `rank` 0..3 (documented, inferred, plausible-procedural, open gap) and `how` `plain`, `hedged` or `negated`. `tierName` is the answer drawn from it: the weakest plain word, lowered by a hedged documented or inferred, `null` when no word is plain. Gate Q23. |
+| app/src/ui/extensions.mjs | `TIER_WORDS` | none | the frozen word lists the reading knows: `negations`, `hedges`, `modals` (hedge only before "be"), `joined` (prefixes that hedge when written against the word), `afters` (phrases that hedge the word they follow). A test can walk them: every word of them keeps `tierName` from returning a tier it does not plainly name. |
+| app/src/ui/extensions.mjs | `new Extensions(theatreLike, { importer, exists, waitMs, now, setTimeout, clearTimeout }).load()` | as above; `waitMs` is the wait of the list step in all (the check has a third of it) and of each module start; `now`, `setTimeout` and `clearTimeout` replace the clock and the timers, so that a test moves time itself | the list step ends within `waitMs` in all, whatever stalls; `dispose()` ends every wait at once and leaves no timer. Example: `tests/ext-loader.test.mjs`. |
