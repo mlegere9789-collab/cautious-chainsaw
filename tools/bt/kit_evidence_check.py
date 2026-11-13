@@ -39,6 +39,11 @@ class Result:
         self.warnings.append({'line': lineno, 'id': lid, 'code': code, 'msg': msg})
 
 
+def sin(x, container):
+    """x in container for a value that may not be hashable (a malformed line)."""
+    return isinstance(x, str) and x in container
+
+
 def canon(v):
     def strip(x):
         if isinstance(x, dict):
@@ -130,7 +135,7 @@ def check_group(group, path, any_unit=False, want_diff=False):
     for n, o in parsed:
         lid = o.get('id')
         t = o.get('type')
-        if t not in K.LINE_TYPES:
+        if not sin(t, K.LINE_TYPES):
             R.err(n, lid if isinstance(lid, str) else None, 'TYPE', 'type %r' % (t,))
             continue
         if not isinstance(lid, str) or not K.ID_RE.match(lid) or lid.split(':')[0] != group:
@@ -169,7 +174,7 @@ def check_group(group, path, any_unit=False, want_diff=False):
     for lid, o in R.lines.items():
         s = o.get('supersedes')
         if s:
-            if s not in R.lines or order.get(s, 1 << 30) >= order[lid]:
+            if not sin(s, R.lines) or order.get(s, 1 << 30) >= order[lid]:
                 R.err(order[lid], lid, 'SUPERSEDES', 'supersedes %r: no earlier line of this file' % s)
             else:
                 R.superseded.add(s)
@@ -233,6 +238,8 @@ def declare(R, n, o):
 
 
 def src_of(R, sid):
+    if not isinstance(sid, str):
+        return None
     reg = K.registry()
     return reg.get(sid) or R.declared.get(sid)
 
@@ -241,9 +248,11 @@ def check_gap(R, n, o, units):
     lid = o['id']
     ids = o.get('unit_ids') if o.get('unit_ids') is not None else ([o['unit_id']] if o.get('unit_id') else [])
     fields = o.get('fields') if o.get('fields') is not None else ([o['field']] if o.get('field') else [])
-    if not ids or any(u not in units for u in ids):
-        R.err(n, lid, 'UNIT', 'a gap line names units of this group in unit_id or unit_ids (unknown: %s)' % ', '.join(u for u in ids if u not in units) if ids else 'a gap line names units of this group in unit_id or unit_ids')
-    if not fields or any(f not in K.FIELDS for f in fields):
+    if not isinstance(ids, list):
+        ids = [ids]
+    if not ids or any(not sin(u, units) for u in ids):
+        R.err(n, lid, 'UNIT', 'a gap line names units of this group in unit_id or unit_ids (unknown: %s)' % ', '.join(str(u) for u in ids if not sin(u, units)) if ids else 'a gap line names units of this group in unit_id or unit_ids')
+    if not isinstance(fields, list) or not fields or any(not sin(f, K.FIELDS) for f in fields):
         R.err(n, lid, 'FIELD', 'fields: %s' % ', '.join(K.FIELDS))
     sr = o.get('searched')
     if not isinstance(sr, list) or not sr or not all(isinstance(x, dict) and x.get('terms') and (src_of(R, x.get('source_id')) is not None) for x in sr):
@@ -262,14 +271,14 @@ def check_evidence(R, n, o, units, order, kit, cat):
     uid = o.get('unit_id')
     entry = None
     if uid is None:
-        if not (isinstance(o.get('unit_name'), str) and o.get('parent_unit_id') in units):
+        if not (isinstance(o.get('unit_name'), str) and sin(o.get('parent_unit_id'), units)):
             E('UNIT', 'unit_id null needs unit_name and a parent_unit_id of this group')
-    elif uid not in units:
-        E('UNIT', 'unit_id %r is not a unit of this group' % uid)
+    elif not sin(uid, units):
+        E('UNIT', 'unit_id %r is not a unit of this group' % (uid,))
     else:
         entry = units[uid][1]
     f = o.get('field')
-    if f not in K.FIELDS:
+    if not sin(f, K.FIELDS):
         E('FIELD', 'field %r' % (f,))
         return
     kf = o.get('kit_field')
@@ -286,7 +295,7 @@ def check_evidence(R, n, o, units, order, kit, cat):
         E('TIER', 'tier %r is one of %s' % (tier, ', '.join(K.TIERS)))
         return
     basis = o.get('basis')
-    if basis not in K.BASES[f]:
+    if not sin(basis, K.BASES[f]):
         E('BASIS', 'basis %r for %s is one of %s' % (basis, f, ', '.join(K.BASES[f])))
     # value
     errs = []
@@ -351,13 +360,13 @@ def check_evidence(R, n, o, units, order, kit, cat):
         return
     if tier in ('documented', 'inferred') and is_lead(rec):
         E('LEAD', 'source %s is a lead (%s): it can support a gap note or a lead value, never a documented or inferred line' % (sid, rec['class']))
-    if rec.get('part') is not None and o.get('part') != rec['part']:
+    if rec.get('part') is not None and (type(o.get('part')) is not int or o.get('part') != rec['part']):
         E('PART', 'part must be %s for %s' % (rec['part'], sid))
     if rec.get('part') is None and o.get('part') is not None:
         E('PART', 'part is null for %s' % sid)
     q = o.get('quote')
     mode = o.get('quote_mode', 'exact')
-    if mode not in K.QUOTE_MODES:
+    if not sin(mode, K.QUOTE_MODES):
         E('QUOTE', 'quote_mode %r is one of %s' % (mode, ', '.join(K.QUOTE_MODES)))
         return
     qmin = 3 if mode == 'image_row' else K.QUOTE_MIN
@@ -418,16 +427,24 @@ def check_evidence(R, n, o, units, order, kit, cat):
     # page and report
     page, lo, hi, note = src.page_at(start)
     pg = o.get('printed_page')
-    if src.kind == 'or27':
+    rng = re.match(r'^(\d+)-(\d+)$', pg) if isinstance(pg, str) else None
+    if pg is not None and not (type(pg) is int or rng):
+        E('PAGE', 'printed_page is an integer, or a range "a-b" where the page model of a state volume knows only the range')
+    elif src.kind == 'or27':
         if page is None:
             W('PAGE_UNCHECKED', note)
         elif pg != page:
             E('PAGE', 'printed_page is %s by the leaf map, not %r (do not take pages from or27_find: its running-head model can be off by pages)' % (page, pg))
     elif lo is not None:
         if pg is None:
-            W('PAGE_UNCHECKED', 'give printed_page (%s-%s by %s)' % (lo, hi, note))
+            W('PAGE_UNCHECKED', 'give printed_page (%s by %s)' % ('%s-%s' % (lo, hi) if hi != lo else lo, note))
+        elif rng:
+            if (int(rng.group(1)), int(rng.group(2))) != (lo, hi):
+                E('PAGE', 'printed_page range %s is not the range %s-%s of the page model (%s)' % (pg, lo, hi, note))
         elif not (lo <= pg <= hi):
             E('PAGE', 'printed_page %s is outside %s-%s (%s)' % (pg, lo, hi, note))
+        elif hi != lo:
+            W('PAGE_RANGE', 'the page model knows only %s-%s; %s is your reading of the running heads near the passage' % (lo, hi, pg))
     else:
         W('PAGE_UNCHECKED', note)
     if page is not None:
@@ -453,7 +470,7 @@ def check_evidence(R, n, o, units, order, kit, cat):
                 W('NUMBERS_WAIVED', '%s: %s' % (miss, o['waive_numbers']))
             else:
                 E('NUMBERS', 'numbers %s of value are not in the quote' % miss)
-    if mode == 'image_row' and isinstance(o.get('value'), dict) and isinstance(o['value'].get('row'), list) and isinstance(o['value'].get('row_columns'), list) and len(o['value']['row']) == len(o['value']['row_columns']):
+    if mode == 'image_row' and not errs and isinstance(o.get('value'), dict) and isinstance(o['value'].get('row'), list) and isinstance(o['value'].get('row_columns'), list) and len(o['value']['row']) == len(o['value']['row_columns']):
         v = o['value']
         row, cols = v['row'], v['row_columns']
         waived = bool(o.get('waive_numbers'))
@@ -490,7 +507,7 @@ def check_evidence(R, n, o, units, order, kit, cat):
                     W('NUMBERS_WAIVED', 'identity does not hold in the print: %s' % o['waive_numbers'])
                 else:
                     E('CHECK', 'identity fails: cells %s add to %d, cell %d is %d: a figure was misread' % (idn['sum'], sum(row[k] for k in idn['sum']), idn['equals'], row[idn['equals']]))
-    if f == 'casualties' and tier == 'documented' and mode == 'exact' and isinstance(o.get('value'), dict):
+    if f == 'casualties' and tier == 'documented' and mode == 'exact' and not errs and isinstance(o.get('value'), dict):
         v = o['value']
         tot = sum((v[k].get('total') if v[k].get('total') is not None else (v[k].get('officers') or 0) + (v[k].get('enlisted') or 0)) for k in ('killed', 'wounded', 'missing'))
         if v.get('total') is not None and tot != v['total']:
@@ -554,8 +571,8 @@ def contract_markdown():
         'value': 'the structured value of the field (schemas below)', 'basis': 'a basis token of the field (below): what kind of passage or figure this is', 'basis_note': 'free words on the basis (kind of return, who wrote the report)',
         'tier': '`documented`, `inferred` or `plausible-procedural`', 'as_of': 'the date or minute (or range `a/b`) the value is true for; ISO', 'source_id': 'a key of `sources.json`, or the `id` of a `type: source` line of the same file; none for a derived line',
         'part': 'Official Records part (1, 2, 3) of the source, null for other sources', 'report_id': 'the Official Records report (`OR27-1-R037`) or state-volume section (`NY1-S012`) that contains the quote, from the tool',
-        'printed_page': 'printed page of the start of the quote, from the tool (leaf map for the Official Records)', 'printed_page_end': 'when the quote runs onto the next page', 'offset': 'character offset of the first character of the quote in the source text (UTF-8, newline kept)',
-        'quote': '%d to %d characters copied from the source text (whitespace may be collapsed); the shortest passage that supports exactly this claim' % (K.QUOTE_MIN, K.QUOTE_MAX), 'quote_mode': '`exact` (default), `ocr_corrected`, `image_row`',
+        'printed_page': 'printed page of the start of the quote, from the tool (leaf map for the Official Records); for a state volume whose page model knows only a range, that range as the string "16-18" or your reading of the running heads as an integer inside it', 'printed_page_end': 'when the quote runs onto the next page', 'offset': 'character offset of the first character of the quote in the source text (UTF-8, newline kept)',
+        'quote': '%d to %d characters copied from the source text (whitespace may be collapsed; a row label of an `image_row` line may be as short as 3); the shortest passage that supports exactly this claim' % (K.QUOTE_MIN, K.QUOTE_MAX), 'quote_mode': '`exact` (default), `ocr_corrected`, `image_row`',
         'image': '`{"pdf_page", "dpi"}`: the scanned page you read, required by `ocr_corrected` and `image_row`', 'checks': 'free list of identities you verified by hand (the tool checks casualty rows itself)',
         'conflict': '`{"key": "<unit>|<field>|<detail>", "alt": "A"}`: the line is one alternative of a source conflict; give every alternative the same key', 'supersedes': 'id of an earlier line of this file that this line replaces',
         'derived_from': 'ids of earlier lines this value is computed from (required for `basis: derived`)', 'note': 'why the quote supports the value (required for `inferred` and `plausible-procedural`)', 'register_proposal': 'file name of the proposed register entry (required for `plausible-procedural`)',

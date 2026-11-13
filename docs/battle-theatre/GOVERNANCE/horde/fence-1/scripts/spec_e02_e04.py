@@ -91,7 +91,7 @@ ROWS.append(R('R14.E-04', 'corrected', 'open_gaps',
  stays_unsupported=["Whole-hill 'fortified' wording and von Steinwehr as builder", "Date and extent of cemetery fence damage (Jul 2 vs Jul 3)"],
  conflicts=["Cemetery fence damage date: Jul 3 about 13:00 (Howard) vs Jul 2 (PDF/Wikipedia)"],
  register=[],
- blocked=[B('Wiki-D1/Wiki-CH', None, "Wikipedia pages (not a source for any documented claim under CLAUDE.md law 4; host refused here); nothing to read: the claim 'von Steinwehr fortified Cemetery Hill' stays an open gap unless a primary source is found")],
+ blocked=[B('Wiki-D1/Wiki-CH', None, "Wikipedia pages (not a source for any documented claim under Law cl.4; host refused here); nothing to read: the claim 'von Steinwehr fortified Cemetery Hill' stays an open gap unless a primary source is found")],
  consequence=["E-04 must not be built as a construction event for Cemetery Hill as a whole; keep the stone fences (pre-existing, P-02/P-03) and the per-gun earthworks (E-12) as the documented state; S-020 'Occupied and fortified (vague)' becomes 'Occupied; stone fences as cover; per-gun earthworks at dusk' (tier documented) with the 'fortified' wording marked gap", "S-045 / FEN-evergreen-cemetery: add the scenario 'fences smashed Jul 3 about 13:00 (Howard)'; Jul 2 stays the PDF scenario (inferred)", "Gates's rail-fence breastwork moves to E-17 (Cemetery Ridge)"],
  lookups=[L('OR1','(Cemetery (Hill|Ridge)|the cemetery) near intrench|fortif|breastwork|earthwork',6,'only per-gun earthworks and Robinson-division works on the Ridge side; no whole-hill fortification')],
 ))

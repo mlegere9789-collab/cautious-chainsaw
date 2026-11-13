@@ -498,6 +498,8 @@ def cell_attributes(u, mix, claims, units_by_lc):
     u['seed'] = seed
     p = {'ripe_off_d': round(-2.5 + 5.0 * rnd(uid, 'ripe'), 2), 'h_scale': round(0.92 + 0.16 * rnd(uid, 'h'), 3), 'color_u': round(rnd(uid, 'col'), 3), 'epi_u': round(rnd(uid, 'epi'), 3),
          'cut_u': round(rnd(uid, 'cut'), 4), 'rows_deg': round(orient_deg(u['geom']), 1)}
+    if u['cls'] == 'wheatfield':
+        p['ripe_off_d'] = 0.0          # the stage on 1-3 July is documented: no offset
     u['p'] = p
 
 
@@ -605,7 +607,7 @@ def class_attributes(units, claims, gz, farms):
         elif u['cls'] == 'cleared':
             u['crop'], u['crop_tier'], u['crop_basis'] = 'open_rock', 'inferred', 'claim'
         elif u['cls'] == 'boulder':
-            u['crop'], u['crop_tier'], u['crop_basis'] = 'open_rock', 'inferred', 'warren_symbol'
+            u['rock'] = 'boulder field of the Warren sheet (Devil\'s Den and Houck\'s Ridge): bare rock with sparse grass, no crop'
     return lrt_units
 
 
@@ -778,7 +780,7 @@ def make_output(args):
             rec['geom_note'] = 'cell of a block of open ground cut by a seeded relaxation: the edges inside the block are not mapped' if u.get('subdivided') else 'a block of open ground between roads, lanes, confirmed fences and the outlines of woods and orchards'
             if u.get('farm_guess'):
                 rec['farm_guess'] = u['farm_guess']
-        for k in ('crop', 'crop_tier', 'crop_basis', 'crop_claim', 'crop_role', 'woods', 'orchard', 'p', 'seed', 'ev'):
+        for k in ('crop', 'crop_tier', 'crop_basis', 'crop_claim', 'crop_role', 'rock', 'woods', 'orchard', 'p', 'seed', 'ev'):
             if k in u:
                 rec[k] = u[k]
         rec['claims'] = u['claims']
@@ -786,10 +788,36 @@ def make_output(args):
     return units, uo, cl_out, farm_out, events, wts, mix, farm_rows, acres, lrt_units, unplaced, terr, S
 
 
+def source_titles(claims):
+    """a readable title for every source key the claims cite (OR27; NPS:<ID> from the index of the web task; WS9:<ID> from the library index; WEB:<ID> from its meta file)"""
+    import re
+    nps = {}
+    idx = os.path.join(BT, 'GOVERNANCE', 'horde', 'ws-web', 'nps', 'INDEX.md')
+    if os.path.exists(idx):
+        for m in re.finditer(r'^## (\S+)\n\n- Title: (.+)$', open(idx, encoding='utf-8').read(), re.M):
+            nps[m.group(1)] = m.group(2).strip()
+    ws9 = {it['id']: it for it in load(os.path.join(BT, 'GOVERNANCE', 'library', 'acquired_2.json'))['items']}
+    out = {}
+    for c in claims.values():
+        k = c['src'].split('#')[0]
+        if k in out:
+            continue
+        if k == 'OR27':
+            out[k] = 'The War of the Rebellion: Official Records of the Union and Confederate Armies, Series I, vol. 27 (Gettysburg Campaign)'
+        elif k.startswith('NPS:'):
+            out[k] = nps.get(k[4:], k[4:])
+        elif k.startswith('WS9:'):
+            it = ws9.get(k[4:]); out[k] = (it['title'] + (' (' + str(it['date']) + ')' if it.get('date') else '')) if it else k[4:]
+        elif k.startswith('WEB:'):
+            mp = os.path.join(ROOT, 'tmp', 'library', 'web', 'veg', k[4:] + '.meta.json')
+            out[k] = load(mp)['title'] if os.path.exists(mp) else k[4:]
+    return out
+
+
 def calendar_json():
     cal = {'epoch': '1863-06-01T00:00', 'unit': 'minutes', 'crops': {}, 'epilogue': {}, 'leaf': TB.LEAF, 'orchard_fruit': {}}
     for k, c in TB.CROPS.items():
-        e = {'label': c['label'], 'keys': [dict(x, t=iso_min(x['d'])) for x in c['keys']]}
+        e = {'label': c['label'], 'keys': [dict(x, t=iso_min(x['d']), **({'doc_min': [iso_min(x['doc'][0]), iso_min(x['doc'][1])]} if x.get('doc') else {})) for x in c['keys']]}
         if c.get('harvest'):
             h = dict(c['harvest'])
             h['earliest_min'], h['latest_min'] = iso_min(h['earliest']), iso_min(h['latest'])
@@ -805,6 +833,7 @@ def calendar_json():
 
 def write_all(args):
     units, uo, cl_out, farm_out, events, wts, mix, farm_rows, acres, lrt_units, unplaced, terr, S = make_output(args)
+    claims_all = {c['id']: c for c in load(CLAIMS)}
     ids = {c['id'] for c in cl_out}
     # every claim named by a table, an event or a unit exists
     import re
@@ -826,6 +855,7 @@ def write_all(args):
                      'fields': 'open ground cut by roads, lanes, railway and the 30 confirmed fence lines, then divided into cells of about 14 acres by a seeded relaxation: the edges inside a block are not mapped (plausible-procedural)',
                      'trees': 'not stored: each tree is placed at run time by a seeded scatter inside its unit (rows for orchards)'},
         'counts': {'units': len(uo), 'by_class': dict(collections.Counter(u['cls'] for u in uo)), 'claims': len(cl_out), 'claims_unplaced': len(unplaced), 'events': len(events), 'witness_trees': len(wts)},
+        'source_titles': source_titles(claims_all),
         'tiers': {'units_geometry': dict(collections.Counter(u['geom_tier'] for u in uo)), 'field_crops': dict(collections.Counter(u.get('crop_tier') for u in uo if u['cls'] in ('field', 'wheatfield')))},
         'sources': {'landcover_sha256': {n: sha256_file(os.path.join(LC, n + '.geojson')) for n in ('woods_1863', 'orchards_1863', 'scattered_trees_1863', 'marsh_wetland_1863', 'boulder_fields_1863', 'open_cleared_1863', 'fields_documented_1863', 'open_ground_1863')},
                     'claims_sha256': sha256_file(CLAIMS)},

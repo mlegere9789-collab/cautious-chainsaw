@@ -20,7 +20,7 @@ export const CHROME_ARGS = ['--enable-unsafe-webgpu', '--enable-features=Vulkan,
 // Installed before any page script (context.addInitScript(HOOKS, { realCanvas })): uncaptured WebGPU errors and device loss go to window.__gpuErrors; the compiler messages of every shader module to window.__wgslMessages.
 // The canvas texture is replaced by an ordinary texture of the same size and format (configure() is not passed on, getCurrentTexture() returns the stand-in): the software adapter of a machine without a GPU
 // loses its device as soon as the real swapchain is read, drawn into for a while or captured (see the swapchain probe of tests/weather3d-gpu.mjs), and a texture of our own is the one thing that can be read back.
-// The commands the renderer records are the same; only the target of its last pass is not the canvas. { realCanvas: true } leaves the canvas alone. Self-contained: it is sent to the page as source text.
+// The commands the renderer records are the same; only the target of its last pass is not the canvas. { realCanvas: true } uses the real canvas and only adds COPY_SRC to its configuration (untested here). Self-contained: it is sent to the page as source text.
 export function HOOKS(opts) {
   window.__gpuErrors = []; window.__wgslMessages = []; window.__gpuLabels = []; window.__swap = { standIn: !(opts && opts.realCanvas), configured: 0, calls: 0 };
   if (typeof GPUAdapter !== 'undefined') {
@@ -33,6 +33,9 @@ export function HOOKS(opts) {
       d.createShaderModule = desc => { const m = csm(desc), label = (desc && desc.label) || '(no label)'; m.getCompilationInfo().then(info => { window.__gpuLabels.push(label + ' messages=' + info.messages.length); for (const x of info.messages) window.__wgslMessages.push({ label, type: x.type, line: x.lineNum, col: x.linePos, msg: String(x.message).slice(0, 400) }); }, e => window.__gpuErrors.push('getCompilationInfo ' + label + ': ' + e)); return m; };
       return d;
     };
+  }
+  if (typeof GPUCanvasContext !== 'undefined' && opts && opts.realCanvas) {          // the real canvas, made readable: the same configure() with COPY_SRC added (not run on this machine: its software adapter cannot use the canvas)
+    const cf = GPUCanvasContext.prototype.configure; GPUCanvasContext.prototype.configure = function (c) { return cf.call(this, { ...c, usage: (c.usage ?? GPUTextureUsage.RENDER_ATTACHMENT) | GPUTextureUsage.COPY_SRC }); };
   }
   if (typeof GPUCanvasContext !== 'undefined' && !(opts && opts.realCanvas)) {
     const P = GPUCanvasContext.prototype, st = new WeakMap();

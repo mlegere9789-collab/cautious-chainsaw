@@ -124,6 +124,11 @@ export class FxHost {
     return { t: tSec, driveState: state, weather: W, statement: weatherStatement(W), effects: { text: fr.budget.text, tier: fr.budget.tier, nEvents: fr.nEvents, nSprites: fr.nSprites, liveEvents: fr.liveEvents, pending: fr.pending, uncertainFires: fr.uncertainFires, fires: fr.fires },
       temp: W.temp, wind: W.wind, replayWindow: this.fx.replayWindow(), stats: { ...this.statsOut, gl: this.gl ? { ...this.gl.stats } : null, gpu: this.gpu ? { ...this.gpu.stats } : null, fx: this.fx.stats() }, log: this.log };
   }
+  // what is being drawn right now, for the shell's ribbon and About text: { api: 'webgpu' | 'webgl2' | 'none', weather, effects (true = this layer draws them, false = the prototype's own sky and particles do, or nothing), stopped, failed, log }
+  status() {
+    const x = this.gpu || this.gl, live = !!(x && x.ok && !this.dead);
+    return { api: this.gpu ? 'webgpu' : this.gl ? 'webgl2' : 'none', weather: live && !!x.weatherOk && !!this.opts.drawWeather, effects: live && !!x.fxOk && !!this.opts.drawFx, stopped: !!this.dead, failed: this.gpu && this.gpu.failed ? this.gpu.failed : null, log: this.log.slice() };
+  }
   // optional: the host's measured effect cost in milliseconds, once a second; the governor reduces sprites (never soldiers) when it is over budget
   govern(effectMs) { return this.fx.govern(effectMs); }
   dispose() {

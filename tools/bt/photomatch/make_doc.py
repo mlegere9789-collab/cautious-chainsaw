@@ -9,7 +9,7 @@ def J(n): return json.load(open(os.path.join(HERE, n)))
 poses = J('poses.json')['poses']; ver = J('verdicts.json'); reg = J('photograph_registry.json')['photographs']; st = J('position_statements.json')['statements']; led = J('images_ledger.json')['images']
 ident = J('nps_then_to_loc.json')['queries']
 pv = {v['pose']: v for v in ver['pose_verdicts']}; G = ver['gate_q16']
-n_img = sum(1 for v in led.values() if v.get('status') == 'ok'); tier = Counter(p['position']['tier'] for p in poses); vc = Counter(v['verdict'] for v in ver['pose_verdicts'])
+n_loc = sum(1 for v in led.values() if v.get('status') == 'ok' and v.get('derivative') in ('medium', 'large')); tier = Counter(p['position']['tier'] for p in poses); vc = Counter(v['verdict'] for v in ver['pose_verdicts'])
 cls = Counter(r['class'] for r in reg if not r['pose_ids']); staged = sum(1 for r in reg if r['staged_flag']); out_scope = sum(1 for r in reg if not r['scope_july_1863_terrain'])
 nstat = Counter(s['tier'] for s in st); acc = sum(1 for q in ident.values() if q.get('accepted'))
 L = []
@@ -17,8 +17,8 @@ A = L.append
 A('# Photo-match (gate Q16)\n')
 A('**Q16 text (gates.json):** "Photo-match tests at known camera positions of period photographs (staged-photograph flags respected)." Linked from the R12 terrain source items. **Status: not passing** (reviewed 2026-11-13). `passes` is not set on the gate or on any linked item.\n')
 A('## Where things stand\n')
-A(f'- **Photographs:** {len(reg)} catalogued Library of Congress records (109 from the first catalogue run and 18 added because LOC dates them only as between 1861 and 1865); {n_img} image files saved with sha256 (medium and large JPEG derivatives, 2 master scans). Every image was looked at on a contact sheet.')
-A(f'- **Camera positions:** 0 are documented. No source read (LOC records, {len(set(s["src"] for s in st))} sources: National Park Service reports and pages, Library of Congress captions) gives a coordinate, a lens, a plate size or a surveyed station. They give {len(st)} statements in words (place, viewing direction, reference object); {nstat.get("documented", 0)} are documented statements, {nstat.get("inferred", 0)} are read from page images, {nstat.get("lead", 0)} come from a book that may not be used and are leads only.')
+A(f'- **Photographs:** {len(reg)} catalogued Library of Congress records (109 from the first catalogue run and 18 added because LOC dates them only as between 1861 and 1865); {n_loc} Library of Congress JPEG derivatives saved (each checked: size equals what the record declares, decodes to the last pixel, sha256 in the ledger) plus 2 master scans, 3 archive.org scans and 6 Metropolitan Museum items of the first run. The primary image of every record was looked at on a contact sheet.')
+A(f'- **Camera positions:** 0 are documented. None of the {len(set(s["src"] for s in st))} sources read (Library of Congress catalogue records, National Park Service reports and web pages) gives a coordinate, a lens, a plate size or a surveyed station. They give {len(st)} statements in words (place, viewing direction, reference object); {nstat.get("documented", 0)} are documented statements (a source says it, quote found in the saved text), {nstat.get("inferred", 0)} were read from page images because the text layer is unusable, {nstat.get("lead", 0)} rests on a book that may not be used and is a lead only.')
 A(f'- **Poses registered:** {len(poses)} (position tier: {tier.get("inferred", 0)} inferred, {tier.get("plausible-procedural", 0)} assumption). **Verdicts on the poses:** {vc.get("matches", 0)} matches, {vc.get("roughly", 0)} roughly, {vc.get("does not", 0)} does not, {vc.get("cannot judge", 0)} cannot judge.')
 A(f'- **The other {len(reg) - sum(1 for r in reg if r["pose_ids"])} photographs** have no pose and the verdict cannot judge, each with its reason: {cls.get("NEAR", 0)} show only near ground that the model does not contain, {cls.get("POS", 0)} have a camera place that no source fixes closely enough, {cls.get("STG", 0)} are staged or flagged, {cls.get("OUT", 0)} are not July 1863 battlefield views. {staged} records carry a staged-photograph flag; none has a pose.\n')
 A('## Why the gate cannot pass\n')
@@ -34,6 +34,7 @@ for p in poses:
     v = pv[p['id']]; sg = p['position'].get('sigma_m')
     A(f"| {p['id']} | {p.get('loc_id') or 'Met item'} | {p['position']['tier']} ({sg if sg else '?'} m) | {'yes' if v.get('independent_test') else 'no'} | **{v['verdict']}** | {v['why']} |")
 A('\n## Camera-position statements that matter most\n')
+A('Page numbers are the pdf page markers of the saved texts (the printed page differs).\n')
 A('| Statement | Record | What the source literally fixes | Source |\n|---|---|---|---|')
 keep = ['PS-NPS-CLRLRT-405', 'PS-NPS-CP3-29', 'PS-TN-LRT1-DIR', 'PS-TN-LRT2-DIR', 'PS-TN-RW1-PLACE', 'PS-TN-RW3-DIR', 'PS-NPS-CLR1D-124', 'PS-NPS-CLR1D-01', 'PS-NPS-CLR1D-146', 'PS-NPS-CLR1D-151', 'PS-NPS-BRIEN-9', 'PS-NPS-CLRROTV2-149', 'PS-NPS-SPEN-5', 'PS-NPS-VISTA-10', 'PS-LOC-2012647712-T', 'PS-LOC-2014646001-N']
 for s in st:

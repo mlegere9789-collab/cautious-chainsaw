@@ -10,7 +10,7 @@ Claims are cited by id (tools/bt/vegetation/claims_*.json, each quote looked up 
 # keyframes: d (ISO date, 00:00), stage, color [min, max], h [min, max] (stalk height), tier of THIS keyframe, why (claims / reasoning)
 WHEAT = [
     {'d': '1863-06-26', 'stage': 'filling', 'color': [[0.55, 0.58, 0.27], [0.66, 0.64, 0.31]], 'h': [1.0, 1.45], 'tier': 'inferred', 'why': 'agricultural calendar: winter wheat fills and yellows in the last days of June; the 25-27 June rains (weather record) may have delayed it (PDF B.10.3, unverified)'},
-    {'d': '1863-07-02', 'stage': 'nearly_ripe', 'color': [[0.74, 0.66, 0.32], [0.84, 0.72, 0.37]], 'h': [1.05, 1.6], 'tier': 'documented', 'why': 'VC-LIB-001 (wheat now nearly ripe, 1-2 July), VC-LIB-007 (standing uncut when the battle began), VC-LIB-008 (up to our chins: height), VC-NPSX-CLI-ERR-p042-02 (ripening wheat). The colour is not described: the range is the calendar reading.'},
+    {'d': '1863-07-02', 'doc': ['1863-07-01T00:00', '1863-07-04T00:00'], 'stage': 'nearly_ripe', 'color': [[0.74, 0.66, 0.32], [0.84, 0.72, 0.37]], 'h': [1.05, 1.6], 'tier': 'documented', 'why': 'VC-LIB-001 (wheat now nearly ripe, 1-2 July), VC-LIB-007 (standing uncut when the battle began), VC-LIB-008 (up to our chins: height), VC-NPSX-CLI-ERR-p042-02 (ripening wheat). The colour is not described: the range is the calendar reading.'},
     {'d': '1863-07-08', 'stage': 'ripe', 'color': [[0.82, 0.69, 0.36], [0.88, 0.75, 0.42]], 'h': [1.05, 1.6], 'tier': 'inferred', 'why': 'calendar: a week after nearly ripe; the harvest follows (VC-OR-020, VC-LIB-015)'},
     {'d': '1863-07-14', 'stage': 'ripe', 'color': [[0.82, 0.70, 0.40], [0.89, 0.76, 0.46]], 'h': [1.0, 1.55], 'tier': 'inferred', 'why': 'calendar'},
 ]

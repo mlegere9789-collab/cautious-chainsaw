@@ -1,7 +1,7 @@
 """Small arms dictionary (PDF B.6.9), unit-to-weapon table (B.6.10), ammunition and drill (B.6.11).
 Spec text is the PDF cell text, wrapped lines joined; nothing is paraphrased in 'printed' fields.
 
-Tier rule (CLAUDE.md Law cl.4): B.6.9 prints a source list per ROW but no tier per row and no claim-to-source map. A row is
+Tier rule (the project Law cl.4): B.6.9 prints a source list per ROW but no tier per row and no claim-to-source map. A row is
 'documented' only if at least one cited key is non-weak (kit_sources.SOURCES); a Wikipedia/forum/blog/auction-only row is
 'inferred' with weak_source true.  A row with no specs at all is an OPEN GAP (tier 'gap', gap_ids) and gets no tier, as
 the PDF requires (B.6.14 intro: GAP rows are listed as open gaps and are not given a tier)."""

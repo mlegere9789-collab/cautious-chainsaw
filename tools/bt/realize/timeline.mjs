@@ -212,10 +212,11 @@ export function loadTimeline({ gov = GOV, tolerances } = {}) {
     const v = ver.get(s.id) || {}, w = win.get(s.id) || {}, cells = splitCells(s.text_raw, s.tier), tc = parseTimeCell(cells.time_cell, tol);
     const c = corr.byId.get(s.id) || null, cw = c ? correctionWindow(c.line) : null;
     const window = { intervals: tc.intervals, basis: tc.basis.slice(), flags: tc.flags.slice(), kind: tc.kind, source: 'seed time cell' };
-    if (cw) { window.intervals = [[cw.from - CT, cw.to + CT]]; window.basis = [`corrected claim (${c.file}): ${isoOf(cw.from)} to ${isoOf(cw.to)}, clock tolerance ${CT} min each end; ${cw.basis}`]; window.flags = []; window.kind = 'correction'; window.source = 'correction'; window.seed_intervals = tc.intervals; }
+    // a corrected window that starts at midnight or ends at 23:59 is a whole-date window (granularity date): no clock tolerance is added at the date's edge, the date is what the source says
+    if (cw) { const lo = cw.from % 1440 === 0 ? cw.from : cw.from - CT, hi = cw.to % 1440 === 1439 ? cw.to + 1 : cw.to + CT; window.intervals = [[lo, hi]]; window.basis = [`corrected claim (${c.file}): ${isoOf(cw.from)} to ${isoOf(cw.to)}, clock tolerance ${CT} min at an end that is a clock time, none at the edge of a date; ${cw.basis}`]; window.flags = []; window.kind = 'correction'; window.source = 'correction'; window.seed_intervals = tc.intervals; }
     else if (c) window.flags.push('correction_without_machine_readable_window');
     if (w.earliest != null && w.latest != null && !coversInterval(window.intervals, w.earliest, w.latest)) { window.flags.push('differs_from_windows_file'); window.intervals = mergeIntervals([...window.intervals, [w.earliest, w.latest]]); window.basis.push(`the windows file (timeline_windows.jsonl: ${isoOf(w.earliest)} to ${isoOf(w.latest)}, parsed from the first fragment of the cell) reads the cell differently; both readings are allowed (DD-RZ-02)`); }
-    window.in_clock = window.intervals.some(([a, b]) => clock.some(([x, y]) => a <= y && b >= x));
+    window.in_clock = window.intervals.some(([a, b]) => clock.some(([x, y]) => Math.min(b, y) - Math.max(a, x) >= 1));       // at least one minute inside the clock: a window that only touches its first minute is outside it
     const what_text = cells.what.join(' '), corrText = c ? strings(c.line.corrected_claim ?? c.line.corrected ?? c.line).join(' ') : null;
     return { id: s.id, n, shard: v.shard || null, page: s.page, tier_seed: s.tier, tier: v.tier || s.tier, status_effective: v.status_effective || s.status, verdict: v.verdict || null, weak: !!s.weak_source_flag,
       text_raw: s.text_raw, time_cell: cells.time_cell, what: cells.what, what_text, notes_text: cells.after.join(' '), tier_cell_found: cells.tier_found,

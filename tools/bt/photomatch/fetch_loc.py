@@ -91,7 +91,7 @@ def main():
             except Exception as ex:
                 e.update(status='failed', error='not a readable JPEG: ' + str(ex)[:120]); im[key] = e; n_fail += 1; log('FAILED', key, e['error']); continue
             e.update(bytes=b, bytes_declared_by_record=r.get(der + '_s'), sha256=sha(dst), width=W, height=H, mode=mode, local_file=os.path.relpath(dst, ROOT),
-                     licence_basis=('LOC record rights statement: "' + rights + '"; 1863 photograph (public domain by age); JPEG derivative served by the Library of Congress') if 'No known restrictions' in rights else 'UNCLEAR: rights statement "' + rights + '"')
+                     licence_basis=('LOC record rights statement: "' + rights + '"; 1863 photograph (public domain by age); JPEG derivative served by the Library of Congress') if 'No known restrictions' in rights else ('LOC rights field is empty for this record; 19th-century print, public domain in the United States by age (an inference, not a LOC statement); viewed only, in no shipped file' if not rights else 'UNCLEAR: rights statement "' + rights + '"'))
             n_ok += 1; log('ok', n + 1, len(jobs), key, b, W, H)
         else:
             e['error'] = res.get('error'); n_fail += 1; log('FAILED', key, res.get('http'), res.get('error'))

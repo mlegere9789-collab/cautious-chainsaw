@@ -19,6 +19,8 @@ import { WIND_HIST_N } from '../src/fx3d/wind.mjs';
 import { FxHost } from '../src/fx-host.mjs';
 import { createAnimBus } from '../src/anim3d/events.mjs';
 import { Camera } from '../../render/prototype/src/camera.mjs';
+import { CASES, specOf, SHERFY } from './weather3d-gpu-cases.mjs';
+import { HOOKS, CHROME_ARGS } from './weather3d-gpu-lib.mjs';
 
 const APP = path.resolve(BT, 'app'), J = f => JSON.parse(fs.readFileSync(path.join(BT, f), 'utf8')), D = f => JSON.parse(fs.readFileSync(path.join(APP, 'data/fx3d', f), 'utf8'));
 const environment = new Environment(J('environment/ephemeris_1863.json'), J('environment/weather_timeline.json'));
@@ -75,6 +77,15 @@ test('fx3d WGSL: the soft-particle depth read is patched to the hardware depth w
   // the block U of the WGSL is the one the packer fills: nine members, 48 float32 units
   const u = /struct U \{ (.*?) \};/.exec(WGSL_RENDER)[1].split(',').map(s => s.trim().split(':')[0]).filter(Boolean); assert.deepEqual(u, ['vp', 'cam', 'right', 'up', 'sun', 'light', 'kappa', 'extra', 'now_first_nev']); assert.equal(FXU_FLOATS, 16 + 8 * 4);
   assert.deepEqual(FXU, { vp: 0, cam: 16, right: 20, up: 24, sun: 28, light: 32, kappa: 36, extra: 40, now: 44 });
+});
+test('the prototype\'s bind group 0, as the weather WGSL uses it: the frame block (dynamic offset, 512 bytes, enough for the 496 of FU), the height texture and its filtering sampler', () => {
+  const proto = fs.readFileSync(path.join(BT, 'render/prototype/src/webgpu.mjs'), 'utf8');
+  assert.match(proto, /const FU_BYTES = 512;/); assert.match(proto, /\{ binding: 0, visibility: G\.VERTEX \| G\.FRAGMENT, buffer: \{ type: 'uniform', hasDynamicOffset: true, minBindingSize: FU_BYTES \} \}/);
+  assert.match(proto, /\{ binding: 4, visibility: G\.VERTEX \| G\.FRAGMENT, texture: \{ sampleType: 'float' \} \}, \{ binding: 5, visibility: G\.VERTEX \| G\.FRAGMENT, sampler: \{ type: 'filtering' \} \}/);
+  assert.match(proto, /this\.heightTex = this\.dev\.createTexture\(\{ size: \[T\.N, T\.N\], format: 'r32float'/, 'the height texture is r32float, sampled as float with a filtering sampler (float32-filterable)');
+  assert.match(proto, /\['timestamp-query', 'float32-filterable'\]\.filter\(f => adapter\.features\.has\(f\)\)/, 'the renderer asks for float32-filterable when the adapter has it');
+  const members = 5 * 16 + 11 * 4; assert.equal(members * 4, 496); assert.ok(members * 4 <= 512, 'FU fits the layout\'s minBindingSize');
+  assert.match(proto, /depthRT = this\.depth\.createView\(\)/); assert.match(proto, /depthV = this\.depth\.createView\(\{ aspect: 'depth-only' \}\)/); assert.match(proto, /this\.hdr = d\.createTexture\(\{ size: \[w, h\], format: 'rgba16float'/);
 });
 test('blend states are the GL blend functions of gl.mjs (multiply: ZERO, SRC_COLOR; add: ONE, ONE; sprites: ONE, ONE_MINUS_SRC_ALPHA)', () => {
   const gl = fs.readFileSync(path.join(APP, 'src/weather3d/gl.mjs'), 'utf8');
@@ -232,6 +243,7 @@ test('fx-host on WebGPU: the prototype\'s sky and particles are switched off onl
   const dev = mockDevice(), inner = { calls: [], scene() { this.calls.push('scene'); }, shadow() { this.calls.push('shadow'); }, after() { this.calls.push('after'); } }, R = mockR(dev, { ext: inner });
   const host = { api: 'webgpu', R, world: { count: 0 } }; const h = await FxHost.create(host, { environment, data, tier: 'laptop', timing: false });
   assert.ok(h.gpu && h.gpu.ok && !h.gl); assert.equal(R.o.flags.sky, false); assert.equal(R.o.flags.particles, false); assert.deepEqual(h.log, []);
+  assert.deepEqual(h.status(), { api: 'webgpu', weather: true, effects: true, stopped: false, failed: null, log: [] }, 'status: both layers are drawn by the WebGPU passes');
   const cam = new Camera(); cam.set(12, 5, 20, Math.PI, 0.02, 60); cam.update(16 / 9); h.update({ tMin: minOf(7, 2, 22), cam });
   const enc = mockEnc(); R.ext.scene({}, R); R.ext.shadow({}, 0, R); R.ext.after(enc, R); assert.deepEqual(inner.calls, ['scene', 'shadow', 'after'], 'the inner hook (figures, structures) runs first and keeps working');
   assert.ok(enc.log.some(l => l[0] === 'pass'), 'the weather pass was encoded in the after hook'); assert.deepEqual(enc.log.filter(l => l[0] === 'draw').slice(0, 2), [['draw', 3], ['draw', 3]]);
@@ -242,14 +254,14 @@ test('fx-host on WebGPU: the prototype\'s sky and particles are switched off onl
 });
 test('fx-host on WebGPU: a failed build leaves the prototype passes on; a validation error at run time hands the sky and the particles back and keeps the state running', async () => {
   const dev = mockDevice({ failPipeline: /weather3d|fx3d/ }), R = mockR(dev, { ext: null }); const h = await FxHost.create({ api: 'webgpu', R, world: { count: 0 } }, { environment, data, tier: 'laptop', timing: false });
-  assert.ok(!h.gpu.weatherOk && !h.gpu.fxOk && !h.gpu.ok); assert.equal(R.o.flags.sky, true); assert.equal(R.o.flags.particles, true); assert.match(h.log.join(' '), /prototype sky and particles stay on/); h.dispose();
+  assert.ok(!h.gpu.weatherOk && !h.gpu.fxOk && !h.gpu.ok); assert.deepEqual({ ...h.status(), log: 0 }, { api: 'webgpu', weather: false, effects: false, stopped: false, failed: null, log: 0 }, 'status: nothing is drawn by this layer'); assert.equal(R.o.flags.sky, true); assert.equal(R.o.flags.particles, true); assert.match(h.log.join(' '), /prototype sky and particles stay on/); h.dispose();
   // only the weather pipelines fail: the sky stays the prototype's, the particles are the new ones
-  const d2 = mockDevice({ failPipeline: /weather3d-/ }), R2 = mockR(d2); const h2 = await FxHost.create({ api: 'webgpu', R: R2, world: { count: 0 } }, { environment, data, tier: 'laptop', timing: false }); assert.equal(R2.o.flags.sky, true); assert.equal(R2.o.flags.particles, false); h2.dispose(); assert.equal(R2.o.flags.particles, true);
+  const d2 = mockDevice({ failPipeline: /weather3d-/ }), R2 = mockR(d2); const h2 = await FxHost.create({ api: 'webgpu', R: R2, world: { count: 0 } }, { environment, data, tier: 'laptop', timing: false }); assert.equal(R2.o.flags.sky, true); assert.equal(R2.o.flags.particles, false); assert.equal(h2.status().weather, false); assert.equal(h2.status().effects, true); h2.dispose(); assert.equal(R2.o.flags.particles, true);
   // a run-time error that names the layer
   const d3 = mockDevice(), R3 = mockR(d3), h3 = await FxHost.create({ api: 'webgpu', R: R3, world: { count: 0 } }, { environment, data, tier: 'laptop', timing: false }); const cam = new Camera(); cam.set(0, 5, 0, 0, 0, 60); cam.update(1.78);
   h3.update({ tMin: minOf(7, 3, 14), cam }); assert.equal(R3.o.flags.sky, false); d3.listeners.uncapturederror[0]({ error: { message: 'Validation error [Buffer "weather3d.uniforms"] out of range' } });
   const origErr = console.error; console.error = () => { }; let info; try { info = h3.update({ tMin: minOf(7, 3, 14, 1), cam }); } finally { console.error = origErr; }
-  assert.equal(R3.o.flags.sky, true, 'the sky is back'); assert.equal(R3.o.flags.particles, true); assert.ok(info && info.weather && info.statement, 'the weather state is still computed'); assert.match(h3.log.join(' '), /WebGPU validation error in the weather or effects pass/);
+  assert.equal(R3.o.flags.sky, true, 'the sky is back'); const st3 = h3.status(); assert.equal(st3.stopped, true); assert.equal(st3.weather, false); assert.equal(st3.effects, false); assert.match(st3.failed, /weather3d\.uniforms/); assert.equal(R3.o.flags.particles, true); assert.ok(info && info.weather && info.statement, 'the weather state is still computed'); assert.match(h3.log.join(' '), /WebGPU validation error in the weather or effects pass/);
   const enc = mockEnc(); R3.ext.after && R3.ext.after(enc, R3); assert.equal(enc.log.length, 0, 'nothing is drawn after the stop'); h3.dispose();
 });
 test('fx-host: a renderer that is gone before the pipelines are ready is not touched; the WebGL2 install is unchanged by the WebGPU one', async () => {
@@ -261,4 +273,13 @@ test('fx-host: a renderer that is gone before the pipelines are ready is not tou
 test('the prototype renderer calls ext.after between its scene pass and its post passes, and the shipped files say nothing about how they were made', () => {
   const proto = fs.readFileSync(path.join(BT, 'render/prototype/src/webgpu.mjs'), 'utf8'), i = proto.indexOf('this.ext.after(enc, this)'); assert.ok(i > 0); assert.ok(proto.lastIndexOf('this.ext.scene(p, this)', i) > 0 && proto.indexOf("P.part", i) > i, 'after: scene hook, scene pass end, the hook, then particles and post');
   for (const f of ['src/weather3d/gpu.mjs', 'src/weather3d/shaders-wgsl.mjs', 'src/fx-host.mjs', 'tests/weather3d-gpu-page.mjs']) { const s = fs.readFileSync(path.join(APP, f), 'utf8'); assert.ok(!/\b(Claude|Anthropic|LLM|subagent|AI-generated|generated by)\b|\bagents?\b/i.test(s), f + ' has no mention of how it was made'); }
+});
+test('the harness cases: unique names, times inside the battle window, every feature of the layer has a case, the Sherfy barn is the documented point, and HOOKS is a self-contained function', () => {
+  const names = CASES.map(c => c.name); assert.equal(new Set(names).size, names.length);
+  for (const c of CASES) { const sp = specOf(c, minOf); assert.ok(sp.tMin >= minOf(6, 26) && sp.tMin < minOf(7, 15), c.name + ' is inside 26 Jun to 14 Jul'); assert.ok(c.what && c.what.length > 10, c.name + ' says what it shows'); assert.ok(!('m' in sp) && !('what' in sp)); for (const k of Object.keys(c.plan || {})) assert.ok(['guns', 'volleys', 'falls', 'march'].includes(k), c.name + ' plan key ' + k); }
+  const need = { stars: /stars/, moon: /moon/, dusk: /dusk/, fog: /fog/, clouds: /clouds/, wet: /wet/, smoke: /smoke/, flash: /flash/, dust: /dust/, fire: /fire/, floor: /floor/ };
+  for (const [k, re] of Object.entries(need)) assert.ok(names.some(n => re.test(n)), 'a case for ' + k);
+  const fires = D('fires.json').sources.find(f => f.id === 'fx-fire-sherfy-barn'); assert.equal(SHERFY.lng, fires.pos.lng); assert.equal(SHERFY.lat, fires.pos.lat);
+  const src = HOOKS.toString(); assert.match(src, /^function HOOKS\(opts\)/); assert.ok(!/\bimport\b|\brequire\b|\bfs\.|\bpath\./.test(src), 'it runs in the page: no module identifiers'); assert.ok(CHROME_ARGS.includes('--enable-unsafe-webgpu') && CHROME_ARGS.includes('--use-angle=swiftshader'));
+  assert.match(src, /getCurrentTexture/); assert.match(src, /COPY_SRC/); assert.match(src, /uncapturederror/); assert.match(src, /getCompilationInfo/);
 });

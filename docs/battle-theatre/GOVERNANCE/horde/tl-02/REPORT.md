@@ -1,34 +1,44 @@
-# REPORT shard tl-02 (rows T1-058 to T1-115, 58 rows)
+# REPORT shard tl-02 (rows T1-058 to T1-115, 58 rows), close-out of 2026-11-13
 
-## Integrity audit (completes the stalled run)
-No missing, duplicate or malformed rows. Canonical fields added. T1-068, T1-070 (computed from the repo ephemeris, no source passage) and T1-105 (procedural, asserts no fact) had status verified without citation or passage_ref: status lowered to inferred, status_raw keeps the original. T1-075 (documented tier, sky claim unsupported) tier lowered to inferred. T1-091, 093, 114, 083 (documented tier, status gap) tier lowered to open gap.
+Scope: every row of the shard now has a line in GOVERNANCE/timeline_corrections/tl-02.jsonl (verdict, corrected claim, sub-claims with tier, citations with report id, printed page, verbatim quote and text offset, scenarios, what stays unsupported, every search run with its hit count). The shard file results.jsonl carries the findings (the file as it stood before is kept as results.pre-closeout.jsonl; the earlier report as REPORT.pre-closeout.md). Nothing outside the shard's ownership was edited; requests for other files are in GOVERNANCE/horde/requests/bt-timeline-tl-02-corrections.md.
 
-Schema: every row now carries id, verdict, tier, citation, passage_ref, status, notes (plus the shard's original fields; tier_raw and status_raw keep the pre-audit values). `tier` is the audit-recommended tier; seed_tier is unchanged and any promotion above the seed is an owner/integrator decision. Rule applied: tier documented and status verified require both citation and passage_ref and an OR or primary citation; otherwise downgraded (rows changed are marked `audit_downgrade`). No row sets a default among conflicting sources (default_picked is empty everywhere).
+## What was run
+- build: `python3 -I tmp/tl-02/build2.py --write` (through the machine lock): 288 citations re-matched verbatim in the local text (Official Records vol. 27 parts 1-3 by report id and printed page; library and acquired texts by offset) and 109 searches executed, each logged with its hit count in horde/tl-02/search_log.jsonl. A quote that is not found, is found in another report, or on another page stops the build; none was left unmatched.
+- citations by source: {"OR27": 176, "SHSP-04": 2, "MEADE-LL-v2": 3, "IL-MON-1892": 25, "JACOBS-1864": 5, "ALEXANDER-1907": 3, "COMPUTED": 9, "CHENEY-1901": 2, "TPIERCE-1889": 5, "WELD-1912": 18, "HALL-6NYCAV-1908": 3, "NY-GB-1900": 6, "CAVTACT-1841c": 2, "NY-GB-1900-v2": 4, "BACH-WHATTOSEE-1873": 4, "BL-3": 5, "BROWN-SIGNAL-1896": 3, "NJ-TOOMBS-1888": 1, "BATES-1875": 2, "HASKELL-1908": 1, "BIDDLE-1880": 3, "FOX-1889": 1, "PA-GB-1904": 1, "BARTON-ANGELS-1898": 3, "USCC-SMITH-1868": 1}.
+- texts added for this close-out from archive.org (text layer, public domain): 20, listed with sha256 in horde/tl-02/sources_tl02.json (Illinois Monuments at Gettysburg 1892, Cheney 1901, Hall 1908, Hard 1868, Weld 1912, Brown 1896, Barton 1898, Smith 1868, Bates 1875, Biddle 1880, Jacobs 1888, and the U.S. cavalry drill books). One download returned no text and is recorded as failed (lookups.jsonl).
+- computed rows (T1-068, 070, 075 sunrise, 067 clock offset) were recomputed with an independent library (PyEphem 4.2.1; horde/tl-02/astro_check.py and .json): full moon 01:37:09 LMT, moonrise Jun 30 19:01:18 (the row says about 19:10), moonset 04:59:05, twilights 02:33:01, 03:20:54, 04:02:10, sunrise 04:34:48. A cross-check against a published almanac (USNO) is still owed.
 
 ## Counts
-Rows: 58 (seed slice exact, 0 missing, 0 duplicate, 0 malformed).
-Verdict: {'partial': 27, 'supported': 7, 'conflict': 8, 'gap_closable': 1, 'gap_open': 4, 'computed': 4, 'procedural': 2, 'unsupported': 5}
-Tier: {'documented': 37, 'inferred': 10, 'open gap': 9, 'plausible-procedural': 2}
-Status: {'verified': 39, 'inferred': 10, 'gap': 8, 'failed_lookup': 1}
+- rows: 58; verdicts: {"corrected": 38, "confirmed": 6, "partially_supported": 13, "gap": 1}.
+- the 19 rows whose status_effective was not verified_against_or_text: {"partially_supported": 11, "corrected": 6, "gap": 1, "confirmed": 1}.
+- the 39 rows already verified against the OR text: {"corrected": 32, "confirmed": 5, "partially_supported": 2}. A verified quote does not mean every sub-claim of the row is supported; where the shard notes already listed unsupported sub-claims the verdict is corrected or partially_supported, not confirmed.
+- sub-claims: 282; by tier {"documented": 212, "open gap": 38, "inferred": 29, "plausible-procedural": 3}; by support {"supported": 188, "unsupported": 55, "conflict": 28, "computed": 9, "procedural": 2}.
+- results.jsonl after the close-out: tier {"documented": 45, "inferred": 11, "open gap": 1, "plausible-procedural": 1}; status {"verified": 41, "inferred": 16, "gap": 1}.
+- proposed register entries: 45 new (tl-02-CO-<row>.md) plus the 13 earlier ones (tl-02-EG-001..013, each updated with a close-out paragraph).
+- searches with zero hits: 109 of 109 (a zero is a finding, kept in the log).
 
-## Conflicts carried as selectable scenarios, no default picked (9)
-T1-061, T1-082, T1-084, T1-089, T1-090, T1-094, T1-099, T1-100, T1-106
+## Verdict by row
+- confirmed (6): T1-059, T1-064, T1-077, T1-081, T1-087, T1-105
+- corrected (38): T1-058, T1-060, T1-061, T1-062, T1-065, T1-066, T1-068, T1-069, T1-071, T1-072, T1-074, T1-076, T1-078, T1-079, T1-082, T1-083, T1-084, T1-085, T1-086, T1-089, T1-090, T1-091, T1-094, T1-095, T1-096, T1-097, T1-098, T1-099, T1-100, T1-101, T1-102, T1-106, T1-107, T1-108, T1-109, T1-110, T1-112, T1-115
+- partially_supported (13): T1-063, T1-067, T1-070, T1-073, T1-075, T1-080, T1-088, T1-092, T1-093, T1-103, T1-111, T1-113, T1-114
+- unsupported (0): none
+- gap (1): T1-104
 
-## Gap and failed-lookup rows (9)
-T1-067, T1-071, T1-073, T1-083, T1-091, T1-092, T1-093, T1-104, T1-114
+## Source conflicts carried as selectable scenarios (no default picked)
+Rows with scenarios (25): T1-058, T1-061, T1-063, T1-070, T1-071, T1-072, T1-075, T1-080, T1-082, T1-083, T1-084, T1-089, T1-090, T1-091, T1-094, T1-095, T1-099, T1-100, T1-103, T1-106, T1-107, T1-108, T1-112, T1-114, T1-115.
+The only default is the one already recorded as a delegated decision: C-040 (Reynolds' death) on T1-099, window 10:15-11:15, applied unchanged; the new values found (about 10:00, rifle volley) were added as scenarios. The first-contact hour (T1-082), first shot (T1-083), Pipe Creek date (T1-061), Hall relief and retirement, sky on Jul 1, Burns's hour, 147th New York losses and Rodes's hours have no recorded default and none was picked.
 
-## Proposed register entries (13)
-tl-02-EG-001.md, tl-02-EG-002.md, tl-02-EG-003.md, tl-02-EG-004.md, tl-02-EG-005.md, tl-02-EG-006.md, tl-02-EG-007.md, tl-02-EG-008.md, tl-02-EG-009.md, tl-02-EG-010.md, tl-02-EG-011.md, tl-02-EG-012.md, tl-02-EG-013.md
-Every gap, failed_lookup, unsupported and conflict row is named in a proposed-register entry here or points to an existing register/conflict_register entry (T1-066, 071, 073, 099, 104 in shard 2 point to register/EG-TL-T1-*.md and conflict_register C-040).
+## Gap, unsupported and partial rows (proposed register entries)
+Rows left gap or unsupported: T1-104. Rows partially supported: T1-063, T1-067, T1-070, T1-073, T1-075, T1-080, T1-088, T1-092, T1-093, T1-103, T1-111, T1-113, T1-114.
+Proposed entries: tl-02-CO-T1-060, tl-02-CO-T1-061, tl-02-CO-T1-062, tl-02-CO-T1-063, tl-02-CO-T1-065, tl-02-CO-T1-066, tl-02-CO-T1-067, tl-02-CO-T1-068, tl-02-CO-T1-069, tl-02-CO-T1-070, tl-02-CO-T1-071, tl-02-CO-T1-073, tl-02-CO-T1-074, tl-02-CO-T1-075, tl-02-CO-T1-078, tl-02-CO-T1-079, tl-02-CO-T1-080, tl-02-CO-T1-082, tl-02-CO-T1-083, tl-02-CO-T1-084, tl-02-CO-T1-085, tl-02-CO-T1-086, tl-02-CO-T1-088, tl-02-CO-T1-089, tl-02-CO-T1-090, tl-02-CO-T1-091, tl-02-CO-T1-092, tl-02-CO-T1-093, tl-02-CO-T1-094, tl-02-CO-T1-095, tl-02-CO-T1-097, tl-02-CO-T1-098, tl-02-CO-T1-099, tl-02-CO-T1-100, tl-02-CO-T1-101, tl-02-CO-T1-103, tl-02-CO-T1-104, tl-02-CO-T1-106, tl-02-CO-T1-107, tl-02-CO-T1-108, tl-02-CO-T1-109, tl-02-CO-T1-111, tl-02-CO-T1-113, tl-02-CO-T1-114, tl-02-CO-T1-115.
+Entries that update an existing register entry carry "proposed update of EG-TL-T1-0xx" in the title (T1-066, 067, 071, 073, 104).
 
-## own_checks (this audit pass)
-Method and limit: the raw OR OCR (tmp/library/or27) is not present in this checkout, so or27_find.py cannot run and the original page text could not be re-read. Web access to archive.org and loc.gov is blocked (403, not circumvented). Checks made instead: (a) every cited OR report id exists in library/or27_index.json; (b) every cited printed page of a verified row lies inside that report's indexed page range: 77 of 77 cited pages; (c) quotes were searched in separate local extractions (library/timeline_audit_T*.jsonl, or27_claim_checks.json, history/positions/*.jsonl): found 66/79. Quotes not found are shard-verified only and are listed as not independently confirmed.
-- T1-058 Heth OR27-2-R549 p.637 (index p.637-642): quote 'who reached Cashtown on the evening of the 30th' found in the T1 audit file: CONFIRMED; A.P. Hill R534 p.607 (index 606-609) second quote not found in any other local file: NOT INDEPENDENTLY CONFIRMED here.
-- T1-059 Hill R534 p.607: 'following on the morning of the 30th with the division of Ge...' found: CONFIRMED.
-- T1-060 Ewell R467 'orders from the general commanding to proceed to Cashtown' and Early R470 p.468 'the object was to concentrate the corps at or near Cashtown' found: CONFIRMED.
-- T1-062 Calef R374 p.1030 (index 1029-1034): 'went into position, just outside of town' found: CONFIRMED; 'Strong cavalry pickets thrown out about a mile and a half.' not found elsewhere: NOT INDEPENDENTLY CONFIRMED here.
+## Tier relative to the seed (overlay, seed rows untouched)
+Promotions proposed: T1-066, T1-067, T1-071, T1-072, T1-073. Demotions against the seed: T1-063, T1-075, T1-093, T1-111, T1-114. Unchanged: 48 rows. A promotion applies only to the corrected wording and needs the delegated-decision block DD-TL02-01 (appended to decisions/DELEGATED-DECISIONS-2026-11-11.md) or an owner decision; every unsupported remainder keeps its own tier and register entry.
 
-## Owner-decision items
-- Default view for each conflict listed above (PDF recommended defaults stay PENDING OWNER).
-- Tier promotions or demotions relative to the seed tier recommended in the row notes.
-- Approval to acquire primary sources for the gap rows (see proposed-register entries).
+## What is not done or owed
+- No scan image of the Official Records was available; page numbers come from the OCR running heads (a "~" marks interpolation) and a re-read against the scan is owed (horde/SPOTCHECK.md).
+- Library page numbers: recovered from running heads where the pattern is reliable, otherwise read by hand and stated with the basis; for three sources (Tillie Pierce, Biddle, Fox) the OCR heads are damaged and the page is a range or absent (stated in each citation).
+- Not found in any local text: Jerome's 1865 account, Jacobs's original meteorological table, Pegram's own report, Fry's 13th Alabama report, the Broadhead, Myers and McCreary diaries, a source for Cutler's brigade total, for the 20-mile Dover march, and for the 7-mile cavalry front. Hosts blocked or not tried are unchanged (HathiTrust and eHistory: bot block, not retried).
+- Hours given as "inferred" are bounds derived from stated times (for example Weld's departure about 10:00 = 11.20 minus 1 h 20 min); none is a stated time.
+- Rendering or timing checks: none were needed for this data task.

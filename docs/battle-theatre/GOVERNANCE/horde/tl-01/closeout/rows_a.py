@@ -150,7 +150,7 @@ ROWS.append(dict(
         ('The rain was cold', 'open gap', 'unsupported', []),
     ],
     cites={
-        'morn': OR('and on the morning of the 2Gth, having sent all my trains to Chambersburg', R470, '465'),
+        'morn': OR('and on the morning of the 2Gth, having sent all my trains to Chambersburg, excepting the ambulances, one medical wagon for a brigade, the regimental ordnance wagons, one wagon with cooking utensils for each regiment, and fifteen empty wagons to gather supplies with', R470, '465'),
         'camp': OR('At this i)uint, my division remained in camp on the 25th', R470, '464'),
         'mud': OR('whose march was considerably delayed by the muddy condition of the roads', R470, '465'),
         'rainy': OR('The day was rainy and the roads very muddj\'.', R470, '465'),
@@ -172,8 +172,8 @@ ROWS.append(dict(
                 'Stevens\' iron works at Caledonia, 15 miles west of Gettysburg (Adams Sentinel), on the rebels\' route toward Gettysburg (Compiler)',
                 'Date in conflict, no hour: Thursday Jun 25 (Tribune letter and Adams Sentinel) or Friday Jun 26 (Gettysburg Compiler, "on Friday")',
                 'Adams Sentinel Jul 21 1863 p.3 and Sep 8 1863 p.2 (Thursday); Gettysburg Compiler Jun 29 1863 p.2 (Friday)',
-                'The works were burned by the rebels: the Gettysburg Compiler of Jun 29 says on Friday (Jun 26) on their route hitherward; the Adams Sentinel (Jul 21 and Sep 8 1863) puts General Early at the works on Thursday Jun 25 and has Col. French\'s cavalry apply the torch, the buildings reduced to ashes, '
-                'loss "not less than $50,000". Both dates are carried as scenarios, no default. NOT documented: the hour, the place "about 2 miles out from camp", and any construction-schedule detail.',
+                'The works were burned by the rebels: the Gettysburg Compiler of Jun 29 says on Friday (Jun 26) on their route hitherward; the Adams Sentinel (Jul 21 and Sep 8 1863) puts General Early at the works on Thursday Jun 25 and has Col. French\'s cavalry apply the torch, the works reduced to ashes. '
+                'Both dates are carried as scenarios, no default. NOT documented: the hour, the place "about 2 miles out from camp", and any construction-schedule detail.',
                 'documented', '1863-06-25T06:00', '1863-06-26T23:59',
                 marking='event: documented from newspapers of the time; date: two scenarios; hour and distance from camp: gap'),
     subs=[
@@ -252,7 +252,7 @@ ROWS.append(dict(
     claim=claim('The 26th Pennsylvania Emergency Militia reaches Gettysburg: scenarios (night of Jun 25 / morning of Jun 26)',
                 '26th Pennsylvania Emergency (Militia) Infantry (Col. W. W. Jennings), 735 to 900 men', 'Gettysburg (the regiment was held up at Swift Run, 6 miles below, by a railroad accident)',
                 'Night of Jun 25 to about 09:00 Jun 26 (the sources differ)', 'Early OR27-2-R470 p.465; Jacobs 1864 p.14; Compiler Jun 29 1863; Pennypacker (PA-GB-1914-v2 p.786); regimental monument text',
-                'The regiment started for Gettysburg by rail on Jun 24 and was held up at Swift Run (6 miles below) by a railroad accident; a detail of 100 men reached the town on the evening of Jun 25 and the regiment came in on the morning of Jun 26 (Jacobs: 9 a.m., from its camping ground, not by train). '
+                'The regiment started for Gettysburg by rail on Jun 23-24 (Richards: Jun 23; Pennypacker: Jun 24) and was held up at Swift Run (6 miles below) by a railroad accident; a detail of 100 men reached the town on the evening of Jun 25 and the regiment came in on the morning of Jun 26 (Jacobs: 9 a.m., from its camping ground, not by train). '
                 'Early says the regiment had arrived the night before (Jun 25); the regiment\'s own monument text says it reached Gettysburg June 25. The seed reading (by train, about 09:00) is not supported as a train arrival. Scenarios carried, no default.',
                 'documented', '1863-06-25T18:00', '1863-06-26T10:30'),
     subs=[
@@ -327,7 +327,7 @@ ROWS.append(dict(
     claim=claim('The militia camp about three miles out the pike; the regiment withdraws when White\'s cavalry is sighted',
                 '26th Pennsylvania Militia (Jennings) with Bell\'s cavalry vs White\'s cavalry battalion', 'Chambersburg pike about 3 to 3.5 miles west of Gettysburg (Marsh Creek area); the retreat ran across the fields toward Hunterstown',
                 'Jun 26, from the arrival at about 10:30-11:00 to about 15:00 (Jacobs: at about 3 p.m. the Rebels in force appeared)', 'Early OR27-2-R470 p.465; Jacobs 1864 p.14; Richards (BL-3); Pennypacker (PA-GB-1914-v2)',
-                'The regiment went three to three and a half miles out the pike, halted, threw out pickets and encamped; at about 3 p.m. the Rebels in force appeared and captured nearly all the pickets (40), the regiment withdrew without a fight. Early: it fled at the first approach of White\'s cavalry, taking across the fields between Mummasburg and Gettysburg toward Hunterstown. '
+                'The regiment went three to three and a half miles out the pike, halted, threw out pickets and encamped; at about 3 p.m. the Rebels in force appeared and captured nearly all the pickets (40); Colonel Jennings divided the regiment into three squads to look like a large body, the Rebels did not press it at first, and the regiment withdrew. Early: it fled at the first approach of White\'s cavalry, taking across the fields between Mummasburg and Gettysburg toward Hunterstown. '
                 'Marsh Creek is named by the regimental account; NOT documented: the clover-field camp, Knoxlyn/Wisler Ridge, the "about 2 miles off" sighting distance and the hour "midday".',
                 'documented', '1863-06-26T10:00', '1863-06-26T16:00', marking='withdrawal and place: documented; clover field, Knoxlyn/Wisler Ridge, 2-mile sighting: gap'),
     subs=[
@@ -361,7 +361,7 @@ ROWS.append(dict(
     claim=claim('White\'s cavalry charges and routs the militia; the prisoners are about three dozen (36 paroled, plus two officers)',
                 'White\'s cavalry battalion (Lt. Col. E. V. White) vs the 26th Pennsylvania Militia and pickets', 'In front of Gettysburg, on the Chambersburg pike',
                 'Jun 26 afternoon (about 15:00 by Jacobs and the Compiler); no morning hour', 'Gordon OR27-2-R477 p.491; Ewell OR27-2-R467 p.443; Jacobs 1864 p.14; Compiler Jun 29 1863 p.2',
-                'In front of Gettysburg the Pennsylvania militia regiment was charged and routed by White\'s cavalry battalion (Gordon); about 15:00 the Rebels in force captured nearly all the pickets, 40 (Jacobs); the Compiler counts 36 prisoners of the 26th paroled at Gettysburg and two officers taken along ("some forty" captured). '
+                'In front of Gettysburg the Pennsylvania militia regiment was charged and routed by White\'s cavalry battalion (Gordon); about 15:00 the Rebels in force captured nearly all the pickets, 40 (Jacobs); the Compiler counts 36 prisoners of the 26th paroled at Gettysburg and two officers taken along. '
                 'The OR totals for the whole affair are 170 (Ewell) and 175 (Early). NOT documented: Co. E of the battalion under Lt. H. M. Strickler, and the raid on the abandoned camp.',
                 'documented', '1863-06-26T10:30', '1863-06-26T16:30', marking='rout and counts: documented; Lt. Strickler and Co. E, the camp raid: gap'),
     subs=[
@@ -379,7 +379,7 @@ ROWS.append(dict(
         'cmp_stevens': CMP("route hitherward, on Friday. The thirty-six prisoners of", CMP_STEVENS),
     },
     scenarios=[
-        sc('A', 'About three dozen captured (36 paroled, two officers; "some forty")', 'Gettysburg Compiler Jun 29 1863 p.2; Jacobs 1864 (40 pickets)', 'documented', ['cmp_stevens', 'jac_3pm']),
+        sc('A', 'About three dozen captured (36 paroled, two officers)', 'Gettysburg Compiler Jun 29 1863 p.2; Jacobs 1864 (40 pickets)', 'documented', ['cmp_stevens', 'jac_3pm']),
         sc('B', '170 taken and paroled (whole affair, including the pursuit)', 'Ewell OR27-2-R467 p.443', 'documented', ['ewell_rout']),
         sc('C', '175 prisoners in all, subsequently paroled', 'Early OR27-2-R470 p.465', 'documented', ['early_175']),
     ],
@@ -780,13 +780,14 @@ ROWS.append(dict(
     subs=[
         ('By direction of the President Hooker is relieved from command of the Army of the Potomac and Meade appointed (G.O. No. 194, War Department, Washington, Jun 27, 1863)', 'documented', 'supported', ['go194']),
         ('Halleck\'s letter of Jun 27 tells Meade he will receive with it the order of the President placing him in command', 'documented', 'supported', ['halleck']),
-        ('The order was delivered to Meade at about three o\'clock on the morning of Jun 28 by Col. J. A. Hardie of Halleck\'s staff', 'documented', 'supported', ['hardie']),
+        ('The order was delivered to Meade, in his camp at Ballinger\'s Creek just outside Frederick, at about three o\'clock on the morning of Jun 28 by Col. J. A. Hardie of Halleck\'s staff', 'documented', 'supported', ['hardie', 'll_camp']),
         ('The order was issued in the evening of Jun 27', 'open gap', 'unsupported', []),
     ],
     cites={
         'go194': OR('By direction of the President, Maj. Gen. Joseph Hooker is relieved from command of the Army of the Potomac, and Maj. Gen. George G. Meade is appointed to the command of that army', 'OR27-3-D0831', '369'),
         'halleck': OR('the order of the President placing you in command of the Army of the Potomac', 'OR27-1-R006', '61'),
         'hardie': L('MEADE-LL-v2', 'General Meade lay quietly asleep in his tent at three o\'clock of the morning of June 28', page='1', page_basis='first page of Part V of the volume (opening narrative of the Gettysburg campaign); no running head is printed on it', witness='narrative by G. Meade, aide-de-camp and son of the general (1913)'),
+        'll_camp': L('MEADE-LL-v2', 'arrived toward afternoon at Ballinger\'s Creek, just outside of Frederick City', page='1', page_basis='first page of Part V of the volume (opening narrative of the Gettysburg campaign); no running head is printed on it', witness='narrative by G. Meade, aide-de-camp and son of the general (1913)'),
     },
     scenarios=[],
     remains=['the hour of issue on Jun 27 ("evening" in the seed)'],

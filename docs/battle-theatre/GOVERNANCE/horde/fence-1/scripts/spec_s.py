@@ -3,7 +3,7 @@ ROWS = []
 
 ROWS.append(R('R14.S-001', 'corrected', 'open_gaps',
  pdf_claim="Rock Creek railroad bridge/trestle: intact to burned, Jun 26-27 (sources vary), trigger Early's division.",
- corrected="The burning is dated to the evening of Friday Jun 26 (Jacobs; Early reached Gettysburg late on a rainy day and moved on next morning, 'the 27th', from Mummasburg). The bridge is the railroad bridge across Rock Creek east of the town (Gettysburg Compiler of Jun 29: the bridge across Rock Creek was set on fire; the central span burned and fell in, the other two spans stood badly damaged; ten to twelve cars burned per Early, seventeen per the Compiler; Tillie Pierce: the railroad bridge east of the town). The PDF flag 'sources vary 26 or 27' is resolved to Jun 26 evening by two contemporary or near-contemporary sources; Jun 27 stays selectable as the PDF scenario.",
+ corrected="The burning is dated to the evening of Friday Jun 26 (Jacobs; Early reached Gettysburg late on a rainy day and moved on next morning, 'the 27th', from Mummasburg). The bridge is the railroad bridge across Rock Creek east of the town (Gettysburg Compiler of Jun 29: the bridge across Rock Creek was set on fire; its garbled OCR reads that the central span was burnt and fell in and, verbatim, 'The other two are standing, but badly damaged'; ten to twelve cars burned per Early, seventeen per the Compiler; Tillie Pierce: the railroad bridge east of the town). The PDF flag 'sources vary 26 or 27' is resolved to Jun 26 evening by two contemporary or near-contemporary sources; Jun 27 stays selectable as the PDF scenario.",
  structures=['bld-rock-creek-rr-bridge', 'S-001'],
  sub=[
   S('a', "Date: the evening of Friday Jun 26 (Early reached Gettysburg late; moved next morning, the 27th).", 'documented', 'supported', [
@@ -32,7 +32,7 @@ ROWS.append(R('R14.S-002', 'partially_supported', 'open_gaps',
   S('a', "Jun 30: Buford's signal officer took position in the steeple of the college.", 'documented', 'supported', [
     C('OR1','R017',"On the 30th, general headquarters removed to Taneytown"),
     C('OR1','R017',"took position in the steeple of the college")]),
-  S('b', "NPS reading: on Jun 30 Buford used the cupola of the Seminary building as a signal station.", 'documented', 'conflict', [
+  S('b', "NPS reading: on Jun 30 Buford used the cupola of the Seminary building as a signal station.", 'documented', 'supported', [
     C('NPS','NPS-CLI-1STDAY',"Arriving on June 30, General Buford used the cupola of the Seminary building as a signal station")]),
   S('c', "Jul 1 08:30: one of Howard's signal officers was on the College cupola; Jul 3: Lee reconnoitred from the College cupola (the College building was then a hospital).", 'documented', 'supported', [
     C('LIB','JACOBS-1864',"one of these officers was on the College cupola making observations"),
@@ -42,7 +42,7 @@ ROWS.append(R('R14.S-002', 'partially_supported', 'open_gaps',
  stays_unsupported=["Building identity (Pennsylvania Hall vs Schmucker Hall)", "Hour on Jun 30"],
  conflicts=["Building: college steeple (Norton) / College cupola (Jacobs) vs Seminary building cupola (NPS)"],
  register=[],
- blocked=[B('Wiki-PennHall', 'https://en.wikipedia.org/wiki/Pennsylvania_Hall_(Gettysburg_College)', "Wikipedia page (URL formed from the title; host refused here; not a documented source): nothing to read")],
+ blocked=[B('Wiki-PennHall', None, "Wikipedia page on Pennsylvania Hall (URL not recorded; host refused here; not a documented source): nothing to read")],
  consequence=["S-002: split the signal-post event into the Jun 30 post (building scenario: Pennsylvania Hall cupola or Schmucker Hall cupola) and the Jul 1 08:30 Howard signal officer on the College cupola; both tier documented for the event, inferred for the building"],
  lookups=[L('lib','Pennsylvania Hall|College cupola',3,'no hit names Pennsylvania Hall; Jacobs College cupola'), L('NPS','Buford cupola Seminary',2,'NPS-CLI-1STDAY p.37')],
 ))
@@ -157,7 +157,7 @@ ROWS.append(R('R14.S-008', 'unsupported', 'blocked_host',
  ],
  stays_unsupported=["Whole claim"],
  register=['fence-1-EG-11'],
- blocked=[B('Aleteia', 'https://aleteia.org/', "Aleteia page on the St. Francis Xavier parish (the exact article URL is not recorded in the PDF; the only Aleteia URL recorded in the repository is https://aleteia.org/2024/07/09/the-daughters-of-charity-at-gettysburg-part-2-photos/ - unconfirmed as this source; host refused here): read the church-as-hospital passage, the date and its own source; then find a primary witness (a Daughters of Charity or priest account)")],
+ blocked=[B('Aleteia', None, "Aleteia page on the St. Francis Xavier parish (the exact article URL is not recorded in the PDF; the only Aleteia URL recorded in the repository is https://aleteia.org/2024/07/09/the-daughters-of-charity-at-gettysburg-part-2-photos/ - unconfirmed as this source; host refused here): read the church-as-hospital passage, the date and its own source; then find a primary witness (a Daughters of Charity or priest account)")],
  consequence=["S-008 / H-02: keep the open gap marked; do not show pews removed by noon Jul 1"],
  lookups=[L('OR1-3','St. Francis|Xavier',0,'no hit'), L('lib+NPS','Xavier / Catholic church hospital',10,'none for 1863')],
 ))
@@ -179,7 +179,7 @@ ROWS.append(R('R14.S-009', 'corrected', 'open_gaps',
  stays_unsupported=["'Neighbor' as the actor", "Hour of the felling and number of panels"],
  conflicts=["Actor: neighbor (ECW) vs Union troops (NPS)"],
  register=['fence-1-EG-13'],
- blocked=[B('ECW-Bliss', 'http://emergingcivilwar.com', "Emerging Civil War article on the Bliss farm (exact URL not recorded in the PDF; host refused here): read the passage on the McMillan fences felled by a neighbor for Union troops")],
+ blocked=[B('ECW-Bliss', None, "Emerging Civil War article on the Bliss farm (exact URL not recorded in the PDF; host refused here): read the passage on the McMillan fences felled by a neighbor for Union troops")],
  consequence=["S-009 / FEN-mcmillan: trigger becomes 'Union troops (NPS)' as the documented-secondary default with 'neighbor reportedly (ECW)' selectable; add the second change 'rails used in Confederate entrenchments after Jul 1 withdrawal'"],
  lookups=[L('NPS','McMillan fences',44,'NPS-CLI-PCB p.72'), L('lib','McMillan ... fence',1,'only Lane (SHSP-05)')],
  changes=["previous: failed lookup; now supported by the NPS landscape inventory (trigger corrected)"],

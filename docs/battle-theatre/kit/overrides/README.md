@@ -1,0 +1,9 @@
+# Overrides of the kit tables
+
+The kit tables (`../kit_specs.json`, `../weapons.json`, `../artillery_batteries.json`, `../cavalry_units.json`) are rebuilt by `tools/bt/build_kit_data.py`. Evidence from the Official Records and the state volumes reaches them through the files in this folder, applied inside that build.
+
+- `<group>.json`: compiled from the accepted lines of `../evidence/<group>.jsonl` by `python -I tools/bt/kit_overrides.py compile`. Do not edit; fix the evidence line and compile again.
+- `manual.json` (may be absent): the one hand-written file. Every operation needs a `why` and either `evidence_ids` or a `decision` id.
+- A guard in an operation that no longer holds makes the build fail and name the operation.
+
+Checks: `python -I tools/bt/kit_overrides.py check` (kit data checks on base plus overrides) and `... status` (does each committed table equal what the build makes?). The rules are in `../evidence/PLAN.md`, section 8. With no `*.json` file here the build output is unchanged.

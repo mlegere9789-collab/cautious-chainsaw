@@ -1,0 +1,26 @@
+# To the evidence workstreams (shard integrators, evidence_merge): National Park Service evidence lines
+
+From: bt-web, task nps-landscape (2026-11-13).
+
+## What I wrote (my own files only)
+- `docs/battle-theatre/GOVERNANCE/evidence_corrections/web-nps-landscape.jsonl`: one line per (target id, extract), 1,489 lines for 58 ids at the time of writing. Fields: `id` (sub-requirement id), `verdict` (always partially_supported: one passage never completes a requirement), `sub_claim`, `tier`, `state_date`, `use_for_1863` (direct / indirect / none), `matched_by`, `xid`, `citation` {source id, title, author, date, url, pdf_page, printed_page, retrieved, quote, quote_mode, source_text_excerpt, basis_named_by_report, text_variant, local_path, text_sha256, page_marker}, `remains_unsupported`, `caution` (on indirect and none lines).
+- `docs/battle-theatre/GOVERNANCE/timeline_corrections/web-nps-landscape.jsonl`: 18 lines for timeline rows (T1-083, T1-135, T1-171, T2-003, T2-023, T2-069, T2-076, T2-115, T3-013, T3-067, T3-137), each with the passage and a note saying what it supports.
+- Target ids: explicit repository ids (E-xx to R14.E-xx, P-xx and G-xx to R13.P-xx, R13.G-xx), the state-schedule rows (R14.S-xxx) that name the object when the passage speaks of a change of state, and topic parents (R20.0000 plants and trees, R13.0000 buildings, fences and hospitals, R14.0000 works, R02.0000, R05.0000). Terrain-source items: R12.013 (mapping resources named by the park), R12.015 (Warren survey 1868-69), R12.016 (nine miles of fence rebuilt; 12 small fields), R12.042 (acreage and woodlot figures now confirmed from the saved page: 5,989 acres, over 2,300 acres crops, pasture or meadow, over 1,600 acres woodlots, 148 acres wetland, forest regeneration study since 1985, GMP 1999), R12.043 (553 vascular plants, 410 native; dominant overstory white oak, white ash, northern red oak: a modern list, not 1863).
+
+## How to validate a line
+1. Open `citation.local_path` (relative to the repository root), find the marker `=== PAGE <pdf_page> ===`, normalise whitespace. `quote_mode` sentences or anchors: the quote is a verbatim substring. `quote_mode` cleaned: the letters and digits of the quote equal those of `source_text_excerpt` (spacing and punctuation ignored; for sources with a lost-glyph defect the groups ti, tt, tf, ft, tl, ff, or f followed by i, f, l, are ignored on both sides); `ocr_corrections` lists every (saved, fixed) pair in the extract record. `scripts/verify_extracts.py` does all this: 692 extracts, 0 problems, quotes matched against the saved text; `text_sha256` is the hash of the text file (variant raw = content-stream order, for the two-column reports).
+2. `source_class` is a National Park Service report or page (United States government work): non-lead, secondary.
+
+## Tier and what stays open
+- `tier` is a proposal (DD-NPS-02): documented when the report states the fact (often from damage claims, the 1860 census, the Bachelder, Cope, Elliott and Warren maps or photographs, named in `basis_named_by_report`), inferred when the report hedges or reports conflicting evidence. Every line says what remains unsupported: one secondary source; the claims, census returns and maps were not read here. The PDF ledger rule (two independent sources or one first-tier source) is yours to apply.
+- Maps the reports cite are dated 1863 (Bachelder, Cope, Elliott) to 1872 (survey); photographs 1863-1900: "documented in the 1868 Warren map" supports the 1868 condition and the report's inference to 1863.
+
+## Conflicts for your close-out (all carried, none resolved; DD-NPS-04)
+- Little Round Top: the plan's E-13 says no construction is attributed; the Cultural Landscapes Inventory 2020 says defensive stone walls were built on the summit and Vincent Spur in 1863 and lists Union walls built before 1863 (NPSX-CLI-LRT-p029-01, p075-01, p075-05). Check against the Official Records.
+- P-01: "throwing earth over the existing stone wall ... in places surmounted by a common post-and-rail fence" (NPSX-COMMON-PRIDE-1-p024-01), Angle area; 20th Massachusetts behind a low stone fence topped with rails (p027-01).
+- Emmitsburg Road fences July 3: post and rail (study author), plank or slab (account), two fences (account); no known stone fence (NPSX-COMMON-PRIDE-1-p114-01, p120-01, p128-01, p129-01; NPSX-CLR-ROT-V2-p103-02). Relevant to R14 rows for FEN-emmitsburg-road.
+- R03.C-038 (Spangler Farm wounded) and C-044 (Camp Letterman): hospital extracts NPSX-BOUNDARY-1988-p039-01 (11th Corps hospital at the George Spangler farm, Armistead), NPSX-CARE-WOUNDED-GUIDE-p016-01/-02 (27,000 wounded; Camp Letterman open over four months). The 1988 text also prints a Camp Letterman end date that is illegible in the OCR (1868 as read, 1863 expected): not extracted.
+- Harman house (burned or survived), Harman orchard, Dustman orchard acres, Gilbert orchard, Forney fence between fields 5/6 and 7/8, Sherfy field fences: see SUMMARY.md.
+
+## Not done (owed)
+Sources not yet read for extracts (31 of 73 have extracts), the primary documents the reports cite (damage claims RG 92 and the Pennsylvania claims, the 1860 agricultural census, the Bachelder/Cope/Elliott/Warren maps) and the report drawings as images.

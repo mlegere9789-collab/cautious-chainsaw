@@ -7,7 +7,7 @@ Extracts from National Park Service reports (United States government works), ge
 
 ## NPS-BRIEN-FARM
 
-The Brien Farm and Family (date: see INDEX.md). https://www.npshistory.com/publications/gett/brien-farm.pdf
+The Brien Farm and Family (June 1972). https://www.npshistory.com/publications/gett/brien-farm.pdf
 
 - **Brien farm: 12 acres, two houses on the Emmitsburg Road property** (`NPSX-BRIEN-FARM-p006-01`)
   - State date: **1860-1863** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 6
@@ -22,7 +22,7 @@ The Brien Farm and Family (date: see INDEX.md). https://www.npshistory.com/publi
 
 ## NPS-CLI-1STDAY
 
-Cultural Landscapes Inventory: First Day - Union 1st Corps Battlefield, Gettysburg National Military Park (date: see INDEX.md). https://www.npshistory.com/publications/gett/cli-first-day-ufcb.pdf
+Cultural Landscapes Inventory: First Day - Union 1st Corps Battlefield, Gettysburg National Military Park (2021). https://www.npshistory.com/publications/gett/cli-first-day-ufcb.pdf
 
 - **Repairs after the battle** (`NPSX-CLI-1STDAY-p044-01`)
   - State date: **1863-1895 (after the battle)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 44 [Page 42 of 105]
@@ -53,7 +53,7 @@ Cultural Landscapes Inventory: First Day - Union 1st Corps Battlefield, Gettysbu
 
 ## NPS-CLI-CEMETERY
 
-Cultural Landscapes Inventory: Gettysburg National Cemetery, Gettysburg National Military Park (date: see INDEX.md). https://www.npshistory.com/publications/gett/cli-cemetery.pdf
+Cultural Landscapes Inventory: Gettysburg National Cemetery, Gettysburg National Military Park (2019). https://www.npshistory.com/publications/gett/cli-cemetery.pdf
 
 - **Signal station stood on the high point at the south end of the cemetery during the battle** (`NPSX-CLI-CEMETERY-p028-02`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 28 [Page 26 of 40]
@@ -379,7 +379,7 @@ Cultural Landscape Report for Gettysburg National Military Park: Record of Treat
 
 ## NPS-HARMON-FARM
 
-The Significance of the Harmon Farm and the Springs Hotel Woods (date: see INDEX.md). https://www.npshistory.com/publications/gett/harmon-farm-springs-hotel-woods.pdf
+The Significance of the Harmon Farm and the Springs Hotel Woods (1 March 1991). https://www.npshistory.com/publications/gett/harmon-farm-springs-hotel-woods.pdf
 
 - **Harman farm 1841: pump and cistern, brick wash and smoke house, 80 by 54 foot stone bank barn** (`NPSX-HARMON-FARM-p007-01`)
   - State date: **1841 (advertisement)** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 7
@@ -396,7 +396,7 @@ The Significance of the Harmon Farm and the Springs Hotel Woods (date: see INDEX
 
 ## NPS-HSR-LEISTER-BARN
 
-Historic Structure Report: Physical Fabric Section, Leister Barn, Gettysburg National Military Park, Gettysburg, Pennsylvania (date: see INDEX.md). https://www.npshistory.com/publications/gett/hsr-leister-barn.pdf
+Historic Structure Report: Physical Fabric Section, Leister Barn, Gettysburg National Military Park (not stated in the text layer). https://www.npshistory.com/publications/gett/hsr-leister-barn.pdf
 
 - **Leister barn to be restored to its appearance just before the battle in July 1863** (`NPSX-HSR-LEISTER-BARN-p009-02`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 9
@@ -406,7 +406,7 @@ Historic Structure Report: Physical Fabric Section, Leister Barn, Gettysburg Nat
 
 ## NPS-MCCLEAN-HOUSE-BARN
 
-McClean House and Barn, Gettysburg National Military Park, Pa. (date: see INDEX.md). https://www.npshistory.com/publications/gett/mcclean-house-barn.pdf
+McClean House and Barn, Gettysburg National Military Park, Pa. (1 October 1968). https://www.npshistory.com/publications/gett/mcclean-house-barn.pdf
 
 - **McClean house in 1863: narrow, three rooms on each floor** (`NPSX-MCCLEAN-HOUSE-BARN-p023-01`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 23

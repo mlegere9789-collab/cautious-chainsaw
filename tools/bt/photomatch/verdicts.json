@@ -1,61 +1,207 @@
 {
- "_doc": "Candid per-pose verdicts. Allowed: 'matches', 'roughly', 'does not', 'cannot judge'. A verdict of matches/roughly requires reviewed_image=true (the composite was opened and looked at). Every verdict is conditional on the ASSUMED pose in poses.json; none is a finding about the 1863 landscape alone.",
- "verdicts": [
+ "_doc": "Candid per-pose verdicts, written after looking at the review sheet of each pose (tools/bt/photomatch/reports/<pose>.jpg). Allowed: matches, roughly, does not, cannot judge. matches = the render at the registered pose reproduces horizon height, the order and spacing of the named landmarks and the visible structures to within about a tenth of the frame without any parameter set from the photograph; roughly = the large-scale layout agrees but the offsets are larger than that; does not = the layout contradicts the photograph; cannot judge = nothing comparable is in the frame or the pose leaves nothing to test. A verdict of matches or roughly needs reviewed_image = true. independent_test = false where a number (the distance) was read from the photograph: such a pose is never called a match and carries no weight for the gate. Every verdict is conditional on the registered pose, none is a finding about the 1863 landscape alone. Photograph-level verdicts for all 127 records are in photograph_registry.json.",
+ "vocabulary": [
+  "matches",
+  "roughly",
+  "does not",
+  "cannot judge"
+ ],
+ "reviewed": "2026-11-13: review sheets P01, P03, P06 to P09, P11, P12, P13, P17 to P20, P24, P26 viewed; P04 and P05 as in the first run (2026-11-11)",
+ "pose_verdicts": [
   {
    "pose": "P01",
    "loc_id": "2018666303",
    "reviewed_image": true,
-   "verdict": "does not",
-   "why": "At the assumed Little Round Top summit pose the render has its horizon at 0.51 of the frame, the photograph's at about 0.40 (camera tilt/standpoint differ); the photograph's near-field is dominated by boulders and a tree that the DEM does not contain; the distant tree-clump ridge cannot be matched to mapped features because the DEM has no 1863 trees. Cannot be separated into terrain error vs pose error."
+   "verdict": "roughly",
+   "independent_test": true,
+   "why": "Far field at the registered pose (Warren statue summit, heading 7.8 deg, 40 deg field): the model horizon sits at 0.51 of the frame height, the photograph's far ridge and groves at about 0.44 (read by eye, +-0.02), about 3 degrees higher. The landmarks the NPS names fall in the NPS order (Codori house, High Water Mark monument for the Copse, Ziegler's Grove, Cemetery Hill) but 40 to 110 px of a 480-px panel (3 to 9 degrees) left of the features they should mark, the error growing to the right, so the spacing is about 1.8 times too narrow at 40 degrees (the 30 degree render is closer: a longer lens is likely, undocumented). The boulder, pine and stump of the near field are not in the model. Pose, lens and terrain errors cannot be separated. The Patterson stand-in lies 31 degrees right of Cemetery Hill, outside any frame, so it cannot be tested (EG-11).",
+   "numbers": {
+    "photo_horizon_frac": 0.44,
+    "render_horizon_frac": 0.51,
+    "landmark_offset_px_of_480": [
+     40,
+     110
+    ]
+   }
   },
   {
    "pose": "P03",
    "loc_id": "2018670702",
    "reviewed_image": true,
-   "verdict": "does not",
-   "why": "Camera placed 35 m south of the gazetteer gatehouse point looking north: the render shows no gatehouse (its footprint is hidden behind the modern DEM's rise or the camera is not where the photographer stood); the photograph shows the gatehouse filling the frame. The gatehouse footprint in the repository is a 2023-outline, tier inferred."
+   "verdict": "cannot judge",
+   "independent_test": false,
+   "why": "The 2023 gatehouse outline (25.8 m wide, default one storey, lodge and pavilion merged) is placed in front of the facade with its distance read from the photograph (fitted), so its width and place agree by construction (boxes at 0.27 to 0.82 of the frame width against the arch building's 0.10 to 0.76, tops at 3.2 m against a two-storey building with towers); the only independent items, the horizon height (0.48 against about 0.46) and a face-on facade, follow from the same footprint. Nothing is left to test."
   },
   {
    "pose": "P04",
    "loc_id": null,
    "reviewed_image": true,
    "verdict": "does not",
-   "why": "Standpoint on Seminary Ridge looking at the borough is contradicted by the photograph itself: a large cupola building and the town appear at distance with a road curving across the foreground, i.e. the camera stands further out; only 'from the West' is in the caption, no position. The render has the borough masses on the horizon only. Horizon 0.50 vs photo 0.38."
+   "independent_test": true,
+   "why": "Standpoint on Seminary Ridge looking at the borough is contradicted by the photograph itself: a large cupola building and the town appear at distance with a road curving across the foreground, i.e. the camera stands further out; only 'from the West' is in the caption, no position. The render has the borough masses on the horizon only. Horizon 0.50 vs photo 0.38. (carried over from the first run, 2026-11-11; the pose and the render are unchanged; not a catalogued LOC record)"
   },
   {
    "pose": "P05",
    "loc_id": null,
    "reviewed_image": true,
    "verdict": "does not",
-   "why": "Same assumed pose as P04 although the two photographs have different standpoints (P05 has a brick house in the near middle ground). One pose cannot be right for both; the caption gives no position. Horizon 0.50 vs photo 0.38."
+   "independent_test": true,
+   "why": "Same assumed pose as P04 although the two photographs have different standpoints (P05 has a brick house in the near middle ground). One pose cannot be right for both; the caption gives no position. Horizon 0.50 vs photo 0.38. (carried over from the first run, 2026-11-11; the pose and the render are unchanged; not a catalogued LOC record)"
   },
   {
    "pose": "P06",
    "loc_id": "2014646001",
-   "reviewed_image": false,
-   "verdict": "cannot judge",
-   "why": "The image bytes of this LOC record are not reachable from this container (tile.loc.gov / cdn.loc.gov refused by the proxy; no archive.org copy of this record found). Render only."
+   "reviewed_image": true,
+   "verdict": "does not",
+   "independent_test": true,
+   "why": "At the registered pose (East Cemetery Hill, Wiedrich monument plus 25 m east, looking to the borough) the model puts every building in a narrow band at the horizon (0.52 of the frame height) and shows no road; the photograph has the Baltimore Pike running from the lower left to the town at left centre, houses spread over the full frame width, a ridge behind them at 0.47 and a tent camp at the right. The apparent size and spread of the town differ by about a factor of 2: the camera was nearer the town and lower on the slope than assumed (sigma 150 m), and the model holds only 2023 outlines of surviving buildings. The verdict is on this pose only.",
+   "numbers": {
+    "photo_horizon_frac": 0.47,
+    "render_horizon_frac": 0.528
+   }
   },
   {
    "pose": "P07",
    "loc_id": "2018671576",
-   "reviewed_image": false,
-   "verdict": "cannot judge",
-   "why": "As P06: image bytes unreachable. Render only."
+   "reviewed_image": true,
+   "verdict": "does not",
+   "independent_test": true,
+   "why": "The same assumed cemetery pose as P06 and the same result: the frame is a stereo sibling of P06 (road at the left, tents at the right, the town across the horizon) and the render shows a narrow band of footprints at the horizon and no road. Pose-conditional, as P06.",
+   "numbers": {
+    "render_horizon_frac": 0.527
+   }
   },
   {
    "pose": "P08",
    "loc_id": "2012647712",
-   "reviewed_image": false,
+   "reviewed_image": true,
    "verdict": "cannot judge",
-   "why": "Image unreachable; caption gives East Cemetery Hill (right gun of Wiedrich's battery) but no direction; heading 45 deg is a placeholder."
+   "independent_test": true,
+   "why": "The title names the place (about the right gun of Wiedrich's Battery, at the monument) but no direction. At the placeholder heading of 45 degrees the render shows open ground and the east edge of the town; the photograph shows a steepled house at the right and a pine at the centre across a wall-lined field. Another heading would be a free parameter set by the photograph itself, so the pose cannot be tested."
   },
   {
    "pose": "P09",
    "loc_id": "2018666302",
+   "reviewed_image": true,
+   "verdict": "roughly",
+   "independent_test": true,
+   "why": "Silhouette of Big Round Top from the assumed spot on the south slope of Little Round Top (statue point, 35 m south, heading 202 deg toward the gazetteer centre of Big Round Top): the photograph's hill has its summit at 0.38 of the frame width and 0.28 of its height with a broad right flank; the model's cone has its summit at 0.42 and 0.43, i.e. about 15 percent of the frame height (5 degrees) lower, and a narrower top. The horizontal place and the kind of silhouette agree; the vertical offset fits a camera lower on the slope than assumed (the spot is only known as the southern slope, sigma 60 m) and the forest canopy that the bare DEM lacks. Pose and terrain errors cannot be separated.",
+   "numbers": {
+    "photo_summit_xy": [
+     0.38,
+     0.28
+    ],
+    "render_summit_xy": [
+     0.42,
+     0.43
+    ]
+   }
+  },
+  {
+   "pose": "P11",
+   "loc_id": "2018670708",
+   "reviewed_image": true,
+   "verdict": "roughly",
+   "independent_test": true,
+   "why": "Same assumed spot and heading as P09, a different exposure: the photograph's Big Round Top has its summit at 0.44 of the frame width and 0.29 of its height with a broad, gentle left shoulder; the model's has it at 0.42 and 0.44 and a steeper, narrower cone. Same reading as P09: place and kind of silhouette agree, the model's summit is about 15 percent of the frame height lower, a camera spot lower on the slope and the tree canopy would account for it.",
+   "numbers": {
+    "photo_summit_xy": [
+     0.44,
+     0.29
+    ],
+    "render_summit_xy": [
+     0.42,
+     0.44
+    ]
+   }
+  },
+  {
+   "pose": "P12",
+   "loc_id": "2012647707",
+   "reviewed_image": true,
+   "verdict": "cannot judge",
+   "independent_test": true,
+   "why": "The title says Big Round Top is in the background, but in the photograph the hill is not visible: trees and haze fill the upper third behind a breastwork and boulder that take the foreground. The render shows a clear cone in that direction that the frame does not let one check."
+  },
+  {
+   "pose": "P13",
+   "loc_id": "2012647708",
    "reviewed_image": false,
    "verdict": "cannot judge",
-   "why": "Image unreachable. Render toward Big Round Top shows a hill mass; not compared."
+   "independent_test": true,
+   "why": "PROVISIONAL: the render of this pose has not been looked at yet; this entry is replaced after the review sheet is viewed."
+  },
+  {
+   "pose": "P17",
+   "loc_id": "2018666297",
+   "reviewed_image": true,
+   "verdict": "cannot judge",
+   "independent_test": false,
+   "why": "The Thompson house footprint (2023 outline, default one storey) is placed south-south-west of the house with its distance read from the photograph (fitted), so its width and place agree by construction (0.26 to 0.81 against 0.19 to 0.83 of the frame). The model shows the long south facade face-on and 3.2 m high; the photograph shows a three-quarter view with the gable at the right and a 1.5-storey roof. The NPS fixes the direction (looking north across the turnpike) but not the bearing, so the difference of about 30 degrees is the assumed bearing, not a fault of the model. Nothing independent is left."
+  },
+  {
+   "pose": "P18",
+   "loc_id": "2018666296",
+   "reviewed_image": true,
+   "verdict": "roughly",
+   "independent_test": false,
+   "why": "Leister house at the end of the Taneytown Road: the footprint sits where the house is (centred by construction, distance fitted), and two items that were not fitted agree: the road line runs from the house to the lower right as in the photograph, and the horizon is at 0.46 against 0.52. The orchard, the stone wall, the fences and the trees are not in the model; the test is not independent for the footprint."
+  },
+  {
+   "pose": "P19",
+   "loc_id": "2018666298",
+   "reviewed_image": true,
+   "verdict": "cannot judge",
+   "independent_test": false,
+   "why": "The Bryan house footprint (6.0 by 7.6 m, 1.5 storeys, 2023 outline) is placed east-south-east of the house with the distance read from the photograph (fitted): the wire box fills the frame as the house does, but taller and without roof, lean-to or bake-oven shed; nothing independent can be compared. Whether this record is the NPS Brien Farm report's photograph taken east of the house looking west is not established (caption only)."
+  },
+  {
+   "pose": "P20",
+   "loc_id": "2018670707",
+   "reviewed_image": true,
+   "verdict": "cannot judge",
+   "independent_test": false,
+   "why": "The Schmucker Hall footprint (47.9 by 44.3 m, the 2023 outline) is placed 190 m west with the distance read from the photograph (fitted); it shows as a thin strip at the horizon about 0.12 of the frame width left of the building in the photograph, which is inside what the camera spot (sigma 50 m at 190 m is 15 degrees) allows. The model has no cupola, storeys or fence. Nothing independent can be compared."
+  },
+  {
+   "pose": "P24",
+   "loc_id": "2013645105",
+   "reviewed_image": true,
+   "verdict": "roughly",
+   "independent_test": false,
+   "why": "Trostle farm: the house footprint is placed south-west of the pair with its distance read from the photograph (fitted); the barn footprint, which was not used in the fit, falls at the far left edge of the frame, where the barn of the photograph stands: the barn-to-house baseline and the angular spread agree. One item contradicts: the framework left of the house (the NPS: an 1863 addition) is left of the house in the photograph, while the model's summer-kitchen footprint lies about 13 m to the right of the house from this side (EG-12). Roof, trees, fences and the dead horses are not in the model."
+  },
+  {
+   "pose": "P26",
+   "loc_id": "2018666300",
+   "reviewed_image": true,
+   "verdict": "cannot judge",
+   "independent_test": false,
+   "why": "Same as P03 for the other gatehouse view (Brady, about two weeks after the battle): the 2023 outline is placed in front of the facade with its distance read from the photograph (fitted), boxes at 0.32 to 0.75 of the frame width against the building's 0.30 to 0.9, tops at 3.2 m; the horizon height and a face-on facade follow from the same footprint. The pavilion beside the gatehouse (a separate point in the model) is not drawn. Nothing independent is left to test."
   }
- ]
+ ],
+ "gate_q16": {
+  "passes": false,
+  "status": "not passing",
+  "documented_position_count": 0,
+  "reason": [
+   "The gate asks for tests at known camera positions. None of the 127 photographs has one: no source read gives a coordinate, a lens, a plate size or a surveyed station; every source gives words (place, direction, reference object).",
+   "The registered poses are inferences (a statement plus mapped objects, sigma 25 to 200 m) or assumptions; no pose has an independent match confirmed by viewing, and no pose is called a match.",
+   "The model has no 1863 near field (trees, rocks, crops, fences, woods edges): only far silhouettes, mapped building footprints at a default height and roads can be compared. Where the model and the photograph disagree (3 to 9 degrees in the cases examined) the disagreement cannot be assigned to the pose, the lens or the terrain.",
+   "The NPS plate that labels the landmarks of the view from Little Round Top could not be mapped to the photograph, and the landmark stand-ins in the repository carry 221 to 300 m of uncertainty."
+  ],
+  "what_is_needed": [
+   "Camera station coordinates from the body that has them: the Gettysburg National Military Park took its Then-And-Now pictures from the same locations as the originals (the park says so), so its museum or GIS staff hold stations; or Frassanito's published positions (copyrighted: needs the owner's decision to buy, borrow or ask permission). Either gives a documented position with a stated accuracy.",
+   "The lens and plate of each exposure (stereo half-plate or large format, focal length), or a calibration from straight edges and from two or more mapped landmarks of known coordinates in the same photograph.",
+   "A model of the 1863 near field where a photograph is to be matched: trees, rocks (Devil's Den, Little Round Top, the Rose Woods), walls and fences, crop state: the R12 vegetation and rock layers.",
+   "Landmark coordinates good to a few metres for the objects the captions and the NPS name (Ziegler's Grove, the Copse, the Brien lane tree, Codori Grove, the Patterson house, the McPherson quarry, Seminary Lane, the Foulk farm, the crossing of Wheatfield Road and Crawford Avenue); the gazetteer centres carry 221 to 300 m.",
+   "A pass criterion written before the match (for example the angular error of named ridge lines and landmarks, in degrees, at the documented position) and a reviewer who did not set the pose and who looks at every sheet; the criterion and the failures are recorded per photograph (PDF B.9.2 step 7).",
+   "Full-resolution masters of the photographs to be matched (25 to 130 MB each; 2 of 430 resources fetched) and a clean scan of the NPS annotated enlargement of the view north from Little Round Top."
+  ],
+  "owner_steps": [
+   "Ask the Gettysburg National Military Park museum or GIS office (a third party: an owner act) for the station coordinates and the camera and lens of its Then-And-Now pictures, and for the prints of the Brady views it holds (McPherson farm; Little Round Top: GNMP SF-2B-2087, SF-2B-2090, SF-2B-2095, SF-28-2083, 2B2001).",
+   "Decide whether to buy or borrow Frassanito's Early Photography at Gettysburg (billing is an owner act) or to ask the publisher in writing for the right to use its camera positions; until then no camera position that rests on it is used.",
+   "Confirm or change the pass criterion proposed above (delegated default: angular error of named ridge lines and landmarks at a documented position, in degrees, set before the match)."
+  ]
+ }
 }

@@ -1,0 +1,3552 @@
+{
+ "_doc": "One entry per catalogued photograph (109 first-run records + 18 added): scope, staged flag with its basis, saved image files, camera-position statements, NPS Then-And-Now identity (image matching), registered poses and the candid verdict. Built by build_registry.py from registry_data.py and verdicts.json; no verdict here is written by a program.",
+ "count": 127,
+ "photographs": [
+  {
+   "loc_id": "2008680497",
+   "title": "[Confederate dead near centre of battle-field, Gettysburg, Pa.]",
+   "creator": null,
+   "date_as_catalogued": "1863 July [5]",
+   "loc_url": "https://www.loc.gov/pictures/item/2008680497/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2008680497_cph.3a29646_r"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Dead soldiers on grass in front of a tree line; the record says only the edge of the Rose woods (the woods edge is not in the model). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2012646949",
+   "title": "The battle-field of Gettysburg. McPherson's woods in which Archer's (Confederate) Brigade was captured, view of the side towards the Chambersburg pike",
+   "creator": null,
+   "date_as_catalogued": "[photographed 1863, printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012646949/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012646949_ppmsca.32833_r",
+    "LOC2012646949_ppmsca.32833_v"
+   ],
+   "statement_ids": [
+    "PS-LOC-2012646949-T",
+    "PS-NPS-CLR1D-124"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A pond with a broken rail fence, woods behind; NPS: the old quarry (pond) near the McPherson farmstead looking southwest toward Herbst Woods. The quarry is not in the model; its place relative to the barn is not sourced. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2012647705",
+   "title": "Battle-field of Gettysburg. The cemetery gate",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "photographed 1863 July, [printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012647705/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012647705_ppmsca.32839_r",
+    "LOC2012647705_ppmsca.32839_v"
+   ],
+   "statement_ids": [
+    "PS-LOC-2012647705-N"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "The gatehouse from a distance with earthwork lunettes in the foreground and a horse cart; no side or distance is stated (third view of the gatehouse; see P03 and P26 for the other two). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2012647707",
+   "title": "Battle-field of Gettysburg. Temporary entrenchments thrown up by the Federal troops on Little Round Top. Big Round Top in the background",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "photographed 1863 July, [printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012647707/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012647707_ppmsca.32841_r",
+    "LOC2012647707_ppmsca.32841_v"
+   ],
+   "statement_ids": [
+    "PS-LOC-2012647707-T"
+   ],
+   "nps_then_now_identity": [
+    {
+     "nps_then_now": "little-round-top#3",
+     "resource": "ppmsca.32841",
+     "inliers": 567
+    }
+   ],
+   "pose_ids": [
+    "P12"
+   ],
+   "class": "POSE",
+   "verdict": "cannot judge",
+   "why": "P12: The title says Big Round Top is in the background, but in the photograph the hill is not visible: trees and haze fill the upper third behind a breastwork and boulder that take the foreground. The render shows a clear cone in that direction that the frame does not let one check.",
+   "reviewed_image": true
+  },
+  {
+   "loc_id": "2012647709",
+   "title": "The battle-field of Gettysburg. The valley of the shadow of death. Between Round Top and Little Round Top",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "photographed 1863 July, [printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012647709/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012647709_ppmsca.32843_r",
+    "LOC2012647709_ppmsca.32843_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a rocky wooded gully (the valley of the shadow of death) with no sky line. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2012647712",
+   "title": "Scene of the charge of the Louisiana Tigers. View taken from Cemetery Hill at about position of right gun of Wiedrich's (i. e. Weidrich's) Battery",
+   "creator": null,
+   "date_as_catalogued": "[photographed 1863 July, printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012647712/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012647712_ppmsca.32846_r",
+    "LOC2012647712_ppmsca.32846_v"
+   ],
+   "statement_ids": [
+    "PS-LOC-2012647712-T"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [
+    "P08"
+   ],
+   "class": "POSE",
+   "verdict": "cannot judge",
+   "why": "P08: The title names the place (about the right gun of Wiedrich's Battery, at the monument) but no direction. At the placeholder heading of 45 degrees the render shows open ground and the east edge of the town; the photograph shows a steepled house at the right and a pine at the centre across a wall-lined field. Another heading would be a free parameter set by the photograph itself, so the pose cannot be tested.",
+   "reviewed_image": true
+  },
+  {
+   "loc_id": "2012647716",
+   "title": "Gettysburg, Pa. November 1863. Dedication of Gettysburg battlefield",
+   "creator": null,
+   "date_as_catalogued": "photographed 1863, [printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012647716/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": false,
+   "scope_note": "Dedication of the cemetery, 19 November 1863 (not July)",
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012647716_ppmsca.32850_r",
+    "LOC2012647716_ppmsca.32850_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Dedication of the cemetery, 19 November 1863 (not July). Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2012647717",
+   "title": "Gettysburg, Pa. Nov. 19, 1863. Crowd and marching troops on way to cemetery",
+   "creator": null,
+   "date_as_catalogued": "photographed 1863, [printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012647717/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": false,
+   "scope_note": "Crowd and troops on the way to the cemetery, 19 November 1863 (not July)",
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012647717_ppmsca.32851_r",
+    "LOC2012647717_ppmsca.32851_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Crowd and troops on the way to the cemetery, 19 November 1863 (not July). Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2012647718",
+   "title": "Gettysburg, Pa. July 1863. Battlefield of Gettysburg. Woods on left of Chambersburg Pike in which Archers Brigade was captured. (Also called the Wheat Field). Brady the photographer is shown",
+   "creator": null,
+   "date_as_catalogued": "photographed 1863, [printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012647718/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012647718_ppmsca.32852_r",
+    "LOC2012647718_ppmsca.32852_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "The same pond and fence as record 2012646949 (Brady standing in the field); NPS: quarry looking southwest; the quarry is not in the model. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2012647719",
+   "title": "Gettysburg, Pa. July 1863. Battlefield of Gettysburg. View of point of woods where General Reynolds was killed, July 1, 1863",
+   "creator": null,
+   "date_as_catalogued": "photographed 1863, [printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012647719/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012647719_ppmsca.32853_r",
+    "LOC2012647719_ppmsca.32853_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A meadow with two children and the point of woods where Reynolds was killed on the right; no camera position is stated. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2012647822",
+   "title": "Federal soldier disembowelled by a shell",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "[photographed 1863, printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012647822/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012647822_cph.3g01830_r",
+    "LOC2012647822_cph.3g01830_v",
+    "LOC2012647822_ppmsca.32915_r",
+    "LOC2012647822_ppmsca.32915_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a dead soldier in a field with a tree line behind. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2012647823",
+   "title": "Confederate dead",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "[photographed 1863, printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012647823/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012647823_ppmsca.32909_r",
+    "LOC2012647823_ppmsca.32909_v"
+   ],
+   "statement_ids": [
+    "PS-TN-RW1-DIR",
+    "PS-TN-RW1-PLACE",
+    "PS-TN-RW1-REF",
+    "PS-TN-RW3-REL"
+   ],
+   "nps_then_now_identity": [
+    {
+     "nps_then_now": "rose-woods#1",
+     "resource": "ppmsca.32909",
+     "inliers": 1469
+    }
+   ],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "NPS Gardner no. 257: near De Trobriand Avenue, looking southwest away from the Rose Woods, a large rock in the foreground. The avenue and the woods edge are not in the model; the far field has no model feature. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2012647833",
+   "title": "Battlefield of Gettysburg. Dead Confederate sharpshooter at foot of Little Round Top",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "[photographed July 1863, printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012647833/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": true,
+   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
+   "image_keys": [
+    "LOC2012647833_ppmsca.32920_r",
+    "LOC2012647833_ppmsca.32920_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "STG",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Staged-photograph flag respected (PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth poin). A dead soldier among rocks (sharpshooter series). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered."
+  },
+  {
+   "loc_id": "2012647834",
+   "title": "Battlefield of Gettysburg.  Body of a soldier in \"the wheat field,\" evidently killed by the explosion of a shell",
+   "creator": "Gibson, James F., 1828-",
+   "date_as_catalogued": "[photographed 1863, printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012647834/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012647834_cph.3g01824_r",
+    "LOC2012647834_cph.3g01824_v",
+    "LOC2012647834_ppmsca.32921_r",
+    "LOC2012647834_ppmsca.32921_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a dead soldier on a grassy rise. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2012647835",
+   "title": "Battlefield of Gettysburg. Bodies of dead Federal soldiers on the field of the first day's battle",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "[photographed 1863 July, printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012647835/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012647835_ppmsca.32922_r",
+    "LOC2012647835_ppmsca.32922_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Bodies in a field with a lone tree and a tree line; the record says only the field of the first day. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2012647843",
+   "title": "Dead in \"the wheat field\", Gettysburg",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "[photographed 1863 July, printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012647843/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012647843_ppmsca.32930_r",
+    "LOC2012647843_ppmsca.32930_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of bodies at a woods edge with boulders (the Rose woods). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2012647849",
+   "title": "Rocks could not save him at the battle of Gettysburg, Pa. July 1863",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "photographed 1863, [printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012647849/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": true,
+   "staged_basis": "same negative as a staged record (LC-B815-251) and NPS: 'nor is it likely that the soldier fell in this location'; PDF plan: the Devil's Den sharpshooter photograph is staged",
+   "image_keys": [
+    "LOC2012647849_ppmsca.32936_r",
+    "LOC2012647849_ppmsca.32936_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "STG",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Staged-photograph flag respected (same negative as a staged record (LC-B815-251) and NPS: 'nor is it likely that the soldier fell in this location'; PDF plan: the Devil's Den sharpshooter photograph is staged). A body between two boulders: the same negative number (LC-B815-251) as record 2018670788, the staged Devil's Den sharpshooter; the title-only flag of the first run had missed this record. Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered."
+  },
+  {
+   "loc_id": "2012648001",
+   "title": "Battlefield of Gettysburg. Bodies of dead Federal soldiers on the field of the first day's battle",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "photographed 1863 July, [printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012648001/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012648001_ppmsca.33072_r",
+    "LOC2012648001_ppmsca.33072_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Bodies on open ground with riders far behind; no place is stated beyond the field of the first day. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2012650192",
+   "title": "General Hospital, Gettysburg, August, 1863",
+   "creator": null,
+   "date_as_catalogued": "photographed 1863, [printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012650192/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": false,
+   "scope_note": "General hospital camp, August 1863",
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012650192_ppmsca.33637_r",
+    "LOC2012650192_ppmsca.33637_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "General hospital camp, August 1863. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2012650193",
+   "title": "U.S. Cristian [i.e. Christian] Commission at Gettysburg General Hospital, August, 1863",
+   "creator": null,
+   "date_as_catalogued": "photographed 1863, [printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012650193/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": false,
+   "scope_note": "Christian Commission at the general hospital, August 1863",
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012650193_ppmsca.33638_r",
+    "LOC2012650193_ppmsca.33638_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [
+    {
+     "nps_then_now": "little-round-top#4",
+     "resource": "ppmsca.33638",
+     "inliers": 40
+    }
+   ],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Christian Commission at the general hospital, August 1863. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2013645105",
+   "title": "Battle-field of Gettysburg. Dead horses of Bigelow's (9th Massachusetts) battery",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "photographed 1863 July [printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2013645105/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2013645105_ppmsca.32844_r",
+    "LOC2013645105_ppmsca.32844_v"
+   ],
+   "statement_ids": [
+    "PS-TN-TR1"
+   ],
+   "nps_then_now_identity": [
+    {
+     "nps_then_now": "trostle-farm#1",
+     "resource": "ppmsca.32844",
+     "inliers": 463
+    }
+   ],
+   "pose_ids": [
+    "P24"
+   ],
+   "class": "POSE",
+   "verdict": "roughly",
+   "why": "P24: Trostle farm: the house footprint is placed south-west of the pair with its distance read from the photograph (fitted); the barn footprint, which was not used in the fit, falls at the far left edge of the frame, where the barn of the photograph stands: the barn-to-house baseline and the angular spread agree. One item contradicts: the framework left of the house (the NPS: an 1863 addition) is left of the house in the photograph, while the model's summer-kitchen footprint lies about 13 m to the right of the house from this side (EG-12). Roof, trees, fences and the dead horses are not in the model.",
+   "reviewed_image": true
+  },
+  {
+   "loc_id": "2013645508",
+   "title": "U.S. Sanitary Commission at Gettysburg General Hospital, August, 1863",
+   "creator": null,
+   "date_as_catalogued": "photographed 1863, [printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2013645508/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": false,
+   "scope_note": "Sanitary Commission at the general hospital, August 1863",
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2013645508_ppmsca.33752_r",
+    "LOC2013645508_ppmsca.33752_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Sanitary Commission at the general hospital, August 1863. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2014646000",
+   "title": "Headquarters of the Sanitary Commission, Gettysburg, PA.",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "[photographed 1863, printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2014646000/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": false,
+   "scope_note": "Sanitary Commission headquarters, a town building (portrait-like street scene)",
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2014646000_ppmsca.35050_r",
+    "LOC2014646000_ppmsca.35050_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Sanitary Commission headquarters, a town building (portrait-like street scene). Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2014646001",
+   "title": "View of Gettysburg from Cemetery Hill",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "photographed 1863, July, [printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2014646001/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2014646001_ppmsca.35051_r",
+    "LOC2014646001_ppmsca.35051_u",
+    "LOC2014646001_ppmsca.35051_v"
+   ],
+   "statement_ids": [
+    "PS-LOC-2014646001-N"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [
+    "P06"
+   ],
+   "class": "POSE",
+   "verdict": "does not",
+   "why": "P06: At the registered pose (East Cemetery Hill, Wiedrich monument plus 25 m east, looking to the borough) the model puts every building in a narrow band at the horizon (0.52 of the frame height) and shows no road; the photograph has the Baltimore Pike running from the lower left to the town at left centre, houses spread over the full frame width, a ridge behind them at 0.47 and a tent camp at the right. The apparent size and spread of the town differ by about a factor of 2: the camera was nearer the town and lower on the slope than assumed (sigma 150 m), and the model holds only 2023 outlines of surviving buildings. The verdict is on this pose only.",
+   "reviewed_image": true
+  },
+  {
+   "loc_id": "2014646002",
+   "title": "View of Gettysburg from the Northwest",
+   "creator": null,
+   "date_as_catalogued": "photographed July, 1863, [printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2014646002/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2014646002_ppmsca.35052_r",
+    "LOC2014646002_ppmsca.35052_v"
+   ],
+   "statement_ids": [
+    "PS-LOC-2014646002-N1",
+    "PS-LOC-2014646002-N2"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A long view of the town from the northwest (Chambersburg Pike on the right, the unfinished railroad embankment in the centre, Pennsylvania College on the left: Gardner's caption); the camera lies north-west of the town on ground whose extent is far larger than the depth of the scene and no coordinate or reference point is given. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2014646151",
+   "title": "Pennsylvania College, Gettysburg. August, 1863",
+   "creator": null,
+   "date_as_catalogued": "photographed 1863, [printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2014646151/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": false,
+   "scope_note": "Pennsylvania College, August 1863",
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2014646151_ppmsca.35100_r",
+    "LOC2014646151_ppmsca.35100_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Pennsylvania College, August 1863. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2018666296",
+   "title": "[Gettysburg, Pa. Headquarters of Gen. George G. Meade on Cemetery Ridge]",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018666296/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018666296_cwp.4a39437_r",
+    "LOC2018666296_cwpb.00887_r",
+    "LOC2018666296_cwpb.00887_v"
+   ],
+   "statement_ids": [
+    "PS-LOC-2018666296-T",
+    "PS-TN-BF5"
+   ],
+   "nps_then_now_identity": [
+    {
+     "nps_then_now": "buildings-and-farms#5",
+     "resource": "cwpb.00887",
+     "inliers": 718
+    },
+    {
+     "nps_then_now": "buildings-and-farms#5",
+     "resource": "cwp.4a39437",
+     "inliers": 382
+    }
+   ],
+   "pose_ids": [
+    "P18"
+   ],
+   "class": "POSE",
+   "verdict": "roughly",
+   "why": "P18: Leister house at the end of the Taneytown Road: the footprint sits where the house is (centred by construction, distance fitted), and two items that were not fitted agree: the road line runs from the house to the lower right as in the photograph, and the horizon is at 0.46 against 0.52. The orchard, the stone wall, the fences and the trees are not in the model; the test is not independent for the footprint.",
+   "reviewed_image": true
+  },
+  {
+   "loc_id": "2018666297",
+   "title": "[Gettysburg, Pa. Headquarters of Gen. Robert E. Lee on the Chambersburg Pike]",
+   "creator": null,
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018666297/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018666297_cwp.4a39689_r",
+    "LOC2018666297_cwpb.01651_r",
+    "LOC2018666297_cwpb.01651_v",
+    "LOC2018666297_cwpb.01652_r",
+    "LOC2018666297_cwpb.01652_v"
+   ],
+   "statement_ids": [
+    "PS-LOC-2018666297-T",
+    "PS-NPS-CLR1D-151"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [
+    "P17"
+   ],
+   "class": "POSE",
+   "verdict": "cannot judge",
+   "why": "P17: The Thompson house footprint (2023 outline, default one storey) is placed south-south-west of the house with its distance read from the photograph (fitted), so its width and place agree by construction (0.26 to 0.81 against 0.19 to 0.83 of the frame). The model shows the long south facade face-on and 3.2 m high; the photograph shows a three-quarter view with the gable at the right and a 1.5-storey roof. The NPS fixes the direction (looking north across the turnpike) but not the bearing, so the difference of about 30 degrees is the assumed bearing, not a fault of the model. Nothing independent is left.",
+   "reviewed_image": true
+  },
+  {
+   "loc_id": "2018666298",
+   "title": "[Gettysburg, Pa. The Bryan house on 2d Corps line, near scene of Pickett's Charge]",
+   "creator": null,
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018666298/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018666298_cwp.4a39719_r",
+    "LOC2018666298_cwpb.01860_r",
+    "LOC2018666298_cwpb.01860_v",
+    "LOC2018666298_cwpb.01861_r",
+    "LOC2018666298_cwpb.01861_v"
+   ],
+   "statement_ids": [
+    "PS-LOC-2018666298-T",
+    "PS-NPS-BRIEN-9"
+   ],
+   "nps_then_now_identity": [
+    {
+     "nps_then_now": "little-round-top#5",
+     "resource": "cwp.4a39719",
+     "inliers": 30
+    }
+   ],
+   "pose_ids": [
+    "P19"
+   ],
+   "class": "POSE",
+   "verdict": "cannot judge",
+   "why": "P19: The Bryan house footprint (6.0 by 7.6 m, 1.5 storeys, 2023 outline) is placed east-south-east of the house with the distance read from the photograph (fitted): the wire box fills the frame as the house does, but taller and without roof, lean-to or bake-oven shed; nothing independent can be compared. Whether this record is the NPS Brien Farm report's photograph taken east of the house looking west is not established (caption only).",
+   "reviewed_image": true
+  },
+  {
+   "loc_id": "2018666299",
+   "title": "[Gettysburg, Pa., vicinity. G.J. White's house]",
+   "creator": null,
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018666299/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018666299_cwp.4a40114_r",
+    "LOC2018666299_cwpb.03853_r",
+    "LOC2018666299_cwpb.03853_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A brick house with a white fence and horses; the building (G.J. White) is not in the model and the camera spot is not stated. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018666300",
+   "title": "[Gettysburg, Pa. The cemetery gatehouse]",
+   "creator": null,
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018666300/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018666300_cwp.4a39688_r",
+    "LOC2018666300_cwpb.01639_r",
+    "LOC2018666300_cwpb.01639_v",
+    "LOC2018666300_cwpb.01640_r",
+    "LOC2018666300_cwpb.01640_v"
+   ],
+   "statement_ids": [
+    "PS-TN-BF3",
+    "PS-TN-BF3-JUL2",
+    "PS-TN-BF3-MOD"
+   ],
+   "nps_then_now_identity": [
+    {
+     "nps_then_now": "buildings-and-farms#3",
+     "resource": "cwpb.01640",
+     "inliers": 59
+    },
+    {
+     "nps_then_now": "buildings-and-farms#3",
+     "resource": "cwp.4a39688",
+     "inliers": 41
+    },
+    {
+     "nps_then_now": "buildings-and-farms#3",
+     "resource": "cwpb.01639",
+     "inliers": 38
+    }
+   ],
+   "pose_ids": [
+    "P26"
+   ],
+   "class": "POSE",
+   "verdict": "cannot judge",
+   "why": "P26: Same as P03 for the other gatehouse view (Brady, about two weeks after the battle): the 2023 outline is placed in front of the facade with its distance read from the photograph (fitted), boxes at 0.32 to 0.75 of the frame width against the building's 0.30 to 0.9, tops at 3.2 m; the horizon height and a face-on facade follow from the same footprint. The pavilion beside the gatehouse (a separate point in the model) is not drawn. Nothing independent is left to test.",
+   "reviewed_image": true
+  },
+  {
+   "loc_id": "2018666301",
+   "title": "[Gettysburg, Pa. View of Little Round Top]",
+   "creator": null,
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018666301/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018666301_cwp.4a40067_r",
+    "LOC2018666301_cwpb.03970_r",
+    "LOC2018666301_cwpb.03970_v"
+   ],
+   "statement_ids": [
+    "PS-NPS-VISTA-10"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A view of the rocky west slope of Little Round Top; the NPS names two Brady views (from the southwest near Devil's Den and from the northwest at Wheatfield Road and Crawford Avenue) but the report pages that reproduce them are unreadable, so it is not established which of them this is. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018666302",
+   "title": "[Gettysburg, Pa. Breastworks on Little Round Top; Round Top in distance]",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018666302/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018666302_cwp.4a40122_r",
+    "LOC2018666302_cwp.4a40122_v",
+    "LOC2018666302_cwpb.04001_r",
+    "LOC2018666302_cwpb.04001_v"
+   ],
+   "statement_ids": [
+    "PS-LOC-2018666302-T"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [
+    "P09"
+   ],
+   "class": "POSE",
+   "verdict": "roughly",
+   "why": "P09: Silhouette of Big Round Top from the assumed spot on the south slope of Little Round Top (statue point, 35 m south, heading 202 deg toward the gazetteer centre of Big Round Top): the photograph's hill has its summit at 0.38 of the frame width and 0.28 of its height with a broad right flank; the model's cone has its summit at 0.42 and 0.43, i.e. about 15 percent of the frame height (5 degrees) lower, and a narrower top. The horizontal place and the kind of silhouette agree; the vertical offset fits a camera lower on the slope than assumed (the spot is only known as the southern slope, sigma 60 m) and the forest canopy that the bare DEM lacks. Pose and terrain errors cannot be separated.",
+   "reviewed_image": true
+  },
+  {
+   "loc_id": "2018666303",
+   "title": "[Gettysburg, Pa. The center of the Federal position viewed from Little Round Top]",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "[1863 July]",
+   "loc_url": "https://www.loc.gov/pictures/item/2018666303/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018666303-L",
+    "LOC2018666303_cwp.4a39686_r",
+    "LOC2018666303_cwpb.01631_r",
+    "LOC2018666303_cwpb.01631_v",
+    "LOC2018666303_cwpb.01632_r",
+    "LOC2018666303_cwpb.01632_v"
+   ],
+   "statement_ids": [
+    "PS-LOC-2018666303-T",
+    "PS-NPS-CLRLRT-405",
+    "PS-NPS-CP3-29",
+    "PS-TN-LRT2-DIR",
+    "PS-TN-LRT2-NOW"
+   ],
+   "nps_then_now_identity": [
+    {
+     "nps_then_now": "little-round-top#2",
+     "resource": "cwp.4a39686",
+     "inliers": 1302
+    },
+    {
+     "nps_then_now": "little-round-top#2",
+     "resource": "cwpb.01632",
+     "inliers": 642
+    },
+    {
+     "nps_then_now": "little-round-top#2",
+     "resource": "cwpb.01631",
+     "inliers": 510
+    }
+   ],
+   "pose_ids": [
+    "P01"
+   ],
+   "class": "POSE",
+   "verdict": "roughly",
+   "why": "P01: Far field at the registered pose (Warren statue summit, heading 7.8 deg, 40 deg field): the model horizon sits at 0.51 of the frame height, the photograph's far ridge and groves at about 0.44 (read by eye, +-0.02), about 3 degrees higher. The landmarks the NPS names fall in the NPS order (Codori house, High Water Mark monument for the Copse, Ziegler's Grove, Cemetery Hill) but 40 to 110 px of a 480-px panel (3 to 9 degrees) left of the features they should mark, the error growing to the right, so the spacing is about 1.8 times too narrow at 40 degrees (the 30 degree render is closer: a longer lens is likely, undocumented). The boulder, pine and stump of the near field are not in the model. Pose, lens and terrain errors cannot be separated. The Patterson stand-in lies 31 degrees right of Cemetery Hill, outside any frame, so it cannot be tested (EG-11).",
+   "reviewed_image": true
+  },
+  {
+   "loc_id": "2018666304",
+   "title": "[Gettysburg, Pa. Interior view of breastworks on extreme left of the Federal line]",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018666304/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018666304-L",
+    "LOC2018666304_cwp.4a39434_r",
+    "LOC2018666304_cwpb.00869_r",
+    "LOC2018666304_cwpb.00869_v",
+    "LOC2018666304_cwpb.00870_r",
+    "LOC2018666304_cwpb.00870_v"
+   ],
+   "statement_ids": [
+    "PS-TN-LRT3"
+   ],
+   "nps_then_now_identity": [
+    {
+     "nps_then_now": "little-round-top#3",
+     "resource": "cwpb.00869",
+     "inliers": 1370
+    },
+    {
+     "nps_then_now": "little-round-top#3",
+     "resource": "cwpb.00870",
+     "inliers": 893
+    },
+    {
+     "nps_then_now": "little-round-top#3",
+     "resource": "cwp.4a39434",
+     "inliers": 707
+    }
+   ],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "The three-boulder breastwork on the southern slope of Little Round Top (NPS Then-And-Now no. 3: the boulders are the landmarks); the near field is boulders and no far feature is in the frame. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018666305",
+   "title": "[Gettysburg, Pa. Breastworks on left wing of the Federal line]",
+   "creator": null,
+   "date_as_catalogued": "[1863 July]",
+   "loc_url": "https://www.loc.gov/pictures/item/2018666305/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018666305_cwp.4a39687_r",
+    "LOC2018666305_cwpb.01637_r",
+    "LOC2018666305_cwpb.01637_v",
+    "LOC2018666305_cwpb.01638_r",
+    "LOC2018666305_cwpb.01638_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a stone breastwork on a rocky slope with a small tree; a strip of far fields at the left edge only. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2018666306",
+   "title": "[Gettysburg, Pa. Alfred R. Waud, artist of Harper's Weekly, sketching on battlefield]",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018666306/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": false,
+   "scope_note": "Alfred Waud sketching on a boulder in Devil's Den: a posed portrait, not a landscape",
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018666306_cph.3a04462_r",
+    "LOC2018666306_cwp.4a39436_r",
+    "LOC2018666306_cwp.4a39436_v",
+    "LOC2018666306_cwpb.00074_r",
+    "LOC2018666306_cwpb.00074_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [
+    {
+     "nps_then_now": "devil-s-den#1",
+     "resource": "cwp.4a39436",
+     "inliers": 1037
+    },
+    {
+     "nps_then_now": "devil-s-den#1",
+     "resource": "cph.3a04462",
+     "inliers": 424
+    },
+    {
+     "nps_then_now": "devil-s-den#1",
+     "resource": "cwpb.00074",
+     "inliers": 323
+    },
+    {
+     "nps_then_now": "devil-s-den#6",
+     "resource": "cph.3a04462",
+     "inliers": 27
+    }
+   ],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Alfred Waud sketching on a boulder in Devil's Den: a posed portrait, not a landscape. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2018666307",
+   "title": "[Gettysburg, Pa. Bodies of Federal soldiers, killed on July 1, near the McPherson woods]",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018666307/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018666307_cwp.4a39432_r",
+    "LOC2018666307_cwpb.00848_r",
+    "LOC2018666307_cwpb.00848_v",
+    "LOC2018666307_cwpb.00849_r",
+    "LOC2018666307_cwpb.00849_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Bodies in a field with a lone tree and a far tree line (killed on July 1 near the McPherson woods); no camera position is stated. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018666308",
+   "title": "[Gettysburg, Pa. Confederate dead gathered for burial at the southwestern edge of the Rose woods, July 5, 1863]",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July [5]",
+   "loc_url": "https://www.loc.gov/pictures/item/2018666308/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018666308_cwp.4a39433_r",
+    "LOC2018666308_cwpb.00864_r",
+    "LOC2018666308_cwpb.00864_v",
+    "LOC2018666308_cwpb.00865_r",
+    "LOC2018666308_cwpb.00865_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Bodies gathered for burial at the south-western edge of the Rose woods (the bodies were moved: their places are not ground truth); woods behind; the woods edge is not in the model. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018666309",
+   "title": "[Gettysburg, Pa. Confederate dead at the edge of the Rose woods, July 5, 1863]",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "1863 July [5]",
+   "loc_url": "https://www.loc.gov/pictures/item/2018666309/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018666309_cwp.4a39431_r",
+    "LOC2018666309_cwpb.00830_r",
+    "LOC2018666309_cwpb.00830_v",
+    "LOC2018666309_cwpb.00831_r",
+    "LOC2018666309_cwpb.00831_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Bodies at the edge of the Rose woods in smoke or damaged emulsion; the woods edge is not in the model. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018666310",
+   "title": "[Gettysburg, Pa. Confederate dead gathered for burial at the edge of the Rose woods, July 5, 1863]",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "1863 July [5]",
+   "loc_url": "https://www.loc.gov/pictures/item/2018666310/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018666310_cwp.4a40432_r",
+    "LOC2018666310_cwpb.00881_r",
+    "LOC2018666310_cwpb.00881_v",
+    "LOC2018666310_cwpb.00882_r",
+    "LOC2018666310_cwpb.00882_v",
+    "LOC2018666310_cwpb.00883_r",
+    "LOC2018666310_cwpb.00883_v"
+   ],
+   "statement_ids": [
+    "PS-TN-RW3-DIR",
+    "PS-TN-RW3-REF",
+    "PS-TN-RW3-REL"
+   ],
+   "nps_then_now_identity": [
+    {
+     "nps_then_now": "rose-woods#3",
+     "resource": "cwpb.00881",
+     "inliers": 1411
+    },
+    {
+     "nps_then_now": "rose-woods#3",
+     "resource": "cwpb.00882",
+     "inliers": 675
+    },
+    {
+     "nps_then_now": "rose-woods#3",
+     "resource": "cwpb.00883",
+     "inliers": 623
+    },
+    {
+     "nps_then_now": "rose-woods#3",
+     "resource": "cwp.4a40432",
+     "inliers": 439
+    }
+   ],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "NPS Gardner no. 256: faces north, a boulder in the foreground and a dome-shaped boulder behind mark the tripod spot; the darkroom wagon is at the left. The boulders and the woods edge are not in the model (bodies gathered: not ground truth). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018666311",
+   "title": "[Gettysburg, Pa. Dead Confederate soldiers in the \"slaughter pen\" at the foot of Little Round Top]",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018666311/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018666311_cwp.4a39438_r",
+    "LOC2018666311_cwpb.00901_r",
+    "LOC2018666311_cwpb.00901_v",
+    "LOC2018666311_cwpb.00902_r",
+    "LOC2018666311_cwpb.00902_v"
+   ],
+   "statement_ids": [
+    "PS-NPS-SPEN-6",
+    "PS-TN-DD2"
+   ],
+   "nps_then_now_identity": [
+    {
+     "nps_then_now": "devil-s-den#2",
+     "resource": "cwpb.00901",
+     "inliers": 1470
+    },
+    {
+     "nps_then_now": "devil-s-den#2",
+     "resource": "cwp.4a39438",
+     "inliers": 582
+    },
+    {
+     "nps_then_now": "devil-s-den#2",
+     "resource": "cwpb.00902",
+     "inliers": 302
+    }
+   ],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "NPS Then-And-Now Devil's Den no. 2 and Slaughter Pen report plate 6 (Gardner no. 265): a pond with boulders, the trolley road bed just right of the frame; the boulders, the pond and the old trolley bed are not in the model. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018666312",
+   "title": "[Gettysburg, Pa. Four dead soldiers in the woods near Little Round Top]",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018666312/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018666312_cwp.4a39435_r",
+    "LOC2018666312_cwpb.00877_r",
+    "LOC2018666312_cwpb.00877_v",
+    "LOC2018666312_cwpb.00878_r",
+    "LOC2018666312_cwpb.00878_v"
+   ],
+   "statement_ids": [
+    "PS-NPS-SPEN-7"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of dead soldiers among trees and boulders (Gibson no. 252 in the NPS Slaughter Pen report: the woods at the north-western base of Big Round Top). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2018666313",
+   "title": "[Gettysburg, Pa. Dead Confederate soldier in Devil's Den]",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018666313/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": true,
+   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
+   "image_keys": [
+    "LOC2018666313_cwp.4a40262_r",
+    "LOC2018666313_cwp.4a40262_v",
+    "LOC2018666313_cwpb.04337_r",
+    "LOC2018666313_cwpb.04337_v",
+    "LOC2018666313_ppmsc.00171_r",
+    "LOC2018666313_ppmsc.00171_v"
+   ],
+   "statement_ids": [
+    "PS-TN-DD7-STAGED"
+   ],
+   "nps_then_now_identity": [
+    {
+     "nps_then_now": "devil-s-den#7",
+     "resource": "ppmsc.00171",
+     "inliers": 1144
+    },
+    {
+     "nps_then_now": "devil-s-den#7",
+     "resource": "cwpb.04337",
+     "inliers": 1078
+    }
+   ],
+   "pose_ids": [],
+   "class": "STG",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Staged-photograph flag respected (PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth poin). The Devil's Den niche with the body (Home of a Rebel Sharpshooter series). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered."
+  },
+  {
+   "loc_id": "2018666314",
+   "title": "[Gettysburg, Pa. Dead Confederate soldiers in \"the devil's den\"]",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018666314/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": true,
+   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
+   "image_keys": [
+    "LOC2018666314_cwp.4a39439_r",
+    "LOC2018666314_cwpb.00915_r",
+    "LOC2018666314_cwpb.00915_v",
+    "LOC2018666314_cwpb.00916_r",
+    "LOC2018666314_cwpb.00916_v",
+    "LOC2018666314_ppmsc.00172_r",
+    "LOC2018666314_ppmsc.00172_v"
+   ],
+   "statement_ids": [
+    "PS-NPS-SPEN-8"
+   ],
+   "nps_then_now_identity": [
+    {
+     "nps_then_now": "devil-s-den#4",
+     "resource": "cwpb.00915",
+     "inliers": 1667
+    },
+    {
+     "nps_then_now": "devil-s-den#4",
+     "resource": "cwpb.00916",
+     "inliers": 1031
+    },
+    {
+     "nps_then_now": "devil-s-den#4",
+     "resource": "ppmsc.00172",
+     "inliers": 813
+    },
+    {
+     "nps_then_now": "devil-s-den#4",
+     "resource": "cwp.4a39439",
+     "inliers": 521
+    },
+    {
+     "nps_then_now": "devil-s-den#5",
+     "resource": "ppmsc.00172",
+     "inliers": 51
+    },
+    {
+     "nps_then_now": "devil-s-den#5",
+     "resource": "cwpb.00916",
+     "inliers": 39
+    },
+    {
+     "nps_then_now": "devil-s-den#5",
+     "resource": "cwp.4a39439",
+     "inliers": 39
+    }
+   ],
+   "pose_ids": [],
+   "class": "STG",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Staged-photograph flag respected (PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth poin). A body in front of boulders (NPS: Slaughter Pen report plate 8 and Then-And-Now Devil's Den no. 4). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered."
+  },
+  {
+   "loc_id": "2018666315",
+   "title": "[Gettysburg, Pa. Three Confederate prisoners]",
+   "creator": null,
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018666315/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": "Three Confederate prisoners: the NPS (CLR First Day Fig. 1.46) gives a place and direction and the frame holds a landscape; the first run excluded it by the word prisoners",
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018666315_cwp.4a40909_r",
+    "LOC2018666315_cwp.4a40909_v",
+    "LOC2018666315_cwpb.01450_r",
+    "LOC2018666315_cwpb.01450_v",
+    "LOC2018666315_cwpb.01451_r",
+    "LOC2018666315_cwpb.01451_v"
+   ],
+   "statement_ids": [
+    "PS-LOC-2018666315-T",
+    "PS-NPS-CLR1D-146"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Three prisoners on stacked rails with a town skyline in the left distance (NPS: probably along Seminary Lane looking east, about July 15); the lane is not in the model and Seminary Ridge is about 3 km long. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018666316",
+   "title": "[Gettysburg, Pa. John L. Burns, the \"old hero of Gettysburg,\" with gun and crutches]",
+   "creator": "Brady's National Photographic Portrait Galleries",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018666316/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": false,
+   "scope_note": "portrait of John Burns with gun and crutches",
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018666316_cwp.4a39690_r",
+    "LOC2018666316_cwpb.01659_r",
+    "LOC2018666316_cwpb.01659_v",
+    "LOC2018666316_cwpb.01660_r",
+    "LOC2018666316_cwpb.01660_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Portrait of John Burns with gun and crutches. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2018670368",
+   "title": "W.D. Pender, C.S.A., killed at Gettysburg",
+   "creator": null,
+   "date_as_catalogued": "[between 1860 and 1863]",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670368/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": false,
+   "scope_note": "portrait of W.D. Pender",
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670368_cwpb.07519_r",
+    "LOC2018670368_cwpb.07519_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Portrait of W.D. Pender. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2018670617",
+   "title": "Gettysburg, Pennsylvania. Unfit for service. Artillery caisson and dead mule",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "1863.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670617/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670617_cwpb.00827_r",
+    "LOC2018670617_cwpb.00827_v",
+    "LOC2018670617_cwpb.00828_r",
+    "LOC2018670617_cwpb.00828_v",
+    "LOC2018670617_cwpb.00829_r",
+    "LOC2018670617_cwpb.00829_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A caisson wheel and a dead mule on a bare field with a faint far tree line; no place is stated. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018670625",
+   "title": "Gettysburg, Pennsylvania. Dead Confederate sharpshooter at the foot of Round Top",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670625/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": true,
+   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
+   "image_keys": [
+    "LOC2018670625_cwpb.00836_r",
+    "LOC2018670625_cwpb.00836_v",
+    "LOC2018670625_cwpb.00837_r",
+    "LOC2018670625_cwpb.00837_v"
+   ],
+   "statement_ids": [
+    "PS-NPS-SPEN-4"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "STG",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Staged-photograph flag respected (PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth poin). A body among boulders by a pool (title has sharpshooter; NPS Slaughter Pen plate 4 places Gardner no. 229 in the Plum Run gorge). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered."
+  },
+  {
+   "loc_id": "2018670636",
+   "title": "Gettysburg, Pennsylvania. Line of breastworks on Round Top",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670636/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670636_cwpb.00838_r",
+    "LOC2018670636_cwpb.00838_v",
+    "LOC2018670636_cwpb.00839_r",
+    "LOC2018670636_cwpb.00839_v",
+    "LOC2018670636_cwpb.00840_r",
+    "LOC2018670636_cwpb.00840_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a stone line with a pine and a damaged sky. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2018670645",
+   "title": "Gettysburg, Pennsylvania. Line of breastworks looking eastward",
+   "creator": "Gibson, James F., 1828-",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670645/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670645_cwpb.00841_r",
+    "LOC2018670645_cwpb.00841_v",
+    "LOC2018670645_cwpb.00842_r",
+    "LOC2018670645_cwpb.00842_v"
+   ],
+   "statement_ids": [
+    "PS-LOC-2018670645-N"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a dark view of a breastwork looking east. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2018670660",
+   "title": "Gettysburg, Pennsylvania. Unfinished Confederate graves near the center of the battlefield",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670660/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670660_cwpb.00843_r",
+    "LOC2018670660_cwpb.00843_v",
+    "LOC2018670660_cwpb.00844_r",
+    "LOC2018670660_cwpb.00844_v",
+    "LOC2018670660_cwpb.00845_r",
+    "LOC2018670660_cwpb.00845_v",
+    "LOC2018670660_cwpb.00846_r",
+    "LOC2018670660_cwpb.00846_v",
+    "LOC2018670660_cwpb.00847_r",
+    "LOC2018670660_cwpb.00847_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Graves in the foreground with a wagon train on a rise behind; no place is stated beyond near the centre of the battlefield. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018670663",
+   "title": "Hanover Junction, Pennsylvania. Bridge at Hanover Junction burned by Confederates before the battle of Gettysburg",
+   "creator": null,
+   "date_as_catalogued": "1863.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670663/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": false,
+   "scope_note": "Hanover Junction (not Gettysburg), a burned bridge",
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670663_cwpb.01536_r",
+    "LOC2018670663_cwpb.01536_v",
+    "LOC2018670663_cwpb.01537_r",
+    "LOC2018670663_cwpb.01537_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Hanover Junction (not Gettysburg), a burned bridge. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2018670673",
+   "title": "Gettysburg, Pennsylvania. Confederate soldiers as they fell near the center of the battlefield",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670673/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670673_cwpb.00850_r",
+    "LOC2018670673_cwpb.00850_v"
+   ],
+   "statement_ids": [
+    "PS-TN-RW2-REF"
+   ],
+   "nps_then_now_identity": [
+    {
+     "nps_then_now": "rose-woods#2",
+     "resource": "cwpb.00850",
+     "inliers": 291
+    }
+   ],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "NPS Gardner no. 235 (Rose Woods no. 2): a large split rock is the reference point; bodies gathered for burial; the rock is not in the model. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018670696",
+   "title": "Gettysburg, Pennsylvania. Offices of U.S. Sanitary Commission",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670696/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": false,
+   "scope_note": "Sanitary Commission offices, a town building",
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670696_cwpb.00851_r",
+    "LOC2018670696_cwpb.00851_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Sanitary Commission offices, a town building. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2018670700",
+   "title": "Gettysburg, Pennsylvania. Woods on Culp's Hill showing the effect of musket fire",
+   "creator": null,
+   "date_as_catalogued": "1863.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670700/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670700_cwpb.01633_r",
+    "LOC2018670700_cwpb.01633_v",
+    "LOC2018670700_cwpb.01634_r",
+    "LOC2018670700_cwpb.01634_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of the interior of the Culp's Hill woods. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2018670701",
+   "title": "Gettysburg, Pennsylvania. Battered trees on Culp's Hill",
+   "creator": null,
+   "date_as_catalogued": "1863.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670701/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670701_cwpb.01635_r",
+    "LOC2018670701_cwpb.01635_v",
+    "LOC2018670701_cwpb.01636_r",
+    "LOC2018670701_cwpb.01636_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of the interior of the Culp's Hill woods with battered trunks. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2018670702",
+   "title": "Gettysburg, Pennsylvania. The cemetery gatehouse",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670702/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670702-L",
+    "LOC2018670702_cwpb.01641_r",
+    "LOC2018670702_cwpb.01641_v",
+    "LOC2018670702_cwpb.01642_r",
+    "LOC2018670702_cwpb.01642_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [
+    "P03"
+   ],
+   "class": "POSE",
+   "verdict": "cannot judge",
+   "why": "P03: The 2023 gatehouse outline (25.8 m wide, default one storey, lodge and pavilion merged) is placed in front of the facade with its distance read from the photograph (fitted), so its width and place agree by construction (boxes at 0.27 to 0.82 of the frame width against the arch building's 0.10 to 0.76, tops at 3.2 m against a two-storey building with towers); the only independent items, the horizon height (0.48 against about 0.46) and a face-on facade, follow from the same footprint. Nothing is left to test.",
+   "reviewed_image": true
+  },
+  {
+   "loc_id": "2018670703",
+   "title": "Gettysburg, Pennsylvania. View in wheatfield opposite our extreme left",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670703/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670703_cwpb.00852_r",
+    "LOC2018670703_cwpb.00852_v",
+    "LOC2018670703_cwpb.00853_r",
+    "LOC2018670703_cwpb.00853_v",
+    "LOC2018670703_cwpb.00854_r",
+    "LOC2018670703_cwpb.00854_v"
+   ],
+   "statement_ids": [
+    "PS-LOC-2018670703-N"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Bodies in a field opposite the extreme left with a far tree line (negative sleeve: View in wheatfield opposite our extreme left). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018670704",
+   "title": "Gettysburg, Pennsylvania. Federal breastworks in the wods on Culp's Hill",
+   "creator": null,
+   "date_as_catalogued": "1863.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670704/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670704_cwpb.01643_r",
+    "LOC2018670704_cwpb.01643_v",
+    "LOC2018670704_cwpb.01644_r",
+    "LOC2018670704_cwpb.01644_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of breastworks inside the Culp's Hill woods. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2018670705",
+   "title": "Gettysburg, Pennsylvania. Battered trees on Culp's Hill",
+   "creator": null,
+   "date_as_catalogued": "1863.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670705/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670705_cwpb.01645_r",
+    "LOC2018670705_cwpb.01645_v",
+    "LOC2018670705_cwpb.01646_r",
+    "LOC2018670705_cwpb.01646_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of the interior of the Culp's Hill woods with battered trunks and a dead man. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2018670707",
+   "title": "Gettysburg, Pennsylvania. Lutheran Theological Seminary",
+   "creator": null,
+   "date_as_catalogued": "1863.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670707/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": "Lutheran Seminary building, July 1863 (NPS Then-And-Now no. 2): a building in the model; the first run excluded it by the word Seminary",
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670707_cwpb.01649_r",
+    "LOC2018670707_cwpb.01649_v",
+    "LOC2018670707_cwpb.01650_r",
+    "LOC2018670707_cwpb.01650_v"
+   ],
+   "statement_ids": [
+    "PS-LOC-2018670707-T",
+    "PS-NPS-CLRROTV2-149",
+    "PS-TN-BF2"
+   ],
+   "nps_then_now_identity": [
+    {
+     "nps_then_now": "buildings-and-farms#2",
+     "resource": "cwpb.01649",
+     "inliers": 49
+    },
+    {
+     "nps_then_now": "buildings-and-farms#2",
+     "resource": "cwpb.01650",
+     "inliers": 31
+    }
+   ],
+   "pose_ids": [
+    "P20"
+   ],
+   "class": "POSE",
+   "verdict": "cannot judge",
+   "why": "P20: The Schmucker Hall footprint (47.9 by 44.3 m, the 2023 outline) is placed 190 m west with the distance read from the photograph (fitted); it shows as a thin strip at the horizon about 0.12 of the frame width left of the building in the photograph, which is inside what the camera spot (sigma 50 m at 190 m is 15 degrees) allows. The model has no cupola, storeys or fence. Nothing independent can be compared.",
+   "reviewed_image": true
+  },
+  {
+   "loc_id": "2018670708",
+   "title": "Gettysburg, Pennsylvania. Big Round Top from entrenchments on Little Round Top",
+   "creator": null,
+   "date_as_catalogued": "1863.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670708/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670708_cwpb.01653_r",
+    "LOC2018670708_cwpb.01653_v",
+    "LOC2018670708_cwpb.01654_r",
+    "LOC2018670708_cwpb.01654_v"
+   ],
+   "statement_ids": [
+    "PS-LOC-2018670708-N"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [
+    "P11"
+   ],
+   "class": "POSE",
+   "verdict": "roughly",
+   "why": "P11: Same assumed spot and heading as P09, a different exposure: the photograph's Big Round Top has its summit at 0.44 of the frame width and 0.29 of its height with a broad, gentle left shoulder; the model's has it at 0.42 and 0.44 and a steeper, narrower cone. Same reading as P09: place and kind of silhouette agree, the model's summit is about 15 percent of the frame height lower, a camera spot lower on the slope and the tree canopy would account for it.",
+   "reviewed_image": true
+  },
+  {
+   "loc_id": "2018670709",
+   "title": "Gettysburg, Pennsylvania. Little Round Top",
+   "creator": null,
+   "date_as_catalogued": "1863.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670709/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670709_cwpb.01655_r",
+    "LOC2018670709_cwpb.01655_v",
+    "LOC2018670709_cwpb.01656_r",
+    "LOC2018670709_cwpb.01656_v"
+   ],
+   "statement_ids": [
+    "PS-NPS-VISTA-10"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A meadow with a wagon, trees at the left and the rocky slope of Little Round Top behind; the NPS names two Brady views of Little Round Top (southwest near Devil's Den, northwest at Wheatfield Road and Crawford Avenue); which this is is not established. Its framing matches the NPS Then-And-Now image of Little Round Top from the Valley of Death only by description. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018670710",
+   "title": "Gettysburg, Pennsylvania. John L. Burns, the \"old hero of Gettysburg,\" with gun and crutches",
+   "creator": "Brady's National Photographic Portrait Galleries",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670710/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": false,
+   "scope_note": "portrait of John Burns with gun and crutches (stereo pair)",
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670710_cwpb.01657_r",
+    "LOC2018670710_cwpb.01657_v",
+    "LOC2018670710_cwpb.01658_r",
+    "LOC2018670710_cwpb.01658_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Portrait of John Burns with gun and crutches (stereo pair). Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2018670711",
+   "title": "Gettysburg, Pennsylvania. John L. Burns cottage. (Burns seated in doorway)",
+   "creator": "Brady's National Photographic Portrait Galleries",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670711/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": false,
+   "scope_note": "the Burns cottage with Burns seated in the doorway, a house portrait",
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670711_cwpb.01661_r",
+    "LOC2018670711_cwpb.01661_v",
+    "LOC2018670711_cwpb.01662_r",
+    "LOC2018670711_cwpb.01662_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "The Burns cottage with Burns seated in the doorway, a house portrait. Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2018670717",
+   "title": "Gettysburg, Pennsylvania. View of breastworks on Round Top the hill which formed our extreme left",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670717/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670717_cwpb.00855_r",
+    "LOC2018670717_cwpb.00855_v",
+    "LOC2018670717_cwpb.00856_r",
+    "LOC2018670717_cwpb.00856_v",
+    "LOC2018670717_cwpb.00857_r",
+    "LOC2018670717_cwpb.00857_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a stone breastwork on a rocky slope under trees (Round Top). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2018670726",
+   "title": "Gettysburg, Pennsylvania. Bodies of dead on right of Federal line",
+   "creator": null,
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670726/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670726_cwpb.00858_r",
+    "LOC2018670726_cwpb.00858_v",
+    "LOC2018670726_cwpb.00859_r",
+    "LOC2018670726_cwpb.00859_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Bodies in a field in a damaged frame; the record says right of the Federal line. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018670733",
+   "title": "Gettysburg, Pennsylvania. Federal dead on the right of the Federal lines, killed on July 1",
+   "creator": "Gibson, James F., 1828-",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670733/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670733_cwpb.00860_r",
+    "LOC2018670733_cwpb.00860_v",
+    "LOC2018670733_cwpb.00861_r",
+    "LOC2018670733_cwpb.00861_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Federal dead killed on July 1 with a far tree line and two men standing; the record says right of the Federal lines. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018670741",
+   "title": "Gettysburg, Pennsylvania. Dead sharpshooter on the right of Confederate line",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670741/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": true,
+   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
+   "image_keys": [
+    "LOC2018670741_cwpb.00862_r",
+    "LOC2018670741_cwpb.00862_v",
+    "LOC2018670741_cwpb.00863_r",
+    "LOC2018670741_cwpb.00863_v"
+   ],
+   "statement_ids": [
+    "PS-TN-DD5-MOVED"
+   ],
+   "nps_then_now_identity": [
+    {
+     "nps_then_now": "devil-s-den#6",
+     "resource": "cwpb.00862",
+     "inliers": 1442
+    },
+    {
+     "nps_then_now": "devil-s-den#6",
+     "resource": "cwpb.00863",
+     "inliers": 695
+    }
+   ],
+   "pose_ids": [],
+   "class": "STG",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Staged-photograph flag respected (PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth poin). A body at the foot of a boulder (NPS Then-And-Now Devil's Den no. 6: the sharpshooter in his original place before the photographers moved him). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered."
+  },
+  {
+   "loc_id": "2018670757",
+   "title": "Gettysburg, Pennsylvania. [Confederate dead, view at the edge of the Rose woods, July 5, 1863]",
+   "creator": "Gibson, James F., 1828-",
+   "date_as_catalogued": "1863 July [5]",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670757/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670757_cwpb.00866_r",
+    "LOC2018670757_cwpb.00866_v",
+    "LOC2018670757_cwpb.00867_r",
+    "LOC2018670757_cwpb.00867_v",
+    "LOC2018670757_cwpb.00868_r",
+    "LOC2018670757_cwpb.00868_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Bodies in front of an orchard row at the edge of the Rose woods; the woods and orchard are not in the model. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018670772",
+   "title": "Gettysburg, Pennsylvania. Headquarters of Gen. Robert E. Lee on the Chambersburg Pike",
+   "creator": null,
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670772/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670772_cwpb.01792_r",
+    "LOC2018670772_cwpb.01792_v",
+    "LOC2018670772_cwpb.01793_r",
+    "LOC2018670772_cwpb.01793_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A second view of Lee's headquarters (the Thompson house) from the south-east with a fence and a person at the left; no statement gives this camera spot (P17 is the first view). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018670776",
+   "title": "Scene in the woods at foot of Round Top at Battle of Gettysburg",
+   "creator": null,
+   "date_as_catalogued": "July 1863.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670776/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670776_cwpb.00871_r",
+    "LOC2018670776_cwpb.00871_v",
+    "LOC2018670776_cwpb.00872_r",
+    "LOC2018670776_cwpb.00872_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of woods at the foot of Round Top with dead men among rocks. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2018670788",
+   "title": "Gettysburg, Pennsylvania. Body of Confederate sharpshooter",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670788/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": true,
+   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
+   "image_keys": [
+    "LOC2018670788_cwpb.00874_r",
+    "LOC2018670788_cwpb.00874_v",
+    "LOC2018670788_cwpb.00875_r",
+    "LOC2018670788_cwpb.00875_v",
+    "LOC2018670788_cwpb.00876_r",
+    "LOC2018670788_cwpb.00876_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [
+    {
+     "nps_then_now": "devil-s-den#7",
+     "resource": "cwpb.00874",
+     "inliers": 721
+    },
+    {
+     "nps_then_now": "devil-s-den#7",
+     "resource": "cwpb.00876",
+     "inliers": 705
+    }
+   ],
+   "pose_ids": [],
+   "class": "STG",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Staged-photograph flag respected (PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth poin). The Devil's Den niche with a body (Body of Confederate sharpshooter). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered."
+  },
+  {
+   "loc_id": "2018670802",
+   "title": "Gettysburg, Pennsylvania. Slaughter pen at foot of Round Top",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670802/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670802_cwpb.00879_r",
+    "LOC2018670802_cwpb.00879_v",
+    "LOC2018670802_cwpb.00880_r",
+    "LOC2018670802_cwpb.00880_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a wood with a large trunk and bodies (slaughter pen at the foot of Round Top). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2018670837",
+   "title": "Gettysburg, Pennsylvania. Confederate sharpshooter killed by a shell",
+   "creator": "Gibson, James F., 1828-",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670837/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": true,
+   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
+   "image_keys": [
+    "LOC2018670837_cwpb.00885_r",
+    "LOC2018670837_cwpb.00885_v",
+    "LOC2018670837_cwpb.00886_r",
+    "LOC2018670837_cwpb.00886_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "STG",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Staged-photograph flag respected (PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth poin). A body under a large cracked boulder (sharpshooter killed by a shell). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered."
+  },
+  {
+   "loc_id": "2018670852",
+   "title": "Gettysburg, Pennsylvania. [Confederate dead, view looking toward the orchard on the Rose farm, July 5, 1863]",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July [5]",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670852/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670852_cwpb.00888_r",
+    "LOC2018670852_cwpb.00888_v",
+    "LOC2018670852_cwpb.00889_r",
+    "LOC2018670852_cwpb.00889_v"
+   ],
+   "statement_ids": [
+    "PS-LOC-2018670852-T"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Bodies on a field looking toward the orchard on the Rose farm (the title and date are Frassanito's per the record: lead only); the orchard is not in the model. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018670859",
+   "title": "Gettysburg, Pennsylvania. View of breast works on Round Top",
+   "creator": "Gibson, James F., 1828-",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670859/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670859_cwpb.00890_r",
+    "LOC2018670859_cwpb.00890_v",
+    "LOC2018670859_cwpb.00891_r",
+    "LOC2018670859_cwpb.00891_v",
+    "LOC2018670859_cwpb.00892_r",
+    "LOC2018670859_cwpb.00892_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a stone wall and trees on a slope (Round Top breastworks). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2018670867",
+   "title": "Gettysburg, Pennsylvania. \"Slaughter pen\" on left wing",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670867/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670867_cwpb.00893_r",
+    "LOC2018670867_cwpb.00893_v",
+    "LOC2018670867_cwpb.00894_r",
+    "LOC2018670867_cwpb.00894_v",
+    "LOC2018670867_cwpb.00895_r",
+    "LOC2018670867_cwpb.00895_v",
+    "LOC2018670867_cwpb.00896_r",
+    "LOC2018670867_cwpb.00896_v",
+    "LOC2018670867_cwpb.00897_r",
+    "LOC2018670867_cwpb.00897_v"
+   ],
+   "statement_ids": [
+    "PS-NPS-SPEN-5"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "The Slaughter Pen seen across a rock-strewn bank (a candidate for NPS Slaughter Pen plate 5: eastward from Devil's Den; the plate is a photocopy and could not be matched); no far feature in the frame. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018670874",
+   "title": "Gettysburg, Pennsylvania. Dead Confederate sharpshooter",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670874/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": true,
+   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
+   "image_keys": [
+    "LOC2018670874_cwpb.00898_r",
+    "LOC2018670874_cwpb.00898_v",
+    "LOC2018670874_cwpb.00899_r",
+    "LOC2018670874_cwpb.00899_v"
+   ],
+   "statement_ids": [
+    "PS-TN-DD5-MOVED"
+   ],
+   "nps_then_now_identity": [
+    {
+     "nps_then_now": "devil-s-den#5",
+     "resource": "cwpb.00898",
+     "inliers": 1567
+    },
+    {
+     "nps_then_now": "devil-s-den#5",
+     "resource": "cwpb.00899",
+     "inliers": 827
+    }
+   ],
+   "pose_ids": [],
+   "class": "STG",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Staged-photograph flag respected (PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth poin). A body near Devil's Den (NPS Then-And-Now Devil's Den no. 5: the sharpshooter at the likely place of death, a gun and hat by his head; Gardner no. 263). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered."
+  },
+  {
+   "loc_id": "2018670882",
+   "title": "Gettysburg, Pennsylvania. Breast works on extreme left",
+   "creator": "Gibson, James F., 1828-",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670882/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670882_cwpb.00900_r",
+    "LOC2018670882_cwpb.00900_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a pile of brush and stones with a bright sky strip (breast works on the extreme left). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2018670894",
+   "title": "Gettysburg, Pennsylvania. View at Trostle's barn where the 9th Massachusetts Battery was cut up",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670894/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670894_cwpb.00903_r",
+    "LOC2018670894_cwpb.00903_v",
+    "LOC2018670894_cwpb.00904_r",
+    "LOC2018670894_cwpb.00904_v",
+    "LOC2018670894_cwpb.00905_r",
+    "LOC2018670894_cwpb.00905_v",
+    "LOC2018670894_cwpb.00906_r",
+    "LOC2018670894_cwpb.00906_v"
+   ],
+   "statement_ids": [
+    "PS-LOC-2018670894-T",
+    "PS-TN-TR2"
+   ],
+   "nps_then_now_identity": [
+    {
+     "nps_then_now": "trostle-farm#2",
+     "resource": "cwpb.00904",
+     "inliers": 1182
+    },
+    {
+     "nps_then_now": "trostle-farm#2",
+     "resource": "cwpb.00903",
+     "inliers": 438
+    },
+    {
+     "nps_then_now": "trostle-farm#2",
+     "resource": "cwpb.00906",
+     "inliers": 309
+    },
+    {
+     "nps_then_now": "trostle-farm#2",
+     "resource": "cwpb.00905",
+     "inliers": 290
+    }
+   ],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "The Trostle barn with dead horses in front; NPS Then-And-Now Trostle no. 2 (the cannonball hole in the brick gable); no side or distance is given. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018670908",
+   "title": "Gettysburg, Pennsylvania. [Confederate dead gathered for burial, July 5, 1863]",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "1863 July [5]",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670908/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670908_cwpb.00907_r",
+    "LOC2018670908_cwpb.00907_v",
+    "LOC2018670908_cwpb.00908_r",
+    "LOC2018670908_cwpb.00908_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Bodies gathered for burial with a lone tree and a wagon (July 5); no place beyond the Rose woods area. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018670943",
+   "title": "Gettysburg, Pennsylvania. Effect of a shell on a Confederate",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670943/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670943_cwpb.00911_r",
+    "LOC2018670943_cwpb.00911_v",
+    "LOC2018670943_cwpb.00912_r",
+    "LOC2018670943_cwpb.00912_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a dead soldier on a slope with grass. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2018671576",
+   "title": "Gettysburg, Pennsylvania. Gettysburg from the cemetery",
+   "creator": "Gibson, James F., 1828-",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018671576/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018671576_cwpb.00084_r",
+    "LOC2018671576_cwpb.00084_u",
+    "LOC2018671576_cwpb.00084_v"
+   ],
+   "statement_ids": [
+    "PS-LOC-2018671576-N"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [
+    "P07"
+   ],
+   "class": "POSE",
+   "verdict": "does not",
+   "why": "P07: The same assumed cemetery pose as P06 and the same result: the frame is a stereo sibling of P06 (road at the left, tents at the right, the town across the horizon) and the render shows a narrow band of footprints at the horizon and no road. Pose-conditional, as P06.",
+   "reviewed_image": true
+  },
+  {
+   "loc_id": "2018671578",
+   "title": "Gettysburg, Pennsylvania. Dead Confederate sharpshooter in \"Devil's Den\"",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018671578/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": true,
+   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
+   "image_keys": [
+    "LOC2018671578_cwpb.00086_r",
+    "LOC2018671578_cwpb.00086_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "STG",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Staged-photograph flag respected (PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth poin). A body among rocks (stereo pair). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered."
+  },
+  {
+   "loc_id": "2018672035",
+   "title": "Gettysburg, Pennsylvania. Gen. George G. Meade's headquarters",
+   "creator": null,
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018672035/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018672035_cwpb.00658_r",
+    "LOC2018672035_cwpb.00658_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "The Leister house (Meade's headquarters) across a field with a white fence: a second view; no statement gives this camera spot (P18 is the Taneytown Road view). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018672105",
+   "title": "Gettysburg, Pennsylvania. Unfit for service. Artillery caisson and dead mule",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "1863.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018672105/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018672105_cwpb.00067_r",
+    "LOC2018672105_cwpb.00067_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A caisson wheel and dead mule on a bare field (stereo pair, a print of the same scene as 2018670617). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018672106",
+   "title": "Gettysburg, Pennsylvania. Confederate soldiers who had evidently been shelled by our batteries on Round Top",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018672106/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018672106_cwpb.00068_r",
+    "LOC2018672106_cwpb.00068_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of bodies under two large trees on bare ground. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2018672107",
+   "title": "The home of a rebel sharpshooter, on battle field of Gettysburg",
+   "creator": "Gibson, James F., 1828-",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018672107/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": true,
+   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
+   "image_keys": [
+    "LOC2018672107_cwpb.00069_r",
+    "LOC2018672107_cwpb.00069_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "STG",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Staged-photograph flag respected (PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth poin). A body in a boulder niche (stereo pair of Home of a Rebel Sharpshooter). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered."
+  },
+  {
+   "loc_id": "2018672108",
+   "title": "Gettysburg, Pennsylvania. Offices of U.S. Sanitary Commission",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "1863 [July]",
+   "loc_url": "https://www.loc.gov/pictures/item/2018672108/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": false,
+   "scope_note": "Sanitary Commission offices, a town building (stereo pair)",
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018672108_cwpb.00070_r",
+    "LOC2018672108_cwpb.00070_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "OUT",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Sanitary Commission offices, a town building (stereo pair). Not a July 1863 battlefield terrain view: outside the terrain test, listed so that nothing is dropped."
+  },
+  {
+   "loc_id": "2018672109",
+   "title": "Gettysburg, Pennsylvania. Evidence of how severe the contest had been on the right",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018672109/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018672109_cwpb.00071_r",
+    "LOC2018672109_cwpb.00071_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a very dark frame of a slope; nothing legible. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2018672110",
+   "title": "Gettysburg, Pennsylvania. Scene in the woods at the foot of Round Top",
+   "creator": "Gibson, James F., 1828-",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018672110/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018672110_cwpb.00072_r",
+    "LOC2018672110_cwpb.00072_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of woods at the foot of Round Top with dead men. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2018672111",
+   "title": "Gettysburg, Pennsylvania. Body of Confederate sharpshooter",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018672111/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": true,
+   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
+   "image_keys": [
+    "LOC2018672111_cwpb.00073_r",
+    "LOC2018672111_cwpb.00073_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "STG",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Staged-photograph flag respected (PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth poin). The Devil's Den niche with a body (stereo pair). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered."
+  },
+  {
+   "loc_id": "2018672112",
+   "title": "Gettysburg, Pennsylvania. View of breastworks on Round Top",
+   "creator": "Gibson, James F., 1828-",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018672112/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018672112_cwpb.00075_r",
+    "LOC2018672112_cwpb.00075_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a rocky slope with a single tree and a distant haze (stereo pair, Round Top breastworks). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2018672113",
+   "title": "Gettysburg, Pennsylvania. View of breastworks on Round Top",
+   "creator": "Gibson, James F., 1828-",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018672113/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018672113_cwpb.00076_r",
+    "LOC2018672113_cwpb.00076_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a stone wall in trees (stereo pair). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2018672114",
+   "title": "Gettysburg, Pennsylvania. \"Slaughter Pen\" on left wing",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018672114/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018672114_cwpb.00077_r",
+    "LOC2018672114_cwpb.00077_v"
+   ],
+   "statement_ids": [
+    "PS-NPS-SPEN-5"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a wooded rocky slope (stereo pair, Slaughter Pen). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2018672115",
+   "title": "Gettysburg, Pennsylvania. Breast works on extreme left",
+   "creator": "Gibson, James F., 1828-",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018672115/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018672115_cwpb.00078_r",
+    "LOC2018672115_cwpb.00078_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of brush and rocks (stereo pair, breast works on the extreme left). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2018672117",
+   "title": "Gettysburg, Pennsylvania. View of Round Top",
+   "creator": "Gibson, James F., 1828-",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018672117/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018672117_cwpb.00080_r",
+    "LOC2018672117_cwpb.00080_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A hazy hill and rocks (stereo pair, View of Round Top) with a skyline; the record gives no camera place. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018672207",
+   "title": "Gettysburg, Pennsylvania. View of Little Round Top",
+   "creator": null,
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018672207/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018672207_cwpb.03971_r",
+    "LOC2018672207_cwpb.03971_v"
+   ],
+   "statement_ids": [
+    "PS-NPS-VISTA-10"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "The rocky slope of Little Round Top with a skyline across a valley; NPS names two Brady views (southwest near Devil's Den; northwest at Wheatfield Road and Crawford Avenue); which this is is not established. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018672241",
+   "title": "Gettysburg, Pennsylvania. Dead Confederate sharpshooter in \"the devil's den\"",
+   "creator": "Gardner, Alexander, 1821-1882",
+   "date_as_catalogued": "1863 July.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018672241/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": true,
+   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
+   "image_keys": [
+    "LOC2018672241_cwpb.03701_r",
+    "LOC2018672241_cwpb.03701_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [
+    {
+     "nps_then_now": "devil-s-den#4",
+     "resource": "cwpb.03701",
+     "inliers": 371
+    }
+   ],
+   "pose_ids": [],
+   "class": "STG",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Staged-photograph flag respected (PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth poin). A body in front of rocks with a rifle (stereo pair). Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered."
+  },
+  {
+   "loc_id": "2018672403",
+   "title": "Gettysburg, Pennsylvania. Little Round Top",
+   "creator": null,
+   "date_as_catalogued": "[1863 July]",
+   "loc_url": "https://www.loc.gov/pictures/item/2018672403/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018672403_cwpb.04003_r",
+    "LOC2018672403_cwpb.04003_v"
+   ],
+   "statement_ids": [
+    "PS-NPS-VISTA-10"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "The rocky slope of Little Round Top with a skyline; same uncertainty as 2018672207. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "91732531",
+   "title": "Battle-field of Gettysburg--Dead Confederate sharpshooter at foot of Little Round Top [i.e., Devil's Den]",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "[photographed 1863 July, printed later]",
+   "loc_url": "https://www.loc.gov/pictures/item/91732531/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": true,
+   "staged_basis": "PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth point; background terrain only.",
+   "image_keys": [
+    "LOC91732531_cph.3g01825_r",
+    "LOC91732531_cph.3g01825_v",
+    "LOC91732531_ppmsca.31299_r",
+    "LOC91732531_ppmsca.31299_v",
+    "LOC91732531_ppmsca.31300_r",
+    "LOC91732531_ppmsca.31300_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [
+    {
+     "nps_then_now": "devil-s-den#6",
+     "resource": "ppmsca.31299",
+     "inliers": 26
+    },
+    {
+     "nps_then_now": "devil-s-den#7",
+     "resource": "cph.3g01825",
+     "inliers": 927
+    }
+   ],
+   "pose_ids": [],
+   "class": "STG",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Staged-photograph flag respected (PDF plan (BIBLE/plan-clean.txt, Devil's Den section): the Devil's Den sharpshooter photograph is staged (body moved, prop rifle); PDF cites NARA Prologue blog (not read here). Flag respected: the body and its niche are never used as a terrain ground-truth poin). A mounted print of the sharpshooter in the niche, titled Dead Confederate at Little Round Top. Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered."
+  },
+  {
+   "loc_id": "91732534",
+   "title": "Federal dead on the field of battle of first day, Gettysburg, Pennsylvania",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "[photographed July 1863, printed later]",
+   "loc_url": "https://www.loc.gov/pictures/item/91732534/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC91732534_cph.3g01826_r",
+    "LOC91732534_cph.3g01826_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a colour-toned print of dead Federal soldiers (first day); no far feature. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "91732541",
+   "title": "Federal dead on the field of battle of first day, Gettysburg, Pennsylvania",
+   "creator": null,
+   "date_as_catalogued": "[photographed 1863, printed later]",
+   "loc_url": "https://www.loc.gov/pictures/item/91732541/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC91732541_cph.3g01827_r",
+    "LOC91732541_cph.3g01827_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A print of Federal dead of the first day with a tree line and men standing; no place stated. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "91732542",
+   "title": "[Federal dead on the field of battle of first day, Gettysburg, Pennsylvania]",
+   "creator": null,
+   "date_as_catalogued": "[photographed 1863, printed later]",
+   "loc_url": "https://www.loc.gov/pictures/item/91732542/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC91732542_cph.3g01828_r",
+    "LOC91732542_cph.3g01828_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A print of Federal dead of the first day on open ground with a tree; no place stated. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "91732546",
+   "title": "[Dead horse on battlefield, Gettysburg, Pennsylvania]",
+   "creator": null,
+   "date_as_catalogued": "[photographed 1863, printed later]",
+   "loc_url": "https://www.loc.gov/pictures/item/91732546/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC91732546_cph.3g01829_r",
+    "LOC91732546_cph.3g01829_v",
+    "LOC91732546_cph.3j00161_r",
+    "LOC91732546_cph.3j00161_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A print of the caisson and dead mule on bare ground. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "91732551",
+   "title": "Dead horses of Bigelow's (9th Massachusetts) Battery",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "[photographed 1863, printed later]",
+   "loc_url": "https://www.loc.gov/pictures/item/91732551/",
+   "catalogue": "catalogue.json",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC91732551_cph.3g01831_r",
+    "LOC91732551_cph.3g01831_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [
+    {
+     "nps_then_now": "trostle-farm#2",
+     "resource": "cph.3g01831",
+     "inliers": 357
+    }
+   ],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A print of Bigelow's dead horses with the Trostle barn behind; no side or distance is stated (P24 is the other Trostle view). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2012647700",
+   "title": "The battle-field of Gettysburg. Dead horses of Bigelows (9th Massachusetts) Battery",
+   "creator": null,
+   "date_as_catalogued": "[photographed between 1861 and 1865, printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012647700/",
+   "catalogue": "added by catalogue_additions.py",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012647700_ppmsca.32834_r",
+    "LOC2012647700_ppmsca.32834_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Bigelow's dead horses with the Trostle barn at the left and house at the right (print series); no side or distance is stated; the same scene as record 2013645105 (P24) from a different print. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2012647701",
+   "title": "The battle-field of Gettysburg. Little Round Top",
+   "creator": null,
+   "date_as_catalogued": "[photographed between 1861 and 1865, printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012647701/",
+   "catalogue": "added by catalogue_additions.py",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012647701_ppmsca.32835_r",
+    "LOC2012647701_ppmsca.32835_v"
+   ],
+   "statement_ids": [
+    "PS-NPS-VISTA-10"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Little Round Top seen across rocky ground (print series); camera place not stated. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2012647702",
+   "title": "The battle-field of Gettysburg. Bryan's house",
+   "creator": null,
+   "date_as_catalogued": "[photographed between 1861 and 1865, printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012647702/",
+   "catalogue": "added by catalogue_additions.py",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012647702_ppmsca.32836_r",
+    "LOC2012647702_ppmsca.32836_v"
+   ],
+   "statement_ids": [
+    "PS-NPS-BRIEN-9"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "The Bryan house with a bake oven shed and trees: a candidate for the NPS Brien Farm report's Brady photograph taken east of the house looking west; identity not established (see P19). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2012647703",
+   "title": "Battle-field of Gettysburg. Scene of the charge of the Louisiana Tigers",
+   "creator": null,
+   "date_as_catalogued": "[photographed between 1861 and 1865, printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012647703/",
+   "catalogue": "added by catalogue_additions.py",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012647703_ppmsca.32837_r",
+    "LOC2012647703_ppmsca.32837_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A wide view over fields to the town with two seated men: the second half of the Wiedrich-battery panorama as the title says (Scene of the charge of the Louisiana Tigers); the heading is unknown. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2012647704",
+   "title": "Battle-field of Gettysburg. Culp's Hill",
+   "creator": null,
+   "date_as_catalogued": "[photographed between 1861 and 1865, printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012647704/",
+   "catalogue": "added by catalogue_additions.py",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012647704_ppmsca.32838_r",
+    "LOC2012647704_ppmsca.32838_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Culp's Hill seen from the south with a tent on the slope (print series); camera place not stated. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2012647706",
+   "title": "Battle-field of Gettysburg. Scene of General Reynold's death",
+   "creator": null,
+   "date_as_catalogued": "[photographed between 1861 and 1865, printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012647706/",
+   "catalogue": "added by catalogue_additions.py",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012647706_ppmsca.32840_r",
+    "LOC2012647706_ppmsca.32840_v"
+   ],
+   "statement_ids": [
+    "PS-LOC-2012647706-N",
+    "PS-NPS-CLR1D-01",
+    "PS-NPS-HSMCP-139",
+    "PS-NPS-HSMCP-139b"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A corn field and meadow with two figures and the Herbst woods group of trees; NPS (CLR First Day Fig. 0.1): looking southeast from the McPherson farm with the seminary cupola in the distance; NPS (McPherson study): taken just east of the quarry looking east-southeast. The quarry is not in the model and the two descriptions differ by about 25 degrees. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2012647708",
+   "title": "The battle-field of Gettysburg. Little Round Top and Round Top",
+   "creator": null,
+   "date_as_catalogued": "[photographed between 1861 and 1865, printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012647708/",
+   "catalogue": "added by catalogue_additions.py",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012647708_ppmsca.32842_r",
+    "LOC2012647708_ppmsca.32842_v"
+   ],
+   "statement_ids": [
+    "PS-LOC-2012647708-T",
+    "PS-NPS-VISTA-10",
+    "PS-TN-LRT1-DIR"
+   ],
+   "nps_then_now_identity": [
+    {
+     "nps_then_now": "little-round-top#1",
+     "resource": "ppmsca.32842",
+     "inliers": 1046
+    }
+   ],
+   "pose_ids": [
+    "P13"
+   ],
+   "class": "POSE",
+   "verdict": "cannot judge",
+   "why": "P13: PROVISIONAL: the render of this pose has not been looked at yet; this entry is replaced after the review sheet is viewed.",
+   "reviewed_image": false
+  },
+  {
+   "loc_id": "2012647714",
+   "title": "Gettysburg, battlefield of, scene of Pickett's charge",
+   "creator": null,
+   "date_as_catalogued": "[photographed between 1861 and 1865, printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012647714/",
+   "catalogue": "added by catalogue_additions.py",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012647714_ppmsca.32848_r",
+    "LOC2012647714_ppmsca.32848_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A field with a stone wall and a tree, a far ridge with a building (scene of Pickett's charge, print series); camera place not stated. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2012647845",
+   "title": "Devil's Den, Gettysburg",
+   "creator": null,
+   "date_as_catalogued": "[photographed between 1861 and 1865, printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012647845/",
+   "catalogue": "added by catalogue_additions.py",
+   "scope_july_1863_terrain": false,
+   "scope_note": "matches the NPS Then-And-Now Devil's Den no. 8: the staged Weaver photograph of 11 November 1863 (LOC ppmsca 32931), not July",
+   "staged_flag": true,
+   "staged_basis": "title contains Devil's Den / sharpshooter: same rule as catalogue.py (PDF plan, staged Devil's Den photograph); terrain and rocks only, never body or prop positions",
+   "image_keys": [
+    "LOC2012647845_ppmsca.32931_r",
+    "LOC2012647845_ppmsca.32931_v"
+   ],
+   "statement_ids": [
+    "PS-TN-DD8-STAGED"
+   ],
+   "nps_then_now_identity": [
+    {
+     "nps_then_now": "devil-s-den#8",
+     "resource": "ppmsca.32931",
+     "inliers": 1236
+    }
+   ],
+   "pose_ids": [],
+   "class": "STG",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Staged-photograph flag respected (title contains Devil's Den / sharpshooter: same rule as catalogue.py (PDF plan, staged Devil's Den photograph); terrain and rocks only, never body or prop positions). Men posed among Devil's Den boulders: the NPS image match shows it is the Weaver photograph of 11 November 1863 (LOC ppmsca 32931), which the NPS calls staged and taken more than four months after the battle; not July, so outside the July terrain test. Used for terrain and rocks only, never for the position of a body or prop; the rocks are not in the model and no camera position is sourced, so no pose is registered."
+  },
+  {
+   "loc_id": "2012647846",
+   "title": "Dead on Little Round Top, Gettysburg",
+   "creator": null,
+   "date_as_catalogued": "[photographed between 1861 and 1865, printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012647846/",
+   "catalogue": "added by catalogue_additions.py",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012647846_ppmsca.32932_r",
+    "LOC2012647846_ppmsca.32932_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a rocky hillside with boulders against a pale sky (a White Studio copy print: the date of the original is not stated and may be the November 1863 Weaver series, so even the July date is uncertain). No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2012648410",
+   "title": "General Lee's Headquarters. Mrs. Thompson's house, on Chambersburg Pike",
+   "creator": null,
+   "date_as_catalogued": "[photographed between 1861 and 1865, printed between 1880 and 1889]",
+   "loc_url": "https://www.loc.gov/pictures/item/2012648410/",
+   "catalogue": "added by catalogue_additions.py",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2012648410_ppmsca.33002_r",
+    "LOC2012648410_ppmsca.33002_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Lee's headquarters (the Thompson house) from the south-east across the fence (print series); the camera spot is that of P17 only by description. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018670706",
+   "title": "Gettysburg, Pennsylvania. McPherson's woods on left of the Chambersburg Pike",
+   "creator": null,
+   "date_as_catalogued": "[between 1861 and 1869]",
+   "loc_url": "https://www.loc.gov/pictures/item/2018670706/",
+   "catalogue": "added by catalogue_additions.py",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018670706_cwpb.01647_r",
+    "LOC2018670706_cwpb.01647_v",
+    "LOC2018670706_cwpb.01648_r",
+    "LOC2018670706_cwpb.01648_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A pond with a broken rail fence and woods behind (negative of the McPherson woods view; the same scene as 2012646949 and 2012647718); the quarry is not in the model. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018671419",
+   "title": "Place where Gen. Reynolds was killed",
+   "creator": null,
+   "date_as_catalogued": "[between 1861 and 1869]",
+   "loc_url": "https://www.loc.gov/pictures/item/2018671419/",
+   "catalogue": "added by catalogue_additions.py",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018671419_cwpb.03523_r",
+    "LOC2018671419_cwpb.03523_v",
+    "LOC2018671419_cwpb.03524_r",
+    "LOC2018671419_cwpb.03524_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "NEAR",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Close or middle view of a tree in woods carrying the marker of the place where Reynolds fell. No ridge line, building or road that the model contains is in the frame, and the rocks, trees, bodies and fences it shows are not in the model (modern bare-ground DEM): a render cannot be compared. No pose is registered."
+  },
+  {
+   "loc_id": "2018671488",
+   "title": "Meade's Hdqs. Gettysburg, Pa.",
+   "creator": null,
+   "date_as_catalogued": "[between 1861 and 1869]",
+   "loc_url": "https://www.loc.gov/pictures/item/2018671488/",
+   "catalogue": "added by catalogue_additions.py",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018671488_cwpb.00712_r",
+    "LOC2018671488_cwpb.00712_v",
+    "LOC2018671488_cwpb.00713_r",
+    "LOC2018671488_cwpb.00713_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "Meade's headquarters across a stone wall and a farm lane with the house in the distance; the camera spot is not stated. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "98519365",
+   "title": "Gen. G.G. Meade's headquarters, Gettysburg",
+   "creator": null,
+   "date_as_catalogued": "[photographed between 1861 and 1865, printed later]",
+   "loc_url": "https://www.loc.gov/pictures/item/98519365/",
+   "catalogue": "added by catalogue_additions.py",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC98519365_cph.3c22112_r",
+    "LOC98519365_cph.3c22112_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A print of Meade's headquarters (the same scene as 2018671488). The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "95503135",
+   "title": "[General Robert E. Lee's headquarters, Gettysburg, Pennsylvania]",
+   "creator": null,
+   "date_as_catalogued": "[photographed between 1861 and 1865, printed later]",
+   "loc_url": "https://www.loc.gov/pictures/item/95503135/",
+   "catalogue": "added by catalogue_additions.py",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC95503135_cph.3c13174_r",
+    "LOC95503135_cph.3c13174_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A print of Lee's headquarters (the Thompson house); camera place not stated beyond the NPS description of the first view. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018672361",
+   "title": "Gettysburg, Pennsylvania. View from Culp's hill",
+   "creator": null,
+   "date_as_catalogued": "[between 1862 and 1865]",
+   "loc_url": "https://www.loc.gov/pictures/item/2018672361/",
+   "catalogue": "added by catalogue_additions.py",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018672361_cwpb.03772_r",
+    "LOC2018672361_cwpb.03772_v"
+   ],
+   "statement_ids": [
+    "PS-LOC-2018672361-T"
+   ],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A view from Culp's Hill across a stone wall and fields to a far ridge with buildings; no direction is stated. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  },
+  {
+   "loc_id": "2018667213",
+   "title": "[Incidents of the war. A harvest of death, Gettysburg, July, 1863]",
+   "creator": "O'Sullivan, Timothy H., 1840-1882",
+   "date_as_catalogued": "Washington, D.C. : published by Philp & Solomons, c1865.",
+   "loc_url": "https://www.loc.gov/pictures/item/2018667213/",
+   "catalogue": "added by catalogue_additions.py",
+   "scope_july_1863_terrain": true,
+   "scope_note": null,
+   "staged_flag": false,
+   "staged_basis": null,
+   "image_keys": [
+    "LOC2018667213_cwp.4a40875_r",
+    "LOC2018667213_ppmsc.00168_r",
+    "LOC2018667213_ppmsc.00168_v"
+   ],
+   "statement_ids": [],
+   "nps_then_now_identity": [],
+   "pose_ids": [],
+   "class": "POS",
+   "verdict": "cannot judge",
+   "reviewed_image": true,
+   "why": "A harvest of death: dead Federal soldiers in a field with riders in the distance; the place is not stated by the record. The sources fix the camera only to a named place or a direction, not to within the depth of the scene, so a pose would be a free guess and none is registered; a render without a camera position cannot be judged."
+  }
+ ]
+}

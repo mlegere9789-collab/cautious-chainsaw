@@ -1,6 +1,6 @@
 {
- "_doc": "Feature-matching leads: which LOC resource each NPS Then photograph is. inliers = RANSAC-consistent SIFT matches; accepted only at >= 25. A lead, to be confirmed by looking at both images.",
- "min_inliers": 25,
+ "_doc": "Feature-matching leads: which LOC resource each NPS Then photograph is. inliers = RANSAC-consistent SIFT matches; accepted at >= 45 inliers and either >= 100 (prints of one negative sit in several records and all score high) or 1.3 times the best other record. The two spurious scores of the 1913 pictures (40 and 30 inliers) are rejected by this rule. A lead, to be confirmed by looking at both images; the Seminary (49) and gatehouse (59) matches were confirmed by looking at both images.",
+ "min_inliers": 45,
  "queries": {
   "rose-woods#1": {
    "nps_then_file": "tmp/library/web/photomatch/www.nps.gov/tn_rose-woods_01_then.jpg",
@@ -408,24 +408,6 @@
      "loc_id": "2018670874",
      "inliers": 827,
      "good_matches": 955
-    },
-    {
-     "resource": "ppmsc.00172",
-     "loc_id": "2018666314",
-     "inliers": 51,
-     "good_matches": 105
-    },
-    {
-     "resource": "cwpb.00916",
-     "loc_id": "2018666314",
-     "inliers": 39,
-     "good_matches": 92
-    },
-    {
-     "resource": "cwp.4a39439",
-     "loc_id": "2018666314",
-     "inliers": 39,
-     "good_matches": 70
     }
    ]
   },
@@ -475,18 +457,6 @@
      "loc_id": "2018670741",
      "inliers": 695,
      "good_matches": 751
-    },
-    {
-     "resource": "cph.3a04462",
-     "loc_id": "2018666306",
-     "inliers": 27,
-     "good_matches": 45
-    },
-    {
-     "resource": "ppmsca.31299",
-     "loc_id": "91732531",
-     "inliers": 26,
-     "good_matches": 43
     }
    ]
   },
@@ -805,14 +775,7 @@
      "good_matches": 37
     }
    ],
-   "accepted": [
-    {
-     "resource": "ppmsca.33638",
-     "loc_id": "2012650193",
-     "inliers": 40,
-     "good_matches": 72
-    }
-   ]
+   "accepted": []
   },
   "little-round-top#5": {
    "nps_then_file": "tmp/library/web/photomatch/www.nps.gov/tn_little-round-top_05_then.jpg",
@@ -848,14 +811,7 @@
      "good_matches": 52
     }
    ],
-   "accepted": [
-    {
-     "resource": "cwp.4a39719",
-     "loc_id": "2018666298",
-     "inliers": 30,
-     "good_matches": 49
-    }
-   ]
+   "accepted": []
   },
   "trostle-farm#1": {
    "nps_then_file": "tmp/library/web/photomatch/www.nps.gov/tn_trostle-farm_01_then.jpg",
@@ -1043,12 +999,6 @@
      "loc_id": "2018670707",
      "inliers": 49,
      "good_matches": 76
-    },
-    {
-     "resource": "cwpb.01650",
-     "loc_id": "2018670707",
-     "inliers": 31,
-     "good_matches": 49
     }
    ]
   },
@@ -1092,18 +1042,6 @@
      "loc_id": "2018666300",
      "inliers": 59,
      "good_matches": 73
-    },
-    {
-     "resource": "cwp.4a39688",
-     "loc_id": "2018666300",
-     "inliers": 41,
-     "good_matches": 62
-    },
-    {
-     "resource": "cwpb.01639",
-     "loc_id": "2018666300",
-     "inliers": 38,
-     "good_matches": 56
     }
    ]
   },
@@ -1192,5 +1130,7 @@
     }
    ]
   }
- }
+ },
+ "margin": 1.3,
+ "sure_inliers": 100
 }

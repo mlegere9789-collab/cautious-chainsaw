@@ -159,7 +159,7 @@ ROWS.append(dict(
 # ------------------------------------------------------------------------------------------------------------------------------------------------ T1-046
 ROWS.append(dict(
     id='T1-046', verdict='corrected',
-    claim=claim('Hanover fight: about two hours, from about noon (Richmond, Hammond) or 10 a.m. (Stuart); the 6th Michigan fights its first action there',
+    claim=claim('Hanover fight: about two hours, from about noon (Richmond, Hammond) or 10 a.m. (Stuart); the 6th and 7th Michigan are engaged there',
                 'Kilpatrick\'s division: Farnsworth\'s brigade (1st Vermont, 1st West Virginia, 18th Pennsylvania, 5th New York), Custer\'s brigade (6th and 7th Michigan; 1st Michigan supporting Battery M) against Stuart\'s column', 'Hanover, Pa. (the Forney farm is not named in the OR)',
                 'Jun 30: the fight lasted about two hours; its end is about 12:00 if it began about 10 a.m. (Stuart), about 14:00 if it began about noon (Richmond, Hammond)', 'Kilpatrick OR27-1-R359 p.986; Richmond OR27-1-R362 p.1005; Hammond OR27-1-R363 p.1008; Custer OR27-1-R361 p.998',
                 'Kilpatrick: a fight of about two hours in which the whole command was engaged at different times; with the starts of about 10 a.m. (Stuart) and about noon (Richmond, Hammond) the end falls between about noon and about 14:00. Custer: the 6th Michigan, with the 5th, was at Littlestown, then went to Hanover, met the enemy\'s skirmishers, drove them to their guns and fought a sharp engagement against odds; the 7th Michigan was engaged at Hanover and the 1st Michigan supported Battery M without loss. '
@@ -231,8 +231,8 @@ ROWS.append(dict(
 ROWS.append(dict(
     id='T1-048', verdict='unsupported',
     claim=claim('Cavalry Corps medical director Surgeon G. L. Pancoast is documented; a First Division hospital at the Presbyterian Church on Jun 30 is not documented (a commemorative tablet of the Cavalry Corps hospital stands in front of that church)',
-                'Cavalry Corps medical staff (1st Division); Surg. G. L. Pancoast, medical director', 'Gettysburg, the Presbyterian Church on Baltimore Street and nearby', 'Jun 30 midday (the date is not documented)', 'Pleasonton OR27-1-R336 p.918; Lowell OR27-1-R378 p.1046; NPS list of monuments, markers and tablets (1932)',
-                'Surgeon G. L. Pancoast was the medical director of the Cavalry Corps (staff list) and made arrangements for the wounded at Aldie (Lowell). A Cavalry Corps hospital tablet is listed "in front of the Presbyterian Church, Gettysburg" by the National Park Service monuments list; that places the commemoration, not a hospital on Jun 30. '
+                'Cavalry Corps medical staff (1st Division); Surg. G. L. Pancoast, medical director', 'Gettysburg, the Presbyterian Church on Baltimore Street and nearby', 'Jun 30 midday (the date is not documented)', 'Pleasonton OR27-1-R336 p.918; NPS list of monuments, markers and tablets (1932)',
+                'Surgeon G. L. Pancoast was the medical director of the Cavalry Corps (staff list). A Cavalry Corps hospital tablet is listed "in front of the Presbyterian Church, Gettysburg" by the National Park Service monuments list; that places the commemoration, not a hospital on Jun 30. '
                 'No passage read puts a First Division hospital at the Presbyterian Church on Jun 30 or at any time before the battle. The hospital is shown as an inferred scene only, with its date marked as a gap.',
                 'inferred', '1863-06-30T00:00', '1863-06-30T23:59', marking='Pancoast\'s office: documented; the hospital at the church on Jun 30: gap (commemoration only)'),
     subs=[
@@ -246,7 +246,7 @@ ROWS.append(dict(
     },
     scenarios=[],
     remains=['a First Division hospital at the Presbyterian Church on Jun 30 (and the date and the First Division attribution of any hospital there)'],
-    searched=['OR vol.27 pt.1 regex Pancoast: 3 hits (R336 p.918 staff list, R378 p.1046, index); R016 (Letterman) read for the cavalry hospital: only four ambulances left for the Cavalry Corps',
+    searched=['OR vol.27 pt.1 regex Pancoast: 3 hits (R336 p.918 staff list; p.1046, where he is named for arrangements for the wounded in an earlier action, not Gettysburg; the index); R016 (Letterman) read for the cavalry hospital: only four ambulances left for the Cavalry Corps',
               'Library regex Presbyterian in 16 texts (Pennsylvania, New York, BL-3, Letterman, Hospital Scenes, Pierce, Jacobs, Michigan, Adams Sentinel and Compiler Jul 1863): no hit about a cavalry hospital; the hits are the Nov 19 1863 visit of Lincoln and unrelated passages',
               'NPS texts under tmp/library/web/nps (another workstream\'s acquisition, acquired_3.json): the Cavalry Corps tablet in front of the Presbyterian Church (NPS-MON-LOC-1932 and 1993, NPS-BOUNDARY-1988); no text states a Jun 30 hospital',
               'HMDB marker (the seed source HOSP-17939): not retrieved; other shards recorded HTTP 403 from that host (not circumvented)'],

@@ -1,4 +1,4 @@
-// The vegetation of July 1863 as data and as a pure function of time (requirement R20, gate Q21). No DOM, no GPU, no clock, no Math.random: every value below is a function
+// The vegetation of July 1863 as data and as a pure function of time (requirement R20, gate Q21). No DOM, no GPU, no wall clock, no unseeded random numbers: every value below is a function
 // of the data file (data/vegetation.json), the minute of the theatre clock and the viewer's choices. Tested in node (tests/vegetation.test.mjs).
 //
 //   stateAt(model, unit, tMin, choices)    the state of one unit (a field cell, a woodlot, an orchard, a tree cluster ...) at a minute: crop and stage, colour and height as
@@ -105,7 +105,8 @@ export function cropState(model, u, tMin, choices) {
   const te = tMin - p.ripe_off_d * DAY;
   const [a, b, f] = bracket(c.keys, te);
   const colorRange = [lerpArr(a.color[0], b.color[0], f), lerpArr(a.color[1], b.color[1], f)], hRange = lerpArr(a.h, b.h, f);
-  const stand = { stage: a.stage, color: lerpArr(colorRange[0], colorRange[1], p.color_u), colorRange, h: hRange.map(v => v * p.h_scale), hRange, tier: weakest(a.tier, b.tier), why: a.why };
+  const docNow = [a, b].find(k => k.doc_min && tMin >= k.doc_min[0] && tMin <= k.doc_min[1]);        // a keyframe a source speaks to holds its own tier inside the dates the source covers
+  const stand = { stage: a.stage, color: lerpArr(colorRange[0], colorRange[1], p.color_u), colorRange, h: hRange.map(v => v * p.h_scale), hRange, tier: docNow ? docNow.tier : weakest(a.tier, b.tier), why: a.why };
   const cutT = cutMinute(model, u, choices);
   if (!(tMin > cutT) || !c.cut) return { season: 'window', ...stand, cut: 0, cutAt: cutT };
   const cut = c.cut, f2 = smooth((tMin - cutT) / DAY);
@@ -165,10 +166,12 @@ export function fruitAt(model, u, tMin) {
  */
 export function stateAt(model, unit, tMin, choices) {
   const u = model.unit(unit); if (!u) throw new Error('no unit ' + unit);
-  const dm = damageAt(model, u, tMin), season = tMin >= SEASON_SPLIT ? 'epilogue' : 'window';
+  const season = tMin >= SEASON_SPLIT ? 'epilogue' : 'window';
+  const dm = damageAt(model, u, tMin); if (season === 'epilogue') dm.trample = 0;                 // the crop of 1863 is gone by November: a trampled field is stubble, plough or sprouts like the rest
   const out = { id: u.id, cls: u.cls, name: u.name, t: tMin, season, tiers: {}, claims: u.claims, events: dm.events };
   let lrtNote = null;
-  if (u.crop) {
+  if (u.crop && !model.cal.crops[u.crop]) out.problems = [`crop ${u.crop} is not in the calendar`];
+  else if (u.crop) {
     const cs = cropState(model, u, tMin, choices);
     const lodge = season === 'window' && cs.cut < 0.5 ? lodgingAt(model, u, tMin, choices) : 0;     // only a standing crop can be laid flat by the rain
     const flat = clamp(dm.trample, 0, 1);
@@ -286,6 +289,7 @@ export function checkVegetation(model, opts = {}) {
     for (const choices of choicesList) {
       for (const u of model.units) {
         const s = stateAt(model, u, t, choices); checked++;
+        if (s.problems) { for (const p of s.problems) fail(u, t, p); continue; }
         if (!s.tier) { fail(u, t, 'no tier'); continue; }
         for (const k of Object.keys(s.tiers)) if (!TIERS.includes(s.tiers[k])) fail(u, t, `tier of ${k} is ${s.tiers[k]}`);
         if (s.ground) {
@@ -317,7 +321,7 @@ export function checkVegetation(model, opts = {}) {
         // nothing before its time: no damage before its event starts
         for (const [eid] of u.ev || []) { const e = model.events.get(eid); if (t < e.from_min && ((e.kind === 'trample' && s.ground && s.ground.trample > 1e-9 && s.events.includes(eid)) || (e.kind === 'strip' && s.trees && s.trees.strip > 1e-9 && s.events.includes(eid)))) fail(u, t, `damage of ${eid} before ${e.from}`); }
         // trampling never decreases with time (the order of asking is the sampled order, ascending)
-        if (choices === choicesList[0] && s.ground) { const k = u.id, last = prevTr.get(k); if (last != null && s.ground.trample < last - 1e-9) fail(u, t, 'trampling went down with time'); prevTr.set(k, s.ground.trample); }
+        if (choices === choicesList[0] && s.ground && s.season === 'window') { const k = u.id, last = prevTr.get(k); if (last != null && s.ground.trample < last - 1e-9) fail(u, t, 'trampling went down with time'); prevTr.set(k, s.ground.trample); }
       }
     }
   }

@@ -119,3 +119,7 @@ Full machine-readable table: `kit_specs.json -> pdf_open_items_G1_G21` (each wit
 | G21 conflicts | CONF-M1861-BARREL, CONF-P53-IMPORT, CONF-SHARPS-CAL, DISP-BERDAN-GREEN-BLUE, CONF-BERDAN-ENTRY-TEST, CONF-SPENCER-PROD/RATE, UA-6MN-FLAG ("6th Minnesota" not assigned), CONF-LOADED-ARMS |
 
 B.6.14.10 and B.6.15.9 gap rows are stored in `artillery_batteries.json -> gaps_B6_14_10` and `cavalry_units.json -> gaps`.
+
+## 9. Evidence pass and overrides (2026-11-13)
+
+The tables of this folder were transcribed from the PDF; the evidence pass checks them against the Official Records and the printed state volumes. Plan, contract, groups and tools: `evidence/PLAN.md`. Evidence lines are written per research group (`evidence/<group>.jsonl`), validated by `python -I tools/bt/kit_evidence_check.py`, compiled by `python -I tools/bt/kit_overrides.py compile` into `overrides/<group>.json`, and applied inside `python tools/bt/build_kit_data.py` after the base tables are built; with no override file the build is unchanged. The verified order-of-battle and battery tables for gates Q01, Q14 and Q20 are written by `python -I tools/bt/kit_verified.py build`. `python -I tools/bt/kit_overrides.py status` reports a committed table that differs from what the build makes. Tests: `python -I tools/bt/kit_evidence_selftest.py`.

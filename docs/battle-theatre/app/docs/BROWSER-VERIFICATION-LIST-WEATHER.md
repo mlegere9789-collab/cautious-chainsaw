@@ -1,8 +1,8 @@
 # Browser verification list: weather3d + fx-host (sky, clouds, stars, mist, wet ground, effects wiring)
 
-What exists: GLSL for the weather pass and the fx3d sprites **compiled and ran on SwiftShader (software WebGL2, Chrome headless, `nice -n 10`, one browser at a time)** through `app/tests/weather3d-shots.mjs`. What nobody has seen: a real GPU. **No real-GPU timing was taken and none is claimed.** Rule 1 of `GOVERNANCE/briefs/bt-visuals-common.md`: an item stays open until it is ticked on the hardware named.
+What exists: GLSL for the weather pass and the fx3d sprites **compiled and ran on SwiftShader (software WebGL2, Chrome headless, `nice -n 10`, one browser at a time)** through `app/tests/weather3d-shots.mjs`; and (2026-11-13) the WGSL port, built and drawn on **Chrome's software WebGPU adapter** through `app/tests/weather3d-gpu.mjs` (no validation error, no compiler message, pictures seen, parity with WebGL2 measured: `WEATHER3D-WEBGPU-NOTES.md`, evidence in `app/tests/results/weather3d-webgpu/`). What nobody has seen: a real GPU. **No real-GPU timing was taken and none is claimed.** Rule 1 of `GOVERNANCE/briefs/bt-visuals-common.md`: an item stays open until it is ticked on the hardware named.
 
-Common set-up: Chrome with `?api=webgl2` and (when the WebGPU port exists) WebGPU; 1920 x 1080 and 390 x 844 emulation; `?history=real`; fx-host installed as in `FX-HOST-CONTRACT.md`; HUD hidden for screenshots; each shot is looked at (Read), and what was seen is written next to it.
+Common set-up: Chrome with `?api=webgl2` and with `?api=webgpu` (the WebGPU port exists; section E); 1920 x 1080 and 390 x 844 emulation; `?history=real`; fx-host installed as in `FX-HOST-CONTRACT.md`; HUD hidden for screenshots; each shot is looked at (Read), and what was seen is written next to it.
 
 ## A. Compile and parity on real drivers
 
@@ -43,6 +43,21 @@ Common set-up: Chrome with `?api=webgl2` and (when the WebGPU port exists) WebGP
 
 | id | item |
 |---|---|
-| W-D1 | WebGPU render path for the weather pass (and the fx3d WGSL sprites) so `host.api === 'webgpu'` draws; EG-W3D-G08. |
+| W-D1 | **Built and validated on a software adapter (2026-11-13); real hardware open (section E).** WebGPU render path for the weather pass and the fx3d WGSL sprites so `host.api === 'webgpu'` draws; EG-W3D-G08 stays open until section E is ticked. |
 | W-D2 | Rain streaks and cloud shadows on the ground (the shell's 2D rain canvas stays until then). |
 | W-D3 | The host wiring of `FX-HOST-CONTRACT.md` section 1 and 3 (init, per-frame update, anim placement, near sets, segment surfaces). |
+
+## E. The WebGPU path on real hardware (the WebGPU path itself was run only on a software adapter)
+
+Set-up: Chrome (and Safari, Firefox where WebGPU exists) on the machine named in the row; from `docs/battle-theatre`: `node app/tests/weather3d-gpu.mjs <out> webgpu --real-canvas`, the same with `webgl2`, then `node app/tests/weather3d-gpu-compare.mjs <out>`; `summary.json` of each run lists validation errors, uncaptured errors, compiler messages, scrub purity. Each montage is looked at (`compare/<case>.png`: WebGL2, WebGPU, difference x4) and what was seen is written next to it.
+
+| id | check | pass |
+|---|---|---|
+| W-E1 | On Intel Arc, NVIDIA, AMD, Apple (Chrome and Safari), a mid-range Android phone: `diagInit.gpu` has `ok`, `weatherOk` and `fxOk` true and empty `log` and `warnings`; `diagEnd.gpuErrors` and `diagEnd.wgsl` have no entry; no case has a `validation` text. | empty |
+| W-E2 | Picture parity on each device: `compare/summary.json` mean absolute difference per case, WebGL2 against WebGPU, at 1920 x 1080 (`--w=1920 --h=1080`); the two pictures looked at for sky, stars, moon, cloud, mist, wet ground, smoke, flash light, dust, fire. Software figure for reference: 0.33 to 0.46 of 255. | each case within a few levels; no layer missing or doubled; no halo at the far plane |
+| W-E3 | The shell itself, `?api=webgpu` at 1920 x 1080 and 390 x 844: weather and smoke visible, no console error, `fxHost.instance().gpu.log` and `.warnings` empty, ribbon text as in `requests/bt-renderer-webgpu-weather-shell-text.md`. `?history=real` with the crowd (the crowd's own WebGPU item, `BROWSER-VERIFICATION-LIST-CROWD.md` 2). | as stated |
+| W-E4 | GPU time of the pass: `fxHost.instance().gpu.stats.passMs` (timestamp query) over 600 frames at 1080p, desktop tier, a quiet sky and a dense cannonade; the same with `drawWeather:false` / `drawFx:false` for the split. (The software figure is not a GPU figure.) | within the effects share of gate G1; report median and p95 |
+| W-E5 | A device without `float32-filterable` (the height texture is `r32float`, sampled with a filtering sampler by the prototype's terrain and by this pass): what happens, and that the layer reports it (`gpu.log`) and hands the sky back to the prototype. | no crash; stated |
+| W-E6 | Safari and Firefox: a depth texture bound as a sampled texture and as the read-only depth attachment in the same pass; compile of the WGSL (dynamic index into a uniform array of 16 `vec4f`, `textureSampleLevel` in branches). | draws; no error |
+| W-E7 | Canvas presentation: the real canvas (no stand-in) shows the same picture as the read-back; `page.screenshot` of the page equals the read-back within the compositor's rounding. (On the software adapter the real canvas cannot be used at all: `WEATHER3D-WEBGPU-NOTES.md` section 4.) | equal |
+| W-E8 | The optional GPU-cull compute shader (`WGSL_COMPUTE`, now one workgroup of 256 threads): wire it (indirect draws) and compare its sprite counts and picture with the CPU cull, or leave it out and say so. | compared, or stated as not used |

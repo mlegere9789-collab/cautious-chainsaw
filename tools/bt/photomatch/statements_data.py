@@ -23,6 +23,8 @@ add(id='PS-LOC-2014646002-N2', src='LOC-2014646002', quote="which are shown in t
     says="Cemetery Hill and Culp's Hill are shown beyond the town in the background (caption continues)", prec='dir', ident='record id')
 add(id='PS-LOC-2018671576-N', src='LOC-2018671576', quote="Caption from negative sleeve: Gettysburg from the Cemetery. July 1863.", loc=['2018671576'], res=['cwpb.00084'],
     says="the negative sleeve names the cemetery as the place of view and gives July 1863; which cemetery (Evergreen or the National Cemetery) is not stated", prec='place', ident='record id')
+add(id='PS-LOC-2018666300-T', src='LOC-2018666300', quote="The cemetery gatehouse", loc=['2018666300'], res=['cwpb.01640', 'cwpb.01639'], says="the Evergreen Cemetery gatehouse; no camera position in the record (the NPS adds that Brady photographed it about two weeks after the battle: PS-TN-BF3)", prec='none', ident='record id')
+add(id='PS-LOC-2018670702-T', src='LOC-2018670702', quote="The cemetery gatehouse", loc=['2018670702'], res=['cwpb.01642', 'cwpb.01641'], says="the Evergreen Cemetery gatehouse (Gardner); no camera position in the record", prec='none', ident='record id')
 add(id='PS-LOC-2018666302-T', src='LOC-2018666302', quote="Breastworks on Little Round Top; Round Top in distance", loc=['2018666302'], res=['cwpb.04001'],
     says="camera on Little Round Top, Round Top (Big Round Top) in the distance (title from Milhollen and Mugridge 1977, LOC)", prec='place+dir', ident='record id')
 add(id='PS-LOC-2018670708-N', src='LOC-2018670708', quote="Caption from negative sleeve: Big Round Top from entrenchments on Little Round Top. Gettysburg, Pa.", loc=['2018670708'], res=['cwpb.01654', 'cwpb.01653'],
@@ -66,7 +68,7 @@ add(id='PS-NPS-CP3-29', src='NPS-COMMON-PRIDE-3', quote=["Scene looking northwar
 add(id='PS-NPS-BRIEN-9', src='NPS-BRIEN-FARM', quote="One photograph was taken east of the Brien house looking west and clearly shows the east side of the house, most of its southern front, the bake oven",
     loc=[], says="one of two photographs thought to be by Brady or his staff was taken east of the Brien house looking west (shows the east side of the house, most of its south front and the bake oven)", prec='place+dir+ref',
     ident='caption only', cand=['2018666298', '2012647702'])
-add(id='PS-NPS-HSMCP-139', src='NPS-HS-MCPHERSON', quote="This photograph was taken from a point just east of the quarry and looks toward the Herbst", loc=['2012647706'],
+add(id='PS-NPS-HSMCP-139', src='NPS-HS-MCPHERSON', quote=["Matthew Brady photograph of McPherson Farm and Herbst Woods, looking east-southeast (on or about July 15, 1863).", "This photograph was taken from a point just east of the quarry and looks toward the Herbst"], loc=['2012647706'],
     says="Brady photograph no. 5 of the McPherson farm and Herbst Woods (looking east-southeast, on or about July 15, 1863) was taken from a point just east of the quarry looking toward the Herbst woodlot", prec='place+dir+ref',
     ident='caption only (the NPS CLR First Day Fig. 0.1 cites the same view as LOC ppmsca 32840, record 2012647706; two descriptions of one view, not proven the same print)', cand=['2012647706'])
 add(id='PS-NPS-HSMCP-139b', src='NPS-HS-MCPHERSON', quote="The cupola of the Lutheran Theological Seminary rises in the distance.", loc=['2012647706'],
@@ -80,6 +82,10 @@ add(id='PS-NPS-CLR1D-146', src='NPS-CLR-1STDAY', quote=["Figure 1.46. Three Conf
 add(id='PS-NPS-CLR1D-151', src='NPS-CLR-1STDAY', quote=["Figure 1.51. The battle-damaged house and grounds of Mary Thompson", "that served as Lee’s headquarters, looking north across the turnpike", "from the James Thompson house, ca. July 1863."],
     loc=['2018666297'], says="Lee's headquarters (Mary Thompson house) photograph, looking north across the turnpike from the James Thompson house, about July 1863 (LOC digital id cwp2003000189, which the record lists as another control number)", prec='place+dir+ref',
     ident='id in the source (LOC control number cwp2003000189 appears in record 2018666297)')
+add(id='PS-NPS-CLR1D-152', src='NPS-CLR-1STDAY', quote=["Figure 1.52. A trampled corn field and destroyed fences on the McPherson", "Farm, with the battle-damaged trunks in the woodlot of the Herbst Farm to", "the right, looking east toward Seminary Ridge, July 1863. (Matthew Brady", "photograph, Gettysburg National Military Park, 2B2001)"],
+    loc=[], says="a Brady photograph owned by the park (GNMP 2B2001): the McPherson farm corn field and the Herbst woodlot at the right, looking east toward Seminary Ridge, July 1863", prec='place+dir+ref', ident='caption only: an NPS-owned print, not a catalogued LOC record')
+add(id='PS-NPS-ROTV1-111', src='NPS-CLR-ROT-V1', quote="The eastern fence [ID 1414] is partially visible in an 1863 photograph looking northeast from the McPherson Barn.", loc=[],
+    says="an 1863 photograph was taken looking northeast from the McPherson barn (it shows part of the eastern fence of McPherson Field 8)", prec='place+dir', ident='caption only: the photograph is not named')
 add(id='PS-NPS-CLRROTV2-149', src='NPS-CLR-ROT-V2', quote="Figure 149. Detail of sawn board nailed fence west of the Lutheran Seminary viewed from the Foulk Farm, 1863.", loc=['2018670707'], res=['cwpb.01650'],
     says="LOC cwpb 01650 (right half of record 2018670707) shows the fence west of the Lutheran Seminary viewed from the Foulk Farm, 1863", prec='place+ref', ident='id in the source')
 add(id='PS-NPS-CLRCEM-126', src='NPS-CLR-CEMETERY', quote=["Figure 1.26. Stone fences along Baltimore Pike reconfigured as breastworks, looking north from the roof of the Evergreen Cemetery lodge shortly after the battle, July 1863."],
@@ -142,3 +148,15 @@ add(id='PS-TN-BF3', src='NPSWEB-TN-BF', quote="Photographer Matthew Brady photog
     says="Brady photographed the Evergreen Cemetery gatehouse about two weeks after the battle (the NPS picture matches record 2018666300)", prec='none', ident='image match (cwpb.01640, 59 inliers)')
 add(id='PS-TN-BF5', src='NPSWEB-TN-BF', quote="This modern day picture looks north along the Taneytown Road.", loc=['2018666296'], res=['cwpb.00887'],
     says="the modern picture of the Leister house (Meade's headquarters) looks north along the Taneytown Road; the NPS states that modern pictures are from the same location as the originals", prec='place+dir', ident='image match (cwpb.00887, 718 inliers)')
+add(id='PS-TN-BF3-MOD', src='NPSWEB-TN-BF', quote="Despite heavy fighting in the area, the gatehouse suffered only moderate damage.", loc=['2018666300'], res=['cwpb.01640'],
+    says="the Evergreen Cemetery gatehouse suffered only moderate damage despite heavy fighting in the area (NPS caption of the Brady photograph)", prec='none', ident='image match (cwpb.01640, 59 inliers)')
+add(id='PS-TN-BF3-JUL2', src='NPSWEB-TN-BF', quote="suffered damage from the fighting that raged in front of it on the evening of July 2.", loc=['2018666300'], res=['cwpb.01640'],
+    says="the gatehouse sheltered wounded and suffered damage from the fighting that raged in front of it on the evening of July 2", prec='none', ident='image match (cwpb.01640, 59 inliers)')
+# ---------------------------------------------------------------- timeline rows that these statements support (written to GOVERNANCE/timeline_corrections/web-photomatch.jsonl)
+TL = [
+ dict(id='T3-064', verdict='partially_supported',
+      corrected_claim="Stewart's Battery B, 4th U.S. Artillery: its guns were covered by lunettes in front of the cemetery gate (Gardner's caption of the gate photograph); the Evergreen Cemetery gatehouse suffered moderate damage in the fighting of the evening of July 2 (NPS). The photographs of the gatehouse: LOC gives only July 1863; the NPS says Brady photographed it about two weeks after the battle, which does not agree with the row's 'dated Jul 7' for every photograph of the gatehouse and lunette area.",
+      statement_ids=['PS-LOC-2012647705-N', 'PS-TN-BF3-MOD', 'PS-TN-BF3-JUL2', 'PS-TN-BF3'],
+      unsupported=["the window 'Jul 3 morning-noon' for the battery's position: Gardner's caption says 'Height of battle tide' without a date", "the date Jul 7 for the gatehouse photographs: no source read gives a day; the NPS gives about two weeks after the battle for the Brady photograph", "builders and dimensions of the lunettes (already marked a gap in the row)"]),
+]
+

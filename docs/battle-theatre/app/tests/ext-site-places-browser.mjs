@@ -1,16 +1,17 @@
 // Browser harness (not a gate): the two added modules of the site's places (src/ext/monuments.mjs, src/ext/tour.mjs) in the real page, on WebGL2 with software GL.
 // The real list src/ext/index.mjs and the real modules are loaded (nothing is routed or faked). It walks: a desktop visit (the layer is off at entry, the switch, the marks, a picked
 // memorial and its card, a memorial beyond the loaded ground, a tap on a mark, the tour stops, the clock never moved, Back, a second entry) and a phone visit (touch, 390 px wide).
-//   node docs/battle-theatre/app/tests/ext-site-places-browser.mjs [outDir] [light|full]
+//   node docs/battle-theatre/app/tests/ext-site-places-browser.mjs [outDir] [light|full|look]
 // light (default): ?crowd=off&structures=off&fx=off, the quick look. full: the shell as a viewer gets it (figures, structures, effects), slow on software GL.
+// look: the shell as a viewer gets it, but only a short walk (layer on over Cemetery Ridge, a picked memorial, a tour stop, Back) for the screenshots: the marks over the real scene.
 // Writes outDir/results.json and screenshots (to be looked at, not asserted). Exit code 1 when a check fails. One browser at a time on a shared machine: run it through tools/horde/bench.sh.
 import fs from 'node:fs'; import path from 'node:path'; import { fileURLToPath } from 'node:url';
 import { chromium } from '../../../../node_modules/playwright-core/index.mjs';
 import { serve } from '../tools/serve.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), REPO = path.resolve(here, '../../../..');
-const out = path.resolve(process.argv[2] || path.join(REPO, 'tmp/ext-site-places-browser')), mode = process.argv[3] === 'full' ? 'full' : 'light', port = +process.env.BT_PLACES_PORT || 10827; fs.mkdirSync(out, { recursive: true });
-const Q = mode === 'full' ? 'api=webgl2' : 'api=webgl2&crowd=off&structures=off&fx=off&nearR=12&midR=60', WAIT = 900000;
+const out = path.resolve(process.argv[2] || path.join(REPO, 'tmp/ext-site-places-browser')), mode = process.argv[3] === 'full' ? 'full' : process.argv[3] === 'look' ? 'look' : 'light', port = +process.env.BT_PLACES_PORT || 10827; fs.mkdirSync(out, { recursive: true });
+const Q = mode === 'full' || mode === 'look' ? 'api=webgl2' : 'api=webgl2&crowd=off&structures=off&fx=off&nearR=12&midR=60', WAIT = 1800000;
 
 const DRIVER_NOISE = /GPU stall due to ReadPixels|GL_CLOSE_PATH_NV|Automatic fallback to software WebGL|powerPreference option is currently ignored/;        // the software GL driver talking about itself (a screenshot reads the canvas back), as tests/lib.mjs
 const results = { mode, query: Q, started: new Date().toISOString(), checks: [], notes: [], shots: [] }; let failed = 0;
@@ -35,6 +36,19 @@ async function session(query, o = {}) {
 const P_URL = '/app/src/ext/site-places.mjs';
 
 try {
+  if (mode === 'look') {
+    // ======================================================== a short walk in the shell as a viewer gets it (figures, structures, effects)
+    const s = await session(Q); const P = s.page; const ms = await s.enter(); results.notes.push(`entry (look, desktop 1280 x 720): ${ms} ms on software GL; not a timing measurement`);
+    const t0 = await P.evaluate(() => window.btApp.state.t);
+    await s.shot('look-01-entry'); await P.evaluate(() => window.btApp.theatre.sitePlaces.memorials.setOn(true));
+    await P.evaluate(async url => { const Pm = await import(url), th = window.btApp.theatre, [x, z] = th.T.xz(-77.2352, 39.8081); th.controls.flyTo(Pm.poseAround(th.T, x, z, { dist: 240, height: 95 }), 0); }, P_URL); await s.frames(6); await s.shot('look-02-layer-on-cemetery-ridge');
+    await P.evaluate(() => window.btApp.theatre.sitePlaces.memorials.select(46)); await P.evaluate(() => window.btApp.theatre.sitePlaces.memorials.flyTo(46)); await s.settle(); await s.shot('look-03-picked-pennsylvania');
+    await P.evaluate(() => window.btApp.theatre.setView('overview', true)); await s.settle(); await s.shot('look-04-overview');
+    await P.evaluate(() => { const m = window.btApp.theatre.sitePlaces.memorials; m.select(-1); m.setOn(false); window.btApp.theatre.sitePlaces.tour.flyTo(8); }); await s.settle(); await s.shot('look-05-tour-stop-8-layer-off');
+    const e = await P.evaluate(() => ({ t: window.btApp.state.t, hooks: window.btApp.theatre.host._hooks.length, marks: !!document.querySelector('#xm-marks') })); check('the short walk: the clock never moved, the layer is off again, no canvas of the memorials is left', e.t === t0 && e.marks === false, { t0, e });
+    check('the short walk: no console error, no warning, no page error, no failed request', s.log.errors.length === 0 && s.log.warnings.length === 0 && s.log.pageerrors.length === 0 && s.log.failed.length === 0, s.log);
+    await s.leave(); await s.ctx.close();
+  } else {
   // ======================================================== visit 1: a desktop
   let s = await session(Q); const P = s.page; const ms1 = await s.enter(); results.notes.push(`entry (${mode}, desktop): ${ms1} ms on software GL; not a timing measurement`);
   const a = await P.evaluate(() => { const th = window.btApp.theatre, sp = th.sitePlaces || {}; return { api: window.btApp.api, ext: window.btApp.ext.status().filter(x => ['monuments.mjs', 'tour.mjs'].includes(x.path)).map(x => x.path + ':' + x.state + ':' + (x.error || '')), index: window.btApp.ext.index.state, problems: window.btApp.ext.problems().filter(x => /monuments|tour/.test(JSON.stringify(x))).length,
@@ -174,6 +188,7 @@ try {
   await PP.click('#xt-list .item[data-stop="8"]'); await s.settle(); await PP.waitForTimeout(200); await s.shot('13-phone-tour-stop-8');
   check('the whole phone visit: no console error, no warning, no page error, no failed request', s.log.errors.length === 0 && s.log.warnings.length === 0 && s.log.pageerrors.length === 0 && s.log.failed.length === 0, s.log);
   await s.leave(); await s.ctx.close();
+  }
 } catch (e) { check('the harness ran to the end', false, String(e.stack || e).slice(0, 1200)); }
 finally { save(); await br.close().catch(() => {}); await new Promise(r => srv.close(r)); }
 console.log(`${results.checks.length - failed} of ${results.checks.length} checks passed (${mode}); results: ${path.join(out, 'results.json')}`);

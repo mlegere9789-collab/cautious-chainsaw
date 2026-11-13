@@ -177,7 +177,7 @@
   {
    "id": "FX-G16",
    "title": "Nothing seen",
-   "description": "Rule for this round: no browser, no GPU. The shader code (WebGL2 and WebGPU), the look, the performance and the lighting are unverified.",
+   "description": "Software rendering only (SwiftShader, this machine has no GPU). The WebGL2 and WebGPU shader code compiles and draws on the software adapters, with no compiler message or validation error on WebGPU, the two APIs agree to within 0.46 of 255 (mean absolute), and the pictures were looked at (2026-11-13, app/docs/WEATHER3D-WEBGPU-NOTES.md). The look, the performance and the lighting on a real GPU are unverified, and the GPU-cull compute shader is not wired or compared with the CPU cull.",
    "substitute": "BROWSER-VERIFICATION-LIST-FX3D.md lists every check.",
    "tier": "open gap",
    "requirement_ids": [

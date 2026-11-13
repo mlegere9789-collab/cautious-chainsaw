@@ -212,6 +212,15 @@ test('a memorial with a year says so on its card with the report, the page and t
   for (const m of idx.items) assert.deepEqual(markupProblems(P.memorialCardHTML(m, tierMark)), [], m.name);
 });
 
+test('the words a visitor reads (every card, row, panel, notice, label and announcement, and the tour\'s) hold none of the words the page copy checks of the browser specs forbid', () => {
+  const FORBIDDEN = /\b(AI|A\.I\.|Claude|Anthropic|LLM|language model|generated|automated|subagent|agent|prompt)\b/i, strip = h => String(h).replace(/<[^>]*>/g, ' '), idx = P.buildIndex(mem, T, { years }), tour = readJSON('site-tour-stops.json'), B = P.tourBookmarks(tour, T), texts = [];
+  texts.push(...Object.values(P.COPY), P.LAYER.title, P.TOUR.title, P.noticeHTML(idx.counts, tierMark), P.memorialPanelHTML(idx, { on: true, positions: 'list', integrity: { checked: false }, list: { q: '', side: 'all', group: 'all', where: 'all' } }, tierMark), P.tourPanelHTML(B, 3, tierMark), P.tourRowsHTML(B, 3));
+  for (const it of idx.items) texts.push(P.memorialCardHTML(it, tierMark), P.memorialRowsHTML([it], 0, 1, -1), it.lbl, P.memorialSay(it), P.groundLine(it));
+  for (const m of P.marksFor(idx, { on: true, selected: -1 })) texts.push(m.label); for (const b of B) texts.push(P.tourSay(b), P.tourPinText(b));
+  for (const t of texts) assert.doesNotMatch(strip(t), FORBIDDEN, strip(t).slice(0, 120));
+  assert.ok(texts.length > 1500);
+});
+
 // ---------------------------------------------------------------- the module in a stand-in page
 async function visit(fn, o = {}) {
   const doc = installFakeDocument(), env = await standIn(o); overrideData(o.override); try { return await fn(env, doc); } finally { overrideData(null); doc.restore(); }

@@ -49,7 +49,8 @@ def main():
             'medium': it.get('medium_brief') or (it.get('mediums') or [{}])[0].get('medium'), 'formats': [f['title'] for f in it.get('formats', [])],
             'notes_loc': [n for n in notes if not n.startswith(('Forms part', 'General information', 'Credit line', 'Selected Civil', 'Corresponding print'))],
             'rights_information': it.get('rights_information'),
-            'licence_basis': 'LOC record states: no known restrictions on publication (PD basis: 19th-century photograph)' if 'No known restrictions' in (it.get('rights_information') or '') else 'UNCLEAR: not used',
+            'licence_basis': ('LOC record states: no known restrictions on publication (PD basis: 19th-century photograph)' if 'No known restrictions' in (it.get('rights_information') or '') else
+                              'LOC rights field is empty for this record; a 19th-century print (made before 1929, so public domain in the United States by age: an inference, not a LOC statement); used only for viewing in the photo-match, in no shipped file'),
             'in_scope_july_1863_terrain': True, 'staged_flag': bool(C.STAGED.search(it.get('title') or '')),
             'date_status': 'added by catalogue_additions.py: LOC gives no 1863 year in the date field; the title or subject places the photograph on the July 1863 battlefield (see added_reason); not stated by LOC',
             'added_reason': why, 'image_urls': {'medium': it.get('service_medium'), 'thumb': it.get('thumb_gallery')}})

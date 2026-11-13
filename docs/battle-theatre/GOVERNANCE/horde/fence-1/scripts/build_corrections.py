@@ -149,7 +149,8 @@ def main():
                        or_recheck_found_yes=sum(1 for x in rcl if x['found'] == 'yes'), or_recheck_other=[dict(quote=x['quote'], found=x['found'], note=x['note']) for x in rcl if x['found'] != 'yes'],
                        method='tools/bt/or27_find normalised view; offsets are characters in the raw djvu text (tmp/library/or27)')
         rec = dict(id=rid, shard='fence-1', requirement='R14', fence_relevance=old.get('fence_relevance'), previous_status=old['status'], previous_tier=old['tier'],
-                   verdict=r['verdict'], row_status=r['row_status'], structures_refs=r['structures_refs'], pdf_claim=r['pdf_claim'], corrected_claim=r['corrected_claim'],
+                   verdict=r['verdict'], status=r['row_status'], row_status=r['row_status'], structures_refs=r['structures_refs'], pdf_claim=r['pdf_claim'], corrected_claim=r['corrected_claim'],
+                   tier_summary=dict(__import__('collections').Counter(x['tier'] for x in r['sub_claims'])),
                    sub_claims=[dict(sc=rid + '.' + s['sc'], claim=s['claim'], tier=s['tier'], support=s['support'], citations=s['citations'], note=s['note']) for s in r['sub_claims']],
                    stays_unsupported=r['stays_unsupported'], conflicts_carried=r['conflicts_carried'], register_refs=r['register_refs'], blocked_host=r['blocked_host'],
                    product_consequence=r['product_consequence'], recheck=recheck, lookups=r['lookups'], changes_vs_previous=r['changes_vs_previous'], notes=r['notes'],

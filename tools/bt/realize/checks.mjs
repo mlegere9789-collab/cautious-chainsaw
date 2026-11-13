@@ -58,14 +58,15 @@ export class Runner {
     if (rec.kind === 'not_realized') {
       // the probe must FAIL, with the reasons the record gives; if it passes the row is realized now and the record is stale
       const observed = new Set([...failed.flatMap(r => r.all_codes || [r.code]), ...res.problems.map(p => p.code)]), declared = (rec.missing || []).map(m => m.code);
-      res.realized = false; res.missing = { declared, observed: [...observed], verified: !!failed.length && declared.every(c => observed.has(c)), unverified: declared.filter(c => !observed.has(c)), stale: !failed.length && !res.problems.length };
+      res.realized = false; res.missing = { declared, observed: [...observed], verified: (failed.length > 0 || res.problems.length > 0) && declared.every(c => observed.has(c)), unverified: declared.filter(c => !observed.has(c)), stale: !failed.length && !res.problems.length };
       res.why = res.missing.stale ? 'the probe now passes: the product shows this row; rewrite the record with its real kind' : `not realized: ${(rec.missing || []).map(m => m.detail).join('; ').slice(0, 280)}`;
       if (res.missing.unverified.length) res.why += ` [declared but not observed: ${res.missing.unverified.join(', ')}]`;
       return res;
     }
     res.realized = !res.problems.length && !failed.length && results.length > 0;
     if (res.stale_result_pending != null && res.stale_result_pending !== res.realized) res.stale_result = `the record says realized ${res.stale_result_pending}; the check now says ${res.realized}`;
-    res.why = res.realized ? 'every check holds in the product' : [...res.problems.slice(0, 2).map(p => `${p.code}: ${p.detail}`), ...failed.slice(0, 2).map(r => `${r.type} ${r.code}: ${r.detail}`)].join(' | ').slice(0, 600);
+    if (res.realized && Array.isArray(rec.not_shown) && rec.not_shown.length) res.partial = rec.not_shown;
+    res.why = res.realized ? (res.partial ? 'the checks hold in the product; PARTIAL: ' + rec.not_shown.length + ' part(s) of the row are not shown' : 'every check holds in the product') : [...res.problems.slice(0, 2).map(p => `${p.code}: ${p.detail}`), ...failed.slice(0, 2).map(r => `${r.type} ${r.code}: ${r.detail}`)].join(' | ').slice(0, 600);
     return res;
   }
 

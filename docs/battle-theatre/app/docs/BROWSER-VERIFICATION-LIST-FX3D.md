@@ -15,6 +15,8 @@ Common set-up. Chrome (WebGPU) and Chrome with `?api=webgl2`; 1920 x 1080 and a 
 | A5 | `uCum` as R32F texture, `uEv` as RGBA32F (6 x N) and `uWind` as RG32F upload and `texelFetch` on every target, including iOS Safari and a mid-range Android (WebGL2 float textures without filtering). | renders |
 | A6 | `uExtra.x` exposure floor: with the floor set to 0 the night image goes dark, with 0.34 it does not (proves the clamp is live). | differs as stated |
 
+**Evidence for A2 (2026-11-13, software adapter only):** `WGSL_RENDER` (patched for the hardware depth) and `WGSL_COMPUTE` create their modules on Chrome 153's software WebGPU adapter with no compiler message of any kind; the render pipeline builds and draws every event type of the stand-in plan (musket and cannon fire, shell bursts and ground strikes, falls, a marching column, a fire window); smoke, flash light, road dust and flames were picked out in the pictures, bursts, clods and fall dust only sit in the same frames; the compute pipeline did not build under the default limits (`workgroup_size(1024)`, limit 256) and does now (256 threads x 72 events); nothing of this was run on a real GPU, and the compute result is not compared with the CPU cull. Source: `app/tests/weather3d-gpu.mjs`, `WEATHER3D-WEBGPU-NOTES.md`. A2 stays open for the back-end compile of the real GPUs named in the common set-up.
+
 ## B. What it must look like (screenshots, Q-gates)
 
 Camera heights 1.7 m (eye), 8 m, 40 m unless stated. Compare to the references named; write what was seen next to the shot.

@@ -84,7 +84,7 @@ def build_tables():
                                                       "unit_fields_with_tier": count_fields(inf_units), "pack_piles": len(PACK_PILES), "named_individuals": len(NAMED_OFFICERS), "pdf_open_items": len(GP.GAP_TABLE), "reference_rows": sum(len(v) for v in RF.REFERENCE.values())},
                      cross_files={"weapons": "weapons.json", "artillery": "artillery_batteries.json", "cavalry": "cavalry_units.json"},
                      field_order=["headgear", "coat", "shirt", "trousers", "shoes", "accoutrements", "weapon", "bayonet", "sidearm_sword", "sash", "pack_state", "badge", "flag_or_instrument"],
-                     rule="A field is 'documented' only if it cites at least one non-weak source key AND the PDF does not itself mark the support weak (CLAUDE.md Law cl.4); Wikipedia/forum/blog/auction-only = inferred with weak_source true. tier_printed keeps the PDF word."),
+                     rule="A field is 'documented' only if it cites at least one non-weak source key AND the PDF does not itself mark the support weak (the project Law cl.4); Wikipedia/forum/blog/auction-only = inferred with weak_source true. tier_printed keeps the PDF word."),
         "tuning_parameters": tuning,
         "sources": src_tbl,
         "items": ITEMS,

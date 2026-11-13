@@ -28,11 +28,13 @@ ROWS.append(R(
     C('OR1','R048',"In a few minutes the order was countermanded")],
     note="Not resolved here; both attributions stay selectable (register fence-1-EG-01)."),
   S('c', "Material: rails and stumps, with earth; the Maine adjutant says 'fence rails'.", 'documented', 'supported', [
-    C('OR1','R060',"take a position behind a fence running along the south end"),
+    C('OR1','R045',"threw up a barricade of rails, &c."),
+    C('OR1','R060',"temporary breastwork made of rails, stumps, &c., by the Second Brigade"),
     C('LIB','ME-GB-1898',"By command of General Robinson, the First Brigade hastily threw up a redoubt of earth and fence rails, in a circular form, just in front of the seminary"),
     C('LIB','NY-GB-1900-v2',"temporary breastworks from rails and other movable")],
     note="'Fence rails' is the Maine adjutant's wording (1898); the OR reports say 'rails, stumps, &c.' and 'rails, &c.' without naming the fence they came from. The NY text (104th NY narrative, 1900) has an OCR-garbled word before 'temporary breastworks' ('construction'), so only the clean fragment is quoted; it adds 'employed for a part of the time until afternoon' and 'a little to the west of the building' in the same sentence."),
   S('d', "Place: west edge of the Seminary grove, parallel with the Seminary, about 40 yd down the slope from a battery on the ridge; 'just in front of the seminary'.", 'documented', 'supported', [
+    C('OR1','R060',"take a position behind a fence running along the south end"),
     C('OR1','R060',"through the west edge of the grove, and parallel with the seminary"),
     C('OR1','R036',"Down the slope, some 40 yards in front of this battery"),
     C('LIB','ME-GB-1898',"just in front of the seminary")]),

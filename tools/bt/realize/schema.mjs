@@ -24,6 +24,7 @@
 //     "entities":  { "units": ["id" | { "id", "via" }], "structures": [...], "places": [...], "schedule": ["S-001"], "works": ["E-05"], "cards": ["row ids"] },   every entity the checks use, no more, no less
 //     "checks":    [ { "type": "unit_moves", ... }, ... ],      the assertions (ASSERT below); every one must hold
 //     "place_unspecified": "why",                (optional) a motion or activity row that names no place at all says so here
+//     "not_shown": [ { "words": "...", "why": "..." } ],   (optional, realized kinds) the parts of the row the record does NOT realize, in the row's words; the row is then realized PARTIALLY (RESULTS: partial true) and those parts stay open
 //     "missing":   [ { "code": "unit_not_drawn", "detail": "...", "builder": "units" } ],   kind not_realized only: what is missing; the checks are what WOULD realize it and must FAIL with these codes
 //     "register":  ["EG-..."],                   (optional) open register entries that cover the row meanwhile
 //     "result":    { "realized": true, "why": "...", "digest": "..." },   (optional) written by check.mjs --update; the harness recomputes it every run
@@ -114,6 +115,7 @@ export function validateRecord(rec, ctx) {
     for (const k of Object.keys(a)) if (!known.has(k)) add('assert_unknown_field', `${at} (${a.type}): unknown field "${k}"`);
     if (spec.units && !assertionUnits(a).length && a.type !== 'casualty') add('assert_field', `${at} (${a.type}): "unit" or "units" is required`);
     if (a.type === 'battery_guns' && !assertionUnits(a).length) add('assert_field', `${at}: "unit" or "units" is required`);
+    if (a.type === 'casualty' && !(a.units || []).length) add('assert_field', `${at} (casualty): "units" is required: the units whose losses the row names (an army-wide row names the army: us-aop, cs-anv)`);
     if (a.quantifier != null && !['all', 'any'].includes(a.quantifier)) add('assert_quantifier', `${at}: quantifier is "all" or "any"`);
     if (spec.time) {
       let s = null; try { s = parseSpan(a.t, null); } catch (e) { add('assert_time', `${at}: ${e.message}`); }
@@ -139,6 +141,11 @@ export function validateRecord(rec, ctx) {
     if (rec.kind === 'earthwork_build' && !checks.some(a => a.type === 'work_stage' && a.crew)) add('kind_needs', 'earthwork_build needs a work_stage assertion with "crew": { "units": [...] } (PDF Q08: a work crew in the construction interval)');
   }
   if (rec.kind !== 'not_realized' && KINDS.includes(rec.kind) && checks && /\bNIGHT\b/.test(row.time_cell || '') && !checks.some(a => a.type === 'sky' && a.exposure_min != null)) add('kind_needs', 'a NIGHT row needs a sky assertion with exposure_min (gate Q10: night is night, never black; GATE-SPEC-A K6)');
+  if (rec.not_shown != null) {
+    if (!Array.isArray(rec.not_shown) || !rec.not_shown.length) add('not_shown_bad', '"not_shown" is a non-empty list of { words, why }');
+    else for (const n of rec.not_shown) { if (!n || !n.words || !n.why) add('not_shown_bad', 'each "not_shown" entry needs words (the row\'s own) and why'); else if (!hasQuote(row.claim_text, n.words)) add('quote_not_in_row', `not_shown words "${String(n.words).slice(0, 80)}" are not in the row text`); }
+    if (rec.kind === 'not_realized') add('not_shown_on_not_realized', '"not_shown" belongs on a realized record; a not_realized record uses "missing"');
+  }
   if (rec.kind === 'not_realized') {
     if (!Array.isArray(rec.missing) || !rec.missing.length) add('missing_missing', 'kind not_realized needs "missing": [ { "code", "detail" } ] (what the product lacks)');
     for (const m of rec.missing || []) { if (!m || !m.code || !m.detail) add('missing_bad', 'each "missing" entry needs code and detail'); }

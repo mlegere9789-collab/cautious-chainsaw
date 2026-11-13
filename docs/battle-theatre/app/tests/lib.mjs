@@ -28,6 +28,10 @@ function serveDir(root, port) {
 }
 const portFree = port => new Promise(res => { const s = net.createServer(); s.once('error', () => res(false)); s.listen(port, '127.0.0.1', () => s.close(() => res(true))); });
 export const DIST = process.env.BT_DIST ? path.resolve(process.env.BT_DIST) : null;
+// The packed staging dist withholds the working copies of the register entries by design (tools/bt/pack_theatre.mjs WITHHELD 'register-entries'; app/docs/NETLIFY-STAGING.md, "Dead links": the
+// "Open register entry" links answer 404 in that build; the request to the shell's owner is renderer-register-links-in-staging.md). A spec that opens such a link expects what the build documents:
+// 200 from the source shell, 404 from a packed dist. When the shell stops showing the link in the dist, the spec for that build changes with it.
+export const REGISTER_ENTRY_STATUS = DIST ? 404 : 200;
 let PROBE_URL = 'about:blank';                                      // the capability probe needs a secure context for navigator.gpu: a small file of the last server started (127.0.0.1 is one)
 export async function startServer(port = 10771) {
   const p = (await portFree(port)) ? port : 0, srv = DIST ? await serveDir(DIST, p) : await serve(p), real = srv.address().port; PROBE_URL = `http://127.0.0.1:${real}/app/styles.css`;

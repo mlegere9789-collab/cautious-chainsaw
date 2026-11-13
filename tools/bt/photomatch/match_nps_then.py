@@ -2,13 +2,13 @@
 """Identify which catalogued Library of Congress image each National Park Service 'Then' photograph is (Q16 pose evidence).
 Why: the NPS Then-And-Now pages carry statements about where the camera stood, but they credit 'Library of Congress' without an id. A statement may only be
 attached to a LOC record when the pictures are the same negative, so this script tests that with feature matching (SIFT, ratio test, RANSAC homography) and writes
-the ranked candidates. A match is accepted only with >= MIN_INLIERS inliers; the result is a lead for the person who looks at both images, never a verdict.
+the ranked candidates. A match is accepted only with >= MIN_INLIERS inliers and MARGIN times the inliers of the best other record; the result is a lead for the person who looks at both images, never a verdict.
 Inputs: tools/bt/photomatch/nps_then_now.json (the 'then' files), tmp/photomatch/loc/*_v.jpg (1024 px) or *_r.jpg (640 px) when no large JPEG exists.
 Output: tools/bt/photomatch/nps_then_to_loc.json.   Usage: nice -n 10 python3 -I tools/bt/photomatch/match_nps_then.py [query name ...]   (names like rose-woods#1; with names, only those are re-run and merged into the output)"""
 import json, os, glob, sys, time
 import numpy as np, cv2
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..'))
-LOC = os.path.join(ROOT, 'tmp', 'photomatch', 'loc'); MIN_INLIERS = 25
+LOC = os.path.join(ROOT, 'tmp', 'photomatch', 'loc'); MIN_INLIERS = 45; MARGIN = 1.3; SURE = 100
 cv2.setNumThreads(1)
 sift = cv2.SIFT_create(nfeatures=2500)
 def feats(path, side=1024):
@@ -27,6 +27,12 @@ def match(a, b):
     src = pa[[g.queryIdx for g in good]].reshape(-1, 1, 2); dst = pb[[g.trainIdx for g in good]].reshape(-1, 1, 2)
     H, mask = cv2.findHomography(src, dst, cv2.RANSAC, 6.0)
     return len(good), int(mask.sum()) if mask is not None else 0
+def accept(top):
+    """The best candidate is accepted when it has at least MIN_INLIERS inliers and either SURE inliers (prints of one negative sit in several records and all score high) or MARGIN times the inliers of the best candidate of a DIFFERENT record."""
+    if not top or top[0]['inliers'] < MIN_INLIERS: return []
+    other = max([t['inliers'] for t in top[1:] if t['loc_id'] != top[0]['loc_id']] or [0])
+    ok = top[0]['inliers'] >= SURE or top[0]['inliers'] >= MARGIN * other
+    return [t for t in top if t['inliers'] >= MIN_INLIERS and (t['loc_id'] == top[0]['loc_id'] or t['inliers'] >= SURE)] if ok else []
 def main():
     tn = json.load(open(os.path.join(HERE, 'nps_then_now.json')))
     only = [a for a in sys.argv[1:] if not a.startswith('-')]; prev = {}
@@ -52,7 +58,7 @@ def main():
     for f in glob.glob(os.path.join(ROOT, 'tmp', 'photomatch', 'raw', 'item_*.json')):
         d = json.load(open(f))
         for r in d.get('resources') or []: rec[r['id']] = d['item']['control_number']
-    out = {'_doc': 'Feature-matching leads: which LOC resource each NPS Then photograph is. inliers = RANSAC-consistent SIFT matches; accepted only at >= %d. A lead, to be confirmed by looking at both images.' % MIN_INLIERS, 'min_inliers': MIN_INLIERS, 'queries': dict(prev)}
+    out = {'_doc': 'Feature-matching leads: which LOC resource each NPS Then photograph is. inliers = RANSAC-consistent SIFT matches; accepted only at >= %d inliers and %.1f times the best other record. A lead, to be confirmed by looking at both images.' % (MIN_INLIERS, MARGIN), 'min_inliers': MIN_INLIERS, 'queries': dict(prev)}
     for qn, qp in queries:
         q = feats(qp, side=1024)
         if not q: out['queries'][qn] = {'status': 'no features'}; continue
@@ -62,7 +68,7 @@ def main():
             res.append((inl, n, rid))
         res.sort(reverse=True)
         top = [{'resource': r, 'loc_id': rec.get(r.split('_')[0] if not r.startswith('IMG_') else r) or rec.get(r), 'inliers': i, 'good_matches': n} for i, n, r in res[:5]]
-        out['queries'][qn] = {'nps_then_file': os.path.relpath(qp, ROOT), 'top': top, 'accepted': [t for t in top if t['inliers'] >= MIN_INLIERS]}
+        out['queries'][qn] = {'nps_then_file': os.path.relpath(qp, ROOT), 'top': top, 'accepted': accept(top)}
         print(qn, [(t['resource'], t['inliers']) for t in top[:3]], flush=True)
     json.dump(out, open(outp, 'w'), indent=1)
     print('done', round(time.time() - t0), 's')

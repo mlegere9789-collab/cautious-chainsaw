@@ -7,7 +7,7 @@ Extracts from National Park Service reports (United States government works), ge
 
 ## NPS-BOUNDARY-1988
 
-Boundary Study, Gettysburg National Military Park: Draft Report to Congress / Environmental Assessment (date: see INDEX.md). https://www.npshistory.com/publications/gett/boundary-study-1988.pdf
+Boundary Study, Gettysburg National Military Park: Draft Report to Congress / Environmental Assessment (1988 (the cover letter date is illegible in the text layer; the listing and file name say 1988)). https://www.npshistory.com/publications/gett/boundary-study-1988.pdf
 
 - **Wounded treated at hospitals in buildings, farmhouses and barns** (`NPSX-BOUNDARY-1988-p017-01`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 17
@@ -48,7 +48,7 @@ Boundary Study, Gettysburg National Military Park: Draft Report to Congress / En
 
 ## NPS-CARE-WOUNDED-GUIDE
 
-Care of the Wounded Student Program (date: see INDEX.md). https://www.npshistory.com/publications/gett/care-of-wounded-guide.pdf
+Care of the Wounded Student Program: Teachers' Guide (not stated). https://www.npshistory.com/publications/gett/care-of-wounded-guide.pdf
 
 - **27,000 wounded after the battle; stretcher bearers collected them each evening** (`NPSX-CARE-WOUNDED-GUIDE-p016-01`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 16
@@ -184,7 +184,7 @@ Cultural Landscape Report for Gettysburg National Military Park: Record of Treat
 
 ## NPS-COMMON-PRIDE-2
 
-"A Common Pride and Fame": The Attack and Repulse of Pickett's Division, July 3, 1863 — Part II (date: see INDEX.md). https://www.npshistory.com/publications/gett/common-pride-fame-2.pdf
+"A Common Pride and Fame": The Attack and Repulse of Pickett's Division, July 3, 1863, Part II (1981). https://www.npshistory.com/publications/gett/common-pride-fame-2.pdf
 
 - **11th Corps 2nd Division hospital at the George Spangler farm (Armistead)** (`NPSX-COMMON-PRIDE-2-p184-01`)
   - State date: **1863-07-03** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 184
@@ -194,7 +194,7 @@ Cultural Landscape Report for Gettysburg National Military Park: Record of Treat
 
 ## NPS-HSR-LEISTER-BARN
 
-Historic Structure Report: Physical Fabric Section, Leister Barn, Gettysburg National Military Park, Gettysburg, Pennsylvania (date: see INDEX.md). https://www.npshistory.com/publications/gett/hsr-leister-barn.pdf
+Historic Structure Report: Physical Fabric Section, Leister Barn, Gettysburg National Military Park (not stated in the text layer). https://www.npshistory.com/publications/gett/hsr-leister-barn.pdf
 
 - **Leister barn: signal station and temporary hospital; Leister house Meade's headquarters** (`NPSX-HSR-LEISTER-BARN-p009-01`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 9

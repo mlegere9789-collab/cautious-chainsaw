@@ -1,7 +1,7 @@
 // The real history layer through the page: honest labelling of what is placed and what is an open gap, cards for a placed unit and for a unit with no place, the Units list,
 // kit manifest, source keys and register links, the evidence overlay with the layer's units, works drawn as rings.   node --test docs/battle-theatre/app/tests/real.spec.mjs
 import test from 'node:test'; import assert from 'node:assert/strict';
-import { startServer, launch, open, enter, wait } from './lib.mjs';
+import { startServer, launch, open, enter, wait, REGISTER_ENTRY_STATUS } from './lib.mjs';
 
 let S, B, page, ctx, log;
 test.before(async () => { S = await startServer(10785); B = await launch(); ({ ctx, page, log } = await open(B, S.base)); await enter(page); });
@@ -29,7 +29,7 @@ test('a placed unit: Units list, card with strength basis, entry, arrival note, 
   const card = page.locator('#bt-card'), txt = await card.innerText();
   for (const w of ['Placed', 'Plausible-procedural', 'Time', 'Activity', 'Standing', 'Position', 'Strength', `about ${info.share}`, 'procedural share', 'Arrival window', 'Entry', 'where Emmitsburg Road leaves the loaded ground', 'Strength basis', 'Evidence', 'PDF-B3', 'SS1', 'Kit manifest', 'Headgear', 'Shoulder arm', 'not run', 'EG-0001']) assert.ok(txt.toLowerCase().includes(w.toLowerCase()), `card shows ${w}`);
   assert.match(txt, /Busey and Martin not available/); assert.match(txt, /Hardee/i, 'the Iron Brigade kit record is used');
-  const href = await card.locator('a.btn-s').first().getAttribute('href'); assert.match(href, /register\/EG-0001\.md$/); const res = await page.request.get(href); assert.equal(res.status(), 200);
+  const href = await card.locator('a.btn-s').first().getAttribute('href'); assert.match(href, /register\/EG-0001\.md$/); const res = await page.request.get(href); assert.equal(res.status(), REGISTER_ENTRY_STATUS, 'the register entry opens from the source shell; a packed dist withholds it by design (lib.mjs REGISTER_ENTRY_STATUS)');
   assert.ok(!FORBIDDEN.test(txt)); await page.evaluate(() => window.btApp.select(-1)); await frames(2);
 });
 
@@ -82,7 +82,7 @@ test('a unit drawn by a MODELLED road of approach (DEC-015): the card says MODEL
   await at(minOf(7, 2, 12)); await page.evaluate(i => window.btApp.select(i), info.m); await frames(8); let txt = await page.locator('#bt-card').innerText();
   for (const w of ['Placed', 'MODELLED APPROACH (plausible-procedural; evidence gap EG-0070, decision DEC-015)', `Approach ${info.ap}: ${info.road}`, 'may in fact have come by another road', 'Documented: the unit', 'Modelled: the road', 'Place in the column', 'Modelled approach', 'Approach road (modelled)', 'Not printed for this unit or for any formation above it', 'Open register entry EG-0070']) assert.ok(txt.includes(w), `card shows ${w}`);
   for (const s of info.sib) { assert.ok(txt.includes(s.ap) && txt.includes(s.phrase), `card lists sibling ${s.ap}`); if (s.report) assert.ok(txt.includes(s.report) && txt.includes('page ' + s.page), `card gives the report and page of ${s.ap}`); }
-  assert.ok(!FORBIDDEN.test(txt)); const href = await page.locator('#bt-card a.btn-s[href*="EG-0070"]').first().getAttribute('href'); assert.match(href, /register\/EG-0070\.md$/); assert.equal((await page.request.get(href)).status(), 200, 'the register entry opens');
+  assert.ok(!FORBIDDEN.test(txt)); const href = await page.locator('#bt-card a.btn-s[href*="EG-0070"]').first().getAttribute('href'); assert.match(href, /register\/EG-0070\.md$/); assert.equal((await page.request.get(href)).status(), REGISTER_ENTRY_STATUS, 'the register entry opens from the source shell; a packed dist withholds it by design (lib.mjs REGISTER_ENTRY_STATUS)');
   await page.evaluate(i => window.btApp.select(i), info.o); await frames(8); txt = await page.locator('#bt-card').innerText(); assert.match(txt, /Open gap/); assert.match(txt, /Sibling-road rule \(DEC-015.*not applied, because/); assert.ok(txt.replace(/\s+/g, ' ').includes(info.why.replace(/\s+/g, ' ')), `the card of ${info.oid} gives its own reason: ${info.why}`); assert.ok(!/MODELLED APPROACH/.test(txt)); assert.ok(!FORBIDDEN.test(txt));
   await page.evaluate(() => window.btApp.select(-1)); await frames(2);
   await page.click('[data-panel=info]'); const body = await page.locator('#bt-drawer-body').innerText(); assert.match(body, /Modelled approaches/); assert.match(body, new RegExp(`${info.n} units are drawn by a road of approach that the record does not print`)); assert.ok(!FORBIDDEN.test(body)); await page.keyboard.press('Escape');

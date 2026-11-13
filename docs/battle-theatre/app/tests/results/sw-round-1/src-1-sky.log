@@ -21,3 +21,40 @@ ok 1 - night frames keep luminance and contrast with units in view (Q10), and ar
   duration_ms: 1867720.246751
   type: 'test'
   ...
+# \# night floor -> mean luma: 0.15 -> 30.3 (0.0% near black), 0.25 -> 33.4 (0.0% near black), 0.34 -> 36.0 (0.0% near black), 0.5 -> 40.1 (0.0% near black), 0.6 -> 42.5 (0.0% near black)
+# Subtest: the luminance floor is a parameter: raising it brightens the night monotonically, and its lowest setting still leaves the night visible
+ok 2 - the luminance floor is a parameter: raising it brightens the night monotonically, and its lowest setting still leaves the night visible
+  ---
+  duration_ms: 939086.742992
+  type: 'test'
+  ...
+# \# 3 Jul 15:00 light azimuth 259.0 (sun 259.0); 4 Jul 01:00 light azimuth 145.9 (moon 145.9, 34 deg up)
+# Subtest: the light follows the table: at night the light comes from the moon where the sky table puts it; by day from the sun
+ok 3 - the light follows the table: at night the light comes from the moon where the sky table puts it; by day from the sun
+  ---
+  duration_ms: 159916.597115
+  type: 'test'
+  ...
+# \# strip luminance: noon 3 Jul 169, midnight 44, noon 10 Jul (formula days) 169, midnight 27
+# Subtest: the day and night bar under the picture shows the same sky: dark where the sun is down, light where it is up
+ok 4 - the day and night bar under the picture shows the same sky: dark where the sun is down, light where it is up
+  ---
+  duration_ms: 8395.724263
+  type: 'test'
+  ...
+# Subtest: no console errors
+ok 5 - no console errors
+  ---
+  duration_ms: 0.952035
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2976740.241498
+# end 2026-11-13T20:09:11Z  seconds 2977  exit 0  source changed during the run: yes: 1794600436.4274109590 docs/battle-theatre/app/src/ext/vegetation/plan.mjs

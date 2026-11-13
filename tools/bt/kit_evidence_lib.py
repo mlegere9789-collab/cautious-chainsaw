@@ -125,7 +125,7 @@ FIELD_SPECS = {
     'strength': obj(req={'low': i(), 'high': i(), 'men': en('officers_and_men', 'enlisted_only', 'officers_only', 'rank_and_file', 'aggregate', 'not_stated')},
                     opt={'officers': nul(i()), 'enlisted': nul(i()), 'companies': nul(i(1, 20)), 'scope': s(120), 'text_figure': s(160), 'note': s(300),
                          'row': lst(nul(i()), 2, 14), 'row_columns': lst(s(60), 2, 14), 'identity': nul(obj(req={'sum': lst(i(0, 13), 1, 13), 'equals': i(0, 13)})), 'label_read': s(160)}),
-    'casualties': obj(req={'killed': KILLED_T, 'wounded': KILLED_T, 'missing': KILLED_T, 'total': nul(i()), 'period': s(60)},
+    'casualties': obj(req={'killed': KILLED_T, 'wounded': KILLED_T, 'missing': KILLED_T, 'total': nul(i()), 'period': DATE_T},
                       opt={'scope': s(120), 'row': lst(nul(i()), 3, 7), 'row_columns': lst(en(*CAS_COLUMNS), 3, 7), 'label_read': s(160), 'note': s(300)}),
     'arms': obj(req={'weapons': lst(WEAPON_ITEM, 1, 12)}, opt={'exchange': s(300), 'note': s(300)}),
     'guns': obj(req={'pieces': lst(PIECE, 1, 12), 'total': nul(i(0, 400)), 'state': en('present', 'engaged', 'lost', 'captured', 'disabled', 'recovered', 'detached')},
@@ -163,7 +163,7 @@ ERRORS = collections.OrderedDict([
 ])
 WARNINGS = collections.OrderedDict([
     ('OCR_CORRECTED', 'quote_mode ocr_corrected: the quote differs from the OCR text; a reviewer re-reads the page image'), ('HYPHEN', 'the quote matched only with line-end hyphenation ignored'),
-    ('PAGE_END', 'the quote runs over a page break; give printed_page_end'), ('PAGE_UNCHECKED', 'the page model of this source gives no page at this offset; the page is not checked'), ('REPORT_EDGE', 'the quote lies within 2,000 characters of the edge of the indexed report'),
+    ('PAGE_END', 'the quote runs over a page break; give printed_page_end'), ('PAGE_RANGE', 'the page model of a state volume knows only a range of pages; the page given is the engineer\'s reading of the running heads'), ('PAGE_UNCHECKED', 'the page model of this source gives no page at this offset; the page is not checked'), ('REPORT_EDGE', 'the quote lies within 2,000 characters of the edge of the indexed report'),
     ('UNIT_FIELD', 'the field is unusual for this kind of unit'), ('LONG_QUOTE', 'the quote is long; the shortest passage that supports the claim is better'), ('NUMBERS_WAIVED', 'the number check was waived'),
     ('OFF_FIELD', 'the date is outside 26 June to 16 July 1863 (fine for background facts)'), ('KIT_NOW', 'information only (--diff): what the kit tables hold now for this unit and field'), ('NO_IDENTITY', 'an image_row strength line without an identity of the printed row: nothing but a reviewer checks the figures'),
 ])
@@ -620,7 +620,7 @@ def cmd_cite(argv):
         page, lo, hi, note = src.page_at(h['start'])
         pe, _l, _h, _n = src.page_at(max(h['start'], h['end'] - 1))
         rid, _s, _e = src.record_at(h['start'])
-        out = {'source_id': src.id, 'part': src.part, 'report_id': rid, 'printed_page': page if page is not None else lo, 'offset': h['start'], 'quote': norm(a.quote)}
+        out = {'source_id': src.id, 'part': src.part, 'report_id': rid, 'printed_page': page if page is not None else ('%d-%d' % (lo, hi) if lo is not None and hi != lo else lo), 'offset': h['start'], 'quote': norm(a.quote)}
         if pe is not None and page is not None and pe != page:
             out['printed_page_end'] = pe
         print(json.dumps(out, ensure_ascii=False), '' if h['via'] == 'exact' else '  (matched with line-end hyphenation ignored)', '' if page is not None else '  (%s)' % note)
@@ -646,7 +646,11 @@ def cmd_image(argv):
 def cmd_unit(argv):
     d, idx = unit_index()
     if not argv or argv[0] not in idx:
-        print('unit ids of groups.json; e.g. us-1c-1d-meredith-19in. %d units.' % len(idx))
+        import difflib
+        if argv:
+            near = difflib.get_close_matches(argv[0], list(idx), n=5, cutoff=0.5)
+            print('no unit %r in groups.json%s' % (argv[0], ('; did you mean: ' + ', '.join(near)) if near else ''))
+        print('unit ids are those of groups.json (e.g. us-1c-1d-meredith-19in, CS.ART.Pulaski_GA); %d units; `group <id>` lists a whole group' % len(idx))
         return 2
     g, u = idx[argv[0]]
     print('group %s: %s' % (g['id'], g['title']))

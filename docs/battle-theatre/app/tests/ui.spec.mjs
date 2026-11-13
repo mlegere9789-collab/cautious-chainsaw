@@ -3,7 +3,7 @@
 // Every pause goes through wait() and every time limit through limit() (lib.mjs, the one knob for a renderer that cannot draw in real time); on a real GPU both are the plain calls.
 //   node --test docs/battle-theatre/app/tests/ui.spec.mjs
 import test from 'node:test'; import assert from 'node:assert/strict';
-import { startServer, launch, open, enter, leave, ready, wait, T as limit, expectedApi } from './lib.mjs';
+import { startServer, launch, open, enter, leave, ready, wait, T as limit, expectedApi, REGISTER_ENTRY_STATUS } from './lib.mjs';
 
 let S, B, page, ctx, log;
 test.before(async () => { S = await startServer(10784); B = await launch(); ({ ctx, page, log } = await open(B, S.base, { history: 'stub' })); });
@@ -98,7 +98,7 @@ test('selecting a unit by keyboard: Units list, card with time, activity, positi
   await at(minOf(7, 3, 13, 30)); await page.click('[data-panel=views]'); await page.click('#vw-tabs [data-tab=unit]'); await wait(page, 200);
   await page.focus('#bt-drawer-body .item'); await page.keyboard.press('Enter'); await page.waitForSelector('#bt-card:not([hidden])'); const card = page.locator('#bt-card'); await page.keyboard.press('Escape');
   const txt = await card.innerText(); for (const w of ['Modelled placeholder', 'Time', 'Activity', 'Position', '± 60 m', 'Strength', 'Arrival window', 'Kit manifest', 'Headgear', 'Shoulder arm', 'Evidence', 'STUB-GEN', 'EG-0001']) assert.ok(txt.toLowerCase().includes(w.toLowerCase()), `card shows ${w}`);
-  const href = await card.locator('a.btn-s').first().getAttribute('href'); assert.match(href, /register\/EG-0001\.md$/); const res = await page.request.get(href); assert.equal(res.status(), 200); assert.match(await res.text(), /Individual soldier face, position and action/);
+  const href = await card.locator('a.btn-s').first().getAttribute('href'); assert.match(href, /register\/EG-0001\.md$/); const res = await page.request.get(href); assert.equal(res.status(), REGISTER_ENTRY_STATUS, 'the register entry opens from the source shell; a packed dist withholds it by design (lib.mjs REGISTER_ENTRY_STATUS)'); if (REGISTER_ENTRY_STATUS === 200) assert.match(await res.text(), /Individual soldier face, position and action/);
   assert.ok(!FORBIDDEN.test(txt)); await page.evaluate(() => window.btApp.select(-1)); await frames(2); assert.equal(await card.isHidden(), true);
 });
 

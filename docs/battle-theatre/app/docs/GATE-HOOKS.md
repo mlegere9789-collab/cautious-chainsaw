@@ -34,3 +34,21 @@ One row per function: module path (under docs/battle-theatre/), function, inputs
 | `validateYears(yf, mem)` | the parsed years file, the memorial list | list of sentences; empty means fit (names equal the list's, years after the battle, quotation holds name and year, tier documented or inferred, a hedged year is inferred, every source described) | Q23 |
 
 `tests/ext-site-years.mjs --check` (node): exits 1 when the years file differs from what the saved National Park Service report texts give (`tmp/library/web/nps`; says NOT RUN and checks fitness only when the texts are not in the checkout).
+
+## app/src/weather3d/gpu.mjs and tests/weather3d-gpu*.mjs (bt-renderer, weather and effects lane: the WebGPU path)
+
+Pure functions (node, no DOM, no network, no clock):
+
+| function | inputs | output | gate it serves |
+|---|---|---|---|
+| `packWeather(out, W, fr)` in app/src/weather3d/gpu.mjs | `out`: `Float32Array(WU_FLOATS)`; `W`: the state of `WeatherTimeline.at(tSec)`; `fr`: the fx3d frame (lights) or null | `out` filled with the uniform block the WebGPU weather pass uploads for that state: sun and moon directions, palette, cloud, star, fog, wet-ground and light values, and the night floor at `out[WU.floor ..]`. By test it equals, value for value, what the WebGL2 path sends to its program. Pure: the same `W` gives the same block. | Q22 (what the GPU is given equals the timeline's weather at every minute), Q10 (the floor travels with every frame) |
+| `packFx(out, fr, cam, vp)` in the same file | `out`: `Float32Array(FXU_FLOATS)`; the fx3d frame; the prototype camera; its WebGPU view-projection | the sprite uniform block (camera, sun, lighting, kappa, near and far, now, event count) | Q22 (the effects see the same wind and lighting state) |
+| `weatherWgsl('mul' \| 'add')`, `patchFxWgsl(src)` in app/src/weather3d/shaders-wgsl.mjs | the mode; the fx3d WGSL | the WGSL text of the pass; the sprite WGSL with the scene-depth read patched to the hardware depth (throws when the source changed) | Q10 (the luminance clamp `max(c, W.floorC.xyz)` is in the text, pinned by `tests/weather3d-gpu.test.mjs`) |
+
+Commands (they need a browser: run them through `tools/horde/bench.sh`; software adapter on a machine without a GPU, `--real-canvas` on one with a GPU):
+
+| command | inputs | output | gate it serves |
+|---|---|---|---|
+| `node app/tests/weather3d-gpu.mjs <outDir> <webgpu\|webgl2> [case,...] [--fx=off] [--real-canvas]` | output directory, the API, optional case names of `tests/weather3d-gpu-cases.mjs` | `<outDir>/<api>/summary.json`: per case `validation` (a WebGPU validation error text or null), `pixels.{all,top,bottom}.{mean,min,p1,p50,p99,max,blackShare}` (luminance of the read-back frame, 8-bit display values), `effects.nSprites`, `gpuStats` or `glStats`; `diagInit.gpu`, `diagEnd.gpuErrors` (uncaptured errors, device loss), `diagEnd.wgsl` (compiler messages), `pure` (the same time and camera give identical pixels), `computeCheck`, `swapchain`; a PNG, the raw RGBA and a JSON per case | Q10 (minimum luminance and black share at the night cases, on both APIs), Q22, Q24 (a picture per case) |
+| `node app/tests/weather3d-gpu-compare.mjs <outDir> [limit] [--strict]` | the output directory holding `webgl2/` and `webgpu/` | `<outDir>/compare/summary.json` and a montage per case (WebGL2, WebGPU, difference x4): mean absolute difference, rmse, p99, shares over 8 and over 24 levels, luminance and sprite counts of both | Q24 |
+| `node app/tests/weather3d-gpu-theatre.mjs <outDir> [webgpu\|webgl2] [--real]` | as above, the shell itself | `<outDir>/theatre-<api>/summary.json` (same fields), the ribbon text, the layer's counters | Q24 |

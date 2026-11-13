@@ -1,32 +1,111 @@
 # Photo-match (gate Q16)
 
-**Q16 text (gates.json):** "Photo-match tests at known camera positions of period photographs (staged-photograph flags respected)." Linked from R12 sub-requirements (terrain source catalogue items). **Status: not passing.** No camera position is documented in any source read, so no test at a *known* position exists yet; the machinery below is ready for when positions are sourced. `passes` is not set.
+**Q16 text (gates.json):** "Photo-match tests at known camera positions of period photographs (staged-photograph flags respected)." Linked from the R12 terrain source items. **Status: not passing** (reviewed 2026-11-13). `passes` is not set on the gate or on any linked item.
+
+## Where things stand
+
+- **Photographs:** 127 catalogued Library of Congress records (109 from the first catalogue run and 18 added because LOC dates them only as between 1861 and 1865); 430 Library of Congress JPEG derivatives saved (each checked: size equals what the record declares, decodes to the last pixel, sha256 in the ledger) plus 2 master scans, 3 archive.org scans and 6 Metropolitan Museum items of the first run. The primary image of every record was looked at on a contact sheet.
+- **Camera positions:** 0 are documented. None of the 42 sources read (Library of Congress catalogue records, National Park Service reports and web pages) gives a coordinate, a lens, a plate size or a surveyed station. They give 70 statements in words (place, viewing direction, reference object); 67 are documented statements (a source says it, quote found in the saved text), 2 were read from page images because the text layer is unusable, 1 rests on a book that may not be used and is a lead only.
+- **Poses registered:** 17 (position tier: 2 inferred, 15 assumption). **Verdicts on the poses:** 0 matches, 5 roughly, 4 does not, 8 cannot judge.
+- **The other 112 photographs** have no pose and the verdict cannot judge, each with its reason: 28 show only near ground that the model does not contain, 54 have a camera place that no source fixes closely enough, 15 are staged or flagged, 15 are not July 1863 battlefield views. 15 records carry a staged-photograph flag; none has a pose.
+
+## Why the gate cannot pass
+
+- The gate asks for tests at known camera positions. None of the 127 photographs has one: no source read gives a coordinate, a lens, a plate size or a surveyed station; every source gives words (place, direction, reference object).
+- The registered poses are inferences (a statement plus mapped objects, sigma 25 to 200 m) or assumptions; no pose has an independent match confirmed by viewing, and no pose is called a match.
+- The model has no 1863 near field (trees, rocks, crops, fences, woods edges): only far silhouettes, mapped building footprints at a default height and roads can be compared. Where the model and the photograph disagree (3 to 9 degrees in the cases examined) the disagreement cannot be assigned to the pose, the lens or the terrain.
+- The NPS plate that labels the landmarks of the view from Little Round Top could not be mapped to the photograph, and the landmark stand-ins in the repository carry 221 to 300 m of uncertainty.
+
+## What would be needed
+
+- Camera station coordinates from the body that has them: the Gettysburg National Military Park took its Then-And-Now pictures from the same locations as the originals (the park says so), so its museum or GIS staff hold stations; or Frassanito's published positions (copyrighted: needs the owner's decision to buy, borrow or ask permission). Either gives a documented position with a stated accuracy.
+- The lens and plate of each exposure (stereo half-plate or large format, focal length), or a calibration from straight edges and from two or more mapped landmarks of known coordinates in the same photograph.
+- A model of the 1863 near field where a photograph is to be matched: trees, rocks (Devil's Den, Little Round Top, the Rose Woods), walls and fences, crop state: the R12 vegetation and rock layers.
+- Landmark coordinates good to a few metres for the objects the captions and the NPS name (Ziegler's Grove, the Copse, the Brien lane tree, Codori Grove, the Patterson house, the McPherson quarry, Seminary Lane, the Foulk farm, the crossing of Wheatfield Road and Crawford Avenue); the gazetteer centres carry 221 to 300 m.
+- A pass criterion written before the match (for example the angular error of named ridge lines and landmarks, in degrees, at the documented position) and a reviewer who did not set the pose and who looks at every sheet; the criterion and the failures are recorded per photograph (PDF B.9.2 step 7).
+- Full-resolution masters of the photographs to be matched (25 to 130 MB each; 2 of 430 resources fetched) and a clean scan of the NPS annotated enlargement of the view north from Little Round Top.
+
+## Owner steps (not done here)
+
+- Ask the Gettysburg National Military Park museum or GIS office (a third party: an owner act) for the station coordinates and the camera and lens of its Then-And-Now pictures, and for the prints of the Brady views it holds (McPherson farm; Little Round Top: GNMP SF-2B-2087, SF-2B-2090, SF-2B-2095, SF-28-2083, 2B2001).
+- Decide whether to buy or borrow Frassanito's Early Photography at Gettysburg (billing is an owner act) or to ask the publisher in writing for the right to use its camera positions; until then no camera position that rests on it is used.
+- Confirm or change the pass criterion proposed above (delegated default: angular error of named ridge lines and landmarks at a documented position, in degrees, set before the match).
+
+## The poses and the verdicts
+
+A verdict is conditional on the registered pose: it is never a finding about the 1863 landscape alone. matches / roughly / does not / cannot judge. "Independent" says whether the pose was fixed without the photograph; a pose whose distance was read from the photograph (fitted) cannot give a match.
+
+| Pose | Record | Position tier (sigma) | Independent | Verdict | Why |
+|---|---|---|---|---|---|
+| P01 | 2018666303 | inferred (40 m) | yes | **roughly** | Far field at the registered pose (Warren statue summit, heading 7.8 deg, 40 deg field): the model horizon sits at 0.51 of the frame height, the photograph's far ridge and groves at about 0.44 (read by eye, +-0.02), about 3 degrees higher. The landmarks the NPS names fall in the NPS order (Codori house, High Water Mark monument for the Copse, Ziegler's Grove, Cemetery Hill) but 40 to 110 px of a 480-px panel (3 to 9 degrees) left of the features they should mark, the error growing to the right, so the spacing is about 1.8 times too narrow at 40 degrees (the 30 degree render is closer: a longer lens is likely, undocumented). The boulder, pine and stump of the near field are not in the model. Pose, lens and terrain errors cannot be separated. The Patterson stand-in lies 31 degrees right of Cemetery Hill, outside any frame, so it cannot be tested (EG-11). |
+| P03 | 2018670702 | plausible-procedural (40 m) | no | **cannot judge** | The 2023 gatehouse outline (25.8 m wide, default one storey, lodge and pavilion merged) is placed in front of the facade with its distance read from the photograph (fitted), so its width and place agree by construction (boxes at 0.27 to 0.82 of the frame width against the arch building's 0.10 to 0.76, tops at 3.2 m against a two-storey building with towers); the only independent items, the horizon height (0.48 against about 0.46) and a face-on facade, follow from the same footprint. Nothing is left to test. |
+| P04 | Met item | plausible-procedural (500 m) | yes | **does not** | Standpoint on Seminary Ridge looking at the borough is contradicted by the photograph itself: a large cupola building and the town appear at distance with a road curving across the foreground, i.e. the camera stands further out; only 'from the West' is in the caption, no position. The render has the borough masses on the horizon only. Horizon 0.50 vs photo 0.38. (carried over from the first run, 2026-11-11; the pose and the render are unchanged; not a catalogued LOC record) |
+| P05 | Met item | plausible-procedural (500 m) | yes | **does not** | Same assumed pose as P04 although the two photographs have different standpoints (P05 has a brick house in the near middle ground). One pose cannot be right for both; the caption gives no position. Horizon 0.50 vs photo 0.38. (carried over from the first run, 2026-11-11; the pose and the render are unchanged; not a catalogued LOC record) |
+| P06 | 2014646001 | plausible-procedural (150 m) | yes | **does not** | At the registered pose (East Cemetery Hill, Wiedrich monument plus 25 m east, looking to the borough) the model puts every building in a narrow band at the horizon (0.52 of the frame height) and shows no road; the photograph has the Baltimore Pike running from the lower left to the town at left centre, houses spread over the full frame width, a ridge behind them at 0.47 and a tent camp at the right. The apparent size and spread of the town differ by about a factor of 2: the camera was nearer the town and lower on the slope than assumed (sigma 150 m), and the model holds only 2023 outlines of surviving buildings. The verdict is on this pose only. |
+| P07 | 2018671576 | plausible-procedural (250 m) | yes | **does not** | The same assumed cemetery pose as P06 and the same result: the frame is a stereo sibling of P06 (road at the left, tents at the right, the town across the horizon) and the render shows a narrow band of footprints at the horizon and no road. Pose-conditional, as P06. |
+| P08 | 2012647712 | inferred (40 m) | yes | **cannot judge** | The title names the place (about the right gun of Wiedrich's Battery, at the monument) but no direction. At the placeholder heading of 45 degrees the render shows open ground and the east edge of the town; the photograph shows a steepled house at the right and a pine at the centre across a wall-lined field. Another heading would be a free parameter set by the photograph itself, so the pose cannot be tested. |
+| P09 | 2018666302 | plausible-procedural (60 m) | yes | **roughly** | Silhouette of Big Round Top from the assumed spot on the south slope of Little Round Top (statue point, 35 m south, heading 202 deg toward the gazetteer centre of Big Round Top): the photograph's hill has its summit at 0.38 of the frame width and 0.28 of its height with a broad right flank; the model's cone has its summit at 0.42 and 0.43, i.e. about 15 percent of the frame height (5 degrees) lower, and a narrower top. The horizontal place and the kind of silhouette agree; the vertical offset fits a camera lower on the slope than assumed (the spot is only known as the southern slope, sigma 60 m) and the forest canopy that the bare DEM lacks. Pose and terrain errors cannot be separated. |
+| P11 | 2018670708 | plausible-procedural (60 m) | yes | **roughly** | Same assumed spot and heading as P09, a different exposure: the photograph's Big Round Top has its summit at 0.44 of the frame width and 0.29 of its height with a broad, gentle left shoulder; the model's has it at 0.42 and 0.44 and a steeper, narrower cone. Same reading as P09: place and kind of silhouette agree, the model's summit is about 15 percent of the frame height lower, a camera spot lower on the slope and the tree canopy would account for it. |
+| P12 | 2012647707 | plausible-procedural (60 m) | yes | **cannot judge** | The title says Big Round Top is in the background, but in the photograph the hill is not visible: trees and haze fill the upper third behind a breastwork and boulder that take the foreground. The render shows a clear cone in that direction that the frame does not let one check. |
+| P13 | 2012647708 | plausible-procedural (200 m) | yes | **cannot judge** | PROVISIONAL: the render of this pose has not been looked at yet; this entry is replaced after the review sheet is viewed. |
+| P17 | 2018666297 | plausible-procedural (50 m) | no | **cannot judge** | The Thompson house footprint (2023 outline, default one storey) is placed south-south-west of the house with its distance read from the photograph (fitted), so its width and place agree by construction (0.26 to 0.81 against 0.19 to 0.83 of the frame). The model shows the long south facade face-on and 3.2 m high; the photograph shows a three-quarter view with the gable at the right and a 1.5-storey roof. The NPS fixes the direction (looking north across the turnpike) but not the bearing, so the difference of about 30 degrees is the assumed bearing, not a fault of the model. Nothing independent is left. |
+| P18 | 2018666296 | plausible-procedural (50 m) | no | **roughly** | Leister house at the end of the Taneytown Road: the footprint sits where the house is (centred by construction, distance fitted), and two items that were not fitted agree: the road line runs from the house to the lower right as in the photograph, and the horizon is at 0.46 against 0.52. The orchard, the stone wall, the fences and the trees are not in the model; the test is not independent for the footprint. |
+| P19 | 2018666298 | plausible-procedural (50 m) | no | **cannot judge** | The Bryan house footprint (6.0 by 7.6 m, 1.5 storeys, 2023 outline) is placed east-south-east of the house with the distance read from the photograph (fitted): the wire box fills the frame as the house does, but taller and without roof, lean-to or bake-oven shed; nothing independent can be compared. Whether this record is the NPS Brien Farm report's photograph taken east of the house looking west is not established (caption only). |
+| P20 | 2018670707 | plausible-procedural (50 m) | no | **cannot judge** | The Schmucker Hall footprint (47.9 by 44.3 m, the 2023 outline) is placed 190 m west with the distance read from the photograph (fitted); it shows as a thin strip at the horizon about 0.12 of the frame width left of the building in the photograph, which is inside what the camera spot (sigma 50 m at 190 m is 15 degrees) allows. The model has no cupola, storeys or fence. Nothing independent can be compared. |
+| P24 | 2013645105 | plausible-procedural (50 m) | no | **roughly** | Trostle farm: the house footprint is placed south-west of the pair with its distance read from the photograph (fitted); the barn footprint, which was not used in the fit, falls at the far left edge of the frame, where the barn of the photograph stands: the barn-to-house baseline and the angular spread agree. One item contradicts: the framework left of the house (the NPS: an 1863 addition) is left of the house in the photograph, while the model's summer-kitchen footprint lies about 13 m to the right of the house from this side (EG-12). Roof, trees, fences and the dead horses are not in the model. |
+| P26 | 2018666300 | plausible-procedural (50 m) | no | **cannot judge** | Same as P03 for the other gatehouse view (Brady, about two weeks after the battle): the 2023 outline is placed in front of the facade with its distance read from the photograph (fitted), boxes at 0.32 to 0.75 of the frame width against the building's 0.30 to 0.9, tops at 3.2 m; the horizon height and a face-on facade follow from the same footprint. The pavilion beside the gatehouse (a separate point in the model) is not drawn. Nothing independent is left to test. |
+
+## Camera-position statements that matter most
+
+Page numbers are the pdf page markers of the saved texts (the printed page differs).
+
+| Statement | Record | What the source literally fixes | Source |
+|---|---|---|---|
+| PS-LOC-2012647712-T | 2012647712 | camera on Cemetery Hill at about the position of the right gun of Wiedrich's Battery (title from item); no direction given in the title | LOC-2012647712, record |
+| PS-LOC-2014646001-N | 2014646001 | in the view of Gettysburg from Cemetery Hill the Baltimore Pike is the road on the left (Gardner's Sketch Book plate 35 caption as transcribed by LOC) | LOC-2014646001, record |
+| PS-NPS-CLRLRT-405 | 2018666303 | the photograph LOC cwpb 01632 (right half of record 2018666303) is a view looking north from the summit of Little Round Top, July 1863 | NPS-CLR-LRT, p. 120 |
+| PS-NPS-CP3-29 | 2018666303 | a Brady/LOC photograph of July 1863 looks north toward Cemetery Hill from the crest of Little Round Top; Ziegler's Grove dominates the horizon at the left centre | NPS-COMMON-PRIDE-3, p. 29 |
+| PS-NPS-BRIEN-9 | 2018666298, 2012647702 | one of two photographs thought to be by Brady or his staff was taken east of the Brien house looking west (shows the east side of the house, most of its south front and the bake oven) | NPS-BRIEN-FARM, p. 9 |
+| PS-NPS-CLR1D-01 | 2012647706 | LOC image ppmsca 32840 looks southeast from the McPherson Farm toward Herbst Woods with the seminary cupola in the distance | NPS-CLR-1STDAY, p. 23 |
+| PS-NPS-CLR1D-124 | 2012646949 | LOC ppmsca 32833 shows the old quarry (pond) near the McPherson farmstead looking southwest, with Herbst Woods in the background | NPS-CLR-1STDAY, p. 45 |
+| PS-NPS-CLR1D-146 | 2018666315 | three Confederate prisoners photograph (LC-DIG-cwp 4a40909): probably along Seminary Lane, looking east with Gettysburg in the left distance, about July 15, 1863 (hedged: 'probably') | NPS-CLR-1STDAY, p. 63 |
+| PS-NPS-CLR1D-151 | 2018666297 | Lee's headquarters (Mary Thompson house) photograph, looking north across the turnpike from the James Thompson house, about July 1863 (LOC digital id cwp2003000189, which the record lists as another control number) | NPS-CLR-1STDAY, p. 66 |
+| PS-NPS-CLRROTV2-149 | 2018670707 | LOC cwpb 01650 (right half of record 2018670707) shows the fence west of the Lutheran Seminary viewed from the Foulk Farm, 1863 | NPS-CLR-ROT-V2, p. 360 |
+| PS-NPS-VISTA-10 | 2012647708, 2012647701, 2018670709, 2018666301, 2018672207, 2018672403 | two Brady photographs of Little Round Top: one from the southwest near Devil's Den, one from the northwest near the present intersection of Wheatfield Road and Crawford Avenue | NPS-VISTA-CUTTING, p. 10 |
+| PS-NPS-SPEN-5 | 2018670867 | O'Sullivan 'View in the Slaughter Pen at the foot of Big Round Top', 6 July 1863: the view is eastward from the Devil's Den; the encircled body lies immediately east of the trolley roadbed | NPS-SLAUGHTER-PEN, p. 56 |
+| PS-TN-RW1-PLACE | 2012647823 | Gardner stereo no. 257 (Confederate dead near the edge of the Rose Woods): the photo was taken near De Trobriand Avenue | NPSWEB-TN-RW1, page |
+| PS-TN-RW3-DIR | 2018666310 | Gardner no. 256 faces north | NPSWEB-TN-RW, page |
+| PS-TN-LRT2-DIR | 2018666303 | the NPS Then-And-Now image of the summit of Little Round Top: looking northward from the summit, the Codori farm, Oak Hill, the Brian farm, the Copse of Trees and the Wheatfield Road are in view | NPSWEB-TN-LRT, page |
+| PS-TN-LRT1-DIR | 2012647708 | the 'Little and Big Round Top from the Valley of Death' photograph faces southeast; Matthew Brady leans against a tree in the left foreground | NPSWEB-TN-LRT, page |
+
+The full list (70 statements, each with its verbatim quote, page and the sha256 of the saved text) is `tools/bt/photomatch/position_statements.json`; the same sub-claims are written as evidence lines to `GOVERNANCE/evidence_corrections/web-photomatch.jsonl`.
+
+## Which Library of Congress image is which National Park Service picture
+
+The NPS Then-And-Now pages credit "Library of Congress" without an id. 18 of the 23 NPS "then" images were tied to a catalogued record by feature matching (SIFT, ratio test, RANSAC homography; 291 to 1667 inliers, 49 and 59 for two cropped images; `nps_then_to_loc.json`); the rest are 1913 pictures, other collections or photographs that are not in the catalogue. The page states that each modern picture was taken from the same location as the original, in words only.
 
 ## Machinery (tools/bt/photomatch/)
 
 | File | What |
 |---|---|
-| `catalogue.py` -> `catalogue.json` | 109 LOC Civil War Photographs records (catalogued 1863, Gettysburg), fields copied from loc.gov JSON (id, creator, date as catalogued, title/caption, reproduction numbers, rights, loc.gov URL, licence basis "LOC: no known restrictions"). 92 flagged in scope for terrain; 13 flagged staged by title (basis in the record). |
-| `fetch_images.py` -> `images_ledger.json` | sha256 ledger. Image hosts tile.loc.gov, cdn.loc.gov and archive.org data nodes are refused by the container proxy (not circumvented). Readable: archive.org `/cors/` copies: 3 Gardner LOC scans (Public Domain Mark item) and 6 Met-programme items. 433 MB of originals under gitignored `tmp/photomatch/img/`. |
-| `poses.json` | 8 registered camera-pose assumptions (position anchor, snap rule, heading, 40 deg horizontal FOV, 1.6 m height), each with basis and tier (plausible-procedural / inferred) and a `no_pose` list with reasons. `resolved_poses.json` holds the computed coordinates. |
-| `render.html`, `run.mjs` | Headless render (Chrome, SwiftShader, one browser, run under `nice -n 10`) of the DEM (render/prototype/data, modern bare ground) with the 1863 base-map fences, building footprints and roads (structures3d.json). Also renders FOV 30 and 50 variants. Deterministic (same sha256 on re-render). |
-| `compose.py` | photo / render / edge-overlay triptychs (`reports/*.jpg`), `metrics.json` (horizon row only). |
-| `verdicts.json` | the person-written verdicts. Test: `node --test tests/photomatch.test.mjs`. |
+| `catalogue.py, catalogue_additions.py` | LOC records (open JSON, 1 request per second); the additions are records the first date filter dropped, each with its reason |
+| `fetch_loc.py, fetch_master.py, fetch_images.py, webget.py` | polite fetchers (cdn.loc.gov and tile.loc.gov only, archive.org /cors/, the official NPS hosts); sizes are compared with what the record declares and every file is decoded |
+| `images_ledger.json` | sha256, bytes, pixel size, urls and licence basis per saved file; the files are under gitignored tmp/photomatch/ |
+| `statements_data.py, build_statements.py -> position_statements.json` | the camera-position statements; the builder refuses a quote it cannot find in the saved text |
+| `match_nps_then.py -> nps_then_to_loc.json` | which LOC image each NPS picture is |
+| `poses.json (schema 2)` | the registered poses with tier, sigma, basis, statements, landmarks and the photograph print area |
+| `run.mjs, render.html` | deterministic software-GL render of the DEM with the 1863 base-map layers from each pose (main, 30 and 50 degree fields); landmark projection |
+| `compose.py -> reports/<pose>.jpg, metrics.json` | review sheets: photograph, render, edge overlay with landmark ticks, field variants |
+| `verdicts.json, registry_data.py, build_registry.py -> photograph_registry.json` | the verdicts and the per-photograph registry (one entry for each of the 127 records) |
+| `crops.py, sheets.py` | print areas and contact sheets |
 
-Run: `python tools/bt/photomatch/catalogue.py && python tools/bt/photomatch/fetch_images.py && nice -n 10 node tools/bt/photomatch/run.mjs && python tools/bt/photomatch/compose.py`.
+Run: `python3 tools/bt/photomatch/build_statements.py && tools/horde/bench.sh node tools/bt/photomatch/run.mjs && python3 tools/bt/photomatch/compose.py && python3 tools/bt/photomatch/build_registry.py && python3 tools/bt/photomatch/make_doc.py`. Test: `node --test docs/battle-theatre/app/tests/photomatch-q16.test.mjs`.
 
-## Per-photo verdicts (composites were opened and looked at where an image was readable)
+## Limits (registered as gaps: GOVERNANCE/horde/ws10-photomatch/proposed-register/)
 
-| Pose | Photograph | Verdict | Why |
-|---|---|---|---|
-| P01 | LOC 2018666303, centre of the Federal position viewed from Little Round Top (Gardner) | does not | horizon 0.51 vs 0.40; near field is boulders and a tree the DEM lacks; distant trees unmatched; terrain error not separable from pose error |
-| P03 | LOC 2018670702, cemetery gatehouse (Gardner) | does not | render shows no gatehouse from the guessed spot; photo is a close frontal view |
-| P04 | Met 268204, Gettysburg from the West | does not | the photograph itself contradicts the assumed Seminary Ridge standpoint; horizon 0.50 vs 0.38 |
-| P05 | Met 268205, Gettysburg from the West | does not | same assumed pose as P04 yet a different view; caption gives no position |
-| P06 to P09 | LOC 2014646001, 2018671576, 2012647712, 2018666302 | cannot judge | image bytes unreachable; render only |
+- The terrain is modern bare ground with the repository's 2023 building outlines at a default one-storey height: no 1863 trees, rocks, crops or fences in the near field, so only far ridge lines, hills, roads and mapped footprints can be compared (EG-03).
+- The focal length and plate of every exposure are unknown; 40 degrees horizontal is a generic assumption and renders at 30 and 50 degrees accompany every pose (EG-04). The landmark spacing of P01 suggests a longer lens; that is an observation, not a value.
+- Frassanito's camera positions are copyrighted and were not read; LOC text that cites him is a lead only (EG-06). Staged photographs are used for terrain and rocks only, never for the position of a body or prop (EG-05).
+- Positions named in words but not in the model (the McPherson quarry, De Trobriand Avenue and the Rose Woods edge, Seminary Lane, the Wheatfield Road and Crawford Avenue crossing) could be placed only as assumptions, or not at all (EG-10).
+- The NPS plate that labels the landmarks of the view north from Little Round Top is a photocopy and could not be mapped to the photograph (EG-11); the Trostle summer-kitchen footprint lies on the other side of the house from the photograph (EG-12).
 
-Counts: 0 matches, 0 roughly, 4 does not, 4 cannot judge. A "does not" here means the assumed pose and modern DEM do not reproduce the photograph; it is not a finding that the 1863 terrain is wrong.
-
-## Limits (all registered: GOVERNANCE/horde/ws10-photomatch/proposed-register/)
-
-Camera positions are assumptions (EG-02); focal length unknown (EG-04); terrain is modern ground without 1863 trees, rocks or crop state, and the DEM ends about 3 km out (EG-03); loc.gov image bytes unreachable (EG-01); staged flags are title-derived (EG-05); LOC dates partly rest on Frassanito, whose text and images were not used (EG-06). Staged photographs are never used as ground truth for a body or niche position.

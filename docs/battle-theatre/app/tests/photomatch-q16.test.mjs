@@ -11,7 +11,7 @@ const VOCAB = ['matches', 'roughly', 'does not', 'cannot judge'];
 
 test('catalogue: first-run records plus the added records, each with its licence basis; added records carry their reason and date status', () => {
   assert.equal(cat.count, cat.photographs.length); assert.equal(add.count, add.photographs.length); assert.equal(all.length, 127); assert.equal(ids.size, all.length);
-  for (const p of all) { assert.match(p.loc_id, /^\d+$/); assert.ok(p.loc_url.startsWith('https://www.loc.gov/')); assert.ok(p.title); assert.ok(p.date_as_catalogued); assert.match(p.licence_basis, /no known restrictions/i); assert.equal(typeof p.staged_flag, 'boolean'); }
+  for (const p of all) { assert.match(p.loc_id, /^\d+$/); assert.ok(p.loc_url.startsWith('https://www.loc.gov/')); assert.ok(p.title); assert.ok(p.date_as_catalogued); assert.match(p.licence_basis, /no known restrictions|rights field is empty/i); assert.equal(typeof p.staged_flag, 'boolean'); }
   for (const p of add.photographs) { assert.ok(p.added_reason); assert.ok(p.date_status); }
   assert.ok(add.skipped_search_results.every(s => s.reason));
 });

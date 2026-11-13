@@ -62,8 +62,15 @@ try {
       summary.pure[tag + ' (' + c.name + ')'] = ref ? { identical: diff === 0, bytesDiffering: diff, maxDiff: maxd } : { identical: null }; say('purity', tag, c.name, JSON.stringify(summary.pure[tag + ' (' + c.name + ')'])); save();
     }
   }
+  if (REPEAT && list.length) {                                        // resize: the renderer makes new depth and colour targets, the layer rebuilds its bind groups; the same picture comes back at the first size
+    const c = list.find(x => x.name === 'smoke-jul3-1400') || list[0], sw = Math.round(W * 0.75), sh = Math.round(H * 0.75);
+    await page.evaluate(([w, h]) => window.WG.resize(w, h), [sw, sh]); const small = await run(c); const ss = stats(small.r.w, small.r.h, small.px);
+    await page.evaluate(([w, h]) => window.WG.resize(w, h), [W, H]); const back = await run(c), ref = first[c.name]; let diff = 0; if (ref) for (let i = 0; i < back.px.length; i++) if (back.px[i] !== ref[i]) diff++;
+    summary.resize = { case: c.name, smallW: small.r.w, smallH: small.r.h, smallValidation: small.r.validation, smallMean: ss.all.mean, backValidation: back.r.validation, backIdentical: ref ? diff === 0 : null, backBytesDiffering: diff, binds: back.r.gpuStats && back.r.gpuStats.binds }; say('resize', JSON.stringify(summary.resize)); save();
+  }
   if (api === 'webgpu') { summary.computeCheck = await page.evaluate(() => window.WG.checkCompute()); say('compute shader check', JSON.stringify(summary.computeCheck).slice(0, 400)); save(); }
   summary.diagEnd = await page.evaluate(() => window.WG.diag()); await page.evaluate(() => window.WG.dispose()).catch(e => summary.errors.push('dispose: ' + e.message));
+  await new Promise(r => setTimeout(r, 800)); summary.afterDispose = await page.evaluate(() => ({ gpuErrors: window.__gpuErrors.slice(), swap: window.__swap })).catch(e => ({ error: String(e.message).slice(0, 100) })); say('after dispose', JSON.stringify(summary.afterDispose).slice(0, 300));
   if (SHOT && api === 'webgpu') { summary.swapchain = await swapchainProbe(browser, port); say('swapchain probe', JSON.stringify(summary.swapchain).slice(0, 700)); save(); }
 } catch (e) { summary.errors.push(String((e && e.stack) || e).slice(0, 2000)); say('ERROR', String(e).slice(0, 400)); }
 finally { summary.finished = new Date().toISOString(); summary.consoleLines = logs.length; summary.consoleProblems = logs.filter(l => /error|fail|invalid|validation|lost|crash|disconnect/i.test(l)).slice(0, 40); save(); fs.writeFileSync(path.join(out, 'console.log'), logs.join('\n')); try { await browser.close(); } catch { /* gone */ } srv.close(); }

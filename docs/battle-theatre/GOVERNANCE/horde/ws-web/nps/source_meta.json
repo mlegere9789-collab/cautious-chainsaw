@@ -67,6 +67,162 @@
    "state_dates_note": "Record of Treatment: each area section gives (1) the 1863 landscape (battle-period fields, fences, orchards, woodlots, buildings, hospital use; taken from the 1863 property research and damage claims) and (2) the treatment actually carried out 1998-2013 (fences rebuilt, orchards replanted, woods cleared, non-historic features removed). Only the 1863 paragraphs describe 1863; the treatment paragraphs and the 2013-2016 photographs describe REBUILT or REPLANTED features: never an 1863 profile.",
    "covers": "Battlefield Rehabilitation Framework (GMP 1999 and the 2004 Treatment Philosophy: The 1863 Landscape) and the record of treatment of the park areas by farm and field: fences, orchards, woodlots, fields, buildings, wells and springs, farm lanes",
    "used_for_extracts": "yes (extracts/src/50-clr-rot-v1.xdef, 51-clr-rot-v2.xdef)"
+  },
+  "NPS-CLI-LANDSCAPE": {
+   "title": "Cultural Landscapes Inventory: Gettysburg Landscape, Gettysburg National Military Park",
+   "author": "National Park Service (Laurie Matthews, Senior Historian, as named on the inventory form)",
+   "date": "2000 (revised 2004)",
+   "from": "PDF p. 6 (inventory form: Gettysburg Landscape, Gettysburg National Military Park; revision by Laurie Matthews; Cultural Landscapes Inventory Part 3a)",
+   "default_variant": "layout",
+   "text_quality": "scan of a 2000 print inventory: the text layer has no punctuation and the standard reading-order text is scrambled, so quotes are cut from the layout text (<ID>.layout.txt) and typed with the punctuation restored (quote_mode cleaned: letters and digits matched, punctuation ignored)",
+   "state_dates_note": "Vegetation section (PDF pp. 55-57): the paragraph headed AGRARIAN LANDSCAPE PERIOD UP TO 1863 describes the pre-battle vegetation; the later paragraphs describe the GBMA (1863-1895), War Department (1895-1933) and NPS periods.",
+   "covers": "Park-wide landscape inventory: vegetation by period (crops, woodlots, orchards, hedgerows), land use, small-scale features",
+   "used_for_extracts": "yes (extracts/src/75-cli-landscape.xdef)"
+  },
+  "NPS-CLI-1STDAY": {
+   "title": "Cultural Landscapes Inventory: First Day - Union 1st Corps Battlefield, Gettysburg National Military Park",
+   "author": "National Park Service",
+   "date": "2021",
+   "from": "PDF p. 1 (cover: Cultural Landscapes Inventory, First Day - Union 1st Corps Battlefield; the text says it is extracted from the 2021 Cultural Landscape Report)",
+   "text_quality": "born-digital text, clean",
+   "state_dates_note": "Mixed and dated in the text: 1863 conditions (physical history to 1863 and the feature entries), commemorative-era features, and conditions surveyed for 2021. Fences are reconstructions; orchards are replantings.",
+   "used_for_extracts": "yes (extracts/src/12-cli-first-day.xdef)"
+  },
+  "NPS-ADHI": {
+   "title": "Administrative History: Gettysburg National Military Park and National Cemetery, Pennsylvania",
+   "author": "Harlan D. Unrau",
+   "date": "July 1991",
+   "from": "PDF p. 3 (title page: administrative history, July 1991, by Harlan D. Unrau; United States Department of the Interior, National Park Service)",
+   "text_quality": "born-digital text, clean; footnotes run into the text",
+   "state_dates_note": "Every dated feature in the extracts was placed after July 1863 (monuments, avenues, towers, tablets) except the statements about 1863 and the 1925 description of walls (a 1925 statement about walls the park commission restored 1895-1905).",
+   "used_for_extracts": "yes (extracts/src/40-adhi.xdef)"
+  },
+  "NPS-CLI-LRT": {
+   "title": "Cultural Landscapes Inventory: Little Round Top, Gettysburg National Military Park",
+   "author": "National Park Service",
+   "date": "2020",
+   "from": "PDF p. 1 (cover: National Park Service, Cultural Landscapes Inventory 2020, Little Round Top, Gettysburg National Military Park)",
+   "text_quality": "born-digital text, clean",
+   "state_dates_note": "Each structure entry gives its build date (built 1863, built pre-1863) and restoration dates; the existing-conditions text describes 2020. A restored wall is never an 1863 profile.",
+   "used_for_extracts": "yes (extracts/src/70-cli-lrt.xdef)"
+  },
+  "NPS-CLI-CEMETERY": {
+   "title": "Cultural Landscapes Inventory: Gettysburg National Cemetery, Gettysburg National Military Park",
+   "author": "National Park Service",
+   "date": "2019",
+   "from": "PDF p. 1 (cover: National Park Service, Cultural Landscapes Inventory 2019, Gettysburg National Cemetery)",
+   "text_quality": "born-digital text, clean",
+   "state_dates_note": "The cemetery was designed in 1863 and built 1863-1869: everything of the national cemetery itself is later than the battle; only the passages on the 1863 site (fence-enclosed fields, Evergreen Cemetery, the grove, the signal station) describe July 1863.",
+   "used_for_extracts": "yes (extracts/src/60-hospitals-cemetery.xdef)"
+  },
+  "NPS-BOUNDARY-1988": {
+   "title": "Boundary Study, Gettysburg National Military Park: Draft Report to Congress / Environmental Assessment",
+   "author": "National Park Service, Mid-Atlantic Region",
+   "date": "1988 (the cover letter date is illegible in the text layer; the listing and file name say 1988)",
+   "from": "PDF pp. 1-3 (draft report prepared in response to Public Law 100-132; cover letter of the Mid-Atlantic Region)",
+   "text_quality": "OCR with letter errors (baTns for barns, standi'nQ for standing); quotes correct them explicitly with {{saved|fixed}}",
+   "state_dates_note": "1988 study; its descriptions of hospital sites, farms and buildings say what each place was used for in July 1863 and what survives in 1988.",
+   "used_for_extracts": "yes (extracts/src/60-hospitals-cemetery.xdef)"
+  },
+  "NPS-CARE-WOUNDED-GUIDE": {
+   "title": "Care of the Wounded Student Program: Teachers' Guide",
+   "author": "Gettysburg National Military Park (education staff)",
+   "date": "not stated",
+   "from": "PDF p. 1 (Gettysburg National Military Park, Student Program, Teachers' Guide)",
+   "text_quality": "typescript OCR with some errors; only clean sentences quoted",
+   "state_dates_note": "Educational text: the two Gettysburg figures quoted (27,000 wounded; Camp Letterman) are student-level summaries.",
+   "used_for_extracts": "yes (extracts/src/60-hospitals-cemetery.xdef)"
+  },
+  "NPS-COMMON-PRIDE-1": {
+   "title": "\"A Common Pride and Fame\": The Attack and Repulse of Pickett's Division, July 3, 1863, Part I",
+   "author": "Kathleen R. Georg, Research Historian, Gettysburg National Military Park",
+   "date": "January 1981 (as printed: 1/81)",
+   "from": "PDF p. 1 (title page: Part I, Kathleen R. Georg, Research Historian, GNMP 1/81)",
+   "text_quality": "typescript OCR, light noise; the study quotes soldiers' accounts at length (marked in each claim)",
+   "state_dates_note": "Narrative of July 3, 1863; soldiers' recollections date from 1863 to the 1900s.",
+   "used_for_extracts": "yes (extracts/src/85-common-pride-1.xdef)"
+  },
+  "NPS-COMMON-PRIDE-2": {
+   "title": "\"A Common Pride and Fame\": The Attack and Repulse of Pickett's Division, July 3, 1863, Part II",
+   "author": "Kathleen R. Georg, Research Historian, Gettysburg National Military Park",
+   "date": "1981",
+   "used_for_extracts": "partly (one hospital passage, extracts/src/60-hospitals-cemetery.xdef)"
+  },
+  "NPS-HARMON-FARM": {
+   "title": "The Significance of the Harmon Farm and the Springs Hotel Woods",
+   "author": "Kathleen Georg Harrison, Historian, Gettysburg National Military Park",
+   "date": "1 March 1991",
+   "from": "PDF p. 1 (title page: Kathleen Georg Harrison, Historian, Gettysburg National Military Park, 1 March 1991)",
+   "text_quality": "typescript OCR with occasional letter errors; quotes typed clean and matched letter for letter",
+   "state_dates_note": "Farm and woods history to 1863 with the 1863 battle and the Springs Hotel (1868-) afterwards.",
+   "used_for_extracts": "yes (extracts/src/80-harmon-vista-spangler.xdef)"
+  },
+  "NPS-VISTA-CUTTING": {
+   "title": "Vista Cutting Project: Area of Little Round Top, Devil's Den, the Wheatfield, and Peach Orchard",
+   "author": "National Park Service, Gettysburg National Park (file form 10-23, May 1929)",
+   "date": "not stated; the text refers to photographs taken in December 1939",
+   "from": "PDF p. 4 (file form: Vista Cutting Project, Gettysburg National Park)",
+   "text_quality": "typescript OCR with noise; clean sentences only",
+   "state_dates_note": "A park file report of about 1939-40 on woodland conditions as of July 1863, using the Warren map of 1868-69 and Brady and Tipton photographs.",
+   "used_for_extracts": "yes (extracts/src/80-harmon-vista-spangler.xdef)"
+  },
+  "NPS-SPANGLERS-SPRING": {
+   "title": "Proposed Restoration of the Spangler's Spring-Culp's Hill Area and the Re-Location of Avenues in the Area of the Spring",
+   "author": "Frederick Tilberg, Assistant Historical Technician, National Park Service",
+   "date": "20 July 1940",
+   "from": "PDF p. 2 (file form: Proposed Restoration of the Spangler's Spring-Culp's Hill Area; By Frederick Tilberg, Assistant Historical Technician, July 20, 1940)",
+   "text_quality": "typescript OCR with noise; clean sentences only",
+   "state_dates_note": "A 1940 report: the earthwork heights and the timber and meadow it describes are the condition of 1940, measured on works the park commission had resodded and rebuilt; they are not 1863 profiles.",
+   "used_for_extracts": "yes (extracts/src/80-harmon-vista-spangler.xdef)"
+  },
+  "NPS-BRIEN-FARM": {
+   "title": "The Brien Farm and Family",
+   "author": "Marcella Sherfy, Resources Management Division, Gettysburg National Military Park",
+   "date": "June 1972",
+   "from": "PDF p. 2 (title: The Brien Farm and Family, by Marcella Sherfy, Resources Management Division, Gettysburg National Military Park, June 1972)",
+   "text_quality": "typescript OCR with letter-spacing and letter errors (f a m i n g, b a m for barn); quotes correct them explicitly with {{saved|fixed}}",
+   "state_dates_note": "Farm history; the 1863 farm is described from the census, tax records, Brien's damage claims, soldiers' accounts and Brady photographs.",
+   "used_for_extracts": "yes (extracts/src/90-farm-studies.xdef)"
+  },
+  "NPS-HSR-LEISTER-BARN": {
+   "title": "Historic Structure Report: Physical Fabric Section, Leister Barn, Gettysburg National Military Park",
+   "author": "Reed L. Engle (as the text layer reads the title page), National Park Service, Mid-Atlantic Region",
+   "date": "not stated in the text layer",
+   "from": "PDF p. 1 (title page: Historic Structure Report: Physical Fabric Section, Leister Barn, by Reed L. Engle, Mid-Atlantic Region)",
+   "text_quality": "typescript OCR with heavy noise (B a m for Barn) and interleaved lines; only contiguous sentences quoted",
+   "state_dates_note": "Treatment period 1863: the report states the barn is to be restored to its appearance just before the battle; its fabric statements describe the 1984-era building.",
+   "used_for_extracts": "yes (extracts/src/90-farm-studies.xdef)"
+  },
+  "NPS-MCCLEAN-HOUSE-BARN": {
+   "title": "McClean House and Barn, Gettysburg National Military Park, Pa.",
+   "author": "Lenard E. Brown, Division of History, Office of Archeology and Historic Preservation, National Park Service",
+   "date": "1 October 1968",
+   "from": "PDF p. 1 (title page: McClean House and Barn, by Lenard E. Brown, Division of History, October 1, 1968)",
+   "text_quality": "typescript OCR with some noise",
+   "state_dates_note": "The report discusses Moses McClean's farm on the Mummasburg road and his damage claim of 1863-65; its building descriptions give the 1863 house and the later one.",
+   "used_for_extracts": "yes (extracts/src/90-farm-studies.xdef)"
+  },
+  "NPS-HSR-SLYDER": {
+   "title": "Historic Structure Report: J. Slyder Farm Buildings (Part I), Gettysburg National Military Park",
+   "author": "National Park Service (Regional Architect Coryell prepared the architectural data section)",
+   "date": "April-May 1959 (review memoranda of April 30 and May 8, 1959)",
+   "from": "PDF pp. 2-3 (memoranda of Regional Director and Chief Architect, 1959)",
+   "text_quality": "typescript OCR with noise",
+   "used_for_extracts": "partly (one passage, extracts/src/90-farm-studies.xdef)"
+  },
+  "NPS-MON-LOC-1932": {
+   "author": "Office of the Quartermaster General, War Department",
+   "date": "1932",
+   "from": "PDF p. 1 (cover: issued by Office of the Quartermaster General, War Department, United States Government Printing Office, Washington 1932)",
+   "text_quality": "tables scrambled in the text layer (columns out of order, OCR errors); no dates of erection",
+   "used_for_extracts": "no: location tables only, the text layer cannot be quoted reliably and gives no dates (page images owed)"
+  },
+  "NPS-MON-LOC-1993": {
+   "author": "Compiled by Kathy Georg Harrison (Gettysburg National Military Park with Eastern National Park and Monument Association)",
+   "date": "1993",
+   "from": "PDF p. 3 (title page: compiled by Kathy Georg Harrison; ISBN 0-939631-64-4; 1993)",
+   "text_quality": "tables scrambled in the text layer; no dates of erection",
+   "used_for_extracts": "no: location tables only, the text layer cannot be quoted reliably and gives no dates (page images owed)"
   }
  }
 }

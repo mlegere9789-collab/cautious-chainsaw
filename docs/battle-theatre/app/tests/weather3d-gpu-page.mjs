@@ -94,4 +94,5 @@ WG.checkCompute = async () => {               // the optional GPU-cull compute s
   const sc = await d.popErrorScope(); const lim = d.limits;
   return { messages: info.messages.map(x => ({ type: x.type, line: x.lineNum, col: x.linePos, msg: String(x.message).slice(0, 300) })), pipelineOk: !!pipe, pipelineError: err, validation: sc ? String(sc.message).slice(0, 700) : null, limits: { maxComputeInvocationsPerWorkgroup: lim.maxComputeInvocationsPerWorkgroup, maxComputeWorkgroupSizeX: lim.maxComputeWorkgroupSizeX } };
 };
+WG.resize = async (w, h) => { WG.host.resize(w, h); WG.w = w; WG.h = h; };
 WG.dispose = async () => { try { fxHost.dispose(); } catch (e) { WG.log.push('fx dispose: ' + e.message); } try { WG.host.destroy(); } catch (e) { WG.log.push('host destroy: ' + e.message); } };

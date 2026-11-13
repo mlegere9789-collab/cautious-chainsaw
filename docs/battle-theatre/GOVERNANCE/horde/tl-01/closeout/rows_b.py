@@ -51,7 +51,7 @@ ROWS.append(dict(
                 'Environment (regional)', 'Wrightsville and York, Pa.; Frederick, Md.', 'Jun 28: day (very warm, Early); night (rain at Frederick, 61st Ohio)',
                 'Early OR27-2-R470 p.466; Bown OR27-1-R258 p.738',
                 'On Jun 28 Early records that Gordon\'s men had marched a little over 20 miles on a very warm day (Wrightsville, York County), and the 61st Ohio at Middletown and Frederick records weather rainy during the night. '
-                'The seed values (no rain; 63 F at 07:00, 67 F at 14:00, 68 F at 21:00) are Jacobs\'s readings known only through secondary summaries; they are not found in any text read, and a "very warm day" is not consistent with 67-68 F. Both are carried as scenarios.',
+                'The seed values (no rain; 63 F at 07:00, 67 F at 14:00, 68 F at 21:00) are Jacobs\'s readings known only through secondary summaries; they are not found in any text read, and they do not agree with Early\'s "very warm day". Both are carried as scenarios.',
                 'documented', '1863-06-28T00:00', '1863-06-28T23:59', marking='very warm day and rainy night: documented (regional); seed readings: plausible-procedural, original not read'),
     subs=[
         ('Gordon\'s men marched a little over 20 miles on a very warm day (Jun 28, to Wrightsville)', 'documented', 'supported', ['early_warm']),
@@ -115,7 +115,7 @@ ROWS.append(dict(
                 'Army of the Potomac: Maj. Gen. G. G. Meade (had commanded the V Corps), Maj. Gen. G. Sykes takes the V Corps', 'Meade\'s camp at Ballinger\'s Creek near Frederick; Hooker\'s headquarters at Frederick, Md.',
                 'Jun 28, between about 03:00 (order delivered) and 07:00 (Meade\'s dispatch: "The order placing me in command of this army is received"), after the interview at Hooker\'s headquarters at daylight',
                 'Meade OR27-1-R006 p.61 (7 a.m. dispatch); Life and Letters of G. G. Meade vol.2 pp.1-2; Itinerary OR27-1-R007 p.144; Hancock OR27-1-R076 p.367',
-                'Early on Jun 28 Meade was roused at about three o\'clock by Colonel Hardie with the order, rode with him to Hooker\'s headquarters, reached just after daylight, and assumed command; his dispatch of 7 a.m. to Halleck says the order is received; Hancock reports that Meade "had that day assumed command". '
+                'Early on Jun 28 Meade was roused at about three o\'clock by Colonel Hardie, bearer of the despatches (the order), rode with him to Hooker\'s headquarters, reached just after daylight, and assumed command; his dispatch of 7 a.m. to Halleck says the order is received; Hancock reports that Meade "had that day assumed command". '
                 'General Sykes took command of the V Corps. The hour of the formal assumption is a window, 03:00 to 07:00.',
                 'documented', '1863-06-28T03:00', '1863-06-28T07:00'),
     subs=[
@@ -511,7 +511,7 @@ ROWS.append(dict(
     id='T1-040', verdict='partially_supported',
     claim=claim('Night of Jun 29: camp life of the armies is documented only in fragments: Longstreet\'s headquarters at Chambersburg in the evening, the enlarged Confederate camps above Cashtown seen from Gettysburg',
                 'Longstreet\'s headquarters mess; Hill\'s troops above Cashtown; both armies', 'Chambersburg; the slope of the mountain above Cashtown', 'Evening and night of Jun 29', 'Fremantle 1864 (Jun 29); Jacobs 1864 pp.20-21',
-                'Fremantle records that on the evening of Jun 29 Longstreet and he talked at length about Texas at headquarters near Chambersburg, and that the troops showed good behaviour towards the citizens; Jacobs saw, by field-glass, the Rebel encampments above Cashtown considerably enlarged on Jun 29 (and the camp-fires of Hill\'s advance party on the evening of Jun 28). '
+                'Fremantle records that on the evening of Jun 29 Longstreet and he talked at length about Texas at headquarters near Chambersburg; Jacobs saw, by field-glass, the Rebel encampments above Cashtown considerably enlarged on Jun 29 (and the camp-fires of Hill\'s advance party on the evening of Jun 28). '
                 'Camp life, fires, pickets and civilians across both armies on the night of Jun 29 remain an open gap.',
                 'open gap', '1863-06-29T20:04', '1863-06-30T04:03', marking='fragments: documented; the army-wide camp life: open gap, shown only as marked procedural scene detail'),
     subs=[

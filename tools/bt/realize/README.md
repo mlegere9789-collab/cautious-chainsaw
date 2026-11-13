@@ -19,7 +19,7 @@ node tools/bt/realize/check.mjs --row T1-004,T1-005  some rows
 node tools/bt/realize/check.mjs --file x.jsonl       a records file (tests use this); never writes RESULTS.json
 node tools/bt/realize/check.mjs --json               the whole report on stdout
 node tools/bt/realize/check.mjs --shard tl-03 --update    write each record's "result" field back into tl-03.jsonl
-node --test tests/governance/realize.test.mjs        the tests (21), injected wrong records included
+node --test tests/governance/realize.test.mjs        the tests (24), injected wrong records included
 
 node tools/bt/realize/q.mjs row T1-097               the row: printed cells, allowed time and why, places and units its words name, register links, result
 node tools/bt/realize/q.mjs suggest T1-097           when every drawn leaf of each named unit is on the field / within the tolerance of each named place / marching (a search aid, not a record)
@@ -58,6 +58,7 @@ One JSON object per line, **one per timeline row**, in `GOVERNANCE/realizations/
 | `entities` | every entity the checks use, **no more and no less**: `units`, `structures`, `places`, `works`, `cards` (row ids), `schedule` (schedule row ids, documentation of `schedule_row`). Each is an id, or `{ "id": ..., "via": "<verbatim words of the row>" }` when the row names it in other words |
 | `checks` | the assertions (section 4); every one must hold |
 | `place_unspecified` | a motion or activity row that names no place says so here (the reason) |
+| `not_shown` | realized records: `[{ "words", "why" }]`, the parts of the row (its own words) the record does NOT realize. The row is then realized **partially** (`partial: true`, counted apart, not in `q17.ok_strict` unless an open register entry covers it) and those parts stay open for registration |
 | `missing`, `intended_kind` | kind `not_realized` only (section 6) |
 | `register` | open register entries meanwhile (information; coverage uses the requirement links only) |
 | `result` | `{ realized, why, digest }`, written by `check.mjs --update`; recomputed every run, a disagreement is reported as `stale_result` |
@@ -116,14 +117,14 @@ A row the product does not show gets a record too, with `intended_kind` (what it
 
 `harness`, `harness_digest` (sources of the harness), `inputs_digest` (the files the shell's loaders read), `scope`, `totals`, `q17`, `record_file_problems`, `rows` (691), `epilogue` (14), `examples`. Per row: `realized`, `kind`, `why`, `codes`, `record` (file:line), `window`, `scenarios`, `declared_bindings`, `problems`, `failing[]`, `assertions[]` (`i, type, ok, code, evidence`), `missing` (not_realized), `realization_class`, `tier`, `status`, `register_open` (open entries linked to the row's sub-requirement, the rule of `tools/bt/check_coverage.py`), `q17_covered` (realized or open register entry), `q17_covered_strict`, `coverage` (`realization`, `card`, `open_register_entry`, `none`), `spec_view` (GATE-SPEC-A: `t_start`, `t_end`, `subjects`, `probe`, `expected`, `observed_ref`). Deterministic: the same inputs give the same bytes.
 
-A gate runner reads `RESULTS.json`: the conservative reading (DD-RZ-04) is `q17.ok_strict` true and `record_file_problems` empty; `q17.ok` (a card counts as a visual realization) is given for information until the gate spec decides; the harness's own tests are `tests/governance/realize.test.mjs`. **Q17.4 (slot coverage of every unit at every grid time) and Q17.5 (gap markers of open-gap rows in the evidence layer) scan the whole product, not rows; they are not done here.**
+A gate runner reads `RESULTS.json`: the conservative reading (DD-RZ-04) is `q17.ok_strict` true and `record_file_problems` empty; `q17.ok` (a card counts as a visual realization) is given for information until the gate spec decides; the harness's own tests are `tests/governance/realize.test.mjs` (24). **Q17.4 (slot coverage of every unit at every grid time) and Q17.5 (gap markers of open-gap rows in the evidence layer) scan the whole product, not rows; they are not done here.**
 
 ## 9. For the engineer writing a shard
 
 1. `q.mjs rows tl-NN`, then for each row `q.mjs row <id>` (allowed time, places, units, register) and `q.mjs suggest <id>`.
 2. Use the corrected claim when `timeline_corrections/<shard>.jsonl` has one (its text is in the row's `claim_text`).
 3. Decide what the row says that a picture can show. Write the record with a `quote` of those words and the checks that prove them. Run `check.mjs --shard tl-NN --row <id>`.
-4. If the check fails, the row is **not realized**: do not weaken the check, widen a tolerance (the harness refuses a wider `within_m`), move the window outside the row's time or drop the claim. Write the record as `not_realized` with the probe and the exact reason; list it in `<shard>.MISSING.md` grouped by code. A row that says more than the product shows is not realized, even if one part is (T1-015).
+4. If the check fails, the row is **not realized**: do not weaken the check, widen a tolerance (the harness refuses a wider `within_m`), move the window outside the row's time or drop the claim. Write the record as `not_realized` with the probe and the exact reason; list it in `<shard>.MISSING.md` grouped by code. If the row's main named object, unit or event is shown and only side details are not, the record is realized with `not_shown` listing them (T1-015, T1-016: the bridge is drawn burned; the rail cars, the track and the further bridges are not); if the main event is not shown the row is not realized.
 5. Never record a realization the check does not confirm; never edit the seed; an unknown place is listed (`q.mjs place`), never given coordinates.
 
 ## 10. What this does not do (owed)

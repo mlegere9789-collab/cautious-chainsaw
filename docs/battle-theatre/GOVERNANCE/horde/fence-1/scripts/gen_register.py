@@ -93,13 +93,13 @@ add(13, "McMillan fence felling on Jul 1", "R14 (S-009)", "evidence conflict (pa
  "None.", "Carry both actors.", status='partly_closed')
 
 add(14, "Second Brigade (Kane) breastwork on Culp's Hill: Jul 2 morning (PDF) vs \"before sundown\" (Kane)", "R14 (E-07), R17", "evidence conflict",
- "Close-out 2026-11-13. Kane assumed command at 06:00 Jul 2 and says the brigade was ordered into line soon after and threw up a substantial breastwork before sundown; Cobham: a breastwork of logs, stone and earth at right angles to the Third Brigade, remained until evening; Greene 1893: Kane's 400 men were already on his right when his own works were done early in the day. Wadsworth's men: Cutler's brigade threw up breastworks. No per-regiment clocks.",
+ "Close-out 2026-11-13. Kane assumed command at 06:00 Jul 2 and says the brigade was ordered into line soon after and threw up a substantial breastwork before sundown; Cobham: a breastwork of logs, stone and earth at right angles to the Third Brigade, remained until evening; Greene 1893 places Kane's 400 men next on his right in the line he describes after the early-day works. Wadsworth's men: Cutler's brigade threw up breastworks. No per-regiment clocks.",
  "No clock for the start (Law cl.3).", TH,
  "Window 06:00 to before sundown; default morning to early afternoon.", "-", "inferred", "Jul 2 morning (PDF) vs before sundown (Kane)", "Both windows listed.", "Culp's Hill Jul 2",
  "Which window is the default? Until decided, none.", "Carry both.")
 
 add(15, "Steuart on Culp's Hill, night of Jul 2: works empty (Rickards, PDF) vs works defended (Steuart, Johnson)", "R14 (E-10)", "evidence conflict",
- "Close-out 2026-11-13. Confirmed as a two-version conflict: Union reports (Greene, Rickards, Cobham, Kane) say the works were left unoccupied and the enemy took possession; Steuart and Johnson say Steuart charged a work and scattered the enemy behind it; Ewell says Steuart took part of the breastworks and held them until ordered out at noon. Clock: Johnson attacked about dusk; Greene was attacked a few minutes before 19:00 and found the enemy in the works about 20:00; Steuart rested from about 23:00.",
+ "Close-out 2026-11-13. Confirmed as a two-version conflict: Union reports (Greene, Rickards, Cobham, Kane) say the works were left unoccupied and the enemy took possession; Steuart and Johnson say Steuart charged a work and scattered the enemy behind it; Ewell says Steuart took part of the breastworks and held them until ordered out at noon. Clock: Johnson attacked about dusk; Greene was attacked a few minutes before 19:00 and found the enemy in the works about 20:00; Steuart rested from about 23:00 (OCR 'lip. m.' in the Cornell scan, '11 p. m.' in the BYU scan).",
  "The sources disagree (Law cl.6).", TH,
  "Both versions selectable; no default.", "-", "documented (occupation, duration); conflict (empty vs defended)", "Empty vs defended", "Both versions listed.", "Culp's Hill lower works, Jul 2 19:00 to Jul 3 noon",
  "Which version is the default? Until decided, none.", "Carry both.")

@@ -15,47 +15,47 @@ Extract sheets: `extracts/fields-woodlots.md`, `extracts/fences.md`, `extracts/f
 | Source | Pages (with text) | Extracts |
 |---|---|---|
 | NPS-DEV-POLICY | 5 (4) | 0 |
-| NPS-HSR-SLYDER | 16 (11) | 0 |
+| NPS-HSR-SLYDER | 16 (11) | 1 |
 | NPS-HS-SPANGLER-HENRY | 10 (8) | 0 |
-| NPS-BRIEN-FARM | 50 (40) | 0 |
+| NPS-BRIEN-FARM | 50 (40) | 5 |
 | NPS-BRT-ECOLOGY | 15 (15) | 0 |
 | NPS-MON-LOC-1932 | 41 (41) | 0 |
 | NPS-MON-LOC-1993 | 59 (56) | 0 |
 | NPS-MCMILLAN-HOUSE | 15 (5) | 0 |
-| NPS-CLI-CEMETERY | 42 (41) | 0 |
+| NPS-CLI-CEMETERY | 42 (41) | 7 |
 | NPS-EXTENSION-1940 | 16 (12) | 0 |
 | NPS-HSR-MCCLEAN-BARN | 116 (87) | 0 |
 | NPS-HCSR | 53 (41) | 0 |
-| NPS-HSR-LEISTER-BARN | 129 (95) | 0 |
-| NPS-CLI-LANDSCAPE | 105 (94) | 0 |
-| NPS-HARMON-FARM | 71 (55) | 0 |
-| NPS-SPANGLERS-SPRING | 53 (34) | 0 |
-| NPS-MCCLEAN-HOUSE-BARN | 49 (35) | 0 |
+| NPS-HSR-LEISTER-BARN | 129 (95) | 4 |
+| NPS-CLI-LANDSCAPE | 105 (94) | 12 |
+| NPS-HARMON-FARM | 71 (55) | 11 |
+| NPS-SPANGLERS-SPRING | 53 (34) | 6 |
+| NPS-MCCLEAN-HOUSE-BARN | 49 (35) | 2 |
 | NPS-ROCK-CREEK | 24 (11) | 0 |
-| NPS-VISTA-CUTTING | 27 (22) | 0 |
+| NPS-VISTA-CUTTING | 27 (22) | 4 |
 | NPS-BRYAN-HOUSE | 39 (10) | 0 |
 | NPS-HS-MCPHERSON | 207 (156) | 0 |
 | NPS-CLI-1STDAY | 107 (105) | 78 |
 | NPS-CEM-ENCLOSURES | 199 (127) | 0 |
 | NPS-CLR-LRT | 178 (152) | 0 |
-| NPS-CLI-LRT | 112 (101) | 0 |
+| NPS-CLI-LRT | 112 (101) | 26 |
 | NPS-CLI-ERR | 122 (107) | 61 |
 | NPS-TPG-COMMEM | 198 (187) | 18 |
 | NPS-CLI-PCB | 136 (118) | 142 |
 | NPS-CLR-1STDAY | 580 (545) | 163 |
-| NPS-CLR-ROT-V2 | 378 (342) | 0 |
-| NPS-CLR-ROT-V1 | 474 (448) | 0 |
+| NPS-CLR-ROT-V2 | 378 (342) | 20 |
+| NPS-CLR-ROT-V1 | 474 (448) | 65 |
 | NPS-CLR-CEMETERY | 466 (440) | 0 |
 | NPS-GMP-1999-V1 | 447 (439) | 0 |
 | NPS-ADHI | 451 (445) | 21 |
 | NPS-SLAUGHTER-PEN | 60 (49) | 0 |
 | NPS-CEM-DEDICATION | 33 (28) | 0 |
 | NPS-NRCA-2017 | 286 (273) | 0 |
-| NPS-BOUNDARY-1988 | 65 (59) | 0 |
-| NPS-CARE-WOUNDED-GUIDE | 47 (41) | 0 |
+| NPS-BOUNDARY-1988 | 65 (59) | 8 |
+| NPS-CARE-WOUNDED-GUIDE | 47 (41) | 2 |
 | NPS-SLYDER-GUIDE | 47 (45) | 0 |
-| NPS-COMMON-PRIDE-1 | 236 (227) | 0 |
-| NPS-COMMON-PRIDE-2 | 203 (199) | 0 |
+| NPS-COMMON-PRIDE-1 | 236 (227) | 9 |
+| NPS-COMMON-PRIDE-2 | 203 (199) | 1 |
 | NPS-COMMON-PRIDE-3 | 206 (168) | 0 |
 | NPS-DCP-LRT | 77 (70) | 0 |
 | NPS-DCP-GUINN | 37 (34) | 0 |
@@ -88,7 +88,7 @@ Extract sheets: `extracts/fields-woodlots.md`, `extracts/fences.md`, `extracts/f
 | NPSGOV-WARFIELD-HOUSE | 1 (1) | 3 |
 | NPSGOV-WISLER-HOUSE | 1 (1) | 1 |
 
-Total extracts: 509 from 15 sources.
+Total extracts: 692 from 31 sources.
 
 ## NPS-DEV-POLICY
 
@@ -103,12 +103,14 @@ Total extracts: 509 from 15 sources.
 ## NPS-HSR-SLYDER
 
 - Title: Historic Structure Report: J. Slyder Farm Buildings (Part I), Gettysburg National Military Park
-- Author: not stated | Date: not stated
+- Author: National Park Service (Regional Architect Coryell prepared the architectural data section) | Date: April-May 1959 (review memoranda of April 30 and May 8, 1959)
 - URL: https://www.npshistory.com/publications/gett/hsr-slyder-farm-p1.pdf (HTTP 200, fetched 2026-11-13T18:59:22Z)
 - File as served: 1697453 bytes, sha256 `46056d0193c276efdc8dc77058a580d4b0b9e402a19fce318ffbb40e4ac73d8a`
 - Text: `tmp/library/web/nps/NPS-HSR-SLYDER/NPS-HSR-SLYDER.txt`, 10461 bytes, sha256 `6f643ecdd335595ed0b9ec128b6f61fc174639eebfcf27598e51d1a168f2fce0`; 11 of 16 pages carry text
 - Rights basis: United States government work
-- Extracts written: 0 (not yet read for extracts)
+- Text quality: typescript OCR with noise
+- Extracts written: 1 (fences 1)
+- Used for extracts: partly (one passage, extracts/src/90-farm-studies.xdef)
 
 ## NPS-HS-SPANGLER-HENRY
 
@@ -123,12 +125,15 @@ Total extracts: 509 from 15 sources.
 ## NPS-BRIEN-FARM
 
 - Title: The Brien Farm and Family
-- Author: not stated | Date: not stated
+- Author: Marcella Sherfy, Resources Management Division, Gettysburg National Military Park | Date: June 1972
 - URL: https://www.npshistory.com/publications/gett/brien-farm.pdf (HTTP 200, fetched 2026-11-13T18:59:36Z)
 - File as served: 3855474 bytes, sha256 `76a1a095b7fae524fe440a0f1c606b02ed0a65b4f810a3756283c0dcdaa40eda`
 - Text: `tmp/library/web/nps/NPS-BRIEN-FARM/NPS-BRIEN-FARM.txt`, 49719 bytes, sha256 `0d49364b257d49b7f267ea418789cbecf72471a81128c537005d3635700c32e0`; 40 of 50 pages carry text
 - Rights basis: United States government work
-- Extracts written: 0 (not yet read for extracts)
+- Text quality: typescript OCR with letter-spacing and letter errors (f a m i n g, b a m for barn); quotes correct them explicitly with {{saved|fixed}}
+- Feature states: Farm history; the 1863 farm is described from the census, tax records, Brien's damage claims, soldiers' accounts and Brady photographs.
+- Extracts written: 5 (farm-buildings 2, fields-woodlots 3)
+- Used for extracts: yes (extracts/src/90-farm-studies.xdef)
 
 ## NPS-BRT-ECOLOGY
 
@@ -143,22 +148,26 @@ Total extracts: 509 from 15 sources.
 ## NPS-MON-LOC-1932
 
 - Title: The Locations of the Monuments, Markers and Tablets on the Battlefield of Gettysburg
-- Author: not stated | Date: not stated
+- Author: Office of the Quartermaster General, War Department | Date: 1932
 - URL: https://www.npshistory.com/publications/gett/mon-locations-1932.pdf (HTTP 200, fetched 2026-11-13T18:59:38Z)
 - File as served: 2095190 bytes, sha256 `cf32c533de3d880cd84718915321b64e84086bee16735db23841a1fdcb090c46`
 - Text: `tmp/library/web/nps/NPS-MON-LOC-1932/NPS-MON-LOC-1932.txt`, 63295 bytes, sha256 `30c6cfae70cdf9c77bc62a12e7e57ff0bc17811e241c59816713b0baf6709a3d`; 41 of 41 pages carry text
 - Rights basis: United States government work
+- Text quality: tables scrambled in the text layer (columns out of order, OCR errors); no dates of erection
 - Extracts written: 0 (not yet read for extracts)
+- Used for extracts: no: location tables only, the text layer cannot be quoted reliably and gives no dates (page images owed)
 
 ## NPS-MON-LOC-1993
 
 - Title: The Location of the Monuments Markers, and Tablets on Gettysburg Battlefield
-- Author: not stated | Date: not stated
+- Author: Compiled by Kathy Georg Harrison (Gettysburg National Military Park with Eastern National Park and Monument Association) | Date: 1993
 - URL: https://www.npshistory.com/publications/gett/mon-locations-1993.pdf (HTTP 200, fetched 2026-11-13T18:59:41Z)
 - File as served: 7014723 bytes, sha256 `f3fb60176cf7566ba4232f4426d730fbd0d770c70436bfbe6c13d022aba6791e`
 - Text: `tmp/library/web/nps/NPS-MON-LOC-1993/NPS-MON-LOC-1993.txt`, 84758 bytes, sha256 `b86dd696be176eda8372ad4780e3a69e2f1051615799d8480f9d0f43484e352c`; 56 of 59 pages carry text
 - Rights basis: United States government work
+- Text quality: tables scrambled in the text layer; no dates of erection
 - Extracts written: 0 (not yet read for extracts)
+- Used for extracts: no: location tables only, the text layer cannot be quoted reliably and gives no dates (page images owed)
 
 ## NPS-MCMILLAN-HOUSE
 
@@ -173,12 +182,15 @@ Total extracts: 509 from 15 sources.
 ## NPS-CLI-CEMETERY
 
 - Title: Cultural Landscapes Inventory: Gettysburg National Cemetery, Gettysburg National Military Park
-- Author: not stated | Date: not stated
+- Author: National Park Service | Date: 2019
 - URL: https://www.npshistory.com/publications/gett/cli-cemetery.pdf (HTTP 200, fetched 2026-11-13T18:59:49Z)
 - File as served: 4181912 bytes, sha256 `0d73d8d670950dce7cf3568408c7de783c19ee016dfdbc2feeab442da0d3d361`
 - Text: `tmp/library/web/nps/NPS-CLI-CEMETERY/NPS-CLI-CEMETERY.txt`, 112641 bytes, sha256 `57a1ba99644bb18c7c5cf1b94b97e911178540d0b714c1334b6a15ce0676e367`; 41 of 42 pages carry text
 - Rights basis: United States government work
-- Extracts written: 0 (not yet read for extracts)
+- Text quality: born-digital text, clean
+- Feature states: The cemetery was designed in 1863 and built 1863-1869: everything of the national cemetery itself is later than the battle; only the passages on the 1863 site (fence-enclosed fields, Evergreen Cemetery, the grove, the signal station) describe July 1863.
+- Extracts written: 7 (farm-buildings 1, fields-woodlots 2, monuments-later 2, other-landscape 2)
+- Used for extracts: yes (extracts/src/60-hospitals-cemetery.xdef)
 
 ## NPS-EXTENSION-1940
 
@@ -212,53 +224,70 @@ Total extracts: 509 from 15 sources.
 
 ## NPS-HSR-LEISTER-BARN
 
-- Title: Historic Structure Report: Physical Fabric Section, Leister Barn, Gettysburg National Military Park, Gettysburg, Pennsylvania
-- Author: not stated | Date: not stated
+- Title: Historic Structure Report: Physical Fabric Section, Leister Barn, Gettysburg National Military Park
+- Author: Reed L. Engle (as the text layer reads the title page), National Park Service, Mid-Atlantic Region | Date: not stated in the text layer
 - URL: https://www.npshistory.com/publications/gett/hsr-leister-barn.pdf (HTTP 200, fetched 2026-11-13T18:59:59Z)
 - File as served: 11689896 bytes, sha256 `7f6275e5c4526192a0cafd879c4739b4d4cd261c17180a80d21e16e44c70ee3f`
 - Text: `tmp/library/web/nps/NPS-HSR-LEISTER-BARN/NPS-HSR-LEISTER-BARN.txt`, 109668 bytes, sha256 `133b64b9e132c5583c505ac25061ec1542d2a5391012103c365f5f7714b71539`; 95 of 129 pages carry text
 - Rights basis: United States government work
-- Extracts written: 0 (not yet read for extracts)
+- Text quality: typescript OCR with heavy noise (B a m for Barn) and interleaved lines; only contiguous sentences quoted
+- Feature states: Treatment period 1863: the report states the barn is to be restored to its appearance just before the battle; its fabric statements describe the 1984-era building.
+- Extracts written: 4 (farm-buildings 1, fences 1, hospitals 1, other-landscape 1)
+- Used for extracts: yes (extracts/src/90-farm-studies.xdef)
 
 ## NPS-CLI-LANDSCAPE
 
 - Title: Cultural Landscapes Inventory: Gettysburg Landscape, Gettysburg National Military Park
-- Author: not stated | Date: not stated
+- Author: National Park Service (Laurie Matthews, Senior Historian, as named on the inventory form) | Date: 2000 (revised 2004)
 - URL: https://www.npshistory.com/publications/gett/cli-gettsyburg-landscape.pdf (HTTP 200, fetched 2026-11-13T19:00:03Z)
 - File as served: 12798370 bytes, sha256 `d214017cd57d8b8d695827e308ad4e1d820e5e5eba0147e8797036cc758cd2e0`
 - Text: `tmp/library/web/nps/NPS-CLI-LANDSCAPE/NPS-CLI-LANDSCAPE.txt`, 203460 bytes, sha256 `c54f0cec804d222ab6089c50d9a73da9cca3744d2171eeb64c62bb92896a4e21`; 94 of 105 pages carry text
 - Rights basis: United States government work
-- Extracts written: 0 (not yet read for extracts)
+- Text quality: scan of a 2000 print inventory: the text layer has no punctuation and the standard reading-order text is scrambled, so quotes are cut from the layout text (<ID>.layout.txt) and typed with the punctuation restored (quote_mode cleaned: letters and digits matched, punctuation ignored)
+- Covers: Park-wide landscape inventory: vegetation by period (crops, woodlots, orchards, hedgerows), land use, small-scale features
+- Feature states: Vegetation section (PDF pp. 55-57): the paragraph headed AGRARIAN LANDSCAPE PERIOD UP TO 1863 describes the pre-battle vegetation; the later paragraphs describe the GBMA (1863-1895), War Department (1895-1933) and NPS periods.
+- Extracts written: 12 (fields-woodlots 12)
+- Quotes are cut from the layout text variant (tmp/library/web/nps/<ID>/<ID>.layout.txt)
+- Used for extracts: yes (extracts/src/75-cli-landscape.xdef)
 
 ## NPS-HARMON-FARM
 
 - Title: The Significance of the Harmon Farm and the Springs Hotel Woods
-- Author: not stated | Date: not stated
+- Author: Kathleen Georg Harrison, Historian, Gettysburg National Military Park | Date: 1 March 1991
 - URL: https://www.npshistory.com/publications/gett/harmon-farm-springs-hotel-woods.pdf (HTTP 200, fetched 2026-11-13T19:00:10Z)
 - File as served: 12862106 bytes, sha256 `64c29ff5dbb97eb9cc0e63352e8995c55f67997b40e637cb4daeb28971ffec82`
 - Text: `tmp/library/web/nps/NPS-HARMON-FARM/NPS-HARMON-FARM.txt`, 168753 bytes, sha256 `b74a832f34e1176636d692e3034154495068e81f3eced508261d1f80b3a96524`; 55 of 71 pages carry text
 - Rights basis: United States government work
-- Extracts written: 0 (not yet read for extracts)
+- Text quality: typescript OCR with occasional letter errors; quotes typed clean and matched letter for letter
+- Feature states: Farm and woods history to 1863 with the 1863 battle and the Springs Hotel (1868-) afterwards.
+- Extracts written: 11 (farm-buildings 3, fences 1, fields-woodlots 6, other-landscape 1)
+- Used for extracts: yes (extracts/src/80-harmon-vista-spangler.xdef)
 
 ## NPS-SPANGLERS-SPRING
 
 - Title: Proposed Restoration of the Spangler's Spring-Culp's Hill Area and the Re-Location of Avenues in the Area of the Spring
-- Author: not stated | Date: not stated
+- Author: Frederick Tilberg, Assistant Historical Technician, National Park Service | Date: 20 July 1940
 - URL: https://www.npshistory.com/publications/gett/spanglers-spring-culps-hill.pdf (HTTP 200, fetched 2026-11-13T19:00:13Z)
 - File as served: 12974921 bytes, sha256 `694d774579a732f3468692029118b11dc2310bc9236c06afe54943c50b2f476b`
 - Text: `tmp/library/web/nps/NPS-SPANGLERS-SPRING/NPS-SPANGLERS-SPRING.txt`, 50669 bytes, sha256 `776affabeafbff1d27b53e17936daf9ddceaa0ea7e1fa2abe316ca887dbf2db6`; 34 of 53 pages carry text
 - Rights basis: United States government work
-- Extracts written: 0 (not yet read for extracts)
+- Text quality: typescript OCR with noise; clean sentences only
+- Feature states: A 1940 report: the earthwork heights and the timber and meadow it describes are the condition of 1940, measured on works the park commission had resodded and rebuilt; they are not 1863 profiles.
+- Extracts written: 6 (fields-woodlots 2, other-landscape 4)
+- Used for extracts: yes (extracts/src/80-harmon-vista-spangler.xdef)
 
 ## NPS-MCCLEAN-HOUSE-BARN
 
 - Title: McClean House and Barn, Gettysburg National Military Park, Pa.
-- Author: not stated | Date: not stated
+- Author: Lenard E. Brown, Division of History, Office of Archeology and Historic Preservation, National Park Service | Date: 1 October 1968
 - URL: https://www.npshistory.com/publications/gett/mcclean-house-barn.pdf (HTTP 200, fetched 2026-11-13T19:00:15Z)
 - File as served: 13357368 bytes, sha256 `6a3b9149c5d8e002819370d427d72c420594b94b2666f9a8583810c9532c7360`
 - Text: `tmp/library/web/nps/NPS-MCCLEAN-HOUSE-BARN/NPS-MCCLEAN-HOUSE-BARN.txt`, 50559 bytes, sha256 `8224d20c22530603f367ae8d2952efceef337c8bb5f594450ec36e1d018b34c1`; 35 of 49 pages carry text
 - Rights basis: United States government work
-- Extracts written: 0 (not yet read for extracts)
+- Text quality: typescript OCR with some noise
+- Feature states: The report discusses Moses McClean's farm on the Mummasburg road and his damage claim of 1863-65; its building descriptions give the 1863 house and the later one.
+- Extracts written: 2 (farm-buildings 1, other-landscape 1)
+- Used for extracts: yes (extracts/src/90-farm-studies.xdef)
 
 ## NPS-ROCK-CREEK
 
@@ -273,12 +302,15 @@ Total extracts: 509 from 15 sources.
 ## NPS-VISTA-CUTTING
 
 - Title: Vista Cutting Project: Area of Little Round Top, Devil's Den, the Wheatfield, and Peach Orchard
-- Author: not stated | Date: not stated
+- Author: National Park Service, Gettysburg National Park (file form 10-23, May 1929) | Date: not stated; the text refers to photographs taken in December 1939
 - URL: https://www.npshistory.com/publications/gett/vista-cutting.pdf (HTTP 200, fetched 2026-11-13T19:01:42Z)
 - File as served: 20919909 bytes, sha256 `b397562a6c408b1871645a8d5b068267f8d898c96b6fc98d8dfd2a6ae0b7bd13`
 - Text: `tmp/library/web/nps/NPS-VISTA-CUTTING/NPS-VISTA-CUTTING.txt`, 31383 bytes, sha256 `06db83351d62c22fc3b4db8900a8350ac936cecd373c4f4dee0229e19baf3c81`; 22 of 27 pages carry text
 - Rights basis: United States government work
-- Extracts written: 0 (not yet read for extracts)
+- Text quality: typescript OCR with noise; clean sentences only
+- Feature states: A park file report of about 1939-40 on woodland conditions as of July 1863, using the Warren map of 1868-69 and Brady and Tipton photographs.
+- Extracts written: 4 (fields-woodlots 4)
+- Used for extracts: yes (extracts/src/80-harmon-vista-spangler.xdef)
 
 ## NPS-BRYAN-HOUSE
 
@@ -303,12 +335,15 @@ Total extracts: 509 from 15 sources.
 ## NPS-CLI-1STDAY
 
 - Title: Cultural Landscapes Inventory: First Day - Union 1st Corps Battlefield, Gettysburg National Military Park
-- Author: not stated | Date: not stated
+- Author: National Park Service | Date: 2021
 - URL: https://www.npshistory.com/publications/gett/cli-first-day-ufcb.pdf (HTTP 200, fetched 2026-11-13T19:01:58Z)
 - File as served: 46644173 bytes, sha256 `356ff61d3b0619cc5cfc1307abc75250dafef377e0a04457e92fbb9ef3201c51` (PDF deleted after text extraction to stay inside the disk budget)
 - Text: `tmp/library/web/nps/NPS-CLI-1STDAY/NPS-CLI-1STDAY.txt`, 271164 bytes, sha256 `350b95a26393c3430529a07f76a34d878522d5569403b7cd0f7901e61aa26ae2`; 105 of 107 pages carry text
 - Rights basis: United States government work
+- Text quality: born-digital text, clean
+- Feature states: Mixed and dated in the text: 1863 conditions (physical history to 1863 and the feature entries), commemorative-era features, and conditions surveyed for 2021. Fences are reconstructions; orchards are replantings.
 - Extracts written: 78 (farm-buildings 6, fences 10, fields-woodlots 51, monuments-later 3, other-landscape 8)
+- Used for extracts: yes (extracts/src/12-cli-first-day.xdef)
 
 ## NPS-CEM-ENCLOSURES
 
@@ -333,12 +368,15 @@ Total extracts: 509 from 15 sources.
 ## NPS-CLI-LRT
 
 - Title: Cultural Landscapes Inventory: Little Round Top, Gettysburg National Military Park
-- Author: not stated | Date: not stated
+- Author: National Park Service | Date: 2020
 - URL: https://www.npshistory.com/publications/gett/cli-little-round-top.pdf (HTTP 200, fetched 2026-11-13T19:02:22Z)
 - File as served: 68179730 bytes, sha256 `a1eec8afc89649fcbc89bb801c412e3c8c788af6719d170dd77f956be73e8417` (PDF deleted after text extraction to stay inside the disk budget)
 - Text: `tmp/library/web/nps/NPS-CLI-LRT/NPS-CLI-LRT.txt`, 235077 bytes, sha256 `531850bc7d6616be47783f138aca8ec6f994ad92017cfaf558da172fd972c20a`; 101 of 112 pages carry text
 - Rights basis: United States government work
-- Extracts written: 0 (not yet read for extracts)
+- Text quality: born-digital text, clean
+- Feature states: Each structure entry gives its build date (built 1863, built pre-1863) and restoration dates; the existing-conditions text describes 2020. A restored wall is never an 1863 profile.
+- Extracts written: 26 (fences 10, fields-woodlots 8, other-landscape 8)
+- Used for extracts: yes (extracts/src/70-cli-lrt.xdef)
 
 ## NPS-CLI-ERR
 
@@ -410,7 +448,7 @@ Total extracts: 509 from 15 sources.
 - Text quality: two-column report: quotes are cut from the content-stream-order text (<ID>.raw.txt, pdftotext -raw, line-end hyphenation repaired). The text layer lost the i of every fi ligature and one f of ff (feld, fre, fght, beneft), so quotes are typed in the corrected spelling and matched letter for letter with those groups ignored (quote_mode cleaned; the raw excerpt is stored next to the quote)
 - Covers: Battlefield Rehabilitation Framework (GMP 1999 and the 2004 Treatment Philosophy: The 1863 Landscape) and the record of treatment of the park areas by farm and field: fences, orchards, woodlots, fields, buildings, wells and springs, farm lanes
 - Feature states: Record of Treatment: each area section gives (1) the 1863 landscape (battle-period fields, fences, orchards, woodlots, buildings, hospital use; taken from the 1863 property research and damage claims) and (2) the treatment actually carried out 1998-2013 (fences rebuilt, orchards replanted, woods cleared, non-historic features removed). Only the 1863 paragraphs describe 1863; the treatment paragraphs and the 2013-2016 photographs describe REBUILT or REPLANTED features: never an 1863 profile.
-- Extracts written: 0 (not yet read for extracts)
+- Extracts written: 20 (fences 9, fields-woodlots 11)
 - Text defect: fi-ligature
 - Quotes are cut from the raw text variant (tmp/library/web/nps/<ID>/<ID>.raw.txt)
 - Used for extracts: yes (extracts/src/50-clr-rot-v1.xdef, 51-clr-rot-v2.xdef)
@@ -426,7 +464,7 @@ Total extracts: 509 from 15 sources.
 - Text quality: two-column report: quotes are cut from the content-stream-order text (<ID>.raw.txt, pdftotext -raw, line-end hyphenation repaired). The text layer lost the i of every fi ligature and one f of ff (feld, fre, fght, beneft), so quotes are typed in the corrected spelling and matched letter for letter with those groups ignored (quote_mode cleaned; the raw excerpt is stored next to the quote)
 - Covers: Battlefield Rehabilitation Framework (GMP 1999 and the 2004 Treatment Philosophy: The 1863 Landscape) and the record of treatment of the park areas by farm and field: fences, orchards, woodlots, fields, buildings, wells and springs, farm lanes
 - Feature states: Record of Treatment: each area section gives (1) the 1863 landscape (battle-period fields, fences, orchards, woodlots, buildings, hospital use; taken from the 1863 property research and damage claims) and (2) the treatment actually carried out 1998-2013 (fences rebuilt, orchards replanted, woods cleared, non-historic features removed). Only the 1863 paragraphs describe 1863; the treatment paragraphs and the 2013-2016 photographs describe REBUILT or REPLANTED features: never an 1863 profile.
-- Extracts written: 0 (not yet read for extracts)
+- Extracts written: 65 (farm-buildings 3, fences 33, fields-woodlots 20, hospitals 7, other-landscape 2)
 - Text defect: fi-ligature
 - Quotes are cut from the raw text variant (tmp/library/web/nps/<ID>/<ID>.raw.txt)
 - Used for extracts: yes (extracts/src/50-clr-rot-v1.xdef, 51-clr-rot-v2.xdef)
@@ -454,12 +492,15 @@ Total extracts: 509 from 15 sources.
 ## NPS-ADHI
 
 - Title: Administrative History: Gettysburg National Military Park and National Cemetery, Pennsylvania
-- Author: not stated | Date: not stated
+- Author: Harlan D. Unrau | Date: July 1991
 - URL: https://www.npshistory.com/publications/gett/adhi.pdf (HTTP 200, fetched 2026-11-13T19:05:04Z)
 - File as served: 210610376 bytes, sha256 `8223f0792173c4bea2957c2413086f79e91ccf8c50b2ce4fa980c21603183fa4` (PDF deleted after text extraction to stay inside the disk budget)
 - Text: `tmp/library/web/nps/NPS-ADHI/NPS-ADHI.txt`, 1116527 bytes, sha256 `50d7010ae8e8418885537e90542d2c5b16ff9d12d3c255887895e8f1073fd57e`; 445 of 451 pages carry text
 - Rights basis: United States government work
+- Text quality: born-digital text, clean; footnotes run into the text
+- Feature states: Every dated feature in the extracts was placed after July 1863 (monuments, avenues, towers, tablets) except the statements about 1863 and the 1925 description of walls (a 1925 statement about walls the park commission restored 1895-1905).
 - Extracts written: 21 (fences 3, fields-woodlots 1, monuments-later 15, other-landscape 2)
+- Used for extracts: yes (extracts/src/40-adhi.xdef)
 
 ## NPS-SLAUGHTER-PEN
 
@@ -494,22 +535,28 @@ Total extracts: 509 from 15 sources.
 ## NPS-BOUNDARY-1988
 
 - Title: Boundary Study, Gettysburg National Military Park: Draft Report to Congress / Environmental Assessment
-- Author: not stated | Date: not stated
+- Author: National Park Service, Mid-Atlantic Region | Date: 1988 (the cover letter date is illegible in the text layer; the listing and file name say 1988)
 - URL: https://www.npshistory.com/publications/gett/boundary-study-1988.pdf (HTTP 200, fetched 2026-11-13T19:05:27Z)
 - File as served: 27410279 bytes, sha256 `e027cb0f4066a2c62515470a78a2f50a084b2af4e3bdd3fec49e007eaa5f029e` (PDF deleted after text extraction to stay inside the disk budget)
 - Text: `tmp/library/web/nps/NPS-BOUNDARY-1988/NPS-BOUNDARY-1988.txt`, 134213 bytes, sha256 `21aa35c30b89335e96efbe17fb4405da147e3affe6d4192efca5585ba1edcce1`; 59 of 65 pages carry text
 - Rights basis: United States government work
-- Extracts written: 0 (not yet read for extracts)
+- Text quality: OCR with letter errors (baTns for barns, standi'nQ for standing); quotes correct them explicitly with {{saved|fixed}}
+- Feature states: 1988 study; its descriptions of hospital sites, farms and buildings say what each place was used for in July 1863 and what survives in 1988.
+- Extracts written: 8 (hospitals 8)
+- Used for extracts: yes (extracts/src/60-hospitals-cemetery.xdef)
 
 ## NPS-CARE-WOUNDED-GUIDE
 
-- Title: Care of the Wounded Student Program
-- Author: not stated | Date: not stated
+- Title: Care of the Wounded Student Program: Teachers' Guide
+- Author: Gettysburg National Military Park (education staff) | Date: not stated
 - URL: https://www.npshistory.com/publications/gett/care-of-wounded-guide.pdf (HTTP 200, fetched 2026-11-13T19:05:31Z)
 - File as served: 10916980 bytes, sha256 `ff045649c3cef566dbb415a352289b0a8124d353f1898058513a3b3005cb26a7`
 - Text: `tmp/library/web/nps/NPS-CARE-WOUNDED-GUIDE/NPS-CARE-WOUNDED-GUIDE.txt`, 89976 bytes, sha256 `aa5aa911c963a852d5e04b491e81c87e48081efaf365a09c70b5d468c5f67503`; 41 of 47 pages carry text
 - Rights basis: United States government work
-- Extracts written: 0 (not yet read for extracts)
+- Text quality: typescript OCR with some errors; only clean sentences quoted
+- Feature states: Educational text: the two Gettysburg figures quoted (27,000 wounded; Camp Letterman) are student-level summaries.
+- Extracts written: 2 (hospitals 2)
+- Used for extracts: yes (extracts/src/60-hospitals-cemetery.xdef)
 
 ## NPS-SLYDER-GUIDE
 
@@ -523,23 +570,27 @@ Total extracts: 509 from 15 sources.
 
 ## NPS-COMMON-PRIDE-1
 
-- Title: "A Common Pride and Fame": The Attack and Repulse of Pickett's Division, July 3, 1863 — Part I
-- Author: not stated | Date: not stated
+- Title: "A Common Pride and Fame": The Attack and Repulse of Pickett's Division, July 3, 1863, Part I
+- Author: Kathleen R. Georg, Research Historian, Gettysburg National Military Park | Date: January 1981 (as printed: 1/81)
 - URL: https://www.npshistory.com/publications/gett/common-pride-fame-1.pdf (HTTP 200, fetched 2026-11-13T19:05:38Z)
 - File as served: 9199396 bytes, sha256 `250d8eb7eccf2b86da5cb45ec965191f9a231b5cce3c9ab872e1f33b43762bed`
 - Text: `tmp/library/web/nps/NPS-COMMON-PRIDE-1/NPS-COMMON-PRIDE-1.txt`, 443672 bytes, sha256 `fcc1c87159129c0b549133b9e52e151854afaa831f6e6045ad9f4227f8603079`; 227 of 236 pages carry text
 - Rights basis: United States government work
-- Extracts written: 0 (not yet read for extracts)
+- Text quality: typescript OCR, light noise; the study quotes soldiers' accounts at length (marked in each claim)
+- Feature states: Narrative of July 3, 1863; soldiers' recollections date from 1863 to the 1900s.
+- Extracts written: 9 (fences 8, other-landscape 1)
+- Used for extracts: yes (extracts/src/85-common-pride-1.xdef)
 
 ## NPS-COMMON-PRIDE-2
 
-- Title: "A Common Pride and Fame": The Attack and Repulse of Pickett's Division, July 3, 1863 — Part II
-- Author: not stated | Date: not stated
+- Title: "A Common Pride and Fame": The Attack and Repulse of Pickett's Division, July 3, 1863, Part II
+- Author: Kathleen R. Georg, Research Historian, Gettysburg National Military Park | Date: 1981
 - URL: https://www.npshistory.com/publications/gett/common-pride-fame-2.pdf (HTTP 200, fetched 2026-11-13T19:05:44Z)
 - File as served: 7212065 bytes, sha256 `d1b698e61851a09732bcbb596621cea340a74ecdd48da930ab9562e12c1430fc`
 - Text: `tmp/library/web/nps/NPS-COMMON-PRIDE-2/NPS-COMMON-PRIDE-2.txt`, 409504 bytes, sha256 `ac2c120ca7436e301772a579d70cf0dede1af2d24930164612002940c108c431`; 199 of 203 pages carry text
 - Rights basis: United States government work
-- Extracts written: 0 (not yet read for extracts)
+- Extracts written: 1 (hospitals 1)
+- Used for extracts: partly (one hospital passage, extracts/src/60-hospitals-cemetery.xdef)
 
 ## NPS-COMMON-PRIDE-3
 

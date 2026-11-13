@@ -1,6 +1,6 @@
 {
  "harness": "bt-realize-1",
- "harness_digest": "c6ac90b83dcd44c7",
+ "harness_digest": "3e7c5020179d54ce",
  "inputs_digest": "37cc23dbae42c2e2",
  "scope": {
   "timeline_rows": 691,
@@ -13,20 +13,22 @@
  "totals": {
   "timeline": {
    "rows": 691,
-   "realized": 3,
-   "realized_by_scene": 3,
+   "realized": 4,
+   "realized_by_scene": 4,
+   "realized_partial": 2,
    "realized_by_card_only": 0,
-   "uncovered_strict": 373,
-   "not_realized": 688,
+   "uncovered_strict": 374,
+   "not_realized": 687,
    "with_record": 20,
    "no_record": 671,
    "covered_by_open_register_entry_only": 315,
-   "uncovered": 373
+   "uncovered": 372
   },
   "epilogue": {
    "rows": 14,
    "realized": 0,
    "realized_by_scene": 0,
+   "realized_partial": 0,
    "realized_by_card_only": 0,
    "uncovered_strict": 2,
    "not_realized": 14,
@@ -36,8 +38,8 @@
    "uncovered": 2
   },
   "realized_by_kind": {
-   "not_realized": 688,
-   "structure_state": 1,
+   "not_realized": 687,
+   "structure_state": 2,
    "weather_sky": 2
   },
   "not_realized_by_code": {
@@ -45,26 +47,26 @@
    "unit_not_on_field": 9,
    "unit_not_drawn": 8,
    "unit_not_in_layer": 5,
-   "place_unknown": 3,
-   "place_off_ground": 3,
-   "structure_unknown": 2,
+   "place_off_ground": 4,
+   "time_outside_clock": 2,
+   "place_unknown": 2,
    "adapter_missing": 1,
-   "time_outside_clock": 1,
-   "structure_not_bound": 1
+   "structure_unknown": 1
   }
  },
  "q17": {
-  "_doc": "ok: every timeline row and every epilogue row is realized (a scene or a tier-marked card) or covered by an open register entry. ok_strict: the same, but a row realized by a card alone counts only if an open register entry also covers it (GATE-SPEC-A TL-4 and TL-11 read a card as no visual realization). Neither sets a passes flag.",
+  "_doc": "ok: every timeline row and every epilogue row is realized (a scene or a tier-marked card) or covered by an open register entry. ok_strict: the same, but a row realized by a card alone, or only partially (not_shown parts), counts only if an open register entry also covers it (GATE-SPEC-A TL-4 and TL-11 read a card as no visual realization). Neither sets a passes flag.",
   "ok": false,
   "ok_strict": false,
   "rows": 691,
   "epilogue_rows": 14,
-  "realized": 3,
-  "realized_by_scene": 3,
+  "realized": 4,
+  "realized_by_scene": 4,
+  "realized_partial": 2,
   "realized_by_card_only": 0,
   "covered_by_open_register_entry_only": 315,
-  "uncovered": 373,
-  "uncovered_strict": 373,
+  "uncovered": 372,
+  "uncovered_strict": 374,
   "epilogue_uncovered": 2
  },
  "record_file_problems": [],
@@ -72,20 +74,23 @@
   "T1-001": {
    "realized": false,
    "kind": "not_realized",
-   "why": "not realized: a policy decision has no physical form: its only visual form is a tier-marked event card, and the product has no event-card module yet (app/src/ext/event-cards.mjs is absent). The row is dated before 26 Jun, the first minute the theatre shows, so the card would stand at the start",
+   "why": "not realized: the corrected claim dates the decision 19 Jun (OR27-1-R016); the theatre clock starts at 26 Jun 00:00 (app/src/clock.mjs BATTLE), so nothing can be shown at the row's time; a policy decision has no physical form: its only visual form is a tier-marked event card, and the product h",
    "codes": [
+    "time_outside_clock",
     "adapter_missing"
    ],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:1",
    "window": {
-    "from": "1863-06-26T00:00",
-    "to": "1863-06-26T00:00"
+    "from": "1863-06-19T12:00",
+    "to": "1863-06-19T12:00"
    },
    "scenarios": [
     "default"
    ],
    "declared_bindings": 0,
-   "problems": [],
+   "problems": [
+    "time_outside_clock: the window 1863-06-19T12:00..1863-06-19T12:00 is outside the minutes the theatre can show (1863-06-26T00:00..1863-07-14T23:59 and 1863-11-18T00:00..1863-11-19T23:59: app/src/clock.mjs BATTLE and EPILOGUE)"
+   ],
    "failing": [
     {
      "i": 0,
@@ -104,10 +109,12 @@
    ],
    "missing": {
     "declared": [
+     "time_outside_clock",
      "adapter_missing"
     ],
     "observed": [
-     "adapter_missing"
+     "adapter_missing",
+     "time_outside_clock"
     ],
     "verified": true,
     "unverified": [],
@@ -117,8 +124,8 @@
    "realization_class": null,
    "spec_view": [
     {
-     "t_start": "1863-06-26T00:00",
-     "t_end": "1863-06-26T00:00",
+     "t_start": "1863-06-19T12:00",
+     "t_end": "1863-06-19T12:00",
      "subjects": [],
      "probe": {
       "type": "card_shown",
@@ -141,7 +148,7 @@
   "T1-002": {
    "realized": false,
    "kind": "not_realized",
-   "why": "not realized: the row is at 25 Jun 01:00; the theatre clock starts at 26 Jun 00:00 (app/src/clock.mjs BATTLE), so nothing can be shown at the row's time; Salem Depot, Virginia is in no file of the repository's gazetteer and lies outside the loaded ground; the three brigades arrive at the field",
+   "why": "not realized: the row is at about 01:00 on 25 Jun; the theatre clock starts at 26 Jun 00:00 (app/src/clock.mjs BATTLE); Salem Depot, Virginia is in no file of the repository's gazetteer and lies outside the loaded ground; the three brigades reach the field on 2 Jul or later; none is on the fie",
    "codes": [
     "time_outside_clock",
     "place_unknown",
@@ -150,15 +157,15 @@
    ],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:2",
    "window": {
-    "from": "1863-06-25T00:40",
-    "to": "1863-06-25T01:20"
+    "from": "1863-06-25T00:30",
+    "to": "1863-06-25T01:30"
    },
    "scenarios": [
     "default"
    ],
    "declared_bindings": 0,
    "problems": [
-    "time_outside_clock: the window 1863-06-25T00:40..1863-06-25T01:20 is outside the minutes the theatre can show (1863-06-26T00:00..1863-07-14T23:59 and 1863-11-18T00:00..1863-11-19T23:59: app/src/clock.mjs BATTLE and EPILOGUE)",
+    "time_outside_clock: the window 1863-06-25T00:30..1863-06-25T01:30 is outside the minutes the theatre can show (1863-06-26T00:00..1863-07-14T23:59 and 1863-11-18T00:00..1863-11-19T23:59: app/src/clock.mjs BATTLE and EPILOGUE)",
     "place_unknown: place \"Salem Depot\" is not in the gazetteer (the repository's files carry no such name): unknown places are listed, never guessed"
    ],
    "failing": [
@@ -228,8 +235,8 @@
      "observed_ref": "RESULTS.json#/rows/T1-002/assertions/0"
     },
     {
-     "t_start": "1863-06-25T00:40",
-     "t_end": "1863-06-25T01:20",
+     "t_start": "1863-06-25T00:30",
+     "t_end": "1863-06-25T01:30",
      "subjects": [
       "Salem Depot"
      ],
@@ -256,8 +263,8 @@
    "codes": [],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:3",
    "window": {
-    "from": "1863-06-26T07:00",
-    "to": "1863-06-26T21:00"
+    "from": "1863-06-26T00:00",
+    "to": "1863-06-26T23:00"
    },
    "scenarios": [
     "default"
@@ -271,10 +278,10 @@
      "type": "weather",
      "ok": true,
      "evidence": {
-      "at": "1863-06-26T12:00",
+      "at": "1863-06-26T00:00",
       "precip": "rain",
       "cloud": 0.74,
-      "temp_f": 62.1,
+      "temp_f": null,
       "wetness": 1
      }
     },
@@ -283,39 +290,15 @@
      "type": "weather",
      "ok": true,
      "evidence": {
-      "at": "1863-06-26T07:00",
+      "at": "1863-06-26T06:00",
       "precip": "rain",
       "cloud": 0.74,
-      "temp_f": 60,
+      "temp_f": null,
       "wetness": 1
      }
     },
     {
      "i": 2,
-     "type": "weather",
-     "ok": true,
-     "evidence": {
-      "at": "1863-06-26T14:00",
-      "precip": "rain",
-      "cloud": 0.74,
-      "temp_f": 63,
-      "wetness": 1
-     }
-    },
-    {
-     "i": 3,
-     "type": "weather",
-     "ok": true,
-     "evidence": {
-      "at": "1863-06-26T21:00",
-      "precip": "rain",
-      "cloud": 0.74,
-      "temp_f": 62,
-      "wetness": 1
-     }
-    },
-    {
-     "i": 4,
      "type": "weather",
      "ok": true,
      "evidence": {
@@ -331,8 +314,8 @@
    "realization_class": "scene",
    "spec_view": [
     {
-     "t_start": "1863-06-26T12:00",
-     "t_end": "1863-06-26T12:00",
+     "t_start": "1863-06-26T00:00",
+     "t_end": "1863-06-26T00:00",
      "subjects": [],
      "probe": {
       "type": "weather",
@@ -344,37 +327,17 @@
      "observed_ref": "RESULTS.json#/rows/T1-003/assertions/0"
     },
     {
-     "t_start": "1863-06-26T07:00",
-     "t_end": "1863-06-26T07:00",
+     "t_start": "1863-06-26T06:00",
+     "t_end": "1863-06-26T23:00",
      "subjects": [],
      "probe": {
       "type": "weather",
-      "temp_f": 60
+      "precip_kind_in": [
+       "rain"
+      ]
      },
      "expected": "ok",
      "observed_ref": "RESULTS.json#/rows/T1-003/assertions/1"
-    },
-    {
-     "t_start": "1863-06-26T14:00",
-     "t_end": "1863-06-26T14:00",
-     "subjects": [],
-     "probe": {
-      "type": "weather",
-      "temp_f": 63
-     },
-     "expected": "ok",
-     "observed_ref": "RESULTS.json#/rows/T1-003/assertions/2"
-    },
-    {
-     "t_start": "1863-06-26T21:00",
-     "t_end": "1863-06-26T21:00",
-     "subjects": [],
-     "probe": {
-      "type": "weather",
-      "temp_f": 62
-     },
-     "expected": "ok",
-     "observed_ref": "RESULTS.json#/rows/T1-003/assertions/3"
     },
     {
      "t_start": "1863-06-26T12:00",
@@ -385,7 +348,7 @@
       "wetness_min": 0.9
      },
      "expected": "ok",
-     "observed_ref": "RESULTS.json#/rows/T1-003/assertions/4"
+     "observed_ref": "RESULTS.json#/rows/T1-003/assertions/2"
     }
    ],
    "tier": "open gap",
@@ -399,34 +362,36 @@
   "T1-004": {
    "realized": false,
    "kind": "not_realized",
-   "why": "not realized: no leaf unit of Early's division is on the field before 1 Jul 15:00 (the arrival ledger's first date for it); one leaf (Jones's battalion) is not drawn at all; Cashtown lies about 9 km west of the loaded ground; no unit can be drawn there",
+   "why": "not realized: no leaf unit of Early's division is on the field before 1 Jul 15:00 (the arrival ledger's first date for it); one leaf (Jones's battalion) is not drawn at all; Greenwood on the Chambersburg-Gettysburg turnpike is in no file of the repository's gazetteer (it lies west of Cashtown,",
    "codes": [
-    "place_off_ground",
+    "place_unknown",
     "unit_not_on_field",
     "unit_not_drawn"
    ],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:4",
    "window": {
-    "from": "1863-06-26T07:40",
-    "to": "1863-06-26T08:20"
+    "from": "1863-06-26T06:00",
+    "to": "1863-06-26T12:00"
    },
    "scenarios": [
     "default"
    ],
    "declared_bindings": 0,
-   "problems": [],
+   "problems": [
+    "place_unknown: place \"Greenwood\" is not in the gazetteer (the repository's files carry no such name): unknown places are listed, never guessed"
+   ],
    "failing": [
     {
      "i": 0,
      "type": "unit_moves",
-     "code": "place_off_ground",
-     "detail": "19 of 19 unit(s) fail (place_off_ground x19); first: place GZ-075 \"Cashtown\" is outside the loaded ground: no unit can be drawn there [cs-2c-early-hays-5la]"
+     "code": "unit_not_on_field",
+     "detail": "19 of 19 unit(s) fail (unit_not_on_field x18, unit_not_drawn x1); first: cs-2c-early-hays-5la is not on the field at 1863-06-26T12:00: before_arrival (arrives 1863-07-01T15:00) [cs-2c-early-hays-5la]"
     },
     {
      "i": 1,
-     "type": "unit_moves",
-     "code": "unit_not_on_field",
-     "detail": "19 of 19 unit(s) fail (unit_not_on_field x18, unit_not_drawn x1); first: cs-2c-early-hays-5la is not on the field at 1863-06-26T08:20: before_arrival (arrives 1863-07-01T15:00) [cs-2c-early-hays-5la]"
+     "type": "place_known",
+     "code": "place_unknown",
+     "detail": "place \"Greenwood\" is not in the gazetteer"
     }
    ],
    "assertions": [
@@ -434,36 +399,24 @@
      "i": 0,
      "type": "unit_moves",
      "ok": false,
-     "code": "place_off_ground"
-    },
-    {
-     "i": 1,
-     "type": "unit_moves",
-     "ok": false,
      "code": "unit_not_on_field"
     },
     {
-     "i": 2,
-     "type": "weather",
-     "ok": true,
-     "evidence": {
-      "at": "1863-06-26T08:00",
-      "precip": "rain",
-      "cloud": 0.74,
-      "temp_f": 60.4,
-      "wetness": 1
-     }
+     "i": 1,
+     "type": "place_known",
+     "ok": false,
+     "code": "place_unknown"
     }
    ],
    "missing": {
     "declared": [
      "unit_not_on_field",
-     "place_off_ground"
+     "place_unknown"
     ],
     "observed": [
-     "place_off_ground",
      "unit_not_on_field",
-     "unit_not_drawn"
+     "unit_not_drawn",
+     "place_unknown"
     ],
     "verified": true,
     "unverified": [],
@@ -473,22 +426,8 @@
    "realization_class": null,
    "spec_view": [
     {
-     "t_start": "1863-06-26T07:40",
-     "t_end": "1863-06-26T08:20",
-     "subjects": [
-      "cs-2c-early"
-     ],
-     "probe": {
-      "type": "unit_moves",
-      "unit": "cs-2c-early",
-      "from": "Cashtown"
-     },
-     "expected": "fail with the codes the record gives",
-     "observed_ref": "RESULTS.json#/rows/T1-004/assertions/0"
-    },
-    {
-     "t_start": "1863-06-26T07:40",
-     "t_end": "1863-06-26T08:20",
+     "t_start": "1863-06-26T06:00",
+     "t_end": "1863-06-26T12:00",
      "subjects": [
       "cs-2c-early"
      ],
@@ -498,20 +437,20 @@
       "toward": "Gettysburg (the borough)"
      },
      "expected": "fail with the codes the record gives",
-     "observed_ref": "RESULTS.json#/rows/T1-004/assertions/1"
+     "observed_ref": "RESULTS.json#/rows/T1-004/assertions/0"
     },
     {
-     "t_start": "1863-06-26T08:00",
-     "t_end": "1863-06-26T08:00",
-     "subjects": [],
+     "t_start": "1863-06-26T06:00",
+     "t_end": "1863-06-26T12:00",
+     "subjects": [
+      "Greenwood"
+     ],
      "probe": {
-      "type": "weather",
-      "precip_kind_in": [
-       "rain"
-      ]
+      "type": "place_known",
+      "place": "Greenwood"
      },
      "expected": "fail with the codes the record gives",
-     "observed_ref": "RESULTS.json#/rows/T1-004/assertions/2"
+     "observed_ref": "RESULTS.json#/rows/T1-004/assertions/1"
     }
    ],
    "tier": "documented",
@@ -525,14 +464,14 @@
   "T1-005": {
    "realized": false,
    "kind": "not_realized",
-   "why": "not realized: no structure record, schedule row or drawn object of the product is the Caledonia Furnace; the row puts it on the Cashtown road about 2 miles from Early's camp, outside the loaded ground",
+   "why": "not realized: no structure record, schedule row or drawn object of the product is the Caledonia iron works; the row puts it 15 miles west of Gettysburg, outside the loaded ground",
    "codes": [
     "structure_unknown"
    ],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:5",
    "window": {
-    "from": "1863-06-26T07:40",
-    "to": "1863-06-27T00:00"
+    "from": "1863-06-26T08:00",
+    "to": "1863-06-26T20:00"
    },
    "scenarios": [
     "default"
@@ -544,7 +483,7 @@
      "i": 0,
      "type": "structure_exists",
      "code": "structure_unknown",
-     "detail": "no structure record, schedule row or drawn object of the product names \"Caledonia Furnace\""
+     "detail": "no structure record, schedule row or drawn object of the product names \"Caledonia iron works\""
     }
    ],
    "assertions": [
@@ -570,12 +509,12 @@
    "realization_class": null,
    "spec_view": [
     {
-     "t_start": "1863-06-26T07:40",
-     "t_end": "1863-06-27T00:00",
+     "t_start": "1863-06-26T08:00",
+     "t_end": "1863-06-26T20:00",
      "subjects": [],
      "probe": {
       "type": "structure_exists",
-      "words": "Caledonia Furnace"
+      "words": "Caledonia iron works"
      },
      "expected": "fail with the codes the record gives",
      "observed_ref": "RESULTS.json#/rows/T1-005/assertions/0"
@@ -592,7 +531,7 @@
   "T1-006": {
    "realized": false,
    "kind": "not_realized",
-   "why": "not realized: Early's division, Gordon's brigade and the 35th Virginia Cavalry Battalion are first on the field on 1 Jul; none is on the field on the morning of 26 Jun; the place of the row, west of Cashtown, is off the loaded ground",
+   "why": "not realized: Gordon's brigade and the 35th Virginia Cavalry Battalion are first on the field on 1 Jul; none is on the field on the morning of 26 Jun; the 17th Virginia Cavalry is in the layer but is not drawn (no place in the record); the forks 1.5 miles from Cashtown are off the loaded groun",
    "codes": [
     "unit_not_on_field",
     "unit_not_drawn",
@@ -600,7 +539,7 @@
    ],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:6",
    "window": {
-    "from": "1863-06-26T00:00",
+    "from": "1863-06-26T06:00",
     "to": "1863-06-26T12:00"
    },
    "scenarios": [
@@ -613,16 +552,10 @@
      "i": 0,
      "type": "unit_present",
      "code": "unit_not_on_field",
-     "detail": "7 of 7 unit(s) fail (unit_not_on_field x7); first: cs-2c-early-gordon-13ga is not on the field at 1863-06-26T11:00: before_arrival (arrives 1863-07-01T15:00) [cs-2c-early-gordon-13ga]"
+     "detail": "8 of 8 unit(s) fail (unit_not_on_field x7, unit_not_drawn x1); first: cs-2c-early-gordon-13ga is not on the field at 1863-06-26T11:00: before_arrival (arrives 1863-07-01T15:00) [cs-2c-early-gordon-13ga]"
     },
     {
-     "i": 2,
-     "type": "unit_present",
-     "code": "unit_not_on_field",
-     "detail": "19 of 19 unit(s) fail (unit_not_on_field x18, unit_not_drawn x1); first: cs-2c-early-hays-5la is not on the field at 1863-06-26T10:00: before_arrival (arrives 1863-07-01T15:00) [cs-2c-early-hays-5la]"
-    },
-    {
-     "i": 3,
+     "i": 1,
      "type": "place_known",
      "code": "place_off_ground",
      "detail": "place GZ-075 \"Cashtown\" is outside the loaded ground"
@@ -637,22 +570,6 @@
     },
     {
      "i": 1,
-     "type": "unit_figures",
-     "ok": true,
-     "evidence": {
-      "figures": 1836,
-      "lo": 1710,
-      "hi": 2090
-     }
-    },
-    {
-     "i": 2,
-     "type": "unit_present",
-     "ok": false,
-     "code": "unit_not_on_field"
-    },
-    {
-     "i": 3,
      "type": "place_known",
      "ok": false,
      "code": "place_off_ground"
@@ -661,6 +578,7 @@
    "missing": {
     "declared": [
      "unit_not_on_field",
+     "unit_not_drawn",
      "place_off_ground"
     ],
     "observed": [
@@ -680,50 +598,22 @@
      "t_end": "1863-06-26T11:00",
      "subjects": [
       "cs-2c-early-gordon",
-      "cs-2c-early-35vacavalrybn"
+      "cs-2c-early-35vacavalrybn",
+      "cs-cav-jenkins-17va"
      ],
      "probe": {
       "type": "unit_present",
       "units": [
        "cs-2c-early-gordon",
-       "cs-2c-early-35vacavalrybn"
+       "cs-2c-early-35vacavalrybn",
+       "cs-cav-jenkins-17va"
       ]
      },
      "expected": "fail with the codes the record gives",
      "observed_ref": "RESULTS.json#/rows/T1-006/assertions/0"
     },
     {
-     "t_start": "1863-06-26T00:00",
-     "t_end": "1863-06-26T12:00",
-     "subjects": [
-      "cs-2c-early-gordon"
-     ],
-     "probe": {
-      "type": "unit_figures",
-      "units": [
-       "cs-2c-early-gordon"
-      ],
-      "approx": 1900,
-      "tol_pct": 10
-     },
-     "expected": "fail with the codes the record gives",
-     "observed_ref": "RESULTS.json#/rows/T1-006/assertions/1"
-    },
-    {
-     "t_start": "1863-06-26T10:00",
-     "t_end": "1863-06-26T10:00",
-     "subjects": [
-      "cs-2c-early"
-     ],
-     "probe": {
-      "type": "unit_present",
-      "unit": "cs-2c-early"
-     },
-     "expected": "fail with the codes the record gives",
-     "observed_ref": "RESULTS.json#/rows/T1-006/assertions/2"
-    },
-    {
-     "t_start": "1863-06-26T00:00",
+     "t_start": "1863-06-26T06:00",
      "t_end": "1863-06-26T12:00",
      "subjects": [
       "Cashtown"
@@ -733,7 +623,7 @@
       "place": "Cashtown"
      },
      "expected": "fail with the codes the record gives",
-     "observed_ref": "RESULTS.json#/rows/T1-006/assertions/3"
+     "observed_ref": "RESULTS.json#/rows/T1-006/assertions/1"
     }
    ],
    "tier": "documented",
@@ -753,8 +643,8 @@
    ],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:7",
    "window": {
-    "from": "1863-06-26T08:40",
-    "to": "1863-06-26T09:20"
+    "from": "1863-06-26T08:00",
+    "to": "1863-06-26T10:00"
    },
    "scenarios": [
     "default"
@@ -792,8 +682,8 @@
    "realization_class": null,
    "spec_view": [
     {
-     "t_start": "1863-06-26T08:40",
-     "t_end": "1863-06-26T09:20",
+     "t_start": "1863-06-26T08:00",
+     "t_end": "1863-06-26T10:00",
      "subjects": [],
      "probe": {
       "type": "unit_in_layer",
@@ -814,14 +704,14 @@
   "T1-008": {
    "realized": false,
    "kind": "not_realized",
-   "why": "not realized: neither the 26th Pennsylvania Militia nor Company B of the 21st Pennsylvania Cavalry is a unit of the layer",
+   "why": "not realized: neither the 26th Pennsylvania Militia nor Bell's cavalry (later Company B, 21st Pennsylvania Cavalry) is a unit of the layer",
    "codes": [
     "unit_not_in_layer"
    ],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:8",
    "window": {
-    "from": "1863-06-26T10:10",
-    "to": "1863-06-26T10:50"
+    "from": "1863-06-26T10:00",
+    "to": "1863-06-26T10:30"
    },
    "scenarios": [
     "default"
@@ -833,13 +723,13 @@
      "i": 0,
      "type": "unit_in_layer",
      "code": "unit_not_in_layer",
-     "detail": "no unit of the order of battle in the layer is named by \"26th PA Militia\""
+     "detail": "no unit of the order of battle in the layer is named by \"26th Pennsylvania Emergency Militia\""
     },
     {
      "i": 1,
      "type": "unit_in_layer",
      "code": "unit_not_in_layer",
-     "detail": "no unit of the order of battle in the layer is named by \"21st PA Cav\""
+     "detail": "no unit of the order of battle in the layer is named by \"Bell's cavalry\""
     }
    ],
    "assertions": [
@@ -885,30 +775,30 @@
    "realization_class": null,
    "spec_view": [
     {
-     "t_start": "1863-06-26T10:10",
-     "t_end": "1863-06-26T10:50",
+     "t_start": "1863-06-26T10:00",
+     "t_end": "1863-06-26T10:30",
      "subjects": [],
      "probe": {
       "type": "unit_in_layer",
-      "words": "26th PA Militia"
+      "words": "26th Pennsylvania Emergency Militia"
      },
      "expected": "fail with the codes the record gives",
      "observed_ref": "RESULTS.json#/rows/T1-008/assertions/0"
     },
     {
-     "t_start": "1863-06-26T10:10",
-     "t_end": "1863-06-26T10:50",
+     "t_start": "1863-06-26T10:00",
+     "t_end": "1863-06-26T10:30",
      "subjects": [],
      "probe": {
       "type": "unit_in_layer",
-      "words": "21st PA Cav"
+      "words": "Bell's cavalry"
      },
      "expected": "fail with the codes the record gives",
      "observed_ref": "RESULTS.json#/rows/T1-008/assertions/1"
     },
     {
-     "t_start": "1863-06-26T10:10",
-     "t_end": "1863-06-26T10:50",
+     "t_start": "1863-06-26T10:00",
+     "t_end": "1863-06-26T10:30",
      "subjects": [
       "Chambersburg Pike"
      ],
@@ -931,7 +821,7 @@
   "T1-009": {
    "realized": false,
    "kind": "not_realized",
-   "why": "not realized: the 35th Virginia Cavalry Battalion (White's battalion, declared by the row's words) first enters on 1 Jul; Marsh Creek, as the base map draws it, lies outside the loaded ground; Jennings' militia is no unit of the layer",
+   "why": "not realized: the 35th Virginia Cavalry Battalion (White's battalion, declared by the row's words) first enters on 1 Jul; Marsh Creek, as the base map draws it, lies outside the loaded ground; the 26th Pennsylvania Militia is no unit of the layer",
    "codes": [
     "unit_not_on_field",
     "place_off_ground",
@@ -939,13 +829,13 @@
    ],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:9",
    "window": {
-    "from": "1863-06-26T11:40",
-    "to": "1863-06-26T12:20"
+    "from": "1863-06-26T11:00",
+    "to": "1863-06-26T12:00"
    },
    "scenarios": [
     "default"
    ],
-   "declared_bindings": 1,
+   "declared_bindings": 0,
    "problems": [],
    "failing": [
     {
@@ -964,7 +854,7 @@
      "i": 2,
      "type": "unit_in_layer",
      "code": "unit_not_in_layer",
-     "detail": "no unit of the order of battle in the layer is named by \"Jennings’ militia\""
+     "detail": "no unit of the order of battle in the layer is named by \"26th Pennsylvania Militia\""
     }
    ],
    "assertions": [
@@ -1019,8 +909,8 @@
      "observed_ref": "RESULTS.json#/rows/T1-009/assertions/0"
     },
     {
-     "t_start": "1863-06-26T11:40",
-     "t_end": "1863-06-26T12:20",
+     "t_start": "1863-06-26T11:00",
+     "t_end": "1863-06-26T12:00",
      "subjects": [
       "cs-2c-early-35vacavalrybn",
       "Marsh Creek"
@@ -1034,12 +924,12 @@
      "observed_ref": "RESULTS.json#/rows/T1-009/assertions/1"
     },
     {
-     "t_start": "1863-06-26T11:40",
-     "t_end": "1863-06-26T12:20",
+     "t_start": "1863-06-26T11:00",
+     "t_end": "1863-06-26T12:00",
      "subjects": [],
      "probe": {
       "type": "unit_in_layer",
-      "words": "Jennings’ militia"
+      "words": "26th Pennsylvania Militia"
      },
      "expected": "fail with the codes the record gives",
      "observed_ref": "RESULTS.json#/rows/T1-009/assertions/2"
@@ -1062,8 +952,8 @@
    ],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:10",
    "window": {
-    "from": "1863-06-26T12:00",
-    "to": "1863-06-26T20:04"
+    "from": "1863-06-26T14:30",
+    "to": "1863-06-26T15:30"
    },
    "scenarios": [
     "default"
@@ -1075,7 +965,7 @@
      "i": 0,
      "type": "unit_moves",
      "code": "unit_not_on_field",
-     "detail": "1 of 1 unit(s) fail (unit_not_on_field x1); first: cs-2c-early-35vacavalrybn is not on the field at 1863-06-26T20:04: before_arrival (arrives 1863-07-01T15:00) [cs-2c-early-35vacavalrybn]"
+     "detail": "1 of 1 unit(s) fail (unit_not_on_field x1); first: cs-2c-early-35vacavalrybn is not on the field at 1863-06-26T15:30: before_arrival (arrives 1863-07-01T15:00) [cs-2c-early-35vacavalrybn]"
     }
    ],
    "assertions": [
@@ -1101,8 +991,8 @@
    "realization_class": null,
    "spec_view": [
     {
-     "t_start": "1863-06-26T12:00",
-     "t_end": "1863-06-26T20:04",
+     "t_start": "1863-06-26T14:30",
+     "t_end": "1863-06-26T15:30",
      "subjects": [
       "cs-2c-early-35vacavalrybn"
      ],
@@ -1126,35 +1016,40 @@
   "T1-011": {
    "realized": false,
    "kind": "not_realized",
-   "why": "not realized: Bell's cavalry (Company B, 21st Pennsylvania Cavalry) is no unit of the layer; Belmont Road is in no file of the repository's gazetteer",
+   "why": "not realized: the 26th Pennsylvania Militia is no unit of the layer; the 17th Virginia Cavalry (French) is in the layer but not drawn; Hunterstown lies north of the loaded ground",
    "codes": [
-    "place_unknown",
-    "unit_not_in_layer"
+    "unit_not_in_layer",
+    "unit_not_drawn",
+    "place_off_ground"
    ],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:11",
    "window": {
-    "from": "1863-06-26T12:00",
-    "to": "1863-06-26T20:04"
+    "from": "1863-06-26T15:00",
+    "to": "1863-06-26T20:00"
    },
    "scenarios": [
     "default"
    ],
    "declared_bindings": 0,
-   "problems": [
-    "place_unknown: place \"Belmont Road\" is not in the gazetteer (the repository's files carry no such name): unknown places are listed, never guessed"
-   ],
+   "problems": [],
    "failing": [
     {
      "i": 0,
      "type": "unit_in_layer",
      "code": "unit_not_in_layer",
-     "detail": "no unit of the order of battle in the layer is named by \"Bell’s cavalry\""
+     "detail": "no unit of the order of battle in the layer is named by \"26th Pennsylvania Militia\""
+    },
+    {
+     "i": 1,
+     "type": "unit_present",
+     "code": "unit_not_drawn",
+     "detail": "1 of 1 unit(s) fail (unit_not_drawn x1); first: cs-cav-jenkins-17va is not on the field at 1863-06-26T20:00: not_drawn (Open gap: no road or direction of approach is printed in the ledger for this unit or any unit above ) [cs-cav-jenkins-17va]"
     },
     {
      "i": 2,
      "type": "place_known",
-     "code": "place_unknown",
-     "detail": "place \"Belmont Road\" is not in the gazetteer"
+     "code": "place_off_ground",
+     "detail": "place GZ-076 \"Hunterstown\" is outside the loaded ground"
     }
    ],
    "assertions": [
@@ -1166,33 +1061,27 @@
     },
     {
      "i": 1,
-     "type": "place_known",
-     "ok": true,
-     "evidence": {
-      "place": "GZ-043",
-      "kind": "line",
-      "tolerance_m": 57,
-      "center": {
-       "lng": -77.19727,
-       "lat": 39.82439
-      }
-     }
+     "type": "unit_present",
+     "ok": false,
+     "code": "unit_not_drawn"
     },
     {
      "i": 2,
      "type": "place_known",
      "ok": false,
-     "code": "place_unknown"
+     "code": "place_off_ground"
     }
    ],
    "missing": {
     "declared": [
      "unit_not_in_layer",
-     "place_unknown"
+     "unit_not_drawn",
+     "place_off_ground"
     ],
     "observed": [
      "unit_not_in_layer",
-     "place_unknown"
+     "unit_not_drawn",
+     "place_off_ground"
     ],
     "verified": true,
     "unverified": [],
@@ -1202,39 +1091,38 @@
    "realization_class": null,
    "spec_view": [
     {
-     "t_start": "1863-06-26T12:00",
-     "t_end": "1863-06-26T20:04",
+     "t_start": "1863-06-26T15:00",
+     "t_end": "1863-06-26T20:00",
      "subjects": [],
      "probe": {
       "type": "unit_in_layer",
-      "words": "Bell’s cavalry"
+      "words": "26th Pennsylvania Militia"
      },
      "expected": "fail with the codes the record gives",
      "observed_ref": "RESULTS.json#/rows/T1-011/assertions/0"
     },
     {
-     "t_start": "1863-06-26T12:00",
-     "t_end": "1863-06-26T20:04",
+     "t_start": "1863-06-26T15:00",
+     "t_end": "1863-06-26T20:00",
      "subjects": [
-      "Hanover Road"
+      "cs-cav-jenkins-17va"
      ],
      "probe": {
-      "type": "place_known",
-      "place": "Hanover Road"
+      "type": "unit_present",
+      "unit": "cs-cav-jenkins-17va"
      },
      "expected": "fail with the codes the record gives",
      "observed_ref": "RESULTS.json#/rows/T1-011/assertions/1"
     },
     {
-     "t_start": "1863-06-26T12:00",
-     "t_end": "1863-06-26T20:04",
+     "t_start": "1863-06-26T15:00",
+     "t_end": "1863-06-26T20:00",
      "subjects": [
-      "Belmont Road"
+      "Hunterstown"
      ],
      "probe": {
       "type": "place_known",
-      "place": "Belmont Road",
-      "on_ground": true
+      "place": "Hunterstown"
      },
      "expected": "fail with the codes the record gives",
      "observed_ref": "RESULTS.json#/rows/T1-011/assertions/2"
@@ -1251,35 +1139,33 @@
   "T1-012": {
    "realized": false,
    "kind": "not_realized",
-   "why": "not realized: the 17th Virginia Cavalry exists in the layer but is not drawn: the record gives it no place (open gap); Bayly's Hill is in no file of the repository's gazetteer",
+   "why": "not realized: the 17th Virginia Cavalry exists in the layer but is not drawn: the record gives it no place (open gap); Hunterstown lies north of the loaded ground",
    "codes": [
-    "place_unknown",
-    "unit_not_drawn"
+    "unit_not_drawn",
+    "place_off_ground"
    ],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:12",
    "window": {
-    "from": "1863-06-26T12:00",
-    "to": "1863-06-26T20:04"
+    "from": "1863-06-26T15:00",
+    "to": "1863-06-26T20:00"
    },
    "scenarios": [
     "default"
    ],
    "declared_bindings": 0,
-   "problems": [
-    "place_unknown: place \"Bayly’s Hill\" is not in the gazetteer (the repository's files carry no such name): unknown places are listed, never guessed"
-   ],
+   "problems": [],
    "failing": [
     {
      "i": 0,
      "type": "unit_present",
      "code": "unit_not_drawn",
-     "detail": "1 of 1 unit(s) fail (unit_not_drawn x1); first: cs-cav-jenkins-17va is not on the field at 1863-06-26T20:04: not_drawn (Open gap: no road or direction of approach is printed in the ledger for this unit or any unit above ) [cs-cav-jenkins-17va]"
+     "detail": "1 of 1 unit(s) fail (unit_not_drawn x1); first: cs-cav-jenkins-17va is not on the field at 1863-06-26T20:00: not_drawn (Open gap: no road or direction of approach is printed in the ledger for this unit or any unit above ) [cs-cav-jenkins-17va]"
     },
     {
      "i": 1,
      "type": "place_known",
-     "code": "place_unknown",
-     "detail": "place \"Bayly’s Hill\" is not in the gazetteer"
+     "code": "place_off_ground",
+     "detail": "place GZ-076 \"Hunterstown\" is outside the loaded ground"
     }
    ],
    "assertions": [
@@ -1293,17 +1179,17 @@
      "i": 1,
      "type": "place_known",
      "ok": false,
-     "code": "place_unknown"
+     "code": "place_off_ground"
     }
    ],
    "missing": {
     "declared": [
      "unit_not_drawn",
-     "place_unknown"
+     "place_off_ground"
     ],
     "observed": [
      "unit_not_drawn",
-     "place_unknown"
+     "place_off_ground"
     ],
     "verified": true,
     "unverified": [],
@@ -1313,8 +1199,8 @@
    "realization_class": null,
    "spec_view": [
     {
-     "t_start": "1863-06-26T12:00",
-     "t_end": "1863-06-26T20:04",
+     "t_start": "1863-06-26T15:00",
+     "t_end": "1863-06-26T20:00",
      "subjects": [
       "cs-cav-jenkins-17va"
      ],
@@ -1326,14 +1212,14 @@
      "observed_ref": "RESULTS.json#/rows/T1-012/assertions/0"
     },
     {
-     "t_start": "1863-06-26T12:00",
-     "t_end": "1863-06-26T20:04",
+     "t_start": "1863-06-26T15:00",
+     "t_end": "1863-06-26T20:00",
      "subjects": [
-      "Bayly’s Hill"
+      "Hunterstown"
      ],
      "probe": {
       "type": "place_known",
-      "place": "Bayly’s Hill"
+      "place": "Hunterstown"
      },
      "expected": "fail with the codes the record gives",
      "observed_ref": "RESULTS.json#/rows/T1-012/assertions/1"
@@ -1356,8 +1242,8 @@
    ],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:13",
    "window": {
-    "from": "1863-06-26T15:40",
-    "to": "1863-06-26T16:20"
+    "from": "1863-06-26T15:00",
+    "to": "1863-06-26T18:00"
    },
    "scenarios": [
     "default"
@@ -1369,7 +1255,7 @@
      "i": 0,
      "type": "unit_in_layer",
      "code": "unit_not_in_layer",
-     "detail": "no unit of the order of battle in the layer is named by \"Bell’s cavalry\""
+     "detail": "no unit of the order of battle in the layer is named by \"Bell's Adams County cavalry\""
     }
    ],
    "assertions": [
@@ -1395,12 +1281,12 @@
    "realization_class": null,
    "spec_view": [
     {
-     "t_start": "1863-06-26T15:40",
-     "t_end": "1863-06-26T16:20",
+     "t_start": "1863-06-26T15:00",
+     "t_end": "1863-06-26T18:00",
      "subjects": [],
      "probe": {
       "type": "unit_in_layer",
-      "words": "Bell’s cavalry"
+      "words": "Bell's Adams County cavalry"
      },
      "expected": "fail with the codes the record gives",
      "observed_ref": "RESULTS.json#/rows/T1-013/assertions/0"
@@ -1417,14 +1303,14 @@
   "T1-014": {
    "realized": false,
    "kind": "not_realized",
-   "why": "not realized: Early's division, Gordon's brigade and the 35th Virginia Cavalry Battalion are not on the field on 26 Jun; the supply demands, the tribute and the prisoners have no entity at all",
+   "why": "not realized: Early's division, Gordon's brigade and the 35th Virginia Cavalry Battalion are not on the field on 26 Jun; the demands, the search and the rations have no entity at all",
    "codes": [
     "unit_not_on_field",
     "unit_not_drawn"
    ],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:14",
    "window": {
-    "from": "1863-06-26T17:40",
+    "from": "1863-06-26T18:00",
     "to": "1863-06-27T00:00"
    },
    "scenarios": [
@@ -1492,147 +1378,96 @@
    "coverage": "none"
   },
   "T1-015": {
-   "realized": false,
-   "kind": "not_realized",
-   "why": "not realized: the covered bridge is shown (the structure record describes the Rock Creek trestle as 'Covered bridge / trestle', schedule row S-001, a date-indeterminate blend of intact and burned over 26-27 Jun); the rail cars, the rails and the telegraph lines are in no structure record or sc",
-   "codes": [
-    "structure_not_bound",
-    "structure_unknown"
-   ],
+   "realized": true,
+   "kind": "structure_state",
+   "why": "the checks hold in the product; PARTIAL: 2 part(s) of the row are not shown",
+   "codes": [],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:15",
    "window": {
-    "from": "1863-06-26T17:40",
+    "from": "1863-06-26T18:00",
     "to": "1863-06-27T00:00"
    },
    "scenarios": [
     "default"
    ],
    "declared_bindings": 0,
-   "problems": [
-    "structure_not_bound: structure bld-rock-creek-rr-bridge (Rock Creek trestle of the Gettysburg Railroad (burned 27 June 1863) Rock Creek railroad bridge / trestle Rock Creek rail) shares no word of 4 letters or more with the row's text; if the row names it in other words, give { \"id\": \"bld-rock-creek-rr-bridge\", \"via\": \"<verbatim words of the row>\" }"
-   ],
-   "failing": [
-    {
-     "i": 1,
-     "type": "structure_exists",
-     "code": "structure_unknown",
-     "detail": "no structure record, schedule row or drawn object of the product names \"rail cars\""
-    },
-    {
-     "i": 2,
-     "type": "structure_exists",
-     "code": "structure_unknown",
-     "detail": "no structure record, schedule row or drawn object of the product names \"telegraph lines\""
-    }
-   ],
+   "problems": [],
+   "failing": [],
    "assertions": [
     {
      "i": 0,
      "type": "structure_state",
      "ok": true,
      "evidence": {
-      "at": "1863-06-26T23:59",
-      "state": "indeterminate within date window: Intact -> Burned",
+      "at": "1863-06-27T00:00",
+      "state": "Burned",
       "visual": {
        "A": [
-        0,
-        0
+        1,
+        0.3
        ],
        "B": [
         1,
         0.3
        ],
-       "mix": 0.5
+       "mix": 0
       },
       "objects": [
        "RL-007"
       ]
      }
-    },
-    {
-     "i": 1,
-     "type": "structure_exists",
-     "ok": false,
-     "code": "structure_unknown"
-    },
-    {
-     "i": 2,
-     "type": "structure_exists",
-     "ok": false,
-     "code": "structure_unknown"
     }
    ],
-   "missing": {
-    "declared": [
-     "structure_unknown"
-    ],
-    "observed": [
-     "structure_unknown",
-     "structure_not_bound"
-    ],
-    "verified": true,
-    "unverified": [],
-    "stale": false
-   },
+   "partial": true,
+   "not_shown": [
+    {
+     "words": "Railroad cars",
+     "why": "no structure record, schedule row or drawn object of the product is a railroad car"
+    },
+    {
+     "words": "the track is destroyed",
+     "why": "the railroad is drawn as a line whose only scheduled change is the reopening on 10 Jul (S-076); the destruction of the track on 26 Jun has no state"
+    }
+   ],
    "from_examples": true,
-   "realization_class": null,
+   "realization_class": "scene",
    "spec_view": [
     {
-     "t_start": "1863-06-26T23:59",
-     "t_end": "1863-06-26T23:59",
+     "t_start": "1863-06-27T00:00",
+     "t_end": "1863-06-27T00:00",
      "subjects": [
       "bld-rock-creek-rr-bridge"
      ],
      "probe": {
       "type": "structure_state",
       "structure": "bld-rock-creek-rr-bridge",
+      "structure_scenario": "jun26",
+      "state": "Burned",
       "schedule_row": "S-001",
       "visual": {
-       "mix_min": 0.5
+       "burn_min": 1
       }
      },
-     "expected": "fail with the codes the record gives",
+     "expected": "ok",
      "observed_ref": "RESULTS.json#/rows/T1-015/assertions/0"
-    },
-    {
-     "t_start": "1863-06-26T17:40",
-     "t_end": "1863-06-27T00:00",
-     "subjects": [],
-     "probe": {
-      "type": "structure_exists",
-      "words": "rail cars"
-     },
-     "expected": "fail with the codes the record gives",
-     "observed_ref": "RESULTS.json#/rows/T1-015/assertions/1"
-    },
-    {
-     "t_start": "1863-06-26T17:40",
-     "t_end": "1863-06-27T00:00",
-     "subjects": [],
-     "probe": {
-      "type": "structure_exists",
-      "words": "telegraph lines"
-     },
-     "expected": "fail with the codes the record gives",
-     "observed_ref": "RESULTS.json#/rows/T1-015/assertions/2"
     }
    ],
    "tier": "documented",
    "status": "verified_against_or_text",
    "shard": "tl-01",
    "register_open": [],
-   "q17_covered": false,
+   "q17_covered": true,
    "q17_covered_strict": false,
-   "coverage": "none"
+   "coverage": "realization"
   },
   "T1-016": {
    "realized": true,
    "kind": "structure_state",
-   "why": "every check holds in the product",
+   "why": "the checks hold in the product; PARTIAL: 1 part(s) of the row are not shown",
    "codes": [],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:16",
    "window": {
-    "from": "1863-06-27T12:00",
+    "from": "1863-06-26T18:00",
     "to": "1863-06-28T00:00"
    },
    "scenarios": [
@@ -1644,6 +1479,29 @@
    "assertions": [
     {
      "i": 0,
+     "type": "structure_state",
+     "ok": true,
+     "evidence": {
+      "at": "1863-06-27T00:00",
+      "state": "Burned",
+      "visual": {
+       "A": [
+        1,
+        0.3
+       ],
+       "B": [
+        1,
+        0.3
+       ],
+       "mix": 0
+      },
+      "objects": [
+       "RL-007"
+      ]
+     }
+    },
+    {
+     "i": 1,
      "type": "structure_state",
      "ok": true,
      "evidence": {
@@ -1666,9 +1524,35 @@
      }
     }
    ],
+   "partial": true,
+   "not_shown": [
+    {
+     "words": "further bridges on the line are burned by White's cavalry from Jun 27",
+     "why": "no other bridge of the Gettysburg Railroad is a structure of the product"
+    }
+   ],
    "from_examples": true,
    "realization_class": "scene",
    "spec_view": [
+    {
+     "t_start": "1863-06-27T00:00",
+     "t_end": "1863-06-27T00:00",
+     "subjects": [
+      "bld-rock-creek-rr-bridge"
+     ],
+     "probe": {
+      "type": "structure_state",
+      "structure": "bld-rock-creek-rr-bridge",
+      "structure_scenario": "jun26",
+      "state": "Burned",
+      "schedule_row": "S-001",
+      "visual": {
+       "burn_min": 1
+      }
+     },
+     "expected": "ok",
+     "observed_ref": "RESULTS.json#/rows/T1-016/assertions/0"
+    },
     {
      "t_start": "1863-06-28T00:00",
      "t_end": "1863-06-28T00:00",
@@ -1685,7 +1569,7 @@
       }
      },
      "expected": "ok",
-     "observed_ref": "RESULTS.json#/rows/T1-016/assertions/0"
+     "observed_ref": "RESULTS.json#/rows/T1-016/assertions/1"
     }
    ],
    "tier": "documented",
@@ -1693,21 +1577,21 @@
    "shard": "tl-01",
    "register_open": [],
    "q17_covered": true,
-   "q17_covered_strict": true,
+   "q17_covered_strict": false,
    "coverage": "realization"
   },
   "T1-017": {
    "realized": false,
    "kind": "not_realized",
-   "why": "not realized: Early's division is not on the field on the night of 26 Jun; the rain, the night sky and the luminance floor are shown (the second and third checks pass)",
+   "why": "not realized: Early's division is not on the field on the night of 26 Jun; the night sky and the luminance floor are shown (the second check passes)",
    "codes": [
     "unit_not_on_field",
     "unit_not_drawn"
    ],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:17",
    "window": {
-    "from": "1863-06-26T20:04",
-    "to": "1863-06-27T00:00"
+    "from": "1863-06-26T21:00",
+    "to": "1863-06-26T23:00"
    },
    "scenarios": [
     "default"
@@ -1731,18 +1615,6 @@
     },
     {
      "i": 1,
-     "type": "weather",
-     "ok": true,
-     "evidence": {
-      "at": "1863-06-26T22:00",
-      "precip": "rain",
-      "cloud": 0.74,
-      "temp_f": 61.9,
-      "wetness": 1
-     }
-    },
-    {
-     "i": 2,
      "type": "sky",
      "ok": true,
      "evidence": {
@@ -1794,19 +1666,6 @@
      "t_end": "1863-06-26T22:00",
      "subjects": [],
      "probe": {
-      "type": "weather",
-      "precip_kind_in": [
-       "rain"
-      ]
-     },
-     "expected": "fail with the codes the record gives",
-     "observed_ref": "RESULTS.json#/rows/T1-017/assertions/1"
-    },
-    {
-     "t_start": "1863-06-26T22:00",
-     "t_end": "1863-06-26T22:00",
-     "subjects": [],
-     "probe": {
       "type": "sky",
       "band_in": [
        "Night"
@@ -1814,7 +1673,7 @@
       "exposure_min": 0.34
      },
      "expected": "fail with the codes the record gives",
-     "observed_ref": "RESULTS.json#/rows/T1-017/assertions/2"
+     "observed_ref": "RESULTS.json#/rows/T1-017/assertions/1"
     }
    ],
    "tier": "documented",
@@ -1828,15 +1687,15 @@
   "T1-018": {
    "realized": false,
    "kind": "not_realized",
-   "why": "not realized: Early's division is not on the field; and the row is an open gap (the sources are silent on fires, pickets and lights): the PDF gives an open-gap row no behaviour of its own, so its coverage is an open register entry, which no entry linked to this row provides yet",
+   "why": "not realized: Early's division is not on the field; and the fires, lights and sentries are an open gap (the sources are silent): the PDF gives an open-gap row no behaviour of its own, so its coverage is an open register entry, which no entry linked to this row provides yet",
    "codes": [
     "unit_not_on_field",
     "unit_not_drawn"
    ],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:18",
    "window": {
-    "from": "1863-06-26T20:04",
-    "to": "1863-06-27T00:00"
+    "from": "1863-06-26T21:00",
+    "to": "1863-06-26T23:00"
    },
    "scenarios": [
     "default"
@@ -1906,8 +1765,8 @@
    "codes": [],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:19",
    "window": {
-    "from": "1863-06-27T06:40",
-    "to": "1863-06-27T07:20"
+    "from": "1863-06-27T06:00",
+    "to": "1863-06-27T10:00"
    },
    "scenarios": [
     "default"
@@ -1921,35 +1780,11 @@
      "type": "weather",
      "ok": true,
      "evidence": {
-      "at": "1863-06-27T07:00",
+      "at": "1863-06-27T08:00",
       "precip": "none",
       "cloud": 0.3,
-      "temp_f": 61,
-      "wetness": 1
-     }
-    },
-    {
-     "i": 1,
-     "type": "weather",
-     "ok": true,
-     "evidence": {
-      "at": "1863-06-27T07:20",
-      "precip": "none",
-      "cloud": 0.3,
-      "temp_f": 61.1,
-      "wetness": 0.98
-     }
-    },
-    {
-     "i": 2,
-     "type": "weather",
-     "ok": true,
-     "evidence": {
-      "at": "1863-06-27T07:00",
-      "precip": "none",
-      "cloud": 0.3,
-      "temp_f": 61,
-      "wetness": 1
+      "temp_f": 61.3,
+      "wetness": 0.95
      }
     }
    ],
@@ -1957,39 +1792,15 @@
    "realization_class": "scene",
    "spec_view": [
     {
-     "t_start": "1863-06-27T07:00",
-     "t_end": "1863-06-27T07:00",
+     "t_start": "1863-06-27T08:00",
+     "t_end": "1863-06-27T08:00",
      "subjects": [],
      "probe": {
       "type": "weather",
-      "precip_kind_in": [
-       "none"
-      ]
+      "wetness_min": 0.9
      },
      "expected": "ok",
      "observed_ref": "RESULTS.json#/rows/T1-019/assertions/0"
-    },
-    {
-     "t_start": "1863-06-27T07:20",
-     "t_end": "1863-06-27T07:20",
-     "subjects": [],
-     "probe": {
-      "type": "weather",
-      "wetness_max": 0.99
-     },
-     "expected": "ok",
-     "observed_ref": "RESULTS.json#/rows/T1-019/assertions/1"
-    },
-    {
-     "t_start": "1863-06-27T07:00",
-     "t_end": "1863-06-27T07:00",
-     "subjects": [],
-     "probe": {
-      "type": "weather",
-      "temp_f": 61
-     },
-     "expected": "ok",
-     "observed_ref": "RESULTS.json#/rows/T1-019/assertions/2"
     }
    ],
    "tier": "open gap",
@@ -2003,15 +1814,14 @@
   "T1-020": {
    "realized": false,
    "kind": "not_realized",
-   "why": "not realized: Early's division is not on the field on 27 Jun",
+   "why": "not realized: Gordon's brigade is not on the field on 27 Jun",
    "codes": [
-    "unit_not_on_field",
-    "unit_not_drawn"
+    "unit_not_on_field"
    ],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:20",
    "window": {
-    "from": "1863-06-27T03:43",
-    "to": "1863-06-27T04:55"
+    "from": "1863-06-27T04:03",
+    "to": "1863-06-27T08:00"
    },
    "scenarios": [
     "default"
@@ -2023,7 +1833,7 @@
      "i": 0,
      "type": "unit_moves",
      "code": "unit_not_on_field",
-     "detail": "19 of 19 unit(s) fail (unit_not_on_field x18, unit_not_drawn x1); first: cs-2c-early-hays-5la is not on the field at 1863-06-27T04:55: before_arrival (arrives 1863-07-01T15:00) [cs-2c-early-hays-5la]"
+     "detail": "6 of 6 unit(s) fail (unit_not_on_field x6); first: cs-2c-early-gordon-13ga is not on the field at 1863-06-27T08:00: before_arrival (arrives 1863-07-01T15:00) [cs-2c-early-gordon-13ga]"
     }
    ],
    "assertions": [
@@ -2039,8 +1849,7 @@
      "unit_not_on_field"
     ],
     "observed": [
-     "unit_not_on_field",
-     "unit_not_drawn"
+     "unit_not_on_field"
     ],
     "verified": true,
     "unverified": [],
@@ -2050,14 +1859,14 @@
    "realization_class": null,
    "spec_view": [
     {
-     "t_start": "1863-06-27T03:43",
-     "t_end": "1863-06-27T04:55",
+     "t_start": "1863-06-27T04:03",
+     "t_end": "1863-06-27T08:00",
      "subjects": [
-      "cs-2c-early"
+      "cs-2c-early-gordon"
      ],
      "probe": {
       "type": "unit_moves",
-      "unit": "cs-2c-early",
+      "unit": "cs-2c-early-gordon",
       "from": "Gettysburg (the borough)",
       "along": "York Pike"
      },
@@ -15106,8 +14915,9 @@
   "T1-001": {
    "realized": false,
    "kind": "not_realized",
-   "why": "not realized: a policy decision has no physical form: its only visual form is a tier-marked event card, and the product has no event-card module yet (app/src/ext/event-cards.mjs is absent). The row is dated before 26 Jun, the first minute the theatre shows, so the card would stand at the start",
+   "why": "not realized: the corrected claim dates the decision 19 Jun (OR27-1-R016); the theatre clock starts at 26 Jun 00:00 (app/src/clock.mjs BATTLE), so nothing can be shown at the row's time; a policy decision has no physical form: its only visual form is a tier-marked event card, and the product h",
    "codes": [
+    "time_outside_clock",
     "adapter_missing"
    ],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:1"
@@ -15115,7 +14925,7 @@
   "T1-002": {
    "realized": false,
    "kind": "not_realized",
-   "why": "not realized: the row is at 25 Jun 01:00; the theatre clock starts at 26 Jun 00:00 (app/src/clock.mjs BATTLE), so nothing can be shown at the row's time; Salem Depot, Virginia is in no file of the repository's gazetteer and lies outside the loaded ground; the three brigades arrive at the field",
+   "why": "not realized: the row is at about 01:00 on 25 Jun; the theatre clock starts at 26 Jun 00:00 (app/src/clock.mjs BATTLE); Salem Depot, Virginia is in no file of the repository's gazetteer and lies outside the loaded ground; the three brigades reach the field on 2 Jul or later; none is on the fie",
    "codes": [
     "time_outside_clock",
     "place_unknown",
@@ -15134,9 +14944,9 @@
   "T1-004": {
    "realized": false,
    "kind": "not_realized",
-   "why": "not realized: no leaf unit of Early's division is on the field before 1 Jul 15:00 (the arrival ledger's first date for it); one leaf (Jones's battalion) is not drawn at all; Cashtown lies about 9 km west of the loaded ground; no unit can be drawn there",
+   "why": "not realized: no leaf unit of Early's division is on the field before 1 Jul 15:00 (the arrival ledger's first date for it); one leaf (Jones's battalion) is not drawn at all; Greenwood on the Chambersburg-Gettysburg turnpike is in no file of the repository's gazetteer (it lies west of Cashtown,",
    "codes": [
-    "place_off_ground",
+    "place_unknown",
     "unit_not_on_field",
     "unit_not_drawn"
    ],
@@ -15145,7 +14955,7 @@
   "T1-005": {
    "realized": false,
    "kind": "not_realized",
-   "why": "not realized: no structure record, schedule row or drawn object of the product is the Caledonia Furnace; the row puts it on the Cashtown road about 2 miles from Early's camp, outside the loaded ground",
+   "why": "not realized: no structure record, schedule row or drawn object of the product is the Caledonia iron works; the row puts it 15 miles west of Gettysburg, outside the loaded ground",
    "codes": [
     "structure_unknown"
    ],
@@ -15154,7 +14964,7 @@
   "T1-006": {
    "realized": false,
    "kind": "not_realized",
-   "why": "not realized: Early's division, Gordon's brigade and the 35th Virginia Cavalry Battalion are first on the field on 1 Jul; none is on the field on the morning of 26 Jun; the place of the row, west of Cashtown, is off the loaded ground",
+   "why": "not realized: Gordon's brigade and the 35th Virginia Cavalry Battalion are first on the field on 1 Jul; none is on the field on the morning of 26 Jun; the 17th Virginia Cavalry is in the layer but is not drawn (no place in the record); the forks 1.5 miles from Cashtown are off the loaded groun",
    "codes": [
     "unit_not_on_field",
     "unit_not_drawn",
@@ -15174,7 +14984,7 @@
   "T1-008": {
    "realized": false,
    "kind": "not_realized",
-   "why": "not realized: neither the 26th Pennsylvania Militia nor Company B of the 21st Pennsylvania Cavalry is a unit of the layer",
+   "why": "not realized: neither the 26th Pennsylvania Militia nor Bell's cavalry (later Company B, 21st Pennsylvania Cavalry) is a unit of the layer",
    "codes": [
     "unit_not_in_layer"
    ],
@@ -15183,7 +14993,7 @@
   "T1-009": {
    "realized": false,
    "kind": "not_realized",
-   "why": "not realized: the 35th Virginia Cavalry Battalion (White's battalion, declared by the row's words) first enters on 1 Jul; Marsh Creek, as the base map draws it, lies outside the loaded ground; Jennings' militia is no unit of the layer",
+   "why": "not realized: the 35th Virginia Cavalry Battalion (White's battalion, declared by the row's words) first enters on 1 Jul; Marsh Creek, as the base map draws it, lies outside the loaded ground; the 26th Pennsylvania Militia is no unit of the layer",
    "codes": [
     "unit_not_on_field",
     "place_off_ground",
@@ -15203,20 +15013,21 @@
   "T1-011": {
    "realized": false,
    "kind": "not_realized",
-   "why": "not realized: Bell's cavalry (Company B, 21st Pennsylvania Cavalry) is no unit of the layer; Belmont Road is in no file of the repository's gazetteer",
+   "why": "not realized: the 26th Pennsylvania Militia is no unit of the layer; the 17th Virginia Cavalry (French) is in the layer but not drawn; Hunterstown lies north of the loaded ground",
    "codes": [
-    "place_unknown",
-    "unit_not_in_layer"
+    "unit_not_in_layer",
+    "unit_not_drawn",
+    "place_off_ground"
    ],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:11"
   },
   "T1-012": {
    "realized": false,
    "kind": "not_realized",
-   "why": "not realized: the 17th Virginia Cavalry exists in the layer but is not drawn: the record gives it no place (open gap); Bayly's Hill is in no file of the repository's gazetteer",
+   "why": "not realized: the 17th Virginia Cavalry exists in the layer but is not drawn: the record gives it no place (open gap); Hunterstown lies north of the loaded ground",
    "codes": [
-    "place_unknown",
-    "unit_not_drawn"
+    "unit_not_drawn",
+    "place_off_ground"
    ],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:12"
   },
@@ -15232,7 +15043,7 @@
   "T1-014": {
    "realized": false,
    "kind": "not_realized",
-   "why": "not realized: Early's division, Gordon's brigade and the 35th Virginia Cavalry Battalion are not on the field on 26 Jun; the supply demands, the tribute and the prisoners have no entity at all",
+   "why": "not realized: Early's division, Gordon's brigade and the 35th Virginia Cavalry Battalion are not on the field on 26 Jun; the demands, the search and the rations have no entity at all",
    "codes": [
     "unit_not_on_field",
     "unit_not_drawn"
@@ -15240,26 +15051,23 @@
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:14"
   },
   "T1-015": {
-   "realized": false,
-   "kind": "not_realized",
-   "why": "not realized: the covered bridge is shown (the structure record describes the Rock Creek trestle as 'Covered bridge / trestle', schedule row S-001, a date-indeterminate blend of intact and burned over 26-27 Jun); the rail cars, the rails and the telegraph lines are in no structure record or sc",
-   "codes": [
-    "structure_not_bound",
-    "structure_unknown"
-   ],
+   "realized": true,
+   "kind": "structure_state",
+   "why": "the checks hold in the product; PARTIAL: 2 part(s) of the row are not shown",
+   "codes": [],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:15"
   },
   "T1-016": {
    "realized": true,
    "kind": "structure_state",
-   "why": "every check holds in the product",
+   "why": "the checks hold in the product; PARTIAL: 1 part(s) of the row are not shown",
    "codes": [],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:16"
   },
   "T1-017": {
    "realized": false,
    "kind": "not_realized",
-   "why": "not realized: Early's division is not on the field on the night of 26 Jun; the rain, the night sky and the luminance floor are shown (the second and third checks pass)",
+   "why": "not realized: Early's division is not on the field on the night of 26 Jun; the night sky and the luminance floor are shown (the second check passes)",
    "codes": [
     "unit_not_on_field",
     "unit_not_drawn"
@@ -15269,7 +15077,7 @@
   "T1-018": {
    "realized": false,
    "kind": "not_realized",
-   "why": "not realized: Early's division is not on the field; and the row is an open gap (the sources are silent on fires, pickets and lights): the PDF gives an open-gap row no behaviour of its own, so its coverage is an open register entry, which no entry linked to this row provides yet",
+   "why": "not realized: Early's division is not on the field; and the fires, lights and sentries are an open gap (the sources are silent): the PDF gives an open-gap row no behaviour of its own, so its coverage is an open register entry, which no entry linked to this row provides yet",
    "codes": [
     "unit_not_on_field",
     "unit_not_drawn"
@@ -15286,10 +15094,9 @@
   "T1-020": {
    "realized": false,
    "kind": "not_realized",
-   "why": "not realized: Early's division is not on the field on 27 Jun",
+   "why": "not realized: Gordon's brigade is not on the field on 27 Jun",
    "codes": [
-    "unit_not_on_field",
-    "unit_not_drawn"
+    "unit_not_on_field"
    ],
    "record": "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl:20"
   }

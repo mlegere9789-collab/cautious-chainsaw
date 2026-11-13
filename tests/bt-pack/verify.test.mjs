@@ -2,7 +2,7 @@
 // means something. The walk of the real theatre needs a browser, the machine lock and minutes: it is not here. The walk of a static section (a small page set) is, when a browser starts.
 //   node --test tests/bt-pack/verify.test.mjs            (the last test starts a browser for a few seconds: run it through tools/horde/bench.sh, or set BT_PACK_NO_BROWSER=1 to skip it)
 import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
-import { pack } from '../../tools/bt/pack_theatre.mjs';
+import { pack, trace, BT } from '../../tools/bt/pack_theatre.mjs';
 import { parseHeaders, headersFor, serveDir, logOf, checkManifest, checkZip, checkNoNotes, checkDataPipeline, checkInternalLinks, readZipDirectory, compareRuns, snapshotTree, SNAPSHOT_EXCLUDE, walk, crawlSections } from '../../tools/bt/verify_staging.mjs';
 import { makeFixture, FIXTURE_CFG } from './fixture.mjs';
 
@@ -99,6 +99,11 @@ test('snapshot: the copy leaves out the folders no page can load and keeps the r
   assert.deepEqual(got, ['GOVERNANCE/a.json', 'app/index.html', 'app/src/a.mjs', 'rosters/data2/small.json']); assert.ok(SNAPSHOT_EXCLUDE.includes('rosters/data') && !SNAPSHOT_EXCLUDE.includes('rosters/data2'), 'the new roster data (rosters/data2) is kept');
 });
 
+test('snapshot of the real tree: leaving out the folders of SNAPSHOT_EXCLUDE loses no file the packer ships (same file list as the tree itself), and the trace of the copy has no problem', () => {
+  const snap = snapshotTree(BT, path.join(tmp, 'real-snap/bt')), a = trace({ root: snap }), b = trace({ root: BT });
+  assert.deepEqual(a.problems, []); assert.deepEqual(a.files, b.files, 'the same files are traced in the copy and in the tree: ' + JSON.stringify({ onlyCopy: a.files.filter(f => !b.files.includes(f)), onlyTree: b.files.filter(f => !a.files.includes(f)) }));
+  fs.rmSync(snap, { recursive: true, force: true });
+});
 // ---- the walk of a static section, in a real browser (skipped when no browser starts)
 test('section walk: every page is visited, links inside the section are followed, a dead link is reported, other sites are left alone', async t => {
   if (process.env.BT_PACK_NO_BROWSER) return t.skip('BT_PACK_NO_BROWSER is set: no browser is started (run it through tools/horde/bench.sh to include this test)');

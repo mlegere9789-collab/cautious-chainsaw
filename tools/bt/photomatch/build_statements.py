@@ -6,7 +6,7 @@ Outputs: tools/bt/photomatch/position_statements.json, docs/battle-theatre/GOVER
 Usage: python3 -I tools/bt/photomatch/build_statements.py"""
 import json, os, re, sys, hashlib, time
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..')); sys.path.insert(0, HERE)
-from statements_data import S
+from statements_data import S, TL
 NPS = os.path.join(ROOT, 'tmp', 'library', 'web', 'nps'); WEB = os.path.join(ROOT, 'tmp', 'library', 'web', 'photomatch', 'www.nps.gov'); RAW = os.path.join(ROOT, 'tmp', 'photomatch', 'raw')
 GOV = os.path.join(ROOT, 'docs', 'battle-theatre', 'GOVERNANCE')
 def sha(p):
@@ -118,5 +118,12 @@ def main():
     ed = os.path.join(GOV, 'evidence_corrections'); os.makedirs(ed, exist_ok=True)
     with open(os.path.join(ed, 'web-photomatch.jsonl'), 'w') as f:
         for l in lines: f.write(json.dumps(l, ensure_ascii=False) + '\n')
-    print(len(out), 'statements verified;', len(lines), 'evidence lines;', len(srcs), 'sources')
+    tl = []; byid = {e['id']: e for e in out}
+    for r in TL:
+        subs = [{'sub_claim': byid[i]['says'], 'tier': byid[i]['tier'], 'citation': cite(byid[i])} for i in r['statement_ids']]
+        tl.append({'id': r['id'], 'shard': 'web-photomatch', 'verdict': r['verdict'], 'corrected_claim': r['corrected_claim'], 'subclaims': subs, 'unsupported': r['unsupported'], 'status_note': 'row stays seeded_unverified until its integrator merges this line'})
+    td = os.path.join(GOV, 'timeline_corrections'); os.makedirs(td, exist_ok=True)
+    with open(os.path.join(td, 'web-photomatch.jsonl'), 'w') as f:
+        for l in tl: f.write(json.dumps(l, ensure_ascii=False) + '\n')
+    print(len(out), 'statements verified;', len(lines), 'evidence lines;', len(tl), 'timeline lines;', len(srcs), 'sources')
 if __name__ == '__main__': main()

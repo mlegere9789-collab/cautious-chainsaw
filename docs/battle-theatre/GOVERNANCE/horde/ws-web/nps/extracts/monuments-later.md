@@ -7,7 +7,7 @@ Extracts from National Park Service reports (United States government works), ge
 
 ## NPS-ADHI
 
-Administrative History: Gettysburg National Military Park and National Cemetery, Pennsylvania (date: see INDEX.md). https://www.npshistory.com/publications/gett/adhi.pdf
+Administrative History: Gettysburg National Military Park and National Cemetery, Pennsylvania (July 1991). https://www.npshistory.com/publications/gett/adhi.pdf
 
 - **Soldiers' National Monument dedicated July 1, 1869** (`NPSX-ADHI-p006-01`)
   - State date: **1869** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 6
@@ -74,7 +74,7 @@ Administrative History: Gettysburg National Military Park and National Cemetery,
 
 ## NPS-CLI-1STDAY
 
-Cultural Landscapes Inventory: First Day - Union 1st Corps Battlefield, Gettysburg National Military Park (date: see INDEX.md). https://www.npshistory.com/publications/gett/cli-first-day-ufcb.pdf
+Cultural Landscapes Inventory: First Day - Union 1st Corps Battlefield, Gettysburg National Military Park (2021). https://www.npshistory.com/publications/gett/cli-first-day-ufcb.pdf
 
 - **Buford and Robinson avenues** (`NPSX-CLI-1STDAY-p045-01`)
   - State date: **1889 and shortly before 1895** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 45 [Page 43 of 105]
@@ -92,7 +92,7 @@ Cultural Landscapes Inventory: First Day - Union 1st Corps Battlefield, Gettysbu
 
 ## NPS-CLI-CEMETERY
 
-Cultural Landscapes Inventory: Gettysburg National Cemetery, Gettysburg National Military Park (date: see INDEX.md). https://www.npshistory.com/publications/gett/cli-cemetery.pdf
+Cultural Landscapes Inventory: Gettysburg National Cemetery, Gettysburg National Military Park (2019). https://www.npshistory.com/publications/gett/cli-cemetery.pdf
 
 - **Baltimore Street gates and fence, Greek Revival gatehouse and outer stone wall of the national cemetery completed by May 1865** (`NPSX-CLI-CEMETERY-p021-01`)
   - State date: **1865** | use for the July 1863 scene: **none** | tier proposed: documented (source wording: stated) | PDF p. 21 [Page 19 of 40]

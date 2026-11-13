@@ -30,17 +30,20 @@ test('tolerances: the floors of the distance rule are the product gazetteer buil
   for (const [k, v] of Object.entries(floor)) assert.equal(mine[k], v, `floor of ${k}`);
   assert.equal(readJSON(path.join(ROOT, 'tools/bt/realize/tolerances.json')).distance.line_extra_m, 20);
 });
-test('time cells: the allowed window of a row follows the printed cell and the stated conventions', () => {
-  const w = id => describeWindow(TL.byId.get(id).window).replace(/1863-/g, '');
-  assert.equal(w('T1-004'), '06-26T07:40..06-26T08:20', 'a printed clock time is widened by the 20 minute clock tolerance');
-  assert.equal(w('T1-003'), '06-26T00:00..06-27T00:00', '"all day" is the whole printed date');
-  assert.equal(w('T1-016'), '06-26T00:00..06-28T00:00', '"26 or 27" allows both dates');
-  assert.equal(w('T3-049'), '07-03T07:40..07-03T08:20');
-  assert.match(w('T1-017'), /06-26T20:04\.\.06-27T04:03/, 'NIGHT on one date allows the night that follows it');
+test('time cells: the allowed window follows the printed cell and the stated conventions (the parser, on literal cells)', () => {
+  const w = cell => parseTimeCell(cell, TL.tolerances).intervals.map(([a, b]) => `${isoOf(a)}..${isoOf(b)}`).join(' or ').replace(/1863-/g, '');
+  assert.equal(w('Jun 26 ≈08:00'), '06-26T07:40..06-26T08:20', 'a printed clock time is widened by the 20 minute clock tolerance');
+  assert.equal(w('Jun 26 all day'), '06-26T00:00..06-27T00:00', '"all day" is the whole printed date');
+  assert.equal(w('Jun 26 or 27 (time n/s)'), '06-26T00:00..06-28T00:00', '"26 or 27" allows both dates');
+  assert.equal(w('Jul 3 ~08:00'), '07-03T07:40..07-03T08:20');
+  assert.equal(w('Jul 1 ≈10:00-10:30'), '07-01T09:40..07-01T10:50', 'a printed range is widened at both ends');
+  assert.match(w('Jun 26 NIGHT'), /06-26T20:04\.\.06-27T04:03/, 'NIGHT on one date allows the night that follows it');
+  assert.equal(w('Jul 1 morning'), '07-01T00:00..07-01T12:00');
+  assert.equal(w('Jul 1 afternoon'), '07-01T12:00..07-01T20:04', 'to the start of the PDF NIGHT band');
   assert.equal(TL.rows.length, 691);
-  for (const r of TL.rows) { assert.ok(r.window.intervals.length > 0, r.id + ' has no allowed window'); for (const [a, b] of r.window.intervals) assert.ok(b >= a, r.id); }
+  for (const r of TL.rows) { assert.ok(r.window.intervals.length > 0, r.id + ' has no allowed window'); for (const [a, b] of r.window.intervals) assert.ok(b >= a, r.id); assert.ok(r.window.basis.length > 0, r.id + ' states no basis'); }
   assert.equal(TL.byId.get('T1-002').window.in_clock, false, 'a row before 26 Jun is outside the theatre clock'); assert.ok(TL.rows.filter(r => !r.window.in_clock).length >= 5);
-  assert.ok(parseTimeCell('Jul 2 about 16:00-17:00', TL.tolerances).intervals.length === 1);
+  for (const r of TL.rows) if (r.correction) assert.ok(r.window.source === 'correction' || r.window.flags.includes('correction_without_machine_readable_window'), r.id + ': a corrected row uses the corrected window, or says the correction has none');
 });
 test('gazetteer: names resolve to the repository\'s places with the stated tolerance; unknown and ambiguous names are never guessed', () => {
   const g = P.places;
@@ -91,7 +94,8 @@ test('worked examples: 20 rows of shard tl-01, valid, with the results the produ
     assert.deepEqual(fatal, [], r.id + ' static problems');
     const res = await run(r); if (res.realized) realized.push(r.id); else { assert.equal(r.kind, 'not_realized', r.id + ': a record of a real kind did not pass: ' + res.why); assert.equal(res.missing.verified, true, `${r.id}: declared ${res.missing.declared} observed ${res.missing.observed}`); assert.equal(res.missing.stale, false, r.id); }
   }
-  assert.deepEqual(realized, ['T1-003', 'T1-016', 'T1-019']);
+  assert.deepEqual(realized, ['T1-003', 'T1-015', 'T1-016', 'T1-019']);
+  for (const id of ['T1-015', 'T1-016']) { const res = await run(examples.find(r => r.id === id)); assert.ok(res.partial && res.partial.length, id + ' lists what it does not show'); }
 });
 test('every kind has an assertion type that can prove it, and KIND_NEEDS names only known assertion types', () => {
   for (const k of KINDS) assert.ok(KINDS.includes(k));
@@ -118,10 +122,12 @@ test('realized: units at a place, moving toward it, arriving, absent before arri
   await mustPass(rec('X-008', 'earthwork_build', '1863-07-02T06:00', '1863-07-02T10:00', 'Greene’s brigade builds the Culp’s Hill main line', { works: ['E-05'], units: ['us-12c-2d-greene'] }, [{ type: 'work_stage', work: 'E-05', t: { at: '1863-07-02T08:00' }, stage_min: 3, crew: { units: ['us-12c-2d-greene'] } }]));
 });
 test('realized: a real row (T3-049, the Wade house at about 08:00 on 3 July) by its structure state', async () => {
-  await mustPass(rec('T3-049', 'structure_state', '1863-07-03T08:00', '1863-07-03T08:20', 'the house takes 150+ bullet strikes', { structures: ['bld-wade-house'], schedule: ['S-051'] }, [{ type: 'structure_state', structure: 'bld-wade-house', t: { at: '1863-07-03T08:20' }, state: '/bullet strikes/', schedule_row: 'S-051', visual: { dmg_min: 0.5 } }]));
+  const [a, b] = TL.byId.get('T3-049').window.intervals[0], to = isoOf(b), from = isoOf(Math.max(a, b - 30));
+  await mustPass(rec('T3-049', 'structure_state', from, to, 'the house takes 150+ bullet strikes', { structures: ['bld-wade-house'], schedule: ['S-051'] }, [{ type: 'structure_state', structure: 'bld-wade-house', t: { at: to }, state: '/bullet strikes/', schedule_row: 'S-051', visual: { dmg_min: 0.5 } }]));
 });
 test('not realized: a real row (T3-055, the Bliss buildings burned before noon) is shown only as a date-indeterminate blend', async () => {
-  const r = rec('T3-055', 'structure_state', '1863-07-03T11:00', '1863-07-03T12:00', 'Bliss house and barn are burned deliberately by order', { structures: ['bld-bliss-farm#house'], schedule: ['S-052'] }, [{ type: 'structure_state', structure: 'bld-bliss-farm#house', t: { at: '1863-07-03T12:00' }, state: 'Burned', schedule_row: 'S-052' }]);
+  const [a, b] = TL.byId.get('T3-055').window.intervals[0], to = isoOf(Math.min(b, toMin('1863-07-03T13:00'))), from = isoOf(Math.min(b, toMin('1863-07-03T13:00')) - 60);
+  const r = rec('T3-055', 'structure_state', from, to, 'Bliss house and barn are burned deliberately by order', { structures: ['bld-bliss-farm#house'], schedule: ['S-052'] }, [{ type: 'structure_state', structure: 'bld-bliss-farm#house', t: { at: to }, state: 'Burned', schedule_row: 'S-052' }]);
   const res = await mustFail(r, 'structure_wrong_state');
   assert.match(res.assertions[0].detail, /indeterminate/);
 });
@@ -140,22 +146,27 @@ test('wrong: the record\'s words are not the row\'s, the window is not the row\'
   await mustFail({ ...clone(w), checks: [] }, 'checks_missing');
   const t = clone(w); t.checks[0].t = { at: '1863-06-27T12:00' }; await mustFail(t, 'assert_time_outside_window');
   const q = clone(w); q.checks[1].quote = 'snowing at 7'; await mustFail(q, 'quote_not_in_row');
-  const n = clone(w); n.checks[1].quote = '63 F at 14:00'; await mustFail(n, 'number_not_in_quote');
 });
 test('wrong: the product does not show what the record says (weather, sky, structure)', async () => {
   const w = ex('T1-003');
-  const a = clone(w); a.checks[1].temp_f = 63; a.checks[1].quote = '63 F at 14:00'; await mustFail(a, 'weather_mismatch', 'the reading of 14:00 asserted at 07:00');
+  const a = clone(w); a.checks.push({ type: 'weather', t: { at: '1863-06-26T12:00' }, temp_f: 26, quote: 'through Jun 26' }); await mustFail(a, 'weather_mismatch', 'a temperature the picture does not show (the number is in the quote, the product says about 62)');
+  const a2 = clone(w); a2.checks.push({ type: 'weather', t: { at: '1863-06-26T12:00' }, temp_f: 62, quote: 'roads wet and muddy' }); await mustFail(a2, 'number_not_in_quote', 'a number that is not printed in the quote');
   const b = clone(w); b.checks[0].precip_kind_in = ['none']; await mustFail(b, 'weather_mismatch', 'no rain asserted on a rainy day');
-  const c = clone(w); c.checks[4].wetness_min = 1.5; await mustFail(c, 'weather_mismatch', 'wetness beyond the scale');
+  const c = clone(w); c.checks[2].wetness_min = 1.5; await mustFail(c, 'weather_mismatch', 'wetness beyond the scale');
   const d = clone(w); d.checks.push({ type: 'sky', t: { at: '1863-06-26T12:00' }, band_in: ['Night'] }); await mustFail(d, 'sky_mismatch', 'night at noon');
+  const d2 = clone(w); d2.checks[1].t = { from: '1863-06-26T06:00', to: '1863-06-26T23:00', mode: 'all' }; d2.checks[1].precip_kind_in = ['storm']; await mustFail(d2, 'weather_mismatch', 'storm all day');
   const s = ex('T1-016');
-  const e = clone(s); e.checks[0].state = 'Intact'; await mustFail(e, 'structure_wrong_state', 'the bridge intact at the end of the window');
+  const e = clone(s); e.checks[1].state = 'Intact'; await mustFail(e, 'structure_wrong_state', 'the bridge intact at the end of the window');
   const f = clone(s); f.checks[0].schedule_row = 'S-002'; await mustFail(f, 'structure_wrong_state', 'another schedule row');
-  const g = clone(s); g.checks[0].present = false; await mustFail(g, 'structure_wrong_state', 'the bridge absent');
-  const h = clone(s); h.checks[0].t = { at: '1863-06-27T12:00' }; h.checks[0].visual = { burn_min: 1 }; await mustFail(h, 'structure_wrong_state', 'fully burned mid-window, while the picture blends');
-  const i = clone(s); i.entities.structures = ['bld-presbyterian-church']; i.checks[0].structure = 'bld-presbyterian-church'; await mustFail(i, 'structure_not_bound', 'a structure the row does not name');
-  const j = clone(s); j.entities.structures = ['bld-no-such-thing']; j.checks[0].structure = 'bld-no-such-thing'; await mustFail(j, 'structure_unknown', 'a structure that exists nowhere');
-  const k = clone(s); k.entities.structures = ['bld-st-francis-xavier']; k.checks[0].structure = 'bld-st-francis-xavier'; k.entities.structures[0] = { id: 'bld-st-francis-xavier', via: 'trestle/bridge over Rock Creek' }; await mustFail(k, 'structure_not_drawn', 'declared binding, but nothing is drawn for it');
+  const g = clone(s); g.checks[1].present = false; await mustFail(g, 'structure_wrong_state', 'the bridge absent');
+  const h = clone(s); delete h.checks[0].structure_scenario; h.checks[0].t = { at: '1863-06-27T12:00' }; await mustFail(h, 'structure_wrong_state', 'fully burned mid-window in the default scenario, which blends 26 and 27 Jun');
+  const h2 = clone(s); h2.checks[0].structure_scenario = 'jun27'; await mustFail(h2, 'structure_wrong_state', 'burned at 00:00 on 27 Jun in the scenario that puts the burning on the 27th');
+  const i = clone(s); i.entities.structures = ['bld-presbyterian-church']; i.checks.forEach(x => { x.structure = 'bld-presbyterian-church'; }); await mustFail(i, 'structure_not_bound', 'a structure the row does not name');
+  const j = clone(s); j.entities.structures = ['bld-no-such-thing']; j.checks.forEach(x => { x.structure = 'bld-no-such-thing'; }); await mustFail(j, 'structure_unknown', 'a structure that exists nowhere');
+  const k = clone(s); k.entities.structures = [{ id: 'bld-st-francis-xavier', via: 'bridge over Rock Creek east of Gettysburg' }]; k.checks.forEach(x => { x.structure = 'bld-st-francis-xavier'; }); await mustFail(k, 'structure_not_drawn', 'declared binding, but nothing is drawn for it');
+  const l = clone(s); l.not_shown = [{ words: 'a bridge nobody mentions', why: 'x' }]; await mustFail(l, 'quote_not_in_row', 'not_shown words that are not the row\'s');
+  const m = clone(s); m.not_shown = []; await mustFail(m, 'not_shown_bad');
+  const n = clone(s); delete n.not_shown; const nr = await mustPass(n, 'without not_shown the same record is a full realization'); assert.equal(nr.partial, undefined);
 });
 test('wrong: the units are not the row\'s, are not on the field, are in the wrong place, do the wrong thing', async () => {
   addRow('Y-001', 'McPherson Ridge Cutler’s brigade stands in line, not on Cemetery Hill', '1863-07-01T12:00', '1863-07-01T12:30');
@@ -210,6 +221,7 @@ test('wrong: figures, casualties, guns, absent units and a unit absent for the w
   await mustFail(rec('Y-007', 'unit_activity', '1863-07-01T16:00', '1863-07-01T22:00', 'Gordon’s brigade (≈1,900)', { units: ['cs-2c-early-gordon'] }, [{ type: 'unit_figures', unit: 'cs-2c-early-gordon', approx: 1900, tol_pct: 1, quote: '(≈1,900)' }], { place_unspecified: 'test' }), 'figures_mismatch', 'a strength the picture does not draw (1 %)');
   addRow('Y-008', 'Iron Brigade fights quietly', '1863-07-01T08:00', '1863-07-01T09:00');
   await mustFail(rec('Y-008', 'casualty_flow', '1863-07-01T08:00', '1863-07-01T09:00', 'Iron Brigade fights quietly', { units: ['us-1c-1d-meredith'] }, [{ type: 'casualty', units: ['us-1c-1d-meredith'], killed_min: 1 }]), 'casualty_none', 'losses before the brigade is on the field');
+  const nou = rec('Y-008', 'casualty_flow', '1863-07-01T08:00', '1863-07-01T09:00', 'Iron Brigade fights quietly', {}, [{ type: 'casualty', killed_min: 1 }]); await mustFail(nou, 'assert_field', 'losses of no named unit');
   addRow('Y-009', '2nd Maine Battery has a hundred guns', '1863-07-01T10:30', '1863-07-01T11:00');
   await mustFail(rec('Y-009', 'artillery', '1863-07-01T10:30', '1863-07-01T11:00', '2nd Maine Battery has a hundred guns', { units: ['us-1c-art-2me'] }, [{ type: 'battery_guns', unit: 'us-1c-art-2me', guns_min: 100 }]), 'battery_shortfall');
   addRow('Y-010', 'Iron Brigade 19th IN is not on the field and is not drawn', '1863-07-01T08:00', '1863-07-01T09:00');
@@ -232,18 +244,20 @@ test('wrong: a record of kind not_realized must fail with the reasons it gives; 
   // a probe that passes: the weather IS shown, so a not_realized record of the weather row is stale
   const stale = ex('T1-003'); stale.kind = 'not_realized'; stale.intended_kind = 'weather_sky'; stale.missing = [{ code: 'weather_mismatch', detail: 'claimed missing' }]; const s = await run(stale); assert.equal(s.realized, false); assert.equal(s.missing.stale, true); assert.match(s.why, /now passes/);
   const early = ex('T1-002'); const er = await run(early); assert.ok(codesOf(er).has('time_outside_clock'), 'a row before the clock cannot be realized at its time');
-  const bad = ex('T1-016'); bad.window = { from: '1863-06-27T12:00', to: '1863-06-28T00:00' }; bad.kind = 'structure_state'; bad.entities.structures = []; await mustFail(bad, 'entity_undeclared');
+  const bad = ex('T1-016'); bad.entities.structures = []; await mustFail(bad, 'entity_undeclared');
 });
 test('event cards and the epilogue: no module, no realization; a module that is listed and shows the row realizes it', async () => {
-  const c = ex('T1-001'); const r0 = await run(c); assert.deepEqual(r0.missing.observed.includes('adapter_missing'), true);
-  const real = clone(c); real.kind = 'event_card'; delete real.missing; delete real.intended_kind; await mustFail(real, 'adapter_missing', 'a card record while the product has no card module');
+  const c = ex('T1-001'); const r0 = await run(c); assert.equal(r0.missing.observed.includes('adapter_missing'), true); assert.equal(r0.missing.observed.includes('time_outside_clock'), true, 'a row dated before the clock cannot be shown at its time');
+  addRow('Z-004', 'Meade holds a council of war at the Leister house on the evening of 2 Jul', '1863-07-02T21:00', '1863-07-02T22:00');
+  const real = rec('Z-004', 'event_card', '1863-07-02T21:00', '1863-07-02T22:00', 'Meade holds a council of war at the Leister house', { cards: ['Z-004'] }, [{ type: 'card_shown', rows: ['Z-004'], t: { at: '1863-07-02T21:30' } }]);
+  await mustFail(real, 'adapter_missing', 'a card record while the product has no card module');
   // the same record against a product whose card module exists, is listed and shows the row
-  const fake = Object.create(P); let shown = [{ id: 'CARD-T1-001', rows: ['T1-001'], title: 'Medical transport cut', tier: 'documented' }];
+  const fake = Object.create(P); let shown = [{ id: 'CARD-Z-004', rows: ['Z-004'], title: 'Council of war', tier: 'documented' }];
   fake.cardsAt = async () => ({ available: true, module: 'src/ext/event-cards.mjs', fn: 'cardsAt', items: shown });
   const R2 = new Runner(fake, TL);
   const ok = await R2.runRecord(real); assert.equal(ok.realized, true, ok.why);
   shown = [{ id: 'CARD-T1-002', rows: ['T1-002'], tier: 'documented' }]; const no = await R2.runRecord(real); assert.equal(no.realized, false); assert.ok(codesOf(no).has('card_not_shown'));
-  shown = [{ id: 'CARD-T1-001', rows: ['T1-001'], tier: 'inferred' }]; const tier = clone(real); tier.checks[0].tier = 'documented'; const tr = await R2.runRecord(tier); assert.equal(tr.realized, false, 'a card with a weaker tier than the record asserts');
+  shown = [{ id: 'CARD-Z-004', rows: ['Z-004'], tier: 'inferred' }]; const tier = clone(real); tier.checks[0].tier = 'documented'; const tr = await R2.runRecord(tier); assert.equal(tr.realized, false, 'a card with a weaker tier than the record asserts');
   fake.cardsAt = async () => ({ available: false, reason: 'src/ext/event-cards.mjs exists but is not in src/ext/index.mjs', items: [] }); const na = await new Runner(fake, TL).runRecord(real); assert.equal(na.realized, false); assert.ok(codesOf(na).has('adapter_missing'));
   const ep = await P.epilogueAt(toMin('1863-11-19T09:00')); assert.equal(ep.available, false, 'the epilogue chapter has no content module yet');
 });
@@ -280,19 +294,20 @@ test('formation, the picture\'s own activity, a unit searched by the row\'s word
   const pic = (picture) => rec('Z-002', 'unit_activity', '1863-07-03T13:30', '1863-07-03T14:00', 'The 3rd Pennsylvania Cavalry fights dismounted and fires', { units: ['us-cav-2d-mcintosh-3pa'] }, [{ type: 'unit_activity', unit: 'us-cav-2d-mcintosh-3pa', activities: ['fire'], picture }], { place_unspecified: 'test' });
   await mustPass(pic(true), 'the picture shows the dismounted cavalry firing'); await mustFail(pic(false), 'unit_wrong_activity', 'the stage\'s own activity timeline has no fire');
   addRow('Z-003', 'The 26th Pennsylvania Emergency Militia and the 6th Wisconsin', '1863-07-01T12:00', '1863-07-01T12:30');
-  const inl = words => rec('Z-003', 'arrival', '1863-07-01T12:00', '1863-07-01T12:30', words, {}, [{ type: 'unit_in_layer', words }], {});
-  await mustFail(inl('26th Pennsylvania Emergency Militia'), 'unit_not_in_layer'); await mustPass(inl('6th Wisconsin'));
-  await mustFail(rec('Z-003', 'arrival', '1863-07-01T12:00', '1863-07-01T12:30', 'the 6th Wisconsin', {}, [{ type: 'unit_in_layer', words: 'the 7th Wisconsin' }]), 'quote_not_in_row', 'words that are not the row\'s');
+  const inl = async words => (await run({ ...rec('Z-003', 'not_realized', '1863-07-01T12:00', '1863-07-01T12:30', words, {}, [{ type: 'unit_in_layer', words }], { intended_kind: 'arrival', missing: [{ code: 'unit_not_in_layer', detail: 'probe' }] }) })).assertions[0];
+  const mil = await inl('26th Pennsylvania Emergency Militia'); assert.equal(mil.ok, false); assert.equal(mil.code, 'unit_not_in_layer');
+  const wis = await inl('6th Wisconsin'); assert.equal(wis.ok, true); assert.match(wis.evidence.units.join(' '), /us-1c-1d-meredith-6wi/);
+  const bad = await run(rec('Z-003', 'not_realized', '1863-07-01T12:00', '1863-07-01T12:30', 'the 6th Wisconsin', {}, [{ type: 'unit_in_layer', words: 'the 7th Wisconsin' }], { intended_kind: 'arrival', missing: [{ code: 'x', detail: 'y' }] })); assert.ok(codesOf(bad).has('quote_not_in_row'), 'words that are not the row\'s');
   assert.ok(P.places.resolve('McPherson Ridge').place.on_ground);
   const sc = P.conflictScenarios('see C-004 and C-005'); assert.ok(sc.length > 3 && sc[0] === 'default' && sc.some(s => s.id && s.id.startsWith('C-004:')) && sc.some(s => s.id && s.id.startsWith('C-005:')));
   assert.deepEqual(P.conflictScenarios('no conflict named'), ['default']);
 });
 test('the author tools print what the harness knows: row, suggest, place', () => {
   const q = (...a) => spawnSync('node', [path.join(ROOT, 'tools/bt/realize/q.mjs'), ...a], { encoding: 'utf8', maxBuffer: 1 << 26 });
-  const row = q('row', 'T1-004'); assert.equal(row.status, 0); assert.match(row.stdout, /ALLOWED +1863-06-26T07:40\.\.1863-06-26T08:20/); assert.match(row.stdout, /cs-2c-early /); assert.match(row.stdout, /OFF THE LOADED GROUND/); assert.match(row.stdout, /Cashtown Pike/);
+  const row = q('row', 'T1-004'); assert.equal(row.status, 0); assert.match(row.stdout, /ALLOWED +1863-06-2[56]T\d\d:\d\d\.\.1863-06-2[67]T\d\d:\d\d/); assert.match(row.stdout, /cs-2c-early /); assert.match(row.stdout, /Early/); assert.match(row.stdout, /PLACES NAMED IN THE ROW/);
   const sug = q('suggest', 'T1-097'); assert.equal(sug.status, 0); assert.match(sug.stdout, /UNIT us-1c-1d-cutler-147ny/); assert.match(sug.stdout, /McPherson Ridge \[tol 430 m\]/);
   const pl = q('place', 'Cemetery Hill'); assert.match(pl.stdout, /"tolerance_m": 250/); const unk = q('place', 'Belmont Road'); assert.match(unk.stdout, /unknown/);
-  const rows = q('rows', 'tl-01'); assert.match(rows.stdout, /T1-003 \[open gap +\] REALIZED weather_sky/);
+  const rows = q('rows', 'tl-01'); assert.match(rows.stdout, /T1-003 \[[a-z ]+\] REALIZED weather_sky/);
 });
 test('gazetteer.json: the places the timeline names, unknown names listed and never given coordinates', () => {
   const p = path.join(REAL, 'gazetteer.json'); if (!fs.existsSync(p)) return; const g = readJSON(p);

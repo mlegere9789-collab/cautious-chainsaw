@@ -56,10 +56,10 @@ def mut(base, **kw):
 
 def tests():
     EX = load_examples()
-    E1, E2, E3, E4, E5, G6 = (EX['examples:000%d' % i] for i in range(1, 7))
+    E1, E2, E3, E4, E5, G6, E7, E8, E9 = (EX['examples:000%d' % i] for i in range(1, 10))
     R = run(list(EX.values()), name='base')
-    ok('the six worked examples validate with no error (OCR-corrected one warns)', not R.errors and any(w['code'] == 'OCR_CORRECTED' for w in R.warnings), R.errors)
-    ok('five lines are accepted and the gap line is recorded', len(R.accepted) == 5 and R.counts['gap'] == 1)
+    ok('the nine worked examples validate with no error (OCR-corrected one warns)', not R.errors and any(w['code'] == 'OCR_CORRECTED' for w in R.warnings), R.errors)
+    ok('eight evidence lines are accepted and the gap line is recorded', len(R.accepted) == 8 and R.counts['gap'] == 1)
 
     # --- citation checks -------------------------------------------------------------------------------------------
     R = run([mut(E2, quote=E2['quote'].replace('Fifty-sixth', 'Fifty-seventh'))], name='q1')
@@ -178,6 +178,60 @@ def tests():
     R = run([mut(E4, offset=E4['offset'] + 3000)], name='t7')
     ok('an OCR-corrected quote far from its offset is rejected', 'QUOTE_NOT_FOUND' in codes(R), codes(R))
 
+
+    # --- the other table layouts ------------------------------------------------------------------------------------
+    v = copy.deepcopy(E7['value'])
+    v['row'] = [6, 48, None, 55]
+    v['total'] = 55
+    R = run([mut(E7, value=v)], name='t8')
+    ok('a Confederate four-column row whose figures do not add to the aggregate is caught', 'CHECK' in codes(R), codes(R))
+    R = run([mut(E7, value=v, waive_numbers='the print footnotes this row')], name='t9')
+    ok('a row the print itself does not tally can be waived with the reason, as a warning', not R.errors and any(w['code'] == 'NUMBERS_WAIVED' for w in R.warnings), R.errors)
+    v = copy.deepcopy(E7['value'])
+    v['killed'] = {'total': 7}
+    R = run([mut(E7, value=v)], name='t10')
+    ok('a value that differs from the figure read in its column is caught (killed 7, row says 6)', 'CHECK' in codes(R), codes(R))
+    v = copy.deepcopy(E7['value'])
+    v['row_columns'] = ['killed', 'wounded', 'aggregate', 'missing']
+    R = run([mut(E7, value=v)], name='t11')
+    ok('a column layout that is not one of the printed layouts is rejected', 'IMAGE' in codes(R) or 'VALUE' in codes(R), codes(R))
+    v = copy.deepcopy(E8['value'])
+    v['row'] = [None, None, 12, 517, 629]
+    v['low'] = v['high'] = 629
+    R = run([mut(E8, value=v)], name='t12')
+    ok('a strength row whose identity fails (12 + 517 is not the OCR\'s 629) is caught', 'CHECK' in codes(R), codes(R))
+    v = copy.deepcopy(E8['value'])
+    v['low'] = v['high'] = 530
+    R = run([mut(E8, value=v)], name='t13')
+    ok('a strength figure that is not one of the cells read is caught', 'CHECK' in codes(R), codes(R))
+    v = copy.deepcopy(E8['value'])
+    v.pop('identity')
+    R = run([mut(E8, value=v)], name='t14')
+    ok('a strength row without an identity is accepted with a warning (only a reviewer can check it)', not R.errors and any(w['code'] == 'NO_IDENTITY' for w in R.warnings), R.errors)
+    R = run([mut(E3, quote_mode='image_row', image={'pdf_page': 255, 'dpi': 100})], name='t15')
+    ok('image_row is for return rows only (not for guns)', 'IMAGE' in codes(R), codes(R))
+
+
+    # --- a state volume: the page model knows only a range --------------------------------------------------------
+    R = run([mut(E9, printed_page='16-19')], name='s1')
+    ok('state volume: a page range that is not the range of the page model is rejected', 'PAGE' in codes(R), codes(R))
+    R = run([mut(E9, printed_page=15)], name='s2')
+    ok('state volume: a page outside the range is rejected', 'PAGE' in codes(R), codes(R))
+    R = run([mut(E9, printed_page=17)], name='s3')
+    ok('state volume: a page inside the range is accepted with a warning that the model knows only the range', not R.errors and any(w['code'] == 'PAGE_RANGE' for w in R.warnings), (R.errors, [w['code'] for w in R.warnings]))
+    R = run([mut(E9, report_id='NY1-S002')], name='s4')
+    ok('state volume: the section id must be the section that contains the quote', 'REPORT' in codes(R), codes(R))
+    R = run([mut(E9, printed_page=KeyError)], name='s5')
+    ok('state volume: a missing page is a warning, not an error', not R.errors and any(w['code'] == 'PAGE_UNCHECKED' for w in R.warnings), R.errors)
+    R = run([mut(E9, printed_page='sixteen')], name='s6')
+    ok('a page that is neither an integer nor a range is rejected', 'PAGE' in codes(R), codes(R))
+    R = run([mut(E9, printed_page=True)], name='s7')
+    ok('a boolean is not a page', 'PAGE' in codes(R), codes(R))
+    R = run([mut(E2, part=True)], name='s8')
+    ok('a boolean is not a part number (True == 1 in Python)', 'PART' in codes(R), codes(R))
+    R = run([mut(E9, part=1)], name='s9')
+    ok('a state volume has no part number', 'PART' in codes(R), codes(R))
+
     # --- conflicts, supersession, gaps, coverage -------------------------------------------------------------------
     s2 = mut(E2, id='examples:0007')
     v = copy.deepcopy(E2['value'])
@@ -211,6 +265,42 @@ def tests():
        'commander' not in open_pairs and 'arms' not in open_pairs and 'dress' not in open_pairs and 'strength' in open_pairs, (u['required'], open_pairs))
     R = run([mut(E1, id='us-1c:0001', unit_id='us-2c-1d-caldwell')], group='us-1c', any_unit=False, name='cov2')
     ok('a unit of another group is rejected in group mode', 'UNIT' in codes(R), codes(R))
+
+
+    # --- robustness: no malformed line may crash the checker ----------------------------------------------------------
+    junk = [None, 0, -1, 1.5, True, '', 'x', [], {}, [1], {'a': 1}, 10 ** 12]
+    lines, n = [], 0
+    for base in EX.values():
+        for k in list(base):
+            for j in junk + [KeyError]:
+                o = copy.deepcopy(base)
+                if j is KeyError:
+                    o.pop(k, None)
+                else:
+                    o[k] = j
+                if k != 'id':
+                    n += 1
+                    o['id'] = 'examples:%04d' % (1000 + n)
+                    lines.append(o)
+        v = base.get('value')
+        if isinstance(v, dict):
+            for k in list(v):
+                for j in junk + [KeyError]:
+                    o = copy.deepcopy(base)
+                    if j is KeyError:
+                        o['value'].pop(k, None)
+                    else:
+                        o['value'][k] = j
+                    n += 1
+                    o['id'] = 'examples:%04d' % (1000 + n)
+                    lines.append(o)
+    try:
+        R = run(lines, name='fuzz')
+        crashed = ''
+    except Exception as e:      # noqa
+        R, crashed = None, '%s: %s' % (type(e).__name__, e)
+    ok('fuzz: %d mutated lines (every key and every value key set to junk or removed) are checked without a crash' % len(lines), not crashed, crashed)
+    ok('fuzz: the mutations are overwhelmingly rejected (a mutation that survives is a field the contract does not constrain)', R is not None and len(R.accepted) < len(lines) * 0.25, (len(R.accepted) if R else None, len(lines)))
 
     # --- text engine -----------------------------------------------------------------------------------------------
     src = K.get_source('OR27-1')
