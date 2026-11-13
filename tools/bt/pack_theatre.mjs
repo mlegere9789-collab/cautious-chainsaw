@@ -57,7 +57,7 @@ const CODE_EXT = /\.(mjs|js)$/i, FILE_EXT = 'json|jsonl|bin|png|jpe?g|webp|gif|s
 const IMPORT_RE = /(?<![\w$.'"`])(?:import|export)\s*(?:[^'";]*?\sfrom\s*)?['"]([^'"\n]+)['"]|(?<![\w$.])import\(\s*['"]([^'"\n]+)['"]\s*[),]/g;   // [1] static, [2] import('literal')
 const IMPORT_CALL_RE = /(?<![\w$.])import\(\s*([^)]{0,200})/g;                                                                              // every import( call, classified below
 const MODULE_NAME = /^(?:node:[\w/.-]+|(?:@[\w.-]+\/)?[\w.-]+(?:\/[\w./-]+)*)$/;                                                             // a bare module name (anything else the pattern caught is not an import)
-const URLS_CAT_RE = /\b(URLS|urls)\.([A-Za-z_]\w*)\s*\+\s*(?:(['"])([^'"]*)\3|`([^`]*)`)/g;                                                // URLS.data + 'file' | URLS.data + `figures3d/${name}.json`
+const URLS_CAT_RE = /\b(URLS|urls)\.([A-Za-z_]\w*)\s*\+\s*(?:(['"])([^'"]*)\3|`([^`]*)`)(\s*\+)?/g;                                         // URLS.data + 'file' | URLS.data + `figures3d/${name}.json` | URLS.data + 'tiles/' + z
 const URLS_TPL_RE = /\$\{\s*(?:[\w$]+\.)*(URLS|urls)\.([A-Za-z_]\w*)\s*\}([^`]*)`/g;                                                       // `${URLS.gov}register/${id}.md`
 const META_URL_RE = /new URL\(\s*(?:(['"])([^'"]*)\1|`([^`]*)`)\s*(\+[^,]*)?,\s*import\.meta\.url\s*\)/g;                                  // new URL('../../data/audio3d/', import.meta.url)
 const DOC_REF_RE = /\b(fetch|new\s+(?:Shared)?Worker|new\s+Audio|addModule|importScripts|serviceWorker\.register)\(\s*(?:(['"])([^'"]*)\2|`([^`]*)`)\s*(\+)?/g;   // resolved against the page
@@ -154,8 +154,9 @@ export function trace(opts = {}) {
           if (pre.endsWith('/') && isDir(abs)) {
             const idx = path.join(abs, 'index.mjs'), list = indexList(idx), all = walk(abs).filter(f => CODE_EXT.test(f) && !SKIP_IN_FOLDERS.test(rel(f)));
             const loaded = list ? list.map(n => path.resolve(abs, n)) : all;
+            if (list) { if (ship(idx, `${why} (the list of ${rel(abs)}/)`)) follow(idx, mode, why); } else if (all.length) notes.push(`no plain list in ${rel(idx)}: every module of ${rel(abs)}/ counts as loaded (${r})`);
             for (const f of loaded) { if (isFile(f)) { if (ship(f, `${why} (${list ? 'listed by ' + rel(idx) : 'every module of ' + rel(abs) + '/'})`)) follow(f, mode, why); } else (fatal ? problems : notes).push(`missing: ${rel(f)} (listed by ${rel(idx)}, loaded by ${r})`); }
-            for (const f of all) if (ship(f, `module of ${rel(abs)}/ (${why})`) && !loaded.includes(f)) later.push({ f, mode: 'shipped', why });
+            for (const f of all) if (ship(f, `module of ${rel(abs)}/ (${why})`) && !loaded.includes(f) && f !== idx) later.push({ f, mode: 'shipped', why });
             computed.push({ file: r, arg: arg.slice(0, 120), status: 'folder', folder: rel(abs) + '/', index: list ? rel(idx) : null, modules: loaded.map(rel).sort() });
           } else if (pre.endsWith('/')) { notes.push(`folder of a computed import does not exist yet: ${rel(abs)}/ (${r})`); computed.push({ file: r, arg: arg.slice(0, 120), status: 'folder-missing', folder: rel(abs) + '/' }); }
           else { ref(abs, why, { mode, kind: 'prefix', missing: 'note' }); computed.push({ file: r, arg: arg.slice(0, 120), status: 'prefix', prefix: rel(abs) }); }
@@ -168,7 +169,7 @@ export function trace(opts = {}) {
       }
     }
     const keyBase = (obj, key, why) => { const b = cfg.urlKeys[key]; if (b == null) { (obj === 'URLS' && fatal ? problems : notes).push(`unknown ${obj} key ${key} in ${r}`); return null; } return path.join(root, b); };
-    for (const m of src.matchAll(URLS_CAT_RE)) { const why = `${m[1]}.${m[2]} in ${r}`, base = keyBase(m[1], m[2], why); if (base) address(base, m[4] ?? m[5], m[4] == null, false, why, { mode, missing: inComment(src, m.index) ? 'note' : 'problem' }); }
+    for (const m of src.matchAll(URLS_CAT_RE)) { const why = `${m[1]}.${m[2]} in ${r}`, base = keyBase(m[1], m[2], why); if (base) address(base, m[4] ?? m[5], m[4] == null, !!m[6], why, { mode, missing: inComment(src, m.index) ? 'note' : 'problem' }); }
     for (const m of src.matchAll(URLS_TPL_RE)) { const why = `${m[1]}.${m[2]} template in ${r}`, base = keyBase(m[1], m[2], why); if (base) address(base, m[3], true, false, why, { mode, missing: inComment(src, m.index) ? 'note' : 'problem' }); }
     for (const m of src.matchAll(META_URL_RE)) {
       const text = m[2] ?? m[3]; if (!/^\.\.?(\/|$)/.test(text)) { if (!EXTERNAL.test(text) && text !== '') address(dir, text, m[2] == null, !!m[4], `new URL in ${r}`, { mode, missing: 'note' }); continue; }
@@ -180,7 +181,7 @@ export function trace(opts = {}) {
       if (!hit) notes.push(`not found from any page folder: ${text.slice(0, 100)} (${why})`); };
     for (const m of src.matchAll(DOC_REF_RE)) docRef(m[3] ?? m[4], m[3] == null, !!m[5], `${m[1].replace(/\s+/g, ' ')}() in ${r}`);
     for (const m of src.matchAll(SRC_ASSIGN_RE)) docRef(m[2], false, false, `address assigned in ${r}`);
-    if (fatal) for (const m of src.matchAll(LITERAL_RE)) if (!EXTERNAL.test(m[2])) literals.push({ literal: m[2], file: r, comment: inComment(src, m.index) });
+    if (fatal) { const specs = new Set(isModule ? [...src.matchAll(IMPORT_RE)].map(m => m[1] ?? m[2]) : []); for (const m of src.matchAll(LITERAL_RE)) if (!EXTERNAL.test(m[2]) && !specs.has(m[2])) literals.push({ literal: m[2], file: r, comment: inComment(src, m.index) }); }
   }
   function scanCss(file, mode = 'reached') {
     if (seenCss.has(file)) return; seenCss.add(file); const src = fs.readFileSync(file, 'utf8').replace(/\/\*[\s\S]*?\*\//g, ''), r = rel(file);
@@ -344,7 +345,7 @@ export function audit(dist) {
 }
 export function auditReview(dist) {
   const out = {};
-  for (const f of walk(dist)) { if (BINARY.test(f)) continue; const rel = posix(path.relative(dist, f)); for (const m of fs.readFileSync(f, 'utf8').matchAll(AUDIT_REVIEW_RE)) { const k = m[1].toLowerCase().replace(/s$/, ''), o = out[k] || (out[k] = { count: 0, files: {} }); o.count++; o.files[rel] = (o.files[rel] || 0) + 1; } }
+  for (const f of walk(dist)) { if (BINARY.test(f)) continue; const rel = posix(path.relative(dist, f)); for (const m of fs.readFileSync(f, 'utf8').matchAll(AUDIT_REVIEW_RE)) { const k = m[1].toLowerCase().replace(/^(workstream|shard)s$/, '$1'), o = out[k] || (out[k] = { count: 0, files: {} }); o.count++; o.files[rel] = (o.files[rel] || 0) + 1; } }
   return out;
 }
 

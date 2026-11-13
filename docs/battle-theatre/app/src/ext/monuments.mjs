@@ -24,7 +24,7 @@ export async function init(ctx) {
   const sig = { signal: s.ac.signal }, left = th.root.querySelector('#bt-left'), stage = th.els.stage;
 
   // ---- the notice that is on the picture for as long as the layer is on
-  s.chip = el('div', { id: 'xm-chip', className: 'legend', hidden: true, role: 'status', style: 'margin-top:0;align-items:center' });
+  s.chip = el('div', { id: 'xm-chip', className: 'legend', hidden: true, 'aria-label': 'Later memorials are shown', style: 'margin-top:0;align-items:center' });
   s.chip.addEventListener('click', e => { const b = e.target && e.target.closest ? e.target.closest('[data-act]') : null; if (!b || !S) return; if (b.dataset.act === 'hide') S.toggle.set(false); else if (b.dataset.act === 'about') S.panel.open(); }, sig);
   // ---- the card of a picked memorial (the shell's own card element belongs to units and structures)
   s.card = el('aside', { id: 'xm-card', className: 'card', hidden: true, role: 'complementary', 'aria-labelledby': 'xm-card-title' });
@@ -36,15 +36,16 @@ export async function init(ctx) {
   stage.addEventListener('pointerdown', e => { if (S) S.tap = { id: e.pointerId, x: e.clientX, y: e.clientY, t: performance.now() }; }, sig);
   stage.addEventListener('pointerup', e => {
     const s = S; if (!s) return; const t = s.tap; s.tap = null; if (!t || t.id !== e.pointerId || Math.abs(e.clientX - t.x) + Math.abs(e.clientY - t.y) > 6 || performance.now() - t.t > 600) return;
-    if (!s.canvas || (e.target && e.target.closest && e.target.closest('#xm-card, #xm-chip, .drawer, .card'))) return;
+    if (!s.canvas || (e.target && e.target.tagName && e.target.tagName !== 'CANVAS')) return;       // nothing is marked, or the tap was on a control that sits over the picture
     if (th.state.selected >= 0 || th.state.selectedObj >= 0) { if (s.selected >= 0) select(-1); return; }
     const r = stage.getBoundingClientRect(), no = P.pickMark(s.index, s.L, e.clientX - r.left, e.clientY - r.top, e.pointerType === 'touch' ? 22 : 14);
     if (no >= 0) select(no, { say: true }); else if (s.selected >= 0) select(-1);
   }, sig);
   // a unit or a structure picked in the shell takes the place of a picked memorial; Escape puts the memorial card away once the drawer is closed
-  th.bus.on('select', i => { if (S && i >= 0 && S.selected >= 0) select(-1); }); th.bus.on('select-obj', i => { if (S && i >= 0 && S.selected >= 0) select(-1); });
-  th.bus.on('resize', () => { if (S && S.canvas) size(S); });
-  th.scope.on(doc(), 'keydown', e => { const s = S; if (!s || e.key !== 'Escape' || s.selected < 0 || th.state.panel || (e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName || ''))) return; select(-1); });
+  const unpick = i => { if (S && i >= 0 && S.selected >= 0) select(-1); };
+  s.offs = [th.bus.on('select', unpick), th.bus.on('select-obj', unpick), th.bus.on('resize', () => { if (S && S.canvas) size(S); })];
+  const esc = e => { const s = S; if (!s || e.key !== 'Escape' || s.selected < 0 || th.state.panel) return; select(-1); };     // the picture or the card has the keyboard: no listener on the document
+  stage.addEventListener('keydown', esc, sig); s.card.addEventListener('keydown', esc, sig);
 
   s.toggle = ctx.registerLayerToggle(P.LAYER.id, P.LAYER.title, () => !!(S && S.on), v => setOn(v));
   s.panel = ctx.registerPanel(P.LAYER.id, 'Later memorials', renderPanel);
@@ -92,7 +93,7 @@ function size(s) {
   s.w = w; s.h = h; s.dpr = dpr || 1; s.canvas.width = Math.round(w * s.dpr); s.canvas.height = Math.round(h * s.dpr); s.fresh = true;
 }
 function needCanvas(s) {
-  if (s.canvas) return; const cv = el('canvas', { id: 'xm-marks', className: 'overlay', 'aria-hidden': 'true', style: 'pointer-events:none' }), stage = s.th.els.stage, ov = s.th.els.overlay;
+  if (s.canvas) return; const cv = el('canvas', { id: 'xm-marks', className: 'xm-marks', 'aria-hidden': 'true', style: 'pointer-events:none' }), stage = s.th.els.stage, ov = s.th.els.overlay;
   if (ov && ov.parentNode === stage) stage.insertBefore(cv, ov); else stage.append(cv);                  // under the shell's own marks, over the picture
   s.canvas = cv; s.c2d = cv.getContext('2d'); size(s);
 }
@@ -159,8 +160,9 @@ function renderPanel(box, th, sc) {
 export function dispose() {
   const s = S; S = null; if (!s) return;
   try { s.ac.abort(); } catch { /* already gone */ }
+  for (const off of s.offs || []) { try { off(); } catch { /* the bus is gone */ } }
   if (s.canvas) { s.canvas.width = 0; s.canvas.height = 0; s.canvas.remove(); }
   if (s.chip) s.chip.remove(); if (s.card) s.card.remove();
   const th = s.th; if (th && th.sitePlaces) { delete th.sitePlaces.memorials; if (!Object.keys(th.sitePlaces).length) delete th.sitePlaces; }
-  s.canvas = s.c2d = s.chip = s.card = s.box = s.ctx = s.th = s.T = s.data = s.index = s.L = s.toggle = s.panel = null;
+  s.canvas = s.c2d = s.chip = s.card = s.box = s.ctx = s.th = s.T = s.data = s.index = s.L = s.toggle = s.panel = s.offs = null;
 }

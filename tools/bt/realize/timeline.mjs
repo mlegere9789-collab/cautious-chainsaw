@@ -16,14 +16,25 @@ const DANGLING = new RegExp(`(\\bor|\\band|\\bto|\\bthrough|\\bthrough (${MONS})
 
 // the printed cells of a row: the time cell (re-joined across the fragments it was wrapped into), the cells of the place, unit and action columns, the tier cell, and the note and source cells
 export function splitCells(textRaw, tier) {
-  const cells = String(textRaw || '').split(' | '); let head = cells.shift() || '';
+  const all = String(textRaw || '').split(' | '), tw = String(tier || '').toLowerCase();
+  const isTier = c => { const x = c.trim().toLowerCase(); return x === tw || x.startsWith(tw + ' (') || ['documented', 'inferred', 'plausible-procedural', 'open gap'].includes(x); };
   const open = s => s.split('(').length > s.split(')').length;
+  let cells = all.slice(1), head = all[0] || '';
   for (let guard = 0; cells.length && guard < 8; guard++) {
-    if (open(head) || DANGLING.test(head.trim()) || BAND_CELL.test(cells[0].trim()) || NOTE_CELL.test(cells[0].trim()) || DATE_BAND_CELL.test(cells[0].trim())) head += ' ' + cells.shift(); else break;
+    const nx = cells[0].trim();
+    if (isTier(nx)) break;
+    if (open(head)) {                                   // a parenthesis left open by the wrap: take up to three more fragments; if it never closes the fragments belong to other columns and are given back
+      const saveHead = head, saveCells = cells.slice(); let k = 0; while (cells.length && open(head) && k < 3 && !isTier(cells[0].trim())) { head += ' ' + cells.shift(); k++; }
+      if (open(head)) { head = saveHead; cells = saveCells; break; }
+      continue;
+    }
+    if (DANGLING.test(head.trim()) || BAND_CELL.test(nx) || NOTE_CELL.test(nx) || DATE_BAND_CELL.test(nx)) head += ' ' + cells.shift(); else break;
   }
-  const ti = cells.findIndex(c => c.trim().toLowerCase() === String(tier || '').toLowerCase());
+  const ti = cells.findIndex(isTierCell(tw));
   return { time_cell: head.replace(/\s+/g, ' ').trim(), what: ti >= 0 ? cells.slice(0, ti) : cells, after: ti >= 0 ? cells.slice(ti + 1) : [], tier_found: ti >= 0 };
 }
+// the tier cell of a row: the tier word alone, or the tier word followed by a remark in parentheses ("inferred (single weak source)", wrapped over two fragments)
+const isTierCell = tw => c => { const x = c.trim().toLowerCase(); return x === tw || x.startsWith(tw + ' ('); };
 
 const hm = s => { const [h, m] = s.split(':').map(Number); return h * 60 + m; };
 // ---- the printed time cell -> intervals of minutes (absolute, since 1 June 1863 00:00 LMT), with the basis of every decision
@@ -62,15 +73,17 @@ export function parseTimeCell(cell, tol) {
   out.dates = (pair || dates).map(([mo, d]) => isoOf(day0(mo, d)).slice(0, 10));
 
   // ---- the words of the cell after the date
-  const lower = main.toLowerCase(), plower = ptext.toLowerCase(), has = re => re.test(lower), hasP = re => re.test(plower);
-  const bandNight = /\bNIGHT\b/.test(main), bandDusk = /\bDUSK\b/.test(main), bandDawn = /\bDAWN\b|\bTWILIGHT\b/.test(main);
+  // the PDF's band markers ([NIGHT], [DUSK], [DAWN], TWILIGHT) are annotations of the row, not a second phrase: they are taken out of the words and kept as flags
+  const bandNight = /\bNIGHT\b/.test(main), bandDusk = /\bDUSK\b/.test(main), bandDawn = /\bDAWN\b/.test(main), bandTwi = /\bTWILIGHT\b/.test(main);
+  main = main.replace(/\[?\b(NIGHT\/TWILIGHT|NIGHT\/DUSK|NIGHT|DUSK|DAWN|TWILIGHT)\b\]?/g, ' ').replace(/\s+/g, ' ').trim();
+  const lower = main.toLowerCase(), plower = ptext.toLowerCase();
   const clocks = [...lower.matchAll(/(\d{1,2}):(\d{2})/g)].map(x => ({ t: +x[1] * 60 + +x[2], i: x.index, len: x[0].length }));
   const pclocks = [...plower.matchAll(/(\d{1,2}):(\d{2})/g)].map(x => ({ t: +x[1] * 60 + +x[2], i: x.index, len: x[0].length }));
   const rel_ = [];                                      // intervals in minutes after midnight of the (first) date; may exceed 1440
   const C = (a, b, why) => { rel_.push([a - CT, b + CT]); out.basis.push(why + ` (clock tolerance ${CT} min each end)`); };
   const part = (name, why) => { let [a, b] = P[name]; if (name === 'dawn' || name === 'dusk' || name === 'noon' || name === 'midnight') { a -= CT; b += CT; } if (name === 'evening') a -= CT; rel_.push([a, b]); out.basis.push(why || `"${name}": ${T.day_part_basis[name] || T.day_part_basis.night}`); return [a, b]; };
   // phrases in order of appearance; longer forms first so that "afternoon" is never read as "noon"
-  const PH = [[/pre-?dawn|before dawn|before daylight|before daybreak/g, 'pre-dawn'], [/after dark|after sunset/g, 'after-dark'], [/after ?noon|afternoon/g, 'afternoon'], [/forenoon|morning|\ba\.m\./g, 'morning'], [/midnight/g, 'midnight'], [/overnight|all night|\bnight\b/g, 'night'],
+  const PH = [[/pre-?dawn|before dawn|before daylight|before daybreak/g, 'pre-dawn'], [/after dark|after sunset/g, 'after-dark'], [/after midnight/g, 'night-early'], [/before noon|by noon/g, 'morning+'], [/after ?noon|afternoon/g, 'afternoon'], [/forenoon|morning|\ba\.m\./g, 'morning'], [/midnight/g, 'midnight'], [/overnight|all night|\bnight\b/g, 'night'],
     [/\bnoon\b|midday/g, 'noon'], [/evening/g, 'evening'], [/dusk|sunset/g, 'dusk'], [/\bdark\b/g, 'dusk'], [/dawn|daybreak|first light|daylight/g, 'dawn'], [/all day|\bday\b/g, 'day']];
   const phrasesOf = text => { const found = [], used = []; for (const [re, name] of PH) for (const x of text.matchAll(re)) { if (used.some(([a, b]) => x.index < b && x.index + x[0].length > a)) continue; used.push([x.index, x.index + x[0].length]); found.push({ name, i: x.index, word: x[0] }); } return found.sort((a, b) => a.i - b.i); };
   const phrases = phrasesOf(lower);
@@ -106,31 +119,46 @@ export function parseTimeCell(cell, tol) {
     else if (phrases.length) {
       out.kind = 'phrase';
       const isOr = /\bor\b/.test(lower) && phrases.length > 1;
-      const winOf = (p, role) => { if (p.name !== 'night') { let [a, b] = P[p.name]; if (['dawn', 'dusk', 'noon', 'midnight'].includes(p.name)) { a -= CT; b += CT; } if (p.name === 'evening') a -= CT; return [a, b]; } return role === 'first' ? P['night-late'] : P['night-late']; };
+      const winOf = p => { if (p.name === 'night') return P['night-late']; if (p.name === 'morning+') return [P.morning[0], P.noon[1] + CT]; let [a, b] = P[p.name]; if (['dawn', 'dusk', 'noon', 'midnight'].includes(p.name)) { a -= CT; b += CT; } if (p.name === 'evening') a -= CT; return [a, b]; };
+      const fromOpen = /\bfrom\b|\bonward\b/.test(lower);
       if (phrases.length === 1 || isOr) {
         for (const p of phrases) {
           if (p.name === 'night') { const w = nightWin(); if (w) for (const x of w) rel_.push(x); }
           else if (p.name === 'midnight') { if (!pair) { rel_.push([-CT, CT], [1440 - CT, 1440 + CT]); out.flags.push('midnight_ambiguous'); out.basis.push(`"midnight" on one printed date: ${T.day_part_basis.midnight}`); } }
+          else if (p.name === 'morning+') { rel_.push(winOf(p)); out.basis.push(`"${p.word}": from the start of the printed date to noon (plus ${CT} min)`); }
+          else if (p.name === 'night-early') { rel_.push(P['night-early']); out.basis.push('"after midnight": the early hours of the printed date, to civil dawn'); }
+          else if (fromOpen && phrases.length === 1) { const w = winOf(p); rel_.push([w[0], 1440]); out.flags.push('open_ended'); out.basis.push(`"${p.word}" with "from" or "onward": from its start to the end of the printed date`); }
           else part(p.name);
         }
+        // a band marker beside one phrase narrows it to the band (PDF p.9: NIGHT marks rows between civil dusk and civil dawn)
+        if (phrases.length === 1 && !['night', 'midnight', 'night-early'].includes(phrases[0].name) && (bandNight || bandDusk || bandDawn || bandTwi)) {
+          const bands = []; if (bandNight) bands.push(P['night-early'], P['night-late']); if (bandDusk || bandTwi) bands.push([P.dusk[0] - CT, P.dusk[1] + CT]); if (bandDawn || bandTwi) bands.push([P.dawn[0] - CT, P.dawn[1] + CT]);
+          const cut = []; for (const [a, b] of rel_) for (const [x, y] of bands) { const lo = Math.max(a, x), hi = Math.min(b, y); if (hi >= lo) cut.push([lo, hi]); }
+          if (cut.length) { rel_.length = 0; rel_.push(...cut); out.basis.push('narrowed to the PDF band marker printed beside it (NIGHT, DUSK, DAWN or TWILIGHT)'); }
+        }
       } else {                                           // "morning to afternoon", "evening into night", "afternoon and evening": from the start of the first to the end of the last
-        const a = winOf(phrases[0], 'first'), b = winOf(phrases[phrases.length - 1], 'last'); rel_.push([Math.min(a[0], b[0]), Math.max(a[1], b[1])]);
+        const a = winOf(phrases[0]), b = winOf(phrases[phrases.length - 1]); rel_.push([a[0], Math.max(a[1], b[1])]);
         out.basis.push(`"${phrases.map(p => p.word).join('" ... "')}": from the start of the first to the end of the last (${phrases.map(p => p.name).join(', ')})`);
       }
-    } else if (bandNight || bandDusk || bandDawn) {
+    } else if (bandNight || bandDusk || bandDawn || bandTwi) {
       out.kind = 'band';
-      if (bandDawn && !bandNight) part('dawn', 'PDF [DAWN] / TWILIGHT marker'); else if (bandDusk && !bandNight) part('dusk', 'PDF [DUSK] marker');
-      else { const w = nightWin(); if (w) for (const x of w) rel_.push(x); }
+      if (bandNight) { const w = nightWin(); if (w) for (const x of w) rel_.push(x); }
+      if (bandDawn || (bandTwi && !bandNight)) part('dawn', 'PDF [DAWN] or TWILIGHT marker: ' + T.day_part_basis.dawn);
+      if (bandDusk || (bandTwi && !bandNight)) part('dusk', 'PDF [DUSK] or TWILIGHT marker: ' + T.day_part_basis.dusk);
     } else { out.kind = 'date'; }
   }
   // ---- onto the calendar
   const put = (base, a, b) => out.intervals.push([base + a, base + b]);
   if (pair) {
-    const d1 = day0(...pair[0]), d2 = day0(...pair[1]), nightish = bandNight || phrases.some(p => p.name === 'night' || p.name === 'midnight' || p.name === 'pre-dawn');
+    const d1 = day0(...pair[0]), d2 = day0(...pair[1]), nightish = bandNight || phrases.some(p => p.name === 'night' || p.name === 'midnight' || p.name === 'pre-dawn' || p.name === 'night-early');
     if (out.kind === 'clock') { for (const [a, b] of rel_) put(d1, a, b); out.basis.push('two dates are printed; the clock is read on the first'); }
     else if (phrases.some(p => p.name === 'midnight')) { out.intervals.push([d2 - CT, d2 + CT]); out.basis.push(`"midnight" between two printed dates: 00:00 of the second, clock tolerance ${CT} min`); }
     else if (nightish && d2 - d1 === 1440 && !/\bto\b/.test(lower)) { out.intervals.push([d1 + P['night-late'][0], d2 + P['night-early'][1]]); out.basis.push('night between two printed dates: civil dusk of the first to civil dawn of the second'); }
-    else { const a = rel_.length ? Math.min(...rel_.map(r => r[0])) : 0; out.intervals.push([d1 + Math.max(0, a), d2 + 1440]); out.basis.push(rel_.length ? 'from the first printed phrase on the first date to the end of the second date' : 'two printed dates: from the start of the first to the end of the second'); }
+    else {
+      // "night to Jul 2", "afternoon through Jul 3": from the start of the first printed phrase on the first date to the end of the second date
+      const f = phrases[0], a = !f ? 0 : f.name === 'night' ? P['night-late'][0] : f.name === 'morning+' ? 0 : Math.max(0, P[f.name][0] - (f.name === 'evening' || f.name === 'dawn' || f.name === 'dusk' || f.name === 'noon' ? CT : 0));
+      out.intervals.push([d1 + a, d2 + 1440]); out.basis.push(f ? `from the start of "${f.word}" on the first printed date to the end of the second` : 'two printed dates: from the start of the first to the end of the second');
+    }
   } else {
     for (const [mo, d] of dates) { const base = day0(mo, d); if (rel_.length) for (const [a, b] of rel_) put(base, a, b); else { put(base, 0, 1440); } }
     if (!rel_.length) out.basis.push(phrases.length || clocks.length ? 'the printed date' : 'no clock time and no part of the day is printed: the whole printed date');

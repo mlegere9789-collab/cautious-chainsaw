@@ -1,6 +1,7 @@
 {
   "_comment": "Input of tools/t0/r1g/suites_status.mjs: the console logs of tools/t0/run_suites.mjs runs on the R1g tree, oldest first is not required (they are ordered by file time). Add a run by adding an entry; 'conditions' states only what a record shows and names that record. Logs under tmp/ are not in git: the generated file stores size, time and sha256 of each one.",
   "flags": ["--r1-dist", "release/R1g/dist", "--no-red", "--no-network"],
+  "rows_added": [{ "id": "static.runner", "date": "2026-11-13", "why": "the runner self-test (tools/t0/tests/runner_selftest.mjs) became a row on that day; older runs selected 79 suites" }],
   "sources": [
     {
       "log": "tmp/r1g-pack/suites.log",
@@ -26,13 +27,13 @@
     {
       "log": "tmp/r1g-pack/suites-full2.log",
       "summary": "tmp/r1g-pack/suites-r1g-full2.json",
-      "conditions": "Cloud container, file time 2026-11-11. The last complete run: all 79 suites of the table as it was then have a row (13443 s). Node's proxy variables were not given to the suites: the four pagesfix rows ended in 0.4 to 0.6 s with 'TypeError: fetch failed' in ensureVendor before any test ran (summary tails). The task brief of 2026-11-13 says it ran under heavy machine load; the log itself has no load. Not described in docs/accept/R1G-STATUS.md; its static.legal and r1.seo rows name release/R1g/dist."
+      "conditions": "Cloud container, file time 2026-11-11. The last complete run: all 79 suites of the table as it was then have a row (13443 s). Node's proxy variables were not given to the suites: the four pagesfix rows ended in 0.4 to 0.6 s with every test failed on 'TypeError: fetch failed' in ensureVendor (summary tails). The task brief of 2026-11-13 says it ran under heavy machine load; the log itself has no load. Not described in docs/accept/R1G-STATUS.md; its static.legal and r1.seo rows name release/R1g/dist."
     },
     {
       "log": "tmp/r1g-pack/suites-rerun-proxy.log",
       "summary": "tmp/r1g-pack/suites-r1g-rerun-proxy.json",
       "selection_file": "tmp/r1g-pack/failids.txt",
-      "conditions": "Cloud container, file time 2026-11-11, about 80 minutes after the full run. A re-run of the 28 suites that were not OK in it (tmp/r1g-pack/failids.txt) with NODE_USE_ENV_PROXY set by hand in the shell (the first line of the log is Node's EnvHttpProxyAgent warning from the runner process); it stopped after 14 of the 28 (summary says PARTIAL). The tree is not named in the log; the task brief of 2026-11-13 calls it the partial re-run of the R1g regression. No load was recorded."
+      "conditions": "Cloud container, file time 2026-11-11, 80 minutes after the file time of the full run. A re-run of the 28 suites that were not OK in it (tmp/r1g-pack/failids.txt) with NODE_USE_ENV_PROXY set by hand in the shell (the first line of the log is Node's EnvHttpProxyAgent warning from the runner process); it stopped after 14 of the 28 (4798 s of suites; summary says PARTIAL). The tree is not named in the log; the task brief of 2026-11-13 calls it the partial re-run of the R1g regression. No load was recorded."
     },
     {
       "log": "tmp/r1g-harness/after-pagesfix-legal.log",

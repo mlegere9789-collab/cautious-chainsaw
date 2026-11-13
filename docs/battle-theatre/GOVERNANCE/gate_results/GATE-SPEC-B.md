@@ -274,3 +274,220 @@ Test titles are copied from the test files. "app/tests" means `docs/battle-theat
 - **Missing.** `kit/verified_batteries.json` (announced, absent): the existing Q14 test matches the kit table, which is built from the plan's text. In this container the 16 OCR texts under `tmp/library/misc` that `drill_check.py` reads (the 8 texts of `drill_text.MANUALS` and 8 further volumes of its usage search; all pinned by sha256 in `library/acquired.json`): the script exits 1 with `FileNotFoundError`, and app/tests/anim3d.test.mjs "drill items ANIM-*: every march rate the code cites is found verbatim in the Hardee / Casey OCR (skipped if the OCR texts are not on this machine)" is skipped. A per-emplacement check for the R13.G rows ("carries gun type/count and prepared-vs-improvised state"). Elevations and rates as fired in the scene, per battery and time, against the tables (the ballistics and rate tests are unit-level).
 - **Observed.** The 16 texts were fetched again from archive.org into a scratch tree (`tmp/bt-gates/library-misc`; byte counts and sha256 equal `acquired.json`) and `drill_check.py` was run with its paths pointed there in memory: exit 0, "OK: 287 items and 64 comparison rows; all verbatim phrases verified in the OCR text, pages re-derived, comparison windows / similarity / absence re-counted, references resolve." (62 s on the loaded machine). Nothing was placed in `tmp/library/misc` itself, which other tools read.
 - **Runs.** HERE-PY and HERE-NODE. Cannot pass on inputs for the battery-count half.
+
+### Q15
+
+> Frame-time budget at target agent counts in the headless benchmark.
+
+- **Already checked.** app/tests/perf.spec.mjs, placeholder layer with 165,000 figures at 1920 x 1080 (3 Jul 13:30, every placeholder unit present), five camera and playback cases: "frame time with 165,000 soldiers at 1920x1080, as a person sees it (display pacing)" with p95 at most 20 ms per case; "... uncapped (real cost per frame)" with CPU p95 plus GPU p95 at most 10 ms; "UI interactions: no long task over 50 ms and every input is answered within 100 ms (event timing), with all 165,000 on the field". structures3d.spec.mjs "frame cost and GPU memory with the structures on and off at 1920x1080 (default view, a town view, a close view), WebGPU and WebGL2". Stored results from the owner's machine: `app/tests/results-perf.json`, `results-structures3d.json`, the "Measured results" section of `app/README.md`. The prototype has its own bench (`render/prototype/tools/run-bench.mjs`). The main-site acceptance harness holds `frames.p95FrameMsDesktop: 20` in `tools/accept/thresholds.json`. In the working tree the spec keeps the four numbers, runs each case for WebGL2 and WebGPU by name, and wraps every threshold in `t.gpuOnly`, so on a software renderer they are reported NOT RUN.
+- **Inputs present.** `GOVERNANCE/hardware_profile.json` (probed 2026-10-19).
+- **Missing.** A real GPU: this container has SwiftShader only (section 1). "Target agent counts": the spec runs the placeholder crowd of 165,000; the real layer's own count (`app/README.md`: 127,572 figures drawn at layer v8) and the count at the upper end of the strength ranges are not what it measures. The crowd renderer wired on 2026-11-11 (`app/src/crowd`) has no real-GPU timing (progress note: "Real-GPU timing not measured"). The 20 ms and 10 ms values are the spec's; Section Q asks for thresholds from the vertical slice.
+- **Runs.** GPU. NOT RUNNABLE HERE: a runner in this container can only record NOT RUN with the reason, and R01.0000 cannot pass until it runs on the owner's machine.
+
+### Q16
+
+> Photo-match tests at known camera positions of period photographs (staged-photograph flags respected).
+
+- **Already checked.** `tools/bt/photomatch/`: `catalogue.py` and `catalogue.json` (109 Library of Congress records; 13 flagged staged by title, each with a basis), `fetch_images.py` and `images_ledger.json`, `poses.json` (8 pose assumptions, each a registered assumption with a tier, plus a `no_pose` list), `render.html` and `run.mjs` (headless Chrome on SwiftShader, deterministic), `compose.py`, `metrics.json` (horizon row only), `verdicts.json`. `tests/photomatch.test.mjs` (6 tests): "catalogue: every record has id, url, caption, licence basis from the LOC record", "catalogue: staged flags carry their basis", "images ledger: sha256 present; files, if on disk, match their hash and were not fetched from refused hosts", "poses: every pose is a registered assumption with tiers, known anchors and ledger keys; nothing claims documented", "verdicts: allowed vocabulary; a positive verdict needs a viewed image; every pose has one", "render is deterministic (SwiftShader), optional" (skipped unless `PHOTOMATCH_RENDER` is set). `app/docs/PHOTOMATCH.md` states the result: 0 matches, 0 roughly, 4 does not, 4 cannot judge; "Status: not passing".
+- **Inputs present.** The catalogue; the images that could be fetched, under gitignored `tmp/photomatch/img`; the modern DEM; `app/data/structures3d.json`. `images_ledger.json` was modified and a `fetch_loc.py` was new in the working tree while this was written (another engineer).
+- **Missing.** Any documented camera position ("known" in the gate's words): PHOTOMATCH.md says none is documented in any source read. The 1863 ground, trees and rocks in the render. A match metric with a threshold (the verdicts are written by a person from the composites). A rule that ties the 45 catalogue rows R12.001..045 (terrain sources, of which only some are photographs) to photo-match items. The eight proposed register entries ws10-EG-01..08 are not in the register (2.3).
+- **Runs.** Renders HERE-SWGL, composition HERE-PY. Cannot pass on inputs.
+
+### Q17
+
+> Coverage: every timeline row has a visual realization or an open register entry.
+
+- **Already checked.** `check_coverage.coverage()['Q17']` and the two tests of `tests/governance` (2.3): the register side only.
+- **Inputs present.** `timeline_seed.jsonl`, `timeline_verified.jsonl`, `timeline_windows.jsonl`, `register_index.json`, the links in `requirements.json` (315 of the 691 timeline rows have a register id), `subreq_links.json`. `GOVERNANCE/realizations/` appeared at 19:05 UTC and was empty; `tools/bt/realize/lib.mjs` appeared at the same time (the realization workstream).
+- **Missing.** Realization records and code that reads them (`visual = set()` in `check_coverage.py`; the node test does not read them either). A validity test for a record (that the product shows what the record says at the row's time), which is the realization workstream's checker, not yet present. The 14 epilogue rows, which carry Q17 and are in `epilogue_seed.jsonl`, not in the file the scan reads. Today: 315 rows covered by an open entry, 0 by a realization, 376 uncovered.
+- **Runs.** HERE-PY and HERE-NODE.
+
+### Q18
+
+> Requirement coverage: all 21 requirement IDs have sub-requirements, each passing or linked to an open register entry with an active reconstruction.
+
+- **Already checked.** `check_coverage.coverage()['Q18']`; `check_governance.py` (ids R01..R22, wording, sub-requirements per requirement, known gates, no dangling register id, no pass on an unverified seed); `tests/governance`.
+- **Inputs present.** `requirements.json`, `register_index.json`.
+- **Missing.** "With an active reconstruction": `check_governance.py` requires the fields `subst` and `recon` of every entry to be non-empty, so a link implies a stated reconstruction; nothing checks that it is active in the product. 458 rows are neither passing nor linked. The nine owner-chat rows have no gate ids (5.3). Register upkeep for the 26 proposals that `register_from_proposed.py` does not see (2.3).
+- **Runs.** HERE-PY and HERE-NODE.
+
+### Q19
+
+> Claim ledger: every visible-result datum has two independent sources or a flag; no lead-only support.
+
+- **Already checked.** For positions only: the ledgers `history/positions/positions_{A,B,C,D,E}.jsonl` and the troop-map files with `claim_support_verified`, `fidelity_check`, `conflicts_with`; `app/tools/claim-ledger.mjs`; app/tests/claims.test.mjs (23 tests, among them "every claim read has exactly one disposition and a reason; the counts add up; the used, inert and unresolved claims partition the ledgers", "conflicts between reports are listed with both values and neither side is placed: ..."), ledgerE.test.mjs (11), daypos.test.mjs (24). `library/or27_claim_checks.json` and the `or_recheck` and `or_claim_check` fields of `timeline_verified.jsonl`. No lead-only support: history.test.mjs "sources: ... no unit is documented on weak or lead sources only"; `arrivals.json meta.weak_source_patterns`; the `weak_source` flags of structures, kit and weather data. For the 47 conflict rows: unit.test.mjs "conflict register: all 47 are present, and the weather file adds its own carried conflicts", "scenario options carry every printed value: all 47 register rows split into values / plan recommendation / others, and nothing printed is lost"; scenario-defaults.test.mjs (8 tests, among them "all 47 register conflicts carry a delegated default with its tier and the label text", "every other value stays selectable: the plan's value, each printed value, each value added from the record, and \"show every value\""); arrival.spec.mjs "scenario selector: carries all 47 register conflicts and the weather conflicts; default is the delegated defaults (tier and label shown); the PDF values are one button away; a choice moves the units the ledger links to it".
+- **Inputs present.** The above, `conflict_register.json`, `conflicts_structured.json`, `decisions/conflict_defaults.json`.
+- **Missing.** The claim ledger of Section P for every datum class (claims, claim support, conflicts): announced by another workstream, absent. An index from each visible datum to its claims with an independence relation; the README itself says the troop maps are "a 1876 compilation of the Official Records and testimony, not an independent witness", which is the kind of fact that relation has to hold. The list of data that affect a visible result. A flag field for a datum with one source.
+- **Runs.** HERE-PY and HERE-NODE. Cannot pass on inputs until the ledger exists.
+
+### Q20
+
+> Cavalry presence: every documented cavalry unit appears at its documented times with its manifest, horses and arms.
+
+- **Already checked.** app/tests/cavalry-ws10.test.mjs (13 tests): "horses: one horse per drawn trooper (the point), the range and its basis come from the three observations, the tier is never above plausible-procedural", "every drawn cavalry figure has a horse in the crowd tables: the world counts mounted men and horses as one", "roles: D men afoot, every fourth of them holds the horses, the rest of the regiment stays mounted; deterministic; the same men for the same unit", "every claim a record cites exists in the position ledgers, names a unit the record covers, and is documented; the observation of the horse loss is in the ledger note", "dismounted fight: ...", "horse casualties: ...", "arrival is a march: ...", "the data file equals its generator, carries every number with a tier, and lists 21 drawn and 34 undrawn cavalry units (the undrawn ones are the layer's open gap, not narrowed here)", "every gap is registered under horde/ws10-cavalry/proposed-register and no shipped file names the tool or the builder". Kit: `check_kit.py` (62 cavalry units in its population test), manifest.test.mjs. Animation: anim3d.test.mjs "cavalry: horse gaits have the documented structure (beat orders), stance hooves move at the gait speed, riders share the cycle time", anim3d-gaits.test.mjs. Arrival gates of cavalry formations, including the detached roles (`check_arrivals.py` docstring: Hampton's rear guard at Hunterstown, Jones at Fairfield).
+- **Inputs present.** `kit/cavalry_units.json` (62 cards, strengths, carbines, horses, behaviour states, its own conflicts and gaps), `app/src/history/cavalry.mjs`, `app/data/cavalry-horses.json`.
+- **Missing.** 34 of the 55 cavalry units of the layer are not drawn (no road of approach). "At its documented times": the plan's cavalry action table is not a machine table the layer follows (`cavalry_units.json` has an `action_table_note`). The proposed register entries EG-CAV-01..08 are not in the register. The verified OOB (Q01) decides which cavalry units are "documented".
+- **Runs.** HERE-NODE, kit part HERE-PY.
+
+### Q21
+
+> Vegetation state check: crop, canopy and ground-cover state per field per date within the documented-or-ranged schedule.
+
+- **Already checked.** Nothing checks vegetation state.
+- **Inputs present.** Related data only: `docs/basemap1863/features/landcover/` (1863 tree-cover change layers, `orchards_1863`, `open_ground_1863`, `fields_documented_1863`, `scattered_trees_1863`, `marsh_wetland_1863`, `boulder_fields_1863`, `crops_unknown_1863.json`, `season_july_1863.json`, `VERIFICATION-landcover.json`); `structures.json` record `ENV-wheatfield-wheat` (kind crop) and the three schedule rows that name only `ENV-` objects; `app/data/audio3d/woods-mask.json` (276 polygons from the 1863 woods layer, tier inferred); ground wetness in the weather timeline.
+- **Missing.** A vegetation schedule per field, woodlot and orchard per date with documented or ranged values; vegetation in the scene (the ground picture is the modern aerial; no trees or crops are drawn by the page); the check function the vegetation workstream has announced (`app/docs/GATE-HOOKS.md` does not exist yet).
+- **Runs.** HERE-NODE or HERE-PY once the inputs exist; a picture check would be HERE-SWGL. Cannot pass on inputs.
+
+### Q22
+
+> Weather state check: scene weather matches the weather timeline at every time.
+
+- **Already checked.** `check_environment.gate_q22()` (31 checks on the timeline itself: the 27 Jacobs readings equal the numbers parsed from the plan's Table 1, ranges, conflicts carried with both values and no chosen field, cloud fractions and wetness schedule, moonlight rows against the computed moonrise, tiers, the PENDING OWNER marking); its own text says "(No scene exists yet; this checks the timeline itself.)". `check_environment.weather_at(time_iso)` returns the governing segment and the nearest cloud readings. app/tests: unit.test.mjs "weather: states come from the weather file; gaps are said; conflicts are choices"; weather3d.test.mjs "timeline: deterministic, a pure function of t (scrub order does not matter)", "wetness and the ground: 0 until the Jul 3 storm, about 0.3 after it, 1.0 on Jul 4, drying after Jul 5; darker albedo and puddles follow it", "fog: clear days add nothing to the prototype fog; Jul 2 dawn, rain and the storm do; always tier-marked and registered", "wind: the same wind as fx3d (S to SSW, Jul 3 calm during the Charge, drift continuous); cloud drift follows it", "tier marking (Q13 inputs): every state names the tier of what it drew; weather readings are never \"documented\"; gaps are listed"; fx3d.test.mjs "wind advection: the battle-day wind blows from S to SSW, so smoke drifts north-north-east (T2-122); Jul 3 during the Charge it is nearly calm", "wind speed follows the chosen scenario, none is picked here (CF-WIND-SPEED)", "dust: dry days raise it, rain and mud do not (ground wetness from the weather file); ...", "ground impact: dry ground gives a dust cloud and hops, wet ground (Jul 4) stops the shot and gives no dust; ..."; audio3d.test.mjs "ambience: ... rain only in the documented rain; thunder only in a storm; ..."; browser ui.spec.mjs "conditions: sun and moon chips follow the sky table; a storm is named at 18:00 on 3 Jul; days without a weather record say so" (stub). The main site's weather file has its own validator (`tests/environment/weather.test.mjs`, `verify-weather.test.mjs`).
+- **Inputs present.** `environment/weather_timeline.json` (`segments`, `cloud_readings`, `jacobs_readings`, `wetness_schedule`, `wind`, `conflicts_carried_as_ranges`, `epilogue_nov_1863`, `gaps`), `app/src/environment.mjs` (`Environment`), `app/src/weather3d/timeline.mjs`.
+- **Missing.** In this container `gate_q22` cannot open its PDF path (`tmp/pdf/plan-clean.txt`); pointed in memory at `BIBLE/plan-clean.txt` it gave 31 of 31 checks ok. The gate itself: a scan that, for every minute of the window and every weather scenario, compares the state the scene uses (precipitation, cloud, wetness, wind, fog, temperature from `Environment` and the weather layer) with the timeline; the pieces are tested one by one, the scan does not exist. A rule for the days with no record (the page says so; the weather layer marks plausible-procedural values). The weather is drawn on WebGL2 only (register EG-W3D-G08).
+- **Runs.** HERE-PY and HERE-NODE at state level; the drawn weather is HERE-SWGL (`app/docs/BROWSER-VERIFICATION-LIST-WEATHER.md` lists what is owed).
+
+### Q23
+
+> Marking check: every non-documented item carries a render flag; no unmarked procedural content.
+
+- **Already checked.** `check_coverage.coverage()['Q23']`: the `marking` field of non-documented register entries and the tier of timeline rows (today 10 unmarked entries). In the product: `app/src/config.mjs TIER_STYLE` (colour, dash and glyph per tier), `app/src/overlay.mjs`, `app/src/structures/overlay.mjs`. Browser: ui.spec.mjs "Evidence overlay: tiers are drawn as colour AND outline AND glyph; clicking a mark selects it (demo tier assignment is labelled)" and "honest labelling: the placeholder is named everywhere it appears, the About text is plain, no stub datum is presented as history, and nothing mentions how the page was made" (stub); real.spec.mjs "the evidence overlay outlines the placed units by tier (plausible-procedural) and works are drawn as rings with their place named; no error", "honest labelling: the ribbon, the count, the About text and the landing copy say what is placed and what is an open gap; ..."; structures3d.spec.mjs "Views and Evidence: a toggle for every class (and the works rings), the list of what is not drawn, and the Evidence outlines in the tier colours". Node: figures3d.test.mjs "gap placeholders are visible: a variant with a gap item carries it in gap_items, the instance flag bit 7, and the item is drawn in the GAP material"; weather3d.test.mjs "tier marking (Q13 inputs): ..."; fx3d.test.mjs "fires: the frame marks fires of uncertain time and reports flames in the sprite budget"; audio3d.test.mjs "DEC-001: the default is the delegated one (disclosure in the panel, nothing on the sound); the PDF marking stays selectable; ...", "provenance is decided by what is loaded: nothing loaded = synthesized; a loaded musket recording = real_type with its licence and credit"; sibling.test.mjs "the card: a modelled unit says MODELLED, names the register entry and the decision, ...". Decisions DD-14 and DD-22 (tier marks visible by default).
+- **Inputs present.** The tier fields of every layer; the register.
+- **Missing.** One scan over every drawn class (units, figures and their items, guns, artillery train, horses, works, fences, buildings, markers, roads, weather, effects, sounds, casualties, the Events list, the epilogue) that proves each non-documented item has a flag the renderer or the overlay shows. Each class has its own mechanism today and no test rules out an unmarked class. The ground itself is disclosed by one note (`GROUND_NOTE`), not by a per-item flag.
+- **Runs.** HERE-PY (register), HERE-NODE (flags in data and draw lists); that the marks are visible is HERE-SWGL.
+
+### Q24
+
+> Screenshot regression for the viewer.
+
+- **Already checked.** No regression test exists for the viewer. Pieces that exist: screenshot sets written by tests (`app/tests/shots-structures/` 11 files from structures3d.spec.mjs "screenshots: the distance view, a close fence and wall, a close building, the town, the railway, a marker before and after, a card"; `app/tests/shots-figures3d/` 22 files, checked for existence by figures3d.test.mjs "contact sheets of the nine required subjects exist as PNGs at LOD0/LOD1/LOD2 (the report describes what they show)"); `app/tests/weather3d-shots.mjs` (its header: "Harness (not a gate)"); same-run pixel identity in scrub.spec.mjs "pixel identity: ..." and casualties.spec.mjs; the deterministic photomatch render. For the main site the acceptance harness has an image-diff library and thresholds: `tools/accept/lib/imgdiff.mjs diffPngs(page, bufA, bufB, { threshold, grid, makeDiff })`, `tools/accept/checks/c3_regression.mjs`, and `tools/accept/thresholds.json` `regression: { pixelColorThreshold: 0.1, maxDiffRatio: 0.002, regionGrid: [8, 6], viewports: [[1440, 900], [390, 844]] }`.
+- **Inputs present.** The harness of 1.1 can write pictures per run under `app/tests/results/<name>/`.
+- **Missing.** A baseline set for the viewer (views, times, scenarios), a compare runner and a tolerance (the plan gives none). Baselines per renderer class: a software-GL baseline can detect a change between two software runs; it cannot certify the picture of the real GPU, which needs its own baseline made on the owner's machine.
+- **Runs.** HERE-SWGL for a software baseline and its comparison; the real-GPU baseline is GPU (owed).
+
+### Q25
+
+> Library audit coverage: every source in the acquisition list is ingested , blocked with register entry , or scheduled with a reason.
+
+- **Already checked.** No gate check exists; the status files are data. `library/status.json`: 36 sources with `id, title, where, status, note`; statuses scheduled 20, ingested 3, blocked 2, partial 2, and six values outside the list of its own `_doc`: blocked-to-prior-research 2 (LOC-MAPS, NARA-WARREN), print-only 2 (BACHELDER, PRINT), licence-checked 2 (MOTION, AUDIO), viewer-only 1 (RUMSEY), targeted-lookup-only 1 (NPS-SS), finder-not-authority 1 (STONE-S). `library/status_2.json` (2026-11-11; "status.json itself is NOT edited"): 32 sources with `id, status, reason`; ingested 13, partial 9, scheduled 5, blocked-to-prior-research 2, print-only 2, blocked 1. 11 ids are only in the first file and 7 only in the second. `acquired.json` (34 items, 1 blocked), `acquired_2.json` (99 items, 9 re-verified, 9 blocked or failed), `candidates.json`, `figures-ledger.json`. Terrain catalogue: `terrain/terrain_sources.json` (45 rows in five tables, matching R12.001..045) and `terrain_sources_probe.json`. audio3d.test.mjs "the ledger: ..." covers the audio files only.
+- **Inputs present.** The above; the acquisition list itself is Appendix C.1 of the plan text.
+- **Missing.** Appendix C.1 as a machine list, to prove the status files cover every source in it. One effective status per source from the two files. A register id on every blocked source (the files carry a note or reason, no register id). A mapping of the extra status values and of `partial` to the gate's three states. The rule for an R12 row ("has a status and is used or registered").
+- **Runs.** HERE-PY.
+
+### Q26
+
+> Casualty and hospital flow: every casualty event has a carry path to an aid station, field hospital or burial; field hospitals show the documented activity in the documented interval.
+
+- **Already checked.** Casualties as falls: app/tests/casualties.test.mjs (13 tests, among them "the solver’s plan of every drawn unit: totals equal the fate split exactly, each man falls once, inside the printed windows, scenario independent, a pure function of the seed", "the stage: a man who falls lies where he fell while his unit marches away; he does not fall before his time; scrubbing back stands him up", "the stage: the fall clip plays once then the man lies; a missing man is counted but not animated; ...") and casualties.spec.mjs (3 tests). Hospitals as states of buildings: `structures/hospitals.json` (23 hospitals with printed set-up and closing windows, `letterman_roles`, `casualty_behaviours`, `night_operations_B853`), `state_at` for hospitals, structures3d.test.mjs "hospitals are marked from hospitals.json (its own structure ids and windows): opening inside a printed date window, open after it, closed after the closing window". Clips: anim3d.test.mjs "G9 coverage: taking cover, forming and dressing, wheeling, skirmish rush, four-man stretcher, ambulance loading, limping man, limbering, moving by hand, prolonge, horse artillery, paired sabre fights exist with tiers and sources", "G9 paired clips: the stretcher bearers, the helper and the limping man, the duellists and the riders are matched; ...".
+- **Inputs present.** `app/data/engagements.json` (printed fight windows of 31 timeline rows), `casualty-sources.json`, `hospitals.json`, the clips.
+- **Missing.** The flow itself: nothing moves a casualty. By contract 1.3 a killed or wounded man falls and stays where he fell and a missing man is counted, not animated; no event routes a casualty to an aid station, a hospital or a burial, and no schedule drives activity at a hospital in its interval. Most units have no engagement window (README), so most casualty events do not exist yet. The casualty-flow data another workstream has announced.
+- **Runs.** HERE-NODE once the flow exists. Cannot pass on inputs.
+
+### Q27
+
+> Budget gate: spend and compute against the Appendix F caps reported; cap breach triggers the stop condition (Section C and D.5.12). Run a fresh-context verification subagent for each milestone with instructions to flag only correctness and requirement gaps. Do not self-certify what you have not run.
+
+(The last two sentences are the closing lines of Section Q in the plan text; `gates.json` stores them inside Q27 because Q27 is the last row of the table.)
+
+- **Already checked.** Nothing computes it. `budget/phase_budget.json`: 15 phases, every `token_cap`, `usd_cap` and `gpu_hours_cap` null, `owner_approved: false` everywhere, every `global_guard` value null; its `_doc`: "blank until set from the first measured vertical slice; only the owner may raise caps". `progress.md` has the line "Spend vs caps: no caps set yet". Delegated decision DD-25 leaves caps to the owner.
+- **Inputs present.** The budget file only.
+- **Missing.** Caps (set and approved by the owner: an owner-only act). A machine-readable record of spend and compute per phase. A record of the independent verification run per milestone.
+- **Runs.** HERE-PY as a report. Cannot pass on inputs: with no cap there is nothing to be inside of.
+
+### Q28
+
+> Epilogue gate (R22): the Nov 19 chapter has every B.12.2 row and every S-080 to S-088 state with a tier; Lincoln’s clothing, voice and wording are used only where two sources were read in the audit and otherwise marked reconstruction in the viewer; the version of the address shown is a selectable alternative in the conflict register; no off-Gettysburg event appears in the film path; the jump is labeled as a device.
+
+- **Already checked.** Nothing checks the gate. Pieces: app/tests/ui.spec.mjs "chapters: the 4 July night marker leads to the 19 November epilogue and back; the epilogue has its own scrubber range" (stub); `app/src/clock.mjs` (`EPILOGUE` range 18 to 19 November, entry at 00:00 on 19 November with the note "time of day not recorded in the timeline file", `CHAPTERS`).
+- **Inputs present.** `GOVERNANCE/epilogue_seed.jsonl` (E-001..E-014, each with a tier, all `seeded_unverified`); `structures.json` records WS-080..WS-088 (kind `epilogue_state`) and schedule rows S-080..S-088 with tiers; `environment/ephemeris_1863.json` covers 18 to 19 November 1863; `weather_timeline.json epilogue_nov_1863`; register entries EG-0022, EG-0098, EG-0120 ("Epilogue conflicts not yet in the conflict register (nov 18-19 1863)"), EG-0127, EG-0130; `horde/r22-oa/` (results and eleven proposed entries); delegated decision DD-06 on the 4 July "truce".
+- **Missing.** The Address version as a selectable alternative in the conflict register: no entry of `conflict_register.json` C-001..C-047 mentions the Address, Lincoln or November (searched), and EG-0120 registers exactly that; adding one meets the hard-coded 47 of `check_governance.py` (2.4 item 2). The Lincoln items (clothing, voice, wording) and the two-source test behind them: the plan's B.12 says the primary texts were not read; EG-0022 holds the gap. A film path object to test "no off-Gettysburg event appears in the film path" and a label on the jump: the page has a chapter marker and no film path. The scene of 19 November (crowd, platform, cemetery states) is not drawn.
+- **Runs.** HERE-PY and HERE-NODE for rows, states, tiers and the conflict entry; the viewer labels are HERE-SWGL. Cannot pass on inputs.
+
+## 5. Across the gates
+
+### 5.1 Thresholds that exist in code today
+
+| Gate | Value | Where | Who set it, as far as the files say |
+|---|---|---|---|
+| Q04 | no entity before `arrival.earliest`; exact | `sim/cache.mjs`, `app/src/stage.mjs`, `check_arrivals.py` | the plan (B.2.4 gating rules) |
+| Q05 | speed at most `SPEED.double_quick` (2.4384 m/s) times 1.0001; path joins within 1 m | history.test.mjs | the test's author; the rate is Hardee's double-quick |
+| Q05 (stub) | at most 75 m per one-minute step | unit.test.mjs | the test's author |
+| Q10 | mean at least 24/255, p5 at least 6, under 2 % below 8, contrast at least 0.2, night under 0.75 of day; lowest floor setting mean at least 12 | sky.spec.mjs | the spec's author; `check_environment.py` says the plan gives no number |
+| Q11 | sun 0.05 degrees, rise and set 2.0 minutes, moon 0.5 degrees, stored table 0.0006 degrees, full moon 1.0 minute | `check_environment.py` | comment in the code: "given by the task owner" |
+| Q12 | identity (hash equality, byte-identical picture) | sim, stage, scrub.spec.mjs | follows from the gate text |
+| Q13 | report within one millisecond of fire time plus d/c in the offline render | audio3d.test.mjs | the test's author |
+| Q15 | p95 at most 20 ms paced; CPU plus GPU p95 at most 10 ms uncapped; no long task over 50 ms; input answered within 100 ms | perf.spec.mjs | the spec's author; 20, 50 and 100 also stand in `tools/accept/thresholds.json` for the main site |
+| Q16 | none (verdict vocabulary) | `tools/bt/photomatch/verdicts.json` | n/a |
+| Q24 | none for the viewer; main site 0.1 colour threshold and 0.002 diff ratio | `tools/accept/thresholds.json` | the acceptance harness |
+
+No threshold was changed for this note.
+
+### 5.2 Places where the code shows a stricter reading than what is tested
+
+1. Q04 "every scenario": seven sampled scenarios are tested.
+2. Q05 "within documented ranges": upper bound only, one bound for every arm.
+3. Q07, Q08, Q09 "visible", "on screen": state engines are tested exhaustively; the picture is tested for a handful of objects; most records are not drawn as geometry.
+4. Q08 "gun emplacement": outside the loop of `check_q08` and outside the gate list of the G rows.
+5. Q10 "at every night time ... for every unit and activity in view": ten times, one unit, placeholder layer.
+6. Q11 "independent": the two methods share a Delta T polynomial and, for the moon, a common ancestor theory (the checker says so); the days 7 to 14 July rest on a JS formula compared with the table, not with a second ephemeris.
+7. Q12 "state identical": identity is proven layer by layer; no hash spans all layers.
+8. Q13 "distance divided by the speed of sound": the planner uses the moving-air travel time.
+9. Q14 and Q01 "verified ... table": the tables in use are transcriptions of the plan's text.
+10. Q17: a register link counts as coverage in the checker; a realization is not yet read; epilogue rows are outside the scan.
+11. Q18: 21 in the text, 22 in the data.
+12. Q22 "scene weather": the existing check is of the timeline file against the plan, by its own statement.
+13. Q25: status values outside the gate's three.
+14. Placeholder-layer specs (`ui`, `sky`, `webgl2`, `perf`) exercise the shell, not the history.
+
+### 5.3 The nine owner-chat rows (no gate ids)
+
+`requirements.json` gives OA01..OA09 an empty `gate_ids`. What exists that touches each (nothing here is a pass rule):
+
+| Row | Existing checks or material |
+|---|---|
+| OA01 separate page, own renderer, Back with no leak, bookmarks | leak.spec.mjs (4 tests), ui.spec.mjs "the landing page is inert and honest: ...", "Views: 16 tour stops and 512 monuments as camera bookmarks; ...", unit.test.mjs "site bookmarks: 16 tour stops and 512 monuments, derived read-only; ...", audio-host.test.mjs dispose tests |
+| OA02 every soldier individually animated, one-to-one | anim3d-onetoone.test.mjs (3 tests), history.test.mjs "world from units: ...", crowd.test.mjs "every world figure has exactly one source (unit, index) and the sources tile the figure table", "the instance table: one record per figure from instanceFromHistory, no figure without a manifest, ..." |
+| OA03 roster section | `docs/battle-theatre/rosters/` (its own workstream) |
+| OA04 Dawes and named commanders | figures3d-commanders.test.mjs (6 tests) |
+| OA05 period-accurate weapon audio per shot | audio3d.test.mjs provenance and ledger tests; decision DD-14 |
+| OA06 over 97 % on documented unit-level quantities | no measure exists |
+| OA07 movement quality, artillery fire and impact | anim3d.test.mjs (62 tests), fx3d.test.mjs (43); decision DD-11 |
+| OA08 every event on the timeline and playable | ui.spec.mjs "Events: 691 rows, tier filters, rows with no clock time say so and are not placed on the minute scale; a timed row moves the clock to its time" |
+| OA09 main-map background and images | the main-site workstream; decision DD-12 |
+
+### 5.4 What a runner must not do, from what was seen
+
+- Run `check_environment.py` or `check_figures.py --write` as commands, or a browser spec with its default output location, without accounting for the files they rewrite (2.4 item 6; 1.1 `BT_OUT`).
+- Count a browser test that printed `# NOT RUN (NEEDS_GPU)` as run.
+- Count a test on the placeholder layer as evidence about the history.
+- Treat `check_structures.py` "ALL PASS" as Q07, Q08 or Q09 passing for a row: it validates the schedule and the engine, not that the product shows the row.
+- Treat a stored result file (`figures-validation.json`, `results-perf.json`, `ephemeris_agreement.json`, `check_environment_results.json`) as a fresh run.
+- Start more than the lock allows: the heavy items measured here are the node suite (233 s), the stage test of history.test.mjs (90 s), `gate_q11` with recomputation (31 s), `drill_check.py` (62 s).
+
+## 6. Relation to the end-of-mission acceptance and to Section Z
+
+- `GOVERNANCE/FINAL-ACCEPTANCE.md` (eight consecutive clean passes) has a harness for the main site: `tools/accept/run_pass.mjs`, `run_eight.mjs`, `checks/c1_hash.mjs` to `c7_visual.mjs`, `thresholds.json`, `regression_waivers.json`, logs under `docs/accept/`. Its step 6 names `tools/t0/run_suites.mjs` and `verify_release.mjs`. The folder `GOVERNANCE/final-passes/` that the file names for pass logs does not exist. Gates Q01 to Q28 are not called by that harness.
+- The project instructions make a Battle Theatre milestone depend on the Section Z checklist and on `check_governance.py` passing. Section Z item 6 names "machine gates Q03-Q12, Q23"; items 1, 2, 4 and 7 name Q18, Q02, Q19 and Q25. `check_governance.py` passes today while those gates do not: it checks the governance files, not the gates.
+- Copy audit: `tests/bt-pack/pack.test.mjs` has "copy audit of the shipped dist is clean (shipping gate; red = a source file mentions how the site was made)"; ui.spec.mjs and real.spec.mjs scan the rendered page. This file is under GOVERNANCE and is not shipped.
+
+## 7. What was run for this note
+
+All on 2026-11-13 UTC in this container; raw outputs and the helper scripts are in `GOVERNANCE/gate_results/spec-b-evidence/`.
+
+| Run | Result |
+|---|---|
+| `node --test --test-concurrency=2 docs/battle-theatre/app/tests/*.test.mjs` through `tools/horde/bench.sh`, 18:51 to 18:55 | 457 tests, 456 pass, 0 fail, 1 skipped (the Hardee and Casey OCR test, texts absent), 232.8 s |
+| `python tools/bt/check_arrivals.py` | exit 0, "check_arrivals: OK (validation + self-tests passed)" |
+| `python tools/bt/check_kit.py --quiet` | exit 0, "RESULT: PASS" (5.6 s) |
+| `python tools/bt/check_structures.py` | exit 0, "RESULT: ALL PASS" (INTEGRITY 649, Q08 186, Q07 191, Q09 1306, scrub 1441 checks; 3.3 s) |
+| `python tools/bt/check_environment.py --no-recompute` | exit 1, astropy missing; nothing written |
+| `gate_q11`, `pdf_figure_checks`, `gate_q22` imported in a scratch environment with astropy 8.0.2 and the PDF path pointed at the BIBLE copy | Q11 13 of 13 ok (31 s), Q22 31 of 31 ok; no repository file written |
+| `python tools/bt/drill_check.py` | exit 1, OCR texts absent |
+| the same against a scratch copy of the 16 pinned texts (fetched from archive.org, hashes equal `acquired.json`) | exit 0, "OK: 287 items and 64 comparison rows" (62 s) |
+| `python tools/bt/check_governance.py` | exit 0; `check_report.json` rewritten with identical content |
+| `python tools/bt/check_coverage.py`; `python tests/governance/test_coverage.py`; `node --test tests/governance/coverage.test.mjs` | exit 1 each: Q17, Q18, Q23 fail as reported in 2.3 |
+| browser probes (two, through the lock) | section 1 |
+
+Not run: any browser spec of `app/tests` (owned and being run by another workstream), `tests/photomatch.test.mjs`, `tests/environment/*.test.mjs`, `tests/bt-pack`, `sim/test/sim.test.mjs`, `tools/bt/check_figures.py` (started through the lock at 19:04; see the evidence folder for whether it finished), anything on a real GPU. Their descriptions above come from reading the files.
+
+Input hashes at the time of reading (sha256, first 16 hex): gates.json 7f86e46646c6fcb0; requirements.json 516a971559728f3d; register_index.json 9cb387f9f8ad5282; register_aliases.json 7e83531281d98b27; timeline_seed.jsonl 3c763c8802d5d5b9; timeline_verified.jsonl e8be5ff302206220; timeline_windows.jsonl c1adf7f0d30dc426; subreq_links.json ca380b6edf401366; conflict_register.json fee015befd8c0bfa; epilogue_seed.jsonl 654f297ea0b651de; check_governance.py d03ca2c6257486f2; check_coverage.py a82d67aec56a7991; link_subreqs.py c8a46e36f67da25a.

@@ -238,28 +238,29 @@ const GLYPH = {
   square(c, x, y, r) { c.beginPath(); c.rect(x - r * .8, y - r * .8, r * 1.6, r * 1.6); },
 };
 // the shape of a memorial mark: a small standing stone. It is none of the four tier shapes, so a memorial is never mistaken for a unit or a structure.
-function stone(c, x, y, r) { c.beginPath(); c.moveTo(x, y - r * 1.55); c.lineTo(x + r * .42, y - r * .95); c.lineTo(x + r * .62, y + r * .9); c.lineTo(x - r * .62, y + r * .9); c.lineTo(x - r * .42, y - r * .95); c.closePath(); }
-/** Draws the marks of a layout. tier: {color, dash, glyph} of the layer's tier (ctx.tierMark.style). The tier shows as the dashed outline in the tier's colour on every mark and
- *  as the tier's own shape beside every name, so it never depends on colour alone. A memorial beyond the loaded ground is drawn hollow. */
+function stone(c, x, y, r) { c.moveTo(x, y - r * 1.55); c.lineTo(x + r * .42, y - r * .95); c.lineTo(x + r * .62, y + r * .9); c.lineTo(x - r * .62, y + r * .9); c.lineTo(x - r * .42, y - r * .95); c.closePath(); }
+/** Draws the marks of a layout and returns how many. tier: {color, dash, glyph} of the layer's tier (ctx.tierMark.style). The tier shows as the dashed outline in the tier's
+ *  colour on every mark and as the tier's own shape beside every name, so it never depends on colour alone. The fill says the side the site's list gives; a memorial beyond
+ *  the loaded ground is drawn hollow. One path per fill and one for all outlines: a few canvas calls however many marks are in view. */
 export function drawMarks(c, index, L, state, tier) {
-  const items = index.items, selNo = state && state.selected != null ? state.selected : -1; let drawn = 0;
-  c.lineWidth = 1.3; c.strokeStyle = tier.color;
-  for (let k = 0; k < L.n; k++) {
-    const it = items[L.idx[k]], x = L.sx[k], y = L.sy[k], r = L.r[k];
-    stone(c, x, y, r); if (it.inside) { c.fillStyle = (SIDE_COLOR[it.side] || SIDE_COLOR.Other) + (r > 4 ? 'b8' : '99'); c.fill(); } else { c.fillStyle = 'rgba(14,14,25,.45)'; c.fill(); }
-    c.setLineDash(tier.dash && tier.dash.length ? (r > 5 ? [4, 2.5] : [2.5, 1.8]) : []); c.stroke(); drawn++;
+  const items = index.items, flag = index.flag, n = L.n, selNo = state && state.selected != null ? state.selected : -1, dashed = !!(tier.dash && tier.dash.length);
+  for (let g = 0; g < 4; g++) {                                   // 0..2: on the loaded ground, by side; 3: beyond it
+    let any = false; c.beginPath();
+    for (let k = 0; k < n; k++) { const f = flag[L.idx[k]]; if (((f & 1) ? (f >> 1) : 3) !== g) continue; stone(c, L.sx[k], L.sy[k], L.r[k]); any = true; }
+    if (any) { c.fillStyle = g < 3 ? SIDE_COLOR[SIDES[g]] + 'b8' : 'rgba(14,14,25,.5)'; c.fill(); }
   }
-  c.setLineDash([]); c.font = '11.5px system-ui, sans-serif'; c.textBaseline = 'alphabetic';
-  for (let q = L.nLabels - 1; q >= 0; q--) {                     // the picked memorial last, on top
+  if (n) { c.beginPath(); for (let k = 0; k < n; k++) stone(c, L.sx[k], L.sy[k], L.r[k]); c.lineWidth = 1.3; c.strokeStyle = tier.color; c.setLineDash(dashed ? [3, 2] : []); c.stroke(); c.setLineDash([]); }
+  c.textBaseline = 'alphabetic';
+  for (let q = L.nLabels - 1; q >= 0; q--) {                      // the picked memorial last, on top
     const k = L.lab[q], it = items[L.idx[k]], sel = it.no === selNo, txt = sel ? markLabel(it) : labelText(it), x = L.sx[k] + 9, y = L.sy[k] - 16;
-    if (sel) { c.font = '600 12.5px system-ui, sans-serif'; c.lineWidth = 2.2; c.strokeStyle = '#e8d5a3'; c.beginPath(); c.arc(L.sx[k], L.sy[k] - L.r[k] * .3, L.r[k] * 1.9 + 4, 0, 6.2832); c.stroke(); c.lineWidth = 1.3; c.strokeStyle = tier.color; }
+    c.font = sel ? '600 12.5px system-ui, sans-serif' : '11.5px system-ui, sans-serif';
+    if (sel) { c.lineWidth = 2.2; c.strokeStyle = '#e8d5a3'; c.beginPath(); c.arc(L.sx[k], L.sy[k] - L.r[k] * .3, L.r[k] * 1.9 + 4, 0, 6.2832); c.stroke(); }
     const w = c.measureText(txt).width + LABEL.pad;
-    c.fillStyle = sel ? 'rgba(14,14,25,.86)' : 'rgba(14,14,25,.78)'; c.fillRect(x, y - 13, w, LABEL.h);
-    (GLYPH[tier.glyph] || GLYPH.square)(c, x + 8, y - 4, 4); c.fillStyle = tier.color + '55'; c.fill(); c.setLineDash(tier.dash && tier.dash.length ? [2, 1.5] : []); c.stroke(); c.setLineDash([]);
+    c.fillStyle = sel ? 'rgba(14,14,25,.88)' : 'rgba(14,14,25,.78)'; c.fillRect(x, y - 13, w, LABEL.h);
+    (GLYPH[tier.glyph] || GLYPH.square)(c, x + 8, y - 4, 4); c.fillStyle = tier.color + '55'; c.fill(); c.lineWidth = 1.3; c.strokeStyle = tier.color; c.setLineDash(dashed ? [2, 1.5] : []); c.stroke(); c.setLineDash([]);
     c.fillStyle = sel ? '#e8d5a3' : '#ecebe6'; c.fillText(txt, x + 16, y);
-    if (sel) c.font = '11.5px system-ui, sans-serif';
   }
-  return drawn;
+  return n;
 }
 
 // ---------------------------------------------------------------- the words of a memorial (card and list; pure HTML strings)

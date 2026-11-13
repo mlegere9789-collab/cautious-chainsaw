@@ -238,11 +238,15 @@ Extract sheets: `extracts/fields-woodlots.md`, `extracts/fences.md`, `extracts/f
 ## NPS-CLI-ERR
 
 - Title: Cultural Landscapes Inventory: Emmitsburg Road Ridge Battlefield, Gettysburg National Military Park
-- Author: not stated | Date: not stated
+- Author: National Park Service | Date: 2024
 - URL: https://www.npshistory.com/publications/gett/cli-emmitsburg-rd-ridge-battlefield.pdf (HTTP 200, fetched 2026-11-13T19:02:27Z)
 - File as served: 69692958 bytes, sha256 `caa7e558e17e289e7d8b227b9ccda47e3a722dc882b039b5c91d571548b95758` (PDF deleted after text extraction to stay inside the disk budget)
 - Text: `tmp/library/web/nps/NPS-CLI-ERR/NPS-CLI-ERR.txt`, 257638 bytes, sha256 `501123bb6b9cae8a09a714b9b720ed451b752beb8df5cdb4dd5b18779e19bf0b`; 107 of 122 pages carry text
 - Rights basis: United States government work
+- Text quality: born-digital text, clean; a line-end hyphen is dropped by the extraction in a few words (e.g. 'CodoriTrostle')
+- Covers: Klingel farm, parts of the Trostle and Codori farms, Neinstedt field; Codori-Trostle thicket, orchards, fences, stone walls, buildings, monuments
+- Feature states: Dated period by period in the text: 'Battle Period' / 'Battlefield Period' paragraphs describe July 1863 (drawn from the park's 2000 draft and 2002 Cultural Landscape Report for Emmitsburg Road Ridge); GBMA 1864-1895; park commission 1895-1927; 1930s; existing conditions about 2000 and 2024. Wall dimensions are present-day measurements; orchards were replanted in 2005 and 2009; fences rebuilt 2000-2012.
+- Used for extracts: yes (extracts/src/11-cli-emmitsburg-road-ridge.xdef)
 
 ## NPS-TPG-COMMEM
 

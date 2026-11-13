@@ -151,11 +151,12 @@ export async function open(browser, base, { w = 1440, h = 900, init = true, touc
   await page.goto(base + extra, { waitUntil: 'load' }); return { ctx, page, log };
 }
 // the theatre is ready (or says it could not start: then the reason is the error, at once, instead of a time limit); the frame time of this page is measured (three frames, as before)
-export async function ready(page, timeout = 90000) {
+export async function ready(page, timeout = 90000, t0 = 0) {
   await page.waitForFunction(() => (window.btApp && window.btApp.ready) || document.querySelector('#bt-loading .fail'), null, { timeout: T(timeout) });
   const fail = await page.evaluate(() => (window.btApp && window.btApp.ready) ? null : (document.querySelector('#bt-loading .fail')?.textContent || 'no reason given')); if (fail) throw new Error('the theatre could not start: ' + fail);
-  return measure(page);
+  const ms = await measure(page); if (SLOW.k > 1) console.log(`# slow renderer: frame ${Math.round(ms)} ms on this page, wait scale K = ${SLOW.k.toFixed(1)}${t0 ? `, entry took ${((Date.now() - t0) / 1000).toFixed(0)} s` : ''}`);
+  return ms;
 }
-export async function enter(page, timeout = 90000) { await page.click('[data-bt-enter]'); return ready(page, timeout); }
+export async function enter(page, timeout = 90000) { const t0 = Date.now(); await page.click('[data-bt-enter]'); return ready(page, timeout, t0); }
 export async function leave(page) { await page.click('#bt-back'); await page.waitForSelector('#landing:not([hidden])', { timeout: T(15000) }); await page.waitForFunction(() => !window.btApp, null, { timeout: T(5000) }); }
 export const pct = (a, p) => { const s = [...a].sort((x, y) => x - y); return s.length ? s[Math.min(s.length - 1, Math.floor(p * s.length))] : 0; };

@@ -13,7 +13,10 @@
    "local_original": "tmp/photomatch/img/LOC2018666303-L.tiff",
    "local_working_1600": "tmp/photomatch/img/LOC2018666303-L_1600.jpg",
    "licence_basis": "archive.org item licenseurl = Public Domain Mark 1.0; scan of LOC glass negative (LOC record: no known restrictions on publication); 1863 photograph",
-   "fetched": "2026-11-11"
+   "fetched": "2026-11-11",
+   "local_working_3200": "tmp/photomatch/img/LOC2018666303-L_3200.jpg",
+   "working_3200_sha256": "e22a64a9d9f771f6de167ec37a36a6e0bba3d76bdb564677eff6ab012a434c11",
+   "local_original_removed": "2026-11-13: TIFF deleted after the sha256 was re-checked and the 3200-px working copy was written (free disk); re-fetch from url"
   },
   "LOC2018666304-L": {
    "status": "ok",
@@ -28,7 +31,10 @@
    "local_original": "tmp/photomatch/img/LOC2018666304-L.tiff",
    "local_working_1600": "tmp/photomatch/img/LOC2018666304-L_1600.jpg",
    "licence_basis": "archive.org item licenseurl = Public Domain Mark 1.0; scan of LOC glass negative (LOC record: no known restrictions on publication); 1863 photograph",
-   "fetched": "2026-11-11"
+   "fetched": "2026-11-11",
+   "local_working_3200": "tmp/photomatch/img/LOC2018666304-L_3200.jpg",
+   "working_3200_sha256": "026f36204f38e12d7382bb267355d5ed42476356f996e88f5d9574375e98a095",
+   "local_original_removed": "2026-11-13: TIFF deleted after the sha256 was re-checked and the 3200-px working copy was written (free disk); re-fetch from url"
   },
   "LOC2018670702-L": {
    "status": "ok",
@@ -43,7 +49,10 @@
    "local_original": "tmp/photomatch/img/LOC2018670702-L.tiff",
    "local_working_1600": "tmp/photomatch/img/LOC2018670702-L_1600.jpg",
    "licence_basis": "archive.org item licenseurl = Public Domain Mark 1.0; scan of LOC glass negative (LOC record: no known restrictions on publication); 1863 photograph",
-   "fetched": "2026-11-11"
+   "fetched": "2026-11-11",
+   "local_working_3200": "tmp/photomatch/img/LOC2018670702-L_3200.jpg",
+   "working_3200_sha256": "14c5eae116e4f9e13b07fa8962c86582dd13bc7f74f3f50207939bf2ab579a7b",
+   "local_original_removed": "2026-11-13: TIFF deleted after the sha256 was re-checked and the 3200-px working copy was written (free disk); re-fetch from url"
   },
   "MET268204": {
    "status": "ok",
@@ -10619,12 +10628,78 @@
    "mode": "RGB",
    "local_file": "tmp/photomatch/loc/cph.3g01831_v.jpg",
    "licence_basis": "LOC record rights statement: \"No known restrictions on publication.\"; 1863 photograph (public domain by age); JPEG derivative served by the Library of Congress"
+  },
+  "LOC2018671576_cwpb.00084_u": {
+   "status": "ok",
+   "loc_id": "2018671576",
+   "resource_id": "cwpb.00084",
+   "resource_index": 0,
+   "resource_note": "digital file from original neg.",
+   "derivative": "master",
+   "url": "https://tile.loc.gov/storage-services/master/pnp/cwpb/00000/00084u.tif",
+   "url_final": "https://tile.loc.gov/storage-services/master/pnp/cwpb/00000/00084u.tif",
+   "hops": [
+    {
+     "url": "https://tile.loc.gov/storage-services/master/pnp/cwpb/00000/00084u.tif",
+     "http": "200"
+    }
+   ],
+   "fetched": "2026-11-13",
+   "bytes": 23775222,
+   "bytes_declared_by_record": 23775222,
+   "sha256": "4dadd053f51ef104fc2055e66a4754ca9e733ae5c5818027358efd05f960f11f",
+   "width": 7500,
+   "height": 3170,
+   "local_file": null,
+   "local_original_removed": "TIFF deleted after the working copy was written (free disk); re-fetch from url",
+   "local_working_4096": "tmp/photomatch/loc/cwpb.00084_u4096.jpg",
+   "working_4096_sha256": "a84c04c4801199b482e77a340e2231d0e8e666fba72747d0f21ecbb72901684c",
+   "working_px": [
+    4096,
+    1731
+   ],
+   "licence_basis": "LOC record rights statement: \"No known restrictions on publication. For information, see \"Civil war photographs, 1861-1865,\" http://www.loc.gov/rr/print/res/120_cwar.html\"; 1863 photograph (public domain by age); master file served by the Library of Congress"
+  },
+  "LOC2014646001_ppmsca.35051_u": {
+   "status": "ok",
+   "loc_id": "2014646001",
+   "resource_id": "ppmsca.35051",
+   "resource_index": 0,
+   "resource_note": "digital file from original item",
+   "derivative": "master",
+   "url": "https://cdn.loc.gov/master/pnp/ppmsca/35000/35051u.tif",
+   "url_final": "https://tile.loc.gov/storage-services/master/pnp/ppmsca/35000/35051u.tif",
+   "hops": [
+    {
+     "url": "https://cdn.loc.gov/master/pnp/ppmsca/35000/35051u.tif",
+     "http": "307"
+    },
+    {
+     "url": "https://tile.loc.gov/storage-services/master/pnp/ppmsca/35000/35051u.tif",
+     "http": "200"
+    }
+   ],
+   "fetched": "2026-11-13",
+   "bytes": 132796396,
+   "bytes_declared_by_record": 132796396,
+   "sha256": "b817606174b1fb6e4295191574c14326252c7ec15f217e1859ebad13d97a858a",
+   "width": 7524,
+   "height": 5882,
+   "local_file": null,
+   "local_original_removed": "TIFF deleted after the working copy was written (free disk); re-fetch from url",
+   "local_working_4096": "tmp/photomatch/loc/ppmsca.35051_u4096.jpg",
+   "working_4096_sha256": "cb883cf71772fc14a5748ae6295ecc2afcfcc3a62ba67981e35f1eb6d9fac488",
+   "working_px": [
+    4096,
+    3202
+   ],
+   "licence_basis": "LOC record rights statement: \"No known restrictions on publication.\"; 1863 photograph (public domain by age); master file served by the Library of Congress"
   }
  },
  "_doc": "sha256 ledger of fetched photograph files (Q16). Files themselves live in gitignored tmp/photomatch/. Entries written by fetch_images.py (archive.org copies, 2026-11-11) and by fetch_loc.py (Library of Congress JPEG derivatives: tile.loc.gov, and cdn.loc.gov which redirects to it).",
- "total_bytes": 498862944,
+ "total_bytes": 655434562,
  "counts": {
-  "ok": 396,
+  "ok": 398,
   "not_offered": 19
  }
 }

@@ -1,0 +1,562 @@
+"""Validator of the group files docs/battle-theatre/history/undrawn/<group>.jsonl (the contract: ../PLAN.md, section 5).
+
+    python3 -I docs/battle-theatre/history/undrawn/tools/check_undrawn.py us-3c-2d            one group file (errors stop a merge; warnings do not)
+    python3 -I docs/battle-theatre/history/undrawn/tools/check_undrawn.py us-3c-2d --complete also requires every unit of the group to be covered by evidence or by a gap record
+    python3 -I docs/battle-theatre/history/undrawn/tools/check_undrawn.py --all              every group file present, with the checks that span files
+    python3 -I docs/battle-theatre/history/undrawn/tools/check_undrawn.py --verify "QUOTE" --source OR27-1     where a quote stands in a source (offset, report or section, page)
+    python3 -I docs/battle-theatre/history/undrawn/tools/check_undrawn.py --self-test        the fixtures: the good file must pass, every line of the bad file must fail
+
+What it checks, mechanically: the shape of every record; that every id resolves (units, gazetteer places, troop-map labels, monuments,
+structures, other records); that every quote is at most 14 words and stands verbatim (whitespace collapsed, line-break hyphenation
+joined, typographic quotes folded) in the named local text, inside the named report or section, at the offset given; that a clock is
+printed where t_iso is set and a day-part word where a period is set; the tier rules. It does not judge whether a passage supports a
+claim: that is the reading, and the review.
+Exit status: 0 no error, 1 errors, 2 a source text is not on this machine (the quote checks that need it are listed, not passed).
+"""
+import os, re, sys, json, glob, bisect, hashlib, argparse
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+UND = os.path.abspath(os.path.join(HERE, '..'))
+BT = os.path.abspath(os.path.join(UND, '..', '..'))
+ROOT = os.path.abspath(os.path.join(BT, '..', '..'))
+sys.path.insert(0, os.path.join(ROOT, 'tools', 'bt'))
+from or27_lib import build_nview, norm_query, utf8_stdout  # noqa: E402
+
+utf8_stdout()
+J = lambda p: json.load(open(p, encoding='utf-8'))
+
+# ------------------------------------------------------------------------------------------------ vocabularies (PLAN.md section 5)
+KINDS = ['unit', 'arrival', 'arrival_road', 'march', 'position', 'movement', 'engagement', 'night_position', 'departure', 'strength', 'absent',
+         'line_order', 'road_identification', 'source', 'gap']
+PLACED = ['position', 'engagement', 'night_position']                 # kinds that put a unit at a place for a window
+TIERS = ['documented', 'inferred', 'plausible-procedural', 'open gap']
+FLAG = {'documented': 0, 'inferred': 1, 'plausible-procedural': 2, 'open gap': None}
+ROLES = ['unit_commander', 'formation_commander', 'staff', 'other_officer', 'participant', 'official_table', 'map', 'compiler', 'historian', 'newspaper']
+ROLES_DOCUMENTED = ['unit_commander', 'formation_commander', 'staff', 'other_officer', 'participant', 'official_table', 'map']
+ACTIVITIES = ['march', 'double_quick', 'halt', 'stand', 'rest', 'fire', 'serve_guns', 'gallop', 'build_works', 'camp', 'other']
+FORMATIONS = ['line', 'column_fours', 'column_mass', 'skirmish_line', 'battery', 'mounted_column', 'mounted_line']
+ANCHORS = ['gazetteer', 'troopmap', 'monument', 'structure', 'road_crossing', 'along_road', 'unit', 'none']
+RELS = ['at', 'in', 'on', 'near', 'north_of', 'northeast_of', 'east_of', 'southeast_of', 'south_of', 'southwest_of', 'west_of', 'northwest_of',
+        'left_of', 'right_of', 'front_of', 'rear_of', 'with', 'between']
+BASES = ['printed_clock', 'printed_period', 'sequence', 'day_only']
+# a period token needs one of its words in when.printed (lower case); the clock windows of the tokens are ONE table of the integrator (PLAN.md section 6)
+PERIODS = {
+    'midnight': ['midnight'], 'before_daylight': ['before daylight', 'before day', 'before dawn', 'before light'],
+    'daybreak': ['daybreak', 'day-break', 'dawn', 'daylight', 'day-light', 'break of day', 'light'], 'sunrise': ['sunrise', 'sun-rise', 'sunup'],
+    'early_morning': ['early'], 'morning': ['morning'], 'forenoon': ['forenoon'], 'noon': ['noon', 'midday', 'mid-day', ' m.'],
+    'early_afternoon': ['early in the afternoon', 'early afternoon'], 'afternoon': ['afternoon', 'p. m', 'p.m'], 'late_afternoon': ['late in the afternoon', 'late afternoon', 'toward evening', 'towards evening', 'late in the day'],
+    'sunset': ['sunset', 'sundown', 'sun-down', 'sun-set'], 'dusk': ['dusk', 'dark', 'nightfall', 'twilight'], 'evening': ['evening'], 'night': ['night'], 'all_day': ['all day', 'during the day', 'throughout the day', 'the whole day', 'the entire day'],
+}
+COMPASS = {'north': 0, 'northeast': 45, 'north-east': 45, 'east': 90, 'southeast': 135, 'south-east': 135, 'south': 180, 'southwest': 225, 'south-west': 225, 'west': 270, 'northwest': 315, 'north-west': 315}
+FACING = ['printed_compass', 'toward_place', 'parallel_to_road', 'toward_unit', 'none']
+STRENGTH_WHAT = ['officers_and_men', 'men', 'enlisted', 'officers', 'muskets', 'sabers', 'aggregate_present', 'present_for_duty', 'engaged', 'carried_into_action', 'effective']
+UNIT_ACTIONS = ['add', 'absent', 'attached', 'merge', 'fix', 'status', 'rename']
+UNITS_PER = {'yards': 0.9144, 'feet': 0.3048, 'miles': 1609.344, 'rods': 5.0292, 'm': 1.0}      # exact definitions; a pace has no fixed length here: unit 'paces' carries m null
+GAP_WHAT = ['arrival', 'positions', 'path', 'strength', 'departure', 'roster']
+MAX_QUOTE_WORDS, MAX_PLACE_WORDS = 14, 30
+DATE_LO, DATE_HI = '1863-06-25', '1863-07-15'
+ID_RE = re.compile(r'^U-([a-z0-9]+(?:-[a-z0-9]+)*)-(\d{4})$')
+UNIT_RE = re.compile(r'^[a-z0-9]+(?:-[a-z0-9]+)*$')
+
+# ------------------------------------------------------------------------------------------------ repository data the records refer to
+class Repo:
+    def __init__(self):
+        self.groups = J(os.path.join(UND, 'groups.json'))
+        self.gids = {g['id'] for g in self.groups['groups']}
+        self.group_units = {g['id']: [u['id'] for u in g['units']] for g in self.groups['groups']}
+        self.unit_class = {u['id']: u['class'] for g in self.groups['groups'] for u in g['units']}
+        units = J(os.path.join(BT, 'history/units.json'))['units']
+        self.units = {u['id']: u for u in units}
+        self.gaps = {e['id']: e for e in J(os.path.join(UND, 'roster-gaps.json'))['entries']}
+        self.sources = J(os.path.join(UND, 'sources.json'))['sources']
+        gz = J(os.path.join(BT, 'app/data/gazetteer.json'))['places']
+        self.gz = {p['id']: p for p in gz}
+        self.mon = {('MON-%d' % m['no']) for m in J(os.path.join(BT, 'app/data/site-bookmarks.json'))['monuments']}
+        s3 = J(os.path.join(BT, 'app/data/structures3d.json'))
+        self.struct = {x['id'] for x in s3['buildings']} | {x['id'] for x in s3['points']}
+        self.tm = {}
+        for f in glob.glob(os.path.join(BT, 'history/positions/troopmap_*.jsonl')):
+            for line in open(f, encoding='utf-8'):
+                if line.strip():
+                    c = json.loads(line); self.tm[c['claim_id']] = (c['unit_id'], (c.get('when') or {}).get('date'))
+        self.old = set(self.tm)
+        for f in glob.glob(os.path.join(BT, 'history/positions/positions_[A-E].jsonl')):
+            for line in open(f, encoding='utf-8'):
+                if line.strip(): self.old.add(json.loads(line)['claim_id'])
+        self.orx = {r['id']: r for r in J(os.path.join(BT, 'library/or27_index.json'))['records']}
+        sv = J(os.path.join(BT, 'library/statevol_index.json'))
+        self.sec = {s['id']: s for s in sv['sections']}
+
+    def ancestors(self, uid):
+        out = []
+        while uid in self.units and self.units[uid]['parent']:
+            uid = self.units[uid]['parent']; out.append(uid)
+        return out
+
+
+# ------------------------------------------------------------------------------------------------ quotes in the local texts
+APOS = str.maketrans({'’': "'", '‘': "'", '`': "'", '´': "'", '“': '"', '”': '"'})
+fold = lambda s: s.translate(APOS)
+_texts = {}
+
+
+class Missing(Exception):
+    pass
+
+
+def _generic(path):
+    """Normalized view of a plain OCR text: whitespace collapsed, end-of-line hyphenation joined, quotes folded; no page model."""
+    if path not in _texts:
+        if not os.path.exists(path): raise Missing(path)
+        with open(path, encoding='utf-8', errors='replace', newline='') as f: text = f.read()
+        ntext, nmap = build_nview(text)
+        _texts[path] = (fold(ntext), nmap, text)
+    return _texts[path]
+
+
+def find_quote(repo, source_id, quote, declared=None):
+    """-> list of hits {offset, end, report_id|section, page, interpolated}. Raises Missing when the text is not on this machine."""
+    src = repo.sources.get(source_id) or (declared or {}).get(source_id)
+    if not src: raise KeyError(source_id)
+    q0 = fold(norm_query(quote)); hits = []
+    cands = [q0, re.sub(r'(\w)- (\w)', r'\1\2', q0), re.sub(r'(\w)-(\w)', r'\1\2', q0)]
+    if src['kind'] == 'or27':
+        import or27_find as F
+        if not os.path.exists(os.path.join(ROOT, src['path'])): raise Missing(src['path'])
+        P = F.get_part(src['part'])
+        nt = getattr(P, '_folded', None)
+        if nt is None: nt = P._folded = fold(P.ntext)
+        for cq in cands:
+            i = nt.find(cq)
+            while i >= 0:
+                s, e = P.orig_span(i, i + len(cq)); c = P.cite(s, e)
+                hits.append({'offset': s, 'end': e, 'report_id': c['record'], 'page': c['page']}); i = nt.find(cq, i + 1)
+            if hits: break
+    elif src['kind'] == 'statevol':
+        import statevol_find as SF
+        import statevol_index as SI
+        if not os.path.exists(os.path.join(SI.RAW_DIR, SI.VOLUMES[src['key']]['file'] + '_djvu.txt')):
+            # the tool reads tmp/library/misc/<file>_djvu.txt: link the copy named in sources.json there
+            p = os.path.join(ROOT, src['path'])
+            if not os.path.exists(p): raise Missing(src['path'])
+            os.makedirs(SI.RAW_DIR, exist_ok=True); os.symlink(os.path.relpath(p, SI.RAW_DIR), os.path.join(SI.RAW_DIR, SI.VOLUMES[src['key']]['file'] + '_djvu.txt'))
+        V = _texts.get(('sv', src['key'])) or _texts.setdefault(('sv', src['key']), SF.Vol(src['key'], SF.index()))
+        for cq in cands:
+            i = V.ntext.find(cq)
+            while i >= 0:
+                o = V.orig(i); sec, page, interp, _ = V.cite(o)
+                hits.append({'offset': o, 'end': V.orig(i + len(cq) - 1) + 1, 'section': sec['id'] if sec else None, 'page': str(page), 'interpolated': bool(interp)}); i = V.ntext.find(cq, i + 1)
+            if hits: break
+    else:
+        nt, nmap, _ = _generic(os.path.join(ROOT, src['path']))
+        for cq in cands:
+            i = nt.find(cq)
+            while i >= 0:
+                hits.append({'offset': nmap[i], 'end': nmap[i + len(cq) - 1] + 1, 'page': None}); i = nt.find(cq, i + 1)
+            if hits: break
+    return hits
+
+
+# ------------------------------------------------------------------------------------------------ printed clocks (the rule of app/src/history/claim-clock.mjs)
+NUM = r'(\d{1,2})(?:[.:]\s*\.?\s*(\d{2}))?'
+
+
+def printed_clocks(printed):
+    s = str(printed or '').replace(' ', ' '); out = []
+    for m in re.finditer(NUM + r"\s*(o['’]?\s?clock|\(?[ap]\.?\s?m\b\.?\)?|m\b\.)", s, re.I):
+        w = m.group(3).lstrip('(').lower(); h = int(m.group(1)); mi = int(m.group(2) or 0)
+        out.append((h % 12, mi, 'a' if w.startswith('a') else 'p' if w.startswith('p') else 'noon' if w.startswith('m') else None))
+    r = re.search(r'(?:between|from)\s+' + NUM + r'\s+(?:and|to|until)\s+' + NUM + r"\s*(?:(\(?[ap])\.?\s?m\b|o['’]?\s?clock)", s, re.I)
+    if r: out.append((int(r.group(1)) % 12, int(r.group(2) or 0), r.group(5).replace('(', '').lower() if r.group(5) else None))
+    if re.search(r'\b(noon|midday)\b', s, re.I): out.append((0, 0, 'noon'))
+    if re.search(r'\bmidnight\b', s, re.I): out.append((0, 0, 'midnight'))
+    return out
+
+
+def clock_agrees(printed, t_iso):
+    hh, mm = int(t_iso[11:13]), int(t_iso[14:16])
+    for h12, mi, mer in printed_clocks(printed):
+        if h12 == hh % 12 and mi == mm and (hh == 12 if mer == 'noon' else hh == 0 if mer == 'midnight' else True if mer is None else (mer == 'a') == (hh < 12)): return True
+    return False
+
+
+ISO_D = re.compile(r'^1863-\d{2}-\d{2}$'); ISO_T = re.compile(r'^1863-\d{2}-\d{2}T\d{2}:\d{2}$')
+words = lambda s: len(str(s or '').split())
+
+
+# ------------------------------------------------------------------------------------------------ one file
+class Check:
+    def __init__(self, repo, known_ids=None, declared_units=None):
+        self.repo, self.err, self.warn, self.nosrc = repo, [], [], []
+        self.known_ids = set(known_ids or []); self.declared_units = set(declared_units or [])
+
+    def E(self, at, msg): self.err.append('%s: %s' % (at, msg))
+    def W(self, at, msg): self.warn.append('%s: %s' % (at, msg))
+
+    def unit_ok(self, uid): return uid in self.repo.units or uid in self.repo.gaps or uid in self.declared_units
+
+    def when(self, at, w, need=True, name='when'):
+        if w is None:
+            if need: self.E(at, '%s is required' % name)
+            return
+        if not isinstance(w, dict): return self.E(at, '%s must be an object' % name)
+        d = w.get('date')
+        if not (isinstance(d, str) and ISO_D.match(d)): return self.E(at, '%s.date must be 1863-MM-DD' % name)
+        if not (DATE_LO <= d <= DATE_HI): self.E(at, '%s.date %s is outside %s to %s' % (name, d, DATE_LO, DATE_HI))
+        if w.get('date_basis') not in ('printed', 'context'): self.E(at, '%s.date_basis must be printed or context' % name)
+        b = w.get('basis')
+        if b not in BASES: return self.E(at, '%s.basis must be one of %s' % (name, ', '.join(BASES)))
+        pr, t, te, per = w.get('printed'), w.get('t_iso'), w.get('t_end_iso'), w.get('period')
+        if b in ('printed_clock', 'printed_period') and not (isinstance(pr, str) and pr.strip()): self.E(at, '%s.printed (the time words as printed) is required for basis %s' % (name, b))
+        if b == 'printed_clock':
+            if not (isinstance(t, str) and ISO_T.match(t)): self.E(at, '%s.t_iso is required for basis printed_clock' % name)
+            elif t[:10] != d and not (t[11:16] == '00:00'): self.E(at, '%s.t_iso is not on %s.date' % (name, name))
+            elif not clock_agrees(pr, t): self.E(at, '%s.t_iso %s is not a clock printed in "%s"' % (name, t[11:], pr))
+            if te is not None and not (isinstance(te, str) and ISO_T.match(te) and clock_agrees(pr, te)): self.E(at, '%s.t_end_iso is not a clock printed in the time words' % name)
+            if per is not None: self.E(at, '%s.period must be null when a clock is printed (the clock outranks the day part)' % name)
+        else:
+            if t is not None or te is not None: self.E(at, '%s.t_iso is set only for a printed clock' % name)
+        if b == 'printed_period':
+            if per not in PERIODS: self.E(at, '%s.period must be one of %s' % (name, ', '.join(PERIODS)))
+            elif not any(k in (' ' + str(pr).lower() + ' ') for k in PERIODS[per]): self.E(at, '%s.period %s has none of its words (%s) in "%s"' % (name, per, ' / '.join(PERIODS[per]), pr))
+        if b in ('sequence', 'day_only') and per is not None: self.E(at, '%s.period is set only for basis printed_period' % name)
+        if b == 'sequence' and not (w.get('after') or w.get('before')): self.E(at, '%s: basis sequence needs after or before (ids of records that bound it)' % name)
+        for k in ('after', 'before'):
+            for i in (w.get(k) or []): self.ref(at, i, '%s.%s' % (name, k))
+        if not isinstance(w.get('approx'), bool): self.E(at, '%s.approx must be true or false' % name)
+
+    def ref(self, at, i, what):
+        if not isinstance(i, str): return self.E(at, '%s: an id is expected' % what)
+        if i in self.known_ids or i in self.repo.old or re.match(r'^(C-\d{3}|CF-|T\d-\d{3}|RC-\d{2}|AP-\d{2}|PO-\d{2}|DP-\d{2}|EG-)', i): return
+        self.E(at, '%s: %s is not a record of the group files, a claim of the ledgers or troop maps, or a C-, T-, RC-, AP-, PO-, DP- or EG- id' % (what, i))
+
+    def place(self, at, p, need_anchor, when_date=None, unit=None):
+        if not isinstance(p, dict): return self.E(at, 'place must be an object')
+        if not (isinstance(p.get('printed'), str) and p['printed'].strip()): self.E(at, 'place.printed (the place words as printed) is required')
+        elif words(p['printed']) > MAX_PLACE_WORDS: self.E(at, 'place.printed is longer than %d words' % MAX_PLACE_WORDS)
+        a = p.get('anchor')
+        if not isinstance(a, dict) or a.get('type') not in ANCHORS: return self.E(at, 'place.anchor.type must be one of %s' % ', '.join(ANCHORS))
+        t, r = a['type'], a.get('ref')
+        if t == 'gazetteer':
+            if r not in self.repo.gz: self.E(at, 'place.anchor.ref %s is not a gazetteer id' % r)
+            elif self.repo.gz[r].get('kind') == 'line' and need_anchor: self.E(at, 'a road (%s) is not a place: use along_road or road_crossing' % self.repo.gz[r]['name'])
+        elif t == 'troopmap':
+            if r not in self.repo.tm: self.E(at, 'place.anchor.ref %s is not a troop-map claim' % r)
+            else:
+                tu, td = self.repo.tm[r]
+                if unit and unit in self.repo.units and tu != unit and tu not in self.repo.ancestors(unit) and unit not in self.repo.ancestors(tu): self.E(at, 'troop-map claim %s is of %s, not of the unit or a formation above it' % (r, tu))
+                if when_date and td and td != when_date: self.E(at, 'troop-map claim %s is of %s, the record is of %s' % (r, td, when_date))
+        elif t == 'monument':
+            if r not in self.repo.mon: self.E(at, 'place.anchor.ref %s is not a monument of app/data/site-bookmarks.json (MON-<no>)' % r)
+            if not (isinstance(a.get('basis'), str) and len(a['basis']) >= 40): self.E(at, 'a monument anchor needs anchor.basis: the printed statement (source of this record) that the monument or marker stands where the unit stood, in 40 characters or more')
+        elif t == 'structure':
+            if r not in self.repo.struct: self.E(at, 'place.anchor.ref %s is not a building or point of app/data/structures3d.json' % r)
+        elif t == 'road_crossing':
+            rs = a.get('refs') or []
+            if len(rs) != 2 or any(x not in self.repo.gz or self.repo.gz[x].get('kind') != 'line' for x in rs): self.E(at, 'road_crossing needs anchor.refs: two gazetteer roads')
+        elif t == 'along_road':
+            if r not in self.repo.gz or self.repo.gz[r].get('kind') != 'line': self.E(at, 'along_road needs anchor.ref: a gazetteer road')
+            n = a.get('near')
+            if n is not None and not (n in self.repo.gz or n in self.repo.mon or n in self.repo.struct): self.E(at, 'along_road anchor.near %s is not a gazetteer, monument or structure id' % n)
+        elif t == 'unit':
+            if not self.unit_ok(r): self.E(at, 'place.anchor.ref %s is not a unit' % r)
+            if r == unit: self.E(at, 'a unit cannot be placed relative to itself')
+        elif t == 'none' and need_anchor:
+            self.W(at, 'no anchor: the place stays words and the builder cannot stand the unit there (give the nearest anchor the words support, or say in note why none exists)')
+        rel = p.get('relation')
+        if rel is not None:
+            if not isinstance(rel, dict) or rel.get('rel') not in RELS: self.E(at, 'place.relation.rel must be one of %s' % ', '.join(RELS))
+            else:
+                dist = rel.get('distance')
+                if dist is not None:
+                    if not isinstance(dist, dict) or not isinstance(dist.get('printed'), str): self.E(at, 'place.relation.distance needs printed (the words), value, unit and m')
+                    elif dist.get('unit') == 'paces':
+                        if dist.get('m') is not None: self.E(at, 'a distance in paces carries m null (no pace length is fixed here)')
+                    elif dist.get('unit') not in UNITS_PER or not isinstance(dist.get('value'), (int, float)): self.E(at, 'place.relation.distance.unit must be one of %s or paces, with a numeric value' % ', '.join(UNITS_PER))
+                    elif not isinstance(dist.get('m'), (int, float)) or abs(dist['m'] - dist['value'] * UNITS_PER[dist['unit']]) > max(1.0, 0.01 * dist['m']): self.E(at, 'place.relation.distance.m is not value x %s' % UNITS_PER[dist['unit']])
+        if t == 'unit' and (rel is None or rel.get('rel') not in ('left_of', 'right_of', 'front_of', 'rear_of', 'with', 'between')): self.E(at, 'a unit anchor needs relation.rel left_of, right_of, front_of, rear_of, with or between')
+
+    def source(self, at, r, declared):
+        s = r.get('source')
+        if not isinstance(s, dict): return self.E(at, 'source is required')
+        sid = s.get('source_id'); src = self.repo.sources.get(sid) or declared.get(sid)
+        if not src: return self.E(at, 'source.source_id %s is not in sources.json and is not declared by a source record of this file' % sid)
+        if s.get('author_role') not in ROLES: self.E(at, 'source.author_role must be one of %s' % ', '.join(ROLES))
+        q = s.get('quote')
+        if not (isinstance(q, str) and q.strip()): return self.E(at, 'source.quote is required')
+        if words(q) > MAX_QUOTE_WORDS: self.E(at, 'source.quote has %d words (at most %d)' % (words(q), MAX_QUOTE_WORDS))
+        if not isinstance(s.get('cite'), str) or len(s['cite']) < 12: self.E(at, 'source.cite (the citation in words) is required')
+        pas = s.get('passage')
+        if not (isinstance(pas, list) and len(pas) == 2 and all(isinstance(x, int) for x in pas) and pas[0] < pas[1]): self.E(at, 'source.passage [from, to] (character offsets of the passage read) is required')
+        try: hits = find_quote(self.repo, sid, q, declared)
+        except Missing as e: self.nosrc.append('%s: the text of %s is not on this machine (%s): quote not checked' % (at, sid, e)); return
+        if not hits: return self.E(at, 'source.quote is not in %s: "%s"' % (sid, q))
+        off = s.get('quote_offset')
+        hit = next((h for h in hits if h['offset'] == off), None)
+        if hit is None: return self.E(at, 'source.quote_offset %s is not where the quote stands in %s (found at %s)' % (off, sid, ', '.join(str(h['offset']) for h in hits[:6])))
+        if isinstance(pas, list) and len(pas) == 2 and all(isinstance(x, int) for x in pas) and not (pas[0] <= hit['offset'] and hit['end'] <= pas[1]): self.E(at, 'source.passage does not contain the quote')
+        if src['kind'] == 'or27':
+            if s.get('report_id') not in self.repo.orx: self.E(at, 'source.report_id %s is not in the OR index' % s.get('report_id'))
+            elif hit['report_id'] != s['report_id']: self.E(at, 'the quote stands in %s, not in source.report_id %s' % (hit['report_id'], s['report_id']))
+            if s.get('printed_page') in (None, ''): self.E(at, 'source.printed_page is required for the Official Records (the page of the model: %s)' % hit['page'])
+            elif str(s['printed_page']) != str(hit['page']) and not s.get('page_basis'): self.W(at, 'source.printed_page %s differs from the page model (%s): give source.page_basis (for example the running head read) or use the model' % (s['printed_page'], hit['page']))
+        elif src['kind'] == 'statevol':
+            if s.get('section') not in self.repo.sec: self.E(at, 'source.section %s is not in the state-volume index' % s.get('section'))
+            elif hit['section'] != s['section']: self.E(at, 'the quote stands in %s, not in source.section %s' % (hit['section'], s['section']))
+            if s.get('printed_page') in (None, ''): self.E(at, 'source.printed_page is required for an indexed volume (the page of the model: %s)' % hit['page'])
+        return src
+
+    def record(self, n, r, gid, declared):
+        at = 'line %d' % n
+        if not isinstance(r, dict): return self.E(at, 'not a JSON object')
+        cid = r.get('claim_id'); at = '%s %s' % (at, cid)
+        m = ID_RE.match(cid or '')
+        if not m or m.group(1) != gid: self.E(at, 'claim_id must be U-%s-nnnn (four digits)' % gid)
+        if r.get('group') != gid: self.E(at, 'group must be %s (the name of the file)' % gid)
+        k = r.get('kind')
+        if k not in KINDS: return self.E(at, 'kind must be one of %s' % ', '.join(KINDS))
+        if k == 'source':
+            d = r.get('source_decl') or {}
+            for f in ('source_id', 'title', 'year', 'archive_identifier', 'url', 'path', 'bytes', 'sha256', 'licence_basis', 'class'):
+                if d.get(f) in (None, ''): self.E(at, 'source_decl.%s is required' % f)
+            if d.get('path') and not str(d['path']).startswith('tmp/units-%s/' % gid): self.E(at, 'source_decl.path must be under tmp/units-%s/' % gid)
+            if d.get('url') and not re.match(r'^https://(archive\.org|www\.loc\.gov)/', str(d['url'])): self.E(at, 'source_decl.url must be on archive.org or www.loc.gov (the hosts that are reachable; a refused host is recorded as blocked in the report)')
+            p = os.path.join(ROOT, str(d.get('path') or ''))
+            if d.get('path') and os.path.exists(p):
+                if hashlib.sha256(open(p, 'rb').read()).hexdigest() != d.get('sha256'): self.E(at, 'source_decl.sha256 is not the hash of %s' % d['path'])
+            elif d.get('path'): self.nosrc.append('%s: %s is not on this machine' % (at, d['path']))
+            return
+        uid = r.get('unit_id')
+        if not (isinstance(uid, str) and UNIT_RE.match(uid)): return self.E(at, 'unit_id must be lowercase letters, digits and hyphens')
+        if not self.unit_ok(uid): self.E(at, 'unit_id %s is not in the roster, not pre-assigned in roster-gaps.json and not added by a unit record' % uid)
+        t = r.get('tier')
+        if t not in TIERS: return self.E(at, 'tier must be one of %s' % ', '.join(TIERS))
+        if r.get('render_flag') != FLAG[t]: self.E(at, 'render_flag must be %s for tier %s' % (FLAG[t], t))
+        for i in (r.get('conflicts_with') or []) + (r.get('corroborates') or []): self.ref(at, i, 'conflicts_with/corroborates')
+        if r.get('conflict_key') is not None and not (isinstance(r['conflict_key'], str) and re.match(r'^[a-z0-9-]+\|[a-z_]+\|', r['conflict_key'])): self.E(at, 'conflict_key must be "<unit id>|<topic>|<date or blank>"')
+        for i in (r.get('timeline') or []):
+            if not re.match(r'^T\d-\d{3}$', str(i)): self.E(at, 'timeline: %s is not a timeline row id' % i)
+        if k == 'gap':
+            g = r.get('gap') or {}
+            if t != 'open gap': self.E(at, 'a gap record has tier "open gap"')
+            if not g.get('what') or any(x not in GAP_WHAT for x in g['what']): self.E(at, 'gap.what must list what is missing: %s' % ', '.join(GAP_WHAT))
+            se = g.get('searched') or []
+            if len(se) < 3: self.E(at, 'gap.searched needs at least three searches (source_id, where, terms, result)')
+            for x in se:
+                if not isinstance(x, dict) or not all(isinstance(x.get(f), str) and x[f] for f in ('source_id', 'where', 'terms', 'result')): self.E(at, 'gap.searched entries need source_id, where, terms, result'); break
+                if x['source_id'] not in self.repo.sources and x['source_id'] not in declared and not x['source_id'].startswith('NOT-ACQUIRED:'): self.E(at, 'gap.searched source_id %s is unknown (a text that could not be acquired is written NOT-ACQUIRED:<title>)' % x['source_id'])
+            if not (isinstance(g.get('register'), str) and g['register'].startswith('docs/battle-theatre/GOVERNANCE/horde/ws-units/proposed-register/%s-' % gid)): self.E(at, 'gap.register must name the proposed register entry docs/battle-theatre/GOVERNANCE/horde/ws-units/proposed-register/%s-<name>.md' % gid)
+            elif not os.path.exists(os.path.join(ROOT, g['register'])): self.W(at, 'the proposed register entry %s does not exist yet' % g['register'])
+            return
+        if t == 'open gap': self.E(at, 'tier "open gap" is for gap records only')
+        src = self.source(at, r, declared) or {}
+        role = (r.get('source') or {}).get('author_role')
+        if t == 'documented':
+            if role not in ROLES_DOCUMENTED: self.E(at, 'tier documented needs an officer, participant, official table or map as the author (role %s is at most inferred)' % role)
+            if r.get('claim_support_verified') is not True: self.E(at, 'tier documented needs claim_support_verified true (the whole passage read, and it states exactly this)')
+        if t == 'inferred' and not (isinstance(r.get('reasoning'), str) and len(r['reasoning'].strip()) >= 20): self.E(at, 'tier inferred needs reasoning (how it follows from the passage)')
+        if t == 'plausible-procedural': self.E(at, 'a group file holds what a source prints (documented, inferred) and gaps; procedural fill is the builder\'s, never typed in')
+        if r.get('fidelity_check') != 'passed_full_read': self.E(at, 'fidelity_check must be passed_full_read (set only after reading the passage of source.passage in full)')
+        if not isinstance(r.get('claim_support_verified'), bool): self.E(at, 'claim_support_verified must be true or false')
+        for f in ('ocr_uncertain', 'flag_single_source'):
+            if not isinstance(r.get(f), bool): self.E(at, '%s must be true or false' % f)
+        if not (isinstance(r.get('statement'), str) and 12 <= len(r['statement']) <= 400): self.E(at, 'statement (one sentence in your words of what the passage states of this unit) is required, 12 to 400 characters')
+        w = r.get('when')
+        # ---- by kind
+        if k == 'unit':
+            u = r.get('unit') or {}
+            if u.get('action') not in UNIT_ACTIONS: self.E(at, 'unit.action must be one of %s' % ', '.join(UNIT_ACTIONS))
+            if u.get('action') == 'add':
+                for f in ('parent', 'name', 'level', 'arm'):
+                    if not u.get(f): self.E(at, 'unit.%s is required to add a unit' % f)
+                if u.get('parent') and not self.unit_ok(u['parent']): self.E(at, 'unit.parent %s is not a unit' % u['parent'])
+                if uid in self.repo.units: self.E(at, '%s is already in the roster' % uid)
+                elif uid not in self.repo.gaps and not uid.startswith(str(u.get('parent')) + '-'): self.E(at, 'a new id is the parent id, a hyphen and a slug')
+            if u.get('action') == 'merge' and (len(u.get('merge_of') or []) < 2 or any(x not in self.repo.units for x in u['merge_of'])): self.E(at, 'unit.merge_of must list two or more roster ids')
+            if u.get('action') == 'attached' and not self.unit_ok(u.get('attached_to')): self.E(at, 'unit.attached_to must be a unit')
+            return
+        if k == 'strength':
+            s = r.get('strength') or {}
+            if s.get('what') not in STRENGTH_WHAT: self.E(at, 'strength.what must be one of %s' % ', '.join(STRENGTH_WHAT))
+            v, lo, hi = s.get('value'), s.get('min'), s.get('max')
+            ok = isinstance(v, int) and v > 0 and lo is None and hi is None or v is None and isinstance(lo, int) and isinstance(hi, int) and 0 < lo <= hi
+            if not ok: self.E(at, 'strength needs value (one printed number) or min and max (a printed range), positive integers')
+            if not (isinstance(s.get('printed'), str) and s['printed']): self.E(at, 'strength.printed (the words and figures as printed) is required')
+            elif isinstance(v, int) and not re.search(r'\d', s['printed']) and not s.get('number_in_words'): self.E(at, 'strength.printed carries no digit: set strength.number_in_words true if the number is printed in words')
+            if not (isinstance(s.get('as_of'), str) and ISO_D.match(s['as_of'])): self.E(at, 'strength.as_of (the date the figure refers to) must be 1863-MM-DD')
+            if not isinstance(s.get('approx'), bool): self.E(at, 'strength.approx must be true or false')
+            return
+        if k == 'road_identification':
+            x = r.get('road_identification') or {}
+            if not x.get('printed_name'): self.E(at, 'road_identification.printed_name is required')
+            if x.get('ref') not in self.repo.gz or self.repo.gz[x['ref']].get('kind') != 'line': self.E(at, 'road_identification.ref must be a gazetteer road')
+            if not (isinstance(x.get('basis'), str) and len(x['basis']) >= 40): self.E(at, 'road_identification.basis (what in the passage ties the printed name to the road) is required')
+            return
+        if k == 'line_order':
+            o = r.get('order') or {}
+            if o.get('direction') not in ('right_to_left', 'left_to_right', 'front_to_rear', 'head_to_tail'): self.E(at, 'order.direction must be right_to_left, left_to_right, front_to_rear or head_to_tail (a column)')
+            us = o.get('units') or []
+            if len(us) < 2 or any(not self.unit_ok(x) for x in us): self.E(at, 'order.units must list two or more units')
+            self.when(at, w)
+            return
+        if k == 'absent':
+            a = r.get('absent') or {}
+            if not isinstance(a.get('whole_battle'), bool): self.E(at, 'absent.whole_battle must be true or false')
+            if not (isinstance(a.get('where_printed'), str) or isinstance(a.get('duty_printed'), str)): self.E(at, 'absent needs where_printed or duty_printed')
+            if a.get('whole_battle') is False: self.when(at, w); self.when(at, r.get('until'), need=False, name='until')
+            if a.get('part') is not None and not isinstance(a['part'], str): self.E(at, 'absent.part (which part of the unit, as printed) is a string')
+            return
+        self.when(at, w, need=(k != 'arrival_road'))
+        if r.get('until') is not None: self.when(at, r['until'], name='until')
+        wd = (w or {}).get('date') if isinstance(w, dict) else None
+        if k in ('arrival_road', 'departure', 'march'):
+            rd = r.get('road')
+            if k != 'march' or rd is not None:
+                if not isinstance(rd, dict) or not (isinstance(rd.get('printed'), str) and rd['printed']): self.E(at, 'road.printed (the road or route words as printed) is required')
+                else:
+                    ref = rd.get('ref')
+                    if ref is not None and (ref not in self.repo.gz or self.repo.gz[ref].get('kind') != 'line'): self.E(at, 'road.ref %s is not a gazetteer road' % ref)
+                    if ref is not None and rd.get('identification') is None:
+                        names = [self.repo.gz[ref]['name']] + (self.repo.gz[ref].get('aliases') or []) if ref in self.repo.gz else []
+                        if not any(nm.lower() in rd['printed'].lower() for nm in names): self.E(at, 'road.printed does not carry a name of %s: give road.identification (a road_identification record, an RC- id of the concordance, or null ref)' % ref)
+                    if rd.get('identification') is not None: self.ref(at, rd['identification'], 'road.identification')
+                    if k == 'arrival_road' and not isinstance(rd.get('enters_ground'), bool): self.E(at, 'road.enters_ground must be true (the passage puts the unit on this road as it comes to the field) or false (a road of an earlier march)')
+        if k == 'arrival':
+            a = r.get('arrival') or {}
+            if a.get('scope') not in ('field', 'vicinity'): self.E(at, 'arrival.scope must be field (the unit reaches the battlefield) or vicinity (it halts short of it)')
+            if r.get('place') is None: self.E(at, 'place is required')
+            else: self.place(at, r['place'], False, wd, uid)
+        if k in PLACED:
+            self.place(at, r.get('place'), True, wd, uid)
+            if r.get('activity') not in ACTIVITIES: self.E(at, 'activity must be one of %s' % ', '.join(ACTIVITIES))
+            if r.get('activity') == 'other' and not r.get('activity_printed'): self.E(at, 'activity other needs activity_printed (the verb as printed)')
+            if r.get('formation') is not None and r['formation'] not in FORMATIONS: self.E(at, 'formation must be null or one of %s' % ', '.join(FORMATIONS))
+            f = r.get('facing')
+            if not isinstance(f, dict) or f.get('basis') not in FACING: self.E(at, 'facing.basis must be one of %s' % ', '.join(FACING))
+            else:
+                fb = f['basis']
+                if fb == 'printed_compass':
+                    pr = str(f.get('printed') or '').lower(); hit = [c for c in COMPASS if re.search(r'\b' + c + r'\b', pr)]
+                    if not hit: self.E(at, 'facing.printed carries no compass word')
+                    elif f.get('deg') not in {COMPASS[c] for c in hit}: self.E(at, 'facing.deg must be the bearing of the printed compass word (%s)' % ', '.join('%s=%d' % (c, COMPASS[c]) for c in hit))
+                elif fb == 'none':
+                    if f.get('deg') is not None: self.E(at, 'facing.deg is null when nothing is printed')
+                else:
+                    if f.get('deg') is not None: self.E(at, 'facing.deg is computed by the builder for basis %s: leave it null and give facing.ref' % fb)
+                    ref = f.get('ref')
+                    ok = (fb == 'toward_unit' and self.unit_ok(ref)) or (fb == 'parallel_to_road' and ref in self.repo.gz and self.repo.gz[ref].get('kind') == 'line') or (fb == 'toward_place' and (ref in self.repo.gz or ref in self.repo.mon or ref in self.repo.struct))
+                    if not ok: self.E(at, 'facing.ref %s does not fit basis %s' % (ref, fb))
+                    if not f.get('printed'): self.E(at, 'facing.printed (the words that give the front) is required')
+            if k == 'night_position' and isinstance(w, dict) and w.get('basis') == 'printed_period' and w.get('period') not in ('night', 'dusk', 'evening', 'midnight', 'before_daylight'): self.W(at, 'a night_position usually carries a night word')
+        if k == 'movement':
+            for end in ('from', 'to'):
+                x = r.get(end)
+                if isinstance(x, str): self.ref(at, x, end)
+                elif isinstance(x, dict): self.place(at, x, False, wd, uid)
+                elif end == 'to': self.E(at, 'movement.to is required (a record id or a place)')
+            if r.get('gait') not in ('march', 'double_quick', 'gallop', 'unknown'): self.E(at, 'gait must be march, double_quick, gallop or unknown')
+        if k == 'departure' and r.get('place') is not None: self.place(at, r['place'], False, wd, uid)
+
+    def file(self, path, gid, complete=False):
+        if gid not in self.repo.gids and not gid.startswith('r2-'): self.E(path, 'the file name is not a group id of groups.json')
+        raw = open(path, encoding='utf-8').read()
+        if '\r' in raw: self.E(path, 'the file has carriage returns: Unix newlines only')
+        rows = []
+        for n, line in enumerate(raw.split('\n'), 1):
+            if not line.strip(): continue
+            try: rows.append((n, json.loads(line)))
+            except Exception as e: self.E('line %d' % n, 'not JSON: %s' % e)
+        ids = [r.get('claim_id') for _, r in rows if isinstance(r, dict)]
+        for i in sorted({i for i in ids if ids.count(i) > 1}, key=str): self.E(path, 'claim_id %s is used twice' % i)
+        self.known_ids |= set(i for i in ids if isinstance(i, str))
+        declared = {}
+        for _, r in rows:
+            if isinstance(r, dict) and r.get('kind') == 'source' and isinstance(r.get('source_decl'), dict) and r['source_decl'].get('source_id'):
+                d = r['source_decl']; declared[d['source_id']] = {'kind': 'text', 'path': d.get('path') or ''}
+            if isinstance(r, dict) and r.get('kind') == 'unit' and isinstance(r.get('unit'), dict) and r['unit'].get('action') == 'add' and isinstance(r.get('unit_id'), str): self.declared_units.add(r['unit_id'])
+        for n, r in rows: self.record(n, r, gid, declared)
+        # ---- coverage of the group's units
+        cov = {}
+        for _, r in rows:
+            if isinstance(r, dict) and isinstance(r.get('unit_id'), str): cov.setdefault(r['unit_id'], set()).add(r.get('kind'))
+        need = [u for u in self.repo.group_units.get(gid, []) if self.repo.unit_class.get(u) in ('not_drawn', 'edge_only', 'partly_drawn')]
+        bare = [u for u in need if not cov.get(u) and not any(a in cov for a in self.repo.ancestors(u))]
+        thin = [u for u in need if u not in bare and self.repo.unit_class.get(u) in ('not_drawn', 'edge_only') and not ({'gap'} & cov.get(u, set())) and not (cov.get(u, set()) & set(PLACED))
+                and not any((cov.get(a, set()) & set(PLACED)) for a in self.repo.ancestors(u))]
+        for u in bare: (self.E if complete else self.W)(path, 'unit %s of the group has no record of its own or of a formation above it (evidence or a gap record is owed)' % u)
+        for u in thin: (self.E if complete else self.W)(path, 'unit %s is not drawn now and has neither a position record (its own or a formation\'s) nor a gap record' % u)
+        return {'records': len(rows), 'units_named': len(cov), 'units_owed': len(need), 'bare': len(bare), 'thin': len(thin), 'kinds': {k: sum(1 for _, r in rows if isinstance(r, dict) and r.get('kind') == k) for k in KINDS}}
+
+
+def run(paths, complete=False, quiet=False):
+    repo = Repo(); allids, allunits = set(), set()
+    files = []
+    for p in paths:
+        f = p if p.endswith('.jsonl') else os.path.join(UND, p + '.jsonl')
+        files.append((f, os.path.basename(f)[:-6]))
+    for f, _ in files:                          # ids and added units of every file first, so that a record may point into another group's file
+        if not os.path.exists(f): continue
+        for line in open(f, encoding='utf-8'):
+            try: r = json.loads(line)
+            except Exception: continue
+            if isinstance(r, dict):
+                if isinstance(r.get('claim_id'), str): allids.add(r['claim_id'])
+                if r.get('kind') == 'unit' and (r.get('unit') or {}).get('action') == 'add' and isinstance(r.get('unit_id'), str): allunits.add(r['unit_id'])
+    bad = nos = 0; seen = {}
+    for f, gid in files:
+        if not os.path.exists(f): print('%s: no such file' % f); bad += 1; continue
+        c = Check(repo, allids, allunits); st = c.file(f, gid, complete)
+        for line in open(f, encoding='utf-8'):
+            try: i = json.loads(line).get('claim_id')
+            except Exception: continue
+            if i in seen and seen[i] != gid: c.E(f, 'claim_id %s is also in %s.jsonl' % (i, seen[i]))
+            seen[i] = gid
+        if not quiet:
+            for e in c.err: print('ERROR  ' + e)
+            for w in c.warn: print('warn   ' + w)
+            for w in c.nosrc: print('NOTEXT ' + w)
+        print('%s: %d records, %d units named, %d errors, %d warnings%s | %s' % (os.path.basename(f), st['records'], st['units_named'], len(c.err), len(c.warn), (', %d quotes not checked (text missing)' % len(c.nosrc)) if c.nosrc else '', ' '.join('%s %d' % kv for kv in st['kinds'].items() if kv[1])))
+        bad += len(c.err); nos += len(c.nosrc)
+    return 1 if bad else 2 if nos else 0
+
+
+def self_test():
+    fx = os.path.join(HERE, 'fixtures'); ok = True
+    repo = Repo()
+    good = os.path.join(fx, 'us-3c-2d.good.jsonl'); badf = os.path.join(fx, 'us-3c-2d.bad.jsonl')
+    c = Check(repo); c.file(good, 'us-3c-2d')
+    print(('PASS' if not c.err else 'FAIL') + ' the good fixture has no error' + ('' if not c.err else ': ' + ' | '.join(c.err)))
+    ok &= not c.err
+    if c.nosrc: print('NOTE   %d quotes of the good fixture could not be checked: the text is not on this machine' % len(c.nosrc))
+    n_lines = sum(1 for l in open(badf, encoding='utf-8') if l.strip())
+    c = Check(repo); c.file(badf, 'us-3c-2d')
+    failed = {int(re.match(r'line (\d+)', e).group(1)) for e in c.err if re.match(r'line (\d+)', e)}
+    miss = [n for n in range(1, n_lines + 1) if n not in failed]
+    print(('PASS' if not miss else 'FAIL') + ' every one of the %d lines of the bad fixture is refused' % n_lines + ('' if not miss else ': not refused: lines %s' % miss))
+    ok &= not miss
+    for e in c.err[:40]: print('   refused: ' + e[:230])
+    print('self-test', 'OK' if ok else 'FAILED')
+    return 0 if ok else 1
+
+
+if __name__ == '__main__':
+    ap = argparse.ArgumentParser()
+    ap.add_argument('groups', nargs='*'); ap.add_argument('--all', action='store_true'); ap.add_argument('--complete', action='store_true'); ap.add_argument('--quiet', action='store_true')
+    ap.add_argument('--verify'); ap.add_argument('--source'); ap.add_argument('--self-test', action='store_true')
+    a = ap.parse_args()
+    if a.self_test: sys.exit(self_test())
+    if a.verify:
+        repo = Repo(); srcs = [a.source] if a.source else [k for k, v in repo.sources.items() if v['kind'] != 'text' or not k.startswith(('ADAMS', 'GBG-'))]
+        n = 0
+        for sid in srcs:
+            try: hits = find_quote(repo, sid, a.verify)
+            except Missing as e: print('NOTEXT %s (%s)' % (sid, e)); continue
+            except KeyError: print('UNKNOWN source %s' % sid); continue
+            for h in hits:
+                n += 1; print('FOUND %s quote_offset=%d end=%d %s page=%s | words=%d' % (sid, h['offset'], h['end'], ('report_id=%s' % h['report_id']) if 'report_id' in h else ('section=%s' % h['section']) if 'section' in h else '', h.get('page'), words(a.verify)))
+        if not n: print('NOT FOUND (%d words): %s' % (words(a.verify), a.verify))
+        sys.exit(0 if n else 1)
+    paths = a.groups
+    if a.all: paths = sorted(os.path.basename(f)[:-6] for f in glob.glob(os.path.join(UND, '*.jsonl')))
+    if not paths: ap.print_help(); sys.exit(1)
+    sys.exit(run(paths, a.complete, a.quiet))
