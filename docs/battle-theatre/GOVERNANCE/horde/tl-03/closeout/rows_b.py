@@ -379,19 +379,20 @@ ROWS.append(dict(
 ROWS.append(dict(
     id='T1-143', verdict='corrected',
     limits={'start': 'Hancock\'s own hour of arrival (3 p. m., R076 p.368)',
-            'end': 'the hour implied by his dispatch of 5.25 p. m. "an hour since" (about 16:25, R076 p.366)'},
-    claim=claim('Hancock reaches Gettysburg and assumes command of the field: at 3 p. m. (his report), at 4 p. m. (Howard and Slocum: Howard relieved at 4 p. m.) or about 4.25 p. m. (his 5.25 dispatch "an hour since"); about the time of the withdrawal (Meade)',
+            'end': 'Howard\'s hour at which the columns reached Cemetery Hill (4.30 p. m., R243 p.704), after which Hancock "came to me about this time"'},
+    claim=claim('Hancock reaches Gettysburg and assumes command of the field: at 3 p. m. (his report), at 4 p. m. (Howard\'s dispatch and Slocum), about 4.25 p. m. (his 5.25 dispatch "an hour since") or after 4.30 p. m. (Howard\'s narrative); about the time of the withdrawal (Meade)',
                 'Maj. Gen. W. S. Hancock (Second Corps) with Lt. Col. Morgan and the signal party; Maj. Gen. O. O. Howard; Maj. Gen. H. W. Slocum',
                 'Cemetery Hill / Gettysburg (Hancock: arrived at Gettysburg; the First and Eleventh Corps retiring through the town)',
-                'Jul 1, 15:00 to about 16:25 (three primary values; the delegated default is about 15:00-16:00)',
+                'Jul 1, 15:00 to about 16:30 (four primary values; the delegated default is about 15:00-16:00)',
                 'Hancock OR27-1-R076 pp.366-368; Howard R243 p.696; Slocum R271 p.768; Meade R006 p.115; Buford R337 p.927; Organization R009 p.167',
                 'Hancock: "At 3 p. m. I arrived at Gettysburg and assumed the command"; his dispatch to Meade at 5.25 p. m.: "When I arrived here an hour since" (about 4.25); Howard\'s 10 p. m. dispatch: "General Hancock arrived at 4 p. m., and communicated his instructions"; Slocum: Howard commanded the field until 4 p. m., "when General Howard was relieved by the arrival of General Hancock"; Meade: "About the time of this withdrawal, Major-General Hancock arrived"; the Organization note: Howard commanded all troops on the field until the arrival of Hancock on the afternoon of Jul 1. '
                 'The values conflict (15:00 / 16:00 / about 16:25) and are carried as scenarios; the delegated default is about 15:00-16:00 (C-039). The seed\'s secondary values (before 16:00, about 16:30) are not in the Official Records. The clock offset of about 20 minutes is not applied.',
-                'documented', '1863-07-01T15:00', '1863-07-01T16:25', marking='three primary hours as scenarios; delegated default about 15:00-16:00'),
+                'documented', '1863-07-01T15:00', '1863-07-01T16:30', marking='four primary hours as scenarios; delegated default about 15:00-16:00'),
     subs=[
         ('Hancock\'s report: at 3 p. m. he arrived at Gettysburg and assumed command; the First and Eleventh Corps were retiring through the town', 'documented', 'conflict', ['h3']),
         ('Hancock\'s dispatch of 5.25 p. m. to Meade: "When I arrived here an hour since"', 'documented', 'conflict', ['h525']),
         ('Howard: General Hancock arrived at 4 p. m. and communicated his instructions; Slocum: Howard was relieved by the arrival of Hancock at 4 p. m.', 'documented', 'conflict', ['how4', 'slo4']),
+        ('Howard\'s narrative: at 4.30 p. m. the columns reached Cemetery Hill, the enemy pressing hard, and "General Hancock came to me about this time" saying Meade had sent him', 'documented', 'conflict', ['how430', 'how_came']),
         ('Meade: about the time of the withdrawal Hancock arrived; Buford: while he was on Cemetery Hill Hancock arrived; Organization note: Howard commanded until Hancock\'s arrival on the afternoon of Jul 1', 'documented', 'supported', ['meade_wd', 'buf_h', 'org_n']),
     ],
     cites={
@@ -399,6 +400,8 @@ ROWS.append(dict(
         'h525': OR('When I arrived here an hour since', R076, '366'),
         'how4': OR('General Hancock arrived at 4 p. m., and communicated his instructions', R243, '696'),
         'slo4': OR('to 4 p. m. of same day (when General Howard was relieved by the arrival of General Hancock', 'OR27-1-R271', '768'),
+        'how430': OR('At 4.30 p. m. the columns reached Cemetery Hill, the enemy pressing hard', R243, '704'),
+        'how_came': OR('General Hancock came to me about this time, and said General Meade had sent him on hearing the state of affairs', R243, '704'),
         'meade_wd': OR('About the time of this withdrawal, Major-General Hancock arrived, whom I had dispatched to represent me on the field', 'OR27-1-R006', '115'),
         'buf_h': OR('While there. General Hancock arrived, and in a few moments he made superb disposition to resist any attack that might be made', 'OR27-1-R337', '927'),
         'org_n': OR('During the interval between the death of General Reynolds and the arrival of General Hancock, on the afternoon of July 1', 'OR27-1-R009', '167'),
@@ -408,7 +411,7 @@ ROWS.append(dict(
         sc('B', '16:00 (Howard\'s dispatch; Slocum)', 'Howard OR27-1-R243 p.696; Slocum OR27-1-R271 p.768', 'documented', ['how4', 'slo4']),
         sc('C', 'About 16:25 (Hancock\'s dispatch of 5.25 p. m., "an hour since")', 'Hancock OR27-1-R076 p.366', 'documented', ['h525']),
         sc('D', 'Before 16:00 (Civil War Monitor, seed value)', 'secondary (CWM); no non-lead source read', 'open gap', []),
-        sc('E', 'About 16:30 (Civil War News, seed value)', 'secondary (CWN); no non-lead source read', 'open gap', []),
+        sc('E', 'About 16:30: "General Hancock came to me about this time" after the columns reached Cemetery Hill at 4.30 p. m. (also the seed value of Civil War News)', 'Howard OR27-1-R243 p.704 (narrative); the seed\'s CWN value has the same hour', 'documented', ['how430', 'how_came']),
     ],
     default=dict(scenario='A', basis='DELEGATED DECISION C-039-DEFAULT (2026-11-11): about 15:00-16:00 (documented), PDF default agrees; every other hour stays selectable; reversible by the owner'),
     remains=[],
@@ -458,3 +461,201 @@ ROWS.append(dict(
     recheck='OR-RECHECK-2 (supported_partial): hour and order supported; OCR garbles brigade and support; 1,200 and the knoll are not in the OR; Doles 3.30. Applied: Hays\'s earlier hour is carried beside Gordon\'s; the 26th Georgia detachment is cited; the strength is marked unsupported.',
     register=reg('Strength of Gordon\'s brigade on Jul 1', 'Neither Gordon nor Early gives a strength; the seed\'s about 1,200 after one regiment detached has no source read.', 'Brigade shown with its regiments; strength as a roster range', 'documented', impact='Gordon attacks at the chosen hour with the regiments of his brigade less the 26th Georgia', ask='none', rids='R11, R04'),
     related=['tl-03-EG-04']))
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------ T1-145
+ROWS.append(dict(
+    id='T1-145', verdict='corrected',
+    limits={'start': 'Howard\'s hour for the enemy showing himself in force in front of the Eleventh Corps (about 2.45 p. m., R243 p.703); Hays has the order to Gordon a little after 2',
+            'end': 'Schurz\'s hour for the whole line engaged and the movement to the rear (after about 3 o\'clock; he reached Cemetery Hill after 5 o\'clock); the fight is inside this period, no end hour is printed'},
+    claim=claim('Jones\' artillery opens; Gordon\'s brigade, supported by Hays\' and Avery\'s (Hoke\'s), attacks Barlow\'s division after a short but hot contest, breaks it and captures the severely wounded Barlow; the Eleventh Corps\' Second Brigade of the First Division falls back in disorder, the First Brigade (von Gilsa) is forced back contesting every inch; about 3 o\'clock the enemy appears with heavy masses (Schurz)',
+                'Barlow\'s First Division (von Gilsa\'s First Brigade: 41st, 54th, 68th New York, 153rd Pennsylvania; Ames\' Second Brigade) and Early\'s division (Gordon\'s, Hays\', Avery\'s brigades; Jones\' artillery battalion)',
+                'The hill west of Rock Creek on the Heidlersburg road north-east of the town; the First Division\'s line east of the Mummasburg road',
+                'Jul 1, about 14:45 to after 15:00 (no end hour; the fight lasted less than an hour by no text read)',
+                'Early OR27-2-R470 pp.468-469; Ewell R467 p.445; Gordon R477 p.492; Jones R478 p.495; Schurz R253 pp.728-729; Ames R244 p.712; Organization R009 p.167',
+                'Early: Jones\' battalion opened with considerable effect; Gordon was ordered forward in support of Doles, then Hays\' and Hoke\'s brigades in line; "After a short but hot contest, Gordon succeeded in routing the force opposed to him, consisting of a division of the Eleventh Corps, commanded by Brigadier-General Barlow", captured Barlow, "who was severely wounded", and drove the division back with great slaughter; Ewell: Gordon\'s brigade "after an obstinate contest, broke Barlow\'s division, captured General Barlow". '
+                'Schurz: about 3 o\'clock the enemy appeared in front with heavy masses of infantry, the Second Brigade, First Division fell back in considerable disorder, Barlow was severely wounded and carried off, the First Brigade, forced back, contested every inch; Ames took the First Division; the orders to withdraw to Cemetery Hill followed. Jones placed twelve guns in position and opened. '
+                'The First Brigade of Barlow\'s division is von Gilsa\'s: the 41st New York (nine companies), 54th and 68th New York and 153rd Pennsylvania. NOT documented: the length of the fight (about 20 minutes or less than an hour: no text read); that Barlow was "shot" (the reports say severely wounded); Ames\'s "retreat" is his own division\'s falling back (R244).',
+                'documented', '1863-07-01T14:45', '1863-07-01T15:30', marking='attack and breaking of Barlow\'s division: documented; length of the fight: gap; knoll names: later'),
+    subs=[
+        ('Early: Jones\' artillery opened on the enemy\'s infantry and artillery; Gordon was ordered forward to the support of Doles; Hays\' and Hoke\'s brigades were then ordered forward in line', 'documented', 'supported', ['e_art', 'e_gord']),
+        ('Early: after a short but hot contest Gordon routed a division of the Eleventh Corps under Barlow and drove it back with great slaughter, capturing Barlow, severely wounded', 'documented', 'supported', ['e_short', 'e_barlow']),
+        ('Ewell: Gordon\'s brigade, to the left of Doles\', after an obstinate contest, broke Barlow\'s division', 'documented', 'supported', ['ew_broke']),
+        ('Schurz: about 3 o\'clock the enemy appeared in front with heavy masses of infantry; the Second Brigade, First Division fell back in considerable disorder; Barlow was severely wounded and carried off; the First Brigade was forced back, contesting every inch', 'documented', 'supported', ['s_three', 's_fell', 's_barlow']),
+        ('Jones placed twelve guns in position and opened with considerable effect on the enemy\'s artillery and a column being massed', 'documented', 'supported', ['j12']),
+        ('The First Brigade of the First Division: von Gilsa\'s 41st (nine companies), 54th and 68th New York and 153rd Pennsylvania', 'documented', 'supported', ['oob']),
+        ('The fight lasted about 20 minutes (Civil War News) or less than an hour (Wikipedia); Barlow was shot', 'open gap', 'unsupported', [], 'no text read gives a duration; the reports say severely wounded'),
+    ],
+    cites={
+        'e_art': OR('Jones\' battalion of artillery was posted in a field on the left of the Heidlersburg road, immediately in front of Hoke\'s brigade', R470, '468'),
+        'e_gord': OR('Gordon\'s brigade was then ordered forward to the support of Doles\' brigade', R470, '468'),
+        'e_short': OR('After a short but hot contest. Gordon succeeded in routing the force opposed to him', R470, '468', note='the OCR prints a period for the comma'),
+        'e_barlow': OR('General Barlow himself, who was severely wounded', R470, '469'),
+        'ew_broke': OR('which, after an obstinate contest, broke Barlow\'s division', R467, '445'),
+        's_three': OR('about 3 o\'clock, before the forward movement of the First Division, could be arrested by my orders, the enemy appeared in our front with lieavy masses of infantry', R253, '728', note='the OCR prints lieavy for heavy'),
+        's_fell': OR('the Second Brigade, First Division, whose flank had been most exposed in consequence of the advance, fell back in considerable disorder', R253, '729'),
+        's_barlow': OR('was severely wounded, and had to be carried off the battle-field', R253, '729'),
+        'j12': OR('I immediately placed twelve guns in position', R478, '495'),
+        'oob': OR('68th New York, Col. Gotthilf Bourry', R009, '167', note='the First Brigade, Col. Leopold von Gilsa: 41st New York (nine companies), 54th New York, 68th New York, 153rd Pennsylvania (the OCR prints J53d)'),
+    },
+    scenarios=[
+        sc('A', 'The enemy appears in force about 14:45 (Union clock)', 'Howard OR27-1-R243 p.703', 'documented', []),
+        sc('B', 'Gordon ordered forward a little after 14:00', 'Hays OR27-2-R472 p.479', 'documented', []),
+        sc('C', 'Gordon ordered forward about 15:00; the enemy in heavy masses about 15:00 (Schurz)', 'Gordon OR27-2-R477 p.492; Schurz OR27-1-R253 p.728', 'documented', ['s_three']),
+    ],
+    default=None,
+    remains=['the length of the fight (about 20 minutes or under an hour)', 'that Barlow was shot'],
+    searched=['OR27-2-R470 pp.468-469, R467 p.445, R477 p.492, R478 p.495, R472; OR27-1-R253 pp.727-731, R244, R245, R009 p.167 read',
+              LIB182 + ' regex Barlow near the length of the fight: not found',
+              LOGNOTE],
+    recheck='OR-RECHECK-2 (supported_partial): Gordon breaks Barlow, captured; Schurz about 3 o\'clock; Ewell says captured not shot; Ames, von Gilsa\'s regiments, Jones\' artillery and the duration not in the passages. Applied: all are cited from Early, Schurz, Jones and the organization list; the duration and "shot" are marked unsupported.',
+    register=reg('Length of the fight on Barlow\'s Knoll and the cause of Barlow\'s wound', 'No report gives a duration (the seed has about 20 minutes and under an hour); Barlow is "severely wounded" in Early and Schurz.', 'Fight inside the window 14:45 to 15:30 with no duration claimed', 'documented', competing='about 20 minutes / under an hour', impact='the knoll falls inside the window; Barlow is shown wounded and captured', ask='none', rids='R11, R04'),
+    related=[]))
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------ T1-146
+ROWS.append(dict(
+    id='T1-146', verdict='corrected',
+    limits={'start': 'the hour at which the 17th Connecticut came into Gettysburg (between 1 and 2 p. m., Brady R247 p.716) and the Eleventh Corps\' First Division was engaged on the plain',
+            'end': 'Schurz\'s hour for the collapse (after about 3 o\'clock) with the retreat to Cemetery Hill after 5 o\'clock; no hour of either death is printed'},
+    claim=claim('Lieut. Colonel Douglas Fowler of the 17th Connecticut is killed when his six companies advance and deploy north of the town (Ames\' brigade); Lieut. Bayard Wilkeson, commanding Battery G, 4th U.S. Artillery, is mortally wounded soon after the battery opens on the north side of the York road (Barlow\'s division); neither is a late counterattack of the knoll and neither rank or name of the seed is right',
+                '17th Connecticut (Lieut. Col. D. Fowler, Maj. A. G. Brady); Battery G, 4th U.S. Artillery (Lieut. B. Wilkeson, then Lieut. E. A. Bancroft)',
+                'North of Gettysburg, left and front of the town, Ames\' brigade; the battery on the north side of the York road east of the poor-house, Barlow\'s division',
+                'Jul 1, between about 11:00 (the battery in action) and the retreat (no hour of either death)',
+                'Casualty return OR27-1-R013 pp.186-193; Brady R247 p.717; Bancroft R269 p.756; Hunt R028 p.230; Howard R243 p.705',
+                'The casualty return lists among the officers killed, Connecticut, "Lieut. Colonel Douglas Fowler, 17th Infantry"; Brady: the regiment (six companies under Lieutenant-Colonel Fowler) advanced with the other regiments of the brigade to the left and front of the town, behind the 107th Ohio, deployed at the double-quick, and "Lieutenant-Colonel Fowler was killed when the regiment advanced and deployed". '
+                'Wilkeson: Hunt says "About 11 a. m. Wilkeson\'s battery ... came up, and reported to General Barlow, who posted it close to the enemy\'s line of infantry ... In the commencement of this unequal contest, Lieut. Bayard Wilkeson ... fell, mortally wounded, and was carried from the field"; Bancroft: the battery reached the town at 11 a. m., engaged on the north side of the York road eastward of the poor-house, and "Lieutenant Wilkeson was struck in the right leg by a shot from the enemy\'s artillery, and mortally wounded" before the sections retired after half an hour; Howard also records him mortally wounded. '
+                'The seed\'s "Col. Douglas Fowler" is Lieutenant-Colonel and "Lt. Col. Baynard Wilkeson" is First Lieutenant Bayard Wilkeson. NOT documented: the hour of either death; that either was in a "counterattack on the knoll".',
+                'documented', '1863-07-01T13:00', '1863-07-01T15:30', marking='names, ranks, deaths: documented; hours: gap; place of Wilkeson: documented (York road); Fowler: north of the town'),
+    subs=[
+        ('Lieut. Colonel Douglas Fowler, 17th Connecticut, is listed among the officers killed (casualty return, Connecticut)', 'documented', 'supported', ['f_ret']),
+        ('Lieutenant-Colonel Fowler was killed when the six companies of the regiment advanced and deployed to the left and front of the town', 'documented', 'supported', ['f_brady', 'f_adv']),
+        ('Wilkeson\'s battery (G, 4th U.S.) came up about 11 a. m., was posted by Barlow close to the enemy\'s infantry and in the commencement of the unequal contest Lieut. Bayard Wilkeson fell mortally wounded', 'documented', 'supported', ['w_hunt']),
+        ('Bancroft: the battery reached the town at 11 a. m.; Lieutenant Wilkeson was struck in the right leg by a shot from the enemy\'s artillery and mortally wounded on the north side of the York road', 'documented', 'supported', ['w_ban11', 'w_ban']),
+        ('The rank and name in the seed: Col. Douglas Fowler and Lt. Col. Baynard Wilkeson', 'documented', 'contradicted', ['f_ret', 'w_ban'], 'Fowler was a lieutenant-colonel; Wilkeson a first lieutenant named Bayard'),
+        ('The hours of the two deaths; that either fell in a counterattack on the knoll', 'open gap', 'unsupported', []),
+    ],
+    cites={
+        'f_ret': OR('Lieut. Colonel Douglas Fowler, 17th Infantry', R013, '187', note='the OCR of the return loses the running head; the Connecticut list is on the pages 186-193'),
+        'f_brady': OR('The remainder of the regiment (six companies), under Lieutenant- Colonel Fowler, advanced with the other regiments of the brigade to the left and front of the town', R247, '717'),
+        'f_adv': OR('Lieutenant-Colonel Fowler was killed when the regiment advanced and deployed', R247, '717'),
+        'w_hunt': OR('the commencement of this unequal contest', R028, '230', note='the sentence continues: Lieut. Bayard Wilkeson (Fourth U. S. Artillery), commanding the battery, a young officer of great gallantry, fell, mortally wounded'),
+        'w_ban11': OR('the battery reached the town at 11 a. m.', R269, '756'),
+        'w_ban': OR('Lieutenant Wilkeson was struck in the right leg by a shot from the enemy\'s artillery, and mortally wounded', R269, '756'),
+    },
+    scenarios=[],
+    default=None,
+    remains=['the hour of Fowler\'s and of Wilkeson\'s death', 'that either fell in a late counterattack on Barlow\'s Knoll'],
+    searched=['OR27-1-R013 (Return of Casualties) officers killed, Connecticut; R247 (Brady) pp.716-719, R269 (Bancroft) p.756, R028 (Hunt) p.230, R243 (Howard) p.705 read',
+              LIB182 + ' regex Fowler/Wilkeson: New York at Gettysburg vol.1 and the Connecticut volume are not in the library; the state volumes read give nothing earlier than the reports',
+              LOGNOTE],
+    recheck='OR-RECHECK-2 (supported_partial): names and fates, ranks corrected (Lieutenant-Colonel Fowler; Lieut. Bayard Wilkeson); the hit times not given; the casualty return page head lost in the OCR. Applied: the casualty return is cited with the page pair 186-193; Fowler\'s and Wilkeson\'s places and the 11 a. m. hour of the battery come from Brady, Bancroft and Hunt; the seed\'s ranks and names are marked contradicted.',
+    register=reg('Hours of the deaths of Lt. Col. Fowler and Lieut. Wilkeson on Jul 1', 'The reports give the places and the order of events but no hour for either death; Wilkeson fell at the start of the artillery duel after 11 a. m., Fowler as the regiment deployed.', 'Both deaths shown in the window 13:00-15:30 with the Union clock; names and ranks as the reports', 'documented', impact='two officers fall on the north side of the town; no hour is claimed', ask='none', rids='R11, R04'),
+    related=[]))
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------ T1-147
+ROWS.append(dict(
+    id='T1-147', verdict='partially_supported',
+    limits={'start': 'Doubleday\'s hour for the enemy\'s advance with the 151st Pennsylvania and 24th Michigan engaged until the retreat (the First Corps engaged since about 10:15); no hour for the collapse of either regiment is printed; 15:00 is the seed\'s',
+            'end': 'Wadsworth\'s hour for the order to retire (3.45 o\'clock, R032 p.266)'},
+    claim=claim('The 151st Pennsylvania (Biddle\'s brigade) goes in with 21 officers and 446 men (467) and has 8 officers and 113 men answer the roll next morning; the 24th Michigan (Iron Brigade) has 496 men at the start (OCR) and loses 399 (OCR digits damaged); Colonel Morrow is wounded, left on the field and falls with the other wounded into the enemy\'s hands; the hour of the collapse is not given',
+                '151st Pennsylvania (Lieut. Col. G. F. McFarland), First Brigade, Third Division; 24th Michigan (Col. H. A. Morrow), Iron Brigade, First Division, First Corps',
+                'McPherson Ridge and the line west of the seminary; the barricade west of the seminary building',
+                'Jul 1 afternoon, until the retreat at 15:45 (seed: 15:00-15:30)',
+                'McFarland OR27-1-R060 p.328; Morrow R033 pp.269-270; Rowley R055 p.313; Wadsworth R032 p.266',
+                'McFarland: the 151st Pennsylvania "moved through the town to Cemetery Hill, where 8 officers and 113 men answered to roll-call next morning, though 21 officers and 446 men had gone into the fight"; the regiment "did not number one-fourth of what it did two hours earlier". Morrow: the strength on Jul 1 is printed in a table (OCR digits: field officers 3, staff 1, line officers 34, non-commissioned officers and privates 468, total 49ft, which reads 496 but the printed parts add to 506); the losses table has 79 killed and 237 wounded and about 80 enlisted men and 3 officers missing (the OCR of the total is 3m: a total of 399 would be 79 + 237 + 83); "I was wounded just before reaching the barricade, west of the seminary building, and left the field" and "Nearly all our wounded, myself among them, fell into the hands of the enemy when he took possession of the town". '
+                'The revised statement of casualties in the First Corps (R013 p.173) is too damaged in the OCR to read for the 151st Pennsylvania. NOT documented: losses of 337 of 467 (467 minus the roll-call of 121 is 346) and 399 of 496 as printed numbers; that Morrow was "captured" as such (he fell into enemy hands as a wounded man); the hour 15:00-15:30.',
+                'documented', '1863-07-01T15:00', '1863-07-01T15:45', marking='strengths and roll-call: documented; losses 337 and 399: OCR damaged, gap; collapse hour: gap'),
+    subs=[
+        ('The 151st Pennsylvania went into the fight with 21 officers and 446 men and 8 officers and 113 men answered to roll-call next morning on Cemetery Hill', 'documented', 'supported', ['mcf_roll']),
+        ('The 24th Michigan\'s strength on Jul 1 is printed in a table (OCR: total 49ft, read 496) and its losses in a table (OCR: 79 killed, 237 wounded, about 80 enlisted men and 3 officers missing)', 'documented', 'supported', ['mor_str', 'mor_miss'], 'the OCR digits of the totals are damaged and do not all add up; not checked on the page image'),
+        ('Morrow was wounded just before reaching the barricade west of the seminary building and left the field; nearly all the regiment\'s wounded, himself among them, fell into the hands of the enemy when he took possession of the town', 'documented', 'supported', ['mor_wd', 'mor_cap']),
+        ('The 151st Pennsylvania lost 337 of 467; the 24th Michigan 399 of 496', 'open gap', 'unsupported', [], 'the revised return is unreadable in the OCR; 467 minus the roll-call 121 is 346, not 337'),
+        ('The collapse of Biddle\'s and the Iron Brigade lines at 15:00-15:30 (seed "SS")', 'open gap', 'unsupported', [], 'no report gives that hour; Wadsworth\'s order to retire is 3.45'),
+    ],
+    cites={
+        'mcf_roll': OR('It moved through the town to Cemetery Hill, where 8 officers and 113 men answered to roll-call next morning, though 21 officers and 446 men had gone into the fight', 'OR27-1-R060', '328'),
+        'mor_str': OR('The strength of the regiment on July 1 was as follows', R033, '269'),
+        'mor_miss': OR('About 80 of the enlisted men and 3 officers were reported as missing in action', R033, '269'),
+        'mor_wd': OR('I was wounded just before reaching the barricade, west of the seminary building, and left the field', R033, '269'),
+        'mor_cap': OR('myself among them, fell into the hands of the enemy when he took possession of the town of Gettysburg', R033, '270'),
+    },
+    scenarios=[],
+    default=None,
+    remains=['the numbers of killed, wounded and missing of the 151st Pennsylvania and 24th Michigan as clean figures (the return is damaged)', 'the hour of the collapse of Biddle\'s and the Iron Brigade lines'],
+    searched=['OR27-1-R060 (McFarland) p.328, R033 (Morrow) pp.267-270, R013 pp.172-175 (revised casualty statement: unreadable for these regiments) read',
+              LIB182 + ' regex 151st/24th Michigan with loss figures: Pennsylvania at Gettysburg vol.2, Michigan at Gettysburg 1889, Fox 1889 (not read for the 151st and 24th rows)',
+              LOGNOTE],
+    recheck='OR-RECHECK-2 (supported_partial): 151st: 21 officers and 446 men went in (467), roll-call 8 and 113 (the row\'s 337 is secondary); 24th Michigan not found in R033 as 399/496; Morrow "scalp wound" and not captured. Applied: Morrow\'s own words (wounded, left the field, fell into enemy hands) and his strength table are cited; the 337 and 399 are marked unsupported; the collapse hour is marked unsupported.',
+    register=reg('Clean loss figures of the 151st Pennsylvania and 24th Michigan and the hour of the collapse, Jul 1', 'The casualty tables are damaged in the OCR (the page image was not read); the roll-call of the 151st is not a loss figure; no report gives an hour for the collapse.', 'Strengths and roll-call as printed; losses as ranges with the damaged-table note; collapse placed before the 15:45 retreat order', 'documented', impact='the two regiments appear at their strengths and shrink to the roll-call; figures not drawn beyond that', ask='an owner-only step: a page-image reading of OR27-1 p.173 and p.269 (the OCR digits are damaged)', rids='R11, R04'),
+    related=['tl-03-EG-04']))
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------ T1-148
+ROWS.append(dict(
+    id='T1-148', verdict='corrected',
+    limits={'start': 'the hour at which Stone posted his brigade (11 o\'clock, R061 p.329)',
+            'end': 'Wadsworth\'s order to retire (3.45 o\'clock, R032 p.266); Stone was wounded before that and carried from the field'},
+    claim=claim('Colonel Stone is severely wounded in the fight of his brigade on the Chambersburg road and at the railroad cut against Daniel (or the other attackers) and carried from the field (to the McPherson barn stable for first aid, per the National Park Service); Wister takes command; "captured" is not in the reports',
+                'Second Brigade, Third Division, First Corps (Col. R. Stone: 143rd, 149th, 150th Pennsylvania); Col. L. Wister, then Col. E. Dana',
+                'The Chambersburg (Cashtown) road and the railroad cut, McPherson ridge; the McPherson barn',
+                'Jul 1, between 11:00 and 15:45 (no hour for the wound)',
+                'Stone OR27-1-R061 p.330; Doubleday R029 pp.247-249; Rowley R055 p.313; National Park Service McPherson Farm study',
+                'Stone: "Being wounded about this time and carried from the field, I cannot speak so definitely of the remainder of the action. Colonel Wister ... assumed command of the brigade"; Doubleday: "Stone himself was shot down, battling to the last. The gallant Colonel Wister, who succeeded him in command, was also wounded, and the command devolved upon Colonel Dana", and "It was in this affair that Colonel Stone was severely wounded, and Colonel Wister assumed command of the brigade" (the fight at the railroad cut against the enemy battery enfilading it). '
+                'The National Park Service McPherson study says Stone was carried into the stable area of the McPherson barn to receive first aid until he could be evacuated, and that he lay within the stone walls of the barn. "Captured" (the Stone Sentinels reading) is not in the Official Records or the texts read; the two readings are not mutually exclusive. Daniel as the opponent and the hour 15:00-16:00 are not in these passages.',
+                'documented', '1863-07-01T11:00', '1863-07-01T15:45', marking='wounded: documented; captured: not documented (secondary only); hour of the wound: gap'),
+    subs=[
+        ('Doubleday: Stone himself was shot down, battling to the last; Wister, who succeeded him, was also wounded and the command devolved upon Dana', 'documented', 'supported', ['d_down']),
+        ('Doubleday: in the fight at the railroad cut Colonel Stone was severely wounded and Colonel Wister assumed command of the brigade', 'documented', 'supported', ['d_aff']),
+        ('Stone: being wounded he was carried from the field; Wister assumed command', 'documented', 'supported', ['s_own']),
+        ('Stone was carried into the stable area of the McPherson barn for first aid until he could be evacuated (National Park Service, citing participants)', 'inferred', 'supported', ['nps_stone']),
+        ('Stone was captured (Stone Sentinels); the opponent was Daniel; the hour 15:00-16:00', 'open gap', 'unsupported', []),
+    ],
+    cites={
+        'd_down': OR('Stone himself was shot down, battling to the last', R029, '247'),
+        'd_aff': OR('It was in this affair that Colonel Stone was severely wounded, and Colonel Wister assumed command of the brigade', R029, '249'),
+        's_own': OR('Being wounded about this time and carried from the field, I cannot speak so definitely of the remainder of the action', R061, '330'),
+        'nps_stone': L('NPS-HS-MCPHERSON', 'Stone was carried in to the stable area o f the McPherson barn to receive " f i r s t aid " treatment u n t il he could be evacuated', note='the text layer of this study spaces its letters; the quote is the layer as printed'),
+    },
+    scenarios=[
+        sc('A', 'Stone wounded and carried from the field (Official Records)', 'Stone OR27-1-R061 p.330; Doubleday R029 pp.247-249', 'documented', ['d_down', 's_own']),
+        sc('B', 'Stone captured (Stone Sentinels, seed)', 'secondary; not found in a source read', 'open gap', []),
+    ],
+    default=None,
+    remains=['"captured"', 'Daniel as the opponent', 'the hour of the wound'],
+    searched=['OR27-1-R061 (Stone) in full, R029 pp.247-249, R055 read; OR27-1-R062 (Wister): Stone wounded before the 150th\'s stand',
+              LIB182 + ' regex Stone with captured/prisoner: only the National Park Service McPherson study (barn first aid)',
+              LOGNOTE],
+    recheck='OR-RECHECK-2 (supported_partial): wounded supported; "captured" is secondary; Daniel and the hour not in the passage. Applied: Stone\'s own report (carried from the field) and the Park Service barn account are added; the two readings are carried as scenarios without a default.',
+    register=reg('Whether Colonel Stone was captured and the hour of his wound', 'The reports say wounded and carried from the field; the Stone Sentinels reading of captured is a secondary statement not found in any text read.', 'Wounded and carried to the barn for first aid (documented / inferred); captured not asserted', 'documented', competing='wounded (OR) vs captured (secondary)', impact='Stone leaves the line wounded; no capture is drawn', ask='none: both readings stay selectable', rids='R11, R04'),
+    related=[]))
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------ T1-149
+ROWS.append(dict(
+    id='T1-149', verdict='corrected',
+    limits={'start': 'the hour at which Doles formed his line (about 1 p. m., R514 p.581)',
+            'end': 'the hour at which Doles says the brigade occupied the cavalry\'s hill (about 3.30 p. m., R514 p.581) and the attack on the rock fence followed'},
+    claim=claim('Doles\' brigade drives off the Union cavalry picket on its front and left flank with skirmishers and occupies the cavalry\'s hill to its left about 3.30 p. m. (his clock); after the enemy moves against the left, the brigade moves by the left flank and, with Gordon, attacks the enemy on that hill, driving him from behind a rock fence',
+                'Doles\' brigade (4th, 12th, 21st, 44th Georgia), Rodes\' division; Union cavalry picket (Buford\'s division); Gordon\'s brigade',
+                'A hill on the left of Doles\' line, north-east of Gettysburg (Doles does not say east or west of Rock Creek); the rock fence on the hill in the later attack',
+                'Jul 1, about 15:30 (Doles\' clock) and after',
+                'Doles OR27-2-R514 pp.581-582',
+                'Doles: "The enemy\'s cavalry picket appearing in force on our front and left flank, skirmishers from this command were ordered to dislodge him. After a short engagement, he was driven from his position, when we occupied his position (a hill to our left), about 3.30 p. m." The enemy then moved his force from the front, made a strong demonstration on the left and drove the skirmishers from the hill; "The command was then moved by the left flank"; with Gordon\'s brigade joining on the left "we moved forward to attack the enemy in his position. Our effort was successful. He was driven from behind a rock fence, with heavy loss in killed and wounded". '
+                'NOT documented: "east of Rock Creek" (not in the report) and the seed\'s "later attacks a stone barrier" is the rock fence of the same fight.',
+                'documented', '1863-07-01T15:30', '1863-07-01T16:00', marking='hour about 15:30 (Doles\' own clock): documented; the place east of Rock Creek: gap'),
+    subs=[
+        ('The enemy\'s cavalry picket appeared in force on Doles\' front and left flank; skirmishers were ordered to dislodge him; after a short engagement he was driven off and the brigade occupied his position, a hill to its left, about 3.30 p. m.', 'documented', 'supported', ['d_pick', 'd_330']),
+        ('The brigade later attacked the enemy on the hill with Gordon on its left and drove him from behind a rock fence with heavy loss', 'documented', 'supported', ['d_rock']),
+        ('The hill lay east of Rock Creek', 'open gap', 'unsupported', []),
+    ],
+    cites={
+        'd_pick': OR('The enemy\'s cavalry picket appearing in force on our front and left flank, skirmishers from this command were ordered to dislodge him', R514, '581'),
+        'd_330': OR('After a short engagement, he was driven from his position, when we occupied his position (a hill to our left), about 3.30 p. m.', R514, '581'),
+        'd_rock': OR('He was driven from behind a rock fence, with heavy loss in killed and wounded', R514, '581'),
+    },
+    scenarios=[],
+    default=None,
+    remains=['the place of the hill relative to Rock Creek'],
+    searched=['OR27-2-R514 (Doles) read in full; R515, R516, R517 for the same fight', LOGNOTE],
+    recheck='OR-RECHECK-2 (supported_partial): Doles\' hour and the seizure of the hill supported; east of Rock Creek and a stone barrier not in the page text read. Applied: the rock fence is found in the next sentences of the same report; the place relative to Rock Creek is marked unsupported.',
+    register=reg('Position of Doles\' hill relative to Rock Creek, Jul 1', 'Doles calls it only "a hill to our left"; the later names of the hill are National Park Service names.', 'The hill shown to the left of Doles\' line; no east or west of Rock Creek asserted', 'documented', impact='the hill is placed by Doles\' description; the name is not drawn as 1863 usage', ask='none', rids='R13'),
+    related=[]))
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------ T1-150..T1-153 are in rows_c.py

@@ -40,9 +40,10 @@ const stripPoss = s => s.replace(/(?:[’']s|[’'])$/i, '');
 // the capitalised words of a segment as runs: a run is broken by any lower-case word (except of/de/du/la/van/von between two capitalised words), by a number and by punctuation. A source code (W-GC,
 // ABT-Early, CAV-Hanover) is not a name. Each run carries the lower-case words before it (the cues) and what follows it.
 export function runsOf(text) {
-  const t = String(text ?? '').split(FFFD).join(AP), toks = [], re = /(\p{L}[\p{L}’'.-]*)|(\d[\w:.,%-]*)|([,;:()/[\]"“”])/gu; let m;
+  // a source code (W-GC, ABT-Early, CAV-Hanover: capitals, a hyphen, more) is not a name; any other hyphen separates two words (Chambersburg-Gettysburg turnpike)
+  const t = String(text ?? '').split(FFFD).join(AP).replace(/(?<![\p{L}])[A-Z]{1,6}(?:-[A-Za-z0-9]+)+/gu, ' ; '), toks = [], re = /(\p{L}[\p{L}’'.]*)|(\d[\w:.,%]*)|([,;:()/[\]"“”-])/gu; let m;
   while ((m = re.exec(t))) {
-    if (m[1]) { const raw = m[1].replace(/\.+$/, ''); toks.push({ t: 'w', raw, abbr: /\.$/.test(m[1]), cap: /^\p{Lu}/u.test(raw), allcaps: raw.length > 1 && raw === raw.toUpperCase() && /\p{L}/u.test(raw), code: /-/.test(raw) && /^\p{Lu}/u.test(raw) }); }
+    if (m[1]) { const raw = m[1].replace(/\.+$/, ''); toks.push({ t: 'w', raw, abbr: /\.$/.test(m[1]), cap: /^\p{Lu}/u.test(raw), allcaps: raw.length > 1 && raw === raw.toUpperCase() && /\p{L}/u.test(raw), code: false }); }
     else if (m[2]) toks.push({ t: 'n', raw: m[2] }); else toks.push({ t: 'p', raw: m[3] });
   }
   const runs = []; let cur = null; const close = () => { if (cur && cur.words.length) runs.push(cur); cur = null; };

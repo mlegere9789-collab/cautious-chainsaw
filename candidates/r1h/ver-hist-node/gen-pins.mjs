@@ -34,14 +34,14 @@ for (const t of ['between 4 and 5 p. m.', 'between 4 and 5 P. M.', 'between 4 an
 for (const t of ['half past four P. M.', 'half past four', 'half past 4 pm', 'Half Past Four A.M.', 'a quarter before five AM', 'a quarter to five a. m.', 'a quarter past five p. m.', 'A QUARTER AFTER SIX P. M.', 'ten minutes before four p. m.', 'twenty minutes past 9 A. M.',
   'twenty-five minutes before 4 p. m.', 'five minutes to six PM', 'one minute past twelve p. m.', 'fifteen minutes past 7 o\'clock', 'half past four o\'clock', 'half past four and the guns']) hand.push([`We halted at ${t}, and the guns opened.`, null]);
 for (const t of ['at 10 o\'clock', 'at 10 O\'CLOCK', 'at ten o\'clock', 'at five o\'clock in the afternoon', 'at 5 o\'clock in the morning', 'at 3 o\'clock p. m.', 'at 3 o\'clock, p. m.', 'at 3 o\'clock PM', 'at 8 o\'clock at night', 'at 3 oclock', 'at 3 o\'cleck',
-  'at 3 o\'clcck', 'at 3 o\'clack', 'at 3 o’clock', 'at 3 o\' clock', 'at 3 o\'  clock', 'at 10.30 o\'clock', 'at 3 in the afternoon', 'about 8 in the morning', 'at 4 in the evening']) hand.push([`The brigade moved ${t} on the Taneytown road.`, null]);
+  'at 3 o\'clcck', 'at 3 o\'clack', 'at 3 o\u2019clock', 'at 3 o\' clock', 'at 3 o\'  clock', 'at 10.30 o\'clock', 'at 3 in the afternoon', 'about 8 in the morning', 'at 4 in the evening']) hand.push([`The brigade moved ${t} on the Taneytown road.`, null]);
 for (const t of ['noon', 'at midnight', 'at daylight', 'at sunrise', 'near sunset', 'at dusk', 'at nightfall', 'at daybreak', 'at sun-up', 'about mid-day', 'at break of day']) hand.push([`The attack was ordered ${t} and failed.`, null]);
 const ctxs = ['in the afternoon', 'in the morning', 'at night', 'p. m.', 'a. m.', 'evening'];
 for (const c of ctxs) { hand.push(['At 4 o\'clock we advanced.', c]); hand.push(['A quarter before five we advanced.', c]); hand.push(['Between 2 and 4 the enemy left.', c]); }
 // the OCR's own damage and the false clocks the case-sensitive branch exists for
 for (const t of ['as 1 am informed by him, made by Maj. Gen. A. A. Humphreys', '1 am, sir, very respectfully, your obedient servant', 'and 1 am glad to report that no individual cases', 'I am 5 feet tall and 1 pm informed',
-  'June 6, 1863 — 10 a.', 'at 10.15 p. im', 'at 11 a. -m.', 'June 10. 1863—10 a. m.', 'on the 4 Am Brigade', 'The 1 PM unit and the 10 AM report', 'No. 4 AM', '5 pm', '5 PM', '5 Pm', '5 p.m', '5 P.M', '2d Brigade, 3 p. m. to 4 p. m.',
-  '4 p. m.4 p. m.', '4 p. m. 5 a. m. 6 AM 7 am', 'a. m. p. m. 4 5 a m', '', '   ', 'no clock here', '123456 a. m.', '4.30.30 p. m.', '4:3 p. m.', '(4 p. m.)', '"4 p. m."', '4\np. m.', '4\n a. m.', '4 p. m.']) hand.push([t, null]);
+  'June 6, 1863 \u2014 10 a.', 'at 10.15 p. im', 'at 11 a. -m.', 'June 10. 1863\u201410 a. m.', 'on the 4 Am Brigade', 'The 1 PM unit and the 10 AM report', 'No. 4 AM', '5 pm', '5 PM', '5 Pm', '5 p.m', '5 P.M', '2d Brigade, 3 p. m. to 4 p. m.',
+  '4 p. m.4 p. m.', '4 p. m. 5 a. m. 6 AM 7 am', 'a. m. p. m. 4 5 a m', '', '   ', 'no clock here', '123456 a. m.', '4.30.30 p. m.', '4:3 p. m.', '(4 p. m.)', '"4 p. m."', '4\np. m.', '4\n a. m.', '4\u00a0p.\u00a0m.']) hand.push([t, null]);
 
 // ---- real sentences ----------------------------------------------------------------------------------------------------------------------------------------------
 const files = ['cu31924077699761_djvu.txt', 'cu31924077700262_djvu.txt', 'cu31924077728255_djvu.txt'].map((f) => path.join(REPO, 'tmp/library/or27', f));
@@ -53,7 +53,7 @@ for (const f of files) {
   for (const raw of flat.split(/\n\s*\n/)) {
     const para = raw.replace(/\s*\n\s*/g, ' ').trim(); if (!para) continue;
     for (const x of splitSentences(para)) {
-      const s = para.slice(x.s, x.e); if (s.length < 30 || s.length > 190 || /[^\x20-\x7e—’“”]/.test(s)) continue;
+      const s = para.slice(x.s, x.e); if (s.length < 30 || s.length > 190 || /[^\x20-\x7e\u2014\u2019\u201c\u201d]/.test(s)) continue;
       const rows = old.parseClock(s, { ctx: s }); if (!rows.length) continue;
       const key = feature(rows); const n = seen.get(key) || 0;
       if (n >= (rows.length === 1 ? 2 : 1) || real.length >= WANT) continue;
@@ -69,12 +69,14 @@ for (const f of files) {
 }
 
 // ---- the table ---------------------------------------------------------------------------------------------------------------------------------------------------
+// the table is ASCII only: a no-break space or a curly quote in a JS string is invisible or easily mistaken for another character
+const asciiJson = (v) => JSON.stringify(v).replace(/[^\x20-\x7e]/g, (c) => String.fromCharCode(92) + 'u' + c.charCodeAt(0).toString(16).padStart(4, '0'));
 const proj = (r) => { const o = { s: r.s, e: r.e, kind: r.kind, min: r.min, ampm: r.ampm ?? null, tol: r.tol, mod: r.mod }; if (r.cand) o.cand = r.cand; if (r.from !== undefined) { o.from = r.from; o.to = r.to; } if (r.word) o.word = r.word; return o; };
 const lines = []; let readings = 0; const kinds = {};
 const emit = (input, ctx) => {
   const rows = old.parseClock(input, ctx === null ? {} : { ctx }); readings += rows.length; for (const r of rows) kinds[r.kind] = (kinds[r.kind] || 0) + 1;
   for (const r of rows) if (input.slice(r.s, r.e) !== r.text) throw new Error('span/text disagree: ' + JSON.stringify(input));
-  lines.push(`  [${JSON.stringify(input)}, ${ctx === null ? 'null' : ctx === input ? 'true' : JSON.stringify(ctx)}, [${rows.map((r) => JSON.stringify(proj(r))).join(', ')}]],`);
+  lines.push(`  [${asciiJson(input)}, ${ctx === null ? 'null' : ctx === input ? 'true' : asciiJson(ctx)}, [${rows.map((r) => asciiJson(proj(r))).join(', ')}]],`);
 };
 const all = [...hand, ...real]; const dup = new Set();
 for (const [i, c] of all) { const k = JSON.stringify([i, c]); if (dup.has(k)) continue; dup.add(k); emit(i, c); }

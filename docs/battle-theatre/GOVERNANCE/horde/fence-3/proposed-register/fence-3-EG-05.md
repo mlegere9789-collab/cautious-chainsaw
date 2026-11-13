@@ -1,0 +1,21 @@
+# fence-3-EG-05: Cushing's battery: wall and fence at the line, limbers about 08:00, one gun left at 14:45; "four of six guns" unsupported
+
+| Field | Content |
+|---|---|
+| ID | fence-3-EG-05 |
+| Requirement IDs | R14, R13 |
+| Category | evidence partly present / evidence contradicts the PDF |
+| Description | S-058 (GOVERNANCE/evidence_corrections/fence-3.jsonl). The PDF prints Cushing's battery as In line -> Three limbers exploded (morning); four of six guns knocked out; guns run to the wall, morning to about 15:30 on 3 Jul (sources Iron-9699, WHN-Cushing). Re-matched 2026-11-13: a fence and a stone wall stood on the line before the assault (Webb, OR27-1-R104 p.427: the 69th Pennsylvania "behind a fence a little in advance of the ridge" at 6.30 a. m. on 2 Jul with his right on Cushing's battery; Gibbon R098 p.416: the brigade "partially behind a low stone wall" about 4 p. m.); three of Cushing's limbers blew up about 8 o'clock on 3 Jul (Hazard R132 pp.478-479; Hall R109 pp.437-438); by 2.45 p. m. the cannonade had "silenced the Rhode Island battery and all the guns but one of Cushing's battery" (Webb R104 p.428; the battery was six 3-inch rifles, Hunt R028 p.236); when the assault came three of Cushing's guns were run down to the fence (Webb p.428; "to the wall", Bachelder 1904) and Cushing "pushed his gun to the fence in front, and was killed while serving his last canister" (Hall R109 pp.437-438; Hazard R132 p.480 has him "mortally wounded by a musket-shot" on 3 Jul). The line is called a fence, a rail fence and a stone wall by different witnesses (Hall R109 p.439, "the slight cover of the rail fence"; Abbott R111 p.446, "behind a rail fence"; Smith R106 p.432, "protected by a stone wall"; Fitzhugh R330 p.896, "the stone fence in front of General Webb"); no text says whether the rail fence ran on, in front of or beside the wall, or gives its height or rail count. "Four of six guns knocked out" is in no text (Webb: all but one silenced). The earlier register text (EG-0100) read the line as consistent with the rider fence of the 1882 Cyclorama photograph named in the PDF; that identification stays inferred and was not re-checked here. |
+| Why literal 100% is not possible or blocked | No text gives the height, rail count, extent or damage of the wall or of the rail fence or the fence's position relative to the wall; the plan's sources are a reprint of Hazard's report (read directly in the OR) and a magazine page that is not admissible. |
+| Evidence searched | OR27 pts 1-3 (tools/bt/or27_find.py logic), the state volumes (New York, Pennsylvania, Maine, Michigan, Battles and Leaders 3), the 99-text library, the 73 NPS documents under tmp/library/web/nps and the NPS pages at www.nps.gov (re-read 2026-11-13); the OR reports of Webb, Hall, Hazard, Hunt, Gibbon, Abbott, Smith and Fitzhugh and Bachelder 1904. |
+| Autonomous substitute applied | P-01 / FEN-cemetery-ridge-walls present at frame one on 2 Jul with no construction animation and no damage state; a rail fence at the line as an inferred detail; limbers about 08:00, one gun serviceable by 14:45, three guns run to the wall at 15:00-15:30. |
+| Strongest evidence-based reconstruction | Wall and fence before the assault, the limbers, the silencing and the guns run to the wall are documented; the rail fence's placement against the wall is inferred; four of six is unsupported. |
+| Confidence tier | documented (wall and fence existing, limbers, silencing, three guns to the wall); inferred (rail fence against the wall; Cyclorama identification); open gap (four of six) |
+| Competing values | Four of six guns knocked out (PDF) against all but one silenced by 14:45 (Webb); fence / rail fence / stone wall (witness wording) |
+| Product marking | Tier overlay on the rail fence; "four of six" marked unsupported. |
+| Visual and audio impact | The Angle and the Copse, 08:00 to 15:30 on 3 Jul. |
+| Review status | internal review only (DEC-006: no public review label) |
+| Owner decision requested | None. |
+| Agent recommendation | Carry the witness wording; show wall and fence together as the reports do; no damage to the wall. |
+| Status | open (re-checked 2026-11-13; register EG-0100 carries the earlier text) |
+| Owner decision and date | (filled only from the Decision Log) |

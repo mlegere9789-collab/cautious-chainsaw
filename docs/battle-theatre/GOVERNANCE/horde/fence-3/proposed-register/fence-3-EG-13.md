@@ -1,0 +1,21 @@
+# fence-3-EG-13: Leister wall and the cemetery gatehouse: dates of the July 1863 photographs and the wall height
+
+| Field | Content |
+|---|---|
+| ID | fence-3-EG-13 |
+| Requirement IDs | R12, R13, R14 |
+| Category | evidence partly present / tooling or access |
+| Description | S-075 (GOVERNANCE/evidence_corrections/fence-3.jsonl). The PDF prints Leister wall, gatehouse: As after battle -> Photographed, 6 Jul (Gardner) and 7 Jul (gatehouse), sources GD-14708 and GD-Housch (Gettysburg Daily). Re-checked 2026-11-13: the Library of Congress record of the Gardner Leister photograph (LC-DIG-cwpb-00887, item 2018666296) reads only "Created/published: 1863 July."; the record of the War Photograph & Exhibition Co. stereograph "General Meade's Headquarters at Gettysburg" (item 2011660054, read in full at the second request) gives "[1863 July]" (a supplied date), attributes it to Gardner "based on LC-B811-259" and lists "Stone walls" among its subject headings; NPS (Buildings and Farms Then and Now) says Brady photographed the gate house "approximately two weeks after the battle" and that the gatehouse "suffered only moderate damage"; 7 Jul is the date of Tillie Pierce's passage through "the now shattered archway of the lodge" (memoir, 1889), not of a photograph. Readings of the pictures viewed 2026-11-13 (not quotations; derivatives in tmp/photomatch/loc): the Leister view (cwpb.00887) shows white picket fences standing in the yard beside the house, a low rubble stone wall along the road with a broken rail fence and a gate frame in front of it, dead horses on the road and in the field, and trees in leaf; the gatehouse view (cwpb.01640, left half) shows an intact brick arch, broken panes in the right-hand windows and a pile of splintered fence boards and posts left of the gate; a further LOC stereograph catalogued "1863 July" (item 2018672035, cwpb.00658) shows leafless trees and so cannot be a July view. No scale is available, so the height of the Leister wall (24 in by one critic; 48-52 in on the rebuilt wall) cannot be measured here. |
+| Why literal 100% is not possible or blocked | The photographs' own dates are month-only in the Library of Congress records; the days in the plan rest on Gettysburg Daily (www.gettysburgdaily.com refused the connection on 2026-11-13); the master TIFFs and a scale reference are needed to measure the wall. |
+| Evidence searched | OR27 pts 1-3 (tools/bt/or27_find.py logic), the state volumes (New York, Pennsylvania, Maine, Michigan, Battles and Leaders 3), the 99-text library, the 73 NPS documents under tmp/library/web/nps and the NPS pages at www.nps.gov (re-read 2026-11-13); Library of Congress API records 2018666296 and 2011660054 (www.loc.gov, reachable) and the local LOC derivatives viewed with the image reader; Tillie Pierce 1889. |
+| Autonomous substitute applied | P-13 and FEN-leister drawn from the photograph reading (low rubble wall, picket fences standing in the yard at the time of the photograph, a broken rail fence at the gate), dated July 1863; gatehouse with broken panes, splintered fence boards and an intact arch; no profile from the rebuilt wall. |
+| Strongest evidence-based reconstruction | The photographs exist and are dated to July 1863; the readings of what they show are inferred; the days 6 and 7 Jul and the wall height are open. |
+| Confidence tier | documented (photograph dates July 1863; Brady's gatehouse view about two weeks after); inferred (readings of the pictures); open gap (6 Jul, 7 Jul as photograph dates; wall height) |
+| Competing values | Wall height 24 in (critic) against 48-52 in (rebuilt wall, NPS); photograph days 6 Jul / 7 Jul (PDF) against July 1863 / about two weeks after (LOC, NPS) |
+| Product marking | Tier overlay on the wall; photograph dates shown as "July 1863". |
+| Visual and audio impact | Leister yard wall and the cemetery gatehouse. |
+| Review status | internal review only (DEC-006: no public review label) |
+| Owner decision requested | None; a photo-matching pass for the wall height (scale from the house) and the master TIFFs. |
+| Agent recommendation | Hand the wall height and the leafless-tree negative to the photo-matching workstream. |
+| Status | open (re-checked 2026-11-13; register EG-0102 carries the earlier text) |
+| Owner decision and date | (filled only from the Decision Log) |

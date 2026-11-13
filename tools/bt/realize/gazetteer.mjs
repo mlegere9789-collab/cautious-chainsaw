@@ -22,6 +22,16 @@ const R5 = x => Math.round(x * 1e5) / 1e5, LL = ([lng, lat]) => ({ lng: R5(lng),
 export const groundBox = () => { const t = readJSON(TERRAIN); return { lng0: t.lng0, lng1: t.lng1, lat0: t.lat0, lat1: t.lat1 }; };
 export const onGround = (p, box, padM = 0) => p.lng >= box.lng0 + padM / M_LNG && p.lng <= box.lng1 - padM / M_LNG && p.lat >= box.lat0 + padM / M_LAT && p.lat <= box.lat1 - padM / M_LAT;
 
+// how far a place lies outside the loaded ground: the distance from its centre (a line: from its nearest vertex) to the nearest point of the ground, and the east-west and north-south parts of it
+export function outsideGround(p, box) {
+  const pts = p.shape === 'line' && p.lines ? p.lines.flat() : [p.center]; let best = null;
+  for (const q of pts) {
+    const ew = q.lng < box.lng0 ? -(box.lng0 - q.lng) * M_LNG : q.lng > box.lng1 ? (q.lng - box.lng1) * M_LNG : 0, ns = q.lat > box.lat1 ? (q.lat - box.lat1) * M_LAT : q.lat < box.lat0 ? -(box.lat0 - q.lat) * M_LAT : 0, d = Math.hypot(ew, ns);
+    if (!best || d < best.d) best = { d, ew, ns };
+  }
+  const km = x => (Math.round(Math.abs(x) / 100) / 10).toFixed(1), parts = [best.ew ? `${km(best.ew)} km ${best.ew < 0 ? 'west' : 'east'}` : null, best.ns ? `${km(best.ns)} km ${best.ns > 0 ? 'north' : 'south'}` : null].filter(Boolean);
+  return { d_m: Math.round(best.d), east_m: Math.round(best.ew), north_m: Math.round(best.ns), text: best.d ? `${km(best.d)} km from the nearest point of the ground${parts.length === 2 ? ` (${parts.join(' and ')} of its corner)` : parts.length ? ` (${parts[0]} of its edge)` : ''}` : 'on the ground' };
+}
 const lineParts = g => g.type === 'LineString' ? [g.coordinates] : g.type === 'MultiLineString' ? g.coordinates : [];
 const ringsOf = g => g.type === 'Polygon' ? [g.coordinates[0]] : g.type === 'MultiPolygon' ? g.coordinates.map(p => p[0]) : [];
 const ringAreaM2 = ring => { let a = 0; const k = 111320 * Math.cos(39.81 * Math.PI / 180), m = 110574; for (let i = 0; i + 1 < ring.length; i++) a += (ring[i][0] * k) * (ring[i + 1][1] * m) - (ring[i + 1][0] * k) * (ring[i][1] * m); return Math.abs(a) / 2; };

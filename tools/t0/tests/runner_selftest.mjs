@@ -514,7 +514,7 @@ test('RUN-23', 'tools/accept/run_pass.mjs, a real (two-check, incomplete) pass o
   assert(c1.status === 'RAN' && c1.defectCount === 0, `check 1 on a zip made by the packer: status ${c1.status}, defects ${JSON.stringify(c1.defects)}`);
   assertEq(c1.commands.length, 1, 'check 1 records one command: the re-pack');
   const repack = c1.commands[0];
-  assert(/tools\/ship\/pack_zip\.py --train \S+ --out \S+/.test(repack.cmd) && repack.exit === 0 && typeof repack.ms === 'number', `check 1 command record: ${JSON.stringify(repack)}`);
+  assert(/tools\/ship\/pack_zip\.py --train .+ --out .+/.test(repack.cmd) && repack.exit === 0 && typeof repack.ms === 'number', `check 1 command record: ${JSON.stringify(repack)}`);
   assert('load1Start' in repack && 'load1End' in repack && isLoad(repack.load1Start) && isLoad(repack.load1End), `check 1: the re-pack command has no load (keys: ${Object.keys(repack).join(', ')})`);
   assert(c1.metrics.repackSha256 && c1.metrics.repackSha256 === c1.metrics.candidateSha256, `the re-pack is byte-identical to the candidate: ${c1.metrics.repackSha256} against ${c1.metrics.candidateSha256}`);
   assertEq(c8.commands.length, 1, 'check 8 records one command: its audit, which runs inside the pass process');

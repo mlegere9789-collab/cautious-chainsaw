@@ -1,0 +1,14 @@
+{
+  "name": "gtbg-rebuild",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Workspace of the source rebuild (libraries in lib/*, the site and map app in app, configuration in config). See STACK.md.",
+  "workspaces": ["lib/*", "app"],
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "scripts": {
+    "test": "node --test"
+  }
+}

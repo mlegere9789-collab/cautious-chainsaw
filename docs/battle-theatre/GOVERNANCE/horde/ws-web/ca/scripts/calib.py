@@ -3,7 +3,7 @@
 
 Everything here is read-only against public Library of Congress hosts:
   * search:  https://www.loc.gov/collections/chronicling-america/?q=...&fo=json   (JSON search of the page-level OCR index)
-  * text:    https://tile.loc.gov/text-services/word-coordinates-service?segment=...&format=alto_xml&full_text=1
+  * text:    https://tile.loc.gov/storage-services/service/ndnp/<batch path>/<page>.xml   (the ALTO OCR file of the page)
   * images:  https://tile.loc.gov/image-services/iiif/...   (page derivatives; crops of a quoted passage)
 The old host chroniclingamerica.loc.gov answers 308 and points to www.loc.gov; it is not used any more.
 
@@ -202,33 +202,46 @@ def result_meta(r):
 
 # ---------------------------------------------------------------- page text
 
+ALTO_BASE = 'https://tile.loc.gov/storage-services'
+
+
 def page_paths(page_id):
     base = os.path.join(PAGES_DIR, *page_id.split('/'))
-    return base + '.txt', base + '.json'
+    return base + '.txt', base + '.alto.xml.gz'
 
 
 def fetch_page(meta, force=False):
-    """Fetch the OCR text of one page through the text service; save json + txt; append manifest line.
-    meta: result_meta() dict (needs segment). Returns manifest dict or None on failure."""
-    txt, js = page_paths(meta['page_id'])
-    if os.path.exists(txt) and not force:
-        return load_manifest().get(meta['page_id'])
+    """Fetch the ALTO OCR file of one page (tile.loc.gov storage service), keep it gzipped, rebuild the column-ordered
+    reading text (rebuild_cols.py), save it, append a manifest line. meta: needs page_id, lccn, date, edition, seq, segment.
+    Returns the manifest dict, or None when the service has no such page (404) or fails."""
+    import gzip, shutil
+    sys.path.insert(0, HERE)
+    import rebuild_cols
+    txt, gz = page_paths(meta['page_id'])
+    man = load_manifest().get(meta['page_id'])
+    if man and man.get('rules') == rebuild_cols.VERSION and os.path.exists(txt) and not force:
+        return man
     seg = meta['segment']
-    url = TEXT_SVC + '?' + urllib.parse.urlencode({'segment': seg, 'format': 'alto_xml', 'full_text': '1'}, safe='/')
-    rec = http_get(url, js, timeout=120, note='page text')
+    url = ALTO_BASE + seg
+    raw = txt + '.alto.tmp'
+    rec = http_get(url, raw, timeout=120, note='page ALTO')
     if rec.get('status') != 200:
         return None
-    d = json.load(open(js, encoding='utf-8'))
-    if not d:
-        return None
-    ent = next(iter(d.values()))
-    text = ent.get('full_text') or ''
+    alto_sha = sha256_file(raw)
+    alto_bytes = os.path.getsize(raw)
+    os.makedirs(os.path.dirname(gz), exist_ok=True)
+    with open(raw, 'rb') as fi, open(gz, 'wb') as fz, gzip.GzipFile(filename='', mode='wb', fileobj=fz, compresslevel=9, mtime=0) as fo:
+        shutil.copyfileobj(fi, fo)
+    text, words, info = rebuild_cols.rebuild(raw)
+    os.remove(raw)
     with open(txt, 'w', encoding='utf-8') as f:
         f.write(text)
-    m = {'page_id': meta['page_id'], 'lccn': meta['lccn'], 'paper': meta['paper'], 'city': meta['city'], 'state': meta['state'],
+    m = {'page_id': meta['page_id'], 'lccn': meta['lccn'], 'paper': meta.get('paper'), 'city': meta.get('city'), 'state': meta.get('state'),
          'date': meta['date'], 'edition': meta['edition'], 'seq': meta['seq'], 'segment': seg,
-         'resource_url': meta['resource_url'], 'text_url': url, 'local_path': rel(txt), 'json_path': rel(js),
-         'chars': len(text), 'text_sha256': sha256_file(txt), 'json_sha256': sha256_file(js), 'fetched_at': now()}
+         'resource_url': 'https://www.loc.gov/resource/%s/%s/ed-%s/?sp=%d&st=text' % (meta['lccn'], meta['date'], meta['edition'], meta['seq']),
+         'text_url': url, 'alto_url': url, 'alto_sha256': alto_sha, 'alto_bytes': alto_bytes, 'alto_gz_path': rel(gz),
+         'local_path': rel(txt), 'chars': len(text), 'text_sha256': sha256_file(txt), 'columns': info['columns'],
+         'rules': info['rules'], 'fetched_at': now()}
     append_jsonl(PAGES_MANIFEST, m)
     return m
 

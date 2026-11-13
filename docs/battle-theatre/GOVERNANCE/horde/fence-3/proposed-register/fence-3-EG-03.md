@@ -1,0 +1,21 @@
+# fence-3-EG-03: Culp's Hill final action: wall attacked at dawn, last charge 10:25, end hour in conflict, identification with the Pardee Field wall inferred
+
+| Field | Content |
+|---|---|
+| ID | fence-3-EG-03 |
+| Requirement IDs | R14, R07, R21 |
+| Category | source conflict / evidence partly present |
+| Description | S-056 (GOVERNANCE/evidence_corrections/fence-3.jsonl). The PDF prints Culp's Hill final action as Battle ended about 11:00; Pardee Field wall attacked, about 10:00-11:00 on 3 Jul, trigger Geary's counterattack, source Wikipedia (not admissible). Re-matched 2026-11-13: (1) a stone wall ran parallel to and behind the Twelfth Corps works and was held by Confederates on the night of 2-3 Jul (Williams, OR27-1-R272 p.773, "A thick stone fence parallel to the ridge"; Geary R293 p.828). (2) It was attacked at dawn, not at 10:00-11:00: Candy (R294 p.836) has a battery open on the enemy at 3.45 a.m. [3 Jul] and the 147th Pennsylvania then ordered forward to "a stone fence in front of the enemy"; Maulsby (R283 p.806) has the 1st Maryland, Potomac Home Brigade, attack "about 4 a. m." a position "behind a stone wall" and come within reach of it ("the stone wall nearly reached, and bayonets were fixed for a charge over it"); Geary (R293 p.828) has the 147th ordered at 5 a. m. "to charge and carry the stone wall occupied by the enemy", the enemy then abandoning the entire line of the wall. (3) The last Confederate charge came at 10.25 (Geary R293 p.830: "This was the last charge"; Steuart, OR27-2-R482 p.511, skirmishers deployed "at about 10 a. m."). (4) The end of the fighting is given as 10.30 (Slocum R271 p.761; Greene R307 p.857), about 10 (Muhlenberg R314 p.870; Ruger R273 p.781), about 11 (McDougall R274 p.783; Hayes R298 p.843; Patrick R295 p.839), and for the 1st Maryland's own firing "about 12 m." (Maulsby R283 p.806: the noon alternative of conflict C-031). (5) That the wall of these reports is the wall at the edge of Pardee Field (P-08) is an inference: no OR text uses the name Pardee Field, and the NPS 1940 report quotes the Comte de Paris for a stone wall on the small plateau south of Culp's Hill without that name. |
+| Why literal 100% is not possible or blocked | No OR text uses the name Pardee Field or gives the wall's length, height or exact place; the reports name the wall behind the works without a map reference. Only the owner decides the default among the end hours of C-031. |
+| Evidence searched | OR27 pts 1-3 (tools/bt/or27_find.py logic), the state volumes (New York, Pennsylvania, Maine, Michigan, Battles and Leaders 3), the 99-text library, the 73 NPS documents under tmp/library/web/nps and the NPS pages at www.nps.gov (re-read 2026-11-13); NPS texts searched for "Pardee Field wall" (no hit). |
+| Autonomous substitute applied | P-08 present at frame one (no construction animation, no profile from the rebuilt wall); the wall attack at about 04:00-05:00 by the 1st Maryland PHB and the 147th Pennsylvania, then the last charge at 10:25-10:30; the end hour stays a selectable scenario. |
+| Strongest evidence-based reconstruction | Existence of the wall, its dawn attack, the 10.25 last charge and an end between 10.30 and about 11 are documented; the identification with P-08 is inferred; noon is documented for one regiment only. |
+| Confidence tier | documented (wall, dawn attack, last charge, end 10:30 to about 11:00); inferred (identification with P-08); documented for one regiment (noon) |
+| Competing values | End of the fighting 10.30 / about 10 / about 11 / about 12 m. (C-031, no default); wall attack at 10:00-11:00 (PDF) against 04:00-05:00 (reports) |
+| Product marking | Tier overlay on P-08; selector for the end hour. |
+| Visual and audio impact | Culp's Hill, morning of 3 Jul. |
+| Review status | internal review only (DEC-006: no public review label) |
+| Owner decision requested | None needed; C-031 stays selectable with no default chosen here. |
+| Agent recommendation | Split the row into the dawn attack on the wall and the last charge as the evidence file states; carry C-031. |
+| Status | open (re-checked 2026-11-13; register EG-0101 carries the earlier text) |
+| Owner decision and date | (filled only from the Decision Log) |

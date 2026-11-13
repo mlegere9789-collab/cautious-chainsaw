@@ -22,7 +22,7 @@ The script refuses a quote that is not found in the saved page text, and reports
 """
 import difflib, glob, importlib.util, json, os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import calib
+import calib, rebuild_cols
 
 GOV = os.path.abspath(os.path.join(calib.CA_DOCS, '..', '..', '..'))
 OUT_T = os.path.join(GOV, 'timeline_corrections', 'web-newspapers.jsonl')
@@ -59,6 +59,17 @@ def paper_display(lccn):
             if mm:
                 _titles.setdefault(m['lccn'], mm.group(1))
     return _titles.get(lccn)
+
+
+_WORDS = {}
+
+
+def page_words(page_id):
+    if page_id not in _WORDS:
+        man = calib.load_manifest()[page_id]
+        text, words, info = rebuild_cols.rebuild(os.path.join(calib.ROOT, man['alto_gz_path']))
+        _WORDS[page_id] = (text, words, info)
+    return _WORDS[page_id]
 
 
 def locate(page_id, quote):
@@ -100,6 +111,7 @@ def citation(c, man):
     ctx_before = t[max(0, off - 400):off] if c.get('with_context', True) else None
     rep = c.get('reprint') or {'status': 'unknown', 'from': None, 'basis': 'not stated on the page text read'}
     ocr = c.get('ocr_check') or {'method': 'none', 'result': 'OCR text of the page only; the print was not viewed', 'corrections': []}
+    qc = rebuild_cols.quote_confidence(page_words(pid)[1], calib.norm(c['quote']))
     cit = {
         'source_id': 'CA-%s-%s-ed%d-seq%d' % (m['lccn'], m['date'], m['edition'], m['seq']),
         'source_class': 'contemporary newspaper page (1863), digitised by the Library of Congress (Chronicling America); text is the OCR layer of the page',
@@ -112,12 +124,16 @@ def citation(c, man):
         'image_seq': m['seq'],
         'printed_page': c.get('printed_page'),
         'url': m['resource_url'],
-        'text_url': m['text_url'],
         'retrieved': RETRIEVED,
         'local_path': m['local_path'],
         'text_sha256': m['text_sha256'],
         'page_chars': m['chars'],
-        'text_variant': 'whitespace collapsed' + ('' if variant == 'plain' else ', line-end hyphens joined'),
+        'text_variant': 'column-ordered reading text rebuilt from the page ALTO file (%s: lines in column order, stray rule marks removed, nothing corrected); whitespace collapsed' % rebuild_cols.VERSION + ('' if variant == 'plain' else ', line-end hyphens joined'),
+        'alto_url': m['alto_url'],
+        'alto_sha256': m['alto_sha256'],
+        'ocr_note': 'text layer made by the Library of Congress OCR run on the page image (Tesseract; word confidence in the ALTO file)',
+        'ocr_wc_mean': qc[0] if qc else None,
+        'ocr_wc_min': qc[1] if qc else None,
         'quote': calib.norm(c['quote']),
         'quote_offset': off,
         'dateline': c.get('dateline'),

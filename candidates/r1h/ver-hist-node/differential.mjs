@@ -10,7 +10,8 @@
 //   corpus      the three OCR texts of Official Records vol. 27 in tmp/library/or27: every line and every 3-line window as the scan prints them, and every paragraph and every sentence (splitSentences) of the
 //               text with its spaces collapsed and its lines joined (the shape of a passage of the corpus), each with and without ctx
 //   claims      the 5,572 clock expressions of the committed corpus claims (historian-src/corpus/or27/time_claims.json), alone and with four contexts
-//   exhaustive  the 12 frames below followed by EVERY string of up to 5 characters over the 11-character alphabet a A p P m M . , space newline x (the case, stop and space variants of the meridiem)
+//   exhaustive  the 14 frames below (a clock, a range, a spelled hour, an o'clock, in digits and words) each followed by EVERY string of up to 5 characters over the 11-character alphabet a A p P m M . , space newline x
+//               (every case, stop and space variant of the meridiem and what follows it)
 //   fuzz        random sequences of 2 to 22 tokens (clock words, meridiem spellings, numbers, punctuation, case-folding traps such as the long s, the dotless i and the Kelvin sign), each with and without ctx
 //   grammar     random well-formed expressions of every kind the file reads (clock, range, spelled, o'clock) with the meridiem, the o'clock word and the number words in random case, stops and spaces and OCR variants
 //                of "clock", set in random surroundings, each with and without ctx
@@ -66,14 +67,14 @@ const ALPHA = ['a', 'A', 'p', 'P', 'm', 'M', '.', ',', ' ', '\n', 'x'];
 function* exhaustiveInputs() {
   const tails = [''];
   let layer = [''];
-  for (let len = 1; len <= 5; len++) { const next = []; for (const w of layer) for (const c of ALPHA) next.push(w + c); tails.push(...next); layer = next; }
+  for (let len = 1; len <= 5; len++) { const next = []; for (const w of layer) for (const c of ALPHA) next.push(w + c); for (const w of next) tails.push(w); layer = next; }
   for (const f of FRAMES) for (const w of tails) yield f + w;
 }
-const TOKENS = ['1', '2', '3', '4', '5', '9', '10', '11', '12', '13', '0', '30', '15', '45', ':', '.', ',', ';', '-', '—', '/', '(', ')', ' ', ' ', ' ', '  ', '\n', '\t', ' ',
+const TOKENS = ['1', '2', '3', '4', '5', '9', '10', '11', '12', '13', '0', '30', '15', '45', ':', '.', ',', ';', '-', '\u2014', '/', '(', ')', ' ', ' ', ' ', '  ', '\n', '\t', '\u00a0',
   'a. m.', 'p. m.', 'a.m.', 'p.m.', 'A. M.', 'P. M.', 'A.M.', 'P.M.', 'a. m', 'p. m', 'a . m', 'a, m', 'a.m', 'AM', 'PM', 'A M', 'P M', 'am', 'pm', 'Am', 'Pm', 'aM', 'pM', 'a m', 'p m', 'a', 'p', 'm', 'M', 'm.', 'M.', 'A', 'P', 'I',
-  "o'clock", 'oclock', 'o’clock', "o' clock", 'O\'CLOCK', "o'cleck", "o'clcck", "o'clack", "o'  clock", 'between', 'Between', 'from', 'FROM', 'and', 'AND', 'to', 'TO', 'half past', 'Half Past', 'a quarter before', 'A QUARTER TO', 'a quarter past', 'ten minutes before', 'Five minutes past', 'twenty-five minutes after',
+  "o'clock", 'oclock', 'o\u2019clock', "o' clock", 'O\'CLOCK', "o'cleck", "o'clcck", "o'clack", "o'  clock", 'between', 'Between', 'from', 'FROM', 'and', 'AND', 'to', 'TO', 'half past', 'Half Past', 'a quarter before', 'A QUARTER TO', 'a quarter past', 'ten minutes before', 'Five minutes past', 'twenty-five minutes after',
   'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'Twelve', 'ELEVEN', 'fifteen', 'twenty', 'minute', 'minutes', 'quarter', 'noon', 'midnight', 'sunset', 'daylight', 'at', 'about', 'the', 'morning', 'afternoon', 'evening', 'at night', 'in the', 'July', '2d', '3d', 'Brigade', 'informed', 'glad', 'sir',
-  'ſ', 'ı', 'İ', 'K', 'ß', 'ａ', '１', 'k', 'K', 's', 'S', 'i', 'I'];
+  '\u017f', '\u0131', '\u0130', '\u212a', '\u00df', '\uff41', '\uff11', 'k', 'K', 's', 'S', 'i', 'I'];
 function* fuzzInputs() {
   const rnd = mulberry32(SEED);
   for (let i = 0; i < FUZZ; i++) { const n = 2 + Math.floor(rnd() * 21); let s = ''; for (let k = 0; k < n; k++) { s += TOKENS[Math.floor(rnd() * TOKENS.length)]; if (rnd() < 0.55) s += ' '; } yield s; }
@@ -90,8 +91,8 @@ function* grammarInputs() {
   const num = () => (rnd() < 0.05 ? pick(rnd, ['0', '13', '24', '99']) : String(1 + Math.floor(rnd() * 12)));
   const hm = () => num() + (rnd() < 0.5 ? pick(rnd, [':', '.', ' . ', ' : ', ' ', '. ']) + String(Math.floor(rnd() * 60)).padStart(2, '0') : '');
   const mer = () => mixCase(rnd, pick(rnd, ['a', 'p']), 0.5) + pick(rnd, ['', ' ', '.', '. ', ' .', ',', ', ', ' . ', '.  ', '-', '..']) + mixCase(rnd, 'm', 0.5) + pick(rnd, ['', '', '.', ',', ' ', 'x', 'a', '-', '..']);
-  const ocl = () => mixCase(rnd, 'o' + pick(rnd, ['', "'", '’', ' ', "' ", '-', '  ', "'  ", '.']) + 'cl' + pick(rnd, ['o', 'e', 'c', 'a', 'i']) + 'ck', P);
-  const sp = () => pick(rnd, [' ', ' ', ' ', '  ', '\n', '', '\t', ' ']);
+  const ocl = () => mixCase(rnd, 'o' + pick(rnd, ['', "'", '\u2019', ' ', "' ", '-', '  ', "'  ", '.']) + 'cl' + pick(rnd, ['o', 'e', 'c', 'a', 'i']) + 'ck', P);
+  const sp = () => pick(rnd, [' ', ' ', ' ', '  ', '\n', '', '\t', '\u00a0']);
   const word = (w) => mixCase(rnd, w, P);
   const meropt = () => (rnd() < 0.7 ? sp() + mer() : rnd() < 0.5 ? sp() + ocl() : '');
   const expr = () => {

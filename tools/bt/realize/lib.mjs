@@ -9,7 +9,9 @@ export const BT = path.join(ROOT, 'docs/battle-theatre');
 export const APP = path.join(BT, 'app');
 export const GOV = path.join(BT, 'GOVERNANCE');
 export const REAL = path.join(GOV, 'realizations');
-export const rel = p => path.relative(ROOT, p).split(path.sep).join('/');
+// a path relative to the repository root. In a scratch copy of the tree (tree.mjs) the product's own loaders still name files of the REAL tree: BT_REALIZE_REAL_ROOT says where that is, so that the same file has the same name in both
+const ALT = process.env.BT_REALIZE_REAL_ROOT ? path.resolve(process.env.BT_REALIZE_REAL_ROOT) : null;
+export const rel = p => { const q = path.resolve(p), inRoot = q === ROOT || q.startsWith(ROOT + path.sep), base = !inRoot && ALT && (q === ALT || q.startsWith(ALT + path.sep)) ? ALT : ROOT; return path.relative(base, q).split(path.sep).join('/'); };
 
 // Every file the harness reads goes through readText (or is noted with noteRead): the digest of the inputs of a run (check.mjs, query.mjs inputsDigest) hashes exactly the files read, so a change to any
 // of them changes the digest, whichever record asked for it. The shell's own loaders read through the fetch shim of query.mjs, which notes its reads too.

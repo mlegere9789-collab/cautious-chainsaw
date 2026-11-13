@@ -1,18 +1,26 @@
 #!/usr/bin/env python3
-"""Fetch the OCR text of pages found by saved searches, and/or enumerate whole issues.
+"""Fetch the OCR (ALTO) of pages found by saved searches, and/or enumerate whole issues of a title.
 
 Usage:
-  python3 -I fetch_found.py found [--paper REGEX] [--date-from D] [--date-to D] [--limit N]
-      fetch every page that a saved search returned (optionally filtered) and is not yet saved
-  python3 -I fetch_found.py issue LCCN DATE [ED]
-      enumerate the issue: find one saved page of it (or of the day before / after on the same reel), derive the
-      segment paths by the file numbering of the batch (pages of an issue are consecutive numbers), fetch
-      until the service answers with an error for the next number.
+  python3 -I fetch_found.py found [--paper REGEX] [--date-from D] [--date-to D] [--limit N] [--refetch]
+      fetch every page that a saved search returned (optionally filtered) and is not yet saved with the current rebuild rules
+  python3 -I fetch_found.py issues LCCN FROM TO [--scan N]
+      enumerate every issue of the title from FROM to TO (dates inclusive). The pages of an issue have consecutive
+      file numbers inside the batch (the service answers 404 for a number that is not in the issue's folder), so the
+      first page of an issue is looked for from the end of the previous issue (or from a page known from a search),
+      and pages are fetched until the next number answers 404. A date on which no issue is found within --scan numbers
+      is recorded as 'no issue found' (that is not a statement that none was printed).
 One request per second (calib.MIN_GAP); every request is in acquire_log.jsonl; pages are listed in pages.jsonl.
 """
-import json, os, re, sys, datetime
+import datetime, json, os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import calib
+import calib, rebuild_cols
+
+SEG_RX = re.compile(r'^(?P<pre>.*/data/(?P<lccn>sn\d+)/(?P<reel>[^/]+))/(?P<dir>\d{8})(?P<ed>\d\d)/(?P<num>\d+)\.xml$')
+
+
+def seg_for(pre, date, ed, num):
+    return '%s/%s%02d/%04d.xml' % (pre, date.replace('-', ''), ed, num)
 
 
 def cmd_found(args):
@@ -22,107 +30,112 @@ def cmd_found(args):
     limit = int(args[args.index('--limit') + 1]) if '--limit' in args else 10 ** 9
     res = calib.all_search_results()
     man = calib.load_manifest()
-    todo = [m for pid, m in sorted(res.items(), key=lambda kv: (kv[1]['date'], kv[1]['paper'], kv[1]['seq']))
-            if pid not in man and d0 <= m['date'] <= d1 and (not paper_rx or paper_rx.search(m['paper']))]
+    todo = []
+    for pid, m in sorted(res.items(), key=lambda kv: (kv[1]['date'], kv[1]['paper'], kv[1]['seq'])):
+        cur = man.get(pid)
+        if cur and cur.get('rules') == rebuild_cols.VERSION:
+            continue
+        if not (d0 <= m['date'] <= d1):
+            continue
+        if paper_rx and not paper_rx.search(m['paper']):
+            continue
+        todo.append(m)
     print('%d pages to fetch' % len(todo), flush=True)
     n = 0
     for m in todo[:limit]:
         r = calib.fetch_page(m)
         n += 1
-        print('%d/%d %s %s' % (n, min(len(todo), limit), m['page_id'], 'ok %d chars' % r['chars'] if r else 'FAILED'), flush=True)
+        print('%d/%d %s %s' % (n, min(len(todo), limit), m['page_id'], 'ok %d chars %d cols' % (r['chars'], r['columns']) if r else 'FAILED/404'), flush=True)
 
 
-SEG_RX = re.compile(r'^(?P<pre>.*/data/(?P<lccn>sn\d+)/(?P<reel>[^/]+))/(?P<dir>\d{8})(?P<ed>\d\d)/(?P<num>\d+)\.xml$')
+def probe(pre, date, ed, num):
+    """True if the batch has page `num` in the folder of this issue (a quick 404 otherwise)."""
+    seg = seg_for(pre, date, ed, num)
+    meta = {'page_id': '%s/%s/ed-%d/seq-%d' % (calib_lccn(pre), date, ed, 0), 'segment': seg}
+    url = calib.ALTO_BASE + seg
+    rec = calib.http_get(url, os.path.join(calib.TMP, 'probe_issue.xml'), timeout=60, note='issue probe')
+    if os.path.exists(os.path.join(calib.TMP, 'probe_issue.xml')):
+        os.remove(os.path.join(calib.TMP, 'probe_issue.xml'))
+    return rec.get('status') == 200
 
 
-def seg_for(pre, date, ed, num):
-    return '%s/%s%02d/%04d.xml' % (pre, date.replace('-', ''), ed, num)
+def calib_lccn(pre):
+    return re.search(r'/data/(sn\d+)/', pre).group(1)
 
 
-def cmd_issue(args):
-    lccn, date = args[0], args[1]
-    ed = int(args[2]) if len(args) > 2 else 1
-    man = calib.load_manifest()
-    # find a template: any known page of this title (same reel preferred) -> reel prefix and numbering
-    known = [m for m in man.values() if m['lccn'] == lccn]
-    res = [m for m in calib.all_search_results().values() if m['lccn'] == lccn and m['segment']]
-    cands = [(abs((datetime.date.fromisoformat(m['date']) - datetime.date.fromisoformat(date)).days), m) for m in (known + res) if m.get('segment')]
-    if not cands:
-        print('no template page known for', lccn, '- run a search that returns one page of this title first')
-        return
-    cands.sort(key=lambda x: x[0])
-    tm = cands[0][1]
-    mt = SEG_RX.match(tm['segment'])
-    pre = mt.group('pre')
-    # numbering: first page of the target issue = unknown; scan from the template page number outward by trial.
-    num_t = int(mt.group('num'))
-    dt = datetime.date.fromisoformat(tm['date'])
-    dd = (datetime.date.fromisoformat(date) - dt).days
-    print('template', tm['page_id'], tm['segment'], 'day offset', dd)
-    # candidate start numbers: for the same day: template minus (seq-1); for other days: by walking.
-    if dd == 0 and ed == tm['edition']:
-        start = num_t - (tm['seq'] - 1)
-        scan_from = start
-    else:
-        # walk from template number forward/back until the folder date matches (needs fetches); try a window
-        step = 1 if dd > 0 else -1
-        scan_from = num_t + step * 1
-    # find first page of the issue by probing (a probe of a number that is not in the issue's folder answers 500)
-    seq = 0
-    n = scan_from
-    found_any = False
-    misses = 0
-    # try to locate first existing page within +/-80 numbers
-    order = [scan_from + k for k in range(0, 81)] if dd >= 0 else [scan_from - k for k in range(0, 81)]
-    first = None
-    for cand in order:
-        meta = {'page_id': '%s/%s/ed-%d/seq-%d' % (lccn, date, ed, 0), 'segment': seg_for(pre, date, ed, cand)}
-        # probe via text service directly (no save) to avoid wrong seq labelling
-        url = calib.TEXT_SVC + '?' + calib.urllib.parse.urlencode({'segment': meta['segment'], 'format': 'alto_xml', 'full_text': '1'}, safe='/')
-        probe = os.path.join(calib.TMP, 'probe_issue.json')
-        rec = calib.http_get(url, probe, timeout=90, note='issue probe %s %s' % (lccn, date))
-        if rec.get('status') == 200:
-            first = cand
-            break
-        misses += 1
-        if rec.get('blocked'):
-            print('blocked'); return
-    if first is None:
-        print('no page of the issue found near the template; give up', lccn, date)
-        return
-    # the first existing candidate may not be page 1: walk backwards until the service answers an error
-    back = first
-    while True:
-        meta = {'segment': seg_for(pre, date, ed, back - 1)}
-        url = calib.TEXT_SVC + '?' + calib.urllib.parse.urlencode({'segment': meta['segment'], 'format': 'alto_xml', 'full_text': '1'}, safe='/')
-        rec = calib.http_get(url, os.path.join(calib.TMP, 'probe_issue.json'), timeout=90, note='issue back-probe')
-        if rec.get('status') == 200:
-            back -= 1
-        else:
-            break
-    first = back
+def fetch_issue_from(pre, lccn, date, ed, first, template):
     seq = 1
     num = first
+    last = None
     while True:
         meta = {'lccn': lccn, 'date': date, 'edition': ed, 'seq': seq, 'page_id': '%s/%s/ed-%d/seq-%d' % (lccn, date, ed, seq),
-                'segment': seg_for(pre, date, ed, num), 'paper': tm['paper'], 'city': tm.get('city'), 'state': tm.get('state'),
-                'resource_url': 'https://www.loc.gov/resource/%s/%s/ed-%d/?sp=%d&st=text' % (lccn, date, ed, seq)}
+                'segment': seg_for(pre, date, ed, num), 'paper': template.get('paper'), 'city': template.get('city'), 'state': template.get('state')}
         r = calib.fetch_page(meta)
         if not r:
             break
-        print(meta['page_id'], 'ok', r['chars'], 'chars', flush=True)
+        print('  ', meta['page_id'], 'ok', r['chars'], 'chars', r['columns'], 'cols', flush=True)
+        last = num
         seq += 1
         num += 1
         if seq > 40:
             break
-    print('issue %s %s: %d pages' % (lccn, date, seq - 1))
+    return seq - 1, last
+
+
+def cmd_issues(args):
+    lccn, d_from, d_to = args[0], args[1], args[2]
+    scan = int(args[args.index('--scan') + 1]) if '--scan' in args else 40
+    res = [m for m in calib.all_search_results().values() if m['lccn'] == lccn and m.get('segment')]
+    man = {k: v for k, v in calib.load_manifest().items() if v['lccn'] == lccn}
+    pool = [dict(v, segment=v['segment']) for v in man.values()] + res
+    if not pool:
+        print('no template page known for', lccn)
+        return
+    d = datetime.date.fromisoformat(d_from)
+    end = datetime.date.fromisoformat(d_to)
+    prev_last = None
+    prev_pre = None
+    while d <= end:
+        ds = d.isoformat()
+        # template: nearest known page
+        pool.sort(key=lambda m: abs((datetime.date.fromisoformat(m['date']) - d).days))
+        t = pool[0]
+        mt = SEG_RX.match(t['segment'])
+        pre = mt.group('pre')
+        ed = 1
+        first = None
+        if t['date'] == ds and t['edition'] == ed:
+            cand0 = int(mt.group('num')) - (t['seq'] - 1)
+            if probe(pre, ds, ed, cand0):
+                first = cand0
+        if first is None:
+            base = (prev_last + 1) if (prev_last is not None and prev_pre == pre) else int(mt.group('num'))
+            lo = max(0, base - (2 if prev_last is not None else 12))
+            for cand in range(lo, base + scan):
+                if probe(pre, ds, ed, cand):
+                    first = cand
+                    break
+        if first is None:
+            print('%s %s: no issue found within the scan window' % (lccn, ds), flush=True)
+            d += datetime.timedelta(days=1)
+            continue
+        # make sure no earlier page of the same issue exists (walk back)
+        while first > 0 and probe(pre, ds, ed, first - 1):
+            first -= 1
+        print('%s %s: first page file %04d' % (lccn, ds, first), flush=True)
+        n, last = fetch_issue_from(pre, lccn, ds, ed, first, t)
+        print('%s %s: %d pages' % (lccn, ds, n), flush=True)
+        prev_last, prev_pre = last, pre
+        # new pool entries
+        pool = [dict(v) for v in calib.load_manifest().values() if v['lccn'] == lccn] + pool
+        d += datetime.timedelta(days=1)
 
 
 if __name__ == '__main__':
     a = sys.argv[1:]
     if a and a[0] == 'found':
         cmd_found(a[1:])
-    elif a and a[0] == 'issue':
-        cmd_issue(a[1:])
+    elif a and a[0] == 'issues':
+        cmd_issues(a[1:])
     else:
         print(__doc__)

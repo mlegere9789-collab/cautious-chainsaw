@@ -29,6 +29,14 @@ export function registerCoverage() {
   return by;
 }
 
+// the two halves of the gate for one row: the visual realization (a scene; a card alone is a different CLASS) and the open register entry. q17_covered: realized (a card counts) or an open entry; q17_covered_strict: a row
+// realized by a card alone, or only partially, counts only with an open entry as well (GATE-SPEC TL-4, TL-11, DD-G08)
+export function coverageOf(entry, regOpen) {
+  entry.realization_class = entry.realized ? (CARD_KINDS.has(entry.kind) ? 'card' : 'scene') : null; entry.register_open = regOpen;
+  entry.q17_covered = !!entry.realized || regOpen.length > 0; entry.q17_covered_strict = (entry.realization_class === 'scene' && !entry.partial) || regOpen.length > 0;
+  entry.coverage = entry.realized ? (entry.realization_class === 'card' ? 'card' : 'realization') : regOpen.length ? 'open_register_entry' : 'none';
+  return entry;
+}
 export function epilogueRows(TL) {   // the 14 epilogue rows (epilogue_seed.jsonl) as timeline rows, so that records of kind epilogue are checked the same way
   const p = path.join(GOV, 'epilogue_seed.jsonl'); if (!exists(p)) return [];
   const rows = [];
@@ -83,8 +91,8 @@ export async function runAll({ shards = null, files = null, rows = null, quiet =
     const res = results.get(r.id), rg = reg.get(r.id) || { open: [], all: [] };
     const entry = res ? { realized: !!res.realized, kind: res.kind, why: res.why, codes: res.codes, record: res.source, window: res.window || null, scenarios: res.scenarios, ...(res.excluded_scenarios && res.excluded_scenarios.length ? { excluded_scenarios: res.excluded_scenarios } : {}), declared_bindings: res.bindings ? res.bindings.declared : 0, problems: res.problems.map(p => p.code + ': ' + p.detail).slice(0, 6), failing: (res.assertions || []).filter(a => !a.ok).map(a => ({ i: a.i, type: a.type, code: a.code, detail: a.detail })).slice(0, 8), assertions: (res.assertions || []).map(a => ({ i: a.i, scenario: a.scenario, type: a.type, ok: a.ok, ...(a.ok ? {} : { code: a.code }), evidence: trimEv(a.ok ? a.evidence : null) })), ...(res.partial ? { partial: true, not_shown: res.partial } : {}), ...(res.stale_result ? { stale_result: res.stale_result } : {}), ...(res.missing ? { missing: res.missing } : {}), ...(res.from_examples ? { from_examples: true } : {}), }
       : { realized: false, kind: null, why: 'no realization record', codes: ['no_record'], record: null, window: null };
-    entry.realization_class = entry.realized ? (CARD_KINDS.has(entry.kind) ? 'card' : 'scene') : null; if (res && res.spec_view) entry.spec_view = res.spec_view;
-    entry.in_clock = !!(r.window && r.window.in_clock); entry.tier = r.tier; entry.status = r.status_effective; entry.shard = r.shard || null; entry.register_open = rg.open; entry.q17_covered = !!entry.realized || rg.open.length > 0; entry.q17_covered_strict = (entry.realization_class === 'scene' && !entry.partial) || rg.open.length > 0; entry.coverage = entry.realized ? (entry.realization_class === 'card' ? 'card' : 'realization') : rg.open.length ? 'open_register_entry' : 'none';
+    if (res && res.spec_view) entry.spec_view = res.spec_view;
+    entry.in_clock = !!(r.window && r.window.in_clock); entry.tier = r.tier; entry.status = r.status_effective; entry.shard = r.shard || null; coverageOf(entry, rg.open);
     out[r.id] = entry;
   }
   return { R, TL, EP, P, results, examples, problems, fileList, out, reg };

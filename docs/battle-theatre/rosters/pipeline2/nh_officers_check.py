@@ -1,4 +1,4 @@
-"""Check that the Register of commissioned officers of the Ayling volume (vol. 2, printed pp. 1225-1249) names no man who is not in the roll of the unit.
+"""Check that the Register of commissioned officers of the Ayling volume (vol. 2, printed pp. 1225-1248) names no man who is not in the roll of the unit.
 
     python3 -I nh_officers_check.py        (reads the pinned text of NH-AYLING-1895.2 and the four unit files; writes
                                             GOVERNANCE/horde/ws-rosters/union-nh/officers-register-check.json)

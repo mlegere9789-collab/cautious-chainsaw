@@ -26,10 +26,10 @@ USED_FOR = {'NH-AYLING-1895.1': UNITS[:2], 'NH-AYLING-1895.2': UNITS[2:],
             'NH-AGR-1865.1': [], 'NH-AGR-1865.2': [], 'NH-AGR-1865.1866-1': [], 'NH-AGR-1865.1866-2': []}
 STATUS = {'NH-AYLING-1895.1': 'used: the register of the 2nd and 5th New Hampshire Infantry is parsed from this text',
           'NH-AYLING-1895.2': 'used: the register of the 12th New Hampshire Infantry and of the 1st New Hampshire Light Battery is parsed from this text',
-          'NH-AGR-1865.1': 'inspected, not usable: the regimental roster pages (2nd and 5th Regiment) are tables printed sideways and the OCR text layer of them is unreadable',
-          'NH-AGR-1865.2': 'inspected, not usable: the roster pages (12th Regiment, First Light Battery) are tables printed sideways and the OCR text layer is unreadable',
-          'NH-AGR-1865.1866-1': 'inspected, not usable: the roster pages (2nd, 5th and 12th Regiment) are tables printed sideways and the OCR text layer is unreadable',
-          'NH-AGR-1865.1866-2': 'inspected, not usable: the roster pages are tables printed sideways and the OCR text layer is unreadable; the other pages are narrative history'}
+          'NH-AGR-1865.1': 'inspected, not usable: the roster leaves read upside down in the text layer (tables printed sideways); no roster line could be read (GOVERNANCE/horde/ws-rosters/union-nh/agr-probe.json)',
+          'NH-AGR-1865.2': 'inspected, not usable: the roster leaves read upside down in the text layer (tables printed sideways); no roster line could be read (GOVERNANCE/horde/ws-rosters/union-nh/agr-probe.json)',
+          'NH-AGR-1865.1866-1': 'inspected, not usable: the roster leaves read upside down in the text layer (tables printed sideways); no roster line could be read (GOVERNANCE/horde/ws-rosters/union-nh/agr-probe.json)',
+          'NH-AGR-1865.1866-2': 'inspected, not used: mostly readable regimental histories (Vol. II of the 1866 report); no roster of the four units was located in it and the volume was not read through'}
 
 
 def sha256_file(p):

@@ -13,6 +13,7 @@ ROWS.append(R(
         S('a', 'guns', "Guns at the evening of 1 Jul on East Cemetery Hill north of the pike: Stewart (B/4th US) four light 12-pdr across the road, Wiedrich (I/1st NY) four 3-inch, Cooper (B/1st Pa.) four 3-inch, Reynolds (L/1st NY) five 3-inch = thirteen 3-inch; Stevens' 5th Maine six 12-pdr on a knoll about 50 yd in front. Osborn counts Wiedrich at six 3-inch.", 'documented', 'conflict', [
             C('OR1', 'R028', "Stewart's battery (B, Fourth United States, four light 12-pounders) across the road, so as to command the approaches from town"),
             C('OR1', 'R028', "in all thirteen 3-inch guns"),
+            C('OR1', 'R028', "Stevens' battery (Fifth Maine, six 12-pounders) was posted to the right and some 50 yards in front of this line, on a knoll"),
             C('OR1', 'R071', "Four guns of Battery B, Fourth U. S. Artillery, across the road so as to command the approaches from the town (two guns of this battery had been disabled by loss of pointing rings)"),
             C('OR1', 'R264', "Battery I, First New York Artillery, commanded by Capt. M. AViedrich, six 3-inch")],
           note="Wiedrich four (Hunt, Wainwright) vs six (Osborn, at the start of the day): the difference is not explained in the OR."),
@@ -45,11 +46,14 @@ ROWS.append(R(
             C('OR1', 'R265', "About 8 p. m. the enemy charged on the battery with a brigade of infantry"),
             C('OR1', 'R264', "Between 7 and 8 o'clock in the evening, a rebel brigade charged from the town upon the hill and upon Captain Wiedrich's battery")],
           note="Delegated default C-020: window 19:30-20:00 around about 20:00."),
-        S('h', 'damage', "Hand-to-hand fighting: the cannoneers fought with handspikes, rammers, pistols, fence rails and stones; Ricketts' left piece was spiked; Wiedrich's guns were entered by the infantry; all guns retaken.", 'documented', 'supported', [
-            C('OR1', 'R328', "The cannoneers fought them hand to hand with handspikes, rammers, and pistols"),
+        S('h', 'damage', "Hand-to-hand fighting: the infantry pushed completely through Wiedrich's battery into Ricketts' and got into the battery's intrenchments (Hunt, Wainwright, Wiedrich); the cannoneers fought with handspikes, rammers, pistols, fence rails and stones; the enemy captured and spiked Ricketts' left piece and part of the Second Corps charged in and drove them back (Ricketts).", 'documented', 'supported', [
+            C('OR1', 'R028', "pushed completely through Wiedrich's battery (I, First New York, six 3-inch) into Ricketts' (F and G, First Pennsylvania, six 3-inch)"),
             C('OR1', 'R028', "fought with handspikes, rammers, and even stones"),
             C('OR1', 'R071', "The cannoneers of both these batteries stood well to their guns, driving the enemy off with fence-rails and stones and capturing a few prisoners"),
-            C('OR1', 'R265', "got into the intrenchments of my battery")]),
+            C('OR1', 'R265', "got into the intrenchments of my battery"),
+            C('OR1', 'R328', "succeeded in capturing and spiking my left piece"),
+            C('OR1', 'R328', "The cannoneers fought them hand to hand with handspikes, rammers, and pistols"),
+            C('OR1', 'R328', "a part of the Second Army Corps charged in and drove them back")]),
         S('i', 'other', "Slope limited gun depression so the guns used canister: documented in Bachelder (1889) and the New York book of 1900 as the guns on East Cemetery Hill not being depressible enough; not in the OR.", 'inferred', 'partial', [
             C('LIB', 'BACH-WHATTOSEE-1889', "But the guns on East Cemetery Hill could not be sufficiently depressed to be very effective"),
             C('LIB', 'NY-GB-1900', "or inability to depress the guns sufficiently, the assaulting column suffered but little from this fire")],
@@ -86,16 +90,19 @@ ROWS.append(R(
     'R13.G-04', 'partially_supported', 'open_gaps',
     pdf_row="Latimer's battalion, about 20 guns in five batteries (Chesapeake, Alleghany, 1st Md, Lee, Rockbridge loaned from Dance) | Benner's Hill | About 16:00 Jul 2 | No works described | Outgunned by 37 Union guns from Culp's Hill to East Cemetery Hill; by dusk only four guns remained | documented | ECW-Benner; Wiki-ECH",
     pdf_claim="Latimer's battalion of about 20 guns in five batteries (Chesapeake, Alleghany, 1st Maryland, Lee, Rockbridge loaned from Dance) opened about 16:00 on 2 Jul from Benner's Hill; no works described; outgunned by 37 Union guns from Culp's Hill to East Cemetery Hill; by dusk only four guns remained.",
-    corrected="Johnson's report names Andrews' battalion (Major J. W. Latimer commanding) as Raine's, Dement's, Brown's and Carpenter's batteries; Graham's battery (1st Virginia Artillery, Rockbridge) 'aided'. Andrews' own report counts fourteen guns of the battalion on the hill plus two 20-pounder Parrotts placed on an eminence in rear 'with Captain Graham's battery'; the New York book of 1900 counts twenty guns in all (14 + six 20-pounder Parrotts of Graham's and Raine's batteries), which is the PDF's 'about 20'. The hill is the 'only eligible' one, a little left of Cemetery Hill and in front of the wooded mountain (Culp's Hill), exposed to concentrated fire from both and an enfilade from a battery near the Baltimore road; Andrews found great difficulty sheltering horses and caissons; no works are named. Opening: 4 p.m. (Johnson, Brown, Pendleton, Andrews), about 5 p.m. (Ewell); the Union side puts the Confederate battery in action about 3:30 (Hunt) or about 4 p.m. (Wainwright) and counts ten guns. The fight lasted about two hours (Johnson, Cooper 2.5 h, Wainwright 1.5 h, Ewell one hour). Latimer withdrew all but four guns (Johnson, Andrews) = one battery (Brown, Ewell) and was mortally wounded with them. The name 'Benner's Hill' is not in the OR; Bachelder (1873, 1889), Maine at Gettysburg and New York at Gettysburg use it. The 37-gun Union figure is in no source read. Union witnesses: four limbers or caissons exploded; two guns drawn off by hand; 28 dead horses on the knoll.",
+    corrected="Johnson's report names Andrews' battalion (Major J. W. Latimer commanding) as Raine's, Dement's, Brown's and Carpenter's batteries; Graham's battery (1st Virginia Artillery, Rockbridge) 'aided'. Andrews' own report counts fourteen guns of the battalion on the hill plus two 20-pounder Parrotts placed on an eminence in rear 'with Captain Graham's battery'; the New York book of 1900 counts twenty guns in all (14 + six 20-pounder Parrotts of Graham's and Raine's batteries), which is the PDF's 'about 20'. The hill is the 'only eligible' one, a little left of Cemetery Hill and in front of the wooded mountain (Culp's Hill), exposed to concentrated fire from both and an enfilade from a battery near the Baltimore road; Andrews found great difficulty sheltering horses and caissons; no works are named. Opening: 4 p.m. (Johnson, Brown, Pendleton, Andrews), about 5 p.m. (Ewell); the Union side puts the Confederate battery in action about 3:30 (Hunt) or about 4 p.m. (Wainwright) and counts ten guns. The fight lasted about two hours (Johnson, Cooper 2.5 h, Wainwright 1.5 h, Ewell one hour). Latimer withdrew all but four guns (Johnson, Andrews) = one battery (Brown, Ewell) and received the wound of which he died while with that battery (Ewell, Brown, Andrews). The name 'Benner's Hill' is not in the OR; Bachelder (1873, 1889), Maine at Gettysburg and New York at Gettysburg use it. The 37-gun Union figure is in no source read. Union witnesses: four limbers or caissons exploded; two guns drawn off by hand; 28 dead horses on the knoll.",
     sub=[
-        S('a', 'unit', "Battalion: Andrews' battalion (Major J. W. Latimer commanding) = Raine's, Dement's, Brown's and Carpenter's batteries; Graham's (Rockbridge, 1st Virginia Artillery) aided; the PDF's five batteries Chesapeake (Brown), Alleghany (Carpenter), 1st Md (Dement), Lee (Raine), Rockbridge (Graham) are all named.", 'documented', 'supported', [
+        S('a', 'unit', "Battalion: Andrews' battalion (Major J. W. Latimer commanding) = Raine's, Dement's, Brown's and Carpenter's batteries; Graham's (First Virginia Artillery) aided. The OR's organization table gives the PDF's battery names: Chesapeake (Maryland) Artillery (Capt. W. D. Brown), Alleghany (Virginia) Artillery (Capt. J. C. Carpenter), 1st Maryland Battery (Capt. W. F. Dement), Lee (Virginia) Battery (Capt. C. I. Raine) and Rockbridge (Virginia) Artillery (Capt. A. Graham).", 'documented', 'supported', [
             C('OR2', 'R481', "Andrews' battalion of artillery. Major [J. W.J Latimer commanding, consisting of Raine's, Dement's, Brown's, and Carpenter's batteries"),
             C('OR2', 'R468', "aided by [A.] Graham's battery (First Virginia Artillery)"),
-            C('OR2', 'R467', "Andrews' battalion and [Archibald] Graham's battery, the whole under Major [J. W.] Latmier", note="OCR 'Latmier' for Latimer")],
-          note="'Rockbridge loaned from Dance' is not in the OR: Brown calls Graham's battery part of the First Virginia Artillery (Dance's command); the battery name 'Rockbridge' does not occur in the passages read."),
+            C('OR2', 'R467', "Andrews' battalion and [Archibald] Graham's battery, the whole under Major [J. W.] Latmier", note="OCR 'Latmier' for Latimer"),
+            C('OR2', 'R424', "1st Maryland Battery. Capt. William F. Dement. Alleghany (Virginia) Artillery, Capt. J. C. Carpenter. Chesapeake (Maiyland) Artillery, Capt. William D. Brown. Lee (Virginia) Battery : Capt. C. I. Kiiine.", note="OCR 'Maiyland' for Maryland and 'Kiiine' for Raine; the same list names 'Capt. C. I. Raine' at the head of the Latimer entry (the printed page is read from the running head)"),
+            C('OR2', 'R424', "Rockbridge (Virginia) Artillery. Capt. A. Graham")],
+          note="'Rockbridge loaned from Dance' is not in the OR: Brown calls Graham's battery part of the First Virginia Artillery (Dance's command) and the organization table lists the Rockbridge Artillery under Graham."),
         S('b', 'count', "Guns: 14 of Andrews' battalion on the hill plus two 20-pounder Parrotts in rear = 16 (Andrews); twenty in all with Graham's battery (New York 1900: 14 + six 20-pdr Parrotts of Graham's and Raine's); the Union estimate is ten guns (Hunt, Wainwright).", 'documented', 'conflict', [
             C('OR2', 'R505', "Fourteen guns of the battalion were then planted on this hill above mentioned."),
             C('OR2', 'R505', "The two remaining guns (20-pounder Parrotts)"),
+            C('OR2', 'R505', "Captain Brown's battery occupied the right. Captain Carpenter's occupied the center, while Captain Dement and Captain Kains, the latter with one section of his battery, took the left", note="OCR 'Kains' for Raine"),
             C('LIB', 'NY-GB-1900', "Latimer had posted fourteen guns on Benner’s Hill, together with six twenty-pounder Parrotts, of Graham’s and Raines’ batteries, twenty guns in all."),
             C('OR1', 'R028', "At about 3.30 p. m. the enemy established a battery of ten. guns (four 20-pounders and six 10-pounder Parrotts) in a wheat-field", note="Union estimate; OCR 'ten. guns'"),
             C('OR1', 'R071', "planted a battery of four 20-pounders and six 10-pounder Parrotts in a wheat-field on our immediate front, at about 1,300 yards"),
@@ -105,18 +112,27 @@ ROWS.append(R(
             C('OR2', 'R481', "and a little to the left of the Cemetery Hill; consequently exposed to the concentrated fire from both, and also to an enfilade fire from a battery near the Baltimore road"),
             C('OR2', 'R505', "The ground offered very few advantages, and the major found great difficulty in sheltering his horses and caissons."),
             C('LIB', 'BACH-WHATTOSEE-1889', "Benner's Hill was occupied by Confederate artillery.")]),
-        S('d', 'hour', "Opening: 4 p.m. (Johnson, Brown, Pendleton); about 5 p.m. (Ewell); the Union side puts it at about 3:30 (Hunt) or about 4 (Wainwright).", 'documented', 'conflict', [
+        S('d', 'hour', "Opening: 4 p.m. (Johnson, Brown, Pendleton, Andrews); about 5 p.m. (Ewell); the Union side puts it at about 3:30 (Hunt) or about 4 (Wainwright, Cooper).", 'documented', 'conflict', [
             C('OR2', 'R481', "desultory firing was maintained with their skirmishers until 4 p. m., at which hour I ordered Major Latimer to open fire with all of his pieces from the only eligible hill within range"),
             C('OR2', 'R428', "About 4 p. m. the guns of the Second Corps, in position on that front, generally opened with a well-directed and effective fire"),
+            C('OR2', 'R468', "On the 2d, about 4 o'clock, a heavy fire was opened upon the enemy's line from Andrews' battalion"),
             C('OR2', 'R505', "About -1 o'clock. Major Latimer received orders from yourself, as also from General Johnson, to take position and open on the enemy", note="OCR '-1' for '4': the two other scans read 'About 4 o'clock'"),
             C('OR2', 'R467', "about 5 p. m."),
-            C('OR1', 'R028', "At about 3.30 p. m. the enemy established a battery of ten. guns (four 20-pounders and six 10-pounder Parrotts) in a wheat-field", note="Union clock")]),
-        S('e', 'hour', "Duration: about two hours (Johnson); Ewell one hour; the Union batteries needed an hour or more (Hunt), an hour and a half (Wainwright).", 'documented', 'supported', [
-            C('OR2', 'R481', "The unequal contest was maintained for two hours with considerable damage to the enemy")]),
-        S('f', 'damage', "Outcome: Latimer withdrew most guns and left four (one battery) on the hill, where he was mortally wounded; Union side: four limbers or caissons blown up, two guns drawn off by hand, 28 dead horses on the knoll.", 'documented', 'supported', [
+            C('OR1', 'R028', "At about 3.30 p. m. the enemy established a battery of ten. guns (four 20-pounders and six 10-pounder Parrotts) in a wheat-field", note="Union clock"),
+            C('OR1', 'R071', "until about 4 p. m., when they planted a battery of four 20-pounders and six 10-pounder Parrotts in a wheat-field", note="Union clock"),
+            C('OR1', 'R075', "until 4 p. m., when the enemy brought a number of 10 and 20 pounder Parrott guns into position", note="Union clock")]),
+        S('e', 'hour', "Duration: about two hours (Johnson); one hour (Ewell); the Union batteries needed an hour or more (Hunt), an hour and a half (Wainwright), about two and a half hours (Cooper).", 'documented', 'conflict', [
+            C('OR2', 'R481', "The unequal contest was maintained for two hours with considerable damage to the enemy"),
+            C('OR2', 'R467', "After an hour's firing"),
+            C('OR1', 'R028', "at the end of an hour or more compelled them to withdraw"),
+            C('OR1', 'R071', "It was an hour and a half, however, before we were able to compel them to withdraw"),
+            C('OR1', 'R075', "the enemy's guns were silenced in about two and a half hours' firing")]),
+        S('f', 'damage', "Outcome: Latimer withdrew most guns and left four (one battery) on the hill, where he received the wound of which he died; Union side: four limbers or caissons blown up, two guns drawn off by hand, 28 dead horses on the knoll.", 'documented', 'supported', [
             C('OR2', 'R481', "withdraw all of his pieces excepting four, which were left in position to cover the advance of my infantry"),
             C('OR2', 'R505', "Most of the guns were then withdrawn, leaving four guns on the hill to repel any advance of the enemy's infantry."),
             C('OR2', 'R468', "after a most gallant fight, Major Latimer was forced to withdraw three of his batteries, leaving one to repel any advance of their infantry"),
+            C('OR2', 'R467', "While with this battery, this gallant young officer received, from almost the last shell fired, the wound which has since resulted in his death"),
+            C('OR2', 'R505', "it was here that the accomplished and gallant Latimer was severely wounded in the arm, of which wound he has since died"),
             C('OR1', 'R028', "compelled them to withdraw, drawing off two of their pieces by hand"),
             C('OR1', 'R071', "Twenty-eight dead horses were found on the knoll occupied by this battery"),
             C('LIB', 'ME-GB-1898', "in less than half an hour four of their limbers or caissons exploded and their batteries were dlenced", note="OCR 'dlenced'")]),
@@ -133,7 +149,7 @@ ROWS.append(R(
     register=['terrain-1-EG-04'],
     blocked=[B('ECW-Benner / Wiki-ECH', None, "Emerging Civil War 'Benner's Hill' and Wikipedia 'Battle of East Cemetery Hill': the PDF prints no URL for these keys; emergingcivilwar.com is not on the reachable list. Read the ECW page only for the PDF's 37-gun figure and the per-battery counts.")],
     consequence=["structures G-04: no works (open ground) stays; gun count selector 16 (Andrews) / 20 (New York 1900, PDF) with the five batteries named and ten as the Union estimate; place named 'Benner's Hill' with its source (Bachelder, Maine and New York books), not an OR name",
-                 "structures G-04: opening window 15:30-17:00 on 2 Jul with the clocks selectable; four guns (one battery) stay on the hill after the withdrawal; Latimer mortally wounded there",
+                 "structures G-04: opening window 15:30-17:00 on 2 Jul with the clocks selectable; four guns (one battery) stay on the hill after the withdrawal; Latimer wounded there (he died of the wound)",
                  "kit CS.ART.Chesapeake / 1st_Md / Alleghany / Lee / Rockbridge: guns per battery stay 'gap'; the 37 Union guns of the PDF row stay unsupported and must be marked; Union battery on the knoll opposite (G-04 counter) loses four limbers/caissons"],
     lookups=[L('OR Parts 1-3', 'thirty-seven guns|37 guns', 0, "no hit"),
              L('library', 'Benner', 20, "place name in Bachelder 1873/1889, Maine 1898, New York 1900; Latimer's battalion '14 + 6 = 20 guns' in New York 1900")],

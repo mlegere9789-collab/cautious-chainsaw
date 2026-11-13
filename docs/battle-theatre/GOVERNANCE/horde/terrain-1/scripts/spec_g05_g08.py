@@ -18,7 +18,7 @@ ROWS.append(R(
         S('b', 'hour', "Arrival: the battery rejoined the corps and division at 9 o'clock a.m. (Smith, 1888) after leaving Emmitsburg; Randolph led it to Devil's Den about 1 p.m.", 'documented', 'supported', [
             C('LIB', 'NY-GB-1902-v3', "rejoining the corps and division at 9 o'clock, a. m."),
             C('LIB', 'NY-GB-1902-v3', "About i o'clock, p. m., Capt. G. E. Randolph, chief of Third Corps Artillery, piloted the battery to")],
-          note="The OR report has no arrival hour; the 9 a.m. is Smith's 1888 recollection (participant, retrospective)."),
+          note="The OR report has no arrival hour; the 9 a.m. is Smith's 1888 recollection (participant, retrospective). The text layer reads 'About i o'clock, p. m.': read as 1 o'clock (one scan; the same address puts the duel at about 2 p.m.)."),
         S('c', 'hour', "Action clocks: duel began about 2 p.m. (Smith 1888) or about 2:30 p.m. (Smith report); the battery was on the ground from 2 to 6 p.m.; four guns used against the infantry attack from about 3:30.", 'documented', 'conflict', [
             C('OR1', 'R184', "About 2.30 p. m. the enemy opened fire on my right and front from several guns, directing a portion of their fire upon my position. I was ordered by one of General Ward's aides' to return their fire"),
             C('LIB', 'NY-GB-1902-v3', "This artillery battle began about 2 p. m."),
@@ -39,27 +39,33 @@ ROWS.append(R(
             C('LIB', 'NY-GB-1902-v3', "The remaining two guns were stationed in rear about seventy-five yards, where they could be used to advantage, covering the Plum Run Gorge passage"),
             C('LIB', 'NY-GB-1902-v3', "their battle flag drops three different times from the effect of our canister")],
           note="'Canister' for the rear section is Smith's 1888 address (NY at Gettysburg vol. 3 p.1291), not the report; Benning does not say canister. The PDF says the target was 'Benning's brigade': Benning's report is the Confederate witness."),
-        S('g', 'movement', "'One section shifted right about 18:00': not supported; Smith kept the four guns on the crest and the two in the rear until the infantry gave way, then ran the rear guns through the woods to Winslow's right.", 'documented', 'unsupported', [
+        S('g', 'movement', "'One section shifted right about 18:00': not supported; in Smith's 1888 address the four guns stay on the crest and the two in the rear fire on the gorge until the infantry fall back, then the two guns are run through the woods to take position on the right of Winslow's battery as it limbers up and retires; the battery was on the ground from 2 until 6 o'clock.", 'documented', 'unsupported', [
+            C('LIB', 'NY-GB-1902-v3', "The two guns are ran through the woods, and, seeing Winslow's Battery in position, I take position on his right just as he limbers up and retires", note="OCR 'ran' for 'run'"),
             C('LIB', 'NY-GB-1902-v3', "The battery was on the ground from 2 until 6 o'clock, p. m.")],
           note="Nothing in the OR, the 1888 address, the 1900 book or the NPS texts read has a section moving right at about 18:00."),
         S('h', 'damage', "Losses: 2 killed, 10 wounded, 11 horses killed and disabled; three 10-pounder Parrotts left on the hill (one of the four had been sent to the rear disabled) and lost; 240 rounds fired.", 'documented', 'supported', [
             C('OR1', 'R184', "I regret to report the loss of 2 brave men, viz, Corpl. John A. Thompson and Private Isaiah Smith, and the wounding of 10 privates, many severely"),
+            C('OR1', 'R184', "Eleven horses were killed"),
             C('OR1', 'R184', "When I left three guns on the hill (one having been sent to the rear disabled)"),
+            C('OR1', 'R184', "Three 10-pounder Parrott guns and gun-carriages (supposed to have been taken from the field by the Twelfth Corps) were lost"),
+            C('OR1', 'R184', "Total amount of ammunition expended, 240 rounds"),
             C('OR1', 'R028', "He got off one of the four guns he had placed on the height, but was compelled to abandon the other three")]),
-        S('i', 'other', "Capture: three 10-pounder Parrotts were taken and brought off the field the same night; who captured them is a conflict: Benning ('only the three front guns'), Waddell for the 20th Georgia, Robertson and Work for the 1st Texas (six guns, three brought off), Henry's battalion journal ('captured and brought off the field this night three 10-pounder Parrott rifles'); Pendleton lists three 10-pdr Parrotts among the guns taken.", 'documented', 'conflict', [
+        S('i', 'other', "Capture: three 10-pounder Parrotts were taken and brought off the field the same night; who captured them is a conflict: Smith himself supposed in 1863 that the Twelfth Corps had taken them from the field and wrote in 1888 that the enemy took them off after dark; Benning ('only the three front guns'), Waddell for the 20th Georgia, Robertson and Work for the 1st Texas (six guns, three brought off), Henry's battalion journal ('captured and brought off the field this night three 10-pounder Parrott rifles'); Pendleton lists three 10-pdr Parrotts among the guns taken.", 'documented', 'conflict', [
             C('OR2', 'R458', "so that we captured only the three front guns. These were 10- pounder Parrotts."),
             C('OR2', 'R462', "three 10-pounder Parrott guns captured. They were brought off that night, and the next day turned against the enemy in that terrible artillery fight"),
             C('OR2', 'R452', "held the field and the batteries taken by the First Texas"),
             C('OR2', 'R452', "Three of the guns were brought off the field and secured"),
             C('OR2', 'R454', "I sent three pieces of the artillery captured to the rear"),
             C('OR2', 'R463', "Captured and brought off the field this night three 10-pounder Parrott rifles."),
-            C('OR2', 'R428', "We wrested from him, on the battle-field at Gettysburg, three 10- pounder Parrotts, one 3-inch rifle, and three Napoleons, all ready for use against himself.")],
+            C('OR2', 'R428', "We wrested from him, on the battle-field at Gettysburg, three 10- pounder Parrotts, one 3-inch rifle, and three Napoleons, all ready for use against himself."),
+            C('OR1', 'R184', "Three 10-pounder Parrott guns and gun-carriages (supposed to have been taken from the field by the Twelfth Corps) were lost", note="Smith's own supposition in 1863"),
+            C('LIB', 'NY-GB-1902-v3', "Before the crest was abandoned one of the four guns, having been disabled, was withdrawn; this left but three, and these were taken off by the enemy after dark", note="Smith's 1888 address")],
           note="The PDF's 'captured by the 1st Texas and later given to Henry's battalion' joins two documented statements (Robertson/Work for the capture, Henry for the possession); no source says the guns were 'given'."),
     ],
     stays_unsupported=["One section shifted right about 18:00 (no source)",
                        "Whether the first Union shot of the 4th NY was ordered by Warren, Hunt or Ward's aide at the minute it came",
                        "The rear section's distance behind the crest (75 vs 150 yd)"],
-    conflicts=["Who captured the guns: Benning's brigade / 20th Georgia / 1st Texas / Henry's battalion",
+    conflicts=["Who captured the guns: Benning's brigade / 20th Georgia / 1st Texas / Henry's battalion (Smith's 1863 report supposed the Twelfth Corps had taken them from the field; his 1888 address says the enemy took them off after dark)",
                "Rear section 75 yd (1888 address) vs 150 yd (report, 1900 book)",
                "Duel start 14:00 (address) vs 14:30 (report)"],
     register=['terrain-1-EG-05'],
@@ -84,7 +90,8 @@ ROWS.append(R(
         S('a', 'guns', "Unit and guns: Battery D, 5th US (Lt Charles E. Hazlett), six 10-pounder Parrotts; Guthrie's section of Gibbs' battery (L/1st Ohio, light 12-pdr) on the same hill on the right of Hazlett.", 'documented', 'supported', [
             C('OR1', 'R028', "Hazlett's (D, Fifth United States, six 10-pounders)"),
             C('OR1', 'R028', "Guthrie's section of Gibbs' battery was posted on the same hill on the right of Hazlett")]),
-        S('b', 'hour', "March: moved to the left about 4:30 p.m. (Hunt, Martin); the battery entered the field between 4 and 5 p.m.", 'documented', 'supported', [
+        S('b', 'hour', "March: moved to the left about 4:30 p.m. (Hunt, Martin); Garrard's brigade was moved rapidly forward from about 4 p.m.", 'documented', 'supported', [
+            C('OR1', 'R217', "the brigade with the division remained idle, lying by their arms until about 4 p. m. At this time the brigade was moved rapidly forward"),
             C('OR1', 'R028', "About 4.30 p. m. Hazlett's battery was moved to the extreme left"),
             C('OR1', 'R221', "On the 2d instant, about 4.30 p. m., Battery D, Fifth U. S. Artillery, was moved to the left of the First Division about three-quarters of a mile")]),
         S('c', 'hour', "First fire: 'immediately upon taking up the position' and a continuous fire until dark; Hazlett was shot after the battery had been engaged only about an hour and died at 8 p.m. The PDF's 17:45 first fire is in no source and would put Hazlett's wound after 18:45.", 'documented', 'contradicted', [
@@ -94,7 +101,7 @@ ROWS.append(R(
             C('OR1', 'R221', "He was carried to the rear, and died at 8 p. m.")],
           note="OCR 'conunanded' for 'commanded'. Delegated decision DD-FENCE1-07 already has first fire on arrival about 16:30."),
         S('d', 'place', "Place: the summit of Little Round Top: the battery ascended behind the 140th NY and went into battery on the summit; Rittenhouse commanded 'on the top of Round Top' on 3 Jul.", 'documented', 'supported', [
-            C('OR1', 'R217', "Hazlett's battery ascended the ridge immediately in rear of this regiment"),
+            C('OR1', 'R217', "Hazlett's battery ascended the ridge immediately in rear of this regiment (the One hundred and fortieth New York Volunteers, Col. P. H. O'Rorke commanding), and went into battery on the summit"),
             C('OR1', 'R028', "on the top of Round Top")]),
         S('e', 'movement', "Hand-hauling vs teams: dragged by hand by the 155th Pa.; lifted by hand and handspike; horses lashed to their utmost with the infantry at the wheels; passage 'marvelous' (NPS, an eyewitness). All are 1889-1914 or later accounts; the OR report says only that the battery ascended and went into battery.", 'documented', 'conflict', [
             C('LIB', 'PA-GB-1914-v2', "dragged the guns of Hazletts regular battery by hand"),
@@ -107,9 +114,10 @@ ROWS.append(R(
             C('OR1', 'R217', "At night this ridge, naturally strong, was strengthened by building a stone wall about half way down the slope"),
             C('NPS', 'NPS-CLI-LRT', "Defensive stone walls are built along the summit of Little Round Top and at Vincent Spur"),
             C('NPS', 'NPS-CLI-LRT', "In 1882-1887, the GBMA restacks the defensive stone walls at the Little Round Top summit")]),
-        S('g', 'damage', "Loss: Hazlett fatally wounded near the battery as Weed fell (Garrard), died at 8 p.m.; the battery lost 1 officer and 6 men killed, 6 wounded.", 'documented', 'supported', [
-            C('OR1', 'R217', "A few moments after General Weed, the brigade commander, had placed his command in position on this ridge, he was mortally wounded on the summit, near the battery"),
-            C('OR1', 'R221', "He was carried to the rear, and died at 8 p. m.")]),
+        S('g', 'damage', "Loss: Hazlett fell mortally wounded while offering his assistance to General Weed on the summit (Garrard); shot in the head, he was carried to the rear and died at 8 p.m. (Rittenhouse in Martin's report); the battery lost 1 officer and 6 men killed and 6 men wounded (Martin).", 'documented', 'supported', [
+            C('OR1', 'R217', "Lieutenant Hazlett, commanding the battery, while offering his assistance to General Weed, fell, mortally wounded"),
+            C('OR1', 'R221', "First Lieut. Charles E. Hazlett (who conunanded the battery) was shot in the head. He was carried to the rear, and died at 8 p. m.", note="OCR 'conunanded' for 'commanded'; the passage is Rittenhouse's text inside Martin's report"),
+            C('OR1', 'R221', "The battery lost in killed, 1 officer and 6 men; in wounded, 6 men")]),
     ],
     stays_unsupported=["First fire 17:45 (no source; contradicted)",
                        "Which of the four hauling accounts is right (all are retrospective books)",
@@ -137,20 +145,23 @@ ROWS.append(R(
         S('a', 'guns', "Unit and guns: Hart's 15th NY Independent Battery, four light 12-pounders (Napoleons).", 'documented', 'supported', [
             C('OR1', 'R318', "Hart's Fifteenth New York Independent Battery, four light 12- pounders"),
             C('OR1', 'R028', "Hart's (Fifteenth New York, four 12-pounders)", occ=0)]),
-        S('b', 'hour', "Hours: ordered to the front at 4 p.m.; placed by Hunt at 4:30 p.m.; McGilvery's brigade was ordered forward at about 3:30 p.m.", 'documented', 'supported', [
+        S('b', 'hour', "Hours: ordered to the front at 4 p.m.; placed by Hunt at 4:30 p.m. (New York book); McGilvery received at about 3:30 p.m. an order to report to General Sickles with one light 12-pounder and one rifled battery.", 'documented', 'supported', [
             C('LIB', 'NY-GB-1902-v3', "At 4 p. m. Captain Hart was ordered to take his battery to the front, and go into position on General Sickles' line"),
             C('LIB', 'NY-GB-1902-v3', "placed the battery at 4:30 p. m. in the Peach Orchard, with the four guns pointed south"),
             C('OR1', 'R318', "at about 3.30 p. m. on July 2, 1 received an order from yourself to report to General Sickles with one light 12-pounder and one rifled battery", note="OCR '1 received'")]),
         S('c', 'place', "Place: McGilvery: in a peach orchard on the right and a little in front of the New Jersey battery; Hart: Hunt ordered him to a position on the left of the Peach Orchard. 'Wheatfield Road' is in no text read.", 'documented', 'conflict', [
             C('OR1', 'R321', "who ordered me to take a position on the left of the peach orchard"),
             C('OR1', 'R318', "Hart's Fifteenth New York Independent Battery reporting at that time, I placed it in Sosition in a peach orchard on the right and a little in front of the few Jersey battery", note="OCR 'Sosition', 'few Jersey' for position, New Jersey")]),
-        S('d', 'hour', "Canister: shrapnel on the first column, then canister; repulsed two attacks; the infantry gave way about 5:45 p.m. (McGilvery) and the battery retired. The PDF's canister at about 17:30 is inside the documented 5-5:45 window.", 'documented', 'supported', [
+        S('d', 'hour', "Canister: shrapnel on the first infantry column, then canister; two attacks repulsed (Hart); the enemy's infantry gained the woods on the left of McGilvery's line about a quarter to 6 and the battery retired. No source gives a clock for the first canister: it lies between the placing at about 4:30 p.m. (New York book) and the retirement about 5:45 p.m., which contains the PDF's about 17:30.", 'documented', 'partial', [
             C('OR1', 'R321', "I then changed to canister, repulsing the attack made on my battery"),
+            C('OR1', 'R321', "After the first repulse of the enemy, they reformed and advanced on me a second time, and were repulsed"),
             C('LIB', 'NY-GB-1902-v3', "He ordered his gunners to use shrapnel, which was soon changed to canister as the advancing lines of Confederate infantry came within close range"),
             C('OR1', 'R318', "At about a quarter to 6 o'clock the enemy's infantry gained possession of the woods immediately on the left of my line of batteries"),
-            C('OR1', 'R318', "The Fifteenth New York Battery also retired from the field")]),
+            C('OR1', 'R318', "The Fifteenth New York Battery also retired from the field")],
+          note="Neither Hart's report nor the New York book has a clock for the canister; the 17:30 of the PDF is a value inside the bounds, not a documented time."),
         S('e', 'damage', "Loss: 3 men killed, 5 wounded, 13 horses killed (report); about 25 horses killed or wounded and 16 killed or wounded among the men (state book).", 'documented', 'supported', [
             C('OR1', 'R321', "killing 3 of my men and wounding 5, also killing 13 horses"),
+            C('LIB', 'NY-GB-1902-v3', "The battery carried 2 officers and 68 men into action at Gettysburg, of whom 16 were killed or wounded"),
             C('LIB', 'NY-GB-1902-v3', "the battery lost 25 horses killed or wounded")]),
         S('f', 'state_at_start', "State: improvised in open ground; no work is named on 2 Jul in Hart's or McGilvery's report (McGilvery's line on 3 Jul had a slight earthwork: G-11).", 'inferred', 'partial', [],
           note="Silence of two detailed reports; recorded as inferred, with no citation because an absence cannot be quoted."),
@@ -163,11 +174,11 @@ ROWS.append(R(
     ],
     stays_unsupported=["'On the Wheatfield Road' (no text places the battery on that road)",
                        "Knox pulling a gun off by hand (no source)",
-                       "Exact minute of the first canister (window 17:00-17:45 only)"],
+                       "Exact minute of the first canister (no source clock: it lies between about 16:30 and about 17:45)"],
     conflicts=["Place: left of the Peach Orchard (Hart) vs in a peach orchard on the right and a little in front of the New Jersey battery (McGilvery)"],
     register=['terrain-1-EG-07'],
     blocked=[B('Wiki-15NY', None, "Wikipedia '15th New York Battery': the PDF prints no URL; Wikipedia is not an acceptable source for a documented tier. Nothing in this row now depends on it; the Knox statement stays unsupported until a non-lead source is read.")],
-    consequence=["structures G-07: four 12-pdr Napoleons facing south in the Peach Orchard area; clocks 16:00 ordered, 16:30 placed (state book), canister 17:00-17:45, retire about 17:45; position selector 'left of the orchard' (Hart) vs 'right and a little in front of the New Jersey battery' (McGilvery)",
+    consequence=["structures G-07: four 12-pdr Napoleons facing south in the Peach Orchard area; clocks 16:00 ordered, 16:30 placed (state book), canister at an unstated minute between 16:30 and about 17:45 (PDF 17:30 inside), retire about 17:45; position selector 'left of the orchard' (Hart) vs 'right and a little in front of the New Jersey battery' (McGilvery)",
                  "structures G-07: remove 'Wheatfield Road' and 'Knox pulled a gun off by hand' or mark them unsupported",
                  "kit US.ART.15th_NY: four light 12-pdr, 13 horses killed (report) / 25 killed or wounded (book); losses 3 killed, 5 wounded"],
     lookups=[L('OR Part 1', 'Wheatfield road', 0, "no hit"),
@@ -183,9 +194,10 @@ ROWS.append(R(
     pdf_claim="Huger's four batteries (Moody, Parker, Taylor, Rhett/Gilbert) of Alexander's battalion stood in the Peach Orchard region about 500 yd from the enemy at about 16:00 on 2 Jul; no works; they silenced the Union guns in half an hour; 36 Confederate guns fired for 30 minutes at the Peach Orchard around 16:00.",
     corrected="Alexander's report names the four batteries (Moody, Parker, Taylor, Rhett under Lt Gilbert), Major Huger commanding all, placed about 4 p.m. in action against a heavy artillery and infantry force about 500 yd off in a peach orchard on the Emmitsburg pike; after a spirited half-hour engagement, assisted by Cabell's battalion, the guns were silenced (Pendleton: within an hour). Jordan's and Woolfolk's batteries came up as the infantry charged. The OR gives gun counts only for Taylor (four Napoleons) and, for Moody, four 24-pdr howitzers (Dearing, 3 Jul). Alexander's 1907 memoir gives the PDF's 36: 'about 3.45 P.M., 36 guns were in action against the Peach Orchard' = 18 of Cabell's battalion plus 18 of his own, with 8 of his guns held close behind and the Washington Artillery's 10 in reserve; ten guns of Henry's battalion were engaged across the Emmitsburg road. (The OR batteries of Cabell total 16, not 18: see G-09.) No works are described. A Mississippian detachment helped manoeuvre Moody's guns on very difficult ground; the battalion lost 139 men and 116 horses in the two days.",
     sub=[
-        S('a', 'unit', "Units: Moody, Parker, Taylor and Rhett (Lt Gilbert) of Alexander's battalion, the whole under Major Frank Huger, who also controlled the other battalions; Jordan's and Woolfolk's batteries (the two remaining) came up as the infantry charged.", 'documented', 'supported', [
-            C('OR2', 'R464', "I placed four batteries"),
-            C('OR2', 'R464', "and the whole commanded by Ma j. Frank Huger", note="OCR 'Ma j.' for 'Maj.'"),
+        S('a', 'unit', "Units: Moody, Parker, Taylor and Rhett (Lt Gilbert) of Alexander's battalion, the whole commanded by Major Frank Huger, Alexander having been ordered to control also the other battalions of artillery on the field; Jordan's and Woolfolk's batteries (the two remaining) came up as the infantry charged.", 'documented', 'supported', [
+            C('OR2', 'R464', "I placed four batteries (those of Captains [George V.J Moody, [W. W.] Parker, [0. TB.] Taylor, and [A. B.] Rhett, the latter commanded by Lieutenant [S. C.J Gilbert", note="OCR 'V.J', '0. TB.', 'S. C.J' for the bracketed initials"),
+            C('OR2', 'R464', "and the whole commanded by Ma j. Frank Huger, I having been ordered to control also the other battalions of artillery on the field", note="OCR 'Ma j.' for 'Maj.'"),
+            C('OR2', 'R464', "I had ordered up my two remaining batteries, [T. C.l Jordan's and [P.] Woolfolk", note="OCR 'C.l' for 'C.]'"),
             C('OR2', 'R464', "These, arriving on the ground just as the infantry charge was made")]),
         S('b', 'place', "Place: about 500 yd from a heavy force, in a peach orchard on the Emmitsburg pike; Pendleton: fronting the peach orchard near the Emmitsburg road.", 'documented', 'supported', [
             C('OR2', 'R464', "about 500 yards distant, in a peach orchard on the Emmitsburg pike"),
@@ -194,7 +206,8 @@ ROWS.append(R(
             C('OR2', 'R464', "After a spirited engagement of a half hour, assisted by Cabell's battalion from a short distance on our right, the enemy's guns were silenced"),
             C('OR2', 'R428', "Within an hour, however, his guns were silenced and his position was carried"),
             C('OR2', 'R465', "About 4 p.m. I was ordered into position within 500 yards of the enemy's batteries"),
-            C('LIB', 'ALEXANDER-1907', "After this cannonade had continued for perhaps 30 minutes, Hood received the order to advance", page='395')]),
+            C('LIB', 'ALEXANDER-1907', "After this cannonade had continued for perhaps 30 minutes, Hood received the order to advance", page='395'),
+            C('LIB', 'ALEXANDER-1907', "Thus, about 3.45 P.M., 36 guns were in action against the Peach Orchard", page='395')]),
         S('d', 'count', "Guns: the OR gives Taylor's four Napoleons and (3 Jul) Moody's four 24-pdr howitzers; no OR text gives Parker's or Rhett's count. Alexander's memoir (1907): 18 guns of his battalion in front of Barksdale (plus 8 held close), 18 of Cabell's, 36 against the Peach Orchard at about 3:45 p.m.; 10 of Henry's across the Emmitsburg road; the Washington Artillery's 10 in reserve.", 'documented', 'conflict', [
             C('OR2', 'R465', "I opened upon the batteries with my four Napoleons, firing canister and spherical case"),
             C('OR2', 'R442', "Captain Moody's four 24-pounder howitzers"),
@@ -207,7 +220,8 @@ ROWS.append(R(
             C('OR2', 'R464', "There were also 2 killed and 3 wounded of a detachment of 8 gallant Mississippians at Captain Moody's guns, who volunteered to help maneuver them on very difficult ground")]),
         S('f', 'damage', "Loss: 19 killed, 114 wounded, 6 missing (139 men) and 116 horses killed and disabled in the two days; Huger's batteries' loss in animals was serious.", 'documented', 'supported', [
             C('OR2', 'R464', "killed, 19 ; wounded, 114 ; missing. 6 ; total. 139 men"),
-            C('OR2', 'R464', "Horses killed and disabled in action, 116")]),
+            C('OR2', 'R464', "Horses killed and disabled in action, 116"),
+            C('OR2', 'R464', "Major Huger also followed with the four batteries under his control as soon as the teams could be disencumbered of killed and wounded animals (for his loss had been serious)")]),
     ],
     stays_unsupported=["Guns per battery for Moody, Parker and Rhett (OR); the 36 total rests on a retrospective memoir",
                        "Which Union guns were silenced in the half hour (the report says 'the enemy's guns')"],

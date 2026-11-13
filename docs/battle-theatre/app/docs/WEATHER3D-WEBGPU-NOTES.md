@@ -47,7 +47,7 @@ On this machine's software adapter the real canvas cannot be used. Probed one op
 ## 6. Commands
 
 ```
-node --test docs/battle-theatre/app/tests/weather3d-gpu.test.mjs                                   # 20 node tests, no browser
+node --test docs/battle-theatre/app/tests/weather3d-gpu.test.mjs                                   # 22 node tests, no browser
 tools/horde/bench.sh node docs/battle-theatre/app/tests/weather3d-gpu.mjs <out> webgpu             # the cases, errors, purity, compute check, swapchain probe
 tools/horde/bench.sh node docs/battle-theatre/app/tests/weather3d-gpu.mjs <out> webgl2
 node docs/battle-theatre/app/tests/weather3d-gpu-compare.mjs <out>                                 # montages and numbers (WebGL2 | WebGPU | difference x4)

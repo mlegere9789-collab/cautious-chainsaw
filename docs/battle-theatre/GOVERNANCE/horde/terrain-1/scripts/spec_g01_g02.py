@@ -13,14 +13,16 @@ ROWS.append(R(
         S('a', 'unit', "Unit and guns: Battery A, 2nd US Artillery (Lt John H. Calef), six 3-inch.", 'documented', 'supported', [
             C('OR1', 'R028', "Calef's horse battery (A, Second United States, six 3-inch)"),
             C('OR1', 'R374', "Colonel Gamble, commanding the brigade of cavalry to which my battery was attached")]),
-        S('b', 'count', "Guns serving on 2 Jul: five (short of men).", 'documented', 'supported', [
+        S('b', 'count', "Guns serving on the morning of 2 Jul: five (short of men).", 'documented', 'supported', [
+            C('OR1', 'R374', "On the morning of the 2d, the attack commenced directly in front of where my battery was parked"),
             C('OR1', 'R374', "For want of men, I could serve but five guns")]),
         S('c', 'place', "Night of 30 Jun: 'just outside of town' on the road Calef calls the Carlisle road. The PDF's 'in a hollow' is in no source read.", 'documented', 'partial', [
-            C('OR1', 'R374', "went into position, just outside of town"),
+            C('OR1', 'R374', "June 30.— Marched through Emmitsburg, Md., to Gettysburg, Pa. , and went into position, just outside of town"),
             C('OR1', 'R374', "Our position on Carlisle road")],
           note="'hollow' searched in OR Part 1 (48 hits, none about Calef or his night position) and in the NPS First Day texts: not found. Blocked pages that may carry the PDF's wording are listed under blocked_host."),
-        S('d', 'hour', "Alarm and forward move on the morning of 1 Jul: about 8 a.m.; Gamble told Calef to choose his own position; the new position was about 600 yd in front of the night position.", 'documented', 'supported', [
+        S('d', 'hour', "Alarm and forward move on the morning of 1 Jul: about 8 a.m.; Gamble requested Calef to select his own position; the new position was about 600 yd in front of the night position.", 'documented', 'supported', [
             C('OR1', 'R374', "Enemy reported to be advancing in heavy columns on Carlisle pike, and preparations were immediately made to receive them. This was about 8 a. m."),
+            C('OR1', 'R374', "Colonel Gamble, commanding the brigade of cavalry to which my battery was attached, requested me to select my own position"),
             C('OR1', 'R374', "I accordingly selected a position about 600 yards in front of the one held during the night")]),
         S('e', 'movement', "Fence state: a pioneer party levelled the intervening fences and the fence in front of the new position before Calef moved forward (the report says 'I moved forward', not that only the right and centre sections did).", 'documented', 'supported', [
             C('OR1', 'R374', "As soon as the pioneer party had leveled the intervening fences, as well as the one in front of my position, I moved forward and took up the advanced position")]),
@@ -98,6 +100,8 @@ ROWS.append(R(
           note="The PDF's 'behind the E-01 rail barricade' is read as 'behind the infantry's loose-rail work'; the OR puts the work down the slope in front of the guns, and Breck's guns behind a stone wall, a pre-existing feature (no construction animation)."),
         S('c', 'hour', "Arrival: Cooper placed about noon on the left of the Third Division, then moved near the seminary where he stood unengaged for a few minutes; Stewart posted about 200 yd south of the seminary; the 5th Maine in position on the left of the seminary at a few minutes past 2 p.m.; Breck's sections moved to the stone wall when the enemy was within about 200 yd.", 'documented', 'supported', [
             C('OR1', 'R075', "Here it was placed in position by Colonel Wainwright, about 12 m., on the left of the Third Division, First Army Corps"),
+            C('OR1', 'R075', "the colonel ordered the battery to be placed in position near the Gettysburg Seminary"),
+            C('OR1', 'R075', "unengaged for a few minutes"),
             C('OR1', 'R073', "At a few minutes past 2, July 1, the battery being in position on"),
             C('OR1', 'R071', "which had previously been posted some 200 yards south of the seminary, but not engaged"),
             C('OR1', 'R071', "I withdrew Lieutenant Breck's two sections when their first line was within about 200 yards, and ordered him behind a strong stone wall on the seminary crest")]),
@@ -112,10 +116,12 @@ ROWS.append(R(
             C('OR1', 'R071', "The batteries passed immediately through the town along with the other troops"),
             C('OR1', 'R028', "the batteries were all limbered to the rear, and moved off down the Cashtown pike, maintaining a walk until the infantry had left it")],
           note="'Chambersburg Street' is the PDF's name for the pike inside the town; no OR text uses it."),
-        S('f', 'damage', "Losses on 1 Jul: 83 officers and men and about 80 horses (most of the horses between the Seminary Ridge and the town); Wilber's last piece (L/1st NY) lost after its wheel-horses were shot; Stewart lost three caissons broken down and one exploded and two guns disabled (pointing rings); Hall's three guns dismounted.", 'documented', 'supported', [
+        S('f', 'damage', "Losses on 1 Jul: 83 officers and men and about 80 horses, a large proportion of the horses between the Seminary Ridge and the town (Hunt; Wainwright); Wilber's last piece (L/1st NY) lost after one wheel-horse and then three others were shot; of Stewart's battery three caisson bodies broken down, one caisson exploded and two guns disabled by the breaking of their pointing rings; three of Hall's guns dismounted (Hunt).", 'documented', 'supported', [
             C('OR1', 'R071', "The loss of the batteries during the day's engagement was heavy, amounting in all to 83 officers and men and about 80 horses"),
+            C('OR1', 'R028', "and about 80 horses, a large proportion of the latter between the Seminary"),
+            C('OR1', 'R028', "last piece (L, First New York, six 3-inch) had 1 of its wheel-horses shot, and, by the time this could be disengaged, 3 others were shot"),
             C('OR1', 'R028', "It was impossible to move the piece off, and it was lost."),
-            C('OR1', 'R028', "2 of his guns had been disabled by the breaking of their pointing rings")]),
+            C('OR1', 'R028', "Three of the caisson bodies of Stewart's battery were broken down, 1 of his caissons exploded, 2 of his guns had been disabled by the breaking of their pointing rings, and 3 of Hall's guns dismounted")]),
         S('g', 'state_at_start', "Prepared or improvised: improvised; no gun pit, epaulement or earth is named at the seminary line; the loose rails were an infantry work; the stone wall behind Breck's guns pre-existed.", 'inferred', 'partial', [
             C('OR1', 'R071', "ordered him behind a strong stone wall on the seminary crest"),
             C('OR1', 'R036', "a slight breastwork of loose rails")],

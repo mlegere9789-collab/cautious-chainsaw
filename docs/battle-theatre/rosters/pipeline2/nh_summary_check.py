@@ -33,7 +33,7 @@ import parse_nh_ayling as P
 ROOT = P.ROOT
 D2 = P.D2
 OUT = os.path.join(ROOT, 'docs', 'battle-theatre', 'GOVERNANCE', 'horde', 'ws-rosters', 'union-nh')
-OOBD = os.path.join(ROOT, 'legacy', 'dist', 'data', 'oob')
+OOBD = os.path.join(ROOT, 'baseline', 'dist', 'data', 'oob')
 
 # short name -> file, printed total strength, baseline order-of-battle file and id, the lines used (label, text as the OCR prints it with blank runs
 # shortened to one blank, and optionally the label of the line after which it is searched; each is searched in the Summary leaf), and the parts of the total.

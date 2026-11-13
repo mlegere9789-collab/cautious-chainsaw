@@ -13,7 +13,7 @@ RULES (version 1; the same rules produce every reading text of this task):
  4. Nothing is corrected, merged or added. Line ends are kept (a word split by a hyphen at a line end stays
     split in the file; the matcher can join it when the citation says so).
 
-As a module: rebuild(alto_path) -> (text, words, info); words = list of (token, wc, last_on_line, line_no).
+As a module: rebuild(alto_path) -> (text, words, info); words = list of (token, wc, last_on_line, line_no, (x, y, w, h)).
 As a script:  rebuild_cols.py ALTO.xml > out.txt
 """
 import collections, gzip, re, sys
@@ -28,16 +28,29 @@ def _open(path):
     return gzip.open(path, 'rb') if path.endswith('.gz') else open(path, 'rb')
 
 
+def _local(tag):
+    return tag.rsplit('}', 1)[-1]
+
+
 def read_lines(path):
+    """Namespace-agnostic (the 2024 re-OCR is ALTO v3, the older NDNP files are ALTO v2)."""
     with _open(path) as f:
         root = ET.parse(f).getroot()
-    page = root.find('.//' + NS + 'Page')
-    W = int(page.get('WIDTH'))
-    H = int(page.get('HEIGHT'))
+    page = None
+    for el in root.iter():
+        if _local(el.tag) == 'Page':
+            page = el
+            break
+    W = int(float(page.get('WIDTH')))
+    H = int(float(page.get('HEIGHT')))
     lines = []
-    for tl in root.iter(NS + 'TextLine'):
+    for tl in root.iter():
+        if _local(tl.tag) != 'TextLine':
+            continue
         words = []
-        for s in tl.findall(NS + 'String'):
+        for s in tl:
+            if _local(s.tag) != 'String':
+                continue
             c = (s.get('CONTENT') or '').strip(RULEMARKS + ' ')
             if not c:
                 continue
@@ -45,7 +58,11 @@ def read_lines(path):
                 wc = float(s.get('WC')) if s.get('WC') is not None else None
             except ValueError:
                 wc = None
-            words.append((c, wc))
+            try:
+                geo = (int(float(s.get('HPOS'))), int(float(s.get('VPOS'))), int(float(s.get('WIDTH'))), int(float(s.get('HEIGHT'))))
+            except (TypeError, ValueError):
+                geo = (0, 0, 0, 0)
+            words.append((c, wc, geo))
         if not words:
             continue
         lines.append({'x': int(float(tl.get('HPOS'))), 'y': int(float(tl.get('VPOS'))), 'w': int(float(tl.get('WIDTH'))),
@@ -98,10 +115,10 @@ def rebuild(path):
         ls = sorted(cols.get(i, []), key=lambda l: (l['y'], l['x']))
         out.append('=== COLUMN %d ===' % (i + 1))
         for l in ls:
-            out.append(' '.join(w for w, _ in l['words']))
+            out.append(' '.join(w[0] for w in l['words']))
             line_no += 1
-            for k, (w, wc) in enumerate(l['words']):
-                words.append((w, wc, k == len(l['words']) - 1, line_no))
+            for k, (w, wc, geo) in enumerate(l['words']):
+                words.append((w, wc, k == len(l['words']) - 1, line_no, geo))
     info = {'rules': VERSION, 'width': W, 'height': H, 'lines': len(lines), 'columns': len(starts), 'starts': starts}
     return '\n'.join(out) + '\n', words, info
 
@@ -117,9 +134,9 @@ def quote_confidence(words, quote):
         toks, wcs = [], []
         i = 0
         while i < len(words):
-            w, wc, eol, ln = words[i]
+            w, wc, eol, ln = words[i][:4]
             if join and eol and w.endswith('-') and i + 1 < len(words) and len(w) > 1:
-                w2, wc2, eol2, ln2 = words[i + 1]
+                w2, wc2, eol2, ln2 = words[i + 1][:4]
                 toks.append(w[:-1] + w2)
                 wcs.append(min(wc if wc is not None else 0.0, wc2 if wc2 is not None else 0.0))
                 i += 2
@@ -133,6 +150,24 @@ def quote_confidence(words, quote):
             if toks[s] == first and toks[s:s + n] == qt:
                 seg = wcs[s:s + n]
                 return round(sum(seg) / n, 3), round(min(seg), 3), n
+    return None
+
+
+def quote_box(words, quote):
+    """Bounding box (x0, y0, x1, y1) in ALTO units of the words of the quote, or None. Uses the plain token match only."""
+    qt = quote.split()
+    n = len(qt)
+    if not n:
+        return None
+    toks = [w[0] for w in words]
+    for s in range(len(toks) - n + 1):
+        if toks[s:s + n] == qt:
+            seg = words[s:s + n]
+            x0 = min(g[4][0] for g in seg)
+            y0 = min(g[4][1] for g in seg)
+            x1 = max(g[4][0] + g[4][2] for g in seg)
+            y1 = max(g[4][1] + g[4][3] for g in seg)
+            return x0, y0, x1, y1
     return None
 
 

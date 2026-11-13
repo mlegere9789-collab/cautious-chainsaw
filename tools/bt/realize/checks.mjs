@@ -8,7 +8,7 @@
 import { HARNESS, toMin, isoOf, round, hasQuote, fold, tokens } from './lib.mjs';
 import { parseSpan, validateRecord, ASSERT, entityId, entityVia, assertionUnits } from './schema.mjs';
 import { coversInterval } from './timeline.mjs';
-import { measure, distM } from './gazetteer.mjs';
+import { measure, distM, outsideGround } from './gazetteer.mjs';
 
 const MOVING = new Set(['march', 'double_quick', 'gallop']);
 // words too common to tie a structure to a row (a structure is bound by a distinctive word of its name, its schedule row or its record: trestle, Wade, Bliss ...)
@@ -192,7 +192,7 @@ export class Runner {
   }
   _place(name, c) {
     const r = this.pl.resolve(name); if (r.status === 'unknown') return { err: fail('place_unknown', `place "${name}" is not in the gazetteer`) }; if (r.status === 'ambiguous') return { err: fail('place_ambiguous', `place "${name}" is ambiguous (${r.candidates.join('; ')})`) };
-    const p = r.place; if (!p.on_ground) return { err: fail('place_off_ground', `place ${p.id} "${p.name}" is outside the loaded ground: no unit can be drawn there`) };
+    const p = r.place; if (!p.on_ground) { const o = outsideGround(p, this.pl.box); return { err: fail('place_off_ground', `place ${p.id} "${p.name}" is outside the loaded ground (${o.text}): no unit can be drawn there`, { outside_ground: o }) }; }
     let tol = p.tolerance_m; if (c.a.within_m != null) { if (c.a.within_m > p.tolerance_m) return { err: fail('tolerance_wider_than_stated', `within_m ${c.a.within_m} is wider than the stated tolerance of ${p.id} (${p.kind}: ${p.tolerance_m} m)`) }; tol = c.a.within_m; }
     return { p, tol };
   }
@@ -405,7 +405,7 @@ export class Runner {
   }
   _placeKnown(c) {
     const r = this.pl.resolve(c.a.place); if (r.status === 'unknown') return fail('place_unknown', `place "${c.a.place}" is not in the gazetteer`); if (r.status === 'ambiguous') return fail('place_ambiguous', `place "${c.a.place}" is ambiguous (${r.candidates.join('; ')})`);
-    if ((c.a.on_ground ?? true) && !r.place.on_ground) return fail('place_off_ground', `place ${r.place.id} "${r.place.name}" is outside the loaded ground`);
+    if ((c.a.on_ground ?? true) && !r.place.on_ground) { const o = outsideGround(r.place, this.pl.box); return fail('place_off_ground', `place ${r.place.id} "${r.place.name}" is outside the loaded ground (${o.text})`, { outside_ground: o }); }
     return ok({ place: r.place.id, kind: r.place.kind, tolerance_m: r.place.tolerance_m, center: r.place.center });
   }
 }

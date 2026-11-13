@@ -24,6 +24,11 @@ KEEP = re.compile(r'wheat|corn|oats|crop|field|meadow|pasture|orchard|wood|thick
 DROP_FEATURE = re.compile(r'burial|breastwork|buildings? lost|barn$|house$|reinterment|memorial|tower|fence|wall|road|avenue|quarry', re.I)
 
 
+# Rows that passed the keyword filter but are about fences, houses, hospitals, burials, ownership or a claimant's trade, not about what grew where (they belong to the structures
+# layer or to nobody here); read one by one and left out. The list is the record of that reading.
+EXCLUDE = set('''VC-NPSX-CLI-PCB-p049-09 VC-NPSX-CLI-PCB-p050-01 VC-NPSX-CLI-PCB-p073-03 VC-NPSX-CLI-PCB-p095-01 VC-NPSX-CLI-PCB-p117-01 VC-NPSX-CLI-ERR-p040-01 VC-NPSX-CLI-ERR-p063-02 VC-NPSX-CLI-1STDAY-p058-04 VC-NPSX-CLI-1STDAY-p060-10 VC-NPSX-CLR-1STDAY-p068-01 VC-NPSX-CLR-1STDAY-p349-02 VC-NPSX-CLR-1STDAY-p349-03 VC-NPSX-CLR-1STDAY-p463-01 VC-NPSX-CLR-1STDAY-p379-01 VC-NPSX-CLR-ROT-V1-p175-01 VC-NPSX-CLR-ROT-V1-p178-02 VC-NPSX-CLR-ROT-V1-p180-01 VC-NPSX-CLR-ROT-V1-p360-01 VC-NPSX-CLR-ROT-V1-p406-01 VC-NPSX-CLR-ROT-V2-p103-02 VC-NPSX-CLR-ROT-V2-p104-01 VC-NPSX-CLR-ROT-V2-p104-02 VC-NPSX-CLR-ROT-V2-p143-01 VC-NPSX-CLR-ROT-V1-p171-01 VC-NPSX-CLI-ERR-p079-02 VC-NPSX-CLI-ERR-p080-01 VC-NPSX-CLI-1STDAY-p038-02'''.split())
+
+
 def kind_of(r):
     s = (r['feature'] + ' ' + r['claim']).lower()
     if re.search(r'orchard|fruit garden|fruit trees', s):
@@ -67,7 +72,7 @@ def main():
         k = kind_of(r)
         tier = 'documented' if str(r.get('tier_proposed', '')).startswith('documented') else 'inferred'
         cid = 'VC-NPSX-' + r['xid'].replace('NPSX-', '')
-        if cid in seen:
+        if cid in seen or cid in EXCLUDE:
             continue
         seen.add(cid)
         farm = next((FARM_OF[k2] for k2 in r.get('repo_keys') or [] if k2 in FARM_OF), None)

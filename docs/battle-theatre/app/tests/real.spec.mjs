@@ -22,7 +22,9 @@ test('honest labelling: the ribbon, the count, the About text and the landing co
 });
 
 test('a placed unit: Units list, card with strength basis, entry, arrival note, tier, sources, kit manifest and a register link that opens', async () => {
-  const info = await page.evaluate(() => { const a = window.btApp, L = a.layer, u = L.units[L.focus], ev = L.events(a.state.scenario).filter(e => e.unit === u.id && e.type === 'path'); return { id: u.id, i: L.focus, name: u.name, t: ev[0].wp.at(-1).t + 1, share: u.strength.drawn }; });
+  // a placed unit carries several stops since contract 1.5 (the troop-map day positions, DEC-010, DEC-011, DEC-018; HISTORY-LAYER-NOTES.md): the 19th Indiana has 6 paths and starts its second march in the minute its
+  // first ends. The time of this test is one minute after the END OF ITS LAST PATH (as in arrival.spec.mjs), where the card says Standing; it used to be one minute after the first path.
+  const info = await page.evaluate(() => { const a = window.btApp, L = a.layer, u = L.units[L.focus], ev = L.events(a.state.scenario).filter(e => e.unit === u.id && e.type === 'path'); return { id: u.id, i: L.focus, name: u.name, t: Math.max(...ev.map(e => e.wp.at(-1).t)) + 1, share: u.strength.drawn }; });
   await at(info.t); await page.click('[data-panel=views]'); await page.click('#vw-tabs [data-tab=unit]'); await page.fill('#vw-q', info.id); await wait(page, 250);
   assert.equal(await page.locator('#bt-drawer-body .item').count(), 1, 'the unit on the field is offered'); assert.match(await page.locator('#bt-drawer-body .item').innerText(), new RegExp(`${info.share} figures`));
   await page.focus('#bt-drawer-body .item'); await page.keyboard.press('Enter'); await page.waitForSelector('#bt-card:not([hidden])'); await page.keyboard.press('Escape'); await frames(8);

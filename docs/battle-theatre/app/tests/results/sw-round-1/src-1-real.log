@@ -27,3 +27,21 @@ not ok 2 - a placed unit: Units list, card with strength basis, entry, arrival n
     async Test.run (node:internal/test_runner/test:1054:7)
     async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
   ...
+# Subtest: a unit with no place: its card says open gap and why, still shows its ledger arrival window and strength basis, and the unit is not drawn or listed
+ok 3 - a unit with no place: its card says open gap and why, still shows its ledger arrival window and strength basis, and the unit is not drawn or listed
+  ---
+  duration_ms: 265306.334858
+  type: 'test'
+  ...
+# Subtest: the evidence overlay outlines the placed units by tier (plausible-procedural) and works are drawn as rings with their place named; no error
+ok 4 - the evidence overlay outlines the placed units by tier (plausible-procedural) and works are drawn as rings with their place named; no error
+  ---
+  duration_ms: 132184.022757
+  type: 'test'
+  ...
+# Subtest: a unit placed by an Official Records report: its card lists the report, the printed page, the quoted words, the tier and the checks, what is applied and what is not, and the reports that disagree; a unit drawn only by the PDF ledger shows none
+ok 5 - a unit placed by an Official Records report: its card lists the report, the printed page, the quoted words, the tier and the checks, what is applied and what is not, and the reports that disagree; a unit drawn only by the PDF ledger shows none
+  ---
+  duration_ms: 300175.579207
+  type: 'test'
+  ...

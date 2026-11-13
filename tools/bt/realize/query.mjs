@@ -20,10 +20,15 @@ const T_ = x => (typeof x === 'number' ? x : toMin(x));
 const NEVER = { from: Infinity, to: null };          // the stage's presence of a unit with no arrival record (app/src/stage.mjs)
 const PLACE_WORDS = new Set(['hill', 'hills', 'ridge', 'run', 'creek', 'road', 'pike', 'woods', 'wood', 'farm', 'field', 'house', 'church', 'knoll', 'top', 'den', 'orchard', 'lane', 'spring', 'mill', 'bridge', 'station', 'hall', 'barn', 'town', 'street', 'grove', 'gap', 'cut', 'cuts', 'mountain', 'river']);
 
-// a person given as initials and a surname: "F. Lee" -> { text: "Lee", inits: { lee: "f" } } (the last initial before the surname); a full given name ("George G. Meade") is not a run of initials
+// a person given as initials and a surname ("F. Lee", "W. H. F. Lee/Chambliss", "J. M. Jones"): the initials are taken out of the text and kept (the last one) for the surname, which then names the unit only with that
+// initial before it ("Fitz Lee", "F. Lee"), never as a bare "Lee". A full given name ("Robert E. Lee", "George G. Meade") is not a run of initials: the bare surname names.
+const TITLE_PREFIX = /^(\s*(?:(?:MG|BG|LTG|Gen|General|Maj|Major|Col|Colonel|Lt|Lieutenant|Capt|Captain|Brig|Dr|Rev|Prof)\.?\s+)*)/i;
 export function splitInitials(text) {
-  const inits = {}, t = String(text || '').replace(/((?:\p{Lu}\.\s*)+)(\p{Lu}[\p{L}’']+)/gu, (all, ini, sur) => { inits[wordKey(sur)] = ini.replace(/[^A-Za-z]/g, '').slice(-1).toLowerCase(); return sur; });
-  return { text: t, inits };
+  const inits = {}, parts = String(text || '').split(/([\/,;])/), out = parts.map(part => {
+    if (/^[\/,;]$/.test(part)) return part; const t = TITLE_PREFIX.exec(part)[1], rest = part.slice(t.length), m = /^((?:\p{Lu}\.\s*)+)(\p{Lu}[\p{L}’']+)(.*)$/su.exec(rest);
+    if (!m) return part; inits[wordKey(m[2])] = m[1].replace(/[^A-Za-z]/g, '').slice(-1).toLowerCase(); return t + m[2] + m[3];
+  });
+  return { text: out.join(''), inits };
 }
 // the surnames of the commanders a layer unit lists: "MG George G. Meade" -> meade, "Chambliss (for W. H. F. Lee)" -> chambliss (the parenthesis is a remark), "F. Lee/Chambliss" -> lee (needs the initial f), chambliss, "von Steinwehr" -> steinwehr
 const NOT_NAME = new Set(['mg', 'bg', 'ltg', 'gen', 'general', 'maj', 'major', 'col', 'colonel', 'lt', 'lieutenant', 'capt', 'captain', 'brig', 'dr', 'rev', 'prof', 'sgt', 'cpl', 'pvt', 'acting', 'for', 'of', 'the', 'and', 'von', 'van', 'de', 'du']);
@@ -135,15 +140,17 @@ export class Product {
   // brigade" names Day's brigade, "all day" does not; "Stone's brigade" does, "a stone wall" does not. Place names are blanked first, so that "Cemetery Hill" never names a general Hill. -> [{ id, why, score }]
   unitsNamedIn(text) {
     const blank = this._blank(text), info = wordInfo(blank), amb = this.lowerVocab(), hits = designatorHits(blank), idx = this._unitIndex(), out = [];
-    const named = (w, init = null) => { const i = info.get(w); return !!i && i.cap && (!amb.has(w) || i.ctx) && (!init || i.prev.has(init)); };
+    // a name is capitalised (with its initial before it where the layer gives initials); a name of several words needs one of them that is no ordinary word, or in a naming context ("Army of the Potomac": Potomac)
+    const cap = (w, init = null) => { const i = info.get(w); return !!i && i.cap && (!init || i.prev.has(init)); }, strong = w => !amb.has(w) || (info.get(w) || {}).ctx;
+    const named = (w, init = null) => cap(w, init) && strong(w), allNamed = (toks, inits) => toks.length > 0 && toks.every(w => cap(w, inits[w])) && toks.some(strong);
     // a designator names a unit only if the words after it agree with the unit: "26th Pennsylvania Emergency Militia" is not the 26th PA Volunteers, "35th Va Cav Bn" is a cavalry unit, "1st Va Artillery" an artillery unit
     const agrees = (h, u) => { const a = h.after; if (/^(emergency|militia|state militia)\b/.test(a)) return /militia/i.test(u.name); if (/^(cav|cavalry|cav bn)\b/.test(a)) return u.arm === 'cavalry'; if (/^(art|artillery|battery|btty|light artillery)\b/.test(a)) return u.arm === 'artillery'; return true; };
     const des = { has: (k, u) => hits.some(h => h.key === k && agrees(h, u)) };
     for (const [id, x] of idx) {
       const u = this.byId.get(id); let why = null, score = 0;
       if (x.designators.size && [...x.designators].some(d => des.has(d, u))) { why = 'designator ' + [...x.designators].filter(d => des.has(d, u)).join(','); score = 3; }
-      else if (!x.numbered && x.tokens.length && x.tokens.every(w => named(w, x.inits[w]))) { why = 'name ' + x.tokens.join(' '); score = 2 + Math.min(2, x.tokens.length) / 10; }
-      else if (!x.numbered && x.tokens.length >= 2 && ['brigade', 'division', 'corps', 'group'].includes(x.level) && x.tokens.slice(1).every(w => named(w, x.inits[w]))) { why = 'nickname ' + x.tokens.slice(1).join(' ') + ' (' + x.own + ')'; score = 1.8; }       // "Iron Brigade" for "Meredith’s Iron Brigade": the commander's name first, then the nickname
+      else if (!x.numbered && allNamed(x.tokens, x.inits)) { why = 'name ' + x.tokens.join(' '); score = 2 + Math.min(2, x.tokens.length) / 10; }
+      else if (!x.numbered && x.tokens.length >= 2 && ['brigade', 'division', 'corps', 'group'].includes(x.level) && allNamed(x.tokens.slice(1), x.inits)) { why = 'nickname ' + x.tokens.slice(1).join(' ') + ' (' + x.own + ')'; score = 1.8; }       // "Iron Brigade" for "Meredith’s Iron Brigade": the commander's name first, then the nickname
       else if (['brigade', 'division', 'corps', 'army', 'artillery_brigade', 'artillery_battalion', 'artillery_group', 'group', 'command'].includes(x.level) && x.commanders.some(c => named(c.key, c.init))) { why = 'commander ' + x.commanders.filter(c => named(c.key, c.init)).map(c => c.key).join(','); score = 1; }
       if (why) out.push({ id, name: u.name, level: u.level, side: u.side, why, score });
     }
