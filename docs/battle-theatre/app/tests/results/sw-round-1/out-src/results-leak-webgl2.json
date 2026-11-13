@@ -1,0 +1,64 @@
+{
+ "api": "webgl2",
+ "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+ "cycles": 3,
+ "landing": {
+  "heapMB": 166.23511123657227,
+  "nodes": 377,
+  "listeners": 28
+ },
+ "rows": [
+  {
+   "i": 1,
+   "gl": 0,
+   "glEver": 2,
+   "gpuLive": 0,
+   "gpuEver": 0,
+   "timers": 0,
+   "rafs": 0,
+   "listeners": 2,
+   "workers": 0,
+   "audio": 0,
+   "ports": 0,
+   "heapMB": 166.81,
+   "nodes": 384,
+   "domListeners": 28
+  },
+  {
+   "i": 2,
+   "gl": 0,
+   "glEver": 3,
+   "gpuLive": 0,
+   "gpuEver": 0,
+   "timers": 0,
+   "rafs": 0,
+   "listeners": 2,
+   "workers": 0,
+   "audio": 0,
+   "ports": 0,
+   "heapMB": 167.2,
+   "nodes": 384,
+   "domListeners": 28
+  },
+  {
+   "i": 3,
+   "gl": 0,
+   "glEver": 4,
+   "gpuLive": 0,
+   "gpuEver": 0,
+   "timers": 0,
+   "rafs": 0,
+   "listeners": 2,
+   "workers": 0,
+   "audio": 0,
+   "ports": 0,
+   "heapMB": 167.41,
+   "nodes": 384,
+   "domListeners": 28
+  }
+ ],
+ "warnings": [
+  "[.WebGL-0x335c001a6200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+  "[.WebGL-0x335c001a6200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+ ]
+}

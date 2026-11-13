@@ -1,0 +1,26 @@
+# run diag-1-leak-webgl2-c3: leak.spec.mjs  env: BT_OUT=sw-round-1/out-src BT_CYCLES=3 NODE_OPTIONS=--test-name-pattern=webgl2:.3.enter BT_SNAPSHOT=/home/user/cautious-chainsaw/tmp/bt-spec/snap-9e1e1777/docs/battle-theatre  start 2026-11-13T22:14:44Z  HEAD b4746460  limit 5400s
+# newest source file at start: 1794607259.3951089530 docs/battle-theatre/app/src/ui/extensions.mjs
+TAP version 13
+# \# renderer: ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver) (SOFTWARE; hardware flags); WebGPU adapter: google swiftshader; serving the frozen source snapshot /home/user/cautious-chainsaw/tmp/bt-spec/snap-9e1e1777/docs/battle-theatre
+# \# slow renderer: frame 4571 ms on this page, wait scale K = 45.7, entry took 39 s
+# \# slow renderer: frame 5523 ms on this page, wait scale K = 55.2, entry took 36 s
+# \# slow renderer: frame 5411 ms on this page, wait scale K = 54.1, entry took 36 s
+# \# slow renderer: frame 4477 ms on this page, wait scale K = 44.8, entry took 31 s
+# \# 3 cycles. landing: heap 166.24 MB, 377 DOM nodes (after the first visit 384), 28 DOM listeners. after cycle 3: 167.41 MB; after cycle 3: 167.41 MB (growth 0.00 MB).
+# \# devices created in total: 0, all lost: true; canvases created: 4; leftover after leaving: contexts 0, rAF 0, timers 0, workers 0, audio 0, ports 0
+# Subtest: webgl2: 3 enter/leave cycles leave no context, device, frame, timer, listener, worker, audio context or heap growth
+ok 1 - webgl2: 3 enter/leave cycles leave no context, device, frame, timer, listener, worker, audio context or heap growth
+  ---
+  duration_ms: 537916.965173
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 538570.541853
+# end 2026-11-13T22:23:42Z  seconds 538  exit 0  source changed during the run: no
