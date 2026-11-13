@@ -1,0 +1,72 @@
+"""Row spec R13.P-10 (terrain-2 close-out, 2026-11-13): Peach Orchard and Wheatfield fences and walls; Emmitsburg Road double post-and-rail fences."""
+from spec_lib import C, S, R, B, L
+
+ROWS = []
+
+ROWS.append(R(
+    'R13.P-10', 'corrected', 'open_gaps',
+    pdf_row="Peach Orchard and Wheatfield fences and walls; Emmitsburg Road double post-and-rail fences | Emmitsburg Road, Peach Orchard, Wheatfield | Farm fences | Present at frame one; destruction handled in the B.8.7 schedule | documented | Savas-Hessler; GD-EmmRd",
+    pdf_claim="Farm fences and walls of the Peach Orchard and Wheatfield and double post-and-rail fences along the Emmitsburg Road, present at frame one, their destruction handled in the B.8.7 schedule; documented.",
+    corrected=("Documented in part and contradicted in the schedule's framing. Fences and walls stood on all three grounds: post-and-rail and post-and-plank fences stood on the line of the Confederate advance on 3 Jul and had to be climbed (Peyton: three high post-and-rail fences; Shepard: 'a lane inclosed by two stout post and plank fences', 'a very great obstruction'; Davis: 'a strong post and rail fence' and others like it), and the NPS reads post-and-rail fences on both sides of the road (Klingel farm front). Stone fences and walls stood around the Wheatfield (Sweitzer, Crawford, Burbank, Brooke, de Trobriand, Kershaw) and fences stood at the Peach Orchard and the Sherfy buildings on the afternoon of 2 Jul (3rd Maine, 110th and 114th Pennsylvania, Thompson's battery). "
+               "But the fences were not intact when the battle came and the seed schedule's 'present at frame one, destruction in B.8.7' needs a Jul 2 morning state: after midnight and on the morning of 2 Jul the Third Corps cleared fences and walls in its front to the Emmitsburg Road (Bodine, 26th Pennsylvania: 'detailed to clear away the fences in front of the division'; Higgins: at 10 a.m. Ward ordered 'all stone walls and fences in our front to the Emmitsburg road' demolished, done by about 11 a.m.; Humphreys: communication made easy by 'removing such of the fences as were in the way'; NPS: many north-south fences removed before the second day, 'enough were standing on July 2-3 to hinder orderly troop movement'); about 4 p.m. on 2 Jul two regiments of Harrow's brigade 'tore down the fences and constructed breastworks' along the Emmitsburg Road (Gibbon; Joslin's 15th Massachusetts built 'a small breastwork of rails behind the fence'; Hancock: 'a slight breastwork of such materials as the adjoining fences afforded'). "
+               "'Double post-and-rail on both sides along the whole road' is not supported for the whole road: it is documented for the Klingel front and Shepard's lane, and the sources show gaps (removed segments, thrown-down openings). Per-segment type and height are not given; Savas-Hessler and the Gettysburg Daily page (GD-EmmRd) are blocked hosts."),
+    sub=[
+        S('a', 'state_at_start', "Fences stood on the Emmitsburg Road and the line of the advance on 3 Jul: Peyton climbed three high post-and-rail fences behind the last of which the skirmishers were met; Shepard reached a lane enclosed by two stout post-and-plank fences, a very great obstruction; Davis: a strong post-and-rail fence 'and other fences of a similar character'; the NPS reads post-and-rail fences enclosing both sides of the road and, in front of the Klingel farm, a post-and-rail fence along both sides of the road.", 'documented', 'supported', [
+            C('OR2', 'R441', "climb three high post and rail fences", note="Maj. Charles S. Peyton, 19th Virginia (Garnett's brigade); p.386"),
+            C('OR2', 'R441', "behind the last of which the enemy's skirmishers were first met"),
+            C('OR2', 'R552', "a lane inclosed by two stout post and >>> very great obstruction", note="Lt. Col. S. G. Shepard; p.647; OCR 'jjlank'"),
+            C('OR2', 'R553', "Not a gun was hred at us until we reached a strong post and rail fence", note="Brig. Gen. J. R. Davis; p.651; OCR 'hred'"),
+            C('OR2', 'R553', "interrupted by other fences of a similar character"),
+            C('NPS', 'NPS-CLR-ROT-V1', "post and rail fences enclosing both sides of the road", note="Record of Treatment vol. I, area description"),
+            C('NPS', 'NPS-CLI-ERR', "Wooden post and rail fence along Emmitsburg Road, both sides of road, in front of Klingel Farm", note="Cultural Landscapes Inventory, Emmitsburg Road Ridge Battlefield (2024)")],
+          note="'Double' is documented for the Klingel front and for Shepard's lane (post and plank), not for the whole road."),
+        S('b', 'damage', "Fences cleared on 2 Jul before the fight: the 26th Pennsylvania (Bodine) 'detailed to clear away the fences in front of the division' on the morning of 2 Jul; Higgins's 35 men of the 86th New York demolished 'all stone walls and fences in our front to the Emmitsburg road' between 10 and about 11 a.m.; Humphreys: the ground in his front was open 'by removing such of the fences as were in the way'; the NPS: many north-south fences were removed before the second day, yet enough stood on 2-3 Jul to hinder movement; some were dismantled and their rails used for breastworks.", 'documented', 'supported', [
+            C('OR1', 'R167', "clear away the fences in front of the division", note="Maj. Robert L. Bodine, 26th Pennsylvania; p.556"),
+            C('OR1', 'R146', "I was ordered by General Ward to send forward a sufiicient body of men >>> to the Emmitsburg road", note="Lt. Col. B. L. Higgins, 86th New York; p.511"),
+            C('OR1', 'R146', "At about 11 a. m. Captain Baker returned, and reported his mission accomplished"),
+            C('OR1', 'R158', "removing such of the fences as were in the way", note="Brig. Gen. A. A. Humphreys; p.532"),
+            C('NPS', 'NPS-CLI-ERR', "Although Union forces removed many of the north-south fences prior to the second day’s battle, enough were standing on July 2-3 to hinder orderly troop movement"),
+            C('NPS', 'NPS-CLI-ERR', "Some were dismantled before the fighting began on July 2 to allow ease of troop movement, while the wooden rails were used to create new breastworks")]),
+        S('c', 'construction_window', "Fence rails made into breastworks along the Emmitsburg Road about 4 p.m. on 2 Jul: Gibbon sent two regiments of Harrow's brigade to a position along the road to the right of a brick house, where they 'tore down the fences and constructed breastworks'; Joslin (15th Massachusetts) 'built a small breastwork of rails behind the fence'; Hancock: a position 'strengthened by a slight breastwork of such materials as the adjoining fences afforded'; Harrow: fences 'hastily taken down and piled in their front'.", 'documented', 'supported', [
+            C('OR1', 'R098', "tore down the fences and constructed breastworks", note="Brig. Gen. John Gibbon; p.416"),
+            C('OR1', 'R101', "breastwork of rails behind the fence", note="Lt. Col. George C. Joslin, 15th Massachusetts; p.423"),
+            C('OR1', 'R076', "a slight breastwork of such materials as the adjoining fences afforded", note="Maj. Gen. W. S. Hancock; p.370"),
+            C('OR1', 'R099', "hastily taken down and piled in their front", note="Brig. Gen. William Harrow; p.419")],
+          note="Builders: the 15th Massachusetts and 82nd New York; window about 16:00-16:30 on 2 Jul (Joslin: moved forward about 4 p.m., built, half an hour before the pickets were driven in)."),
+        S('d', 'state_at_start', "Peach Orchard and Sherfy fences stood on the afternoon of 2 Jul: the 3rd Maine behind 'the fence that bounded the Peach Orchard' (until about 16:00), the 110th Pennsylvania 'inside of the peach orchard fence', Thompson's battery at 'Sherfy's stable and garden fence' (after 16:30); a rail fence ran 30-40 rods west of the road on the night of 1-2 Jul (4th Maine picket line).", 'documented', 'supported', [
+            C('LIB', 'ME-GB-1898', "posted behind the fence that bounded the Peach Orchard"),
+            C('LIB', 'PA-GB-1904', "inside of the peach orchard fence"),
+            C('LIB', 'PA-GB-1914-v2', "Sherfy's stable and garden fence"),
+            C('LIB', 'ME-GB-1898', "established a line by a rail fence, some 30 or 40 rods west of the Emm")],
+          note="Page hints only for the library books (heuristic); the fence-2 close-out carries the same quotes."),
+        S('e', 'state_at_start', "Stone fences and walls stood on the Wheatfield ground on 2 Jul: 'the stone fence beyond the wheat-field next to the woods' (Sweitzer), 'a low stone wall' skirting the timber (Crawford), 'a fence and stone wall on the edge of the woods' (Burbank), 'some stone walls' (Brooke), the stone wall behind which the 17th Maine stood (de Trobriand), the enemy's line 'in rear of the wheat-field ... behind a stone wall' (Kershaw).", 'documented', 'supported', [
+            C('OR1', 'R193', "We advanced to the stone fence beyond the wheat-field next to the woods", note="Col. Jacob B. Sweitzer; p.611"),
+            C('OR1', 'R218', "skirting this timber a low stone wall", note="Brig. Gen. S. W. Crawford; p.653"),
+            C('OR1', 'R211', "forward to a fence and stone wall on the edge of the woods", note="Col. Sidney Burbank; p.645"),
+            C('OR1', 'R092', "reformed behind some stone walls", note="Col. J. R. Brooke; p.401"),
+            C('OR1', 'R152', "The Seventeenth Maine took a strong position behind a stone wall", note="Col. de Trobriand; p.520"),
+            C('OR2', 'R432', "In rear of the wheat-field, and between that and the mountain, was the enemy's main line of battle, posted behind a stone wall", note="Brig. Gen. J. B. Kershaw; p.368")],
+          note="No wall-by-wall layout can be built from the OR alone; the NPS Cultural Landscape Reports map the stone walls from the 1863 Bachelder and Cope maps (not read here)."),
+        S('f', 'state_at_start', "'Double post-and-rail fences on both sides along the whole Emmitsburg Road' and per-segment type and height: not documented for the whole road; sources show interruptions (fences removed on 2 Jul, openings thrown down on 3 Jul).", 'open_gap', 'unsupported', [
+            C('NPS', 'NPS-CLI-PCB', "where the parallel fences impeded the onward march, large numbers were shot down on account of the crowding at the openings where the fences had been thrown down, and on account of the halt in order to climb the fences", note="parallel fences and thrown-down openings on 3 Jul")],
+          note="The Savas-Hessler excerpt the PDF cites is a blocked host; the NPS reading is by sector.")
+    ],
+    stays_unsupported=["Double post-and-rail on both sides along the whole road (documented only for some sectors)",
+                       "Per-segment type, height and the position of the thrown-down openings",
+                       "A clock for the removal of fences along the whole Third Corps front beyond 10:00-11:00 (86th New York) and 'after midnight' (26th Pennsylvania)",
+                       "The Savas-Hessler and Gettysburg Daily (GD-EmmRd) wording"],
+    conflicts=["Schedule 'Intact on the morning of 3 Jul' (S-062 from-state) vs the 2 Jul clearing of segments and the rail breastworks built from fences"],
+    register=['terrain-2-EG-06'],
+    blocked=[B('Savas-Hessler', 'https://www.savasbeatie.com/content/Titles/Fall%202014/Pickett%20Hessler/excerpt%20From%20Picketts%20Charge.pdf', "Hessler, Pickett's Charge at Gettysburg (Savas Beatie), publisher's excerpt (the address is the one recorded by the fence-3 close-out; www.savasbeatie.com is refused by the egress proxy, probed 2026-11-13). Read it for the double fences along the road and the '836 holes' rail; a trade-book excerpt is secondary."),
+             B('GD-EmmRd', None, "Gettysburg Daily, 'Emmitsburg Road fences' (the PDF prints no URL; gettysburgdaily.com is refused by the egress proxy, probed 2026-11-13). Read it for what it says of the double fences and of the demolition.")],
+    consequence=["state_schedule S-034 / S-062 and structures P-10 / FEN-emmitsburg-road (see also the fence-2 and fence-3 request notes): split the road by sector and date: segments removed or levelled on the morning of 2 Jul (86th New York, 35 men, 10:00-11:00; 26th Pennsylvania after midnight; Humphreys's front), rail breastworks built from the fences by the 15th Massachusetts and 82nd New York about 16:00 on 2 Jul, and segments standing on 3 Jul (Peyton, Shepard, Davis, NPS) with post-and-plank/post-and-rail double fences on both sides in the Klingel and Shepard stretches; the 'Intact' from-state of S-062 must not be applied to the whole road",
+                 "Peach Orchard / Sherfy fences: standing in the afternoon of 2 Jul (3rd Maine, 110th and 114th Pennsylvania, Thompson's battery); the 'destroyed afternoon-evening Jul 2' state has no source (fence-2 S-034)",
+                 "Wheatfield: stone fences and walls documented around the field with no wall-by-wall layout; P-04 and P-05 carry the specific ones"],
+    lookups=[L('OR Part 1 R098-R101, R146, R158, R167', 'fences|breastwork|demolish', 14, "Gibbon, Harrow, Hancock, Joslin, Higgins, Humphreys, Bodine"),
+             L('OR Part 2 R441, R552, R553', 'post and rail|post and plank', 6, "Peyton, Shepard, Davis"),
+             L('NPS texts', 'Emmitsburg Road fences', 9, "CLI Emmitsburg Road Ridge, CLI Pickett's Charge Battlefield, Record of Treatment vol. I"),
+             L('web', 'savasbeatie.com excerpt; gettysburgdaily.com', 0, "refused (proxy), 2026-11-13")],
+    structures=['P-10', 'S-034', 'S-062', 'FEN-emmitsburg-road'],
+    notes="OR-RECHECK: the two quotes of the old row were found verbatim (R146 p.511, R193 p.611). The old row's 'conflict with the seed' stands and is sharpened with the 2 Jul fence-rail breastworks. Meade's report R006 p.131 ('Sickles ... leveling all the fences and stone walls') is not used: the passage belongs to a Third Corps partisan statement appended to the correspondence, not to a report of a commander (fence-2 and fence-3 cite it; flagged here).",
+    changes=["verified (conflict_with_seed) -> corrected: the fences are documented but the 'present at frame one, destruction in B.8.7' framing hides the 2 Jul morning clearing and the 16:00 rail breastworks",
+             "new: Joslin, Hancock and Harrow on the rail breastworks; Bodine and Humphreys on the clearing; the Klingel double fence and Shepard's post-and-plank lane"]))

@@ -17,9 +17,9 @@
   "realize-inputs.test.mjs": "0a73456e9079"
  },
  "total": 144,
- "killed": 12,
+ "killed": 13,
  "survived": 0,
- "not_run": 132,
+ "not_run": 131,
  "survivors": [],
  "notes": {
   "checks-arrival-before": "EQUIVALENT mutant: unit_arrives asks whether the unit is on the field one second before its arrival minute; the stage's presence window starts at that minute (unitAt: tSec >= presence.from), so it never is. The guard is defensive.",
@@ -905,7 +905,13 @@
    "id": "schema-not-shown-list",
    "file": "tools/bt/realize/schema.mjs",
    "rule": "not_shown is a non-empty list",
-   "status": "not run"
+   "status": "killed",
+   "killed_by": "realize.test.mjs",
+   "detail": "wrong: the product does not show what the record says (weather, sky, structure)",
+   "tests_run": [
+    "rules",
+    "main"
+   ]
   },
   {
    "id": "schema-not-shown-on-missing",
