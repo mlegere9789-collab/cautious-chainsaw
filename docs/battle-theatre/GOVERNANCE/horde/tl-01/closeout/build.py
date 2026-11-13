@@ -176,37 +176,37 @@ def resolve(cid, c):
 SUN_TABLE = {'04:03': 'civil dawn', '04:35': 'sunrise', '19:32': 'sunset', '20:04': 'civil dusk'}
 DAY_PART_EDGE = {'18:00': 'the start of evening', '12:00': 'noon, the end of morning and the start of afternoon'}
 LIMIT_NOTES = {
-    ('T1-002', 'start'): 'the hour of departure: Stuart has the brigades move out at 1 o\'clock at night on Jun 25 (OR27-2-R565 p.692)',
-    ('T1-007', 'end'): 'the latest hour given for the regiment\'s march out on Jun 26 (Jacobs 10:30, row T1-008); the arrival is before it',
-    ('T1-008', 'start'): 'Richards gives 10:00 for the march out on the Cashtown road',
-    ('T1-008', 'end'): 'Jacobs gives 10:30 for the march out on the Cashtown road',
-    ('T1-009', 'start'): 'the earliest hour given for the march out on the pike (Richards 10:00, row T1-008)',
-    ('T1-009', 'end'): 'an allowance of the close-out, one hour after the 3 p.m. appearance of the Rebels (Jacobs) for the withdrawal; no text read gives an hour for the withdrawal',
-    ('T1-010', 'start'): 'the latest hour given for the march out on the pike (Jacobs 10:30, row T1-008); the rout is later',
-    ('T1-010', 'end'): 'an allowance of the close-out, one and a half hours after the 15:00 of Jacobs and the Compiler for the rout and the paroling; no text read gives an hour for their end',
-    ('T1-011', 'start'): 'about 3 p.m., when the Rebels in force appeared (Jacobs p.14, row T1-009)',
-    ('T1-013', 'start'): 'about 3 p.m., when the Confederate cavalry entered the town (Gettysburg Compiler; Jacobs has 15:30)',
-    ('T1-014', 'start'): 'about 3 p.m., when the Confederate cavalry entered the town (Gettysburg Compiler; Jacobs has 15:30)',
-    ('T1-021', 'end'): 'the order was delivered to Meade at about 03:00 on Jun 28 (Life and Letters of G. G. Meade vol.2 p.1)',
-    ('T1-025', 'start'): 'the order was delivered to Meade at about 03:00 (Life and Letters of G. G. Meade vol.2 p.1)',
-    ('T1-025', 'end'): 'Meade\'s dispatch of 7 a.m. acknowledging the order (OR27-1-R006 p.61)',
-    ('T1-037', 'start'): 'word reached Stuart at about 3.30 p.m. (OR27-2-R565 p.695)',
-    ('T1-042', 'start'): 'the skirmish was a half hour before the division reached the town at noon (Geary OR27-1-R293 p.825): 12:00 less 30 minutes',
-    ('T1-042', 'end'): 'the division encamped near the town at noon (Geary OR27-1-R293 p.825)',
-    ('T1-044', 'start'): 'Stuart: the head of the column reached Hanover about 10 a.m.',
-    ('T1-044', 'end'): 'Richmond and Hammond: the column arrived about noon',
-    ('T1-045', 'start'): 'Buford: entered Gettysburg at 11 a.m. (OR27-1-R337 p.923)',
-    ('T1-045', 'end'): 'Pierce: a little before noon',
-    ('T1-046', 'start'): 'the fight lasted about two hours (Kilpatrick), so it ends about 12:00 if it began about 10 a.m. (Stuart)',
-    ('T1-046', 'end'): 'it ends about 14:00 if it began about noon (Richmond, Hammond)',
-    ('T1-047', 'start'): 'Jacobs: a Confederate advance at 9.30 a.m.',
-    ('T1-047', 'end'): 'an allowance of the close-out for the return to Cashtown after the meeting; no text read gives an hour for it',
-    ('T1-049', 'start'): 'Buford entered Gettysburg at 11 a.m. (OR27-1-R337 p.923, row T1-045) and the signal officer was with him',
-    ('T1-050', 'start'): 'the seed gives no hour; Buford\'s troopers entered Gettysburg at 11 a.m. (OR27-1-R337 p.923, row T1-045), so the event cannot begin earlier',
-    ('T1-051', 'start'): 'Stuart: the head of the column reached Hanover about 10 a.m.',
-    ('T1-051', 'end'): 'two hours after the seed\'s 14:00 anchor, which no text read supports; kept so that the seed value stays displayable as a marked gap',
-    ('T1-053', 'start'): 'Howard\'s order at 8.30 a.m. (OR27-1-R243 p.701)',
-    ('T1-055', 'end'): 'Hancock\'s bivouac at Taneytown about 11 a.m. on Jul 1 (OR27-1-R076 p.367)',
+    ('T1-002', 'start'): "an allowance of the close-out: half an hour before the departure, which Stuart gives only as 1 o'clock at night on Jun 25 (OR27-2-R565 p.692)",
+    ('T1-007', 'end'): "the latest hour given for the regiment's march out on Jun 26 (Jacobs 10:30, row T1-008); the arrival is before it",
+    ('T1-008', 'start'): "Richards' hour for the march out on the Chambersburg pike (10 A. M., BL-3 p.289)",
+    ('T1-008', 'end'): "Jacobs' hour for the march out on the Chambersburg turnpike (10 J a. m., read as 10:30; Jacobs p.14)",
+    ('T1-009', 'start'): "the earliest hour given for the march out on the pike (Richards 10:00, row T1-008)",
+    ('T1-009', 'end'): "an allowance of the close-out, one hour after the 3 p.m. appearance of the Rebels (Jacobs); no text read gives an hour for the withdrawal",
+    ('T1-010', 'start'): "the latest hour given for the march out on the pike (Jacobs 10:30, row T1-008); the rout is later",
+    ('T1-010', 'end'): "an allowance of the close-out, one and a half hours after the 15:00 of Jacobs and the Compiler for the rout and the paroling; no text read gives an hour for their end",
+    ('T1-011', 'start'): "about 3 p.m., when the Rebels in force appeared (Jacobs p.14)",
+    ('T1-013', 'start'): "about 3 p.m., when the Confederate cavalry entered the town (Gettysburg Compiler; Jacobs has 3.30 p.m.)",
+    ('T1-014', 'start'): "about 3 p.m., when the Confederate cavalry entered the town (Gettysburg Compiler; Jacobs has 3.30 p.m.)",
+    ('T1-021', 'end'): "the hour at which the order was delivered to Meade (about 03:00 on Jun 28, Life and Letters of G. G. Meade vol.2 p.1)",
+    ('T1-025', 'start'): "the hour at which the order was delivered to Meade (about 03:00, Life and Letters of G. G. Meade vol.2 p.1)",
+    ('T1-025', 'end'): "the hour of Meade's dispatch acknowledging the order (7 a.m., OR27-1-R006 p.61)",
+    ('T1-037', 'start'): "the hour at which a citizen brought word to Knight at Westminster that the enemy was advancing in force (about 3.30 p.m., OR27-2-R401 p.202)",
+    ('T1-042', 'start'): "the hour of the skirmish: a half hour before the division reached the town at noon (Geary OR27-1-R293 p.825), 12:00 less 30 minutes",
+    ('T1-042', 'end'): "the hour at which the division encamped near the town (noon, Geary OR27-1-R293 p.825)",
+    ('T1-044', 'start'): "Stuart's hour for the head of the column at Hanover (about 10 a.m.)",
+    ('T1-044', 'end'): "the hour Richmond and Hammond give for the arrival of the column (about noon)",
+    ('T1-045', 'start'): "Buford's hour of entry into Gettysburg (11 a.m., OR27-1-R337 p.923)",
+    ('T1-045', 'end'): "Pierce's hour for the arrival of the cavalry (a little before noon)",
+    ('T1-046', 'start'): "the end of the fight if it began about 10 a.m. (Stuart) and lasted about two hours (Kilpatrick)",
+    ('T1-046', 'end'): "the end of the fight if it began about noon (Richmond, Hammond) and lasted about two hours (Kilpatrick)",
+    ('T1-047', 'start'): "Jacobs' hour for the Confederate advance (9 J a. m., read as 9:30; Jacobs p.21)",
+    ('T1-047', 'end'): "an allowance of the close-out for the return to Cashtown after the meeting; no text read gives an hour for it",
+    ('T1-049', 'start'): "Buford's hour of entry into Gettysburg (11 a.m., OR27-1-R337 p.923, row T1-045); the signal officer was with him",
+    ('T1-050', 'start'): "Buford's hour of entry into Gettysburg (11 a.m., OR27-1-R337 p.923, row T1-045); the seed gives no hour and the troopers cannot have cut fence before they arrived",
+    ('T1-051', 'start'): "Stuart's hour for the head of the column at Hanover (about 10 a.m., OR27-2-R565 p.695, row T1-046)",
+    ('T1-051', 'end'): "two hours after the seed's 14:00 anchor, which no text read supports; kept so that the seed value stays displayable as a marked gap",
+    ('T1-053', 'start'): "the hour of Howard's order (8.30 a.m., OR27-1-R243 p.707)",
+    ('T1-055', 'end'): "the hour of Hancock's bivouac at Taneytown on Jul 1 (about 11 a.m., OR27-1-R076 p.367)",
 }
 
 def window_limits_note(rid, start, end, errs=None):
@@ -218,13 +218,13 @@ def window_limits_note(rid, start, end, errs=None):
             continue
         if (name == 'start' and v == '00:00') or (name == 'end' and v == '23:59'):
             parts.append('the %s %s is the edge of the calendar date' % (name, v))
+        elif (rid, name) in LIMIT_NOTES:
+            parts.append('the %s %s is %s' % (name, v, LIMIT_NOTES[(rid, name)]))
         elif v in SUN_TABLE:
             sun_used = True
             parts.append('the %s %s is %s of the sun table of tolerances.json' % (name, v, SUN_TABLE[v]))
         elif v in DAY_PART_EDGE:
             parts.append('the %s %s is %s (tolerances.json time.day_parts)' % (name, v, DAY_PART_EDGE[v]))
-        elif (rid, name) in LIMIT_NOTES:
-            parts.append('the %s %s is %s' % (name, v, LIMIT_NOTES[(rid, name)]))
         else:
             if errs is not None:
                 errs.append('%s window %s %s has no stated origin (add it to LIMIT_NOTES)' % (rid, name, v))

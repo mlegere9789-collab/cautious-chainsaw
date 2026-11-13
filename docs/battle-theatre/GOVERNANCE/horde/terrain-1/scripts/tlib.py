@@ -42,16 +42,26 @@ def lib_text(sid):
     return _lt[sid]
 
 _nt = {}
+NPSX = os.path.join(ROOT, 'tmp/terrain-1/nps')
 def nps_text(sid):
     if sid not in _nt:
-        p = os.path.join(NPSD, sid, sid + '.txt')
+        variant = ''
+        base = sid
+        if '~' in sid:
+            base, variant = sid.split('~', 1); variant = '.' + variant
+        p = os.path.join(NPSD, base, base + variant + '.txt')
+        if not os.path.exists(p):
+            p = os.path.join(NPSX, base + '.txt')
         raw = open(p, encoding='utf-8', newline='').read()
         nt, nm = build_nview(raw)
         _nt[sid] = (p, raw, nt, nm)
     return _nt[sid]
 
 def nps_ids():
-    return sorted(d for d in os.listdir(NPSD) if os.path.exists(os.path.join(NPSD, d, d + '.txt')))
+    ids = [d for d in os.listdir(NPSD) if os.path.exists(os.path.join(NPSD, d, d + '.txt'))]
+    if os.path.isdir(NPSX):
+        ids += [f[:-4] for f in os.listdir(NPSX) if f.endswith('.txt')]
+    return sorted(ids)
 
 def or_search(pat, parts=(1, 2), ctx=200, flags=re.I, maxn=40):
     P_out = []
@@ -113,4 +123,82 @@ def all_nps_search(pat, ctx=200, flags=re.I, maxn_each=5):
             for h in nps_search(sid, pat, ctx, flags, maxn_each): res.append(h)
         except Exception as e:
             res.append(dict(sid=sid, error=str(e)))
+    return res
+
+
+# ---------------------------------------------------------------- page refinement and second witness
+_head_rx = [re.compile(r'CAMPAI?[A-Za-z]{0,4}\W{0,3}\s+(\d{3,4})\b'),
+            re.compile(r'\n\s*(\d{3,4})\s*\n+\s*N\.?\s*C\b'),
+            re.compile(r'\b(\d{3,4})\s+N\.?\s*C\.?,?\s*[TV]A', re.I)]
+
+def _head_events(P, start, end, lo, hi):
+    ev = []
+    seg = P.text[start:end]
+    for rx in _head_rx:
+        for m in rx.finditer(seg):
+            n = int(m.group(1))
+            if lo <= n <= hi + 1:
+                ev.append((start + m.start(), n))
+    ev.sort()
+    return ev
+
+def page_info(part, a, b):
+    """printed page of the character span [a,b) in the raw OR text. Returns dict(page, basis, lo, hi).
+    basis: 'running head' | 'garbled running head read in the text' | 'interpolated'."""
+    import bisect
+    P = get_part(part)
+    pa = P.pm.page_at(a); pb = P.pm.page_at(max(a, b - 1))
+    def one(p, off):
+        if p['conf'].startswith(('head', 'front')):
+            return dict(page=str(p['page']), basis='running head', lo=p['page'], hi=p['page'])
+        lo, hi = p['lo'], p['hi']
+        if hi == lo:
+            return dict(page=str(lo), basis='running head', lo=lo, hi=hi)
+        i = bisect.bisect_right(P.pm.offs, off) - 1
+        start = P.pm.offs[i] if i >= 0 else 0
+        ev = _head_events(P, start, off, lo, hi)
+        if ev:
+            n = ev[-1][1]
+            if lo <= n <= hi:
+                return dict(page=str(n), basis='garbled running head read in the text', lo=lo, hi=hi)
+        # the previous recognized head is page lo; no garbled head between it and the passage: page lo
+        if i >= 0 and P.pm.pages[i] == lo:
+            end = P.pm.offs[i + 1] if i + 1 < len(P.pm.offs) else len(P.text)
+            later = [e for e in _head_events(P, off, end, lo, hi) if e[1] > lo]
+            if later:
+                return dict(page=str(lo), basis='no running head between the page-%d head and the passage; the next garbled head (%d) follows it' % (lo, later[0][1]), lo=lo, hi=hi)
+        return dict(page='~%d (%d-%d)' % (p['page'], lo, hi), basis='interpolated', lo=lo, hi=hi)
+    ra = one(pa, a); rb = one(pb, max(a, b - 1))
+    if ra['page'] == rb['page']:
+        return ra
+    return dict(page='%s-%s' % (ra['page'], rb['page']), basis=ra['basis'] if ra['basis'] == rb['basis'] else ra['basis'] + ' / ' + rb['basis'], lo=ra['lo'], hi=rb['hi'])
+
+import unicodedata
+W2 = os.path.join(ROOT, 'tmp/terrain-1/dl/or27_w2')
+WITNESS = {
+  1: [('warofrebellion271unit', 'archive.org item warofrebellion271unit (Univ. of Illinois copy)', '4a388b6291bb972d2c8c0086d3d29973b288e0008408f6ef869a75ac6f25ff63'),
+      ('warofrebellion012701rootrich', 'archive.org item warofrebellion012701rootrich', '4ff47cecfd3a71f911c3e0b924f23e60709c2161c509a0a22d173127d6f1183d')],
+  2: [('warofrebellion272unit', 'archive.org item warofrebellion272unit (Univ. of Illinois copy)', '144f88d2399c99feecccba69b42128f9ae1c3b5ab1eef965904f2e1ba04a1e02'),
+      ('warofrebellionco272unit', 'archive.org item warofrebellionco272unit (BYU copy)', 'b31739105c5e886a372998737e01e513cb9877c8c2713dac85be24fa281a6c12')],
+}
+_wc = {}
+def squash(s):
+    out = []
+    for ch in s:
+        for d in unicodedata.normalize('NFKD', ch):
+            if d.isalnum(): out.append(d.lower())
+    return ''.join(out)
+def _wload(ident):
+    if ident not in _wc:
+        raw = open(os.path.join(W2, ident + '_djvu.txt'), encoding='utf-8', errors='replace').read()
+        raw = re.sub(r'-\s*\n\s*(?=[a-z])', '', raw)
+        _wc[ident] = squash(raw)
+    return _wc[ident]
+def witness_check(part, quote):
+    res = []
+    q = squash(quote)
+    for ident, label, sha in WITNESS.get(part, []):
+        t = _wload(ident)
+        i = t.find(q)
+        res.append(dict(scan=label, sha256=sha, found=i >= 0, occurrences=t.count(q) if i >= 0 else 0))
     return res

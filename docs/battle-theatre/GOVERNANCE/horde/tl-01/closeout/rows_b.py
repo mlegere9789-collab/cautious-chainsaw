@@ -513,7 +513,7 @@ ROWS.append(dict(
 ROWS.append(dict(
     id='T1-040', verdict='partially_supported',
     claim=claim('Night of Jun 29: camp life of the armies is documented only in fragments: Longstreet\'s headquarters at Chambersburg in the evening, the enlarged Confederate camps above Cashtown seen from Gettysburg',
-                'Longstreet\'s headquarters mess; Hill\'s troops above Cashtown; both armies', 'Chambersburg; the slope of the mountain above Cashtown', 'Evening and night of Jun 29', 'Fremantle 1864 (Jun 29); Jacobs 1864 pp.20-21',
+                'Longstreet\'s headquarters mess; Hill\'s troops above Cashtown; both armies', 'Chambersburg; the slope of the mountain above Cashtown', 'Evening and night of Jun 29', 'Fremantle 1864 (Jun 29); Jacobs 1864 pp.19 and 21',
                 'Fremantle records that on the evening of Jun 29 Longstreet and he talked at length about Texas at headquarters near Chambersburg; Jacobs saw, by field-glass, the Rebel encampments above Cashtown considerably enlarged on Jun 29 (and the camp-fires of Hill\'s advance party on the evening of Jun 28). '
                 'Camp life, fires, pickets and civilians across both armies on the night of Jun 29 remain an open gap.',
                 'open gap', '1863-06-29T20:04', '1863-06-30T04:03', marking='fragments: documented; the army-wide camp life: open gap, shown only as marked procedural scene detail'),

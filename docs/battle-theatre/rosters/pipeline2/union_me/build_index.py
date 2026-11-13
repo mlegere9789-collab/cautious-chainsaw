@@ -11,13 +11,15 @@ Output  tmp/library/rosters/union-me-work/ME-SUPP-1867/rows-<unit>.jsonl   one J
 Every row is asserted against the pinned text before it is written: V1 (name tokens at the recorded offset), V2 (remark tokens in
 order from off+rd inside the leaf), V3 (printed page of the leaf).  A row that fails is a defect: it is listed, never written.
 """
-import os, sys, json, re, collections
+import os, sys, json, re, collections, hashlib
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-import mlib as M, me_index as I, mtable as T
+import mlib as M, me_index as I, mtable as T, pos_text as P
 R = M.R
 
 SRC, TID = 'ME-SUPP-1867', 'ME-SUPP-1867.1867'
+TID_POS = 'ME-SUPP-1867.1867~p'
+IDENT = 'supplementtoannu00main'
 XML = os.path.join(M.XMLDIR, 'supplementtoannu00main_djvu.xml')
 OUT = os.path.join(M.WORK, SRC)
 LISTS = (('vol1', range(12, 579)), ('vol2', range(630, 1227)))        # leaves of the two volunteer lists (see the report)
@@ -56,7 +58,7 @@ def main():
         rows_all.extend(rows)
     # rank vocabulary derived from the volume itself (strings printed at least 8 times, ditto damage excluded)
     rank_count = collections.Counter(T.text_of(r['rank']) for r in rows_all if r['rank'])
-    rank_vocab = {k for k, v in rank_count.items() if v >= 8 and not I.RE_DITTO_DAMAGED.match(k)}
+    rank_vocab = {k for k, v in rank_count.items() if v >= 8 and (k == 'do' or not I.RE_DITTO_DAMAGED.match(k))}
     out = collections.defaultdict(list)           # unit -> rows
     skipped = collections.defaultdict(list)       # reason -> [descr]
     unit_stat = collections.defaultdict(collections.Counter)
@@ -81,18 +83,9 @@ def main():
             if not cand:
                 continue
             unit = '_other'
-        # --- row fields
-        nw = sorted(r['name'], key=lambda w: w['off'])
-        off = nw[0]['off']
-        name = ' '.join(w['w'] for w in nw)
-        rank = T.text_of(r['rank']) if r['rank'] else ''
-        rem_w = sorted(r['co'] + r['rg'] + r['cp'], key=lambda w: w['off'])
-        remarks = ' '.join(w['w'] for w in rem_w)
-        rd = (rem_w[0]['off'] - off) if rem_w else 0
-        leaf = r['leaf']
-        a, b = pm.span(leaf)
-        page = pm.printed(leaf)
+        # --- row fields (offsets in the search text; the positional offsets are kept for the fallback)
         fl = ''
+        rank = T.text_of(r['rank']) if r['rank'] else ''
         if name_flags(ntoks):
             fl += 'N'
         if rank and rank not in rank_vocab:
@@ -104,36 +97,72 @@ def main():
             fl += 'G'
         if r['damaged_unit_cells']:
             fl += 'U'
-        if name == 'Same' or re.match(r'^Same\W*$', name):
+        name = ' '.join(ntoks)
+        if re.match(r'^Same\W*$', name):
             fl += 'S'
-        row = R.row(name, rank, '', remarks, page, off, rd)
-        out[unit].append((row, fl, r['list'], r['corps_how']))
+        out[unit].append((r, fl))
         unit_stat[unit]['rows'] += 1
         unit_stat[unit]['list:' + r['list']] += 1
-        if fl:
-            for c in set(fl):
-                unit_stat[unit]['flag:' + c] += 1
+        for c in set(fl):
+            unit_stat[unit]['flag:' + c] += 1
+    # --- positional text (fallback for rows whose cells the search text keeps apart)
+    rows_by_leaf = collections.defaultdict(list)
+    for r in rows_all:
+        rows_by_leaf[r['leaf']].append(r)
+    ptext, pidx = P.build(rows_by_leaf, len(pm.ranges))
+    raw_dir = os.path.join(M.TMP, SRC)
+    tp, ip = P.write(ptext, pidx, raw_dir, IDENT)
+    pm_pos = R.PageMap(ip, os.path.join(raw_dir, IDENT + '_page_numbers.json'))
+    recipe = {'scripts': {n: M.sha256_file(os.path.join(HERE, n)) for n in ('build_index.py', 'me_index.py', 'mtable.py', 'pos_text.py', 'mlib.py')},
+              'rule': 'one line per visual row of the body of each leaf of the two volunteer lists (leaves 12-578 and 630-1226); rows grouped by the vertical '
+                      'centre corrected for the tilt of the page; words of a row left to right, joined by one blank; leaves outside the lists are empty'}
+    M.pin_derived_text(SRC, TID_POS, TID, tp, ip, XML, recipe)
+
+    def make(r, key):
+        ws = sorted(r['name'], key=lambda w: w[key])
+        off = ws[0][key]
+        name = ' '.join(w['w'] for w in ws)
+        rank = T.text_of(r['rank']) if r['rank'] else ''
+        rem = sorted(r['co'] + r['rg'] + r['cp'], key=lambda w: w[key])
+        remarks = ' '.join(w['w'] for w in rem)
+        rd = (rem[0][key] - off) if rem else 0
+        t, pmx = (text, pm) if key == 'off' else (ptext, pm_pos)
+        return R.row(name, rank, '', remarks, pmx.printed(r['leaf']), off, rd)
+
     # --- assertion pass and writing
     os.makedirs(OUT, exist_ok=True)
-    seg = {'s': SRC, 'v': '1867', 't': TID, 'lay': 'cols'}
-    diag = {'source': SRC, 'text_id': TID, 'xml_sha256': ent.get('derived_from', {}).get('sha256') or M.sha256_file(XML), 'alignment': dict(stat),
+    seg_h = {'s': SRC, 'v': '1867', 't': TID, 'lay': 'cols'}
+    seg_p = {'s': SRC, 'v': '1867', 't': TID_POS, 'lay': 'cols'}
+    ledger_unit = {}
+    diag = {'source': SRC, 'text_id': TID, 'positional_text_id': TID_POS, 'xml_sha256': M.sha256_file(XML), 'alignment': dict(stat),
+            'positional_text': {'bytes': len(ptext.encode('utf-8')), 'sha256': hashlib.sha256(ptext.encode('utf-8')).hexdigest()},
             'rank_vocabulary_size': len(rank_vocab), 'leaf_notes': leaf_notes, 'units': {}, 'defects': {}, 'skipped_counts': {k: len(v) for k, v in skipped.items()}}
     for unit, lst in out.items():
-        lst.sort(key=lambda t: t[0][5])
-        rows = [t[0] for t in lst]
-        v = R.verify_rows([(seg, rows)], {TID: text}, {TID: pm}, max_report=10 ** 9)
-        bad = {(d['off']) for d in v['defects'] if d['kind'] in ('name-not-at-offset', 'remark-not-at-offset', 'page-mismatch')}
-        good = [t for t in lst if t[0][5] not in bad]
+        h_rows, p_rows, defects = [], [], []
+        for r, fl in sorted(lst, key=lambda t: t[0]['name'][0]['off'] if t[0]['name'] else 0):
+            rowh = make(r, 'off')
+            vh = R.verify_rows([(seg_h, [rowh])], {TID: text}, {TID: pm}, max_report=10)
+            if not vh['defects']:
+                h_rows.append((rowh, fl, r['list']))
+                continue
+            rowp = make(r, 'poff')
+            vp = R.verify_rows([(seg_p, [rowp])], {TID_POS: ptext}, {TID_POS: pm_pos}, max_report=10)
+            if not vp['defects']:
+                p_rows.append((rowp, fl, r['list']))
+            else:
+                defects.append({'leaf': r['leaf'], 'name': rowh[0], 'kind': [d['kind'] for d in vp['defects']]})
+        p_rows.sort(key=lambda t: t[0][5])
         with open(os.path.join(OUT, 'rows-%s.jsonl' % unit), 'w', encoding='utf-8') as f:
-            for row, fl, lname, how in good:
-                f.write(json.dumps(row + [fl, lname], ensure_ascii=False, separators=(',', ':')) + '\n')
-        diag['units'][unit] = {'candidates': len(lst), 'written': len(good), 'defects': len(lst) - len(good),
-                               'verify': {k: x for k, x in v.items() if k != 'defects'}, 'stat': dict(unit_stat[unit])}
-        diag['defects'][unit] = [d for d in v['defects'] if d['off'] in bad][:200]
+            for seg_no, rows_ in ((0, h_rows), (1, p_rows)):
+                for row, fl, lname in rows_:
+                    f.write(json.dumps(row + [fl, lname, seg_no], ensure_ascii=False, separators=(',', ':')) + '\n')
+        diag['units'][unit] = {'candidates': len(lst), 'written_search_text': len(h_rows), 'written_positional_text': len(p_rows), 'defects': len(defects),
+                               'stat': dict(unit_stat[unit])}
+        diag['defects'][unit] = defects[:200]
     diag['skipped'] = {k: v for k, v in skipped.items()}
     json.dump(diag, open(os.path.join(OUT, 'diag.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     for u, d in sorted(diag['units'].items()):
-        print(u, d['candidates'], d['written'], d['defects'])
+        print(u, d['candidates'], d['written_search_text'], d['written_positional_text'], d['defects'])
     print({k: len(v) for k, v in skipped.items()})
 
 

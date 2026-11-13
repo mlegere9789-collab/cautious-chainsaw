@@ -37,6 +37,59 @@
    "retrieved": "2026-11-13T20:02:34Z",
    "local_dir": "tmp/library/rosters/ME-SUPP-1867/",
    "page_numbers": true
+  },
+  "ME-SUPP-1867.1867~p": {
+   "source_id": "ME-SUPP-1867",
+   "volume": "1867",
+   "ia_identifier": "supplementtoannu00main",
+   "ia_title": "Supplement to the Annual reports of the Adjutant General of the state of Maine, for the years 1861, '62, '63, '64, '65 and 1866",
+   "ia_volume": null,
+   "ia_date": "1867",
+   "ia_publisher": "[The Adjutant General?]",
+   "ia_contributor": "Acton Memorial Library",
+   "ia_possible_copyright_status": null,
+   "ia_access_restricted_item": false,
+   "ia_ocr": "ABBYY FineReader 9.0",
+   "ia_imagecount": "1228",
+   "url_base": "https://archive.org/cors/supplementtoannu00main/",
+   "local_dir": "tmp/library/rosters/ME-SUPP-1867/",
+   "page_numbers": true,
+   "kind": "ia-djvuxml-positional",
+   "base_text_id": "ME-SUPP-1867.1867",
+   "derived_from": {
+    "name": "supplementtoannu00main_djvu.xml",
+    "sha256": "f2e3467537c743f50ff9f167db4f81396304df905c3839ea4cc975af94a1bcae",
+    "bytes": 60693021,
+    "deleted_after_use": true,
+    "recipe": {
+     "scripts": {
+      "build_index.py": "cff5c98ffdf3a3681f5004c4b555a2a7ba96bde347b0900149bcbbdc5184d59f",
+      "me_index.py": "1c7de015aeb928ecfb502545606ce1e7eac1236410695f4f7a02f15c9cfa5f9a",
+      "mtable.py": "8e900debeb2b311d0cc1ef82bafd3b520c3607b4f834446deac0ace46cc3b837",
+      "pos_text.py": "4c89e03d1468cff2f7e558fe94b27fef093a521364defb94b5f2c87275aec417",
+      "mlib.py": "df7a9adad4b30fc3423cef64f1aa284864f5e9a00a2f24368d0b9df4222a048e"
+     },
+     "rule": "one line per visual row of the body of each leaf of the two volunteer lists (leaves 12-578 and 630-1226); rows grouped by the vertical centre corrected for the tilt of the page; words of a row left to right, joined by one blank; leaves outside the lists are empty"
+    }
+   },
+   "files": {
+    "text": {
+     "name": "supplementtoannu00main_pos_searchtext.txt.gz",
+     "bytes": 643256,
+     "sha256": "b9ca656214c8a25829ea0f4e56d9fa285d7a71157e126241a34245056d486485"
+    },
+    "pageindex": {
+     "name": "supplementtoannu00main_pos_pageindex.json.gz",
+     "bytes": 6813,
+     "sha256": "d293649ffb42f575c06b1a94e825fe94bd768187be687b18aedda1e17b1abc7b"
+    },
+    "page_numbers": {
+     "name": "supplementtoannu00main_page_numbers.json",
+     "bytes": 210313,
+     "sha256": "afc65bc39f13f58920c2dba16840a249de472864d3104a8ba913ca845b8f6496"
+    }
+   },
+   "retrieved": "2026-11-13T20:24:37Z"
   }
  },
  "failed": []

@@ -35,10 +35,11 @@ Definition file format (UTF-8):
                A trailing ' ~L' uses the layout text of the page, ' ~R' the content-stream-order text (line-end
                hyphenation repaired), ' ~S' the standard reading-order text, instead of the source's default variant.
                A trailing ' ~#k' takes the k-th occurrence of a passage that repeats on the page.
-    context    optional 9th field, an anchor of the same kinds (no trailing flags) that is cut from the SAME page and
-               kept next to the quote as `context_quote`: it carries a date, a name or a number that the claim
-               needs but that stands in another sentence of the page (a list heading, the entry heading). The claim
-               is supported by the quote and the context quote together; both are verbatim page text.
+    context    optional 9th field, an anchor of the same kinds (no trailing flags) that is cut from the same page
+               (or, written '@<pdf page>: <anchor>', from another page of the same source) and kept next to the quote
+               as `context_quote` (with `context_pdf_page`): it carries a date, a name or a number that the claim
+               needs but that stands in another sentence (a list heading, the entry heading, the page before). The
+               claim is supported by the quote and the context quote together; both are verbatim page text.
 
 Outputs (next to this script's parent folder):
   extracts/extracts.jsonl          one record per extract
@@ -358,11 +359,16 @@ def main():
             if err:
                 errors.append('%s:%d p.%d %s' % (os.path.basename(f), ln, p, err)); continue
             q, mode, excerpt, template, corrections = got['quote'], got['mode'], got['excerpt'], got['template'], got['corrections']
-            ctx = None
+            ctx, ctx_page = None, p
             if ctx_anchor:
-                ctx, err = resolve(pgs[p], ctx_anchor, td)
+                mc = re.match(r'@(\d+):\s*(.*)$', ctx_anchor)
+                if mc:
+                    ctx_page, ctx_anchor = int(mc.group(1)), mc.group(2)
+                if ctx_page not in pgs:
+                    errors.append('%s:%d context page %d not in %s' % (os.path.basename(f), ln, ctx_page, sid)); continue
+                ctx, err = resolve(pgs[ctx_page], ctx_anchor, td)
                 if err:
-                    errors.append('%s:%d p.%d context: %s' % (os.path.basename(f), ln, p, err)); continue
+                    errors.append('%s:%d p.%d context (p.%d): %s' % (os.path.basename(f), ln, p, ctx_page, err)); continue
             seq[(sid, p)] = seq.get((sid, p), 0) + 1
             s = sources.get(sid, {})
             use, sdate = use_for_1863(sdate)
@@ -382,7 +388,7 @@ def main():
                 'pdf_page': p, 'printed_page': printed_given or printed_page(pgs[p], variant),
                 'quote_mode': mode, 'source_text_excerpt': excerpt,
                 'quote_template': template, 'ocr_corrections': [list(c) for c in corrections] if corrections else None,
-                'context_quote': ctx['quote'] if ctx else None, 'context_mode': ctx['mode'] if ctx else None,
+                'context_quote': ctx['quote'] if ctx else None, 'context_pdf_page': ctx_page if ctx else None, 'context_mode': ctx['mode'] if ctx else None,
                 'context_excerpt': ctx['excerpt'] if ctx else None, 'context_template': ctx['template'] if ctx else None,
                 'context_corrections': [list(c) for c in ctx['corrections']] if ctx and ctx['corrections'] else None,
                 'basis_named': basis,
@@ -434,7 +440,7 @@ def main():
                 f.write('  - Claim: %s\n' % r['claim'])
                 f.write('  - Quote: "%s"\n' % r['quote'])
                 if r.get('context_quote'):
-                    f.write('  - Context on the same page: "%s"\n' % r['context_quote'])
+                    f.write('  - Context (PDF p. %s): "%s"\n' % (r.get('context_pdf_page') or r['pdf_page'], r['context_quote']))
     print('%d extracts written; by topic: %s' % (len(recs), {t: len(v) for t, v in sorted(by.items())}))
 
 

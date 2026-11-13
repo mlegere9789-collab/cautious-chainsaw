@@ -71,3 +71,74 @@ def align(words, text, a, b, look=12):
 
 def sha256_file(p):
     return R.sha256_file(p)
+
+
+# ------------------------------------------------------------------------------------------------ ledger helpers
+def now():
+    import time
+    return time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+
+
+def ledger_path(source_id):
+    return os.path.join(D2, 'sources', source_id + '.json')
+
+
+def ledger_load(source_id):
+    p = ledger_path(source_id)
+    return json.load(open(p, encoding='utf-8')) if os.path.exists(p) else {'format': 'roster2-source/1', 'source_id': source_id, 'texts': {}, 'failed': []}
+
+
+def ledger_save(source_id, led):
+    with open(ledger_path(source_id), 'w', encoding='utf-8') as f:
+        json.dump(led, f, ensure_ascii=False, indent=1)
+
+
+def pin_derived_text(source_id, text_id, base_text_id, text_path, index_path, xml_path, recipe, kind='ia-djvuxml-positional'):
+    """Pin a derived text (a re-serialisation of the item's own OCR words) in the ledger next to its base text."""
+    led = ledger_load(source_id)
+    base = led['texts'][base_text_id]
+    pn = base['files'].get('page_numbers')
+    ent = {k: v for k, v in base.items() if k not in ('files', 'retrieved', 'kind')}
+    ent['kind'] = kind
+    ent['base_text_id'] = base_text_id
+    ent['derived_from'] = {'name': os.path.basename(xml_path), 'sha256': sha256_file(xml_path), 'bytes': os.path.getsize(xml_path),
+                           'deleted_after_use': True, 'recipe': recipe}
+    ent['files'] = {'text': {'name': os.path.basename(text_path), 'bytes': os.path.getsize(text_path), 'sha256': sha256_file(text_path)},
+                    'pageindex': {'name': os.path.basename(index_path), 'bytes': os.path.getsize(index_path), 'sha256': sha256_file(index_path)}}
+    if pn:
+        ent['files']['page_numbers'] = pn
+    ent['retrieved'] = now()
+    led['texts'][text_id] = ent
+    ledger_save(source_id, led)
+
+
+# ------------------------------------------------------------------------------------------------ the 14 units and the segments
+UNITS = [
+    ('u-me-3rd-maine-infantry', '3rd Maine Infantry', 'union/me/3rd-maine-infantry.jsonl.gz'),
+    ('u-me-4th-maine-infantry', '4th Maine Infantry', 'union/me/4th-maine-infantry.jsonl.gz'),
+    ('u-me-5th-maine-infantry', '5th Maine Infantry', 'union/me/5th-maine-infantry.jsonl.gz'),
+    ('u-me-6th-maine-infantry', '6th Maine Infantry', 'union/me/6th-maine-infantry.jsonl.gz'),
+    ('u-me-7th-maine-infantry', '7th Maine Infantry', 'union/me/7th-maine-infantry.jsonl.gz'),
+    ('u-me-10th-maine-infantry', '10th Maine Infantry', 'union/me/10th-maine-infantry.jsonl.gz'),
+    ('u-me-16th-maine-infantry', '16th Maine Infantry', 'union/me/16th-maine-infantry.jsonl.gz'),
+    ('u-me-17th-maine-infantry', '17th Maine Infantry', 'union/me/17th-maine-infantry.jsonl.gz'),
+    ('u-me-19th-maine-infantry', '19th Maine Infantry', 'union/me/19th-maine-infantry.jsonl.gz'),
+    ('u-me-20th-maine-infantry', '20th Maine Infantry', 'union/me/20th-maine-infantry.jsonl.gz'),
+    ('u-me-1st-maine-cavalry', '1st Maine Cavalry', 'union/me/1st-maine-cavalry.jsonl.gz'),
+    ('u-me-2nd-maine-battery-b', '2nd Maine Battery (B)', 'union/me/2nd-maine-battery-b.jsonl.gz'),
+    ('u-me-5th-maine-battery-e', '5th Maine Battery (E)', 'union/me/5th-maine-battery-e.jsonl.gz'),
+    ('u-me-6th-maine-battery-f', '6th Maine Battery (F)', 'union/me/6th-maine-battery-f.jsonl.gz'),
+]
+# segments in file order: (source id, work segment number) -> segment object of the unit file
+SEGMENTS = [
+    (('ME-AGR-1863-APPD', 0), {'s': 'ME-AGR-1863-APPD', 'v': '1863', 't': 'ME-AGR-1863-APPD.1863', 'lay': 'cols'}),
+    (('ME-SUPP-1867', 0), {'s': 'ME-SUPP-1867', 'v': '1867', 't': 'ME-SUPP-1867.1867', 'lay': 'cols'}),
+    (('ME-SUPP-1867', 1), {'s': 'ME-SUPP-1867', 'v': '1867', 't': 'ME-SUPP-1867.1867~p', 'lay': 'cols'}),
+    (('ME-GETT-1898', 0), {'s': 'ME-GETT-1898', 'v': '1898', 't': 'ME-GETT-1898.1898', 'lay': 'cols'}),
+    (('ME-APPD-1861', 0), {'s': 'ME-APPD-1861', 'v': '1861', 't': 'ME-APPD-1861.1861', 'lay': 'cols'}),
+]
+FLAG_TEXT = {
+    'N': 'name text damaged', 'R': 'rank cell damaged', 'C': 'company cell damaged', 'G': 'regiment cell damaged or blank',
+    'P': 'corps cell damaged', 'U': 'unit read through a damaged or tolerated cell', 'S': 'printed name is the ditto word "Same" (the man named on the line above)',
+}
+OCR_FLAGS = 'NRCGPU'

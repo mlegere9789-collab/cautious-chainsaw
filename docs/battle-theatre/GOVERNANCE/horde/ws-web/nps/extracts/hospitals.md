@@ -21,11 +21,11 @@ Boundary Study, Gettysburg National Military Park: Draft Report to Congress / En
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 39
   - Repository ids: `bld-spangler-farm`, `H-06`
   - Claim: The 1988 study says the 85-acre George Spangler farm was used by Union forces as a hospital site, artillery park and troop movement area, and that the 11th Corps hospital there was the site of General Armistead's death
-  - Quote: "Used by Union forces as a hospital site, artillery park and troop movement area, this farm still exists today. The 11th Corps hospital located here was the site of General Armistead’s death"
+  - Quote: "GEORGE SPANGLER FARM (85 ACRES) Used by Union forces as a hospital site, artillery park and troop movement area, this farm still exists today. The 11th Corps hospital located here was the site of General Armistead’s death"
 - **Hospital Woods: remnant of the Camp Letterman general hospital site** (`NPSX-BOUNDARY-1988-p040-01`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 40
   - Claim: The 11 acres of Hospital Woods are all that remain of the site of Camp Letterman, the US General Hospital for about 5,000 Union and Confederate wounded
-  - Quote: "These historic woods are all that rem.ain of the site of Camp Letterman, the U.S. General Hospital for about 5,000 Union and Confederate troops wounded at Gettysburg."
+  - Quote: "HOSPITAL WOODS (11 ACRES) These historic woods are all that rem.ain of the site of Camp Letterman, the U.S. General Hospital for about 5,000 Union and Confederate troops wounded at Gettysburg."
 - **Rummel barn: Confederate hospital site** (`NPSX-BOUNDARY-1988-p040-02`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 40
   - Repository ids: `bld-rummel-farm`
@@ -99,8 +99,8 @@ Cultural Landscapes Inventory: Pickett's Charge Battlefield, Gettysburg National
 - **Nicholas Codori house (shelter for wounded)** (`NPSX-CLI-PCB-p096-02`)
   - State date: **1863-07-02 to 07-03** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 96 [Page 91 of 131]
   - Repository ids: `bld-codori-farm`
-  - Claim: Union wounded sought shelter in the Codori house on July 2 and Confederate wounded joined them on July 3 until the end of the battle
-  - Quote: "Their position was overrun; wounded sought shelter within the house. On July 3, the house proved an obstacle to Garnett’s Virginia brigade as it participated in the Pickett-Pettigrew Assault. Confederate wounded joined Union wounded in the house until the conclusion of the battle."
+  - Claim: On July 2 two regiments of Harrow's brigade moved forward to the road beside the Codori house and were overrun, and wounded sought shelter within the house; on July 3 the house was an obstacle to Garnett's Virginia brigade in the Pickett-Pettigrew Assault, and Confederate wounded joined the Union wounded in the house until the conclusion of the battle
+  - Quote: "On July 2, two regiments of Harrow’s Union brigade moved forward to the road astride the house to confront a major attack by Confederate infantry. Their position was overrun; wounded sought shelter within the house. On July 3, the house proved an obstacle to Garnett’s Virginia brigade as it participated in the Pickett-Pettigrew Assault. Confederate wounded joined Union wounded in the house until the conclusion of the battle."
 - **Joseph Sherfy barn (shelter for wounded)** (`NPSX-CLI-PCB-p097-09`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 97 [Page 92 of 131]
   - Repository ids: `bld-sherfy-farm`

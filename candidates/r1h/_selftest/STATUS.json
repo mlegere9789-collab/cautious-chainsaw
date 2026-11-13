@@ -1,0 +1,33 @@
+{
+ "id": "_selftest",
+ "route": "candidate-group",
+ "base": "release/R1g/dist",
+ "test": "candidates/r1h/_selftest/test.mjs",
+ "checked_at": "2026-11-13T20:27:53.844Z",
+ "anchors": {
+  "exit": 0,
+  "patches": 2,
+  "ok": true,
+  "failed": [],
+  "overlay_files": 0
+ },
+ "test_exists": true,
+ "handoff_exists": true,
+ "red": {
+  "cmd": "R1H_BASE=release/R1g/dist node --test candidates/r1h/_selftest/test.mjs",
+  "exit": 1,
+  "expect": "non-zero",
+  "ms": 353,
+  "tail": "...p>\n        <a class=\"cta\" href=\"/\">&larr; Back to the map</a>\n      </div>\n    </body>\n    </html>\n    \n  operator: 'match'\n  stack: |-\n    TestContext.<anonymous> (file:///home/user/cautious-chainsaw/candidates/r1h/_selftest/test.mjs:8:10)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.start (node:internal/test_runner/test:944:17)\n    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)\n  ...\n# Subtest: the no-op bundle patch left the css readable and unchanged in size class\nok 2 - the no-op bundle patch left the css readable and unchanged in size class\n  ---\n  duration_ms: 1.828531\n  type: 'test'\n  ...\n1..2\n# tests 2\n# suites 0\n# pass 1\n# fail 1\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 214.592016\n"
+ },
+ "green": {
+  "cmd": "R1H_BASE=release/R1g/dist R1H_TREE=tmp/r1h-cand/_selftest/green node --test candidates/r1h/_selftest/test.mjs",
+  "exit": 0,
+  "expect": 0,
+  "ms": 315,
+  "tail": "TAP version 13\n# Subtest: 404.html carries the self-test marker only when the group is applied\nok 1 - 404.html carries the self-test marker only when the group is applied\n  ---\n  duration_ms: 0.960638\n  type: 'test'\n  ...\n# Subtest: the no-op bundle patch left the css readable and unchanged in size class\nok 2 - the no-op bundle patch left the css readable and unchanged in size class\n  ---\n  duration_ms: 1.822759\n  type: 'test'\n  ...\n1..2\n# tests 2\n# suites 0\n# pass 2\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 205.459863\n"
+ },
+ "passes": true,
+ "problems": [],
+ "state": "tested"
+}

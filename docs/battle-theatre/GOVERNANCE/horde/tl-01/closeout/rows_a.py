@@ -60,7 +60,7 @@ ROWS.append(dict(
                 'Stuart, OR27-2-R565 p.692: "At 1 o\'clock at night, the brigades with noiseless march moved out"',
                 'About 01:00 on Jun 25 Stuart\'s three brigades (Hampton, Fitz. Lee, W. H. F. Lee) moved out from their secret rendezvous near Salem Depot; Hancock\'s infantry corps was in Thoroughfare Gap and then marching through Haymarket and had the right of way on his road, so the planned route was blocked. '
                 'Robertson\'s and Jones\' brigades stayed in Virginia. Lee\'s army had no main cavalry on the approach to Gettysburg (Lee: its movements were "much embarrassed" by the absence), and Stuart\'s advance reached Gettysburg on Jul 2. Jenkins\' brigade (with Ewell\'s corps) and Imboden (on Ewell\'s left in the Valley) operated separately.',
-                'documented', '1863-06-25T01:00', '1863-06-25T23:59'),
+                'documented', '1863-06-25T00:30', '1863-06-25T23:59'),
     subs=[
         ('On the night of the 24th Hampton\'s, Fitz. Lee\'s and W. H. F. Lee\'s brigades rendezvoused secretly near Salem Depot and at 1 o\'clock at night moved out (about 01:00 on Jun 25)', 'documented', 'supported', ['rend', 'move']),
         ('Federal infantry blocked the planned route: Hancock\'s corps occupied Thoroughfare Gap and was marching through Haymarket; Hancock had the right of way on Stuart\'s road', 'documented', 'supported', ['hanc', 'hanc2', 'hanc3']),

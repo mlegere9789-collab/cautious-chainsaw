@@ -62,8 +62,8 @@ function addWitnessTrees(s, trees, model, project) {
   const W = model.data.witness_trees || []; if (!W.length) return; const sp = model.speciesList, extra = new Float32Array(W.length * 9);
   W.forEach((w, i) => { const [x, z] = project(w.lnglat[0], w.lnglat[1]), o = i * 9; extra[o] = x; extra[o + 1] = z; extra[o + 2] = (w.h_m[0] + w.h_m[1]) / 2; extra[o + 3] = (w.r_m[0] + w.r_m[1]) / 2; extra[o + 4] = sp.indexOf(w.species); extra[o + 5] = 0.05; extra[o + 6] = 1; extra[o + 7] = 0; extra[o + 8] = model.units.length; });
   const merged = new Float32Array(trees.data.length + extra.length); merged.set(trees.data); merged.set(extra, trees.data.length);
-  // the witness trees are drawn through one more chunk of their own (never thinned: seed 0.05 is below every keep value)
-  trees.chunks.push({ ix: -1, iz: -1, cx: extra[0], cz: extra[1], off: trees.n, n: W.length, witness: true }); trees.data = merged; trees.n += W.length;
+  // each witness tree is drawn through a chunk of its own, so that the camera culls it by its own place (never thinned: seed 0.05 is below every keep value)
+  W.forEach((w, i) => trees.chunks.push({ ix: -1, iz: -1, cx: extra[i * 9], cz: extra[i * 9 + 1], off: trees.n + i, n: 1, witness: true })); trees.data = merged; trees.n += W.length;
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------- the trample plan

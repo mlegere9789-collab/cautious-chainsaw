@@ -110,6 +110,10 @@ def anchor_at(toks, k, kind):
             nxt = toks[k + 1].w if k + 1 < n else ''
             m = re.match(r"""^[\"'`]?([A-M])[\.,;:]?$""", nxt)
             return (2, m.group(1)) if m else (1, '')
+        if re.match(r"^(?:Co|Go|Oo|Cc|Ca)[\.,\-:]$|^Go$", w) and k + 1 < n:           # the OCR read the period as a comma or a hyphen, or the C as a G: "Co, B;" "Go. A." "Co- D"
+            m = re.match(r"""^[\"'`]?([A-M])[\.,;:]?$""", toks[k + 1].w)
+            if m:
+                return (2, m.group(1))
         m = re.match(r"^Co\.([^A-Za-z0-9\s]*)([A-Za-z]?)([^A-Za-z0-9\s]*)$", w)          # the OCR glued the company letter to the abbreviation: "Co.F;" "Co.'E"
         if m and (m.group(2) or m.group(1) or m.group(3)):
             return (1, m.group(2) if re.match(r'^[A-M]$', m.group(2)) else '')
@@ -178,7 +182,7 @@ def _lenient_boundary(toks, s0):
     return not toks[q].w.endswith(',')
 
 
-ABBREV_STOP = {'Capt', 'Corp', 'Sergt', 'Priv', 'Lt', 'Col', 'Maj', 'Adjt', 'Surg', 'Chap', 'Muse', 'Musc', 'Art', 'Cav', 'Inf', 'Co', 'Gen', 'Com', 'Asst', 'Regt', 'Batt', 'Sept',
+ABBREV_STOP = {'Lookout', 'Lt', 'Capt', 'Corp', 'Sergt', 'Priv', 'Lt', 'Col', 'Maj', 'Adjt', 'Surg', 'Chap', 'Muse', 'Musc', 'Art', 'Cav', 'Inf', 'Co', 'Gen', 'Com', 'Asst', 'Regt', 'Batt', 'Sept',
                'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'Aug', 'Jun', 'Jul', 'June', 'July', 'Died', 'Ord', 'Seaman', 'Wagoner', 'Ex', 'Ad', 'Dis', 'Hosp', 'Isl', 'Pt', 'Ft', 'Camp', 'See'}
 SURNAME_PREFIX = {'Van', 'Von', 'De', 'Du', 'La', 'Le', 'Del', 'Di', 'Mc', 'Mac', 'St.', 'Mt.', 'Ten', 'Ter', 'Vander', 'Dela', 'Da', 'Dos'}
 
@@ -212,13 +216,36 @@ def _see_follows(toks, k, anchor_len):
     return q < len(toks) and toks[q].w.startswith('See')
 
 
+def _address_marker(toks, s):
+    """The token before s is the marker of a post-office address (P. O. ad.,  or att.): the words after it are a place, not the head of an entry."""
+    return s > 0 and bool(re.match(r"^(?:ad|att)\.+[,;]?$", toks[s - 1].w))
+
+
+def _letters(w):
+    return len(re.sub(r'[^A-Za-z]', '', w))
+
+
+PERIOD_END = re.compile(r"""\.[\"'`\)\]\*]*$""")
+SURNAME_LOOSE = re.compile(r"^" + LEAD + r"[A-Z]\S*[,!]$")             # a capitalised word that ends with a comma (or the bang the OCR makes of it), any damage inside
+SURNAME_BANG = re.compile(r"^" + LEAD + r"[A-Z][A-Za-z'`\-\"\^\*\|]+[!;:]$")
+
+
 def find_head(toks, k, anchor_len=1, strong=True):
     """Head of the entry whose data starts at token k: returns (index of the first head token, kind) or None; kind is 'head', 'bare-surname' or
     'comma-lost'.  The head ends at token k-1 (a word or initial with the head period or comma) and begins at the surname: the leftmost capitalised
     word with a comma ("Surname,") such that everything up to the end of the head is given names (capitalised words, initials, Jr./Sr., alias) and the
     head follows the end of an entry."""
     j = k - 1
-    if j < 1 or not (LAST_GIVEN.match(toks[j].w) or SUFFIX.match(toks[j].w)):
+    while j > 1 and k - j <= 2 and not re.search(r'[A-Za-z0-9]', toks[j].w):            # stray marks between the name and the data: "Taylor, Thomas. . Co. C"
+        j -= 1
+    bare_last = False
+    if j >= 1 and not (LAST_GIVEN.match(toks[j].w) or SUFFIX.match(toks[j].w)):
+        # the OCR lost the period that ends the head: "Bean, Joseph  Co. H" or "Bean, Darius K  Co. F" (a clear end of the previous entry is then required)
+        if re.match(r"^" + LEAD + r"[A-Z][A-Za-z'`\-\"\^\*\|]*$", toks[j].w) and len(toks[j].w.strip('"\'`^*[(|')) >= 1:
+            bare_last = True
+        elif re.match(r"^[lIi1]$", toks[j].w) and k - 1 > j:                              # "Samuel l ." : an initial the OCR read as l, with a stray mark after it
+            bare_last = True
+    if j < 1 or not (bare_last or LAST_GIVEN.match(toks[j].w) or SUFFIX.match(toks[j].w)):
         return None
     if toks[j].w.strip('.,"\'`^*[(|') in PLACE_STOP and len(toks[j].w.strip('.,')) > 1:
         return None
@@ -227,7 +254,7 @@ def find_head(toks, k, anchor_len=1, strong=True):
     for s in range(j - 1, lo - 1, -1):
         w = toks[s].w
         if SURNAME_TOK.match(w):
-            if w.rstrip(',').rstrip('.') in ABBREV_STOP and w.endswith('.,'):
+            if _letters(w) < 2 or (w.rstrip(',').rstrip('.') in ABBREV_STOP and w.endswith('.,')):
                 continue
         elif SURNAME_DOT.match(w):
             if w.rstrip('.') in ABBREV_STOP or w.rstrip('.') in PLACE_STOP:
@@ -237,9 +264,13 @@ def find_head(toks, k, anchor_len=1, strong=True):
         if not _given_ok(toks[s + 1:j], toks[j]):
             continue
         cands.append((_extend_surname(toks, s), s))
+    cands = [(c, sidx) for c, sidx in cands if not _address_marker(toks, c)]
     strict = [c for c, _ in cands if _strict_boundary(toks, c)]
     if strict:
         return min(strict), 'head'
+    if bare_last:
+        return None
+    cands = [(c, sidx) for c, sidx in cands if not SURNAME_DOT.match(toks[sidx].w)]       # a period for the comma is accepted only after a clear end of entry
     # no end mark before the head (the previous entry lost its last period): accepted when the previous token is not a comma-ended word, or when the
     # first given name is a full word (so that an address such as "Washington, D. C." is not taken for a head)
     lenient = [c for c, sidx in cands if _lenient_boundary(toks, c) or (sidx + 1 <= j and re.match(r"^" + LEAD + r"[A-Z][a-z]{2,}", toks[sidx + 1].w))]
@@ -250,25 +281,45 @@ def find_head(toks, k, anchor_len=1, strong=True):
     if SURNAME_BARE.match(wj.rstrip('.,')) and wj.endswith('.') and len(wj.rstrip('.')) >= 3 and _strict_boundary(toks, j) \
             and wj.rstrip('.') not in ABBREV_STOP and _see_follows(toks, k, anchor_len):
         return j, 'bare-surname'
-    # the OCR lost the comma after the surname: "Bond    Henry  B."
+    # the OCR lost the comma after the surname ("Bond    Henry  B.") or printed a bang for it ("Robinson!  Henry  M.")
     for s in (range(j - 1, lo - 1, -1) if strong else ()):
-        if not SURNAME_BARE.match(toks[s].w) or toks[s].w.endswith('.'):
+        w = toks[s].w
+        if not (SURNAME_BARE.match(w) and not w.endswith('.') or SURNAME_BANG.match(w)) or _letters(w) < 2:
             continue
         inner = toks[s + 1:j]
         if not all(GIVEN_WORD.match(t.w) or INITIAL.match(t.w) or SUFFIX.match(t.w) for t in inner):
             continue
-        if _strict_boundary(toks, s) and (s == 0 or _ends(toks[s - 1].w) or toks[s - 1].leaf != toks[s].leaf):
+        if s > 0 and not (PERIOD_END.search(toks[s - 1].w) or toks[s - 1].leaf != toks[s].leaf):
+            continue
+        if _strict_boundary(toks, s):
             return s, 'comma-lost'
     return None
 
 
 NAMEISH = re.compile(r"^[^\d;:]*[A-Za-z][^\d;:]*$")
+SURNAME_LOOSE_ANY = re.compile(r"^" + LEAD + r"[A-Za-z]\S*[,!]$")       # a word that ends with a comma (or the bang the OCR makes of it); the capital may be lost
+REMARK_LOWER = {'ad', 'in', 'to', 'of', 'at', 'on', 'by', 'tr', 'des', 'dis', 'died', 'res', 'cred', 'enl', 'must', 'disch', 'app', 'wd', 'captd', 'par', 'exch', 'mis', 'and', 'for', 'as', 'near', 'from', 'with', 'the'}
+REMARK_WORDS = {'See', 'Art', 'Cav', 'Inf', 'Died', 'Co', 'Miscel', 'Organizations', 'Service', 'State', 'Navy', 'ad', 'P', 'O', 'N', 'H', 'V', 'U', 'S', 'C', 'R', 'A', 'G'}
 
 
 def irregular_head(toks, k):
-    """A head whose words the OCR damaged so that no regular shape fits (a space inside the surname, a lower-case given name, a lost final period ...):
-    taken only when the entry data follows a wide gap.  The head is the chain of at most seven name-like tokens (letters and punctuation, no digits)
-    that ends at the token before the anchor and does not run back into the end of the previous entry; the row is marked uncertain by the caller."""
+    """A head whose words the OCR damaged so that no regular shape fits (a space inside the surname, a lost capital, a garbled given name, a lost final
+    period ...): taken only when the entry data follows a wide gap.  First choice: the nearest word with a comma (capital or not) that follows the end of
+    the previous entry, with at most six tokens between it and the anchor and no semicolon among them; second choice: the chain of at most seven
+    name-like tokens (letters and punctuation, no digits) that ends at the token before the anchor and does not run back into the end of the previous
+    entry, trimmed on the left of initials and of words that belong to a remark (See, V. R. C., Art. ...).  The caller marks the row uncertain."""
+    for q in range(k - 1, max(-1, k - 8), -1):
+        w = toks[q].w
+        if toks[q].leaf != toks[k - 1].leaf:
+            break
+        if SURNAME_LOOSE_ANY.match(w) and _letters(w) >= 2 and _strict_boundary(toks, q) and w.rstrip(',!') not in ABBREV_STOP \
+                and (w[0].isupper() or re.match(r"^[a-z][a-z'\-]+[,!]$", w) and w.rstrip(',!') not in REMARK_LOWER) \
+                and not any(';' in t.w for t in toks[q + 1:k]) \
+                and not any(len(t.w.strip('.,;:"\'`^*[(|!?')) > 1 and (t.w.strip('.,;:"\'`^*[(|!?') in PLACE_STOP or t.w.strip('.,;:"\'`^*[(|!?') in ABBREV_STOP) for t in toks[q + 1:k]) \
+                and not _address_marker(toks, q):
+            return q, 'irregular'
+        if q < k - 1 and ';' in w:
+            break
     s = None
     for q in range(k - 1, max(-1, k - 8), -1):
         w = toks[q].w
@@ -277,10 +328,14 @@ def irregular_head(toks, k):
         if not (NAMEISH.match(w) or SUFFIX.match(w)) or toks[q].leaf != toks[k - 1].leaf:
             break
         s = q
-    while s is not None and s < k and not re.match(r"^" + LEAD + r"[A-Z]", toks[s].w):
+    while s is not None and s < k and (not re.match(r"^" + LEAD + r"[A-Z]", toks[s].w) or INITIAL.match(toks[s].w) or _letters(toks[s].w) < 2
+                                       or toks[s].w.strip('.,;:"\'`^*[(|!?') in REMARK_WORDS):
         s += 1
     if s is None or s >= k:
         return None
+    chain = [t.w.strip('.,;:"\'`^*[(|!?') for t in toks[s:k]]
+    if all((c in ABBREV_STOP or len(c) <= 1 or c in PLACE_STOP) for c in chain):
+        return None                                     # "Lt." "Capt." "K." "S." alone is a fragment of a remark or of a damaged head, not a head
     return s, 'irregular'
 
 
@@ -328,6 +383,8 @@ def parse_section(text, pm, leaf_a, leaf_b, kind, title_re):
         wide = '\n' not in gap and len(gap) >= 3
         strong = kind == 'co' or bool(re.match(r'^(?:b\.|Substitute|Drafted)', toks[k].w))      # the battery's "See" occurs inside remarks too
         h = find_head(toks, k, a[0], strong)
+        if h is not None and any(t.w in ('with', 'identical') for t in toks[max(0, h[0] - 3):h[0]]):
+            h = None                                # "Supposed identical with H. Milton Colby, Unas'd ...": a name inside a remark
         if h is None and wide and strong:
             h = irregular_head(toks, k)
         if h is None:
@@ -346,20 +403,66 @@ def parse_section(text, pm, leaf_a, leaf_b, kind, title_re):
     return toks, heads, bare, orphans, furn, start_off
 
 
+def build_entries(text, pm, toks, heads, bare):
+    """One entry per head, in text order: dict(kind, co, name_toks, rem_toks, off, rd, page, leaf).  The remarks of an entry are every token up to the
+    next head (page furniture was dropped when the tokens were made)."""
+    allh = [(s0, k0, al, co, typ) for (s0, k0, al, co, typ) in heads] + [(k, k + 1, 1, '', 'xref') for k in bare]
+    allh.sort(key=lambda h: h[0])
+    entries = []
+    for i, (s0, k0, al, co, typ) in enumerate(allh):
+        end = allh[i + 1][0] if i + 1 < len(allh) else len(toks)
+        name_toks = toks[s0:k0]
+        rem_toks = toks[k0:end]
+        if not rem_toks:
+            raise AssertionError('entry without data at offset %d' % toks[s0].s)
+        off = toks[s0].s
+        leaf = pm.leaf(off)
+        entries.append({'kind': typ, 'co': co, 'name_toks': name_toks, 'rem_toks': rem_toks, 'off': off, 'rd': rem_toks[0].s - off,
+                        'page': pm.printed(leaf) if leaf is not None else None, 'leaf': leaf})
+    return entries
+
+
+def make_rows(entries):
+    rows = []
+    for e in entries:
+        name = ' '.join(t.w for t in e['name_toks'])
+        rem = ' '.join(t.w for t in e['rem_toks'])
+        rows.append(R.row(name, '', e['co'], rem, e['page'], e['off'], e['rd']))
+    return rows
+
+
+def order_violations(entries):
+    out = []
+    prev = ''
+    for i, e in enumerate(entries):
+        name = ' '.join(t.w for t in e['name_toks'])
+        k = skey(name)
+        if prev and k[:1] and k[:1] < prev[:1]:
+            out.append((i, e['off'], name))
+        if k:
+            prev = k
+    return out
+
+
 def main(argv):
-    out_dir = None
-    write = '--write' in argv
-    if '--out' in argv:
-        out_dir = argv[argv.index('--out') + 1]
-    texts = {}
+    out_dir = argv[argv.index('--out') + 1] if '--out' in argv else None
+    texts, pms = {}, {}
     for vol, ident in VOLS.items():
         t = R.load_text(os.path.join(LIB, ident + '_hocr_searchtext.txt.gz'))
         pm = R.PageMap(os.path.join(LIB, ident + '_hocr_pageindex.json.gz'), os.path.join(LIB, ident + '_page_numbers.json'))
-        texts[vol] = (t, pm)
+        texts[vol], pms[vol] = t, pm
     for key, desig, vol, la, lb, title_re, kind in SECTIONS:
-        text, pm = texts[vol]
+        text, pm = texts[vol], pms[vol]
         toks, heads, bare, orphans, furn, start_off = parse_section(text, pm, la, lb, kind, title_re)
-        print(key, 'tokens', len(toks), 'heads', len(heads), 'bare xref candidates', len(bare), 'orphans', len(orphans), 'furniture lines', len(furn))
+        entries = build_entries(text, pm, toks, heads, bare)
+        rows = make_rows(entries)
+        seg = {'s': SOURCE_ID, 'v': vol, 't': '%s.%s' % (SOURCE_ID, vol), 'lay': 'flow'}
+        st = R.verify_rows([(seg, rows)], {seg['t']: text}, {seg['t']: pm})
+        ov = order_violations(entries)
+        print(key, 'entries', len(entries), 'heads', len(heads), 'bare', len(bare), 'orphans', len(orphans), 'order violations', len(ov),
+              'V1 ok', st['name_ok'], 'V2 ok', st['remark_ok'], 'V3 ok', st['page_ok'], 'defects', len(st['defects']), 'gap rows', st['remark_gap_rows'])
+        for d in st['defects'][:6]:
+            print('   defect', d)
     return 0
 
 

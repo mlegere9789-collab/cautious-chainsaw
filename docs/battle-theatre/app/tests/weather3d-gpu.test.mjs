@@ -21,6 +21,7 @@ import { createAnimBus } from '../src/anim3d/events.mjs';
 import { Camera } from '../../render/prototype/src/camera.mjs';
 import { CASES, specOf, SHERFY } from './weather3d-gpu-cases.mjs';
 import { HOOKS, CHROME_ARGS } from './weather3d-gpu-lib.mjs';
+import { checkRun, checkCompare } from './weather3d-gpu-check.mjs';
 
 const APP = path.resolve(BT, 'app'), J = f => JSON.parse(fs.readFileSync(path.join(BT, f), 'utf8')), D = f => JSON.parse(fs.readFileSync(path.join(APP, 'data/fx3d', f), 'utf8'));
 const environment = new Environment(J('environment/ephemeris_1863.json'), J('environment/weather_timeline.json'));
@@ -282,4 +283,21 @@ test('the harness cases: unique names, times inside the battle window, every fea
   const fires = D('fires.json').sources.find(f => f.id === 'fx-fire-sherfy-barn'); assert.equal(SHERFY.lng, fires.pos.lng); assert.equal(SHERFY.lat, fires.pos.lat);
   const src = HOOKS.toString(); assert.match(src, /^function HOOKS\(opts\)/); assert.ok(!/\bimport\b|\brequire\b|\bfs\.|\bpath\./.test(src), 'it runs in the page: no module identifiers'); assert.ok(CHROME_ARGS.includes('--enable-unsafe-webgpu') && CHROME_ARGS.includes('--use-angle=swiftshader'));
   assert.match(src, /getCurrentTexture/); assert.match(src, /COPY_SRC/); assert.match(src, /uncapturederror/); assert.match(src, /getCompilationInfo/);
+});
+// ---------- the run checker (what a gate runner calls on the summaries of the browser harness)
+const okRun = () => ({ api: 'webgpu', url: 'http://x/app/tests/weather3d-gpu.html?api=webgpu', finished: 'now', errors: [], diagInit: { gpu: { ok: true, weatherOk: true, fxOk: true, failed: null, log: [], warnings: [] } }, diagEnd: { gpuErrors: [], wgsl: [], modules: ['a', 'b'] },
+  cases: { a: { validation: null, gpuStats: { weatherDraws: 3, failed: null }, pixels: { all: { mean: 90 } } }, b: { validation: null, gpuStats: { weatherDraws: 4, failed: null }, pixels: { all: { mean: 40 } } } }, pure: { 'A again': { identical: true, bytesDiffering: 0 } },
+  resize: { smallValidation: null, backValidation: null, backIdentical: true }, computeCheck: { messages: [], pipelineOk: true }, afterDispose: { gpuErrors: [] } });
+test('the run checker: a clean run is clean; every kind of defect is named; nothing is loosened', () => {
+  const r = checkRun(okRun(), { cases: 2 }); assert.equal(r.ok, true, r.problems.join('; ')); assert.equal(r.facts.cases, 2); assert.equal(r.facts.purityChecks, 1);
+  const bad = (mut, re) => { const s = okRun(); mut(s); const x = checkRun(s); assert.equal(x.ok, false, 'a defect was not found: ' + re); assert.ok(x.problems.some(p => re.test(p)), re + ' in ' + JSON.stringify(x.problems)); };
+  bad(s => { s.cases.a.validation = 'Invalid BindGroup'; }, /a: validation error/); bad(s => { s.diagEnd.gpuErrors = ['DEVICE LOST destroyed']; }, /uncaptured|device loss/); bad(s => { s.afterDispose.gpuErrors = ['late error']; }, /uncaptured/);
+  bad(s => { s.diagEnd.wgsl = [{ label: 'weather3d-mul', type: 'error', line: 3, col: 4, msg: 'unknown' }]; }, /WGSL compiler error/); bad(s => { s.diagInit.gpu.fxOk = false; }, /did not build/); bad(s => { s.diagInit.gpu.warnings = ['unused']; }, /compiler warnings/);
+  bad(s => { s.pure['A again'] = { identical: false, bytesDiffering: 12 }; }, /scrub purity/); bad(s => { s.resize.backIdentical = false; s.resize.backBytesDiffering = 5; }, /resize/); bad(s => { s.computeCheck = { messages: [], pipelineOk: false, pipelineError: 'workgroup_size' }; }, /compute pipeline/);
+  bad(s => { s.cases.a.pixels.all.mean = 0; }, /blank/); bad(s => { s.cases.b.gpuStats.failed = 'out of range'; }, /stopped/); bad(s => { s.errors = ['boom']; }, /reported errors/); bad(s => { s.finished = null; }, /did not finish/); bad(s => { s.cases = {}; }, /no case/);
+  assert.equal(checkRun({ api: 'webgl2', finished: 1, errors: [], cases: { a: { pixels: { all: { mean: 5 } } } }, pure: {} }).ok, true); assert.equal(checkRun({}).ok, false);
+  const off = okRun(); off.url += '&fx=off'; off.diagInit.gpu = null; assert.equal(checkRun(off).ok, true, 'a run of the prototype alone has no layer state');
+  const row = (n, m, g, p) => ({ case: n, all: { meanAbs: m, over24: 0.001 }, spritesGL: g, spritesGPU: p }); const cmp = { rows: [row('a', 0.4, 5, 5), row('b', 0.35, 0, 0)], problems: [] };
+  assert.equal(checkCompare(cmp).ok, true); assert.equal(checkCompare(cmp).facts.meanAbsMax, 0.4); assert.equal(checkCompare({ rows: [row('a', 9, 5, 5)], problems: [] }).ok, false); assert.equal(checkCompare({ rows: [row('a', 1, 5, 6)], problems: [] }).ok, false); assert.equal(checkCompare({ rows: [] }).ok, false);
+  assert.equal(checkCompare({ rows: [row('a', 9, 5, 5)], problems: [] }, 12).ok, true, 'the limit is the caller\'s, a harness value and not a project gate');
 });

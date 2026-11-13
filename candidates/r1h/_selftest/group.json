@@ -1,0 +1,25 @@
+{
+ "group": "R1H-selftest",
+ "train": "R1h",
+ "optional": true,
+ "description": "Harness self-test only: adds one marker comment to 404.html in the scratch tree. Never registered in a train.",
+ "patches": [
+  {
+   "id": "r1h-selftest-404-marker",
+   "target": "404.html",
+   "find": "<meta name=\"robots\" content=\"noindex\" />",
+   "repl": "<meta name=\"robots\" content=\"noindex\" />\n<!-- r1h harness self-test marker -->",
+   "expect": 1,
+   "note": "scratch tree only"
+  },
+  {
+   "id": "r1h-selftest-bundle-regex",
+   "target": "css",
+   "find": "\\bprefers-reduced-motion\\b",
+   "repl": "prefers-reduced-motion",
+   "expect": 1,
+   "regex": true,
+   "note": "no-op bundle-target patch: proves the bundle file is resolved through version.json; expect is the count in the built css (adjusted by the self-test below)"
+  }
+ ]
+}

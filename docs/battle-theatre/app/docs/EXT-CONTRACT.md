@@ -162,8 +162,10 @@ Not part of the contract; they are what the shell's own panels use. `theatre.bus
 
 ## 12. Status
 
-See the end of this file's history in `GOVERNANCE/progress.md` for the dated record. As of the last edit of this file:
+The dated record is `GOVERNANCE/progress.md`. What was run, and what was not, as of 2026-11-13:
 
-* Node: `tests/ext-loader.test.mjs` covers the list, the three calls and their order, failure isolation, the slow start, Back during a start, both registries, `tierMark`, `choices`, the drawer HTML and the wiring order in `theatre.mjs`.
-* Browser: `tests/ext-loader-browser.mjs` on software GL (WebGL2). Nothing here has run on a real GPU, and no timing is claimed.
-* Not built: a persistent on/off state of the switches between visits; picking of objects a module draws (a module does its own); a retry of a failed module without leaving the theatre.
+* **Node.** `node --test app/tests/ext-loader.test.mjs`: 20 tests, 20 pass. They cover the list (none, broken, one that does not answer, refused entries), the three calls and their order, failure isolation, the slow start, Back during a start, both registries, one drawing of a panel in every form a panel function may return (late results included), the drawer HTML, `tierMark`, `choices`, and the wiring order in `theatre.mjs` and `render-host.mjs`. Together with the five `ext-*` node test files of the content side, 76 of 76 pass.
+* **Browser, first run** (`light`, software GL, WebGL2): 44 of 45 checks passed. The one failure was in the harness: it compared the `update` counter with a value read before Back was clicked, and frames legitimately run until the click lands. It now reads the counter after Back and again 600 ms later. The other terms of that check (one `dispose()` for the running module, nothing left in the page, `btApp` gone) held.
+* **Browser, second run** on the final sources (late-cleanup fix, list time limit, the More tool's accessible name, the panel-form checks and the corrected Back check): not entered when this section was written. Until it is, these are shown by the node tests only and not yet in the page: the panel forms, the accessible name of the More tool, the corrected Back check.
+* **Not run:** the `full` mode of the harness (figures, structures and effects drawn), and any real GPU. No timing is claimed: the entry times the harness prints are software-GL times.
+* **Not part of the contract, and not built:** a persistent on/off state of the switches between visits; picking of objects a module draws (a module does its own); a retry of a failed module without leaving the theatre.

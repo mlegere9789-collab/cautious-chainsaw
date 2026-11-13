@@ -6,16 +6,16 @@ For every extract:
     in the extract and the one in sources.json (and, for the standard text, in GOVERNANCE/library/acquired_3.json);
   - the quote is found on that page: exact (whitespace-normalised) for quote_mode sentences/anchors; for quote_mode
     cleaned the letters and digits of the quote occur exactly once on the page and the recorded raw excerpt occurs
-    verbatim on the page; the same holds for the optional context quote (a second passage of the same page that
-    carries a date, name or number the claim needs);
+    verbatim on the page; the same holds for the optional context quote (a second passage, of the same page or of the
+    page named in context_pdf_page, that carries a date, name or number the claim needs);
   - every number written in the claim (digits, thousands commas ignored, 1/2 for the half sign) occurs in the quote
     or in the context quote, except the year of the source's own date (a claim may say 'the 1940 report') and 1863
     when the state date itself says 1863;
   - use_for_1863 follows from state_date by the same rule the builder uses; tier_proposed follows from source_certainty;
   - repo_keys are ids of this repository (checked against structures.json, state_schedule.json, gazetteer, structures3d).
 Also checks that every xid is unique and that every source named exists in sources.json with a rights basis.
-Warnings (not failures, listed in the report): a four-digit year of the state date that appears neither on the quoted
-page nor on the pages next to it.
+Warnings (not failures, listed in the report): a four-digit year of the state date that appears nowhere in the saved text
+of the source (a derived year such as 'the summer after 1878' is listed so that it is looked at once).
 
 Writes extracts/verify_report.json (counts, problems, warnings) and exits 1 when a problem is found.
 Run with python3 -I.
@@ -108,7 +108,11 @@ def main():
         cq = r.get('context_quote')
         if cq:
             counts['with_context'] += 1
-            check_quote(problems, x, 'context quote', flat, cq, r.get('context_mode', 'anchors'), r.get('context_template'), r.get('context_excerpt'), lig)
+            cp = r.get('context_pdf_page') or p
+            if cp not in pgs:
+                problems.append('%s: context page %d missing' % (x, cp))
+            else:
+                check_quote(problems, x, 'context quote', be.norm(pgs[cp]), cq, r.get('context_mode', 'anchors'), r.get('context_template'), r.get('context_excerpt'), lig)
         # every number of the claim stands in the quote or in the context quote
         allowed = numbers(q) | numbers(cq)
         m = re.search(r'(\d{4})', str(s.get('date') or ''))
@@ -126,11 +130,13 @@ def main():
             problems.append('%s: tier does not follow the source wording' % x)
         if r['use_for_1863'] == 'direct' and re.search(r'modern|reconstruct|replant|rebuilt|20[0-2]\d', r['state_date']) and not re.match(r'1[0-8]\d\d', r['state_date']):
             problems.append('%s: a modern state date marked direct: %r' % (x, r['state_date']))
-        # state-date years should be found on the quoted page or the pages next to it (warning only)
+        # state-date years should be found in the saved text of the source (warning only; a year found only on a far page
+        # is accepted, a year found nowhere in the source is listed)
+        whole = ' '.join(be.norm(t) for t in pgs.values())
         near = ' '.join(be.norm(pgs[k]) for k in (p - 1, p, p + 1) if k in pgs)
         for y in sorted(set(re.findall(r'\b(1[6-9]\d\d|20[0-2]\d)\b', r['state_date']))):
-            if y != '1863' and y not in near:
-                warnings.append('%s: state-date year %s is on neither page %d nor the pages next to it' % (x, y, p))
+            if y != '1863' and y not in whole and y != str(m.group(1) if m else ''):
+                warnings.append('%s: state-date year %s is found nowhere in the saved text of %s' % (x, y, sid))
         for k in r.get('repo_keys', []):
             if k not in known and not re.fullmatch(r'R\d\d\.[A-Za-z0-9-]+', k):
                 unknown_keys[k] = unknown_keys.get(k, 0) + 1

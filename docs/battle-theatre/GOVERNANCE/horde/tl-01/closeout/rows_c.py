@@ -161,7 +161,7 @@ ROWS.append(dict(
     id='T1-046', verdict='corrected',
     claim=claim('Hanover fight: about two hours, from about noon (Richmond, Hammond) or 10 a.m. (Stuart); the 6th and 7th Michigan are engaged there',
                 'Kilpatrick\'s division: Farnsworth\'s brigade (1st Vermont, 1st West Virginia, 18th Pennsylvania, 5th New York), Custer\'s brigade (6th and 7th Michigan; 1st Michigan supporting Battery M) against Stuart\'s column', 'Hanover, Pa. (the Forney farm is not named in the OR)',
-                'Jun 30: the fight lasted about two hours; its end is about 12:00 if it began about 10 a.m. (Stuart), about 14:00 if it began about noon (Richmond, Hammond)', 'Kilpatrick OR27-1-R359 p.986; Richmond OR27-1-R362 p.1005; Hammond OR27-1-R363 p.1008; Custer OR27-1-R361 p.998',
+                'Jun 30: the fight lasted about two hours; its end is about 12:00 if it began about 10 a.m. (Stuart), about 14:00 if it began about noon (Richmond, Hammond)', 'Kilpatrick OR27-1-R359 p.986; Richmond OR27-1-R362 p.1005; Hammond OR27-1-R363 p.1008; Custer OR27-1-R361 pp.997 and 999',
                 'Kilpatrick: a fight of about two hours in which the whole command was engaged at different times; with the starts of about 10 a.m. (Stuart) and about noon (Richmond, Hammond) the end falls between about noon and about 14:00. Custer: the 6th Michigan, with the 5th, was at Littlestown, then went to Hanover, met the enemy\'s skirmishers, drove them to their guns and fought a sharp engagement against odds; the 7th Michigan was engaged at Hanover and the 1st Michigan supported Battery M without loss. '
                 'The seed "ends just before noon" matches only the 10 a.m. start; it is carried as one scenario, no default.',
                 'documented', '1863-06-30T12:00', '1863-06-30T14:00'),
@@ -243,7 +243,7 @@ ROWS.append(dict(
     ],
     cites={
         'pancoast': OR('Surg. G. L. Pancoast, medical director', 'OR27-1-R336', '918'),
-        'nps_tablet': L('NPS-MON-LOC-1932', 'The Cavalry Corps in front of the Presbyterian Church Gettysburg', witness='National Park Service list of the park\'s tablets; a commemorative location, not a statement of the date'),
+        'nps_tablet': L('NPS-MON-LOC-1932', 'The Cavalry Corps in front of the Presbyterian Church Gettysburg', page='25', page_basis='printed page number 25 in the running head of the PDF page that holds the quote (marker === PAGE 24 === of the text layer)', witness='National Park Service list of the park\'s tablets; a commemorative location, not a statement of the date'),
     },
     scenarios=[],
     remains=['a First Division hospital at the Presbyterian Church on Jun 30 (and the date and the First Division attribution of any hospital there)'],
@@ -261,7 +261,7 @@ ROWS.append(dict(
     id='T1-049', verdict='partially_supported',
     claim=claim('Jun 30: the signal officer with Buford takes position in the steeple of the college and reports the enemy\'s movements; the college cupola is used again on Jul 1',
                 'Union signal officer with Buford\'s cavalry (Signal Corps)', 'The steeple of the college, Gettysburg (Pennsylvania College; the building, Pennsylvania Hall, is not named in the OR)',
-                'Jun 30 (no hour); on Jul 1 a station was set up first on the college, then on the court-house; Jacobs: an officer on the College cupola at 8.30 a.m. on Jul 1', 'Norton OR27-1-R017 p.201; Jacobs 1864 p.23',
+                'Jun 30 (no hour); on Jul 1 a station was set up first on the college, then on the court-house; Jacobs: an officer on the College cupola at 8.30 a.m. on Jul 1', 'Norton OR27-1-R017 p.201; Jacobs 1864 p.25',
                 'On Jun 30 the signal officer with Buford, who occupied Gettysburg, took position in the steeple of the college and reported to Buford the whereabouts and movements of the enemy (Norton); on Jul 1 a station of observation was set up first on the college and subsequently on the court-house, and Jacobs places an officer on the College cupola at 8.30 a.m. '
                 'NOT documented in the sources read: that the building is Pennsylvania Hall (an identification of the college\'s cupola with its main building) and an hour.',
                 'documented', '1863-06-30T11:00', '1863-06-30T23:59', marking='steeple of the college: documented; the building named Pennsylvania Hall: inferred'),
@@ -289,7 +289,7 @@ ROWS.append(dict(
     id='T1-050', verdict='partially_supported',
     claim=claim('Alleged: on the night of Jun 30 Buford\'s troopers cut and threw down fence on the McPherson farm for the battle and for firewood (a tenant\'s later claim, reported by the National Park Service)',
                 'Buford\'s cavalry (troopers); John Slentz, tenant of the McPherson farm', 'McPherson farm and ridge (post-and-rail fence; the railroad grade is not named in the source)',
-                'Night of Jun 30 (Tuesday night)', 'NPS Edward McPherson Farm Historical Study (NPS-HS-MCPHERSON pp.26-27), citing the Slentz damage claim and Hall\'s history of the 6th New York Cavalry',
+                'Night of Jun 30 (Tuesday night)', 'NPS Edward McPherson Farm Historical Study (NPS-HS-MCPHERSON p.26), citing the Slentz damage claim and Hall\'s history of the 6th New York Cavalry',
                 'According to the National Park Service Historical Study of the Edward McPherson farm, on Tuesday night (Jun 30) the tenant John Slentz watched Buford\'s troopers cut and throw down about a quarter mile of post-and-rail fence "to make way for the battle" and use another cord of rails for firewood, and men tearing down his fencing for firewood and possible breastworks; the study cites the Slentz claims file and a regimental history of 1908, not a wartime record. '
                 'The OR has no fence statement for Jun 30 (Gamble\'s "trees and fences" and Buford\'s stone fence are Jul 1). The location along the railroad grade and the restoration by the farmer are not in the source. Shown only as an alleged event with its basis stated.',
                 'inferred', '1863-06-30T11:00', '1863-07-01T04:03', marking='alleged (tenant\'s claim relayed by an NPS study, no wartime account): inferred; location along the railroad grade and restoration: gap'),
@@ -300,8 +300,8 @@ ROWS.append(dict(
         ('A wartime account of the dismantling (a report or letter of Jun 30 - Jul 1)', 'open gap', 'unsupported', []),
     ],
     cites={
-        'nps_fence': L('NPS-HS-MCPHERSON', 'A ft e r watching Buford\'s troopers cut and throw down about a qu arter mile o f post and r a i l fence', witness='Historical Study by the National Park Service (text layer of the PDF, spaced letters); footnotes: Slentz claims file and H. A. Hall, History of the Sixth New York Cavalry (1908) p.134'),
-        'nps_tore': L('NPS-HS-MCPHERSON', 'to re down his fen cin g f o r firewood and f o r possible use as breastworks on the morrow', witness='Historical Study by the National Park Service (text layer of the PDF, spaced letters)'),
+        'nps_fence': L('NPS-HS-MCPHERSON', 'A ft e r watching Buford\'s troopers cut and throw down about a qu arter mile o f post and r a i l fence', page='26', page_basis='printed page number 26 follows the marker === PAGE 28 === (PDF page 28) in the text layer; the quote is about 1,100 characters after it', witness='Historical Study by the National Park Service (text layer of the PDF, spaced letters); footnotes: Slentz claims file and H. A. Hall, History of the Sixth New York Cavalry (1908) p.134'),
+        'nps_tore': L('NPS-HS-MCPHERSON', 'to re down his fen cin g f o r firewood and f o r possible use as breastworks on the morrow', page='26', page_basis='printed page number 26 follows the marker === PAGE 28 === (PDF page 28) in the text layer; the quote is about 1,000 characters after it', witness='Historical Study by the National Park Service (text layer of the PDF, spaced letters)'),
     },
     scenarios=[],
     remains=['a wartime account of the dismantling', 'the location along the railroad grade and the restoration by the farmer'],
@@ -317,7 +317,7 @@ ROWS.append(dict(
     id='T1-051', verdict='partially_supported',
     claim=claim('Hanover: after the first charges, Hampton comes up and the sharpshooters dislodge the enemy; an artillery action of about two hours; Stuart cuts the Union column in twain; losses',
                 'Stuart\'s brigades (Hampton, Fitz. Lee, W. H. F. Lee/Chambliss), horse artillery; Kilpatrick\'s division (Farnsworth, Custer), Elder\'s battery', 'Hanover, Pa.',
-                'Jun 30 afternoon (about two hours of action; no 14:00 anchor in the OR)', 'Stuart OR27-2-R565 pp.695-696; Kilpatrick OR27-1-R359 pp.986-987; Richmond OR27-1-R362 p.1005; Hammond OR27-1-R363 p.1008',
+                'Jun 30 afternoon (about two hours of action; no 14:00 anchor in the OR)', 'Stuart OR27-2-R565 p.696 (the hour of the head of the column, p.695, is cited in row T1-046); Kilpatrick OR27-1-R359 pp.986-987; Richmond OR27-1-R362 p.1005; Hammond OR27-1-R363 p.1009',
                 'Stuart: the head of the column reached Hanover about 10 a.m.; Hampton, arriving in the meantime, engaged the enemy farther to the right and with his sharpshooters dislodged him from the town; "we cut the enemy\'s column in twain"; Kilpatrick: a fight of about two hours, one battle-flag, a lieutenant-colonel, a captain and 45 privates taken, upward of 15 killed, "My loss is trifling". '
                 'Losses in the reports read: Farnsworth\'s First Brigade 11 killed, 62 wounded, 89 missing (Richmond); the 5th New York 2 officers and 2 men killed, 25 wounded, 10 missing (Hammond). NOT documented: the 14:00 anchor, the totals 215 Union (18th Pennsylvania 57 missing) and 117 Confederate, and Stuart jumping a ditch.',
                 'documented', '1863-06-30T10:00', '1863-06-30T16:00', marking='action and brigade losses: documented; the totals 215 / 117, the ditch and 14:00: gap'),

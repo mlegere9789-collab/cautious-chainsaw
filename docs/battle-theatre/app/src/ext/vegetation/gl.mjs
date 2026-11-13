@@ -12,6 +12,7 @@ const CROPCODE = { forest_floor: 0, wheat: 1, rye: 2, barley: 3, oats: 4, corn: 
 const STAGECODE = { being_cut: 1, cut_shocked: 2, stubble: 3, mown: 4, hay_stubble: 5, plowed: 6, winter_grain_sprouts: 7, corn_stubble: 8, dormant_grass: 9, dormant_marsh: 9, rock: 10, shaded_litter: 11, leaf_litter: 11 };
 const TIERCODE = { documented: 0, inferred: 1, 'plausible-procedural': 2, 'open gap': 3 };
 const STATE_K = 4;                                           // texels per unit
+const unpackPlain = gl => { gl.pixelStorei(gl.UNPACK_ALIGNMENT, 4); gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false); gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false); };   // the pixel-store state is the context's, shared with every other layer
 
 const COMMON = /* glsl */`
 uniform sampler2D uVegState;
@@ -155,9 +156,17 @@ export class VegGL {
     this.host = host; this.R = host.R; this.gl = host.R.gl; this.model = model; this.decals = decals; this.trees = trees; this.dead = false; this.stats = { decalTris: decals.triangles, trees: trees.n, treesDrawn: 0, chunksNear: 0, chunksFar: 0, stateWrites: 0 };
     const gl = this.gl, R = this.R; this.on = { ground: true, trees: true, overlay: false, visit: true };
     const units = gl.getParameter(gl.MAX_COMBINED_TEXTURE_IMAGE_UNITS); if (units < 22) { TEX_STATE = units - 2; TEX_VISIT = units - 1; } else { TEX_STATE = 20; TEX_VISIT = 21; }
-    const H = COMMON;
-    this.P = { decal: R.prog('veg-decal', H + DECAL_VS, H + DECAL_FS), tree: R.prog('veg-tree', H + TREE_VS, H + TREE_FS), shadow: R.prog('veg-tree-shadow', H + TREE_SHADOW_VS, '#version 300 es\nprecision highp float; out vec4 o; void main() { o = vec4(0.0); }') };
-    R.finishProgs();
+    const H = COMMON, made = [];
+    try {
+      const mk = (name, vs, fs) => { const p = R.prog(name, vs, fs); made.push(p); return p; };
+      this.P = { decal: mk('veg-decal', H + DECAL_VS, H + DECAL_FS), tree: mk('veg-tree', H + TREE_VS, H + TREE_FS), shadow: mk('veg-tree-shadow', H + TREE_SHADOW_VS, '#version 300 es\nprecision highp float; out vec4 o; void main() { o = vec4(0.0); }') };
+      R.finishProgs();
+    } catch (e) {
+      // a program that failed to compile or link stays in the renderer's list, and the renderer's own check of the list would then fail for every layer that starts after this one: take ours out
+      if (Array.isArray(R.progs)) for (const p of made) { const i = R.progs.indexOf(p); if (i >= 0) R.progs.splice(i, 1); }
+      for (const p of made) { try { gl.deleteProgram(p); } catch { /* gone */ } }
+      throw e;
+    }
     const set = (p, f) => { gl.useProgram(p); f(p); };
     for (const k of ['decal', 'tree', 'shadow']) set(this.P[k], p => { const l = gl.getUniformLocation(p, 'uVegState'); if (l) gl.uniform1i(l, TEX_STATE); });
     set(this.P.decal, p => { const l = gl.getUniformLocation(p, 'uVisit'); if (l) gl.uniform1i(l, TEX_VISIT); });
@@ -202,14 +211,14 @@ export class VegGL {
     }
     // the witness trees share the last pseudo-unit: full leaf
     const w = M.units.length * STATE_K * 4; if (w + 16 <= b.length) { b.fill(0, w, w + 16); b[w + 9] = 1; }
-    gl.activeTexture(gl.TEXTURE0 + TEX_STATE); gl.bindTexture(gl.TEXTURE_2D, this.tex); gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, STATE_TEX_W, this.rows, gl.RGBA, gl.FLOAT, b); gl.activeTexture(gl.TEXTURE0); this.stats.stateWrites++; return true;
+    gl.activeTexture(gl.TEXTURE0 + TEX_STATE); gl.bindTexture(gl.TEXTURE_2D, this.tex); unpackPlain(gl); gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, STATE_TEX_W, this.rows, gl.RGBA, gl.FLOAT, b); gl.activeTexture(gl.TEXTURE0); this.stats.stateWrites++; return true;
   }
 
   /** the table of first visits (grid from plan.mjs): uploaded whole when the plan is done (or on a refresh while it runs) */
   setVisit(grid) {
     const gl = this.gl; this.grid = grid;
     if (!this.visitTex) { this.visitTex = gl.createTexture(); gl.activeTexture(gl.TEXTURE0 + TEX_VISIT); gl.bindTexture(gl.TEXTURE_2D, this.visitTex); gl.texStorage2D(gl.TEXTURE_2D, 1, gl.R32F, grid.nx, grid.nz); for (const [a, b] of [[gl.TEXTURE_MIN_FILTER, gl.NEAREST], [gl.TEXTURE_MAG_FILTER, gl.NEAREST], [gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE], [gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE]]) gl.texParameteri(gl.TEXTURE_2D, a, b); this.mem += grid.nx * grid.nz * 4; }
-    gl.activeTexture(gl.TEXTURE0 + TEX_VISIT); gl.bindTexture(gl.TEXTURE_2D, this.visitTex); gl.pixelStorei(gl.UNPACK_ALIGNMENT, 4); gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, grid.nx, grid.nz, gl.RED, gl.FLOAT, grid.visit); gl.activeTexture(gl.TEXTURE0);
+    gl.activeTexture(gl.TEXTURE0 + TEX_VISIT); gl.bindTexture(gl.TEXTURE_2D, this.visitTex); unpackPlain(gl); gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, grid.nx, grid.nz, gl.RED, gl.FLOAT, grid.visit); gl.activeTexture(gl.TEXTURE0);
   }
 
   _view(cam, aspect) {
@@ -241,7 +250,7 @@ export class VegGL {
 
   shadow(gl, cascade, R, cam) {
     if (this.dead || !this.on.trees || !this.trees.n) return;
-    const sel = selectChunks(this.trees, cam.x, cam.z, 420, 0, null); if (!sel.near.length) return;
+    const sel = selectChunks(this.trees, cam.x, cam.z, 420, 420, null); if (!sel.near.length) return;      // the chunks within 420 m of the camera cast shadows (all go into the near list)
     gl.activeTexture(gl.TEXTURE0 + TEX_STATE); gl.bindTexture(gl.TEXTURE_2D, this.tex);
     const P = this.P.shadow, U = this.U.shadow; gl.useProgram(P); gl.uniform1f(U.uFar, 1); gl.uniform1f(U.uTrunk, 0); const M = this.M.far; gl.bindVertexArray(M.vao); gl.bindBuffer(gl.ARRAY_BUFFER, this.B.tree);
     for (const ci of sel.near) { const c = this.trees.chunks[ci], base = c.off * TREE_STRIDE * 4; for (const [loc, n, off] of [[1, 4, 0], [2, 4, 16], [3, 1, 32]]) gl.vertexAttribPointer(loc, n, gl.FLOAT, false, TREE_STRIDE * 4, base + off); gl.drawElementsInstanced(gl.TRIANGLES, M.n, gl.UNSIGNED_SHORT, 0, c.n); }
