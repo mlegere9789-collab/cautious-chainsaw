@@ -387,7 +387,7 @@ Cultural Landscapes Inventory: Emmitsburg Road Ridge Battlefield, Gettysburg Nat
   - Context (PDF p. 95): "(CLR draft 2000: 84) Woodlands continued to make up a significant portion of the Codori and Trostle farms, specifically the Codori-Trostle Thicket along Plum Run."
 - **Tree planting by the park commission, 1915-1916** (`NPSX-CLI-ERR-p096-01`)
   - State date: **1915-1916 planting** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 96 [Page 91 of 117]
-  - Claim: The tree-planting program of the park commission was at its height during 1915 and 1916, when approximately 450 trees were installed; the Codori and Trostle farms were mentioned as locations of the new trees, many likely planted in or near the Codori-Trostle Thicket; by 1927 the thicket had nearly doubled from its mid-1880s size and the tree cover was thick, forming a nearly impenetrable woodland along nearly the entire length of Plum Run
+  - Claim: The tree-planting program of the park commission was at its height during 1915 and 1916, when approximately 450 trees were installed; the Codori and Trostle farms were mentioned as locations of the new trees; by 1927 the thicket had nearly doubled from its mid-1880s size and the tree cover was thick, forming a nearly impenetrable woodland along nearly the entire length of Plum Run
   - Quote: "The planting program was at its height during 1915 and 1916, when approximately 450 trees were installed. The Codori and Trostle farms were specifically mentioned, along with other battlefield sites, as locations where the new trees were installed. Although exact locations are not known, historic maps and photographs indicate many were likely planted in or near the Codori-Trostle Thicket because the majority of the farmlands were still in agricultural use. By 1927, the thicket had nearly doubled from its mid-1880s size. The tree cover was thick, forming a nearly impenetrable woodland along nearly the entire length of Plum Run as it passed through the Codori and Trostle farms."
 - **Orchards gone by the mid-1930s** (`NPSX-CLI-ERR-p096-02`)
   - State date: **1930s state** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 96 [Page 91 of 117]
@@ -815,7 +815,7 @@ Cultural Landscape Report for First Day - Union 1st Corps Battlefield, Gettysbur
   - Quote: "Harman also advertised that the farm had “good timber,” a reference to the woodlot along the west side."
   - Context (PDF p. 51): "Due to financial difficulty, Harman put the farm up for public sale in the winter of 1862."
 - **Harman farm in 1863: tenant, crops, orchard** (`NPSX-CLR-1STDAY-p051-03`)
-  - State date: **1863** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 51 [29]
+  - State date: **1863** | use for the July 1863 scene: **direct** | tier proposed: inferred (source wording: hedged) | PDF p. 51 [29]
   - Claim: In 1863 the tenant William Comfort raised wheat, rye and cattle on the Harman farm and presumably managed the large apple orchard around the brick house
   - Quote: "In 1863, the tenant was William Comfort, who raised wheat, rye, and cattle and presumably managed the large apple orchard around the brick house"
   - Context (PDF p. 51): "Harman also advertised that the farm had “good timber,” a reference to the woodlot along the west side.76 Emanuel Harman was unable to sell during the war, and so he continued to have tenants farm the property."
@@ -828,7 +828,7 @@ Cultural Landscape Report for First Day - Union 1st Corps Battlefield, Gettysbur
   - Claim: In 1858 Henry Minnich put the 155-acre property up for sale; the report says Minnich maintained three large orchards, including one west of the house across Herr's Ridge Road, a small fruit garden north of the farmhouse and a larger market orchard north of Willoughby Run, containing 1,000 peach trees, 100 apple trees and other fruit trees
   - Quote: "In 1858, Henry Minnich put the 155-acre property up for sale. He advertised that it featured a two-story “double” stone house with a two-story brick back wing, a stone bank barn, a carriage house, and a stone spring house, which was east of the house on a bank above Willoughby Run (see fig. 1.34). Minnich maintained three large orchards on the property, including one west of the house across Herr’s Ridge Road, a small fruit garden north of the farmhouse, and a larger market orchard north of Willoughby Run along the east side of the road. These contained 1,000 peach trees, 100 apple trees, and other fruit trees."
 - **Wisler place: cornfield and potato patch** (`NPSX-CLR-1STDAY-p055-01`)
-  - State date: **1860-1863** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 55 [33]
+  - State date: **1860-1863** | use for the July 1863 scene: **direct** | tier proposed: inferred (source wording: hedged) | PDF p. 55 [33]
   - Claim: By the early 1860s the Wislers kept a cow, hogs and poultry in a barn (possibly the reused old house), and the family also maintained a garden, a potato patch and a cornfield on their four acres
   - Quote: "The old house may have been removed or reused as the barn where the Wislers kept a cow, hogs, and poultry by the early 1860s. The family also maintained a garden, a potato patch, and a cornfield on their four acres."
 - **Herbst Woods: trees damaged but most standing** (`NPSX-CLR-1STDAY-p067-04`)
@@ -1139,7 +1139,7 @@ Cultural Landscape Report for Gettysburg National Military Park: Record of Treat
   - Claim: A local physician's list of Confederate interments made the year after the battle places Semmes's Brigade soldiers at 'Jno Roses Place orchard, near fence', meaning the orchard near the springhouse on the Rose Run South Headwaters
   - Quote: "According to entries in the list of Confederate interments made by a local physician in the year following the battle, soldiers from Semmes’s Brigade were buried at “Jno Roses Place orchard, near fence,” meaning the orchard near the springhouse on the Rose Run South Headwaters."
 - **Rose Farm Orchard east of Rose Field 8 documented in the 1872 survey** (`NPSX-CLR-ROT-V2-p098-02`)
-  - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 98 [80]
+  - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: inferred (source wording: hedged) | PDF p. 98 [80]
   - Repository ids: `bld-rose-farm`
   - Claim: The Rose Farm Orchard, east of Rose Field 8, likely served as an avenue of approach and an obstacle to the eastward advance and is documented in the 1872 survey and photographs
   - Quote: "The Rose Farm Orchard, located east of Rose Field 8, likely served as an avenue of approach and created an obstacle to the eastward advance.17 The orchard is documented in the 1872 topographical survey map and in photographs from the Tipton Collection and the park’s historical collection"
@@ -1172,7 +1172,7 @@ Cultural Landscape Report for Gettysburg National Military Park: Record of Treat
   - Claim: The Bushman/Hammer application for damages names no orchard but claims five skeps of bees, which the report takes to support the conclusion that the farm kept an orchard documented in the 1872 survey and photographs
   - Quote: "No specific reference was made to an orchard in the Bushman/Hammer application for damage compensation; however, a claim was made for five scaps of bees with patent boxes, costing $7 a piece, which had been broken and the honey taken.13 This investment in bees supports the conclusion that the farm maintained an orchard and the feature is documented in the 1872 topographical survey map and in historic photographs from the Tipton Collection and the park’s historical collection"
 - **Lott orchard documented in the 1880 Bachelder/Maxson map** (`NPSX-CLR-ROT-V2-p189-01`)
-  - State date: **1863-07 (documented by an 1880 map)** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 189 [171]
+  - State date: **1863-07 (documented by an 1880 map)** | use for the July 1863 scene: **direct** | tier proposed: inferred (source wording: hedged) | PDF p. 189 [171]
   - Claim: The Lott orchard on East Cavalry Field is documented in the 1880 Bachelder/Maxson map and in Tipton photographs, and the Union 1st Brigade of the Cavalry Corps' 2nd Division probably used it for cover
   - Quote: "The Union 1st Brigade, 2nd Division Cavalry Corps, under command of Colonel John B. McIntosh, likely used the Lott Orchard for cover. The orchard is documented in the 1880 Bachelder/Maxson Map and in photographs from the Tipton Collection"
 

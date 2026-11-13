@@ -21,7 +21,7 @@ export const LAYER = Object.freeze({
 export const TOUR = Object.freeze({ id: 'tour-stops', title: 'Tour stops (camera positions)', tier: 'inferred', inScene: false });
 export const COPY = Object.freeze({
   short: 'later memorial',
-  what: 'Put up after the battle, and not part of the 1863 scene: the theatre shows it only as a flat mark over the picture, never as an object on the ground.',
+  what: 'Put up after the battle. Not part of the 1863 scene: only a flat mark over the picture.',
   layer: 'These are later memorials: the monuments, memorials, markers and tablets of the site\'s Monuments section. Every one of them remembers the battle, its soldiers or a later event, so none can have stood here before the fighting it marks, and none is part of the 1863 scene. The marks are off until you switch them on; they are flat marks over the picture, never objects on the ground, at any time on the scrubber.',
   basis: 'That the memorials came later rests on what they are and on John B. Bachelder\'s guide to the field in its edition of 1889: when the first edition was compiled "no material changes had been made on the field", and in 1889 the position of each command was "being marked by monuments" along avenues built since (Gettysburg: What to See, and How to See It, 1889, pages 21 and 22).',
   year: 'The year each memorial was put up is not in the site\'s data. It is an open gap, so no memorial is ever shown as standing at a time on the scrubber.',
@@ -291,8 +291,8 @@ export function yearCell(it, tierMark) {
   const y = it.year; if (!y) return `${tierMark(LAYER.yearTier)}<br><span class="mini">The year is not in the site's data.</span>`;
   return `${tierMark(y.tier)} <b>${esc(yearText(y))}</b><br><span class="mini">${esc(y.publisher)}, ${esc(y.sourceTitle)}${y.sourceDate ? ' (' + esc(y.sourceDate) + ')' : ''}, PDF page ${y.pdfPage}${y.printedPage ? ' (' + esc(y.printedPage) + ')' : ''}: “${esc(y.quote)}”${y.approx ? ' The report says "ca.": the year is about, not exact.' : ''}</span>`;
 }
-/** The card of one memorial. tierMark: the shell's tier pill (ctx.tierMark). */
-export function memorialCardHTML(it, tierMark) {
+/** The card of one memorial. tierMark: the shell's tier pill (ctx.tierMark). o.layerOn: the layer is on, so the card carries the button that puts the marks away (the notice gives way while a card is open). */
+export function memorialCardHTML(it, tierMark, o = {}) {
   const pos = it.second && it.second.used ? `${deg(it.lat, 'N', 'S')}, ${deg(it.lng, 'E', 'W')}<br><span class="mini">from the site's second list (${esc(it.second.source)})</span>` : `${deg(it.lat, 'N', 'S')}, ${deg(it.lng, 'E', 'W')}<br><span class="mini">from the site's Monuments list; ${it.src ? 'its note on the position: ' + esc(it.src) : 'the list states no source for it'}</span>`;
   const second = it.second ? `<tr><th>Second position</th><td>${it.second.used ? `The Monuments list puts it at ${deg(it.second.listLat, 'N', 'S')}, ${deg(it.second.listLng, 'E', 'W')}` : `The site's second list (${esc(it.second.name)}; ${esc(it.second.source)}) puts it at ${deg(it.second.lat, 'N', 'S')}, ${deg(it.second.lng, 'E', 'W')}`}, ${fmtM(it.second.apartM)} m away. Both are the site's; the panel lets you choose which the mark follows.</td></tr>` : '';
   const gaps = []; if (!it.year) gaps.push(`${esc(COPY.year)} Gap ${esc(LAYER.gap)}`); if (!it.inside) gaps.push(`the unloaded ground: ${esc(LAYER.groundGap)}`);
@@ -314,7 +314,7 @@ export function memorialCardHTML(it, tierMark) {
         <tr><th>Position</th><td>${pos}</td></tr>${second}
         <tr><th>After the battle</th><td><span class="mini">${esc(COPY.basis)}</span></td></tr>
         <tr><th>Open gap</th><td><span class="mini">${gapCell}</span></td></tr></table></details>
-      <div class="actions"><button type="button" class="btn-s" data-act="fly"><svg class="ic"><use href="#i-focus"/></svg>Fly to</button></div>
+      <div class="actions"><button type="button" class="btn-s" data-act="fly"><svg class="ic"><use href="#i-focus"/></svg>Fly to</button>${o.layerOn ? '<button type="button" class="btn-s" data-act="hide">Hide the marks</button>' : ''}</div>
     </div>`;
 }
 export function memorialRowsHTML(list, from, to, selected) {
@@ -324,7 +324,7 @@ export function memorialRowsHTML(list, from, to, selected) {
 }
 /** The notice that stays on the picture for as long as the layer is on (the two buttons are handled by the module: data-act "about" and "hide"). */
 export function noticeHTML(counts, tm) {
-  return `<span>${tm(LAYER.tier)}</span><span><b style="color:var(--text)">Later memorials shown</b></span><span class="xm-chip-text">${counts.total} marks, ${counts.beyond} of them ${COPY.beyond}. Put up after the battle: not part of the 1863 scene.</span><span><button type="button" class="btn-s" data-act="about" style="min-height:28px">About them</button> <button type="button" class="btn-s" data-act="hide" style="min-height:28px">Hide</button></span>`;
+  return `<span>${tm(LAYER.tier)}</span><span><b style="color:var(--text)">Later memorials shown</b></span><span>${counts.total} marks, ${counts.beyond} of them ${COPY.beyond}. Put up after the battle: not part of the 1863 scene.</span><span><button type="button" class="btn-s" data-act="about" style="min-height:28px">About them</button> <button type="button" class="btn-s" data-act="hide" style="min-height:28px">Hide</button></span>`;
 }
 /** The memorial panel above its list. o: {on, positions, integrity: {checked}, list: {q, side, group, where}}. The list itself is memorialRowsHTML under #xm-list. */
 export function memorialPanelHTML(index, o, tm) {

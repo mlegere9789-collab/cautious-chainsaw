@@ -44,7 +44,7 @@ def repo_ids():
 
 GENERIC = set("""The A An In On At Of For By To As It Its This That These Those Today Both Most Part Between Before After During Since Under Over From
 With Without Not No Some Several Many One Two Three Four Five Six Seven Eight Nine Ten July June August Union Confederate Confederates Federal Park
-Battle Battlefield Road Avenue Ridge Field Fields Farm House Barn Hill Woods Orchard Corps Division Brigade Regiment Army National Military Gettysburg
+Battle Battlefield L-shaped Road Avenue Ridge Field Fields Farm House Barn Hill Woods Orchard Corps Division Brigade Regiment Army National Military Gettysburg
 Pennsylvania Report Day First War Department Commission General Peace Memorial Little Round Top East West""".split())
 # explanatory words of a claim that are deliberate and not part of the quoted text
 NAME_OK = {

@@ -225,17 +225,17 @@ Cultural Landscapes Inventory: Little Round Top, Gettysburg National Military Pa
   - Claim: The inventory gives the extant dry-laid wall as around 135 feet long and 2 feet high
   - Quote: "The dry-laid stone wall is around 135 feet long and 2 feet high."
 - **John Weikert Lane stone wall built before 1863, restored 1907-1910** (`NPSX-CLI-LRT-p074-03`)
-  - State date: **pre-1863 (built); 1907-1910 restored** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 74 [Page 69 of 107]
+  - State date: **pre-1863 (built); 1907-1910 restored** | use for the July 1863 scene: **direct** | tier proposed: inferred (source wording: hedged) | PDF p. 74 [Page 69 of 107]
   - Repository ids: `P-14`, `bld-weikert-farm`
   - Claim: The John Weikert Lane stone wall was built before 1863 and restored in 1907-1910; at the time of the battle it marked the west side of the John Weikert Knoll parcel and was probably used in battle positions
   - Quote: "(CLR 2012: 3-36) John Weikert Lane Stone Wall (portion) (built pre-1863, restored 1907-1910; Contributing) This stone wall runs north-south along the east side of the J. Wiekert (Althoff) Farm Lane. At the time of the battle, this wall marked the west side of John Weikert Knoll parcel and was likely used as part of battle positioning."
 - **Boundary stone wall of the John Munshower Field, built before 1863** (`NPSX-CLI-LRT-p074-04`)
-  - State date: **pre-1863 (built)** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 74 [Page 69 of 107]
+  - State date: **pre-1863 (built)** | use for the July 1863 scene: **direct** | tier proposed: inferred (source wording: hedged) | PDF p. 74 [Page 69 of 107]
   - Repository ids: `P-14`
   - Claim: The east-west wall along the north side of Wheatfield Road, built before 1863, enclosed the Munshower Field at the time of the battle and was probably used in battle positions
   - Quote: "Boundary Stone Wall, John Munshower Field (built pre-1863; Contributing) This wall runs in an east-west direction along the north side of Wheatfield Road. At the time of the battle, this wall enclosed the Munshower Field and was likely incorporated into battle positions."
 - **Nevins' Brigade stone wall built before 1863, restored 1907** (`NPSX-CLI-LRT-p075-06`)
-  - State date: **pre-1863 (built); 1907 restored** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 75 [Page 70 of 107]
+  - State date: **pre-1863 (built); 1907 restored** | use for the July 1863 scene: **direct** | tier proposed: inferred (source wording: hedged) | PDF p. 75 [Page 70 of 107]
   - Repository ids: `P-14`
   - Claim: The north-south Nevins' Brigade stone wall marks the east side of the John Weikert Knoll parcel, was built before 1863, restored in 1907 and was probably used in battle positions
   - Quote: "(NR 2003, Sec.7: 50 and Sec.8: 24; LCS 005704; CLR 2012: 3-31) Nevins’ Brigade Stone Wall (portion) (built pre-1863, restored 1907; Contributing) This stone wall runs north-south and is marks the east side of John Weikert Knoll parcel and was likely incorporated into battle positions."
@@ -720,7 +720,7 @@ Cultural Landscape Report for Gettysburg National Military Park: Record of Treat
   - Claim: An account quoted by the report says the rails were carried from a fence on the eastern boundary of a field of wheat (McPherson Field 7) and from the pike to an old railroad cut, and the report says this worm fencing, repurposed into a breastwork, covered the Union color guard
   - Quote: "The rails had been carried together from a fence that formed the eastern boundary of a field of wheat [McPherson Field 7], extending down its western slope, and from the pike to an old R. R. cut north of it.”39 The worm fencing, repurposed into a breastwork, provided cover and concealment for the Union color guard."
 - **Moses McClean fence losses: 4,546 rails, 35 posts, 10 board panels, stone fence injured** (`NPSX-CLR-ROT-V1-p149-01`)
-  - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 149 [123]
+  - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: inferred (source wording: hedged) | PDF p. 149 [123]
   - Claim: Moses McClean's claim cited injury to stone fence and the loss of 4,546 rails, 35 posts and 10 panels of board fence, a rail-to-post ratio the report says seems to indicate that most of the fencing was worm
   - Quote: "In his application for battle damage compensation for his farm, Moses McClean claimed injury to stone fence and the loss of 4546 rails, 35 posts, and 10 panels of board fence.17 The high number of rails in proportion to the number of posts seems to indicate that the majority of this fencing was worm"
 - **Worm fence on the south and west of McClean Thicket and Field 1** (`NPSX-CLR-ROT-V1-p149-02`)
@@ -796,7 +796,7 @@ Cultural Landscape Report for Gettysburg National Military Park: Record of Treat
   - Claim: The Henry Spangler Orchard fence is documented as a wooden fence in the 1863 Bachelder map and as a worm fence in the 1868 Warren map and 1872 survey
   - Quote: "Henry Spangler Orchard is bounded on the north by Henry Spangler Fields 1 and 2, on the east by Henry Spangler Field 3, on the south by Henry Spangler Farm Lane, and on the west by Henry Spangler Field 1. Confederates used the Henry Spangler Orchard for cover and the worm fencing likely improved the cover afforded by the orchard.35 This fencing type is documented as a wooden fence in the 1863 Bachelder Map and as a worm fence in the 1868 Warren Map and 1872 topographical survey map"
 - **Worm fence dividing Wentz and Sherfy Field 4** (`NPSX-CLR-ROT-V1-p360-01`)
-  - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 360 [334]
+  - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: inferred (source wording: hedged) | PDF p. 360 [334]
   - Repository ids: `bld-wentz-farm`, `bld-sherfy-farm`
   - Claim: The worm fence dividing Wentz and Sherfy Field 4 is documented in the 1868 Warren map and was likely dismantled to ease troop movement
   - Quote: "The worm fence dividing Wentz and Sherfy Field 4, GIS ID 1054, was likely dismantled to facilitate troop movement across these spaces.40 This fencing type is documented in the 1868 Warren Map"

@@ -14,7 +14,7 @@ const el = (tag, props = {}, html = null) => { const n = doc().createElement(tag
 const CSS = `#xm-chip{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:9px 14px;border-radius:12px;background:var(--panel);border:1px solid rgba(58,58,86,.65);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);font-size:12px;line-height:1.4;color:var(--text-2);box-shadow:0 12px 40px rgba(0,0,0,.3)}
 #xm-chip[hidden]{display:none}
 #xm-chip>span{display:inline-flex;align-items:center;gap:7px}
-.theatre[data-card="on"] #xm-chip .xm-chip-text{display:none}
+#xm-chip[data-compact]{display:none}
 @media (max-width:760px){#xm-chip{position:absolute;z-index:12;left:var(--gut);right:var(--gut);top:calc(var(--top-h) + var(--safe-t) + var(--xm-clock-h,92px) + 18px);padding:7px 11px;gap:4px 10px;font-size:11.5px}#xm-chip .btn-s{min-height:30px}}`;
 
 export async function init(ctx) {
@@ -43,7 +43,7 @@ export async function init(ctx) {
   s.chip.addEventListener('click', e => { const b = e.target && e.target.closest ? e.target.closest('[data-act]') : null; if (!b || !S) return; if (b.dataset.act === 'hide') S.toggle.set(false); else if (b.dataset.act === 'about') S.panel.open(); }, sig);
   // ---- the card of a picked memorial (the shell's own card element belongs to units and structures)
   s.card = el('aside', { id: 'xm-card', className: 'card', hidden: true, role: 'complementary', 'aria-labelledby': 'xm-card-title' });
-  s.card.addEventListener('click', e => { const b = e.target && e.target.closest ? e.target.closest('[data-act]') : null; if (!b || !S) return; if (b.dataset.act === 'close') select(-1); else if (b.dataset.act === 'fly') flyTo(S.selected); }, sig);
+  s.card.addEventListener('click', e => { const b = e.target && e.target.closest ? e.target.closest('[data-act]') : null; if (!b || !S) return; if (b.dataset.act === 'close') select(-1); else if (b.dataset.act === 'fly') flyTo(S.selected); else if (b.dataset.act === 'hide') S.toggle.set(false); }, sig);
   if (left) { const clock = left.querySelector('.clockface'), shellCard = left.querySelector('#bt-card'); if (clock) clock.after(s.chip); else left.prepend(s.chip); if (shellCard) shellCard.after(s.card); else left.append(s.card);
     const clock2 = left.querySelector('.clockface'); if (clock2 && globalThis.ResizeObserver) { s.ro = new ResizeObserver(() => { if (S && S.chip) S.chip.style.setProperty('--xm-clock-h', Math.round(clock2.getBoundingClientRect().height) + 'px'); }); s.ro.observe(clock2); } }
   else th.root.append(s.chip, s.card);
@@ -75,6 +75,7 @@ export async function init(ctx) {
 function setOn(v) {
   const s = S; if (!s) return; s.on = !!v; s.fresh = true;
   if (!s.on) { if (s.selected >= 0) select(-1); dropCanvas(s); }                 // off means nothing of the memorials is on the picture
+  else if (s.selected >= 0) { const it = s.index.byNo.get(s.selected); if (it) s.card.innerHTML = P.memorialCardHTML(it, s.ctx.tierMark, { layerOn: true }); }       // the card of a memorial picked while the layer was off gains the button
   paintChip(s); if (s.panel.isOpen()) syncPanel(s);
 }
 function paintChip(s) {
@@ -84,13 +85,14 @@ function paintChip(s) {
 // the shell shrinks the clock face to make room for a card while its root says data-card="on" (ui/card.mjs, ui/object-card.mjs); a memorial's card is a card too. The shell's own card, when it is
 // open, keeps the mark: a memorial that gives way to a unit or a structure must not take it away.
 function cardMark(s) {
+  if (s.chip) { if (s.card && !s.card.hidden) s.chip.dataset.compact = '1'; else delete s.chip.dataset.compact; }        // the notice gives way to the card while one is open: the card says the same and carries the button
   const th = s.th, root = th && th.root; if (!root || !root.dataset) return;
   if (s.card && !s.card.hidden) root.dataset.card = 'on'; else if (!(th.state.selected >= 0 || th.state.selectedObj >= 0)) root.dataset.card = 'off';
 }
 function select(no, o = {}) {
   const s = S; if (!s) return false; const it = no >= 0 ? s.index.byNo.get(no) : null; if (no >= 0 && !it) return false;
   const th = s.th; s.selected = it ? it.no : -1; s.fresh = true;
-  if (it) { if (th.state.selected >= 0) th.select(-1); if (th.state.selectedObj >= 0) th.selectObject(-1); s.card.innerHTML = P.memorialCardHTML(it, s.ctx.tierMark); s.card.hidden = false; if (o.say) th.announce(`Selected ${it.name}, a later memorial.`); }
+  if (it) { if (th.state.selected >= 0) th.select(-1); if (th.state.selectedObj >= 0) th.selectObject(-1); s.card.innerHTML = P.memorialCardHTML(it, s.ctx.tierMark, { layerOn: s.on }); s.card.hidden = false; if (o.say) th.announce(`Selected ${it.name}, a later memorial.`); }
   else { s.card.hidden = true; s.card.innerHTML = ''; if (!s.on) dropCanvas(s); }
   cardMark(s); if (s.panel.isOpen()) markCurrent(s);
   return !!it;
@@ -102,7 +104,7 @@ function flyTo(no) {
 function setPositions(key) {
   const s = S; if (!s || !P.POSITION_CHOICES.some(c => c.key === key) || key === s.positions) return false;
   s.positions = key; s.index = P.buildIndex(s.data, s.T, { positions: key, years: s.years }); s.L = P.newLayout(s.index.n); s.fresh = true;
-  if (s.selected >= 0) { const it = s.index.byNo.get(s.selected); if (it) s.card.innerHTML = P.memorialCardHTML(it, s.ctx.tierMark); }
+  if (s.selected >= 0) { const it = s.index.byNo.get(s.selected); if (it) s.card.innerHTML = P.memorialCardHTML(it, s.ctx.tierMark, { layerOn: s.on }); }
   s.th.announce(key === 'state-list' ? 'The nine state memorials now stand where the site\'s second list puts them.' : 'Every memorial now stands where the Monuments list puts it.');
   if (s.panel.isOpen()) s.panel.refresh(); return true;
 }

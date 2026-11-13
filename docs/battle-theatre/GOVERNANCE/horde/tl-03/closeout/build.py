@@ -93,10 +93,17 @@ def lib_text(sid):
     _lib[sid] = (raw, nt, nm, rel, sha)
     return _lib[sid]
 
+NPS_PAGE = re.compile(r'=== PAGE (\d+) ===')
 HEAD_A = re.compile(r'(?<![\d,.])(\d{1,4}) ([A-Z][A-Za-z\'’.,&-]*(?: [A-Za-z\'’.,&-]+){1,7})')
 
 def lib_page(sid, nt, ni):
     """printed page from the nearest running head before position ni in the normalised text, with the head as evidence"""
+    if sid.startswith('NPS') and sid not in PAGE_HEADS:      # National Park Service text layers carry '=== PAGE n ===' markers (the PDF page, not the printed page)
+        best = None
+        for m in NPS_PAGE.finditer(nt, max(0, ni - 60000), ni):
+            best = m
+        if best is None: return None, 'no PDF page marker before the passage; offset given'
+        return best.group(1), 'PDF page marker of the text layer (=== PAGE %s ===) before the passage; this is the PDF page, not the printed page' % best.group(1)
     spec = PAGE_HEADS.get(sid)
     if not spec: return None, 'no printed page recovered from the text; offset given'
     best = None

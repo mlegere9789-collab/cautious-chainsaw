@@ -36,7 +36,7 @@ Cultural Landscapes Inventory: First Day - Union 1st Corps Battlefield, Gettysbu
   - Claim: Buford used the Seminary cupola as a signal station from June 30 while his cavalry division camped at the McPherson farm; Union troops later assembled stacked-rail breastworks along the west edge of Seminary Grove
   - Quote: "Arriving on June 30, General Buford used the cupola of the Seminary building as a signal station while his cavalry division encamped at the McPherson Farm; Union troops later assembled stacked-rail breastworks along the west edge of Seminary Grove."
 - **Confederate breastworks on Seminary Ridge and Oak Ridge, July 4** (`NPSX-CLI-1STDAY-p038-01`)
-  - State date: **1863-07-04** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 38 [Page 36 of 105]
+  - State date: **1863-07-04** | use for the July 1863 scene: **direct** | tier proposed: inferred (source wording: hedged) | PDF p. 38 [Page 36 of 105]
   - Repository ids: `E-18`
   - Claim: On July 4 Confederate troops built and strengthened breastworks along the whole ridge from Oak Hill south to the Emmitsburg Road: stacked rails, possibly reinforced with earth and stone, through the seminary campus; earthen breastworks dug by Daniel's and O'Neal's brigades in the woods of Oak Ridge north of the railroad cut
   - Quote: "he ordered his troops to spend the following day, July 4, building and strengthening breastworks along the entire ridge to the north and south of the Thompson House, from Oak Hill south to Emmitsburg Road, to prepare for a possible Union assault that never came. Through the seminary campus, the troops built or rebuilt breastworks of stacked rails and possibly reinforced with earth and stone along the east side of the road, and stacked-rail breastworks to the west through Seminary Grove. Daniel’s and O’Neal’s brigades occupied Oak Ridge north of the railroad cut, and there dug earthen breastworks through the woods."
@@ -109,7 +109,7 @@ Cultural Landscapes Inventory: Little Round Top, Gettysburg National Military Pa
   - Claim: The inventory's chronology records for 1863 that defensive stone walls were built along the summit of Little Round Top and at Vincent Spur
   - Quote: "CE 1863 Built Defensive stone walls are built along the summit of Little Round Top and at Vincent Spur."
 - **Jacob Weikert Woods Access Lane present by 1863** (`NPSX-CLI-LRT-p066-01`)
-  - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 66 [Page 61 of 107]
+  - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: inferred (source wording: hedged) | PDF p. 66 [Page 61 of 107]
   - Repository ids: `bld-weikert-farm`
   - Claim: The lane on the east slope of Little Round Top was present during the battle and likely used by the Union army, the Company B stone wall being nearby
   - Quote: "(NR 2003, Sec.7: 101; LCS 005668) Jacob Weikert Woods Access Lane (portion) (built by 1863; Contributing) This lane on the east slope of Little Round Top was present during the battle and likely used by the Union army, as the Company B stone wall was nearby."
@@ -367,7 +367,7 @@ The Significance of the Harmon Farm and the Springs Hotel Woods (1 March 1991). 
 
 - **Harman farm laid waste, one of a handful of battlefield farms burned for military reasons** (`NPSX-HARMON-FARM-p010-02`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 10
-  - Claim: The Harman farm was laid waste, one of only a handful of battlefield farms burned for military reasons, and its woods were splintered by shot and shell
+  - Claim: The Harmon farm was laid waste, one of only a handful of battlefield farms burned for military reasons, and its woods were splintered by shot and shell
   - Quote: "Before the armies departed to renew their bloody grappling in Virginia, the Harmon farm was laid waste, one of only a handful of battlefield farms burned for military reasons, and the woods which had "enhanced" the farms would be splintered by shot and shell"
 
 ## NPS-HSR-LEISTER-BARN
@@ -404,7 +404,7 @@ Proposed Restoration of the Spangler's Spring-Culp's Hill Area and the Re-Locati
   - Claim: According to Brady and Tipton photographs the works from Spangler's Spring to Culp's Hill were largely earth, loose stones and logs, built to an average height of 20 inches; this is a 1940 description of works the park had restored
   - Quote: "According to Brady and Tipton photographs, the earthworks along the battle line extending from Spangler’s Spring to Culp’s Hill were largely constructed of earth, loose stones and logs and were built up to an average height of 20 inches."
 - **Spangler's Spring to Culp's Hill earthworks, higher sections (1940 description)** (`NPSX-SPANGLERS-SPRING-p015-05`)
-  - State date: **1940 measurement of surviving works (photographs of 1863-1890 cited)** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 15
+  - State date: **1940 measurement of surviving works (photographs of 1863-1890 cited)** | use for the July 1863 scene: **indirect** | tier proposed: inferred (source wording: hedged) | PDF p. 15
   - Repository ids: `E-02`, `E-03`, `E-05`
   - Claim: Certain sections of the earthworks, where the soil is deeper and more easily turned, appear to have been constructed largely of earth and are higher than the general line of works (the sentence continues on the next page with a section some 200 yards west of Culp's Hill)
   - Quote: "Certain sections of the earthworks, where the soil is deeper and more easily turned,/ appear to have been constructed largely of earth and are higher than the general line of works, a section some 200"
@@ -416,7 +416,7 @@ Proposed Restoration of the Spangler's Spring-Culp's Hill Area and the Re-Locati
   - Quote: "yards west of Culp’s Hill, near Stevens’ Knoll, measuring 30” in height. A section extending 100 yards-westward from Culp’s Hill averages 26” in height."
   - Context (PDF p. 15): "Certain sections of the earthworks, where the soil is deeper and more easily turned,/ appear to have been constructed largely of earth and are higher than the general line of works, a section some 200"
 - **Lunettes on East Cemetery Hill and Stevens' Knoll: earth, 30 inches at highest** (`NPSX-SPANGLERS-SPRING-p016-02`)
-  - State date: **1940 measurement of surviving works** | use for the July 1863 scene: **indirect** | tier proposed: documented (source wording: stated) | PDF p. 16
+  - State date: **1940 measurement of surviving works** | use for the July 1863 scene: **indirect** | tier proposed: inferred (source wording: hedged) | PDF p. 16
   - Repository ids: `E-12`
   - Claim: In 1940 the lunettes on East Cemetery Hill and Stevens' Knoll, apparently built wholly of earth for the artillery, measured 30 inches at their greatest height and were in good condition; no lunettes were found on Culp's Hill
   - Quote: "The lunettes on East Cemetery Hill and Stevens’ Knoll apparently were constructed entirely of earth and were erected as a protection for the artillery positions. There are no indications of lunettes on Culp's Hill where Federal batteries had been placed. The artillery on Stevens' Knoll and several batteries located on East Cemetery Hill as well as the two batteries on Culp's Hill were used against the Confederate artillery on Benner’s Hill in the artillery duel which pre­ ceded the Confederate infantry attacks on Culp's Hill and East Cemetery Hill. In the positions on Stevens’ Knoll and East Cemetery Hill, the lunettes measure 30” at the point of greatest height, the mound tapering gradually toward either end. These defensive works on Stevens' Knoll and East Cemetery Hill are in good condition."

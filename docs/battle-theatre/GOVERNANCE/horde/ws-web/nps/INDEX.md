@@ -22,29 +22,29 @@ Extract sheets: `extracts/fields-woodlots.md`, `extracts/fences.md`, `extracts/f
 | NPS-MON-LOC-1932 | 41 (41) | 0 |
 | NPS-MON-LOC-1993 | 59 (56) | 0 |
 | NPS-MCMILLAN-HOUSE | 15 (5) | 0 |
-| NPS-CLI-CEMETERY | 42 (41) | 7 |
+| NPS-CLI-CEMETERY | 42 (41) | 8 |
 | NPS-EXTENSION-1940 | 16 (12) | 0 |
 | NPS-HSR-MCCLEAN-BARN | 116 (87) | 0 |
 | NPS-HCSR | 53 (41) | 0 |
 | NPS-HSR-LEISTER-BARN | 129 (95) | 4 |
 | NPS-CLI-LANDSCAPE | 105 (94) | 12 |
 | NPS-HARMON-FARM | 71 (55) | 11 |
-| NPS-SPANGLERS-SPRING | 53 (34) | 6 |
+| NPS-SPANGLERS-SPRING | 53 (34) | 7 |
 | NPS-MCCLEAN-HOUSE-BARN | 49 (35) | 2 |
 | NPS-ROCK-CREEK | 24 (11) | 0 |
 | NPS-VISTA-CUTTING | 27 (22) | 4 |
 | NPS-BRYAN-HOUSE | 39 (10) | 0 |
 | NPS-HS-MCPHERSON | 207 (156) | 0 |
-| NPS-CLI-1STDAY | 107 (105) | 78 |
+| NPS-CLI-1STDAY | 107 (105) | 79 |
 | NPS-CEM-ENCLOSURES | 199 (127) | 0 |
 | NPS-CLR-LRT | 178 (152) | 0 |
 | NPS-CLI-LRT | 112 (101) | 26 |
-| NPS-CLI-ERR | 122 (107) | 61 |
+| NPS-CLI-ERR | 122 (107) | 66 |
 | NPS-TPG-COMMEM | 198 (187) | 18 |
 | NPS-CLI-PCB | 136 (118) | 142 |
 | NPS-CLR-1STDAY | 580 (545) | 163 |
 | NPS-CLR-ROT-V2 | 378 (342) | 20 |
-| NPS-CLR-ROT-V1 | 474 (448) | 65 |
+| NPS-CLR-ROT-V1 | 474 (448) | 66 |
 | NPS-CLR-CEMETERY | 466 (440) | 0 |
 | NPS-GMP-1999-V1 | 447 (439) | 0 |
 | NPS-ADHI | 451 (445) | 21 |
@@ -85,10 +85,10 @@ Extract sheets: `extracts/fields-woodlots.md`, `extracts/fences.md`, `extracts/f
 | NPSGOV-TOWN | 1 (1) | 0 |
 | NPSGOV-US-LINE | 1 (1) | 0 |
 | NPSGOV-US-MONUMENTS | 1 (1) | 0 |
-| NPSGOV-WARFIELD-HOUSE | 1 (1) | 3 |
+| NPSGOV-WARFIELD-HOUSE | 1 (1) | 4 |
 | NPSGOV-WISLER-HOUSE | 1 (1) | 1 |
 
-Total extracts: 692 from 31 sources.
+Total extracts: 702 from 31 sources.
 
 ## NPS-DEV-POLICY
 
@@ -189,7 +189,7 @@ Total extracts: 692 from 31 sources.
 - Rights basis: United States government work
 - Text quality: born-digital text, clean
 - Feature states: The cemetery was designed in 1863 and built 1863-1869: everything of the national cemetery itself is later than the battle; only the passages on the 1863 site (fence-enclosed fields, Evergreen Cemetery, the grove, the signal station) describe July 1863.
-- Extracts written: 7 (farm-buildings 1, fields-woodlots 2, monuments-later 2, other-landscape 2)
+- Extracts written: 8 (farm-buildings 1, fields-woodlots 3, monuments-later 2, other-landscape 2)
 - Used for extracts: yes (extracts/src/60-hospitals-cemetery.xdef)
 
 ## NPS-EXTENSION-1940
@@ -273,7 +273,7 @@ Total extracts: 692 from 31 sources.
 - Rights basis: United States government work
 - Text quality: typescript OCR with noise; clean sentences only
 - Feature states: A 1940 report: the earthwork heights and the timber and meadow it describes are the condition of 1940, measured on works the park commission had resodded and rebuilt; they are not 1863 profiles.
-- Extracts written: 6 (fields-woodlots 2, other-landscape 4)
+- Extracts written: 7 (fields-woodlots 2, other-landscape 5)
 - Used for extracts: yes (extracts/src/80-harmon-vista-spangler.xdef)
 
 ## NPS-MCCLEAN-HOUSE-BARN
@@ -308,7 +308,7 @@ Total extracts: 692 from 31 sources.
 - Text: `tmp/library/web/nps/NPS-VISTA-CUTTING/NPS-VISTA-CUTTING.txt`, 31383 bytes, sha256 `06db83351d62c22fc3b4db8900a8350ac936cecd373c4f4dee0229e19baf3c81`; 22 of 27 pages carry text
 - Rights basis: United States government work
 - Text quality: typescript OCR with noise; clean sentences only
-- Feature states: A park file report of about 1939-40 on woodland conditions as of July 1863, using the Warren map of 1868-69 and Brady and Tipton photographs.
+- Feature states: An undated park file report, written after December 1939 (it cites photographs taken in December 1939), on woodland conditions as of July 1863, using the Warren map of 1868-69 and Brady and Tipton photographs.
 - Extracts written: 4 (fields-woodlots 4)
 - Used for extracts: yes (extracts/src/80-harmon-vista-spangler.xdef)
 
@@ -342,7 +342,7 @@ Total extracts: 692 from 31 sources.
 - Rights basis: United States government work
 - Text quality: born-digital text, clean
 - Feature states: Mixed and dated in the text: 1863 conditions (physical history to 1863 and the feature entries), commemorative-era features, and conditions surveyed for 2021. Fences are reconstructions; orchards are replantings.
-- Extracts written: 78 (farm-buildings 6, fences 10, fields-woodlots 51, monuments-later 3, other-landscape 8)
+- Extracts written: 79 (farm-buildings 6, fences 11, fields-woodlots 51, monuments-later 3, other-landscape 8)
 - Used for extracts: yes (extracts/src/12-cli-first-day.xdef)
 
 ## NPS-CEM-ENCLOSURES
@@ -389,7 +389,7 @@ Total extracts: 692 from 31 sources.
 - Text quality: born-digital text, clean; a line-end hyphen is dropped by the extraction in a few words (e.g. 'CodoriTrostle')
 - Covers: Klingel farm, parts of the Trostle and Codori farms, Neinstedt field; Codori-Trostle thicket, orchards, fences, stone walls, buildings, monuments
 - Feature states: Dated period by period in the text: 'Battle Period' / 'Battlefield Period' paragraphs describe July 1863 (drawn from the park's 2000 draft and 2002 Cultural Landscape Report for Emmitsburg Road Ridge); GBMA 1864-1895; park commission 1895-1927; 1930s; existing conditions about 2000 and 2024. Wall dimensions are present-day measurements; orchards were replanted in 2005 and 2009; fences rebuilt 2000-2012.
-- Extracts written: 61 (farm-buildings 13, fences 17, fields-woodlots 23, hospitals 4, monuments-later 1, other-landscape 3)
+- Extracts written: 66 (farm-buildings 14, fences 19, fields-woodlots 24, hospitals 4, monuments-later 2, other-landscape 3)
 - Used for extracts: yes (extracts/src/11-cli-emmitsburg-road-ridge.xdef)
 
 ## NPS-TPG-COMMEM
@@ -464,7 +464,7 @@ Total extracts: 692 from 31 sources.
 - Text quality: two-column report: quotes are cut from the content-stream-order text (<ID>.raw.txt, pdftotext -raw, line-end hyphenation repaired). The text layer lost the i of every fi ligature and one f of ff (feld, fre, fght, beneft), so quotes are typed in the corrected spelling and matched letter for letter with those groups ignored (quote_mode cleaned; the raw excerpt is stored next to the quote)
 - Covers: Battlefield Rehabilitation Framework (GMP 1999 and the 2004 Treatment Philosophy: The 1863 Landscape) and the record of treatment of the park areas by farm and field: fences, orchards, woodlots, fields, buildings, wells and springs, farm lanes
 - Feature states: Record of Treatment: each area section gives (1) the 1863 landscape (battle-period fields, fences, orchards, woodlots, buildings, hospital use; taken from the 1863 property research and damage claims) and (2) the treatment actually carried out 1998-2013 (fences rebuilt, orchards replanted, woods cleared, non-historic features removed). Only the 1863 paragraphs describe 1863; the treatment paragraphs and the 2013-2016 photographs describe REBUILT or REPLANTED features: never an 1863 profile.
-- Extracts written: 65 (farm-buildings 3, fences 33, fields-woodlots 20, hospitals 7, other-landscape 2)
+- Extracts written: 66 (farm-buildings 3, fences 33, fields-woodlots 21, hospitals 7, other-landscape 2)
 - Text defect: fi-ligature
 - Quotes are cut from the raw text variant (tmp/library/web/nps/<ID>/<ID>.raw.txt)
 - Used for extracts: yes (extracts/src/50-clr-rot-v1.xdef, 51-clr-rot-v2.xdef)
@@ -909,7 +909,7 @@ Total extracts: 692 from 31 sources.
 - Text: `tmp/library/web/nps/pages/NPSGOV-WARFIELD-HOUSE/NPSGOV-WARFIELD-HOUSE.txt`, 5909 bytes, sha256 `102832822b57e0d2eecae7e72e9e788d7f2c40c43e699f4d7965ec294956e3c7`; 1 of 1 pages carry text
 - Rights basis: United States government work
 - Text quality: web page text (tags stripped)
-- Extracts written: 3 (farm-buildings 2, other-landscape 1)
+- Extracts written: 4 (farm-buildings 2, other-landscape 2)
 
 ## NPSGOV-WISLER-HOUSE
 
@@ -920,5 +920,5 @@ Total extracts: 692 from 31 sources.
 - Text: `tmp/library/web/nps/pages/NPSGOV-WISLER-HOUSE/NPSGOV-WISLER-HOUSE.txt`, 4382 bytes, sha256 `2b72c03c916ccb8f589956ea2f0f8defc3061e007a425be1314caf0fc6788fc9`; 1 of 1 pages carry text
 - Rights basis: United States government work
 - Text quality: web page text (tags stripped)
-- Extracts written: 1 (fences 1)
+- Extracts written: 1 (other-landscape 1)
 

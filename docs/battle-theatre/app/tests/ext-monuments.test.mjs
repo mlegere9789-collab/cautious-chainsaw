@@ -148,12 +148,12 @@ test('the card of every memorial: well-formed, says later memorial and post-batt
   const idx = P.buildIndex(mem, T);
   for (const it of idx.items) {
     const h = P.memorialCardHTML(it, tierMark); assert.deepEqual(markupProblems(h), [], `${it.no} ${it.name}`);
-    assert.match(h, /<b>Later memorial\.<\/b>/); assert.match(h, /not part of the 1863 scene/); assert.match(h, /data-tier="inferred"/); assert.match(h, /data-xm="post-battle"/); assert.match(h, /data-tier="open gap"/); assert.match(h, /The year is not in the site(?:'|&#39;)s data/);
+    assert.match(h, /<b>Later memorial\.<\/b>/); assert.match(h, /not part of the 1863 scene/i); assert.match(h, /data-tier="inferred"/); assert.match(h, /data-xm="post-battle"/); assert.match(h, /data-tier="open gap"/); assert.match(h, /The year is not in the site(?:'|&#39;)s data/);
     assert.match(h, /ws-world-EG-MON-01/); assert.match(h, /Park number/); assert.match(h, /data-act="close"/); assert.match(h, /data-act="fly"/); assert.match(h, /<details[^>]*><summary[^>]*>Evidence: /, 'the evidence is a closed section: the card stays short, the label and the year stay in view'); assert.ok(h.indexOf('<details') > h.indexOf('Put up') && h.indexOf('<details') > h.indexOf('data-xm="post-battle"'));
     if (it.inside) assert.doesNotMatch(h, /ws-world-EG-MON-02/); else { assert.match(h, /ws-world-EG-MON-02/); assert.match(h, /beyond the (north|south|east|west)/); }
     if (it.second) assert.match(h, /Second position/);
   }
-  const pa = idx.byNo.get(46), h = P.memorialCardHTML(pa, tierMark); assert.match(h, /Pennsylvania State Memorial/); assert.match(h, /Wikipedia: Pennsylvania State Memorial, Gettysburg/);
+  const pa = idx.byNo.get(46), h = P.memorialCardHTML(pa, tierMark); assert.match(h, /Pennsylvania State Memorial/); assert.doesNotMatch(h, /data-act="hide"/, 'no button to put the marks away while the layer is off'); assert.match(P.memorialCardHTML(pa, tierMark, { layerOn: true }), /data-act="hide"[^>]*>Hide the marks</); assert.deepEqual(markupProblems(P.memorialCardHTML(pa, tierMark, { layerOn: true })), []); assert.match(h, /Wikipedia: Pennsylvania State Memorial, Gettysburg/);
   const withSrc = idx.items.find(i => i.src); assert.match(P.memorialCardHTML(withSrc, tierMark), new RegExp('its note on the position: ' + P.esc(withSrc.src).slice(0, 20).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   const sl = P.buildIndex(mem, T, { positions: 'state-list' }).byNo.get(46); assert.match(P.memorialCardHTML(sl, tierMark), /from the site(?:'|&#39;)s second list/);
 });
@@ -171,7 +171,7 @@ test('the panel and the notice: the words, well-formed, with the layer\'s state 
   assert.match(P.memorialPanelHTML(idx, { ...o, positions: 'state-list' }, tierMark), /<option value="state-list" selected>/); assert.doesNotMatch(h, /no way to check the list against the hash/); assert.match(P.memorialPanelHTML(idx, { ...o, integrity: { checked: false } }, tierMark), /no way to check the list against the hash/);
   assert.match(P.memorialPanelHTML(idx, { ...o, list: { ...o.list, side: 'Union' } }, tierMark), /data-side="Union" aria-pressed="true"/);
   const n = P.noticeHTML(idx.counts, tierMark); assert.deepEqual(markupProblems(n), []); assert.match(n, /Later memorials shown/); assert.match(n, /Put up after the battle: not part of the 1863 scene/); assert.match(n, /512 marks, 77 of them beyond the loaded ground/); assert.match(n, /data-act="hide"/); assert.match(n, /data-act="about"/); assert.match(n, /data-tier="inferred"/);
-  assert.match(P.COPY.layer, /none is part of the 1863 scene/); assert.match(P.COPY.what, /put up after the battle/i); assert.match(P.COPY.what, /not part of the 1863 scene/);
+  assert.match(P.COPY.layer, /none is part of the 1863 scene/); assert.match(P.COPY.what, /put up after the battle/i); assert.match(P.COPY.what, /not part of the 1863 scene/i);
 });
 test('what the "later" label rests on is in the library text of Bachelder\'s guide of 1889, word for word, on the printed pages named', { skip: !fs.existsSync(path.join(REPO, 'tmp/library/ws9')) && 'NOT RUN: tmp/library/ws9 is not in this checkout (the library is local scratch)' }, () => {
   const f = fs.readdirSync(path.join(REPO, 'tmp/library/ws9')).find(x => x.startsWith(P.BASIS.library + '__')); assert.ok(f, 'the text of the guide is in the library');
@@ -265,10 +265,14 @@ test('module: a memorial picked from the list opens its card, flies the camera, 
   M.update(frameOf(th.cam)); assert.equal(cv.removed, true, 'nothing marked and nothing picked: the canvas is taken down');
   M.dispose();
 }));
-test('module: a memorial card makes room as the shell\'s own cards do (the root says data-card on), gives it back when it closes, and never takes it from a unit card or a structure card', () => visit(async ({ th, ctx, left, root }) => {
-  await M.init(ctx); const it = th.sitePlaces.memorials, chip = left.querySelector('#xm-chip'); await it.setOn(true); assert.match(chip.innerHTML, /class="xm-chip-text"/, 'the sentence of the notice can give way while a card is open (the card says the same)');
-  assert.notEqual(root.dataset.card, 'on'); it.select(46); assert.equal(root.dataset.card, 'on'); it.select(8); assert.equal(root.dataset.card, 'on'); it.select(-1); assert.equal(root.dataset.card, 'off');
-  const css = th.root.querySelector('#xm-style').textContent; assert.match(css, /\.theatre\[data-card="on"\] #xm-chip \.xm-chip-text\{display:none\}/);
+test('module: a memorial card makes room as the shell\'s own cards do (the root says data-card on), the notice gives way to it, the card carries the button that puts the marks away, and none of it is taken from a unit or structure card', () => visit(async ({ th, ctx, left, root, log }) => {
+  await M.init(ctx); const it = th.sitePlaces.memorials, chip = left.querySelector('#xm-chip'), card = left.querySelector('#xm-card'); await it.setOn(true); assert.equal(chip.dataset.compact, undefined, 'with no card the notice is shown');
+  assert.notEqual(root.dataset.card, 'on'); it.select(46); assert.equal(root.dataset.card, 'on'); assert.equal(chip.dataset.compact, '1', 'the card says the same as the notice, so the notice gives way (display none by the layer\'s own style)'); it.select(8); assert.equal(root.dataset.card, 'on'); it.select(-1); assert.equal(root.dataset.card, 'off'); assert.equal(chip.dataset.compact, undefined, 'the notice is back');
+  const css = th.root.querySelector('#xm-style').textContent; assert.match(css, /#xm-chip\[data-compact\]\{display:none\}/);
+  // the button on the card: present while the layer is on, puts the marks away and closes the card
+  it.select(46); const hide = card.children.find(c => c.dataset.act === 'hide'); assert.ok(hide, 'Hide the marks is on the card of a layer that is on'); assert.match(card.innerHTML, />Hide the marks</); hide.fire('click'); await new Promise(r => setTimeout(r, 10)); assert.equal(it.isOn(), false); assert.equal(it.selected(), -1); assert.equal(card.hidden, true); assert.equal(chip.dataset.compact, undefined);
+  // a memorial picked while the layer is off has no such button; it gains it when the layer is switched on
+  it.select(46); assert.ok(!card.children.find(c => c.dataset.act === 'hide'), 'no button while the layer is off'); await it.setOn(true); assert.ok(card.children.find(c => c.dataset.act === 'hide'), 'the button appears when the layer comes on'); assert.equal(it.selected(), 46); it.select(-1);
   // the shell picks a unit: its card has the mark (the shell sets it), the memorial gives way and leaves it alone
   it.select(46); th.select(3); root.dataset.card = 'on'; assert.equal(it.selected(), -1); assert.equal(root.dataset.card, 'on', 'the unit card keeps the mark'); th.state.selected = -1; root.dataset.card = 'off';
   it.select(46); th.selectObject(5); root.dataset.card = 'on'; assert.equal(root.dataset.card, 'on'); th.state.selectedObj = -1; root.dataset.card = 'off';

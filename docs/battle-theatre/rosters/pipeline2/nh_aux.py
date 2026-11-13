@@ -31,7 +31,10 @@ ALIAS_RE = re.compile(r"^a[A-Za-z]{2,4},?$")
 
 
 def _clean(tok):
-    t = tok.strip(LEAD_MARKS).rstrip(TRAIL_MARKS)
+    """The token without the stray marks at its ends; a final period stays only on an initial or a suffix (L.  Jr.)."""
+    t = tok.lstrip(LEAD_MARKS).rstrip(TRAIL_MARKS)
+    if t.endswith('.') and not (re.fullmatch(r"[A-Z]\.", t) or SUFFIX_RE.match(t)):
+        t = t.rstrip('.')
     return t
 
 
@@ -61,15 +64,13 @@ def normalise_name(name_tokens, kind):
     suffix = []
     g = []
     for t in given:
-        c = _clean(t) if not (re.match(r"^[A-Z]\.$", t.strip(LEAD_MARKS + ','))) else t.strip(LEAD_MARKS + ',')
+        c = _clean(t)
         if not c or not re.search(r'[A-Za-z]', c):
             continue
         if SUFFIX_RE.match(c):
             suffix.append(c if c.endswith('.') or c[0].isdigit() else c + '.')
             continue
         g.append(c)
-    if g and len(re.sub(r'[^A-Za-z]', '', g[-1])) >= 2:
-        g[-1] = g[-1].rstrip('.')
     out = ' '.join(g + [' '.join(x for x in sur if x)] + suffix).strip()
     return re.sub(r'\s+', ' ', out)
 
@@ -123,11 +124,17 @@ def ocr_flags(name_toks, remarks, co, anchor_kind, kind, unit_kind):
 
 # ------------------------------------------------------------------ roll status in July 1863
 def _dates(text):
+    """Dates printed as  Mon. D, 'YY .  Only a day 1..31 and a year 61..99 count as a date; anything else is damage and is not returned."""
     out = []
     for m in DATE_RE.finditer(text):
         mon = MONTHS[m.group(1).lower()]
-        out.append((m.start(), (1800 + int(m.group(3)), mon, int(m.group(2))), m.group(0)))
+        day, yr = int(m.group(2)), int(m.group(3))
+        if 1 <= day <= 31 and 61 <= yr <= 99:
+            out.append((m.start(), (1800 + yr, mon, day), m.group(0)))
     return out
+
+
+YEAR_TOKEN_RE = re.compile(r"['\u2018\u2019`]\s*(?=[0-9OoIlSsGgBb.^}\)\]?]{0,2}[0-9])[0-9OoIlSsGgBb.^}\)\]?]{1,3}\b")
 
 
 def _clauses(remarks):
@@ -141,8 +148,8 @@ def _clauses(remarks):
 
 SEP_RE = re.compile(r"^(?:disch\b|dischd|dishon|dis\.?\s*disch|des\b|died\b|killed\b|dismissed\b|resigned\b|dropped\b|tr\.(?!\s*to\s+Co\.)|must[,.]?\s*out\b|nmst[,.]?\s*out\b|mnst[,.]?\s*out\b|released\b|sent\b|"
                     r"drowned\b|executed\b|shot\b|discharged\b)", re.I)
-RETURN_RE = re.compile(r"^(?:gd\.\s*from|returned|appreh|joined|voluntarily|restored|rejoined|re-enl\b|re-?\s*enl\b|reduced)", re.I)
-ENL_RE = re.compile(r"^(?:enl|eul|enh|ehl|etil|cnl|drafted|substitute)\b", re.I)
+RETURN_RE = re.compile(r"^(?:gd\.\s*from|returned|appreh|joined|voluntarily|restored|rejoined|re-enl\b|re-?\s*enl\b)", re.I)
+ENL_RE = re.compile(r"^(?:enl|eul|enh|ehl|etil|cnl|drafted)\b", re.I)
 MUSTIN_RE = re.compile(r"^(?:must|nmst|mnst|mast|musi)[,.]?\s*in\b", re.I)
 
 
@@ -160,22 +167,28 @@ def roll_status(remarks, kind, co):
     first_in, first_in_txt = None, ''
     seps, returns_after = [], False
     sep_seen = False
-    damaged = False
+    hard = soft = False                            # damage in a date: soft = in a muster-in clause, hard = anywhere else
     for c in clauses:
         cs = c.strip()
         cs_core = re.sub(r"^(?:Co\.\s*[A-M]\s*,?\s*|F\.\s*and\s*S\.\s*,?\s*|Band\s*,?\s*|Unas'd\s*,?\s*|[A-Za-z]{0,2}nas'd\s*,?\s*)", '', cs)
         ds = _dates(cs)
-        # a date written with a damaged year or an unreadable month cannot be trusted
-        if re.search(r"['‘’`]\s*[0-9OoIlSsGgBb.^}\)\]?]{1,3}\b", cs) and len(ds) < len(re.findall(r"['‘’`]\s*[0-9OoIlSsGgBb.^}\)\]?]{1,3}\b", cs)):
-            damaged = True
-        if ENL_RE.match(cs_core) or MUSTIN_RE.match(cs_core):
+        is_mustin = bool(MUSTIN_RE.match(cs_core))
+        damaged_here = len(ds) < len(YEAR_TOKEN_RE.findall(cs))         # a year-like token that did not make a valid date
+        if ENL_RE.match(cs_core) or is_mustin:
             if ds:
                 d = ds[0][1]
                 if first_in is None or d < first_in:
                     first_in, first_in_txt = d, ds[0][2]
             else:
-                damaged = True
+                damaged_here = True
+            if damaged_here:
+                if is_mustin:
+                    soft = True
+                else:
+                    hard = True
             continue
+        if damaged_here:
+            hard = True
         if re.match(r"^re-?\s*enl", cs_core, re.I) and not sep_seen:
             continue
         if RETURN_RE.match(cs_core) and sep_seen:
@@ -183,7 +196,7 @@ def roll_status(remarks, kind, co):
             continue
         if SEP_RE.match(cs_core):
             if re.search(r"promotion|to accept", cs):
-                damaged = True                     # a discharge to take a commission may leave the man in the same regiment
+                hard = True                        # a discharge to take a commission may leave the man in the same regiment
                 continue
             sep_seen = True
             if ds:
@@ -191,23 +204,24 @@ def roll_status(remarks, kind, co):
             else:
                 seps.append((None, ''))
             continue
-    if damaged or first_in is None:
+    if first_in is None:
         return 'unk', ''
     if first_in > BATTLE_END:
-        # nothing else in the entry may be dated earlier than the enlistment
-        earlier = [d for _, d, _ in _dates(rem) if d < first_in and d[0] >= 1861]
-        if earlier:
+        if hard:
             return 'unk', ''
+        earlier = [d for _, d, _ in _dates(rem) if d < first_in]
+        if earlier:
+            return 'unk', ''                       # a printed date before the enlistment: one of the two is damaged
         return 'off', 'enl-after ' + first_in_txt
     if first_in >= BATTLE_START:
         return 'unk', ''
     undated = [s for s in seps if s[0] is None]
     before = [s for s in seps if s[0] is not None and s[0] < BATTLE_START]
-    if before:
+    if before and not hard:
         if returns_after:
             return 'unk', ''
         return 'off', 'sep-before ' + before[0][1]
-    if undated:
+    if hard or soft or undated:
         return 'unk', ''
     return 'on', 'enl ' + first_in_txt
 

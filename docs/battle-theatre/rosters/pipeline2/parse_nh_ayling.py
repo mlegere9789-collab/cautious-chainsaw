@@ -512,26 +512,162 @@ def order_violations(entries):
     return out
 
 
+def glued_suspects(entries):
+    """Rows whose printed text holds two "age NN" items, or a cross-reference line that runs on: a second man's damaged entry is probably glued to the row."""
+    out = []
+    for i, e in enumerate(entries):
+        ws = [t.w for t in e['rem_toks']]
+        ages = [j for j, w in enumerate(ws) if w == 'age' and j + 1 < len(ws) and re.match(r"^[0-9IlOSsGg\-.]{1,3}[;,.]?$", ws[j + 1])]
+        if len(ages) >= 2:
+            out.append({'i': i, 'off': e['off'], 'why': 'two age items', 'second_at_token': ages[1]})
+        elif e['kind'] == 'xref' and len(ws) > 10:
+            out.append({'i': i, 'off': e['off'], 'why': 'cross-reference line longer than 10 tokens', 'tokens': len(ws)})
+        else:
+            rt = e['rem_toks']
+            for j in range(2, len(rt) - 3):              # a head-shaped run ("Nelson, Frank") that the entry data ("app. Corp.") follows at once
+                w = rt[j].w
+                if not (SURNAME_TOK.match(w) or SURNAME_DOT.match(w)) or _letters(w) < 3 or not _ends(rt[j - 1].w):
+                    continue
+                if w.strip(',.') in PLACE_STOP or w.strip(',.') in ABBREV_STOP or re.search(r'\b(?:with|See|identical)\b', ' '.join(t.w for t in rt[max(0, j - 4):j])):
+                    continue
+                for L in (1, 2, 3):
+                    gg = rt[j + 1:j + 1 + L]
+                    if len(gg) < L or j + 1 + L >= len(rt):
+                        break
+                    if all(GIVEN_WORD.match(x.w) or INITIAL.match(x.w) for x in gg[:-1]) and LAST_GIVEN.match(gg[-1].w) and gg[-1].w[-1] in '.,' \
+                            and re.match(r"^(?:Priv|Corp|Sergt|Musc|must|nmst|disch|app|wd|des|Died|killed|captd|tr|re-enl|par|mis|Wagoner|substitute|age|b|enl)\W*$", rt[j + 1 + L].w) \
+                            and any(_letters(x.w) >= 3 for x in gg) and gg[-1].w.strip('.,') not in PLACE_STOP:
+                        out.append({'i': i, 'off': e['off'], 'why': 'a head-shaped run inside the remarks, followed by entry data', 'at': rt[j].s,
+                                    'text': ' '.join(t.w for t in rt[j:j + 2 + L])})
+                        break
+    return out
+
+
+GB_DATE = re.compile(r"July\s+[123]\s*,?\s*['\u2018\u2019`]\s*[6B][3S]\b[^;]{0,60}?" + R.GETTYSBURG_RE.pattern, re.I)
+
+
+def unit_stats(entries, rows, segs, pm):
+    st = {}
+    st['rows'] = len(rows)
+    st['by_kind'] = dict(collections.Counter(e['kind'] for e in entries))
+    st['by_company'] = dict(sorted(collections.Counter(e['co'] or '-' for e in entries).items()))
+    st['rows_without_page'] = sum(1 for e in entries if e['page'] is None)
+    st['remark_names_gettysburg'] = R.gettysburg_rows(segs)
+    st['remark_names_gettysburg_with_july_1_to_3_63_date'] = sum(1 for r in rows if GB_DATE.search(r[3]))
+    pages = collections.Counter(e['page'] for e in entries)
+    st['page_first'], st['page_last'] = min(p for p in pages if p is not None), max(p for p in pages if p is not None)
+    return st
+
+
 def main(argv):
-    out_dir = argv[argv.index('--out') + 1] if '--out' in argv else None
+    write = '--write' in argv
+    diag_dir = os.path.join(ROOT, 'docs', 'battle-theatre', 'GOVERNANCE', 'horde', 'ws-rosters', 'union-nh')
+    units_json = json.load(open(os.path.join(D2, 'units.json'), encoding='utf-8'))
+    upath = {u['key']: u['path'] for u in units_json['units']}
+    ledger = json.load(open(os.path.join(D2, 'sources', SOURCE_ID + '.json'), encoding='utf-8'))
     texts, pms = {}, {}
     for vol, ident in VOLS.items():
-        t = R.load_text(os.path.join(LIB, ident + '_hocr_searchtext.txt.gz'))
-        pm = R.PageMap(os.path.join(LIB, ident + '_hocr_pageindex.json.gz'), os.path.join(LIB, ident + '_page_numbers.json'))
+        ent = ledger['texts']['%s.%s' % (SOURCE_ID, vol)]
+        for role in ('text', 'pageindex', 'page_numbers'):                      # the files read are the files the ledger pins
+            f = os.path.join(LIB, ent['files'][role]['name'])
+            assert R.sha256_file(f) == ent['files'][role]['sha256'], 'sha256 of %s differs from the ledger' % f
+        t = R.load_text(os.path.join(LIB, ent['files']['text']['name']))
+        pm = R.PageMap(os.path.join(LIB, ent['files']['pageindex']['name']), os.path.join(LIB, ent['files']['page_numbers']['name']))
         texts[vol], pms[vol] = t, pm
+    result = {}
+    failures = 0
     for key, desig, vol, la, lb, title_re, kind in SECTIONS:
         text, pm = texts[vol], pms[vol]
         toks, heads, bare, orphans, furn, start_off = parse_section(text, pm, la, lb, kind, title_re, key)
         entries = build_entries(text, pm, toks, heads, bare)
         rows = make_rows(entries)
         seg = {'s': SOURCE_ID, 'v': vol, 't': '%s.%s' % (SOURCE_ID, vol), 'lay': 'flow'}
-        st = R.verify_rows([(seg, rows)], {seg['t']: text}, {seg['t']: pm})
+        segs = [(seg, rows)]
+        stv = R.verify_rows(segs, {seg['t']: text}, {seg['t']: pm})
+        ok = len(stv['defects']) == 0 and stv['name_ok'] == len(rows) and stv['remark_ok'] == len(rows) and stv['page_ok'] == len(rows)
+        failures += 0 if ok else 1
+        # the parser's own assertion, row by row: the printed name and the first remark token are found where the row says
+        for r in rows:
+            assert text[r[5]:r[5] + len(r[0].split()[0])] == r[0].split()[0], 'name not at its offset: %r' % (r,)
+            assert text[r[5] + r[6]:r[5] + r[6] + len(r[3].split()[0])] == r[3].split()[0], 'remarks not at their offset: %r' % (r,)
         ov = order_violations(entries)
-        print(key, 'entries', len(entries), 'heads', len(heads), 'bare', len(bare), 'orphans', len(orphans), 'order violations', len(ov),
-              'V1 ok', st['name_ok'], 'V2 ok', st['remark_ok'], 'V3 ok', st['page_ok'], 'defects', len(st['defects']), 'gap rows', st['remark_gap_rows'])
-        for d in st['defects'][:6]:
-            print('   defect', d)
-    return 0
+        res = {'unit': key, 'designation': desig, 'volume': vol, 'text_id': seg['t'], 'leaves': [la, lb - 1], 'summary_leaf': lb,
+               'printed_pages': [pm.printed(la), pm.printed(lb - 1)], 'heads': len(heads), 'bare_cross_refs': len(bare),
+               'tokens': len(toks), 'furniture_lines': len(furn), 'orphan_anchors': [toks[k].s for k in orphans],
+               'order_violations': [{'i': i, 'off': off, 'name': nm} for i, off, nm in ov], 'glued_suspects': glued_suspects(entries),
+               'overrides_applied': sum(1 for h in heads if h[4] == 'reviewed'), 'verify': {k: v for k, v in stv.items() if k != 'defects'},
+               'verify_defects': stv['defects'][:10], 'verify_ok': ok}
+        res.update(unit_stats(entries, rows, segs, pm))
+        result[key] = res
+        print(key, 'rows', len(rows), 'heads', len(heads), 'bare', len(bare), 'verify_ok', ok, 'glued suspects', len(res['glued_suspects']))
+        if write:
+            if not ok:
+                raise SystemExit('refusing to write %s: verification failed' % key)
+            path = os.path.join(D2, upath[key])
+            info = R.write_unit(path, key, 'union', 'nh', desig, segs)
+            res['file'] = {'path': os.path.relpath(path, ROOT).replace(os.sep, '/'), 'rows': info['n'], 'raw_bytes': info['raw'], 'gz_bytes': info['gz'], 'sha256_raw': info['sha256']}
+            # read it back: the file must give the same rows
+            head, rsegs, meta = R.read_unit(path)
+            assert [r for _, rr in rsegs for r in rr] == [list(r) for r in rows], 'read-back differs from the rows written'
+            import nh_aux
+            res['aux'] = write_aux(path, key, entries, rows, text, pm, vol, kind, nh_aux, meta['sha256'], ledger)
+    if write:
+        os.makedirs(diag_dir, exist_ok=True)
+        json.dump(result, open(os.path.join(diag_dir, 'parse-diagnostics.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    return 1 if failures else 0
+
+
+def write_aux(unit_path, key, entries, rows, text, pm, vol, kind, A, unit_sha, ledger):
+    """data2/union/nh/<unit>.aux.json.gz: see nh_aux.py."""
+    errata = []
+    if key in ERRATA_HEADINGS and ERRATA_HEADINGS[key]:
+        head_re, next_re = ERRATA_HEADINGS[key]
+        ent = ledger['texts']['%s.%s' % (SOURCE_ID, vol)]
+        errata = A.find_errata(text, pm.span(CORRECTIONS_LEAF), head_re, next_re)
+    err_idx = {}
+    for ei, (eoff, etxt) in enumerate(errata):
+        m = re.match(r"Page\s+([0-9]+)\s*[.,]?\s*[\u2014\-\u2013]+\s*(.*)$", etxt, re.S)
+        if not m:
+            continue
+        pg, rest = int(m.group(1)), re.sub(r'[^a-z]', '', m.group(2).lower())
+        for i, e in enumerate(entries):
+            nm = re.sub(r'[^a-z]', '', ' '.join(t.w for t in e['name_toks']).lower())
+            if e['page'] == pg and nm and e['kind'] not in ('xref', 'bare-surname') and rest.startswith(nm):
+                err_idx.setdefault(i, []).append(ei)
+    out_rows = []
+    counts = collections.Counter()
+    ou_counts = collections.Counter()
+    for i, e in enumerate(entries):
+        nm = [t.w for t in e['name_toks']]
+        rem = ' '.join(t.w for t in e['rem_toks'])
+        company_unreadable = 'company-unreadable' if (kind == 'co' and e['co'] == '' and e['kind'] not in ('xref', 'bare-surname')) else ''
+        ou = A.ocr_flags(nm, rem, e['co'], company_unreadable, e['kind'], kind)
+        jr, jb = A.roll_status(rem, e['kind'], e['co'])
+        counts[jr] += 1
+        for c in (ou.split(',') if ou else ['(none)']):
+            ou_counts[c] += 1
+        out_rows.append([e['off'], A.normalise_name(nm, e['kind']), ou, e['kind'], jr, jb, ','.join(str(x) for x in err_idx.get(i, []))])
+    doc = {'f': 'roster2-aux/1', 'u': key, 'unit_file_sha256': unit_sha, 'n': len(out_rows), 't': '%s.%s' % (SOURCE_ID, vol),
+           'fields': ['off', 'nn', 'ou', 'kind', 'jr', 'jb', 'er'],
+           'errata': [{'off': o, 'text': t} for o, t in errata], 'rows': out_rows}
+    path = unit_path[:-len('.jsonl.gz')] + '.aux.json.gz'
+    raw = json.dumps(doc, ensure_ascii=False, separators=(',', ':')).encode('utf-8')
+    with open(path + '.tmp', 'wb') as f:
+        with gzip.GzipFile(filename='', mode='wb', fileobj=f, compresslevel=9, mtime=0) as g:
+            g.write(raw)
+    os.replace(path + '.tmp', path)
+    return {'path': os.path.relpath(path, ROOT).replace(os.sep, '/'), 'raw_bytes': len(raw), 'gz_bytes': os.path.getsize(path),
+            'sha256_raw': hashlib.sha256(raw).hexdigest(), 'roll_status': dict(counts), 'ocr_uncertain_codes': dict(ou_counts), 'errata_found': len(errata),
+            'errata_matched_rows': sum(len(v) for v in err_idx.values())}
+
+
+CORRECTIONS_LEAF = 20
+ERRATA_HEADINGS = {
+    'u-nh-2nd-new-hampshire-infantry': (r'Second\s+Regiment\s*:', r'Third\s+Regiment\s*:'),
+    'u-nh-5th-new-hampshire-infantry': (r'Fifth\s+Regiment\s*:', r'(?:Seventh|Sixth)\s+Regiment\s*:'),
+    'u-nh-12th-new-hampshire-infantry': None,
+    'u-nh-1st-new-hampshire-battery': None,
+}
 
 
 if __name__ == '__main__':
