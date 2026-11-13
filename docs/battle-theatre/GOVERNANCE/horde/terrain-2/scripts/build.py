@@ -101,7 +101,7 @@ def resolve(c):
 
 def load_specs():
     rows = []
-    for f in sorted(glob.glob(os.path.join(HERE, 'spec_g*.py')) + glob.glob(os.path.join(HERE, 'spec_r*.py'))):
+    for f in sorted(x for x in glob.glob(os.path.join(HERE, 'spec_*.py')) if not x.endswith('spec_lib.py')):
         spec = importlib.util.spec_from_file_location(os.path.basename(f)[:-3], f); m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
         rows.extend(m.ROWS)
     return rows

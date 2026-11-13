@@ -267,6 +267,20 @@ export async function runWalk(root, { frames = 20, label = 'run', sections = [],
   res.log = logOf(server.events); res.requests = server.events.length; res.seconds = Math.round((Date.now() - t0) / 1000); return res;
 }
 
+// ---------------------------------------------------------------- what a run leaves in deliver/bt-staging
+/** Writes LAST-VERIFY.txt in `home` (what the run found, in every case) and, only when the build passed every check (rep.ok) and publish is on, replaces home/dist with the verified dist
+ *  (copy, then swap, so a reader never sees a half-written folder) and copies the trace report beside it. Returns { published }. */
+export function recordVerdict({ home, dist, zip, rep, failures = [], publish = true }) {
+  fs.mkdirSync(home, { recursive: true }); let published = false;
+  if (rep.ok && publish) {
+    const fresh = path.join(home, 'dist.new'); fs.rmSync(fresh, { recursive: true, force: true }); fs.cpSync(dist, fresh, { recursive: true }); fs.rmSync(path.join(home, 'dist'), { recursive: true, force: true }); fs.renameSync(fresh, path.join(home, 'dist'));
+    const tr = path.join(path.dirname(dist), 'trace-report.json'); if (isFile(tr)) fs.copyFileSync(tr, path.join(home, 'trace-report.json')); published = true; rep.published = path.join(home, 'dist');
+  }
+  fs.writeFileSync(path.join(home, 'LAST-VERIFY.txt'), [`${rep.when}  build ${rep.static.manifest.version}  zip ${zip ? path.basename(zip) : 'none'}`, `verdict: ${rep.ok ? 'STAGING VERIFIED' : 'NOT ACCEPTABLE'}${rep.official ? '' : ' (development run)'}; walk and comparison: ${rep.walkOk ? 'passed' : 'failed'}; copy audit hits: ${rep.auditHits}`,
+    published ? 'deliver/bt-staging/dist was refreshed from this build.' : `deliver/bt-staging/dist was NOT touched (it is older or unverified); this build's folder: ${dist}`, ...(rep.ok ? [] : ['reasons:', ...failures.map(f => '  ' + String(f).slice(0, 300))])].join('\n') + '\n');
+  return { published };
+}
+
 // ---------------------------------------------------------------- the CLI
 const NOT_RUN = ['a real GPU: no frame time, long task or input delay was measured (software rendering only)', 'the WebGPU picture (?api=webgpu): the default renderer is WebGL2; the WebGPU modules are in the dist (static check) but were not run', 'listening to the sound: the audio started and its graph ran, nobody heard it',
   'other visits: ?history=stub, ?ext=off, ?crowd=off, a phone-sized page, a second entry after Back', 'other browsers (Safari, Firefox) and real phones'];
@@ -319,14 +333,7 @@ async function main() {
   for (const n of notes) print('note: ' + n);
   if (!rep.ok && rep.walkOk) print('everything except the copy audit passed: the walk, the comparison, the static checks. The build is not acceptable until the audit hits are gone.');
   print(rep.ok ? 'STAGING VERIFIED' + (rep.official ? '' : ' (development run, not the official check)') + ': the dist and the zip match, zero 404s, every URL the source run loaded is in the dist, sound started, no error only in the dist' : 'STAGING CHECK FAILED:\n  ' + failures.join('\n  '));
-  if (has('--pack')) {
-    const home = path.join(REPO, 'deliver/bt-staging'), note = path.join(home, 'LAST-VERIFY.txt'); fs.mkdirSync(home, { recursive: true });
-    if (rep.ok && !has('--no-publish')) {
-      const fresh = path.join(home, 'dist.new'); fs.rmSync(fresh, { recursive: true, force: true }); fs.cpSync(dist, fresh, { recursive: true }); fs.rmSync(path.join(home, 'dist'), { recursive: true, force: true }); fs.renameSync(fresh, path.join(home, 'dist'));
-      fs.copyFileSync(path.join(path.dirname(dist), 'trace-report.json'), path.join(home, 'trace-report.json')); rep.published = path.join(home, 'dist'); print('published: deliver/bt-staging/dist now holds the verified build ' + rep.static.manifest.version);
-    }
-    fs.writeFileSync(note, [`${rep.when}  build ${rep.static.manifest.version}  zip ${zip ? path.basename(zip) : 'none'}`, `verdict: ${rep.ok ? 'STAGING VERIFIED' : 'NOT ACCEPTABLE'}${rep.official ? '' : ' (development run)'}; walk and comparison: ${rep.walkOk ? 'passed' : 'failed'}; copy audit hits: ${rep.auditHits}`, rep.published ? 'deliver/bt-staging/dist was refreshed from this build.' : `deliver/bt-staging/dist was NOT touched (it is older or unverified); this build's folder: ${dist}`, ...(rep.ok ? [] : ['reasons:', ...failures.map(f => '  ' + f.slice(0, 300))])].join('\n') + '\n');
-  }
+  if (has('--pack')) { const q = recordVerdict({ home: path.join(REPO, 'deliver/bt-staging'), dist, zip, rep, failures, publish: !has('--no-publish') && rep.official }); if (q.published) print('published: deliver/bt-staging/dist now holds the verified build ' + rep.static.manifest.version); }
   process.exit(rep.ok ? 0 : 1);
 }
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) { if (process.argv[2] === '--data-probe') dataProbe(process.argv[3]).catch(e => { console.error(e); process.exit(2); }); else main().catch(e => { console.error(e); process.exit(2); }); }

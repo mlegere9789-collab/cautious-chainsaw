@@ -305,7 +305,7 @@ test('the author tools print what the harness knows: row, suggest, place', () =>
   const rows = q('rows', 'tl-01'); assert.match(rows.stdout, /T1-003 \[[a-z ]+\] REALIZED weather_sky/);
 });
 test('gazetteer.json: the places the timeline names, unknown names listed and never given coordinates', () => {
-  const p = path.join(REAL, 'gazetteer.json'); if (!fs.existsSync(p)) return; const g = readJSON(p);
+  const p = path.join(REAL, 'gazetteer.json'); assert.ok(fs.existsSync(p), 'gazetteer.json is written by q.mjs gazetteer --write and ships with the tree'); const g = readJSON(p);
   assert.ok(g.unknown.length > 0 && g.unknown.every(u => !u.center && !u.lng && /not guessed/.test(u.status)));
   assert.ok(g.places.every(x => x.tolerance_m > 0 && x.center && Number.isFinite(x.center.lng)));
   assert.deepEqual(Object.keys(g.tolerance_by_kind_m).sort(), Object.keys(readJSON(path.join(ROOT, 'tools/bt/realize/tolerances.json')).distance.floor_m_by_kind).sort());

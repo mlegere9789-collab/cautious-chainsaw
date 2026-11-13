@@ -117,7 +117,7 @@ def lib_page(sid, nt, ni):
 PAGE_HEADS = {
  'JACOBS-1864': [re.compile(r'(?<!\d)(\d{1,2}) (?:THE|TIIE|TILE) +REBEL +INVASION +O[FE]'), re.compile(r'MARYLAND +AND +PENNSYLVANIA\. +(\d{1,2})(?!\d)')],
  'PA-GB-1914-v2': [re.compile(r'(?<!\d)(\d{3,4}) Pennsylvania at Gettysburg\.'), re.compile(r'Pennsylvania at Gettysburg\. (\d{3,4})(?!\d)')],
- 'ME-GB-1898': [re.compile(r'(?<!\d)(\d{2,3}) MAINE AT GETTYSBURG\.'), re.compile(r'[A-Z]{4,} REGIMENT [A-Za-z]+\. (\d{2,3})(?!\d)')],
+ 'ME-GB-1898': [re.compile(r'(?<!\d)(\d{2,3}) MAINE AT [A-Z0-9]{5,10}\.'), re.compile(r'[A-Z]{4,} REGIMENT [A-Za-z]+\. (\d{2,3})(?!\d)')],   # the OCR misreads GETTYSBURG in many running heads (GETTYSBUBG, OBTTTSBURG, GETTY8BUKG)
  'SHSP-04': [re.compile(r'(?<!\d)(\d{1,3}) Southern Historical Society Papers\.')],
  'SHSP-06': [re.compile(r'(?<!\d)(\d{1,3}) Southern Historical Society Papers\.')],
  'ALEXANDER-1907': [re.compile(r'(?<!\d)(\d{2,3}) MILITARY MEMOIRS')],
@@ -125,7 +125,7 @@ PAGE_HEADS = {
  'MEADE-LL-v2': [re.compile(r'THE BATTLE OF GETTYSBURG (\d{1,3})(?!\d)')],
  'BL-3': [re.compile(r'CITIZENS OF GETTYSBURG IN THE UNION ARMY\. (\d{3})(?!\d)'), re.compile(r'THE FIRST DAY AT GETTYSBURG\. (\d{3})(?!\d)'), re.compile(r'(?<!\d)(\d{3}) THE FIRST DAY AT GETTYSBURG')],
  'NY-GB-1900-v2': [re.compile(r'(?<!\d)(\d{3,4}) New York at Gettysburg\.'), re.compile(r'New York at Gettysburg\. (\d{3,4})(?!\d)')],
- 'PA-GB-1914-v1': [re.compile(r'(?<!\d)(\d{3,4}) Pennsylvania at Gettys ?burg\.'), re.compile(r'Pennsylvania at Gettys ?burg\. (\d{3,4})(?!\d)')],
+ 'PA-GB-1914-v1': [re.compile(r'(?<!\d)(\d{3,4}) Pennsylvania at Gettys ?burg\.'), re.compile(r'Pennsylvania at Gettys ?burg\. (\d{2,4})(?!\d)')],
 }
 FIXED_PAGE = {}   # no page-image readings in this close-out
 

@@ -69,18 +69,19 @@ def make_row(r, info, text, pm, leaf, rowno):
     remarks = ' '.join(w['w'] for w in placed)
     rd = (placed[0]['off'] - off) if placed else 0
     # order of the page: line of the row (the heading line above first), then x; order of the text layer: offset
-    page_order = [w['off'] for w in sorted([w for w in cells if w['off'] is not None], key=lambda w: (w.get('rl', 0), w['x0']))]
+    page_order = [w['off'] for w in sorted([w for w in cells if w['off'] is not None], key=lambda w: (cell_col(w, E), w.get('rl', 0), w['x0']))]
     text_order = [w['off'] for w in sorted([w for w in cells if w['off'] is not None], key=lambda w: w['off'])]
     order_differs = page_order != text_order
     parts = [[], [], [], []]
     for w in cells:
         parts[cell_col(w, E)].append(w)
     cols = [' '.join(w['w'] for w in sorted(parts[i], key=lambda w: (w.get('rl', 0), w['x0']))) for i in range(4)]
+    col_offs = [min([w['off'] for w in parts[i] if w['off'] is not None] or [None]) if parts[i] else None for i in range(4)]
     rank = ('^' + r['rk']) if r['rk'] else ''
     row = R.row(name, rank, r['co'], remarks, pm.printed(leaf), off, rd)
     facts = {'leaf': leaf, 'n': rowno, 'y': round(r['y']), 'lines': r['nlines'], 'unaligned': [w['w'] for w in unaligned],
              'name_split': [w['w'] for w in rest], 'stray': bool(r.get('stray')), 'order_differs': order_differs,
-             'cols': cols, 'nameonly': bool(r.get('nameonly')), 'E': E, 'conf_min': min([w['conf'] for w in nm if w['conf'] is not None] or [None])}
+             'cols': cols, 'col_offs': col_offs, 'nameonly': bool(r.get('nameonly')), 'E': E, 'conf_min': min([w['conf'] for w in nm if w['conf'] is not None] or [None])}
     return {'row': row, 'facts': facts}, None
 
 
@@ -129,7 +130,7 @@ def assert_rows(rows, text, pm):
     return dict(st), bad
 
 
-def main():
+def main(assert_all=True):
     text, pm, ent = L.load_text()
     d = json.load(gzip.open(os.path.join(L.WORK, 'leaves.json.gz'), 'rt', encoding='utf-8'))
     report = {}
@@ -159,7 +160,7 @@ def main():
                 rec['facts']['co_inferred'] = bool(state.get('co_inferred')) and r['co'] == state['co']
                 out.append(rec)
         # the assertion: V1 name, V2 remarks, V3 page (rows that fail are not written), V4 rank heading (counted)
-        st, bad = assert_rows([x['row'] for x in out], text, pm)
+        st, bad = assert_rows([x['row'] for x in out], text, pm) if assert_all else ({'assertion': 'skipped (development run)'}, [])
         failing = {i: k for i, k in bad if any(c != 'rank-not-above' for c in k)}
         keep = []
         for i, x in enumerate(out):
@@ -178,4 +179,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main(assert_all='--no-assert' not in sys.argv)

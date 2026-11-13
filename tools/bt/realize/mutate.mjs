@@ -27,7 +27,7 @@ if (argv.includes('--check')) {
   let bad = 0; for (const m of MUT) { try { applyMutation(fs.readFileSync(path.join(ROOT, m.file), 'utf8'), m); } catch (e) { console.log(String(e.message)); bad++; } }
   console.log(`${MUT.length} mutations, ${bad} not applicable`); process.exit(bad ? 1 : 0);
 }
-const old = fs.existsSync(OUT) ? readJSON(OUT) : { results: {} }, results = { ...(old.results || {}) };
+const old = fs.existsSync(OUT) ? readJSON(OUT) : { results: [] }, results = Object.fromEntries((Array.isArray(old.results) ? old.results : Object.values(old.results || {})).filter(r => r && r.id && r.status !== 'not run').map(({ id, ...r }) => [id, r]));      // the report keeps the results of the mutations a run does not touch
 let list = MUT; if (opt('--only')) { const ids = String(opt('--only')).split(','); list = MUT.filter(m => ids.includes(m.id)); } else if (argv.includes('--survivors')) list = MUT.filter(m => (results[m.id] || {}).status === 'survived'); else if (argv.includes('--resume')) list = MUT.filter(m => !results[m.id]);
 const baseDigest = () => ({ harness_files: Object.fromEntries(['lib.mjs', 'timeline.mjs', 'gazetteer.mjs', 'query.mjs', 'schema.mjs', 'checks.mjs', 'check.mjs', 'names.mjs', 'mutations.json'].map(f => [f, sha256File(path.join(here, f)).slice(0, 12)])), tests: Object.fromEntries(Object.values(FILES).map(f => [path.basename(f), sha256File(path.join(ROOT, f)).slice(0, 12)])) });
 const save = () => { const all = MUT.map(m => ({ id: m.id, file: m.file, rule: m.rule, ...(results[m.id] || { status: 'not run' }) })), killed = all.filter(r => r.status === 'killed').length, survived = all.filter(r => r.status === 'survived'), notrun = all.filter(r => r.status === 'not run').length;

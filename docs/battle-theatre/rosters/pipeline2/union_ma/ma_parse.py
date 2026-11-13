@@ -25,6 +25,7 @@ import re, os, sys, json, gzip, bisect, collections, hashlib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.dirname(HERE))
+sys.path.insert(0, HERE)
 import r2lib as R
 
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..', '..'))
@@ -34,8 +35,8 @@ LIB = os.path.join(ROOT, 'tmp', 'library', 'rosters', 'MA-SSM-1931')
 TOK = re.compile(r'\S+')
 DASH_CH = '—–'                                   # em dash, en dash
 DASH_WORDS = {'-', '--', '---', '_', '~', '-—', '—-', '=', ':—'}
-LEAD = r"""[\"'`\^\*\[\(\|\.\-•■#]*"""
-CAP_TOK = re.compile(r"^" + LEAD + r"[A-Z][A-Za-z'`\-’\.\"\^\*\|]*[,\.]?[,\.]?$")
+LEAD = r"""[\"'`\^\*\[\(\|\.\-\u2022\u25a0#\\<>{}~]*"""
+CAP_TOK = re.compile(r"^" + LEAD + r"[A-Z][^\s,;:]*[,\.]?[,\.]?$|^" + LEAD + r"[A-Z][^\s;]*,[\.\"']?$")
 INITIAL = re.compile(r"^" + LEAD + r"[A-Z0][\'`]?[\.,]{0,2}$")
 SUFFIX = re.compile(r"^" + LEAD + r"(?:Jr|Sr|[1-9][0-9]*(?:st|nd|rd|th|d))[\.,']*$")
 PARTICLE = {'de', 'De', 'van', 'Van', 'von', 'Von', 'la', 'La', 'le', 'Le', 'du', 'Du', 'di', 'Di', 'da', 'Da', 'del', 'Del', 'der', 'Der', 'den', 'Den',
@@ -248,70 +249,141 @@ PREFIX_O = re.compile(r"^[\"'`\u2018\u2019]?O['`\u2019\u2018]$")
 
 
 def is_comma_tok(w):
+    """a token that ends with a comma (a closing quote or mark after it is allowed) and carries at least two letters: the surname of 'Surname, Given'"""
     c = w.rstrip('"\'`)]\u2019')
-    return c.endswith(',') and len(strip_marks(c)) >= 1
+    return c.endswith(',') and sum(1 for ch in c if ch.isalpha()) >= 2
 
 
-def _region(pieces, d1, lower):
-    """the maximal run of name-like pieces that ends before the first dash d1 and starts after a piece that ends the entry above"""
-    k = d1 - 1
-    start = d1
-    base = max(lower, d1 - 9)
+def is_junk_short(w):
+    """a short token that is mostly marks (a stray mark of the scan, or an initial the OCR turned into marks: '0-', '\\.', ':'); never an initial or a suffix"""
+    if len(w) > 3 or is_dash_word(w) and w not in ('-', '--'):
+        return False
+    if INITIAL.match(w) and sum(1 for ch in w if ch.isalpha()) == 1 and w[:1].isalpha():
+        return False
+    if SUFFIX.match(w):
+        return False
+    return sum(1 for ch in w if ch.isalpha()) <= 1
+
+
+GLUED_COMMA = re.compile(r"^[^,\s]*[A-Za-z][^,\s]*,['\"`\^\.]?[A-Za-z\.\-][^\s]*$")
+
+
+def _window(pieces, ne, lower):
+    """the pieces before ne, back to (not including) the first hard stop: a dash, a piece that ends with ';', a piece that ends the entry above (a period-ended
+    word that is not part of a name; the last name token itself is exempt), the lower bound, or 9 pieces."""
+    k = ne - 1
+    start = ne
+    base = max(lower, ne - 9)
     while k >= base:
         pc = pieces[k]
         w = pc.w
-        if pc.dash:
+        if pc.dash and not (w in ('-', '--', '_', '~', '=') and k == ne - 1):
             break
-        if not name_like(w):
-            if not (k == d1 - 1 and strip_marks(w) != '' and not ends_entry(w)):     # a damaged last name token is still the name's last token
-                break
-        elif ends_entry(w):
+        if w.endswith(';'):
+            break
+        if k < ne - 1 and ends_entry(w) and not is_comma_tok(w) and not GLUED_COMMA.match(w):
             break
         start = k
         k -= 1
     return start
 
 
+def _name_suffix(pieces, ne, lower):
+    """start of the maximal run of name-like pieces that ends before ne (the last piece is accepted whatever it looks like); stops at a dash, a piece that
+    ends the entry above, a non-name-like piece"""
+    k = ne - 1
+    start = ne
+    base = max(lower, ne - 9)
+    while k >= base:
+        pc = pieces[k]
+        w = pc.w
+        junk = is_junk_short(w) or strip_marks(w) == ''
+        if pc.dash and not (junk and w in ('-', '--', '_', '~', '=')):
+            break
+        if not (name_like(w) or is_comma_tok(w) or junk or (k == ne - 1 and strip_marks(w) != '')):
+            break
+        if not junk and ends_entry(w) and not is_comma_tok(w) and k < ne - 1:
+            break
+        start = k
+        k -= 1
+    while start < ne - 1 and (is_junk_short(pieces[start].w) or strip_marks(pieces[start].w) == ''):
+        start += 1
+    return start
+
+
 def _given_ok(words):
-    """tokens after the surname comma: given names and initials, at most one comma token (the one before a suffix), an optional suffix last"""
-    if not words or len(words) > 6:
+    """tokens after the surname comma: at most 6, none ending with ';', at most one further comma token (the one before a suffix), the suffix last"""
+    if len(words) > 6:
         return False
     for i, w in enumerate(words):
-        last = i == len(words) - 1
-        if SUFFIX.match(w):
-            if not last:
-                return False
-            continue
-        if INITIAL.match(w) or CAP_TOK.match(w):
-            if is_comma_tok(w) and not (i == len(words) - 2 and SUFFIX.match(words[-1])):
-                return False
-            continue
-        return False
+        if w.endswith(';'):
+            return False
+        if SUFFIX.match(w) and i != len(words) - 1:
+            return False
+        if is_comma_tok(w) and not (i == len(words) - 2 and SUFFIX.match(words[-1])):
+            return False
     return True
 
 
-def scan_name_start(pieces, d1, lower, style='comma'):
-    """index of the first name piece of the head whose first dash is piece d1.  style 'comma': Surname, Given [Suffix] (the company lists); style 'given':
+_ABBREV_END = set()          # period-ended words that end entries in this volume set (filled by learn_abbrev); a word not in it is not an abbreviation
+
+
+def learn_abbrev(counter, threshold=5):
+    _ABBREV_END.clear()
+    _ABBREV_END.update(w for w, c in counter.items() if c >= threshold)
+
+
+def scan_name_start(pieces, ne, lower, style='comma'):
+    """index of the first name piece of a head whose name ends before piece ne.  style 'comma': Surname, Given [Suffix] (the company lists); style 'given':
     Given [Middle] Surname (field and staff, non-commissioned staff).  Returns (start, kind): kind 'ok' or the reason the cut is unusual."""
-    a = _region(pieces, d1, lower)
-    words = [pieces[k].w for k in range(a, d1)]
+    a = _window(pieces, ne, lower)
+    words = [pieces[k].w for k in range(a, ne)]
+    core = list(words)
+    while core and (is_junk_short(core[-1]) or strip_marks(core[-1]) == ''):      # trailing stray marks stay in the name (as printed)
+        core.pop()
     if style == 'comma':
-        cands = [i for i, w in enumerate(words) if is_comma_tok(w)]
-        for ci in cands:                                     # the earliest valid surname comma
-            if _given_ok(words[ci + 1:]) or (ci == len(words) - 1):
+        cands = []
+        for i, w in enumerate(core):
+            if is_comma_tok(w):
+                cands.append(i)
+            elif GLUED_COMMA.match(w) and i == 0 or (GLUED_COMMA.match(w) and not name_like(core[i - 1] if i else '')):
+                cands.append(i)                                                    # 'Tibbetts,'James' / 'Slyman,John-': surname, comma and given name in one token
+            elif w == ',' and i >= 1:                                              # 'Greenleaf , George': the comma is a token of its own
+                cands.append(i - 1)
+        for ci in cands:                                                           # the earliest valid surname comma
+            rest = core[ci + 1:]
+            if rest and rest[0] == ',':
+                rest = rest[1:]
+            if _given_ok(rest):
                 b = ci
                 nb = 0
-                while b > 0 and nb < 2 and (words[b - 1] in PREFIX_WORDS or PREFIX_O.match(words[b - 1])):
+                while b > 0 and nb < 2 and (core[b - 1] in PREFIX_WORDS or PREFIX_O.match(core[b - 1])):
                     b -= 1
                     nb += 1
+                if b > 0 and nb == 0 and re.fullmatch(r'[A-Z]', core[b - 1]) and core[b][:1].islower():     # the OCR split a surname: 'M acomber,'
+                    b -= 1
                 return a + b, 'ok'
         if cands:
             return a + cands[-1], 'comma-given-invalid'
-        return d1 - min(len(words), 3), 'no-comma'
-    # given-first: at most 5 tokens, never beginning with a non-name token
-    if len(words) > 5:
-        return d1 - 4, 'long-region'
-    return a, 'ok'
+        # a period where the comma belongs ('Washburn. Henry N.'): the word before the window is the surname when no abbreviation of the volume looks like it
+        if a > lower and a > 0:
+            pw = pieces[a - 1].w
+            c = pw.rstrip('"\'`)]\u2019')
+            if c.endswith('.') and CAP_TOK.match(pw) and sum(1 for ch in c if ch.isalpha()) >= 3 and c not in _ABBREV_END and not pieces[a - 1].dash and core:
+                return a - 1, 'period-for-comma'
+        a2 = _name_suffix(pieces, ne, lower)
+        if ne - a2 <= 5:
+            return a2, 'no-comma'
+        return ne - 3, 'no-comma-long'
+    # given-first: the run of name-like pieces; leading initials of an entry above ('U. S. A.') are dropped when 4 or more pieces are left
+    a2 = _name_suffix(pieces, ne, lower)
+    ws = [pieces[k].w for k in range(a2, ne)]
+    dropped = 0
+    while len(ws) - dropped >= 5 and (INITIAL.match(ws[dropped]) or ws[dropped] in ('INFANTRY', 'Infantry,')) or ws[dropped:dropped + 1] == ['INFANTRY'] and len(ws) - dropped >= 3:
+        dropped += 1
+    if len(ws) - dropped > 5:
+        return ne - 4, 'long-region'
+    return a2 + dropped, ('ok' if dropped == 0 else 'initials-dropped')
 
 
 COMMA_END = re.compile(r"[,]\W*$|,[\.\"']?$")
@@ -327,17 +399,40 @@ def comma_index(words):
 
 # --------------------------------------------------------------------------- entries
 class Entry(object):
-    __slots__ = ('n0', 'n1', 'd1', 'rk0', 'rk1', 'd2', 'res', 'kind', 'flags', 'end_piece', 'kind2', 'code', 'style')
+    """one entry head found in the pieces: name pieces [n0, ne), rank pieces [rk0, rk1), second dash d2 (None when damaged beyond reading), Res piece res"""
+    __slots__ = ('n0', 'ne', 'rk0', 'rk1', 'd1', 'd2', 'res', 'kind', 'cut', 'code', 'style', 'junk')
 
-    def __init__(self, n0, n1, d1, rk0, rk1, d2, res, kind):
-        self.n0, self.n1, self.d1, self.rk0, self.rk1, self.d2, self.res, self.kind = n0, n1, d1, rk0, rk1, d2, res, kind
-        self.flags = set()
-        self.end_piece = None
+    def __init__(self, ne, rk0, rk1, d1, d2, res, kind):
+        self.ne, self.rk0, self.rk1, self.d1, self.d2, self.res, self.kind = ne, rk0, rk1, d1, d2, res, kind
+        self.n0 = None
+        self.cut = 'ok'
+        self.code = ''
+        self.style = 'comma'
+        self.junk = 0
 
 
-def find_entries(pieces, loose=True):
-    """Every head  NAME DASH RANK DASH Res.  Tier 1: the first dash, 1 to 5 rank tokens, the second dash, an exact 'Res' token.  Tier 2: the Res token is a
-    damaged form (Kes. Ees. Rcs. ...) directly after the second dash.  Returns entries in text order (n0 filled later by the caller)."""
+def _is_junkpiece(pc):
+    return (not pc.dash) and (is_junk_short(pc.w) or strip_marks(pc.w) == '')
+
+
+RANK_WINDOW = 7
+
+
+def _rank_like(words, rank_vocab):
+    """a rank as printed, or as the OCR damages it: equal to a rank of the vocabulary, or similar to one"""
+    t = ' '.join(words)
+    if not rank_vocab:
+        return True
+    if t in rank_vocab:
+        return True
+    return max(_lcs_ratio(t, r) for r in rank_vocab) >= 0.6
+
+
+def find_entries(pieces, rank_vocab=None):
+    """Every head  NAME DASH RANK DASH Res.  Tier 1: the first dash, the rank (1 to 7 pieces), the second dash, an exact 'Res' piece.  A run of several dash
+    pieces counts as one dash.  The tolerant forms the OCR makes of a head are accepted and named in Entry.kind: a stray mark between the second dash and
+    Res ('junk-after-d2'), a stray mark in place of a dash ('d1-damaged', 'd2-damaged'), no first dash after a rank that is in rank_vocab ('d1-missing'), no
+    rank ('no-rank'), and a damaged Res after the second dash ('res-damaged').  Returns entries in text order; the name start n0 is filled in by the caller."""
     ents = []
     n = len(pieces)
     for r in range(3, n):
@@ -345,25 +440,146 @@ def find_entries(pieces, loose=True):
         if pieces[r].dash:
             continue
         exact = bool(RES_EXACT.match(w))
-        if not exact and not (loose and RES_LOOSE.match(w)):
+        loose = bool(RES_LOOSE.match(w))
+        if not exact and not loose:
             continue
-        if not pieces[r - 1].dash:
-            continue
-        d2 = r - 1
-        d1 = None
-        for k in range(d2 - 2, max(d2 - 7, -1), -1):               # the rank has 1 to 5 tokens
-            if pieces[k].dash:
-                d1 = k
-                break
-        if d1 is None:
-            continue
-        # the rank may not contain a Res-like or sentence-like token
-        ranks = [pieces[j].w for j in range(d1 + 1, d2)]
-        if any(x.endswith(';') for x in ranks):
+        j = r - 1
+        kinds = []
+        junk = 0
+        if _is_junkpiece(pieces[j]) and j >= 1 and (pieces[j - 1].dash or _is_junkpiece(pieces[j - 1])):
+            kinds.append('junk-after-d2')
+            junk = 1
+            j -= 1
+        if pieces[j].dash:
+            d2 = j
+            while d2 - 1 >= 0 and pieces[d2 - 1].dash:                 # a run of dashes counts as one
+                d2 -= 1
+            d2_last = j
+        elif exact and _is_junkpiece(pieces[j]):
+            d2 = d2_last = j
+            kinds.append('d2-damaged')
+        else:
             continue
         if not exact:
-            # a damaged Res is accepted only after a printed rank word
-            if not ranks:
+            kinds.append('res-damaged')
+        d1 = d1_last = None
+        for k in range(d2 - 1, max(d2 - RANK_WINDOW - 1, -1), -1):
+            if pieces[k].dash:
+                d1_last = k
+                d1 = k
+                while d1 - 1 >= 0 and pieces[d1 - 1].dash:
+                    d1 -= 1
+                break
+        rk0 = ne = None
+        if d1 is not None and d2 - d1_last >= 2:
+            rk0, ne = d1_last + 1, d1
+            ranks = [pieces[x].w for x in range(rk0, d2)]
+            if len(ranks) > 7 or any(x.endswith(';') or re.search(r'\d{3,}', x) for x in ranks):
+                d1 = None                                           # the nearest dash belongs to the entry above
+                rk0 = ne = None
+        else:
+            d1 = None
+        if d1 is None:
+            # a stray mark in place of the first dash, directly before a rank that looks like one
+            for L in (1, 2, 3, 4):
+                k = d2 - L - 1
+                if k < 1:
+                    break
+                if _is_junkpiece(pieces[k]) and strip_marks(pieces[k - 1].w) != '' and _rank_like([pieces[x].w for x in range(k + 1, d2)], rank_vocab) \
+                        and name_like(pieces[k - 1].w):
+                    d1 = d1_last = k
+                    rk0, ne = k + 1, k
+                    kinds.append('d1-damaged')
+                    break
+        if d1 is None and rank_vocab:
+            # no first dash at all: the last piece(s) before d2 are a known rank
+            for L in (1, 2, 3, 4):
+                cand = ' '.join(pieces[x].w for x in range(d2 - L, d2))
+                if cand in rank_vocab and d2 - L - 1 >= 0 and (name_like(pieces[d2 - L - 1].w) or _is_junkpiece(pieces[d2 - L - 1])):
+                    rk0, ne = d2 - L, d2 - L
+                    kinds.append('d1-missing')
+                    break
+        if rk0 is None:
+            # no rank at all: 'Name - Res.'  (one dash, then Res)
+            if pieces[d2].dash and d2 >= 2 and (name_like(pieces[d2 - 1].w) or _is_junkpiece(pieces[d2 - 1])) and \
+                    any(is_comma_tok(pieces[x].w) for x in range(max(0, d2 - 5), d2)) and not any(pieces[x].dash for x in range(max(0, d2 - 5), d2)):
+                rk0, ne = d2, d2
+                d1 = d2
+                kinds.append('no-rank')
+            else:
                 continue
-        ents.append(Entry(None, d1, d1, d1 + 1, d2, d2, r, 'reg' if exact else 'res-damaged'))
+        kind = '+'.join(kinds) if kinds else 'reg'
+        e = Entry(ne, rk0, d2, d1, d2, r, kind)
+        e.junk = junk
+        ents.append(e)
     return ents
+
+
+def CUTS_FOR(unit_key):
+    import ma_cuts
+    return [c for c in ma_cuts.NAME_CUTS if c[0] == unit_key]
+
+
+# --------------------------------------------------------------------------- one section
+class Section(object):
+    pass
+
+
+def entry_end_counts(S):
+    """counts of the period-ended tokens that stand right before a name start (the last token of the entry above)"""
+    c = collections.Counter()
+    for e in S.ents:
+        if e.n0 and e.n0 > 0 and e.cut == 'ok':
+            w = S.pieces[e.n0 - 1].w
+            if w.endswith('.') or w.endswith('."'):
+                c[w] += 1
+    return c
+
+
+def analyse(spec, idents, first_leaf=None, rank_vocab=None):
+    """Read the section of one unit: tokens, pieces, headings, entries with their name cut and company code.  Nothing is written."""
+    S = Section()
+    S.spec = spec
+    S.text, S.pm = load_volume(spec['vol'], idents)
+    S.leaf_a, S.leaf_b = leaf_range(spec, S.pm, first_leaf)
+    S.toks, S.heads, S.furn = tokenize_section(S.text, S.pm, S.leaf_a, S.leaf_b)
+    S.pieces = make_pieces(S.toks)
+    S.ents = find_entries(S.pieces, rank_vocab)
+    hoffs = [h[0] for h in S.heads]
+    prev_res = -1
+    for e in S.ents:
+        off = S.pieces[e.ne - 1].s if e.ne > 0 else 0
+        k = bisect.bisect_right(hoffs, off) - 1
+        if k >= 0:
+            e.code = S.heads[k][1]
+        else:
+            e.code = 'FS' if spec['arm'] in ('infantry', 'cavalry') else ''
+        e.style = 'given' if e.code in ('FS', 'NCS') else 'comma'
+        e.n0, e.cut = scan_name_start(S.pieces, e.ne, prev_res + 1, e.style)
+        prev_res = e.res
+    S.applied_cuts = []
+    for unit, name, why in CUTS_FOR(spec['key']):
+        toks_ = name.split()
+        hit = [e for e in S.ents if e.ne - len(toks_) >= 0 and [S.pieces[k].w for k in range(e.ne - len(toks_), e.ne)] == toks_]
+        if len(hit) != 1:
+            raise ValueError('reviewed cut %r of %s: found %d times' % (name, unit, len(hit)))
+        e = hit[0]
+        e.n0, e.cut = e.ne - len(toks_), 'reviewed'
+        S.applied_cuts.append((name, why, e))
+    # a reviewed cut moves the name start of an entry; the entry above must not overlap it
+    for a, b in zip(S.ents, S.ents[1:]):
+        if b.n0 <= a.res:
+            raise ValueError('%s: name of the entry at piece %d starts before the Res piece of the entry above' % (spec['key'], b.n0))
+    return S
+
+
+def rank_text(S, e):
+    return ' '.join(S.pieces[k].w for k in range(e.rk0, e.rk1)) if e.rk1 > e.rk0 else ''
+
+
+def count_ranks(S):
+    c = collections.Counter()
+    for e in S.ents:
+        if e.kind == 'reg':
+            c[rank_text(S, e)] += 1
+    return c

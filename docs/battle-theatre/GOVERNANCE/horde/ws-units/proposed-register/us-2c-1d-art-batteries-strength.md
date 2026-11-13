@@ -14,7 +14,7 @@
 | Competing values | Guns of Battery B, 1st New York: four 10-pounder Parrotts (Hazard R132 and Hunt R028) against four three-inch rifles (the New York commission's narrative, NY1-S001) and six ten-pounder Parrotts (NY2-S016): carried, none chosen. |
 | Product marking | The unit card says "open gap", what is missing (strength), what was searched and this id. |
 | Review status | internal review only (DEC-006: no public review label) |
-| Owner decision requested | Acquire Busey and Martin (not public domain) or confirm that the equal procedural share stays for the five batteries, marked on their cards; the batteries' battery-level returns (the monthly returns of the Artillery Brigade) are not in the Official Records volume read. |
+| Owner decision requested | Acquire Busey and Martin (not public domain) or confirm that the equal procedural share stays for the five batteries, marked on their cards; the batteries' own returns are not among the texts on this machine. |
 | Status | open (proposed by workstream bt-units, group us-2c-1d-art; not yet in register/) |
 | Owner decision and date | (filled only from the Decision Log) |
 

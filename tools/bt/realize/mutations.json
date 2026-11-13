@@ -1156,7 +1156,7 @@
   "tests": [
    "inputs"
   ],
-  "pattern": "digest of the inputs covers"
+  "pattern": "reports the harness writes"
  },
  {
   "id": "check-outside-clock",
@@ -1178,7 +1178,7 @@
   "tests": [
    "inputs"
   ],
-  "pattern": "digest of the inputs covers"
+  "pattern": "source tree"
  },
  {
   "id": "query-digest-governance",
@@ -1189,7 +1189,7 @@
   "tests": [
    "inputs"
   ],
-  "pattern": "digest of the inputs covers"
+  "pattern": "timeline files"
  },
  {
   "id": "query-digest-corrections",
@@ -1200,7 +1200,7 @@
   "tests": [
    "inputs"
   ],
-  "pattern": "digest of the inputs covers"
+  "pattern": "correction files"
  },
  {
   "id": "query-name-case",
@@ -1391,5 +1391,60 @@
    "inputs"
   ],
   "pattern": "gazetteer lists"
+ },
+ {
+  "id": "timeline-clock-tolerance",
+  "file": "tools/bt/realize/timeline.mjs",
+  "find": "const C = (a, b, why) => { rel_.push([a - CT, b + CT]);",
+  "replace": "const C = (a, b, why) => { rel_.push([a, b]);",
+  "rule": "a printed clock time is widened by the clock tolerance at each end (the armies' clocks differ by about 20 minutes)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "tolerances-morning",
+  "file": "tools/bt/realize/tolerances.json",
+  "find": "\"morning\": [\n        0,\n        720\n      ],",
+  "replace": "\"morning\": [\n        0,\n        600\n      ],",
+  "rule": "a morning ends at noon",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "tolerances-afternoon",
+  "file": "tools/bt/realize/tolerances.json",
+  "find": "\"afternoon\": [\n        720,\n        1204\n      ],",
+  "replace": "\"afternoon\": [\n        720,\n        1100\n      ],",
+  "rule": "an afternoon runs to civil dusk (20:04)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "tolerances-clock-minutes",
+  "file": "tools/bt/realize/tolerances.json",
+  "find": "\"clock_tolerance_min\": 20,",
+  "replace": "\"clock_tolerance_min\": 30,",
+  "rule": "the clock tolerance is 20 minutes",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "tolerances-town-floor",
+  "file": "tools/bt/realize/tolerances.json",
+  "find": "\"town\": 350,",
+  "replace": "\"town\": 400,",
+  "rule": "the floor of a town is the product gazetteer builder's (350 m)",
+  "tests": [
+   "rules",
+   "main"
+  ]
  }
 ]

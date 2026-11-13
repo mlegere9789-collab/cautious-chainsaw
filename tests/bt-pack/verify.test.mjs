@@ -3,7 +3,7 @@
 //   node --test tests/bt-pack/verify.test.mjs            (the last test starts a browser for a few seconds: run it through tools/horde/bench.sh, or set BT_PACK_NO_BROWSER=1 to skip it)
 import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 import { pack, trace, BT } from '../../tools/bt/pack_theatre.mjs';
-import { parseHeaders, headersFor, serveDir, logOf, checkManifest, checkZip, checkNoNotes, checkDataPipeline, checkInternalLinks, readZipDirectory, compareRuns, snapshotTree, SNAPSHOT_EXCLUDE, walk, crawlSections } from '../../tools/bt/verify_staging.mjs';
+import { parseHeaders, headersFor, serveDir, logOf, checkManifest, checkZip, checkNoNotes, checkDataPipeline, recordVerdict, checkInternalLinks, readZipDirectory, compareRuns, snapshotTree, SNAPSHOT_EXCLUDE, walk, crawlSections } from '../../tools/bt/verify_staging.mjs';
 import { makeFixture, FIXTURE_CFG } from './fixture.mjs';
 
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'btverify-')); test.after(() => fs.rmSync(tmp, { recursive: true, force: true }));
@@ -61,6 +61,16 @@ test('data pipeline in node: the loaders of the real shell run from the packed d
   assert.deepEqual(ok.problems, [], ok.problems.join('; ')); assert.ok(ok.requests > 20, 'it read the data: ' + ok.requests); assert.ok(ok.steps.some(x => /real history layer.*"units":\d+/.test(x)), ok.steps.join(' | '));
   fs.rmSync(path.join(real.out, 'history/units.json')); fs.rmSync(path.join(real.out, 'app/data/site-bookmarks.json'), { force: true });
   const bad = checkDataPipeline(real.out); assert.equal(bad.ok, false); assert.ok(bad.problems.some(x => /history\/units\.json/.test(x)), bad.problems.join('; '));
+});
+test('what a run leaves in deliver/bt-staging: a failed run touches nothing but LAST-VERIFY.txt; a passing run replaces dist (copy, swap) and copies the trace report', () => {
+  const a = build('rv-a'), home = path.join(tmp, 'rv-home'); fs.mkdirSync(path.join(home, 'dist'), { recursive: true }); fs.writeFileSync(path.join(home, 'dist/OLD.txt'), 'older build');
+  const rep = { when: '2026-11-13T00:00:00Z', static: { manifest: { version: a.version } }, ok: false, walkOk: true, official: true, auditHits: 3 };
+  let r = recordVerdict({ home, dist: a.out, zip: a.zip, rep, failures: ['copy audit: 3 hit(s)'] }); assert.equal(r.published, false); assert.ok(fs.existsSync(path.join(home, 'dist/OLD.txt')), 'the older dist is untouched');
+  let note = fs.readFileSync(path.join(home, 'LAST-VERIFY.txt'), 'utf8'); assert.match(note, /NOT ACCEPTABLE/); assert.match(note, /walk and comparison: passed; copy audit hits: 3/); assert.match(note, /was NOT touched/); assert.match(note, /copy audit: 3 hit/);
+  rep.ok = true; rep.auditHits = 0; r = recordVerdict({ home, dist: a.out, zip: a.zip, rep }); assert.equal(r.published, true);
+  assert.ok(!fs.existsSync(path.join(home, 'dist/OLD.txt')), 'the older dist is gone'); assert.deepEqual(checkManifest(path.join(home, 'dist')).problems, []); assert.equal(checkManifest(path.join(home, 'dist')).version, a.version); assert.ok(!fs.existsSync(path.join(home, 'dist.new')), 'no half-written folder is left');
+  assert.ok(fs.existsSync(path.join(home, 'trace-report.json')), 'the trace report is copied beside it'); note = fs.readFileSync(path.join(home, 'LAST-VERIFY.txt'), 'utf8'); assert.match(note, /STAGING VERIFIED/); assert.match(note, /was refreshed/);
+  rep.ok = true; r = recordVerdict({ home, dist: a.out, zip: a.zip, rep, publish: false }); assert.equal(r.published, false, 'publish can be switched off');
 });
 // ---- the comparison of the two runs
 const base = () => ({ log: { '/app/index.html': 200, '/app/src/main.mjs': 200, '/app/data/a.json': 200 }, errors: [], failed: [], entered: true, info: { sound: true }, steps: [{ name: 'sound starts', ok: true }, { name: 'play at 2x', ok: true }], ext: { index: 'read', modules: [{ path: 'monuments.mjs', state: 'running' }] }, crawl: { pages: [] } });

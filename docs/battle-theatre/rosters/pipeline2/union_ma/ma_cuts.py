@@ -1,0 +1,20 @@
+"""Reviewed cuts of the Massachusetts parse (work item union-ma).
+
+A reviewed cut is the place where a person reading the OCR text of the leaf sees where an entry's name begins although no rule of ma_parse.py finds it
+(the previous entry ends in initials or in a word without its period, the OCR split or damaged the name).  Each cut is located by the printed tokens of
+the name: they must stand directly before the first dash of exactly one entry head of the unit (the parser asserts that).  Nothing in the text is changed:
+the name stays the OCR tokens, the cut only says which tokens belong to it.  Every such row carries code H in the flag file.
+"""
+# (unit key, the name tokens as the OCR prints them, why)
+NAME_CUTS = [
+    ('u-ma-1st-massachusetts-infantry', 'George D. Wells', 'the entry above ends in "Officer U. S. A." (initials)'),
+    ('u-ma-2nd-massachusetts-infantry', 'William Nichols, Jr.', 'the entry above ends in "Washington, D. C." (initials)'),
+    ('u-ma-10th-massachusetts-infantry', 'Henry S. Briggs', 'a stray mark of the scan ("j", "I") stands between the sub-heading and the first entry'),
+    ('u-ma-11th-massachusetts-infantry', 'John A, Douglass', 'the entry above ends in "Army of Potomac" without its period'),
+    ('u-ma-13th-massachusetts-infantry', 'Andeaaon . -\\: : r r aid', 'the name is damaged beyond reading in the text layer; the printed tokens up to the first dash are taken whole'),
+    ('u-ma-19th-massachusetts-infantry', 'Vertulan R. Stone', 'the entry above ends in "Georgetown, D. C." (initials)'),
+    ('u-ma-28th-massachusetts-infantry', 'McLelland Moore', 'the entry above ends in "Officer U. S. A." (initials)'),
+    ('u-ma-32nd-massachusetts-infantry', 'Francis J. Parker', 'the first entry follows the unit sketch, which ends in the word INFANTRY set as a heading'),
+    ('u-ma-1st-company-massachusetts-sharpshooters', 'Littlefield.DavidM.', 'the OCR printed the surname, the comma and the given name as one token'),
+    ('u-ma-11th-massachusetts-infantry', 'Poole William', 'the comma is lost in the text layer; the entry above ends in "as John Pickins." which the period rule would have taken for the surname'),
+]

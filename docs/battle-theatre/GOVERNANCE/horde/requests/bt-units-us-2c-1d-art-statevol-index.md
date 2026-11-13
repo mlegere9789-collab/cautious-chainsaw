@@ -1,0 +1,19 @@
+# Request from bt-units (group us-2c-1d-art): section headings of docs/battle-theatre/library/statevol_index.json
+
+What: the section index of the state volumes (`library/statevol_index.json`, built by `tools/bt/statevol_index.py`) names a section by the first heading the tool found. In five sections the text that the Union II Corps group (Caldwell's division and Hazard's artillery brigade) needs lies under a heading that names another unit. The group file `undrawn/us-2c-1d-art.jsonl` cites these sections by id (the checker takes the id from the index), so a card that prints the section heading as the source line names the wrong unit. Found while reading for the group; each row was checked against the text at the offsets the records cite.
+
+| Section id | Heading in the index (pages) | What the text inside is |
+|---|---|---|
+| `NY1-S081` | 49TH REGIMENT INFANTRY (383 to 396) | holds the 49th New York and, from about offset 1,161,300, the 52d New York: the monument inscription (6 to 7 p. m. on 2 July; "Total Loss 38") and the historical sketch by Surg. Charles H. Althans (the gap record 0115 cites the sketch and the inscription; no record quotes the section) |
+| `NY3-S022` | 10th NEW YORK CAVALRY (1151~1156 to 1185~1186) | holds, besides the 10th New York Cavalry, the dedication of Battery B, 1st New York Light Artillery ("Pettit's"), 3 July 1888, with the address of Rev. W. O. Beauchamp (records 0004, 0109 and 0110 cite pages 1169~1178 and 1179~1182 of the index's page model) |
+| `NY2-S005` | 88th REGIMENT INFANTRY (508~512 to 552) | holds, besides the 88th New York, the oration of Gen. William Glenny and the account of the 64th New York (records 0089 and 0090 cite pages 530~532 and 521~522 of the index's page model) |
+| `FOX-S061` | FORTY-EIGHTH NEW YORK INFANTRY (196~197 to 200~201) | holds the entry of the 52d New York (Zook's brigade): its Gettysburg loss 2 killed, 26 wounded, 10 missing = 38 (gap record 0115 cites it) |
+| `FOX-S063` | SIXTY-THIRD NEW YORK INFANTRY (202~205) | holds the entries of the 63d and, at its end, the 64th New York ("lost there 98 out of the 20 officers and 185 men who marched with the colors on that field", records 0087 and 0088) |
+
+Also: `groups.json` (`sources.statevol_sections`) lists for the units of the group only the sections whose heading names the unit. It does not list the sections these headings hide (above), nor `NY1-S001` (the New York commission's narrative of the batteries), nor `FOX-S001` (Fox's table of the regiments with the heaviest losses), nor the Bachelder text (`BACH-STORY-1904`, the note on the position of Caldwell's four brigades), which the group file cites.
+
+Why it matters (Law 4 and the card's source line): a citation whose section heading names another unit confuses a reader who checks the quote. The checker finds every quote at its exact offset and no record of the group file is wrong.
+
+The exact change wanted (not mine to make): split or re-title the five sections so that each heading names the unit whose text it holds, or add a `contains` list of unit labels to each section; rebuild `statevol_index.json`. No record of `us-2c-1d-art.jsonl` needs to change when the ids stay the same; if ids change, tell bt-units (this group) so that the quotes can be re-checked with `python3 -I docs/battle-theatre/history/undrawn/tools/check_undrawn.py us-2c-1d-art --complete`.
+
+Checked and right (no change wanted): `PA1-S017` (53d Pennsylvania, address of Adjt. Hatch), `PA1-S028` (81st Pennsylvania, Capt. Wilson), `PA2-S004` (116th, Mulholland), `PA2-S009` (140th, Adjt. Shallenberger), `PA2-S013` (145th, Hilton, McCreary, Osborne), `PA2-S015` (148th, Maj. Forster), `NY1-S083` (57th New York), `NY2-S002` (61st New York, Fuller and Nutting), `NY2-S004` (63d New York, Dwyer), `NY2-S006` (66th New York).

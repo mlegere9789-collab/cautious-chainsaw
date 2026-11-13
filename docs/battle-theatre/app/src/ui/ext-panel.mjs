@@ -3,6 +3,7 @@
 // the same switches under the structure switches of Views, and the frame an added panel is drawn in. All listeners go through a panel scope.
 import { Scope } from '../scope.mjs';
 import { esc, ic } from './util.mjs';
+import { plain } from './extensions.mjs';
 
 export const MORE = 'more';
 const sel = id => `input[data-xlayer="${typeof CSS !== 'undefined' && CSS.escape ? CSS.escape(id) : String(id).replace(/["\\]/g, '\\$&')}"]`;
@@ -12,6 +13,8 @@ export function togglesHTML(X, heading = 'Layers') {
   const L = [...X.toggles.values()]; if (!L.length) return '';
   return `<h3>${esc(heading)}</h3>${L.map(t => `<label class="check"><input type="checkbox" data-xlayer="${esc(t.id)}" ${X.toggleState(t.id) ? 'checked' : ''}> ${esc(t.title)}</label>`).join('')}`;
 }
+/** What an added panel shows when its drawing fails (pure; the error may be any thrown value, also one that has no text form: that never throws). */
+export const failedHTML = e => { let m = ''; try { m = plain((e && e.message) || e); } catch { /* a value that cannot be read */ } return `<p class="fail">This panel could not be drawn: ${esc(m || 'no reason was given')}</p>`; };
 /** The whole More drawer as HTML (pure). */
 export function moreHTML(X) {
   const P = [...X.panels.values()], bad = X.problems(), tg = togglesHTML(X);
@@ -83,7 +86,7 @@ function extPanel(p) {
       const back = document.createElement('p'); back.className = 'xp-back'; back.innerHTML = `<button type="button" class="btn-s">${ic('back')}All added layers and panels</button>`;
       const box = document.createElement('div'); box.className = 'xp-body'; box.dataset.xpanel = p.id; body.append(back, box);
       ps.on(back.firstElementChild, 'click', () => th.openPanel(MORE));
-      const fail = e => { console.error(`ext ${p.owner ? p.owner.path : ''}: panel '${p.id}' could not be drawn`, e); box.innerHTML = `<p class="fail">This panel could not be drawn: ${esc(String((e && e.message) || e))}</p>`; };
+      const fail = e => { console.error(`ext ${p.owner ? p.owner.path : ''}: panel '${p.id}' could not be drawn`, e); box.innerHTML = failedHTML(e); };
       const draw = () => { if (inner) inner.dispose(); const top = body.scrollTop; inner = drawAdded(p, box, th, fail, () => { body.scrollTop = top; }); };
       th.bus.on('ext-panel', id => { if (id === p.id) { el(th).textContent = p.title; draw(); } }, ps);
       draw();

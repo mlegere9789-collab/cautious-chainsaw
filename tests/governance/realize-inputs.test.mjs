@@ -12,37 +12,47 @@ const node = (root, args, opt = {}) => spawnSync('node', [path.join(root, 'tools
 const digests = root => { const o = node(root, ['check.mjs', '--digests']); assert.equal(o.status, 0, o.stderr); return JSON.parse(o.stdout); };
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-test('the digest of the inputs covers every file the answer depends on, not only the files the shell fetches (check.mjs inputsDigest; the defect: tl-01.jsonl changed and the digest did not)', () => {
-  // other workstreams edit the shell and the governance files while this runs: a pair of runs is compared back to back and retried when something outside the edit changed in between
-  const scratch = 'tmp/realize/scratch-digest', base = makeTree(scratch);
+// other workstreams edit the shell and the governance files while this runs: a pair of runs (the scratch copy of the tree, then the same copy with one file changed) is compared back to back and retried
+// when something outside the edit changed in between. Each group below is a test of its own (a few pairs, about 20 s of CPU).
+const bump = t => t + (t.endsWith('\n') ? '' : '\n') + '\n', same = (a, b, except = null) => Object.keys(a.inputs_parts).every(k => k === except || a.inputs_parts[k] === b.inputs_parts[k]);
+function digestPairs(name, cases) {
+  const scratch = `tmp/realize/scratch-digest-${name}`, base = makeTree(scratch);
   try {
-    const bump = t => t + (t.endsWith('\n') ? '' : '\n') + '\n', same = (a, b, except = null) => Object.keys(a.inputs_parts).every(k => k === except || a.inputs_parts[k] === b.inputs_parts[k]);
-    const pair = (files, except, expectChange) => {
-      for (let attempt = 0; attempt < 4; attempt++) {
+    for (const [files, except, expectChange] of cases) {
+      let done = false;
+      for (let attempt = 0; attempt < 4 && !done; attempt++) {
         const before = digests(base), root = makeTree(scratch + '-edit', { files }), after = digests(root); removeTree(scratch + '-edit');
         if (!same(before, after, except)) continue;                       // something else changed between the two runs: try again
         assert.equal(after.inputs_digest !== before.inputs_digest, expectChange, JSON.stringify(Object.keys(files)));
         if (except) assert.notEqual(after.inputs_parts[except], before.inputs_parts[except], `${Object.keys(files)}: the part "${except}" must change`);
-        return { before, after };
+        done = true;
       }
-      assert.fail(`the inputs of the tree kept changing under the test (${Object.keys(files)})`);
-    };
-    const d0 = digests(base), again = digests(base); if (same(d0, again)) assert.deepEqual(again, d0, 'the digest is deterministic');
-    for (let i = 0, r1; i < 3; i++) { r1 = digests(ROOT); const r2 = digests(base), r3 = digests(ROOT); if (!same(r1, r3)) continue; assert.deepEqual(r2.inputs_parts, r1.inputs_parts, 'a scratch copy of the tree has the digest of the tree'); break; }
-    for (const [file, part, edit] of [
-      ['docs/battle-theatre/GOVERNANCE/timeline_seed.jsonl', 'governance', bump], ['docs/battle-theatre/GOVERNANCE/timeline_verified.jsonl', 'governance', bump], ['docs/battle-theatre/GOVERNANCE/timeline_windows.jsonl', 'governance', bump],
-      ['docs/battle-theatre/GOVERNANCE/timeline_corrections/tl-01.jsonl', 'governance', bump], ['docs/battle-theatre/GOVERNANCE/register_index.json', 'governance', t => t + ' '], ['docs/battle-theatre/GOVERNANCE/requirements.json', 'governance', t => t + ' '],
-      ['docs/battle-theatre/GOVERNANCE/epilogue_seed.jsonl', 'governance', bump],
-      ['docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl', 'records', t => t.replace('"harness": "bt-realize-1"', '"harness": "bt-realize-1", "note0": "x"')],
-      ['docs/battle-theatre/app/src/clock.mjs', 'app_src', t => t + '\n// a changed line of the shell\n'],
-      ['docs/battle-theatre/render/prototype/data/terrain.json', 'data', t => t + ' '], ['docs/battle-theatre/app/data/fx3d/params.json', 'data', t => t + ' '],
-    ]) pair({ [file]: edit }, part, true);
-    // what is NOT an input: the reports the harness writes, and the "result" a record carries after check.mjs --update
-    pair({ 'docs/battle-theatre/GOVERNANCE/realizations/RESULTS.json': t => t + ' ', 'docs/battle-theatre/GOVERNANCE/realizations/gazetteer.json': t => t + ' ' }, null, false);
-    pair({ 'docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl': t => { const L = t.split('\n'); const r = JSON.parse(L[2]); r.result = { realized: true, why: 'x', digest: 'y' }; L[2] = JSON.stringify(r); return L.join('\n'); } }, null, false);
-    // a change of the harness changes the harness digest, not the inputs
-    const root3 = makeTree(scratch + '-edit', { files: { 'tools/bt/realize/tolerances.json': t => t.replace('"clock_tolerance_min": 20', '"clock_tolerance_min": 21') } }), d3 = digests(root3), d4 = digests(base); assert.notEqual(d3.harness_digest, d4.harness_digest); removeTree(scratch + '-edit');
+      assert.ok(done, `the inputs of the tree kept changing under the test (${Object.keys(files)})`);
+    }
   } finally { removeTree(scratch); removeTree(scratch + '-edit'); }
+}
+const G = 'docs/battle-theatre/GOVERNANCE/';
+test('the digest of the inputs: the timeline files (seed, verified, windows) are inputs (check.mjs inputsDigest; the defect: tl-01.jsonl changed and the digest did not)', () => {
+  digestPairs('a', [[{ [G + 'timeline_seed.jsonl']: bump }, 'governance', true], [{ [G + 'timeline_verified.jsonl']: bump }, 'governance', true], [{ [G + 'timeline_windows.jsonl']: bump }, 'governance', true]]);
+});
+test('the digest of the inputs: the correction files, the register, the requirements and the epilogue seed are inputs', () => {
+  digestPairs('b', [[{ [G + 'timeline_corrections/tl-01.jsonl']: bump }, 'governance', true], [{ [G + 'register_index.json']: t => t + ' ' }, 'governance', true], [{ [G + 'requirements.json']: t => t + ' ' }, 'governance', true], [{ [G + 'epilogue_seed.jsonl']: bump }, 'governance', true]]);
+});
+test('the digest of the inputs: a record, the shell\'s source tree, the terrain and the weather parameters are inputs', () => {
+  digestPairs('c', [[{ [G + 'realizations/EXAMPLES.jsonl']: t => t.replace('"harness": "bt-realize-1"', '"harness": "bt-realize-1", "note0": "x"') }, 'records', true], [{ 'docs/battle-theatre/app/src/clock.mjs': t => t + '\n// a changed line of the shell\n' }, 'app_src', true],
+    [{ 'docs/battle-theatre/render/prototype/data/terrain.json': t => t + ' ' }, 'data', true], [{ 'docs/battle-theatre/app/data/fx3d/params.json': t => t + ' ' }, 'data', true]]);
+});
+test('the digest of the inputs: the reports the harness writes and the result written back into a record are not inputs; a change of the harness changes the harness digest', () => {
+  digestPairs('d', [[{ [G + 'realizations/RESULTS.json']: t => t + ' ', [G + 'realizations/gazetteer.json']: t => t + ' ' }, null, false],
+    [{ [G + 'realizations/EXAMPLES.jsonl']: t => { const L = t.split('\n'); const r = JSON.parse(L[2]); r.result = { realized: true, why: 'x', digest: 'y' }; L[2] = JSON.stringify(r); return L.join('\n'); } }, null, false]]);
+  const scratch = 'tmp/realize/scratch-digest-d2', base = makeTree(scratch);
+  try { const root3 = makeTree(scratch + '-edit', { files: { 'tools/bt/realize/tolerances.json': t => t.replace('"clock_tolerance_min": 20', '"clock_tolerance_min": 21') } }), d3 = digests(root3), d4 = digests(base); assert.notEqual(d3.harness_digest, d4.harness_digest); assert.equal(d3.inputs_digest, d4.inputs_digest, 'the harness is not an input'); }
+  finally { removeTree(scratch); removeTree(scratch + '-edit'); }
+});
+test('a scratch copy of the tree has the digest of the tree, and the digest is deterministic', () => {
+  const scratch = 'tmp/realize/scratch-digest-e', base = makeTree(scratch);
+  try { for (let i = 0; i < 3; i++) { const r1 = digests(ROOT), r2 = digests(base), r3 = digests(ROOT); if (!same(r1, r3)) continue; assert.deepEqual(r2.inputs_parts, r1.inputs_parts); assert.deepEqual(digests(base), r2, 'two runs give the same digests'); return; } assert.fail('the inputs of the tree kept changing under the test'); }
+  finally { removeTree(scratch); }
 });
 test('every file the shell fetches and every file the harness reads is noted, and the noted files are hashed (lib.mjs noteRead, query.mjs inputsParts)', () => {
   const reads = trackedReads(); for (const f of ['docs/battle-theatre/GOVERNANCE/timeline_seed.jsonl', 'docs/battle-theatre/GOVERNANCE/timeline_verified.jsonl', 'docs/battle-theatre/GOVERNANCE/timeline_windows.jsonl']) assert.ok(reads.includes(f), `${f} is read by the harness and noted`);
@@ -142,7 +152,9 @@ const toMinT = s => { const m = /^1863-(\d\d)-(\d\d)T(\d\d):(\d\d)$/.exec(s); co
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 test('the documents state facts about the harness that are true (README.md; the defect: it said 9 rows lie outside the theatre clock, the time cells give 10)', async () => {
   const readme = readText(path.join(ROOT, 'tools/bt/realize/README.md')), out = TL.outside_clock;
-  assert.deepEqual(out, ['T1-001', 'T1-002', 'T3-209', 'T3-210', 'T3-211', 'T3-212', 'T3-214', 'T3-215', 'T3-216', 'T3-217'], 'the rows whose whole allowed window is outside the theatre clock');
+  assert.ok(out.includes('T1-001') && out.includes('T1-002'), 'the rows of 19 and 25 Jun lie before the theatre clock (26 Jun 00:00)'); assert.equal(out.length, TL.rows.filter(r => !r.window.in_clock).length, 'the list is the rows whose whole allowed window is outside the clock');
+  for (const id of out) assert.ok(TL.byId.get(id).window.intervals.every(([a, b]) => !TL.clock.some(([x, y]) => Math.min(b, y) - Math.max(a, x) >= 1)), `${id}: no minute of its allowed window is on the clock`);
+  for (const r of TL.rows) if (!out.includes(r.id)) assert.ok(r.window.intervals.some(([a, b]) => TL.clock.some(([x, y]) => Math.min(b, y) - Math.max(a, x) >= 1)), `${r.id}: some minute of its allowed window is on the clock`);
   for (const m of readme.matchAll(/\b(\d+|nine|ten|eleven)\b[^.\n]{0,40}\brows?\b[^.\n]{0,60}outside the theatre clock/gi)) { const n = { nine: 9, ten: 10, eleven: 11 }[m[1].toLowerCase()] ?? +m[1]; assert.equal(n, out.length, `the README says ${m[0]}`); }
   assert.match(readme, /totals\.outside_clock/, 'the README says where the list is');
   const shown = [...readme.matchAll(/```json\n(\{ "id"[\s\S]*?)\n```/g)].map(m => JSON.parse(m[1])); assert.ok(shown.length >= 1, 'the README shows a record');

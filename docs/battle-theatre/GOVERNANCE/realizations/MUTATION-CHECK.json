@@ -9,17 +9,17 @@
   "checks.mjs": "a888273d5bff",
   "check.mjs": "88d270f50c64",
   "names.mjs": "9acfb7e29b57",
-  "mutations.json": "78a994490b74"
+  "mutations.json": "c63d42719e47"
  },
  "tests": {
   "realize-rules.test.mjs": "51e0e4a0947d",
   "realize.test.mjs": "dc29d55269e0",
-  "realize-inputs.test.mjs": "487b8eae1c07"
+  "realize-inputs.test.mjs": "7ab5c9e8ddb5"
  },
- "total": 126,
- "killed": 1,
+ "total": 131,
+ "killed": 5,
  "survived": 0,
- "not_run": 125,
+ "not_run": 126,
  "survivors": [],
  "notes": {},
  "results": [
@@ -681,12 +681,7 @@
    "id": "query-name-case",
    "file": "tools/bt/realize/query.mjs",
    "rule": "a unit is named as a proper noun (capitalised)",
-   "status": "killed",
-   "killed_by": "realize-rules.test.mjs",
-   "detail": "rule: a name is a unit's only as a proper noun, and an ordinary word names it only in a naming context (query.mjs unitsNamedIn, lib.mjs wordInfo; the Day and Stone defects)",
-   "tests_run": [
-    "rules"
-   ]
+   "status": "not run"
   },
   {
    "id": "query-name-ambiguous",
@@ -783,6 +778,65 @@
    "file": "tools/bt/realize/timeline.mjs",
    "rule": "the claim fields of a correction are searched for names",
    "status": "not run"
+  },
+  {
+   "id": "timeline-clock-tolerance",
+   "file": "tools/bt/realize/timeline.mjs",
+   "rule": "a printed clock time is widened by the clock tolerance at each end (the armies' clocks differ by about 20 minutes)",
+   "status": "killed",
+   "killed_by": "realize-rules.test.mjs",
+   "detail": "rule: structures and works (checks.mjs _structure, _structureProblem, _work)",
+   "tests_run": [
+    "rules"
+   ]
+  },
+  {
+   "id": "tolerances-morning",
+   "file": "tools/bt/realize/tolerances.json",
+   "rule": "a morning ends at noon",
+   "status": "killed",
+   "killed_by": "realize.test.mjs",
+   "detail": "time cells: the allowed window follows the printed cell and the stated conventions (the parser, on literal cells)",
+   "tests_run": [
+    "rules",
+    "main"
+   ]
+  },
+  {
+   "id": "tolerances-afternoon",
+   "file": "tools/bt/realize/tolerances.json",
+   "rule": "an afternoon runs to civil dusk (20:04)",
+   "status": "killed",
+   "killed_by": "realize.test.mjs",
+   "detail": "time cells: the allowed window follows the printed cell and the stated conventions (the parser, on literal cells)",
+   "tests_run": [
+    "rules",
+    "main"
+   ]
+  },
+  {
+   "id": "tolerances-clock-minutes",
+   "file": "tools/bt/realize/tolerances.json",
+   "rule": "the clock tolerance is 20 minutes",
+   "status": "killed",
+   "killed_by": "realize.test.mjs",
+   "detail": "time cells: the allowed window follows the printed cell and the stated conventions (the parser, on literal cells)",
+   "tests_run": [
+    "rules",
+    "main"
+   ]
+  },
+  {
+   "id": "tolerances-town-floor",
+   "file": "tools/bt/realize/tolerances.json",
+   "rule": "the floor of a town is the product gazetteer builder's (350 m)",
+   "status": "killed",
+   "killed_by": "realize.test.mjs",
+   "detail": "tolerances: the floors of the distance rule are the product gazetteer builder's own table",
+   "tests_run": [
+    "rules",
+    "main"
+   ]
   }
  ]
 }

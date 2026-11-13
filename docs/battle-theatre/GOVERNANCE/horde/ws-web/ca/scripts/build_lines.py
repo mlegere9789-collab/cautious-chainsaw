@@ -33,12 +33,16 @@ RETRIEVED = '2026-11-13'
 MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 
+PAGE_REPRINT = {}
+
+
 def load_modules():
     claims = []
     for p in sorted(glob.glob(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'claims_*.py'))):
         spec = importlib.util.spec_from_file_location(os.path.basename(p)[:-3], p)
         m = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(m)
+        PAGE_REPRINT.update(getattr(m, 'PAGE_REPRINT', {}))
         for c in m.CLAIMS:
             c = dict(c)
             c['_module'] = os.path.basename(p)[:-3]
@@ -182,6 +186,13 @@ def citation(c, man):
             raise SystemExit('%s NOT FOUND in %s: %s' % (extra, pid, c[extra][:120]))
     ctx_before = v[variant][max(0, off - 360):off]
     rep = c.get('reprint') or {'status': 'unknown', 'from': None, 'basis': 'the page text read names no source for the passage'}
+    if rep.get('status') == 'unknown' and pid in PAGE_REPRINT:
+        rep = dict(PAGE_REPRINT[pid])
+    if rep.get('basis_page'):
+        vv = views(rep['basis_page'])
+        bq = calib.norm(rep['basis_quote'])
+        if bq not in vv['plain'] and bq not in vv['line-end hyphens joined']:
+            raise SystemExit('basis_quote NOT FOUND in %s: %s' % (rep['basis_page'], bq[:100]))
     qc = rebuild_cols.quote_confidence(page_words(pid)[1], quote)
     distinct_wc = len({w[1] for w in page_words(pid)[1]})
     if c.get('img'):
@@ -229,6 +240,37 @@ def citation(c, man):
     return cit
 
 
+def load_lookups():
+    out = []
+    for p in sorted(glob.glob(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lookups_*.py'))):
+        spec = importlib.util.spec_from_file_location(os.path.basename(p)[:-3], p)
+        m = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(m)
+        for c in m.LOOKUPS:
+            c = dict(c)
+            c['_module'] = os.path.basename(p)[:-3]
+            out.append(c)
+    return out
+
+
+def run_lookup(spec, man):
+    import os as _os
+    pages = [pid for pid, m in man.items() if spec['window'][0] <= m['date'] <= spec['window'][1] and _os.path.exists(calib.page_paths(pid)[0])]
+    rxs = [re.compile(p, re.I) for p in spec['patterns']]
+    hits = []
+    for pid in sorted(pages):
+        t = calib.norm(calib.page_text(pid), dehyphen=True)
+        for rx in rxs:
+            m = rx.search(t)
+            if m:
+                hits.append({'page_id': pid, 'pattern': rx.pattern, 'context': t[max(0, m.start() - 80):m.end() + 100]})
+                break
+    titles = sorted({man[p]['lccn'] for p in pages})
+    return {'patterns': spec['patterns'], 'window': list(spec['window']), 'pages_searched': len(pages), 'titles_searched': len(titles),
+            'page_list_in': 'pages.jsonl (the saved pages of the window; the saved set is what searches and issue enumeration returned, not every page printed)',
+            'hits': len(hits), 'hit_pages': hits[:12], 'searched_on': RETRIEVED, 'method': 'regular expressions over the saved reading text, line-end hyphens joined, case-insensitive'}
+
+
 def build():
     man = calib.load_manifest()
     claims = load_modules()
@@ -270,6 +312,17 @@ def build():
             for k2 in ('caution', 'conflict'):
                 if c.get(k2):
                     line[k2] = c[k2]
+            (lines_t if is_timeline else lines_e).append(line)
+    for spec in load_lookups():
+        res = run_lookup(spec, man)
+        for tid in spec['ids']:
+            is_timeline = bool(re.match(r'^(E|T\d)-\d+$', tid))
+            line = {'id': tid, 'shard': 'web-newspapers', 'xid': 'NEWS-%s-%s' % (spec['_module'].replace('lookups_', 'lookup-'), spec['key']),
+                    'kind': 'lookup (recorded, not a claim)', 'sub_claim': spec['what'],
+                    'verdict': ('no_passage_found_in_saved_pages' if res['hits'] == 0 else
+                                ('no_relevant_passage_found_in_saved_pages' if spec.get('hits_note') else 'passages_found_see_hit_pages')),
+                    'tier': None, 'state_date': spec.get('state_date'), 'lookup': dict(res, hits_note=spec.get('hits_note')),
+                    'remains_unsupported': spec.get('remains') or 'the item stays unsupported by the newspapers read; a miss in the saved pages is not evidence that no paper printed it'}
             (lines_t if is_timeline else lines_e).append(line)
     if errors:
         print('\n'.join(errors))

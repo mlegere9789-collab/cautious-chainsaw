@@ -1,13 +1,14 @@
 // Node tests of the loader of the added layers and panels (src/ui/extensions.mjs, src/ui/ext-panel.mjs, the wiring in src/theatre.mjs and src/render-host.mjs; docs/EXT-CONTRACT.md).
 // A stand-in theatre and stand-in modules: real module files in a temporary folder, imported the way theatre.mjs imports them, and plain objects handed out by a stand-in importer.
 // Checked: no list means nothing happens; init is awaited in list order with the eleven ctx keys; update gets {tMin, dtMs, cam, paused, speed} before the renderer's frame;
-// dispose on Back; a failing module is logged and skipped and never stops the others; a slow start; Back during a start; a list that does not answer; both registries; the More tool; one drawing of an
-// added panel in every form a panel function may return (late results included); the drawer as HTML; the tier mark; the live choices; the wiring order in theatre.mjs and render-host.mjs.
+// dispose on Back; a failing module is logged and skipped and never stops the others (whatever it throws); a slow start; Back during a start; a list that does not answer, in one wait for the check and
+// the import together (a clock and timers the test moves itself); both registries; the More tool; one drawing of an added panel in every form a panel function may return (late results included);
+// the drawer as HTML; the tier mark (exact names, the negated and hedged wordings, the words the reading knows, hostile values); the live choices; the wiring order in theatre.mjs and render-host.mjs.
 // Nothing here opens a browser: the drawer in the page is tests/ext-loader-browser.mjs.
 //   node --test docs/battle-theatre/app/tests/ext-loader.test.mjs
 import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'; import { fileURLToPath, pathToFileURL } from 'node:url';
-import { Extensions, INDEX, INIT_WAIT_MS, tierMark, tierName, liveChoices, badPath, looksAbsent } from '../src/ui/extensions.mjs';
-import { moreHTML, togglesHTML, drawAdded, mountExtensionsUI, MORE } from '../src/ui/ext-panel.mjs';
+import { Extensions, INDEX, INIT_WAIT_MS, tierMark, tierName, readTierWords, TIER_WORDS, plain, liveChoices, badPath, looksAbsent } from '../src/ui/extensions.mjs';
+import { moreHTML, togglesHTML, drawAdded, mountExtensionsUI, failedHTML, MORE } from '../src/ui/ext-panel.mjs';
 import { Bus, Scope } from '../src/scope.mjs';
 import { TIERS, TIER_STYLE, URLS } from '../src/config.mjs';
 import { RenderHost } from '../src/render-host.mjs';
@@ -16,8 +17,17 @@ const here = path.dirname(fileURLToPath(import.meta.url)), APP = path.resolve(he
 const CTX_KEYS = ['choices', 'env', 'history', 'host', 'registerLayerToggle', 'registerPanel', 'state', 'structures', 'theatre', 'tierMark', 'urls'];
 const FRAME_KEYS = ['cam', 'dtMs', 'paused', 'speed', 'tMin'];
 const sleep = ms => new Promise(r => setTimeout(r, ms));
+// the words of the copy rule of tests/real.spec.mjs (FORBIDDEN there), written in pieces so that no source file under app/ spells them: the copy audit reads every file there
+const FORBIDDEN = new RegExp('\\b(' + [['A', 'I'], ['A\\.', 'I\\.'], ['Cl', 'aude'], ['Anthr', 'opic'], ['LL', 'M'], ['language ', 'model'], ['gener', 'ated'], ['auto', 'mated'], ['sub', 'agent'], ['ag', 'ent'], ['pro', 'mpt']].map(w => w.join('')).join('|') + ')\\b', 'i');
 const mkLog = () => { const L = { errors: [], warns: [], debugs: [] }; return { L, error: (...a) => L.errors.push(a), warn: (...a) => L.warns.push(a), debug: (...a) => L.debugs.push(a) }; };
 const notFound = p => { const e = new Error(`Cannot find module '${p}'`); e.code = 'ERR_MODULE_NOT_FOUND'; return e; };
+const flush = async () => { for (let i = 0; i < 3; i++) await new Promise(r => setImmediate(r)); };
+// a clock and timers that move only when the test says so: advance(ms) fires what falls due, in order, and lets every promise settle in between; nothing waits in real time
+function fakeTime() {
+  let now = 0, seq = 0; const timers = new Map();
+  return { now: () => now, pending: () => timers.size, setTimeout: (fn, ms) => { const id = ++seq; timers.set(id, { at: now + ms, fn }); return id; }, clearTimeout: id => { timers.delete(id); },
+    async advance(ms) { const end = now + ms; for (;;) { await flush(); let next = null; for (const [id, t] of timers) if (t.at <= end && (!next || t.at < next.t.at)) next = { id, t }; if (!next) break; timers.delete(next.id); now = Math.max(now, next.t.at); next.t.fn(); } now = end; await flush(); } };
+}
 
 function fakeTheatre(o = {}) {
   const th = { host: { api: 'webgl2', tag: 'host' }, state: { t: 0, playing: false, speed: 1, panel: null, scenario: { choices: { 'CF-WIND-SPEED': 'recommended', 'C-004': 'b' } } }, env: { tag: 'env' }, layer: { tag: 'history', meta: { stub: false }, units: [] }, structs: { tag: 'structures' },
@@ -28,9 +38,10 @@ function fakeTheatre(o = {}) {
 }
 // modules as plain objects: mods = { 'index.mjs': { default: [...] }, 'a.mjs': {...} }; a path that is not there fails the way node's import does
 function mk(mods, o = {}) {
-  const th = o.th || fakeTheatre(), log = mkLog(), asked = [];
-  const X = new Extensions(th, { importer: async p => { asked.push(p); if (!(p in mods)) throw notFound(p); const m = mods[p]; if (m instanceof Error) throw m; return m; }, log, waitMs: o.waitMs ?? 2000, exists: o.exists, progress: o.progress });
-  return { X, th, log: log.L, asked };
+  const th = o.th || fakeTheatre(), log = mkLog(), asked = [], T = o.time || null;
+  const X = new Extensions(th, { importer: async p => { asked.push(p); if (!(p in mods)) throw notFound(p); const m = mods[p]; if (m instanceof Error) throw m; return m; }, log, waitMs: o.waitMs ?? 2000, exists: o.exists, progress: o.progress,
+    ...(T ? { now: T.now, setTimeout: T.setTimeout, clearTimeout: T.clearTimeout } : {}) });
+  return { X, th, log: log.L, asked, T };
 }
 const CAM = { id: 'cam', x: 1, y: 2, z: 3 };
 // a module that writes down what happens to it
@@ -58,12 +69,52 @@ test('a list that is there but cannot be read is logged and shown, never passed 
 test('a list that does not answer does not hold the theatre: the check is passed over, the list itself counts as failed after the wait, a late answer starts nothing', async () => {
   const never = new Promise(() => {}), trace = [];
   const a = mk({ [INDEX]: { default: ['a.mjs'] }, 'a.mjs': recorder('a', trace) }, { waitMs: 30, exists: () => never }); const t0 = Date.now(); await a.X.load();
-  assert.equal(a.X.index.state, 'read', 'the check for the list hangs: it is passed over and the import speaks'); assert.deepEqual(trace, ['a.init']); assert.ok(Date.now() - t0 >= 25, 'it waited for the check first'); assert.deepEqual([a.log.errors, a.log.warns], [[], []]);
+  assert.equal(a.X.index.state, 'read', 'the check for the list hangs: it is passed over and the import speaks'); assert.deepEqual(trace, ['a.init']); assert.ok(Date.now() - t0 >= 8, 'it waited for the check first (a third of the wait)'); assert.deepEqual([a.log.errors, a.log.warns], [[], []]);
   const b = mk({ [INDEX]: never }, { waitMs: 30 }); await b.X.load();
   assert.equal(b.X.index.state, 'failed'); assert.match(b.X.index.error, /src\/ext\/index\.mjs did not answer within 30 ms/); assert.equal(b.log.errors.length, 1); assert.equal(b.X.problems().length, 1); assert.deepEqual(b.X.status(), []);
   trace.length = 0; const c = mk({ [INDEX]: new Promise(r => setTimeout(() => r({ default: ['a.mjs'] }), 80)), 'a.mjs': recorder('a', trace) }, { waitMs: 20 }); await c.X.load(); await sleep(120);
   assert.equal(c.X.index.state, 'failed'); assert.deepEqual(trace, [], 'an answer that comes after the wait starts nothing'); assert.deepEqual(c.X.status(), []);
   const d = mk({ [INDEX]: never }, { waitMs: 20, exists: () => never }); await d.X.load(); assert.equal(d.X.index.state, 'failed'); assert.equal(d.log.errors.length, 1);
+});
+
+test('the list step holds the theatre for one wait in all, not two: the check has a third of it, the import the rest, whatever stalls; answers that come in time are used', async () => {
+  const never = new Promise(() => {}), W = 300, trace = [];
+  const start = (T, mods, o = {}) => { const m = mk(mods, { waitMs: W, time: T, ...o }); let done = false; const p = m.X.load().then(() => { done = true; }); return { ...m, p, done: () => done }; };
+  // the check and the import both stall: failed after 300 ms (the old reading held it for 600)
+  let T = fakeTime(), a = start(T, { [INDEX]: never }, { exists: () => never });
+  await T.advance(99); assert.deepEqual(a.asked, [], 'the import is not asked while the check still has time'); assert.equal(a.done(), false);
+  await T.advance(1); assert.deepEqual(a.asked, [INDEX], 'after a third of the wait the check is passed over and the import is asked'); assert.equal(a.done(), false);
+  await T.advance(199); assert.equal(a.done(), false, 'at 299 ms it still waits'); await T.advance(1); await a.p; assert.equal(a.done(), true, 'one wait in all: 300 ms'); assert.equal(T.now(), 300);
+  assert.equal(a.X.index.state, 'failed'); assert.match(a.X.index.error, /src\/ext\/index\.mjs did not answer within 300 ms/); assert.equal(a.log.errors.length, 1); assert.equal(T.pending(), 0, 'no timer is left');
+  // the check answers late but in time (40 ms), the import stalls: still 300 ms in all, the import has what is left of it
+  T = fakeTime(); a = start(T, { [INDEX]: never }, { exists: () => new Promise(r => T.setTimeout(() => r(true), 40)) });
+  await T.advance(299); assert.equal(a.done(), false); await T.advance(1); await a.p; assert.equal(a.X.index.state, 'failed'); assert.equal(T.pending(), 0);
+  // the check stalls, the import answers 250 ms after the start (150 ms after it was asked): used; the module starts
+  T = fakeTime(); a = start(T, { [INDEX]: new Promise(r => T.setTimeout(() => r({ default: ['a.mjs'] }), 250)), 'a.mjs': recorder('a', trace) }, { exists: () => never });
+  await T.advance(249); assert.deepEqual(trace, []); await T.advance(1); await a.p; assert.deepEqual(trace, ['a.init']); assert.equal(a.X.index.state, 'read'); assert.deepEqual([a.log.errors, a.log.warns], [[], []]); assert.equal(T.pending(), 0);
+  // the import answers at 320 ms: too late, the list counts as failed at 300 ms and the late answer starts nothing
+  trace.length = 0; T = fakeTime(); a = start(T, { [INDEX]: new Promise(r => T.setTimeout(() => r({ default: ['a.mjs'] }), 320)), 'a.mjs': recorder('a', trace) }, { exists: () => never });
+  await T.advance(300); await a.p; assert.equal(a.X.index.state, 'failed'); await T.advance(100); assert.deepEqual(trace, [], 'a late answer starts nothing'); assert.deepEqual(a.X.status(), []);
+  // the server says the list is not there: one wait at most, and the import is never asked
+  T = fakeTime(); a = start(T, { [INDEX]: never }, { exists: () => new Promise(r => T.setTimeout(() => r(false), 60)) }); await T.advance(60); await a.p; assert.equal(a.X.index.state, 'absent'); assert.deepEqual(a.asked, []); assert.equal(T.pending(), 0);
+  // nothing stalls: no time passes and no timer is left
+  trace.length = 0; T = fakeTime(); a = start(T, { [INDEX]: { default: ['a.mjs'] }, 'a.mjs': recorder('a', trace) }, { exists: async () => true }); await a.p; assert.equal(T.now(), 0); assert.equal(T.pending(), 0); assert.deepEqual(trace, ['a.init']);
+});
+
+test('Back while the list or a module is stalled: the waits end at once, no timer is left, and nothing is logged after the visit', async () => {
+  const never = new Promise(() => {}), trace = [];
+  // during the check
+  let T = fakeTime(), m = mk({ [INDEX]: never }, { waitMs: 300, time: T, exists: () => never }), p = m.X.load(); await T.advance(10); assert.equal(T.pending(), 1, 'the wait for the check');
+  m.X.dispose(); await p; assert.equal(T.pending(), 0); await T.advance(5000); assert.deepEqual([m.log.errors, m.log.warns, m.asked], [[], [], []], 'the import was never asked and nothing was logged');
+  // during the import
+  T = fakeTime(); m = mk({ [INDEX]: never }, { waitMs: 300, time: T, exists: () => never }); p = m.X.load(); await T.advance(150); assert.deepEqual(m.asked, [INDEX]);
+  m.X.dispose(); await p; assert.equal(T.pending(), 0); await T.advance(5000); assert.deepEqual([m.log.errors, m.log.warns], [[], []], 'a list that was being waited for when the visit ended is not reported as broken'); assert.equal(m.X.index.state, 'not read');
+  // during a module's start: load() returns at once, the module that has not settled is ended when it does, the rest of the list is not started
+  let release; const gate = new Promise(r => { release = r; }); T = fakeTime();
+  m = mk({ [INDEX]: { default: ['slow.mjs', 'next.mjs'] }, 'slow.mjs': recorder('slow', trace, { init: () => gate }), 'next.mjs': recorder('next', trace) }, { waitMs: 300, time: T }); p = m.X.load(); await T.advance(10);
+  assert.deepEqual(trace, ['slow.init']); assert.equal(T.pending(), 1, 'the wait for the module');
+  m.X.dispose(); await p; assert.equal(T.pending(), 0); assert.ok(!m.asked.includes('next.mjs')); await T.advance(5000); assert.deepEqual([m.log.errors, m.log.warns], [[], []]);
+  release(); await m.X.whenSettled(); assert.deepEqual(trace, ['slow.init', 'slow.dispose'], 'ended as soon as its init settled');
 });
 
 test('list entries: refused ones are reported and the rest runs; a path listed twice is started once; ./ is dropped', async () => {
@@ -140,6 +191,26 @@ test('a failing module is logged and skipped, never fatal: import, init (thrown 
   trace.length = 0; X.update(6, 16, CAM, false, 1); assert.deepEqual(trace, ['good.update@6', 'last.update@6']);
   trace.length = 0; X.dispose(); assert.deepEqual(trace, ['last.dispose', 'good.dispose'], 'Back ends only what is still running; nobody is ended twice');
   assert.equal(X.status().filter(s => s.state === 'failed').length, 5);
+});
+
+test('hostile values do not stop the theatre: list entries and thrown values that have no text form are refused or logged, and the other modules start', async () => {
+  const trace = [], bare = () => Object.create(null), toStringThrows = () => ({ toString() { throw new Error('toString threw'); } }), messageThrows = () => ({ get message() { throw new Error('message getter threw'); } });
+  const { X, log } = mk({ [INDEX]: { default: [bare(), toStringThrows(), Symbol('entry'), 10n, 'a.mjs', 'throws-bare.mjs', 'throws-getter.mjs', 'rejects-bare.mjs', 'update-bare.mjs', 'b.mjs'] },
+    'a.mjs': recorder('a', trace), 'b.mjs': recorder('b', trace), 'throws-bare.mjs': { init() { throw bare(); } }, 'throws-getter.mjs': { init() { throw messageThrows(); } }, 'rejects-bare.mjs': { init: async () => { throw bare(); } },
+    'update-bare.mjs': { update() { throw bare(); }, dispose() { throw bare(); } } });
+  await X.load();
+  const st = X.status(); assert.deepEqual(st.map(x => x.state), ['failed', 'failed', 'failed', 'failed', 'running', 'failed', 'failed', 'failed', 'running', 'running']); assert.deepEqual(st.slice(0, 4).map(x => x.stage), ['list', 'list', 'list', 'list']);
+  for (const x of st) assert.ok(x.error === null || typeof x.error === 'string', 'every error is text'); assert.equal(st[5].error, 'unknown error'); assert.equal(st[6].error, 'unknown error'); assert.equal(st[7].error, 'unknown error');
+  assert.deepEqual(trace, ['a.init', 'b.init']); X.update(1, 16, CAM, false, 1); assert.deepEqual(trace.slice(2), ['a.update@1', 'b.update@1'], 'the module whose update throws a value with no text is stopped, the others go on');
+  assert.equal(X.status()[8].state, 'failed'); assert.equal(X.status()[8].error, 'unknown error'); for (const p of X.problems()) assert.ok(typeof p.name === 'string' && typeof p.text === 'string');
+  assert.doesNotThrow(() => moreHTML(X)); assert.doesNotThrow(() => X.dispose()); assert.ok(log.errors.length >= 8);
+  for (const e of [bare(), toStringThrows(), messageThrows(), null, undefined, 5, 'x', Symbol('s'), 10n]) assert.equal(looksAbsent(e), false);
+  const typeErr = Object.defineProperty(new TypeError('x'), 'message', { get() { throw new Error('getter'); } }); assert.equal(looksAbsent(typeErr), false);
+  // the ids and titles of a registration may be anything: a wrong id throws a TypeError that says so, a title that has no text falls back to the id
+  const X2 = new Extensions(fakeTheatre(), { importer: async () => { throw notFound('x'); }, log: mkLog() }), rec = { path: 'r.mjs', state: 'running' }, ctx = X2.ctxFor(rec);
+  for (const id of [bare(), 10n, Symbol('i'), null, '', ' ', 'x'.repeat(81)]) assert.throws(() => ctx.registerPanel(id, 't', () => {}), TypeError);
+  assert.equal(ctx.registerPanel('ok', bare(), () => {}).id, 'ok'); assert.equal(X2.panels.get('ok').title, 'ok'); ctx.registerLayerToggle('tg', toStringThrows(), () => true, () => {}); assert.equal(X2.toggles.get('tg').title, 'tg');
+  assert.match(failedHTML(new Error('threw')), /This panel could not be drawn: threw<\/p>/); assert.match(failedHTML(bare()), /could not be drawn: no reason was given/); assert.match(failedHTML(undefined), /no reason was given/); assert.match(failedHTML('a <b>'), /a &lt;b&gt;/); assert.doesNotThrow(() => failedHTML(messageThrows()));
 });
 
 test('one module cannot change the frame the next one is given', async () => {
@@ -220,7 +291,7 @@ test('the More drawer: switches with their state, panels, what is not running; t
   assert.ok(!/data-layer=/.test(h), 'the structure switches keep their own attribute to themselves'); assert.ok(!/class="item"/.test(h), 'no row that the Views tests count');
   assert.ok(h.indexOf('data-xlayer="mon"') < h.indexOf('data-xlayer="off"') && h.indexOf('data-xlayer="off"') < h.indexOf('data-xpanel="claims"'));
   assert.match(togglesHTML(X, 'More layers'), /^<h3>More layers<\/h3><label class="check">/);
-  const text = h.replace(/<[^>]+>/g, ' '); assert.ok(!/\b(AI|A\.I\.|Claude|Anthropic|LLM|language model|generated|automated|subagent|agent|prompt)\b/i.test(text), 'the copy rule of tests/real.spec.mjs');
+  const text = h.replace(/<[^>]+>/g, ' '); assert.ok(!FORBIDDEN.test(text), 'the copy rule of tests/real.spec.mjs');
   X.dispose();
 });
 
@@ -306,6 +377,70 @@ test('tierMark: the four tiers and their short spellings give the card pill; a l
   const st = tierMark.style('gap'); assert.deepEqual(st, { tier: 'open gap', label: 'Open gap', color: TIER_STYLE['open gap'].color, dash: TIER_STYLE['open gap'].dash, glyph: 'square' }); st.dash.push(9); assert.notDeepEqual(TIER_STYLE['open gap'].dash, st.dash, 'a copy: the shell table cannot be changed through it');
   assert.equal(tierMark.style('???').tier, null); assert.equal(tierMark.tier('inferred'), 'inferred');
   const glyphs = new Set(TIERS.map(t => tierMark.style(t).glyph)), dashes = new Set(TIERS.map(t => tierMark.style(t).dash.join(','))); assert.equal(glyphs.size, 4, 'four shapes: the tier never depends on colour alone'); assert.equal(dashes.size, 4);
+});
+
+// strength of a reading, lower is stronger: documented 0 ... open gap 3, and "tier not stated" 4 (weaker than every tier: it says nothing)
+const strength = t => (t === null ? 4 : TIERS.indexOf(t));
+test('tierMark: a negated or hedged tier word is not a tier: the three examples of the review, the whole probe list, and the statements that stay plain', () => {
+  // the three examples that returned "documented": hedged wording
+  for (const s of ['partially documented', 'probably documented', 'to be documented']) { assert.equal(tierName(s), null, s); assert.match(tierMark(s), /^<span class="pill" data-tier="none"[^>]*>Tier not stated: /, s); assert.equal(tierMark.label(s), 'Tier not stated'); }
+  // the whole probe list of the review: none of them is a plain "documented" or "inferred" (the rows that say a tier plainly are in the next list)
+  const hedged = ['partly documented', 'mostly documented', 'documented in part', 'documented only in part', 'possibly documented', 'supposedly documented', 'allegedly documented', 'weakly documented', 'barely documented', 'poorly documented', 'insufficiently documented',
+    'documented? no', 'documented: false', 'documented, but contested', 'not fully documented', 'less than documented', 'hardly documented', 'almost documented', 'nearly documented', 'sparsely documented', 'claimed documented', 'documented-ish', 'semi-documented', 'quasi-documented',
+    'documented elsewhere', 'non-documented', 'never inferred', 'no inferred basis', 'can be documented', 'could be documented', 'should be documented', 'not yet documented', 'needs to be documented', 'unverified documented', 'seeded_unverified documented',
+    'yet to be documented', 'under-documented', 'ill-documented', 'half documented', 'some hats documented', 'most documented', 'documented?', 'documented (unverified)', 'documented, in part', 'documented (in part)', 'documented = no', 'documented - none', 'documented (no)', 'documented: n/a',
+    'perhaps inferred', 'probably inferred', 'partly inferred', 'inferred in part', 'if documented', 'once documented', 'may be documented', 'will be documented', 'cannot be documented', "isn't documented", 'wasn’t documented', 'neither documented nor inferred', 'not documented or inferred', 'never documented or inferred', 'without documented source', 'lacks documented source'];
+  for (const s of hedged) assert.equal(tierName(s), null, s);
+  for (const [s, want] of [['was documented', 'documented'], ['fully documented', 'documented'], ['well documented in the 1864 report', 'documented'], ['directly documented', 'documented'], ['documented, primary source', 'documented'], ['documented (disputed)', 'documented'], ['May 1863 documented', 'documented'], ['was documented in May', 'documented'],
+    ['inferred or documented', 'inferred'], ['documented or inferred', 'inferred'], ['documented / inferred', 'inferred'], ['documented, not inferred', 'documented'], ['inferred, not documented', 'inferred'], ['not documented; inferred', 'inferred'], ['not documented, open', 'open gap'],
+    ['documented; no gaps', 'documented'], ['documented; no open gaps remain', 'documented'], ['documented without gaps', 'documented'], ['no gaps', null], ['not open', null], ['no open gaps', null], ['not plausible-procedural', null],
+    // a hedged documented or inferred can lower what a plain word made, never raise it; a weaker word keeps counting when it is hedged
+    ['documented; probably inferred', 'inferred'], ['documented (secondary); partly inferred', 'inferred'], ['inferred; possibly documented', 'inferred'], ['partly documented; leggings open', 'open gap'], ['partly documented; rest inferred', 'inferred'], ['documented, partly inferred', null],
+    ['documented; possibly open', 'open gap'], ['probably plausible-procedural', 'plausible-procedural'], ['partly open', 'open gap'], ['mostly inferred; some plausible-procedural', 'plausible-procedural'], ['hats may be documented, leggings open', 'open gap'],
+    ['', null], ['   ', null], ['weak', null], ['seeded_unverified', null], ['not used', null]]) assert.equal(tierName(s), want, s);
+  // a mark that is not a tier still shows the statement, escaped
+  assert.ok(tierMark('probably <b>documented</b>').includes('Tier not stated: probably &lt;b&gt;documented&lt;/b&gt;'));
+});
+
+test('tierMark: what a hedge or a negation does is the same for every word of its list; it can lower a mark and never raise it', () => {
+  assert.ok(TIER_WORDS.negations.length > 20 && TIER_WORDS.hedges.length > 80 && TIER_WORDS.modals.length > 15 && TIER_WORDS.afters.length > 30 && TIER_WORDS.joined.length === 3);
+  const strong = ['documented', 'inferred'], weak = ['plausible-procedural', 'open gap'];
+  for (const w of TIER_WORDS.negations) {
+    for (const t of [...strong, ...weak]) assert.equal(tierName(`${w} ${t}`), null, `${w} ${t}`);
+    assert.equal(tierName(`documented; ${w} open`), 'documented', `a negated weak word is not a gap: ${w} open`);
+    for (const t of TIERS) assert.ok(strength(tierName(`${w} ${t}`)) >= strength(t), `${w} ${t}`);
+  }
+  for (const w of TIER_WORDS.hedges) {
+    for (const t of strong) { assert.equal(tierName(`${w} ${t}`), null, `${w} ${t}`); assert.equal(tierName(`${w} ${t}; open`), 'open gap', `${w} ${t}; open`); assert.equal(tierName(`${t}; ${w} inferred`), t === 'documented' ? 'inferred' : 'inferred', `${t}; ${w} inferred`); }
+    for (const t of weak) assert.equal(tierName(`${w} ${t}`), t, `a hedged weaker word still counts: ${w} ${t}`);
+    for (const t of TIERS) assert.ok(strength(tierName(`${w} ${t}`)) >= strength(t), `${w} ${t}`);
+  }
+  for (const m of TIER_WORDS.modals) for (const t of strong) { assert.equal(tierName(`${m} be ${t}`), null, `${m} be ${t}`); assert.equal(tierName(`${m} 1863 ${t}`), t, `${m} 1863 ${t}: a modal hedges only before "be"`); }
+  for (const j of TIER_WORDS.joined) for (const t of strong) { assert.equal(tierName(`${j}-${t}`), null, `${j}-${t}`); assert.equal(tierName(`${j} the survey ${t}`), t, `${j} the survey ${t}: only against the word`); }
+  for (const a of TIER_WORDS.afters) for (const t of strong) for (const form of [`${t} ${a}`, `${t}, ${a}`, `${t} (${a})`, `${t}: ${a}`]) { assert.equal(tierName(form), null, form); assert.ok(strength(tierName(form)) >= strength(t)); }
+  for (const a of TIER_WORDS.afters) for (const t of weak) assert.equal(tierName(`${t} ${a}`), t, `${t} ${a}`);
+  // two plain statements: the weaker one is the mark, in any order and with any joiner
+  for (const a of TIERS) for (const b of TIERS) for (const j of [';', ',', ' or ', ' / ', ' and ']) assert.equal(tierName(`${a}${j} ${b}`.replace('; ;', ';')), TIERS[Math.max(TIERS.indexOf(a), TIERS.indexOf(b))], `${a}${j} ${b}`);
+  // a statement is read clause by clause: a hedge in one clause does not reach a tier word in another
+  assert.equal(tierName('probably accurate; documented'), 'documented'); assert.equal(tierName('documented (secondary source, probably accurate)'), 'documented'); assert.equal(tierName('not documented. Inferred.'), 'inferred');
+  // the reading itself: how each tier word is said
+  assert.deepEqual(readTierWords('partly documented; open; not inferred').map(x => [x.word, x.how]), [['documented', 'hedged'], ['open', 'plain'], ['inferred', 'negated']]);
+  assert.deepEqual(readTierWords('documented, but only in part').map(x => x.how), ['hedged']); assert.deepEqual(readTierWords('documented (secondary)').map(x => x.how), ['plain']); assert.deepEqual(readTierWords('nothing here'), []);
+});
+
+test('tierMark and the loader never throw, whatever they are given: an object without a prototype, a toString that throws, a revoked proxy, symbols, a huge text; words that Object.prototype also has are only words', () => {
+  const revoked = (() => { const r = Proxy.revocable({}, {}); r.revoke(); return r.proxy; })();
+  const hostile = [Object.create(null), { toString() { throw new Error('toString threw'); } }, { toString: null, valueOf: null }, { [Symbol.toPrimitive]() { throw 1; } }, new Proxy({}, { get() { throw new Error('trap'); } }), revoked, [Object.create(null)], [[[]]], { length: -1 },
+    Symbol('s'), 10n, () => 1, class K {}, new Date(NaN), '\u0000\ud800', 'x'.repeat(2e6), 'documented '.repeat(20000), 'not documented, '.repeat(20000), '('.repeat(500000) + 'documented'];
+  for (const h of hostile) {
+    let m, n; assert.doesNotThrow(() => { m = tierMark(h); n = tierName(h); tierMark.label(h); tierMark.style(h); tierMark.tier(h); }, plain(typeof h)); assert.equal(typeof m, 'string'); assert.ok(m.startsWith('<span'), m.slice(0, 40)); assert.ok(n === null || TIERS.includes(n));
+    assert.ok(!/<script|<img/.test(m));
+  }
+  assert.equal(tierName(Object.create(null)), null); assert.equal(plain(Object.create(null)), ''); assert.equal(plain({ toString() { throw 1; } }), ''); assert.equal(plain(null), ''); assert.equal(plain(undefined), ''); assert.equal(plain(5), '5'); assert.equal(plain('x'), 'x');
+  for (const w of ['constructor', '__proto__', 'toString', 'valueOf', 'hasOwnProperty', 'isPrototypeOf', 'propertyIsEnumerable', 'toLocaleString', '__defineGetter__', '__lookupGetter__', 'prototype', 'Constructor ', ' __PROTO__ ']) {
+    assert.equal(tierName(w), null, w); assert.equal(tierMark.tier(w), null, w); assert.equal(tierMark.label(w), 'Tier not stated', w); assert.match(tierMark(w), /^<span class="pill" data-tier="none"/, w); assert.deepEqual(readTierWords(w.toLowerCase().trim()), [], w);
+    assert.equal(tierName(`documented; ${w}`), 'documented', `${w} is not a hedge or a tier`);
+  }
 });
 
 // ---------------------------------------------------------------- the choices

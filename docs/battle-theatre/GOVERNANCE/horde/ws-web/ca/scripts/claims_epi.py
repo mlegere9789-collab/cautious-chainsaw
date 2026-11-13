@@ -19,6 +19,18 @@ NASH24 = 'sn83025718/1863-11-24/ed-1/seq-4'   # Nashville Daily Union, Tue. Nov.
 HER20 = 'sn83030313/1863-11-20/ed-1/seq-4'    # New York Herald, Fri. Nov. 20, image 4
 GATE20 = 'sn83025182/1863-11-20/ed-1/seq-4'   # Daily Gate City, Keokuk, Fri. Nov. 20, image 4
 
+INT23 = 'sn83026172/1863-11-23/ed-1/seq-3'    # National Intelligencer, Mon. Nov. 23, image 3 (B. B. French's letter)
+REP19 = 'sn86053570/1863-11-19/ed-1/seq-2'    # Daily National Republican, Thu. Nov. 19, image 2 (journey, from the Baltimore Sun)
+STAR19P1 = 'sn83045462/1863-11-19/ed-1/seq-1' # Evening Star, Thu. Nov. 19, image 1
+INT18 = 'sn83026172/1863-11-18/ed-1/seq-3'    # National Intelligencer, Wed. Nov. 18, image 3
+STAR18 = 'sn83045462/1863-11-18/ed-1/seq-2'   # Evening Star, Wed. Nov. 18, image 2
+
+# The Intelligencer's own note of 23 Nov says its account (21 Nov) was copied from other papers.
+PAGE_REPRINT = {
+    INT21: {'status': 'reprint', 'from': 'other papers, not named', 'basis': 'the Intelligencer\'s note of 23 Nov: "the papers from which we copied our account of the Gettysburg ceremonies"',
+            'basis_page': INT23, 'basis_quote': 'papers from which we copied our account of the Gettys burg ceremonies'},
+}
+
 WIRE_NOTE = ('The same sentences stand in several papers of 19 to 21 November (see shares_text_with); the page text read '
              'names no news agency or paper as their source, so they are one dispatch, not several witnesses.')
 
@@ -330,26 +342,33 @@ CLAIMS = [
     # ------------------------------------------------------------------ E-008  music
     dict(ids=['E-008', 'R22.0008'], key='marine-band-train',
          sub_claim=('The New York Herald (20 Nov) prints that "The Marine Band accompanied this train" (the President\'s train from Washington, with an escort from the First '
-                    'regiment Invalid Corps) (read from the print). The Intelligencer prints that after the prayer "the band appropriately performed the grand old hymn of Luther, '
+                    'regiment Invalid Corps) (read from the print); the Republican of 19 Nov, copying the Baltimore Sun, prints that "The Marine Band, from the Washington navy-yard, under the charge of Capt. '
+                    'Ramsey and Lieut. Cochran, ... accompanied the party to Gettysburg". The Intelligencer prints that after the prayer "the band appropriately performed the grand old hymn of Luther, '
                     '\'Old Hundred\'" without naming the band.'),
          tier='documented', state_date='1863-11-18',
          cites=[dict(page=HER20, span=('Tlie Marine Band a', 'tr tla,'), img='her20_marine',
                      reading='The Marine Band accompanied this train, and the President had also an escort from the First regiment Invalid corps, under command of Lieutenant Fred.',
                      corrections=[['Tlie', 'The'], ['a < mtipanied', 'accompanied'], ['Ibia tr tla', 'this train']],
                      reprint={'status': 'unknown', 'from': None, 'basis': 'heading and author of the account not read'}),
+                dict(page=REP19, span=('Tbe Marine Band, from the Washington', 'party to Gettysburg.'), img='rep19_marine',
+                     reading='The Marine Band, from the Washington navy-yard, under the charge of Capt. Ramsey and Lieut. Cochran, were also in attendance, and accompanied the party to Gettysburg.',
+                     corrections=[['Tbe', 'The'], ['nnvyyard', 'navy-yard'], ['ofCapt. Ramsey snd Lieut. Cocbrsn', 'of Capt. Ramsey and Lieut. Cochran'], ['arrompanlml', 'accompanied']],
+                     attribution='Bail. Sun.',
+                     reprint={'status': 'reprint', 'from': 'the Baltimore Sun (the account ends "Balt. Sun.")', 'basis': 'Bail. Sun.'}),
                 dict(page=INT21, span=('At the conclusion of the prayer the band', 'Old Hun dnd.'),
                      reprint={'status': 'unknown', 'from': None, 'basis': 'no source named'})],
-         row_effect='supports that the U.S. Marine Band travelled with the President (the row: "U.S. Marine Band, music" at the platform); that the Marine Band played at the stand is NOT printed in these passages; the Intelligencer\'s "the band" after the prayer is unnamed',
+         row_effect='supports that the U.S. Marine Band (from the Washington navy-yard, under Capt. Ramsey and Lieut. Cochran) travelled to Gettysburg with the President (the row: "U.S. Marine Band, music" at the platform); that the Marine Band played at the stand is NOT printed in the passages read; the Intelligencer\'s "the band" after the prayer is unnamed',
          remains='the band that played at the platform; the programme position "Music" after the prayer is carried by the order of exercises (see the programme claim)'),
 
     # ------------------------------------------------------------------ E-009  Everett
     dict(ids=['E-009', 'R22.0009'], key='everett-introduced-two-hours',
-         sub_claim=('Everett was introduced by B. B. French (Intelligencer: "Hon B. B. French now introduced the Hon. Edward Everett, who advanced to the front of the platform"; '
-                    'Republican: "Hon. B. B. French now introduced the Hon. Edward Everett"); the Chicago Tribune prints that he "proceeded with a discourse occupying two hours and '
-                    'four minutes in the delivery" (the word "four" is damaged in the print).'),
+         sub_claim=('Everett was introduced, as the papers first printed it, by B. B. French (Intelligencer 21 Nov: "Hon B. B. French now introduced the Hon. Edward Everett, who advanced to the '
+                    'front of the platform and pronounced the eloquent oration"; Republican 20 Nov the same); the Chicago Tribune (special dispatch, 21 Nov) prints that he "proceeded with a '
+                    'discourse occupying two hours and four minutes in the delivery" (the letter o of "four" is damaged in the print). B. B. French himself corrected the first point (see the '
+                    'correction claim).'),
          tier='documented', state_date='1863-11-19',
          cites=[dict(page=INT21, span=('Hon B. B. French now introduced', 'pronounced the eloquent oration'),
-                     reprint={'status': 'unknown', 'from': None, 'basis': 'no source named; the Republican prints the same'}),
+                     reprint={'status': 'unknown', 'from': None, 'basis': 'no source named'}),
                 dict(page=REP20, span=('now introduced too lion. Edward Ererelt', 'pronounced TUK ORATION.'),
                      reprint={'status': 'unknown', 'from': None, 'basis': 'no source named'}),
                 dict(page=CHI21, span=('Mr. Everett, tbe orator, proceeded', 'iu Hie delivery.'), img='chi21_times',
@@ -357,8 +376,30 @@ CLAIMS = [
                      corrections=[['tbe', 'the'], ['fiur', 'four (damaged letter)'], ['iu Hie', 'in the']],
                      attribution='[Special Dispatch to the Chicago Tribune.]',
                      reprint={'status': 'original', 'from': 'special dispatch to the Chicago Tribune', 'basis': '[Special Dispatch to the Chicago Tribune.]'})],
-         row_effect='agrees with the row on the length ("about two hours": the Chicago dispatch says two hours and four minutes); differs on who introduced him: the row says Lamon introduces (one source, GC-COMP); these papers print B. B. French for Everett, and the Marshal (Lamon) for Lincoln',
-         remains='the 13,607-word count of the row is not in these papers; Everett\'s clock times are not printed beyond "half-past eleven" (assembly called to order)'),
+         row_effect='agrees with the row on the length ("about two hours": the Chicago dispatch prints two hours and four minutes); on who introduced him the first printings say B. B. French and the row says Lamon (one source, GC-COMP): French\'s own letter of 21 Nov settles it for Lamon (next claim)',
+         remains='the 13,607-word count of the row is not in these papers; the clock times of the oration are not printed beyond "half-past eleven" (assembly called to order)'),
+
+    dict(ids=['E-009', 'R22.0009', 'E-006', 'R22.0006', 'E-011', 'R22.0011'], key='french-correction-lamon',
+         sub_claim=('B. B. French, the marshal\'s aide, wrote to the National Intelligencer on 21 Nov (printed 23 Nov): "I perceive, in your account ... I am mentioned as having introduced Mr. Everett '
+                    'to the audience, and it is also said that I announced the receipt of General Scott\'s letter. That is an error. Marshal Lamon made all the introductions and announcements from the '
+                    'stand, with the single exception of calling upon the band to play the opening music, which I did in consequence of the temporary absence of the Marshal-in-Chief." The editor '
+                    'adds that the omission was "made by the papers from which we copied our account of the Gettysburg ceremonies".'),
+         tier='documented', state_date='1863-11-19',
+         cites=[dict(page=INT23, span=('That is an error. Marshal Lamon made all', 'Marshal-in Chief.'), img='int23_french',
+                     reading=('That is an error. Marshal Lamon made all the introductions and announcements from the stand, with the single exception of calling upon the band to play the opening music, '
+                              'which I did in consequence of the temporary absence of the Marshal-in-Chief. It is due to Marshal Lamon that I should say this'),
+                     corrections=[['announce ments', 'announcements'], ['Marshal-in Chief', 'Marshal-in-Chief']],
+                     attribution='B. B. FRENCH.', dateline='Washington, NOVEMBER 21, 1863.',
+                     reprint={'status': 'original', 'from': 'a signed letter of B. B. French to the editors, dated Washington, Nov. 21, 1863', 'basis': 'B. B. FRENCH.'}),
+                dict(page=INT23, span=('[We are glad that our friend', 'Nat. fat.]'), img='int23_note',
+                     reading=('[We are glad that our friend, Major French, has taken the trouble to do justice to our energetic and efficient Marshal Lamon by supplying an omission made by the papers from '
+                              'which we copied our account of the Gettysburg ceremonies.\u2014Nat. Int.]'),
+                     corrections=[['Gettys burg', 'Gettysburg'], ['Nat. fat.]', 'Nat. Int.]']],
+                     reprint={'status': 'original', 'from': 'editorial note of the National Intelligencer', 'basis': 'Nat. Int.'})],
+         row_effect=('agrees with the row\'s E-009 note (Lamon introduces; role from GC-COMP only): a signed first-hand statement of 21 Nov, printed 23 Nov, supports it, and says the opening music was '
+                     'called for by French because Lamon was briefly away (adds to E-006); it also corrects the Intelligencer\'s, Republican\'s and Star\'s printed account (French introduced Everett)'),
+         remains='when in the programme Lamon was absent; whether French\'s correction reached the other papers',
+         independence='one signed letter; it is evidence about the first printings, which share one text'),
 
     dict(ids=['E-009', 'R22.0009', 'E-011', 'R22.0011'], key='marshal-introduces-lincoln',
          sub_claim=('The Marshal introduced the President: Republican "Marshal Lamon introduced to the assemblage the President of the United States, who delivered the following '
@@ -554,6 +595,44 @@ CLAIMS = [
                      reprint={'status': 'unknown', 'from': None, 'basis': 'no source named; the Republican prints the same account (its hour is not legible in the OCR layer)'})],
          row_effect='differs from the row\'s "leaves by train about 18:00" (printed: about seven o\'clock in the Intelligencer, 8 in the Tribune correspondent); the arrival at Washington about one o\'clock on Friday morning is printed',
          remains='the hour is printed twice with different values (7 and 8); the row\'s 18:00 is in neither'),
+
+    dict(ids=['E-001', 'R22.0001'], key='announced-plan-wills',
+         sub_claim=('Before the event the Washington papers of Wednesday 18 November announced the plan: the National Intelligencer "It is announced that the President will leave here at noon to-day for '
+                    'Gettysburg, so as to enable him to be there early on Thursday morning. While there he will be the guest of D. Willis [sic], Esq. He will be accompanied by Mr. Nicolay, his private secretary"; '
+                    'the Evening Star "President Lincoln will leave in a special train this afternoon, and while at Gettysburg will be the guest of David Wills, Esq., the Pennsylvania State agent. The procession is '
+                    'to be formed in the town of Gettysburg, in the morning at nine o\'clock, and proceed to the cemetery grounds, where the exercises will take place."'),
+         tier='documented', state_date='1863-11-18',
+         cites=[dict(page=STAR18, span=('President Lincoln will leave in a special train', 'where the exercises will take place.'), img='star18_plan',
+                     reading=('President Lincoln will leave in a special train this afternoon, and while at Gettysburg will be the guest of David Wills, Esq., the Pennsylvania State agent. The procession is to be '
+                              'formed in the town of Gettysburg, in the morning at nine o\'clock, and proceed to the cemetery grounds, where the exercises will take place.'),
+                     corrections=[['Will be the guest of 1)avid j. ? Penns> Ivania State agent', 'will be the guest of David Wills, Esq., the Pennsylvania State agent'], ['nine o clock', 'nine o\'clock']],
+                     reprint={'status': 'unknown', 'from': None, 'basis': 'no source named on the page text read'}),
+                dict(page=INT18, span=('It is announced that the President will leave', 'private secretary.'), img='int18_guest',
+                     reading=('It is announced that the President will leave here at noon to-day for Gettysburg, so as to enable him to be there early on Thursday morning. While there he will be the guest of D. Willis, Esq. '
+                              'He will be accompanied by Mr. Nicolay, his private secretary.'),
+                     corrections=[['nuol', 'noon'], ['guest 01 D. Willis, Esq II. ..', 'guest of D. Willis, Esq.']],
+                     reprint={'status': 'unknown', 'from': None, 'basis': 'an editorial paragraph; no source named on the page text read'})],
+         row_effect='agrees with the row (a lodging at David Wills\'s house was the plan on the day before; the Intelligencer prints the name as "D. Willis"); the Star\'s plan puts the formation of the procession at nine o\'clock, as the later reports say it happened',
+         remains='plans, not events; "Willis" is the Intelligencer\'s spelling in print',
+         independence='two separate announcements'),
+
+    dict(ids=['E-001', 'R22.0001'], key='journey-washington-baltimore',
+         sub_claim=('The journey to Gettysburg on Wednesday 18 November as printed: the Republican of 19 Nov, copying the Baltimore Sun, prints "At ten minutes past twelve o\'clock the train left the depot at Washington, and arrived at the '
+                    'Camden street depot twenty minutes past one, having made the run in one hour and ten minutes", and that "They ... did not leave for Gettysburg until three o\'clock" (the city '
+                    'officials\' train); the Evening Star of 19 Nov prints that the President and suite "passed through Baltimore at 2 o\'clock this afternoon in a special train of four elegant cars".'),
+         tier='documented', state_date='1863-11-18',
+         cites=[dict(page=REP19, span=('At ten minutes past twelve', 'ten minute.'), img='rep19_left',
+                     reading='At ten minutes past twelve o\'clock the train left the depot at Washington, and arrived at the Camden street depot twenty minutes past one, having made the run in one hour and ten minutes.',
+                     corrections=[['ten minute.', 'ten minutes.']],
+                     reprint={'status': 'reprint', 'from': 'the Baltimore Sun (the account ends "Balt. Sun.")', 'basis': 'Bail. Sun.'}),
+                dict(page=STAR19P1, span=('Baltimore. Nov. I1-.?President Lincoln', 'tional Cemetery.'), img='star19_balt',
+                     reading=('BALTIMORE, Nov. 18.\u2014President Lincoln and his suite, private secretary, and many other distinguished gentlemen from Washington, accompanied by a military guard and a band of music, '
+                              'passed through Baltimore at 2 o\'clock this afternoon in a special train of four elegant cars, arranged by J. Prescott Smith, master of transportation, and furnished by the Baltimore and '
+                              'Ohio Railroad Company. They proceeded to Gettysburg to attend the dedication of the National Cemetery.'),
+                     corrections=[['I1-.?', '18.\u2014'], ['snite', 'suite'], ['ti ilitary', 'military'], ['pa>*ed', 'passed'], ['Hailroad', 'Railroad']],
+                     reprint={'status': 'unknown', 'from': None, 'basis': 'a dispatch dated Baltimore, Nov. 18; no agency named on the page text read'})],
+         row_effect='adds the journey to E-001: departure from Washington 12:10 pm, Baltimore 1:20 to about 2 pm, arrival at Gettysburg about 6:30 pm (other papers: about 5 pm and about sundown)',
+         remains='the intermediate times (Hanover Junction, Hanover); the Intelligencer\'s noon announcement is a plan; the three-o\'clock train is the city officials\' train, not the President\'s'),
 
     # ------------------------------------------------------------------ crowd size (R22 top level)
     dict(ids=['R22.0000', 'E-009'], key='crowd-size',

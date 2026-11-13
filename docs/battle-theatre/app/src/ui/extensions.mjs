@@ -6,32 +6,75 @@ import { URLS, TIERS, TIER_STYLE } from '../config.mjs';
 import { glyphSVG } from '../overlay.mjs';
 
 export const INDEX = 'index.mjs';
-export const INIT_WAIT_MS = 15000;                                   // the theatre waits this long for one module to start, then goes on; the module joins when it is ready
+export const INIT_WAIT_MS = 15000;                                   // the theatre waits this long for the list (the check and the import together), and then for each module to start; it then goes on
 export const RESERVED_PANELS = ['more'];                             // plus every name of the shell's own panels (th.PANELS)
-const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const msg = e => String((e && e.message) || e || 'unknown error').slice(0, 300);
+/** Any value as text, and never a throw: a string as it is, anything else through String(); a value that has no text form (an object without a prototype, a toString that throws, a revoked proxy) gives ''. */
+export const plain = x => { if (typeof x === 'string') return x; try { return String(x ?? ''); } catch { return ''; } };
+const esc = s => plain(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const label = x => { try { return JSON.stringify(x) ?? plain(x); } catch { return plain(x); } };      // an id in a message: JSON.stringify throws for a bigint
+const msg = e => { let m = ''; try { m = plain((e && e.message) || e || 'unknown error'); } catch { /* a thrown value that cannot be read */ } return (m || 'unknown error').slice(0, 300); };
 const isThen = r => !!r && typeof r.then === 'function';
 
 // ---------------------------------------------------------------- the tier mark
-// One of the four tiers of config.mjs for any tier statement: the exact names and their short spellings map to themselves; a longer statement ("documented (secondary)",
-// "hats documented; leggings open") takes the WEAKEST tier it names, so a mark never says more than the statement; a statement that names none is null (shown as "Tier not stated").
-const SHORT = { 'documented': 0, 'inferred': 1, 'plausible-procedural': 2, 'plausible procedural': 2, 'plausible': 2, 'procedural': 2, 'open gap': 3, 'open-gap': 3, 'open': 3, 'gap': 3 };
-const clean = t => String(t ?? '').trim().toLowerCase().replace(/_/g, ' ').replace(/\s+/g, ' ');
+// One of the four tiers of config.mjs for any tier statement. The exact names and their short spellings map to themselves. A longer statement ("documented (secondary)", "hats
+// documented; leggings open") takes the WEAKEST tier it names. A tier word counts only when the statement says it plainly, in the words listed below:
+//   negated   "not documented", "never inferred", "no inferred basis", "non-documented", "without documented source", "lacks documented source", "neither documented nor inferred",
+//             and a tier answered with no ("documented: false", "documented? no", "documented (no)"): never counted, and "no gaps" is not a gap;
+//   hedged    "partly / mostly / probably / possibly / poorly / barely documented", "some hats documented", "documented in part", "documented elsewhere", "documented?", "documented, but ...",
+//             "to be documented", "could be documented", "unverified documented", "half-documented": a hedged documented or inferred never makes a tier. It can still lower a mark that a plain
+//             word made ("documented; probably inferred" is inferred), and a hedged plausible-procedural or open gap still counts (a weaker word never raises a mark).
+// A statement without a plain tier word is null (shown as "Tier not stated", the statement beside it). This reads the words of the lists below and nothing else: other wording can still
+// slip through, so a module passes an exact tier name and puts any remark in the text beside it (the whole statement always stays visible next to the pill).
+const SHORT = new Map(Object.entries({ 'documented': 0, 'inferred': 1, 'plausible-procedural': 2, 'plausible procedural': 2, 'plausible': 2, 'procedural': 2, 'open gap': 3, 'open-gap': 3, 'open': 3, 'gap': 3 }));
+const RANK = new Map(Object.entries({ documented: 0, inferred: 1, plausible: 2, procedural: 2, open: 3, gap: 3, gaps: 3, unresolved: 3 }));      // a Map, so that 'constructor' and '__proto__' are only words
+const words = list => new Set(list.split(' '));
+const NEGATIONS = words('not never no non nor neither nothing none without lack lacks lacking missing absent cannot isnt arent wasnt werent hasnt havent hadnt doesnt dont didnt wont wouldnt shouldnt couldnt cant aint mustnt');
+const HEDGES = words('partly partially part half semi quasi pseudo mostly mainly largely chiefly generally somewhat fairly rather reasonably relatively moderately roughly loosely nominally almost nearly virtually practically hardly barely scarcely poorly weakly thinly sparsely sparingly insufficiently inadequately incompletely imperfectly patchily sketchily vaguely tentatively provisionally preliminarily supposedly allegedly reportedly purportedly ostensibly apparently seemingly presumably putatively claimed said thought believed held deemed considered regarded assumed presumed supposed alleged reputed probably possibly perhaps maybe likely unlikely potentially conceivably arguably if unless whether once until pending awaiting when whenever provided assuming unverified unconfirmed unproven unsourced unsure uncertain unclear questionable doubtful dubious some most many much few several certain less');
+const MODALS = words('can could may might should must shall will would to need needs needed ought going want wants wanted hope hopes hoped plan plans planned expected intended meant yet');      // hedge only before "be": "may be documented", not "May 1863"
+const JOINED = words('under ill mis');                           // "under-documented", "ill-documented": only when written against the word
+const AFTERS = ['partly', 'partially', 'in part', 'only in part', 'in parts', 'in places', 'in some', 'for some', 'to some extent', 'to a degree', 'elsewhere', 'ish', 'or not', 'or so', 'if at all', 'at best', 'at most', 'unverified', 'unconfirmed', 'unproven', 'unsourced', 'unclear', 'uncertain', 'pending', 'tbd', 'to follow', 'not yet', 'yet to', 'but', 'though', 'although', 'however', 'except', 'albeit'];      // after a documented or inferred
+const AFTER_HEDGE = new RegExp('[\\s,:=(\\[\\u2013\\u2014-]*(?:' + AFTERS.map(w => w.replace(/ /g, '\\s+')).join('|') + ')\\b', 'y');
+const AFTER_QUESTION = /\s*\?/y;
+const AFTER_NO = /\s*(?:[:=?]|\s[-\u2013\u2014]\s)\s*(?:no|false|none|nil|nope|n\/a|zero|0)\b|\s*[(\[]\s*(?:no|false|none|nil|n\/a)\s*[)\]]/y;
+const TOKEN = /([a-z0-9]+)|([;,()\[\]]|[.!?](?=\s|$))/g;             // a word, or the end of a clause
+/** The words the tier reading knows (for the tests and the gate runner): what negates a tier word before it, what hedges it before it, the modals that hedge only before "be", the prefixes that hedge when written against the word, and the phrases that hedge it after it. */
+export const TIER_WORDS = Object.freeze({ negations: Object.freeze([...NEGATIONS]), hedges: Object.freeze([...HEDGES]), modals: Object.freeze([...MODALS]), joined: Object.freeze([...JOINED]), afters: Object.freeze([...AFTERS]) });
+const clean = t => plain(t).trim().toLowerCase().replace(/_/g, ' ').replace(/[\u2018\u2019`']/g, '').replace(/\s+/g, ' ');
+/** How a cleaned statement says each of its tier words: [{ word, rank, how: 'plain' | 'hedged' | 'negated' }]. Linear in the length of the statement. */
+export function readTierWords(s) {
+  const toks = []; let clause = 0, m; TOKEN.lastIndex = 0;
+  while ((m = TOKEN.exec(s))) { if (m[2]) clause++; else toks.push({ w: m[1], c: clause, j: TOKEN.lastIndex }); }
+  const out = [];
+  for (let k = 0; k < toks.length; k++) {
+    const t = toks[k], rank = RANK.get(t.w); if (rank === undefined) continue;
+    let how = 'plain', be = false;
+    for (let b = k - 1, n = 0; b >= 0 && n < 4 && toks[b].c === t.c; b--, n++) {                     // up to four words before it, in the same clause
+      const w = toks[b].w;
+      if (NEGATIONS.has(w)) { how = 'negated'; break; }
+      if (w === 'be') be = true;
+      if (how === 'plain' && (HEDGES.has(w) || (be && MODALS.has(w)) || (n === 0 && JOINED.has(w)))) how = 'hedged';
+    }
+    AFTER_NO.lastIndex = t.j;
+    if (how !== 'negated' && AFTER_NO.test(s)) how = 'negated';
+    else if (how === 'plain' && rank <= 1) { AFTER_HEDGE.lastIndex = t.j; AFTER_QUESTION.lastIndex = t.j; if (AFTER_HEDGE.test(s) || AFTER_QUESTION.test(s)) how = 'hedged'; }
+    out.push({ word: t.w, rank, how });
+  }
+  return out;
+}
 export function tierName(tier) {
-  const s = clean(tier); if (!s) return null; if (s in SHORT) return TIERS[SHORT[s]];
-  const p = s.replace(/\b(?:not|never|no|non|nothing|none)\b[\s-]+(?:\w+[\s-]+){0,2}?(?:documented|inferred)\b/g, ' ');     // "not documented", "never documented": that word does not count
-  let w = -1;
-  if (/\bdocumented\b/.test(p)) w = Math.max(w, 0); if (/\binferred\b/.test(p)) w = Math.max(w, 1); if (/\bplausible\b|\bprocedural\b/.test(p)) w = Math.max(w, 2); if (/\bopen\b|\bgaps?\b|\bunresolved\b/.test(p)) w = Math.max(w, 3);
-  return w < 0 ? null : TIERS[w];
+  const s = clean(tier); if (!s) return null; if (SHORT.has(s)) return TIERS[SHORT.get(s)];
+  let strong = -1, lower = -1;
+  for (const x of readTierWords(s)) { if (x.how === 'negated') continue; if (x.how === 'plain' || x.rank >= 2) strong = Math.max(strong, x.rank); else lower = Math.max(lower, x.rank); }
+  return strong < 0 ? null : TIERS[Math.max(strong, lower)];
 }
 const NO_TIER = Object.freeze({ tier: null, label: 'Tier not stated', color: '#9aa3b8', dash: Object.freeze([3, 3]), glyph: 'square' });
 const tierStyle = tier => { const n = tierName(tier); if (!n) return NO_TIER; const s = TIER_STYLE[n]; return { tier: n, label: s.label, color: s.color, dash: [...s.dash], glyph: s.glyph }; };
 /** The tier marking as HTML: the same pill the unit and object cards use (glyph + label, so the tier never depends on colour alone). Anything said beyond the plain tier name stays visible beside it. */
 export function tierMark(tier) {
-  const n = tierName(tier), raw = String(tier ?? '').trim();
+  const n = tierName(tier), raw = plain(tier).trim();
   if (!n) return `<span class="pill" data-tier="none" title="No tier is stated in a form this page knows">Tier not stated${raw ? ': ' + esc(raw) : ''}</span>`;
   const pill = `<span class="pill" data-tier="${n}">${glyphSVG(n, 12)}${esc(TIER_STYLE[n].label)}</span>`;
-  return clean(raw) in SHORT ? pill : `<span class="tier-mark">${pill} <span class="mini tier-note">${esc(raw)}</span></span>`;
+  return SHORT.has(clean(raw)) ? pill : `<span class="tier-mark">${pill} <span class="mini tier-note">${esc(raw)}</span></span>`;
 }
 tierMark.tier = tierName;                                             // 'documented' | 'inferred' | 'plausible-procedural' | 'open gap' | null
 tierMark.label = tier => tierStyle(tier).label;                       // 'Documented', 'Inferred', 'Plausible-procedural', 'Open gap', 'Tier not stated'
@@ -63,20 +106,21 @@ export function badPath(p) {
 }
 // without an existence check: the wording browsers and node use when a module file is simply not there
 export function looksAbsent(e) {
-  if (!e) return false; if (e.code === 'ERR_MODULE_NOT_FOUND') return true;
-  return e instanceof TypeError && /dynamically imported module|module script failed|error loading/i.test(String(e.message));
+  try { if (!e) return false; if (e.code === 'ERR_MODULE_NOT_FOUND') return true; return e instanceof TypeError && /dynamically imported module|module script failed|error loading/i.test(plain(e.message)); }
+  catch { return false; }                                               // a thrown value that cannot be read is not "the file is not there"
 }
 // the functions of a module: its named exports, or (when it has none of the three) a default-exported object that has them
 const apiOf = m => { const has = o => !!o && ['init', 'update', 'dispose'].some(k => typeof o[k] === 'function'); return has(m) ? m : (m && has(m.default) ? m.default : m); };
 
 export class Extensions {
   /** th: the theatre ({host, state, env, layer, structs, bus, PANELS, openPanel, closePanel, announce}). o.importer(path) -> Promise<module> (theatre.mjs: p => import('./ext/' + p));
-   *  o.exists(path) -> Promise<boolean> (optional: says whether the list file is there, so that a missing list is told from a broken one); o.progress(i, n, path); o.waitMs; o.log; o.now. */
+   *  o.exists(path) -> Promise<boolean> (optional: says whether the list file is there, so that a missing list is told from a broken one); o.progress(i, n, path); o.waitMs; o.log; o.now; o.setTimeout and o.clearTimeout (the timers; the tests hand in their own). */
   constructor(th, o = {}) {
     if (typeof o.importer !== 'function') throw new TypeError('Extensions: an importer is required');
     this.th = th; this.importer = o.importer; this.exists = o.exists || null; this.progress = o.progress || null; this.waitMs = o.waitMs ?? INIT_WAIT_MS; this.log = o.log || console; this.now = o.now || (() => performance.now());
+    this.setTimer = o.setTimeout || ((fn, ms) => setTimeout(fn, ms)); this.clearTimer = o.clearTimeout || (t => clearTimeout(t));         // the clock and the timers can be handed in, so that the tests need no real waiting
     this.recs = []; this.panels = new Map(); this.toggles = new Map(); this.index = { state: 'not read', error: null }; this.disposed = false; this.version = 0; this.nUpdating = 0;
-    this.frame = Object.seal({ tMin: 0, dtMs: 0, cam: null, paused: true, speed: 1 }); this._pending = new Set(); this._loading = null;
+    this.frame = Object.seal({ tMin: 0, dtMs: 0, cam: null, paused: true, speed: 1 }); this._pending = new Set(); this._loading = null; this._waits = new Set();
     this.urls = Object.freeze({ ...URLS }); this.choices = liveChoices(() => { const t = this.th; return t && t.state && t.state.scenario ? t.state.scenario.choices : null; });
   }
   // ---- what a module is given
@@ -91,11 +135,11 @@ export class Extensions {
 
   // ---- panels: registerPanel(id, title, renderFn). renderFn(body, theatre, scope) is called each time the panel is opened (ui/ext-panel.mjs).
   registerPanel(rec, id, title, renderFn) {
-    const what = `registerPanel(${JSON.stringify(id)})`; this._live(rec, what); id = this._id(id, what);
+    const what = `registerPanel(${label(id)})`; this._live(rec, what); id = this._id(id, what);
     if (typeof renderFn !== 'function') throw new TypeError(`${what}: renderFn must be a function`);
     const th = this.th; if (RESERVED_PANELS.includes(id) || (th.PANELS && Object.prototype.hasOwnProperty.call(th.PANELS, id))) throw new Error(`${what}: that name belongs to the shell`);
     const had = this.panels.get(id); if (had && had.owner !== rec) throw new Error(`${what}: already registered by ${had.owner ? had.owner.path : 'the shell'}`);
-    const p = had || { id, owner: rec, handle: null }; p.title = String(title ?? '').trim() || id; p.render = renderFn; this.panels.set(id, p);
+    const p = had || { id, owner: rec, handle: null }; p.title = plain(title).trim() || id; p.render = renderFn; this.panels.set(id, p);
     if (!p.handle) p.handle = Object.freeze({ id, open: () => this.openPanel(id), close: () => this.closePanel(id), refresh: () => this.refreshPanel(id), isOpen: () => this.isOpen(id), remove: () => this.removePanel(id) });
     this._changed(); if (had) this.refreshPanel(id); return p.handle;
   }
@@ -107,10 +151,10 @@ export class Extensions {
 
   // ---- layer switches: registerLayerToggle(id, title, getFn, setFn). getFn() -> on or off now; setFn(on) is called with true or false when the viewer switches it.
   registerLayerToggle(rec, id, title, getFn, setFn) {
-    const what = `registerLayerToggle(${JSON.stringify(id)})`; this._live(rec, what); id = this._id(id, what);
+    const what = `registerLayerToggle(${label(id)})`; this._live(rec, what); id = this._id(id, what);
     if (typeof getFn !== 'function' || typeof setFn !== 'function') throw new TypeError(`${what}: getFn and setFn must be functions`);
     const had = this.toggles.get(id); if (had && had.owner !== rec) throw new Error(`${what}: already registered by ${had.owner ? had.owner.path : 'the shell'}`);
-    const t = had || { id, owner: rec, handle: null, getFailed: false }; t.title = String(title ?? '').trim() || id; t.get = getFn; t.set = setFn; this.toggles.set(id, t);
+    const t = had || { id, owner: rec, handle: null, getFailed: false }; t.title = plain(title).trim() || id; t.get = getFn; t.set = setFn; this.toggles.set(id, t);
     if (!t.handle) t.handle = Object.freeze({ id, get: () => this.toggleState(id), set: on => this.setToggle(id, on), refresh: () => this._toggled(id), remove: () => this.removeToggle(id) });
     this._changed(); return t.handle;
   }
@@ -136,19 +180,27 @@ export class Extensions {
 
   // ---- start: the list, then each module in the order of the list
   load() { return this._loading || (this._loading = this._load()); }
-  // a request that does not answer must not hold the theatre: after waitMs the check for the list is passed over (the import then speaks) and the list itself counts as failed
-  _within(p, what) { return new Promise((res, rej) => { const t = setTimeout(() => rej(new Error(`${what} did not answer within ${this.waitMs} ms`)), this.waitMs); Promise.resolve(p).then(v => { clearTimeout(t); res(v); }, e => { clearTimeout(t); rej(e); }); }); }
+  // a request that does not answer must not hold the theatre: after ms the wait ends with an error. Every wait is kept in this._waits, so that dispose() ends it at once and no timer outlives the visit.
+  _within(p, what, ms = this.waitMs, said = ms) {
+    return new Promise((res, rej) => {
+      const end = () => { this.clearTimer(w.t); this._waits.delete(w); }, w = { stop: () => { end(); rej(new Error('the theatre was left')); } };
+      w.t = this.setTimer(() => { this._waits.delete(w); rej(new Error(`${what} did not answer within ${said} ms`)); }, ms); this._waits.add(w);
+      Promise.resolve(p).then(v => { end(); res(v); }, e => { end(); rej(e); });
+    });
+  }
+  // The list step holds the loading card for at most waitMs in all, whatever stalls: the check (HEAD) gets a third of it, the import what is left of it. A check that does not answer is passed
+  // over (the import then speaks); a list that does not answer counts as failed. Each module's start is then waited for on its own (_start).
   async _load() {
-    const ix = this.index; let list;
-    if (this.exists) { let there = true; try { there = (await this._within(this.exists(INDEX), 'the check for src/ext/' + INDEX)) !== false; } catch { there = true; } if (!there) { ix.state = 'absent'; return this; } }   // no list: nothing is added, nothing is said
+    const ix = this.index, t0 = this.now(), checkMs = Math.max(1, Math.floor(this.waitMs / 3)), left = () => Math.max(1, this.waitMs - (this.now() - t0)); let list;
+    if (this.exists) { let there = true; try { there = (await this._within(this.exists(INDEX), 'the check for src/ext/' + INDEX, checkMs)) !== false; } catch { there = true; } if (!there) { ix.state = 'absent'; return this; } }   // no list: nothing is added, nothing is said
     if (this.disposed) return this;
-    try { const m = await this._within(this.importer(INDEX), 'src/ext/' + INDEX); list = m && m.default; }
-    catch (e) { if (!this.exists && looksAbsent(e)) { ix.state = 'absent'; return this; } return this._indexFailed(e); }
+    try { const m = await this._within(this.importer(INDEX), 'src/ext/' + INDEX, left(), this.waitMs); list = m && m.default; }
+    catch (e) { if (this.disposed) return this; if (!this.exists && looksAbsent(e)) { ix.state = 'absent'; return this; } return this._indexFailed(e); }
     if (this.disposed) return this;
     if (!Array.isArray(list)) return this._indexFailed(new TypeError('the default export of src/ext/' + INDEX + ' is not an array of module paths'));
     ix.state = 'read'; const seen = new Set(), todo = [];
     for (const p of list) {
-      const bad = badPath(p), path = bad ? String(p) : p.trim().replace(/^\.\//, '');
+      const bad = badPath(p), path = bad ? plain(p) : p.trim().replace(/^\.\//, '');
       if (bad) this._refuse(path, bad); else if (seen.has(path)) this.log.warn(`ext ${path}: listed twice in src/ext/${INDEX}; started once`); else { seen.add(path); todo.push(path); }
     }
     for (let i = 0; i < todo.length; i++) { if (this.disposed) break; if (this.progress) { try { this.progress(i, todo.length, todo[i]); } catch { /* the caller's display */ } } await this._start(todo[i]); }
@@ -159,8 +211,8 @@ export class Extensions {
   _refuse(path, why) { const rec = this._rec(path); rec.state = 'failed'; rec.stage = 'list'; rec.error = why; this.log.error(`ext ${path}: ${why}; it is skipped`); this._changed(); }
   async _start(path) {
     const rec = this._rec(path), run = this._run(rec); this._pending.add(run); run.then(() => this._pending.delete(run));
-    let timer = 0; const late = new Promise(r => { timer = setTimeout(() => r('late'), this.waitMs); });
-    const r = await Promise.race([run, late]); clearTimeout(timer);
+    let w = null; const late = new Promise(r => { w = { stop: () => { this.clearTimer(w.t); this._waits.delete(w); r('left'); } }; w.t = this.setTimer(() => { this._waits.delete(w); r('late'); }, this.waitMs); this._waits.add(w); });
+    const r = await Promise.race([run, late]); this.clearTimer(w.t); this._waits.delete(w);
     if (r === 'late' && rec.state === 'loading') { rec.late = true; this.log.warn(`ext ${path}: still starting after ${this.waitMs} ms; the theatre goes on, the module joins when it is ready`); }
   }
   async _run(rec) {                                                    // never rejects
@@ -206,6 +258,7 @@ export class Extensions {
   // ---- Back: dispose() of every started module, the last started first. Modules still starting are ended as soon as their init settles.
   dispose() {
     if (this.disposed) return; this.disposed = true;
+    for (const w of [...this._waits]) w.stop();                           // a request or a start that is still being waited for: the wait ends now, no timer is left
     for (let i = this.recs.length - 1; i >= 0; i--) { const rec = this.recs[i]; if (rec.state === 'running') { this._end(rec); rec.state = 'stopped'; } }
     this.nUpdating = 0; this.panels.clear(); this.toggles.clear(); this.th = null; this.frame.cam = null;
   }
