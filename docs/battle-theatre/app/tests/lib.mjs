@@ -8,7 +8,8 @@
 //   BT_DIST=<folder>            serve this folder (a packed staging dist: tools/bt/pack_theatre.mjs) instead of the source tree
 //   BT_GL=auto|gpu|software     auto (default): the hardware flags first, SwiftShader when the browser gets no WebGL2 context from them; gpu: never fall back; software: SwiftShader at once
 //   BT_WAIT_K=<number>          fixes the wait scale (debugging only; unset = measured, see SLOW)
-import nodeTest from 'node:test'; import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path'; import net from 'node:net';
+//   BT_OUT=<name>               the numbers and pictures a spec writes go to tests/results/<name>/ (default: the tests folder on a hardware renderer, tests/results/sw-latest/ on a software one)
+import nodeTest from 'node:test'; import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path'; import net from 'node:net'; import { fileURLToPath } from 'node:url';
 import { chromium } from '../../../../node_modules/playwright-core/index.mjs';
 import { serve } from '../tools/serve.mjs';
 export const GPU_ARGS = ['--enable-unsafe-webgpu', '--enable-features=Vulkan,WebGPUService', '--ignore-gpu-blocklist', '--force_high_performance_gpu'];
@@ -27,8 +28,9 @@ function serveDir(root, port) {
 }
 const portFree = port => new Promise(res => { const s = net.createServer(); s.once('error', () => res(false)); s.listen(port, '127.0.0.1', () => s.close(() => res(true))); });
 export const DIST = process.env.BT_DIST ? path.resolve(process.env.BT_DIST) : null;
+let PROBE_URL = 'about:blank';                                      // the capability probe needs a secure context for navigator.gpu: a small file of the last server started (127.0.0.1 is one)
 export async function startServer(port = 10771) {
-  const p = (await portFree(port)) ? port : 0, srv = DIST ? await serveDir(DIST, p) : await serve(p), real = srv.address().port;
+  const p = (await portFree(port)) ? port : 0, srv = DIST ? await serveDir(DIST, p) : await serve(p), real = srv.address().port; PROBE_URL = `http://127.0.0.1:${real}/app/styles.css`;
   return { srv, port: real, dist: DIST, base: `http://127.0.0.1:${real}/app/index.html`, close: () => new Promise(r => { srv.closeAllConnections?.(); srv.close(r); }) };
 }
 
@@ -36,6 +38,7 @@ export async function startServer(port = 10771) {
 export const RENDER = { renderer: null, software: false, webgpu: null, args: null };
 async function probe(b) {
   const ctx = await b.newContext(), p = await ctx.newPage(); try {
+    await p.goto(PROBE_URL).catch(() => { });
     return await p.evaluate(async () => { const o = { webgl2: null, webgpu: null }; const gl = document.createElement('canvas').getContext('webgl2'); if (gl) { const e = gl.getExtension('WEBGL_debug_renderer_info'); o.webgl2 = String(e ? gl.getParameter(e.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER)); gl.getExtension('WEBGL_lose_context')?.loseContext(); }
       if ('gpu' in navigator) { try { const a = await navigator.gpu.requestAdapter(); if (a) o.webgpu = [a.info?.vendor, a.info?.architecture, a.info?.description].filter(Boolean).join(' ') || 'adapter'; } catch { /* no adapter */ } } return o; });
   } finally { await ctx.close(); }
@@ -92,6 +95,10 @@ export function test(name, fn) {
   });
 }
 test.before = nodeTest.before; test.after = nodeTest.after;
+// where a spec writes its numbers and pictures: the tests folder itself on a hardware renderer (the committed evidence of a real-GPU run); tests/results/<BT_OUT or sw-latest>/ on a software
+// renderer or when BT_OUT is set, so that a software run can never overwrite real-GPU evidence. Call it when writing (after launch), not when the module loads.
+const HERE = path.dirname(fileURLToPath(import.meta.url));
+export function outFile(name) { const sub = process.env.BT_OUT || (RENDER.software ? 'sw-latest' : null), f = sub ? path.join(HERE, 'results', sub, name) : path.join(HERE, name); fs.mkdirSync(path.dirname(f), { recursive: true }); return f; }
 // the renderer the address asks for: BT_API when set, else the shell's default (WebGL2, delegated decision DD-27). null = 'auto' (either is right).
 export const expectedApi = () => { const v = process.env.BT_API; return v === 'webgpu' ? 'webgpu' : v === 'auto' ? null : 'webgl2'; };
 // messages of the software GL driver about itself (a screenshot reads the canvas back; SwiftShader says so). They are not messages of the page.

@@ -22,6 +22,8 @@ import { mountPanels } from './ui/panels.mjs';
 import { mountCard } from './ui/card.mjs';
 import { mountObjectCard } from './ui/object-card.mjs';
 import { mountSoundBadge } from './ui/sound-panel.mjs';
+import { Extensions } from './ui/extensions.mjs';
+import { mountExtensionsUI } from './ui/ext-panel.mjs';
 import { Structures, loadStructureInputs, DEFAULT_LAYERS } from './structures/index.mjs';
 import { drawStructureMarks } from './structures/overlay.mjs';
 import * as fxHost from './fx-host.mjs';
@@ -32,13 +34,15 @@ const warm = { T: null, base: null };                // parsed ground and the pl
 const nextFrame = () => new Promise(r => requestAnimationFrame(() => r()));
 const idle = () => new Promise(r => setTimeout(r, 0));
 const qs = new URLSearchParams(location.search);
+// whether a file of src/ext/ is there, asked without importing it (HEAD, or GET where a server refuses HEAD). Only "not found" says no; anything else lets the import speak.
+async function extFileThere(path) { const u = new URL('./ext/' + path, import.meta.url); let r = await fetch(u, { method: 'HEAD' }); if (r.status === 405 || r.status === 501) r = await fetch(u); return r.status !== 404 && r.status !== 410; }
 
 export class Theatre {
   constructor(tpl, opts = {}) {
     this.tpl = tpl; this.opts = opts; this.scope = new Scope('theatre'); this.bus = new Bus(); this.dead = false; this.ready = false; this.root = null; this.host = null;
     this.state = { t: minOf(7, 1, 12), chapter: 'battle', playing: false, speed: 1, rate: 0, scenario: DEFAULT_SCENARIO(), overlay: false, selected: -1, selectedObj: -1, layers: DEFAULT_LAYERS(), structPD: {}, structChoice: {}, hover: -1, event: null, panel: null, follow: false,
       settings: { nightFloor: DEFAULTS.nightFloor, renderScale: DEFAULTS.renderScale, nearR: DEFAULTS.nearR, midR: DEFAULTS.midR, reduceMotion: null, labels: true, works: true, lightLock: false } };
-    this.perf = { frames: [], cpu: [], gpu: [], long: [], longEntry: [], n: 0, maxKeep: 1500, phase: { light: 0, stage: 0, upload: 0, structs: 0, fx: 0, render: 0, overlay: 0, ui: 0 } }; this.anim = { t: 60, rate: 1 }; this.needSeek = true; this.needFx = true; this.light = {}; this.sample = {}; this.wx = null; this.lastLightKey = '';
+    this.perf = { frames: [], cpu: [], gpu: [], long: [], longEntry: [], n: 0, maxKeep: 1500, phase: { light: 0, stage: 0, upload: 0, structs: 0, fx: 0, ext: 0, render: 0, overlay: 0, ui: 0 } }; this.anim = { t: 60, rate: 1 }; this.needSeek = true; this.needFx = true; this.light = {}; this.sample = {}; this.wx = null; this.lastLightKey = '';
     this.counters = { frames: 0, uploads: 0, replays: 0 };
   }
   get reduceMotion() { const o = this.state.settings.reduceMotion; return o == null ? matchMedia('(prefers-reduced-motion: reduce)').matches : o; }
@@ -110,6 +114,16 @@ export class Theatre {
       this.overlay = new Overlay({ canvas: this.els.overlay, stage: this.stage, layer: this.layer, cam, T: this.T, scope: sc }); this.sizeCanvas(true);
       const m0 = performance.now(); mountChrome(this); const m1 = performance.now(); mountDock(this); const m2 = performance.now(); mountPanels(this); mountCard(this); mountObjectCard(this); if (this.audio) { try { mountSoundBadge(this); } catch (e) { console.warn('sound badge not mounted:', e); } }
       this.setView('overview', true); this.installResize(); this.installKeys(); this.perf.mount = { chrome: m1 - m0, dock: m2 - m1, rest: performance.now() - m2 };
+      // the added layers and panels (docs/EXT-CONTRACT.md): src/ext/index.mjs lists module paths; now that the renderer, the effects and the sound exist (and the controls and panels too),
+      // each module is imported and its init(ctx) awaited, in the order of the list. A module that fails is logged and skipped. No list: nothing happens. ?ext=off skips all of it.
+      if (qs.get('ext') !== 'off') {
+        step('Starting the added layers', 0.93); await idle(); if (this.dead) return; const x0 = performance.now();
+        try {
+          this.ext = new Extensions(this, { importer: path => import('./ext/' + path), exists: extFileThere, progress: (i, n) => step(`Starting the added layers (${i + 1} of ${n})`, 0.93 + 0.06 * i / n) });
+          mountExtensionsUI(this); await this.ext.load(); if (this.dead) return;
+        } catch (e) { console.error('added layers not started:', e); }
+        this.perf.extMs = Math.round(performance.now() - x0);
+      }
       this.ready = true; this.root.dataset.ready = 'true'; this.els.loading.dataset.done = 'true'; sc.timeout(() => { if (this.els?.loading) this.els.loading.hidden = true; }, 420);
       step('Ready', 1); this.perf.entryMs = Math.round(performance.now() - t0);
       this.last = performance.now(); this.loopId = sc.raf(t => this.loop(t));
@@ -221,6 +235,7 @@ export class Theatre {
     this.stats = stats; const p4 = performance.now();
     if (this.fxOn) { try { this.fxInfo = fxHost.update({ tMin: st.t, cam: this.cam, choices: st.scenario.choices }); } catch (e) { console.warn('effects stopped:', e); this.fxOn = null; } }
     if (this.audio) AudioHost.update({ t: st.t, playing: st.playing, speed: st.speed, rate: st.rate, dt, seeked: this._seekedForAudio === true, scrubbing: !!this.scrubbing, cam: this.cam, weather: this.wx, sun: this.sample }); this._seekedForAudio = false;
+    let xMs = 0; if (this.ext) { const x0 = performance.now(); this.ext.update(st.t, dt * 1000, this.cam, !st.playing, st.speed); xMs = performance.now() - x0; }      // the added layers: update({tMin, dtMs, cam, paused, speed}) before the renderer's frame
     const rs = this.host.frame(this.anim.t, this.cam); this.rs = rs; this.counters.frames++; const p5 = performance.now();
     this.inflight = (this.inflight || 0) + 1; this.host.done().then(() => { this.inflight--; }, () => { this.inflight = 0; });
     // overlay and rain
@@ -228,7 +243,7 @@ export class Theatre {
     if (this.structs) drawStructureMarks(this, this.overlay);
     this.drawRain(dt, wx);
     const p6 = performance.now(); this.bus.emit('frame', dt);
-    const cpu = performance.now() - f0; const ph = this.perf.phase; ph.light = Math.max(ph.light, p1 - p0); ph.stage = Math.max(ph.stage, p2 - p1); ph.upload = Math.max(ph.upload, p3 - p2); ph.structs = Math.max(ph.structs, this.structsMs || 0); ph.fx = Math.max(ph.fx, p4 - p3); ph.render = Math.max(ph.render, p5 - p4); ph.overlay = Math.max(ph.overlay, p6 - p5); ph.ui = Math.max(ph.ui, performance.now() - p6); const P = this.perf; P.frames.push(dtMs); P.cpu.push(cpu); const gm = this.host.gpuMs.total; if (gm !== undefined) P.gpu.push(gm); if (P.frames.length > P.maxKeep) { P.frames.shift(); P.cpu.shift(); if (P.gpu.length > P.maxKeep) P.gpu.shift(); } P.n++;
+    const cpu = performance.now() - f0; const ph = this.perf.phase; ph.light = Math.max(ph.light, p1 - p0); ph.stage = Math.max(ph.stage, p2 - p1); ph.upload = Math.max(ph.upload, p3 - p2); ph.structs = Math.max(ph.structs, this.structsMs || 0); ph.fx = Math.max(ph.fx, p4 - p3); ph.ext = Math.max(ph.ext, xMs); ph.render = Math.max(ph.render, p5 - p4 - xMs); ph.overlay = Math.max(ph.overlay, p6 - p5); ph.ui = Math.max(ph.ui, performance.now() - p6); const P = this.perf; P.frames.push(dtMs); P.cpu.push(cpu); const gm = this.host.gpuMs.total; if (gm !== undefined) P.gpu.push(gm); if (P.frames.length > P.maxKeep) { P.frames.shift(); P.cpu.shift(); if (P.gpu.length > P.maxKeep) P.gpu.shift(); } P.n++;
   }
   // structures: the clock and the fresh frustum of this frame's camera (the renderer builds its own later in the frame), then the culling and uploads
   structsFrame(t) {
@@ -273,13 +288,14 @@ export class Theatre {
       version: SIM_CODE, get state() { return self.state; }, get ready() { return self.ready; }, get api() { return self.host?.api; }, get stats() { return self.stats; }, get header() { return self.stage.header(); }, get rejected() { return self.stage.rejected; },
       perf: () => self.perfSummary(), resetPerf: () => self.resetPerf(), scopeCounts: () => self.scope.counts(), liveHash: () => self.stage.liveHash(), stateHash: t => self.stage.stateHash(t ?? self.state.t),
       setTime: (t, o) => self.setTime(t, o), setPlaying: v => self.setPlaying(v), setSpeed: v => self.setSpeed(v), present: () => Array.from(self.stage.present), unitIds: () => self.layer.units.map(u => u.id),
-      stage: self.stage, layer: self.layer, get structs() { return self.structs; }, selectObject: o => self.selectObject(o), cam: self.cam, env: self.env, host: self.host, overlay: self.overlay, theatre: self, select: i => self.select(i), flyToUnit: i => self.flyToUnit(i),
+      stage: self.stage, layer: self.layer, get structs() { return self.structs; }, get ext() { return self.ext; }, selectObject: o => self.selectObject(o), cam: self.cam, env: self.env, host: self.host, overlay: self.overlay, theatre: self, select: i => self.select(i), flyToUnit: i => self.flyToUnit(i),
       lock(on) { self.state.settings.lightLock = on; self._lock = on ? { sunDir: [...self.light.sunDir], exposure: self.light.exposure, tint: { ...self.light.tint } } : null; },
       async frames(n = 2) { const c0 = self.counters.frames; while (self.counters.frames < c0 + n) await nextFrame(); },
     };
   }
   dispose() {
     if (this.dead) return; this.dead = true;
+    if (this.ext) { try { this.ext.dispose(); } catch (e) { console.warn('added layers teardown', e); } }      // dispose() of every added module, while the renderer, the page and the bus still exist
     try { if (window.btApp) delete window.btApp; } catch { /* ignore */ }
     this.scope.dispose();                       // listeners, timers, animation frames, observers
     try { fxHost.dispose(); } catch (e) { console.warn('effects teardown', e); }

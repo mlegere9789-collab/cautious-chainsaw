@@ -1,8 +1,9 @@
 // The page as a person uses it: keyboard operability and focus order, accessible names, controls, timeline events, bookmarks, chapters, speed, evidence overlay,
 // weather chips, honest labelling, responsive layout, reduced motion. Every test also watches the console.
+// Every pause goes through wait() and every time limit through limit() (lib.mjs, the one knob for a renderer that cannot draw in real time); on a real GPU both are the plain calls.
 //   node --test docs/battle-theatre/app/tests/ui.spec.mjs
 import test from 'node:test'; import assert from 'node:assert/strict';
-import { startServer, launch, open, enter, leave } from './lib.mjs';
+import { startServer, launch, open, enter, leave, ready, wait, T as limit, expectedApi } from './lib.mjs';
 
 let S, B, page, ctx, log;
 test.before(async () => { S = await startServer(10784); B = await launch(); ({ ctx, page, log } = await open(B, S.base, { history: 'stub' })); });
@@ -21,15 +22,17 @@ test('the landing page is inert and honest: no context, frame, timer or worker b
 });
 
 test('entering: the entry control works from the keyboard; focus lands on the battlefield; the loading step is announced', async () => {
-  await page.focus('[data-bt-enter]'); await page.keyboard.press('Enter'); await page.waitForFunction(() => window.btApp && window.btApp.ready, null, { timeout: 90000 }); await frames(3);
-  assert.equal(await page.evaluate(() => document.activeElement.id), 'bt-canvas'); assert.equal(await page.evaluate(() => window.btApp.api), 'webgpu');
+  await page.focus('[data-bt-enter]'); await page.keyboard.press('Enter'); await ready(page, 90000);
+  assert.equal(await page.evaluate(() => document.activeElement.id), 'bt-canvas'); { const api = await page.evaluate(() => window.btApp.api), want = expectedApi(); if (want) assert.equal(api, want, 'the renderer the address asks for (WebGL2 unless it says otherwise: delegated decision DD-27)'); else assert.ok(api === 'webgpu' || api === 'webgl2'); }
   assert.equal(await page.getAttribute('#bt-canvas', 'role'), 'application'); assert.match(await page.getAttribute('#bt-canvas', 'aria-label'), /Fly with W A S D/);
 });
 
 test('focus order is Back, the tools, the battlefield, the playback controls, the scrubber; Tab never traps', async () => {
+  // the More tool stands after Settings as soon as an added layer registers a panel or a switch (app/docs/EXT-CONTRACT.md, registerPanel); without one it is hidden and not in the order
+  const more = await page.locator('#bt-more').isVisible();
   await page.focus('#bt-back'); const seen = ['bt-back'];
-  for (let i = 0; i < 16; i++) { await page.keyboard.press('Tab'); seen.push(await page.evaluate(() => document.activeElement.id || document.activeElement.className || document.activeElement.tagName)); }
-  const want = ['bt-back', 'tool', 'tool', 'tool', 'bt-overlay-toggle', 'tool', 'tool', 'bt-canvas', 'bt-prev', 'bt-play', 'bt-next', 'bt-slower', 'bt-faster', 'bt-chapter', 'bt-slider'];
+  for (let i = 0; i < 17; i++) { await page.keyboard.press('Tab'); seen.push(await page.evaluate(() => document.activeElement.id || document.activeElement.className || document.activeElement.tagName)); }
+  const want = ['bt-back', 'tool', 'tool', 'tool', 'bt-overlay-toggle', 'tool', 'tool', ...(more ? ['bt-more'] : []), 'bt-canvas', 'bt-prev', 'bt-play', 'bt-next', 'bt-slower', 'bt-faster', 'bt-chapter', 'bt-slider'];
   const norm = seen.map(x => /tool/.test(x) && x !== 'bt-overlay-toggle' ? 'tool' : x);
   assert.deepEqual(norm.slice(0, want.length), want, 'order: ' + seen.join(' > ')); assert.ok(!norm.slice(want.length).includes('bt-back') || true);
   await page.focus('#bt-slider'); await page.keyboard.press('Tab'); const out = await page.evaluate(() => document.activeElement.id); assert.ok(out !== 'bt-slider', 'focus leaves the last control');
@@ -44,7 +47,7 @@ test('every control has an accessible name; the scrubber speaks the time; the dr
 });
 
 test('keyboard: panels open and close with focus restored; playback, stepping, events, speed, overlay and camera keys all act', async () => {
-  await page.focus('[data-panel=events]'); await page.keyboard.press('Enter'); await page.waitForSelector('#bt-drawer:not([hidden])'); await page.waitForFunction(() => document.activeElement.id === 'ev-q', null, { timeout: 2000 }).catch(() => {}); assert.equal(await page.evaluate(() => document.activeElement.id), 'ev-q', 'focus moves into the panel');
+  await page.focus('[data-panel=events]'); await page.keyboard.press('Enter'); await page.waitForSelector('#bt-drawer:not([hidden])'); await page.waitForFunction(() => document.activeElement.id === 'ev-q', null, { timeout: limit(2000) }).catch(() => {}); assert.equal(await page.evaluate(() => document.activeElement.id), 'ev-q', 'focus moves into the panel');
   assert.equal(await page.getAttribute('[data-panel=events]', 'aria-expanded'), 'true'); await page.keyboard.press('Escape'); assert.equal(await page.evaluate(() => document.activeElement.dataset.panel), 'events', 'focus returns to the tool');
   assert.equal(await page.locator('#bt-drawer').isHidden(), true);
   await at(minOf(7, 3, 12)); await page.focus('#bt-canvas');
@@ -56,11 +59,11 @@ test('keyboard: panels open and close with focus restored; playback, stepping, e
   await page.keyboard.press('o'); assert.equal(await page.getAttribute('#bt-overlay-toggle', 'aria-pressed'), 'true'); assert.equal(await page.locator('#bt-legend').isVisible(), true); await page.keyboard.press('o'); assert.equal(await page.locator('#bt-legend').isHidden(), true);
   const c0 = await page.evaluate(() => ({ x: window.btApp.cam.x, z: window.btApp.cam.z, y: window.btApp.cam.y, yaw: window.btApp.cam.yaw })); await page.evaluate(() => window.btApp.theatre.controls.flyTo({ x: 0, y: 200, z: 0, yaw: 0, pitch: -.3, fov: 60 }, 0)); await frames(2);
   const k0 = await page.evaluate(() => ({ x: window.btApp.cam.x, z: window.btApp.cam.z, y: window.btApp.cam.y, yaw: window.btApp.cam.yaw }));
-  await page.keyboard.down('KeyW'); await page.waitForTimeout(500); await page.keyboard.up('KeyW'); await frames(2); const k1 = await page.evaluate(() => ({ x: window.btApp.cam.x, z: window.btApp.cam.z, y: window.btApp.cam.y }));
+  await page.keyboard.down('KeyW'); await wait(page, 500); await page.keyboard.up('KeyW'); await frames(2); const k1 = await page.evaluate(() => ({ x: window.btApp.cam.x, z: window.btApp.cam.z, y: window.btApp.cam.y }));
   assert.ok(Math.hypot(k1.x - k0.x, k1.z - k0.z, k1.y - k0.y) > 8, 'W flies forward');
-  await page.keyboard.down('KeyE'); await page.waitForTimeout(400); await page.keyboard.up('KeyE'); const k2 = await page.evaluate(() => window.btApp.cam.y); assert.ok(k2 > k1.y + 5, 'E rises');
-  await page.keyboard.down('ArrowLeft'); await page.waitForTimeout(300); await page.keyboard.up('ArrowLeft'); assert.ok(Math.abs((await page.evaluate(() => window.btApp.cam.yaw)) - k0.yaw) > 0.2, 'arrow keys look');
-  await page.keyboard.press('Home'); await page.waitForTimeout(2800); assert.ok((await page.evaluate(() => window.btApp.cam.y)) > 1500, 'Home returns to the whole field');
+  await page.keyboard.down('KeyE'); await wait(page, 400); await page.keyboard.up('KeyE'); const k2 = await page.evaluate(() => window.btApp.cam.y); assert.ok(k2 > k1.y + 5, 'E rises');
+  await page.keyboard.down('ArrowLeft'); await wait(page, 300); await page.keyboard.up('ArrowLeft'); assert.ok(Math.abs((await page.evaluate(() => window.btApp.cam.yaw)) - k0.yaw) > 0.2, 'arrow keys look');
+  await page.keyboard.press('Home'); await wait(page, 2800); assert.ok((await page.evaluate(() => window.btApp.cam.y)) > 1500, 'Home returns to the whole field');
 });
 
 test('Events: 691 rows, tier filters, rows with no clock time say so and are not placed on the minute scale; a timed row moves the clock to its time', async () => {
@@ -70,29 +73,29 @@ test('Events: 691 rows, tier filters, rows with no clock time say so and are not
   const tiers = {}; for (const t of ['documented', 'inferred', 'plausible-procedural', 'open gap']) { await body.locator(`.seg [data-tier]`).evaluateAll((bs, want) => bs.forEach(b => { const on = b.dataset.tier === want; if ((b.getAttribute('aria-pressed') === 'true') !== on) b.click(); }), t); tiers[t] = +(await body.locator('#ev-count').innerText()).split(' ')[0]; }
   assert.deepEqual(tiers, { documented: 580, inferred: 55, 'plausible-procedural': 12, 'open gap': 44 }, 'counts match timeline_windows.jsonl');
   await body.locator('.seg [data-tier]').evaluateAll(bs => bs.forEach(b => { if (b.getAttribute('aria-pressed') !== 'true') b.click(); }));
-  await body.locator('#ev-q').fill('cannonade'); await page.waitForTimeout(250); const n = await body.locator('.item').count(); assert.ok(n > 3, `${n} rows mention the cannonade`);
+  await body.locator('#ev-q').fill('cannonade'); await wait(page, 250); const n = await body.locator('.item').count(); assert.ok(n > 3, `${n} rows mention the cannonade`);
   const first = body.locator('.item', { hasText: /\d\d:\d\d/ }).first(); const id = await first.getAttribute('data-id'); await first.click(); const e = await page.evaluate(id => window.btApp.theatre.timeline.find(x => x.id === id), id);
   assert.ok(Math.abs((await T()) - e.t) < 1.01, 'the clock is on the event time'); assert.match(await body.locator('#ev-pin').innerText(), /Seeded, unverified/);
-  await body.locator('#ev-q').fill(''); await body.locator('#ev-timed').check(); await page.waitForTimeout(250); const timed = await body.locator('.item').count(); assert.equal(timed, 691 - 295 - 1, 'timed only (all but the phrase-only rows and the undated summary)');
+  await body.locator('#ev-q').fill(''); await body.locator('#ev-timed').check(); await wait(page, 250); const timed = await body.locator('.item').count(); assert.equal(timed, 691 - 295 - 1, 'timed only (all but the phrase-only rows and the undated summary)');
   await body.locator('#ev-timed').uncheck();
   const ph = body.locator('.item', { hasText: /Time not recorded/ }).first(); const t1 = await T(); await ph.click(); const t2 = await T(); assert.ok(t2 !== t1); assert.equal(t2 % 1440, 0, 'a phrase-only event goes to the start of its day, not to a made-up hour');
-  await page.waitForFunction(() => /Time not recorded/.test(document.getElementById('bt-live').textContent), null, { timeout: 2000 });
+  await page.waitForFunction(() => /Time not recorded/.test(document.getElementById('bt-live').textContent), null, { timeout: limit(2000) });
   await page.keyboard.press('Escape');
 });
 
 test('Views: 16 tour stops and 512 monuments as camera bookmarks; a flight ends at the place; saved views are kept in the browser', async () => {
   await page.click('[data-panel=views]'); const body = page.locator('#bt-drawer-body');
   assert.equal(await body.locator('[data-kind=tour]').count(), 16); assert.match(await body.locator('#vw-tabs [data-tab=tour]').innerText(), /\(16\)/); assert.match(await body.locator('#vw-tabs [data-tab=mon]').innerText(), /\(512\)/);
-  await body.locator('[data-kind=tour]').first().click(); await page.waitForTimeout(3300);
+  await body.locator('[data-kind=tour]').first().click(); await wait(page, 3300);
   const d = await page.evaluate(() => { const th = window.btApp.theatre, s = th.bookmarks.tour[0], [x, z] = th.geo.xz(s.view.lng, s.view.lat), c = th.cam; return Math.hypot(c.x - x, c.z - z); }); assert.ok(d < 20, `flew to the viewpoint of tour stop 1 (${d.toFixed(1)} m off)`);
-  await body.locator('#vw-tabs [data-tab=mon]').click(); await body.locator('#vw-q').fill('Vermont'); await page.waitForTimeout(250); const vt = await body.locator('[data-kind=mon] .what').allInnerTexts(); assert.ok(vt.length >= 5 && vt.every(x => /Vermont|VT/i.test(x) || true));
-  await body.locator('#vw-side [data-side=Confederate]').click(); await body.locator('#vw-q').fill(''); await page.waitForTimeout(250); assert.ok((await body.locator('[data-kind=mon]').count()) >= 40 || (await body.locator('#vw-more').count()) === 1);
+  await body.locator('#vw-tabs [data-tab=mon]').click(); await body.locator('#vw-q').fill('Vermont'); await wait(page, 250); const vt = await body.locator('[data-kind=mon] .what').allInnerTexts(); assert.ok(vt.length >= 5 && vt.every(x => /Vermont|VT/i.test(x) || true));
+  await body.locator('#vw-side [data-side=Confederate]').click(); await body.locator('#vw-q').fill(''); await wait(page, 250); assert.ok((await body.locator('[data-kind=mon]').count()) >= 40 || (await body.locator('#vw-more').count()) === 1);
   await body.locator('#vw-tabs [data-tab=saved]').click(); await body.locator('#vw-save').click(); assert.equal(await body.locator('[data-kind=saved]').count(), 1); await body.locator('[data-del]').first().click(); assert.equal(await body.locator('[data-kind=saved]').count(), 0);
   await page.keyboard.press('Escape');
 });
 
 test('selecting a unit by keyboard: Units list, card with time, activity, position and uncertainty, kit manifest, source keys and a register link that opens', async () => {
-  await at(minOf(7, 3, 13, 30)); await page.click('[data-panel=views]'); await page.click('#vw-tabs [data-tab=unit]'); await page.waitForTimeout(200);
+  await at(minOf(7, 3, 13, 30)); await page.click('[data-panel=views]'); await page.click('#vw-tabs [data-tab=unit]'); await wait(page, 200);
   await page.focus('#bt-drawer-body .item'); await page.keyboard.press('Enter'); await page.waitForSelector('#bt-card:not([hidden])'); const card = page.locator('#bt-card'); await page.keyboard.press('Escape');
   const txt = await card.innerText(); for (const w of ['Modelled placeholder', 'Time', 'Activity', 'Position', '± 60 m', 'Strength', 'Arrival window', 'Kit manifest', 'Headgear', 'Shoulder arm', 'Evidence', 'STUB-GEN', 'EG-0001']) assert.ok(txt.toLowerCase().includes(w.toLowerCase()), `card shows ${w}`);
   const href = await card.locator('a.btn-s').first().getAttribute('href'); assert.match(href, /register\/EG-0001\.md$/); const res = await page.request.get(href); assert.equal(res.status(), 200); assert.match(await res.text(), /Individual soldier face, position and action/);
@@ -128,7 +131,7 @@ test('chapters: the 4 July night marker leads to the 19 November epilogue and ba
 test('play and speed: time advances at the chosen speed, and the rate eases in instead of jumping', async () => {
   await at(minOf(7, 2, 8)); await page.evaluate(() => window.btApp.setSpeed(4)); await page.focus('#bt-canvas'); await page.keyboard.press('Space');
   const r0 = await page.evaluate(async () => { await window.btApp.frames(2); return window.btApp.state.rate; }); assert.ok(r0 > 0 && r0 < 4, `rate eases in (${r0.toFixed(2)})`);
-  await page.evaluate(() => window.btApp.frames(30)); const t0 = await T(); await page.waitForTimeout(2000); const t1 = await T(); const per = (t1 - t0) * 60 / 2; assert.ok(per > 3.4 && per < 4.4, `4x speed: ${per.toFixed(2)} sim seconds per second`);
+  await page.evaluate(() => window.btApp.frames(30)); const t0 = await T(); await wait(page, 2000); const t1 = await T(); const per = (t1 - t0) * 60 / 2; assert.ok(per > 3.4 && per < 4.4, `4x speed: ${per.toFixed(2)} sim seconds per second`);
   await page.keyboard.press('Space'); await frames(100); assert.equal(await page.evaluate(() => window.btApp.state.rate), 0); await page.evaluate(() => window.btApp.setSpeed(1));
 });
 
@@ -147,7 +150,7 @@ test('layout: no horizontal scroll, no overlapping header controls and the dock 
     const m = await page.evaluate(() => { const vw = innerWidth, vh = innerHeight, r = s => document.querySelector(s)?.getBoundingClientRect(); const top = [...document.querySelectorAll('.top > *')].filter(e => e.getClientRects().length).map(e => e.getBoundingClientRect()); let overlap = 0; for (let i = 0; i < top.length; i++) for (let j = i + 1; j < top.length; j++) { const a = top[i], b = top[j]; if (a.left < b.right - 1 && b.left < a.right - 1 && a.top < b.bottom - 1 && b.top < a.bottom - 1) overlap++; }
       const dock = r('.dock'), clip = [...document.querySelectorAll('.tool, .tbtn, .sbtn, #bt-slider')].filter(e => e.getClientRects().length).filter(e => { const b = e.getBoundingClientRect(); return b.left < -1 || b.right > vw + 1 || b.bottom > vh + 1; }).length; return { sw: document.documentElement.scrollWidth, vw, overlap, dockInside: dock.bottom <= vh + 1 && dock.left >= 0 && dock.right <= vw + 1, clip, small: [...document.querySelectorAll('.tbtn, .tool, .sbtn, .btn-back')].filter(e => e.getClientRects().length).filter(e => { const b = e.getBoundingClientRect(); return b.width < 32 || b.height < 32; }).length }; });
     rows.push(`${w}x${h}: scrollWidth ${m.sw}, header overlaps ${m.overlap}, clipped controls ${m.clip}, controls under 32px ${m.small}`); assert.ok(m.sw <= m.vw, `horizontal scroll at ${w}`); assert.equal(m.overlap, 0, `header controls overlap at ${w}`); assert.ok(m.dockInside, `dock at ${w}`); assert.equal(m.clip, 0, `clipped controls at ${w}`); assert.equal(m.small, 0);
-    await page.click('[data-panel=info]'); await page.waitForTimeout(450); const d = await page.evaluate(() => { const r = document.querySelector('#bt-drawer').getBoundingClientRect(); return { l: r.left, r: r.right, t: r.top, b: r.bottom, vw: innerWidth, vh: innerHeight }; }); assert.ok(d.l >= -1 && d.r <= d.vw + 1 && d.t >= 0 && d.b <= d.vh + 1, `drawer inside the window at ${w}`); await page.keyboard.press('Escape');
+    await page.click('[data-panel=info]'); await wait(page, 450); const d = await page.evaluate(() => { const r = document.querySelector('#bt-drawer').getBoundingClientRect(); return { l: r.left, r: r.right, t: r.top, b: r.bottom, vw: innerWidth, vh: innerHeight }; }); assert.ok(d.l >= -1 && d.r <= d.vw + 1 && d.t >= 0 && d.b <= d.vh + 1, `drawer inside the window at ${w}`); await page.keyboard.press('Escape');
   }
   console.log('# ' + rows.join('\n# ')); await page.setViewportSize({ width: 1440, height: 900 });
 });
@@ -156,14 +159,14 @@ test('phone: touch screen shows the movement pad, play works by tap, the drawer 
   const { ctx: c3, page: p3, log: l3 } = await open(B, S.base, { history: 'stub', w: 390, h: 844, touch: true, scale: 2 }); try {
     await enter(p3); assert.equal(await p3.locator('#bt-pad').isVisible(), true); const sw = await p3.evaluate(() => document.documentElement.scrollWidth); assert.ok(sw <= 390);
     await p3.tap('#bt-play'); await p3.evaluate(() => window.btApp.frames(3)); assert.equal(await p3.getAttribute('#bt-play', 'aria-pressed'), 'true'); await p3.tap('#bt-play');
-    await p3.tap('[data-panel=events]'); await p3.waitForTimeout(500); const r = await p3.evaluate(() => { const d = document.querySelector('#bt-drawer').getBoundingClientRect(), k = document.querySelector('.dock').getBoundingClientRect(); return { w: d.width, bottom: d.bottom, dockTop: k.top, vw: innerWidth }; }); assert.equal(Math.round(r.w), 390); assert.ok(r.bottom <= r.dockTop + 1, 'the sheet sits above the dock'); await p3.tap('#bt-drawer-close');
+    await p3.tap('[data-panel=events]'); await wait(p3, 500); const r = await p3.evaluate(() => { const d = document.querySelector('#bt-drawer').getBoundingClientRect(), k = document.querySelector('.dock').getBoundingClientRect(); return { w: d.width, bottom: d.bottom, dockTop: k.top, vw: innerWidth }; }); assert.equal(Math.round(r.w), 390); assert.ok(r.bottom <= r.dockTop + 1, 'the sheet sits above the dock'); await p3.tap('#bt-drawer-close');
     const before = await p3.evaluate(() => ({ x: window.btApp.cam.x, z: window.btApp.cam.z })); const box = await p3.locator('#bt-stick').boundingBox(); await p3.touchscreen.tap(box.x + box.width / 2, box.y + 8);   // a tap on the stick edge is a nudge, not a click-through
     assert.deepEqual(l3.errors, []); assert.deepEqual(l3.pageerrors, []);
   } finally { await c3.close(); }
 });
 
 test('reduced motion: flights are instant and no rain is drawn; the same flight without the preference takes time', async () => {
-  const fly = async (reduce) => { const c = await B.newContext({ viewport: { width: 1280, height: 800 }, reducedMotion: reduce ? 'reduce' : 'no-preference' }); const p = await c.newPage(); await p.goto(S.base); await p.click('[data-bt-enter]'); await p.waitForFunction(() => window.btApp?.ready, null, { timeout: 90000 }); await p.evaluate(() => window.btApp.frames(3));
+  const fly = async (reduce) => { const c = await B.newContext({ viewport: { width: 1280, height: 800 }, reducedMotion: reduce ? 'reduce' : 'no-preference' }); const p = await c.newPage(); await p.goto(S.base); await p.click('[data-bt-enter]'); await ready(p, 90000);
     await p.evaluate(() => { window.btApp.setTime(minOf(7, 4, 15)); function minOf(m, d, h) { return ({ 7: 30 }[m] + d - 1) * 1440 + h * 60; } }); await p.evaluate(() => window.btApp.frames(30));
     const rain = await p.evaluate(() => { const c = document.getElementById('bt-rain'), d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i]) n++; return n; });
     await p.click('[data-panel=views]'); await p.locator('[data-kind=tour]').nth(3).click(); await p.evaluate(() => window.btApp.frames(3)); const early = await p.evaluate(() => { const th = window.btApp.theatre, s = th.bookmarks.tour[3], [x, z] = th.geo.xz(s.view.lng, s.view.lat); return Math.hypot(th.cam.x - x, th.cam.z - z); }); await c.close(); return { rain, early }; };

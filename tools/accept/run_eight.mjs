@@ -13,7 +13,7 @@
 //  * earlier runs are archived (docs/accept/passes/archive/<time>/) and listed in docs/accept/EIGHT-PASS-LOG.md, never overwritten silently.
 import fs from 'node:fs';
 import path from 'node:path';
-import { REPO, parseArgs, runCmdAsync, sha256File, readJson, writeJson, mdEscape } from './lib/util.mjs';
+import { REPO, parseArgs, runCmdAsync, sha256File, readJson, writeJson, mdEscape, loadText } from './lib/util.mjs';
 import { harnessDigest, treeDigest } from './lib/harness_digest.mjs';
 
 const args = parseArgs(process.argv.slice(2), { 'dry-run': 'bool', full: 'bool' });
@@ -64,7 +64,7 @@ for (let n = 1; n <= want; n++) {
   const r = await runCmdAsync(process.execPath, ['tools/accept/run_pass.mjs', '--candidate', candidate, '--pass', String(n), '--out-dir', outDir, ...passthrough], { timeoutMs: 6 * 3600 * 1000 });
   process.stdout.write(r.stdout.split('\n').filter((l) => /^===|^    ->|^PASS|^written/.test(l)).join('\n') + '\n');
   const pj = path.join(outDir, `pass-${n}.json`);
-  let rec = { n, exit: r.exit, seconds: Math.round((Date.now() - t0) / 1000), verdict: 'NO RESULT', defects: null, notRun: null };
+  let rec = { n, exit: r.exit, seconds: Math.round((Date.now() - t0) / 1000), load1Start: r.load1Start ?? null, load1End: r.load1End ?? null, verdict: 'NO RESULT', defects: null, notRun: null };   // load1*: the machine's 1-minute load average when the pass started and ended (null on Windows)
   if (fs.existsSync(pj)) {
     const j = readJson(pj);
     rec = { ...rec, verdict: j.verdict, zipSha256: j.candidate.sha256, harness: j.harness.digest, soakSeconds: j.env.soakSeconds, defects: j.checks.reduce((a, c) => a + c.defectCount, 0), notRun: j.checks.filter((c) => c.status !== 'RAN' || (c.notRunParts || []).length).map((c) => `${c.id} ${c.title}`), perCheck: j.checks.map((c) => ({ id: c.id, title: c.title, status: c.status, defects: c.defectCount, partial: (c.notRunParts || []).length })), file: path.relative(REPO, pj), firstDefects: j.checks.flatMap((c) => c.defects.slice(0, 3).map((d) => `[${c.id}] ${d.code} @ ${d.where}: ${d.detail.slice(0, 160)}`)).slice(0, 12) };
@@ -100,6 +100,9 @@ function renderLog(st) {
     L.push('| pass | verdict | defects | checks not (fully) run | seconds | detail |', '|---|---|---|---|---|---|');
     for (const p of r.passes) L.push(`| ${p.n} | ${p.verdict} | ${p.defects ?? '?'} | ${mdEscape((p.notRun || []).join('; ') || 'none')} | ${p.seconds} | ${p.file ? `\`${p.file}\`` : ''} |`);
     L.push('');
+    // runs recorded before the load was measured (and runs on Windows, which has no load average) have no such line
+    const loads = r.passes.filter((p) => p.load1Start != null || p.load1End != null);
+    if (loads.length) L.push(`Load average (1 min) of the machine at the start > end of each pass: ${loads.map((p) => `pass ${p.n} ${loadText(p.load1Start, p.load1End)}`).join('; ')}.`, '');
     const bad = r.passes.find((p) => p.verdict !== 'CLEAN');
     if (bad && bad.firstDefects && bad.firstDefects.length) { L.push(`First defects of pass ${bad.n}:`, ''); for (const d of bad.firstDefects) L.push(`- ${mdEscape(d)}`); L.push(''); }
   }

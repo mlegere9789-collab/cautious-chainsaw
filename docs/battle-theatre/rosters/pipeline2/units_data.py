@@ -36,7 +36,7 @@ U['nh'] = dict(state='New Hampshire', units=[
 ])
 U['vt'] = dict(state='Vermont', units=[
     (2, 'inf', ''), (3, 'inf', ''), (4, 'inf', ''), (5, 'inf', ''), (6, 'inf', ''),
-    (12, 'inf', 'OR: guarding trains, and not engaged in the battle'), (13, 'inf', ''), (14, 'inf', ''),
+    (12, 'inf', 'OR: guarding trains, and not engaged in the battle; the table OCR prints "13th Vermont, Col. Asa P. Blunt", Stannard\'s report (p. 349) prints "the Twelfth Regiment, under command of Colonel Blunt"'), (13, 'inf', ''), (14, 'inf', ''),
     (15, 'inf', 'OR: guarding trains, and not engaged in the battle'), (16, 'inf', ''),
     (1, 'cav', ''),
 ])
@@ -130,17 +130,17 @@ U['pa'] = dict(state='Pennsylvania', units=[
     (121, 'inf', ''), (139, 'inf', ''), (140, 'inf', ''), (141, 'inf', ''), (142, 'inf', ''), (143, 'inf', ''),
     (145, 'inf', 'seven companies'), (147, 'inf', 'eight companies'), (148, 'inf', ''), (149, 'inf', ''),
     (150, 'inf', ''), (151, 'inf', ''), (153, 'inf', ''), (155, 'inf', ''),
-    ('1st Pennsylvania Reserves', 'inf', 'nine companies; 30th Pennsylvania'),
-    ('2nd Pennsylvania Reserves', 'inf', '31st Pennsylvania'),
-    ('5th Pennsylvania Reserves', 'inf', '34th Pennsylvania'),
-    ('6th Pennsylvania Reserves', 'inf', '35th Pennsylvania'),
-    ('9th Pennsylvania Reserves', 'inf', '38th Pennsylvania'),
-    ('10th Pennsylvania Reserves', 'inf', '39th Pennsylvania'),
-    ('11th Pennsylvania Reserves', 'inf', '40th Pennsylvania'),
-    ('12th Pennsylvania Reserves', 'inf', 'nine companies; 41st Pennsylvania'),
-    ('13th Pennsylvania Reserves', 'inf', '1st Rifles, 42nd Pennsylvania'),
-    (1, 'cav', 'Company H at Sixth Corps headquarters; 44th Pennsylvania (15th Reserves)'),
-    (2, 'cav', 'provost-marshal-general; the OCR prints "3d Pennsylvania Cavalry, Col. R. Butler Price"'),
+    ('1st Pennsylvania Reserves', 'inf', 'nine companies'),
+    ('2nd Pennsylvania Reserves', 'inf', ''),
+    ('5th Pennsylvania Reserves', 'inf', ''),
+    ('6th Pennsylvania Reserves', 'inf', ''),
+    ('9th Pennsylvania Reserves', 'inf', ''),
+    ('10th Pennsylvania Reserves', 'inf', ''),
+    ('11th Pennsylvania Reserves', 'inf', ''),
+    ('12th Pennsylvania Reserves', 'inf', 'nine companies'),
+    ('13th Pennsylvania Reserves', 'inf', 'OR index: Bucktails'),
+    (1, 'cav', 'Company H at Sixth Corps headquarters'),
+    (2, 'cav', 'provost-marshal-general; the table OCR prints "3d Pennsylvania Cavalry, Col. R. Butler Price", the volume index prints "Price\'s (R. Butler) Cavalry. See Pennsylvania Troops, 2d Regiment"'),
     (3, 'cav', ''), (4, 'cav', ''), (6, 'cav', 'Companies E and I at general headquarters'),
     (8, 'cav', 'Huey; OR: at Westminster, etc., and not engaged in the battle'), (16, 'cav', ''),
     (17, 'cav', 'Companies D and H at Fifth Corps headquarters'), (18, 'cav', ''),
@@ -180,14 +180,14 @@ U['il'] = dict(state='Illinois', units=[(82, 'inf', ''), (8, 'cav', ''), (12, 'c
 U['mi'] = dict(state='Michigan', units=[
     (1, 'inf', ''), (3, 'inf', ''), (4, 'inf', ''), (5, 'inf', ''), (7, 'inf', ''), (16, 'inf', ''), (24, 'inf', ''),
     (1, 'cav', ''), (5, 'cav', ''), (6, 'cav', ''), (7, 'cav', 'ten companies'),
-    ('9th Michigan Battery', 'art', 'Daniels; horse artillery (Battery I, 1st Michigan Light Artillery)'),
+    ('9th Michigan Battery', 'art', 'Daniels; horse artillery'),
 ])
 U['wi'] = dict(state='Wisconsin', units=[
     (2, 'inf', ''), (3, 'inf', ''), (5, 'inf', ''), (6, 'inf', ''), (7, 'inf', ''), (26, 'inf', ''),
 ])
 U['mn'] = dict(state='Minnesota', units=[
     (1, 'inf', ''),
-    ('2nd Company Minnesota Sharpshooters', 'ss', 'OR: attached to the 1st Minnesota'),
+    ('2nd Company Minnesota Sharpshooters', 'ss', 'OR: attached to the 1st Minnesota; the table OCR prints "3d Company", the volume index prints "Companies: 2d Sharpshooters, 158, 176"'),
 ])
 U['us'] = dict(state='United States (Regular Army and United States Volunteers)', units=[
     (2, 'inf', 'six companies'), (3, 'inf', 'six companies'), (4, 'inf', 'four companies'),
@@ -196,8 +196,8 @@ U['us'] = dict(state='United States (Regular Army and United States Volunteers)'
     (10, 'inf', 'three companies'), (11, 'inf', 'six companies'), (12, 'inf', 'eight companies'),
     (14, 'inf', 'eight companies'), (17, 'inf', 'seven companies'),
     ('United States Engineer Battalion', 'eng', 'Mendell; Engineer Brigade'),
-    ('1st United States Sharpshooters', 'ss', 'Berdan, Trepp; companies raised by NY, MI, NH, VT, WI'),
-    ('2nd United States Sharpshooters', 'ss', 'eight companies; Stoughton; companies raised by MN, MI, PA, ME, VT, NH'),
+    ('1st United States Sharpshooters', 'ss', 'Berdan, Trepp'),
+    ('2nd United States Sharpshooters', 'ss', 'eight companies; Stoughton'),
     (1, 'cav', ''), (2, 'cav', ''), (5, 'cav', ''), (6, 'cav', ''),
     ('Batteries E and G, 1st United States Artillery', 'art', 'Randol; horse artillery'),
     ('Battery H, 1st United States Artillery', 'art', 'Eakin, Mason'),
@@ -280,8 +280,8 @@ C['nc'] = dict(state='North Carolina', units=[
     (43, 'inf', ''), (45, 'inf', ''), (47, 'inf', ''), (52, 'inf', ''), (53, 'inf', ''), (55, 'inf', ''),
     (57, 'inf', ''),
     ('2nd North Carolina Battalion', 'inf', ''),
-    (1, 'cav', '9th North Carolina State Troops'), (2, 'cav', '19th North Carolina State Troops'),
-    (4, 'cav', 'Robertson; 59th North Carolina State Troops'), (5, 'cav', 'Robertson; 63rd North Carolina State Troops'),
+    (1, 'cav', ''), (2, 'cav', ''),
+    (4, 'cav', 'Robertson\'s brigade'), (5, 'cav', 'Robertson\'s brigade'),
     ('Battery A, 1st North Carolina Artillery', 'art', 'Manly; Cabell'),
     ('Branch Artillery', 'art', 'Latham; Henry'), ('Rowan Artillery', 'art', 'Reilly; Henry'),
     ('Charlotte Artillery', 'art', 'Graham; Poague'),
@@ -341,10 +341,10 @@ C['tn'] = dict(state='Tennessee', units=[
 C['tx'] = dict(state='Texas', units=[(1, 'inf', ''), (4, 'inf', ''), (5, 'inf', '')])
 C['ar'] = dict(state='Arkansas', units=[(3, 'inf', '')])
 C['md'] = dict(state='Maryland', units=[
-    ('1st Maryland Battalion Infantry', 'inf', 'Herbert, Goldsborough, Crane (later styled 2nd Maryland Infantry)'),
+    ('1st Maryland Battalion Infantry', 'inf', 'Herbert, Goldsborough, Crane'),
     ('1st Maryland Cavalry Battalion', 'cav', 'OR: serving with Ewell\'s corps'),
     ('1st Maryland Battery', 'art', 'Dement; Latimer'), ('Chesapeake Artillery', 'art', 'Brown; Latimer'),
-    ('Griffin\'s Battery (Baltimore Light Artillery)', 'art', 'Stuart Horse Artillery'),
+    ('Griffin\'s (Maryland) Battery', 'art', 'Griffin; Stuart Horse Artillery'),
 ])
 C['cs'] = dict(state='Confederate States (general and staff)', units=[
     ('General and staff officers, Army of Northern Virginia', 'staff', 'army, corps, division and brigade commanders and staff named in OR 27'),

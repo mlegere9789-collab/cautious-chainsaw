@@ -17,6 +17,9 @@ node tools/accept/run_eight.mjs --candidate deliver/<final>.zip --baseline basel
 # the copy audit alone
 node tools/accept/copy_audit.mjs deliver/<final>.zip          # --json out.json, --show-whitelisted
 node tools/accept/copy_audit.selftest.mjs                      # plants every kind of leak and proves each is found
+
+# the runners themselves (child environment behind a proxy, load average in every summary); no browser, under a minute
+node tools/t0/tests/runner_selftest.mjs                        # --online adds one real fetch through the harness (see "Behind a proxy" below)
 ```
 
 Useful `run_pass.mjs` options: `--only 2,8` (development; the pass is then INCOMPLETE and can never be clean), `--routes historian,index` (same), `--soak-seconds N`
@@ -35,6 +38,51 @@ Every pass is its own process. The candidate zip is unzipped into a brand-new te
 through the project's own harness `tests/t0/lib.mjs` (system Chrome, CDP, the capped Referer-injecting Mapbox side channel). The only thing read from another pass is the previous zip hash (check 1).
 `run_eight.mjs` records the zip SHA-256, a digest of this harness plus the project harness/verifier/packer, the baseline tree and the built dist of the train before **and** after every pass; if any
 of them moves, the run is ABORTED (no code or candidate change allowed in between) and success is never reported.
+
+## Behind a proxy, and the load of the machine
+
+Both are handled by the runners themselves (`tools/t0/child_env.mjs`, used by `tools/t0/run_suites.mjs` and by `runCmd` / `runCmdAsync` in `tools/accept/lib/util.mjs`); no environment has to be prepared by hand.
+
+**Proxy.** On a machine whose outbound HTTPS goes through a proxy that re-terminates TLS (`HTTPS_PROXY` or `https_proxy` is set to a non-empty value; the cloud container of the release work is such a machine),
+Node's own `fetch()` ignores the proxy unless `NODE_USE_ENV_PROXY=1` is set and trusts the proxy's certificate only through `NODE_EXTRA_CA_CERTS`. A suite that downloads a file with Node
+(`tests/t0/pages-maps.spec.mjs` and `pages-fixes.spec.mjs` fetch the pinned, SRI-checked Mapbox GL library once into `tmp/<agent>/vendor`; `pages-maps` is in the check 6 subset) then ends in `TypeError: fetch failed` before its first test.
+So, when a proxy is set, every child process gets
+
+| variable | value | only if |
+|---|---|---|
+| `NODE_USE_ENV_PROXY` | `1` | the variable is not set |
+| `NODE_EXTRA_CA_CERTS` | `/root/.ccr/ca-bundle.crt` | the variable is not set **and** that file exists |
+
+"Every child process" is: each suite and each parallel slice of `run_suites.mjs`; each pass that `run_eight.mjs` starts; `verify_release.mjs`, every suite and step of check 6 and the `--full` run of `run_suites.mjs`; the packer and the PDF probe.
+The variables are inherited, so the Node processes that a Python suite starts have them too.
+**Nothing else changes:** with no proxy the environment is handed on exactly as before (the same object), and a variable that is already set, to any value including the empty string, is never overwritten.
+A `run_suites` summary says what happened in `childEnv` (`{ "httpsProxy": true, "added": ["NODE_USE_ENV_PROXY"] }`: names only, the proxy address is never written), and its second console line says the same.
+
+Limits, so nobody reads more into it:
+- A suite started **by hand** (`node tests/t0/pages-fixes.spec.mjs ...`) gets no help: start it through a runner, or set the two variables yourself.
+- The runner's own process is not changed. `run_pass.mjs` fetches only from its local servers in-process; Chrome reads the proxy from the environment by itself.
+- Node older than 22.21 ignores `NODE_USE_ENV_PROXY`. Node 22 prints one line on stderr at the start of every process that has it (`[UNDICI-EHPA] Warning: EnvHttpProxyAgent is experimental`); the runners count results on stdout lines and exit codes.
+- The CA bundle path is the cloud container's. On another machine with a TLS-intercepting proxy set `NODE_EXTRA_CA_CERTS` yourself (it is then kept).
+- Requests of a suite to its own local servers (`127.0.0.1`) stay direct as long as `HTTP_PROXY` is not set or `NO_PROXY` lists them (true on every machine used so far).
+
+**Load.** A timing result is only evidence together with the load it was measured at, so every runner writes down the machine's 1-minute load average (`os.loadavg()[0]`, two decimals) at the start and at the end of what it runs:
+
+| where | fields |
+|---|---|
+| `run_suites.mjs` summary (`--json`, default `release/test-summary.json`) | every row: `load1Start`, `load1End`; the run: `load1: { start, end }`, `machine: { platform, cpus, node }`; console line of every suite: `load a>b` (kept by `--merge`, read back by `--import-log`; rows of logs written before 2026-11-13 have `null`) |
+| `docs/accept/passes/pass-N.json` | the pass: `env.load1Start`, `env.load1End`; every check: `checks[].load1Start`, `load1End`; every command: `checks[].commands[].load1Start`, `load1End`; every suite of check 6: `raw.suites[].load1Start`, `load1End` of that check |
+| `pass-N.md` | a row "Load average (1 min)" in the head table, a column "Load (1 min) start > end" in the summary, `load a>b` after every command |
+| `docs/accept/eight-pass-state.json`, `EIGHT-PASS-LOG.md` | every pass: `load1Start`, `load1End`; one line under the table of a run (runs recorded before 2026-11-13 have none) |
+
+Windows has no load average (Node reports 0 there), so on Windows the fields are `null` and the reports say "n/a": a missing measurement, never a zero.
+The tools only record the load. They never drop, relabel or repeat a result because of it: whether a timing failure measured on a busy machine is repeated is decided by whoever reads the log, and the failed pass stays failed.
+
+**Self-test** (`node tools/t0/tests/runner_selftest.mjs`, row `static.runner` of `run_suites.mjs`; no browser, no network). It starts the real runners with `NODE_OPTIONS=--require tools/t0/tests/env_probe.cjs`, so every Node process below them writes down its environment
+(names and a hash of each value), and compares each child with its runner variable by variable: no proxy (nothing differs but the three variables the runner always set), proxy with both variables unset, both set, one set, the lower-case spelling, an empty value,
+a suite of four parallel processes, the Node processes below a Python suite, `runCmd` / `runCmdAsync`, and a real two-check pass of `run_pass.mjs`; then the load fields in the summary, on the console, after `--merge` and after `--import-log`.
+Every scenario is built by the self-test (the proxy variables of the calling shell are removed first), so it passes whether or not the shell has `HTTPS_PROXY`.
+`--online` adds one real request: a child started through the harness fetches the pinned Mapbox GL stylesheet with Node's `fetch()` and gets the pinned bytes, and, behind a proxy, the same child started without the harness fails (negative control).
+Not proven by it: Windows (never run there), and `run_eight.mjs` end to end (it writes the acceptance log; its passes start through the same `runCmdAsync`).
 
 ## The eight checks, what each one does, and when it is a defect
 
@@ -101,4 +149,6 @@ tools/accept/run_eight.mjs       the 8-in-a-row driver     tools/accept/copy_whi
 tools/accept/copy_audit.mjs      copy audit (+ .selftest)  tools/accept/regression_waivers.json  owner-approved regressions (check 3)
 tools/accept/pdf_probe.py        PDF metadata/text dump    tools/accept/accuracy_subset.json  check 6 subset and why
 tools/accept/checks/c1..c8_*.mjs the eight checks          tools/accept/lib/*                 server, browser, parsers, image diff, input machinery
+tools/t0/child_env.mjs           child environment behind a proxy, load average (shared with tools/t0/run_suites.mjs; part of the harness digest)
+tools/t0/tests/runner_selftest.mjs  self-test of both runners (+ env_probe.cjs, its preload)
 ```

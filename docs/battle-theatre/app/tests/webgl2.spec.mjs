@@ -1,7 +1,7 @@
-// The WebGL2 fallback tier (?api=webgl2): the same page, the same stage, the same arrival rule, the same teardown.
+// The WebGL2 tier (?api=webgl2, the shell's default since delegated decision DD-27): the same page, the same stage, the same arrival rule, the same teardown.
 //   node --test docs/battle-theatre/app/tests/webgl2.spec.mjs
 import test from 'node:test'; import assert from 'node:assert/strict';
-import { startServer, launch, open, enter, leave } from './lib.mjs';
+import { startServer, launch, open, enter, leave, wait, RENDER } from './lib.mjs';
 
 let S, B;
 test.before(async () => { S = await startServer(10787); B = await launch(); });
@@ -19,8 +19,9 @@ test('WebGL2 renders the placeholder crowd, hides units before their arrival, an
   await set(minOf(6, 28, 12)); const none = await page.evaluate(() => ({ stats: window.btApp.stats, sent: (() => { const f = window.btApp.theatre.world.unitF; let n = 0; for (let i = 0; i < window.btApp.stage.n; i++) if (Math.abs(f[i * 12]) < 1e5) n++; return n; })() }));
   assert.equal(none.stats.soldiers, 0); assert.equal(none.sent, 0, 'before any arrival nothing is placed on the field');
   await set(minOf(7, 2, 12)); assert.ok((await page.evaluate(() => window.btApp.stats.soldiers)) > 100000);
+  // a log line, not a gate: on a software renderer it is not a timing of anything a person would see, and it says so
   const perf = await page.evaluate(async () => { window.btApp.resetPerf(); await new Promise(r => setTimeout(r, 3000)); return window.btApp.perf(); });
-  console.log(`# webgl2 with ${full.soldiers} soldiers at 1280x720: frame p50 ${perf.p50.toFixed(1)} p95 ${perf.p95.toFixed(1)} p99 ${perf.p99.toFixed(1)} ms, cpu p95 ${perf.cpuP95.toFixed(1)} ms`);
-  await leave(page); await page.waitForTimeout(500); const s = await page.evaluate(() => window.__instSnapshot()); assert.equal(s.gl, 0); assert.equal(s.rafs, 0); assert.equal(s.timers, 0);
+  console.log(`# webgl2 with ${full.soldiers} soldiers at 1280x720${RENDER.software ? ' (SOFTWARE renderer: not a timing of the product)' : ''}: frame p50 ${perf.p50.toFixed(1)} p95 ${perf.p95.toFixed(1)} p99 ${perf.p99.toFixed(1)} ms, cpu p95 ${perf.cpuP95.toFixed(1)} ms`);
+  await leave(page); await wait(page, 500); const s = await page.evaluate(() => window.__instSnapshot()); assert.equal(s.gl, 0); assert.equal(s.rafs, 0); assert.equal(s.timers, 0);
   assert.deepEqual(log.errors, []); assert.deepEqual(log.pageerrors, []); const w = log.warnings.filter(x => !/powerPreference|WebGL: CONTEXT_LOST_WEBGL|GPU stall|GL_CLOSE_PATH/.test(x)); assert.deepEqual(w, []); await ctx.close();
 });

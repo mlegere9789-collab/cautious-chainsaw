@@ -76,8 +76,10 @@ USE_BENCH = False
 
 
 def pdf_text(path, out_path, layout):
-    # the text extraction of a large PDF is the only CPU-heavy step: it goes through the machine lock
-    cmd = ([BENCH] if USE_BENCH and os.path.getsize(path) > 20e6 else []) + ['pdftotext', '-enc', 'UTF-8']
+    # Text extraction reads only the text layer (measured 2026-11-13: 0.03 to 1.6 s of CPU for
+    # 12 to 15 MB files), so it is below the 30 s threshold of the machine lock; it runs niced.
+    # --bench sends it through tools/horde/bench.sh all the same when wanted.
+    cmd = ([BENCH] if USE_BENCH and os.path.getsize(path) > 20e6 else ['nice', '-n', '10']) + ['pdftotext', '-enc', 'UTF-8']
     if layout:
         cmd.append('-layout')
     cmd += [path, '-']
@@ -152,8 +154,20 @@ def main():
         fname = sid + ('.pdf' if is_pdf else '.html')
         fpath = os.path.join(d, fname)
         rec = {'id': sid, 'url': url, 'fetched_at': now()}
-        http, ctype, eff, rc, err = fetch(url, fpath, a.max_time)
-        time.sleep(PAUSE)
+        reuse = False
+        if is_pdf and os.path.exists(fpath) and os.path.getsize(fpath) > 1024:
+            with open(fpath, 'rb') as f:
+                h8 = f.read(8)
+                f.seek(-2048, 2)
+                tail = f.read()
+            reuse = h8.startswith(b'%PDF') and b'%%EOF' in tail
+        if reuse:
+            # a complete file from an interrupted earlier run of this script: not requested again
+            http, ctype, eff, rc, err = 200, 'application/pdf', url, 0, ''
+            rec['reused_local_file'] = True
+        else:
+            http, ctype, eff, rc, err = fetch(url, fpath, a.max_time)
+            time.sleep(PAUSE)
         rec.update({'http': http, 'content_type': ctype, 'url_effective': eff, 'curl_exit': rc})
         if rc != 0 or http != 200 or not os.path.exists(fpath) or os.path.getsize(fpath) == 0:
             rec.update({'status': 'failed', 'reason': (err or 'HTTP %s' % http)})

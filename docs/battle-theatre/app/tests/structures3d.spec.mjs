@@ -2,15 +2,17 @@
 // the picture class by class, that the state schedule changes it over time and in the chosen reading of a conflict, scrub purity, selection and cards, the Views and Sources
 // controls, the Evidence outlines, memory and frame cost (structures on and off, default view and close view, both APIs), and screenshots of the three views for the owner.
 //   node --test docs/battle-theatre/app/tests/structures3d.spec.mjs         writes tests/results-structures3d.json and tests/shots-structures/*.png
-import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import path from 'node:path'; import { fileURLToPath } from 'node:url';
-import { startServer, launch, open, enter, pct } from './lib.mjs';
+// The shell's default renderer is WebGL2 (delegated decision DD-27): a test that names no renderer runs on it, and the tests that compare the two ask for each by name (?api=webgpu,
+// ?api=webgl2). On a software renderer (lib.mjs): a picture of the WebGPU canvas cannot be captured and no frame cost is a timing of the product, so those assertions are NOT RUN
+// (t.gpuOnly; the test is reported as skipped, never as passed), and the numbers and pictures go to tests/results/<BT_OUT or sw-latest>/ so that real-GPU evidence is never overwritten.
+import assert from 'node:assert/strict'; import fs from 'node:fs'; import path from 'node:path';
+import { test, startServer, launch, open, enter, pct, wait, RENDER, outFile } from './lib.mjs';
 
-const here = path.dirname(fileURLToPath(import.meta.url)), SHOTS = path.join(here, 'shots-structures'), OUT = path.join(here, 'results-structures3d.json');
-fs.mkdirSync(SHOTS, { recursive: true });
 const results = { machine: null, counts: null, timesTable: [], memory: null, frame: [], shots: [], pixels: {} };
 let S, B; const sessions = [];
 test.before(async () => { S = await startServer(10791); B = await launch(); });
-test.after(async () => { for (const s of sessions) await s.ctx.close().catch(() => { }); await B.close(); await S.close(); fs.writeFileSync(OUT, JSON.stringify(results, null, 1)); });
+test.after(async () => { for (const s of sessions) await s.ctx.close().catch(() => { }); await B.close(); await S.close(); fs.writeFileSync(outFile('results-structures3d.json'), JSON.stringify({ renderer: RENDER.renderer, software: RENDER.software, note: RENDER.software ? 'SOFTWARE renderer: no frame cost below is a timing of the product; every cost threshold and every WebGPU picture assertion was NOT RUN' : undefined, ...results }, null, 1)); });
+const noAdapter = api => api === 'webgpu' && RENDER.software && !RENDER.webgpu;       // a software renderer without a WebGPU adapter cannot open the WebGPU path at all
 const minOf = (m, d, h = 0, mi = 0) => ({ 6: 0, 7: 30 }[m] + d - 1) * 1440 + h * 60 + mi;
 const r1 = x => Math.round(x * 10) / 10;
 
@@ -18,7 +20,7 @@ async function session(extra = '', w = 1280, h = 800, o = {}) {
   const s = await open(B, S.base, { w, h, extra, ...o }); await enter(s.page); sessions.push(s);
   s.frames = n => s.page.evaluate(n => window.btApp.frames(n), n);
   s.at = async t => { await s.page.evaluate(t => window.btApp.setTime(t), t); await s.frames(4); };
-  s.shot = async name => { const buf = await s.page.screenshot(); if (name) { fs.writeFileSync(path.join(SHOTS, name + '.png'), buf); results.shots.push(name + '.png'); } return buf; };
+  s.shot = async name => { const buf = await s.page.screenshot(); if (name) { fs.writeFileSync(outFile(path.join('shots-structures', name + '.png')), buf); results.shots.push(name + '.png'); } return buf; };
   s.diff = (A, Bm, box) => s.page.evaluate(async ([a, b, box]) => { const ld = async x => { const bm = await createImageBitmap(await (await fetch('data:image/png;base64,' + x)).blob()); const c = new OffscreenCanvas(bm.width, bm.height), g = c.getContext('2d'); g.drawImage(bm, 0, 0); return [g.getImageData(0, 0, bm.width, bm.height).data, bm.width]; }; const [X, w] = await ld(a), [Y] = await ld(b); let n = 0, tot = 0; const [x0, y0, x1, y1] = box || [0, 0, w, X.length / 4 / w]; for (let y = y0; y < y1; y++) for (let x = x0; x < x1; x++) { const i = (y * w + x) * 4; tot++; if (Math.abs(X[i] - Y[i]) + Math.abs(X[i + 1] - Y[i + 1]) + Math.abs(X[i + 2] - Y[i + 2]) > 24) n++; } return n / tot; }, [A.toString('base64'), Bm.toString('base64'), box]);
   // camera on an object of the model (by id), light locked so only structures can change the picture
   s.aim = async (id, dist, h, yaw) => { await s.page.evaluate(([id, dist, h, yaw]) => { const a = window.btApp, th = a.theatre, m = a.structs.model, o = m.byId.get(id), [x, z] = m.focusOf(o); a.setPlaying(false); a.lock(true); th.controls.flyTo(th.viewFor(x, z, { dist, height: h, yaw: yaw ?? Math.PI * .75 }), 0); }, [id, dist, h, yaw]); await s.frames(8); };
@@ -26,12 +28,13 @@ async function session(extra = '', w = 1280, h = 800, o = {}) {
   return s;
 }
 
-test('what is drawn: object counts per class, draw calls and triangles, at several times, in WebGPU and in WebGL2', async () => {
+test('what is drawn: object counts per class, draw calls and triangles, at several times, in WebGPU and in WebGL2', async t => {
   for (const api of ['webgpu', 'webgl2']) {
-    const s = await session(api === 'webgl2' ? 'api=webgl2' : ''); assert.equal(await s.page.evaluate(() => window.btApp.api), api);
+    if (noAdapter(api)) { await t.gpuOnly('WebGPU: object counts, draw calls and the state schedule of the barns at several times (this browser has no WebGPU adapter)', () => { }); continue; }
+    const s = await session('api=' + api); assert.equal(await s.page.evaluate(() => window.btApp.api), api);
     const info = await s.page.evaluate(() => { const a = window.btApp, S = a.structs, m = S.model; return { counts: m.counts, notDrawn: S.inputs.data.notDrawn.length, err: a.theatre.structsError }; }); assert.equal(info.err, undefined);
     const c = info.counts; assert.ok(c.buildings >= 35 && c.masses >= 200 && c.fences >= 25 && c.panels >= 1500 && c.markers >= 100 && c.roads >= 25, JSON.stringify(c));
-    if (api === 'webgpu') results.counts = { ...c, notDrawnRecords: info.notDrawn };
+    if (api === 'webgpu' || !results.counts) results.counts = { ...c, notDrawnRecords: info.notDrawn, api };
     const times = [['1 Jul 12:00', minOf(7, 1, 12)], ['2 Jul 12:00', minOf(7, 2, 12)], ['2 Jul 20:00', minOf(7, 2, 20)], ['3 Jul 08:30', minOf(7, 3, 8, 30)], ['3 Jul 16:00', minOf(7, 3, 16)], ['3 Jul 17:00', minOf(7, 3, 17)], ['4 Jul 12:00', minOf(7, 4, 12)]];
     for (const [label, t] of times) {
       await s.page.evaluate(() => window.btApp.theatre.setView('overview', true)); await s.at(t);
@@ -40,7 +43,7 @@ test('what is drawn: object counts per class, draw calls and triangles, at sever
         return { cnt, draws: g.stats.draws, tris: g.stats.tris, inst: g.stats.instances, vis: { ...m.vis } }; });
       results.timesTable.push({ api, time: label, ...r.cnt, draws: r.draws, tris: r.tris, instances: r.inst, fenceNear: r.vis.near, fenceFar: r.vis.far });
       assert.ok(r.draws >= 3 && r.draws <= 7, `${api} ${label}: ${r.draws} draws`); assert.equal(r.cnt.visible, c.buildings + c.masses + c.fences + c.markers + c.roads, label + ': every drawn object is visible (none is hidden or missing)');
-      if (api === 'webgpu') console.log(`# ${api} ${label.padEnd(12)} objects ${r.cnt.visible} · burned ${r.cnt.burnedFull} · burning/dated ${r.cnt.burning + r.cnt.dithered} · damaged ${r.cnt.damaged} · fence panels changed ${r.cnt.fenceDown + r.cnt.fenceGone} · draws ${r.draws} · ${Math.round(r.tris)} tris`);
+      console.log(`# ${api} ${label.padEnd(12)} objects ${r.cnt.visible} · burned ${r.cnt.burnedFull} · burning/dated ${r.cnt.burning + r.cnt.dithered} · damaged ${r.cnt.damaged} · fence panels changed ${r.cnt.fenceDown + r.cnt.fenceGone} · draws ${r.draws} · ${Math.round(r.tris)} tris`);
     }
     // Bliss and the Sherfy barn: intact on 2 July, dated (dithered) on 3 July, burned on 4 July; the McPherson barn (a footprint) never burns
     const lv = async t => { await s.at(t); return s.page.evaluate(() => { const a = window.btApp, m = a.structs.model, B = m.stateBuf, f = id => { const o = m.byId.get(id), i = o.oid * 8; return [B[i + 1], B[i + 4], B[i + 3], B[i + 6]]; }; return { bliss: f('STR-BLISS-BARN1'), sherfy: f('STR-SHERFY-BARN1'), mcp: f('STR-MCPHERSON-BARN1') }; }); };
@@ -50,9 +53,10 @@ test('what is drawn: object counts per class, draw calls and triangles, at sever
   }
 });
 
-test('the picture: each class changes it where the class stands (roads, fences, buildings, masses, markers), in WebGPU and in WebGL2', async () => {
+test('the picture: each class changes it where the class stands (roads, fences, buildings, masses, markers), in WebGPU and in WebGL2', async t => {
   for (const api of ['webgpu', 'webgl2']) {
-    const s = await session(api === 'webgl2' ? 'api=webgl2' : ''); await s.at(minOf(7, 2, 11));
+    if (api === 'webgpu' && RENDER.software) { await t.gpuOnly('WebGPU picture: switching each of the five classes off changes the picture where the class stands', () => { }); continue; }
+    const s = await session('api=' + api); assert.equal(await s.page.evaluate(() => window.btApp.api), api); await s.at(minOf(7, 2, 11));
     const cases = [['buildings', 'STR-TROSTLE-BARN1', 60, 14], ['fences', 'FN-0139', 45, 8], ['markers', 'STR-BLISS-BARN1', 40, 8], ['roads', 'RL-001', 60, 20], ['masses', 'STR-BORO-MASS-100', 110, 40]];
     for (const [cls, id, d, h] of cases) {
       await s.aim(id, d, h); await s.layers({ roads: true, fences: true, buildings: true, masses: true, markers: true }); const on = await s.shot(); await s.layers({ [cls]: false }); const off = await s.shot();
@@ -92,7 +96,7 @@ test('scrub purity and no leak: the state buffer and the picture at a time do no
   // stepping with the keyboard reaches the same buffer as seeking
   await s.page.evaluate(t => window.btApp.setTime(t), T1 - 30); await s.frames(3); await s.page.focus('#bt-canvas'); for (let i = 0; i < 3; i++) { await s.page.keyboard.press('ArrowRight'); await s.frames(2); } const stepped = await s.page.evaluate(() => window.btApp.state.t); await s.at(stepped); const h3 = await hash(); await s.at(T2); await s.at(stepped); assert.equal(await hash(), h3);
   // playing: the buffer is a function of the time it ends at
-  await s.page.evaluate(t => { const a = window.btApp; a.setTime(t); a.setSpeed(30); a.setPlaying(true); }, T1 - 20); await s.page.waitForTimeout(1500); await s.page.evaluate(() => window.btApp.setPlaying(false)); await s.frames(4);
+  await s.page.evaluate(t => { const a = window.btApp; a.setTime(t); a.setSpeed(30); a.setPlaying(true); }, T1 - 20); await wait(s.page, 1500); await s.page.evaluate(() => window.btApp.setPlaying(false)); await s.frames(4);
   const tEnd = await s.page.evaluate(() => window.btApp.state.t), hp = await hash(); await s.at(T3); await s.at(tEnd); assert.equal(await hash(), hp, 'the state after playing to ' + tEnd);
   const snap0 = await s.page.evaluate(() => window.__instSnapshot && window.__instSnapshot()); assert.ok(snap0);
   await s.ctx.close(); sessions.splice(sessions.indexOf(s), 1);
@@ -129,29 +133,31 @@ test('Views and Evidence: a toggle for every class (and the works rings), the li
 });
 
 // ------------------------------------------------------------------------------------------------ memory and frame cost
-async function cost(api, structures, view, secs = 5) {
-  let best = null; for (let attempt = 0; attempt < 3; attempt++) { const r = await cost1(api, structures, view, secs); r.attempts = attempt + 1; if (!best || r.p95 < best.p95) best = r; if (r.p95 <= 17.5 && r.long === 0) break; } return best;
+const WARM = () => RENDER.software ? 2 : 40, SECS = () => RENDER.software ? 1 : 5, TRIES = () => RENDER.software ? 1 : 3;       // on a software renderer nothing measured here is asserted: one short pass, the steps only
+async function cost(api, structures, view, secs = SECS()) {
+  let best = null; for (let attempt = 0; attempt < TRIES(); attempt++) { const r = await cost1(api, structures, view, secs); r.attempts = attempt + 1; if (!best || r.p95 < best.p95) best = r; if (r.p95 <= 17.5 && r.long === 0) break; } return best;
 }
 async function cost1(api, structures, view, secs) {
-  const s = await session([api === 'webgl2' ? 'api=webgl2' : '', structures ? '' : 'structures=off'].filter(Boolean).join('&'), 1920, 1080);
+  const s = await session(['api=' + api, structures ? '' : 'structures=off'].filter(Boolean).join('&'), 1920, 1080); assert.equal(await s.page.evaluate(() => window.btApp.api), api, 'the renderer asked for is the renderer measured (no silent fallback)');
   await s.at(minOf(7, 3, 13, 30)); await s.page.evaluate(() => { const a = window.btApp; a.lock(true); a.theatre.setView('overview', true); });
   if (view === 'close') await s.page.evaluate(() => { const a = window.btApp, th = a.theatre; const o = a.structs ? a.structs.model.byId.get('STR-SHERFY-HOUSE1') : null; const [x, z] = o ? a.structs.model.focusOf(o) : [-900, 200]; th.controls.flyTo(th.viewFor(x, z, { dist: 60, height: 12 }), 0); });
   else if (view === 'town') await s.page.evaluate(() => { const th = window.btApp.theatre; th.controls.flyTo(th.viewFor(180, -820, { dist: 260, height: 90 }), 0); });
-  await s.frames(40); await s.page.evaluate(() => window.btApp.resetPerf()); await s.page.waitForTimeout(secs * 1000);
+  await s.frames(WARM()); await s.page.evaluate(() => window.btApp.resetPerf()); await s.page.waitForTimeout(secs * 1000);       // a measuring window in wall-clock seconds, not a wait for the page
   const p = await s.page.evaluate(() => { const a = window.btApp, q = a.perf(), g = a.structs && a.structs.gpu; return { q, mem: a.host.memoryBytes(), stMem: g ? g.mem : 0, stats: g ? { ...g.stats } : null, ms: a.structs ? { ...a.structs.ms } : null, info: a.host.info }; });
   const q = p.q; const row = { api, structures, view, frames: q.frames, p50: r1(q.p50), p95: r1(q.p95), p99: r1(q.p99), cpuP50: r1(q.cpuP50), cpuP95: r1(q.cpuP95), gpuP50: q.gpuP50 == null ? null : r1(q.gpuP50 * 100) / 100, gpuP95: q.gpuP95 == null ? null : r1(q.gpuP95 * 100) / 100, structsMsMax: r1(q.phases.structs || 0), long: q.long.length, memMB: Math.round(p.mem / 1048576 * 10) / 10, structuresKB: Math.round(p.stMem / 102.4) / 10, draws: p.stats && p.stats.draws, tris: p.stats && Math.round(p.stats.tris) };
   if (!results.machine) results.machine = { adapter: p.info, canvas: [1920, 1080], browser: B.version() };
   await s.ctx.close(); sessions.splice(sessions.indexOf(s), 1); return row;
 }
-test('frame cost and GPU memory with the structures on and off at 1920x1080 (default view, a town view, a close view), WebGPU and WebGL2', async () => {
+test('frame cost and GPU memory with the structures on and off at 1920x1080 (default view, a town view, a close view), WebGPU and WebGL2', async t => {
   for (const api of ['webgpu', 'webgl2']) for (const view of ['overview', 'town', 'close']) {
+    if (api === 'webgpu' && RENDER.software) { await t.gpuOnly(`webgpu ${view}: frame cost and memory with the structures on and off (measures the GPU only; the steps were walked through on WebGL2)`, () => { }); continue; }
     const off = await cost(api, false, view), on = await cost(api, true, view); results.frame.push(off, on);
     const dGpu = on.gpuP50 != null && off.gpuP50 != null ? r1((on.gpuP50 - off.gpuP50) * 100) / 100 : null, dCpu = r1((on.cpuP50 - off.cpuP50) * 100) / 100, dMem = r1((on.memMB - off.memMB) * 10) / 10;
     console.log(`# ${api.padEnd(7)} ${view.padEnd(8)} off: frame p95 ${off.p95} ms, cpu ${off.cpuP50}/${off.cpuP95}, gpu ${off.gpuP50}/${off.gpuP95} · on: frame p95 ${on.p95} ms, cpu ${on.cpuP50}/${on.cpuP95}, gpu ${on.gpuP50}/${on.gpuP95} · added gpu ${dGpu} ms, cpu ${dCpu} ms, memory ${dMem} MB (structures ${on.structuresKB} KB), ${on.draws} draws ${on.tris} tris, structures phase max ${on.structsMsMax} ms`);
-    assert.ok(on.p95 <= 20, `${api} ${view}: frame p95 ${on.p95} ms`); assert.equal(on.long, 0, `${api} ${view}: long tasks`);
-    if (dGpu != null) assert.ok(dGpu <= 2.0, `${api} ${view}: the structures add ${dGpu} ms of GPU time`); assert.ok(dCpu <= 2.0, `${api} ${view}: the structures add ${dCpu} ms of CPU time`); assert.ok(on.structuresKB < 20000, 'structures memory over 20 MB');
+    await t.gpuOnly(`${api} ${view}: frame p95 <= 20 ms with the structures on`, () => assert.ok(on.p95 <= 20, `${api} ${view}: frame p95 ${on.p95} ms`)); await t.gpuOnly(`${api} ${view}: no long task with the structures on`, () => assert.equal(on.long, 0, `${api} ${view}: long tasks`));
+    if (dGpu != null) await t.gpuOnly(`${api} ${view}: the structures add at most 2.0 ms of GPU time`, () => assert.ok(dGpu <= 2.0, `${api} ${view}: the structures add ${dGpu} ms of GPU time`)); await t.gpuOnly(`${api} ${view}: the structures add at most 2.0 ms of CPU time`, () => assert.ok(dCpu <= 2.0, `${api} ${view}: the structures add ${dCpu} ms of CPU time`)); assert.ok(on.structuresKB < 20000, 'structures memory over 20 MB');
   }
-  const on = results.frame.find(r => r.structures && r.api === 'webgpu'); results.memory = { structuresKB: on.structuresKB, totalMB: on.memMB, budget: 'the laptop GPU has 8 GB; structures use under 20 MB' };
+  const on = results.frame.find(r => r.structures && r.api === 'webgpu') || results.frame.find(r => r.structures); results.memory = { api: on.api, structuresKB: on.structuresKB, totalMB: on.memMB, budget: 'the laptop GPU has 8 GB; structures use under 20 MB' };
 });
 
 // ------------------------------------------------------------------------------------------------ screenshots for the owner

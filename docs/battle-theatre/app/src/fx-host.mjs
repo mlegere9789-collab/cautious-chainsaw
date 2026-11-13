@@ -6,15 +6,19 @@
 //   const info = fxHost.update({ tMin, cam, choices });                                                     // every frame, BEFORE host.frame(); returns what the UI shows
 //   fxHost.dispose();                                                                                       // before host.destroy()
 //
-// How it draws (WebGL2): it takes over the renderer's `ext` hook (the structures layer keeps working: assignments to R.ext become the inner hook that is called first), and inside the scene pass, after
-// the structures and before post: (1) the weather pass over the sky and the geometry, (2) the fx3d sprites. It switches the prototype's own sky and particle passes off (restored by dispose()).
-// WebGPU: the state (weather, effects, events) is computed and returned, nothing is drawn yet (gap EG-W3D-G08; BROWSER-VERIFICATION-LIST-WEATHER.md).
+// How it draws: it takes over the renderer's `ext` hook (the figures and the structures keep working: whatever R.ext held, and whatever is assigned to it later, becomes the inner hook that is called first) and
+// switches the prototype's own sky and particle passes off (restored by dispose()). Then, after the figures and the structures and before bloom and post: (1) the weather pass over the sky and the
+// geometry, (2) the fx3d sprites.
+//   WebGL2: inside the scene pass (`ext.scene`), on a copy of the scene depth (weather3d/gl.mjs).
+//   WebGPU: in one render pass of its own right after the scene pass (`ext.after`), with the scene depth attached read-only and sampled (weather3d/gpu.mjs). Same inputs, same order, same blend states.
+// Both paths have only run on software adapters here (BROWSER-VERIFICATION-LIST-WEATHER.md); the real-GPU checks are listed there.
 //
 // Events: the anim3d bus (BT-EVENTS.md) feeds fx3d: fire -> smoke, muzzle flash and light; misfire -> cap flash; fall -> dust; unit_march -> road dust; impact -> shell and case bursts, ground strikes.
 // Nothing is delayed: sound is AUDIO's (delay = distance / speed of sound; the weather state carries the temperature input for it, Q13).
 import { createFx, REPLAY_S } from './fx3d/index.mjs';
 import { WeatherTimeline, weatherStatement } from './weather3d/timeline.mjs';
 import { GLPasses } from './weather3d/gl.mjs';
+import { GPUPasses } from './weather3d/gpu.mjs';
 
 const FX_EVENTS = ['fire', 'misfire', 'fall', 'unit_march', 'impact'];
 export const DEFAULTS = { tier: 'desktop', driveAnim: true, maxWindowS: 30, drawWeather: true, drawFx: true };
@@ -37,9 +41,10 @@ export class FxHost {
     me.kappa = [data.params.smoke.kappa_m2_per_kg, data.params.dust.kappa_m2_per_kg];
     me.anim = o.anim || host.anim || null; me.subs = [];
     if (me.anim && me.anim.bus) me._subscribe(me.anim.bus);
-    me.gl = null;
+    me.gl = null; me.gpu = null;
     if (R && api === 'webgl2' && R.gl) me._installGL(R);
-    else me.log.push(api === 'webgpu' ? 'webgpu: state computed, nothing drawn (EG-W3D-G08)' : 'no WebGL2 renderer: state only');
+    else if (R && api === 'webgpu' && R.dev) await me._installGPU(R);
+    else me.log.push('no renderer: state only');
     return me;
   }
   _subscribe(bus) {
@@ -53,11 +58,37 @@ export class FxHost {
     this.prevFlags = { sky: R.o.flags.sky, particles: R.o.flags.particles };
     if (this.gl.weatherOk && this.opts.drawWeather) R.o.flags.sky = false;
     if (this.gl.fxOk && this.opts.drawFx) R.o.flags.particles = false;
-    // chain the renderer's ext hook: whatever is assigned to R.ext later (the structures layer) becomes the inner hook, ours stays outermost
-    const self = this; let inner = R.ext || null; this._innerExt = () => inner;
-    const outer = { scene(gl, r) { if (inner && inner.scene) inner.scene(gl, r); self._drawScene(); }, shadow(gl, c, r) { if (inner && inner.shadow) inner.shadow(gl, c, r); } };
-    Object.defineProperty(R, 'ext', { configurable: true, enumerable: true, get() { return outer; }, set(v) { inner = v; } }); this._outer = outer; this._R = R;
+    this._chainExt(R, { scene: () => this._drawScene() });
   }
+  // R.ext is the renderer's one extension slot (scene and shadow hooks, and on WebGPU `after`). The render host makes it an accessor (the figures first, then whatever is assigned to it); a bare
+  // renderer has a plain property. Either way this layer becomes the outermost hook and passes every later assignment on to what was there, so the figures and the structures keep drawing
+  // whatever the order of attachment; _unchain() puts the slot back exactly as it was found.
+  _chainExt(R, mine) {
+    const desc = Object.getOwnPropertyDescriptor(R, 'ext'), acc = !!(desc && desc.get); let plain = acc ? null : (R.ext || null);
+    const inner = () => (acc ? desc.get.call(R) : plain);
+    const outer = { scene(a, r) { const i = inner(); if (i && i.scene) i.scene(a, r); if (mine.scene) mine.scene(a, r); }, shadow(a, c, r) { const i = inner(); if (i && i.shadow) i.shadow(a, c, r); },
+      after(a, r) { const i = inner(); if (i && i.after) i.after(a, r); if (mine.after) mine.after(a, r); } };
+    Object.defineProperty(R, 'ext', { configurable: true, enumerable: true, get() { return outer; }, set(v) { if (acc && desc.set) desc.set.call(R, v); else if (!acc) plain = v; } });
+    this._innerExt = inner; this._outer = outer; this._R = R;
+    this._unchain = () => { if (acc) Object.defineProperty(R, 'ext', desc); else { try { delete R.ext; } catch { /* keep going */ } R.ext = plain; } };
+  }
+  // WebGPU: the pipelines compile asynchronously; nothing of the prototype is switched off before they exist
+  async _installGPU(R) {
+    const budget = this.fx.budget, host = this.host, gpu = await GPUPasses.create(R, { maxEvents: budget.maxEvents, timing: this.opts.timing !== false }); this.log.push(...gpu.log);
+    if (this._disposed || host.destroyed || host.R !== R) { gpu.dispose(); this.log.push('the renderer went away before the weather and effects pipelines were ready'); return; }
+    this.gpu = gpu;
+    if (!gpu.ok) { this.log.push('weather3d/fx3d WebGPU pipelines did not build: the prototype sky and particles stay on'); return; }
+    this.prevFlags = { sky: R.o.flags.sky, particles: R.o.flags.particles };
+    if (gpu.weatherOk && this.opts.drawWeather) R.o.flags.sky = false;
+    if (gpu.fxOk && this.opts.drawFx) R.o.flags.particles = false;
+    this._chainExt(R, { after: enc => this._drawAfter(enc) });       // the same chain as on WebGL2; `after` is the hook the renderer calls between its scene pass and its post passes
+  }
+  _drawAfter(enc) {
+    if (this.dead || !this.cur || !this.gpu) return;
+    const c = this.cur; try { this.gpu.draw(enc, c.W, c.fr, c.cam, { weather: this.opts.drawWeather, fx: this.opts.drawFx }); } catch (e) { this._stop('draw failed: ' + (e.message || e), e); }
+  }
+  // the layer stops drawing and gives the sky and the particles back to the prototype renderer; the state (weather, effects, events) is still computed
+  _stop(why, e) { if (this.dead) return; this.log.push(why); this.dead = true; this._restoreFlags(); console.error('fx-host: effects off,', why, e || ''); }
   _drawScene() {
     if (this.dead || !this.cur || !this.gl) return;
     const c = this.cur; try { this.gl.draw(c.W, c.fr, c.cam, { weather: this.opts.drawWeather, fx: this.opts.drawFx }); } catch (e) { this.log.push('draw failed: ' + (e.message || e)); this.dead = true; this._restoreFlags(); console.error('fx-host draw failed, effects off', e); }
@@ -83,6 +114,7 @@ export class FxHost {
   }
   update(frame) {
     if (this.dead && !this.cur) return null; const o = this.opts, tSec = frame.tSec ?? frame.tMin * 60, cam = frame.cam;
+    if (this.gpu && this.gpu.failed && !this.dead) this._stop('WebGPU validation error in the weather or effects pass: ' + this.gpu.failed);
     if (!(tSec >= 0)) throw new Error('fx-host.update: frame.tMin (minutes) or frame.tSec (seconds) is required');
     const ch = frame.choices || (typeof o.choices === 'function' ? o.choices() : o.choices) || {}, key = JSON.stringify(ch);
     if (key !== this.choicesKey) { this.choicesKey = key; this.weather.setChoices(ch); this.fx.seek(tSec); this.dirty = true; }
@@ -90,14 +122,14 @@ export class FxHost {
     const camFx = cam ? { pos: [cam.x, cam.y, cam.z], fwd: cam.fwd, fovY: cam.fov, aspect: frame.aspect || (this._R ? this._R.W / this._R.H : 1.78), heightPx: frame.heightPx || (this._R ? this._R.H : 1080) } : null;
     const fr = this.fx.update(tSec, camFx); fr.kappa = this.kappa; this.cur = { W, fr, cam }; this.statsOut.frames++;
     return { t: tSec, driveState: state, weather: W, statement: weatherStatement(W), effects: { text: fr.budget.text, tier: fr.budget.tier, nEvents: fr.nEvents, nSprites: fr.nSprites, liveEvents: fr.liveEvents, pending: fr.pending, uncertainFires: fr.uncertainFires, fires: fr.fires },
-      temp: W.temp, wind: W.wind, replayWindow: this.fx.replayWindow(), stats: { ...this.statsOut, gl: this.gl ? { ...this.gl.stats } : null, fx: this.fx.stats() }, log: this.log };
+      temp: W.temp, wind: W.wind, replayWindow: this.fx.replayWindow(), stats: { ...this.statsOut, gl: this.gl ? { ...this.gl.stats } : null, gpu: this.gpu ? { ...this.gpu.stats } : null, fx: this.fx.stats() }, log: this.log };
   }
   // optional: the host's measured effect cost in milliseconds, once a second; the governor reduces sprites (never soldiers) when it is over budget
   govern(effectMs) { return this.fx.govern(effectMs); }
   dispose() {
     if (this._disposed) return; this._disposed = true; this.dead = true; this._unsubscribe();
-    const R = this._R; if (R && this._outer) { const inner = this._innerExt(); try { delete R.ext; } catch { /* keep going */ } R.ext = inner; this._restoreFlags(); }
-    if (this.gl) this.gl.dispose(); this.gl = null; this.cur = null; this.fx = null; this.weather = null; this.anim = null; this._R = null;
+    if (this._R && this._unchain) { this._unchain(); this._unchain = null; this._restoreFlags(); }
+    if (this.gl) this.gl.dispose(); this.gl = null; if (this.gpu) this.gpu.dispose(); this.gpu = null; this.cur = null; this.fx = null; this.weather = null; this.anim = null; this._R = null;
   }
 }
 

@@ -1,7 +1,7 @@
 // The real history layer through the page: honest labelling of what is placed and what is an open gap, cards for a placed unit and for a unit with no place, the Units list,
 // kit manifest, source keys and register links, the evidence overlay with the layer's units, works drawn as rings.   node --test docs/battle-theatre/app/tests/real.spec.mjs
 import test from 'node:test'; import assert from 'node:assert/strict';
-import { startServer, launch, open, enter } from './lib.mjs';
+import { startServer, launch, open, enter, wait } from './lib.mjs';
 
 let S, B, page, ctx, log;
 test.before(async () => { S = await startServer(10785); B = await launch(); ({ ctx, page, log } = await open(B, S.base)); await enter(page); });
@@ -23,7 +23,7 @@ test('honest labelling: the ribbon, the count, the About text and the landing co
 
 test('a placed unit: Units list, card with strength basis, entry, arrival note, tier, sources, kit manifest and a register link that opens', async () => {
   const info = await page.evaluate(() => { const a = window.btApp, L = a.layer, u = L.units[L.focus], ev = L.events(a.state.scenario).filter(e => e.unit === u.id && e.type === 'path'); return { id: u.id, i: L.focus, name: u.name, t: ev[0].wp.at(-1).t + 1, share: u.strength.drawn }; });
-  await at(info.t); await page.click('[data-panel=views]'); await page.click('#vw-tabs [data-tab=unit]'); await page.fill('#vw-q', info.id); await page.waitForTimeout(250);
+  await at(info.t); await page.click('[data-panel=views]'); await page.click('#vw-tabs [data-tab=unit]'); await page.fill('#vw-q', info.id); await wait(page, 250);
   assert.equal(await page.locator('#bt-drawer-body .item').count(), 1, 'the unit on the field is offered'); assert.match(await page.locator('#bt-drawer-body .item').innerText(), new RegExp(`${info.share} figures`));
   await page.focus('#bt-drawer-body .item'); await page.keyboard.press('Enter'); await page.waitForSelector('#bt-card:not([hidden])'); await page.keyboard.press('Escape'); await frames(8);
   const card = page.locator('#bt-card'), txt = await card.innerText();
@@ -38,7 +38,7 @@ test('a unit with no place: its card says open gap and why, still shows its ledg
   await at(minOf(7, 3, 12)); await page.evaluate(i => window.btApp.select(i), info.i); await frames(8); const txt = await page.locator('#bt-card').innerText();
   for (const w of ['Open gap: no place', 'no road or direction of approach is printed', 'Arrival window', 'opens', 'Entry', 'open gap', `about ${info.share}`, 'On the field']) assert.ok(txt.toLowerCase().includes(w.toLowerCase()), `card shows ${w}`);
   const st = await page.evaluate(i => ({ present: window.btApp.stage.present[i], x: window.btApp.stage.w.unitF[i * 12], figures: window.btApp.stage.w.units[i].count }), info.i); assert.equal(st.present, 0); assert.equal(st.x, 1e6); assert.equal(st.figures, 0);
-  await page.click('[data-panel=views]'); await page.click('#vw-tabs [data-tab=unit]'); await page.fill('#vw-q', info.id); await page.waitForTimeout(250); assert.equal(await page.locator('#bt-drawer-body .item').count(), 0); await page.keyboard.press('Escape');
+  await page.click('[data-panel=views]'); await page.click('#vw-tabs [data-tab=unit]'); await page.fill('#vw-q', info.id); await wait(page, 250); assert.equal(await page.locator('#bt-drawer-body .item').count(), 0); await page.keyboard.press('Escape');
   await page.evaluate(() => window.btApp.select(-1));
 });
 
@@ -75,13 +75,15 @@ test('a unit placed by a troop-map day position: the card says the position is d
 });
 
 test('a unit drawn by a MODELLED road of approach (DEC-015): the card says MODELLED APPROACH with the siblings, report, page and printed words, carries the pill and the link to EG-0070, says what is documented and what is modelled; an open unit says why the rule was not applied; the About text counts the modelled units', async () => {
-  const info = await page.evaluate(() => { const L = window.btApp.layer, ids = L.units.map(u => u.id), m = L.units.findIndex(u => u.drawn && u.approach && u.approach.modelled), o = ids.indexOf('us-11c-2d-coster-134ny'), n = L.units.filter(u => u.drawn && u.approach && u.approach.modelled).length; const u = L.units[m]; return { m, o, n, id: u.id, ap: u.approach.id, road: u.approach.road, sib: u.approach.siblings.map(s => ({ ap: s.ap, phrase: s.phrase, report: s.report || null, page: s.page ?? null })) }; });
-  assert.ok(info.m >= 0 && info.n === 56, `${info.n} modelled units`);
+  const info = await page.evaluate(() => { const L = window.btApp.layer, ids = L.units.map(u => u.id), m = L.units.findIndex(u => u.drawn && u.approach && u.approach.modelled), o = L.units.findIndex(u => u.render.status === 'not_drawn' && /Sibling-road rule \(DEC-015[^)]*\): not applied, because /.test(u.render.reason || '')), n = L.units.filter(u => u.drawn && u.approach && u.approach.modelled).length; const u = L.units[m]; return { m, o, n, oid: o >= 0 ? L.units[o].id : null, why: o >= 0 ? L.units[o].render.reason.split('not applied, because ')[1].replace(/\.\s*$/, '') : null, id: u.id, ap: u.approach.id, road: u.approach.road, sib: u.approach.siblings.map(s => ({ ap: s.ap, phrase: s.phrase, report: s.report || null, page: s.page ?? null })) }; });
+  assert.ok(info.m >= 0 && info.n === 56, `${info.n} modelled units`); assert.ok(info.o >= 0 && info.why && info.why.length > 20, 'an open unit whose reason says why the sibling-road rule was not applied');
+  // the open unit is found in the layer, not named here: the 134th New York of Coster's brigade (the unit this test used to name, with Horner's Mill in its reason) has a road of approach printed in
+  // a state regimental volume since history layer v8 (decision DEC-023E, ledger E) and is drawn; the card of whichever unit is open must still give that unit's own reason in full
   await at(minOf(7, 2, 12)); await page.evaluate(i => window.btApp.select(i), info.m); await frames(8); let txt = await page.locator('#bt-card').innerText();
   for (const w of ['Placed', 'MODELLED APPROACH (plausible-procedural; evidence gap EG-0070, decision DEC-015)', `Approach ${info.ap}: ${info.road}`, 'may in fact have come by another road', 'Documented: the unit', 'Modelled: the road', 'Place in the column', 'Modelled approach', 'Approach road (modelled)', 'Not printed for this unit or for any formation above it', 'Open register entry EG-0070']) assert.ok(txt.includes(w), `card shows ${w}`);
   for (const s of info.sib) { assert.ok(txt.includes(s.ap) && txt.includes(s.phrase), `card lists sibling ${s.ap}`); if (s.report) assert.ok(txt.includes(s.report) && txt.includes('page ' + s.page), `card gives the report and page of ${s.ap}`); }
   assert.ok(!FORBIDDEN.test(txt)); const href = await page.locator('#bt-card a.btn-s[href*="EG-0070"]').first().getAttribute('href'); assert.match(href, /register\/EG-0070\.md$/); assert.equal((await page.request.get(href)).status(), 200, 'the register entry opens');
-  await page.evaluate(i => window.btApp.select(i), info.o); await frames(8); txt = await page.locator('#bt-card').innerText(); assert.match(txt, /Open gap/); assert.match(txt, /Sibling-road rule \(DEC-015.*not applied, because/); assert.match(txt, /Horner/); assert.ok(!/MODELLED APPROACH/.test(txt)); assert.ok(!FORBIDDEN.test(txt));
+  await page.evaluate(i => window.btApp.select(i), info.o); await frames(8); txt = await page.locator('#bt-card').innerText(); assert.match(txt, /Open gap/); assert.match(txt, /Sibling-road rule \(DEC-015.*not applied, because/); assert.ok(txt.replace(/\s+/g, ' ').includes(info.why.replace(/\s+/g, ' ')), `the card of ${info.oid} gives its own reason: ${info.why}`); assert.ok(!/MODELLED APPROACH/.test(txt)); assert.ok(!FORBIDDEN.test(txt));
   await page.evaluate(() => window.btApp.select(-1)); await frames(2);
   await page.click('[data-panel=info]'); const body = await page.locator('#bt-drawer-body').innerText(); assert.match(body, /Modelled approaches/); assert.match(body, new RegExp(`${info.n} units are drawn by a road of approach that the record does not print`)); assert.ok(!FORBIDDEN.test(body)); await page.keyboard.press('Escape');
 });

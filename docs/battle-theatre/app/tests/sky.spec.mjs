@@ -2,11 +2,11 @@
 // dimmed (not blackened), and the light direction follows the project's sun and moon table. The luminance floor is a parameter (Settings).
 //   node --test docs/battle-theatre/app/tests/sky.spec.mjs
 import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs';
-import { startServer, launch, open, enter } from './lib.mjs';
+import { startServer, launch, open, enter, outFile } from './lib.mjs';
 
 let S, B, page, ctx, log; const rows = [];
 test.before(async () => { S = await startServer(10786); B = await launch(); ({ ctx, page, log } = await open(B, S.base, { history: 'stub', w: 1280, h: 720 })); await enter(page); });
-test.after(async () => { fs.writeFileSync(new URL('./results-sky.json', import.meta.url), JSON.stringify(rows, null, 1)); await ctx.close(); await B.close(); await S.close(); });
+test.after(async () => { fs.writeFileSync(outFile('results-sky.json'), JSON.stringify(rows, null, 1)); await ctx.close(); await B.close(); await S.close(); });
 const minOf = (m, d, h = 0, mm = 0) => ({ 6: 0, 7: 30, 8: 61 }[m] + d - 1) * 1440 + h * 60 + mm;
 const frames = n => page.evaluate(n => window.btApp.frames(n), n);
 const region = { x: 440, y: 70, width: 820, height: 560 };

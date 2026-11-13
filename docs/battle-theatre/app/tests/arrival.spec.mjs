@@ -2,7 +2,7 @@
 // an event before the earliest arrival is refused by the sim event cache; the source-conflict scenarios carry every value, default to "PDF recommended, pending owner", and move
 // the units the ledger links to them.   node --test docs/battle-theatre/app/tests/arrival.spec.mjs
 import test from 'node:test'; import assert from 'node:assert/strict';
-import { startServer, launch, open, enter } from './lib.mjs';
+import { startServer, launch, open, enter, wait } from './lib.mjs';
 
 let S, B, page, ctx, log;
 test.before(async () => { S = await startServer(10783); B = await launch(); ({ ctx, page, log } = await open(B, S.base)); await enter(page); });
@@ -61,7 +61,7 @@ test('a unit that has not arrived is not drawn (pixels), is absent from the unit
   const dBefore = await diff(empty, before); console.log(`# ${info.name} (${info.count} figures), one minute before its window opens: ${(dBefore * 100).toFixed(3)}% of the pixels around its place differ from the empty field`);
   assert.ok(dBefore < 0.0005, `${(dBefore * 100).toFixed(3)}% of pixels differ before arrival`);
   // keyboard route: the Units list at this time does not offer it; its card (selected by the page) says the window has not opened
-  await page.click('[data-panel=views]'); await page.click('#vw-tabs [data-tab=unit]'); await page.fill('#vw-q', info.id); await page.waitForTimeout(250);
+  await page.click('[data-panel=views]'); await page.click('#vw-tabs [data-tab=unit]'); await page.fill('#vw-q', info.id); await wait(page, 250);
   assert.equal(await page.locator('#bt-drawer-body .item').count(), 0, 'not offered while absent'); await page.keyboard.press('Escape');
   await page.evaluate(i => window.btApp.select(i), info.i); await frames(8); const card = await page.locator('#bt-card').innerText(); assert.match(card, /not yet: its arrival window has not opened/); assert.match(card, /Plausible-procedural|plausible-procedural/); assert.match(card, /procedural share/);
   // it appears at the edge of the loaded ground (a march, not a spawn) and then walks to its place

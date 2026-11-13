@@ -1,8 +1,10 @@
 // Contract 1.3 in the page: men fall in the picture (pixels), stand up again when the scrubber goes back (the renderer's tables are re-uploaded, byte-identical picture), the card shows the ranges and
 // their basis, nothing is uploaded when nothing changed, on WebGPU and on the WebGL2 path, and no console error.
+// The shell's default renderer is WebGL2 (delegated decision DD-27), so each path is asked for by name (?api=webgpu, ?api=webgl2). A picture of the WebGPU canvas cannot be captured on a
+// software renderer (the headless capture is blank): there the WebGPU picture assertions are NOT RUN (t.gpuOnly) and everything else of the WebGPU test still runs.
 //   node --test docs/battle-theatre/app/tests/casualties.spec.mjs
-import test from 'node:test'; import assert from 'node:assert/strict';
-import { startServer, launch, open, enter } from './lib.mjs';
+import assert from 'node:assert/strict';
+import { test, startServer, launch, open, enter, wait, RENDER } from './lib.mjs';
 
 const minOf = (m, d, h = 0, mm = 0) => ({ 6: 0, 7: 30, 8: 61 }[m] + d - 1) * 1440 + h * 60 + mm;
 let S, B; const sessions = [];
@@ -25,17 +27,19 @@ async function aim(s, t0) {
 const REGION = { x: 380, y: 150, width: 520, height: 500 };
 
 for (const api of ['webgpu', 'webgl2']) {
-  test(`${api}: men of a unit fall in the picture while it stands in a printed window, stand up again when the scrubber goes back, and the same time gives the same picture`, async () => {
-    const s = await session(api === 'webgl2' ? 'api=webgl2' : ''); assert.equal(await s.page.evaluate(() => window.btApp.api), api);
+  test(`${api}: men of a unit fall in the picture while it stands in a printed window, stand up again when the scrubber goes back, and the same time gives the same picture`, async t => {
+    if (api === 'webgpu' && RENDER.software && !RENDER.webgpu) return t.notRun('this browser has no WebGPU adapter (software renderer): the WebGPU path of this test is owed on a real GPU');
+    const picture = (label, f) => api === 'webgpu' ? t.gpuOnly(`WebGPU picture: ${label}`, f) : f();       // the WebGL2 picture is always checked
+    const s = await session('api=' + api); assert.equal(await s.page.evaluate(() => window.btApp.api), api);
     const shot = async () => { await s.frames(3); return s.page.screenshot({ clip: REGION }); };
     await aim(s, minOf(7, 1, 14, 59)); const down0 = await s.page.evaluate(() => window.btApp.stage.stats.down), before = await shot();
     await s.at(minOf(7, 1, 15, 29)); const down1 = await s.page.evaluate(() => window.btApp.stage.stats.down), after = await shot(), after2 = await shot();
     assert.ok(down1 > down0 + 200, `men down on the field: ${down0} before, ${down1} after`);
     const dFall = await s.diff(before, after), dSame = await s.diff(after, after2); console.log(`# ${api}: ${down0} down at 14:59, ${down1} at 15:29; ${(dFall * 100).toFixed(2)}% of the pixels over ${UNIT} differ between the two; two shots of the same time differ by ${(dSame * 100).toFixed(3)}%`);
-    assert.ok(dFall > 0.01, `the picture changes when men fall (${(dFall * 100).toFixed(2)}%)`); assert.ok(dSame < 0.0005, 'a still time is a still picture');
+    await picture('the picture changes when men fall (more than 1% of the pixels over the unit)', () => assert.ok(dFall > 0.01, `the picture changes when men fall (${(dFall * 100).toFixed(2)}%)`)); await picture('a still time is a still picture', () => assert.ok(dSame < 0.0005, 'a still time is a still picture'));
     await s.at(minOf(7, 1, 14, 59)); const back = await shot(), dBack = await s.diff(before, back); console.log(`# ${api}: back at 14:59 the picture differs from the first 14:59 picture by ${(dBack * 100).toFixed(3)}%`);
-    assert.ok(dBack < 0.0005, 'the men stand up again: the renderer tables are rewritten, not left lying');
-    await s.at(minOf(7, 1, 15, 29)); const again = await shot(); assert.ok(await s.diff(after, again) < 0.0005, 'forward again: the same men lie in the same places');
+    await picture('back at 14:59 the picture is the first 14:59 picture', () => assert.ok(dBack < 0.0005, 'the men stand up again: the renderer tables are rewritten, not left lying'));
+    await s.at(minOf(7, 1, 15, 29)); const again = await shot(), dAgain = await s.diff(after, again); await picture('forward again the same men lie in the same places', () => assert.ok(dAgain < 0.0005, 'forward again: the same men lie in the same places'));
     const live = await s.page.evaluate(() => window.btApp.liveHash()); await s.at(minOf(7, 1, 9)); await s.at(minOf(7, 1, 15, 29)); assert.equal(await s.page.evaluate(() => window.btApp.liveHash()), live, 'a detour through another time changes nothing');
     assert.deepEqual(s.log.errors.concat(s.log.pageerrors), [], 'no console error');
   });
@@ -57,7 +61,7 @@ test('nothing is uploaded when nothing changes: a still moment writes no soldier
   const c0 = await s.page.evaluate(() => ({ s: window.btApp.theatre.counters.soldierUploads || 0, f: window.btApp.theatre.counters.frames })); await s.frames(20);
   const c1 = await s.page.evaluate(() => ({ s: window.btApp.theatre.counters.soldierUploads || 0, f: window.btApp.theatre.counters.frames }));
   assert.equal(c1.s, c0.s, `no soldier upload over ${c1.f - c0.f} still frames`);
-  await s.page.evaluate(() => { const a = window.btApp; a.setSpeed(30); a.setPlaying(true); }); await s.page.waitForTimeout(1500); await s.page.evaluate(() => window.btApp.setPlaying(false));
+  await s.page.evaluate(() => { const a = window.btApp; a.setSpeed(30); a.setPlaying(true); }); await wait(s.page, 1500); await s.page.evaluate(() => window.btApp.setPlaying(false));
   const c2 = await s.page.evaluate(() => window.btApp.theatre.counters.soldierUploads || 0); assert.ok(c2 > c1.s, 'while men fall the tables are written');
   const down = await s.page.evaluate(() => window.btApp.stage.stats.down); assert.ok(down > 0);
   const stat = await s.page.evaluate(() => ({ unsupported: window.btApp.stage.unsupported.length, header: window.btApp.header.events })); assert.equal(stat.unsupported, 0); assert.ok(stat.header > 4000, 'the cache holds the state events');

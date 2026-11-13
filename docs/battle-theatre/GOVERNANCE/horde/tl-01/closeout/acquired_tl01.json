@@ -1,0 +1,56 @@
+{
+ "_doc": "Files fetched for the close-out of timeline shard tl-01. archive.org only, one request at a time, no login. Raw files live under tmp/tl-01/dl (untracked).",
+ "items": [
+  {
+   "archive_identifier": "gettysburg-compiler-1863-06-29",
+   "file": "gettysburg-compiler-1863-06-29.pdf",
+   "url": "https://archive.org/cors/gettysburg-compiler-1863-06-29/gettysburg-compiler-1863-06-29.pdf",
+   "bytes": 3260251,
+   "sha256": "905645727145707a10a48b4ec9855ba3915085058a99e8439314ae1e57074dc6",
+   "fetched_at": "2026-11-13",
+   "local_path": "tmp/tl-01/dl/compiler-0629/gettysburg-compiler-1863-06-29.pdf",
+   "pages_viewed": "2",
+   "purpose": "page image of page 2 read to confirm the OCR reading of the article on the Confederate occupation of Gettysburg, June 26-27, 1863 (rows T1-005, 007, 009-018, 020)",
+   "licence_basis": "public domain (United States newspaper published 1863)",
+   "note": "The text layer of this PDF is the same OCR as the djvu text already in the library; citations give offsets in the library djvu text and a reading taken from the page image."
+  },
+  {
+   "archive_identifier": "adams-sentinel-1863-07-21",
+   "file": "adams-sentinel-1863-07-21.pdf",
+   "url": "https://archive.org/cors/adams-sentinel-1863-07-21/adams-sentinel-1863-07-21.pdf",
+   "bytes": 3310403,
+   "sha256": "2bac4d9ac6e135259b649a4d56fff94772ac43f663ad53d3363f6d459ede2cb8",
+   "fetched_at": "2026-11-13",
+   "local_path": "tmp/tl-01/dl/adams-sentinel-1863-07-21/adams-sentinel-1863-07-21.pdf",
+   "pages_viewed": "3",
+   "purpose": "page image of page 3 read to confirm the article \"Burning of Stevens' Furnace\" (row T1-005)",
+   "licence_basis": "public domain (United States newspaper published 1863)",
+   "note": "The text layer of this PDF is the same OCR as the djvu text already in the library; citations give offsets in the library djvu text and a reading taken from the page image."
+  },
+  {
+   "archive_identifier": "adams-sentinel-1863-09-08",
+   "file": "adams-sentinel-1863-09-08.pdf",
+   "url": "https://archive.org/cors/adams-sentinel-1863-09-08/adams-sentinel-1863-09-08.pdf",
+   "bytes": 2632857,
+   "sha256": "66e5bbaabc0ec261ec7466c54f158c2faac07e88146d52215d9c63fc4b3ad8ca",
+   "fetched_at": "2026-11-13",
+   "local_path": "tmp/tl-01/dl/adams-sentinel-1863-09-08/adams-sentinel-1863-09-08.pdf",
+   "pages_viewed": "2",
+   "purpose": "page image of page 2 read to confirm the reprinted Tribune letter on the destruction of the Stevens iron works (row T1-005)",
+   "licence_basis": "public domain (United States newspaper published 1863)",
+   "note": "The text layer of this PDF is the same OCR as the djvu text already in the library; citations give offsets in the library djvu text and a reading taken from the page image."
+  }
+ ],
+ "lookups_failed_or_blocked": [
+  {
+   "what": "Gettysburg Star and Sentinel, August 1885 (H. E. Jacobs, meteorology of the battle: the thermometer readings behind rows T1-003, 019, 023, 030, 041)",
+   "where": "archive.org advancedsearch, identifier per_the-star-and-sentinel_1885*",
+   "result": "0 items; the archive.org run of the title covers 1867-1871 only (197 items). Recorded as a failed lookup."
+  },
+  {
+   "what": "Reprint of the Jacobs weather readings in the Gettysburg Compiler, July-August 1885",
+   "where": "archive.org djvu text of the eight issues 1885-07-07 to 1885-08-25 (gettysburg-compiler-1885-MM-DD), searched for meteorolog, thermomet, Jacobs",
+   "result": "no article found (hits are advertisements and 1885 weather notes). Recorded as a failed lookup; the eight scratch texts were deleted after the search."
+  }
+ ]
+}
