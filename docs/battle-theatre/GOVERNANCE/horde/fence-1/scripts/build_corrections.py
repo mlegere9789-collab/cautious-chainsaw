@@ -10,7 +10,7 @@ from or27_find import get_part
 from or27_lib import norm_query, build_nview
 import spec_lib, witness
 
-OUT = os.path.join(ROOT, 'docs/battle-theatre/GOVERNANCE/evidence_corrections/fence-1.jsonl')
+OUT = os.environ.get('FENCE1_OUT') or os.path.join(ROOT, 'docs/battle-theatre/GOVERNANCE/evidence_corrections/fence-1.jsonl')  # FENCE1_OUT: dry-run target
 OR_IDX = json.load(open(os.path.join(ROOT, 'docs/battle-theatre/library/or27_index.json')))['records']
 OR_BY_ID = {r['id']: r for r in OR_IDX}
 WS9 = os.path.join(ROOT, 'tmp/library/ws9'); WS9P = os.path.join(WS9, 'prior')

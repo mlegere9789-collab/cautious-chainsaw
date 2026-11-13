@@ -19,6 +19,9 @@ export function derive() {
   const evBy = new Map(); for (const e of both.events) { if (!evBy.has(e.unit)) evBy.set(e.unit, {}); const m = evBy.get(e.unit); m[e.type] = (m[e.type] || 0) + 1; }
   const dayStops = new Map(); for (const d of rep.day_stops) { if (!dayStops.has(d.unit)) dayStops.set(d.unit, []); dayStops.get(d.unit).push(d); }
   const led = loadLedgers(), claims = new Map(); for (const c of led.claims) { if (!claims.has(c.unit_id)) claims.set(c.unit_id, []); claims.get(c.unit_id).push(c); }
+  // what the layer did with every ledger claim (app/data/claim-dispositions.json, written by app/tools/build-claim-placement.mjs): [claim, ledger, unit, kind, disposition, code, reason, entry]
+  const dispo = new Map(); for (const r of JSON.parse(fs.readFileSync(path.join(APP, 'data/claim-dispositions.json'), 'utf8')).rows) dispo.set(r[0], { disposition: r[4], code: r[5] || null });
+  const dispOf = c => dispo.get(c.claim_id) || { disposition: 'not_read', code: null };
   const tmOwn = new Map(); for (const c of Object.values((raw.dayPositions || {}).claims || {})) { if (!tmOwn.has(c.unit)) tmOwn.set(c.unit, []); tmOwn.get(c.unit).push(c.id); }
   const chain = id => { const c = []; for (let u = byId.get(id); u; u = byId.get(u.parent)) c.unshift(u); return c; };
   const reasonCode = u => {
@@ -41,7 +44,8 @@ export function derive() {
     const ru = rawU.get(u.id), g = L.model.effective(u.id, {}), p = L.plans.get(u.id) || null, own = claims.get(u.id) || [], ch = chain(u.id);
     const up = ch.slice(0, -1).reverse();      // the formations above the unit, nearest first (the last is the army)
     const leaf = !(u.children || []).length, status = u.render.status, onFieldLeaf = leaf && ['moving', 'edge_only', 'not_drawn'].includes(status);
-    const byLedger = {}; let usable = 0; for (const c of own) { byLedger[c.ledger] = (byLedger[c.ledger] || 0) + 1; if (!unusable(c)) usable++; }
+    const byLedger = {}, byDisp = {}, byCode = {}; let usable = 0;
+    for (const c of own) { byLedger[c.ledger] = (byLedger[c.ledger] || 0) + 1; if (!unusable(c)) usable++; const d = dispOf(c); byDisp[d.disposition] = (byDisp[d.disposition] || 0) + 1; if (d.code) byCode[d.code] = (byCode[d.code] || 0) + 1; }
     const stops = p && p.stops ? p.stops.map(s => ({ po: s.po, place: s.place, t: iso(s.t_doc) })) : [];
     const ds = dayStops.get(u.id) || [];
     const gateDate = g && g.earliest != null ? iso(g.earliest).slice(0, 10) : null;
@@ -52,6 +56,13 @@ export function derive() {
       const led1 = stops.some(s => s.t && s.t.slice(0, 10) === d), map1 = ds.some(x => x.date === d && (x.applied || x.merged_into));
       places[d] = led1 && map1 ? 'ledger+map' : led1 ? 'ledger' : map1 ? 'map' : 'none';
     }
+    // the ledger claims of the unit dated on a day of 1 to 3 July on which the layer holds no place, each with what the layer did with it (the reason it is not a stop)
+    const dayClaims = {};
+    if (onFieldLeaf) for (const d of FIELD_DAYS) {
+      if (places[d] !== 'none') continue;
+      const cs = own.filter(c => c.when && c.when.date === d).map(c => { const x = dispOf(c); return { id: c.claim_id, ledger: c.ledger, kind: c.kind, disposition: x.disposition, code: x.code }; });
+      if (cs.length) dayClaims[d] = cs;
+    }
     const tm = {}; for (const d of (u.day_positions ? u.day_positions.days : [])) tm[d.sheet] = d.status + (d.owner && d.owner !== u.id ? '@' + d.owner_level : '');
     // ---- what is missing (leaf units on the field only; the five words of the plan)
     const missing = [], detail = {};
@@ -61,6 +72,8 @@ export function derive() {
       if (status !== 'moving') { missing.push('positions'); detail.positions = status === 'edge_only' ? 'no place after arrival: the unit waits in its column where its road leaves the loaded ground' : 'not drawn: no place is applied'; }
       else if (noDays.length) { missing.push('positions'); detail.positions = `no place of its own on ${noDays.join(', ')} (it stays where it last stood); no place after 3 July`; }
       else detail.positions = 'a place on every day from its gate to 3 July; none on 4 July; times of the troop-map positions are modelled';
+      const held = noDays.filter(d => dayClaims[d]).map(d => `${d}: ${dayClaims[d].length} (${[...new Set(dayClaims[d].map(x => x.code || x.disposition))].join(', ')})`);
+      if (held.length) detail.claims = `ledger claims held for a day without a place, none of them a stop: ${held.join('; ')}`;
       const a = u.approach;
       if (!a) { missing.push('path'); detail.path = 'no road of approach'; }
       else if (a.modelled) { missing.push('path'); detail.path = `modelled road (${a.road}, sibling rule DEC-015, tier plausible-procedural)`; }
@@ -76,7 +89,7 @@ export function derive() {
       leaf, roster_status: ru.status, layer_status: status, reason: reasonCode(u), figures: u.strength ? u.strength.drawn : 0, share: u.strength ? u.strength.share : 0, strength_kind: u.strength ? u.strength.kind : null,
       gate: g ? { earliest: iso(g.earliest), default: iso(g.default), latest: iso(g.latest), owner: g.owner, kind: g.kind, tier: g.tier } : null,
       approach: u.approach ? { id: u.approach.id, road: u.approach.road, tier: u.approach.tier, owner: u.approach.owner, modelled: !!u.approach.modelled } : null,
-      places, troop_map: tm, claims_own: { total: own.length, usable, by_ledger: byLedger }, missing, detail });
+      places, troop_map: tm, claims_own: { total: own.length, usable, by_ledger: byLedger, by_disposition: byDisp, by_code: byCode }, day_claims: dayClaims, missing, detail });
   }
   return { generated_by: 'docs/battle-theatre/history/undrawn/tools/derive_status.mjs', counts: L.counts, figures_drawn: L.units.filter(u => u.drawn).reduce((a, u) => a + u.strength.drawn, 0), ledgers: Object.fromEntries(Object.entries(led.meta).map(([k, v]) => [k, v.claims])), units };
 }

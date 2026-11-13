@@ -300,14 +300,14 @@ export function memorialCardHTML(it, tierMark, o = {}) {
   return `<div class="card-head"><h2 id="xm-card-title">${esc(it.name)}</h2><button type="button" class="icon-btn" data-act="close" aria-label="Close the memorial card"><svg class="ic"><use href="#i-close"/></svg></button></div>
     <div class="card-body">
       <p class="ph"><b>Later memorial.</b> ${esc(COPY.what)}</p>
-      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px">${tierMark(LAYER.tier)}<span class="pill" data-xm="post-battle">Post-battle</span><span class="pill">${esc(it.side)}</span><span class="pill">No. ${it.no} of the list</span></div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px">${tierMark(LAYER.tier)}<span class="pill" data-xm="post-battle">Post-battle</span><span class="pill">${esc(it.side)}</span></div>
       <dl>
         <div class="row"><dt>Remembers</dt><dd>${esc(it.honors)}</dd></div>
         <div class="row"><dt>Where</dt><dd>${esc(it.loc)}</dd></div>
-        <div class="row"><dt>Group</dt><dd>${esc(it.group)}</dd></div>
-        <div class="row"><dt>Park number</dt><dd>${it.mn ? esc(it.mn) : 'none in the list'}</dd></div>
         <div class="row"><dt>Put up</dt><dd>${yearCell(it, tierMark)}</dd></div>
         <div class="row"><dt>Ground</dt><dd>${esc(groundLine(it))}</dd></div>
+        <div class="row"><dt>Group</dt><dd>${esc(it.group)} · no. ${it.no} of the list</dd></div>
+        <div class="row"><dt>Park number</dt><dd>${it.mn ? esc(it.mn) : 'none in the list'}</dd></div>
       </dl>
       <details style="margin-top:12px"><summary class="mini" style="cursor:pointer">Evidence: the tier, the position, what \"after the battle\" rests on, the open gaps</summary>
       <table class="table" style="margin-top:6px"><tr><th>Tier</th><td>${tierMark(LAYER.tier)} <span class="mini">of the name, the text and the position: the site's list as it stands. It says nothing about July 1863.</span></td></tr>
@@ -324,7 +324,7 @@ export function memorialRowsHTML(list, from, to, selected) {
 }
 /** The notice that stays on the picture for as long as the layer is on (the two buttons are handled by the module: data-act "about" and "hide"). */
 export function noticeHTML(counts, tm) {
-  return `<span>${tm(LAYER.tier)}</span><span><b style="color:var(--text)">Later memorials shown</b></span><span>${counts.total} marks, ${counts.beyond} of them ${COPY.beyond}. Put up after the battle: not part of the 1863 scene.</span><span><button type="button" class="btn-s" data-act="about" style="min-height:28px">About them</button> <button type="button" class="btn-s" data-act="hide" style="min-height:28px">Hide</button></span>`;
+  return `<span class="xm-h">${tm(LAYER.tier)}<b>Later memorials shown</b><button type="button" class="btn-s" data-act="hide">Hide</button></span><span class="xm-t">${counts.total} marks, ${counts.beyond} of them ${COPY.beyond}. Put up after the battle: not part of the 1863 scene. <button type="button" class="xm-link" data-act="about">About them</button></span>`;
 }
 /** The memorial panel above its list. o: {on, positions, integrity: {checked}, list: {q, side, group, where}}. The list itself is memorialRowsHTML under #xm-list. */
 export function memorialPanelHTML(index, o, tm) {

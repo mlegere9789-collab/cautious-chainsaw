@@ -795,7 +795,10 @@ def make_output(args):
     for cid in sorted(claims):
         c = claims[cid]
         r = {k: c[k] for k in ('id', 'src', 'tier', 'kind', 'says', 'feature') if k in c}
-        r['quote'] = c['quote_found']
+        r['quote'] = c['quote'] if c.get('restored') else c['quote_found']
+        if c.get('restored'):                      # the printed words are shown; the words of the saved text (a text layer that lost glyphs) stay on record
+            r['quote_as_saved'] = c['quote_found']
+            r['text_defect'] = c['restored']
         r['when'] = c.get('when')
         r['loc'] = {k: v for k, v in c['locator'].items() if k in ('pdf_page', 'page', 'report', 'who', 'char_start')}
         if c.get('about'):

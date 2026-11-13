@@ -8,7 +8,7 @@
 import fs from 'node:fs'; import path from 'node:path';
 import { chromium } from '../../../../node_modules/playwright-core/index.mjs';
 import { serve } from '../tools/serve.mjs';
-import { CASES, specOf } from './weather3d-gpu-cases.mjs';
+import { ALL_CASES, specOf } from './weather3d-gpu-cases.mjs';
 import { minOf as MO } from '../src/clock.mjs';
 import { encodePng, stats, CHROME_ARGS, HOOKS } from './weather3d-gpu-lib.mjs';
 
@@ -44,12 +44,12 @@ try {
     const orig = host.frame.bind(host); host.frame = (t, cam) => { const r = orig(t, cam); if (window.__grab) { window.__grab = false; window.__grabP = host.api === 'webgpu' ? grabGPU() : grabGL(); } return r; };
     document.head.insertAdjacentHTML('beforeend', '<style>body *{visibility:hidden !important} canvas.w3d-keep{visibility:visible !important}</style>'); th.els.canvas.classList.add('w3d-keep');
   }, REAL);
-  const list = REAL ? REAL_CASES.filter(c => !only.length || only.includes(c.name)) : CASES.filter(c => (only.length ? only : DEFAULT).includes(c.name));
+  const list = REAL ? REAL_CASES.filter(c => !only.length || only.includes(c.name)) : ALL_CASES.filter(c => (only.length ? only : DEFAULT).includes(c.name));
   for (const c of list) {
     const spec = REAL ? { ...c, tMin: MO(c.m[0], c.m[1], c.m[2], c.m[3]) } : specOf(c, MO), t0 = Date.now();
     const r = await page.evaluate(async spec => {
-      const { placeCamera } = await import('/app/tests/weather3d-gpu-plan.mjs'), a = window.btApp, th = a.theatre, P = window.__P; a.setTime(spec.tMin); th.controls.flight = null;
-      if (spec.view) { th.setView(spec.view, true); } else { const smp = th.env.sample(spec.tMin, {}); placeCamera(th.cam, spec, { T: th.T, geo: th.geo, smp, line: null }); P.anchor(th.cam, spec.plan); }
+      const { placeCamera, aimCamera } = await import('/app/tests/weather3d-gpu-plan.mjs'), a = window.btApp, th = a.theatre, P = window.__P; a.setTime(spec.tMin); th.controls.flight = null;
+      if (spec.view) { th.setView(spec.view, true); } else { const smp = th.env.sample(spec.tMin, {}); placeCamera(th.cam, spec, { T: th.T, geo: th.geo, smp, line: null }); P.anchor(th.cam, spec.plan); if (spec.aim) aimCamera(th.cam, P, spec.aim); }
       await a.frames(spec.view ? 6 : 3); window.__grab = true; await a.frames(2); const pic = await window.__grabP; const fxi = th.fxInfo, fx = th.fxOn, gpu = fx && fx.gpu ? fx.gpu : null, gl = fx && fx.gl ? fx.gl : null;
       let s = ''; const u8 = pic.data; for (let i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000));
       return { w: pic.w, h: pic.h, format: pic.format, px: btoa(s), driveState: fxi && fxi.driveState, effects: fxi && { nEvents: fxi.effects.nEvents, nSprites: fxi.effects.nSprites, fires: fxi.effects.fires, uncertain: fxi.effects.uncertainFires }, weather: fxi && { cover: fxi.weather.cloud.cover, stars: fxi.weather.sky.stars.visibility, wet: fxi.weather.wetness.v, visM: fxi.weather.fog.visibilityM },

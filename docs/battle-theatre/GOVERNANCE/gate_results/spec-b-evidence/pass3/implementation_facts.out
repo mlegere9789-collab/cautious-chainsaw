@@ -1,0 +1,226 @@
+{
+ "Q05 SPEED (app/src/history/real.mjs)": [
+  "export const SPEED = { march: 1.25, double_quick: 4000 * 0.9144 / (25 * 60) };"
+ ],
+ "Q12 CODE_VERSION (sim/cache.mjs)": [
+  "export const CODE_VERSION = 'bt-sim-0.1';"
+ ],
+ "Q12 SIM_CODE and SEED (app/src/config.mjs)": [
+  "export const SIM_CODE = 'bt-app-0.1';",
+  "export const SEED = 1863;"
+ ],
+ "Q13 speedOfSound (audio3d/physics.mjs)": [
+  "export const speedOfSound = (tC) => 331.3 * Math.sqrt(1 + tC / 273.15);"
+ ],
+ "Q13 DEFAULT_TEMP_C (audio3d/atmosphere.mjs)": [
+  "export const DEFAULT_TEMP_C = 20;                           // used only where the weather record has no temperature (flagged 'default' in the atmosphere source)"
+ ],
+ "Q10 DEFAULTS.nightFloor (app/src/config.mjs)": [
+  "export const DEFAULTS = { nightFloor: 0.34, renderScale: 1, nearR: 40, midR: 300 };"
+ ],
+ "Q11 tolerances (tools/bt/check_environment.py)": [
+  "TOL_SUN_DEG = 0.05",
+  "TOL_RISESET_MIN = 2.0",
+  "TOL_MOON_DEG = 0.5"
+ ],
+ "Q15 frames (tools/accept/thresholds.json)": {
+  "p95FrameMsDesktop": 20,
+  "p95FrameMsPhone": 20,
+  "maxJankFrameMs": 100,
+  "_note": "p95 frame time of requestAnimationFrame deltas while the map animation plays at 1x and 4x. maxJankFrameMs is reported as a defect only when more than 1 percent of frames exceed it."
+ },
+ "Q24 regression (tools/accept/thresholds.json)": {
+  "pixelColorThreshold": 0.1,
+  "maxDiffRatio": 0.002,
+  "regionGrid": [
+   8,
+   6
+  ],
+  "viewports": [
+   [
+    1440,
+    900
+   ],
+   [
+    390,
+    844
+   ]
+  ]
+ },
+ "Q01 units": {
+  "n": 726,
+  "status": {
+   "on_field": 710,
+   "partly_on_field": 2,
+   "never_main_field": 4,
+   "never_on_field": 10
+  },
+  "with_printed_strength": 21
+ },
+ "Q04 arrivals": {
+  "gates": 56,
+  "subunit_gates": 9,
+  "rows": 44
+ },
+ "Q19 position ledger lines": {
+  "positions_A.jsonl": 688,
+  "positions_B.jsonl": 1864,
+  "positions_C.jsonl": 538,
+  "positions_D.jsonl": 413,
+  "positions_E.jsonl": 200
+ },
+ "Q19 troop-map claim lines": 484,
+ "Q06 undrawn/status.json": {
+  "counts": {
+   "aggregate": 165,
+   "moving": 418,
+   "not_drawn": 108,
+   "not_on_field": 14,
+   "edge_only": 21,
+   "total": 726,
+   "drawn": 439,
+   "documented_absent": 1
+  },
+  "figures_drawn": 127572,
+  "units": 726
+ },
+ "Q01 roster-gaps": {
+  "entries": 125,
+  "counts": {
+   "absent": 12,
+   "add": 91,
+   "status": 15,
+   "attached": 3,
+   "fix": 1,
+   "merge": 3
+  },
+  "tables": {
+   "union": "OR27-1-R009 ",
+   "confederate": "OR27-2-R424 "
+  }
+ },
+ "Q07-09 structures records": {
+  "n": 130,
+  "by_prefix": {
+   "E": 18,
+   "P": 14,
+   "G": 18,
+   "bld": 41,
+   "FEN": 16,
+   "RD": 8,
+   "ENV": 4,
+   "GROUP": 1,
+   "PERSON": 1,
+   "WS": 9
+  }
+ },
+ "Q07-09 state_schedule": {
+  "rows": 88,
+  "parse_status": {
+   "parsed": 88
+  }
+ },
+ "Q26 hospitals": 23,
+ "Q07-09 structures3d lists": {
+  "fences": 30,
+  "buildings": 269,
+  "points": 117,
+  "roads": 30,
+  "hospitals": 11,
+  "notDrawnGroups": 14,
+  "notDrawn": 74
+ },
+ "Q03 kit": {
+  "units": 135,
+  "items": 191,
+  "artillery_units": 125,
+  "cavalry_units": 62
+ },
+ "Q20 cavalry-horses undrawn units": 34,
+ "Q16 catalogue": {
+  "records": 109,
+  "staged_flag": 13
+ },
+ "Q25 library/status.json": {
+  "n": 36,
+  "status": {
+   "scheduled": 20,
+   "blocked-to-prior-research": 2,
+   "viewer-only": 1,
+   "partial": 2,
+   "targeted-lookup-only": 1,
+   "finder-not-authority": 1,
+   "print-only": 2,
+   "licence-checked": 2,
+   "ingested": 3,
+   "blocked": 2
+  }
+ },
+ "Q25 library/status_2.json": {
+  "n": 32,
+  "status": {
+   "ingested": 13,
+   "partial": 9,
+   "blocked-to-prior-research": 2,
+   "scheduled": 5,
+   "blocked": 1,
+   "print-only": 2
+  }
+ },
+ "test files: top-level test() calls": {
+  "anim3d-gaits.test.mjs": 14,
+  "anim3d-onetoone.test.mjs": 3,
+  "anim3d.test.mjs": 62,
+  "arrival.spec.mjs": 6,
+  "audio-host.test.mjs": 18,
+  "audio3d-round2.test.mjs": 8,
+  "audio3d.test.mjs": 38,
+  "casualties.spec.mjs": 3,
+  "casualties.test.mjs": 13,
+  "cavalry-ws10.test.mjs": 13,
+  "claims.test.mjs": 23,
+  "crowd.test.mjs": 10,
+  "daypos.test.mjs": 24,
+  "ext-loader.test.mjs": 28,
+  "ext-monuments.test.mjs": 35,
+  "ext-site-data.test.mjs": 13,
+  "ext-site-places-loader.test.mjs": 5,
+  "ext-tour.test.mjs": 13,
+  "figures3d-acw.test.mjs": 7,
+  "figures3d-commanders.test.mjs": 6,
+  "figures3d-evidence.test.mjs": 5,
+  "figures3d-round3.test.mjs": 9,
+  "figures3d.test.mjs": 35,
+  "fx3d.test.mjs": 43,
+  "history.test.mjs": 25,
+  "leak.spec.mjs": 4,
+  "ledgerE.test.mjs": 11,
+  "manifest.test.mjs": 6,
+  "perf.spec.mjs": 1,
+  "photomatch-q16.test.mjs": 11,
+  "real.spec.mjs": 8,
+  "roster-union-nh.test.mjs": 8,
+  "scenario-defaults.test.mjs": 8,
+  "scrub.spec.mjs": 5,
+  "sibling.test.mjs": 13,
+  "sky.spec.mjs": 5,
+  "structures-ws6.test.mjs": 20,
+  "structures3d.spec.mjs": 9,
+  "structures3d.test.mjs": 13,
+  "ui.spec.mjs": 18,
+  "unit.test.mjs": 14,
+  "vegetation.test.mjs": 25,
+  "weather3d-gpu.test.mjs": 20,
+  "weather3d.test.mjs": 16,
+  "webgl2.spec.mjs": 1,
+  "sim.test.mjs": 6,
+  "coverage.test.mjs": 4,
+  "realize-inputs.test.mjs": 15,
+  "realize-lib.mjs": 0,
+  "realize-rules.test.mjs": 20,
+  "realize.test.mjs": 24,
+  "photomatch.test.mjs": 6
+ },
+ "test files: sum": 750,
+ "cited data files missing": []
+}

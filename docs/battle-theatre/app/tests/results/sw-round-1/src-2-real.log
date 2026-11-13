@@ -2,3 +2,34 @@
 # newest source file at start: 1794607259.3951089530 docs/battle-theatre/app/src/ui/extensions.mjs
 TAP version 13
 # \# renderer: ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver) (SOFTWARE; hardware flags); WebGPU adapter: google swiftshader; serving the frozen source snapshot /home/user/cautious-chainsaw/tmp/bt-spec/snap-9e1e1777/docs/battle-theatre
+# \# slow renderer: frame 4544 ms on this page, wait scale K = 45.4, entry took 40 s
+# Subtest: honest labelling: the ribbon, the count, the About text and the landing copy say what is placed and what is an open gap; nothing claims accuracy or mentions how the page was made
+ok 1 - honest labelling: the ribbon, the count, the About text and the landing copy say what is placed and what is an open gap; nothing claims accuracy or mentions how the page was made
+  ---
+  duration_ms: 148621.483146
+  type: 'test'
+  ...
+# Subtest: a placed unit: Units list, card with strength basis, entry, arrival note, tier, sources, kit manifest and a register link that opens
+ok 2 - a placed unit: Units list, card with strength basis, entry, arrival note, tier, sources, kit manifest and a register link that opens
+  ---
+  duration_ms: 268437.646012
+  type: 'test'
+  ...
+# Subtest: a unit with no place: its card says open gap and why, still shows its ledger arrival window and strength basis, and the unit is not drawn or listed
+ok 3 - a unit with no place: its card says open gap and why, still shows its ledger arrival window and strength basis, and the unit is not drawn or listed
+  ---
+  duration_ms: 312178.501022
+  type: 'test'
+  ...
+# Subtest: the evidence overlay outlines the placed units by tier (plausible-procedural) and works are drawn as rings with their place named; no error
+ok 4 - the evidence overlay outlines the placed units by tier (plausible-procedural) and works are drawn as rings with their place named; no error
+  ---
+  duration_ms: 67788.956548
+  type: 'test'
+  ...
+# Subtest: a unit placed by an Official Records report: its card lists the report, the printed page, the quoted words, the tier and the checks, what is applied and what is not, and the reports that disagree; a unit drawn only by the PDF ledger shows none
+ok 5 - a unit placed by an Official Records report: its card lists the report, the printed page, the quoted words, the tier and the checks, what is applied and what is not, and the reports that disagree; a unit drawn only by the PDF ledger shows none
+  ---
+  duration_ms: 219395.619441
+  type: 'test'
+  ...

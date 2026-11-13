@@ -19,7 +19,8 @@ import { WIND_HIST_N } from '../src/fx3d/wind.mjs';
 import { FxHost } from '../src/fx-host.mjs';
 import { createAnimBus } from '../src/anim3d/events.mjs';
 import { Camera } from '../../render/prototype/src/camera.mjs';
-import { CASES, specOf, SHERFY } from './weather3d-gpu-cases.mjs';
+import { CASES, EXTRA_CASES, ALL_CASES, specOf, SHERFY } from './weather3d-gpu-cases.mjs';
+import { makePlan, aimCamera } from './weather3d-gpu-plan.mjs';
 import { HOOKS, CHROME_ARGS } from './weather3d-gpu-lib.mjs';
 import { checkRun, checkCompare } from './weather3d-gpu-check.mjs';
 
@@ -293,6 +294,28 @@ test('the harness cases: unique names, times inside the battle window, every fea
   const fires = D('fires.json').sources.find(f => f.id === 'fx-fire-sherfy-barn'); assert.equal(SHERFY.lng, fires.pos.lng); assert.equal(SHERFY.lat, fires.pos.lat);
   const src = HOOKS.toString(); assert.match(src, /^function HOOKS\(opts\)/); assert.ok(!/\bimport\b|\brequire\b|\bfs\.|\bpath\./.test(src), 'it runs in the page: no module identifiers'); assert.ok(CHROME_ARGS.includes('--enable-unsafe-webgpu') && CHROME_ARGS.includes('--use-angle=swiftshader'));
   assert.match(src, /getCurrentTexture/); assert.match(src, /COPY_SRC/); assert.match(src, /uncapturederror/); assert.match(src, /getCompilationInfo/);
+});
+test('the close-view cases: unique names, inside the battle window, a fractional minute (sec) stays inside its minute, the aim points are inside the stand-in plan, aimFall hits the latest fall of the plan, and the default run is still the 16 cases', () => {
+  assert.equal(CASES.length, 16, 'the default run (the stored evidence) is unchanged'); assert.equal(ALL_CASES.length, CASES.length + EXTRA_CASES.length); const names = ALL_CASES.map(c => c.name); assert.equal(new Set(names).size, names.length, 'no name is used twice across the two lists');
+  for (const c of EXTRA_CASES) {
+    const sp = specOf(c, minOf); assert.ok(sp.tMin >= minOf(6, 26) && sp.tMin < minOf(7, 15), c.name); assert.ok(c.what && c.what.length > 20, c.name + ' says what it shows'); assert.ok(!('m' in sp) && !('what' in sp) && !('sec' in sp) && !('aimFall' in sp), 'specOf strips the descriptive keys');
+    if (c.sec != null) { assert.ok(c.sec > 0 && c.sec < 60); assert.equal(Math.floor(sp.tMin), minOf(...c.m), c.name + ': sec stays inside its minute'); } else assert.equal(sp.tMin, minOf(...c.m));
+    for (const k of Object.keys(c.plan || {})) assert.ok(['guns', 'volleys', 'falls', 'march'].includes(k), c.name + ' plan key ' + k);
+    if (c.aim) { assert.ok(Array.isArray(c.aim) && c.aim.length === 3 && c.aim.every(Number.isFinite), c.name + ' aim'); assert.ok(c.plan && Object.keys(c.plan).length, c.name + ': an aim point of the plan needs a plan'); }
+    assert.ok(c.fov == null || (c.fov > 1 && c.fov <= 90), c.name + ' fov in degrees');
+  }
+  for (const c of CASES) { const sp = specOf(c, minOf); assert.equal(sp.tMin, minOf(...c.m), c.name + ': the 16 stored cases keep their exact minute'); assert.ok(!('aim' in sp)); }
+  // the effect classes of the close views: ground strike with clods, shell burst, fresh volley, dust at falls, fire close and at night
+  for (const re of [/strike/, /burst/, /volley/, /falls/, /fire-close/, /fire-night/]) assert.ok(EXTRA_CASES.some(c => re.test(c.name)), 'a close case for ' + re);
+  assert.ok(EXTRA_CASES.filter(c => /^fire-/.test(c.name)).every(c => c.target[0] === SHERFY.lng && c.target[1] === SHERFY.lat), 'the fire cases look at the documented barn point');
+  // the stand-in plan: the strike of gun 0 is 160 m ahead and 40 m to the left of the anchor, the burst 230 m ahead, 60 m left, 14 m up (the aim points of the two cases); and the latest fall before a frame time is the one aimFall aims at
+  const flat = () => 0, P = makePlan(flat), cam = { x: 100, y: 5, z: -40, yaw: 1.1, pitch: 0, lookAtPoint(px, py, pz) { this.aimed = [px, py, pz]; } }; P.anchor(cam, { guns: true, falls: true });
+  const strike = EXTRA_CASES.find(c => /^strike/.test(c.name)), burst = EXTRA_CASES.find(c => /^burst/.test(c.name)); aimCamera(cam, P, strike.aim); const sp = P.point(160, -40, 2); assert.deepEqual(cam.aimed, sp);
+  const got = {}; P.bus.on('impact', (u, i, t, kind, pos) => { if (i === 0 && (kind === 'solid_strike' || kind === 'shell_burst')) got[kind] = Array.from(pos); });
+  P.anim.advance(1000, 1011.9); assert.deepEqual(got.solid_strike, P.point(160, -40, 0.3), 'gun 0 strikes at (160, -40) ahead of the anchor, 0.3 m above the ground'); P.anim.advance(1011.9, 1012.1); assert.deepEqual(got.shell_burst, P.point(230, -60, 14), 'and bursts at (230, -60), 14 m up');
+  assert.deepEqual(burst.aim, [230, -60, 14]); assert.deepEqual(strike.aim.slice(0, 2), [160, -40]);
+  const fc = EXTRA_CASES.find(c => c.aimFall), spec = specOf(fc, minOf), P2 = makePlan(flat); P2.anchor({ x: 0, y: 0, z: 0, yaw: 0 }, { falls: true }); const falls = []; P2.bus.on('fall', (u, i, t, kind, pos) => falls.push({ i, t, pos: Array.from(pos) }));
+  const T = spec.tMin * 60; P2.anim.advance(T - 60, T); const last = falls.at(-1); assert.ok(last.t <= T && T - last.t < 4, 'the latest fall is less than one beat before the frame'); assert.deepEqual(last.pos, P2.point(38, spec.aim[1], 0), 'aimFall points at the latest fall (v of the aim = v of that fall)');
 });
 // ---------- the run checker (what a gate runner calls on the summaries of the browser harness)
 const okRun = () => ({ api: 'webgpu', url: 'http://x/app/tests/weather3d-gpu.html?api=webgpu', finished: 'now', errors: [], diagInit: { gpu: { ok: true, weatherOk: true, fxOk: true, failed: null, log: [], warnings: [] } }, diagEnd: { gpuErrors: [], wgsl: [], modules: ['a', 'b'] },

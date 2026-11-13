@@ -32,7 +32,7 @@ export function build(round, dir) {
   const runs = fs.readdirSync(dir).filter(f => f.endsWith('.log')).map(f => parseLog(path.join(dir, f))).filter(r => r.spec).sort((a, b) => (a.start || '').localeCompare(b.start || ''));
   const V = fs.existsSync(path.join(dir, 'verdicts.json')) ? JSON.parse(fs.readFileSync(path.join(dir, 'verdicts.json'), 'utf8')) : { specs: {} };
   const esc = s => String(s ?? '').replace(/\|/g, '\\|').replace(/\n/g, ' ');
-  const specs = [...new Set([...Object.keys(V.specs || {}), ...runs.map(r => r.spec)])].sort(), out = [], tally = {};
+  const specs = [...new Set([...Object.keys(V.specs || {}), ...runs.map(r => r.spec)])].sort(), out = [], tally = {}, remaining = [], owed = [];
   const label = r => r.file.replace(/\.log$/, '');
   const how = r => `${r.n.pass ?? '?'} passed, ${r.n.fail ?? '?'} failed, ${r.n.skipped ?? '?'} not run of ${r.n.tests ?? '?'}; ${r.seconds != null ? (r.seconds / 60).toFixed(0) + ' min' : 'running, or no end line'}${r.timeLimit ? '; STOPPED AT THE TIME LIMIT' : ''}${r.snapshot ? (r.target === 'dist' ? '; packed dist of commit ' : '; frozen source snapshot of commit ') + r.snapshot : r.srcChanged && r.srcChanged !== 'no' ? '; live source tree, changed during the run' : r.target === 'src' ? '; live source tree' : ''}`;
   for (const spec of specs) {
@@ -50,10 +50,16 @@ export function build(round, dir) {
       const auto = a && a.result === 'pass' && a.console.length ? `log: ${a.console.length} line(s) of numbers, e.g. ${a.console.at(-1).slice(0, 170)}` : '';
       const ev = [h && h.evidence, a && a.result === 'FAIL' && a.error && `source run: ${a.error}`, a && a.skip && `harness: ${a.skip}`, b && b.result === 'FAIL' && b.error && `dist run: ${b.error}`, !h && auto].filter(Boolean).join(' ');
       tally[verdict.split(/[ (:]/)[0]] = (tally[verdict.split(/[ (:]/)[0]] || 0) + 1;
+      // what is not green on this machine: the latest source run failed, or no source run has a result for the test; and what only a real GPU can answer (the labels the harness printed)
+      if (!a) remaining.push({ spec, name, state: 'NOT RUN YET', why: h && h.evidence ? h.evidence : 'no source run has a result for this test yet' });
+      else if (a.result === 'FAIL') remaining.push({ spec, name, state: verdict.split(/[ (:]/)[0] === 'PASS' ? 'FAIL' : verdict, why: [h && h.evidence, a.error].filter(Boolean).join(' | ') });
+      if (a && a.skip) { const m = /: (.*)$/.exec(a.skip.replace(/^NEEDS_GPU, /, '')), labels = m && /NOT RUN on a software renderer/.test(a.skip) ? m[1].split(' | ') : [a.skip.replace(/^NEEDS_GPU, NOT RUN on a software renderer: /, '')]; owed.push({ spec, name, labels }); }
       out.push(`| ${esc(name.length > 170 ? name.slice(0, 167) + '...' : name)} | ${cell(A)} | ${cell(B)} | ${esc(verdict)} | ${esc(ev)} |`);
     }
   }
-  return { tables: out.join('\n'), tally, runs, specs };
+  const rem = ['\n## Remaining: tests that are not green on this machine\n', remaining.length ? '| spec | test | state | why |\n|---|---|---|---|\n' + remaining.map(r => `| ${r.spec} | ${esc(r.name.length > 150 ? r.name.slice(0, 147) + '...' : r.name)} | ${esc(r.state)} | ${esc(r.why).slice(0, 700)} |`).join('\n') : 'None: every test of every spec that has a result is green or NOT RUN (NEEDS_GPU) on the source shell.', ''];
+  const gpu = ['\n## Owed on a real GPU: assertions NOT RUN on a software renderer\n', owed.length ? '| spec | test | assertions not run |\n|---|---|---|\n' + owed.map(o => `| ${o.spec} | ${esc(o.name.length > 110 ? o.name.slice(0, 107) + '...' : o.name)} | ${esc(o.labels.join('; '))} |`).join('\n') : 'None recorded yet.', ''];
+  return { tables: out.join('\n') + '\n' + rem.join('\n') + '\n' + gpu.join('\n'), tally, runs, specs, remaining, owed };
 }
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const r = build(round, dir);

@@ -38,14 +38,17 @@ def sha256_file(p):
     return h.hexdigest()
 
 
+LIGATURES = {'\ufb00': 'ff', '\ufb01': 'fi', '\ufb02': 'fl', '\ufb03': 'ffi', '\ufb04': 'ffl', '\ufb05': 'st', '\ufb06': 'st'}
+
+
 def skeleton(s):
-    """lower-case letters and digits only, with the index of each kept character in s"""
+    """lower-case letters and digits only, with the index of each kept character in s. A Unicode ligature character (fi, fl, ff ...) of a text layer counts as its letters: they are the same letters."""
     keep, idx = [], []
     for i, ch in enumerate(s):
-        c = ch.lower()
-        if c.isalnum():
-            keep.append(c)
-            idx.append(i)
+        for c in (LIGATURES[ch] if ch in LIGATURES else ch.lower()):
+            if c.isalnum():
+                keep.append(c)
+                idx.append(i)
     return ''.join(keep), idx
 
 
@@ -82,6 +85,34 @@ class Text:
             else:
                 hi = mid - 1
         return ans
+
+
+# Known losses of the text layer of some saved reports (the web task records them as `text_defect`): the glyph of a ligature or of a letter pair is missing from the saved text
+# ("felds", "Li le Round Top"), so the words the printed page has cannot be found letter for letter. A claim from such a report may carry the printed words as its quote; the
+# comparison then lets exactly the letters a defect can lose be absent from the saved text (and nothing else), the result says so (`defect`), and the saved words are kept as `found`.
+DEFECT_OF = {'NPS:NPS-CLR-ROT-V1': 'fi-ligature', 'NPS:NPS-CLR-ROT-V2': 'fi-ligature', 'NPS:NPS-TPG-COMMEM': 'fi-ligature', 'NPS:NPS-CLR-LRT': 'ligature'}
+PAIRS = {'ligature': ('tti', 'tt', 'ti', 'ft', 'tf')}
+
+
+def defect_pattern(qs, defect):
+    """a regular expression over the skeleton of the saved text that matches the skeleton qs with the letters of `defect` optional (fi-ligature: the second letter of fi, fl, ff, ffi after an f;
+    ligature: a lost pair tt, ti, ft, tf or tti)"""
+    out, i = [], 0
+    while i < len(qs):
+        c = qs[i]
+        if defect == 'fi-ligature':
+            out.append(re.escape(c) + ('?' if i and qs[i - 1] == 'f' and c in 'ifl' else ''))
+            i += 1
+        else:
+            for pr in PAIRS.get(defect, ()):
+                if qs.startswith(pr, i):
+                    out.append('(?:' + pr + ')?')
+                    i += len(pr)
+                    break
+            else:
+                out.append(re.escape(c))
+                i += 1
+    return ''.join(out)
 
 
 def ws9_path(i):
@@ -131,8 +162,9 @@ def expand(key):
     return [key]
 
 
-def verify(key, quote, report=None):
-    """-> {ok, count, found, locator{...}, sha256}; for OR27 locator carries report, page and cite"""
+def verify(key, quote, report=None, defect=None):
+    """-> {ok, count, found, locator{...}, sha256}; for OR27 locator carries report, page and cite. `defect` (or DEFECT_OF for the report) lets a quote written with the printed words
+    be found in a text whose layer lost glyphs: tried only when the letter-for-letter comparison finds nothing; the result then has `defect` set and `found` is the saved words."""
     if key == 'OR27':
         import or27_find as F
         hits = F.verify(quote, parts=(1, 2, 3))
@@ -179,14 +211,26 @@ def verify(key, quote, report=None):
         if first is None:
             first = i
         pos = i + 1
+    d = defect or DEFECT_OF.get(key.split('#')[0])
+    span = None
+    if first is None and d:
+        rx = re.compile(defect_pattern(qs, d))
+        ms = list(rx.finditer(sk))
+        if ms:
+            n, first = len(ms), ms[0].start()
+            span = (ms[0].start(), ms[0].end())
     if first is None:
         return {'ok': False, 'count': 0, 'found': None}
-    a, b = idx[first], idx[first + len(qs) - 1] + 1
+    last = (span[1] - 1) if span else (first + len(qs) - 1)
+    a, b = idx[first], idx[last] + 1
     loc = {'char_start': a, 'char_end': b}
     pg = t.page_at(a)
     if pg is not None:
         loc['pdf_page'] = pg
-    return {'ok': True, 'count': n, 'found': collapse(t.raw[a:b]), 'locator': loc, 'sha256': t.sha256}
+    out = {'ok': True, 'count': n, 'found': collapse(t.raw[a:b]), 'locator': loc, 'sha256': t.sha256}
+    if span:
+        out['defect'] = d
+    return out
 
 
 def search(key, pattern, ctx=110, flags=re.I, maxn=200, skip=None):

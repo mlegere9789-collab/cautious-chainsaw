@@ -23,8 +23,10 @@ export function makePlan(groundAt) {
   }
   // anchor the plan at a camera: guns 45 m in front of it, a volley 30 m in front, falls and a marching column ahead
   const anchor = (cam, flags) => { const fy = cam.yaw; Object.assign(plan, { on: !!flags, guns: false, volleys: false, falls: false, march: false }, flags || {}); plan.A = [cam.x, 0, cam.z]; plan.f = [Math.sin(fy), 0, Math.cos(fy)]; plan.r = [-Math.cos(fy), 0, Math.sin(fy)]; plan.yaw = fy; };
-  return { bus, plan, anim: { bus, advance }, anchor };
+  // point(u, v, h): the world position of a point of the plan's frame (u metres ahead of the anchor, v to its right, h above the ground); aimCamera looks at it after the plan was anchored
+  return { bus, plan, anim: { bus, advance }, anchor, point: at };
 }
+export function aimCamera(cam, P, aim) { const p = P.point(aim[0], aim[1], aim[2] ?? 0); cam.lookAtPoint(p[0], p[1], p[2]); return cam; }
 
 // where a case puts the camera. spec.at: 'field' (700, 200) | 'line' (behind the prototype world's show line, looking along it) | 'lnglat' (+ dx, dz) | 'xz'; spec.h: height above the ground (m); spec.look: 'sun' | 'moon' |
 // [yaw, pitch]; spec.target = [lng, lat] looks at that place. smp: the sun and moon sample of the case's time (environment.sample). Same arguments, same camera.

@@ -1,0 +1,33 @@
+{
+ "gate": "Q21",
+ "ok": true,
+ "checked": 555000,
+ "failures": 0,
+ "first_failures": [],
+ "notRun": [
+  "pictures of the fields and trees (software renderer only; no real-GPU timing)",
+  "comparison with 1863 photographs (none analysed)"
+ ],
+ "summary": {
+  "units": 925,
+  "claims": 330,
+  "times": 100,
+  "scenarios": 6,
+  "states": 555000,
+  "byTier": {
+   "documented": 253,
+   "inferred": 133,
+   "plausible-procedural": 539,
+   "open gap": 0
+  },
+  "pure": true
+ },
+ "sample_times": 100,
+ "units": 925,
+ "claims": 330,
+ "schema": "bt-vegetation/1",
+ "wall_ms": 3057,
+ "hooks_declared": [
+  "Q21 checkVegetation(model, opts)"
+ ]
+}

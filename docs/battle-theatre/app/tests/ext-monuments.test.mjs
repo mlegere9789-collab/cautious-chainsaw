@@ -173,6 +173,15 @@ test('the panel and the notice: the words, well-formed, with the layer\'s state 
   const n = P.noticeHTML(idx.counts, tierMark); assert.deepEqual(markupProblems(n), []); assert.match(n, /Later memorials shown/); assert.match(n, /Put up after the battle: not part of the 1863 scene/); assert.match(n, /512 marks, 77 of them beyond the loaded ground/); assert.match(n, /data-act="hide"/); assert.match(n, /data-act="about"/); assert.match(n, /data-tier="inferred"/);
   assert.match(P.COPY.layer, /none is part of the 1863 scene/); assert.match(P.COPY.what, /put up after the battle/i); assert.match(P.COPY.what, /not part of the 1863 scene/i);
 });
+test('the card and the notice stay short where the left column is crowded: the year (or its gap) and the ground come before the group and the park number, the pills are one row, the notice has two rows with its button in the first', () => {
+  const idx = P.buildIndex(mem, T), pa = idx.byNo.get(46), h = P.memorialCardHTML(pa, tierMark), at = s => h.indexOf(`<dt>${s}</dt>`);
+  assert.ok(at('Remembers') > 0 && at('Remembers') < at('Where') && at('Where') < at('Put up') && at('Put up') < at('Ground') && at('Ground') < at('Group') && at('Group') < at('Park number'), 'the order of the rows');
+  const pills = h.slice(h.indexOf('<div style="display:flex;gap:6px'), h.indexOf('<dl>')); assert.equal((pills.match(/class="pill"/g) || []).length, 3, 'the tier, post-battle and the side: one row'); assert.doesNotMatch(pills, /No\. 46/);
+  assert.match(h, /<dt>Group<\/dt><dd>[^<]*· no\. 46 of the list<\/dd>/, 'the number in the list is a row, not a pill');
+  const n = P.noticeHTML(idx.counts, tierMark), say = n.indexOf('Put up after the battle: not part of the 1863 scene');
+  assert.ok(n.indexOf('data-tier="inferred"') < n.indexOf('Later memorials shown') && n.indexOf('Later memorials shown') < n.indexOf('data-act="hide"') && n.indexOf('data-act="hide"') < say && say < n.indexOf('data-act="about"'), 'row one: tier, name, Hide; row two: the sentence and the link to the panel');
+  assert.equal((n.match(/class="xm-h"/g) || []).length, 1); assert.equal((n.match(/class="xm-t"/g) || []).length, 1);
+});
 test('what the "later" label rests on is in the library text of Bachelder\'s guide of 1889, word for word, on the printed pages named', { skip: !fs.existsSync(path.join(REPO, 'tmp/library/ws9')) && 'NOT RUN: tmp/library/ws9 is not in this checkout (the library is local scratch)' }, () => {
   const f = fs.readdirSync(path.join(REPO, 'tmp/library/ws9')).find(x => x.startsWith(P.BASIS.library + '__')); assert.ok(f, 'the text of the guide is in the library');
   const text = fs.readFileSync(path.join(REPO, 'tmp/library/ws9', f), 'utf8').replace(/-\n/g, '').replace(/\s+/g, ' ').toLowerCase();

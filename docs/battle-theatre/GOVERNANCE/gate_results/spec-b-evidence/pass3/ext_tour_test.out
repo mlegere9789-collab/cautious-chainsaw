@@ -1,0 +1,88 @@
+TAP version 13
+# Subtest: the tour file is fit: 16 stops numbered 1 to 16 in order, each with a name, a label, the site's day and a place; 15 with a viewpoint of the site's own
+ok 1 - the tour file is fit: 16 stops numbered 1 to 16 in order, each with a name, a label, the site's day and a place; 15 with a viewpoint of the site's own
+  ---
+  duration_ms: 6.690902
+  type: 'test'
+  ...
+# Subtest: the file keeps a stop's name, label, day, place and viewpoint, and leaves the narration, the video, the street-level image and any key in the site
+ok 2 - the file keeps a stop's name, label, day, place and viewpoint, and leaves the narration, the video, the street-level image and any key in the site
+  ---
+  duration_ms: 0.551695
+  type: 'test'
+  ...
+# Subtest: every stop has a camera position over the loaded ground, above it, looking at the stop; 14 stops are on the ground (seen from the site's viewpoint), 2 beyond it (seen from the edge)
+ok 3 - every stop has a camera position over the loaded ground, above it, looking at the stop; 14 stops are on the ground (seen from the site's viewpoint), 2 beyond it (seen from the edge)
+  ---
+  duration_ms: 1.443459
+  type: 'test'
+  ...
+# Subtest: a stop on the ground is flown to exactly as the shell's own Views list flies there (flyToLngLat with the site's viewpoint, 30 m up), so the two never disagree
+ok 4 - a stop on the ground is flown to exactly as the shell's own Views list flies there (flyToLngLat with the site's viewpoint, 30 m up), so the two never disagree
+  ---
+  duration_ms: 0.5355
+  type: 'test'
+  ...
+# Subtest: gate hook checkTourBookmarks: ok on the real data and terrain; negative controls
+ok 5 - gate hook checkTourBookmarks: ok on the real data and terrain; negative controls
+  ---
+  duration_ms: 26.491971
+  type: 'test'
+  ...
+# Subtest: the words: a stop beyond the ground says how far beyond which edge; the pin says "modern tour stop"
+ok 6 - the words: a stop beyond the ground says how far beyond which edge; the pin says "modern tour stop"
+  ---
+  duration_ms: 3.215459
+  type: 'test'
+  ...
+# Subtest: module: at entry no pin shows and nothing is registered but the panel: no switch, no scene hook, no clock call
+ok 7 - module: at entry no pin shows and nothing is registered but the panel: no switch, no scene hook, no clock call
+  ---
+  duration_ms: 127.497307
+  type: 'test'
+  ...
+# Subtest: module: choosing a stop sends the camera there and shows the pin once the stop is in view; the clock, play and speed are never touched
+ok 8 - module: choosing a stop sends the camera there and shows the pin once the stop is in view; the clock, play and speed are never touched
+  ---
+  duration_ms: 16.083617
+  type: 'test'
+  ...
+# Subtest: module: the label of the pin goes to the other side of the place when it would run under the drawer; it comes back when the drawer closes; the pin is moved to the place at once
+ok 9 - module: the label of the pin goes to the other side of the place when it would run under the drawer; it comes back when the drawer closes; the pin is moved to the place at once
+  ---
+  duration_ms: 8.416559
+  type: 'test'
+  ...
+# Subtest: module: a stop beyond the ground is flown to from the edge, the pin and the words say how far beyond; the camera stays over the ground
+ok 10 - module: a stop beyond the ground is flown to from the edge, the pin and the words say how far beyond; the camera stays over the ground
+  ---
+  duration_ms: 2.976441
+  type: 'test'
+  ...
+# Subtest: module: the panel lists the 16 stops, flies to the one that is picked, marks it, and takes the pin away; the pin's own close button does the same
+ok 11 - module: the panel lists the 16 stops, flies to the one that is picked, marks it, and takes the pin away; the pin's own close button does the same
+  ---
+  duration_ms: 6.083729
+  type: 'test'
+  ...
+# Subtest: module: Back leaves nothing and a second visit starts with no stop chosen; data that fails its checks is not offered; a visit that ended while the list was read starts nothing
+ok 12 - module: Back leaves nothing and a second visit starts with no stop chosen; data that fails its checks is not offered; a visit that ended while the list was read starts nothing
+  ---
+  duration_ms: 7.182878
+  type: 'test'
+  ...
+# Subtest: module: the file asks for nothing it must not: no scene hook, no clock, no document listener, no random numbers, no wall clock, nothing kept between visits
+ok 13 - module: the file asks for nothing it must not: no scene hook, no clock, no document listener, no random numbers, no wall clock, nothing kept between visits
+  ---
+  duration_ms: 0.37707
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 455.986417

@@ -11,7 +11,7 @@ import { makeGeo } from '../src/geo.mjs';
 import { Environment } from '../src/environment.mjs';
 import { minOf } from '../src/clock.mjs';
 import * as fxHost from '../src/fx-host.mjs';
-import { makePlan, placeCamera } from './weather3d-gpu-plan.mjs';
+import { makePlan, placeCamera, aimCamera } from './weather3d-gpu-plan.mjs';
 
 const Q = new URLSearchParams(location.search);
 const API = Q.get('api') === 'webgl2' ? 'webgl2' : 'webgpu', W = +Q.get('w') || 640, H = +Q.get('h') || 360, SOLD = +Q.get('soldiers') || 12000;
@@ -64,6 +64,7 @@ WG.render = async function (spec) {
   const smp = env.sample(tMin, sample), wx = env.weatherAt(tMin, WG.choices), lt = env.light(smp, { nightFloor: 0.34 }, wx, light); host.setLight(lt.sunDir, lt.exposure);
   placeCamera(cam, spec, { T, geo: WG.geo, smp, line: L });
   P.anchor(cam, spec.plan);                                 // the stand-in plan is anchored at the camera and looks where it looks
+  if (spec.aim) aimCamera(cam, P, spec.aim);               // optional: look at a point of the plan's frame (close views of one effect)
   const fi = FXON ? fxHost.instance() : null; if (fi) { fi.opts.drawWeather = spec.flags ? spec.flags.weather !== false : true; fi.opts.drawFx = spec.flags ? spec.flags.fx !== false : true; }
   let info = null; if (FXON) { info = fxHost.update({ tMin, cam }); info = fxHost.update({ tMin, cam }); }
   const animT = 40 + (tMin * 60) % 7200, dev = R.dev || null;

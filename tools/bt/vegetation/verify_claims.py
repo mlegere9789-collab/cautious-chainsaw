@@ -19,7 +19,8 @@ A claim file is a JSON list of objects:
   note      reasoning for an inference, or a caveat
 
 The output keeps every field and adds quote_found (the source's own words), locator, src_sha256 and ok. A claim whose quote is not found
-is reported and left out of the output: it cannot be cited.
+is reported and left out of the output: it cannot be cited. Where the saved text of a report lost glyphs (srcs.DEFECT_OF: the fi ligature of the Record of Treatment, the tt and ti pairs of the Little Round
+Top report) a quote written with the printed words is accepted when it is found with exactly those letters allowed to be absent; the output then has `restored` and the saved words as quote_found.
 """
 import os, sys, json, glob, argparse
 
@@ -82,6 +83,8 @@ def verify_all(claims):
                 d['quote_found'] = r['found']
                 d['locator'] = r['locator']
                 d['match_count'] = r['count']
+                if r.get('defect'):                     # the quote has the printed words; the saved text lost glyphs of the kind named (srcs.DEFECT_OF): both are kept
+                    d['restored'] = r['defect']
                 if 'sha256' in r:
                     d['src_sha256'] = r['sha256']
                 d['ok'] = True
@@ -107,6 +110,9 @@ def main():
         print('DROPPED %d generated claims (quote not found in the saved text): %s' % (len(dropped), ', '.join(b[0].replace('VC-NPSX-', '') for b in dropped[:30])))
     if multi:
         print('NOTE %d claims match more than one place (first is cited): %s' % (len(multi), ', '.join(multi[:12])))
+    rest = [c['id'] for c in ok if c.get('restored')]
+    if rest:
+        print('NOTE %d claims were found only with the lost glyphs of the saved text allowed (quote = printed words, quote_as_saved = the saved words): %s' % (len(rest), ', '.join(rest[:8]) + (' ...' if len(rest) > 8 else '')))
     print('%d claims read, %d verified, %d failed, %d dropped' % (len(claims), len(ok), len(bad), len(dropped)))
     if not a.only and not a.no_write:
         for c in ok:

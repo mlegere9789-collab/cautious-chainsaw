@@ -22,6 +22,25 @@ def cite_of(o):
     return {k: v for k, v in d.items() if v is not None}
 
 
+def cas_total(v):
+    """The aggregate loss of a casualties value, or None when the line does not give it.
+    The printed aggregate when there is one; otherwise the sum of the three kinds when every kind is stated, as officers and enlisted men
+    or as a kind total (a state volume that prints 11 killed, 62 wounded, 159 missing). A kind left blank, or half stated, makes the aggregate
+    unknown: a partial sum is never presented as the total, and unknown is never 0."""
+    if v.get('total') is not None:
+        return v['total']
+    parts = []
+    for k in ('killed', 'wounded', 'missing'):
+        c = v.get(k) or {}
+        if c.get('total') is not None:
+            parts.append(c['total'])
+        elif c.get('officers') is not None and c.get('enlisted') is not None:
+            parts.append(c['officers'] + c['enlisted'])
+        else:
+            return None
+    return sum(parts)
+
+
 def basis_text(field, basis, extra, lines):
     meaning = K.BASES[field].get(basis, basis)
     dates = sorted({l.get('as_of') for l in lines if l.get('as_of')})
@@ -112,14 +131,13 @@ def build(ev_dir=K.EV, out_dir=KIT, write=True):
                 rec['strength'] = {'figures': figs, 'ranges': ranges}
             cs = by.get('casualties', [])
             if cs:
-                def tot(o):
-                    v = o['value']
-                    return v['total'] if v.get('total') is not None else sum((v[k].get(w) or 0) for k in ('killed', 'wounded', 'missing') for w in ('officers', 'enlisted'))
+                tot = lambda o: cas_total(o['value'])
                 figs = [{'basis': o['basis'], 'period': o['value']['period'], 'killed': o['value']['killed'], 'wounded': o['value']['wounded'], 'missing': o['value']['missing'], 'total': tot(o), 'tier': o['tier'], 'evidence_ids': [o['id']], 'cite': cite_of(o)} for o in sorted(cs, key=lambda x: (x['basis'], x['id']))]
                 ranges = collections.OrderedDict()
                 for key in sorted({(o['basis'], o['value']['period']) for o in cs}):
-                    ks_ = [o for o in cs if (o['basis'], o['value']['period']) == key]
-                    ranges['%s|%s' % key] = {'total': {'low': min(tot(o) for o in ks_), 'high': max(tot(o) for o in ks_)}, 'tier': tier_of(ks_), 'lines': len(ks_), 'basis': basis_text('casualties', key[0], key[1], ks_)}
+                    ks_ = [o for o in cs if (o['basis'], o['value']['period']) == key and tot(o) is not None]   # a line that gives no aggregate makes no range
+                    if ks_:
+                        ranges['%s|%s' % key] = {'total': {'low': min(tot(o) for o in ks_), 'high': max(tot(o) for o in ks_)}, 'tier': tier_of(ks_), 'lines': len(ks_), 'basis': basis_text('casualties', key[0], key[1], ks_)}
                 rec['casualties'] = {'figures': figs, 'ranges': ranges}
             for f in ('officer', 'horses', 'ammunition', 'detachment'):
                 if by.get(f):
@@ -161,7 +179,7 @@ def build(ev_dir=K.EV, out_dir=KIT, write=True):
     counts = collections.Counter(u['status'] for u in units.values())
     n_ev = sum(len(v) for v in lines_by_unit.values())
     oob = collections.OrderedDict([('schema', SCHEMA_OOB), ('_doc', 'Verified order of battle: what the Official Records and the printed state volumes say, per unit, with tier, citation ids and the basis of every range. A unit without a non-lead source is unverified; nothing is filled in. Evidence ids resolve in kit/evidence_index.json.'),
-        ('rules', {'ranges': 'low is the lowest and high the highest figure of one kind (basis and men) among its documented lines (inferred lines only when no documented line exists); kinds are never mixed', 'status': 'verified = roster, commander and strength each verified; partly = some evidence; unverified = none',
+        ('rules', {'ranges': 'low is the lowest and high the highest figure of one kind (basis and men) among its documented lines (inferred lines only when no documented line exists); kinds are never mixed', 'casualty_total': 'the printed aggregate, else the sum of the three kinds when each is stated, else null (never a partial sum, never 0); a basis whose lines give no aggregate has figures and no range', 'status': 'verified = roster, commander and strength each verified; partly = some evidence; unverified = none',
                    'comparison': 'proposed for gate Q01: a layer figure passes when it lies inside the range of one kind of its unit; a unit with no verified range is reported unverified (neither pass nor failure)'}),
         ('inputs', inputs), ('totals', dict(units=len(units), evidence_lines_used=n_ev, rejected_lines=rejected, **{k: counts[k] for k in ('verified', 'partly', 'unverified')})), ('units', units), ('roster_additions', extra_units), ('reconstructions_not_verified', recon)])
     bc = collections.Counter(b['status'] for b in bats.values())

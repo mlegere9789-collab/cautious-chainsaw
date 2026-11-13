@@ -20,4 +20,20 @@ export const CASES = [
   { name: 'dust-march-jul2-1100', m: [7, 2, 11, 0], h: 3, look: [Math.PI, 0.03], plan: { march: true, falls: true }, what: 'road dust of a marching column and dust at falls' },
   { name: 'night-floor-jul2-0100', m: [7, 2, 1, 0], at: 'line', h: 6, back: 60, what: 'night is never black: ground, men and sky' },
 ];
-export const specOf = (c, minOf) => { const { m, what, ...rest } = c; return { ...rest, tMin: minOf(m[0], m[1], m[2], m[3]) }; };
+// Close views of the effect classes the wide cases show only in passing (shell burst, ground strike with clods, fresh musket volley, dust at falls, flames and fire light close and at night). Not part of the default
+// run (the stored evidence is the 16 cases above): name them on the command line, or run them with --extra. `sec` = seconds after the minute (the stand-in plan fires on a 10 s beat, volleys on 6 s, falls on 4 s);
+// `aim` = [u, v, h] a point of the stand-in plan's frame (u m ahead of the anchor, v to its right, h above the ground) that the camera looks at after the plan is anchored; `aimFall` aims at the latest fall of the plan.
+export const EXTRA_CASES = [
+  { name: 'strike-close-jul3-1400', m: [7, 3, 14, 0], sec: 12.3, h: 6, look: [Math.PI, 0], fov: 8, aim: [160, -40, 2], plan: { guns: true }, what: 'a solid shot strikes the ground: clods thrown up and the dust plume, close (stand-in plan, gun 0, 0.7 s after the strike)' },
+  { name: 'burst-close-jul3-1400', m: [7, 3, 14, 0], sec: 12.6, h: 6, look: [Math.PI, 0], fov: 10, aim: [230, -60, 14], plan: { guns: true }, what: 'a shell burst in the air: flash, smoke ring and fragments, close (stand-in plan, gun 0, 0.6 s after the burst)' },
+  { name: 'volley-close-jul3-1400', m: [7, 3, 14, 0], sec: 7, h: 1.8, look: [Math.PI, 0.02], fov: 40, plan: { volleys: true }, what: 'a fresh musket volley by day: flashes and the first smoke at 30 m (stand-in plan, 1 s after the volley)' },
+  { name: 'falls-close-jul2-1100', m: [7, 2, 11, 0], sec: 4.6, h: 1.7, look: [Math.PI, 0.03], fov: 35, aimFall: true, plan: { falls: true }, what: 'dust at the places where men fell, close (stand-in plan, the latest fall and the ones before it)' },
+  { name: 'fire-close-jul3-1500', m: [7, 3, 15, 0], at: 'lnglat', ...SHERFY, dx: 24, dz: 16, h: 3, target: [SHERFY.lng, SHERFY.lat], targetH: 6, fov: 50, what: 'the barn fire close: flames, sparks and smoke, half intensity (time uncertain)' },
+  { name: 'fire-night-jul3-2200', m: [7, 3, 22, 0], at: 'lnglat', ...SHERFY, dx: 40, dz: 28, h: 4, target: [SHERFY.lng, SHERFY.lat], targetH: 6, fov: 55, what: 'the barn fire at night: the light of the fire on the ground, flames and smoke, half intensity (time uncertain)' },
+];
+export const ALL_CASES = [...CASES, ...EXTRA_CASES];
+export const specOf = (c, minOf) => {
+  const { m, what, sec, aimFall, ...rest } = c, tMin = minOf(m[0], m[1], m[2], m[3]) + (sec || 0) / 60, spec = { ...rest, tMin };
+  if (aimFall) spec.aim = [38, -20 + (Math.floor(tMin * 60 / 4) % 40), 1];         // the stand-in plan's falls: one every 4 s at (38, -20 + i), i = (t / 4) mod 40
+  return spec;
+};

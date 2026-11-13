@@ -4,11 +4,12 @@
 //   tools/horde/bench.sh node docs/battle-theatre/app/tests/weather3d-gpu.mjs <outDir> <webgpu|webgl2> [case,case,...] [--w=640] [--h=360] [--soldiers=12000] [--no-repeat] [--tier=laptop] [--real-canvas] [--fx=off] [--no-screenshot]
 // --fx=off: the prototype alone (its own sky and particles, no weather or effects layer): the baseline that shows how far the two renderers are from each other without this layer.
 // --real-canvas: no stand-in for the canvas texture (on a machine with a real GPU).
+// --extra: the close views of EXTRA_CASES (shell burst, ground strike, fresh volley, dust at falls, the barn fire close and at night) instead of the 16 default cases; named cases are looked up in both lists.
 // Output: <outDir>/<api>/<case>.png, <case>.rgba (raw), <case>.json, summary.json, console.log.
 import fs from 'node:fs'; import path from 'node:path';
 import { chromium } from '../../../../node_modules/playwright-core/index.mjs';
 import { serve } from '../tools/serve.mjs';
-import { CASES, specOf } from './weather3d-gpu-cases.mjs';
+import { CASES, EXTRA_CASES, ALL_CASES, specOf } from './weather3d-gpu-cases.mjs';
 import { minOf as MO } from '../src/clock.mjs';
 
 const args = process.argv.slice(2), flag = (k, d) => { const a = args.find(x => x.startsWith('--' + k + '=')); return a ? a.split('=')[1] : d; };
@@ -49,7 +50,7 @@ try {
   const ready = await page.evaluate(() => ({ ready: window.WG.ready, error: window.WG.error, log: window.WG.log })); summary.ready = ready; say('ready', JSON.stringify(ready));
   if (!ready.ready) throw new Error('harness set-up failed: ' + ready.error);
   summary.diagInit = await page.evaluate(() => window.WG.diag()); say('init: api', summary.diagInit.api, 'gpu', JSON.stringify(summary.diagInit.gpu && { ok: summary.diagInit.gpu.ok, weather: summary.diagInit.gpu.weatherOk, fx: summary.diagInit.gpu.fxOk, failed: summary.diagInit.gpu.failed }), 'gl', JSON.stringify(summary.diagInit.gl && summary.diagInit.gl.ok), 'errors', summary.diagInit.gpuErrors.length, 'wgsl msgs', summary.diagInit.wgsl.length); save();
-  const list = CASES.filter(c => !only.length || only.includes(c.name)), first = {};
+  const list = (args.includes('--extra') ? EXTRA_CASES : only.length ? ALL_CASES : CASES).filter(c => !only.length || only.includes(c.name)), first = {};
   const run = async (c, tag) => {
     const spec = specOf(c, MO); const t0 = Date.now(); const r = await page.evaluate(s => window.WG.render(s), spec); const px = Buffer.from(r.px, 'base64'); delete r.px; r.wallMs = Date.now() - t0;
     return { r, px: new Uint8Array(px.buffer, px.byteOffset, px.length), tag };

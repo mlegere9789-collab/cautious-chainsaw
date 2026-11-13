@@ -11,11 +11,15 @@ const doc = () => globalThis.document;
 const el = (tag, props = {}, html = null) => { const n = doc().createElement(tag); for (const k of Object.keys(props)) { if (k === 'style') n.style.cssText = props[k]; else if (k.startsWith('aria-') || k === 'role' || k === 'for' || k === 'type' || k === 'placeholder') n.setAttribute(k, props[k]); else n[k] = props[k]; } if (html != null) n.innerHTML = html; return n; };
 // The notice sits in the left column on a wide screen. On a phone the shell hides its own legend and lays the column out loose, so the notice is put under the clock face
 // (its height is read, not guessed) and stays on the picture: the notice is the label of the layer and is never hidden while the layer is on.
-const CSS = `#xm-chip{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:9px 14px;border-radius:12px;background:var(--panel);border:1px solid rgba(58,58,86,.65);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);font-size:12px;line-height:1.4;color:var(--text-2);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+// two rows: the tier, the name of the layer and the button that puts the marks away; then the sentence that says what the marks are (about 80 px, not 120: the column is shared with the clock face and the other layers' notices)
+const CSS = `#xm-chip{display:flex;flex-direction:column;gap:3px;padding:8px 14px 9px;border-radius:12px;background:var(--panel);border:1px solid rgba(58,58,86,.65);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);font-size:12px;line-height:1.4;color:var(--text-2);box-shadow:0 12px 40px rgba(0,0,0,.3)}
 #xm-chip[hidden]{display:none}
-#xm-chip>span{display:inline-flex;align-items:center;gap:7px}
+#xm-chip .xm-h{display:flex;align-items:center;gap:8px}
+#xm-chip .xm-h b{flex:1;color:var(--text);font-size:12.5px}
+#xm-chip .btn-s{min-height:28px}
+#xm-chip .xm-link{display:inline;min-height:24px;padding:3px 2px;border:0;background:none;color:var(--gold);font:inherit;text-decoration:underline;cursor:pointer}
 #xm-chip[data-compact]{display:none}
-@media (max-width:760px){#xm-chip{position:absolute;z-index:12;left:var(--gut);right:var(--gut);top:calc(var(--top-h) + var(--safe-t) + var(--xm-clock-h,92px) + 18px);padding:7px 11px;gap:4px 10px;font-size:11.5px}#xm-chip .btn-s{min-height:30px}}`;
+@media (max-width:760px){#xm-chip{position:absolute;z-index:12;left:var(--gut);right:var(--gut);top:calc(var(--top-h) + var(--safe-t) + var(--xm-clock-h,92px) + 18px);padding:7px 11px;font-size:11.5px}#xm-chip .btn-s{min-height:30px}}`;
 
 export async function init(ctx) {
   const URLS = ctx.urls, th = ctx.theatre;

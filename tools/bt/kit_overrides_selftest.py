@@ -307,6 +307,16 @@ def run_verified(ok):
             f.write(json.dumps(rid(o, n), ensure_ascii=False) + '\n')
     oob, bat = KV.build(ev, out, write=True)
     U = oob['units']
+    cas = KV.cas_total
+    ok('verified casualties: the printed aggregate is used as printed', cas({'killed': {'officers': 2, 'enlisted': 25}, 'wounded': {}, 'missing': {}, 'total': 210}) == 210)
+    ok('verified casualties: no aggregate printed, three kinds stated as officers and men, gives their sum',
+       cas({'killed': {'officers': 2, 'enlisted': 25}, 'wounded': {'officers': 12, 'enlisted': 121}, 'missing': {'officers': 4, 'enlisted': 46}, 'total': None}) == 210)
+    ok('verified casualties: no aggregate printed, three kind totals (a monument text: 11, 62, 159), gives 232 and not 0',
+       cas({'killed': {'total': 11}, 'wounded': {'total': 62}, 'missing': {'total': 159}, 'total': None}) == 232)
+    ok('verified casualties: a kind left blank makes the aggregate unknown, never a partial sum and never 0',
+       cas({'killed': {'total': 6}, 'wounded': {'total': 48}, 'missing': {}, 'total': None}) is None and cas({'killed': {}, 'wounded': {}, 'missing': {}, 'total': None}) is None)
+    ok('verified casualties: a kind with officers but no enlisted figure is half stated, so the aggregate is unknown',
+       cas({'killed': {'officers': 7}, 'wounded': {'total': 20}, 'missing': {'total': 3}, 'total': None}) is None)
     ok('verified: every unit of groups.json has an entry, counted by status', oob['totals']['units'] == 825 and oob['totals']['verified'] + oob['totals']['partly'] + oob['totals']['unverified'] == 825, oob['totals'])
     ok('verified: a line the validator rejected is counted and absent', oob['totals']['rejected_lines'] >= 1 and 'us-1c:0007' not in json.dumps(oob))
     u = U['us-1c-1d-meredith-19in']

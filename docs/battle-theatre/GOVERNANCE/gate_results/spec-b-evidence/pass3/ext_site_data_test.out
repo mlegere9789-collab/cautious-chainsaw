@@ -1,0 +1,88 @@
+TAP version 13
+# Subtest: the site's data is found: the tracked baseline build is in this checkout, and every site tree that carries an entry bundle holds the same 512 monuments, 16 stops and 9 state memorials
+ok 1 - the site's data is found: the tracked baseline build is in this checkout, and every site tree that carries an entry bundle holds the same 512 monuments, 16 stops and 9 state memorials
+  ---
+  duration_ms: 742.238795
+  type: 'test'
+  ...
+# Subtest: no drift: the copies in app/data equal the site's data in every tree of this checkout, and the hashes recorded with them are the hashes of what they hold
+ok 2 - no drift: the copies in app/data equal the site's data in every tree of this checkout, and the hashes recorded with them are the hashes of what they hold
+  ---
+  duration_ms: 327.039163
+  type: 'test'
+  ...
+# Subtest: the copies are reproducible: rebuilt from the primary tree they are the same bytes as the files in app/data (nothing was edited by hand)
+ok 3 - the copies are reproducible: rebuilt from the primary tree they are the same bytes as the files in app/data (nothing was edited by hand)
+  ---
+  duration_ms: 27.506765
+  type: 'test'
+  ...
+# Subtest: the projection keeps exactly the fields a mark, a row and a bookmark need and stops at a field it does not know (a new field of the site is a decision, not a silent loss)
+ok 4 - the projection keeps exactly the fields a mark, a row and a bookmark need and stops at a field it does not know (a new field of the site is a decision, not a silent loss)
+  ---
+  duration_ms: 23.779403
+  type: 'test'
+  ...
+# Subtest: drift is noticed: a changed coordinate, a changed name, a changed hash, a missing file, a changed pin
+ok 5 - drift is noticed: a changed coordinate, a changed name, a changed hash, a missing file, a changed pin
+  ---
+  duration_ms: 4642.55596
+  type: 'test'
+  ...
+# Subtest: the check reads the site and writes only the two copies: no site file is opened for writing
+ok 6 - the check reads the site and writes only the two copies: no site file is opened for writing
+  ---
+  duration_ms: 0.440524
+  type: 'test'
+  ...
+# Subtest: the years file is fit against the list and carries the hash of what it holds; the rule that fills it is in the file
+ok 7 - the years file is fit against the list and carries the hash of what it holds; the rule that fills it is in the file
+  ---
+  duration_ms: 1.564853
+  type: 'test'
+  ...
+# Subtest: the rule on a report text: a memorial is read where the report names it by the site's own name and says it was erected; what the rule leaves out is left out with its reason
+ok 8 - the rule on a report text: a memorial is read where the report names it by the site's own name and says it was erected; what the rule leaves out is left out with its reason
+  ---
+  duration_ms: 3.216446
+  type: 'test'
+  ...
+# Subtest: the years file equals what the saved report texts give, and the texts are the ones it was read from
+ok 9 - the years file equals what the saved report texts give, and the texts are the ones it was read from
+  ---
+  duration_ms: 871.210418
+  type: 'test'
+  ...
+# Subtest: without the saved texts the reader says so instead of passing: driftYears reports skipped
+ok 10 - without the saved texts the reader says so instead of passing: driftYears reports skipped
+  ---
+  duration_ms: 0.486203
+  type: 'test'
+  ...
+# Subtest: the list of added layers carries the two modules; every path of the list is one the loader accepts; the files are there; each module exports only what the contract names
+ok 11 - the list of added layers carries the two modules; every path of the list is one the loader accepts; the files are there; each module exports only what the contract names
+  ---
+  duration_ms: 3.086744
+  type: 'test'
+  ...
+# Subtest: copy audit: no shipped file of the two modules (code, notes, data) names a tool, a maker or a process; the packer's own rules are the rules
+ok 12 - copy audit: no shipped file of the two modules (code, notes, data) names a tool, a maker or a process; the packer's own rules are the rules
+  ---
+  duration_ms: 13.976045
+  type: 'test'
+  ...
+# Subtest: what is written about the data in the shipped files points at the site, not at the way the copy was made: the tree and bundle it is read from are named, nothing else
+ok 13 - what is written about the data in the shipped files points at the site, not at the way the copy was made: the tree and bundle it is read from are named, nothing else
+  ---
+  duration_ms: 1.152723
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 7256.578583

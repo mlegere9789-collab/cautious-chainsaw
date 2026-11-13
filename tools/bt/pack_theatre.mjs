@@ -332,12 +332,14 @@ export function makeZip(entries) {   // entries: [{name, data}] sorted by caller
 // ---- copy audit: nothing in the shipped files may say how the site was made (GOVERNANCE/FINAL-ACCEPTANCE.md, copy audit rules)
 // names of tools and makers; statements that a file was made by a tool; the word "agent" where it means a maker of the site (not a figure of the simulation, not a person of 1863);
 // markers of internal notes. Case-insensitive.
+const AUDIT_KEY_GENERATED = String.raw`"generated(?:_?(?:at|by|on|from))?"\s*:`;
+const AUDIT_KEY_MAKER = String.raw`"(?:(?:built|made|produced|written|created|exported|compiled)[_ -]?(?:by|with)|generator|builder|build[_-]?(?:script|tool))"\s*:\s*"[^"\n]*(?:\/|\.(?:mjs|cjs|js|py|sh)\b)`;
 export const AUDIT_RE = new RegExp([
   String.raw`\b(claude|anthropic|chatgpt|openai|gpt-?\d|(?:large )?language models?|LLMs?|subagents?|sub-agents?|artificial intelligence|AI[- ](?:generated|assisted|written|made|built|reviewed)|(?:generated|written|built|made|reviewed|authored) (?:by|with) (?:an? )?(?:AI|automated|machine))\b`,
   String.raw`\b(?:(?:auto-?|machine-)?generated|written|built|produced|made|derived|exported) (?:by|with|from) (?:the |a |an )?(?:(?:[\w.-]+\/)*tools\/|script|generator|build script|program)`,
   String.raw`\b(?:auto-?|machine-)?(?:generated|produced) (?:by|with|from) (?:the |a |an )?[\w./-]+\.(?:py|mjs|cjs|js|sh)\b`,
-  String.raw`"generated(?:_?(?:at|by|on|from))?"\s*:`,
-  String.raw`"(?:(?:built|made|produced|written|created|exported|compiled)[_ -]?(?:by|with)|generator|builder|build[_-]?(?:script|tool))"\s*:\s*"[^"\n]*(?:\/|\.(?:mjs|cjs|js|py|sh)\b)`,     // a key that names the program that made the file: "built_by": "tools/build-x.mjs"
+  AUDIT_KEY_GENERATED,
+  AUDIT_KEY_MAKER,                                                                                                                                                              // a key that names the program that made the file: "built_by": "tools/build-x.mjs"
   String.raw`do not edit by hand|\bhand-edit`,
   String.raw`\b(?:earlier|previous|prior|another|research|review(?:ing)?|coding|scout|background|worker|parallel|automated|independent)[ -]agents?\b`,
   String.raw`\bagents?(?:'s|’s)?[ -](?:read|reads|reading|re-?read|trace[ds]?|tracing|recommendations?|recommend(?:s|ed)?|propos(?:es|ed|al)|found|finds|findings?|pass(?:es)?|runs?|ran|sessions?|briefs?|reports?|reported|notes?|noted|wrote|output|lookups?|search(?:es|ed)?|check(?:s|ed)?|verified|review(?:s|ed)?|extract(?:s|ed|ion)?|transcri(?:bed|ption)|summar(?:y|ies|i[sz]ed)|opened|fetched|could not|cannot|did not|was unable|decided|chose|judged|estimated|guess(?:ed)?)\b`,
@@ -349,18 +351,47 @@ export const AUDIT_RE = new RegExp([
 export const AUDIT_CS_RE = /(?:^|[\s("'“‘>\[])(AI|A\.I\.)(?=$|[\s)."'”’,;:!?<\]])/;
 // names that are searched in binary files too (image and audio metadata)
 export const AUDIT_BIN_RE = /claude|anthropic|chatgpt|openai|midjourney|stable.diffusion/i;
-// reviewed exceptions: { file: RegExp on the shipped path, text: RegExp on the line, why }. A line that matches one is not a hit.
-export const AUDIT_ALLOW = [];
+// reviewed exceptions, decided one match at a time: { file: RegExp on the shipped path, match: RegExp on the matched word, before: RegExp on the text of the line in front of the match, after: RegExp on the text
+// behind it, why }. A match is not a hit only when EVERY given part fits; any other match of the same line (and of the same file) is still one. Nothing here silences a file or a folder.
+// The roster unit files (rosters/data2, gzip, one JSON row per line: [row number, "printed name", "rank", "printed remarks", page]) print men's names exactly as the registers of 1861-65 give them,
+// and a man may be named Claude. A printed given name in the NAME field is data, not a statement about how the site was made (FINAL-ACCEPTANCE: "as the way the site was built"); the same word
+// anywhere else in a row (remarks), in the header line of a file or in any page, style sheet or index file stays a hit.
+const NAME_WORD = String.raw`(?:[A-Z][A-Za-z.'’-]*|[a-z]{1,3}\.?)`;                                                  // a printed name word: capitalised (or an initial), or a short particle (van, de, von, jr.)
+export const AUDIT_ALLOW = [
+  { file: /^rosters\/data2\/.+\.jsonl\.gz$/, match: /^Claude$/, before: new RegExp(String.raw`^\[\d+,"(?:${NAME_WORD},?\s+){0,4}$`), after: new RegExp(String.raw`^[.,]?(?:\s+${NAME_WORD},?){0,4}"`),
+    why: 'a given name printed in the name field of a roster row (the second element of the row array); the row is never altered' },
+  { file: /^rosters\/data2\/.+\.flags\.json\.gz$/, match: /^Claude$/, before: new RegExp(String.raw`"normalised_names":\[(?:"(?:[^"\\]|\\.)*",)*"(?:${NAME_WORD}\s+){0,3}$`), after: new RegExp(String.raw`^(?:\s+${NAME_WORD}){0,3}"`),
+    why: 'the same printed given name, normalised ("Given Surname"), in the name list of a flag file' },
+];
 // words of the working process that name no tool: counted and reported with every pack (not a failing hit), so that the acceptance copy audit can rule on them
 export const AUDIT_REVIEW_RE = /\b(workstreams?|horde|shards?|task brief|research session|this session|later session|our pass|this pass)\b/gi;
 const BINARY = /\.(jpe?g|png|bin|zip|webp|gif|glb|wav|ogg|mp3|m4a|flac|woff2?|ttf|otf|wasm|ktx2|pdf)$/i;
+const AUDIT_RE_ALL = new RegExp(AUDIT_RE.source, 'gi'), AUDIT_CS_RE_ALL = new RegExp(AUDIT_CS_RE.source, 'g');
+// the hit of one line (one per line, as the count in the zip name says): the first match that no reviewed allowance covers; the words of AUDIT_RE come before the two letters of AUDIT_CS_RE. A match the
+// allowances cover does not hide a later match of the same line. start = where the matched word begins in the line.
+function lineHit(L, rel, extra = {}) {
+  for (const re of [AUDIT_RE_ALL, AUDIT_CS_RE_ALL]) {
+    re.lastIndex = 0; let m;
+    while ((m = re.exec(L))) {
+      if (m[0] === '') { re.lastIndex++; continue; }
+      const word = (m[1] && m[0].length <= 4 ? m[1] : m[0]).trim(), start = m[1] && m[0].length <= 4 ? m.index + m[0].length - m[1].length : m.index;
+      if (AUDIT_ALLOW.some(a => a.file.test(rel) && (!a.match || a.match.test(word)) && (!a.before || a.before.test(L.slice(0, start))) && (!a.after || a.after.test(L.slice(start + word.length))))) continue;
+      return { file: rel, line: 0, match: word, text: L.slice(Math.max(0, m.index - 50), m.index + 80), ...extra };
+    }
+  }
+  return null;
+}
 export function audit(dist) {
   const hits = [];
   for (const f of walk(dist)) {
     const rel = posix(path.relative(dist, f)); if (AUDIT_RE.test(rel)) hits.push({ file: rel, where: 'name' });
-    if (BINARY.test(f)) { const m = AUDIT_BIN_RE.exec(fs.readFileSync(f).toString('latin1')); if (m) hits.push({ file: rel, where: 'binary', match: m[0] }); continue; }
-    const lines = fs.readFileSync(f, 'utf8').split('\n');
-    for (let i = 0; i < lines.length; i++) { const L = lines[i], m = AUDIT_RE.exec(L) || AUDIT_CS_RE.exec(L); if (!m) continue; if (AUDIT_ALLOW.some(a => a.file.test(rel) && a.text.test(L))) continue; hits.push({ file: rel, line: i + 1, match: (m[1] && m[0].length <= 4 ? m[1] : m[0]).trim(), text: L.slice(Math.max(0, m.index - 50), m.index + 80) }); }
+    let buf = fs.readFileSync(f), gz = false;
+    if (/\.gz$/i.test(f)) {       // a gzip file is opened: what is inside is shipped too (the roster unit files are .jsonl.gz)
+      try { buf = zlib.gunzipSync(buf); gz = true; } catch (e) { hits.push({ file: rel, where: 'unreadable', match: 'gzip: ' + String(e.message).slice(0, 60) }); continue; }
+    }
+    if (BINARY.test(f) || (gz && buf.subarray(0, 8192).includes(0))) { const m = AUDIT_BIN_RE.exec(buf.toString('latin1')); if (m) hits.push({ file: rel, where: 'binary', match: m[0], ...(gz ? { gzip: true } : {}) }); continue; }
+    const lines = buf.toString('utf8').split('\n');
+    for (let i = 0; i < lines.length; i++) { const h = lineHit(lines[i], rel, gz ? { gzip: true } : {}); if (h) hits.push({ ...h, line: i + 1 }); }
   }
   return hits;
 }
