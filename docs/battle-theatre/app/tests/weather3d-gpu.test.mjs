@@ -311,3 +311,18 @@ test('the run checker: a clean run is clean; every kind of defect is named; noth
   assert.equal(checkCompare(cmp).ok, true); assert.equal(checkCompare(cmp).facts.meanAbsMax, 0.4); assert.equal(checkCompare({ rows: [row('a', 9, 5, 5)], problems: [] }).ok, false); assert.equal(checkCompare({ rows: [row('a', 1, 5, 6)], problems: [] }).ok, false); assert.equal(checkCompare({ rows: [] }).ok, false);
   assert.equal(checkCompare({ rows: [row('a', 9, 5, 5)], problems: [] }, 12).ok, true, 'the limit is the caller\'s, a harness value and not a project gate');
 });
+// ---------- the stored evidence is what the notes say it is (app/tests/results/weather3d-webgpu/, software adapter, 2026-11-13)
+test('stored evidence: the WebGPU and WebGL2 runs are clean, the two APIs agree to the figures the notes state, the other budget tiers are clean, and the 16 pictures are there', () => {
+  const R = path.join(APP, 'tests/results/weather3d-webgpu'), JS = f => JSON.parse(fs.readFileSync(path.join(R, f), 'utf8'));
+  const gpu = checkRun(JS('webgpu-summary.json'), { cases: 16 }), gl = checkRun(JS('webgl2-summary.json'), { cases: 16 }), cmp = checkCompare(JS('compare-summary.json'));
+  assert.equal(gpu.ok, true, gpu.problems.join('; ')); assert.equal(gl.ok, true, gl.problems.join('; ')); assert.equal(cmp.ok, true, cmp.problems.join('; '));
+  assert.equal(gpu.facts.compilerMessages, 0); assert.equal(gpu.facts.modules, 15); assert.equal(gpu.facts.purityChecks, 3); assert.equal(gpu.facts.resize, true);
+  assert.ok(cmp.facts.meanAbsMin >= 0.33 && cmp.facts.meanAbsMax <= 0.46 && cmp.facts.over24Max <= 0.002, JSON.stringify(cmp.facts));
+  const names = Object.keys(JS('webgpu-summary.json').cases); for (const n of names) { const f = path.join(R, 'webgpu', n + '.png'); assert.ok(fs.existsSync(f), n + '.png'); assert.equal(fs.readFileSync(f).subarray(1, 4).toString(), 'PNG'); }
+  const base = JS('base-compare-summary.json').rows.map(r => Math.round(r.all.meanAbs * 100) / 100); assert.ok(Math.min(...base) >= 0.36 && Math.max(...base) <= 0.43, 'the prototype alone (two decimals): ' + base);
+  assert.equal(checkRun(JS('base-webgpu-summary.json')).ok, true); assert.equal(checkRun(JS('base-webgl2-summary.json')).ok, true);
+  for (const t of ['tier-phone', 'tier-desktop']) { const r = checkRun(JS(t + '-webgpu-summary.json'), { cases: 4 }); assert.equal(r.ok, true, t + ': ' + r.problems.join('; ')); }
+  // the software adapter's canvas: rendering to a texture of our own works, the real canvas does not (why the pictures come from a stand-in), recorded by the run itself
+  const sw = JS('webgpu-summary.json').swapchain; assert.equal(sw.offscreen.lost, null); assert.deepEqual(sw.offscreen.px, [255, 128, 0, 255]); assert.match(sw.present.lost, /destroyed/); assert.match(sw['canvas-read'].lost, /Instance reference no longer exists/);
+  assert.ok(JS('webgpu-summary.json').cases['smoke-jul3-1400'].effects.nSprites > 1000 && JS('webgpu-summary.json').cases['dust-march-jul2-1100'].gpuStats.fxDraws > 0, 'the sprites were drawn on WebGPU');
+});

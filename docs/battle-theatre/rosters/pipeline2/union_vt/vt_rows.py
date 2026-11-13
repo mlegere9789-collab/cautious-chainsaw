@@ -28,17 +28,8 @@ RANGES = {
 PRINTED = {}   # filled by main(): printed page range per unit
 
 
-def col_of(w, cols):
-    """0 residence, 1 enlistment (commission), 2 muster (issue), 3 remarks."""
-    x = w['x0']
-    if x < cols['res']:
-        return 0
-    if x < cols['enl_end'] - 105:       # boundary res|enl is E - 30; enl_end = E + 135
-        return 1 if x >= cols['res'] else 0
-    return 1
-
-
 def cell_col(w, E):
+    """0 residence, 1 enlistment (commission), 2 muster (issue), 3 remarks."""
     x = w['x0']
     if x < E - 30:
         return 0
@@ -50,13 +41,13 @@ def cell_col(w, E):
 
 
 def make_row(r, info, text, pm, leaf, rowno):
-    """One roster2 row (7 fields) from a cut row, plus the page facts.  Returns (row dict, None) or (None, reason)."""
+    """One roster2 row (7 fields) from a cut row, plus the facts of the line.  Returns (record, None) or (None, reason)."""
     name_words = list(r['left'])
     if not name_words:
         return None, 'no name words'
     if name_words[0]['off'] is None:
         return None, 'first name word not in the text layer: %r' % name_words[0]['w']
-    # the name: the words that stand one after the other in the text
+    # the name: the words that stand one after the other in the text (a word that does not is a remark word)
     nm = [name_words[0]]
     rest = []
     for w in name_words[1:]:
@@ -70,31 +61,72 @@ def make_row(r, info, text, pm, leaf, rowno):
     off = nm[0]['off']
     name = ' '.join(w['w'] for w in nm)
     E = info['E']
-    cells = [w for w in r['cells']]
+    cells = list(r['cells'])
     unaligned = [w for w in cells + rest if w['off'] is None]
-    placed = [w for w in cells + rest if w['off'] is not None]
-    placed.sort(key=lambda w: w['off'])
+    placed = sorted([w for w in cells + rest if w['off'] is not None], key=lambda w: w['off'])
     if len({w['off'] for w in placed}) != len(placed):
         return None, 'two words at one offset'
     remarks = ' '.join(w['w'] for w in placed)
     rd = (placed[0]['off'] - off) if placed else 0
-    # page order of the cells: column, then line, then x
-    ys = sorted({round(w['yk']) for w in cells}) if cells else []
-    pageorder = sorted(cells, key=lambda w: (cell_col(w, E), w['yk'], w['x0']))
-    textorder = sorted([w for w in cells if w['off'] is not None], key=lambda w: w['off'])
-    order_differs = [w['off'] for w in pageorder if w['off'] is not None] != [w['off'] for w in textorder]
-    cols = ['', '', '', '']
+    # order of the page: line of the row (the heading line above first), then x; order of the text layer: offset
+    page_order = [w['off'] for w in sorted([w for w in cells if w['off'] is not None], key=lambda w: (w.get('rl', 0), w['x0']))]
+    text_order = [w['off'] for w in sorted([w for w in cells if w['off'] is not None], key=lambda w: w['off'])]
+    order_differs = page_order != text_order
     parts = [[], [], [], []]
-    for w in sorted(cells, key=lambda w: (w['yk'], w['x0'])):
+    for w in cells:
         parts[cell_col(w, E)].append(w)
-    for i in range(4):
-        cols[i] = ' '.join(w['w'] for w in sorted(parts[i], key=lambda w: (round(w['yk'] / 20), w['x0'])))
+    cols = [' '.join(w['w'] for w in sorted(parts[i], key=lambda w: (w.get('rl', 0), w['x0']))) for i in range(4)]
     rank = ('^' + r['rk']) if r['rk'] else ''
     row = R.row(name, rank, r['co'], remarks, pm.printed(leaf), off, rd)
     facts = {'leaf': leaf, 'n': rowno, 'y': round(r['y']), 'lines': r['nlines'], 'unaligned': [w['w'] for w in unaligned],
              'name_split': [w['w'] for w in rest], 'stray': bool(r.get('stray')), 'order_differs': order_differs,
-             'cols': cols, 'nameonly': bool(r.get('nameonly')), 'name_words_conf': [w['conf'] for w in nm]}
+             'cols': cols, 'nameonly': bool(r.get('nameonly')), 'E': E, 'conf_min': min([w['conf'] for w in nm if w['conf'] is not None] or [None])}
     return {'row': row, 'facts': facts}, None
+
+
+_rank_cache = {}
+
+
+def assert_rows(rows, text, pm):
+    """The parser's assertion for every row (same rules as r2lib.verify_rows, V1 to V4, with the heading search made cheap).
+    Returns {'rows','name_ok','remark_ok','remark_gap_rows','page_ok','rank_ok'} and the list of (index, kinds) of the rows that fail V1, V2 or V3."""
+    st = collections.Counter()
+    bad = []
+    low = text.casefold() if len(text.casefold()) == len(text) else None
+    for i, (name, rank, co, rem, page, off, rd) in enumerate(rows):
+        st['rows'] += 1
+        kinds = []
+        if R._match_tokens(text, off, name.split(), 0):
+            st['name_ok'] += 1
+        else:
+            kinds.append('name-not-at-offset')
+        leaf = pm.leaf(off)
+        if rem:
+            g = (pm.span(leaf)[1] - (off + rd)) if leaf is not None else 0
+            m2 = R._match_tokens(text, off + rd, rem.split(), g)
+            if m2 and m2[0] > pm.span(leaf)[1]:
+                m2 = None
+            if m2:
+                st['remark_ok'] += 1
+                if m2[1]:
+                    st['remark_gap_rows'] += 1
+            else:
+                kinds.append('remark-not-at-offset')
+        if leaf is not None and pm.printed(leaf) == page:
+            st['page_ok'] += 1
+        else:
+            kinds.append('page-mismatch')
+        if rank:
+            key = rank[1:].casefold() if rank.startswith('^') else None
+            if key is not None:
+                hay = (low if low is not None else text.casefold())[max(0, off - 400000):off]
+                if all(t in hay for t in key.split()):
+                    st['rank_ok'] += 1
+                else:
+                    kinds.append('rank-not-above')
+        if kinds:
+            bad.append((i, kinds))
+    return dict(st), bad
 
 
 def main():
@@ -126,29 +158,22 @@ def main():
                 rec['facts']['E'] = info['E']
                 rec['facts']['co_inferred'] = bool(state.get('co_inferred')) and r['co'] == state['co']
                 out.append(rec)
-        # the assertion
-        segs = [(L.SEG, [x['row'] for x in out])]
-        st = R.verify_rows(segs, {L.TEXT_ID: text}, {L.TEXT_ID: pm})
-        bad = {(x['t'], x['off'], x['kind']) for x in st['defects']}
-        # verify_rows lists at most max_report defects: re-run without a cap to get every one
-        st = R.verify_rows(segs, {L.TEXT_ID: text}, {L.TEXT_ID: pm}, max_report=10 ** 9)
-        badoff = {}
-        for x in st['defects']:
-            if x['kind'] in ('name-not-at-offset', 'page-mismatch', 'remark-not-at-offset'):
-                badoff.setdefault(x['off'], []).append(x['kind'])
+        # the assertion: V1 name, V2 remarks, V3 page (rows that fail are not written), V4 rank heading (counted)
+        st, bad = assert_rows([x['row'] for x in out], text, pm)
+        failing = {i: k for i, k in bad if any(c != 'rank-not-above' for c in k)}
         keep = []
-        for x in out:
-            o = x['row'][5]
-            if o in badoff:
-                rejected.append({'leaf': x['facts']['leaf'], 'y': x['facts']['y'], 'why': 'assertion: ' + ','.join(badoff[o]), 'left': x['row'][0],
+        for i, x in enumerate(out):
+            if i in failing:
+                rejected.append({'leaf': x['facts']['leaf'], 'y': x['facts']['y'], 'why': 'assertion: ' + ','.join(failing[i]), 'left': x['row'][0],
                                  'cells': x['row'][3][:120]})
             else:
                 keep.append(x)
+        st['rank_heading_not_above'] = sum(1 for i, k in bad if 'rank-not-above' in k)
         with open(os.path.join(L.WORK, 'rows-%s.json' % key), 'w', encoding='utf-8') as f:
             json.dump({'unit': key, 'rows': [{'row': x['row'], 'facts': x['facts']} for x in keep]}, f, ensure_ascii=False, separators=(',', ':'))
         report[key] = {'rows_cut': n, 'rows_kept': len(keep), 'rejected': rejected, 'events': dict(evc), 'event_samples': evs,
-                       'stats_first_pass': {k: v for k, v in st.items() if k != 'defects'}, 'per_leaf': per_leaf}
-        print(key, 'cut', n, 'kept', len(keep), 'rejected', len(rejected), {k: v for k, v in st.items() if k not in ('defects',)})
+                       'assertion': st, 'per_leaf': per_leaf}
+        print(key, 'cut', n, 'kept', len(keep), 'rejected', len(rejected), st)
     json.dump(report, open(os.path.join(L.WORK, 'rows-report.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 
 

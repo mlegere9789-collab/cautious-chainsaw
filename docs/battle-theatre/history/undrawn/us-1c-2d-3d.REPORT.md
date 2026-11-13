@@ -1,16 +1,16 @@
 # us-1c-2d-3d: Union I Corps, Robinson's division (Paul, Baxter) and Doubleday/Rowley's division (Biddle, Stone, Stannard): report of the group
 
-Workstream bt-units, group `us-1c-2d-3d`, 2026-11-13. File: `docs/battle-theatre/history/undrawn/us-1c-2d-3d.jsonl` (201 records).
+Workstream bt-units, group `us-1c-2d-3d`, 2026-11-13. File: `docs/battle-theatre/history/undrawn/us-1c-2d-3d.jsonl` (200 records).
 
 ## 1. What was run and what it says
 
 | Check | Result |
 |---|---|
-| `python3 -I docs/battle-theatre/history/undrawn/tools/check_undrawn.py us-1c-2d-3d --complete` | exit 0: 201 records, 29 units named, 0 errors, 0 warnings, 0 of 87 items owed (87 = the missing words of the 21 leaf units, a day without a place counted once) |
+| `python3 -I docs/battle-theatre/history/undrawn/tools/check_undrawn.py us-1c-2d-3d --complete` | exit 0: 200 records, 29 units named, 0 errors, 0 warnings, 0 of 87 items owed (87 = the missing words of the 21 leaf units, a day without a place counted once) |
 | `check_undrawn.py --all` (ids across the group files present) | no claim id of this group is used in another file |
 | Browser, node suite, `check_governance.py` | not run (the task is a data file; nothing of the layer, the roster or a ledger was changed) |
 
-Records by tier: 102 documented, 93 inferred, 2 open gap, 4 source records. By kind: arrival 44, arrival_road 15, road_identification 7, march 4, position 26, movement 10, engagement 7, night_position 17, strength 50, absent 10, unit 3, line_order 2, gap 2, source 4. Fifteen conflict groups are carried (section 5); no value is chosen anywhere.
+Records by tier: 101 documented, 93 inferred, 2 open gap, 4 source records. By kind: arrival 43, arrival_road 15, road_identification 7, march 4, position 26, movement 10, engagement 7, night_position 17, strength 50, absent 10, unit 3, line_order 2, gap 2, source 4. Fifteen conflict groups are carried (section 5); no value is chosen anywhere.
 
 ## 2. The 21 leaf units: how each missing word is closed
 
@@ -22,8 +22,8 @@ Records by tier: 102 documented, 93 inferred, 2 open gap, 4 source records. By k
 | 13th MA (Paul) | own (R046; Davis 1894, about 11 o'clock) | own, Davis: left the road near the Codori house (inferred); division | own, 2 and 3 July (R046) | 260 muskets (R046) |
 | 94th NY (Paul) | own (R047; NY volume, 7 a. m. start) | division, brigade (inferred) | own, 2 and 3 July (R047) | 30 officers, 415 men, 1 July morning (NY volume, inferred) |
 | 104th NY (Paul) | own, about 1 o'clock (R048) | own, Prey 1888: the Emmitsburg Pike (inferred) | own, 2 and 3 July (R048), and the address of 1888 against it | **gap** (damaged sentence in the NY volume) |
-| 107th PA (Paul) | own, going into the fight at about 1 p. m. (R050) and the brigade | division, brigade | own, 2 and 3 July (R051) | 230 guns, 25 officers (R050); 78/12 on 2 July, 72/11 on 3 July (R051) |
-| 12th MA (Baxter) | own, Cook 1882 (no report in the Official Records); brigade 11 a. m. | division (inferred) | brigade and own, 2 July; own 3 July (Cook) | about 200 (Cook; Fox) |
+| 107th PA (Paul) | division and brigade (the regiment's own hour, going into the fight at about 1 p. m. R050, is an engagement hour and is the ledger's POS-A-1D3-061) | division, brigade | own, 2 and 3 July (R051) | 230 guns, 25 officers (R050); 78/12 on 2 July, 72/11 on 3 July (R051) |
+| 12th MA (Baxter) | own, Cook 1882 (no report in the Official Records); brigade 11 a. m. | division (inferred) | brigade, 2 July; own, 3 July (Cook) | about 200 (Cook; Fox) |
 | 83rd NY (Baxter) | own, about noon (NY volume, inferred) | own, the pike to the Codori House (inferred) | own and brigade, 2 July | 148 including officers (1 July), about 75 (2 July) (NY volume, inferred) |
 | 97th NY (Baxter) | own, 1 p. m. (R053); brigade 11 a. m. | brigade (inferred) | brigade, 2 July | **gap** |
 | 11th PA (Baxter, then Paul) | own, about 11 a. m. (R044) | brigade (inferred) | own, 2 July (R049) | **gap** |
@@ -58,7 +58,7 @@ The 7 formation rows have records of their own: Robinson's division (arrival, th
 | `U-us-1c-2d-3d-0203` | strength of the 97th New York, the 11th Pennsylvania, the 90th Pennsylvania (unit `us-1c-2d-baxter`, `covers` the three) | `docs/battle-theatre/GOVERNANCE/horde/ws-units/proposed-register/us-1c-2d-3d-baxter-strength.md` |
 | `U-us-1c-2d-3d-0204` | strength of the 104th New York (a sentence of the NY volume, NY2-S021 p. 755, is damaged in the OCR and appears to print the number reported for duty on the morning of the fight) | `.../proposed-register/us-1c-2d-3d-104ny-strength.md` |
 
-Searches are listed in the records (8 for the first, 8 for the second): Official Records part 1, Fox, NY1/NY2/NY3, PA1/PA1B, the four acquired texts, and `NOT-ACQUIRED:` entries for Busey and Martin (not on this machine, not public domain: an owner-only act) and for the regimental histories of the 97th New York, 90th and 11th Pennsylvania (archive.org title searches returned nothing).
+Searches are listed in the records (9 for the first, 8 for the second): Official Records part 1, Fox, NY1/NY2/NY3, PA1/PA1B, the four acquired texts, and `NOT-ACQUIRED:` entries for Busey and Martin (not on this machine, not public domain: an owner-only act) and for the regimental histories of the 97th New York, 90th and 11th Pennsylvania (archive.org title searches returned nothing).
 
 ## 5. Conflicts carried (none chosen)
 
@@ -82,8 +82,8 @@ Also in the notes of records (not as groups): the corps itinerary (R007) puts th
 2. The layer's gate of Stannard's brigade (2 July 18:00) is later than every printed arrival except Fox: request note `bt-units-us-1c-2d-3d-stannard-gate.md`.
 3. The state-volume index heads NY2-S021 as the 95th New York; the 104th New York's address (pp. 755-758) is inside it: `bt-units-us-1c-2d-3d-statevol-index.md`.
 4. Doubleday's second report prints "On the 3d" for the movement of the left wing of the 13th Vermont (Stannard and Randall print 2 July): not used as a record (no new fact).
-5. The OCR of R045 to R070 damages numbers in places (R062 "13 m." for 12 m.; R067 "abovit noon"; R049 "SOth" for 30th; the NY2 104th sentence): such records carry `ocr_uncertain` and no clock is taken from a damaged digit.
-6. The ledger's A claims (241 for this group) are not stops of the layer where they have no gazetteer anchor; the records here give the anchors and windows where the passages allow, with the ledger claim ids in `corroborates`.
+5. The OCR of R045 to R070 damages numbers in places (R062 "13 m." for 12 m.; R069 "abovit noon" for about noon; R048 "SOth" for 30th; the NY2 104th sentence): such records carry `ocr_uncertain` and no clock is taken from a damaged digit.
+6. `status.json` holds no place of its own on 2 and 3 July for 15 units although ledger A holds claims of them (for example the 3 July claims POS-A-1D3-065 and -066 of the 107th Pennsylvania, anchored to GZ-003); why those claims are not stops is for the integrator to say. The records here give anchored, timed records where the passages allow, and name the ledger claims in `corroborates`.
 
 ## 7. Texts read and not read
 

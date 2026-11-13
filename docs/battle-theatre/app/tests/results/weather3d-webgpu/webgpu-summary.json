@@ -1,18 +1,18 @@
 {
  "api": "webgpu",
- "url": "http://127.0.0.1:33917/app/tests/weather3d-gpu.html?api=webgpu&w=640&h=360&soldiers=12000&tier=laptop",
+ "url": "http://127.0.0.1:36759/app/tests/weather3d-gpu.html?api=webgpu&w=640&h=360&soldiers=12000&tier=laptop",
  "w": 640,
  "h": 360,
  "soldiers": 12000,
  "tier": "laptop",
- "started": "2026-11-13T19:56:30.046Z",
+ "started": "2026-11-13T21:25:22.855Z",
  "cases": {
   "stars-jun28-0200": {
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 6,
-   "wallMs": 2682,
+   "frameMs": 5,
+   "wallMs": 2884,
    "validation": null,
    "pixels": {
     "all": {
@@ -82,8 +82,8 @@
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 2,
-   "wallMs": 2015,
+   "frameMs": 4,
+   "wallMs": 2451,
    "validation": null,
    "pixels": {
     "all": {
@@ -120,7 +120,7 @@
     "spritesDrawn": 1,
     "passes": 2,
     "binds": 1,
-    "passMs": 783.380723,
+    "passMs": 884.882466,
     "passMsN": 1,
     "gpuErrors": 0,
     "ok": true,
@@ -154,7 +154,7 @@
    "h": 360,
    "format": "rgba8unorm",
    "frameMs": 2,
-   "wallMs": 1657,
+   "wallMs": 2235,
    "validation": null,
    "pixels": {
     "all": {
@@ -191,7 +191,7 @@
     "spritesDrawn": 1,
     "passes": 3,
     "binds": 1,
-    "passMs": 392.515206,
+    "passMs": 561.133217,
     "passMsN": 2,
     "gpuErrors": 0,
     "ok": true,
@@ -224,8 +224,8 @@
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 6,
-   "wallMs": 1785,
+   "frameMs": 1,
+   "wallMs": 2258,
    "validation": null,
    "pixels": {
     "all": {
@@ -262,7 +262,7 @@
     "spritesDrawn": 1,
     "passes": 4,
     "binds": 1,
-    "passMs": 472.414636,
+    "passMs": 687.224983,
     "passMsN": 3,
     "gpuErrors": 0,
     "ok": true,
@@ -295,8 +295,8 @@
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 1,
-   "wallMs": 2100,
+   "frameMs": 8,
+   "wallMs": 1908,
    "validation": null,
    "pixels": {
     "all": {
@@ -333,7 +333,7 @@
     "spritesDrawn": 1,
     "passes": 5,
     "binds": 1,
-    "passMs": 428.130451,
+    "passMs": 694.444757,
     "passMsN": 4,
     "gpuErrors": 0,
     "ok": true,
@@ -366,8 +366,8 @@
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 4,
-   "wallMs": 2583,
+   "frameMs": 2,
+   "wallMs": 1687,
    "validation": null,
    "pixels": {
     "all": {
@@ -404,7 +404,7 @@
     "spritesDrawn": 1,
     "passes": 6,
     "binds": 1,
-    "passMs": 192.926593,
+    "passMs": 162.255507,
     "passMsN": 5,
     "gpuErrors": 0,
     "ok": true,
@@ -438,7 +438,7 @@
    "h": 360,
    "format": "rgba8unorm",
    "frameMs": 1,
-   "wallMs": 1941,
+   "wallMs": 2069,
    "validation": null,
    "pixels": {
     "all": {
@@ -475,7 +475,7 @@
     "spritesDrawn": 32,
     "passes": 7,
     "binds": 1,
-    "passMs": 261.518571,
+    "passMs": 119.54957,
     "passMsN": 6,
     "gpuErrors": 0,
     "ok": true,
@@ -508,8 +508,8 @@
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 2,
-   "wallMs": 1919,
+   "frameMs": 1,
+   "wallMs": 2232,
    "validation": null,
    "pixels": {
     "all": {
@@ -546,7 +546,7 @@
     "spritesDrawn": 32,
     "passes": 8,
     "binds": 1,
-    "passMs": 219.970237,
+    "passMs": 257.424056,
     "passMsN": 7,
     "gpuErrors": 0,
     "ok": true,
@@ -579,8 +579,8 @@
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 1,
-   "wallMs": 2077,
+   "frameMs": 2,
+   "wallMs": 2118,
    "validation": null,
    "pixels": {
     "all": {
@@ -617,7 +617,7 @@
     "spritesDrawn": 32,
     "passes": 9,
     "binds": 1,
-    "passMs": 165.715226,
+    "passMs": 177.058742,
     "passMsN": 8,
     "gpuErrors": 0,
     "ok": true,
@@ -650,8 +650,8 @@
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 2,
-   "wallMs": 7854,
+   "frameMs": 1,
+   "wallMs": 9463,
    "validation": null,
    "pixels": {
     "all": {
@@ -688,7 +688,7 @@
     "spritesDrawn": 6379,
     "passes": 10,
     "binds": 1,
-    "passMs": 271.496562,
+    "passMs": 132.461171,
     "passMsN": 9,
     "gpuErrors": 0,
     "ok": true,
@@ -722,7 +722,7 @@
    "h": 360,
    "format": "rgba8unorm",
    "frameMs": 2,
-   "wallMs": 2185,
+   "wallMs": 2299,
    "validation": null,
    "pixels": {
     "all": {
@@ -759,7 +759,7 @@
     "spritesDrawn": 1640,
     "passes": 11,
     "binds": 1,
-    "passMs": 5969.890971,
+    "passMs": 7591.339795,
     "passMsN": 10,
     "gpuErrors": 0,
     "ok": true,
@@ -792,8 +792,8 @@
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 3,
-   "wallMs": 2051,
+   "frameMs": 22,
+   "wallMs": 2257,
    "validation": null,
    "pixels": {
     "all": {
@@ -830,7 +830,7 @@
     "spritesDrawn": 1640,
     "passes": 12,
     "binds": 1,
-    "passMs": 461.883718,
+    "passMs": 438.936671,
     "passMsN": 11,
     "gpuErrors": 0,
     "ok": true,
@@ -863,8 +863,8 @@
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 5,
-   "wallMs": 3194,
+   "frameMs": 3,
+   "wallMs": 3476,
    "validation": null,
    "pixels": {
     "all": {
@@ -901,7 +901,7 @@
     "spritesDrawn": 1127,
     "passes": 13,
     "binds": 1,
-    "passMs": 244.815439,
+    "passMs": 213.088181,
     "passMsN": 12,
     "gpuErrors": 0,
     "ok": true,
@@ -934,8 +934,8 @@
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 8,
-   "wallMs": 7553,
+   "frameMs": 5,
+   "wallMs": 8445,
    "validation": null,
    "pixels": {
     "all": {
@@ -972,7 +972,7 @@
     "spritesDrawn": 2250,
     "passes": 14,
     "binds": 1,
-    "passMs": 590.843273,
+    "passMs": 802.191149,
     "passMsN": 13,
     "gpuErrors": 0,
     "ok": true,
@@ -1005,8 +1005,8 @@
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 3,
-   "wallMs": 4851,
+   "frameMs": 2,
+   "wallMs": 4338,
    "validation": null,
    "pixels": {
     "all": {
@@ -1043,7 +1043,7 @@
     "spritesDrawn": 14951,
     "passes": 15,
     "binds": 1,
-    "passMs": 5590.381044,
+    "passMs": 6307.687093,
     "passMsN": 14,
     "gpuErrors": 0,
     "ok": true,
@@ -1076,8 +1076,8 @@
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 1,
-   "wallMs": 2422,
+   "frameMs": 4,
+   "wallMs": 1850,
    "validation": null,
    "pixels": {
     "all": {
@@ -1114,7 +1114,7 @@
     "spritesDrawn": 14951,
     "passes": 16,
     "binds": 1,
-    "passMs": 2746.556357,
+    "passMs": 2522.176945,
     "passMsN": 15,
     "gpuErrors": 0,
     "ok": true,
@@ -1237,10 +1237,21 @@
    "fx3d-sprites messages=0"
   ]
  },
+ "resize": {
+  "case": "smoke-jul3-1400",
+  "smallW": 480,
+  "smallH": 270,
+  "smallValidation": null,
+  "smallMean": 198.809,
+  "backValidation": null,
+  "backIdentical": true,
+  "backBytesDiffering": 0,
+  "binds": 3
+ },
  "computeCheck": {
   "messages": [],
-  "pipelineOk": false,
-  "pipelineError": "Entry-point uses workgroup_size(1024, 1, 1) that exceeds the maximum allowed (256, 256, 64).\n - While initializing [ComputePipeline \"fx3d-cullCount-check\"]\n",
+  "pipelineOk": true,
+  "pipelineError": null,
   "validation": null,
   "limits": {
    "maxComputeInvocationsPerWorkgroup": 256,
@@ -1315,6 +1326,16 @@
    "fx3d-compute-check messages=0"
   ]
  },
+ "afterDispose": {
+  "gpuErrors": [
+   "DEVICE LOST destroyed: Device was destroyed."
+  ],
+  "swap": {
+   "standIn": true,
+   "configured": 1,
+   "calls": 42
+  }
+ },
  "swapchain": {
   "offscreen": {
    "mode": "offscreen",
@@ -1354,16 +1375,14 @@
    "fmt": "rgba8unorm",
    "error": "Failed to execute 'mapAsync' on 'GPUBuffer': A valid external Instance reference no longer exists.",
    "screenshotPixel": [
-    255,
-    255,
-    255,
+    0,
+    0,
+    0,
     255
    ]
   }
  },
- "finished": "2026-11-13T19:59:01.382Z",
- "consoleLines": 1,
- "consoleProblems": [
-  "error: Failed to load resource: the server responded with a status of 404 (Not Found)"
- ]
+ "finished": "2026-11-13T21:28:19.401Z",
+ "consoleLines": 0,
+ "consoleProblems": []
 }

@@ -1,0 +1,77 @@
+{
+ "finished": "see file mtime",
+ "seconds": 61,
+ "portBase": "8610",
+ "machine": {
+  "platform": "linux",
+  "cpus": 4,
+  "node": "v22.23.4"
+ },
+ "load1": {
+  "start": 12.67,
+  "end": 11.33
+ },
+ "childEnv": {
+  "httpsProxy": true,
+  "added": [
+   "NODE_USE_ENV_PROXY"
+  ],
+  "extended": [
+   "NODE_OPTIONS"
+  ]
+ },
+ "totals": {
+  "suites": 2,
+  "ok": 2,
+  "notOk": 0,
+  "greenTests": 20,
+  "greenTestsTotal": 21,
+  "redProofs": 0,
+  "redProofsOk": 0,
+  "redTestsRedAsRequired": 0
+ },
+ "results": [
+  {
+   "id": "static.runner",
+   "title": "runner self-test (no browser): behind an HTTPS proxy every child process of this runner and of the tools/accept runners gets NODE_USE_ENV_PROXY and NODE_EXTRA_CA_CERTS unless they are set (and, where it turns the first on, the flag that silences the one Node proxy warning is appended to NODE_OPTIONS), with no proxy the environment is passed on unchanged; the 1-minute load average at the start and end of every suite is in the summary, the console line, --merge and --import-log",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 42.4,
+   "passed": 20,
+   "total": 21,
+   "skipped": 1,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "      --online not given (one request to api.mapbox.com)",
+    "calling shell: HTTPS proxy set; load average (1 min) 11.73; 4 CPUs; 42 s",
+    "runner-selftest: 20/21 passed, 1 skipped"
+   ],
+   "load1Start": 12.67,
+   "load1End": 11.73
+  },
+  {
+   "id": "static.hygiene",
+   "title": "source hygiene of tools/t0, tests/t0, tools/ship and ops: no stray control bytes (a regex escape that reached the file as BACKSPACE), every script parses, every JSON file is valid",
+   "kind": "check",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 19,
+   "passed": 1,
+   "total": 1,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS hygiene: 410 files, no control bytes, 243 scripts parse, JSON valid"
+   ],
+   "load1Start": 11.73,
+   "load1End": 11.33
+  }
+ ]
+}

@@ -22,6 +22,7 @@ import { expand } from './gazetteer.mjs';
 
 const AP = '’', FFFD = String.fromCharCode(0xfffd);
 export const GEO_WORDS = new Set(['ridge', 'hill', 'hills', 'road', 'rd', 'pike', 'turnpike', 'run', 'creek', 'woods', 'wood', 'farm', 'field', 'house', 'tavern', 'knoll', 'top', 'den', 'orchard', 'cemetery', 'spring', 'springs', 'station', 'lane', 'church', 'barn', 'gap', 'bridge', 'mill', 'mills', 'ford', 'junction', 'camp', 'pass', 'heights', 'cuts', 'valley', 'grove', 'seminary', 'depot', 'square', 'embankment', 'gatehouse', 'furnace', 'street', 'st', 'river', 'mountain', 'mountains', 'works', 'crossroads', 'schoolhouse', 'waters', 'island', 'landing', 'ferry', 'forks', 'county']);
+const isGeo = k => GEO_WORDS.has(k) || (k.endsWith('s') && GEO_WORDS.has(k.slice(0, -1))) || (k.endsWith('es') && GEO_WORDS.has(k.slice(0, -2)));
 const TOWN_STRONG = /(town|burg|burgh|ville|port|boro|borough)$/, TOWN_WEAK = /(castle|haven|field|ton|ster|wood|dale)$/;
 export const STATE_TAGS = new Set(['pa', 'md', 'va', 'wv', 'dc', 'nj', 'ny', 'oh', 'ct', 'me', 'ma', 'nh', 'vt', 'ri', 'de', 'nc', 'sc', 'ga', 'al', 'ms', 'la', 'tx', 'ar', 'tn', 'mi', 'wi', 'in', 'il', 'mn', 'fl', 'penn', 'mass', 'mich', 'wis', 'miss', 'tenn', 'ala', 'fla', 'ind', 'ill']);
 const NOT_A_NAME = new Set(['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'sept', 'oct', 'nov', 'dec', 'january', 'february', 'march', 'april', 'june', 'july', 'august', 'september', 'october', 'november', 'december', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday',
@@ -66,9 +67,9 @@ export function runsOf(text) {
 // the name a run stands for: the words at its ends that are ordinary words of the timeline (Marches, Arrives, The ...: lower case somewhere) or never part of a name are dropped. A run that ends in a
 // geographic word and has no "of" in it keeps its ordinary words (Falling Waters, Round Top, Peach Orchard) apart from a leading article or preposition.
 function nameOf(words, lex) {
-  const key = w => wordKey(stripPoss(w.raw)), ordinary = w => { const k = key(w); return !!k && !w.joiner && lex.lower.has(k) && !GEO_WORDS.has(k); }, never = w => !w.joiner && NOT_A_NAME.has(key(w));
-  const bad = w => ordinary(w) || never(w) || (w.allcaps && w.raw.length <= 5 && !GEO_WORDS.has(key(w))) || /^\p{Lu}$/u.test(w.raw);
-  const lastGeo = words.length > 1 && GEO_WORDS.has(key(words[words.length - 1])) && !words.some(w => w.joiner) && words.length <= 4;
+  const key = w => wordKey(stripPoss(w.raw)), ordinary = w => { const k = key(w); return !!k && !w.joiner && lex.lower.has(k) && !isGeo(k); }, never = w => !w.joiner && NOT_A_NAME.has(key(w));
+  const bad = w => ordinary(w) || never(w) || (w.allcaps && w.raw.length <= 5 && !isGeo(key(w))) || /^\p{Lu}$/u.test(w.raw);
+  const lastGeo = words.length > 1 && isGeo(key(words[words.length - 1])) && !words.some(w => w.joiner) && words.length <= 4;
   let a = 0, b = words.length;
   if (lastGeo) { while (a < b - 1 && (LEAD_DROP.has(key(words[a])) || never(words[a]))) a++; return words.slice(a, b); }
   while (a < b && (bad(words[a]) || words[a].joiner)) a++; while (b > a && (bad(words[b - 1]) || words[b - 1].joiner)) b--;
@@ -79,10 +80,10 @@ function nameOf(words, lex) {
 const INITIALS = /^\p{Lu}(?:\.\p{Lu})*$/u;
 function evidenceOf(run, words, seg, lex, personHard = false) {
   const ev = [], key = w => wordKey(stripPoss(w.raw)), last = key(words[words.length - 1]), lastRaw = words[words.length - 1].raw;
-  if (GEO_WORDS.has(last) && words.length > 1 && !personHard) ev.push({ kind: `geographic word "${lastRaw}"`, tier: 'structural' });
+  if (isGeo(last) && words.length > 1 && !personHard) ev.push({ kind: `geographic word "${lastRaw}"`, tier: 'structural' });
   if (words.length === 1 && last.length >= 7 && TOWN_STRONG.test(last)) ev.push({ kind: `town ending "-${TOWN_STRONG.exec(last)[1]}"`, tier: 'structural' });
   else if (words.length === 1 && last.length >= 7 && TOWN_WEAK.test(last) && !lex.person.has(last)) ev.push({ kind: `town ending "-${TOWN_WEAK.exec(last)[1]}"`, tier: 'cue' });
-  if (run.state_after || run.state_inline) ev.push({ kind: 'followed by a state code', tier: 'structural' });
+  if ((run.state_after || run.state_inline) && !words.some(w => lex.person.has(key(w)))) ev.push({ kind: 'followed by a state code', tier: 'structural' });      // "Hanover, PA"; not for a commander's name (Daniel, NC: the brigade's state)
   if (seg.kind === 'correction.place') ev.push({ kind: 'in the place field of the corrected claim', tier: 'cue' });
   const prev = run.prev.filter(x => !/^[,;:()/]$/.test(x)), p1 = prev[prev.length - 1], p2 = prev[prev.length - 2];
   if (p1 === 'the' && p2 && CUE_STRONG.has(p2)) ev.push({ kind: `after "${p2} the"`, tier: 'cue' });
@@ -115,7 +116,7 @@ export function occurrencesOf(row, lex, places) {
   for (let i = 0; i + 1 < segs.length; i++) {
     const A = segs[i], B = segs[i + 1]; if (A.seg.kind !== B.seg.kind || !['cell', 'note'].includes(A.seg.kind)) continue;
     const la = [...A.cand].reverse().find(c => c); const fbRun = runsOf(B.text)[0], fb0 = runsOf(places.blank(B.seg.text, ' ; ', { keepGeo: true }))[0];
-    if (la && la.r.atEnd && fbRun && fbRun.atStart && fbRun.words.length === 1 && GEO_WORDS.has(key(fbRun.words[0]))) {              // "Bunker" | "Hill"
+    if (la && la.r.atEnd && fbRun && fbRun.atStart && fbRun.words.length === 1 && isGeo(key(fbRun.words[0]))) {              // "Bunker" | "Hill"
       la.w = [...la.w, fbRun.words[0]]; la.wrapped = true; const fb = B.cand.find(c => c && c.r.first === fbRun.first && c.r.words.length === 1); if (fb) fb.drop = true; continue;
     }
     // "Great" | "Round Top" (a descriptive first word, then the next cell starts with a name the gazetteer carries): the name is the two together, and it is not the gazetteer's
@@ -155,7 +156,7 @@ export function classifyNames(occurrences, lex, places) {
     const res = places.resolve(expand(e.name)).status !== 'unknown' ? places.resolve(expand(e.name)) : places.resolve(e.name); let cls;
     const part = (() => { const hits = places.findIn(e.name); return hits.length ? [...new Set(hits.map(h => h.place.name))].join(', ') : null; })();
     if (res.status === 'resolved') cls = 'resolved'; else if (res.status === 'ambiguous') cls = 'ambiguous';
-    else if (e.keys.length === 1 && (NOT_A_NAME.has(e.keys[0]) || GEO_WORDS.has(e.keys[0]) || e.keys[0].length < 3 || STATES[e.keys[0]])) cls = 'excluded';
+    else if (e.keys.length === 1 && (NOT_A_NAME.has(e.keys[0]) || isGeo(e.keys[0]) || e.keys[0].length < 3 || STATES[e.keys[0]])) cls = 'excluded';
     else if (e.tier < TIER.structural && e.person) cls = 'person_or_unit';
     else if (!e.claim.size && e.tier < TIER.cue) cls = 'notes_without_evidence';
     else if (e.tier >= TIER.cue && !(e.keys.length === 1 && lex.placeWords.has(e.keys[0]) && e.tier < TIER.structural)) cls = 'unknown';

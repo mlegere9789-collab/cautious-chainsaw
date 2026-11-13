@@ -50,6 +50,10 @@ def main():
     url = '%s%s/%d,%d,%d,%d/%s/0/default.jpg' % (IIIF, ident, X0, Y0, w, h, size)
     out = os.path.join(calib.IMAGES_DIR, pid + '.%s.jpg' % tag)
     r = calib.http_get(url, out, timeout=120, note='image crop of a quote')
+    if r.get('status') in (0, 500, 502, 503, 504, 520, 522, 524):
+        import time
+        time.sleep(4)
+        r = calib.http_get(url, out, timeout=120, note='image crop of a quote (second try after a transient error)')
     if r.get('status') != 200:
         print('crop failed', r); sys.exit(4)
     calib.append_jsonl(os.path.join(calib.CA_DOCS, 'images.jsonl'), {'page_id': pid, 'tag': tag, 'quote': quote, 'url': url, 'local_path': calib.rel(out),

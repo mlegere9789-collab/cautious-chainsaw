@@ -1,7 +1,7 @@
 {
  "what": "Release 1 train R1g: every suite id that tools/t0/run_suites.mjs defines for the command below, with its last known result and the log that result is read from. A suite with no row in any log is marked never_reached. This file records; it does not judge: no row is classified here.",
  "command": "node tools/t0/run_suites.mjs --r1-dist release/R1g/dist --no-red --no-network",
- "generated": "2026-11-13T20:33:40Z",
+ "generated": "2026-11-13T21:39:12Z",
  "generated_by": "node tools/t0/r1g/suites_status.mjs (inputs: the runner's --list and the logs of tools/t0/r1g/suites_sources.json; regenerate after every new run, check with --check)",
  "how_to_read": [
   "last = the row of the newest run (by time_utc of its source entry) that has a row for the suite; earlier = its rows in older runs, newest first. status, result, seconds, tiles and load are copied from the log line (log_line is its line number in the archived log; log_original is where the log was written).",
@@ -53,8 +53,9 @@
    "docs/accept/r1g-suite-logs/2026-11-13-pagesfix-legal.log": 0,
    "docs/accept/r1g-suite-logs/2026-11-13-static-before-quiet-flag.log": 0,
    "docs/accept/r1g-suite-logs/2026-11-13-static-light-after-quiet-flag.log": 0,
-   "docs/accept/r1g-suite-logs/2026-11-13-static-after-quiet-flag.log": 16,
-   "docs/accept/r1g-suite-logs/2026-11-13-sample-after-quiet-flag.log": 6
+   "docs/accept/r1g-suite-logs/2026-11-13-static-after-quiet-flag.log": 14,
+   "docs/accept/r1g-suite-logs/2026-11-13-sample-after-quiet-flag.log": 6,
+   "docs/accept/r1g-suite-logs/2026-11-13-runner-after-load-fix.log": 2
   }
  },
  "at_a_glance": [
@@ -66,9 +67,9 @@
   "static.baselinelock | PASS | exit 0 | 2026-11-13-static-after-quiet-flag.log:8 | load 9.85>9.85",
   "static.legal | PASS | 13/13 | 2026-11-13-static-after-quiet-flag.log:9 | load 9.85>9.85",
   "static.lib | PASS | 9/10 (+1 skipped) | 2026-11-13-static-after-quiet-flag.log:10 | load 9.85>9.28",
-  "static.runner | PASS | 18/19 (+1 skipped) | 2026-11-13-static-after-quiet-flag.log:11 | load 9.28>10.61",
+  "static.runner | PASS | 20/21 (+1 skipped) | 2026-11-13-runner-after-load-fix.log:3 | load 12.67>11.73",
   "static.overlap.selftest | PASS | 1/1 | 2026-11-13-static-after-quiet-flag.log:12 | load 10.61>10.61",
-  "static.hygiene | PASS | 1/1 | 2026-11-13-static-after-quiet-flag.log:13 | load 10.61>10.85",
+  "static.hygiene | PASS | 1/1 | 2026-11-13-runner-after-load-fix.log:4 | load 11.73>11.33",
   "static.ship | PASS | 11/11 | 2026-11-13-static-after-quiet-flag.log:14 | load 10.85>10.94",
   "static.fixes | PASS | 11/11 | 2026-11-13-static-after-quiet-flag.log:15 | load 10.94>11.91",
   "static.determinism | PASS | 8/8 | 2026-11-13-static-after-quiet-flag.log:16 | load 11.91>14.35",
@@ -602,6 +603,54 @@
     "node": "v22.23.4"
    },
    "rows_in_log": 6,
+   "rows_not_in_table": [],
+   "complete": true
+  },
+  {
+   "log": "docs/accept/r1g-suite-logs/2026-11-13-runner-after-load-fix.log",
+   "original_log": "tmp/r1g-harness3/static-runner.log",
+   "time_utc": "2026-11-13T21:38:43Z",
+   "summary": "docs/accept/r1g-suite-logs/2026-11-13-runner-after-load-fix.summary.json",
+   "original_summary": "tmp/r1g-harness3/static-runner.json",
+   "present": true,
+   "conditions": "Cloud container, 2026-11-13, the two rows static.runner and static.hygiene (--only static.runner,static.hygiene) after the review fix of the load fields of the commands of checks 1 and 8 of tools/accept (the self-test file of this run has 21 tests, the earlier logs of the day show 19; one is skipped: the opt-in online test), through the machine lock, with the final proxy-aware runner and no manual environment (its summary says the children's environment got: added NODE_USE_ENV_PROXY; extended NODE_OPTIONS). Load recorded: 12.67 at the start and 11.33 at the end of the run, 4 CPUs, shared with other work: the durations are not timing evidence. The run reached its final line. This entry was written by a script (tmp/r1g-harness2/post-add-sources.mjs) when the queued job ended; it makes no diagnosis.",
+   "bytes": 1246,
+   "sha256": "9a3e393138cb88f1d7d7cf17b49b091dd083bcfa0cc75982cce7f5226e045908",
+   "suites_selected": 2,
+   "final_line": "run_suites: 2/2 suites OK; green tests 20/21; red-first proofs 0/0 (0 legacy tests red as required); 61s -> tmp/r1g-harness3/static-runner.json",
+   "load_recorded": true,
+   "summary_sha256": "abb763e003447979515d6adfb27a5c3ef40335a5d25668be85e3bb75e9ebf0de",
+   "summary_finished": "see file mtime",
+   "summary_seconds": 61,
+   "summary_totals": {
+    "suites": 2,
+    "ok": 2,
+    "notOk": 0,
+    "greenTests": 20,
+    "greenTestsTotal": 21,
+    "redProofs": 0,
+    "redProofsOk": 0,
+    "redTestsRedAsRequired": 0
+   },
+   "summary_child_env": {
+    "httpsProxy": true,
+    "added": [
+     "NODE_USE_ENV_PROXY"
+    ],
+    "extended": [
+     "NODE_OPTIONS"
+    ]
+   },
+   "summary_load1": {
+    "start": 12.67,
+    "end": 11.33
+   },
+   "summary_machine": {
+    "platform": "linux",
+    "cpus": 4,
+    "node": "v22.23.4"
+   },
+   "rows_in_log": 2,
    "rows_not_in_table": [],
    "complete": true
   }
@@ -1566,26 +1615,46 @@
    "title": "runner self-test (no browser): behind an HTTPS proxy every child process of this runner and of the tools/accept runners gets NODE_USE_ENV_PROXY and NODE_EXTRA_CA_CERTS unless they are set (and, where it turns the first on, the flag that silences the one Node proxy warning is appended to NODE_OPTIONS), with no proxy the environment is passed on unchanged; the 1-minute load average at the start and end of every suite is in the summary, the console line, --merge and --import-log",
    "reached": true,
    "last": {
-    "log": "docs/accept/r1g-suite-logs/2026-11-13-static-after-quiet-flag.log",
-    "log_original": "tmp/r1g-harness2/static-after.log",
-    "log_line": 11,
-    "log_time_utc": "2026-11-13T20:30:37Z",
-    "summary": "docs/accept/r1g-suite-logs/2026-11-13-static-after-quiet-flag.summary.json",
+    "log": "docs/accept/r1g-suite-logs/2026-11-13-runner-after-load-fix.log",
+    "log_original": "tmp/r1g-harness3/static-runner.log",
+    "log_line": 3,
+    "log_time_utc": "2026-11-13T21:38:43Z",
+    "summary": "docs/accept/r1g-suite-logs/2026-11-13-runner-after-load-fix.summary.json",
     "status": "PASS",
     "ok": true,
-    "result": "18/19 (+1 skipped)",
-    "passed": 18,
-    "total": 19,
+    "result": "20/21 (+1 skipped)",
+    "passed": 20,
+    "total": 21,
     "skipped": 1,
     "failed": 0,
     "exit": 0,
-    "seconds": 40.2,
+    "seconds": 42.4,
     "tiles": null,
-    "load1Start": 9.28,
-    "load1End": 10.61,
+    "load1Start": 12.67,
+    "load1End": 11.73,
     "failing_tests_printed": []
    },
    "earlier": [
+    {
+     "log": "docs/accept/r1g-suite-logs/2026-11-13-static-after-quiet-flag.log",
+     "log_original": "tmp/r1g-harness2/static-after.log",
+     "log_line": 11,
+     "log_time_utc": "2026-11-13T20:30:37Z",
+     "summary": "docs/accept/r1g-suite-logs/2026-11-13-static-after-quiet-flag.summary.json",
+     "status": "PASS",
+     "ok": true,
+     "result": "18/19 (+1 skipped)",
+     "passed": 18,
+     "total": 19,
+     "skipped": 1,
+     "failed": 0,
+     "exit": 0,
+     "seconds": 40.2,
+     "tiles": null,
+     "load1Start": 9.28,
+     "load1End": 10.61,
+     "failing_tests_printed": []
+    },
     {
      "log": "docs/accept/r1g-suite-logs/2026-11-13-static-before-quiet-flag.log",
      "log_original": "tmp/r1g-harness/static.log",
@@ -1742,11 +1811,11 @@
    "title": "source hygiene of tools/t0, tests/t0, tools/ship and ops: no stray control bytes (a regex escape that reached the file as BACKSPACE), every script parses, every JSON file is valid",
    "reached": true,
    "last": {
-    "log": "docs/accept/r1g-suite-logs/2026-11-13-static-after-quiet-flag.log",
-    "log_original": "tmp/r1g-harness2/static-after.log",
-    "log_line": 13,
-    "log_time_utc": "2026-11-13T20:30:37Z",
-    "summary": "docs/accept/r1g-suite-logs/2026-11-13-static-after-quiet-flag.summary.json",
+    "log": "docs/accept/r1g-suite-logs/2026-11-13-runner-after-load-fix.log",
+    "log_original": "tmp/r1g-harness3/static-runner.log",
+    "log_line": 4,
+    "log_time_utc": "2026-11-13T21:38:43Z",
+    "summary": "docs/accept/r1g-suite-logs/2026-11-13-runner-after-load-fix.summary.json",
     "status": "PASS",
     "ok": true,
     "result": "1/1",
@@ -1755,13 +1824,33 @@
     "skipped": 0,
     "failed": 0,
     "exit": 0,
-    "seconds": 25.7,
+    "seconds": 19,
     "tiles": null,
-    "load1Start": 10.61,
-    "load1End": 10.85,
+    "load1Start": 11.73,
+    "load1End": 11.33,
     "failing_tests_printed": []
    },
    "earlier": [
+    {
+     "log": "docs/accept/r1g-suite-logs/2026-11-13-static-after-quiet-flag.log",
+     "log_original": "tmp/r1g-harness2/static-after.log",
+     "log_line": 13,
+     "log_time_utc": "2026-11-13T20:30:37Z",
+     "summary": "docs/accept/r1g-suite-logs/2026-11-13-static-after-quiet-flag.summary.json",
+     "status": "PASS",
+     "ok": true,
+     "result": "1/1",
+     "passed": 1,
+     "total": 1,
+     "skipped": 0,
+     "failed": 0,
+     "exit": 0,
+     "seconds": 25.7,
+     "tiles": null,
+     "load1Start": 10.61,
+     "load1End": 10.85,
+     "failing_tests_printed": []
+    },
     {
      "log": "docs/accept/r1g-suite-logs/2026-11-13-static-before-quiet-flag.log",
      "log_original": "tmp/r1g-harness/static.log",

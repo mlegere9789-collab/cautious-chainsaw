@@ -43,8 +43,10 @@ The page's clock advances by the real frame time but never by more than 100 ms a
 
 ### real.spec.mjs
 
-Source shell, latest run: `src-1-real.log` (2026-11-13 21:03Z): 7 passed, 1 failed, 0 not run, of 8; 28 min; frozen source snapshot of commit 9e1e1777.  
-Packed dist, latest run: not run.
+Source shell: `src-1-real` (2026-11-13 21:03Z; 7 passed, 1 failed, 0 not run of 8; 28 min; frozen source snapshot of commit 9e1e1777).  
+Packed dist: not run.  
+
+Each result cell is taken from the LATEST run that contains the test (the run is named when it is not the only one).
 
 | test | source | dist | verdict | evidence |
 |---|---|---|---|---|
@@ -59,8 +61,10 @@ Packed dist, latest run: not run.
 
 ### sky.spec.mjs
 
-Source shell, latest run: `src-1-sky.log` (2026-11-13 19:19Z): 5 passed, 0 failed, 0 not run, of 5; 50 min; the live source tree changed during the run.  
-Packed dist, latest run: not run.
+Source shell: `src-1-sky` (2026-11-13 19:19Z; 5 passed, 0 failed, 0 not run of 5; 50 min; live source tree, changed during the run).  
+Packed dist: not run.  
+
+Each result cell is taken from the LATEST run that contains the test (the run is named when it is not the only one).
 
 | test | source | dist | verdict | evidence |
 |---|---|---|---|---|
@@ -72,10 +76,11 @@ Packed dist, latest run: not run.
 
 ### webgl2.spec.mjs
 
-Source shell, latest run: `src-2-webgl2.log` (2026-11-13 20:55Z): 1 passed, 0 failed, 0 not run, of 1; 8 min; frozen source snapshot of commit 9e1e1777.  
-Packed dist, latest run: `dist-1-webgl2.log` (2026-11-13 21:31Z): ? passed, ? failed, ? not run, of ?; still running or no end line; packed dist built from commit 9e1e1777.  
-Earlier runs of this round: `src-1-webgl2.log` (0/1 passed).
+Source shell: `src-1-webgl2` (2026-11-13 19:13Z; 0 passed, 1 failed, 0 not run of 1; 6 min; live source tree, changed during the run); `src-2-webgl2` (2026-11-13 20:55Z; 1 passed, 0 failed, 0 not run of 1; 8 min; frozen source snapshot of commit 9e1e1777).  
+Packed dist: `dist-1-webgl2` (2026-11-13 21:31Z; ? passed, ? failed, ? not run of ?; running, or no end line; packed dist of commit 9e1e1777).  
+
+Each result cell is taken from the LATEST run that contains the test (the run is named when it is not the only one).
 
 | test | source | dist | verdict | evidence |
 |---|---|---|---|---|
-| WebGL2 renders the placeholder crowd, hides units before their arrival, answers the scrubber, and leaves no context behind | pass (8 min) | no result yet | PASS | Second run, frozen source snapshot 9e1e1777: 165,000 soldiers on 3 Jul 13:30 at 1280x720, the picture is not black, nothing is placed before any arrival (28 Jun), more than 100,000 present on 2 Jul, the scrubber answers, and leaving the theatre leaves 0 canvas contexts, 0 animation frames, 0 timers; no console error or page error. Frame p50 7.8 s on this renderer (printed in the log as not a timing of the product). The first attempt (live tree, run src-1-webgl2) failed only on one console line: the shell asks the server for src/ext/index.mjs with a HEAD request and the file was created 26 s into that run (the 404 is described in requests/spec-health-pack-ext-folder.md, point 1); it is not a product defect and not a harness problem. |
+| WebGL2 renders the placeholder crowd, hides units before their arrival, answers the scrubber, and leaves no context behind | pass (8 min) [src-2-webgl2] | not run | PASS | Second run, frozen source snapshot 9e1e1777: 165,000 soldiers on 3 Jul 13:30 at 1280x720, the picture is not black, nothing is placed before any arrival (28 Jun), more than 100,000 present on 2 Jul, the scrubber answers, and leaving the theatre leaves 0 canvas contexts, 0 animation frames, 0 timers; no console error or page error. Frame p50 7.8 s on this renderer (printed in the log as not a timing of the product). The first attempt (live tree, run src-1-webgl2) failed only on one console line: the shell asks the server for src/ext/index.mjs with a HEAD request and the file was created 26 s into that run (the 404 is described in requests/spec-health-pack-ext-folder.md, point 1); it is not a product defect and not a harness problem. |

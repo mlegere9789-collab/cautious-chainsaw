@@ -8,6 +8,7 @@
 //   node tools/bt/realize/mutate.mjs                       all mutations; the report is GOVERNANCE/realizations/MUTATION-CHECK.json (written after every mutation, so an interrupted run keeps what it did)
 //   node tools/bt/realize/mutate.mjs --only id1,id2        some mutations (the report keeps the results of the others); --resume runs only those with no result yet
 //   node tools/bt/realize/mutate.mjs --survivors           only those that survived in the report
+//   (before the first mutation the unmutated copy must pass the tests it is judged by; --no-baseline skips that)
 // Each mutation runs realize-rules.test.mjs first, then realize.test.mjs, and the tests of realize-inputs.test.mjs only for the mutations marked "inputs" (they make scratch trees of their own); it stops at
 // the first failing file. It is a heavy job (a few minutes per ten mutations on a quiet machine): run it through tools/horde/bench.sh.
 import fs from 'node:fs'; import path from 'node:path'; import { spawnSync } from 'node:child_process';
@@ -31,6 +32,14 @@ let list = MUT; if (opt('--only')) { const ids = String(opt('--only')).split(','
 const baseDigest = () => ({ harness_files: Object.fromEntries(['lib.mjs', 'timeline.mjs', 'gazetteer.mjs', 'query.mjs', 'schema.mjs', 'checks.mjs', 'check.mjs', 'names.mjs', 'mutations.json'].map(f => [f, sha256File(path.join(here, f)).slice(0, 12)])), tests: Object.fromEntries(Object.values(FILES).map(f => [path.basename(f), sha256File(path.join(ROOT, f)).slice(0, 12)])) });
 const save = () => { const all = MUT.map(m => ({ id: m.id, file: m.file, rule: m.rule, ...(results[m.id] || { status: 'not run' }) })), killed = all.filter(r => r.status === 'killed').length, survived = all.filter(r => r.status === 'survived'), notrun = all.filter(r => r.status === 'not run').length;
   fs.writeFileSync(OUT, JSON.stringify({ _doc: 'Mutation check of the tests of the realization harness (tools/bt/realize/mutate.mjs): every mutation removes or changes one rule of the harness in a scratch copy and runs the tests of the copy; killed = some test failed, survived = every test passed (a rule without a test, or an equivalent mutant: see notes).', ...baseDigest(), total: MUT.length, killed, survived: survived.length, not_run: notrun, survivors: survived.map(s => s.id), notes: old.notes || {}, results: all }, null, 1) + '\n'); };
+// the unmutated copy must pass the tests it is about to be judged by: otherwise every mutation would be "killed" by a test that fails anyway
+const needed = [...new Set(list.flatMap(m => m.tests || ['rules', 'main']))];
+if (list.length && !argv.includes('--no-baseline')) {
+  const root = makeTree('tmp/realize/mut/_baseline'); let bad = null;
+  try { for (const t of needed) { const r = spawnSync('node', ['--test', path.join(root, FILES[t])], { cwd: root, encoding: 'utf8', maxBuffer: 1 << 28, env: { ...process.env, BT_REALIZE_REAL_ROOT: ROOT }, timeout: 20 * 60 * 1000 }); console.log(`baseline ${t}: ${r.status === 0 ? 'all pass' : 'FAILS'}`); if (r.status !== 0) { bad = `${t}: ` + (r.stdout.match(/^not ok \d+ - .*/gm) || []).slice(0, 3).join(' | '); break; } } }
+  finally { removeTree('tmp/realize/mut/_baseline'); }
+  if (bad) { console.error('the tests fail on the unmutated copy, so no mutation can be judged: ' + bad); process.exit(2); }
+}
 let n = 0; const t0 = Date.now();
 for (const m of list) {
   n++; const scratch = `tmp/realize/mut/${m.id}`; let status = 'survived', killedBy = null, detail = '', ran = [];
@@ -38,7 +47,7 @@ for (const m of list) {
     const root = makeTree(scratch, { files: { [m.file]: t => applyMutation(t, m) } });
     for (const t of (m.tests || ['rules', 'main'])) {
       const f = FILES[t]; ran.push(t);
-      const r = spawnSync('node', ['--test', ...(t === 'inputs' ? [] : []), path.join(root, f)], { cwd: root, encoding: 'utf8', maxBuffer: 1 << 28, env: { ...process.env, BT_REALIZE_REAL_ROOT: ROOT }, timeout: 20 * 60 * 1000 });
+      const r = spawnSync('node', ['--test', ...(t === 'inputs' && m.pattern ? ['--test-name-pattern=' + m.pattern] : []), path.join(root, f)], { cwd: root, encoding: 'utf8', maxBuffer: 1 << 28, env: { ...process.env, BT_REALIZE_REAL_ROOT: ROOT }, timeout: 20 * 60 * 1000 });
       if (r.status !== 0) { status = 'killed'; killedBy = path.basename(f); const fails = (r.stdout.match(/^not ok \d+ - .*/gm) || []).slice(0, 3).map(x => x.replace(/^not ok \d+ - /, '')); detail = fails.length ? fails.join(' | ') : String((r.stderr || r.stdout || '').slice(0, 200)).replace(/\s+/g, ' '); break; }
     }
   } catch (e) { status = 'error'; detail = String(e.message || e).slice(0, 300); }

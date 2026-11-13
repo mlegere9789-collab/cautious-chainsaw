@@ -33,21 +33,24 @@ export function build(round, dir) {
   const V = fs.existsSync(path.join(dir, 'verdicts.json')) ? JSON.parse(fs.readFileSync(path.join(dir, 'verdicts.json'), 'utf8')) : { specs: {} };
   const esc = s => String(s ?? '').replace(/\|/g, '\\|').replace(/\n/g, ' ');
   const specs = [...new Set([...Object.keys(V.specs || {}), ...runs.map(r => r.spec)])].sort(), out = [], tally = {};
+  const label = r => r.file.replace(/\.log$/, '');
+  const how = r => `${r.n.pass ?? '?'} passed, ${r.n.fail ?? '?'} failed, ${r.n.skipped ?? '?'} not run of ${r.n.tests ?? '?'}; ${r.seconds != null ? (r.seconds / 60).toFixed(0) + ' min' : 'running, or no end line'}${r.timeLimit ? '; STOPPED AT THE TIME LIMIT' : ''}${r.snapshot ? (r.target === 'dist' ? '; packed dist of commit ' : '; frozen source snapshot of commit ') + r.snapshot : r.srcChanged && r.srcChanged !== 'no' ? '; live source tree, changed during the run' : r.target === 'src' ? '; live source tree' : ''}`;
   for (const spec of specs) {
-    const mine = runs.filter(r => r.spec === spec), last = t => mine.filter(r => r.target === t).at(-1), src = last('src'), dist = last('dist'), hand = (V.specs[spec] || {}).tests || [];
+    const mine = runs.filter(r => r.spec === spec), hand = (V.specs[spec] || {}).tests || [];
     const names = [...new Set([...hand.filter(h => h.test).map(h => h.test), ...mine.flatMap(r => r.tests.map(t => t.name))])];
     out.push(`\n### ${spec}\n`);
-    const line = r => r ? `\`${r.file}\` (${r.start ? r.start.replace('T', ' ').replace(/:\d\dZ$/, 'Z') : '?'}): ${r.n.pass ?? '?'} passed, ${r.n.fail ?? '?'} failed, ${r.n.skipped ?? '?'} not run, of ${r.n.tests ?? '?'}; ${r.seconds != null ? (r.seconds / 60).toFixed(0) + ' min' : 'still running or no end line'}${r.timeLimit ? '; STOPPED AT THE TIME LIMIT' : ''}${r.snapshot ? (r.target === 'dist' ? '; packed dist built from commit ' : '; frozen source snapshot of commit ') + r.snapshot : r.srcChanged && r.srcChanged !== 'no' ? '; the live source tree changed during the run' : ''}` : 'not run';
-    out.push(`Source shell, latest run: ${line(src)}.  \nPacked dist, latest run: ${line(dist)}.${mine.length > (src ? 1 : 0) + (dist ? 1 : 0) ? `  \nEarlier runs of this round: ${mine.filter(r => r !== src && r !== dist).map(r => `\`${r.file}\` (${r.n.pass ?? '?'}/${r.n.tests ?? '?'} passed${r.timeLimit ? ', stopped at the time limit' : ''})`).join(', ')}.` : ''}\n`);
+    for (const [t, what] of [['src', 'Source shell'], ['dist', 'Packed dist']]) { const rs = mine.filter(r => r.target === t); out.push(`${what}: ${rs.length ? rs.map(r => `\`${label(r)}\` (${r.start ? r.start.replace('T', ' ').replace(/:\d\dZ$/, 'Z') : '?'}; ${how(r)})`).join('; ') : 'not run'}.  `); }
+    out.push('\nEach result cell is taken from the LATEST run that contains the test (the run is named when it is not the only one).\n');
     out.push('| test | source | dist | verdict | evidence |\n|---|---|---|---|---|');
     for (const name of names) {
-      const find = r => r && r.tests.find(t => t.name === name), a = find(src), b = find(dist), h = hand.find(x => x.test === name) || hand.find(x => x.match && name.includes(x.match));
-      const cell = (t, r) => !r ? 'not run' : !t ? 'no result yet' : t.result + (t.ms != null ? ` (${Math.round(t.ms / 60000)} min)` : '');
+      const latest = t => { const rs = mine.filter(r => r.target === t && r.tests.some(x => x.name === name)); const r = rs.at(-1); return r ? { r, t: r.tests.find(x => x.name === name), many: mine.filter(x => x.target === t).length > 1 } : null; };
+      const A = latest('src'), B = latest('dist'), h = hand.find(x => x.test === name) || hand.find(x => x.match && name.includes(x.match)), a = A && A.t, b = B && B.t;
+      const cell = X => !X ? 'not run' : X.t.result + (X.t.ms != null ? ` (${Math.round(X.t.ms / 60000)} min)` : '') + (X.many ? ` [${label(X.r)}]` : '');
       const verdict = h && h.verdict ? h.verdict : a ? (a.result === 'pass' ? 'PASS' : a.result === 'not run' ? 'NEEDS_GPU' : 'UNCLASSIFIED') : 'NOT RUN YET';
       const auto = a && a.result === 'pass' && a.console.length ? `log: ${a.console.length} line(s) of numbers, e.g. ${a.console.at(-1).slice(0, 170)}` : '';
       const ev = [h && h.evidence, a && a.result === 'FAIL' && a.error && `source run: ${a.error}`, a && a.skip && `harness: ${a.skip}`, b && b.result === 'FAIL' && b.error && `dist run: ${b.error}`, !h && auto].filter(Boolean).join(' ');
       tally[verdict.split(/[ (:]/)[0]] = (tally[verdict.split(/[ (:]/)[0]] || 0) + 1;
-      out.push(`| ${esc(name.length > 170 ? name.slice(0, 167) + '...' : name)} | ${cell(a, src)} | ${cell(b, dist)} | ${esc(verdict)} | ${esc(ev)} |`);
+      out.push(`| ${esc(name.length > 170 ? name.slice(0, 167) + '...' : name)} | ${cell(A)} | ${cell(B)} | ${esc(verdict)} | ${esc(ev)} |`);
     }
   }
   return { tables: out.join('\n'), tally, runs, specs };

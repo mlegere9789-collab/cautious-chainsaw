@@ -1,0 +1,8 @@
+run_suites: 2 suite(s), port base 8610, agent r1g-harness3
+run_suites: child environment + NODE_USE_ENV_PROXY, NODE_OPTIONS (extended) (an HTTPS proxy is set); load average (1 min) 12.67, 4 CPUs
+PASS    static.runner          20/21 (+1 skipped)   42.4 s  load 12.67>11.73  runner self-test (no browser): behind an HTTPS proxy every child process of this runner and of the tools/accept runners gets NODE_USE_ENV_PROXY and NODE_EXTRA_CA_CERTS unless they are set (and, where it turns the first on, the flag that silences the one Node proxy warning is appended to NODE_OPTIONS), with no proxy the environment is passed on unchanged; the 1-minute load average at the start and end of every suite is in the summary, the console line, --merge and --import-log
+PASS    static.hygiene         1/1                 19 s  load 11.73>11.33  source hygiene of tools/t0, tests/t0, tools/ship and ops: no stray control bytes (a regex escape that reached the file as BACKSPACE), every script parses, every JSON file is valid
+
+run_suites: load average (1 min) 12.67>11.33 from the start to the end of this run, 4 CPUs
+
+run_suites: 2/2 suites OK; green tests 20/21; red-first proofs 0/0 (0 legacy tests red as required); 61s -> tmp/r1g-harness3/static-runner.json

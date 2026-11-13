@@ -3,10 +3,12 @@
 //
 //   node tools/bt/realize/check.mjs                         all shard files GOVERNANCE/realizations/<shard>.jsonl (+ EXAMPLES.jsonl for rows with no shard record)
 //   node tools/bt/realize/check.mjs --shard tl-03,tl-04     only these shards (RESULTS.json is then NOT overwritten unless --write is given; the report is printed)
-//   node tools/bt/realize/check.mjs --file some.jsonl       check a records file (tests use this); never writes RESULTS.json
+//   node tools/bt/realize/check.mjs --file some.jsonl       check a records file (tests use this); never writes RESULTS.json unless --write is given
 //   node tools/bt/realize/check.mjs --row T1-004            only this row (report only)
-//   options: --write (write RESULTS.json even for a partial run: it is then merged over the previous file), --update (write each record's "result" field back into its shard file),
-//            --quiet, --json (print the whole report as JSON), --out <path>
+//   node tools/bt/realize/check.mjs --digests               print the digests of the harness and of the inputs (every file read, the shell's source tree, the record files) and stop
+//   options: --write (write RESULTS.json even for a partial run: the rows of the run replace their rows in the previous file and the totals, q17 and scope are recomputed from the merged rows; rows carried over
+//            from an earlier run under other digests are listed and q17.ok is then false), --update (write each record's "result" field back into its shard file), --quiet,
+//            --json (print the whole report as JSON), --out <path> (write there instead of RESULTS.json; a gate runner does this for a full run)
 // Exit code: 0 when the run completed (a row that is not realized is a result, not an error); 1 when a record file cannot be read; 2 on a harness error.
 // The result of a row: realized true only when its record is valid, bound to the row's words, and every check holds in the product; q17_covered = realized or an open register entry (the two
 // halves of the gate). Nothing here sets a `passes` flag: Q17 is passing only when q17.ok is true AND the gate runner says so.

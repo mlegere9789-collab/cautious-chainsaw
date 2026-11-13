@@ -43,7 +43,7 @@ export class Runner {
     try { await this._bindings(rec, row, res); } catch (e) { res.problems.push({ code: 'binding_error', detail: String(e && e.stack || e).slice(0, 300) }); }
     // the scenarios the record is run in (each with its id), the ones it excludes with the reason, and the scenarios each check holds in (a check without "scenario" holds in every scenario of the record)
     const plan = this._scenarioPlan(rec, row, res); res.scenarios = plan.list.map(x => x.id); res.excluded_scenarios = plan.excluded;
-    const only = (rec.checks || []).map(a => (a && a.scenario != null ? [].concat(a.scenario).map(x => (typeof x === 'string' ? x : this.P.scenarioId(x))) : null));
+    const idOf = x => { if (typeof x === 'string') return x; try { return this.P.scenarioId(x); } catch (e) { return `(invalid scenario: ${String(e.message || e).slice(0, 80)})`; } }, only = (rec.checks || []).map(a => (a && a.scenario != null ? [].concat(a.scenario).map(idOf) : null));
     only.forEach((ids, i) => { for (const id of ids || []) if (!plan.seen.has(id)) res.problems.push({ code: 'check_scenario_unlisted', detail: `checks[${i}] holds in scenario "${id}", which the record does not run (it runs ${[...plan.seen].join(', ') || 'none'}); list the scenario in "scenario"` }); });
     res.spec_view = specView(rec, only);
     const results = [];
@@ -110,7 +110,7 @@ export class Runner {
       const pl = r.place;
       if (found.has(pl.id)) B.places.push({ name, id: pl.id, how: 'matched' });
       else if (via && hasQuote(text, via)) { B.places.push({ name, id: pl.id, how: 'declared', via }); B.declared++; }
-      else res.problems.push({ code: 'place_not_in_row', detail: `place ${pl.id} "${pl.name}" is not named in the row's text (places named there: ${[...found.values()].map(h => h.place.id + ' ' + h.place.name).slice(0, 6).join('; ') || 'none'}); if the row names it in other words, give { "name": "${name}", "via": "<verbatim words of the row>" }` });
+      else res.problems.push({ code: 'place_not_in_row', detail: `place ${pl.id} "${pl.name}" is not named in the row's text (places named there: ${[...found.values()].map(h => h.place.id + ' ' + h.place.name).slice(0, 6).join('; ') || 'none'}); if the row names it in other words, give { "id": "${name}", "via": "<verbatim words of the row>" }` });
     }
     if ((E.structures || []).length || (E.works || []).length) {
       const S = await P.structures('default'), rtk = new Set(tokens(text));

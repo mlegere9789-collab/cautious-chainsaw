@@ -1,18 +1,18 @@
 {
  "api": "webgl2",
- "url": "http://127.0.0.1:40469/app/tests/weather3d-gpu.html?api=webgl2&w=640&h=360&soldiers=12000&tier=laptop",
+ "url": "http://127.0.0.1:41257/app/tests/weather3d-gpu.html?api=webgl2&w=640&h=360&soldiers=12000&tier=laptop",
  "w": 640,
  "h": 360,
  "soldiers": 12000,
  "tier": "laptop",
- "started": "2026-11-13T19:59:02.939Z",
+ "started": "2026-11-13T21:28:21.040Z",
  "cases": {
   "stars-jun28-0200": {
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 38,
-   "wallMs": 2307,
+   "frameMs": 24,
+   "wallMs": 3825,
    "validation": null,
    "pixels": {
     "all": {
@@ -78,7 +78,7 @@
    "h": 360,
    "format": "rgba8unorm",
    "frameMs": 11,
-   "wallMs": 2227,
+   "wallMs": 2452,
    "validation": null,
    "pixels": {
     "all": {
@@ -144,7 +144,7 @@
    "h": 360,
    "format": "rgba8unorm",
    "frameMs": 5,
-   "wallMs": 1672,
+   "wallMs": 1659,
    "validation": null,
    "pixels": {
     "all": {
@@ -209,8 +209,8 @@
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 6,
-   "wallMs": 1541,
+   "frameMs": 69,
+   "wallMs": 2173,
    "validation": null,
    "pixels": {
     "all": {
@@ -276,7 +276,7 @@
    "h": 360,
    "format": "rgba8unorm",
    "frameMs": 3,
-   "wallMs": 1768,
+   "wallMs": 1401,
    "validation": null,
    "pixels": {
     "all": {
@@ -342,7 +342,7 @@
    "h": 360,
    "format": "rgba8unorm",
    "frameMs": 6,
-   "wallMs": 2135,
+   "wallMs": 1799,
    "validation": null,
    "pixels": {
     "all": {
@@ -407,8 +407,8 @@
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 4,
-   "wallMs": 2114,
+   "frameMs": 5,
+   "wallMs": 1607,
    "validation": null,
    "pixels": {
     "all": {
@@ -473,8 +473,8 @@
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 3,
-   "wallMs": 2092,
+   "frameMs": 6,
+   "wallMs": 1756,
    "validation": null,
    "pixels": {
     "all": {
@@ -539,8 +539,8 @@
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 2,
-   "wallMs": 1829,
+   "frameMs": 8,
+   "wallMs": 1861,
    "validation": null,
    "pixels": {
     "all": {
@@ -605,8 +605,8 @@
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 10,
-   "wallMs": 9516,
+   "frameMs": 2,
+   "wallMs": 8185,
    "validation": null,
    "pixels": {
     "all": {
@@ -671,8 +671,8 @@
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 4,
-   "wallMs": 2105,
+   "frameMs": 5,
+   "wallMs": 2333,
    "validation": null,
    "pixels": {
     "all": {
@@ -737,8 +737,8 @@
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 46,
-   "wallMs": 1495,
+   "frameMs": 9,
+   "wallMs": 1993,
    "validation": null,
    "pixels": {
     "all": {
@@ -803,8 +803,8 @@
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 12,
-   "wallMs": 2433,
+   "frameMs": 11,
+   "wallMs": 2681,
    "validation": null,
    "pixels": {
     "all": {
@@ -869,8 +869,8 @@
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 8,
-   "wallMs": 8448,
+   "frameMs": 6,
+   "wallMs": 8121,
    "validation": null,
    "pixels": {
     "all": {
@@ -935,8 +935,8 @@
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 6,
-   "wallMs": 3753,
+   "frameMs": 4,
+   "wallMs": 4686,
    "validation": null,
    "pixels": {
     "all": {
@@ -1001,8 +1001,8 @@
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 3,
-   "wallMs": 1404,
+   "frameMs": 5,
+   "wallMs": 1717,
    "validation": null,
    "pixels": {
     "all": {
@@ -1136,6 +1136,17 @@
   "wgsl": [],
   "modules": []
  },
+ "resize": {
+  "case": "smoke-jul3-1400",
+  "smallW": 480,
+  "smallH": 270,
+  "smallValidation": null,
+  "smallMean": 198.81,
+  "backValidation": null,
+  "backIdentical": true,
+  "backBytesDiffering": 0,
+  "binds": null
+ },
  "diagEnd": {
   "api": "webgl2",
   "hostLog": [],
@@ -1182,9 +1193,15 @@
   "wgsl": [],
   "modules": []
  },
- "finished": "2026-11-13T20:00:19.856Z",
- "consoleLines": 1,
- "consoleProblems": [
-  "error: Failed to load resource: the server responded with a status of 404 (Not Found)"
- ]
+ "afterDispose": {
+  "gpuErrors": [],
+  "swap": {
+   "standIn": true,
+   "configured": 0,
+   "calls": 0
+  }
+ },
+ "finished": "2026-11-13T21:29:58.450Z",
+ "consoleLines": 0,
+ "consoleProblems": []
 }

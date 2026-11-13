@@ -43,6 +43,8 @@ A time is `1863-MM-DDTHH:MM` local mean time. `--scenario pdf` gives the plan's 
 
 One JSON object per line, **one per timeline row**, in `GOVERNANCE/realizations/<shard>.jsonl` (`tl-01` ... `tl-12`; epilogue rows E-001..E-014 in `epilogue.jsonl`). `EXAMPLES.jsonl` holds the 20 worked examples of tl-01 (T1-001..T1-020); a shard file overrides it for a row it has.
 
+The worked example T1-016 (abridged: `EXAMPLES.jsonl` also asserts what the opening scenario draws, a half-burned blend, and lists the further bridges of the line in `not_shown`):
+
 ```json
 { "id": "T1-016", "harness": "bt-realize-1", "kind": "structure_state",
   "scenario": [ "default", { "id": "rr-bridge-jun26", "structure": { "bld-rock-creek-rr-bridge": "jun26" } } ],

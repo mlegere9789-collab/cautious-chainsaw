@@ -1,18 +1,18 @@
 {
  "api": "webgpu",
- "url": "http://127.0.0.1:37317/app/tests/weather3d-gpu.html?api=webgpu&w=640&h=360&soldiers=12000&tier=laptop&fx=off",
+ "url": "http://127.0.0.1:45157/app/tests/weather3d-gpu.html?api=webgpu&w=640&h=360&soldiers=12000&tier=laptop&fx=off",
  "w": 640,
  "h": 360,
  "soldiers": 12000,
  "tier": "laptop",
- "started": "2026-11-13T20:00:32.077Z",
+ "started": "2026-11-13T21:31:23.740Z",
  "cases": {
   "day-clouds-jul3-1400": {
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 40,
-   "wallMs": 3204,
+   "frameMs": 42,
+   "wallMs": 2480,
    "validation": null,
    "pixels": {
     "all": {
@@ -57,7 +57,7 @@
    "h": 360,
    "format": "rgba8unorm",
    "frameMs": 2,
-   "wallMs": 2051,
+   "wallMs": 1660,
    "validation": null,
    "pixels": {
     "all": {
@@ -101,8 +101,8 @@
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 7,
-   "wallMs": 2084,
+   "frameMs": 2,
+   "wallMs": 2650,
    "validation": null,
    "pixels": {
     "all": {
@@ -146,8 +146,8 @@
    "w": 640,
    "h": 360,
    "format": "rgba8unorm",
-   "frameMs": 32,
-   "wallMs": 1914,
+   "frameMs": 10,
+   "wallMs": 2365,
    "validation": null,
    "pixels": {
     "all": {
@@ -317,9 +317,17 @@
    "fx3d-compute-check messages=0"
   ]
  },
- "finished": "2026-11-13T20:00:46.181Z",
- "consoleLines": 1,
- "consoleProblems": [
-  "error: Failed to load resource: the server responded with a status of 404 (Not Found)"
- ]
+ "afterDispose": {
+  "gpuErrors": [
+   "DEVICE LOST destroyed: Device was destroyed."
+  ],
+  "swap": {
+   "standIn": true,
+   "configured": 1,
+   "calls": 8
+  }
+ },
+ "finished": "2026-11-13T21:31:37.976Z",
+ "consoleLines": 0,
+ "consoleProblems": []
 }

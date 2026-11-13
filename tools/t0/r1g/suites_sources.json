@@ -93,6 +93,14 @@
       "summary": "docs/accept/r1g-suite-logs/2026-11-13-sample-after-quiet-flag.summary.json",
       "original_summary": "tmp/r1g-harness2/sample-after.json",
       "conditions": "Cloud container, 2026-11-13, six rows from other groups (--only pagesfix.R1c.legal,pagesmaps.R1a,r1.seo,r1.acc,staging.R0,a11y.R1a.chooser), through the machine lock, with the final proxy-aware runner and no manual environment (its summary says the children's environment got: added NODE_USE_ENV_PROXY; extended NODE_OPTIONS). Load recorded: 12.49 at the start and 11.44 at the end of the run, 4 CPUs, shared with other work: the durations are not timing evidence. The run reached its final line. This entry was written by a script (tmp/r1g-harness2/post-add-sources.mjs) when the queued job ended; it makes no diagnosis."
+    },
+    {
+      "log": "docs/accept/r1g-suite-logs/2026-11-13-runner-after-load-fix.log",
+      "original_log": "tmp/r1g-harness3/static-runner.log",
+      "time_utc": "2026-11-13T21:38:43Z",
+      "summary": "docs/accept/r1g-suite-logs/2026-11-13-runner-after-load-fix.summary.json",
+      "original_summary": "tmp/r1g-harness3/static-runner.json",
+      "conditions": "Cloud container, 2026-11-13, the two rows static.runner and static.hygiene (--only static.runner,static.hygiene) after the review fix of the load fields of the commands of checks 1 and 8 of tools/accept (the self-test file of this run has 21 tests, the earlier logs of the day show 19; one is skipped: the opt-in online test), through the machine lock, with the final proxy-aware runner and no manual environment (its summary says the children's environment got: added NODE_USE_ENV_PROXY; extended NODE_OPTIONS). Load recorded: 12.67 at the start and 11.33 at the end of the run, 4 CPUs, shared with other work: the durations are not timing evidence. The run reached its final line. This entry was written by a script (tmp/r1g-harness2/post-add-sources.mjs) when the queued job ended; it makes no diagnosis."
     }
   ]
 }

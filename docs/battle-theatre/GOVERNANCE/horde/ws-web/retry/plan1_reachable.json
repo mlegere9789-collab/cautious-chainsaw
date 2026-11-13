@@ -1,0 +1,23 @@
+[
+ {"fid":"F-001","url":"https://www.loc.gov/item/2011660054","purpose":"retry LKR fence-3 #20 (HTTP 403 on 2026-11-13): LOC record named in R14.S-083/R14 fence-3 (Gardner Meade headquarters, Leister wall)","json_alt":true,"save":"item-2011660054.html"},
+ {"fid":"F-002","url":"https://www.loc.gov/resource/gdcscd.00538950622","purpose":"retry tl-02 L3 (HTTP 403)","json_alt":true,"save":"resource-gdcscd.00538950622.html"},
+ {"fid":"F-003","url":"https://www.loc.gov/item/02010458/","purpose":"retry tl-01 LK-05 (Jacobs 1864 Notes, HTTP 403)","json_alt":true,"save":"item-02010458.html"},
+ {"fid":"F-004","url":"https://www.loc.gov/item/99448794/?fo=json","purpose":"retry sources-a loc_99448794 (timeout)","save":"item-99448794.json"},
+ {"fid":"F-005","url":"https://www.loc.gov/item/2004629149/?fo=json","purpose":"retry sources-a loc_2004629149 (timeout)","save":"item-2004629149.json"},
+ {"fid":"F-006","url":"https://www.loc.gov/item/2004629149/","purpose":"retry sources-b R21.PG.LOC-2004629149 (HTTP 403)","json_alt":true,"save":"item-2004629149.html"},
+ {"fid":"F-007","url":"https://www.loc.gov/item/99446453/","purpose":"retry sources-b R21.PG.LOC-99446453 (HTTP 403)","json_alt":true,"save":"item-99446453.html"},
+ {"fid":"F-008","url":"https://www.loc.gov/pictures/collection/cwp/","purpose":"retry sources-b R12.033.1 (HTTP 403)","json_alt":true,"save":"pictures-collection-cwp.html"},
+ {"fid":"F-009","url":"https://www.loc.gov/collections/civil-war-glass-negatives/","purpose":"retry sources-b R12.033.2 (HTTP 403)","json_alt":true,"save":"collections-civil-war-glass-negatives.html"},
+ {"fid":"F-010","url":"https://www.loc.gov/collections/chronicling-america/?q=gettysburg&dates=1863-07-01/1863-07-10&fo=json&c=5","purpose":"retry sources-b R21.PG.LOC-CHRONAM (timeout)","save":"chronam-gettysburg-1863-07.json"},
+ {"fid":"F-011","url":"https://www.loc.gov/pictures/search/?q=Gettysburg%20artillery%20position%20gun&co=cwp&fo=json","purpose":"retry terrain-1 W2 (0 results)","save":"pictures-search-artillery.json"},
+ {"fid":"F-012","url":"https://archive.org/metadata/cu31924077699761","purpose":"retry sources-b and terrain-2 (CONNECT 403 on 2026-11-04)","save":"metadata-cu31924077699761.json"},
+ {"fid":"F-013","url":"https://www.nps.gov/gett/learn/nature/plants.htm","purpose":"retry sources-b and terrain-2 (CONNECT 403 on 2026-11-04)","save":"plants.html"},
+ {"fid":"F-014","url":"https://www.nps.gov/gett/learn/historyculture/artillery-at-gettysburg.htm","purpose":"retry terrain-1 W3 (HTTP 404)","save":"artillery-at-gettysburg.html"},
+ {"fid":"F-015","url":"https://www.nps.gov/gett/learn/historyculture/gettysburg-overview.htm","purpose":"retry r03-2 n=3 (partial: no per-army breakdown, no Camp Letterman date)","save":"gettysburg-overview.html"},
+ {"fid":"F-016","url":"https://www.nps.gov/gis/gisday/gallery2001/GWS/musselman.htm","purpose":"retry sources-b R12.029.1 (HTTP 404)","save":"musselman.html"},
+ {"fid":"F-017","url":"https://www.gutenberg.org/robots.txt","purpose":"robots.txt check before retrying the three Gutenberg search URLs refused by robots on 2026-11-04","save":"robots.txt"},
+ {"fid":"F-018","url":"https://catalog.archives.gov/robots.txt","purpose":"robots.txt check before retrying the National Archives catalogue pages (Disallow all on 2026-11-04)","save":"robots.txt"},
+ {"fid":"F-019","url":"https://www.loc.gov/robots.txt","purpose":"robots.txt of loc.gov (crawl delay) before further loc.gov requests","save":"robots.txt"},
+ {"fid":"F-020","url":"https://www.nps.gov/robots.txt","purpose":"robots.txt of nps.gov","save":"robots.txt"},
+ {"fid":"F-021","url":"https://archive.org/robots.txt","purpose":"robots.txt of archive.org","save":"robots.txt"}
+]

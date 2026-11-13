@@ -999,7 +999,8 @@
    "rules",
    "main",
    "inputs"
-  ]
+  ],
+  "pattern": "committed RESULTS"
  },
  {
   "id": "check-card-class",
@@ -1121,7 +1122,8 @@
    "rules",
    "main",
    "inputs"
-  ]
+  ],
+  "pattern": "partial run written"
  },
  {
   "id": "check-merge-keep-old",
@@ -1131,7 +1133,8 @@
   "rule": "a partial run is merged over the earlier file",
   "tests": [
    "inputs"
-  ]
+  ],
+  "pattern": "partial run written"
  },
  {
   "id": "check-merge-stale",
@@ -1141,7 +1144,8 @@
   "rule": "rows carried over from other digests are marked",
   "tests": [
    "inputs"
-  ]
+  ],
+  "pattern": "partial run written"
  },
  {
   "id": "check-digest-records-result",
@@ -1151,7 +1155,8 @@
   "rule": "the digest of the records ignores the written-back result",
   "tests": [
    "inputs"
-  ]
+  ],
+  "pattern": "digest of the inputs covers"
  },
  {
   "id": "check-outside-clock",
@@ -1161,7 +1166,8 @@
   "rule": "the rows outside the theatre clock are listed",
   "tests": [
    "inputs"
-  ]
+  ],
+  "pattern": "documents state|committed RESULTS"
  },
  {
   "id": "query-digest-appsrc",
@@ -1171,7 +1177,8 @@
   "rule": "the digest covers the whole source tree of the shell",
   "tests": [
    "inputs"
-  ]
+  ],
+  "pattern": "digest of the inputs covers"
  },
  {
   "id": "query-digest-governance",
@@ -1181,7 +1188,8 @@
   "rule": "the digest covers the timeline files, the register and the requirements",
   "tests": [
    "inputs"
-  ]
+  ],
+  "pattern": "digest of the inputs covers"
  },
  {
   "id": "query-digest-corrections",
@@ -1191,7 +1199,8 @@
   "rule": "the digest covers the correction files",
   "tests": [
    "inputs"
-  ]
+  ],
+  "pattern": "digest of the inputs covers"
  },
  {
   "id": "query-name-case",
@@ -1256,8 +1265,10 @@
   "rule": "casualties of a formation are the sum over its leaf units",
   "tests": [
    "rules",
-   "main"
-  ]
+   "main",
+   "inputs"
+  ],
+  "pattern": "author tools"
  },
  {
   "id": "query-designator-agree",
@@ -1301,7 +1312,8 @@
   "tests": [
    "main",
    "inputs"
-  ]
+  ],
+  "pattern": "documents state|committed RESULTS"
  },
  {
   "id": "timeline-correction-window",
@@ -1322,7 +1334,8 @@
   "rule": "a known place followed by a geographic word is one unknown name",
   "tests": [
    "inputs"
-  ]
+  ],
+  "pattern": "gazetteer lists"
  },
  {
   "id": "names-towns",
@@ -1332,17 +1345,19 @@
   "rule": "a town ending is structural evidence",
   "tests": [
    "inputs"
-  ]
+  ],
+  "pattern": "gazetteer lists"
  },
  {
   "id": "names-state",
   "file": "tools/bt/realize/names.mjs",
-  "find": "if (run.state_after || run.state_inline) ev.push",
+  "find": "if ((run.state_after || run.state_inline) && !words.some(w => lex.person.has(key(w)))) ev.push",
   "replace": "if (false) ev.push",
   "rule": "a state code after a name is structural evidence",
   "tests": [
    "inputs"
-  ]
+  ],
+  "pattern": "gazetteer lists"
  },
  {
   "id": "names-place-field",
@@ -1352,7 +1367,8 @@
   "rule": "the place field of a corrected claim is evidence",
   "tests": [
    "inputs"
-  ]
+  ],
+  "pattern": "gazetteer lists"
  },
  {
   "id": "names-person",
@@ -1362,7 +1378,8 @@
   "rule": "a person is not listed as a place without structural evidence",
   "tests": [
    "inputs"
-  ]
+  ],
+  "pattern": "gazetteer lists"
  },
  {
   "id": "names-claim-corrected",
@@ -1372,6 +1389,7 @@
   "rule": "the claim fields of a correction are searched for names",
   "tests": [
    "inputs"
-  ]
+  ],
+  "pattern": "gazetteer lists"
  }
 ]

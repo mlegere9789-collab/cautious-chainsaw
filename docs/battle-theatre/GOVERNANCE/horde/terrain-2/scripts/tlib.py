@@ -54,6 +54,8 @@ def nps_text(sid):
             base, variant = sid.split('~', 1); variant = '.' + variant
         p = os.path.join(NPSD, base, base + variant + '.txt')
         if not os.path.exists(p):
+            p = os.path.join(NPSD, 'pages', base, base + variant + '.txt')
+        if not os.path.exists(p):
             p = os.path.join(NPSX, base + '.txt')
         raw = open(p, encoding='utf-8', newline='').read()
         nt, nm = build_nview(raw)
@@ -62,6 +64,9 @@ def nps_text(sid):
 
 def nps_ids():
     ids = [d for d in os.listdir(NPSD) if os.path.exists(os.path.join(NPSD, d, d + '.txt'))]
+    pg = os.path.join(NPSD, 'pages')
+    if os.path.isdir(pg):
+        ids += [d for d in os.listdir(pg) if os.path.exists(os.path.join(pg, d, d + '.txt'))]
     if os.path.isdir(NPSX):
         ids += [f[:-4] for f in os.listdir(NPSX) if f.endswith('.txt')]
     return sorted(ids)

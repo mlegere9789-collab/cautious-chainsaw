@@ -92,7 +92,13 @@ def resolve_quote(c):
             j = t.find(b, i + len(a) - len(a))
             if j < 0:
                 continue
-            return t[i:j + len(b)], name, i
+            end = j + len(b)
+            # whole tokens: widen to the surrounding whitespace so that the quote starts and ends on token edges
+            while i > 0 and t[i - 1] != ' ':
+                i -= 1
+            while end < len(t) and t[end] != ' ':
+                end += 1
+            return t[i:end], name, i
         raise SystemExit('SPAN NOT FOUND in %s: %r ... %r' % (pid, a[:80], b[:80]))
     q = calib.norm(c['quote'])
     for name in order:
@@ -177,6 +183,7 @@ def citation(c, man):
     ctx_before = v[variant][max(0, off - 360):off]
     rep = c.get('reprint') or {'status': 'unknown', 'from': None, 'basis': 'the page text read names no source for the passage'}
     qc = rebuild_cols.quote_confidence(page_words(pid)[1], quote)
+    distinct_wc = len({w[1] for w in page_words(pid)[1]})
     if c.get('img'):
         im = image_manifest().get((pid, c['img']))
         if not im:
@@ -209,6 +216,7 @@ def citation(c, man):
         'quote_offset': off,
         'ocr_wc_mean': qc[0] if qc else None,
         'ocr_wc_min': qc[1] if qc else None,
+        'ocr_wc_kind': 'per word (ALTO WC of each word of the quote)' if distinct_wc > 3 else 'page-level: every word of this page carries the same value, so it says nothing about this passage',
         'dateline': c.get('dateline'),
         'attribution': c.get('attribution'),
         'reprint': rep,
@@ -226,8 +234,16 @@ def build():
     claims = load_modules()
     seen = set()
     lines_t, lines_e = [], []
+    errors = []
     for c in claims:
-        cites = [citation(x, man) for x in c['cites']]
+        cites = []
+        for x in c['cites']:
+            try:
+                cites.append(citation(x, man))
+            except SystemExit as e:
+                errors.append('[%s %s] %s' % (c['_module'], c['key'], e))
+        if len(cites) != len(c['cites']):
+            continue
         papers = sorted({x['lccn'] for x in cites})
         for tid in c['ids']:
             k = (tid, c['_module'], c['key'])
@@ -255,6 +271,9 @@ def build():
                 if c.get(k2):
                     line[k2] = c[k2]
             (lines_t if is_timeline else lines_e).append(line)
+    if errors:
+        print('\n'.join(errors))
+        raise SystemExit('%d cite(s) failed; nothing written' % len(errors))
     return lines_t, lines_e
 
 

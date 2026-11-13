@@ -187,10 +187,23 @@ test('rule: structures and works (checks.mjs _structure, _structureProblem, _wor
   await mustFail(wk({ stage_max: 1 }), 'work_wrong_stage', 'a work further along than the row allows');
   await mustFail(wk({ stage_min: 6 }), 'work_wrong_stage', 'a work not yet at stage 6');
   const far = wk({}); far.entities.units = ['us-1c-1d-cutler']; far.checks[0].crew = { units: ['us-1c-1d-cutler'] }; A('WK-001', 'Cutler’s brigade builds the Culp’s Hill main line (breastworks) on the morning of Jul 2', '1863-07-02T06:00', '1863-07-02T10:00'); await mustFail(far, null, 'a crew that is not the one on the hill');
+  // a crew that does show build_works, but at another place than the work: the 1st Pennsylvania Reserves dig on the evening of 2 Jul near Little Round Top, not on Culp's Hill
+  A('WK-002', '1st Pennsylvania Reserves builds the Culp’s Hill main line (breastworks) on the evening of Jul 2', '1863-07-02T20:10', '1863-07-02T20:40');
+  const away = rec('WK-002', 'earthwork_build', '1863-07-02T20:10', '1863-07-02T20:40', '1st Pennsylvania Reserves builds the Culp’s Hill main line', { works: ['E-05'], units: [{ id: 'us-5c-3d-mccandless-1pareserves', via: '1st Pennsylvania Reserves' }] }, [{ type: 'work_stage', work: 'E-05', t: { at: '1863-07-02T20:20' }, stage_min: 3, crew: { units: ['us-5c-3d-mccandless-1pareserves'] } }]);
+  await mustFail(away, 'work_crew_elsewhere', 'a crew that digs, but not at the work');
   const nowork = wk({}); nowork.entities.works = ['E-99']; nowork.checks[0].work = 'E-99'; await mustFail(nowork, 'structure_unknown', 'a work of the works lists that does not exist');
 });
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+test('rule: a place a record uses is named in the row, or declared with the row\'s own words (checks.mjs _bindings)', async () => {
+  A('B-001', 'McPherson Ridge Cutler’s brigade stands in line', '1863-07-01T12:00', '1863-07-01T12:30');
+  const at = place => rec('B-001', 'unit_activity', '1863-07-01T12:00', '1863-07-01T12:30', 'Cutler’s brigade stands in line', { units: ['us-1c-1d-cutler'], places: [place] }, [{ type: 'unit_present', unit: 'us-1c-1d-cutler' }, { type: 'unit_at', unit: 'us-1c-1d-cutler', place: typeof place === 'string' ? place : place.id }]);
+  await mustPass(at('McPherson Ridge'));
+  const r = await mustFail(at('Cemetery Hill'), 'place_not_in_row', 'a place the row does not name'); assert.match(r.problems.find(p => p.code === 'place_not_in_row').detail, /"id": "Cemetery Hill"/, 'the message names the form that works');
+  const d = await mustFail(at({ id: 'Cemetery Hill', via: 'Cutler’s brigade stands in line' }), 'unit_wrong_place', 'a declared place is no proof of the position'); assert.ok(!codesOf(d).has('place_not_in_row') && d.bindings.declared === 1);
+  await mustFail(at({ id: 'Cemetery Hill', via: 'Pickett charges' }), 'place_not_in_row', 'a declaration whose words are not the row\'s');
+  await mustFail(at('Belmont Road'), 'place_unknown', 'a name no repository file carries'); await mustFail(at('Cashtown'), 'place_off_ground', 'a place off the loaded ground');
+});
 test('rule: the scenarios of a record are the record\'s own, and RESULTS says which were run (checks.mjs _scenarioPlan; the T1-015 defect)', async () => {
   const RB = 'bld-rock-creek-rr-bridge', burned = scenario => ({ type: 'structure_state', structure: RB, ...(scenario ? { scenario } : {}), t: { at: '1863-06-27T00:00' }, state: 'Burned', schedule_row: 'S-001', visual: { burn_min: 1 }, quote: 'the Rock Creek railroad bridge are burned on the evening of Jun 26' });
   const base = () => { const r = ex('T1-015'); return r; };
@@ -277,6 +290,8 @@ test('rule: a name is a unit\'s only as a proper noun, and an ordinary word name
   assert.ok(named('The Iron Brigade advances').includes('us-1c-1d-meredith'), 'a nickname with its unit noun');
   assert.ok(!named('an iron works burned').includes('us-1c-1d-meredith'));
   assert.ok(named('Hancock takes command').includes('us-2c'), 'a surname that is no ordinary word names its corps bare');
+  assert.ok(!named('as hancock and pickett said').includes('us-2c') && !named('as hancock and pickett said').includes('cs-1c-pickett'), 'a name in lower case is not a name, whether or not the word is also an ordinary word of the timeline');
+  assert.ok(named('as Pickett said').includes('cs-1c-pickett'));
   assert.ok(named('Fitz Lee’s brigade').includes('cs-cav-flee'), 'F. Lee needs his initial: Fitz Lee names him');
   assert.ok(!named('Lee’s army marches').includes('cs-cav-flee'), 'a bare Lee is the army commander, not Fitzhugh Lee');
   assert.ok(named('Lee’s army marches').includes('cs-anv'));

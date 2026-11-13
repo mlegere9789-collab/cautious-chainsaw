@@ -348,7 +348,15 @@ def analyse_leaf(leaf, L, state):
     def close():
         nonlocal cur
         if cur is not None:
-            rows.append(cur)
+            if cur.get('orphan'):
+                lw = sorted(cur['cells'], key=lambda w: (w['yk'], w['x0']))
+                if header_word_hits(lw) >= 1 or 'issue' in _alpha(line_text(lw)) or 'commis' in _alpha(line_text(lw)):
+                    events.append(('header-remnant', cur['y'], line_text(lw)[:100]))
+                else:
+                    events.append(('row-without-name', cur['y'], ' / '.join(line_text(sorted([w for w in lw if w['rl'] == i], key=lambda w: w['x0']))
+                                                                           for i in sorted({w['rl'] for w in lw}))[:300]))
+            else:
+                rows.append(cur)
             cur = None
 
     for k in kl:
@@ -412,6 +420,10 @@ def analyse_leaf(leaf, L, state):
             continue
         if kind == 'anchor':
             close()
+            for w in k['right']:
+                w['rl'] = 0
+            for w in stray:
+                w['rl'] = -1
             cur = {'left': list(k['left']), 'cells': list(k['right']) + stray, 'y': y, 'last_y': y, 'rk': state['rk'], 'co': state['co'],
                    'stray': bool(stray), 'leaf': leaf, 'nlines': 1}
             stray = []
@@ -428,6 +440,8 @@ def analyse_leaf(leaf, L, state):
                 events.append(('name-continued', y, txt[:100]))
             else:
                 close()
+                for w in stray:
+                    w['rl'] = -1
                 cur = {'left': list(k['left']), 'cells': list(stray), 'y': y, 'last_y': y, 'rk': state['rk'], 'co': state['co'],
                        'stray': bool(stray), 'leaf': leaf, 'nlines': 1, 'nameonly': True}
                 stray = []
@@ -438,13 +452,21 @@ def analyse_leaf(leaf, L, state):
                 events.append(('noise-line-dropped', y, txt[:60]))
             elif page_number_line(k['right'], y):
                 events.append(('page-number', y, txt[:60]))
+            elif any(E - 30 <= w['x0'] < E + 310 and not junk_token(w['w']) and len(w['w']) > 1 for w in k['right']) and not (
+                    cur is not None and cur.get('nameonly') and not cur['cells'] and y - cur['last_y'] <= 45):
+                close()
+                for w in k['right']:
+                    w['rl'] = 0
+                cur = {'left': [], 'cells': list(k['right']), 'y': y, 'last_y': y, 'rk': state['rk'], 'co': state['co'], 'orphan': True,
+                       'leaf': leaf, 'nlines': 1}
             elif cur is not None and y - cur['last_y'] <= 62:
+                for w in k['right']:
+                    w['rl'] = cur['nlines']
                 cur['cells'].extend(k['right'])
                 cur['last_y'] = y
                 cur['nlines'] += 1
-                if any(w['x0'] < E + 310 for w in k['right']):
-                    cur['cont_early'] = True        # a following line holds words of the residence or date columns: a possible misbinding
-                    events.append(('continuation-with-early-columns', y, txt[:100]))
+                if any(w['x0'] < E - 30 and not junk_token(w['w']) for w in k['right']):
+                    events.append(('wrapped-residence', y, txt[:100]))
             else:
                 events.append(('orphan-right-words', y, txt[:100]))
             continue

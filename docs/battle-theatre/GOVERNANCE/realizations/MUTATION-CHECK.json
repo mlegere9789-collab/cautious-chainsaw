@@ -6,20 +6,20 @@
   "gazetteer.mjs": "aa363b063f5e",
   "query.mjs": "c9bc5de3e463",
   "schema.mjs": "291f99673ea0",
-  "checks.mjs": "dcab28ea0c9c",
-  "check.mjs": "ca5f5dbe67e5",
-  "names.mjs": "b33026317332",
+  "checks.mjs": "a888273d5bff",
+  "check.mjs": "88d270f50c64",
+  "names.mjs": "9acfb7e29b57",
   "mutations.json": "78a994490b74"
  },
  "tests": {
-  "realize-rules.test.mjs": "836c9692e5a0",
+  "realize-rules.test.mjs": "51e0e4a0947d",
   "realize.test.mjs": "dc29d55269e0",
-  "realize-inputs.test.mjs": "cf3eb7418b30"
+  "realize-inputs.test.mjs": "487b8eae1c07"
  },
  "total": 126,
- "killed": 2,
+ "killed": 1,
  "survived": 0,
- "not_run": 124,
+ "not_run": 125,
  "survivors": [],
  "notes": {},
  "results": [
@@ -27,12 +27,7 @@
    "id": "lib-quote-boundary",
    "file": "tools/bt/realize/lib.mjs",
    "rule": "hasQuote: a quote starts AND ends on a word boundary",
-   "status": "killed",
-   "killed_by": "realize-rules.test.mjs",
-   "detail": "rule: a quote is found only by whole words, apostrophes and quotation marks folded (lib.mjs hasQuote) | rule: a record's quote must be found in the row, by words (schema.mjs quote_not_in_row)",
-   "tests_run": [
-    "rules"
-   ]
+   "status": "not run"
   },
   {
    "id": "lib-quote-boundary-start",
@@ -578,12 +573,7 @@
    "id": "check-card-class",
    "file": "tools/bt/realize/check.mjs",
    "rule": "an event card is the class card (not a scene)",
-   "status": "killed",
-   "killed_by": "realize-rules.test.mjs",
-   "detail": "rule: the two halves of the gate for one row (check.mjs coverageOf): a card is a class of its own, a partial realization is covered strictly only by a register entry",
-   "tests_run": [
-    "rules"
-   ]
+   "status": "not run"
   },
   {
    "id": "check-epilogue-class",
@@ -691,7 +681,12 @@
    "id": "query-name-case",
    "file": "tools/bt/realize/query.mjs",
    "rule": "a unit is named as a proper noun (capitalised)",
-   "status": "not run"
+   "status": "killed",
+   "killed_by": "realize-rules.test.mjs",
+   "detail": "rule: a name is a unit's only as a proper noun, and an ordinary word names it only in a naming context (query.mjs unitsNamedIn, lib.mjs wordInfo; the Day and Stone defects)",
+   "tests_run": [
+    "rules"
+   ]
   },
   {
    "id": "query-name-ambiguous",
