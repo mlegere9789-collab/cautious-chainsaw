@@ -266,3 +266,48 @@ test('?veg=off keeps the module out of a visit; a missing data file is an error 
   const { ctx } = standIn(); ctx.urls = { data: pathToFileURL(path.join(APP, 'nothing-here') + path.sep).href }; await assert.rejects(() => VEG.init(ctx), /could not be read/);
   VEG.dispose();
 });
+
+// ---------------------------------------------------------------------------------------------------------------------------------- the WebGL2 path with a recording GL
+// A stand-in for the GL context that records every call and answers like a driver that accepts everything. It judges nothing about the shaders (a browser run does that); it proves that
+// the module's own code (data, meshes, programs, textures, buffers, the two hooks, the plan, the draw calls, the clean-up) runs through without a script error, draws what it should
+// and gives every GL object back.
+function recordingGL() {
+  const calls = {}, consts = {}; let id = 0;
+  const gl = new Proxy({}, { get(t, k) {
+    if (typeof k !== 'string') return undefined; if (k in t) return t[k];
+    if (/^[A-Z][A-Z0-9_]+$/.test(k)) { consts[k] ??= 1000 + Object.keys(consts).length; return consts[k]; }
+    t[k] = (...a) => { (calls[k] ||= []).push(a); if (k === 'getParameter') return 32; if (/^create/.test(k)) return { id: ++id, k }; if (k === 'getUniformLocation') return { loc: a[1] }; if (k === 'getProgramParameter') return true; return undefined; };
+    return t[k]; } });
+  return { gl, calls };
+}
+test('the module on a stand-in theatre with a recording GL: programs, hooks, the plan of the troops, the draw calls, and clean-up', async () => {
+  const { gl, calls } = recordingGL(), progs = [], hooks = [];
+  const R = { gl, W: 800, H: 500, progs, prog(name, vs, fs) { const p = { name, vs, fs }; progs.push(p); return p; }, finishProgs() {} };
+  const { ctx, th } = standIn('webgl2'); ctx.host.R = R; ctx.host.addSceneHook = h => { hooks.push(h); return () => { const i = hooks.indexOf(h); if (i >= 0) hooks.splice(i, 1); }; };
+  // a stage with one formation that walks east through the middle of the Wheatfield between 2 July 12:00 and 20:00 (the shape the plan reads: cache.at, presence, bbox, layer, nL, _pos, _heading)
+  const [wx, wz] = (() => { const r = wheatfield.rings[0]; let a = 0, b = 0, n = 0; for (let i = 0; i < r.length; i += 2) { a += r[i]; b += r[i + 1]; n++; } return TER.xz(a / n, b / n); })();
+  const t0 = T('1863-07-02T12:00') * 60, rec = { id: 0 };
+  th.stage = { nL: 1, layer: { units: [{ id: 'WALKER' }] }, presence: {}, bbox: [[-25, 25, -8, 8]], cache: { at: () => ({ u: [rec] }) }, _pos(r, t, out) { out[0] = wx - 150 + (t - t0) / 60 * 0.6; out[1] = wz; out[2] = 0; }, _heading: () => 0 };
+  await VEG.init(ctx);
+  assert.equal(progs.length, 3, 'three programs: ground cover, trees, tree shadows'); assert.equal(hooks.length, 1, 'one scene hook');
+  const v = th.vegetation, s0 = v.status(); assert.equal(s0.api, 'webgl2'); assert.match(s0.status, /drawn on WebGL2/); assert.ok(s0.decalTriangles > 100000 && s0.trees > 100000, JSON.stringify(s0));
+  const cam = { x: wx, y: 160, z: wz + 300, yaw: Math.PI, pitch: -0.4, fov: 60 * Math.PI / 180, near: 0.25, far: 14000 };
+  let guard = 0; while (v.status().plan && !v.status().plan.done && guard++ < 5000) VEG.update({ tMin: T('1863-07-02T12:00'), dtMs: 16, cam, paused: false, speed: 1 });
+  const s1 = v.status(); assert.ok(s1.plan && s1.plan.done, 'the plan of the troops is whole'); assert.ok(s1.plan.marked > 20, 'the walking formation marked ground: ' + s1.plan.marked);
+  const p = v.planner(); assert.ok(p.visitAt(wx, wz) < 1e8, 'the middle of the Wheatfield was walked on'); assert.ok(p.visitAt(wx, wz) > T('1863-07-02T12:00') && p.visitAt(wx, wz) < T('1863-07-02T20:00'), 'at a minute inside the walk');
+  assert.ok(s1.stateWrites >= 1 && (calls.texSubImage2D || []).length >= 2, 'the state texture and the table of visits were uploaded');
+  const draws0 = (calls.drawElementsInstanced || []).length; hooks[0].scene(gl, R);
+  assert.equal((calls.drawArrays || []).length, 1, 'the ground cover is one draw call'); assert.ok((calls.drawElementsInstanced || []).length > draws0, 'trees are drawn by chunks'); assert.ok(v.status().treesDrawn > 0);
+  const d1 = (calls.drawElementsInstanced || []).length; hooks[0].shadow(gl, 0, R); assert.ok((calls.drawElementsInstanced || []).length > d1, 'the trees near the camera cast shadows');
+  v.setOn(false); const d2 = (calls.drawElementsInstanced || []).length, a2 = (calls.drawArrays || []).length; hooks[0].scene(gl, R); assert.equal((calls.drawElementsInstanced || []).length, d2); assert.equal((calls.drawArrays || []).length, a2, 'switched off: nothing is drawn');
+  v.setOn(true); th.bus.emit('scenario'); assert.equal(v.status().plan.done, false, 'a change of scenario starts the plan again'); assert.equal(v.status().plan.marked, 0);
+  VEG.dispose(); assert.equal(hooks.length, 0, 'the hook is given back'); assert.equal(th.vegetation, undefined);
+  assert.equal((calls.deleteProgram || []).length, 3); assert.ok((calls.deleteBuffer || []).length >= 6 && (calls.deleteTexture || []).length >= 2 && (calls.deleteVertexArray || []).length >= 3, 'every GL object is deleted');
+});
+test('a program that fails to link is taken out of the renderer\'s list, so the layers that start after it still start', async () => {
+  const { gl } = recordingGL(); const progs = [];
+  const R = { gl, W: 800, H: 500, progs, prog(name, vs, fs) { const p = { name }; progs.push(p); return p; }, finishProgs() { throw new Error('shader ' + progs[0].name); } };
+  const { ctx } = standIn('webgl2'); ctx.host.R = R; ctx.host.addSceneHook = () => () => {};
+  await assert.rejects(() => VEG.init(ctx), /shader veg-decal/); assert.equal(progs.length, 0, 'none of its programs stays in the list');
+  VEG.dispose();
+});

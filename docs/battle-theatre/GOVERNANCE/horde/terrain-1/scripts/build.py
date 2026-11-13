@@ -54,7 +54,7 @@ def resolve(c):
         if not idxs: raise SystemExit('NOT FOUND in %s: %r' % (ref, q))
         if len(idxs) > 1 and occ is None: raise SystemExit('AMBIGUOUS (%d) in %s: %r' % (len(idxs), ref, q))
         i = idxs[occ or 0]; a, b = nm[i], nm[i + len(qn) - 1] + 1
-        return dict(source_id=ref, source_class=lib_class(ref), part=None, report_id=None, printed_page=None, page_hint=tlib.page_hint(raw, a), quote=q, offset=[a, b],
+        return dict(source_id=ref, source_class=lib_class(ref), part=None, report_id=None, printed_page=c.get('page'), page_basis=('running head read in the text layer (checked by hand)' if c.get('page') else 'heuristic hint only (nearest preceding number); not a citation page'), page_hint=tlib.page_hint(raw, a), quote=q, offset=[a, b],
                     local_path=os.path.relpath(p, ROOT), match='exact (whitespace-normalised, case-sensitive)', role=c['role'], note=c.get('note'))
     if src == 'NPS':
         p, raw, nt, nm = tlib.nps_text(ref)

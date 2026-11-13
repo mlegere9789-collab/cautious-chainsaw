@@ -46,7 +46,17 @@ def expand_wp_tokens(s):
         m = re.match(r'^(\d+[a-z]?)\b', part)
         if m and last:
             ids.append('%s-%s' % (last, m.group(1)))
-    return ids
+    # ranges and slash lists anywhere in running text ("Build the chain WP-ARCH-04..33 against ...", "WP-INFRA-01/02")
+    for m in re.finditer(r'(WP-[A-Z0-9]+)-(\d+)\.\.(\d+)', s):
+        ids += ['%s-%02d' % (m.group(1), k) for k in range(int(m.group(2)), int(m.group(3)) + 1)]
+    for m in re.finditer(r'(WP-[A-Z0-9]+)-(\d+[a-z]?)((?:/\d+[a-z]?)+)', s):
+        ids += ['%s-%s' % (m.group(1), x) for x in m.group(3).split('/') if x]
+    seen, out = set(), []
+    for x in ids:
+        if x not in seen:
+            seen.add(x)
+            out.append(x)
+    return out
 
 
 def wp_to_nodes(roadmap):

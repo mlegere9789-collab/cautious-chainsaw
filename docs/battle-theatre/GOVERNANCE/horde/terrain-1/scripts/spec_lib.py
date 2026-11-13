@@ -2,9 +2,10 @@
 texts: the quote must be found verbatim (whitespace-normalised, case-sensitive, line-break hyphenation joined) in the named report
 (Official Records) or source text, else the build stops."""
 
-def C(src, ref, quote, occ=None, role='supports', note=None):
-    """citation. src: 'OR1' | 'OR2' | 'OR3' | 'LIB' | 'NPS'. ref: report id like 'R374' (OR) or the library / NPS source id."""
-    return dict(src=src, ref=ref, quote=quote, occ=occ, role=role, note=note)
+def C(src, ref, quote, occ=None, role='supports', note=None, page=None):
+    """citation. src: 'OR1' | 'OR2' | 'OR3' | 'LIB' | 'NPS'. ref: report id like 'R374' (OR) or the library / NPS source id.
+    page: printed page of a library book read by hand from the running head in the text layer (replaces the heuristic hint)."""
+    return dict(src=src, ref=ref, quote=quote, occ=occ, role=role, note=note, page=page)
 
 def S(sc, kind, claim, tier, support, cits=(), note=None):
     """sub-claim. kind: unit | guns | place | hour | length | count | state_at_start | damage | construction_window | movement | other.

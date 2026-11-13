@@ -88,10 +88,10 @@ A('wp-pagec-30', area='pages', route='candidate-group', size='S',
   files=cand_files('wp-pagec-30'), touches=['404.html'],
   reads=['release/R1g/dist/404.html', 'release/R1g/dist/site-nav.js'],
   acceptance=(
-      'Group on 404.html with a test, red on R1g (no nav, no main, no form) and green with the group: a skip link to #main, a <nav aria-label> with at least Map, Search, Historian and Turning Points whose hrefs resolve to files of the tree, the existing content wrapped in <main id="main">, '
-      'a <form role="search" action="/search" method="get"> with a labelled <input name="q" type="search"> (the search page reads q: assert that search.html reads the parameter named q, otherwise use the name it reads), noindex kept, title and h1 text unchanged (A01), '
-      'the pages-fixes rules (12 px floor, 44 px targets: assert the existing a.cta rule is still present) kept, no external request added, copy_lint 0 findings on the file.'),
-  short='Group on 404.html: skip link, nav with resolving links, <main id=main>, labelled search form whose parameter search.html reads, noindex and title/h1 unchanged, 44 px rules kept, copy_lint 0. Red on R1g (no nav, main, form), green with group.',
+      'Group on 404.html with a test, red on R1g (no nav, no main, no search entry) and green with the group: a skip link to #main, a <nav aria-label> with at least Map, Search, Historian and Turning Points whose hrefs resolve to files of the tree, the existing content wrapped in <main id="main">, '
+      'and a search entry that does what the destination can do: search.html reads no query parameter today (no URLSearchParams or location.search in the file), so the group adds a link labelled "Search everything" to the search page (the test greps search.html for a query-parameter reader and, only if one exists, requires a <form role="search" method="get"> with a labelled input that uses exactly that parameter name); '
+      'noindex kept, title and h1 text unchanged (A01), the pages-fixes rules (12 px floor, 44 px targets: assert the existing a.cta rule is still present) kept, no external request added, copy_lint 0 findings on the file.'),
+  short='Group on 404.html: skip link, nav with resolving links, <main id=main>, a link to the search page (a form only if search.html reads a query parameter: it reads none today), noindex and title/h1 unchanged, 44 px rules kept, copy_lint 0. Red on R1g, green with group.',
   owed='Lighthouse accessibility 100 and the 404 status on missing paths in both spellings (header matter, release workstream).')
 
 A('wp-pagec-33', area='pages', route='candidate-group', size='S',

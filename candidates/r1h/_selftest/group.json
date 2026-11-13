@@ -20,6 +20,14 @@
    "expect": 1,
    "regex": true,
    "note": "no-op bundle-target patch: proves the bundle file is resolved through version.json; expect is the count in the built css (adjusted by the self-test below)"
+  },
+  {
+   "id": "r1h-selftest-js-noop",
+   "target": "js",
+   "find": "Xe.sort((xt,It)=>xt.name.localeCompare(It.name))",
+   "repl": "Xe.sort((xt,It)=>xt.name.localeCompare(It.name))",
+   "expect": 1,
+   "note": "no-op: proves the entry bundle is resolved through version.json and that a one-anchor patch asserts once on the R1g bundle"
   }
  ]
 }

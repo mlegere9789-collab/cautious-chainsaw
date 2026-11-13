@@ -272,6 +272,7 @@ const NOT_RUN = ['a real GPU: no frame time, long task or input delay was measur
   'other visits: ?history=stub, ?ext=off, ?crowd=off, a phone-sized page, a second entry after Back', 'other browsers (Safari, Firefox) and real phones'];
 async function main() {
   const a = process.argv.slice(2), opt = k => { const i = a.indexOf(k); return i >= 0 ? a[i + 1] : undefined; }, has = k => a.includes(k);
+  if (has('--help') || has('-h')) { const head = []; for (const l of fs.readFileSync(fileURLToPath(import.meta.url), 'utf8').split('\n')) { if (!l.startsWith('//')) break; head.push(l.slice(3)); } console.log(head.join('\n')); return; }
   const frames = +opt('--frames') || 20, crawlMax = +opt('--crawl-max') || 150, query = opt('--query') || '', only = opt('--only'), t0 = Date.now(), print = s => console.log(s); let dist = path.resolve(opt('--dist') || path.join(REPO, 'deliver/bt-staging/dist')), zip = opt('--zip') && path.resolve(opt('--zip')), sourceRoot = path.resolve(opt('--source') || BT);
   const save = () => { if (opt('--json')) fs.writeFileSync(path.resolve(opt('--json')), JSON.stringify(rep, null, 1)); };
   const rep = { when: new Date().toISOString(), frames, query, official: !query && frames >= 10, dist, mode: has('--pack') ? 'pack' : 'dist' }; const failures = [], notes = [];

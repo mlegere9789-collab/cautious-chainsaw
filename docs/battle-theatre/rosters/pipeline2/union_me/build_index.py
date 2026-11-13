@@ -113,9 +113,9 @@ def main():
     raw_dir = os.path.join(M.TMP, SRC)
     tp, ip = P.write(ptext, pidx, raw_dir, IDENT)
     pm_pos = R.PageMap(ip, os.path.join(raw_dir, IDENT + '_page_numbers.json'))
-    recipe = {'scripts': {n: M.sha256_file(os.path.join(HERE, n)) for n in ('build_index.py', 'me_index.py', 'mtable.py', 'pos_text.py', 'mlib.py')},
-              'rule': 'one line per visual row of the body of each leaf of the two volunteer lists (leaves 12-578 and 630-1226); rows grouped by the vertical '
-                      'centre corrected for the tilt of the page; words of a row left to right, joined by one blank; leaves outside the lists are empty'}
+    recipe = {'rule': 'one line per visual row of the body of each leaf of the two volunteer lists (leaves 12-578 and 630-1226); rows grouped by the vertical '
+                      'centre of the words corrected for the tilt of the page; the words of a row from left to right, joined by one blank; leaves outside the lists are empty; '
+                      'the words are those of the item\'s djvu.xml (sha256 above), aligned to the search text word by word'}
     M.pin_derived_text(SRC, TID_POS, TID, tp, ip, XML, recipe)
 
     def make(r, key):

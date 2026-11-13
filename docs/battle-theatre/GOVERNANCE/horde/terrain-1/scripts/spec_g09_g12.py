@@ -12,14 +12,17 @@ ROWS.append(R(
     sub=[
         S('a', 'unit', "Battalion and batteries: Col. H. C. Cabell's battalion: Manly's (Co. A, 1st NC Artillery), McCarthy's (1st Richmond Howitzers), Fraser's (Pulaski, Georgia) and Carlton's (Troup, Georgia) batteries.", 'documented', 'supported', [
             C('OR2', 'R435', "Captain [H. H.J Carlton's battery and a section of Captain McCarthy's battery (two Napoleons) were ordered to the left of the line, in front of Pickett's division"),
-            C('OR2', 'R438', "I herewith have the honor to report the part Capt. J. C. Fraser's battery took in the engagements near Gettysburg, Pa., on the 2d and 3d instant")]),
+            C('OR2', 'R438', "I herewith have the honor to report the part Capt. J. C. Fraser's battery took in the engagements near Gettysburg, Pa., on the 2d and 3d instant"),
+            C('OR2', 'R437', "Report of Capt. B. C. Manly, Company A, First North Carolina Artillery"),
+            C('OR2', 'R436', "Report of Capt. E. S. McCarthy, First Richmond Howitzers"),
+            C('OR2', 'R438', "Report of Lieut. W. J. Furlong, Pulaski (Georgia) Artillery")]),
         S('b', 'count', "Guns: Manly four; McCarthy a rifle section (two 3-inch) and a Napoleon section (two); Fraser four (two 10-pdr Parrotts and two 3-inch); Carlton four (a Parrott section and a 12-pdr howitzer section) = 16; Pendleton: 1 3-inch rifle lost; Alexander (1907): 18.", 'documented', 'conflict', [
             C('OR2', 'R437', "I crossed the Potomac with four guns"),
             C('OR2', 'R438', "the battery opened fire from four guns (two lO-pounder Parrotts and two 3-inch rifled guns)"),
             C('OR2', 'R440', "with the four pieces of my command"),
             C('OR2', 'R435', "Captain [H. H.J Carlton's battery and a section of Captain McCarthy's battery (two Napoleons) were ordered to the left of the line, in front of Pickett's division"),
             C('OR2', 'R428', "Lost 1 3-inch rifle, turned into ordnance train, and 1 caisson, disabled at Gettysburg"),
-            C('LIB', 'ALEXANDER-1907', "was engaged with 18 guns; and in front of Barksdale were 18 of my own battalion", note="printed page 395 (running head in the text)")],
+            C('LIB', 'ALEXANDER-1907', "was engaged with 18 guns; and in front of Barksdale were 18 of my own battalion", page='395')],
           note="16 is the sum of four per-battery statements (the OR gives no battalion total); the McCarthy rifle/Napoleon sections are stated in Cabell's report (two 3-inch rifles + two Napoleons)."),
         S('c', 'place', "2 Jul: on the edge of the wood, the right resting near the road from Gettysburg to Emmitsburg; the enemy's batteries 600 or 700 yd off in a peach orchard and a rocky mountain on the right.", 'documented', 'supported', [
             C('OR2', 'R435', "Near the crest of the hill, I turned to the right, and placed the battalion in position on the edge of the wood, the right resting near the road leading from Gettysburg to Emmitsburg"),
@@ -79,7 +82,7 @@ ROWS.append(R(
             C('OR1', 'R320', "This position, without infantry support and under an enfilading artillery fire, we were ordered to hold at all hazards"),
             C('NPS', 'NPS-CLI-ERR', "Field Stone Wall, Abraham Trostle Farm. (pre-1863, Contributing)"),
             C('NPS', 'NPS-CLI-ERR', "The north portion of the wall is Bigelow’s Battery Wall"),
-            C('LIB', 'BL-3', "Bigelow's 9th Massachusetts made a stand close bv the Trostle house in the corner of the field through which he had retired fighting with prolonges fixed"),
+            C('LIB', 'BL-3', "Bigelow's 9th Massachusetts made a stand close bv the Trostle house in the corner of the field through which he had retired fighting with prolonges fixed", page='310', note="Henry J. Hunt, 'The Second Day at Gettysburg' (byline in the text layer); OCR 'bv'"),
             C('LIB', 'MEADE-LL-v2', "Bigelow's Ninth Massachusetts Battery makes a final stand near the Trostle house"),
             C('LIB', 'NJ-TOOMBS-1888', "Bigelow's battery, which took position near the Trostle house")],
           note="The wall pre-existed (NPS: pre-1863): no construction animation (PDF B.7.3 rule). The PDF's 'stone wall near Trostle's house' is thus documented in NPS and three books; the OR says 'two stone walls met at an obtuse angle'."),
@@ -135,7 +138,10 @@ ROWS.append(R(
         S('b', 'state_at_start', "3 Jul state: prepared: a slight earthwork in front of the guns, built on McGilvery's order during the night and early morning of 3 Jul, sufficient to resist all projectiles; the cannoneers sheltered behind it; Tyler: some shelter thrown up for the artillery along the crest.", 'documented', 'supported', [
             C('OR1', 'R318', "In front of these guns I had a slight earthwork thrown up, which proved sufficient to resist all the projectiles which struck it"),
             C('OR1', 'R315', "The infantry had constructed a slight breastwork of such materials a& the erround afforded along the entire crest of the hill, and some shelter Had been thrown up for the artillery", note="OCR 'a&' and 'erround'"),
-            C('LIB', 'ME-GB-1898', "the cannoneers were ordered not to reply, but to shelter themselves behind the earthworks in front of their guns")]),
+            C('LIB', 'ME-GB-1898', "the cannoneers were ordered not to reply, but to shelter themselves behind the earthworks in front of their guns"),
+            C('NPS', 'NPS-CLR-ROT-V1', "Eight sets of earthworks presently on landscape originated during the battle, but were reconstructed or rehabilitated by either the Gettysburg Battlefeld Memorial Association or the War Department."),
+            C('NPS', 'NPS-CLR-ROT-V1', "McGilvery’s Battalion Lunettes (1891)")],
+          note="NPS: McGilvery's battalion lunettes on the ground today originated in the battle and were reconstructed or rehabilitated in 1891: the 1863 works were lunettes, their dimensions unknown."),
         S('c', 'count', "2 Jul evening line: Battery I 5th US, an unnamed volunteer battery, three guns of the 5th Mass., two of Thompson's; Dow's 6th Maine reported just before sundown; Pettit's came and left; Seeley's placed about 8 p.m. No gun total is stated.", 'documented', 'supported', [
             C('OR1', 'R318', "In the meantime I formed a new line of artillery about 400 yards to the rear, close under the woods"),
             C('OR1', 'R318', "Battery I, Fifth Regular, and a volunteer battery which I have never been able to learn the name of; three guns of the Fifth Masschusetts and two of Captain Thompson's Pennsylvania battery"),
@@ -146,7 +152,7 @@ ROWS.append(R(
             C('OR1', 'R318', "A brook, running through low bushes parallel to our front, midway between ours and the enemy's lines")],
           note="Silence of McGilvery's report on works on 2 Jul."),
         S('e', 'place', "Place: 'the low ground on our left center'; 'Plum Run line' is Hunt's name (B&L) for the line in front of the wood beyond Plum Run formed from the serviceable batteries.", 'documented', 'supported', [
-            C('LIB', 'BL-3', "that is, on what we have called the \"Plum Run line.\"", note="curly quotation marks in the text are straight in the OCR")],
+            C('LIB', 'BL-3', "that is, on what we have called the \"Plum Run line.\"", page='310', note="Henry J. Hunt, 'The Second Day at Gettysburg' (byline in the text layer)")],
           note="The OR report names the ground but not Plum Run."),
         S('f', 'hour', "Cannonade on 3 Jul: the enemy opened at about 12.30 o'clock with at least 140 guns (McGilvery).", 'documented', 'supported', [
             C('OR1', 'R318', "At about 12.30 o'clock the enemy opened a terrific fire upon our lines with at least one hundred and forty guns")]),

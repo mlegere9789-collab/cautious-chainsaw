@@ -16,11 +16,15 @@ SOURCES = [
     ('ME-APPD-1861', 'ME-APPD-1861.1861', 'appendixdofannua00main', 'Appendix "D" of the Annual report of the adjutant general of the state of Maine, December 31, 1861',
      '1862', None, 'text pinned, NOT parsed (see the report)'),
     ('ME-GETT-1898', 'ME-GETT-1898.1898', 'maineatgettysbur01main', 'Maine at Gettysburg',
-     '1898', None, 'text pinned, NOT parsed (see the report)'),
+     '1898', None, 'parsed: the participants lists of the 14 units; NOT parsed: the casualty lists and the special-duty paragraphs (see the report)'),
 ]
 XML = {'ME-AGR-1863-APPD': 'annualreportofad1863main_djvu.xml', 'ME-SUPP-1867': 'supplementtoannu00main_djvu.xml', 'ME-GETT-1898': 'maineatgettysbur01main_djvu.xml',
        'ME-APPD-1861': 'appendixdofannua00main_djvu.xml'}
 RIGHTS = 'public domain (United States publication before 1929)'
+# facts of the transient word-box files, read when they were downloaded (the files are deleted after the production run)
+XML_FACTS = {'supplementtoannu00main_djvu.xml': (60693021, 'f2e3467537c743f50ff9f167db4f81396304df905c3839ea4cc975af94a1bcae'),
+             'annualreportofad1863main_djvu.xml': (59959006, '869aa626276c9a297ae04eedc6ef89b59de0724b9e4fa55503cf6d14121ddda2'),
+             'maineatgettysbur01main_djvu.xml': (18214090, '0bd25a6c1f807f2962df3ade25dae1bc93508c596730ae83cb93f8ce69ecbc8c')}
 
 
 def main():
@@ -46,7 +50,11 @@ def main():
         xml = XML.get(sid)
         xp = os.path.join(M.XMLDIR, xml) if xml else None
         xinfo = None
-        if xp and os.path.exists(xp):
+        if xml in XML_FACTS and not os.path.exists(xp):
+            nb, sh = XML_FACTS[xml]
+            xinfo = {'name': xml, 'bytes': nb, 'sha256': sh, 'url': 'https://archive.org/cors/%s/%s' % (ident, xml), 'kept': 'transient: deleted after the production run; word boxes only, used to build rows'}
+            manifest['files'].append({'source_id': sid, 'role': 'djvu_xml', 'url': xinfo['url'], 'path': None, 'bytes': nb, 'sha256': sh, 'retrieved_utc': '2026-11-13 (during the run of this item)', 'status': 'FETCHED (transient, deleted after use)'})
+        elif xp and os.path.exists(xp):
             xinfo = {'name': xml, 'bytes': os.path.getsize(xp), 'sha256': M.sha256_file(xp), 'url': 'https://archive.org/cors/%s/%s' % (ident, xml),
                      'kept': 'transient: deleted after the production run; word boxes only, used to build rows (see pipeline2/union_me)'}
             manifest['files'].append({'source_id': sid, 'role': 'djvu_xml', 'url': xinfo['url'], 'path': 'tmp/library/rosters/_me_xml/' + xml, 'bytes': xinfo['bytes'], 'sha256': xinfo['sha256'],

@@ -3,6 +3,8 @@
 //
 //   node candidates/r1h/_lib/record.mjs <id> --test "node --test tests/data/embedded.test.mjs" [--test "..."] \
 //        --red-cmd "node --test tests/data/embedded.test.mjs" --red-exit 1 --red-log tmp/r1h-cand/<id>/red.log [--files a,b,c]
+//   node candidates/r1h/_lib/record.mjs <id> --request-note docs/battle-theatre/GOVERNANCE/horde/requests/main-site-<id>.md
+//        (route "release-request": the work is a change in files the release workstream owns; the note must exist and name the exact change)
 //   node candidates/r1h/_lib/record.mjs <id> --check      re-run every recorded command and compare exit codes with STATUS.json; writes nothing
 //
 // Writes candidates/r1h/<id>/STATUS.json (route "source-rebuild"): every --test command is run here (through bash, from the repository root)
@@ -30,6 +32,11 @@ const run = (cmd) => {
 let prev = {};
 try { prev = JSON.parse(fs.readFileSync(statusPath, 'utf8')); } catch { /* new */ }
 
+if (args.includes('--check') && prev.route === 'release-request') {
+  const okNote = prev.request_note && fs.existsSync(path.join(REPO, prev.request_note));
+  console.log(`${okNote ? 'same' : 'DIFFERENT'}: request note ${prev.request_note}`);
+  process.exit(okNote && prev.passes === true ? 0 : 1);
+}
 if (args.includes('--check')) {
   const cmds = (prev.tests || []).map((t) => t.cmd);
   if (!cmds.length) { console.error(`${id}: no recorded commands in STATUS.json`); process.exit(1); }
@@ -38,6 +45,19 @@ if (args.includes('--check')) {
   process.exit(bad || prev.passes !== true ? 1 : 0);
 }
 
+const noteArg = one('--request-note');
+if (noteArg) {
+  const noteOk = fs.existsSync(path.join(REPO, noteArg)) && fs.statSync(path.join(REPO, noteArg)).size > 200 && /^docs\/battle-theatre\/GOVERNANCE\/horde\/requests\/main-site-[a-z0-9-]+\.md$/.test(noteArg);
+  const hand = fs.existsSync(path.join(cdir, 'HANDOFF.md'));
+  const pr = [];
+  if (!noteOk) pr.push('request note missing, under 200 bytes or not named docs/battle-theatre/GOVERNANCE/horde/requests/main-site-<id>.md');
+  if (!hand) pr.push('no HANDOFF.md');
+  const o = { ...prev, id, route: 'release-request', checked_at: new Date().toISOString(), request_note: noteArg, handoff_exists: hand, passes: pr.length === 0, problems: pr, state: pr.length === 0 ? 'handed-off' : 'built' };
+  fs.mkdirSync(cdir, { recursive: true });
+  fs.writeFileSync(statusPath, JSON.stringify(o, null, 1) + '\n');
+  console.log(`${id}: passes=${o.passes}${pr.length ? '\n  ' + pr.join('\n  ') : ''}`);
+  process.exit(o.passes ? 0 : 1);
+}
 const testCmds = all('--test');
 const red = { cmd: one('--red-cmd'), exit: Number(one('--red-exit')), log: one('--red-log') };
 const redOk = Boolean(red.cmd) && Number.isInteger(red.exit) && red.exit !== 0 && red.log && fs.existsSync(path.join(REPO, red.log)) && fs.statSync(path.join(REPO, red.log)).size > 0;

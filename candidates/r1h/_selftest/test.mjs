@@ -10,3 +10,10 @@ test('404.html carries the self-test marker only when the group is applied', () 
 test('the no-op bundle patch left the css readable and unchanged in size class', () => {
   assert.ok(t.text('assets/' + t.json('version.json').css).includes('prefers-reduced-motion'));
 });
+test('the entry bundle resolves through version.json and the no-op js patch left it byte-identical to the base', async () => {
+  const fs = await import('node:fs');
+  const path = await import('node:path');
+  const entry = 'assets/' + t.json('version.json').entry;
+  assert.equal(t.text(entry).split('Xe.sort((xt,It)=>xt.name.localeCompare(It.name))').length - 1, 1);
+  if (t.patched) assert.equal(fs.readFileSync(t.file(entry), 'utf8'), fs.readFileSync(path.join(t.baseDir, entry), 'utf8'));
+});

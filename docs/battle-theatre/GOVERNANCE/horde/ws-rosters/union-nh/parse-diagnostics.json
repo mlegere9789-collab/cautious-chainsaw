@@ -176,7 +176,7 @@
    "bare-surname": 2
   },
   "by_company": {
-   "-": 140,
+   "-": 145,
    "A": 270,
    "B": 268,
    "BAND": 22,
@@ -188,44 +188,48 @@
    "G": 217,
    "H": 189,
    "I": 194,
-   "J": 1,
    "K": 248,
-   "L": 4,
    "NCS": 1,
    "UNAS": 71
   },
   "rows_without_page": 0,
   "remark_names_gettysburg": 169,
   "remark_names_gettysburg_with_july_1_to_3_63_date": 147,
+  "remark_has_july_1_to_3_63_date": 164,
   "page_first": 29,
   "page_last": 96,
   "file": {
    "path": "docs/battle-theatre/rosters/data2/union/nh/2nd-new-hampshire-infantry.jsonl.gz",
    "rows": 2654,
-   "raw_bytes": 568236,
-   "gz_bytes": 118411,
-   "sha256_raw": "880b6c0602fe8b6975dea302374b8cfbc7c82c8571194c080ab6ead62a389ea4"
+   "raw_bytes": 568231,
+   "gz_bytes": 118398,
+   "sha256_raw": "c23bcb65637c9e9579bcb66b657d02eae3084a1df294379bfc9e06dfc3eed6a0"
   },
   "aux": {
-   "path": "docs/battle-theatre/rosters/data2/union/nh/2nd-new-hampshire-infantry.aux.json.gz",
-   "raw_bytes": 163632,
-   "gz_bytes": 33957,
-   "sha256_raw": "c6d41b949d24514b9adbf9228de34d6104e509cb23a8828380164f08daaf9b9e",
+   "path": "docs/battle-theatre/rosters/data2/union/nh/2nd-new-hampshire-infantry.flags.json.gz",
+   "raw_bytes": 82165,
+   "gz_bytes": 26616,
+   "sha256_raw": "ecd17f61765badcbd370d2fc268c20734a33c59a728d188e4a04a3756d9fd606",
    "roll_status": {
-    "off": 1124,
-    "unk": 1177,
-    "on": 353
+    "yes": 353,
+    "no": 1124,
+    "unknown": 1177
    },
-   "ocr_uncertain_codes": {
-    "(none)": 1901,
-    "year": 505,
-    "name-case": 23,
-    "name-char": 92,
-    "company": 50,
-    "garbage": 133,
-    "age": 30,
-    "head": 38,
-    "period-for-comma": 14
+   "ocr_uncertain_rows": 758,
+   "ocr_uncertain_by_code": {
+    "A": 30,
+    "C": 55,
+    "G": 133,
+    "H": 38,
+    "N": 126,
+    "Y": 505
+   },
+   "head_kinds": {
+    "bare-surname": 2,
+    "comma-lost": 19,
+    "irregular": 13,
+    "reviewed": 4,
+    "xref": 90
    },
    "errata_found": 2,
    "errata_matched_rows": 2
@@ -445,7 +449,7 @@
    "xref": 41
   },
   "by_company": {
-   "-": 133,
+   "-": 135,
    "A": 247,
    "B": 250,
    "BAND": 23,
@@ -458,43 +462,46 @@
    "H": 214,
    "I": 217,
    "K": 230,
-   "L": 2,
    "NCS": 6,
    "UNAS": 163
   },
   "rows_without_page": 0,
   "remark_names_gettysburg": 47,
   "remark_names_gettysburg_with_july_1_to_3_63_date": 30,
+  "remark_has_july_1_to_3_63_date": 44,
   "page_first": 212,
   "page_last": 280,
   "file": {
    "path": "docs/battle-theatre/rosters/data2/union/nh/5th-new-hampshire-infantry.jsonl.gz",
    "rows": 2606,
-   "raw_bytes": 594027,
-   "gz_bytes": 127925,
-   "sha256_raw": "1dda6ec091b9aaf2e134cd05394d80c7279db0a13052f4a67c7bd9b971792fc9"
+   "raw_bytes": 594025,
+   "gz_bytes": 127924,
+   "sha256_raw": "9eec7c2c46380abdf28bdbdb5cb7afeec39a3cbfa60f55a58e5368c3f3c2e057"
   },
   "aux": {
-   "path": "docs/battle-theatre/rosters/data2/union/nh/5th-new-hampshire-infantry.aux.json.gz",
-   "raw_bytes": 170147,
-   "gz_bytes": 34606,
-   "sha256_raw": "d1db62450cf6d6545d8f1a5a43499d87030f149836f501a10c55079d0e8584a6",
+   "path": "docs/battle-theatre/rosters/data2/union/nh/5th-new-hampshire-infantry.flags.json.gz",
+   "raw_bytes": 84956,
+   "gz_bytes": 27800,
+   "sha256_raw": "b5c41bcd028338b1d092b91c2e3446c0b44fe01ac05c942aab07d9a051e283d4",
    "roll_status": {
-    "unk": 925,
-    "on": 259,
-    "off": 1422
+    "yes": 259,
+    "no": 1422,
+    "unknown": 925
    },
-   "ocr_uncertain_codes": {
-    "(none)": 1751,
-    "year": 481,
-    "garbage": 214,
-    "name-char": 81,
-    "name-case": 26,
-    "head": 71,
-    "age": 45,
-    "company": 92,
-    "period-for-comma": 8,
-    "name-lower": 1
+   "ocr_uncertain_rows": 857,
+   "ocr_uncertain_by_code": {
+    "A": 45,
+    "C": 94,
+    "G": 214,
+    "H": 71,
+    "N": 116,
+    "Y": 481
+   },
+   "head_kinds": {
+    "comma-lost": 27,
+    "irregular": 42,
+    "reviewed": 2,
+    "xref": 41
    },
    "errata_found": 1,
    "errata_matched_rows": 1
@@ -612,7 +619,7 @@
    "comma-lost": 19
   },
   "by_company": {
-   "-": 73,
+   "-": 74,
    "A": 137,
    "B": 138,
    "C": 135,
@@ -624,43 +631,45 @@
    "H": 107,
    "I": 137,
    "K": 132,
-   "L": 1,
    "NCS": 2,
    "UNAS": 64
   },
   "rows_without_page": 0,
   "remark_names_gettysburg": 97,
   "remark_names_gettysburg_with_july_1_to_3_63_date": 86,
+  "remark_has_july_1_to_3_63_date": 90,
   "page_first": 607,
   "page_last": 647,
   "file": {
    "path": "docs/battle-theatre/rosters/data2/union/nh/12th-new-hampshire-infantry.jsonl.gz",
    "rows": 1470,
-   "raw_bytes": 355856,
-   "gz_bytes": 73699,
-   "sha256_raw": "09c7e2410f25fd96e69c21c4cb74a10eec38e69105c393e7d7d98660070d58e2"
+   "raw_bytes": 355855,
+   "gz_bytes": 73697,
+   "sha256_raw": "83357c947c23176ce1a757c2d79e9528b2e74634482564511455487ff116577b"
   },
   "aux": {
-   "path": "docs/battle-theatre/rosters/data2/union/nh/12th-new-hampshire-infantry.aux.json.gz",
-   "raw_bytes": 90245,
-   "gz_bytes": 18772,
-   "sha256_raw": "71d546bf46a3a4dd4283ec458896e60452538b471d5c3c27fb8bd5311dad32aa",
+   "path": "docs/battle-theatre/rosters/data2/union/nh/12th-new-hampshire-infantry.flags.json.gz",
+   "raw_bytes": 46313,
+   "gz_bytes": 15568,
+   "sha256_raw": "a7c49196cb8d51c321f0c2b8df87ed287bf27fc8cffb9db483fa418b5962ea0b",
    "roll_status": {
-    "on": 292,
-    "off": 420,
-    "unk": 758
+    "yes": 292,
+    "no": 420,
+    "unknown": 758
    },
-   "ocr_uncertain_codes": {
-    "(none)": 714,
-    "year": 615,
-    "age": 30,
-    "company": 57,
-    "garbage": 100,
-    "head": 35,
-    "name-case": 15,
-    "period-for-comma": 2,
-    "name-char": 55,
-    "name-lower": 2
+   "ocr_uncertain_rows": 756,
+   "ocr_uncertain_by_code": {
+    "A": 30,
+    "C": 58,
+    "G": 100,
+    "H": 35,
+    "N": 74,
+    "Y": 615
+   },
+   "head_kinds": {
+    "comma-lost": 19,
+    "irregular": 16,
+    "xref": 16
    },
    "errata_found": 0,
    "errata_matched_rows": 0
@@ -680,7 +689,7 @@
    897,
    903
   ],
-  "heads": 258,
+  "heads": 260,
   "bare_cross_refs": 0,
   "tokens": 9887,
   "furniture_lines": 8,
@@ -694,7 +703,7 @@
     "name": "Chamberlin, \"William N."
    },
    {
-    "i": 186,
+    "i": 188,
     "off": 2447874,
     "name": "md, Charles J."
    }
@@ -702,59 +711,62 @@
   "glued_suspects": [],
   "overrides_applied": 0,
   "verify": {
-   "rows": 258,
-   "name_ok": 258,
-   "remark_ok": 258,
+   "rows": 260,
+   "name_ok": 260,
+   "remark_ok": 260,
    "remark_gap_rows": 0,
    "remark_empty": 0,
-   "page_ok": 258,
+   "page_ok": 260,
    "page_null": 0,
    "rank_ok": 0,
-   "rank_empty": 258,
+   "rank_empty": 260,
    "order_breaks": 0
   },
   "verify_defects": [],
   "verify_ok": true,
-  "rows": 258,
+  "rows": 260,
   "by_kind": {
-   "head": 250,
+   "head": 252,
    "comma-lost": 5,
    "irregular": 3
   },
   "by_company": {
-   "-": 258
+   "-": 260
   },
   "rows_without_page": 0,
   "remark_names_gettysburg": 1,
   "remark_names_gettysburg_with_july_1_to_3_63_date": 0,
+  "remark_has_july_1_to_3_63_date": 1,
   "page_first": 897,
   "page_last": 903,
   "file": {
    "path": "docs/battle-theatre/rosters/data2/union/nh/1st-new-hampshire-battery.jsonl.gz",
-   "rows": 258,
-   "raw_bytes": 52156,
-   "gz_bytes": 11846,
-   "sha256_raw": "6e398d5f98fdbc90768b53579ecf9596b474e1a3a71f720f5ddeac1e18964dbc"
+   "rows": 260,
+   "raw_bytes": 52188,
+   "gz_bytes": 11852,
+   "sha256_raw": "3750570e4ebb8519d7c7046d95896f6066544301add4c39fadd7025b3520a4ce"
   },
   "aux": {
-   "path": "docs/battle-theatre/rosters/data2/union/nh/1st-new-hampshire-battery.aux.json.gz",
-   "raw_bytes": 16751,
-   "gz_bytes": 4301,
-   "sha256_raw": "4b97e1e5cd5ba50faf169d01b10b5a629e17a45b2bf4dcd8177971459a26d6d1",
+   "path": "docs/battle-theatre/rosters/data2/union/nh/1st-new-hampshire-battery.flags.json.gz",
+   "raw_bytes": 10936,
+   "gz_bytes": 4453,
+   "sha256_raw": "94bfd446b8588fa26af9684e7960bfdd76dfe04b3e0555733615fe23b09caa8f",
    "roll_status": {
-    "off": 89,
-    "on": 63,
-    "unk": 106
+    "yes": 63,
+    "no": 91,
+    "unknown": 106
    },
-   "ocr_uncertain_codes": {
-    "age": 5,
-    "(none)": 152,
-    "year": 83,
-    "head": 8,
-    "name-case": 5,
-    "name-char": 12,
-    "garbage": 8,
-    "name-lower": 1
+   "ocr_uncertain_rows": 106,
+   "ocr_uncertain_by_code": {
+    "A": 5,
+    "G": 8,
+    "H": 8,
+    "N": 18,
+    "Y": 83
+   },
+   "head_kinds": {
+    "comma-lost": 5,
+    "irregular": 3
    },
    "errata_found": 0,
    "errata_matched_rows": 0

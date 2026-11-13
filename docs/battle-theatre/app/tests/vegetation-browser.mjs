@@ -63,10 +63,11 @@ try {
   await at('1863-07-02T12:00', await wf({ dist: 90, height: 22, yaw: 2.2 })); const A2 = await shot('02-wheatfield-close-2jul-noon');
   await at('1863-07-02T20:30', await wf({ dist: 420, height: 230, yaw: 2.2 })); const B = await shot('03-wheatfield-2jul-20h30-trampled');
   await at('1863-07-02T20:30', await wf({ dist: 90, height: 22, yaw: 2.2 })); const B2 = await shot('04-wheatfield-close-2jul-20h30');
+  await at('1863-07-03T12:00', await wf({ dist: 420, height: 230, yaw: 2.2 })); const B3 = await shot('03b-wheatfield-3jul-noon-trampled');
   await at('1863-07-14T12:00', await wf({ dist: 420, height: 230, yaw: 2.2 })); const C = await shot('05-wheatfield-14jul');
   const cw = Math.floor(A.w / 2) - 60, ch = Math.floor(A.h / 2) - 30;
-  const mA = mean(A, A.w / 2 - 60, A.h / 2 - 30, A.w / 2 + 60, A.h / 2 + 30), mB = mean(B, B.w / 2 - 60, B.h / 2 - 30, B.w / 2 + 60, B.h / 2 + 30);
-  check('the picture changes between noon and the evening of 2 July over the Wheatfield (trampled ground)', diff(A, B) > 0.01 && Math.abs(mA[0] - mB[0]) + Math.abs(mA[1] - mB[1]) + Math.abs(mA[2] - mB[2]) > 3, { diff: diff(A, B), mA, mB });
+  const mA = mean(A, A.w / 2 - 60, A.h / 2 - 30, A.w / 2 + 60, A.h / 2 + 30), mB = mean(B3, B3.w / 2 - 60, B3.h / 2 - 30, B3.w / 2 + 60, B3.h / 2 + 30);
+  check('the picture changes between noon of 2 July and noon of 3 July over the Wheatfield (the same sun: trampled ground)', diff(A, B3) > 0.01 && Math.abs(mA[0] - mB[0]) + Math.abs(mA[1] - mB[1]) + Math.abs(mA[2] - mB[2]) > 3, { diff: diff(A, B3), mA, mB, eveningDiff: diff(A, B) });
   const st = await page.evaluate(() => window.btApp.theatre.vegetation.status()); check('trees are drawn near the camera at a woodland view and none are drawn when thinned out of sight', true, st);
   await at('1863-07-02T12:00', await viewOfUnit('LC-ORCH-0206', { dist: 160, height: 45, yaw: 0.9 })); const PO = await shot('06-peach-orchard');
   await at('1863-07-03T09:00', await viewOfUnit('LC-WOOD-0001', { dist: 520, height: 260, yaw: 1.2 })); await shot('07-culps-hill-3jul');
@@ -79,9 +80,9 @@ try {
 
   // ---- the same minute and the same camera: the same pixels
   await at('1863-07-02T12:00', await wf({ dist: 420, height: 230, yaw: 2.2 })); const A3 = await shot('13-wheatfield-2jul-noon-again');
-  check('the same minute and the same camera give the same pixels (before and after a visit to another time)', diff(A, A3) < 0.0005, diff(A, A3));
+  check('the same minute and the same camera give the same pixels (before and after a visit to another time)', diff(A, A3) < 0.0005, { diff: diff(A, A3) });
   // ---- the layer off: the picture is the shell alone; the switch and the panel
-  await page.evaluate(() => window.btApp.theatre.vegetation.setOn(false)); const OFF = await shot('14-wheatfield-vegetation-off');
+  await page.evaluate(() => window.btApp.theatre.vegetation.setOn(false)); const OFF = await shot('14-wheatfield-vegetation-off'); const OFF2 = await shot('14b-wheatfield-vegetation-off-again'); results.notes.push(`noise floor of the shell itself (layer off, twice): ${diff(OFF, OFF2)}`);
   check('switching the layer off removes the vegetation from the picture', diff(A3, OFF) > 0.05, diff(A3, OFF)); await page.evaluate(() => window.btApp.theatre.vegetation.setOn(true));
   await page.evaluate(() => window.btApp.theatre.vegetation.setOverlay(true)); const OV = await shot('15-tier-overlay'); check('the tier overlay changes the ground', diff(A3, OV) > 0.05, diff(A3, OV)); await page.evaluate(() => window.btApp.theatre.vegetation.setOverlay(false));
   await page.evaluate(() => window.btApp.theatre.openPanel('vegetation')); await page.waitForSelector('#veg-card h3', { timeout: 60000 });

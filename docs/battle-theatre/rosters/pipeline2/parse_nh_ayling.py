@@ -156,6 +156,8 @@ def anchor_at(toks, k, kind):
     # battery: no company printed; the data of an entry begins with one of these
     if re.match(r"^(?:b\.|Substitute|Drafted)[;,]?$", w):
         return (1, '', False)
+    if w == 'Age' and k + 1 < n and re.match(r'^[0-9]{1,2}[;,.]?$', toks[k + 1].w):          # a man whose birthplace is not printed: "Davis, William T.  Age 21 ;"
+        return (1, '', False)
     if w == 'See' and k > 0:
         return (1, '', False)
     return None
@@ -435,7 +437,7 @@ def parse_section(text, pm, leaf_a, leaf_b, kind, title_re, unit=''):
         if a is None:
             continue
         weak = a[2]
-        strong = kind == 'co' or bool(re.match(r'^(?:b\.|Substitute|Drafted)', toks[k].w))      # the battery's "See" occurs inside remarks too
+        strong = kind == 'co' or bool(re.match(r'^(?:b\.|Substitute|Drafted|Age$)', toks[k].w))      # the battery's "See" occurs inside remarks too
         h = find_head(toks, k, a[0], strong)
         if h is not None and any(t.w in ('with', 'identical') for t in toks[max(0, h[0] - 3):h[0]]):
             h = None                                # "Supposed identical with H. Milton Colby, Unas'd ...": a name inside a remark
@@ -485,6 +487,8 @@ def build_entries(text, pm, toks, heads, bare):
             raise AssertionError('entry without data at offset %d' % toks[s0].s)
         off = toks[s0].s
         leaf = pm.leaf(off)
+        if co in ('J', 'L', 'M'):
+            co = ''                                   # a letter that is no company of these units (A to K without J): the OCR damaged the letter, so none is stated
         entries.append({'kind': typ, 'co': co, 'name_toks': name_toks, 'rem_toks': rem_toks, 'off': off, 'rd': rem_toks[0].s - off,
                         'page': pm.printed(leaf) if leaf is not None else None, 'leaf': leaf})
     return entries
@@ -554,6 +558,7 @@ def unit_stats(entries, rows, segs, pm):
     st['rows_without_page'] = sum(1 for e in entries if e['page'] is None)
     st['remark_names_gettysburg'] = R.gettysburg_rows(segs)
     st['remark_names_gettysburg_with_july_1_to_3_63_date'] = sum(1 for r in rows if GB_DATE.search(r[3]))
+    st['remark_has_july_1_to_3_63_date'] = sum(1 for r in rows if re.search(r"July\s+[123]\s*,?\s*['\u2018\u2019`]\s*[6B][3S]\b", r[3]))
     pages = collections.Counter(e['page'] for e in entries)
     st['page_first'], st['page_last'] = min(p for p in pages if p is not None), max(p for p in pages if p is not None)
     return st
@@ -617,14 +622,23 @@ def main(argv):
     return 1 if failures else 0
 
 
+FLAG_CODES = {'N': 'name text damaged (a digit or mark inside a name token, a lower-case letter inside a token, a lower-case first letter, a period where the comma belongs)',
+              'H': 'the head of the entry (name up to the data) was cut by the irregular rule, the comma-lost rule, the surname-only rule or a reviewed cut (parse_nh_ayling.py OVERRIDES)',
+              'C': 'the company token is damaged or cannot be read as a company letter',
+              'Y': 'a year in the line is damaged (for example 04 or 05 or 6\'1 for 64 or 65 or 61)',
+              'A': 'the age item is damaged',
+              'G': 'garbage marks of the scan (^ | ~ and the like) stand inside the line'}
+CODE_OF = {'head': 'H', 'name-char': 'N', 'name-case': 'N', 'name-lower': 'N', 'period-for-comma': 'N', 'company': 'C', 'year': 'Y', 'age': 'A', 'garbage': 'G'}
+
+
 def write_aux(unit_path, key, entries, rows, text, pm, vol, kind, A, unit_sha, ledger):
-    """data2/union/nh/<unit>.aux.json.gz: see nh_aux.py."""
+    """data2/union/nh/<unit>.flags.json.gz in the common form roster2-flags/1 (as the other roster items write it), plus three extra keys: normalised_names,
+    head_kinds and errata.  See nh_aux.py for the rules."""
     errata = []
-    if key in ERRATA_HEADINGS and ERRATA_HEADINGS[key]:
+    if ERRATA_HEADINGS.get(key):
         head_re, next_re = ERRATA_HEADINGS[key]
-        ent = ledger['texts']['%s.%s' % (SOURCE_ID, vol)]
         errata = A.find_errata(text, pm.span(CORRECTIONS_LEAF), head_re, next_re)
-    err_idx = {}
+    err_rows = collections.defaultdict(list)
     for ei, (eoff, etxt) in enumerate(errata):
         m = re.match(r"Page\s+([0-9]+)\s*[.,]?\s*[\u2014\-\u2013]+\s*(.*)$", etxt, re.S)
         if not m:
@@ -633,32 +647,54 @@ def write_aux(unit_path, key, entries, rows, text, pm, vol, kind, A, unit_sha, l
         for i, e in enumerate(entries):
             nm = re.sub(r'[^a-z]', '', ' '.join(t.w for t in e['name_toks']).lower())
             if e['page'] == pg and nm and e['kind'] not in ('xref', 'bare-surname') and rest.startswith(nm):
-                err_idx.setdefault(i, []).append(ei)
-    out_rows = []
-    counts = collections.Counter()
-    ou_counts = collections.Counter()
+                err_rows[ei].append(i)
+    rows_by_code = collections.defaultdict(list)
+    ocr_rows, nn, kinds = [], [], collections.defaultdict(list)
+    yes, no, basis, basis_ix = [], [], [], {}
     for i, e in enumerate(entries):
         nm = [t.w for t in e['name_toks']]
         rem = ' '.join(t.w for t in e['rem_toks'])
         company_unreadable = 'company-unreadable' if (kind == 'co' and e['co'] == '' and e['kind'] not in ('xref', 'bare-surname')) else ''
         ou = A.ocr_flags(nm, rem, e['co'], company_unreadable, e['kind'], kind)
+        codes = sorted({CODE_OF[c] for c in ou.split(',') if c})
+        for c in codes:
+            rows_by_code[c].append(i)
+        if codes:
+            ocr_rows.append(i)
+        nn.append(A.normalise_name(nm, e['kind']))
+        if e['kind'] != 'head':
+            kinds[e['kind']].append(i)
         jr, jb = A.roll_status(rem, e['kind'], e['co'])
-        counts[jr] += 1
-        for c in (ou.split(',') if ou else ['(none)']):
-            ou_counts[c] += 1
-        out_rows.append([e['off'], A.normalise_name(nm, e['kind']), ou, e['kind'], jr, jb, ','.join(str(x) for x in err_idx.get(i, []))])
-    doc = {'f': 'roster2-aux/1', 'u': key, 'unit_file_sha256': unit_sha, 'n': len(out_rows), 't': '%s.%s' % (SOURCE_ID, vol),
-           'fields': ['off', 'nn', 'ou', 'kind', 'jr', 'jb', 'er'],
-           'errata': [{'off': o, 'text': t} for o, t in errata], 'rows': out_rows}
-    path = unit_path[:-len('.jsonl.gz')] + '.aux.json.gz'
+        if jr in ('on', 'off'):
+            if jb not in basis_ix:
+                basis_ix[jb] = len(basis)
+                basis.append(jb)
+            (yes if jr == 'on' else no).append([i, basis_ix[jb]])
+    doc = {'f': 'roster2-flags/1', 'u': key, 'n': len(rows), 'unit_file_raw_lines_sha256': unit_sha,
+           'about': 'row numbers count the rows of the unit file in file order from 0; "ocr_uncertain" = the printed line is damaged in the text layer in at least one of the ways '
+                    'of the codes below (an empty result does not say the line is clean, it says no pattern matched); the rows are never repaired; "on_rolls_july_1863" is inferred '
+                    'from printed enlistment and separation dates only and is no statement that the man was at Gettysburg; "normalised_names" only re-orders the printed '
+                    'tokens as Given Surname and strips stray marks at their ends, no letter is changed ("" where the head is not regular)',
+           'codes': FLAG_CODES, 'rows': {c: rows_by_code[c] for c in sorted(rows_by_code)}, 'ocr_uncertain': ocr_rows,
+           'on_rolls_july_1863': {'rule': 'yes: a printed enlistment or muster-in date on or before 30 June 1863 and no printed separation (discharge, desertion, death, transfer, muster out) '
+                                          'dated before 1 July 1863, no undated separation, no return after a separation, no damaged date; no: the earliest printed enlistment date is after '
+                                          '3 July 1863, or a separation is printed with a date before 1 July 1863 and nothing returns the man afterwards; every other row is unknown '
+                                          '(cross-reference lines, damaged or missing dates, doubtful cases)', 'basis': basis, 'yes': yes, 'no': no},
+           'normalised_names': nn, 'head_kinds': {k: v for k, v in sorted(kinds.items())},
+           'errata': [{'text_id': '%s.%s' % (SOURCE_ID, vol), 'off': o, 'text': t, 'rows': err_rows.get(i, [])} for i, (o, t) in enumerate(errata)]}
+    path = unit_path[:-len('.jsonl.gz')] + '.flags.json.gz'
     raw = json.dumps(doc, ensure_ascii=False, separators=(',', ':')).encode('utf-8')
     with open(path + '.tmp', 'wb') as f:
         with gzip.GzipFile(filename='', mode='wb', fileobj=f, compresslevel=9, mtime=0) as g:
             g.write(raw)
     os.replace(path + '.tmp', path)
-    return {'path': os.path.relpath(path, ROOT).replace(os.sep, '/'), 'raw_bytes': len(raw), 'gz_bytes': os.path.getsize(path),
-            'sha256_raw': hashlib.sha256(raw).hexdigest(), 'roll_status': dict(counts), 'ocr_uncertain_codes': dict(ou_counts), 'errata_found': len(errata),
-            'errata_matched_rows': sum(len(v) for v in err_idx.values())}
+    old = unit_path[:-len('.jsonl.gz')] + '.aux.json.gz'
+    if os.path.exists(old):
+        os.remove(old)
+    return {'path': os.path.relpath(path, ROOT).replace(os.sep, '/'), 'raw_bytes': len(raw), 'gz_bytes': os.path.getsize(path), 'sha256_raw': hashlib.sha256(raw).hexdigest(),
+            'roll_status': {'yes': len(yes), 'no': len(no), 'unknown': len(rows) - len(yes) - len(no)}, 'ocr_uncertain_rows': len(ocr_rows),
+            'ocr_uncertain_by_code': {c: len(v) for c, v in sorted(rows_by_code.items())}, 'head_kinds': {k: len(v) for k, v in sorted(kinds.items())},
+            'errata_found': len(errata), 'errata_matched_rows': sum(len(v) for v in err_rows.values())}
 
 
 CORRECTIONS_LEAF = 20

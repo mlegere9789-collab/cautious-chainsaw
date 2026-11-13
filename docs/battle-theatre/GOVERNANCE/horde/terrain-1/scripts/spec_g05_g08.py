@@ -35,7 +35,8 @@ ROWS.append(R(
             C('OR1', 'R184', "I then went to the rear, and opened that section of guns, firing obliquely through the gully, doing good execution"),
             C('OR2', 'R458', "Where that line crossed the gorge running between the peak an<l the mountain, a point 500 or GOO yards in the rear of the peak, were two other guns.", note="OCR 'an<l', 'GOO' for 'and', '600'"),
             C('OR2', 'R458', "by the terrible fire from them which swept down the goro-e.", note="OCR 'goro-e' for 'gorge'"),
-            C('LIB', 'NY-GB-1902-v3', "The remaining two guns were stationed in rear about seventy-five yards, where they could be used to advantage, covering the Plum Run Gorge passage")],
+            C('LIB', 'NY-GB-1902-v3', "The remaining two guns were stationed in rear about seventy-five yards, where they could be used to advantage, covering the Plum Run Gorge passage"),
+            C('LIB', 'NY-GB-1902-v3', "their battle flag drops three different times from the effect of our canister")],
           note="'Canister' for the rear section is Smith's 1888 address (NY at Gettysburg vol. 3 p.1291), not the report; Benning does not say canister. The PDF says the target was 'Benning's brigade': Benning's report is the Confederate witness."),
         S('g', 'movement', "'One section shifted right about 18:00': not supported; Smith kept the four guns on the crest and the two in the rear until the infantry gave way, then ran the rear guns through the woods to Winslow's right.", 'documented', 'unsupported', [
             C('LIB', 'NY-GB-1902-v3', "The battery was on the ground from 2 until 6 o'clock, p. m.")],
@@ -195,10 +196,10 @@ ROWS.append(R(
         S('d', 'count', "Guns: the OR gives Taylor's four Napoleons and (3 Jul) Moody's four 24-pdr howitzers; no OR text gives Parker's or Rhett's count. Alexander's memoir (1907): 18 guns of his battalion in front of Barksdale (plus 8 held close), 18 of Cabell's, 36 against the Peach Orchard at about 3:45 p.m.; 10 of Henry's across the Emmitsburg road; the Washington Artillery's 10 in reserve.", 'documented', 'conflict', [
             C('OR2', 'R465', "I opened upon the batteries with my four Napoleons, firing canister and spherical case"),
             C('OR2', 'R442', "Captain Moody's four 24-pounder howitzers"),
-            C('LIB', 'ALEXANDER-1907', "was engaged with 18 guns; and in front of Barksdale were 18 of my own battalion", note="printed page 395 (running head in the text)"),
-            C('LIB', 'ALEXANDER-1907', "Ten guns, also of Henry's battalion, were engaged across the Emmitsburg road"),
-            C('LIB', 'ALEXANDER-1907', "The remaining 8 guns of my own battalion were held close by, to follow the infantry promptly in any advance"),
-            C('LIB', 'ALEXANDER-1907', "Thus, about 3.45 P.M., 36 guns were in action against the Peach Orchard, and the enemy's adjacent lines and 10 guns against the enemy's left")],
+            C('LIB', 'ALEXANDER-1907', "was engaged with 18 guns; and in front of Barksdale were 18 of my own battalion", page='395'),
+            C('LIB', 'ALEXANDER-1907', "Ten guns, also of Henry's battalion, were engaged across the Emmitsburg road", page='395'),
+            C('LIB', 'ALEXANDER-1907', "The remaining 8 guns of my own battalion were held close by, to follow the infantry promptly in any advance", page='395'),
+            C('LIB', 'ALEXANDER-1907', "Thus, about 3.45 P.M., 36 guns were in action against the Peach Orchard, and the enemy's adjacent lines and 10 guns against the enemy's left", page='395')],
           note="The PDF's 36 comes from Alexander's memoir, not the OR (the shard of 2026-11-04 had called it a Wikipedia figure). The per-battery counts of the four batteries are not in the OR."),
         S('e', 'state_at_start', "Works: none described; Alexander mentions only the ground ('very difficult ground') at Moody's guns; recorded as open ground.", 'inferred', 'partial', [
             C('OR2', 'R464', "There were also 2 killed and 3 wounded of a detachment of 8 gallant Mississippians at Captain Moody's guns, who volunteered to help maneuver them on very difficult ground")]),

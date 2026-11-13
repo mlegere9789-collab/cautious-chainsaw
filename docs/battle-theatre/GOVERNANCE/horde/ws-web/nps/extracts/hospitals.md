@@ -15,7 +15,7 @@ Boundary Study, Gettysburg National Military Park: Draft Report to Congress / En
   - Quote: "The vast numbers of wounded on both sides were treated at hospitals quickly established in the buildings, farmhouses and barns of Gettysburg."
 - **Josiah Benner house and barn used as a hospital** (`NPSX-BOUNDARY-1988-p036-01`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 36
-  - Claim: The Josiah Benner house and barn, still standing in 1988, were used as a hospital during the battle
+  - Claim: The Josiah Benner house and barn were used as a hospital during the battle
   - Quote: "The Josiah Benner house and barn, still standing, were used as a hospital during the battle."
 - **George Spangler farm: Union hospital site and artillery park; 11th Corps hospital where Armistead died** (`NPSX-BOUNDARY-1988-p039-01`)
   - State date: **1863-07** | use for the July 1863 scene: **direct** | tier proposed: documented (source wording: stated) | PDF p. 39

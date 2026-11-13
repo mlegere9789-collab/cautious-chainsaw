@@ -1,7 +1,7 @@
 {
  "format": "roster2-sources-pointer/1",
  "work_item": "union-me",
- "generated": "2026-11-13T20:42:57Z",
+ "generated": "2026-11-13T20:52:31Z",
  "sources": [
   {
    "source_id": "ME-AGR-1863-APPD",
@@ -40,7 +40,7 @@
     "bytes": 59959006,
     "sha256": "869aa626276c9a297ae04eedc6ef89b59de0724b9e4fa55503cf6d14121ddda2",
     "url": "https://archive.org/cors/annualreportofad1863main/annualreportofad1863main_djvu.xml",
-    "kept": "transient: deleted after the production run; word boxes only, used to build rows (see pipeline2/union_me)"
+    "kept": "transient: deleted after the production run; word boxes only, used to build rows"
    },
    "status": "parsed: company returns of Appendix D (leaves 224-821)",
    "rights": {
@@ -91,7 +91,7 @@
     "bytes": 60693021,
     "sha256": "f2e3467537c743f50ff9f167db4f81396304df905c3839ea4cc975af94a1bcae",
     "url": "https://archive.org/cors/supplementtoannu00main/supplementtoannu00main_djvu.xml",
-    "kept": "transient: deleted after the production run; word boxes only, used to build rows (see pipeline2/union_me)"
+    "kept": "transient: deleted after the production run; word boxes only, used to build rows"
    },
    "status": "parsed: the two volunteer lists of the Alphabetical Index (leaves 12-578 and 630-1226)",
    "rights": {
@@ -185,9 +185,9 @@
     "bytes": 18214090,
     "sha256": "0bd25a6c1f807f2962df3ade25dae1bc93508c596730ae83cb93f8ce69ecbc8c",
     "url": "https://archive.org/cors/maineatgettysbur01main/maineatgettysbur01main_djvu.xml",
-    "kept": "transient: deleted after the production run; word boxes only, used to build rows (see pipeline2/union_me)"
+    "kept": "transient: deleted after the production run; word boxes only, used to build rows"
    },
-   "status": "text pinned, NOT parsed (see the report)",
+   "status": "parsed: the participants lists of the 14 units; NOT parsed: the casualty lists and the special-duty paragraphs (see the report)",
    "rights": {
     "basis": "public domain (United States publication before 1929)",
     "evidence": {
@@ -226,14 +226,7 @@
     "bytes": 60693021,
     "deleted_after_use": true,
     "recipe": {
-     "scripts": {
-      "build_index.py": "cff5c98ffdf3a3681f5004c4b555a2a7ba96bde347b0900149bcbbdc5184d59f",
-      "me_index.py": "1c7de015aeb928ecfb502545606ce1e7eac1236410695f4f7a02f15c9cfa5f9a",
-      "mtable.py": "8e900debeb2b311d0cc1ef82bafd3b520c3607b4f834446deac0ace46cc3b837",
-      "pos_text.py": "4c89e03d1468cff2f7e558fe94b27fef093a521364defb94b5f2c87275aec417",
-      "mlib.py": "df7a9adad4b30fc3423cef64f1aa284864f5e9a00a2f24368d0b9df4222a048e"
-     },
-     "rule": "one line per visual row of the body of each leaf of the two volunteer lists (leaves 12-578 and 630-1226); rows grouped by the vertical centre corrected for the tilt of the page; words of a row left to right, joined by one blank; leaves outside the lists are empty"
+     "rule": "one line per visual row of the body of each leaf of the two volunteer lists (leaves 12-578 and 630-1226); rows grouped by the vertical centre of the words corrected for the tilt of the page; the words of a row from left to right, joined by one blank; leaves outside the lists are empty; the words are those of the item's djvu.xml (sha256 above), aligned to the search text word by word"
     }
    }
   }

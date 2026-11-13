@@ -26,10 +26,18 @@ Carry as selectable scenarios, none has a recorded delegated default:
 6. Sky and ground on the morning of Jul 1: clear (Beveridge) / muggy, roads very bad (Weld) / very cloudy (Jacobs, via a secondary summary not found in his 1864 text) (T1-075, T1-080).
 7. John Burns: about noon (Eustice, Huidekoper) against 10:15-10:30 (row) (T1-100).
 8. 147th New York losses 207 (Cutler) against 301 counting missing (Fox) (T1-103).
-Existing conflict C-040 (Reynolds' death) was applied unchanged with two new scenario values (about 10:00 Beveridge; rifle volley Weld).
+9. The regiment beside which Reynolds fell (T1-099): the 2nd Wisconsin, leading regiment of the charge (Bates 1875) against the 19th Indiana (New York at Gettysburg vol. 1, 1900); wound: head (Bachelder, Meade 1913), brain with sharp-shooters named (Bates), neck (Weld diary and letter), a shell (Heth).
+10. Hour at which Howard took command of the field (T1-112): about 11:30 (Howard OR p.702; Biddle 1880) against 10:30 (Slocum's communication in the OR, p.768).
+11. Arrival of Rodes's division and Carter's battalion on Oak Hill (T1-115): about noon to 1 p.m. (Daniel, Doles, Owens) against about 2:30 p.m. engaged (Lee, OR vol. 27 pt. 2, p.317).
+12. Head of the Eleventh Corps through the town (T1-102): about 12:30 (Howard OR p.702) / 12:45 (Pierce 1914) against the before-noon window of the row.
+Existing conflict C-040 (Reynolds' death) was applied unchanged; new scenario values were added for the hour (about 10:00 Beveridge; the 10:15 of the New York narrative), the cause (rifle volley, sharp-shooter, shell) and the regiment (item 9).
 
 ## 4. Product notes (app data owners)
 - The row T1-099 text "Show a rifle round; do not show a shell" is a scenario, not a finding: Heth (OR p.637) says a shell.
 - Calef's sections: Newman commanded the LEFT section and Pergel the CENTRE section (Calef's own report), not the other way round; it was Pergel's section that was withdrawn because the woods came within 200 yards.
 - Archer's brigade has five units (13th Alabama, 5th Alabama Battalion, 1st, 7th, 14th Tennessee).
+- T1-110: the 11th Pennsylvania (Coulter) and the 97th New York (Wheelock) belong to Baxter's Second Brigade of Robinson's division (Baxter p.307; Coulter p.292), not to a "Coulter's brigade"; both put the brigade at the front at about 11 a.m. Doubleday gives no hour for the arrival of the two divisions, so "afternoon" is not his statement.
+- T1-097: "Hall replaces Calef" is supported (Calef p.1031: Hall took the position held by Roder's section; New York vol. 1: Hall relieves Calef's guns), but the OR also has the reverse later (Calef's left and centre sections reoccupy the ground Hall abandoned: Calef; Hunt p.229; Doubleday p.246).
+- T1-098: the Iron Brigade enveloping Archer's right is carried by Bachelder (1873), Meade (1913), Beveridge (1891) and Morrow (OR p.267); no report uses the word outflank.
+- T1-063: Devin's brigade lay north of the railroad and Gamble's south of it (Maine 1898); Devin's exact camp site stays open.
 - "Grey Eagle", "Herbst Woods", the 7-mile cavalry front and the 15-foot cut depth are in no text read; do not show them as documented.

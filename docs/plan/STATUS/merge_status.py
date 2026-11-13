@@ -52,7 +52,7 @@ AUTHORED = {}
 AUTHORED.update(WAVE1A)
 AUTHORED.update(WAVE1B)
 # files that two wave-1 entries may both touch; each is changed by small Edit operations only
-SHARED_FILES = {'wp-data-23a': ['tools/data/baseline.json', 'tools/data/rules/index.mjs'], 'wp-data-08d': ['tools/data/baseline.json', 'tools/data/rules/numbers_rules.mjs'],
+SHARED_FILES = {'wp-data-23a': ['tools/data/baseline.json', 'tools/data/rules/v2_rules.mjs'], 'wp-data-08d': ['tools/data/baseline.json', 'tools/data/rules/numbers_rules.mjs'],
                 'wp-time-06': ['tools/time/relabel-data.mjs'], 'wp-time-18': ['src/lib/time/index.d.ts']}
 
 # decision items whose conservative choice needs a build that no work package of the plan carries: they stay open as build entries
@@ -81,6 +81,9 @@ MANUAL_IMPL = {
     'OD-2': ['WP-SEO-08'], 'OD-9': ['WP-SEO-10b'], 'OD-13': ['WP-QA-10b'], 'OD-12': ['WP-DATA-10b'], 'OD-18': ['WP-TIME-13', 'WP-TIME-11'], 'OD-19': ['WP-DEC-02', 'WP-DEC-04'],
     'INFRA-OD-3': ['WP-INFRA-04d', 'WP-INFRA-03b'], 'INFRA-OD-6': ['WP-INFRA-28b'], 'OD-11': ['WP-INFRA-03b', 'WP-INFRA-04d'],
 }
+DECISION_ONLY_NODES = {'RM-03': ['A41'], 'RM-98': ['A42']}   # nodes whose own text says "recorded as delegated rows"
+SAME_WORK = {'WP-PAGEC-03': 'WP-PAGE-03'}                      # the survey says "Same work."
+OWNER_GATE = re.compile(r"(owner's review|owner reads|owner reviews|owner review|owner decides|owner and counsel|owner inputs|owner machine|the owner answers|a person's sign-off|named reviewer|by the reviewer|reviewer's|historian decides|human review|second labeller|someone who did not build|real[- ]browser pass|real[- ]phone|real iphone|real device|counsel|account step|owner step|waits for the owner|owner exports|owner-only|owner enables|owner upload)", re.I)
 CLASS_LABEL = {'candidate-group': 'candidate patch group (candidates/r1h/<id>/)', 'source-rebuild': 'source-rebuild (src/, historian-src/, data-src/)',
                'release-request': 'request to the release workstream', 'decision-record': 'decision record', 'umbrella': 'closes with its children'}
 
@@ -130,6 +133,7 @@ def rows_of(it, rows, gov):
             out += re.findall(r'\b[ABC]\d\d\b', str(it[k]) if not isinstance(it[k], list) else ' '.join(it[k]))
     out += sorted(gov.get(it['id'], []))
     out += [r for r in re.findall(r'\brows? ([ABC]\d\d)\b', it['next_step'])]
+    out += DECISION_ONLY_NODES.get(it['id'], [])
     seen, res = set(), []
     for r in out:
         if r in rows and r not in seen:
@@ -179,6 +183,8 @@ def klass(it, impl_map):
     k, st = it['kind'], it['status']
     if slug(it['id']) in AUTHORED:
         return 'leaf'
+    if it['id'] in DECISION_ONLY_NODES:
+        return 'decision'
     if st == 'OPEN_NEEDS_DECISION' and k in DECISION_KINDS:
         if it['id'] in BUILD_DECISIONS:
             return 'leaf'
@@ -192,8 +198,13 @@ def klass(it, impl_map):
     return 'leaf'
 
 
+AREA_OVERRIDE = {'OWNER-2026-10-05-3': 'data', 'WP-PERF-22': 'data', 'WP-A11Y-26': 'historian', 'PROV-R1G-I6': 'perf'}
+
+
 def area_of(it):
     i, ch = it['id'], it['chapter']
+    if i in AREA_OVERRIDE:
+        return AREA_OVERRIDE[i]
     ns = it['next_step'].lower()
     if i.startswith(('WP-HIST', 'VD14', 'VER-HIST', 'HIST-OD')) or ch == '14' or i in ('WP-A11Y-26', 'WP-PAGEC-08', 'WP-TIME-19', 'D-HIST-ARCH', 'RM-41', 'RM-40', 'RM-74', 'RM-75', 'RM-76', 'RM-96'):
         return 'historian'
@@ -347,6 +358,11 @@ def build():
     for sid, e in entries.items():
         it = e['_it']
         kids = []
+        if it['id'] in SAME_WORK and slug(SAME_WORK[it['id']]) in entries:
+            e['_klass'] = 'umbrella'
+            e['_children'] = [slug(SAME_WORK[it['id']])]
+            e['same_work_as'] = slug(SAME_WORK[it['id']])
+            continue
         if e['_klass'] == 'umbrella?':
             if it['kind'] == 'roadmap-node':
                 kids = [slug(x) for x in members.get(it['id'], []) if x != it['id']]
@@ -428,6 +444,9 @@ def build():
             e['value'] = auth['value']
         else:
             e['acceptance'], e['acceptance_basis'] = gen_acceptance(e, it, rt, area, accept_plan, rows)
+        gate = OWNER_GATE.findall(it['next_step'])
+        if gate and rt in ('candidate-group', 'source-rebuild', 'release-request') and not auth:
+            e['owner_gated'] = sorted({g.lower() for g in gate})
         if rt in ('candidate-group', 'source-rebuild') and it['size'] == 'L' and not auth:
             e['needs_split'] = True
             hint = split_hint(sec['text'] if sec else '')
@@ -456,7 +475,7 @@ def build():
             deps += e['_children']
         if e['_area'] == 'rebuild' and sid not in ('wp-arch-09',) and e['route']['type'] == 'source-rebuild' and e['_klass'] == 'leaf':
             m = re.match(r'WP-ARCH-(\d+)', i)
-            if not m or int(m.group(1)) >= 10 or i.startswith(('WP-UX', 'WP-A11Y')):
+            if (m and int(m.group(1)) >= 10) or i.startswith(('WP-UX', 'WP-A11Y')):   # the spikes (WP-DEC-*) and WP-ARCH-01..08 need no workspace
                 deps.append('wp-arch-09')
         if sid in AUTHORED:
             deps = [d for d in deps if d in ('wp-arch-09',)] if sid != 'wp-arch-09' else []
@@ -464,6 +483,13 @@ def build():
                 deps = [d for d in deps if d in entries]
         e['depends_on'] = [d for d in dict.fromkeys(deps) if d in entries and d != sid]
 
+    # ---- two entries that name each other as a prerequisite are one piece of work: the later chapter keeps the edge
+    for sid, e in entries.items():
+        for d in list(e['depends_on']):
+            if sid in entries[d]['depends_on'] and e['chapter'] < entries[d]['chapter']:
+                e['depends_on'].remove(d)
+                e.setdefault('together_with', []).append(d)
+                entries[d].setdefault('together_with', []).append(sid)
     # ---- done state
     for sid, e in entries.items():
         e['done'], e['done_evidence'] = done_state(e, entries, rows)
@@ -651,7 +677,7 @@ def backlog_json(A, B, items, order, entries, result, rows):
         # a stable field order
         keys = ['id', 'order', 'wave', 'done', 'title', 'source', 'chapter', 'area', 'tier', 'tranche', 'roadmap_nodes', 'size', 'route', 'files', 'shared_files', 'touches', 'reads',
                 'context_files', 'depends_on', 'children', 'implemented_by', 'decision', 'value', 'acceptance', 'acceptance_basis', 'short', 'owed', 'needs_split', 'split_hint',
-                'consequence_note', 'umbrella_without_open_children', 'warnings', 'done_evidence']
+                'consequence_note', 'owner_gated', 'together_with', 'same_work_as', 'umbrella_without_open_children', 'warnings', 'done_evidence']
         o = {k: o[k] for k in keys if k in o}
         out_items.append(o)
     counts = collections.Counter()
@@ -743,7 +769,12 @@ def status_md(A, B, items, order, entries, result, rows):
     rt_open = collections.Counter(entries[s]['route']['type'] for s in result if not entries[s]['done'])
     L.append('## The backlog (`backlog.json`)')
     L.append('')
-    L.append('%d entries, one per open item. %d are build entries (a candidate patch group, source-rebuild work or a request to the release workstream); %d are decision records (the delegated row exists, the consequence is carried by other entries); %d are umbrellas that close with their children. Done now: %d (none of the build entries: candidates/r1h/ holds no finished candidate yet).' % (len(entries), len(open_leaf) + sum(1 for s in result if entries[s]['_klass'] == 'leaf' and entries[s]['done']), sum(1 for s in result if entries[s]['_klass'] == 'decision'), sum(1 for s in result if entries[s]['_klass'] == 'umbrella'), sum(1 for e in entries.values() if e['done'])))
+    n_leaf = sum(1 for s_ in result if entries[s_]['_klass'] == 'leaf')
+    n_leaf_done = sum(1 for s_ in result if entries[s_]['_klass'] == 'leaf' and entries[s_]['done'])
+    n_dec = sum(1 for s_ in result if entries[s_]['_klass'] == 'decision')
+    n_umb = sum(1 for s_ in result if entries[s_]['_klass'] == 'umbrella')
+    n_umb_done = sum(1 for s_ in result if entries[s_]['_klass'] == 'umbrella' and entries[s_]['done'])
+    L.append('%d entries, one per open item. %d are build entries (a candidate patch group, source-rebuild work or a request to the release workstream); %d are decision records (the delegated row exists, the consequence is carried by other entries); %d are umbrellas that close with their children. Done now: %d decision records, %d of %d build entries (a build entry is done only when candidates/r1h/<id>/STATUS.json verifies), %d of %d umbrellas.' % (len(entries), n_leaf, n_dec, n_umb, sum(1 for s_ in result if entries[s_]['_klass'] == 'decision' and entries[s_]['done']), n_leaf_done, n_leaf, n_umb_done, n_umb))
     L.append('')
     L.append('| Route | Entries | Open |')
     L.append('|---|---:|---:|')
@@ -763,6 +794,18 @@ def status_md(A, B, items, order, entries, result, rows):
         e = entries[s]
         L.append('| %d | `%s` | %s | %s | %s | %s |' % (n, s, e['route']['type'], e['size'], md_cell(e.get('value', '')), md_cell(e.get('short', ''))))
     L.append('')
+    nxt = [x for x in result if entries[x]['wave'] is None and not entries[x]['done'] and entries[x]['_klass'] == 'leaf'
+           and not any(d in WAVE1_ORDER for d in entries[x]['depends_on'])][:40]   # entries that wait for a wave-1 entry are not in the next batch
+    L.append('### After wave 1: the next 40 build entries in order (acceptance is derived, not yet authored against the repository)')
+    L.append('')
+    L.append('| Order | Id | Route | Size | Tier | Waits for | Note |')
+    L.append('|---:|---|---|---|---|---|---|')
+    for x in nxt:
+        e = entries[x]
+        wait = ', '.join('`%s`' % d for d in e['depends_on'] if not entries[d]['done'])
+        note = 'owner-gated: ' + ', '.join(e['owner_gated'][:3]) if e.get('owner_gated') else ('size L: slice first' if e.get('needs_split') else '')
+        L.append('| %d | `%s` | %s | %s | %s | %s | %s |' % (e['order'], x, e['route']['type'], e['size'], e['tier'], wait, md_cell(note)))
+    L.append('')
     L.append('## Delegated decisions')
     L.append('')
     nA = sum(1 for r in rows if r.startswith('A')); nB = sum(1 for r in rows if r.startswith('B')); nC = sum(1 for r in rows if r.startswith('C'))
@@ -772,7 +815,7 @@ def status_md(A, B, items, order, entries, result, rows):
     L.append('## OWNER_ONLY: every step only the owner can take')
     L.append('')
     oo = [items[i] for i in order if items[i]['status'] == 'OWNER_ONLY']
-    L.append('%d items need a legal act, an account, a key, a DNS change, a payment, a deployment, real hardware or a third party. The step is quoted from the item; nothing here is done by Claude. Items under a roadmap node are listed with it.' % len(oo))
+    L.append('%d items need a legal act, an account, a key, a DNS change, a payment, a deployment, real hardware or a third party. The step is quoted from the item; Items under a roadmap node are listed with it.' % len(oo))
     L.append('')
     for ch in CHAPTERS:
         lst = [it for it in oo if it['chapter'] == ch]

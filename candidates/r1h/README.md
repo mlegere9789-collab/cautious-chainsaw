@@ -46,9 +46,17 @@ node candidates/r1h/_lib/record.mjs <id> --check
 ```
 The red-first record is the failing run captured before the implementation (its log must exist and be non-empty).
 
+## A candidate of route "release-request" (the change is in files the release workstream owns)
+
+Write the request note `docs/battle-theatre/GOVERNANCE/horde/requests/main-site-<id>.md` (file, lines and exact text of the change, the red-first check the release workstream runs, its expected result, what was not run), a HANDOFF.md in this folder, then:
+```
+node candidates/r1h/_lib/record.mjs <id> --request-note docs/battle-theatre/GOVERNANCE/horde/requests/main-site-<id>.md
+```
+The entry is done when the note exists (over 200 bytes) and HANDOFF.md exists; carrying the change out is the release workstream's.
+
 ## Closing rule
 
-An item is done only when its STATUS.json says `"passes": true`, HANDOFF.md exists, the files named in the backlog entry exist, and `python3 docs/plan/STATUS/check_backlog.py --rerun <id>` has re-run the recorded check and got the same result. `python3 docs/plan/STATUS/check_backlog.py` validates backlog.json and every done claim; `python3 docs/plan/STATUS/merge_status.py` rebuilds STATUS.md and backlog.json from items-A.json, items-B.json and backlog-authored.json.
+An item is done only when its STATUS.json says `"passes": true`, HANDOFF.md exists, the files named in the backlog entry exist, and `python3 docs/plan/STATUS/check_backlog.py --rerun <id>` has re-run the recorded check and got the same result. `python3 docs/plan/STATUS/check_backlog.py` validates backlog.json and every done claim; `python3 docs/plan/STATUS/merge_status.py` rebuilds STATUS.md and backlog.json from items-A.json, items-B.json, the authored entries (docs/plan/STATUS/authored_wave1a.py, authored_wave1b.py) and the records in this folder; `python3 docs/plan/STATUS/check_backlog_selftest.py` proves the validator can fail.
 
 ## Conventions
 
