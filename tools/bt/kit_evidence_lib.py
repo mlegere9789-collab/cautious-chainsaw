@@ -171,7 +171,7 @@ ALLOWED_KEYS = {
 }
 REQUIRED_KEYS = {
     'evidence': {'type', 'id', 'unit_id', 'field', 'value', 'basis', 'tier', 'source_id', 'quote'},
-    'gap': {'type', 'id', 'field', 'searched', 'result'},
+    'gap': {'type', 'id', 'searched', 'result'},
     'source': {'type', 'id', 'title', 'class', 'local_path'},
 }
 DECLARABLE_CLASSES = ('official_records', 'state_or_commission_report', 'statistical_compilation', 'regimental_or_state_history', 'participant_account', 'period_or_later_history', 'period_newspaper', 'primary_manual', 'primary_report',

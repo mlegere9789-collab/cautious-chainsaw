@@ -1,12 +1,12 @@
 {
  "unit": "c-nc-26th-north-carolina-infantry",
  "rows": 1737,
- "raw_bytes": 196951,
- "gz_bytes": 40382,
- "mean_line": 113.3,
- "median_line": 106,
- "p90_line": 150,
- "share_over_90": 0.699,
+ "raw_bytes": 158786,
+ "gz_bytes": 35327,
+ "mean_line": 115.8,
+ "median_line": 108,
+ "p90_line": 155,
+ "share_over_90": 0.749,
  "verify": {
   "rows": 1737,
   "name_ok": 1737,
@@ -15,60 +15,11 @@
   "remark_empty": 0,
   "page_ok": 1737,
   "page_null": 0,
-  "rank_ok": 1304,
+  "rank_ok": 1737,
   "rank_empty": 0,
   "order_breaks": 0
  },
- "defect_samples": [
-  {
-   "kind": "rank-not-in-leaf",
-   "t": "NC-MOORE-1882.2",
-   "off": 1241317,
-   "name": "Ackroid, William"
-  },
-  {
-   "kind": "rank-not-in-leaf",
-   "t": "NC-MOORE-1882.2",
-   "off": 1241433,
-   "name": "Austin, Green D."
-  },
-  {
-   "kind": "rank-not-in-leaf",
-   "t": "NC-MOORE-1882.2",
-   "off": 1241528,
-   "name": "Baker, W. A."
-  },
-  {
-   "kind": "rank-not-in-leaf",
-   "t": "NC-MOORE-1882.2",
-   "off": 1241609,
-   "name": "Baker, Thomas A."
-  },
-  {
-   "kind": "rank-not-in-leaf",
-   "t": "NC-MOORE-1882.2",
-   "off": 1241669,
-   "name": "Haker, William T."
-  },
-  {
-   "kind": "rank-not-in-leaf",
-   "t": "NC-MOORE-1882.2",
-   "off": 1241730,
-   "name": "Broom, Thomas J."
-  },
-  {
-   "kind": "rank-not-in-leaf",
-   "t": "NC-MOORE-1882.2",
-   "off": 1241825,
-   "name": "Broom, William J."
-  },
-  {
-   "kind": "rank-not-in-leaf",
-   "t": "NC-MOORE-1882.2",
-   "off": 1241880,
-   "name": "Broom, A. L."
-  }
- ],
+ "defect_samples": [],
  "gettysburg_rows": 468,
  "skipped_lines": 23,
  "skipped_sample": [

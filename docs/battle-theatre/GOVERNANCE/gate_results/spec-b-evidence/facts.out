@@ -440,22 +440,34 @@
  "inputs_watch": {
   "GOVERNANCE/realizations": {
    "dir": true,
-   "entries": 0,
-   "first": []
+   "entries": 2,
+   "first": [
+    "EXAMPLES.jsonl",
+    "RESULTS.json"
+   ]
   },
-  "GOVERNANCE/timeline_corrections": "absent",
-  "GOVERNANCE/evidence_corrections": {
+  "GOVERNANCE/timeline_corrections": {
    "dir": true,
    "entries": 1,
    "first": [
-    "fence-1.jsonl"
+    "web-nps-landscape.jsonl"
+   ]
+  },
+  "GOVERNANCE/evidence_corrections": {
+   "dir": true,
+   "entries": 3,
+   "first": [
+    "fence-1.jsonl",
+    "web-nps-landscape.jsonl",
+    "web-photomatch.jsonl"
    ]
   },
   "GOVERNANCE/final-passes": "absent",
   "GOVERNANCE/gate_results": {
    "dir": true,
-   "entries": 2,
+   "entries": 3,
    "first": [
+    "GATE-SPEC-A.md",
     "GATE-SPEC-B.md",
     "spec-b-evidence"
    ]
@@ -472,9 +484,11 @@
   "kit/verified_batteries.json": "absent",
   "kit/evidence": {
    "dir": true,
-   "entries": 4,
+   "entries": 6,
    "first": [
     "INVENTORY.md",
+    "PLAN.md",
+    "examples.jsonl",
     "groups.json",
     "or27_leaf_pages.json",
     "sources.json"
@@ -482,8 +496,9 @@
   },
   "history/undrawn": {
    "dir": true,
-   "entries": 5,
+   "entries": 6,
    "first": [
+    "PLAN.md",
     "groups.json",
     "roster-gaps.json",
     "sources.json",
@@ -492,10 +507,10 @@
    ]
   },
   "app/docs/GATE-HOOKS.md": {
-   "bytes": 2201
+   "bytes": 4506
   },
   "app/docs/EXT-CONTRACT.md": {
-   "bytes": 21219
+   "bytes": 21486
   },
   "app/src/ext": {
    "dir": true,
@@ -510,22 +525,26 @@
   "app/data/vegetation.json": "absent",
   "tools/bt/realize": {
    "dir": true,
-   "entries": 4,
+   "entries": 11,
    "first": [
+    "adapters.json",
+    "check.mjs",
+    "checks.mjs",
     "gazetteer.mjs",
     "lib.mjs",
-    "timeline.mjs",
-    "tolerances.json"
+    "q.mjs"
    ]
   },
   "tools/bt/vegetation": {
    "dir": true,
-   "entries": 4,
+   "entries": 14,
    "first": [
     "__pycache__",
-    "or_scan.py",
-    "srcs.py",
-    "warren_px.py"
+    "build_vegetation.py",
+    "claims_library.json",
+    "claims_nps_extracts.json",
+    "claims_nps_hand.json",
+    "claims_or27.json"
    ]
   },
   "tools/bt/photomatch/nps_then_now.json": {
@@ -582,7 +601,9 @@
     "ADAMS-SENTINEL-1863-07-07__adams-sentinel-1863-07-07_djvu.txt"
    ]
   },
-  "GOVERNANCE/gate_results/GATE-SPEC-A.md": "absent"
+  "GOVERNANCE/gate_results/GATE-SPEC-A.md": {
+   "bytes": 69846
+  }
  },
  "check_scripts": [
   "docs/battle-theatre/fidelity/tools/check_quotes.py",
@@ -597,12 +618,24 @@
  ],
  "evidence_corrections": {
   "files": {
-   "fence-1.jsonl": 1
+   "fence-1.jsonl": 18,
+   "web-nps-landscape.jsonl": 776,
+   "web-photomatch.jsonl": 4
   },
-  "rows": 1,
+  "rows": 798,
   "verdict": {
-   "partially_supported": 1
+   "partially_supported": 788,
+   "corrected": 7,
+   "confirmed": 2,
+   "gap": 1
   }
+ },
+ "timeline_corrections": {
+  "files": {
+   "web-nps-landscape.jsonl": 0
+  },
+  "rows": 0,
+  "verdict": {}
  },
  "drill_ocr_texts": {
   "pinned": 16,
@@ -618,5 +651,76 @@
    "pennsylvania02penn_djvu.txt",
    "riflelightinfant121hard_djvu.txt"
   ]
- }
+ },
+ "realization_results": {
+  "harness": "bt-realize-1",
+  "scope": {
+   "timeline_rows": 691,
+   "epilogue_rows": 14,
+   "files": [
+    "docs/battle-theatre/GOVERNANCE/realizations/EXAMPLES.jsonl"
+   ],
+   "partial": false
+  },
+  "q17": {
+   "ok": false,
+   "rows": 691,
+   "realized": 3,
+   "covered_by_open_register_entry_only": 315,
+   "uncovered": 373,
+   "epilogue_uncovered": 2
+  },
+  "totals_timeline": {
+   "rows": 691,
+   "realized": 3,
+   "not_realized": 688,
+   "with_record": 20,
+   "no_record": 671,
+   "covered_by_open_register_entry_only": 315,
+   "uncovered": 373
+  },
+  "totals_epilogue": {
+   "rows": 14,
+   "realized": 0,
+   "not_realized": 14,
+   "with_record": 0,
+   "no_record": 14,
+   "covered_by_open_register_entry_only": 12,
+   "uncovered": 2
+  },
+  "realized_rows": [
+   "T1-003",
+   "T1-016",
+   "T1-019"
+  ],
+  "mtime_utc": "2026-11-13T19:47:24Z"
+ },
+ "decisions_DD-RZ": [],
+ "tests_governance_files": [
+  "coverage.test.mjs",
+  "test_coverage.py"
+ ],
+ "realize_files": [
+  "adapters.json",
+  "check.mjs",
+  "checks.mjs",
+  "gazetteer.mjs",
+  "lib.mjs",
+  "q.mjs",
+  "query.mjs",
+  "schema.mjs",
+  "suggest.mjs",
+  "timeline.mjs",
+  "tolerances.json"
+ ],
+ "gate_hooks_functions": [
+  "checkLaterMemorials(mem, T?)",
+  "checkTourBookmarks(tour, T)",
+  "sceneObjectsAt(tMin)",
+  "drift(trees?, files?, pins?)",
+  "tierName(tier)",
+  "tierMark(tier)",
+  "tierMark.style(tier)",
+  "badPath(p)"
+ ]
 }

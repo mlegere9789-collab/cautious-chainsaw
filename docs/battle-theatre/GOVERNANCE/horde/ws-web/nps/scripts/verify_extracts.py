@@ -72,9 +72,13 @@ def main():
         q = r['quote']
         mode = r.get('quote_mode', 'anchors')
         if mode == 'cleaned':
-            lig = s.get('text_defect') == 'ligature'
+            lig = 'fi' if s.get('text_defect') == 'fi-ligature' else (s.get('text_defect') == 'ligature')
             key, _ = be._alnum_map(flat, lig)
-            qk, _ = be._alnum_map(be.norm(q), lig)
+            tmpl = r.get('quote_template') or q
+            match_form = be._CORR.sub(lambda m: m.group(1), tmpl)
+            if be.norm(be._CORR.sub(lambda m: m.group(2), tmpl)) != q:
+                problems.append('%s: quote differs from its template with the OCR corrections applied' % x)
+            qk, _ = be._alnum_map(be.norm(match_form), lig)
             if key.count(qk) != 1:
                 problems.append('%s: cleaned quote letters found %d times on p.%d' % (x, key.count(qk), p))
             if not r.get('source_text_excerpt') or r['source_text_excerpt'] not in flat:

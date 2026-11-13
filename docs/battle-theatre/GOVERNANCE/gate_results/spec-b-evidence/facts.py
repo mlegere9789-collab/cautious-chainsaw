@@ -130,4 +130,18 @@ if os.path.isdir(scr):
     want = sorted(os.listdir(scr)); have = set(os.listdir(misc)) if os.path.isdir(misc) else set()
     out['drill_ocr_texts'] = {'pinned': len(want), 'present_in_tmp_library_misc': sum(1 for w in want if w in have), 'missing': [w for w in want if w not in have]}
 
+
+# ---- the realization harness (gate Q17): its own result file, the decisions its tolerances cite, and its test
+rp = os.path.join(G, 'realizations', 'RESULTS.json')
+if os.path.exists(rp):
+    rr = json.load(open(rp, encoding='utf-8'))
+    out['realization_results'] = {'harness': rr.get('harness'), 'scope': rr.get('scope'), 'q17': rr.get('q17'), 'totals_timeline': (rr.get('totals') or {}).get('timeline'), 'totals_epilogue': (rr.get('totals') or {}).get('epilogue'),
+                                  'realized_rows': sorted(k for k, v in (rr.get('rows') or {}).items() if v.get('realized')), 'mtime_utc': __import__('time').strftime('%FT%TZ', __import__('time').gmtime(os.path.getmtime(rp)))}
+dd = os.path.join(G, 'decisions', 'DELEGATED-DECISIONS-2026-11-11.md')
+out['decisions_DD-RZ'] = sorted(set(re.findall(r'DD-RZ-\d+', open(dd, encoding='utf-8').read()))) if os.path.exists(dd) else None
+out['tests_governance_files'] = sorted(os.listdir(os.path.join(ROOT, 'tests', 'governance')))
+out['realize_files'] = sorted(os.listdir(os.path.join(ROOT, 'tools', 'bt', 'realize')))
+hk = os.path.join(BT, 'app', 'docs', 'GATE-HOOKS.md')
+out['gate_hooks_functions'] = re.findall(r'^\| `([^`]+)` \|', open(hk, encoding='utf-8').read(), re.M) + re.findall(r'^\| [a-z/._-]+ \| `([^`]+)` \|', open(hk, encoding='utf-8').read(), re.M) if os.path.exists(hk) else None
+
 print(json.dumps(out, indent=1, sort_keys=False))

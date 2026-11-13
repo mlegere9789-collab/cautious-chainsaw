@@ -1,0 +1,10 @@
+drill_infantry.json     79 items; page confidence {'high': 65, 'inferred': 8, 'low': 1, 'medium': 5}
+drill_artillery.json    80 items; page confidence {'high': 54, 'medium': 26}
+ordnance_tables.json    28 items; page confidence {'high': 22, 'low': 2, 'medium': 4}
+drill_hardee.json      100 items; page confidence {'high': 70, 'inferred': 2, 'low': 1, 'medium': 23, 'none': 4}
+drill_compare.json      64 rows;  {'absent_hardee': 4, 'differs': 8, 'identical': 51, 'unsettled': 1}
+
+FAILED: 2 problem(s)
+ - usage_search PA-GB-1914b: source or file missing
+ - usage_search OR-ATLAS: source or file missing
+drill_check.main() returned 1 in 45.0 s

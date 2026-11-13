@@ -110,6 +110,7 @@ def check_group(group, path, any_unit=False, want_diff=False):
             raise SystemExit('%s is not a group of groups.json (%s)' % (group, ', '.join(x['id'] for x in gdoc['groups'])))
         units = {u['unit_id']: (g, u) for u in g['units']}
     kit = Kit() if want_diff else None
+    cat = gdoc['catalog']
     parsed = []
     with open(path, encoding='utf-8') as f:
         for n, raw in enumerate(f, 1):
@@ -163,7 +164,7 @@ def check_group(group, path, any_unit=False, want_diff=False):
         if t == 'gap':
             check_gap(R, n, o, units)
         elif t == 'evidence':
-            check_evidence(R, n, o, units, order, kit)
+            check_evidence(R, n, o, units, order, kit, cat)
     # pass 3: supersession, conflicts, collisions
     for lid, o in R.lines.items():
         s = o.get('supersedes')
@@ -253,7 +254,7 @@ def check_gap(R, n, o, units):
         R.err(n, lid, 'KITFIELD', 'kit_field %r' % o['kit_field'])
 
 
-def check_evidence(R, n, o, units, order, kit):
+def check_evidence(R, n, o, units, order, kit, cat):
     lid = o['id']
     E = lambda code, msg: R.err(n, lid, code, msg)
     W = lambda code, msg: R.warn(n, lid, code, msg)
@@ -292,6 +293,23 @@ def check_evidence(R, n, o, units, order, kit):
     K.check_value(K.FIELD_SPECS[f], o.get('value'), 'value', errs)
     for m in errs:
         E('VALUE', m)
+    if not errs and isinstance(o.get('value'), dict):
+        v = o['value']
+        if f == 'arms':
+            for w in v['weapons']:
+                if w.get('weapon_id') is not None and w['weapon_id'] not in cat['weapons']:
+                    E('VALUE', 'weapon_id %r is not in the weapon catalog (groups.json catalog.weapons); use null and describe it in printed' % w['weapon_id'])
+        elif f == 'dress':
+            for it in v['items']:
+                if it.get('item_id') is not None and it['item_id'] not in cat['kit_items']:
+                    E('VALUE', 'item_id %r is not in the item catalog (groups.json catalog.kit_items); use null and describe it in printed' % it['item_id'])
+        elif f == 'guns':
+            for pc in v['pieces']:
+                for tid in ([pc['type_id']] if pc.get('type_id') else []) + list(pc.get('type_candidates') or []):
+                    if tid not in cat['artillery_pieces']:
+                        E('VALUE', 'piece type %r is not in the catalog (groups.json catalog.artillery_pieces)' % tid)
+            if v.get('total') is not None and all(isinstance(pc.get('count'), int) for pc in v['pieces']) and sum(pc['count'] for pc in v['pieces']) != v['total']:
+                E('VALUE', 'total %d is not the sum of the piece counts %d' % (v['total'], sum(pc['count'] for pc in v['pieces'])))
     if o.get('as_of') is not None and not (isinstance(o['as_of'], str) and K.DATE_RE.match(o['as_of'])):
         E('DATE', 'as_of %r' % (o['as_of'],))
     elif isinstance(o.get('as_of'), str) and not re.match(r'^1863-(06-(2[6-9]|30)|07-(0[1-9]|1[0-6]))', o['as_of']):

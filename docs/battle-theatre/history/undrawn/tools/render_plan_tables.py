@@ -37,6 +37,11 @@ def rows():
 def t_totals():
     c = G['layer']['counts']; T = G['totals']
     tally = collections.Counter(); leafs = [u for u in ST['units'] if u['leaf'] and u['layer_status'] in ('moving', 'edge_only', 'not_drawn')]
+    road = collections.Counter(); days = collections.Counter()
+    for u in leafs:
+        if u['layer_status'] in ('moving', 'edge_only'):
+            a = u['approach']; road['modelled' if a['modelled'] else 'corps' if a['tier'] == 'plausible-procedural' else 'own'] += 1
+        if u['layer_status'] == 'moving': days[sum(1 for v in u['places'].values() if v in ('ledger', 'map', 'ledger+map'))] += 1
     for u in leafs:
         for m in u['missing']: tally[m] += 1
     L = ['| What | Units |', '|---|---:|',
@@ -52,6 +57,11 @@ def t_totals():
          '| of those: missing a road of approach of their own (none, modelled, or only the corps-level one) | %s |' % n(tally['path']),
          '| of those: missing a strength of their own (every one: a procedural share) | %s |' % n(tally['strength']),
          '| of those: missing everything of their own (gate, road and places all come from a formation above) | %s |' % n(tally['parent_only']),
+         '| drawn units by road of approach: printed for the unit or a formation below the corps (tier inferred) | %s |' % n(road['own']),
+         '| drawn units by road of approach: only the corps-level road is printed (plausible-procedural) | %s |' % n(road['corps']),
+         '| drawn units by road of approach: modelled from the sibling formations of the corps (DEC-015, EG-0070) | %s |' % n(road['modelled']),
+         '| placed units with a place on 1, 2 or 3 days of 1 to 3 July (days from the unit\'s gate; a place is a ledger stop or a single-label troop-map position) | %s, %s, %s |' % (n(days[1]), n(days[2]), n(days[3])),
+         '| leaf units on the field that no ledger claim names (everything of theirs comes from a formation above) | %s |' % n(sum(1 for u in leafs if not u['claims_own']['total'])),
          '| roster-gap entries (units printed in the Official Records tables that the roster lacks, splits or lists with another status) | %s |' % n(T['roster_gap_entries'])]
     return '\n'.join(L)
 
@@ -67,13 +77,14 @@ def t_why():
 
 
 def t_groups():
-    L = ['| Group | Units | Leaf on field | Not drawn | At edge | Partly drawn | Formations | Not on field | Roster gaps | Figures drawn |', '|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|']
+    L = ['| Group | Units | Leaf on field | Not drawn | At edge | Partly drawn | Formations | Not on field | Roster gaps | Figures drawn | Load |', '|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|']
     tot = collections.Counter()
     for g in G['groups']:
-        c = g['counts']; row = [c['units'], c['leaf_units_on_field'], c.get('not_drawn', 0), c.get('edge_only', 0), c.get('partly_drawn', 0), c.get('formation', 0), c.get('not_on_field', 0), c['roster_gaps'], c['figures_drawn']]
+        c = g['counts']; load = sum(len([m for m in u['missing'] if m != 'parent_only']) for u in g['units'])
+        row = [c['units'], c['leaf_units_on_field'], c.get('not_drawn', 0), c.get('edge_only', 0), c.get('partly_drawn', 0), c.get('formation', 0), c.get('not_on_field', 0), c['roster_gaps'], c['figures_drawn'], load]
         for i, v in enumerate(row): tot[i] += v
         L.append('| `%s` | %s |' % (g['id'], ' | '.join(n(v) for v in row)))
-    L.append('| **%d groups** | %s |' % (len(G['groups']), ' | '.join('**%s**' % n(tot[i]) for i in range(9))))
+    L.append('| **%d groups** | %s |' % (len(G['groups']), ' | '.join('**%s**' % n(tot[i]) for i in range(10))))
     return '\n'.join(L)
 
 
@@ -121,15 +132,30 @@ def t_sections():
     return '\n'.join(L)
 
 
-GEN = {'totals': t_totals, 'why': t_why, 'groups': t_groups, 'undrawn': t_undrawn, 'notonfield': t_notonfield, 'sections': t_sections}
+def t_periods():
+    E = json.load(open(os.path.join(UND, '..', '..', 'environment', 'ephemeris_1863.json'), encoding='utf-8'))['segments'][0]['events_lmt_minutes_since_midnight']['1863-07-02']
+    hm = lambda m: '%02d:%02d' % (int(round(m) // 60), int(round(m) % 60))
+    dawn, sr, ss, dk = E['civil_dawn'][0], E['sunrise'][0], E['sunset'][0], E['civil_dusk'][0]
+    sys.path.insert(0, HERE)
+    import check_undrawn as C
+    W = collections.OrderedDict([('before_daylight', (0, dawn)), ('daybreak', (dawn, sr)), ('sunrise', (sr, sr)), ('early_morning', (sr, 720)), ('morning', (sr, 720)), ('forenoon', (sr, 720)), ('early_afternoon', (720, ss)),
+                                 ('afternoon', (720, ss)), ('late_afternoon', (720, ss)), ('sunset', (ss, ss)), ('dusk', (ss, dk)), ('evening', (ss, 1440)), ('night', (dk, 1440)), ('all_day', (sr, ss))])
+    assert list(W) == list(C.PERIODS), 'the period table of the plan and the checker differ'
+    L = ['| Token | Words (any one, in `when.printed`) | Window (LMT) | Instant used |', '|---|---|---|---|']
+    for k, (a, b) in W.items():
+        L.append('| `%s` | %s | %s | %s |' % (k, ', '.join('"%s"' % w for w in C.PERIODS[k]), '%s to %s' % (hm(a), hm(b)) if a != b else hm(a), hm(a)))
+    return '\n'.join(L)
+
+
+GEN = {'periods': t_periods, 'totals': t_totals, 'why': t_why, 'groups': t_groups, 'undrawn': t_undrawn, 'notonfield': t_notonfield, 'sections': t_sections}
 
 
 def render(text):
     for k, f in GEN.items():
-        pat = re.compile(r'(<!-- GEN:%s -->\n)(.*?)(\n<!-- /GEN:%s -->)' % (k, k), re.S)
+        pat = re.compile(r'<!-- GEN:%s -->.*?<!-- /GEN:%s -->' % (k, k), re.S)
         assert pat.search(text), 'marker %s is missing in PLAN.md' % k
         body = f()
-        text = pat.sub(lambda m: m.group(1) + body + m.group(3), text)
+        text = pat.sub(lambda m: '<!-- GEN:%s -->\n%s\n<!-- /GEN:%s -->' % (k, body, k), text)
     return text
 
 

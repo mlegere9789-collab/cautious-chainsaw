@@ -13,7 +13,10 @@
 // modules that are not in the build (tests/bt-pack keeps a reviewed list of both). The directory layout of docs/battle-theatre is kept (the shell resolves its siblings by relative
 // URL). Rewritten on the way out: app/index.html (home links, noindex, build stamp) and the files of PROJECT (reduced to the fields the shell reads). Files matching WITHHELD are never
 // shipped, are listed in MANIFEST.json and are reported by the real run. Nothing is uploaded or deployed by this tool.
-import fs from 'node:fs'; import path from 'node:path'; import crypto from 'node:crypto'; import zlib from 'node:zlib'; import { fileURLToPath } from 'node:url';
+// The copy audit (AUDIT_RE below) runs on the finished dist. A build with hits exits 2, prints every line, and its zip is named gettysburg-BT-staging-<id>-AUDIT-HITS-<n>.zip: the plain
+// name means "clean" and nothing else (the zips of earlier flagged builds are removed by the next pack; a clean zip never is). tools/bt/verify_staging.mjs does the whole honest run
+// (snapshot, pack, static checks, browser walk of the dist and of the source, comparison); tests/bt-pack holds the self-tests of both tools.
+import fs from 'node:fs'; import path from 'node:path'; import crypto from 'node:crypto'; import zlib from 'node:zlib'; import { execFileSync } from 'node:child_process'; import { fileURLToPath } from 'node:url';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 export const REPO = path.resolve(here, '../..');
@@ -226,6 +229,12 @@ export function trace(opts = {}) {
   for (const d of cfg.extraDirs) { const abs = path.join(root, d); if (isDir(abs)) shipDir(abs, 'EXTRA_DIRS'); else problems.push(`missing: ${d} (EXTRA_DIRS)`); }
   for (const d of cfg.include) { const abs = path.join(root, d); if (isDir(abs)) shipDir(abs, 'INCLUDE'); else if (isFile(abs)) ship(abs, 'INCLUDE'); else problems.push(`missing: ${d} (INCLUDE)`); }
   for (let guard = 0; (reached.length || later.length) && guard < 1e4; guard++) { drain(reached); const l = later.splice(0); drain(l); }
+  // ---- index files of a section's data that live OUTSIDE the section (rosters/data2/INDEX.json): a JSON file that code or a page of a section loads is followed like the section's own index files,
+  // so that the per-unit files its entries name (the ones the page loads on demand) ship too. Names are resolved beside the index file.
+  for (let again = true, guard = 0; again && guard < 20; guard++) {
+    again = false;
+    for (const [abs, whys] of [...files]) if (/\.json$/i.test(abs) && !seenJson.has(abs) && [...whys].some(w => cfg.sections.some(sec => w.includes(' in ' + sec + '/')))) { const n = files.size; scanJson(abs, path.dirname(abs)); if (files.size > n) again = true; }
+  }
   for (const d of cfg.exclude) { const abs = path.join(root, d); for (const f of [...files.keys()]) if (f === abs || f.startsWith(abs + path.sep)) files.delete(f); }
   // ---- working files that are shipped reduced: every shipped module that names one must be a listed reader, reading it the listed way
   const projected = [];
@@ -374,10 +383,13 @@ export function pack({ root = BT, out = path.join(REPO, 'deliver/bt-staging/dist
     const zbuf = makeZip(names.map(name => ({ name, data: emitted.get(name) }))), zn = `gettysburg-BT-staging-${version}${res.audit.length ? '-AUDIT-HITS-' + res.audit.length : ''}.zip`; fs.mkdirSync(zipDir, { recursive: true });
     fs.writeFileSync(path.join(zipDir, zn), zbuf); res.zip = path.join(zipDir, zn); res.zipBytes = zbuf.length; res.zipSha256 = sha(zbuf);
     fs.writeFileSync(res.zip + '.sha256', `${res.zipSha256}  ${zn}\n`);
+    // zips of earlier builds that failed the audit are never worth keeping (a clean zip is: it may be in the owner's hands)
+    for (const f of fs.readdirSync(zipDir)) if (/^gettysburg-BT-staging-[0-9a-f]{8}-AUDIT-HITS-\d+\.zip(\.sha256)?$/.test(f) && f !== zn && f !== zn + '.sha256') fs.rmSync(path.join(zipDir, f), { force: true });
   }
   res.clean = res.audit.length === 0;
   // the trace report sits beside the dist, never inside it
-  fs.writeFileSync(path.join(path.dirname(out), 'trace-report.json'), JSON.stringify({ version, zip: res.zip ? path.basename(res.zip) : null, zipBytes: res.zipBytes, zipSha256: res.zipSha256, files: res.files, bytes: res.bytes, counts: res.counts, ...res.trace, audit: res.audit, auditReview: res.auditReview }, null, 1) + '\n');
+  const git = (() => { try { return execFileSync('git', ['rev-parse', '--short', 'HEAD'], { cwd: REPO, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim(); } catch { return null; } })();   // for the reader of the report only: never part of the build, so the build stays a function of the files
+  fs.writeFileSync(path.join(path.dirname(out), 'trace-report.json'), JSON.stringify({ built: { at: new Date().toISOString(), gitHead: git, root }, version, zip: res.zip ? path.basename(res.zip) : null, zipBytes: res.zipBytes, zipSha256: res.zipSha256, files: res.files, bytes: res.bytes, counts: res.counts, ...res.trace, audit: res.audit, auditReview: res.auditReview }, null, 1) + '\n');
   return res;
 }
 

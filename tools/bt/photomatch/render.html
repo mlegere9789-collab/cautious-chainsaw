@@ -74,5 +74,14 @@ precision highp float; uniform vec3 col; out vec4 o; void main(){ o=vec4(col,1.)
   for (const k of ['road', 'fence', 'bld']) { const L = window._lines[k]; gl.bindBuffer(gl.ARRAY_BUFFER, L.vb); a = gl.getAttribLocation(progs.l, 'p'); gl.enableVertexAttribArray(a); gl.vertexAttribPointer(a, 3, gl.FLOAT, false, 0, 0); gl.uniform3f(gl.getUniformLocation(progs.l, 'col'), ...colr[k]); gl.drawArrays(gl.LINES, 0, L.n); }
   return { base, full: c.toDataURL('image/png'), eye, groundM: ground };
 };
+
+// Projection of named points into the image of a pose (same camera maths as btRender): returns pixel positions and whether the point is in front of the camera and inside the frame.
+window.btProject = async (pose, pts, W = 960, H = 640) => {
+  if (!T) await load();
+  const [ex, ez] = toM(pose.lng, pose.lat), ground = T.at(ex, ez), eye = { x: ex, y: (pose.elevM != null ? pose.elevM : ground + pose.agl), z: ez };
+  const M = viewProj({ ...eye, yawDeg: pose.headingDeg, pitchDeg: pose.pitchDeg, fovDegH: pose.fovHDeg, aspect: W / H });
+  return pts.map(q => { const [x, z] = toM(q.lng, q.lat), y = T.at(x, z) + (q.h || 0); const c = [0, 1, 2, 3].map(r => M[r] * x + M[4 + r] * y + M[8 + r] * z + M[12 + r]);
+    const w = c[3]; if (w <= 0) return { id: q.id, front: false }; const nx = c[0] / w, ny = c[1] / w; return { id: q.id, front: true, px: (nx * .5 + .5) * W, py: (1 - (ny * .5 + .5)) * H, inside: Math.abs(nx) <= 1 && Math.abs(ny) <= 1, dist_m: Math.hypot(x - ex, z - ez) }; });
+};
 window.btReady = true;
 </script>

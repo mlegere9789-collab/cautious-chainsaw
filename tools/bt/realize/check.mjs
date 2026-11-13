@@ -18,6 +18,7 @@ import { Runner } from './checks.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const HARNESS_FILES = ['lib.mjs', 'timeline.mjs', 'gazetteer.mjs', 'query.mjs', 'schema.mjs', 'checks.mjs', 'check.mjs', 'tolerances.json', 'adapters.json'];
+const trimEv = ev => { if (!ev) return undefined; const t = JSON.stringify(ev); return t.length > 260 ? t.slice(0, 257) + '...' : ev; };
 export const harnessDigest = () => sha256(Buffer.from(HARNESS_FILES.map(f => f + ':' + sha256File(path.join(here, f))).join('\n'))).slice(0, 16);
 
 // ---- the register half of the gate: the same rule as tools/bt/check_coverage.py (a sub-requirement of the row linked to an open register entry)
@@ -79,7 +80,7 @@ export async function runAll({ shards = null, files = null, rows = null, quiet =
   const universe = [...TL.rows, ...EP].filter(r => !rows || rows.includes(r.id)), out = {};
   for (const r of universe) {
     const res = results.get(r.id), rg = reg.get(r.id) || { open: [], all: [] };
-    const entry = res ? { realized: !!res.realized, kind: res.kind, why: res.why, codes: res.codes, record: res.source, window: res.window || null, scenarios: res.scenarios, declared_bindings: res.bindings ? res.bindings.declared : 0, problems: res.problems.map(p => p.code + ': ' + p.detail).slice(0, 6), failing: (res.assertions || []).filter(a => !a.ok).map(a => ({ i: a.i, type: a.type, code: a.code, detail: a.detail })).slice(0, 8), ...(res.missing ? { missing: res.missing } : {}), ...(res.from_examples ? { from_examples: true } : {}), ...(((results.get(r.id) || {}).source || '').includes('EXAMPLES') ? {} : {}) }
+    const entry = res ? { realized: !!res.realized, kind: res.kind, why: res.why, codes: res.codes, record: res.source, window: res.window || null, scenarios: res.scenarios, declared_bindings: res.bindings ? res.bindings.declared : 0, problems: res.problems.map(p => p.code + ': ' + p.detail).slice(0, 6), failing: (res.assertions || []).filter(a => !a.ok).map(a => ({ i: a.i, type: a.type, code: a.code, detail: a.detail })).slice(0, 8), assertions: (res.assertions || []).map(a => ({ i: a.i, type: a.type, ok: a.ok, ...(a.ok ? {} : { code: a.code }), evidence: trimEv(a.ok ? a.evidence : null) })), ...(res.stale_result ? { stale_result: res.stale_result } : {}), ...(res.missing ? { missing: res.missing } : {}), ...(res.from_examples ? { from_examples: true } : {}), ...(((results.get(r.id) || {}).source || '').includes('EXAMPLES') ? {} : {}) }
       : { realized: false, kind: null, why: 'no realization record', codes: ['no_record'], record: null, window: null };
     entry.tier = r.tier; entry.status = r.status_effective; entry.shard = r.shard || null; entry.register_open = rg.open; entry.q17_covered = !!entry.realized || rg.open.length > 0; entry.coverage = entry.realized ? 'realization' : rg.open.length ? 'open_register_entry' : 'none';
     out[r.id] = entry;
@@ -119,6 +120,6 @@ async function main() {
     for (const p of problems) console.log(`  FILE PROBLEM ${p.file}:${p.line}: ${p.error}`);
     if (rows || (shards && shards.length === 1)) for (const [id, e] of Object.entries(doc.rows)) console.log(`  ${id} ${e.realized ? 'REALIZED' : 'not realized'} [${e.kind || '-'}] ${e.why}`);
   }
-  process.exit(problems.some(p => /duplicate|JSON|Unexpected/.test(p.error)) ? 1 : 0);
+  process.exitCode = problems.some(p => /duplicate|JSON|Unexpected/.test(p.error)) ? 1 : 0;       // not process.exit: a large --json write to a pipe must be flushed first
 }
-if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) main().catch(e => { console.error(e && e.stack || e); process.exit(2); });
+if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) main().catch(e => { console.error(e && e.stack || e); process.exitCode = 2; });

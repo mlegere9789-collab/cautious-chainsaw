@@ -143,6 +143,16 @@ group('cs-cav', 'CS', "Army of Northern Virginia, Stuart's cavalry division (Ham
       ['cs-cav-div', 'cs-2c-early-35vacavalrybn'], [R('OR27-2-R565', 'OR27-2-R588', 'Stuart and the cavalry reports (many are of June actions: use them for commanders, arms and strength, not for July positions)')],
       [T(CS_ORG, '290-291', 'organization table'), T(CS_CAS, '334-335, 345', 'two casualty tables')])
 
+# tables every group of an army reads for its own formations (verified against the leaf map: R008 pp. 151-155, R013 pp. 188-192, R425 pp. 291-293)
+SHARED_US = [T(US_ABS, '151-155', 'abstracts and field returns of the Army of the Potomac: corps rows for 10 June to 20 July, division and artillery-brigade rows for 4 July, the cavalry divisions for 28 June (strength lines, basis present_for_duty); take the rows of your formations'),
+             T(US_CAS, '188-192', 'lists of officers killed and mortally wounded, by state and regiment: search them for your regiments and batteries (officer lines, basis casualty_list)')]
+SHARED_CS = [T(CS_ABS, '291-293', 'abstract from returns of the Army of Northern Virginia, 20 and 31 July: division rows and artillery rows (strength lines, basis present_for_duty); take the rows of your formations')]
+for _g in G.values():
+    have = {(t['report_id'], t['pages']) for t in _g['tables']}
+    for _t in (SHARED_US if _g['army'] in ('US', 'both') else []) + (SHARED_CS if _g['army'] in ('CS', 'both') else []):
+        if (_t['report_id'], _t['pages']) not in have:
+            _g['tables'].append(_t)
+
 # kit cards with no roster unit of their own: which roster formation they stand under (first matching substring of the card's parent text)
 ART_PARENT = [("Alexander's", 'cs-1c-res-art-alexander'), ('Washington (La.)', 'cs-1c-res-art-washington'), ("Cabell's", 'cs-1c-mclaws-cabell'), ("Dearing's", 'cs-1c-pickett-dearing'), ("Henry's", 'cs-1c-hood-henry'),
               ("Jones's battalion", 'cs-2c-early-jones'), ("Latimer's", 'cs-2c-johnson-andrews'), ("Carter's", 'cs-2c-rodes-carter'), ("Brown's reserve", 'cs-2c-res-art-1vaartbn'), ("Nelson's", 'cs-2c-res-art-nelson'),
@@ -649,8 +659,22 @@ def build():
             c = collections.Counter(e['fields'][f][0][0] for e in us if f in e['fields'])
             if c:
                 fs[f] = {k: c[k] for k in 'DIPGE' if c[k]}
+        rd = {'read_reports': 0, 'read_kchars': 0, 'search_reports': 0, 'search_kchars': 0}
+        for r in g['reports']:
+            pa = int(r['from'].split('-')[1])
+            for x in ix_records:
+                if x['part'] == pa and r['from'] <= x['id'] <= r['to']:
+                    k = 'read' if r.get('mode', 'read') == 'read' else 'search'
+                    rd[k + '_reports'] += 1
+                    rd[k + '_kchars'] += (x['end_offset'] - x['start_offset']) // 1000
+        npg = 0
+        for t in g['tables']:
+            for part in t['pages'].split(','):
+                a_, _d, b_ = part.strip().partition('-')
+                npg += (int(b_) - int(a_) + 1) if b_ else 1
+        rd['table_pages'] = npg
         groups.append(collections.OrderedDict([
-            ('id', gid), ('title', g['title']), ('army', g['army']), ('roots', g['roots']), ('note', g['note']),
+            ('id', gid), ('title', g['title']), ('army', g['army']), ('roots', g['roots']), ('note', g['note']), ('reading', rd),
             ('counts', {'units': len(us), 'in_roster': sum(1 for e in us if e['in_roster']), 'kit_only': sum(1 for e in us if not e['in_roster']), 'by_level': dict(sorted(lv.items())), 'field_status': fs}),
             ('reading_list', {'tables': [dict(t, source_id=t['report_id'][:6]) for t in g['tables']], 'reports': [dict(r, source_id=r['from'][:6]) for r in g['reports']], 'volumes': vols,
                               'note': 'Page numbers are printed pages from the leaf map (or27_leaf_pages.json) at the head of the block; read the neighbouring pages too. Report ranges come from the index, whose author and unit strings are raw OCR.'}),
@@ -713,6 +737,69 @@ def inventory_md(doc):
     return '\n'.join(L) + '\n'
 
 
+# ---------------------------------------------------------------------------------------------------------------------
+# PLAN.md: the regions between <!-- BEGIN GENERATED name --> and <!-- END GENERATED name --> are rewritten from the data; the rest is hand-written
+def region_groups(doc):
+    L = ['| group | army | units (roster + kit only) | leaf units | required (unit, field) pairs | reports to read (k chars) | reports to search | table pages | what it covers |', '|---|---|---|---|---|---|---|---|---|']
+    tot = collections.Counter()
+    for g in doc['groups']:
+        c, r = g['counts'], g['reading']
+        leaves = sum(1 for u in g['units'] if u['leaf'])
+        pairs = sum(len(u['required']) for u in g['units'])
+        tot.update({'units': c['units'], 'roster': c['in_roster'], 'kit': c['kit_only'], 'leaves': leaves, 'pairs': pairs})
+        L.append('| `%s` | %s | %d (%d + %d) | %d | %d | %d (%dk) | %d | %d | %s |' % (g['id'], g['army'], c['units'], c['in_roster'], c['kit_only'], leaves, pairs, r['read_reports'], r['read_kchars'], r['search_reports'], r['table_pages'], g['title'].replace('|', '/')))
+    L.append('| **total** | | **%d (%d + %d)** | **%d** | **%d** | | | | |' % (tot['units'], tot['roster'], tot['kit'], tot['leaves'], tot['pairs']))
+    return '\n'.join(L)
+
+
+def region_inventory(doc):
+    tot = collections.Counter()
+    for g in doc['groups']:
+        for e in g['units']:
+            for f, v in e['fields'].items():
+                tot[(f, v[0][0])] += 1
+    L = ['| field | documented (as built) | inferred | plausible-procedural | gap | empty | units that carry the field |', '|---|---|---|---|---|---|---|']
+    for f in ('roster', 'commander', 'strength', 'casualties', 'arms', 'guns'):
+        row = [tot[(f, k)] for k in 'DIPGE']
+        L.append('| %s | %s | %d |' % (f, ' | '.join(str(x) for x in row), sum(row)))
+    kf = collections.Counter()
+    n = 0
+    for g in doc['groups']:
+        for e in g['units']:
+            for f, v in (e.get('kit_fields') or {}).items():
+                if f != 'weapon':
+                    kf[v[0]] += 1
+                    n += 1
+    L.append('| dress (ten dress fields per unit, defaults included) | %s | %d field cells |' % (' | '.join(str(kf[k]) for k in 'DIPGE'), n))
+    return '\n'.join(L)
+
+
+def region_contract(doc):
+    if HERE not in sys.path:
+        sys.path.insert(0, HERE)
+    import kit_evidence_check as CC
+    return CC.contract_markdown()
+
+
+def region_examples(doc):
+    with open(os.path.join(OUT, 'examples.jsonl'), encoding='utf-8') as f:
+        lines = [x.rstrip('\n') for x in f if x.strip()]
+    return '```jsonl\n' + '\n'.join(lines) + '\n```'
+
+
+REGIONS = {'groups': region_groups, 'inventory': region_inventory, 'contract': region_contract, 'examples': region_examples}
+
+
+def refresh_plan(text, doc):
+    for name, fn in REGIONS.items():
+        b, e = '<!-- BEGIN GENERATED %s -->' % name, '<!-- END GENERATED %s -->' % name
+        if b not in text or e not in text:
+            raise SystemExit('PLAN.md lacks the markers %s ... %s' % (b, e))
+        i, j = text.index(b) + len(b), text.index(e)
+        text = text[:i] + '\n' + fn(doc) + '\n' + text[j:]
+    return text
+
+
 def dumps(o):
     return json.dumps(o, ensure_ascii=False, indent=1) + '\n'
 
@@ -720,6 +807,10 @@ def dumps(o):
 def main(argv):
     doc, src_doc = build()
     files = {'groups.json': dumps(doc), 'sources.json': dumps(src_doc), 'INVENTORY.md': inventory_md(doc)}
+    plan_path = os.path.join(OUT, 'PLAN.md')
+    if os.path.exists(plan_path):
+        with open(plan_path, encoding='utf-8') as f:
+            files['PLAN.md'] = refresh_plan(f.read(), doc)
     if '--check' in argv:
         bad = [n for n, t in files.items() if not os.path.exists(os.path.join(OUT, n)) or open(os.path.join(OUT, n), encoding='utf-8').read() != t]
         print('kit_evidence_plan --check:', 'OK' if not bad else 'DIFFERS: ' + ', '.join(bad))

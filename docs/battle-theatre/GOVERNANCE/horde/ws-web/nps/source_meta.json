@@ -31,6 +31,42 @@
    "state_dates_note": "Site history chapter (PDF pp. 31-68) describes the landscape by period: to July 1863 (battle-era farms, fields, fences, woods), GBMA 1863-1895, War Department 1895-1933, NPS 1933-2019. Existing-conditions and treatment chapters describe 2019-2021 conditions and reconstructions: never an 1863 profile.",
    "covers": "First Day field northwest of Gettysburg: Seminary campus, Thompson and Dustman lots, Schmucker, Herbst, McPherson, Forney, Wills, McClean, Harman, Herr, Sweney, Crist and Wisler farms; fields, fences, woodlots, orchards, roads, railroad grade, buildings; commemorative park features",
    "used_for_extracts": "yes (extracts/src/20-clr-first-day.xdef)"
+  },
+  "NPS-TPG-COMMEM": {
+   "title": "Treatment Philosophy and Guidelines for the Battlefield Commemorative Area, Gettysburg National Military Park",
+   "author": "John Auwaerter (State University of New York College of Environmental Science and Forestry; Olmsted Center for Landscape Preservation, National Park Service, Boston)",
+   "date": "2025",
+   "from": "PDF pp. 3-4 (title page: By John Auwaerter, SUNY ESF, Olmsted Center for Landscape Preservation, National Park Service; Library of Congress Control Number 2025937949; ETIC report GETT 305/196856A)",
+   "default_variant": "raw",
+   "text_defect": "fi-ligature",
+   "text_quality": "two-column report: quotes are cut from the content-stream-order text (NPS-TPG-COMMEM.raw.txt, pdftotext -raw, line-end hyphenation repaired). The text layer lost the i of every fi ligature and one f of ff (battlefeld, felds, fg., diferent), so quotes are typed in the corrected spelling and matched letter for letter with those groups ignored (quote_mode cleaned; the raw excerpt is stored next to the quote)",
+   "state_dates_note": "The Historical Overview (PDF pp. 33-45) dates each commemorative feature (1864-1938): those are features placed AFTER July 1863. The guidelines describe 2019-2023 condition and treatment. Statements about the 1863 battlefield (vernacular rail fences, 1863 public roads) are marked as such.",
+   "covers": "Commemorative Area: GBMA 1864-1895, Park Commission 1895-1922, War Department to 1933; military avenues, monuments, observation towers, avenue fences, rebuilt earthworks, shell stones, iron tablets",
+   "used_for_extracts": "yes (extracts/src/41-tpg-commem.xdef)"
+  },
+  "NPS-CLR-ROT-V1": {
+   "title": "Cultural Landscape Report for Gettysburg National Military Park: Record of Treatment, Volume I (Areas 1-10)",
+   "author": "Timothy W. Layton, Daisy Chinburg, Ashley Braquet, Margie Coffin Brown (Olmsted Center for Landscape Preservation, National Park Service, Boston)",
+   "date": "2018",
+   "from": "PDF p. 3 (title page: Battlefield Rehabilitation Framework; Record of Treatment; Timothy W. Layton, Daisy Chinburg, Ashley Braquet, Margie Coffin Brown; Olmsted Center for Landscape Preservation, National Park Service, Boston, Massachusetts, 2018)",
+   "default_variant": "raw",
+   "text_defect": "fi-ligature",
+   "text_quality": "two-column report: quotes are cut from the content-stream-order text (<ID>.raw.txt, pdftotext -raw, line-end hyphenation repaired). The text layer lost the i of every fi ligature and one f of ff (feld, fre, fght, beneft), so quotes are typed in the corrected spelling and matched letter for letter with those groups ignored (quote_mode cleaned; the raw excerpt is stored next to the quote)",
+   "state_dates_note": "Record of Treatment: each area section gives (1) the 1863 landscape (battle-period fields, fences, orchards, woodlots, buildings, hospital use; taken from the 1863 property research and damage claims) and (2) the treatment actually carried out 1998-2013 (fences rebuilt, orchards replanted, woods cleared, non-historic features removed). Only the 1863 paragraphs describe 1863; the treatment paragraphs and the 2013-2016 photographs describe REBUILT or REPLANTED features: never an 1863 profile.",
+   "covers": "Battlefield Rehabilitation Framework (GMP 1999 and the 2004 Treatment Philosophy: The 1863 Landscape) and the record of treatment of the park areas by farm and field: fences, orchards, woodlots, fields, buildings, wells and springs, farm lanes",
+   "used_for_extracts": "yes (extracts/src/50-clr-rot-v1.xdef, 51-clr-rot-v2.xdef)"
+  },
+  "NPS-CLR-ROT-V2": {
+   "title": "Cultural Landscape Report for Gettysburg National Military Park: Record of Treatment, Volume II (the remaining areas)",
+   "author": "Timothy W. Layton, Daisy Chinburg, Ashley Braquet, Margie Coffin Brown (Olmsted Center for Landscape Preservation, National Park Service, Boston)",
+   "date": "2018",
+   "from": "PDF p. 3 (title page: Battlefield Rehabilitation Framework; Record of Treatment; Timothy W. Layton, Daisy Chinburg, Ashley Braquet, Margie Coffin Brown; Olmsted Center for Landscape Preservation, National Park Service, Boston, Massachusetts, 2018)",
+   "default_variant": "raw",
+   "text_defect": "fi-ligature",
+   "text_quality": "two-column report: quotes are cut from the content-stream-order text (<ID>.raw.txt, pdftotext -raw, line-end hyphenation repaired). The text layer lost the i of every fi ligature and one f of ff (feld, fre, fght, beneft), so quotes are typed in the corrected spelling and matched letter for letter with those groups ignored (quote_mode cleaned; the raw excerpt is stored next to the quote)",
+   "state_dates_note": "Record of Treatment: each area section gives (1) the 1863 landscape (battle-period fields, fences, orchards, woodlots, buildings, hospital use; taken from the 1863 property research and damage claims) and (2) the treatment actually carried out 1998-2013 (fences rebuilt, orchards replanted, woods cleared, non-historic features removed). Only the 1863 paragraphs describe 1863; the treatment paragraphs and the 2013-2016 photographs describe REBUILT or REPLANTED features: never an 1863 profile.",
+   "covers": "Battlefield Rehabilitation Framework (GMP 1999 and the 2004 Treatment Philosophy: The 1863 Landscape) and the record of treatment of the park areas by farm and field: fences, orchards, woodlots, fields, buildings, wells and springs, farm lanes",
+   "used_for_extracts": "yes (extracts/src/50-clr-rot-v1.xdef, 51-clr-rot-v2.xdef)"
   }
  }
 }

@@ -26,7 +26,7 @@ export class Runner {
   // a record -> result
   async runRecord(rec, { source = null } = {}) {
     const row = this.TL.byId.get(rec && rec.id), res = { id: rec && rec.id, kind: rec && rec.kind, source, realized: false, codes: [], problems: [], assertions: [], bindings: { units: [], places: [], structures: [], declared: 0 }, scenarios: [], why: null };
-    const v = validateRecord(rec, { row, tolerances: this.tol }); res.problems.push(...v.problems);
+    const v = validateRecord(rec, { row, tolerances: this.tol, clock: this.TL.clock }); res.problems.push(...v.problems);
     if (!row || !v.span) { res.codes = uniq(res.problems.map(p => p.code)); res.why = res.problems.map(p => p.detail).slice(0, 3).join(' | '); return res; }
     res.window = { from: isoOf(v.span.from), to: isoOf(v.span.to) };
     try { await this._bindings(rec, row, res); } catch (e) { res.problems.push({ code: 'binding_error', detail: String(e && e.stack || e).slice(0, 300) }); }
@@ -41,16 +41,18 @@ export class Runner {
     }
     res.assertions = results;
     const failed = results.filter(r => !r.ok);
-    res.codes = uniq([...res.problems.map(p => p.code), ...failed.map(r => r.code)]);
+    res.codes = uniq([...res.problems.map(p => p.code), ...failed.flatMap(r => r.all_codes || [r.code])]);
+    if (rec.result && typeof rec.result.realized === 'boolean') res.stale_result_pending = rec.result.realized;
     if (rec.kind === 'not_realized') {
       // the probe must FAIL, with the reasons the record gives; if it passes the row is realized now and the record is stale
-      const observed = new Set([...failed.map(r => r.code), ...res.problems.map(p => p.code)]), declared = (rec.missing || []).map(m => m.code);
+      const observed = new Set([...failed.flatMap(r => r.all_codes || [r.code]), ...res.problems.map(p => p.code)]), declared = (rec.missing || []).map(m => m.code);
       res.realized = false; res.missing = { declared, observed: [...observed], verified: !!failed.length && declared.every(c => observed.has(c)), unverified: declared.filter(c => !observed.has(c)), stale: !failed.length && !res.problems.length };
       res.why = res.missing.stale ? 'the probe now passes: the product shows this row; rewrite the record with its real kind' : `not realized: ${(rec.missing || []).map(m => m.detail).join('; ').slice(0, 280)}`;
       if (res.missing.unverified.length) res.why += ` [declared but not observed: ${res.missing.unverified.join(', ')}]`;
       return res;
     }
     res.realized = !res.problems.length && !failed.length && results.length > 0;
+    if (res.stale_result_pending != null && res.stale_result_pending !== res.realized) res.stale_result = `the record says realized ${res.stale_result_pending}; the check now says ${res.realized}`;
     res.why = res.realized ? 'every check holds in the product' : [...res.problems.slice(0, 2).map(p => `${p.code}: ${p.detail}`), ...failed.slice(0, 2).map(r => `${r.type} ${r.code}: ${r.detail}`)].join(' | ').slice(0, 600);
     return res;
   }
@@ -96,15 +98,17 @@ export class Runner {
     const span = a.t != null ? parseSpan(a.t) : { ...ctx.span, mode: undefined }, mode = (a.t && a.t.mode) || undefined;
     const c = { ...ctx, a, span, mode, mins: minutesOf(span) };
     switch (a.type) {
-      case 'unit_present': return this._units(c, (u, cc) => this._present(u, cc, 'any'));
+      case 'unit_in_layer': return this._unitInLayer(c);
+      case 'unit_present': return this._units(c, (u, cc) => this._present(u, cc));
       case 'unit_absent': return this._units(c, (u, cc) => this._absent(u, cc));
       case 'unit_at': return this._units(c, (u, cc) => this._at(u, cc));
       case 'unit_moves': return this._units(c, (u, cc) => this._moves(u, cc));
-      case 'unit_activity': return this._units(c, (u, cc) => this._activity(u, cc));
+      case 'unit_activity': { if (a.picture) { for (const id of assertionUnits(a).flatMap(x => this.P.leaves(entityId(x)))) { const i = c.scene.stage.index.get(id); if (i != null) await c.scene.pictureSegments(i); } } return this._units(c, (u, cc) => this._activity(u, cc)); }
       case 'unit_arrives': return this._units(c, (u, cc) => this._arrives(u, cc));
       case 'unit_formation': return this._units(c, (u, cc) => this._formation(u, cc));
       case 'unit_figures': return this._figures(c);
       case 'battery_guns': { await this._prepWs6(c.scene); return this._units(c, (u, cc) => this._guns(u, cc)); }
+      case 'structure_exists': return this._structureExists(c);
       case 'structure_state': return this._structure(c);
       case 'work_stage': return this._work(c);
       case 'weather': return this._weather(c);
@@ -115,6 +119,12 @@ export class Runner {
       case 'place_known': return this._placeKnown(c);
       default: return fail('assert_type', `unknown assertion type ${a.type}`);
     }
+  }
+  // a unit the row names exists in the order of battle of the layer (a search by the row's own words; used by records that say a unit is missing)
+  _unitInLayer(c) {
+    const a = c.a; if (!hasQuote(c.row.claim_text, a.words)) return fail('quote_not_in_row', `"${String(a.words).slice(0, 80)}" is not in the row's text`);
+    const named = this.P.unitsNamedIn(a.words).filter(n => (!a.arm || this.P.unit(n.id).arm === a.arm) && (!a.side || this.P.unit(n.id).side === a.side));
+    return named.length ? ok({ units: named.slice(0, 6).map(n => `${n.id} (${n.why})`) }) : fail('unit_not_in_layer', `no unit of the order of battle in the layer is named by "${a.words}"`);
   }
   // ---- units: expand formations into their leaves on the field, run a per-unit check, combine by the quantifier
   async _units(c, per) {
@@ -133,7 +143,7 @@ export class Runner {
     const pass = q === 'any' ? good.length > 0 && !bad.length : no.length === 0 && !bad.length;
     if (pass) return ok(ev);
     const top = Object.entries(byCode).sort((x, y) => y[1] - x[1])[0][0];
-    return fail(top, `${no.length + bad.length} of ${results.length + bad.length} unit(s) fail (${Object.entries(byCode).map(([k, n]) => `${k} x${n}`).join(', ')}); first: ${(no[0] || bad[0]).detail || (no[0] || bad[0]).code} [${(no[0] || {}).leaf || (bad[0] || {}).unit}]`, ev);
+    return { all_codes: Object.keys(byCode), ...fail(top, `${no.length + bad.length} of ${results.length + bad.length} unit(s) fail (${Object.entries(byCode).map(([k, n]) => `${k} x${n}`).join(', ')}); first: ${(no[0] || bad[0]).detail || (no[0] || bad[0]).code} [${(no[0] || {}).leaf || (bad[0] || {}).unit}]`, ev) };
   }
   _whyCode(s) { return s.why === 'before_arrival' || s.why === 'no_enter_event_yet' || s.why === 'after_leave' ? 'unit_not_on_field' : s.why === 'not_in_layer' ? 'unit_not_in_layer' : s.why === 'no_arrival_record' ? 'unit_no_arrival_record' : s.why === 'not_on_field' ? 'unit_not_on_field' : 'unit_not_drawn'; }
   _whyText(s, id) { return `${id} is not on the field at ${isoOf(s.t)}: ${s.why}${s.arrival ? ` (arrives ${s.arrival})` : ''}${s.reason ? ` (${String(s.reason).slice(0, 100)})` : ''}`; }
@@ -187,7 +197,8 @@ export class Runner {
   }
   _activity(id, c) {
     const want = new Set([].concat(c.a.activities)), mode = c.mode || 'any', need = c.a.min_minutes ?? 1, S = c.scene; let n = 0, lastWhy = null, other = null;
-    for (const t of c.mins) { const s = S.unitAt(id, t); if (!s.present) { lastWhy = s; if (mode === 'all') return fail(this._whyCode(s), this._whyText(s, id)); continue; } if (want.has(s.activity)) n++; else { other = s; if (mode === 'all') return fail('unit_wrong_activity', `${id} is "${s.activity}" at ${isoOf(t)}, the check needs ${[...want].join(' or ')}`); } }
+    const pic = !!c.a.picture, ii = S.stage.index.get(id);
+    for (const t of c.mins) { const s0 = S.unitAt(id, t); if (!s0.present) { lastWhy = s0; if (mode === 'all') return fail(this._whyCode(s0), this._whyText(s0, id)); continue; } const s = pic ? { ...s0, activity: S.pictureActivityAt(ii, t * 60).activity } : s0; if (want.has(s.activity)) n++; else { other = s; if (mode === 'all') return fail('unit_wrong_activity', `${id} is "${s.activity}" at ${isoOf(t)}, the check needs ${[...want].join(' or ')}`); } }
     if (n >= (mode === 'all' ? c.mins.length : need)) return ok({ minutes: n, activities: [...want] });
     if (!n && lastWhy && !other) return fail(this._whyCode(lastWhy), this._whyText(lastWhy, id));
     return fail('unit_wrong_activity', `${id} shows ${[...want].join(' or ')} in ${n} minute(s) of the window (needs ${need})${other ? `; it is "${other.activity}" at ${isoOf(other.t)}` : ''}`, { minutes: n });
@@ -241,6 +252,14 @@ export class Runner {
   async _prepWs6(scene) { if (scene._ws6 === undefined) { const S = await this.P.structures(scene.spec); scene._ws6 = S.S.ws6(); } return scene._ws6; }
 
   // ---- structures
+  // a structure the row names exists in the product (a search by the row's words over the drawn objects, the structure records and the schedule rows; used by records that say a structure is missing)
+  async _structureExists(c) {
+    const a = c.a; if (!hasQuote(c.row.claim_text, a.words)) return fail('quote_not_in_row', `"${String(a.words).slice(0, 80)}" is not in the row's text`);
+    const S = await this.P.structures('default'), want = tokens(a.words).filter(w => w.length >= 4); if (!want.length) return fail('assert_field', 'words needs at least one word of 4 letters');
+    const hay = [...S.model.objects.map(o => [o.id, `${o.id} ${o.name || ''} ${o.state_id || ''}`]), ...S.inputs.structures.structures.map(s => [s.id, `${s.id} ${s.name || ''} ${s.location || ''}`]), ...S.inputs.sched.rows.map(r => [r.id, `${r.id} ${r.object_printed || ''}`])];
+    const hit = hay.filter(([, h]) => { const t = new Set(tokens(h)); return want.every(w => t.has(w)); }).map(([id]) => id);
+    return hit.length ? ok({ ids: [...new Set(hit)].slice(0, 8) }) : fail('structure_unknown', `no structure record, schedule row or drawn object of the product names "${a.words}"`);
+  }
   async _structure(c) {
     const a = c.a, S = await this.P.structures('default'), id = a.structure, objs = S.byState.get(id) || [], eng = S.engine;
     if (!objs.length) { const nd = (S.inputs.data.notDrawn || []).find(x => x.id === id); if (eng.knows(id)) return fail('structure_not_drawn', `${id} has a state in the schedule but nothing is drawn for it${nd ? ': ' + nd.reason : ''}`, { schedule_only: true }); return fail('structure_unknown', `${id} is in no structure file`); }

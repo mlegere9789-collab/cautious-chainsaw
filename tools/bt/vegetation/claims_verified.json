@@ -457,6 +457,35 @@
 "ok": true
 },
 {
+"id": "VC-LIB-019",
+"src": "WS9:BACH-WHATTOSEE-1889",
+"quote": "Gigantic trees were not duly stripped of leaves and branches, but in many cases the trunks themselves were so scarred and battered by the musketry",
+"tier": "documented",
+"kind": "damage",
+"says": "Bachelder: no place on the field showed such effects of battle as this part of Culp's Hill: gigantic trees were stripped of leaves and branches and many trunks scarred and battered by the musketry (the OCR prints 'not duly' for 'not only').",
+"feature": "timber on Culp's Hill",
+"when": {
+"from": "1863-07-02",
+"to": "1863-07-03"
+},
+"about": {
+"damage": "stripped",
+"trunks": "scarred"
+},
+"anchor": {
+"poly": "LC-WOOD-0001"
+},
+"note": "OCR misreading kept in the quote.",
+"quote_found": "Gigantic trees were not duly stripped of leaves and branches, but in many cases the trunks themselves were so scarred and battered by the musketry",
+"locator": {
+"char_start": 121282,
+"char_end": 121452
+},
+"match_count": 1,
+"src_sha256": "f52a0f78c625d50780852f7010f39546488a176649ecf6388b667a221c97bf10",
+"ok": true
+},
+{
 "id": "VC-NPSX-CLI-PCB-p049-01",
 "src": "NPS:NPS-CLI-PCB",
 "quote": "Prior to the battle, the region surrounding Gettysburg was a quiet farming community. The landscape was characterized by gently rolling hills, small stream valleys, and upland knolls that supported agricultural fields, pastures, woodlots, and orchards. Wood fences and stone walls defined property lines and separated fields from pastures, woodlots, and public roads.",
@@ -6333,6 +6362,78 @@
 "ok": true
 },
 {
+"id": "VC-NPS-040",
+"src": "NPS:NPS-GMP-1999-V1",
+"quote": "woods grew up on the west slope of Little Round Top, bullet-ridden trees died on Gulp's Hill, and dense forest growth overtook woodlots",
+"tier": "documented",
+"kind": "damage",
+"says": "After the battle woods grew up on the west slope of Little Round Top (it was open in 1863), bullet-ridden trees died on Culp's Hill, and dense forest overtook woodlots.",
+"feature": "Culp's Hill timber and Little Round Top west slope",
+"when": "1863-07",
+"about": {
+"damage": "bullet_ridden_trees_died"
+},
+"anchor": {
+"poly": "LC-WOOD-0001"
+},
+"note": "OCR prints Gulp's for Culp's.",
+"quote_found": "woods grew up on the west slope of Little Round Top, bullet ridden trees died on Gulp's Hill, and dense forest growth overtook woodlots",
+"locator": {
+"char_start": 67103,
+"char_end": 67238,
+"pdf_page": 23
+},
+"match_count": 1,
+"src_sha256": "02fe5ad082de880d1659cea1159727645a0cd4835bfd629557f730268750918d",
+"ok": true
+},
+{
+"id": "VC-NPS-041",
+"src": "NPS:NPS-ADHI",
+"quote": "its timber breast-works, its forest heights, with the trees torn by shells and scarred by countless bullets",
+"tier": "documented",
+"kind": "damage",
+"says": "A report quoted in the park's administrative history describes the forest heights of the field with the trees torn by shells and scarred by countless bullets.",
+"feature": "forest heights of the battlefield (Culp's Hill, McKnight's Hill, Round Top)",
+"when": "1863-1864",
+"about": {
+"damage": "torn_scarred"
+},
+"note": "The quoted report is of the 1860s (the park's history gives its source); the places named are Cemetery Hill, McKnight's Hill, Culp's Hill, Granite Spur and Round Top.",
+"quote_found": "its timber breast-works, its forest heights, with the trees torn by shells and scarred by countless bullets",
+"locator": {
+"char_start": 51663,
+"char_end": 51770,
+"pdf_page": 25
+},
+"match_count": 1,
+"src_sha256": "50d7010ae8e8418885537e90542d2c5b16ff9d12d3c255887895e8f1073fd57e",
+"ok": true
+},
+{
+"id": "VC-NPS-042",
+"src": "NPS:NPS-HARMON-FARM",
+"quote": "the woods which had \"enhanced\" the farms would be splintered by shot and shell",
+"tier": "documented",
+"kind": "damage",
+"says": "The woods of the Harmon farm and the Springs Hotel were splintered by shot and shell and their floor carpeted with the litter of battle.",
+"feature": "Harmon farm and Springs Hotel woods",
+"when": "1863-07-01",
+"about": {
+"damage": "splintered"
+},
+"note": "Not placed: the repository holds no outline or coordinates for the Harmon farm.",
+"quote_found": "the woods which had \"enhanced\" the farms would be splintered by shot and shell",
+"locator": {
+"char_start": 21905,
+"char_end": 21983,
+"pdf_page": 10
+},
+"match_count": 1,
+"src_sha256": "b74a832f34e1176636d692e3034154495068e81f3eced508261d1f80b3a96524",
+"ok": true
+},
+{
 "id": "VC-OR-001",
 "src": "OR27",
 "report": "OR27-1-R077",
@@ -6972,6 +7073,100 @@
 "char_end": 1813835
 },
 "match_count": 1,
+"ok": true
+},
+{
+"id": "VC-WEB-001",
+"src": "WEB:CWS16-SEC20",
+"quote": "27 acres wheat destroyed, worth $600.00 9 acres Corn 360.00 8 acres Oats 80.00 4 acres Barley 50.00 1 acre Flax 15.00 1 acre Potatoes 50.00 32 acres Grass 650.00 20 tons of Hay out of the barn",
+"tier": "documented",
+"kind": "farm_inventory",
+"says": "The Trostle farm petition of 1868: 27 acres of wheat, 9 of corn, 8 of oats, 4 of barley, 1 of flax, 1 of potatoes, 32 of grass and 20 tons of hay in the barn were destroyed.",
+"feature": "Trostle farm",
+"when": "1863-07",
+"about": {
+"farm": "trostle",
+"crops": {
+"wheat": 27,
+"corn": 9,
+"oats": 8,
+"barley": 4,
+"flax": 1,
+"potatoes": 1,
+"grass": 32
+}
+},
+"note": "Printed in the National Park Service Civil War Series, The Battle of Gettysburg, section 20 (a petition of Catherine Trostle under the Pennsylvania act of 9 April 1868). The acreage is what she claimed destroyed.",
+"quote_found": "27 acres wheat destroyed, worth $600.00 9 acres Corn 360.00 8 acres Oats 80.00 4 acres Barley 50.00 1 acre Flax 15.00 1 acre Potatoes 50.00 32 acres Grass 650.00 20 tons of Hay out of the barn",
+"locator": {
+"char_start": 5165,
+"char_end": 5357
+},
+"match_count": 1,
+"src_sha256": "eebf46de61f91963da3e4ff4e56e60234e6b0b1a732c9e89c82992962e0c4eb6",
+"ok": true
+},
+{
+"id": "VC-WEB-002",
+"src": "WEB:CWS16-SEC20",
+"quote": "the farm being between the two armies, in part was fought over several times",
+"tier": "documented",
+"kind": "damage",
+"says": "The Trostle farm lay between the two armies and was in part fought over several times; the petition says the crops and fences were totally destroyed.",
+"feature": "Trostle farm fields",
+"when": {
+"from": "1863-07-02",
+"to": "1863-07-03"
+},
+"about": {
+"damage": "trampled",
+"claimed": "totally destroyed"
+},
+"anchor": {
+"farm": "trostle",
+"r_m": 450,
+"class": "field",
+"area": true
+},
+"note": "A claimant's statement; 'totally destroyed' is hers. Used as documentation that the fields near the Trostle farm were trampled on 2 July, not for the degree.",
+"quote_found": "the farm being between the two armies, in part was fought over several times",
+"locator": {
+"char_start": 6116,
+"char_end": 6192
+},
+"match_count": 1,
+"src_sha256": "eebf46de61f91963da3e4ff4e56e60234e6b0b1a732c9e89c82992962e0c4eb6",
+"ok": true
+},
+{
+"id": "VC-WEB-003",
+"src": "WEB:CWS16-SEC20",
+"quote": "that their farm was near Round Top, and was fought over two days, and the crops and fences were totally destroyed",
+"tier": "documented",
+"kind": "damage",
+"says": "The Trostle claim states the farm, near Round Top, was fought over two days and the crops and fences totally destroyed.",
+"feature": "Trostle farm fields",
+"when": {
+"from": "1863-07-02",
+"to": "1863-07-03"
+},
+"about": {
+"damage": "trampled",
+"claimed": "totally destroyed"
+},
+"anchor": {
+"farm": "trostle",
+"r_m": 450,
+"class": "field",
+"area": true
+},
+"quote_found": "that their farm was near Round Top, and was fought over two days, and the crops and fences were totally destroyed",
+"locator": {
+"char_start": 5874,
+"char_end": 5987
+},
+"match_count": 1,
+"src_sha256": "eebf46de61f91963da3e4ff4e56e60234e6b0b1a732c9e89c82992962e0c4eb6",
 "ok": true
 }
 ]

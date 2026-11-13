@@ -26,8 +26,12 @@ Definition file format (UTF-8):
                marks, dropped punctuation): the quote is typed with the damage repaired and must
                contain exactly the letters and digits of ONE passage of the page (case-insensitive,
                spacing and punctuation ignored; for a source flagged text_defect=ligature the groups
-               ti tt tf ft tl ff are ignored on both sides because the text layer lost those glyphs).
+               ti tt tf ft tl ff are ignored on both sides because the text layer lost those glyphs;
+               for text_defect=fi-ligature every f with the letters f, i, l after it is ignored on both sides because the text layer
+               kept only the f of fi, fl and ff).
                The builder stores the raw text-layer excerpt next to the repaired quote.
+               An OCR letter error is corrected explicitly with {{saved|fixed}}: matching uses `saved` (exactly as the
+               text layer reads), the quote shows `fixed`, and the record lists every pair in ocr_corrections.
                A trailing ' ~L' uses the layout text of the page, ' ~R' the content-stream-order text (line-end
                hyphenation repaired), ' ~S' the standard reading-order text, instead of the source's default variant.
                A trailing ' ~#k' takes the k-th occurrence of a passage that repeats on the page.
@@ -175,6 +179,7 @@ def split_sentences(flat):
 
 
 _LIG = re.compile(r'tt|ti|tf|ft|tl|ff')
+_LIG_FI = re.compile(r'f[fil]*')
 
 
 def _alnum_map(flat, lig):
@@ -187,28 +192,35 @@ def _alnum_map(flat, lig):
     if not lig:
         return key, idx
     out, oidx, pos = [], [], 0
-    for m in _LIG.finditer(key):
+    for m in (_LIG_FI if lig == 'fi' else _LIG).finditer(key):
         out.append(key[pos:m.start()]); oidx.extend(idx[pos:m.start()]); pos = m.end()
     out.append(key[pos:]); oidx.extend(idx[pos:])
     return ''.join(out), oidx
 
 
+_CORR = re.compile(r'\{\{(.*?)\|(.*?)\}\}')
+
+
 def cut_cleaned(page_text, quote, lig=False):
+    """quote may contain {{saved|fixed}} marks: the text layer reads `saved` (an OCR letter error) and the quote shows `fixed`.
+    Matching uses `saved`; the pairs are returned so that the record shows every correction made."""
     flat = norm(page_text)
+    corrections = [(a, b) for a, b in _CORR.findall(quote)]
+    match_form = _CORR.sub(lambda m: m.group(1), quote)
+    shown = _CORR.sub(lambda m: m.group(2), quote)
     key, idx = _alnum_map(flat, lig)
-    qkey, _ = _alnum_map(norm(quote), lig)
+    qkey, _ = _alnum_map(norm(match_form), lig)
     if len(qkey) < 25:
         return None, 'cleaned quote too short to identify a passage', None
     n = key.count(qkey)
     if n != 1:
-        # find the longest prefix that matches, to help the author
         k = len(qkey)
         while k > 12 and key.count(qkey[:k]) == 0:
             k -= 1
-        return None, 'cleaned quote found %d times (longest matching prefix %d of %d letters: %r)' % (n, k, len(qkey), norm(quote)[:60]), None
+        return None, 'cleaned quote found %d times (longest matching prefix %d of %d letters: %r)' % (n, k, len(qkey), norm(match_form)[:60]), None
     st = key.find(qkey)
     a, b = idx[st], idx[st + len(qkey) - 1]
-    return norm(quote), None, flat[a:b + 1]
+    return (norm(shown), corrections, norm(quote)), None, flat[a:b + 1]
 
 
 def cut(page_text, anchor):
@@ -325,9 +337,14 @@ def main():
             excerpt, mode = None, 'sentences' if anchor.startswith('#s') else 'anchors'
             if anchor.startswith('='):
                 mode = 'cleaned'
-                q, err, excerpt = cut_cleaned(pgs[p], anchor[1:], sources.get(sid, {}).get('text_defect') == 'ligature')
+                td = sources.get(sid, {}).get('text_defect')
+                q, err, excerpt = cut_cleaned(pgs[p], anchor[1:], 'fi' if td == 'fi-ligature' else (td == 'ligature'))
+                template = corrections = None
+                if not err:
+                    q, corrections, template = q
             else:
                 q, err = cut(pgs[p], anchor)
+                template = corrections = None
             if err:
                 errors.append('%s:%d p.%d %s' % (os.path.basename(f), ln, p, err)); continue
             seq[(sid, p)] = seq.get((sid, p), 0) + 1
@@ -348,6 +365,7 @@ def main():
                 'url': s.get('url'),
                 'pdf_page': p, 'printed_page': printed_given or printed_page(pgs[p], variant),
                 'quote_mode': mode, 'source_text_excerpt': excerpt,
+                'quote_template': template, 'ocr_corrections': [list(c) for c in corrections] if corrections else None,
                 'basis_named': basis,
                 'text_defect': s.get('text_defect'),
                 'text_variant': variant or 'reading-order',

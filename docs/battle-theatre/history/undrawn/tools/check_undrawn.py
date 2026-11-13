@@ -65,10 +65,14 @@ GAP_WHAT = ['arrival', 'positions', 'path', 'strength', 'departure', 'roster']
 COMMON_KEYS = {'claim_id', 'group', 'kind', 'unit_id', 'tier', 'render_flag', 'weak_source', 'claim_support_verified', 'fidelity_check', 'fidelity_note', 'ocr_uncertain', 'flag_single_source',
                'conflicts_with', 'corroborates', 'conflict_key', 'timeline', 'statement', 'reasoning', 'source', 'note'}
 _PLACED = {'when', 'until', 'place', 'activity', 'activity_printed', 'formation', 'facing'}
+# a gap record may also carry gap.covers (units under its unit that the same searches cover) and gap.days (the days of 1 to 3 July it concerns; all days when absent)
 KIND_KEYS = {'unit': {'unit'}, 'arrival': {'when', 'until', 'place', 'arrival'}, 'arrival_road': {'when', 'until', 'road'}, 'march': {'when', 'until', 'road', 'place'}, 'position': _PLACED, 'engagement': _PLACED,
              'night_position': _PLACED, 'movement': {'when', 'until', 'from', 'to', 'gait'}, 'departure': {'when', 'until', 'road', 'place'}, 'strength': {'strength'}, 'absent': {'absent', 'when', 'until'},
              'line_order': {'order', 'when', 'until'}, 'road_identification': {'road_identification'}, 'source': {'source_decl'}, 'gap': {'gap'}}
 MAX_QUOTE_WORDS, MAX_PLACE_WORDS = 14, 30
+# the copy audit: no shipped file says how the page was made (the pattern of tests/ui.spec.mjs). The prose fields of a record reach the cards: they must pass; a historical quote that holds one of the words is listed (the integrator elides it)
+COPY_RE = re.compile(r'\b(AI|A\.I\.|Claude|Anthropic|LLM|language model|generated|automated|subagent|agent|prompt)\b', re.I)
+PROSE_KEYS = {'statement', 'reasoning', 'note', 'fidelity_note', 'basis', 'fix', 'name', 'result', 'terms', 'where', 'activity_printed', 'title', 'cite', 'licence_basis'}
 MAX_PASSAGE_CHARS = 4000                  # the passage read (source.passage) is the sentences that support the claim, not a report: longer is split into records with a passage each
 DATE_LO, DATE_HI = '1863-06-25', '1863-07-15'
 ID_RE = re.compile(r'^U-([a-z0-9]+(?:-[a-z0-9]+)*)-(\d{4})$')
@@ -81,6 +85,9 @@ class Repo:
         self.gids = {g['id'] for g in self.groups['groups']}
         self.group_units = {g['id']: [u['id'] for u in g['units']] for g in self.groups['groups']}
         self.unit_class = {u['id']: u['class'] for g in self.groups['groups'] for u in g['units']}
+        self.unit_group = {u['id']: g['id'] for g in self.groups['groups'] for u in g['units']}
+        self.status = {u['id']: u for u in J(os.path.join(UND, 'status.json'))['units']}
+        self.unit_missing = {u['id']: u['missing'] for g in self.groups['groups'] for u in g['units']}
         units = J(os.path.join(BT, 'history/units.json'))['units']
         self.units = {u['id']: u for u in units}
         self.gaps = {e['id']: e for e in J(os.path.join(UND, 'roster-gaps.json'))['entries']}
@@ -347,6 +354,15 @@ class Check:
             if s.get('printed_page') in (None, ''): self.E(at, 'source.printed_page is required for an indexed volume (the page of the model: %s)' % hit['page'])
         return src
 
+    def copy_check(self, at, node, path=''):
+        if isinstance(node, dict):
+            for k, v in node.items():
+                if k == 'quote' and isinstance(v, str) and COPY_RE.search(v): self.W(at, '%s: the historical quote holds "%s", a word the copy audit forbids on a card: the integrator elides it' % (path + k, COPY_RE.search(v).group(0)))
+                elif k in PROSE_KEYS and isinstance(v, str) and COPY_RE.search(v): self.E(at, '%s holds "%s": wording that says how the page was made is not shipped (copy audit); write the history in plain words' % (path + k, COPY_RE.search(v).group(0)))
+                elif isinstance(v, (dict, list)): self.copy_check(at, v, path + k + '.')
+        elif isinstance(node, list):
+            for i, v in enumerate(node): self.copy_check(at, v, path + '[%d].' % i)
+
     def in_passage(self, at, what, text, soft):
         """A `printed` field is the words as the text prints them: it must stand in the passage read (case, spacing, line-break hyphenation and typographic quotes folded; the OCR as it stands)."""
         if self.passage_lc is None or not isinstance(text, str) or not text.strip(): return
@@ -381,6 +397,7 @@ class Check:
         if k not in KINDS: return self.E(at, 'kind must be one of %s' % ', '.join(KINDS))
         for key in r:
             if key not in COMMON_KEYS and key not in KIND_KEYS[k] and not key.startswith('_'): self.W(at, 'field "%s" is not part of a %s record: the integrator ignores it' % (key, k))
+        self.copy_check(at, {x: y for x, y in r.items() if not x.startswith('_')})
         if k == 'source':
             d = r.get('source_decl') or {}
             for f in ('source_id', 'title', 'year', 'archive_identifier', 'url', 'path', 'bytes', 'sha256', 'licence_basis', 'class'):
@@ -395,6 +412,9 @@ class Check:
         uid = r.get('unit_id')
         if not (isinstance(uid, str) and UNIT_RE.match(uid)): return self.E(at, 'unit_id must be lowercase letters, digits and hyphens')
         if not self.unit_ok(uid): self.E(at, 'unit_id %s is not in the roster, not pre-assigned in roster-gaps.json and not added by a unit record' % uid)
+        elif gid in self.repo.group_units and uid in self.repo.units and uid not in self.repo.group_units[gid]:
+            self.E(at, 'unit_id %s belongs to group %s, not to %s: a group file holds evidence for the units of its own group (put it in %s.jsonl, or write a request note for the owner of that group)' % (uid, self.repo.unit_group.get(uid), gid, self.repo.unit_group.get(uid)))
+        elif uid in self.repo.gaps and self.repo.gaps[uid]['group'] != gid and uid not in self.repo.units: self.E(at, 'unit_id %s is pre-assigned to group %s in roster-gaps.json, not to %s' % (uid, self.repo.gaps[uid]['group'], gid))
         t = r.get('tier')
         if t not in TIERS: return self.E(at, 'tier must be one of %s' % ', '.join(TIERS))
         if r.get('render_flag') != FLAG[t]: self.E(at, 'render_flag must be %s for tier %s' % (FLAG[t], t))
@@ -412,6 +432,12 @@ class Check:
             for x in se:
                 if not isinstance(x, dict) or not all(isinstance(x.get(f), str) and x[f] for f in ('source_id', 'where', 'terms', 'result')): self.E(at, 'gap.searched entries need source_id, where, terms, result'); break
                 if x['source_id'] not in self.repo.sources and x['source_id'] not in declared and not x['source_id'].startswith('NOT-ACQUIRED:'): self.E(at, 'gap.searched source_id %s is unknown (a text that could not be acquired is written NOT-ACQUIRED:<title>)' % x['source_id'])
+            for x in (g.get('covers') or []):
+                if not self.unit_ok(x) or (x in self.repo.units and gid in self.repo.group_units and x not in self.repo.group_units[gid]): self.E(at, 'gap.covers: %s is not a unit of this group' % x)
+                elif x != uid and x not in self.repo.units: self.E(at, 'gap.covers: %s is not in the roster' % x)
+                elif x != uid and uid in self.repo.units and uid not in self.repo.ancestors(x): self.E(at, 'gap.covers: %s is not a unit under %s (a gap record covers its unit and the units below it)' % (x, uid))
+            for d in (g.get('days') or []):
+                if not (isinstance(d, str) and ISO_D.match(d) and DATE_LO <= d <= DATE_HI): self.E(at, 'gap.days: %s must be a date 1863-MM-DD between %s and %s' % (d, DATE_LO, DATE_HI))
             if not (isinstance(g.get('register'), str) and g['register'].startswith('docs/battle-theatre/GOVERNANCE/horde/ws-units/proposed-register/%s-' % gid)): self.E(at, 'gap.register must name the proposed register entry docs/battle-theatre/GOVERNANCE/horde/ws-units/proposed-register/%s-<name>.md' % gid)
             elif not os.path.exists(os.path.join(ROOT, g['register'])): self.W(at, 'the proposed register entry %s does not exist yet' % g['register'])
             return
@@ -553,17 +579,70 @@ class Check:
                 d = r['source_decl']; declared[d['source_id']] = {'kind': 'text', 'path': d.get('path') or ''}
             if isinstance(r, dict) and r.get('kind') == 'unit' and isinstance(r.get('unit'), dict) and r['unit'].get('action') == 'add' and isinstance(r.get('unit_id'), str): self.declared_units.add(r['unit_id'])
         for n, r in rows: self.record(n, r, gid, declared)
-        # ---- coverage of the group's units
+        # ---- coverage of the group's units: evidence of the right kind or a gap record for every word of what is missing (see coverage())
         cov = {}
         for _, r in rows:
             if isinstance(r, dict) and isinstance(r.get('unit_id'), str): cov.setdefault(r['unit_id'], set()).add(r.get('kind'))
         need = [u for u in self.repo.group_units.get(gid, []) if self.repo.unit_class.get(u) in ('not_drawn', 'edge_only', 'partly_drawn')]
-        bare = [u for u in need if not cov.get(u) and not any(a in cov for a in self.repo.ancestors(u))]
-        thin = [u for u in need if u not in bare and self.repo.unit_class.get(u) in ('not_drawn', 'edge_only') and not ({'gap'} & cov.get(u, set())) and not (cov.get(u, set()) & set(PLACED))
-                and not any((cov.get(a, set()) & set(PLACED)) for a in self.repo.ancestors(u))]
-        for u in bare: (self.E if complete else self.W)(path, 'unit %s of the group has no record of its own or of a formation above it (evidence or a gap record is owed)' % u)
-        for u in thin: (self.E if complete else self.W)(path, 'unit %s is not drawn now and has neither a position record (its own or a formation\'s) nor a gap record' % u)
-        return {'records': len(rows), 'units_named': len(cov), 'units_owed': len(need), 'bare': len(bare), 'thin': len(thin), 'kinds': {k: sum(1 for _, r in rows if isinstance(r, dict) and r.get('kind') == k) for k in KINDS}}
+        owed, n_items = coverage(self.repo, gid, [r for _, r in rows])
+        for u in sorted(owed):
+            if complete: self.E(path, 'unit %s: still owed %s' % (u, '; '.join('%s%s' % (w, (' on ' + d) if d else '') for w, d in owed[u])))
+        return {'records': len(rows), 'units_named': len(cov), 'units_to_cover': len(need), 'units_owed': len(owed), 'items_owed': sum(len(v) for v in owed.values()), 'items': n_items,
+                'kinds': {k: sum(1 for _, r in rows if isinstance(r, dict) and r.get('kind') == k) for k in KINDS}}
+
+
+WORDS_INHERITED = ('arrival', 'positions', 'path')          # these come down the line of command in the layer: evidence or a gap of a formation above covers the units below
+EVIDENCE_FOR = {'arrival': ('arrival',), 'positions': tuple(PLACED) + ('movement', 'departure'), 'path': ('arrival_road',), 'strength': ('strength',)}
+FIELD_DAYS = ['1863-07-01', '1863-07-02', '1863-07-03']
+
+
+def coverage(repo, gid, rows):
+    """-> ({ unit: [(word, day or None)] } of what is still owed, the number of items to cover): for every unit of the group that is not drawn, at the edge or partly drawn and every word of its `missing`, evidence of the right kind
+    (its own, or a formation above's for arrival, positions and path) or a gap record that names the word. positions: one record or gap per day of 1 to 3 July on which the layer holds no place."""
+    by = {}
+    for r in rows:
+        if isinstance(r, dict) and isinstance(r.get('unit_id'), str) and r.get('kind') not in ('source',): by.setdefault(r['unit_id'], []).append(r)
+    owed = {}
+
+    def gaps_for(u, word, day):
+        for x in [u] + repo.ancestors(u):
+            for r in by.get(x, []):
+                if r.get('kind') != 'gap': continue
+                g = r.get('gap') or {}
+                if word not in (g.get('what') or []): continue
+                if not (x == u or u in (g.get('covers') or []) or word in WORDS_INHERITED): continue
+                if day and g.get('days') and day not in g['days']: continue
+                return True
+        return False
+
+    def evidence(u, word, day):
+        for x in [u] + repo.ancestors(u):
+            if x != u and word not in WORDS_INHERITED: continue
+            for r in by.get(x, []):
+                k = r.get('kind')
+                if word == 'parent_only':
+                    if x == u and k not in ('gap',): return True
+                    continue
+                if k not in EVIDENCE_FOR.get(word, ()): continue
+                if word == 'arrival' and (r.get('arrival') or {}).get('scope') != 'field': continue
+                if word == 'path' and not (r.get('road') or {}).get('enters_ground'): continue
+                if word == 'positions' and day and ((r.get('when') or {}).get('date') != day): continue
+                return True
+        return False
+    total = 0
+    for u in repo.group_units.get(gid, []):
+        if repo.unit_class.get(u) not in ('not_drawn', 'edge_only', 'partly_drawn'): continue
+        st = repo.status.get(u) or {}
+        for word in repo.unit_missing.get(u, []):
+            if word == 'positions':
+                days = [d for d in FIELD_DAYS if (st.get('places') or {}).get(d) == 'none']
+                total += len(days)
+                for d in days:
+                    if not evidence(u, word, d) and not gaps_for(u, word, d): owed.setdefault(u, []).append((word, d))
+            else:
+                total += 1
+                if not evidence(u, word, None) and not gaps_for(u, word, None): owed.setdefault(u, []).append((word, None))
+    return owed, total
 
 
 def run(paths, complete=False, quiet=False):
@@ -572,7 +651,7 @@ def run(paths, complete=False, quiet=False):
     for p in paths:
         f = p if p.endswith('.jsonl') else os.path.join(UND, p + '.jsonl')
         files.append((f, os.path.basename(f)[:-6]))
-    for f, _ in files:                          # ids and added units of every file first, so that a record may point into another group's file
+    for f in sorted(set(glob.glob(os.path.join(UND, '*.jsonl'))) | {f for f, _ in files}):      # ids and added units of every group file first, so that a record may point into another group's file
         if not os.path.exists(f): continue
         for line in open(f, encoding='utf-8'):
             try: r = json.loads(line)
@@ -593,7 +672,7 @@ def run(paths, complete=False, quiet=False):
             for e in c.err: print('ERROR  ' + e)
             for w in c.warn: print('warn   ' + w)
             for w in c.nosrc: print('NOTEXT ' + w)
-        print('%s: %d records, %d units named, %d errors, %d warnings%s | %s' % (os.path.basename(f), st['records'], st['units_named'], len(c.err), len(c.warn), (', %d quotes not checked (text missing)' % len(c.nosrc)) if c.nosrc else '', ' '.join('%s %d' % kv for kv in st['kinds'].items() if kv[1])))
+        print('%s: %d records, %d units named, %d errors, %d warnings%s | owed: %d of %d units still owed something, %d of %d items (a missing word; for positions one per day without a place) | %s' % (os.path.basename(f), st['records'], st['units_named'], len(c.err), len(c.warn), (', %d quotes not checked (text missing)' % len(c.nosrc)) if c.nosrc else '', st['units_owed'], st['units_to_cover'], st['items_owed'], st['items'], ' '.join('%s %d' % kv for kv in st['kinds'].items() if kv[1])))
         bad += len(c.err); nos += len(c.nosrc)
     return 1 if bad else 2 if nos else 0
 
@@ -640,6 +719,29 @@ def self_test():
         ok &= not syn
     finally:
         if os.path.exists(tmp): os.remove(tmp)
+    # coverage: what a unit is still owed, and what covers it (synthetic rows, never written)
+    unit, gid = 'us-3c-2d-carr-1ma', 'us-3c-2d'
+    pl = repo.status[unit]['places']
+    assert pl.get('1863-07-02') == 'none' and pl.get('1863-07-03') == 'none' and set(repo.unit_missing[unit]) >= {'arrival', 'positions', 'path', 'strength'}, 'the status of %s is not what the coverage test assumes: update the test' % unit
+    R_ = lambda kind, u, **kw: dict(kind=kind, unit_id=u, **kw)
+    full = [R_('arrival_road', 'us-3c-2d-carr', road={'enters_ground': True}), R_('arrival', unit, arrival={'scope': 'field'}), R_('strength', unit),
+            R_('position', unit, when={'date': '1863-07-02'}), R_('night_position', unit, when={'date': '1863-07-03'})]
+    words = lambda rows: {w + ('@' + d if d else '') for w, d in coverage(repo, gid, rows)[0].get(unit, [])}
+    cases = [('nothing recorded: all words owed', [], {'arrival', 'path', 'strength', 'positions@1863-07-02', 'positions@1863-07-03'}),
+             ('a road of a formation above, an arrival, a strength and a place on each day without one: nothing owed', full, set()),
+             ('no strength record: the strength is owed', [r for r in full if r['kind'] != 'strength'], {'strength'}),
+             ('a road that does not enter the ground does not cover the path', [dict(full[0], road={'enters_ground': False})] + full[1:], {'path'}),
+             ('an arrival at the vicinity does not cover the arrival', [full[0], R_('arrival', unit, arrival={'scope': 'vicinity'})] + full[2:], {'arrival'}),
+             ('no place on 3 July: that day is owed', [r for r in full if r['kind'] != 'night_position'], {'positions@1863-07-03'}),
+             ('a gap of the brigade for positions on 3 July covers that day (it comes down the line)', [r for r in full if r['kind'] != 'night_position'] + [R_('gap', 'us-3c-2d-carr', gap={'what': ['positions'], 'days': ['1863-07-03']})], set()),
+             ('a gap of the brigade for strength does not cover the regiment unless it lists it', [r for r in full if r['kind'] != 'strength'] + [R_('gap', 'us-3c-2d-carr', gap={'what': ['strength']})], {'strength'}),
+             ('a gap that lists the regiment in covers does', [r for r in full if r['kind'] != 'strength'] + [R_('gap', 'us-3c-2d-carr', gap={'what': ['strength'], 'covers': [unit]})], set())]
+    cov_ok = True
+    for name, rows_, want in cases:
+        got = words(rows_)
+        if got != want: print('FAIL   coverage: %s: owed %s, wanted %s' % (name, sorted(got), sorted(want))); cov_ok = False
+    print(('PASS' if cov_ok else 'FAIL') + ' coverage of the words a unit is missing (%d cases)' % len(cases))
+    ok &= cov_ok
     print('self-test', 'OK' if ok else 'FAILED')
     return 0 if ok else 1
 

@@ -1,0 +1,264 @@
+// WebGPU draw path of the weather and effects layers (weather3d/gpu.mjs, weather3d/shaders-wgsl.mjs, fx-host.mjs): node tests, no browser and no GPU.
+//   node --test docs/battle-theatre/app/tests/weather3d-gpu.test.mjs
+// What they prove: the WGSL is the port of the GLSL (same constants, same uniform block layout), the WebGPU path is fed exactly the values the WebGL2 path is fed (a recording stand-in for the GL
+// context runs the real gl.mjs code), the pass has the same draws in the same order with the same blend states, fx-host switches the prototype's own sky and particles off only when the new passes
+// built and gives them back on any failure, and nothing in the path is random or timed. What they cannot prove: that a GPU compiles the WGSL and draws the picture. That is tests/weather3d-gpu.mjs
+// (Chrome with the software WebGPU adapter) and, on real hardware, BROWSER-VERIFICATION-LIST-WEATHER.md.
+import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import path from 'node:path';
+import { BT } from './node-world.mjs';
+import { Environment } from '../src/environment.mjs'; import { minOf } from '../src/clock.mjs';
+import { WeatherTimeline } from '../src/weather3d/timeline.mjs';
+import { WEATHER_FS, MAX_LIGHTS } from '../src/weather3d/shaders.mjs';
+import { weatherWgsl, WEATHER_WGSL, patchFxWgsl, WU, WU_FLOATS, WU_BYTES } from '../src/weather3d/shaders-wgsl.mjs';
+import { GPUPasses, packWeather, packFx, BLEND, FXU, FXU_FLOATS, fxWgsl } from '../src/weather3d/gpu.mjs';
+import { GLPasses, CUM_W } from '../src/weather3d/gl.mjs';
+import { WGSL_RENDER, GLSL_VERT, lint } from '../src/fx3d/shaders.mjs';
+import { LIGHT_STRIDE } from '../src/fx3d/lights.mjs';
+import { GSTRIDE } from '../src/fx3d/pack.mjs';
+import { WIND_HIST_N } from '../src/fx3d/wind.mjs';
+import { FxHost } from '../src/fx-host.mjs';
+import { createAnimBus } from '../src/anim3d/events.mjs';
+import { Camera } from '../../render/prototype/src/camera.mjs';
+
+const APP = path.resolve(BT, 'app'), J = f => JSON.parse(fs.readFileSync(path.join(BT, f), 'utf8')), D = f => JSON.parse(fs.readFileSync(path.join(APP, 'data/fx3d', f), 'utf8'));
+const environment = new Environment(J('environment/ephemeris_1863.json'), J('environment/weather_timeline.json'));
+const data = { params: D('params.json'), weapons: D('weapons.json'), fires: D('fires.json') };
+const at = (m, d, h = 12, mi = 0) => minOf(m, d, h, mi) * 60;
+const timeline = () => new WeatherTimeline(environment, { fxParams: data.params });
+const f32 = x => Math.fround(x);
+
+// ---------------------------------------------------------------------------------------------------------------- the WGSL against the GLSL
+test('WGSL: both modes are whole programs (balanced, no template leftovers, the entry points the pipelines name) and differ only in the mode constant', () => {
+  const mul = weatherWgsl('mul'), add = weatherWgsl('add');
+  for (const [src, name] of [[mul, 'mul'], [add, 'add']]) {
+    for (const [o, c] of ['()', '[]', '{}']) assert.equal(src.split(o).length, src.split(c).length, name + ' ' + o + c);
+    assert.ok(!/\t|\$\{|undefined|NaN|__MODE_MUL__/.test(src), name + ': no tab, unexpanded template or placeholder');
+    assert.match(src, /@vertex fn vs\(/); assert.match(src, /@fragment fn fs\(/); assert.match(src, /@group\(0\) @binding\(0\) var<uniform> F: FU;/); assert.match(src, /@group\(1\) @binding\(0\) var<uniform> W: WU;/); assert.match(src, /@group\(1\) @binding\(1\) var sceneDepth: texture_depth_2d;/);
+  }
+  assert.match(mul, /const MODE_MUL: bool = true;/); assert.match(add, /const MODE_MUL: bool = false;/); assert.equal(mul.replace('= true;', '= false;'), add);
+  assert.throws(() => weatherWgsl('both'), /mode/);
+  assert.ok(lint(mul, 'weather wgsl').filter(e => !/hash constant/.test(e)).length === 0, lint(mul, 'weather wgsl').join('; '));
+});
+test('WGSL: the uniform block has the members of WU in the order and at the offsets the packer writes (std140-like: every member a vec4)', () => {
+  const m = /struct WU \{([\s\S]*?)\}\s*\n@group\(1\)/.exec(weatherWgsl('mul')); assert.ok(m, 'struct WU found');
+  const parts = []; let depth = 0, cur = ''; for (const ch of m[1]) { if (ch === '<') depth++; if (ch === '>') depth--; if (ch === ',' && depth === 0) { parts.push(cur); cur = ''; } else cur += ch; } if (cur.trim()) parts.push(cur);
+  let off = 0; const got = {};
+  for (const p of parts) { const [name, type] = p.split(':').map(s => s.trim()); let n; if (type === 'vec4f') n = 4; else { const a = /^array<vec4f,\s*(\d+)>$/.exec(type); assert.ok(a, 'member type ' + type); n = 4 * +a[1]; } got[name === 'floorC' ? 'floor' : name] = off; off += n; }
+  assert.deepEqual(got, WU, 'member offsets (float32 units)'); assert.equal(off, WU_FLOATS); assert.equal(WU_BYTES, WU_FLOATS * 4); assert.equal(WU_BYTES % 16, 0);
+  assert.equal(WU.lcol - WU.lpos, MAX_LIGHTS * 4);
+  // the prototype's frame block (group 0) as the WGSL declares it: 5 matrices, then vec4 members in the prototype's order (render/prototype/src/webgpu.mjs writeFU)
+  const fu = /struct FU \{ (.*?) \}/.exec(weatherWgsl('add'))[1].split(',').map(s => s.trim().split(':')[0]); assert.deepEqual(fu, ['vp', 'prevVp', 'invVp', 'sm0', 'sm1', 'cam', 'sun', 'scr', 'terr', 'terr2', 'lod', 'right', 'up', 'fwd', 'misc', 'misc2']);
+  const proto = fs.readFileSync(path.join(BT, 'render/prototype/src/webgpu.mjs'), 'utf8'); assert.match(proto, /f\.set\(vp, o\); f\.set\(cam\.prevVp, o \+ 16\); f\.set\(cam\.invVp, o \+ 32\); f\.set\(this\.sm0, o \+ 48\); f\.set\(this\.sm1, o \+ 64\)/);
+  assert.match(proto, /f\.set\(\[cam\.x, cam\.y, cam\.z, t\], o \+ 80\)/); assert.match(proto, /f\.set\(\[T\.W, T\.H, T\.N, T\.hmin\], o \+ 92\)/); assert.match(proto, /f\.set\(\[Math\.tan\(cam\.fov \/ 2\), aspect, this\.o\.exposure, cam\.near\], o \+ 116\)/);
+});
+test('WGSL is the port of the GLSL: the same numeric constants (as a set; the counts differ only where the WGSL shares one hash function and drops the GL depth-to-clip conversion)', () => {
+  const strip = s => s.replace(/\/\/[^\n]*/g, '');
+  const toks = s => (strip(s).match(/0x[0-9a-f]+u?|\b\d+\.\d*(?:e[-+]?\d+)?|\b\d+e[-+]?\d+|\.\d+|\b\d+u?\b/gi) || []).map(x => x.toLowerCase().replace(/^(\d+)\.$/, '$1.0'));
+  const g = toks(WEATHER_FS.slice(WEATHER_FS.indexOf('float h31'))), w = toks(WEATHER_WGSL.slice(WEATHER_WGSL.indexOf('fn mixU')));
+  const G = new Set(g), V = new Set(w); assert.deepEqual([...G].filter(x => !V.has(x)), [], 'a GLSL constant is missing from the WGSL'); assert.deepEqual([...V].filter(x => !G.has(x)), [], 'a WGSL constant is missing from the GLSL');
+  const cnt = a => a.reduce((o, x) => (o[x] = (o[x] || 0) + 1, o), {}), cg = cnt(g), cw = cnt(w), diffs = {}; for (const k of new Set([...G, ...V])) if (cg[k] !== cw[k]) diffs[k] = [cg[k] || 0, cw[k] || 0];
+  assert.deepEqual(diffs, { '61u': [2, 1], '16u': [2, 1], '0x27d4eb2du': [2, 1], '15u': [2, 1], '0x2c1b3c6du': [2, 1], '13u': [2, 1], '4294967296.0': [2, 1], '2.0': [6, 5], '0': [5, 6], '1.0': [36, 34] }, 'the count differences are exactly the hash refactor and the clip-space conversion');
+  // the structural statements that carry the look, in both
+  for (const [re, what] of [[/pow\(max\(h, 0\.0\), 0\.45\)/, 'horizon-zenith gradient'], [/pow\(sd, 800\.0\)/, 'sun disc'], [/smoothstep\(0\.0, 0\.22, d\.y\)/, 'star horizon extinction'], [/cos\(\w+\.\w*\s*\*\s*3\.0\)|cos\(.*moon.*\* 3\.0\)/i, 'moon cone'], [/th \+ \w+\.cloud\.w|th \+ uCloud\.w/, 'cloud softness'], [/0\.00006|W\.proto\.y|uProto\.y/, 'undo of the baked fog'], [/1\.0 \+ L/, 'lights only brighten']]) {
+    assert.ok(re.test(WEATHER_FS) || re.test(WEATHER_WGSL), what); }
+  assert.match(WEATHER_WGSL, /return max\(c, W\.floorC\.xyz\);/, 'Q10: the sky is clamped to the floor'); assert.match(WEATHER_WGSL, /Dm \*= \(1\.0 \+ L\);/); assert.match(WEATHER_WGSL, /max\(cc, W\.floorC\.xyz \* 1\.2\)/);
+  assert.match(WEATHER_WGSL, /F\.invVp \* vec4f\(i\.ndc, dep, 1\.0\)/, 'WebGPU depth is 0..1: no *2-1'); assert.match(WEATHER_FS, /dep \* 2\.0 - 1\.0/);
+  assert.match(WEATHER_WGSL, /if \(dep >= 0\.999999\)/); assert.match(WEATHER_FS, /if \(dep >= 0\.999999\)/);
+});
+test('fx3d WGSL: the soft-particle depth read is patched to the hardware depth with the same linearisation as the GLSL; a changed source is refused', () => {
+  const p = fxWgsl(); assert.equal(p, patchFxWgsl(WGSL_RENDER)); assert.match(p, /@group\(0\) @binding\(4\) var sceneDepth: texture_depth_2d;/); assert.ok(!/texture_2d<f32>/.test(p));
+  assert.match(p, /fn linD\(d: f32\) -> f32 \{ if \(d >= 0\.999999\) \{ return 1e9; \} return u\.extra\.z \* u\.extra\.w \/ \(u\.extra\.w - d \* \(u\.extra\.w - u\.extra\.z\)\); \}/);
+  assert.match(p, /linD\(textureLoad\(sceneDepth, vec2<i32>\(fin\.pos\.xy\), 0\)\)/);
+  assert.throws(() => patchFxWgsl('fn nothing() {}'), /changed/); assert.throws(() => patchFxWgsl(WGSL_RENDER.replace('var sceneDepth: texture_2d<f32>;', 'var sceneDepth: texture_2d<f16>;')), /changed/);
+  for (const [o, c] of ['()', '[]', '{}']) assert.equal(p.split(o).length, p.split(c).length, 'fx3d wgsl ' + o + c);
+  assert.ok(lint(p, 'fx wgsl').length === 0, lint(p, 'fx wgsl').join('; '));
+  // the block U of the WGSL is the one the packer fills: nine members, 48 float32 units
+  const u = /struct U \{ (.*?) \};/.exec(WGSL_RENDER)[1].split(',').map(s => s.trim().split(':')[0]).filter(Boolean); assert.deepEqual(u, ['vp', 'cam', 'right', 'up', 'sun', 'light', 'kappa', 'extra', 'now_first_nev']); assert.equal(FXU_FLOATS, 16 + 8 * 4);
+  assert.deepEqual(FXU, { vp: 0, cam: 16, right: 20, up: 24, sun: 28, light: 32, kappa: 36, extra: 40, now: 44 });
+});
+test('blend states are the GL blend functions of gl.mjs (multiply: ZERO, SRC_COLOR; add: ONE, ONE; sprites: ONE, ONE_MINUS_SRC_ALPHA)', () => {
+  const gl = fs.readFileSync(path.join(APP, 'src/weather3d/gl.mjs'), 'utf8');
+  assert.match(gl, /gl\.blendFuncSeparate\(gl\.ZERO, gl\.SRC_COLOR, gl\.ZERO, gl\.ONE\)/); assert.match(gl, /gl\.blendFuncSeparate\(gl\.ONE, gl\.ONE, gl\.ZERO, gl\.ONE\)/); assert.match(gl, /gl\.blendFuncSeparate\(gl\.ONE, gl\.ONE_MINUS_SRC_ALPHA, gl\.ONE, gl\.ONE_MINUS_SRC_ALPHA\)/);
+  assert.deepEqual(BLEND.mul, { color: { operation: 'add', srcFactor: 'zero', dstFactor: 'src' }, alpha: { operation: 'add', srcFactor: 'zero', dstFactor: 'one' } });
+  assert.deepEqual(BLEND.add, { color: { operation: 'add', srcFactor: 'one', dstFactor: 'one' }, alpha: { operation: 'add', srcFactor: 'zero', dstFactor: 'one' } });
+  assert.deepEqual(BLEND.fx, { color: { operation: 'add', srcFactor: 'one', dstFactor: 'one-minus-src-alpha' }, alpha: { operation: 'add', srcFactor: 'one', dstFactor: 'one-minus-src-alpha' } });
+});
+
+// ---------------------------------------------------------------------------------------------------------------- the same inputs as the WebGL2 path
+// A stand-in for a WebGL2 context that records every call, so the real gl.mjs code runs and the values it would hand to the GPU can be compared with the WebGPU packers.
+function fakeGL() {
+  const calls = [], consts = {};
+  const gl = new Proxy({}, { get(_, k) {
+    if (typeof k !== 'string') return undefined; if (/^[A-Z][A-Z0-9_]*$/.test(k)) return consts[k] ?? (consts[k] = 1000 + Object.keys(consts).length);
+    return (...a) => { calls.push([k, ...a]); if (k === 'getParameter') return a[0] === consts.COLOR_WRITEMASK ? [true, true, true, true] : a[0] === consts.VIEWPORT ? [0, 0, 1, 1] : 0; if (k === 'isEnabled') return false; return null; };
+  } });
+  return { gl, calls };
+}
+const locs = new Proxy({}, { get: (_, k) => k });
+const GL_TO_WU = { uSunDir: ['sunDir', 3], uMoonDir: ['moonDir', 3], uMoon: ['moon', 4], uZen: ['zen', 3], uHor: ['hor', 3], uSunCol: ['sunCol', 3], uSky: ['sky', 4], uTw: ['tw', 3], uFloor: ['floor', 3], uCLit: ['cLit', 3], uCShade: ['cShade', 3], uCloud: ['cloud', 4], uCOff: ['cOff', 2],
+  uStars: ['stars', 4], uStarAxis: ['starAxis', 4], uFog: ['fog', 4], uFogCol: ['fogCol', 3], uProto: ['proto', 4], uWet: ['wet', 4], uGround: ['ground', 4], uNL: ['nl', 1], uLPos: ['lpos', MAX_LIGHTS * 4], uLCol: ['lcol', MAX_LIGHTS * 4] };
+const lightsOf = n => { const a = new Float32Array(Math.max(n, MAX_LIGHTS) * LIGHT_STRIDE); for (let i = 0; i < n; i++) a.set([100 + i * 7, 3 + i, -40 - i, 12 + i, 2 + 0.25 * i, 1.0, 0.7 - 0.02 * i, 0.3], i * LIGHT_STRIDE); return a; };
+function glWeatherUniforms(W, fr) {
+  const { gl, calls } = fakeGL(), g = Object.create(GLPasses.prototype); g.gl = gl; g._setWeather(locs, W, fr, null);
+  const u = {}; for (const c of calls) { const [name, loc, ...v] = c; if (!/^uniform/.test(name)) continue; u[loc] = v.length === 1 && (ArrayBuffer.isView(v[0]) || Array.isArray(v[0])) ? Array.from(v[0]) : v.map(Number); } return u;
+}
+const SCENES = [['night with moon, stars, mist', at(7, 2, 23, 30)], ['day, scattered cloud, dry', at(7, 2, 14)], ['wet day after the storm, puddles', at(7, 4, 14)], ['dawn mist, twilight glow', at(7, 2, 4, 30)], ['deep night, new window of the table', at(6, 28, 2)]];
+for (const nLights of [0, 3, 16, 20]) {
+  test(`uniform block: packWeather writes exactly the values gl.mjs sends to the WebGL2 program (${nLights} lights)`, () => {
+    const tl = timeline(); const fr = { nLights, lights: lightsOf(nLights) };
+    for (const [what, t] of SCENES) {
+      const W = tl.at(t, {}), want = glWeatherUniforms(W, fr), out = packWeather(new Float32Array(WU_FLOATS), W, fr);
+      for (const [name, [m, n]] of Object.entries(GL_TO_WU)) { assert.ok(want[name], what + ': the GL path sets ' + name); const got = Array.from(out.subarray(WU[m], WU[m] + n)); const exp = want[name].length < n && n <= 4 ? [...want[name], ...new Array(n - want[name].length).fill(0)] : want[name];
+        if (name === 'uNL') { assert.equal(got[0], exp[0], what + ' ' + name); continue; }
+        for (let i = 0; i < n; i++) { const e = i < exp.length ? exp[i] : 0; assert.ok(Math.abs(got[i] - f32(e)) <= 1e-6 * Math.max(1, Math.abs(e)), `${what}: ${name}[${i}] ${got[i]} vs GL ${e}`); } }
+      // the padding words of the vec4s the GL path sets as vec3 are zero (nothing is smuggled in them)
+      for (const m of ['sunDir', 'moonDir', 'zen', 'hor', 'sunCol', 'tw', 'floor', 'cLit', 'cShade', 'fogCol']) assert.equal(out[WU[m] + 3], 0, m + ' pad');
+      assert.equal(out[WU.nl], Math.min(nLights, MAX_LIGHTS));
+    }
+  });
+}
+test('uniform block: packWeather is a pure function of its inputs (no clock, no random) and clears the lights it does not use', () => {
+  const tl = timeline(), W = tl.at(at(7, 3, 22), {}), a = packWeather(new Float32Array(WU_FLOATS), W, { nLights: 5, lights: lightsOf(5) }), b = packWeather(new Float32Array(WU_FLOATS), W, { nLights: 5, lights: lightsOf(5) });
+  assert.deepEqual(Array.from(a), Array.from(b)); const dirty = new Float32Array(WU_FLOATS).fill(9); packWeather(dirty, W, { nLights: 2, lights: lightsOf(2) });
+  for (let i = 2; i < MAX_LIGHTS; i++) for (let k = 0; k < 4; k++) assert.equal(dirty[WU.lpos + i * 4 + k], 0, 'light slot ' + i + ' cleared'); for (let i = 0; i < 16; i++) assert.ok(Number.isFinite(dirty[i]));
+  const none = packWeather(new Float32Array(WU_FLOATS), W, null); assert.equal(none[WU.nl], 0);
+  for (const f of [path.join(APP, 'src/weather3d/gpu.mjs'), path.join(APP, 'src/weather3d/shaders-wgsl.mjs')]) { const s = fs.readFileSync(f, 'utf8'); assert.ok(!/Math\.random|Date\.now|performance\.now|new Date\(/.test(s.replace(/\/\/[^\n]*/g, '')) || /passMs|timing/.test(s), path.basename(f)); }
+});
+// a real effects frame, from the real fx3d state, at night, with a battery and a volley in front of the camera
+async function effectsFrame(tSec) {
+  const bus = createAnimBus();
+  const advance = (t0, t1) => {
+    let n = 0;
+    for (let t = Math.ceil(t0 / 4) * 4; t < t1; t += 4) {
+      for (let g = 0; g < 4; g++) { bus.emit('fire', 'US-ART', g, t + g * 0.3, 'cannon', [10 + g * 9, 4, -35], [0, 0, 1], { weaponId: 'napoleon_12pdr_m1857', round: 'shell', tier: 'inferred', cycleS: 40, ranksBack: 0, fuze: 'time', fuzeS: 2, gunIdx: g, shotId: 700 + g + Math.floor(t) }); n++; }
+      for (let i = 0; i < 30; i++) { bus.emit('fire', 'US-INF', i, t + (i % 5) * 0.2, 'long_arm', [i, 3, -28], [0, 0, 1], { weaponId: 'm1861_springfield', round: 'ball', tier: 'inferred', cycleS: 20, ranksBack: 0 }); n++; }
+    }
+    return n;
+  };
+  const h = await FxHost.create({ api: 'none', world: { count: 0 } }, { environment, anim: { bus, advance }, data, geo: null, tier: 'laptop' });
+  const cam = new Camera(); cam.set(12, 5, 20, Math.PI, 0.02, 60); cam.update(16 / 9);
+  const camFx = c => ({ x: c.x, y: c.y, z: c.z, fwd: c.fwd, fov: c.fov, near: c.near, far: c.far, right: () => c.right(), up: () => c.up(), vp: c.vp });
+  h.update({ tSec, cam: camFx(cam) }); const info = h.update({ tSec: tSec + 8.05, cam: camFx(cam) });
+  return { h, cam, info, W: h.cur.W, fr: h.cur.fr };
+}
+test('uniform block of the sprites: packFx writes exactly the values gl.mjs sends to the WebGL2 sprite program, and the matrix is the WebGPU view-projection', async () => {
+  const { h, cam, fr } = await effectsFrame(at(7, 2, 22)); assert.ok(fr.nSprites > 0 && fr.nEvents > 0, 'the frame carries sprites');
+  // run the real GLPasses.draw on the recording context
+  const { gl, calls } = fakeGL(), g = Object.create(GLPasses.prototype), R = { W: 640, H: 360, glVp: new Float32Array(16).fill(7), fbScene: 1, fbDepthCopy: 2, t: { height: 3, depthCopy: 4 } };
+  Object.assign(g, { gl, R, ok: true, weatherOk: true, fxOk: true, U: { ev: 12, depth: 13, cum: 14, wind: 15 }, stats: { weatherDraws: 0, fxDraws: 0, spritesDrawn: 0, depthBlits: 0 }, vao: 5, progMul: { p: 6, loc: locs }, progAdd: { p: 7, loc: locs }, progFx: { p: 8, loc: locs }, tEv: 9, tCum: 10, tWind: 11, cumStage: new Float32Array(CUM_W * 8) });
+  g.draw(h.cur.W, fr, cam, { weather: false, fx: true }); const u = {}; for (const c of calls) { const [name, loc, ...v] = c; if (!/^uniform/.test(name)) continue; u[loc] = name === 'uniformMatrix4fv' ? Array.from(v[1]) : v.length === 1 && (ArrayBuffer.isView(v[0]) || Array.isArray(v[0])) ? Array.from(v[0]) : v.map(Number); }
+  const out = packFx(new Float32Array(FXU_FLOATS), fr, cam, cam.vp); const near = (a, b, what) => { for (let i = 0; i < b.length; i++) assert.ok(Math.abs(a[i] - f32(b[i])) <= 1e-6 * Math.max(1, Math.abs(b[i])), `${what}[${i}] ${a[i]} vs GL ${b[i]}`); };
+  const sl = (o, n) => Array.from(out.subarray(o, o + n));
+  assert.equal(out[FXU.now + 2], u.uNEv[0]); assert.equal(out[FXU.now], f32(u.uNow[0])); near(sl(FXU.cam, 3), u.uCam, 'cam'); near(sl(FXU.right, 3), u.uRight, 'right'); near(sl(FXU.up, 3), u.uUp, 'up'); near(sl(FXU.sun, 3), u.uSun, 'sun');
+  near(sl(FXU.light, 4), u.uLight, 'light'); near(sl(FXU.kappa, 2), u.uKappa, 'kappa'); near(sl(FXU.extra, 4), u.uExtra, 'extra'); assert.deepEqual(sl(FXU.extra + 2, 2).map(Number), [f32(u.uNF[0]), f32(u.uNF[1])], 'the near and far planes travel in extra.z and extra.w');
+  assert.deepEqual(Array.from(out.subarray(0, 16)), Array.from(cam.vp), 'WebGPU clip space (z in 0..1): the camera\'s own vp'); assert.ok(u.uVP && u.uVP.every(x => x === 7), 'the GL path used R.glVp, not the WebGPU matrix');
+  assert.equal(u.uFirst[0], 0); h.dispose();
+});
+
+// ---------------------------------------------------------------------------------------------------------------- the pass, against a recording device
+function mockDevice(o = {}) {
+  const log = [], writes = [], destroyed = [], listeners = {}, buffers = [], pipelines = [], bindGroups = [], modules = [];
+  const lab = (d, k) => (d && d.label) || k;
+  const dev = { log, writes, destroyed, buffers, pipelines, bindGroups, modules, listeners,
+    addEventListener(t, f) { (listeners[t] = listeners[t] || []).push(f); }, removeEventListener(t, f) { listeners[t] = (listeners[t] || []).filter(x => x !== f); },
+    pushErrorScope(k) { log.push(['pushErrorScope', k]); }, popErrorScope() { log.push(['popErrorScope']); return Promise.resolve(o.scopeError || null); },
+    createBindGroupLayout(d) { log.push(['bgl', lab(d)]); return { label: lab(d, 'bgl'), desc: d }; }, createPipelineLayout(d) { log.push(['pl', lab(d)]); return { label: lab(d, 'pl'), desc: d }; },
+    createBuffer(d) { const b = { label: lab(d, 'buf'), desc: d, destroy() { destroyed.push(b.label); } }; buffers.push(b); return b; },
+    createShaderModule(d) { const m = { label: lab(d, 'module'), code: d.code, getCompilationInfo: async () => ({ messages: o.messages || [] }) }; modules.push(m); return m; },
+    createRenderPipelineAsync(d) { pipelines.push(d); if (o.failPipeline && o.failPipeline.test(d.label)) return Promise.reject(new Error('mock failure of ' + d.label)); return Promise.resolve({ label: d.label, desc: d }); },
+    createBindGroup(d) { const g = { label: lab(d, 'bg'), desc: d }; bindGroups.push(g); return g; }, createQuerySet(d) { return { desc: d, destroy() { destroyed.push('queryset'); } }; },
+    queue: { writeBuffer(b, off, data, dOff, size) { writes.push({ label: b.label, off, data, dOff, size }); } } };
+  return dev;
+}
+function mockEnc() {
+  const log = []; const pass = { setPipeline: p => log.push(['pipeline', p.label]), setBindGroup: (i, g, o) => log.push(['bg', i, g.label, o ? Array.from(o) : null]), draw: (...a) => log.push(['draw', ...a]), end: () => log.push(['end']) };
+  return { log, beginRenderPass: d => { log.push(['pass', d]); return pass; }, resolveQuerySet() { log.push(['resolve']); }, copyBufferToBuffer() { log.push(['copy']); } };
+}
+const mockR = (dev, extra = {}) => ({ dev, g0L: { label: 'g0L' }, bg0: { label: 'bg0' }, hdr: { format: 'rgba16float' }, hdrV: { label: 'hdrV' }, depth: { format: 'depth32float' }, depthV: { label: 'depthV' }, depthRT: { label: 'depthRT' }, hasTS: false, mem: { buffers: 0, textures: 0, items: {} }, track(kind, name, bytes) { this.mem[kind] += bytes; this.mem.items[name] = (this.mem.items[name] || 0) + bytes; }, o: { flags: { sky: true, particles: true } }, ...extra });
+test('GPUPasses builds the pipelines the pass needs with the same targets, depth state and blends as the WebGL2 path, and tells what it holds', async () => {
+  const dev = mockDevice(), R = mockR(dev), g = await GPUPasses.create(R, { maxEvents: 256, timing: false });
+  assert.ok(g.ok && g.weatherOk && g.fxOk, 'all three pipelines built'); assert.deepEqual(g.log, []); assert.deepEqual(g.warnings, []);
+  const byLabel = Object.fromEntries(dev.pipelines.map(p => [p.label, p])); assert.deepEqual(Object.keys(byLabel).sort(), ['fx3d-sprites', 'weather3d-add', 'weather3d-mul']);
+  for (const k of ['weather3d-mul', 'weather3d-add']) { const p = byLabel[k]; assert.equal(p.fragment.targets[0].format, 'rgba16float'); assert.equal(p.depthStencil.format, 'depth32float'); assert.equal(p.depthStencil.depthWriteEnabled, false); assert.equal(p.depthStencil.depthCompare, 'always'); assert.equal(p.primitive.topology, 'triangle-list'); assert.equal(p.vertex.entryPoint, 'vs'); assert.equal(p.fragment.entryPoint, 'fs'); }
+  assert.deepEqual(byLabel['weather3d-mul'].fragment.targets[0].blend, BLEND.mul); assert.deepEqual(byLabel['weather3d-add'].fragment.targets[0].blend, BLEND.add);
+  const fx = byLabel['fx3d-sprites']; assert.deepEqual(fx.fragment.targets[0].blend, BLEND.fx); assert.equal(fx.primitive.topology, 'triangle-strip'); assert.equal(fx.depthStencil.depthWriteEnabled, false); assert.equal(fx.depthStencil.depthCompare, 'less'); assert.equal(fx.depthStencil.format, 'depth32float');
+  // the weather pipelines use the prototype's group 0 layout and their own group 1; the sprites own group 0
+  assert.deepEqual(byLabel['weather3d-mul'].layout.desc.bindGroupLayouts.map(l => l.label), ['g0L', 'weather3d.bglW']); assert.deepEqual(fx.layout.desc.bindGroupLayouts.map(l => l.label), ['fx3d.bgl']);
+  // buffers: uniform block size, event storage sized for the budget (maxEvents + 64 rows of GSTRIDE floats), cumulative sums, wind history
+  const buf = Object.fromEntries(dev.buffers.map(b => [b.label, b.desc.size])); assert.equal(buf['weather3d.uniforms'], WU_BYTES); assert.equal(buf['weather3d.fx uniforms'], FXU_FLOATS * 4); assert.equal(buf['weather3d.fx events'], (256 + 64) * GSTRIDE * 4); assert.equal(buf['weather3d.fx cumulative'], (256 + 64 + 1) * 4); assert.equal(buf['weather3d.fx wind history'], WIND_HIST_N * 8);
+  assert.equal(g.bytes, Object.values(buf).reduce((a, b) => a + b, 0), 'bytes held'); assert.equal(R.mem.buffers, g.bytes, 'the renderer\'s memory counter knows them'); assert.ok(dev.log.some(l => l[0] === 'pushErrorScope' && l[1] === 'validation') && dev.log.some(l => l[0] === 'popErrorScope'), 'set-up runs inside a validation scope');
+  // the WGSL handed to the compiler is what the module functions produce
+  const src = Object.fromEntries(dev.modules.map(m => [m.label, m.code])); assert.equal(src['weather3d-mul'], weatherWgsl('mul')); assert.equal(src['weather3d-add'], weatherWgsl('add')); assert.equal(src['fx3d-sprites'], fxWgsl());
+  g.dispose(); assert.equal(R.mem.buffers, 0, 'dispose gives the memory back'); assert.equal(Object.keys(R.mem.items).length, 0); assert.ok(dev.destroyed.includes('weather3d.uniforms') && dev.destroyed.includes('weather3d.fx events'));
+  assert.equal((dev.listeners.uncapturederror || []).length, 0, 'the error listener is removed'); assert.equal(g.ok, false); assert.equal(g.draw(mockEnc(), {}, null, {}), false);
+});
+test('GPUPasses.draw: one pass, colour loaded, depth read-only; weather multiply then add, then the sprites; the uniforms uploaded are the packers\' values', async () => {
+  const dev = mockDevice(), R = mockR(dev), g = await GPUPasses.create(R, { maxEvents: 4096, timing: false }), { h, cam, W, fr } = await effectsFrame(at(7, 2, 22));
+  const enc = mockEnc(); assert.equal(g.draw(enc, W, fr, cam, { weather: true, fx: true }), true);
+  const L = enc.log; assert.equal(L[0][0], 'pass'); const d = L[0][1]; assert.equal(d.colorAttachments.length, 1); assert.equal(d.colorAttachments[0].view, R.hdrV); assert.equal(d.colorAttachments[0].loadOp, 'load'); assert.equal(d.colorAttachments[0].storeOp, 'store');
+  assert.equal(d.depthStencilAttachment.view, R.depthRT); assert.equal(d.depthStencilAttachment.depthReadOnly, true); assert.ok(!('depthLoadOp' in d.depthStencilAttachment) && !('depthStoreOp' in d.depthStencilAttachment), 'a read-only depth attachment names no load or store op');
+  assert.deepEqual(L.slice(1), [['bg', 0, 'bg0', [0]], ['bg', 1, 'weather3d.bg', null], ['pipeline', 'weather3d-mul'], ['draw', 3], ['pipeline', 'weather3d-add'], ['draw', 3], ['pipeline', 'fx3d-sprites'], ['bg', 0, 'fx3d.bg', null], ['draw', 4, fr.nSprites], ['end']]);
+  const bg = Object.fromEntries(dev.bindGroups.map(b => [b.label, b.desc])); assert.equal(bg['weather3d.bg'].entries[1].resource, R.depthV, 'the weather pass samples the scene depth'); assert.equal(bg['fx3d.bg'].entries[4].resource, R.depthV);
+  // uploads
+  const w = Object.fromEntries(dev.writes.map(x => [x.label, x])); const want = packWeather(new Float32Array(WU_FLOATS), W, fr); assert.deepEqual(Array.from(w['weather3d.uniforms'].data), Array.from(want));
+  const wfx = packFx(new Float32Array(FXU_FLOATS), fr, cam, cam.vp); assert.deepEqual(Array.from(w['weather3d.fx uniforms'].data), Array.from(wfx));
+  assert.equal(w['weather3d.fx events'].data, fr.events); assert.equal(w['weather3d.fx events'].size, fr.nEvents * GSTRIDE); assert.equal(w['weather3d.fx cumulative'].data, fr.cum); assert.equal(w['weather3d.fx cumulative'].size, fr.nEvents + 1); assert.equal(w['weather3d.fx wind history'].data, fr.windHist); assert.equal(w['weather3d.fx wind history'].size, WIND_HIST_N * 2);
+  assert.ok(fr.cum instanceof Uint32Array, 'the cumulative sums are u32 in the WGSL (array<u32>)'); assert.equal(g.stats.weatherDraws, 1); assert.equal(g.stats.fxDraws, 1); assert.equal(g.stats.spritesDrawn, fr.nSprites); assert.equal(g.stats.passes, 1);
+  // flags and states that draw less
+  let e2 = mockEnc(); assert.equal(g.draw(e2, W, fr, cam, { weather: false, fx: true }), true); assert.deepEqual(e2.log.filter(l => l[0] === 'draw'), [['draw', 4, fr.nSprites]]);
+  e2 = mockEnc(); assert.equal(g.draw(e2, W, fr, cam, { weather: true, fx: false }), true); assert.deepEqual(e2.log.filter(l => l[0] === 'draw'), [['draw', 3], ['draw', 3]]);
+  e2 = mockEnc(); assert.equal(g.draw(e2, W, fr, cam, { weather: false, fx: false }), false); assert.equal(e2.log.length, 0, 'nothing encoded');
+  e2 = mockEnc(); assert.equal(g.draw(e2, W, { ...fr, nSprites: 0 }, cam, { weather: true, fx: true }), true); assert.deepEqual(e2.log.filter(l => l[0] === 'draw'), [['draw', 3], ['draw', 3]], 'no sprites: no sprite draw');
+  e2 = mockEnc(); assert.equal(g.draw(e2, null, fr, cam, {}), false);
+  // a resize: the renderer makes a new depth view, the bind groups are rebuilt to hold it
+  const n0 = g.stats.binds; R.depthV = { label: 'depthV2' }; e2 = mockEnc(); g.draw(e2, W, fr, cam, { weather: true, fx: true }); assert.equal(g.stats.binds, n0 + 1); assert.equal(dev.bindGroups.filter(b => b.label === 'weather3d.bg').at(-1).desc.entries[1].resource, R.depthV);
+  // a validation error that names one of this layer's objects stops the layer; one that does not is not its business
+  dev.listeners.uncapturederror[0]({ error: { message: 'something about the crowd' } }); assert.equal(g.failed, null); dev.listeners.uncapturederror[0]({ error: { message: 'Invalid BindGroup [BindGroup "weather3d.bg"] ...' } }); assert.match(g.failed, /weather3d\.bg/);
+  e2 = mockEnc(); assert.equal(g.draw(e2, W, fr, cam, {}), false); assert.equal(e2.log.length, 0, 'a failed layer draws nothing'); g.dispose(); h.dispose();
+});
+test('GPUPasses: GPU timing writes (timestamp queries) are used only when the device has them; a pipeline that fails to build is reported and the others still work', async () => {
+  const dev = mockDevice(), R = mockR(dev, { hasTS: true }), g = await GPUPasses.create(R, { maxEvents: 128 }); assert.ok(g.qs, 'a query set exists with the feature'); const { h, cam, W, fr } = await effectsFrame(at(7, 2, 22));
+  const enc = mockEnc(); g.draw(enc, W, fr, cam, { weather: true, fx: true }); assert.deepEqual(enc.log[0][1].timestampWrites.beginningOfPassWriteIndex, 0); assert.equal(enc.log[0][1].timestampWrites.endOfPassWriteIndex, 1); assert.ok(enc.log.some(l => l[0] === 'resolve') && enc.log.some(l => l[0] === 'copy')); g.dispose();
+  const R2 = mockR(mockDevice()), g2 = await GPUPasses.create(R2, { maxEvents: 128, timing: true }); assert.equal(g2.qs, null, 'no feature, no query set'); g2.dispose();
+  const dev3 = mockDevice({ failPipeline: /fx3d/ }), g3 = await GPUPasses.create(mockR(dev3), { maxEvents: 128, timing: false }); assert.ok(g3.weatherOk && !g3.fxOk && g3.ok); assert.match(g3.log.join(' '), /fx3d-sprites pipeline failed: mock failure/); const e3 = mockEnc(); assert.equal(g3.draw(e3, W, fr, cam, { weather: true, fx: true }), true); assert.deepEqual(e3.log.filter(l => l[0] === 'draw'), [['draw', 3], ['draw', 3]]); g3.dispose();
+  const dev4 = mockDevice({ failPipeline: /weather3d/ }), g4 = await GPUPasses.create(mockR(dev4), { maxEvents: 128, timing: false }); assert.ok(!g4.weatherOk && g4.fxOk); g4.dispose();
+  const dev5 = mockDevice({ messages: [{ type: 'error', lineNum: 12, linePos: 3, message: 'unknown identifier' }, { type: 'warning', lineNum: 1, linePos: 1, message: 'unused' }] }), g5 = await GPUPasses.create(mockR(dev5), { maxEvents: 128, timing: false });
+  assert.match(g5.log.join(' '), /weather3d-mul error 12:3 unknown identifier/); assert.match(g5.warnings.join(' '), /warning 1:1 unused/); g5.dispose(); h.dispose();
+  const dev6 = mockDevice({ scopeError: { message: 'Binding size is smaller than the minimum' } }), g6 = await GPUPasses.create(mockR(dev6), { maxEvents: 128, timing: false }); assert.match(g6.log.join(' '), /validation error at set-up: Binding size/); g6.dispose();
+});
+
+// ---------------------------------------------------------------------------------------------------------------- fx-host on the WebGPU path
+test('fx-host on WebGPU: the prototype\'s sky and particles are switched off only when the new passes built; `after` is chained after whatever hook is there; dispose puts everything back', async () => {
+  const dev = mockDevice(), inner = { calls: [], scene() { this.calls.push('scene'); }, shadow() { this.calls.push('shadow'); }, after() { this.calls.push('after'); } }, R = mockR(dev, { ext: inner });
+  const host = { api: 'webgpu', R, world: { count: 0 } }; const h = await FxHost.create(host, { environment, data, tier: 'laptop', timing: false });
+  assert.ok(h.gpu && h.gpu.ok && !h.gl); assert.equal(R.o.flags.sky, false); assert.equal(R.o.flags.particles, false); assert.deepEqual(h.log, []);
+  const cam = new Camera(); cam.set(12, 5, 20, Math.PI, 0.02, 60); cam.update(16 / 9); h.update({ tMin: minOf(7, 2, 22), cam });
+  const enc = mockEnc(); R.ext.scene({}, R); R.ext.shadow({}, 0, R); R.ext.after(enc, R); assert.deepEqual(inner.calls, ['scene', 'shadow', 'after'], 'the inner hook (figures, structures) runs first and keeps working');
+  assert.ok(enc.log.some(l => l[0] === 'pass'), 'the weather pass was encoded in the after hook'); assert.deepEqual(enc.log.filter(l => l[0] === 'draw').slice(0, 2), [['draw', 3], ['draw', 3]]);
+  R.ext = { scene() { inner.calls.push('late scene'); } }; R.ext.scene({}, R); assert.equal(inner.calls.at(-1), 'late scene', 'a hook assigned later still draws');
+  const info = h.update({ tMin: minOf(7, 2, 22), cam }); assert.ok(info.stats.gpu && info.stats.gpu.weatherDraws >= 1, 'the info carries the GPU counters');
+  h.dispose(); assert.equal(R.o.flags.sky, true); assert.equal(R.o.flags.particles, true); assert.equal(typeof R.ext.scene, 'function'); assert.equal(h.gpu, null);
+  const e2 = mockEnc(); R.ext.after && R.ext.after(e2, R); assert.equal(e2.log.length, 0, 'nothing is drawn after dispose');
+});
+test('fx-host on WebGPU: a failed build leaves the prototype passes on; a validation error at run time hands the sky and the particles back and keeps the state running', async () => {
+  const dev = mockDevice({ failPipeline: /weather3d|fx3d/ }), R = mockR(dev, { ext: null }); const h = await FxHost.create({ api: 'webgpu', R, world: { count: 0 } }, { environment, data, tier: 'laptop', timing: false });
+  assert.ok(!h.gpu.weatherOk && !h.gpu.fxOk && !h.gpu.ok); assert.equal(R.o.flags.sky, true); assert.equal(R.o.flags.particles, true); assert.match(h.log.join(' '), /prototype sky and particles stay on/); h.dispose();
+  // only the weather pipelines fail: the sky stays the prototype's, the particles are the new ones
+  const d2 = mockDevice({ failPipeline: /weather3d-/ }), R2 = mockR(d2); const h2 = await FxHost.create({ api: 'webgpu', R: R2, world: { count: 0 } }, { environment, data, tier: 'laptop', timing: false }); assert.equal(R2.o.flags.sky, true); assert.equal(R2.o.flags.particles, false); h2.dispose(); assert.equal(R2.o.flags.particles, true);
+  // a run-time error that names the layer
+  const d3 = mockDevice(), R3 = mockR(d3), h3 = await FxHost.create({ api: 'webgpu', R: R3, world: { count: 0 } }, { environment, data, tier: 'laptop', timing: false }); const cam = new Camera(); cam.set(0, 5, 0, 0, 0, 60); cam.update(1.78);
+  h3.update({ tMin: minOf(7, 3, 14), cam }); assert.equal(R3.o.flags.sky, false); d3.listeners.uncapturederror[0]({ error: { message: 'Validation error [Buffer "weather3d.uniforms"] out of range' } });
+  const origErr = console.error; console.error = () => { }; let info; try { info = h3.update({ tMin: minOf(7, 3, 14, 1), cam }); } finally { console.error = origErr; }
+  assert.equal(R3.o.flags.sky, true, 'the sky is back'); assert.equal(R3.o.flags.particles, true); assert.ok(info && info.weather && info.statement, 'the weather state is still computed'); assert.match(h3.log.join(' '), /WebGPU validation error in the weather or effects pass/);
+  const enc = mockEnc(); R3.ext.after && R3.ext.after(enc, R3); assert.equal(enc.log.length, 0, 'nothing is drawn after the stop'); h3.dispose();
+});
+test('fx-host: a renderer that is gone before the pipelines are ready is not touched; the WebGL2 install is unchanged by the WebGPU one', async () => {
+  const dev = mockDevice(), R = mockR(dev), host = { api: 'webgpu', R, world: { count: 0 }, destroyed: false };
+  const origCreate = dev.createRenderPipelineAsync.bind(dev); dev.createRenderPipelineAsync = d => { host.destroyed = true; return origCreate(d); };
+  const h = await FxHost.create(host, { environment, data, tier: 'laptop', timing: false }); assert.equal(h.gpu, null); assert.equal(R.o.flags.sky, true); assert.match(h.log.join(' '), /went away/); assert.equal(Object.getOwnPropertyDescriptor(R, 'ext') && Object.getOwnPropertyDescriptor(R, 'ext').get, undefined, 'no chain installed'); h.dispose();
+  const fx = fs.readFileSync(path.join(APP, 'src/fx-host.mjs'), 'utf8'); assert.match(fx, /if \(R && api === 'webgl2' && R\.gl\) me\._installGL\(R\)/); assert.match(fx, /else if \(R && api === 'webgpu' && R\.dev\) await me\._installGPU\(R\)/);
+});
+test('the prototype renderer calls ext.after between its scene pass and its post passes, and the shipped files say nothing about how they were made', () => {
+  const proto = fs.readFileSync(path.join(BT, 'render/prototype/src/webgpu.mjs'), 'utf8'), i = proto.indexOf('this.ext.after(enc, this)'); assert.ok(i > 0); assert.ok(proto.lastIndexOf('this.ext.scene(p, this)', i) > 0 && proto.indexOf("P.part", i) > i, 'after: scene hook, scene pass end, the hook, then particles and post');
+  for (const f of ['src/weather3d/gpu.mjs', 'src/weather3d/shaders-wgsl.mjs', 'src/fx-host.mjs', 'tests/weather3d-gpu-page.mjs']) { const s = fs.readFileSync(path.join(APP, f), 'utf8'); assert.ok(!/\b(Claude|Anthropic|LLM|subagent|AI-generated|generated by)\b|\bagents?\b/i.test(s), f + ' has no mention of how it was made'); }
+});

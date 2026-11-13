@@ -74,7 +74,7 @@ def main(outdir):
                     co = c
                 elif m.groups():
                     co = CMAP.get(m.group(1), m.group(1).upper())
-                rankc = rk
+                rankc = '^' + ' '.join(ln.split()).rstrip('. ')     # the heading as printed carries the rank of the entries below
                 hit = True
                 break
         if hit:

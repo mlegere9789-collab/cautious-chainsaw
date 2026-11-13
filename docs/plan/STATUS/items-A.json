@@ -3,7 +3,7 @@
  "file": "docs/plan/STATUS/items-A.json",
  "part": "A",
  "generated": "2026-11-13",
- "scope": "Chapters 01 to 08b of docs/plan/FINAL: the 34 decisions of the register, its 17 decision-support packages and 12 owner actions, the 253 work packages (finding groups) of chapters 02 to 08b, the owner decisions listed in each chapter, the nodes of 15-roadmap.json whose chapter list touches them (77 of 98), docs/decisions/*, and the release reports as far as those chapters need them.",
+ "scope": "Chapters 01 to 08b of docs/plan/FINAL: the 34 decisions of the register, its 17 decision-support packages and 12 owner actions, the 253 work packages (finding groups) of chapters 02 to 08b, the owner decisions listed in each chapter, the nodes of 15-roadmap.json whose chapter list touches them (77 of 98), docs/decisions/*, and the release reports as far as those chapters need them. Owner decisions 2026-10-19 items 3 to 5 and their clarifications govern the Battle Theatre and are tracked under docs/battle-theatre/GOVERNANCE, not here.",
  "status_definitions": {
   "SHIPPED": "Present in the release candidate, train R1g (and the trains named), with the patch group and the test that prove it. No train has been deployed: ops/RELEASE-LOG.md has no row and production still serves deploy 6abd6d62.",
   "BUILT_NOT_SHIPPED": "Exists in src/, historian-src/, data-src/, candidates/ or as an opt-in patch group, but is in no train; the evidence says what is missing.",
@@ -28,14 +28,14 @@
   "Not run by this survey: any other browser suite, the eight acceptance passes, Lighthouse (no runner in the repository), any real device. The default node of this container is 22.23.4; /opt/node24/bin/node is 24.22.1."
  ],
  "counts": {
-  "SHIPPED": 84,
-  "BUILT_NOT_SHIPPED": 14,
-  "OPEN_BUILDABLE": 230,
-  "OPEN_NEEDS_DECISION": 95,
-  "OWNER_ONLY": 70,
+  "SHIPPED": 87,
+  "BUILT_NOT_SHIPPED": 16,
+  "OPEN_BUILDABLE": 228,
+  "OPEN_NEEDS_DECISION": 96,
+  "OWNER_ONLY": 72,
   "SUPERSEDED": 14
  },
- "total": 507,
+ "total": 513,
  "counts_by_kind": {
   "decision": {
    "SHIPPED": 12,
@@ -71,8 +71,10 @@
    "SUPERSEDED": 5
   },
   "owner decision (implemented)": {
-   "SHIPPED": 4,
-   "OPEN_BUILDABLE": 1
+   "SHIPPED": 7,
+   "BUILT_NOT_SHIPPED": 2,
+   "OPEN_BUILDABLE": 1,
+   "OPEN_NEEDS_DECISION": 1
   },
   "roadmap-node": {
    "SHIPPED": 9,
@@ -82,8 +84,8 @@
    "OWNER_ONLY": 9
   },
   "verification debt": {
-   "OPEN_BUILDABLE": 5,
-   "OWNER_ONLY": 2
+   "OPEN_BUILDABLE": 3,
+   "OWNER_ONLY": 4
   },
   "work package (finding group)": {
    "SHIPPED": 49,
@@ -104,9 +106,9 @@
   },
   "02": {
    "SHIPPED": 31,
-   "OPEN_BUILDABLE": 9,
-   "OPEN_NEEDS_DECISION": 3,
-   "OWNER_ONLY": 10,
+   "OPEN_BUILDABLE": 8,
+   "OPEN_NEEDS_DECISION": 4,
+   "OWNER_ONLY": 11,
    "SUPERSEDED": 2
   },
   "03": {
@@ -118,8 +120,8 @@
    "SUPERSEDED": 2
   },
   "04": {
-   "SHIPPED": 10,
-   "BUILT_NOT_SHIPPED": 2,
+   "SHIPPED": 12,
+   "BUILT_NOT_SHIPPED": 3,
    "OPEN_BUILDABLE": 17,
    "OPEN_NEEDS_DECISION": 11,
    "OWNER_ONLY": 4
@@ -132,13 +134,13 @@
   },
   "06": {
    "SHIPPED": 6,
-   "OPEN_BUILDABLE": 33,
+   "OPEN_BUILDABLE": 32,
    "OPEN_NEEDS_DECISION": 14,
-   "OWNER_ONLY": 6
+   "OWNER_ONLY": 7
   },
   "07": {
-   "SHIPPED": 3,
-   "BUILT_NOT_SHIPPED": 3,
+   "SHIPPED": 4,
+   "BUILT_NOT_SHIPPED": 4,
    "OPEN_BUILDABLE": 25,
    "OPEN_NEEDS_DECISION": 11,
    "OWNER_ONLY": 4,
@@ -618,7 +620,7 @@
    "chapter": "01",
    "title": "Interim privacy and terms; counsel later",
    "status": "OWNER_ONLY",
-   "evidence": "The interim text is built as opt-in group PG-legal (tools/t0/patches/PG-legal.json, ops/legal-drafts/; static.legal 13/13, static.legal.optin 19/19, T0-PGF-14 1/1 on the opt-in tree [C11]) and is in no train (ops/T0-DEVIATIONS.md row 11).",
+   "evidence": "The interim text is built as opt-in group PG-legal (tools/t0/patches/PG-legal.json, ops/legal-drafts/; static.legal 13/13, static.legal.optin 19/19, T0-PGF-14 1/1 on the opt-in tree [C11]) and is in no train (ops/T0-DEVIATIONS.md row 11). Its companion page group PG-polish-legal (8 patches, tools/t0/patches-next/PG-polish-legal.json, opt-in line --with PG-legal,PG-polish,PG-polish-legal) is likewise in no train; it anchors on PG-legal's text and is refused without it.",
    "next_step": "Owner: read ops/legal-drafts/preview and OWNER-SIGNOFF.md, approve or edit, set legal.effective_date in tools/t0/trains.json to the deploy day; the build then takes --with PG-legal.",
    "size": "S",
    "files": [
@@ -2076,9 +2078,9 @@
    "id": "VER-LAYOUT-TIMING",
    "chapter": "06",
    "title": "Layout-contract and timing suites red on R1g in the container",
-   "status": "OPEN_BUILDABLE",
-   "evidence": "suites-r1g-full2.json: polish 4/13 (POL-02, -04, -05, -06, -13), perf2 5/12, perf4 8/13, perf5 0/9, perf6 6/7, ztail 5/7, wtpeer 2/4. They were green or near green on the Windows machine for R1f (polish 9/13, perf2 11/12, perf4 12/13, perf5 8/9). The container has software GL, 4 vCPU and Linux fonts: none of these is acceptance evidence either way.",
-   "next_step": "Run the whole regression on R1g on a machine with a GPU and the Windows fonts (the Windows run of 2026-11-04 stopped at suite 34 of 79).",
+   "status": "OWNER_ONLY",
+   "evidence": "suites-r1g-full2.json: polish 4/13 (POL-02, -04, -05, -06, -13), perf2 5/12, perf4 8/13, perf5 0/9, perf6 6/7, ztail 5/7, wtpeer 2/4. They were green or near green on the Windows machine for R1f (polish 9/13, perf2 11/12, perf4 12/13, perf5 8/9). The container has software GL, 4 vCPU and Linux fonts: none of these is acceptance evidence either way. Nothing in this container (4 vCPU, software GL, Linux fonts) can close it: results from here are not acceptance evidence either way (the rule of this workstream is to list such checks as owed).",
+   "next_step": "Owner machine run of the whole regression on R1g, then triage whatever stays red there.",
    "size": "M",
    "files": [
     "tools/t0/run_suites.mjs"
@@ -2091,16 +2093,17 @@
    "id": "VER-R1G-ACCEPT",
    "chapter": "02",
    "title": "Eight consecutive clean acceptance passes on the candidate",
-   "status": "OPEN_BUILDABLE",
-   "evidence": "docs/accept/R1G-STATUS.md: 0 of 8 for R1g (checks 3 to 7 need a real Mapbox map and a GPU); best streak on R1f was 1 (docs/accept/R1F-FINAL-REPORT.md).",
-   "next_step": "Run node tools/accept/run_eight.mjs on the acceptance machine after the layout and timing reds are closed.",
+   "status": "OWNER_ONLY",
+   "evidence": "docs/accept/R1G-STATUS.md: 0 of 8 for R1g (checks 3 to 7 need a real Mapbox map and a GPU); best streak on R1f was 1 (docs/accept/R1F-FINAL-REPORT.md). The performance rows need a real GPU (tools/accept/thresholds.json is never loosened), so a run in this container can be rehearsed and reported but cannot count as a clean pass.",
+   "next_step": "Run node tools/accept/run_eight.mjs on the acceptance machine after VER-LAYOUT-TIMING, VER-J7, VER-MFIX and VER-TILES are closed; every defect resets the count to 0.",
    "size": "L",
    "files": [
     "tools/accept/run_eight.mjs",
     "docs/accept/EIGHT-PASS-LOG.md"
    ],
    "owner_workstream": "release",
-   "kind": "verification debt"
+   "kind": "verification debt",
+   "owner_step": "Leave the Windows acceptance machine free and run node tools/accept/run_eight.mjs on the packed final zip (with the owner's tile pyramid); send docs/accept/EIGHT-PASS-LOG.md."
   },
   {
    "id": "VER-TILES",
@@ -5567,7 +5570,7 @@
    "title": "Decision ratification: 11 class-B ADRs, capacity contract, WBS upkeep",
    "status": "OPEN_NEEDS_DECISION",
    "evidence": "No class-B decision was ratified in writing except contact (2026-10-04) and the clock (2026-10-05). The owner delegated the pending decisions on 2026-11-11.",
-   "next_step": "Recorded as delegated rows A01 to A67 in docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md (A41 is the ratification itself); the owner can override any row in writing.",
+   "next_step": "Recorded as delegated rows A01 to A69 in docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md (A41 is the ratification itself); the owner can override any row in writing.",
    "size": "S",
    "files": [
     "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md"
@@ -8453,38 +8456,187 @@
     "WP-DEC-07"
    ],
    "owner_step": "In Netlify open the site, then Analytics and RUM settings, and say whether Web Analytics and RUM are enabled."
+  },
+  {
+   "id": "OWNER-2026-10-04-2",
+   "chapter": "07",
+   "title": "Owner decision: keyboard model approved (a pointer press hands the keys back to the page; Esc returns them to the map)",
+   "status": "SHIPPED",
+   "evidence": "Group A2 from R1a/R1b carries the model (T0-DEV-23): desktop-fixes 10/10 on R1g [C11] (T0-DF-01 checks the documented keys after a click, a drag and a unit selection). The accessibility plan's alternative (keyboard:false plus Shift+arrow pan) stays deferred to the rebuild's shortcut registry (WP-A11Y-08).",
+   "next_step": "None.",
+   "size": "S",
+   "files": [
+    "tools/t0/patches/A2.json",
+    "docs/decisions/OWNER-DECISIONS-2026-10-04.md"
+   ],
+   "kind": "owner decision (implemented)",
+   "related": [
+    "T0-DEV-23",
+    "WP-A11Y-08"
+   ],
+   "train": "R1a+/R1b+",
+   "patch_groups": [
+    "A2"
+   ],
+   "tests": [
+    "T0-DF-01..09"
+   ]
+  },
+  {
+   "id": "OWNER-2026-10-04-3",
+   "chapter": "02",
+   "title": "Owner decision: do not break the Virtual Walkthrough or the Monuments section (guard passes on baseline and every train; Walkthrough code byte-identical, defects reported not patched)",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "On R1g in this container the guard (tests/t0/walkthrough-guard.spec.mjs) gives 16 of 18 passed, 1 skipped, 1 failed: T0-WG-12 needs the real Google Street View embed, which this container cannot reach, and fails the same way on baseline, R0, R1a and R1b (suites-r1g-full2.json, rows walkguard.* and baseline.walkguard). The Walkthrough code of R1g is not byte-identical to the published one: registered edits are A-wt-attribution, mob:HF-6m, the AX-walkthrough-* rows, cp:walkthrough-streetview-allow, the MON openers and PERF5-wt-defer-map, -style-load, -gated-* and -reveal; each is named in the guard (T0-MONL-12 and T0-B63-11 exceptions, R1F decision F5). No record says whether these satisfy \"byte-identical; defects reported, not patched\" (owner rule 2026-10-05 item 6).",
+   "next_step": "Delegated, conservative (A69): keep the registered, guarded edits already in the train; add no further edit without a guard row that names it; report defects instead of patching (PROV-WG-17). The owner can order any group dropped (way back: delete the named patches and rebuild; PERF5-wt-* is the performance-only part). T0-WG-12 closes on a machine that can reach Google.",
+   "size": "S",
+   "files": [
+    "tests/t0/walkthrough-guard.spec.mjs",
+    "tests/t0/walkthrough-guard.README.md",
+    "docs/decisions/OWNER-DECISIONS-2026-10-05.md"
+   ],
+   "kind": "owner decision (implemented)",
+   "related": [
+    "PROV-WG-17",
+    "T0-DEV-26"
+   ],
+   "delegated_decision": "A69",
+   "train": "R1a+ (guarded edits)",
+   "patch_groups": [
+    "A",
+    "C",
+    "AX",
+    "CP",
+    "MON",
+    "PERF5"
+   ],
+   "tests": [
+    "T0-WG-01..17"
+   ]
+  },
+  {
+   "id": "OWNER-2026-10-04-5",
+   "chapter": "07",
+   "title": "Owner decision: creator bio approved (first person, \"for the love of history\"); the public contact is the site address only",
+   "status": "BUILT_NOT_SHIPPED",
+   "evidence": "docs/content/APPROVED-BIO.md holds the approved text; it appears word for word (typographic apostrophes aside) in candidates/trust-pages/about.html, generated by tools/copy/build-trust-pages.mjs. The shipped tree has no About page (RM-39). The contact half is shipped (D-CONTACT: one address in release/R1g/dist).",
+   "next_step": "Ships with the trust pages (RM-39); the About candidate still carries the owner-input placeholder for the reviewer credit.",
+   "size": "S",
+   "files": [
+    "docs/content/APPROVED-BIO.md",
+    "candidates/trust-pages/about.html"
+   ],
+   "kind": "owner decision (implemented)",
+   "related": [
+    "RM-39",
+    "D-CONTACT"
+   ]
+  },
+  {
+   "id": "OWNER-2026-10-04-6",
+   "chapter": "04",
+   "title": "Owner decision: wave 3a content streams approved (copy and trust pages, user guide, sky, weather and casualty-ledger data) as candidates",
+   "status": "BUILT_NOT_SHIPPED",
+   "evidence": "Built and in no train: candidates/trust-pages and candidates/user-guide (tools/copy, tools/guide); data-src/environment (sun and moon for 675 ticks, weather by day) and data-src/ledger (conflict ledger) with tools/environment, tools/ledger, tests/environment and tests/ledger. node tools/environment/validate.mjs and node tools/ledger/validate.mjs on 2026-11-13: 0 errors, 0 warnings each. The decision itself says they stay candidates until integrated after verification.",
+   "next_step": "Integrate each when its consumer exists: trust pages with RM-39 (owner inputs), the sun table with WP-TIME-13, the ledger rows with WP-PAGEC-26..28; the tagged guide replaces the shipped guide only after a parity check against the candidate train (candidates/user-guide/README.md).",
+   "size": "M",
+   "files": [
+    "candidates/trust-pages/",
+    "candidates/user-guide/",
+    "data-src/environment/",
+    "data-src/ledger/"
+   ],
+   "kind": "owner decision (implemented)",
+   "related": [
+    "RM-39",
+    "WP-TIME-13",
+    "WP-PAGEC-26",
+    "WP-A11Y-31"
+   ]
+  },
+  {
+   "id": "OWNER-2026-10-05-1",
+   "chapter": "04",
+   "title": "Owner decision: the Monuments \"Jump to this moment\" dilemma is rejected: neither a mismatched clock nor a distant unit is acceptable",
+   "status": "SHIPPED",
+   "evidence": "Resolved by owner decision item 4 below through the clock (CLOCK) and the Monuments layer (MON): T0-VMON-05 (the jump lands on a tick whose clock agrees with the story card) is in verify-monuments 16/16 on R1g [C11].",
+   "next_step": "None.",
+   "size": "S",
+   "files": [
+    "tools/t0/patches/MON.json",
+    "tools/t0/patches/CLOCK.json"
+   ],
+   "kind": "owner decision (implemented)",
+   "related": [
+    "OWNER-2026-10-05-4",
+    "OWNER-2026-10-05-2"
+   ],
+   "train": "R1d+",
+   "patch_groups": [
+    "CLOCK",
+    "MON"
+   ],
+   "tests": [
+    "T0-VMON-05"
+   ]
+  },
+  {
+   "id": "OWNER-2026-10-05-4",
+   "chapter": "04",
+   "title": "Owner decision: the Monuments feature must work and be accurate (story-star ticks, linked units and positions consistent with the corrected clock)",
+   "status": "SHIPPED",
+   "evidence": "Group MON (29 patches) with the corrected clock from R1d: monuments suite 19/20 (+1 skip: source books cache absent) and verify-monuments 16/16 on R1g [C11]; the 512-monument array is guarded by T0-WG-01 (sha256 of the canonical JSON pinned).",
+   "next_step": "None. T0-MONL-18 needs the cached source books.",
+   "size": "S",
+   "files": [
+    "tools/t0/patches/MON.json"
+   ],
+   "kind": "owner decision (implemented)",
+   "related": [
+    "T0-DEV-26",
+    "OWNER-2026-10-05-1"
+   ],
+   "train": "R1d+",
+   "patch_groups": [
+    "MON",
+    "CLOCK"
+   ],
+   "tests": [
+    "T0-MONL-*",
+    "T0-VMON-*"
+   ]
   }
  ],
  "open_by_status_and_size": {
   "OPEN_NEEDS_DECISION": {
-   "S": 60,
+   "S": 61,
    "M": 21,
    "L": 14
   },
   "OPEN_BUILDABLE": {
    "S": 41,
-   "M": 95,
-   "L": 94
+   "M": 94,
+   "L": 93
   },
   "OWNER_ONLY": {
    "S": 54,
-   "M": 13,
-   "L": 3
+   "M": 14,
+   "L": 4
   },
   "BUILT_NOT_SHIPPED": {
-   "S": 1,
-   "M": 7,
+   "S": 2,
+   "M": 8,
    "L": 6
   }
  },
  "open_note": "Items overlap (a roadmap node, its work packages and an ADR can name the same work), so sizes are not additive; the de-duplicated effort is in docs/plan/FINAL/15-roadmap.json (729 to 1,236 AI-assisted person-days for the whole programme, P50 982).",
  "continuation": {
-  "what": "Second pass of 2026-11-13 after the first pass was interrupted: re-verified the first pass against the repository, added the 52 chapter-level owner decisions it had not listed (xxx-OD-nn), re-graded six roadmap nodes it had called SHIPPED while a work package inside them is not shipped (RM-12, RM-14, RM-18, RM-43, RM-44) and completed the test runs it had left open.",
+  "what": "Second pass of 2026-11-13 after the first pass was interrupted. It re-verified the first pass against the repository; added the 52 chapter-level owner decisions the first pass had not listed (xxx-OD-nn), six owner decisions of docs/decisions that it had not itemised (OWNER-2026-10-04-2, -3, -5, -6 and OWNER-2026-10-05-1, -4) and delegated rows A41 to A69; re-graded five roadmap nodes the first pass called SHIPPED while a work package inside them is not shipped (RM-12, RM-14, RM-18, RM-43, RM-44); re-graded to OWNER_ONLY what only the owner machine or owner-supplied data can close (WP-PAGE-15, WP-PAGE-44, D-VIEWSHED: the 3DEP DEM is neither present nor reachable here; VER-LAYOUT-TIMING, VER-R1G-ACCEPT: GPU acceptance machine; VER-HDR-11: stand-in tile pyramid); triaged HDR-11; corrected four patch_groups lists and one address count; and completed the data and historian test runs the first pass had left open.",
   "verified": [
    "every patch id and test id named in the evidence exists in release/R1g/anchors.json or in tests/ and tools/ (scripted check, tmp/r1h-cand/statusA/verify_items.py)",
    "the counts of the C11 regression run (suites-r1g-full2.json) quoted in the evidence",
    "the \"does not exist\" claims spot-checked: docs/BROWSERS.md, browserslist, .github, docs/perf-exceptions.md, translate=\"no\", canonical tags, sitemap lastmod, Data View, MAP_IDLE_ACTIVATE"
   ],
-  "delegated_rows_added": "A41 to A67 in docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md"
+  "delegated_rows_added": "A41 to A69 in docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md"
  }
 }

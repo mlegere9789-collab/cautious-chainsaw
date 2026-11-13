@@ -1,1 +1,36 @@
-Terminated
+# renderer: ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver) (SOFTWARE; hardware flags); WebGPU adapter: google swiftshader
+{
+ "chrome": "153.0.8010.12",
+ "harness_RENDER": {
+  "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "software": true,
+  "webgpu": "google swiftshader",
+  "args": "hardware flags"
+ },
+ "page": {
+  "secureContext": true,
+  "hardwareConcurrency": 4,
+  "deviceMemoryGB": 16,
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+  "webgl2": {
+   "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "vendor": "Google Inc. (Google)",
+   "maxTextureSize": 8192,
+   "maxRenderbufferSize": 8192,
+   "extColorBufferFloat": true,
+   "extDisjointTimerQuery2": false
+  },
+  "gpuApi": true,
+  "webgpuAdapter": {
+   "vendor": "google",
+   "architecture": "swiftshader",
+   "description": "",
+   "isFallbackAdapter": true,
+   "timestampQuery": true,
+   "maxTextureDimension2D": 8192,
+   "maxBufferSize": 1073741824
+  },
+  "AudioContext": "function",
+  "OfflineAudioContext": "function"
+ }
+}

@@ -386,3 +386,409 @@ ROWS.append(dict(
     register=reg('Lt. H. M. Strickler and Co. E of White\'s battalion; the raid on the abandoned camp', 'No text read names Strickler or Co. E for Jun 26.', 'Charge by White\'s battalion (documented); company and officer not shown', 'inferred',
                  competing='36 paroled + 2 officers / about 40 / 170 / 175 captured', impact='count shown as a range of the sources', ask='none', rids='R04, R11'),
     related=['tl-01-EG-004']))
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------ T1-011
+ROWS.append(dict(
+    id='T1-011', verdict='corrected',
+    claim=claim('The 26th Pennsylvania Militia retires from the Chambersburg pike across the fields toward Hunterstown, pursued by Confederate cavalry',
+                '26th Pennsylvania Militia (Col. Jennings) with Capt. Bell\'s cavalry; pursued by White\'s battalion and French\'s 17th Virginia Cavalry',
+                'Across the fields between the Mummasburg and Chambersburg roads toward Hunterstown (Mummasburg road near Mr. Leer\'s; Witmer\'s house on the Hunterstown/Carlisle road); not toward the rail station',
+                'Jun 26 afternoon, after about 15:00 (Jacobs: Rebels in force at about 3 p.m.; Richards: overtaken in the afternoon)', 'Early OR27-2-R470 p.465; Jacobs 1864 pp.14-15; Richards (BL-3); Compiler Jun 29 1863 p.2',
+                'In the afternoon of Jun 26 the militia took across the fields between Mummasburg and Gettysburg toward Hunterstown (Early), retreating eastward over the fields and by country roads under skirmishing and losing 120 more men near Hunterstown (Jacobs); the cavalry caught up at Witmer\'s house about 4.5 miles out on the Carlisle road (Richards) and some were taken near Mr. Leer\'s on the Mummasburg road (Compiler). '
+                'The seed route (Belmont Road, Mummasburg Road, to the rail station) and the disbanding of the cavalry at Rock Creek on the Hanover Road are not supported; the sources send the regiment toward Hunterstown, York Springs and Harrisburg. Both versions are carried as scenarios.',
+                'documented', '1863-06-26T15:00', '1863-06-26T20:04', marking='route toward Hunterstown: documented; Belmont Road, rail station and Rock Creek disbanding: gap'),
+    subs=[
+        ('The militia took across the fields between Mummasburg and Gettysburg and went toward Hunterstown', 'documented', 'supported', ['early_fields']),
+        ('Jennings\' regiment retreated eastward over the fields and by country roads, skirmishing with the pursuing cavalry, and lost 120 more men near Hunterstown', 'documented', 'supported', ['jac_retreat', 'jac_120']),
+        ('The pursuing cavalry overtook the regiment in the afternoon at Witmer\'s (Whitmer\'s) house, about four and a half miles from Gettysburg on the Carlisle road / four miles out on the Hunterstown road, and was repulsed', 'documented', 'supported', ['rich_witmer', 'penny_witmer']),
+        ('Rebel cavalry captured a number near Mr. Leer\'s on the Mummasburg road and some more lower down; about 100 were paroled at Hunterstown on Saturday', 'documented', 'supported', ['cmp_leer', 'cmp_hunters']),
+        ('Bell\'s cavalry and the City Troop retired from town a short time before the rebels entered', 'documented', 'supported', ['cmp_retired']),
+        ('The destination of the fleeing militia was the rail station (seed); the sources say Hunterstown, York Springs and Harrisburg', 'documented', 'contradicted', ['early_fields', 'cmp_york_springs']),
+        ('The flight went by the Belmont Road and then the Mummasburg Road', 'open gap', 'unsupported', []),
+        ('Bell\'s cavalry galloped through town and disbanded near Rock Creek on the Hanover Road', 'open gap', 'unsupported', []),
+    ],
+    cites={
+        'early_fields': OR('taking across the fields between Mummasburg and Gettysburg, and going toward Hunterstown', R470, '465'),
+        'jac_retreat': L('JACOBS-1864', 'Jennings\' band however, hastily retreated eastward over the fields, and by country roads, occasionally skirmishing with the enemy\'s cavalry'),
+        'jac_120': L('JACOBS-1864', 'and after losing 120 more of their number near Tlunterstown'),
+        'rich_witmer': L('BL-3', 'These latter overtook us in the afternoon at Witmer\'s house, about four and a half miles from Gettysburg on the Carlisle road'),
+        'penny_witmer': L('PA-GB-1914-v2', 'Overtaken by White\'s cavalry on the Hunterstown road at the farmhouse of Henry Whitmer'),
+        'cmp_leer': CMP('Mr. Leer’s,on thje. Mummapburg road,', 'LATER. Monday Morning.- The 26th Reg. P. V. M. retreated to York Springs, where about 600 were encamped on Saturday morning. The rebel cavalry captured a number of them near Mr. Leer\'s, on the Mummasburg road, and some more lower down. They paroled about 100 at Hunterstown on Saturday, we are informed. ... The report that Capt. Bell, of the Cavalry, was captured, is not credited.'),
+        'cmp_hunters': CMP('about lfu at Hunterstown on-Saturday', 'They paroled about 100 at Hunterstown on Saturday, we are informed.'),
+        'cmp_york_springs': CMP('re.\'eatcif to York Springs', 'The 26th Reg. P. V. M. retreated to York Springs, where about 600 were encamped on Saturday morning.'),
+        'cmp_retired': CMP('Bell V Cavalry retiriií fron» town a short', 'The Philadelphia City Troop and Bell\'s Cavalry retired from town a short time before the rebels entered. We presume they made their retreat safely. The telegraph operator also got away, with his instrument, in time.'),
+    },
+    scenarios=[
+        sc('A', 'Seed: militia flee east across fields to the Belmont Road, then the Mummasburg Road toward the rail station; cavalry gallop through town and disband near Rock Creek on the Hanover Road', 'seed source ABT-Early (lead); no text read supports the road names, the station or the disbanding', 'open gap', []),
+        sc('B', 'Across the fields between Mummasburg and Gettysburg toward Hunterstown, caught at Witmer\'s house, some taken on the Mummasburg road at Leer\'s; the regiment then went on to York Springs and Harrisburg', 'Early p.465; Jacobs pp.14-15; Richards; Pennypacker; Compiler Jun 29', 'documented', ['early_fields', 'jac_retreat', 'rich_witmer', 'cmp_leer']),
+    ],
+    remains=['the Belmont Road and Mummasburg Road route to the rail station', 'Bell\'s cavalry galloping through town and disbanding near Rock Creek on the Hanover Road'],
+    searched=['OR27-2-R470 p.465, R467, R477 read: direction only (toward Hunterstown); Library: Jacobs 1864 pp.14-15, Compiler 1863-06-29 p.2 (page image), Pennypacker PA-GB-1914-v2 pp.786-787, Richards in BL-3 read',
+              'Library regex Belmont|rail station near Jennings in the Jun 1863 newspapers, Jacobs, Pennypacker, Richards: no hit connecting the militia flight to the Belmont Road or the station',
+              'Compiler 1863-06-29 p.2: Bell\'s cavalry retired from town before the rebels entered; the report that Capt. Bell was captured is not credited (no Rock Creek disbanding)'],
+    recheck='OR-RECHECK: the stored quote was found at p.465. Shard verdict "unsupported" (OR direction differs from the row) applied: the displayed route is the documented one; the seed route stays as a marked scenario.',
+    register=reg('Road-by-road flight of the militia (Belmont Road, rail station) and the Rock Creek disbanding of Bell\'s cavalry', 'No account read gives these roads or the disbanding; Early, Jacobs, Richards and Pennypacker give Hunterstown, Witmer\'s house and Harrisburg.',
+                 'Flight across the fields toward Hunterstown and the Mummasburg road with captures at Leer\'s and Witmer\'s (documented); the seed road names are not shown as fact', 'documented',
+                 competing='seed Belmont Road / rail station / Rock Creek against Hunterstown / York Springs / Harrisburg', impact='path of the militia and of Bell\'s cavalry on the map', ask='none: both scenarios stay selectable, no default', rids='R11, R13'),
+    related=['tl-01-EG-004']))
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------ T1-012
+ROWS.append(dict(
+    id='T1-012', verdict='corrected',
+    claim=claim('The militia rear company is overtaken and captured on the road toward Hunterstown, about four miles from Gettysburg; 175 prisoners in all',
+                'Militia rear guard (Company B, Capt. Carnaghan, of the 26th Pennsylvania) against Confederate cavalry: Col. French\'s 17th Virginia Cavalry (Early) or White\'s battalion (Pennypacker)',
+                'Witmer\'s (Whitmer\'s) farmhouse on the Hunterstown/Carlisle road, 4 to 4.5 miles from Gettysburg',
+                'Jun 26 afternoon (after about 15:00)', 'Early OR27-2-R470 p.465; Pennypacker (PA-GB-1914-v2 p.786); Richards (BL-3)',
+                'In the afternoon of Jun 26 the cavalry overtook the militia regiment at Witmer\'s house; the rear company (Co. B, Capt. Carnaghan) was almost all captured. Early reports 175 prisoners in all and sends Col. French\'s 17th Virginia Cavalry in pursuit with two regiments of Hays\' brigade following; Ewell reports 170; Pennypacker counts 176 captured. '
+                'The regimental account names White\'s cavalry as the attacker; Early names French. Both are carried. NOT documented: the wooden bridge and Bayly\'s Hill.',
+                'documented', '1863-06-26T15:00', '1863-06-26T20:04', marking='capture, place and counts: documented; wooden bridge and Bayly\'s Hill: gap'),
+    subs=[
+        ('Early sent Col. French with his cavalry to pursue the militia, capturing a number of prisoners; two regiments of Hays\' brigade went to aid French and could not get up with the fugitives', 'documented', 'supported', ['early_french', 'early_hays']),
+        ('Pennypacker: the regiment was overtaken by White\'s cavalry on the Hunterstown road at the farmhouse of Henry Whitmer, four miles from the town; the attack was repulsed after twenty to thirty minutes, but the rear company, Co. B under Capt. Carnaghan, was almost all taken prisoner', 'documented', 'conflict', ['penny_witmer', 'penny_time', 'penny_miles', 'penny_carn']),
+        ('Richards (a member of Co. A): the cavalry overtook the regiment in the afternoon at Witmer\'s house, about 4.5 miles from Gettysburg on the Carlisle road, and was repulsed after an engagement', 'documented', 'supported', ['rich_witmer']),
+        ('The count of prisoners: 175 in all paroled (Early); 170 (Ewell); 176 captured (Pennypacker)', 'documented', 'conflict', ['early_175', 'ewell_rout', 'penny_176']),
+        ('The prisoners were taken at a wooden bridge near Bayly\'s Hill', 'open gap', 'unsupported', []),
+    ],
+    cites={
+        'early_french': OR('I immediately sent forward Colonel French with his cavalry to pursue this militia force, which he did, capturing a number of prisoners', R470, '465'),
+        'early_hays': OR('two regiments were sent to aid French in the pursuit of the fugitive militia', R470, '465'),
+        'early_175': OR('Of this force, 175 prisoners in all were captured and subsequently paroled.', R470, '465'),
+        'ewell_rout': OR('of whom 170 were taken and paroled', 'OR27-2-R467', '443'),
+        'penny_witmer': L('PA-GB-1914-v2', 'Overtaken by White\'s cavalry on the Hunterstown road at the farmhouse of Henry Whitmer'),
+        'penny_time': L('PA-GB-1914-v2', 'An engage ment ensued lasting for \'from twenty minutes to half a hour.'),
+        'penny_miles': L('PA-GB-1914-v2', 'At this obscure, unknown and unvisited spot, four miles from the town'),
+        'penny_carn': L('PA-GB-1914-v2', 'the rear company, commanded by Captain Carnaghan, were almost all taken prisoners'),
+        'penny_176': L('PA-GB-1914-v2', 'It had lost 176 men captured'),
+        'rich_witmer': L('BL-3', 'These latter overtook us in the afternoon at Witmer\'s house, about four and a half miles from Gettysburg on the Carlisle road'),
+    },
+    scenarios=[
+        sc('A', 'The pursuing cavalry was Col. French\'s 17th Virginia Cavalry (Jenkins\' brigade)', 'Early OR27-2-R470 p.465 (seed also names French)', 'documented', ['early_french']),
+        sc('B', 'The pursuing cavalry was White\'s battalion', 'Pennypacker, regimental address of 1892 (PA-GB-1914-v2 p.786)', 'documented', ['penny_witmer']),
+        sc('C', 'Prisoner count 170 / 175 / 176', 'Ewell p.443 / Early p.465 / Pennypacker p.787', 'documented', ['ewell_rout', 'early_175', 'penny_176']),
+    ],
+    remains=['a wooden bridge and Bayly\'s Hill as the place of capture'],
+    searched=['OR vol.27 pts 1-3 regex Carnahan|Carnaghan|Bayly|Bayley: no hit in OR27 (hits are OR vols 25 and 29 and the Fox register); Library regex same: Carnaghan only in Pennypacker (PA-GB-1914-v2 p.786)',
+              'Library regex wooden bridge near Whitmer|Witmer in the 1863 newspapers, Jacobs, Pennypacker, Richards: no wooden bridge named',
+              'Early p.465 and Ewell p.443 re-read; Pennypacker pp.786-787 and Richards read'],
+    recheck='OR-RECHECK: the item without a stored quote (175 prisoners) now carries the verbatim Early passage at p.465. Shard note applied: 17th VIRGINIA Cavalry (not Pennsylvania) confirmed by Early p.464-465; the regimental source names White, carried as a scenario.',
+    register=reg('Wooden bridge and Bayly\'s Hill (Jun 26 capture of the militia rear guard)', 'No account read names a wooden bridge or Bayly\'s Hill; the sources give Witmer\'s house on the Hunterstown/Carlisle road.',
+                 'Capture at Witmer\'s house about four miles from town with the counts as a range 170-176 (documented)', 'documented',
+                 competing='French\'s 17th Virginia (Early) against White\'s battalion (Pennypacker); 170 / 175 / 176 prisoners', impact='place of the capture on the map and the attacker\'s unit', ask='none: scenarios stay selectable', rids='R11, R13, R04'),
+    related=['tl-01-EG-004']))
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------ T1-013
+ROWS.append(dict(
+    id='T1-013', verdict='partially_supported',
+    claim=claim('Private George W. Sandoe of Bell\'s cavalry is shot dead by a Confederate trooper on the Baltimore turnpike, near Nathaniel Lightner\'s',
+                'Bell\'s Adams County cavalry (later Co. B, 21st Pennsylvania Cavalry): Pvt. George W. Sandoe and one other trooper; one Confederate cavalryman of the entering force (White\'s battalion)',
+                'The turnpike (Baltimore Street / Baltimore Pike) as far as Nathaniel Lightner\'s, south-east of Gettysburg',
+                'Jun 26, shortly after the Confederate cavalry entered the town at about 15:00 (Compiler) / 15:30 (Jacobs); the body was removed the same evening', 'Gettysburg Compiler Jun 29 1863 p.2; regimental monument inscription (PA-GB-1914-v2); Jacobs 1864 p.15',
+                'On Jun 26, after the rebel cavalry entered Gettysburg at about 3 p.m., one rebel went down the turnpike as far as Nathaniel Lightner\'s, came upon two of Bell\'s cavalry and shot one, Mr. George Sandoe, killing him on the spot (Compiler of Jun 29, printed three days later); the body was removed to his home the same evening. '
+                'The regimental monument text gives Private George W. Sandoe, an advance scout of the company later Co. B, 21st Pennsylvania Cavalry, as the first Union soldier killed at Gettysburg, June 26 1863. '
+                'NOT documented: a second named trooper "Lightner" who escaped, and the hour 16:00 (window about 15:00-18:00).',
+                'documented', '1863-06-26T15:00', '1863-06-26T18:00', marking='death, name, place and day: documented (newspaper of the time and monument text); hour: inferred; the second trooper: gap'),
+    subs=[
+        ('Mr. George Sandoe, one of two of Bell\'s cavalry, was shot and killed on the spot by a rebel who went down the turnpike as far as Nathaniel Lightner\'s', 'documented', 'supported', ['cmp_sandoe', 'cmp_two']),
+        ('The body was removed to his home the same evening; he left a wife', 'documented', 'supported', ['cmp_body']),
+        ('Date June 26 1863; the monument text calls Pvt. George W. Sandoe the first Union soldier killed at Gettysburg', 'documented', 'supported', ['mon_sandoe']),
+        ('The rebel cavalry entered the town at about 3 o\'clock (Compiler) / 3.30 p.m. (Jacobs: 180 to 200 cavalry), so the shooting followed that entry', 'documented', 'supported', ['cmp_entry3', 'jac_cav']),
+        ('The hour was about 16:00', 'inferred', 'unsupported', []),
+        ('A second trooper, Pvt. Lightner, escaped; the Confederate was one of White\'s men', 'open gap', 'unsupported', []),
+    ],
+    cites={
+        'cmp_sandoe': CMP('Sandoe, killing him on the spot.', CMP_SANDOE),
+        'cmp_two': CMP('where he came upon two of Bell\'s cavalry', CMP_SANDOE),
+        'cmp_body': CMP('The body was removed to bis home the same evening', CMP_SANDOE),
+        'mon_sandoe': L('PA-GB-1914-v2', 'Near this spot on June 26 1863 fell Private George W. Sandoe', witness='inscription on the 21st Pennsylvania Cavalry monument, text as printed in Pennsylvania at Gettysburg'),
+        'cmp_entry3': CMP('sere enough, the+tbel aiivance (cavalry) entered charging up Chambersburg street', CMP_ENTRY),
+        'jac_cav': L('JACOBS-1864', 'The advance guard of the enemy, consisting of 180 to 200 cavalry, rode into Gettysburg at 3J p. m.'),
+    },
+    scenarios=[],
+    remains=['the hour 16:00 (the sources give only after the entry at 3-3.30 p.m. and the same evening)', 'a second named trooper "Lightner" who escaped, and the attribution to White\'s men'],
+    searched=['OR vol.27 pts 1-3 regex Sandoe|Lightner: 0 hits (OR-RECHECK-2); Library, whole 108-text set, regex Sandoe: Compiler 1863-06-29 p.2 (page image read), Pennsylvania at Gettysburg monument inscription; Jacobs 1864 has no mention',
+              'Compiler 1863-06-29 p.2 read on the page image (closeout/acquired_tl01.json); Adams Sentinel Jul 7 and Jul 14 1863 searched for Sandoe: no hit',
+              'web lookup tl-01-LK-01 (modern articles, forums): failed to reach a primary; superseded by the Compiler'],
+    recheck='OR-RECHECK-2 (not_found in the OR; failed_lookup) applied: the OR has no Sandoe text; the death is now documented by the Gettysburg Compiler of Jun 29 1863 (read on its page image) and the regimental inscription.',
+    register=reg('Sandoe: hour of the shot and the second trooper "Lightner"', 'The Compiler names the place (Nathaniel Lightner\'s) and the victim but not the second trooper or an hour; the seed\'s "Pvt. Lightner" may be the place name.',
+                 'Death of Pvt. Sandoe on the Baltimore turnpike on the afternoon of Jun 26 (documented); hour as a window 15:00-18:00 (inferred)', 'documented',
+                 competing='seed about 16:00 against after 3-3.30 p.m. and before the evening removal', impact='time of the first Union death on the screen is a window', ask='none', rids='R05, R11'),
+    related=['tl-01-EG-004']))
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------ T1-014
+ROWS.append(dict(
+    id='T1-014', verdict='partially_supported',
+    claim=claim('The Confederates occupy Gettysburg: demands on the borough, a search of the stores, rations issued, a railroad bridge and cars burned',
+                'White\'s cavalry (about 150-200), Gordon\'s infantry brigade (2,500-5,000 by the estimates), Early; borough council members D. Kendlehart and A. D. Buehler',
+                'Gettysburg (Chambersburg Street, the square, the Court-house), the railroad station area and the Rock Creek railroad bridge',
+                'Jun 26 from about 15:00 (cavalry) to the evening (Early arrives late; bridge and cars burned in the evening)', 'Compiler Jun 29 1863 p.2; Jacobs 1864 pp.15-17; Early OR27-2-R470 p.465; Pierce 1889',
+                'Cavalry (about 150, "180 to 200") entered at about 3 to 3.30 p.m., followed half an hour later by Gordon\'s infantry (Compiler 2,500-4,000; Jacobs 5,000); Early arrived late in the day, demanded supplies (Jacobs lists 1,200 lb sugar, 600 lb coffee, 60 barrels of flour, 1,000 lb salt, 7,000 lb bacon, 10 barrels of whisky, 10 barrels of onions, 1,000 pairs of shoes, 500 hats, or $5,000 cash). '
+                'Council members D. Kendlehart and A. D. Buehler answered that the goods were not in town, the borough had no funds and the Confederates could search; no attempt was made to enforce the requisition (Jacobs); Early reports a search of the stores found very little and about 2,000 rations in a train of cars issued to Gordon; the troops were quartered in town including the Court-house, and in the evening the railroad bridge across Rock Creek and 10-17 cars were burned. '
+                'NOT documented: prisoners locked in the Court-house, a covered bridge, torn-up telegraph lines.',
+                'documented', '1863-06-26T15:00', '1863-06-26T23:59', marking='occupation, demands, search, rations, burning: documented; prisoners in the Court-house, covered bridge and telegraph: gap'),
+    subs=[
+        ('The rebel cavalry (about 150, per Jacobs 180 to 200) entered at about 3 to 3.30 p.m.; half an hour later a Georgia brigade of infantry (Gordon), variously estimated at 2,500 to 4,000 (Compiler) or 5,000 (Jacobs), followed', 'documented', 'supported', ['cmp_entry3', 'cmp_est', 'jac_cav', 'jac_inf']),
+        ('Early came late in the day and demanded supplies; Jacobs lists the demand (sugar, coffee, flour, salt, bacon, whisky, onions, 1,000 pairs of shoes, 500 hats; $6,000 or $5,000 cash)', 'documented', 'supported', ['early_late', 'early_demands', 'jac_early', 'jac_demand']),
+        ('Council members D. Kendlehart and A. D. Buehler replied it was impossible to comply; the goods were not in town and the borough had no funds; they could search; no attempt was made to enforce the demand', 'documented', 'supported', ['jac_kend', 'jac_robbed']),
+        ('A search of the stores secured only a very small quantity of commissary supplies, and about 2,000 rations found in a train of cars were issued to Gordon\'s brigade', 'documented', 'supported', ['early_auth', 'early_rations']),
+        ('The troops were quartered in town, in the Court-house and on the pavements, the balance in the neighbourhood', 'documented', 'supported', ['cmp_quarter']),
+        ('Troops searched the town in squads for booty and took horses; Jacobs says only few houses of citizens were robbed', 'documented', 'supported', ['pierce_booty', 'jac_horses', 'jac_robbed']),
+        ('Evening of Friday: the Rebels burned the railroad bridge and cars (Early: 10 or 12 cars and a small railroad bridge; Compiler: 17 cars and the Rock Creek bridge)', 'documented', 'supported', ['jac_evening', 'early_cars', 'cmp_bridge']),
+        ('Prisoners were marched in and locked in the Court-house', 'open gap', 'unsupported', []),
+        ('A covered bridge was burned, and telegraph lines were torn up', 'open gap', 'unsupported', []),
+    ],
+    cites={
+        'cmp_entry3': CMP('sere enough, the+tbel aiivance (cavalry) entered charging up Chambersburg street', CMP_ENTRY),
+        'cmp_est': CMP('variously estimated at from 2500 to 4000', CMP_ENTRY),
+        'jac_cav': L('JACOBS-1864', 'The advance guard of the enemy, consisting of 180 to 200 cavalry, rode into Gettysburg at 3J p. m.'),
+        'jac_inf': L('JACOBS-1864', 'This advance party was soon followed by 5,000 infantry, being General Gordon\'s brigade of Early\'s division of Ewell\'s corps.'),
+        'early_late': OR('and as it was late when I reached the place', R470, '465'),
+        'early_demands': OR('I had no opportunity of coTupelling a, compliance with my demands in this town', R470, '465'),
+        'jac_early': L('JACOBS-1864', 'General Early, who accompanied this brigade, and remained in town over Friday night, demanded of the authorities of our borough'),
+        'jac_demand': L('JACOBS-1864', 'demanded of the authorities of our borough 1,200 pounds of sugar, 600 pounds of coffee, 60 barrels of flour, 1,000 pounds of salt, 7,000 pounds of bacon'),
+        'jac_kend': L('JACOBS-1864', 'Messrs. D. Kendlehart and A. D. Buehler, as representatives of the town council, replied in substance, that it was impossible to comply with their demands'),
+        'jac_robbed': L('JACOBS-1864', 'No attempt was made to enforce the requisition, and but few of the houses of citizens wTere robbed'),
+        'early_auth': OR('The authorities of Gettysburg declared their inability to furnish any supplies', R470, '465'),
+        'early_rations': OR('about 2,000 rations were found in a train of cars, and issued to Gordon\'s brigade', R470, '465'),
+        'cmp_quarter': CMP('quartered in town—in the Ct urthoute and on the pavements', CMP_QUARTER),
+        'pierce_booty': L('TPIERCE-1889', 'While the infantry were moving about the town in squads searching for booty', witness='eyewitness narrative of 1889 (T. Pierce, then 15)'),
+        'jac_horses': L('JACOBS-1864', 'rushing from stable to stable in search of horses, the most of which, however, had fortunately a few'),
+        'jac_evening': L('JACOBS-1864', 'During the evening of Friday, however, the Rebels burned the railroad bridge and a few cars'),
+        'early_cars': OR('The cars, numbering 10 or 12, were burned, as was also a small', R470, '465'),
+        'cmp_bridge': CMP('The railroad bridge across Bock i geek ...wa* soon set on firij by the rebela,', CMP_BRIDGE),
+    },
+    scenarios=[],
+    remains=['prisoners marched in and locked in the Court-house (the Compiler has troops quartered in the Court-house and the 36 militia prisoners paroled)', 'a covered bridge', 'telegraph lines torn up (the Compiler has the telegraph operator escaping with his instrument)'],
+    searched=['OR27-2-R470 p.465 and R477 p.491 read; OR vol.27 pts 1-3 regex Kendlehart|Kendlehard: 0 hits',
+              'Library: Jacobs 1864 pp.15-18 (Early\'s demands, Kendlehart and Buehler); Compiler 1863-06-29 p.2 (page image); Pierce 1889 pp.26-28; regex court.?house in Jacobs, Pierce, Compiler Jun 29, Adams Sentinel Jun 30-Jul 28 and Compiler Jul 13-Aug 3: the Court-house is a quarters for troops (Compiler) and a meeting place (Jacobs, Jun 20), never a prison for the militia',
+              'Library regex telegraph/rails torn in Jacobs, Compiler Jun 29, Sentinel Jun 30-Jul 14, Pierce: the operator escaped (Compiler); Pierce has the track destroyed at the bridge east of town; no telegraph destruction',
+              'Library regex covered bridge: no hit; the sources call it the railroad bridge across Rock Creek / a small railroad bridge'],
+    recheck='OR-RECHECK: both stored quotes found at p.465. Shard note applied: the OR has the supply demands, the search and the bridge and cars; the courthouse prisoners, tribute figures, looting and the covered bridge now rest on Jacobs, the Compiler and Pierce or stay open.',
+    register=reg('Prisoners in the Court-house; covered bridge; torn telegraph lines (Jun 26 occupation of Gettysburg)', 'No text read puts the militia prisoners in the Court-house (the Compiler has them paroled and the troops quartered there), names a covered bridge, or has telegraph lines destroyed.',
+                 'Occupation, demands, search, quartering in the Court-house and the evening burning shown as documented; the unsupported items are not shown as fact', 'documented',
+                 competing='troops quartered in the Court-house (Compiler) against prisoners locked in it (seed); 10-12 cars (Early) against 17 cars (Compiler)', impact='Court-house interior use and the number of burning cars', ask='none', rids='R05, R11, R13'),
+    related=['tl-01-EG-002', 'tl-01-EG-004']))
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------ T1-015
+ROWS.append(dict(
+    id='T1-015', verdict='partially_supported',
+    claim=claim('Railroad cars and the Rock Creek railroad bridge are burned on the evening of Jun 26; the track is destroyed',
+                'Early\'s troops (Gordon\'s brigade and White\'s cavalry)', 'Gettysburg railroad station area and the railroad bridge over Rock Creek east of town',
+                'Jun 26 evening (Jacobs: during the evening of Friday)', 'Jacobs 1864 p.17; Early OR27-2-R470 p.465; Compiler Jun 29 1863 p.2; Pierce 1889',
+                'During the evening of Friday Jun 26 the rebels burned the railroad bridge across Rock Creek and cars: Early reports 10 or 12 cars and a small railroad bridge near the place (no railroad buildings of consequence); the Compiler counts 17 cars and says the centre span of the bridge was burnt and fell in; Pierce adds that the track was destroyed at the bridge east of the town. '
+                'NOT documented: a covered bridge and torn-up telegraph lines.',
+                'documented', '1863-06-26T18:00', '1863-06-26T23:59', marking='cars, bridge, track: documented; covered bridge and telegraph: gap'),
+    subs=[
+        ('Cars were burned: 10 or 12 (Early) or seventeen, of named owners (Compiler)', 'documented', 'conflict', ['early_cars', 'cmp_cars']),
+        ('A railroad bridge was burned: a small railroad bridge near the place (Early); the bridge across Rock Creek, centre span burnt and fell in (Compiler)', 'documented', 'supported', ['early_cars', 'cmp_bridge']),
+        ('The burning was in the evening of Friday (Jacobs); Early reached the place late in the day', 'documented', 'supported', ['jac_evening', 'early_late']),
+        ('The track was destroyed at the railroad bridge east of town', 'documented', 'supported', ['pierce_track']),
+        ('There were no railroad buildings of consequence', 'documented', 'supported', ['early_nobuild']),
+        ('A covered bridge was burned and the telegraph lines were torn up', 'open gap', 'unsupported', []),
+    ],
+    cites={
+        'early_cars': OR('The cars, numbering 10 or 12, were burned, as was also a small', R470, '465'),
+        'early_nobuild': OR('There were no railroad buildings of consequence', R470, '465'),
+        'early_late': OR('and as it was late when I reached the place', R470, '465'),
+        'jac_evening': L('JACOBS-1864', 'During the evening of Friday, however, the Rebels burned the railroad bridge and a few cars'),
+        'cmp_bridge': CMP('The railroad bridge across Bock i geek ...wa* soon set on firij by the rebela,', CMP_BRIDGE),
+        'cmp_cars': CMP('Altogether, wfi are fold Uzat seventeen oars were bumtjj', CMP_BRIDGE),
+        'pierce_track': L('TPIERCE-1889', 'That evening: when these raiders were leaving, they ran all the cars that were about, out to the railroad bridge east of the town, set the bridge and cars on fire and destroyed the track.', witness='eyewitness narrative of 1889 (T. Pierce, then 15); she places the burning when the raiders were leaving'),
+    },
+    scenarios=[
+        sc('A', '10 or 12 cars and a small railroad bridge', 'Early OR27-2-R470 p.465', 'documented', ['early_cars']),
+        sc('B', 'Seventeen cars; the Rock Creek bridge\'s centre span burnt and fell in; the other two spans standing but badly damaged', 'Gettysburg Compiler Jun 29 1863 p.2 ("we are told")', 'documented', ['cmp_cars', 'cmp_bridge']),
+    ],
+    remains=['a covered bridge', 'telegraph lines torn up'],
+    searched=['OR27-2-R470 p.465 read (Early); Library: Jacobs p.17, Compiler 1863-06-29 p.2 (page image), Pierce pp.27-28; regex covered bridge: no hit; regex telegraph destroyed in Jacobs, Compiler Jun 29, Adams Sentinel Jun 30-Jul 14: none (the telegraph operator escaped with his instrument, Compiler)',
+              'OR vol.27 pts 1-3: regex railroad bridge|covered bridge near Gettysburg: only Early p.465'],
+    recheck='OR-RECHECK: quote found at p.465. Shard note applied ("Torn rails/telegraph not in OR"): the track is now supported by Pierce, the telegraph stays open; the covered bridge is not in any text read.',
+    register=reg('Covered bridge and torn-up telegraph lines (Jun 26 evening burnings at Gettysburg)', 'No text read names a covered bridge or telegraph destruction at Gettysburg on Jun 26.', 'Cars and the Rock Creek railroad bridge burned on the evening of Jun 26 (documented); counts as a range 10-17 cars', 'documented',
+                 competing='10 or 12 cars (Early) against 17 (Compiler)', impact='number of burning cars and the bridge type', ask='none', rids='R14, R05'),
+    related=[]))
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------ T1-016
+ROWS.append(dict(
+    id='T1-016', verdict='corrected',
+    claim=claim('The railroad bridge over Rock Creek east of Gettysburg is burned on the evening of Jun 26; further bridges on the line are burned by White\'s cavalry from Jun 27',
+                'Early\'s troops (Jun 26); Col. White\'s cavalry battalion (the bridges eastward, ordered for Jun 27)', 'Rock Creek crossing east of Gettysburg (Gettysburg Railroad), then the line toward Hanover Junction',
+                'Rock Creek bridge: evening of Jun 26; other bridges: from Jun 27', 'Jacobs 1864 p.17; Compiler Jun 29 1863 p.2; Early OR27-2-R470 pp.465-466',
+                'The railroad bridge across Rock Creek was set on fire by the rebels on the evening of Friday Jun 26 (Jacobs; Compiler: the centre span burnt and fell in). On Jun 27 Early had directed Colonel White to burn the railroad bridges on the way to Hanover Junction, and the Compiler reports that all the bridges on the Gettysburg Railroad were burnt. '
+                'The seed range "Jun 26 or 27" is therefore two events: the Rock Creek bridge on Jun 26, the other bridges on Jun 27. The sources call it a bridge, not a trestle.',
+                'documented', '1863-06-26T18:00', '1863-06-27T23:59'),
+    subs=[
+        ('The railroad bridge across Rock Creek was set on fire by the rebels; its centre span burnt and fell in', 'documented', 'supported', ['cmp_bridge']),
+        ('The burning was in the evening of Friday, Jun 26', 'documented', 'supported', ['jac_evening', 'early_cars']),
+        ('On Jun 27 Early directed Colonel White to burn the railroad bridges to Hanover Junction and on to York', 'documented', 'supported', ['early_white']),
+        ('All the bridges on the Gettysburg Railroad were burnt', 'documented', 'supported', ['cmp_allbridges']),
+    ],
+    cites={
+        'cmp_bridge': CMP('The railroad bridge across Bock i geek ...wa* soon set on firij by the rebela,', CMP_BRIDGE),
+        'jac_evening': L('JACOBS-1864', 'During the evening of Friday, however, the Rebels burned the railroad bridge and a few cars'),
+        'early_cars': OR('The cars, numbering 10 or 12, were burned, as was also a small', R470, '465'),
+        'early_white': OR('and I also directed Colonel White to proceed with his cavalry to Hanover Junction, on the Northern Central road, destroying the railroad bridges on the way', R470, '466'),
+        'cmp_allbridges': CMP('were bunit bn the Gettysburg Railroad', 'No depredations of consequence were committed at Oxford or Hanover. All the bridges were burnt on the Gettysburg Railroad.'),
+    },
+    scenarios=[],
+    remains=[], searched=['Compiler 1863-06-29 p.2 (page image), Jacobs p.17, Early pp.465-467 read; Library regex trestle near Rock Creek: no hit'],
+    recheck='OR-RECHECK: quote found at p.465 (Early\'s Jun 26 narrative). Shard note applied (narrowed to Jun 26, Rock Creek not named in the OR): Rock Creek and the evening of Jun 26 now rest on the Compiler and Jacobs; the Jun 27 burnings are the other bridges.'))
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------ T1-017
+ROWS.append(dict(
+    id='T1-017', verdict='partially_supported',
+    claim=claim('Night of Jun 26: Early\'s division bivouacs in and around Gettysburg and near Mummasburg',
+                'Early\'s division (Gordon\'s brigade and White\'s cavalry in and around the town; Hays\' brigade about a mile out; the other brigades and artillery near Mummasburg)', 'Gettysburg (Court-house, pavements, neighbourhood), about a mile from town, and near Mummasburg (battery with infantry and wagons on the Mummasburg road a mile out)',
+                'Evening and night of Jun 26 to the morning of Jun 27', 'Early OR27-2-R470 p.465; Compiler Jun 29 1863 p.2; Jacobs 1864 p.16',
+                'Early reports the other brigades with the artillery halted and encamped near Mummasburg and Hays\' brigade encamped about a mile from Gettysburg; the Compiler adds that about half of the brigade was quartered in town, in the Court-house and on the pavements, the balance in the neighbourhood, that several hundred more cavalry and a battery came in in the evening and that another battery with infantry and baggage wagons encamped on the Mummasburg road a mile from town; Jacobs has Early himself in town over Friday night. '
+                'NOT documented: militia prisoners confined in the Court-house, and rain on the night itself (the day was rainy).',
+                'documented', '1863-06-26T18:00', '1863-06-27T04:03', marking='camp near Mummasburg and quartering in town: documented (promotion adopted, DD-08); prisoners in the Court-house and rain during the night: gap'),
+    subs=[
+        ('The other brigades with the artillery were halted and encamped near Mummasburg; Hays\' brigade encamped about a mile from Gettysburg', 'documented', 'supported', ['early_mum', 'early_hays']),
+        ('A large body of rebels encamped near Mummasburg on Friday night and moved east on Saturday morning; a battery with infantry and baggage wagons encamped on the Mummasburg road a mile from town', 'documented', 'supported', ['cmp_battery']),
+        ('Gordon\'s brigade and White\'s cavalry held the town: about half quartered in town, in the Court-house and on the pavements, the balance in the neighbourhood; several hundred more cavalry and a battery came in in the evening; guards were posted around the town', 'documented', 'supported', ['cmp_quarter', 'cmp_guards']),
+        ('Early himself remained in town over Friday night', 'documented', 'supported', ['jac_early']),
+        ('Citizens stayed in their houses under the occupation, keeping at a respectful distance from the troops', 'documented', 'supported', ['jac_citizens']),
+        ('Militia prisoners were confined in the Court-house', 'open gap', 'unsupported', []),
+        ('The troops bivouacked in rain during the night', 'open gap', 'unsupported', []),
+    ],
+    cites={
+        'early_mum': OR('the other brigades with the artillery were halted and encamped near Mummasburg', R470, '465'),
+        'early_hays': OR('Hays\' brigade was halted, and encamped about a mile irom Gettysburg', R470, '465'),
+        'cmp_battery': CMP('encam p^ oh she Mummasburg rajad. a mile from tjown.', CMP_QUARTER),
+        'cmp_quarter': CMP('quartered in town—in the Ct urthoute and on the pavements', CMP_QUARTER),
+        'cmp_guards': CMP('town, and their (guards around it.', CMP_ENTRY),
+        'jac_early': L('JACOBS-1864', 'General Early, who accompanied this brigade, and remained in town over Friday night, demanded of the authorities of our borough'),
+        'jac_citizens': L('JACOBS-1864', 'Our citizens, with a few exceptions, kept at a respectful distance from them during their stay amongst us'),
+    },
+    scenarios=[],
+    remains=['militia prisoners confined in the Court-house', 'rain during the night (Early: the day was rainy; Jacobs: rain most of the day)'],
+    searched=['OR27-2-R470 p.465 read (the Mummasburg camp, Hays); Compiler 1863-06-29 p.2 (page image) read; Jacobs pp.16-19; Library regex court.?house in the 1863 newspapers and Jacobs, Pierce: no prisoners in the Court-house',
+              'OR vol.27 pts 1-3 regex prisoners.{0,80}Gettysburg.{0,80}(Court|jail|confined): no hit'],
+    recheck='OR-RECHECK: both stored quotes found at p.465. Delegated decision DD-08 applied (Mummasburg camp promoted from inferred to documented for that sub-claim only); the Compiler adds the quartering in town; the prisoners in the Court-house stay open.',
+    register=reg('Militia prisoners in the Court-house and the rain during the night of Jun 26', 'No text read confines prisoners in the Court-house (it quartered troops) or gives the weather of the night.', 'Bivouac positions documented; prisoners and night rain not shown as fact', 'documented',
+                 competing='troops quartered in the Court-house (Compiler) against prisoners in it (seed)', impact='Court-house interior and night weather on Jun 26', ask='none', rids='R05, R15, R18'),
+    related=['tl-01-EG-002']))
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------ T1-018
+ROWS.append(dict(
+    id='T1-018', verdict='partially_supported',
+    claim=claim('Night of Jun 26 at Gettysburg: guards around the town and troops quartered in it; campfires, lights and sentries on prisoners are not documented',
+                'Early\'s troops; civilians', 'Gettysburg and its neighbourhood', 'Night of Jun 26-27', 'Compiler Jun 29 1863 p.2 (guards around the town; quartering)',
+                'The Compiler of Jun 29 reports that as the rebels took possession their guards were placed around the town and that about half of the brigade was quartered in town, in the Court-house and on the pavements, with several hundred more cavalry and a battery coming in in the evening. '
+                'Campfires, picket posts by name, lights in houses and sentries on prisoners are not documented in any text read and stay a marked gap.',
+                'open gap', '1863-06-26T20:04', '1863-06-27T04:03', marking='guards around the town and quartering: documented; fires, lights, sentries on prisoners: open gap'),
+    subs=[
+        ('As the rebels took possession of the town their guards were placed around it', 'documented', 'supported', ['cmp_guards']),
+        ('About half of the brigade was quartered in town, in the Court-house and on the pavements; several hundred more cavalry and a battery came in in the evening', 'documented', 'supported', ['cmp_quarter']),
+        ('Campfires, named picket posts, lights in houses, sentries on prisoners', 'open gap', 'unsupported', []),
+    ],
+    cites={
+        'cmp_guards': CMP('town, and their (guards around it.', CMP_ENTRY),
+        'cmp_quarter': CMP('quartered in town—in the Ct urthoute and on the pavements', CMP_QUARTER),
+    },
+    scenarios=[],
+    remains=['campfires', 'picket posts by name and place', 'lights in houses', 'sentries on prisoners'],
+    searched=['Library regex camp.?fire|bivouac fires|lights? in the windows near Jun 26 in Jacobs 1864, Pierce 1889, Compiler Jun 29, Adams Sentinel Jun 30-Jul 14: no night-life passage for Jun 26 (Compiler, Jacobs and Pierce give the day and the evening only)',
+              'Broadhead diary (Cornell scan): HTTP 403, not circumvented (tl-01-LK-03); archive.org title search numFound 0 (tl-01-LK-04); Myers and McCreary accounts: no copy in the library (named in the seed as sources to acquire)',
+              'OR vol.27: Early p.465 gives positions only'],
+    recheck='OR-RECHECK-2 (not_found: the row is itself an open gap) applied: two sub-claims are now documented from the Compiler; the rest stays the open gap named in the seed.',
+    register=reg('Camp and civilian night life at Gettysburg on the night of Jun 26', 'No diary or account of the night was read: Broadhead (Cornell scan) refused, no copy on archive.org; the Compiler gives the guards and quarters only.',
+                 'Guards around the town and quartering documented; fires, lights and sentries drawn only as marked plausible-procedural scene detail under the luminance floor', 'plausible-procedural',
+                 competing='-', impact='night scene of Jun 26 shows documented positions only; fires and lights are marked procedural', ask='Acquire the Broadhead, Myers and McCreary diaries from an open source if one exists (delegated: free public-domain retrieval only, no circumvention)', rids='R18, R05, R21', subst='procedural night scene with the Q10 luminance floor, tier-marked'),
+    related=['tl-01-EG-002']))
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------ T1-019
+ROWS.append(dict(
+    id='T1-019', verdict='partially_supported',
+    claim=claim('Jun 27 morning: wet, muddy ground after the heavy rains of the days before; the hour the rain ended and the temperatures are not documented',
+                'Environment (Gettysburg area; regional evidence from Chambersburg and Harrisburg)', 'Gettysburg area; Chambersburg; Camp Curtin, Harrisburg', 'Jun 27 (morning); 07:00 as the end of the rain is not documented',
+                'Fremantle (Chambersburg, Jun 27); Forbes OR27-2-R417 p.259 (Harrisburg, Saturday morning Jun 27)',
+                'On the morning of Saturday Jun 27 the ground was wet: Col. Forbes found the camp ground at Camp Curtin, Harrisburg, very muddy owing to the late heavy rains, and Fremantle saw Hood\'s men at Chambersburg who had discarded their shoes in the mud. '
+                'NOT documented: that the rain ended at 07:00 at Gettysburg, and the readings 61 F (07:00), 63 F (14:00), 67 F (21:00), which stay a marked value of the weather model.',
+                'documented', '1863-06-27T00:00', '1863-06-27T23:59', marking='wet ground: documented (regional); end of rain and temperatures: gap / plausible-procedural'),
+    subs=[
+        ('The camp ground at Camp Curtin, Harrisburg, on Saturday morning (Jun 27) was very muddy owing to the late heavy rains', 'documented', 'supported', ['forbes']),
+        ('At Chambersburg on Jun 27 many of Hood\'s men had discarded their shoes in the mud', 'documented', 'supported', ['frem_mud']),
+        ('The rain ended at 07:00 on Jun 27 at Gettysburg', 'open gap', 'unsupported', []),
+        ('Temperatures 61 F at 07:00, 63 F at 14:00 and 67 F at 21:00', 'plausible-procedural', 'unsupported', []),
+    ],
+    cites={
+        'forbes': OR('The camp ground was very muddy, owing to the late heavy rains', 'OR27-2-R417', '259'),
+        'frem_mud': L('FREMANTLE-1864', 'many have discarded their shoes in the mud'),
+    },
+    scenarios=[],
+    remains=['the hour the rain ended (07:00 in the seed)', 'the thermometer readings 61 F / 63 F / 67 F'],
+    searched=['Library regex thermomet|Fahrenheit|meteorolog, whole set: no 1863 reading; Jacobs 1864 pp.18-19 (Jun 27) has no weather; Jacobs 1885 and Smithsonian sheets not found (see T1-003)',
+              'OR vol.27 pts 1-3 sentence scan for weather words near Jun 25-30 dates: Jun 27 hits only R417 p.259',
+              'Fremantle 1864 pp.236-246 read for Jun 26-29 weather'],
+    recheck='OR-RECHECK-2 (not_found: Jacobs-sourced weather row) applied: regional wet-ground evidence added from the OR and Fremantle; the end of the rain and the temperatures stay open.',
+    register=reg('Jun 27 weather: end of the rain and temperatures', 'No text read gives the hour the rain ended on Jun 27 or any temperature; the evidence is regional (Harrisburg, Chambersburg).', 'Wet muddy ground on the morning of Jun 27 (documented, regional); temperatures as a marked range', 'plausible-procedural',
+                 competing='-', impact='ground wetness on Jun 27 morning; temperature values marked', ask='see T1-003 (Jacobs 1885 readings)', rids='R15, R03'),
+    related=['tl-01-EG-001']))
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------ T1-020
+ROWS.append(dict(
+    id='T1-020', verdict='corrected',
+    claim=claim('Jun 27 at daylight Gordon\'s brigade, with Tanner\'s battery and a company of cavalry, leaves Gettysburg on the York turnpike; the rest of Early\'s division moves by Hunterstown toward Dover',
+                'Gordon\'s brigade with Tanner\'s battery of Jones\' battalion and a company of French\'s cavalry (York turnpike); the rest of Early\'s division (Hays, Hoke, Smith, artillery) from Mummasburg', 'York turnpike east from Gettysburg; the rest by Hunterstown, New Chester, Hampton and East Berlin toward Dover',
+                'Jun 27 from daylight (about 04:00) to 08:00 (Compiler: no Confederate left in town by 8 o\'clock); the rest of the division marched during the day', 'Early OR27-2-R470 p.466; Gettysburg Compiler Jun 29 1863 p.2; Gordon OR27-2-R477 p.491',
+                'At light on Jun 27 Gordon\'s brigade with Tanner\'s battery and a company of French\'s cavalry marched on the turnpike toward York (Early); the Compiler says the division moved off down the York turnpike and by 8 o\'clock there was not a rebel in the town; the rest of the division moved from Mummasburg that morning through Hunterstown, New Chester, Hampton and East Berlin toward Dover (Early; the Compiler gives the same route). '
+                'The whole division did not leave Gettysburg by the York Pike. The flag was taken down at York by Gordon\'s provost guard (Gordon); the cutting down of a flagpole at Gettysburg is not documented.',
+                'documented', '1863-06-27T04:03', '1863-06-27T23:59', marking='Gordon\'s departure and the Dover route: documented; flagpole at Gettysburg: gap'),
+    subs=[
+        ('Gordon, with Tanner\'s battery and a company of French\'s cavalry, was directed to move on the turnpike toward York at light next morning (Jun 27)', 'documented', 'supported', ['early_light', 'early_tanner']),
+        ('The Confederate division moved off down the York turnpike on Saturday morning and by 8 o\'clock there was not a rebel in the town (Compiler)', 'documented', 'supported', ['cmp_york']),
+        ('The rest of the command moved on the 27th from Mummasburg through Hunterstown, New Chester, Hampton and East Berlin toward Dover (Early); the Compiler gives the same route and Dover on Saturday night', 'documented', 'supported', ['early_dover', 'cmp_route']),
+        ('The whole division left Gettysburg east on the York Pike at daybreak (seed)', 'documented', 'contradicted', ['early_light', 'early_dover', 'cmp_route']),
+        ('Colonel White\'s cavalry was sent to Hanover Junction destroying the railroad bridges on the way', 'documented', 'supported', ['early_white']),
+        ('Gordon\'s provost guard was sent ahead to take down the Federal flag left flying over the principal street (at York)', 'documented', 'supported', ['gord_flag']),
+        ('Gordon\'s men chopped down the flagpole at Gettysburg', 'open gap', 'unsupported', []),
+    ],
+    cites={
+        'early_light': OR('and directed him to move with them and his brigade on the turnpike toward York at light next morning', R470, '466'),
+        'early_tanner': OR('T ordered Tanner\'s battery, of Jones\' battalion, to vejjortto (-Jeueral Gordon during the night, and also a company of French\'s cavalry', R470, '465'),
+        'early_dover': OR('New Chester, Hampton, and East Berlin, toward Dover', R470, '466'),
+        'early_white': OR('and I also directed Colonel White to proceed with his cavalry to Hanover Junction, on the Northern Central road, destroying the railroad bridges on the way', R470, '466'),
+        'gord_flag': OR('take down the Federal flag left flying over the jDrincipal street', R477, '491'),
+        'cmp_york': CMP('Y ork turnpike, and by S. , \'ct - tk -thert W»s n o t a greybaok m -tbe', 'On Saturday morning the division moved off, down the York turnpike, and by 8 o\'clock there was not a greyback in the town.'),
+        'cmp_route': CMP('p-occeded by the way of Hunterstown, New', 'The force encamped at Mummasburg proceeded by the way of Hunterstown, New Chester, Hampton and Berlin, and encamped near Dover, in York county, on Saturday night, evidently making for the turnpike between York and Harrisburg.'),
+    },
+    scenarios=[
+        sc('A', 'Seed: the whole division leaves Gettysburg east on the York Pike at daybreak', 'seed sources ABT-Early, W-GC (Wikipedia: "morning of June 27") - no text read supports the whole division on the pike', 'open gap', []),
+        sc('B', 'Gordon\'s brigade (with Tanner\'s battery and a company of cavalry) on the York turnpike at light; the rest by Hunterstown, New Chester, Hampton and East Berlin toward Dover', 'Early OR27-2-R470 p.466; Compiler Jun 29 1863 p.2', 'documented', ['early_light', 'early_dover', 'cmp_york', 'cmp_route']),
+    ],
+    remains=['the chopping down of a flagpole at Gettysburg (Gordon\'s report has the flag taken down at York)'],
+    searched=['OR27-2-R470 pp.465-467 and R477 p.491 read; Compiler 1863-06-29 p.2 (page image); Jacobs p.18 (hurried forward that night and the next morning toward Hanover and York)',
+              'Library regex flag.?pole|flag.?staff|liberty.?pole|pole.{0,40}(cut|chop) in the 1863 newspapers, Jacobs, Pierce, Pennsylvania at Gettysburg, BL-3 and SHSP 4-6: no flagpole cut down at Gettysburg (hits are Charleston, Mobile and Mississippi River flags)'],
+    recheck='OR-RECHECK: both stored quotes found at p.466. Shard verdict "conflict" applied: the seed whole-division reading is kept only as a marked scenario; the Compiler of Jun 29 independently gives the Hunterstown-Dover route, so the conflict is between the seed and two witnesses.',
+    register=reg('Flagpole cut down at Gettysburg on Jun 27', 'Gordon\'s report has the Federal flag taken down at York, not Gettysburg; no text read has a flagpole cut down at Gettysburg.', 'Departure of Gordon\'s brigade on the York turnpike and of the rest by Hunterstown documented; flagpole not shown', 'documented',
+                 competing='whole division on the York Pike (seed) against Gordon only on the pike (Early, Compiler)', impact='the flagpole is not drawn as chopped; the route of the rest of the division follows Early', ask='none: scenarios stay selectable, no default', rids='R11, R13'),
+    related=[]))
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------ T1-021
+ROWS.append(dict(
+    id='T1-021', verdict='partially_supported',
+    claim=claim('The President relieves Hooker and appoints Meade (General Orders No. 194, Washington, Jun 27); the order reaches Meade at about 03:00 on Jun 28',
+                'The President (Lincoln), Maj. Gen. Hooker, Maj. Gen. Meade; Col. J. A. Hardie of Halleck\'s staff', 'Washington (order); Meade\'s camp near Frederick, Md. (delivery)',
+                'Order dated Jun 27 (hour not stated); delivered to Meade at about 03:00 on Jun 28', 'General Orders No. 194, OR27-3-D0831 p.369; Halleck to Meade, OR27-1-R006 p.61; Life and Letters of G. G. Meade vol.2 p.1',
+                'By direction of the President, Maj. Gen. Hooker was relieved from command of the Army of the Potomac and Maj. Gen. Meade appointed to it, by General Orders No. 194 of the War Department dated Washington, June 27, 1863; Halleck\'s covering letter of the same date sends Meade the order of the President. The order reached Meade at about three o\'clock on the morning of Jun 28, brought by Col. Hardie. '
+                'NOT documented: that the order was issued in the evening of Jun 27.',
+                'documented', '1863-06-27T00:00', '1863-06-28T03:00', marking='date and content: documented; "evening" hour: gap'),
+    subs=[
+        ('By direction of the President Hooker is relieved from command of the Army of the Potomac and Meade appointed (G.O. No. 194, War Department, Washington, Jun 27, 1863)', 'documented', 'supported', ['go194']),
+        ('Halleck\'s letter of Jun 27 tells Meade he will receive with it the order of the President placing him in command', 'documented', 'supported', ['halleck']),
+        ('The order was delivered to Meade at about three o\'clock on the morning of Jun 28 by Col. J. A. Hardie of Halleck\'s staff', 'documented', 'supported', ['hardie']),
+        ('The order was issued in the evening of Jun 27', 'open gap', 'unsupported', []),
+    ],
+    cites={
+        'go194': OR('By direction of the President, Maj. Gen. Joseph Hooker is relieved from command of the Army of the Potomac, and Maj. Gen. George G. Meade is appointed to the command of that army', 'OR27-3-D0831', '369'),
+        'halleck': OR('the order of the President placing you in command of the Army of the Potomac', 'OR27-1-R006', '61'),
+        'hardie': L('MEADE-LL-v2', 'General Meade lay quietly asleep in his tent at three o\'clock of the morning of June 28', page='1', page_basis='first page of Part V of the volume (opening narrative of the Gettysburg campaign); no running head is printed on it', witness='narrative by G. Meade, aide-de-camp and son of the general (1913)'),
+    },
+    scenarios=[],
+    remains=['the hour of issue on Jun 27 ("evening" in the seed)'],
+    searched=['OR27-3-D0831 (G.O. 194) and OR27-1-R006 (Meade, Halleck\'s letter) read; OR vol.27 pt.3 regex relieved.{0,200}Hooker and Hooker.{0,300}request.{0,60}relieved: no dispatch with an hour for the issue of the order',
+              'Life and Letters of G. G. Meade vol.2 pp.1-2 read (delivery at about 03:00 on Jun 28)'],
+    recheck='OR-RECHECK: the stored quote was found at OR27-3-D0831 p.369. Shard note applied ("Lincoln not named, no hour"): the order says "the President"; the evening hour is withdrawn from the displayed claim; the delivery hour is added from the Meade biography.',
+    register=reg('Hour of issue of G.O. 194 on Jun 27', 'The order is dated Jun 27 without an hour; the delivery to Meade is at about 03:00 on Jun 28.', 'Order of Jun 27, delivered about 03:00 Jun 28 (documented); no issue hour shown', 'documented',
+                 competing='-', impact='none beyond the window Jun 27 - 03:00 Jun 28', ask='none', rids='R11'),
+    related=[]))

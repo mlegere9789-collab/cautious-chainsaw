@@ -16,7 +16,8 @@ export const overrideData = o => { overrides = o || {}; };
 globalThis.fetch = async url => {
   const u = String(url);
   if (u.startsWith(DATA_URL)) { const f = u.slice(DATA_URL.length); if (f in overrides) return new Response(overrides[f], { status: 200 }); const p = path.join(DATA, f); return fs.existsSync(p) ? new Response(fs.readFileSync(p), { status: 200 }) : new Response('not found', { status: 404 }); }
-  if (u.startsWith('file:')) { const p = fileURLToPath(u); return fs.existsSync(p) ? new Response(fs.readFileSync(p), { status: 200 }) : new Response('not found', { status: 404 }); }
+  if (u.startsWith('file:')) { const p = fileURLToPath(u), rel = path.relative(DATA, p); if (!rel.startsWith('..') && rel in overrides) return new Response(overrides[rel], { status: 200 });         // the real loader hands out the file: address of the data folder
+    return fs.existsSync(p) ? new Response(fs.readFileSync(p), { status: 200 }) : new Response('not found', { status: 404 }); }
   return realFetch(url);
 };
 let T0 = null;

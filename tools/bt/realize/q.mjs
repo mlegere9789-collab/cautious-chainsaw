@@ -2,6 +2,7 @@
 // The author's window into the product: what the Battle Theatre shows at any minute, and what a timeline row says. Read-only. See README.md.
 //
 //   node tools/bt/realize/q.mjs row T1-004                 the row: printed cells, the time it allows, places and units its words name, what the product shows for them, its register links and record
+//   node tools/bt/realize/q.mjs suggest T1-097             for the units and places the row names: when every drawn leaf is on the field, within the tolerance of each place, marching (a search aid, not a record)
 //   node tools/bt/realize/q.mjs rows tl-01                 one line per row of a shard with its result (from RESULTS.json) or "no record"
 //   node tools/bt/realize/q.mjs unit "Early" [time]        find units by name, designator or id; with a time, where each is and what it does
 //   node tools/bt/realize/q.mjs unit cs-2c-early-gordon-13ga timeline      the unit's arrival, presence and activity legs with positions
@@ -23,6 +24,7 @@ import { loadTimeline, describeWindow } from './timeline.mjs';
 import { openProduct } from './query.mjs';
 import { candidatePhrases, norm, expand } from './gazetteer.mjs';
 import { registerCoverage, epilogueRows } from './check.mjs';
+import { suggest, printSuggestion } from './suggest.mjs';
 
 const argv = process.argv.slice(2), cmd = argv[0], flag = n => { const i = argv.indexOf(n); return i < 0 ? null : (argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[i + 1] : true); };
 const pos = argv.filter((a, i) => i > 0 && !a.startsWith('--') && !['--near', '--radius', '--side', '--scenario'].includes(argv[i - 1]));
@@ -35,6 +37,7 @@ async function main() {
   if (cmd === 'rows') return rowsCmd(pos[0]);
   const P = await openProduct(), S = P.scene(scen);
   if (cmd === 'row') return rowCmd(P, S, pos[0]);
+  if (cmd === 'suggest') { const TL = loadTimeline(), EP = epilogueRows(TL), row = TL.byId.get(pos[0]) || EP.find(r => r.id === pos[0]); if (!row) return line(`no row ${pos[0]}`); return printSuggestion(suggest(P, S, row, { step: +(flag('--step') || 1) }), line); }
   if (cmd === 'unit') {
     const q = pos[0]; const direct = P.unit(q);
     if (direct && pos[1] === 'timeline') return J(S.timeline(q, { max: 80 }));
@@ -79,7 +82,7 @@ function unknownPhrases(P, text) {
 }
 function rowsCmd(shard) {
   const TL = loadTimeline(), res = exists(path.join(REAL, 'RESULTS.json')) ? readJSON(path.join(REAL, 'RESULTS.json')) : { rows: {} }, reg = registerCoverage();
-  for (const r of TL.rows.filter(r => !shard || r.shard === shard)) { const e = res.rows[r.id]; line(`${r.id} [${r.tier.padEnd(20)}] ${e ? (e.realized ? 'REALIZED ' + e.kind : e.kind === 'not_realized' ? 'not realized (recorded)' : 'record, not realized') : 'no record'}${(reg.get(r.id) || { open: [] }).open.length ? ' +register' : ''}  ${r.time_cell.slice(0, 28).padEnd(28)} ${r.what_text.slice(0, 70)}`); }
+  for (const r of TL.rows.filter(r => !shard || r.shard === shard)) { const e0 = res.rows[r.id], e = e0 && e0.record ? e0 : null; line(`${r.id} [${r.tier.padEnd(20)}] ${e ? (e.realized ? 'REALIZED ' + e.kind : e.kind === 'not_realized' ? 'not realized (recorded)' : 'record, not realized') : 'no record'}${(reg.get(r.id) || { open: [] }).open.length ? ' +register' : ''}  ${r.time_cell.slice(0, 28).padEnd(28)} ${r.what_text.slice(0, 70)}`); }
 }
 
 async function rowCmd(P, S, id) {

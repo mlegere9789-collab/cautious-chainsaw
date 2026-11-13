@@ -1,0 +1,104 @@
+{
+ "python": "3.13.18",
+ "astropy": "8.0.2",
+ "pyerfa": "2.0.1.5",
+ "plan_text": "docs/battle-theatre/BIBLE/plan-clean.txt",
+ "gate_q11_recompute": {
+  "checks": 13,
+  "ok": 13,
+  "failed": [],
+  "computation_passes": true,
+  "source": "recomputed live (A astropy, B own Meeus)",
+  "seconds": 25.9
+ },
+ "largest_A_minus_B": {
+  "sun_alt_deg": 0.00225607599254829,
+  "sun_az_deg": 0.008271792245949428,
+  "moon_alt_deg": 0.00016368483901629816,
+  "moon_az_deg": 0.0006036303044538727,
+  "events_min": {
+   "sunrise": 0.012684958353929687,
+   "sunset": 0.00920031059649773,
+   "moonrise": 0.0006463623831223231,
+   "moonset": 0.0008566608194087166,
+   "ALL": 0.014363930813487968
+  }
+ },
+ "tolerances_in_code": {
+  "sun_deg": 0.05,
+  "rise_set_min": 2.0,
+  "moon_deg": 0.5
+ },
+ "gate_q11_saved_agreement": {
+  "checks": 12,
+  "ok": 12,
+  "failed": [],
+  "computation_passes": true,
+  "source": "saved ephemeris_agreement.json (not recomputed)",
+  "seconds": 4.4
+ },
+ "pdf_figure_checks": {
+  "rows": 134,
+  "status": {
+   "MATCH": 119,
+   "MARGINAL": 3,
+   "MATCH(trunc)": 1,
+   "FINDING": 6,
+   "INFO": 5
+  },
+  "seconds": 4.2
+ },
+ "pdf_findings": [
+  {
+   "label": "moonrise 1863-06-30 ('about 19:10', 'not computed')",
+   "printed": "19:10",
+   "computed": "19:01:18",
+   "diff": "-8.70",
+   "unit": "min"
+  },
+  {
+   "label": "night 1863-07-01 end (at next moonset)",
+   "printed": "93%",
+   "computed": "97.7%",
+   "diff": "+4.7",
+   "unit": "pct-pt"
+  },
+  {
+   "label": "night 1863-07-02 end (at next moonset)",
+   "printed": "86%",
+   "computed": "92.3%",
+   "diff": "+6.3",
+   "unit": "pct-pt"
+  },
+  {
+   "label": "night 1863-07-03 end (at next moonset)",
+   "printed": "77%",
+   "computed": "84.3%",
+   "diff": "+7.3",
+   "unit": "pct-pt"
+  },
+  {
+   "label": "night 1863-07-04 end (at next moonset)",
+   "printed": "68%",
+   "computed": "74.5%",
+   "diff": "+6.5",
+   "unit": "pct-pt"
+  },
+  {
+   "label": "T2-052 'USNO 04:44 EST (about 04:29 local)' sunrise Jul 2",
+   "printed": "04:29",
+   "computed": "04:35:15",
+   "diff": "+6.25",
+   "unit": "min"
+  }
+ ],
+ "gate_q22": {
+  "checks": 31,
+  "ok": 31,
+  "failed": [],
+  "computation_passes": true,
+  "source": null,
+  "seconds": 0.1
+ },
+ "environment_files_changed": []
+}

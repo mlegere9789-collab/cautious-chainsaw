@@ -1,0 +1,176 @@
+"""The calendar, species and gap tables of the vegetation data (read by build_vegetation.py, written into app/data/vegetation.json).
+
+Every number here that is not read from a source is a RANGE (min, max), tagged plausible-procedural or inferred, with the claims or the reasoning it rests on. Nothing here is a
+point value presented as a measurement. Colours are albedo as seen from above (sRGB 0-1); heights are metres; dates are local mean time of the theatre's clock.
+
+Claims are cited by id (tools/bt/vegetation/claims_*.json, each quote looked up again in the saved source text by verify_claims.py).
+"""
+
+# ----------------------------------------------------------------------------------------------------------------- crops
+# keyframes: d (ISO date, 00:00), stage, color [min, max], h [min, max] (stalk height), tier of THIS keyframe, why (claims / reasoning)
+WHEAT = [
+    {'d': '1863-06-26', 'stage': 'filling', 'color': [[0.55, 0.58, 0.27], [0.66, 0.64, 0.31]], 'h': [1.0, 1.45], 'tier': 'inferred', 'why': 'agricultural calendar: winter wheat fills and yellows in the last days of June; the 25-27 June rains (weather record) may have delayed it (PDF B.10.3, unverified)'},
+    {'d': '1863-07-02', 'stage': 'nearly_ripe', 'color': [[0.74, 0.66, 0.32], [0.84, 0.72, 0.37]], 'h': [1.05, 1.6], 'tier': 'documented', 'why': 'VC-LIB-001 (wheat now nearly ripe, 1-2 July), VC-LIB-007 (standing uncut when the battle began), VC-LIB-008 (up to our chins: height), VC-NPSX-CLI-ERR-p042-02 (ripening wheat). The colour is not described: the range is the calendar reading.'},
+    {'d': '1863-07-08', 'stage': 'ripe', 'color': [[0.82, 0.69, 0.36], [0.88, 0.75, 0.42]], 'h': [1.05, 1.6], 'tier': 'inferred', 'why': 'calendar: a week after nearly ripe; the harvest follows (VC-OR-020, VC-LIB-015)'},
+    {'d': '1863-07-14', 'stage': 'ripe', 'color': [[0.82, 0.70, 0.40], [0.89, 0.76, 0.46]], 'h': [1.0, 1.55], 'tier': 'inferred', 'why': 'calendar'},
+]
+WHEAT_CUT = {'stage': 'cut_shocked', 'color': [[0.80, 0.68, 0.40], [0.86, 0.74, 0.46]], 'h': [0.12, 0.2], 'shock_h': [0.8, 1.0], 'days': 9, 'stubble': {'stage': 'stubble', 'color': [[0.72, 0.62, 0.38], [0.78, 0.68, 0.44]], 'h': [0.08, 0.18]}}
+
+CROPS = {
+    'wheat': {'label': 'Wheat (winter wheat)', 'keys': WHEAT, 'harvest': {'earliest': '1863-07-06', 'latest': '1863-07-26', 'bias': 0.5, 'tier': 'plausible-procedural',
+              'why': 'Bounds: the wheat stood uncut on 2 July (VC-LIB-007); the armies left on 4-5 July; wheat was cut and stacked in Washington County, Maryland, by 10 July (VC-OR-020); near Gettysburg the harvest was under way in the week to 27 July and most of the cut wheat had been garnered the day before (VC-LIB-015). Each field takes a cut date from this range by a seeded draw weighted toward the later days (bias 0.5: median about 20 July).'}, 'cut': WHEAT_CUT},
+    'rye': {'label': 'Rye', 'keys': [
+        {'d': '1863-06-26', 'stage': 'ripe', 'color': [[0.78, 0.67, 0.36], [0.87, 0.75, 0.43]], 'h': [1.3, 1.75], 'tier': 'plausible-procedural', 'why': 'calendar and PDF B.10.3 (earlier and taller than wheat, mostly ripe or cut by early July); no source read gives the height or the state of any rye field'},
+        {'d': '1863-07-14', 'stage': 'ripe', 'color': [[0.80, 0.69, 0.40], [0.88, 0.76, 0.46]], 'h': [1.3, 1.75], 'tier': 'plausible-procedural', 'why': 'calendar'}],
+        'harvest': {'earliest': '1863-06-24', 'latest': '1863-07-12', 'bias': 1.0, 'tier': 'plausible-procedural', 'why': 'rye ripens about a week before wheat in the calendar; the claims name rye on the Harman and McClean farms (VC-NPS-033, VC-NPSX-CLR-1STDAY-p067-07) but never its state'}, 'cut': dict(WHEAT_CUT, h=[0.15, 0.25])},
+    'barley': {'label': 'Barley', 'keys': [
+        {'d': '1863-06-26', 'stage': 'ripening', 'color': [[0.66, 0.62, 0.30], [0.78, 0.68, 0.36]], 'h': [0.7, 1.0], 'tier': 'plausible-procedural', 'why': 'calendar: barley ripens a few days before wheat; claims name barley on the Benner and Trostle farms only (VC-NPS-014)'},
+        {'d': '1863-07-14', 'stage': 'ripe', 'color': [[0.80, 0.69, 0.40], [0.88, 0.76, 0.46]], 'h': [0.7, 1.0], 'tier': 'plausible-procedural', 'why': 'calendar'}],
+        'harvest': {'earliest': '1863-07-02', 'latest': '1863-07-18', 'bias': 1.0, 'tier': 'plausible-procedural', 'why': 'calendar'}, 'cut': dict(WHEAT_CUT, h=[0.1, 0.18])},
+    'oats': {'label': 'Oats', 'keys': [
+        {'d': '1863-06-26', 'stage': 'headed_green', 'color': [[0.38, 0.52, 0.24], [0.48, 0.58, 0.28]], 'h': [0.6, 0.95], 'tier': 'plausible-procedural', 'why': 'PDF B.10.3 (green-yellow, headed); oat-fields are documented to exist on 1 and 2 July (VC-OR-013, VC-OR-015) but their state is not described'},
+        {'d': '1863-07-02', 'stage': 'headed_green', 'color': [[0.46, 0.56, 0.26], [0.58, 0.62, 0.30]], 'h': [0.65, 1.0], 'tier': 'plausible-procedural', 'why': 'calendar'},
+        {'d': '1863-07-14', 'stage': 'yellowing', 'color': [[0.60, 0.62, 0.30], [0.72, 0.66, 0.34]], 'h': [0.7, 1.05], 'tier': 'plausible-procedural', 'why': 'calendar: oats are cut after wheat, in late July'}],
+        'harvest': {'earliest': '1863-07-24', 'latest': '1863-08-08', 'bias': 1.0, 'tier': 'plausible-procedural', 'why': 'after the window: no oat field is cut before 14 July in this calendar'}, 'cut': dict(WHEAT_CUT, h=[0.12, 0.2])},
+    'corn': {'label': 'Corn (Indian corn)', 'keys': [
+        {'d': '1863-06-26', 'stage': 'young', 'color': [[0.22, 0.40, 0.14], [0.30, 0.48, 0.19]], 'h': [0.35, 0.8], 'tier': 'inferred', 'why': 'the Russell field was in corn and the crop was immature (VC-NPSX-CLI-PCB-p082-01); corn stood on 1-3 July in several places (VC-LIB-002, VC-OR-017); the height is the calendar reading (knee to waist)'},
+        {'d': '1863-07-02', 'stage': 'immature', 'color': [[0.20, 0.40, 0.13], [0.28, 0.50, 0.18]], 'h': [0.45, 1.0], 'tier': 'inferred', 'why': 'VC-NPSX-CLI-PCB-p082-01 (immature crop that would not have interfered with troop movement or fields of fire), VC-LIB-005 (luxuriant corn)'},
+        {'d': '1863-07-14', 'stage': 'growing', 'color': [[0.20, 0.42, 0.13], [0.27, 0.52, 0.18]], 'h': [0.7, 1.3], 'tier': 'plausible-procedural', 'why': 'calendar'}],
+        'harvest': None, 'cut': None},
+    'hay': {'label': 'Hay meadow (timothy and clover)', 'keys': [
+        {'d': '1863-06-26', 'stage': 'heading', 'color': [[0.40, 0.56, 0.24], [0.52, 0.62, 0.28]], 'h': [0.55, 1.0], 'tier': 'inferred', 'why': 'grassy meadows on the morning of 2 July (VC-LIB-005); timothy grass named on the Forney farm (VC-NPSX-CLI-1STDAY-p060-08); height is the calendar reading'},
+        {'d': '1863-07-02', 'stage': 'standing_hay', 'color': [[0.46, 0.58, 0.26], [0.60, 0.64, 0.32]], 'h': [0.6, 1.05], 'tier': 'inferred', 'why': 'VC-LIB-001 (grass and pastures), VC-LIB-005 (grassy meadows)'},
+        {'d': '1863-07-14', 'stage': 'standing_hay', 'color': [[0.56, 0.60, 0.30], [0.68, 0.64, 0.34]], 'h': [0.6, 1.05], 'tier': 'plausible-procedural', 'why': 'calendar'}],
+        'harvest': {'earliest': '1863-07-03', 'latest': '1863-07-22', 'bias': 1.0, 'tier': 'plausible-procedural', 'why': 'uncut on the morning of 2 July in the area Haskell describes (VC-LIB-005); new hay existed in Maryland by 10 July (VC-OR-021); the mowing date of each meadow is a seeded draw'},
+        'cut': {'stage': 'mown', 'color': [[0.60, 0.58, 0.34], [0.72, 0.66, 0.40]], 'h': [0.05, 0.12], 'shock_h': [0.0, 0.0], 'days': 5, 'stubble': {'stage': 'hay_stubble', 'color': [[0.58, 0.56, 0.34], [0.68, 0.62, 0.38]], 'h': [0.05, 0.12]}}},
+    'pasture': {'label': 'Pasture', 'keys': [
+        {'d': '1863-06-26', 'stage': 'grazed', 'color': [[0.42, 0.54, 0.26], [0.55, 0.58, 0.30]], 'h': [0.06, 0.22], 'tier': 'inferred', 'why': 'grass and pastures (VC-LIB-001); Spangler pasture (VC-NPS-034); grazed short (PDF B.10.3, unverified); many farms had stock and horses taken in late June'},
+        {'d': '1863-07-14', 'stage': 'grazed', 'color': [[0.50, 0.54, 0.30], [0.62, 0.58, 0.34]], 'h': [0.06, 0.22], 'tier': 'plausible-procedural', 'why': 'calendar: drier'}],
+        'harvest': None, 'cut': None},
+    'open_rock': {'label': 'Rocky pasture and grass with boulders', 'keys': [
+        {'d': '1863-06-26', 'stage': 'rocky_grass', 'color': [[0.48, 0.48, 0.32], [0.60, 0.56, 0.37]], 'h': [0.08, 0.3], 'tier': 'inferred', 'why': 'VC-NPS-027 (Hanaway tract cleared of most trees), CLR: rocky and partly bare'},
+        {'d': '1863-07-14', 'stage': 'rocky_grass', 'color': [[0.50, 0.49, 0.33], [0.62, 0.57, 0.38]], 'h': [0.08, 0.3], 'tier': 'inferred', 'why': 'same'}],
+        'harvest': None, 'cut': None},
+    'marsh': {'label': 'Marsh grass and brush', 'keys': [
+        {'d': '1863-06-26', 'stage': 'marsh', 'color': [[0.28, 0.40, 0.20], [0.38, 0.48, 0.26]], 'h': [0.3, 1.2], 'tier': 'inferred', 'why': 'VC-OR-006 (low marshy ground), NPS CLR (Plum Run bottom marshy); the grass-tuft symbols of the Warren sheet'},
+        {'d': '1863-07-14', 'stage': 'marsh', 'color': [[0.30, 0.40, 0.22], [0.40, 0.48, 0.28]], 'h': [0.3, 1.2], 'tier': 'inferred', 'why': 'same'}],
+        'harvest': None, 'cut': None},
+}
+
+# after the window: the epilogue (19 November 1863). No source describes the fields that day; the foliage was gone (VC-LIB-014).
+EPILOGUE = {
+    'date': '1863-11-19', 'tier': 'plausible-procedural', 'why': 'No source read describes the fields of 19 November 1863 (the plan lists "No Nov 19 vegetation source"); the stages are the calendar reading for the crops of the season, drawn per field by a seeded choice, and they are marked as such. Only the leaf-off state of the trees is documented (VC-LIB-014).',
+    'stages': {
+        'wheat': [{'stage': 'stubble', 'w': 0.45, 'color': [[0.66, 0.58, 0.38], [0.74, 0.65, 0.44]], 'h': [0.05, 0.15]}, {'stage': 'plowed', 'w': 0.25, 'color': [[0.30, 0.24, 0.18], [0.38, 0.30, 0.22]], 'h': [0.0, 0.05]}, {'stage': 'winter_grain_sprouts', 'w': 0.30, 'color': [[0.34, 0.48, 0.22], [0.44, 0.54, 0.27]], 'h': [0.04, 0.12]}],
+        'rye': [{'stage': 'winter_grain_sprouts', 'w': 0.5, 'color': [[0.34, 0.48, 0.22], [0.44, 0.54, 0.27]], 'h': [0.04, 0.12]}, {'stage': 'stubble', 'w': 0.5, 'color': [[0.66, 0.58, 0.38], [0.74, 0.65, 0.44]], 'h': [0.05, 0.15]}],
+        'barley': [{'stage': 'stubble', 'w': 0.6, 'color': [[0.66, 0.58, 0.38], [0.74, 0.65, 0.44]], 'h': [0.05, 0.15]}, {'stage': 'plowed', 'w': 0.4, 'color': [[0.30, 0.24, 0.18], [0.38, 0.30, 0.22]], 'h': [0.0, 0.05]}],
+        'oats': [{'stage': 'stubble', 'w': 0.5, 'color': [[0.66, 0.58, 0.38], [0.74, 0.65, 0.44]], 'h': [0.05, 0.15]}, {'stage': 'plowed', 'w': 0.3, 'color': [[0.30, 0.24, 0.18], [0.38, 0.30, 0.22]], 'h': [0.0, 0.05]}, {'stage': 'winter_grain_sprouts', 'w': 0.2, 'color': [[0.34, 0.48, 0.22], [0.44, 0.54, 0.27]], 'h': [0.04, 0.12]}],
+        'corn': [{'stage': 'corn_stubble', 'w': 0.6, 'color': [[0.58, 0.50, 0.34], [0.68, 0.58, 0.40]], 'h': [0.1, 0.5]}, {'stage': 'plowed', 'w': 0.4, 'color': [[0.30, 0.24, 0.18], [0.38, 0.30, 0.22]], 'h': [0.0, 0.05]}],
+        'hay': [{'stage': 'dormant_grass', 'w': 1.0, 'color': [[0.48, 0.46, 0.30], [0.58, 0.54, 0.36]], 'h': [0.05, 0.2]}],
+        'pasture': [{'stage': 'dormant_grass', 'w': 1.0, 'color': [[0.46, 0.44, 0.30], [0.56, 0.52, 0.36]], 'h': [0.04, 0.12]}],
+        'open_rock': [{'stage': 'dormant_grass', 'w': 1.0, 'color': [[0.46, 0.44, 0.32], [0.56, 0.52, 0.37]], 'h': [0.05, 0.2]}],
+        'marsh': [{'stage': 'dormant_marsh', 'w': 1.0, 'color': [[0.38, 0.38, 0.26], [0.48, 0.46, 0.30]], 'h': [0.2, 0.9]}]},
+}
+
+# ----------------------------------------------------------------------------------------------------------------- trees
+# leaf cover by date for deciduous trees (fraction of the full summer crown): the window is in full leaf; the epilogue is leaf-off
+LEAF = {
+    'window': {'range': [0.92, 1.0], 'tier': 'inferred', 'why': 'calendar: early July is full leaf for the oak-hickory woods and orchards; accounts speak of woods, thick orchards and heavy timber in action (VC-NPS-025, VC-NPS-022, VC-LIB-004); no source describes the leaf itself'},
+    'epilogue': {'range': [0.0, 0.3], 'tier': 'documented', 'why': 'VC-LIB-014: "the foliage is gone" (Everett, 19 November). Oaks hold some dead leaves into winter: the upper bound is that reading, marked inferred'},
+}
+
+# species: crown colour in leaf (albedo), height range of mature trees (m), crown radius range (m), source or reasoning
+SPECIES = {
+    'oak': {'label': 'Oak (white, red and chestnut oak)', 'color': [[0.14, 0.28, 0.10], [0.22, 0.36, 0.15]], 'h': [16, 24], 'r': [5.0, 8.0], 'shape': 'broad', 'tier': 'inferred', 'why': 'VC-NPSX-CLI-1STDAY-p079-01 (native oak-hickory community), VC-NPSX-CLI-PCB-p084-04 (Shultz Woods: oak woods), VC-LIB-003 (oaks of considerable growth on Cemetery Ridge); heights are the calendar reading of mature timber trees'},
+    'hickory': {'label': 'Hickory', 'color': [[0.18, 0.31, 0.11], [0.26, 0.40, 0.16]], 'h': [18, 26], 'r': [4.0, 6.5], 'shape': 'oval', 'tier': 'inferred', 'why': 'oak-hickory community (VC-NPSX-CLI-1STDAY-p079-01)'},
+    'chestnut': {'label': 'American chestnut', 'color': [[0.20, 0.34, 0.12], [0.28, 0.43, 0.17]], 'h': [18, 28], 'r': [5.0, 8.5], 'shape': 'broad', 'tier': 'inferred', 'why': 'American chestnut timber was the main fence timber of 1863 (VC-NPS-023), so it grew in the district; its share of any woodlot is not known. The blight came about 1904 (general knowledge, not a source read): modern canopy lists under-state it'},
+    'tulip_poplar': {'label': 'Tulip poplar', 'color': [[0.20, 0.36, 0.13], [0.28, 0.45, 0.18]], 'h': [22, 32], 'r': [3.5, 5.5], 'shape': 'column', 'tier': 'plausible-procedural', 'why': 'PDF B.10.3 species list (general knowledge, unverified)'},
+    'black_walnut': {'label': 'Black walnut', 'color': [[0.20, 0.34, 0.12], [0.28, 0.42, 0.17]], 'h': [14, 22], 'r': [5.0, 7.5], 'shape': 'broad', 'tier': 'plausible-procedural', 'why': 'PDF B.10.3 (near streams; general knowledge, unverified)'},
+    'black_locust': {'label': 'Black locust', 'color': [[0.22, 0.38, 0.15], [0.32, 0.47, 0.20]], 'h': [12, 20], 'r': [2.5, 4.5], 'shape': 'oval', 'tier': 'inferred', 'why': 'black locust was fence timber of 1863 (VC-NPS-023)'},
+    'mixed_hardwood': {'label': 'Maple, ash and other hardwoods', 'color': [[0.18, 0.33, 0.12], [0.27, 0.43, 0.17]], 'h': [12, 20], 'r': [4.0, 6.5], 'shape': 'oval', 'tier': 'plausible-procedural', 'why': 'filler class for the remainder of the stand: not a source reading'},
+    'red_cedar': {'label': 'Red cedar', 'color': [[0.10, 0.22, 0.12], [0.16, 0.29, 0.16]], 'h': [6, 12], 'r': [1.6, 2.6], 'shape': 'cone', 'tier': 'plausible-procedural', 'why': 'Big Round Top forest was partly coniferous (VC-NPS-022); which conifers is not stated'},
+    'white_pine': {'label': 'White pine', 'color': [[0.10, 0.24, 0.13], [0.17, 0.32, 0.18]], 'h': [18, 28], 'r': [3.0, 4.5], 'shape': 'cone', 'tier': 'plausible-procedural', 'why': 'as red cedar'},
+    'apple': {'label': 'Apple', 'color': [[0.20, 0.36, 0.14], [0.30, 0.46, 0.20]], 'h': [4, 7], 'r': [2.8, 4.2], 'shape': 'round', 'tier': 'inferred', 'why': 'orchards of the district were mostly apple (VC-NPS-004); heights of mature orchard trees are horticultural estimates'},
+    'peach': {'label': 'Peach', 'color': [[0.24, 0.40, 0.16], [0.34, 0.50, 0.22]], 'h': [3, 5], 'r': [2.2, 3.2], 'shape': 'round', 'tier': 'inferred', 'why': 'the Sherfy Peach Orchard is named for its peaches (VC-NPSX-CLI-PCB-p049-07); the Klingel north orchard held peach, pear and cherry among its apples (VC-NPSX-CLI-ERR-p095-04)'},
+    'cherry': {'label': 'Cherry', 'color': [[0.20, 0.36, 0.14], [0.30, 0.46, 0.20]], 'h': [5, 9], 'r': [3.0, 4.6], 'shape': 'round', 'tier': 'inferred', 'why': 'cherries ripe on 2 and 5 July (VC-LIB-011, VC-LIB-012); cherry trees at Klingel and Trostle (VC-NPSX-CLI-ERR-p095-04, -06)'},
+    'pear': {'label': 'Pear', 'color': [[0.20, 0.36, 0.14], [0.28, 0.45, 0.19]], 'h': [6, 10], 'r': [2.0, 3.2], 'shape': 'oval', 'tier': 'inferred', 'why': 'Klingel north orchard (VC-NPSX-CLI-ERR-p095-04)'},
+    'shrub': {'label': 'Thicket shrubs and saplings (sumac, dogwood, sassafras, willow)', 'color': [[0.20, 0.34, 0.14], [0.30, 0.44, 0.20]], 'h': [1.8, 5.0], 'r': [1.2, 2.6], 'shape': 'round', 'tier': 'inferred', 'why': 'the Codori-Trostle thicket held shrubs along Plum Run and small clumps of mature trees (VC-NPSX-CLI-ERR-p094-01); species are the plan list (unverified)'},
+}
+
+# woodland classes: species weights (a RANGE midpoint with +-0.5 relative spread drawn per unit), canopy trees per hectare, understory
+WOODS = {
+    'farm_woodlot': {'label': 'Farm woodlot (oak-hickory)', 'species': {'oak': 0.50, 'hickory': 0.16, 'chestnut': 0.12, 'tulip_poplar': 0.05, 'black_walnut': 0.02, 'black_locust': 0.04, 'mixed_hardwood': 0.11},
+                     'per_ha': [105, 135], 'understory': 'open', 'tier': 'plausible-procedural',
+                     'why': 'Species family from the NPS inventories (oak-hickory, VC-NPSX-CLI-1STDAY-p079-01); understory open and cleared by grazing and cutting (VC-NPS-007, VC-NPS-012); the shares and the density are not read from a source'},
+    'ridge_forest': {'label': 'Ridge forest (Culp\'s Hill, Round Tops, Houck\'s Ridge)', 'species': {'oak': 0.48, 'hickory': 0.14, 'chestnut': 0.16, 'tulip_poplar': 0.04, 'black_locust': 0.02, 'mixed_hardwood': 0.10, 'red_cedar': 0.04, 'white_pine': 0.02},
+                     'per_ha': [115, 150], 'understory': 'moderate', 'tier': 'plausible-procedural',
+                     'why': 'Big Round Top: a mature deciduous and partly coniferous forest (VC-NPS-022); Culp\'s Hill: no species list or understory source read (register EG-0056); the understory is a range between open and heavy'},
+    'big_round_top': {'label': 'Big Round Top forest', 'species': {'oak': 0.44, 'hickory': 0.13, 'chestnut': 0.14, 'tulip_poplar': 0.03, 'mixed_hardwood': 0.08, 'red_cedar': 0.10, 'white_pine': 0.08},
+                     'per_ha': [120, 155], 'understory': 'moderate', 'tier': 'plausible-procedural',
+                     'why': 'VC-NPS-022: mature, deciduous and partially coniferous, preventing observation; the conifer share (0.18 here) is a range assumption, not a reading'},
+    'first_day_woodlot': {'label': 'First Day woodlot (no evergreens)', 'species': {'oak': 0.52, 'hickory': 0.17, 'chestnut': 0.12, 'tulip_poplar': 0.05, 'black_walnut': 0.02, 'black_locust': 0.04, 'mixed_hardwood': 0.08},
+                     'per_ha': [105, 135], 'understory': 'open', 'tier': 'plausible-procedural',
+                     'why': 'Evergreens were not part of the First Day landscape (VC-NPSX-CLI-1STDAY-p079-02); native oak-hickory community (VC-NPSX-CLI-1STDAY-p079-01); Herbst Woods has lost its open understory since the battle (VC-NPSX-CLI-1STDAY-p077-01)'},
+    'thicket': {'label': 'Thicket (shrubs and small trees)', 'species': {'shrub': 0.72, 'mixed_hardwood': 0.18, 'oak': 0.10}, 'per_ha': [180, 260], 'understory': 'thick', 'tier': 'inferred',
+                'why': 'VC-NPSX-CLI-ERR-p094-01: sparsely wooded, shrubs along Plum Run, small clumps of mature trees; thick enough with smoke to affect observation on 2 July'},
+    'scatter': {'label': 'Scattered trees (Warren glyph clusters)', 'species': {'oak': 0.5, 'hickory': 0.12, 'chestnut': 0.1, 'mixed_hardwood': 0.18, 'black_locust': 0.1}, 'per_ha': [10, 22], 'understory': 'none', 'tier': 'plausible-procedural',
+                'why': 'The land-cover layer says these clusters may include lettering mistaken for glyphs: at most sparse single trees (docs/basemap1863/features/landcover/README); individual trees stood in dooryards, by outcrops and along fences (VC-NPS-011)'},
+}
+ORCHARD = {
+    'mature': {'label': 'Orchard, mature trees', 'spacing_m': [9.0, 12.0], 'species': {'apple': 0.74, 'peach': 0.10, 'cherry': 0.08, 'pear': 0.05, 'plum': 0.03}, 'tier': 'plausible-procedural',
+               'why': 'mostly apple with some peach, cherry, pear (VC-NPS-004); planting pattern and spacing are battle-significant characteristics the inventory names but does not give (VC-NPSX-CLI-PCB-p079-03): a range'},
+    'young': {'label': 'Orchard, young trees', 'spacing_m': [7.0, 9.5], 'species': {'apple': 0.8, 'peach': 0.12, 'cherry': 0.08}, 'tier': 'plausible-procedural', 'why': 'young or immature orchards named for the Sherfy east field, Trostle south, Gilbert, Shefferer (possibly)'},
+    'peach_orchard': {'label': 'The Peach Orchard (Sherfy)', 'spacing_m': [8.5, 11.0], 'species': {'peach': 0.62, 'apple': 0.30, 'cherry': 0.08}, 'tier': 'plausible-procedural', 'why': 'named for its peach trees; the inventory also records apple and "young orchard, orchard, and oats" for the Sherfy land (VC-NPSX-CLI-PCB-p082-04); shares are not given'},
+}
+ORCHARD_FRUIT = {
+    'cherry': {'keys': [{'d': '1863-06-26', 'stage': 'ripening', 'tier': 'inferred'}, {'d': '1863-06-30', 'stage': 'ripe', 'tier': 'documented'}, {'d': '1863-07-08', 'stage': 'past_picked', 'tier': 'plausible-procedural'}],
+               'why': 'VC-LIB-013 (ripe, abounding, 27 June, Maryland), VC-LIB-011 (eaten 2 July), VC-LIB-012 (eaten 5 July); the end of the season is not documented'},
+    'apple': {'keys': [{'d': '1863-06-26', 'stage': 'green_small', 'tier': 'plausible-procedural'}, {'d': '1863-07-14', 'stage': 'green_small', 'tier': 'plausible-procedural'}], 'why': 'no sourced fruit-state account (register EG-0020; PDF B.10.3)'},
+    'peach': {'keys': [{'d': '1863-06-26', 'stage': 'green_hard', 'tier': 'plausible-procedural'}, {'d': '1863-07-14', 'stage': 'green_hard', 'tier': 'plausible-procedural'}], 'why': 'no sourced fruit-state account; the PDF reads peaches as unripe in early July'},
+    'pear': {'keys': [{'d': '1863-06-26', 'stage': 'green_small', 'tier': 'plausible-procedural'}], 'why': 'no sourced account'},
+    'plum': {'keys': [{'d': '1863-06-26', 'stage': 'green_small', 'tier': 'plausible-procedural'}], 'why': 'no sourced account'},
+}
+
+# ----------------------------------------------------------------------------------------------------------------- mix of crops
+# fallback shares when the claims give too little (only used for the part the claims do not cover): see build_vegetation.district_mix
+MIX_FLOOR = {'pasture': 0.10}
+
+# ----------------------------------------------------------------------------------------------------------------- scenarios (source conflicts the product lets the viewer choose)
+SCENARIOS = {
+    'CF-VEG-LRT': {'title': 'Tree cover of Little Round Top', 'default': 'nps_clr',
+                   'why': 'Two web articles disagree (PDF B.10.3 and T2-076): "unwooded but steep and rocky" against "bare west slope with a lightly wooded summit and east and south slopes". The NPS Cultural Landscape Report of 2012 settles part of it: the east-slope tracts were wooded, the Hanaway tract on the west slope was cleared of most trees before 1863, and a tree line at the summit divided them (VC-NPS-026..028).',
+                   'options': {
+                       'nps_clr': {'label': 'NPS CLR 2012: west slope cleared, summit tree line, east slope wooded', 'tier': 'documented', 'by': ['VC-NPS-026', 'VC-NPS-027', 'VC-NPS-028']},
+                       'wiki_unwooded': {'label': 'Battlefield article: the whole hill unwooded, steep and rocky', 'tier': 'plausible-procedural', 'by': []},
+                       'wiki_light_summit': {'label': 'Little Round Top article: bare west face, lightly wooded summit, east and south slopes', 'tier': 'plausible-procedural', 'by': []}}},
+    'CF-VEG-RAIN': {'title': 'Wheat and oats after the rain of 3-4 July', 'default': 'bounded',
+                    'why': 'The plan says the trample mask is overwritten by rain flattening on 4 July. The only source read on rain damage to the crop is the Gettysburg Compiler of 27 July 1863: the damage of the late heavy rains will in no case exceed five per cent of the crop (VC-LIB-015, where the cut wheat is also said to have been garnered). Nothing read measures the rain of 4 July on standing crops.',
+                    'options': {
+                        'bounded': {'label': 'Flattening bounded by the newspaper: at most 5 per cent of the standing crop', 'tier': 'plausible-procedural', 'lodging': 0.05},
+                        'pdf_flattened': {'label': 'PDF B.10.3: standing crops flattened by the rain of 4 July (strong)', 'tier': 'plausible-procedural', 'lodging': 0.55},
+                        'none': {'label': 'No flattening drawn', 'tier': 'plausible-procedural', 'lodging': 0.0}}},
+    'CF-VEG-HARVEST': {'title': 'When the wheat of the open fields is cut', 'default': 'ranged',
+                       'why': 'The cut dates are a range with a documented upper and lower bound (see the wheat calendar). The viewer may pin all fields to the early end or the late end of the range to see both bounds.',
+                       'options': {'ranged': {'label': 'Each field takes its own date from the range (seeded)', 'tier': 'plausible-procedural', 'u': None},
+                                   'early': {'label': 'Every field at the early end (6 July)', 'tier': 'plausible-procedural', 'u': 0.0},
+                                   'late': {'label': 'Every field at the late end (26 July: nothing is cut before the window closes)', 'tier': 'plausible-procedural', 'u': 1.0}}},
+}
+
+# ----------------------------------------------------------------------------------------------------------------- the register entries to propose (id, title, what, why, tier)
+GAPS = [
+    ('G01', 'Which crop each field cell held', 'No source read assigns a crop to the fields of the open ground except the Wheatfield and the few fields in claims that can be placed (role exact or nearest). Every other cell takes its crop from the district mix by a seeded draw.', 'The 1860 census schedules and the 1868 damage-claim files are not read; the NPS inventories give field numbers whose outlines are in GIS layers the repository does not hold.', 'plausible-procedural'),
+    ('G02', 'Field boundaries inside the open ground', 'The cut lines that divide a block of open ground into field cells are a seeded Voronoi relaxation, not a map. Roads, lanes, the railway and the 30 confirmed fence lines bound the blocks; wood, orchard and marsh edges are the Warren outlines.', 'Fence lines other than the 30 confirmed ones are not mapped for 1863 (362 of 392 candidates are modern reconstructions or unchecked).', 'plausible-procedural'),
+    ('G03', 'Ripeness and cut date of each grain field', 'Wheat stood nearly ripe on 2 July (documented) and was being cut in the last two weeks of July (documented); the date each field was cut, and rye, barley and oats, are ranged.', 'No farmer\'s diary, harvest notice or photograph of 5-14 July with a dated field was found.', 'plausible-procedural'),
+    ('G04', 'Grass height and mowing dates of the hay meadows', 'Meadows were grassy on the morning of 2 July; new hay existed by 10 July in Maryland; the mowing date of each meadow is a seeded draw.', 'No source gives a grass height.', 'plausible-procedural'),
+    ('G05', 'Fruit state of the orchards', 'Cherries were ripe on 2 and 5 July (documented); apples, peaches, pears and plums have no sourced state; the viewer is told so.', 'Same as EG-0020: no sourced fruit-state account.', 'plausible-procedural'),
+    ('G06', 'Species and age of woodlot and orchard trees', 'The family (oak-hickory) is sourced for two woodlots; chestnut and black locust are shown present by the fence timber; every share, every height and the age of orchards other than the named young orchards are ranges.', 'The NPS Historic Vegetation Study and the 1860 census are not in the library (register EG-0139, EG-0143); the plan lists "no sourced species list for Culp\'s Hill or Big Round Top".', 'plausible-procedural'),
+    ('G07', 'Understory of the ridge forests', 'Farm woodlots had an open understory (documented); the understory of Culp\'s Hill, Big Round Top and Houck\'s Ridge is not described.', 'No source read.', 'plausible-procedural'),
+    ('G08', 'Individual tree positions', 'Every tree is placed by a seeded scatter inside its polygon, in rows for orchards; only the witness trees named in claims (the large oak at the Trostle lane, the tree at the Codori lane) have a documented place and none of them is placed to better than the polygon.', 'No tree map of 1863 exists.', 'plausible-procedural'),
+    ('G09', 'Little Round Top tree cover', 'Carried as three selectable readings; the NPS Cultural Landscape Report supports the first.', 'Two web articles conflict; the CLR settles the west slope and the east slope, not every tree.', 'inferred'),
+    ('G10', 'Vegetation on 19 November 1863', 'Leaf-off is documented by one remark; the field stages are drawn per field from the calendar.', 'The plan lists "No Nov 19 vegetation source".', 'plausible-procedural'),
+    ('G11', 'Extent and degree of trampling and tree damage', 'That fields were trampled (2 July, Haskell; the Wheatfield in the OR reports) and that trees were stripped or splintered (Culp\'s Hill, Herbst Woods, the orchards) is documented; the share of each field or stand affected is ranged and follows the troops the theatre draws.', 'No survey of the damage by field exists in the sources read; the 1868 damage claims give acreages destroyed per farm, not where.', 'plausible-procedural'),
+    ('G12', 'Damage-claim acreages of farms not yet read', 'Nine farms\' crop acreages are read (McPherson, Wills, Harman, Forney, Slyder, Bushman, Josiah Benner, McClean, Trostle); the Rose, Sherfy, Codori, Weikert, Wentz, Bliss, Rogers and other claims are not.', 'The claim files are not in the library; the NPS reports quote some of them.', 'open gap'),
+    ('G13', 'Photographs of 5-14 July for stubble and trample state', 'Not analysed in this lane: no photograph is used for any vegetation state.', 'The photo-match workstream owns the catalogue; a field-by-field reading is owed.', 'open gap'),
+    ('G14', 'Gardens, potato patches, flax, buckwheat, hedgerows', 'Named in claims as present on the farms; none has a place, so none is drawn.', 'No source places them.', 'open gap'),
+    ('G15', 'Modern trees in the ground photograph', 'The terrain is draped with a 2022 aerial photograph that shows modern woods and hedgerows; the field decals cover them where a field cell is drawn, but a modern tree that stands on a road verge, a fence line or in the town stays in the picture.', 'The prototype terrain texture is fixed.', 'open gap'),
+]

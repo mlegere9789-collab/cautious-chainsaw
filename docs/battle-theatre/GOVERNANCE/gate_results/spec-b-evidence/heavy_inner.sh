@@ -27,3 +27,6 @@ e=$(date +%s.%N)
   python3 -I "$E/summarize_tap.py" tmp/bt-gates/node-suite.tap; } > "$E/node-suite-summary.out" 2>&1
 printf '%s\t%s\texit %s\t%.1f s\t%s\n' "$t0" node_suite "$rc" "$(echo "$e - $s" | bc)" "node --test --test-concurrency=2 app/tests/*.test.mjs" >> "$E/heavy-runs.tsv"
 echo "done $(date -u +%FT%TZ)" >> "$E/heavy-runs.tsv"
+# appended while the job was running (the first attempt of the drill step used only drill_text.LIB and failed on the two usage-search volumes that drill_check reads through drill_text.ROOT; the script now builds a scratch root):
+step drill_check_scratch2 python -I "$E/drill_check_scratch.py"
+echo "done2 $(date -u +%FT%TZ)" >> "$E/heavy-runs.tsv"

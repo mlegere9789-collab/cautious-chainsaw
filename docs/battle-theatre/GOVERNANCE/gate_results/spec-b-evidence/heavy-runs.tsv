@@ -1,0 +1,4 @@
+2026-11-13T19:45:00Z	browser_caps	exit 0	1.8 s	node docs/battle-theatre/GOVERNANCE/gate_results/spec-b-evidence/browser_caps.mjs
+2026-11-13T19:45:02Z	q11_q22_inmemory	exit 0	35.2 s	tmp/bt-gates/venv-astropy/bin/python docs/battle-theatre/GOVERNANCE/gate_results/spec-b-evidence/q11_q22_inmemory.py
+2026-11-13T19:45:37Z	drill_check_scratch	exit 1	45.1 s	python -I docs/battle-theatre/GOVERNANCE/gate_results/spec-b-evidence/drill_check_scratch.py
+2026-11-13T19:46:22Z	check_figures	exit 0	81.4 s	python tools/bt/check_figures.py --quiet

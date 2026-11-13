@@ -200,6 +200,18 @@ test('fixture: a static section ships whole; its pages, scripts, style sheets an
   assert.ok(t.why['app/roster/img/flag.png'].some(w => /roster\.css/.test(w)));
   assert.ok(t.modules.loaded.includes('app/roster/roster.js'));
 });
+test('fixture: an index file OUTSIDE the section that a page of the section loads is followed: the unit files it names ship, the ones it does not name do not', () => {
+  const root = fx('roster-out', r => {
+    put(r, 'app/roster/roster.js', "export const load = () => fetch('../../rosters/data2/INDEX.json').then(r => r.json());\n");
+    put(r, 'rosters/data2/INDEX.json', JSON.stringify({ title: 'Index', units: { u1: 'pa/u1.json', u2: 'pa/u2.json', side: 'more/INDEX2.json' }, missing: 'pa/not-there.json' }));
+    put(r, 'rosters/data2/pa/u1.json', '{"id":"u1"}\n'); put(r, 'rosters/data2/pa/u2.json', '{"id":"u2"}\n'); put(r, 'rosters/data2/pa/unlisted.json', '{"id":"nobody names me"}\n');
+    put(r, 'rosters/data2/more/INDEX2.json', JSON.stringify({ units: ['deeper/u3.json'] })); put(r, 'rosters/data2/more/deeper/u3.json', '{"id":"u3"}\n');
+  }), t = trace({ root, cfg: FIXTURE_CFG }); assert.deepEqual(t.problems, []);
+  for (const f of ['rosters/data2/INDEX.json', 'rosters/data2/pa/u1.json', 'rosters/data2/pa/u2.json', 'rosters/data2/more/INDEX2.json', 'rosters/data2/more/deeper/u3.json']) assert.ok(t.files.includes(f), 'traced: ' + f);
+  assert.ok(!t.files.includes('rosters/data2/pa/unlisted.json'), 'a file no index names is not shipped');
+  assert.ok(t.why['rosters/data2/pa/u1.json'].some(w => /listed in rosters\/data2\/INDEX\.json/.test(w)), JSON.stringify(t.why['rosters/data2/pa/u1.json']));
+  assert.ok(t.notes.some(n => /do not resolve/.test(n) && /pa\/not-there\.json/.test(n)), 'a name that does not resolve is noted: ' + t.notes.join(' | '));
+});
 test('fixture: no section folder, no section (the shell alone still packs)', () => {
   const root = fx('noroster', r => { fs.rmSync(path.join(r, 'app/roster'), { recursive: true }); fs.rmSync(path.join(r, 'rosters'), { recursive: true }); }), t = trace({ root, cfg: FIXTURE_CFG });
   assert.deepEqual(t.problems, []); assert.deepEqual(t.sections, []); assert.ok(!t.files.some(f => f.startsWith('app/roster/') || f.startsWith('rosters/')));
@@ -252,6 +264,14 @@ test('fixture: a build with a copy audit hit never gets the clean zip name; a cl
   assert.equal(hit.clean, false); assert.equal(hit.audit.length, 1); assert.equal(path.basename(hit.zip), `gettysburg-BT-staging-${hit.version}-AUDIT-HITS-1.zip`);
   assert.equal(fs.readFileSync(hit.zip + '.sha256', 'utf8'), `${hit.zipSha256}  ${path.basename(hit.zip)}\n`); assert.ok(!fs.existsSync(path.join(tmp, 'zn-b', `gettysburg-BT-staging-${hit.version}.zip`)), 'no zip with the plain name');
   assert.ok(fs.existsSync(path.join(tmp, 'zn-b/dist/app/data/monuments.json')), 'the dist is still written, so that the hit can be inspected and the real run can use it');
+});
+test('fixture: a new pack removes the zips of earlier builds that failed the audit and keeps every clean one', () => {
+  const dir = path.join(tmp, 'zn-clean-up'); fs.mkdirSync(dir, { recursive: true });
+  const hit1 = pack({ root: fx('cu-1', r => put(r, 'app/data/monuments.json', '{"note":"built by Claude"}\n')), cfg: FIXTURE_CFG, out: path.join(tmp, 'cu-1/dist'), zipDir: dir });
+  const clean = pack({ root: fx('cu-2'), cfg: FIXTURE_CFG, out: path.join(tmp, 'cu-2/dist'), zipDir: dir });
+  assert.ok(!fs.existsSync(hit1.zip) && !fs.existsSync(hit1.zip + '.sha256'), 'the flagged zip of the earlier build is gone'); assert.ok(fs.existsSync(clean.zip));
+  const hit2 = pack({ root: fx('cu-3', r => put(r, 'app/data/monuments.json', '{"note":"written by an agent"}\n')), cfg: FIXTURE_CFG, out: path.join(tmp, 'cu-3/dist'), zipDir: dir });
+  assert.ok(fs.existsSync(clean.zip) && fs.existsSync(clean.zip + '.sha256'), 'a clean zip is never removed'); assert.ok(fs.existsSync(hit2.zip));
 });
 test('fixture: the index page transform refuses a page it does not recognise', () => {
   const root = fx('badindex', r => patch(r, 'app/index.html', 'id="home-link" href="../../../"', 'id="other" href="../../../"'));

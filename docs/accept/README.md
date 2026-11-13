@@ -68,11 +68,11 @@ A `run_suites` summary says what happened in `childEnv` (`{ "httpsProxy": true, 
 names only, neither the proxy address nor a value is ever written), and its second console line says the same (`child environment + NODE_USE_ENV_PROXY, NODE_OPTIONS (extended) (an HTTPS proxy is set)`).
 
 Limits, so nobody reads more into it:
-- A suite started **by hand** (`node tests/t0/pages-fixes.spec.mjs ...`) gets no help: start it through a runner, or set the two variables yourself.
+- A suite started **by hand** (`node tests/t0/pages-fixes.spec.mjs ...`) gets no help: start it through a runner, or set the two variables yourself (and `NODE_OPTIONS=--disable-warning=UNDICI-EHPA`, see below).
 - The runner's own process is not changed. `run_pass.mjs` fetches only from its local servers in-process; Chrome reads the proxy from the environment by itself.
 - Node older than 22.21 (and every 23.x) ignores `NODE_USE_ENV_PROXY`. There the rule still sets it (harmless) but adds no `NODE_OPTIONS` flag: there is no warning to silence, and an old Node refuses a flag it does not know.
   The Node version that decides is the runner's own; a different `node` on the `PATH` of a child is assumed to be the same install (true here: `/usr/local/bin/node` is a link to `/opt/node22/bin/node`).
-- A caller that sets `NODE_USE_ENV_PROXY=1` itself (what this README used to advise for a suite started by hand) keeps its choice, and with it Node's two warning lines in every Node process: the rule leaves what the caller set alone.
+- A caller that sets `NODE_USE_ENV_PROXY=1` itself (the way to run a suite by hand, above) keeps its choice, and with it Node's two warning lines in every Node process: the rule leaves what the caller set alone.
   Set `NODE_OPTIONS=--disable-warning=UNDICI-EHPA` as well when the output of such a run is read by a program.
 - The CA bundle path is the cloud container's. On another machine with a TLS-intercepting proxy set `NODE_EXTRA_CA_CERTS` yourself (it is then kept).
 - Requests of a suite to its own local servers (`127.0.0.1`) stay direct as long as `HTTP_PROXY` is not set or `NO_PROXY` lists them (true on every machine used so far).

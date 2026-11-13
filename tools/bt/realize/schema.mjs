@@ -49,10 +49,11 @@ export const ASSERT = {
   unit_absent:    { units: true, time: true, need: [], opt: ['why_in'] },
   unit_at:        { units: true, time: true, need: ['place'], opt: ['within_m'] },
   unit_moves:     { units: true, time: true, need: [], one: ['from', 'to', 'toward', 'along', 'away_from'], opt: ['min_minutes', 'min_displacement_m', 'min_closing_m', 'within_m'] },
-  unit_activity:  { units: true, time: true, need: ['activities'], opt: ['min_minutes'] },
+  unit_activity:  { units: true, time: true, need: ['activities'], opt: ['min_minutes', 'picture'] },
   unit_arrives:   { units: true, time: true, need: [], opt: ['at_place', 'within_m'] },
   unit_formation: { units: true, time: true, need: ['formation'], opt: [] },
   unit_figures:   { units: true, time: false, need: [], one: ['approx', 'min', 'max'], opt: ['tol_pct'] },
+  structure_exists: { time: false, need: ['words'], opt: [] },
   structure_state: { time: true, need: ['structure'], opt: ['state', 'present', 'visual', 'schedule_row', 'hospital', 'drawn', 'structure_scenario'] },
   work_stage:     { time: true, need: ['work'], opt: ['stage_min', 'stage_max', 'present', 'crew', 'structure_scenario'] },
   battery_guns:   { units: true, time: true, need: [], opt: ['guns_min', 'limbers_min', 'caissons_min', 'horses_min'] },
@@ -65,7 +66,7 @@ export const ASSERT = {
 };
 export const UNIT_TYPES = Object.entries(ASSERT).filter(([, v]) => v.units).map(([k]) => k);
 export const MODES = ['any', 'all'];
-export const ACTIVITY_NAMES = ['march', 'double_quick', 'halt', 'stand', 'rest', 'fire', 'serve_guns', 'gallop', 'build_works', 'camp'];
+export const ACTIVITY_NAMES = ['march', 'double_quick', 'halt', 'stand', 'rest', 'fire', 'serve_guns', 'gallop', 'build_works', 'camp', 'halt_mounted', 'skirmish'];     // the stage's activities (history/contract.mjs ACTIVITIES) and the picture's two more (crowd/anim.mjs)
 
 export const parseSpan = (obj, base) => {          // { at } or { from, to, mode } -> { from, to, mode } in minutes
   const o = obj || base; if (!o) return null;

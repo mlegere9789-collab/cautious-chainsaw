@@ -1,26 +1,31 @@
-"""roster2/1: the compact tracked roster format (reader, writer, verifier).  Standard library only.
+"""roster2/2: the compact tracked roster format (reader, writer, verifier).  Standard library only.
 
 One file per unit:  rosters/data2/<army>/<state>/<unit>.jsonl.gz   (gzip, UTF-8, one JSON value per line)
 
-  line 1          header object   {"f":"roster2/1","u":unit key,"army":"union"|"confederate","st":state code,
-                                   "name":designation,"n":number of row lines}
-  segment object  {"s":source id,"v":volume,"t":text id,"lay":"flow"|"cols"}   every row after it, up to the
-                  next segment object, was read from that source text
-  row array       [name, rank, co, remarks, page, off, rd]
-                    name     name as printed: the OCR tokens of the source text joined by single blanks,
-                             never corrected, never re-ordered
-                    rank     rank as printed on the entry; "^Word" when it is carried from a section heading
-                             above the entry (for example ^Privates); "" when none is printed
-                    co       company code from the nearest heading above: A to M, FS (field and staff),
-                             NCS, BAND, UNAS (unassigned or recruits), "" (not stated)
+  line 1          header object   {"f":"roster2/2","u":unit key,"army":"union"|"confederate","st":state code,
+                                   "name":designation,"n":number of rows}
+  segment object  {"s":source id,"v":volume,"t":text id,"lay":"flow"|"cols"}   starts a segment: every row after it, up to the
+                  next segment object, was read from that source text; a segment resets the carried state below
+  state object    {"co":..,"pg":..,"rk":..}   any subset of the keys; sets the state that the following rows inherit
+                    co   company code from the nearest heading above: A to M, FS (field and staff), NCS, BAND, UNAS (unassigned
+                         or recruits), "" (not stated)
+                    pg   printed page number of the leaf (int, or text such as "xii"; null when the page-number file gives none)
+                    rk   heading above the entries that carries their rank, as printed (for example "PRIVATES."); "" when none
+  row array       [doff, name, rank, remarks, rd]   trailing fields may be left out: [doff, name] (no rank, no remarks),
+                  [doff, name, rank] (no remarks), or all five
+                    doff     character offset of the first character of the name, minus the offset of the previous row of the
+                             segment (the first row: minus 0); may be negative
+                    name     name as printed: the OCR tokens of the source text joined by single blanks, never corrected, never
+                             re-ordered
+                    rank     rank as printed on the entry; "" when the entry prints none (the carried "rk" then applies)
                     remarks  everything else the entry prints, OCR tokens joined by single blanks, in full
-                    page     printed page number of the leaf (int, or text such as "xii"); null when the
-                             page-number file gives none for that leaf
-                    off      character offset of the first character of the name in the source text
-                    rd       offset of the first character of the remarks minus off (0 when remarks is "")
+                    rd       offset of the first character of the remarks minus the offset of the name (may be negative for a table)
+  The reader returns the same 7-field rows as before:  [name, rank, co, remarks, page, off, rd]  where rank is the printed rank,
+  or "^" + rk when the entry prints none and a heading carries one, or "".
 
-No page images, no labels, no corrected names.  A row says only what the source line prints; whether a man
-was at Gettysburg is stated only where the printed remark states it.
+No page images, no labels, no corrected names.  A row says only what the source line prints; whether a man was at Gettysburg is
+stated only where the printed remark states it.  Measured: this form is 19 percent smaller than the earlier roster2/1 (every field
+on every line) on the 26th North Carolina prototype, 3 percent smaller after gzip; the reader still accepts roster2/1 files.
 
 Source text ("text id"): one OCR text file kept under tmp/library/rosters/<source id>/ and pinned by sha256 in
 rosters/data2/sources/<source id>.json.  Kind "ia-hocr-searchtext": the Internet Archive file
@@ -43,7 +48,8 @@ A row that fails V1 or V3 is a defect: it is not locatable and must not be publi
 """
 import gzip, io, json, os, re, hashlib, bisect
 
-FORMAT = 'roster2/1'
+FORMAT = 'roster2/2'
+FORMAT_V1 = 'roster2/1'
 GAP = {'flow': 200, 'cols': None}      # None: bounded by the leaf of the name instead of a character gap
 CO_CODES_NOTE = 'A-M company letter; FS field and staff; NCS non-commissioned staff; BAND; UNAS unassigned or recruits; "" not stated'
 GETTYSBURG_RE = re.compile(r'G[eo][it]{1,3}[yvj]s?[- ]?\s?b[uvn][ri][gqy]h?', re.I)   # OCR-tolerant, used for counts only
@@ -123,15 +129,40 @@ def dumps_line(v):
     return json.dumps(v, ensure_ascii=False, separators=(',', ':'))
 
 
+def _encode_rows(rows):
+    """Rows of the 7-field form -> lines of a segment (state objects and row arrays)."""
+    out, co, pg, rk, prev = [], '', None, '', 0
+    for name, rank, c, rem, page, off, rd in rows:
+        st = {}
+        if c != co:
+            st['co'] = co = c
+        if page != pg:
+            st['pg'] = pg = page
+        want = rank[1:] if rank.startswith('^') else ('' if rank == '' else rk)
+        if want != rk:
+            st['rk'] = rk = want
+        if st:
+            out.append(dumps_line(st))
+        pr = '' if rank.startswith('^') else rank
+        r = [off - prev, name]
+        if rem:
+            r += [pr, rem, rd]
+        elif pr:
+            r += [pr]
+        out.append(dumps_line(r))
+        prev = off
+    return out
+
+
 def write_unit(path, unit_key, army, st, name, segments):
-    """segments: list of (segment dict with s, v, t, lay; list of rows).  Deterministic bytes."""
+    """segments: list of (segment dict with s, v, t, lay; list of 7-field rows).  Deterministic bytes."""
     n = sum(len(rows) for _, rows in segments)
     out = [dumps_line({'f': FORMAT, 'u': unit_key, 'army': army, 'st': st, 'name': name, 'n': n})]
     for seg, rows in segments:
         if seg.get('lay') not in GAP:
             raise ValueError('segment lay must be flow or cols')
         out.append(dumps_line({'s': seg['s'], 'v': str(seg['v']), 't': seg['t'], 'lay': seg['lay']}))
-        out.extend(dumps_line(r) for r in rows)
+        out.extend(_encode_rows(rows))
     raw = ('\n'.join(out) + '\n').encode('utf-8')
     os.makedirs(os.path.dirname(path), exist_ok=True)
     tmp = path + '.tmp'
@@ -145,7 +176,7 @@ def write_unit(path, unit_key, army, st, name, segments):
 # ------------------------------------------------------------------ reader
 
 def read_unit(path):
-    """Returns (header, [(segment, rows)]).  Raises ValueError on any shape defect."""
+    """Returns (header, [(segment, rows)], meta).  Rows are 7-field.  Raises ValueError on any shape defect."""
     with gzip.open(path, 'rb') as f:
         raw = f.read()
     lines = raw.decode('utf-8').split('\n')
@@ -153,23 +184,40 @@ def read_unit(path):
         raise ValueError('file must end with a newline')
     lines.pop()
     head = json.loads(lines[0])
-    if not isinstance(head, dict) or head.get('f') != FORMAT:
-        raise ValueError('line 1 is not a %s header' % FORMAT)
+    if not isinstance(head, dict) or head.get('f') not in (FORMAT, FORMAT_V1):
+        raise ValueError('line 1 is not a roster2 header')
+    v1 = head['f'] == FORMAT_V1
     segs = []
+    co, pg, rk, prev = '', None, '', 0
     for ln, s in enumerate(lines[1:], 2):
         v = json.loads(s)
-        if isinstance(v, dict):
+        if isinstance(v, dict) and 's' in v:
             if not all(k in v for k in ('s', 'v', 't', 'lay')):
                 raise ValueError('line %d: segment needs s, v, t, lay' % ln)
             segs.append((v, []))
+            co, pg, rk, prev = '', None, '', 0
+        elif isinstance(v, dict):
+            if not segs or not set(v) <= {'co', 'pg', 'rk'}:
+                raise ValueError('line %d: state object' % ln)
+            co, pg, rk = v.get('co', co), v.get('pg', pg), v.get('rk', rk)
         elif isinstance(v, list):
             if not segs:
                 raise ValueError('line %d: row before any segment' % ln)
-            if len(v) != 7 or not all(isinstance(v[i], str) for i in (0, 1, 2, 3)) \
-                    or not (v[4] is None or isinstance(v[4], (int, str))) \
-                    or not isinstance(v[5], int) or not isinstance(v[6], int) or not v[0]:
+            if v1:
+                if len(v) != 7 or not all(isinstance(v[i], str) for i in (0, 1, 2, 3)) \
+                        or not (v[4] is None or isinstance(v[4], (int, str))) or not isinstance(v[5], int) or not isinstance(v[6], int) or not v[0]:
+                    raise ValueError('line %d: row shape' % ln)
+                segs[-1][1].append(v)
+                continue
+            if len(v) not in (2, 3, 5) or not isinstance(v[0], int) or not isinstance(v[1], str) or not v[1] \
+                    or (len(v) >= 3 and not isinstance(v[2], str)) or (len(v) == 5 and (not isinstance(v[3], str) or not v[3] or not isinstance(v[4], int))):
                 raise ValueError('line %d: row shape' % ln)
-            segs[-1][1].append(v)
+            off = prev + v[0]
+            prev = off
+            rank = v[2] if len(v) >= 3 else ''
+            if rank == '' and rk:
+                rank = '^' + rk
+            segs[-1][1].append([v[1], rank, co, v[3] if len(v) == 5 else '', pg, off, v[4] if len(v) == 5 else 0])
         else:
             raise ValueError('line %d: not an object or array' % ln)
     n = sum(len(r) for _, r in segs)

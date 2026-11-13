@@ -66,7 +66,7 @@ export function checkManifest(dist) {
 export function readZipDirectory(buf) {
   let e = -1; for (let i = buf.length - 22; i >= Math.max(0, buf.length - 65557); i--) if (buf.readUInt32LE(i) === 0x06054b50) { e = i; break; }
   if (e < 0) throw new Error('no end-of-central-directory record: not a zip');
-  const n = buf.readUInt16LE(e + 10), off = buf.readUInt32LE(e + 16), out = []; let p = off;
+  const n = buf.readUInt16LE(e + 10), off = buf.readUInt32LE(e + 16), out = []; let p = off; Object.defineProperty(out, 'comment', { value: buf.toString('utf8', e + 22, e + 22 + buf.readUInt16LE(e + 20)) });
   for (let i = 0; i < n; i++) { if (buf.readUInt32LE(p) !== 0x02014b50) throw new Error('damaged central directory'); const nl = buf.readUInt16LE(p + 28), xl = buf.readUInt16LE(p + 30), cl = buf.readUInt16LE(p + 32);
     out.push({ name: buf.toString('utf8', p + 46, p + 46 + nl), crc: buf.readUInt32LE(p + 16), packed: buf.readUInt32LE(p + 20), size: buf.readUInt32LE(p + 24) }); p += 46 + nl + xl + cl; }
   return out;
@@ -77,12 +77,17 @@ export function checkZip(zip, dist) {
   const buf = fs.readFileSync(zip); out.bytes = buf.length; out.sha256 = sha256(buf);
   const side = zip + '.sha256'; if (!isFile(side)) out.problems.push('no .sha256 file beside the zip'); else { const w = fs.readFileSync(side, 'utf8').trim().split(/\s+/); if (w[0] !== out.sha256) out.problems.push(`the .sha256 file says ${w[0]}, the zip is ${out.sha256}`); if (w[1] && w[1] !== path.basename(zip)) out.problems.push(`the .sha256 file names ${w[1]}`); }
   let ents = []; try { ents = readZipDirectory(buf); } catch (e) { out.problems.push(e.message); }
-  out.entries = ents.length; const byName = new Map(ents.map(x => [x.name, x])), onDisk = walk(dist).map(f => posix(path.relative(dist, f)));
+  out.entries = ents.length; if (ents.comment) out.problems.push('the zip carries a comment: ' + ents.comment.slice(0, 80)); const byName = new Map(ents.map(x => [x.name, x])), onDisk = walk(dist).map(f => posix(path.relative(dist, f)));
   for (const f of onDisk) { const z = byName.get(f); if (!z) { out.problems.push(`in the dist, not in the zip: ${f}`); continue; } const b = fs.readFileSync(path.join(dist, f)); if (z.size !== b.length) out.problems.push(`size differs in the zip: ${f}`); else if (z.crc !== zlib.crc32(b)) out.problems.push(`content differs in the zip: ${f}`); }
   for (const x of ents) if (!onDisk.includes(x.name)) out.problems.push(`in the zip, not in the dist: ${x.name}`);
   const v = (checkManifest(dist).version || ''); if (v && !new RegExp(`^gettysburg-BT-staging-${v}(-AUDIT-HITS-\\d+)?\\.zip$`).test(path.basename(zip))) out.problems.push(`the zip name does not carry the build version ${v}`);
   try { execFileSync('unzip', ['-tq', zip], { stdio: 'pipe' }); out.unzipTest = 'ok'; } catch (e) { if (e.code === 'ENOENT') out.unzipTest = 'unzip not installed'; else { out.unzipTest = 'FAILED'; out.problems.push('unzip -t failed'); } }
   out.ok = out.problems.length === 0; return out;
+}
+/** Files that are working notes or build leftovers never belong in a shipped folder (README or notes, source maps, logs, backups, dot files): the copy rules cover "README or notes included in the zip" and source maps. */
+export function checkNoNotes(dist) {
+  const bad = walk(dist).map(f => posix(path.relative(dist, f))).filter(f => /(^|\/)(readme|notes?|todo|changelog)(\.[a-z]+)?$/i.test(f) || /\.(md|map|log|orig|bak|tmp|rej|swp)$|~$/i.test(f) || /(^|\/)\.[^/]+$/.test(f));
+  return { ok: bad.length === 0, problems: bad.map(f => 'a notes or leftover file ships: ' + f) };
 }
 /** Every relative import, style-sheet address and page link of the dist's own files exists in the dist (a check of the finished folder, not of the trace). */
 export function checkInternalLinks(dist) {
@@ -185,7 +190,7 @@ const PAGE_GUARD = (page, tag, sink) => {
   page.on('dialog', d => d.dismiss().catch(() => { }));
 };
 /** Visits every page of each section (app/roster, ...), follows links that stay inside the section, presses a few controls, types into a search box. */
-export async function crawlSections(ctx, base, sections, sink, { max = 60, pokes = 6 } = {}) {
+export async function crawlSections(ctx, base, sections, sink, { max = 150, pokes = 6 } = {}) {
   const pages = [], interactions = [], queue = sections.flatMap(s => s.pages.map(p => ({ url: base + '/' + p, prefix: '/' + s.path + '/' }))), seen = new Set();
   while (queue.length && seen.size < max) {
     const { url, prefix } = queue.shift(); const key = url.replace(/#.*$/, ''); if (seen.has(key)) continue; seen.add(key);
@@ -203,7 +208,7 @@ export async function crawlSections(ctx, base, sections, sink, { max = 60, pokes
   return { pages, interactions };
 }
 /** One walk against a served folder. Returns { log, errors, failed, entered, info, steps, ext, crawl, seconds }. */
-export async function runWalk(root, { frames = 20, label = 'run', sections = [], limitMs = 90 * 60 * 1000, query = '', print = s => console.log(s) } = {}) {
+export async function runWalk(root, { frames = 20, label = 'run', sections = [], limitMs = 90 * 60 * 1000, query = '', crawlMax = 150, print = s => console.log(s) } = {}) {
   const t0 = Date.now(), server = await serveDir(root), base = `http://127.0.0.1:${server.port}`, sink = { errors: [], failed: [], origin: base, print: s => print(`  [${label} +${Math.round((Date.now() - t0) / 1000)}s] ${s}`) };
   const res = { label, entered: false, info: {}, steps: [], ext: null, crawl: { pages: [], interactions: [] }, errors: sink.errors, failed: sink.failed }; let br, timer, live = null;
   try {
@@ -219,7 +224,7 @@ export async function runWalk(root, { frames = 20, label = 'run', sections = [],
         res.steps.push({ name: 'Back', ok: !(await page.evaluate(() => !!window.btApp).catch(() => true)) });
       }
       await page.goto('about:blank').catch(() => { }); await page.close().catch(() => { });
-      const present = sections.filter(s => fs.existsSync(path.join(root, s.path))); if (present.length) { sink.print('sections: ' + present.map(s => s.path).join(', ')); res.crawl = await crawlSections(ctx, base, present, sink); }
+      const present = sections.filter(s => fs.existsSync(path.join(root, s.path))); if (present.length) { sink.print('sections: ' + present.map(s => s.path).join(', ')); res.crawl = await crawlSections(ctx, base, present, sink, { max: crawlMax }); }
     })();
     await Promise.race([work, guard]);
   } catch (e) { sink.errors.push({ kind: 'harness', text: String(e.message || e).slice(0, 300) }); res.aborted = String(e.message || e);
@@ -233,7 +238,7 @@ const NOT_RUN = ['a real GPU: no frame time, long task or input delay was measur
   'other visits: ?history=stub, ?ext=off, ?crowd=off, a phone-sized page, a second entry after Back', 'other browsers (Safari, Firefox) and real phones'];
 async function main() {
   const a = process.argv.slice(2), opt = k => { const i = a.indexOf(k); return i >= 0 ? a[i + 1] : undefined; }, has = k => a.includes(k);
-  const frames = +opt('--frames') || 20, query = opt('--query') || '', only = opt('--only'), t0 = Date.now(), print = s => console.log(s); let dist = path.resolve(opt('--dist') || path.join(REPO, 'deliver/bt-staging/dist')), zip = opt('--zip') && path.resolve(opt('--zip')), sourceRoot = path.resolve(opt('--source') || BT);
+  const frames = +opt('--frames') || 20, crawlMax = +opt('--crawl-max') || 150, query = opt('--query') || '', only = opt('--only'), t0 = Date.now(), print = s => console.log(s); let dist = path.resolve(opt('--dist') || path.join(REPO, 'deliver/bt-staging/dist')), zip = opt('--zip') && path.resolve(opt('--zip')), sourceRoot = path.resolve(opt('--source') || BT);
   const save = () => { if (opt('--json')) fs.writeFileSync(path.resolve(opt('--json')), JSON.stringify(rep, null, 1)); };
   const rep = { when: new Date().toISOString(), frames, query, official: !query && frames >= 10, dist, mode: has('--pack') ? 'pack' : 'dist' }; const failures = [], notes = [];
   if (has('--pack')) {
@@ -244,7 +249,8 @@ async function main() {
     if (r.audit.length) { failures.push(`copy audit: ${r.audit.length} hit(s) in the packed files (the zip is named "-AUDIT-HITS-${r.audit.length}")`); for (const h of r.audit) notes.push(`audit hit ${h.file}:${h.line ?? ''} ${h.match}`); }
   }
   if (!zip) { const v = checkManifest(dist).version; const cand = v && fs.existsSync(path.join(REPO, 'deliver')) ? fs.readdirSync(path.join(REPO, 'deliver')).filter(f => f.startsWith(`gettysburg-BT-staging-${v}`) && f.endsWith('.zip')) : []; if (cand.length) zip = path.join(REPO, 'deliver', cand[0]); }
-  rep.static = { manifest: checkManifest(dist), zip: zip ? checkZip(zip, dist) : null, links: checkInternalLinks(dist) };
+  rep.static = { manifest: checkManifest(dist), zip: zip ? checkZip(zip, dist) : null, links: checkInternalLinks(dist), notes: checkNoNotes(dist) };
+  if (!rep.static.notes.ok) failures.push('NOTES in the dist: ' + rep.static.notes.problems.slice(0, 5).join('; '));
   if (!rep.static.manifest.ok) failures.push('MANIFEST: ' + rep.static.manifest.problems.slice(0, 5).join('; '));
   if (!zip) notes.push('no zip was found for this dist: the zip was not checked'); else if (!rep.static.zip.ok) failures.push('ZIP: ' + rep.static.zip.problems.slice(0, 5).join('; '));
   if (!rep.static.links.ok) failures.push('LINKS inside the dist: ' + rep.static.links.problems.slice(0, 5).join('; '));
@@ -255,8 +261,8 @@ async function main() {
     print(rep.ok ? 'STATIC CHECKS PASSED (no browser walk was made: this is NOT the staging verification)' : 'STATIC CHECKS FAILED:\n  ' + failures.join('\n  ')); process.exit(rep.ok ? 0 : 1); }
   const distFiles = new Set(walk(dist).map(f => '/' + posix(path.relative(dist, f)))), sections = trace({ root: sourceRoot }).sections; rep.distFiles = distFiles.size; rep.sections = sections.map(s => `${s.path} (${s.files} files, ${s.pages.length} pages)`);
   let A = null, B = null; rep.failures = failures; rep.notes = notes; save();
-  if (only !== 'source') { print(`run 1/2: the packed dist (${frames} frames per step)`); A = await runWalk(dist, { frames, label: 'dist', sections, query, print }); rep.distRun = A; save(); }
-  if (only !== 'dist') { print(`run 2/2: the source tree${has('--pack') ? ' (the snapshot)' : ''}`); B = await runWalk(sourceRoot, { frames, label: 'source', sections, query, print }); rep.sourceRun = B; save(); }
+  if (only !== 'source') { print(`run 1/2: the packed dist (${frames} frames per step)`); A = await runWalk(dist, { frames, label: 'dist', sections, query, crawlMax, print }); rep.distRun = A; save(); }
+  if (only !== 'dist') { print(`run 2/2: the source tree${has('--pack') ? ' (the snapshot)' : ''}`); B = await runWalk(sourceRoot, { frames, label: 'source', sections, query, crawlMax, print }); rep.sourceRun = B; save(); }
   rep.distRun = A; rep.sourceRun = B;
   if (A) {
     const c = compareRuns(A, B, distFiles); failures.push(...c.failures); notes.push(...c.notes); rep.compare = { missingInDist: c.missingInDist, errorsOnlyInDist: c.errorsOnlyInDist, errorsInBoth: c.errorsInBoth };
@@ -264,6 +270,7 @@ async function main() {
     notes.push(`${rep.shippedNeverRequested.length} of ${distFiles.size} shipped files were not requested by this walk (they ship because the trace found a reference; the list is in the JSON report)`);
   } else failures.push('the packed dist was not walked (--only source)');
   if (!rep.official) notes.push(`NOT THE OFFICIAL RUN: ${query ? 'the address carries ?' + query + ' (a development shortcut)' : 'fewer than 10 frames per step'}; do not quote this result as the staging verification`);
+  { const again = checkManifest(dist); if (!again.ok || again.version !== rep.static.manifest.version) failures.push('the dist changed while the walk was running (another pack wrote into it): the result belongs to no build; run again'); }
   rep.failures = failures; rep.notes = notes; rep.notRun = NOT_RUN; rep.ok = failures.length === 0 && !!A && !!B; rep.minutes = Math.round((Date.now() - t0) / 600) / 100;
   if (opt('--json')) fs.writeFileSync(path.resolve(opt('--json')), JSON.stringify(rep, null, 1));
   const brief = r => r && { requests: r.requests, distinctUrls: Object.keys(r.log).length, nonOk: Object.entries(r.log).filter(([, s]) => !okStatus(s)), entered: r.entered, info: r.info, steps: r.steps.map(s => `${s.ok ? 'ok  ' : 'FAIL'} ${s.name}${s.ok ? '' : ': ' + s.error}`), ext: r.ext && r.ext.modules.map(m => `${m.path}: ${m.state}`), crawlPages: r.crawl.pages.length, errors: r.errors.length, seconds: r.seconds, aborted: r.aborted };

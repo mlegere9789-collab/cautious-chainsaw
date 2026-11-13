@@ -3,7 +3,7 @@
 //   node --test tests/bt-pack/verify.test.mjs            (the last test starts a browser for a few seconds: run it through tools/horde/bench.sh, or set BT_PACK_NO_BROWSER=1 to skip it)
 import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 import { pack } from '../../tools/bt/pack_theatre.mjs';
-import { parseHeaders, headersFor, serveDir, logOf, checkManifest, checkZip, checkInternalLinks, readZipDirectory, compareRuns, snapshotTree, SNAPSHOT_EXCLUDE, walk, crawlSections } from '../../tools/bt/verify_staging.mjs';
+import { parseHeaders, headersFor, serveDir, logOf, checkManifest, checkZip, checkNoNotes, checkInternalLinks, readZipDirectory, compareRuns, snapshotTree, SNAPSHOT_EXCLUDE, walk, crawlSections } from '../../tools/bt/verify_staging.mjs';
 import { makeFixture, FIXTURE_CFG } from './fixture.mjs';
 
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'btverify-')); test.after(() => fs.rmSync(tmp, { recursive: true, force: true }));
@@ -49,6 +49,13 @@ test('link check of the finished folder: every relative import, style-sheet addr
   fs.writeFileSync(path.join(p.out, 'app/roster/index.html'), '<html><body><a href="../../../">main site</a></body></html>'); assert.ok(checkInternalLinks(p.out).problems.some(x => /leaves the dist/.test(x)));
 });
 
+test('no notes in the dist: a README, a source map, a log, a backup or a dot file fails; the dist of a pack passes; a zip comment fails the zip check', () => {
+  const p = build('nn'); assert.deepEqual(checkNoNotes(p.out).problems, []);
+  for (const f of ['README.md', 'app/src/main.mjs.map', 'app/notes.txt', 'app/data/old.json.bak', '.hidden', 'app/debug.log']) { fs.writeFileSync(path.join(p.out, f), 'x'); assert.ok(checkNoNotes(p.out).problems.some(x => x.endsWith(f)), f); fs.rmSync(path.join(p.out, f)); }
+  assert.equal(checkNoNotes(p.out).ok, true);
+  const buf = Buffer.from(fs.readFileSync(p.zip)), withComment = Buffer.concat([buf.subarray(0, buf.length - 2), Buffer.from([4, 0]), Buffer.from('note')]); fs.writeFileSync(path.join(tmp, 'commented.zip'), withComment); fs.copyFileSync(p.zip + '.sha256', path.join(tmp, 'commented.zip.sha256'));
+  assert.ok(checkZip(path.join(tmp, 'commented.zip'), p.out).problems.some(x => /carries a comment/.test(x)));
+});
 // ---- the comparison of the two runs
 const base = () => ({ log: { '/app/index.html': 200, '/app/src/main.mjs': 200, '/app/data/a.json': 200 }, errors: [], failed: [], entered: true, info: { sound: true }, steps: [{ name: 'sound starts', ok: true }, { name: 'play at 2x', ok: true }], ext: { index: 'read', modules: [{ path: 'monuments.mjs', state: 'running' }] }, crawl: { pages: [] } });
 const D = new Set(['/app/index.html', '/app/src/main.mjs', '/app/data/a.json', '/app/data/b.json', '/index.html']);

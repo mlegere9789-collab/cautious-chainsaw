@@ -1,5 +1,6 @@
 {
- "_doc": "Registered camera-pose assumptions for Q16 (one entry per photograph view). Nothing here is a measured 1863 camera position: every position, heading and focal length is an ASSUMPTION with its basis and tier. position: anchor = gazetteer place (app/data/gazetteer.json, tier inferred, sigma_m shown), snap = optional rule applied on the modern DEM (summit = highest DEM cell within snap_r_m of the anchor), offset_m = [east, north] metres. heading: toward = bearing from the camera to a gazetteer place; or fixed deg. fov_h_deg: the focal length is NOT documented in any source read; 40 deg horizontal is a generic view-camera assumption (plausible-procedural), the report states the effect of +-10 deg. agl_m: camera height above DEM, 1.6 m (tripod, assumption). The DEM is modern bare ground, not 1863 land cover (no trees, crops, 1863 contour corrections).",
+ "_doc": "Registered camera poses for gate Q16 (schema 2). Nothing here is a measured 1863 camera position. Per pose: statement_ids point into position_statements.json (what the sources literally say); position.tier is inferred (a statement plus mapped objects fix it to about the sigma_m given) or plausible-procedural (an assumption); there is no documented-position tier in use because no source gives a coordinate. fitted_to_photograph = a number (the distance) was taken from the photograph itself, so a match there is not an independent test. The DEM is modern bare ground (no 1863 trees, rocks, crops); heights are the model's, 1.6 m above ground. A person's verdict per pose is in verdicts.json.",
+ "schema": 2,
  "defaults": {
   "fov_h_deg": 40,
   "agl_m": 1.6,
@@ -8,217 +9,695 @@
  "poses": [
   {
    "id": "P01",
-   "photo_key": "LOC2018666303-L",
    "loc_id": "2018666303",
-   "caption_basis": "LOC title: 'The center of the Federal position viewed from Little Round Top' (Gardner)",
+   "photo": {
+    "file": "tmp/photomatch/img/LOC2018666303-L_3200.jpg",
+    "resource": "cwpb.01631 (left half; 3200-px working copy of the archive.org scan of the same negative)",
+    "crop": [
+     0.028,
+     0.081,
+     0.975,
+     0.9
+    ],
+    "crop_basis": "print area read by eye from the image (fractions of the file); the first run did the same for P01, P03, P04, P05"
+   },
+   "statement_ids": [
+    "PS-NPS-CLRLRT-405",
+    "PS-NPS-CP3-29",
+    "PS-TN-LRT2-DIR",
+    "PS-TN-LRT2-NOW",
+    "PS-LOC-2018666303-T"
+   ],
    "position": {
-    "anchor": "GZ-009",
+    "anchor": "MON-101",
     "snap": "summit",
-    "snap_r_m": 150,
-    "tier": "plausible-procedural",
-    "basis": "caption names Little Round Top; the exact tripod spot is not stated in any source read"
+    "snap_r_m": 25,
+    "tier": "inferred",
+    "sigma_m": 40,
+    "basis": "The NPS places the camera on the summit / crest of Little Round Top (Little Round Top CLR Fig. 4.05; Common Pride vol. 3 p. 452; Then-And-Now). The summit is a rock outcrop about 100 m long; the statue of Warren (monument list no. 101, on the summit boulder) stands on it. Coordinates = highest DEM cell within 25 m of the statue; the exact tripod spot on the outcrop is not published."
    },
    "heading": {
-    "toward": "GZ-007",
-    "tier": "plausible-procedural",
-    "basis": "caption names the Federal centre; The Angle taken as its gazetteer stand-in (a Cemetery Ridge point, not a documented camera target)"
+    "toward": "GZ-008",
+    "offset_deg": 4,
+    "tier": "inferred",
+    "basis": "NPS: looking northward; Ziegler's Grove dominates the horizon at the left centre (Common Pride p. 452). Heading = bearing to the gazetteer centre of Ziegler's Grove plus 4 degrees (one tenth of the assumed 40-degree field) so that the grove falls left of centre; the gazetteer centre carries sigma 221 m."
    },
-   "photo_crop_1600": [
-    45,
-    130,
-    1560,
-    1440
+   "fov": {
+    "h_deg": 40,
+    "tier": "plausible-procedural",
+    "basis": "the lens and plate of the exposure are not documented in any source read; 40 degrees horizontal is a generic view-camera assumption; renders at 30 and 50 degrees are made for every pose"
+   },
+   "staged_flag": false,
+   "fitted_to_photograph": false,
+   "landmarks": [
+    "STR-CODORI-HOUSE1",
+    "MON-505",
+    "GZ-008",
+    "GZ-003",
+    "STR-PATTERSON-HOUSE1",
+    "MON-46",
+    "STR-GWEIKERT-HOUSE1",
+    "STR-TROSTLE-HOUSE1"
    ],
-   "photo_horizon_frac": 0.4
+   "note": "The NPS names Codori Grove, the Copse of Trees, the tree at the head of Brien Lane, Ziegler's Grove, Cemetery Hill and Patterson on its annotated plate (Common Pride vol. 3, printed p. 453, read from the page image); the model stand-ins are the Codori house, the High Water Mark monument (the Copse), the Ziegler's Grove gazetteer centre, the Cemetery Hill gazetteer centre and the Patterson farmstead symbols."
   },
   {
    "id": "P03",
-   "photo_key": "LOC2018670702-L",
    "loc_id": "2018670702",
-   "caption_basis": "LOC title: 'The cemetery gatehouse' (Gardner)",
+   "photo": {
+    "file": "tmp/photomatch/img/LOC2018670702-L_3200.jpg",
+    "resource": "cwpb.01642 (left half; working copy of the archive.org scan)",
+    "crop": [
+     0.059,
+     0.057,
+     0.978,
+     0.973
+    ],
+    "crop_basis": "print area read by eye from the image (fractions of the file); the first run did the same for P01, P03, P04, P05"
+   },
+   "statement_ids": [
+    "PS-LOC-2018666300-T"
+   ],
    "position": {
-    "anchor": "GZ-004",
+    "anchor": "STR-TOWN-GATEHOUSE",
+    "relative": {
+     "bearing_deg": 58,
+     "width_fraction": 0.6
+    },
+    "tier": "plausible-procedural",
+    "sigma_m": 40,
+    "basis": "No source gives the side or distance. The gatehouse facade (long axis bearing 148 degrees) faces the Baltimore Pike, so the camera is taken in front of it at bearing 58 degrees from the building; the distance is derived from the apparent width of the facade in the photograph (0.60 of the frame, read by eye): the distance is therefore FITTED to this photograph."
+   },
+   "heading": {
+    "toward": "STR-TOWN-GATEHOUSE",
+    "tier": "inferred",
+    "basis": "the subject is the gatehouse itself"
+   },
+   "fov": {
+    "h_deg": 40,
+    "tier": "plausible-procedural",
+    "basis": "the lens and plate of the exposure are not documented in any source read; 40 degrees horizontal is a generic view-camera assumption; renders at 30 and 50 degrees are made for every pose"
+   },
+   "staged_flag": false,
+   "fitted_to_photograph": true
+  },
+  {
+   "id": "P04",
+   "loc_id": null,
+   "photo": {
+    "file": "tmp/photomatch/img/MET268204_1600.jpg",
+    "resource": "MET268204 (Metropolitan Museum programme item, archive.org copy; not a Library of Congress record)",
+    "crop": [
+     0.0156,
+     0.0162,
+     0.9844,
+     0.987
+    ],
+    "crop_basis": "print area read by eye from the image (fractions of the file); the first run did the same for P01, P03, P04, P05"
+   },
+   "statement_ids": [],
+   "position": {
+    "anchor": "GZ-073",
+    "offset_m": [
+     0,
+     0
+    ],
+    "snap": "summit",
+    "snap_r_m": 200,
+    "tier": "plausible-procedural",
+    "basis": "'from the West' fixes a general side of the town only; Seminary Ridge is a guess for the standpoint",
+    "sigma_m": 500
+   },
+   "heading": {
+    "toward": "GZ-072",
+    "tier": "inferred",
+    "basis": "toward the borough, from the caption"
+   },
+   "fov": {
+    "h_deg": 40,
+    "tier": "plausible-procedural",
+    "basis": "the lens and plate of the exposure are not documented in any source read; 40 degrees horizontal is a generic view-camera assumption; renders at 30 and 50 degrees are made for every pose"
+   },
+   "staged_flag": false,
+   "fitted_to_photograph": false,
+   "note": "carried over unchanged from the first run (2026-11-11); not a catalogued LOC record"
+  },
+  {
+   "id": "P05",
+   "loc_id": null,
+   "photo": {
+    "file": "tmp/photomatch/img/MET268205_1600.jpg",
+    "resource": "MET268205 (Metropolitan Museum programme item, archive.org copy; not a Library of Congress record)",
+    "crop": [
+     0.0156,
+     0.0125,
+     0.9844,
+     0.9917
+    ],
+    "crop_basis": "print area read by eye from the image (fractions of the file); the first run did the same for P01, P03, P04, P05"
+   },
+   "statement_ids": [],
+   "position": {
+    "anchor": "GZ-073",
+    "offset_m": [
+     0,
+     0
+    ],
+    "snap": "summit",
+    "snap_r_m": 200,
+    "tier": "plausible-procedural",
+    "basis": "as P04",
+    "sigma_m": 500
+   },
+   "heading": {
+    "toward": "GZ-072",
+    "tier": "inferred",
+    "basis": "toward the borough, from the caption"
+   },
+   "fov": {
+    "h_deg": 40,
+    "tier": "plausible-procedural",
+    "basis": "the lens and plate of the exposure are not documented in any source read; 40 degrees horizontal is a generic view-camera assumption; renders at 30 and 50 degrees are made for every pose"
+   },
+   "staged_flag": false,
+   "fitted_to_photograph": false,
+   "note": "carried over unchanged from the first run (2026-11-11); not a catalogued LOC record"
+  },
+  {
+   "id": "P06",
+   "loc_id": "2014646001",
+   "photo": {
+    "file": "tmp/photomatch/loc/ppmsca.35051_u4096.jpg",
+    "resource": "ppmsca.35051 (master TIFF, 4096-px working copy)",
+    "crop": [
+     0.02,
+     0.03,
+     0.985,
+     0.97
+    ],
+    "crop_basis": "print area read by eye from the image (fractions of the file); the first run did the same for P01, P03, P04, P05"
+   },
+   "statement_ids": [
+    "PS-LOC-2014646001-N"
+   ],
+   "position": {
+    "anchor": "MON-247",
+    "offset_m": [
+     25,
+     0
+    ],
+    "tier": "plausible-procedural",
+    "sigma_m": 150,
+    "basis": "Title: from Cemetery Hill; Gardner's caption: the road on the left is the Baltimore Pike. Camera taken on East Cemetery Hill at the Wiedrich battery monument plus 25 m east so that the pike lies to the left when looking toward the town; no source gives the spot."
+   },
+   "heading": {
+    "toward": "GZ-072",
+    "tier": "inferred",
+    "basis": "toward the borough (caption: Gettysburg from Cemetery Hill); gazetteer sigma 544 m"
+   },
+   "fov": {
+    "h_deg": 40,
+    "tier": "plausible-procedural",
+    "basis": "the lens and plate of the exposure are not documented in any source read; 40 degrees horizontal is a generic view-camera assumption; renders at 30 and 50 degrees are made for every pose"
+   },
+   "staged_flag": false,
+   "fitted_to_photograph": false,
+   "landmarks": [
+    "GZ-072",
+    "GZ-002",
+    "GZ-003",
+    "GZ-073"
+   ]
+  },
+  {
+   "id": "P07",
+   "loc_id": "2018671576",
+   "photo": {
+    "file": "tmp/photomatch/loc/cwpb.00084_u4096.jpg",
+    "resource": "cwpb.00084 (master TIFF, 4096-px working copy; the frame holds a stereo pair: left view used)",
+    "crop": [
+     0.04,
+     0.08,
+     0.49,
+     0.92
+    ],
+    "crop_basis": "print area read by eye from the image (fractions of the file); the first run did the same for P01, P03, P04, P05"
+   },
+   "statement_ids": [
+    "PS-LOC-2018671576-N"
+   ],
+   "position": {
+    "anchor": "GZ-003",
+    "snap": "summit",
+    "snap_r_m": 100,
+    "tier": "plausible-procedural",
+    "sigma_m": 250,
+    "basis": "Negative sleeve: Gettysburg from the Cemetery, July 1863; which cemetery is not stated; highest DEM cell within 100 m of the Cemetery Hill gazetteer centre."
+   },
+   "heading": {
+    "toward": "GZ-072",
+    "tier": "inferred",
+    "basis": "toward the borough (title)"
+   },
+   "fov": {
+    "h_deg": 40,
+    "tier": "plausible-procedural",
+    "basis": "the lens and plate of the exposure are not documented in any source read; 40 degrees horizontal is a generic view-camera assumption; renders at 30 and 50 degrees are made for every pose"
+   },
+   "staged_flag": false,
+   "fitted_to_photograph": false,
+   "landmarks": [
+    "GZ-072",
+    "GZ-002",
+    "GZ-003",
+    "GZ-073"
+   ]
+  },
+  {
+   "id": "P08",
+   "loc_id": "2012647712",
+   "photo": {
+    "file": "tmp/photomatch/loc/ppmsca.32846_v.jpg",
+    "resource": "ppmsca.32846",
+    "crop": [
+     0.03,
+     0.04,
+     0.97,
+     0.96
+    ],
+    "crop_basis": "print area read by eye from the image (fractions of the file); the first run did the same for P01, P03, P04, P05"
+   },
+   "statement_ids": [
+    "PS-LOC-2012647712-T"
+   ],
+   "position": {
+    "anchor": "MON-247",
+    "tier": "inferred",
+    "sigma_m": 40,
+    "basis": "Title: View taken from Cemetery Hill at about position of right gun of Wiedrich's Battery. The camera is placed at the Wiedrich battery monument on East Cemetery Hill (monument list no. 247); the right gun's own position is not published."
+   },
+   "heading": {
+    "fixed_deg": 45,
+    "tier": "plausible-procedural",
+    "basis": "the title gives no direction; 45 degrees (north-east, toward the ground the Louisiana brigade crossed) is a placeholder assumption (the record's summary mentions a church, citing Frassanito: lead only, not used)"
+   },
+   "fov": {
+    "h_deg": 40,
+    "tier": "plausible-procedural",
+    "basis": "the lens and plate of the exposure are not documented in any source read; 40 degrees horizontal is a generic view-camera assumption; renders at 30 and 50 degrees are made for every pose"
+   },
+   "staged_flag": false,
+   "fitted_to_photograph": false,
+   "landmarks": [
+    "GZ-072",
+    "GZ-002",
+    "GZ-003"
+   ]
+  },
+  {
+   "id": "P09",
+   "loc_id": "2018666302",
+   "photo": {
+    "file": "tmp/photomatch/loc/cwpb.04001_v.jpg",
+    "resource": "cwpb.04001",
+    "crop": [
+     0.02,
+     0.03,
+     0.98,
+     0.97
+    ],
+    "crop_basis": "print area read by eye from the image (fractions of the file); the first run did the same for P01, P03, P04, P05"
+   },
+   "statement_ids": [
+    "PS-LOC-2018666302-T"
+   ],
+   "position": {
+    "anchor": "MON-101",
+    "snap": "summit",
+    "snap_r_m": 25,
     "offset_m": [
      0,
      -35
     ],
     "tier": "plausible-procedural",
-    "basis": "photographer stood some distance from the Evergreen Cemetery gatehouse; distance and side not stated in the caption, 35 m south is a guess"
-   },
-   "heading": {
-    "toward": "GZ-004",
-    "tier": "inferred",
-    "basis": "the subject is the gatehouse itself"
-   },
-   "photo_crop_1600": [
-    95,
-    90,
-    1565,
-    1540
-   ]
-  },
-  {
-   "id": "P04",
-   "photo_key": "MET268204",
-   "loc_id": null,
-   "caption_basis": "Met/archive.org title 'Gettysburg from the West' (attribution in the item: O'Sullivan; date 1863)",
-   "position": {
-    "anchor": "GZ-073",
-    "offset_m": [
-     0,
-     0
-    ],
-    "snap": "summit",
-    "snap_r_m": 200,
-    "tier": "plausible-procedural",
-    "basis": "'from the West' fixes a general side of the town only; Seminary Ridge is a guess for the standpoint"
-   },
-   "heading": {
-    "toward": "GZ-072",
-    "tier": "inferred",
-    "basis": "toward the borough, from the caption"
-   },
-   "photo_crop_1600": [
-    25,
-    20,
-    1575,
-    1215
-   ],
-   "photo_horizon_frac": 0.38
-  },
-  {
-   "id": "P05",
-   "photo_key": "MET268205",
-   "loc_id": null,
-   "caption_basis": "Met/archive.org title 'Gettysburg from the West' (attribution in the item: Brady; date 1863)",
-   "position": {
-    "anchor": "GZ-073",
-    "offset_m": [
-     0,
-     0
-    ],
-    "snap": "summit",
-    "snap_r_m": 200,
-    "tier": "plausible-procedural",
-    "basis": "as P04"
-   },
-   "heading": {
-    "toward": "GZ-072",
-    "tier": "inferred",
-    "basis": "toward the borough, from the caption"
-   },
-   "photo_crop_1600": [
-    25,
-    15,
-    1575,
-    1190
-   ],
-   "photo_horizon_frac": 0.38
-  },
-  {
-   "id": "P06",
-   "photo_key": null,
-   "loc_id": "2014646001",
-   "caption_basis": "LOC title: 'View of Gettysburg from Cemetery Hill' (O'Sullivan)",
-   "position": {
-    "anchor": "GZ-003",
-    "snap": "summit",
-    "snap_r_m": 150,
-    "tier": "plausible-procedural",
-    "basis": "caption names Cemetery Hill"
-   },
-   "heading": {
-    "toward": "GZ-072",
-    "tier": "inferred",
-    "basis": "toward the borough, from the caption"
-   }
-  },
-  {
-   "id": "P07",
-   "photo_key": null,
-   "loc_id": "2018671576",
-   "caption_basis": "LOC title: 'Gettysburg from the cemetery' (Gibson)",
-   "position": {
-    "anchor": "GZ-003",
-    "snap": "summit",
-    "snap_r_m": 150,
-    "tier": "plausible-procedural",
-    "basis": "caption names the cemetery"
-   },
-   "heading": {
-    "toward": "GZ-072",
-    "tier": "inferred",
-    "basis": "toward the borough, from the caption"
-   }
-  },
-  {
-   "id": "P08",
-   "photo_key": null,
-   "loc_id": "2012647712",
-   "caption_basis": "LOC title: 'Scene of the charge of the Louisiana Tigers. View taken from Cemetery Hill at about position of right gun of Wiedrich's Battery'",
-   "position": {
-    "anchor": "GZ-005",
-    "snap": "summit",
-    "snap_r_m": 150,
-    "tier": "plausible-procedural",
-    "basis": "caption states East Cemetery Hill (Wiedrich's battery); the right gun's own coordinates are not in the repository"
-   },
-   "heading": {
-    "fixed_deg": 45,
-    "toward": null,
-    "tier": "plausible-procedural",
-    "basis": "caption gives no direction; 45 deg (north-east, toward the ground the attack crossed) is a placeholder assumption"
-   }
-  },
-  {
-   "id": "P09",
-   "photo_key": null,
-   "loc_id": "2018666302",
-   "caption_basis": "LOC title: 'Breastworks on Little Round Top; Round Top in distance' (O'Sullivan)",
-   "position": {
-    "anchor": "GZ-009",
-    "snap": "summit",
-    "snap_r_m": 150,
-    "tier": "plausible-procedural",
-    "basis": "caption names Little Round Top"
+    "sigma_m": 60,
+    "basis": "Title: breastworks on Little Round Top; Round Top in distance. The NPS puts the 1863 fortifications on the southern slope (Then-And-Now, Little Round Top no. 3). Camera at the summit statue point moved 35 m south (assumption)."
    },
    "heading": {
     "toward": "GZ-010",
     "tier": "inferred",
-    "basis": "toward Big Round Top, from the caption"
-   }
-  }
- ],
- "no_pose": [
-  {
-   "loc_id": "2018670894",
-   "reason": "Trostle's barn view: caption names the barn, not the camera spot or direction"
+    "basis": "toward Big Round Top (title: Round Top in distance); gazetteer sigma 692 m"
+   },
+   "fov": {
+    "h_deg": 40,
+    "tier": "plausible-procedural",
+    "basis": "the lens and plate of the exposure are not documented in any source read; 40 degrees horizontal is a generic view-camera assumption; renders at 30 and 50 degrees are made for every pose"
+   },
+   "staged_flag": false,
+   "fitted_to_photograph": false,
+   "landmarks": [
+    "GZ-010"
+   ]
   },
   {
+   "id": "P11",
+   "loc_id": "2018670708",
+   "photo": {
+    "file": "tmp/photomatch/loc/cwpb.01654_v.jpg",
+    "resource": "cwpb.01654 (left half)",
+    "crop": [
+     0.03,
+     0.05,
+     0.97,
+     0.95
+    ],
+    "crop_basis": "print area read by eye from the image (fractions of the file); the first run did the same for P01, P03, P04, P05"
+   },
+   "statement_ids": [
+    "PS-LOC-2018670708-N"
+   ],
+   "position": {
+    "anchor": "MON-101",
+    "snap": "summit",
+    "snap_r_m": 25,
+    "offset_m": [
+     0,
+     -35
+    ],
+    "tier": "plausible-procedural",
+    "sigma_m": 60,
+    "basis": "Negative sleeve: Big Round Top from entrenchments on Little Round Top. Same assumed spot as P09 (the entrenchments are on the southern slope: NPS)."
+   },
+   "heading": {
+    "toward": "GZ-010",
+    "tier": "inferred",
+    "basis": "toward Big Round Top (caption)"
+   },
+   "fov": {
+    "h_deg": 40,
+    "tier": "plausible-procedural",
+    "basis": "the lens and plate of the exposure are not documented in any source read; 40 degrees horizontal is a generic view-camera assumption; renders at 30 and 50 degrees are made for every pose"
+   },
+   "staged_flag": false,
+   "fitted_to_photograph": false,
+   "landmarks": [
+    "GZ-010"
+   ]
+  },
+  {
+   "id": "P12",
+   "loc_id": "2012647707",
+   "photo": {
+    "file": "tmp/photomatch/loc/ppmsca.32841_v.jpg",
+    "resource": "ppmsca.32841",
+    "crop": [
+     0.03,
+     0.03,
+     0.97,
+     0.97
+    ],
+    "crop_basis": "print area read by eye from the image (fractions of the file); the first run did the same for P01, P03, P04, P05"
+   },
+   "statement_ids": [
+    "PS-LOC-2012647707-T"
+   ],
+   "position": {
+    "anchor": "MON-101",
+    "snap": "summit",
+    "snap_r_m": 25,
+    "offset_m": [
+     0,
+     -35
+    ],
+    "tier": "plausible-procedural",
+    "sigma_m": 60,
+    "basis": "Title: temporary entrenchments on Little Round Top, Big Round Top in the background. Same assumed spot as P09."
+   },
+   "heading": {
+    "toward": "GZ-010",
+    "tier": "inferred",
+    "basis": "toward Big Round Top (title)"
+   },
+   "fov": {
+    "h_deg": 40,
+    "tier": "plausible-procedural",
+    "basis": "the lens and plate of the exposure are not documented in any source read; 40 degrees horizontal is a generic view-camera assumption; renders at 30 and 50 degrees are made for every pose"
+   },
+   "staged_flag": false,
+   "fitted_to_photograph": false,
+   "landmarks": [
+    "GZ-010"
+   ]
+  },
+  {
+   "id": "P17",
    "loc_id": "2018666297",
-   "reason": "Lee headquarters (Thompson house): building is mapped (STR-TOWN-THOMPSON_HOUSE) but camera side and distance not stated"
+   "photo": {
+    "file": "tmp/photomatch/loc/cwpb.01652_v.jpg",
+    "resource": "cwpb.01652 (left half)",
+    "crop": [
+     0.03,
+     0.05,
+     0.97,
+     0.95
+    ],
+    "crop_basis": "print area read by eye from the image (fractions of the file); the first run did the same for P01, P03, P04, P05"
+   },
+   "statement_ids": [
+    "PS-NPS-CLR1D-151",
+    "PS-LOC-2018666297-T"
+   ],
+   "position": {
+    "anchor": "STR-TOWN-THOMPSON_HOUSE",
+    "relative": {
+     "bearing_deg": 200,
+     "width_fraction": 0.6
+    },
+    "tier": "plausible-procedural",
+    "sigma_m": 50,
+    "basis": "NPS: looking north across the turnpike from the James Thompson house (south of the pike). Camera south-south-west of the Thompson house (bearing 200 degrees from the house, perpendicular to its long axis 110 degrees). The distance is derived from the apparent width of the building in the photograph (0.60 of the frame, read by eye): FITTED to this photograph."
+   },
+   "heading": {
+    "toward": "STR-TOWN-THOMPSON_HOUSE",
+    "tier": "inferred",
+    "basis": "NPS: looking north at the house"
+   },
+   "fov": {
+    "h_deg": 40,
+    "tier": "plausible-procedural",
+    "basis": "the lens and plate of the exposure are not documented in any source read; 40 degrees horizontal is a generic view-camera assumption; renders at 30 and 50 degrees are made for every pose"
+   },
+   "staged_flag": false,
+   "fitted_to_photograph": true
   },
   {
-   "loc_id": "2018666301",
-   "reason": "'View of Little Round Top': camera spot not stated in the caption"
+   "id": "P18",
+   "loc_id": "2018666296",
+   "photo": {
+    "file": "tmp/photomatch/loc/cwpb.00887_v.jpg",
+    "resource": "cwpb.00887",
+    "crop": [
+     0.03,
+     0.04,
+     0.97,
+     0.94
+    ],
+    "crop_basis": "print area read by eye from the image (fractions of the file); the first run did the same for P01, P03, P04, P05"
+   },
+   "statement_ids": [
+    "PS-TN-BF5",
+    "PS-LOC-2018666296-T"
+   ],
+   "position": {
+    "anchor": "STR-LEISTER-HOUSE1",
+    "relative": {
+     "bearing_deg": 200,
+     "width_fraction": 0.12
+    },
+    "tier": "plausible-procedural",
+    "sigma_m": 50,
+    "basis": "NPS Then-And-Now (Meade's headquarters): the picture looks north along the Taneytown Road toward the Leister house. Camera south-south-west of the house along the road line. The distance is derived from the apparent width of the building in the photograph (0.12 of the frame, read by eye): FITTED to this photograph."
+   },
+   "heading": {
+    "toward": "STR-LEISTER-HOUSE1",
+    "tier": "inferred",
+    "basis": "NPS: looks north along the Taneytown Road to the house"
+   },
+   "fov": {
+    "h_deg": 40,
+    "tier": "plausible-procedural",
+    "basis": "the lens and plate of the exposure are not documented in any source read; 40 degrees horizontal is a generic view-camera assumption; renders at 30 and 50 degrees are made for every pose"
+   },
+   "staged_flag": false,
+   "fitted_to_photograph": true
   },
   {
+   "id": "P19",
    "loc_id": "2018666298",
-   "reason": "Bryan house: camera spot not stated"
+   "photo": {
+    "file": "tmp/photomatch/loc/cwpb.01860_v.jpg",
+    "resource": "cwpb.01860 (left half)",
+    "crop": [
+     0.02,
+     0.03,
+     0.97,
+     0.97
+    ],
+    "crop_basis": "print area read by eye from the image (fractions of the file); the first run did the same for P01, P03, P04, P05"
+   },
+   "statement_ids": [
+    "PS-NPS-BRIEN-9",
+    "PS-LOC-2018666298-T"
+   ],
+   "position": {
+    "anchor": "STR-BRYAN-HOUSE1",
+    "relative": {
+     "bearing_deg": 110,
+     "width_fraction": 0.5
+    },
+    "tier": "plausible-procedural",
+    "sigma_m": 50,
+    "basis": "NPS Brien Farm report: one Brady-staff photograph was taken east of the Brien house looking west and shows the east side and most of the south front: camera east-south-east of the house (bearing 110 degrees). Whether record 2018666298 is that photograph is NOT established (caption only). The distance is derived from the apparent width of the building in the photograph (0.50 of the frame, read by eye): FITTED to this photograph."
+   },
+   "heading": {
+    "toward": "STR-BRYAN-HOUSE1",
+    "tier": "inferred",
+    "basis": "NPS: looking west at the house"
+   },
+   "fov": {
+    "h_deg": 40,
+    "tier": "plausible-procedural",
+    "basis": "the lens and plate of the exposure are not documented in any source read; 40 degrees horizontal is a generic view-camera assumption; renders at 30 and 50 degrees are made for every pose"
+   },
+   "staged_flag": false,
+   "fitted_to_photograph": true
   },
   {
-   "loc_id": "MET268201",
-   "reason": "Burns house: no mapped building (no Burns house in structures3d.json)"
+   "id": "P20",
+   "loc_id": "2018670707",
+   "photo": {
+    "file": "tmp/photomatch/loc/cwpb.01649_v.jpg",
+    "resource": "cwpb.01649 (left half)",
+    "crop": [
+     0.03,
+     0.03,
+     0.97,
+     0.97
+    ],
+    "crop_basis": "print area read by eye from the image (fractions of the file); the first run did the same for P01, P03, P04, P05"
+   },
+   "statement_ids": [
+    "PS-NPS-CLRROTV2-149",
+    "PS-TN-BF2"
+   ],
+   "position": {
+    "anchor": "STR-TOWN-SCHMUCKER_HALL",
+    "relative": {
+     "bearing_deg": 270,
+     "width_fraction": 0.33
+    },
+    "tier": "plausible-procedural",
+    "sigma_m": 50,
+    "basis": "NPS CLR Record of Treatment II: fence west of the Seminary viewed from the Foulk Farm, so the camera is west of the building (bearing 270 degrees); the footprint is the 2023 outline of Schmucker Hall. The distance is derived from the apparent width of the building in the photograph (0.33 of the frame, read by eye): FITTED to this photograph."
+   },
+   "heading": {
+    "toward": "STR-TOWN-SCHMUCKER_HALL",
+    "tier": "inferred",
+    "basis": "looking east at the Seminary (the fence lies between camera and building)"
+   },
+   "fov": {
+    "h_deg": 40,
+    "tier": "plausible-procedural",
+    "basis": "the lens and plate of the exposure are not documented in any source read; 40 degrees horizontal is a generic view-camera assumption; renders at 30 and 50 degrees are made for every pose"
+   },
+   "staged_flag": false,
+   "fitted_to_photograph": true
   },
   {
-   "loc_id": "MET268202",
-   "reason": "'Wheat Field' title is a Harper's Weekly misnomer per the Met description; place not identified"
+   "id": "P24",
+   "loc_id": "2013645105",
+   "photo": {
+    "file": "tmp/photomatch/loc/ppmsca.32844_v.jpg",
+    "resource": "ppmsca.32844",
+    "crop": [
+     0.04,
+     0.04,
+     0.97,
+     0.96
+    ],
+    "crop_basis": "print area read by eye from the image (fractions of the file); the first run did the same for P01, P03, P04, P05"
+   },
+   "statement_ids": [
+    "PS-TN-TR1",
+    "PS-LOC-2018670894-T"
+   ],
+   "position": {
+    "anchor": "STR-TROSTLE-HOUSE1",
+    "relative": {
+     "bearing_deg": 237,
+     "width_fraction": 0.13
+    },
+    "tier": "plausible-procedural",
+    "sigma_m": 50,
+    "basis": "The Trostle barn appears left of the house, so the camera sees barn-to-house left-to-right: south-west of the pair (bearing 237 degrees from the house). No source states the side; NPS Then-And-Now: the modern view shows the Bigelow monument on a rock between the house and the road. The distance is derived from the apparent width of the building in the photograph (0.13 of the frame, read by eye): FITTED to this photograph."
+   },
+   "heading": {
+    "toward": "STR-TROSTLE-HOUSE1",
+    "tier": "inferred",
+    "basis": "looking at the house; barn to its left"
+   },
+   "fov": {
+    "h_deg": 40,
+    "tier": "plausible-procedural",
+    "basis": "the lens and plate of the exposure are not documented in any source read; 40 degrees horizontal is a generic view-camera assumption; renders at 30 and 50 degrees are made for every pose"
+   },
+   "staged_flag": false,
+   "fitted_to_photograph": true,
+   "landmarks": [
+    "STR-TROSTLE-BARN1",
+    "MON-185"
+   ]
   },
   {
-   "loc_id": "2018666304",
-   "photo_key": "LOC2018666304-L",
-   "reason": "Interior view of breastworks on the extreme left: hill, spot and direction not stated in the caption; a heading would have to be fitted to the picture, which is tuning, not a documented viewpoint"
+   "id": "P26",
+   "loc_id": "2018666300",
+   "photo": {
+    "file": "tmp/photomatch/loc/cwpb.01640_v.jpg",
+    "resource": "cwpb.01640 (left half)",
+    "crop": [
+     0.03,
+     0.03,
+     0.97,
+     0.96
+    ],
+    "crop_basis": "print area read by eye from the image (fractions of the file); the first run did the same for P01, P03, P04, P05"
+   },
+   "statement_ids": [
+    "PS-TN-BF3",
+    "PS-LOC-2018666300-T"
+   ],
+   "position": {
+    "anchor": "STR-TOWN-GATEHOUSE",
+    "relative": {
+     "bearing_deg": 58,
+     "width_fraction": 0.46
+    },
+    "tier": "plausible-procedural",
+    "sigma_m": 50,
+    "basis": "NPS: Brady photographed the gatehouse about two weeks after the battle; the facade faces the Baltimore Pike, camera in front of it (bearing 58 degrees from the building). The distance is derived from the apparent width of the building in the photograph (0.46 of the frame, read by eye): FITTED to this photograph."
+   },
+   "heading": {
+    "toward": "STR-TOWN-GATEHOUSE",
+    "tier": "inferred",
+    "basis": "the subject is the gatehouse itself"
+   },
+   "fov": {
+    "h_deg": 40,
+    "tier": "plausible-procedural",
+    "basis": "the lens and plate of the exposure are not documented in any source read; 40 degrees horizontal is a generic view-camera assumption; renders at 30 and 50 degrees are made for every pose"
+   },
+   "staged_flag": false,
+   "fitted_to_photograph": true
   }
- ],
- "_crop_note": "photo_crop_1600 = print area inside the plate border, [x0,y0,x1,y1] in the 1600-px working copy, set by eye. photo_horizon_frac = horizon row / crop height, read by eye from the working copy (about +-0.02)."
+ ]
 }

@@ -10,3 +10,14 @@ TAP version 13
 # \# night 4 Jul 01:00  sun -26° moon 34° 87%  exposure 0.47  mean luma 42.9  p5 21  p95 66  contrast 0.52  near-black pixels 0.0%
 # \# night 4 Jul 02:30  sun -19° moon 41° 87%  exposure 0.47  mean luma 43.8  p5 20  p95 66  contrast 0.53  near-black pixels 0.0%
 # \# night 4 Jul 03:30  sun -11° moon 41° 86%  exposure 0.47  mean luma 43.6  p5 20  p95 66  contrast 0.53  near-black pixels 0.0%
+# \# night 2 Jul 00:30  sun -27° moon 31° 98%  exposure 0.48  mean luma 51.9  p5 21  p95 73  contrast 0.55  near-black pixels 0.0%
+# \# night 2 Jul 23:00  sun -25° moon 22° 94%  exposure 0.48  mean luma 44.3  p5 19  p95 76  contrast 0.60  near-black pixels 0.2%
+# watchdog of this job (3600 s) removed by hand at 19:47:26Z: under machine load of 12+ the job needs longer than the limit chosen before the load was known; the test itself is untouched
+# \# night 6 Jul 01:30  sun -24° moon 33° 68%  exposure 0.45  mean luma 35.2  p5 26  p95 47  contrast 0.29  near-black pixels 0.0%
+# \# night 9 Jul 00:30  sun -27° moon 5° 37%  exposure 0.38  mean luma 25.2  p5 17  p95 37  contrast 0.37  near-black pixels 0.0%
+# Subtest: night frames keep luminance and contrast with units in view (Q10), and are dimmer than the day
+ok 1 - night frames keep luminance and contrast with units in view (Q10), and are dimmer than the day
+  ---
+  duration_ms: 1867720.246751
+  type: 'test'
+  ...

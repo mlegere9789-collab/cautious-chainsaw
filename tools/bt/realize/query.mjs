@@ -96,6 +96,7 @@ export class Product {
       const u = this.byId.get(id); let why = null, score = 0;
       if (x.designators.size && [...x.designators].some(d => des.has(d, u))) { why = 'designator ' + [...x.designators].filter(d => des.has(d, u)).join(','); score = 3; }
       else if (!x.numbered && x.tokens.length && x.tokens.every(w => tk.has(w))) { why = 'name ' + x.tokens.join(' '); score = 2 + Math.min(2, x.tokens.length) / 10; }
+      else if (!x.numbered && x.tokens.length >= 2 && ['brigade', 'division', 'corps', 'group'].includes(x.level) && x.tokens.slice(1).every(w => tk.has(w))) { why = 'nickname ' + x.tokens.slice(1).join(' ') + ' (' + x.own + ')'; score = 1.8; }       // "Iron Brigade" for "Meredith’s Iron Brigade": the commander's name first, then the nickname
       else if (['brigade', 'division', 'corps', 'army', 'artillery_brigade', 'artillery_battalion', 'artillery_group', 'group', 'command'].includes(x.level) && x.commanders.some(w => tk.has(w))) { why = 'commander ' + x.commanders.filter(w => tk.has(w)).join(','); score = 1; }
       if (why) out.push({ id, name: u.name, level: u.level, side: u.side, why, score });
     }
@@ -195,6 +196,16 @@ export class Scene {
     return k < 0 ? { activity: 'stand', speed: 0, t0: null, night: false } : s[k];
   }
   segments(i) { return this.stage.unitSegments(i); }
+  // the activity of the PICTURE (the crowd animation's timeline: what the figures are drawn doing, which adds the standing mounted pose and the dismounted fire of cavalry to the stage's activities). Built lazily: the animation
+  // system takes about four seconds to start. Used by unit_activity with "picture": true.
+  async pictureSegments(i) {
+    if (!this._crowd) {
+      const { CrowdAnim } = await import(pathToFileURL(path.join(APP, 'src/crowd/anim.mjs')).href), skeleton = readJSON(path.join(APP, 'data/figures3d/skeleton.json'));
+      this._crowd = new CrowdAnim({ skeleton, world: this.P.world, layer: this.P.layer, stage: this.stage }); this._pseg = new Map();
+    }
+    let s = this._pseg.get(i); if (!s) { s = this._crowd._segsOf(i); this._pseg.set(i, s); } return s;
+  }
+  pictureActivityAt(i, tSec) { const s = (this._pseg && this._pseg.get(i)) || []; let k = -1; for (let j = 0; j < s.length; j++) { if (s[j].t0 <= tSec + 1e-6) k = j; else break; } return k < 0 ? { activity: 'stand', t0: null } : s[k]; }
   // the whole story of a unit for an author: arrival, presence, the legs of its path and its activity segments with positions
   timeline(id, { max = 60 } = {}) {
     const i = this.stage.index.get(id); if (i == null) return null; const P = this.P, p = this.stage.presence[id] || NEVER, segs = this.segments(i);

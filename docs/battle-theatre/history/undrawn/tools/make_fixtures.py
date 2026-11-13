@@ -189,6 +189,8 @@ def bad(G):
     line('is not in sources.json', 9007, s('source_id', 'NO-SUCH-TEXT'))
     line('is not a troop-map claim', 9010, lambda r: r['place'].__setitem__('anchor', {'type': 'troopmap', 'ref': 'TMJ9-999'}))
     line('is not a record of the group files', 9007, lambda r: r.__setitem__('conflicts_with', ['U-us-3c-2d-8888']))
+    line('belongs to group', 9007, lambda r: r.__setitem__('unit_id', 'us-5c'))
+    line('copy audit', 9007, lambda r: r.__setitem__('note', 'checked by an automated agent'))
     line('carries a clock', 9007, lambda r: r['when'].update(printed='At an early hour of the morning, 9 a. m.', period='early_morning'))
     line('t_iso is set only for a printed clock', 9007, lambda r: r['when'].__setitem__('t_iso', '1863-07-02T06:00'))
     line('road.printed (the road', 9005, lambda r: r.__setitem__('road', {'printed': '', 'ref': 'GZ-041', 'enters_ground': True}))
