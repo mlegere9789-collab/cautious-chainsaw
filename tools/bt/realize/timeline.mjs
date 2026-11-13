@@ -214,7 +214,7 @@ export function loadTimeline({ gov = GOV, tolerances } = {}) {
     const window = { intervals: tc.intervals, basis: tc.basis.slice(), flags: tc.flags.slice(), kind: tc.kind, source: 'seed time cell' };
     if (cw) { window.intervals = [[cw.from - CT, cw.to + CT]]; window.basis = [`corrected claim (${c.file}): ${isoOf(cw.from)} to ${isoOf(cw.to)}, clock tolerance ${CT} min each end; ${cw.basis}`]; window.flags = []; window.kind = 'correction'; window.source = 'correction'; window.seed_intervals = tc.intervals; }
     else if (c) window.flags.push('correction_without_machine_readable_window');
-    if (w.earliest != null && w.latest != null && !coversInterval(window.intervals, w.earliest, w.latest)) window.flags.push('differs_from_windows_file');
+    if (w.earliest != null && w.latest != null && !coversInterval(window.intervals, w.earliest, w.latest)) { window.flags.push('differs_from_windows_file'); window.intervals = mergeIntervals([...window.intervals, [w.earliest, w.latest]]); window.basis.push(`the windows file (timeline_windows.jsonl: ${isoOf(w.earliest)} to ${isoOf(w.latest)}, parsed from the first fragment of the cell) reads the cell differently; both readings are allowed (DD-RZ-02)`); }
     window.in_clock = window.intervals.some(([a, b]) => clock.some(([x, y]) => a <= y && b >= x));
     const what_text = cells.what.join(' '), corrText = c ? strings(c.line.corrected_claim ?? c.line.corrected ?? c.line).join(' ') : null;
     return { id: s.id, n, shard: v.shard || null, page: s.page, tier_seed: s.tier, tier: v.tier || s.tier, status_effective: v.status_effective || s.status, verdict: v.verdict || null, weak: !!s.weak_source_flag,

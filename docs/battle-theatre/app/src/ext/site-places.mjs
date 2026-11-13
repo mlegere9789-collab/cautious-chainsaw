@@ -111,6 +111,24 @@ export function validateTour(d) {
   return p;
 }
 
+/** What is wrong with the file of years (data/site-memorial-years.json) set against the memorial list, as sentences; empty means fit. Structure only: the hash of the file is checked beside it. */
+export function validateYears(yf, mem) {
+  const p = []; if (!yf || !Array.isArray(yf.years) || !yf.sources || typeof yf.sources !== 'object') return ['the years file has no years or no sources'];
+  const byNo = new Map(mem.monuments.map(m => [m.no, m])), names = new Map(), seen = new Set(); for (const m of mem.monuments) names.set(m.name, (names.get(m.name) || 0) + 1);
+  for (const y of yf.years) {
+    const w = `year of ${y && y.no}`; if (!y || !Number.isInteger(y.no) || !byNo.has(y.no)) { p.push(`${w}: not a memorial of the list`); continue; } if (seen.has(y.no)) p.push(`${w}: given twice`); seen.add(y.no);
+    const m = byNo.get(y.no); if (y.name !== m.name) p.push(`${w}: the name "${y.name}" is not the list's name "${m.name}"`); if (names.get(m.name) > 1) p.push(`${w}: the list has two memorials of that name`);
+    if (!Number.isInteger(y.year) || y.year < 1863 || y.year > 2030) p.push(`${w}: the year ${y.year} is not a year after the battle`); if (y.yearTo != null && (!Number.isInteger(y.yearTo) || y.yearTo < y.year || y.yearTo > 2030)) p.push(`${w}: the end of the range is not a year after its start`);
+    if (y.tier !== 'documented' && y.tier !== 'inferred') p.push(`${w}: the tier is ${y.tier}`); if (y.approx && y.tier === 'documented') p.push(`${w}: a year the report hedges (ca.) is not documented`);
+    if (typeof y.quote !== 'string' || !y.quote.includes(y.name) || !y.quote.includes(String(y.year))) p.push(`${w}: the quotation does not hold the name and the year`);
+    if (!yf.sources[y.source]) p.push(`${w}: the source ${y.source} is not described`); if (!Number.isInteger(y.pdfPage) || y.pdfPage < 1) p.push(`${w}: no page`);
+  }
+  for (const [id, s] of Object.entries(yf.sources)) if (!s || !s.title || typeof s.url !== 'string' || !/^https:\/\//.test(s.url)) p.push(`source ${id}: no title or address`);
+  return p;
+}
+/** The words for a year: 1929, 1883 to 1889, about 1888 to 1900. */
+export const yearText = y => (y.approx ? `about ${y.year}${y.yearTo ? ' to ' + y.yearTo : ''}` : y.yearTo ? `${y.year} to ${y.yearTo}` : String(y.year));
+
 // ---------------------------------------------------------------- places and the loaded ground (x east, z south, metres from the centre of the ground)
 const DIRS = ['north', 'north-east', 'east', 'south-east', 'south', 'south-west', 'west', 'north-west'];
 /** Where a point is against the loaded ground: inside (the rule of geo.inside with no pad), or how far beyond which edge. */
@@ -148,19 +166,20 @@ export function poseFromEdge(T, x, z, o = {}) {
 // ---------------------------------------------------------------- the memorial index: every memorial with its place on (or beyond) the loaded ground
 /** positions: 'list' (the Monuments list for all) or 'state-list' (the second list's position for the nine memorials it holds). */
 export function buildIndex(d, T, o = {}) {
-  const positions = o.positions === 'state-list' ? 'state-list' : 'list', M = d.monuments, n = M.length;
+  const positions = o.positions === 'state-list' ? 'state-list' : 'list', M = d.monuments, n = M.length, yf = o.years || null, yrs = new Map(); if (yf) for (const y of yf.years) yrs.set(y.no, { ...y, sourceTitle: yf.sources[y.source].title, sourceUrl: yf.sources[y.source].url, publisher: yf.sources[y.source].publisher, sourceDate: yf.sources[y.source].date });
   const stars = new Map(); for (const s of d.stars) { const no = STAR_MATCH[s.id]; if (no != null) stars.set(no, s); }
   const X = new Float32Array(n), Y = new Float32Array(n), Z = new Float32Array(n), flag = new Uint8Array(n), items = new Array(n), byNo = new Map();
-  const counts = { total: n, inside: 0, beyond: 0, side: { Union: 0, Confederate: 0, Other: 0 }, withSource: 0, withoutSource: 0, twoPositions: stars.size, groups: [] }, groups = new Map();
+  const counts = { total: n, inside: 0, beyond: 0, side: { Union: 0, Confederate: 0, Other: 0 }, withSource: 0, withoutSource: 0, twoPositions: stars.size, groups: [], years: { documented: 0, inferred: 0, openGap: 0 } }, groups = new Map();
   for (let i = 0; i < n; i++) {
     const m = M[i], s = stars.get(m.no) || null, useAlt = !!s && positions === 'state-list', lat = useAlt ? s.lat : m.lat, lng = useAlt ? s.lng : m.lng;
     const [x, z] = T.xz(lng, lat), a = against(T, x, z), y = T.h(x, z);           // beyond the ground T.h answers with the height of the nearest loaded ground
     X[i] = x; Y[i] = y + LIFT; Z[i] = z; flag[i] = (a.inside ? 1 : 0) | (Math.max(0, SIDES.indexOf(m.side)) << 1);
     const it = { i, no: m.no, name: m.name, honors: m.honors, loc: m.loc, mn: m.mn, side: m.side, group: m.group, src: m.src, kind: memorialKind(m.name), lat, lng, x, z, y, inside: a.inside, beyondM: a.beyondM, dir: a.dir,
       second: s ? { id: s.id, name: s.name, lat: s.lat, lng: s.lng, source: s.source, apartM: metres(s.lat, s.lng, m.lat, m.lng), used: useAlt, listLat: m.lat, listLng: m.lng } : null,
-      hay: [m.name, m.honors, m.loc, m.group, m.mn].join(' \n ').toLowerCase(), lbl: '', lblW: 0 };
+      hay: [m.name, m.honors, m.loc, m.group, m.mn].join(' \n ').toLowerCase(), lbl: '', lblW: 0, year: yrs.get(m.no) || null };
     it.lbl = labelText(it); it.lblW = it.lbl.length * LABEL.charW + LABEL.pad;          // the name on the picture and its width, made once (the frame loop makes no strings)
     items[i] = it; byNo.set(m.no, it);
+    if (it.year) counts.years[it.year.tier]++; else counts.years.openGap++;
     if (a.inside) counts.inside++; else counts.beyond++; counts.side[m.side] = (counts.side[m.side] || 0) + 1; if (m.src) counts.withSource++; else counts.withoutSource++;
     groups.set(m.group, (groups.get(m.group) || 0) + 1);
   }
@@ -267,10 +286,17 @@ export function drawMarks(c, index, L, state, tier) {
 // ---------------------------------------------------------------- the words of a memorial (card and list; pure HTML strings)
 const deg = (v, pos, neg) => `${Math.abs(v).toFixed(5)}° ${v >= 0 ? pos : neg}`;
 export const groundLine = it => (it.inside ? 'On the loaded ground' : `${fmtM(it.beyondM)} m beyond the ${it.dir} edge of the loaded ground. The ground there is not loaded, so the mark stands at the height of the nearest loaded ground.`);
+/** The cell of the card that says when a memorial was put up: the year from a report, with the report, the page and the quotation, or the open gap. */
+export function yearCell(it, tierMark) {
+  const y = it.year; if (!y) return `${tierMark(LAYER.yearTier)}<br><span class="mini">The year is not in the site's data.</span>`;
+  return `${tierMark(y.tier)} <b>${esc(yearText(y))}</b><br><span class="mini">${esc(y.publisher)}, ${esc(y.sourceTitle)}${y.sourceDate ? ' (' + esc(y.sourceDate) + ')' : ''}, PDF page ${y.pdfPage}${y.printedPage ? ' (' + esc(y.printedPage) + ')' : ''}: “${esc(y.quote)}”${y.approx ? ' The report says "ca.": the year is about, not exact.' : ''}</span>`;
+}
 /** The card of one memorial. tierMark: the shell's tier pill (ctx.tierMark). */
 export function memorialCardHTML(it, tierMark) {
   const pos = it.second && it.second.used ? `${deg(it.lat, 'N', 'S')}, ${deg(it.lng, 'E', 'W')}<br><span class="mini">from the site's second list (${esc(it.second.source)})</span>` : `${deg(it.lat, 'N', 'S')}, ${deg(it.lng, 'E', 'W')}<br><span class="mini">from the site's Monuments list; ${it.src ? 'its note on the position: ' + esc(it.src) : 'the list states no source for it'}</span>`;
   const second = it.second ? `<tr><th>Second position</th><td>${it.second.used ? `The Monuments list puts it at ${deg(it.second.listLat, 'N', 'S')}, ${deg(it.second.listLng, 'E', 'W')}` : `The site's second list (${esc(it.second.name)}; ${esc(it.second.source)}) puts it at ${deg(it.second.lat, 'N', 'S')}, ${deg(it.second.lng, 'E', 'W')}`}, ${fmtM(it.second.apartM)} m away. Both are the site's; the panel lets you choose which the mark follows.</td></tr>` : '';
+  const gaps = []; if (!it.year) gaps.push(`${esc(COPY.year)} Gap ${esc(LAYER.gap)}`); if (!it.inside) gaps.push(`the unloaded ground: ${esc(LAYER.groundGap)}`);
+  const gapCell = gaps.length ? gaps.join('; ') + '.' : 'None for this memorial: a report prints its year.';
   return `<div class="card-head"><h2 id="xm-card-title">${esc(it.name)}</h2><button type="button" class="icon-btn" data-act="close" aria-label="Close the memorial card"><svg class="ic"><use href="#i-close"/></svg></button></div>
     <div class="card-body">
       <p class="ph"><b>Later memorial.</b> ${esc(COPY.what)}</p>
@@ -280,20 +306,20 @@ export function memorialCardHTML(it, tierMark) {
         <div class="row"><dt>Where</dt><dd>${esc(it.loc)}</dd></div>
         <div class="row"><dt>Group</dt><dd>${esc(it.group)}</dd></div>
         <div class="row"><dt>Park number</dt><dd>${it.mn ? esc(it.mn) : 'none in the list'}</dd></div>
-        <div class="row"><dt>Put up</dt><dd>${tierMark(LAYER.yearTier)}<br><span class="mini">The year is not in the site's data.</span></dd></div>
+        <div class="row"><dt>Put up</dt><dd>${yearCell(it, tierMark)}</dd></div>
         <div class="row"><dt>Ground</dt><dd>${esc(groundLine(it))}</dd></div>
       </dl>
       <h3>Evidence</h3>
       <table class="table"><tr><th>Tier</th><td>${tierMark(LAYER.tier)} <span class="mini">of the name, the text and the position: the site's list as it stands. It says nothing about July 1863.</span></td></tr>
         <tr><th>Position</th><td>${pos}</td></tr>${second}
         <tr><th>After the battle</th><td><span class="mini">${esc(COPY.basis)}</span></td></tr>
-        <tr><th>Open gap</th><td><span class="mini">${esc(COPY.year)} Gap ${esc(LAYER.gap)}${it.inside ? '' : '; the unloaded ground: ' + esc(LAYER.groundGap)}.</span></td></tr></table>
+        <tr><th>Open gap</th><td><span class="mini">${gapCell}</span></td></tr></table>
       <div class="actions"><button type="button" class="btn-s" data-act="fly"><svg class="ic"><use href="#i-focus"/></svg>Fly to</button></div>
     </div>`;
 }
 export function memorialRowsHTML(list, from, to, selected) {
   let h = ''; for (let i = from; i < Math.min(to, list.length); i++) { const it = list[i];
-    h += `<li><button type="button" class="item" data-no="${it.no}"${it.no === selected ? ' aria-current="true"' : ''}><span class="glyph"><svg class="ic"><use href="#i-pin"/></svg></span><span class="when">${esc(it.side)}${it.mn ? ' · ' + esc(it.mn) : ''}${it.inside ? '' : ` · ${fmtM(it.beyondM)} m ${COPY.beyond} (${it.dir})`}</span><span class="what">${esc(it.name)}</span></button></li>`; }
+    h += `<li><button type="button" class="item" data-no="${it.no}"${it.no === selected ? ' aria-current="true"' : ''}><span class="glyph"><svg class="ic"><use href="#i-pin"/></svg></span><span class="when">${esc(it.side)}${it.mn ? ' · ' + esc(it.mn) : ''}${it.year ? ' · put up ' + esc(yearText(it.year)) : ''}${it.inside ? '' : ` · ${fmtM(it.beyondM)} m ${COPY.beyond} (${it.dir})`}</span><span class="what">${esc(it.name)}</span></button></li>`; }
   return h;
 }
 /** The notice that stays on the picture for as long as the layer is on (the two buttons are handled by the module: data-act "about" and "hide"). */
@@ -309,7 +335,7 @@ export function memorialPanelHTML(index, o, tm) {
     <p class="mini" id="xm-key" style="margin:0 0 10px;display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center"><span><span aria-hidden="true" style="display:inline-block;width:10px;height:10px;border-radius:2px;background:${SIDE_COLOR.Union};vertical-align:-1px"></span> Union</span><span><span aria-hidden="true" style="display:inline-block;width:10px;height:10px;border-radius:2px;background:${SIDE_COLOR.Confederate};vertical-align:-1px"></span> Confederate</span><span><span aria-hidden="true" style="display:inline-block;width:10px;height:10px;border-radius:2px;background:${SIDE_COLOR.Other};vertical-align:-1px"></span> Other</span><span><span aria-hidden="true" style="display:inline-block;width:10px;height:10px;border-radius:2px;border:1px solid ${SIDE_COLOR.Other}"></span> hollow: beyond the loaded ground</span><span>The dashed outline is the tier, inferred.</span></p>
     <details style="margin:0 0 10px"><summary class="mini" style="cursor:pointer">What this rests on, and what is not known</summary>
       <p class="mini" style="margin-top:8px">${e(COPY.basis)}</p>
-      <p class="mini" style="margin-top:8px">${tm(LAYER.yearTier)} ${e(COPY.year)} Gap ${e(LAYER.gap)}.</p>
+      <p class="mini" style="margin-top:8px">${tm(LAYER.yearTier)} ${e(COPY.year)} Gap ${e(LAYER.gap)}.${c.years && c.years.documented + c.years.inferred ? ` For ${c.years.documented + c.years.inferred} of the ${c.total} a National Park Service report prints the year for a memorial of the same name; it is on their cards with the report, the page and the quotation (${c.years.documented} documented, ${c.years.inferred} inferred). For the other ${c.years.openGap} the year is an open gap.` : ''}</p>
       <p class="mini" style="margin-top:8px">${e(COPY.position)} The list states no source for ${c.withoutSource} of the ${c.total} positions; for ${c.withSource} it names a web listing. A mark says where the list puts a memorial today and nothing about July 1863.</p>
       <p class="mini" style="margin-top:8px">${c.beyond} memorials lie beyond the loaded ground (6.2 by 6.1 km). They are listed and marked like the rest: the camera goes to the edge of the ground and looks toward them, and the mark stands at the height of the nearest loaded ground because the ground there is not loaded. Gap ${e(LAYER.groundGap)}.</p>
       ${o.integrity && o.integrity.checked ? '' : '<p class="mini" style="margin-top:8px">This address gives the page no way to check the list against the hash recorded with it; the check was left out.</p>'}</details>
@@ -354,15 +380,16 @@ export function tourPanelHTML(B, active, tm) {
 }
 
 // ---------------------------------------------------------------- checks for the gate runner (pure; listed in docs/GATE-HOOKS.md)
-/** Gates Q03 and Q23 for the memorial layer. mem: data/site-memorials.json parsed. T: optional terrain ({W, H, h, xz}); with it the places are checked too.
+/** Gates Q03 and Q23 for the memorial layer. mem: data/site-memorials.json parsed. T: optional terrain ({W, H, h, xz}); with it the places are checked too. years: optional,
+ *  data/site-memorial-years.json parsed (the years some reports print; each needs its quotation, report and page).
  *  -> {ok, problems: [text], facts}. ok means: the data is fit; the layer is off by default; it puts nothing in the 1863 scene at any time; with it off nothing is marked;
- *  with it on every memorial is marked, each mark says "later memorial" and carries the layer's tier; no year is claimed for any. */
-export function checkLaterMemorials(mem, T = null) {
-  const problems = validateMemorials(mem); const n = mem && Array.isArray(mem.monuments) ? mem.monuments.length : 0;
+ *  with it on every memorial is marked, each mark says "later memorial" and carries the layer's tier; no year is claimed in the list itself, and a year given beside it is sourced. */
+export function checkLaterMemorials(mem, T = null, years = null) {
+  const problems = validateMemorials(mem); if (years) problems.push(...validateYears(years, mem)); const n = mem && Array.isArray(mem.monuments) ? mem.monuments.length : 0;
   if (LAYER.defaultOn !== false) problems.push('the layer is not off by default'); if (LAYER.inScene !== false) problems.push('the layer is declared part of the scene');
   for (const t of [0, 46000, 47520, 49000, 60000, 246240]) if (sceneObjectsAt(t).length) problems.push(`the layer adds objects to the scene at minute ${t}`);
   const flat = { W: 1, H: 1, h: () => 0, xz: (lng, lat) => [lng, -lat] }; let idx = null;
-  try { idx = n ? buildIndex(mem, T || flat) : null; } catch (e) { problems.push('the memorial index could not be built: ' + (e && e.message)); }
+  try { idx = n ? buildIndex(mem, T || flat, { years: years && validateYears(years, mem).length === 0 ? years : null }) : null; } catch (e) { problems.push('the memorial index could not be built: ' + (e && e.message)); }
   let off = 0, on = 0, unlabelled = 0, untiered = 0, inScene = 0, withYear = 0;
   if (idx) {
     off = marksFor(idx, { on: false, selected: -1 }).length; const all = marksFor(idx, { on: true, selected: -1 }); on = all.length;
@@ -373,7 +400,7 @@ export function checkLaterMemorials(mem, T = null) {
     if (unlabelled) problems.push(`${unlabelled} marks do not say "later memorial"`); if (untiered) problems.push(`${untiered} marks do not carry the tier ${LAYER.tier}`); if (inScene) problems.push(`${inScene} marks are flagged as scene objects`);
     if (marksFor(idx, { on: false, selected: mem.monuments[0].no }).length !== 1) problems.push('picking one memorial with the layer off does not mark exactly that one');
   }
-  return { ok: problems.length === 0, problems, facts: { memorials: n, defaultOn: LAYER.defaultOn, sceneObjects: 0, marksWhenOff: off, marksWhenOn: on, tier: LAYER.tier, withoutLabel: unlabelled, yearClaimed: withYear, yearOpenGap: n - withYear,
+  return { ok: problems.length === 0, problems, facts: { memorials: n, defaultOn: LAYER.defaultOn, sceneObjects: 0, marksWhenOff: off, marksWhenOn: on, tier: LAYER.tier, withoutLabel: unlabelled, yearClaimed: withYear, yearDocumented: idx ? idx.counts.years.documented : 0, yearInferred: idx ? idx.counts.years.inferred : 0, yearOpenGap: idx ? idx.counts.years.openGap : n,
     onLoadedGround: T && idx ? idx.counts.inside : null, beyondLoadedGround: T && idx ? idx.counts.beyond : null, positionsWithNoStatedSource: idx ? idx.counts.withoutSource : null, twoPositions: idx ? idx.counts.twoPositions : null } };
 }
 /** The tour stops as bookmarks. tour: data/site-tour-stops.json parsed; T: the terrain. -> {ok, problems, facts}. ok means: every stop of the file has a camera position that stands

@@ -12,3 +12,6 @@
 2026-11-13T19:38:04Z	ext-tour_test	exit 0	wall 0.540 s, cpu user 0.218 s	node --test docs/battle-theatre/app/tests/ext-tour.test.mjs
 2026-11-13T19:38:10Z	ext-site-data_test	exit 0	wall 5.761 s, cpu user 3.879 s	node --test docs/battle-theatre/app/tests/ext-site-data.test.mjs
 2026-11-13T19:38:11Z	ext-loader_test	exit 0	wall 0.655 s, cpu user 0.158 s	node --test docs/battle-theatre/app/tests/ext-loader.test.mjs
+2026-11-13T19:54:50Z	realize_test	exit 1	wall 11.399 s, cpu user 6.939 s	node --test tests/governance/realize.test.mjs
+2026-11-13T19:58:14Z	check_environment_noastropy	exit 0	0.2 s	python3 -I -c 'import check_environment; gate_q11(False); pdf_figure_checks()' (in memory)
+2026-11-13T19:58:14Z	drill_check_system	exit 1	0.1 s	python3 -I tools/bt/drill_check.py

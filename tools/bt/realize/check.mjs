@@ -18,6 +18,7 @@ import { Runner } from './checks.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const HARNESS_FILES = ['lib.mjs', 'timeline.mjs', 'gazetteer.mjs', 'query.mjs', 'schema.mjs', 'checks.mjs', 'check.mjs', 'tolerances.json', 'adapters.json'];
+const CARD_KINDS = new Set(['event_card', 'epilogue']);
 const trimEv = ev => { if (!ev) return undefined; const t = JSON.stringify(ev); return t.length > 260 ? t.slice(0, 257) + '...' : ev; };
 export const harnessDigest = () => sha256(Buffer.from(HARNESS_FILES.map(f => f + ':' + sha256File(path.join(here, f))).join('\n'))).slice(0, 16);
 
@@ -62,7 +63,7 @@ export async function runAll({ shards = null, files = null, rows = null, quiet =
   else {
     const all = exists(REAL) ? fs.readdirSync(REAL).filter(f => /^(tl-\d\d|epilogue)\.jsonl$/.test(f)).sort() : [];
     for (const f of all) { const s = f.replace(/\.jsonl$/, ''); if (!shards || shards.includes(s)) fileList.push({ file: path.join(REAL, f), shard: s }); }
-    if (!shards && exists(path.join(REAL, 'EXAMPLES.jsonl'))) fileList.push({ file: path.join(REAL, 'EXAMPLES.jsonl'), shard: 'EXAMPLES', examples: true });
+    if (exists(path.join(REAL, 'EXAMPLES.jsonl'))) fileList.push({ file: path.join(REAL, 'EXAMPLES.jsonl'), shard: 'EXAMPLES', examples: true });
   }
   const results = new Map(), problems = [], examples = new Map(), seen = new Map();
   for (const { file, shard, examples: isEx } of fileList) {
@@ -77,12 +78,13 @@ export async function runAll({ shards = null, files = null, rows = null, quiet =
   }
   // rows with no shard record but a worked example: the example stands for the row (the shard file overrides it as soon as it has the row)
   for (const [id, r] of examples) if (!results.has(id)) results.set(id, { ...r, from_examples: true });
-  const universe = [...TL.rows, ...EP].filter(r => !rows || rows.includes(r.id)), out = {};
+  const universe = [...TL.rows, ...EP].filter(r => (!rows || rows.includes(r.id)) && (!shards || shards.includes(r.shard))), out = {};     // a partial run reports the rows it was asked about only
   for (const r of universe) {
     const res = results.get(r.id), rg = reg.get(r.id) || { open: [], all: [] };
-    const entry = res ? { realized: !!res.realized, kind: res.kind, why: res.why, codes: res.codes, record: res.source, window: res.window || null, scenarios: res.scenarios, declared_bindings: res.bindings ? res.bindings.declared : 0, problems: res.problems.map(p => p.code + ': ' + p.detail).slice(0, 6), failing: (res.assertions || []).filter(a => !a.ok).map(a => ({ i: a.i, type: a.type, code: a.code, detail: a.detail })).slice(0, 8), assertions: (res.assertions || []).map(a => ({ i: a.i, type: a.type, ok: a.ok, ...(a.ok ? {} : { code: a.code }), evidence: trimEv(a.ok ? a.evidence : null) })), ...(res.stale_result ? { stale_result: res.stale_result } : {}), ...(res.missing ? { missing: res.missing } : {}), ...(res.from_examples ? { from_examples: true } : {}), ...(((results.get(r.id) || {}).source || '').includes('EXAMPLES') ? {} : {}) }
+    const entry = res ? { realized: !!res.realized, kind: res.kind, why: res.why, codes: res.codes, record: res.source, window: res.window || null, scenarios: res.scenarios, declared_bindings: res.bindings ? res.bindings.declared : 0, problems: res.problems.map(p => p.code + ': ' + p.detail).slice(0, 6), failing: (res.assertions || []).filter(a => !a.ok).map(a => ({ i: a.i, type: a.type, code: a.code, detail: a.detail })).slice(0, 8), assertions: (res.assertions || []).map(a => ({ i: a.i, type: a.type, ok: a.ok, ...(a.ok ? {} : { code: a.code }), evidence: trimEv(a.ok ? a.evidence : null) })), ...(res.stale_result ? { stale_result: res.stale_result } : {}), ...(res.missing ? { missing: res.missing } : {}), ...(res.from_examples ? { from_examples: true } : {}), }
       : { realized: false, kind: null, why: 'no realization record', codes: ['no_record'], record: null, window: null };
-    entry.tier = r.tier; entry.status = r.status_effective; entry.shard = r.shard || null; entry.register_open = rg.open; entry.q17_covered = !!entry.realized || rg.open.length > 0; entry.coverage = entry.realized ? 'realization' : rg.open.length ? 'open_register_entry' : 'none';
+    entry.realization_class = entry.realized ? (CARD_KINDS.has(entry.kind) ? 'card' : 'scene') : null; if (res && res.spec_view) entry.spec_view = res.spec_view;
+    entry.tier = r.tier; entry.status = r.status_effective; entry.shard = r.shard || null; entry.register_open = rg.open; entry.q17_covered = !!entry.realized || rg.open.length > 0; entry.q17_covered_strict = entry.realization_class === 'scene' || rg.open.length > 0; entry.coverage = entry.realized ? (entry.realization_class === 'card' ? 'card' : 'realization') : rg.open.length ? 'open_register_entry' : 'none';
     out[r.id] = entry;
   }
   return { R, TL, EP, P, results, examples, problems, fileList, out, reg };
@@ -91,7 +93,7 @@ export async function runAll({ shards = null, files = null, rows = null, quiet =
 function summarize(out, TL, EP) {
   const tl = TL.rows.map(r => out[r.id]).filter(Boolean), by = (f) => { const m = {}; for (const e of tl) { const k = f(e); m[k] = (m[k] || 0) + 1; } return Object.fromEntries(Object.entries(m).sort()); };
   const ep = EP.map(r => out[r.id]).filter(Boolean);
-  const cnt = a => ({ rows: a.length, realized: a.filter(e => e.realized).length, not_realized: a.filter(e => !e.realized).length, with_record: a.filter(e => e.record).length, no_record: a.filter(e => !e.record).length, covered_by_open_register_entry_only: a.filter(e => !e.realized && e.register_open.length).length, uncovered: a.filter(e => !e.q17_covered).length });
+  const cnt = a => ({ rows: a.length, realized: a.filter(e => e.realized).length, realized_by_scene: a.filter(e => e.realization_class === 'scene').length, realized_by_card_only: a.filter(e => e.realization_class === 'card').length, uncovered_strict: a.filter(e => !e.q17_covered_strict).length, not_realized: a.filter(e => !e.realized).length, with_record: a.filter(e => e.record).length, no_record: a.filter(e => !e.record).length, covered_by_open_register_entry_only: a.filter(e => !e.realized && e.register_open.length).length, uncovered: a.filter(e => !e.q17_covered).length });
   const codes = {}; for (const e of tl) if (!e.realized) for (const c of e.codes || []) codes[c] = (codes[c] || 0) + 1;
   return { timeline: cnt(tl), epilogue: cnt(ep), realized_by_kind: by(e => (e.realized ? e.kind : 'not_realized')), not_realized_by_code: Object.fromEntries(Object.entries(codes).sort((a, b) => b[1] - a[1])) };
 }
@@ -102,8 +104,8 @@ async function main() {
   const partial = !!(shards || files || rows), write = opt('--write') === true || (!partial && !argv.includes('--no-write') && !files), quiet = argv.includes('--quiet');
   const run = await runAll({ shards, files, rows });
   const { out, TL, EP, problems } = run, S = summarize(out, TL, EP);
-  const universeCount = TL.rows.length, q17 = { ok: S.timeline.uncovered === 0 && !problems.length, rows: universeCount, realized: S.timeline.realized, covered_by_open_register_entry_only: S.timeline.covered_by_open_register_entry_only, uncovered: S.timeline.uncovered, epilogue_uncovered: S.epilogue.uncovered };
-  const doc = { harness: HARNESS, harness_digest: harnessDigest(), inputs_digest: sha256(Buffer.from(JSON.stringify(run.P.inputDigest()))).slice(0, 16), scope: { timeline_rows: universeCount, epilogue_rows: EP.length, files: run.fileList.map(f => rel(f.file)), partial }, totals: S, q17, record_file_problems: problems, rows: Object.fromEntries(TL.rows.map(r => [r.id, out[r.id]]).filter(([, v]) => v)), epilogue: Object.fromEntries(EP.map(r => [r.id, out[r.id]]).filter(([, v]) => v)), examples: Object.fromEntries([...run.examples].map(([id, r]) => [id, { realized: r.realized, kind: r.kind, why: r.why, codes: r.codes, record: r.source }])) };
+  const universeCount = TL.rows.filter(r => out[r.id]).length, q17 = { _doc: 'ok: every timeline row and every epilogue row is realized (a scene or a tier-marked card) or covered by an open register entry. ok_strict: the same, but a row realized by a card alone counts only if an open register entry also covers it (GATE-SPEC-A TL-4 and TL-11 read a card as no visual realization). Neither sets a passes flag.', ok: S.timeline.uncovered === 0 && S.epilogue.uncovered === 0 && !problems.length, ok_strict: S.timeline.uncovered_strict === 0 && S.epilogue.uncovered_strict === 0 && !problems.length, rows: universeCount, epilogue_rows: EP.length, realized: S.timeline.realized, realized_by_scene: S.timeline.realized_by_scene, realized_by_card_only: S.timeline.realized_by_card_only, covered_by_open_register_entry_only: S.timeline.covered_by_open_register_entry_only, uncovered: S.timeline.uncovered, uncovered_strict: S.timeline.uncovered_strict, epilogue_uncovered: S.epilogue.uncovered };
+  const doc = { harness: HARNESS, harness_digest: harnessDigest(), inputs_digest: sha256(Buffer.from(JSON.stringify(run.P.inputDigest()))).slice(0, 16), scope: { timeline_rows: universeCount, epilogue_rows: EP.filter(r => out[r.id]).length, files: run.fileList.map(f => rel(f.file)), partial }, totals: S, q17, record_file_problems: problems, rows: Object.fromEntries(TL.rows.map(r => [r.id, out[r.id]]).filter(([, v]) => v)), epilogue: Object.fromEntries(EP.map(r => [r.id, out[r.id]]).filter(([, v]) => v)), examples: Object.fromEntries([...run.examples].map(([id, r]) => [id, { realized: r.realized, kind: r.kind, why: r.why, codes: r.codes, record: r.source }])) };
   if (write) {
     let merged = doc;
     if (partial && exists(path.join(REAL, 'RESULTS.json'))) { const old = readJSON(path.join(REAL, 'RESULTS.json')); merged = { ...old, harness_digest: doc.harness_digest, rows: { ...old.rows, ...doc.rows }, epilogue: { ...old.epilogue, ...doc.epilogue }, examples: { ...old.examples, ...doc.examples }, record_file_problems: doc.record_file_problems }; const all = [...Object.values(merged.rows)]; merged.totals = { ...merged.totals, note: 'merged from a partial run; run check.mjs without --shard for the totals of every shard' }; }
@@ -114,7 +116,7 @@ async function main() {
   }
   if (argv.includes('--json')) process.stdout.write(JSON.stringify(doc, null, 1) + '\n');
   else if (!quiet) {
-    console.log(`bt-realize ${HARNESS} digest ${doc.harness_digest}: ${universeCount} timeline rows, ${EP.length} epilogue rows, ${run.fileList.length} record file(s)${partial ? ' (partial run)' : ''}`);
+    console.log(`bt-realize ${HARNESS} digest ${doc.harness_digest}: ${universeCount} timeline rows, ${doc.scope.epilogue_rows} epilogue rows, ${run.fileList.length} record file(s)${partial ? ' (partial run)' : ''}`);
     console.log(`  realized ${S.timeline.realized}; with a record ${S.timeline.with_record}; not realized ${S.timeline.not_realized} (open register entry only: ${S.timeline.covered_by_open_register_entry_only}); uncovered ${S.timeline.uncovered}`);
     console.log(`  by kind: ${JSON.stringify(S.realized_by_kind)}`); console.log(`  not realized, by code: ${JSON.stringify(S.not_realized_by_code)}`);
     for (const p of problems) console.log(`  FILE PROBLEM ${p.file}:${p.line}: ${p.error}`);

@@ -147,7 +147,7 @@ export class Places {
 // not is listed as unknown. The pattern can miss a name; it never invents one.
 const PLACE_WORDS = '(?:Ridge|Hill|Hills|Road|Rd|Pike|Turnpike|Run|Creek|Woods|Wood|Farm|Field|House|Tavern|Knoll|Top|Den|Orchard|Cemetery|Spring|Station|Lane|Church|Barn|Gap|Bridge|Mill|Ford|Junction|Camp|Pass|Heights|Cuts|Valley|Grove|Seminary|Springs|Depot|Square|Embankment|Gatehouse|Furnace|Street|St|River|Mountain|Mountains)';
 const CAP = "[A-Z][A-Za-z\\u2019'\\ufffd]+";
-const RE_PHRASE = new RegExp(String.raw`\b(${CAP}(?:\s+(?:of|de|and)?\s*${CAP})*\s+${PLACE_WORDS})\b`, 'g');
+const RE_PHRASE = new RegExp(String.raw`\b(${CAP}(?:\s+(?:of|de)?\s*${CAP})*\s+${PLACE_WORDS})\b`, 'g');
 export function candidatePhrases(text) {
   const out = new Set(); const t = String(text || '').replace(/�/g, '’'); let m; RE_PHRASE.lastIndex = 0;
   while ((m = RE_PHRASE.exec(t))) { const p = m[1].replace(/’s$/, '').trim(); if (p.length >= 5) out.add(p); }

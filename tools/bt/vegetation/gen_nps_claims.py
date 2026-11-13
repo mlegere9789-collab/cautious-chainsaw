@@ -74,7 +74,7 @@ def main():
         c = {'id': cid, 'src': 'NPS:' + r['source_id'], 'quote': r['quote'], 'tier': tier, 'kind': k if direct else 'ground', 'says': r['claim'], 'feature': r['feature'],
              'when': when_of(r) if direct else {'basis': r.get('state_date')}, 'xid': r['xid'], 'pdf_page': r.get('pdf_page'), 'printed_page': r.get('printed_page')}
         if farm:
-            c['anchor'] = {'farm': farm, 'r_m': 500, 'class': {'orchard': 'orchard', 'woodlot': 'woods', 'thicket': 'woods', 'crop': 'field'}.get(k)}
+            c['anchor'] = {'farm': farm, 'r_m': 500, 'class': {'orchard': 'orchard', 'woodlot': 'woods', 'thicket': 'woods', 'crop': 'field'}.get(k), 'area': True}
         out.append(c)
     json.dump(out, open(OUT, 'w', encoding='utf-8'), indent=0, ensure_ascii=False)
     import collections

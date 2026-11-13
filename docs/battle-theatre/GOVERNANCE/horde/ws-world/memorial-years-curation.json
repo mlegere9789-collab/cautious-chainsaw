@@ -1,0 +1,6 @@
+{
+  "_doc": "Memorials that a National Park Service chronology names by the site's own name and that app/tests/ext-site-years.mjs therefore reads, but that are LEFT OUT of app/data/site-memorial-years.json after a look at the case. The mechanical rule leaves out the rest (two entries of the site with one name, a name continued with 'Position Marker', two different years, a place far from the area the report describes) and prints each with its reason.",
+  "exclude": [
+    { "no": 327, "name": "150th New York Infantry Monument", "why": "the chronology of the Emmitsburg Road Ridge inventory (NPS-CLI-ERR, CE 1889) lists a 150th New York Infantry Monument erected in its area; the site's memorial of that name stands at Culp's Hill, 2.5 km from that area. The same name may be a second memorial, so no year is entered for the site's." }
+  ]
+}

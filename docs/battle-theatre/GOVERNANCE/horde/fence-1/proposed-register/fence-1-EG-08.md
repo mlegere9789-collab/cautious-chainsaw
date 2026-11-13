@@ -3,19 +3,19 @@
 | Field | Content |
 |---|---|
 | ID | fence-1-EG-08 |
-| Requirement IDs | R14, R13 |
-| Category | conflict between PDF and primary source |
-| Description | OR Part 1 documents rail breastworks and fence-rail piles on and near Cemetery Ridge (Harrow, Joslin, Gibbon, Hancock, Curtis, Baxter, Davis, Patterson). The PDF E-17 row says no source and forbids documented rail piles. Dimensions, continuity and some start times remain open. |
-| Why literal 100% is not possible or blocked | The record found does not support it (Law cl.3). |
-| Evidence searched | OR27 Part 1 breastwork and rails searches; quotes verbatim in results.jsonl. Web lookups: none made. OCR is unverified single witness. |
-| Autonomous substitute applied | Render rail breastworks only at the locations and times the OR gives (Emmitsburg Road about 16:00-18:00 Jul 2; Cemetery Ridge morning Jul 3 by the 69th PA), tier documented for existence, plausible-procedural for geometry. |
-| Strongest evidence-based reconstruction | As stated in the substitute; geometry beyond the OR is from seed, not record. |
-| Confidence tier | documented (existence), plausible-procedural (geometry) |
-| Competing values | PDF E-17 'no source' vs OR reports |
-| Product marking | Tier overlay on geometry; no continuous line asserted. |
-| Visual and audio impact | Cemetery Ridge, Emmitsburg Road fences, Jul 2-3 |
+| Requirement IDs | R14 (E-17) |
+| Category | evidence conflict (partly closed) |
+| Description | Close-out 2026-11-13. CONTRADICTION confirmed and widened: rail and stone breastworks are documented by unit, material and window on Jul 1 evening (Robinson's division on the line left of Cemetery Hill, parallel with the Emmitsburg road), Jul 2 from about 16:00 (Harrow's regiments, the 7th Michigan, the 80th NY and 151st Pa.), and Jul 3 (28th Mass., 69th Pa., Stone's brigade, Vermont brigade, 142nd, 121st and 69th/71st Pa., 88th Pa. at 18:00). Still open: continuity of a line, dimensions, per-regiment clocks, and the 69th Pa. date (July 2 in two scans, July 3 in the Cornell scan). |
+| Why literal 100% is not possible or blocked | No source prints a length or profile and none states continuity (Law cl.3). |
+| Evidence searched | Searched with tools/bt/or27_find (OR Ser. I vol. 27 parts 1-3, Cornell scan) and three further archive.org scans (warofrebellion271unit, warofrebellion012701rootrich, warofrebellion272unit, warofrebellionco272unit) as second witnesses; the 99-text library plus three added archive.org books; the 73 National Park Service documents under tmp/library/web/nps. Every quoted passage is in evidence_corrections/fence-1.jsonl.  |
+| Autonomous substitute applied | Works built on screen in the documented windows (DD-02), regiment-length short works, dimensions marked as a gap. |
+| Strongest evidence-based reconstruction | Existence, units, materials documented; dimensions procedural. |
+| Confidence tier | documented (existence, units, materials, windows); plausible-procedural (dimensions) |
+| Competing values | 69th Pa.: July 2 vs July 3; Robinson relieved about 10:00 (Baxter) vs noon (Coulter) |
+| Product marking | Tier overlay; the PDF wording shown as contradicted. |
+| Visual and audio impact | Cemetery Ridge Jul 1 17:00 to Jul 3 18:00 |
 | Review status | internal review only (DEC-006: no public review label) |
-| Owner decision requested | None needed unless the PDF wording itself is to change (E-17). Next evidence to seek: Confirm Davis p.431 'fence rails' against a second OCR witness; owner to confirm whether the PDF E-17 wording is to be revised. |
-| Agent recommendation | Hold the conservative option; do not pick a default among competing values. |
-| Status | open |
+| Owner decision requested | Rewording of the PDF E-17 text is the owner's call (the text is not changed here). |
+| Agent recommendation | Adopt the documented works; keep the PDF wording as a selectable scenario (DD-02). |
+| Status | partly_closed (updated by the close-out 2026-11-13; the earlier text is superseded) |
 | Owner decision and date | (filled only from the Decision Log) |

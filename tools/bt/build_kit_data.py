@@ -63,7 +63,8 @@ def count_fields(units):
     return n
 
 
-def build():
+def build_tables():
+    """The four base tables from the kit_*.py modules, before overrides and before anything is written."""
     inf_units = {k: v for k, v in UNITS.items() if v["branch"] not in ("artillery", "cavalry")}
     art_units = {k: v for k, v in UNITS.items() if v["branch"] == "artillery"}
     cav_units = {k: v for k, v in UNITS.items() if v["branch"] == "cavalry"}
@@ -167,6 +168,15 @@ def build():
         "action_table_note": "The B.6.15.3 action-by-action table (June 26 - July 16) is event data, not kit data; it is NOT reproduced here (routed to the timeline: GOVERNANCE/timeline_seed.jsonl). Listed in KIT-NOTES.md.",
         "sources": used_sources(CV.CAV_CARDS, CV.STRENGTHS, CV.HORSES, CV.CARBINE_FACTS)[0],
     }
+    return kit_specs, weapons, artillery, cavalry
+
+
+def build():
+    """Base tables, then the evidence overrides (kit/overrides/*.json, see tools/bt/kit_overrides.py), then the files. With no override file the tables are written exactly as before."""
+    kit_specs, weapons, artillery, cavalry = build_tables()
+    import kit_overrides as KO
+    kit_specs, weapons, artillery, cavalry, rep = KO.apply_overrides(kit_specs, weapons, artillery, cavalry)
+    build.override_report = rep
     paths = [dump("kit_specs.json", kit_specs), dump("weapons.json", weapons), dump("artillery_batteries.json", artillery), dump("cavalry_units.json", cavalry)]
     return paths, kit_specs, weapons, artillery, cavalry
 
@@ -176,3 +186,6 @@ if __name__ == "__main__":
     for p in paths:
         print(p, os.path.getsize(p))
     print("units", len(ks["units"]), "arty units", len(a["units"]), "cav units", len(c["units"]), "items", len(ks["items"]), "weapons", len(w["weapons"]))
+    rep = getattr(build, "override_report", None)
+    if rep and rep["ops"]:
+        print("evidence overrides applied: %d operations from %s, citing %d evidence lines" % (rep["ops"], ", ".join(rep["files"]), rep["evidence_ids"]))

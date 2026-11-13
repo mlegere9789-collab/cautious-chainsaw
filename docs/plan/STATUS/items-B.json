@@ -40,14 +40,14 @@
   "Not run by this survey: any browser suite, Lighthouse (no runner in the repository), any real device or assistive technology, the eight acceptance passes, any live-site check, Firefox or WebKit."
  ],
  "counts": {
-  "SHIPPED": 98,
-  "BUILT_NOT_SHIPPED": 51,
-  "OPEN_BUILDABLE": 190,
-  "OPEN_NEEDS_DECISION": 87,
-  "OWNER_ONLY": 86,
+  "SHIPPED": 99,
+  "BUILT_NOT_SHIPPED": 57,
+  "OPEN_BUILDABLE": 218,
+  "OPEN_NEEDS_DECISION": 90,
+  "OWNER_ONLY": 103,
   "SUPERSEDED": 12
  },
- "total": 524,
+ "total": 579,
  "counts_by_kind": {
   "audit-correction": {
    "OWNER_ONLY": 4,
@@ -91,9 +91,11 @@
    "BUILT_NOT_SHIPPED": 3
   },
   "verification-debt": {
-   "OPEN_BUILDABLE": 10,
-   "OWNER_ONLY": 18,
-   "OPEN_NEEDS_DECISION": 1
+   "OWNER_ONLY": 35,
+   "OPEN_BUILDABLE": 38,
+   "BUILT_NOT_SHIPPED": 6,
+   "SHIPPED": 1,
+   "OPEN_NEEDS_DECISION": 4
   },
   "work-package": {
    "OWNER_ONLY": 12,
@@ -116,46 +118,46 @@
   "09": {
    "OPEN_BUILDABLE": 25,
    "OPEN_NEEDS_DECISION": 9,
-   "OWNER_ONLY": 17,
+   "OWNER_ONLY": 22,
    "SUPERSEDED": 3,
    "SHIPPED": 12,
    "BUILT_NOT_SHIPPED": 1
   },
   "10": {
-   "OPEN_BUILDABLE": 14,
+   "OPEN_BUILDABLE": 18,
    "OPEN_NEEDS_DECISION": 19,
-   "OWNER_ONLY": 7,
+   "OWNER_ONLY": 11,
    "SHIPPED": 8,
    "BUILT_NOT_SHIPPED": 2,
    "SUPERSEDED": 3
   },
   "11": {
-   "BUILT_NOT_SHIPPED": 11,
-   "OPEN_BUILDABLE": 17,
+   "BUILT_NOT_SHIPPED": 12,
+   "OPEN_BUILDABLE": 23,
    "OPEN_NEEDS_DECISION": 9,
    "SHIPPED": 8,
-   "OWNER_ONLY": 2
+   "OWNER_ONLY": 3
   },
   "12": {
-   "OPEN_BUILDABLE": 17,
-   "SHIPPED": 15,
+   "OPEN_BUILDABLE": 20,
+   "SHIPPED": 16,
    "BUILT_NOT_SHIPPED": 3,
-   "OPEN_NEEDS_DECISION": 4,
-   "OWNER_ONLY": 6
+   "OPEN_NEEDS_DECISION": 5,
+   "OWNER_ONLY": 7
   },
   "13": {
-   "OPEN_BUILDABLE": 22,
-   "BUILT_NOT_SHIPPED": 12,
-   "OWNER_ONLY": 3,
+   "OPEN_BUILDABLE": 35,
+   "BUILT_NOT_SHIPPED": 15,
+   "OWNER_ONLY": 5,
    "SHIPPED": 4,
    "OPEN_NEEDS_DECISION": 7,
    "SUPERSEDED": 1
   },
   "14": {
-   "BUILT_NOT_SHIPPED": 19,
-   "OPEN_BUILDABLE": 14,
-   "OPEN_NEEDS_DECISION": 15,
-   "OWNER_ONLY": 7,
+   "BUILT_NOT_SHIPPED": 21,
+   "OPEN_BUILDABLE": 16,
+   "OPEN_NEEDS_DECISION": 17,
+   "OWNER_ONLY": 11,
    "SHIPPED": 1
   },
   "15": {
@@ -234,6 +236,10 @@
      "status": "OWNER_ONLY"
     },
     {
+     "id": "WP-INFRA-04b",
+     "status": "SHIPPED"
+    },
+    {
      "id": "WP-INFRA-04c",
      "status": "SUPERSEDED"
     },
@@ -267,6 +273,10 @@
      "status": "SUPERSEDED"
     },
     {
+     "id": "WP-INFRA-09b",
+     "status": "OWNER_ONLY"
+    },
+    {
      "id": "WP-QA-01",
      "status": "OPEN_BUILDABLE"
     }
@@ -282,7 +292,24 @@
     "14"
    ],
    "status_in_items_A": "OWNER_ONLY",
-   "items_of_this_file_under_it": []
+   "items_of_this_file_under_it": [
+    {
+     "id": "WP-DATA-05a",
+     "status": "OWNER_ONLY"
+    },
+    {
+     "id": "WP-DATA-23b",
+     "status": "OWNER_ONLY"
+    },
+    {
+     "id": "WP-HIST-30",
+     "status": "OWNER_ONLY"
+    },
+    {
+     "id": "WP-HIST-35",
+     "status": "OWNER_ONLY"
+    }
+   ]
   },
   {
    "id": "RM-06",
@@ -322,6 +349,10 @@
     {
      "id": "WP-QA-04a",
      "status": "SHIPPED"
+    },
+    {
+     "id": "WP-QA-04b",
+     "status": "OPEN_BUILDABLE"
     }
    ]
   },
@@ -343,11 +374,27 @@
      "status": "SHIPPED"
     },
     {
+     "id": "WP-QA-09",
+     "status": "SHIPPED"
+    },
+    {
+     "id": "WP-QA-23",
+     "status": "OPEN_BUILDABLE"
+    },
+    {
      "id": "WP-QA-02a",
      "status": "SHIPPED"
     },
     {
      "id": "WP-QA-02b",
+     "status": "OPEN_BUILDABLE"
+    },
+    {
+     "id": "WP-QA-06a",
+     "status": "SHIPPED"
+    },
+    {
+     "id": "WP-QA-06b",
      "status": "OPEN_BUILDABLE"
     }
    ]
@@ -419,6 +466,10 @@
     {
      "id": "WP-SEO-04a",
      "status": "SHIPPED"
+    },
+    {
+     "id": "WP-SEO-04b",
+     "status": "OPEN_BUILDABLE"
     }
    ]
   },
@@ -456,6 +507,10 @@
    ],
    "status_in_items_A": "SHIPPED",
    "items_of_this_file_under_it": [
+    {
+     "id": "WP-CONTENT-06",
+     "status": "BUILT_NOT_SHIPPED"
+    },
     {
      "id": "WP-CONTENT-02a",
      "status": "SHIPPED"
@@ -516,6 +571,10 @@
    "status_in_items_A": "OWNER_ONLY",
    "items_of_this_file_under_it": [
     {
+     "id": "WP-INFRA-09",
+     "status": "SUPERSEDED"
+    },
+    {
      "id": "WP-INFRA-09b",
      "status": "OWNER_ONLY"
     },
@@ -570,6 +629,14 @@
     {
      "id": "WP-CONTENT-07",
      "status": "OPEN_NEEDS_DECISION"
+    },
+    {
+     "id": "WP-CONTENT-02a",
+     "status": "SHIPPED"
+    },
+    {
+     "id": "WP-CONTENT-02b",
+     "status": "OPEN_BUILDABLE"
     }
    ]
   },
@@ -646,6 +713,10 @@
     {
      "id": "WP-SEO-10b",
      "status": "OPEN_NEEDS_DECISION"
+    },
+    {
+     "id": "WP-CONTENT-13",
+     "status": "OPEN_BUILDABLE"
     }
    ]
   },
@@ -704,6 +775,10 @@
     },
     {
      "id": "WP-DATA-07b",
+     "status": "BUILT_NOT_SHIPPED"
+    },
+    {
+     "id": "WP-HIST-05",
      "status": "BUILT_NOT_SHIPPED"
     }
    ]
@@ -802,6 +877,14 @@
    ],
    "status_in_items_A": "BUILT_NOT_SHIPPED",
    "items_of_this_file_under_it": [
+    {
+     "id": "WP-INFRA-34a",
+     "status": "SHIPPED"
+    },
+    {
+     "id": "WP-INFRA-34b",
+     "status": "OPEN_BUILDABLE"
+    },
     {
      "id": "WP-HIST-08",
      "status": "BUILT_NOT_SHIPPED"
@@ -971,7 +1054,16 @@
     "13"
    ],
    "status_in_items_A": "OPEN_BUILDABLE",
-   "items_of_this_file_under_it": []
+   "items_of_this_file_under_it": [
+    {
+     "id": "WP-DATA-10a",
+     "status": "SHIPPED"
+    },
+    {
+     "id": "WP-DATA-10b",
+     "status": "OPEN_BUILDABLE"
+    }
+   ]
   },
   {
    "id": "RM-62",
@@ -983,7 +1075,20 @@
     "10"
    ],
    "status_in_items_A": "OPEN_BUILDABLE",
-   "items_of_this_file_under_it": []
+   "items_of_this_file_under_it": [
+    {
+     "id": "WP-INFRA-18",
+     "status": "OPEN_BUILDABLE"
+    },
+    {
+     "id": "WP-SEO-14",
+     "status": "OPEN_NEEDS_DECISION"
+    },
+    {
+     "id": "WP-SEO-09b",
+     "status": "OPEN_BUILDABLE"
+    }
+   ]
   },
   {
    "id": "RM-70",
@@ -1070,6 +1175,10 @@
      "status": "OPEN_BUILDABLE"
     },
     {
+     "id": "WP-SEO-16",
+     "status": "OPEN_BUILDABLE"
+    },
+    {
      "id": "WP-SEO-17",
      "status": "OPEN_NEEDS_DECISION"
     },
@@ -1084,6 +1193,10 @@
     {
      "id": "WP-SEO-20",
      "status": "OPEN_NEEDS_DECISION"
+    },
+    {
+     "id": "WP-SEO-24",
+     "status": "OPEN_BUILDABLE"
     },
     {
      "id": "WP-SEO-25",
@@ -1157,6 +1270,10 @@
      "status": "OWNER_ONLY"
     },
     {
+     "id": "WP-QA-21a",
+     "status": "OWNER_ONLY"
+    },
+    {
      "id": "WP-QA-21b",
      "status": "OPEN_BUILDABLE"
     }
@@ -1186,6 +1303,22 @@
     {
      "id": "WP-DATA-24",
      "status": "OPEN_BUILDABLE"
+    },
+    {
+     "id": "WP-DATA-08a",
+     "status": "BUILT_NOT_SHIPPED"
+    },
+    {
+     "id": "WP-DATA-08b",
+     "status": "OPEN_BUILDABLE"
+    },
+    {
+     "id": "WP-DATA-08c",
+     "status": "BUILT_NOT_SHIPPED"
+    },
+    {
+     "id": "WP-DATA-08d",
+     "status": "OPEN_BUILDABLE"
     }
    ]
   },
@@ -1206,6 +1339,10 @@
     {
      "id": "WP-QA-21a",
      "status": "OWNER_ONLY"
+    },
+    {
+     "id": "WP-QA-21b",
+     "status": "OPEN_BUILDABLE"
     },
     {
      "id": "WP-QA-24a",
@@ -1381,7 +1518,7 @@
    "status": "SUPERSEDED",
    "evidence": "Superseded by the standing owner constraint in CLAUDE.md (\"the owner publishes drag-and-drop zips\"; nothing is deployed by anyone else). What exists in its place: the deterministic zip packer tools/ship/pack_zip.py with its self-test (suite static.ship), the byte-identity proof ops/sha-list.mjs verify-url, the staging routine ops/STAGING-SETUP.md with ops/staging-verify.mjs, a noindex staging zip beside every production zip (deliver/gettysburg-R1g-52cec836-STAGING-noindex.zip differs in _headers only, docs/accept/R1G-STATUS.md), and rollback by \"Publish deploy\" in ops/RELEASE-RUNBOOK.md section 11.",
    "next_step": "None; Git deploys stay a selectable alternative for the owner (D-CI-HOST default). The staging site itself is WP-INFRA-09b.",
-   "size": "L",
+   "size": "S",
    "files": [
     "tools/ship/pack_zip.py",
     "ops/sha-list.mjs",
@@ -1390,7 +1527,10 @@
     "ops/RELEASE-RUNBOOK.md",
     "CLAUDE.md"
    ],
-   "roadmap_node": "RM-02"
+   "roadmap_node": "RM-02",
+   "also_roadmap_nodes": [
+    "RM-21"
+   ]
   },
   {
    "id": "WP-INFRA-10",
@@ -1400,7 +1540,7 @@
    "status": "SHIPPED",
    "evidence": "Train R1c onwards (config hook tools/t0/config/gen.mjs; R1d to R1g through tools/t0/base1863/config_hook.mjs): release/R1g/dist/_headers states the invariant \"each header NAME is produced by at most ONE matching rule\", has one block per page in both spellings, per-class Report-Only CSP and Permissions-Policy, and a comment-only netlify.toml. Tests: tests/t0/headers.spec.mjs HDR-01, HDR-02 (one rule per header name per URL), HDR-08 (guard rails, staging noindex only in /*), HDR-09/10 (probe and emulator); run 2026-11-13 in this container on release/R1g/dist with --no-browser: 13 pass, 4 skipped (browser and online tests), 1 FAILED: HDR-11, because the folder tiles1863/v1-65d491b8 is not named after the hash of its files (the Linux-staged stand-in tile pyramid recorded in docs/accept/R1G-STATUS.md 2026-11-04 20:35; the owner's own staged pyramid is needed for a zip). Recorded deviations (ops/header-decisions.md): X-Frame-Options DENY with frame-ancestors 'none' instead of SAMEORIGIN/'self'; Permissions-Policy already narrowed per class; the valid scanner rules are kept (HDR-05 asserts them).",
    "next_step": "None for the generator. The missing COOP header is WP-INFRA-10b; reporting endpoints wait for the collector decision (WP-INFRA-15).",
-   "size": "L",
+   "size": "S",
    "files": [
     "tools/t0/config/gen.mjs",
     "tools/t0/base1863/config_hook.mjs",
@@ -1436,7 +1576,7 @@
    "status": "SHIPPED",
    "evidence": "Train R1c onwards (generated config): /embed and /embed.html each send one Content-Security-Policy: frame-ancestors *, no X-Frame-Options and no inherited Report-Only policy (checked in release/R1g/dist/_headers); every other page sends X-Frame-Options: DENY and frame-ancestors 'none'. Tests: headers.spec HDR-03 and HDR-20 (real Chrome, cross-origin page: /embed and /embed.html frame; /, /privacy, /dashboard, /ar do not), prod-probe HP-06, HP-07. The page is noindex by its robots meta (seo.spec T0-SEO-05) instead of an X-Robots-Tag header. The stricter embed policy of the plan (default-src 'none' with hashed script and style) is part of WP-INFRA-17.",
    "next_step": "None.",
-   "size": "M",
+   "size": "S",
    "files": [
     "tools/t0/config/gen.mjs",
     "tests/t0/headers.spec.mjs",
@@ -1491,7 +1631,10 @@
    "files": [
     "src/lib/time/index.js"
    ],
-   "roadmap_node": "RM-88"
+   "roadmap_node": "RM-88",
+   "also_roadmap_nodes": [
+    "RM-62"
+   ]
   },
   {
    "id": "WP-INFRA-20",
@@ -1518,7 +1661,7 @@
    "status": "SHIPPED",
    "evidence": "Train R0 onwards, R0 mechanism (templates tools/t0/mechanism/, code tools/t0/t0build/mechanism.py): release/R1g/dist/sw.js has no install precache, no skipWaiting, never handles navigations, caches only same-origin ok basic /assets/* (and the versioned /tiles1863/*), purges only gbg-* caches and leaves /data/, /hx/, /api/, /.netlify/ alone; registration is idle-time; the stylesheet is a plain link. Kill switch ops/sw-kill.js is kept outside the dist. Tests: tests/t0/r0.mjs T0-R0-01..13 (one Document, controller without navigation, upgrade drill from the old worker, rename drill, kill drill, loader retry), prod-probe T0-03, T0-04, HP-08; R1G-STATUS records r0 suites green on the frozen trains and no R1g defect. No /reset page with Clear-Site-Data exists (the WP lists it beside the kill switch).",
    "next_step": "None for the worker. A /reset page is optional hardening: decide with the release workstream.",
-   "size": "M",
+   "size": "S",
    "files": [
     "tools/t0/t0build/mechanism.py",
     "ops/sw-kill.js",
@@ -1566,7 +1709,7 @@
    "kind": "work-package",
    "title": "Interim privacy correction and data-flow inventory",
    "status": "BUILT_NOT_SHIPPED",
-   "evidence": "Built as the opt-in page group PG-legal (tools/t0/patches/PG-legal.json, 10 patches, \"optional\": true) with the fact base ops/legal-drafts/data-inventory.json and the checker ops/legal-drafts/verify-facts.mjs; it is in no train by default (release/R1g/dist/version.json groups list has no PG-legal; headers.spec HDR-24 asserts the default build carries no draft text). A scratch build of the R1g tree with the opt-in group (python tools/t0/build.py --train R1g --with PG-legal, tmp/r1h-cand/status-B/legal-check-R1g: 3,396 patch records = 3,386 + the 10 legal rows, 0 anchor failures, gates ok, 2,013 files) passes node ops/legal-drafts/verify-facts.mjs --dist <that tree>/dist run 2026-11-13: no FAIL, 0 WARN (dates, Street View sensor sentence, referrer sentence, every host, key, cache and permission named). Missing: the owner's review. docs/decisions/OWNER-DECISIONS-2026-10-04.md item 3: \"Interim legal text remains opt-in until the owner reviews ops/legal-drafts/\".",
+   "evidence": "Built as the opt-in page group PG-legal (tools/t0/patches/PG-legal.json, 10 patches, \"optional\": true) with the fact base ops/legal-drafts/data-inventory.json and the checker ops/legal-drafts/verify-facts.mjs; it is in no train by default (release/R1g/dist/version.json groups list has no PG-legal; headers.spec HDR-24 asserts the default build carries no draft text). A scratch build of the R1g tree with the opt-in group (python tools/t0/build.py --train R1g --with PG-legal, scratch tree tmp/r1h-cand/status-B/legal-check-R1g, deleted after the check to save disk: 3,396 patch records = 3,386 + the 10 legal rows, 0 anchor failures, gates ok, 2,013 files) passes node ops/legal-drafts/verify-facts.mjs --dist <that tree>/dist run 2026-11-13: no FAIL, 0 WARN (dates, Street View sensor sentence, referrer sentence, every host, key, cache and permission named). Missing: the owner's review. docs/decisions/OWNER-DECISIONS-2026-10-04.md item 3: \"Interim legal text remains opt-in until the owner reviews ops/legal-drafts/\".",
    "next_step": "Owner reads ops/legal-drafts/OWNER-SIGNOFF.md and the two previews, sets legal.effective_date in tools/t0/trains.json to the publication day, and the release workstream builds the train with --with PG-legal (with the companion tools/t0/patches-next/PG-polish-legal.json registered so the R1d names apply to the new text).",
    "size": "S",
    "files": [
@@ -1716,7 +1859,10 @@
     "tools/t0/t0build/mechanism.py",
     "tests/t0/r0.mjs"
    ],
-   "roadmap_node": "RM-06"
+   "roadmap_node": "RM-06",
+   "also_roadmap_nodes": [
+    "RM-01"
+   ]
   },
   {
    "id": "WP-INFRA-04c",
@@ -1726,7 +1872,7 @@
    "status": "SUPERSEDED",
    "evidence": "Superseded by owner decisions: docs/decisions/OWNER-DECISIONS-2026-10-04.md item 3 (\"Do not break the Virtual Walkthrough ... The Street View sensor delegation stays\") and OWNER-DECISIONS-2026-10-05.md item 6 (the Walkthrough code stays byte-identical; defects there are reported, not patched). What ships instead: the frame keeps loading as published and carries the sensor delegation (group CP extension CP+walkthrough-sensors.json, train R1c onwards; tests headers.spec HDR-13 and HDR-23, walkthrough-guard T0-WG-01..17). The contact with Google is to be disclosed in the privacy text (WP-INFRA-26).",
    "next_step": "None unless the owner reverses the decision; the plan text stays the selectable alternative.",
-   "size": "M",
+   "size": "S",
    "files": [
     "docs/decisions/OWNER-DECISIONS-2026-10-04.md",
     "docs/decisions/OWNER-DECISIONS-2026-10-05.md",
@@ -1860,7 +2006,10 @@
     "ops/staging-verify.mjs"
    ],
    "roadmap_node": "RM-21",
-   "owner_step": "Create a second Netlify site named gbg-staging (ops/STAGING-SETUP.md section 2), drag deliver/gettysburg-<train>-<id>-STAGING-noindex.zip onto it, run node ops/staging-verify.mjs --train <train> --staging-url <its URL>, then rehearse \"Publish deploy\" of the previous deploy once (section 8) and note the time it took."
+   "owner_step": "Create a second Netlify site named gbg-staging (ops/STAGING-SETUP.md section 2), drag deliver/gettysburg-<train>-<id>-STAGING-noindex.zip onto it, run node ops/staging-verify.mjs --train <train> --staging-url <its URL>, then rehearse \"Publish deploy\" of the previous deploy once (section 8) and note the time it took.",
+   "also_roadmap_nodes": [
+    "RM-02"
+   ]
   },
   {
    "id": "WP-INFRA-10b",
@@ -1885,7 +2034,7 @@
    "status": "SHIPPED",
    "evidence": "Train R0 (hashed names for the entry, both lazy chunks and the stylesheet; ledger ops/used-names.txt, gate row ledger, verify_release names check) and train R1c onwards (generated cache rules). Checked in release/R1g/dist/_headers: HTML no-cache, must-revalidate; /assets/* immutable for one year; /data/* max-age=3600; /icons/* one day without immutable; /sw.js no-store; /version.json no-cache; /tiles1863/* immutable (versioned folder). Tests: headers.spec HDR-04 and HDR-11 (fixed-name files never immutable), build_selftest (ledger), prod-probe HP-08, HP-09, T0-08.",
    "next_step": "None.",
-   "size": "M",
+   "size": "S",
    "files": [
     "ops/used-names.txt",
     "tools/t0/ledger.py",
@@ -1967,7 +2116,7 @@
    "status": "SHIPPED",
    "evidence": "Train R1c onwards (generated config): each page class has its own Report-Only policy (app: Mapbox, Google and NPS frames; map pages: api.mapbox.com script and style; text pages: self only; the RUM host is in connect-src; no font hosts). Tests: headers.spec HDR-06 (full origin list, still report-only, per-page markup origins covered), HDR-21 (real Chrome: every page loads with 0 violations and 0 policy warnings), HDR-22 (negative control). The policy has no report endpoint (WP-INFRA-15).",
    "next_step": "None.",
-   "size": "M",
+   "size": "S",
    "files": [
     "tools/t0/config/gen.mjs",
     "tests/t0/headers.spec.mjs"
@@ -2015,7 +2164,7 @@
    "status": "SHIPPED",
    "evidence": "Train R1a onwards, page group PG-maps: the 8 map pages load Mapbox GL 3.24.1 deferred with integrity and crossorigin and wrap their inline code in DOMContentLoaded; PeerJS 1.5.4 loads on demand with SRI. Checked today: all 8 pages of release/R1g/dist carry integrity=. Tests: pages-maps PG-01, PG-04 (a wrong hash keeps the library out), PG-05a/b/c, PG-SRI (online check of the pinned hashes).",
    "next_step": "None.",
-   "size": "M",
+   "size": "S",
    "files": [
     "tools/t0/patches/PG-maps.json",
     "tests/t0/pages-maps.spec.mjs"
@@ -2049,7 +2198,7 @@
    "status": "SUPERSEDED",
    "evidence": "Superseded by the owner: docs/decisions/OWNER-DECISIONS-2026-10-04.md item 5 (\"Public contact is gettysburginteractivemap@gmail.com only\") and docs/content/OWNER-INPUTS.md section 0 (\"Role addresses (D-CONTACT in the plan) are not used\"). Checked today: the only gmail.com address in release/R1g/dist is gettysburginteractivemap@gmail.com (7 occurrences in privacy.html, terms.html, site-nav.js and the entry bundle); copy_lint rule PERSONAL_EMAIL finds 0 other addresses. The draft ops/legal-drafts/contact-architecture.md is marked \"DRAFT, DO NOT ACT\".",
    "next_step": "None. If the owner wants spoofing protection for a domain that sends no mail (SPF -all, DMARC), that is a DNS decision of the owner; nothing is proposed here.",
-   "size": "M",
+   "size": "S",
    "files": [
     "docs/decisions/OWNER-DECISIONS-2026-10-04.md",
     "docs/content/OWNER-INPUTS.md",
@@ -2081,7 +2230,7 @@
    "status": "SHIPPED",
    "evidence": "Trains R1a (PG-maps: manifest id \"/\", no orientation, separate any and maskable icons, corrupt screenshots gone) and R1d onwards (PG-zimg: real 1863 photographs as icons and as the 1200x630 card og/gettysburg-card.jpg, owner decision 2026-10-19 item 2). Checked in release/R1g/dist/manifest.json. Tests: pages-maps PG-06, PG-07; tests/t0/images.spec.mjs T0-RIMG-01..12 (decode, ledger, sizes, installability; 12/13 with 1 skip on R1g per docs/accept/R1G-STATUS.md).",
    "next_step": "None; open manifest fields are WP-INFRA-23b.",
-   "size": "M",
+   "size": "S",
    "files": [
     "tools/t0/patches/PG-maps.json",
     "tools/t0/patches/PG-zimg.json",
@@ -2147,7 +2296,7 @@
    "status": "SHIPPED",
    "evidence": "Train R1a onwards, page groups PG-core (rows built with textContent, stored and imported tours validated) and PG-maps (PeerJS on demand with SRI); train R1f adds PG-zfix (a connection that is still opening is never closed). Tests: pages-core T0-PGC-19, 20, 21 and PGC-28 (real Mapbox), pages-maps PG-05a/b/c, tests/t0/wtpeer.spec.mjs T0-WTP-01..04. Live Sync stays on (the plan's default was to pause it; the fallback Part A was built instead).",
    "next_step": "None; remaining hardening is WP-INFRA-28b.",
-   "size": "M",
+   "size": "S",
    "files": [
     "tools/t0/patches/PG-core.json",
     "tools/t0/patches/PG-maps.json",
@@ -2214,7 +2363,10 @@
     "tools/t0/t0build/mechanism.py",
     "tests/t0/r0.mjs"
    ],
-   "roadmap_node": "RM-40"
+   "roadmap_node": "RM-40",
+   "also_roadmap_nodes": [
+    "RM-41"
+   ]
   },
   {
    "id": "WP-INFRA-34b",
@@ -2229,7 +2381,83 @@
     "tools/t0/config/gen.mjs",
     "tests/t0/headers.spec.mjs"
    ],
-   "roadmap_node": "RM-40"
+   "roadmap_node": "RM-40",
+   "also_roadmap_nodes": [
+    "RM-41"
+   ]
+  },
+  {
+   "id": "VD09-1",
+   "chapter": "09",
+   "kind": "verification-debt",
+   "title": "Netlify facts: plan, credits, preview metering, pretty_urls, header precedence, Forms, Functions, Blobs, rate limits, rollback API, primary-domain rule",
+   "status": "OWNER_ONLY",
+   "evidence": "Platform facts that need the owner's account and a deploy preview (items-A.json WP-DEC-05). The header-precedence question is made moot in the candidate by emitting each header name from exactly one rule (ops/header-decisions.md; headers.spec HDR-01, 02); the rest is unverified.",
+   "next_step": "Owner records the plan and runs the staging checks (ops/STAGING-SETUP.md).",
+   "size": "S",
+   "files": [
+    "ops/owner-console-actions.md",
+    "ops/STAGING-SETUP.md",
+    "ops/header-decisions.md"
+   ],
+   "owner_step": "Do Action 5 of ops/owner-console-actions.md and the staging routine of ops/STAGING-SETUP.md; write down what Netlify shows for pretty URLs, preview metering and the primary domain."
+  },
+  {
+   "id": "VD09-2",
+   "chapter": "09",
+   "kind": "verification-debt",
+   "title": "Mapbox allow-list, scopes, spend cap, Product Terms of 2026-07-21, behaviour with events.mapbox.com blocked, worker tile fetches; Google key restrictions and enabled APIs",
+   "status": "OWNER_ONLY",
+   "evidence": "Dashboards and terms are the owner's (WP-INFRA-03a, 04a). The behaviour with the telemetry host blocked is untested (WP-QA-08b would cover it).",
+   "next_step": "Owner dashboards; the blocked-host spec is buildable.",
+   "size": "S",
+   "files": [
+    "ops/owner-console-actions.md"
+   ],
+   "owner_step": "Do Actions 3 and 4 of ops/owner-console-actions.md and read the Mapbox Product Terms on caching, self-hosting and recordings."
+  },
+  {
+   "id": "VD09-3",
+   "chapter": "09",
+   "kind": "verification-debt",
+   "title": "DNS and mail: forwarder terms, DMARC for forwarded mail, Netlify-managed apex records, CAA account URI; Terms clauses",
+   "status": "OWNER_ONLY",
+   "evidence": "The forwarder and role-address half is superseded by owner decision 2026-10-04 item 5 (one public mailbox); DNS records, the CAA account value and counsel on the Terms clauses remain the owner's (WP-INFRA-20, 27a).",
+   "next_step": "Owner.",
+   "size": "S",
+   "files": [
+    "ops/legal-drafts/contact-architecture.md"
+   ],
+   "owner_step": "See WP-INFRA-20 and WP-INFRA-27a."
+  },
+  {
+   "id": "VD09-4",
+   "chapter": "09",
+   "kind": "verification-debt",
+   "title": "Browsers and devices: Permissions-Policy console warnings, Clear-Site-Data in Safari, frame-block signals in Firefox and WebKit, installability without a fetch handler, iOS worker eviction and install",
+   "status": "OWNER_ONLY",
+   "evidence": "Only Chromium is installed in this container (nothing may be installed); headers.spec HDR-21 shows zero policy warnings in Chrome; installability: images.spec T0-RIMG-12 (no installability error in Chrome). iOS and the other engines are the owner's.",
+   "next_step": "Run on a machine with Firefox, WebKit and an iPhone.",
+   "size": "M",
+   "files": [
+    "tests/t0/headers.spec.mjs",
+    "tests/t0/images.spec.mjs"
+   ],
+   "owner_step": "See V18 and WP-QA-21a."
+  },
+  {
+   "id": "VD09-5",
+   "chapter": "09",
+   "kind": "verification-debt",
+   "title": "Schools and traffic: filter vendor processes, events.mapbox.com and WebRTC blocking, whether Netlify counts HEAD, RUM spike correlation, account 2FA, GitHub minutes",
+   "status": "OWNER_ONLY",
+   "evidence": "Third-party processes and the owner's accounts (WP-INFRA-29, 30b, 01).",
+   "next_step": "Owner.",
+   "size": "S",
+   "files": [
+    "ops/RUM-hygiene.md"
+   ],
+   "owner_step": "See WP-INFRA-29, 30b and 01."
   },
   {
    "id": "INFRA-OD-1",
@@ -2528,6 +2756,9 @@
    "decision": "Owner decision 2026-10-19 item 2 (only actual images) against D-MEDIA own vector art, and D-SITEGEN (static generator)",
    "delegated_row": [
     "B06"
+   ],
+   "also_roadmap_nodes": [
+    "RM-62"
    ]
   },
   {
@@ -2562,7 +2793,10 @@
     "data-src/build/candidates/notable_intensity.json",
     "historian-src/corpus/or27/manifest.json"
    ],
-   "roadmap_node": "RM-97"
+   "roadmap_node": "RM-97",
+   "also_roadmap_nodes": [
+    "RM-81"
+   ]
   },
   {
    "id": "WP-SEO-17",
@@ -2592,7 +2826,7 @@
    "status": "SUPERSEDED",
    "evidence": "Superseded by the owner: docs/decisions/OWNER-DECISIONS-2026-10-19.md item 2 (\"The site uses only actual images of Gettysburg ... og images regenerated from real ones\"). The card that ships is a ledgered derivative of an 1863 photograph (PG-zimg, tools/t0/images, docs/basemap1863/site-images/LEDGER.md); images.spec T0-RIMG-04 fails on generic art.",
    "next_step": "None. Per-template cards, if wanted later, must be derivatives of real photographs with ledger rows through the same pipeline.",
-   "size": "M",
+   "size": "S",
    "files": [
     "docs/decisions/OWNER-DECISIONS-2026-10-19.md",
     "tools/t0/patches/PG-zimg.json",
@@ -2708,7 +2942,10 @@
    "files": [
     "docs/plan/FINAL/10-seo-growth.md"
    ],
-   "roadmap_node": "RM-83"
+   "roadmap_node": "RM-83",
+   "also_roadmap_nodes": [
+    "RM-81"
+   ]
   },
   {
    "id": "WP-SEO-25",
@@ -2865,7 +3102,10 @@
     "tools/t0/seo/gen_zseo.py",
     "tests/t0/seo.spec.mjs"
    ],
-   "roadmap_node": "RM-24"
+   "roadmap_node": "RM-24",
+   "also_roadmap_nodes": [
+    "RM-15"
+   ]
   },
   {
    "id": "WP-SEO-06a",
@@ -2910,7 +3150,7 @@
    "status": "SHIPPED",
    "evidence": "Train R1g, page group PG-zseo (22 patches generated by tools/t0/seo/gen_zseo.py): WebPage and BreadcrumbList JSON-LD on 19 pages, WebSite beside the existing WebApplication on the home page. Tests: seo.spec T0-SEO-08 (every block parses, nothing invented) and T0-SEO-09 (agrees with canonical, title and description); seo.spec run 2026-11-13 on release/R1g/dist: 17/17 passed.",
    "next_step": "None.",
-   "size": "M",
+   "size": "S",
    "files": [
     "tools/t0/patches/PG-zseo.json",
     "tools/t0/seo/gen_zseo.py",
@@ -2931,7 +3171,10 @@
     "tools/t0/seo/gen_zseo.py",
     "tests/t0/seo.spec.mjs"
    ],
-   "roadmap_node": "RM-25"
+   "roadmap_node": "RM-25",
+   "also_roadmap_nodes": [
+    "RM-62"
+   ]
   },
   {
    "id": "WP-SEO-10a",
@@ -2991,7 +3234,7 @@
    "title": "Static footer links on the 20 sub-pages for crawlers and visitors without JavaScript",
    "status": "BUILT_NOT_SHIPPED",
    "evidence": "Built and not registered: tools/t0/seo/optional/PG-zseo-opt.json holds 20 patches ZSEO-OPT-footer-links-<page> (plus a prefetch and the home title), group \"NOT REGISTERED\", each marked \"NEEDS BROWSER VERIFICATION (E4)\": site-nav.js replaces the mount at DOMContentLoaded and the layout shift was never measured.",
-   "next_step": "Missing: the browser check named in the notes (no duplicate footer, no layout shift, 44 px targets) on a scratch tree, then registration as a page group by the release workstream.",
+   "next_step": "Remaining work: the browser check named in the notes (no duplicate footer, no layout shift, 44 px targets) on a scratch tree, then registration as a page group by the release workstream.",
    "size": "S",
    "files": [
     "tools/t0/seo/optional/PG-zseo-opt.json",
@@ -3021,7 +3264,7 @@
    "status": "SHIPPED",
    "evidence": "Repository tooling in the release routine: tests/t0/seo.spec.mjs T0-SEO-00..15 (titles, one h1, descriptions, canonicals, noindex rules, sitemap, robots, JSON-LD, Open Graph, image attributes, internal links, crawlable home links, copy audit strings), registered as suite r1.seo in tools/t0/run_suites.mjs for train R1g. seo.spec run 2026-11-13 on release/R1g/dist: 17/17 passed.",
    "next_step": "None.",
-   "size": "M",
+   "size": "S",
    "files": [
     "tests/t0/seo.spec.mjs",
     "tools/t0/run_suites.mjs"
@@ -3042,6 +3285,115 @@
     "tests/t0/prod-probe.mjs"
    ],
    "roadmap_node": "RM-49"
+  },
+  {
+   "id": "VD10-1",
+   "chapter": "10",
+   "kind": "verification-debt",
+   "title": "Older Search Console or Bing property, DNS-token versus URL-prefix properties, June to September history",
+   "status": "OWNER_ONLY",
+   "evidence": "The consoles are the owner's (WP-SEO-01).",
+   "next_step": "Owner.",
+   "size": "S",
+   "files": [
+    "docs/seo/OWNER-ACTIONS.md"
+   ],
+   "owner_step": "See WP-SEO-01."
+  },
+  {
+   "id": "VD10-2",
+   "chapter": "10",
+   "kind": "verification-debt",
+   "title": "WP-DEC-05: pretty_urls=false, forced /x.html to /x without loop, query strings kept, primary-domain redirect, query-matched redirect rows",
+   "status": "OWNER_ONLY",
+   "evidence": "Needs a Netlify deploy preview (items-A.json WP-DEC-05, OWNER_ONLY); the local emulator (tools/t0/config/emulate.mjs) models the rules but is not Netlify.",
+   "next_step": "Owner runs one staging check before train S1.",
+   "size": "S",
+   "files": [
+    "tools/t0/config/emulate.mjs"
+   ],
+   "owner_step": "Before train S1, drop the S1 staging zip on the staging site and run the redirect matrix of WP-INFRA-12 against it."
+  },
+  {
+   "id": "VD10-3",
+   "chapter": "10",
+   "kind": "verification-debt",
+   "title": "Do Netlify analytics count bots (E1 probe); path and country filtering",
+   "status": "OWNER_ONLY",
+   "evidence": "Needs the owner's analytics (WP-INFRA-29).",
+   "next_step": "Owner.",
+   "size": "S",
+   "files": [
+    "ops/RUM-hygiene.md"
+   ],
+   "owner_step": "See WP-INFRA-29."
+  },
+  {
+   "id": "VD10-4",
+   "chapter": "10",
+   "kind": "verification-debt",
+   "title": "Vendor crawler token spellings, any consumer of llms.txt, Google sitemap ping retirement",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Not checked: no token is written yet (WP-SEO-06b). The vendors' own pages are on hosts outside the reachable list for this workstream; a refused host is recorded as blocked and not worked around.",
+   "next_step": "Check each spelling on the vendor's own page when robots.txt is written; record any blocked host.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/10-seo-growth.md"
+   ]
+  },
+  {
+   "id": "VD10-5",
+   "chapter": "10",
+   "kind": "verification-debt",
+   "title": "Rich-result gallery at build time; WebPage.reviewedBy acceptance",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "No reviewedBy is emitted (no reviewer). The JSON-LD blocks parse and agree with the page (seo.spec T0-SEO-08, 09); acceptance by the search engines is observable only after deployment.",
+   "next_step": "Keep reviewedBy out until a reviewer exists.",
+   "size": "S",
+   "files": [
+    "tests/t0/seo.spec.mjs"
+   ]
+  },
+  {
+   "id": "VD10-6",
+   "chapter": "10",
+   "kind": "verification-debt",
+   "title": "Outreach targets marked unverified; archives; standards codes; commemoration dates",
+   "status": "OWNER_ONLY",
+   "evidence": "Contacting and verifying third parties is the owner's (WP-SEO-28).",
+   "next_step": "Owner.",
+   "size": "S",
+   "files": [
+    "docs/seo/OWNER-ACTIONS.md"
+   ],
+   "owner_step": "See WP-SEO-28."
+  },
+  {
+   "id": "VD10-7",
+   "chapter": "10",
+   "kind": "verification-debt",
+   "title": "Mapbox free-tier numbers, Census TIGER terms, the unit-page export schema, Historian phase dates",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "The free-tier figures are read from the Mapbox pages (api.mapbox.com is reachable; the documentation host is not in the list); the export schema is WP-HIST-22 (unbuilt).",
+   "next_step": "Verify when each is needed.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/10-seo-growth.md"
+   ]
+  },
+  {
+   "id": "VD10-8",
+   "chapter": "10",
+   "kind": "verification-debt",
+   "title": "20th Maine strength (386 in the data against 358 elsewhere), whether landing.html was ever indexed, search-assistant reliance on Bing",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Checked 2026-11-13: U-20ME strength is 386 in legacy and in release/R1g/dist/data (casualties 130 corrected to 125 by group DATA); the Official Records figure is not yet read from the corpus. The indexing questions are the owner's consoles.",
+   "next_step": "Read Chamberlain's report in the Official Records corpus and record the figure with its page before any page prints one.",
+   "size": "S",
+   "files": [
+    "historian-src/corpus/or27/reports.json",
+    "data-src/build/candidates/adjudication_register.json"
+   ]
   },
   {
    "id": "OD-SEO-1",
@@ -3341,7 +3693,10 @@
     "docs/content/COPY-LINT-REPORT.md",
     "tests/copy/copy_lint.test.mjs"
    ],
-   "roadmap_node": "RM-37"
+   "roadmap_node": "RM-37",
+   "also_roadmap_nodes": [
+    "RM-17"
+   ]
   },
   {
    "id": "WP-CONTENT-07",
@@ -3391,7 +3746,7 @@
    "status": "SHIPPED",
    "evidence": "Train R1d onwards (overlay tools/t0/overlay/R1d/user-guide.pdf, byte-identical to docs/guide/out/user-guide.pdf and to release/R1g/dist/user-guide.pdf, checked today): the guide was rewritten from docs/guide/content.json for the final screen (clock in words, the legend, the Monuments layer, the phone Tools sheet; decision 5 of docs/decisions/R1D-PROVISIONAL-DECISIONS-2026-10-22.md); screenshots are captured from a build and a shot fails when a named control is missing. Checks: tools/guide/verify.mjs; tests/copy/guide.test.mjs and verify-guide-pdf.test.mjs (node --test tests/copy/*.test.mjs run 2026-11-13: 17 fail (Node 22: 110 tests, 87 pass, 6 skipped; same 17 under Node 24): guide.test.mjs and trust-pages.test.mjs stop because the generators still assert that every time anchor is in state \"proposed\" (data-src/time/time_anchors.json now has 25 reviewed, 4 contested, 4 proposed), VER-CLAIM-01..11 and VER-LINT-01..04 fail). The guide was built from R1d (build 753e318f); tools/guide/verify.mjs was not re-run against R1g in this pass.",
    "next_step": "Before any hand-over re-run node tools/guide/verify.mjs against the release zip (FINAL-ACCEPTANCE: tutorial PDF updated).",
-   "size": "M",
+   "size": "S",
    "files": [
     "docs/guide/content.json",
     "docs/guide/README.md",
@@ -3415,7 +3770,10 @@
     "tests/t0/seo.spec.mjs",
     "tests/t0/images.spec.mjs"
    ],
-   "roadmap_node": "RM-37"
+   "roadmap_node": "RM-37",
+   "also_roadmap_nodes": [
+    "RM-30"
+   ]
   },
   {
    "id": "WP-CONTENT-14",
@@ -3616,7 +3974,7 @@
    "status": "SHIPPED",
    "evidence": "Train R1a onwards, page group PG-core (119 patches): dashboard cards from titled data, alias stubs out of the loaders, developer notes out of viewshed and AR, Historian chronology answers print the event. Tests: pages-core T0-PGC-11, 11b, 14, 15, 17, 25, 26 (no \"undefined\" on 12 pages); red proof suite red.pagescore on legacy/dist. node tools/copy/copy_lint.mjs release/R1g/dist --no-baseline (run 2026-11-13): rule DEVLOG 0 findings.",
    "next_step": "None; leftover strings are WP-CONTENT-01b.",
-   "size": "M",
+   "size": "S",
    "files": [
     "tools/t0/patches/PG-core.json",
     "tests/t0/pages-core.spec.mjs"
@@ -3647,7 +4005,7 @@
    "status": "SHIPPED",
    "evidence": "Train R1c (group CP: 21 bundle and Help rows plus CP+walkthrough-sensors) and train R1d (groups POLISH and PG-polish: one name per feature, retired words out of the app, Help and static copy; group CLOCK: clock in words instead of \"tick n of 675\"). Tests: copy.spec T0-CP-01..04 (each shipped row present once before and gone after; rendered Help), tests/t0/polish.spec.mjs, clock.spec T0-CLK-10 and T0-CLK-14; red proof suite red.copy.",
    "next_step": "None; leftovers are WP-CONTENT-02b, the name rows wait for train S2 (WP-CONTENT-07).",
-   "size": "M",
+   "size": "S",
    "files": [
     "tools/t0/patches/CP.json",
     "tools/t0/patches/POLISH.json",
@@ -3655,7 +4013,10 @@
     "tests/t0/copy.spec.mjs",
     "tests/t0/polish.spec.mjs"
    ],
-   "roadmap_node": "RM-17"
+   "roadmap_node": "RM-17",
+   "also_roadmap_nodes": [
+    "RM-25"
+   ]
   },
   {
    "id": "WP-CONTENT-02b",
@@ -3670,7 +4031,10 @@
     "tools/copy/copy_lint.mjs",
     "tools/t0/patches/CP.json"
    ],
-   "roadmap_node": "RM-17"
+   "roadmap_node": "RM-17",
+   "also_roadmap_nodes": [
+    "RM-25"
+   ]
   },
   {
    "id": "WP-CONTENT-09a",
@@ -3680,7 +4044,7 @@
    "status": "SHIPPED",
    "evidence": "Train R1d onwards, group CLOCK (113 patches; owner decision 2026-10-05 item 2): every clock, date and time-derived string of the app and 14 static pages comes from the time module (src/lib/time, data-src/time/time_anchors.json). Tests: tests/t0/clock.spec.mjs T0-CLK-01..18 (CLK-14: no July 4-9 label, no \"Tick n\" caption on any page); 18/18 on the R1g tree with Mapbox reachable (docs/accept/R1G-STATUS.md, 2026-11-08). The anchors are adjudicated from sources, none is signed by a historian.",
    "next_step": "None; leftover wording is WP-CONTENT-09b.",
-   "size": "M",
+   "size": "S",
    "files": [
     "tools/t0/patches/CLOCK.json",
     "tests/t0/clock.spec.mjs",
@@ -3713,7 +4077,7 @@
    "status": "SHIPPED",
    "evidence": "Repository pipeline plus the shipped file (train R1d onwards): tools/guide/shots.mjs, build.mjs, verify.mjs; headless Chrome prints a tagged PDF with outline, document language, title and XMP metadata (docs/guide/README.md; docs/guide/out/build-report.json: 31 pages, 5,124,513 bytes). The copy audit of the PDF metadata passes in the release acceptance (tools/accept/copy_audit.mjs, R1-FINAL-REPORT check 8).",
    "next_step": "None; validation and delivery are WP-CONTENT-11b.",
-   "size": "L",
+   "size": "S",
    "files": [
     "tools/guide/build.mjs",
     "tools/guide/shots.mjs",
@@ -3746,7 +4110,7 @@
    "status": "SHIPPED",
    "evidence": "Train R1c (group CP) and R1b (group AX): Help About and Sources rows corrected, no heatmap row, speed label, guide link, phone Help shows the touch controls. Tests: copy.spec T0-CP-02 and T0-CP-04, a11y T0-A11Y-23, clock.spec T0-CLK-10. The Help dedication prints \"about 51,000 by the National Park Service's estimate\" (attributed figure, release/R1g/dist/assets/HelpModal-52cec836.js).",
    "next_step": "None for the interim rows.",
-   "size": "M",
+   "size": "S",
    "files": [
     "tools/t0/patches/CP.json",
     "tools/t0/patches/AX.json",
@@ -3846,6 +4210,115 @@
     "tests/copy/guide.test.mjs",
     "tests/copy/verify-claims.test.mjs",
     "data-src/time/time_anchors.json"
+   ]
+  },
+  {
+   "id": "VD11-1",
+   "chapter": "11",
+   "kind": "verification-debt",
+   "title": "PDF engines: flags, tagged output, PDF/UA checkers (V1); reading-level tool (V11); Vale semantics and inventory recall (V13)",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Headless Chrome prints the shipped guide as a tagged PDF (WP-CONTENT-11a); no PDF/UA validator and no textstat run exists; copy_lint has its own heuristics.",
+   "next_step": "Run a validator and a readability library and record results (WP-CONTENT-11b, 13).",
+   "size": "S",
+   "files": [
+    "tools/guide/verify.mjs",
+    "tools/copy/copy_lint.mjs"
+   ]
+  },
+  {
+   "id": "VD11-2",
+   "chapter": "11",
+   "kind": "verification-debt",
+   "title": "App behaviours behind guide and Help claims: first-launch overlay order (V2), Order of Battle hierarchy (V3), how the 231 brigade-only regiments are drawn (V4), offline behaviour after R0 (V9), NPS video captions (V15), state of earlier bug findings (V17)",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Each is a small observation on the candidate; the guide generator takes screenshots from a build and fails when a named control is missing (tools/guide/shots.mjs), which covers the controls but not these behaviours. The worker never serves pages (WP-INFRA-22), so offline loading is not offered.",
+   "next_step": "One observation per item on the candidate in Chrome, recorded in the guide notes.",
+   "size": "M",
+   "files": [
+    "tools/guide/shots.mjs",
+    "docs/guide/README.md"
+   ]
+  },
+  {
+   "id": "VD11-3",
+   "chapter": "11",
+   "kind": "verification-debt",
+   "title": "Mapbox 3.24.1 telemetry payload (V5), Google satellite verification wording and HMDB, Stone Sentinels, Wikipedia rights (V10)",
+   "status": "BUILT_NOT_SHIPPED",
+   "evidence": "The payload fields were read from a real load for the interim privacy text (ops/legal-drafts/data-inventory.json); the rights half is the retro-audit (WP-DATA-04a, 05a).",
+   "next_step": "Owner review of the opt-in text; counsel for the rights.",
+   "size": "S",
+   "files": [
+    "ops/legal-drafts/data-inventory.json",
+    "docs/data/rights-audit.md"
+   ]
+  },
+  {
+   "id": "VD11-4",
+   "chapter": "11",
+   "kind": "verification-debt",
+   "title": "History checks: 26th NC, Iverson, Avery, Lincoln, Alexander, NPS 23,049 and 28,063, Gottfried 2007, monuments 1,328 (V6)",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "The adjudication register holds the open items (data-src/build/candidates/adjudication_register.json: 7 items, 6 open); the corpus gives the Official Records side.",
+   "next_step": "Research each from the corpus, publish ranges, record decision rows (WP-CONTENT-08, HB-05).",
+   "size": "M",
+   "files": [
+    "data-src/build/candidates/adjudication_register.json"
+   ]
+  },
+  {
+   "id": "VD11-5",
+   "chapter": "11",
+   "kind": "verification-debt",
+   "title": "Standards codes for the lessons (V7), D-CLOCK numbers waiting for the signed anchor file (V8)",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Standards are named only after a teacher review (CD-6); the clock numbers come from the time module as adjudicated, with the \"about\" rule.",
+   "next_step": "Look the codes up in the standards bodies' own documents when the lessons are drafted.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/11-copy-docs-content.md"
+   ]
+  },
+  {
+   "id": "VD11-6",
+   "chapter": "11",
+   "kind": "verification-debt",
+   "title": "Owner facts: the non-affiliation sentence is true (V14); Netlify Forms limits and pricing (V12)",
+   "status": "OWNER_ONLY",
+   "evidence": "The first is a fact only the owner knows; the second is an account page.",
+   "next_step": "Owner.",
+   "size": "S",
+   "files": [
+    "docs/content/OWNER-INPUTS.md"
+   ],
+   "owner_step": "Confirm the non-affiliation sentence in docs/content/OWNER-INPUTS.md; read the Netlify Forms terms if a form is wanted."
+  },
+  {
+   "id": "VD11-7",
+   "chapter": "11",
+   "kind": "verification-debt",
+   "title": "One definition of the dash baseline (V16): raw 1,938, non-metadata 1,799, rendered 1,639, subset 1,591",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Measured 2026-11-13: copy_lint rule DASH finds 989 in 81 files of release/R1g/dist, the data validator X001 finds 915 on release/R1g/dist/data; two tools, two definitions.",
+   "next_step": "Adopt the rendered-field count after normalisation (the plan's rule) in one tool and record it.",
+   "size": "S",
+   "files": [
+    "tools/copy/copy_lint.mjs",
+    "tools/data/rules/text_rules.mjs"
+   ]
+  },
+  {
+   "id": "VD11-8",
+   "chapter": "11",
+   "kind": "verification-debt",
+   "title": "Bibliographic data of the inclusive-history candidate sources (V18) and the carried unverified findings (pagesB-23, ux-flows-22, pages-C-40, -79, -84, hist-current-27)",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Not started (WP-CONTENT-25 is not written).",
+   "next_step": "Verify with each work package; the Terms clauses need counsel.",
+   "size": "S",
+   "files": [
+    "docs/content/OWNER-INPUTS.md"
    ]
   },
   {
@@ -4018,14 +4491,17 @@
    "status": "SHIPPED",
    "evidence": "Repository tooling used by the release routine (no site bytes of its own): tests/t0/headers.spec.mjs HDR-01..13, 20..24 on the generated config (suite headers.R1c), the Netlify rule emulator tools/t0/config/emulate.mjs, ops/headers-probe.mjs and tests/t0/prod-probe.mjs (HP-01..15 with the train from which each must be green). run 2026-11-13 in this container on release/R1g/dist with --no-browser: 13 pass, 4 skipped (browser and online tests), 1 FAILED: HDR-11, because the folder tiles1863/v1-65d491b8 is not named after the hash of its files (the Linux-staged stand-in tile pyramid recorded in docs/accept/R1G-STATUS.md 2026-11-04 20:35; the owner's own staged pyramid is needed for a zip). The 6-hourly schedule is WP-INFRA-08b; the S1 rows HP-10..12 are red by design until train S1.",
    "next_step": "None for the contract tests.",
-   "size": "M",
+   "size": "S",
    "files": [
     "tests/t0/headers.spec.mjs",
     "tools/t0/config/emulate.mjs",
     "ops/headers-probe.mjs",
     "tests/t0/prod-probe.mjs"
    ],
-   "roadmap_node": "RM-08"
+   "roadmap_node": "RM-08",
+   "also_roadmap_nodes": [
+    "RM-23"
+   ]
   },
   {
    "id": "WP-QA-05",
@@ -4035,7 +4511,7 @@
    "status": "SHIPPED",
    "evidence": "Repository tooling used by the release routine (no site bytes of its own): mobile-matrix T0-MOB-02/03 (elementFromPoint, 44 px, on screen, all viewports), T0-MOB-05 (no desktop overlay on phones, exactly one map), journeys T0-IN-01..05 (real drag, wheel and pinch change the camera; no full-size overlay canvas with pointer-events:auto; a phone tap selects a unit), polish T0-POL-02/04 (nothing lands on anything else), acceptance checks tools/accept/checks/c4_input.mjs and c7_visual.mjs (targets, overflow, text size at six widths). Red proofs: suites red.mobile and red.journeys on legacy/dist.",
    "next_step": "None.",
-   "size": "L",
+   "size": "S",
    "files": [
     "tests/t0/mobile-matrix.spec.mjs",
     "tests/t0/journeys-desktop.spec.mjs",
@@ -4053,7 +4529,7 @@
    "status": "SHIPPED",
    "evidence": "Repository tooling used by the release routine (no site bytes of its own): tests/t0/r0.mjs T0-R0-01..13 (fresh profile, seeded old-worker upgrade, rename drill, kill drill, entry 404 retry), tests/t0/build_selftest.py (10 properties of the builder incl. refusal of its own output and of a changed anchor), gate rows anchors and ledger, tools/t0/determinism.py (every train rebuilt byte-identical), tools/t0/overlap.py with its self-test. R1G-STATUS 2026-11-04: determinism identical for 8 trains, overlap PASS, 3,386 patch records with 0 anchor failures for R1g.",
    "next_step": "None.",
-   "size": "L",
+   "size": "S",
    "files": [
     "tests/t0/r0.mjs",
     "tests/t0/build_selftest.py",
@@ -4071,7 +4547,7 @@
    "status": "SHIPPED",
    "evidence": "Train R1d onwards (group CLOCK) with the repository time module: src/lib/time, data-src/time/time_anchors.json, validators tools/time/validate.mjs and detectors, golden tests/time/golden/tick-clock.csv. Tests: tests/time/*.test.mjs (run 2026-11-13: 638 tests, 638 pass), tests/t0/clock.spec.mjs T0-CLK-01..18 with an independent oracle (18/18 on R1g, R1G-STATUS 2026-11-08), journeys T0-CLK-01..03 (date fix).",
    "next_step": "None.",
-   "size": "M",
+   "size": "S",
    "files": [
     "src/lib/time/index.js",
     "tools/time/validate.mjs",
@@ -4079,7 +4555,10 @@
     "tests/t0/clock.spec.mjs",
     "tests/time/golden.test.mjs"
    ],
-   "roadmap_node": "RM-43"
+   "roadmap_node": "RM-43",
+   "also_roadmap_nodes": [
+    "RM-08"
+   ]
   },
   {
    "id": "WP-QA-11",
@@ -4206,7 +4685,10 @@
     "tools/t0/run_suites.mjs",
     "docs/plan/FINAL/12-qa-ci-release.md"
    ],
-   "roadmap_node": "RM-73"
+   "roadmap_node": "RM-73",
+   "also_roadmap_nodes": [
+    "RM-08"
+   ]
   },
   {
    "id": "WP-QA-25",
@@ -4231,7 +4713,7 @@
    "status": "SHIPPED",
    "evidence": "Repository tooling used by the release routine (no site bytes of its own): tools/t0/gate.mjs (10 rows incl. unresolved-globals, anchors, ledger \"same name, same bytes\", references; all ok for R1g in release/R1g/gate.json), tools/t0/verify_release.mjs (manifest, static crawl, dev pages, names across trains, identity, cumulative; release/R1g/verify.json ok), tools/t0/hygiene.py, tools/accept/checks/c2_hygiene.mjs, duplicate-id sweep pages-core T0-PGC-01, image decode images.spec T0-RIMG-01/02, personal-address rule copy_lint PERSONAL_EMAIL (0 on R1g today). R1G-STATUS 2026-11-04: verify_release all checks passed for R0..R1g, determinism identical, hygiene PASS.",
    "next_step": "None; missing rows are WP-QA-02b.",
-   "size": "L",
+   "size": "S",
    "files": [
     "tools/t0/gate.mjs",
     "tools/t0/verify_release.mjs",
@@ -4264,7 +4746,7 @@
    "status": "SHIPPED",
    "evidence": "Repository tooling used by the release routine (no site bytes of its own): tests/t0/lib.mjs (system Chrome through playwright-core plus a CDP side channel, production Referer injected on Mapbox requests with a per-run cap, error collection, real mouse and touch input), tests/t0/viewports.json, self-test tests/t0/lib_selftest.mjs LIB-01..09 (suite static.lib). R1G-STATUS 2026-11-08: LIB-02 passes with Mapbox reachable; LIB-08 flaky on Linux from a profile-directory cleanup race.",
    "next_step": "None; the hooks contract for the rebuilt app is WP-QA-04b.",
-   "size": "L",
+   "size": "S",
    "files": [
     "tests/t0/lib.mjs",
     "tests/t0/viewports.json",
@@ -4285,7 +4767,10 @@
    "files": [
     "src/lib/time/index.js"
    ],
-   "roadmap_node": "RM-51"
+   "roadmap_node": "RM-51",
+   "also_roadmap_nodes": [
+    "RM-07"
+   ]
   },
   {
    "id": "WP-QA-06a",
@@ -4295,14 +4780,17 @@
    "status": "SHIPPED",
    "evidence": "Repository tooling used by the release routine (no site bytes of its own): tools/accept/checks/c5_perf.mjs with tools/accept/thresholds.json (LCP 2,500 ms, CLS 0.1, INP 200 ms, TBT 200 ms at 4x CPU on the phone profile, long task 50 ms per interaction, heap growth 10 percent; \"Never loosen these to make a pass clean\") and the perf specs tests/t0/perf-fixes, perf2..perf6. docs/accept/R1F-FINAL-REPORT.md records the last complete acceptance run (train R1f, run D): pass 1 clean on all eight checks, pass 2 one defect, counter 0 of 8; on R1g the eight passes were not run (docs/accept/R1G-STATUS.md). No timing from this container counts: rendering here is software GL.",
    "next_step": "None for the gate; Lighthouse and the ratchet are WP-QA-06b.",
-   "size": "M",
+   "size": "S",
    "files": [
     "tools/accept/checks/c5_perf.mjs",
     "tools/accept/thresholds.json",
     "tests/t0/perf-fixes.spec.mjs",
     "tests/t0/perf6.spec.mjs"
    ],
-   "roadmap_node": "RM-46"
+   "roadmap_node": "RM-46",
+   "also_roadmap_nodes": [
+    "RM-08"
+   ]
   },
   {
    "id": "WP-QA-06b",
@@ -4317,7 +4805,10 @@
     "tools/t0/CHANGELOG.md",
     "tests/t0/a11y.spec.mjs"
    ],
-   "roadmap_node": "RM-46"
+   "roadmap_node": "RM-46",
+   "also_roadmap_nodes": [
+    "RM-08"
+   ]
   },
   {
    "id": "WP-QA-08a",
@@ -4327,7 +4818,7 @@
    "status": "SHIPPED",
    "evidence": "Repository tooling used by the release routine (no site bytes of its own): journeys T0-X3 (0 uncaught exceptions and 0 first-party console errors across every journey), T0-MON-01 (0 idle React commits per second), T0-ST-01 (blocked storage still boots), T0-EB-01 (error boundary), T0-DATA-04 (a day whose files fail is retried), T0-DT-01 (background-tab time leap capped), r0 T0-R0-07 (entry 404), mobile T0-MOB-12, pages-core T0-PGC-26. Groups A and B, trains R1a and R1c.",
    "next_step": "None; the remaining faults are WP-QA-08b.",
-   "size": "M",
+   "size": "S",
    "files": [
     "tests/t0/journeys-desktop.spec.mjs",
     "tests/t0/r0.mjs",
@@ -4358,7 +4849,7 @@
    "status": "SHIPPED",
    "evidence": "Repository tooling used by the release routine (no site bytes of its own): journeys T0-J1..J8, T0-KEY-01..08 (Esc order, modifiers inert), T0-DATA-01..03 (day data on a jump, per-tick merge, stateless carry-forward), T0-C5-01/02, T0-TOUR-01; deeplinks T0-DL-01..10 (every link shape the site emits is read); mobile T0-MOB-01..13 and T0-MFIX-01..12; desktop-fixes T0-DF-01..09; sub-pages pages-core, pages-maps, pages-fixes. Each has a red-first suite on legacy/dist or a control tree (tools/t0/run_suites.mjs rows red.*). R1G-STATUS 2026-11-08: deeplinks 12/12, desktop-fixes 10/10 on the R1g tree.",
    "next_step": "None; rows the plan leaves to the rebuild are WP-QA-10b.",
-   "size": "L",
+   "size": "S",
    "files": [
     "tests/t0/journeys-desktop.spec.mjs",
     "tests/t0/deeplinks.spec.mjs",
@@ -4393,7 +4884,7 @@
    "status": "SHIPPED",
    "evidence": "Repository tooling used by the release routine (no site bytes of its own): tests/t0/a11y.spec.mjs T0-A11Y-01..28 (axe 0 serious or critical on the app states, phone shell and four desktop widths; keyboard routes; reduced motion; 12 px floor; 44 px targets; forced colors; own contrast audit; dialogs) on trains R1b and later (group AX), tests/t0/pages-fixes.spec.mjs T0-PGF-01..19 (axe on 25 pages at 1440, 375 and 320 px), acceptance check c7_visual. Red proof: suite red.a11y on legacy/dist. No assistive-technology run by a person exists.",
    "next_step": "None; the wider matrix is WP-QA-12b.",
-   "size": "L",
+   "size": "S",
    "files": [
     "tests/t0/a11y.spec.mjs",
     "tests/t0/pages-fixes.spec.mjs",
@@ -4424,7 +4915,7 @@
    "status": "SHIPPED",
    "evidence": "Repository tooling used by the release routine (no site bytes of its own): tools/accept/checks/c3_regression.mjs (text, controls and screenshots of every route against baseline/dist; each intended difference is a reasoned row of tools/accept/regression_waivers.json) and c7_visual.mjs (six widths: overflow, targets, text size, layout shift). docs/accept/R1F-FINAL-REPORT.md records the last complete acceptance run (train R1f, run D): pass 1 clean on all eight checks, pass 2 one defect, counter 0 of 8; on R1g the eight passes were not run (docs/accept/R1G-STATUS.md).",
    "next_step": "None; per-state goldens are WP-QA-14b.",
-   "size": "M",
+   "size": "S",
    "files": [
     "tools/accept/checks/c3_regression.mjs",
     "tools/accept/checks/c7_visual.mjs",
@@ -4455,7 +4946,7 @@
    "status": "SHIPPED",
    "evidence": "Repository tooling used by the release routine (no site bytes of its own): headers.spec HDR-20 (only /embed frames cross-origin), ops/legal-drafts/verify-facts.mjs (every contacted origin, storage key, permission and local-only claim against the inventory and the page text; suites static.legal and static.legal.optin; verify-facts.mjs --dist release/R1g/dist run 2026-11-13: no FAIL, 1 WARN (the sensor delegation to the Street View frame is not disclosed by the default privacy page)), journeys T0-ATTR-01 and mobile T0-MOB-11 (attribution), journeys T0-SND-01 (no sound control), pages-core T0-PGC-19/20 (Watch Together hostile fixtures).",
    "next_step": "None; key probes and the Observatory check are WP-QA-15b.",
-   "size": "M",
+   "size": "S",
    "files": [
     "tests/t0/headers.spec.mjs",
     "ops/legal-drafts/verify-facts.mjs",
@@ -4486,7 +4977,7 @@
    "status": "SHIPPED",
    "evidence": "Repository tooling used by the release routine (no site bytes of its own): tools/t0/build.py with trains.json (cumulative trains R0..R1g, earlier trains frozen and rebuilt byte for byte), gates and verify_release, tools/ship/pack_zip.py (production and noindex staging zips with sha256 and file lists), tools/accept/run_eight.mjs (eight consecutive clean passes, any defect resets to 0), ops/RELEASE-RUNBOOK.md (rollback L1 publish previous deploy, L2 kill switch) and ops/DEPLOY-CHECKLIST.md. Publishing is the owner's drag and drop; ops/RELEASE-LOG.md has no real row. docs/accept/R1F-FINAL-REPORT.md records the last complete acceptance run (train R1f, run D): pass 1 clean on all eight checks, pass 2 one defect, counter 0 of 8; on R1g the eight passes were not run (docs/accept/R1G-STATUS.md).",
    "next_step": "None for the tooling. The eight passes on the R1g candidate are owed (release workstream).",
-   "size": "L",
+   "size": "S",
    "files": [
     "tools/t0/build.py",
     "tools/t0/trains.json",
@@ -4526,7 +5017,10 @@
     "tests/t0/journeys-manual.md"
    ],
    "roadmap_node": "RM-89",
-   "owner_step": "On an iPhone SE-class phone, a 4 GB Android (Chrome and Samsung Internet), an iPad and a 4 GB Chromebook: open the staging site, follow tests/t0/journeys-manual.md (pan, zoom, tap a unit, every Tools row, rotate, background and return ten times) and write the result with date and device into the file."
+   "owner_step": "On an iPhone SE-class phone, a 4 GB Android (Chrome and Samsung Internet), an iPad and a 4 GB Chromebook: open the staging site, follow tests/t0/journeys-manual.md (pan, zoom, tap a unit, every Tools row, rotate, background and return ten times) and write the result with date and device into the file.",
+   "also_roadmap_nodes": [
+    "RM-85"
+   ]
   },
   {
    "id": "WP-QA-21b",
@@ -4541,7 +5035,10 @@
     "tests/t0/lib.mjs",
     "tests/t0/viewports.json"
    ],
-   "roadmap_node": "RM-85"
+   "roadmap_node": "RM-85",
+   "also_roadmap_nodes": [
+    "RM-89"
+   ]
   },
   {
    "id": "WP-QA-24a",
@@ -4573,6 +5070,92 @@
    ],
    "roadmap_node": "RM-89",
    "owner_step": "Commission an independent accessibility evaluation of six flows, one outside review of the headers and CSP, a one-hour UX critique, and 8 to 10 user sessions; name the historical reviewer; link each dated result from docs/evidence/index.md before any public \"A+\" wording."
+  },
+  {
+   "id": "VD12-1",
+   "chapter": "12",
+   "kind": "verification-debt",
+   "title": "Playwright specs and detector first-run protocol (coarse pointer emulation, localhost restriction, page.clock, weberror, uBlock in headless, CDP scroll and pinch)",
+   "status": "SHIPPED",
+   "evidence": "Closed by the harness that exists: tests/t0/lib.mjs with self-test LIB-01..09, 38 spec files and 79 suite rows run on the acceptance machine (R1f: 43 of 47 suites ok) and in this container (R1g: 51 of 79, reds attributed to the environment in docs/accept/R1G-STATUS.md).",
+   "next_step": "None for the protocol; uBlock-in-headless is not covered (WP-QA-08b).",
+   "size": "S",
+   "files": [
+    "tests/t0/lib.mjs",
+    "tests/t0/lib_selftest.mjs",
+    "docs/accept/R1G-STATUS.md"
+   ]
+  },
+  {
+   "id": "VD12-2",
+   "chapter": "12",
+   "kind": "verification-debt",
+   "title": "Referer injection honoured for api.mapbox.com; RUM blocking without console error; WEBGL_lose_context recovery on mapbox-gl 3.24.1",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Referer injection is proven (lib_selftest LIB-02 passes with Mapbox reachable, docs/accept/R1G-STATUS.md 2026-11-08); RUM blocking is used by the harness; the 20-cycle context-loss run does not exist (WP-QA-08b).",
+   "next_step": "Write the context-loss spec; software GL results are not real-GPU evidence.",
+   "size": "S",
+   "files": [
+    "tests/t0/lib_selftest.mjs",
+    "tests/t0/lib.mjs"
+   ]
+  },
+  {
+   "id": "VD12-3",
+   "chapter": "12",
+   "kind": "verification-debt",
+   "title": "Preview commit-status behaviour, restore and unlock API, previews injecting RUM, pretty_urls on the real deploy path, GitHub plan features and minutes",
+   "status": "OWNER_ONLY",
+   "evidence": "Platform facts that need the owner's Netlify and GitHub accounts; the zip deploy path makes the commit-status half moot (D-CI-HOST SUPERSEDED).",
+   "next_step": "Owner.",
+   "size": "S",
+   "files": [
+    "ops/STAGING-SETUP.md"
+   ],
+   "owner_step": "See VD09-1 and QA-OD-1."
+  },
+  {
+   "id": "VD12-4",
+   "chapter": "12",
+   "kind": "verification-debt",
+   "title": "web-vitals fields, Blobs conditional write, rate-limit rules, Sec-Fetch-Site in Functions; do probes count in Netlify analytics",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "All belong to the first-party collector, which is delegated to \"none\" (D-TELEMETRY, row A04).",
+   "next_step": "Not done unless the collector is chosen.",
+   "size": "S",
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md"
+   ],
+   "decision": "D-TELEMETRY (row A04)",
+   "delegated_row": [
+    "A04"
+   ]
+  },
+  {
+   "id": "VD12-5",
+   "chapter": "12",
+   "kind": "verification-debt",
+   "title": "Observatory CLI, PDF/UA checker, iOS 16 coverage and device-cloud price",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Neither checker is installed or recorded; node_modules holds axe-core, playwright and ajv only; the device-cloud price is the owner's.",
+   "next_step": "Install and run the two checkers where the toolchain allows and record the result.",
+   "size": "S",
+   "files": [
+    "package.json"
+   ]
+  },
+  {
+   "id": "VD12-6",
+   "chapter": "12",
+   "kind": "verification-debt",
+   "title": "The 43 unconfirmed findings and Labs on real hardware",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Grouped as V1..V20 in this file; none carries a dated waiver yet.",
+   "next_step": "Close or waive each with a dated row (EXIT-16-4).",
+   "size": "M",
+   "files": [
+    "docs/plan/FINAL/12-qa-ci-release.md"
+   ]
   },
   {
    "id": "QA-OD-1",
@@ -4762,7 +5345,7 @@
    "title": "Baseline freeze, authoring repository, legacy-compatible emitter",
    "status": "BUILT_NOT_SHIPPED",
    "evidence": "Built, and used by no train: data-src/legacy-manifest.tsv (71 files), data-src/data.lock.json, data-src/version.json (data_version 0.9.0) from tools/data/manifest.mjs, and the emitter tools/data/emit_legacy.mjs. Run 2026-11-13: node tools/data/manifest.mjs verify prints \"legacy-roundtrip: 71 files, 71 in manifest, missing 0, extra 0, changed 0\"; node tools/data/emit_legacy.mjs --verify prints \"emitted 71 files ... 0 patch file(s), 0 file(s) changed\". Tests: tests/data/legacy_baseline.test.mjs, emitter.test.mjs (node --test tests/data/*.test.mjs run 2026-11-13: 207 tests, 206 pass, 0 fail, 1 skipped).",
-   "next_step": "Missing: the shipped data does not come from here. Every train takes its data from baseline/dist plus the DATA patch group (tools/t0/patches/DATA.json, generated by tools/t0/data/gen.mjs), and data-src/patches/ does not exist, so the emitter reproduces the legacy bytes only. The authoring layout of the WP (oob, tracks, vignettes, terrain, monuments, places, people, sources), the git tag data-legacy-2026-09-29 (git tag -l is empty) and the read-only salvage of the chunk-001 footnotes are absent.",
+   "next_step": "Remaining work: the shipped data does not come from here. Every train takes its data from baseline/dist plus the DATA patch group (tools/t0/patches/DATA.json, generated by tools/t0/data/gen.mjs), and data-src/patches/ does not exist, so the emitter reproduces the legacy bytes only. The authoring layout of the WP (oob, tracks, vignettes, terrain, monuments, places, people, sources), the git tag data-legacy-2026-09-29 (git tag -l is empty) and the read-only salvage of the chunk-001 footnotes are absent.",
    "size": "M",
    "files": [
     "data-src/legacy-manifest.tsv",
@@ -4783,7 +5366,7 @@
    "title": "Versioning: manifest, data_version, changelog, version stamps",
    "status": "BUILT_NOT_SHIPPED",
    "evidence": "Built and not applied: data-src/version.json (0.9.0), data-src/CHANGELOG.md (Keep-a-Changelog sections and the Corrected-entry fields), the candidate data-src/build/data-manifest.json (schema, dv 1, per-file sha256 and bytes, \"describes the LEGACY tree\"), and the rules D001 (a changed served file needs a version bump and a changelog entry) and D002 (a served name never returns with other bytes). node tools/data/validate.mjs --data-dir release/R1g/dist/data --no-site (run 2026-11-13; exit 1 because the ratchet baseline describes the legacy tree, so the shipped tree shows new and stale entries): D001 1 and D002 70, because group DATA edits 70 served files in place under their legacy names while data_version stays 0.9.0.",
-   "next_step": "Missing: a version bump with a changelog entry for the DATA edits (the 2,473 fixes are recorded in docs/data-audit/fixes.json, not in the data changelog), a served data-manifest.json, the stamps (no __GTBG_DATA__ or data_version string in release/R1g/dist; no version line in Help, the guide footer or the report prefill), and the dv link parameter round trip (chapter 04 owns dv). Build the changelog entries from fixes.json, bump to 0.9.1 or the first validated 1.0.0, then re-lock.",
+   "next_step": "Remaining work: a version bump with a changelog entry for the DATA edits (the 2,473 fixes are recorded in docs/data-audit/fixes.json, not in the data changelog), a served data-manifest.json, the stamps (no __GTBG_DATA__ or data_version string in release/R1g/dist; no version line in Help, the guide footer or the report prefill), and the dv link parameter round trip (chapter 04 owns dv). Build the changelog entries from fixes.json, bump to 0.9.1 or the first validated 1.0.0, then re-lock.",
    "size": "M",
    "files": [
     "data-src/version.json",
@@ -4802,7 +5385,7 @@
    "title": "Schemas, 60-rule validator, ratchet, CI",
    "status": "BUILT_NOT_SHIPPED",
    "evidence": "Built as repository tooling: tools/data/validate.mjs with 68 rules (60 core plus 8 v2; \"6 deferred, 20 partial\" by node tools/data/validate.mjs --list), nine closed JSON Schemas in data-src/schemas, the ratchet baseline tools/data/baseline.json with per-rule expiry dates (tools/data/expiry.mjs), the report docs/data/baseline-report.md, and one seeded-defect test per rule (tests/data/seeded_defects.test.mjs). node --test tests/data/*.test.mjs run 2026-11-13: 207 tests, 206 pass, 0 fail, 1 skipped. Not run by any release suite (tools/t0/run_suites.mjs has no data row) and no CI exists (no .github directory).",
-   "next_step": "Missing: (1) the baseline is the legacy tree, so the shipped tree fails the ratchet (node tools/data/validate.mjs --data-dir release/R1g/dist/data --no-site (run 2026-11-13; exit 1 because the ratchet baseline describes the legacy tree, so the shipped tree shows new and stale entries)): for example R001 10 found against 102 baselined (92 stale entries), S005 106 against 49, D002 70 new; it has to be re-baselined with a reason per rule; (2) the six deferred rules (C005, G001, N008, P004, E001, H001) and the 20 partial ones; (3) schemas for tracks, places, dispositions and map_extent; (4) CI and a release-routine row. Same work as WP-QA-11.",
+   "next_step": "Remaining work: (1) the baseline is the legacy tree, so the shipped tree fails the ratchet (node tools/data/validate.mjs --data-dir release/R1g/dist/data --no-site (run 2026-11-13; exit 1 because the ratchet baseline describes the legacy tree, so the shipped tree shows new and stale entries)): for example R001 10 found against 102 baselined (92 stale entries), S005 106 against 49, D002 70 new; it has to be re-baselined with a reason per rule; (2) the six deferred rules (C005, G001, N008, P004, E001, H001) and the 20 partial ones; (3) schemas for tracks, places, dispositions and map_extent; (4) CI and a release-routine row. Same work as WP-QA-11.",
    "size": "M",
    "files": [
     "tools/data/validate.mjs",
@@ -4965,7 +5548,7 @@
    "title": "Corrections workflow and public pages",
    "status": "BUILT_NOT_SHIPPED",
    "evidence": "Built as candidates: candidates/trust-pages/corrections.html with corrections.json and contact.html (intake by the approved public mail address, owner decision 2026-10-04 item 5), changelog.html, docs/editorial/corrections-page-draft.md; the data changelog format of WP-DATA-02. Same pages as WP-CONTENT-16a and WP-CONTENT-20b; nothing is in a train.",
-   "next_step": "Missing: the response-target confirmation (open owner markers in docs/content/OWNER-INPUTS.md), the Atom feed, the prefilled report link in the app and pages (WP-CONTENT-16b), and seeding the log from the shipped fixes (docs/data-audit/fixes.json classes). A form or function needs a deploy path that carries them (see the collector decision, WP-INFRA-15).",
+   "next_step": "Remaining work: the response-target confirmation (open owner markers in docs/content/OWNER-INPUTS.md), the Atom feed, the prefilled report link in the app and pages (WP-CONTENT-16b), and seeding the log from the shipped fixes (docs/data-audit/fixes.json classes). A form or function needs a deploy path that carries them (see the collector decision, WP-INFRA-15).",
    "size": "M",
    "files": [
     "candidates/trust-pages/corrections.html",
@@ -4997,7 +5580,7 @@
    "title": "Rights retro-audit of the shipped data (one row per file and bundle dataset)",
    "status": "BUILT_NOT_SHIPPED",
    "evidence": "Built: tools/data/rights_audit.mjs writes docs/data/rights-audit.md and data-src/build/legacy-rights-audit.csv (138 rows; every row has an action from the closed set: keep facts-only 76, credit 44, replace 15, remove 3; risk high 72, medium 34, low 26, low-medium 6; the 18 legacy monument coordinates are listed as rule L001 rows). Test: tests/data/rights_audit.test.mjs. The actions are proposals; nothing was applied.",
-   "next_step": "Missing: the owner and counsel decide the actions (WP-DATA-05a); until then no row is applied and the shipped data keeps its legacy sources. Re-run the generator against the shipped data tree (it reads legacy/dist) so the rows describe what ships.",
+   "next_step": "Remaining work: the owner and counsel decide the actions (WP-DATA-05a); until then no row is applied and the shipped data keeps its legacy sources. Re-run the generator against the shipped data tree (it reads legacy/dist) so the rows describe what ships.",
    "size": "S",
    "files": [
     "tools/data/rights_audit.mjs",
@@ -5039,7 +5622,10 @@
     "data-src/policy/source_tiers.json"
    ],
    "roadmap_node": "RM-35",
-   "owner_step": "Answer in writing (docs/content/OWNER-INPUTS.md or a decision file): did any keyframe, note or text of the map data come from the paid animated-map application or from the video channel named in the four data strings, and where did the 512 monument list come from; then send counsel the rights audit (docs/data/rights-audit.md) with the Busey and Martin and imagery questions of chapter 13 WP-DATA-05."
+   "owner_step": "Answer in writing (docs/content/OWNER-INPUTS.md or a decision file): did any keyframe, note or text of the map data come from the paid animated-map application or from the video channel named in the four data strings, and where did the 512 monument list come from; then send counsel the rights audit (docs/data/rights-audit.md) with the Busey and Martin and imagery questions of chapter 13 WP-DATA-05.",
+   "also_roadmap_nodes": [
+    "RM-04"
+   ]
   },
   {
    "id": "WP-DATA-05b",
@@ -5064,7 +5650,7 @@
    "status": "SHIPPED",
    "evidence": "Train R1d onwards, group DATA (patch ids DATA-id-* 253 and DATA-oob-*; class wrong-id 262 in docs/data-audit/fixes.json). Measured 2026-11-13 on release/R1g/dist/data with the repository validator against its legacy baseline: R001 unresolved ids 10 found (18 rows) against 102 baselined (92 stale entries), R002 wrong-side ids 0 against 10, R007 0 against 20, R009 0 against 1. Tests: tests/t0/data.spec.mjs T0-DATA-01..17 and T0-DATA-X in real Chrome (r1.data 18/18 on R1g, docs/accept/R1G-STATUS.md 2026-11-04).",
    "next_step": "The WP acceptance (R001 = 0) is not met: 10 rows remain, see WP-DATA-06b.",
-   "size": "M",
+   "size": "S",
    "files": [
     "tools/t0/DATA-README.md",
     "tools/t0/patches/DATA.json",
@@ -5081,7 +5667,7 @@
    "title": "Unit registry, id crosswalk, collisions and aliases (candidates) and the remaining ids",
    "status": "BUILT_NOT_SHIPPED",
    "evidence": "Built as candidates by tools/data/unit_registry.mjs and facts.mjs: data-src/build/unit_registry.json (569 distinct units: 465 regiments + 104 batteries), id_crosswalk.json (8 rules, 4 hard rules, per-row confidence), id_collisions.json (28 collisions, each needing the historian), unit_aliases.json (79 aliases, 16 unresolved); tests/data/registry.test.mjs. None is read by any page or train (each file says \"CANDIDATE ... nothing here is served\").",
-   "next_step": "Missing: the historian's decision on the 28 collisions and the 16 unresolved aliases, the application of the proposed_auto aliases to the shipped data (10 unresolved placement rows remain), 14th Brooklyn as a search synonym instead of a row (Q-DATA-8), and the explicit side, unit_level and arm fields. Apply value-only through the compat emitter once the historian has decided.",
+   "next_step": "Remaining work: the historian's decision on the 28 collisions and the 16 unresolved aliases, the application of the proposed_auto aliases to the shipped data (10 unresolved placement rows remain), 14th Brooklyn as a search synonym instead of a row (Q-DATA-8), and the explicit side, unit_level and arm fields. Apply value-only through the compat emitter once the historian has decided.",
    "size": "L",
    "files": [
     "data-src/build/unit_registry.json",
@@ -5101,7 +5687,7 @@
    "status": "SHIPPED",
    "evidence": "Train R1d onwards, group DATA: 585 patches with ids DATA-oob-*, plus DATA-corps-* 14, DATA-artorg-* 8, DATA-cas-* 19, DATA-okey-* 15 and DATA-meta-* 10, on the OOB files (commanders, fates, casualties, brigades, divisions, corps, batteries, key actions) with source and \"before\" recorded per patch in docs/data-audit/fixes.json; sample audit with Wilson intervals in docs/data-audit/sample-report.md. Tests: tests/t0/data.spec.mjs (r1.data 18/18 on R1g). Measured on release/R1g/dist/data: N006 0 against 2 baselined, N009 0 against 4, N003 175 against 255.",
    "next_step": "The structural half is WP-DATA-07b.",
-   "size": "L",
+   "size": "S",
    "files": [
     "tools/t0/patches/DATA.json",
     "docs/data-audit/fixes.json",
@@ -5135,7 +5721,7 @@
    "title": "Casualty and strength authorities, headline wording, retired literals",
    "status": "BUILT_NOT_SHIPPED",
    "evidence": "Built as candidate data: data-src/authorities/authorities.json (casualty and engaged-strength authorities with source, edition, page and verification status), data-src/policy/retired_literals.json (467, 445+, 51,000, 28,000 and the combined phrase) and the checks F001 and N007. Shipped by group DATA and CP: the bare 51,000 is gone or attributed (\"the National Park Service's estimate\"), see WP-CONTENT-08; N007 on release/R1g/dist/data finds 7 (5 baselined).",
-   "next_step": "Missing: the single authority wired into the 14 typed sites. Wording rule already delegated by the owner (docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md row A14: neutral sourced figures with their labels, no \"reviewed\" wording): feed it from authorities.json through the facts tokens of WP-DATA-19.",
+   "next_step": "Remaining work: the single authority wired into the 14 typed sites. Wording rule already delegated by the owner (docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md row A14: neutral sourced figures with their labels, no \"reviewed\" wording): feed it from authorities.json through the facts tokens of WP-DATA-19.",
    "size": "M",
    "files": [
     "data-src/authorities/authorities.json",
@@ -5143,7 +5729,10 @@
     "tools/data/rules/numbers_rules.mjs",
     "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md"
    ],
-   "roadmap_node": "RM-34"
+   "roadmap_node": "RM-34",
+   "also_roadmap_nodes": [
+    "RM-86"
+   ]
   },
   {
    "id": "WP-DATA-08b",
@@ -5159,7 +5748,10 @@
     "tools/t0/data/ortable.mjs",
     "docs/data-audit/AUDIT.md"
    ],
-   "roadmap_node": "RM-34"
+   "roadmap_node": "RM-34",
+   "also_roadmap_nodes": [
+    "RM-86"
+   ]
   },
   {
    "id": "WP-DATA-08c",
@@ -5175,7 +5767,10 @@
     "tools/data/facts.mjs",
     "tests/data/candidates.test.mjs"
    ],
-   "roadmap_node": "RM-34"
+   "roadmap_node": "RM-34",
+   "also_roadmap_nodes": [
+    "RM-86"
+   ]
   },
   {
    "id": "WP-DATA-08d",
@@ -5189,7 +5784,10 @@
    "files": [
     "tools/data/rules/numbers_rules.mjs"
    ],
-   "roadmap_node": "RM-34"
+   "roadmap_node": "RM-34",
+   "also_roadmap_nodes": [
+    "RM-86"
+   ]
   },
   {
    "id": "WP-DATA-09a",
@@ -5199,7 +5797,7 @@
    "status": "SHIPPED",
    "evidence": "Train R1d onwards, group DATA (2,364 asserted patches on 69 served data files; 2,473 in all with the bundle and pages; classes in docs/data-audit/fixes.json: unsupported-claim 747, wrong-number 393, wrong-id 262, wrong-place 195, wrong-claim 128, before-arrival 93); every patch asserts its find text exactly once and records source and \"before\". Tests: tests/t0/data.spec.mjs (r1.data 18/18 on R1g, docs/accept/R1G-STATUS.md); the gate row data-untouched accepts exactly the files a DATA patch targets. Measured on release/R1g/dist/data: X001 typewriter dashes 915 against 1,724 baselined; typos Nichols's, Gulp's and Brian Farm gone.",
    "next_step": "The remaining 1.0.1 items are WP-DATA-09b.",
-   "size": "L",
+   "size": "S",
    "files": [
     "tools/t0/patches/DATA.json",
     "tools/t0/data/gen.mjs",
@@ -5233,14 +5831,17 @@
    "status": "SHIPPED",
    "evidence": "Train R1d onwards, group DATA (patch ids DATA-pre-* 57, DATA-rejoin-* 59, DATA-pos-* 257, DATA-cav-* 45; classes before-arrival 93 and stale-position 59 in docs/data-audit/fixes.json; 82 units checked at 33 anchor ticks, docs/data-audit/position-screens.json); the animation engine of group ANIM draws units from these rows. Measured: C001 (last keyframe before day 3) 102 against 153 baselined; rows for T0-DATA tests in tests/t0/data.spec.mjs.",
    "next_step": "This is a value fix, not the track model: see WP-DATA-10b.",
-   "size": "M",
+   "size": "S",
    "files": [
     "tools/t0/patches/DATA.json",
     "tools/t0/data/rejoin.mjs",
     "docs/data-audit/position-screens.json",
     "tests/t0/data.spec.mjs"
    ],
-   "roadmap_node": "RM-47"
+   "roadmap_node": "RM-47",
+   "also_roadmap_nodes": [
+    "RM-54"
+   ]
   },
   {
    "id": "WP-DATA-10b",
@@ -5256,7 +5857,10 @@
     "data-src/schemas/placements.schema.json",
     "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md"
    ],
-   "roadmap_node": "RM-47"
+   "roadmap_node": "RM-47",
+   "also_roadmap_nodes": [
+    "RM-54"
+   ]
   },
   {
    "id": "WP-DATA-14a",
@@ -5353,7 +5957,251 @@
     "docs/content/OWNER-INPUTS.md"
    ],
    "roadmap_node": "RM-42",
-   "owner_step": "Ask a historian (or two) to accept the one-page charter in docs/editorial/reviewer-charter.md, record the name and the credit wording in docs/content/OWNER-INPUTS.md, and give them docs/editorial/anchor-review-packet.md; or write that the labelled fallback stands."
+   "owner_step": "Ask a historian (or two) to accept the one-page charter in docs/editorial/reviewer-charter.md, record the name and the credit wording in docs/content/OWNER-INPUTS.md, and give them docs/editorial/anchor-review-packet.md; or write that the labelled fallback stands.",
+   "also_roadmap_nodes": [
+    "RM-04"
+   ]
+  },
+  {
+   "id": "VD13-1",
+   "chapter": "13",
+   "kind": "verification-debt",
+   "title": "Confederate casualties: Official Records part 2 Guild total and method, the Busey and Martin edition",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "The Guild return is not parsed (tables are not read by the corpus; transcriptions are in tools/t0/data/sources/or27_confed_losses.json); the book is not public domain and was not opened (skipped by instruction, docs/battle-theatre/GOVERNANCE/library/acquired_2.json).",
+   "next_step": "Parse the return from the page images or word boxes; the edition question is the owner's.",
+   "size": "M",
+   "files": [
+    "tools/t0/data/sources/or27_confed_losses.json",
+    "data-src/authorities/authorities.json"
+   ]
+  },
+  {
+   "id": "VD13-2",
+   "chapter": "13",
+   "kind": "verification-debt",
+   "title": "Confederate order of battle and the 22 cavalry commanders (Official Records part 2 organisation)",
+   "status": "BUILT_NOT_SHIPPED",
+   "evidence": "Candidate data-src/build/candidates/confederate_cavalry_commanders.json (22 regiments, 6 commanders printed in the OR and absent from the site) and the roster check tools/t0/data/cmdcheck.mjs; not applied.",
+   "next_step": "Apply with the other OOB candidates (WP-DATA-07b).",
+   "size": "S",
+   "files": [
+    "data-src/build/candidates/confederate_cavalry_commanders.json",
+    "tools/t0/data/cmdcheck.mjs"
+   ]
+  },
+  {
+   "id": "VD13-3",
+   "chapter": "13",
+   "kind": "verification-debt",
+   "title": "Source terms: HMDB, Stone Sentinels, NPS contractor reports, CC BY-SA and ODbL duties",
+   "status": "OWNER_ONLY",
+   "evidence": "Rights reading and counsel (WP-DATA-05a); the library workstream recorded several hosts as not reachable on 2026-11-11 (docs/battle-theatre/GOVERNANCE/library/acquired_2.json) and the current task notes say hathitrust and ehistory answer with their own bot block: recorded as blocked, not worked around.",
+   "next_step": "Owner and counsel.",
+   "size": "S",
+   "files": [
+    "docs/data/rights-audit.md"
+   ],
+   "owner_step": "See WP-DATA-05a."
+  },
+  {
+   "id": "VD13-4",
+   "chapter": "13",
+   "kind": "verification-debt",
+   "title": "Whether the 28 hourly Bachelder maps exist digitally",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Not searched; the Library of Congress is reachable (www.loc.gov, tile.loc.gov) and holds the Bachelder maps; the 1863 base map work already lists period maps (docs/basemap1863/SOURCES-roads.md).",
+   "next_step": "Search the Library of Congress catalogue at one request per second and record the result (found or failed).",
+   "size": "S",
+   "files": [
+    "docs/basemap1863/SOURCES-roads.md"
+   ]
+  },
+  {
+   "id": "VD13-5",
+   "chapter": "13",
+   "kind": "verification-debt",
+   "title": "East Cavalry Field truth; C-McClanahan-ART versus the horse-artillery batteries",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Group DATA moved East Cavalry Field onto the monument ground (WP-DATA-14a); the battery filing is in the OOB candidates (WP-DATA-07b).",
+   "next_step": "Confirm from the NPS and the Official Records.",
+   "size": "S",
+   "files": [
+    "tools/t0/DATA-README.md"
+   ]
+  },
+  {
+   "id": "VD13-6",
+   "chapter": "13",
+   "kind": "verification-debt",
+   "title": "Drill-manual speeds, frontage, gun interval; \"15 of 42 successions not reflected\"; meaning of mn, origin of the 512, the 1,328 claim",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Group DATA used an 8 km/h infantry cap and the monument nodes of OpenStreetMap; the manuals (Casey 1862, Hardee 1855) are public domain; the succession count was not re-derived.",
+   "next_step": "Read the manuals, cite pages, re-derive the succession check.",
+   "size": "M",
+   "files": [
+    "tools/t0/data/posutil.mjs",
+    "tools/t0/data/sources/osm-monuments.json"
+   ]
+  },
+  {
+   "id": "VD13-7",
+   "chapter": "13",
+   "kind": "verification-debt",
+   "title": "Counsel scope and cost; owner answers to register action 10; device benchmark of 478 moving features; no browser was used for the DOM criteria",
+   "status": "OWNER_ONLY",
+   "evidence": "Owner acts and devices (WP-DATA-05a, items-A.json WP-DEC-03).",
+   "next_step": "Owner.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/13-data-quality-and-accuracy.md"
+   ],
+   "owner_step": "See WP-DATA-05a and WP-DEC-03."
+  },
+  {
+   "id": "HB-01",
+   "chapter": "13",
+   "kind": "verification-debt",
+   "title": "Historian backlog H-01: Confederate casualty authority and the Busey and Martin edition and pages",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "See VD13-1; about 3 reviewer hours in the plan.",
+   "next_step": "Prepare the cited evidence from the Official Records. The reviewer's yes or no is a decision row in decisions.jsonl (WP-DATA-23b).",
+   "size": "S",
+   "files": [
+    "data-src/authorities/authorities.json"
+   ]
+  },
+  {
+   "id": "HB-02",
+   "chapter": "13",
+   "kind": "verification-debt",
+   "title": "Historian backlog H-02: Confederate OOB, 22 cavalry commanders, Union OOB check against Official Records No. 9",
+   "status": "BUILT_NOT_SHIPPED",
+   "evidence": "See VD13-2 and WP-DATA-07b; about 5 hours.",
+   "next_step": "Apply after the reviewer decides. The reviewer's yes or no is a decision row in decisions.jsonl (WP-DATA-23b).",
+   "size": "S",
+   "files": [
+    "data-src/build/candidates/confederate_cavalry_commanders.json"
+   ]
+  },
+  {
+   "id": "HB-03",
+   "chapter": "13",
+   "kind": "verification-debt",
+   "title": "Historian backlog H-03: 28 dual-meaning ids; 61 crosswalk rows and 22 with no match; density numbering",
+   "status": "BUILT_NOT_SHIPPED",
+   "evidence": "Proposals are built (id_collisions.json 28 entries, id_crosswalk.json, unit_aliases.json 79 aliases and 16 unresolved; WP-DATA-06b); about 10 hours.",
+   "next_step": "The historian decides; then apply through the emitter. The reviewer's yes or no is a decision row in decisions.jsonl (WP-DATA-23b).",
+   "size": "M",
+   "files": [
+    "data-src/build/id_collisions.json",
+    "data-src/build/id_crosswalk.json"
+   ]
+  },
+  {
+   "id": "HB-04",
+   "chapter": "13",
+   "kind": "verification-debt",
+   "title": "Historian backlog H-04: The detachment U-11PA-R-F, the commander of C-61VA, artillery completeness (306 versus about 370 batteries, 194 versus about 283 guns)",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Not done; the 11th Pennsylvania is one regiment with a brigade transfer (OR No. 9 p. 156, chapter 13 section 2.2).",
+   "next_step": "Research each from Official Records No. 9. The reviewer's yes or no is a decision row in decisions.jsonl (WP-DATA-23b).",
+   "size": "S",
+   "files": [
+    "data-src/build/candidates/vi_corps_brigades.json"
+   ]
+  },
+  {
+   "id": "HB-05",
+   "chapter": "13",
+   "kind": "verification-debt",
+   "title": "Historian backlog H-05: Highest loss rate C-8VA, Pickett 2,700 versus 2,614, 26th NC, 1st Minnesota, Iverson, Avery, Lincoln, Alexander",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "The adjudication register has 7 items, 6 open; the rate of C-8VA (76.7 percent) and the 26th NC (69.7 or 69.8) are in notable_intensity.json.",
+   "next_step": "Cite the Official Records and memoirs; publish ranges. The reviewer's yes or no is a decision row in decisions.jsonl (WP-DATA-23b).",
+   "size": "M",
+   "files": [
+    "data-src/build/candidates/adjudication_register.json",
+    "data-src/build/candidates/notable_intensity.json"
+   ]
+  },
+  {
+   "id": "HB-06",
+   "chapter": "13",
+   "kind": "verification-debt",
+   "title": "Historian backlog H-06: East Cavalry Field rows t560-565, Farnsworth, LOC-021, V-020; tick-1 staging; Pickett's presence",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Partly corrected by group DATA (positions moved to the monument ground); the rest open.",
+   "next_step": "Cite NPS, Bachelder and the Official Records. The reviewer's yes or no is a decision row in decisions.jsonl (WP-DATA-23b).",
+   "size": "M",
+   "files": [
+    "tools/t0/DATA-README.md"
+   ]
+  },
+  {
+   "id": "HB-07",
+   "chapter": "13",
+   "kind": "verification-debt",
+   "title": "Historian backlog H-07: Monuments: 20 suspect coordinates, mn, \"1,328\"; 30 terrain points and 10 canonical places",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Not done (WP-DATA-15, 14); the NPS 1907 and 1932 location lists are not acquired (the library workstream recorded npshistory.com as not reachable on 2026-11-11; test again before relying on either note).",
+   "next_step": "Acquire and cite what is reachable; record blocked hosts. The reviewer's yes or no is a decision row in decisions.jsonl (WP-DATA-23b).",
+   "size": "M",
+   "files": [
+    "docs/data/rights-audit.md"
+   ]
+  },
+  {
+   "id": "HB-08",
+   "chapter": "13",
+   "kind": "verification-debt",
+   "title": "Historian backlog H-08: Successions: 15 of 42 not reflected; sample ten page-level citations",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Group DATA corrected 77 succession patches; the sample audit of the claimed citations was not made.",
+   "next_step": "Draw the sample and check each page. The reviewer's yes or no is a decision row in decisions.jsonl (WP-DATA-23b).",
+   "size": "S",
+   "files": [
+    "tools/t0/data/fixes/succ.mjs"
+   ]
+  },
+  {
+   "id": "HB-09",
+   "chapter": "13",
+   "kind": "verification-debt",
+   "title": "Historian backlog H-09: Aftermath facts (Vicksburg, storm, wagon train, Potomac, 2,400 residents, Everett and Lincoln) and bibliography (Gottfried 2007 or 2013, Coddington 1968 or 1984); sensitive-content policy",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "\"Gottfried\" appears in 6 files of the shipped data (WP-DATA-09b); the aftermath page text is unverified.",
+   "next_step": "Verify against period sources; the policy is B07. The reviewer's yes or no is a decision row in decisions.jsonl (WP-DATA-23b).",
+   "size": "M",
+   "files": [
+    "data-src/policy/source_tiers.json"
+   ]
+  },
+  {
+   "id": "HB-10",
+   "chapter": "13",
+   "kind": "verification-debt",
+   "title": "Historian backlog H-10: Speeds, frontage, timing default and cap sign-off (Casey 1862, Hardee 1855)",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "See VD13-6; about 3 hours.",
+   "next_step": "Cite pages; propose the caps. The reviewer's yes or no is a decision row in decisions.jsonl (WP-DATA-23b).",
+   "size": "S",
+   "files": [
+    "tools/t0/data/posutil.mjs"
+   ]
+  },
+  {
+   "id": "HB-11",
+   "chapter": "13",
+   "kind": "verification-debt",
+   "title": "Historian backlog H-11: Battle-line order per brigade (open-ended)",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Needed by the formation model (WP-DATA-13); the Official Records list regiments in numerical order, not line order.",
+   "next_step": "Use reports and monuments (order_src); label arbitrary order as arbitrary. The reviewer's yes or no is a decision row in decisions.jsonl (WP-DATA-23b).",
+   "size": "L",
+   "files": [
+    "tools/data/rules/coverage_rules.mjs"
+   ]
   },
   {
    "id": "Q-DATA-1",
@@ -5586,7 +6434,7 @@
    "title": "Source registry, tier gate, rights retro-audit",
    "status": "BUILT_NOT_SHIPPED",
    "evidence": "Built: docs/historian/sources.yaml (85 entries with licence id, imprint, tier, may_index, may_redistribute, may_send_to_llm; generated by tools/historian/gen-sources.mjs), the fetch gate in tools/historian/ingest/fetch.mjs (banned hosts, refused identifiers such as the 1971 reprint warrebellionaco00cowlgoog, registered Tier A or B only, every redirect hop gated, one request per second per host), validator V02 (licence and tier gate; Tier C never ships), the larger quality-checked registry data-src/sources-v2/registry.json (1,714 entries), and the rights retro-audit of WP-DATA-04a. Tests: tests/historian/sources.test.mjs, tests/sources-qc/registry.test.mjs; node --test tests/historian/*.test.mjs run 2026-11-13: under the container's default Node 22.23.4 22 test files fail to load (SyntaxError \"Invalid group\" at tools/historian/ingest/times.mjs:26, an inline regex modifier (?-i:) that Node 22 does not parse); under /opt/node24 (24.22.1): 474 tests, 387 pass, 0 fail, 87 skipped (19 of them \"skipped loudly\" because historian-src/raw/or27 and tmp/historian-cache are not built here).",
-   "next_step": "Missing: a person's sign-off of the rights entries (verified_at and reviewer are null for or27-2 and or27-3; the HathiTrust catalogue records could not be read, the host answers with a bot block and was not circumvented), and the /sources page (candidate only, WP-CONTENT-14).",
+   "next_step": "Remaining work: a person's sign-off of the rights entries (verified_at and reviewer are null for or27-2 and or27-3; the HathiTrust catalogue records could not be read, the host answers with a bot block and was not circumvented), and the /sources page (candidate only, WP-CONTENT-14).",
    "size": "M",
    "files": [
     "docs/historian/sources.yaml",
@@ -5621,7 +6469,7 @@
    "title": "Fetch, OCR normaliser, page map",
    "status": "BUILT_NOT_SHIPPED",
    "evidence": "Built: tools/historian/ingest/fetch.mjs, notes.mjs (footnotes, compilers' notes, head fragments taken out and listed), leaves.mjs (the printed page of each scan leaf rides through normalisation), pagemap.mjs, with the three Official Records items fetched on 2026-10-01 and hashed in historian-src/corpus/or27/manifest.json. Measured (docs/historian/CORPUS.md 3b): printed page wrong for 7 of 61,851 checked sentence starts (0.011 percent) against 1,236 of 62,628 (1.97 percent) in the first build; 20,973 logged edits. Tests: tests/historian/or27.test.mjs, or27-rebuild.test.mjs, ingest*.test.mjs; node --test tests/historian/*.test.mjs run 2026-11-13: under the container's default Node 22.23.4 22 test files fail to load (SyntaxError \"Invalid group\" at tools/historian/ingest/times.mjs:26, an inline regex modifier (?-i:) that Node 22 does not parse); under /opt/node24 (24.22.1): 474 tests, 387 pass, 0 fail, 87 skipped (19 of them \"skipped loudly\" because historian-src/raw/or27 and tmp/historian-cache are not built here).",
-   "next_step": "Missing: the OCR-quality proxy re-derived on the first three sources; 7 page citations known wrong; citations checked for 93 percent of sentence starts only; the raw downloads are git-ignored (historian-src/raw/or27, tmp/historian-cache), so 19 tests skip loudly in this container until the corpus is rebuilt; no browser check of scan links.",
+   "next_step": "Remaining work: the OCR-quality proxy re-derived on the first three sources; 7 page citations known wrong; citations checked for 93 percent of sentence starts only; the raw downloads are git-ignored (historian-src/raw/or27, tmp/historian-cache), so 19 tests skip loudly in this container until the corpus is rebuilt; no browser check of scan links.",
    "size": "M",
    "files": [
     "tools/historian/ingest/fetch.mjs",
@@ -5639,7 +6487,7 @@
    "title": "Entity registry, unit crosswalk, aliases",
    "status": "BUILT_NOT_SHIPPED",
    "evidence": "Built: the registry in tools/historian/lib/registry.mjs and names.mjs (1,694 entity records: units, formations, 706 persons; the site's own ids kept; alias stub U-14BK folded into U-84NY; derived aliases plus 47 curated ones in tools/historian/data/aliases.v1.json), the linker historian-src/core/linker.js and units.js. Tests: tests/historian/classes.test.mjs, regiment-phrasings.test.mjs (every regiment in 24 phrasings), typo-repair.test.mjs; node --test tests/historian/*.test.mjs run 2026-11-13: under the container's default Node 22.23.4 22 test files fail to load (SyntaxError \"Invalid group\" at tools/historian/ingest/times.mjs:26, an inline regex modifier (?-i:) that Node 22 does not parse); under /opt/node24 (24.22.1): 474 tests, 387 pass, 0 fail, 87 skipped (19 of them \"skipped loudly\" because historian-src/raw/or27 and tmp/historian-cache are not built here).",
-   "next_step": "Missing: the shipped data still lists the alias stub as a row and 10 placement rows have unresolved ids (WP-DATA-06b); the 570 to 570 crosswalk table with unmatched.csv and expiry; the CWSS id mapping (blocked, WP-HIST-30).",
+   "next_step": "Remaining work: the shipped data still lists the alias stub as a row and 10 placement rows have unresolved ids (WP-DATA-06b); the 570 to 570 crosswalk table with unmatched.csv and expiry; the CWSS id mapping (blocked, WP-HIST-30).",
    "size": "M",
    "files": [
     "tools/historian/lib/registry.mjs",
@@ -5647,7 +6495,10 @@
     "historian-src/core/linker.js",
     "tests/historian/regiment-phrasings.test.mjs"
    ],
-   "roadmap_node": "RM-40"
+   "roadmap_node": "RM-40",
+   "also_roadmap_nodes": [
+    "RM-33"
+   ]
   },
   {
    "id": "WP-HIST-06",
@@ -5656,7 +6507,7 @@
    "title": "Build, emit, validate (deterministic, content-hashed, two versions kept)",
    "status": "BUILT_NOT_SHIPPED",
    "evidence": "Built: node tools/historian/build.mjs (about 4 s; 266 files and 2,476,744 bytes under historian-src/dist including two kept previous manifests; every artifact named <name>.<8 hex>.json; a rebuild of unchanged input reproduces every hash, validator V12), validators V01..V12 and K001 with validation-report.json, emitted by tools/historian/lib/emit.mjs. Tests: tests/historian/build.test.mjs, verify-historian-core.test.mjs, reverify-historian-core.test.mjs; node --test tests/historian/*.test.mjs run 2026-11-13: under the container's default Node 22.23.4 22 test files fail to load (SyntaxError \"Invalid group\" at tools/historian/ingest/times.mjs:26, an inline regex modifier (?-i:) that Node 22 does not parse); under /opt/node24 (24.22.1): 474 tests, 387 pass, 0 fail, 87 skipped (19 of them \"skipped loudly\" because historian-src/raw/or27 and tmp/historian-cache are not built here).",
-   "next_step": "Missing: it is not wired into any CI or release routine (no .github directory), a seeded violation does not turn a CI job red because there is none, and it reads legacy/dist/data, not the shipped (corrected) data tree: rebuild from release data. The suite needs Node 24: under the container's default Node 22 tools/historian/ingest/times.mjs fails to parse (inline regex modifier), see VER-HIST-NODE.",
+   "next_step": "Remaining work: it is not wired into any CI or release routine (no .github directory), a seeded violation does not turn a CI job red because there is none, and it reads legacy/dist/data, not the shipped (corrected) data tree: rebuild from release data. The suite needs Node 24: under the container's default Node 22 tools/historian/ingest/times.mjs fails to parse (inline regex modifier), see VER-HIST-NODE.",
    "size": "M",
    "files": [
     "tools/historian/build.mjs",
@@ -5673,8 +6524,8 @@
    "kind": "work-package",
    "title": "Evaluation harness, golden sets and gates",
    "status": "BUILT_NOT_SHIPPED",
-   "evidence": "Built: tests/historian/eval.mjs with gates.json (H1 and H2 batteries; a regression of more than 2 points against baseline.json fails), the golden scorer tests/historian/lib/score-golden.mjs with fixtures/golden-gates.json, the recorded deployed baseline B0 (primary S@1 76.2 percent, canonical@1 29.3, defects 89.8; golden pass 14.0 percent on the 150 questions, reproduced by eval.mjs --system legacy), and OR golden sets A (73 items) and H (33 items, held out). Same harness as WP-QA-20.",
-   "next_step": "Missing: CI (none exists) and the independent question set of at least 100 questions written by others (D-EVIDENCE); the primary battery was used for tuning, the held-out and fresh batteries were written by the same team (PIPELINE caveats).",
+   "evidence": "Built: tests/historian/eval.mjs with gates.json (H1 and H2 batteries; a regression of more than 2 points against baseline.json fails), the golden scorer tests/historian/lib/score-golden.mjs with fixtures/golden-gates.json, the recorded deployed baseline B0 in tests/historian/baseline.json (battery numbers, reproduced live by eval.mjs --system legacy: primary S@1 76.2 percent, canonical@1 29.3, defect rate 89.8; golden pass 14.0 percent on the 150 questions, scored by score-golden.js), and OR golden sets A (73 items) and H (33 items, held out). Same harness as WP-QA-20.",
+   "next_step": "Remaining work: CI (none exists) and the independent question set of at least 100 questions written by others (D-EVIDENCE); the primary battery was used for tuning, the held-out and fresh batteries were written by the same team (PIPELINE caveats).",
    "size": "M",
    "files": [
     "tests/historian/eval.mjs",
@@ -5692,7 +6543,7 @@
    "title": "search-core: normalisation, repair, linking, intent, ranking, no-answer gate",
    "status": "BUILT_NOT_SHIPPED",
    "evidence": "Built: historian-src/core (engine.js, text.js, english.js, intent.js, entities.js, linker.js, select.js, unknowns.js, guard.js; scope gate, join, split and Damerau-Levenshtein repair, BM25F cards, BM25 impact8 passages). docs/historian/PIPELINE.md section 4 (gates at H2): 28 of 30 gates pass, two fail and were not loosened: canonical@1 on the primary battery 91 percent against 92, and student-level answers readable and substantive 80 percent against 85; 6 of the 123 golden items do not pass; \"Nothing here was exercised in a real browser\". Tests: tests/historian/engine.test.mjs, classes.test.mjs, classes-semantic.test.mjs, intent.test.mjs, blindspots.test.mjs. node --test tests/historian/*.test.mjs run 2026-11-13: under the container's default Node 22.23.4 22 test files fail to load (SyntaxError \"Invalid group\" at tools/historian/ingest/times.mjs:26, an inline regex modifier (?-i:) that Node 22 does not parse); under /opt/node24 (24.22.1): 474 tests, 387 pass, 0 fail, 87 skipped (19 of them \"skipped loudly\" because historian-src/raw/or27 and tmp/historian-cache are not built here).",
-   "next_step": "Missing: the two failing gates (five brigade nicknames answer with the wrong card first; one student-level item), a held-out set that nobody tuned on, and the migration of search.html (it keeps its own scorer) and of the in-app Search Units list.",
+   "next_step": "Remaining work: the two failing gates (five brigade nicknames answer with the wrong card first; one student-level item), a held-out set that nobody tuned on, and the migration of search.html (it keeps its own scorer) and of the in-app Search Units list.",
    "size": "L",
    "files": [
     "historian-src/core/engine.js",
@@ -5711,7 +6562,7 @@
    "title": "Data lake to entities, facts, authority tables",
    "status": "BUILT_NOT_SHIPPED",
    "evidence": "Built: tools/historian/lib/facts.mjs (rank tables national, by side and by state with their rule text, roll-ups, succession index, scope rules, known unknowns with concept tags, routes, glossary) and the clock facts from the time module (tools/historian/lib/clock.mjs reads src/lib/time and data-src/time/time_anchors.json). The validator rejects developer fields at the load boundary (flag, flag_notes, tick labels).",
-   "next_step": "Missing: the facts come from the legacy data lake (rebuild from the corrected release data), the authority table of WP-DATA-08a, and the suspect records (the 61st Virginia commander, the 11th Pennsylvania transfer) pending the data decisions.",
+   "next_step": "Remaining work: the facts come from the legacy data lake (rebuild from the corrected release data), the authority table of WP-DATA-08a, and the suspect records (the 61st Virginia commander, the 11th Pennsylvania transfer) pending the data decisions.",
    "size": "M",
    "files": [
     "tools/historian/lib/facts.mjs",
@@ -5728,7 +6579,7 @@
    "title": "Composers, render linter I1-I8, refusals and conversation state",
    "status": "BUILT_NOT_SHIPPED",
    "evidence": "Built: historian-src/core/compose.js, lint.js (I1..I8 over every rendered answer), guard.js (injection and scope), unknowns.js (honest \"not in the records\" answers), chips.js, format.js. Measured: forbidden content, hallucinated citations and false declines 0, injection and XSS resistance 100 percent (PIPELINE tables); the class sweeps are generators and do not prove absence. Tests: tests/historian/unknowns.test.mjs, capabilities.test.mjs, regress.test.mjs, k001.test.mjs.",
-   "next_step": "Missing: a human review of a sample of answers (the golden scorer matches regular expressions), the roster-honesty template wording approved by the owner, and the real-browser pass.",
+   "next_step": "Remaining work: a human review of a sample of answers (the golden scorer matches regular expressions), the roster-honesty template wording approved by the owner, and the real-browser pass.",
    "size": "M",
    "files": [
     "historian-src/core/compose.js",
@@ -5746,7 +6597,7 @@
    "title": "UI v2 and integration (accessibility, performance, adapters, search.html)",
    "status": "BUILT_NOT_SHIPPED",
    "evidence": "Built and tested, in no train: historian-src/page reads historian-src/dist/hx, and release/R1g/dist/historian.html is still the baseline page with the H0 fixes. Page files: historian-src/page/historian.html, historian.css, historian.js (lang, one h1, skip link, labelled input, role=\"log\" with polite updates, 44 px chips, permalinks, on-site context parameters). Tests: tests/historian/page.test.mjs runs the real page and controller in a small fake DOM against a real built KB; no browser is launched.",
-   "next_step": "Missing: the real-browser pass at 320, 375, 768 and 1280 px with screen readers and the on-screen keyboard (PIPELINE section 5 item 1), Lighthouse and INP runs, entry points on regiment.html and search.html, and the decision where the page and hx/ are served (same origin; cache headers). The engine runs on the main thread, not in a Worker (no Worker in historian-src).",
+   "next_step": "Remaining work: the real-browser pass at 320, 375, 768 and 1280 px with screen readers and the on-screen keyboard (PIPELINE section 5 item 1), Lighthouse and INP runs, entry points on regiment.html and search.html, and the decision where the page and hx/ are served (same origin; cache headers). The engine runs on the main thread, not in a Worker (no Worker in historian-src).",
    "size": "L",
    "files": [
     "historian-src/page/historian.html",
@@ -5764,7 +6615,7 @@
    "title": "Official Records segmenters and page map",
    "status": "BUILT_NOT_SHIPPED",
    "evidence": "Built: tools/historian/ingest/or27.mjs, or27-headers.mjs, or27-dispatch.mjs, corpus.mjs: 3,810 documents (588 of the 589 numbered reports; No. 161 is a damaged scan and is named as missing) and 3,222 dispatches cut at their datelines, 8,414 passages, 1,321,161 words; committed tables in historian-src/corpus/or27. Dispatch segmentation measured on four samples (first scores 83.0, 87.8 and 87.8 percent on unseen draws). Tests: tests/historian/or27.test.mjs, or27-rebuild.test.mjs, verify-ingest-*.test.mjs; node --test tests/historian/*.test.mjs run 2026-11-13: under the container's default Node 22.23.4 22 test files fail to load (SyntaxError \"Invalid group\" at tools/historian/ingest/times.mjs:26, an inline regex modifier (?-i:) that Node 22 does not parse); under /opt/node24 (24.22.1): 474 tests, 387 pass, 0 fail, 87 skipped (19 of them \"skipped loudly\" because historian-src/raw/or27 and tmp/historian-cache are not built here).",
-   "next_step": "Missing: the Guild casualty return from word boxes (tables are not read), a complete count of lost dispatches, a second reader of the labels, and the shipping decision (WP-HIST-12 delivers a corpus the owner has not yet chosen to serve, docs/historian/CORPUS.md section 9).",
+   "next_step": "Remaining work: the Guild casualty return from word boxes (tables are not read), a complete count of lost dispatches, a second reader of the labels, and the shipping decision (WP-HIST-12 delivers a corpus the owner has not yet chosen to serve, docs/historian/CORPUS.md section 9).",
    "size": "L",
    "files": [
     "tools/historian/ingest/or27.mjs",
@@ -5782,7 +6633,7 @@
    "title": "Classifier, chunker, deduplication (tables kept out of the prose)",
    "status": "BUILT_NOT_SHIPPED",
    "evidence": "Built: the chunker cuts 150 to 250 word passages with sentence offsets and never across documents (ids carry a hash of the text), table cells are taken out of a chunk (175 chunks cleaned, 8,130 cell paragraphs removed, 65 table-only chunks dropped); documents are classified by kind (letters and dispatches 3,000, orders 187, returns 34). Tests: or27-rebuild.test.mjs RB-TX-*.",
-   "next_step": "Missing: table extraction as data (that is WP-HIST-21) and the near-duplicate pass over the corpus.",
+   "next_step": "Remaining work: table extraction as data (that is WP-HIST-21) and the near-duplicate pass over the corpus.",
    "size": "S",
    "files": [
     "tools/historian/lib/corpus-or.mjs",
@@ -5798,7 +6649,7 @@
    "title": "Unit, person and place linkers with a labelled set",
    "status": "BUILT_NOT_SHIPPED",
    "evidence": "Built: tools/historian/ingest/link.mjs over core/linker.js (tier A, B and C, only A and B emitted). Hand-checked precision 192 of 200 emitted links, 96.0 percent (Wilson 92.3 to 98.0), tier A 97.0, tier B 93.8, 8 wrong or uncertain (5 fixed, listed in docs/historian/CORPUS.md section 5), one reader (the builder); fixtures tests/historian/fixtures/or27-links-checked.json. Report authors linked to a person 270 of 573, senders 579 of 3,177. Tests: verify-ingest-links.test.mjs.",
-   "next_step": "Missing: place linkers, recall measurement (the plan wants recall of at least 0.85), a second labeller, and links for authors outside the registry of 706 officers.",
+   "next_step": "Remaining work: place linkers, recall measurement (the plan wants recall of at least 0.85), a second labeller, and links for authors outside the registry of 706 officers.",
    "size": "M",
    "files": [
     "tools/historian/ingest/link.mjs",
@@ -5815,7 +6666,7 @@
    "title": "Time anchors and evidence tables",
    "status": "BUILT_NOT_SHIPPED",
    "evidence": "Built: tools/historian/ingest/times.mjs and anchors.mjs read 5,572 clock claims (5,307 with a minute; evidence kinds report text 3,522, dispatch header 1,387), the day of each as a register (RB-DY tests), and historian-src/corpus/time_evidence.json attaches claims to the 137 chronicle events as proposals (tier A 1, B 5, F 72, C 453 over 99 events; 38 events have no claim; hand check of tier F 17 of 30 right, 57 percent). Nothing is applied to the time model.",
-   "next_step": "Missing: the plan's 200-anchor precision of at least 0.90 (tier F is 0.57), the anchors file for the D-TIME packet, review of the proposals by the named reviewer (WP-DATA-23b), and the day register is not hand-checked as a class.",
+   "next_step": "Remaining work: the plan's 200-anchor precision of at least 0.90 (tier F is 0.57), the anchors file for the D-TIME packet, review of the proposals by the named reviewer (WP-DATA-23b), and the day register is not hand-checked as a class.",
    "size": "L",
    "files": [
     "tools/historian/ingest/times.mjs",
@@ -5848,7 +6699,7 @@
    "title": "Passage engine, T2 emit, composers for passages",
    "status": "BUILT_NOT_SHIPPED",
    "evidence": "Built: the corpus KB builds next to the site KB (node tools/historian/build.mjs --corpus or27 --out historian-src/dist/hx-or27; git-ignored; about 15.7 MB raw, 4.8 MB brotli, 1,212 files), core/corpus.js, reports.js and select.js retrieve with entity postings, BM25 and day-aware claims, answers quote with exact offsets and page citations; p95 about 3 ms in Node on a warm cache (docs/historian/CORPUS.md section 8, modelled for phones). Tests: or27.test.mjs OR-1..OR-13.",
-   "next_step": "Missing: the Worker (the engine runs on the main thread), the lazy loader with an LRU and a real-phone latency measurement, the shipping decision, and a headline-size check against the plan's cold-query limit on a real network.",
+   "next_step": "Remaining work: the Worker (the engine runs on the main thread), the lazy loader with an LRU and a real-phone latency measurement, the shipping decision, and a headline-size check against the plan's cold-query limit on a real network.",
    "size": "M",
    "files": [
     "historian-src/core/corpus.js",
@@ -5886,7 +6737,7 @@
    "title": "Golden-Passage set, audit 1, gate G-A2 and G-X report",
    "status": "BUILT_NOT_SHIPPED",
    "evidence": "Partly built: tools/historian/golden-or27.mjs with OR golden set A (73 items, tests/historian/fixtures/golden-or27.json) and the held-out set H (33 items, run once), tools/historian/hand30.mjs (30 reconstructed hand questions), recorded results in golden-or27.recorded.json, golden gates in fixtures/golden-gates.json. The second build's fixes were made with set H in view, so H is no longer an unseen measure (CORPUS section 9).",
-   "next_step": "Missing: about 105 Golden-Passage items written by someone who did not build the engine, the first 100-answer audit by a person, the recorded G-A2 and G-X decision row, and report-<kb>.json with recall@k, MRR and judged@10.",
+   "next_step": "Remaining work: about 105 Golden-Passage items written by someone who did not build the engine, the first 100-answer audit by a person, the recorded G-A2 and G-X decision row, and report-<kb>.json with recall@k, MRR and judged@10.",
    "size": "M",
    "files": [
     "tools/historian/golden-or27.mjs",
@@ -6070,7 +6921,10 @@
     "docs/plan/FINAL/01-decision-register.md"
    ],
    "roadmap_node": "RM-98",
-   "owner_step": "Send the permission emails of register action 8 (including the National Park Service about the soldier-roster data) from your own address, and save any reply in docs/legal/; no roster data is fetched or stored before a written confirmation."
+   "owner_step": "Send the permission emails of register action 8 (including the National Park Service about the soldier-roster data) from your own address, and save any reply in docs/legal/; no roster data is fetched or stored before a written confirmation.",
+   "also_roadmap_nodes": [
+    "RM-04"
+   ]
   },
   {
    "id": "WP-HIST-31",
@@ -6123,7 +6977,10 @@
     "tools/copy/build-trust-pages.mjs",
     "docs/historian/sources.yaml"
    ],
-   "roadmap_node": "RM-39"
+   "roadmap_node": "RM-39",
+   "also_roadmap_nodes": [
+    "RM-40"
+   ]
   },
   {
    "id": "WP-HIST-34",
@@ -6131,15 +6988,18 @@
    "kind": "work-package",
    "title": "Legal and privacy alignment for the Historian",
    "status": "BUILT_NOT_SHIPPED",
-   "evidence": "Built in the opt-in privacy group (ops/legal-drafts/data-inventory.json lists historian.html as an on-device page that fetches only same-origin /data/*; verify-facts.mjs checks it: \"local-only historian.html ... PASS\"); the Historian says it is not an AI model, so no AI-disclosure line is needed while Design A holds. A scratch build of the R1g tree with the opt-in group (python tools/t0/build.py --train R1g --with PG-legal, tmp/r1h-cand/status-B/legal-check-R1g: 3,396 patch records = 3,386 + the 10 legal rows, 0 anchor failures, gates ok, 2,013 files) passes node ops/legal-drafts/verify-facts.mjs --dist <that tree>/dist run 2026-11-13: no FAIL, 0 WARN (dates, Street View sensor sentence, referrer sentence, every host, key, cache and permission named).",
-   "next_step": "Missing: the owner's review of the opt-in group (WP-INFRA-26), the Terms line on quotation and credit, the counsel packet items (public-domain arithmetic for pre-1931 imprints, share-alike embeddings, minors policy: WP-INFRA-27a).",
+   "evidence": "Built in the opt-in privacy group (ops/legal-drafts/data-inventory.json lists historian.html as an on-device page that fetches only same-origin /data/*; verify-facts.mjs checks it: \"local-only historian.html ... PASS\"); the Historian says it is not an AI model, so no AI-disclosure line is needed while Design A holds. A scratch build of the R1g tree with the opt-in group (python tools/t0/build.py --train R1g --with PG-legal, scratch tree tmp/r1h-cand/status-B/legal-check-R1g, deleted after the check to save disk: 3,396 patch records = 3,386 + the 10 legal rows, 0 anchor failures, gates ok, 2,013 files) passes node ops/legal-drafts/verify-facts.mjs --dist <that tree>/dist run 2026-11-13: no FAIL, 0 WARN (dates, Street View sensor sentence, referrer sentence, every host, key, cache and permission named).",
+   "next_step": "Remaining work: the owner's review of the opt-in group (WP-INFRA-26), the Terms line on quotation and credit, the counsel packet items (public-domain arithmetic for pre-1931 imprints, share-alike embeddings, minors policy: WP-INFRA-27a).",
    "size": "S",
    "files": [
     "ops/legal-drafts/data-inventory.json",
     "ops/legal-drafts/verify-facts.mjs",
     "tools/t0/patches/PG-legal.json"
    ],
-   "roadmap_node": "RM-36"
+   "roadmap_node": "RM-36",
+   "also_roadmap_nodes": [
+    "RM-40"
+   ]
   },
   {
    "id": "WP-HIST-35",
@@ -6155,7 +7015,11 @@
     "docs/content/OWNER-INPUTS.md"
    ],
    "roadmap_node": "RM-42",
-   "owner_step": "Same step as WP-DATA-23b: name the historical reviewer and second reader, or write that the labelled fallback stands; the reviewer records hours in docs/editorial/ (a table is enough)."
+   "owner_step": "Same step as WP-DATA-23b: name the historical reviewer and second reader, or write that the labelled fallback stands; the reviewer records hours in docs/editorial/ (a table is enough).",
+   "also_roadmap_nodes": [
+    "RM-04",
+    "RM-40"
+   ]
   },
   {
    "id": "WP-HIST-36",
@@ -6180,7 +7044,7 @@
    "status": "SHIPPED",
    "evidence": "Train R1a onwards, page group PG-core (patches PGC-hist-chron, PGC-hist-no-ids, PGC-hist-skip-alias, PGC-hist-counts, PGC-hist-src-note, PGC-hist-esc, PGC-hist-css-scroll, PGC-hist-how), train R1d (PG-polish POL-H01..H06: the Historian scrolls to the question and the answer, focus after submit; PG-zcopy2 COPY2-historian-not-an-ai: the page says it searches the site's records and is not an AI model). Checked 2026-11-13 in release/R1g/dist/historian.html: no e.title, the event field is read, scrollIntoView present. Tests: tests/t0/pages-core.spec.mjs T0-PGC-17 (chronology answers print the event, not \"undefined\", no raw formation ids, counts computed), tests/t0/polish.spec.mjs T0-POL-08 (after an answer the question sits at the top of the view, focus returns to the input), tests/t0/copy.spec.mjs.",
    "next_step": "None for these rows; the remaining H0 items are WP-HIST-01b.",
-   "size": "M",
+   "size": "S",
    "files": [
     "tools/t0/patches/PG-core.json",
     "tools/t0/patches/PG-polish.json",
@@ -6219,6 +7083,150 @@
     "tools/historian/ingest/times.mjs",
     "package.json",
     "tests/historian/verify-ingest-clock.test.mjs"
+   ]
+  },
+  {
+   "id": "VD14-1",
+   "chapter": "14",
+   "kind": "verification-debt",
+   "title": "Netlify plan, file limits, .bin compression, Range",
+   "status": "OWNER_ONLY",
+   "evidence": "See VD09-1.",
+   "next_step": "Owner.",
+   "size": "S",
+   "files": [
+    "ops/owner-console-actions.md"
+   ],
+   "owner_step": "See VD09-1."
+  },
+  {
+   "id": "VD14-2",
+   "chapter": "14",
+   "kind": "verification-debt",
+   "title": "Internet Archive reader index offsets on all Official Records parts and the state books",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Solved for the three Official Records parts by reading the printed page of each scan leaf (0.011 percent disagreement, CORPUS 3b); state books are not acquired.",
+   "next_step": "Repeat the leaf check for each new book.",
+   "size": "S",
+   "files": [
+    "tests/historian/lib/leaf-check.mjs",
+    "docs/historian/CORPUS.md"
+   ]
+  },
+  {
+   "id": "VD14-3",
+   "chapter": "14",
+   "kind": "verification-debt",
+   "title": "Phone latencies (modelled x6) on a real Android",
+   "status": "OWNER_ONLY",
+   "evidence": "A device (HIST-OD-10); the container has software rendering only.",
+   "next_step": "Owner device run.",
+   "size": "S",
+   "files": [
+    "tests/t0/journeys-manual.md"
+   ],
+   "owner_step": "See WP-QA-21a."
+  },
+  {
+   "id": "VD14-4",
+   "chapter": "14",
+   "kind": "verification-debt",
+   "title": "Feedback and query logging (hc-27)",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "Settled by the decision of no telemetry in Stage A (HIST-OD-14, row A04); the privacy text states the Historian is local (WP-HIST-34).",
+   "next_step": "None.",
+   "size": "S",
+   "files": [
+    "docs/decisions/DELEGATED-DECISIONS-MAIN-SITE.md"
+   ],
+   "decision": "D-TELEMETRY (row A04)",
+   "delegated_row": [
+    "A04"
+   ]
+  },
+  {
+   "id": "VD14-5",
+   "chapter": "14",
+   "kind": "verification-debt",
+   "title": "OCR quality proxy (hs1-13) and QA harness (hs1-16) piloted on Official Records part 1",
+   "status": "BUILT_NOT_SHIPPED",
+   "evidence": "Piloted: the harness and golden sets exist (WP-HIST-07, 19); the OCR proxy was replaced by the page-check and text-residue tests of tests/historian/or27-rebuild.test.mjs.",
+   "next_step": "Record the proxy as retired in the docs.",
+   "size": "S",
+   "files": [
+    "tests/historian/or27-rebuild.test.mjs"
+   ]
+  },
+  {
+   "id": "VD14-6",
+   "chapter": "14",
+   "kind": "verification-debt",
+   "title": "Linker precision beyond the 25-item sample; anchor pool size; Confederate coverage",
+   "status": "BUILT_NOT_SHIPPED",
+   "evidence": "Measured on 200 emitted links (96.0 percent) and 105 sender links; anchors: 5,572 claims, tier F 57 percent on 30; coverage stated by the engine (\"no report by Pickett, Hood or McLaws\").",
+   "next_step": "A second labeller and the recall measure (WP-HIST-14, 15).",
+   "size": "M",
+   "files": [
+    "tests/historian/fixtures/or27-links-checked.json",
+    "docs/historian/CORPUS.md"
+   ]
+  },
+  {
+   "id": "VD14-7",
+   "chapter": "14",
+   "kind": "verification-debt",
+   "title": "Wayback capture of archive.org URLs",
+   "status": "OPEN_BUILDABLE",
+   "evidence": "Not done; archive.org is reachable at one request per second.",
+   "next_step": "Record a capture address for each cited item when WP-CONTENT-15 is built.",
+   "size": "S",
+   "files": [
+    "docs/historian/sources.yaml"
+   ]
+  },
+  {
+   "id": "VD14-8",
+   "chapter": "14",
+   "kind": "verification-debt",
+   "title": "Counsel: public domain before 1931, Busey and Martin figures, AI-disclosure duty, minors policy",
+   "status": "OWNER_ONLY",
+   "evidence": "Legal acts (WP-INFRA-27a).",
+   "next_step": "Owner and counsel.",
+   "size": "S",
+   "files": [
+    "ops/legal-drafts/README.md"
+   ],
+   "owner_step": "See WP-INFRA-27a."
+  },
+  {
+   "id": "VD14-9",
+   "chapter": "14",
+   "kind": "verification-debt",
+   "title": "NPS on the soldier roster data; contractor authorship of NPS reports; Bachelder maps; the weather primary",
+   "status": "OWNER_ONLY",
+   "evidence": "The permission emails are the owner's (WP-HIST-30); the other lookups are buildable but outside the reachable hosts in part.",
+   "next_step": "Owner emails; record refused hosts.",
+   "size": "S",
+   "files": [
+    "docs/plan/FINAL/01-decision-register.md"
+   ],
+   "owner_step": "See WP-HIST-30."
+  },
+  {
+   "id": "VD14-10",
+   "chapter": "14",
+   "kind": "verification-debt",
+   "title": "Model ids and prices; Kaggle, DPLA, NARA API, the Broadhead diary; iOS HTTP-cache retention of the first tier",
+   "status": "OPEN_NEEDS_DECISION",
+   "evidence": "The model half belongs to the model grafts that are not built (B09); the NARA catalogue (catalog.archives.gov) is listed as reachable in the task notes; the iOS cache retention needs a device.",
+   "next_step": "Look up what is reachable when the sources are needed; no model ids are looked up.",
+   "size": "S",
+   "files": [
+    "docs/historian/sources.yaml"
+   ],
+   "decision": "D-HIST-ARCH (model grafts off, row B09)",
+   "delegated_row": [
+    "B09"
    ]
   },
   {
@@ -6768,7 +7776,7 @@
    "kind": "verification-debt",
    "title": "Toolchain: build tool and static generator versions, private-repo Actions minutes, Forms limits",
    "status": "OPEN_BUILDABLE",
-   "evidence": "The spikes are not run (items-A.json WP-DEC-04 Astro spike, WP-ARCH-09); the Actions-minutes and Forms parts are overtaken by the zip deploy path (D-CI-HOST SUPERSEDED).",
+   "evidence": "The spikes are not run (items-A.json WP-DEC-04 Astro spike, WP-ARCH-09); the forwarder and Actions-minutes parts are overtaken (one public mailbox, owner decision 2026-10-04 item 5; zip deploys, D-CI-HOST SUPERSEDED); the Forms limits remain an account page.",
    "next_step": "Run the build-tool and Astro spike in the container.",
    "size": "M",
    "files": [

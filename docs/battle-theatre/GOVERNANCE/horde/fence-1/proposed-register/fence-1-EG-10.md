@@ -3,19 +3,19 @@
 | Field | Content |
 |---|---|
 | ID | fence-1-EG-10 |
-| Requirement IDs | R14, R12 |
-| Category | evidence conflict |
-| Description | The Harrison vs critic dispute is not touched by the OR; no Jun 30 account of fence use found. |
-| Why literal 100% is not possible or blocked | The record found does not support it (Law cl.3). |
-| Evidence searched | OR27 Part 1 firewood and Buford, Gamble, Devin reports. Web lookups: none made. OCR is unverified single witness. |
-| Autonomous substitute applied | Keep the contested row; show fences present on Jul 1 morning per Gamble. |
-| Strongest evidence-based reconstruction | As stated in the substitute; geometry beyond the OR is from seed, not record. |
-| Confidence tier | inferred |
-| Competing values | Harrison vs critic |
-| Product marking | Conflict marker on the fences. |
-| Visual and audio impact | McPherson Ridge, Jun 30-Jul 1 |
+| Requirement IDs | R14 (S-003) |
+| Category | evidence conflict / evidence missing |
+| Description | Close-out 2026-11-13. No source supports or refutes the Jun 30 dismantling: OR 1-3 have no 'firewood' hit, the library, three added books and the NPS documents contain no statement; the NPS First Day CLR only says fences on the McPherson Farm were destroyed in July 1863 (caption). The Gettysburg Daily article is not readable here. |
+| Why literal 100% is not possible or blocked | No wartime account found (Law cl.3). |
+| Evidence searched | Searched with tools/bt/or27_find (OR Ser. I vol. 27 parts 1-3, Cornell scan) and three further archive.org scans (warofrebellion271unit, warofrebellion012701rootrich, warofrebellion272unit, warofrebellionco272unit) as second witnesses; the 99-text library plus three added archive.org books; the 73 National Park Service documents under tmp/library/web/nps. Every quoted passage is in evidence_corrections/fence-1.jsonl.  |
+| Autonomous substitute applied | No state change by default; both PDF scenarios kept. |
+| Strongest evidence-based reconstruction | - |
+| Confidence tier | open gap |
+| Competing values | Harrison (dismantled) vs critic (no account) |
+| Product marking | Contested marker. |
+| Visual and audio impact | McPherson Ridge Jun 30 |
 | Review status | internal review only (DEC-006: no public review label) |
-| Owner decision requested | None needed unless the PDF wording itself is to change (E-17). Next evidence to seek: Brady photograph via the Library of Congress; Bachelder; GNMP Harrison paper. |
-| Agent recommendation | Hold the conservative option; do not pick a default among competing values. |
-| Status | open |
+| Owner decision requested | None. |
+| Agent recommendation | Retry when the host is reachable; photo-match the Brady mid-July view. |
+| Status | open (updated by the close-out 2026-11-13; the earlier text is superseded) |
 | Owner decision and date | (filled only from the Decision Log) |

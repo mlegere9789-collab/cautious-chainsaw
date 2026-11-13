@@ -1,0 +1,3220 @@
+{
+ "_doc": "The places the timeline rows name, resolved against the repository's own files (app/data/gazetteer.json and the base-map layers), with the distance tolerance a check may use. Unknown places are listed, never guessed; an ambiguous name is never resolved by choosing one. Built by tools/bt/realize/q.mjs gazetteer --write; tolerances by kind: tolerances.json distance.",
+ "tolerance_by_kind_m": {
+  "ridge": 350,
+  "hill": 250,
+  "knoll": 200,
+  "woods": 150,
+  "field": 150,
+  "orchard": 150,
+  "farm": 80,
+  "building": 40,
+  "spring": 50,
+  "area": 300,
+  "town": 350,
+  "bridge": 40,
+  "work": 150,
+  "wall": 150
+ },
+ "line_extra_m": 20,
+ "tolerance_rule": "point/area/footprint: distance from the unit centre to the centre of the place must be <= sigma_m of the entry (at least the floor of its kind); line (road, lane, stream, railway): distance to the nearest point of the mapped line <= positional error + line_extra_m",
+ "sources": {
+  "docs/battle-theatre/app/data/gazetteer.json": "004ca17282a789cd",
+  "docs/basemap1863/features/roads-rail-water/waterways.geojson": "1ad621b0758f9cae",
+  "docs/basemap1863/features/structures/structures.geojson": "185bff78f23202f1",
+  "docs/basemap1863/features/landcover/woods_1863.geojson": "4298f4eac5e595b3",
+  "docs/basemap1863/features/landcover/orchards_1863.geojson": "f4a83dd8065af511",
+  "docs/basemap1863/features/landcover/fields_documented_1863.geojson": "1375990c64a7eef1",
+  "docs/basemap1863/features/landcover/open_cleared_1863.geojson": "d35ba33a1d786cbb",
+  "docs/basemap1863/features/landcover/boulder_fields_1863.geojson": "3b165158af461adf",
+  "docs/basemap1863/features/landcover/marsh_wetland_1863.geojson": "50c5c6591e85be9d",
+  "docs/basemap1863/features/roads-rail-water/bridges.geojson": "5fd4d256ac6fc7c6",
+  "docs/basemap1863/features/roads-rail-water/water_features.geojson": "39fc8121655f126b",
+  "docs/basemap1863/features/roads-rail-water/lanes.geojson": "7735768072789f01",
+  "docs/basemap1863/features/roads-rail-water/railways.geojson": "930428cd3087d7d5"
+ },
+ "ground_box": {
+  "lng0": -77.272,
+  "lng1": -77.2,
+  "lat0": 39.783,
+  "lat1": 39.838
+ },
+ "counts": {
+  "places_in_gazetteer": 343,
+  "named_in_rows": 82,
+  "unknown_names": 54,
+  "ambiguous_names": 0,
+  "rows_naming_a_known_place": 518,
+  "rows": 705
+ },
+ "places": [
+  {
+   "id": "GZ-072",
+   "name": "Gettysburg (the borough)",
+   "aliases": [
+    "the town",
+    "town",
+    "Gettysburg",
+    "the streets",
+    "town streets"
+   ],
+   "kind": "town",
+   "shape": "point",
+   "center": {
+    "lng": -77.23182,
+    "lat": 39.8299
+   },
+   "tolerance_m": 544,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-072",
+   "tier": "inferred",
+   "rows": [
+    "T1-002",
+    "T1-003",
+    "T1-004",
+    "T1-006",
+    "T1-007",
+    "T1-008",
+    "T1-011",
+    "T1-012",
+    "T1-013",
+    "T1-014",
+    "T1-015",
+    "T1-016",
+    "T1-016",
+    "T1-017",
+    "T1-017",
+    "T1-017",
+    "T1-018",
+    "T1-019",
+    "T1-020",
+    "T1-020",
+    "T1-028",
+    "T1-034",
+    "T1-035",
+    "T1-039",
+    "T1-043",
+    "T1-045",
+    "T1-045",
+    "T1-045",
+    "T1-047",
+    "T1-048",
+    "T1-052",
+    "T1-053",
+    "T1-053",
+    "T1-054",
+    "T1-057",
+    "T1-062",
+    "T1-071",
+    "T1-072",
+    "T1-073",
+    "T1-073",
+    "T1-074",
+    "T1-074",
+    "T1-076",
+    "T1-079",
+    "T1-080",
+    "T1-082",
+    "T1-085",
+    "T1-087",
+    "T1-091",
+    "T1-102",
+    "T1-109",
+    "T1-110",
+    "T1-112",
+    "T1-114",
+    "T1-116",
+    "T1-120",
+    "T1-120",
+    "T1-121",
+    "T1-128",
+    "T1-128",
+    "T1-132",
+    "T1-143",
+    "T1-162",
+    "T1-162",
+    "T1-164",
+    "T1-165",
+    "T1-167",
+    "T1-168",
+    "T1-168",
+    "T1-174",
+    "T1-174",
+    "T1-178",
+    "T1-185",
+    "T1-186",
+    "T1-186",
+    "T1-205",
+    "T1-210",
+    "T1-216",
+    "T1-218",
+    "T1-218",
+    "T1-218",
+    "T2-005",
+    "T2-006",
+    "T2-007",
+    "T2-010",
+    "T2-010",
+    "T2-016",
+    "T2-019",
+    "T2-021",
+    "T2-021",
+    "T2-022",
+    "T2-031",
+    "T2-031",
+    "T2-031",
+    "T2-035",
+    "T2-035",
+    "T2-037",
+    "T2-038",
+    "T2-062",
+    "T2-066",
+    "T2-068",
+    "T2-074",
+    "T2-074",
+    "T2-074",
+    "T2-081",
+    "T2-116",
+    "T2-146",
+    "T2-146",
+    "T2-147",
+    "T2-154",
+    "T2-209",
+    "T2-217",
+    "T3-002",
+    "T3-002",
+    "T3-002",
+    "T3-021",
+    "T3-021",
+    "T3-049",
+    "T3-053",
+    "T3-053",
+    "T3-053",
+    "T3-053",
+    "T3-073",
+    "T3-083",
+    "T3-095",
+    "T3-134",
+    "T3-138",
+    "T3-147",
+    "T3-149",
+    "T3-151",
+    "T3-151",
+    "T3-152",
+    "T3-153",
+    "T3-153",
+    "T3-154",
+    "T3-156",
+    "T3-159",
+    "T3-161",
+    "T3-161",
+    "T3-166",
+    "T3-167",
+    "T3-171",
+    "T3-173",
+    "T3-183",
+    "T3-185",
+    "T3-186",
+    "T3-189",
+    "T3-192",
+    "T3-194",
+    "T3-196",
+    "T3-208",
+    "T3-212",
+    "T3-215",
+    "T3-218",
+    "E-001",
+    "E-012"
+   ]
+  },
+  {
+   "id": "GZ-002",
+   "name": "Culp's Hill",
+   "aliases": [],
+   "kind": "hill",
+   "shape": "point",
+   "center": {
+    "lng": -77.21838,
+    "lat": 39.81753
+   },
+   "tolerance_m": 490,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-002",
+   "tier": "inferred",
+   "rows": [
+    "T1-164",
+    "T1-179",
+    "T1-179",
+    "T1-180",
+    "T1-181",
+    "T1-181",
+    "T1-182",
+    "T1-187",
+    "T1-187",
+    "T1-200",
+    "T1-201",
+    "T1-202",
+    "T2-001",
+    "T2-002",
+    "T2-002",
+    "T2-008",
+    "T2-009",
+    "T2-010",
+    "T2-012",
+    "T2-012",
+    "T2-015",
+    "T2-025",
+    "T2-026",
+    "T2-026",
+    "T2-045",
+    "T2-055",
+    "T2-059",
+    "T2-061",
+    "T2-071",
+    "T2-071",
+    "T2-080",
+    "T2-081",
+    "T2-082",
+    "T2-129",
+    "T2-175",
+    "T2-181",
+    "T2-183",
+    "T2-192",
+    "T2-202",
+    "T2-203",
+    "T2-204",
+    "T2-205",
+    "T2-211",
+    "T2-229",
+    "T2-231",
+    "T2-232",
+    "T2-238",
+    "T2-242",
+    "T2-248",
+    "T3-004",
+    "T3-005",
+    "T3-006",
+    "T3-007",
+    "T3-009",
+    "T3-010",
+    "T3-011",
+    "T3-019",
+    "T3-023",
+    "T3-024",
+    "T3-026",
+    "T3-028",
+    "T3-033",
+    "T3-038",
+    "T3-039",
+    "T3-042",
+    "T3-044",
+    "T3-046",
+    "T3-061",
+    "T3-062",
+    "T3-142"
+   ]
+  },
+  {
+   "id": "GZ-006",
+   "name": "Cemetery Ridge",
+   "aliases": [],
+   "kind": "ridge",
+   "shape": "point",
+   "center": {
+    "lng": -77.2348,
+    "lat": 39.81156
+   },
+   "tolerance_m": 561,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-006",
+   "tier": "inferred",
+   "rows": [
+    "T1-094",
+    "T1-176",
+    "T1-192",
+    "T1-194",
+    "T1-194",
+    "T1-199",
+    "T1-199",
+    "T1-222",
+    "T2-005",
+    "T2-017",
+    "T2-027",
+    "T2-028",
+    "T2-040",
+    "T2-042",
+    "T2-043",
+    "T2-050",
+    "T2-063",
+    "T2-109",
+    "T2-145",
+    "T2-172",
+    "T2-174",
+    "T2-180",
+    "T2-183",
+    "T2-184",
+    "T2-186",
+    "T2-187",
+    "T2-188",
+    "T2-189",
+    "T2-190",
+    "T2-191",
+    "T2-229",
+    "T2-241",
+    "T3-027",
+    "T3-052",
+    "T3-054",
+    "T3-065",
+    "T3-071",
+    "T3-080",
+    "T3-084",
+    "T3-086",
+    "T3-088",
+    "T3-091",
+    "T3-092",
+    "T3-099",
+    "T3-104",
+    "T3-111",
+    "T3-124",
+    "T3-128",
+    "T3-142"
+   ]
+  },
+  {
+   "id": "GZ-073",
+   "name": "Seminary Ridge",
+   "aliases": [],
+   "kind": "ridge",
+   "shape": "line",
+   "center": {
+    "lng": -77.24502,
+    "lat": 39.82842
+   },
+   "tolerance_m": 496,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-073",
+   "tier": "inferred",
+   "rows": [
+    "T1-086",
+    "T1-117",
+    "T1-136",
+    "T1-137",
+    "T1-138",
+    "T1-147",
+    "T1-150",
+    "T1-150",
+    "T1-152",
+    "T1-155",
+    "T1-159",
+    "T1-165",
+    "T1-170",
+    "T1-188",
+    "T1-188",
+    "T1-203",
+    "T2-018",
+    "T2-044",
+    "T2-058",
+    "T2-064",
+    "T2-067",
+    "T2-072",
+    "T2-079",
+    "T2-095",
+    "T2-095",
+    "T2-106",
+    "T2-110",
+    "T2-127",
+    "T2-168",
+    "T2-200",
+    "T2-239",
+    "T2-248",
+    "T3-001",
+    "T3-031",
+    "T3-066",
+    "T3-071",
+    "T3-098",
+    "T3-100",
+    "T3-101",
+    "T3-103",
+    "T3-121",
+    "T3-128",
+    "T3-129",
+    "T3-136",
+    "T3-136",
+    "T3-143",
+    "T3-156"
+   ]
+  },
+  {
+   "id": "GZ-041",
+   "name": "Emmitsburg Road",
+   "aliases": [],
+   "kind": "line",
+   "shape": "line",
+   "center": {
+    "lng": -77.25194,
+    "lat": 39.79739
+   },
+   "tolerance_m": 42,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-041",
+   "tier": "inferred",
+   "rows": [
+    "T1-078",
+    "T1-087",
+    "T1-088",
+    "T1-093",
+    "T1-120",
+    "T1-198",
+    "T1-198",
+    "T1-206",
+    "T2-011",
+    "T2-017",
+    "T2-024",
+    "T2-060",
+    "T2-060",
+    "T2-093",
+    "T2-094",
+    "T2-094",
+    "T2-099",
+    "T2-103",
+    "T2-107",
+    "T2-115",
+    "T2-118",
+    "T2-121",
+    "T2-125",
+    "T2-139",
+    "T2-168",
+    "T2-172",
+    "T2-185",
+    "T2-186",
+    "T3-032",
+    "T3-055",
+    "T3-069",
+    "T3-075",
+    "T3-101",
+    "T3-110",
+    "T3-113",
+    "T3-125",
+    "T3-132",
+    "T3-153",
+    "E-004",
+    "E-004"
+   ]
+  },
+  {
+   "id": "GZ-003",
+   "name": "Cemetery Hill",
+   "aliases": [],
+   "kind": "hill",
+   "shape": "point",
+   "center": {
+    "lng": -77.22885,
+    "lat": 39.82122
+   },
+   "tolerance_m": 250,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-003",
+   "tier": "inferred",
+   "rows": [
+    "T1-102",
+    "T1-102",
+    "T1-127",
+    "T1-127",
+    "T1-140",
+    "T1-156",
+    "T1-163",
+    "T1-164",
+    "T1-172",
+    "T1-173",
+    "T1-174",
+    "T1-174",
+    "T1-175",
+    "T1-177",
+    "T1-180",
+    "T1-180",
+    "T1-181",
+    "T1-183",
+    "T1-184",
+    "T1-197",
+    "T1-221",
+    "T2-001",
+    "T2-004",
+    "T2-007",
+    "T2-011",
+    "T2-043",
+    "T2-084",
+    "T2-112",
+    "T2-112",
+    "T2-129",
+    "T2-145",
+    "T2-164",
+    "T2-211",
+    "T3-064",
+    "T3-077",
+    "T3-084",
+    "T3-088",
+    "T3-105",
+    "T3-105"
+   ]
+  },
+  {
+   "id": "GZ-014",
+   "name": "The Peach Orchard",
+   "aliases": [
+    "Peach Orchard"
+   ],
+   "kind": "orchard",
+   "shape": "point",
+   "center": {
+    "lng": -77.24943,
+    "lat": 39.80083
+   },
+   "tolerance_m": 227,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-014",
+   "tier": "inferred",
+   "rows": [
+    "T2-076",
+    "T2-094",
+    "T2-103",
+    "T2-115",
+    "T2-120",
+    "T2-125",
+    "T2-125",
+    "T2-131",
+    "T2-132",
+    "T2-132",
+    "T2-135",
+    "T2-160",
+    "T2-167",
+    "T2-167",
+    "T2-172",
+    "T2-176",
+    "T2-177",
+    "T2-187",
+    "T2-187",
+    "T2-245",
+    "T3-030",
+    "T3-032",
+    "T3-069",
+    "T3-070",
+    "T3-074",
+    "T3-075",
+    "T3-076",
+    "T3-076",
+    "T3-093",
+    "T3-097"
+   ]
+  },
+  {
+   "id": "RZ-WATER-rock-creek",
+   "name": "Rock Creek",
+   "aliases": [],
+   "kind": "stream",
+   "shape": "line",
+   "center": {
+    "lng": -77.21499,
+    "lat": 39.80954
+   },
+   "tolerance_m": 50,
+   "on_ground": true,
+   "source": "docs/basemap1863/features/roads-rail-water/waterways.geojson",
+   "ref": "WT-002,WT-015,WT-025,WT-053,WT-058,WT-069,WT-212,WT-221,WT-226,WT-227,WT-232,WT-252,WT-257,WT-259,WT-298,WT-320,WT-357",
+   "tier": "inferred",
+   "rows": [
+    "T1-011",
+    "T1-011",
+    "T1-013",
+    "T1-016",
+    "T1-016",
+    "T1-149",
+    "T1-195",
+    "T2-046",
+    "T2-159",
+    "T2-159",
+    "T2-178",
+    "T2-178",
+    "T2-192",
+    "T2-192",
+    "T2-218",
+    "T2-219",
+    "T2-237",
+    "T3-005",
+    "T3-005",
+    "T3-012",
+    "T3-014",
+    "T3-014",
+    "T3-014",
+    "T3-017",
+    "T3-020",
+    "T3-046",
+    "T3-061",
+    "T3-061",
+    "T3-138"
+   ]
+  },
+  {
+   "id": "GZ-075",
+   "name": "Cashtown",
+   "aliases": [],
+   "kind": "town",
+   "shape": "point",
+   "center": {
+    "lng": -77.3594,
+    "lat": 39.8845
+   },
+   "tolerance_m": 500,
+   "on_ground": false,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-075",
+   "tier": "inferred",
+   "rows": [
+    "T1-004",
+    "T1-004",
+    "T1-005",
+    "T1-006",
+    "T1-006",
+    "T1-035",
+    "T1-035",
+    "T1-036",
+    "T1-043",
+    "T1-043",
+    "T1-047",
+    "T1-056",
+    "T1-058",
+    "T1-059",
+    "T1-059",
+    "T1-060",
+    "T1-060",
+    "T1-064",
+    "T1-064",
+    "T1-067",
+    "T1-076",
+    "T1-077",
+    "T1-081",
+    "T3-143",
+    "T3-158",
+    "T3-163",
+    "T3-173",
+    "T3-178"
+   ]
+  },
+  {
+   "id": "GZ-009",
+   "name": "Little Round Top",
+   "aliases": [],
+   "kind": "hill",
+   "shape": "point",
+   "center": {
+    "lng": -77.2366,
+    "lat": 39.79189
+   },
+   "tolerance_m": 270,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-009",
+   "tier": "inferred",
+   "rows": [
+    "T1-180",
+    "T2-065",
+    "T2-076",
+    "T2-089",
+    "T2-105",
+    "T2-121",
+    "T2-126",
+    "T2-127",
+    "T2-133",
+    "T2-142",
+    "T2-144",
+    "T2-149",
+    "T2-153",
+    "T2-154",
+    "T2-165",
+    "T2-166",
+    "T2-195",
+    "T2-196",
+    "T2-222",
+    "T2-222",
+    "T2-229",
+    "T3-029",
+    "T3-065",
+    "T3-065",
+    "T3-089",
+    "T3-105"
+   ]
+  },
+  {
+   "id": "GZ-039",
+   "name": "Baltimore Pike",
+   "aliases": [
+    "Baltimore Turnpike"
+   ],
+   "kind": "line",
+   "shape": "line",
+   "center": {
+    "lng": -77.21241,
+    "lat": 39.80541
+   },
+   "tolerance_m": 42,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-039",
+   "tier": "inferred",
+   "rows": [
+    "T1-013",
+    "T1-033",
+    "T1-120",
+    "T1-140",
+    "T1-178",
+    "T1-178",
+    "T1-201",
+    "T1-204",
+    "T2-005",
+    "T2-005",
+    "T2-028",
+    "T2-045",
+    "T2-116",
+    "T2-175",
+    "T2-219",
+    "T2-231",
+    "T2-233",
+    "T3-012",
+    "T3-012",
+    "T3-022",
+    "T3-025",
+    "T3-026",
+    "T3-026",
+    "T3-037",
+    "T3-050"
+   ]
+  },
+  {
+   "id": "GZ-037",
+   "name": "Schmucker Hall",
+   "aliases": [
+    "Lutheran Theological Seminary",
+    "the Seminary",
+    "Seminary"
+   ],
+   "kind": "building",
+   "shape": "point",
+   "center": {
+    "lng": -77.24394,
+    "lat": 39.83157
+   },
+   "tolerance_m": 40,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-037",
+   "tier": "inferred",
+   "rows": [
+    "T1-092",
+    "T1-111",
+    "T1-135",
+    "T1-135",
+    "T1-135",
+    "T1-136",
+    "T1-156",
+    "T1-160",
+    "T1-168",
+    "T1-168",
+    "T1-168",
+    "T1-170",
+    "T2-022",
+    "T2-022",
+    "T2-022",
+    "T2-179",
+    "T3-067",
+    "T3-067",
+    "T3-067",
+    "T3-069",
+    "T3-126",
+    "T3-126",
+    "T3-138"
+   ]
+  },
+  {
+   "id": "RZ-WATER-plum-run",
+   "name": "Plum Run",
+   "aliases": [],
+   "kind": "stream",
+   "shape": "line",
+   "center": {
+    "lng": -77.26094,
+    "lat": 39.78453
+   },
+   "tolerance_m": 50,
+   "on_ground": true,
+   "source": "docs/basemap1863/features/roads-rail-water/waterways.geojson",
+   "ref": "WT-008,WT-012,WT-018,WT-037,WT-039,WT-065,WT-087,WT-092,WT-126,WT-137,WT-174,WT-207,WT-231,WT-251,WT-264,WT-269,WT-289,WT-302,WT-306,WT-311,WT-312,WT-333,WT-360",
+   "tier": "inferred",
+   "rows": [
+    "T1-195",
+    "T2-046",
+    "T2-076",
+    "T2-076",
+    "T2-111",
+    "T2-131",
+    "T2-136",
+    "T2-150",
+    "T2-150",
+    "T2-151",
+    "T2-173",
+    "T2-180",
+    "T2-193",
+    "T2-221",
+    "T2-225",
+    "T2-226",
+    "T2-226",
+    "T3-017",
+    "T3-089",
+    "T3-089",
+    "T3-149",
+    "T3-164"
+   ]
+  },
+  {
+   "id": "GZ-010",
+   "name": "Big Round Top",
+   "aliases": [
+    "Round Top"
+   ],
+   "kind": "hill",
+   "shape": "point",
+   "center": {
+    "lng": -77.23921,
+    "lat": 39.78698
+   },
+   "tolerance_m": 692,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-010",
+   "tier": "inferred",
+   "rows": [
+    "T2-076",
+    "T2-076",
+    "T2-128",
+    "T2-138",
+    "T2-139",
+    "T2-165",
+    "T2-197",
+    "T2-209",
+    "T2-215",
+    "T2-215",
+    "T2-222",
+    "T2-223",
+    "T2-235",
+    "T3-050",
+    "T3-078",
+    "T3-078",
+    "T3-080",
+    "T3-080",
+    "T3-080",
+    "T3-109",
+    "T3-109"
+   ]
+  },
+  {
+   "id": "RZ-WATER-marsh-creek",
+   "name": "Marsh Creek",
+   "aliases": [],
+   "kind": "stream",
+   "shape": "line",
+   "center": {
+    "lng": -77.28603,
+    "lat": 39.81082
+   },
+   "tolerance_m": 50,
+   "on_ground": false,
+   "source": "docs/basemap1863/features/roads-rail-water/waterways.geojson",
+   "ref": "WT-019,WT-022,WT-041,WT-050,WT-066,WT-076,WT-077,WT-081,WT-096,WT-112,WT-128,WT-140,WT-142,WT-143,WT-146,WT-159,WT-179,WT-187,WT-218,WT-224,WT-276,WT-280,WT-281,WT-286,WT-303,WT-307,WT-309,WT-313,WT-327,WT-345",
+   "tier": "inferred",
+   "rows": [
+    "T1-009",
+    "T1-009",
+    "T1-039",
+    "T1-039",
+    "T1-067",
+    "T1-071",
+    "T1-072",
+    "T1-072",
+    "T1-078",
+    "T1-081",
+    "T1-082",
+    "T1-082",
+    "T1-083",
+    "T1-195",
+    "T2-037",
+    "T2-041",
+    "T2-046",
+    "T2-049",
+    "T3-017"
+   ]
+  },
+  {
+   "id": "GZ-001",
+   "name": "McPherson Ridge",
+   "aliases": [],
+   "kind": "ridge",
+   "shape": "point",
+   "center": {
+    "lng": -77.25091,
+    "lat": 39.8369
+   },
+   "tolerance_m": 430,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-001",
+   "tier": "inferred",
+   "rows": [
+    "T1-050",
+    "T1-063",
+    "T1-085",
+    "T1-086",
+    "T1-090",
+    "T1-091",
+    "T1-094",
+    "T1-095",
+    "T1-096",
+    "T1-097",
+    "T1-101",
+    "T1-104",
+    "T1-106",
+    "T1-113",
+    "T1-134",
+    "T1-147",
+    "T1-213"
+   ]
+  },
+  {
+   "id": "GZ-040",
+   "name": "Chambersburg Pike",
+   "aliases": [
+    "Chambersburg Road",
+    "Chambersburg Turnpike"
+   ],
+   "kind": "line",
+   "shape": "line",
+   "center": {
+    "lng": -77.27301,
+    "lat": 39.84748
+   },
+   "tolerance_m": 48,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-040",
+   "tier": "inferred",
+   "rows": [
+    "T1-006",
+    "T1-008",
+    "T1-010",
+    "T1-043",
+    "T1-045",
+    "T1-071",
+    "T1-072",
+    "T1-076",
+    "T1-082",
+    "T1-083",
+    "T1-084",
+    "T1-100",
+    "T1-108",
+    "T1-188",
+    "T2-018",
+    "T3-067",
+    "T3-158"
+   ]
+  },
+  {
+   "id": "GZ-022",
+   "name": "Oak Ridge",
+   "aliases": [],
+   "kind": "ridge",
+   "shape": "point",
+   "center": {
+    "lng": -77.23983,
+    "lat": 39.84273
+   },
+   "tolerance_m": 517,
+   "on_ground": false,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-022",
+   "tier": "inferred",
+   "rows": [
+    "T1-109",
+    "T1-122",
+    "T1-126",
+    "T1-128",
+    "T1-129",
+    "T1-130",
+    "T1-130",
+    "T1-131",
+    "T1-141",
+    "T1-142",
+    "T1-154",
+    "T1-167",
+    "T1-209",
+    "T1-213",
+    "T2-021"
+   ]
+  },
+  {
+   "id": "GZ-007",
+   "name": "The Angle",
+   "aliases": [
+    "High Water Mark"
+   ],
+   "kind": "area",
+   "shape": "point",
+   "center": {
+    "lng": -77.23582,
+    "lat": 39.81281
+   },
+   "tolerance_m": 300,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-007",
+   "tier": "inferred",
+   "rows": [
+    "T1-133",
+    "T2-061",
+    "T2-081",
+    "T2-165",
+    "T2-189",
+    "T3-014",
+    "T3-099",
+    "T3-099",
+    "T3-106",
+    "T3-112",
+    "T3-114",
+    "T3-115",
+    "T3-115",
+    "T3-116"
+   ]
+  },
+  {
+   "id": "GZ-011",
+   "name": "Devil's Den",
+   "aliases": [],
+   "kind": "area",
+   "shape": "point",
+   "center": {
+    "lng": -77.24214,
+    "lat": 39.79216
+   },
+   "tolerance_m": 300,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-011",
+   "tier": "inferred",
+   "rows": [
+    "T2-076",
+    "T2-076",
+    "T2-078",
+    "T2-078",
+    "T2-111",
+    "T2-111",
+    "T2-139",
+    "T2-140",
+    "T2-143",
+    "T2-147",
+    "T2-149",
+    "T2-150",
+    "T2-195",
+    "T2-195"
+   ]
+  },
+  {
+   "id": "GZ-013",
+   "name": "The Wheatfield",
+   "aliases": [
+    "Wheatfield"
+   ],
+   "kind": "field",
+   "shape": "point",
+   "center": {
+    "lng": -77.24391,
+    "lat": 39.79628
+   },
+   "tolerance_m": 315,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-013",
+   "tier": "inferred",
+   "rows": [
+    "T2-075",
+    "T2-155",
+    "T2-155",
+    "T2-156",
+    "T2-157",
+    "T2-163",
+    "T2-163",
+    "T2-171",
+    "T2-182",
+    "T2-188",
+    "T2-193",
+    "T2-213",
+    "T2-226"
+   ]
+  },
+  {
+   "id": "RZ-STR-TOWN-PENN_HALL",
+   "name": "Pennsylvania Hall (\"Old Dorm\"), Pennsylvania College",
+   "aliases": [
+    "Pennsylvania Hall",
+    "\"Old Dorm\"",
+    "Pennsylvania College"
+   ],
+   "kind": "building",
+   "shape": "footprint",
+   "center": {
+    "lng": -77.23432,
+    "lat": 39.83496
+   },
+   "tolerance_m": 40,
+   "on_ground": true,
+   "source": "docs/basemap1863/features/structures/structures.geojson",
+   "ref": "STR-TOWN-PENN_HALL",
+   "tier": "inferred",
+   "rows": [
+    "T1-049",
+    "T1-111",
+    "T1-111",
+    "T1-135",
+    "T1-135",
+    "T1-168",
+    "T1-168",
+    "T2-022",
+    "T3-048",
+    "T3-095",
+    "T3-216"
+   ]
+  },
+  {
+   "id": "GZ-019",
+   "name": "Powers' Hill",
+   "aliases": [
+    "Power Hill",
+    "Power's Hill"
+   ],
+   "kind": "hill",
+   "shape": "point",
+   "center": {
+    "lng": -77.21969,
+    "lat": 39.80633
+   },
+   "tolerance_m": 250,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-019",
+   "tier": "inferred",
+   "rows": [
+    "T2-070",
+    "T2-233",
+    "T2-233",
+    "T3-022",
+    "T3-022",
+    "T3-042",
+    "T3-042",
+    "T3-060",
+    "T3-060",
+    "T3-087"
+   ]
+  },
+  {
+   "id": "GZ-030",
+   "name": "Spangler farm",
+   "aliases": [
+    "Henry Spangler farm",
+    "Spangler house"
+   ],
+   "kind": "farm",
+   "shape": "point",
+   "center": {
+    "lng": -77.24978,
+    "lat": 39.80874
+   },
+   "tolerance_m": 80,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-030",
+   "tier": "inferred",
+   "rows": [
+    "T1-140",
+    "T1-205",
+    "T2-003",
+    "T2-104",
+    "T2-220",
+    "T3-013",
+    "T3-137",
+    "T3-139",
+    "T3-151",
+    "T3-172"
+   ]
+  },
+  {
+   "id": "GZ-042",
+   "name": "Taneytown Road",
+   "aliases": [],
+   "kind": "line",
+   "shape": "line",
+   "center": {
+    "lng": -77.22998,
+    "lat": 39.79817
+   },
+   "tolerance_m": 40,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-042",
+   "tier": "inferred",
+   "rows": [
+    "T1-088",
+    "T1-139",
+    "T1-204",
+    "T2-069",
+    "T2-116",
+    "T2-218",
+    "T2-218",
+    "T3-014",
+    "T3-087",
+    "E-004"
+   ]
+  },
+  {
+   "id": "GZ-076",
+   "name": "Hunterstown",
+   "aliases": [],
+   "kind": "town",
+   "shape": "point",
+   "center": {
+    "lng": -77.1603,
+    "lat": 39.8823
+   },
+   "tolerance_m": 500,
+   "on_ground": false,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-076",
+   "tier": "inferred",
+   "rows": [
+    "T2-146",
+    "T2-146",
+    "T2-148",
+    "T2-148",
+    "T2-199",
+    "T2-200",
+    "T2-209",
+    "T3-002",
+    "T3-021",
+    "T3-021"
+   ]
+  },
+  {
+   "id": "GZ-005",
+   "name": "East Cemetery Hill",
+   "aliases": [],
+   "kind": "hill",
+   "shape": "point",
+   "center": {
+    "lng": -77.22887,
+    "lat": 39.82173
+   },
+   "tolerance_m": 250,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-005",
+   "tier": "inferred",
+   "rows": [
+    "T1-183",
+    "T2-084",
+    "T2-084",
+    "T2-129",
+    "T2-198",
+    "T2-203",
+    "T2-207",
+    "T2-214",
+    "T3-064"
+   ]
+  },
+  {
+   "id": "GZ-074",
+   "name": "Herr Ridge",
+   "aliases": [
+    "Herr's Ridge",
+    "Herrs Ridge"
+   ],
+   "kind": "ridge",
+   "shape": "line",
+   "center": {
+    "lng": -77.25813,
+    "lat": 39.84604
+   },
+   "tolerance_m": 400,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-074",
+   "tier": "inferred",
+   "rows": [
+    "T1-085",
+    "T1-095",
+    "T1-095",
+    "T1-113",
+    "T1-113",
+    "T1-119",
+    "T1-124",
+    "T1-134",
+    "T2-101"
+   ]
+  },
+  {
+   "id": "GZ-018",
+   "name": "Spangler's Spring",
+   "aliases": [],
+   "kind": "spring",
+   "shape": "point",
+   "center": {
+    "lng": -77.21824,
+    "lat": 39.81387
+   },
+   "tolerance_m": 111,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-018",
+   "tier": "inferred",
+   "rows": [
+    "T2-230",
+    "T2-231",
+    "T2-244",
+    "T3-023",
+    "T3-033",
+    "T3-037",
+    "T3-047",
+    "T3-061"
+   ]
+  },
+  {
+   "id": "GZ-015",
+   "name": "Pitzer's Woods",
+   "aliases": [
+    "Pitzer Woods"
+   ],
+   "kind": "woods",
+   "shape": "point",
+   "center": {
+    "lng": -77.25589,
+    "lat": 39.80862
+   },
+   "tolerance_m": 409,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-015",
+   "tier": "inferred",
+   "rows": [
+    "T2-087",
+    "T2-090",
+    "T2-091",
+    "T2-095",
+    "T2-098",
+    "T2-098",
+    "T2-248"
+   ]
+  },
+  {
+   "id": "GZ-023",
+   "name": "Oak Hill",
+   "aliases": [],
+   "kind": "hill",
+   "shape": "point",
+   "center": {
+    "lng": -77.24344,
+    "lat": 39.84848
+   },
+   "tolerance_m": 250,
+   "on_ground": false,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-023",
+   "tier": "inferred",
+   "rows": [
+    "T1-115",
+    "T1-115",
+    "T1-118",
+    "T1-118",
+    "T1-128",
+    "T3-077",
+    "T3-077"
+   ]
+  },
+  {
+   "id": "GZ-029",
+   "name": "Trostle house",
+   "aliases": [
+    "Trostle farm",
+    "Trostle Farm"
+   ],
+   "kind": "building",
+   "shape": "point",
+   "center": {
+    "lng": -77.24204,
+    "lat": 39.80162
+   },
+   "tolerance_m": 40,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-029",
+   "tier": "inferred",
+   "rows": [
+    "T2-088",
+    "T2-088",
+    "T2-167",
+    "T2-169",
+    "T2-178",
+    "T2-221",
+    "T3-183"
+   ]
+  },
+  {
+   "id": "GZ-036",
+   "name": "Thompson house",
+   "aliases": [
+    "Lee's headquarters"
+   ],
+   "kind": "building",
+   "shape": "point",
+   "center": {
+    "lng": -77.24561,
+    "lat": 39.83521
+   },
+   "tolerance_m": 40,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-036",
+   "tier": "inferred",
+   "rows": [
+    "T1-188",
+    "T1-188",
+    "T2-018",
+    "T2-018",
+    "T2-058",
+    "T2-210",
+    "T3-067"
+   ]
+  },
+  {
+   "id": "GZ-038",
+   "name": "Railroad Cuts",
+   "aliases": [
+    "railroad embankment",
+    "unfinished railroad",
+    "railroad cut"
+   ],
+   "kind": "area",
+   "shape": "point",
+   "center": {
+    "lng": -77.25982,
+    "lat": 39.84345
+   },
+   "tolerance_m": 300,
+   "on_ground": false,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-038",
+   "tier": "inferred",
+   "rows": [
+    "T1-108",
+    "T1-110",
+    "T1-142",
+    "T1-148",
+    "T1-173",
+    "T1-213",
+    "T3-077"
+   ]
+  },
+  {
+   "id": "GZ-044",
+   "name": "York Pike",
+   "aliases": [
+    "York Road",
+    "York Turnpike"
+   ],
+   "kind": "line",
+   "shape": "line",
+   "center": {
+    "lng": -77.1951,
+    "lat": 39.84625
+   },
+   "tolerance_m": 52,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-044",
+   "tier": "inferred",
+   "rows": [
+    "T1-020",
+    "T1-020",
+    "T1-187",
+    "T1-187",
+    "T2-026",
+    "T2-026",
+    "T3-211"
+   ]
+  },
+  {
+   "id": "GZ-052",
+   "name": "Wheatfield Road",
+   "aliases": [],
+   "kind": "line",
+   "shape": "line",
+   "center": {
+    "lng": -77.23858,
+    "lat": 39.79687
+   },
+   "tolerance_m": 47,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-052",
+   "tier": "inferred",
+   "rows": [
+    "T2-124",
+    "T2-130",
+    "T2-132",
+    "T2-132",
+    "T2-157",
+    "T2-169",
+    "T2-194"
+   ]
+  },
+  {
+   "id": "RZ-FARM-john-slyder-farmstead",
+   "name": "John Slyder farmstead",
+   "aliases": [
+    "John Slyder farm",
+    "John Slyder house",
+    "Slyder farm",
+    "Slyder house",
+    "Slyder's farm",
+    "Slyder's house"
+   ],
+   "kind": "farm",
+   "shape": "footprint",
+   "center": {
+    "lng": -77.24706,
+    "lat": 39.7886
+   },
+   "tolerance_m": 80,
+   "on_ground": true,
+   "source": "docs/basemap1863/features/structures/structures.geojson",
+   "ref": "STR-SLYDER-HOUSE1,STR-SLYDER-OUTBUILDING1,STR-SLYDER-BARN1",
+   "tier": "inferred",
+   "rows": [
+    "T2-098",
+    "T2-138",
+    "T2-179",
+    "T2-221",
+    "T2-221",
+    "T3-109",
+    "T3-109"
+   ]
+  },
+  {
+   "id": "GZ-027",
+   "name": "Herbst Woods",
+   "aliases": [
+    "Herbst's Woods",
+    "McPherson Woods"
+   ],
+   "kind": "woods",
+   "shape": "point",
+   "center": {
+    "lng": -77.25271,
+    "lat": 39.83426
+   },
+   "tolerance_m": 170,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-027",
+   "tier": "inferred",
+   "rows": [
+    "T1-098",
+    "T1-098",
+    "T1-099",
+    "T1-100",
+    "T1-107",
+    "T1-213"
+   ]
+  },
+  {
+   "id": "GZ-047",
+   "name": "Mummasburg Road",
+   "aliases": [],
+   "kind": "line",
+   "shape": "line",
+   "center": {
+    "lng": -77.25755,
+    "lat": 39.85767
+   },
+   "tolerance_m": 55,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-047",
+   "tier": "inferred",
+   "rows": [
+    "T1-011",
+    "T1-011",
+    "T1-071",
+    "T1-129",
+    "T1-142",
+    "T1-161"
+   ]
+  },
+  {
+   "id": "GZ-077",
+   "name": "Heidlersburg",
+   "aliases": [],
+   "kind": "town",
+   "shape": "point",
+   "center": {
+    "lng": -77.1461,
+    "lat": 39.9493
+   },
+   "tolerance_m": 500,
+   "on_ground": false,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-077",
+   "tier": "inferred",
+   "rows": [
+    "T1-056",
+    "T1-056",
+    "T1-057",
+    "T1-067",
+    "T1-079",
+    "T1-109"
+   ]
+  },
+  {
+   "id": "RZ-FARM-george-weikert-farmstead",
+   "name": "George Weikert farmstead",
+   "aliases": [
+    "George Weikert farm",
+    "George Weikert house",
+    "Weikert farm",
+    "Weikert house",
+    "Weikert's farm",
+    "Weikert's house"
+   ],
+   "kind": "farm",
+   "shape": "footprint",
+   "center": {
+    "lng": -77.23521,
+    "lat": 39.80174
+   },
+   "tolerance_m": 80,
+   "on_ground": true,
+   "source": "docs/basemap1863/features/structures/structures.geojson",
+   "ref": "STR-GWEIKERT-HOUSE1,STR-GWEIKERT-BARN1,STR-GWEIKERT-SUMMER_KITCHEN1",
+   "tier": "inferred",
+   "rows": [
+    "T1-139",
+    "T1-139",
+    "T2-069",
+    "T3-015",
+    "T3-025",
+    "T3-151"
+   ]
+  },
+  {
+   "id": "RZ-STR-TOWN-BLACK_HORSE_TAVERN",
+   "name": "Black Horse Tavern, Fairfield Road (Confederate Heth division area, July 1)",
+   "aliases": [
+    "Fairfield Road",
+    "Confederate Heth division area"
+   ],
+   "kind": "building",
+   "shape": "footprint",
+   "center": {
+    "lng": -77.28389,
+    "lat": 39.81899
+   },
+   "tolerance_m": 40,
+   "on_ground": false,
+   "source": "docs/basemap1863/features/structures/structures.geojson",
+   "ref": "STR-TOWN-BLACK_HORSE_TAVERN",
+   "tier": "inferred",
+   "rows": [
+    "T1-071",
+    "T1-086",
+    "T1-211",
+    "T2-106",
+    "T2-106",
+    "T3-162"
+   ]
+  },
+  {
+   "id": "RZ-WATER-white-run",
+   "name": "White Run",
+   "aliases": [],
+   "kind": "stream",
+   "shape": "line",
+   "center": {
+    "lng": -77.19029,
+    "lat": 39.79483
+   },
+   "tolerance_m": 50,
+   "on_ground": true,
+   "source": "docs/basemap1863/features/roads-rail-water/waterways.geojson",
+   "ref": "WT-033,WT-048,WT-152,WT-210,WT-236,WT-293,WT-300,WT-314,WT-342",
+   "tier": "inferred",
+   "rows": [
+    "T2-178",
+    "T2-218",
+    "T2-219",
+    "T3-014",
+    "T3-014",
+    "T3-138"
+   ]
+  },
+  {
+   "id": "GZ-012",
+   "name": "Houck's Ridge",
+   "aliases": [],
+   "kind": "ridge",
+   "shape": "point",
+   "center": {
+    "lng": -77.24227,
+    "lat": 39.79238
+   },
+   "tolerance_m": 350,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-012",
+   "tier": "inferred",
+   "rows": [
+    "T2-111",
+    "T2-135",
+    "T2-140",
+    "T2-143",
+    "T2-151"
+   ]
+  },
+  {
+   "id": "GZ-028",
+   "name": "Leister house",
+   "aliases": [
+    "Leister farm",
+    "Leister Farm",
+    "Lydia Leister house"
+   ],
+   "kind": "building",
+   "shape": "point",
+   "center": {
+    "lng": -77.23149,
+    "lat": 39.81413
+   },
+   "tolerance_m": 40,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-028",
+   "tier": "inferred",
+   "rows": [
+    "T2-216",
+    "T2-234",
+    "T3-016",
+    "T3-087",
+    "T3-138"
+   ]
+  },
+  {
+   "id": "GZ-043",
+   "name": "Hanover Road",
+   "aliases": [],
+   "kind": "line",
+   "shape": "line",
+   "center": {
+    "lng": -77.19727,
+    "lat": 39.82439
+   },
+   "tolerance_m": 57,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-043",
+   "tier": "inferred",
+   "rows": [
+    "T1-011",
+    "T1-011",
+    "T2-117",
+    "T2-158",
+    "T3-003"
+   ]
+  },
+  {
+   "id": "RZ-FARM-john-rose-farmstead",
+   "name": "John Rose farmstead",
+   "aliases": [
+    "John Rose farm",
+    "John Rose house",
+    "Rose farm",
+    "Rose house",
+    "Rose's farm",
+    "Rose's house"
+   ],
+   "kind": "farm",
+   "shape": "footprint",
+   "center": {
+    "lng": -77.24959,
+    "lat": 39.79723
+   },
+   "tolerance_m": 80,
+   "on_ground": true,
+   "source": "docs/basemap1863/features/structures/structures.geojson",
+   "ref": "STR-ROSE-HOUSE1,STR-ROSE-BARN1,STR-ROSE-OUTBUILDING2",
+   "tier": "inferred",
+   "rows": [
+    "T1-207",
+    "T2-156",
+    "T2-157",
+    "T2-161",
+    "T3-126"
+   ]
+  },
+  {
+   "id": "GZ-004",
+   "name": "Evergreen Cemetery gatehouse",
+   "aliases": [
+    "Evergreen gatehouse",
+    "the gatehouse"
+   ],
+   "kind": "building",
+   "shape": "point",
+   "center": {
+    "lng": -77.22894,
+    "lat": 39.82055
+   },
+   "tolerance_m": 40,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-004",
+   "tier": "inferred",
+   "rows": [
+    "T1-183",
+    "T3-064",
+    "T3-064",
+    "T3-064"
+   ]
+  },
+  {
+   "id": "GZ-026",
+   "name": "Brinkerhoff's Ridge",
+   "aliases": [
+    "Brinkerhoff Ridge"
+   ],
+   "kind": "ridge",
+   "shape": "point",
+   "center": {
+    "lng": -77.19028,
+    "lat": 39.8225
+   },
+   "tolerance_m": 350,
+   "on_ground": false,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-026",
+   "tier": "inferred",
+   "rows": [
+    "T2-117",
+    "T2-158",
+    "T3-003",
+    "T3-003"
+   ]
+  },
+  {
+   "id": "GZ-053",
+   "name": "Millerstown Road",
+   "aliases": [],
+   "kind": "line",
+   "shape": "line",
+   "center": {
+    "lng": -77.2579,
+    "lat": 39.80032
+   },
+   "tolerance_m": 50,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-053",
+   "tier": "inferred",
+   "rows": [
+    "T1-117",
+    "T2-106",
+    "T2-114",
+    "T2-118"
+   ]
+  },
+  {
+   "id": "GZ-059",
+   "name": "Low Dutch Road",
+   "aliases": [],
+   "kind": "line",
+   "shape": "line",
+   "center": {
+    "lng": -77.17542,
+    "lat": 39.80596
+   },
+   "tolerance_m": 45,
+   "on_ground": false,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-059",
+   "tier": "inferred",
+   "rows": [
+    "T2-096",
+    "T2-158",
+    "T3-003",
+    "T3-050"
+   ]
+  },
+  {
+   "id": "RZ-STR-FORNEY-HOUSE1",
+   "name": "Forney farmstead (house and barn; demolished 1937)",
+   "aliases": [
+    "Forney farmstead",
+    "house and barn",
+    "demolished 1937"
+   ],
+   "kind": "building",
+   "shape": "point",
+   "center": {
+    "lng": -77.24543,
+    "lat": 39.84714
+   },
+   "tolerance_m": 40,
+   "on_ground": false,
+   "source": "docs/basemap1863/features/structures/structures.geojson",
+   "ref": "STR-FORNEY-HOUSE1",
+   "tier": "inferred",
+   "rows": [
+    "T3-055",
+    "T3-087",
+    "T3-113",
+    "T3-138"
+   ]
+  },
+  {
+   "id": "RZ-STR-MCPHERSON-BARN1",
+   "name": "McPherson barn",
+   "aliases": [],
+   "kind": "building",
+   "shape": "footprint",
+   "center": {
+    "lng": -77.25139,
+    "lat": 39.83698
+   },
+   "tolerance_m": 40,
+   "on_ground": true,
+   "source": "docs/basemap1863/features/structures/structures.geojson",
+   "ref": "STR-MCPHERSON-BARN1",
+   "tier": "inferred",
+   "rows": [
+    "T2-023",
+    "T2-179",
+    "T3-126",
+    "T3-126"
+   ]
+  },
+  {
+   "id": "RZ-STR-ROSE-BARN1",
+   "name": "Rose barn (granite walls; ruin)",
+   "aliases": [
+    "Rose barn",
+    "granite walls"
+   ],
+   "kind": "building",
+   "shape": "point",
+   "center": {
+    "lng": -77.24997,
+    "lat": 39.79751
+   },
+   "tolerance_m": 40,
+   "on_ground": true,
+   "source": "docs/basemap1863/features/structures/structures.geojson",
+   "ref": "STR-ROSE-BARN1",
+   "tier": "inferred",
+   "rows": [
+    "T2-161",
+    "T2-179",
+    "T2-221",
+    "T2-221"
+   ]
+  },
+  {
+   "id": "RZ-STR-TOWN-PRESBYTERIAN_CHURCH",
+   "name": "Presbyterian Church, Baltimore Street (hospital 1863; present building is later)",
+   "aliases": [
+    "Presbyterian Church",
+    "hospital 1863",
+    "present building is later"
+   ],
+   "kind": "building",
+   "shape": "footprint",
+   "center": {
+    "lng": -77.2307,
+    "lat": 39.82832
+   },
+   "tolerance_m": 40,
+   "on_ground": true,
+   "source": "docs/basemap1863/features/structures/structures.geojson",
+   "ref": "STR-TOWN-PRESBYTERIAN_CHURCH",
+   "tier": "inferred",
+   "rows": [
+    "T1-048",
+    "T1-169",
+    "T2-022",
+    "E-014"
+   ]
+  },
+  {
+   "id": "RZ-STR-WARFIELD_SNYDER-HOUSE1",
+   "name": "Warfield house",
+   "aliases": [],
+   "kind": "building",
+   "shape": "footprint",
+   "center": {
+    "lng": -77.25526,
+    "lat": 39.80174
+   },
+   "tolerance_m": 40,
+   "on_ground": true,
+   "source": "docs/basemap1863/features/structures/structures.geojson",
+   "ref": "STR-WARFIELD_SNYDER-HOUSE1",
+   "tier": "inferred",
+   "rows": [
+    "T2-114",
+    "T2-114",
+    "T3-070",
+    "T3-070"
+   ]
+  },
+  {
+   "id": "GZ-017",
+   "name": "Warfield Ridge",
+   "aliases": [],
+   "kind": "ridge",
+   "shape": "point",
+   "center": {
+    "lng": -77.2472,
+    "lat": 39.792
+   },
+   "tolerance_m": 350,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-017",
+   "tier": "inferred",
+   "rows": [
+    "T2-044",
+    "T2-118",
+    "T3-070"
+   ]
+  },
+  {
+   "id": "GZ-020",
+   "name": "Barlow's Knoll",
+   "aliases": [],
+   "kind": "knoll",
+   "shape": "point",
+   "center": {
+    "lng": -77.22623,
+    "lat": 39.84555
+   },
+   "tolerance_m": 200,
+   "on_ground": false,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-020",
+   "tier": "inferred",
+   "rows": [
+    "T1-144",
+    "T1-145",
+    "T1-146"
+   ]
+  },
+  {
+   "id": "GZ-021",
+   "name": "Stevens' Knoll",
+   "aliases": [],
+   "kind": "knoll",
+   "shape": "point",
+   "center": {
+    "lng": -77.22457,
+    "lat": 39.81924
+   },
+   "tolerance_m": 200,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-021",
+   "tier": "inferred",
+   "rows": [
+    "T1-181",
+    "T2-008",
+    "T2-084"
+   ]
+  },
+  {
+   "id": "GZ-033",
+   "name": "Sherfy farm",
+   "aliases": [
+    "Sherfy house"
+   ],
+   "kind": "farm",
+   "shape": "point",
+   "center": {
+    "lng": -77.24925,
+    "lat": 39.80384
+   },
+   "tolerance_m": 80,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-033",
+   "tier": "inferred",
+   "rows": [
+    "T2-176",
+    "T2-177",
+    "T3-132"
+   ]
+  },
+  {
+   "id": "RZ-FARM-michael-bushman-farmstead",
+   "name": "Michael Bushman farmstead",
+   "aliases": [
+    "Michael Bushman farm",
+    "Michael Bushman house",
+    "Bushman farm",
+    "Bushman house",
+    "Bushman's farm",
+    "Bushman's house"
+   ],
+   "kind": "farm",
+   "shape": "footprint",
+   "center": {
+    "lng": -77.2516,
+    "lat": 39.78938
+   },
+   "tolerance_m": 80,
+   "on_ground": true,
+   "source": "docs/basemap1863/features/structures/structures.geojson",
+   "ref": "STR-BUSHMAN-HOUSE1,STR-BUSHMAN-BARN1",
+   "tier": "inferred",
+   "rows": [
+    "T2-178",
+    "T2-178",
+    "T3-078"
+   ]
+  },
+  {
+   "id": "RZ-WATER-willoughby-run",
+   "name": "Willoughby Run",
+   "aliases": [],
+   "kind": "stream",
+   "shape": "line",
+   "center": {
+    "lng": -77.26234,
+    "lat": 39.82522
+   },
+   "tolerance_m": 50,
+   "on_ground": true,
+   "source": "docs/basemap1863/features/roads-rail-water/waterways.geojson",
+   "ref": "WT-013,WT-029,WT-078,WT-136,WT-153,WT-163,WT-172,WT-181,WT-215,WT-261,WT-274,WT-305,WT-359",
+   "tier": "inferred",
+   "rows": [
+    "T1-089",
+    "T1-098",
+    "T2-106"
+   ]
+  },
+  {
+   "id": "GZ-016",
+   "name": "Biesecker's Woods",
+   "aliases": [
+    "Biesecker Woods"
+   ],
+   "kind": "woods",
+   "shape": "point",
+   "center": {
+    "lng": -77.255,
+    "lat": 39.79265
+   },
+   "tolerance_m": 150,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-016",
+   "tier": "inferred",
+   "rows": [
+    "T2-123",
+    "T2-137"
+   ]
+  },
+  {
+   "id": "GZ-025",
+   "name": "East Cavalry Field",
+   "aliases": [
+    "ECF"
+   ],
+   "kind": "area",
+   "shape": "point",
+   "center": {
+    "lng": -77.16745,
+    "lat": 39.829
+   },
+   "tolerance_m": 1111,
+   "on_ground": false,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-025",
+   "tier": "inferred",
+   "rows": [
+    "T3-079",
+    "T3-085"
+   ]
+  },
+  {
+   "id": "GZ-031",
+   "name": "Bliss farm",
+   "aliases": [],
+   "kind": "farm",
+   "shape": "point",
+   "center": {
+    "lng": -77.24185,
+    "lat": 39.81672
+   },
+   "tolerance_m": 80,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-031",
+   "tier": "inferred",
+   "rows": [
+    "T2-099",
+    "T3-055"
+   ]
+  },
+  {
+   "id": "GZ-032",
+   "name": "Codori farm",
+   "aliases": [
+    "Codori house"
+   ],
+   "kind": "farm",
+   "shape": "point",
+   "center": {
+    "lng": -77.24049,
+    "lat": 39.81156
+   },
+   "tolerance_m": 80,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-032",
+   "tier": "inferred",
+   "rows": [
+    "T2-185",
+    "T3-113"
+   ]
+  },
+  {
+   "id": "GZ-034",
+   "name": "Bryan farm",
+   "aliases": [
+    "Bryan house",
+    "Brien house",
+    "Brien farm",
+    "Bryan barn"
+   ],
+   "kind": "farm",
+   "shape": "point",
+   "center": {
+    "lng": -77.23571,
+    "lat": 39.8157
+   },
+   "tolerance_m": 80,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-034",
+   "tier": "inferred",
+   "rows": [
+    "T2-027",
+    "T3-054"
+   ]
+  },
+  {
+   "id": "GZ-035",
+   "name": "Black Horse Tavern",
+   "aliases": [],
+   "kind": "building",
+   "shape": "point",
+   "center": {
+    "lng": -77.28338,
+    "lat": 39.81875
+   },
+   "tolerance_m": 40,
+   "on_ground": false,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-035",
+   "tier": "inferred",
+   "rows": [
+    "T1-222",
+    "T2-106"
+   ]
+  },
+  {
+   "id": "GZ-051",
+   "name": "Black Horse Tavern Road",
+   "aliases": [
+    "Black Horse Tavern road"
+   ],
+   "kind": "line",
+   "shape": "line",
+   "center": {
+    "lng": -77.29416,
+    "lat": 39.83183
+   },
+   "tolerance_m": 48,
+   "on_ground": false,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-051",
+   "tier": "inferred",
+   "rows": [
+    "T2-020",
+    "T2-042"
+   ]
+  },
+  {
+   "id": "GZ-058",
+   "name": "Hunterstown Road",
+   "aliases": [],
+   "kind": "line",
+   "shape": "line",
+   "center": {
+    "lng": -77.20019,
+    "lat": 39.85828
+   },
+   "tolerance_m": 42,
+   "on_ground": true,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-058",
+   "tier": "inferred",
+   "rows": [
+    "T2-095",
+    "T3-002"
+   ]
+  },
+  {
+   "id": "RZ-FARM-edward-mcpherson-farmstead",
+   "name": "Edward McPherson farmstead",
+   "aliases": [
+    "Edward McPherson farm",
+    "Edward McPherson house",
+    "McPherson farm",
+    "McPherson house",
+    "McPherson's farm",
+    "McPherson's house"
+   ],
+   "kind": "farm",
+   "shape": "footprint",
+   "center": {
+    "lng": -77.25139,
+    "lat": 39.83698
+   },
+   "tolerance_m": 80,
+   "on_ground": true,
+   "source": "docs/basemap1863/features/structures/structures.geojson",
+   "ref": "STR-MCPHERSON-BARN1",
+   "tier": "inferred",
+   "rows": [
+    "T1-100",
+    "T1-171"
+   ]
+  },
+  {
+   "id": "RZ-FARM-jacob-hummelbaugh-farmstead",
+   "name": "Jacob Hummelbaugh farmstead",
+   "aliases": [
+    "Jacob Hummelbaugh farm",
+    "Jacob Hummelbaugh house",
+    "Hummelbaugh farm",
+    "Hummelbaugh house",
+    "Hummelbaugh's farm",
+    "Hummelbaugh's house"
+   ],
+   "kind": "farm",
+   "shape": "footprint",
+   "center": {
+    "lng": -77.2318,
+    "lat": 39.80796
+   },
+   "tolerance_m": 80,
+   "on_ground": true,
+   "source": "docs/basemap1863/features/structures/structures.geojson",
+   "ref": "STR-HUMMELBAUGH-HOUSE1,STR-HUMMELBAUGH-OUTBUILDING1",
+   "tier": "inferred",
+   "rows": [
+    "T2-173",
+    "T2-221"
+   ]
+  },
+  {
+   "id": "RZ-FARM-john-forney-farmstead",
+   "name": "John Forney farmstead",
+   "aliases": [
+    "John Forney farm",
+    "John Forney house",
+    "Forney farm",
+    "Forney house",
+    "Forney's farm",
+    "Forney's house"
+   ],
+   "kind": "farm",
+   "shape": "footprint",
+   "center": {
+    "lng": -77.24543,
+    "lat": 39.84714
+   },
+   "tolerance_m": 80,
+   "on_ground": false,
+   "source": "docs/basemap1863/features/structures/structures.geojson",
+   "ref": "STR-FORNEY-HOUSE1",
+   "tier": "inferred",
+   "rows": [
+    "T1-046",
+    "T1-046"
+   ]
+  },
+  {
+   "id": "RZ-STR-BUSHMAN-BARN1",
+   "name": "Bushman barn",
+   "aliases": [],
+   "kind": "building",
+   "shape": "footprint",
+   "center": {
+    "lng": -77.25165,
+    "lat": 39.78911
+   },
+   "tolerance_m": 40,
+   "on_ground": true,
+   "source": "docs/basemap1863/features/structures/structures.geojson",
+   "ref": "STR-BUSHMAN-BARN1",
+   "tier": "inferred",
+   "rows": [
+    "T2-179",
+    "T2-221"
+   ]
+  },
+  {
+   "id": "RZ-STR-TOWN-COURTHOUSE",
+   "name": "Adams County Courthouse (Baltimore Street)",
+   "aliases": [
+    "Adams County Courthouse",
+    "Baltimore Street"
+   ],
+   "kind": "building",
+   "shape": "footprint",
+   "center": {
+    "lng": -77.23145,
+    "lat": 39.82954
+   },
+   "tolerance_m": 40,
+   "on_ground": true,
+   "source": "docs/basemap1863/features/structures/structures.geojson",
+   "ref": "STR-TOWN-COURTHOUSE",
+   "tier": "inferred",
+   "rows": [
+    "T1-048",
+    "E-004"
+   ]
+  },
+  {
+   "id": "RZ-STR-TROSTLE-BARN1",
+   "name": "Trostle barn",
+   "aliases": [],
+   "kind": "building",
+   "shape": "footprint",
+   "center": {
+    "lng": -77.2426,
+    "lat": 39.80221
+   },
+   "tolerance_m": 40,
+   "on_ground": true,
+   "source": "docs/basemap1863/features/structures/structures.geojson",
+   "ref": "STR-TROSTLE-BARN1",
+   "tier": "inferred",
+   "rows": [
+    "T2-170",
+    "T2-221"
+   ]
+  },
+  {
+   "id": "GZ-078",
+   "name": "Baltimore Pike, 1 mile east of Rock Creek",
+   "aliases": [],
+   "kind": "derived",
+   "shape": "point",
+   "center": {
+    "lng": -77.197,
+    "lat": 39.79582
+   },
+   "tolerance_m": 400,
+   "on_ground": false,
+   "source": "app/data/gazetteer.json",
+   "ref": "GZ-078",
+   "tier": "inferred",
+   "rows": [
+    "T2-158"
+   ]
+  },
+  {
+   "id": "RZ-FARM-david-mcmillan-farmstead",
+   "name": "David McMillan farmstead",
+   "aliases": [
+    "David McMillan farm",
+    "David McMillan house",
+    "McMillan farm",
+    "McMillan house",
+    "McMillan's farm",
+    "McMillan's house"
+   ],
+   "kind": "farm",
+   "shape": "footprint",
+   "center": {
+    "lng": -77.24501,
+    "lat": 39.82413
+   },
+   "tolerance_m": 80,
+   "on_ground": true,
+   "source": "docs/basemap1863/features/structures/structures.geojson",
+   "ref": "STR-MCMILLAN-HOUSE1,STR-MCMILLAN-BARN1,STR-MCMILLAN-OUTBUILDING1",
+   "tier": "inferred",
+   "rows": [
+    "T1-138"
+   ]
+  },
+  {
+   "id": "RZ-FARM-john-wentz-farmstead-peach-orchard",
+   "name": "John Wentz farmstead (Peach Orchard)",
+   "aliases": [
+    "John Wentz farm",
+    "John Wentz house",
+    "Wentz farm",
+    "Wentz house",
+    "Wentz's farm",
+    "Wentz's house"
+   ],
+   "kind": "farm",
+   "shape": "footprint",
+   "center": {
+    "lng": -77.24957,
+    "lat": 39.8021
+   },
+   "tolerance_m": 80,
+   "on_ground": true,
+   "source": "docs/basemap1863/features/structures/structures.geojson",
+   "ref": "STR-WENTZ-HOUSE1,STR-WENTZ-OUTBUILDING1,STR-WENTZ-OUTBUILDING2",
+   "tier": "inferred",
+   "rows": [
+    "T2-124"
+   ]
+  },
+  {
+   "id": "RZ-STR-TOWN-DEPOT",
+   "name": "Gettysburg Railroad station (Carlisle Street; \"Lincoln Railroad Station\")",
+   "aliases": [
+    "Gettysburg Railroad station",
+    "Carlisle Street",
+    "\"Lincoln Railroad Station\""
+   ],
+   "kind": "building",
+   "shape": "footprint",
+   "center": {
+    "lng": -77.23076,
+    "lat": 39.83203
+   },
+   "tolerance_m": 40,
+   "on_ground": true,
+   "source": "docs/basemap1863/features/structures/structures.geojson",
+   "ref": "STR-TOWN-DEPOT",
+   "tier": "inferred",
+   "rows": [
+    "E-001"
+   ]
+  },
+  {
+   "id": "RZ-STR-TOWN-GATEHOUSE",
+   "name": "Evergreen Cemetery gatehouse (Cemetery Hill)",
+   "aliases": [],
+   "kind": "building",
+   "shape": "footprint",
+   "center": {
+    "lng": -77.22938,
+    "lat": 39.82076
+   },
+   "tolerance_m": 40,
+   "on_ground": true,
+   "source": "docs/basemap1863/features/structures/structures.geojson",
+   "ref": "STR-TOWN-GATEHOUSE",
+   "tier": "inferred",
+   "rows": [
+    "T2-039"
+   ]
+  },
+  {
+   "id": "RZ-STR-TOWN-WADE_HOUSE",
+   "name": "McClellan house, 548 Baltimore Street (Jennie Wade killed here, 3 July 1863)",
+   "aliases": [
+    "McClellan house",
+    "548 Baltimore Street",
+    "Jennie Wade killed here",
+    "3 July 1863"
+   ],
+   "kind": "building",
+   "shape": "footprint",
+   "center": {
+    "lng": -77.23078,
+    "lat": 39.82331
+   },
+   "tolerance_m": 40,
+   "on_ground": true,
+   "source": "docs/basemap1863/features/structures/structures.geojson",
+   "ref": "STR-TOWN-WADE_HOUSE",
+   "tier": "inferred",
+   "rows": [
+    "T3-049"
+   ]
+  }
+ ],
+ "unknown": [
+  {
+   "name": "Evergreen Cemetery",
+   "rows": [
+    "T1-197",
+    "T1-221",
+    "T2-039",
+    "T3-064",
+    "E-006"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Stony Hill",
+   "rows": [
+    "T2-155",
+    "T2-161",
+    "T2-162",
+    "T2-171",
+    "T2-193"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Lower Culp’s Hill",
+   "rows": [
+    "T1-182",
+    "T2-009",
+    "T3-009",
+    "T3-039"
+   ],
+   "contains_known_place": "Culp's Hill",
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Monterey Pass",
+   "rows": [
+    "T3-158",
+    "T3-160",
+    "T3-168",
+    "T3-169"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Behind Seminary Ridge",
+   "rows": [
+    "T2-064",
+    "T2-072",
+    "T2-200"
+   ],
+   "contains_known_place": "Seminary Ridge",
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Chambersburg St",
+   "rows": [
+    "T1-014",
+    "T1-100",
+    "T1-159"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Moritz’s Tavern",
+   "rows": [
+    "T1-039",
+    "T1-074",
+    "T1-087"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Behind Cemetery Hill",
+   "rows": [
+    "T1-184",
+    "T2-011"
+   ],
+   "contains_known_place": "Cemetery Hill",
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Benner’s Hill",
+   "rows": [
+    "T2-129",
+    "T3-077"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Bunker Hill",
+   "rows": [
+    "T3-205",
+    "T3-210"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Cashtown Pike",
+   "rows": [
+    "T1-004",
+    "T1-005"
+   ],
+   "contains_known_place": "Cashtown",
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "McAllister Hill",
+   "rows": [
+    "T2-233",
+    "T3-022"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Pipe Creek",
+   "rows": [
+    "T1-039",
+    "T1-061"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Slyder’s Lane",
+   "rows": [
+    "T2-138",
+    "T2-141"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "South Mountain",
+   "rows": [
+    "T1-035",
+    "T3-135"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Spangler’s Woods",
+   "rows": [
+    "T3-121",
+    "T3-129"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Base of Culp’s Hill",
+   "rows": [
+    "T2-012"
+   ],
+   "contains_known_place": "Culp's Hill",
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Bayly’s Hill",
+   "rows": [
+    "T1-012"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Behind McPherson Ridge",
+   "rows": [
+    "T1-104"
+   ],
+   "contains_known_place": "McPherson Ridge",
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Belmont Rd",
+   "rows": [
+    "T1-011"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Brickyard Lane",
+   "rows": [
+    "T2-198"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Cress Ridge",
+   "rows": [
+    "T3-063"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Defence of Stony Hill",
+   "rows": [
+    "T2-155"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Fairfield Gap",
+   "rows": [
+    "T3-174"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Fairfield Road Hill",
+   "rows": [
+    "T3-162"
+   ],
+   "contains_known_place": "Black Horse Tavern, Fairfield Road (Confederate Heth division area, July 1)",
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Gitt’s Mill",
+   "rows": [
+    "T1-044"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Goulden Road",
+   "rows": [
+    "T2-178"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Granite Hill",
+   "rows": [
+    "T3-177"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Great Round Top",
+   "rows": [
+    "T2-215"
+   ],
+   "contains_known_place": "Big Round Top",
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Lutheran Seminary",
+   "rows": [
+    "T1-092"
+   ],
+   "contains_known_place": "Schmucker Hall",
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Manassas Gap",
+   "rows": [
+    "T3-214"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "McAllister’s Mill",
+   "rows": [
+    "T3-090"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Mill Road",
+   "rows": [
+    "T2-218"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Near Black Horse Tavern",
+   "rows": [
+    "T2-106"
+   ],
+   "contains_known_place": "Black Horse Tavern",
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Pardee Field",
+   "rows": [
+    "T3-058"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Pettigrew Hill",
+   "rows": [
+    "T1-058"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Plum Run Landscape Big Round Top",
+   "rows": [
+    "T2-076"
+   ],
+   "contains_known_place": "Plum Run, Big Round Top",
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Reach Herr Ridge",
+   "rows": [
+    "T1-095"
+   ],
+   "contains_known_place": "Herr Ridge",
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Rose Woods",
+   "rows": [
+    "T2-226"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Rowser’s Ford",
+   "rows": [
+    "T1-024"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Salem Depot",
+   "rows": [
+    "T1-002"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Schoolhouse Road",
+   "rows": [
+    "T2-218"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "South Cavalry Field",
+   "rows": [
+    "T3-120"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Southwest of Big Round Top",
+   "rows": [
+    "T3-078"
+   ],
+   "contains_known_place": "Big Round Top",
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Stevens Knoll Hill",
+   "rows": [
+    "T2-084"
+   ],
+   "contains_known_place": "Stevens' Knoll",
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Sweney House",
+   "rows": [
+    "T2-074"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Thaddeus Stevens’ Caledonia Furnace",
+   "rows": [
+    "T1-005"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Ward Hill",
+   "rows": [
+    "E-009"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "West of McPherson Ridge",
+   "rows": [
+    "T1-090"
+   ],
+   "contains_known_place": "McPherson Ridge",
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "White Church",
+   "rows": [
+    "T2-178"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "White Church Rd",
+   "rows": [
+    "T3-051"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Williamsport Potomac River",
+   "rows": [
+    "T3-182"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "Wisler Ridge",
+   "rows": [
+    "T1-009"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  },
+  {
+   "name": "XII Corps Camp",
+   "rows": [
+    "T2-240"
+   ],
+   "contains_known_place": null,
+   "status": "unknown: no repository file carries this name; not guessed"
+  }
+ ],
+ "ambiguous": [],
+ "ambiguous_in_gazetteer": [
+  {
+   "key": "bryan orchard",
+   "ids": [
+    "RZ-LC-ORCH-0062",
+    "RZ-LC-ORCH-0063"
+   ]
+  },
+  {
+   "key": "e harman orchard",
+   "ids": [
+    "RZ-LC-ORCH-0101",
+    "RZ-LC-ORCH-0102",
+    "RZ-LC-ORCH-0103",
+    "RZ-LC-ORCH-0104",
+    "RZ-LC-ORCH-0105"
+   ]
+  },
+  {
+   "key": "a krise woods edge trees",
+   "ids": [
+    "RZ-LC-ORCH-0163",
+    "RZ-LC-ORCH-0164"
+   ]
+  },
+  {
+   "key": "orchard s of toot farm",
+   "ids": [
+    "RZ-LC-ORCH-0195",
+    "RZ-LC-ORCH-0196"
+   ]
+  }
+ ],
+ "superseded": [
+  {
+   "id": "GZ-065",
+   "name": "Plum Run",
+   "by": "RZ-WATER-plum-run"
+  },
+  {
+   "id": "GZ-066",
+   "name": "Rock Creek",
+   "by": "RZ-WATER-rock-creek"
+  },
+  {
+   "id": "GZ-067",
+   "name": "Willoughby Run",
+   "by": "RZ-WATER-willoughby-run"
+  },
+  {
+   "id": "GZ-068",
+   "name": "Marsh Creek",
+   "by": "RZ-WATER-marsh-creek"
+  },
+  {
+   "id": "GZ-069",
+   "name": "White Run",
+   "by": "RZ-WATER-white-run"
+  },
+  {
+   "id": "GZ-070",
+   "name": "Stevens Run",
+   "by": "RZ-WATER-stevens-run"
+  },
+  {
+   "id": "GZ-071",
+   "name": "Littles Run",
+   "by": "RZ-WATER-littles-run"
+  }
+ ],
+ "skipped_duplicates": 190
+}

@@ -44,12 +44,12 @@ export const NOT_LOADED = ['GOVERNANCE/timeline_verified.jsonl', 'GOVERNANCE/dec
 // referenced by the shell but not shippable as they stand. Never copied into the build; listed in MANIFEST.json; the real run reports every link that reaches one (a failing check).
 export const WITHHELD = [
   { id: 'register-entries', match: /^GOVERNANCE\/register\/.*\.md$/, pattern: 'GOVERNANCE/register/**/*.md',
-    why: 'Working copies of the evidence-gap register carry internal notes that the copy rules keep out of a published build. The "Open register entry" links of the unit card and the event panel answer 404 in this build until a public copy of the entries exists.' },
+    why: 'The working copies of the evidence-gap register entries are not part of this staging copy. The "Open register entry" links of the unit card and the event panel answer 404 in this build until a public copy of the entries exists.' },
 ];
 // working files of which the shell reads only some fields: the build carries those fields and nothing else. The trace fails when a shipped module reads the file in a way not listed here.
 export const PROJECT = [
   { path: 'GOVERNANCE/register_index.json', keep: ['id'], readers: [{ file: 'app/src/data.mjs', use: /register_index\.json'\)\)\.map\(r => r\.id\)/ }],
-    why: 'The shell reads only the entry ids (to know which timeline rows have a register entry); the working file also carries internal notes.' },
+    why: 'The shell reads only the entry ids (to know which timeline rows have a register entry); the other fields of the working file are not part of this copy.' },
 ];
 // computed imports the trace cannot resolve by itself, reviewed: { file: RegExp on the module path, arg: RegExp on the import() argument, covered: how the target is shipped }
 export const KNOWN_COMPUTED = [];
@@ -326,6 +326,7 @@ export const AUDIT_RE = new RegExp([
   String.raw`\b(?:(?:auto-?|machine-)?generated|written|built|produced|made|derived|exported) (?:by|with|from) (?:the |a |an )?(?:(?:[\w.-]+\/)*tools\/|script|generator|build script|program)`,
   String.raw`\b(?:auto-?|machine-)?(?:generated|produced) (?:by|with|from) (?:the |a |an )?[\w./-]+\.(?:py|mjs|cjs|js|sh)\b`,
   String.raw`"generated(?:_?(?:at|by|on|from))?"\s*:`,
+  String.raw`"(?:(?:built|made|produced|written|created|exported|compiled)[_ -]?(?:by|with)|generator|builder|build[_-]?(?:script|tool))"\s*:\s*"[^"\n]*(?:\/|\.(?:mjs|cjs|js|py|sh)\b)`,     // a key that names the program that made the file: "built_by": "tools/build-x.mjs"
   String.raw`do not edit by hand|\bhand-edit`,
   String.raw`\b(?:earlier|previous|prior|another|research|review(?:ing)?|coding|scout|background|worker|parallel|automated|independent)[ -]agents?\b`,
   String.raw`\bagents?(?:'s|’s)?[ -](?:read|reads|reading|re-?read|trace[ds]?|tracing|recommendations?|recommend(?:s|ed)?|propos(?:es|ed|al)|found|finds|findings?|pass(?:es)?|runs?|ran|sessions?|briefs?|reports?|reported|notes?|noted|wrote|output|lookups?|search(?:es|ed)?|check(?:s|ed)?|verified|review(?:s|ed)?|extract(?:s|ed|ion)?|transcri(?:bed|ption)|summar(?:y|ies|i[sz]ed)|opened|fetched|could not|cannot|did not|was unable|decided|chose|judged|estimated|guess(?:ed)?)\b`,
@@ -352,9 +353,12 @@ export function audit(dist) {
   }
   return hits;
 }
+// paths of the repository's scripts cited in shipped text ("tools/bt/check_x.py", "app/tools/build-y.mjs"): a checker cited as the method of a reading is evidence, a builder cited as the maker of a file is
+// a production note (the audit above catches the explicit forms); the rest is counted here so that the acceptance copy audit can rule on it
+export const AUDIT_TOOLPATH_RE = /\b(?:docs\/battle-theatre\/)?(?:app\/)?tools\/[\w./-]+\.(?:mjs|cjs|py|js|sh)\b/g;
 export function auditReview(dist) {
-  const out = {};
-  for (const f of walk(dist)) { if (BINARY.test(f)) continue; const rel = posix(path.relative(dist, f)); for (const m of fs.readFileSync(f, 'utf8').matchAll(AUDIT_REVIEW_RE)) { const k = m[1].toLowerCase().replace(/^(workstream|shard)s$/, '$1'), o = out[k] || (out[k] = { count: 0, files: {} }); o.count++; o.files[rel] = (o.files[rel] || 0) + 1; } }
+  const out = {}, add = (k, rel) => { const o = out[k] || (out[k] = { count: 0, files: {} }); o.count++; o.files[rel] = (o.files[rel] || 0) + 1; };
+  for (const f of walk(dist)) { if (BINARY.test(f)) continue; const rel = posix(path.relative(dist, f)), text = fs.readFileSync(f, 'utf8'); for (const m of text.matchAll(AUDIT_REVIEW_RE)) add(m[1].toLowerCase().replace(/^(workstream|shard)s$/, '$1'), rel); for (const m of text.matchAll(AUDIT_TOOLPATH_RE)) add('tool path', rel); }
   return out;
 }
 

@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>webgpu swapchain probe</title></head>
+<body style="margin:0;background:#000"><canvas id="c" width="64" height="64"></canvas>
+<script type="module">
+// One operation on the canvas of a WebGPU device per page load (?m=...): which of them the software adapter of a machine without a GPU survives. Used by tests/weather3d-gpu.mjs.
+const mode = new URLSearchParams(location.search).get('m'), out = window.PROBE = { mode, done: false, lost: null, errors: [] };
+try {
+  const a = await navigator.gpu.requestAdapter(), d = await a.requestDevice(); d.lost.then(i => { out.lost = i.reason + ': ' + i.message; }); d.addEventListener('uncapturederror', e => out.errors.push(e.error.message));
+  const cv = document.getElementById('c'), fmt = navigator.gpu.getPreferredCanvasFormat(); out.fmt = fmt;
+  const clear = (view, c) => { const e = d.createCommandEncoder(), p = e.beginRenderPass({ colorAttachments: [{ view, clearValue: c, loadOp: 'clear', storeOp: 'store' }] }); p.end(); d.queue.submit([e.finish()]); };
+  const read = async tex => { const buf = d.createBuffer({ size: 256 * 64, usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.MAP_READ }), e = d.createCommandEncoder(); e.copyTextureToBuffer({ texture: tex }, { buffer: buf, bytesPerRow: 256 }, [64, 64]); d.queue.submit([e.finish()]); await buf.mapAsync(GPUMapMode.READ); const u = new Uint8Array(buf.getMappedRange()); const px = [u[0], u[1], u[2], u[3]]; buf.unmap(); return px; };
+  const orange = { r: 1, g: 0.5, b: 0, a: 1 }, conf = () => { const ctx = cv.getContext('webgpu'); ctx.configure({ device: d, format: fmt, alphaMode: 'opaque', usage: GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.COPY_SRC }); return ctx; };
+  if (mode === 'offscreen') { const t = d.createTexture({ size: [64, 64], format: fmt, usage: GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.COPY_SRC }); clear(t.createView(), orange); out.px = await read(t); }
+  else if (mode === 'configure') { conf(); await new Promise(r => setTimeout(r, 500)); }
+  else if (mode === 'present') { const ctx = conf(); await new Promise(res => { let n = 0; const loop = () => { clear(ctx.getCurrentTexture().createView(), orange); if (++n < 20) requestAnimationFrame(loop); else res(); }; loop(); }); await new Promise(r => setTimeout(r, 300)); }
+  else if (mode === 'canvas-read') { const ctx = conf(); const t = ctx.getCurrentTexture(); clear(t.createView(), orange); out.px = await read(t); }
+  await new Promise(r => setTimeout(r, 300));
+} catch (e) { out.error = String(e && e.message || e).slice(0, 300); }
+out.done = true;
+</script></body></html>

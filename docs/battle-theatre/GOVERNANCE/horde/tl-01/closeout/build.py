@@ -38,6 +38,11 @@ for it in ACQ2.get('reverified_prior_items', []):
     a = _t1.get(it['source_id'], {})
     LIB[it['source_id']] = {'path': it['local_path'], 'sha256': it['sha256_now'], 'title': a.get('title'), 'date': a.get('date'),
                             'archive_identifier': it.get('archive_identifier'), 'index': 'GOVERNANCE/library/acquired.json'}
+_a3 = os.path.join(G, 'library', 'acquired_3.json')   # texts of the National Park Service acquired by another workstream (read only)
+if os.path.exists(_a3):
+    for it in json.load(open(_a3, encoding='utf-8')).get('items', []):
+        if it.get('local_path') and it.get('text_sha256'):
+            LIB[it['id']] = {'path': it['local_path'], 'sha256': it['text_sha256'], 'title': it.get('title'), 'date': it.get('date'), 'archive_identifier': None, 'index': 'GOVERNANCE/library/acquired_3.json'}
 LOCAL = json.load(open(os.path.join(HERE, 'acquired_tl01.json'), encoding='utf-8'))
 OR_SHA = {1: None, 2: None, 3: None}
 OR_INDEX = {r['id']: r for r in json.load(open(os.path.join(ROOT, 'docs', 'battle-theatre', 'library', 'or27_index.json'), encoding='utf-8'))['records']}
@@ -272,6 +277,7 @@ def main():
     # ---- proposed register
     import register_md
     n_reg = register_md.write(os.path.join(G, 'horde', SHARD, 'proposed-register'), out_rows)
+    n_conf = register_md.write_conflicts(os.path.join(G, 'horde', SHARD, 'proposed-register'), out_rows)
     # ---- counts
     cnt = collections.OrderedDict()
     cnt['rows'] = len(out_rows)
@@ -284,6 +290,7 @@ def main():
     cnt['rows_with_scenarios'] = [l['id'] for _, l, _ in out_rows if l['scenarios']]
     cnt['rows_with_default'] = [l['id'] for _, l, _ in out_rows if l['default']]
     cnt['proposed_register_entries'] = n_reg
+    cnt['rows_in_conflicts_file'] = n_conf
     cnt['results_tier'] = dict(collections.Counter(r['tier'] for r in new_res))
     cnt['results_status'] = dict(collections.Counter(r['status'] for r in new_res))
     cnt['rows_by_verdict'] = {v: [l['id'] for _, l, _ in out_rows if l['verdict'] == v] for v in VERDICTS}

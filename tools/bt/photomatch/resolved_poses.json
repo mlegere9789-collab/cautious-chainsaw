@@ -1,53 +1,293 @@
 {
- "_doc": "Poses resolved from poses.json against gazetteer + DEM by run.mjs. Assumptions, not measured camera positions.",
+ "_doc": "Poses resolved from poses.json against gazetteer, building footprints, monuments and the DEM by run.mjs. Assumptions or inferences as tiered in poses.json, not measured camera positions.",
  "resolved": [
   {
    "id": "P01",
-   "photo_key": "LOC2018666303-L",
+   "photo_key": null,
    "loc_id": "2018666303",
-   "lng": -77.236577,
-   "lat": 39.79216,
-   "x_m": -49.3,
-   "z_m": 2042,
-   "ground_m": 203.8,
+   "lng": -77.236554,
+   "lat": 39.792345,
+   "x_m": -47.4,
+   "z_m": 2021.4,
+   "ground_m": 201.2,
    "agl": 1.6,
-   "headingDeg": 1.6,
+   "headingDeg": 7.8,
    "pitchDeg": 0,
    "fovHDeg": 40,
-   "anchor": "GZ-009",
-   "anchor_sigma_m": 270,
-   "position_tier": "plausible-procedural",
-   "heading_tier": "plausible-procedural",
+   "anchor": "MON-101",
+   "anchor_sigma_m": null,
+   "position_tier": "inferred",
+   "heading_tier": "inferred",
+   "relative": null,
    "render_px": [
     960,
-    830
+    821
+   ],
+   "photo_crop_fraction": [
+    0.028,
+    0.081,
+    0.975,
+    0.9
+   ],
+   "landmarks": [
+    {
+     "id": "STR-CODORI-HOUSE1",
+     "front": true,
+     "px": 107.61270377348308,
+     "py": 423.6467023029645,
+     "inside": true,
+     "dist_m": 2130.362564835431,
+     "name": "Codori farm house (1834 section)"
+    },
+    {
+     "id": "MON-505",
+     "front": true,
+     "px": 341.43495634147183,
+     "py": 418.30389087863927,
+     "inside": true,
+     "dist_m": 2240.8152327247976,
+     "name": "High Water Mark of the Rebellion Monument"
+    },
+    {
+     "id": "GZ-008",
+     "front": true,
+     "px": 387.22645693691396,
+     "py": 415.2682845428622,
+     "inside": true,
+     "dist_m": 2680.0298819863215,
+     "name": "Ziegler's Grove"
+    },
+    {
+     "id": "GZ-003",
+     "front": true,
+     "px": 567.2014981658607,
+     "py": 413.7964893841006,
+     "inside": true,
+     "dist_m": 3280.9947643669457,
+     "name": "Cemetery Hill"
+    },
+    {
+     "id": "STR-PATTERSON-HOUSE1",
+     "front": true,
+     "px": 1347.2389906668436,
+     "py": 451.88622593824374,
+     "inside": false,
+     "dist_m": 1136.1164192159865,
+     "name": "Patterson farmstead: building 1 (Warren plate)"
+    },
+    {
+     "id": "MON-46",
+     "front": true,
+     "px": 393.31155903480055,
+     "py": 427.63593937587666,
+     "inside": true,
+     "dist_m": 1700.8076512824177,
+     "name": "Pennsylvania State Memorial"
+    },
+    {
+     "id": "STR-GWEIKERT-HOUSE1",
+     "front": true,
+     "px": 464.9079676094461,
+     "py": 442.97882247348923,
+     "inside": true,
+     "dist_m": 1065.9809667871632,
+     "name": "George Weikert house"
+    },
+    {
+     "id": "STR-TROSTLE-HOUSE1",
+     "front": true,
+     "px": -361.5041010439208,
+     "py": 454.79045051486713,
+     "inside": false,
+     "dist_m": 1146.7316846247486,
+     "name": "Trostle farm house"
+    }
+   ],
+   "landmarks_fov30": [
+    {
+     "id": "STR-CODORI-HOUSE1",
+     "front": true,
+     "px": -25.83428301860689,
+     "py": 428.35790415921747,
+     "inside": false,
+     "dist_m": 2130.362564835431,
+     "name": "Codori farm house (1834 section)"
+    },
+    {
+     "id": "MON-505",
+     "front": true,
+     "px": 291.77942186251033,
+     "py": 421.1004665495886,
+     "inside": true,
+     "dist_m": 2240.8152327247976,
+     "name": "High Water Mark of the Rebellion Monument"
+    },
+    {
+     "id": "GZ-008",
+     "front": true,
+     "px": 353.98054984249376,
+     "py": 416.9770327333694,
+     "inside": true,
+     "dist_m": 2680.0298819863215,
+     "name": "Ziegler's Grove"
+    },
+    {
+     "id": "GZ-003",
+     "front": true,
+     "px": 598.4506070363791,
+     "py": 414.97781041672994,
+     "inside": true,
+     "dist_m": 3280.9947643669457,
+     "name": "Cemetery Hill"
+    },
+    {
+     "id": "STR-PATTERSON-HOUSE1",
+     "front": true,
+     "px": 1658.0187154799448,
+     "py": 466.71722544794596,
+     "inside": false,
+     "dist_m": 1136.1164192159865,
+     "name": "Patterson farmstead: building 1 (Warren plate)"
+    },
+    {
+     "id": "MON-46",
+     "front": true,
+     "px": 362.2462848917533,
+     "py": 433.7767079941811,
+     "inside": true,
+     "dist_m": 1700.8076512824177,
+     "name": "Pennsylvania State Memorial"
+    },
+    {
+     "id": "STR-GWEIKERT-HOUSE1",
+     "front": true,
+     "px": 459.4996555490763,
+     "py": 454.6178033949556,
+     "inside": true,
+     "dist_m": 1065.9809667871632,
+     "name": "George Weikert house"
+    },
+    {
+     "id": "STR-TROSTLE-HOUSE1",
+     "front": true,
+     "px": -663.061589957159,
+     "py": 470.66219423286566,
+     "inside": false,
+     "dist_m": 1146.7316846247486,
+     "name": "Trostle farm house"
+    }
+   ],
+   "landmarks_fov50": [
+    {
+     "id": "STR-CODORI-HOUSE1",
+     "front": true,
+     "px": 189.33806114539524,
+     "py": 420.76149049821544,
+     "inside": true,
+     "dist_m": 2130.362564835431,
+     "name": "Codori farm house (1834 section)"
+    },
+    {
+     "id": "MON-505",
+     "front": true,
+     "px": 371.84490174536444,
+     "py": 416.59122937929635,
+     "inside": true,
+     "dist_m": 2240.8152327247976,
+     "name": "High Water Mark of the Rebellion Monument"
+    },
+    {
+     "id": "GZ-008",
+     "front": true,
+     "px": 407.58684705121203,
+     "py": 414.2218261353524,
+     "inside": true,
+     "dist_m": 2680.0298819863215,
+     "name": "Ziegler's Grove"
+    },
+    {
+     "id": "GZ-003",
+     "front": true,
+     "px": 548.0639651902782,
+     "py": 413.07303504835204,
+     "inside": true,
+     "dist_m": 3280.9947643669457,
+     "name": "Cemetery Hill"
+    },
+    {
+     "id": "STR-PATTERSON-HOUSE1",
+     "front": true,
+     "px": 1156.911822579925,
+     "py": 442.8034835693696,
+     "inside": false,
+     "dist_m": 1136.1164192159865,
+     "name": "Patterson farmstead: building 1 (Warren plate)"
+    },
+    {
+     "id": "MON-46",
+     "front": true,
+     "px": 412.3364914695761,
+     "py": 423.87523791723174,
+     "inside": true,
+     "dist_m": 1700.8076512824177,
+     "name": "Pennsylvania State Memorial"
+    },
+    {
+     "id": "STR-GWEIKERT-HOUSE1",
+     "front": true,
+     "px": 468.22011181305027,
+     "py": 435.85092640852156,
+     "inside": true,
+     "dist_m": 1065.9809667871632,
+     "name": "George Weikert house"
+    },
+    {
+     "id": "STR-TROSTLE-HOUSE1",
+     "front": true,
+     "px": -176.82480580378643,
+     "py": 445.07033730548045,
+     "inside": false,
+     "dist_m": 1146.7316846247486,
+     "name": "Trostle farm house"
+    }
    ]
   },
   {
    "id": "P03",
-   "photo_key": "LOC2018670702-L",
+   "photo_key": null,
    "loc_id": "2018670702",
-   "lng": -77.22894,
-   "lat": 39.820236,
-   "x_m": 603.7,
-   "z_m": -1083.2,
-   "ground_m": 181.2,
+   "lng": -77.228774,
+   "lat": 39.821045,
+   "x_m": 617.9,
+   "z_m": -1173.3,
+   "ground_m": 184.7,
    "agl": 1.6,
-   "headingDeg": 0,
+   "headingDeg": 238,
    "pitchDeg": 0,
    "fovHDeg": 40,
-   "anchor": "GZ-004",
-   "anchor_sigma_m": 40,
+   "anchor": "STR-TOWN-GATEHOUSE",
+   "anchor_sigma_m": 4,
    "position_tier": "plausible-procedural",
    "heading_tier": "inferred",
+   "relative": {
+    "building_width_m": 25.9,
+    "width_fraction_of_frame": 0.6,
+    "distance_from_width_m": 60.8
+   },
    "render_px": [
     960,
-    947
+    943
+   ],
+   "photo_crop_fraction": [
+    0.059,
+    0.057,
+    0.978,
+    0.973
    ]
   },
   {
    "id": "P04",
-   "photo_key": "MET268204",
+   "photo_key": null,
    "loc_id": null,
    "lng": -77.244412,
    "lat": 39.828384,
@@ -62,14 +302,21 @@
    "anchor_sigma_m": 496,
    "position_tier": "plausible-procedural",
    "heading_tier": "inferred",
+   "relative": null,
    "render_px": [
     960,
     740
+   ],
+   "photo_crop_fraction": [
+    0.0156,
+    0.0162,
+    0.9844,
+    0.987
    ]
   },
   {
    "id": "P05",
-   "photo_key": "MET268205",
+   "photo_key": null,
    "loc_id": null,
    "lng": -77.244412,
    "lat": 39.828384,
@@ -84,97 +331,802 @@
    "anchor_sigma_m": 496,
    "position_tier": "plausible-procedural",
    "heading_tier": "inferred",
+   "relative": null,
    "render_px": [
     960,
     728
+   ],
+   "photo_crop_fraction": [
+    0.0156,
+    0.0125,
+    0.9844,
+    0.9917
    ]
   },
   {
    "id": "P06",
    "photo_key": null,
    "loc_id": "2014646001",
-   "lng": -77.228873,
-   "lat": 39.82131,
-   "x_m": 609.4,
-   "z_m": -1202.8,
-   "ground_m": 188.3,
+   "lng": -77.228783,
+   "lat": 39.821963,
+   "x_m": 617.2,
+   "z_m": -1275.5,
+   "ground_m": 187.2,
    "agl": 1.6,
-   "headingDeg": 345.2,
+   "headingDeg": 343.6,
    "pitchDeg": 0,
    "fovHDeg": 40,
-   "anchor": "GZ-003",
-   "anchor_sigma_m": 250,
+   "anchor": "MON-247",
+   "anchor_sigma_m": null,
    "position_tier": "plausible-procedural",
    "heading_tier": "inferred",
+   "relative": null,
    "render_px": [
     960,
-    640
+    731
+   ],
+   "photo_crop_fraction": [
+    0.02,
+    0.03,
+    0.985,
+    0.97
+   ],
+   "landmarks": [
+    {
+     "id": "GZ-072",
+     "front": true,
+     "px": 480.5489113617778,
+     "py": 387.51893569102623,
+     "inside": true,
+     "dist_m": 921.1093274491514,
+     "name": "Gettysburg (the borough)"
+    },
+    {
+     "id": "GZ-002",
+     "front": false,
+     "name": "Culp's Hill"
+    },
+    {
+     "id": "GZ-003",
+     "front": false,
+     "name": "Cemetery Hill"
+    },
+    {
+     "id": "GZ-073",
+     "front": true,
+     "px": -896.41497938722,
+     "py": 373.98766025182846,
+     "inside": false,
+     "dist_m": 1563.5506652248946,
+     "name": "Seminary Ridge"
+    }
+   ],
+   "landmarks_fov30": [
+    {
+     "id": "GZ-072",
+     "front": true,
+     "px": 480.74549570783125,
+     "py": 395.40952920722293,
+     "inside": true,
+     "dist_m": 921.1093274491514,
+     "name": "Gettysburg (the borough)"
+    },
+    {
+     "id": "GZ-002",
+     "front": false,
+     "name": "Culp's Hill"
+    },
+    {
+     "id": "GZ-003",
+     "front": false,
+     "name": "Cemetery Hill"
+    },
+    {
+     "id": "GZ-073",
+     "front": true,
+     "px": -1389.6608041538668,
+     "py": 377.02925037232507,
+     "inside": false,
+     "dist_m": 1563.5506652248946,
+     "name": "Seminary Ridge"
+    }
+   ],
+   "landmarks_fov50": [
+    {
+     "id": "GZ-072",
+     "front": true,
+     "px": 480.4283538021931,
+     "py": 382.68658282394534,
+     "inside": true,
+     "dist_m": 921.1093274491514,
+     "name": "Gettysburg (the borough)"
+    },
+    {
+     "id": "GZ-002",
+     "front": false,
+     "name": "Culp's Hill"
+    },
+    {
+     "id": "GZ-003",
+     "front": false,
+     "name": "Cemetery Hill"
+    },
+    {
+     "id": "GZ-073",
+     "front": true,
+     "px": -594.3424599316172,
+     "py": 372.1249270824866,
+     "inside": false,
+     "dist_m": 1563.5506652248946,
+     "name": "Seminary Ridge"
+    }
    ]
   },
   {
    "id": "P07",
    "photo_key": null,
    "loc_id": "2018671576",
-   "lng": -77.228873,
-   "lat": 39.82131,
-   "x_m": 609.4,
-   "z_m": -1202.8,
+   "lng": -77.228897,
+   "lat": 39.821292,
+   "x_m": 607.4,
+   "z_m": -1200.8,
    "ground_m": 188.3,
    "agl": 1.6,
-   "headingDeg": 345.2,
+   "headingDeg": 345.4,
    "pitchDeg": 0,
    "fovHDeg": 40,
    "anchor": "GZ-003",
    "anchor_sigma_m": 250,
    "position_tier": "plausible-procedural",
    "heading_tier": "inferred",
+   "relative": null,
    "render_px": [
     960,
-    640
+    757
+   ],
+   "photo_crop_fraction": [
+    0.04,
+    0.08,
+    0.49,
+    0.92
+   ],
+   "landmarks": [
+    {
+     "id": "GZ-072",
+     "front": true,
+     "px": 479.621168678822,
+     "py": 400.25160549659205,
+     "inside": true,
+     "dist_m": 990.5046640797515,
+     "name": "Gettysburg (the borough)"
+    },
+    {
+     "id": "GZ-002",
+     "front": false,
+     "name": "Culp's Hill"
+    },
+    {
+     "id": "GZ-003",
+     "front": false,
+     "name": "Cemetery Hill"
+    },
+    {
+     "id": "GZ-073",
+     "front": true,
+     "px": -860.753874012894,
+     "py": 387.86254527439206,
+     "inside": false,
+     "dist_m": 1590.8229060586443,
+     "name": "Seminary Ridge"
+    }
+   ],
+   "landmarks_fov30": [
+    {
+     "id": "GZ-072",
+     "front": true,
+     "px": 479.4854425497247,
+     "py": 408.046412572588,
+     "inside": true,
+     "dist_m": 990.5046640797515,
+     "name": "Gettysburg (the borough)"
+    },
+    {
+     "id": "GZ-002",
+     "front": false,
+     "name": "Culp's Hill"
+    },
+    {
+     "id": "GZ-003",
+     "front": false,
+     "name": "Cemetery Hill"
+    },
+    {
+     "id": "GZ-073",
+     "front": true,
+     "px": -1341.220095907163,
+     "py": 391.21766510933145,
+     "inside": false,
+     "dist_m": 1590.8229060586443,
+     "name": "Seminary Ridge"
+    }
+   ],
+   "landmarks_fov50": [
+    {
+     "id": "GZ-072",
+     "front": true,
+     "px": 479.70433452657807,
+     "py": 395.47792173193744,
+     "inside": true,
+     "dist_m": 990.5046640797515,
+     "name": "Gettysburg (the borough)"
+    },
+    {
+     "id": "GZ-002",
+     "front": false,
+     "name": "Culp's Hill"
+    },
+    {
+     "id": "GZ-003",
+     "front": false,
+     "name": "Cemetery Hill"
+    },
+    {
+     "id": "GZ-073",
+     "front": true,
+     "px": -566.5074411965826,
+     "py": 385.80780616511703,
+     "inside": false,
+     "dist_m": 1590.8229060586443,
+     "name": "Seminary Ridge"
+    }
    ]
   },
   {
    "id": "P08",
    "photo_key": null,
    "loc_id": "2012647712",
-   "lng": -77.228893,
-   "lat": 39.821317,
-   "x_m": 607.7,
-   "z_m": -1203.6,
-   "ground_m": 188.3,
+   "lng": -77.229075,
+   "lat": 39.821963,
+   "x_m": 592.2,
+   "z_m": -1275.5,
+   "ground_m": 186.2,
    "agl": 1.6,
    "headingDeg": 45,
    "pitchDeg": 0,
    "fovHDeg": 40,
-   "anchor": "GZ-005",
-   "anchor_sigma_m": 250,
-   "position_tier": "plausible-procedural",
+   "anchor": "MON-247",
+   "anchor_sigma_m": null,
+   "position_tier": "inferred",
    "heading_tier": "plausible-procedural",
+   "relative": null,
    "render_px": [
     960,
-    640
+    567
+   ],
+   "photo_crop_fraction": [
+    0.03,
+    0.04,
+    0.97,
+    0.96
+   ],
+   "landmarks": [
+    {
+     "id": "GZ-072",
+     "front": true,
+     "px": -1792.7311647210327,
+     "py": 325.9116257093442,
+     "inside": false,
+     "dist_m": 914.3832615430994,
+     "name": "Gettysburg (the borough)"
+    },
+    {
+     "id": "GZ-002",
+     "front": true,
+     "px": 4890.841158959053,
+     "py": 404.72643638349183,
+     "inside": false,
+     "dist_m": 1039.2247416096047,
+     "name": "Culp's Hill"
+    },
+    {
+     "id": "GZ-003",
+     "front": false,
+     "name": "Cemetery Hill"
+    }
+   ],
+   "landmarks_fov30": [
+    {
+     "id": "GZ-072",
+     "front": true,
+     "px": -2607.1766887634826,
+     "py": 341.11004426785456,
+     "inside": false,
+     "dist_m": 914.3832615430994,
+     "name": "Gettysburg (the borough)"
+    },
+    {
+     "id": "GZ-002",
+     "front": true,
+     "px": 6471.489561901887,
+     "py": 448.1685612461394,
+     "inside": false,
+     "dist_m": 1039.2247416096047,
+     "name": "Culp's Hill"
+    },
+    {
+     "id": "GZ-003",
+     "front": false,
+     "name": "Cemetery Hill"
+    }
+   ],
+   "landmarks_fov50": [
+    {
+     "id": "GZ-072",
+     "front": true,
+     "px": -1293.9499514609456,
+     "py": 316.603826947223,
+     "inside": false,
+     "dist_m": 914.3832615430994,
+     "name": "Gettysburg (the borough)"
+    },
+    {
+     "id": "GZ-002",
+     "front": true,
+     "px": 3922.8230288334858,
+     "py": 378.1216767024522,
+     "inside": false,
+     "dist_m": 1039.2247416096047,
+     "name": "Culp's Hill"
+    },
+    {
+     "id": "GZ-003",
+     "front": false,
+     "name": "Cemetery Hill"
+    }
    ]
   },
   {
    "id": "P09",
    "photo_key": null,
    "loc_id": "2018666302",
-   "lng": -77.236577,
-   "lat": 39.79216,
-   "x_m": -49.3,
-   "z_m": 2042,
-   "ground_m": 203.8,
+   "lng": -77.236554,
+   "lat": 39.792031,
+   "x_m": -47.4,
+   "z_m": 2056.4,
+   "ground_m": 202.2,
    "agl": 1.6,
-   "headingDeg": 201.3,
+   "headingDeg": 202,
    "pitchDeg": 0,
    "fovHDeg": 40,
-   "anchor": "GZ-009",
-   "anchor_sigma_m": 270,
+   "anchor": "MON-101",
+   "anchor_sigma_m": null,
    "position_tier": "plausible-procedural",
    "heading_tier": "inferred",
+   "relative": null,
    "render_px": [
     960,
-    640
+    768
+   ],
+   "photo_crop_fraction": [
+    0.02,
+    0.03,
+    0.98,
+    0.97
+   ],
+   "landmarks": [
+    {
+     "id": "GZ-010",
+     "front": true,
+     "px": 480.030521266089,
+     "py": 322.2964046857651,
+     "inside": true,
+     "dist_m": 606.2534073002754,
+     "name": "Big Round Top"
+    }
+   ],
+   "landmarks_fov30": [
+    {
+     "id": "GZ-010",
+     "front": true,
+     "px": 480.0415308457066,
+     "py": 300.18455158585846,
+     "inside": true,
+     "dist_m": 606.2534073002754,
+     "name": "Big Round Top"
+    }
+   ],
+   "landmarks_fov50": [
+    {
+     "id": "GZ-010",
+     "front": true,
+     "px": 480.02384279562455,
+     "py": 335.8380675625157,
+     "inside": true,
+     "dist_m": 606.2534073002754,
+     "name": "Big Round Top"
+    }
+   ]
+  },
+  {
+   "id": "P11",
+   "photo_key": null,
+   "loc_id": "2018670708",
+   "lng": -77.236554,
+   "lat": 39.792031,
+   "x_m": -47.4,
+   "z_m": 2056.4,
+   "ground_m": 202.2,
+   "agl": 1.6,
+   "headingDeg": 202,
+   "pitchDeg": 0,
+   "fovHDeg": 40,
+   "anchor": "MON-101",
+   "anchor_sigma_m": null,
+   "position_tier": "plausible-procedural",
+   "heading_tier": "inferred",
+   "relative": null,
+   "render_px": [
+    960,
+    890
+   ],
+   "photo_crop_fraction": [
+    0.03,
+    0.05,
+    0.97,
+    0.95
+   ],
+   "landmarks": [
+    {
+     "id": "GZ-010",
+     "front": true,
+     "px": 480.030521266089,
+     "py": 383.2964011902395,
+     "inside": true,
+     "dist_m": 606.2534073002754,
+     "name": "Big Round Top"
+    }
+   ],
+   "landmarks_fov30": [
+    {
+     "id": "GZ-010",
+     "front": true,
+     "px": 480.0415308457066,
+     "py": 361.1845460768132,
+     "inside": true,
+     "dist_m": 606.2534073002754,
+     "name": "Big Round Top"
+    }
+   ],
+   "landmarks_fov50": [
+    {
+     "id": "GZ-010",
+     "front": true,
+     "px": 480.02384279562455,
+     "py": 396.8380714526082,
+     "inside": true,
+     "dist_m": 606.2534073002754,
+     "name": "Big Round Top"
+    }
+   ]
+  },
+  {
+   "id": "P12",
+   "photo_key": null,
+   "loc_id": "2012647707",
+   "lng": -77.236554,
+   "lat": 39.792031,
+   "x_m": -47.4,
+   "z_m": 2056.4,
+   "ground_m": 202.2,
+   "agl": 1.6,
+   "headingDeg": 202,
+   "pitchDeg": 0,
+   "fovHDeg": 40,
+   "anchor": "MON-101",
+   "anchor_sigma_m": null,
+   "position_tier": "plausible-procedural",
+   "heading_tier": "inferred",
+   "relative": null,
+   "render_px": [
+    960,
+    708
+   ],
+   "photo_crop_fraction": [
+    0.03,
+    0.03,
+    0.97,
+    0.97
+   ],
+   "landmarks": [
+    {
+     "id": "GZ-010",
+     "front": true,
+     "px": 480.030521266089,
+     "py": 292.29640419530887,
+     "inside": true,
+     "dist_m": 606.2534073002754,
+     "name": "Big Round Top"
+    }
+   ],
+   "landmarks_fov30": [
+    {
+     "id": "GZ-010",
+     "front": true,
+     "px": 480.0415308457066,
+     "py": 270.18459979354066,
+     "inside": true,
+     "dist_m": 606.2534073002754,
+     "name": "Big Round Top"
+    }
+   ],
+   "landmarks_fov50": [
+    {
+     "id": "GZ-010",
+     "front": true,
+     "px": 480.02384279562455,
+     "py": 305.8380826119006,
+     "inside": true,
+     "dist_m": 606.2534073002754,
+     "name": "Big Round Top"
+    }
+   ]
+  },
+  {
+   "id": "P17",
+   "photo_key": null,
+   "loc_id": "2018666297",
+   "lng": -77.245244,
+   "lat": 39.834622,
+   "x_m": -790.4,
+   "z_m": -2685.1,
+   "ground_m": 172.3,
+   "agl": 1.6,
+   "headingDeg": 20,
+   "pitchDeg": 0,
+   "fovHDeg": 40,
+   "anchor": "STR-TOWN-THOMPSON_HOUSE",
+   "anchor_sigma_m": 4,
+   "position_tier": "plausible-procedural",
+   "heading_tier": "inferred",
+   "relative": {
+    "building_width_m": 15,
+    "width_fraction_of_frame": 0.6,
+    "distance_from_width_m": 35.4
+   },
+   "render_px": [
+    960,
+    902
+   ],
+   "photo_crop_fraction": [
+    0.03,
+    0.05,
+    0.97,
+    0.95
+   ]
+  },
+  {
+   "id": "P18",
+   "photo_key": null,
+   "loc_id": "2018666296",
+   "lng": -77.232588,
+   "lat": 39.813428,
+   "x_m": 291.8,
+   "z_m": -325.3,
+   "ground_m": 170.5,
+   "agl": 1.6,
+   "headingDeg": 20,
+   "pitchDeg": 0,
+   "fovHDeg": 40,
+   "anchor": "STR-LEISTER-HOUSE1",
+   "anchor_sigma_m": 4,
+   "position_tier": "plausible-procedural",
+   "heading_tier": "inferred",
+   "relative": {
+    "building_width_m": 10.1,
+    "width_fraction_of_frame": 0.12,
+    "distance_from_width_m": 120.9
+   },
+   "render_px": [
+    960,
+    1010
+   ],
+   "photo_crop_fraction": [
+    0.03,
+    0.04,
+    0.97,
+    0.94
+   ]
+  },
+  {
+   "id": "P19",
+   "photo_key": null,
+   "loc_id": "2018666298",
+   "lng": -77.234913,
+   "lat": 39.815491,
+   "x_m": 93,
+   "z_m": -555,
+   "ground_m": 184.9,
+   "agl": 1.6,
+   "headingDeg": 290,
+   "pitchDeg": 0,
+   "fovHDeg": 40,
+   "anchor": "STR-BRYAN-HOUSE1",
+   "anchor_sigma_m": 4,
+   "position_tier": "plausible-procedural",
+   "heading_tier": "inferred",
+   "relative": {
+    "building_width_m": 8.6,
+    "width_fraction_of_frame": 0.5,
+    "distance_from_width_m": 24.4
+   },
+   "render_px": [
+    960,
+    950
+   ],
+   "photo_crop_fraction": [
+    0.02,
+    0.03,
+    0.97,
+    0.97
+   ]
+  },
+  {
+   "id": "P20",
+   "photo_key": null,
+   "loc_id": "2018670707",
+   "lng": -77.246384,
+   "lat": 39.831719,
+   "x_m": -887.9,
+   "z_m": -2361.8,
+   "ground_m": 166.1,
+   "agl": 1.6,
+   "headingDeg": 90,
+   "pitchDeg": 0,
+   "fovHDeg": 40,
+   "anchor": "STR-TOWN-SCHMUCKER_HALL",
+   "anchor_sigma_m": 4,
+   "position_tier": "plausible-procedural",
+   "heading_tier": "inferred",
+   "relative": {
+    "building_width_m": 44.4,
+    "width_fraction_of_frame": 0.33,
+    "distance_from_width_m": 192
+   },
+   "render_px": [
+    960,
+    944
+   ],
+   "photo_crop_fraction": [
+    0.03,
+    0.03,
+    0.97,
+    0.97
+   ]
+  },
+  {
+   "id": "P24",
+   "photo_key": null,
+   "loc_id": "2013645105",
+   "lng": -77.243764,
+   "lat": 39.800905,
+   "x_m": -663.9,
+   "z_m": 1068.6,
+   "ground_m": 167.4,
+   "agl": 1.6,
+   "headingDeg": 57,
+   "pitchDeg": 0,
+   "fovHDeg": 40,
+   "anchor": "STR-TROSTLE-HOUSE1",
+   "anchor_sigma_m": 4,
+   "position_tier": "plausible-procedural",
+   "heading_tier": "inferred",
+   "relative": {
+    "building_width_m": 14.8,
+    "width_fraction_of_frame": 0.13,
+    "distance_from_width_m": 162.9
+   },
+   "render_px": [
+    960,
+    729
+   ],
+   "photo_crop_fraction": [
+    0.04,
+    0.04,
+    0.97,
+    0.96
+   ],
+   "landmarks": [
+    {
+     "id": "STR-TROSTLE-BARN1",
+     "front": true,
+     "px": -64.31608750488027,
+     "py": 315.437251462034,
+     "inside": false,
+     "dist_m": 175.86306542514004,
+     "name": "Trostle barn"
+    },
+    {
+     "id": "MON-185",
+     "front": true,
+     "px": 376.3338720282637,
+     "py": 351.5886715124774,
+     "inside": true,
+     "dist_m": 136.23083924300926,
+     "name": "9th Massachusetts Artillery Battery Monument"
+    }
+   ],
+   "landmarks_fov30": [
+    {
+     "id": "STR-TROSTLE-BARN1",
+     "front": true,
+     "px": -259.3749969752597,
+     "py": 297.85538223287904,
+     "inside": false,
+     "dist_m": 175.86306542514004,
+     "name": "Trostle barn"
+    },
+    {
+     "id": "MON-185",
+     "front": true,
+     "px": 339.18418844863646,
+     "py": 346.9618637951933,
+     "inside": true,
+     "dist_m": 136.23083924300926,
+     "name": "9th Massachusetts Artillery Battery Monument"
+    }
+   ],
+   "landmarks_fov50": [
+    {
+     "id": "STR-TROSTLE-BARN1",
+     "front": true,
+     "px": 55.141125464153745,
+     "py": 326.20473567380094,
+     "inside": true,
+     "dist_m": 175.86306542514004,
+     "name": "Trostle barn"
+    },
+    {
+     "id": "MON-185",
+     "front": true,
+     "px": 399.08453517239286,
+     "py": 354.42224782970123,
+     "inside": true,
+     "dist_m": 136.23083924300926,
+     "name": "9th Massachusetts Artillery Battery Monument"
+    }
+   ]
+  },
+  {
+   "id": "P26",
+   "photo_key": null,
+   "loc_id": "2018666300",
+   "lng": -77.228585,
+   "lat": 39.821136,
+   "x_m": 634.1,
+   "z_m": -1183.4,
+   "ground_m": 183.6,
+   "agl": 1.6,
+   "headingDeg": 238,
+   "pitchDeg": 0,
+   "fovHDeg": 40,
+   "anchor": "STR-TOWN-GATEHOUSE",
+   "anchor_sigma_m": 4,
+   "position_tier": "plausible-procedural",
+   "heading_tier": "inferred",
+   "relative": {
+    "building_width_m": 25.9,
+    "width_fraction_of_frame": 0.46,
+    "distance_from_width_m": 79.8
+   },
+   "render_px": [
+    960,
+    952
+   ],
+   "photo_crop_fraction": [
+    0.03,
+    0.03,
+    0.97,
+    0.96
    ]
   }
  ]

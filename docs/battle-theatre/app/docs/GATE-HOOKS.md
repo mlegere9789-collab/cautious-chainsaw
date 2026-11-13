@@ -25,3 +25,12 @@ One row per function: module path (under docs/battle-theatre/), function, inputs
 | function | inputs | output | gate it serves |
 |---|---|---|---|
 | `drift(trees?, files?, pins?)` | the site trees to read (default: every tree of the checkout that carries an entry bundle), the two copies, the pinned hashes | list of sentences; empty means the copies equal the site's data in every tree and carry the hashes the site's own guard pins. Command line: `node docs/battle-theatre/app/tests/ext-site-source.mjs --check` exits 1 on drift, `--write` rewrites the copies from the site (refused when the trees or the pins disagree) | OA01 (read-only reuse of the site's data); the site's data is never written |
+
+## src/ext/site-places.mjs, years of the later memorials (bt-world-content, 2026-11-13)
+
+| function | inputs | output | gate it serves |
+|---|---|---|---|
+| `checkLaterMemorials(mem, T?, years?)` | as above, and `years`: the parsed `data/site-memorial-years.json` | as above; with `years` the facts add `yearDocumented` (32), `yearInferred` (1) and `yearOpenGap` (479); a year without its quotation, report, page or with a name that is not the list's is a problem; a year inside the memorial list itself (`year`, `dedicated`, `erected` on a record) is a problem | Q23 (a year is shown only with its tier and its source; the rest is an open gap), Q03 |
+| `validateYears(yf, mem)` | the parsed years file, the memorial list | list of sentences; empty means fit (names equal the list's, years after the battle, quotation holds name and year, tier documented or inferred, a hedged year is inferred, every source described) | Q23 |
+
+`tests/ext-site-years.mjs --check` (node): exits 1 when the years file differs from what the saved National Park Service report texts give (`tmp/library/web/nps`; says NOT RUN and checks fitness only when the texts are not in the checkout).

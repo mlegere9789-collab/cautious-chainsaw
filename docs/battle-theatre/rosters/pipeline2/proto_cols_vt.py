@@ -100,8 +100,8 @@ def main(xml_path, outdir):
         for si, i in enumerate(starts):
             j = starts[si + 1] if si + 1 < len(starts) else len(lines)
             nm = [w for l in lines[i:j] for w in l]
-            top = lines[i][0]['yt'] - 18
-            bot = (lines[j][0]['yt'] - 18) if j < len(lines) else 10 ** 6
+            top = lines[i][0]['yc'] - 16                    # the row owns the cells whose centre lies between the centres of two name lines
+            bot = (lines[j][0]['yc'] - 16) if j < len(lines) else 10 ** 6
             cells = [w for w in body if w['x0'] >= xs[0] and top <= w['yc'] < bot and w['off'] is not None]
             cells.sort(key=lambda w: w['off'])                          # text order: each column is one block of the text
             nm.sort(key=lambda w: w['off'])

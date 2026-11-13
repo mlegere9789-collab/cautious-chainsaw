@@ -3,7 +3,7 @@
  "generated": "2026-11-13",
  "plan": "docs/battle-theatre/rosters/PRODUCTION-PLAN.md",
  "counts": {
-  "groups": 35,
+  "groups": 36,
   "state_army_groups": 32,
   "units": 640,
   "by_army": {
@@ -214,8 +214,8 @@
      "role": "index",
      "layout": "index",
      "status": "verified-meta",
-     "covers": "Supplement to the Annual Reports of the Adjutant General 1861-1866 (1867): cover title \"Alphabetical index of Maine volunteers ... mustered into the service of the United States during the war of 1861\"; the whole-war name source for every Maine unit, including the three units that the earlier run left empty (10th Maine Battalion, 5th and 6th Maine Batteries)",
-     "note": "catalogued by the earlier plan as U04 (META, never parsed); layout to be fixed on a sample page in step 1; names with regiment and company, not a status list"
+     "covers": "Supplement to the Annual Reports of the Adjutant General 1861-1866 (1867): cover title \"Alphabetical index of Maine volunteers ... mustered into the service of the United States during the war of 1861\"; by its title the whole-war name source for every Maine unit, which would include the three units the earlier run left empty (10th Maine Battalion, 5th and 6th Maine Batteries)",
+     "note": "catalogued by the earlier plan as U04 (META, never parsed); its layout and fields (expected: name, regiment, company) are to be read on three sample pages in step 1 before any claim"
     },
     {
      "id": "ME-APPD-1861",
@@ -232,8 +232,8 @@
      "role": "roll",
      "layout": "cols",
      "status": "verified-meta",
-     "covers": "Appendix D of the Adjutant General report of 31 Dec 1861: rolls of the regiments as mustered in 1861",
-     "note": "second reading for the 3rd to 7th Maine; muster-in only"
+     "covers": "Appendix \"D\" of the Adjutant General report of 31 Dec 1861 (title only; 602 images)",
+     "note": "content to be read in step 1: the 3rd to 7th Maine were mustered in 1861, so a second reading of their muster-in rolls is possible"
     },
     {
      "id": "ME-GETT-1898",
@@ -411,8 +411,8 @@
      "role": "roll",
      "layout": "cols",
      "status": "lead",
-     "covers": "Report of the Adjutant-General of New Hampshire, 1865 and 1866 editions, volumes 1 and 2: regimental rosters of the war years",
-     "note": "second reading; content not inspected in this pass"
+     "covers": "Report of the Adjutant-General of New Hampshire, 1865 and 1866 editions, volumes 1 and 2 (titles only)",
+     "note": "content not inspected in this pass: possible regimental lists as a second reading"
     }
    ],
    "first_tasks": [
@@ -2254,8 +2254,8 @@
      "role": "roll",
      "layout": "flow",
      "status": "verified-meta",
-     "covers": "Annual Reports of the Adjutant-General of New York 1893-1905, the Registers of the volunteer regiments (name, age, enlistment, muster-in, every later event): the four Internet Archive volumes found list some Registers only (the earlier run used annualreportadj02unkngoog for the 75th to 80th)",
-     "note": "the earlier run read most Registers from the New York State Military Museum PDFs (79 files); that host does not answer on this machine (see owner_steps)"
+     "covers": "Annual Reports of the Adjutant-General of New York 1893-1905, the Registers of the volunteer regiments (name, age, enlistment, muster-in, every later event): of the four Internet Archive volumes found, per the earlier run only annualreportadj02unkngoog holds Gettysburg regiments (the 75th to 80th); annualreportadj00, 01 and 06 hold the 114th, the veteran cavalry and mounted rifles and the 7th and 8th Artillery, none at Gettysburg",
+     "note": "the earlier run read the Registers of the other Gettysburg units from the New York State Military Museum PDFs (79 files); that host does not answer on this machine (see owner_steps), so for most New York units the Registers are not available here"
     },
     {
      "id": "NY-RECORD-1864",
@@ -2385,7 +2385,7 @@
     }
    ],
    "first_tasks": [
-    "Test the museum host once (it does not answer from this machine); if it still fails record it and build the units from the Internet Archive: the Register volumes (four found) and the 1864 Record volumes for the muster-in roll of every infantry regiment.",
+    "Test the museum host once (it does not answer from this machine); if it still fails record it and build the units from the Internet Archive: the one Register volume with Gettysburg regiments (annualreportadj02unkngoog, 75th to 80th) and the 1864 Record volumes for the muster-in roll of every infantry regiment; search the Internet Archive for further Register volumes first (title:annual report adjutant-general New York registers, one query per year 1893 to 1905).",
     "List the regiments in each IA volume (tables of contents) and write the volume-to-unit map into data2/sources/NY-*.json before parsing.",
     "Add the Roll of Honor of NY-GETT-ROH-1900 as segments of the unit files (killed and mortally wounded, a stated presence)."
    ],
@@ -2575,7 +2575,7 @@
      "role": "roll",
      "layout": "cols",
      "status": "used-earlier",
-     "covers": "Stryker, Record of Officers and Men of New Jersey in the Civil War (1876), vol 1 (infantry) and vol 2 (cavalry, artillery and others)",
+     "covers": "Stryker, Record of Officers and Men of New Jersey in the Civil War (1876), vols 1 and 2 (infantry, cavalry and artillery; the volume of each regiment is resolved in step 1)",
      "note": "worst date columns of all the table sources (months such as Mav, years such as '(>•'); the earlier run read the 23rd NJ muster-out column only"
     },
     {
@@ -4939,7 +4939,7 @@
      "role": "roll",
      "layout": "cols",
      "status": "used-earlier",
-     "covers": "Minnesota in the Civil and Indian Wars 1861-1865 (Board of Commissioners, 1890-93), vol 1: the 1st Minnesota roll; vol 2: the sharpshooters",
+     "covers": "Minnesota in the Civil and Indian Wars 1861-1865 (Board of Commissioners, 1890-93), vol 1: the 1st Minnesota roll (per the earlier run); the 2nd Company Minnesota Sharpshooters is expected in vol 2 (to be confirmed)",
      "note": "the 2nd Company Minnesota Sharpshooters is Company A of the 2nd United States Sharpshooters (Stevens, see union-us): read there"
     },
     {
@@ -5072,7 +5072,7 @@
      "designation": "14th United States Infantry",
      "arm": "infantry",
      "or_check": "exact",
-     "earlier_rows": 0,
+     "earlier_rows": 11,
      "path": "union/us/14th-united-states-infantry.jsonl.gz"
     },
     {
@@ -5341,7 +5341,6 @@
     }
    ],
    "units_without_earlier_rows": [
-    "u-us-14th-united-states-infantry",
     "u-us-1st-united-states-sharpshooters",
     "u-us-2nd-united-states-sharpshooters",
     "u-us-batteries-b-and-l-2nd-united-states-artillery",
@@ -5485,8 +5484,8 @@
      "role": "roll",
      "layout": "flow",
      "status": "verified-meta",
-     "covers": "Stevens, Berdan's United States Sharpshooters in the Army of the Potomac (1892): the roster of the 1st and 2nd United States Sharpshooters",
-     "note": "also the roll of the 2nd Company Minnesota Sharpshooters (Company A, 2nd USSS) and the source for the 1st Company Massachusetts Sharpshooters only if it prints them: to be read"
+     "covers": "Stevens, Berdan's United States Sharpshooters in the Army of the Potomac (1892): the history of the 1st and 2nd United States Sharpshooters; whether its appendix prints a roll of each company is to be confirmed on the page images in step 1",
+     "note": "if it does, it is also the roll of the 2nd Company Minnesota Sharpshooters (Company A, 2nd USSS); the 1st Company Massachusetts Sharpshooters only if it prints them"
     },
     {
      "id": "US-ARMY-1896",
@@ -5549,7 +5548,7 @@
    ],
    "owner_steps": [],
    "estimates_modelled": {
-    "rows_in_earlier_data": 185,
+    "rows_in_earlier_data": 196,
     "text_download_gz_bytes": 12254463,
     "transient_djvu_xml_bytes_max_one_volume": 0,
     "tokens": 666000,
@@ -6007,6 +6006,20 @@
      "status": "used-earlier",
      "covers": "Clark, Histories of the Several Regiments and Battalions from North Carolina (1901), 5 vols: present for duty by company on 30 June 1863 for some regiments (26th: 885), officers present, casualties",
      "note": "figures and officer lists inside narrative"
+    },
+    {
+     "id": "NEWS-1863-CASUALTIES",
+     "ia": [
+      {
+       "identifier": null,
+       "note": "chroniclingamerica.loc.gov: Richmond and state newspapers, July to September 1863"
+      }
+     ],
+     "role": "commission",
+     "layout": "flow",
+     "status": "lead",
+     "covers": "named killed, wounded and missing by regiment as the 1863 newspapers printed them (page OCR text from the Library of Congress service)",
+     "note": "the earlier run recorded the host as blocked (HTTP 403 on robots.txt for its user agent, VSG19); the host is on this machine's reachable list: one test request first, then at most 1 request per second; newspaper OCR is noisy and every name stays as printed"
     }
    ],
    "first_tasks": [
@@ -6251,6 +6264,20 @@
      "status": "used-earlier",
      "covers": "Booth, Records of Louisiana Confederate Soldiers and Louisiana Confederate Commands (1920): vol 1, vol 2 parts 1 and 2, vol 3 books 1 and 2; the 10 infantry regiments and the Washington Artillery",
      "note": "known incomplete; 747 Booth entries with western-theatre evidence only were withheld as unit-unresolved"
+    },
+    {
+     "id": "NEWS-1863-CASUALTIES",
+     "ia": [
+      {
+       "identifier": null,
+       "note": "chroniclingamerica.loc.gov: Richmond and state newspapers, July to September 1863"
+      }
+     ],
+     "role": "commission",
+     "layout": "flow",
+     "status": "lead",
+     "covers": "named killed, wounded and missing by regiment as the 1863 newspapers printed them (page OCR text from the Library of Congress service)",
+     "note": "the earlier run recorded the host as blocked (HTTP 403 on robots.txt for its user agent, VSG19); the host is on this machine's reachable list: one test request first, then at most 1 request per second; newspaper OCR is noisy and every name stays as printed"
     }
    ],
    "first_tasks": [
@@ -7300,8 +7327,8 @@
      "role": "roll",
      "layout": "flow",
      "status": "verified-meta",
-     "covers": "Roster of Confederate Pensioners of Virginia (Auditor of Public Accounts, 1917-?): name, residence, company and regiment of every surviving pensioner",
-     "note": "a roll of survivors years later, not of the men at the battle; names and units are as printed and say nothing about 1863; coverage of a regiment is whatever survivors drew a pension. Not parsed by the earlier run"
+     "covers": "Roster of Confederate Pensioners of Virginia (Auditor of Public Accounts, 1917; three Internet Archive items of 190, 90 and 206 images): a roster of surviving pensioners; its fields (expected: name, residence, company, regiment) are to be read in step 1",
+     "note": "a list of survivors years later, not of the men at the battle: names and units as printed say nothing about 1863 and a regiment is covered only as far as survivors drew a pension. Not parsed by the earlier run"
     },
     {
      "id": "VA-PAROLES-1887",
@@ -7476,6 +7503,20 @@
      "status": "blocked",
      "covers": "pension and disability records, a database, not a bulk text",
      "note": "host not in the reachable list; records are later-life records"
+    },
+    {
+     "id": "NEWS-1863-CASUALTIES",
+     "ia": [
+      {
+       "identifier": null,
+       "note": "chroniclingamerica.loc.gov: Richmond and state newspapers, July to September 1863"
+      }
+     ],
+     "role": "commission",
+     "layout": "flow",
+     "status": "lead",
+     "covers": "named killed, wounded and missing by regiment as the 1863 newspapers printed them (page OCR text from the Library of Congress service)",
+     "note": "the earlier run recorded the host as blocked (HTTP 403 on robots.txt for its user agent, VSG19); the host is on this machine's reachable list: one test request first, then at most 1 request per second; newspaper OCR is noisy and every name stays as printed"
     }
    ],
    "first_tasks": [
@@ -7718,7 +7759,7 @@
      "layout": "flow",
      "status": "verified-meta",
      "covers": "Salley (ed.), Tentative Roster of the Third Regiment, South Carolina Volunteers (1908), two parts of 148 and 150 images",
-     "note": "an earlier printing of the 3rd SC roll: an independent second reading for that regiment"
+     "note": "by its title a tentative roster of the 3rd South Carolina, to be compared with Salley vol. II as an independent second reading"
     },
     {
      "id": "SC-TOMPKINS-1897",
@@ -7751,6 +7792,20 @@
      "status": "blocked",
      "covers": "the volumes that would cover the 1st Provisional Army, 1st Rifles, 7th, 8th, 12th, 13th, 14th, 15th and the 3rd Battalion",
      "note": "not found as open Internet Archive items by title, creator or identifier; a 1930 imprint is outside the pre-1931 rule in any case"
+    },
+    {
+     "id": "NEWS-1863-CASUALTIES",
+     "ia": [
+      {
+       "identifier": null,
+       "note": "chroniclingamerica.loc.gov: Richmond and state newspapers, July to September 1863"
+      }
+     ],
+     "role": "commission",
+     "layout": "flow",
+     "status": "lead",
+     "covers": "named killed, wounded and missing by regiment as the 1863 newspapers printed them (page OCR text from the Library of Congress service)",
+     "note": "the earlier run recorded the host as blocked (HTTP 403 on robots.txt for its user agent, VSG19); the host is on this machine's reachable list: one test request first, then at most 1 request per second; newspaper OCR is noisy and every name stays as printed"
     }
    ],
    "first_tasks": [
@@ -8281,6 +8336,20 @@
      "status": "blocked",
      "covers": "the complete modern source",
      "note": "copyrighted and lending-restricted on the Internet Archive: never opened"
+    },
+    {
+     "id": "NEWS-1863-CASUALTIES",
+     "ia": [
+      {
+       "identifier": null,
+       "note": "chroniclingamerica.loc.gov: Richmond and state newspapers, July to September 1863"
+      }
+     ],
+     "role": "commission",
+     "layout": "flow",
+     "status": "lead",
+     "covers": "named killed, wounded and missing by regiment as the 1863 newspapers printed them (page OCR text from the Library of Congress service)",
+     "note": "the earlier run recorded the host as blocked (HTTP 403 on robots.txt for its user agent, VSG19); the host is on this machine's reachable list: one test request first, then at most 1 request per second; newspaper OCR is noisy and every name stays as printed"
     }
    ],
    "first_tasks": [
@@ -8597,6 +8666,20 @@
      "status": "blocked",
      "covers": "a web database; terms unread, no bulk download; not queried",
      "note": "host not in the reachable list on this machine"
+    },
+    {
+     "id": "NEWS-1863-CASUALTIES",
+     "ia": [
+      {
+       "identifier": null,
+       "note": "chroniclingamerica.loc.gov: Richmond and state newspapers, July to September 1863"
+      }
+     ],
+     "role": "commission",
+     "layout": "flow",
+     "status": "lead",
+     "covers": "named killed, wounded and missing by regiment as the 1863 newspapers printed them (page OCR text from the Library of Congress service)",
+     "note": "the earlier run recorded the host as blocked (HTTP 403 on robots.txt for its user agent, VSG19); the host is on this machine's reachable list: one test request first, then at most 1 request per second; newspaper OCR is noisy and every name stays as printed"
     }
    ],
    "first_tasks": [
@@ -8796,6 +8879,20 @@
      "status": "blocked",
      "covers": "the state archive; no free name database found",
      "note": "host not in the reachable list"
+    },
+    {
+     "id": "NEWS-1863-CASUALTIES",
+     "ia": [
+      {
+       "identifier": null,
+       "note": "chroniclingamerica.loc.gov: Richmond and state newspapers, July to September 1863"
+      }
+     ],
+     "role": "commission",
+     "layout": "flow",
+     "status": "lead",
+     "covers": "named killed, wounded and missing by regiment as the 1863 newspapers printed them (page OCR text from the Library of Congress service)",
+     "note": "the earlier run recorded the host as blocked (HTTP 403 on robots.txt for its user agent, VSG19); the host is on this machine's reachable list: one test request first, then at most 1 request per second; newspaper OCR is noisy and every name stays as printed"
     }
    ],
    "first_tasks": [
@@ -8877,6 +8974,20 @@
      "status": "used-earlier",
      "covers": "Soldiers of Florida in the Seminole Indian, Civil and Spanish-American Wars (1903): the rolls of the 2nd, 5th and 8th Florida",
      "note": "6.1 percent of rows had an empty name in the earlier run (the text layer drops names): a second reading of the page images is needed"
+    },
+    {
+     "id": "NEWS-1863-CASUALTIES",
+     "ia": [
+      {
+       "identifier": null,
+       "note": "chroniclingamerica.loc.gov: Richmond and state newspapers, July to September 1863"
+      }
+     ],
+     "role": "commission",
+     "layout": "flow",
+     "status": "lead",
+     "covers": "named killed, wounded and missing by regiment as the 1863 newspapers printed them (page OCR text from the Library of Congress service)",
+     "note": "the earlier run recorded the host as blocked (HTTP 403 on robots.txt for its user agent, VSG19); the host is on this machine's reachable list: one test request first, then at most 1 request per second; newspaper OCR is noisy and every name stays as printed"
     }
    ],
    "first_tasks": [
@@ -9004,6 +9115,20 @@
      "status": "blocked",
      "covers": "the robots file answered 403 in the earlier run",
      "note": "not used"
+    },
+    {
+     "id": "NEWS-1863-CASUALTIES",
+     "ia": [
+      {
+       "identifier": null,
+       "note": "chroniclingamerica.loc.gov: Richmond and state newspapers, July to September 1863"
+      }
+     ],
+     "role": "commission",
+     "layout": "flow",
+     "status": "lead",
+     "covers": "named killed, wounded and missing by regiment as the 1863 newspapers printed them (page OCR text from the Library of Congress service)",
+     "note": "the earlier run recorded the host as blocked (HTTP 403 on robots.txt for its user agent, VSG19); the host is on this machine's reachable list: one test request first, then at most 1 request per second; newspaper OCR is noisy and every name stays as printed"
     }
    ],
    "first_tasks": [
@@ -9127,6 +9252,20 @@
      "status": "used-earlier",
      "covers": "Chilton, Unveiling and Dedication of the Monument to Hood's Texas Brigade (1911)",
      "note": "second source for 4th Texas Company H"
+    },
+    {
+     "id": "NEWS-1863-CASUALTIES",
+     "ia": [
+      {
+       "identifier": null,
+       "note": "chroniclingamerica.loc.gov: Richmond and state newspapers, July to September 1863"
+      }
+     ],
+     "role": "commission",
+     "layout": "flow",
+     "status": "lead",
+     "covers": "named killed, wounded and missing by regiment as the 1863 newspapers printed them (page OCR text from the Library of Congress service)",
+     "note": "the earlier run recorded the host as blocked (HTTP 403 on robots.txt for its user agent, VSG19); the host is on this machine's reachable list: one test request first, then at most 1 request per second; newspaper OCR is noisy and every name stays as printed"
     }
    ],
    "first_tasks": [
@@ -9204,6 +9343,20 @@
      "status": "not-found",
      "covers": "no open roll of the 3rd Arkansas Infantry was found on the Internet Archive; the Arkansas State Archives answered with an error in the earlier run",
      "note": ""
+    },
+    {
+     "id": "NEWS-1863-CASUALTIES",
+     "ia": [
+      {
+       "identifier": null,
+       "note": "chroniclingamerica.loc.gov: Richmond and state newspapers, July to September 1863"
+      }
+     ],
+     "role": "commission",
+     "layout": "flow",
+     "status": "lead",
+     "covers": "named killed, wounded and missing by regiment as the 1863 newspapers printed them (page OCR text from the Library of Congress service)",
+     "note": "the earlier run recorded the host as blocked (HTTP 403 on robots.txt for its user agent, VSG19); the host is on this machine's reachable list: one test request first, then at most 1 request per second; newspaper OCR is noisy and every name stays as printed"
     }
    ],
    "first_tasks": [
@@ -9305,6 +9458,20 @@
      "status": "used-earlier",
      "covers": "Goldsborough, The Maryland Line in the Confederate Army (the item is dated 1900): rosters of the 1st Maryland and of the batteries (Baltimore Light, Chesapeake and the others)",
      "note": "two different Goldsborough rosters are filed under one id in the earlier run (1,242 rows): the identity of the \"1st Maryland\" is contested"
+    },
+    {
+     "id": "NEWS-1863-CASUALTIES",
+     "ia": [
+      {
+       "identifier": null,
+       "note": "chroniclingamerica.loc.gov: Richmond and state newspapers, July to September 1863"
+      }
+     ],
+     "role": "commission",
+     "layout": "flow",
+     "status": "lead",
+     "covers": "named killed, wounded and missing by regiment as the 1863 newspapers printed them (page OCR text from the Library of Congress service)",
+     "note": "the earlier run recorded the host as blocked (HTTP 403 on robots.txt for its user agent, VSG19); the host is on this machine's reachable list: one test request first, then at most 1 request per second; newspaper OCR is noisy and every name stays as printed"
     }
    ],
    "first_tasks": [
@@ -9472,13 +9639,31 @@
    ]
   },
   {
+   "id": "roster-gettysburg-lists",
+   "title": "Statements of presence at Gettysburg that no roll prints: Official Records, National Cemetery, 1863 newspapers",
+   "army": "both",
+   "wave": 4,
+   "depends_on": "units.json only (it can start at once; its segments are added to unit files after the state groups have written theirs)",
+   "tasks": [
+    "Officers named in the Official Records vol 27 reports and returns (local text tmp/library/or27, index docs/battle-theatre/library/or27_index.json, tools/bt/or27_find.py): one row per named officer and unit with the printed sentence as the remarks, offsets in the OR text; one segment of each of the 640 unit files that has such a name.",
+    "The Soldiers' National Cemetery burial lists (PA-CEM-1867, IA revisedreportmad00penn and revisedreportma00cemegoog; ws9 copies CEM-REPORT-1867, CEM-BARTLETT-1874): named dead by state and unit, graves as printed; the Confederate dead reburied in Richmond (lists not located, C15) recorded as a gap.",
+    "The 1863 newspaper casualty lists on chroniclingamerica.loc.gov (one test request, then at most one per second): Richmond and state dailies of July to September 1863 for the Confederate units, the New York, Philadelphia and Boston dailies for the Union units; names as printed.",
+    "Gettysburg commission volumes already local in tmp/library/ws9 (NJ-TOOMBS-1888, NJ-FINAL-1891, VT-MON-1890, OH-DED-1887, OH-8TH-1889, IN-1913, MN-1ST-1916, MA-BURIAL-1863, PA at Gettysburg): lists of named men present, wounded or killed, as segments."
+   ],
+   "gates": [
+    "every row locatable (V1 to V3) in its own text",
+    "a stated presence is only what the list prints: no inference from a name on a roll",
+    "nothing from a modern compilation"
+   ]
+  },
+  {
    "id": "roster-app",
    "title": "Roster section of the web page (docs/battle-theatre/app/roster)",
    "army": "both",
    "wave": 4,
    "depends_on": "roster-index (the index and the unit files)",
    "tasks": [
-    "A reader in JavaScript for roster2/1 (gunzip with DecompressionStream, one file per unit, no server): app/roster/reader.mjs and tests app/tests/roster-format.test.mjs that read the two real prototype files and every unit file present.",
+    "A reader in JavaScript for roster2/2 (gunzip with DecompressionStream, one file per unit, no server): app/roster/reader.mjs and tests app/tests/roster-format.test.mjs that read the two real prototype files and every unit file present.",
     "The page of PLAN.md section 4.2 without per-man presence labels: search by surname and unit, unit page with the segments and their sources and rights, the printed remark shown as printed, a visible mark where the source states presence at Gettysburg (a remark naming Gettysburg, a participants list, a casualty list, a burial list) and the tier of every non-documented statement; \"n present, names not recovered\" against the documented strength.",
     "Rights per name: each row shows its segment source, volume, printed page and the ledger rights text; no file of the page may mention how the data was made."
    ],

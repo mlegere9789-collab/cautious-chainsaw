@@ -1,3 +1,12 @@
+Traceback (most recent call last):
+  File "/home/user/cautious-chainsaw/tools/bt/drill_check.py", line 457, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/home/user/cautious-chainsaw/tools/bt/drill_check.py", line 103, in main
+    occ = T.locate(m, v)
+  File "/home/user/cautious-chainsaw/tools/bt/drill_text.py", line 140, in locate
+    full, offs, lns = normtext(manual)
+                      ~~~~~~~~^^^^^^^^
   File "/home/user/cautious-chainsaw/tools/bt/drill_text.py", line 125, in normtext
     lines = raw(manual)
   File "/home/user/cautious-chainsaw/tools/bt/drill_text.py", line 107, in raw

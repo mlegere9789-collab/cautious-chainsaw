@@ -1,6 +1,6 @@
 {
  "_doc": "Camera-position statements for the Q16 photographs: what each source literally says about where the camera stood or which way it looked. Built by build_statements.py; every quote was found in the saved source text. tier documented = the source says it (it is a statement, not a coordinate); tier lead = a statement the source takes from a book that may not be used (Frassanito), listed so that nothing is hidden. No source read gives a coordinate.",
- "count": 60,
+ "count": 64,
  "sources": {
   "LOC-2012647712": {
    "id": "LOC-2012647712",
@@ -120,6 +120,16 @@
    "local_text": "tmp/photomatch/raw/item_2018666303.json",
    "sha256_text": "6cb0cfde7821045c0033742f6b1013291ba5f5127134dc5af2a533a5aa3b5d24",
    "retrieved": "2026-11-11",
+   "rights": "LOC: no known restrictions on publication"
+  },
+  "LOC-2012647708": {
+   "id": "LOC-2012647708",
+   "kind": "Library of Congress catalogue record (open JSON of the record)",
+   "title": "The battle-field of Gettysburg. Little Round Top and Round Top",
+   "url": "https://www.loc.gov/pictures/item/2012647708/",
+   "local_text": "tmp/photomatch/raw/item_2012647708.json",
+   "sha256_text": "342195e448139dd4a82711dc4190382d5e5bc21ad19a3c965e9ed75713a1b744",
+   "retrieved": "2026-11-13",
    "rights": "LOC: no known restrictions on publication"
   },
   "LOC-2018666315": {
@@ -648,6 +658,25 @@
    "coordinates_published": false
   },
   {
+   "id": "PS-LOC-2012647708-T",
+   "src": "LOC-2012647708",
+   "quote": "Little Round Top and Round Top",
+   "loc": [
+    "2012647708"
+   ],
+   "res": [
+    "ppmsca.32842"
+   ],
+   "says": "the print's title: Little Round Top and Round Top; no camera position in the record (the NPS gives one: PS-TN-LRT1-DIR, PS-NPS-VISTA-10)",
+   "prec": "none",
+   "ident": "record id",
+   "page": "record",
+   "offset_in_normalised_page": 32,
+   "match": "exact",
+   "tier": "documented",
+   "coordinates_published": false
+  },
+  {
    "id": "PS-LOC-2018666315-T",
    "src": "LOC-2018666315",
    "quote": "Three Confederate prisoners",
@@ -1135,8 +1164,8 @@
    "prec": "place+dir+ref",
    "ident": "caption only (the report pages reproduce them only as stains: the scan is unreadable)",
    "cand": [
-    "2012647701",
     "2012647708",
+    "2012647701",
     "2018670709",
     "2018666301",
     "2018672207",
@@ -1197,6 +1226,52 @@
    "prec": "place",
    "ident": "stereo number (252 = LC-B811-0252 of record 2018666312)",
    "page": 58,
+   "match": "read from the page image of the saved PDF; the text layer is garbled (not machine-checkable)",
+   "coordinates_published": false
+  },
+  {
+   "id": "PS-NPS-SPEN-3",
+   "src": "NPS-SLAUGHTER-PEN",
+   "quote": "North end of Slaughter Pen and Plum Run Valley (O'Sullivan), 6 July 1863",
+   "loc": [],
+   "says": "plate 3 of the report: an O'Sullivan photograph of the north end of the Slaughter Pen and Plum Run Valley, 6 July 1863, with a large boulder carrying a trough visible in it",
+   "prec": "place",
+   "ident": "caption only: not identified with a catalogued record",
+   "page": 54,
+   "offset_in_normalised_page": 3,
+   "match": "exact",
+   "tier": "documented",
+   "coordinates_published": false
+  },
+  {
+   "id": "PS-NPS-SPEN-4",
+   "src": "NPS-SLAUGHTER-PEN",
+   "quote": "boulders of Plum Run gorge, which was the route of attack of that regiment of Benning's Brigade.",
+   "loc": [
+    "2018670625"
+   ],
+   "says": "Gardner no. 229, 6 July 1863 (a dead Confederate soldier): taken in the mass of rocks and boulders of Plum Run gorge",
+   "prec": "place",
+   "ident": "stereo number (229 = LC-B811-229A/B of record 2018670625)",
+   "page": 55,
+   "offset_in_normalised_page": 218,
+   "match": "exact",
+   "tier": "documented",
+   "coordinates_published": false
+  },
+  {
+   "id": "PS-NPS-SPEN-8",
+   "src": "NPS-SLAUGHTER-PEN",
+   "quote": "Dead Confederate soldier, Devil's Den (Gardner #277), 6 July 1863 ... near the edge of the G.W. Weikert field",
+   "image_read": 59,
+   "tier": "inferred",
+   "loc": [
+    "2018666314"
+   ],
+   "says": "Gardner no. 277, 6 July 1863: the soldier is near the edge of the G.W. Weikert field (read from the page image; the text layer of that page is empty)",
+   "prec": "place",
+   "ident": "stereo number (277 = LC-B811-0277 of record 2018666314)",
+   "page": 59,
    "match": "read from the page image of the saved PDF; the text layer is garbled (not machine-checkable)",
    "coordinates_published": false
   },
@@ -1368,10 +1443,15 @@
    "id": "PS-TN-DD8-STAGED",
    "src": "NPSWEB-TN-DD",
    "quote": "This staged photograph was taken more than four months after the battle, by Peter Weaver, on November 11, 1863",
-   "loc": [],
-   "says": "the NPS calls the Weaver Devil's Den photograph of 11 November 1863 staged and more than four months after the battle (not a record of the catalogue: out of scope)",
+   "loc": [
+    "2012647845"
+   ],
+   "res": [
+    "ppmsca.32931"
+   ],
+   "says": "the NPS calls the Weaver Devil's Den photograph of 11 November 1863 staged and more than four months after the battle; its image is LOC ppmsca 32931 (record 2012647845, added to the catalogue by mistake as July 1863 and reclassified: not July, staged)",
    "prec": "none",
-   "ident": "n/a",
+   "ident": "image match (ppmsca.32931, 1236 inliers)",
    "page": "page",
    "offset_in_normalised_page": 7211,
    "match": "exact",
@@ -1473,10 +1553,15 @@
    "id": "PS-TN-LRT1-DIR",
    "src": "NPSWEB-TN-LRT",
    "quote": "A photo of Little and Big Round Top, facing southeast. Photographer Matthew Brady can be seen leaning against a tree in the left foreground.",
-   "loc": [],
+   "loc": [
+    "2012647708"
+   ],
+   "res": [
+    "ppmsca.32842"
+   ],
    "says": "the 'Little and Big Round Top from the Valley of Death' photograph faces southeast; Matthew Brady leans against a tree in the left foreground",
-   "prec": "dir",
-   "ident": "caption only: the NPS image is not among the catalogued records unless the re-match says otherwise",
+   "prec": "place+dir",
+   "ident": "image match (ppmsca.32842, 1046 inliers)",
    "page": "page",
    "offset_in_normalised_page": 984,
    "match": "exact",

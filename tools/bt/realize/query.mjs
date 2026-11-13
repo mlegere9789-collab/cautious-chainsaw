@@ -64,6 +64,12 @@ export class Product {
     if (typeof spec === 'object') return { id: spec.id || 'custom', label: spec.label || 'custom', choices: { ...(spec.choices || {}) } };
     throw new Error(`unknown scenario "${spec}" (use 'default', 'pdf' or { choices })`);
   }
+  // the scenarios of a row's conflict group (GATE-SPEC-A TL-8): the shell's default, and for every conflict a row names (C-nnn in its text) one scenario per selectable value, everything else on its default
+  conflictScenarios(text) {
+    const ids = [...new Set(String(text || '').match(/\bC-\d{3}\b/g) || [])], base = this.scenarioSpec('default'), out = ['default'];
+    for (const id of ids) { const c = this.conflicts.find(x => x.id === id); if (!c) continue; for (const o of c.options) { if (o.key === 'range') continue; out.push({ id: `${id}:${o.key}`, label: `${id} = ${o.label}`, choices: { ...base.choices, [id]: o.key } }); } }
+    return out;
+  }
   scene(spec = 'default') { const sc = this.scenarioSpec(spec), key = JSON.stringify([sc.id, sc.choices]); let s = this._scenes.get(key); if (!s) { s = new Scene(this, sc, key, spec); this._scenes.set(key, s); } return s; }
   // ---- units: static facts
   unit(id) { const u = this.byId.get(id); return u || null; }

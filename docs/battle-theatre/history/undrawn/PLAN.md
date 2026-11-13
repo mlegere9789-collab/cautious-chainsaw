@@ -22,23 +22,23 @@ The layer draws 439 of 726 units (127,572 figures). 108 leaf units are open gaps
 
 ### 1.2 Rules for every record
 
-1. **Nothing is narrowed or deferred** (Law 1, 6). Every unit of the 24 groups ends with, for each word of what is missing, evidence of the right kind or a visible marked gap. "Too much work" is never a reason; a group that cannot finish in one session leaves a file that passes the checker without `--complete` and a note of what is owed, and the units still owed become round 2 (section 6.7).
+1. **Nothing is narrowed or deferred** (Law 1, 6). Every unit of the 24 groups ends with, for each word of what is missing, evidence of the right kind or a visible marked gap. "Too much work" is never a reason; a session that ends before a group is finished leaves a file that passes the checker without `--complete` and a note of what is still owed; the next round continues from exactly that list (section 6.7), until nothing is owed.
 2. **Nothing is fabricated** (Law 4). Every quote is at most 14 words and is found by code, verbatim, in a local text at the offset recorded; every `printed` field of a record is found in the passage that was read; a claim is `documented` only when the author's role and the whole passage support exactly that claim; a failed lookup is a `gap` record with the searches made. Never a source: Wikipedia, forums, blogs, auction pages, memory. A text that cannot be acquired is named `NOT-ACQUIRED:<title>` and never quoted.
 3. **Gaps are visible** (Law 3, 7). A gap record becomes a proposed Evidence-Gap Register entry and a mark on the unit's card ("open gap"); the owner escalates it in the Decision Log. No exception is ever claimed.
 4. **No unit before its earliest documented arrival** (Q04). A record that puts a unit at the field earlier than its gate is kept, listed and never applied; the gate is not moved. Arrival is a march: a unit enters along a road from outside the loaded ground.
-5. **Conflicts are carried, never resolved** (Law 6). Two records that disagree name each other in `conflicts_with`; both stay; the layer places neither where it cannot reach both (section 6.2).
+5. **Conflicts are carried, never resolved** (Law 6). Two records that disagree name each other in `conflicts_with`; both stay; the layer places neither (two roads for one unit, or one place at two hours within 90 minutes: section 6.2) and lists both on the card.
 6. **Strengths are ranges with a declared basis.** A printed number is written as printed (`value`) or as the printed range (`min`, `max`) with `what` it counts and the date it refers to; nothing is averaged, summed or completed.
 7. **Tier marking stays** (DEC-006 dropped only the reviewer label). Tiers: `documented`, `inferred`, `open gap`; a group file never holds `plausible-procedural` (what the builder fills in is the builder's, never typed in).
 8. **Copy audit.** The prose fields of a record (`statement`, `reasoning`, `note`, `fidelity_note`, the gap texts) reach the cards: they must not say how the page was made (the pattern of `app/tests/ui.spec.mjs`; the checker applies it). A historical quote that holds one of the words is listed and elided by the integrator.
 9. **One writer per file.** A researcher writes only `undrawn/<group>.jsonl`, `tmp/units-<group>/`, `GOVERNANCE/horde/ws-units/<group>/` and `GOVERNANCE/horde/ws-units/proposed-register/<group>-*.md`. The shared files (`history/units.json`, `arrivals.json`, `positions_*.jsonl`, `app/data/*`) are the integrator's; a change wanted there is a request note under `GOVERNANCE/horde/requests/`. A record names only units of its own group (the checker refuses the others).
-10. **Public sources only** at most one request a second, no logins, no CAPTCHAs, no bot-block circumvention. Reachable: archive.org (`https://archive.org/cors/<identifier>/<file>`), www.loc.gov, tile.loc.gov, cdn.loc.gov, chroniclingamerica.loc.gov, www.nps.gov, www.npshistory.com, www.gutenberg.org, catalog.archives.gov. Blocked by their own bot check, never retried: babel.hathitrust.org, ehistory.osu.edu. A refused host is recorded as blocked in the notes.
+10. **Public sources only:** at most one request a second, no logins, no CAPTCHAs, no bot-block circumvention. Reachable: archive.org (`https://archive.org/cors/<identifier>/<file>`), www.loc.gov, tile.loc.gov, cdn.loc.gov, chroniclingamerica.loc.gov, www.nps.gov, www.npshistory.com, www.gutenberg.org, catalog.archives.gov. Blocked by their own bot check, never retried: babel.hathitrust.org, ehistory.osu.edu. A refused host is recorded as blocked in the notes.
 
 ### 1.3 What "done" means
 
 - **A unit** is done when, for each word of its `missing` (section 2.3), the group file holds a record of the kind that closes it (the unit's own, or for arrival, positions and path a formation above it) or a gap record that names the word; for positions, one per day of 1 to 3 July on which the layer holds no place. `check_undrawn.py <group> --complete` computes this and lists what is still owed.
 - **A group** is done when `check_undrawn.py <group> --complete` exits 0 (exit 2 is allowed only when a declared source text is not on this machine: list it in the notes), every roster-gap entry of the group is confirmed by a `unit` record or answered with a gap (`what: ["roster"]`), every gap record has its proposed register entry, `GOVERNANCE/horde/ws-units/<group>/NOTES.md` says what was read and what was not, and one dated line is appended to `GOVERNANCE/progress.md`.
 - **The round** is done when `check_undrawn.py --all` exits 0, the integrator has merged (section 6) and `derive_status.mjs` has been re-run; units whose `missing` is still not empty and that no gap record covers are the round-2 list.
-- A milestone is never reported complete unless the Section Z checklist is true and `check_governance.py` passes (CLAUDE.md).
+- A milestone is never reported complete unless the Section Z checklist is true and `check_governance.py` passes (the project's standing instructions).
 
 ## 2. Words and numbers
 
@@ -107,7 +107,6 @@ The layer draws 439 of 726 units (127,572 figures). 108 leaf units are open gaps
 | drawn units by road of approach: only the corps-level road is printed (plausible-procedural) | 170 |
 | drawn units by road of approach: modelled from the sibling formations of the corps (DEC-015, EG-0070) | 56 |
 | placed units with a place on 1, 2 or 3 days of 1 to 3 July (days from the unit's gate; a place is a ledger stop or a single-label troop-map position) | 150, 177, 91 |
-| leaf units on the field that no ledger claim names (everything of theirs comes from a formation above) | 165 |
 | roster-gap entries (units printed in the Official Records tables that the roster lacks, splits or lists with another status) | 125 |
 <!-- /GEN:totals -->
 
@@ -130,7 +129,7 @@ Merritt's 5 regiments (Emmitsburg Road, AP-05), Hampton's 6 (Hunterstown Road, A
 
 ### 3.3 The 418 placed units
 
-The placed units are `partly_drawn` by construction. Their roads: the road is printed for the unit or a formation below the corps for the larger part, the corps-level road only for the next, and 56 take a MODELLED road from their siblings (the Fifth Corps by the Hanover Road, 24; the First Corps of Longstreet by the Chambersburg Pike, 32). Their places are the ledger stops and the single-label troop-map positions; most have a place on one or two of the three days. Their arrival windows are inherited from the corps, division or brigade row, and every strength is a procedural share (see the counts in 2.5).
+The placed units are `partly_drawn` by construction. Of the 439 drawn units (the 418 placed and the 21 at the edge), 213 march in by a road printed for the unit or for a formation below the corps, 170 by the corps-level road only (tier plausible-procedural), and 56 by a MODELLED road taken from their siblings (the Fifth Corps by the Hanover Road, 24; Longstreet's First Corps by the Chambersburg Pike, 32). Their places are the ledger stops and the single-label troop-map positions; of the 418 placed units 150 have a place on one of the three days, 177 on two and 91 on all three. Their arrival windows are inherited from the corps, division or brigade row (7 leaf units have a gate of their own), and every strength is a procedural share.
 
 ### 3.4 Cavalry
 
@@ -691,7 +690,7 @@ A field the checker does not know is listed as a warning and ignored by the inte
 | `absent` | the unit was not on the field | `absent`; `when` when only part of the battle | not on the field |
 | `line_order` | the order of units in a line or a column | `when`, `order` | order of march and of a line |
 | `road_identification` | what a printed road name is, in gazetteer terms | `road_identification` | `path` (supports) |
-| `source` | a text the researcher acquired | `source_decl` (5.5) | none |
+| `source` | a text the researcher acquired | `source_decl` (5.9) | none |
 | `gap` | nothing found, after searches | `gap` (5.8) | any word, visibly |
 
 **5.3.1 `unit`.** `unit.action`: `add` (a unit the roster lacks: `parent`, `name`, `level`, `arm` required; `status` optional, default `on_field`; the id is the parent's id, a hyphen and a slug, or the id pre-assigned in `roster-gaps.json`), `absent` (the same fields with `status` `never_on_field` or `never_main_field`: printed in the table as not engaged), `attached` (`attached_to`: a unit attached to another has no figures of its own unless a source gives them), `merge` (`merge_of`: two or more roster ids the table prints as one consolidated battery), `status` (`status`: the new roster status), `rename` (`name`), `fix` (`fix`, 40 characters or more: only for the one roster-structure case that `roster-gaps.json` pre-classifies, the 32d Massachusetts; any other structural error is a `gap` with `what: ["roster"]` and a request note). Levels: `army corps division brigade regiment battalion battery company artillery_brigade artillery_battalion artillery_group group command headquarters person`; arms: `infantry cavalry artillery staff medical train headquarters`. A `unit` record is evidence like any other: it cites the printed table line (the quote, offset and page that `roster-gaps.json` already holds are the starting point).
@@ -816,7 +815,7 @@ Humphreys (OR27-1-R158, p. 531): the Third Brigade's march, and what the printed
  "road": {"printed": "the main road from Emmitsburg to Gettysburg", "ref": "GZ-041", "identification": "U-us-3c-2d-9006", "enters_ground": true}}
 ```
 
-(One record, wrapped for reading; in the file it is one line. The offsets and the page are computed by code from the local text; every record of the fixture, `tools/fixtures/us-3c-2d.good.jsonl`, was built the same way by `tools/make_fixtures.py`.) The same fixture holds a position placed relative to another unit (`"anchor":{"type":"unit","ref":"us-3c-2d-carr"},"relation":{"rel":"right_of"}`: the Fifth Excelsior "was placed on the right of the First Brigade", Brewster, OR27-1-R169), a day part ("At an early hour of the morning" is `early_morning`), a printed clock with a window (`when` and `until`, the 11th Massachusetts' engagement from 3 p. m. until 8 p. m.), two disagreeing arrivals (Humphreys' division at 1 a. m. and the 11th Massachusetts at 2 a. m. on 2 July; Brewster's report says midnight: three values, all carried, none chosen), two strength records from one sentence, a documented absence (the 84th Pennsylvania with the division's wagon train) and a line order.
+(One record, wrapped for reading; in the file it is one line. The offsets and the page are computed by code from the local text; every record of the fixture, `tools/fixtures/us-3c-2d.good.jsonl`, was built the same way by `tools/make_fixtures.py`.) The same fixture holds a position placed relative to another unit (`"anchor":{"type":"unit","ref":"us-3c-2d-carr"},"relation":{"rel":"right_of"}`: the Fifth Excelsior "was placed on the right of the First Brigade", Brewster, OR27-1-R169), a day part ("At an early hour of the morning" is `early_morning`), a printed clock with a window (`when` and `until`, the 11th Massachusetts' engagement from 3 p. m. until 8 p. m.), two disagreeing arrivals (Humphreys' division at 1 a. m. and the 11th Massachusetts at 2 a. m. on 2 July, each naming the other in `conflicts_with`; Brewster's report prints a third value for his brigade, about midnight, which a third record would join: all carried, none chosen), two strength records from one sentence, a documented absence (the 84th Pennsylvania with the division's wagon train) and a line order.
 
 ## 6. The integrator
 
@@ -825,14 +824,14 @@ One engineer merges the 24 files. Nothing below needs a hand edit of a group fil
 ### 6.1 Order of work
 
 1. `check_undrawn.py --all` exits 0 (warnings listed in the merge report). A file with errors is not merged; the other groups are.
-2. A new program `app/tools/build-undrawn.mjs` reads the files and writes the outputs of 6.2 (all generated, idempotent, no timestamps; `--check` fails if one is stale).
+2. A new program `app/tools/build-undrawn.mjs` reads the files and writes the outputs of 6.2 (all derived from the files, idempotent, no timestamps; `--check` fails if one is stale).
 3. `app/tools/build-claim-placement.mjs` rebuilds `placement-claims.json` and the dispositions; the other data builders that read the roster rebuild (`build-sibling-approach.mjs`, `build-daypositions.mjs`, `build-cavalry-horses.mjs`).
 4. `real.mjs` and the loaders read the new files when they are present; a layer built without them is exactly the layer of today (tested, as for every earlier addition).
 5. Tests (6.6), then `derive_status.mjs` and `build_groups.py`: the round-2 list.
 
 ### 6.2 Mapping, record kind to layer data
 
-The ledger shape is the one of `history/positions/positions_{A..E}.jsonl` (`claim_id`, `unit_id`, `kind`, `when {printed, date, t_iso, approx}`, `place {printed, gazetteer_ref, direction_or_road}`, `activity`, `source`, `tier`, `render_flag`, `claim_support_verified`, `fidelity_check`, `conflicts_with`, `note`). A group record becomes a claim of a sixth ledger F (`LEDGER_NAMES.F = 'positions_F.jsonl'` in `app/tools/claim-ledger.mjs`), so that the existing rules, cards, dispositions and tests apply unchanged: a claim is used only if `claim_support_verified` is true, `fidelity_check` is `passed_full_read`, and the tier is documented or inferred; claims earlier than the unit's gate are kept and listed, never applied; two roads for one unit, or two places at different hours within 90 minutes, are conflicts and neither is placed.
+The ledger shape is the one of `history/positions/positions_{A..E}.jsonl` (`claim_id`, `unit_id`, `kind`, `when {printed, date, t_iso, approx}`, `place {printed, gazetteer_ref, direction_or_road}`, `activity`, `source`, `tier`, `render_flag`, `claim_support_verified`, `fidelity_check`, `conflicts_with`, `note`). A group record becomes a claim of a sixth ledger F (`LEDGER_NAMES.F = 'positions_F.jsonl'` in `app/tools/claim-ledger.mjs`), so that the existing rules, cards, dispositions and tests apply unchanged: a claim is used only if `claim_support_verified` is true, `fidelity_check` is `passed_full_read` or `corrected`, and the tier is documented or inferred; claims earlier than the unit's gate are kept and listed, never applied; two roads for one unit, or two places at different hours within 90 minutes, are conflicts and neither is placed.
 
 | Record kind | Becomes | Rule |
 |---|---|---|
@@ -842,7 +841,7 @@ The ledger shape is the one of `history/positions/positions_{A..E}.jsonl` (`clai
 | `arrival` with `scope: field` | two things: (a) the unit's own gate in `app/data/unit-overlay.json` (`gates`): `earliest` = the earliest printed time of the unit's `arrival` records, `latest` = the latest, `default` = the earliest (the "range" choice of the scenario machinery: every value shown, none chosen), `kind` `printed_clock` or `named_period_convention` (the token's instant), tier from the claims; (b) a `stops` row when its place resolves | a unit with its own printed time may be drawn before its parent's gate (the rule of `ArrivalModel.effective`); a gate is never earlier than the earliest documented arrival; disagreeing records are listed as the conflict of the gate, none chosen |
 | `arrival` with `scope: vicinity` | an F claim of kind `march` | a floor for the unit's presence on the road (it cannot be on the ground earlier than it was short of it plus the march), not a gate |
 | `departure` | a `departures` row (a DP entry) | a printed time and a gazetteer road (existing rule) |
-| `strength` | `unit-overlay.json` (`strengths`): the unit's records (`what`, value or range, `as_of`, claims); `allocateStrengths` reads them | a leaf with a record gets `kind: printed` with the declared range and basis; the pool of its figured ancestor is not conserved by subtraction (the figures count different things at different dates); the card shows the range, the basis and what the number counts; no figure is ever capped |
+| `strength` | `unit-overlay.json` (`strengths`): the unit's records (`what`, value or range, `as_of`, claims); `allocateStrengths` reads them | a leaf with a record gets `kind: printed` with the declared range and basis; how the pool of its figured ancestor changes is a decision of 6.5 (the figures count different things at different dates); the card shows the range, the basis and what the number counts; no figure is ever capped |
 | `line_order` | `unit-overlay.json` (`line_orders`): the order inside a column (`planTracks`, in place of roster order, EG-0005) and the left-to-right layout of a brigade's regiments | the units named stay in their formation |
 | `road_identification` | an `identification` of an approach row; an F claim of kind `road_identification` | `tier` inferred |
 | `absent` | `documented_absent` rows (ABS) of the curation: two or more records of the unit (different passages), at least one documented, a summary of 60 characters or more, a register id | one record alone leaves the unit `listed_not_on_field` with the claim on its card |
@@ -863,7 +862,7 @@ The builder resolves an anchor to a derived place `GZU-nnn` of `app/data/gazette
 | Anchor | Coordinates | Sigma (default; declared as a delegated decision) |
 |---|---|---|
 | `troopmap` | the claim's own point in `app/data/daypositions.json` | the claim's own `sigma_m`, unchanged |
-| `monument` | `lat`, `lng` of the monument in `app/data/site-bookmarks.json`, only with the quoted statement in `anchor.basis` | not less than the larger of 100 m and the monument's own spread; the later memorial is never an object of the 1863 scene |
+| `monument` | `lat`, `lng` of the monument in `app/data/site-bookmarks.json`, only with the quoted statement in `anchor.basis` | not less than the larger of 100 m and the monument's own spread; the monument is evidence of a position, never drawn as an object of the 1863 scene (DD-WORLD-03) |
 | `structure` | the footprint centroid or point of the id in `app/data/structures3d.json` | the feature's `err` (m), not less than 20 m |
 | `road_crossing` | the crossing of the two gazetteer lines; refused if they do not meet inside the ground | the larger sigma of the two roads |
 | `along_road` with `near` | the point of the road nearest the `near` place | the larger of the road's and the place's sigma; refused without `near` or `relation` (the position along a road is not printed) |
@@ -914,7 +913,7 @@ python3 -I docs/battle-theatre/history/undrawn/tools/check_undrawn.py <group> [-
 
 ### 9.3 Known limits of the texts
 
-The OCR damages digits, names and line breaks (a stray character inside a hyphenated word keeps the word from joining: write the quote around it and set `ocr_uncertain`). The index's page model is several pages high inside the organization tables (`OR27-1-R009`, `OR27-2-R424`): give the page read from the running heads inside the table as `printed_page` with `page_basis` (as `roster-gaps.json` does). Reports of 1863 and later memoirs differ in kind: the memoir is `documented` only where its author states a fact of his own unit and the card shows the date.
+The OCR damages digits, names and line breaks (a stray character inside a hyphenated word keeps the word from joining: write the quote around it and set `ocr_uncertain`). The index's page model is several pages high inside the organization tables (`OR27-1-R009`, `OR27-2-R424`): give the page read from the running heads inside the table as `printed_page` with `page_basis` (as `roster-gaps.json` does); the scan-leaf map `docs/battle-theatre/kit/evidence/or27_leaf_pages.json` (built by `tools/bt/kit_or27_leafmap.py` from the per-leaf OCR of the archive.org items) gives the printed page of any offset without running heads and may be named as the `page_basis`. Reports of 1863 and later memoirs differ in kind: the memoir is `documented` only where its author states a fact of his own unit and the card shows the date.
 
 ## 10. What this plan does not do
 
@@ -922,3 +921,4 @@ The OCR damages digits, names and line breaks (a stray character inside a hyphen
 - The group sections list the Official Records reports that the ledgers already cite for each group and the reports between them that no claim cites; they are leads, not a reading list that is complete: the researcher reads all reports of the group's formations.
 - It does not read the texts for the researcher: no record of any group exists yet (the fixture's claim ids, 9000 and over, are format tests of the checker, never evidence).
 - The separate roster of soldiers (`rosters/`, workstream bt-rosters) keys on the same unit ids; the integrator tells that workstream of any added, merged or renamed unit through a request note.
+- The kit-evidence pass (`docs/battle-theatre/kit/evidence/`, its own plan and `groups.json`) reads the same Official Records reports for the strength, commander, casualties and arms of every unit. A researcher reads the rows of that file for the group's units first (the `strength` field says what is there now) and does not repeat a figure it already holds; a strength found here that the kit pass lacks is recorded here, with the report and the quote, so that the same report and quote give the same figure in both places, and the integrator reconciles the two by source, never by choosing.

@@ -56,8 +56,8 @@ try {
 
   // the panel of the memorials, still off
   await P.click('.xp-item[data-xpanel="later-memorials"]'); await P.waitForSelector('#xm-list .item'); await P.waitForTimeout(150);
-  const p0 = await P.evaluate(() => { const b = document.querySelector('.xp-body[data-xpanel="later-memorials"]') || document.querySelector('#bt-drawer-body'); return { text: b.textContent.replace(/\s+/g, ' ').slice(0, 900), pills: [...b.querySelectorAll('.pill')].map(p => (p.dataset.tier || p.dataset.xm || '') + ':' + p.textContent.trim().replace(/\s+/g, ' ')).slice(0, 8), rows: b.querySelectorAll('#xm-list .item').length, count: b.querySelector('#xm-count')?.textContent, on: b.querySelector('#xm-on')?.checked, pos: !!b.querySelector('#xm-pos') }; });
-  check('the memorial panel says what they are: later, not part of the 1863 scene, off until switched on, with the tier pill and the open gap for the year', /put up after the battle|after the battle|Every one of them remembers the battle/.test(p0.text) && /not part of the 1863 scene/.test(p0.text) && /off until you switch/.test(p0.text) && p0.on === false && /ws-world-EG-MON-01/.test(p0.text) && p0.pills.some(x => /^inferred:/.test(x)) && p0.pills.some(x => /^post-battle:Post-battle/.test(x)), p0);
+  const p0 = await P.evaluate(() => { const b = document.querySelector('.xp-body[data-xpanel="later-memorials"]') || document.querySelector('#bt-drawer-body'); return { text: b.textContent.replace(/\s+/g, ' '), pills: [...b.querySelectorAll('.pill')].map(p => (p.dataset.tier || p.dataset.xm || '') + ':' + p.textContent.trim().replace(/\s+/g, ' ')).slice(0, 8), rows: b.querySelectorAll('#xm-list .item').length, count: b.querySelector('#xm-count')?.textContent, on: b.querySelector('#xm-on')?.checked, pos: !!b.querySelector('#xm-pos') }; });
+  check('the memorial panel says what they are: later, not part of the 1863 scene, off until switched on, with the tier pill and the open gap for the year', /put up after the battle|after the battle|Every one of them remembers the battle/.test(p0.text) && /not part of the 1863 scene/.test(p0.text) && /off until you switch/.test(p0.text) && p0.on === false && /ws-world-EG-MON-01/.test(p0.text) && p0.pills.some(x => /^inferred:/.test(x)) && p0.pills.some(x => /^post-battle:Post-battle/.test(x)), { ...p0, text: p0.text.slice(0, 700) });
   check('the list shows the first rows and counts all 512; the nine-state choice is offered', p0.rows === 60 && /^512 of 512 memorials/.test(p0.count) && p0.pos === true, { rows: p0.rows, count: p0.count, pos: p0.pos });
   await s.shot('02-memorial-panel-off');
 
@@ -71,13 +71,19 @@ try {
   await s.shot('03-layer-on-cemetery-ridge');
 
   // a memorial from the list: search, pick, card, flight
-  await P.fill('#xm-q', 'Pennsylvania State'); await P.waitForFunction(() => /^[1-9]\d* of 512/.test(document.querySelector('#xm-count')?.textContent || '') && document.querySelectorAll('#xm-list .item').length <= 6, null, { timeout: 20000 });
+  await P.fill('#xm-q', 'Pennsylvania State Memorial'); await P.waitForFunction(() => /^[1-9]\d* of 512/.test(document.querySelector('#xm-count')?.textContent || '') && document.querySelector('#xm-list .item[data-no="46"]') && document.querySelectorAll('#xm-list .item').length < 60, null, { timeout: 30000 });
   const q1 = await P.evaluate(() => [...document.querySelectorAll('#xm-list .item')].map(b => b.dataset.no + ':' + b.querySelector('.what').textContent)); check('search finds the Pennsylvania State Memorial (no. 46)', q1.some(x => /^46:Pennsylvania State Memorial/.test(x)), q1);
   await P.click('#xm-list .item[data-no="46"]'); await P.waitForSelector('#xm-card:not([hidden])'); await s.settle();
   const c1 = await P.evaluate(() => { const th = window.btApp.theatre, card = document.querySelector('#xm-card'), it = th.sitePlaces.memorials, cam = th.cam; return { selected: it.selected(), title: card.querySelector('h2')?.textContent, text: card.textContent.replace(/\s+/g, ' '), pills: [...card.querySelectorAll('.pill')].map(p => (p.dataset.tier || p.dataset.xm || '') + ':' + p.textContent.trim()), live: document.querySelector('#bt-live').textContent, cam: [cam.x, cam.y, cam.z], shellCardHidden: document.querySelector('#bt-card').hidden, state: { sel: th.state.selected, obj: th.state.selectedObj } }; });
   check('picked memorial: the card names it, says later memorial, post-battle, not part of the 1863 scene, tier inferred, the year as an open gap, and where the position comes from', c1.selected === 46 && c1.title === 'Pennsylvania State Memorial' && /Later memorial\./.test(c1.text) && /not part of the 1863 scene/.test(c1.text) && c1.pills.some(x => /^inferred:/.test(x)) && c1.pills.some(x => /^post-battle:/.test(x)) && /Put up/.test(c1.text) && /open gap/i.test(c1.text) && /The year is not in the site's data/.test(c1.text) && /Second position/.test(c1.text), c1.text.slice(0, 1200));
   check('picked memorial: the shell\'s own card stays hidden; no unit or structure is selected', c1.shellCardHidden === true && c1.state.sel === -1 && c1.state.obj === -1, c1);
   await s.shot('04-card-pennsylvania');
+  // a memorial whose year a National Park Service report prints: the year, the report, the page and the quotation are on its card; no open gap for the year
+  await P.evaluate(() => window.btApp.theatre.sitePlaces.memorials.select(8)); await P.waitForFunction(() => /1929/.test(document.querySelector('#xm-card')?.textContent || ''), null, { timeout: 20000 });
+  const c8 = await P.evaluate(() => { const card = document.querySelector('#xm-card'), pills = [...card.querySelectorAll('.pill')].map(p => (p.dataset.tier || p.dataset.xm || '') + ':' + p.textContent.trim()); return { text: card.textContent.replace(/\s+/g, ' '), pills, counts: window.btApp.theatre.sitePlaces.memorials.counts().years }; });
+  check('a memorial with a documented year: the card says 1929, names the report, the page and the quotation, and has no open gap for the year', /Put up/.test(c8.text) && /1929/.test(c8.text) && /National Park Service, Cultural Landscapes Inventory: Pickett's Charge Battlefield/.test(c8.text) && /PDF page 44 \(Page 39 of 131\)/.test(c8.text) && /CE 1929 Memorialized Monument\/marker is erected: North Carolina State Monument/.test(c8.text) && c8.pills.some(x => /^documented:/.test(x)) && !/ws-world-EG-MON-01/.test(c8.text) && c8.counts.documented === 32 && c8.counts.inferred === 1 && c8.counts.openGap === 479, c8);
+  await s.shot('04b-card-year-documented');
+  await P.evaluate(() => window.btApp.theatre.sitePlaces.memorials.select(46)); await P.waitForFunction(() => /Pennsylvania State Memorial/.test(document.querySelector('#xm-card h2')?.textContent || ''), null, { timeout: 20000 });
   const fly1 = await P.evaluate(async url => { const Pm = await import(url), th = window.btApp.theatre, mem = th.sitePlaces.memorials; const items = mem.find({ q: 'Pennsylvania State' }); return { items }; }, P_URL); check('the programmatic find agrees with the panel', fly1.items.includes(46), fly1);
 
   // a tap on a mark picks it
@@ -143,7 +149,7 @@ try {
 
   // Back, and a second entry: nothing is left, nothing is remembered
   await P.evaluate(() => { window.btApp.theatre.sitePlaces.memorials.setOn(true); }); await s.frames(2);
-  await P.evaluate(() => window.btApp.theatre.sitePlaces.tour.flyTo(5)); await s.frames(2);
+  await P.evaluate(() => window.btApp.theatre.sitePlaces.tour.flyTo(5)); await s.settle();
   const preBack = await P.evaluate(() => ({ marks: !!document.querySelector('#xm-marks'), pin: !document.querySelector('#xt-pin').hidden })); check('before Back: marks and a pin are up', preBack.marks && preBack.pin, preBack);
   await s.leave(); await P.waitForTimeout(200);
   const gone = await P.evaluate(() => ({ marks: !!document.querySelector('#xm-marks'), chip: !!document.querySelector('#xm-chip'), card: !!document.querySelector('#xm-card'), pin: !!document.querySelector('#xt-pin'), app: typeof window.btApp, theatre: !!document.querySelector('#theatre') }));

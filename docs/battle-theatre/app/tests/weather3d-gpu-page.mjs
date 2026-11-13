@@ -1,6 +1,7 @@
 // Harness page of tests/weather3d-gpu.mjs: the prototype renderer (WebGPU or WebGL2) under the Battle Theatre's render host, with fx-host (weather and effects) installed exactly as the shell installs it,
 // and nothing else around it (no history layer, no crowd). The driver calls window.WG.render(spec) for each case; one call = one frame at the given simulation time and camera, read back from
-// the canvas in the same task (WebGPU: copyTextureToBuffer of the canvas texture; WebGL2: readPixels of the default framebuffer), so the picture does not depend on the page compositor.
+// the renderer's last target in the same task (WebGPU: copyTextureToBuffer of the texture that stands in for the canvas texture, see HOOKS in weather3d-gpu-lib.mjs; WebGL2: readPixels of the default
+// framebuffer), so the picture does not depend on the page compositor, which this machine's software adapter cannot serve.
 // Same time and camera give the same pixels (the driver checks that). Light and sky follow the same calls as theatre.mjs (env.sample, env.weatherAt, env.light, host.setLight).
 import { URLS } from '../src/config.mjs';
 import { loadTerrain, buildWorld } from '../../render/prototype/src/world.mjs';
@@ -36,7 +37,7 @@ async function setup() {
 }
 setup().catch(e => { WG.error = String((e && e.stack) || e); console.error('harness set-up failed', e); });
 
-// ---- the picture: read the canvas back in the same task as the frame
+// ---- the picture: read the frame's last target back in the same task as the frame
 function grabGPU(R) {
   const d = R.dev, tex = R.ctx.getCurrentTexture(), w = tex.width, h = tex.height, bpr = Math.ceil(w * 4 / 256) * 256;
   const buf = d.createBuffer({ label: 'harness readback', size: bpr * h, usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.MAP_READ });

@@ -17,10 +17,12 @@ export function stats(w, h, rgba) {
 
 // Chrome flags of the harnesses: WebGPU on its software adapter (SwiftShader through Vulkan) and WebGL2 on SwiftShader through ANGLE. This machine has no GPU; nothing run with these flags is a real-GPU result.
 export const CHROME_ARGS = ['--enable-unsafe-webgpu', '--enable-features=Vulkan,WebGPUService', '--ignore-gpu-blocklist', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'];
-// Installed before any page script (context.addInitScript(HOOKS)): uncaptured WebGPU errors and device loss go to window.__gpuErrors; the compiler messages of every shader module to window.__wgslMessages; the canvas is configured
-// with COPY_SRC as well, so its texture can be read back in the frame's own task. Self-contained: it is sent to the page as source text.
-export function HOOKS() {
-  window.__gpuErrors = []; window.__wgslMessages = []; window.__gpuLabels = [];
+// Installed before any page script (context.addInitScript(HOOKS, { realCanvas })): uncaptured WebGPU errors and device loss go to window.__gpuErrors; the compiler messages of every shader module to window.__wgslMessages.
+// The canvas texture is replaced by an ordinary texture of the same size and format (configure() is not passed on, getCurrentTexture() returns the stand-in): the software adapter of a machine without a GPU
+// loses its device as soon as the real swapchain is read, drawn into for a while or captured (see the swapchain probe of tests/weather3d-gpu.mjs), and a texture of our own is the one thing that can be read back.
+// The commands the renderer records are the same; only the target of its last pass is not the canvas. { realCanvas: true } leaves the canvas alone. Self-contained: it is sent to the page as source text.
+export function HOOKS(opts) {
+  window.__gpuErrors = []; window.__wgslMessages = []; window.__gpuLabels = []; window.__swap = { standIn: !(opts && opts.realCanvas), configured: 0, calls: 0 };
   if (typeof GPUAdapter !== 'undefined') {
     const rd = GPUAdapter.prototype.requestDevice;
     GPUAdapter.prototype.requestDevice = async function (...a) {
@@ -32,5 +34,14 @@ export function HOOKS() {
       return d;
     };
   }
-  if (typeof GPUCanvasContext !== 'undefined') { const cf = GPUCanvasContext.prototype.configure; GPUCanvasContext.prototype.configure = function (c) { return cf.call(this, { ...c, usage: (c.usage ?? GPUTextureUsage.RENDER_ATTACHMENT) | GPUTextureUsage.COPY_SRC }); }; }
+  if (typeof GPUCanvasContext !== 'undefined' && !(opts && opts.realCanvas)) {
+    const P = GPUCanvasContext.prototype, st = new WeakMap();
+    P.configure = function (cfg) { st.set(this, { cfg: { ...cfg }, tex: null, w: 0, h: 0 }); window.__swap.configured++; };
+    P.unconfigure = function () { const s = st.get(this); if (s && s.tex) { try { s.tex.destroy(); } catch { /* gone */ } } st.delete(this); };
+    P.getCurrentTexture = function () {
+      const s = st.get(this); if (!s) throw new DOMException('the canvas context is not configured', 'InvalidStateError'); const w = this.canvas.width, h = this.canvas.height;
+      if (!s.tex || s.w !== w || s.h !== h) { if (s.tex) s.tex.destroy(); s.tex = s.cfg.device.createTexture({ label: 'harness stand-in for the canvas texture', size: [w, h], format: s.cfg.format, usage: GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.COPY_SRC | GPUTextureUsage.TEXTURE_BINDING }); s.w = w; s.h = h; }
+      window.__swap.calls++; return s.tex;
+    };
+  }
 }

@@ -3,19 +3,19 @@
 | Field | Content |
 |---|---|
 | ID | fence-1-EG-04 |
-| Requirement IDs | R14 |
-| Category | evidence missing |
-| Description | Lockwood's report says only that the brigade was later ordered to occupy the breastworks on the right (Jul 3 evening). |
-| Why literal 100% is not possible or blocked | The record found does not support it (Law cl.3). |
-| Evidence searched | OR27 Part 1, Lockwood R282 pp.804-805, Greene p.857. Web lookups: none made. OCR is unverified single witness. |
-| Autonomous substitute applied | Place the brigade only where the OR does (Greene p.857 at 07:30 Jul 3); no construction animation. |
-| Strongest evidence-based reconstruction | As stated in the substitute; geometry beyond the OR is from seed, not record. |
-| Confidence tier | plausible-procedural |
-| Competing values | - |
-| Product marking | Tier overlay on the brigade position before 07:30 Jul 3. |
-| Visual and audio impact | Culp's Hill, Jul 2-3 |
+| Requirement IDs | R14 (E-08) |
+| Category | evidence missing (closed) |
+| Description | Close-out 2026-11-13: CLOSED by evidence. Lockwood's own report (OR27-1-R282 p.805) has the First Potomac Home Brigade and the 150th NY arriving and reporting to the First Division, Twelfth Corps, at 08:00 on Jul 3; Greene has him reporting at 07:30. There was no Jul 2 position or work. The remaining open item is only the exact hour the first Williams-division works were finished (Ruger: built at once after the 09:00 order). |
+| Why literal 100% is not possible or blocked | - |
+| Evidence searched | Searched with tools/bt/or27_find (OR Ser. I vol. 27 parts 1-3, Cornell scan) and three further archive.org scans (warofrebellion271unit, warofrebellion012701rootrich, warofrebellion272unit, warofrebellionco272unit) as second witnesses; the 99-text library plus three added archive.org books; the 73 National Park Service documents under tmp/library/web/nps. Every quoted passage is in evidence_corrections/fence-1.jsonl.  |
+| Autonomous substitute applied | Lockwood enters the lower works on Jul 3 as an occupant with no construction. |
+| Strongest evidence-based reconstruction | Documented from Lockwood's own report. |
+| Confidence tier | documented |
+| Competing values | 07:30 (Greene) vs 08:00 (Lockwood) |
+| Product marking | Tier overlay none needed. |
+| Visual and audio impact | Culp's Hill Jul 3 morning |
 | Review status | internal review only (DEC-006: no public review label) |
-| Owner decision requested | None needed unless the PDF wording itself is to change (E-17). Next evidence to seek: Maulsby (1st Md PHB) and Ketcham (150th NY) reports. |
-| Agent recommendation | Hold the conservative option; do not pick a default among competing values. |
-| Status | open |
+| Owner decision requested | None. |
+| Agent recommendation | Close the entry; keep the hour difference. |
+| Status | closed (updated by the close-out 2026-11-13; the earlier text is superseded) |
 | Owner decision and date | (filled only from the Decision Log) |

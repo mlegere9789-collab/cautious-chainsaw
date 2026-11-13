@@ -1,21 +1,23 @@
 {
- "_doc": "Coarse numbers only; verdicts are in PHOTOMATCH.md and verdicts.json.",
+ "_doc": "Coarse numbers only; the verdicts are in verdicts.json and PHOTOMATCH.md.",
  "metrics": {
   "P01": {
    "render_px": [
     960,
-    830
+    821
    ],
-   "render_horizon_row_frac": 0.512,
-   "photo_horizon_frac_judged_by_eye": 0.4
+   "render_horizon_row_frac": 0.51,
+   "photo_horizon_frac_judged_by_eye": null,
+   "photo": true
   },
   "P03": {
    "render_px": [
     960,
-    947
+    943
    ],
-   "render_horizon_row_frac": 0.458,
-   "photo_horizon_frac_judged_by_eye": null
+   "render_horizon_row_frac": 0.481,
+   "photo_horizon_frac_judged_by_eye": null,
+   "photo": true
   },
   "P04": {
    "render_px": [
@@ -23,7 +25,8 @@
     740
    ],
    "render_horizon_row_frac": 0.504,
-   "photo_horizon_frac_judged_by_eye": 0.38
+   "photo_horizon_frac_judged_by_eye": null,
+   "photo": true
   },
   "P05": {
    "render_px": [
@@ -31,39 +34,116 @@
     728
    ],
    "render_horizon_row_frac": 0.504,
-   "photo_horizon_frac_judged_by_eye": 0.38
+   "photo_horizon_frac_judged_by_eye": null,
+   "photo": true
   },
   "P06": {
    "render_px": [
     960,
-    640
+    731
    ],
-   "render_horizon_row_frac": 0.533,
-   "photo": null
+   "render_horizon_row_frac": 0.528,
+   "photo_horizon_frac_judged_by_eye": null,
+   "photo": true
   },
   "P07": {
    "render_px": [
     960,
-    640
+    757
    ],
-   "render_horizon_row_frac": 0.533,
-   "photo": null
+   "render_horizon_row_frac": 0.527,
+   "photo_horizon_frac_judged_by_eye": null,
+   "photo": true
   },
   "P08": {
    "render_px": [
     960,
-    640
+    567
    ],
-   "render_horizon_row_frac": 0.523,
-   "photo": null
+   "render_horizon_row_frac": 0.524,
+   "photo_horizon_frac_judged_by_eye": null,
+   "photo": true
   },
   "P09": {
    "render_px": [
     960,
-    640
+    768
    ],
-   "render_horizon_row_frac": 0.523,
-   "photo": null
+   "render_horizon_row_frac": 0.514,
+   "photo_horizon_frac_judged_by_eye": null,
+   "photo": true
+  },
+  "P11": {
+   "render_px": [
+    960,
+    890
+   ],
+   "render_horizon_row_frac": 0.512,
+   "photo_horizon_frac_judged_by_eye": null,
+   "photo": true
+  },
+  "P12": {
+   "render_px": [
+    960,
+    708
+   ],
+   "render_horizon_row_frac": 0.516,
+   "photo_horizon_frac_judged_by_eye": null,
+   "photo": true
+  },
+  "P17": {
+   "render_px": [
+    960,
+    902
+   ],
+   "render_horizon_row_frac": 0.491,
+   "photo_horizon_frac_judged_by_eye": null,
+   "photo": true
+  },
+  "P18": {
+   "render_px": [
+    960,
+    1010
+   ],
+   "render_horizon_row_frac": 0.462,
+   "photo_horizon_frac_judged_by_eye": null,
+   "photo": true
+  },
+  "P19": {
+   "render_px": [
+    960,
+    950
+   ],
+   "render_horizon_row_frac": 0.505,
+   "photo_horizon_frac_judged_by_eye": null,
+   "photo": true
+  },
+  "P20": {
+   "render_px": [
+    960,
+    944
+   ],
+   "render_horizon_row_frac": 0.447,
+   "photo_horizon_frac_judged_by_eye": null,
+   "photo": true
+  },
+  "P24": {
+   "render_px": [
+    960,
+    729
+   ],
+   "render_horizon_row_frac": 0.492,
+   "photo_horizon_frac_judged_by_eye": null,
+   "photo": true
+  },
+  "P26": {
+   "render_px": [
+    960,
+    952
+   ],
+   "render_horizon_row_frac": 0.479,
+   "photo_horizon_frac_judged_by_eye": null,
+   "photo": true
   }
  }
 }

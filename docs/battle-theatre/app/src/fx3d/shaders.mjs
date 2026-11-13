@@ -1,6 +1,6 @@
 // Shader sources of the effect layer. The CPU functions in core.mjs, wind.mjs, pack.mjs are the reference; every formula below is a port, and docs/BROWSER-VERIFICATION-LIST-FX3D.md lists the
 // readback comparison that must pass before anything is claimed about the look. Status: GLSL_VERT / GLSL_FRAG and WGSL_RENDER compile and draw on software adapters (SwiftShader WebGL2 and
-// SwiftShader WebGPU, through src/weather3d/gl.mjs and gpu.mjs); nothing has run on a real GPU. WGSL_COMPUTE has not been compiled into a pipeline (see the note above it).
+// SwiftShader WebGPU, through src/weather3d/gl.mjs and gpu.mjs); nothing has run on a real GPU. WGSL_COMPUTE compiles (no compiler message) and builds a compute pipeline under the default device limits on the software adapter (tests/weather3d-gpu.mjs, check of the module); it is not wired into the draw path and its results have not been compared with the CPU cull (see the note above it).
 //
 // Two paths, one particle definition:
 //  * WebGL2 (the fallback, no transform feedback, no compute): one instanced draw of 4-vertex strips, instance s = sprite number (+ uFirst). The vertex shader finds the event of sprite s by binary
@@ -256,7 +256,7 @@ fn vnoise(p: vec2<f32>, seed: f32) -> f32 { let i = floor(p); var f = fract(p); 
   let prof = 1.0 - r2; if (fin.kind > 4.5) { return vec4<f32>(fin.col.rgb, 1.0); } return vec4<f32>(fin.col.rgb * prof, 0.0);
 }`;
 
-// Optional WebGPU compute: per-event cull + LOD + class scale + hard cap, then the prefix sum (one workgroup of 1024 threads, 16 events per thread: up to 16384 events), then the two indirect draws.
+// Optional WebGPU compute: per-event cull + LOD + class scale + hard cap, then the prefix sum (one workgroup of 256 threads, the most the default device limits allow, 72 events per thread: up to 18432 events, more than the largest budget's 16384 + 64 flame slots), then the two indirect draws.
 // Events must be in the order the renderer wants drawn (smoke first, then additive); the CPU gives the boundary event index in uniform `split`. Stochastic rounding of the class scale uses the event seed, so the result is
 // deterministic. Bindings: 0 params uniform, 1 events (read_write: field 20 is overwritten with the sprite count), 2 cum (write), 3 indirect (write, 2 x 4 u32).
 export const WGSL_COMPUTE = `
@@ -266,16 +266,17 @@ struct Cam { pos: vec4<f32>, fwd: vec4<f32>, tanHW: vec4<f32>, bands: vec4<f32>,
 @group(0) @binding(1) var<storage, read_write> ev: array<f32>;
 @group(0) @binding(2) var<storage, read_write> cum: array<u32>;
 @group(0) @binding(3) var<storage, read_write> indirect: array<u32>;
-var<workgroup> part: array<u32, 1024>;
+const EPT: u32 = 72u;                                                                                // events per thread: 256 x 72 covers maxEvents + the 64 flame slots of the desktop budget
+var<workgroup> part: array<u32, 256>;
 fn bandFactor(d: f32) -> f32 { var f = cam.factors1.x; if (d < cam.bands.x) { f = cam.factors0.x; } else if (d < cam.bands.y) { f = cam.factors0.y; } else if (d < cam.bands.z) { f = cam.factors0.z; } else if (d < cam.bands.w) { f = cam.factors0.w; } return f; }
 fn nFullOf(ty: u32) -> f32 { let k = min(ty, 15u); return cam.nfull[k >> 2u][k & 3u]; }
 fn classOf(ty: u32) -> u32 { // 0 flash 1 burst 2 gun 3 fire 4 musket 5 dust 6 fog, matching params.budget.class_priority
   if (ty == 11u || ty == 12u) { return 0u; } if (ty == 5u || ty == 6u || ty == 7u || ty == 8u || ty == 9u) { return 1u; } if (ty == 2u || ty == 3u) { return 2u; } if (ty == 13u || ty == 14u || ty == 20u) { return 3u; }
   if (ty == 1u) { return 4u; } if (ty == 10u) { return 5u; } return 6u; }
-@compute @workgroup_size(1024) fn cullCount(@builtin(local_invocation_id) lid: vec3<u32>) {
+@compute @workgroup_size(256) fn cullCount(@builtin(local_invocation_id) lid: vec3<u32>) {
   var sum: u32 = 0u;
-  for (var k: u32 = 0u; k < 16u; k = k + 1u) {
-    let e = lid.x * 16u + k; var n: u32 = 0u;
+  for (var k: u32 = 0u; k < EPT; k = k + 1u) {
+    let e = lid.x * EPT + k; var n: u32 = 0u;
     if (e < cam.nev) {
       let b = e * GSTRIDE; let ty = u32(ev[b + 4u] + 0.5); let p = vec3<f32>(ev[b], ev[b + 1u], ev[b + 2u]); let d = p - cam.pos.xyz; let dist = length(d);
       let z = dot(d, cam.fwd.xyz); let rad = max(ev[b + 7u] * 1.25, 1.0);
@@ -291,12 +292,12 @@ fn classOf(ty: u32) -> u32 { // 0 flash 1 burst 2 gun 3 fire 4 musket 5 dust 6 f
     sum = sum + n;
   }
   part[lid.x] = sum; workgroupBarrier();
-  for (var off: u32 = 1u; off < 1024u; off = off << 1u) { var v: u32 = 0u; if (lid.x >= off) { v = part[lid.x - off]; } workgroupBarrier(); part[lid.x] = part[lid.x] + v; workgroupBarrier(); }
+  for (var off: u32 = 1u; off < 256u; off = off << 1u) { var v: u32 = 0u; if (lid.x >= off) { v = part[lid.x - off]; } workgroupBarrier(); part[lid.x] = part[lid.x] + v; workgroupBarrier(); }
   var run: u32 = 0u; if (lid.x > 0u) { run = part[lid.x - 1u]; }
-  for (var k: u32 = 0u; k < 16u; k = k + 1u) {
-    let e = lid.x * 16u + k; if (e < cam.nev) { cum[e] = min(run, cam.cap); let n = u32(ev[e * GSTRIDE + 20u]); run = run + n; ev[e * GSTRIDE + 20u] = f32(min(run, cam.cap) - min(cum[e], cam.cap)); }
+  for (var k: u32 = 0u; k < EPT; k = k + 1u) {
+    let e = lid.x * EPT + k; if (e < cam.nev) { cum[e] = min(run, cam.cap); let n = u32(ev[e * GSTRIDE + 20u]); run = run + n; ev[e * GSTRIDE + 20u] = f32(min(run, cam.cap) - min(cum[e], cam.cap)); }
   }
-  if (lid.x == 1023u) { cum[cam.nev] = min(run, cam.cap); }
+  if (lid.x == 255u) { cum[cam.nev] = min(run, cam.cap); }
   storageBarrier(); workgroupBarrier();
   if (lid.x == 0u) {
     let a = cum[cam.split]; let t = cum[cam.nev];

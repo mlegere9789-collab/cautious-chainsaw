@@ -314,7 +314,6 @@ import veg_tables as TB  # noqa: E402
 ANCHOR_OVERRIDES = {
     'VC-NPSX-CLI-PCB-p082-01': ({'gz': 'Cemetery Hill', 'bearing': 270, 'dist_m': 900, 'r_m': 380, 'class': 'field', 'k': 1}, {'crop': 'corn', 'stage': 'immature', 'tier_why': 'the Russell field lay on the east slope of Seminary Ridge nearly opposite Cemetery Hill'}),
     'VC-NPSX-CLI-PCB-p078-01': ({'gz': 'Cemetery Hill', 'bearing': 285, 'dist_m': 1050, 'r_m': 380, 'class': 'field', 'k': 1}, {'crop': 'corn', 'tier_why': 'the Barrett field lay on the east slope of Seminary Ridge'}),
-    'VC-NPSX-CLI-PCB-p079-04': ({'gz': 'Cemetery Hill', 'bearing': 255, 'dist_m': 1000, 'r_m': 380, 'class': 'field', 'k': 1}, {'crop': 'corn', 'tier_why': 'the Culp field lay beside Seminary Ridge and Long Lane; the NPS record says Culp\'s fence was torn from "his corn field" (VC-NPS... not cited: the corn is named in the record of treatment p.178)', 'crop_by_other': True}),
     'VC-NPSX-CLI-PCB-p072-02': ({'farm': 'mcmillan', 'r_m': 380, 'class': 'field', 'k': 1}, {'crop': 'corn'}),
     'VC-NPSX-CLI-PCB-p081-04': ({'farm': 'rogers', 'r_m': 300, 'class': 'field', 'k': 1}, {'crop': 'hay', 'landcover': 'meadow', 'garden': True}),
     'VC-NPSX-CLI-PCB-p085-02': ({'farm': 'wentz', 'r_m': 320, 'class': 'field', 'k': 1}, {'crop_class': 'arable'}),
@@ -332,6 +331,9 @@ ANCHOR_OVERRIDES = {
     'VC-NPSX-CLI-ERR-p095-07': ({'farm': 'trostle', 'bearing': 180, 'dist_m': 120, 'r_m': 300, 'class': 'orchard', 'k': 1}, {'age': 'young'}),
     'VC-NPSX-CLI-PCB-p082-04': ({'farm': 'sherfy', 'r_m': 520, 'class': 'orchard', 'area': True}, {'age': 'young_and_declining'}),
     'VC-NPSX-CLI-PCB-p051-03': ({'farm': 'bliss', 'r_m': 420, 'class': 'orchard', 'k': 1}, {'orchard': 'cover_for_skirmishers'}),
+}
+FARM_CONSTRAINTS = {   # farm key -> [(crop, claim id)]: fields the inventory names on a farm whose own fields cannot be placed one by one
+    'mcpherson': [('corn', 'VC-NPSX-CLI-1STDAY-p058-10'), ('wheat', 'VC-NPSX-CLI-1STDAY-p059-01'), ('hay', 'VC-NPSX-CLI-1STDAY-p058-07')],
 }
 KIND_FIX = {'VC-NPSX-CLI-PCB-p081-04': 'crop', 'VC-NPSX-CLI-PCB-p085-02': 'crop', 'VC-NPSX-CLI-PCB-p080-03': 'woodlot', 'VC-NPSX-CLI-PCB-p081-02': 'woodlot', 'VC-NPSX-CLI-PCB-p084-04': 'woodlot', 'VC-NPSX-CLI-PCB-p084-02': 'woodlot'}
 CLASS_MAP = {'field': ('field',), 'woods': ('woods', 'scatter'), 'orchard': ('orchard',), 'any': ('field', 'woods', 'scatter', 'orchard', 'marsh', 'cleared', 'wheatfield', 'boulder')}
@@ -540,6 +542,14 @@ def build_json(args):
             u['crop'], u['crop_tier'], u['crop_claim'], u['crop_role'] = got
             u['crop_basis'] = 'claim'
         placed_crop[u['id']] = got
+    # farm inventories that name fields but cannot place them: the crops exist on the farm; WHICH cell holds each is a seeded choice among the cells nearest the farmstead
+    for farm, rows in FARM_CONSTRAINTS.items():
+        pt = farms[farm]
+        pool = sorted((u for u in fields if 'crop' not in u and u['cls'] == 'field'), key=lambda u: u['geom'].distance(pt))
+        pool = [u for u in pool if u['geom'].distance(pt) < 750][:8]
+        order = sorted(pool, key=lambda u: rnd(u['id'], farm, 'fc'))
+        for (crop, cid), u in zip(rows, order):
+            u['crop'], u['crop_tier'], u['crop_basis'], u['crop_claim'], u['crop_role'] = crop, 'plausible-procedural', 'farm_inventory', cid, 'farm'
     # the rest: seeded draw with repulsion from the neighbours already drawn
     index = {u['id']: u for u in fields}
     nb = {}
@@ -556,15 +566,314 @@ def build_json(args):
     return units, claims, unplaced, mix, farm_rows, acres, terr, G, farms, gz, S
 
 
+# ---------------------------------------------------------------------------------------------------------------- class attributes
+def jitter_weights(uid, w, tag):
+    out = {}
+    for k in sorted(w):
+        out[k] = w[k] * (0.6 + 0.8 * rnd(uid, tag, k))
+    z = sum(out.values())
+    return {k: round(v / z, 3) for k, v in out.items()}
+
+
+def class_attributes(units, claims, gz, farms):
+    lrt = gz.get('Little Round Top')
+    lrt_units = []
+    for u in units:
+        uid = u['id']
+        cl = {cid: role for cid, role in u['claims']}
+        young = any((claims[c].get('about') or {}).get('age') in ('young', 'young_and_declining') and r in ('nearest', 'exact') for c, r in cl.items())
+        if u['cls'] == 'woods':
+            k = woods_class(u, gz, farms)
+            W = TB.WOODS[k]
+            u['woods'] = {'class': k, 'species': jitter_weights(uid, W['species'], 'sp'), 'per_ha': round(pick(None, (uid, 'dens'), W['per_ha']), 1), 'understory': W['understory'], 'tier': W['tier']}
+            if lrt is not None and u['geom'].centroid.distance(lrt) < 520:
+                lrt_units.append(uid)
+        elif u['cls'] == 'scatter':
+            W = TB.WOODS['scatter']
+            u['woods'] = {'class': 'scatter', 'species': jitter_weights(uid, W['species'], 'sp'), 'per_ha': round(pick(None, (uid, 'dens'), W['per_ha']), 1), 'understory': 'none', 'tier': W['tier']}
+            if lrt is not None and u['geom'].centroid.distance(lrt) < 520:
+                lrt_units.append(uid)
+        elif u['cls'] == 'orchard':
+            k = 'peach_orchard' if u['lc'] == 'LC-ORCH-0206' else ('young' if young else 'mature')
+            O = TB.ORCHARD[k]
+            u['orchard'] = {'class': k, 'spacing_m': round(pick(None, (uid, 'sp'), O['spacing_m']), 2), 'species': jitter_weights(uid, O['species'], 'osp'), 'age_tier': 'documented' if (young and k == 'young') or k == 'peach_orchard' else 'plausible-procedural', 'tier': O['tier']}
+        elif u['cls'] == 'marsh':
+            u['crop'], u['crop_tier'], u['crop_basis'] = 'marsh', 'inferred', 'claim' if u['lc'] == 'LC-WET-0001' else 'warren_symbol'
+            if u['lc'] == 'LC-WET-0001':
+                W = TB.WOODS['thicket']
+                u['woods'] = {'class': 'thicket', 'species': dict(W['species']), 'per_ha': round(pick(None, (uid, 'dens'), W['per_ha']) * 0.55, 1), 'understory': 'thick', 'tier': W['tier']}
+        elif u['cls'] == 'cleared':
+            u['crop'], u['crop_tier'], u['crop_basis'] = 'open_rock', 'inferred', 'claim'
+        elif u['cls'] == 'boulder':
+            u['crop'], u['crop_tier'], u['crop_basis'] = 'open_rock', 'inferred', 'warren_symbol'
+    return lrt_units
+
+
+# ---------------------------------------------------------------------------------------------------------------- events
+def region_geom(r, farms, gz):
+    if 'disc' in r:
+        d = r['disc']
+        pt = anchor_point(d, farms, gz)
+        return pt.buffer(d['r_m'])
+    if 'corridor' in r:
+        a = anchor_point(r['corridor']['a'], farms, gz)
+        b = anchor_point(r['corridor']['b'], farms, gz)
+        return LineString([a, b]).buffer(r['corridor']['w_m'] / 2.0, cap_style=2)
+    raise ValueError(r)
+
+
+EVENTS = [
+    {'id': 'EV-VEG-01', 'kind': 'trample', 'label': 'The Wheatfield fought through, 2 July', 'unit_lc': 'LC-FIELD-0001', 'from': '1863-07-02T16:30', 'to': '1863-07-02T19:30', 'final': [0.7, 0.95], 'tier': 'documented', 'magnitude_tier': 'plausible-procedural',
+     'claims': ['VC-OR-001', 'VC-OR-003', 'VC-OR-004', 'VC-OR-005', 'VC-OR-022', 'VC-LIB-006', 'VC-LIB-018'], 'basis': 'Cross, Kelly, Zook, Brooke and Sweitzer advanced through the wheat-field and Brooke fell back across it; the Southern brigades attacked into it (the OR reports quoted); the window is the span of the engagement rows EN-014 to EN-021 of the theatre clock (16:30 to 19:30); the share trampled is a range'},
+    {'id': 'EV-VEG-02', 'kind': 'trample', 'label': 'The fields of the Trostle farm, 2 July', 'region': {'disc': {'farm': 'trostle', 'r_m': 450}}, 'from': '1863-07-02T17:00', 'to': '1863-07-02T20:00', 'final': [0.35, 0.8], 'tier': 'inferred', 'magnitude_tier': 'plausible-procedural',
+     'claims': ['VC-WEB-002', 'VC-WEB-003', 'VC-LIB-006'], 'basis': 'the petition says the farm lay between the armies, was fought over two days and its crops were totally destroyed; the disc of 450 m around the farmstead is the reach assumed'},
+    {'id': 'EV-VEG-03', 'kind': 'trample', 'label': 'The Peach Orchard and the Emmitsburg Road fields, 2 July', 'region': {'disc': {'farm': 'sherfy', 'r_m': 520}}, 'from': '1863-07-02T15:30', 'to': '1863-07-02T19:00', 'final': [0.3, 0.75], 'tier': 'inferred', 'magnitude_tier': 'plausible-procedural',
+     'claims': ['VC-LIB-006', 'VC-LIB-018', 'VC-OR-015'], 'basis': 'Haskell: the fields in front of the Second and Third Corps were trampled by the evening of 2 July (the corps front ran from the Peach Orchard to Cemetery Ridge); the oat-field by the Peach Orchard was fought in'},
+    {'id': 'EV-VEG-04', 'kind': 'trample', 'label': 'The Codori and Klingel fields, 2 July evening', 'region': {'disc': {'farm': 'codori', 'r_m': 420}}, 'from': '1863-07-02T18:30', 'to': '1863-07-02T20:00', 'final': [0.25, 0.7], 'tier': 'inferred', 'magnitude_tier': 'plausible-procedural',
+     'claims': ['VC-LIB-006', 'VC-LIB-018'], 'basis': 'engagement row EN-018 (Emmitsburg Road and the Codori farm, 18:30 to 19:00); the reach is assumed'},
+    {'id': 'EV-VEG-05', 'kind': 'trample', 'label': 'The advance of 3 July over the fields west of the Emmitsburg Road', 'region': {'corridor': {'a': {'farm': 'h_spangler', 'bearing': 270, 'dist_m': 350}, 'b': {'gz': 'The Angle'}, 'w_m': 760}}, 'from': '1863-07-03T15:00', 'to': '1863-07-03T16:30', 'final': [0.2, 0.65], 'tier': 'inferred', 'magnitude_tier': 'plausible-procedural',
+     'claims': ['VC-LIB-020', 'VC-NPSX-CLI-PCB-p078-02', 'VC-NPSX-CLI-PCB-p078-03'], 'basis': 'the divisions crossed the open fields between Seminary Ridge and the Angle, "through orchard and meadow, and cornfield" (Haskell); engagement rows EN-030 and EN-031 (15:30 to 16:15) fix the hour; the corridor is a straight band between the two ends and is not a measured track'},
+    {'id': 'EV-VEG-06', 'kind': 'trample', 'label': 'The fields of the McPherson and Forney farms, 1 July', 'region': {'disc': {'farm': 'mcpherson', 'r_m': 520}}, 'from': '1863-07-01T10:00', 'to': '1863-07-01T16:30', 'final': [0.2, 0.6], 'tier': 'inferred', 'magnitude_tier': 'plausible-procedural',
+     'claims': ['VC-NPS-031', 'VC-NPSX-CLR-1STDAY-p065-01'], 'basis': 'the McPherson tenant lost 9 acres of wheat, 16 of corn and 18 of grass; "the fields trodden down like a highway" (Jacobs, quoted by the NPS); the engagement rows of 1 July fix the hours'},
+    {'id': 'EV-VEG-07', 'kind': 'strip', 'label': 'Culp\'s Hill: trees stripped and scarred, 2 and 3 July', 'region': {'disc': {'gz': "Culp's Hill", 'r_m': 520}}, 'from': '1863-07-02T19:00', 'to': '1863-07-03T11:00', 'final': [0.18, 0.45], 'tier': 'documented', 'magnitude_tier': 'plausible-procedural',
+     'claims': ['VC-LIB-019', 'VC-NPS-040', 'VC-NPS-041'], 'basis': 'gigantic trees stripped of leaves and branches and trunks scarred by the musketry (Bachelder); bullet-ridden trees died after the battle (NPS); fighting windows EN-019, EN-022 to EN-024, EN-027 and the OR reports; the share stripped is a range'},
+    {'id': 'EV-VEG-08', 'kind': 'strip', 'label': 'Herbst Woods, 1 July', 'region': {'disc': {'gz': 'Herbst Woods', 'r_m': 320}}, 'from': '1863-07-01T10:00', 'to': '1863-07-01T16:00', 'final': [0.02, 0.1], 'tier': 'documented', 'magnitude_tier': 'plausible-procedural',
+     'claims': ['VC-NPSX-CLR-1STDAY-p067-04'], 'basis': 'tree trunks were damaged by shell and shot but most trees remained standing with relatively little damage (NPS)'},
+    {'id': 'EV-VEG-09', 'kind': 'strip', 'label': 'The orchards of the Second and Third Corps front, 2 July', 'region': {'disc': {'farm': 'sherfy', 'r_m': 520}}, 'from': '1863-07-02T15:30', 'to': '1863-07-02T19:00', 'final': [0.2, 0.5], 'tier': 'inferred', 'magnitude_tier': 'plausible-procedural',
+     'claims': ['VC-LIB-018'], 'basis': 'the orchards splintered (Haskell, the evening of 2 July); the disc is the Peach Orchard and the orchards around it'},
+    {'id': 'EV-VEG-10', 'kind': 'strip', 'label': 'The Klingel and Trostle orchards, 2 July', 'region': {'disc': {'farm': 'klingel', 'r_m': 420}}, 'from': '1863-07-02T17:30', 'to': '1863-07-02T19:30', 'final': [0.15, 0.4], 'tier': 'inferred', 'magnitude_tier': 'plausible-procedural',
+     'claims': ['VC-LIB-018', 'VC-NPS-025'], 'basis': 'the orchards splintered; a general reported them as thick orchards on 2 July'},
+]
+
+
+def build_events(units, farms, gz, claims):
+    out = []
+    for e in EVENTS:
+        d = {k: v for k, v in e.items() if k not in ('region', 'unit_lc', 'from', 'to')}
+        d['from_min'], d['to_min'] = iso_min(e['from']), iso_min(e['to'])
+        d['from'], d['to'] = e['from'], e['to']
+        for cid in e['claims']:
+            assert cid in claims, (e['id'], cid)
+        hit = []
+        if 'unit_lc' in e:
+            for u in units:
+                if u['lc'] == e['unit_lc']:
+                    u.setdefault('ev', []).append([e['id'], 1.0])
+                    hit.append(u['id'])
+        else:
+            reg = region_geom(e['region'], farms, gz)
+            d['region_ll'] = [round(x, 5) for xy in list(to_ll(reg).exterior.coords)[:-1] for x in xy] if reg.geom_type == 'Polygon' else None
+            want = ('field', 'wheatfield', 'cleared', 'orchard') if e['kind'] == 'trample' else ('woods', 'orchard', 'scatter')
+            for u in units:
+                if u['cls'] not in want:
+                    continue
+                inter = u['geom'].intersection(reg).area
+                cov = inter / u['geom'].area
+                if cov >= 0.05:
+                    u.setdefault('ev', []).append([e['id'], round(cov, 3)])
+                    hit.append(u['id'])
+        d['units'] = hit
+        out.append(d)
+    return out
+
+
+# ---------------------------------------------------------------------------------------------------------------- witness trees
+def nearest_on(lines, pt):
+    best = None
+    for ln in lines:
+        d = ln.distance(pt)
+        if best is None or d < best[0]:
+            best = (d, ln, ln.interpolate(ln.project(pt)))
+    return best
+
+
+def witness_trees(farms, gz):
+    roads = load(os.path.join(RRW, 'roads.geojson'))['features']
+    lanes = load(os.path.join(RRW, 'lanes.geojson'))['features']
+    out = []
+    # the large oak just south of Trostle Lane (VC-NPSX-CLI-ERR-p095-08)
+    tl = [to_m(shape(f['geometry'])) for f in lanes if f['properties']['id'].startswith('LN-001')]
+    if tl:
+        d, ln, p = nearest_on(tl, farms['trostle'])
+        pt = Point(p.x, p.y - 9.0)
+        out.append({'id': 'WT-01', 'name': 'Large oak south of the Trostle lane (Sickles and his staff, 2 July)', 'species': 'oak', 'h_m': [20, 26], 'r_m': [8, 10], 'lnglat': [round(v, 6) for v in TO_LL.transform(pt.x, pt.y)], 'pos_err_m': 60, 'pos_tier': 'inferred', 'claims': ['VC-NPSX-CLI-ERR-p095-08'],
+                    'basis': 'the point of the lane nearest the Trostle farmstead, 9 m to the south; the lane line is the repository\'s (Warren), the farmstead the 2023 outline of the surviving house: the tree stood somewhere along the lane, which the claim does not fix'})
+    # the large tree at the junction of the Codori farm lane and the Emmitsburg Road (VC-NPSX-CLI-ERR-p095-03)
+    cl = [to_m(shape(f['geometry'])) for f in lanes if f['properties']['id'] in ('LN-004',)]
+    er = [to_m(shape(f['geometry'])) for f in roads if f['properties']['id'] == 'RD-003']
+    if cl and er:
+        j = cl[0].intersection(er[0])
+        if j.is_empty:
+            j = nearest_on(er, cl[0].centroid)[2]
+        if j.geom_type != 'Point':
+            j = j.centroid
+        pt = Point(j.x - 6.0, j.y + 4.0)
+        out.append({'id': 'WT-02', 'name': 'Large tree at the Codori lane and the Emmitsburg Road (Confederate sharpshooter, 3 July)', 'species': 'oak', 'h_m': [16, 22], 'r_m': [6, 9], 'lnglat': [round(v, 6) for v in TO_LL.transform(pt.x, pt.y)], 'pos_err_m': 50, 'pos_tier': 'inferred', 'claims': ['VC-NPSX-CLI-ERR-p095-03'],
+                    'basis': 'the junction of the lane line (LN-004) and the Emmitsburg Road line (RD-003) of the repository; the claim says only "near the junction"; the species is not stated and the oak is a plain assumption'})
+    return out
+
+
+# ---------------------------------------------------------------------------------------------------------------- output
+def ll_ring(poly, nd=5):
+    g = to_ll(poly)
+    return ring_flat(g.exterior, nd)
+
+
+def make_output(args):
+    units, claims, unplaced, mix, farm_rows, acres, terr, G, farms, gz, S = build_json(args)
+    lrt_units = class_attributes(units, claims, gz, farms)
+    events = build_events(units, farms, gz, claims)
+    wts = witness_trees(farms, gz)
+    # farm record
+    farm_out = []
+    inv = collections.defaultdict(list)
+    for c in claims.values():
+        if c['kind'] == 'farm_inventory':
+            inv[(c.get('about') or {}).get('farm')].append(c['id'])
+    for k, name in sorted(FARMS.items()):
+        pt = farms[k]
+        ll = TO_LL.transform(pt.x, pt.y)
+        farm_out.append({'id': k, 'name': name, 'lnglat': [round(ll[0], 6), round(ll[1], 6)], 'inventory_claims': sorted(inv.get(k, []))})
+    for k in sorted(set(inv) - set(FARMS)):
+        farm_out.append({'id': k, 'name': k.replace('_', ' ') + ' farm (no farmstead outline in the repository)', 'lnglat': None, 'inventory_claims': sorted(inv[k])})
+    # nearest farmstead of each field cell (a label only)
+    for u in units:
+        if u['cls'] == 'field':
+            c = u['geom'].centroid
+            dist = sorted((c.distance(p), k) for k, p in farms.items())
+            u['farm_guess'] = dist[0][1] if dist[0][0] < 900 else None
+    # claim trim
+    cl_out = []
+    for cid in sorted(claims):
+        c = claims[cid]
+        r = {k: c[k] for k in ('id', 'src', 'tier', 'kind', 'says', 'feature') if k in c}
+        r['quote'] = c['quote_found']
+        r['when'] = c.get('when')
+        r['loc'] = {k: v for k, v in c['locator'].items() if k in ('pdf_page', 'page', 'report', 'who', 'char_start')}
+        if c.get('about'):
+            r['about'] = c['about']
+        if c.get('note'):
+            r['note'] = c['note']
+        if c.get('src_sha256'):
+            r['src_sha256'] = c['src_sha256']
+        if cid in unplaced:
+            r['placed'] = False
+        cl_out.append(r)
+    # units out
+    uo = []
+    for u in units:
+        g = u['geom']
+        if g.geom_type != 'Polygon':
+            g = max(polys(g), key=lambda q: q.area)
+        simp = g.simplify(1.2 if u['cls'] != 'field' else 1.0)
+        if simp.is_empty or simp.area < 20:
+            simp = g
+        holes = len(simp.interiors)
+        rec = {'id': u['id'], 'cls': u['cls'], 'lc': u['lc'], 'area_ac': round(g.area / ACRE, 2), 'rings': [ll_ring(simp)]}
+        rec['name'] = u['lc_name']
+        if holes:
+            rec['holes_dropped'] = holes
+        rec['geom_tier'] = 'plausible-procedural' if u['cls'] == 'field' and u.get('subdivided') else ('documented' if u.get('lc_conf') == 'Documented' else 'inferred')
+        if u['cls'] == 'field':
+            rec['geom_note'] = 'cell of a block of open ground cut by a seeded relaxation: the edges inside the block are not mapped' if u.get('subdivided') else 'a block of open ground between roads, lanes, confirmed fences and the outlines of woods and orchards'
+            if u.get('farm_guess'):
+                rec['farm_guess'] = u['farm_guess']
+        for k in ('crop', 'crop_tier', 'crop_basis', 'crop_claim', 'crop_role', 'woods', 'orchard', 'p', 'seed', 'ev'):
+            if k in u:
+                rec[k] = u[k]
+        rec['claims'] = u['claims']
+        uo.append(rec)
+    return units, uo, cl_out, farm_out, events, wts, mix, farm_rows, acres, lrt_units, unplaced, terr, S
+
+
+def calendar_json():
+    cal = {'epoch': '1863-06-01T00:00', 'unit': 'minutes', 'crops': {}, 'epilogue': {}, 'leaf': TB.LEAF, 'orchard_fruit': {}}
+    for k, c in TB.CROPS.items():
+        e = {'label': c['label'], 'keys': [dict(x, t=iso_min(x['d'])) for x in c['keys']]}
+        if c.get('harvest'):
+            h = dict(c['harvest'])
+            h['earliest_min'], h['latest_min'] = iso_min(h['earliest']), iso_min(h['latest'])
+            e['harvest'] = h
+            e['cut'] = c['cut']
+        cal['crops'][k] = e
+    cal['epilogue'] = dict(TB.EPILOGUE, t=iso_min('1863-11-19'))
+    for k, f in TB.ORCHARD_FRUIT.items():
+        cal['orchard_fruit'][k] = {'keys': [dict(x, t=iso_min(x['d'])) for x in f['keys']], 'why': f['why']}
+    cal['lodging'] = {'from_min': iso_min('1863-07-03T22:00'), 'to_min': iso_min('1863-07-04T14:00'), 'crops': ['wheat', 'rye', 'barley', 'oats'], 'why': 'heavy rain from late 3 July into 4 July (weather record); the share of the standing crop laid flat is the scenario CF-VEG-RAIN'}
+    return cal
+
+
+def write_all(args):
+    units, uo, cl_out, farm_out, events, wts, mix, farm_rows, acres, lrt_units, unplaced, terr, S = make_output(args)
+    ids = {c['id'] for c in cl_out}
+    # every claim named by a table, an event or a unit exists
+    import re
+    txt = open(os.path.join(HERE, 'veg_tables.py'), encoding='utf-8').read()
+    miss = sorted(set(re.findall(r'VC-[A-Z0-9]+(?:-[A-Za-z0-9]+)+', txt)) - ids)
+    assert not miss, 'the tables cite claims that do not exist: %s' % miss
+    sc = json.loads(json.dumps(TB.SCENARIOS))
+    sc['CF-VEG-LRT']['lrt_units'] = lrt_units
+    lrt = gz_point_ll('Little Round Top')
+    sc['CF-VEG-LRT']['summit'] = {'lnglat': lrt, 'r_m': 90}
+    meta = {
+        'title': 'Vegetation of July 1863',
+        'schema': SCHEMA,
+        'requirement': 'R20', 'gate': 'Q21',
+        'as_of': '2026-11-13',
+        'time': {'unit': 'minutes since 1863-06-01 00:00 local mean time', 'window': ['1863-06-26T00:00', '1863-07-14T24:00'], 'epilogue': '1863-11-19'},
+        'ground': {'lng': [terr['lng0'], terr['lng1']], 'lat': [terr['lat0'], terr['lat1']], 'note': 'units are clipped to the ground the theatre loads'},
+        'geometry': {'woods_orchards_trees': 'the land-cover layer of the 1863 base map, outlined from the Warren survey of 1868-69 and placed to 30-40 m (docs/basemap1863/SOURCES-landcover.md); woodlot extents are those of 1868-69',
+                     'fields': 'open ground cut by roads, lanes, railway and the 30 confirmed fence lines, then divided into cells of about 14 acres by a seeded relaxation: the edges inside a block are not mapped (plausible-procedural)',
+                     'trees': 'not stored: each tree is placed at run time by a seeded scatter inside its unit (rows for orchards)'},
+        'counts': {'units': len(uo), 'by_class': dict(collections.Counter(u['cls'] for u in uo)), 'claims': len(cl_out), 'claims_unplaced': len(unplaced), 'events': len(events), 'witness_trees': len(wts)},
+        'tiers': {'units_geometry': dict(collections.Counter(u['geom_tier'] for u in uo)), 'field_crops': dict(collections.Counter(u.get('crop_tier') for u in uo if u['cls'] in ('field', 'wheatfield')))},
+        'sources': {'landcover_sha256': {n: sha256_file(os.path.join(LC, n + '.geojson')) for n in ('woods_1863', 'orchards_1863', 'scattered_trees_1863', 'marsh_wetland_1863', 'boulder_fields_1863', 'open_cleared_1863', 'fields_documented_1863', 'open_ground_1863')},
+                    'claims_sha256': sha256_file(CLAIMS)},
+        'mix': {'shares': mix, 'acres_read': {k: round(v, 1) for k, v in sorted(acres.items())}, 'farms': farm_rows, 'tier': 'plausible-procedural',
+                'basis': 'shares of the acreages the damage claims of the farms in `farms` destroyed (arable and hay), with pasture raised to its floor; a draw from this mix assigns the crop of every cell no claim names'},
+    }
+    doc = {'schema': SCHEMA, 'meta': meta, 'calendar': calendar_json(), 'species': TB.SPECIES, 'woods_classes': TB.WOODS, 'orchard_classes': TB.ORCHARD, 'scenarios': sc, 'farms': farm_out, 'witness_trees': wts, 'events': events,
+           'gaps': [{'id': g[0], 'title': g[1], 'what': g[2], 'why': g[3], 'tier': g[4], 'register': 'ws-world-veg-' + g[0]} for g in TB.GAPS], 'claims': cl_out, 'units': uo}
+    text = json.dumps(doc, ensure_ascii=False, separators=(',', ':'))
+    return text, doc
+
+
+def gz_point_ll(name):
+    g = gazetteer()[name]
+    ll = TO_LL.transform(g.x, g.y)
+    return [round(ll[0], 6), round(ll[1], 6)]
+
+
+def write_register(doc):
+    d = os.path.join(ROOT, 'docs', 'battle-theatre', 'GOVERNANCE', 'horde', 'ws-world', 'proposed-register')
+    os.makedirs(d, exist_ok=True)
+    for g in doc['gaps']:
+        path = os.path.join(d, g['register'] + '.md')
+        body = ('# %s: %s\n\n| Field | Content |\n|---|---|\n| ID | %s |\n| Requirement IDs | R20, Q21 |\n| Category | %s |\n| Description | %s |\n| Why literal 100%% is not possible or blocked | %s |\n'
+                '| Evidence searched / action | Official Records vol. 27 (tools/bt/or27_find.py), the National Park Service landscape reports saved by the web task (73 texts), the public-domain books and 1863 newspapers of the library; every quote of the claims is looked up again in the saved text (tools/bt/vegetation/verify_claims.py). The claims are in app/data/vegetation.json. |\n'
+                '| Autonomous substitute applied | A calendar of ranges and seeded draws, drawn in the theatre and marked with the tier in the Vegetation panel (More). |\n| Confidence tier | %s |\n'
+                '| Product marking | Tier pill on the unit card and on the legend; the ground overlay hatches every unit that is not documented; the gap is listed in the Vegetation panel. |\n| Review status | internal review only (DEC-006: no public review label) |\n| Owner decision requested | none (work continues) |\n| Status | open |\n') % (
+            g['register'], g['title'], g['register'], 'evidence missing', g['what'], g['why'], g['tier'])
+        with open(path, 'w', encoding='utf-8') as f:
+            f.write(body)
+
+
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--check', action='store_true')
+    ap.add_argument('--no-register', action='store_true')
     a = ap.parse_args()
-    units, claims, unplaced, mix, farm_rows, acres, terr, G, farms, gz, S = build_json(a)
-    print('units', len(units), collections.Counter(u['cls'] for u in units))
-    print('mix', mix, 'acres', {k: round(v) for k, v in acres.items()})
-    print('crops of field cells', collections.Counter(u.get('crop') for u in units if u['cls'] in ('field', 'wheatfield')))
-    print('crop basis', collections.Counter((u.get('crop_basis'), u.get('crop_tier')) for u in units if u['cls'] in ('field', 'wheatfield')))
-    print('claims', len(claims), 'unplaced', len(unplaced), 'placed', len(claims) - len(unplaced))
-    roles = collections.Counter(r for u in units for _, r in u['claims'])
-    print('roles', roles)
+    text, doc = write_all(a)
+    m = doc['meta']
+    print('units', m['counts'], 'bytes', len(text.encode()))
+    print('tiers', m['tiers'])
+    print('mix', m['mix']['shares'])
+    if a.check:
+        old = open(OUT, encoding='utf-8').read() if os.path.exists(OUT) else ''
+        print('check:', 'same' if old == text else 'DIFFERENT')
+        sys.exit(0 if old == text else 1)
+    with open(OUT, 'w', encoding='utf-8') as f:
+        f.write(text)
+    if not a.no_register:
+        write_register(doc)
+    print('wrote', OUT)

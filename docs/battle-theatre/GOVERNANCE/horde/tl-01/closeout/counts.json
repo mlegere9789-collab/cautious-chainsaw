@@ -1,0 +1,154 @@
+{
+ "rows": 57,
+ "verdict": {
+  "confirmed": 10,
+  "partially_supported": 23,
+  "corrected": 23,
+  "unsupported": 1
+ },
+ "verdict_of_rows_not_verified_before": {
+  "partially_supported": 9,
+  "corrected": 4,
+  "unsupported": 1
+ },
+ "sub_claims_by_tier": {
+  "documented": 217,
+  "open gap": 42,
+  "plausible-procedural": 5,
+  "inferred": 5
+ },
+ "sub_claims_by_support": {
+  "supported": 181,
+  "unsupported": 47,
+  "conflict": 33,
+  "contradicted": 8
+ },
+ "citations": 301,
+ "citations_by_source": {
+  "OR27": 192,
+  "JACOBS-1864": 35,
+  "GBG-COMPILER-1863-06-29": 26,
+  "ADAMS-SENTINEL-1863-07-21": 2,
+  "ADAMS-SENTINEL-1863-09-08": 1,
+  "PA-GB-1914-v2": 14,
+  "BL-3": 5,
+  "TPIERCE-1889": 4,
+  "FREMANTLE-1864": 6,
+  "MEADE-LL-v2": 4,
+  "ALEXANDER-1907": 3,
+  "MN-1ST-1916": 1,
+  "SHSP-06": 2,
+  "SHSP-04": 3,
+  "NPS-MON-LOC-1932": 1,
+  "NPS-HS-MCPHERSON": 2
+ },
+ "rows_with_scenarios": [
+  "T1-005",
+  "T1-007",
+  "T1-008",
+  "T1-010",
+  "T1-011",
+  "T1-012",
+  "T1-015",
+  "T1-020",
+  "T1-023",
+  "T1-024",
+  "T1-028",
+  "T1-030",
+  "T1-032",
+  "T1-035",
+  "T1-036",
+  "T1-039",
+  "T1-041",
+  "T1-042",
+  "T1-043",
+  "T1-044",
+  "T1-045",
+  "T1-046",
+  "T1-047",
+  "T1-055"
+ ],
+ "rows_with_default": [
+  "T1-043"
+ ],
+ "proposed_register_entries": 34,
+ "rows_in_conflicts_file": 24,
+ "results_tier": {
+  "documented": 53,
+  "open gap": 2,
+  "inferred": 2
+ },
+ "results_status": {
+  "verified": 23,
+  "partially_verified": 33,
+  "gap": 1
+ },
+ "rows_by_verdict": {
+  "confirmed": [
+   "T1-001",
+   "T1-002",
+   "T1-025",
+   "T1-027",
+   "T1-031",
+   "T1-033",
+   "T1-034",
+   "T1-038",
+   "T1-052",
+   "T1-057"
+  ],
+  "corrected": [
+   "T1-007",
+   "T1-008",
+   "T1-011",
+   "T1-012",
+   "T1-016",
+   "T1-020",
+   "T1-023",
+   "T1-024",
+   "T1-028",
+   "T1-030",
+   "T1-032",
+   "T1-035",
+   "T1-036",
+   "T1-037",
+   "T1-039",
+   "T1-041",
+   "T1-042",
+   "T1-044",
+   "T1-045",
+   "T1-046",
+   "T1-054",
+   "T1-055",
+   "T1-056"
+  ],
+  "partially_supported": [
+   "T1-003",
+   "T1-004",
+   "T1-005",
+   "T1-006",
+   "T1-009",
+   "T1-010",
+   "T1-013",
+   "T1-014",
+   "T1-015",
+   "T1-017",
+   "T1-018",
+   "T1-019",
+   "T1-021",
+   "T1-022",
+   "T1-026",
+   "T1-029",
+   "T1-040",
+   "T1-043",
+   "T1-047",
+   "T1-049",
+   "T1-050",
+   "T1-051",
+   "T1-053"
+  ],
+  "unsupported": [
+   "T1-048"
+  ],
+  "gap": []
+ }
+}

@@ -78,7 +78,8 @@ test('module: choosing a stop sends the camera there and shows the pin once the 
   assert.equal(tr.flyTo(8), true); assert.equal(tr.active(), 8); assert.equal(log.flights.length, 1); assert.deepEqual(log.flights[0].pose, B[7].pose); assert.equal(log.said.at(-1), 'Flying to Tour Stop 8, Little Round Top.');
   assert.equal(pin.hidden, true, 'the pin waits for the camera'); Object.assign(th.cam, camAt(B[7].pose)); Tour.update(frameOf(th.cam)); assert.equal(tr.pinShown(), true); assert.equal(pin.hidden, false);
   assert.equal(pin.querySelector('#xt-pin-text').textContent, 'Tour Stop 8 · Little Round Top · modern tour stop'); assert.match(pin.style.cssText, /position:absolute/); assert.match(pin.style.cssText, /pointer-events:none/);
-  assert.match(pin.style.props.transform || pin.style.transform || '', /^$|translate/); assert.ok(pin.style.transform === undefined || /^translate\(/.test(pin.style.transform));
+  const vp = new Float32Array(16), o = [0, 0, 0]; P.viewProj(th.cam, 1280 / 720, vp); assert.equal(P.project(vp, B[7].x, B[7].y, B[7].z, 1280, 720, o), true); const tm = /^translate\((-?\d+\.\d)px,(-?\d+\.\d)px\)$/.exec(pin.style.transform);
+  assert.ok(tm, `the pin is moved to where the stop is seen: ${pin.style.transform}`); assert.ok(Math.abs(+tm[1] - o[0]) < .06 && Math.abs(+tm[2] - o[1]) < .06, `the pin stands on the stop's own place on the picture (${tm[1]}, ${tm[2]} against ${o[0].toFixed(2)}, ${o[1].toFixed(2)})`);
   th.cam.yaw += Math.PI; Tour.update(frameOf(th.cam)); assert.equal(tr.pinShown(), false, 'turned away from the stop the pin is gone'); assert.equal(pin.hidden, true);
   th.cam.yaw -= Math.PI; Tour.update(frameOf(th.cam)); assert.equal(pin.hidden, false);
   assert.equal(tr.flyTo(99), false); assert.equal(tr.active(), 8, 'a stop that is not in the list changes nothing'); assert.equal(log.flights.length, 1);

@@ -1,0 +1,163 @@
+{
+ "finished": "see file mtime",
+ "seconds": 30,
+ "portBase": "8480",
+ "machine": {
+  "platform": "linux",
+  "cpus": 4,
+  "node": "v22.23.4"
+ },
+ "load1": {
+  "start": 10.08,
+  "end": 11.15
+ },
+ "childEnv": {
+  "httpsProxy": true,
+  "added": [
+   "NODE_USE_ENV_PROXY"
+  ],
+  "extended": [
+   "NODE_OPTIONS"
+  ]
+ },
+ "totals": {
+  "suites": 6,
+  "ok": 6,
+  "notOk": 0,
+  "greenTests": 28,
+  "greenTestsTotal": 28,
+  "redProofs": 0,
+  "redProofsOk": 0,
+  "redTestsRedAsRequired": 0
+ },
+ "results": [
+  {
+   "id": "static.baseline",
+   "title": "baseline machinery self-test (17 cases: Netlify post-processing model, lock and build refusal, CRLF-aware patching, overlay guard, verify-live against a local Netlify fake, mirror -> reconstruct -> prove, JS/Python model parity, compare-zip of a downloaded deploy)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 24.7,
+   "passed": 17,
+   "total": 17,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS 16 the JS mirror of the model (ops/sha-list.mjs forwardModel, used by verify-url --tree) gives the same bytes as the Python model on all 27 pages -- 27 pages identical in both implementations; ve",
+    "PASS 17 compare-zip: a downloaded deploy zip against the locked baseline (identical, folder-prefixed zip, one changed file with a diff, a missing file, an extra _headers, a case-only name, CLI exit co",
+    "baseline selftest: all passed"
+   ],
+   "load1Start": 10.08,
+   "load1End": 10.99
+  },
+  {
+   "id": "static.baselinelock",
+   "title": "baseline/dist matches tools/t0/baseline.lock.json (per-file sha256, no network)",
+   "kind": "check",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 0.3,
+   "passed": null,
+   "total": null,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "baseline ok: baseline/dist matches tools/t0/baseline.lock.json (119 files, tree d2b126e99a88cbd9d708c0db237d2fd1dfbe7a3bf8c8d41c473536d3f727be6d)"
+   ],
+   "load1Start": 10.99,
+   "load1End": 10.99
+  },
+  {
+   "id": "static.legal",
+   "title": "privacy/terms fact base vs the built R1c tree",
+   "kind": "check",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 0.8,
+   "passed": 13,
+   "total": 13,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  markers      no owner-review marker in any of 46 shipped text files",
+    "PASS  terms-embed  Terms invite embedding the widget and _headers frees /embed and /embed.html (frame-ancestors *, no X-Frame-Options)",
+    "/home/user/cautious-chainsaw/release/R1g/dist: no FAIL, 1 WARN"
+   ],
+   "load1Start": 10.99,
+   "load1End": 10.99
+  },
+  {
+   "id": "static.overlap.selftest",
+   "title": "overlap audit self-test (6 cases incl. the failing ones: an anchor that no longer matches, an undeclared overwrite, an anchor with no source)",
+   "kind": "check",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 0,
+   "passed": 1,
+   "total": 1,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS overlap_selftest: 6 cases"
+   ],
+   "load1Start": 10.99,
+   "load1End": 10.99
+  },
+  {
+   "id": "static.ship",
+   "title": "pack_zip self-test (tools/ship/pack_zip.py, the Netlify drag-and-drop zip: files at the zip root, byte-identical packs, a changed, extra or missing file or a wrong tree digest against manifest.json is refused, the staging variant differs in _headers only, the real R1c packs)",
+   "kind": "green",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 3.2,
+   "passed": 11,
+   "total": 11,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  9b a dist whose build failed (BUILD-FAILED.json, or gate.json ok:false) is refused -- both refused, no zip written",
+    "PASS  10 the real R1c dist (when built) packs and equals the dist; the manifest line carries its tree digest -- 127 files, tree 29ba046d965c; the staging zip equals the sha-list stage copy",
+    "pack_zip self-test: all 11 passed"
+   ],
+   "load1Start": 10.99,
+   "load1End": 11.15
+  },
+  {
+   "id": "static.legal.optin",
+   "title": "privacy/terms fact base vs R1c built with PG-legal (exit 0 = no FAIL: the text matches the headers; the Street View delegation is disclosed, so the WARN of the default build is gone)",
+   "kind": "check",
+   "inverted": false,
+   "exit": 0,
+   "seconds": 0.5,
+   "passed": 19,
+   "total": 19,
+   "skipped": 0,
+   "failed": 0,
+   "tiles": null,
+   "failLines": [],
+   "ok": true,
+   "tail": [
+    "PASS  frame-permission Street View frame: allow attribute, Permissions-Policy (self + https://www.google.com, accelerometer + gyroscope only) and the privacy text agree",
+    "PASS  referrer     privacy.html says third parties receive this site's address as the referrer and _headers sends Referrer-Policy strict-origin-when-cross-origin everywhere (origin only on cross-origi",
+    "/home/user/cautious-chainsaw/release/control/R1c-legal/dist: no FAIL, 1 WARN"
+   ],
+   "load1Start": 11.15,
+   "load1End": 11.15
+  }
+ ]
+}

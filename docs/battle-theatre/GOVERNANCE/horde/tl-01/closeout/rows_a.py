@@ -67,7 +67,7 @@ ROWS.append(dict(
         ('Robertson\'s and Jones\' brigades were left in observation of the enemy on the usual front', 'documented', 'supported', ['rob']),
         ('Lee\'s army lacked its main cavalry on the approach to Gettysburg: Lee says the absence of the cavalry made accurate information impossible and embarrassed the movements before the battle', 'documented', 'supported', ['lee307', 'lee321']),
         ('Stuart\'s advance reached Gettysburg on July 2', 'documented', 'supported', ['arr']),
-        ('Jenkins\' cavalry operated apart from Stuart, advancing toward Harrisburg ahead of Rodes\' division at Carlisle', 'documented', 'supported', ['jenk']),
+        ('Jenkins\' cavalry was with Ewell\'s corps at Carlisle and advanced toward Harrisburg; Stuart\'s command was increased by Jenkins\' brigade only on Jul 3', 'documented', 'supported', ['jenk', 'jenk3']),
         ('Imboden operated separately on the left of Ewell\'s advance (Baltimore and Ohio Railroad raid)', 'documented', 'supported', ['imb']),
     ],
     cites={
@@ -81,6 +81,7 @@ ROWS.append(dict(
         'lee321': OR('The movements of the army preceding the battle of Gettysburg had been much embarra.ssed by the absence of the cavalry', R426, '321'),
         'arr': OR('My advance reached Gettysburg July 2, just in time to thwart a', R565, '697'),
         'jenk': OR('On our arrival at Carlisle, Jenkins\' cavalry advanced toward', R506, '551'),
+        'jenk3': OR('My command was increased by the addition of Jenkins\' brigade', R565, '697'),
         'imb': OR('had been actively engaged on the left of General Ewell during the', R426, '307'),
     },
     remains=[], searched=['OR27-2-R565 (Stuart) pp.692-697 read; OR27-2-R426 (Lee) searched for the cavalry and Imboden passages; OR27-2-R506 (Rodes) read for Jenkins'],
@@ -168,7 +169,7 @@ ROWS.append(dict(
     id='T1-005', verdict='partially_supported',
     claim=claim('Thaddeus Stevens\' Caledonia iron works (furnace, forge, rolling-mill, shops) burned by Confederate cavalry of Early\'s command',
                 'Col. French\'s 17th Virginia Cavalry detachment (Jenkins\' brigade), ordered by General Early (Jenkins\' cavalry had visited the works on Jun 23)',
-                'Stevens\' iron works at Caledonia, Franklin County, on the Chambersburg-Gettysburg turnpike (the Adams Sentinel puts it 15 miles west of Gettysburg)',
+                'Stevens\' iron works at Caledonia, 15 miles west of Gettysburg (Adams Sentinel), on the rebels\' route toward Gettysburg (Compiler)',
                 'Date in conflict, no hour: Thursday Jun 25 (Tribune letter and Adams Sentinel) or Friday Jun 26 (Gettysburg Compiler, "on Friday")',
                 'Adams Sentinel Jul 21 1863 p.3 and Sep 8 1863 p.2 (Thursday); Gettysburg Compiler Jun 29 1863 p.2 (Friday)',
                 'The works were burned by the rebels: the Gettysburg Compiler of Jun 29 says on Friday (Jun 26) on their route hitherward; the Adams Sentinel (Jul 21 and Sep 8 1863) puts General Early at the works on Thursday Jun 25 and has Col. French\'s cavalry apply the torch, the buildings reduced to ashes, '
@@ -214,7 +215,7 @@ ROWS.append(dict(
 ROWS.append(dict(
     id='T1-006', verdict='partially_supported',
     claim=claim('Early learns that a force may be at Gettysburg and splits his column at the forks 1.5 miles from Cashtown',
-                'Gordon\'s brigade with White\'s 35th Virginia Cavalry Battalion (on the pike); Early with the rest (Hays, Hoke, Smith, artillery) by Hilltown to Mummasburg; French\'s 17th Virginia Cavalry with him',
+                'Gordon\'s brigade with White\'s cavalry battalion (on the pike); Early with the rest (Hays, Hoke, Smith, artillery) by Hilltown to Mummasburg; French\'s 17th Virginia Cavalry with him',
                 'Forks of the road about 1.5 miles from Cashtown on the Chambersburg-Gettysburg pike; Hilltown; Mummasburg',
                 'Morning of Jun 26 (no hour)', 'Early, OR27-2-R470 p.465; Gordon, OR27-2-R477 p.491',
                 'At the forks about 1.5 miles from Cashtown Early sent Gordon\'s brigade and White\'s cavalry on the pike through Cashtown toward Gettysburg and moved with the rest of the division to the left through Hilltown to Mummasburg, to get on the flank and rear of the force he had heard was probably at Gettysburg (size unknown). '
@@ -258,11 +259,14 @@ ROWS.append(dict(
         ('Held up by a railroad accident at Swift Run, 6 miles below Gettysburg, on the way up (train off the track after striking a cow, per the Compiler); the regiment encamped on the spot', 'documented', 'supported', ['cmp_swift', 'penny_acc', 'rich_acc']),
         ('Scenario A: the regiment reached the town on the morning of Jun 26, at 9 a.m., from its camping ground', 'documented', 'conflict', ['jac_9', 'cmp_swift', 'penny_100']),
         ('Scenario B: it had arrived the night before (Jun 25); regimental monument: reached Gettysburg June 25', 'documented', 'conflict', ['early_night', 'mon_25']),
+        ('Strength: 735 men (Jacobs) or 800 or 900 men (Early)', 'documented', 'conflict', ['jac_735', 'early_800']),
         ('A detail of 100 picked men came up to Gettysburg on the evening of Jun 25 and the rest of the regiment joined them on the morning of Jun 26', 'documented', 'supported', ['jac_100', 'penny_100']),
         ('The arrival was by train (seed)', 'documented', 'contradicted', ['jac_9', 'cmp_swift']),
     ],
     cites={
         'early_night': OR('had arrived in Gettysburg the night before, and moved that morning a', R470, '465'),
+        'early_800': OR('Twentysixth Pennsylvania Militia, consisting of 800 or 900 men', R470, '465'),
+        'jac_735': L('JACOBS-1864', 'numbering 735 men'),
         'jac_9': L('JACOBS-1864', 'The 26th regiment arrived at Gettysburg, from their camping-ground, at 9 a. m.'),
         'jac_100': L('JACOBS-1864', 'Thursday, June 25. Late on Thursday evening, however, 100 picked'),
         'cmp_swift': CMP('regiment encamped on the spot, and cam, to', 'The 26th Regiment P. V. M. was expected to arrive here on Wednesday evening. But upon the train passing Swift Run, a short distance below Goulden\'s Station, the locomotive struck a cow, which threw the machine and a number of the cars off the track. This promising to cause considerable delay, the regiment encamped on the spot, and came to town on Friday morning.'),
@@ -321,7 +325,7 @@ ROWS.append(dict(
 ROWS.append(dict(
     id='T1-009', verdict='partially_supported',
     claim=claim('The militia camp about three miles out the pike; the regiment withdraws when White\'s cavalry is sighted',
-                '26th Pennsylvania Militia (Jennings) with Bell\'s cavalry vs White\'s 35th Virginia Cavalry Battalion', 'Chambersburg pike about 3 to 3.5 miles west of Gettysburg (Marsh Creek area); the retreat ran across the fields toward Hunterstown',
+                '26th Pennsylvania Militia (Jennings) with Bell\'s cavalry vs White\'s cavalry battalion', 'Chambersburg pike about 3 to 3.5 miles west of Gettysburg (Marsh Creek area); the retreat ran across the fields toward Hunterstown',
                 'Jun 26, from the arrival at about 10:30-11:00 to about 15:00 (Jacobs: at about 3 p.m. the Rebels in force appeared)', 'Early OR27-2-R470 p.465; Jacobs 1864 p.14; Richards (BL-3); Pennypacker (PA-GB-1914-v2)',
                 'The regiment went three to three and a half miles out the pike, halted, threw out pickets and encamped; at about 3 p.m. the Rebels in force appeared and captured nearly all the pickets (40), the regiment withdrew without a fight. Early: it fled at the first approach of White\'s cavalry, taking across the fields between Mummasburg and Gettysburg toward Hunterstown. '
                 'Marsh Creek is named by the regimental account; NOT documented: the clover-field camp, Knoxlyn/Wisler Ridge, the "about 2 miles off" sighting distance and the hour "midday".',
@@ -355,7 +359,7 @@ ROWS.append(dict(
 ROWS.append(dict(
     id='T1-010', verdict='partially_supported',
     claim=claim('White\'s cavalry charges and routs the militia; the prisoners are about three dozen (36 paroled, plus two officers)',
-                'White\'s 35th Virginia Cavalry Battalion (Lt. Col. E. V. White) vs the 26th Pennsylvania Militia and pickets', 'In front of Gettysburg, on the Chambersburg pike',
+                'White\'s cavalry battalion (Lt. Col. E. V. White) vs the 26th Pennsylvania Militia and pickets', 'In front of Gettysburg, on the Chambersburg pike',
                 'Jun 26 afternoon (about 15:00 by Jacobs and the Compiler); no morning hour', 'Gordon OR27-2-R477 p.491; Ewell OR27-2-R467 p.443; Jacobs 1864 p.14; Compiler Jun 29 1863 p.2',
                 'In front of Gettysburg the Pennsylvania militia regiment was charged and routed by White\'s cavalry battalion (Gordon); about 15:00 the Rebels in force captured nearly all the pickets, 40 (Jacobs); the Compiler counts 36 prisoners of the 26th paroled at Gettysburg and two officers taken along ("some forty" captured). '
                 'The OR totals for the whole affair are 170 (Ewell) and 175 (Early). NOT documented: Co. E of the battalion under Lt. H. M. Strickler, and the raid on the abandoned camp.',
@@ -481,7 +485,7 @@ ROWS.append(dict(
     id='T1-013', verdict='partially_supported',
     claim=claim('Private George W. Sandoe of Bell\'s cavalry is shot dead by a Confederate trooper on the Baltimore turnpike, near Nathaniel Lightner\'s',
                 'Bell\'s Adams County cavalry (later Co. B, 21st Pennsylvania Cavalry): Pvt. George W. Sandoe and one other trooper; one Confederate cavalryman of the entering force (White\'s battalion)',
-                'The turnpike (Baltimore Street / Baltimore Pike) as far as Nathaniel Lightner\'s, south-east of Gettysburg',
+                'Baltimore Street and the turnpike beyond it, as far as Nathaniel Lightner\'s',
                 'Jun 26, shortly after the Confederate cavalry entered the town at about 15:00 (Compiler) / 15:30 (Jacobs); the body was removed the same evening', 'Gettysburg Compiler Jun 29 1863 p.2; regimental monument inscription (PA-GB-1914-v2); Jacobs 1864 p.15',
                 'On Jun 26, after the rebel cavalry entered Gettysburg at about 3 p.m., one rebel went down the turnpike as far as Nathaniel Lightner\'s, came upon two of Bell\'s cavalry and shot one, Mr. George Sandoe, killing him on the spot (Compiler of Jun 29, printed three days later); the body was removed to his home the same evening. '
                 'The regimental monument text gives Private George W. Sandoe, an advance scout of the company later Co. B, 21st Pennsylvania Cavalry, as the first Union soldier killed at Gettysburg, June 26 1863. '
@@ -519,7 +523,7 @@ ROWS.append(dict(
     id='T1-014', verdict='partially_supported',
     claim=claim('The Confederates occupy Gettysburg: demands on the borough, a search of the stores, rations issued, a railroad bridge and cars burned',
                 'White\'s cavalry (about 150-200), Gordon\'s infantry brigade (2,500-5,000 by the estimates), Early; borough council members D. Kendlehart and A. D. Buehler',
-                'Gettysburg (Chambersburg Street, the square, the Court-house), the railroad station area and the Rock Creek railroad bridge',
+                'Gettysburg (Chambersburg Street, the Court-house), its railroad and the Rock Creek railroad bridge',
                 'Jun 26 from about 15:00 (cavalry) to the evening (Early arrives late; bridge and cars burned in the evening)', 'Compiler Jun 29 1863 p.2; Jacobs 1864 pp.15-17; Early OR27-2-R470 p.465; Pierce 1889',
                 'Cavalry (about 150, "180 to 200") entered at about 3 to 3.30 p.m., followed half an hour later by Gordon\'s infantry (Compiler 2,500-4,000; Jacobs 5,000); Early arrived late in the day, demanded supplies (Jacobs lists 1,200 lb sugar, 600 lb coffee, 60 barrels of flour, 1,000 lb salt, 7,000 lb bacon, 10 barrels of whisky, 10 barrels of onions, 1,000 pairs of shoes, 500 hats, or $5,000 cash). '
                 'Council members D. Kendlehart and A. D. Buehler answered that the goods were not in town, the borough had no funds and the Confederates could search; no attempt was made to enforce the requisition (Jacobs); Early reports a search of the stores found very little and about 2,000 rations in a train of cars issued to Gordon; the troops were quartered in town including the Court-house, and in the evening the railroad bridge across Rock Creek and 10-17 cars were burned. '
@@ -572,7 +576,7 @@ ROWS.append(dict(
 ROWS.append(dict(
     id='T1-015', verdict='partially_supported',
     claim=claim('Railroad cars and the Rock Creek railroad bridge are burned on the evening of Jun 26; the track is destroyed',
-                'Early\'s troops (Gordon\'s brigade and White\'s cavalry)', 'Gettysburg railroad station area and the railroad bridge over Rock Creek east of town',
+                'Early\'s troops (Gordon\'s brigade and White\'s cavalry)', 'Gettysburg railroad and the railroad bridge over Rock Creek east of town',
                 'Jun 26 evening (Jacobs: during the evening of Friday)', 'Jacobs 1864 p.17; Early OR27-2-R470 p.465; Compiler Jun 29 1863 p.2; Pierce 1889',
                 'During the evening of Friday Jun 26 the rebels burned the railroad bridge across Rock Creek and cars: Early reports 10 or 12 cars and a small railroad bridge near the place (no railroad buildings of consequence); the Compiler counts 17 cars and says the centre span of the bridge was burnt and fell in; Pierce adds that the track was destroyed at the bridge east of the town. '
                 'NOT documented: a covered bridge and torn-up telegraph lines.',

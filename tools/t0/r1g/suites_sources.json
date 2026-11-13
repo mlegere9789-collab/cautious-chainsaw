@@ -69,6 +69,14 @@
       "summary": "docs/accept/r1g-suite-logs/2026-11-13-static-before-quiet-flag.summary.json",
       "original_summary": "tmp/r1g-harness/static.json",
       "conditions": "Cloud container, 2026-11-13, the 16 static rows (--only static), through the machine lock, with the first proxy-aware runner (it added NODE_USE_ENV_PROXY where unset; no NODE_OPTIONS flag yet). Load recorded (5.17 at the start of the run, 6.77 at its end, 4 CPUs, shared with other work: the durations are not timing evidence). static.baseline is 16/17 in this run: case 16 of tools/t0/tests/baseline_selftest.py parses the last line of a Node child's merged output and the child had printed Node's two-line proxy warning (red-first proof and fix: docs/accept/R1G-STATUS.md, 2026-11-13 line; docs/accept/README.md, 'Behind a proxy')."
+    },
+    {
+      "log": "docs/accept/r1g-suite-logs/2026-11-13-static-light-after-quiet-flag.log",
+      "original_log": "tmp/r1g-harness2/light-after.log",
+      "time_utc": "2026-11-13T19:55:31Z",
+      "summary": "docs/accept/r1g-suite-logs/2026-11-13-static-light-after-quiet-flag.summary.json",
+      "original_summary": "tmp/r1g-harness2/light-after.json",
+      "conditions": "Cloud container, 2026-11-13, six static rows (--only static.baseline,static.legal,static.overlap.selftest,static.ship: the suite that regressed in the run before, and the light rows), started directly (not through the machine lock: each is a few seconds of CPU) with the final proxy-aware runner and no manual environment: the console line of the run says it added NODE_USE_ENV_PROXY and extended NODE_OPTIONS. Load recorded in the log (10.08 at the start, 11.15 at the end, 4 CPUs, shared with other work: the durations are not timing evidence). static.baseline is 17/17 here."
     }
   ]
 }

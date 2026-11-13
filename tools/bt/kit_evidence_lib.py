@@ -7,6 +7,7 @@ Helper commands (run with python -I; a research group needs only these three):
     python -I tools/bt/kit_evidence_lib.py find  <source_id> "<regex>" [-C 160] [--max 20] [--fuzzy]     search a source, print each hit as a citation
     python -I tools/bt/kit_evidence_lib.py cite  <source_id> "<exact quote>" [--offset N]                  locate a quote and print the citation fields of an evidence line
     python -I tools/bt/kit_evidence_lib.py image <source_id> <printed_page> [--dpi 130] [--out DIR]       render one scanned page of an Official Records part to a PNG
+    python -I tools/bt/kit_evidence_lib.py group <group_id>                                              your working sheet: reading list, tables with pages, one line per unit
     python -I tools/bt/kit_evidence_lib.py unit  <unit_id>                                                what the plan says about a unit (group, kit record, fields still open, reading list)
     python -I tools/bt/kit_evidence_lib.py template <field>                                               a valid example line for a field
     python -I tools/bt/kit_evidence_lib.py sources                                                        the citable sources and their page models
@@ -71,7 +72,7 @@ BASES = {
 QUOTE_MODES = {
     'exact': 'the quote is the text of the source (whitespace collapsed); it must be found, exactly and case-sensitively, at the stated offset',
     'ocr_corrected': 'the quote is the text with OCR errors corrected after reading the scanned page; it must match the source text closely at the stated offset (image block required)',
-    'image_row': 'a row of a printed table whose figures were read from the scanned page; the quote is the printed row label as the OCR has it (exact); the figures are in value and are checked arithmetically (image block required)',
+    'image_row': 'a row of a printed table (a return of casualties; a row of an abstract of strength) whose figures were read from the scanned page; the quote is the printed row label as the OCR has it (exact); value.row and value.row_columns give the figures in print order and are checked arithmetically (image block required)',
 }
 QUOTE_MIN, QUOTE_MAX = 12, 600
 
@@ -105,7 +106,9 @@ def nul(t):
 
 SHARE = nul(en(*SHARES))
 DATE_T = ('date',)
-KILLED_T = obj(opt={'officers': nul(i()), 'enlisted': nul(i())})
+KILLED_T = obj(opt={'officers': nul(i()), 'enlisted': nul(i()), 'total': nul(i())})
+CAS_COLUMNS = ('killed_officers', 'killed_enlisted', 'wounded_officers', 'wounded_enlisted', 'missing_officers', 'missing_enlisted', 'killed', 'wounded', 'missing', 'aggregate')
+CAS_LAYOUTS = (('killed_officers', 'killed_enlisted', 'wounded_officers', 'wounded_enlisted', 'missing_officers', 'missing_enlisted', 'aggregate'), ('killed', 'wounded', 'missing', 'aggregate'), ('killed', 'wounded', 'aggregate'))
 WEAPON_ITEM = obj(req={'printed': s(300)}, opt={'weapon_id': nul(s(80)), 'caliber_in': nul(('num', 0.2, 12.0)), 'share': SHARE, 'count': nul(i()), 'companies': nul(s(40)), 'note': s(300)})
 DRESS_ITEM = obj(req={'printed': s(300)}, opt={'item_id': nul(s(80)), 'share': SHARE, 'note': s(300)})
 PIECE = obj(req={'printed': s(200), 'count': nul(i(0, 400))}, opt={'type_id': nul(s(80)), 'type_candidates': lst(s(80), 0, 8), 'note': s(300)})
@@ -120,9 +123,10 @@ FIELD_SPECS = {
     'officer': obj(req={'name': s(120), 'rank': s(60), 'role': en('field', 'staff', 'company', 'aide', 'chief_of_artillery', 'surgeon', 'other')},
                    opt={'rank_printed': s(60), 'company': nul(s(10)), 'event': nul(en('killed', 'mortally_wounded', 'wounded', 'captured', 'missing', 'other')), 'note': s(300)}),
     'strength': obj(req={'low': i(), 'high': i(), 'men': en('officers_and_men', 'enlisted_only', 'officers_only', 'rank_and_file', 'aggregate', 'not_stated')},
-                    opt={'officers': nul(i()), 'enlisted': nul(i()), 'companies': nul(i(1, 20)), 'scope': s(120), 'text_figure': s(160), 'note': s(300)}),
+                    opt={'officers': nul(i()), 'enlisted': nul(i()), 'companies': nul(i(1, 20)), 'scope': s(120), 'text_figure': s(160), 'note': s(300),
+                         'row': lst(nul(i()), 2, 14), 'row_columns': lst(s(60), 2, 14), 'identity': nul(obj(req={'sum': lst(i(0, 13), 1, 13), 'equals': i(0, 13)})), 'label_read': s(160)}),
     'casualties': obj(req={'killed': KILLED_T, 'wounded': KILLED_T, 'missing': KILLED_T, 'total': nul(i()), 'period': s(60)},
-                      opt={'scope': s(120), 'row': lst(nul(i()), 0, 12), 'label_read': s(160), 'note': s(300)}),
+                      opt={'scope': s(120), 'row': lst(nul(i()), 3, 7), 'row_columns': lst(en(*CAS_COLUMNS), 3, 7), 'label_read': s(160), 'note': s(300)}),
     'arms': obj(req={'weapons': lst(WEAPON_ITEM, 1, 12)}, opt={'exchange': s(300), 'note': s(300)}),
     'guns': obj(req={'pieces': lst(PIECE, 1, 12), 'total': nul(i(0, 400)), 'state': en('present', 'engaged', 'lost', 'captured', 'disabled', 'recovered', 'detached')},
                 opt={'scope': en('battery', 'section', 'battalion', 'brigade', 'corps', 'other'), 'note': s(300)}),
@@ -134,7 +138,7 @@ FIELD_SPECS = {
 # value paths whose numbers must be found in the quote of a text-mode documented line (derived totals are exempt)
 NUMBER_PATHS = {
     'strength': ['officers', 'enlisted', 'low', 'high'],
-    'casualties': ['killed.officers', 'killed.enlisted', 'wounded.officers', 'wounded.enlisted', 'missing.officers', 'missing.enlisted'],
+    'casualties': ['killed.officers', 'killed.enlisted', 'killed.total', 'wounded.officers', 'wounded.enlisted', 'wounded.total', 'missing.officers', 'missing.enlisted', 'missing.total'],
     'guns': ['pieces.*.count'],
     'horses': ['present', 'serviceable', 'unserviceable', 'lost', 'killed'],
     'ammunition': ['rounds_expended', 'rounds_on_hand'],
@@ -152,7 +156,7 @@ ERRORS = collections.OrderedDict([
     ('SOURCE', 'source_id is not in sources.json and not declared by a source line'), ('LEAD', 'a documented or inferred line cites a lead-class source'),
     ('PART', 'part does not match the source (1, 2 or 3 for Official Records, null otherwise)'), ('QUOTE', 'quote is missing, too short or too long'), ('QUOTE_NOT_FOUND', 'the quote is not in the source text'),
     ('OFFSET', 'offset is missing or is not where the quote starts'), ('PAGE', 'printed_page does not match the leaf map (or the page model of the volume)'), ('REPORT', 'report_id is not the report (or section) that contains the quote'),
-    ('NUMBERS', 'a number of value is not in the quote (spelled-out numbers count); use quote_mode image_row or ocr_corrected, or waive_numbers with the reason'), ('IMAGE', 'quote_mode needs an image block (pdf_page, dpi) and a row where the mode says so'),
+    ('NUMBERS', 'a number of value is not in the quote (spelled-out numbers count); use quote_mode image_row or ocr_corrected, or waive_numbers with the reason'), ('IMAGE', 'quote_mode needs an image block (pdf_page, dpi) and, for image_row, value.row with value.row_columns for casualties or strength'),
     ('CHECK', 'an arithmetic identity of a table row fails (the figures were misread)'), ('DERIVED', 'a derived or inferred line has no derived_from or note, or cites an unknown line'), ('SUPERSEDES', 'supersedes names an unknown line'),
     ('CONFLICT', 'conflict is malformed, or two active lines of one quantity disagree and no conflict is declared'), ('GAP', 'a gap line needs searched (source ids and terms) and result'), ('DECLARE', 'a source declaration is malformed or its file is missing or its sha256 differs'),
     ('PROCEDURAL', 'a plausible-procedural line needs a note and a register_proposal'), ('TABLE', 'a documented line quotes a table row whose figures the OCR scrambled: use quote_mode image_row'),
@@ -161,7 +165,7 @@ WARNINGS = collections.OrderedDict([
     ('OCR_CORRECTED', 'quote_mode ocr_corrected: the quote differs from the OCR text; a reviewer re-reads the page image'), ('HYPHEN', 'the quote matched only with line-end hyphenation ignored'),
     ('PAGE_END', 'the quote runs over a page break; give printed_page_end'), ('PAGE_UNCHECKED', 'the page model of this source gives no page at this offset; the page is not checked'), ('REPORT_EDGE', 'the quote lies within 2,000 characters of the edge of the indexed report'),
     ('UNIT_FIELD', 'the field is unusual for this kind of unit'), ('LONG_QUOTE', 'the quote is long; the shortest passage that supports the claim is better'), ('NUMBERS_WAIVED', 'the number check was waived'),
-    ('OFF_FIELD', 'the date is outside 26 June to 16 July 1863 (fine for background facts)'), ('KIT_NOW', 'information only (--diff): what the kit tables hold now for this unit and field'),
+    ('OFF_FIELD', 'the date is outside 26 June to 16 July 1863 (fine for background facts)'), ('KIT_NOW', 'information only (--diff): what the kit tables hold now for this unit and field'), ('NO_IDENTITY', 'an image_row strength line without an identity of the printed row: nothing but a reviewer checks the figures'),
 ])
 ALLOWED_KEYS = {
     'evidence': {'type', 'id', 'unit_id', 'unit_name', 'parent_unit_id', 'field', 'kit_field', 'value', 'basis', 'basis_note', 'tier', 'as_of', 'source_id', 'part', 'report_id', 'printed_page', 'printed_page_end', 'offset', 'quote',
@@ -539,7 +543,7 @@ def template(field):
         'commander': ({'name': 'Samuel J. Williams', 'rank': 'Colonel', 'rank_printed': 'Col.', 'order': 1, 'role': 'commanding'}, 'organization_table'),
         'officer': ({'name': 'Albert M. Edwards', 'rank': 'Captain', 'role': 'field', 'event': None}, 'report_text'),
         'strength': ({'low': 252, 'high': 252, 'men': 'officers_and_men', 'officers': 17, 'enlisted': 235, 'scope': 'regiment'}, 'taken_into_action'),
-        'casualties': ({'killed': {'officers': 2, 'enlisted': 25}, 'wounded': {'officers': 12, 'enlisted': 121}, 'missing': {'officers': 4, 'enlisted': 46}, 'total': 210, 'period': '1863-07-01/1863-07-03', 'row': [2, 25, 12, 121, 4, 46, 210]}, 'casualty_return'),
+        'casualties': ({'killed': {'officers': 2, 'enlisted': 25}, 'wounded': {'officers': 12, 'enlisted': 121}, 'missing': {'officers': 4, 'enlisted': 46}, 'total': 210, 'period': '1863-07-01/1863-07-03', 'row': [2, 25, 12, 121, 4, 46, 210], 'row_columns': ['killed_officers', 'killed_enlisted', 'wounded_officers', 'wounded_enlisted', 'missing_officers', 'missing_enlisted', 'aggregate']}, 'casualty_return'),
         'arms': ({'weapons': [{'printed': 'Springfield rifled muskets', 'weapon_id': 'm1861_springfield', 'share': 'all'}]}, 'report_text'),
         'guns': ({'pieces': [{'printed': 'six 12-pounders', 'count': 6, 'type_id': None, 'type_candidates': ['napoleon_12pdr_m1857', '12pdr_howitzer']}], 'total': 6, 'state': 'engaged', 'scope': 'battery'}, 'report_text'),
         'dress': ({'items': [{'printed': 'gray jackets', 'item_id': None, 'share': 'most'}]}, 'report_text'),
@@ -657,6 +661,31 @@ def cmd_unit(argv):
     return 0
 
 
+def cmd_group(argv):
+    d = groups_doc()
+    gid = argv[0] if argv else None
+    g = next((x for x in d['groups'] if x['id'] == gid), None)
+    if g is None:
+        print('groups: ' + ', '.join(x['id'] for x in d['groups']))
+        return 2
+    print('GROUP %s (%s): %s' % (g['id'], g['army'], g['title']))
+    if g.get('note'):
+        print('NOTE: ' + g['note'])
+    rd = g['reading_list']
+    print('TABLES (read the scans: python -I tools/bt/kit_evidence_lib.py image <source> <page>):')
+    for t in rd['tables']:
+        print('   %s pp. %s  %s' % (t['report_id'], t['pages'], t['what']))
+    print('REPORTS (%d to read = %dk chars, %d to search):' % (g['reading']['read_reports'], g['reading']['read_kchars'], g['reading']['search_reports']))
+    for r in rd['reports']:
+        print('   %-6s %s .. %s  %s' % (r.get('mode', 'read'), r['from'], r['to'], r['what']))
+    print('VOLUMES: ' + ', '.join(rd['volumes']))
+    print('UNITS (%d): unit_id | name | level | required | own reports | state sections | search terms' % len(g['units']))
+    for u in g['units']:
+        print('  %s | %s | %s | %s | %s | %s | %s' % (u['unit_id'], u['name'], u['level'] + ('' if u['in_roster'] else ' (kit record only)'), ','.join(u['required']), ','.join(x[-4:] for x in u['reports']['own']) or '-',
+                                                       ','.join(u.get('state_sections') or []) or '-', '; '.join(u['search_terms'][:4])))
+    return 0
+
+
 def cmd_sources(argv):
     reg = registry()
     for sid, r in reg.items():
@@ -665,7 +694,7 @@ def cmd_sources(argv):
 
 
 def main(argv):
-    cmds = {'find': cmd_find, 'cite': cmd_cite, 'image': cmd_image, 'unit': cmd_unit, 'sources': cmd_sources}
+    cmds = {'find': cmd_find, 'cite': cmd_cite, 'image': cmd_image, 'unit': cmd_unit, 'group': cmd_group, 'sources': cmd_sources}
     if not argv or argv[0] not in list(cmds) + ['template']:
         print(__doc__)
         return 2

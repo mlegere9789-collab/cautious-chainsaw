@@ -1,12 +1,13 @@
 // Harness (not a gate): compares the pictures the WebGL2 and the WebGPU runs of tests/weather3d-gpu.mjs wrote for the same cases (same simulation time, same camera) and writes, per case, a
 // montage (WebGL2 | WebGPU | difference x4) and the numbers. Both pictures come from software rendering here; the numbers say how far the two paths are from each other, not how close either is to a real GPU.
-//   node docs/battle-theatre/app/tests/weather3d-gpu-compare.mjs <outDir> [maxMeanAbsDiff=6] [--strict]
+//   node docs/battle-theatre/app/tests/weather3d-gpu-compare.mjs <outDir> [maxMeanAbsDiff=6] [--strict] [--prefix=theatre-]
 // <outDir>/compare/<case>.png, <outDir>/compare/summary.json. With --strict a case over the limit exits with code 1 (the limit is a harness value, not a project gate).
 import fs from 'node:fs'; import path from 'node:path';
 import { encodePng, stats } from './weather3d-gpu-lib.mjs';
 
 const args = process.argv.slice(2), pos = args.filter(a => !a.startsWith('--')), root = path.resolve(pos[0] || '.'), LIMIT = +(pos[1] || 6), STRICT = args.includes('--strict');
-const dirGL = path.join(root, 'webgl2'), dirGPU = path.join(root, 'webgpu'), out = path.join(root, 'compare'); fs.mkdirSync(out, { recursive: true });
+const prefix = (args.find(a => a.startsWith('--prefix=')) || '--prefix=').split('=')[1];          // --prefix=theatre- compares the shell runs (theatre-webgl2, theatre-webgpu)
+const dirGL = path.join(root, prefix + 'webgl2'), dirGPU = path.join(root, prefix + 'webgpu'), out = path.join(root, prefix + 'compare'); fs.mkdirSync(out, { recursive: true });
 const names = fs.readdirSync(dirGPU).filter(f => f.endsWith('.json') && f !== 'summary.json').map(f => f.slice(0, -5)).filter(n => fs.existsSync(path.join(dirGL, n + '.json')));
 const rows = [], bad = [];
 for (const n of names) {

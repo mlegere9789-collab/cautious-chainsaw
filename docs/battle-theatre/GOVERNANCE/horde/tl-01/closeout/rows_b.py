@@ -79,13 +79,14 @@ ROWS.append(dict(
 ROWS.append(dict(
     id='T1-024', verdict='corrected',
     claim=claim('Stuart\'s three brigades cross the Potomac at Rowser\'s Ford into Maryland: scenarios (before midnight of Jun 27 / about 03:00 Jun 28 / dawn Jun 28)',
-                'Stuart\'s cavalry brigades (Hampton, Fitz. Lee, W. H. F. Lee/Chambliss), six guns and ambulances', 'Rowser\'s Ford on the Potomac, opposite Dranesville, Va.',
+                'Stuart\'s cavalry brigades (Hampton, Fitz. Lee, W. H. F. Lee/Chambliss), six guns and ambulances', 'Rowser\'s Ford on the Potomac (Hampton moved directly for it from Dranesville)',
                 'Night of Jun 27-28 (the sources differ: crossing begun early in the night and complete before 12 o\'clock; about 03:00; dawn)', 'Stuart OR27-2-R565 pp.693-694; Alexander 1907',
                 'Stuart: Hampton\'s brigade crossed early in the night, the artillery was got over by hard labour before 12 o\'clock that night and the entire command was in bivouac on Maryland soil; the march was resumed early on the 28th. Alexander (1907): at midnight of the 27th. '
                 'The seed times (about 03:00, or dawn) rest on a Wikipedia article and an earlier note and are not supported by any text read. Scenarios carried, no default.',
                 'documented', '1863-06-27T20:04', '1863-06-28T04:35'),
     subs=[
         ('Hampton\'s brigade crossed early in the night; before 12 o\'clock that night every piece was over and the entire command in bivouac on Maryland soil', 'documented', 'conflict', ['stuart_mid']),
+        ('Hampton\'s brigade was ordered from Dranesville to move directly for Rowser\'s Ford on the Potomac', 'documented', 'supported', ['stuart_ford']),
         ('The march was resumed northward early on the 28th', 'documented', 'supported', ['stuart_resume']),
         ('Alexander: Stuart crossed at Rowser\'s Ford at midnight of the 27th', 'documented', 'conflict', ['alex_mid']),
         ('Crossing about 03:00 on Jun 28 (seed, Wikipedia per the approach note): no text read says so; it conflicts with the documented crossing before midnight', 'open gap', 'conflict', []),
@@ -94,6 +95,7 @@ ROWS.append(dict(
     cites={
         'stuart_mid': OR('before 12 o\'clock that night, in spite of the difficulties, to all', R565, '693'),
         'stuart_resume': OR('resumed the march northward early on the', R565, '694'),
+        'stuart_ford': OR('and was ordered to move directly for Rowser\'s Ford, on the Potomac', R565, '693'),
         'alex_mid': L('ALEXANDER-1907', 'he crossed the Potomac at Rowser\'s Ford at midnight of the 27th'),
     },
     scenarios=[
@@ -119,12 +121,14 @@ ROWS.append(dict(
     subs=[
         ('Meade\'s dispatch of June 28, 7 a.m., from Frederick: the order placing him in command is received', 'documented', 'supported', ['meade7']),
         ('The order was delivered to Meade at about 03:00 and he reached Hooker\'s headquarters just after daylight', 'documented', 'supported', ['hardie3', 'hq_day']),
+        ('Meade was in camp at Ballinger\'s Creek, just outside Frederick, on the afternoon of Jun 27', 'documented', 'supported', ['ll_camp']),
         ('Meade "had that day assumed command of the army" (Hancock, Jun 28)', 'documented', 'supported', ['hancock_assumed']),
         ('Meade relinquished command of the Fifth Corps to Maj. Gen. George Sykes and assumed command of the Army of the Potomac, relieving Hooker', 'documented', 'supported', ['it_sykes']),
     ],
     cites={
         'meade7': OR('The order placing me in command of this army is received.', 'OR27-1-R006', '61'),
         'hardie3': L('MEADE-LL-v2', 'General Meade lay quietly asleep in his tent at three o\'clock of the morning of June 28', page='1', page_basis='first page of Part V of the volume (opening narrative of the Gettysburg campaign); no running head is printed on it', witness='narrative by G. Meade, aide-de-camp and son of the general (1913)'),
+        'll_camp': L('MEADE-LL-v2', 'arrived toward afternoon at Ballinger\'s Creek, just outside of Frederick City', page='1', page_basis='first page of Part V of the volume (opening narrative of the Gettysburg campaign); no running head is printed on it', witness='narrative by G. Meade, aide-de-camp and son of the general (1913)'),
         'hq_day': L('MEADE-LL-v2', 'head-quarters being reached just after daylight', page='2', page_basis='second page of Part V, the running head "2 LIFE AND LETTERS OF GENERAL MEADE" precedes it', witness='narrative by G. Meade, aide-de-camp and son of the general (1913)'),
         'hancock_assumed': OR('by Major-General Meade, who had that day assumed command of the army', 'OR27-1-R076', '367'),
         'it_sykes': OR('relinquished command of the Fifth Corps to Maj. Gen. George Sykes', R007, '144'),
@@ -185,7 +189,7 @@ ROWS.append(dict(
 ROWS.append(dict(
     id='T1-028', verdict='corrected',
     claim=claim('Gordon\'s brigade reaches Wrightsville on the Susquehanna on Jun 28 (about 20 miles); the militia (1,200 to 1,300) is driven off; the bridge is burned; Gordon fights the town fire',
-                'Gordon\'s brigade (Early\'s division); Pennsylvania militia under Col. J. G. Frick, who burned the Columbia bridge', 'Wrightsville, Pa., on the Susquehanna opposite Columbia',
+                'Gordon\'s brigade (Early\'s division); Pennsylvania militia (reported at 1,200 to 1,300 men)', 'Wrightsville, Pa., on the Susquehanna opposite Columbia',
                 'Jun 28; Early rode out "a short time before night" and saw the smoke of the bridge', 'Gordon OR27-2-R477 pp.491-492; Early OR27-2-R470 p.466; Jacobs 1864 p.20',
                 'On Jun 28 Gordon (a march of about 20 miles, a very warm day) found 1,200 militia (Gordon) or 1,300 (Early) intrenched at Wrightsville, drove them off with his battery, and the bridge, fired in the middle by the militia, burned; the town caught fire and Gordon formed his brigade around the burning buildings to arrest the flames. Early saw the smoke "a short time before night". '
                 'Jacobs dates the affair to Sunday Jun 28.',
@@ -324,6 +328,7 @@ ROWS.append(dict(
                 'documented', '1863-06-28T00:00', '1863-06-30T04:03'),
     subs=[
         ('Next morning (the 28th) General Gordon marched into the town of York without opposition; Early followed with the rest the same day', 'documented', 'supported', ['early_28']),
+        ('Early quartered Avery\'s command in the town and sent Hays\' and Smith\'s brigades to camp at Lauck\'s Mills, 2 miles north', 'documented', 'supported', ['early_laucks']),
         ('General Early to-day (Sunday, June 28) also entered and occupied York', 'documented', 'supported', ['jac_york']),
         ('The division was still at York on Jun 29: Early received Lee\'s order that evening and at daylight on the 30th put his whole command in motion', 'documented', 'supported', ['early_29', 'early_30']),
         ('Early occupies York on Jun 29 (seed: the day of occupation)', 'documented', 'contradicted', ['early_28', 'jac_york']),
@@ -331,6 +336,7 @@ ROWS.append(dict(
     cites={
         'early_28': OR('Next morning (the 28th), General Gordon marched into the town of York without opposition', R470, '466'),
         'jac_york': L('JACOBS-1864', 'General Early to-day also entered and occupied York.'),
+        'early_laucks': OR('sending Hays" and Smith\'s brigades into camp at Lauck\'s Mills, near the railroad, some 2 miles north of the town', R470, '466'),
         'early_29': OR('On the evening of the 29th. I received, through Capt. Elliott Johnston, aide to General Ewell, a copy of a note from General Lee', R470, '467'),
         'early_30': OR('accordingly, at daylight on the morning of the 30th, I put my whole command in motion', R470, '467'),
     },
@@ -382,23 +388,24 @@ ROWS.append(dict(
     claim=claim('Heth\'s division reaches Cashtown on Jun 29, at the base of the South Mountain: 8 or 9 miles from Gettysburg (both carried)',
                 'Heth\'s division (Hill\'s corps)', 'Cashtown, on the Chambersburg-Gettysburg road, 8 miles (Hill, Fremantle, Alexander) or 9 miles (Heth) from Gettysburg', 'Jun 29', 'Hill OR27-2-R534 p.607; Heth OR27-2-R549 p.637 and the same report in SHSP vol.6',
                 'On Jun 29 Hill moved Heth\'s division to Cashtown, "some 8 miles from Gettysburg" (Hill); Heth\'s own report, which the OR text prints with damaged figures ("June 20", "0 miles"), reads in the Southern Historical Society Papers: reached Cashtown on the 29th of June, at the base of the South Mountain, "nine miles from the latter place". '
-                'Fremantle and Alexander give eight miles, a Union letter and Pierce nine. Both distances are carried; no default.',
+                'Fremantle and Alexander give eight miles, Buford\'s dispatch of the night of Jun 30 nine. Both distances are carried; no default.',
                 'documented', '1863-06-29T00:00', '1863-06-29T23:59'),
     subs=[
         ('Hill: on the 29th I moved General Heth\'s division to Cashtown, some 8 miles from Gettysburg', 'documented', 'conflict', ['hill8']),
         ('Heth: the division reached Cashtown on the 29th of June; Cashtown is at the base of the South Mountain on the road from Chambersburg via Fayetteville, nine miles from Gettysburg (the OR text reads "0 miles distant")', 'documented', 'conflict', ['heth_or', 'heth_shsp']),
-        ('Eight miles also in Fremantle (Cashtown, a little village eight miles from Gettysburg); nine miles in a letter of Buford reprinted in Meade\'s Life and Letters', 'documented', 'conflict', ['frem8', 'meade9']),
+        ('Eight miles also in Fremantle (Cashtown, a little village eight miles from Gettysburg) and in Alexander (Cashtown, eight miles west of Gettysburg); nine miles in Buford\'s dispatch of the night of Jun 30 (OR27-1-R337 p.923)', 'documented', 'conflict', ['frem8', 'alex8', 'buford9']),
     ],
     cites={
         'hill8': OR('on the 29th I moved General Heth\'s division to Cashtown, some 8 miles', R534, '607'),
         'heth_or': OR('Cashtown is situated at the base of the South ilountain, on the direct road from Chambersburg, via Fayetteville, to Gettysburg, and 0 miles distant from the latter place', R549, '637'),
         'heth_shsp': L('SHSP-06', 'Cashtown is situated at the base of the South Mountain, on the direct road from Chambersburg via Fayetteville to Gettysburg, and nine miles from the latter place.'),
         'frem8': L('FREMANTLE-1864', 'Cashtown, a little village eight miles from Gettysburg'),
-        'meade9': L('MEADE-LL-v2', 'A. P. Hill\'s corps is massed just back of Cashtown, about nine miles from this place'),
+        'alex8': L('ALEXANDER-1907', 'which would concentrate the three corps at Cashtown, eight miles west of Gettysburg'),
+        'buford9': OR('I am satisfied that A. P. Hill\'s corps is massed just back of Cashtown, about 9 miles from this place', 'OR27-1-R337', '923'),
     },
     scenarios=[
-        sc('A', 'Cashtown is 8 miles from Gettysburg', 'Hill OR27-2-R534 p.607; Fremantle (diary of Jun 30-Jul 1); Alexander 1907 (eight miles west of Gettysburg)', 'documented', ['hill8', 'frem8']),
-        sc('B', 'Cashtown is 9 miles from Gettysburg', 'Heth OR27-2-R549 p.637 (OCR "0 miles") and SHSP vol.6 (nine miles); Buford letter in Meade\'s Life and Letters', 'documented', ['heth_or', 'heth_shsp', 'meade9']),
+        sc('A', 'Cashtown is 8 miles from Gettysburg', 'Hill OR27-2-R534 p.607; Fremantle (diary of Jun 30-Jul 1); Alexander 1907 (eight miles west of Gettysburg)', 'documented', ['hill8', 'frem8', 'alex8']),
+        sc('B', 'Cashtown is 9 miles from Gettysburg', 'Heth OR27-2-R549 p.637 (OCR "0 miles") and SHSP vol.6 (nine miles); Buford\'s dispatch of Jun 30 (OR27-1-R337 p.923)', 'documented', ['heth_or', 'heth_shsp', 'buford9']),
     ],
     remains=[], searched=['Hill p.607 and Heth p.637 re-read; Library regex Cashtown.{0,140}(nine|9|eight|8) miles in 13 texts (Fremantle, Alexander, SHSP 4 and 6, Meade, Pierce, Pennsylvania at Gettysburg): the same two values'],
     recheck='OR-RECHECK: the item without a stored quote (Heth p.637) now carries the verbatim OCR passage; the date and distance damaged in the OCR ("June 20", "0 miles") are read from the same report printed in SHSP vol.6 (June 29, nine miles). Shard scenarios kept.'))
@@ -435,7 +442,7 @@ ROWS.append(dict(
 ROWS.append(dict(
     id='T1-037', verdict='corrected',
     claim=claim('Stuart\'s column reaches Westminster at about 5 p.m. on Jun 29 and routs two companies of the 1st Delaware Cavalry (95 men, Maj. N. B. Knight)',
-                'Stuart\'s head of column (Fitz. Lee\'s and W. H. F. Lee\'s brigades) against two companies of the 1st Delaware Cavalry, 95 men (Maj. N. B. Knight)', 'Westminster, Md.', 'Jun 29: word at about 3.30 p.m.; the head of the column reached Westminster about 5 p.m.', 'Stuart OR27-2-R565 p.695; Knight OR27-2-R401 p.201',
+                'Stuart\'s head of column against two companies of the 1st Delaware Cavalry, 95 men (Maj. N. B. Knight)', 'Westminster, Md.', 'Jun 29: word at about 3.30 p.m.; the head of the column reached Westminster about 5 p.m.', 'Stuart OR27-2-R565 p.695; Knight OR27-2-R401 p.201',
                 'At about 5 p.m. on Jun 29 the head of Stuart\'s column reached Westminster and its advance was obstinately disputed for a short time by a squadron of the 1st Delaware Cavalry; "what were not killed were either captured or saved themselves by precipitate flight" (Stuart). Knight had two companies, 95 men, and word at about 3.30 p.m. that the enemy was advancing in force. '
                 'The Jenkins-at-Sporting-Hill date note of the seed is a different event (Jun 30 in the table) and is not part of this claim.',
                 'documented', '1863-06-29T15:30', '1863-06-29T20:04'),
@@ -473,7 +480,7 @@ ROWS.append(dict(
 ROWS.append(dict(
     id='T1-039', verdict='corrected',
     claim=claim('I Corps (Reynolds): bivouac on the heights north of Emmitsburg on the night of Jun 29, on Marsh Creek (Marsh Run, Moritz Tavern) on the night of Jun 30',
-                'I Corps (Reynolds); Wadsworth\'s and Robinson\'s divisions behind Marsh Run, the Third Division with the reserve batteries on the Chambersburg road', 'Heights north of Emmitsburg (Jun 29); Marsh Creek, Moritz Tavern, about 6 miles south of Gettysburg (Jun 30)',
+                'I Corps (Reynolds)', 'Heights north of Emmitsburg (Jun 29); Marsh Creek, Moritz Tavern (Jun 30)',
                 'Night of Jun 29: Emmitsburg heights; night of Jun 30: Marsh Creek', 'Doubleday OR27-1-R029 p.243; Itinerary OR27-1-R007 p.144; Reynolds OR27-3-D0921 p.418; Howard OR27-1-R243 p.701',
                 'Doubleday reports that on Jun 29 the corps bivouacked for the night on the heights north of Emmitsburg and that on the 30th it made a short march of 3 or 4 miles to Marsh Creek and took up a defensive position; the Itinerary has the First Corps at Emmitsburg on Jun 29 and at Marsh Run on Jun 30; Reynolds\' headquarters were at Moritz Tavern on Jun 30. '
                 'The seed has the Marsh Creek bivouac on the night of Jun 29-30; in the OR it is the night of Jun 30. Scenarios carried, no default.',

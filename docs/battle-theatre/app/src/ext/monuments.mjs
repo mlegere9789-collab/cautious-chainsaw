@@ -21,11 +21,18 @@ export async function init(ctx) {
   const res = await fetch(URLS.data + 'site-memorials.json'); if (!res.ok) throw new Error(`the memorial list could not be read (HTTP ${res.status})`);
   const data = await res.json();
   const bad = P.validateMemorials(data); if (bad.length) throw new Error(`the memorial list is not fit to show: ${bad[0]}${bad.length > 1 ? ` (and ${bad.length - 1} more)` : ''}`);
-  const integrity = await P.selfCheck(data, [['monuments', 'monumentsSha256'], ['stars', 'starsSha256']]);
-  if (integrity.checked && !integrity.ok) throw new Error(`the memorial list no longer matches the hash recorded with it (${integrity.bad.join(', ')}); it is not shown`);
+  const int1 = await P.selfCheck(data, [['monuments', 'monumentsSha256'], ['stars', 'starsSha256']]);
+  if (int1.checked && !int1.ok) throw new Error(`the memorial list no longer matches the hash recorded with it (${int1.bad.join(', ')}); it is not shown`);
+  // the years some National Park Service reports print for memorials of the same name (every other year is an open gap)
+  const yres = await fetch(URLS.data + 'site-memorial-years.json'); if (!yres.ok) throw new Error(`the memorial years could not be read (HTTP ${yres.status})`);
+  const years = await yres.json();
+  const badY = P.validateYears(years, data); if (badY.length) throw new Error(`the memorial years are not fit to show: ${badY[0]}${badY.length > 1 ? ` (and ${badY.length - 1} more)` : ''}`);
+  const int2 = await P.selfCheck(years, [['years', 'yearsSha256']]);
+  if (int2.checked && !int2.ok) throw new Error('the memorial years no longer match the hash recorded with them; they are not shown');
+  const integrity = { checked: int1.checked && int2.checked, ok: int1.ok && int2.ok, bad: [...int1.bad, ...int2.bad.map(x => 'years')] };
   if (th.dead || !th.root) return;                                                // the visit ended while the list was being read
-  const T = th.T, index = P.buildIndex(data, T, { positions: 'list' });
-  const s = S = { ctx, th, T, data, index, integrity, positions: 'list', on: false, selected: -1, canvas: null, c2d: null, w: 0, h: 0, dpr: 1, vp: new Float32Array(16), L: P.newLayout(index.n), last: new Float64Array(10), fresh: true, drawn: 0,
+  const T = th.T, index = P.buildIndex(data, T, { positions: 'list', years });
+  const s = S = { ctx, th, T, data, years, index, integrity, positions: 'list', on: false, selected: -1, canvas: null, c2d: null, w: 0, h: 0, dpr: 1, vp: new Float32Array(16), L: P.newLayout(index.n), last: new Float64Array(10), fresh: true, drawn: 0,
     tier: ctx.tierMark.style(P.LAYER.tier), ac: new AbortController(), chip: null, card: null, style: null, ro: null, toggle: null, panel: null, list: { q: '', side: 'all', group: 'all', where: 'all', shown: 60 }, tap: null };
   const sig = { signal: s.ac.signal }, left = th.root.querySelector('#bt-left'), stage = th.els.stage;
 
@@ -87,7 +94,7 @@ function flyTo(no) {
 }
 function setPositions(key) {
   const s = S; if (!s || !P.POSITION_CHOICES.some(c => c.key === key) || key === s.positions) return false;
-  s.positions = key; s.index = P.buildIndex(s.data, s.T, { positions: key }); s.L = P.newLayout(s.index.n); s.fresh = true;
+  s.positions = key; s.index = P.buildIndex(s.data, s.T, { positions: key, years: s.years }); s.L = P.newLayout(s.index.n); s.fresh = true;
   if (s.selected >= 0) { const it = s.index.byNo.get(s.selected); if (it) s.card.innerHTML = P.memorialCardHTML(it, s.ctx.tierMark); }
   s.th.announce(key === 'state-list' ? 'The nine state memorials now stand where the site\'s second list puts them.' : 'Every memorial now stands where the Monuments list puts it.');
   if (s.panel.isOpen()) s.panel.refresh(); return true;
@@ -155,5 +162,5 @@ export function dispose() {
   if (s.canvas) { s.canvas.width = 0; s.canvas.height = 0; s.canvas.remove(); }
   if (s.chip) s.chip.remove(); if (s.card) s.card.remove(); if (s.style) s.style.remove();
   const th = s.th; if (th && th.sitePlaces) { delete th.sitePlaces.memorials; if (!Object.keys(th.sitePlaces).length) delete th.sitePlaces; }
-  s.canvas = s.c2d = s.chip = s.card = s.style = s.ro = s.box = s.ctx = s.th = s.T = s.data = s.index = s.L = s.toggle = s.panel = s.offs = null;
+  s.canvas = s.c2d = s.chip = s.card = s.style = s.ro = s.box = s.ctx = s.th = s.T = s.data = s.years = s.index = s.L = s.toggle = s.panel = s.offs = null;
 }

@@ -9,7 +9,8 @@
 //      every step that passes at the source passes in the dist; the sound started; the added layers are in the same state in both runs; every page of a static section loads in both.
 // What a run cannot show is printed with the verdict (NOT RUN): the real GPU, the WebGPU picture, hearing the sound, other visits (?history=stub, ?api=webgpu, ?ext=off).
 //
-//   node tools/bt/verify_staging.mjs --pack [--frames 20] [--json report.json]          snapshot the tree, pack it into deliver/, verify the result (the whole honest run)
+//   node tools/bt/verify_staging.mjs --pack [--frames 20] [--json report.json]          snapshot the tree, pack it (zip into deliver/, dist in tmp/bt-spec/verify/work), verify the result; a build that
+//                                                                                        passes everything also refreshes deliver/bt-staging/dist; deliver/bt-staging/LAST-VERIFY.txt says what happened
 //   node tools/bt/verify_staging.mjs --dist deliver/bt-staging/dist [--zip file.zip] [--source docs/battle-theatre] [--frames 20] [--json report.json] [--only dist|source]
 //   add --static-only for the checks that need no browser (manifest, zip, links, copy audit); --query a=b for a development shortcut (never the official check)
 // Run it through the machine lock (tools/horde/bench.sh): a software frame takes seconds. Exit 0 only when every check passes.
@@ -107,6 +108,39 @@ export function checkInternalLinks(dist) {
   return { ok: problems.length === 0, checked: n, problems: [...new Set(problems)], notes: [...new Set(notes)] };
 }
 
+// ---------------------------------------------------------------- the data side of the theatre's start, in node (no browser, no machine lock, about a second)
+// The loaders of the shell (timeline, conflicts, sky tables, bookmarks, terrain, the history data, the real history layer, the structure inputs) are imported FROM THE DIST, so that the
+// URLS of config.mjs point into it; fetch() answers 404 for a file the dist does not hold, and every address is logged. A missing data file shows here at once; the browser walk stays the
+// arbiter for everything that needs a renderer (effects, sound, added layers). Run in a child process: it replaces fetch().
+async function dataProbe(dist) {
+  const { pathToFileURL } = await import('node:url'); dist = path.resolve(dist); const log = [], realFetch = globalThis.fetch;
+  globalThis.fetch = async (u, o) => {
+    const url = new URL(typeof u === 'string' ? u : u.href || String(u)); if (url.protocol !== 'file:') return realFetch(u, o);
+    const f = fileURLToPath(url), ok = f.startsWith(dist + path.sep) && isFile(f); log.push({ rel: posix(path.relative(dist, f)), method: (o && o.method) || 'GET', status: ok ? 200 : 404 });
+    if (!ok) return new Response('not found', { status: 404 }); const b = fs.readFileSync(f); return new Response(b, { status: 200, headers: { 'content-length': String(b.length) } });
+  };
+  const imp = rel => import(pathToFileURL(path.join(dist, rel)).href), steps = [];
+  const step = async (name, fn) => { const t0 = Date.now(); try { const r = await fn(); steps.push({ name, ok: true, ms: Date.now() - t0, r }); } catch (e) { steps.push({ name, ok: false, ms: Date.now() - t0, error: String((e && e.message) || e).slice(0, 300) }); } };
+  let D, W, URLS, raw = null, T = null;
+  await step('import the loaders from the dist', async () => { D = await imp('app/src/data.mjs'); W = await imp('render/prototype/src/world.mjs'); ({ URLS } = await imp('app/src/config.mjs')); });
+  if (D) {
+    await step('timeline, conflicts, sky tables, bookmarks', async () => { const [t, c, e, b] = await Promise.all([D.loadTimeline(), D.loadConflicts(), D.loadEnvironmentFiles(), D.loadBookmarks()]); return { rows: t.length, conflicts: Array.isArray(c) ? c.length : Object.keys(c).length, sky: e.length, bookmarks: Array.isArray(b) ? b.length : Object.keys(b).length }; });
+    await step('terrain', async () => { T = await W.loadTerrain(URLS.proto); return { N: T.N ?? null }; });
+    await step('history data', async () => { raw = await D.loadHistoryData(); return Object.keys(raw).length + ' parts'; });
+    await step('real history layer', async () => { const R = await imp('app/src/history/real.mjs'); const layer = R.createRealHistory({ raw, T, helpers: { civilDawn: () => null } }); return { units: layer.units.length, stub: !!layer.meta.stub }; });
+    await step('structure inputs', async () => { const S = await imp('app/src/structures/index.mjs'); const x = await S.loadStructureInputs(raw); return Object.keys(x || {}).length + ' parts'; });
+  }
+  const by = {}; for (const e of log) { const k = e.rel + (e.method === 'GET' ? '' : ' ' + e.method); by[k] = Math.max(by[k] || 0, e.status); }
+  console.log(JSON.stringify({ requests: log.length, distinct: Object.keys(by).length, notFound: Object.entries(by).filter(([, st]) => st !== 200).map(([k]) => k), steps }));
+}
+export function checkDataPipeline(dist) {
+  let out; const run = () => execFileSync(process.execPath, [fileURLToPath(import.meta.url), '--data-probe', path.resolve(dist)], { encoding: 'utf8', maxBuffer: 1 << 26, stdio: ['ignore', 'pipe', 'pipe'], timeout: 180000 });
+  try { out = JSON.parse(run().trim().split('\n').pop()); } catch (e) { return { ok: false, problems: ['the data probe did not run: ' + String(e.stderr || e.message).slice(0, 300)], notes: [], steps: [] }; }
+  const problems = out.notFound.map(u => `not found when the loaders of the dist ran in node: ${u}`), notes = [];
+  for (const st of out.steps) if (!st.ok) (/is not a function|does not provide an export|is not defined|Cannot read properties/.test(st.error) ? notes : problems).push(`data probe step "${st.name}": ${st.error}`);
+  return { ok: problems.length === 0, requests: out.requests, distinct: out.distinct, steps: out.steps.map(st => `${st.ok ? 'ok  ' : 'FAIL'} ${st.name}${st.r ? ' ' + JSON.stringify(st.r) : ''}`), problems, notes: notes.map(n => n + ' (the probe may be out of date with the shell: the browser walk decides)') };
+}
+
 // ---------------------------------------------------------------- 4. the comparison (pure: tested in tests/bt-pack/verify.test.mjs)
 const hasFile = (distFiles, u) => distFiles.has(u) || (u.endsWith('/') && distFiles.has(u + 'index.html'));
 const okStatus = s => s >= 200 && s < 400;
@@ -117,7 +151,7 @@ export function compareRuns(A, B, distFiles) {
   const failures = [], notes = [], hint = l => l.slice(0, 8).join(', ') + (l.length > 8 ? `, and ${l.length - 8} more` : '');
   if (!A.entered) failures.push('the packed site did not enter the theatre (the theatre never reported ready)');
   if (B && !B.entered) notes.push('the source tree did not enter the theatre either: nothing to compare against beyond the 404 check');
-  const bad = Object.entries(A.log).filter(([, s]) => !okStatus(s)).map(([u, s]) => `${s} ${u}`); if (bad.length) failures.push(`${bad.length} request(s) to the packed site did not answer 2xx: ${hint(bad)}`);
+  const bad = Object.entries(A.log).filter(([, s]) => !okStatus(s)).map(([u, s]) => `${s} ${u}${B && B.log[u] !== undefined && !okStatus(B.log[u]) ? ' (also at the source: the page asks for a file that is not in the tree)' : ''}`); if (bad.length) failures.push(`${bad.length} request(s) to the packed site did not answer 2xx: ${hint(bad)}`);
   const lost = (A.failed || []).filter(f => !/ERR_ABORTED/.test(f.failure || '')); if (lost.length) failures.push(`${lost.length} request(s) of the packed site failed in the browser: ${hint(lost.map(f => `${f.failure} ${f.url}`))}`);
   const missingInDist = B ? Object.entries(B.log).filter(([u, s]) => okStatus(s) && !hasFile(distFiles, u)).map(([u]) => u) : []; if (missingInDist.length) failures.push(`${missingInDist.length} URL(s) the source run loaded are not in the dist: ${hint(missingInDist)}`);
   const errA = new Set((A.errors || []).map(normError)), errB = new Set(((B && B.errors) || []).map(normError));
@@ -243,17 +277,22 @@ async function main() {
   const rep = { when: new Date().toISOString(), frames, query, official: !query && frames >= 10, dist, mode: has('--pack') ? 'pack' : 'dist' }; const failures = [], notes = [];
   if (has('--pack')) {
     const snap = path.resolve(opt('--snap-dir') || path.join(REPO, 'tmp/bt-spec/snap/bt')); print('snapshot of the tree: ' + snap); snapshotTree(BT, snap); sourceRoot = snap;
+    // the build is made in a private work folder: other jobs may be serving deliver/bt-staging/dist (a spec run against the packed dist), and a pack that is rewritten under them breaks their run.
+    // deliver/bt-staging/dist is refreshed only at the end, and only from a build that passed every check.
+    dist = path.join(path.resolve(opt('--work-dir') || path.join(REPO, 'tmp/bt-spec/verify/work')), 'dist'); rep.dist = dist;
     const r = pack({ root: snap, out: dist, zipDir: path.resolve(opt('--zip-dir') || path.join(REPO, 'deliver')) }); zip = r.zip;
     rep.pack = { version: r.version, files: r.files, bytes: r.bytes, zip: r.zip && path.basename(r.zip), zipBytes: r.zipBytes, zipSha256: r.zipSha256, counts: r.counts, audit: r.audit, clean: r.clean, auditReview: Object.fromEntries(Object.entries(r.auditReview).map(([k, v]) => [k, v.count])), notes: r.trace.notes, unshippedLiterals: r.trace.unshippedLiterals, computedImports: r.trace.computedImports.filter(c => c.status !== 'address').map(c => `${c.status}: ${c.file}: ${c.arg}`) };
     print(`packed ${r.version}: ${r.files} files, ${r.bytes} bytes; zip ${path.basename(r.zip)} ${r.zipBytes} bytes sha256 ${r.zipSha256}; copy audit hits: ${r.audit.length}`);
     if (r.audit.length) { failures.push(`copy audit: ${r.audit.length} hit(s) in the packed files (the zip is named "-AUDIT-HITS-${r.audit.length}")`); for (const h of r.audit) notes.push(`audit hit ${h.file}:${h.line ?? ''} ${h.match}`); }
   }
   if (!zip) { const v = checkManifest(dist).version; const cand = v && fs.existsSync(path.join(REPO, 'deliver')) ? fs.readdirSync(path.join(REPO, 'deliver')).filter(f => f.startsWith(`gettysburg-BT-staging-${v}`) && f.endsWith('.zip')) : []; if (cand.length) zip = path.join(REPO, 'deliver', cand[0]); }
-  rep.static = { manifest: checkManifest(dist), zip: zip ? checkZip(zip, dist) : null, links: checkInternalLinks(dist), notes: checkNoNotes(dist) };
+  rep.static = { manifest: checkManifest(dist), zip: zip ? checkZip(zip, dist) : null, links: checkInternalLinks(dist), notes: checkNoNotes(dist), pipeline: checkDataPipeline(dist) };
+  if (!rep.static.pipeline.ok) failures.push('DATA PIPELINE in node: ' + rep.static.pipeline.problems.slice(0, 5).join('; ')); notes.push(...rep.static.pipeline.notes);
   if (!rep.static.notes.ok) failures.push('NOTES in the dist: ' + rep.static.notes.problems.slice(0, 5).join('; '));
   if (!rep.static.manifest.ok) failures.push('MANIFEST: ' + rep.static.manifest.problems.slice(0, 5).join('; '));
   if (!zip) notes.push('no zip was found for this dist: the zip was not checked'); else if (!rep.static.zip.ok) failures.push('ZIP: ' + rep.static.zip.problems.slice(0, 5).join('; '));
   if (!rep.static.links.ok) failures.push('LINKS inside the dist: ' + rep.static.links.problems.slice(0, 5).join('; '));
+  print(`static: data pipeline in node ${rep.static.pipeline.ok ? 'ok' : 'FAILED'} (${rep.static.pipeline.requests} requests, ${rep.static.pipeline.distinct} files)`);
   print(`static: manifest ${rep.static.manifest.ok ? 'ok' : 'FAILED'} (${rep.static.manifest.files} files), zip ${zip ? (rep.static.zip.ok ? 'ok' : 'FAILED') : 'not checked'}${zip ? ' (' + path.basename(zip) + ', unzip -t: ' + rep.static.zip.unzipTest + ')' : ''}, links ${rep.static.links.ok ? 'ok' : 'FAILED'} (${rep.static.links.checked} checked)`);
   // the root page of the dist forwards to the shell
   try { const s = await serveDir(dist); const r = await fetch(`http://127.0.0.1:${s.port}/`); const body = await r.text(); await s.close(); if (!(r.status === 200 && /url=app\/index\.html/.test(body))) failures.push('the root page of the dist does not forward to app/index.html'); } catch (e) { failures.push('root page check failed: ' + e.message); }
@@ -271,13 +310,22 @@ async function main() {
   } else failures.push('the packed dist was not walked (--only source)');
   if (!rep.official) notes.push(`NOT THE OFFICIAL RUN: ${query ? 'the address carries ?' + query + ' (a development shortcut)' : 'fewer than 10 frames per step'}; do not quote this result as the staging verification`);
   { const again = checkManifest(dist); if (!again.ok || again.version !== rep.static.manifest.version) failures.push('the dist changed while the walk was running (another pack wrote into it): the result belongs to no build; run again'); }
-  rep.failures = failures; rep.notes = notes; rep.notRun = NOT_RUN; rep.ok = failures.length === 0 && !!A && !!B; rep.minutes = Math.round((Date.now() - t0) / 600) / 100;
+  rep.failures = failures; rep.notes = notes; rep.notRun = NOT_RUN; rep.ok = failures.length === 0 && !!A && !!B; rep.walkOk = failures.filter(f => !/^copy audit:/.test(f)).length === 0 && !!A && !!B; rep.auditHits = rep.pack ? rep.pack.audit.length : null; rep.minutes = Math.round((Date.now() - t0) / 600) / 100;
   if (opt('--json')) fs.writeFileSync(path.resolve(opt('--json')), JSON.stringify(rep, null, 1));
   const brief = r => r && { requests: r.requests, distinctUrls: Object.keys(r.log).length, nonOk: Object.entries(r.log).filter(([, s]) => !okStatus(s)), entered: r.entered, info: r.info, steps: r.steps.map(s => `${s.ok ? 'ok  ' : 'FAIL'} ${s.name}${s.ok ? '' : ': ' + s.error}`), ext: r.ext && r.ext.modules.map(m => `${m.path}: ${m.state}`), crawlPages: r.crawl.pages.length, errors: r.errors.length, seconds: r.seconds, aborted: r.aborted };
   print(JSON.stringify({ dist: dist, version: rep.pack?.version ?? rep.static.manifest.version, sections: rep.sections, distRun: brief(A), sourceRun: brief(B) }, null, 1));
   print('NOT RUN here: ' + NOT_RUN.join('; '));
   for (const n of notes) print('note: ' + n);
+  if (!rep.ok && rep.walkOk) print('everything except the copy audit passed: the walk, the comparison, the static checks. The build is not acceptable until the audit hits are gone.');
   print(rep.ok ? 'STAGING VERIFIED' + (rep.official ? '' : ' (development run, not the official check)') + ': the dist and the zip match, zero 404s, every URL the source run loaded is in the dist, sound started, no error only in the dist' : 'STAGING CHECK FAILED:\n  ' + failures.join('\n  '));
+  if (has('--pack')) {
+    const home = path.join(REPO, 'deliver/bt-staging'), note = path.join(home, 'LAST-VERIFY.txt'); fs.mkdirSync(home, { recursive: true });
+    if (rep.ok && !has('--no-publish')) {
+      const fresh = path.join(home, 'dist.new'); fs.rmSync(fresh, { recursive: true, force: true }); fs.cpSync(dist, fresh, { recursive: true }); fs.rmSync(path.join(home, 'dist'), { recursive: true, force: true }); fs.renameSync(fresh, path.join(home, 'dist'));
+      fs.copyFileSync(path.join(path.dirname(dist), 'trace-report.json'), path.join(home, 'trace-report.json')); rep.published = path.join(home, 'dist'); print('published: deliver/bt-staging/dist now holds the verified build ' + rep.static.manifest.version);
+    }
+    fs.writeFileSync(note, [`${rep.when}  build ${rep.static.manifest.version}  zip ${zip ? path.basename(zip) : 'none'}`, `verdict: ${rep.ok ? 'STAGING VERIFIED' : 'NOT ACCEPTABLE'}${rep.official ? '' : ' (development run)'}; walk and comparison: ${rep.walkOk ? 'passed' : 'failed'}; copy audit hits: ${rep.auditHits}`, rep.published ? 'deliver/bt-staging/dist was refreshed from this build.' : `deliver/bt-staging/dist was NOT touched (it is older or unverified); this build's folder: ${dist}`, ...(rep.ok ? [] : ['reasons:', ...failures.map(f => '  ' + f.slice(0, 300))])].join('\n') + '\n');
+  }
   process.exit(rep.ok ? 0 : 1);
 }
-if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main().catch(e => { console.error(e); process.exit(2); });
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) { if (process.argv[2] === '--data-probe') dataProbe(process.argv[3]).catch(e => { console.error(e); process.exit(2); }); else main().catch(e => { console.error(e); process.exit(2); }); }

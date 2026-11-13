@@ -486,6 +486,32 @@
 "ok": true
 },
 {
+"id": "VC-LIB-020",
+"src": "WS9:HASKELL-1908",
+"quote": "over ridge and slope, through orchard and meadow, and cornfield, magnificent, grim, irresistible",
+"tier": "documented",
+"kind": "regional",
+"says": "The Confederate advance of 3 July crossed orchard, meadow and cornfield between Seminary Ridge and Cemetery Ridge.",
+"feature": "fields crossed by the advance of 3 July",
+"when": "1863-07-03",
+"about": {
+"crop": "corn",
+"other": [
+"meadow",
+"orchard"
+]
+},
+"note": "Haskell's account of the advance on the Second Corps front.",
+"quote_found": "over ridge and slope, through orchard and meadow, and cornfield, magnificent, grim, irre- sistible",
+"locator": {
+"char_start": 173393,
+"char_end": 173504
+},
+"match_count": 1,
+"src_sha256": "43681f717e8019c987e3cbd31d4844ce3c1cbef354544a57352ad721577b524b",
+"ok": true
+},
+{
 "id": "VC-NPSX-CLI-PCB-p049-01",
 "src": "NPS:NPS-CLI-PCB",
 "quote": "Prior to the battle, the region surrounding Gettysburg was a quiet farming community. The landscape was characterized by gently rolling hills, small stream valleys, and upland knolls that supported agricultural fields, pastures, woodlots, and orchards. Wood fences and stone walls defined property lines and separated fields from pastures, woodlots, and public roads.",
@@ -528,7 +554,8 @@
 "anchor": {
 "farm": "bliss",
 "r_m": 500,
-"class": "field"
+"class": "field",
+"area": true
 },
 "quote_found": "The 1863 character of the Pitzer-McMillan-Bliss farms in the northern portion of the battlefield area included smaller fields to the north and larger fields to the south delineated by a mixture of worm and post and rail fencing",
 "locator": {
@@ -559,7 +586,8 @@
 "anchor": {
 "farm": "mcmillan",
 "r_m": 500,
-"class": "orchard"
+"class": "orchard",
+"area": true
 },
 "quote_found": "Large orchards, including a commercial orchard nursery at the McMillan Farm, and woodlots interrupted the open expanse of the fields",
 "locator": {
@@ -616,7 +644,8 @@
 "anchor": {
 "farm": "codori",
 "r_m": 500,
-"class": "field"
+"class": "field",
+"area": true
 },
 "quote_found": "The 1863 character of the Codori-H. Spangler-Staub-Sherfy farms in the southern part of the battlefield area included medium to large fields primarily defined by worm and post and rail fencing",
 "locator": {
@@ -647,7 +676,8 @@
 "anchor": {
 "farm": "sherfy",
 "r_m": 500,
-"class": "orchard"
+"class": "orchard",
+"area": true
 },
 "quote_found": "Seven orchards and fruit gardens punctuated the crop fields and meadows and were concentrated around the intersection of Emmitsburg, Wheatfield, and Fairfield Roads",
 "locator": {
@@ -756,7 +786,8 @@
 "anchor": {
 "farm": "bliss",
 "r_m": 500,
-"class": "orchard"
+"class": "orchard",
+"area": true
 },
 "quote_found": "During the fighting on July 2 and 3, the W. Bliss orchard provided the only substantial cover for both Union and Confederate skirmishers across the nearly 1,200 yards of relatively open ground between Cemetery Ridge and Seminary Ridge",
 "locator": {
@@ -837,7 +868,8 @@
 "anchor": {
 "farm": "mcmillan",
 "r_m": 500,
-"class": "field"
+"class": "field",
+"area": true
 },
 "quote_found": "For a short time a Union artillery battery was placed in the yard, from which they bombarded Confederate positions on Herr Ridge and damaged McMillan's corn crop",
 "locator": {
@@ -868,7 +900,8 @@
 "anchor": {
 "farm": "mcmillan",
 "r_m": 500,
-"class": "orchard"
+"class": "orchard",
+"area": true
 },
 "quote_found": "During this time, McMillan’s fencing was used in constructing entrenchments, and his crops and fruit trees were destroyed",
 "locator": {
@@ -977,7 +1010,8 @@
 "anchor": {
 "farm": "bliss",
 "r_m": 500,
-"class": "field"
+"class": "field",
+"area": true
 },
 "quote_found": "Incessant skirmish firing and deadly sharpshooting took place along the fence lines and in the open crop fields and meadows of the Bliss farm from the night of July 1 until the Confederate army retreated on July 5",
 "locator": {
@@ -1008,7 +1042,8 @@
 "anchor": {
 "farm": "bliss",
 "r_m": 500,
-"class": "field"
+"class": "field",
+"area": true
 },
 "quote_found": "Because the buildings were destroyed as a result of the battle, the farm fields were eventually absorbed into the Codori farming operations",
 "locator": {
@@ -1037,7 +1072,8 @@
 "anchor": {
 "farm": "bliss",
 "r_m": 500,
-"class": "orchard"
+"class": "orchard",
+"area": true
 },
 "quote_found": "Apples were planted in 2006 and 2013",
 "locator": {
@@ -1066,7 +1102,8 @@
 "anchor": {
 "farm": "codori",
 "r_m": 500,
-"class": "orchard"
+"class": "orchard",
+"area": true
 },
 "quote_found": "It was replanted in apples in 2006",
 "locator": {
@@ -1197,7 +1234,8 @@
 "anchor": {
 "farm": "mcmillan",
 "r_m": 500,
-"class": "orchard"
+"class": "orchard",
+"area": true
 },
 "quote_found": "Nonhistoric woods were removed in 2007, and apples were planted in 2009 (Figure 20",
 "locator": {
@@ -1380,7 +1418,8 @@
 "anchor": {
 "farm": "rogers",
 "r_m": 500,
-"class": "orchard"
+"class": "orchard",
+"area": true
 },
 "quote_found": "With the exception of the buildings and a small orchard, the field was open and in garden and meadow",
 "locator": {
@@ -1409,7 +1448,8 @@
 "anchor": {
 "farm": "rogers",
 "r_m": 500,
-"class": "orchard"
+"class": "orchard",
+"area": true
 },
 "quote_found": "It was planted in apples in 2006",
 "locator": {
@@ -1518,7 +1558,8 @@
 "anchor": {
 "farm": "sherfy",
 "r_m": 500,
-"class": "orchard"
+"class": "orchard",
+"area": true
 },
 "quote_found": "The eastern field was planted in young orchard, orchard, and oats. The western fields were in crops and a declining orchard",
 "locator": {
@@ -1548,7 +1589,8 @@
 "anchor": {
 "farm": "sherfy",
 "r_m": 500,
-"class": null
+"class": null,
+"area": true
 },
 "quote_found": "The western fields were first occupied by Union troops on the night of July 1 when skirmishers and pickets were thrown out along the fencing and hedgerow that formed the western boundary of the farm",
 "locator": {
@@ -1577,7 +1619,8 @@
 "anchor": {
 "farm": "sherfy",
 "r_m": 500,
-"class": "orchard"
+"class": "orchard",
+"area": true
 },
 "quote_found": "Peaches were planted 2008",
 "locator": {
@@ -1606,7 +1649,8 @@
 "anchor": {
 "farm": "sherfy",
 "r_m": 500,
-"class": "orchard"
+"class": "orchard",
+"area": true
 },
 "quote_found": "The orchard was planted in apples in 2005",
 "locator": {
@@ -1637,7 +1681,8 @@
 "anchor": {
 "farm": "sherfy",
 "r_m": 500,
-"class": "woods"
+"class": "woods",
+"area": true
 },
 "quote_found": "Less than 200 feet wide at its most extreme width, the woods taper to its narrowest of 78 feet wide at its opposite end resulting in a lot less than four acres in size",
 "locator": {
@@ -1821,7 +1866,8 @@
 "anchor": {
 "farm": "wentz",
 "r_m": 500,
-"class": "field"
+"class": "field",
+"area": true
 },
 "quote_found": "It was most likely in crops and was entirely open in character",
 "locator": {
@@ -1850,7 +1896,8 @@
 "anchor": {
 "farm": "wentz",
 "r_m": 500,
-"class": "orchard"
+"class": "orchard",
+"area": true
 },
 "quote_found": "It was replanted with apples in 2005",
 "locator": {
@@ -1933,7 +1980,8 @@
 "anchor": {
 "farm": "sherfy",
 "r_m": 500,
-"class": "field"
+"class": "field",
+"area": true
 },
 "quote_found": "The narrative from Barksdale’s Brigade, published 51 years after the battle, and the circa 1890 Tipton photograph support either a post and rail fence type or a post and slab fence type respectively. Differences in these sources may reflect variations in terminology, challenges with memory, or different iterations of fence construction over time. The park’s GIS notes that prior to 2012, these fence lines were last replaced in 1993",
 "locator": {
@@ -1962,7 +2010,8 @@
 "anchor": {
 "farm": "sherfy",
 "r_m": 500,
-"class": "orchard"
+"class": "orchard",
+"area": true
 },
 "quote_found": "CE 1984 - 1986 Planted In the mid-1980s the Sherfy Peach Orchard is replanted",
 "locator": {
@@ -1993,7 +2042,8 @@
 "anchor": {
 "farm": "klingel",
 "r_m": 500,
-"class": "field"
+"class": "field",
+"area": true
 },
 "quote_found": "On the eve of the battle, the Klingel Farm was owned by Daniel H. Klingel and his wife Hannah, who purchased the farm from Jacob Benner on April 2, 1863, just three months before the battle. The Trostle Farm was owned by Peter Trostle and occupied by Abraham Trostle and his wife. The Codori Farm was owned by Nicholas Codori, who leased the land to John Staub and his wife Catharine (Nicholas Codori’s daughter). The Neinstedt Field was owned by Henry Conrad Neinstedt",
 "locator": {
@@ -2024,7 +2074,8 @@
 "anchor": {
 "farm": "codori",
 "r_m": 500,
-"class": "woods"
+"class": "woods",
+"area": true
 },
 "quote_found": "Woody vegetation grew in the outlying, uncultivated areas; the most notable was the bushy growth and isolated clumps of trees in the Codori and Trostle Thickets alongside the creek, and the trees associated with the Codori Knoll Grove",
 "locator": {
@@ -2055,7 +2106,8 @@
 "anchor": {
 "farm": "klingel",
 "r_m": 500,
-"class": "orchard"
+"class": "orchard",
+"area": true
 },
 "quote_found": "There were several fruit orchards, flower and vegetable gardens, potato patches, hedgerows, agricultural crops, and pastures",
 "locator": {
@@ -2112,7 +2164,8 @@
 "anchor": {
 "farm": "codori",
 "r_m": 500,
-"class": "woods"
+"class": "woods",
+"area": true
 },
 "quote_found": "Located throughout the shrubby Codori and Trostle thickets were small and intermittent clumps of mature trees and large boulders. The low character of these thickets afforded views across the battlefield, from Cemetery Ridge to Emmitsburg Road Ridge and the Peach Orchard",
 "locator": {
@@ -2143,7 +2196,8 @@
 "anchor": {
 "farm": "trostle",
 "r_m": 500,
-"class": "orchard"
+"class": "orchard",
+"area": true
 },
 "quote_found": "In the 1870s, both Catherine Trostle and Daniel Klingel filed claims with the federal government asking to be reimbursed for their losses. Items listed on their claims included over 90 acres of field crops, thousands of fence rails and other fencing materials, and 50 chickens. Both requested compensation for building damage inflicted by shells and bullets, and the Klingel claim singled out “damage done to fruit trees by rifle pits being dug around them",
 "locator": {
@@ -2173,7 +2227,8 @@
 "anchor": {
 "farm": "trostle",
 "r_m": 500,
-"class": "field"
+"class": "field",
+"area": true
 },
 "quote_found": "Trostle Lane fencing: Not initially removed because of east-west orientation; prevented troop movements north-south across fields, trapping Bigelow’s 9th Massachusetts; western end used as breastworks by Graham’s and Carr’s Brigades; obstacle to Barksdale’s Mississippi Brigade; used as cover by 21st Mississippi when attacking Bigelow’s Battery on July 2",
 "locator": {
@@ -2203,7 +2258,8 @@
 "anchor": {
 "farm": "trostle",
 "r_m": 500,
-"class": "field"
+"class": "field",
+"area": true
 },
 "quote_found": "General Sickles was carried to the northeast corner of the barn after he was critically wounded in order to protect him until he could be evacuated from the battlefield",
 "locator": {
@@ -2234,7 +2290,8 @@
 "anchor": {
 "farm": "codori",
 "r_m": 500,
-"class": "woods"
+"class": "woods",
+"area": true
 },
 "quote_found": "Other stone walls separated the Codori woodlot and Neinstedt field, and the Neinstedt field and the George Weikart field",
 "locator": {
@@ -2265,7 +2322,8 @@
 "anchor": {
 "farm": "klingel",
 "r_m": 500,
-"class": "woods"
+"class": "woods",
+"area": true
 },
 "quote_found": "On the Klingel farm, the farmhouse and the log barn were the only original buildings predating the GBMA period. In the 1880s and 1890s, a barn, garage/woodshed, smokehouse, and implement shed/corn crib were added to the farm",
 "locator": {
@@ -2296,7 +2354,8 @@
 "anchor": {
 "farm": "codori",
 "r_m": 500,
-"class": "woods"
+"class": "woods",
+"area": true
 },
 "quote_found": "At the time of the battle the Codori-Trostle Thicket was primarily a sparsely wooded area containing several small and intermittent clumps of mature trees. Meadow and pasture were the predominant vegetative features on the northern and southern ends of the thicket at the Codori and Trostle farms, respectively. Shrubs were prevalent within the central portion of the thicket along Plum Run. In many places the underbrush was thick enough, in combination with the battle smoke, to have affected observation during infantry combat on July 2",
 "locator": {
@@ -2352,7 +2411,8 @@
 "anchor": {
 "farm": "codori",
 "r_m": 500,
-"class": "woods"
+"class": "woods",
+"area": true
 },
 "quote_found": "Just northeast of the Codori-Trostle Thicket, a grove of mature trees dominated the Codori Knoll in the middle of Cemetery Ridge",
 "locator": {
@@ -2383,7 +2443,8 @@
 "anchor": {
 "farm": "codori",
 "r_m": 500,
-"class": "orchard"
+"class": "orchard",
+"area": true
 },
 "quote_found": "Additionally, a large orchard was extant on the Codori farm east of the farm buildings",
 "locator": {
@@ -2413,7 +2474,8 @@
 "anchor": {
 "farm": "codori",
 "r_m": 500,
-"class": null
+"class": null,
+"area": true
 },
 "quote_found": "A large tree near the junction of the Codori farm lane and Emmitsburg Road served as a Confederate sharpshooter’s post on July 3",
 "locator": {
@@ -2444,7 +2506,8 @@
 "anchor": {
 "farm": "klingel",
 "r_m": 500,
-"class": "orchard"
+"class": "orchard",
+"area": true
 },
 "quote_found": "Both orchards contained mostly apple trees, but cherry, pear, and peach trees were also extant in the north orchard",
 "locator": {
@@ -2474,7 +2537,8 @@
 "anchor": {
 "farm": "klingel",
 "r_m": 500,
-"class": "orchard"
+"class": "orchard",
+"area": true
 },
 "quote_found": "One orchard, located south and east of the Klingel farmhouse, provided cover for Carr’s troops, including the 5th and 11th New Jersey Brigades, before the infantry fighting along Emmitsburg Road on July 2. The other Klingel orchard, north of the farmhouse, was used as cover by the 12th New Hampshire during the artillery duel on the afternoon of July 2",
 "locator": {
@@ -2505,7 +2569,8 @@
 "anchor": {
 "farm": "trostle",
 "r_m": 500,
-"class": "orchard"
+"class": "orchard",
+"area": true
 },
 "quote_found": "An apple and cherry orchard north of the barn was mentioned as a holding place by Captain Judson Clark of the New Jersey Light Artillery as the brigade waited to enter battle on July 2",
 "locator": {
@@ -2536,7 +2601,8 @@
 "anchor": {
 "farm": "trostle",
 "r_m": 500,
-"class": "orchard"
+"class": "orchard",
+"area": true
 },
 "quote_found": "This orchard was most likely immature or had already been destroyed before a shot was fired on July 2",
 "locator": {
@@ -2566,7 +2632,8 @@
 "anchor": {
 "farm": "trostle",
 "r_m": 500,
-"class": "woods"
+"class": "woods",
+"area": true
 },
 "quote_found": "The only other vegetation mentioned on the Trostle farm was a large oak tree located just south of Trostle Lane",
 "locator": {
@@ -2621,7 +2688,8 @@
 "anchor": {
 "farm": "klingel",
 "r_m": 500,
-"class": "orchard"
+"class": "orchard",
+"area": true
 },
 "quote_found": "Significant changes came to both farms when the park completed a replanting of the Trostle apple orchard in 2005 and the Klingel apple orchard in 2009",
 "locator": {
@@ -2678,7 +2746,8 @@
 "anchor": {
 "farm": "mcpherson",
 "r_m": 500,
-"class": "woods"
+"class": "woods",
+"area": true
 },
 "quote_found": "Through the center of this rolling landscape was Willoughby Run, with its rocky banks lined by woods, willow clumps, and briars. The landscape was characterized by an orthogonal pattern of fenced fields, widely scattered woodlots, and three main roads: Mummasburg Road, Chambersburg Pike, and Hagerstown Road (Figure 4",
 "locator": {
@@ -2735,7 +2804,8 @@
 "anchor": {
 "farm": "mcpherson",
 "r_m": 500,
-"class": "woods"
+"class": "woods",
+"area": true
 },
 "quote_found": "Concentrations of burials were in Seminary Grove, in Herbst Woods and along Willoughby Run, near the railroad cuts on McPherson’s Ridge, at the McPherson and Forney farmsteads, west of the Thompson House, on the Wills Farm north of the unfinished railroad, and on the eastern part of the Forney Farm near Oak Ridge",
 "locator": {
@@ -3024,7 +3094,8 @@
 "anchor": {
 "farm": "mcpherson",
 "r_m": 500,
-"class": "woods"
+"class": "woods",
+"area": true
 },
 "quote_found": "Field #1 is an open field bordered by woods along Willoughby Run (only part of farm west of creek), 1863",
 "locator": {
@@ -3055,7 +3126,8 @@
 "anchor": {
 "farm": "mcpherson",
 "r_m": 500,
-"class": "field"
+"class": "field",
+"area": true
 },
 "quote_found": "Field #2 is an open field with McPherson Quarry West (pre1863, 1895) and access road",
 "locator": {
@@ -3086,7 +3158,8 @@
 "anchor": {
 "farm": "mcpherson",
 "r_m": 500,
-"class": "field"
+"class": "field",
+"area": true
 },
 "quote_found": "Field #3b was an open field with stream in 1863",
 "locator": {
@@ -3115,7 +3188,8 @@
 "anchor": {
 "farm": "mcpherson",
 "r_m": 500,
-"class": "field"
+"class": "field",
+"area": true
 },
 "quote_found": "historic Virginia worm fence along south side and non-historic split-rail fence on east side; missing battle-era fences on other sides",
 "locator": {
@@ -3146,7 +3220,8 @@
 "anchor": {
 "farm": "mcpherson",
 "r_m": 500,
-"class": "field"
+"class": "field",
+"area": true
 },
 "quote_found": "Field #4a is a field around the farmstead with Union burials in northern part, 1863",
 "locator": {
@@ -3177,7 +3252,8 @@
 "anchor": {
 "farm": "mcpherson",
 "r_m": 500,
-"class": "field"
+"class": "field",
+"area": true
 },
 "quote_found": "Field #4b was used as meadow, 1863",
 "locator": {
@@ -3208,7 +3284,8 @@
 "anchor": {
 "farm": "mcpherson",
 "r_m": 500,
-"class": "field"
+"class": "field",
+"area": true
 },
 "quote_found": "Field #5a was an open field crossed by Pitzer Run, 1863",
 "locator": {
@@ -3239,7 +3316,8 @@
 "anchor": {
 "farm": "mcpherson",
 "r_m": 500,
-"class": "field"
+"class": "field",
+"area": true
 },
 "quote_found": "Field #5b was an open field crossed by Pitzer Run with Union burials in center and eastern part, 1863. Used for growing corn, 1863",
 "locator": {
@@ -3270,7 +3348,8 @@
 "anchor": {
 "farm": "mcpherson",
 "r_m": 500,
-"class": "woods"
+"class": "woods",
+"area": true
 },
 "quote_found": "Field #6 was an open field with woods along Willoughby Run, 1863",
 "locator": {
@@ -3301,7 +3380,8 @@
 "anchor": {
 "farm": "mcpherson",
 "r_m": 500,
-"class": "field"
+"class": "field",
+"area": true
 },
 "quote_found": "Field #7 was an open field used for growing wheat, with Confederate burials in the center, 1863",
 "locator": {
@@ -3332,7 +3412,8 @@
 "anchor": {
 "farm": "mcpherson",
 "r_m": 500,
-"class": "field"
+"class": "field",
+"area": true
 },
 "quote_found": "Field #8 was an open field used for growing wheat, oats, or grass, 1863; site of Gamble’s U.S. Brigade breastworks, July 1, 1863",
 "locator": {
@@ -3363,7 +3444,8 @@
 "anchor": {
 "farm": "mcpherson",
 "r_m": 500,
-"class": "field"
+"class": "field",
+"area": true
 },
 "quote_found": "Field #9 was an open field used for growing wheat, oats, or grass, with Confederate burials in eastern end, 1863",
 "locator": {
@@ -3394,7 +3476,8 @@
 "anchor": {
 "farm": "mcpherson",
 "r_m": 500,
-"class": "field"
+"class": "field",
+"area": true
 },
 "quote_found": "Field #10 was an open field used for growing wheat or oats, with Union burials along the northern boundary, 1863",
 "locator": {
@@ -4069,7 +4152,8 @@
 "anchor": {
 "farm": "mcpherson",
 "r_m": 500,
-"class": "woods"
+"class": "woods",
+"area": true
 },
 "quote_found": "McPherson Woods retains its overall battle character and limits. It has lost battlefield character due to removal of the Wills-Crist Farm Lane, growth of understory and tree density in the Railroad Woods section, loss of the eastern and southern parts to railroad development, and expansion of the woods into McPherson Field #10",
 "locator": {
@@ -4098,7 +4182,8 @@
 "anchor": {
 "farm": "mcpherson",
 "r_m": 500,
-"class": "orchard"
+"class": "orchard",
+"area": true
 },
 "quote_found": "The McPherson fruit garden is immature and has not yet reestablished its historic spatial character",
 "locator": {
@@ -4495,7 +4580,8 @@
 "anchor": {
 "farm": "mcpherson",
 "r_m": 500,
-"class": "orchard"
+"class": "orchard",
+"area": true
 },
 "quote_found": "According to the deed of sale, John Bayard McPherson’s purchase included “a one and one half Storey dwelling house, Bank barn, Wagon shed and other outbuildings, with a well of water and an orchard of Fruit Trees",
 "locator": {
@@ -4524,7 +4610,8 @@
 "anchor": {
 "farm": "mcpherson",
 "r_m": 500,
-"class": "field"
+"class": "field",
+"area": true
 },
 "quote_found": "By the early 1860s, Slentz’s farm operation, spread across approximately twelve fenced fields, included dairy cows, horses, hogs, turkeys, and chickens, and crops of wheat, corn, oats, and grass",
 "locator": {
@@ -4553,7 +4640,8 @@
 "anchor": {
 "farm": "mcpherson",
 "r_m": 500,
-"class": "orchard"
+"class": "orchard",
+"area": true
 },
 "quote_found": "The orchard at the rear of the house had peach and apple trees, and there was a line of cherry trees along the entry drive from the turnpike",
 "locator": {
@@ -5122,7 +5210,8 @@
 "anchor": {
 "farm": "mcpherson",
 "r_m": 500,
-"class": "field"
+"class": "field",
+"area": true
 },
 "quote_found": "This included loss of livestock and crops including four tons of hay, 9 acres of wheat, 16 acres of corn, 4 acres of oats, 18 acres of grass, and a half acre of potatoes",
 "locator": {
@@ -5340,6 +5429,2147 @@
 },
 "match_count": 1,
 "src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p075-03",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "Field crops and construction dates indicated where known",
+"tier": "documented",
+"kind": "crop",
+"says": "Drawing note 6: field crops and construction dates are indicated where known",
+"feature": "Drawing note: crops indicated where known",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p075-03",
+"pdf_page": 75,
+"printed_page": "Drawing 1.1",
+"quote_found": "Field crops and construction dates indicated where known",
+"locator": {
+"char_start": 221787,
+"char_end": 221843,
+"pdf_page": 75
+},
+"match_count": 2,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p075-04",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "McPHERSON LOT #9 (grass or grain)",
+"tier": "inferred",
+"kind": "crop",
+"says": "McPherson Lot #9 is labelled grass or grain",
+"feature": "McPherson Lot #9 label",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p075-04",
+"pdf_page": 75,
+"printed_page": "Drawing 1.1",
+"anchor": {
+"farm": "mcpherson",
+"r_m": 500,
+"class": "field",
+"area": true
+},
+"quote_found": "McPHERSON LOT #9 (grass or grain",
+"locator": {
+"char_start": 221190,
+"char_end": 221222,
+"pdf_page": 75
+},
+"match_count": 2,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p075-05",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "McPHERSON FIELD #10 (wheat or oats)",
+"tier": "inferred",
+"kind": "crop",
+"says": "McPherson Field #10 is labelled wheat or oats",
+"feature": "McPherson Field #10 label",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p075-05",
+"pdf_page": 75,
+"printed_page": "Drawing 1.1",
+"anchor": {
+"farm": "mcpherson",
+"r_m": 500,
+"class": "field",
+"area": true
+},
+"quote_found": "McPHERSON FIELD #10 (wheat or oats",
+"locator": {
+"char_start": 221022,
+"char_end": 221056,
+"pdf_page": 75
+},
+"match_count": 2,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p075-06",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "McPHERSON FIELD #9 (wheat, oats, or grass)",
+"tier": "inferred",
+"kind": "crop",
+"says": "McPherson Field #9 is labelled wheat, oats or grass",
+"feature": "McPherson Field #9 label",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p075-06",
+"pdf_page": 75,
+"printed_page": "Drawing 1.1",
+"anchor": {
+"farm": "mcpherson",
+"r_m": 500,
+"class": "field",
+"area": true
+},
+"quote_found": "McPHERSON FIELD #9 (wheat, oats, or grass",
+"locator": {
+"char_start": 219961,
+"char_end": 220002,
+"pdf_page": 75
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p075-07",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "McPHERSON FIELD #7 (wheat)",
+"tier": "documented",
+"kind": "crop",
+"says": "McPherson Field #7 is labelled wheat",
+"feature": "McPherson Field #7 label",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p075-07",
+"pdf_page": 75,
+"printed_page": "Drawing 1.1",
+"anchor": {
+"farm": "mcpherson",
+"r_m": 500,
+"class": "field",
+"area": true
+},
+"quote_found": "McPHERSON FIELD #7 (wheat",
+"locator": {
+"char_start": 220579,
+"char_end": 220604,
+"pdf_page": 75
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p075-08",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "McPHERSON FIELD #8 (wheat, oats, or grass)",
+"tier": "inferred",
+"kind": "crop",
+"says": "McPherson Field #8 is labelled wheat, oats or grass",
+"feature": "McPherson Field #8 label",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p075-08",
+"pdf_page": 75,
+"printed_page": "Drawing 1.1",
+"anchor": {
+"farm": "mcpherson",
+"r_m": 500,
+"class": "field",
+"area": true
+},
+"quote_found": "McPHERSON FIELD #8 (wheat, oats, or grass",
+"locator": {
+"char_start": 220062,
+"char_end": 220103,
+"pdf_page": 75
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p075-09",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "HARMAN FIELD #1 (wheat, oats)",
+"tier": "documented",
+"kind": "crop",
+"says": "Harman Field #1 is labelled wheat, oats",
+"feature": "Harman Field #1 label",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p075-09",
+"pdf_page": 75,
+"printed_page": "Drawing 1.1",
+"quote_found": "HARMAN FIELD #1 (wheat, oats",
+"locator": {
+"char_start": 218190,
+"char_end": 218218,
+"pdf_page": 75
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p075-10",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "HARMAN FIELD #2 (wheat)",
+"tier": "documented",
+"kind": "crop",
+"says": "Harman Field #2 is labelled wheat",
+"feature": "Harman Field #2 label",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p075-10",
+"pdf_page": 75,
+"printed_page": "Drawing 1.1",
+"quote_found": "HARMAN FIELD #2 (wheat",
+"locator": {
+"char_start": 217950,
+"char_end": 217972,
+"pdf_page": 75
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p075-11",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "HARMAN FIELD #3 (wheat)",
+"tier": "documented",
+"kind": "crop",
+"says": "Harman Field #3 is labelled wheat",
+"feature": "Harman Field #3 label",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p075-11",
+"pdf_page": 75,
+"printed_page": "Drawing 1.1",
+"quote_found": "HARMAN FIELD #3 (wheat",
+"locator": {
+"char_start": 216999,
+"char_end": 217021,
+"pdf_page": 75
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p075-12",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "HARMAN FIELD #4 (grass)",
+"tier": "documented",
+"kind": "crop",
+"says": "Harman Field #4 is labelled grass",
+"feature": "Harman Field #4 label",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p075-12",
+"pdf_page": 75,
+"printed_page": "Drawing 1.1",
+"quote_found": "HARMAN FIELD #4 (grass",
+"locator": {
+"char_start": 217300,
+"char_end": 217322,
+"pdf_page": 75
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p075-13",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "HARMAN FIELD #5 (oats)",
+"tier": "documented",
+"kind": "crop",
+"says": "Harman Field #5 is labelled oats",
+"feature": "Harman Field #5 label",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p075-13",
+"pdf_page": 75,
+"printed_page": "Drawing 1.1",
+"quote_found": "HARMAN FIELD #5 (oats",
+"locator": {
+"char_start": 216598,
+"char_end": 216619,
+"pdf_page": 75
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p075-14",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "WISLER FIELDS (potatoes, corn)",
+"tier": "documented",
+"kind": "crop",
+"says": "The Wisler fields are labelled potatoes, corn",
+"feature": "Wisler fields label",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p075-14",
+"pdf_page": 75,
+"printed_page": "Drawing 1.1",
+"quote_found": "WISLER FIELDS (potatoes, corn",
+"locator": {
+"char_start": 217325,
+"char_end": 217354,
+"pdf_page": 75
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p077-01",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "FORNEY FIELD #1 (oats or corn)",
+"tier": "inferred",
+"kind": "crop",
+"says": "Forney Field #1 is labelled oats or corn",
+"feature": "Forney Field #1 label",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p077-01",
+"pdf_page": 77,
+"printed_page": "Drawing 1.2",
+"quote_found": "FORNEY FIELD #1 (oats or corn",
+"locator": {
+"char_start": 222390,
+"char_end": 222419,
+"pdf_page": 77
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p077-02",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "FORNEY FIELD #2 (oats or corn)",
+"tier": "inferred",
+"kind": "crop",
+"says": "Forney Field #2 is labelled oats or corn",
+"feature": "Forney Field #2 label",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p077-02",
+"pdf_page": 77,
+"printed_page": "Drawing 1.2",
+"quote_found": "FORNEY FIELD #2 (oats or corn",
+"locator": {
+"char_start": 223915,
+"char_end": 223944,
+"pdf_page": 77
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p077-03",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "FORNEY FIELD #5 (timothy grass)",
+"tier": "documented",
+"kind": "crop",
+"says": "Forney Field #5 is labelled timothy grass",
+"feature": "Forney Field #5 label",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p077-03",
+"pdf_page": 77,
+"printed_page": "Drawing 1.2",
+"quote_found": "FORNEY FIELD #5 (timothy grass",
+"locator": {
+"char_start": 222785,
+"char_end": 222815,
+"pdf_page": 77
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p077-04",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "FORNEY FIELD #6 (timothy grass)",
+"tier": "documented",
+"kind": "crop",
+"says": "Forney Field #6 is labelled timothy grass",
+"feature": "Forney Field #6 label",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p077-04",
+"pdf_page": 77,
+"printed_page": "Drawing 1.2",
+"quote_found": "FORNEY FIELD #6 (timothy grass",
+"locator": {
+"char_start": 223330,
+"char_end": 223360,
+"pdf_page": 77
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p077-05",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "FORNEY FIELD #8 (wheat)",
+"tier": "documented",
+"kind": "crop",
+"says": "Forney Field #8 is labelled wheat",
+"feature": "Forney Field #8 label",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p077-05",
+"pdf_page": 77,
+"printed_page": "Drawing 1.2",
+"quote_found": "FORNEY FIELD #8 (wheat",
+"locator": {
+"char_start": 223305,
+"char_end": 223327,
+"pdf_page": 77
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p077-06",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "FORNEY MARKET ORCHARD (apples, peaches)",
+"tier": "documented",
+"kind": "orchard",
+"says": "The Forney market orchard is labelled apples, peaches",
+"feature": "Forney market orchard label",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p077-06",
+"pdf_page": 77,
+"printed_page": "Drawing 1.2",
+"quote_found": "FORNEY MARKET ORCHARD (apples, peaches",
+"locator": {
+"char_start": 222656,
+"char_end": 222694,
+"pdf_page": 77
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p077-07",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "WILLS FIELD #2 (wheat)",
+"tier": "documented",
+"kind": "crop",
+"says": "Wills Field #2 is labelled wheat",
+"feature": "Wills Field #2 label",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p077-07",
+"pdf_page": 77,
+"printed_page": "Drawing 1.2",
+"quote_found": "WILLS FIELD #2 (wheat",
+"locator": {
+"char_start": 223535,
+"char_end": 223556,
+"pdf_page": 77
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p077-08",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "WILLS FIELD #5 (wheat or grain)",
+"tier": "inferred",
+"kind": "crop",
+"says": "Wills Field #5 is labelled wheat or grain",
+"feature": "Wills Field #5 label",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p077-08",
+"pdf_page": 77,
+"printed_page": "Drawing 1.2",
+"quote_found": "WILLS FIELD #5 (wheat or grain",
+"locator": {
+"char_start": 224304,
+"char_end": 224334,
+"pdf_page": 77
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p077-09",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "M. CRIST MARKET ORCHARD (peach)",
+"tier": "documented",
+"kind": "orchard",
+"says": "The Michael Crist market orchard is labelled peach",
+"feature": "M. Crist market orchard label",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p077-09",
+"pdf_page": 77,
+"printed_page": "Drawing 1.2",
+"quote_found": "M. CRIST MARKET ORCHARD (peach",
+"locator": {
+"char_start": 226357,
+"char_end": 226387,
+"pdf_page": 77
+},
+"match_count": 2,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p077-10",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "M. CRIST FARM ORCHARD (apple)",
+"tier": "documented",
+"kind": "orchard",
+"says": "The Michael Crist farm orchard is labelled apple",
+"feature": "M. Crist farm orchard label",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p077-10",
+"pdf_page": 77,
+"printed_page": "Drawing 1.2",
+"quote_found": "M. CRIST FARM ORCHARD (apple",
+"locator": {
+"char_start": 224402,
+"char_end": 224430,
+"pdf_page": 77
+},
+"match_count": 2,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p331-01",
+"src": "NPS:NPS-CLR-1STDAY#raw",
+"quote": "In 1863, the historic character of the 1st Corps battlefield landscape was defined by a mostly orthogonal pattern of fenced fields and orchards with woodlots on the ridges and other areas not well suited to cultivation.",
+"tier": "documented",
+"kind": "orchard",
+"says": "In 1863 the 1st Corps battlefield was defined by a mostly orthogonal pattern of fenced fields and orchards, with woodlots on the ridges and on ground not suited to cultivation",
+"feature": "First Day field in 1863: fenced fields, orchards, woodlots on the ridges",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p331-01",
+"pdf_page": 331,
+"printed_page": "303",
+"quote_found": "In 1863, the historic character of the 1st Corps battle- field landscape was defined by a mostly orthogonal pattern of fenced fields and orchards with woodlots on the ridges and other areas not well suited to cultivation",
+"locator": {
+"char_start": 1054878,
+"char_end": 1055098,
+"pdf_page": 331
+},
+"match_count": 1,
+"src_sha256": "ee0cfb3a236f166dbd6902ec8889e81afd95c258bbc38b7a8ffb709c087015e9",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p336-01",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "In 1863, the battlefield landscape of McPherson Ridge consisted of fenced farm fields from Hagerstown Road north to beyond the unfinished railroad, with a large woodlot on the Herbst Farm bordering the McPherson Farm and Willoughby Run.",
+"tier": "documented",
+"kind": "woodlot",
+"says": "In 1863 McPherson Ridge was fenced farm fields from Hagerstown Road north beyond the unfinished railroad, with a large woodlot on the Herbst farm bordering the McPherson farm and Willoughby Run",
+"feature": "McPherson Ridge in 1863",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p336-01",
+"pdf_page": 336,
+"printed_page": "308",
+"anchor": {
+"farm": "mcpherson",
+"r_m": 500,
+"class": "woods",
+"area": true
+},
+"quote_found": "In 1863, the battlefield landscape of McPherson Ridge consisted of fenced farm fields from Hagerstown Road north to beyond the unfinished railroad, with a large woodlot on the Herbst Farm bordering the McPherson Farm and Willoughby Run",
+"locator": {
+"char_start": 1078913,
+"char_end": 1079148,
+"pdf_page": 336
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p337-01",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "Naturalization of woodlots has led to loss of open understory that existed during the battle.",
+"tier": "documented",
+"kind": "woodlot",
+"says": "Naturalisation of woodlots has led to loss of the open understory that existed during the battle",
+"feature": "Open understory of the 1863 woodlots",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p337-01",
+"pdf_page": 337,
+"printed_page": "309",
+"quote_found": "Naturalization of woodlots has led to loss of open understory that existed during the battle",
+"locator": {
+"char_start": 1082375,
+"char_end": 1082467,
+"pdf_page": 337
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p338-01",
+"src": "NPS:NPS-CLR-1STDAY#raw",
+"quote": "In 1863, the battlefield landscape of Oak Ridge consisted of fenced farm fields in the Wills and Forney farms that extended from the unfinished railroad north to Oak Hill, and from the crest of Oak Ridge west along a broad, relatively level plain to the foot of Herr’s Ridge.",
+"tier": "documented",
+"kind": "woodlot",
+"says": "In 1863 Oak Ridge was fenced farm fields of the Wills and Forney farms from the unfinished railroad north to Oak Hill and from the crest of Oak Ridge west along a broad level plain to the foot of Herr's Ridge",
+"feature": "Oak Ridge in 1863",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p338-01",
+"pdf_page": 338,
+"printed_page": "310",
+"quote_found": "In 1863, the battlefield landscape of Oak Ridge consist- ed of fenced farm fields in the Wills and Forney farms that extended from the unfinished railroad north to Oak Hill, and from the crest of Oak Ridge west along a broad, relatively level plain to the foot of Herr’s Ridge",
+"locator": {
+"char_start": 1075585,
+"char_end": 1075861,
+"pdf_page": 338
+},
+"match_count": 1,
+"src_sha256": "ee0cfb3a236f166dbd6902ec8889e81afd95c258bbc38b7a8ffb709c087015e9",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p340-01",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "In 1863, the battlefield landscape of Herr’s Ridge consisted of fenced farm fields that extended across the valley between Willoughby Run and Herr’s Ridge from Old Mill Road north to the unfinished railroad, and along the ridge top north of the railroad.",
+"tier": "documented",
+"kind": "crop",
+"says": "In 1863 Herr's Ridge was fenced farm fields across the valley between Willoughby Run and Herr's Ridge from Old Mill Road north to the unfinished railroad and along the ridge top north of the railroad",
+"feature": "Herr's Ridge in 1863",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p340-01",
+"pdf_page": 340,
+"printed_page": "312",
+"quote_found": "In 1863, the battlefield landscape of Herr’s Ridge consisted of fenced farm fields that extended across the valley between Willoughby Run and Herr’s Ridge from Old Mill Road north to the unfinished railroad, and along the ridge top north of the railroad",
+"locator": {
+"char_start": 1092598,
+"char_end": 1092851,
+"pdf_page": 340
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p348-01",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "Trees, primarily oak and hickory along with tuliptree, walnut, maple, ash, and other native deciduous trees, were found throughout the battlefield in 1863 in woodlots, hedgerows, and as specimens.",
+"tier": "documented",
+"kind": "woodlot",
+"says": "Trees in 1863 were primarily oak and hickory, with tuliptree, walnut, maple, ash and other native deciduous trees, found in woodlots, hedgerows and as specimens",
+"feature": "Tree species of the 1863 battlefield",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p348-01",
+"pdf_page": 348,
+"printed_page": "320",
+"quote_found": "Trees, primarily oak and hickory along with tuliptree, walnut, maple, ash, and other native deciduous trees, were found throughout the battlefield in 1863 in woodlots, hedgerows, and as specimens",
+"locator": {
+"char_start": 1121485,
+"char_end": 1121680,
+"pdf_page": 348
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p349-01",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "The patchwork of small farm fields on the 1st Corp field were enclosed by a variety of fences to retain livestock and protect crops, or to mark property boundaries.",
+"tier": "documented",
+"kind": "crop",
+"says": "The small farm fields of the 1st Corps field were enclosed by a variety of fences to keep livestock in, protect crops or mark boundaries",
+"feature": "Battle-era field fences: purposes and types",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p349-01",
+"pdf_page": 349,
+"printed_page": "321",
+"quote_found": "The patchwork of small farm fields on the 1st Corp field were enclosed by a variety of fences to retain livestock and protect crops, or to mark property boundaries",
+"locator": {
+"char_start": 1126254,
+"char_end": 1126417,
+"pdf_page": 349
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p349-02",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "Aside from stone fences, these were typically of wood rails constructed in two predominant styles: Virginia worm, with 10-12-foot-long rails laid in zig-zag fashion with cross braces; and post-and-rail, typically five-rail types, which took up less area than Virginia worm.",
+"tier": "documented",
+"kind": "crop",
+"says": "Apart from stone fences, the field fences were wood rails in two main styles: Virginia worm, with rails 10-12 feet long laid in zig-zag with cross braces, and post-and-rail, typically five rails, which took up less area than worm fence",
+"feature": "Battle-era field fences: Virginia worm and five-rail post-and-rail",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p349-02",
+"pdf_page": 349,
+"printed_page": "321",
+"quote_found": "Aside from stone fences, these were typically of wood rails constructed in two predominant styles: Virginia worm, with 10-12-foot-long rails laid in zig-zag fashion with cross braces; and post-and-rail, typically five-rail types, which took up less area than Virginia worm",
+"locator": {
+"char_start": 1126419,
+"char_end": 1126691,
+"pdf_page": 349
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p349-03",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "During the battle, these fences obstructed troop movements; they were also taken down to build breastworks.",
+"tier": "documented",
+"kind": "crop",
+"says": "During the battle the field fences obstructed troop movements and were taken down to build breastworks",
+"feature": "Field fences obstructed troops and were taken down for breastworks",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p349-03",
+"pdf_page": 349,
+"printed_page": "321",
+"quote_found": "During the battle, these fences obstructed troop movements; they were also taken down to build breastworks",
+"locator": {
+"char_start": 1126693,
+"char_end": 1126799,
+"pdf_page": 349
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p463-01",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "Inconclusive documentation on 1863 fence between Forney fields 5/6 and 7/8",
+"tier": "documented",
+"kind": "crop",
+"says": "Drawing 3.2 notes inconclusive documentation of an 1863 fence between Forney fields 5/6 and 7/8",
+"feature": "No conclusive documentation of the 1863 fence between Forney fields 5/6 and 7/8",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p463-01",
+"pdf_page": 463,
+"printed_page": null,
+"quote_found": "Inconclusive documentation on 1863 fence between Forney fields 5/6 and 7/8",
+"locator": {
+"char_start": 1557311,
+"char_end": 1557385,
+"pdf_page": 463
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p301-01",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "The outlots, which contained three fields in 1863, are lined on the west side by a battle-era stone fence on the Forney property line.",
+"tier": "documented",
+"kind": "crop",
+"says": "The Gilbert outlots contained three fields in 1863 and were lined on the west side by a battle-era stone fence on the Forney property line",
+"feature": "Gilbert outlots: three fields in 1863, stone fence on the west",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p301-01",
+"pdf_page": 301,
+"printed_page": "275",
+"quote_found": "The outlots, which contained three fields in 1863, are lined on the west side by a battle-era stone fence on the Forney property line",
+"locator": {
+"char_start": 978732,
+"char_end": 978865,
+"pdf_page": 301
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p415-01",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "At the time of the battle, McClean Field #9 was most likely a pasture with a woodlot to the south (McClean Grove), a stone wall to the west, and wood fences along Mummasburg Road and a farm lane to the east.",
+"tier": "inferred",
+"kind": "woodlot",
+"says": "McClean Field #9 was most likely pasture, with a woodlot to the south (McClean Grove), a stone wall to the west, and wood fences along Mummasburg Road and a farm lane to the east",
+"feature": "McClean Field #9 in 1863",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p415-01",
+"pdf_page": 415,
+"printed_page": "387",
+"quote_found": "At the time of the battle, McClean Field #9 was most likely a pasture with a woodlot to the south (McClean Grove), a stone wall to the west, and wood fences along Mummasburg Road and a farm lane to the east",
+"locator": {
+"char_start": 1374499,
+"char_end": 1374705,
+"pdf_page": 415
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p424-01",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "At the time of the battle, a woodlot covered the slope of Oak Ridge south of Mummasburg Road and McClean Field #9. Union infantry formed battle lines within and west of this grove.",
+"tier": "documented",
+"kind": "woodlot",
+"says": "A woodlot covered the slope of Oak Ridge south of Mummasburg Road and McClean Field #9; Union infantry formed battle lines within and west of it",
+"feature": "McClean Grove woodlot on Oak Ridge",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p424-01",
+"pdf_page": 424,
+"printed_page": "396",
+"quote_found": "At the time of the battle, a woodlot covered the slope of Oak Ridge south of Mummasburg Road and McClean Field #9. Union infantry formed battle lines within and west of this grove",
+"locator": {
+"char_start": 1410545,
+"char_end": 1410724,
+"pdf_page": 424
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p424-02",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "At the time of the battle, the McClean Farm had an orchard (variety not known) on the slopes of Oak Hill west of the farmstead, which provided cover for Confederate artillery positions on Oak Hill.",
+"tier": "documented",
+"kind": "orchard",
+"says": "The McClean farm had an orchard (variety not known) on the slopes of Oak Hill west of the farmstead, which covered Confederate artillery on Oak Hill",
+"feature": "McClean East Orchard",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p424-02",
+"pdf_page": 424,
+"printed_page": "396",
+"quote_found": "At the time of the battle, the McClean Farm had an orchard (variety not known) on the slopes of Oak Hill west of the farmstead, which provided cover for Confederate artillery positions on Oak Hill",
+"locator": {
+"char_start": 1411783,
+"char_end": 1411979,
+"pdf_page": 424
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p424-03",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "At the time of the battle, an orchard (species not known) occupied the field south of McClean Grove on a town outlot owned by Gilbert (Gilbert Field #1).",
+"tier": "inferred",
+"kind": "orchard",
+"says": "An orchard of unknown species occupied the field south of McClean Grove on the Gilbert outlot (Gilbert Field #1), while the report elsewhere places the apple orchard in the northern outlot next to the McClean farm",
+"feature": "Gilbert orchard (species not known)",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p424-03",
+"pdf_page": 424,
+"printed_page": "396",
+"quote_found": "At the time of the battle, an orchard (species not known) occupied the field south of McClean Grove on a town outlot owned by Gilbert (Gilbert Field #1",
+"locator": {
+"char_start": 1409797,
+"char_end": 1409948,
+"pdf_page": 424
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p423-01",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "At the time of the battle, there was a woodlot at the crest of Oak Hill within the Forney Farm; the woodlot extended north into the Hartzell and Cobean farms.",
+"tier": "documented",
+"kind": "woodlot",
+"says": "A woodlot stood at the crest of Oak Hill within the Forney farm and extended north into the Hartzell and Cobean farms",
+"feature": "Forney Woods on Oak Hill",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p423-01",
+"pdf_page": 423,
+"printed_page": "395",
+"quote_found": "At the time of the battle, there was a woodlot at the crest of Oak Hill within the Forney Farm; the woodlot extended north into the Hartzell and Cobean farms",
+"locator": {
+"char_start": 1406070,
+"char_end": 1406227,
+"pdf_page": 423
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p423-03",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "At the time of the battle, the Forneys maintained an apple and peach market orchard surrounding and south of the farmstead. The orchard was removed after 1863 as the farm transitioned to a commercial dairy operation.",
+"tier": "documented",
+"kind": "orchard",
+"says": "The Forneys kept an apple and peach market orchard around and south of the farmstead, removed after 1863 when the farm became a commercial dairy",
+"feature": "Forney market orchard",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p423-03",
+"pdf_page": 423,
+"printed_page": "395",
+"quote_found": "At the time of the battle, the Forneys maintained an apple and peach market orchard surrounding and south of the farmstead. The orchard was removed after 1863 as the farm transitioned to a commercial dairy operation",
+"locator": {
+"char_start": 1406936,
+"char_end": 1407151,
+"pdf_page": 423
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p423-04",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "At the time of the battle, the Forneys maintained a fruit garden (small orchard) due west of the farmhouse.",
+"tier": "documented",
+"kind": "orchard",
+"says": "The Forneys kept a fruit garden (small orchard) due west of the farmhouse, removed after the battle",
+"feature": "Forney fruit garden",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p423-04",
+"pdf_page": 423,
+"printed_page": "395",
+"quote_found": "At the time of the battle, the Forneys maintained a fruit garden (small orchard) due west of the farmhouse",
+"locator": {
+"char_start": 1408212,
+"char_end": 1408318,
+"pdf_page": 423
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p440-01",
+"src": "NPS:NPS-CLR-1STDAY#raw",
+"quote": "At the time of the battle, the Forney farmstead on the south side of Mummasburg Road included a two-story frame farmhouse, frame barn, small outbuildings, well, and fenced yards, surrounded by orchards.",
+"tier": "documented",
+"kind": "orchard",
+"says": "The Forney farmstead south of Mummasburg Road had a two-story frame farmhouse, frame barn, small outbuildings, a well and fenced yards, surrounded by orchards",
+"feature": "Forney farmstead in 1863",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p440-01",
+"pdf_page": 440,
+"printed_page": "412",
+"quote_found": "At the time of the battle, the Forney farmstead on the south side of Mummasburg Road included a two-story frame farmhouse, frame barn, small outbuildings, well, and fenced yards, surrounded by orchards",
+"locator": {
+"char_start": 1465662,
+"char_end": 1465863,
+"pdf_page": 440
+},
+"match_count": 1,
+"src_sha256": "ee0cfb3a236f166dbd6902ec8889e81afd95c258bbc38b7a8ffb709c087015e9",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p425-01",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "At the time of the battle, there was a large deciduous woodlot at the northwestern corner of the Wills Farm, bordering Mummasburg Road. The woodlot was in the headwaters of Wills Branch West.",
+"tier": "documented",
+"kind": "woodlot",
+"says": "A large deciduous woodlot stood at the northwest corner of the Wills farm, bordering Mummasburg Road, in the headwaters of Wills Branch West",
+"feature": "Wills Woods West",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p425-01",
+"pdf_page": 425,
+"printed_page": "397",
+"quote_found": "At the time of the battle, there was a large deciduous woodlot at the northwestern corner of the Wills Farm, bordering Mummasburg Road. The woodlot was in the headwaters of Wills Branch West",
+"locator": {
+"char_start": 1414781,
+"char_end": 1414971,
+"pdf_page": 425
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p369-01",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "At the time of the battle, Casper Henry Dustman leased or owned a five-acre orchard west of the seminary. After the U.S. retreat on July 1, General Lee’s headquarters operations were housed in tents within the orchard.",
+"tier": "inferred",
+"kind": "orchard",
+"says": "Casper Dustman leased or owned a five-acre orchard west of the seminary, where Lee's headquarters operations were housed in tents after July 1 (the report elsewhere calls the orchard lot four acres)",
+"feature": "Dustman (Lee's headquarters) orchard: five acres",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p369-01",
+"pdf_page": 369,
+"printed_page": "341",
+"quote_found": "At the time of the battle, Casper Henry Dustman leased or owned a five-acre orchard west of the seminary. After the U.S. retreat on July 1, General Lee’s headquarters operations were housed in tents within the orchard",
+"locator": {
+"char_start": 1202043,
+"char_end": 1202260,
+"pdf_page": 369
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p369-02",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "A mature grove of oak and hickory existed at the time of the battle on the seminary campus property across Seminary Ridge (avenue) from the main seminary building (Schmucker Hall). The grove continued south onto the Schmucker Farm.",
+"tier": "documented",
+"kind": "woodlot",
+"says": "A mature grove of oak and hickory stood at the time of the battle on the seminary property across Seminary Ridge from Schmucker Hall and continued south onto the Schmucker farm",
+"feature": "Seminary Grove: mature oak and hickory",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p369-02",
+"pdf_page": 369,
+"printed_page": "341",
+"quote_found": "A mature grove of oak and hickory existed at the time of the battle on the seminary campus property across Seminary Ridge (avenue) from the main seminary building (Schmucker Hall). The grove continued south onto the Schmucker Farm",
+"locator": {
+"char_start": 1200907,
+"char_end": 1201137,
+"pdf_page": 369
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p370-01",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "At the time of the battle, Mary Thompson maintained an orchard in the field west of her stone house.",
+"tier": "documented",
+"kind": "orchard",
+"says": "Mary Thompson kept an orchard in the field west of her stone house",
+"feature": "Mary Thompson orchard",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p370-01",
+"pdf_page": 370,
+"printed_page": "342",
+"quote_found": "At the time of the battle, Mary Thompson maintained an orchard in the field west of her stone house",
+"locator": {
+"char_start": 1204754,
+"char_end": 1204853,
+"pdf_page": 370
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p379-01",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "At the time of the battle, the Herbst farmstead was a triangular area with a barn, barnyard, farmhouse, and a large fence-enclosed house yard with a fenced garden, outbuilding, and spring house.",
+"tier": "documented",
+"kind": "crop",
+"says": "The Herbst farmstead was a triangular area with barn, barnyard, farmhouse, a large fence-enclosed house yard with fenced garden, outbuilding and spring house",
+"feature": "Herbst farmstead layout",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p379-01",
+"pdf_page": 379,
+"printed_page": "351",
+"quote_found": "At the time of the battle, the Herbst farmstead was a triangular area with a barn, barnyard, farmhouse, and a large fence-enclosed house yard with a fenced garden, outbuilding, and spring house",
+"locator": {
+"char_start": 1236894,
+"char_end": 1237087,
+"pdf_page": 379
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p395-01",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "During the battle, a barnyard, worm fences, and an orchard surrounded the Herbst Barn.",
+"tier": "documented",
+"kind": "orchard",
+"says": "During the battle a barnyard, worm fences and an orchard surrounded the Herbst barn",
+"feature": "Herbst barn surrounded by barnyard, worm fences and orchard",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p395-01",
+"pdf_page": 395,
+"printed_page": "367",
+"quote_found": "During the battle, a barnyard, worm fences, and an orchard surrounded the Herbst Barn",
+"locator": {
+"char_start": 1298373,
+"char_end": 1298458,
+"pdf_page": 395
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p389-01",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "At the time of the battle, the Herbst Farm had an approximate six-acre orchard north of the farmstead, bordering Willoughby Run.",
+"tier": "documented",
+"kind": "orchard",
+"says": "The Herbst farm had an orchard of about six acres north of the farmstead, bordering Willoughby Run",
+"feature": "Herbst orchard: six acres",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p389-01",
+"pdf_page": 389,
+"printed_page": "361",
+"quote_found": "At the time of the battle, the Herbst Farm had an approximate six-acre orchard north of the farmstead, bordering Willoughby Run",
+"locator": {
+"char_start": 1276311,
+"char_end": 1276438,
+"pdf_page": 389
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p389-02",
+"src": "NPS:NPS-CLR-1STDAY#raw",
+"quote": "At the time of the battle, a twenty-acre woodlot bordering the McPherson Farm was a mature stand of native oak -hickory with a characteristic open understory reflecting a long period of agricultural use. It extended across the south end of the west branch of McPherson Ridge and was crossed by a small branch of Willoughby Run.",
+"tier": "documented",
+"kind": "woodlot",
+"says": "Herbst Woods was a twenty-acre woodlot bordering the McPherson farm, a mature stand of native oak-hickory with an open understory from long agricultural use, across the south end of the west branch of McPherson Ridge and crossed by a small branch of Willoughby Run",
+"feature": "Herbst Woods: 20-acre oak-hickory woodlot with open understory",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p389-02",
+"pdf_page": 389,
+"printed_page": "361",
+"quote_found": "At the time of the battle, a twenty-acre woodlot bordering the McPherson Farm was a mature stand of native oak -hickory with a characteristic open understory reflecting a long period of agricultural use. It extended across the south end of the west branch of McPherson Ridge and was crossed by a small branch of Willoughby Run",
+"locator": {
+"char_start": 1267333,
+"char_end": 1267659,
+"pdf_page": 389
+},
+"match_count": 1,
+"src_sha256": "ee0cfb3a236f166dbd6902ec8889e81afd95c258bbc38b7a8ffb709c087015e9",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p390-01",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "At the time of the battle, a fruit garden (small orchard of about 9 trees) stood west of the McPherson farmhouse and south of the barn.",
+"tier": "documented",
+"kind": "orchard",
+"says": "A fruit garden (small orchard of about nine trees) stood west of the McPherson farmhouse and south of the barn",
+"feature": "McPherson fruit garden of about nine trees",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p390-01",
+"pdf_page": 390,
+"printed_page": "362",
+"anchor": {
+"farm": "mcpherson",
+"r_m": 500,
+"class": "orchard",
+"area": true
+},
+"quote_found": "At the time of the battle, a fruit garden (small orchard of about 9 trees) stood west of the McPherson farmhouse and south of the barn",
+"locator": {
+"char_start": 1280479,
+"char_end": 1280613,
+"pdf_page": 390
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-1STDAY-p390-03",
+"src": "NPS:NPS-CLR-1STDAY",
+"quote": "At the time of the battle, the McPherson Farm (Outlots) included an oak-hickory woodlot on the southeastern part of Oak Ridge north of the First Railroad Cut. It was an extension of the woodlot on the adjoining Wills Farm. The woods were crossed by the Wills-Crist Farm Lane.",
+"tier": "documented",
+"kind": "woodlot",
+"says": "The McPherson outlots included an oak-hickory woodlot on the southeastern part of Oak Ridge north of the First Railroad Cut, an extension of the Wills woodlot and crossed by the Wills-Crist farm lane",
+"feature": "McPherson Woods: oak-hickory on Oak Ridge",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-1STDAY-p390-03",
+"pdf_page": 390,
+"printed_page": "362",
+"quote_found": "At the time of the battle, the McPherson Farm (Outlots) included an oak-hickory woodlot on the southeastern part of Oak Ridge north of the First Railroad Cut. It was an extension of the woodlot on the adjoining Wills Farm. The woods were crossed by the Wills-Crist Farm Lane",
+"locator": {
+"char_start": 1281581,
+"char_end": 1281855,
+"pdf_page": 390
+},
+"match_count": 1,
+"src_sha256": "d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V1-p070-01",
+"src": "NPS:NPS-CLR-ROT-V1",
+"quote": "Farmstead clusters usually included the main farm house and a barn, and some or all of the following: a wagon shed, corn crib, pig pen, chicken coop, smokehouse, blacksmith shop, spring house, summer kitchen, wood shed, privy, dooryard fencing, barnyard fencing, ornamental and shade trees, orchards, and gardens.",
+"tier": "documented",
+"kind": "orchard",
+"says": "A farmstead cluster usually had the farmhouse and barn and some or all of a wagon shed, corn crib, pig pen, chicken coop, smokehouse, blacksmith shop, spring house, summer kitchen, wood shed, privy, dooryard and barnyard fencing, ornamental and shade trees, orchards and gardens",
+"feature": "Farmstead cluster: house, barn and the usual outbuildings",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-ROT-V1-p070-01",
+"pdf_page": 70,
+"printed_page": "44",
+"quote_found": "Farmstead clusters usually included the main farm house and a barn, and some or all of the following: a wagon shed, corn crib, pig pen, chicken coop, smokehouse, blacksmith shop, spring house, summer kitchen, wood shed, privy, dooryard fencing, barnyard fencing, ornamental and shade trees, orchards, and gardens",
+"locator": {
+"char_start": 152926,
+"char_end": 153238,
+"pdf_page": 70
+},
+"match_count": 1,
+"src_sha256": "5dab05304098dae425de95243452dac007cdefee02f20b0a79144758f29dcf78",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V1-p071-01",
+"src": "NPS:NPS-CLR-ROT-V1",
+"quote": "Most woodlots consisted of deciduous species.",
+"tier": "documented",
+"kind": "woodlot",
+"says": "Most woodlots were deciduous and typically on the poorest land with rocky, thin or steeply sloped soil, supplying fencing, firewood, housing and general carpentry",
+"feature": "Woodlots: deciduous, on the poorest land",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-ROT-V1-p071-01",
+"pdf_page": 71,
+"printed_page": "45",
+"quote_found": "Most woodlots consisted of deciduous species",
+"locator": {
+"char_start": 156026,
+"char_end": 156070,
+"pdf_page": 71
+},
+"match_count": 1,
+"src_sha256": "5dab05304098dae425de95243452dac007cdefee02f20b0a79144758f29dcf78",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V1-p071-02",
+"src": "NPS:NPS-CLR-ROT-V1",
+"quote": "The 1860s subsistence farms that surrounded Gettysburg included managed vegetation, such as woodlots, groves, hedgerows, orchards, nurseries, and individual ornamental and shade trees.",
+"tier": "documented",
+"kind": "orchard",
+"says": "The 1860s subsistence farms around Gettysburg included managed woodlots, groves, hedgerows, orchards, nurseries and individual ornamental and shade trees",
+"feature": "Woodlots and groves on poor land",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-ROT-V1-p071-02",
+"pdf_page": 71,
+"printed_page": "45",
+"quote_found": "The 1860s subsistence farms that surrounded Gettysburg included managed vegetation, such as woodlots, groves, hedgerows, orchards, nurseries, and individual ornamental and shade trees",
+"locator": {
+"char_start": 155156,
+"char_end": 155339,
+"pdf_page": 71
+},
+"match_count": 1,
+"src_sha256": "5dab05304098dae425de95243452dac007cdefee02f20b0a79144758f29dcf78",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V1-p072-02",
+"src": "NPS:NPS-CLR-ROT-V1",
+"quote": "Many orchards dotted the 1863 landscape because tree fruits provided a valuable food source for subsistence farmers and for livestock.",
+"tier": "documented",
+"kind": "orchard",
+"says": "Many orchards dotted the 1863 landscape because tree fruit fed subsistence farmers and their livestock",
+"feature": "Many orchards dotted the 1863 landscape",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-ROT-V1-p072-02",
+"pdf_page": 72,
+"printed_page": "46",
+"quote_found": "Many orchards dotted the 1863 landscape because tree fruits provided a valuable food source for subsistence farmers and for livestock",
+"locator": {
+"char_start": 159119,
+"char_end": 159252,
+"pdf_page": 72
+},
+"match_count": 1,
+"src_sha256": "5dab05304098dae425de95243452dac007cdefee02f20b0a79144758f29dcf78",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V1-p073-02",
+"src": "NPS:NPS-CLR-ROT-V1",
+"quote": "Plant trees 40 feet on center, with the exception of the Sherfy Peach Orchard, where trees are 20 feet on center.",
+"tier": "documented",
+"kind": "ground",
+"says": "The park replants orchards 40 feet on centre, except the Sherfy Peach Orchard where trees are 20 feet on centre",
+"feature": "Replanting spacing used today: 40 ft on centre, Sherfy 20 ft",
+"when": {
+"basis": "2000s replanting (modern prescription)"
+},
+"xid": "NPSX-CLR-ROT-V1-p073-02",
+"pdf_page": 73,
+"printed_page": "47",
+"anchor": {
+"farm": "sherfy",
+"r_m": 500,
+"class": "orchard",
+"area": true
+},
+"quote_found": "Plant trees 40 feet on center, with the exception of the Sherfy Peach Orchard, where trees are 20 feet on center",
+"locator": {
+"char_start": 160676,
+"char_end": 160788,
+"pdf_page": 73
+},
+"match_count": 1,
+"src_sha256": "5dab05304098dae425de95243452dac007cdefee02f20b0a79144758f29dcf78",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V1-p102-01",
+"src": "NPS:NPS-CLR-ROT-V1",
+"quote": "At the time of the battle, two separate woodlots formed Herr’s Ridge Woods with the longest dimension of each running in a roughly north-south direction.",
+"tier": "documented",
+"kind": "woodlot",
+"says": "At the time of the battle two separate woodlots formed Herr's Ridge Woods, each running roughly north-south",
+"feature": "Herr's Ridge Woods: two woodlots",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-ROT-V1-p102-01",
+"pdf_page": 102,
+"printed_page": "76",
+"quote_found": "At the time of the battle, two separate woodlots formed Herr’s Ridge Woods with the longest dimension of each running in a roughly north-south direction",
+"locator": {
+"char_start": 219196,
+"char_end": 219348,
+"pdf_page": 102
+},
+"match_count": 1,
+"src_sha256": "5dab05304098dae425de95243452dac007cdefee02f20b0a79144758f29dcf78",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V1-p147-01",
+"src": "NPS:NPS-CLR-ROT-V1",
+"quote": "The McClean Orchard provided Confederate cover and is documented in the 1863 Bachelder Map and in photographs from the Boardman Collection and the park’s historical collection",
+"tier": "documented",
+"kind": "orchard",
+"says": "The McClean Orchard is documented in the 1863 Bachelder map and in photographs from the Boardman and park collections",
+"feature": "McClean orchard documented in the 1863 Bachelder map",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-ROT-V1-p147-01",
+"pdf_page": 147,
+"printed_page": "121",
+"quote_found": "The McClean Orchard provided Confederate cover and is documented in the 1863 Bachelder Map and in photographs from the Boardman Collection and the park’s historical collection",
+"locator": {
+"char_start": 285466,
+"char_end": 285641,
+"pdf_page": 147
+},
+"match_count": 1,
+"src_sha256": "5dab05304098dae425de95243452dac007cdefee02f20b0a79144758f29dcf78",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V1-p149-02",
+"src": "NPS:NPS-CLR-ROT-V1",
+"quote": "Worm fencing along the south and west perimeters of McClean Thicket and Field 1 is documented in the 1863 Bachelder Map [ID 1331 southern leg] and the 1868 Warren Map (Figure 86).",
+"tier": "documented",
+"kind": "thicket",
+"says": "The worm fencing along the south and west perimeters of McClean Thicket and Field 1 is documented in the 1863 Bachelder map (southern leg) and the 1868 Warren map",
+"feature": "Worm fence on the south and west of McClean Thicket and Field 1",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-ROT-V1-p149-02",
+"pdf_page": 149,
+"printed_page": "123",
+"quote_found": "Worm fencing along the south and west perimeters of McClean Thicket and Field 1 is documented in the 1863 Bachelder Map [ID 1331 southern leg] and the 1868 Warren Map (Figure 86",
+"locator": {
+"char_start": 292912,
+"char_end": 293089,
+"pdf_page": 149
+},
+"match_count": 1,
+"src_sha256": "5dab05304098dae425de95243452dac007cdefee02f20b0a79144758f29dcf78",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V1-p175-01",
+"src": "NPS:NPS-CLR-ROT-V1",
+"quote": "The 333 feet of stake and rider [worm] fencing destroyed in the battle included 20 panels along Dr. William Barrett’s line and 49 panels along David McMillan’s line, both of which abutted Russell’s west boundary.23 This fencing type provided cover to Confederate forces having been removed and repurposed into breastworks along Seminary Ridge.24 Worm fencing is documented in the 1872 topographical survey map, maps in the park’s historical collection, and in photographs from the Tipton Collection",
+"tier": "documented",
+"kind": "crop",
+"says": "333 feet of stake and rider (worm) fencing destroyed in the battle, 20 panels on Dr. Barrett's line and 49 on David McMillan's, both abutting Russell's west boundary; the report says worm fencing is documented in the 1872 survey, park maps and Tipton photographs",
+"feature": "Stake-and-rider (worm) fence on the west boundary of Russell's corn field: 333 feet destroyed",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-ROT-V1-p175-01",
+"pdf_page": 175,
+"printed_page": "149",
+"quote_found": "The 333 feet of stake and rider [worm] fencing destroyed in the battle included 20 panels along Dr. William Barrett’s line and 49 panels along David McMillan’s line, both of which abutted Russell’s west boundary.23 This fencing type provided cover to Confederate forces having been removed and repurposed into breastworks along Seminary Ridge.24 Worm fencing is documented in the 1872 topographical survey map, maps in the park’s historical collection, and in photographs from the Tipton Collection",
+"locator": {
+"char_start": 335905,
+"char_end": 336404,
+"pdf_page": 175
+},
+"match_count": 1,
+"src_sha256": "5dab05304098dae425de95243452dac007cdefee02f20b0a79144758f29dcf78",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V1-p176-02",
+"src": "NPS:NPS-CLR-ROT-V1",
+"quote": "The post and rail fencing is documented in photographs from the park’s historical collection (Figure 115).",
+"tier": "documented",
+"kind": "crop",
+"says": "The post and rail fencing of the Sheely or Jacob Ziegler Field and Russell Corn Field is documented in park photographs",
+"feature": "Post and rail fencing around the Russell corn field documented in photographs",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-ROT-V1-p176-02",
+"pdf_page": 176,
+"printed_page": "150",
+"quote_found": "The post and rail fencing is documented in photographs from the park’s historical collection (Figure 115",
+"locator": {
+"char_start": 338327,
+"char_end": 338431,
+"pdf_page": 176
+},
+"match_count": 1,
+"src_sha256": "5dab05304098dae425de95243452dac007cdefee02f20b0a79144758f29dcf78",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V1-p178-02",
+"src": "NPS:NPS-CLR-ROT-V1",
+"quote": "The post and rail fence type is documented in the 1868 Warren Map and in photographs from the park’s historical collection",
+"tier": "documented",
+"kind": "crop",
+"says": "The post and rail fence type of the Jacob Culp Field is documented in the 1868 Warren map and in park photographs",
+"feature": "Jacob Culp field fence type documented in the 1868 Warren map",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-ROT-V1-p178-02",
+"pdf_page": 178,
+"printed_page": "152",
+"quote_found": "The post and rail fence type is documented in the 1868 Warren Map and in photographs from the park’s historical collection",
+"locator": {
+"char_start": 344635,
+"char_end": 344757,
+"pdf_page": 178
+},
+"match_count": 2,
+"src_sha256": "5dab05304098dae425de95243452dac007cdefee02f20b0a79144758f29dcf78",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V1-p180-01",
+"src": "NPS:NPS-CLR-ROT-V1",
+"quote": "The post and rail fence lines are documented in the 1863 Bachelder Map. The post and rail fence type is documented in the 1868 Warren Map and in photographs from the park’s historical collection",
+"tier": "documented",
+"kind": "crop",
+"says": "Under that heading the report says the post and rail fence lines are documented in the 1863 Bachelder map and the post and rail type in the 1868 Warren map and park photographs",
+"feature": "Myers Fields 1 and 2 post and rail fence lines (entry heading 'Myers Fields 1 and 2 Post and Rail Fence Installation')",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-ROT-V1-p180-01",
+"pdf_page": 180,
+"printed_page": "154",
+"quote_found": "the post and rail fence lines are documented in the 1863 Bachelder Map. The post and rail fence type is documented in the 1868 Warren Map and in photographs from the park’s historical collection",
+"locator": {
+"char_start": 344563,
+"char_end": 344757,
+"pdf_page": 178
+},
+"match_count": 2,
+"src_sha256": "5dab05304098dae425de95243452dac007cdefee02f20b0a79144758f29dcf78",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V1-p212-01",
+"src": "NPS:NPS-CLR-ROT-V1",
+"quote": "The woody growth obscured an open area that contained crops and meadow at the time of the battle.",
+"tier": "documented",
+"kind": "crop",
+"says": "The woody growth of today covers an open area that held crops and meadow at the time of the battle",
+"feature": "William Patterson fields: crops and meadow in 1863",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-ROT-V1-p212-01",
+"pdf_page": 212,
+"printed_page": "186",
+"quote_found": "The woody growth obscured an open area that contained crops and meadow at the time of the battle",
+"locator": {
+"char_start": 384409,
+"char_end": 384505,
+"pdf_page": 212
+},
+"match_count": 1,
+"src_sha256": "5dab05304098dae425de95243452dac007cdefee02f20b0a79144758f29dcf78",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V1-p219-01",
+"src": "NPS:NPS-CLR-ROT-V1",
+"quote": "At the time of the battle, a log house and stable stood south of the orchard.",
+"tier": "documented",
+"kind": "orchard",
+"says": "At the time of the battle a log house and stable stood south of the Patterson orchard",
+"feature": "Patterson farmstead: log house and stable south of the orchard",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-ROT-V1-p219-01",
+"pdf_page": 219,
+"printed_page": "193",
+"quote_found": "At the time of the battle, a log house and stable stood south of the orchard",
+"locator": {
+"char_start": 402821,
+"char_end": 402897,
+"pdf_page": 219
+},
+"match_count": 1,
+"src_sha256": "5dab05304098dae425de95243452dac007cdefee02f20b0a79144758f29dcf78",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V1-p220-02",
+"src": "NPS:NPS-CLR-ROT-V1",
+"quote": "Additionally, the orchard is documented in the 1863 Bachelder Map, 1872 topographical survey map, and in photographs from the Tipton Collection and the park’s historical collection",
+"tier": "documented",
+"kind": "orchard",
+"says": "The orchard is documented in the 1863 Bachelder map, the 1872 survey and photographs",
+"feature": "Wigert (Patterson) orchard documented in the 1863 Bachelder map",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-ROT-V1-p220-02",
+"pdf_page": 220,
+"printed_page": "194",
+"quote_found": "Additionally, the orchard is documented in the 1863 Bachelder Map, 1872 topographical survey map, and in photographs from the Tipton Collection and the park’s historical collection",
+"locator": {
+"char_start": 407802,
+"char_end": 407982,
+"pdf_page": 220
+},
+"match_count": 1,
+"src_sha256": "5dab05304098dae425de95243452dac007cdefee02f20b0a79144758f29dcf78",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V1-p221-01",
+"src": "NPS:NPS-CLR-ROT-V1",
+"quote": "Fruit gardens were intended for domestic as opposed to commercial production; however, farms at the time of the battle would use the fruit grown for canning, to prepare cider and other drinks, to add to livestock feed, or if surplus, to sell to create cash revenue.",
+"tier": "documented",
+"kind": "orchard",
+"says": "Farms of the time used fruit garden fruit for canning, cider and other drinks, livestock feed or sale for cash",
+"feature": "Fruit gardens: domestic fruit for canning, cider, feed or sale",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-ROT-V1-p221-01",
+"pdf_page": 221,
+"printed_page": "195",
+"quote_found": "Fruit gardens were intended for domestic as opposed to commercial production; however, farms at the time of the battle would use the fruit grown for canning, to prepare cider and other drinks, to add to livestock feed, or if surplus, to sell to create cash revenue",
+"locator": {
+"char_start": 409454,
+"char_end": 409718,
+"pdf_page": 221
+},
+"match_count": 1,
+"src_sha256": "5dab05304098dae425de95243452dac007cdefee02f20b0a79144758f29dcf78",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V1-p360-01",
+"src": "NPS:NPS-CLR-ROT-V1",
+"quote": "The worm fence dividing Wentz and Sherfy Field 4, GIS ID 1054, was likely dismantled to facilitate troop movement across these spaces.40 This fencing type is documented in the 1868 Warren Map",
+"tier": "documented",
+"kind": "crop",
+"says": "The worm fence dividing Wentz and Sherfy Field 4 is documented in the 1868 Warren map and was likely dismantled to ease troop movement",
+"feature": "Worm fence dividing Wentz and Sherfy Field 4",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-ROT-V1-p360-01",
+"pdf_page": 360,
+"printed_page": "334",
+"anchor": {
+"farm": "wentz",
+"r_m": 500,
+"class": "field",
+"area": true
+},
+"quote_found": "The worm fence dividing Wentz and Sherfy Field 4, GIS ID 1054, was likely dismantled to facilitate troop movement across these spaces.40 This fencing type is documented in the 1868 Warren Map",
+"locator": {
+"char_start": 608053,
+"char_end": 608244,
+"pdf_page": 360
+},
+"match_count": 1,
+"src_sha256": "5dab05304098dae425de95243452dac007cdefee02f20b0a79144758f29dcf78",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V2-p097-01",
+"src": "NPS:NPS-CLR-ROT-V2",
+"quote": "The orchard is documented in the 1863 Bachelder Map, 1872 topographical survey map, 1900 Gettysburg National Park Commission Survey, and in photographs from the Tipton Collection and the park’s historical collection (Figure 27).12 In 2006, the park completed replanting of the Rose North Orchard.",
+"tier": "documented",
+"kind": "orchard",
+"says": "The Rose North Orchard is documented in the 1863 Bachelder map, the 1872 survey, a 1900 survey and photographs; the park completed its replanting in 2006",
+"feature": "Rose North Orchard documented in the 1863 Bachelder map",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-ROT-V2-p097-01",
+"pdf_page": 97,
+"printed_page": "79",
+"quote_found": "The orchard is documented in the 1863 Bachelder Map, 1872 topographical survey map, 1900 Gettysburg National Park Commission Survey, and in photographs from the Tipton Collection and the park’s historical collection (Figure 27).12 In 2006, the park completed replanting of the Rose North Orchard",
+"locator": {
+"char_start": 209289,
+"char_end": 209584,
+"pdf_page": 97
+},
+"match_count": 1,
+"src_sha256": "612ab5db78c86cd70a91018cc5aecd4e4842670fd965941a0d6066c3da6e54a9",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V2-p098-01",
+"src": "NPS:NPS-CLR-ROT-V2",
+"quote": "According to entries in the list of Confederate interments made by a local physician in the year following the battle, soldiers from Semmes’s Brigade were buried at “Jno Roses Place orchard, near fence,” meaning the orchard near the springhouse on the Rose Run South Headwaters.",
+"tier": "documented",
+"kind": "orchard",
+"says": "A local physician's list of Confederate interments made the year after the battle places Semmes's Brigade soldiers at 'Jno Roses Place orchard, near fence', meaning the orchard near the springhouse on the Rose Run South Headwaters",
+"feature": "Rose orchard burials: Semmes's Brigade 'Jno Roses Place orchard, near fence'",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-ROT-V2-p098-01",
+"pdf_page": 98,
+"printed_page": "80",
+"quote_found": "According to entries in the list of Confederate interments made by a local physician in the year following the battle, soldiers from Semmes’s Brigade were buried at “Jno Roses Place orchard, near fence,” meaning the orchard near the springhouse on the Rose Run South Headwaters",
+"locator": {
+"char_start": 212775,
+"char_end": 213052,
+"pdf_page": 98
+},
+"match_count": 1,
+"src_sha256": "612ab5db78c86cd70a91018cc5aecd4e4842670fd965941a0d6066c3da6e54a9",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V2-p098-02",
+"src": "NPS:NPS-CLR-ROT-V2",
+"quote": "The Rose Farm Orchard, located east of Rose Field 8, likely served as an avenue of approach and created an obstacle to the eastward advance.17 The orchard is documented in the 1872 topographical survey map and in photographs from the Tipton Collection and the park’s historical collection",
+"tier": "documented",
+"kind": "orchard",
+"says": "The Rose Farm Orchard, east of Rose Field 8, likely served as an avenue of approach and an obstacle to the eastward advance and is documented in the 1872 survey and photographs",
+"feature": "Rose Farm Orchard east of Rose Field 8 documented in the 1872 survey",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-ROT-V2-p098-02",
+"pdf_page": 98,
+"printed_page": "80",
+"quote_found": "The Rose Farm Orchard, located east of Rose Field 8, likely served as an avenue of approach and created an obstacle to the eastward advance.17 The orchard is documented in the 1872 topographical survey map and in photographs from the Tipton Collection and the park’s historical collection",
+"locator": {
+"char_start": 213157,
+"char_end": 213445,
+"pdf_page": 98
+},
+"match_count": 1,
+"src_sha256": "612ab5db78c86cd70a91018cc5aecd4e4842670fd965941a0d6066c3da6e54a9",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V2-p099-01",
+"src": "NPS:NPS-CLR-ROT-V2",
+"quote": "The Rose Old Orchard, located east of Rose Field 8, likely served as an avenue of approach and created an obstacle to the eastward advance.18 The orchard is documented in photographs from William A. Frassanito’s Early Photography at Gettysburg and the park’s historical collection",
+"tier": "documented",
+"kind": "orchard",
+"says": "The Rose Old Orchard, east of Rose Field 8, is documented in photographs and the park's collection, not in an 1863 map",
+"feature": "Rose Old Orchard documented in photographs only",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-ROT-V2-p099-01",
+"pdf_page": 99,
+"printed_page": "81",
+"quote_found": "The Rose Old Orchard, located east of Rose Field 8, likely served as an avenue of approach and created an obstacle to the eastward advance.18 The orchard is documented in photographs from William A. Frassanito’s Early Photography at Gettysburg and the park’s historical collection",
+"locator": {
+"char_start": 214399,
+"char_end": 214679,
+"pdf_page": 99
+},
+"match_count": 1,
+"src_sha256": "612ab5db78c86cd70a91018cc5aecd4e4842670fd965941a0d6066c3da6e54a9",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V2-p101-01",
+"src": "NPS:NPS-CLR-ROT-V2",
+"quote": "During the afternoon of July 2, Colonel E. L. Bailey moved the 2nd New Hampshire regiment of Burling’s Brigade to the left, “behind the fence that bounded the southern side of the Peach Orchard, where it might be partly concealed and covered.”22 This fencing type provided cover for Union troops and additionally created an obstacle to Confederate movements.",
+"tier": "documented",
+"kind": "orchard",
+"says": "Col. Bailey moved the 2nd New Hampshire to the left 'behind the fence that bounded the southern side of the Peach Orchard', where the fence gave cover and an obstacle to Confederate movement",
+"feature": "Fence on the south side of the Sherfy Peach Orchard (2nd New Hampshire)",
+"when": {
+"from": "1863-07-02",
+"to": "1863-07-02"
+},
+"xid": "NPSX-CLR-ROT-V2-p101-01",
+"pdf_page": 101,
+"printed_page": "83",
+"anchor": {
+"farm": "sherfy",
+"r_m": 500,
+"class": "orchard",
+"area": true
+},
+"quote_found": "During the afternoon of July 2, Colonel E. L. Bailey moved the 2nd New Hampshire regiment of Burling’s Brigade to the left, “behind the fence that bounded the southern side of the Peach Orchard, where it might be partly concealed and covered.”22 This fencing type provided cover for Union troops and additionally created an obstacle to Confederate movements",
+"locator": {
+"char_start": 219419,
+"char_end": 219777,
+"pdf_page": 101
+},
+"match_count": 1,
+"src_sha256": "612ab5db78c86cd70a91018cc5aecd4e4842670fd965941a0d6066c3da6e54a9",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V2-p101-02",
+"src": "NPS:NPS-CLR-ROT-V2",
+"quote": "The worm fencing along the boundaries of the Sherfy Peach Orchard and Rose North Orchard is documented in the 1863 Bachelder Map, 1872 topographical survey map, and in photographs from the Tipton Collection",
+"tier": "documented",
+"kind": "orchard",
+"says": "The worm fencing along the boundaries of the Sherfy Peach Orchard and Rose North Orchard is documented in the 1863 Bachelder map, the 1872 survey and Tipton photographs",
+"feature": "Worm fencing along the Sherfy Peach Orchard and Rose North Orchard documented in the 1863 Bachelder map",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-ROT-V2-p101-02",
+"pdf_page": 101,
+"printed_page": "83",
+"anchor": {
+"farm": "sherfy",
+"r_m": 500,
+"class": "orchard",
+"area": true
+},
+"quote_found": "The worm fencing along the boundaries of the Sherfy Peach Orchard and Rose North Orchard is documented in the 1863 Bachelder Map, 1872 topographical survey map, and in photographs from the Tipton Collection",
+"locator": {
+"char_start": 219779,
+"char_end": 219985,
+"pdf_page": 101
+},
+"match_count": 1,
+"src_sha256": "612ab5db78c86cd70a91018cc5aecd4e4842670fd965941a0d6066c3da6e54a9",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V2-p103-02",
+"src": "NPS:NPS-CLR-ROT-V2",
+"quote": "Having advanced across Rose Field 2, the colonel recalled that, “Sharpshooters injured us while climbing the two fences that lined the pike [Emmitsburg Road].”28 Worm fencing along the east boundary of Rose Fields 1–3 and Snyder Field 1 created an obstacle to Confederate troop movements and is documented in the 1868 Warren Map.",
+"tier": "documented",
+"kind": "crop",
+"says": "Col. Aiken of the 7th South Carolina recalled 'sharpshooters injured us while climbing the two fences that lined the pike (Emmitsburg Road)'; the report says the worm fencing on the east boundary of Rose Fields 1-3 and Snyder Field 1 is documented in the 1868 Warren map",
+"feature": "Two fences lined the Emmitsburg Road; worm fence east boundary of Rose Fields 1-3 and Snyder Field 1",
+"when": {
+"from": "1863-07-02",
+"to": "1863-07-02"
+},
+"xid": "NPSX-CLR-ROT-V2-p103-02",
+"pdf_page": 103,
+"printed_page": "85",
+"quote_found": "Having advanced across Rose Field 2, the colonel recalled that, “Sharpshooters injured us while climbing the two fences that lined the pike [Emmitsburg Road].”28 Worm fencing along the east boundary of Rose Fields 1–3 and Snyder Field 1 created an obstacle to Confederate troop movements and is documented in the 1868 Warren Map",
+"locator": {
+"char_start": 225956,
+"char_end": 226285,
+"pdf_page": 103
+},
+"match_count": 1,
+"src_sha256": "612ab5db78c86cd70a91018cc5aecd4e4842670fd965941a0d6066c3da6e54a9",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V2-p104-01",
+"src": "NPS:NPS-CLR-ROT-V2",
+"quote": "Worm fencing along the west boundary of Rose Field 8 created an obstacle to Confederate forces advancing east and is documented as a wooden fence in the 1863 Bachelder Map and as a worm fence in the 1868 Warren Map and 1872 topographical survey map",
+"tier": "documented",
+"kind": "crop",
+"says": "The worm fencing on the west boundary of Rose Field 8 is documented as a wooden fence in the 1863 Bachelder map and as a worm fence in the 1868 Warren map and 1872 survey",
+"feature": "Worm fence on the west boundary of Rose Field 8",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-ROT-V2-p104-01",
+"pdf_page": 104,
+"printed_page": "86",
+"quote_found": "Worm fencing along the west boundary of Rose Field 8 created an obstacle to Confederate forces advancing east and is documented as a wooden fence in the 1863 Bachelder Map and as a worm fence in the 1868 Warren Map and 1872 topographical survey map",
+"locator": {
+"char_start": 227576,
+"char_end": 227824,
+"pdf_page": 104
+},
+"match_count": 1,
+"src_sha256": "612ab5db78c86cd70a91018cc5aecd4e4842670fd965941a0d6066c3da6e54a9",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V2-p104-02",
+"src": "NPS:NPS-CLR-ROT-V2",
+"quote": "Based on the movements of the 3rd Arkansas, Longstreet’s instructions may have referred to fences along Emmitsburg Road or the west boundaries of Snyder Fields 3 and 7. The worm fencing in both locations created an obstacle to Confederate forces and is documented as a wooden fence in the 1863 Bachelder Map and as a worm fence in the 1868 Warren Map",
+"tier": "inferred",
+"kind": "crop",
+"says": "Based on the movements of the 3rd Arkansas, the report says Longstreet's instruction to turn over the bottom rail may refer to fences along Emmitsburg Road or the west boundaries of Snyder Fields 3 and 7, which it says are documented as wooden fence in 1863 and worm fence in 1868 and 1872",
+"feature": "Longstreet's instruction to 'grab the bottom rail and turn it over': fences on Emmitsburg Road or Snyder field boundaries",
+"when": {
+"from": "1863-07-02",
+"to": "1863-07-02"
+},
+"xid": "NPSX-CLR-ROT-V2-p104-02",
+"pdf_page": 104,
+"printed_page": "86",
+"quote_found": "Based on the movements of the 3rd Arkansas, Longstreet’s instructions may have referred to fences along Emmitsburg Road or the west boundaries of Snyder Fields 3 and 7. The worm fencing in both locations created an obstacle to Confederate forces and is documented as a wooden fence in the 1863 Bachelder Map and as a worm fence in the 1868 Warren Map",
+"locator": {
+"char_start": 228953,
+"char_end": 229303,
+"pdf_page": 104
+},
+"match_count": 1,
+"src_sha256": "612ab5db78c86cd70a91018cc5aecd4e4842670fd965941a0d6066c3da6e54a9",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V2-p143-01",
+"src": "NPS:NPS-CLR-ROT-V2",
+"quote": "This fencing type provided cover and created an obstacle for both forces at the western edge of Houck Field and its stone components are documented in the 1863 Bachelder Map and 1863 Cope Map.",
+"tier": "documented",
+"kind": "crop",
+"says": "A stone fence at the western edge of Houck Field gave cover to both forces and its stone components are documented in the 1863 Bachelder and Cope maps",
+"feature": "Houck field west boundary stone and rider fence, documented in the 1863 Bachelder and Cope maps",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-ROT-V2-p143-01",
+"pdf_page": 143,
+"printed_page": "125",
+"quote_found": "This fencing type provided cover and created an obstacle for both forces at the western edge of Houck Field and its stone components are documented in the 1863 Bachelder Map and 1863 Cope Map",
+"locator": {
+"char_start": 272478,
+"char_end": 272669,
+"pdf_page": 143
+},
+"match_count": 1,
+"src_sha256": "612ab5db78c86cd70a91018cc5aecd4e4842670fd965941a0d6066c3da6e54a9",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V2-p169-01",
+"src": "NPS:NPS-CLR-ROT-V2",
+"quote": "The woodlot is documented in the 1863 Cope Map, 1872 topographical survey map, and in photographs from the Tipton Collection and the park’s historical collection",
+"tier": "documented",
+"kind": "woodlot",
+"says": "Douglass Woods, a long line of woods on the west side of the Emmitsburg Road, gave Confederate troops cover on the second and third days and is documented in the 1863 Cope map, the 1872 survey and photographs",
+"feature": "Douglass Woods documented in the 1863 Cope map",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-ROT-V2-p169-01",
+"pdf_page": 169,
+"printed_page": "151",
+"quote_found": "The woodlot is documented in the 1863 Cope Map, 1872 topographical survey map, and in photographs from the Tipton Collection and the park’s historical collection",
+"locator": {
+"char_start": 308926,
+"char_end": 309087,
+"pdf_page": 169
+},
+"match_count": 1,
+"src_sha256": "612ab5db78c86cd70a91018cc5aecd4e4842670fd965941a0d6066c3da6e54a9",
+"ok": true
+},
+{
+"id": "VC-NPSX-CLR-ROT-V2-p189-01",
+"src": "NPS:NPS-CLR-ROT-V2",
+"quote": "The Union 1st Brigade, 2nd Division Cavalry Corps, under command of Colonel John B. McIntosh, likely used the Lott Orchard for cover. The orchard is documented in the 1880 Bachelder/Maxson Map and in photographs from the Tipton Collection",
+"tier": "documented",
+"kind": "orchard",
+"says": "The Lott orchard on East Cavalry Field is documented in the 1880 Bachelder/Maxson map and in Tipton photographs, and the Union 1st Brigade of the Cavalry Corps' 2nd Division probably used it for cover",
+"feature": "Lott orchard documented in the 1880 Bachelder/Maxson map",
+"when": {
+"from": "1863-07-01",
+"to": "1863-07-03",
+"basis": "the report dates the feature to the battle"
+},
+"xid": "NPSX-CLR-ROT-V2-p189-01",
+"pdf_page": 189,
+"printed_page": "171",
+"quote_found": "The Union 1st Brigade, 2nd Division Cavalry Corps, under command of Colonel John B. McIntosh, likely used the Lott Orchard for cover. The orchard is documented in the 1880 Bachelder/Maxson Map and in photographs from the Tipton Collection",
+"locator": {
+"char_start": 335015,
+"char_end": 335253,
+"pdf_page": 189
+},
+"match_count": 1,
+"src_sha256": "612ab5db78c86cd70a91018cc5aecd4e4842670fd965941a0d6066c3da6e54a9",
 "ok": true
 },
 {
@@ -6431,6 +8661,59 @@
 },
 "match_count": 1,
 "src_sha256": "b74a832f34e1176636d692e3034154495068e81f3eced508261d1f80b3a96524",
+"ok": true
+},
+{
+"id": "VC-NPS-043",
+"src": "NPS:NPS-CLR-ROT-V1",
+"quote": "Fencing on three sides of his corn feld was torn down",
+"tier": "documented",
+"kind": "crop",
+"says": "Jacob Culp's claim says the fencing on three sides of his corn field, beside Long Lane on the east slope of Seminary Ridge, was torn down: the field was in corn.",
+"feature": "Jacob Culp corn field",
+"when": "1863-07",
+"about": {
+"crop": "corn"
+},
+"anchor": {
+"gz": "Cemetery Hill",
+"bearing": 255,
+"dist_m": 1000,
+"r_m": 380,
+"class": "field",
+"k": 1
+},
+"note": "Placed by a rule (the field lay beside Seminary Ridge and Long Lane, opposite Cemetery Hill): the nearest field cell, tier inferred.",
+"quote_found": "Fencing on three sides of his corn feld was torn down",
+"locator": {
+"char_start": 344296,
+"char_end": 344349,
+"pdf_page": 178
+},
+"match_count": 1,
+"src_sha256": "5dab05304098dae425de95243452dac007cdefee02f20b0a79144758f29dcf78",
+"ok": true
+},
+{
+"id": "VC-NPS-044",
+"src": "NPS:NPS-CLR-ROT-V1",
+"quote": "Judge Samuel Russell claimed that the fences enclosing his corn feld were",
+"tier": "documented",
+"kind": "crop",
+"says": "Judge Samuel Russell's claim says the fences enclosing his corn field were carried away: the Russell field was in corn.",
+"feature": "S. R. Russell corn field",
+"when": "1863-07",
+"about": {
+"crop": "corn"
+},
+"quote_found": "Judge Samuel Russell claimed that the fences enclosing his corn feld were",
+"locator": {
+"char_start": 335770,
+"char_end": 335843,
+"pdf_page": 175
+},
+"match_count": 2,
+"src_sha256": "5dab05304098dae425de95243452dac007cdefee02f20b0a79144758f29dcf78",
 "ok": true
 },
 {

@@ -109,3 +109,5 @@ Rows B01 to B20. Each is a DELEGATED DECISION: conservative, reversible, with th
 | B18 | Design, map engine, renderer and site generator after the spikes | Delegated: run the spikes in this container first; take the register defaults (dark-only, Spectral as a selectable candidate row A24, Mapbox GL behind a facade, owned canvas renderer, Astro); Labs rows A15 and A16 as delegated. | OD-19 |
 | B19 | Public source maps | Delegated, conservative: none before the rebuild; first-party maps with noindex afterwards; selectable. | AUDIT-P6 |
 | B20 | HSTS preload, widget subdomain, outside CSP reviewer | Delegated, conservative: no preload submission before train S1 is live and the URL form is final; no widget subdomain; the outside reviewer is the owner's choice. | INFRA-OD-7 |
+
+Addendum (2026-11-13, part B): row B09 also governs VD14-10; row A04 also governs VD12-4 and VD14-4 (see docs/plan/STATUS/items-B.json field delegated_row).

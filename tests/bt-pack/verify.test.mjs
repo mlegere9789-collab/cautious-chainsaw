@@ -3,7 +3,7 @@
 //   node --test tests/bt-pack/verify.test.mjs            (the last test starts a browser for a few seconds: run it through tools/horde/bench.sh, or set BT_PACK_NO_BROWSER=1 to skip it)
 import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 import { pack } from '../../tools/bt/pack_theatre.mjs';
-import { parseHeaders, headersFor, serveDir, logOf, checkManifest, checkZip, checkNoNotes, checkInternalLinks, readZipDirectory, compareRuns, snapshotTree, SNAPSHOT_EXCLUDE, walk, crawlSections } from '../../tools/bt/verify_staging.mjs';
+import { parseHeaders, headersFor, serveDir, logOf, checkManifest, checkZip, checkNoNotes, checkDataPipeline, checkInternalLinks, readZipDirectory, compareRuns, snapshotTree, SNAPSHOT_EXCLUDE, walk, crawlSections } from '../../tools/bt/verify_staging.mjs';
 import { makeFixture, FIXTURE_CFG } from './fixture.mjs';
 
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'btverify-')); test.after(() => fs.rmSync(tmp, { recursive: true, force: true }));
@@ -55,6 +55,12 @@ test('no notes in the dist: a README, a source map, a log, a backup or a dot fil
   assert.equal(checkNoNotes(p.out).ok, true);
   const buf = Buffer.from(fs.readFileSync(p.zip)), withComment = Buffer.concat([buf.subarray(0, buf.length - 2), Buffer.from([4, 0]), Buffer.from('note')]); fs.writeFileSync(path.join(tmp, 'commented.zip'), withComment); fs.copyFileSync(p.zip + '.sha256', path.join(tmp, 'commented.zip.sha256'));
   assert.ok(checkZip(path.join(tmp, 'commented.zip'), p.out).problems.some(x => /carries a comment/.test(x)));
+});
+test('data pipeline in node: the loaders of the real shell run from the packed dist alone; a missing data file is found and named', () => {
+  const real = pack({ out: path.join(tmp, 'real-pipe/dist'), zipDir: path.join(tmp, 'real-pipe'), zip: false }), ok = checkDataPipeline(real.out);
+  assert.deepEqual(ok.problems, [], ok.problems.join('; ')); assert.ok(ok.requests > 20, 'it read the data: ' + ok.requests); assert.ok(ok.steps.some(x => /real history layer.*"units":\d+/.test(x)), ok.steps.join(' | '));
+  fs.rmSync(path.join(real.out, 'history/units.json')); fs.rmSync(path.join(real.out, 'app/data/site-bookmarks.json'), { force: true });
+  const bad = checkDataPipeline(real.out); assert.equal(bad.ok, false); assert.ok(bad.problems.some(x => /history\/units\.json/.test(x)), bad.problems.join('; '));
 });
 // ---- the comparison of the two runs
 const base = () => ({ log: { '/app/index.html': 200, '/app/src/main.mjs': 200, '/app/data/a.json': 200 }, errors: [], failed: [], entered: true, info: { sound: true }, steps: [{ name: 'sound starts', ok: true }, { name: 'play at 2x', ok: true }], ext: { index: 'read', modules: [{ path: 'monuments.mjs', state: 'running' }] }, crawl: { pages: [] } });

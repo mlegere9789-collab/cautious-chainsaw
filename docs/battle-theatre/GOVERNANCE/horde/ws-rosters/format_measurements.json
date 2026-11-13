@@ -1,5 +1,5 @@
 {
- "26th North Carolina Infantry (flow, Moore 1882 vol 2)": {
+ "26th North Carolina Infantry (flow; Moore 1882 vol 2, hocr search text)": {
   "rows": 1737,
   "file_raw_bytes": 158786,
   "file_gz_bytes": 35327,
@@ -9,24 +9,44 @@
   "row_line_p90": 129,
   "row_line_p99": 220,
   "share_of_row_lines_at_or_under_90_bytes": 0.573,
-  "state_and_segment_lines": 68,
+  "state_and_segment_lines": 67,
   "roster2_1_equivalent_raw_bytes": 201089,
   "saving_vs_roster2_1_raw": 0.21,
-  "gz_ratio_raw_over_gz": 4.49
+  "gz_ratio_raw_over_gz": 4.49,
+  "verify": {
+   "V1_name_ok": 1737,
+   "V2_remarks_ok": 1737,
+   "V2_rows_without_remarks": 0,
+   "V2_rows_needing_step_over": 0,
+   "V3_page_ok": 1737,
+   "V4_rank_ok": 1737,
+   "V4_rank_empty": 0,
+   "rows": 1737
+  }
  },
- "10th Vermont Infantry (cols, Revised Roster 1892)": {
+ "10th Vermont Infantry (cols; Revised Roster of Vermont Volunteers 1892, hocr search text + djvu.xml word boxes)": {
   "rows": 1031,
-  "file_raw_bytes": 113903,
-  "file_gz_bytes": 33364,
-  "raw_bytes_per_row_including_state_lines": 110.5,
-  "row_line_mean": 110.0,
-  "row_line_median": 105,
-  "row_line_p90": 143,
-  "row_line_p99": 224,
-  "share_of_row_lines_at_or_under_90_bytes": 0.226,
-  "state_and_segment_lines": 23,
-  "roster2_1_equivalent_raw_bytes": 126668,
-  "saving_vs_roster2_1_raw": 0.101,
-  "gz_ratio_raw_over_gz": 3.41
+  "file_raw_bytes": 113790,
+  "file_gz_bytes": 30534,
+  "raw_bytes_per_row_including_state_lines": 110.4,
+  "row_line_mean": 109.9,
+  "row_line_median": 104,
+  "row_line_p90": 138,
+  "row_line_p99": 205,
+  "share_of_row_lines_at_or_under_90_bytes": 0.203,
+  "state_and_segment_lines": 22,
+  "roster2_1_equivalent_raw_bytes": 126483,
+  "saving_vs_roster2_1_raw": 0.1,
+  "gz_ratio_raw_over_gz": 3.73,
+  "verify": {
+   "V1_name_ok": 882,
+   "V2_remarks_ok": 1031,
+   "V2_rows_without_remarks": 0,
+   "V2_rows_needing_step_over": 813,
+   "V3_page_ok": 1031,
+   "V4_rank_ok": 0,
+   "V4_rank_empty": 1031,
+   "rows": 1031
+  }
  }
 }

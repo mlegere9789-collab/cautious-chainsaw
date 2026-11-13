@@ -721,8 +721,9 @@ def self_test():
         if os.path.exists(tmp): os.remove(tmp)
     # coverage: what a unit is still owed, and what covers it (synthetic rows, never written)
     unit, gid = 'us-3c-2d-carr-1ma', 'us-3c-2d'
-    pl = repo.status[unit]['places']
-    assert pl.get('1863-07-02') == 'none' and pl.get('1863-07-03') == 'none' and set(repo.unit_missing[unit]) >= {'arrival', 'positions', 'path', 'strength'}, 'the status of %s is not what the coverage test assumes: update the test' % unit
+    repo = copy.copy(repo)          # the test states its own status (a unit not drawn that has no place on 2 and 3 July), so that it does not change when the layer does
+    repo.status = {unit: {'places': {'1863-07-01': 'before_gate', '1863-07-02': 'none', '1863-07-03': 'none'}}}; repo.unit_missing = {unit: ['arrival', 'positions', 'path', 'strength']}
+    repo.unit_class = {unit: 'not_drawn'}; repo.group_units = {gid: [unit]}
     R_ = lambda kind, u, **kw: dict(kind=kind, unit_id=u, **kw)
     full = [R_('arrival_road', 'us-3c-2d-carr', road={'enters_ground': True}), R_('arrival', unit, arrival={'scope': 'field'}), R_('strength', unit),
             R_('position', unit, when={'date': '1863-07-02'}), R_('night_position', unit, when={'date': '1863-07-03'})]
@@ -764,6 +765,8 @@ if __name__ == '__main__':
         if not n: print('NOT FOUND (%d words): %s' % (words(a.verify), a.verify))
         sys.exit(0 if n else 1)
     paths = a.groups
-    if a.all: paths = sorted(os.path.basename(f)[:-6] for f in glob.glob(os.path.join(UND, '*.jsonl')))
+    if a.all:
+        paths = sorted(os.path.basename(f)[:-6] for f in glob.glob(os.path.join(UND, '*.jsonl')))
+        if not paths: print('no group file is present yet (%s/<group>.jsonl): nothing to check' % os.path.relpath(UND, ROOT).replace(os.sep, '/')); sys.exit(0)
     if not paths: ap.print_help(); sys.exit(1)
     sys.exit(run(paths, a.complete, a.quiet))

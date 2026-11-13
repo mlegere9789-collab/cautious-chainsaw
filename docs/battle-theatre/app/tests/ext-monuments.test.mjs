@@ -11,7 +11,7 @@ import { tierMark } from '../src/ui/extensions.mjs';
 import { Scope } from '../src/scope.mjs';
 import { APP, REPO, readJSON, realTerrain, overrideData, installFakeDocument, standIn, camAt, frameOf, markupProblems, recordingContext, FakeEl } from './ext-site-places-lib.mjs';
 
-const mem = readJSON('site-memorials.json'), T = await realTerrain();
+const mem = readJSON('site-memorials.json'), years = readJSON('site-memorial-years.json'), T = await realTerrain();
 const byNo = no => mem.monuments.find(m => m.no === no);
 
 // ---------------------------------------------------------------- the data and the layer's declaration
@@ -44,7 +44,8 @@ test('data that is not fit is refused with the reason: a count that disagrees, a
 // ---------------------------------------------------------------- the gate hook (docs/GATE-HOOKS.md)
 test('gate hook checkLaterMemorials: ok on the real data and terrain, with the facts a gate report prints', () => {
   const r = P.checkLaterMemorials(mem, T); assert.deepEqual(r.problems, []); assert.equal(r.ok, true);
-  assert.deepEqual(r.facts, { memorials: 512, defaultOn: false, sceneObjects: 0, marksWhenOff: 0, marksWhenOn: 512, tier: 'inferred', withoutLabel: 0, yearClaimed: 0, yearOpenGap: 512, onLoadedGround: 435, beyondLoadedGround: 77, positionsWithNoStatedSource: 503, twoPositions: 9 });
+  assert.deepEqual(r.facts, { memorials: 512, defaultOn: false, sceneObjects: 0, marksWhenOff: 0, marksWhenOn: 512, tier: 'inferred', withoutLabel: 0, yearClaimed: 0, yearDocumented: 0, yearInferred: 0, yearOpenGap: 512, onLoadedGround: 435, beyondLoadedGround: 77, positionsWithNoStatedSource: 503, twoPositions: 9 }, 'without the years file no memorial has a year');
+  const withYears = P.checkLaterMemorials(mem, T, years); assert.deepEqual(withYears.problems, []); assert.equal(withYears.ok, true); assert.equal(withYears.facts.yearDocumented, 32); assert.equal(withYears.facts.yearInferred, 1); assert.equal(withYears.facts.yearOpenGap, 479); assert.equal(withYears.facts.yearClaimed, 0, 'the list itself claims no year');
   const flat = P.checkLaterMemorials(mem); assert.equal(flat.ok, true); assert.equal(flat.facts.onLoadedGround, null, 'without a terrain the places are not claimed');
 });
 test('gate hook checkLaterMemorials: negative controls (a missing memorial, a name that is no memorial, a year claimed without a source)', () => {
@@ -181,6 +182,36 @@ test('what the "later" label rests on is in the library text of Bachelder\'s gui
   assert.match(P.COPY.basis, /Gettysburg: What to See, and How to See It, 1889, pages 21 and 22/);
 });
 
+// ---------------------------------------------------------------- the years some reports print
+test('the years file is fit against the list: 33 memorials, each named exactly as the list names it, with the report, the page and the quotation; one hedged year is inferred, the rest documented', () => {
+  assert.deepEqual(P.validateYears(years, mem), []); assert.equal(years.years.length, 33); assert.equal(years.years.filter(y => y.tier === 'inferred').length, 1); assert.equal(years.years.filter(y => y.tier === 'documented').length, 32);
+  for (const y of years.years) { const m = byNo(y.no); assert.equal(y.name, m.name); assert.ok(y.quote.includes(y.name)); assert.ok(y.year > 1863 && y.year < 2030); assert.ok(years.sources[y.source].url.startsWith('https://www.npshistory.com/publications/gett/')); assert.match(y.printedPage, /^Page \d+ of \d+$/); assert.ok(y.pdfPage >= 20 && y.pdfPage <= 60); }
+  const nc = years.years.find(y => y.no === 8); assert.equal(nc.year, 1929); assert.equal(nc.tier, 'documented'); assert.equal(nc.quote, 'CE 1929 Memorialized Monument/marker is erected: North Carolina State Monument');
+  const pa26 = years.years.find(y => y.no === 379); assert.deepEqual([pa26.year, pa26.yearTo, pa26.approx, pa26.tier], [1888, 1900, true, 'inferred']); assert.equal(P.yearText(pa26), 'about 1888 to 1900'); assert.equal(P.yearText(years.years.find(y => y.no === 103)), '1883 to 1889'); assert.equal(P.yearText(nc), '1929');
+  // the names of the list that two entries share, and the ones a report continues with a position marker, are not in it
+  for (const no of [174, 175, 444, 445, 458, 460, 132, 140, 485, 394, 327, 434]) assert.ok(!years.years.some(y => y.no === no), `no year is entered for ${no} ${byNo(no).name}`);
+});
+test('a years file that is not fit is refused with the reason: another name, a memorial twice, a year before the battle, a quotation without the name, a hedged year called documented, an unknown report', () => {
+  const clone = () => JSON.parse(JSON.stringify(years)); let d = clone(); d.years[0].name = 'Alabama State Monument'; assert.match(P.validateYears(d, mem).join(' | '), /is not the list's name/);
+  d = clone(); d.years[1].no = d.years[0].no; assert.match(P.validateYears(d, mem).join(' | '), /given twice/); d = clone(); d.years[0].year = 1862; assert.match(P.validateYears(d, mem).join(' | '), /is not a year after the battle/);
+  d = clone(); d.years[0].quote = 'CE 1929 Memorialized'; assert.match(P.validateYears(d, mem).join(' | '), /quotation does not hold the name and the year/); d = clone(); const h = d.years.find(y => y.no === 379); h.tier = 'documented'; assert.match(P.validateYears(d, mem).join(' | '), /hedges \(ca\.\) is not documented/);
+  d = clone(); d.years[0].source = 'NPS-NOWHERE'; assert.match(P.validateYears(d, mem).join(' | '), /is not described/); d = clone(); d.years[0].no = 99999; assert.match(P.validateYears(d, mem).join(' | '), /not a memorial of the list/); d = clone(); d.years.find(y => y.no === 103).yearTo = 1880; assert.match(P.validateYears(d, mem).join(' | '), /end of the range/);
+  const dup = JSON.parse(JSON.stringify(mem)); dup.monuments[8].name = dup.monuments[7].name; d = clone(); assert.match(P.validateYears({ ...d, years: [{ ...d.years[0], no: dup.monuments[7].no, name: dup.monuments[7].name, quote: dup.monuments[7].name + ' 1929' }], sources: d.sources }, dup).join(' | '), /two memorials of that name/);
+  assert.match(P.validateYears({}, mem).join(), /no years or no sources/); assert.match(P.checkLaterMemorials(mem, T, { ...years, years: [{ ...years.years[0], year: 1700 }] }).problems.join(' | '), /not a year after the battle/);
+});
+test('a memorial with a year says so on its card with the report, the page and the quotation, and has no gap for it; one without keeps the open gap; the rows and the panel say how many', () => {
+  const idx = P.buildIndex(mem, T, { years }), nc = idx.byNo.get(8), h = P.memorialCardHTML(nc, tierMark);
+  assert.deepEqual(markupProblems(h), []); assert.match(h, /<b>1929<\/b>/); assert.match(h, /National Park Service, Cultural Landscapes Inventory: Pickett(?:'|&#39;)s Charge Battlefield, Gettysburg National Military Park \(2024\), PDF page 44 \(Page 39 of 131\)/); assert.match(h, /“CE 1929 Memorialized Monument\/marker is erected: North Carolina State Monument”/);
+  assert.match(h, /data-tier="documented"/); assert.doesNotMatch(h, /The year is not in the site(?:'|&#39;)s data/); assert.doesNotMatch(h, /ws-world-EG-MON-01/); assert.match(h, /None for this memorial: a report prints its year\./);
+  const h26 = P.memorialCardHTML(idx.byNo.get(379), tierMark); assert.match(h26, /about 1888 to 1900/); assert.match(h26, /data-tier="inferred"/); assert.match(h26, /The report says "ca\.": the year is about, not exact/);
+  const none = idx.byNo.get(1), hn = P.memorialCardHTML(none, tierMark); assert.match(hn, /The year is not in the site(?:'|&#39;)s data/); assert.match(hn, /ws-world-EG-MON-01/); assert.match(hn, /data-tier="open gap"/);
+  const far = idx.items.find(i => i.year && !i.inside), hf = far ? P.memorialCardHTML(far, tierMark) : ''; if (far) { assert.match(hf, /ws-world-EG-MON-02/); assert.doesNotMatch(hf, /ws-world-EG-MON-01/); }
+  assert.deepEqual(idx.counts.years, { documented: 32, inferred: 1, openGap: 479 }); assert.match(P.memorialRowsHTML([nc], 0, 1, -1), /put up 1929/); assert.doesNotMatch(P.memorialRowsHTML([none], 0, 1, -1), /put up/);
+  const panel = P.memorialPanelHTML(idx, { on: false, positions: 'list', integrity: { checked: true }, list: { q: '', side: 'all', group: 'all', where: 'all' } }, tierMark); assert.match(panel, /For 33 of the 512 a National Park Service report prints the year/); assert.match(panel, /32 documented, 1 inferred/); assert.match(panel, /For the other 479 the year is an open gap/);
+  const noYears = P.memorialPanelHTML(P.buildIndex(mem, T), { on: false, positions: 'list', integrity: { checked: true }, list: { q: '', side: 'all', group: 'all', where: 'all' } }, tierMark); assert.doesNotMatch(noYears, /National Park Service report prints the year/);
+  for (const m of idx.items) assert.deepEqual(markupProblems(P.memorialCardHTML(m, tierMark)), [], m.name);
+});
+
 // ---------------------------------------------------------------- the module in a stand-in page
 async function visit(fn, o = {}) {
   const doc = installFakeDocument(), env = await standIn(o); overrideData(o.override); try { return await fn(env, doc); } finally { overrideData(null); doc.restore(); }
@@ -213,6 +244,7 @@ test('module: switched on it draws the marks on its own canvas under the shell\'
 }));
 test('module: a memorial picked from the list opens its card, flies the camera, marks just that one while the layer is off, and putting it away takes the canvas down', () => visit(async ({ th, ctx, log, left }, doc) => {
   await M.init(ctx); const it = th.sitePlaces.memorials, card = left.querySelector('#xm-card');
+  assert.equal(it.counts().years.documented, 32); assert.equal(it.select(8), true); assert.match(card.innerHTML, /<b>1929<\/b>/); assert.match(card.innerHTML, /North Carolina State Monument/); it.select(-1);
   assert.equal(it.select(46, { say: true }), true); assert.equal(it.selected(), 46); assert.equal(card.hidden, false); assert.match(card.innerHTML, /Pennsylvania State Memorial/); assert.match(card.innerHTML, /Later memorial\./); assert.match(log.said.at(-1), /^Selected Pennsylvania State Memorial, a later memorial\.$/);
   M.update(frameOf(th.cam)); const cv = doc.made.find(n => n.tagName === 'CANVAS'); assert.ok(cv, 'one picked while the layer is off: its mark is on the picture'); assert.ok(it.drawn() <= 1);
   assert.equal(it.flyTo(46), true); assert.equal(log.flights.length, 1); const f = log.flights[0].pose; assert.ok([f.x, f.y, f.z, f.yaw, f.pitch, f.fov].every(Number.isFinite)); assert.equal(f.fov, 62); assert.match(log.said.at(-1), /^Flying to Pennsylvania State Memorial, a later memorial\.$/);

@@ -3,19 +3,19 @@
 | Field | Content |
 |---|---|
 | ID | fence-1-EG-01 |
-| Requirement IDs | R14, R07, R10 |
-| Category | evidence missing |
-| Description | OR names the barricade, rails and units but gives no length, no clock for the start, no gun count, and does not say fences were pulled down for it. PDF figures (600 yd, 20 vs 22 guns) rest on Wikipedia and HistoryNet. |
-| Why literal 100% is not possible or blocked | The record found does not support it (Law cl.3). |
-| Evidence searched | Searched OR27 Parts 1-2 for barricade, breastwork, fence, rails (see lookups.jsonl). Web lookups: none made. OCR is unverified single witness. |
-| Autonomous substitute applied | Render a rail barricade of unspecified length starting inside a wide window before about 16:00; gun count as a range 20-22 with both values selectable. |
-| Strongest evidence-based reconstruction | As stated in the substitute; geometry beyond the OR is from seed, not record. |
-| Confidence tier | plausible-procedural |
-| Competing values | 20 guns vs 22 guns; start before 14:00 vs after 14:00 (Robinson earlier in the day vs Doubleday on arrival) |
-| Product marking | Tier overlay on the barricade length and the number of guns. |
-| Visual and audio impact | Seminary Ridge scene, Jul 1 14:00-16:30 |
+| Requirement IDs | R14 (E-01, S-010, S-011), R07, R10 |
+| Category | evidence missing / source conflict |
+| Description | Close-out 2026-11-13. Documented now: a rail, stump and earth barricade west of the Seminary on Jul 1; Doubleday ordered Robinson's division to intrench; Robinson set Paul's First Brigade (16th Maine, 94th NY, 104th NY, 13th Mass., 107th Pa.) to work between about 11:00 and 13:00 (Baxter reached the front at 11:00, the 16th Maine left for the right about 13:00); 'fence rails' (Maine adjutant) and 3,108 rails lost from Dr. Schmucker's adjacent farm (NPS). Guns: Hunt gives 16 concentrated plus Stewart's 6 (22 in four batteries), Wainwright says twelve concentrated; the PDF's 20 has no OR support. Still open: the 600-yd length, the curved plan, any length of fence dismantled, the hour the barricade fell (bounded 15:45-16:30), and the builder conflict (McFarland credits the 'Second Brigade, Second Division'). |
+| Why literal 100% is not possible or blocked | The record gives no length, no plan and no clock for the start or the fall of the work (Law cl.3). |
+| Evidence searched | Searched with tools/bt/or27_find (OR Ser. I vol. 27 parts 1-3, Cornell scan) and three further archive.org scans (warofrebellion271unit, warofrebellion012701rootrich, warofrebellion272unit, warofrebellionco272unit) as second witnesses; the 99-text library plus three added archive.org books; the 73 National Park Service documents under tmp/library/web/nps. Every quoted passage is in evidence_corrections/fence-1.jsonl. Searches for 600 yd near barricade or breastwork in OR 1-3 and the library: no hit. |
+| Autonomous substitute applied | Barricade built by Paul's brigade in the 11:00-13:00 window, length drawn as a marked gap (plausible-procedural), form selectable: circular redoubt (Maine) or a line parallel to the Seminary through the west edge of the grove (McFarland); 22 guns default (Hunt), 12-concentrated (Wainwright) and 20 (PDF) selectable. |
+| Strongest evidence-based reconstruction | Existence, material, place, builder (First Brigade) documented; start window inferred; length and plan plausible-procedural. |
+| Confidence tier | documented (existence, material, place, builder); inferred (11:00-13:00); plausible-procedural (length, plan) |
+| Competing values | Builder: First Brigade (Robinson, Farnham, Moffett) vs 'Second Brigade, Second Division' (McFarland); form: circular redoubt vs line; guns 22 / 12 / 20 |
+| Product marking | Tier overlay on length and plan; builder and form listed under Where sources disagree. |
+| Visual and audio impact | Seminary Ridge scene, Jul 1 11:00-16:30 |
 | Review status | internal review only (DEC-006: no public review label) |
-| Owner decision requested | None needed unless the PDF wording itself is to change (E-17). Next evidence to seek: Search Wainwright's batteries' own reports, Bachelder, and the Seminary Ridge field survey for the barricade length. |
-| Agent recommendation | Hold the conservative option; do not pick a default among competing values. |
-| Status | open |
+| Owner decision requested | None needed unless the PDF wording is to change. Next evidence: Bachelder papers; regimental histories of the 13th Mass., 104th NY and 107th Pa.; the 1863 Seminary Ridge photographs (photo-match). |
+| Agent recommendation | Carry the conflicts; do not pick a default among competing values (Law cl.6). |
+| Status | open (updated by the close-out 2026-11-13; the earlier text is superseded) |
 | Owner decision and date | (filled only from the Decision Log) |

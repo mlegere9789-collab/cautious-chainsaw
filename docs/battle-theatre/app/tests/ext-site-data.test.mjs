@@ -5,6 +5,7 @@
 //   node --test docs/battle-theatre/app/tests/ext-site-data.test.mjs
 import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'; import { pathToFileURL } from 'node:url';
 import * as S from './ext-site-source.mjs';
+import * as Y from './ext-site-years.mjs';
 import * as P from '../src/ext/site-places.mjs';
 import { badPath } from '../src/ui/extensions.mjs';
 import { APP, REPO, readJSON } from './ext-site-places-lib.mjs';
@@ -58,22 +59,63 @@ test('the check reads the site and writes only the two copies: no site file is o
   assert.ok(writes.length > 0 && writes.every(w => /^FILES\.(memorials|tour)$/.test(w)), `every write goes to a copy in app/data: ${writes.join(', ')}`);
 });
 
+// ---------------------------------------------------------------- the years some National Park Service reports print
+const years = readJSON('site-memorial-years.json'), curation = JSON.parse(fs.readFileSync(Y.CURATION, 'utf8')), haveLib = Y.REPORTS.every(id => Y.readReport(id));
+test('the years file is fit against the list and carries the hash of what it holds; the rule that fills it is in the file', () => {
+  assert.deepEqual(Y.validateYearsFile(years, mem), []); assert.equal(years.copy.yearsSha256, canonHash(years.years)); assert.match(years.rule, /letter for letter/); assert.deepEqual(Object.keys(years.sources).sort(), ['NPS-CLI-ERR', 'NPS-CLI-LRT', 'NPS-CLI-PCB']);
+  const t = clone(years); t.years[3].year += 1; assert.match(Y.validateYearsFile(t, mem).join(' | '), /do not match the hash the file records/); assert.ok(Y.validateYearsFile({}, mem).length);
+});
+test('the rule on a report text: a memorial is read where the report names it by the site\'s own name and says it was erected; what the rule leaves out is left out with its reason', () => {
+  const near = { lat: 39.7910, lng: -77.2362 }, mk = (no, name, o = near) => ({ no, name, ...o });      // inside the area of the Little Round Top report
+  const memX = { monuments: [mk(1, 'Alpha State Monument'), mk(2, 'Bravo Infantry Monument'), mk(3, 'Charlie Infantry Monument'), mk(4, 'Charlie Infantry Monument'), mk(5, 'Delta Infantry Monument'), mk(6, 'Echo Infantry Monument', { lat: 39.84, lng: -77.20 }),
+    mk(7, 'Foxtrot Infantry Monument'), mk(8, 'Golf Infantry Monument'), mk(9, 'Hotel Infantry Monument'), mk(10, 'India Infantry Monument'), mk(11, 'Juliet Infantry Monument')] };
+  const text = lines => `=== PAGE 7 ===\nChronology\n${lines.join('\n')}\nCultural Landscapes Inventory Page\n\n2\n\nof\n\n9\n=== PAGE 8 ===\nmore`;
+  const rep = Y.reportFromText('NPS-CLI-LRT', text([
+    'CE 1929 Memorialized Monument/marker is erected: Alpha State Monument.',
+    'CE 1886 Memorialized Erection of three memorials: Bravo Infantry Monument and Fence; Charlie Infantry Monument; and Delta Infantry Monument Position Marker.',
+    'CE 1890 Memorialized Erection of Echo Infantry Monument.',
+    'CE 1895 Memorialized The Foxtrot Infantry Monument is relocated into the area.',
+    'CE 1888 Memorialized Erection of Golf Infantry Monument (ca.1888-1900).',
+    'CE 1888 Memorialized Erection of Hotel Infantry Monument.', 'CE 1891 Memorialized Erection of Hotel Infantry Monument.',
+    'CE 1900 Built The Alpha State Monument is repaired.',
+    'CE 1880 - 1890 Memorialized In 1880-1890, erection of the India Infantry Monument.',
+    'CE 1892 Memorialized The Juliet Infantry Monument is placed within the thicket. The monument is moved ca. 1907.']));
+  const { found, left } = Y.deriveYears(memX, [rep], { exclude: [] }), by = n => found.find(f => f.no === n), why = n => left.filter(l => [].concat(l.no).includes(n)).map(l => l.why).join(' | ');
+  assert.deepEqual(found.map(f => f.no), [1, 2, 8, 10, 11], 'read: Alpha, Bravo, Golf, India and Juliet');
+  assert.deepEqual([by(1).year, by(1).tier, by(1).pdfPage, by(1).printedPage, by(1).quote], [1929, 'documented', 7, 'Page 2 of 9', 'CE 1929 Memorialized Monument/marker is erected: Alpha State Monument']);
+  assert.equal(by(2).quote, 'CE 1886 Memorialized Erection of three memorials: Bravo Infantry Monument and Fence', 'the fence is not a second memorial; the quotation stops after the words that belong to the name');
+  assert.deepEqual([by(8).year, by(8).yearTo, by(8).approx, by(8).tier], [1888, 1900, true, 'inferred']); assert.match(by(8).quote, /Golf Infantry Monument \(ca\.1888-1900\)$/);
+  assert.deepEqual([by(10).year, by(10).yearTo, by(10).tier], [1880, 1890, 'documented'], 'a range the report prints is kept as a range'); assert.deepEqual([by(11).year, by(11).tier], [1892, 'documented'], '"is placed" is an erection');
+  assert.match(why(3), /two entries of the site share the name/); assert.match(why(5), /continues the name with words/); assert.match(why(6), /m from the area the report describes/); assert.match(why(9), /different years/);
+  for (const n of [3, 4, 5, 6, 7, 9]) assert.ok(!by(n), `no year is read for ${n}`); assert.ok(!left.some(l => [].concat(l.no).includes(7)) && !by(7), 'a relocation is not an erection: the entry is not read at all');
+  const withExcl = Y.deriveYears(memX, [rep], { exclude: [{ no: 1, why: 'looked at: a second memorial may share the name' }] }); assert.ok(!withExcl.found.some(f => f.no === 1)); assert.match(withExcl.left.find(l => [].concat(l.no).includes(1)).why, /second memorial may share the name/);
+  const file = Y.buildFile(memX, [rep], { sources: [{ id: 'NPS-CLI-LRT', title: 'Report', author: 'National Park Service', date: '2024', url: 'https://example.test/r.pdf' }] }, { exclude: [] }).file; assert.equal(file.years.length, 5); assert.equal(file.sources['NPS-CLI-LRT'].url, 'https://example.test/r.pdf'); assert.deepEqual(Y.validateYearsFile(file, memX), []);
+});
+test('the years file equals what the saved report texts give, and the texts are the ones it was read from', { skip: !haveLib && 'NOT RUN: the saved report texts (tmp/library/web/nps, local scratch) are not in this checkout; the file was checked for fitness only' }, () => {
+  const d = Y.driftYears(years, mem, curation); assert.equal(d.skipped, false); assert.deepEqual(d.problems, []);
+  const reports = Y.REPORTS.map(id => Y.readReport(id)), built = Y.buildFile(mem, reports, JSON.parse(fs.readFileSync(Y.SOURCES_META, 'utf8')), curation); assert.equal(Y.serialise(built.file), fs.readFileSync(Y.FILE, 'utf8'), 'the file is the same bytes as the rule makes from the texts');
+  for (const y of years.years) { const r = reports.find(x => x.id === y.source); assert.ok(r.norm.includes(y.quote), `${y.no} ${y.name}: the quotation is in the text of ${y.source}`); const pg = r.pages.find(p => p.n === y.pdfPage); assert.ok(pg, 'page'); }
+  const t = clone(years); t.years[0].year = 1930; assert.match(Y.driftYears(t, mem, curation).problems.join(' | '), /differ from what the saved report texts give/);
+  const u = clone(years); u.sources['NPS-CLI-PCB'].textSha256 = '0'.repeat(64); assert.match(Y.driftYears(u, mem, curation).problems.join(' | '), /not the one the file was read from/);
+  assert.ok(built.left.every(l => l.why && l.name), 'every name left out has its reason'); assert.ok(built.left.some(l => [].concat(l.no).includes(327)), 'the memorial the curation leaves out is among them');
+});
+test('without the saved texts the reader says so instead of passing: driftYears reports skipped', () => { const d = Y.driftYears(years, mem, curation, '/nonexistent/library'); assert.equal(d.skipped, true); assert.deepEqual(d.problems, []); });
+
 // ---------------------------------------------------------------- the list of added layers and the copy audit
 test('the list of added layers carries the two modules; every path of the list is one the loader accepts; the files are there; each module exports only what the contract names', async () => {
   const list = (await import(pathToFileURL(path.join(APP, 'src/ext/index.mjs')).href + '?t=' + Date.now())).default; assert.ok(Array.isArray(list)); assert.ok(list.includes('monuments.mjs') && list.includes('tour.mjs'));
   assert.equal(new Set(list).size, list.length, 'no path twice'); for (const p of list) assert.equal(badPath(p), null, p);
-  assert.ok(list.indexOf('monuments.mjs') < list.indexOf('tour.mjs') || true);
   for (const p of ['monuments.mjs', 'tour.mjs']) { assert.ok(fs.existsSync(path.join(APP, 'src/ext', p)), p); const m = await import(pathToFileURL(path.join(APP, 'src/ext', p)).href); assert.deepEqual(Object.keys(m).sort(), ['dispose', 'init', 'update'], `${p} exports init, update and dispose`); for (const k of ['init', 'update', 'dispose']) assert.equal(typeof m[k], 'function'); }
 });
 const AUDIT = await import(pathToFileURL(path.join(REPO, 'tools/bt/pack_theatre.mjs')).href);
 test('copy audit: no shipped file of the two modules (code, notes, data) names a tool, a maker or a process; the packer\'s own rules are the rules', () => {
-  const files = ['src/ext/monuments.mjs', 'src/ext/tour.mjs', 'src/ext/site-places.mjs', 'data/site-memorials.json', 'data/site-tour-stops.json'], hits = [];
+  const files = ['src/ext/monuments.mjs', 'src/ext/tour.mjs', 'src/ext/site-places.mjs', 'data/site-memorials.json', 'data/site-tour-stops.json', 'data/site-memorial-years.json'], hits = [];
   for (const f of files) { const lines = fs.readFileSync(path.join(APP, f), 'utf8').split('\n'); lines.forEach((L, i) => { const m = AUDIT.AUDIT_RE.exec(L) || AUDIT.AUDIT_CS_RE.exec(L); if (m) hits.push(`${f}:${i + 1}: ${m[0].trim()}`); }); const r = [...fs.readFileSync(path.join(APP, f), 'utf8').matchAll(AUDIT.AUDIT_REVIEW_RE)].map(m => m[0]); if (r.length) hits.push(`${f}: working-process words ${[...new Set(r)].join(', ')}`); }
   assert.deepEqual(hits, [], 'words the acceptance copy audit rules out');
   // what a visitor reads: the words of the layer, the cards and the panels
   const words = [P.COPY.what, P.COPY.layer, P.COPY.basis, P.COPY.year, P.COPY.position, P.COPY.tour, P.LAYER.title, P.TOUR.title].join('\n'); assert.doesNotMatch(words, AUDIT.AUDIT_RE); assert.doesNotMatch(words, /\b(agent|claude|anthropic|generated|automated|subagent)\b/i);
 });
 test('what is written about the data in the shipped files points at the site, not at the way the copy was made: the tree and bundle it is read from are named, nothing else', () => {
-  for (const f of [mem, tour]) { const s = JSON.stringify(f); assert.doesNotMatch(s, /\b(generated|auto-?generated|hand-?edit|do not edit)\b/i); }
+  for (const f of [mem, tour, years]) { const s = JSON.stringify(f); assert.doesNotMatch(s, /\b(generated|auto-?generated|hand-?edit|do not edit)\b/i); }
   assert.equal(mem.source.tree, 'baseline/dist'); assert.match(mem.source.entry, /^assets\/index-[\w-]+\.js$/);
 });

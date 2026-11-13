@@ -1,0 +1,12 @@
+run_suites: 6 suite(s), port base 8480, agent r1g-harness2-light
+run_suites: child environment + NODE_USE_ENV_PROXY, NODE_OPTIONS (extended) (an HTTPS proxy is set); load average (1 min) 10.08, 4 CPUs
+PASS    static.baseline        17/17             24.7 s  load 10.08>10.99  baseline machinery self-test (17 cases: Netlify post-processing model, lock and build refusal, CRLF-aware patching, overlay guard, verify-live against a local Netlify fake, mirror -> reconstruct -> prove, JS/Python model parity, compare-zip of a downloaded deploy)
+PASS    static.baselinelock    exit 0             0.3 s  load 10.99>10.99  baseline/dist matches tools/t0/baseline.lock.json (per-file sha256, no network)
+PASS    static.legal           13/13              0.8 s  load 10.99>10.99  privacy/terms fact base vs the built R1c tree
+PASS    static.overlap.selftest 1/1                 0 s  load 10.99>10.99  overlap audit self-test (6 cases incl. the failing ones: an anchor that no longer matches, an undeclared overwrite, an anchor with no source)
+PASS    static.ship            11/11              3.2 s  load 10.99>11.15  pack_zip self-test (tools/ship/pack_zip.py, the Netlify drag-and-drop zip: files at the zip root, byte-identical packs, a changed, extra or missing file or a wrong tree digest against manifest.json is refused, the staging variant differs in _headers only, the real R1c packs)
+PASS    static.legal.optin     19/19              0.5 s  load 11.15>11.15  privacy/terms fact base vs R1c built with PG-legal (exit 0 = no FAIL: the text matches the headers; the Street View delegation is disclosed, so the WARN of the default build is gone)
+
+run_suites: load average (1 min) 10.08>11.15 from the start to the end of this run, 4 CPUs
+
+run_suites: 6/6 suites OK; green tests 28/28; red-first proofs 0/0 (0 legacy tests red as required); 30s -> tmp/r1g-harness2/light-after.json

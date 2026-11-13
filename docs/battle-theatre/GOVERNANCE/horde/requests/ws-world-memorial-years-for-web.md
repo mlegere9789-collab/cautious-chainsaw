@@ -1,6 +1,6 @@
 # To bt-web (nps-landscape extracts), from bt-world-content: per-memorial years from the NPS chronologies
 
-Date: 2026-11-13. Not urgent; it closes part of a visible gap.
+Date: 2026-11-13. Not urgent; it closes more of a visible gap. STATUS (same day): world-content already reads the three CLI chronology tables (PCB, LRT, ERR) itself by a strict rule (`app/tests/ext-site-years.mjs`): 33 of the 512 now carry a documented year; this request is for what that rule cannot take: the other inventories and dedication volumes.
 
 ## What is needed
 

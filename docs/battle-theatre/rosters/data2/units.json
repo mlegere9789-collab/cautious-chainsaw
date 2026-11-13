@@ -33,7 +33,7 @@
    "n/a": 2,
    "pdf-only": 3
   },
-  "with_existing_roll_file": 480
+  "with_existing_roll_file": 481
  },
  "units": [
   {
@@ -9965,7 +9965,15 @@
     "oob": [],
     "kit": []
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-14us.csv",
+     "unit_id": "U-14US",
+     "rows": 11,
+     "regiment_as_in_file": "14th United States Infantry (not in the repository OOB)",
+     "basis": "same designation (file of the 14th US in data/REG, officers)"
+    }
+   ]
   },
   {
    "key": "u-us-17th-united-states-infantry",
@@ -19377,12 +19385,6 @@
     "unit_id": "X-46PA",
     "rows": 1810,
     "regiment_as_in_file": "46th Pennsylvania Infantry (not in repository OOB)"
-   },
-   {
-    "file": "data/REG/u-14us.csv",
-    "unit_id": "U-14US",
-    "rows": 11,
-    "regiment_as_in_file": "14th United States Infantry (not in the repository OOB)"
    }
   ],
   "kit_ids": [

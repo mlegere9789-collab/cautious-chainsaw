@@ -409,7 +409,8 @@ test('gpu cull path: every live event is packed unculled, the camera uniform blo
   assert.equal(u[26], f.gpuCull.cap); assert.equal(u[27], f.nEvents); assert.equal(u[28], f.gpuCull.split); near(fl[24], 1080 / (2 * Math.tan(0.5)), 1e-3); assert.equal(fl[9] > fl[8], true, 'aspect applied');
   assert.deepEqual(P.budget.class_priority, ['flash', 'burst', 'gun', 'fire', 'musket', 'dust', 'fog'], 'WGSL classOf() indices follow this order');
   assert.equal(fl[40 + 2], P.lod.n_full.gun); assert.equal(fl[40 + 1], P.lod.n_full.musket);
-  assert.match(WGSL_COMPUTE, /struct Cam/); assert.match(WGSL_COMPUTE, /@workgroup_size\(1024\)/);
+  assert.match(WGSL_COMPUTE, /struct Cam/); assert.match(WGSL_COMPUTE, /@workgroup_size\(256\)/, 'one workgroup of 256 threads: the most the default device limits allow (the pipeline failed to build with 1024)');
+  { const ept = +/const EPT: u32 = (\d+)u;/.exec(WGSL_COMPUTE)[1], worst = Math.max(...['desktop', 'laptop', 'tablet', 'phone'].map(t => tierBudget(P, t).maxEvents + 64)); assert.ok(256 * ept >= worst, `the compute pass covers every event slot of every tier (${256 * ept} >= ${worst})`); assert.ok(!/1024/.test(WGSL_COMPUTE)); }
   const f2 = fx.update(t + 0.5, cam); assert.ok(f2.nSprites >= 0, 'the CPU path still works on the same system');
 });
 

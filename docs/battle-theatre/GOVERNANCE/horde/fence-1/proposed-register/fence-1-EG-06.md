@@ -3,19 +3,19 @@
 | Field | Content |
 |---|---|
 | ID | fence-1-EG-06 |
-| Requirement IDs | R14 |
-| Category | evidence missing |
-| Description | OR documents small per-gun earthworks at dusk Jul 1 (Wainwright, Hunt) but never uses the word lunette and names no builders or dimensions. |
-| Why literal 100% is not possible or blocked | The record found does not support it (Law cl.3). |
-| Evidence searched | OR27 Part 1 lunette/epaulement search returned nothing. Web lookups: none made. OCR is unverified single witness. |
-| Autonomous substitute applied | Render low earthworks in front of each gun built by the battery crews on the evening of Jul 1. |
-| Strongest evidence-based reconstruction | As stated in the substitute; geometry beyond the OR is from seed, not record. |
-| Confidence tier | inferred |
+| Requirement IDs | R14 (E-12, E-04) |
+| Category | evidence missing (partly closed) |
+| Description | Close-out 2026-11-13. Builders are now documented: the battery crews on the artillery chief's orders (Breck: 'by order of Colonel Wainwright, I caused [the position] to be intrenched'; Cooper's Battery B finished four lunettes on the morning of Jul 2; the 1st NY battery men built redans or lunettes for each gun). Window: begun at dusk Jul 1, finished the morning of Jul 2, in use by 16:00. The word lunette is not in the OR; the 1900-1914 books and the NPS use it. Still open: the 1863 dimensions (the preserved lunettes were reconstructed in 1878 and measure about 30 in high: not an 1863 profile). |
+| Why literal 100% is not possible or blocked | No 1863 measurement exists; the modern works are rebuilt (Law cl.3). |
+| Evidence searched | Searched with tools/bt/or27_find (OR Ser. I vol. 27 parts 1-3, Cornell scan) and three further archive.org scans (warofrebellion271unit, warofrebellion012701rootrich, warofrebellion272unit, warofrebellionco272unit) as second witnesses; the 99-text library plus three added archive.org books; the 73 National Park Service documents under tmp/library/web/nps. Every quoted passage is in evidence_corrections/fence-1.jsonl.  |
+| Autonomous substitute applied | Lunettes drawn per gun with a marked gap for dimensions. |
+| Strongest evidence-based reconstruction | Form and builders documented-secondary; dimensions procedural. |
+| Confidence tier | documented (existence, builders, window); plausible-procedural (profile) |
 | Competing values | - |
-| Product marking | Tier overlay on shape and builders. |
-| Visual and audio impact | East Cemetery Hill, Jul 1 evening |
+| Product marking | Tier overlay on the lunette profile. |
+| Visual and audio impact | East Cemetery Hill, Jul 1 dusk to Jul 2 16:00 |
 | Review status | internal review only (DEC-006: no public review label) |
-| Owner decision requested | None needed unless the PDF wording itself is to change (E-17). Next evidence to seek: Engineer or battery diaries; NPS HSR for Cemetery Hill. |
-| Agent recommendation | Hold the conservative option; do not pick a default among competing values. |
-| Status | open |
+| Owner decision requested | None. |
+| Agent recommendation | Do not use the 30-in figure for 1863. |
+| Status | partly_closed (updated by the close-out 2026-11-13; the earlier text is superseded) |
 | Owner decision and date | (filled only from the Decision Log) |

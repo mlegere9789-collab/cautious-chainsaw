@@ -61,7 +61,6 @@ def t_totals():
          '| drawn units by road of approach: only the corps-level road is printed (plausible-procedural) | %s |' % n(road['corps']),
          '| drawn units by road of approach: modelled from the sibling formations of the corps (DEC-015, EG-0070) | %s |' % n(road['modelled']),
          '| placed units with a place on 1, 2 or 3 days of 1 to 3 July (days from the unit\'s gate; a place is a ledger stop or a single-label troop-map position) | %s, %s, %s |' % (n(days[1]), n(days[2]), n(days[3])),
-         '| leaf units on the field that no ledger claim names (everything of theirs comes from a formation above) | %s |' % n(sum(1 for u in leafs if not u['claims_own']['total'])),
          '| roster-gap entries (units printed in the Official Records tables that the roster lacks, splits or lists with another status) | %s |' % n(T['roster_gap_entries'])]
     return '\n'.join(L)
 

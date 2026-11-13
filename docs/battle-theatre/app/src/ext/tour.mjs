@@ -45,7 +45,7 @@ export function update(frame) {
   P.viewProj(cam, R && R.W > 0 && R.H > 0 ? R.W / R.H : w / h, s.vp);
   const vis = P.project(s.vp, b.x, b.y, b.z, w, h, s.p) && s.p[0] > -20 && s.p[0] < w + 20 && s.p[1] > -20 && s.p[1] < h + 20;
   if (vis !== s.shown) { s.shown = vis; s.pin.hidden = !vis; }
-  if (vis && (Math.abs(s.p[0] - s.px) > .2 || Math.abs(s.p[1] - s.py) > .2)) { s.px = s.p[0]; s.py = s.p[1]; s.pin.style.transform = `translate(${s.px.toFixed(1)}px,${s.py.toFixed(1)}px)`; }
+  if (vis && !(Math.abs(s.p[0] - s.px) <= .2 && Math.abs(s.p[1] - s.py) <= .2)) { s.px = s.p[0]; s.py = s.p[1]; s.pin.style.transform = `translate(${s.px.toFixed(1)}px,${s.py.toFixed(1)}px)`; }       // not "<= .2 on both" also when the place is not known yet (NaN after a new stop is chosen)
 }
 
 function markCurrent(s) { const ul = s.box.querySelector('#xt-list'); if (!ul) return; for (const n of ul.querySelectorAll('[aria-current]')) n.removeAttribute('aria-current'); if (s.active >= 0) { const n = ul.querySelector(`[data-stop="${s.active}"]`); if (n) n.setAttribute('aria-current', 'true'); } const c = s.box.querySelector('#xt-clear'); if (c) c.disabled = s.active < 0; }

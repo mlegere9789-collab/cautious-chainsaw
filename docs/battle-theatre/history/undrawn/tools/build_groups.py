@@ -245,7 +245,7 @@ def main():
         same = json.dumps(keep, sort_keys=True) == json.dumps(doc['groups'], sort_keys=True)
         print('groups.json', 'is current' if same else 'IS STALE (rebuild it)'); sys.exit(0 if same else 1)
     open(gp, 'w', encoding='utf-8').write(text)
-    json.dump({'_doc': 'Texts a record of a group file may cite (source.source_id). Paths are under tmp/ (untracked): the hashes identify the copies read. A text that is not here is declared by a `source` record in the group file (PLAN.md 5.4).', 'sources': S}, open(os.path.join(UND, 'sources.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    json.dump({'_doc': 'Texts a record of a group file may cite (source.source_id). Paths are under tmp/ (untracked): the hashes identify the copies read. A text that is not here is declared by a `source` record in the group file (PLAN.md 5.9).', 'sources': S}, open(os.path.join(UND, 'sources.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print('groups', len(groups), 'units', len(U), {k: doc['totals'][k] for k in ('not_drawn', 'edge_only', 'partly_drawn', 'formation', 'not_on_field', 'drawn')})
     for g in groups:
         c = g['counts']

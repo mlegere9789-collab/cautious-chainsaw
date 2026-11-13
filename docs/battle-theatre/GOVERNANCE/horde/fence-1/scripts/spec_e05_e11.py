@@ -3,7 +3,7 @@ ROWS = []
 
 ROWS.append(R('R14.E-05', 'partially_supported', 'open_gaps',
  pdf_claim="Upper Culp's Hill (60th NY upper crest, 102nd and 149th in the saddle, 137th lower crest, 78th reserve), Greene's 3rd Brigade: felled trees cut into blocks and stacked as a close log fence, stones, earth, head logs on much of the line, cordwood piles, rifle pits, boughs and logs in front; about 5 ft high, about 300 yd at first; start about 06:00 Jul 2 (conflict: night of Jul 1-2, DMNA 60th NY); finish about 09:00-10:00 or about noon; Slocum and Geary thought works unnecessary, Greene (a former railroad engineer) ordered them.",
- corrected="Greene's brigade, camped the night of Jul 1 near Little Round Top, marched over about 06:00 Jul 2 (sunrise in Greene's 1893 address) and began at once to intrench: a close log fence of felled trees with cordwood set slanting against the outer face, earth where spades and picks were at hand, 'logs, cord-wood, stones, and earth' in Greene's report. Finish: about 09:00 (60th NY), about 10:00 (Jones, 60th NY, 1888), 'by 12 o'clock' good cover (Greene; the Cornell scan misreads it as 13, two other scans read 12), about noon (137th NY). The night-of-Jul-1 start is contradicted by the brigade's own accounts. A height of about five feet is given by an NPS report for the elaborate log-crib works on Culp's Hill in general. Head logs, boughs in front and the 300-yd first length are not in any source read here.",
+ corrected="Greene's brigade, camped the night of Jul 1 near Little Round Top, marched over about 06:00 Jul 2 (sunrise in Greene's 1893 address) and began at once to intrench: a close log fence of felled trees with cordwood set slanting against the outer face, earth where spades and picks were at hand, 'logs, cord-wood, stones, and earth' in Greene's report. Finish: about 09:00 (60th NY), about 10:00 (Jones, 60th NY, 1888), 'by 12 o'clock' good cover (Greene; the Cornell scan misreads it as 13, two other scans read 12), about noon (137th NY). The night-of-Jul-1 start is contradicted by the brigade's own accounts (the 149th NY puts the march to the line at about 04:00, a clock conflict carried). The 149th NY also lists 'rails' among the materials, so the PDF's 'no rails' is not right for that regiment. A height of about five feet is given by an NPS report for the elaborate log-crib works on Culp's Hill in general. Head logs, boughs in front and the 300-yd first length are not in any source read here.",
  structures=['E-05', 'S-023', 'S-024'],
  sub=[
   S('a', "Start about 06:00 Jul 2 (not the night of Jul 1-2): the brigade camped the night of Jul 1 near Little Round Top and was marched to Culp's Hill about 06:00.", 'documented', 'supported', [
@@ -11,12 +11,14 @@ ROWS.append(R('R14.E-05', 'partially_supported', 'open_gaps',
     C('OR1','R307',"we took position at about G a. m. on the right of the First Corps"),
     C('LIB','BL-3',"About 6 o'clock the next morning it was marched over from that point"),
     C('LIB','BL-3',"camped on the night of the first day under the shadow of Little Eound Top"),
-    C('LIB','NY-GB-1900',"At sunrise we marched to the extreme right of the army, to Culp’s Hill")],
-    note="Greene's 1893 address says 'sunrise'; the OR and Jones say about 6 a.m. (sunrise at Gettysburg on Jul 2 was before 05:00): a clock difference carried. The Cornell OCR reads Greene's hour as 'G a. m.' (6)."),
+    C('LIB','NY-GB-1900',"At sunrise we marched to the extreme right of the army, to Culp’s Hill"),
+    C('OR1','R313',"about 4 a. m. of the 2d instant, when, with the division, we were marched across the fields")],
+    note="Clock differences carried: the 149th NY (Barnum) says the division was marched to the line at about 4 a.m.; Greene's 1893 address says 'sunrise'; the OR (Greene, 60th NY) and Jones say about 6 a.m. The Cornell OCR reads Greene's hour as 'G a. m.' (6). The 149th NY's report also lists 'rails' in the fabric (the PDF's 'No rails' is therefore not right for that regiment)."),
   S('b', "Materials and method: felled trees blocked up into a close log fence, cordwood piles set slanting against the outer face, stones, earth where spades and picks were at hand.", 'documented', 'supported', [
     C('OR1','R307',"we began to intrench ourselves and throw up breastworks of the covering height, of logs, cord-wood, stones, and earth"),
     C('OR1','R310',"A breastwork of trees and dirt was soon thrown up"),
     C('OR1','R311',"cord-wood and rock"),
+    C('OR1','R313',"A substantial breastwork of stones, logs, rails, and earth was hastily constructed"),
     C('LIB','BL-3',"blocked them up into a close log fence"),
     C('LIB','BL-3',"strengthened their work with earth"),
     C('LIB','EDDY-1864',"having constructed a breastwork of such material as was found convenient — earth, stone, and logs"),
@@ -101,7 +103,7 @@ ROWS.append(R('R14.E-07', 'partially_supported', 'open_gaps',
 
 ROWS.append(R('R14.E-08', 'corrected', 'open_gaps',
  pdf_claim="Lower Culp's Hill, Williams's division, XII Corps (including Lockwood's brigade, position unconfirmed): log breastwork, Jul 2 morning on arrival; Lockwood's brigade position and work: open gap.",
- corrected="Williams's (then Ruger's) division was ordered about 09:00 Jul 2 onto Culp's Hill on Greene's right and built breastworks 'immediately' of logs, rocks and earth (Ruger); the Third Brigade (Colgrove) of rails, timber and stone, with the 107th NY ordered to construct and the others 'speedily' covering the whole line. Lockwood's brigade did not take part on Jul 2: his own report has the First Potomac Home Brigade and the 150th NY arriving at 08:00 on Jul 3 (Greene: 07:30). The Jul 2 evening move of the First Division left the works empty from about 18:30.",
+ corrected="Williams's (then Ruger's) division was ordered about 09:00 Jul 2 onto Culp's Hill on Greene's right and built breastworks 'immediately' of logs, rocks and earth (Ruger); the Third Brigade (Colgrove) of rails, timber and stone, with the 107th NY ordered to construct and the others 'speedily' covering the whole line. The 3rd Wisconsin built breastworks of earth and rails and threw down stone walls and fences in its front (Hawley). Lockwood's brigade did not take part on Jul 2: his own report has the First Potomac Home Brigade and the 150th NY arriving at 08:00 on Jul 3 (Greene: 07:30). The Jul 2 evening move of the First Division left the works empty from about 18:30.",
  structures=['E-08'],
  sub=[
   S('a', "Ruger's division was ordered about 09:00 Jul 2 to the ridge called Culp's Hill and built breastworks of logs, rocks and earth along the whole line.", 'documented', 'supported', [
@@ -112,6 +114,8 @@ ROWS.append(R('R14.E-08', 'corrected', 'open_gaps',
     C('OR1','R286',"were speedily thrown up, covering the whole line"),
     C('OR1','R286',"Shortly before sundown, I received information through one of your aides")],
     note="Rails in Colgrove's line imply fence rails taken locally; the report does not name a fence (inference only)."),
+  S('b2', "The 3rd Wisconsin (Colgrove's brigade) threw up breastworks of earth and rails and threw down stone walls and fences in its front that might give the enemy cover (removal of fences and walls as a defensive act).", 'documented', 'supported', [
+    C('OR1','R292',"proceeded to throw up breastworks of earth and rails, and to throw down such stone walls and fences in my front")]),
   S('c', "Candy's 29th PA (Geary's division) began to fortify its own position on the 2d and ordered away at 19:00.", 'documented', 'supported', [
     C('OR1','R304',"commenced to fortify our position"),
     C('OR1','R304',"ordered by General Geary to leave our breastworks and move rapidly to the rear")]),
@@ -169,6 +173,7 @@ ROWS.append(R('R14.E-10', 'confirmed', 'open_gaps',
   S('c', "Version B (Union): the works were left unoccupied; the enemy took possession in the absence of the regiments.", 'documented', 'supported', [
     C('OR1','R304',"having taken possession of them in our absence"),
     C('OR1','R303',"which the enemy had taken possession of during our absence"),
+    C('OR1','R305',"Finding that during our brief absence the enemy had moved to the right, occupying the"),
     C('OR1','R302',"At twilight we were removed to the batteries on the turnpike, and shortly after ordered to return to our former position"),
     C('OR1','R307',"leaving the intrenchments of Kane's brigade and Williams' division unoccupied")]),
   S('d', "Clock: Johnson's attack 'about dusk' after the artillery stopped just before sundown; Greene attacked a few minutes before 19:00; enemy in the works on Greene's right about 20:00.", 'documented', 'supported', [

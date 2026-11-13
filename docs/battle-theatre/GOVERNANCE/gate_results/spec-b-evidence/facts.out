@@ -269,7 +269,7 @@
   "vis-fx"
  ],
  "register_alias_count": 5,
- "horde_proposed_register_dirs": 30,
+ "horde_proposed_register_dirs": 31,
  "horde_proposed_register_names": [
   "fence-1",
   "fence-2",
@@ -297,6 +297,7 @@
   "vis-audio",
   "vis-figures",
   "vis-fx",
+  "ws-units",
   "ws-world",
   "ws10-cavalry",
   "ws10-photomatch",
@@ -440,10 +441,11 @@
  "inputs_watch": {
   "GOVERNANCE/realizations": {
    "dir": true,
-   "entries": 2,
+   "entries": 3,
    "first": [
     "EXAMPLES.jsonl",
-    "RESULTS.json"
+    "RESULTS.json",
+    "gazetteer.json"
    ]
   },
   "GOVERNANCE/timeline_corrections": {
@@ -455,9 +457,10 @@
   },
   "GOVERNANCE/evidence_corrections": {
    "dir": true,
-   "entries": 3,
+   "entries": 4,
    "first": [
     "fence-1.jsonl",
+    "fence-2.jsonl",
     "web-nps-landscape.jsonl",
     "web-photomatch.jsonl"
    ]
@@ -496,7 +499,7 @@
   },
   "history/undrawn": {
    "dir": true,
-   "entries": 6,
+   "entries": 7,
    "first": [
     "PLAN.md",
     "groups.json",
@@ -507,7 +510,7 @@
    ]
   },
   "app/docs/GATE-HOOKS.md": {
-   "bytes": 4506
+   "bytes": 5676
   },
   "app/docs/EXT-CONTRACT.md": {
    "bytes": 21486
@@ -522,17 +525,19 @@
     "tour.mjs"
    ]
   },
-  "app/data/vegetation.json": "absent",
+  "app/data/vegetation.json": {
+   "bytes": 1601720
+  },
   "tools/bt/realize": {
    "dir": true,
-   "entries": 11,
+   "entries": 12,
    "first": [
+    "README.md",
     "adapters.json",
     "check.mjs",
     "checks.mjs",
     "gazetteer.mjs",
-    "lib.mjs",
-    "q.mjs"
+    "lib.mjs"
    ]
   },
   "tools/bt/vegetation": {
@@ -558,9 +563,10 @@
   },
   "tests/governance": {
    "dir": true,
-   "entries": 2,
+   "entries": 3,
    "first": [
     "coverage.test.mjs",
+    "realize.test.mjs",
     "test_coverage.py"
    ]
   },
@@ -602,7 +608,7 @@
    ]
   },
   "GOVERNANCE/gate_results/GATE-SPEC-A.md": {
-   "bytes": 69846
+   "bytes": 203387
   }
  },
  "check_scripts": [
@@ -618,16 +624,18 @@
  ],
  "evidence_corrections": {
   "files": {
-   "fence-1.jsonl": 18,
+   "fence-1.jsonl": 35,
+   "fence-2.jsonl": 36,
    "web-nps-landscape.jsonl": 776,
    "web-photomatch.jsonl": 4
   },
-  "rows": 798,
+  "rows": 851,
   "verdict": {
-   "partially_supported": 788,
-   "corrected": 7,
-   "confirmed": 2,
-   "gap": 1
+   "partially_supported": 815,
+   "corrected": 24,
+   "confirmed": 6,
+   "gap": 2,
+   "unsupported": 4
   }
  },
  "timeline_corrections": {
@@ -663,16 +671,25 @@
    "partial": false
   },
   "q17": {
+   "_doc": "ok: every timeline row and every epilogue row is realized (a scene or a tier-marked card) or covered by an open register entry. ok_strict: the same, but a row realized by a card alone counts only if an open register entry also covers it (GATE-SPEC-A TL-4 and TL-11 read a card as no visual realization). Neither sets a passes flag.",
    "ok": false,
+   "ok_strict": false,
    "rows": 691,
+   "epilogue_rows": 14,
    "realized": 3,
+   "realized_by_scene": 3,
+   "realized_by_card_only": 0,
    "covered_by_open_register_entry_only": 315,
    "uncovered": 373,
+   "uncovered_strict": 373,
    "epilogue_uncovered": 2
   },
   "totals_timeline": {
    "rows": 691,
    "realized": 3,
+   "realized_by_scene": 3,
+   "realized_by_card_only": 0,
+   "uncovered_strict": 373,
    "not_realized": 688,
    "with_record": 20,
    "no_record": 671,
@@ -682,6 +699,9 @@
   "totals_epilogue": {
    "rows": 14,
    "realized": 0,
+   "realized_by_scene": 0,
+   "realized_by_card_only": 0,
+   "uncovered_strict": 2,
    "not_realized": 14,
    "with_record": 0,
    "no_record": 14,
@@ -693,14 +713,21 @@
    "T1-016",
    "T1-019"
   ],
-  "mtime_utc": "2026-11-13T19:47:24Z"
+  "mtime_utc": "2026-11-13T19:58:27Z"
  },
- "decisions_DD-RZ": [],
+ "decisions_DD-RZ": [
+  "DD-RZ-01",
+  "DD-RZ-02",
+  "DD-RZ-03",
+  "DD-RZ-04"
+ ],
  "tests_governance_files": [
   "coverage.test.mjs",
+  "realize.test.mjs",
   "test_coverage.py"
  ],
  "realize_files": [
+  "README.md",
   "adapters.json",
   "check.mjs",
   "checks.mjs",
@@ -718,6 +745,8 @@
   "checkTourBookmarks(tour, T)",
   "sceneObjectsAt(tMin)",
   "drift(trees?, files?, pins?)",
+  "checkLaterMemorials(mem, T?, years?)",
+  "validateYears(yf, mem)",
   "tierName(tier)",
   "tierMark(tier)",
   "tierMark.style(tier)",

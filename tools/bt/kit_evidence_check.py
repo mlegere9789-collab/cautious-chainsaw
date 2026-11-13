@@ -409,10 +409,12 @@ def check_evidence(R, n, o, units, order, kit, cat):
             if r and im['pdf_page'] != r['leaf'] + 1:
                 E('IMAGE', 'pdf_page %d is not the scan page of offset %d (it is %d)' % (im['pdf_page'], start, r['leaf'] + 1))
         if mode == 'image_row':
-            if f != 'casualties':
-                E('IMAGE', 'image_row is for casualties rows')
-            elif not isinstance(o.get('value', {}).get('row'), list) or len(o['value']['row']) != 7:
-                E('IMAGE', 'value.row lists the seven printed figures: killed officers, enlisted, wounded officers, enlisted, missing officers, enlisted, aggregate (null where the cell is empty)')
+            if f not in ('casualties', 'strength'):
+                E('IMAGE', 'image_row is for rows of a return of casualties or an abstract of strength')
+            else:
+                v = o.get('value') if isinstance(o.get('value'), dict) else {}
+                if not isinstance(v.get('row'), list) or not isinstance(v.get('row_columns'), list) or len(v['row']) != len(v['row_columns']):
+                    E('IMAGE', 'value.row (the printed figures in print order) and value.row_columns (their column names, same length) are required')
     # page and report
     page, lo, hi, note = src.page_at(start)
     pg = o.get('printed_page')
@@ -451,17 +453,46 @@ def check_evidence(R, n, o, units, order, kit, cat):
                 W('NUMBERS_WAIVED', '%s: %s' % (miss, o['waive_numbers']))
             else:
                 E('NUMBERS', 'numbers %s of value are not in the quote' % miss)
-    if mode == 'image_row' and f == 'casualties' and isinstance(o.get('value'), dict) and isinstance(o['value'].get('row'), list) and len(o['value']['row']) == 7:
-        row = o['value']['row']
+    if mode == 'image_row' and isinstance(o.get('value'), dict) and isinstance(o['value'].get('row'), list) and isinstance(o['value'].get('row_columns'), list) and len(o['value']['row']) == len(o['value']['row_columns']):
         v = o['value']
-        pairs = [(v['killed'].get('officers'), row[0]), (v['killed'].get('enlisted'), row[1]), (v['wounded'].get('officers'), row[2]), (v['wounded'].get('enlisted'), row[3]), (v['missing'].get('officers'), row[4]), (v['missing'].get('enlisted'), row[5]), (v.get('total'), row[6])]
-        if any((a or 0) != (b or 0) for a, b in pairs):
-            E('CHECK', 'value does not equal value.row (killed %s, wounded %s, missing %s, total %s vs row %s)' % (v['killed'], v['wounded'], v['missing'], v.get('total'), row))
-        elif sum(x or 0 for x in row[:6]) != (row[6] or 0):
-            E('CHECK', 'the six figures add to %d but the printed aggregate is %s: a figure was misread' % (sum(x or 0 for x in row[:6]), row[6]))
+        row, cols = v['row'], v['row_columns']
+        waived = bool(o.get('waive_numbers'))
+        if f == 'casualties':
+            if tuple(cols) not in K.CAS_LAYOUTS:
+                E('IMAGE', 'row_columns of a casualty row is one of: %s' % ' / '.join(', '.join(l) for l in K.CAS_LAYOUTS))
+            else:
+                for name, cell in zip(cols, row):
+                    if name == 'aggregate':
+                        want = v.get('total')
+                    else:
+                        cat, _, part = name.partition('_')
+                        want = v[cat].get(part or 'total')
+                    if (cell or 0) != (want or 0):
+                        E('CHECK', 'value.%s is %s but the row figure read for %s is %s' % ('total' if name == 'aggregate' else name.replace('_', '.'), want, name, cell))
+                parts = sum((c or 0) for n_, c in zip(cols, row) if n_ != 'aggregate')
+                agg = row[cols.index('aggregate')]
+                if agg is not None and parts != agg:
+                    if waived:
+                        W('NUMBERS_WAIVED', 'the figures add to %d, the print says %s: %s' % (parts, agg, o['waive_numbers']))
+                    else:
+                        E('CHECK', 'the figures add to %d but the printed aggregate is %s: a figure was misread (or the print footnotes the row: waive_numbers with the reason)' % (parts, agg))
+        else:
+            used = [x for x in (v.get('low'), v.get('high')) if x is not None]
+            if any(x not in [c for c in row if c is not None] for x in used):
+                E('CHECK', 'low and high must be figures of value.row (the printed figure is the value; a sum of two columns is a derived line)')
+            idn = v.get('identity')
+            if idn is None:
+                W('NO_IDENTITY', 'no identity of the printed row was given (a total that the other cells add up to)')
+            elif max(idn['sum'] + [idn['equals']]) >= len(row) or any(row[k] is None for k in idn['sum'] + [idn['equals']]):
+                E('CHECK', 'identity points at cells that do not exist or are empty')
+            elif sum(row[k] for k in idn['sum']) != row[idn['equals']]:
+                if waived:
+                    W('NUMBERS_WAIVED', 'identity does not hold in the print: %s' % o['waive_numbers'])
+                else:
+                    E('CHECK', 'identity fails: cells %s add to %d, cell %d is %d: a figure was misread' % (idn['sum'], sum(row[k] for k in idn['sum']), idn['equals'], row[idn['equals']]))
     if f == 'casualties' and tier == 'documented' and mode == 'exact' and isinstance(o.get('value'), dict):
         v = o['value']
-        tot = sum((v[k].get(w) or 0) for k in ('killed', 'wounded', 'missing') for w in ('officers', 'enlisted'))
+        tot = sum((v[k].get('total') if v[k].get('total') is not None else (v[k].get('officers') or 0) + (v[k].get('enlisted') or 0)) for k in ('killed', 'wounded', 'missing'))
         if v.get('total') is not None and tot != v['total']:
             E('CHECK', 'killed, wounded and missing add to %d, not the stated total %s' % (tot, v['total']))
         if o.get('basis') == 'casualty_return':
@@ -521,7 +552,7 @@ def contract_markdown():
         'type': 'always `evidence`', 'id': 'unique in the file, `<group>:<4 digits>`, never reused (a correction is a new line with `supersedes`)', 'unit_id': 'a unit id of groups.json for this group, or `null` with `unit_name` and `parent_unit_id` (a unit the plan lacks: reported, never applied)',
         'unit_name': 'printed name of a unit the plan lacks', 'parent_unit_id': 'closest unit of the group that contains it', 'field': 'one of the fields below', 'kit_field': 'required for `arms` (`weapon`, `bayonet`, `sidearm_sword`) and `dress` (the other ten kit fields)',
         'value': 'the structured value of the field (schemas below)', 'basis': 'a basis token of the field (below): what kind of passage or figure this is', 'basis_note': 'free words on the basis (kind of return, who wrote the report)',
-        'tier': '`documented`, `inferred` or `plausible-procedural`', 'as_of': 'the date or minute (or range `a/b`) the value is true for; ISO', 'source_id': 'a key of `sources.json` or of a `source` line; none for a derived line',
+        'tier': '`documented`, `inferred` or `plausible-procedural`', 'as_of': 'the date or minute (or range `a/b`) the value is true for; ISO', 'source_id': 'a key of `sources.json`, or the `id` of a `type: source` line of the same file; none for a derived line',
         'part': 'Official Records part (1, 2, 3) of the source, null for other sources', 'report_id': 'the Official Records report (`OR27-1-R037`) or state-volume section (`NY1-S012`) that contains the quote, from the tool',
         'printed_page': 'printed page of the start of the quote, from the tool (leaf map for the Official Records)', 'printed_page_end': 'when the quote runs onto the next page', 'offset': 'character offset of the first character of the quote in the source text (UTF-8, newline kept)',
         'quote': '%d to %d characters copied from the source text (whitespace may be collapsed); the shortest passage that supports exactly this claim' % (K.QUOTE_MIN, K.QUOTE_MAX), 'quote_mode': '`exact` (default), `ocr_corrected`, `image_row`',
@@ -534,7 +565,7 @@ def contract_markdown():
               'conflict', 'supersedes', 'derived_from', 'note', 'register_proposal', 'waive_numbers', 'example']:
         L.append('| `%s`%s | %s |' % (k, '*' if k in req else '', rules[k]))
     L += ['', '**A gap line** (`type: gap`) records a failed lookup: `id`*, `unit_id` or `unit_ids`*, `field` or `fields`* (a list is allowed), optional `kit_field` (`*` = every dress field), `searched`* (list of `{"source_id", "terms"}`), `result`* (%s), `note`, `register_proposal`.' % ', '.join('`%s`' % x for x in RESULTS), '']
-    L += ['**A source line** (`type: source`) declares a text that `sources.json` lacks: `id`*, `title`*, `class`* (%s), `local_path`* (under `tmp/`), `sha256` (checked if given), `url`, `part`, `note`.' % ', '.join('`%s`' % x for x in K.DECLARABLE_CLASSES), '']
+    L += ['**A source line** (`type: source`) declares a text that `sources.json` lacks; its `id` (a line id) is the `source_id` that evidence lines cite: `id`*, `title`*, `class`* (%s), `local_path`* (under `tmp/`), `sha256` (checked if given), `url`, `part`, `note`.' % ', '.join('`%s`' % x for x in K.DECLARABLE_CLASSES), '']
     L += ['**Fields, bases and values**', '', '| field | meaning | basis tokens | value |', '|---|---|---|---|']
 
     def show(t, depth=0):

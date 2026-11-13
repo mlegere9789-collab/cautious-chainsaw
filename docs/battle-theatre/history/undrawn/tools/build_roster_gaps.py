@@ -198,7 +198,7 @@ RANGE = {'OR27-1-R009': (155, 169), 'OR27-2-R424': (283, 291)}
 _heads = {}
 def page_from_heads(text, r, off, rng):
     """Printed page of an offset inside an organization table, from the page numbers that stand alone on a line inside the record
-    (the index's page model interpolates over these tables and is several pages high: see PLAN.md, known defects)."""
+    (the index's page model interpolates over these tables and is several pages high: see PLAN.md 9.3)."""
     key = r['id']
     if key not in _heads:
         hs = []

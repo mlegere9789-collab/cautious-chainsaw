@@ -459,6 +459,7 @@ ALIAS = {
     'U-12US-1': (_U, 'us', '12th United States Infantry', 'battalion of the regiment'),
     'U-12US-2': (_U, 'us', '12th United States Infantry', 'battalion of the regiment'),
     'PROVOST-8US': (_U, 'us', '8th United States Infantry', 'same designation'),
+    'U-14US': (_U, 'us', '14th United States Infantry', 'same designation (file of the 14th US in data/REG, officers)'),
     'U-1US-SS': (_U, 'us', '1st United States Sharpshooters', 'same designation'),
     'HQ-SIGNAL': (_U, 'us', 'Signal Corps detachment', 'same designation'),
     'HQ-AMBULANCE': (_U, 'us', 'General and staff officers, Army of the Potomac', 'headquarters file'),

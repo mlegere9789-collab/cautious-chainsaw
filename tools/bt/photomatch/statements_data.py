@@ -37,6 +37,8 @@ add(id='PS-LOC-2018670645-N', src='LOC-2018670645', quote="Caption from negative
     says="view looking eastward at a line of breastworks (negative sleeve caption); where is not stated", prec='dir', ident='record id')
 add(id='PS-LOC-2018666303-T', src='LOC-2018666303', quote="The center of the Federal position viewed from Little Round Top", loc=['2018666303'], res=['cwpb.01631', 'cwpb.01632'],
     says="camera on Little Round Top looking at the Federal centre (title from Milhollen and Mugridge)", prec='place+dir', ident='record id')
+add(id='PS-LOC-2012647708-T', src='LOC-2012647708', quote="Little Round Top and Round Top", loc=['2012647708'], res=['ppmsca.32842'],
+    says="the print's title: Little Round Top and Round Top; no camera position in the record (the NPS gives one: PS-TN-LRT1-DIR, PS-NPS-VISTA-10)", prec='none', ident='record id')
 add(id='PS-LOC-2018666315-T', src='LOC-2018666315', quote="Three Confederate prisoners", loc=['2018666315'], res=['cwpb.01451', 'cwpb.01450', 'cwp.4a40909'],
     says="the record gives no place; the position statement is the National Park Service's (PS-NPS-CLR1D-146)", prec='none', ident='record id')
 add(id='PS-LOC-2012647706-N', src='LOC-2012647706', quote="General Reynolds ordered Meredith's brigade to repel the attempts, and was sitting on his horse at the edge of the woods, encouraging the men as they passed him, when he was shot. McPherson's Woods.",
@@ -86,7 +88,7 @@ add(id='PS-NPS-LEISTER-11', src='NPS-HSR-LEISTER-BARN', quote="Leister farmstead
 add(id='PS-NPS-LEISTER-20', src='NPS-HSR-LEISTER-BARN', quote="Leister B a m viewed from the south and east shortly after the Battle, July, 1863.", loc=[], says="a Gardner photograph of the Leister barn viewed from the south and east, July 1863", prec='place+dir+ref', ident='caption only: not identified with a catalogued record')
 add(id='PS-NPS-VISTA-10', src='NPS-VISTA-CUTTING', quote="Two Brady photographs of Little Round Top, one view from the southwest near Devil's Den and a second view from the northwest at a point near the intersection of the present Wheatfield Road and Crawfor",
     loc=[], says="two Brady photographs of Little Round Top: one from the southwest near Devil's Den, one from the northwest near the present intersection of Wheatfield Road and Crawford Avenue", prec='place+dir+ref',
-    ident='caption only (the report pages reproduce them only as stains: the scan is unreadable)', cand=['2012647701', '2012647708', '2018670709', '2018666301', '2018672207', '2018672403'])
+    ident='caption only (the report pages reproduce them only as stains: the scan is unreadable)', cand=['2012647708', '2012647701', '2018670709', '2018666301', '2018672207', '2018672403'])
 add(id='PS-NPS-SPEN-5', src='NPS-SLAUGHTER-PEN', quote="the view is eastward from the Devil's Den, and most likely depicts", loc=['2018670867'],
     says="O'Sullivan 'View in the Slaughter Pen at the foot of Big Round Top', 6 July 1863: the view is eastward from the Devil's Den; the encircled body lies immediately east of the trolley roadbed", prec='place+dir',
     ident='caption only: the report plate is a photocopy and could not be matched; the O\'Sullivan "Slaughter pen" record 2018670867 (negative LC-B811-262) is a candidate', cand=['2018670867', '2018672114'])
@@ -94,6 +96,13 @@ add(id='PS-NPS-SPEN-6', src='NPS-SLAUGHTER-PEN', quote="The trolley road bed is 
     says="Gardner no. 265, 6 July 1863, two dead infantrymen in the Slaughter Pen: the trolley road bed (now a path) is just to the right of the picture", prec='rel', ident='stereo number (265 = LC-B811-0265 of record 2018666311; the NPS Then-and-Now image matches cwpb.00901 of the same record)')
 add(id='PS-NPS-SPEN-7', src='NPS-SLAUGHTER-PEN', quote="The area would be just above the present comfort station.", image_read=58, tier='inferred', loc=['2018666312'],
     says="Gibson no. 252, 6 July 1863, scene in the woods at the northwestern base of Big Round Top: the area would be just above the present comfort station", prec='place', ident='stereo number (252 = LC-B811-0252 of record 2018666312)')
+
+add(id='PS-NPS-SPEN-3', src='NPS-SLAUGHTER-PEN', quote="North end of Slaughter Pen and Plum Run Valley (O'Sullivan), 6 July 1863", loc=[],
+    says="plate 3 of the report: an O'Sullivan photograph of the north end of the Slaughter Pen and Plum Run Valley, 6 July 1863, with a large boulder carrying a trough visible in it", prec='place', ident='caption only: not identified with a catalogued record')
+add(id='PS-NPS-SPEN-4', src='NPS-SLAUGHTER-PEN', quote="boulders of Plum Run gorge, which was the route of attack of that regiment of Benning's Brigade.", loc=['2018670625'],
+    says="Gardner no. 229, 6 July 1863 (a dead Confederate soldier): taken in the mass of rocks and boulders of Plum Run gorge", prec='place', ident='stereo number (229 = LC-B811-229A/B of record 2018670625)')
+add(id='PS-NPS-SPEN-8', src='NPS-SLAUGHTER-PEN', quote="Dead Confederate soldier, Devil's Den (Gardner #277), 6 July 1863 ... near the edge of the G.W. Weikert field", image_read=59, tier='inferred', loc=['2018666314'],
+    says="Gardner no. 277, 6 July 1863: the soldier is near the edge of the G.W. Weikert field (read from the page image; the text layer of that page is empty)", prec='place', ident='stereo number (277 = LC-B811-0277 of record 2018666314)')
 
 # ---------------------------------------------------------------- National Park Service Then-And-Now pages (official web pages, saved under tmp/library/web/photomatch/www.nps.gov)
 add(id='PS-TN-INDEX', src='NPSWEB-TN-INDEX', quote="modern versions taken from the same location as the originals", loc=[], says="the NPS states that the modern pictures on its Then-And-Now pages were taken from the same location as the originals (no coordinates given)", prec='rel', ident='all 23 comparisons')
@@ -110,8 +119,8 @@ add(id='PS-TN-RW3-REL', src='NPSWEB-TN-RW', quote="the first Then & Now photogra
     says="no. 257 was taken a few steps northeast of no. 256, facing west (the NPS caption of no. 257 says southwest)", prec='rel', ident='image match')
 add(id='PS-TN-DD2', src='NPSWEB-TN-DD', quote="The modern photograph of this area reveals the Plum Run footbridge and the slope of Little Round Top in the distance.", loc=['2018666311'], res=['cwpb.00901'],
     says="the Slaughter Pen photograph by the pond: the same view today shows the Plum Run footbridge and the slope of Little Round Top in the distance", prec='ref', ident='image match (1470 inliers)')
-add(id='PS-TN-DD8-STAGED', src='NPSWEB-TN-DD', quote="This staged photograph was taken more than four months after the battle, by Peter Weaver, on November 11, 1863", loc=[],
-    says="the NPS calls the Weaver Devil's Den photograph of 11 November 1863 staged and more than four months after the battle (not a record of the catalogue: out of scope)", prec='none', ident='n/a')
+add(id='PS-TN-DD8-STAGED', src='NPSWEB-TN-DD', quote="This staged photograph was taken more than four months after the battle, by Peter Weaver, on November 11, 1863", loc=['2012647845'], res=['ppmsca.32931'],
+    says="the NPS calls the Weaver Devil's Den photograph of 11 November 1863 staged and more than four months after the battle; its image is LOC ppmsca 32931 (record 2012647845, added to the catalogue by mistake as July 1863 and reclassified: not July, staged)", prec='none', ident='image match (ppmsca.32931, 1236 inliers)')
 add(id='PS-TN-DD7-STAGED', src='NPSWEB-TN-DD', quote="nor is it likely that the soldier fell in this location", loc=['2018666313'], res=['cwpb.04337'],
     says="the NPS says it is not likely the soldier of 'Home of a Rebel Sharpshooter' fell where he lies (staged-photograph flag basis; the body and niche are never used as ground truth)", prec='none', ident='image match (cwpb.04337, 1078 inliers; ppmsc.00171, 1144)')
 add(id='PS-TN-DD5-MOVED', src='NPSWEB-TN-DD', quote="The body of this soldier would be moved by the photographers from this location to another one some 40 yards away", loc=['2018670874', '2018670741'],
@@ -121,8 +130,8 @@ add(id='PS-TN-LRT2-DIR', src='NPSWEB-TN-LRT', quote="From its summit looking nor
 add(id='PS-TN-LRT2-NOW', src='NPSWEB-TN-LRT', quote="A view from Little Round Top today. The Pennsylvania Memorial can be seen in the distance.", loc=['2018666303'], says="the modern NPS picture from the same vantage shows the Pennsylvania Memorial in the distance", prec='ref', ident='image match')
 add(id='PS-TN-LRT3', src='NPSWEB-TN-LRT', quote="Natural and manmade fortifications built by Union troops on July 2, 1863 on the southern slope of Little Round Top.", loc=['2018666304'], res=['cwpb.00869'],
     says="the fortifications photograph (three large boulders) was taken on the southern slope of Little Round Top", prec='place', ident='image match (cwpb.00869 1370 inliers; the Gardner scan 1362)')
-add(id='PS-TN-LRT1-DIR', src='NPSWEB-TN-LRT', quote="A photo of Little and Big Round Top, facing southeast. Photographer Matthew Brady can be seen leaning against a tree in the left foreground.", loc=[],
-    says="the 'Little and Big Round Top from the Valley of Death' photograph faces southeast; Matthew Brady leans against a tree in the left foreground", prec='dir', ident='caption only: the NPS image is not among the catalogued records unless the re-match says otherwise')
+add(id='PS-TN-LRT1-DIR', src='NPSWEB-TN-LRT', quote="A photo of Little and Big Round Top, facing southeast. Photographer Matthew Brady can be seen leaning against a tree in the left foreground.", loc=['2012647708'], res=['ppmsca.32842'],
+    says="the 'Little and Big Round Top from the Valley of Death' photograph faces southeast; Matthew Brady leans against a tree in the left foreground", prec='place+dir', ident='image match (ppmsca.32842, 1046 inliers)')
 add(id='PS-TN-TR1', src='NPSWEB-TN-TR', quote="The monument to Bigelow's Battery can be seen on a rock between the house and the road.", loc=['2013645105'], res=['ppmsca.32844'],
     says="in the modern view of the Trostle house the monument to Bigelow's Battery stands on a rock between the house and the road (reference object)", prec='ref', ident='image match (ppmsca.32844, 463 inliers)')
 add(id='PS-TN-TR2', src='NPSWEB-TN-TR', quote="The only sign remaining from the battle is a large hole in the brick gable of the barn left by a cannonball.", loc=['2018670894'], res=['cwpb.00904'],

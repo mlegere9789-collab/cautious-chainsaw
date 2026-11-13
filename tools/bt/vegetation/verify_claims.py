@@ -99,11 +99,15 @@ def main():
     claims = load_claims(a.only)
     ok, bad = verify_all(claims)
     multi = [c['id'] for c in ok if c['match_count'] > 1]
+    dropped = [b for b in bad if b[0] and b[0].startswith('VC-NPSX-')]       # rows taken from the extract sheets of the web task: a row whose quote is not found in the saved text is dropped, never cited
+    bad = [b for b in bad if not (b[0] and b[0].startswith('VC-NPSX-'))]
     for cid, f, why, q in bad:
         print('FAIL %s [%s] %s | %s' % (cid, f, why, q))
+    if dropped:
+        print('DROPPED %d generated claims (quote not found in the saved text): %s' % (len(dropped), ', '.join(b[0].replace('VC-NPSX-', '') for b in dropped[:30])))
     if multi:
         print('NOTE %d claims match more than one place (first is cited): %s' % (len(multi), ', '.join(multi[:12])))
-    print('%d claims read, %d verified, %d failed' % (len(claims), len(ok), len(bad)))
+    print('%d claims read, %d verified, %d failed, %d dropped' % (len(claims), len(ok), len(bad), len(dropped)))
     if not a.only and not a.no_write:
         for c in ok:
             c.pop('_file', None)

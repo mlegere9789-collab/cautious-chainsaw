@@ -39,7 +39,7 @@ import { coversInterval, describeWindow } from './timeline.mjs';
 export const KINDS = ['unit_motion', 'unit_activity', 'arrival', 'structure_state', 'earthwork_build', 'artillery', 'weather_sky', 'casualty_flow', 'event_card', 'epilogue', 'not_realized'];
 // what each kind needs at least: one assertion from each inner list (and the extra rules in validateRecord)
 export const KIND_NEEDS = {
-  unit_motion: [['unit_moves']], unit_activity: [['unit_activity', 'unit_formation']], arrival: [['unit_arrives']], structure_state: [['structure_state']], earthwork_build: [['work_stage']],
+  unit_motion: [['unit_moves']], unit_activity: [['unit_activity', 'unit_formation', 'unit_present', 'unit_figures']], arrival: [['unit_arrives', 'unit_absent']], structure_state: [['structure_state']], earthwork_build: [['work_stage']],
   artillery: [['battery_guns']], weather_sky: [['weather', 'sky']], casualty_flow: [['casualty']], event_card: [['card_shown']], epilogue: [['epilogue_shown', 'card_shown']], not_realized: [],
 };
 // the assertion types: units = takes unit(s); time = takes a time; need = required fields; one = at least one of these; opt = optional fields
@@ -137,8 +137,8 @@ export function validateRecord(rec, ctx) {
     if (rec.kind === 'unit_motion' && !checks.some(a => a.type === 'unit_moves' && ['from', 'to', 'toward', 'along', 'away_from'].some(k => a[k] != null)) && !rec.place_unspecified) add('kind_needs', 'unit_motion needs a unit_moves assertion that relates the motion to a place (from, to, toward, along or away_from), or "place_unspecified": "why" when the row names no place');
     if (rec.kind === 'unit_activity' && !types.includes('unit_at') && !rec.place_unspecified) add('kind_needs', 'unit_activity needs a unit_at assertion (where the unit does it), or "place_unspecified": "why" when the row names no place');
     if (rec.kind === 'earthwork_build' && !checks.some(a => a.type === 'work_stage' && a.crew)) add('kind_needs', 'earthwork_build needs a work_stage assertion with "crew": { "units": [...] } (PDF Q08: a work crew in the construction interval)');
-    if (rec.kind === 'arrival' && checks.some(a => a.type === 'unit_arrives') === false) add('kind_needs', 'arrival needs unit_arrives');
   }
+  if (rec.kind !== 'not_realized' && KINDS.includes(rec.kind) && checks && /\bNIGHT\b/.test(row.time_cell || '') && !checks.some(a => a.type === 'sky' && a.exposure_min != null)) add('kind_needs', 'a NIGHT row needs a sky assertion with exposure_min (gate Q10: night is night, never black; GATE-SPEC-A K6)');
   if (rec.kind === 'not_realized') {
     if (!Array.isArray(rec.missing) || !rec.missing.length) add('missing_missing', 'kind not_realized needs "missing": [ { "code", "detail" } ] (what the product lacks)');
     for (const m of rec.missing || []) { if (!m || !m.code || !m.detail) add('missing_bad', 'each "missing" entry needs code and detail'); }

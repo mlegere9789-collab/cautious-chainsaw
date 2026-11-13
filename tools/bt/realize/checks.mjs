@@ -11,6 +11,8 @@ import { coversInterval } from './timeline.mjs';
 import { measure, distM } from './gazetteer.mjs';
 
 const MOVING = new Set(['march', 'double_quick', 'gallop']);
+// words too common to tie a structure to a row (a structure is bound by a distinctive word of its name, its schedule row or its record: trestle, Wade, Bliss ...)
+const STRUCT_STOP = new Set(['town', 'farm', 'house', 'barn', 'street', 'road', 'building', 'buildings', 'church', 'hospital', 'burned', 'bridge', 'creek', 'rail', 'railroad', 'east', 'west', 'north', 'south', 'near', 'from', 'with', 'that', 'this', 'were', 'when', 'ridge', 'hill', 'gettysburg', 'station', 'farmhouse', 'stone', 'brick', 'wall', 'fence', 'works', 'earth']);
 const minutesOf = span => { const a = Math.ceil(span.from - 1e-9), b = Math.floor(span.to + 1e-9); if (b < a) return [span.from]; const out = []; for (let t = a; t <= b; t++) out.push(t); return out; };
 const ok = (evidence = {}) => ({ ok: true, code: null, detail: null, evidence });
 const fail = (code, detail, evidence = {}) => ({ ok: false, code, detail, evidence });
@@ -19,6 +21,15 @@ const uniq = a => [...new Set(a)];
 const asRegex = s => { const m = /^\/(.*)\/([a-z]*)$/.exec(String(s)); return m ? new RegExp(m[1], m[2]) : null; };
 const matchState = (want, got) => { const text = String(got ?? ''); return [].concat(want).some(w => { const re = asRegex(w); return re ? re.test(text) : fold(w) === fold(text); }); };
 
+// the record as GATE-SPEC-A TL-2 states a realization record: realized: [{ t_start, t_end, subjects[], probe, expected, observed_ref }]
+export function specView(rec) {
+  return (rec.checks || []).map((a, i) => {
+    const t = a && a.t ? parseSpanSafe(a.t) : parseSpanSafe(rec.window), { type, t: _t, quote, note, ...rest } = a || {};
+    const subjects = [...(assertionUnits(a || {}).map(entityId)), ...(a && a.structure ? [a.structure] : []), ...(a && a.work ? [a.work] : []), ...(a && a.place ? [a.place] : [])];
+    return { t_start: t && isoOf(t.from), t_end: t && isoOf(t.to), subjects, probe: { type, ...rest }, expected: rec.kind === 'not_realized' ? 'fail with the codes the record gives' : 'ok', observed_ref: `RESULTS.json#/rows/${rec.id}/assertions/${i}` };
+  });
+}
+const parseSpanSafe = o => { try { return parseSpan(o); } catch { return null; } };
 export class Runner {
   constructor(product, TL) { this.P = product; this.TL = TL; this.pl = product.places; this.tol = product.tolerances; }
 
@@ -30,7 +41,8 @@ export class Runner {
     if (!row || !v.span) { res.codes = uniq(res.problems.map(p => p.code)); res.why = res.problems.map(p => p.detail).slice(0, 3).join(' | '); return res; }
     res.window = { from: isoOf(v.span.from), to: isoOf(v.span.to) };
     try { await this._bindings(rec, row, res); } catch (e) { res.problems.push({ code: 'binding_error', detail: String(e && e.stack || e).slice(0, 300) }); }
-    const scs = Array.isArray(rec.scenario) ? rec.scenario : [rec.scenario ?? 'default']; res.scenarios = scs.map(s => (typeof s === 'string' ? s : JSON.stringify(s)));
+    const scs = rec.scenario === 'conflicts' ? this.P.conflictScenarios(row.text_raw || row.claim_text) : Array.isArray(rec.scenario) ? rec.scenario : [rec.scenario ?? 'default']; res.scenarios = scs.map(s => (typeof s === 'string' ? s : s.id || JSON.stringify(s)));
+    res.spec_view = specView(rec);
     const results = [];
     for (const [si, sc] of scs.entries()) {
       for (const [i, a] of (rec.checks || []).entries()) {
@@ -85,7 +97,7 @@ export class Runner {
         const id = entityId(e), via = entityVia(e), objs = S.byState.get(id) || [], sched = (S.inputs.sched.rows || []).filter(r => r.object_ids.includes(id)), rec_ = S.inputs.structures.structures.find(s => s.id === id);
         if (!objs.length && !sched.length && !rec_) { res.problems.push({ code: 'structure_unknown', detail: `structure ${id} is in no structure file (structures.json, state_schedule.json, the drawn objects)` }); continue; }
         const names = [...objs.map(o => o.name), ...sched.map(r => r.object_printed), rec_ && rec_.name, rec_ && rec_.location, ...(S.inputs.hospitals.hospitals || []).filter(h => (h.structure_ids || []).includes(id)).map(h => h.hospital)].filter(Boolean).join(' ');
-        const common = tokens(names).filter(w => rtk.has(w) && w.length >= 4);
+        const common = tokens(names).filter(w => rtk.has(w) && w.length >= 4 && !STRUCT_STOP.has(w));
         if (common.length) B.structures.push({ id, how: 'matched', by: common.slice(0, 4).join(',') });
         else if (via && hasQuote(text, via)) { B.structures.push({ id, how: 'declared', via }); B.declared++; }
         else res.problems.push({ code: 'structure_not_bound', detail: `structure ${id} (${names.slice(0, 120)}) shares no word of 4 letters or more with the row's text; if the row names it in other words, give { "id": "${id}", "via": "<verbatim words of the row>" }` });
@@ -299,7 +311,7 @@ export class Runner {
     if (okAt == null) return fail('work_wrong_stage', `${id} is never in the stage the check needs in the window (last: ${last.res.state})`, { state: last.res.state });
     const ev = { at: isoOf(okAt), state: eng.stateAt(id, Date.UTC(1863, 5, 1) + Math.round(okAt * 60000), a.structure_scenario || 'default', 0).state };
     if (a.crew) {
-      const place = (ws6.works.byId.get(id) || {}).place; const crewAssert = { type: 'unit_activity', units: a.crew.units, activities: ['build_works'], quantifier: a.crew.quantifier || 'any' };
+      const wp = (ws6.works.byId.get(id) || {}).place, place = wp && (typeof wp === 'string' ? wp : wp.name); const crewAssert = { type: 'unit_activity', units: a.crew.units, activities: ['build_works'], quantifier: a.crew.quantifier || 'any' };
       const cr = await this._units({ ...c, a: crewAssert }, (u, cc) => this._activity(u, { ...cc, a: crewAssert, mode: 'any' })); if (!cr.ok) return fail('work_no_crew', `no crew shows build_works in the window: ${cr.detail}`, { crew: cr.evidence });
       if (place) { const near = await this._units({ ...c, a: { type: 'unit_at', units: a.crew.units, place, within_m: a.crew.within_m, quantifier: 'any' } }, (u, cc) => this._at(u, { ...cc, a: { type: 'unit_at', place, within_m: a.crew.within_m }, mode: 'any' })); if (!near.ok) return fail('work_crew_elsewhere', `the crew is not at ${place}: ${near.detail}`, { crew: near.evidence }); ev.crew_at = place; }
       ev.crew = cr.evidence.sample_ok;

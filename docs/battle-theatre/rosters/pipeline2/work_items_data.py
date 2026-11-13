@@ -80,10 +80,10 @@ SOURCES = {
     'Adjutant General report for 1863, Appendix D: company returns of 1 Dec 1863 with every change since 1 Nov 1862, for the 3rd to 7th, 16th, 17th, 19th and 20th Maine, 1st Maine Cavalry and 2nd Maine Battery',
     'surname-first for privates; columns shift per page (per-page scale needed); the remark is December status, so a Gettysburg wound survives only for men still absent'),
   S('ME-SUPP-1867', ['supplementtoannu00main'], 'index', 'index', 'verified-meta',
-    'Supplement to the Annual Reports of the Adjutant General 1861-1866 (1867): cover title "Alphabetical index of Maine volunteers ... mustered into the service of the United States during the war of 1861"; the whole-war name source for every Maine unit, including the three units that the earlier run left empty (10th Maine Battalion, 5th and 6th Maine Batteries)',
-    'catalogued by the earlier plan as U04 (META, never parsed); layout to be fixed on a sample page in step 1; names with regiment and company, not a status list'),
+    'Supplement to the Annual Reports of the Adjutant General 1861-1866 (1867): cover title "Alphabetical index of Maine volunteers ... mustered into the service of the United States during the war of 1861"; by its title the whole-war name source for every Maine unit, which would include the three units the earlier run left empty (10th Maine Battalion, 5th and 6th Maine Batteries)',
+    'catalogued by the earlier plan as U04 (META, never parsed); its layout and fields (expected: name, regiment, company) are to be read on three sample pages in step 1 before any claim'),
   S('ME-APPD-1861', ['appendixdofannua00main'], 'roll', 'cols', 'verified-meta',
-    'Appendix D of the Adjutant General report of 31 Dec 1861: rolls of the regiments as mustered in 1861', 'second reading for the 3rd to 7th Maine; muster-in only'),
+    'Appendix "D" of the Adjutant General report of 31 Dec 1861 (title only; 602 images)', 'content to be read in step 1: the 3rd to 7th Maine were mustered in 1861, so a second reading of their muster-in rolls is possible'),
   S('ME-GETT-1898', ['maineatgettysbur01main', 'maineatgettysbu00commgoog', 'maineatgettysbu01commgoog'], 'commission', 'cols', 'used-earlier',
     'Maine at Gettysburg (1898): participants lists by company for the 3rd, 4th, 5th, 6th, 7th, 16th, 17th, 19th and 20th Maine and 1st Maine Cavalry, and a revised casualty list',
     'the one source that places named men at the battle; about 575 names against 386 present for the 20th Maine: carried as printed, the contest is a gap (G04)'),
@@ -93,7 +93,7 @@ SOURCES = {
     'Ayling, Revised Register of the Soldiers and Sailors of New Hampshire (1895): complete record per man, alphabetical per regiment; volume 1 holds the regiments 1 to 11 (2nd and 5th), volume 2 the 12th and the 1st Light Battery',
     'cross-reference lines ("Co. A. See 10 N. H. V.") are printed rows and are kept as rows'),
   S('NH-AGR-1865', ['reportofadjutant01newh', 'reportofadjutant02newh', 'reportofadjutant661newh', 'reportofadjutant0266newh'], 'roll', 'cols', 'lead',
-    'Report of the Adjutant-General of New Hampshire, 1865 and 1866 editions, volumes 1 and 2: regimental rosters of the war years', 'second reading; content not inspected in this pass'),
+    'Report of the Adjutant-General of New Hampshire, 1865 and 1866 editions, volumes 1 and 2 (titles only)', 'content not inspected in this pass: possible regimental lists as a second reading'),
  ],
  'union-vt': [
   S('VT-ROSTER-1892', ['cu31924080774148'], 'roll', 'cols', 'verified-meta',
@@ -130,8 +130,8 @@ SOURCES = {
  ],
  'union-ny': [
   S('NY-AGR-REGISTERS', ['annualreportadj01unkngoog', 'annualreportadj02unkngoog', 'annualreportadj06offigoog', 'annualreportadj00unkngoog'], 'roll', 'flow', 'verified-meta',
-    'Annual Reports of the Adjutant-General of New York 1893-1905, the Registers of the volunteer regiments (name, age, enlistment, muster-in, every later event): the four Internet Archive volumes found list some Registers only (the earlier run used annualreportadj02unkngoog for the 75th to 80th)',
-    'the earlier run read most Registers from the New York State Military Museum PDFs (79 files); that host does not answer on this machine (see owner_steps)'),
+    'Annual Reports of the Adjutant-General of New York 1893-1905, the Registers of the volunteer regiments (name, age, enlistment, muster-in, every later event): of the four Internet Archive volumes found, per the earlier run only annualreportadj02unkngoog holds Gettysburg regiments (the 75th to 80th); annualreportadj00, 01 and 06 hold the 114th, the veteran cavalry and mounted rifles and the 7th and 8th Artillery, none at Gettysburg',
+    'the earlier run read the Registers of the other Gettysburg units from the New York State Military Museum PDFs (79 files); that host does not answer on this machine (see owner_steps), so for most New York units the Registers are not available here'),
   S('NY-RECORD-1864', ['recordofcommissi00newy', 'recordofcommiss00newy', 'recordofcommis00newy', 'cu31924092925167', 'cu31924092925233'], 'roll', 'flow', 'verified-meta',
     'A record of the commissioned officers, non-commissioned officers, and privates, of the regiments which were organized in the State of New York (Adjutant General, 1864): the muster-in roll of each regiment by company; volumes 1 to 3 and the cu31924092925xxx series (the earlier run cached ten texts and did not parse them)',
     'muster-in names with company and rank and no 1863 status, but a name source that does not need the blocked museum host; the identifiers of the other cu31924092925xxx volumes are to be listed in step 1 (title search, 1.2 s apart)'),
@@ -142,7 +142,7 @@ SOURCES = {
  ],
  'union-nj': [
   S('NJ-STRYKER-1876', ['newjerseyincivil01recorich', 'newjerseyincivil02recorich'], 'roll', 'cols', 'used-earlier',
-    'Stryker, Record of Officers and Men of New Jersey in the Civil War (1876), vol 1 (infantry) and vol 2 (cavalry, artillery and others)', 'worst date columns of all the table sources (months such as Mav, years such as \'(>•\'); the earlier run read the 23rd NJ muster-out column only'),
+    'Stryker, Record of Officers and Men of New Jersey in the Civil War (1876), vols 1 and 2 (infantry, cavalry and artillery; the volume of each regiment is resolved in step 1)', 'worst date columns of all the table sources (months such as Mav, years such as \'(>•\'); the earlier run read the 23rd NJ muster-out column only'),
   S('NJ-GETT-1888', ['(local text tmp/library/ws9: NJ-TOOMBS-1888, NJ-FINAL-1891)'], 'commission', 'flow', 'lead',
     'Toombs, New Jersey Troops in the Gettysburg Campaign (1888); Final Report of the New Jersey Gettysburg Battlefield Commission (1891)', 'lists of casualties and officers present: not yet inspected'),
  ],
@@ -204,14 +204,14 @@ SOURCES = {
  ],
  'union-mn': [
   S('MN-CIVIL-1890', ['minnesotacivil01minnrich', 'minnesotaincivil01minn', 'minnesotacivil02minnrich', 'minnesotaincivi00warsgoog'], 'roll', 'cols', 'used-earlier',
-    'Minnesota in the Civil and Indian Wars 1861-1865 (Board of Commissioners, 1890-93), vol 1: the 1st Minnesota roll; vol 2: the sharpshooters', 'the 2nd Company Minnesota Sharpshooters is Company A of the 2nd United States Sharpshooters (Stevens, see union-us): read there'),
+    'Minnesota in the Civil and Indian Wars 1861-1865 (Board of Commissioners, 1890-93), vol 1: the 1st Minnesota roll (per the earlier run); the 2nd Company Minnesota Sharpshooters is expected in vol 2 (to be confirmed)', 'the 2nd Company Minnesota Sharpshooters is Company A of the 2nd United States Sharpshooters (Stevens, see union-us): read there'),
   S('MN-1ST-1916', ['(local text tmp/library/ws9: MN-1ST-1916)'], 'roll', 'flow', 'lead', 'History of the First Regiment Minnesota Volunteer Infantry 1861-1864 (1916)', 'a roster appendix and Gettysburg lists: not inspected'),
  ],
  'union-us': [
   S('US-HEITMAN-1903', ['historicalregist01heitrich', 'historicalregist02heitrich'], 'officers', 'flow', 'used-earlier', 'Heitman, Historical Register and Dictionary of the United States Army (1903): every Regular officer, with a Gettysburg battle entry', '283 officers tied to Gettysburg by the earlier run; brevets were attached to the wrong regiment in 45 cases before the audit'),
   S('US-ARMYREG-1863', ['officialarmyregi1863unit', 'officialarmyregi1865unit', 'officialarmyregi1866unit'], 'officers', 'flow', 'verified-meta', 'Official Army Register for 1863, 1865 and 1866: officers of each Regular regiment with dates', 'officers only'),
   S('US-VOLREG-1865', ['cu31924092911084', 'cu31924092911118', 'cu31924092911126', 'cu31924092911134', 'officialarmyregi00unit_0'], 'officers', 'flow', 'verified-meta', 'Official Army Register of the Volunteer Force (1865), parts 1 to 8 by state: volunteer officers by regiment', 'officers only'),
-  S('US-BERDAN-1892', ['berdansunitedsta00stev', 'cu31924097557304'], 'roll', 'flow', 'verified-meta', 'Stevens, Berdan\'s United States Sharpshooters in the Army of the Potomac (1892): the roster of the 1st and 2nd United States Sharpshooters', 'also the roll of the 2nd Company Minnesota Sharpshooters (Company A, 2nd USSS) and the source for the 1st Company Massachusetts Sharpshooters only if it prints them: to be read'),
+  S('US-BERDAN-1892', ['berdansunitedsta00stev', 'cu31924097557304'], 'roll', 'flow', 'verified-meta', 'Stevens, Berdan\'s United States Sharpshooters in the Army of the Potomac (1892): the history of the 1st and 2nd United States Sharpshooters; whether its appendix prints a roll of each company is to be confirmed on the page images in step 1', 'if it does, it is also the roll of the 2nd Company Minnesota Sharpshooters (Company A, 2nd USSS); the 1st Company Massachusetts Sharpshooters only if it prints them'),
   S('US-ARMY-1896', ['armyofunitedstat00roderich'], 'compendium', 'flow', 'verified-meta', 'Rodenbough and Haskin, The Army of the United States (1896): historical sketches of staff and line, with officers', 'officers'),
   S('US-OR27', ['warofrebellion012701rootrich', 'cu31924077699761', 'cu31924077728255'], 'officers', 'flow', 'used-earlier', 'Official Records vol 27 parts 1 and 2: organization tables, returns, reports and lists of officers killed and wounded', 'names of commanders and staff, not a roll'),
  ],
@@ -232,7 +232,7 @@ SOURCES = {
   S('VA-PAGE-1885', ['sketchofpagesbat00page'], 'roll', 'flow', 'used-earlier', 'Page, Sketch of Page\'s Battery, or Morris Artillery (1885): an entry for every man', ''),
   S('VA-IRBY-1878', ['historicalsketc00irbygoog'], 'roll', 'flow', 'used-earlier', 'Irby, Historical Sketch of the Nottoway Grays, Company G, 18th Virginia (1878): condensed roll', 'one company'),
   S('VA-PENSIONERS-1917', ['rosterofconfeder00virg', 'rosterofconfeder1917virg', 'rosterofconfede191921virg'], 'roll', 'flow', 'verified-meta',
-    'Roster of Confederate Pensioners of Virginia (Auditor of Public Accounts, 1917-?): name, residence, company and regiment of every surviving pensioner', 'a roll of survivors years later, not of the men at the battle; names and units are as printed and say nothing about 1863; coverage of a regiment is whatever survivors drew a pension. Not parsed by the earlier run'),
+    'Roster of Confederate Pensioners of Virginia (Auditor of Public Accounts, 1917; three Internet Archive items of 190, 90 and 206 images): a roster of surviving pensioners; its fields (expected: name, residence, company, regiment) are to be read in step 1', 'a list of survivors years later, not of the men at the battle: names and units as printed say nothing about 1863 and a regiment is covered only as far as survivors drew a pension. Not parsed by the earlier run'),
   S('VA-PAROLES-1887', ['cu31924030921773'], 'roll', 'cols', 'used-earlier', 'Brock (ed.), Paroles of the Army of Northern Virginia (SHSP vol. 15, 1887): the officers\' lists were read; the enlisted lists (two columns, ditto marks, no regiment per line) were not', 'only 74 of about 200 regiment headings are readable in the text layer; word boxes and the page images are needed; a name is a Appomattox survivor of April 1865'),
   S('VA-FIELDOFFICERS-1912', ['listoffieldoffic00este', 'cu31924030921138', 'listoffieldoffic0000unse'], 'officers', 'flow', 'used-earlier', 'Estes, List of Field Officers, Regiments and Battalions in the Confederate States Army (1912)', 'field officers only'),
   S('VA-RICHMOND-1879', ['05382282.3419.emory.edu', '05382282.3420.emory.edu'], 'compendium', 'flow', 'verified-meta', 'Chamberlayne, Record of the Richmond City and Henrico County Virginia Troops (1879): two pamphlets, 22 and 16 images', 'the earlier run found them narrative; not a roll'),
@@ -242,7 +242,7 @@ SOURCES = {
  ],
  'conf-sc': [
   S('SC-SALLEY-1914', ['southcarolinatr00sallgoog'], 'roll', 'flow', 'used-earlier', 'Salley (comp.), South Carolina Troops in Confederate Service, vol. II (1914): the 2nd and 3rd South Carolina, field and staff and every company, compiled from the surviving muster rolls and saying what each roll reported', 'the only source in any state built from the 30 June 1863 rolls; the scan repeats a heading and has pages out of order (3rd SC Companies F and G, 2nd SC Company K)'),
-  S('SC-3RD-TENTATIVE-1908', ['tentativerostero01sall', 'tentativerostero02sall'], 'roll', 'flow', 'verified-meta', 'Salley (ed.), Tentative Roster of the Third Regiment, South Carolina Volunteers (1908), two parts of 148 and 150 images', 'an earlier printing of the 3rd SC roll: an independent second reading for that regiment'),
+  S('SC-3RD-TENTATIVE-1908', ['tentativerostero01sall', 'tentativerostero02sall'], 'roll', 'flow', 'verified-meta', 'Salley (ed.), Tentative Roster of the Third Regiment, South Carolina Volunteers (1908), two parts of 148 and 150 images', 'by its title a tentative roster of the 3rd South Carolina, to be compared with Salley vol. II as an independent second reading'),
   S('SC-TOMPKINS-1897', ['06269758.3416.emory.edu'], 'roll', 'flow', 'used-earlier', 'Tompkins, Company K, Fourteenth South Carolina Volunteers (1897): the original roll and the killed, wounded and prisoner rolls', 'one company (text layer pinned and test-fetched in this pass)'),
   S('SC-SALLEY-V1-V3', ['(Salley vols I 1913 and III 1930)'], 'roll', 'flow', 'blocked', 'the volumes that would cover the 1st Provisional Army, 1st Rifles, 7th, 8th, 12th, 13th, 14th, 15th and the 3rd Battalion', 'not found as open Internet Archive items by title, creator or identifier; a 1930 imprint is outside the pre-1931 rule in any case'),
  ],
@@ -329,7 +329,7 @@ FIRST_TASKS = {
  'union-ma': ['Re-read the five volumes the earlier run used (flow entries) and add volume 4 and 7 only if a Gettysburg unit is in them; the batteries are in vol 5 and the cavalry in vol 6.', 'Resolve the 5th Massachusetts Battery (E) and the two OOB batteries E and F that match no OR battery (GAPS G-NE02).', 'Record the 1931-37 imprint question in the ledger rights note.'],
  'union-ri': ['Re-parse the 2nd Rhode Island from RI-REG-1866 (cols) and the rolls of Batteries A and B from their histories; read RI-BATT-E-1892 to see whether it prints a roll; find Batteries C and G (nothing found so far) by a per-battery title search.'],
  'union-ct': ['Re-parse CT-CAT-1869 (cols) for the five infantry regiments and the three batteries; use the 1864 editions as an independent reading of the same men; the 2nd Connecticut Light Battery had no rows earlier.'],
- 'union-ny': ['Test the museum host once (it does not answer from this machine); if it still fails record it and build the units from the Internet Archive: the Register volumes (four found) and the 1864 Record volumes for the muster-in roll of every infantry regiment.', 'List the regiments in each IA volume (tables of contents) and write the volume-to-unit map into data2/sources/NY-*.json before parsing.', 'Add the Roll of Honor of NY-GETT-ROH-1900 as segments of the unit files (killed and mortally wounded, a stated presence).'],
+ 'union-ny': ['Test the museum host once (it does not answer from this machine); if it still fails record it and build the units from the Internet Archive: the one Register volume with Gettysburg regiments (annualreportadj02unkngoog, 75th to 80th) and the 1864 Record volumes for the muster-in roll of every infantry regiment; search the Internet Archive for further Register volumes first (title:annual report adjutant-general New York registers, one query per year 1893 to 1905).', 'List the regiments in each IA volume (tables of contents) and write the volume-to-unit map into data2/sources/NY-*.json before parsing.', 'Add the Roll of Honor of NY-GETT-ROH-1900 as segments of the unit files (killed and mortally wounded, a stated presence).'],
  'union-nj': ['Re-parse NJ-STRYKER-1876 vol 1 (infantry; 11 of 12 regiments had rolls) and vol 2 (cavalry, Battery B); the 15th New Jersey and Battery A had no rows earlier.', 'Check the 12th New Jersey number in the OR OCR (the table prints 13th).'],
  'union-pa': ['Re-parse the five Bates volumes (cols) for the 68 infantry, 9 cavalry and 5 artillery units: the largest single table family (about 116,000 rows earlier); resolve the muster-year loss by a second reading of the date column (a page-image OCR run is needed; see PRODUCTION-PLAN section 7).', 'Read PA-GETT-1904 for lists of men engaged inside the addresses; add the Pennsylvania tables of PA-CEM-1867 as burial segments once the column parse is complete.'],
  'union-de': ['Re-read DE-SEVILLE-1884 and DE-SMITH-1909 for any roll printed in the text; find the 1st Delaware Veteran roll in DE-MURPHEY-1866 by a second reading of the page images; record the state image PDFs as blocked.'],
@@ -356,3 +356,11 @@ FIRST_TASKS = {
  'conf-md': ['Re-parse Goldsborough (1st Maryland, the Baltimore Light Artillery, Chesapeake and Griffin batteries); resolve the identity of the "1st Maryland" rosters (infantry battalion, cavalry battalion) with the OR table before filing any row to a unit; the 1st Maryland Cavalry Battalion had no rows earlier.'],
  'conf-cs-staff': ['Name the generals and staff of the Army of Northern Virginia from the OR table (part 2), the Estes list and the Paroles officers lists; one file, no roll of enlisted men.'],
 }
+
+
+# 1863 newspapers: the Richmond and state dailies printed regimental casualty lists after the battle (named killed, wounded and missing);
+# a stated presence, and a contemporary source for the Confederate states whose rolls are thin.  Lead: coverage and OCR quality unread.
+for _g in ('conf-va', 'conf-nc', 'conf-sc', 'conf-ga', 'conf-al', 'conf-ms', 'conf-la', 'conf-tn', 'conf-tx', 'conf-ar', 'conf-fl', 'conf-md'):
+    SOURCES[_g].append(S('NEWS-1863-CASUALTIES', ['(chroniclingamerica.loc.gov: Richmond and state newspapers, July to September 1863)'], 'commission', 'flow', 'lead',
+                         'named killed, wounded and missing by regiment as the 1863 newspapers printed them (page OCR text from the Library of Congress service)',
+                         'the earlier run recorded the host as blocked (HTTP 403 on robots.txt for its user agent, VSG19); the host is on this machine\'s reachable list: one test request first, then at most 1 request per second; newspaper OCR is noisy and every name stays as printed'))
