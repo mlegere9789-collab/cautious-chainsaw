@@ -1,13 +1,13 @@
 # red-first capture for ver-hist-node: the NEW test file against a copy of the code files of tools/historian, tests/historian, historian-src/core, historian-src/page and src/lib/time in which times.mjs is the OLD text
-# date: 2026-11-13T21:13:53Z
+# date: 2026-11-13T21:24:46Z
 # node: /opt/node24/bin/node v24.22.1
-# old times.mjs blob: cdc9c0a17c0b433fec6fc50092f3368e9428c50e; test file blob: 9450725460bba9d7bc25b8179a29e7ce5f90c065
+# old times.mjs blob: cdc9c0a17c0b433fec6fc50092f3368e9428c50e; test file blob: f2464f38ef853cf26b40925742a9c80ef54361cf
 # command: (cd copy && /opt/node24/bin/node --test tests/historian/times-node22.test.mjs)
 #
-✖ no tool, test or source file of the historian holds a regular-expression modifier group (Node 22 cannot compile one) (14.394441ms)
-✔ the meridiem: "a. m.", "A. M.", "P.M.", "AM" and "10 p.m." are read; a bare lower-case "am" or "pm" ("1 am informed") and "Am" are not (5.828772ms)
-✔ pinned readings: 263 inputs, 240 readings, as the file gave them before the meridiem pattern was spelled out (11.572076ms)
-✔ the meridiem in every spelling is read exactly when the rule says so, as a clock, as the end of a range and after a spelled hour (124.238886ms)
+✖ no tool, test or source file of the historian holds a regular-expression modifier group (Node 22 cannot compile one) (14.834346ms)
+✔ the meridiem: "a. m.", "A. M.", "P.M.", "AM" and "10 p.m." are read; a bare lower-case "am" or "pm" ("1 am informed") and "Am" are not (4.991507ms)
+✔ pinned readings: 263 inputs, 240 readings, as the file gave them before the meridiem pattern was spelled out (9.466756ms)
+✔ the meridiem in every spelling is read exactly when the rule says so, as a clock, as the end of a range and after a spelled hour (93.732494ms)
 ℹ tests 4
 ℹ suites 0
 ℹ pass 3
@@ -15,12 +15,12 @@
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 318.354662
+ℹ duration_ms 248.986714
 
 ✖ failing tests:
 
 test at tests/historian/times-node22.test.mjs:26:1
-✖ no tool, test or source file of the historian holds a regular-expression modifier group (Node 22 cannot compile one) (14.394441ms)
+✖ no tool, test or source file of the historian holds a regular-expression modifier group (Node 22 cannot compile one) (14.834346ms)
   AssertionError [ERR_ASSERTION]: a modifier group is read by V8 12.5 and later only; spell the pattern out (times.mjs both() and ci)
   + actual - expected
   

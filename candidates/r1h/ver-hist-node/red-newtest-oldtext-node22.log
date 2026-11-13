@@ -1,7 +1,7 @@
 # red-first capture for ver-hist-node: the NEW test file against a copy of the code files of tools/historian, tests/historian, historian-src/core, historian-src/page and src/lib/time in which times.mjs is the OLD text
-# date: 2026-11-13T21:13:53Z
+# date: 2026-11-13T21:24:46Z
 # node: /opt/node22/bin/node v22.23.4
-# old times.mjs blob: cdc9c0a17c0b433fec6fc50092f3368e9428c50e; test file blob: 9450725460bba9d7bc25b8179a29e7ce5f90c065
+# old times.mjs blob: cdc9c0a17c0b433fec6fc50092f3368e9428c50e; test file blob: f2464f38ef853cf26b40925742a9c80ef54361cf
 # command: (cd copy && node --test tests/historian/times-node22.test.mjs)
 #
 TAP version 13
@@ -18,7 +18,7 @@ TAP version 13
 # Subtest: tests/historian/times-node22.test.mjs
 not ok 1 - tests/historian/times-node22.test.mjs
   ---
-  duration_ms: 96.484448
+  duration_ms: 53.525689
   type: 'test'
   location: '/home/user/cautious-chainsaw/tmp/r1h-cand/ver-hist-node/oldtree/tests/historian/times-node22.test.mjs:1:1'
   failureType: 'testCodeFailure'
@@ -35,5 +35,5 @@ not ok 1 - tests/historian/times-node22.test.mjs
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 107.934118
+# duration_ms 63.130844
 # exit: 1

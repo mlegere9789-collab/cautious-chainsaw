@@ -95,7 +95,8 @@ def report():
     B(f"- `{t2['command']}` (not owned by this task): {t2['pass']} pass, {t2['fail']} fail: {t2['why']}.")
     B(f"- Full node suite: {ts['full_node_suite']}.")
     B('\n## Not run, owed\n')
-    for t in ['The full node suite (`node --test docs/battle-theatre/app/tests/*.test.mjs`) was not run; only the photomatch test file was.',
+    for t in ['The render of pose P13 (the Valley of Death view, record 2012647708) and its review sheet: the render job waited from 19:57 to 21:28 and the determinism test from 20:06 to 21:28 in the machine lock queue (two slots, 15 to 20 waiters) and were never granted a slot; the waiters were stopped. To finish: tools/horde/bench.sh node tools/bt/photomatch/run.mjs P13, compose.py P13, look at the sheet, write the verdict, move the entry from deferred_poses back into poses.',
+              'The full node suite (`node --test docs/battle-theatre/app/tests/*.test.mjs`) was not run by this task; only the photomatch test file was.',
               'No real-GPU rendering: every render is software GL. Nothing here is a timing or a real-GPU visual result.',
               'No master TIFF beyond the two Cemetery Hill views; no full-resolution matching.',
               'The NARA Prologue blog on the Devil\'s Den sharpshooter (the PDF\'s source for the staged flag) and any LOC record outside the cwp collection (LC-DIG-ppmsca-18947, negative LC-B815-273) were not read.',

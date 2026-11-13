@@ -1,7 +1,7 @@
 """Parser of the New Hampshire registers of Ayling, Revised Register of the Soldiers and Sailors of New Hampshire (1895), for the roster work
 item union-nh: the 2nd, 5th and 12th New Hampshire Infantry and the 1st New Hampshire Light Battery.  Layout 'flow' (roster2/2, see r2lib.py).
 
-    python3 -I parse_nh_ayling.py [--write] [--out DIR] [--diag FILE]        (from any directory; paths are found from this file)
+    python3 -I parse_nh_ayling.py [--write]        (from any directory; paths are found from this file; without --write it only parses and checks)
 
 What it does (one rule set, applied to the OCR text as the Internet Archive prints it; nothing is corrected, completed or re-ordered):
   * the register of one organization is the run of leaves from the leaf that holds the title "<Ordinal> Regiment New Hampshire Volunteer Infantry."

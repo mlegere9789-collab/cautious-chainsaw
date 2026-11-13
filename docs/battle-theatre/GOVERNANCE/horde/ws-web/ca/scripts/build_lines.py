@@ -2,23 +2,25 @@
 """Build the evidence lines of the newspapers task from the curated claim modules.
 
 Input : claims_*.py modules next to this script, each with a list CLAIMS of dicts:
-    ids       : list of target ids (a timeline row 'E-004' or 'T1-003', a sub-requirement 'R22.0004' or 'R03.C-045', a topic 'R15.0000')
-    key       : short unique key of the claim inside the module
-    sub_claim : what the paper literally prints, in the words of the claim (never more than the quote supports)
-    tier      : documented | inferred | plausible-procedural   (see DD-NEWS-01)
+    ids       : list of target ids (timeline row 'T1-003', epilogue row 'E-004', requirement item 'R22.0004', 'R03.C-045', topic 'R15.0000')
+    key       : short key, unique inside the module
+    sub_claim : what the paper literally prints, in the words of the claim (never more than the quotes support)
+    tier      : documented | inferred | plausible-procedural   (DD-NEWS-01)
     state_date: date or window of the event the claim is about
-    cites     : list of dicts {page, quote, [dateline], [attribution], [reprint], [ocr_check], [note]}
-                 page  = 'sn83030213/1863-11-20/ed-1/seq-1' (a page saved under tmp/library/web/ca/pages)
-                 quote = verbatim passage of the saved OCR text (whitespace-normalised; line-end hyphens may be joined)
-                 reprint = {'status': original|reprint|wire|unknown, 'from': text as printed or None, 'basis': verbatim attribution text or note}
-                 ocr_check = {'method': 'none'|'image crop viewed', 'result': ..., 'corrections': [[saved, read], ...]}
-    remains    : what the quote does not support
-    caution    : optional hedge for the integrators (conflicts with the row etc.)
-    row_effect : optional: 'agrees' | 'differs' | 'adds' with the row's claim, and what
-Output: ../../../../timeline_corrections/web-newspapers.jsonl  (ids of timeline rows: T*, E*)
-        ../../../../evidence_corrections/web-newspapers.jsonl  (ids of requirement items: R*)
-A line is written once per (id, claim); the first cite is 'citation', the others 'more_citations'.
-The script refuses a quote that is not found in the saved page text, and reports near misses.
+    cites     : list of cite dicts:
+                  page   'sn83030213/1863-11-20/ed-1/seq-1'  (a page saved under tmp/library/web/ca/pages)
+                  quote  verbatim passage of the saved reading text, or
+                  span   (start_text, end_text): the passage from the first to the end of the second (both verbatim, found in order)
+                  dehyphen True: line-end hyphen breaks joined before matching
+                  dateline / attribution : verbatim strings of the same page printed with the passage (checked to exist)
+                  reprint {'status': original|reprint|wire|unknown, 'from': text as printed or None, 'basis': ...}
+                  img    tag of an image crop taken with crop_quote.py (images.jsonl); reading = what the print reads there;
+                         corrections = [[ocr text, printed text], ...]
+                  printed_page, note
+    remains   : what the quotes do not support;  row_effect : agrees | differs | adds + words;  caution, conflict : optional
+Output: ../../../../timeline_corrections/web-newspapers.jsonl  (ids T*, E*)
+        ../../../../evidence_corrections/web-newspapers.jsonl  (ids R*)
+One line per (id, claim); the first cite is 'citation', the others 'more_citations'. A quote that is not found is an error.
 """
 import difflib, glob, importlib.util, json, os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -28,7 +30,6 @@ GOV = os.path.abspath(os.path.join(calib.CA_DOCS, '..', '..', '..'))
 OUT_T = os.path.join(GOV, 'timeline_corrections', 'web-newspapers.jsonl')
 OUT_E = os.path.join(GOV, 'evidence_corrections', 'web-newspapers.jsonl')
 RETRIEVED = '2026-11-13'
-
 MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 
@@ -67,24 +68,41 @@ _WORDS = {}
 def page_words(page_id):
     if page_id not in _WORDS:
         man = calib.load_manifest()[page_id]
-        text, words, info = rebuild_cols.rebuild(os.path.join(calib.ROOT, man['alto_gz_path']))
-        _WORDS[page_id] = (text, words, info)
+        _WORDS[page_id] = rebuild_cols.rebuild(os.path.join(calib.ROOT, man['alto_gz_path']))
     return _WORDS[page_id]
 
 
-def locate(page_id, quote):
+def views(page_id):
     text = calib.page_text(page_id)
-    q = calib.norm(quote)
-    for variant, dh in (('plain', False), ('line-end hyphens joined', True)):
-        t = calib.norm(text, dehyphen=dh)
-        i = t.find(q)
+    return {'plain': calib.norm(text), 'line-end hyphens joined': calib.norm(text, dehyphen=True)}
+
+
+def resolve_quote(c):
+    """Return (quote, variant, offset). span: from the first marker to the end of the second marker (plain view first)."""
+    pid = c['page']
+    v = views(pid)
+    order = ['line-end hyphens joined', 'plain'] if c.get('dehyphen') else ['plain', 'line-end hyphens joined']
+    if c.get('span'):
+        a, b = c['span']
+        for name in order:
+            t = v[name]
+            i = t.find(a)
+            if i < 0:
+                continue
+            j = t.find(b, i + len(a) - len(a))
+            if j < 0:
+                continue
+            return t[i:j + len(b)], name, i
+        raise SystemExit('SPAN NOT FOUND in %s: %r ... %r' % (pid, a[:80], b[:80]))
+    q = calib.norm(c['quote'])
+    for name in order:
+        i = v[name].find(q)
         if i >= 0:
-            return variant, i, t
-    # near miss report
-    t = calib.norm(text, dehyphen=True)
+            return q, name, i
+    t = v['line-end hyphens joined']
     sm = difflib.SequenceMatcher(None, t, q, autojunk=False)
     best = sm.find_longest_match(0, len(t), 0, len(q))
-    return None, best, t
+    raise SystemExit('QUOTE NOT FOUND in %s:\n  %s\n  longest common piece: %r' % (pid, q[:200], t[best.a:best.a + best.size][:200]))
 
 
 def fmt_date(d):
@@ -92,26 +110,82 @@ def fmt_date(d):
     return '%s %d, %s' % (MONTHS[int(m) - 1], int(dd), y)
 
 
+_IMG = None
+
+
+def image_manifest():
+    global _IMG
+    if _IMG is None:
+        _IMG = {}
+        p = os.path.join(calib.CA_DOCS, 'images.jsonl')
+        if os.path.exists(p):
+            for l in open(p, encoding='utf-8'):
+                if l.strip():
+                    d = json.loads(l)
+                    _IMG[(d['page_id'], d['tag'])] = d
+    return _IMG
+
+
+# ---- text sharing (reprints): 4-word shingles of the quote found in other saved pages of the same days
+_NORMS = {}
+
+
+def alnum_tokens(s):
+    return re.findall(r'[a-z0-9]+', s.lower())
+
+
+def norm_page(pid):
+    if pid not in _NORMS:
+        _NORMS[pid] = ' ' + ' '.join(alnum_tokens(calib.norm(calib.page_text(pid), dehyphen=True))) + ' '
+    return _NORMS[pid]
+
+
+def shares(pid, quote, man, window_days=3):
+    import datetime
+    d0 = datetime.date.fromisoformat(man[pid]['date'])
+    toks = alnum_tokens(quote)
+    grams = [' '.join(toks[i:i + 4]) for i in range(0, max(0, len(toks) - 3))]
+    grams = [g for g in grams if len(g) > 12]
+    if len(grams) < 3:
+        return []
+    out = []
+    for oid, om in man.items():
+        if oid == pid or om['lccn'] == man[pid]['lccn'] and om['date'] == man[pid]['date']:
+            continue
+        if abs((datetime.date.fromisoformat(om['date']) - d0).days) > window_days:
+            continue
+        t = norm_page(oid)
+        hit = sum(1 for g in grams if (' ' + g + ' ') in t)
+        if hit / len(grams) >= 0.35:
+            out.append({'page_id': oid, 'newspaper': (paper_display(om['lccn']) or om.get('paper') or '').split(' (')[0],
+                        'issue_date': om['date'], 'shared_fraction': round(hit / len(grams), 2)})
+    out.sort(key=lambda x: -x['shared_fraction'])
+    return out
+
+
 def citation(c, man):
     pid = c['page']
     m = man[pid]
-    variant, off, t = locate(pid, c['quote'])
-    if variant is None:
-        raise SystemExit('QUOTE NOT FOUND in %s:\n  %s\n  longest common piece: %r' % (pid, c['quote'][:200], t[off.a:off.a + off.size][:200] if off else None))
+    quote, variant, off = resolve_quote(c)
+    v = views(pid)
     disp = paper_display(m['lccn']) or m['paper']
-    place = None
-    mm = re.search(r'\((.*)\)\s*$', disp)
-    if mm:
-        place = mm.group(1)
+    mm = re.search(r'\((.*)\)\s*$', disp or '')
+    place = mm.group(1) if mm else None
     for extra in ('dateline', 'attribution'):
-        if c.get(extra):
-            v, o, _ = locate(pid, c[extra])
-            if v is None:
-                raise SystemExit('%s NOT FOUND in %s: %s' % (extra, pid, c[extra][:120]))
-    ctx_before = t[max(0, off - 400):off] if c.get('with_context', True) else None
-    rep = c.get('reprint') or {'status': 'unknown', 'from': None, 'basis': 'not stated on the page text read'}
-    ocr = c.get('ocr_check') or {'method': 'none', 'result': 'OCR text of the page only; the print was not viewed', 'corrections': []}
-    qc = rebuild_cols.quote_confidence(page_words(pid)[1], calib.norm(c['quote']))
+        if c.get(extra) and calib.norm(c[extra]) not in v['plain'] and calib.norm(c[extra]) not in v['line-end hyphens joined']:
+            raise SystemExit('%s NOT FOUND in %s: %s' % (extra, pid, c[extra][:120]))
+    ctx_before = v[variant][max(0, off - 360):off]
+    rep = c.get('reprint') or {'status': 'unknown', 'from': None, 'basis': 'the page text read names no source for the passage'}
+    qc = rebuild_cols.quote_confidence(page_words(pid)[1], quote)
+    if c.get('img'):
+        im = image_manifest().get((pid, c['img']))
+        if not im:
+            raise SystemExit('no image record %s %s' % (pid, c['img']))
+        ocr = {'method': 'the page image region of the passage was viewed (image service crop) and compared with the saved text',
+               'image_url': im['url'], 'image_sha256': im['sha256'], 'viewed': RETRIEVED,
+               'reading': c.get('reading'), 'corrections': c.get('corrections') or []}
+    else:
+        ocr = {'method': 'none: the saved OCR text only; the print of this passage was not viewed', 'reading': None, 'corrections': []}
     cit = {
         'source_id': 'CA-%s-%s-ed%d-seq%d' % (m['lccn'], m['date'], m['edition'], m['seq']),
         'source_class': 'contemporary newspaper page (1863), digitised by the Library of Congress (Chronicling America); text is the OCR layer of the page',
@@ -124,21 +198,21 @@ def citation(c, man):
         'image_seq': m['seq'],
         'printed_page': c.get('printed_page'),
         'url': m['resource_url'],
+        'alto_url': m['alto_url'],
+        'alto_sha256': m['alto_sha256'],
         'retrieved': RETRIEVED,
         'local_path': m['local_path'],
         'text_sha256': m['text_sha256'],
         'page_chars': m['chars'],
         'text_variant': 'column-ordered reading text rebuilt from the page ALTO file (%s: lines in column order, stray rule marks removed, nothing corrected); whitespace collapsed' % rebuild_cols.VERSION + ('' if variant == 'plain' else ', line-end hyphens joined'),
-        'alto_url': m['alto_url'],
-        'alto_sha256': m['alto_sha256'],
-        'ocr_note': 'text layer made by the Library of Congress OCR run on the page image (Tesseract; word confidence in the ALTO file)',
+        'quote': quote,
+        'quote_offset': off,
         'ocr_wc_mean': qc[0] if qc else None,
         'ocr_wc_min': qc[1] if qc else None,
-        'quote': calib.norm(c['quote']),
-        'quote_offset': off,
         'dateline': c.get('dateline'),
         'attribution': c.get('attribution'),
         'reprint': rep,
+        'shares_text_with': shares(pid, quote, man),
         'ocr_check': ocr,
         'context_before': ctx_before,
     }
@@ -153,37 +227,34 @@ def build():
     seen = set()
     lines_t, lines_e = [], []
     for c in claims:
+        cites = [citation(x, man) for x in c['cites']]
+        papers = sorted({x['lccn'] for x in cites})
         for tid in c['ids']:
             k = (tid, c['_module'], c['key'])
             if k in seen:
                 raise SystemExit('duplicate claim key %s' % (k,))
             seen.add(k)
-        cites = [citation(x, man) for x in c['cites']]
-        distinct_papers = sorted({x['lccn'] for x in cites})
-        for tid in c['ids']:
+            is_timeline = bool(re.match(r'^(E|T\d)-\d+$', tid))
             line = {
                 'id': tid,
                 'shard': 'web-newspapers',
-                'xid': 'NEWS-%s-%s' % (c['_module'].replace('claims_', ''), c['key']) + ('' if len(c['ids']) == 1 else ''),
-                'kind': 'epilogue row' if re.match(r'^E-\d+$', tid) else ('timeline row' if re.match(r'^T\d-\d+$', tid) else 'requirement item'),
+                'xid': 'NEWS-%s-%s' % (c['_module'].replace('claims_', ''), c['key']),
+                'kind': 'epilogue row' if re.match(r'^E-\d+$', tid) else ('timeline row' if is_timeline else 'requirement item'),
                 'sub_claim': c['sub_claim'],
                 'tier': c['tier'],
                 'verdict': c.get('verdict', 'partially_supported'),
                 'state_date': c.get('state_date'),
                 'citation': cites[0],
                 'more_citations': cites[1:],
-                'papers': len(distinct_papers),
-                'independence': c.get('independence') or 'see reprint field of each citation; a count of papers is not a count of independent witnesses',
+                'papers': len(papers),
+                'independence': c.get('independence') or 'a count of papers is not a count of independent witnesses: see reprint and shares_text_with of each citation',
                 'row_effect': c.get('row_effect'),
-                'remains_unsupported': c.get('remains') or 'one contemporary newspaper report; the underlying records, the other papers and the non-newspaper sources were not read for this line',
+                'remains_unsupported': c.get('remains') or 'one contemporary newspaper report; the other papers, the underlying records and the non-newspaper sources were not read for this line',
             }
-            if c.get('caution'):
-                line['caution'] = c['caution']
-            if c.get('conflict'):
-                line['conflict'] = c['conflict']
-            (lines_t if re.match(r'^(E|T\d)-\d+$', tid) else lines_e).append(line)
-            if c.get('both') and re.match(r'^(E|T\d)-\d+$', tid):
-                pass
+            for k2 in ('caution', 'conflict'):
+                if c.get(k2):
+                    line[k2] = c[k2]
+            (lines_t if is_timeline else lines_e).append(line)
     return lines_t, lines_e
 
 

@@ -115,7 +115,7 @@ def estimate_tilt(ws):
 
 
 # ------------------------------------------------------------------------------------------------ leaf analysis
-FOOTNOTE_RE = re.compile(r'enlisted\s+for\s+one\s+year', re.I)
+FOOTNOTE_RE = re.compile(r'nlisted\s+for\s+one\s+[yv]e', re.I)
 HDR_KEYS = ['residence', 'remarks', 'enlistment', 'muster', 'commisn', 'commiss', 'issue', 'rank', 'name']
 MONTHS = ('jan', 'feb', 'mch', 'mar', 'apr', 'may', 'june', 'july', 'aug', 'sept', 'sep', 'oct', 'nov', 'dec')
 
@@ -133,35 +133,48 @@ def _alpha(w):
     return re.sub(r'[^a-z]', '', w.lower())
 
 
+def header_word(k):
+    """Does the letters-only token k read as a column heading (damaged by at most the OCR slips seen on these pages)?"""
+    if not k:
+        return False
+    if k in ('name', 'rank', 'issue', 'commisn', 'commis', 'commissn', 'residence', 'remarks', 'enlistment', 'muster'):
+        return True
+    n = len(k)
+    if 4 <= n <= 6 and lev(k, 'muster', 1) <= 1 and abs(n - 6) <= 1:
+        return True
+    if lev(k, 'remarks', 2) <= 2 and abs(n - 7) <= 1:
+        return True
+    if (k.endswith('marks') or k.endswith('makks')) and n <= 9:
+        return True
+    if lev(k, 'residence', 2) <= 2 and abs(n - 9) <= 1:
+        return True
+    if lev(k, 'enlistment', 2) <= 2 and abs(n - 10) <= 1:
+        return True
+    if n >= 5 and (lev(k, 'commisn', 1) <= 1 or lev(k, 'issue', 1) <= 1) and k not in ('issued', 'tissue'):
+        return True
+    return False
+
+
+HDR_VOCAB2 = ('date', 'of', 'dale', 'oi', 'ol', 'dato', 'dat', 'and', 'an', 'i', 'j', 'l', 'ateof', 'dateof', 'name', 'rank', 'namk')
+
+
 def header_word_hits(l):
-    """Number of words of the line that are (damaged) column headings."""
-    n = 0
-    for w in l:
-        k = _alpha(w['w'])
-        if len(k) < 3:
-            continue
-        for h in HDR_KEYS:
-            if k == h:
-                n += 1
-                break
-            if len(h) >= 5 and len(k) >= 5 and abs(len(k) - len(h)) <= 2:
-                cap = 3 if len(h) >= 7 else 2
-                if lev(k, h, cap) <= cap:
-                    n += 1
-                    break
-    return n
+    return sum(1 for w in l if header_word(_alpha(w['w'])))
 
 
 def is_header_line(l):
-    """A line of the column headings: a (damaged) heading word on a short line without a date, or the 'Date of' lines."""
-    hits = header_word_hits(l)
-    if hits >= 2 and sum(1 for w in l if month_like(w['w'])) <= 1:
+    """A line of the column headings (damaged or intact): most of its words are heading words or the small words of the headings."""
+    toks = [_alpha(w['w']) for w in l]
+    toks = [t for t in toks if t]
+    if not toks or len(toks) > 24:
+        return False
+    hits = sum(1 for t in toks if header_word(t))
+    rest = sum(1 for t in toks if not header_word(t) and t in HDR_VOCAB2)
+    if hits >= 1 and hits + rest >= 0.7 * len(toks) and not any(month_like(w['w']) for w in l):
         return True
-    if len(l) <= 9 and hits >= 1 and not any(month_like(w['w']) for w in l):
+    if hits >= 2 and not any(month_like(w['w']) for w in l):
         return True
-    toks = [_alpha(w['w']) for w in l if _alpha(w['w'])]
-    return bool(toks) and len(toks) <= 6 and all(t in ('date', 'of', 'dale', 'oi', 'ol', 'dato', 'dat', 'i', 'j', 'l', 'ateof', 'dateof') for t in toks) \
-        and any(t.startswith(('dat', 'dal', 'ate')) for t in toks)
+    return len(toks) <= 6 and all(t in HDR_VOCAB2 for t in toks) and any(t.startswith(('dat', 'dal', 'ate', 'dato')) for t in toks)
 
 
 def tall(l, thr=36):
@@ -204,7 +217,22 @@ def enlistment_peak(ws):
     return statistics.median(sel)
 
 
-def classify_lines(lines, bx):
+FUNC_WORDS = set('the of and was to in that his he a by for with on at it as is were had be from who which him this'.split())
+
+
+def is_prose(l, left, right, E):
+    """A line of running text (a printed note below a table): no month word in a date column, and either it opens with 'Note' or its
+    first word is a fragment in lower case with function words around it."""
+    if E is not None and any(month_like(w['w']) and (abs(w['x0'] - E) <= 40 or abs(w['x0'] - (E + 172)) <= 40) for w in right):
+        return False
+    ltxt = line_text(left)
+    if re.match(r'^Note\b', ltxt):
+        return True
+    fw = sum(1 for w in l if w['w'].lower().strip('.,;:"\'()') in FUNC_WORDS)
+    return bool(left) and left[0]['w'][:1].islower() and fw >= 3 and len(l) >= 6
+
+
+def classify_lines(lines, bx, E=None):
     """Kind of every line: header, title, heading (name column holds a printed rank heading), footnote, anchor (name and cells),
     nameonly (name, no cells), right (cells only)."""
     out = []
@@ -216,8 +244,12 @@ def classify_lines(lines, bx):
             k['kind'] = 'header'
         elif tall(l) and title_like(l):
             k['kind'] = 'title'
+        elif re.match(r'^\W*FINAL\s+STATEMENT', line_text(l), re.I):
+            k['kind'] = 'title'
         elif FOOTNOTE_RE.search(line_text(l)):
             k['kind'] = 'footnote'
+        elif left and is_prose(l, left, right, E):
+            k['kind'] = 'prose'
         elif left:
             ltxt = line_text(left)
             h, exact = heading_of(ltxt)
@@ -240,9 +272,14 @@ def title_like(l):
     return bool(TITLE_WORDS.search(t)) or title_of(l)[0] is not None
 
 
+COMPANY_SEQ = 'ABCDEFGHIKLM'
+
+
 def title_of(l):
-    """(company/section code, damaged?) of a title line."""
+    """(company/section code, damaged?) of a title line; code '?' when the word COMPANY stands without its letter."""
     t = line_text(l)
+    if re.match(r'^\W*COM\w*\W*$', t.strip()):
+        return '?', True
     m = re.match(r'^\W*COM\w*\s+([A-Z])\W*$', t.strip())
     if m:
         return m.group(1), t.strip() not in ('COMPANY ' + m.group(1) + '.',)
@@ -295,12 +332,18 @@ def analyse_leaf(leaf, L, state):
         return rows, events, info
     bx = E - 237
     info.update({'table': True, 'bx': bx, 'cols': {'res': E - 30, 'enl_end': E + 135, 'mus_end': E + 310}})
-    kl = classify_lines(lines, bx)
+    kl = classify_lines(lines, bx, E)
+    for i in range(1, len(kl)):                      # the lines that go on a printed note
+        k, pk0 = kl[i], kl[i - 1]
+        if k['kind'] == 'anchor' and pk0['kind'] == 'prose' and k['left'][0]['w'][:1].islower() and not any(
+                month_like(w['w']) and (abs(w['x0'] - E) <= 40 or abs(w['x0'] - (E + 172)) <= 40) for w in k['right']):
+            k['kind'] = 'prose'
     in_table = False
     saw_header = False
     cur = None
     stray = []
     last_y = None
+    prev_k = None
 
     def close():
         nonlocal cur
@@ -311,6 +354,7 @@ def analyse_leaf(leaf, L, state):
     for k in kl:
         kind, y = k['kind'], k['y']
         txt = line_text(k['words'])
+        pk, prev_k = prev_k, k
         if kind == 'header':
             close()
             in_table = True
@@ -320,6 +364,13 @@ def analyse_leaf(leaf, L, state):
         if kind == 'title':
             close()
             code, damaged = title_of(k['words'])
+            if code == '?':
+                prev = state['co']
+                code = COMPANY_SEQ[COMPANY_SEQ.index(prev) + 1] if prev in COMPANY_SEQ and COMPANY_SEQ.index(prev) + 1 < len(COMPANY_SEQ) else ''
+                events.append(('title-letter-lost', y, txt + ' -> sequence after %s' % prev))
+                state['co_inferred'] = True
+            else:
+                state['co_inferred'] = False
             if code:
                 state['co'] = code
                 state['rk'] = ''
@@ -329,10 +380,14 @@ def analyse_leaf(leaf, L, state):
             in_table = False
             continue
         if not in_table:
-            if not saw_header and kind == 'anchor' and y > 200 and any(month_like(w['w']) for w in k['right']) and \
-                    sum(1 for w in k['words'] if month_like(w['w'])) >= 1:
+            if not saw_header and kind == 'anchor' and y > 200 and \
+                    any(month_like(w['w']) and abs(w['x0'] - E) <= 25 for w in k['right']) and \
+                    any(month_like(w['w']) and abs(w['x0'] - (E + 172)) <= 30 for w in k['right']):
                 in_table = True            # leaf whose heading block the text layer lost: the table starts at its first line with a date
                 events.append(('implicit-table-start', y, txt[:80]))
+                if pk is not None and pk['kind'] == 'heading' and y - pk['y'] <= 100:
+                    state['rk'] = line_text(pk['left'])           # the rank heading just above the first row
+                    events.append(('heading', pk['y'], state['rk'] + ('' if pk['heading'][1] else '  [damaged]')))
             else:
                 events.append(('non-table-line', y, txt[:80]))
                 continue
@@ -350,6 +405,10 @@ def analyse_leaf(leaf, L, state):
         if kind == 'footnote':
             close()
             events.append(('footnote', y, txt[:100]))
+            continue
+        if kind == 'prose':
+            close()
+            events.append(('page-note', y, txt[:160]))
             continue
         if kind == 'anchor':
             close()
@@ -383,6 +442,9 @@ def analyse_leaf(leaf, L, state):
                 cur['cells'].extend(k['right'])
                 cur['last_y'] = y
                 cur['nlines'] += 1
+                if any(w['x0'] < E + 310 for w in k['right']):
+                    cur['cont_early'] = True        # a following line holds words of the residence or date columns: a possible misbinding
+                    events.append(('continuation-with-early-columns', y, txt[:100]))
             else:
                 events.append(('orphan-right-words', y, txt[:100]))
             continue

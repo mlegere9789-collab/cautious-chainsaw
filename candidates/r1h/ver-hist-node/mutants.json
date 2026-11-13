@@ -1,0 +1,105 @@
+{
+ "node_differential": "24",
+ "node_test": "v22.23.4",
+ "times_mjs_blob": "39fbedfab661321f1478d69473c70adaa3054700",
+ "all_caught": true,
+ "mutants": [
+  {
+   "id": "mut1",
+   "what": "the capital-only branch made case-insensitive (\"am\" and \"Am\" would be read)",
+   "differential_mismatches": 4184,
+   "differential_calls": 107860,
+   "new_test_failed_tests": [
+    2,
+    3,
+    4
+   ],
+   "caught": true
+  },
+  {
+   "id": "mut2",
+   "what": "the capital-only branch dropped (\"AM\" would not be read)",
+   "differential_mismatches": 1782,
+   "differential_calls": 107860,
+   "new_test_failed_tests": [
+    2,
+    3,
+    4
+   ],
+   "caught": true
+  },
+  {
+   "id": "mut3",
+   "what": "the o'clock class without the c: cl[oe]ck",
+   "differential_mismatches": 2702,
+   "differential_calls": 107860,
+   "new_test_failed_tests": [
+    3
+   ],
+   "caught": true
+  },
+  {
+   "id": "mut4",
+   "what": "the number words without twelve",
+   "differential_mismatches": 504,
+   "differential_calls": 107860,
+   "new_test_failed_tests": [
+    3
+   ],
+   "caught": true
+  },
+  {
+   "id": "mut5",
+   "what": "\"minutes?\" without the optional s",
+   "differential_mismatches": 306,
+   "differential_calls": 107860,
+   "new_test_failed_tests": [
+    3
+   ],
+   "caught": true
+  },
+  {
+   "id": "mut6",
+   "what": "a comma no longer a stop: [.]",
+   "differential_mismatches": 4163,
+   "differential_calls": 107860,
+   "new_test_failed_tests": [
+    3,
+    4
+   ],
+   "caught": true
+  },
+  {
+   "id": "mut7",
+   "what": "white space before the stop dropped",
+   "differential_mismatches": 4336,
+   "differential_calls": 107860,
+   "new_test_failed_tests": [
+    3,
+    4
+   ],
+   "caught": true
+  },
+  {
+   "id": "mut8",
+   "what": "both() leaves a class alone (its letters stay in one case)",
+   "differential_mismatches": 5436,
+   "differential_calls": 107860,
+   "new_test_failed_tests": [
+    3,
+    4
+   ],
+   "caught": true
+  },
+  {
+   "id": "mut9",
+   "what": "\"between|from\" left case-sensitive in the range pattern",
+   "differential_mismatches": 510,
+   "differential_calls": 107860,
+   "new_test_failed_tests": [
+    3
+   ],
+   "caught": true
+  }
+ ]
+}

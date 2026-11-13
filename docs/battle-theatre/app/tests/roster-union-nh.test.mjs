@@ -103,3 +103,25 @@ test('union-nh: rights basis "public domain (United States publication before 19
   }
   assert.ok(pointer.blocked.length >= 1, 'the refused image host is recorded');
 });
+
+test('union-nh: the comparison with the printed Summary totals adds up and agrees with the unit files', () => {
+  const GOV = path.resolve(HERE, '..', '..', 'GOVERNANCE', 'horde', 'ws-rosters', 'union-nh');
+  const recon = JSON.parse(fs.readFileSync(path.join(GOV, 'summary-reconciliation.json'), 'utf8')), figs = JSON.parse(fs.readFileSync(path.join(GOV, 'summary-figures.json'), 'utf8'));
+  const short = { '2nd-new-hampshire-infantry': '2nd', '5th-new-hampshire-infantry': '5th', '12th-new-hampshire-infantry': '12th', '1st-new-hampshire-battery': 'battery' };
+  for (const u of UNITS) {
+    const r = recon[u.file], f = figs[short[u.file]]; assert.ok(r && f, u.file);
+    assert.equal(r.rows, u.rows);
+    assert.equal(r.own_record + r.cross_reference_to_another_organization + r.alias_cross_reference + r.spelling_cross_reference, r.rows);
+    assert.equal(r.rows_minus_spelling_and_alias, r.rows - r.alias_cross_reference - r.spelling_cross_reference);
+    assert.equal(r.printed_total_strength, f.printed_total_strength); assert.equal(r.difference, r.rows_minus_spelling_and_alias - r.printed_total_strength);
+    assert.equal(f.parts.reduce((a, p) => a + p.value, 0), f.printed_total_strength); assert.equal(f.parts_sum, f.printed_total_strength);
+    // the cross-reference lines are the rows with "See" among the first 10 tokens of their remarks; a target that begins with a digit is another organization
+    let names = 0, other = 0;
+    for (const x of load(u).lines.filter(Array.isArray)) {
+      const toks = (x.length === 5 ? x[3] : '').split(' ').filter(Boolean), i = toks.slice(0, 10).indexOf('See');
+      if (i >= 0) { if (/^\d/.test(toks[i + 1] || '')) other++; else names++; }
+    }
+    assert.equal(names, r.alias_cross_reference + r.spelling_cross_reference); assert.equal(other, r.cross_reference_to_another_organization);
+  }
+  assert.deepEqual(UNITS.map((u) => recon[u.file].difference), [-18, -42, 40, 0]);
+});

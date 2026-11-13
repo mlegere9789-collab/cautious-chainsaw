@@ -73,8 +73,8 @@ const mutants = [
   { id: 'process-token-dropped', file: M, find: 'if (env.PUBLIC_MAPBOX_TOKEN === undefined) env.PUBLIC_MAPBOX_TOKEN = process.env.PUBLIC_MAPBOX_TOKEN;', replace: '', test: TOK },
   { id: 'bundler-route-unguarded', file: M, find: 'PUBLIC_MAPBOX_TOKEN: import.meta.env?.PUBLIC_MAPBOX_TOKEN,', replace: 'PUBLIC_MAPBOX_TOKEN: import.meta.env.PUBLIC_MAPBOX_TOKEN,', test: TOK },
   { id: 'bundler-route-indexed', file: M, find: 'PUBLIC_MAPBOX_TOKEN: import.meta.env?.PUBLIC_MAPBOX_TOKEN,', replace: 'PUBLIC_MAPBOX_TOKEN: import.meta.env?.[TOKEN_ENV_NAME],', test: TOK },
-  { id: 'import-throws', file: M, find: 'MapboxTokenError.prototype.name = \'MapboxTokenError\';', replace: "MapboxTokenError.prototype.name = 'MapboxTokenError';\nif (typeof process !== 'undefined' && process.env.NODE_ENV === 'production') getMapboxToken();", test: TOK },
-  { id: 'error-name-lost', file: M, find: "MapboxTokenError.prototype.name = 'MapboxTokenError';", replace: '', test: TOK },
+  { id: 'import-throws', file: M, find: '  return value;\n}\n', replace: "  return value;\n}\nif (typeof process !== 'undefined' && process.env.NODE_ENV === 'production') getMapboxToken();\n", test: TOK },
+  { id: 'error-name-lost', file: M, find: "Object.defineProperty(MapboxTokenError.prototype, 'name', { value: 'MapboxTokenError', writable: true, configurable: true });", replace: '', test: TOK },
   { id: 'error-code-lost', file: M, find: '    this.code = code;\n', replace: '', test: TOK },
   // the one-reader rule and the literal scan
   { id: 'second-reader-added', file: M, find: "env.NODE_ENV = process.env.NODE_ENV;", replace: "env.NODE_ENV = process.env.NODE_ENV;\n    if (env.PUBLIC_MAPBOX_TOKEN === undefined) env.PUBLIC_MAPBOX_TOKEN = process.env.MAPBOX_ACCESS_TOKEN;", test: TOK },

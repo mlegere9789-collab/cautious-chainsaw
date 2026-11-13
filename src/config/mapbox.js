@@ -32,7 +32,8 @@ export class MapboxTokenError extends Error {
     this.code = code;
   }
 }
-MapboxTokenError.prototype.name = 'MapboxTokenError';
+// Set on the prototype, as the built-in errors do, so that the stack header of a thrown error already reads "MapboxTokenError: ...".
+Object.defineProperty(MapboxTokenError.prototype, 'name', { value: 'MapboxTokenError', writable: true, configurable: true });
 
 /** The environment of the running code: the bundler's values when a bundler replaced them, the process values otherwise. */
 function defaultEnv() {

@@ -4,24 +4,13 @@
 // (GOVERNANCE/realizations/EXAMPLES.jsonl); records that must be realized because the product shows them (on real rows and on synthetic rows whose facts are the product's); and WRONG records that
 // must not be: every one of them is a mutation of a record that passes, so that a test failure names the rule that let a wrong record through.
 import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import path from 'node:path'; import { spawnSync } from 'node:child_process'; import os from 'node:os';
-import { openProduct } from '../../tools/bt/realize/query.mjs';
 import { Runner } from '../../tools/bt/realize/checks.mjs';
 import { loadTimeline, describeWindow, parseTimeCell } from '../../tools/bt/realize/timeline.mjs';
-import { validateRecord, KINDS, ASSERT } from '../../tools/bt/realize/schema.mjs';
+import { validateRecord, KINDS, KIND_NEEDS, ASSERT } from '../../tools/bt/realize/schema.mjs';
 import { readRecordFile, registerCoverage, harnessDigest } from '../../tools/bt/realize/check.mjs';
 import { toMin, isoOf, readJSON, readJSONL, ROOT, GOV, REAL, hasQuote, designators } from '../../tools/bt/realize/lib.mjs';
 import { candidatePhrases, expand } from '../../tools/bt/realize/gazetteer.mjs';
-
-const P = await openProduct(), TL = loadTimeline(), R = new Runner(P, TL), H = 'bt-realize-1';
-const clone = o => JSON.parse(JSON.stringify(o));
-const rec = (id, kind, from, to, quote, entities, checks, extra = {}) => ({ id, harness: H, kind, scenario: 'default', window: { from, to }, claim: { quote }, entities, checks, ...extra });
-// a synthetic row (the facts are the product's, the words are chosen so that the check under test has something to bind to)
-const addRow = (id, text, from, to) => { const a = toMin(from), b = toMin(to); TL.byId.set(id, { id, claim_text: text, time_cell: from, what_text: text, tier: 'documented', status_effective: 'verified_against_or_text', shard: 'test', window: { intervals: [[a, b]], basis: ['test'], flags: [], kind: 'clock', in_clock: true } }); };
-const run = r => R.runRecord(r);
-const examples = readJSONL(path.join(REAL, 'EXAMPLES.jsonl')), ex = id => clone(examples.find(r => r.id === id));
-const codesOf = res => new Set([...res.problems.map(p => p.code), ...res.assertions.filter(a => !a.ok).flatMap(a => a.all_codes || [a.code])]);
-async function mustFail(r, code, label) { const res = await run(r); assert.equal(res.realized, false, `${label || r.id}: a wrong record was accepted`); if (code) assert.ok(codesOf(res).has(code), `${label || r.id}: expected ${code}, got ${[...codesOf(res)].join(', ')} (${res.why})`); return res; }
-async function mustPass(r, label) { const res = await run(r); assert.equal(res.realized, true, `${label || r.id}: ${res.why}`); return res; }
+import { P, TL, R, H, clone, rec, addRow, run, examples, ex, codesOf, mustFail, mustPass } from './realize-lib.mjs';
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 test('tolerances: the floors of the distance rule are the product gazetteer builder\'s own table', () => {
@@ -80,7 +69,10 @@ test('the product answers for a minute: arrival rule, position, activity, struct
   const W = await P.weatherAt(toMin('1863-06-26T12:00')); assert.equal(W.drawn.precip.kind, 'rain'); assert.equal(Math.round(W.drawn.temp.tempF), 62);
   const Wn = await P.weatherAt(toMin('1863-07-01T23:00')); assert.equal(Wn.drawn.sky.band, 4, 'night'); assert.ok(Wn.drawn.sky.exposure >= Wn.drawn.sky.nightFloor, 'never black');
   const St = await P.structures(); const d = St.model.describe(St.byState.get('bld-wade-house')[0].oid, toMin('1863-07-03T08:40')); assert.match(d.state.state, /bullet strikes/);
-  assert.equal((await P.cardsAt(toMin('1863-07-01T12:00'))).available === false || true, true);
+  const cards = await P.cardsAt(toMin('1863-07-01T12:00')), listed = (await P.extList()).listed;
+  assert.equal(typeof cards.available, 'boolean'); assert.ok(Array.isArray(cards.items));
+  if (cards.available) assert.ok(cards.module && listed.length, 'a card module that answers is in the product\'s own list (src/ext/index.mjs)');
+  else assert.match(cards.reason, /no module for event_cards|is not in src\/ext\/index\.mjs|failed to load|threw|exports none of/, 'a card module that does not answer says why: ' + cards.reason);
   assert.deepEqual(S.casualties(toMin('1863-06-26T00:00'), toMin('1863-06-30T00:00')).events, 0, 'no man falls before the battle');
 });
 
@@ -98,8 +90,10 @@ test('worked examples: 20 rows of shard tl-01, valid, with the results the produ
   for (const id of ['T1-015', 'T1-016']) { const res = await run(examples.find(r => r.id === id)); assert.ok(res.partial && res.partial.length, id + ' lists what it does not show'); }
 });
 test('every kind has an assertion type that can prove it, and KIND_NEEDS names only known assertion types', () => {
-  for (const k of KINDS) assert.ok(KINDS.includes(k));
-  assert.ok(KINDS.includes('not_realized') && KINDS.length === 11);
+  assert.equal(KINDS.length, 11); assert.ok(KINDS.includes('not_realized'));
+  assert.deepEqual(Object.keys(KIND_NEEDS).sort(), [...KINDS].sort(), 'KIND_NEEDS has exactly the kinds');
+  for (const [k, groups] of Object.entries(KIND_NEEDS)) { if (k !== 'not_realized') assert.ok(groups.length > 0, `${k} needs at least one group of assertion types`); for (const g of groups) { assert.ok(g.length > 0); for (const t of g) assert.ok(Object.prototype.hasOwnProperty.call(ASSERT, t), `KIND_NEEDS.${k} names the unknown assertion type ${t}`); } }
+  const needed = new Set(Object.values(KIND_NEEDS).flat(2)); for (const t of ['unit_moves', 'unit_arrives', 'structure_state', 'work_stage', 'battery_guns', 'weather', 'sky', 'casualty', 'card_shown']) assert.ok(needed.has(t), `${t} proves some kind`);
   assert.ok(Object.keys(ASSERT).length >= 18);
 });
 
@@ -156,11 +150,11 @@ test('wrong: the product does not show what the record says (weather, sky, struc
   const d = clone(w); d.checks.push({ type: 'sky', t: { at: '1863-06-26T12:00' }, band_in: ['Night'] }); await mustFail(d, 'sky_mismatch', 'night at noon');
   const d2 = clone(w); d2.checks[1].t = { from: '1863-06-26T06:00', to: '1863-06-26T23:00', mode: 'all' }; d2.checks[1].precip_kind_in = ['storm']; await mustFail(d2, 'weather_mismatch', 'storm all day');
   const s = ex('T1-016');
-  const e = clone(s); e.checks[1].state = 'Intact'; await mustFail(e, 'structure_wrong_state', 'the bridge intact at the end of the window');
+  const e = clone(s); e.checks[2].state = 'Intact'; await mustFail(e, 'structure_wrong_state', 'the bridge intact at the end of the window');
   const f = clone(s); f.checks[0].schedule_row = 'S-002'; await mustFail(f, 'structure_wrong_state', 'another schedule row');
   const g = clone(s); g.checks[1].present = false; await mustFail(g, 'structure_wrong_state', 'the bridge absent');
-  const h = clone(s); delete h.checks[0].structure_scenario; h.checks[0].t = { at: '1863-06-27T12:00' }; await mustFail(h, 'structure_wrong_state', 'fully burned mid-window in the default scenario, which blends 26 and 27 Jun');
-  const h2 = clone(s); h2.checks[0].structure_scenario = 'jun27'; await mustFail(h2, 'structure_wrong_state', 'burned at 00:00 on 27 Jun in the scenario that puts the burning on the 27th');
+  const h = clone(s); h.checks[0].state = 'Burned'; h.checks[0].visual = { burn_min: 1 }; await mustFail(h, 'structure_wrong_state', 'fully burned at 27 Jun 00:00 in the opening scenario, which carries both printed dates as a blend');
+  const h2 = clone(s); h2.scenario = ['default', { id: 'rr-bridge-jun26', structure: { 'bld-rock-creek-rr-bridge': 'jun27' } }]; await mustFail(h2, 'structure_wrong_state', 'burned at 00:00 on 27 Jun in the scenario that puts the burning on the 27th');
   const i = clone(s); i.entities.structures = ['bld-presbyterian-church']; i.checks.forEach(x => { x.structure = 'bld-presbyterian-church'; }); await mustFail(i, 'structure_not_bound', 'a structure the row does not name');
   const j = clone(s); j.entities.structures = ['bld-no-such-thing']; j.checks.forEach(x => { x.structure = 'bld-no-such-thing'; }); await mustFail(j, 'structure_unknown', 'a structure that exists nowhere');
   const k = clone(s); k.entities.structures = [{ id: 'bld-st-francis-xavier', via: 'bridge over Rock Creek east of Gettysburg' }]; k.checks.forEach(x => { x.structure = 'bld-st-francis-xavier'; }); await mustFail(k, 'structure_not_drawn', 'declared binding, but nothing is drawn for it');
@@ -276,13 +270,14 @@ test('the checker: deterministic, reports the record files\' problems, never wri
   assert.equal(d.q17.ok, false); assert.equal(d.harness_digest, harnessDigest());
   fs.rmSync(dir, { recursive: true });
 });
-test('RESULTS.json: written by the full run, one entry per timeline row, coverage = realization or an open register entry, the register half agrees with check_coverage.py', () => {
-  const p = path.join(REAL, 'RESULTS.json'); if (!fs.existsSync(p)) return;                 // the file is produced by check.mjs; a fresh tree may not have it yet
-  const d = readJSON(p); assert.equal(Object.keys(d.rows).length, 691); assert.equal(d.harness, H);
+test('RESULTS.json: written by the full run, one entry per timeline row, coverage = realization or an open register entry (the register half is compared with tools/bt/check_coverage.py in realize-inputs.test.mjs, which runs that script)', () => {
+  const p = path.join(REAL, 'RESULTS.json'); assert.ok(fs.existsSync(p), 'RESULTS.json is produced by check.mjs (a full run); the tree ships it');
+  const d = readJSON(p); assert.equal(Object.keys(d.rows).length, 691); assert.equal(Object.keys(d.epilogue).length, 14); assert.equal(d.harness, H);
   const reg = registerCoverage(); let openOnly = 0;
   for (const [id, e] of Object.entries(d.rows)) { assert.equal(e.q17_covered, e.realized || (reg.get(id) || { open: [] }).open.length > 0, id); if (!e.realized && e.register_open.length) openOnly++; if (e.realized) assert.ok(e.record, id + ' realized without a record'); }
   assert.equal(d.totals.timeline.covered_by_open_register_entry_only, openOnly);
-  assert.ok(openOnly + d.totals.timeline.realized <= 691);
+  assert.equal(Object.values(d.rows).filter(e => e.realized).length + Object.values(d.rows).filter(e => !e.realized && e.register_open.length).length + Object.values(d.rows).filter(e => !e.realized && !e.register_open.length).length, 691, 'every row is exactly one of realized, on the register only, uncovered');
+  assert.equal(d.totals.timeline.uncovered, Object.values(d.rows).filter(e => !e.q17_covered).length);
 });
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

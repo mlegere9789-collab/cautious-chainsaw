@@ -2,7 +2,7 @@
 // check-totals.mjs - reads the two logs of the acceptance run (run-suites.sh) and checks acceptance (2) of ver-hist-node:
 //   * under the default Node every file of tests/historian loaded (no file-level failure entry, no "Invalid regular expression" in the log);
 //   * the pass, fail, cancelled, skipped and todo totals of the run under the default Node equal those under Node 24 (both logs record the same number of test files);
-//   * no log shows a different working-tree state at its start and at its end of the run (a tree that changed while the suites ran proves nothing).
+//   * the content hash of the directories the suites read is the same at the start and at the end of both runs (a tree that changed while the suites ran, or between the two runs, proves nothing).
 //   node check-totals.mjs [--write]      --write merges the two totals into candidates/r1h/ver-hist-node/STATUS.json (field node_totals)
 // Exit 0 when all of it holds. It reads files only; to produce the logs: tools/horde/bench.sh --timing bash candidates/r1h/ver-hist-node/run-suites.sh
 import fs from 'node:fs';
@@ -25,7 +25,7 @@ for (const v of ['22', '24']) {
   const loadFailures = (text.match(/^(?:not ok \d+ - |✖ )tests\/historian\/\S+\.test\.mjs\b/gm) || []).length;
   const regexErrors = (text.match(/Invalid regular expression/g) || []).length;
   const files = Number(info(text, /^# test files: (\d+)/m));
-  const startTree = info(text, /at the start: (\w+)/), endTree = info(text, /working tree state at the end: (\w+)/);
+  const startTree = info(text, /at the start: (\w+)/), endTree = info(text, /content hash at the end: (\w+)/);
   const exit = info(text, /^# exit: (\d+)/m);
   const bad = [];
   if (Object.values(t).some((x) => x === null)) bad.push('no totals in the log (the run did not finish)');
@@ -41,6 +41,7 @@ if (out['22'] && out['24']) {
   const a = out['22'].totals, b = out['24'].totals;
   for (const k of ['tests', 'pass', 'fail', 'cancelled', 'skipped', 'todo']) if (a[k] !== b[k]) problems.push(`totals differ: ${k} ${a[k]} under Node 22, ${b[k]} under Node 24`);
   if (out['22'].files !== out['24'].files) problems.push(`the runs saw ${out['22'].files} and ${out['24'].files} test files`);
+  const hashes = new Set([out['22'].tree_at_start, out['22'].tree_at_end, out['24'].tree_at_start, out['24'].tree_at_end]); if (hashes.size !== 1) problems.push(`the two runs did not see the same tree (content hashes ${[...hashes].join(', ')})`);
   out.equal = ['tests', 'pass', 'fail', 'cancelled', 'skipped', 'todo'].every((k) => a[k] === b[k]);
 }
 out.ok = problems.length === 0; out.problems = problems;

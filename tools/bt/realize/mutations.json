@@ -1,0 +1,1377 @@
+[
+ {
+  "id": "lib-quote-boundary",
+  "file": "tools/bt/realize/lib.mjs",
+  "find": "if (a && b) return true; }",
+  "replace": "if (a || b) return true; }",
+  "rule": "hasQuote: a quote starts AND ends on a word boundary",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "lib-quote-boundary-start",
+  "file": "tools/bt/realize/lib.mjs",
+  "find": "const a = i === 0 || !/[a-z0-9]/.test(t[i - 1])",
+  "replace": "const a = true || i === 0 || !/[a-z0-9]/.test(t[i - 1])",
+  "rule": "hasQuote: a quote starts on a word boundary",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "lib-quote-boundary-end",
+  "file": "tools/bt/realize/lib.mjs",
+  "find": "b = i + q.length >= t.length || !/[a-z0-9]/.test(t[i + q.length])",
+  "replace": "b = true || i + q.length >= t.length || !/[a-z0-9]/.test(t[i + q.length])",
+  "rule": "hasQuote: a quote ends on a word boundary",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "lib-quote-minlen",
+  "file": "tools/bt/realize/lib.mjs",
+  "find": "if (q.length < 3) return false;",
+  "replace": "if (q.length < 1) return false;",
+  "rule": "hasQuote: a quote of fewer than 3 characters is not found",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "lib-time-minutes",
+  "file": "tools/bt/realize/lib.mjs",
+  "find": "+(r[4] || 0) > 59)",
+  "replace": "+(r[4] || 0) > 99)",
+  "rule": "toMin: minutes 0-59",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "lib-time-day",
+  "file": "tools/bt/realize/lib.mjs",
+  "find": "+r[2] > MDAYS[+r[1]]",
+  "replace": "+r[2] > 99",
+  "rule": "toMin: a day of the month exists",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "lib-wordinfo-context",
+  "file": "tools/bt/realize/lib.mjs",
+  "find": "if (w.cap) { cur.cap = true; if (ctx) cur.ctx = true;",
+  "replace": "if (w.cap) { cur.cap = true; cur.ctx = true;",
+  "rule": "wordInfo: a capital is not a naming context by itself",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "lib-wordinfo-case",
+  "file": "tools/bt/realize/lib.mjs",
+  "find": "cap: /^[A-Z\\u00c0-\\u00de]/.test(base), poss: !!pm",
+  "replace": "cap: true, poss: !!pm",
+  "rule": "wordInfo: a name is capitalised",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-night-rule",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "/\\bNIGHT\\b/.test(row.time_cell || '')",
+  "replace": "/\\bNIGHTX\\b/.test(row.time_cell || '')",
+  "rule": "a NIGHT row needs a sky assertion with exposure_min",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-night-exposure",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "a.type === 'sky' && a.exposure_min != null)) add('kind_needs', 'a NIGHT row",
+  "replace": "a.type === 'sky')) add('kind_needs', 'a NIGHT row",
+  "rule": "the sky assertion of a NIGHT row carries exposure_min",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-harness-version",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (rec.harness !== HARNESS)",
+  "replace": "if (false)",
+  "rule": "the record names this harness version",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-window-in-row",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (span && !coversInterval(row.window.intervals, span.from, span.to))",
+  "replace": "if (false)",
+  "rule": "the window lies inside the time the row allows",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-window-in-clock",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "else if (ctx.clock && !coversInterval(ctx.clock, span.from, span.to))",
+  "replace": "else if (false)",
+  "rule": "the window lies inside the theatre clock",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-quote-in-row",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "for (const q of quotes) if (!hasQuote(row.claim_text, q))",
+  "replace": "for (const q of quotes) if (false)",
+  "rule": "the quote is found in the row",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-quote-required",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (!quotes.length) add('quote_missing'",
+  "replace": "if (false) add('quote_missing'",
+  "rule": "a record quotes the row",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-entity-undeclared",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (!have.has(x)) add('entity_undeclared'",
+  "replace": "if (false) add('entity_undeclared'",
+  "rule": "an entity a check uses is listed",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-entity-unused",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (!usedSet.has(x)) add('entity_unused'",
+  "replace": "if (false) add('entity_unused'",
+  "rule": "an entity nothing uses is not listed",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-number-quote",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "a.temp_f != null && !numIn(a.quote, a.temp_f))",
+  "replace": "a.temp_f != null && false)",
+  "rule": "a temperature comes from the printed quote",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-figures-quote",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "a.approx != null && !numIn(a.quote, a.approx))",
+  "replace": "a.approx != null && false)",
+  "rule": "a strength comes from the printed quote",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-motion-needs",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (rec.kind === 'unit_motion' && !checks.some(",
+  "replace": "if (false && rec.kind === 'unit_motion' && !checks.some(",
+  "rule": "a motion record relates the motion to a place",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-activity-needs",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (rec.kind === 'unit_activity' && !types.includes('unit_at')",
+  "replace": "if (false && rec.kind === 'unit_activity' && !types.includes('unit_at')",
+  "rule": "an activity record says where",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-earthwork-crew",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (rec.kind === 'earthwork_build' && !checks.some(a => a.type === 'work_stage' && a.crew))",
+  "replace": "if (false && rec.kind === 'earthwork_build' && !checks.some(a => a.type === 'work_stage' && a.crew))",
+  "rule": "an earthwork record has a crew (Q08)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-kind-needs",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "for (const group of KIND_NEEDS[rec.kind] || []) if (!checks.some(a => group.includes(a.type)))",
+  "replace": "for (const group of KIND_NEEDS[rec.kind] || []) if (false)",
+  "rule": "each kind needs the assertion that proves it",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-assert-time",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (s && span && (s.from < span.from || s.to > span.to))",
+  "replace": "if (false)",
+  "rule": "an assertion time is inside the record window",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-unknown-field",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "for (const k of Object.keys(a)) if (!known.has(k)) {",
+  "replace": "for (const k of Object.keys(a)) if (false) {",
+  "rule": "an assertion has no unknown field",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-need-fields",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "for (const f of spec.need) if (a[f] == null",
+  "replace": "for (const f of spec.need) if (false && a[f] == null",
+  "rule": "an assertion has its required fields",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-not-shown",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "else if (!hasQuote(row.claim_text, n.words)) add('quote_not_in_row'",
+  "replace": "else if (false) add('quote_not_in_row'",
+  "rule": "not_shown words are the row's own",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-excludes-why",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "x.why.trim().length < 30",
+  "replace": "x.why.trim().length < 0",
+  "rule": "an excluded scenario has a reason",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-activity-names",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (!ACTIVITY_NAMES.includes(x)) add('assert_activity'",
+  "replace": "if (false) add('assert_activity'",
+  "rule": "an activity is one the product draws",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-removed-field",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (k === 'structure_scenario')",
+  "replace": "if (false)",
+  "rule": "the removed structure_scenario says what replaced it",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-missing-codes",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (!Array.isArray(rec.missing) || !rec.missing.length) add('missing_missing'",
+  "replace": "if (false) add('missing_missing'",
+  "rule": "a not_realized record says what is missing",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "schema-intended",
+  "file": "tools/bt/realize/schema.mjs",
+  "find": "if (rec.kind === 'not_realized' && rec.intended_kind == null)",
+  "replace": "if (false)",
+  "rule": "a not_realized record names its intended kind",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-min-displacement",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "minDisp = a.min_displacement_m ?? 10",
+  "replace": "minDisp = a.min_displacement_m ?? 0",
+  "rule": "a march moves at least 10 m by default",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-displacement-test",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (disp < minDisp) return fail('unit_not_moving'",
+  "replace": "if (false) return fail('unit_not_moving'",
+  "rule": "a march moves at least the minimum displacement",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-min-minutes",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (nMoving < minMoving) return fail('unit_not_moving'",
+  "replace": "if (false) return fail('unit_not_moving'",
+  "rule": "a march lasts at least min_minutes",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-closing",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (d0 - d1 < need) return fail('unit_wrong_direction'",
+  "replace": "if (false) return fail('unit_wrong_direction'",
+  "rule": "toward: it closes by the stated metres",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-away",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (d1 - d0 < need) return fail('unit_wrong_direction'",
+  "replace": "if (false) return fail('unit_wrong_direction'",
+  "rule": "away_from: it draws away by the stated metres",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-from",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (d > rels.from.tol) return fail('unit_wrong_place'",
+  "replace": "if (false) return fail('unit_wrong_place'",
+  "rule": "from: it starts within the tolerance of the place",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-to",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (d > rels.to.tol) return fail('unit_wrong_place'",
+  "replace": "if (false) return fail('unit_wrong_place'",
+  "rule": "to: it ends within the tolerance of the place",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-along",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (d > rels.along.tol) onRoadFail",
+  "replace": "if (false) onRoadFail",
+  "rule": "along: it stays on the line while marching",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-at-tolerance",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (d <= pl.tol) { n++;",
+  "replace": "if (true) { n++;",
+  "rule": "unit_at: within the tolerance of the place",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-within-wider",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (c.a.within_m > p.tolerance_m) return { err:",
+  "replace": "if (false) return { err:",
+  "rule": "a record may tighten a tolerance, never widen it",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-absent-reason",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (!want.includes(s.why)) return fail('unit_absent_for_the_wrong_reason'",
+  "replace": "if (false) return fail('unit_absent_for_the_wrong_reason'",
+  "rule": "unit_absent: because it has not arrived, not because it is not drawn",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-absent-on-field",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (s.present) return fail('unit_on_field'",
+  "replace": "if (false) return fail('unit_on_field'",
+  "rule": "unit_absent: it is not on the field",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-arrival-window",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (arr < c.span.from - 1e-6 || arr > c.span.to + 1e-6) return fail('unit_arrival_outside_window'",
+  "replace": "if (false) return fail('unit_arrival_outside_window'",
+  "rule": "unit_arrives: the arrival minute is inside the span",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-arrival-before",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (before.present) return fail('unit_on_field'",
+  "replace": "if (false) return fail('unit_on_field'",
+  "rule": "unit_arrives: absent the minute before",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-arrival-place",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (d > pl.tol) return fail('unit_wrong_place', `${id} enters",
+  "replace": "if (false) return fail('unit_wrong_place', `${id} enters",
+  "rule": "unit_arrives: at the place",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-quantifier",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "const q = a.quantifier || 'all'",
+  "replace": "const q = a.quantifier || 'any'",
+  "rule": "every leaf unless the record says any (DD-RZ-03)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-mode-all",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (mode === 'all') return fail(this._whyCode(s), this._whyText(s, id)); lastFail",
+  "replace": "if (false) return fail(this._whyCode(s), this._whyText(s, id)); lastFail",
+  "rule": "unit_at, mode all: at every minute",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-activity-minutes",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (n >= (mode === 'all' ? c.mins.length : need)) return ok({ minutes: n, activities",
+  "replace": "if (true) return ok({ minutes: n, activities",
+  "rule": "unit_activity: for at least min_minutes",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-formation",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (cur === want) { any = true;",
+  "replace": "if (true) { any = true;",
+  "rule": "unit_formation: the formation shown is the asked one",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-figures",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "return n >= lo && n <= hi ? ok(",
+  "replace": "return true ? ok(",
+  "rule": "unit_figures: the picture draws the row's strength",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-guns-limbers",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "(a.limbers_min == null || lim >= a.limbers_min)",
+  "replace": "(true)",
+  "rule": "battery_guns: limbers",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-guns-caissons",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "(a.caissons_min == null || cai >= a.caissons_min)",
+  "replace": "(true)",
+  "rule": "battery_guns: caissons",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-guns-horses",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "(a.horses_min == null || hor >= a.horses_min)",
+  "replace": "(true)",
+  "rule": "battery_guns: horses",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-struct-state",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (a.state != null && !matchState(a.state, st.state))",
+  "replace": "if (false)",
+  "rule": "structure_state: the state",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-struct-present",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (a.present != null && st.present !== a.present)",
+  "replace": "if (false)",
+  "rule": "structure_state: present",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-struct-schedule",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (a.schedule_row != null && !(st.rows || []).includes(a.schedule_row))",
+  "replace": "if (false)",
+  "rule": "structure_state: the schedule row in force",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-struct-visual",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (kind === 'min' ? val < x - 1e-9 : val > x + 1e-9)",
+  "replace": "if (false)",
+  "rule": "structure_state: the drawn visual state",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-struct-hospital",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (!h) return { code: 'structure_wrong_state', detail: `hospital",
+  "replace": "if (false) return { code: 'structure_wrong_state', detail: `hospital",
+  "rule": "structure_state: the hospital",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-work-stage-max",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "else if (a.stage_max != null && !(res.stage != null && res.stage <= a.stage_max))",
+  "replace": "else if (false)",
+  "rule": "work_stage: stage_max",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-work-stage-min",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "else if (a.stage_min != null && !(res.stage != null && res.stage >= a.stage_min))",
+  "replace": "else if (false)",
+  "rule": "work_stage: stage_min",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-work-crew",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (!cr.ok) return fail('work_no_crew'",
+  "replace": "if (false) return fail('work_no_crew'",
+  "rule": "work_stage: a crew shows build_works",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-work-crew-place",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (!near.ok) return fail('work_crew_elsewhere'",
+  "replace": "if (false) return fail('work_crew_elsewhere'",
+  "rule": "work_stage: the crew is at the work",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-weather-cloud",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (a.cloud_max != null && d.cloud.cover > a.cloud_max)",
+  "replace": "if (false)",
+  "rule": "weather: cloud_max",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-weather-wet",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (a.wetness_max != null && !(d.wetness.v != null && d.wetness.v <= a.wetness_max))",
+  "replace": "if (false)",
+  "rule": "weather: wetness_max",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-weather-temp",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (Math.abs(t - a.temp_f) > tol)",
+  "replace": "if (false)",
+  "rule": "weather: the temperature within the tolerance",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-weather-precip",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (a.precip_kind_in && !a.precip_kind_in.includes(d.precip.kind))",
+  "replace": "if (false)",
+  "rule": "weather: the kind of precipitation",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-weather-record",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (a.record != null && !!d.record !== a.record)",
+  "replace": "if (false)",
+  "rule": "weather: a record exists or not",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-weather-vis",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (a.visibility_m_max != null && d.fog.visibilityM > a.visibility_m_max)",
+  "replace": "if (false)",
+  "rule": "weather: visibility",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-sky-exposure",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (a.exposure_min != null && s.exposure < a.exposure_min)",
+  "replace": "if (false)",
+  "rule": "sky: the night floor (exposure_min)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-sky-moon",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (a.moon_up != null && !!s.moonUp !== a.moon_up)",
+  "replace": "if (false)",
+  "rule": "sky: the moon is up or down",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-sky-band",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (a.band_in) {",
+  "replace": "if (false) {",
+  "rule": "sky: the band",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-sky-sun",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (a.sun_alt_max != null && s.sunAlt > a.sun_alt_max)",
+  "replace": "if (false)",
+  "rule": "sky: sun altitude",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-casualty",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (a[key] != null && val < a[key]) return fail('casualty_none'",
+  "replace": "if (false) return fail('casualty_none'",
+  "rule": "casualty: the men who leave the line",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-cards-tier",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "tierBad = a.tier && hit.some(x => x.tier !== a.tier)",
+  "replace": "tierBad = false",
+  "rule": "card_shown: the tier of the card",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-cards-rows",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "const all = [...want].every(id => have.has(id))",
+  "replace": "const all = true",
+  "rule": "card_shown: every row the record names",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-not-realized-verified",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "verified: (failed.length > 0 || res.problems.length > 0) && declared.every(c => observed.has(c))",
+  "replace": "verified: true",
+  "rule": "a not_realized record is verified by its probe failing with the declared codes",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-not-realized-stale",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "stale: !failed.length && !res.problems.length",
+  "replace": "stale: false",
+  "rule": "a not_realized record whose probe passes is stale",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-scenario-filter",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (only[i] && !only[i].includes(scId)) continue;",
+  "replace": "",
+  "rule": "a check holds only in the scenarios it names",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-scenario-unlisted",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "code: 'check_scenario_unlisted'",
+  "replace": "code: 'check_scenario_unlisted_x'",
+  "rule": "a check names only scenarios of the record",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-scenario-excluded-run",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (seen.has(sc.key)) res.problems.push({ code: 'scenario_excluded_is_run'",
+  "replace": "if (false) res.problems.push({ code: 'scenario_excluded_is_run'",
+  "rule": "a scenario is not both run and excluded",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-struct-reading",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "const choice = { ...(c.scenSpec.structure || {}) }, mode",
+  "replace": "const choice = {}, mode",
+  "rule": "a scenario's structure reading reaches the state engine",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-bind-unit",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "else res.problems.push({ code: 'unit_not_bound'",
+  "replace": "else if (false) res.problems.push({ code: 'unit_not_bound'",
+  "rule": "a unit is bound to the row's words",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-bind-place",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "else res.problems.push({ code: 'place_not_in_row'",
+  "replace": "else if (false) res.problems.push({ code: 'place_not_in_row'",
+  "rule": "a place is named in the row",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-bind-structure",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "else res.problems.push({ code: 'structure_not_bound'",
+  "replace": "else if (false) res.problems.push({ code: 'structure_not_bound'",
+  "rule": "a structure shares a word with the row",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-bind-via",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "else if (via && hasQuote(text, via)) { B.units.push",
+  "replace": "else if (via) { B.units.push",
+  "rule": "a declared binding quotes the row",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-realized-needs-results",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "res.realized = !res.problems.length && !failed.length && results.length > 0;",
+  "replace": "res.realized = !res.problems.length && !failed.length;",
+  "rule": "a record with no assertion that ran is not realized",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-partial",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (res.realized && Array.isArray(rec.not_shown) && rec.not_shown.length) res.partial = rec.not_shown;",
+  "replace": "",
+  "rule": "a record that lists what it does not show is partial",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "checks-stale-result",
+  "file": "tools/bt/realize/checks.mjs",
+  "find": "if (res.stale_result_pending != null && res.stale_result_pending !== res.realized)",
+  "replace": "if (false)",
+  "rule": "a stored result that disagrees is reported",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-strict-partial",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "(entry.realization_class === 'scene' && !entry.partial)",
+  "replace": "(entry.realization_class === 'scene')",
+  "rule": "coverage: a partial realization is covered strictly only by a register entry",
+  "tests": [
+   "rules",
+   "main",
+   "inputs"
+  ]
+ },
+ {
+  "id": "check-card-class",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "const CARD_KINDS = new Set(['event_card', 'epilogue']);",
+  "replace": "const CARD_KINDS = new Set(['epilogue']);",
+  "rule": "an event card is the class card (not a scene)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-epilogue-class",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "const CARD_KINDS = new Set(['event_card', 'epilogue']);",
+  "replace": "const CARD_KINDS = new Set(['event_card']);",
+  "rule": "an epilogue card is the class card",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-covered",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "entry.q17_covered = !!entry.realized || regOpen.length > 0;",
+  "replace": "entry.q17_covered = !!entry.realized;",
+  "rule": "coverage: an open register entry covers a row",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-covered-strict-reg",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "|| regOpen.length > 0;\n  entry.coverage",
+  "replace": "|| false;\n  entry.coverage",
+  "rule": "coverage: strictly, an open register entry covers a row",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-coverage-label",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "regOpen.length ? 'open_register_entry' : 'none'",
+  "replace": "'none'",
+  "rule": "coverage label",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-complete",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "ok: complete && clean && S.timeline.uncovered === 0",
+  "replace": "ok: clean && S.timeline.uncovered === 0",
+  "rule": "q17.ok needs every expected row",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-complete-strict",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "ok_strict: complete && clean &&",
+  "replace": "ok_strict: clean &&",
+  "rule": "q17.ok_strict needs every expected row",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-clean",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "const complete = S.timeline.rows === timelineRows && S.epilogue.rows === epCount, clean = !problems.length;",
+  "replace": "const complete = S.timeline.rows === timelineRows && S.epilogue.rows === epCount, clean = true;",
+  "rule": "q17 is void when a record file has problems",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-strict-uses-strict",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "ok_strict: complete && clean && S.timeline.uncovered_strict === 0",
+  "replace": "ok_strict: complete && clean && S.timeline.uncovered === 0",
+  "rule": "ok_strict uses the strict counts",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-uncovered-strict-count",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "uncovered_strict: a.filter(e => !e.q17_covered_strict).length",
+  "replace": "uncovered_strict: a.filter(e => !e.q17_covered).length",
+  "rule": "the strict count counts strictly",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "check-merge-totals",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "doc.totals = S; doc.q17 = q17Of(S,",
+  "replace": "doc.totals = S; doc.q17 = (doc.q17 || q17Of(S,",
+  "rule": "a merged file recomputes q17 from its rows",
+  "tests": [
+   "rules",
+   "main",
+   "inputs"
+  ]
+ },
+ {
+  "id": "check-merge-keep-old",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "doc = { ...doc, rows: { ...old.rows, ...doc.rows }",
+  "replace": "doc = { ...doc, rows: { ...doc.rows }",
+  "rule": "a partial run is merged over the earlier file",
+  "tests": [
+   "inputs"
+  ]
+ },
+ {
+  "id": "check-merge-stale",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "if (!sameDigests && carried.length) doc.rows_from_other_digests",
+  "replace": "if (false) doc.rows_from_other_digests",
+  "rule": "rows carried over from other digests are marked",
+  "tests": [
+   "inputs"
+  ]
+ },
+ {
+  "id": "check-digest-records-result",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "const { result, ...r } = rec && typeof rec === 'object' ? rec : { _not_an_object: rec }; return [line, r];",
+  "replace": "const r = rec; return [line, r];",
+  "rule": "the digest of the records ignores the written-back result",
+  "tests": [
+   "inputs"
+  ]
+ },
+ {
+  "id": "check-outside-clock",
+  "file": "tools/bt/realize/check.mjs",
+  "find": "outside_clock: Object.entries(rows).filter(([, e]) => e.in_clock === false)",
+  "replace": "outside_clock: Object.entries(rows).filter(([, e]) => e.in_clock === true)",
+  "rule": "the rows outside the theatre clock are listed",
+  "tests": [
+   "inputs"
+  ]
+ },
+ {
+  "id": "query-digest-appsrc",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "...walkFiles(path.join(APP, 'src')).map(rel)]",
+  "replace": "]",
+  "rule": "the digest covers the whole source tree of the shell",
+  "tests": [
+   "inputs"
+  ]
+ },
+ {
+  "id": "query-digest-governance",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "['timeline_seed.jsonl', 'timeline_verified.jsonl', 'timeline_windows.jsonl', 'epilogue_seed.jsonl', 'register_index.json', 'requirements.json']",
+  "replace": "['timeline_seed.jsonl']",
+  "rule": "the digest covers the timeline files, the register and the requirements",
+  "tests": [
+   "inputs"
+  ]
+ },
+ {
+  "id": "query-digest-corrections",
+  "file": "tools/bt/realize/query.mjs",
+  "find": ".concat(walkFiles(path.join(GOV, 'timeline_corrections'), /^tl-\\d\\d\\.jsonl$/),",
+  "replace": ".concat([],",
+  "rule": "the digest covers the correction files",
+  "tests": [
+   "inputs"
+  ]
+ },
+ {
+  "id": "query-name-case",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "const cap = (w, init = null) => { const i = info.get(w); return !!i && i.cap && (!init || i.prev.has(init)); }",
+  "replace": "const cap = (w, init = null) => { const i = info.get(w); return !!i && (!init || i.prev.has(init)); }",
+  "rule": "a unit is named as a proper noun (capitalised)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-name-ambiguous",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "strong = w => !amb.has(w) || (info.get(w) || {}).ctx;",
+  "replace": "strong = w => true;",
+  "rule": "an ordinary word names a unit only in a naming context",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-name-initial",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "return !!i && i.cap && (!init || i.prev.has(init)); }",
+  "replace": "return !!i && i.cap; }",
+  "rule": "a name given as initials needs its initial",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-army-name",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "(u.level === 'army' ? fold(unpossess(own))",
+  "replace": "(false ? fold(unpossess(own))",
+  "rule": "an army is named by its whole name",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-structure-spec",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "const from = spec.from || (spec.choices ? 'none' : 'default')",
+  "replace": "const from = spec.from || 'none'",
+  "rule": "a structure-only scenario is the opening scenario plus the reading",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-cas-leaves",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "const leaves = [...new Set(list.flatMap(id => this.P.leaves(id)))]",
+  "replace": "const leaves = list",
+  "rule": "casualties of a formation are the sum over its leaf units",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "query-designator-agree",
+  "file": "tools/bt/realize/query.mjs",
+  "find": "if (/^(emergency|militia|state militia)\\b/.test(a)) return /militia/i.test(u.name);",
+  "replace": "",
+  "rule": "a designator agrees with the words after it (Emergency Militia)",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "timeline-claim-basis",
+  "file": "tools/bt/realize/timeline.mjs",
+  "find": "out.time_text = tw.text; else if",
+  "replace": "out.time_text = tw.text + ' ' + (tw.basis || ''); else if",
+  "rule": "the basis of a window is not the claim",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "timeline-claim-marking",
+  "file": "tools/bt/realize/timeline.mjs",
+  "find": "if (typeof corrected.text === 'string' && corrected.text.trim()) out.text = corrected.text;",
+  "replace": "if (typeof corrected.text === 'string' && corrected.text.trim()) out.text = corrected.text + ' ' + (corrected.marking || '');",
+  "rule": "the marking is not the claim",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "timeline-outside-clock",
+  "file": "tools/bt/realize/timeline.mjs",
+  "find": "window.in_clock = window.intervals.some(([a, b]) => clock.some(([x, y]) => Math.min(b, y) - Math.max(a, x) >= 1));",
+  "replace": "window.in_clock = true;",
+  "rule": "a row whose window is outside the clock is flagged",
+  "tests": [
+   "main",
+   "inputs"
+  ]
+ },
+ {
+  "id": "timeline-correction-window",
+  "file": "tools/bt/realize/timeline.mjs",
+  "find": "if (cw) { const lo =",
+  "replace": "if (false && cw) { const lo =",
+  "rule": "a corrected window replaces the printed one",
+  "tests": [
+   "rules",
+   "main"
+  ]
+ },
+ {
+  "id": "gaz-blank-keepgeo",
+  "file": "tools/bt/realize/gazetteer.mjs",
+  "find": "const geo = keepGeo ?",
+  "replace": "const geo = false ?",
+  "rule": "a known place followed by a geographic word is one unknown name",
+  "tests": [
+   "inputs"
+  ]
+ },
+ {
+  "id": "names-towns",
+  "file": "tools/bt/realize/names.mjs",
+  "find": "if (words.length === 1 && last.length >= 7 && TOWN_STRONG.test(last))",
+  "replace": "if (false)",
+  "rule": "a town ending is structural evidence",
+  "tests": [
+   "inputs"
+  ]
+ },
+ {
+  "id": "names-state",
+  "file": "tools/bt/realize/names.mjs",
+  "find": "if (run.state_after || run.state_inline) ev.push",
+  "replace": "if (false) ev.push",
+  "rule": "a state code after a name is structural evidence",
+  "tests": [
+   "inputs"
+  ]
+ },
+ {
+  "id": "names-place-field",
+  "file": "tools/bt/realize/names.mjs",
+  "find": "if (seg.kind === 'correction.place') ev.push",
+  "replace": "if (false) ev.push",
+  "rule": "the place field of a corrected claim is evidence",
+  "tests": [
+   "inputs"
+  ]
+ },
+ {
+  "id": "names-person",
+  "file": "tools/bt/realize/names.mjs",
+  "find": "else if (e.tier < TIER.structural && e.person) cls = 'person_or_unit';",
+  "replace": "",
+  "rule": "a person is not listed as a place without structural evidence",
+  "tests": [
+   "inputs"
+  ]
+ },
+ {
+  "id": "names-claim-corrected",
+  "file": "tools/bt/realize/timeline.mjs",
+  "find": "window, correction: c ? { file: c.file, verdict: c.line.verdict || null, text: corrText, fields: cf, line: c.line } : null,",
+  "replace": "window, correction: c ? { file: c.file, verdict: c.line.verdict || null, text: corrText, fields: null, line: c.line } : null,",
+  "rule": "the claim fields of a correction are searched for names",
+  "tests": [
+   "inputs"
+  ]
+ }
+]

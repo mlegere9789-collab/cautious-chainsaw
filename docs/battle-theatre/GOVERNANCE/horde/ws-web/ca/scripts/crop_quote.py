@@ -52,6 +52,9 @@ def main():
     r = calib.http_get(url, out, timeout=120, note='image crop of a quote')
     if r.get('status') != 200:
         print('crop failed', r); sys.exit(4)
+    calib.append_jsonl(os.path.join(calib.CA_DOCS, 'images.jsonl'), {'page_id': pid, 'tag': tag, 'quote': quote, 'url': url, 'local_path': calib.rel(out),
+                       'sha256': r.get('sha256'), 'bytes': r.get('bytes'), 'region_px': [X0, Y0, w, h], 'image_px': [inf['width'], inf['height']],
+                       'fetched_at': calib.now()})
     print(out)
     print('region %dx%d px at (%d,%d); image %dx%d; scale %.4f' % (w, h, X0, Y0, inf['width'], inf['height'], sc))
 

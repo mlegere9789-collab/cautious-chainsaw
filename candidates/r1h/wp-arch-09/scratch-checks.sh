@@ -8,8 +8,9 @@
 # and exits 1 when any check fails. Node 22 and Node 24 are taken from /opt/node22/bin and /opt/node24/bin (the container's installs).
 set -u
 ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
-W="$ROOT/tmp/r1h-cand/wp-arch-09/scratch"
-EV="$ROOT/candidates/r1h/wp-arch-09/evidence"
+W="${SCRATCH_DIR:-$ROOT/tmp/r1h-cand/wp-arch-09/scratch}"
+EV="${EVIDENCE_DIR:-$ROOT/candidates/r1h/wp-arch-09/evidence}"
+PARTS="${PARTS:-A B C D}"
 ORIG_PATH="$PATH"
 FAILS=0
 mkdir -p "$EV"; rm -rf "$W"; mkdir -p "$W"
@@ -19,6 +20,7 @@ ok() { say "PASS: $*"; }
 bad() { say "FAIL: $*"; FAILS=$((FAILS + 1)); }
 use_node() { export PATH="/opt/node$1/bin:$ORIG_PATH"; }
 
+part_a() {
 # ---------------------------------------------------------------------------------------------------------------- A. npm workspaces
 OUT="$EV/npm-workspaces.txt"; : > "$OUT"
 say "# npm workspaces: how the root wires src/ (wp-arch-09). Run $(date -u +%Y-%m-%dT%H:%M:%SZ)"
@@ -77,8 +79,8 @@ PY
   ADDS=$(grep -c '^add ' "$T/ci-dry.txt")
   if [ "$RC" -eq 0 ] && [ "$ADDS" -eq 27 ]; then ok "A6 'npm ci --dry-run' exits 0 and lists $ADDS packages"; else bad "A6 npm ci --dry-run exit $RC, $ADDS packages"; fi
   (cd "$T" && npm ci --no-audit --no-fund --ignore-scripts >"$T/ci.txt" 2>&1); RC=$?
-  LINKS=$(find "$T/node_modules" -maxdepth 2 -type l | wc -l)
-  if [ "$RC" -eq 0 ] && grep -q 'added 27 packages' "$T/ci.txt" && [ "$LINKS" -eq 0 ]; then ok "A6 'npm ci' added 27 packages and created $LINKS workspace links (no workspace has a package.json yet)"; else bad "A6 npm ci exit $RC, links $LINKS: $(tail -2 "$T/ci.txt")"; fi
+  LINKS=$(find "$T/node_modules" -maxdepth 2 -type l -not -path '*/.bin/*' | wc -l)
+  if [ "$RC" -eq 0 ] && grep -q 'added 27 packages' "$T/ci.txt" && [ "$LINKS" -eq 0 ]; then ok "A6 'npm ci' added 27 packages and created $LINKS workspace links outside node_modules/.bin (no workspace has a package.json yet)"; else bad "A6 npm ci exit $RC, links $LINKS: $(tail -2 "$T/ci.txt")"; fi
 
   # A7. the new script runs the tests of src/
   (cd "$T" && npm run src:test >"$T/src-test.txt" 2>&1); RC=$?
@@ -87,7 +89,9 @@ PY
   # A8. 'workspaces' listed with `npm ls` works and the folder without package.json is skipped
   (cd "$T" && npm ls --workspaces >"$T/ls.txt" 2>&1); say "INFO: 'npm ls --workspaces' at the wired root prints: $(head -1 "$T/ls.txt")"
 done
+}
 
+part_b() {
 # ---------------------------------------------------------------------------------------------------------------- B. Vite bundles the real module
 OUT="$EV/vite-bundle.txt"; : > "$OUT"
 use_node 22
@@ -137,7 +141,9 @@ say "b4 PUBLIC_ prefix, staging mode, token unset:  $R4"; say "b5 PUBLIC_ prefix
 echo "$R4" | grep -q '"production":true' && echo "$R4" | grep -q '"code":"MAPBOX_TOKEN_MISSING"' && ok "B4 a staging mode of a production build keeps PROD true (the call throws when the token is unset)" || bad "B4 differs"
 echo "$R5" | grep -q '"code":"MAPBOX_TOKEN_SECRET"' && echo "$R5" | grep -q '"mentionsSecret":false' && ok "B5 a secret token in the bundle environment is refused and never echoed" || bad "B5 differs"
 if grep -rq 'pk\.eyJ' "$V"/dist-b*/ 2>/dev/null; then bad "B6 a bundle holds a token-shaped literal"; else ok "B6 no bundle holds a token-shaped literal"; fi
+}
 
+part_c() {
 # ---------------------------------------------------------------------------------------------------------------- C. TypeScript strictness
 OUT="$EV/typescript-strict.txt"; : > "$OUT"
 use_node 22
@@ -192,7 +198,9 @@ EOF
     && ok "C2 five deliberate violations are each rejected on $("$TSC" --version): verbatimModuleSyntax (TS1484), noUncheckedIndexedAccess (TS2322), exactOptionalPropertyTypes (TS2375), noImplicitAny (TS7006), strictNullChecks (TS2322)" \
     || bad "C2 the violations were not all rejected on $("$TSC" --version)"
 done
+}
 
+part_d() {
 # ---------------------------------------------------------------------------------------------------------------- D. registry readings
 OUT="$EV/registry-readings.txt"; : > "$OUT"
 use_node 22
@@ -213,8 +221,10 @@ done
 for p in typescript vite; do
   printf '%s dist-tags: ' "$p" | tee -a "$OUT"; curl -sS --max-time 30 "https://registry.npmjs.org/-/package/$p/dist-tags" | tee -a "$OUT"; echo | tee -a "$OUT"; sleep 1.2
 done
+}
 
 # ---------------------------------------------------------------------------------------------------------------- end
+for P in $PARTS; do case "$P" in A) part_a ;; B) part_b ;; C) part_c ;; D) part_d ;; esac; done
 if [ "${KEEP:-0}" != "1" ]; then rm -rf "$W"; fi
 echo
 if [ "$FAILS" -eq 0 ]; then echo "scratch-checks: all checks passed"; else echo "scratch-checks: $FAILS check(s) FAILED"; fi

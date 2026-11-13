@@ -6,7 +6,7 @@ Workstream bt-spec-health (spec loop). This file is assembled by `node docs/batt
 
 ## Summary
 
-6 tests in 3 specs: 6 PASS
+14 tests in 3 specs: 13 PASS, 1 STALE_TEST
 
 ## How the specs are run here
 
@@ -43,15 +43,23 @@ The page's clock advances by the real frame time but never by more than 100 ms a
 
 ### real.spec.mjs
 
-Source shell, latest run: `src-1-real.log` (2026-11-13 21:03Z): ? passed, ? failed, ? not run, of ?; still running or no end line.  
+Source shell, latest run: `src-1-real.log` (2026-11-13 21:03Z): 7 passed, 1 failed, 0 not run, of 8; 28 min; frozen source snapshot of commit 9e1e1777.  
 Packed dist, latest run: not run.
 
 | test | source | dist | verdict | evidence |
 |---|---|---|---|---|
+| honest labelling: the ribbon, the count, the About text and the landing copy say what is placed and what is an open gap; nothing claims accuracy or mentions how the pa... | pass (2 min) | not run | PASS | run src-1-real (snapshot 9e1e1777): ribbon, count, About text and landing copy say what is placed and what is an open gap; no wording about how the page was made. |
+| a placed unit: Units list, card with strength basis, entry, arrival note, tier, sources, kit manifest and a register link that opens | FAIL (5 min) | not run | STALE_TEST (fixed, re-run src-2-real pending) | Failed on 'card shows Standing': the test looked at the card one minute after the END OF THE FIRST PATH of the focus unit (19th Indiana, Meredith's Iron Brigade). Since contract 1.5 (troop-map day positions read from Bachelder's 1876 maps; DEC-010, DEC-011, DEC-018; app/HISTORY-LAYER-NOTES.md 'Troop-map day positions') a placed unit carries several stops: this one has 6 paths and its second march (BACH-1876-S1) starts in the very minute its first ends, so the card correctly said Marching. The test now uses one minute after the end of the LAST path (44,445.5, where the layer's last event is 'stand', no event follows), as arrival.spec.mjs already did. Not a product defect; no assertion was weakened. Nothing after 'Standing' had been reached, so the rest of the test is checked by the re-run (all the other words it asserts exist in the card code). source run: card shows Standing |
+| a unit with no place: its card says open gap and why, still shows its ledger arrival window and strength basis, and the unit is not drawn or listed | pass (4 min) | not run | PASS | run src-1-real: open-gap card with its reason, ledger arrival window and strength basis; not drawn (x = 1e6), not listed. |
+| the evidence overlay outlines the placed units by tier (plausible-procedural) and works are drawn as rings with their place named; no error | pass (2 min) | not run | PASS | run src-1-real: placed units outlined in the plausible-procedural tier colour, works drawn as rings with the place named. |
+| a unit placed by an Official Records report: its card lists the report, the printed page, the quoted words, the tier and the checks, what is applied and what is not, a... | pass (5 min) | not run | PASS | run src-1-real: report, printed page, quoted words, tier and checks on the card; a conflicting report is listed; a unit placed only by the ledger shows no claims section. |
+| a unit placed by a troop-map day position: the card says the position is documented for the day and the time modelled, lists the label, sigma, crop and the ledgers' pl... | pass (5 min) | not run | PASS | run src-1-real: the card states the position is documented for the day and the time modelled, with label, sigma, crop and the ledgers' places; the unit stands in its slot two minutes after arriving. |
+| a unit drawn by a MODELLED road of approach (DEC-015): the card says MODELLED APPROACH with the siblings, report, page and printed words, carries the pill and the link... | pass (5 min) | not run | PASS | run src-1-real: 56 modelled units, the card says MODELLED APPROACH with siblings, report, page and words and links EG-0070 (opens from the source shell); an open unit found in the layer gives its own reason. (The unit the test used to name, the 134th New York, is drawn since history layer v8, DEC-023E; the earlier attempt of this workstream already changed the test to look the open unit up.) |
+| no console errors | pass (0 min) | not run | PASS | run src-1-real: no console error or page error. |
 
 ### sky.spec.mjs
 
-Source shell, latest run: `src-1-sky.log` (2026-11-13 19:19Z): 5 passed, 0 failed, 0 not run, of 5; 50 min; the source changed during the run.  
+Source shell, latest run: `src-1-sky.log` (2026-11-13 19:19Z): 5 passed, 0 failed, 0 not run, of 5; 50 min; the live source tree changed during the run.  
 Packed dist, latest run: not run.
 
 | test | source | dist | verdict | evidence |
@@ -64,10 +72,10 @@ Packed dist, latest run: not run.
 
 ### webgl2.spec.mjs
 
-Source shell, latest run: `src-2-webgl2.log` (2026-11-13 20:55Z): 1 passed, 0 failed, 0 not run, of 1; 8 min.  
-Packed dist, latest run: not run.  
+Source shell, latest run: `src-2-webgl2.log` (2026-11-13 20:55Z): 1 passed, 0 failed, 0 not run, of 1; 8 min; frozen source snapshot of commit 9e1e1777.  
+Packed dist, latest run: `dist-1-webgl2.log` (2026-11-13 21:31Z): ? passed, ? failed, ? not run, of ?; still running or no end line; packed dist built from commit 9e1e1777.  
 Earlier runs of this round: `src-1-webgl2.log` (0/1 passed).
 
 | test | source | dist | verdict | evidence |
 |---|---|---|---|---|
-| WebGL2 renders the placeholder crowd, hides units before their arrival, answers the scrubber, and leaves no context behind | pass (8 min) | not run | PASS | Second run, frozen source snapshot 9e1e1777: 165,000 soldiers on 3 Jul 13:30 at 1280x720, the picture is not black, nothing is placed before any arrival (28 Jun), more than 100,000 present on 2 Jul, the scrubber answers, and leaving the theatre leaves 0 canvas contexts, 0 animation frames, 0 timers; no console error or page error. Frame p50 7.8 s on this renderer (printed in the log as not a timing of the product). The first attempt (live tree, run src-1-webgl2) failed only on one console line: the shell asks the server for src/ext/index.mjs with a HEAD request and the file was created 26 s into that run (the 404 is described in requests/spec-health-pack-ext-folder.md, point 1); it is not a product defect and not a harness problem. |
+| WebGL2 renders the placeholder crowd, hides units before their arrival, answers the scrubber, and leaves no context behind | pass (8 min) | no result yet | PASS | Second run, frozen source snapshot 9e1e1777: 165,000 soldiers on 3 Jul 13:30 at 1280x720, the picture is not black, nothing is placed before any arrival (28 Jun), more than 100,000 present on 2 Jul, the scrubber answers, and leaving the theatre leaves 0 canvas contexts, 0 animation frames, 0 timers; no console error or page error. Frame p50 7.8 s on this renderer (printed in the log as not a timing of the product). The first attempt (live tree, run src-1-webgl2) failed only on one console line: the shell asks the server for src/ext/index.mjs with a HEAD request and the file was created 26 s into that run (the 404 is described in requests/spec-health-pack-ext-folder.md, point 1); it is not a product defect and not a harness problem. |

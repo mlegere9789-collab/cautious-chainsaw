@@ -1,0 +1,20 @@
+{
+ "command": "node tools/historian/build.mjs --out <dir> --quiet",
+ "node22": "v22.23.4",
+ "node24": "v24.22.1",
+ "files_built": 261,
+ "manifest_sha256": "b4a2ff5fad9b682dd5a4f4e6416fde629f43f64d42c3ee384bb0d673ba28567a",
+ "identical_22_vs_24": true,
+ "differing_22_vs_24": [],
+ "shared_with_committed": 261,
+ "identical_to_committed_on_shared": true,
+ "differing_from_committed": [],
+ "only_in_build": [],
+ "only_in_committed": [
+  "f/facts.828e9ba1.json",
+  "f/facts.e9dfe2cf.json",
+  "manifest.prev1.json",
+  "manifest.prev2.json"
+ ],
+ "note": "the committed directory keeps the previous manifests and older content-hashed files; they are not part of a build"
+}

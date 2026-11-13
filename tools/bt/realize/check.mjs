@@ -11,8 +11,8 @@
 // The result of a row: realized true only when its record is valid, bound to the row's words, and every check holds in the product; q17_covered = realized or an open register entry (the two
 // halves of the gate). Nothing here sets a `passes` flag: Q17 is passing only when q17.ok is true AND the gate runner says so.
 import fs from 'node:fs'; import path from 'node:path'; import { fileURLToPath } from 'node:url'; import crypto from 'node:crypto';
-import { ROOT, GOV, REAL, HARNESS, readJSON, readJSONL, readText, exists, rel, sha256, sha256File, minOf } from './lib.mjs';
-import { loadTimeline } from './timeline.mjs';
+import { ROOT, GOV, REAL, HARNESS, readJSON, readJSONL, readText, exists, rel, sha256, sha256File, minOf, toMin } from './lib.mjs';
+import { loadTimeline, coversInterval } from './timeline.mjs';
 import { openProduct } from './query.mjs';
 import { Runner } from './checks.mjs';
 
@@ -66,6 +66,9 @@ export function readRecordFile(file) {
 export async function runAll({ shards = null, files = null, rows = null, quiet = true, product = null } = {}) {
   const TL = loadTimeline(), EP = epilogueRows(TL); for (const r of EP) { TL.byId.set(r.id, r); }
   const P = product || await openProduct(), R = new Runner(P, TL); if (typeof P.warm === 'function') await P.warm();     // every lazy load happens now, so that the digest of the inputs does not depend on which records ran
+  // the allowed windows WITHOUT the clock margin (the plan: the armies' clocks differ by about 20 minutes, which "is not applied to any row, it is carried as uncertainty"): a record whose window lies inside the widened window
+  // and outside the exact one has used the margin (clock_tolerance_used); GATE-SPEC 6.4 V4 and DD-G09 do not accept it for a Q17 PASS
+  const tol0 = JSON.parse(JSON.stringify(TL.tolerances)); tol0.time.clock_tolerance_min = 0; const TL0 = loadTimeline({ tolerances: tol0 }), exact = new Map([...TL0.rows, ...epilogueRows(TL0)].map(r => [r.id, r.window.intervals]));
   const reg = registerCoverage(), fileList = [];
   if (files) for (const f of files) fileList.push({ file: path.resolve(f), shard: path.basename(f).replace(/\.jsonl$/, '') });
   else {
@@ -92,6 +95,7 @@ export async function runAll({ shards = null, files = null, rows = null, quiet =
     const entry = res ? { realized: !!res.realized, kind: res.kind, why: res.why, codes: res.codes, record: res.source, window: res.window || null, scenarios: res.scenarios, ...(res.excluded_scenarios && res.excluded_scenarios.length ? { excluded_scenarios: res.excluded_scenarios } : {}), declared_bindings: res.bindings ? res.bindings.declared : 0, problems: res.problems.map(p => p.code + ': ' + p.detail).slice(0, 6), failing: (res.assertions || []).filter(a => !a.ok).map(a => ({ i: a.i, type: a.type, code: a.code, detail: a.detail })).slice(0, 8), assertions: (res.assertions || []).map(a => ({ i: a.i, scenario: a.scenario, type: a.type, ok: a.ok, ...(a.ok ? {} : { code: a.code }), evidence: trimEv(a.ok ? a.evidence : null) })), ...(res.partial ? { partial: true, not_shown: res.partial } : {}), ...(res.stale_result ? { stale_result: res.stale_result } : {}), ...(res.missing ? { missing: res.missing } : {}), ...(res.from_examples ? { from_examples: true } : {}), }
       : { realized: false, kind: null, why: 'no realization record', codes: ['no_record'], record: null, window: null };
     if (res && res.spec_view) entry.spec_view = res.spec_view;
+    entry.clock_tolerance_used = res && res.window ? !coversInterval(exact.get(r.id) || [], toMin(res.window.from), toMin(res.window.to)) : null;
     entry.in_clock = !!(r.window && r.window.in_clock); entry.tier = r.tier; entry.status = r.status_effective; entry.shard = r.shard || null; coverageOf(entry, rg.open);
     out[r.id] = entry;
   }

@@ -2,7 +2,7 @@
 Run: python3 -I build.py   (read-only on all source texts; writes only the jsonl and tmp/terrain-1/build.log)
 Every citation quote must be found verbatim (whitespace-normalised, case-sensitive, hyphenation joined) in the named report (OR) or
 source text, exactly once unless an occurrence index is given; otherwise the build stops with the failing row and quote."""
-import os, sys, re, json, glob, importlib.util, collections, datetime
+import os, sys, re, json, glob, importlib.util, collections, datetime, hashlib
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import tlib, spec_lib
@@ -12,6 +12,12 @@ RESULTS = os.path.join(ROOT, 'docs/battle-theatre/GOVERNANCE/horde/terrain-1/res
 RECHECK = os.path.join(ROOT, 'docs/battle-theatre/GOVERNANCE/horde/OR-RECHECK/results.jsonl')
 CLASS = {'OR': 'primary (official report written 1863-65; Government Printing Office volume 1889, raw OCR, single witness unless a second scan is listed)'}
 LIB_CLASS = {}  # filled by lib_class()
+_SHA_CACHE = {}
+def file_sha(path):
+    if path not in _SHA_CACHE:
+        _SHA_CACHE[path] = hashlib.sha256(open(path, 'rb').read()).hexdigest()
+    return _SHA_CACHE[path]
+
 
 def lib_class(sid):
     if sid.startswith('ADAMS-SENTINEL') or sid.startswith('GBG-COMPILER'):
@@ -55,7 +61,7 @@ def resolve(c):
         if len(idxs) > 1 and occ is None: raise SystemExit('AMBIGUOUS (%d) in %s: %r' % (len(idxs), ref, q))
         i = idxs[occ or 0]; a, b = nm[i], nm[i + len(qn) - 1] + 1
         return dict(source_id=ref, source_class=lib_class(ref), part=None, report_id=None, printed_page=c.get('page'), page_basis=('running head read in the text layer (checked by hand)' if c.get('page') else 'heuristic hint only (nearest preceding number); not a citation page'), page_hint=tlib.page_hint(raw, a), quote=q, offset=[a, b],
-                    local_path=os.path.relpath(p, ROOT), match='exact (whitespace-normalised, case-sensitive)', role=c['role'], note=c.get('note'))
+                    local_path=os.path.relpath(p, ROOT), local_sha256=file_sha(p), match='exact (whitespace-normalised, case-sensitive)', role=c['role'], note=c.get('note'))
     if src == 'NPS':
         p, raw, nt, nm = tlib.nps_text(ref)
         idxs = []; pos = 0
@@ -69,7 +75,7 @@ def resolve(c):
         pg = None
         for mm in re.finditer(r'=== PAGE (\d+) ===', raw[:a]): pg = mm.group(1)
         return dict(source_id=ref, source_class='secondary (National Park Service document, United States government work; text layer of the PDF)', part=None, report_id=None,
-                    printed_page=None, pdf_page=pg, quote=q, offset=[a, b], local_path=os.path.relpath(p, ROOT), match='exact (whitespace-normalised, case-sensitive)',
+                    printed_page=None, pdf_page=pg, quote=q, offset=[a, b], local_path=os.path.relpath(p, ROOT), local_sha256=file_sha(p), match='exact (whitespace-normalised, case-sensitive)',
                     role=c['role'], note=c.get('note'))
     raise SystemExit('bad src ' + src)
 

@@ -1,0 +1,133 @@
+{
+ "node": "v24.22.1",
+ "date": "2026-11-13T21:24:36.198Z",
+ "old_blob": "cdc9c0a17c0b433fec6fc50092f3368e9428c50e",
+ "new_file": "tools/historian/ingest/times.mjs",
+ "new_blob": "39fbedfab661321f1478d69473c70adaa3054700",
+ "old_text_loaded": true,
+ "old_note": null,
+ "seed": 20261113,
+ "fuzz": 400000,
+ "grammar": 400000,
+ "sections": {
+  "corpus": {
+   "name": "corpus",
+   "inputs": 625025,
+   "calls": 1250050,
+   "rows": 34560,
+   "kinds": {
+    "sun": 4036,
+    "clock": 21286,
+    "midnight": 736,
+    "oclock": 5567,
+    "noon": 2734,
+    "range": 177,
+    "spelled": 24
+   },
+   "bare_am_shaped_inputs": 5833,
+   "new_digest": "077834871661a88106888121292a46b19c478006c78a249af984555b5ba042b2",
+   "old_digest": "077834871661a88106888121292a46b19c478006c78a249af984555b5ba042b2",
+   "compared_with_old": true,
+   "mismatches": 0,
+   "ms": 8040,
+   "files": [
+    {
+     "file": "tmp/library/or27/cu31924077699761_djvu.txt",
+     "bytes": 4015765
+    },
+    {
+     "file": "tmp/library/or27/cu31924077700262_djvu.txt",
+     "bytes": 3406812
+    },
+    {
+     "file": "tmp/library/or27/cu31924077728255_djvu.txt",
+     "bytes": 3946453
+    }
+   ]
+  },
+  "claims": {
+   "name": "claims",
+   "inputs": 5572,
+   "calls": 27860,
+   "rows": 27740,
+   "kinds": {
+    "clock": 20475,
+    "sun": 2295,
+    "midnight": 395,
+    "oclock": 2983,
+    "noon": 1375,
+    "range": 202,
+    "spelled": 15
+   },
+   "bare_am_shaped_inputs": 0,
+   "new_digest": "93de47dcbe23365b90fca4ac700f26322d1ceeed041913dd2ab85c59e09ad62b",
+   "old_digest": "93de47dcbe23365b90fca4ac700f26322d1ceeed041913dd2ab85c59e09ad62b",
+   "compared_with_old": true,
+   "mismatches": 0,
+   "ms": 186,
+   "claims": 5572
+  },
+  "exhaustive": {
+   "name": "exhaustive",
+   "inputs": 2480184,
+   "calls": 2480184,
+   "rows": 1063063,
+   "kinds": {
+    "clock": 23472,
+    "range": 11628,
+    "spelled": 322105,
+    "oclock": 696264,
+    "noon": 9594
+   },
+   "bare_am_shaped_inputs": 153472,
+   "new_digest": "9bb9925c9dcd27d793cd3988fd15478d919e481d947f3d8b27efea1f720f246b",
+   "old_digest": "9bb9925c9dcd27d793cd3988fd15478d919e481d947f3d8b27efea1f720f246b",
+   "compared_with_old": true,
+   "mismatches": 0,
+   "ms": 13977
+  },
+  "fuzz": {
+   "name": "fuzz",
+   "inputs": 400000,
+   "calls": 800000,
+   "rows": 218672,
+   "kinds": {
+    "midnight": 30682,
+    "clock": 56574,
+    "spelled": 26052,
+    "sun": 31984,
+    "oclock": 40420,
+    "noon": 32960
+   },
+   "bare_am_shaped_inputs": 159824,
+   "new_digest": "35fd8d921178b23015e81f16b396910924044ea2f972079be5c6e9762465b779",
+   "old_digest": "35fd8d921178b23015e81f16b396910924044ea2f972079be5c6e9762465b779",
+   "compared_with_old": true,
+   "mismatches": 0,
+   "ms": 11148
+  },
+  "grammar": {
+   "name": "grammar",
+   "inputs": 400000,
+   "calls": 800000,
+   "rows": 509186,
+   "kinds": {
+    "oclock": 117218,
+    "clock": 231482,
+    "spelled": 121508,
+    "range": 9254,
+    "noon": 10084,
+    "midnight": 9600,
+    "sun": 10040
+   },
+   "bare_am_shaped_inputs": 104930,
+   "new_digest": "b09fa0d77a8c8321fb6e2ccd339a6f332b594141c52cb3c220d9bd6cbfc6d20b",
+   "old_digest": "b09fa0d77a8c8321fb6e2ccd339a6f332b594141c52cb3c220d9bd6cbfc6d20b",
+   "compared_with_old": true,
+   "mismatches": 0,
+   "ms": 11908
+  }
+ },
+ "total_mismatches": 0,
+ "old_equals_new": true
+}

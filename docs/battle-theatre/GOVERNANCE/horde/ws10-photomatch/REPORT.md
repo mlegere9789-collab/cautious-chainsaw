@@ -49,13 +49,14 @@ Counts over all 127 records: posed 14; cannot judge without a pose 113 (near fie
 
 ## Tests
 
-- `node --test docs/battle-theatre/app/tests/photomatch-q16.test.mjs`: 10 pass, 0 fail, 1 skipped (render determinism (needs the machine lock; queued)).
+- `node --test docs/battle-theatre/app/tests/photomatch-q16.test.mjs`: 10 pass, 0 fail, 1 skipped (render determinism: queued for the machine lock from 2026-11-13 20:06 to 21:28 and never granted a slot; the waiter was stopped; run PHOTOMATCH_RENDER=1 through tools/horde/bench.sh to do it).
 - `node --test tests/photomatch.test.mjs` (not owned by this task): 2 pass, 3 fail: it asserts archive.org-only ledger urls, gazetteer-only anchors and the first-run verdicts.json shape; see the request note bt-web-photomatch-old-test.md.
 - Full node suite: not run.
 
 ## Not run, owed
 
-- The full node suite (`node --test docs/battle-theatre/app/tests/*.test.mjs`) was not run; only the photomatch test file was.
+- The render of pose P13 (the Valley of Death view, record 2012647708) and its review sheet: the render job waited from 19:57 to 21:28 and the determinism test from 20:06 to 21:28 in the machine lock queue (two slots, 15 to 20 waiters) and were never granted a slot; the waiters were stopped. To finish: tools/horde/bench.sh node tools/bt/photomatch/run.mjs P13, compose.py P13, look at the sheet, write the verdict, move the entry from deferred_poses back into poses.
+- The full node suite (`node --test docs/battle-theatre/app/tests/*.test.mjs`) was not run by this task; only the photomatch test file was.
 - No real-GPU rendering: every render is software GL. Nothing here is a timing or a real-GPU visual result.
 - No master TIFF beyond the two Cemetery Hill views; no full-resolution matching.
 - The NARA Prologue blog on the Devil's Den sharpshooter (the PDF's source for the staged flag) and any LOC record outside the cwp collection (LC-DIG-ppmsca-18947, negative LC-B815-273) were not read.

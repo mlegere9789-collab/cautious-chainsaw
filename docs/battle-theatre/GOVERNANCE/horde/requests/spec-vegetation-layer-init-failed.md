@@ -22,3 +22,5 @@ The tree changed during the run (`ext/vegetation/gl.mjs` was written at 20:19:41
 Read the "link veg-decal" console line (the program log says which varying or uniform does not match), fix the shader, and keep `app/tests/vegetation-browser.mjs` (or the leak test above) asserting `btApp.ext.status()` shows `vegetation/index.mjs` as `running`. The staging verification (`tools/bt/verify_staging.mjs`) compares the state of every added layer between the packed site and the source; a layer that fails in both is reported as a product matter, not a packaging one.
 
 When done, append `-- handled: <what was done>` to this note with a shell `>>`.
+
+-- update (bt-spec-health, 2026-11-13 21:25): not reproduced since. The staging walks at 20:23 (packed dist and source snapshot) and the leak test at 21:13-21:24 all show `vegetation/index.mjs` as `running` (console clean). The 20:19 failure was probably the state of `ext/vegetation/gl.mjs` before its 20:19:41 write. Treat this note as closed unless the line "link veg-decal" appears again.

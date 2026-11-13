@@ -15,7 +15,7 @@
 | Product marking | Tier overlay glyph on the emplacement; gap marker on every value listed under Still unsupported; PDF-only values shown with their source and marked unsupported. |
 | Visual and audio impact | Gun emplacement meshes, crew counts, work stages, time windows (see the request note for the world-content workstream). |
 | Review status | internal review only (DEC-006: no public review label) |
-| Owner decision requested | Whether the Oak Hill tablet text should be obtained by the owner (a photograph of the tablet) to settle the 3-inch rifles. |
+| Owner decision requested | None. The tablet text of the Hardaway Alabama Artillery position is not in a source read here (the NPS Cultural Landscape Report says the guns and tablet were completed by the park commission in 1906, with two original Whitworth guns on special carriages); the PDF's 'plus two 3-inch rifles' stays marked unsupported. |
 | Agent recommendation | Carry the corrected value as the default scenario and every other value as a selectable scenario; never delete a PDF value (Law cl.6). |
 | Status | open (updated by the close-out 2026-11-13; row verdict partially_supported) |
 | Owner decision and date | (filled only from the Decision Log) |

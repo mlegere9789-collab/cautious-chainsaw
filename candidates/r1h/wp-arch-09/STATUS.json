@@ -1,0 +1,12 @@
+{
+ "id": "wp-arch-09",
+ "route": "source-rebuild",
+ "notes": [
+  "not run: a clean-install CI (install --frozen-lockfile && build && test): it needs the owner-enabled CI and the build of WP-ARCH-10; no dependency is installed by this item",
+  "not run: Astro, ESLint, stylelint, knip, size-limit, es-check (not installed; WP-ARCH-10 installs and configures them); the plan's one-day toolchain smoke",
+  "not run: any browser, any real GPU or device, Windows, macOS; the shipped site does not change, so no visual or timing claim is made",
+  "the root package.json and package-lock.json are not edited (not this workstream's): the two-line workspace wiring, the lock refresh and one tests/README.md row are the request note docs/battle-theatre/GOVERNANCE/horde/requests/main-site-wp-arch-09.md",
+  "owner-only: enabling CI, creating and rotating Mapbox tokens (register owner action 3), reading the Mapbox Product Terms of 2026-07-21",
+  "no patch group: nothing in release/R1g/dist changes, so there is no group.json and nothing for the release workstream to register in a train"
+ ]
+}

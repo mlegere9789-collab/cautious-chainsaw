@@ -225,6 +225,10 @@ def fetch_page(meta, force=False):
     url = ALTO_BASE + seg
     raw = txt + '.alto.tmp'
     rec = http_get(url, raw, timeout=120, note='page ALTO')
+    if rec.get('status') in (0, 500, 502, 503, 504):
+        # transient network or server trouble (not a refusal, not a 404): one more try after a pause
+        time.sleep(4)
+        rec = http_get(url, raw, timeout=120, note='page ALTO (second try after a transient error)')
     if rec.get('status') != 200:
         return None
     alto_sha = sha256_file(raw)

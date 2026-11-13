@@ -38,6 +38,50 @@
           "evidence": "Second run, frozen source snapshot 9e1e1777: 165,000 soldiers on 3 Jul 13:30 at 1280x720, the picture is not black, nothing is placed before any arrival (28 Jun), more than 100,000 present on 2 Jul, the scrubber answers, and leaving the theatre leaves 0 canvas contexts, 0 animation frames, 0 timers; no console error or page error. Frame p50 7.8 s on this renderer (printed in the log as not a timing of the product). The first attempt (live tree, run src-1-webgl2) failed only on one console line: the shell asks the server for src/ext/index.mjs with a HEAD request and the file was created 26 s into that run (the 404 is described in requests/spec-health-pack-ext-folder.md, point 1); it is not a product defect and not a harness problem."
         }
       ]
+    },
+    "real.spec.mjs": {
+      "tests": [
+        {
+          "match": "honest labelling: the ribbon",
+          "verdict": "PASS",
+          "evidence": "run src-1-real (snapshot 9e1e1777): ribbon, count, About text and landing copy say what is placed and what is an open gap; no wording about how the page was made."
+        },
+        {
+          "match": "a placed unit: Units list",
+          "verdict": "STALE_TEST (fixed, re-run src-2-real pending)",
+          "evidence": "Failed on 'card shows Standing': the test looked at the card one minute after the END OF THE FIRST PATH of the focus unit (19th Indiana, Meredith's Iron Brigade). Since contract 1.5 (troop-map day positions read from Bachelder's 1876 maps; DEC-010, DEC-011, DEC-018; app/HISTORY-LAYER-NOTES.md 'Troop-map day positions') a placed unit carries several stops: this one has 6 paths and its second march (BACH-1876-S1) starts in the very minute its first ends, so the card correctly said Marching. The test now uses one minute after the end of the LAST path (44,445.5, where the layer's last event is 'stand', no event follows), as arrival.spec.mjs already did. Not a product defect; no assertion was weakened. Nothing after 'Standing' had been reached, so the rest of the test is checked by the re-run (all the other words it asserts exist in the card code)."
+        },
+        {
+          "match": "a unit with no place",
+          "verdict": "PASS",
+          "evidence": "run src-1-real: open-gap card with its reason, ledger arrival window and strength basis; not drawn (x = 1e6), not listed."
+        },
+        {
+          "match": "the evidence overlay outlines",
+          "verdict": "PASS",
+          "evidence": "run src-1-real: placed units outlined in the plausible-procedural tier colour, works drawn as rings with the place named."
+        },
+        {
+          "match": "a unit placed by an Official Records report",
+          "verdict": "PASS",
+          "evidence": "run src-1-real: report, printed page, quoted words, tier and checks on the card; a conflicting report is listed; a unit placed only by the ledger shows no claims section."
+        },
+        {
+          "match": "a unit placed by a troop-map day position",
+          "verdict": "PASS",
+          "evidence": "run src-1-real: the card states the position is documented for the day and the time modelled, with label, sigma, crop and the ledgers' places; the unit stands in its slot two minutes after arriving."
+        },
+        {
+          "match": "a unit drawn by a MODELLED road of approach",
+          "verdict": "PASS",
+          "evidence": "run src-1-real: 56 modelled units, the card says MODELLED APPROACH with siblings, report, page and words and links EG-0070 (opens from the source shell); an open unit found in the layer gives its own reason. (The unit the test used to name, the 134th New York, is drawn since history layer v8, DEC-023E; the earlier attempt of this workstream already changed the test to look the open unit up.)"
+        },
+        {
+          "match": "no console errors",
+          "verdict": "PASS",
+          "evidence": "run src-1-real: no console error or page error."
+        }
+      ]
     }
   }
 }

@@ -123,7 +123,7 @@ ROWS.append(R(
             C('NPS', 'NPS-CLI-ERR', "Trostle Lane fencing: Not initially removed because of east-west orientation; prevented troop movements north-south across fields, trapping Bigelow’s 9th Massachusetts")],
           note="The first-position half is an inference from the silence of two detailed reports (an absence cannot be quoted); the second-position half is documented by the NPS inventory."),
         S('j', 'damage', "Hand-to-hand fighting and capturing unit: Hunt (B&L p.310): the battery was closely pressed by Colonel Humphreys's 21st Mississippi, 'the only Confederate regiment which succeeded in crossing the run'; his men had entered the battery and fought hand-to-hand with the cannoneers, one killed whilst trying to spike a gun and another knocked down with a handspike whilst endeavoring to drag off a prisoner.", 'documented', 'supported', [
-            C('LIB', 'BL-3', "the only Confederate regiment which succeeded in crossing the run", page='310', note="Henry J. Hunt, 'The Second Day at Gettysburg'; text layer of one scan"),
+            C('LIB', 'BL-3', "closely pressed by Colonel Humjihreys's 21st Mississipju, the only Confederate regiment which succeeded in crossing the run", page='310', note="Henry J. Hunt, 'The Second Day at Gettysburg'; text layer of one scan; OCR 'Humjihreys's', 'Mississipju' for Humphreys's, Mississippi"),
             C('LIB', 'BL-3', "His men had entered the battery and fought handto-hand with the cannoneers ; one was killed whilst trying to spike a gun, and another knocked down with a handspike whilst endeavoring to drag off a prisoner", page='310', note="OCR 'handto-hand' for 'hand-to-hand'; the PDF's 'hand-to-hand fighting' is documented by this single retrospective source, not by an OR report")]),
     ],
     stays_unsupported=["The exact overrun hour (about 18:30 is not in any source)",
@@ -197,7 +197,7 @@ ROWS.append(R(
                "2 Jul evening line total: 'some twentyfive guns' (Hunt, B&L) vs the PDF's 6 to 23 (no source read)"],
     register=['terrain-1-EG-11'],
     blocked=[B('CWN-2025', None, "PDF key 'CWN-2025' (Civil War News, 'The work of the very devil himself'): no URL printed in the PDF; read it only for the '6 to 23 guns' wording; not probed here.")],
-    consequence=["structures G-11: split into G-11a (2 Jul evening, improvised, guns as McGilvery lists, no total, unit list by sundown) and G-11b (3 Jul morning, prepared: slight earthwork built by the batteries on McGilvery's order between the evening of 2 Jul and 12:30 on 3 Jul; 39 guns in eight batteries); confirms DD-04",
+    consequence=["structures G-11: split into G-11a (2 Jul evening, improvised, guns as McGilvery lists, no total, unit list by sundown) and G-11b (3 Jul morning, prepared: slight earthwork built by the batteries on McGilvery's order, no hour given: bounds inferred as early on 3 Jul to the cannonade at about 12:30; 39 guns in eight batteries); confirms DD-04",
                  "works_stages: add a G-11b work with the batteries as builders and no 1863 dimension (plausible-procedural)",
                  "kit: McGilvery brigade batteries Ames 6, Dow 4, NJ battery 6, Rank 2, 2nd Conn 6, Hart 4, Phillips 6, Thompson 5 on 3 Jul; remove the unsupported 6-to-23 range or mark it PDF-only"],
     lookups=[L('OR Parts 1-2 and library', 'twenty-three guns', 5, "no McGilvery count of 23; the library hits are other armies")],

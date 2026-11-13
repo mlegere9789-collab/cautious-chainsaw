@@ -131,7 +131,7 @@ export class Product {
       const own0 = String(u.name).replace(/\(.*$/, '').trim(), { text: own, inits } = splitInitials(own0);
       // an army is named by its whole name ("Army of the Potomac"), never by the river or the region alone
       const tk = (u.level === 'army' ? fold(unpossess(own)).replace(/[^a-z0-9]+/g, ' ').split(' ').filter(w => w && !['the', 'of', 'and'].includes(w)) : tokens(own)).filter(w => !PLACE_WORDS.has(w));
-      out.set(u.id, { own: own0, tokens: tk, inits, numbered: /^\d/.test(own), designators: designators(u.name + ' ' + (u.short || '')), commanders: uniqBy((u.commanders || []).flatMap(surnamesOf), c => c.key + '/' + (c.init || '')), level: u.level });
+      out.set(u.id, { own: own0, tokens: tk, inits, needsArm: u.arm === 'artillery' && tk.length === 1, numbered: /^\d/.test(own), designators: designators(u.name + ' ' + (u.short || '')), commanders: uniqBy((u.commanders || []).flatMap(surnamesOf), c => c.key + '/' + (c.init || '')), level: u.level });
     }
     return (this._uidx = out);
   }
@@ -149,7 +149,7 @@ export class Product {
     for (const [id, x] of idx) {
       const u = this.byId.get(id); let why = null, score = 0;
       if (x.designators.size && [...x.designators].some(d => des.has(d, u))) { why = 'designator ' + [...x.designators].filter(d => des.has(d, u)).join(','); score = 3; }
-      else if (!x.numbered && allNamed(x.tokens, x.inits)) { why = 'name ' + x.tokens.join(' '); score = 2 + Math.min(2, x.tokens.length) / 10; }
+      else if (!x.numbered && allNamed(x.tokens, x.inits) && (!x.needsArm || /\b(artillery|batter(?:y|ies)|battalion|guns?|howitzers?)\b/i.test(blank))) { why = 'name ' + x.tokens.join(' '); score = 2 + Math.min(2, x.tokens.length) / 10; }
       else if (!x.numbered && x.tokens.length >= 2 && ['brigade', 'division', 'corps', 'group'].includes(x.level) && allNamed(x.tokens.slice(1), x.inits)) { why = 'nickname ' + x.tokens.slice(1).join(' ') + ' (' + x.own + ')'; score = 1.8; }       // "Iron Brigade" for "Meredith’s Iron Brigade": the commander's name first, then the nickname
       else if (['brigade', 'division', 'corps', 'army', 'artillery_brigade', 'artillery_battalion', 'artillery_group', 'group', 'command'].includes(x.level) && x.commanders.some(c => named(c.key, c.init))) { why = 'commander ' + x.commanders.filter(c => named(c.key, c.init)).map(c => c.key).join(','); score = 1; }
       if (why) out.push({ id, name: u.name, level: u.level, side: u.side, why, score });

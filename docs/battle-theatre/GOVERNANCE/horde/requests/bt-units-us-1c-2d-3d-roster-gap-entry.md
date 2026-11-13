@@ -1,0 +1,7 @@
+# Request from bt-units (group us-1c-2d-3d): the entry `us-1c-3d-stannard` of roster-gaps.json carries the id of the brigade
+
+What: `roster-gaps.json` holds an entry `us-1c-3d-stannard` (action `absent`, level brigade, name "footnote of the two Vermont regiments") that uses the id of Stannard's brigade, which is already a unit of `history/units.json` (status on_field, children the 13th, 14th and 16th Vermont). A `unit` record with action `absent` for that id would fail (the checker refuses an id that is already in the roster) and would make the brigade itself absent.
+
+How the group answered it: the footnote (OR27-1-R009, p. 156: "Guarding trains, and not engaged in the battle", offset 540302) is cited by `absent` records of the 12th Vermont (`us-1c-3d-stannard-12vt`) and the 15th Vermont (`us-1c-3d-stannard-15vt`), each with its own `unit` record (action absent, status never_main_field), and by one `absent` record of the brigade (`U-us-1c-2d-3d-0011`) with `part` "the 12th and 15th Vermont (daggered in the table)" and `whole_battle` false: the brigade is on the field, two of its regiments are not.
+
+The exact change wanted (not mine to make): rename the pre-assigned entry (for example `us-1c-3d-stannard-footnote`) in `build_roster_gaps.py`, or classify it as the footnote that carries the status of the two regiments and not as a unit; `build_groups.py --check` keeps the 12th and 15th Vermont ids. The OCR also prints the 12th Vermont as "13th Vermont" (entry note already says so).

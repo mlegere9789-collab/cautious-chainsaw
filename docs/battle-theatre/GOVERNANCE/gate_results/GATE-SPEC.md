@@ -36,7 +36,7 @@ What this file is: the definition a runner must implement and a reviewer must ap
 8. Disagreements X-01..X-nn (stricter reading wins)
 9. Ambiguity register A-01..A-52
 10. Threshold registry, decisions recorded and inputs owed
-11. What was run for this file; page index
+11. What was run for this file; page index; repository files named; the corrections after the independent review (11.4)
 
 ---
 

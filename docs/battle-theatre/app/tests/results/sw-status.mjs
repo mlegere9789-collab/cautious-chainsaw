@@ -8,7 +8,7 @@ const here = path.dirname(fileURLToPath(import.meta.url)), round = process.argv[
 export function parseLog(file) {
   const L = fs.readFileSync(file, 'utf8').split('\n'), run = { file: path.basename(file), tests: [], n: {}, console: [] };
   const h = /^# run (\S+): (\S+)\s+env: (.*?)\s+start (\S+)\s+HEAD (\S+)/.exec(L[0] || ''); if (h) Object.assign(run, { label: h[1], spec: path.basename(h[2]), env: h[3], start: h[4], head: h[5] });
-  run.target = /BT_DIST=/.test(run.env || '') ? 'dist' : 'src';
+  run.target = /BT_DIST=/.test(run.env || '') ? 'dist' : 'src'; { const sm = /BT_SNAPSHOT=\S*snap-([0-9a-f]+)\//.exec(run.env || ''); if (sm) run.snapshot = sm[1]; { const dm = /BT_DIST=\S*dist-([0-9a-f]+)\//.exec(run.env || ''); if (dm) run.snapshot = dm[1]; } }
   let buf = [];                                              // console lines of the test process: printed live, so they stand before the "# Subtest:" marker of the test that wrote them
   for (let i = 0; i < L.length; i++) {
     const l = L[i]; let m;
@@ -37,7 +37,7 @@ export function build(round, dir) {
     const mine = runs.filter(r => r.spec === spec), last = t => mine.filter(r => r.target === t).at(-1), src = last('src'), dist = last('dist'), hand = (V.specs[spec] || {}).tests || [];
     const names = [...new Set([...hand.filter(h => h.test).map(h => h.test), ...mine.flatMap(r => r.tests.map(t => t.name))])];
     out.push(`\n### ${spec}\n`);
-    const line = r => r ? `\`${r.file}\` (${r.start ? r.start.replace('T', ' ').replace(/:\d\dZ$/, 'Z') : '?'}): ${r.n.pass ?? '?'} passed, ${r.n.fail ?? '?'} failed, ${r.n.skipped ?? '?'} not run, of ${r.n.tests ?? '?'}; ${r.seconds != null ? (r.seconds / 60).toFixed(0) + ' min' : 'still running or no end line'}${r.timeLimit ? '; STOPPED AT THE TIME LIMIT' : ''}${r.srcChanged && r.srcChanged !== 'no' ? '; the source changed during the run' : ''}` : 'not run';
+    const line = r => r ? `\`${r.file}\` (${r.start ? r.start.replace('T', ' ').replace(/:\d\dZ$/, 'Z') : '?'}): ${r.n.pass ?? '?'} passed, ${r.n.fail ?? '?'} failed, ${r.n.skipped ?? '?'} not run, of ${r.n.tests ?? '?'}; ${r.seconds != null ? (r.seconds / 60).toFixed(0) + ' min' : 'still running or no end line'}${r.timeLimit ? '; STOPPED AT THE TIME LIMIT' : ''}${r.snapshot ? (r.target === 'dist' ? '; packed dist built from commit ' : '; frozen source snapshot of commit ') + r.snapshot : r.srcChanged && r.srcChanged !== 'no' ? '; the live source tree changed during the run' : ''}` : 'not run';
     out.push(`Source shell, latest run: ${line(src)}.  \nPacked dist, latest run: ${line(dist)}.${mine.length > (src ? 1 : 0) + (dist ? 1 : 0) ? `  \nEarlier runs of this round: ${mine.filter(r => r !== src && r !== dist).map(r => `\`${r.file}\` (${r.n.pass ?? '?'}/${r.n.tests ?? '?'} passed${r.timeLimit ? ', stopped at the time limit' : ''})`).join(', ')}.` : ''}\n`);
     out.push('| test | source | dist | verdict | evidence |\n|---|---|---|---|---|');
     for (const name of names) {

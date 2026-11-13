@@ -1,0 +1,7 @@
+# Request from bt-units (group us-1c-2d-3d): the gate of Stannard's Vermont brigade is later than every printed arrival
+
+What: `status.json` holds for `us-1c-3d-stannard` and its three regiments a gate of 1863-07-02T18:00 (kind event_floor, tier inferred). Every printed statement of the arrival is on 1 July: Randall (13th Vermont, OR27-1-R070) "arriving there on July 1, at about 5 p. m." (record U-us-1c-2d-3d-0013, documented), Stannard (R069) the evening of 1 July (U-us-1c-2d-3d-0015), Doubleday (R029, second report) about twilight (U-us-1c-2d-3d-0017), Benedict (1888) nearly sunset (U-us-1c-2d-3d-0180), the 1914 volume at sundown (U-us-1c-2d-3d-0018), Davis (1894) about dusk (U-us-1c-2d-3d-0200); only Fox (1889), a compiler, prints 2 July (U-us-1c-2d-3d-0019: "joined July 2d", read by the group as the joining of the First Corps line, which Stannard puts on the morning of 2 July). The records are kept as a conflict (key `us-1c-3d-stannard|arrival|1863-07-01`); none is chosen.
+
+Why it matters (Q04, no unit before its earliest documented arrival): the reports put the brigade on the field from the evening of 1 July, so a gate at the evening of 2 July leaves it off the ground for a day on which it is documented to be present.
+
+The exact change wanted (not mine to make): the integrator's gate of the brigade is the earliest printed time of its `arrival` records (the rule of 6.2 of PLAN.md): 1863-07-01T17:00 (documented); the later values are on the card as the conflict.

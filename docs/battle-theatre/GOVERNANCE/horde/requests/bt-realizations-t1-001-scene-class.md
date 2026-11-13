@@ -1,0 +1,23 @@
+# bt-realizations -> bt-gates (and units, renderer, owner): T1-001 is a scene row; what changed in the harness and what would realize it
+
+Written 2026-11-13 by workstream bt-realizations, after the review of the first harness.
+
+## The disagreement, and how it is settled
+- `GATE-SPEC.md` 6.2 names T1-001 ("Hooker cuts the medical department transport to about two wagons a brigade", corrected claim: an average of two wagons in a brigade, OR27-1-R016 p.195) as the example of a row with a **scene consequence**: two wagons per brigade shown as the train of each brigade. It is realized by a scene record, a card may be listed beside it, and a card alone is no realization (K4, X-05).
+- The first worked example (`GOVERNANCE/realizations/EXAMPLES.jsonl` line 1) and the harness README had mapped the row as an `event_card` ("a policy decision has no physical form"). That contradicted 6.2 and no note recorded it. **We agree with 6.2.** The record is now `not_realized` with `intended_kind` `unit_activity`; its probe asks for the scene (`unit_in_layer`: a unit of the order of battle named by the row's words, "Medical Department"), the card is listed beside it (`entities.cards`, a `card_shown` check) and is not a declared reason.
+
+## Evidence that the product shows nothing for it today
+- The order of battle of the layer has no unit of the army's medical department and none for a brigade train; the one train unit, `us-4nj-train-guard` (4th NJ), has status `never_on_field`.
+- The artillery train (`app/src/structures/artillery.mjs`, `KIND.wagon`, `KIND.forge`) draws one battery wagon and one forge per battery and nothing for an infantry brigade.
+- Declared reasons of the record: `unit_not_in_layer` (no entity for the wagons) and `time_outside_clock` (the decision is dated 19 Jun, the theatre clock starts at 26 Jun 00:00: `app/src/clock.mjs` BATTLE). Run by `node tools/bt/realize/check.mjs --row T1-001`: `missing.verified` is true.
+
+## What would realize it (not done by this workstream)
+1. **units / renderer**: brigade trains as entities of the layer with an arrival, a path and a drawn form, two wagons a brigade as an average (OR27-1-R016 p.195: "on an average of two wagons in a brigade"; the same report also says three wagons were assigned to a brigade of 1,500 men), each carrying the tier of the claim; then the record asks for them per brigade.
+2. **owner decision (scope of the window before 26 Jun)**: the decision itself is on 19 Jun, 7 days before the clock starts. The consequence in the theatre (sub-claim 5: at Gettysburg shelter and supplies for the wounded were less abundant than necessary because of the reduced transport) lies in 1-3 Jul, outside the allowed window of this row, so no record of the row may look there. If the owner wants the row realized by its consequence in the clock, the row's window needs a recorded decision; until then the row stays `time_outside_clock`.
+3. The event card of the Events list, once `app/src/ext/event-cards.mjs` exists (`bt-realizations-event-cards-contract.md`), is listed beside the scene record and counts as a card (K4), not as the realization.
+
+## Other changes in the harness that a gate runner reads (all in `tools/bt/realize/README.md`)
+- `RESULTS.json` rows now carry `scenarios` (the scenarios the record was run in), `excluded_scenarios`, a `scenario` on every assertion, `in_clock`, and `clock_tolerance_used` (true when the record's window lies inside the widened allowed window and outside the exact one: your note `bt-gates-realizations-q17-rules.md` item 6; all 20 worked examples have it false).
+- `totals` and `q17` are computed from the rows of the document; `q17.complete` is false unless all 691 + 14 rows are in it, and `q17.ok` / `ok_strict` are then false. `totals.outside_clock` lists the 10 rows whose whole allowed window lies outside the theatre clock (T1-001, T1-002, T3-209..212, T3-214..217).
+- `inputs_digest` hashes four parts (`inputs_parts`: governance, app_src, data, records), not only the files the shell fetches; `check.mjs --digests` prints the current digests without running a record.
+- `structure_scenario` on a check is gone: a reading of a structure is part of the record's scenario list (T1-015, T1-016). Your runner re-evaluates records through `query.mjs` and `checks.mjs`; `P.scenarioSpec` accepts `{ id, choices, structure, from }` and `P.scenarioId` names a scenario.
