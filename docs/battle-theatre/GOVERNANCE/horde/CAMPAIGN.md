@@ -1,6 +1,6 @@
 # Completion campaign (owner order 2026-11-13: full throttle, no pauses, until the website including the Battle Theatre is complete)
 
-Twelve workflows run side by side. Each owns its own files (the ownership list is in its script); cross-workstream needs go through request notes in `GOVERNANCE/horde/requests/`. Scripts: `tools/horde/workflows/<name>.mjs` (re-launch with the Workflow tool and `scriptPath`; a run of the same session resumes with `resumeFromRunId`). Machine lock for heavy and browser jobs: `tools/horde/bench.sh` (`--timing` runs alone).
+Thirteen workflows run side by side. Each owns its own files (the ownership list is in its script); cross-workstream needs go through request notes in `GOVERNANCE/horde/requests/`. Scripts: `tools/horde/workflows/<name>.mjs` (re-launch with the Workflow tool and `scriptPath`; a run of the same session resumes with `resumeFromRunId`). Machine lock for heavy and browser jobs: `tools/horde/bench.sh` (`--timing` runs alone).
 
 | Workflow | Run id (2026-11-13 launch) | What it finishes |
 |---|---|---|
@@ -16,6 +16,7 @@ Twelve workflows run side by side. Each owns its own files (the ownership list i
 | bt-world-content | wf_41c39aa2-8fc | Monuments and tour stops, casualty and hospital flow (Q26), building states (Q09), vegetation (Q21), claim ledger (Q19, Q02), event cards |
 | bt-oob-kit | wf_07683328-dce | Commanders, strengths, arms, guns and dress per unit against the sources; verified tables for Q01 and Q14 |
 | bt-realizations | wf_9b242d4a-1a0 | Q17: query harness, a realization record per timeline row, build list for what the product does not show |
+| bt-web-evidence | wf_34068d00-b59 | Photo-match (Q16) with Library of Congress images, Park Service landscape reports, 1863 newspapers, retries of failed lookups, library queue (Q25) |
 
 ## Standing facts
 - Not attainable in the cloud container: real-GPU frame timing (Q15), a seen WebGPU picture, listening to the audio mix, real phones, Safari and Firefox. These stay listed as owed; no gate is lowered for them.
@@ -24,3 +25,5 @@ Twelve workflows run side by side. Each owns its own files (the ownership list i
 
 ## Log
 - 2026-11-13 19:00 UTC: all twelve workflows launched.
+- 2026-11-13 19:05 UTC: network: tile.loc.gov, cdn.loc.gov, chroniclingamerica.loc.gov, www.nps.gov, www.npshistory.com, www.gutenberg.org, catalog.archives.gov and gettysburginteractivemap.com reachable; babel.hathitrust.org and ehistory.osu.edu answer 403 from their own bot block (blocked). The published site answers 404 for /tiles1863/v1-65d491b8/index.json: it does not serve the 1863 tile pyramid. Thirteenth workflow bt-web-evidence launched.
+- Horde check at launch: every agent response so far was served by the session model at effort max, speed standard (fast mode is flagged on for the session but is not what the service delivers on this model).
