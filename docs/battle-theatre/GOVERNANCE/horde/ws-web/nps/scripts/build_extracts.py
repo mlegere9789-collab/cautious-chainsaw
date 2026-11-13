@@ -8,6 +8,8 @@ the build.
 
 Definition file format (UTF-8):
   @ <SOURCE-ID>                    following lines belong to this source
+  %basis <text>                    the records the report itself names as the basis of the following passages
+                                   (e.g. '1860 census; NARA Damage Claims, RG 92'); '%basis -' clears it
   # comment
   <pdf page> | <topic> | <feature> | <keys> | <state date> | <certainty> | <claim> | <anchor>
     topic      one of TOPICS below
@@ -16,9 +18,18 @@ Definition file format (UTF-8):
                1868, 2006 reconstruction, modern 2024)
     certainty  stated | hedged | conflict   (hedged: the source itself says probably, may,
                likely, appears; conflict: the source itself reports contradictory evidence)
-    anchor     'first words >>> last words' (quote runs from the first to the last, inclusive)
+    anchor     '#s12' or '#s12-14' (sentences 12 to 14 of the page as numbered by `kwic.py page`;
+               the quote is those sentences cut from the page text, nothing retyped), or
+               'first words >>> last words' (quote runs from the first to the last, inclusive),
                or the whole short quote. Matching is whitespace-insensitive, otherwise exact.
-               A trailing ' ~L' uses the layout text of the page instead of the reading-order text.
+               '=<quote>' is for a text layer with OCR damage (letters broken apart by spaces, stray
+               marks, dropped punctuation): the quote is typed with the damage repaired and must
+               contain exactly the letters and digits of ONE passage of the page (case-insensitive,
+               spacing and punctuation ignored; for a source flagged text_defect=ligature the groups
+               ti tt tf ft tl ff are ignored on both sides because the text layer lost those glyphs).
+               The builder stores the raw text-layer excerpt next to the repaired quote.
+               A trailing ' ~L' uses the layout text of the page, ' ~R' the content-stream-order text (line-end
+               hyphenation repaired), ' ~S' the standard reading-order text, instead of the source's default variant.
                A trailing ' ~#k' takes the k-th occurrence of a passage that repeats on the page.
 
 Outputs (next to this script's parent folder):
@@ -68,35 +79,147 @@ def sha256_file(p):
 _cache = {}
 
 
-def text_path(sid, layout=False):
+_COMPOUND_HEADS = set('''mid post pre non self well two three four five six seven eight nine ten one half north south east west northeast northwest southeast southwest
+upper lower long short high low old new free full large small multi semi anti co ex vice inter over under out up down back front fire cross'''.split())
+
+
+def dehyphenate(text):
+    """Repair line-end hyphenation of a content-stream-order text: 'McPher-\nson' -> 'McPherson'.
+    A real compound broken at the line end ('post-\nand-rail') keeps its hyphen: decided from the document's own
+    intact tokens (the joined word, or the hyphenated word, appears elsewhere in the same text) and a short list of compound heads."""
+    flat_tokens = set(re.findall(r"[A-Za-z][A-Za-z'\u2019-]*[A-Za-z]", re.sub(r'-\n', '\x00', text).replace('\n', ' ')))
+    low = {t.lower() for t in flat_tokens if '\x00' not in t}
+
+    def rep(m):
+        a, b = m.group(1), m.group(2)
+        joined, hy = (a + b).lower(), (a + '-' + b).lower()
+        if joined in low:
+            return a + b
+        if hy in low or a.lower() in _COMPOUND_HEADS:
+            return a + '-' + b
+        return a + b
+    return re.sub(r'([A-Za-z]+)-\n([a-z]+)', rep, text)
+
+
+def text_path(sid, variant=None):
+    name = {None: '.txt', 'layout': '.layout.txt', 'raw': '.raw.txt'}[variant]
     for base in (LIB, os.path.join(LIB, 'pages')):
-        p = os.path.join(base, sid, sid + ('.layout.txt' if layout else '.txt'))
+        p = os.path.join(base, sid, sid + name)
         if os.path.exists(p):
             return p
-    raise SystemExit('no saved text for source ' + sid)
+    raise SystemExit('no saved %s text for source %s' % (variant or 'reading-order', sid))
 
 
-def pages(sid, layout=False):
-    k = (sid, layout)
+def pages(sid, variant=None):
+    """variant: None (reading order), 'layout' or 'raw' (content-stream order, line-end hyphenation repaired)."""
+    if variant is True:
+        variant = 'layout'
+    k = (sid, variant)
     if k not in _cache:
-        p = text_path(sid, layout)
+        p = text_path(sid, variant)
         txt = open(p, encoding='utf-8').read()
+        if variant == 'raw':
+            txt = dehyphenate(txt)
         parts = re.split(r'^=== PAGE (\d+) ===\n', txt, flags=re.M)
         _cache[k] = ({int(parts[i]): parts[i + 1] for i in range(1, len(parts), 2)}, sha256_file(p), os.path.relpath(p, ROOT))
     return _cache[k]
 
 
-def printed_page(page_text):
-    """Printed page number where the page itself shows one in a recognisable footer."""
+def printed_page(page_text, variant=None):
+    """Printed page number where the page itself shows one in a recognisable footer or running head."""
+    if variant == 'raw':
+        lines = [l.strip() for l in page_text.split('\n') if l.strip()]
+        for l in lines[:4] + lines[-3:]:
+            if re.fullmatch(r'\d{1,3}', l):
+                return l
+            m = re.match(r'(\d{1,3}) (Site His|Existing|Analysis|Treatment|Cultural|References|Appendi)', l, re.I)
+            if m:
+                return m.group(1)
+        return None
     flat = norm(page_text)
     m = re.search(r'Cultural Landscapes Inventory Page (\d+) of (\d+)', flat)
     if m:
         return 'Page %s of %s' % (m.group(1), m.group(2))
+    m = re.search(r'Cultural Landscapes Inventory (?:Part \w+ )?Page (\d+)', flat)
+    if m:
+        return 'Page %s' % m.group(1)
     return None
+
+
+_ABBR = set('''mr mrs ms dr st gen col maj capt lt sgt pvt cpl co vs etc no nos rev jr sr hon gov pa md va n.y d.c u.s ave rd ft mt ca approx fig figs
+pp p ed eds vol vols inc ltd bros e.g i.e cf sec brig adj bvt hdqrs regt div dept a.m p.m mass conn n.j n.c s.c w.va ga ala miss tenn ky mo ill ind wis mich
+minn corp cav art inf bn bde mil pk bldg bldgs esq messrs supt jan feb mar apr jun jul aug sept sep oct nov dec ibid op cit prop sq yd in lb lbs oz ch chs hdq
+al wm geo chas thos jas jos robt benj sam'l fred'k abm h.r s.r'''.split())
+
+
+def split_sentences(flat):
+    """Deterministic sentence split of a whitespace-normalised page text (used for the '#s' anchors and by kwic.py)."""
+    out, start = [], 0
+    for m in re.finditer(r'[.!?][\"\u201d\u2019)\]]*\s+', flat):
+        end = m.end()
+        if end >= len(flat):
+            break
+        w = re.search(r'(\S+)$', flat[start:m.start()])
+        tok = (w.group(1) if w else '').lower().lstrip('(\"\u201c\u2018[')
+        if m.group(0)[0] == '.':
+            if tok in _ABBR or (len(tok) == 1 and tok.isalpha()) or re.fullmatch(r'[a-z]\.[a-z]', tok) or re.search(r'[-/][a-z]$', tok):
+                continue
+        nxt = flat[end]
+        if nxt.islower():
+            continue
+        out.append(flat[start:m.start() + len(m.group(0).rstrip())])
+        start = end
+    if start < len(flat):
+        out.append(flat[start:])
+    return out
+
+
+_LIG = re.compile(r'tt|ti|tf|ft|tl|ff')
+
+
+def _alnum_map(flat, lig):
+    """Letters and digits of flat (lower case) with, for each, its index in flat; ligature groups removed when lig."""
+    chars, idx = [], []
+    for i, c in enumerate(flat):
+        if c.isalnum():
+            chars.append(c.lower()); idx.append(i)
+    key = ''.join(chars)
+    if not lig:
+        return key, idx
+    out, oidx, pos = [], [], 0
+    for m in _LIG.finditer(key):
+        out.append(key[pos:m.start()]); oidx.extend(idx[pos:m.start()]); pos = m.end()
+    out.append(key[pos:]); oidx.extend(idx[pos:])
+    return ''.join(out), oidx
+
+
+def cut_cleaned(page_text, quote, lig=False):
+    flat = norm(page_text)
+    key, idx = _alnum_map(flat, lig)
+    qkey, _ = _alnum_map(norm(quote), lig)
+    if len(qkey) < 25:
+        return None, 'cleaned quote too short to identify a passage', None
+    n = key.count(qkey)
+    if n != 1:
+        # find the longest prefix that matches, to help the author
+        k = len(qkey)
+        while k > 12 and key.count(qkey[:k]) == 0:
+            k -= 1
+        return None, 'cleaned quote found %d times (longest matching prefix %d of %d letters: %r)' % (n, k, len(qkey), norm(quote)[:60]), None
+    st = key.find(qkey)
+    a, b = idx[st], idx[st + len(qkey) - 1]
+    return norm(quote), None, flat[a:b + 1]
 
 
 def cut(page_text, anchor):
     flat = norm(page_text)
+    ms = re.fullmatch(r'#s(\d+)(?:-(\d+))?', anchor.strip())
+    if ms:
+        a = int(ms.group(1)); b = int(ms.group(2) or a)
+        sents = split_sentences(flat)
+        if not (1 <= a <= b <= len(sents)):
+            return None, 'sentence range %d-%d outside 1-%d' % (a, b, len(sents))
+        return ' '.join(sents[a - 1:b]), None
     occ = None
     m = re.search(r' ~#(\d+)$', anchor)
     if m:
@@ -149,14 +272,21 @@ def load_sources():
 def main():
     sources = load_sources()
     recs, errors = [], []
+    seq = {}
     for f in sorted(glob.glob(os.path.join(NPS, 'extracts', 'src', '*.xdef'))):
         sid = None
-        seq = {}
+        basis = None
         for ln, line in enumerate(open(f, encoding='utf-8'), 1):
             line = line.rstrip('\n')
             if not line.strip() or line.lstrip().startswith('#'):
                 continue
+            if line.startswith('%basis'):
+                basis = line[6:].strip() or None
+                if basis == '-':
+                    basis = None
+                continue
             if line.startswith('@'):
+                basis = None
                 sid = line[1:].strip()
                 if sid not in sources:
                     errors.append('%s:%d unknown source %s' % (os.path.basename(f), ln, sid))
@@ -166,31 +296,45 @@ def main():
                 errors.append('%s:%d expected 8 fields, got %d' % (os.path.basename(f), ln, len(parts)))
                 continue
             pg, topic, feature, keys, sdate, cert, claim, anchor = parts
-            layout = False
-            if anchor.endswith(' ~L'):
-                layout, anchor = True, anchor[:-3]
-            mo = re.search(r' ~#\d+$', anchor)
-            if mo and anchor[:mo.start()].endswith(' ~L'):
-                layout, anchor = True, anchor[:mo.start() - 3] + anchor[mo.start():]
+            variant = sources.get(sid, {}).get('default_variant')
+            occ = ''
+            while True:
+                mo = re.search(r' ~(L|R|S|#\d+)$', anchor)
+                if not mo:
+                    break
+                flag, anchor = mo.group(1), anchor[:mo.start()]
+                if flag == 'L': variant = 'layout'
+                elif flag == 'R': variant = 'raw'
+                elif flag == 'S': variant = None
+                else: occ = ' ~' + flag
+            anchor += occ
             if topic not in TOPICS:
                 errors.append('%s:%d unknown topic %s' % (os.path.basename(f), ln, topic)); continue
             if cert not in ('stated', 'hedged', 'conflict'):
                 errors.append('%s:%d bad certainty %s' % (os.path.basename(f), ln, cert)); continue
             try:
-                pgs, tsha, tpath = pages(sid, layout)
+                pgs, tsha, tpath = pages(sid, variant)
             except SystemExit as ex:
                 errors.append('%s:%d %s' % (os.path.basename(f), ln, ex)); continue
-            p = int(pg)
+            mp = re.fullmatch(r'(\d+)(?:/(.+))?', pg)
+            if not mp:
+                errors.append('%s:%d bad page field %r' % (os.path.basename(f), ln, pg)); continue
+            p, printed_given = int(mp.group(1)), mp.group(2)
             if p not in pgs:
                 errors.append('%s:%d page %d not in %s' % (os.path.basename(f), ln, p, sid)); continue
-            q, err = cut(pgs[p], anchor)
+            excerpt, mode = None, 'sentences' if anchor.startswith('#s') else 'anchors'
+            if anchor.startswith('='):
+                mode = 'cleaned'
+                q, err, excerpt = cut_cleaned(pgs[p], anchor[1:], sources.get(sid, {}).get('text_defect') == 'ligature')
+            else:
+                q, err = cut(pgs[p], anchor)
             if err:
                 errors.append('%s:%d p.%d %s' % (os.path.basename(f), ln, p, err)); continue
-            seq[p] = seq.get(p, 0) + 1
+            seq[(sid, p)] = seq.get((sid, p), 0) + 1
             s = sources.get(sid, {})
             use, sdate = use_for_1863(sdate)
             recs.append({
-                'xid': 'NPSX-%s-p%03d-%02d' % (sid.replace('NPS-', '').replace('NPSGOV-', 'WEB-'), p, seq[p]),
+                'xid': 'NPSX-%s-p%03d-%02d' % (sid.replace('NPS-', '').replace('NPSGOV-', 'WEB-'), p, seq[(sid, p)]),
                 'topic': TOPICS[topic], 'subtopic': topic,
                 'feature': feature,
                 'repo_keys': [] if keys in ('-', '') else [k.strip() for k in keys.split(',')],
@@ -202,8 +346,11 @@ def main():
                 'source_id': sid,
                 'source_title': s.get('title'), 'source_date': s.get('date'), 'source_author': s.get('author'),
                 'url': s.get('url'),
-                'pdf_page': p, 'printed_page': printed_page(pgs[p]),
-                'text_variant': 'layout' if layout else 'reading-order',
+                'pdf_page': p, 'printed_page': printed_given or printed_page(pgs[p], variant),
+                'quote_mode': mode, 'source_text_excerpt': excerpt,
+                'basis_named': basis,
+                'text_defect': s.get('text_defect'),
+                'text_variant': variant or 'reading-order',
                 'text_path': tpath, 'text_sha256': tsha,
                 'retrieved': RETRIEVED,
                 'source_kind': s.get('kind', 'official secondary (National Park Service report)'),

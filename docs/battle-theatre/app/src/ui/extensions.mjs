@@ -136,11 +136,13 @@ export class Extensions {
 
   // ---- start: the list, then each module in the order of the list
   load() { return this._loading || (this._loading = this._load()); }
+  // a request that does not answer must not hold the theatre: after waitMs the check for the list is passed over (the import then speaks) and the list itself counts as failed
+  _within(p, what) { return new Promise((res, rej) => { const t = setTimeout(() => rej(new Error(`${what} did not answer within ${this.waitMs} ms`)), this.waitMs); Promise.resolve(p).then(v => { clearTimeout(t); res(v); }, e => { clearTimeout(t); rej(e); }); }); }
   async _load() {
     const ix = this.index; let list;
-    if (this.exists) { let there = true; try { there = (await this.exists(INDEX)) !== false; } catch { there = true; } if (!there) { ix.state = 'absent'; return this; } }   // no list: nothing is added, nothing is said
+    if (this.exists) { let there = true; try { there = (await this._within(this.exists(INDEX), 'the check for src/ext/' + INDEX)) !== false; } catch { there = true; } if (!there) { ix.state = 'absent'; return this; } }   // no list: nothing is added, nothing is said
     if (this.disposed) return this;
-    try { const m = await this.importer(INDEX); list = m && m.default; }
+    try { const m = await this._within(this.importer(INDEX), 'src/ext/' + INDEX); list = m && m.default; }
     catch (e) { if (!this.exists && looksAbsent(e)) { ix.state = 'absent'; return this; } return this._indexFailed(e); }
     if (this.disposed) return this;
     if (!Array.isArray(list)) return this._indexFailed(new TypeError('the default export of src/ext/' + INDEX + ' is not an array of module paths'));

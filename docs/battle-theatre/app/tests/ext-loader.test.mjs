@@ -6,7 +6,7 @@
 //   node --test docs/battle-theatre/app/tests/ext-loader.test.mjs
 import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'; import { fileURLToPath, pathToFileURL } from 'node:url';
 import { Extensions, INDEX, INIT_WAIT_MS, tierMark, tierName, liveChoices, badPath, looksAbsent } from '../src/ui/extensions.mjs';
-import { moreHTML, togglesHTML, MORE } from '../src/ui/ext-panel.mjs';
+import { moreHTML, togglesHTML, drawAdded, MORE } from '../src/ui/ext-panel.mjs';
 import { Bus } from '../src/scope.mjs';
 import { TIERS, TIER_STYLE, URLS } from '../src/config.mjs';
 import { RenderHost } from '../src/render-host.mjs';
@@ -52,6 +52,17 @@ test('a list that is there but cannot be read is logged and shown, never passed 
   const b = mk({ [INDEX]: { default: { 0: 'a.mjs' } } }); await b.X.load(); assert.equal(b.X.index.state, 'failed'); assert.match(b.X.index.error, /not an array/); assert.equal(b.log.errors.length, 1);
   const c = mk({}, { exists: async () => true }); await c.X.load(); assert.equal(c.X.index.state, 'failed', 'the server said the list is there, so a failing import is a broken list, not a missing one'); assert.equal(c.log.errors.length, 1);
   const d = mk({ [INDEX]: { default: [] } }, { exists: async () => { throw new Error('offline'); } }); await d.X.load(); assert.equal(d.X.index.state, 'read', 'an existence check that fails lets the import speak'); assert.deepEqual(d.X.status(), []);
+});
+
+test('a list that does not answer does not hold the theatre: the check is passed over, the list itself counts as failed after the wait, a late answer starts nothing', async () => {
+  const never = new Promise(() => {}), trace = [];
+  const a = mk({ [INDEX]: { default: ['a.mjs'] }, 'a.mjs': recorder('a', trace) }, { waitMs: 30, exists: () => never }); const t0 = Date.now(); await a.X.load();
+  assert.equal(a.X.index.state, 'read', 'the check for the list hangs: it is passed over and the import speaks'); assert.deepEqual(trace, ['a.init']); assert.ok(Date.now() - t0 >= 25, 'it waited for the check first'); assert.deepEqual([a.log.errors, a.log.warns], [[], []]);
+  const b = mk({ [INDEX]: never }, { waitMs: 30 }); await b.X.load();
+  assert.equal(b.X.index.state, 'failed'); assert.match(b.X.index.error, /src\/ext\/index\.mjs did not answer within 30 ms/); assert.equal(b.log.errors.length, 1); assert.equal(b.X.problems().length, 1); assert.deepEqual(b.X.status(), []);
+  trace.length = 0; const c = mk({ [INDEX]: new Promise(r => setTimeout(() => r({ default: ['a.mjs'] }), 80)), 'a.mjs': recorder('a', trace) }, { waitMs: 20 }); await c.X.load(); await sleep(120);
+  assert.equal(c.X.index.state, 'failed'); assert.deepEqual(trace, [], 'an answer that comes after the wait starts nothing'); assert.deepEqual(c.X.status(), []);
+  const d = mk({ [INDEX]: never }, { waitMs: 20, exists: () => never }); await d.X.load(); assert.equal(d.X.index.state, 'failed'); assert.equal(d.log.errors.length, 1);
 });
 
 test('list entries: refused ones are reported and the rest runs; a path listed twice is started once; ./ is dropped', async () => {
@@ -210,6 +221,47 @@ test('the More drawer: switches with their state, panels, what is not running; t
   assert.match(togglesHTML(X, 'More layers'), /^<h3>More layers<\/h3><label class="check">/);
   const text = h.replace(/<[^>]+>/g, ' '); assert.ok(!/\b(AI|A\.I\.|Claude|Anthropic|LLM|language model|generated|automated|subagent|agent|prompt)\b/i.test(text), 'the copy rule of tests/real.spec.mjs');
   X.dispose();
+});
+
+// ---------------------------------------------------------------- one drawing of an added panel (drawAdded of ui/ext-panel.mjs, with a stand-in box: no page needed)
+test('drawAdded: every form a renderFn may return; the scope ends the cleanup; a throw or a rejection goes to fail; a late result is not drawn but its cleanup is called', async () => {
+  const mkBox = () => ({ html: 'old', kids: [], set innerHTML(v) { this.html = v; }, get innerHTML() { return this.html; }, append(n) { this.kids.push(n); }, replaceChildren() { this.html = ''; this.kids.length = 0; } });
+  const th = { tag: 'theatre' }, NODE = { nodeType: 1, tag: 'p' }, fails = [], logged = { errors: [], warns: [] }, ce = console.error, cw = console.warn;
+  console.error = (...a) => logged.errors.push(a); console.warn = (...a) => logged.warns.push(a);
+  const draw = render => { const box = mkBox(); let drawn = 0; const sc = drawAdded({ id: 'p', owner: { path: 'm.mjs' }, render }, box, th, e => fails.push(e), () => { drawn++; }); return { box, sc, drawn: () => drawn }; };
+  try {
+    // nothing returned: what the module drew stays; render is given (box, theatre, the scope that is returned)
+    let given = null; const a = draw((body, t, scope) => { given = [body, t, scope]; body.innerHTML = '<p>drawn in place</p>'; });
+    assert.equal(a.box.html, '<p>drawn in place</p>'); assert.ok(given[0] === a.box && given[1] === th && given[2] === a.sc && a.sc.disposed === false); assert.equal(a.drawn(), 1);
+    // a string replaces the content, a node is appended
+    assert.equal(draw(() => '<b>string</b>').box.html, '<b>string</b>'); const n = draw(() => NODE); assert.deepEqual(n.box.kids, [NODE]); assert.equal(n.box.html, '');
+    // a cleanup function and an object with dispose(): called once, by the scope
+    const order = []; const f = draw(b => { b.innerHTML = 'f'; return () => order.push('fn'); }), o = draw(() => ({ dispose() { order.push('obj'); } }));
+    assert.deepEqual(order, []); f.sc.dispose(); f.sc.dispose(); o.sc.dispose(); assert.deepEqual(order, ['fn', 'obj'], 'each cleanup once');
+    // what the module put on the scope ends with it, last added first; a cleanup that throws does not stop the others
+    order.length = 0; const s = draw((b, t, scope) => { scope.add(() => order.push('first')); scope.add(() => { throw new Error('cleanup broke'); }); return () => order.push('returned'); });
+    s.sc.dispose(); assert.deepEqual(order, ['returned', 'first']); assert.equal(logged.warns.length, 1);
+    // promises of each form
+    const ps = draw(() => Promise.resolve('<i>promised string</i>')), pf = draw(async b => { await sleep(5); b.innerHTML = '<i>promised</i>'; return () => order.push('async'); });
+    assert.equal(pf.drawn(), 0, 'not drawn before the promise settles'); await sleep(25); assert.equal(ps.box.html, '<i>promised string</i>'); assert.equal(pf.box.html, '<i>promised</i>'); assert.equal(pf.drawn(), 1);
+    order.length = 0; pf.sc.dispose(); assert.deepEqual(order, ['async']);
+    // a throw and a rejection while the drawing is current go to fail; nothing is drawn; the scope is still returned
+    const t1 = draw(() => { throw new Error('threw'); }), t2 = draw(async () => { await sleep(1); throw new Error('rejected'); }); await sleep(20);
+    assert.deepEqual(fails.map(e => e.message), ['threw', 'rejected']); assert.equal(t1.drawn() + t2.drawn(), 0); assert.equal(t1.sc.disposed, false); assert.deepEqual(logged.errors, [], 'for a current drawing the logging is the caller\'s (fail)');
+    // a result that arrives after the drawing has ended (the panel was closed, or drawn again): not drawn, its cleanup still called
+    for (const [label, result, calls] of [['function', () => () => order.push('late fn'), ['late fn']], ['object', () => ({ dispose() { order.push('late obj'); } }), ['late obj']], ['string', () => '<p>too late</p>', []], ['node', () => NODE, []]]) {
+      order.length = 0; let release; const gate = new Promise(r => { release = r; }); const l = draw(() => gate.then(result)); l.sc.dispose(); release(); await sleep(5);
+      assert.deepEqual(order, calls, label); assert.equal(l.box.html, '', label); assert.deepEqual(l.box.kids, [], label); assert.equal(l.drawn(), 0, label);
+    }
+    assert.equal(fails.length, 2, 'a late result is not a failure');
+    // a late cleanup that throws is a warning; a late rejection is logged (the panel is gone, so there is nowhere to show it)
+    const w0 = logged.warns.length; let rel2; const g2 = new Promise(r => { rel2 = r; }); const lb = draw(() => g2.then(() => () => { throw new Error('late cleanup broke'); })); lb.sc.dispose(); rel2(); await sleep(5);
+    assert.equal(logged.warns.length, w0 + 1); assert.match(String(logged.warns.at(-1)[0]), /ext m\.mjs: panel 'p': its cleanup failed/);
+    const lr = draw(() => new Promise((_, rej) => setTimeout(() => rej(new Error('late rejection')), 5))); lr.sc.dispose(); await sleep(25);
+    assert.equal(fails.length, 2); assert.equal(logged.errors.length, 1); assert.match(String(logged.errors[0][0]), /ext m\.mjs: panel 'p' could not be drawn/); assert.equal(logged.errors[0][1].message, 'late rejection');
+    // a thenable that is not a Promise is awaited too
+    const tn = draw(() => ({ then(res) { res('<u>thenable</u>'); } })); await sleep(5); assert.equal(tn.box.html, '<u>thenable</u>');
+  } finally { console.error = ce; console.warn = cw; }
 });
 
 // ---------------------------------------------------------------- the tier mark

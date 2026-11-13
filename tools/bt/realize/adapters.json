@@ -1,0 +1,11 @@
+{
+  "_doc": "Where the harness looks for the extension modules of the product that show event cards and the epilogue chapter. The modules are written by another workstream and may not exist yet: then every check that needs them fails with adapter_missing (the row is not realized, and the build list names the module). A module counts only when it is listed in app/src/ext/index.mjs (the product loads nothing else). A hook named in app/docs/GATE-HOOKS.md (a line that names the function and a path under src/) is tried first. A module path is relative to app/src/ext/ unless it begins with src/.",
+  "contract": {
+    "event_cards": "async or sync function cardsAt(tMin, opts) -> an array (or { items }) of cards shown at that minute: { id, rows: [timeline row ids the card realizes], title, tier, from_min, to_min (the minutes the card is shown), place?: { lng, lat } }. The card must carry the evidence tier of the row and never state more than the row's evidence status allows.",
+    "epilogue": "function epilogueAt(tMin, opts) -> the same card shape for the epilogue chapter (18-19 Nov 1863), rows E-001..E-014 and the states S-080..S-088."
+  },
+  "adapters": {
+    "event_cards": { "modules": ["event-cards.mjs", "eventcards.mjs", "cards.mjs", "timeline-cards.mjs"], "functions": ["cardsAt", "shownCardsAt", "cardsShownAt"] },
+    "epilogue": { "modules": ["epilogue.mjs", "epilogue-chapter.mjs", "event-cards.mjs", "cards.mjs"], "functions": ["epilogueAt", "epilogueCardsAt"] }
+  }
+}

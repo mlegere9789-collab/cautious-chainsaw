@@ -20,14 +20,16 @@
 //
 // Behind an HTTPS proxy (HTTPS_PROXY set) every child process also gets NODE_USE_ENV_PROXY=1 and NODE_EXTRA_CA_CERTS (each only when it is not set
 // already), so that Node's own fetch() in a suite reaches the network without any manual environment; with no proxy the children get exactly the
-// environment they always got (tools/t0/child_env.mjs).  The summary names the variables that were added ("childEnv"), never their values.
+// environment they always got (tools/t0/child_env.mjs).  Where the runner turns NODE_USE_ENV_PROXY on it also appends --disable-warning=UNDICI-EHPA to
+// NODE_OPTIONS (Node 22 prints a two-line warning on stderr in every process that has the variable; a test that reads merged output would see it).
+// The summary names the variables that were added or extended ("childEnv": added, extended), never their values.
 // Every row of the summary carries load1Start and load1End: the 1-minute load average of the machine when the suite started and when it ended
 // (null on Windows, which has no load average); the console line shows them as "load a>b".  A timing result is only evidence with its load.
 import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { childEnv, childEnvRecord, load1, loadText, machineRecord } from './child_env.mjs';
+import { childEnv, childEnvRecord, describeChildEnv, load1, loadText, machineRecord } from './child_env.mjs';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const argv = process.argv.slice(2);
@@ -251,7 +253,7 @@ function writeSummary(fresh, final) {
 const selected = S.filter((s) => !ONLY.length || ONLY.some((p) => s.id === p || s.id.startsWith(p)));
 console.log(`run_suites: ${selected.length} suite(s), port base ${PORT_BASE}, agent ${AGENT}`);
 const MACHINE = machineRecord(), LOAD_START = load1();
-console.log(`run_suites: child environment ${CHILD_ENV.added.length ? `+ ${CHILD_ENV.added.join(', ')} (an HTTPS proxy is set)` : `unchanged (${CHILD_ENV.httpsProxy ? 'an HTTPS proxy is set, the Node proxy variables are set already' : 'no HTTPS proxy set'})`}; load average (1 min) ${LOAD_START ?? 'not available on this platform'}, ${MACHINE.cpus} CPUs`);
+console.log(`run_suites: child environment ${describeChildEnv(CHILD_ENV)}; load average (1 min) ${LOAD_START ?? 'not available on this platform'}, ${MACHINE.cpus} CPUs`);
 const tAll = Date.now();
 for (const s of selected) {
   let rec = { id: s.id, title: s.title, kind: s.kind, inverted: s.inverted };

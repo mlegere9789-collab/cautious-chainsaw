@@ -184,7 +184,9 @@ def main():
     ids = [r['id'] for r in rows]
     want_ids = ['T1-%03d' % i for i in range(1, 58)]
     errs = []
-    if ids != want_ids: errs.append('row ids are not exactly T1-001..T1-057 in order: %s' % [i for i in want_ids if i not in ids])
+    partial = '--partial' in sys.argv
+    if not partial and ids != want_ids: errs.append('row ids are not exactly T1-001..T1-057 in order: %s' % [i for i in want_ids if i not in ids])
+    if len(set(ids)) != len(ids): errs.append('duplicate row ids')
     out_rows = []; nq = 0
     for r in rows:
         rid = r['id']
@@ -216,7 +218,13 @@ def main():
         prod = json.dumps([cc, [s['claim'] for s in subs], r.get('scenarios', [])], ensure_ascii=False)
         m = BANNED.search(prod)
         if m: errs.append('%s banned word in product text: %s' % (rid, m.group(0)))
-        if r['verdict'] in ('partially_supported', 'unsupported', 'gap') and not r.get('register'): errs.append('%s needs a proposed register entry' % rid)
+        if (r['verdict'] in ('partially_supported', 'unsupported', 'gap') or r.get('remains') or any(s['support'] == 'unsupported' for s in subs)) and not r.get('register'): errs.append('%s needs a proposed register entry' % rid)
+        if r['verdict'] == 'confirmed' and r.get('register'): errs.append('%s is confirmed and must not carry a register entry' % rid)
+        for k_ in ('start', 'end'):
+            v_ = cc.get(k_)
+            if v_ is not None and not re.match(r'^1863-\d\d-\d\dT\d\d:\d\d$', v_): errs.append('%s time window %s is not 1863-MM-DDTHH:MM: %r' % (rid, k_, v_))
+        if cc.get('start') and cc.get('end') and cc['end'] < cc['start']: errs.append('%s time window ends before it starts' % rid)
+        if cc.get('tier') not in TIERS: errs.append('%s corrected_claim tier %r' % (rid, cc.get('tier')))
         if r['verdict'] == 'confirmed' and (r.get('remains') or any(s['support'] != 'supported' for s in subs)): errs.append('%s confirmed but has unsupported parts' % rid)
         v = ver[rid]; o = old_by[rid]
         line = collections.OrderedDict()

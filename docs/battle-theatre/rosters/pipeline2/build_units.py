@@ -149,7 +149,15 @@ def main():
                     des, num = x, None
                 chk, how = refind(des, num, st, sname, arm, note, ntab, idx, pages)
                 slug = slugify(des)
-                units.append({'key': '%s-%s-%s' % (army[0], st, slug), 'army': army, 'st': st, 'state': sname,
+                ukey = '%s-%s-%s' % (army[0], st, slug)
+                if chk == 'not-found' and ukey in UD.OR_QUOTE:
+                    qchk, quote, where = UD.OR_QUOTE[ukey]
+                    hay = {'table': ntab, 'part': ' '.join(full.split())}[where]
+                    assert quote in hay, 'OR_QUOTE for %s is not in the %s text' % (ukey, where)
+                    chk, how = qchk, 'OCR text prints "%s" (%s)' % (quote, 'organization table' if where == 'table' else 'volume text')
+                if ukey in UD.PDF_ONLY:                       # listed by PDF B.3 / the kit, not printed by the OR table
+                    chk, how = 'pdf-only', UD.PDF_ONLY[ukey]
+                units.append({'key': ukey, 'army': army, 'st': st, 'state': sname,
                               'designation': des, 'arm': ARM[arm].lower(), 'number': num,
                               'path': '%s/%s/%s.jsonl.gz' % (army, st, slug), 'or_note': note,
                               'or_check': chk, 'or_check_how': how,
@@ -271,6 +279,44 @@ def main():
         else:
             unmatched_oob.append({'id': i, 'designation': des})
 
+    # ------------------------------------------------ hand tables of units_data.py (ALIAS, NO_UNIT): every id is attached with
+    # its stated basis, or listed with the reason it is attached to no unit, or stays in "unmatched"
+    by_des = {(u['army'], u['st'], u['designation']): u for u in units}
+    no_unit = []
+
+    def alias_unit(i):
+        a = UD.ALIAS.get(i)
+        if a is None:
+            return None, None
+        army_, st_, des_, basis_ = a
+        u_ = by_des.get((army_, st_, des_))
+        assert u_ is not None, 'ALIAS %s -> %s/%s/%s names no unit' % (i, army_, st_, des_)
+        return u_, basis_
+
+    still = []
+    for h in unmatched_hist:
+        i = 'H:%s:%s' % ('US' if h['id'].startswith('us') else 'CS', h['name'])
+        u_, basis_ = alias_unit(i)
+        if u_ is not None:
+            u_['registry']['history'].append(h['id'])
+            u_.setdefault('registry_basis', {})[h['id']] = basis_
+        elif i in UD.NO_UNIT:
+            no_unit.append({'kind': 'history', 'id': h['id'], 'name': h['name'], 'reason': UD.NO_UNIT[i]})
+        else:
+            still.append(h)
+    unmatched_hist = still
+    still = []
+    for o in unmatched_oob:
+        u_, basis_ = alias_unit(o['id'])
+        if u_ is not None:
+            u_['registry']['oob'].append(o['id'])
+            u_.setdefault('registry_basis', {})[o['id']] = basis_
+        elif o['id'] in UD.NO_UNIT:
+            no_unit.append({'kind': 'oob', 'id': o['id'], 'name': o['designation'], 'reason': UD.NO_UNIT[o['id']]})
+        else:
+            still.append(o)
+    unmatched_oob = still
+
     # existing roll files of rosters/data (earlier run), matched through the unit_id column
     csv.field_size_limit(10 ** 9)
     oob2unit = {}
@@ -296,16 +342,56 @@ def main():
                 reg.setdefault(r['unit_id'], r.get('regiment', ''))
         for uid, n in cnt.items():
             u = oob2unit.get(uid)
+            basis_ = None
+            if u is None:
+                u, basis_ = alias_unit(uid)
             rec = {'file': rel, 'unit_id': uid, 'rows': n, 'regiment_as_in_file': reg.get(uid, '')}
+            if basis_:
+                rec['basis'] = basis_
             if u is not None:
                 u['existing'].append(rec)
+            elif uid in UD.NO_UNIT:
+                rec['reason'] = UD.NO_UNIT[uid]
+                no_unit.append({'kind': 'existing-file', **rec})
             else:
                 existing_unmatched.append(rec)
 
-    # ------------------------------------------------ kit ids (batteries and cavalry) are listed for hand matching
+    # ------------------------------------------------ kit ids (batteries and cavalry): hand table KIT_ALIAS, cavalry rule, KIT_NO_UNIT
     kit_b = json.load(open(os.path.join(BT, 'kit', 'artillery_batteries.json'), encoding='utf-8'))['units']
     kit_c = json.load(open(os.path.join(BT, 'kit', 'cavalry_units.json'), encoding='utf-8'))['units']
-    kit_list = [{'id': k, 'name': v.get('name'), 'army': v.get('army')} for k, v in list(kit_b.items()) + list(kit_c.items())]
+    kit_list = []
+    unmatched_kit = []
+    for kid, v in list(kit_b.items()) + list(kit_c.items()):
+        army_ = v.get('army')
+        targets = []
+        if kid in UD.KIT_ALIAS:
+            for a_, st_, d_ in UD.KIT_ALIAS[kid]:
+                u_ = by_des.get((a_, st_, d_))
+                assert u_ is not None, 'KIT_ALIAS %s -> %s/%s/%s names no unit' % (kid, a_, st_, d_)
+                targets.append(u_)
+        else:
+            m = re.match(r'^(US|CS)\.CAV\.(\d+)([A-Z]+)$', kid)
+            if m:                                    # US.CAV.3IN, CS.CAV.1VA, US.CAV.1MICH
+                st_ = {'MICH': 'mi'}.get(m.group(3), m.group(3).lower())
+                a_ = 'union' if m.group(1) == 'US' else 'confederate'
+                n_ = int(m.group(2))
+                hits = [u_ for u_ in units if u_['army'] == a_ and u_['st'] == st_ and u_['arm'] == 'cavalry' and u_['number'] == n_]
+                if len(hits) == 1:
+                    targets = hits
+            if not targets:                          # kit name equal to a history alias name (H:US:1st US H)
+                i = 'H:%s:%s' % ('US' if army_ == 'union' else 'CS', v.get('name'))
+                u_, _b = alias_unit(i)
+                if u_ is not None:
+                    targets = [u_]
+        for u_ in targets:
+            u_['registry']['kit'].append(kid)
+        row = {'id': kid, 'name': v.get('name'), 'army': army_, 'units': [u_['key'] for u_ in targets]}
+        if kid in UD.KIT_NOTES:
+            row['note'] = UD.KIT_NOTES[kid]
+        if not targets:
+            row['reason'] = UD.KIT_NO_UNIT.get(kid, 'no unit of units.json matched by rule or hand table')
+            unmatched_kit.append(row)
+        kit_list.append(row)
 
     counts = collections.Counter((u['army'], u['arm']) for u in units)
     out = {
@@ -319,18 +405,21 @@ def main():
         'units': units,
         'not_in_or_table': [dict(zip(('army', 'st', 'designation', 'note'), x)) for x in UD.NOT_IN_OR_TABLE],
         'unmatched': {'history_registry_entries': unmatched_hist, 'oob_ids': unmatched_oob,
-                      'existing_roll_files': existing_unmatched,
-                      'note': 'entries the rules above could not attach to a unit; batteries and aliases are attached by hand in work-items.json, never guessed here'},
+                      'existing_roll_files': existing_unmatched, 'kit_ids': unmatched_kit,
+                      'note': 'entries that no rule and no hand table (units_data.py ALIAS, KIT_ALIAS) attached to a unit; nothing is guessed'},
+        'attached_to_no_unit': no_unit,
         'kit_ids': kit_list,
+        'units_without_kit_id': [u['key'] for u in units if u['arm'] in ('artillery', 'cavalry') and not u['registry']['kit']],
     }
     dest = os.path.join(BT, 'rosters', 'data2', 'units.json')
     os.makedirs(os.path.dirname(dest), exist_ok=True)
     json.dump(out, open(dest, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print(json.dumps(out['counts'], indent=1))
-    print('unmatched history', len(unmatched_hist), 'oob', len(unmatched_oob), 'existing files', len(existing_unmatched))
+    print('unmatched history', len(unmatched_hist), 'oob', len(unmatched_oob), 'existing files', len(existing_unmatched), 'kit', len(unmatched_kit), 'no-unit', len(no_unit))
     for u in units:
         if u['or_check'] == 'not-found':
             print('NOT FOUND IN OR TEXT:', u['key'])
+    print('units without kit id (artillery, cavalry):', len(out['units_without_kit_id']))
 
 
 if __name__ == '__main__':

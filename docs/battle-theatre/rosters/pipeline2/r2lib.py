@@ -263,9 +263,9 @@ def verify_rows(segments, texts, pagemaps, max_report=20):
             if not rank:
                 st['rank_empty'] += 1
             else:
-                if rank.startswith('^'):
-                    hay = text[max(0, off - 400000):off]
-                    toks = rank[1:].split()
+                if rank.startswith('^'):                    # carried from a heading above: headings are printed in capitals
+                    hay = text[max(0, off - 400000):off].casefold()
+                    toks = [t.casefold() for t in rank[1:].split()]
                 elif leaf is not None:
                     a, b = pm.span(leaf)
                     hay, toks = text[a:b], rank.split()

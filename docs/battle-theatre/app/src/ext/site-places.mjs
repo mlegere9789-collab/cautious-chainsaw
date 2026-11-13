@@ -158,7 +158,8 @@ export function buildIndex(d, T, o = {}) {
     X[i] = x; Y[i] = y + LIFT; Z[i] = z; flag[i] = (a.inside ? 1 : 0) | (Math.max(0, SIDES.indexOf(m.side)) << 1);
     const it = { i, no: m.no, name: m.name, honors: m.honors, loc: m.loc, mn: m.mn, side: m.side, group: m.group, src: m.src, kind: memorialKind(m.name), lat, lng, x, z, y, inside: a.inside, beyondM: a.beyondM, dir: a.dir,
       second: s ? { id: s.id, name: s.name, lat: s.lat, lng: s.lng, source: s.source, apartM: metres(s.lat, s.lng, m.lat, m.lng), used: useAlt, listLat: m.lat, listLng: m.lng } : null,
-      hay: [m.name, m.honors, m.loc, m.group, m.mn].join(' \n ').toLowerCase() };
+      hay: [m.name, m.honors, m.loc, m.group, m.mn].join(' \n ').toLowerCase(), lbl: '', lblW: 0 };
+    it.lbl = labelText(it); it.lblW = it.lbl.length * LABEL.charW + LABEL.pad;          // the name on the picture and its width, made once (the frame loop makes no strings)
     items[i] = it; byNo.set(m.no, it);
     if (a.inside) counts.inside++; else counts.beyond++; counts.side[m.side] = (counts.side[m.side] || 0) + 1; if (m.src) counts.withSource++; else counts.withoutSource++;
     groups.set(m.group, (groups.get(m.group) || 0) + 1);
@@ -217,8 +218,8 @@ export function layoutMarks(index, vp, cam, w, h, state, L) {
   }
   L.n = k; let nl = 0; if (selK >= 0) L.lab[nl++] = selK;
   for (let c = 0; c < nc && nl < LABEL.max + (selK >= 0 ? 1 : 0); c++) {
-    const a = L.ci[c], ax = L.sx[a] + 9, ay = L.sy[a] - 16, aw = labelText(items[L.idx[a]]).length * LABEL.charW + LABEL.pad; let free = ax + aw < w + 40 && ay > -4;
-    for (let q = 0; q < nl && free; q++) { const b = L.lab[q], bx = L.sx[b] + 9, by = L.sy[b] - 16, bw = labelText(items[L.idx[b]]).length * LABEL.charW + LABEL.pad; if (ax < bx + bw && bx < ax + aw && Math.abs(ay - by) < LABEL.h + 2) free = false; }
+    const a = L.ci[c], ax = L.sx[a] + 9, ay = L.sy[a] - 16, aw = items[L.idx[a]].lblW; let free = ax + aw < w + 40 && ay > -4;
+    for (let q = 0; q < nl && free; q++) { const b = L.lab[q], bx = L.sx[b] + 9, by = L.sy[b] - 16, bw = items[L.idx[b]].lblW; if (ax < bx + bw && bx < ax + aw && Math.abs(ay - by) < LABEL.h + 2) free = false; }
     if (free) L.lab[nl++] = a;
   }
   L.nLabels = nl; return L;
@@ -252,7 +253,7 @@ export function drawMarks(c, index, L, state, tier) {
   if (n) { c.beginPath(); for (let k = 0; k < n; k++) stone(c, L.sx[k], L.sy[k], L.r[k]); c.lineWidth = 1.3; c.strokeStyle = tier.color; c.setLineDash(dashed ? [3, 2] : []); c.stroke(); c.setLineDash([]); }
   c.textBaseline = 'alphabetic';
   for (let q = L.nLabels - 1; q >= 0; q--) {                      // the picked memorial last, on top
-    const k = L.lab[q], it = items[L.idx[k]], sel = it.no === selNo, txt = sel ? markLabel(it) : labelText(it), x = L.sx[k] + 9, y = L.sy[k] - 16;
+    const k = L.lab[q], it = items[L.idx[k]], sel = it.no === selNo, txt = sel ? (it.selLbl || (it.selLbl = markLabel(it))) : it.lbl, x = L.sx[k] + 9, y = L.sy[k] - 16;
     c.font = sel ? '600 12.5px system-ui, sans-serif' : '11.5px system-ui, sans-serif';
     if (sel) { c.lineWidth = 2.2; c.strokeStyle = '#e8d5a3'; c.beginPath(); c.arc(L.sx[k], L.sy[k] - L.r[k] * .3, L.r[k] * 1.9 + 4, 0, 6.2832); c.stroke(); }
     const w = c.measureText(txt).width + LABEL.pad;
@@ -295,6 +296,31 @@ export function memorialRowsHTML(list, from, to, selected) {
     h += `<li><button type="button" class="item" data-no="${it.no}"${it.no === selected ? ' aria-current="true"' : ''}><span class="glyph"><svg class="ic"><use href="#i-pin"/></svg></span><span class="when">${esc(it.side)}${it.mn ? ' · ' + esc(it.mn) : ''}${it.inside ? '' : ` · ${fmtM(it.beyondM)} m ${COPY.beyond} (${it.dir})`}</span><span class="what">${esc(it.name)}</span></button></li>`; }
   return h;
 }
+/** The notice that stays on the picture for as long as the layer is on (the two buttons are handled by the module: data-act "about" and "hide"). */
+export function noticeHTML(counts, tm) {
+  return `<span>${tm(LAYER.tier)}</span><span><b style="color:var(--text)">Later memorials shown</b></span><span>${counts.total} marks, ${counts.beyond} of them ${COPY.beyond}. Put up after the battle: not part of the 1863 scene.</span><span><button type="button" class="btn-s" data-act="about" style="min-height:28px">About them</button> <button type="button" class="btn-s" data-act="hide" style="min-height:28px">Hide</button></span>`;
+}
+/** The memorial panel above its list. o: {on, positions, integrity: {checked}, list: {q, side, group, where}}. The list itself is memorialRowsHTML under #xm-list. */
+export function memorialPanelHTML(index, o, tm) {
+  const c = index.counts, f = o.list, e = esc, two = index.items.filter(it => it.second), far = two.reduce((m, it) => Math.max(m, it.second.apartM), 0), near = two.reduce((m, it) => Math.min(m, it.second.apartM), Infinity);
+  return `<p class="mini" style="margin-bottom:10px">${e(COPY.layer)}</p>
+    <label class="check"><input type="checkbox" id="xm-on" ${o.on ? 'checked' : ''}> Show the marks of the later memorials</label>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 8px">${tm(LAYER.tier)}<span class="pill" data-xm="post-battle">Post-battle</span><span class="pill">${c.total} memorials</span><span class="pill">${c.inside} on the loaded ground</span><span class="pill">${c.beyond} beyond it</span></div>
+    <details style="margin:0 0 10px"><summary class="mini" style="cursor:pointer">What this rests on, and what is not known</summary>
+      <p class="mini" style="margin-top:8px">${e(COPY.basis)}</p>
+      <p class="mini" style="margin-top:8px">${tm(LAYER.yearTier)} ${e(COPY.year)} Gap ${e(LAYER.gap)}.</p>
+      <p class="mini" style="margin-top:8px">${e(COPY.position)} The list states no source for ${c.withoutSource} of the ${c.total} positions; for ${c.withSource} it names a web listing. A mark says where the list puts a memorial today and nothing about July 1863.</p>
+      <p class="mini" style="margin-top:8px">${c.beyond} memorials lie beyond the loaded ground (6.2 by 6.1 km). They are listed and marked like the rest: the camera goes to the edge of the ground and looks toward them, and the mark stands at the height of the nearest loaded ground because the ground there is not loaded. Gap ${e(LAYER.groundGap)}.</p>
+      ${o.integrity && o.integrity.checked ? '' : '<p class="mini" style="margin-top:8px">This address gives the page no way to check the list against the hash recorded with it; the check was left out.</p>'}</details>
+    ${two.length ? `<h3>Where the site holds two positions</h3><p class="mini">${two.length} state memorials are also in a second list of the site, ${fmtM(near)} to ${fmtM(far)} m from where the Monuments list puts them. Both are carried; the marks open on the Monuments list, the list this layer copies.</p>
+    <select class="field" id="xm-pos" aria-label="Which of the site's positions the nine state memorials follow" style="height:38px;margin-top:6px">${POSITION_CHOICES.map(p => `<option value="${p.key}" ${p.key === o.positions ? 'selected' : ''}>${e(p.label)}</option>`).join('')}</select>` : ''}
+    <h3>Find a memorial</h3>
+    <input class="field" type="search" id="xm-q" placeholder="Search ${c.total} later memorials" aria-label="Search later memorials" value="${e(f.q)}" data-autofocus>
+    <div class="seg" id="xm-side" role="group" aria-label="Side">${['all', ...SIDES].map(k => `<button type="button" data-side="${k}" aria-pressed="${f.side === k}">${k === 'all' ? 'All' : k}</button>`).join('')}</div>
+    <select class="field" id="xm-group" aria-label="Group of the list" style="height:38px;margin-top:6px"><option value="all">All groups</option>${c.groups.map(g => `<option value="${e(g.name)}" ${f.group === g.name ? 'selected' : ''}>${e(g.name)} (${g.n})</option>`).join('')}</select>
+    <div class="seg" id="xm-where" role="group" aria-label="On or beyond the loaded ground">${[['all', 'Everywhere'], ['on', 'On the loaded ground'], ['beyond', 'Beyond it']].map(([k, t]) => `<button type="button" data-where="${k}" aria-pressed="${f.where === k}">${t}</button>`).join('')}</div>
+    <p class="mini" id="xm-count" aria-live="polite" style="margin-top:8px"></p><ul class="list" id="xm-list"></ul>`;
+}
 
 // ---------------------------------------------------------------- the tour stops as camera bookmarks
 /** All stops of the file, each with a camera position. kind: 'viewpoint' (the site's own viewpoint), 'place' (a view of the stop) or 'edge' (the stop lies beyond the loaded ground). */
@@ -312,6 +338,18 @@ export const tourSay = b => (b.inside ? `Flying to ${b.label}, ${b.name}.` : `${
 export const tourPinText = b => `${b.label} · ${b.name} · modern tour stop${b.inside ? '' : ` · ${fmtM(b.beyondM)} m ${COPY.beyond}`}`;
 export function tourRowsHTML(B, active) {
   return B.map(b => `<li><button type="button" class="item" data-stop="${b.id}"${b.id === active ? ' aria-current="true"' : ''}><span class="glyph"><svg class="ic"><use href="#i-pin"/></svg></span><span class="when">${esc(b.label)} · ${esc(b.day)}${b.inside ? '' : ` · ${fmtM(b.beyondM)} m ${COPY.beyond} (${b.dir})`}</span><span class="what">${esc(b.name)}${b.inside ? '' : ' · view from the edge of the loaded ground'}</span></button></li>`).join('');
+}
+/** The tour panel: the words, the marks, the list of the 16 stops and the button that takes the pin away. */
+export function tourPanelHTML(B, active, tm) {
+  const e = esc, on = B.filter(b => b.inside).length, off = B.length - on;
+  return `<p class="mini" style="margin-bottom:10px">${e(COPY.tour)}</p>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin:0 0 8px">${tm(TOUR.tier)}<span class="pill">Modern tour</span><span class="pill">${B.length} stops</span><span class="pill">${on} on the loaded ground</span><span class="pill">${off} beyond it</span></div>
+    <details style="margin:0 0 6px"><summary class="mini" style="cursor:pointer">Where the camera goes</summary>
+      <p class="mini" style="margin-top:8px">For a stop on the loaded ground the camera stands at the viewpoint the site's walkthrough uses for it, 30 m above the ground, and looks at the stop; where the two are one place it looks along the walkthrough's own heading.</p>
+      <p class="mini" style="margin-top:8px">For a stop beyond the loaded ground (6.2 by 6.1 km) the camera stands over the edge of the ground, 140 m up, and looks toward the stop; the pin stands at the height of the nearest loaded ground because the ground there is not loaded. Gap ${e(LAYER.groundGap)}.</p>
+      <p class="mini" style="margin-top:8px">The positions are the site's list as it stands; nothing is corrected here. The day beside a stop is the day the site gives it; choosing a stop moves the camera only, never the clock.</p></details>
+    <ul class="list" id="xt-list">${tourRowsHTML(B, active)}</ul>
+    <div class="actions" style="margin-top:12px"><button type="button" class="btn-s" id="xt-clear" ${active < 0 ? 'disabled' : ''}>Remove the pin</button></div>`;
 }
 
 // ---------------------------------------------------------------- checks for the gate runner (pure; listed in docs/GATE-HOOKS.md)

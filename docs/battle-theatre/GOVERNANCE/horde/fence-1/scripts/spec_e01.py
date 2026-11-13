@@ -1,0 +1,70 @@
+from spec_lib import R, S, C, B, L
+ROWS = []
+ROWS.append(R(
+ 'R14.E-01', 'partially_supported', 'open_gaps',
+ pdf_claim="Seminary Ridge barricade in the small wood in front of Schmucker Hall: fences dismantled and rails stacked into a barricade that curved through the wood, about 600 yd long (Wikipedia), held by I Corps remnants and Wainwright's artillery (20 guns Wikipedia, 22 in four batteries HistoryNet); built Jul 1 afternoon before about 16:00, overrun about 16:00-16:30; no start time, no crew list.",
+ corrected="A breastwork of rails, stumps and earth stood immediately west of the Seminary building on Jul 1. Doubleday ordered Robinson's division to intrench on its arrival and Robinson set Paul's First Brigade (16th Maine, 94th NY, 104th NY, 13th Mass., 107th Pa.) to work; the work was done between about 11:00 and about 13:00 (bounds from Baxter's arrival at 11 a.m. and the 16th Maine leaving for the right at about one o'clock), and other troops had added rails earlier in the day. Hunt counts 22 guns in four batteries on the line (16 concentrated plus Stewart's six), Wainwright counts twelve concentrated; the 20 of the PDF is not supported. Length (about 600 yd), the curve and the dismantling of a 600-yd fence line are not in any source and stay marked gaps; the form is a conflict (circular redoubt vs a line parallel to the Seminary).",
+ structures=['E-01', 'G-02', 'FEN-seminary-ridge', 'S-010', 'S-011'],
+ sub=[
+  S('a', "A barricade/breastwork of rails stood in front of (west of) the Seminary on Jul 1 and was used by First Corps troops.", 'documented', 'supported', [
+    C('OR1','R029',"feeble barricade of rails"),
+    C('OR1','R055',"cover of rails"),
+    C('OR1','R033',"before reaching the barricade, west of the seminary building"),
+    C('OR1','R036',"a slight breastwork of loose rails"),
+    C('OR2','R557',"breastwork of rails behind"),
+    C('OR2','R556',"behind a breastwork of rails in flank")]),
+  S('b', "Order and builder: Doubleday directed Robinson's division to throw up intrenchments on arrival; Robinson set Paul's First Brigade to work at the Seminary; the 16th Maine and 94th NY threw up the barricade.", 'documented', 'supported', [
+    C('OR1','R029',"throw up some slight intrenchments"),
+    C('OR1','R043',"the First Brigade, under Brigadier-General Paul, was set at work to intrench the ridge on which it is situated"),
+    C('OR1','R045',"threw up a barricade of rails, &c."),
+    C('OR1','R047',"we were ordered to throw up breastworks"),
+    C('LIB','NY-GB-1900-v2',"Arriving on the field General Robinson halted his troops at the Lutheran Seminary, where they were engaged in throwing up breastworks"),
+    C('LIB','PA-GB-1904',"General Robinson put his division in line of battle in rear of the Seminary, being on the right of the Chambersburg pike, and extending north to or near the Mummasburg road, and gave orders to throw up barricades")],
+    note="The 104th NY (same brigade) was ordered to throw up a breastwork and the order was countermanded within minutes (Prey, R048)."),
+  S('b2', "Attribution conflict: McFarland credits the rail-and-stump breastwork to 'the Second Brigade, Second Division'; Robinson, Farnham, Moffett and the Maine and Pennsylvania regimental books credit the First Brigade; Robinson (7th Wis.) supposed it was thrown up by some of 'our troops' earlier in the day.", 'documented', 'conflict', [
+    C('OR1','R060',"temporary breastwork made of rails, stumps, &c., by the Second Brigade"),
+    C('OR1','R036',"which, I suppose, had been thrown together by some of our troops in the earlier part of the day"),
+    C('OR1','R048',"ordered to throw up a breastwork of such material as they could find"),
+    C('OR1','R048',"In a few minutes the order was countermanded")],
+    note="Not resolved here; both attributions stay selectable (register fence-1-EG-01)."),
+  S('c', "Material: rails and stumps, with earth; the Maine adjutant says 'fence rails'.", 'documented', 'supported', [
+    C('OR1','R060',"take a position behind a fence running along the south end"),
+    C('LIB','ME-GB-1898',"By command of General Robinson, the First Brigade hastily threw up a redoubt of earth and fence rails, in a circular form, just in front of the seminary"),
+    C('LIB','NY-GB-1900-v2',"temporary breastworks from rails and other movable")],
+    note="'Fence rails' is the Maine adjutant's wording (1898); the OR reports say 'rails, stumps, &c.' and 'rails, &c.' without naming the fence they came from. The NY text (104th NY narrative, 1900) has an OCR-garbled word before 'temporary breastworks' ('construction'), so only the clean fragment is quoted; it adds 'employed for a part of the time until afternoon' and 'a little to the west of the building' in the same sentence."),
+  S('d', "Place: west edge of the Seminary grove, parallel with the Seminary, about 40 yd down the slope from a battery on the ridge; 'just in front of the seminary'.", 'documented', 'supported', [
+    C('OR1','R060',"through the west edge of the grove, and parallel with the seminary"),
+    C('OR1','R036',"Down the slope, some 40 yards in front of this battery"),
+    C('LIB','ME-GB-1898',"just in front of the seminary")]),
+  S('e', "Time of the work: Robinson's division reached the field about 11:00 (Baxter, same division) and the First Brigade was set at work at once; the 16th Maine left for the right about one o'clock; Cooper's battery came behind 'a barricade of rails thrown up earlier in the day' about 15:00.", 'inferred', 'partial', [
+    C('OR1','R052',"arriving near the front where the battle was raging at 11 a. m."),
+    C('OR1','R043',"from about noon until nearly 5 p. m."),
+    C('LIB','ME-GB-1898',"About one o'clock rang out"),
+    C('OR1','R048',"where we arrived about 1 o'clock"),
+    C('LIB','PA-GB-1914-v2',"in rear of a barricade of rails thrown up earlier in the day")],
+    note="Window about 11:00-13:00 is bounded by two reports of the same division (Baxter at 11:00, Prey and Small about 13:00); the OR does not print a start clock for the work itself, so the window is inferred. Clock conventions differ by about 20 min between sides; none applied."),
+  S('f', "Gun count on the line: Hunt gives sixteen guns concentrated at the Seminary plus Stewart's six (22 in four batteries: Cooper B-1st Pa. four, Stevens 5th Maine six, L-1st NY six, Stewart B-4th US six); Wainwright says twelve concentrated.", 'documented', 'conflict', [
+    C('OR1','R028',"thus concentrating sixteen guns"),
+    C('OR1','R028',"Stewart's battery (B, Fourth United States, six 12-pounders) was also on the same li"),
+    C('OR1','R028',"posted Cooper's battery (B, First Pennsylvania, four 3-inch)"),
+    C('OR1','R071',"thus concentrating twelve guns in so small a space")],
+    note="22 follows from Hunt's printed counts; Wainwright's 'twelve' counts a smaller group (Cooper four, Stevens, Wilber's two-gun section). The PDF's 20 (Wikipedia) has no OR statement."),
+  S('g', "Length of the barricade about 600 yd.", 'open_gap', 'unsupported', [],
+    note="No hit for a 600-yd length of breastwork/barricade at the Seminary in OR parts 1-3 or in the 99-text library plus Dawes, Morhous, Eddy (regex search, 2026-11-13). The number is Wikipedia's. Keep as a visibly marked, plausible-procedural scenario; do not present as documented."),
+  S('h', "Fences dismantled along about 600 yd to make the barricade; barricade 'curved through the wood'.", 'open_gap', 'unsupported', [],
+    note="Only 'rails' (and 'fence rails' in one regimental book) are named; the OR never says which fence was taken down or over what length. Form is a conflict: circular redoubt in front of the Seminary (Maine adjutant) vs a line parallel with the Seminary through the west edge of the grove (McFarland)."),
+  S('i', "Overrun about 16:00-16:30 by Pender's attack.", 'inferred', 'partial', [
+    C('OR2','R556',"About 4 o'clock, General Pender ordered an")],
+    note="Start of the attack is documented (Engelhard); the hour the barricade fell is not printed. Carried by S-011."),
+ ],
+ stays_unsupported=["Length about 600 yd", "Dismantling of a fence line over 600 yd; curved plan", "Start clock of the work (only the 11:00-13:00 window from the arrival of the division)", "Builder conflict: First Brigade (Robinson) vs 'Second Brigade, Second Division' (McFarland)", "Hour the barricade was overrun"],
+ conflicts=["Builder: Paul's First Brigade (R043, R045, R047) vs 'Second Brigade, Second Division' (R060) vs earlier unnamed troops (R036)", "Form: circular redoubt (Small) vs line through the west edge of the grove (McFarland)", "Guns: 22 (Hunt) vs twelve concentrated (Wainwright); 20 (PDF/Wikipedia) unsupported"],
+ register=['fence-1-EG-01'],
+ consequence=["E-01 works record: crew = Paul's First Brigade regiments (16th ME, 13th MA, 94th NY, 104th NY, 107th PA) instead of 'I Corps remnants'; start window 11:00-13:00 (inferred), built before 14:00; keep the 104th NY order-countermanded note",
+              "E-01 dimensions: 'about 600 yd' must be shown as an open gap (plausible-procedural), not documented; form selectable: circular redoubt vs line parallel to the Seminary",
+              "S-010: window 'before about 16:00' stays as the latest bound; earliest bound from 11:00; fences row stays inferred",
+              "G-02 guns: 22 (Hunt, four batteries) default, twelve-concentrated (Wainwright) selectable; the 20 stays PDF-only"],
+ lookups=[L('OR1-3','(barricade|breastwork|intrenchment)[^.]{0,200}(six hundred|600) (yards|yds)',1,'only an unrelated Mount Union barricade (OR27-2-R418); no 600-yd Seminary work'),
+          L('lib','(barricade|breastwork)s?.{0,300}seminary|seminary.{0,300}(barricade|breastwork)',15,'ME-GB-1898, NY-GB-1900-v2, PA-GB-1904, PA-GB-1914-v2, BACH-WHATTOSEE: used above'),
+          L('OR1','Robinson division arrival / works (R043, R052, R048)',3,'Baxter 11 a.m.; Robinson set Paul to intrench; Prey arrived about 1 o\'clock')],
+))

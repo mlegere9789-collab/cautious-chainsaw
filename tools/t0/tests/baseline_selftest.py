@@ -394,7 +394,9 @@ def _():
     rum_file = os.path.join(d, 'rum.txt')
     write_bytes(rum_file, FAKE_RUM.encode('utf-8'))
     rc, out = run(['node', os.path.join(HERE, 'forward_model_js.mjs'), BASE, rum_file], 0)
-    js = json.loads(out.strip().splitlines()[-1])
+    # run() returns stdout + stderr, and Node writes warnings to stderr (two lines in every process that has NODE_USE_ENV_PROXY=1 set by hand):
+    # the JSON is the last line that is a JSON object, not simply the last line
+    js = json.loads([x for x in out.strip().splitlines() if x.startswith('{')][-1])
     tree = baseline_tree()
     bad = []
     n = 0

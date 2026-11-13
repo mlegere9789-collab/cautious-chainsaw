@@ -55,8 +55,26 @@ function morePanel() {
   return P;
 }
 
-// an added panel: a way back to the list, then the module's own drawing. renderFn(body, theatre, scope) may draw into body, or return HTML, a node, a cleanup function,
-// an object with dispose(), or a promise of one of these. A render that throws shows a notice in the panel and is logged; the theatre goes on.
+/** One drawing of an added panel (it touches no global of the page, so tests/ext-loader.test.mjs runs it under node). p.render(box, theatre, scope) may draw into box and return nothing, or
+ *  return an HTML string (it replaces the content of box), a DOM node (appended), a cleanup function, an object with dispose(), or a promise of one of these. Returns the Scope of this
+ *  drawing: its dispose() ends what the module put on it and calls the cleanup the module returned. A render that throws, or a promise that rejects while the drawing is current, goes to
+ *  fail(error); one that rejects after the drawing has ended is only logged. A result that arrives after the drawing has ended (the panel was closed or drawn again) is not drawn, but its
+ *  cleanup is still called, so that nothing the module made for it is left behind. drawn() is called after each drawing that was made. */
+export function drawAdded(p, box, th, fail, drawn) {
+  const sc = new Scope('added-body:' + p.id), who = `ext ${p.owner ? p.owner.path : ''}: panel '${p.id}'`;
+  const finish = r => { try { if (typeof r === 'function') r(); else if (r && typeof r.dispose === 'function') r.dispose(); } catch (e) { console.warn(`${who}: its cleanup failed`, e); } };
+  const take = r => {
+    if (sc.disposed) { finish(r); return; }
+    if (typeof r === 'string') box.innerHTML = r; else if (r && r.nodeType) box.append(r); else if (typeof r === 'function') sc.add(r); else if (r && typeof r.dispose === 'function') sc.add(() => r.dispose());
+    if (drawn) drawn();
+  };
+  const bad = e => { if (sc.disposed) console.error(`${who} could not be drawn`, e); else fail(e); };
+  box.replaceChildren();
+  try { const r = p.render(box, th, sc); if (r && typeof r.then === 'function') Promise.resolve(r).then(take).catch(bad); else take(r); } catch (e) { bad(e); }
+  return sc;
+}
+
+// an added panel: a way back to the list, then the module's own drawing (drawAdded). A render that throws shows a notice in the panel and is logged; the theatre goes on.
 function extPanel(p) {
   let ps = null, inner = null;
   const P = { title: p.title, dispose: null,
@@ -66,11 +84,7 @@ function extPanel(p) {
       const box = document.createElement('div'); box.className = 'xp-body'; box.dataset.xpanel = p.id; body.append(back, box);
       ps.on(back.firstElementChild, 'click', () => th.openPanel(MORE));
       const fail = e => { console.error(`ext ${p.owner ? p.owner.path : ''}: panel '${p.id}' could not be drawn`, e); box.innerHTML = `<p class="fail">This panel could not be drawn: ${esc(String((e && e.message) || e))}</p>`; };
-      const draw = () => {
-        if (inner) inner.dispose(); const sc = inner = new Scope('added-body:' + p.id), top = body.scrollTop; box.replaceChildren();
-        const take = r => { if (sc.disposed) return; if (typeof r === 'string') box.innerHTML = r; else if (r && r.nodeType) box.append(r); else if (typeof r === 'function') sc.add(r); else if (r && typeof r.dispose === 'function') sc.add(() => r.dispose()); body.scrollTop = top; };
-        try { const r = p.render(box, th, sc); if (r && typeof r.then === 'function') r.then(take, e => { if (!sc.disposed) fail(e); }); else take(r); } catch (e) { fail(e); }
-      };
+      const draw = () => { if (inner) inner.dispose(); const top = body.scrollTop; inner = drawAdded(p, box, th, fail, () => { body.scrollTop = top; }); };
       th.bus.on('ext-panel', id => { if (id === p.id) { el(th).textContent = p.title; draw(); } }, ps);
       draw();
     } };
@@ -84,7 +98,9 @@ export function mountExtensionsUI(th) {
   th.panelFor = name => own[name] || (name === MORE ? more : (th.ext && th.ext.panels.has(name) ? extPanel(th.ext.panels.get(name)) : null));
   const paint = () => {
     const X = th.ext; if (!X || !btn) return; const n = X.panels.size + X.toggles.size, bad = X.problems().length;
-    btn.hidden = !(n || bad); btn.dataset.alert = String(bad > 0); btn.title = bad ? `${bad} part${bad === 1 ? '' : 's'} of the page not running` : '';
+    const said = `${bad} part${bad === 1 ? '' : 's'} of the page not running`;
+    btn.hidden = !(n || bad); btn.dataset.alert = String(bad > 0); btn.title = bad ? said : '';
+    if (bad) btn.setAttribute('aria-label', `More, ${said}`); else btn.removeAttribute('aria-label');      // the dot is only a picture: the name of the tool says it too
     if (th.state.panel && th.state.panel !== MORE && !own[th.state.panel] && !X.panels.has(th.state.panel)) th.openPanel(MORE);      // the open panel went away with its module: back to the list
     if (!n && !bad && th.state.panel === MORE) th.closePanel(false);
   };

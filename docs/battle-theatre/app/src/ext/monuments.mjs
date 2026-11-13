@@ -9,6 +9,12 @@ let S = null;                                   // the state of one visit: set b
 
 const doc = () => globalThis.document;
 const el = (tag, props = {}, html = null) => { const n = doc().createElement(tag); for (const k of Object.keys(props)) { if (k === 'style') n.style.cssText = props[k]; else if (k.startsWith('aria-') || k === 'role' || k === 'for' || k === 'type' || k === 'placeholder') n.setAttribute(k, props[k]); else n[k] = props[k]; } if (html != null) n.innerHTML = html; return n; };
+// The notice sits in the left column on a wide screen. On a phone the shell hides its own legend and lays the column out loose, so the notice is put under the clock face
+// (its height is read, not guessed) and stays on the picture: the notice is the label of the layer and is never hidden while the layer is on.
+const CSS = `#xm-chip{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:9px 14px;border-radius:12px;background:var(--panel);border:1px solid rgba(58,58,86,.65);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);font-size:12px;line-height:1.4;color:var(--text-2);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+#xm-chip[hidden]{display:none}
+#xm-chip>span{display:inline-flex;align-items:center;gap:7px}
+@media (max-width:760px){#xm-chip{position:absolute;z-index:12;left:var(--gut);right:var(--gut);top:calc(var(--top-h) + var(--safe-t) + var(--xm-clock-h,92px) + 18px);padding:7px 11px;gap:4px 10px;font-size:11.5px}#xm-chip .btn-s{min-height:30px}}`;
 
 export async function init(ctx) {
   const URLS = ctx.urls, th = ctx.theatre;
@@ -20,16 +26,18 @@ export async function init(ctx) {
   if (th.dead || !th.root) return;                                                // the visit ended while the list was being read
   const T = th.T, index = P.buildIndex(data, T, { positions: 'list' });
   const s = S = { ctx, th, T, data, index, integrity, positions: 'list', on: false, selected: -1, canvas: null, c2d: null, w: 0, h: 0, dpr: 1, vp: new Float32Array(16), L: P.newLayout(index.n), last: new Float64Array(10), fresh: true, drawn: 0,
-    tier: ctx.tierMark.style(P.LAYER.tier), ac: new AbortController(), chip: null, card: null, toggle: null, panel: null, list: { q: '', side: 'all', group: 'all', where: 'all', shown: 60 }, tap: null };
+    tier: ctx.tierMark.style(P.LAYER.tier), ac: new AbortController(), chip: null, card: null, style: null, ro: null, toggle: null, panel: null, list: { q: '', side: 'all', group: 'all', where: 'all', shown: 60 }, tap: null };
   const sig = { signal: s.ac.signal }, left = th.root.querySelector('#bt-left'), stage = th.els.stage;
 
   // ---- the notice that is on the picture for as long as the layer is on
-  s.chip = el('div', { id: 'xm-chip', className: 'legend', hidden: true, 'aria-label': 'Later memorials are shown', style: 'margin-top:0;align-items:center' });
+  s.style = el('style', { id: 'xm-style' }); s.style.textContent = CSS; th.root.append(s.style);
+  s.chip = el('div', { id: 'xm-chip', hidden: true, role: 'note', 'aria-label': 'Later memorials are shown' });
   s.chip.addEventListener('click', e => { const b = e.target && e.target.closest ? e.target.closest('[data-act]') : null; if (!b || !S) return; if (b.dataset.act === 'hide') S.toggle.set(false); else if (b.dataset.act === 'about') S.panel.open(); }, sig);
   // ---- the card of a picked memorial (the shell's own card element belongs to units and structures)
   s.card = el('aside', { id: 'xm-card', className: 'card', hidden: true, role: 'complementary', 'aria-labelledby': 'xm-card-title' });
   s.card.addEventListener('click', e => { const b = e.target && e.target.closest ? e.target.closest('[data-act]') : null; if (!b || !S) return; if (b.dataset.act === 'close') select(-1); else if (b.dataset.act === 'fly') flyTo(S.selected); }, sig);
-  if (left) { const clock = left.querySelector('.clockface'), shellCard = left.querySelector('#bt-card'); if (clock) clock.after(s.chip); else left.prepend(s.chip); if (shellCard) shellCard.after(s.card); else left.append(s.card); }
+  if (left) { const clock = left.querySelector('.clockface'), shellCard = left.querySelector('#bt-card'); if (clock) clock.after(s.chip); else left.prepend(s.chip); if (shellCard) shellCard.after(s.card); else left.append(s.card);
+    const clock2 = left.querySelector('.clockface'); if (clock2 && globalThis.ResizeObserver) { s.ro = new ResizeObserver(() => { if (S && S.chip) S.chip.style.setProperty('--xm-clock-h', Math.round(clock2.getBoundingClientRect().height) + 'px'); }); s.ro.observe(clock2); } }
   else th.root.append(s.chip, s.card);
 
   // ---- a tap on a mark picks it; the shell's own pick (a unit, a structure) comes first and wins
@@ -62,9 +70,8 @@ function setOn(v) {
   paintChip(s); if (s.panel.isOpen()) syncPanel(s);
 }
 function paintChip(s) {
-  const c = s.index.counts; s.chip.hidden = !s.on;
-  if (s.on) s.chip.innerHTML = `<span>${s.ctx.tierMark(P.LAYER.tier)}</span><span><b style="color:var(--text)">Later memorials shown</b></span><span>${c.total} marks, ${c.beyond} of them ${P.COPY.beyond}. Put up after the battle: not part of the 1863 scene.</span><span><button type="button" class="btn-s" data-act="about" style="min-height:28px">About them</button> <button type="button" class="btn-s" data-act="hide" style="min-height:28px">Hide</button></span>`;
-  else s.chip.innerHTML = '';
+  s.chip.hidden = !s.on;
+  s.chip.innerHTML = s.on ? P.noticeHTML(s.index.counts, s.ctx.tierMark) : '';
 }
 function select(no, o = {}) {
   const s = S; if (!s) return false; const it = no >= 0 ? s.index.byNo.get(no) : null; if (no >= 0 && !it) return false;
@@ -112,25 +119,8 @@ export function update(frame) {
 function syncPanel(s) { const b = s.box; if (!b) return; const cb = b.querySelector('#xm-on'); if (cb) cb.checked = s.on; }
 function markCurrent(s) { const b = s.box; if (!b) return; const ul = b.querySelector('#xm-list'); if (!ul) return; for (const n of ul.querySelectorAll('[aria-current]')) n.removeAttribute('aria-current'); if (s.selected >= 0) { const n = ul.querySelector(`[data-no="${s.selected}"]`); if (n) n.setAttribute('aria-current', 'true'); } }
 function renderPanel(box, th, sc) {
-  const s = S; if (!s) return; const c = s.index.counts, tm = s.ctx.tierMark, f = s.list, e = P.esc; s.box = box; sc.add(() => { if (S && S.box === box) S.box = null; });
-  const two = s.index.items.filter(it => it.second), far = two.reduce((m, it) => Math.max(m, it.second.apartM), 0), near = two.reduce((m, it) => Math.min(m, it.second.apartM), Infinity);
-  box.innerHTML = `<p class="mini" style="margin-bottom:10px">${e(P.COPY.layer)}</p>
-    <label class="check"><input type="checkbox" id="xm-on" ${s.on ? 'checked' : ''}> Show the marks of the later memorials</label>
-    <div style="display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 8px">${tm(P.LAYER.tier)}<span class="pill" data-xm="post-battle">Post-battle</span><span class="pill">${c.total} memorials</span><span class="pill">${c.inside} on the loaded ground</span><span class="pill">${c.beyond} beyond it</span></div>
-    <details style="margin:0 0 10px"><summary class="mini" style="cursor:pointer">What this rests on, and what is not known</summary>
-      <p class="mini" style="margin-top:8px">${e(P.COPY.basis)}</p>
-      <p class="mini" style="margin-top:8px">${tm(P.LAYER.yearTier)} ${e(P.COPY.year)} Gap ${e(P.LAYER.gap)}.</p>
-      <p class="mini" style="margin-top:8px">${e(P.COPY.position)} The list states no source for ${c.withoutSource} of the ${c.total} positions; for ${c.withSource} it names a web listing. A mark says where the list puts a memorial today and nothing about July 1863.</p>
-      <p class="mini" style="margin-top:8px">${c.beyond} memorials lie beyond the loaded ground (6.2 by 6.1 km). They are listed and marked like the rest: the camera goes to the edge of the ground and looks toward them, and the mark stands at the height of the nearest loaded ground because the ground there is not loaded. Gap ${e(P.LAYER.groundGap)}.</p>
-      ${s.integrity.checked ? '' : '<p class="mini" style="margin-top:8px">This address gives the page no way to check the list against the hash recorded with it; the check was left out.</p>'}</details>
-    ${two.length ? `<h3>Where the site holds two positions</h3><p class="mini">${two.length} state memorials are also in a second list of the site, ${P.fmtM(near)} to ${P.fmtM(far)} m from where the Monuments list puts them. Both are carried; the marks open on the Monuments list, the list this layer copies.</p>
-    <select class="field" id="xm-pos" aria-label="Which of the site's positions the nine state memorials follow" style="height:38px;margin-top:6px">${P.POSITION_CHOICES.map(o => `<option value="${o.key}" ${o.key === s.positions ? 'selected' : ''}>${e(o.label)}</option>`).join('')}</select>` : ''}
-    <h3>Find a memorial</h3>
-    <input class="field" type="search" id="xm-q" placeholder="Search ${c.total} later memorials" aria-label="Search later memorials" value="${e(f.q)}" data-autofocus>
-    <div class="seg" id="xm-side" role="group" aria-label="Side">${['all', ...P.SIDES].map(k => `<button type="button" data-side="${k}" aria-pressed="${f.side === k}">${k === 'all' ? 'All' : k}</button>`).join('')}</div>
-    <select class="field" id="xm-group" aria-label="Group of the list" style="height:38px;margin-top:6px"><option value="all">All groups</option>${c.groups.map(g => `<option value="${e(g.name)}" ${f.group === g.name ? 'selected' : ''}>${e(g.name)} (${g.n})</option>`).join('')}</select>
-    <div class="seg" id="xm-where" role="group" aria-label="On or beyond the loaded ground">${[['all', 'Everywhere'], ['on', 'On the loaded ground'], ['beyond', 'Beyond it']].map(([k, t]) => `<button type="button" data-where="${k}" aria-pressed="${f.where === k}">${t}</button>`).join('')}</div>
-    <p class="mini" id="xm-count" aria-live="polite" style="margin-top:8px"></p><ul class="list" id="xm-list"></ul>`;
+  const s = S; if (!s) return; const c = s.index.counts, f = s.list; s.box = box; sc.add(() => { if (S && S.box === box) S.box = null; });
+  box.innerHTML = P.memorialPanelHTML(s.index, { on: s.on, positions: s.positions, integrity: s.integrity, list: f }, s.ctx.tierMark);
   const list = box.querySelector('#xm-list'), count = box.querySelector('#xm-count');
   const draw = () => {
     const rows = P.filterMemorials(s.index, f); let h = P.memorialRowsHTML(rows, 0, f.shown, s.selected);
@@ -161,8 +151,9 @@ export function dispose() {
   const s = S; S = null; if (!s) return;
   try { s.ac.abort(); } catch { /* already gone */ }
   for (const off of s.offs || []) { try { off(); } catch { /* the bus is gone */ } }
+  if (s.ro) { try { s.ro.disconnect(); } catch { /* already gone */ } }
   if (s.canvas) { s.canvas.width = 0; s.canvas.height = 0; s.canvas.remove(); }
-  if (s.chip) s.chip.remove(); if (s.card) s.card.remove();
+  if (s.chip) s.chip.remove(); if (s.card) s.card.remove(); if (s.style) s.style.remove();
   const th = s.th; if (th && th.sitePlaces) { delete th.sitePlaces.memorials; if (!Object.keys(th.sitePlaces).length) delete th.sitePlaces; }
-  s.canvas = s.c2d = s.chip = s.card = s.box = s.ctx = s.th = s.T = s.data = s.index = s.L = s.toggle = s.panel = s.offs = null;
+  s.canvas = s.c2d = s.chip = s.card = s.style = s.ro = s.box = s.ctx = s.th = s.T = s.data = s.index = s.L = s.toggle = s.panel = s.offs = null;
 }

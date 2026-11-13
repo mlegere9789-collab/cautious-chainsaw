@@ -13,10 +13,10 @@
   }
  },
  "counts": {
-  "units": 639,
+  "units": 640,
   "by_army_arm": {
    "confederate/artillery": 70,
-   "confederate/cavalry": 30,
+   "confederate/cavalry": 31,
    "confederate/infantry": 172,
    "confederate/staff": 1,
    "union/artillery": 72,
@@ -27,13 +27,13 @@
    "union/staff": 2
   },
   "or_check": {
-   "exact": 537,
-   "ocr-numeral": 86,
-   "not-found": 13,
+   "exact": 540,
+   "ocr-numeral": 91,
+   "ocr-spelling": 4,
    "n/a": 2,
-   "ocr-spelling": 1
+   "pdf-only": 3
   },
-  "with_existing_roll_file": 403
+  "with_existing_roll_file": 480
  },
  "units": [
   {
@@ -344,7 +344,9 @@
     "oob": [
      "U-1ME-CAV"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.1ME"
+    ]
    },
    "existing": [
     {
@@ -368,11 +370,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-1c-art-2me"
+    ],
+    "oob": [
+     "U-ART-2ME"
+    ],
+    "kit": [
+     "US.ART.2nd_Maine_B"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/NE/maine/2nd-maine-battery-hall-s-battery.csv",
+     "unit_id": "U-ART-2ME",
+     "rows": 183,
+     "regiment_as_in_file": "2nd Maine Battery (Hall's Battery)"
+    }
+   ],
+   "registry_basis": {
+    "us-1c-art-2me": "same designation",
+    "U-ART-2ME": "same designation"
+   }
   },
   {
    "key": "u-me-5th-maine-battery-e",
@@ -387,11 +406,18 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
+    "history": [
+     "us-1c-art-5me"
+    ],
     "oob": [],
-    "kit": []
+    "kit": [
+     "US.ART.5th_Maine_E"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "us-1c-art-5me": "same designation"
+   }
   },
   {
    "key": "u-me-6th-maine-battery-f",
@@ -406,11 +432,18 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
+    "history": [
+     "us-art-reserve-fitzhugh-6me"
+    ],
     "oob": [],
-    "kit": []
+    "kit": [
+     "US.ART.6th_Maine"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "us-art-reserve-fitzhugh-6me": "same designation"
+   }
   },
   {
    "key": "u-nh-2nd-new-hampshire-infantry",
@@ -515,11 +548,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-art-reserve-huntington-1nh"
+    ],
+    "oob": [
+     "U-ART-1NH"
+    ],
+    "kit": [
+     "US.ART.1st_New_Hampshire"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/NE/new-hampshire/1st-new-hampshire-volunteer-light-battery.csv",
+     "unit_id": "U-ART-1NH",
+     "rows": 173,
+     "regiment_as_in_file": "1st New Hampshire Volunteer Light Battery"
+    }
+   ],
+   "registry_basis": {
+    "us-art-reserve-huntington-1nh": "same designation",
+    "U-ART-1NH": "same designation"
+   }
   },
   {
    "key": "u-vt-2nd-vermont-infantry",
@@ -762,7 +812,9 @@
     "oob": [
      "U-1VT-CAV"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.1VT"
+    ]
    },
    "existing": []
   },
@@ -1338,7 +1390,9 @@
     "oob": [
      "U-1MA-CAV"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.1MA"
+    ]
    },
    "existing": [
     {
@@ -1362,11 +1416,26 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
+    "history": [
+     "us-6c-art-1maa"
+    ],
     "oob": [],
-    "kit": []
+    "kit": [
+     "US.ART.1st_Mass"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/NE/massachusetts/1st-battery-massachusetts-volunteer-light-artillery-battery-a-unmapped.csv",
+     "unit_id": "UNMAPPED-1MA-BTY",
+     "rows": 265,
+     "regiment_as_in_file": "1st Battery Massachusetts Volunteer Light Artillery (Battery A) UNMAPPED",
+     "basis": "same designation (file of the 1st Battery)"
+    }
+   ],
+   "registry_basis": {
+    "us-6c-art-1maa": "same designation"
+   }
   },
   {
    "key": "u-ma-3rd-massachusetts-battery-c",
@@ -1381,11 +1450,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-5c-art-3ma"
+    ],
+    "oob": [
+     "U-ART-C1MA"
+    ],
+    "kit": [
+     "US.ART.3rd_Mass"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/NE/massachusetts/3rd-battery-massachusetts-volunteer-light-artillery-battery-c.csv",
+     "unit_id": "U-ART-C1MA",
+     "rows": 258,
+     "regiment_as_in_file": "3rd Battery Massachusetts Volunteer Light Artillery (Battery C)"
+    }
+   ],
+   "registry_basis": {
+    "us-5c-art-3ma": "same designation",
+    "U-ART-C1MA": "same commander in the OR table (Walcott); data/NE README"
+   }
   },
   {
    "key": "u-ma-5th-massachusetts-battery-e",
@@ -1397,14 +1483,31 @@
    "number": null,
    "path": "union/ma/5th-massachusetts-battery-e.jsonl.gz",
    "or_note": "Phillips; 10th New York Battery attached",
-   "or_check": "not-found",
-   "or_check_how": "",
+   "or_check": "ocr-spelling",
+   "or_check_how": "OCR text prints \"Massachusetts Light, 5tti Battery (E),t\" (organization table)",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-art-reserve-mcgilvery-5ma"
+    ],
+    "oob": [
+     "U-ART-5MA"
+    ],
+    "kit": [
+     "US.ART.5th_Massachusetts"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/NE/massachusetts/5th-battery-massachusetts-volunteer-light-artillery-battery-e.csv",
+     "unit_id": "U-ART-5MA",
+     "rows": 331,
+     "regiment_as_in_file": "5th Battery Massachusetts Volunteer Light Artillery (Battery E)"
+    }
+   ],
+   "registry_basis": {
+    "us-art-reserve-mcgilvery-5ma": "same designation",
+    "U-ART-5MA": "same designation"
+   }
   },
   {
    "key": "u-ma-9th-massachusetts-battery",
@@ -1419,11 +1522,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-art-reserve-mcgilvery-9ma"
+    ],
+    "oob": [
+     "U-ART-9MA"
+    ],
+    "kit": [
+     "US.ART.9th_Massachusetts"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/NE/massachusetts/9th-battery-massachusetts-volunteer-light-artillery.csv",
+     "unit_id": "U-ART-9MA",
+     "rows": 329,
+     "regiment_as_in_file": "9th Battery Massachusetts Volunteer Light Artillery"
+    }
+   ],
+   "registry_basis": {
+    "us-art-reserve-mcgilvery-9ma": "same designation",
+    "U-ART-9MA": "same designation"
+   }
   },
   {
    "key": "u-ri-2nd-rhode-island-infantry",
@@ -1474,11 +1594,34 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-2c-art-1ria"
+    ],
+    "oob": [
+     "U-ART-A1RI"
+    ],
+    "kit": [
+     "US.ART.1st_RI_A"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-art-a1ri-officers.csv",
+     "unit_id": "U-ART-A1RI",
+     "rows": 1,
+     "regiment_as_in_file": ""
+    },
+    {
+     "file": "data/REG/u-art-a1ri.csv",
+     "unit_id": "U-ART-A1RI",
+     "rows": 246,
+     "regiment_as_in_file": "Battery A, 1st Rhode Island Light Artillery"
+    }
+   ],
+   "registry_basis": {
+    "us-2c-art-1ria": "same designation",
+    "U-ART-A1RI": "same designation"
+   }
   },
   {
    "key": "u-ri-battery-b-1st-rhode-island-light-artillery",
@@ -1493,11 +1636,34 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-2c-art-1rib"
+    ],
+    "oob": [
+     "U-ART-B1RI"
+    ],
+    "kit": [
+     "US.ART.1st_RI_B"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-art-b1ri-officers.csv",
+     "unit_id": "U-ART-B1RI",
+     "rows": 2,
+     "regiment_as_in_file": ""
+    },
+    {
+     "file": "data/REG/u-art-b1ri.csv",
+     "unit_id": "U-ART-B1RI",
+     "rows": 411,
+     "regiment_as_in_file": "Battery B, 1st Rhode Island Light Artillery"
+    }
+   ],
+   "registry_basis": {
+    "us-2c-art-1rib": "same designation",
+    "U-ART-B1RI": "same designation"
+   }
   },
   {
    "key": "u-ri-battery-c-1st-rhode-island-light-artillery",
@@ -1512,11 +1678,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-6c-art-1ric"
+    ],
+    "oob": [
+     "U-ART-C1RI"
+    ],
+    "kit": [
+     "US.ART.1st_RI_C"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-art-c1ri.csv",
+     "unit_id": "U-ART-C1RI",
+     "rows": 1,
+     "regiment_as_in_file": ""
+    }
+   ],
+   "registry_basis": {
+    "us-6c-art-1ric": "same designation",
+    "U-ART-C1RI": "same designation"
+   }
   },
   {
    "key": "u-ri-battery-e-1st-rhode-island-light-artillery",
@@ -1531,11 +1714,26 @@
    "or_check": "exact",
    "or_check_how": "organization table prints: Bucklyn, Freeborn",
    "registry": {
-    "history": [],
+    "history": [
+     "us-3c-art-1rie"
+    ],
     "oob": [],
-    "kit": []
+    "kit": [
+     "US.ART.1st_RI_E"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-ri-batt-e.csv",
+     "unit_id": "U-RI-BATT-E",
+     "rows": 2,
+     "regiment_as_in_file": "Battery E, 1st Rhode Island Light Artillery (not in the repository OOB)",
+     "basis": "same designation"
+    }
+   ],
+   "registry_basis": {
+    "us-3c-art-1rie": "same designation"
+   }
   },
   {
    "key": "u-ri-battery-g-1st-rhode-island-light-artillery",
@@ -1550,11 +1748,26 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
+    "history": [
+     "us-6c-art-1rig"
+    ],
     "oob": [],
-    "kit": []
+    "kit": [
+     "US.ART.1st_RI_G"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-ri-batt-g.csv",
+     "unit_id": "U-RI-BATT-G",
+     "rows": 1,
+     "regiment_as_in_file": "Battery G, 1st Rhode Island Light Artillery (not in the repository OOB)",
+     "basis": "same designation"
+    }
+   ],
+   "registry_basis": {
+    "us-6c-art-1rig": "same designation"
+   }
   },
   {
    "key": "u-ct-5th-connecticut-infantry",
@@ -1719,11 +1932,30 @@
    "or_check": "exact",
    "or_check_how": "organization table prints: Brooker",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-art-reserve-taft-1ctheavy",
+     "us-art-reserve-taft-1ctheavy-b"
+    ],
+    "oob": [
+     "U-ART-1CTB"
+    ],
+    "kit": [
+     "US.ART.1st_Conn_Heavy_B_and_H"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/OJC/1st-connecticut-heavy-artillery-battery-b.csv",
+     "unit_id": "U-ART-1CTB",
+     "rows": 307,
+     "regiment_as_in_file": "1st Connecticut Heavy Artillery, Battery B (Company B)"
+    }
+   ],
+   "registry_basis": {
+    "us-art-reserve-taft-1ctheavy": "registry entry covers Batteries B and M",
+    "us-art-reserve-taft-1ctheavy-b": "same designation",
+    "U-ART-1CTB": "same designation"
+   }
   },
   {
    "key": "u-ct-battery-m-1st-connecticut-heavy-artillery",
@@ -1738,11 +1970,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-art-reserve-taft-1ctheavy-m"
+    ],
+    "oob": [
+     "U-ART-1CTM"
+    ],
+    "kit": [
+     "US.ART.1st_Conn_Heavy_B_and_H"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/OJC/1st-connecticut-heavy-artillery-battery-m.csv",
+     "unit_id": "U-ART-1CTM",
+     "rows": 415,
+     "regiment_as_in_file": "1st Connecticut Heavy Artillery, Battery M (Company M)"
+    }
+   ],
+   "registry_basis": {
+    "us-art-reserve-taft-1ctheavy-m": "same designation",
+    "U-ART-1CTM": "same designation"
+   }
   },
   {
    "key": "u-ct-2nd-connecticut-light-battery",
@@ -1757,11 +2006,18 @@
    "or_check": "exact",
    "or_check_how": "organization table prints: Sterling",
    "registry": {
-    "history": [],
+    "history": [
+     "us-art-reserve-taft-2ct"
+    ],
     "oob": [],
-    "kit": []
+    "kit": [
+     "US.ART.2nd_Connecticut"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "us-art-reserve-taft-2ct": "same designation"
+   }
   },
   {
    "key": "u-ny-8th-new-york-infantry",
@@ -2852,7 +3108,8 @@
      "us-1c-1d-cutler-84ny"
     ],
     "oob": [
-     "U-84NY"
+     "U-84NY",
+     "U-14BK"
     ],
     "kit": []
    },
@@ -2863,7 +3120,10 @@
      "rows": 1856,
      "regiment_as_in_file": "84th New York Volunteer Infantry"
     }
-   ]
+   ],
+   "registry_basis": {
+    "U-14BK": "OR table: 84th New York (14th Militia)"
+   }
   },
   {
    "key": "u-ny-86th-new-york-infantry",
@@ -3891,7 +4151,9 @@
      "U-5NY-CAV",
      "U-5NY-CAV-b"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.5NY"
+    ]
    },
    "existing": [
     {
@@ -3921,7 +4183,9 @@
     "oob": [
      "U-6NY-CAV"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.6NY"
+    ]
    },
    "existing": [
     {
@@ -3951,7 +4215,9 @@
     "oob": [
      "U-8NY-CAV"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.8NY"
+    ]
    },
    "existing": [
     {
@@ -3981,7 +4247,9 @@
     "oob": [
      "U-9NY-CAV"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.9NY"
+    ]
    },
    "existing": [
     {
@@ -4009,7 +4277,9 @@
      "us-cav-2d-gregg-10ny"
     ],
     "oob": [],
-    "kit": []
+    "kit": [
+     "US.CAV.10NY"
+    ]
    },
    "existing": []
   },
@@ -4045,11 +4315,26 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
+    "history": [
+     "us-2c-art-1nyb"
+    ],
     "oob": [],
-    "kit": []
+    "kit": [
+     "US.ART.1st_NY_B"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/NY/rosters/EXTRA-B1NY_battery-b-1st-new-york-light-artillery.csv",
+     "unit_id": "EXTRA-B1NY",
+     "rows": 192,
+     "regiment_as_in_file": "Battery B, 1st New York Light Artillery",
+     "basis": "same designation"
+    }
+   ],
+   "registry_basis": {
+    "us-2c-art-1nyb": "same designation"
+   }
   },
   {
    "key": "u-ny-battery-c-1st-new-york-light-artillery",
@@ -4064,11 +4349,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-5c-art-1nyc"
+    ],
+    "oob": [
+     "U-ART-C1NY"
+    ],
+    "kit": [
+     "US.ART.1st_NY_C"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/NY/rosters/U-ART-C1NY_battery-c-1st-new-york-artillery.csv",
+     "unit_id": "U-ART-C1NY",
+     "rows": 120,
+     "regiment_as_in_file": "Battery C, 1st New York Artillery"
+    }
+   ],
+   "registry_basis": {
+    "us-5c-art-1nyc": "same designation",
+    "U-ART-C1NY": "same designation"
+   }
   },
   {
    "key": "u-ny-battery-d-1st-new-york-light-artillery",
@@ -4083,11 +4385,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-3c-art-1nyd"
+    ],
+    "oob": [
+     "U-ART-D1NY"
+    ],
+    "kit": [
+     "US.ART.1st_NY_D"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/NY/rosters/U-ART-D1NY_battery-d-1st-new-york-artillery.csv",
+     "unit_id": "U-ART-D1NY",
+     "rows": 259,
+     "regiment_as_in_file": "Battery D, 1st New York Artillery"
+    }
+   ],
+   "registry_basis": {
+    "us-3c-art-1nyd": "same designation",
+    "U-ART-D1NY": "same designation"
+   }
   },
   {
    "key": "u-ny-battery-e-1st-new-york-light-artillery",
@@ -4099,14 +4418,21 @@
    "number": null,
    "path": "union/ny/battery-e-1st-new-york-light-artillery.jsonl.gz",
    "or_note": "attached to Battery L",
-   "or_check": "not-found",
-   "or_check_how": "",
+   "or_check": "exact",
+   "or_check_how": "OCR text prints \"Battery E, 1st New York Light Artillery, attached.\" (organization table)",
    "registry": {
-    "history": [],
+    "history": [
+     "us-1c-art-1nye"
+    ],
     "oob": [],
-    "kit": []
+    "kit": [
+     "US.ART.1st_NY_E_L"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "us-1c-art-1nye": "same designation"
+   }
   },
   {
    "key": "u-ny-battery-g-1st-new-york-light-artillery",
@@ -4121,11 +4447,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-art-reserve-fitzhugh-1nyg"
+    ],
+    "oob": [
+     "U-ART-G1NY"
+    ],
+    "kit": [
+     "US.ART.1st_NY_G"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/NY/rosters/U-ART-G1NY_battery-g-1st-new-york-artillery.csv",
+     "unit_id": "U-ART-G1NY",
+     "rows": 242,
+     "regiment_as_in_file": "Battery G, 1st New York Artillery"
+    }
+   ],
+   "registry_basis": {
+    "us-art-reserve-fitzhugh-1nyg": "same designation",
+    "U-ART-G1NY": "same designation"
+   }
   },
   {
    "key": "u-ny-battery-i-1st-new-york-light-artillery",
@@ -4140,11 +4483,26 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
+    "history": [
+     "us-11c-art-1nyi"
+    ],
     "oob": [],
-    "kit": []
+    "kit": [
+     "US.ART.1st_NY_I"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/NY/rosters/EXTRA-I1NY_battery-i-1st-new-york-light-artillery.csv",
+     "unit_id": "EXTRA-I1NY",
+     "rows": 238,
+     "regiment_as_in_file": "Battery I, 1st New York Light Artillery",
+     "basis": "same designation"
+    }
+   ],
+   "registry_basis": {
+    "us-11c-art-1nyi": "same designation"
+   }
   },
   {
    "key": "u-ny-battery-k-1st-new-york-light-artillery",
@@ -4159,11 +4517,26 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
+    "history": [
+     "us-art-reserve-fitzhugh-1nyk"
+    ],
     "oob": [],
-    "kit": []
+    "kit": [
+     "US.ART.1st_NY_K_with_11th_NY_attached"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/NY/rosters/EXTRA-K1NY_battery-k-1st-new-york-light-artillery.csv",
+     "unit_id": "EXTRA-K1NY",
+     "rows": 291,
+     "regiment_as_in_file": "Battery K, 1st New York Light Artillery",
+     "basis": "same designation"
+    }
+   ],
+   "registry_basis": {
+    "us-art-reserve-fitzhugh-1nyk": "same designation"
+   }
   },
   {
    "key": "u-ny-battery-l-1st-new-york-light-artillery",
@@ -4178,11 +4551,30 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-1c-art-1nyl"
+    ],
+    "oob": [
+     "U-ART-L1NY",
+     "U-ART-L1NY-I"
+    ],
+    "kit": [
+     "US.ART.1st_NY_E_L"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/NY/rosters/U-ART-L1NY_battery-l-1st-new-york-artillery.csv",
+     "unit_id": "U-ART-L1NY",
+     "rows": 233,
+     "regiment_as_in_file": "Battery L, 1st New York Artillery"
+    }
+   ],
+   "registry_basis": {
+    "us-1c-art-1nyl": "same designation",
+    "U-ART-L1NY": "same designation",
+    "U-ART-L1NY-I": "same designation (second OOB id of the same battery)"
+   }
   },
   {
    "key": "u-ny-battery-m-1st-new-york-light-artillery",
@@ -4197,11 +4589,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-12c-art-1nym"
+    ],
+    "oob": [
+     "U-ART-M1NY"
+    ],
+    "kit": [
+     "US.ART.1st_NY_M"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/NY/rosters/U-ART-M1NY_battery-m-1st-new-york-artillery.csv",
+     "unit_id": "U-ART-M1NY",
+     "rows": 206,
+     "regiment_as_in_file": "Battery M, 1st New York Artillery"
+    }
+   ],
+   "registry_basis": {
+    "us-12c-art-1nym": "same designation",
+    "U-ART-M1NY": "same designation"
+   }
   },
   {
    "key": "u-ny-1st-new-york-independent-battery",
@@ -4216,11 +4625,28 @@
    "or_check": "exact",
    "or_check_how": "organization table prints: Cowan",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-6c-art-1ny"
+    ],
+    "oob": [
+     "U-ART-1NYIND"
+    ],
+    "kit": [
+     "US.ART.1st_NY"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/NY/rosters/U-ART-1NYIND_1st-new-york-battery-independent.csv",
+     "unit_id": "U-ART-1NYIND",
+     "rows": 341,
+     "regiment_as_in_file": "1st New York Battery Independent"
+    }
+   ],
+   "registry_basis": {
+    "us-6c-art-1ny": "same designation (Sixth Corps)",
+    "U-ART-1NYIND": "same designation"
+   }
   },
   {
    "key": "u-ny-3rd-new-york-independent-battery",
@@ -4235,11 +4661,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-6c-art-3ny"
+    ],
+    "oob": [
+     "U-ART-3NY"
+    ],
+    "kit": [
+     "US.ART.3rd_NY"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/NY/rosters/U-ART-3NY_3rd-new-york-battery-independent.csv",
+     "unit_id": "U-ART-3NY",
+     "rows": 441,
+     "regiment_as_in_file": "3rd New York Battery Independent"
+    }
+   ],
+   "registry_basis": {
+    "us-6c-art-3ny": "same designation",
+    "U-ART-3NY": "same designation"
+   }
   },
   {
    "key": "u-ny-4th-new-york-independent-battery",
@@ -4254,11 +4697,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-3c-art-4ny"
+    ],
+    "oob": [
+     "U-ART-4NYIND"
+    ],
+    "kit": [
+     "US.ART.4th_NY"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/NY/rosters/U-ART-4NYIND_4th-new-york-battery-independent.csv",
+     "unit_id": "U-ART-4NYIND",
+     "rows": 201,
+     "regiment_as_in_file": "4th New York Battery Independent"
+    }
+   ],
+   "registry_basis": {
+    "us-3c-art-4ny": "same designation",
+    "U-ART-4NYIND": "same designation"
+   }
   },
   {
    "key": "u-ny-5th-new-york-independent-battery",
@@ -4273,11 +4733,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-art-reserve-taft-5ny"
+    ],
+    "oob": [
+     "U-ART-5NY"
+    ],
+    "kit": [
+     "US.ART.5th_New_York"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/NY/rosters/U-ART-5NY_5th-new-york-battery.csv",
+     "unit_id": "U-ART-5NY",
+     "rows": 438,
+     "regiment_as_in_file": "5th New York Battery"
+    }
+   ],
+   "registry_basis": {
+    "us-art-reserve-taft-5ny": "same designation",
+    "U-ART-5NY": "same designation"
+   }
   },
   {
    "key": "u-ny-6th-new-york-independent-battery",
@@ -4294,7 +4771,9 @@
    "registry": {
     "history": [],
     "oob": [],
-    "kit": []
+    "kit": [
+     "US.ART.6th_NY"
+    ]
    },
    "existing": []
   },
@@ -4327,12 +4806,14 @@
    "number": null,
    "path": "union/ny/11th-new-york-independent-battery.jsonl.gz",
    "or_note": "attached to Battery K, 1st New York Light",
-   "or_check": "not-found",
-   "or_check_how": "",
+   "or_check": "exact",
+   "or_check_how": "OCR text prints \"11th New York Battery attached.\" (volume text)",
    "registry": {
     "history": [],
     "oob": [],
-    "kit": []
+    "kit": [
+     "US.ART.1st_NY_K_with_11th_NY_attached"
+    ]
    },
    "existing": []
   },
@@ -4349,11 +4830,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-11c-art-13ny"
+    ],
+    "oob": [
+     "U-ART-13NY"
+    ],
+    "kit": [
+     "US.ART.13th_NY"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/NY/rosters/U-ART-13NY_13th-new-york-battery.csv",
+     "unit_id": "U-ART-13NY",
+     "rows": 254,
+     "regiment_as_in_file": "13th New York Battery"
+    }
+   ],
+   "registry_basis": {
+    "us-11c-art-13ny": "same designation",
+    "U-ART-13NY": "same designation"
+   }
   },
   {
    "key": "u-ny-14th-new-york-independent-battery",
@@ -4365,8 +4863,8 @@
    "number": null,
    "path": "union/ny/14th-new-york-independent-battery.jsonl.gz",
    "or_note": "attached to Battery B, 1st New York Light",
-   "or_check": "not-found",
-   "or_check_how": "",
+   "or_check": "exact",
+   "or_check_how": "OCR text prints \"14th New York Battery attached.\" (organization table)",
    "registry": {
     "history": [],
     "oob": [],
@@ -4387,11 +4885,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-art-reserve-mcgilvery-15ny"
+    ],
+    "oob": [
+     "U-ART-15NY"
+    ],
+    "kit": [
+     "US.ART.15th_New_York"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/NY/rosters/U-ART-15NY_15th-new-york-battery.csv",
+     "unit_id": "U-ART-15NY",
+     "rows": 293,
+     "regiment_as_in_file": "15th New York Battery"
+    }
+   ],
+   "registry_basis": {
+    "us-art-reserve-mcgilvery-15ny": "same designation",
+    "U-ART-15NY": "same designation"
+   }
   },
   {
    "key": "u-nj-1st-new-jersey-infantry",
@@ -4673,8 +5188,8 @@
    "number": 12,
    "path": "union/nj/12th-new-jersey-infantry.jsonl.gz",
    "or_note": "",
-   "or_check": "not-found",
-   "or_check_how": "",
+   "or_check": "ocr-numeral",
+   "or_check_how": "OCR text prints \"13th New Jersey, Mai. John T. HUl.\" (organization table)",
    "registry": {
     "history": [
      "us-2c-3d-smyth-12nj"
@@ -4763,7 +5278,9 @@
     "oob": [
      "U-1NJ-CAV"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.1NJ"
+    ]
    },
    "existing": [
     {
@@ -4787,11 +5304,18 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
+    "history": [
+     "us-art-reserve-fitzhugh-1nj"
+    ],
     "oob": [],
-    "kit": []
+    "kit": [
+     "US.ART.1st_NJ"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "us-art-reserve-fitzhugh-1nj": "same designation"
+   }
   },
   {
    "key": "u-nj-2nd-new-jersey-battery-b",
@@ -4806,11 +5330,28 @@
    "or_check": "exact",
    "or_check_how": "organization table prints: Clark, Sims",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-3c-art-1njb"
+    ],
+    "oob": [
+     "U-ART-B1NJ"
+    ],
+    "kit": [
+     "US.ART.1st_NJ_B"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/OJC/battery-b-1st-new-jersey-artillery.csv",
+     "unit_id": "U-ART-B1NJ",
+     "rows": 634,
+     "regiment_as_in_file": "Battery B, 1st New Jersey Artillery"
+    }
+   ],
+   "registry_basis": {
+    "us-3c-art-1njb": "Third Corps battery (Clark)",
+    "U-ART-B1NJ": "same commander in the OR table (Clark)"
+   }
   },
   {
    "key": "u-pa-11th-pennsylvania-infantry",
@@ -6826,7 +7367,9 @@
     "oob": [
      "U-1PA-CAV"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.1PA"
+    ]
    },
    "existing": [
     {
@@ -6875,7 +7418,9 @@
     "oob": [
      "U-3PA-CAV"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.3PA"
+    ]
    },
    "existing": [
     {
@@ -6903,7 +7448,9 @@
      "us-cav-2d-gregg-4pa"
     ],
     "oob": [],
-    "kit": []
+    "kit": [
+     "US.CAV.4PA"
+    ]
    },
    "existing": []
   },
@@ -6926,7 +7473,9 @@
     "oob": [
      "U-6PA-CAV"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.6PA"
+    ]
    },
    "existing": [
     {
@@ -6984,7 +7533,9 @@
     "oob": [
      "U-16PA-CAV"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.16PA"
+    ]
    },
    "existing": [
     {
@@ -7014,7 +7565,9 @@
     "oob": [
      "U-17PA-CAV"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.17PA"
+    ]
    },
    "existing": [
     {
@@ -7045,7 +7598,9 @@
      "U-18PA-CAV",
      "U-18PA-CAV-b"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.18PA"
+    ]
    },
    "existing": [
     {
@@ -7069,11 +7624,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-1c-art-1pab"
+    ],
+    "oob": [
+     "U-ART-B1PA"
+    ],
+    "kit": [
+     "US.ART.1st_Pa_B"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/PA/units/U-ART-B1PA.csv",
+     "unit_id": "U-ART-B1PA",
+     "rows": 331,
+     "regiment_as_in_file": "Battery B, 1st Pennsylvania Artillery"
+    }
+   ],
+   "registry_basis": {
+    "us-1c-art-1pab": "same designation",
+    "U-ART-B1PA": "same designation"
+   }
   },
   {
    "key": "u-pa-batteries-f-and-g-1st-pennsylvania-light-artillery",
@@ -7088,11 +7660,30 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-art-reserve-huntington-1paf",
+     "us-art-reserve-huntington-1pag"
+    ],
+    "oob": [
+     "U-ART-F1PA"
+    ],
+    "kit": [
+     "US.ART.1st_Pennsylvania_F_G"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/PA/units/U-ART-F1PA.csv",
+     "unit_id": "U-ART-F1PA",
+     "rows": 266,
+     "regiment_as_in_file": "Battery F, 1st Pennsylvania Artillery (Ricketts's)"
+    }
+   ],
+   "registry_basis": {
+    "us-art-reserve-huntington-1paf": "same designation",
+    "us-art-reserve-huntington-1pag": "same designation",
+    "U-ART-F1PA": "same commander in the OR table (Ricketts)"
+   }
   },
   {
    "key": "u-pa-pennsylvania-independent-batteries-c-and-f",
@@ -7107,11 +7698,20 @@
    "or_check": "exact",
    "or_check_how": "organization table prints: Thompson",
    "registry": {
-    "history": [],
+    "history": [
+     "us-art-reserve-mcgilvery-pac",
+     "us-art-reserve-mcgilvery-paf"
+    ],
     "oob": [],
-    "kit": []
+    "kit": [
+     "US.ART.Pa_Independent_C_F"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "us-art-reserve-mcgilvery-pac": "same designation",
+    "us-art-reserve-mcgilvery-paf": "same designation"
+   }
   },
   {
    "key": "u-pa-pennsylvania-independent-battery-e",
@@ -7126,11 +7726,28 @@
    "or_check": "exact",
    "or_check_how": "organization table prints: Atwell",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-12c-art-pae"
+    ],
+    "oob": [
+     "U-ART-EPA"
+    ],
+    "kit": [
+     "US.ART.Pa_E"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/PA/units/U-ART-EPA.csv",
+     "unit_id": "U-ART-EPA",
+     "rows": 403,
+     "regiment_as_in_file": "Battery E, Pennsylvania Artillery (Knap's Battery)"
+    }
+   ],
+   "registry_basis": {
+    "us-12c-art-pae": "same designation",
+    "U-ART-EPA": "same designation"
+   }
   },
   {
    "key": "u-pa-battery-h-3rd-pennsylvania-heavy-artillery-section",
@@ -7266,7 +7883,22 @@
     "oob": [],
     "kit": []
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-1md-phb-officers.csv",
+     "unit_id": "U-1MD-PHB",
+     "rows": 1,
+     "regiment_as_in_file": "1st Maryland Potomac Home Brigade Infantry",
+     "basis": "same designation"
+    },
+    {
+     "file": "data/REG/u-1md-phb.csv",
+     "unit_id": "U-1MD-PHB",
+     "rows": 1459,
+     "regiment_as_in_file": "1st Maryland Potomac Home Brigade Infantry (not in the repository OOB; organised in OR 27/1 p.157)",
+     "basis": "same designation"
+    }
+   ]
   },
   {
    "key": "u-md-1st-maryland-eastern-shore",
@@ -7323,7 +7955,9 @@
     "oob": [
      "U-1MD-CAV"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.1MD"
+    ]
    },
    "existing": [
     {
@@ -7354,10 +7988,30 @@
    "or_check_how": "organization table prints: Duvall",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "U-Purnell-MD"
+    ],
+    "kit": [
+     "US.CAV.PURNELL_A"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-purnell-md-officers.csv",
+     "unit_id": "U-Purnell-MD",
+     "rows": 1,
+     "regiment_as_in_file": ""
+    },
+    {
+     "file": "data/REG/u-purnell-md.csv",
+     "unit_id": "U-Purnell-MD",
+     "rows": 232,
+     "regiment_as_in_file": "Purnell Legion Cavalry (Maryland)"
+    }
+   ],
+   "registry_basis": {
+    "U-Purnell-MD": "same designation; the file carries all companies"
+   }
   },
   {
    "key": "u-md-battery-a-maryland-light-artillery",
@@ -7372,11 +8026,26 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
+    "history": [
+     "us-art-reserve-fitzhugh-mda"
+    ],
     "oob": [],
-    "kit": []
+    "kit": [
+     "US.ART.Md_A"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-md-batt-a.csv",
+     "unit_id": "U-MD-BATT-A",
+     "rows": 1,
+     "regiment_as_in_file": "Battery A, Maryland Light Artillery (Rigby; not in the repository OOB)",
+     "basis": "same designation"
+    }
+   ],
+   "registry_basis": {
+    "us-art-reserve-fitzhugh-mda": "same designation"
+   }
   },
   {
    "key": "u-wv-7th-west-virginia-infantry",
@@ -7434,7 +8103,9 @@
      "U-1WV-CAV",
      "U-1WV-CAV-b"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.1WV"
+    ]
    },
    "existing": [
     {
@@ -7470,7 +8141,9 @@
     "oob": [
      "U-3WV-CAV"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.3WV"
+    ]
    },
    "existing": [
     {
@@ -7500,11 +8173,34 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-art-reserve-huntington-wvc"
+    ],
+    "oob": [
+     "U-ART-CWV"
+    ],
+    "kit": [
+     "US.ART.W_Va_C"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-art-cwv-officers.csv",
+     "unit_id": "U-ART-CWV",
+     "rows": 1,
+     "regiment_as_in_file": ""
+    },
+    {
+     "file": "data/REG/u-art-cwv.csv",
+     "unit_id": "U-ART-CWV",
+     "rows": 82,
+     "regiment_as_in_file": "Battery C, 1st West Virginia Light Artillery"
+    }
+   ],
+   "registry_basis": {
+    "us-art-reserve-huntington-wvc": "same designation",
+    "U-ART-CWV": "same designation"
+   }
   },
   {
    "key": "u-oh-4th-ohio-infantry",
@@ -7956,11 +8652,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-art-reserve-huntington-1ohh"
+    ],
+    "oob": [
+     "U-ART-H1OH"
+    ],
+    "kit": [
+     "US.ART.1st_Ohio_H"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/OJC/battery-h-1st-ohio-light-artillery.csv",
+     "unit_id": "U-ART-H1OH",
+     "rows": 275,
+     "regiment_as_in_file": "Battery H, 1st Ohio Light Artillery"
+    }
+   ],
+   "registry_basis": {
+    "us-art-reserve-huntington-1ohh": "same designation",
+    "U-ART-H1OH": "same designation"
+   }
   },
   {
    "key": "u-oh-battery-i-1st-ohio-light-artillery",
@@ -7975,11 +8688,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-11c-art-1ohi"
+    ],
+    "oob": [
+     "U-ART-I1OH"
+    ],
+    "kit": [
+     "US.ART.1st_Ohio_I"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/OJC/battery-i-1st-ohio-light-artillery.csv",
+     "unit_id": "U-ART-I1OH",
+     "rows": 353,
+     "regiment_as_in_file": "Battery I, 1st Ohio Light Artillery"
+    }
+   ],
+   "registry_basis": {
+    "us-11c-art-1ohi": "same designation",
+    "U-ART-I1OH": "same designation"
+   }
   },
   {
    "key": "u-oh-battery-k-1st-ohio-light-artillery",
@@ -7994,11 +8724,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-11c-art-1ohk"
+    ],
+    "oob": [
+     "U-ART-K1OH"
+    ],
+    "kit": [
+     "US.ART.1st_Ohio_K"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/OJC/battery-k-1st-ohio-light-artillery.csv",
+     "unit_id": "U-ART-K1OH",
+     "rows": 264,
+     "regiment_as_in_file": "Battery K, 1st Ohio Light Artillery"
+    }
+   ],
+   "registry_basis": {
+    "us-11c-art-1ohk": "same designation",
+    "U-ART-K1OH": "same designation"
+   }
   },
   {
    "key": "u-oh-battery-l-1st-ohio-light-artillery",
@@ -8013,11 +8760,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-5c-art-1ohl"
+    ],
+    "oob": [
+     "U-ART-L1OH"
+    ],
+    "kit": [
+     "US.ART.1st_Ohio_L"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/OJC/battery-l-1st-ohio-light-artillery.csv",
+     "unit_id": "U-ART-L1OH",
+     "rows": 239,
+     "regiment_as_in_file": "Battery L, 1st Ohio Light Artillery"
+    }
+   ],
+   "registry_basis": {
+    "us-5c-art-1ohl": "same designation",
+    "U-ART-L1OH": "same designation"
+   }
   },
   {
    "key": "u-in-7th-indiana-infantry",
@@ -8198,7 +8962,9 @@
     "oob": [
      "U-3IN-CAV"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.3IN"
+    ]
    },
    "existing": [
     {
@@ -8258,7 +9024,9 @@
     "oob": [
      "U-8IL-CAV"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.8IL"
+    ]
    },
    "existing": [
     {
@@ -8288,7 +9056,9 @@
     "oob": [
      "U-12IL-CAV"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.12IL"
+    ]
    },
    "existing": [
     {
@@ -8528,7 +9298,9 @@
     "oob": [
      "U-1MI-CAV"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.1MICH"
+    ]
    },
    "existing": [
     {
@@ -8558,7 +9330,9 @@
     "oob": [
      "U-5MI-CAV"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.5MICH"
+    ]
    },
    "existing": [
     {
@@ -8588,7 +9362,9 @@
     "oob": [
      "U-6MI-CAV"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.6MICH"
+    ]
    },
    "existing": [
     {
@@ -8618,7 +9394,9 @@
     "oob": [
      "U-7MI-CAV"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.7MICH"
+    ]
    },
    "existing": [
     {
@@ -8644,7 +9422,9 @@
    "registry": {
     "history": [],
     "oob": [],
-    "kit": []
+    "kit": [
+     "US.ART.9th_Mich"
+    ]
    },
    "existing": []
   },
@@ -8868,8 +9648,8 @@
    "number": null,
    "path": "union/mn/2nd-company-minnesota-sharpshooters.jsonl.gz",
    "or_note": "OR: attached to the 1st Minnesota; the table OCR prints \"3d Company\", the volume index prints \"Companies: 2d Sharpshooters, 158, 176\"",
-   "or_check": "not-found",
-   "or_check_how": "",
+   "or_check": "ocr-numeral",
+   "or_check_how": "OCR text prints \"Companies: 2d Sharpshooters\" (volume text)",
    "registry": {
     "history": [],
     "oob": [],
@@ -8923,10 +9703,30 @@
     "history": [
      "us-5c-2d-day-3us"
     ],
-    "oob": [],
+    "oob": [
+     "U-3US-1",
+     "U-3US-2"
+    ],
     "kit": []
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-3us-1.csv",
+     "unit_id": "U-3US-1",
+     "rows": 11,
+     "regiment_as_in_file": "3rd United States Infantry (1st Battalion; regiment-level rows, battalion not resolved)"
+    },
+    {
+     "file": "data/REG/u-3us-2.csv",
+     "unit_id": "U-3US-2",
+     "rows": 11,
+     "regiment_as_in_file": "3rd United States Infantry (2nd Battalion; regiment-level rows, battalion not resolved)"
+    }
+   ],
+   "registry_basis": {
+    "U-3US-1": "battalion of the regiment",
+    "U-3US-2": "battalion of the regiment"
+   }
   },
   {
    "key": "u-us-4th-united-states-infantry",
@@ -9035,7 +9835,15 @@
     "oob": [],
     "kit": []
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/provost-8us.csv",
+     "unit_id": "PROVOST-8US",
+     "rows": 1,
+     "regiment_as_in_file": "8th United States Infantry (provost command; not in the repository OOB)",
+     "basis": "same designation"
+    }
+   ]
   },
   {
    "key": "u-us-10th-united-states-infantry",
@@ -9113,10 +9921,30 @@
     "history": [
      "us-5c-2d-day-12us"
     ],
-    "oob": [],
+    "oob": [
+     "U-12US-1",
+     "U-12US-2"
+    ],
     "kit": []
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-12us-1.csv",
+     "unit_id": "U-12US-1",
+     "rows": 10,
+     "regiment_as_in_file": "12th United States Infantry (1st Battalion; regiment-level rows, battalion not resolved)"
+    },
+    {
+     "file": "data/REG/u-12us-2.csv",
+     "unit_id": "U-12US-2",
+     "rows": 10,
+     "regiment_as_in_file": "12th United States Infantry (2nd Battalion; regiment-level rows, battalion not resolved)"
+    }
+   ],
+   "registry_basis": {
+    "U-12US-1": "battalion of the regiment",
+    "U-12US-2": "battalion of the regiment"
+   }
   },
   {
    "key": "u-us-14th-united-states-infantry",
@@ -9221,8 +10049,8 @@
    "number": null,
    "path": "union/us/2nd-united-states-sharpshooters.jsonl.gz",
    "or_note": "eight companies; Stoughton",
-   "or_check": "not-found",
-   "or_check_how": "",
+   "or_check": "ocr-numeral",
+   "or_check_how": "OCR text prints \"3d United States Sharpshooters (eight\" (organization table)",
    "registry": {
     "history": [
      "us-3c-1d-ward-2ussharpshooters"
@@ -9251,7 +10079,9 @@
     "oob": [
      "U-1US-CAV"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.1US"
+    ]
    },
    "existing": [
     {
@@ -9281,7 +10111,9 @@
     "oob": [
      "U-2US-CAV"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.2US"
+    ]
    },
    "existing": [
     {
@@ -9311,7 +10143,9 @@
     "oob": [
      "U-5US-CAV"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.5US"
+    ]
    },
    "existing": [
     {
@@ -9341,7 +10175,9 @@
     "oob": [
      "U-6US-CAV"
     ],
-    "kit": []
+    "kit": [
+     "US.CAV.6US"
+    ]
    },
    "existing": [
     {
@@ -9366,10 +10202,24 @@
    "or_check_how": "organization table line",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "U-HAB-E1US"
+    ],
+    "kit": [
+     "US.ART.1st_US_E_G"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-hab-e1us.csv",
+     "unit_id": "U-HAB-E1US",
+     "rows": 1,
+     "regiment_as_in_file": ""
+    }
+   ],
+   "registry_basis": {
+    "U-HAB-E1US": "same designation (OR: Batteries E and G)"
+   }
   },
   {
    "key": "u-us-battery-h-1st-united-states-artillery",
@@ -9384,11 +10234,18 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
+    "history": [
+     "us-art-reserve-ransom-1ush"
+    ],
     "oob": [],
-    "kit": []
+    "kit": [
+     "US.ART.1st_US_H"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "us-art-reserve-ransom-1ush": "same designation"
+   }
   },
   {
    "key": "u-us-battery-i-1st-united-states-artillery",
@@ -9403,11 +10260,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-2c-art-1usi"
+    ],
+    "oob": [
+     "U-ART-I1US"
+    ],
+    "kit": [
+     "US.ART.1st_US_I"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-art-i1us.csv",
+     "unit_id": "U-ART-I1US",
+     "rows": 2,
+     "regiment_as_in_file": ""
+    }
+   ],
+   "registry_basis": {
+    "us-2c-art-1usi": "same designation",
+    "U-ART-I1US": "same designation"
+   }
   },
   {
    "key": "u-us-battery-k-1st-united-states-artillery",
@@ -9423,10 +10297,24 @@
    "or_check_how": "organization table line",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "U-HAB-K1US"
+    ],
+    "kit": [
+     "US.ART.1st_US_K"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-hab-k1us.csv",
+     "unit_id": "U-HAB-K1US",
+     "rows": 1,
+     "regiment_as_in_file": ""
+    }
+   ],
+   "registry_basis": {
+    "U-HAB-K1US": "same designation"
+   }
   },
   {
    "key": "u-us-battery-a-2nd-united-states-artillery",
@@ -9442,10 +10330,24 @@
    "or_check_how": "organization table line",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "U-HAB-A2US"
+    ],
+    "kit": [
+     "US.ART.2nd_US_A"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-hab-a2us.csv",
+     "unit_id": "U-HAB-A2US",
+     "rows": 1,
+     "regiment_as_in_file": ""
+    }
+   ],
+   "registry_basis": {
+    "U-HAB-A2US": "same designation"
+   }
   },
   {
    "key": "u-us-batteries-b-and-l-2nd-united-states-artillery",
@@ -9462,7 +10364,9 @@
    "registry": {
     "history": [],
     "oob": [],
-    "kit": []
+    "kit": [
+     "US.ART.2nd_US_B_L"
+    ]
    },
    "existing": []
   },
@@ -9479,11 +10383,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-6c-art-2usd"
+    ],
+    "oob": [
+     "U-ART-D2US"
+    ],
+    "kit": [
+     "US.ART.2nd_US_D"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-art-d2us.csv",
+     "unit_id": "U-ART-D2US",
+     "rows": 1,
+     "regiment_as_in_file": ""
+    }
+   ],
+   "registry_basis": {
+    "us-6c-art-2usd": "same designation",
+    "U-ART-D2US": "same designation"
+   }
   },
   {
    "key": "u-us-battery-g-2nd-united-states-artillery",
@@ -9498,11 +10419,28 @@
    "or_check": "exact",
    "or_check_how": "organization table prints: Butler",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-6c-art-2usg"
+    ],
+    "oob": [
+     "U-ART-G2US"
+    ],
+    "kit": [
+     "US.ART.2nd_US_G"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-art-g2us.csv",
+     "unit_id": "U-ART-G2US",
+     "rows": 1,
+     "regiment_as_in_file": ""
+    }
+   ],
+   "registry_basis": {
+    "us-6c-art-2usg": "same designation",
+    "U-ART-G2US": "same designation"
+   }
   },
   {
    "key": "u-us-battery-m-2nd-united-states-artillery",
@@ -9518,10 +10456,24 @@
    "or_check_how": "organization table line",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "U-HAB-M2US"
+    ],
+    "kit": [
+     "US.ART.2nd_US_M"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-hab-m2us.csv",
+     "unit_id": "U-HAB-M2US",
+     "rows": 1,
+     "regiment_as_in_file": ""
+    }
+   ],
+   "registry_basis": {
+    "U-HAB-M2US": "same designation"
+   }
   },
   {
    "key": "u-us-battery-c-3rd-united-states-artillery",
@@ -9555,11 +10507,20 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
+    "history": [
+     "us-art-reserve-ransom-3usf",
+     "us-art-reserve-ransom-3usk"
+    ],
     "oob": [],
-    "kit": []
+    "kit": [
+     "US.ART.3rd_US_F_K"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "us-art-reserve-ransom-3usf": "same designation",
+    "us-art-reserve-ransom-3usk": "same designation"
+   }
   },
   {
    "key": "u-us-battery-a-4th-united-states-artillery",
@@ -9574,11 +10535,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-2c-art-4usa"
+    ],
+    "oob": [
+     "U-ART-A4US"
+    ],
+    "kit": [
+     "US.ART.4th_US_A"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-art-a4us.csv",
+     "unit_id": "U-ART-A4US",
+     "rows": 2,
+     "regiment_as_in_file": ""
+    }
+   ],
+   "registry_basis": {
+    "us-2c-art-4usa": "same designation",
+    "U-ART-A4US": "same designation"
+   }
   },
   {
    "key": "u-us-battery-b-4th-united-states-artillery",
@@ -9593,11 +10571,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-1c-art-4usb"
+    ],
+    "oob": [
+     "U-ART-B4US"
+    ],
+    "kit": [
+     "US.ART.4th_US_B"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-art-b4us.csv",
+     "unit_id": "U-ART-B4US",
+     "rows": 1,
+     "regiment_as_in_file": ""
+    }
+   ],
+   "registry_basis": {
+    "us-1c-art-4usb": "same designation",
+    "U-ART-B4US": "same designation"
+   }
   },
   {
    "key": "u-us-battery-c-4th-united-states-artillery",
@@ -9612,11 +10607,28 @@
    "or_check": "exact",
    "or_check_how": "organization table prints: Thomas",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-art-reserve-ransom-4usc"
+    ],
+    "oob": [
+     "U-ART-C4US"
+    ],
+    "kit": [
+     "US.ART.4th_US_C"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-art-c4us.csv",
+     "unit_id": "U-ART-C4US",
+     "rows": 1,
+     "regiment_as_in_file": ""
+    }
+   ],
+   "registry_basis": {
+    "us-art-reserve-ransom-4usc": "same designation",
+    "U-ART-C4US": "same designation"
+   }
   },
   {
    "key": "u-us-battery-e-4th-united-states-artillery",
@@ -9632,10 +10644,24 @@
    "or_check_how": "organization table line",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "U-HAB-E4US"
+    ],
+    "kit": [
+     "US.ART.4th_US_E"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-hab-e4us.csv",
+     "unit_id": "U-HAB-E4US",
+     "rows": 1,
+     "regiment_as_in_file": ""
+    }
+   ],
+   "registry_basis": {
+    "U-HAB-E4US": "same designation"
+   }
   },
   {
    "key": "u-us-battery-f-4th-united-states-artillery",
@@ -9650,11 +10676,36 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-12c-art-4usf"
+    ],
+    "oob": [
+     "U-ART-F4US",
+     "U-ART-F4US-XII"
+    ],
+    "kit": [
+     "US.ART.4th_US_F"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-art-f4us-xii.csv",
+     "unit_id": "U-ART-F4US-XII",
+     "rows": 1,
+     "regiment_as_in_file": ""
+    },
+    {
+     "file": "data/REG/u-art-f4us.csv",
+     "unit_id": "U-ART-F4US",
+     "rows": 2,
+     "regiment_as_in_file": ""
+    }
+   ],
+   "registry_basis": {
+    "us-12c-art-4usf": "same designation",
+    "U-ART-F4US": "same designation (the OOB lists this battery under three ids)",
+    "U-ART-F4US-XII": "same designation; OR table: Twelfth Corps, Rugg"
+   }
   },
   {
    "key": "u-us-battery-g-4th-united-states-artillery",
@@ -9669,11 +10720,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-11c-art-4usg"
+    ],
+    "oob": [
+     "U-ART-G4US"
+    ],
+    "kit": [
+     "US.ART.4th_US_G"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-art-g4us.csv",
+     "unit_id": "U-ART-G4US",
+     "rows": 3,
+     "regiment_as_in_file": ""
+    }
+   ],
+   "registry_basis": {
+    "us-11c-art-4usg": "same designation",
+    "U-ART-G4US": "same designation"
+   }
   },
   {
    "key": "u-us-battery-k-4th-united-states-artillery",
@@ -9688,11 +10756,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-3c-art-4usk"
+    ],
+    "oob": [
+     "U-ART-E4US-III"
+    ],
+    "kit": [
+     "US.ART.4th_US_K"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-art-e4us-iii.csv",
+     "unit_id": "U-ART-E4US-III",
+     "rows": 2,
+     "regiment_as_in_file": ""
+    }
+   ],
+   "registry_basis": {
+    "us-3c-art-4usk": "same designation",
+    "U-ART-E4US-III": "same commander in the OR table (Seeley); the OOB calls it Battery E"
+   }
   },
   {
    "key": "u-us-battery-c-5th-united-states-artillery",
@@ -9707,11 +10792,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-art-reserve-ransom-5usc"
+    ],
+    "oob": [
+     "U-ART-C5US"
+    ],
+    "kit": [
+     "US.ART.5th_US_C"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-art-c5us.csv",
+     "unit_id": "U-ART-C5US",
+     "rows": 1,
+     "regiment_as_in_file": ""
+    }
+   ],
+   "registry_basis": {
+    "us-art-reserve-ransom-5usc": "same designation",
+    "U-ART-C5US": "same designation"
+   }
   },
   {
    "key": "u-us-battery-d-5th-united-states-artillery",
@@ -9726,11 +10828,28 @@
    "or_check": "exact",
    "or_check_how": "organization table prints: Hazlett, Rittenhouse",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-5c-art-5usd"
+    ],
+    "oob": [
+     "U-ART-D5US"
+    ],
+    "kit": [
+     "US.ART.5th_US_D"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-art-d5us.csv",
+     "unit_id": "U-ART-D5US",
+     "rows": 2,
+     "regiment_as_in_file": ""
+    }
+   ],
+   "registry_basis": {
+    "us-5c-art-5usd": "same designation",
+    "U-ART-D5US": "same designation"
+   }
   },
   {
    "key": "u-us-battery-f-5th-united-states-artillery",
@@ -9745,11 +10864,30 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-6c-art-5usf"
+    ],
+    "oob": [
+     "U-ART-F5US",
+     "U-ART-F5US-VI"
+    ],
+    "kit": [
+     "US.ART.5th_US_F"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-art-f5us-vi.csv",
+     "unit_id": "U-ART-F5US-VI",
+     "rows": 1,
+     "regiment_as_in_file": ""
+    }
+   ],
+   "registry_basis": {
+    "us-6c-art-5usf": "same designation",
+    "U-ART-F5US": "same designation (second OOB id)",
+    "U-ART-F5US-VI": "same designation"
+   }
   },
   {
    "key": "u-us-battery-i-5th-united-states-artillery",
@@ -9764,11 +10902,18 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
+    "history": [
+     "us-5c-art-5usi"
+    ],
     "oob": [],
-    "kit": []
+    "kit": [
+     "US.ART.5th_US_I"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "us-5c-art-5usi": "same designation"
+   }
   },
   {
    "key": "u-us-battery-k-5th-united-states-artillery",
@@ -9783,11 +10928,28 @@
    "or_check": "exact",
    "or_check_how": "organization table line",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "us-12c-art-5usk"
+    ],
+    "oob": [
+     "U-ART-K5US"
+    ],
+    "kit": [
+     "US.ART.5th_US_K"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/u-art-k5us.csv",
+     "unit_id": "U-ART-K5US",
+     "rows": 1,
+     "regiment_as_in_file": ""
+    }
+   ],
+   "registry_basis": {
+    "us-12c-art-5usk": "same designation",
+    "U-ART-K5US": "same designation"
+   }
   },
   {
    "key": "u-us-general-and-staff-officers-army-of-the-potomac",
@@ -9806,7 +10968,71 @@
     "oob": [],
     "kit": []
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/hq-ambulance.csv",
+     "unit_id": "HQ-AMBULANCE",
+     "rows": 2,
+     "regiment_as_in_file": "Ambulance corps",
+     "basis": "headquarters file"
+    },
+    {
+     "file": "data/REG/hq-artillery.csv",
+     "unit_id": "HQ-ARTILLERY",
+     "rows": 1,
+     "regiment_as_in_file": "Chief of Artillery, headquarters",
+     "basis": "headquarters file"
+    },
+    {
+     "file": "data/REG/hq-engineer.csv",
+     "unit_id": "HQ-ENGINEER",
+     "rows": 4,
+     "regiment_as_in_file": "Engineer Brigade",
+     "basis": "headquarters file"
+    },
+    {
+     "file": "data/REG/hq-guards.csv",
+     "unit_id": "HQ-GUARDS",
+     "rows": 1,
+     "regiment_as_in_file": "Headquarters guards and orderlies",
+     "basis": "headquarters file"
+    },
+    {
+     "file": "data/REG/hq-medical.csv",
+     "unit_id": "HQ-MEDICAL",
+     "rows": 1,
+     "regiment_as_in_file": "Medical Director, headquarters",
+     "basis": "headquarters file"
+    },
+    {
+     "file": "data/REG/hq-ordnance.csv",
+     "unit_id": "HQ-ORDNANCE",
+     "rows": 1,
+     "regiment_as_in_file": "Ordnance, headquarters",
+     "basis": "headquarters file"
+    },
+    {
+     "file": "data/REG/hq-provost.csv",
+     "unit_id": "HQ-PROVOST",
+     "rows": 4,
+     "regiment_as_in_file": "Provost Marshal General command",
+     "basis": "headquarters file"
+    },
+    {
+     "file": "data/REG/hq-qm-trains.csv",
+     "unit_id": "HQ-QM-TRAINS",
+     "rows": 1,
+     "regiment_as_in_file": "Quartermaster, wagon trains",
+     "basis": "headquarters file"
+    },
+    {
+     "file": "data/REG/hq-trains.csv",
+     "unit_id": "HQ-TRAINS",
+     "rows": 1,
+     "regiment_as_in_file": "Train guard",
+     "basis": "headquarters file"
+    }
+   ]
   },
   {
    "key": "u-us-signal-corps-detachment",
@@ -9825,7 +11051,15 @@
     "oob": [],
     "kit": []
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/REG/hq-signal.csv",
+     "unit_id": "HQ-SIGNAL",
+     "rows": 7,
+     "regiment_as_in_file": "Signal Corps",
+     "basis": "same designation"
+    }
+   ]
   },
   {
    "key": "c-va-1st-virginia-infantry",
@@ -11045,8 +12279,8 @@
    "number": 61,
    "path": "confederate/va/61st-virginia-infantry.jsonl.gz",
    "or_note": "",
-   "or_check": "not-found",
-   "or_check_how": "",
+   "or_check": "ocr-numeral",
+   "or_check_how": "OCR text prints \"(51st Virginia, Col. V. D. Groner.\" (organization table)",
    "registry": {
     "history": [
      "cs-3c-anderson-mahone-61va"
@@ -11102,10 +12336,24 @@
    "or_check_how": "organization table prints: Imboden",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-62VA-MTD"
+    ],
+    "kit": [
+     "CS.CAV.62VA"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/C-VASCGA/csv/C-62VA-MTD.gaines-hospital.csv",
+     "unit_id": "C-62VA-MTD",
+     "rows": 5,
+     "regiment_as_in_file": "62nd Virginia Mounted Infantry"
+    }
+   ],
+   "registry_basis": {
+    "C-62VA-MTD": "same designation"
+   }
   },
   {
    "key": "c-va-1st-virginia-cavalry",
@@ -11126,7 +12374,9 @@
     "oob": [
      "C-1VA-CAV"
     ],
-    "kit": []
+    "kit": [
+     "CS.CAV.1VA"
+    ]
    },
    "existing": [
     {
@@ -11156,7 +12406,9 @@
     "oob": [
      "C-2VA-CAV"
     ],
-    "kit": []
+    "kit": [
+     "CS.CAV.2VA"
+    ]
    },
    "existing": []
   },
@@ -11179,7 +12431,9 @@
     "oob": [
      "C-3VA-CAV"
     ],
-    "kit": []
+    "kit": [
+     "CS.CAV.3VA"
+    ]
    },
    "existing": []
   },
@@ -11202,7 +12456,9 @@
     "oob": [
      "C-4VA-CAV"
     ],
-    "kit": []
+    "kit": [
+     "CS.CAV.4VA"
+    ]
    },
    "existing": []
   },
@@ -11225,7 +12481,9 @@
     "oob": [
      "C-5VA-CAV"
     ],
-    "kit": []
+    "kit": [
+     "CS.CAV.5VA"
+    ]
    },
    "existing": []
   },
@@ -11244,7 +12502,9 @@
    "registry": {
     "history": [],
     "oob": [],
-    "kit": []
+    "kit": [
+     "CS.CAV.6VA"
+    ]
    },
    "existing": []
   },
@@ -11263,7 +12523,9 @@
    "registry": {
     "history": [],
     "oob": [],
-    "kit": []
+    "kit": [
+     "CS.CAV.7VA"
+    ]
    },
    "existing": []
   },
@@ -11286,7 +12548,9 @@
     "oob": [
      "C-9VA-CAV"
     ],
-    "kit": []
+    "kit": [
+     "CS.CAV.9VA"
+    ]
    },
    "existing": [
     {
@@ -11316,7 +12580,9 @@
     "oob": [
      "C-10VA-CAV"
     ],
-    "kit": []
+    "kit": [
+     "CS.CAV.10VA"
+    ]
    },
    "existing": []
   },
@@ -11335,7 +12601,30 @@
    "registry": {
     "history": [],
     "oob": [],
-    "kit": []
+    "kit": [
+     "CS.CAV.11VA"
+    ]
+   },
+   "existing": []
+  },
+  {
+   "key": "c-va-12th-virginia-cavalry",
+   "army": "confederate",
+   "st": "va",
+   "state": "Virginia",
+   "designation": "12th Virginia Cavalry",
+   "arm": "cavalry",
+   "number": 12,
+   "path": "confederate/va/12th-virginia-cavalry.jsonl.gz",
+   "or_note": "kit only: not in the OR organization table; Jones' brigade, guarding a Potomac ford at the Fairfield time (kit CS.CAV.12VA, PDF B.3 Fairfield row)",
+   "or_check": "pdf-only",
+   "or_check_how": "kit cavalry_units.json CS.CAV.12VA and the PDF B.3 Fairfield row; the OR organization table prints Jones' brigade as the 6th, 7th and 11th Virginia only",
+   "registry": {
+    "history": [],
+    "oob": [],
+    "kit": [
+     "CS.CAV.12VA"
+    ]
    },
    "existing": []
   },
@@ -11358,7 +12647,9 @@
     "oob": [
      "C-13VA-CAV"
     ],
-    "kit": []
+    "kit": [
+     "CS.CAV.13VA"
+    ]
    },
    "existing": []
   },
@@ -11381,7 +12672,9 @@
     "oob": [
      "C-14VA-CAV"
     ],
-    "kit": []
+    "kit": [
+     "CS.CAV.14VA"
+    ]
    },
    "existing": []
   },
@@ -11404,7 +12697,9 @@
     "oob": [
      "C-16VA-CAV"
     ],
-    "kit": []
+    "kit": [
+     "CS.CAV.16VA"
+    ]
    },
    "existing": []
   },
@@ -11427,7 +12722,9 @@
     "oob": [
      "C-17VA-CAV"
     ],
-    "kit": []
+    "kit": [
+     "CS.CAV.17VA"
+    ]
    },
    "existing": []
   },
@@ -11448,7 +12745,9 @@
     "oob": [
      "C-18VA-CAV"
     ],
-    "kit": []
+    "kit": [
+     "CS.CAV.18VA"
+    ]
    },
    "existing": []
   },
@@ -11471,7 +12770,9 @@
     "oob": [
      "C-34VA-CAV-B"
     ],
-    "kit": []
+    "kit": [
+     "CS.34VACAVBN"
+    ]
    },
    "existing": []
   },
@@ -11494,7 +12795,9 @@
     "oob": [
      "C-36VA-CAV-B"
     ],
-    "kit": []
+    "kit": [
+     "CS.CAV.36VABN"
+    ]
    },
    "existing": []
   },
@@ -11508,14 +12811,16 @@
    "number": null,
    "path": "confederate/va/35th-virginia-cavalry-battalion.jsonl.gz",
    "or_note": "not in the OR table; PDF B.3 lists it with Early's division",
-   "or_check": "not-found",
-   "or_check_how": "",
+   "or_check": "pdf-only",
+   "or_check_how": "history/units.json id cs-2c-early-35vacavalrybn",
    "registry": {
     "history": [
      "cs-2c-early-35vacavalrybn"
     ],
     "oob": [],
-    "kit": []
+    "kit": [
+     "CS.CAV.35VABN"
+    ]
    },
    "existing": []
   },
@@ -11552,10 +12857,17 @@
    "or_check_how": "organization table prints: Partisan, Rangers, Imboden",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-VA-PA-CAV"
+    ],
+    "kit": [
+     "CS.CAV.MCNEILL"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-VA-PA-CAV": "same designation"
+   }
   },
   {
    "key": "c-va-fauquier-artillery",
@@ -11571,10 +12883,17 @@
    "or_check_how": "organization table prints: Fauquier, Stribling",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Stribling"
+    ],
+    "kit": [
+     "CS.ART.Fauquier"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Stribling": "same commander in the OR table"
+   }
   },
   {
    "key": "c-va-hampden-artillery",
@@ -11590,10 +12909,17 @@
    "or_check_how": "organization table prints: Hampden",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Caskie"
+    ],
+    "kit": [
+     "CS.ART.Hampden"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Caskie": "same commander in the OR table"
+   }
   },
   {
    "key": "c-va-richmond-fayette-artillery",
@@ -11609,10 +12935,17 @@
    "or_check_how": "organization table prints: Richmond, Fayette, Macon",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Macon"
+    ],
+    "kit": [
+     "CS.ART.Richmond_Fayette"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Macon": "same commander in the OR table"
+   }
   },
   {
    "key": "c-va-virginia-battery-blount",
@@ -11628,10 +12961,17 @@
    "or_check_how": "organization table prints: Blount, Dearing",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Blount"
+    ],
+    "kit": [
+     "CS.ART.Blount_s"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Blount": "same commander in the OR table"
+   }
   },
   {
    "key": "c-va-1st-richmond-howitzers",
@@ -11647,10 +12987,17 @@
    "or_check_how": "organization table prints: Richmond, Howitzers, Carthy",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-McCarthy"
+    ],
+    "kit": [
+     "CS.ART.1st_Richmond_Howitzers"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-McCarthy": "same commander in the OR table"
+   }
   },
   {
    "key": "c-va-ashland-artillery",
@@ -11665,11 +13012,18 @@
    "or_check": "exact",
    "or_check_how": "organization table prints: Ashland, Woolfolk",
    "registry": {
-    "history": [],
+    "history": [
+     "cs-1c-res-art-alexander-ashland"
+    ],
     "oob": [],
-    "kit": []
+    "kit": [
+     "CS.ART.Ashland"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "cs-1c-res-art-alexander-ashland": "same designation"
+   }
   },
   {
    "key": "c-va-bedford-artillery",
@@ -11684,11 +13038,18 @@
    "or_check": "exact",
    "or_check_how": "organization table prints: Bedford, Jordan",
    "registry": {
-    "history": [],
+    "history": [
+     "cs-1c-res-art-alexander-bedford"
+    ],
     "oob": [],
-    "kit": []
+    "kit": [
+     "CS.ART.Bedford"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "cs-1c-res-art-alexander-bedford": "same designation"
+   }
   },
   {
    "key": "c-va-virginia-battery-parker",
@@ -11742,10 +13103,17 @@
    "or_check_how": "organization table prints: Charlottesville, Carrington",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Carrington"
+    ],
+    "kit": [
+     "CS.ART.Charlottesville"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Carrington": "same commander in the OR table"
+   }
   },
   {
    "key": "c-va-courtney-artillery",
@@ -11761,10 +13129,17 @@
    "or_check_how": "organization table prints: Courtney, Tanner",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Tanner"
+    ],
+    "kit": [
+     "CS.ART.Courtney"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Tanner": "same commander in the OR table"
+   }
   },
   {
    "key": "c-va-staunton-artillery",
@@ -11780,10 +13155,17 @@
    "or_check_how": "organization table prints: Staunton, Garber",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Garber"
+    ],
+    "kit": [
+     "CS.ART.Staunton"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Garber": "same commander in the OR table"
+   }
   },
   {
    "key": "c-va-alleghany-artillery",
@@ -11799,10 +13181,17 @@
    "or_check_how": "organization table prints: Alleghany, Carpenter",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Carpenter"
+    ],
+    "kit": [
+     "CS.ART.Alleghany"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Carpenter": "same commander in the OR table"
+   }
   },
   {
    "key": "c-va-lee-battery",
@@ -11818,10 +13207,17 @@
    "or_check_how": "organization table prints: Raine, Hardwicke",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Raine"
+    ],
+    "kit": [
+     "CS.ART.Lee"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Raine": "same commander in the OR table"
+   }
   },
   {
    "key": "c-va-king-william-artillery",
@@ -11837,10 +13233,17 @@
    "or_check_how": "organization table prints: King, William, Carter",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Carter"
+    ],
+    "kit": [
+     "CS.ART.King_William"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Carter": "same commander in the OR table"
+   }
   },
   {
    "key": "c-va-morris-artillery",
@@ -11856,10 +13259,24 @@
    "or_check_how": "organization table prints: Morris, Page",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Page"
+    ],
+    "kit": [
+     "CS.ART.Morris"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/C-VASCGA/csv/C-ART-Page.csv",
+     "unit_id": "C-ART-Page",
+     "rows": 178,
+     "regiment_as_in_file": "Page's Battery (Morris Artillery VA)"
+    }
+   ],
+   "registry_basis": {
+    "C-ART-Page": "same commander in the OR table"
+   }
   },
   {
    "key": "c-va-orange-artillery",
@@ -11875,10 +13292,17 @@
    "or_check_how": "organization table prints: Orange",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Fry"
+    ],
+    "kit": [
+     "CS.ART.Orange"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Fry": "same commander in the OR table"
+   }
   },
   {
    "key": "c-va-2nd-richmond-howitzers",
@@ -11894,10 +13318,17 @@
    "or_check_how": "organization table prints: Richmond, Howitzers, Watson",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Watson"
+    ],
+    "kit": [
+     "CS.ART.2nd_and_3rd_Richmond_Howitzers"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Watson": "same commander in the OR table"
+   }
   },
   {
    "key": "c-va-3rd-richmond-howitzers",
@@ -11913,10 +13344,17 @@
    "or_check_how": "organization table prints: Richmond, Howitzers, Smith",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Smith-B"
+    ],
+    "kit": [
+     "CS.ART.2nd_and_3rd_Richmond_Howitzers"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Smith-B": "same commander in the OR table"
+   }
   },
   {
    "key": "c-va-powhatan-artillery",
@@ -11932,10 +13370,17 @@
    "or_check_how": "organization table prints: Powhatan, Cunningham",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Cunningham"
+    ],
+    "kit": [
+     "CS.ART.Powhatan"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Cunningham": "same commander in the OR table (the OOB calls it Rockbridge; the OR prints Rockbridge under Graham)"
+   }
   },
   {
    "key": "c-va-rockbridge-artillery",
@@ -11952,7 +13397,9 @@
    "registry": {
     "history": [],
     "oob": [],
-    "kit": []
+    "kit": [
+     "CS.ART.Rockbridge"
+    ]
    },
    "existing": []
   },
@@ -11970,10 +13417,17 @@
    "or_check_how": "organization table prints: Salem, Griffin",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Hupp"
+    ],
+    "kit": [
+     "CS.ART.Salem"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Hupp": "same designation (the OR prints Lieut. C. B. Griffin commanding)"
+   }
   },
   {
    "key": "c-va-amherst-artillery",
@@ -11990,7 +13444,9 @@
    "registry": {
     "history": [],
     "oob": [],
-    "kit": []
+    "kit": [
+     "CS.ART.Amherst"
+    ]
    },
    "existing": []
   },
@@ -12009,7 +13465,9 @@
    "registry": {
     "history": [],
     "oob": [],
-    "kit": []
+    "kit": [
+     "CS.ART.Fluvanna"
+    ]
    },
    "existing": []
   },
@@ -12027,10 +13485,17 @@
    "or_check_how": "organization table prints: Huger, Moore",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Moore"
+    ],
+    "kit": [
+     "CS.ART.Huger"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Moore": "same commander in the OR table (Joseph D. Moore)"
+   }
   },
   {
    "key": "c-va-lewis-artillery",
@@ -12046,10 +13511,17 @@
    "or_check_how": "organization table prints: Lewis, Lewis",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Lewis"
+    ],
+    "kit": [
+     "CS.ART.Lewis"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Lewis": "same commander in the OR table"
+   }
   },
   {
    "key": "c-va-norfolk-light-artillery-blues",
@@ -12065,10 +13537,17 @@
    "or_check_how": "organization table prints: Norfolk, Blues, Grandy",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Grandy"
+    ],
+    "kit": [
+     "CS.ART.Norfolk_Blues"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Grandy": "same commander in the OR table"
+   }
   },
   {
    "key": "c-va-albemarle-artillery",
@@ -12122,10 +13601,17 @@
    "or_check_how": "organization table prints: Crenshaw, Pegram",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Crenshaw"
+    ],
+    "kit": [
+     "CS.ART.Crenshaw"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Crenshaw": "same designation"
+   }
   },
   {
    "key": "c-va-fredericksburg-artillery",
@@ -12141,10 +13627,17 @@
    "or_check_how": "organization table prints: Fredericksburg, Marye",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Marye"
+    ],
+    "kit": [
+     "CS.ART.Fredericksburg"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Marye": "same commander in the OR table"
+   }
   },
   {
    "key": "c-va-letcher-artillery",
@@ -12160,10 +13653,17 @@
    "or_check_how": "organization table prints: Letcher, Brander",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Brander"
+    ],
+    "kit": [
+     "CS.ART.Letcher"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Brander": "same commander in the OR table"
+   }
   },
   {
    "key": "c-va-purcell-artillery",
@@ -12179,10 +13679,17 @@
    "or_check_how": "organization table prints: Purcell, Graw",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-McGraw"
+    ],
+    "kit": [
+     "CS.ART.Purcell"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-McGraw": "same commander in the OR table"
+   }
   },
   {
    "key": "c-va-danville-artillery",
@@ -12198,10 +13705,17 @@
    "or_check_how": "organization table prints: Danville, Rice",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Rice-B"
+    ],
+    "kit": [
+     "CS.ART.Danville"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Rice-B": "same commander in the OR table"
+   }
   },
   {
    "key": "c-va-2nd-rockbridge-artillery",
@@ -12217,10 +13731,17 @@
    "or_check_how": "organization table prints: Rockbridge, Wallace",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Wallace"
+    ],
+    "kit": [
+     "CS.ART.2nd_Rockbridge"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Wallace": "same commander in the OR table"
+   }
   },
   {
    "key": "c-va-virginia-battery-johnson",
@@ -12236,10 +13757,17 @@
    "or_check_how": "organization table prints: Johnson, Intosh",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Johnson-M"
+    ],
+    "kit": [
+     "CS.ART.Johnson_s"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Johnson-M": "same commander in the OR table"
+   }
   },
   {
    "key": "c-va-breatheds-battery",
@@ -12255,10 +13783,17 @@
    "or_check_how": "organization table prints: Breathed",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-HAB-Breathed"
+    ],
+    "kit": [
+     "CS.ART.Breathed"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-HAB-Breathed": "same commander in the OR table"
+   }
   },
   {
    "key": "c-va-chews-battery",
@@ -12275,7 +13810,9 @@
    "registry": {
     "history": [],
     "oob": [],
-    "kit": []
+    "kit": [
+     "CS.ART.Chew"
+    ]
    },
    "existing": []
   },
@@ -12294,7 +13831,9 @@
    "registry": {
     "history": [],
     "oob": [],
-    "kit": []
+    "kit": [
+     "CS.ART.McGregor"
+    ]
    },
    "existing": []
   },
@@ -12313,7 +13852,9 @@
    "registry": {
     "history": [],
     "oob": [],
-    "kit": []
+    "kit": [
+     "CS.ART.Moorman"
+    ]
    },
    "existing": []
   },
@@ -12331,10 +13872,15 @@
    "or_check_how": "organization table prints: Jackson, Jenkins",
    "registry": {
     "history": [],
-    "oob": [],
+    "oob": [
+     "C-HAB-Jackson"
+    ],
     "kit": []
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-HAB-Jackson": "same commander in the OR table"
+   }
   },
   {
    "key": "c-va-virginia-battery-mcclanahan",
@@ -12350,10 +13896,15 @@
    "or_check_how": "organization table prints: Clanahan, Imboden",
    "registry": {
     "history": [],
-    "oob": [],
+    "oob": [
+     "C-McClanahan-ART"
+    ],
     "kit": []
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-McClanahan-ART": "same commander in the OR table"
+   }
   },
   {
    "key": "c-nc-1st-north-carolina-infantry",
@@ -12605,8 +14156,8 @@
    "number": 12,
    "path": "confederate/nc/12th-north-carolina-infantry.jsonl.gz",
    "or_note": "",
-   "or_check": "not-found",
-   "or_check_how": "",
+   "or_check": "ocr-spelling",
+   "or_check_how": "OCR text prints \"12th Ncrth Carohna, Lieut. Col. W. S.\" (organization table)",
    "registry": {
     "history": [
      "cs-2c-rodes-iverson-12nc"
@@ -13362,7 +14913,9 @@
      "cs-cav-hampton-1nc"
     ],
     "oob": [],
-    "kit": []
+    "kit": [
+     "CS.CAV.1NC"
+    ]
    },
    "existing": []
   },
@@ -13383,7 +14936,9 @@
      "cs-cav-chambliss-2nc"
     ],
     "oob": [],
-    "kit": []
+    "kit": [
+     "CS.CAV.2NC"
+    ]
    },
    "existing": []
   },
@@ -13402,7 +14957,9 @@
    "registry": {
     "history": [],
     "oob": [],
-    "kit": []
+    "kit": [
+     "CS.CAV.4NC"
+    ]
    },
    "existing": []
   },
@@ -13421,7 +14978,9 @@
    "registry": {
     "history": [],
     "oob": [],
-    "kit": []
+    "kit": [
+     "CS.CAV.5NC"
+    ]
    },
    "existing": []
   },
@@ -13439,10 +14998,24 @@
    "or_check_how": "organization table prints: Manly",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Manly"
+    ],
+    "kit": [
+     "CS.ART.1st_NC_A"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/C-NCLA/units/C-ART-Manly.csv",
+     "unit_id": "C-ART-Manly",
+     "rows": 300,
+     "regiment_as_in_file": "Manly's Battery (1st NC Artillery)"
+    }
+   ],
+   "registry_basis": {
+    "C-ART-Manly": "same commander in the OR table"
+   }
   },
   {
    "key": "c-nc-branch-artillery",
@@ -13459,7 +15032,9 @@
    "registry": {
     "history": [],
     "oob": [],
-    "kit": []
+    "kit": [
+     "CS.ART.Branch_NC"
+    ]
    },
    "existing": []
   },
@@ -13477,10 +15052,24 @@
    "or_check_how": "organization table prints: Rowan, Reilly",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Reilly"
+    ],
+    "kit": [
+     "CS.ART.Rowan_NC"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/C-NCLA/units/C-ART-Reilly.csv",
+     "unit_id": "C-ART-Reilly",
+     "rows": 217,
+     "regiment_as_in_file": "Reilly's Battery (Rowan Artillery NC)"
+    }
+   ],
+   "registry_basis": {
+    "C-ART-Reilly": "same commander in the OR table"
+   }
   },
   {
    "key": "c-nc-charlotte-artillery",
@@ -13859,7 +15448,9 @@
     "oob": [
      "C-1SC-CAV"
     ],
-    "kit": []
+    "kit": [
+     "CS.CAV.1SC"
+    ]
    },
    "existing": []
   },
@@ -13882,7 +15473,9 @@
     "oob": [
      "C-2SC-CAV"
     ],
-    "kit": []
+    "kit": [
+     "CS.CAV.2SC"
+    ]
    },
    "existing": []
   },
@@ -13900,10 +15493,17 @@
    "or_check_how": "organization table prints: German, Bachman",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Bachman"
+    ],
+    "kit": [
+     "CS.ART.Charleston_German_SC"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Bachman": "same commander in the OR table"
+   }
   },
   {
    "key": "c-sc-palmetto-light-artillery",
@@ -13919,10 +15519,17 @@
    "or_check_how": "organization table prints: Palmetto, Garden",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Garden"
+    ],
+    "kit": [
+     "CS.ART.Palmetto_SC"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Garden": "same commander in the OR table"
+   }
   },
   {
    "key": "c-sc-brooks-artillery",
@@ -13937,11 +15544,18 @@
    "or_check": "exact",
    "or_check_how": "organization table prints: Brooks, Gilbert",
    "registry": {
-    "history": [],
+    "history": [
+     "cs-1c-res-art-alexander-brookssc"
+    ],
     "oob": [],
-    "kit": []
+    "kit": [
+     "CS.ART.Brooks"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "cs-1c-res-art-alexander-brookssc": "same designation"
+   }
   },
   {
    "key": "c-sc-pee-dee-artillery",
@@ -13957,10 +15571,17 @@
    "or_check_how": "organization table prints: Zimmerman",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Zimmerman"
+    ],
+    "kit": [
+     "CS.ART.Pee_Dee"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Zimmerman": "same commander in the OR table"
+   }
   },
   {
    "key": "c-sc-harts-battery",
@@ -13976,10 +15597,17 @@
    "or_check_how": "organization table prints: Hart",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-HAB-Hart"
+    ],
+    "kit": [
+     "CS.ART.Hart"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-HAB-Hart": "same commander in the OR table"
+   }
   },
   {
    "key": "c-ga-2nd-georgia-infantry",
@@ -15007,8 +16635,8 @@
    "number": 60,
    "path": "confederate/ga/60th-georgia-infantry.jsonl.gz",
    "or_note": "",
-   "or_check": "not-found",
-   "or_check_how": "",
+   "or_check": "ocr-numeral",
+   "or_check_how": "OCR text prints \"6()th Georgia, Capt. W. B. Jones.\" (organization table)",
    "registry": {
     "history": [
      "cs-2c-early-gordon-60ga"
@@ -15096,8 +16724,8 @@
    "number": null,
    "path": "confederate/ga/3rd-georgia-battalion-sharpshooters.jsonl.gz",
    "or_note": "not in the OR table; PDF B.3 lists it with Wofford",
-   "or_check": "ocr-numeral",
-   "or_check_how": "table prints another numeral or spelling; the volume index lists this ordinal on a table page (arm not distinguished)",
+   "or_check": "pdf-only",
+   "or_check_how": "history/units.json: 3rd GA Sharpshooters under Wofford",
    "registry": {
     "history": [
      "cs-1c-mclaws-wofford-3gasharpshooters"
@@ -15123,10 +16751,15 @@
     "history": [
      "cs-1c-mclaws-wofford-cobbslegion"
     ],
-    "oob": [],
+    "oob": [
+     "C-Cobb-GA"
+    ],
     "kit": []
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-Cobb-GA": "same designation"
+   }
   },
   {
    "key": "c-ga-phillips-legion-infantry",
@@ -15144,10 +16777,15 @@
     "history": [
      "cs-1c-mclaws-wofford-phillipslegion"
     ],
-    "oob": [],
+    "oob": [
+     "C-Phil-GA"
+    ],
     "kit": []
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-Phil-GA": "same designation"
+   }
   },
   {
    "key": "c-ga-cobbs-legion-cavalry",
@@ -15165,10 +16803,17 @@
     "history": [
      "cs-cav-hampton-cobbslegion"
     ],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-Cobb-CAV"
+    ],
+    "kit": [
+     "CS.CAV.COBB"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-Cobb-CAV": "same designation"
+   }
   },
   {
    "key": "c-ga-phillips-legion-cavalry",
@@ -15186,10 +16831,17 @@
     "history": [
      "cs-cav-hampton-phillipslegion"
     ],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-Phil-CAV"
+    ],
+    "kit": [
+     "CS.CAV.PHILLIPS"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-Phil-CAV": "same designation"
+   }
   },
   {
    "key": "c-ga-pulaski-artillery",
@@ -15205,10 +16857,17 @@
    "or_check_how": "organization table prints: Pulaski",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Fraser"
+    ],
+    "kit": [
+     "CS.ART.Pulaski_GA"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Fraser": "same commander in the OR table"
+   }
   },
   {
    "key": "c-ga-troup-artillery",
@@ -15224,10 +16883,17 @@
    "or_check_how": "organization table prints: Troup, Carlton",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Carlton"
+    ],
+    "kit": [
+     "CS.ART.Troup_GA"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Carlton": "same commander in the OR table"
+   }
   },
   {
    "key": "c-ga-georgia-battery-milledge",
@@ -15244,7 +16910,9 @@
    "registry": {
     "history": [],
     "oob": [],
-    "kit": []
+    "kit": [
+     "CS.ART.Milledge_GA"
+    ]
    },
    "existing": []
   },
@@ -15262,10 +16930,15 @@
    "or_check_how": "organization table prints: Ross",
    "registry": {
     "history": [],
-    "oob": [],
+    "oob": [
+     "C-ART-Ross"
+    ],
     "kit": []
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "C-ART-Ross": "same commander in the OR table"
+   }
   },
   {
    "key": "c-ga-company-b-sumter-battalion",
@@ -15992,7 +17665,9 @@
    "registry": {
     "history": [],
     "oob": [],
-    "kit": []
+    "kit": [
+     "CS.ART.Jefferson_Davis_AL"
+    ]
    },
    "existing": []
   },
@@ -16010,10 +17685,24 @@
    "or_check_how": "organization table prints: Hurt",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Hurt"
+    ],
+    "kit": [
+     "CS.ART.HURT"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/C-ALMSTX/alabama/brewer-officers-hardaway-s-battery-hurt-s-alabama-artillery.csv",
+     "unit_id": "C-ART-Hurt",
+     "rows": 7,
+     "regiment_as_in_file": "Hardaway's Battery (Hurt's; Alabama artillery)"
+    }
+   ],
+   "registry_basis": {
+    "C-ART-Hurt": "same commander in the OR table"
+   }
   },
   {
    "key": "c-ms-2nd-mississippi-infantry",
@@ -16067,8 +17756,8 @@
    "number": 11,
    "path": "confederate/ms/11th-mississippi-infantry.jsonl.gz",
    "or_note": "",
-   "or_check": "not-found",
-   "or_check_how": "",
+   "or_check": "ocr-numeral",
+   "or_check_how": "OCR text prints \"nth Mississippi, Col. F. M. Green.\" (organization table)",
    "registry": {
     "history": [
      "cs-3c-heth-davis-11ms"
@@ -16409,8 +18098,8 @@
    "number": 48,
    "path": "confederate/ms/48th-mississippi-infantry.jsonl.gz",
    "or_note": "",
-   "or_check": "not-found",
-   "or_check_how": "",
+   "or_check": "ocr-spelling",
+   "or_check_how": "OCR text prints \"48th Stississippi. Col. Joseph JI. Jayne.\" (organization table)",
    "registry": {
     "history": [
      "cs-3c-anderson-posey-48ms"
@@ -16448,11 +18137,28 @@
    "or_check": "exact",
    "or_check_how": "organization table prints: Jeff, Davis",
    "registry": {
-    "history": [],
-    "oob": [],
-    "kit": []
+    "history": [
+     "cs-cav-hampton-jeffdavislegion"
+    ],
+    "oob": [
+     "C-Jeff-MS-CAV"
+    ],
+    "kit": [
+     "CS.CAV.JDAVIS"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/C-ALMSTX/mississippi/jeff-davis-legion-mississippi-cavalry.csv",
+     "unit_id": "C-Jeff-MS-CAV",
+     "rows": 27,
+     "regiment_as_in_file": "Jeff Davis Legion (Mississippi Cavalry)"
+    }
+   ],
+   "registry_basis": {
+    "cs-cav-hampton-jeffdavislegion": "same designation",
+    "C-Jeff-MS-CAV": "same designation"
+   }
   },
   {
    "key": "c-ms-madison-light-artillery-mississippi",
@@ -16847,10 +18553,24 @@
    "or_check_how": "organization table prints: Washington",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Squires"
+    ],
+    "kit": [
+     "CS.ART.Squires"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/C-NCLA/units/C-ART-Squires.csv",
+     "unit_id": "C-ART-Squires",
+     "rows": 75,
+     "regiment_as_in_file": "Squires's Battery (1st Co., Washington Artillery)"
+    }
+   ],
+   "registry_basis": {
+    "C-ART-Squires": "same commander in the OR table"
+   }
   },
   {
    "key": "c-la-washington-artillery-2nd-company",
@@ -16866,10 +18586,24 @@
    "or_check_how": "organization table prints: Washington, Richardson",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Richardson"
+    ],
+    "kit": [
+     "CS.ART.Richardson"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/C-NCLA/units/C-ART-Richardson.csv",
+     "unit_id": "C-ART-Richardson",
+     "rows": 58,
+     "regiment_as_in_file": "Richardson's Battery (2nd Co., Washington Artillery)"
+    }
+   ],
+   "registry_basis": {
+    "C-ART-Richardson": "same commander in the OR table"
+   }
   },
   {
    "key": "c-la-washington-artillery-3rd-company",
@@ -16885,10 +18619,24 @@
    "or_check_how": "organization table prints: Washington, Miller",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Miller-WA"
+    ],
+    "kit": [
+     "CS.ART.Miller"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/C-NCLA/units/C-ART-Miller-WA.csv",
+     "unit_id": "C-ART-Miller-WA",
+     "rows": 68,
+     "regiment_as_in_file": "Miller's Battery (3rd Co., Washington Artillery)"
+    }
+   ],
+   "registry_basis": {
+    "C-ART-Miller-WA": "same commander in the OR table"
+   }
   },
   {
    "key": "c-la-washington-artillery-4th-company",
@@ -16904,10 +18652,24 @@
    "or_check_how": "organization table prints: Washington, Norcom, Battles",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Norcom"
+    ],
+    "kit": [
+     "CS.ART.Norcom"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/C-NCLA/units/C-ART-Norcom.csv",
+     "unit_id": "C-ART-Norcom",
+     "rows": 47,
+     "regiment_as_in_file": "Norcom's Battery (4th Co., Washington Artillery)"
+    }
+   ],
+   "registry_basis": {
+    "C-ART-Norcom": "same commander in the OR table"
+   }
   },
   {
    "key": "c-la-madison-light-artillery-louisiana",
@@ -16922,11 +18684,18 @@
    "or_check": "exact",
    "or_check_how": "organization table prints: Madison, Moody",
    "registry": {
-    "history": [],
+    "history": [
+     "cs-1c-res-art-alexander-madisonla"
+    ],
     "oob": [],
-    "kit": []
+    "kit": [
+     "CS.ART.Madison_La"
+    ]
    },
-   "existing": []
+   "existing": [],
+   "registry_basis": {
+    "cs-1c-res-art-alexander-madisonla": "same designation"
+   }
   },
   {
    "key": "c-la-louisiana-guard-artillery",
@@ -16943,7 +18712,9 @@
    "registry": {
     "history": [],
     "oob": [],
-    "kit": []
+    "kit": [
+     "CS.ART.Louisiana_Guard"
+    ]
    },
    "existing": []
   },
@@ -16961,10 +18732,24 @@
    "or_check_how": "organization table prints: Maurin",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Maurin"
+    ],
+    "kit": [
+     "CS.ART.Donaldsonville"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/C-NCLA/units/C-ART-Maurin.csv",
+     "unit_id": "C-ART-Maurin",
+     "rows": 169,
+     "regiment_as_in_file": "Maurin's Battery (Donaldsonville Artillery LA)"
+    }
+   ],
+   "registry_basis": {
+    "C-ART-Maurin": "same commander in the OR table"
+   }
   },
   {
    "key": "c-fl-2nd-florida-infantry",
@@ -17366,10 +19151,40 @@
     "history": [
      "cs-2c-johnson-steuart-1mdbn"
     ],
-    "oob": [],
+    "oob": [
+     "C-1MD-CSA"
+    ],
     "kit": []
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/C-ALMSTX/field-officers/field-officers-C-1MD-CSA.csv",
+     "unit_id": "C-1MD-CSA",
+     "rows": 6,
+     "regiment_as_in_file": "2nd Maryland"
+    },
+    {
+     "file": "data/C-ALMSTX/maryland/maryland-infantry-first-roster-1861-62-goldsborough.csv",
+     "unit_id": "C-1MD-CSA",
+     "rows": 693,
+     "regiment_as_in_file": "1st Maryland Infantry 1861-62 (Goldsborough 'First Maryland Infantry')"
+    },
+    {
+     "file": "data/C-ALMSTX/maryland/maryland-infantry-second-roster-goldsborough.csv",
+     "unit_id": "C-1MD-CSA",
+     "rows": 549,
+     "regiment_as_in_file": "Maryland Infantry (Goldsborough 'Second Maryland Infantry', the battalion at Culp's Hill)"
+    },
+    {
+     "file": "data/C-ALMSTX/or27-officers/or27-officers-C-1MD-CSA.csv",
+     "unit_id": "C-1MD-CSA",
+     "rows": 1,
+     "regiment_as_in_file": "First Maryland"
+    }
+   ],
+   "registry_basis": {
+    "C-1MD-CSA": "OR table: 1st Maryland Battalion Infantry"
+   }
   },
   {
    "key": "c-md-1st-maryland-cavalry-battalion",
@@ -17388,7 +19203,9 @@
      "cs-cav-flee-1mdbn"
     ],
     "oob": [],
-    "kit": []
+    "kit": [
+     "CS.CAV.1MDBN"
+    ]
    },
    "existing": []
   },
@@ -17406,10 +19223,24 @@
    "or_check_how": "organization table line",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Dement"
+    ],
+    "kit": [
+     "CS.ART.1st_Md"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/C-ALMSTX/maryland/maryland-artillery-first-dement.csv",
+     "unit_id": "C-ART-Dement",
+     "rows": 147,
+     "regiment_as_in_file": "1st Maryland Artillery (Dement's Battery)"
+    }
+   ],
+   "registry_basis": {
+    "C-ART-Dement": "same commander in the OR table"
+   }
   },
   {
    "key": "c-md-chesapeake-artillery",
@@ -17425,10 +19256,26 @@
    "or_check_how": "organization table prints: Chesapeake, Brown",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Brown-C",
+     "C-ART-Brown-J"
+    ],
+    "kit": [
+     "CS.ART.Chesapeake"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/C-ALMSTX/maryland/maryland-artillery-fourth-chesapeake.csv",
+     "unit_id": "C-ART-Brown-C",
+     "rows": 118,
+     "regiment_as_in_file": "4th Maryland Artillery (Chesapeake; OOB ids C-ART-Brown-C and C-ART-Brown-J)"
+    }
+   ],
+   "registry_basis": {
+    "C-ART-Brown-C": "lead: the data file is named fourth-chesapeake; the OOB lists Brown twice",
+    "C-ART-Brown-J": "same designation"
+   }
   },
   {
    "key": "c-md-griffins-maryland-battery",
@@ -17444,10 +19291,24 @@
    "or_check_how": "organization table prints: Griffin, Griffin",
    "registry": {
     "history": [],
-    "oob": [],
-    "kit": []
+    "oob": [
+     "C-ART-Doll"
+    ],
+    "kit": [
+     "CS.ART.Griffin"
+    ]
    },
-   "existing": []
+   "existing": [
+    {
+     "file": "data/C-ALMSTX/maryland/maryland-artillery-second-baltimore-light.csv",
+     "unit_id": "C-ART-Doll",
+     "rows": 133,
+     "regiment_as_in_file": "2nd Maryland Artillery (Baltimore Light; OOB label 'Doll's')"
+    }
+   ],
+   "registry_basis": {
+    "C-ART-Doll": "lead: the data file is named second-baltimore-light; the OR table prints no Doll"
+   }
   },
   {
    "key": "c-cs-general-and-staff-officers-army-of-northern-virginia",
@@ -17490,1333 +19351,14 @@
   }
  ],
  "unmatched": {
-  "history_registry_entries": [
-   {
-    "id": "us-1c-art-2me",
-    "name": "2nd ME",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-1c-art-5me",
-    "name": "5th ME",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-1c-art-1nye",
-    "name": "1st NY E",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-1c-art-1nyl",
-    "name": "1st NY L",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-1c-art-1pab",
-    "name": "1st PA B",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-1c-art-4usb",
-    "name": "4th US B",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-2c-art-1nyb",
-    "name": "1st NY B",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-2c-art-1ria",
-    "name": "1st RI A",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-2c-art-1rib",
-    "name": "1st RI B",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-2c-art-1usi",
-    "name": "1st US I",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-2c-art-4usa",
-    "name": "4th US A",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-3c-art-1njb",
-    "name": "1st NJ B",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-3c-art-1nyd",
-    "name": "1st NY D",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-3c-art-4ny",
-    "name": "4th NY",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-3c-art-1rie",
-    "name": "1st RI E",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-3c-art-4usk",
-    "name": "4th US K",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-5c-art-3ma",
-    "name": "3rd MA",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-5c-art-1nyc",
-    "name": "1st NY C",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-5c-art-1ohl",
-    "name": "1st OH L",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-5c-art-5usd",
-    "name": "5th US D",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-5c-art-5usi",
-    "name": "5th US I",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-6c-art-1maa",
-    "name": "1st MA A",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-6c-art-1ny",
-    "name": "1st NY",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-6c-art-3ny",
-    "name": "3rd NY",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-6c-art-1ric",
-    "name": "1st RI C",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-6c-art-1rig",
-    "name": "1st RI G",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-6c-art-2usd",
-    "name": "2nd US D",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-6c-art-2usg",
-    "name": "2nd US G",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-6c-art-5usf",
-    "name": "5th US F",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-11c-art-1nyi",
-    "name": "1st NY I",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-11c-art-13ny",
-    "name": "13th NY",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-11c-art-1ohi",
-    "name": "1st OH I",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-11c-art-1ohk",
-    "name": "1st OH K",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-11c-art-4usg",
-    "name": "4th US G",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-12c-art-1nym",
-    "name": "1st NY M",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-12c-art-pae",
-    "name": "PA E",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-12c-art-4usf",
-    "name": "4th US F",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-12c-art-5usk",
-    "name": "5th US K",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-art-reserve-ransom-1ush",
-    "name": "1st US H",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-art-reserve-ransom-3usf",
-    "name": "3rd US F",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-art-reserve-ransom-3usk",
-    "name": "3rd US K",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-art-reserve-ransom-4usc",
-    "name": "4th US C",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-art-reserve-ransom-5usc",
-    "name": "5th US C",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-art-reserve-mcgilvery-5ma",
-    "name": "5th MA",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-art-reserve-mcgilvery-9ma",
-    "name": "9th MA",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-art-reserve-mcgilvery-15ny",
-    "name": "15th NY",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-art-reserve-mcgilvery-pac",
-    "name": "PA C",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-art-reserve-mcgilvery-paf",
-    "name": "PA F",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-art-reserve-taft-1ctheavy",
-    "name": "1st CT Heavy",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "partly_on_field"
-   },
-   {
-    "id": "us-art-reserve-taft-2ct",
-    "name": "2nd CT",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-art-reserve-taft-5ny",
-    "name": "5th NY",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-art-reserve-huntington-1nh",
-    "name": "1st NH",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-art-reserve-huntington-1ohh",
-    "name": "1st OH H",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-art-reserve-huntington-1paf",
-    "name": "1st PA F",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-art-reserve-huntington-1pag",
-    "name": "1st PA G",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-art-reserve-huntington-wvc",
-    "name": "WV C",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-art-reserve-fitzhugh-6me",
-    "name": "6th ME",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-art-reserve-fitzhugh-mda",
-    "name": "MD A",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-art-reserve-fitzhugh-1nj",
-    "name": "1st NJ",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-art-reserve-fitzhugh-1nyg",
-    "name": "1st NY G",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "us-art-reserve-fitzhugh-1nyk",
-    "name": "1st NY K",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "cs-1c-res-art-alexander-ashland",
-    "name": "Ashland",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "cs-1c-res-art-alexander-bedford",
-    "name": "Bedford",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "cs-1c-res-art-alexander-brookssc",
-    "name": "Brooks SC",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "cs-1c-res-art-alexander-madisonla",
-    "name": "Madison LA",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "cs-1c-res-art-alexander-richmond",
-    "name": "Richmond",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "cs-1c-res-art-alexander-bath",
-    "name": "Bath",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "on_field"
-   },
-   {
-    "id": "cs-cav-hampton-jeffdavislegion",
-    "name": "Jeff Davis Legion",
-    "arm": "cavalry",
-    "level": "regiment",
-    "status": "on_field"
-   },
-   {
-    "id": "us-art-reserve-taft-1ctheavy-b",
-    "name": "1st CT Heavy B",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "never_on_field"
-   },
-   {
-    "id": "us-art-reserve-taft-1ctheavy-m",
-    "name": "1st CT Heavy M",
-    "arm": "artillery",
-    "level": "battery",
-    "status": "never_on_field"
-   },
-   {
-    "id": "cs-13va-winchester",
-    "name": "13th VA",
-    "arm": "infantry",
-    "level": "regiment",
-    "status": "never_on_field"
-   },
-   {
-    "id": "cs-58va-winchester",
-    "name": "58th VA",
-    "arm": "infantry",
-    "level": "regiment",
-    "status": "never_on_field"
-   },
-   {
-    "id": "cs-44nc-hanover-junction",
-    "name": "44th NC",
-    "arm": "infantry",
-    "level": "regiment",
-    "status": "never_on_field"
-   }
-  ],
-  "oob_ids": [
-   {
-    "id": "C-1MD-CSA",
-    "designation": "1st Maryland Infantry (Confederate)"
-   },
-   {
-    "id": "C-58VA",
-    "designation": "58th Virginia Infantry"
-   },
-   {
-    "id": "C-62VA-MTD",
-    "designation": "62nd Virginia Mounted Infantry"
-   },
-   {
-    "id": "C-ART-Bachman",
-    "designation": "Bachman's Battery (German Artillery SC)"
-   },
-   {
-    "id": "C-ART-Blount",
-    "designation": "Blount's Battery (Wise Artillery VA)"
-   },
-   {
-    "id": "C-ART-Brander",
-    "designation": "Brander's Battery (Letcher Artillery VA)"
-   },
-   {
-    "id": "C-ART-Brown-C",
-    "designation": "Brown's Battery (4th Maryland Artillery CSA)"
-   },
-   {
-    "id": "C-ART-Brown-J",
-    "designation": "Brown's Battery (Chesapeake Artillery MD)"
-   },
-   {
-    "id": "C-ART-Carlton",
-    "designation": "Carlton's Battery (Troup Artillery GA)"
-   },
-   {
-    "id": "C-ART-Carpenter",
-    "designation": "Carpenter's Battery (Alleghany Artillery VA)"
-   },
-   {
-    "id": "C-ART-Carrington",
-    "designation": "Carrington's Battery (Charlottesville Artillery VA)"
-   },
-   {
-    "id": "C-ART-Carter",
-    "designation": "Carter's Battery (King William Artillery VA)"
-   },
-   {
-    "id": "C-ART-Caskie",
-    "designation": "Caskie's Battery (Hampden Artillery VA)"
-   },
-   {
-    "id": "C-ART-Crenshaw",
-    "designation": "Crenshaw's Battery (Crenshaw Battery VA)"
-   },
-   {
-    "id": "C-ART-Cunningham",
-    "designation": "Cunningham's Battery (Rockbridge Artillery VA)"
-   },
-   {
-    "id": "C-ART-Dement",
-    "designation": "Dement's Battery (1st Maryland Artillery CSA)"
-   },
-   {
-    "id": "C-ART-Doll",
-    "designation": "Doll's Battery (2nd Maryland Artillery CSA)"
-   },
-   {
-    "id": "C-ART-Fraser",
-    "designation": "Fraser's Battery (Pulaski Artillery GA)"
-   },
-   {
-    "id": "C-ART-Fry",
-    "designation": "Fry's Battery (Orange Artillery VA)"
-   },
-   {
-    "id": "C-ART-Garber",
-    "designation": "Garber's Battery (Staunton Artillery VA)"
-   },
-   {
-    "id": "C-ART-Garden",
-    "designation": "Garden's Battery (Palmetto Light Artillery SC)"
-   },
-   {
-    "id": "C-ART-Grandy",
-    "designation": "Grandy's Battery (Norfolk Blues Artillery VA)"
-   },
-   {
-    "id": "C-ART-Hupp",
-    "designation": "Hupp's Battery (Salem Artillery VA)"
-   },
-   {
-    "id": "C-ART-Hurt",
-    "designation": "Hurt's Battery (Hardaway Artillery AL)"
-   },
-   {
-    "id": "C-ART-Johnson-M",
-    "designation": "Johnson's Battery (1st Rockbridge Artillery VA)"
-   },
-   {
-    "id": "C-ART-Lewis",
-    "designation": "Lewis's Battery (Pittsylvania Artillery VA)"
-   },
-   {
-    "id": "C-ART-Macon",
-    "designation": "Macon's Battery (Richmond Fayette Artillery VA)"
-   },
-   {
-    "id": "C-ART-Manly",
-    "designation": "Manly's Battery (1st NC Artillery)"
-   },
-   {
-    "id": "C-ART-Marye",
-    "designation": "Marye's Battery (Fredericksburg Artillery VA)"
-   },
-   {
-    "id": "C-ART-Maurin",
-    "designation": "Maurin's Battery (Donaldsonville Artillery LA)"
-   },
-   {
-    "id": "C-ART-McCarthy",
-    "designation": "McCarthy's Battery (1st Richmond Howitzers)"
-   },
-   {
-    "id": "C-ART-McGraw",
-    "designation": "McGraw's Battery (Purcell Artillery VA)"
-   },
-   {
-    "id": "C-ART-Miller-WA",
-    "designation": "Miller's Battery (3rd Co., Washington Artillery)"
-   },
-   {
-    "id": "C-ART-Moore",
-    "designation": "Moore's Battery (Norfolk Light Artillery VA)"
-   },
-   {
-    "id": "C-ART-Norcom",
-    "designation": "Norcom's Battery (4th Co., Washington Artillery)"
-   },
-   {
-    "id": "C-ART-Page",
-    "designation": "Page's Battery (Morris Artillery VA)"
-   },
-   {
-    "id": "C-ART-Raine",
-    "designation": "Raine's Battery (Lee Battery VA)"
-   },
-   {
-    "id": "C-ART-Reilly",
-    "designation": "Reilly's Battery (Rowan Artillery NC)"
-   },
-   {
-    "id": "C-ART-Rice-B",
-    "designation": "Rice's Battery (Danville Artillery VA)"
-   },
-   {
-    "id": "C-ART-Richardson",
-    "designation": "Richardson's Battery (2nd Co., Washington Artillery)"
-   },
-   {
-    "id": "C-ART-Ross",
-    "designation": "Ross's Battery (Sumter Flying Artillery GA)"
-   },
-   {
-    "id": "C-ART-Smith-B",
-    "designation": "Smith's Battery (3rd Richmond Howitzers)"
-   },
-   {
-    "id": "C-ART-Squires",
-    "designation": "Squires's Battery (1st Co., Washington Artillery)"
-   },
-   {
-    "id": "C-ART-Stribling",
-    "designation": "Stribling's Battery (Fauquier Artillery VA)"
-   },
-   {
-    "id": "C-ART-Tanner",
-    "designation": "Tanner's Battery (Courtney Artillery VA)"
-   },
-   {
-    "id": "C-ART-Wallace",
-    "designation": "Wallace's Battery (2nd Rockbridge Artillery VA)"
-   },
-   {
-    "id": "C-ART-Watson",
-    "designation": "Watson's Battery (2nd Richmond Howitzers)"
-   },
-   {
-    "id": "C-ART-Zimmerman",
-    "designation": "Zimmerman's Battery (Pee Dee Artillery SC)"
-   },
-   {
-    "id": "C-Cobb-CAV",
-    "designation": "Cobb's Legion Cavalry (Georgia)"
-   },
-   {
-    "id": "C-Cobb-GA",
-    "designation": "Cobb's Legion Infantry (Georgia)"
-   },
-   {
-    "id": "C-HAB-Breathed",
-    "designation": "Breathed's Battery (1st Stuart Horse Artillery)"
-   },
-   {
-    "id": "C-HAB-Hart",
-    "designation": "Hart's Battery (Washington Artillery SC)"
-   },
-   {
-    "id": "C-HAB-Jackson",
-    "designation": "Jackson's Battery (Charlottesville Artillery)"
-   },
-   {
-    "id": "C-Jeff-MS-CAV",
-    "designation": "Jeff Davis Legion (Mississippi Cavalry)"
-   },
-   {
-    "id": "C-McClanahan-ART",
-    "designation": "McClanahan's Battery (Horse Artillery)"
-   },
-   {
-    "id": "C-Phil-CAV",
-    "designation": "Phillips Legion Cavalry (Georgia)"
-   },
-   {
-    "id": "C-Phil-GA",
-    "designation": "Phillips Legion Infantry (Georgia)"
-   },
-   {
-    "id": "C-VA-PA-CAV",
-    "designation": "Virginia Partisan Rangers"
-   },
-   {
-    "id": "U-11NY",
-    "designation": "11th New York Volunteer Infantry (Fire Zouaves)"
-   },
-   {
-    "id": "U-127PA",
-    "designation": "127th Pennsylvania Volunteer Infantry"
-   },
-   {
-    "id": "U-12US-1",
-    "designation": "12th United States Infantry, 1st Battalion"
-   },
-   {
-    "id": "U-12US-2",
-    "designation": "12th United States Infantry, 2nd Battalion"
-   },
-   {
-    "id": "U-14BK",
-    "designation": "14th Brooklyn (alias for U-84NY)"
-   },
-   {
-    "id": "U-23NJ",
-    "designation": "23rd New Jersey Volunteer Infantry"
-   },
-   {
-    "id": "U-3US-1",
-    "designation": "3rd United States Infantry, 1st Battalion"
-   },
-   {
-    "id": "U-3US-2",
-    "designation": "3rd United States Infantry, 2nd Battalion"
-   },
-   {
-    "id": "U-ART-13NY",
-    "designation": "13th New York Battery (Wheeler's)"
-   },
-   {
-    "id": "U-ART-15NY",
-    "designation": "15th New York Battery (Hart's)"
-   },
-   {
-    "id": "U-ART-1CTB",
-    "designation": "1st Connecticut Heavy Artillery, Battery B"
-   },
-   {
-    "id": "U-ART-1CTM",
-    "designation": "1st Connecticut Heavy Artillery, Battery M"
-   },
-   {
-    "id": "U-ART-1NH",
-    "designation": "1st New Hampshire Battery"
-   },
-   {
-    "id": "U-ART-1NYIND",
-    "designation": "1st New York Battery Independent (Cowan's)"
-   },
-   {
-    "id": "U-ART-2ME",
-    "designation": "2nd Maine Battery (Hall's Battery)"
-   },
-   {
-    "id": "U-ART-3NY",
-    "designation": "3rd New York Battery Independent"
-   },
-   {
-    "id": "U-ART-4NYIND",
-    "designation": "4th New York Battery Independent (Smith's)"
-   },
-   {
-    "id": "U-ART-5MA",
-    "designation": "5th Massachusetts Battery (E)"
-   },
-   {
-    "id": "U-ART-5NY",
-    "designation": "5th New York Battery"
-   },
-   {
-    "id": "U-ART-9MA",
-    "designation": "9th Massachusetts Battery (Bigelow's)"
-   },
-   {
-    "id": "U-ART-A1RI",
-    "designation": "Battery A, 1st Rhode Island Artillery (Arnold's)"
-   },
-   {
-    "id": "U-ART-A4US",
-    "designation": "Battery A, 4th US Artillery (Cushing's Battery)"
-   },
-   {
-    "id": "U-ART-B1NJ",
-    "designation": "Battery B, 1st New Jersey Artillery (Clark's)"
-   },
-   {
-    "id": "U-ART-B1PA",
-    "designation": "Battery B, 1st Pennsylvania Artillery"
-   },
-   {
-    "id": "U-ART-B1RI",
-    "designation": "Battery B, 1st Rhode Island Artillery (Brown's)"
-   },
-   {
-    "id": "U-ART-B4US",
-    "designation": "Battery B, 4th US Artillery (Stewart's)"
-   },
-   {
-    "id": "U-ART-C1MA",
-    "designation": "Battery C, 1st Massachusetts Artillery"
-   },
-   {
-    "id": "U-ART-C1NY",
-    "designation": "Battery C, 1st New York Artillery"
-   },
-   {
-    "id": "U-ART-C1RI",
-    "designation": "Battery C, 1st Rhode Island Artillery"
-   },
-   {
-    "id": "U-ART-C4US",
-    "designation": "Battery C, 4th US Artillery (Thomas's)"
-   },
-   {
-    "id": "U-ART-C5US",
-    "designation": "Battery C, 5th US Artillery (Weir's)"
-   },
-   {
-    "id": "U-ART-CWV",
-    "designation": "Battery C, West Virginia Artillery"
-   },
-   {
-    "id": "U-ART-D1NY",
-    "designation": "Battery D, 1st New York Artillery (Winslow's)"
-   },
-   {
-    "id": "U-ART-D2US",
-    "designation": "Battery D, 2nd US Artillery"
-   },
-   {
-    "id": "U-ART-D5US",
-    "designation": "Battery D, 5th US Artillery (Hazlett's Battery)"
-   },
-   {
-    "id": "U-ART-E4US-III",
-    "designation": "Battery E, 4th US Artillery (Seeley's)"
-   },
-   {
-    "id": "U-ART-EPA",
-    "designation": "Battery E, Pennsylvania Artillery (Knap's Battery)"
-   },
-   {
-    "id": "U-ART-F1PA",
-    "designation": "Battery F, 1st Pennsylvania Artillery (Ricketts's)"
-   },
-   {
-    "id": "U-ART-F4US",
-    "designation": "Battery F, 4th US Artillery"
-   },
-   {
-    "id": "U-ART-F4US-XI",
-    "designation": "Battery F, 4th US Artillery (XI Corps)"
-   },
-   {
-    "id": "U-ART-F4US-XII",
-    "designation": "Battery F, 4th US Artillery (XII Corps)"
-   },
-   {
-    "id": "U-ART-F5US",
-    "designation": "Battery F, 5th US Artillery"
-   },
-   {
-    "id": "U-ART-F5US-VI",
-    "designation": "Battery F, 5th US Artillery (VI Corps)"
-   },
-   {
-    "id": "U-ART-G1NY",
-    "designation": "Battery G, 1st New York Artillery (Ames's)"
-   },
-   {
-    "id": "U-ART-G2US",
-    "designation": "Battery G, 2nd US Artillery"
-   },
-   {
-    "id": "U-ART-G4US",
-    "designation": "Battery G, 4th US Artillery (Wilkeson's Battery)"
-   },
-   {
-    "id": "U-ART-H1OH",
-    "designation": "Battery H, 1st Ohio Artillery"
-   },
-   {
-    "id": "U-ART-I1OH",
-    "designation": "Battery I, 1st Ohio Artillery (Dilger's Battery)"
-   },
-   {
-    "id": "U-ART-I1US",
-    "designation": "Battery I, 1st US Artillery (Woodruff's)"
-   },
-   {
-    "id": "U-ART-K1OH",
-    "designation": "Battery K, 1st Ohio Artillery (Heckman's)"
-   },
-   {
-    "id": "U-ART-K5US",
-    "designation": "Battery K, 5th US Artillery"
-   },
-   {
-    "id": "U-ART-L1NY",
-    "designation": "Battery L, 1st New York Artillery"
-   },
-   {
-    "id": "U-ART-L1NY-I",
-    "designation": "Battery L, 1st New York Artillery (I Corps)"
-   },
-   {
-    "id": "U-ART-L1OH",
-    "designation": "Battery L, 1st Ohio Artillery (Gibbs's)"
-   },
-   {
-    "id": "U-ART-M1NY",
-    "designation": "Battery M, 1st New York Artillery (Winegar's)"
-   },
-   {
-    "id": "U-ART-MAE",
-    "designation": "Massachusetts Battery E (10th)"
-   },
-   {
-    "id": "U-ART-MAF",
-    "designation": "Massachusetts Battery F"
-   },
-   {
-    "id": "U-ART-NYC",
-    "designation": "New York Battery C (Roemer's)"
-   },
-   {
-    "id": "U-HAB-A2US",
-    "designation": "Battery A, 2nd US Artillery (Calef's Battery)"
-   },
-   {
-    "id": "U-HAB-E1US",
-    "designation": "Battery E, 1st US Artillery"
-   },
-   {
-    "id": "U-HAB-E4US",
-    "designation": "Battery E, 4th US Artillery"
-   },
-   {
-    "id": "U-HAB-K1US",
-    "designation": "Battery K, 1st US Artillery"
-   },
-   {
-    "id": "U-HAB-M2US",
-    "designation": "Battery M, 2nd US Artillery (Pennington's Battery)"
-   },
-   {
-    "id": "U-Purnell-MD",
-    "designation": "Purnell Legion (Maryland) Cavalry"
-   }
-  ],
+  "history_registry_entries": [],
+  "oob_ids": [],
   "existing_roll_files": [
-   {
-    "file": "data/C-ALMSTX/alabama/brewer-officers-hardaway-s-battery-hurt-s-alabama-artillery.csv",
-    "unit_id": "C-ART-Hurt",
-    "rows": 7,
-    "regiment_as_in_file": "Hardaway's Battery (Hurt's; Alabama artillery)"
-   },
-   {
-    "file": "data/C-ALMSTX/field-officers/field-officers-C-1MD-CSA.csv",
-    "unit_id": "C-1MD-CSA",
-    "rows": 6,
-    "regiment_as_in_file": "2nd Maryland"
-   },
-   {
-    "file": "data/C-ALMSTX/maryland/maryland-artillery-first-dement.csv",
-    "unit_id": "C-ART-Dement",
-    "rows": 147,
-    "regiment_as_in_file": "1st Maryland Artillery (Dement's Battery)"
-   },
-   {
-    "file": "data/C-ALMSTX/maryland/maryland-artillery-fourth-chesapeake.csv",
-    "unit_id": "C-ART-Brown-C",
-    "rows": 118,
-    "regiment_as_in_file": "4th Maryland Artillery (Chesapeake; OOB ids C-ART-Brown-C and C-ART-Brown-J)"
-   },
-   {
-    "file": "data/C-ALMSTX/maryland/maryland-artillery-second-baltimore-light.csv",
-    "unit_id": "C-ART-Doll",
-    "rows": 133,
-    "regiment_as_in_file": "2nd Maryland Artillery (Baltimore Light; OOB label 'Doll's')"
-   },
-   {
-    "file": "data/C-ALMSTX/maryland/maryland-infantry-first-roster-1861-62-goldsborough.csv",
-    "unit_id": "C-1MD-CSA",
-    "rows": 693,
-    "regiment_as_in_file": "1st Maryland Infantry 1861-62 (Goldsborough 'First Maryland Infantry')"
-   },
-   {
-    "file": "data/C-ALMSTX/maryland/maryland-infantry-second-roster-goldsborough.csv",
-    "unit_id": "C-1MD-CSA",
-    "rows": 549,
-    "regiment_as_in_file": "Maryland Infantry (Goldsborough 'Second Maryland Infantry', the battalion at Culp's Hill)"
-   },
-   {
-    "file": "data/C-ALMSTX/mississippi/jeff-davis-legion-mississippi-cavalry.csv",
-    "unit_id": "C-Jeff-MS-CAV",
-    "rows": 27,
-    "regiment_as_in_file": "Jeff Davis Legion (Mississippi Cavalry)"
-   },
-   {
-    "file": "data/C-ALMSTX/or27-officers/or27-officers-C-1MD-CSA.csv",
-    "unit_id": "C-1MD-CSA",
-    "rows": 1,
-    "regiment_as_in_file": "First Maryland"
-   },
-   {
-    "file": "data/C-NCLA/units/C-ART-Manly.csv",
-    "unit_id": "C-ART-Manly",
-    "rows": 300,
-    "regiment_as_in_file": "Manly's Battery (1st NC Artillery)"
-   },
-   {
-    "file": "data/C-NCLA/units/C-ART-Maurin.csv",
-    "unit_id": "C-ART-Maurin",
-    "rows": 169,
-    "regiment_as_in_file": "Maurin's Battery (Donaldsonville Artillery LA)"
-   },
-   {
-    "file": "data/C-NCLA/units/C-ART-Miller-WA.csv",
-    "unit_id": "C-ART-Miller-WA",
-    "rows": 68,
-    "regiment_as_in_file": "Miller's Battery (3rd Co., Washington Artillery)"
-   },
-   {
-    "file": "data/C-NCLA/units/C-ART-Norcom.csv",
-    "unit_id": "C-ART-Norcom",
-    "rows": 47,
-    "regiment_as_in_file": "Norcom's Battery (4th Co., Washington Artillery)"
-   },
-   {
-    "file": "data/C-NCLA/units/C-ART-Reilly.csv",
-    "unit_id": "C-ART-Reilly",
-    "rows": 217,
-    "regiment_as_in_file": "Reilly's Battery (Rowan Artillery NC)"
-   },
-   {
-    "file": "data/C-NCLA/units/C-ART-Richardson.csv",
-    "unit_id": "C-ART-Richardson",
-    "rows": 58,
-    "regiment_as_in_file": "Richardson's Battery (2nd Co., Washington Artillery)"
-   },
-   {
-    "file": "data/C-NCLA/units/C-ART-Squires.csv",
-    "unit_id": "C-ART-Squires",
-    "rows": 75,
-    "regiment_as_in_file": "Squires's Battery (1st Co., Washington Artillery)"
-   },
-   {
-    "file": "data/C-VASCGA/csv/C-58VA.paroles-officers.csv",
-    "unit_id": "C-58VA",
-    "rows": 1,
-    "regiment_as_in_file": "58th Virginia Infantry"
-   },
-   {
-    "file": "data/C-VASCGA/csv/C-62VA-MTD.gaines-hospital.csv",
-    "unit_id": "C-62VA-MTD",
-    "rows": 5,
-    "regiment_as_in_file": "62nd Virginia Mounted Infantry"
-   },
-   {
-    "file": "data/C-VASCGA/csv/C-ART-Page.csv",
-    "unit_id": "C-ART-Page",
-    "rows": 178,
-    "regiment_as_in_file": "Page's Battery (Morris Artillery VA)"
-   },
-   {
-    "file": "data/NE/maine/2nd-maine-battery-hall-s-battery.csv",
-    "unit_id": "U-ART-2ME",
-    "rows": 183,
-    "regiment_as_in_file": "2nd Maine Battery (Hall's Battery)"
-   },
-   {
-    "file": "data/NE/massachusetts/1st-battery-massachusetts-volunteer-light-artillery-battery-a-unmapped.csv",
-    "unit_id": "UNMAPPED-1MA-BTY",
-    "rows": 265,
-    "regiment_as_in_file": "1st Battery Massachusetts Volunteer Light Artillery (Battery A) UNMAPPED"
-   },
-   {
-    "file": "data/NE/massachusetts/3rd-battery-massachusetts-volunteer-light-artillery-battery-c.csv",
-    "unit_id": "U-ART-C1MA",
-    "rows": 258,
-    "regiment_as_in_file": "3rd Battery Massachusetts Volunteer Light Artillery (Battery C)"
-   },
-   {
-    "file": "data/NE/massachusetts/5th-battery-massachusetts-volunteer-light-artillery-battery-e.csv",
-    "unit_id": "U-ART-5MA",
-    "rows": 331,
-    "regiment_as_in_file": "5th Battery Massachusetts Volunteer Light Artillery (Battery E)"
-   },
-   {
-    "file": "data/NE/massachusetts/9th-battery-massachusetts-volunteer-light-artillery.csv",
-    "unit_id": "U-ART-9MA",
-    "rows": 329,
-    "regiment_as_in_file": "9th Battery Massachusetts Volunteer Light Artillery"
-   },
-   {
-    "file": "data/NE/new-hampshire/1st-new-hampshire-volunteer-light-battery.csv",
-    "unit_id": "U-ART-1NH",
-    "rows": 173,
-    "regiment_as_in_file": "1st New Hampshire Volunteer Light Battery"
-   },
    {
     "file": "data/NY/rosters/EXTRA-120NY_120th-new-york-volunteer-infantry.csv",
     "unit_id": "EXTRA-120NY",
     "rows": 1654,
     "regiment_as_in_file": "120th New York Volunteer Infantry"
-   },
-   {
-    "file": "data/NY/rosters/EXTRA-B1NY_battery-b-1st-new-york-light-artillery.csv",
-    "unit_id": "EXTRA-B1NY",
-    "rows": 192,
-    "regiment_as_in_file": "Battery B, 1st New York Light Artillery"
-   },
-   {
-    "file": "data/NY/rosters/EXTRA-I1NY_battery-i-1st-new-york-light-artillery.csv",
-    "unit_id": "EXTRA-I1NY",
-    "rows": 238,
-    "regiment_as_in_file": "Battery I, 1st New York Light Artillery"
-   },
-   {
-    "file": "data/NY/rosters/EXTRA-K1NY_battery-k-1st-new-york-light-artillery.csv",
-    "unit_id": "EXTRA-K1NY",
-    "rows": 291,
-    "regiment_as_in_file": "Battery K, 1st New York Light Artillery"
-   },
-   {
-    "file": "data/NY/rosters/U-11NY_11th-new-york-volunteer-infantry.csv",
-    "unit_id": "U-11NY",
-    "rows": 1258,
-    "regiment_as_in_file": "11th New York Volunteer Infantry"
-   },
-   {
-    "file": "data/NY/rosters/U-1NYLA-REG_other-batteries-and-unassigned.csv",
-    "unit_id": "U-1NYLA-REG",
-    "rows": 2227,
-    "regiment_as_in_file": "1st New York Light Artillery"
-   },
-   {
-    "file": "data/NY/rosters/U-ART-13NY_13th-new-york-battery.csv",
-    "unit_id": "U-ART-13NY",
-    "rows": 254,
-    "regiment_as_in_file": "13th New York Battery"
-   },
-   {
-    "file": "data/NY/rosters/U-ART-15NY_15th-new-york-battery.csv",
-    "unit_id": "U-ART-15NY",
-    "rows": 293,
-    "regiment_as_in_file": "15th New York Battery"
-   },
-   {
-    "file": "data/NY/rosters/U-ART-1NYIND_1st-new-york-battery-independent.csv",
-    "unit_id": "U-ART-1NYIND",
-    "rows": 341,
-    "regiment_as_in_file": "1st New York Battery Independent"
-   },
-   {
-    "file": "data/NY/rosters/U-ART-3NY_3rd-new-york-battery-independent.csv",
-    "unit_id": "U-ART-3NY",
-    "rows": 441,
-    "regiment_as_in_file": "3rd New York Battery Independent"
-   },
-   {
-    "file": "data/NY/rosters/U-ART-4NYIND_4th-new-york-battery-independent.csv",
-    "unit_id": "U-ART-4NYIND",
-    "rows": 201,
-    "regiment_as_in_file": "4th New York Battery Independent"
-   },
-   {
-    "file": "data/NY/rosters/U-ART-5NY_5th-new-york-battery.csv",
-    "unit_id": "U-ART-5NY",
-    "rows": 438,
-    "regiment_as_in_file": "5th New York Battery"
-   },
-   {
-    "file": "data/NY/rosters/U-ART-C1NY_battery-c-1st-new-york-artillery.csv",
-    "unit_id": "U-ART-C1NY",
-    "rows": 120,
-    "regiment_as_in_file": "Battery C, 1st New York Artillery"
-   },
-   {
-    "file": "data/NY/rosters/U-ART-D1NY_battery-d-1st-new-york-artillery.csv",
-    "unit_id": "U-ART-D1NY",
-    "rows": 259,
-    "regiment_as_in_file": "Battery D, 1st New York Artillery"
-   },
-   {
-    "file": "data/NY/rosters/U-ART-G1NY_battery-g-1st-new-york-artillery.csv",
-    "unit_id": "U-ART-G1NY",
-    "rows": 242,
-    "regiment_as_in_file": "Battery G, 1st New York Artillery"
-   },
-   {
-    "file": "data/NY/rosters/U-ART-L1NY_battery-l-1st-new-york-artillery.csv",
-    "unit_id": "U-ART-L1NY",
-    "rows": 233,
-    "regiment_as_in_file": "Battery L, 1st New York Artillery"
-   },
-   {
-    "file": "data/NY/rosters/U-ART-M1NY_battery-m-1st-new-york-artillery.csv",
-    "unit_id": "U-ART-M1NY",
-    "rows": 206,
-    "regiment_as_in_file": "Battery M, 1st New York Artillery"
-   },
-   {
-    "file": "data/OJC/1st-connecticut-heavy-artillery-battery-b.csv",
-    "unit_id": "U-ART-1CTB",
-    "rows": 307,
-    "regiment_as_in_file": "1st Connecticut Heavy Artillery, Battery B (Company B)"
-   },
-   {
-    "file": "data/OJC/1st-connecticut-heavy-artillery-battery-m.csv",
-    "unit_id": "U-ART-1CTM",
-    "rows": 415,
-    "regiment_as_in_file": "1st Connecticut Heavy Artillery, Battery M (Company M)"
-   },
-   {
-    "file": "data/OJC/23rd-new-jersey.csv",
-    "unit_id": "U-23NJ",
-    "rows": 1009,
-    "regiment_as_in_file": "23rd New Jersey Infantry"
-   },
-   {
-    "file": "data/OJC/battery-b-1st-new-jersey-artillery.csv",
-    "unit_id": "U-ART-B1NJ",
-    "rows": 634,
-    "regiment_as_in_file": "Battery B, 1st New Jersey Artillery"
-   },
-   {
-    "file": "data/OJC/battery-h-1st-ohio-light-artillery.csv",
-    "unit_id": "U-ART-H1OH",
-    "rows": 275,
-    "regiment_as_in_file": "Battery H, 1st Ohio Light Artillery"
-   },
-   {
-    "file": "data/OJC/battery-i-1st-ohio-light-artillery.csv",
-    "unit_id": "U-ART-I1OH",
-    "rows": 353,
-    "regiment_as_in_file": "Battery I, 1st Ohio Light Artillery"
-   },
-   {
-    "file": "data/OJC/battery-k-1st-ohio-light-artillery.csv",
-    "unit_id": "U-ART-K1OH",
-    "rows": 264,
-    "regiment_as_in_file": "Battery K, 1st Ohio Light Artillery"
-   },
-   {
-    "file": "data/OJC/battery-l-1st-ohio-light-artillery.csv",
-    "unit_id": "U-ART-L1OH",
-    "rows": 239,
-    "regiment_as_in_file": "Battery L, 1st Ohio Light Artillery"
-   },
-   {
-    "file": "data/PA/units/U-127PA.csv",
-    "unit_id": "U-127PA",
-    "rows": 833,
-    "regiment_as_in_file": "127th Pennsylvania Volunteer Infantry"
-   },
-   {
-    "file": "data/PA/units/U-ART-B1PA.csv",
-    "unit_id": "U-ART-B1PA",
-    "rows": 331,
-    "regiment_as_in_file": "Battery B, 1st Pennsylvania Artillery"
-   },
-   {
-    "file": "data/PA/units/U-ART-EPA.csv",
-    "unit_id": "U-ART-EPA",
-    "rows": 403,
-    "regiment_as_in_file": "Battery E, Pennsylvania Artillery (Knap's Battery)"
-   },
-   {
-    "file": "data/PA/units/U-ART-F1PA.csv",
-    "unit_id": "U-ART-F1PA",
-    "rows": 266,
-    "regiment_as_in_file": "Battery F, 1st Pennsylvania Artillery (Ricketts's)"
    },
    {
     "file": "data/PA/units/X-107PA.csv",
@@ -18837,1273 +19379,1723 @@
     "regiment_as_in_file": "46th Pennsylvania Infantry (not in repository OOB)"
    },
    {
-    "file": "data/REG/hq-ambulance.csv",
-    "unit_id": "HQ-AMBULANCE",
-    "rows": 2,
-    "regiment_as_in_file": "Ambulance corps"
-   },
-   {
-    "file": "data/REG/hq-artillery.csv",
-    "unit_id": "HQ-ARTILLERY",
-    "rows": 1,
-    "regiment_as_in_file": "Chief of Artillery, headquarters"
-   },
-   {
-    "file": "data/REG/hq-engineer.csv",
-    "unit_id": "HQ-ENGINEER",
-    "rows": 4,
-    "regiment_as_in_file": "Engineer Brigade"
-   },
-   {
-    "file": "data/REG/hq-guards.csv",
-    "unit_id": "HQ-GUARDS",
-    "rows": 1,
-    "regiment_as_in_file": "Headquarters guards and orderlies"
-   },
-   {
-    "file": "data/REG/hq-medical.csv",
-    "unit_id": "HQ-MEDICAL",
-    "rows": 1,
-    "regiment_as_in_file": "Medical Director, headquarters"
-   },
-   {
-    "file": "data/REG/hq-ordnance.csv",
-    "unit_id": "HQ-ORDNANCE",
-    "rows": 1,
-    "regiment_as_in_file": "Ordnance, headquarters"
-   },
-   {
-    "file": "data/REG/hq-provost.csv",
-    "unit_id": "HQ-PROVOST",
-    "rows": 4,
-    "regiment_as_in_file": "Provost Marshal General command"
-   },
-   {
-    "file": "data/REG/hq-qm-trains.csv",
-    "unit_id": "HQ-QM-TRAINS",
-    "rows": 1,
-    "regiment_as_in_file": "Quartermaster, wagon trains"
-   },
-   {
-    "file": "data/REG/hq-signal.csv",
-    "unit_id": "HQ-SIGNAL",
-    "rows": 7,
-    "regiment_as_in_file": "Signal Corps"
-   },
-   {
-    "file": "data/REG/hq-trains.csv",
-    "unit_id": "HQ-TRAINS",
-    "rows": 1,
-    "regiment_as_in_file": "Train guard"
-   },
-   {
-    "file": "data/REG/provost-8us.csv",
-    "unit_id": "PROVOST-8US",
-    "rows": 1,
-    "regiment_as_in_file": "8th United States Infantry (provost command; not in the repository OOB)"
-   },
-   {
-    "file": "data/REG/reg-art-1us.csv",
-    "unit_id": "REG-ART-1US",
-    "rows": 2,
-    "regiment_as_in_file": "Regular Army artillery regiment (battery not stated by Heitman)"
-   },
-   {
-    "file": "data/REG/reg-art-2us.csv",
-    "unit_id": "REG-ART-2US",
-    "rows": 4,
-    "regiment_as_in_file": "Regular Army artillery regiment (battery not stated by Heitman)"
-   },
-   {
-    "file": "data/REG/reg-art-3us.csv",
-    "unit_id": "REG-ART-3US",
-    "rows": 7,
-    "regiment_as_in_file": "Regular Army artillery regiment (battery not stated by Heitman)"
-   },
-   {
-    "file": "data/REG/reg-art-4us.csv",
-    "unit_id": "REG-ART-4US",
-    "rows": 10,
-    "regiment_as_in_file": "Regular Army artillery regiment (battery not stated by Heitman)"
-   },
-   {
-    "file": "data/REG/reg-art-5us.csv",
-    "unit_id": "REG-ART-5US",
-    "rows": 6,
-    "regiment_as_in_file": "Regular Army artillery regiment (battery not stated by Heitman)"
-   },
-   {
-    "file": "data/REG/u-12us-1.csv",
-    "unit_id": "U-12US-1",
-    "rows": 10,
-    "regiment_as_in_file": "12th United States Infantry (1st Battalion; regiment-level rows, battalion not resolved)"
-   },
-   {
-    "file": "data/REG/u-12us-2.csv",
-    "unit_id": "U-12US-2",
-    "rows": 10,
-    "regiment_as_in_file": "12th United States Infantry (2nd Battalion; regiment-level rows, battalion not resolved)"
-   },
-   {
     "file": "data/REG/u-14us.csv",
     "unit_id": "U-14US",
     "rows": 11,
     "regiment_as_in_file": "14th United States Infantry (not in the repository OOB)"
-   },
-   {
-    "file": "data/REG/u-1md-phb-officers.csv",
-    "unit_id": "U-1MD-PHB",
-    "rows": 1,
-    "regiment_as_in_file": "1st Maryland Potomac Home Brigade Infantry"
-   },
-   {
-    "file": "data/REG/u-1md-phb.csv",
-    "unit_id": "U-1MD-PHB",
-    "rows": 1459,
-    "regiment_as_in_file": "1st Maryland Potomac Home Brigade Infantry (not in the repository OOB; organised in OR 27/1 p.157)"
-   },
-   {
-    "file": "data/REG/u-1ri-cav.csv",
-    "unit_id": "U-1RI-CAV",
-    "rows": 2,
-    "regiment_as_in_file": "1st Rhode Island Cavalry (not in the repository OOB)"
-   },
-   {
-    "file": "data/REG/u-3us-1.csv",
-    "unit_id": "U-3US-1",
-    "rows": 11,
-    "regiment_as_in_file": "3rd United States Infantry (1st Battalion; regiment-level rows, battalion not resolved)"
-   },
-   {
-    "file": "data/REG/u-3us-2.csv",
-    "unit_id": "U-3US-2",
-    "rows": 11,
-    "regiment_as_in_file": "3rd United States Infantry (2nd Battalion; regiment-level rows, battalion not resolved)"
-   },
-   {
-    "file": "data/REG/u-art-a1ri-officers.csv",
-    "unit_id": "U-ART-A1RI",
-    "rows": 1,
-    "regiment_as_in_file": ""
-   },
-   {
-    "file": "data/REG/u-art-a1ri.csv",
-    "unit_id": "U-ART-A1RI",
-    "rows": 246,
-    "regiment_as_in_file": "Battery A, 1st Rhode Island Light Artillery"
-   },
-   {
-    "file": "data/REG/u-art-a4us.csv",
-    "unit_id": "U-ART-A4US",
-    "rows": 2,
-    "regiment_as_in_file": ""
-   },
-   {
-    "file": "data/REG/u-art-b1ri-officers.csv",
-    "unit_id": "U-ART-B1RI",
-    "rows": 2,
-    "regiment_as_in_file": ""
-   },
-   {
-    "file": "data/REG/u-art-b1ri.csv",
-    "unit_id": "U-ART-B1RI",
-    "rows": 411,
-    "regiment_as_in_file": "Battery B, 1st Rhode Island Light Artillery"
-   },
-   {
-    "file": "data/REG/u-art-b4us.csv",
-    "unit_id": "U-ART-B4US",
-    "rows": 1,
-    "regiment_as_in_file": ""
-   },
-   {
-    "file": "data/REG/u-art-c1ri.csv",
-    "unit_id": "U-ART-C1RI",
-    "rows": 1,
-    "regiment_as_in_file": ""
-   },
-   {
-    "file": "data/REG/u-art-c4us.csv",
-    "unit_id": "U-ART-C4US",
-    "rows": 1,
-    "regiment_as_in_file": ""
-   },
-   {
-    "file": "data/REG/u-art-c5us.csv",
-    "unit_id": "U-ART-C5US",
-    "rows": 1,
-    "regiment_as_in_file": ""
-   },
-   {
-    "file": "data/REG/u-art-cwv-officers.csv",
-    "unit_id": "U-ART-CWV",
-    "rows": 1,
-    "regiment_as_in_file": ""
-   },
-   {
-    "file": "data/REG/u-art-cwv.csv",
-    "unit_id": "U-ART-CWV",
-    "rows": 82,
-    "regiment_as_in_file": "Battery C, 1st West Virginia Light Artillery"
-   },
-   {
-    "file": "data/REG/u-art-d2us.csv",
-    "unit_id": "U-ART-D2US",
-    "rows": 1,
-    "regiment_as_in_file": ""
-   },
-   {
-    "file": "data/REG/u-art-d5us.csv",
-    "unit_id": "U-ART-D5US",
-    "rows": 2,
-    "regiment_as_in_file": ""
-   },
-   {
-    "file": "data/REG/u-art-e4us-iii.csv",
-    "unit_id": "U-ART-E4US-III",
-    "rows": 2,
-    "regiment_as_in_file": ""
-   },
-   {
-    "file": "data/REG/u-art-f4us-xii.csv",
-    "unit_id": "U-ART-F4US-XII",
-    "rows": 1,
-    "regiment_as_in_file": ""
-   },
-   {
-    "file": "data/REG/u-art-f4us.csv",
-    "unit_id": "U-ART-F4US",
-    "rows": 2,
-    "regiment_as_in_file": ""
-   },
-   {
-    "file": "data/REG/u-art-f5us-vi.csv",
-    "unit_id": "U-ART-F5US-VI",
-    "rows": 1,
-    "regiment_as_in_file": ""
-   },
-   {
-    "file": "data/REG/u-art-g2us.csv",
-    "unit_id": "U-ART-G2US",
-    "rows": 1,
-    "regiment_as_in_file": ""
-   },
-   {
-    "file": "data/REG/u-art-g4us.csv",
-    "unit_id": "U-ART-G4US",
-    "rows": 3,
-    "regiment_as_in_file": ""
-   },
-   {
-    "file": "data/REG/u-art-i1us.csv",
-    "unit_id": "U-ART-I1US",
-    "rows": 2,
-    "regiment_as_in_file": ""
-   },
-   {
-    "file": "data/REG/u-art-k5us.csv",
-    "unit_id": "U-ART-K5US",
-    "rows": 1,
-    "regiment_as_in_file": ""
-   },
-   {
-    "file": "data/REG/u-hab-a2us.csv",
-    "unit_id": "U-HAB-A2US",
-    "rows": 1,
-    "regiment_as_in_file": ""
-   },
-   {
-    "file": "data/REG/u-hab-e1us.csv",
-    "unit_id": "U-HAB-E1US",
-    "rows": 1,
-    "regiment_as_in_file": ""
-   },
-   {
-    "file": "data/REG/u-hab-e4us.csv",
-    "unit_id": "U-HAB-E4US",
-    "rows": 1,
-    "regiment_as_in_file": ""
-   },
-   {
-    "file": "data/REG/u-hab-k1us.csv",
-    "unit_id": "U-HAB-K1US",
-    "rows": 1,
-    "regiment_as_in_file": ""
-   },
-   {
-    "file": "data/REG/u-hab-m2us.csv",
-    "unit_id": "U-HAB-M2US",
-    "rows": 1,
-    "regiment_as_in_file": ""
-   },
-   {
-    "file": "data/REG/u-md-batt-a.csv",
-    "unit_id": "U-MD-BATT-A",
-    "rows": 1,
-    "regiment_as_in_file": "Battery A, Maryland Light Artillery (Rigby; not in the repository OOB)"
-   },
-   {
-    "file": "data/REG/u-purnell-md-officers.csv",
-    "unit_id": "U-Purnell-MD",
-    "rows": 1,
-    "regiment_as_in_file": ""
-   },
-   {
-    "file": "data/REG/u-purnell-md.csv",
-    "unit_id": "U-Purnell-MD",
-    "rows": 232,
-    "regiment_as_in_file": "Purnell Legion Cavalry (Maryland)"
-   },
-   {
-    "file": "data/REG/u-ri-batt-e.csv",
-    "unit_id": "U-RI-BATT-E",
-    "rows": 2,
-    "regiment_as_in_file": "Battery E, 1st Rhode Island Light Artillery (not in the repository OOB)"
-   },
-   {
-    "file": "data/REG/u-ri-batt-g.csv",
-    "unit_id": "U-RI-BATT-G",
-    "rows": 1,
-    "regiment_as_in_file": "Battery G, 1st Rhode Island Light Artillery (not in the repository OOB)"
    }
   ],
-  "note": "entries the rules above could not attach to a unit; batteries and aliases are attached by hand in work-items.json, never guessed here"
+  "kit_ids": [
+   {
+    "id": "CS.ART.Richmond",
+    "name": "Richmond battery",
+    "army": "confederate",
+    "units": [],
+    "reason": "one of the two unnamed Virginia batteries of Alexander's battalion (OR table: Parker, Taylor); the PDF names them Richmond and Bath; not decided"
+   },
+   {
+    "id": "CS.ART.Bath",
+    "name": "Bath battery",
+    "army": "confederate",
+    "units": [],
+    "reason": "one of the two unnamed Virginia batteries of Alexander's battalion (OR table: Parker, Taylor); the PDF names them Richmond and Bath; not decided"
+   }
+  ],
+  "note": "entries that no rule and no hand table (units_data.py ALIAS, KIT_ALIAS) attached to a unit; nothing is guessed"
  },
+ "attached_to_no_unit": [
+  {
+   "kind": "history",
+   "id": "cs-1c-res-art-alexander-richmond",
+   "name": "Richmond",
+   "reason": "PDF name; one of the two unnamed Virginia batteries of Alexander's battalion (Parker, Taylor); not decided"
+  },
+  {
+   "kind": "history",
+   "id": "cs-1c-res-art-alexander-bath",
+   "name": "Bath",
+   "reason": "PDF name; one of the two unnamed Virginia batteries of Alexander's battalion (Parker, Taylor); not decided"
+  },
+  {
+   "kind": "history",
+   "id": "cs-13va-winchester",
+   "name": "13th VA",
+   "reason": "PDF B.3 status never_on_field"
+  },
+  {
+   "kind": "history",
+   "id": "cs-58va-winchester",
+   "name": "58th VA",
+   "reason": "PDF B.3 status never_on_field"
+  },
+  {
+   "kind": "history",
+   "id": "cs-44nc-hanover-junction",
+   "name": "44th NC",
+   "reason": "PDF B.3 status never_on_field"
+  },
+  {
+   "kind": "oob",
+   "id": "C-58VA",
+   "name": "58th Virginia Infantry",
+   "reason": "PDF B.3 status never_on_field; not in the OR table"
+  },
+  {
+   "kind": "oob",
+   "id": "U-11NY",
+   "name": "11th New York Volunteer Infantry (Fire Zouaves)",
+   "reason": "not in the OR table; the Register shows the regiment mustered out in 1862 (GAPS G-NY2)"
+  },
+  {
+   "kind": "oob",
+   "id": "U-127PA",
+   "name": "127th Pennsylvania Volunteer Infantry",
+   "reason": "not in the OR table (GAPS G-PA11)"
+  },
+  {
+   "kind": "oob",
+   "id": "U-23NJ",
+   "name": "23rd New Jersey Volunteer Infantry",
+   "reason": "not in the OR table (GAPS G-OJC4)"
+  },
+  {
+   "kind": "oob",
+   "id": "U-ART-F4US-XI",
+   "name": "Battery F, 4th US Artillery (XI Corps)",
+   "reason": "designation conflicts with the OR table (data/REG README)"
+  },
+  {
+   "kind": "oob",
+   "id": "U-ART-MAE",
+   "name": "Massachusetts Battery E (10th)",
+   "reason": "no Massachusetts battery of this designation in the OR table (GAPS G-NE02)"
+  },
+  {
+   "kind": "oob",
+   "id": "U-ART-MAF",
+   "name": "Massachusetts Battery F",
+   "reason": "no Massachusetts battery of this designation in the OR table (GAPS G-NE02)"
+  },
+  {
+   "kind": "oob",
+   "id": "U-ART-NYC",
+   "name": "New York Battery C (Roemer's)",
+   "reason": "not in the OR table (GAPS G-NY2)"
+  },
+  {
+   "kind": "existing-file",
+   "file": "data/C-VASCGA/csv/C-58VA.paroles-officers.csv",
+   "unit_id": "C-58VA",
+   "rows": 1,
+   "regiment_as_in_file": "58th Virginia Infantry",
+   "reason": "PDF B.3 status never_on_field; not in the OR table"
+  },
+  {
+   "kind": "existing-file",
+   "file": "data/NY/rosters/U-11NY_11th-new-york-volunteer-infantry.csv",
+   "unit_id": "U-11NY",
+   "rows": 1258,
+   "regiment_as_in_file": "11th New York Volunteer Infantry",
+   "reason": "not in the OR table; the Register shows the regiment mustered out in 1862 (GAPS G-NY2)"
+  },
+  {
+   "kind": "existing-file",
+   "file": "data/NY/rosters/U-1NYLA-REG_other-batteries-and-unassigned.csv",
+   "unit_id": "U-1NYLA-REG",
+   "rows": 2227,
+   "regiment_as_in_file": "1st New York Light Artillery",
+   "reason": "remainder of the 1st New York Light Artillery Register: men not in a battery file"
+  },
+  {
+   "kind": "existing-file",
+   "file": "data/OJC/23rd-new-jersey.csv",
+   "unit_id": "U-23NJ",
+   "rows": 1009,
+   "regiment_as_in_file": "23rd New Jersey Infantry",
+   "reason": "not in the OR table (GAPS G-OJC4)"
+  },
+  {
+   "kind": "existing-file",
+   "file": "data/PA/units/U-127PA.csv",
+   "unit_id": "U-127PA",
+   "rows": 833,
+   "regiment_as_in_file": "127th Pennsylvania Volunteer Infantry",
+   "reason": "not in the OR table (GAPS G-PA11)"
+  },
+  {
+   "kind": "existing-file",
+   "file": "data/REG/reg-art-1us.csv",
+   "unit_id": "REG-ART-1US",
+   "rows": 2,
+   "regiment_as_in_file": "Regular Army artillery regiment (battery not stated by Heitman)",
+   "reason": "Regular artillery officers by regiment, battery not stated by the source"
+  },
+  {
+   "kind": "existing-file",
+   "file": "data/REG/reg-art-2us.csv",
+   "unit_id": "REG-ART-2US",
+   "rows": 4,
+   "regiment_as_in_file": "Regular Army artillery regiment (battery not stated by Heitman)",
+   "reason": "Regular artillery officers by regiment, battery not stated by the source"
+  },
+  {
+   "kind": "existing-file",
+   "file": "data/REG/reg-art-3us.csv",
+   "unit_id": "REG-ART-3US",
+   "rows": 7,
+   "regiment_as_in_file": "Regular Army artillery regiment (battery not stated by Heitman)",
+   "reason": "Regular artillery officers by regiment, battery not stated by the source"
+  },
+  {
+   "kind": "existing-file",
+   "file": "data/REG/reg-art-4us.csv",
+   "unit_id": "REG-ART-4US",
+   "rows": 10,
+   "regiment_as_in_file": "Regular Army artillery regiment (battery not stated by Heitman)",
+   "reason": "Regular artillery officers by regiment, battery not stated by the source"
+  },
+  {
+   "kind": "existing-file",
+   "file": "data/REG/reg-art-5us.csv",
+   "unit_id": "REG-ART-5US",
+   "rows": 6,
+   "regiment_as_in_file": "Regular Army artillery regiment (battery not stated by Heitman)",
+   "reason": "Regular artillery officers by regiment, battery not stated by the source"
+  },
+  {
+   "kind": "existing-file",
+   "file": "data/REG/u-1ri-cav.csv",
+   "unit_id": "U-1RI-CAV",
+   "rows": 2,
+   "regiment_as_in_file": "1st Rhode Island Cavalry (not in the repository OOB)",
+   "reason": "not in the OR organization table for July 1-3"
+  }
+ ],
  "kit_ids": [
   {
    "id": "US.ART.1st_US_H",
    "name": "1st US H",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-us-battery-h-1st-united-states-artillery"
+   ]
   },
   {
    "id": "US.ART.3rd_US_F_K",
    "name": "3rd US F&K",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-us-batteries-f-and-k-3rd-united-states-artillery"
+   ]
   },
   {
    "id": "US.ART.4th_US_C",
    "name": "4th US C",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-us-battery-c-4th-united-states-artillery"
+   ]
   },
   {
    "id": "US.ART.5th_US_C",
    "name": "5th US C",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-us-battery-c-5th-united-states-artillery"
+   ]
   },
   {
    "id": "US.ART.5th_Massachusetts",
    "name": "5th Massachusetts",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ma-5th-massachusetts-battery-e"
+   ]
   },
   {
    "id": "US.ART.9th_Massachusetts",
    "name": "9th Massachusetts",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ma-9th-massachusetts-battery"
+   ]
   },
   {
    "id": "US.ART.15th_New_York",
    "name": "15th New York",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ny-15th-new-york-independent-battery"
+   ]
   },
   {
    "id": "US.ART.Pa_Independent_C_F",
    "name": "Pa. Independent C & F",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-pa-pennsylvania-independent-batteries-c-and-f"
+   ]
   },
   {
    "id": "US.ART.1st_Conn_Heavy_B_and_H",
    "name": "1st Conn. Heavy B and H",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ct-battery-b-1st-connecticut-heavy-artillery",
+    "u-ct-battery-m-1st-connecticut-heavy-artillery"
+   ],
+   "note": "kit name says batteries B and H; the OR organization table prints Batteries B and M, 1st Connecticut Heavy Artillery (Brooker, Pratt); both OR units are attached, the kit text is not corrected"
   },
   {
    "id": "US.ART.2nd_Connecticut",
    "name": "2nd Connecticut",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ct-2nd-connecticut-light-battery"
+   ]
   },
   {
    "id": "US.ART.5th_New_York",
    "name": "5th New York",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ny-5th-new-york-independent-battery"
+   ]
   },
   {
    "id": "US.ART.1st_New_Hampshire",
    "name": "1st New Hampshire",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-nh-1st-new-hampshire-battery"
+   ]
   },
   {
    "id": "US.ART.1st_Ohio_H",
    "name": "1st Ohio H",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-oh-battery-h-1st-ohio-light-artillery"
+   ]
   },
   {
    "id": "US.ART.1st_Pennsylvania_F_G",
    "name": "1st Pennsylvania F&G",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-pa-batteries-f-and-g-1st-pennsylvania-light-artillery"
+   ]
   },
   {
    "id": "US.ART.W_Va_C",
    "name": "W.Va. C",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-wv-battery-c-west-virginia-light-artillery"
+   ]
   },
   {
    "id": "US.ART.Md_A",
    "name": "Md. A",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-md-battery-a-maryland-light-artillery"
+   ]
   },
   {
    "id": "US.ART.6th_Maine",
    "name": "6th Maine",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-me-6th-maine-battery-f"
+   ]
   },
   {
    "id": "US.ART.1st_NJ",
    "name": "1st NJ",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-nj-1st-new-jersey-battery-a"
+   ]
   },
   {
    "id": "US.ART.1st_NY_G",
    "name": "1st NY G",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ny-battery-g-1st-new-york-light-artillery"
+   ]
   },
   {
    "id": "US.ART.1st_NY_K_with_11th_NY_attached",
    "name": "1st NY K with 11th NY attached",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ny-battery-k-1st-new-york-light-artillery",
+    "u-ny-11th-new-york-independent-battery"
+   ]
   },
   {
    "id": "US.ART.2nd_Maine_B",
    "name": "2nd Maine B",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-me-2nd-maine-battery-b"
+   ]
   },
   {
    "id": "US.ART.5th_Maine_E",
    "name": "5th Maine E",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-me-5th-maine-battery-e"
+   ]
   },
   {
    "id": "US.ART.1st_NY_E_L",
    "name": "1st NY E & L",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ny-battery-l-1st-new-york-light-artillery",
+    "u-ny-battery-e-1st-new-york-light-artillery"
+   ]
   },
   {
    "id": "US.ART.1st_Pa_B",
    "name": "1st Pa. B",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-pa-battery-b-1st-pennsylvania-light-artillery"
+   ]
   },
   {
    "id": "US.ART.4th_US_B",
    "name": "4th US B",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-us-battery-b-4th-united-states-artillery"
+   ]
   },
   {
    "id": "US.ART.1st_NY_B",
    "name": "1st NY B",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ny-battery-b-1st-new-york-light-artillery"
+   ]
   },
   {
    "id": "US.ART.1st_RI_A",
    "name": "1st RI A",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ri-battery-a-1st-rhode-island-light-artillery"
+   ]
   },
   {
    "id": "US.ART.1st_RI_B",
    "name": "1st RI B",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ri-battery-b-1st-rhode-island-light-artillery"
+   ]
   },
   {
    "id": "US.ART.1st_US_I",
    "name": "1st US I",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-us-battery-i-1st-united-states-artillery"
+   ]
   },
   {
    "id": "US.ART.4th_US_A",
    "name": "4th US A",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-us-battery-a-4th-united-states-artillery"
+   ]
   },
   {
    "id": "US.ART.1st_NJ_B",
    "name": "1st NJ B",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-nj-2nd-new-jersey-battery-b"
+   ]
   },
   {
    "id": "US.ART.1st_NY_D",
    "name": "1st NY D",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ny-battery-d-1st-new-york-light-artillery"
+   ]
   },
   {
    "id": "US.ART.4th_NY",
    "name": "4th NY",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ny-4th-new-york-independent-battery"
+   ]
   },
   {
    "id": "US.ART.1st_RI_E",
    "name": "1st RI E",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ri-battery-e-1st-rhode-island-light-artillery"
+   ]
   },
   {
    "id": "US.ART.4th_US_K",
    "name": "4th US K",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-us-battery-k-4th-united-states-artillery"
+   ]
   },
   {
    "id": "US.ART.3rd_Mass",
    "name": "3rd Mass",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ma-3rd-massachusetts-battery-c"
+   ]
   },
   {
    "id": "US.ART.1st_NY_C",
    "name": "1st NY C",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ny-battery-c-1st-new-york-light-artillery"
+   ]
   },
   {
    "id": "US.ART.1st_Ohio_L",
    "name": "1st Ohio L",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-oh-battery-l-1st-ohio-light-artillery"
+   ]
   },
   {
    "id": "US.ART.5th_US_D",
    "name": "5th US D",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-us-battery-d-5th-united-states-artillery"
+   ]
   },
   {
    "id": "US.ART.5th_US_I",
    "name": "5th US I",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-us-battery-i-5th-united-states-artillery"
+   ]
   },
   {
    "id": "US.ART.1st_Mass",
    "name": "1st Mass",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ma-1st-massachusetts-battery-a"
+   ]
   },
   {
    "id": "US.ART.1st_NY",
    "name": "1st NY",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ny-1st-new-york-independent-battery"
+   ]
   },
   {
    "id": "US.ART.3rd_NY",
    "name": "3rd NY",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ny-3rd-new-york-independent-battery"
+   ]
   },
   {
    "id": "US.ART.1st_RI_C",
    "name": "1st RI C",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ri-battery-c-1st-rhode-island-light-artillery"
+   ]
   },
   {
    "id": "US.ART.1st_RI_G",
    "name": "1st RI G",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ri-battery-g-1st-rhode-island-light-artillery"
+   ]
   },
   {
    "id": "US.ART.2nd_US_D",
    "name": "2nd US D",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-us-battery-d-2nd-united-states-artillery"
+   ]
   },
   {
    "id": "US.ART.2nd_US_G",
    "name": "2nd US G",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-us-battery-g-2nd-united-states-artillery"
+   ]
   },
   {
    "id": "US.ART.5th_US_F",
    "name": "5th US F",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-us-battery-f-5th-united-states-artillery"
+   ]
   },
   {
    "id": "US.ART.1st_NY_I",
    "name": "1st NY I",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ny-battery-i-1st-new-york-light-artillery"
+   ]
   },
   {
    "id": "US.ART.13th_NY",
    "name": "13th NY",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ny-13th-new-york-independent-battery"
+   ]
   },
   {
    "id": "US.ART.1st_Ohio_I",
    "name": "1st Ohio I",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-oh-battery-i-1st-ohio-light-artillery"
+   ]
   },
   {
    "id": "US.ART.1st_Ohio_K",
    "name": "1st Ohio K",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-oh-battery-k-1st-ohio-light-artillery"
+   ]
   },
   {
    "id": "US.ART.4th_US_G",
    "name": "4th US G",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-us-battery-g-4th-united-states-artillery"
+   ]
   },
   {
    "id": "US.ART.1st_NY_M",
    "name": "1st NY M",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ny-battery-m-1st-new-york-light-artillery"
+   ]
   },
   {
    "id": "US.ART.Pa_E",
    "name": "Pa. E",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-pa-pennsylvania-independent-battery-e"
+   ]
   },
   {
    "id": "US.ART.4th_US_F",
    "name": "4th US F",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-us-battery-f-4th-united-states-artillery"
+   ]
   },
   {
    "id": "US.ART.5th_US_K",
    "name": "5th US K",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-us-battery-k-5th-united-states-artillery"
+   ]
   },
   {
    "id": "US.ART.9th_Mich",
    "name": "9th Mich.",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-mi-9th-michigan-battery"
+   ]
   },
   {
    "id": "US.ART.6th_NY",
    "name": "6th NY",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ny-6th-new-york-independent-battery"
+   ]
   },
   {
    "id": "US.ART.2nd_US_B_L",
    "name": "2nd US B & L",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-us-batteries-b-and-l-2nd-united-states-artillery"
+   ]
   },
   {
    "id": "US.ART.2nd_US_M",
    "name": "2nd US M",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-us-battery-m-2nd-united-states-artillery"
+   ]
   },
   {
    "id": "US.ART.4th_US_E",
    "name": "4th US E",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-us-battery-e-4th-united-states-artillery"
+   ]
   },
   {
    "id": "US.ART.1st_US_E_G",
    "name": "1st US E & G",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-us-batteries-e-and-g-1st-united-states-artillery"
+   ]
   },
   {
    "id": "US.ART.1st_US_K",
    "name": "1st US K",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-us-battery-k-1st-united-states-artillery"
+   ]
   },
   {
    "id": "US.ART.2nd_US_A",
    "name": "2nd US A",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-us-battery-a-2nd-united-states-artillery"
+   ]
   },
   {
    "id": "CS.ART.Ashland",
    "name": "Ashland battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-ashland-artillery"
+   ]
   },
   {
    "id": "CS.ART.Bedford",
    "name": "Bedford battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-bedford-artillery"
+   ]
   },
   {
    "id": "CS.ART.Brooks",
    "name": "Brooks battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-sc-brooks-artillery"
+   ]
   },
   {
    "id": "CS.ART.Madison_La",
    "name": "Madison La. battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-la-madison-light-artillery-louisiana"
+   ]
   },
   {
    "id": "CS.ART.Richmond",
    "name": "Richmond battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [],
+   "reason": "one of the two unnamed Virginia batteries of Alexander's battalion (OR table: Parker, Taylor); the PDF names them Richmond and Bath; not decided"
   },
   {
    "id": "CS.ART.Bath",
    "name": "Bath battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [],
+   "reason": "one of the two unnamed Virginia batteries of Alexander's battalion (OR table: Parker, Taylor); the PDF names them Richmond and Bath; not decided"
   },
   {
    "id": "CS.ART.Squires",
    "name": "Squires battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-la-washington-artillery-1st-company"
+   ]
   },
   {
    "id": "CS.ART.Richardson",
    "name": "Richardson battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-la-washington-artillery-2nd-company"
+   ]
   },
   {
    "id": "CS.ART.Miller",
    "name": "Miller battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-la-washington-artillery-3rd-company"
+   ]
   },
   {
    "id": "CS.ART.Norcom",
    "name": "Norcom battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-la-washington-artillery-4th-company"
+   ]
   },
   {
    "id": "CS.ART.1st_NC_A",
    "name": "1st NC A battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-nc-battery-a-1st-north-carolina-artillery"
+   ]
   },
   {
    "id": "CS.ART.Pulaski_GA",
    "name": "Pulaski GA battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-ga-pulaski-artillery"
+   ]
   },
   {
    "id": "CS.ART.1st_Richmond_Howitzers",
    "name": "1st Richmond Howitzers",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-1st-richmond-howitzers"
+   ]
   },
   {
    "id": "CS.ART.Troup_GA",
    "name": "Troup GA battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-ga-troup-artillery"
+   ]
   },
   {
    "id": "CS.ART.Fauquier",
    "name": "Fauquier battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-fauquier-artillery"
+   ]
   },
   {
    "id": "CS.ART.Hampden",
    "name": "Hampden battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-hampden-artillery"
+   ]
   },
   {
    "id": "CS.ART.Richmond_Fayette",
    "name": "Richmond Fayette battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-richmond-fayette-artillery"
+   ]
   },
   {
    "id": "CS.ART.Blount_s",
    "name": "Blount's battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-virginia-battery-blount"
+   ]
   },
   {
    "id": "CS.ART.Branch_NC",
    "name": "Branch NC battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-nc-branch-artillery"
+   ]
   },
   {
    "id": "CS.ART.Charleston_German_SC",
    "name": "Charleston German SC battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-sc-german-artillery"
+   ]
   },
   {
    "id": "CS.ART.Palmetto_SC",
    "name": "Palmetto SC battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-sc-palmetto-light-artillery"
+   ]
   },
   {
    "id": "CS.ART.Rowan_NC",
    "name": "Rowan NC battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-nc-rowan-artillery"
+   ]
   },
   {
    "id": "CS.ART.Charlottesville",
    "name": "Charlottesville battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-charlottesville-artillery"
+   ]
   },
   {
    "id": "CS.ART.Courtney",
    "name": "Courtney battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-courtney-artillery"
+   ]
   },
   {
    "id": "CS.ART.Louisiana_Guard",
    "name": "Louisiana Guard battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-la-louisiana-guard-artillery"
+   ]
   },
   {
    "id": "CS.ART.Staunton",
    "name": "Staunton battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-staunton-artillery"
+   ]
   },
   {
    "id": "CS.ART.1st_Md",
    "name": "1st Md battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-md-1st-maryland-battery"
+   ]
   },
   {
    "id": "CS.ART.Alleghany",
    "name": "Alleghany battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-alleghany-artillery"
+   ]
   },
   {
    "id": "CS.ART.Chesapeake",
    "name": "Chesapeake battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-md-chesapeake-artillery"
+   ]
   },
   {
    "id": "CS.ART.Lee",
    "name": "Lee battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-lee-battery"
+   ]
   },
   {
    "id": "CS.ART.Jefferson_Davis_AL",
    "name": "Jefferson Davis AL battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-al-jeff-davis-artillery"
+   ]
   },
   {
    "id": "CS.ART.King_William",
    "name": "King William battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-king-william-artillery"
+   ]
   },
   {
    "id": "CS.ART.Morris",
    "name": "Morris battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-morris-artillery"
+   ]
   },
   {
    "id": "CS.ART.Orange",
    "name": "Orange battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-orange-artillery"
+   ]
   },
   {
    "id": "CS.ART.2nd_and_3rd_Richmond_Howitzers",
    "name": "2nd and 3rd Richmond Howitzers",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-2nd-richmond-howitzers",
+    "c-va-3rd-richmond-howitzers"
+   ]
   },
   {
    "id": "CS.ART.Powhatan",
    "name": "Powhatan battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-powhatan-artillery"
+   ]
   },
   {
    "id": "CS.ART.Rockbridge",
    "name": "Rockbridge battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-rockbridge-artillery"
+   ]
   },
   {
    "id": "CS.ART.Salem",
    "name": "Salem battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-salem-artillery"
+   ]
   },
   {
    "id": "CS.ART.Amherst",
    "name": "Amherst battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-amherst-artillery"
+   ]
   },
   {
    "id": "CS.ART.Fluvanna",
    "name": "Fluvanna battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-fluvanna-artillery"
+   ]
   },
   {
    "id": "CS.ART.Milledge_GA",
    "name": "Milledge GA battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-ga-georgia-battery-milledge"
+   ]
   },
   {
    "id": "CS.ART.Donaldsonville",
    "name": "Donaldsonville battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-la-donaldsonville-artillery"
+   ]
   },
   {
    "id": "CS.ART.Huger",
    "name": "Huger battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-huger-artillery"
+   ]
   },
   {
    "id": "CS.ART.Lewis",
    "name": "Lewis battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-lewis-artillery"
+   ]
   },
   {
    "id": "CS.ART.Norfolk_Blues",
    "name": "Norfolk Blues battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-norfolk-light-artillery-blues"
+   ]
   },
   {
    "id": "CS.ART.Danville",
    "name": "Danville battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-danville-artillery"
+   ]
   },
   {
    "id": "CS.ART.HURT",
    "name": "Hardaway AL battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-al-hardaway-artillery"
+   ]
   },
   {
    "id": "CS.ART.2nd_Rockbridge",
    "name": "2nd Rockbridge battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-2nd-rockbridge-artillery"
+   ]
   },
   {
    "id": "CS.ART.Johnson_s",
    "name": "Johnson's battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-virginia-battery-johnson"
+   ]
   },
   {
    "id": "CS.ART.Crenshaw",
    "name": "Crenshaw battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-crenshaw-battery"
+   ]
   },
   {
    "id": "CS.ART.Fredericksburg",
    "name": "Fredericksburg battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-fredericksburg-artillery"
+   ]
   },
   {
    "id": "CS.ART.Letcher",
    "name": "Letcher battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-letcher-artillery"
+   ]
   },
   {
    "id": "CS.ART.Pee_Dee",
    "name": "Pee Dee battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-sc-pee-dee-artillery"
+   ]
   },
   {
    "id": "CS.ART.Purcell",
    "name": "Purcell battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-purcell-artillery"
+   ]
   },
   {
    "id": "CS.ART.Breathed",
    "name": "Breathed battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-breatheds-battery"
+   ]
   },
   {
    "id": "CS.ART.Chew",
    "name": "Chew battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-chews-battery"
+   ]
   },
   {
    "id": "CS.ART.Griffin",
    "name": "Griffin battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-md-griffins-maryland-battery"
+   ]
   },
   {
    "id": "CS.ART.Hart",
    "name": "Hart battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-sc-harts-battery"
+   ]
   },
   {
    "id": "CS.ART.McGregor",
    "name": "McGregor battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-mcgregors-battery"
+   ]
   },
   {
    "id": "CS.ART.Moorman",
    "name": "Moorman battery",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-moormans-battery"
+   ]
   },
   {
    "id": "CS.34VACAVBN",
    "name": "34th Virginia Cavalry Battalion (Witcher)",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-34th-virginia-cavalry-battalion"
+   ]
   },
   {
    "id": "US.CAV.3IN",
    "name": "3rd Indiana Cavalry",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-in-3rd-indiana-cavalry"
+   ]
   },
   {
    "id": "US.CAV.8IL",
    "name": "8th Illinois Cavalry",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-il-8th-illinois-cavalry"
+   ]
   },
   {
    "id": "US.CAV.8NY",
    "name": "8th New York Cavalry",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ny-8th-new-york-cavalry"
+   ]
   },
   {
    "id": "US.CAV.12IL",
    "name": "12th Illinois Cavalry",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-il-12th-illinois-cavalry"
+   ]
   },
   {
    "id": "US.CAV.6NY",
    "name": "6th New York Cavalry",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ny-6th-new-york-cavalry"
+   ]
   },
   {
    "id": "US.CAV.9NY",
    "name": "9th New York Cavalry",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ny-9th-new-york-cavalry"
+   ]
   },
   {
    "id": "US.CAV.17PA",
    "name": "17th Pennsylvania Cavalry",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-pa-17th-pennsylvania-cavalry"
+   ]
   },
   {
    "id": "US.CAV.3WV",
    "name": "3rd West Virginia Cavalry (Cos A, C)",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-wv-3rd-west-virginia-cavalry"
+   ]
   },
   {
    "id": "US.CAV.6PA",
    "name": "6th Pennsylvania Cavalry",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-pa-6th-pennsylvania-cavalry"
+   ]
   },
   {
    "id": "US.CAV.1US",
    "name": "1st US Cavalry",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-us-1st-united-states-cavalry"
+   ]
   },
   {
    "id": "US.CAV.2US",
    "name": "2nd US Cavalry",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-us-2nd-united-states-cavalry"
+   ]
   },
   {
    "id": "US.CAV.5US",
    "name": "5th US Cavalry",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-us-5th-united-states-cavalry"
+   ]
   },
   {
    "id": "US.CAV.6US",
    "name": "6th US Cavalry",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-us-6th-united-states-cavalry"
+   ]
   },
   {
    "id": "US.CAV.1MD",
    "name": "1st Maryland Cavalry (11 cos)",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-md-1st-maryland-cavalry"
+   ]
   },
   {
    "id": "US.CAV.PURNELL_A",
    "name": "Purnell Legion Co A",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-md-purnell-maryland-legion-cavalry-company-a"
+   ]
   },
   {
    "id": "US.CAV.1MA",
    "name": "1st Massachusetts Cavalry",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ma-1st-massachusetts-cavalry"
+   ]
   },
   {
    "id": "US.CAV.1NJ",
    "name": "1st New Jersey Cavalry",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-nj-1st-new-jersey-cavalry"
+   ]
   },
   {
    "id": "US.CAV.1PA",
    "name": "1st Pennsylvania Cavalry",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-pa-1st-pennsylvania-cavalry"
+   ]
   },
   {
    "id": "US.CAV.3PA",
    "name": "3rd Pennsylvania Cavalry",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-pa-3rd-pennsylvania-cavalry"
+   ]
   },
   {
    "id": "US.CAV.1ME",
    "name": "1st Maine Cavalry (10 cos)",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-me-1st-maine-cavalry"
+   ]
   },
   {
    "id": "US.CAV.10NY",
    "name": "10th New York Cavalry",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ny-10th-new-york-cavalry"
+   ]
   },
   {
    "id": "US.CAV.4PA",
    "name": "4th Pennsylvania Cavalry",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-pa-4th-pennsylvania-cavalry"
+   ]
   },
   {
    "id": "US.CAV.16PA",
    "name": "16th Pennsylvania Cavalry",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-pa-16th-pennsylvania-cavalry"
+   ]
   },
   {
    "id": "US.CAV.5NY",
    "name": "5th New York Cavalry",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-ny-5th-new-york-cavalry"
+   ]
   },
   {
    "id": "US.CAV.18PA",
    "name": "18th Pennsylvania Cavalry",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-pa-18th-pennsylvania-cavalry"
+   ]
   },
   {
    "id": "US.CAV.1VT",
    "name": "1st Vermont Cavalry",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-vt-1st-vermont-cavalry"
+   ]
   },
   {
    "id": "US.CAV.1WV",
    "name": "1st West Virginia Cavalry (10 cos)",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-wv-1st-west-virginia-cavalry"
+   ]
   },
   {
    "id": "US.CAV.1MICH",
    "name": "1st Michigan Cavalry",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-mi-1st-michigan-cavalry"
+   ]
   },
   {
    "id": "US.CAV.5MICH",
    "name": "5th Michigan Cavalry",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-mi-5th-michigan-cavalry"
+   ]
   },
   {
    "id": "US.CAV.6MICH",
    "name": "6th Michigan Cavalry",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-mi-6th-michigan-cavalry"
+   ]
   },
   {
    "id": "US.CAV.7MICH",
    "name": "7th Michigan Cavalry (10 cos)",
-   "army": "union"
+   "army": "union",
+   "units": [
+    "u-mi-7th-michigan-cavalry"
+   ]
   },
   {
    "id": "CS.CAV.1NC",
    "name": "1st North Carolina Cavalry",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-nc-1st-north-carolina-cavalry"
+   ]
   },
   {
    "id": "CS.CAV.1SC",
    "name": "1st South Carolina Cavalry",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-sc-1st-south-carolina-cavalry"
+   ]
   },
   {
    "id": "CS.CAV.2SC",
    "name": "2nd South Carolina Cavalry",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-sc-2nd-south-carolina-cavalry"
+   ]
   },
   {
    "id": "CS.CAV.COBB",
    "name": "Cobb's (Ga.) Legion",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-ga-cobbs-legion-cavalry"
+   ]
   },
   {
    "id": "CS.CAV.JDAVIS",
    "name": "Jeff Davis Legion",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-ms-jeff-davis-legion"
+   ]
   },
   {
    "id": "CS.CAV.PHILLIPS",
    "name": "Phillips (Ga.) Legion",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-ga-phillips-legion-cavalry"
+   ]
   },
   {
    "id": "CS.CAV.1VA",
    "name": "1st Virginia Cavalry",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-1st-virginia-cavalry"
+   ]
   },
   {
    "id": "CS.CAV.2VA",
    "name": "2nd Virginia Cavalry",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-2nd-virginia-cavalry"
+   ]
   },
   {
    "id": "CS.CAV.3VA",
    "name": "3rd Virginia Cavalry",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-3rd-virginia-cavalry"
+   ]
   },
   {
    "id": "CS.CAV.4VA",
    "name": "4th Virginia Cavalry",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-4th-virginia-cavalry"
+   ]
   },
   {
    "id": "CS.CAV.5VA",
    "name": "5th Virginia Cavalry",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-5th-virginia-cavalry"
+   ]
   },
   {
    "id": "CS.CAV.1MDBN",
    "name": "1st Maryland Battalion",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-md-1st-maryland-cavalry-battalion"
+   ]
   },
   {
    "id": "CS.CAV.2NC",
    "name": "2nd North Carolina Cavalry",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-nc-2nd-north-carolina-cavalry"
+   ]
   },
   {
    "id": "CS.CAV.9VA",
    "name": "9th Virginia Cavalry",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-9th-virginia-cavalry"
+   ]
   },
   {
    "id": "CS.CAV.10VA",
    "name": "10th Virginia Cavalry",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-10th-virginia-cavalry"
+   ]
   },
   {
    "id": "CS.CAV.13VA",
    "name": "13th Virginia Cavalry",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-13th-virginia-cavalry"
+   ]
   },
   {
    "id": "CS.CAV.14VA",
    "name": "14th Virginia Cavalry",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-14th-virginia-cavalry"
+   ]
   },
   {
    "id": "CS.CAV.16VA",
    "name": "16th Virginia Cavalry",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-16th-virginia-cavalry"
+   ]
   },
   {
    "id": "CS.CAV.17VA",
    "name": "17th Virginia Cavalry",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-17th-virginia-cavalry"
+   ]
   },
   {
    "id": "CS.CAV.36VABN",
    "name": "36th Virginia Battalion",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-36th-virginia-cavalry-battalion"
+   ]
   },
   {
    "id": "CS.CAV.6VA",
    "name": "6th Virginia Cavalry",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-6th-virginia-cavalry"
+   ]
   },
   {
    "id": "CS.CAV.7VA",
    "name": "7th Virginia Cavalry",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-7th-virginia-cavalry"
+   ]
   },
   {
    "id": "CS.CAV.11VA",
    "name": "11th Virginia Cavalry",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-11th-virginia-cavalry"
+   ]
   },
   {
    "id": "CS.CAV.4NC",
    "name": "4th North Carolina Cavalry",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-nc-4th-north-carolina-cavalry"
+   ]
   },
   {
    "id": "CS.CAV.5NC",
    "name": "5th North Carolina Cavalry",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-nc-5th-north-carolina-cavalry"
+   ]
   },
   {
    "id": "CS.CAV.12VA",
    "name": "12th Virginia Cavalry",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-12th-virginia-cavalry"
+   ]
   },
   {
    "id": "CS.CAV.18VA",
    "name": "18th Virginia Cavalry (Imboden)",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-18th-virginia-cavalry"
+   ]
   },
   {
    "id": "CS.CAV.62VA",
    "name": "62nd Virginia Mounted Infantry",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-62nd-virginia-infantry-mounted"
+   ]
   },
   {
    "id": "CS.CAV.MCNEILL",
    "name": "McNeill's Partisan Rangers",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-virginia-partisan-rangers-mcneill"
+   ]
   },
   {
    "id": "CS.CAV.35VABN",
    "name": "35th Virginia Battalion (White's \"Comanches\")",
-   "army": "confederate"
+   "army": "confederate",
+   "units": [
+    "c-va-35th-virginia-cavalry-battalion"
+   ]
   }
+ ],
+ "units_without_kit_id": [
+  "u-ny-2nd-new-york-cavalry",
+  "u-ny-4th-new-york-cavalry",
+  "u-ny-oneida-new-york-cavalry",
+  "u-ny-10th-new-york-independent-battery",
+  "u-ny-14th-new-york-independent-battery",
+  "u-pa-2nd-pennsylvania-cavalry",
+  "u-pa-8th-pennsylvania-cavalry",
+  "u-pa-battery-h-3rd-pennsylvania-heavy-artillery-section",
+  "u-oh-1st-ohio-cavalry",
+  "u-oh-6th-ohio-cavalry",
+  "u-in-1st-indiana-cavalry",
+  "u-us-battery-c-3rd-united-states-artillery",
+  "c-va-randolphs-company-virginia-cavalry",
+  "c-va-virginia-battery-parker",
+  "c-va-virginia-battery-taylor",
+  "c-va-albemarle-artillery",
+  "c-va-virginia-battery-brooke",
+  "c-va-jacksons-battery",
+  "c-va-virginia-battery-mcclanahan",
+  "c-nc-charlotte-artillery",
+  "c-ga-company-a-sumter-battalion",
+  "c-ga-company-b-sumter-battalion",
+  "c-ga-company-c-sumter-battalion",
+  "c-ms-madison-light-artillery-mississippi"
  ]
 }

@@ -1,8 +1,10 @@
-// Browser harness (not a gate): the loader of the added layers and panels in the real page, on WebGL2 with software GL. The list and three stand-in modules are answered from
+// Browser harness (not a gate): the loader of the added layers and panels in the real page, on WebGL2 with software GL. The list and two stand-in modules are answered from
 // memory by the browser's request routing: nothing is written into src/ext/, and whatever is in src/ext/ is not loaded by this run. It walks: a visit with no list, a visit
-// with ?ext=off, a visit with the stand-ins (the More tool, a switch, a panel, a module that fails, the Views block, update, the scene hook, Back), and a second entry.
+// with ?ext=off, a visit with the stand-ins (the More tool, a switch, a panel, a module that fails, the Views block, update, the scene hook, every form a panel function may
+// return, Back), and a second entry.
 //   node docs/battle-theatre/app/tests/ext-loader-browser.mjs [outDir] [light|full]
-// light (default): ?crowd=off&structures=off&fx=off, the quick look at the drawer. full: the shell as a viewer gets it (figures, structures, effects), slow on software GL.
+// light (default): ?crowd=off&structures=off&fx=off, the quick look at the drawer. full: the shell as a viewer gets it (figures, structures, effects), slow on software GL; it walks only
+// the third visit and the second entry, because the first two (no list, ?ext=off) do not depend on what is drawn.
 // Writes outDir/results.json and screenshots. Exit code 1 when a check fails. One browser at a time on a shared machine.
 import fs from 'node:fs'; import path from 'node:path'; import { fileURLToPath } from 'node:url';
 import { chromium } from '../../../../node_modules/playwright-core/index.mjs';
@@ -25,7 +27,7 @@ const paint = () => {
   G.on = on;
 };
 export async function init(c) {
-  ctx = c; on = false; G.inits++; G.on = false; G.ctxKeys = Object.keys(c).sort().join(','); G.frozen = Object.isFrozen(c); G.choicesType = typeof c.choices; G.choicesN = Object.keys(c.choices()).length; G.choicesSame = c.choices() === c.state.scenario.choices;
+  ctx = c; on = false; G.inits++; G.on = false; globalThis.__extReg = c.registerPanel; G.ctxKeys = Object.keys(c).sort().join(','); G.frozen = Object.isFrozen(c); G.choicesType = typeof c.choices; G.choicesN = Object.keys(c.choices()).length; G.choicesSame = c.choices() === c.state.scenario.choices;
   G.api = c.host.api; G.urlsData = c.urls.data; G.hasStructures = !!c.structures; G.stub = !!c.history.meta.stub; G.units = c.history.units.length; G.sameTheatre = c.theatre === window.btApp?.theatre || 'not exposed yet'; G.hasControls = !!c.theatre.controls && !!c.theatre.overlay && typeof c.theatre.openPanel === 'function';
   await new Promise(r => setTimeout(r, 20));
   c.registerLayerToggle('demo-marks', 'Stand-in layer', () => on, v => { on = v; paint(); });
@@ -39,7 +41,7 @@ export async function init(c) {
   removeHook = c.host.addSceneHook({ scene(pass, R) { G.hook++; G.hookArgs = (pass === c.host.R.gl) + ',' + (R === c.host.R); } });
 }
 export function update(f) { G.updates++; G.last = { tMin: f.tMin, dtMs: f.dtMs, paused: f.paused, speed: f.speed, camIsCam: f.cam === ctx.theatre.cam, keys: Object.keys(f).sort().join(','), stateT: ctx.state.t }; }
-export function dispose() { G.disposes++; if (badge) badge.remove(); badge = null; if (removeHook) removeHook(); removeHook = null; on = false; G.on = false; ctx = null; }
+export function dispose() { G.disposes++; delete globalThis.__extReg; if (badge) badge.remove(); badge = null; if (removeHook) removeHook(); removeHook = null; on = false; G.on = false; ctx = null; }
 `;
 const BROKEN = `
 const G = (globalThis.__extDemo ||= {});
@@ -68,13 +70,14 @@ async function session(query) {
   await page.goto(base + '?' + query, { waitUntil: 'load' });
   const enter = async () => { const t0 = Date.now(); await page.click('[data-bt-enter]'); await page.waitForFunction(() => (window.btApp && window.btApp.ready) || document.querySelector('.loading .fail'), null, { timeout: WAIT }); const ok = await page.evaluate(() => !!(window.btApp && window.btApp.ready)); if (!ok) throw new Error('the theatre did not start: ' + await page.evaluate(() => document.querySelector('.loading .fail')?.textContent)); await page.evaluate(() => window.btApp.frames(2)); return Date.now() - t0; };
   const leave = async () => { await page.click('#bt-back'); await page.waitForSelector('#landing:not([hidden])', { timeout: 60000 }); await page.waitForFunction(() => !window.btApp, null, { timeout: 20000 }); };
-  const shot = async name => { const f = path.join(out, name + '.png'); await page.screenshot({ path: f }); results.shots.push(f); };
+  const shot = async name => { await page.evaluate(() => (window.btApp ? window.btApp.frames(2) : null)); const f = path.join(out, name + '.png'); await page.screenshot({ path: f }); results.shots.push(f); };      // two drawn frames first: the picture then shows what the page already says
   return { ctx, page, log, enter, leave, shot, frames: n => page.evaluate(k => window.btApp.frames(k), n) };
 }
 
 try {
-  // ---------------- visit 1: no list
-  let s = await session(Q); routeMode = 'absent'; const ms1 = await s.enter(); results.notes.push(`entry (${mode}, no list): ${ms1} ms on software GL; not a timing measurement`);
+  // ---------------- visits 1 and 2 (light only: neither depends on the figures, the structures or the effects, so the full-shell run goes straight to the third visit)
+  let s; if (mode === 'light') {
+  s = await session(Q); routeMode = 'absent'; const ms1 = await s.enter(); results.notes.push(`entry (${mode}, no list): ${ms1} ms on software GL; not a timing measurement`);
   const a = await s.page.evaluate(() => ({ api: window.btApp.api, state: window.btApp.ext && window.btApp.ext.index.state, n: window.btApp.ext ? window.btApp.ext.status().length : -1, hidden: document.querySelector('#bt-more').hidden, problems: window.btApp.ext ? window.btApp.ext.problems().length : -1 }));
   check('no list: the theatre runs on webgl2', a.api === 'webgl2', a); check('no list: index.state is "absent", no module, no problem', a.state === 'absent' && a.n === 0 && a.problems === 0, a); check('no list: the More tool stays hidden', a.hidden === true);
   check('no list: exactly one request for the list (HEAD), nothing else under src/ext/', extRequests.length === 1 && extRequests[0] === 'HEAD index.mjs (absent)', extRequests.slice());
@@ -86,7 +89,7 @@ try {
   extRequests.length = 0; routeMode = 'demo'; s = await session(Q + '&ext=off'); await s.enter();
   const b = await s.page.evaluate(() => ({ ext: window.btApp.ext == null, hidden: document.querySelector('#bt-more').hidden, demo: typeof globalThis.__extDemo }));
   check('?ext=off: no loader, no request under src/ext/, no module ran', b.ext && b.hidden && b.demo === 'undefined' && extRequests.length === 0, { b, extRequests: extRequests.slice() }); check('?ext=off: clean console', s.log.errors.length === 0 && s.log.pageerrors.length === 0, s.log);
-  await s.leave(); await s.ctx.close();
+  await s.leave(); await s.ctx.close(); }
 
   // ---------------- visit 3: the stand-in modules
   extRequests.length = 0; routeMode = 'demo'; s = await session(Q); const P = s.page; const ms3 = await s.enter(); results.notes.push(`entry (${mode}, two stand-in modules): ${ms3} ms on software GL; not a timing measurement`);
@@ -109,8 +112,8 @@ try {
   check('perf().phases.ext exists', typeof u.phases.ext === 'number' && u.phases.ext >= 0, u.phases);
 
   // the More tool and its drawer
-  const tool = await P.evaluate(() => { const b = document.querySelector('#bt-more'); return { hidden: b.hidden, alert: b.dataset.alert, expanded: b.getAttribute('aria-expanded'), text: b.textContent.trim(), title: b.title }; });
-  check('the More tool is shown, with the alert dot because a module is not running', tool.hidden === false && tool.alert === 'true' && tool.expanded === 'false' && tool.text === 'More', tool);
+  const tool = await P.evaluate(() => { const b = document.querySelector('#bt-more'); return { hidden: b.hidden, alert: b.dataset.alert, expanded: b.getAttribute('aria-expanded'), text: b.textContent.trim(), title: b.title, label: b.getAttribute('aria-label') }; });
+  check('the More tool is shown, with the alert dot because a module is not running, and its name says so too', tool.hidden === false && tool.alert === 'true' && tool.expanded === 'false' && tool.text === 'More' && tool.label === 'More, 1 part of the page not running' && tool.title === '1 part of the page not running', tool);
   await P.click('#bt-more'); await P.waitForSelector('#bt-drawer:not([hidden])');
   const d = await P.evaluate(() => { const q = s => document.querySelector(s), body = q('#bt-drawer-body'); return { title: q('#bt-drawer-title').textContent, expanded: q('#bt-more').getAttribute('aria-expanded'), box: !!body.querySelector('#xl-block input[data-xlayer="demo-marks"]'), checked: body.querySelector('input[data-xlayer="demo-marks"]')?.checked, label: body.querySelector('#xl-block label')?.textContent.trim(), panels: [...body.querySelectorAll('.xp-item')].map(b => b.dataset.xpanel + ':' + b.textContent.trim()), bad: [...body.querySelectorAll('.xp-bad li')].map(li => li.textContent.trim()), heads: [...body.querySelectorAll('h3')].map(h => h.textContent) }; });
   check('More drawer: title, the switch (off), the panel list, the module that is not running with its reason', d.title === 'More layers and panels' && d.expanded === 'true' && d.box && d.checked === false && d.label === 'Stand-in layer' && d.panels.join() === 'demo-panel:Stand-in panel' && d.bad.length === 1 && /^demo-broken\.mjs could not be started: stand-in failure for the test$/.test(d.bad[0]) && d.heads.join() === 'Layers,Panels,Not running in this visit', d);
@@ -149,20 +152,43 @@ try {
   // switching between the shell's own panels ends the one that is replaced
   await P.click('[data-panel=info]'); await P.click('[data-panel=settings]'); const sc = await P.evaluate(() => ({ info: window.btApp.theatre.PANELS.info.dispose == null, settings: typeof window.btApp.theatre.PANELS.settings.dispose })); await P.keyboard.press('Escape');
   check('a replaced panel is ended (About, then Settings: About holds no scope any more)', sc.info === true && sc.settings === 'function', sc);
+  // what a panel function may give back: an HTML string, a node, a cleanup function, an object with dispose(), a promise of these; a throw; a rejection; a result that arrives after the panel was closed
+  await P.evaluate(() => {
+    const G = globalThis.__extDemo, reg = globalThis.__extReg; G.forms = { cleaned: [] };
+    reg('f-str', 'Form: string', () => '<p id="f-p">string form</p>');
+    reg('f-node', 'Form: node', () => { const n = document.createElement('p'); n.id = 'f-p'; n.textContent = 'node form'; return n; });
+    reg('f-fn', 'Form: cleanup function', b => { b.innerHTML = '<p id="f-p">function form</p>'; return () => G.forms.cleaned.push('fn'); });
+    reg('f-obj', 'Form: dispose object', b => { b.innerHTML = '<p id="f-p">object form</p>'; return { dispose() { G.forms.cleaned.push('obj'); } }; });
+    reg('f-async', 'Form: promise', async b => { await new Promise(r => setTimeout(r, 40)); b.innerHTML = '<p id="f-p">promise form</p>'; return () => G.forms.cleaned.push('async'); });
+    reg('f-late', 'Form: late result', () => new Promise(r => setTimeout(() => r(() => G.forms.cleaned.push('late')), 500)));
+    reg('f-throw', 'Form: throws', () => { throw new Error('form render threw'); });
+    reg('f-reject', 'Form: rejects', async () => { throw new Error('form render rejected'); });
+  });
+  const form = async (id, wait = 150) => { await P.evaluate(i => window.btApp.theatre.openPanel(i), id); await P.waitForTimeout(wait); return P.evaluate(() => ({ text: document.querySelector('.xp-body')?.textContent.trim() || '', has: !!document.querySelector('.xp-body #f-p'), fail: document.querySelector('.xp-body .fail')?.textContent.trim() || null, cleaned: [...globalThis.__extDemo.forms.cleaned] })); };
+  const closed = async () => { await P.keyboard.press('Escape'); await P.waitForTimeout(60); return P.evaluate(() => ({ cleaned: [...globalThis.__extDemo.forms.cleaned], open: window.btApp.state.panel })); };
+  const F = {}; F.str = await form('f-str'); await closed(); F.node = await form('f-node'); await closed(); F.fn = await form('f-fn'); const fnClosed = await closed(); F.obj = await form('f-obj'); const objClosed = await closed();
+  F.async = await form('f-async', 300); const asyncClosed = await closed(); await form('f-late', 50); const lateClosed = await closed(); await P.waitForTimeout(800); F.late = await P.evaluate(() => ({ cleaned: [...globalThis.__extDemo.forms.cleaned], open: window.btApp.state.panel }));
+  F.throws = await form('f-throw'); await closed(); F.rejects = await form('f-reject'); const rejClosed = await closed(); const modState = await P.evaluate(() => window.btApp.ext.status()[0].state);
+  check('panel function forms: an HTML string replaces the content; a node is appended', F.str.text === 'string form' && F.node.text === 'node form' && F.node.has, { str: F.str, node: F.node });
+  check('panel function forms: a cleanup function and an object with dispose() are called when the panel closes, not before', F.fn.text === 'function form' && F.fn.cleaned.join() === '' && fnClosed.cleaned.join() === 'fn' && F.obj.text === 'object form' && objClosed.cleaned.join() === 'fn,obj' && objClosed.open === null, { fn: F.fn, fnClosed, obj: F.obj, objClosed });
+  check('panel function forms: a promise of content is drawn when it settles, its cleanup is called on close', F.async.text === 'promise form' && asyncClosed.cleaned.join() === 'fn,obj,async', { async: F.async, asyncClosed });
+  check('panel function forms: a result that arrives after the panel was closed is not kept: its cleanup is called', lateClosed.cleaned.join() === 'fn,obj,async' && F.late.cleaned.join() === 'fn,obj,async,late' && F.late.open === null, { lateClosed, late: F.late });
+  check('panel function forms: a throw and a rejection show "could not be drawn" with the message, the drawer stays usable, the module keeps running', /could not be drawn: form render threw/.test(F.throws.fail || '') && /could not be drawn: form render rejected/.test(F.rejects.fail || '') && rejClosed.open === null && modState === 'running', { throws: F.throws.fail, rejects: F.rejects.fail, rejClosed, modState });
   // play and speed reach the frame
   await P.evaluate(() => { window.btApp.setSpeed(4); window.btApp.setPlaying(true); }); await s.frames(3); const pl = await P.evaluate(() => ({ ...globalThis.__extDemo.last })); await P.evaluate(() => { window.btApp.setPlaying(false); window.btApp.setSpeed(1); });
   check('while playing: paused is false and speed is the chosen speed', pl.paused === false && pl.speed === 4 && pl.tMin === pl.stateT, pl);
   // Back
-  const before = await P.evaluate(() => ({ hook: globalThis.__extDemo.hook, updates: globalThis.__extDemo.updates })); await s.leave(); await P.waitForTimeout(300);
-  const bk = await P.evaluate(() => ({ G: { ...globalThis.__extDemo, last: undefined }, badge: !!document.querySelector('#demo-badge'), theatre: !!document.querySelector('#theatre'), app: typeof window.btApp }));
-  check('Back: dispose() once for the running module (the failed one was ended when it failed), nothing left in the page, no call afterwards', bk.G.disposes === 1 && bk.G.brokenDisposes === 1 && !bk.badge && !bk.theatre && bk.app === 'undefined' && bk.G.updates === before.updates && bk.G.hook === before.hook, { bk, before });
+  await s.leave(); const after = await P.evaluate(() => ({ hook: globalThis.__extDemo.hook, updates: globalThis.__extDemo.updates })); await P.waitForTimeout(600);        // the counters are read once Back has finished and again 600 ms later: frames run until the click lands, none after
+  const bk = await P.evaluate(() => ({ G: { ...globalThis.__extDemo, last: undefined }, badge: !!document.querySelector('#demo-badge'), theatre: !!document.querySelector('#theatre'), app: typeof window.btApp, reg: typeof globalThis.__extReg }));
+  check('Back: dispose() once for the running module (the failed one was ended when it failed), nothing left in the page, no update or scene-hook call after Back', bk.G.disposes === 1 && bk.G.brokenDisposes === 1 && !bk.badge && !bk.theatre && bk.app === 'undefined' && bk.reg === 'undefined' && bk.G.updates === after.updates && bk.G.hook === after.hook, { bk, after });
   // a second entry: the browser keeps the module, init is called again on it
   await s.enter(); const re = await P.evaluate(() => ({ G: { ...globalThis.__extDemo, last: undefined }, checked: window.btApp.ext.toggleState('demo-marks'), status: window.btApp.ext.status().map(x => x.path + ':' + x.state), hidden: document.querySelector('#bt-more').hidden }));
   check('second entry: init again on the same module objects, state reset, the tool is back', re.G.inits === 2 && re.G.disposes === 1 && re.checked === false && re.status.join() === 'demo-layer.mjs:running,demo-broken.mjs:failed' && re.hidden === false, re);
   check('second entry: the modules are not fetched again (one request each in the page\'s life)', extRequests.filter(x => /^GET demo-/.test(x)).length === 2, extRequests.slice());
   await s.leave(); const end = await P.evaluate(() => ({ disposes: globalThis.__extDemo.disposes, broken: globalThis.__extDemo.brokenDisposes }));
   check('second Back: dispose again, once', end.disposes === 2 && end.broken === 2, end);
-  check('the whole visit: console errors are only the stand-in failure, once per entry; no page error; no failed request', s.log.errors.length === 2 && s.log.errors.every(x => /ext demo-broken\.mjs: init failed; it is skipped/.test(x)) && s.log.pageerrors.length === 0 && s.log.failed.length === 0, s.log);
+  const brokenErr = s.log.errors.filter(x => /ext demo-broken\.mjs: init failed; it is skipped/.test(x)), formErr = s.log.errors.filter(x => /ext demo-layer\.mjs: panel 'f-(throw|reject)' could not be drawn/.test(x));
+  check('the whole visit: console errors are only the stand-in failure (once per entry) and the two panel functions that fail on purpose; no page error; no failed request', brokenErr.length === 2 && formErr.length === 2 && s.log.errors.length === 4 && s.log.pageerrors.length === 0 && s.log.failed.length === 0, s.log);
   results.warnings = [...new Set(s.log.warnings)]; await s.ctx.close();
 } catch (e) { check('the harness ran to the end', false, String(e.stack || e).slice(0, 900)); }
 finally { save(); await br.close().catch(() => {}); await new Promise(r => srv.close(r)); }

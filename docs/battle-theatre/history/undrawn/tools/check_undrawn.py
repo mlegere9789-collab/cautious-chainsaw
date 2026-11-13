@@ -54,6 +54,7 @@ UNIT_ACTIONS = ['add', 'absent', 'attached', 'merge', 'fix', 'status', 'rename']
 UNITS_PER = {'yards': 0.9144, 'feet': 0.3048, 'miles': 1609.344, 'rods': 5.0292, 'm': 1.0}      # exact definitions; a pace has no fixed length here: unit 'paces' carries m null
 GAP_WHAT = ['arrival', 'positions', 'path', 'strength', 'departure', 'roster']
 MAX_QUOTE_WORDS, MAX_PLACE_WORDS = 14, 30
+MAX_PASSAGE_CHARS = 4000                  # the passage read (source.passage) is the sentences that support the claim, not a report: longer is split into records with a passage each
 DATE_LO, DATE_HI = '1863-06-25', '1863-07-15'
 ID_RE = re.compile(r'^U-([a-z0-9]+(?:-[a-z0-9]+)*)-(\d{4})$')
 UNIT_RE = re.compile(r'^[a-z0-9]+(?:-[a-z0-9]+)*$')
@@ -157,6 +158,27 @@ def find_quote(repo, source_id, quote, declared=None):
     return hits
 
 
+def view_of(repo, source_id, declared=None):
+    """-> (folded normalized text, nmap) of a source, as find_quote reads it; call after a successful find_quote of the same source."""
+    src = repo.sources.get(source_id) or (declared or {}).get(source_id)
+    if src['kind'] == 'or27':
+        import or27_find as F
+        P = F.get_part(src['part']); nt = getattr(P, '_folded', None)
+        if nt is None: nt = P._folded = fold(P.ntext)
+        return nt, P.nmap
+    if src['kind'] == 'statevol':
+        V = _texts[('sv', src['key'])]
+        return V.ntext, V.nmap
+    nt, nmap, _ = _generic(os.path.join(ROOT, src['path']))
+    return nt, nmap
+
+
+def passage_view(repo, source_id, a, b, declared=None):
+    """The normalized, case-folded words of the original-offset span [a, b) of a source: what a `printed` field of a record must be found in."""
+    nt, nmap = view_of(repo, source_id, declared)
+    return nt[bisect.bisect_left(nmap, a):bisect.bisect_left(nmap, b)].lower()
+
+
 # ------------------------------------------------------------------------------------------------ printed clocks (the rule of app/src/history/claim-clock.mjs)
 NUM = r'(\d{1,2})(?:[.:]\s*\.?\s*(\d{2}))?'
 
@@ -188,7 +210,7 @@ words = lambda s: len(str(s or '').split())
 class Check:
     def __init__(self, repo, known_ids=None, declared_units=None):
         self.repo, self.err, self.warn, self.nosrc = repo, [], [], []
-        self.known_ids = set(known_ids or []); self.declared_units = set(declared_units or [])
+        self.known_ids = set(known_ids or []); self.declared_units = set(declared_units or []); self.passage_lc = None
 
     def E(self, at, msg): self.err.append('%s: %s' % (at, msg))
     def W(self, at, msg): self.warn.append('%s: %s' % (at, msg))
@@ -294,7 +316,10 @@ class Check:
         off = s.get('quote_offset')
         hit = next((h for h in hits if h['offset'] == off), None)
         if hit is None: return self.E(at, 'source.quote_offset %s is not where the quote stands in %s (found at %s)' % (off, sid, ', '.join(str(h['offset']) for h in hits[:6])))
-        if isinstance(pas, list) and len(pas) == 2 and all(isinstance(x, int) for x in pas) and not (pas[0] <= hit['offset'] and hit['end'] <= pas[1]): self.E(at, 'source.passage does not contain the quote')
+        if isinstance(pas, list) and len(pas) == 2 and all(isinstance(x, int) for x in pas):
+            if not (pas[0] <= hit['offset'] and hit['end'] <= pas[1]): self.E(at, 'source.passage does not contain the quote')
+            elif pas[1] - pas[0] > MAX_PASSAGE_CHARS: self.E(at, 'source.passage is %d characters (at most %d): give the sentences that state the claim, and split a longer reading into records' % (pas[1] - pas[0], MAX_PASSAGE_CHARS))
+            else: self.passage_lc = passage_view(self.repo, sid, pas[0], pas[1], declared)
         if src['kind'] == 'or27':
             if s.get('report_id') not in self.repo.orx: self.E(at, 'source.report_id %s is not in the OR index' % s.get('report_id'))
             elif hit['report_id'] != s['report_id']: self.E(at, 'the quote stands in %s, not in source.report_id %s' % (hit['report_id'], s['report_id']))
@@ -305,6 +330,29 @@ class Check:
             elif hit['section'] != s['section']: self.E(at, 'the quote stands in %s, not in source.section %s' % (hit['section'], s['section']))
             if s.get('printed_page') in (None, ''): self.E(at, 'source.printed_page is required for an indexed volume (the page of the model: %s)' % hit['page'])
         return src
+
+    def in_passage(self, at, what, text, soft):
+        """A `printed` field is the words as the text prints them: it must stand in the passage read (case, spacing, line-break hyphenation and typographic quotes folded; the OCR as it stands)."""
+        if self.passage_lc is None or not isinstance(text, str) or not text.strip(): return
+        q = fold(norm_query(text)).lower()
+        if any(c in self.passage_lc for c in (q, re.sub(r'(\w)- (\w)', r'\1\2', q), re.sub(r'(\w)-(\w)', r'\1\2', q))): return
+        (self.W if soft else self.E)(at, '%s "%s" is not in the passage read (source.passage): copy the words as the text prints them, or move source.passage' % (what, str(text)[:70]))
+
+    def printed_checks(self, at, r):
+        soft = r.get('ocr_uncertain') is True
+        for nm in ('when', 'until'):
+            w = r.get(nm)
+            if isinstance(w, dict): self.in_passage(at, nm + '.printed', w.get('printed'), soft)
+        pl = r.get('place')
+        for key, x in (('place', pl), ('from', r.get('from')), ('to', r.get('to'))):
+            if isinstance(x, dict):
+                self.in_passage(at, key + '.printed', x.get('printed'), soft)
+                rel = x.get('relation')
+                if isinstance(rel, dict) and isinstance(rel.get('distance'), dict): self.in_passage(at, key + '.relation.distance.printed', rel['distance'].get('printed'), soft)
+        for key in ('road', 'facing', 'strength', 'absent', 'road_identification'):
+            x = r.get(key)
+            if isinstance(x, dict):
+                for f in ('printed', 'printed_name', 'where_printed', 'duty_printed'): self.in_passage(at, key + '.' + f, x.get(f), soft)
 
     def record(self, n, r, gid, declared):
         at = 'line %d' % n
@@ -349,7 +397,9 @@ class Check:
             elif not os.path.exists(os.path.join(ROOT, g['register'])): self.W(at, 'the proposed register entry %s does not exist yet' % g['register'])
             return
         if t == 'open gap': self.E(at, 'tier "open gap" is for gap records only')
+        self.passage_lc = None
         src = self.source(at, r, declared) or {}
+        self.printed_checks(at, r)
         role = (r.get('source') or {}).get('author_role')
         if t == 'documented':
             if role not in ROLES_DOCUMENTED: self.E(at, 'tier documented needs an officer, participant, official table or map as the author (role %s is at most inferred)' % role)

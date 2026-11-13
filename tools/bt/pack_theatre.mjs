@@ -54,7 +54,7 @@ export const KNOWN_COMPUTED = [];
 const SKIP_IN_FOLDERS = /(^|\/)\.[^/]+$|\.(md|map|orig|bak|tmp|log)$|~$|\.(test|spec)\.[mc]?js$/i;
 const CODE_EXT = /\.(mjs|js)$/i, FILE_EXT = 'json|jsonl|bin|png|jpe?g|webp|gif|svg|glb|gltf|ktx2|wav|ogg|mp3|m4a|flac|wasm|csv|txt|geojson|css|html?|mjs|js|woff2?|ttf|otf|md';
 
-const IMPORT_RE = /(?<![\w$.'"`])(?:import|export)\s*(?:[^'";]*?\sfrom\s*)?['"]([^'"\n]+)['"]|(?<![\w$.])import\(\s*['"]([^'"\n]+)['"]\s*[),]/g;   // [1] static, [2] import('literal')
+export const IMPORT_RE = /(?<![\w$.'"`])(?:import|export)\s*(?:[^'";]*?\sfrom\s*)?['"]([^'"\n]+)['"]|(?<![\w$.])import\(\s*['"]([^'"\n]+)['"]\s*[),]/g;   // [1] static, [2] import('literal')
 const IMPORT_CALL_RE = /(?<![\w$.])import\(\s*([^)]{0,200})/g;                                                                              // every import( call, classified below
 const MODULE_NAME = /^(?:node:[\w/.-]+|(?:@[\w.-]+\/)?[\w.-]+(?:\/[\w./-]+)*)$/;                                                             // a bare module name (anything else the pattern caught is not an import)
 const URLS_CAT_RE = /\b(URLS|urls)\.([A-Za-z_]\w*)\s*\+\s*(?:(['"])([^'"]*)\3|`([^`]*)`)(\s*\+)?/g;                                         // URLS.data + 'file' | URLS.data + `figures3d/${name}.json` | URLS.data + 'tiles/' + z
@@ -63,7 +63,7 @@ const META_URL_RE = /new URL\(\s*(?:(['"])([^'"]*)\1|`([^`]*)`)\s*(\+[^,]*)?,\s*
 const DOC_REF_RE = /\b(fetch|new\s+(?:Shared)?Worker|new\s+Audio|addModule|importScripts|serviceWorker\.register)\(\s*(?:(['"])([^'"]*)\2|`([^`]*)`)\s*(\+)?/g;   // resolved against the page
 const SRC_ASSIGN_RE = new RegExp(String.raw`\.(?:src|href)\s*=\s*(['"])([^'"]+\.(?:${FILE_EXT}))\1`, 'g');
 const LITERAL_RE = new RegExp(String.raw`(['"\`])((?:\.{0,2}\/)?[\w@.-]+(?:\/[\w@.-]+)*\.(?:${FILE_EXT}))\1`, 'g');                           // a whole string that is a file path
-const CSS_URL_RE = /url\(\s*(['"]?)([^'")]+)\1\s*\)|@import\s+(['"])([^'"]+)\3/g;
+export const CSS_URL_RE = /url\(\s*(['"]?)([^'")]+)\1\s*\)|@import\s+(['"])([^'"]+)\3/g;
 const EXTERNAL = /^(?:[a-z][a-z0-9+.-]*:|\/\/|#)/i;
 
 function walk(dir) { const o = []; for (const e of fs.readdirSync(dir, { withFileTypes: true }).sort((a, b) => a.name < b.name ? -1 : 1)) { const p = path.join(dir, e.name); if (e.isDirectory()) o.push(...walk(p)); else o.push(p); } return o; }
@@ -369,12 +369,13 @@ export function pack({ root = BT, out = path.join(REPO, 'deliver/bt-staging/dist
   const res = { version, out, files: names.length, bytes: names.reduce((a, n) => a + emitted.get(n).length, 0), traced: files,
     counts: { modules: count(/^app\/src\/.*\.mjs$/), modulesLoaded: t.modules.loaded.length, appData: count(/^app\/data\//), sectionFiles: t.sections.reduce((a, s) => a + s.files, 0), renderer: count(/^render\//), other: files.length - count(/^app\/src\/.*\.mjs$/) - count(/^app\/data\//) - count(/^render\//) },
     trace: { notes: t.notes, withheld: t.withheld, projected: t.projected, sections: t.sections, pages: t.pages, modules: t.modules, computedImports: t.computedImports, unshippedLiterals: t.unshippedLiterals, external: t.external, why: t.why } };
-  if (zip) {
-    const zbuf = makeZip(names.map(name => ({ name, data: emitted.get(name) }))), zn = `gettysburg-BT-staging-${version}.zip`; fs.mkdirSync(zipDir, { recursive: true });
+  res.audit = audit(out); res.auditReview = auditReview(out);
+  if (zip) {   // a build that fails the copy audit never gets the clean name: the name says so (the owner decides what to do with it; GOVERNANCE/FINAL-ACCEPTANCE.md accepts only a clean one)
+    const zbuf = makeZip(names.map(name => ({ name, data: emitted.get(name) }))), zn = `gettysburg-BT-staging-${version}${res.audit.length ? '-AUDIT-HITS-' + res.audit.length : ''}.zip`; fs.mkdirSync(zipDir, { recursive: true });
     fs.writeFileSync(path.join(zipDir, zn), zbuf); res.zip = path.join(zipDir, zn); res.zipBytes = zbuf.length; res.zipSha256 = sha(zbuf);
     fs.writeFileSync(res.zip + '.sha256', `${res.zipSha256}  ${zn}\n`);
   }
-  res.audit = audit(out); res.auditReview = auditReview(out);
+  res.clean = res.audit.length === 0;
   // the trace report sits beside the dist, never inside it
   fs.writeFileSync(path.join(path.dirname(out), 'trace-report.json'), JSON.stringify({ version, zip: res.zip ? path.basename(res.zip) : null, zipBytes: res.zipBytes, zipSha256: res.zipSha256, files: res.files, bytes: res.bytes, counts: res.counts, ...res.trace, audit: res.audit, auditReview: res.auditReview }, null, 1) + '\n');
   return res;
@@ -384,9 +385,9 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const a = process.argv.slice(2), opt = k => { const i = a.indexOf(k); return i >= 0 ? path.resolve(a[i + 1]) : undefined; };
   const r = pack({ out: opt('--out'), zipDir: opt('--zip-dir'), zip: !a.includes('--no-zip') }), t = r.trace;
   const review = Object.fromEntries(Object.entries(r.auditReview).map(([k, v]) => [k, v.count]));
-  console.log(JSON.stringify({ version: r.version, out: r.out, files: r.files, bytes: r.bytes, zip: r.zip, zipBytes: r.zipBytes, zipSha256: r.zipSha256, counts: r.counts, pages: t.pages.length, sections: t.sections.map(s => `${s.path} (${s.files} files)`),
+  console.log(JSON.stringify({ version: r.version, out: r.out, files: r.files, bytes: r.bytes, zip: r.zip, zipBytes: r.zipBytes, zipSha256: r.zipSha256, clean: r.clean, counts: r.counts, pages: t.pages.length, sections: t.sections.map(s => `${s.path} (${s.files} files)`),
     withheld: t.withheld.map(w => `${w.pattern}: ${w.files} files`), reduced: t.projected.map(p => p.path), computedImports: t.computedImports.filter(c => c.status !== 'address').map(c => `${c.status}: ${c.file}: ${c.arg}`),
     unshippedLiterals: t.unshippedLiterals.length, external: t.external, notes: t.notes.length, auditHits: r.audit.length, internalWordsForReview: review }, null, 1));
   console.log('trace report: ' + path.join(path.dirname(r.out), 'trace-report.json'));
-  if (r.audit.length) { console.error('COPY AUDIT HITS:'); for (const h of r.audit) console.error(' ', JSON.stringify(h)); process.exit(2); }
+  if (r.audit.length) { console.error('COPY AUDIT HITS:'); for (const h of r.audit) console.error(' ', JSON.stringify(h)); console.error(`NOT AN ACCEPTABLE BUILD: ${r.audit.length} hit(s). ${r.zip ? 'The zip carries "-AUDIT-HITS-' + r.audit.length + '" in its name so that it is never taken for a clean one. ' : ''}Fix the source file named by each hit (or ask its owner), then pack again.`); process.exit(2); }
 }

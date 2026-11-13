@@ -1,0 +1,622 @@
+{
+ "gates_keys_in_file_order": [
+  "Q01",
+  "Q02",
+  "Q03",
+  "Q04",
+  "Q05",
+  "Q06",
+  "Q07",
+  "Q08",
+  "Q09",
+  "Q10",
+  "Q11",
+  "Q12",
+  "Q13",
+  "Q14",
+  "Q15",
+  "Q16",
+  "Q17",
+  "Q18",
+  "Q19",
+  "Q20",
+  "Q21",
+  "Q22",
+  "Q23",
+  "Q24",
+  "Q25",
+  "Q26",
+  "Q28",
+  "Q27"
+ ],
+ "requirements": 22,
+ "sub_requirements": 966,
+ "origin": {
+  "pdf": 957,
+  "owner_chat": 9
+ },
+ "source_status": {
+  "seeded_unverified": 966
+ },
+ "passes_true": 0,
+ "sub_fields": [
+  "gate_ids",
+  "id",
+  "origin",
+  "owner_decision_ids",
+  "passes",
+  "register_ids",
+  "requirement_id",
+  "source_status",
+  "text"
+ ],
+ "rows_per_gate": {
+  "Q01": 2,
+  "Q02": 48,
+  "Q03": 19,
+  "Q04": 2,
+  "Q05": 1,
+  "Q06": 1,
+  "Q07": 91,
+  "Q08": 22,
+  "Q09": 90,
+  "Q10": 1,
+  "Q11": 2,
+  "Q12": 695,
+  "Q13": 2,
+  "Q14": 20,
+  "Q15": 1,
+  "Q16": 47,
+  "Q17": 708,
+  "Q18": 1,
+  "Q19": 49,
+  "Q20": 2,
+  "Q21": 1,
+  "Q22": 1,
+  "Q23": 1,
+  "Q24": 2,
+  "Q25": 48,
+  "Q26": 2,
+  "Q27": 2,
+  "Q28": 15
+ },
+ "rows_without_gate": [
+  "OA01.0000",
+  "OA02.0000",
+  "OA03.0000",
+  "OA04.0000",
+  "OA05.0000",
+  "OA06.0000",
+  "OA07.0000",
+  "OA08.0000",
+  "OA09.0000"
+ ],
+ "gate_count_per_row": {
+  "2": 896,
+  "1": 54,
+  "4": 3,
+  "5": 3,
+  "3": 1,
+  "0": 9
+ },
+ "gate_order_examples": {
+  "timeline R11.0001": [
+   "Q17",
+   "Q12"
+  ],
+  "catalogue R12.001": [
+   "Q25",
+   "Q16"
+  ],
+  "epilogue R22.0001": [
+   "Q28",
+   "Q17"
+  ]
+ },
+ "requirement_ids_per_gate": {
+  "Q01": [
+   "R04",
+   "R10"
+  ],
+  "Q02": [
+   "R03"
+  ],
+  "Q03": [
+   "R02",
+   "R04",
+   "R10",
+   "R13",
+   "R17"
+  ],
+  "Q04": [
+   "R16",
+   "R17"
+  ],
+  "Q05": [
+   "R17"
+  ],
+  "Q06": [
+   "R17"
+  ],
+  "Q07": [
+   "R02",
+   "R13",
+   "R14"
+  ],
+  "Q08": [
+   "R02",
+   "R05",
+   "R13",
+   "R14"
+  ],
+  "Q09": [
+   "R02",
+   "R13",
+   "R14"
+  ],
+  "Q10": [
+   "R18"
+  ],
+  "Q11": [
+   "R15",
+   "R18"
+  ],
+  "Q12": [
+   "R01",
+   "R07",
+   "R11",
+   "R19"
+  ],
+  "Q13": [
+   "R03",
+   "R06"
+  ],
+  "Q14": [
+   "R03",
+   "R04",
+   "R13"
+  ],
+  "Q15": [
+   "R01"
+  ],
+  "Q16": [
+   "R02",
+   "R12"
+  ],
+  "Q17": [
+   "R05",
+   "R07",
+   "R11",
+   "R22"
+  ],
+  "Q18": [
+   "R01"
+  ],
+  "Q19": [
+   "R03",
+   "R21"
+  ],
+  "Q20": [
+   "R04",
+   "R16"
+  ],
+  "Q21": [
+   "R20"
+  ],
+  "Q22": [
+   "R15"
+  ],
+  "Q23": [
+   "R03"
+  ],
+  "Q24": [
+   "R01",
+   "R19"
+  ],
+  "Q25": [
+   "R08",
+   "R12",
+   "R21"
+  ],
+  "Q26": [
+   "R05",
+   "R13"
+  ],
+  "Q27": [
+   "R08",
+   "R09"
+  ],
+  "Q28": [
+   "R22"
+  ]
+ },
+ "register_entries": 487,
+ "register_status": {
+  "open": 485,
+  "closed": 2
+ },
+ "register_tier": {
+  "plausible-procedural": 123,
+  "inferred": 262,
+  "documented": 102
+ },
+ "register_proposed_shard_dirs": [
+  "fence-1",
+  "fence-2",
+  "fence-3",
+  "r03-1",
+  "r03-2",
+  "r22-oa",
+  "sources-a",
+  "sources-b",
+  "terrain-1",
+  "terrain-2",
+  "tl-01",
+  "tl-02",
+  "tl-03",
+  "tl-04",
+  "tl-05",
+  "tl-06",
+  "tl-07",
+  "tl-08",
+  "tl-09",
+  "tl-10",
+  "tl-11",
+  "tl-12",
+  "vis-anim",
+  "vis-audio",
+  "vis-figures",
+  "vis-fx"
+ ],
+ "register_alias_count": 5,
+ "horde_proposed_register_dirs": 30,
+ "horde_proposed_register_names": [
+  "fence-1",
+  "fence-2",
+  "fence-3",
+  "r03-1",
+  "r03-2",
+  "r22-oa",
+  "sources-a",
+  "sources-b",
+  "terrain-1",
+  "terrain-2",
+  "tl-01",
+  "tl-02",
+  "tl-03",
+  "tl-04",
+  "tl-05",
+  "tl-06",
+  "tl-07",
+  "tl-08",
+  "tl-09",
+  "tl-10",
+  "tl-11",
+  "tl-12",
+  "vis-anim",
+  "vis-audio",
+  "vis-figures",
+  "vis-fx",
+  "ws-world",
+  "ws10-cavalry",
+  "ws10-photomatch",
+  "ws6-structures"
+ ],
+ "subreq_links_rows": 950,
+ "subreq_links_status": {
+  "verified": 650,
+  "gap": 176,
+  "inferred": 85,
+  "failed_lookup": 39
+ },
+ "timeline_seed_rows": 691,
+ "timeline_seed_status": {
+  "seeded_unverified": 691
+ },
+ "timeline_seed_tier": {
+  "documented": 580,
+  "inferred": 55,
+  "open gap": 44,
+  "plausible-procedural": 12
+ },
+ "timeline_verified_rows": 691,
+ "timeline_verified_status_effective": {
+  "verified_against_or_text": 265,
+  "gap": 130,
+  "failed_lookup": 22,
+  "inferred": 44,
+  "partially_verified": 200,
+  "claim_unsupported_by_or_text": 22,
+  "recheck_failed": 8
+ },
+ "timeline_verified_fields": [
+  "citation",
+  "flagged",
+  "id",
+  "notes",
+  "or_claim_check",
+  "or_recheck",
+  "passage_ref",
+  "register_refs",
+  "seed_page",
+  "seed_status",
+  "seed_tier",
+  "shard",
+  "shard_tier",
+  "status",
+  "status_effective",
+  "tier",
+  "time_window_raw",
+  "verdict"
+ ],
+ "timeline_verified_with_register_refs": 303,
+ "timeline_windows_rows": 691,
+ "timeline_windows_parse_status": {
+  "phrase_only": 295,
+  "point": 273,
+  "band_from_sun_table": 39,
+  "range": 83,
+  "no_date": 1
+ },
+ "timeline_windows_fields": [
+  "alternatives",
+  "approx",
+  "band",
+  "date",
+  "default",
+  "default_iso",
+  "earliest",
+  "earliest_iso",
+  "id",
+  "latest",
+  "latest_iso",
+  "parse_status",
+  "phrase",
+  "raw",
+  "tier"
+ ],
+ "epilogue_rows": 14,
+ "epilogue_status": {
+  "seeded_unverified": 14
+ },
+ "epilogue_ids": [
+  "E-001",
+  "E-014"
+ ],
+ "conflict_register_rows": 47,
+ "conflicts_structured_type": "dict",
+ "conflicts_structured_rows": 47,
+ "conflicts_structured_status": {
+  "PENDING OWNER": 47
+ },
+ "budget_phases": 15,
+ "budget_caps_all_null": true,
+ "budget_owner_approved": {
+  "false": 15
+ },
+ "library_status.json": true,
+ "library_status_2.json": true,
+ "library_acquired.json": true,
+ "library_acquired_2.json": true,
+ "library_candidates.json": true,
+ "library_figures-ledger.json": true,
+ "library_status.json_sources": 36,
+ "library_status.json_status": {
+  "scheduled": 20,
+  "blocked-to-prior-research": 2,
+  "viewer-only": 1,
+  "partial": 2,
+  "targeted-lookup-only": 1,
+  "finder-not-authority": 1,
+  "print-only": 2,
+  "licence-checked": 2,
+  "ingested": 3,
+  "blocked": 2
+ },
+ "library_status_2.json_sources": 32,
+ "library_status_2.json_status": {
+  "ingested": 13,
+  "partial": 9,
+  "blocked-to-prior-research": 2,
+  "scheduled": 5,
+  "blocked": 1,
+  "print-only": 2
+ },
+ "sha256_16": {
+  "gates.json": "7f86e46646c6fcb0",
+  "requirements.json": "516a971559728f3d",
+  "register_index.json": "9cb387f9f8ad5282",
+  "register_aliases.json": "7e83531281d98b27",
+  "timeline_seed.jsonl": "3c763c8802d5d5b9",
+  "timeline_verified.jsonl": "e8be5ff302206220",
+  "timeline_windows.jsonl": "c1adf7f0d30dc426",
+  "subreq_links.json": "ca380b6edf401366",
+  "conflict_register.json": "fee015befd8c0bfa",
+  "epilogue_seed.jsonl": "654f297ea0b651de",
+  "check_governance.py": "d03ca2c6257486f2",
+  "check_coverage.py": "a82d67aec56a7991",
+  "link_subreqs.py": "c8a46e36f67da25a"
+ },
+ "inputs_watch": {
+  "GOVERNANCE/realizations": {
+   "dir": true,
+   "entries": 0,
+   "first": []
+  },
+  "GOVERNANCE/timeline_corrections": "absent",
+  "GOVERNANCE/evidence_corrections": {
+   "dir": true,
+   "entries": 1,
+   "first": [
+    "fence-1.jsonl"
+   ]
+  },
+  "GOVERNANCE/final-passes": "absent",
+  "GOVERNANCE/gate_results": {
+   "dir": true,
+   "entries": 2,
+   "first": [
+    "GATE-SPEC-B.md",
+    "spec-b-evidence"
+   ]
+  },
+  "GOVERNANCE/decisions": {
+   "dir": true,
+   "entries": 2,
+   "first": [
+    "DELEGATED-DECISIONS-2026-11-11.md",
+    "conflict_defaults.json"
+   ]
+  },
+  "kit/verified_oob.json": "absent",
+  "kit/verified_batteries.json": "absent",
+  "kit/evidence": {
+   "dir": true,
+   "entries": 4,
+   "first": [
+    "INVENTORY.md",
+    "groups.json",
+    "or27_leaf_pages.json",
+    "sources.json"
+   ]
+  },
+  "history/undrawn": {
+   "dir": true,
+   "entries": 5,
+   "first": [
+    "groups.json",
+    "roster-gaps.json",
+    "sources.json",
+    "status.json",
+    "tools"
+   ]
+  },
+  "app/docs/GATE-HOOKS.md": {
+   "bytes": 2201
+  },
+  "app/docs/EXT-CONTRACT.md": {
+   "bytes": 21219
+  },
+  "app/src/ext": {
+   "dir": true,
+   "entries": 4,
+   "first": [
+    "index.mjs",
+    "monuments.mjs",
+    "site-places.mjs",
+    "tour.mjs"
+   ]
+  },
+  "app/data/vegetation.json": "absent",
+  "tools/bt/realize": {
+   "dir": true,
+   "entries": 4,
+   "first": [
+    "gazetteer.mjs",
+    "lib.mjs",
+    "timeline.mjs",
+    "tolerances.json"
+   ]
+  },
+  "tools/bt/vegetation": {
+   "dir": true,
+   "entries": 4,
+   "first": [
+    "__pycache__",
+    "or_scan.py",
+    "srcs.py",
+    "warren_px.py"
+   ]
+  },
+  "tools/bt/photomatch/nps_then_now.json": {
+   "bytes": 46655
+  },
+  "tools/bt/check_governance.py": {
+   "bytes": 5704
+  },
+  "tools/bt/check_coverage.py": {
+   "bytes": 3117
+  },
+  "tests/governance": {
+   "dir": true,
+   "entries": 2,
+   "first": [
+    "coverage.test.mjs",
+    "test_coverage.py"
+   ]
+  },
+  "tmp/pdf/plan-clean.txt": "absent",
+  "tmp/library/misc": {
+   "dir": true,
+   "entries": 11,
+   "first": [
+    "battlesleadersof03cent_djvu.txt",
+    "cache",
+    "cu31924030924736_djvu.txt",
+    "cu31924052145475_djvu.txt",
+    "finalreportonba00chatgoog_djvu.txt",
+    "maineatgettysbu01commgoog_djvu.txt"
+   ]
+  },
+  "tmp/library/or27": {
+   "dir": true,
+   "entries": 8,
+   "first": [
+    "MANIFEST.json",
+    "cache",
+    "cu31924077699761_djvu.txt",
+    "cu31924077700262_djvu.txt",
+    "cu31924077728255_djvu.txt",
+    "meta_cu31924077699761.json"
+   ]
+  },
+  "tmp/library/ws9": {
+   "dir": true,
+   "entries": 103,
+   "first": [
+    "ADAMS-SENTINEL-1863-06-02__adams-sentinel-1863-06-02_djvu.txt",
+    "ADAMS-SENTINEL-1863-06-09__adams-sentinel-1863-06-09_djvu.txt",
+    "ADAMS-SENTINEL-1863-06-16__adams-sentinel-1863-06-16_djvu.txt",
+    "ADAMS-SENTINEL-1863-06-23__adams-sentinel-1863-06-23_djvu.txt",
+    "ADAMS-SENTINEL-1863-06-30__adams-sentinel-1863-06-30_djvu.txt",
+    "ADAMS-SENTINEL-1863-07-07__adams-sentinel-1863-07-07_djvu.txt"
+   ]
+  },
+  "GOVERNANCE/gate_results/GATE-SPEC-A.md": "absent"
+ },
+ "check_scripts": [
+  "docs/battle-theatre/fidelity/tools/check_quotes.py",
+  "docs/battle-theatre/history/undrawn/tools/check_undrawn.py",
+  "tools/bt/check_arrivals.py",
+  "tools/bt/check_coverage.py",
+  "tools/bt/check_environment.py",
+  "tools/bt/check_figures.py",
+  "tools/bt/check_governance.py",
+  "tools/bt/check_kit.py",
+  "tools/bt/check_structures.py"
+ ],
+ "evidence_corrections": {
+  "files": {
+   "fence-1.jsonl": 1
+  },
+  "rows": 1,
+  "verdict": {
+   "partially_supported": 1
+  }
+ },
+ "drill_ocr_texts": {
+  "pinned": 16,
+  "present_in_tmp_library_misc": 7,
+  "missing": [
+   "atlastoaccompany00unit_djvu.txt",
+   "bub_gb_8FEkwTZd9FMC_djvu.txt",
+   "cu31924030759330_djvu.txt",
+   "hardeesrifleligh01hard_djvu.txt",
+   "infantrytacticsf01brig_djvu.txt",
+   "infantrytacticsf02case_djvu.txt",
+   "ordnancemanualfo00unit_djvu.txt",
+   "pennsylvania02penn_djvu.txt",
+   "riflelightinfant121hard_djvu.txt"
+  ]
+ }
+}

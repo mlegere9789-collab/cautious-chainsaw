@@ -52,16 +52,28 @@ So, when a proxy is set, every child process gets
 |---|---|---|
 | `NODE_USE_ENV_PROXY` | `1` | the variable is not set |
 | `NODE_EXTRA_CA_CERTS` | `/root/.ccr/ca-bundle.crt` | the variable is not set **and** that file exists |
+| `NODE_OPTIONS` | the value it has, then ` --disable-warning=UNDICI-EHPA` (that one flag, appended; a missing or empty value becomes just the flag) | the rule turns `NODE_USE_ENV_PROXY` on in this very call, the runner's Node reads that variable (22.21 and later 22.x, 24 and later), and the flag, `--no-warnings` or `NODE_NO_WARNINGS=1` is not there already |
+
+Why the third row. Node 22 writes two warning lines to stderr (`[UNDICI-EHPA] Warning: EnvHttpProxyAgent is experimental ...`) at the start of **every** process that has `NODE_USE_ENV_PROXY=1`.
+A test that reads the merged stdout and stderr of a Node child then sees output it never sees without a proxy. That happened: case 16 of `tools/t0/tests/baseline_selftest.py` (suite `static.baseline`)
+parses the last line of `node`'s output as JSON, and in the first run with the proxy-aware runner (2026-11-13) `static.baseline` was 16/17 (`JSONDecodeError`; 17/17 in every earlier log).
+The flag silences that one warning code and no other, so a child behind the runners has the same stdout and stderr as on a machine with no proxy. Case 16 now also takes "the last line that is a
+JSON object", so it passes when somebody sets the variable by hand, too (red-first: the old file fails with the variable set, passes without it; the new file passes both ways).
 
 "Every child process" is: each suite and each parallel slice of `run_suites.mjs`; each pass that `run_eight.mjs` starts; `verify_release.mjs`, every suite and step of check 6 and the `--full` run of `run_suites.mjs`; the packer and the PDF probe.
 The variables are inherited, so the Node processes that a Python suite starts have them too.
-**Nothing else changes:** with no proxy the environment is handed on exactly as before (the same object), and a variable that is already set, to any value including the empty string, is never overwritten.
-A `run_suites` summary says what happened in `childEnv` (`{ "httpsProxy": true, "added": ["NODE_USE_ENV_PROXY"] }`: names only, the proxy address is never written), and its second console line says the same.
+**Nothing else changes:** with no proxy the environment is handed on exactly as before (the same object), and a variable that is already set, to any value including the empty string, is never overwritten
+(`NODE_OPTIONS` is the one value that is extended, by the one flag above, and only when the rule itself turned `NODE_USE_ENV_PROXY` on: a caller that sets `NODE_USE_ENV_PROXY` itself, even to `0`, keeps its choice and its `NODE_OPTIONS`).
+A `run_suites` summary says what happened in `childEnv` (`{ "httpsProxy": true, "added": ["NODE_USE_ENV_PROXY"], "extended": ["NODE_OPTIONS"] }`: `added` are names that had no value, `extended` names that had one and got the flag appended;
+names only, neither the proxy address nor a value is ever written), and its second console line says the same (`child environment + NODE_USE_ENV_PROXY, NODE_OPTIONS (extended) (an HTTPS proxy is set)`).
 
 Limits, so nobody reads more into it:
 - A suite started **by hand** (`node tests/t0/pages-fixes.spec.mjs ...`) gets no help: start it through a runner, or set the two variables yourself.
 - The runner's own process is not changed. `run_pass.mjs` fetches only from its local servers in-process; Chrome reads the proxy from the environment by itself.
-- Node older than 22.21 ignores `NODE_USE_ENV_PROXY`. Node 22 prints one line on stderr at the start of every process that has it (`[UNDICI-EHPA] Warning: EnvHttpProxyAgent is experimental`); the runners count results on stdout lines and exit codes.
+- Node older than 22.21 (and every 23.x) ignores `NODE_USE_ENV_PROXY`. There the rule still sets it (harmless) but adds no `NODE_OPTIONS` flag: there is no warning to silence, and an old Node refuses a flag it does not know.
+  The Node version that decides is the runner's own; a different `node` on the `PATH` of a child is assumed to be the same install (true here: `/usr/local/bin/node` is a link to `/opt/node22/bin/node`).
+- A caller that sets `NODE_USE_ENV_PROXY=1` itself (what this README used to advise for a suite started by hand) keeps its choice, and with it Node's two warning lines in every Node process: the rule leaves what the caller set alone.
+  Set `NODE_OPTIONS=--disable-warning=UNDICI-EHPA` as well when the output of such a run is read by a program.
 - The CA bundle path is the cloud container's. On another machine with a TLS-intercepting proxy set `NODE_EXTRA_CA_CERTS` yourself (it is then kept).
 - Requests of a suite to its own local servers (`127.0.0.1`) stay direct as long as `HTTP_PROXY` is not set or `NO_PROXY` lists them (true on every machine used so far).
 
@@ -80,7 +92,10 @@ The tools only record the load. They never drop, relabel or repeat a result beca
 **Self-test** (`node tools/t0/tests/runner_selftest.mjs`, row `static.runner` of `run_suites.mjs`; no browser, no network). It starts the real runners with `NODE_OPTIONS=--require tools/t0/tests/env_probe.cjs`, so every Node process below them writes down its environment
 (names and a hash of each value), and compares each child with its runner variable by variable: no proxy (nothing differs but the three variables the runner always set), proxy with both variables unset, both set, one set, the lower-case spelling, an empty value,
 a suite of four parallel processes, the Node processes below a Python suite, `runCmd` / `runCmdAsync`, and a real two-check pass of `run_pass.mjs`; then the load fields in the summary, on the console, after `--merge` and after `--import-log`.
-Every scenario is built by the self-test (the proxy variables of the calling shell are removed first), so it passes whether or not the shell has `HTTPS_PROXY`.
+The only variable that may differ between a parent and a child besides the added ones is `NODE_OPTIONS`, and the test says exactly how: the parent's value, then the one flag, nothing else; `RUN-01` is the rule as a table (composition of `NODE_OPTIONS`,
+the Node versions that read `NODE_USE_ENV_PROXY`, every case where the flag must not be added). `RUN-15` runs a real Node child that raises one other warning: behind the runners its stderr has that warning and no proxy warning, the same child with
+`NODE_USE_ENV_PROXY=1` set by hand prints the proxy warning (the negative control that proves the test can see it; the test is skipped, not passed, on a Node that prints none), and a caller that sets the variable itself keeps its choice.
+Every scenario is built by the self-test (the proxy variables of the calling shell are removed first, and so are a `--no-warnings` and a `NODE_NO_WARNINGS` of the calling shell), so it passes whether or not the shell has `HTTPS_PROXY`.
 `--online` adds one real request: a child started through the harness fetches the pinned Mapbox GL stylesheet with Node's `fetch()` and gets the pinned bytes, and, behind a proxy, the same child started without the harness fails (negative control).
 Not proven by it: Windows (never run there), and `run_eight.mjs` end to end (it writes the acceptance log; its passes start through the same `runCmdAsync`).
 

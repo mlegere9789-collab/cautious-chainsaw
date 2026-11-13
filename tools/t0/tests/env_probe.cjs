@@ -8,7 +8,7 @@ const out = process.env.T0_ENV_PROBE_OUT;
 if (out) {
   try {
     const crypto = require('node:crypto');
-    const SHOW = ['NODE_USE_ENV_PROXY', 'NODE_EXTRA_CA_CERTS', 'T0_PORT_BASE', 'T0_AGENT', 'PYTHONIOENCODING', 'T0_PROBE_MARK'];
+    const SHOW = ['NODE_USE_ENV_PROXY', 'NODE_EXTRA_CA_CERTS', 'NODE_OPTIONS', 'T0_PORT_BASE', 'T0_AGENT', 'PYTHONIOENCODING', 'T0_PROBE_MARK'];
     const hashes = {};
     for (const k of Object.keys(process.env).sort()) hashes[k] = crypto.createHash('sha256').update(String(process.env[k])).digest('hex').slice(0, 16);
     const show = {};

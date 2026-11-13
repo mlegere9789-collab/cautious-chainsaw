@@ -272,12 +272,16 @@ Extract sheets: `extracts/fields-woodlots.md`, `extracts/fences.md`, `extracts/f
 
 ## NPS-CLR-1STDAY
 
-- Title: Cultural Landscape Report for First Day — Union 1st Corps Battlefield, Gettysburg National Military Park
-- Author: not stated | Date: not stated
+- Title: Cultural Landscape Report for First Day - Union 1st Corps Battlefield, Gettysburg National Military Park
+- Author: John Auwaerter (Olmsted Center for Landscape Preservation, National Park Service, with the State University of New York College of Environmental Science and Forestry) | Date: 2021
 - URL: https://www.npshistory.com/publications/gett/clr-1-day-union-1-corps.pdf (HTTP 200, fetched 2026-11-13T19:02:49Z)
 - File as served: 170160982 bytes, sha256 `2e02722d184b319d4ead4eb9dcec4412a20abe97bf852cd7483b9c204eb00c60` (PDF deleted after text extraction to stay inside the disk budget)
 - Text: `tmp/library/web/nps/NPS-CLR-1STDAY/NPS-CLR-1STDAY.txt`, 1900019 bytes, sha256 `d3567cdb16b1520208e6bb00593c2a3b0c5240405518a271b7a88ec82fead58f`; 545 of 580 pages carry text
 - Rights basis: United States government work
+- Text quality: two-column report with floating captions: the standard reading-order text interleaves columns, so quotes are cut from the content-stream-order text (tmp/library/web/nps/NPS-CLR-1STDAY/NPS-CLR-1STDAY.raw.txt, pdftotext -raw, line-end hyphenation repaired by scripts/build_extracts.py dehyphenate); born-digital text, clean
+- Covers: First Day field northwest of Gettysburg: Seminary campus, Thompson and Dustman lots, Schmucker, Herbst, McPherson, Forney, Wills, McClean, Harman, Herr, Sweney, Crist and Wisler farms; fields, fences, woodlots, orchards, roads, railroad grade, buildings; commemorative park features
+- Feature states: Site history chapter (PDF pp. 31-68) describes the landscape by period: to July 1863 (battle-era farms, fields, fences, woods), GBMA 1863-1895, War Department 1895-1933, NPS 1933-2019. Existing-conditions and treatment chapters describe 2019-2021 conditions and reconstructions: never an 1863 profile.
+- Used for extracts: yes (extracts/src/20-clr-first-day.xdef)
 
 ## NPS-CLR-ROT-V2
 

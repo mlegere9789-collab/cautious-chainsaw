@@ -50,15 +50,8 @@ export function update(frame) {
 
 function markCurrent(s) { const ul = s.box.querySelector('#xt-list'); if (!ul) return; for (const n of ul.querySelectorAll('[aria-current]')) n.removeAttribute('aria-current'); if (s.active >= 0) { const n = ul.querySelector(`[data-stop="${s.active}"]`); if (n) n.setAttribute('aria-current', 'true'); } const c = s.box.querySelector('#xt-clear'); if (c) c.disabled = s.active < 0; }
 function renderPanel(box, th, sc) {
-  const s = S; if (!s) return; const e = P.esc, on = s.B.filter(b => b.inside).length, off = s.B.length - on; s.box = box; sc.add(() => { if (S && S.box === box) S.box = null; });
-  box.innerHTML = `<p class="mini" style="margin-bottom:10px">${e(P.COPY.tour)}</p>
-    <div style="display:flex;gap:6px;flex-wrap:wrap;margin:0 0 8px">${s.ctx.tierMark(P.TOUR.tier)}<span class="pill">Modern tour</span><span class="pill">${s.B.length} stops</span><span class="pill">${on} on the loaded ground</span><span class="pill">${off} beyond it</span></div>
-    <details style="margin:0 0 6px"><summary class="mini" style="cursor:pointer">Where the camera goes</summary>
-      <p class="mini" style="margin-top:8px">For a stop on the loaded ground the camera stands at the viewpoint the site's walkthrough uses for it, 30 m above the ground, and looks at the stop; where the two are one place it looks along the walkthrough's own heading.</p>
-      <p class="mini" style="margin-top:8px">For a stop beyond the loaded ground (6.2 by 6.1 km) the camera stands over the edge of the ground, 140 m up, and looks toward the stop; the pin stands at the height of the nearest loaded ground because the ground there is not loaded. Gap ${e(P.LAYER.groundGap)}.</p>
-      <p class="mini" style="margin-top:8px">The positions are the site's list as it stands; nothing is corrected here. The day beside a stop is the day the site gives it; choosing a stop moves the camera only, never the clock.</p></details>
-    <ul class="list" id="xt-list">${P.tourRowsHTML(s.B, s.active)}</ul>
-    <div class="actions" style="margin-top:12px"><button type="button" class="btn-s" id="xt-clear" ${s.active < 0 ? 'disabled' : ''}>Remove the pin</button></div>`;
+  const s = S; if (!s) return; s.box = box; sc.add(() => { if (S && S.box === box) S.box = null; });
+  box.innerHTML = P.tourPanelHTML(s.B, s.active, s.ctx.tierMark);
   sc.on(box, 'click', ev => {
     const t = ev.target && ev.target.closest ? ev.target : null; if (!t || !S) return; const row = t.closest('[data-stop]');
     if (row) go(+row.dataset.stop); else if (t.closest('#xt-clear')) clear();

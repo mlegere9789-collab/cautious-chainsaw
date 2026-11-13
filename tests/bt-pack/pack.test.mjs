@@ -22,7 +22,8 @@ test('URL_KEYS match app/src/config.mjs', () => {
 });
 test('deterministic: two packs give identical dist bytes, zip and hash', () => {
   assert.equal(A.version, B.version); assert.equal(A.zipSha256, B.zipSha256);
-  assert.equal(fs.readFileSync(A.zip + '.sha256', 'utf8'), `${A.zipSha256}  gettysburg-BT-staging-${A.version}.zip\n`);
+  assert.equal(fs.readFileSync(A.zip + '.sha256', 'utf8'), `${A.zipSha256}  ${path.basename(A.zip)}\n`);
+  assert.equal(path.basename(A.zip), `gettysburg-BT-staging-${A.version}${A.audit.length ? '-AUDIT-HITS-' + A.audit.length : ''}.zip`, 'a clean build has the plain name; one with audit hits says so in its name');
   for (const f of distFiles(A.out)) assert.ok(fs.readFileSync(path.join(A.out, f)).equals(fs.readFileSync(path.join(B.out, f))), f);
 });
 test('trace has no missing file and contains the shell and its siblings', () => {
@@ -243,6 +244,14 @@ test('fixture: pack is deterministic, the index page is transformed, and the ver
   put(root, 'GOVERNANCE/register_index.json', '[{"id":"EG-1","title":"t","rec":"changed internal note"},{"id":"EG-2","title":"u"}]\n');
   const d = pack({ root, cfg: FIXTURE_CFG, out: path.join(tmp, 'pk-d/dist'), zipDir: path.join(tmp, 'pk-d') }); assert.equal(d.version, a.version, 'a change in a field that is not shipped does not change the build');
   assert.equal(d.zipSha256, a.zipSha256);
+});
+test('fixture: a build with a copy audit hit never gets the clean zip name; a clean one does', () => {
+  const clean = pack({ root: fx('zipname-clean'), cfg: FIXTURE_CFG, out: path.join(tmp, 'zn-a/dist'), zipDir: path.join(tmp, 'zn-a') });
+  assert.equal(clean.clean, true); assert.equal(path.basename(clean.zip), `gettysburg-BT-staging-${clean.version}.zip`); assert.equal(fs.readFileSync(clean.zip + '.sha256', 'utf8'), `${clean.zipSha256}  gettysburg-BT-staging-${clean.version}.zip\n`);
+  const root = fx('zipname-hit', r => put(r, 'app/data/monuments.json', '{"note":"built by Claude"}\n')), hit = pack({ root, cfg: FIXTURE_CFG, out: path.join(tmp, 'zn-b/dist'), zipDir: path.join(tmp, 'zn-b') });
+  assert.equal(hit.clean, false); assert.equal(hit.audit.length, 1); assert.equal(path.basename(hit.zip), `gettysburg-BT-staging-${hit.version}-AUDIT-HITS-1.zip`);
+  assert.equal(fs.readFileSync(hit.zip + '.sha256', 'utf8'), `${hit.zipSha256}  ${path.basename(hit.zip)}\n`); assert.ok(!fs.existsSync(path.join(tmp, 'zn-b', `gettysburg-BT-staging-${hit.version}.zip`)), 'no zip with the plain name');
+  assert.ok(fs.existsSync(path.join(tmp, 'zn-b/dist/app/data/monuments.json')), 'the dist is still written, so that the hit can be inspected and the real run can use it');
 });
 test('fixture: the index page transform refuses a page it does not recognise', () => {
   const root = fx('badindex', r => patch(r, 'app/index.html', 'id="home-link" href="../../../"', 'id="other" href="../../../"'));

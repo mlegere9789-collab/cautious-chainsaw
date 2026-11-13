@@ -240,7 +240,8 @@ C['va'] = dict(state='Virginia', units=[
     ('62nd Virginia Infantry (mounted)', 'inf', 'Imboden\'s command'),
     (1, 'cav', ''), (2, 'cav', ''), (3, 'cav', ''), (4, 'cav', ''), (5, 'cav', ''),
     (6, 'cav', 'W. E. Jones'), (7, 'cav', 'W. E. Jones'), (9, 'cav', ''), (10, 'cav', ''),
-    (11, 'cav', 'W. E. Jones'), (13, 'cav', ''), (14, 'cav', ''), (16, 'cav', ''), (17, 'cav', ''),
+    (11, 'cav', 'W. E. Jones'), (12, 'cav', 'kit only: not in the OR organization table; Jones\' brigade, guarding a Potomac ford at the Fairfield time (kit CS.CAV.12VA, PDF B.3 Fairfield row)'),
+    (13, 'cav', ''), (14, 'cav', ''), (16, 'cav', ''), (17, 'cav', ''),
     (18, 'cav', 'Imboden\'s command'),
     ('34th Virginia Cavalry Battalion', 'cav', ''), ('36th Virginia Cavalry Battalion', 'cav', ''),
     ('35th Virginia Cavalry Battalion', 'cav', 'not in the OR table; PDF B.3 lists it with Early\'s division'),
@@ -380,6 +381,7 @@ OR_QUOTE = {
 }
 # Units listed by PDF B.3 (history/units.json) that the OR organization table does not print.
 PDF_ONLY = {
+    'c-va-12th-virginia-cavalry': 'kit cavalry_units.json CS.CAV.12VA and the PDF B.3 Fairfield row; the OR organization table prints Jones\' brigade as the 6th, 7th and 11th Virginia only',
     'c-va-35th-virginia-cavalry-battalion': 'history/units.json id cs-2c-early-35vacavalrybn',
     'c-ga-3rd-georgia-battalion-sharpshooters': 'history/units.json: 3rd GA Sharpshooters under Wofford',
 }
@@ -618,4 +620,94 @@ NO_UNIT = {
     'H:CS:Bath': 'PDF name; one of the two unnamed Virginia batteries of Alexander\'s battalion (Parker, Taylor); not decided',
     'H:CS:13th VA': 'PDF B.3 status never_on_field', 'H:CS:58th VA': 'PDF B.3 status never_on_field',
     'H:CS:44th NC': 'PDF B.3 status never_on_field',
+}
+
+
+# ---------------------------------------------------------------- kit ids (docs/battle-theatre/kit)
+# kit id -> list of (army, st, designation) typed by hand from the kit names (artillery_batteries.json, cavalry_units.json) and the
+# organization table designations above; build_units.py asserts that every designation exists.  A kit entry that names two
+# batteries lists both.  Kit entries the OR table cannot place are in KIT_NO_UNIT with the reason (never dropped silently).
+_K = lambda a, st, d: (a, st, d)
+KIT_ALIAS = {
+    # ---- Union artillery (kit ids that no registry alias covers)
+    'US.ART.3rd_US_F_K': [_K(_U, 'us', 'Batteries F and K, 3rd United States Artillery')],
+    'US.ART.5th_Massachusetts': [_K(_U, 'ma', '5th Massachusetts Battery (E)')],
+    'US.ART.9th_Massachusetts': [_K(_U, 'ma', '9th Massachusetts Battery')],
+    'US.ART.15th_New_York': [_K(_U, 'ny', '15th New York Independent Battery')],
+    'US.ART.Pa_Independent_C_F': [_K(_U, 'pa', 'Pennsylvania Independent Batteries C and F')],
+    'US.ART.1st_Conn_Heavy_B_and_H': [_K(_U, 'ct', 'Battery B, 1st Connecticut Heavy Artillery'), _K(_U, 'ct', 'Battery M, 1st Connecticut Heavy Artillery')],
+    'US.ART.2nd_Connecticut': [_K(_U, 'ct', '2nd Connecticut Light Battery')],
+    'US.ART.5th_New_York': [_K(_U, 'ny', '5th New York Independent Battery')],
+    'US.ART.1st_New_Hampshire': [_K(_U, 'nh', '1st New Hampshire Battery')],
+    'US.ART.1st_Ohio_H': [_K(_U, 'oh', 'Battery H, 1st Ohio Light Artillery')],
+    'US.ART.1st_Ohio_I': [_K(_U, 'oh', 'Battery I, 1st Ohio Light Artillery')],
+    'US.ART.1st_Ohio_K': [_K(_U, 'oh', 'Battery K, 1st Ohio Light Artillery')],
+    'US.ART.1st_Ohio_L': [_K(_U, 'oh', 'Battery L, 1st Ohio Light Artillery')],
+    'US.ART.1st_Pennsylvania_F_G': [_K(_U, 'pa', 'Batteries F and G, 1st Pennsylvania Light Artillery')],
+    'US.ART.W_Va_C': [_K(_U, 'wv', 'Battery C, West Virginia Light Artillery')],
+    'US.ART.Md_A': [_K(_U, 'md', 'Battery A, Maryland Light Artillery')],
+    'US.ART.6th_Maine': [_K(_U, 'me', '6th Maine Battery (F)')],
+    'US.ART.2nd_Maine_B': [_K(_U, 'me', '2nd Maine Battery (B)')],
+    'US.ART.5th_Maine_E': [_K(_U, 'me', '5th Maine Battery (E)')],
+    'US.ART.1st_NY_K_with_11th_NY_attached': [_K(_U, 'ny', 'Battery K, 1st New York Light Artillery'), _K(_U, 'ny', '11th New York Independent Battery')],
+    'US.ART.1st_NY_E_L': [_K(_U, 'ny', 'Battery L, 1st New York Light Artillery'), _K(_U, 'ny', 'Battery E, 1st New York Light Artillery')],
+    'US.ART.1st_Pa_B': [_K(_U, 'pa', 'Battery B, 1st Pennsylvania Light Artillery')],
+    'US.ART.3rd_Mass': [_K(_U, 'ma', '3rd Massachusetts Battery (C)')],
+    'US.ART.1st_Mass': [_K(_U, 'ma', '1st Massachusetts Battery (A)')],
+    'US.ART.Pa_E': [_K(_U, 'pa', 'Pennsylvania Independent Battery E')],
+    'US.ART.9th_Mich': [_K(_U, 'mi', '9th Michigan Battery')],
+    'US.ART.6th_NY': [_K(_U, 'ny', '6th New York Independent Battery')],
+    'US.ART.2nd_US_B_L': [_K(_U, 'us', 'Batteries B and L, 2nd United States Artillery')],
+    'US.ART.2nd_US_M': [_K(_U, 'us', 'Battery M, 2nd United States Artillery')],
+    'US.ART.4th_US_E': [_K(_U, 'us', 'Battery E, 4th United States Artillery')],
+    'US.ART.1st_US_E_G': [_K(_U, 'us', 'Batteries E and G, 1st United States Artillery')],
+    'US.ART.1st_US_K': [_K(_U, 'us', 'Battery K, 1st United States Artillery')],
+    'US.ART.2nd_US_A': [_K(_U, 'us', 'Battery A, 2nd United States Artillery')],
+    # ---- Confederate artillery
+    'CS.ART.Ashland': [_K(_C, 'va', 'Ashland Artillery')], 'CS.ART.Bedford': [_K(_C, 'va', 'Bedford Artillery')],
+    'CS.ART.Brooks': [_K(_C, 'sc', 'Brooks Artillery')], 'CS.ART.Madison_La': [_K(_C, 'la', 'Madison Light Artillery (Louisiana)')],
+    'CS.ART.Squires': [_K(_C, 'la', 'Washington Artillery, 1st Company')], 'CS.ART.Richardson': [_K(_C, 'la', 'Washington Artillery, 2nd Company')],
+    'CS.ART.Miller': [_K(_C, 'la', 'Washington Artillery, 3rd Company')], 'CS.ART.Norcom': [_K(_C, 'la', 'Washington Artillery, 4th Company')],
+    'CS.ART.1st_NC_A': [_K(_C, 'nc', 'Battery A, 1st North Carolina Artillery')], 'CS.ART.Pulaski_GA': [_K(_C, 'ga', 'Pulaski Artillery')],
+    'CS.ART.1st_Richmond_Howitzers': [_K(_C, 'va', '1st Richmond Howitzers')], 'CS.ART.Troup_GA': [_K(_C, 'ga', 'Troup Artillery')],
+    'CS.ART.Fauquier': [_K(_C, 'va', 'Fauquier Artillery')], 'CS.ART.Hampden': [_K(_C, 'va', 'Hampden Artillery')],
+    'CS.ART.Richmond_Fayette': [_K(_C, 'va', 'Richmond Fayette Artillery')], 'CS.ART.Blount_s': [_K(_C, 'va', 'Virginia Battery (Blount)')],
+    'CS.ART.Branch_NC': [_K(_C, 'nc', 'Branch Artillery')], 'CS.ART.Charleston_German_SC': [_K(_C, 'sc', 'German Artillery')],
+    'CS.ART.Palmetto_SC': [_K(_C, 'sc', 'Palmetto Light Artillery')], 'CS.ART.Rowan_NC': [_K(_C, 'nc', 'Rowan Artillery')],
+    'CS.ART.Charlottesville': [_K(_C, 'va', 'Charlottesville Artillery')], 'CS.ART.Courtney': [_K(_C, 'va', 'Courtney Artillery')],
+    'CS.ART.Louisiana_Guard': [_K(_C, 'la', 'Louisiana Guard Artillery')], 'CS.ART.Staunton': [_K(_C, 'va', 'Staunton Artillery')],
+    'CS.ART.1st_Md': [_K(_C, 'md', '1st Maryland Battery')], 'CS.ART.Alleghany': [_K(_C, 'va', 'Alleghany Artillery')],
+    'CS.ART.Chesapeake': [_K(_C, 'md', 'Chesapeake Artillery')], 'CS.ART.Lee': [_K(_C, 'va', 'Lee Battery')],
+    'CS.ART.Jefferson_Davis_AL': [_K(_C, 'al', 'Jeff. Davis Artillery')], 'CS.ART.King_William': [_K(_C, 'va', 'King William Artillery')],
+    'CS.ART.Morris': [_K(_C, 'va', 'Morris Artillery')], 'CS.ART.Orange': [_K(_C, 'va', 'Orange Artillery')],
+    'CS.ART.2nd_and_3rd_Richmond_Howitzers': [_K(_C, 'va', '2nd Richmond Howitzers'), _K(_C, 'va', '3rd Richmond Howitzers')],
+    'CS.ART.Powhatan': [_K(_C, 'va', 'Powhatan Artillery')], 'CS.ART.Rockbridge': [_K(_C, 'va', 'Rockbridge Artillery')],
+    'CS.ART.Salem': [_K(_C, 'va', 'Salem Artillery')], 'CS.ART.Amherst': [_K(_C, 'va', 'Amherst Artillery')],
+    'CS.ART.Fluvanna': [_K(_C, 'va', 'Fluvanna Artillery')], 'CS.ART.Milledge_GA': [_K(_C, 'ga', 'Georgia Battery (Milledge)')],
+    'CS.ART.Donaldsonville': [_K(_C, 'la', 'Donaldsonville Artillery')], 'CS.ART.Huger': [_K(_C, 'va', 'Huger Artillery')],
+    'CS.ART.Lewis': [_K(_C, 'va', 'Lewis Artillery')], 'CS.ART.Norfolk_Blues': [_K(_C, 'va', 'Norfolk Light Artillery Blues')],
+    'CS.ART.Danville': [_K(_C, 'va', 'Danville Artillery')], 'CS.ART.HURT': [_K(_C, 'al', 'Hardaway Artillery')],
+    'CS.ART.2nd_Rockbridge': [_K(_C, 'va', '2nd Rockbridge Artillery')], 'CS.ART.Johnson_s': [_K(_C, 'va', 'Virginia Battery (Johnson)')],
+    'CS.ART.Crenshaw': [_K(_C, 'va', 'Crenshaw Battery')], 'CS.ART.Fredericksburg': [_K(_C, 'va', 'Fredericksburg Artillery')],
+    'CS.ART.Letcher': [_K(_C, 'va', 'Letcher Artillery')], 'CS.ART.Pee_Dee': [_K(_C, 'sc', 'Pee Dee Artillery')],
+    'CS.ART.Purcell': [_K(_C, 'va', 'Purcell Artillery')], 'CS.ART.Breathed': [_K(_C, 'va', "Breathed's Battery")],
+    'CS.ART.Chew': [_K(_C, 'va', "Chew's Battery")], 'CS.ART.Griffin': [_K(_C, 'md', "Griffin's (Maryland) Battery")],
+    'CS.ART.Hart': [_K(_C, 'sc', "Hart's Battery")], 'CS.ART.McGregor': [_K(_C, 'va', "McGregor's Battery")],
+    'CS.ART.Moorman': [_K(_C, 'va', "Moorman's Battery")],
+    # ---- cavalry kit ids that are not "<number><state code>" (the rule in build_units.py handles the rest)
+    'US.CAV.PURNELL_A': [_K(_U, 'md', 'Purnell (Maryland) Legion Cavalry, Company A')],
+    'CS.CAV.COBB': [_K(_C, 'ga', "Cobb's Legion (cavalry)")], 'CS.CAV.PHILLIPS': [_K(_C, 'ga', 'Phillips Legion (cavalry)')],
+    'CS.CAV.JDAVIS': [_K(_C, 'ms', 'Jeff. Davis Legion')], 'CS.CAV.1MDBN': [_K(_C, 'md', '1st Maryland Cavalry Battalion')],
+    'CS.CAV.62VA': [_K(_C, 'va', '62nd Virginia Infantry (mounted)')], 'CS.CAV.MCNEILL': [_K(_C, 'va', 'Virginia Partisan Rangers (McNeill)')],
+    'CS.CAV.36VABN': [_K(_C, 'va', '36th Virginia Cavalry Battalion')], 'CS.CAV.35VABN': [_K(_C, 'va', '35th Virginia Cavalry Battalion')],
+    'CS.34VACAVBN': [_K(_C, 'va', '34th Virginia Cavalry Battalion')],
+}
+# kit entries deliberately attached to no unit
+KIT_NO_UNIT = {
+    'CS.ART.Richmond': 'one of the two unnamed Virginia batteries of Alexander\'s battalion (OR table: Parker, Taylor); the PDF names them Richmond and Bath; not decided',
+    'CS.ART.Bath': 'one of the two unnamed Virginia batteries of Alexander\'s battalion (OR table: Parker, Taylor); the PDF names them Richmond and Bath; not decided',
+}
+# kit-versus-OR discrepancies noted in units.json (never silently corrected)
+KIT_NOTES = {
+    'US.ART.1st_Conn_Heavy_B_and_H': 'kit name says batteries B and H; the OR organization table prints Batteries B and M, 1st Connecticut Heavy Artillery (Brooker, Pratt); both OR units are attached, the kit text is not corrected',
 }

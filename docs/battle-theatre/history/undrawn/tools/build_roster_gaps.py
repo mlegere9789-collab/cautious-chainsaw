@@ -180,6 +180,20 @@ c('cs-cav-imboden', 'cs-cav-robertson-jones-imboden', 'cs-cav-jenkins-art-hq', '
 c('cs-1c-mclaws-wofford-3gasharpshooters', 'cs-1c-mclaws-wofford', 'cs-1c-mclaws', 'status', "Wofford's brigade as the table prints it", 'brigade', 'infantry', r'Phillips \(Georgia\) Legion, Lieut,? Col\. E\. S,? Barclay', 'the roster lists a 3rd Georgia Sharpshooters under Wofford; the table prints five units (16th, 18th, 24th Georgia, Cobb\'s Legion, Phillips Legion) and no sharpshooter battalion: the basis of the sixth unit is to be found or the unit registered as unsupported')
 c('cs-1c-mclaws-semmes', 'cs-1c-mclaws', 'cs-1c-mclaws', 'status', "Semmes' brigade: no reports on file", 'brigade', 'infantry', r'No reports on file for this brigade', 'the table itself says the Official Records hold no report of this brigade')
 
+# The group table of build_groups.py was rebalanced after the entries above were first written: three corps groups were split at division boundaries and the three
+# smallest groups were merged into their neighbours. The group named in a call above is the first draft's; regroup() gives the group of the table in force.
+MERGED = {'us-11c-1d-2d': 'us-11c', 'us-cav-2d-art': 'us-cav-2d-3d-art', 'us-cav-3d': 'us-cav-2d-3d-art', 'cs-cav-stuart': 'cs-cav-hq', 'cs-cav-jenkins-art-hq': 'cs-cav-hq'}
+SPLIT = {'us-1c': {'us-1c-hq-1mecav-l': 'us-1c-1d-art', 'us-1c-art-1nye': 'us-1c-1d-art', 'us-1c-3d-stannard-12vt': 'us-1c-2d-3d', 'us-1c-3d-stannard-15vt': 'us-1c-2d-3d',
+                    'us-1c-3d-stannard': 'us-1c-2d-3d', 'us-1c-2d-baxter-11pa': 'us-1c-2d-3d'},
+         'us-2c': {'us-2c-hq-6nycav-d-k': 'us-2c-1d-art', 'us-2c-art-14ny': 'us-2c-1d-art', 'us-2c-2d-harrow-mnss-co': 'us-2c-2d-3d'},
+         'us-6c': {'us-6c-hq-1njcav-l': 'us-6c-1d-2d', 'us-6c-hq-1pacav-h': 'us-6c-1d-2d', 'us-6c-1d-provost-4nj': 'us-6c-1d-2d', 'us-6c-2d': 'us-6c-1d-2d', 'us-6c-3d-wheaton-102pa': 'us-6c-3d-art'}}
+def regroup(e):
+    g = e['group']
+    if g in SPLIT:
+        assert e['id'] in SPLIT[g], 'no new group for the entry %s of the split group %s' % (e['id'], g)
+        return SPLIT[g][e['id']]
+    return MERGED.get(g, g)
+
 RANGE = {'OR27-1-R009': (155, 169), 'OR27-2-R424': (283, 291)}
 _heads = {}
 def page_from_heads(text, r, off, rng):
@@ -204,6 +218,7 @@ def main():
     out, missing = [], []
     idx = {r['id']: r for r in json.load(open(F.INDEX_PATH, encoding='utf-8'))['records']}
     for e in E:
+        e['group'] = regroup(e)
         rec, part = e.pop('table'); P = F.get_part(part); r = idx[rec]
         # normalized offsets of the record
         import bisect

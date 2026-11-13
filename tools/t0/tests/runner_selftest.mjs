@@ -8,6 +8,9 @@
 //     process below it writes down its environment (names, a hash of every value), and the environment of each child is compared with the runner's own, variable
 //     by variable.  Every scenario is built here (the proxy variables of the calling shell are removed first and a dummy proxy address is used that nothing connects
 //     to), so the result does not depend on whether the calling shell has HTTPS_PROXY: the self-test passes with it set and with it unset.
+//     One variable is extended, not added: where the rule turns NODE_USE_ENV_PROXY on it also appends --disable-warning=UNDICI-EHPA to NODE_OPTIONS (Node 22 prints a
+//     two-line warning on stderr in every process that has NODE_USE_ENV_PROXY=1; on 2026-11-13 that broke case 16 of tools/t0/tests/baseline_selftest.py, which parses
+//     the last line of a node child's merged output).  RUN-15 proves that a child behind the runners prints nothing extra and that the flag is what silences it.
 //  B. The load.  Every row of a run_suites summary has load1Start and load1End (the machine's 1-minute load average; null on Windows), the console line shows them,
 //     --merge keeps them and --import-log reads them back; a pass of tools/accept/run_pass.mjs records them for every check, every command and every suite.
 //
@@ -27,7 +30,7 @@ import net from 'node:net';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { PROXY_CA_BUNDLE, PROXY_VARS, proxyAdditions, childEnv, childEnvRecord, httpsProxySet, load1, loadText } from '../child_env.mjs';
+import { PROXY_CA_BUNDLE, PROXY_VARS, QUIET_FLAG, honoursEnvProxy, proxyAdditions, childEnv, childEnvRecord, describeChildEnv, httpsProxySet, load1, loadText } from '../child_env.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(HERE, '..', '..', '..');
@@ -55,12 +58,15 @@ const tests = [];
 const test = (id, title, fn) => tests.push({ id, title, fn });
 
 // ------------------------------------------------------------------ scenarios: the environment a runner under test is started with
-const SCRUB = [...PROXY_VARS, 'HTTPS_PROXY', 'T0_R1_DIST', 'T0_PORT_BASE', 'PYTHONIOENCODING', 'T0_ENV_PROBE_OUT', 'T0_PROBE_MARK'];
+const SCRUB = [...PROXY_VARS, 'HTTPS_PROXY', 'NODE_NO_WARNINGS', 'T0_R1_DIST', 'T0_PORT_BASE', 'PYTHONIOENCODING', 'T0_ENV_PROBE_OUT', 'T0_PROBE_MARK'];
 let seq = 0;
+/** NODE_OPTIONS of the calling shell without a flag that would silence the warning by itself: the scenarios must start from a shell that does not have one */
+const loudNodeOptions = (s) => s.replace(/(?:^|\s)(?:--no-warnings|--disable-warning(?:=|\s+)UNDICI-EHPA)(?=\s|$)/g, ' ').trim();
 /** this process's environment without the proxy variables (any spelling) and without what the runners set themselves, plus `set`, plus the probe */
 function scenarioEnv(set, probeOut) {
   const env = {};
   for (const [k, v] of Object.entries(process.env)) if (!SCRUB.some((n) => n.toUpperCase() === k.toUpperCase())) env[k] = v;
+  if (env.NODE_OPTIONS !== undefined) { env.NODE_OPTIONS = loudNodeOptions(env.NODE_OPTIONS); if (!env.NODE_OPTIONS) delete env.NODE_OPTIONS; }
   Object.assign(env, set, { T0_AGENT: NESTED_AGENT });
   if (probeOut) {
     env.T0_ENV_PROBE_OUT = probeOut;
@@ -86,15 +92,22 @@ function envDiff(parent, child) {
 }
 /** what the rule must add for a scenario (the CA bundle only on a machine that has it) */
 const expectAdded = ({ proxy, hasUse, hasCa }) => (proxy ? [...(hasUse ? [] : ['NODE_USE_ENV_PROXY']), ...(hasCa || !BUNDLE_HERE ? [] : ['NODE_EXTRA_CA_CERTS'])] : []);
-/** a child of run_suites must have the runner's environment, the three variables the runner always set, and exactly `added` */
-function checkRunnerChild(run, child, added, values, label) {
+/** whether the rule must also extend NODE_OPTIONS by QUIET_FLAG: it turned NODE_USE_ENV_PROXY on, on a Node that reads it (every scenario has a NODE_OPTIONS: the probe) */
+const NODE_HONOURS = honoursEnvProxy(process.version);
+const expectQuiet = ({ proxy, hasUse }) => !!proxy && !hasUse && NODE_HONOURS;
+/** the NODE_OPTIONS a child must have, given what its parent recorded */
+const childNodeOptions = (parentShow, cfg) => (expectQuiet(cfg) ? `${parentShow.NODE_OPTIONS} ${QUIET_FLAG}` : parentShow.NODE_OPTIONS);
+/** a child of run_suites must have the runner's environment, the three variables the runner always set, exactly the variables `cfg` makes the rule add, and NODE_OPTIONS extended or not */
+function checkRunnerChild(run, child, cfg, values, label) {
+  const added = expectAdded(cfg), quiet = expectQuiet(cfg);
   assert(run.runner, `${label}: the runner process was not recorded by the probe`);
   const d = envDiff(run.runner, child);
   assertEq(d.removed, [], `${label}: variables missing in the child`);
-  assertEq(d.changed, [], `${label}: variables whose value changed in the child`);
+  assertEq(d.changed, quiet ? ['NODE_OPTIONS'] : [], `${label}: variables whose value changed in the child`);
   assertEq(d.added, ['PYTHONIOENCODING', 'T0_PORT_BASE', ...added].sort(), `${label}: variables added for the child`);
   assertEq([child.show.T0_PORT_BASE, child.show.T0_AGENT, child.show.PYTHONIOENCODING], ['18480', NESTED_AGENT, 'utf-8'], `${label}: the runner's own three variables`);
   assertEq([child.show.NODE_USE_ENV_PROXY, child.show.NODE_EXTRA_CA_CERTS], values, `${label}: NODE_USE_ENV_PROXY, NODE_EXTRA_CA_CERTS in the child`);
+  assertEq(child.show.NODE_OPTIONS, childNodeOptions(run.runner.show, cfg), `${label}: NODE_OPTIONS in the child (the runner's own${quiet ? `, then ${QUIET_FLAG}` : ', unchanged'})`);
 }
 const LEGAL = ['--r1-dist', NODIST, '--only', 'static.legal'];      // one or two Node children (ops/legal-drafts/verify-facts.mjs): no browser, no network, under a second
 const legalChildren = (run) => run.probe.filter((p) => scriptIs(p, 'ops/legal-drafts/verify-facts.mjs'));
@@ -102,52 +115,85 @@ function scenario(label, set, cfg, values, t) {
   const run = runRunner(LEGAL, set);
   const kids = legalChildren(run);
   assert(kids.length >= 1, `${label}: no child process recorded (runner exit ${run.status}): ${run.stderr.slice(-300)}`);
-  const added = expectAdded(cfg);
-  for (const k of kids) checkRunnerChild(run, k, added, values, label);
+  const added = expectAdded(cfg), extended = expectQuiet(cfg) ? ['NODE_OPTIONS'] : [];
+  for (const k of kids) checkRunnerChild(run, k, cfg, values, label);
   assert(run.summary && run.summary.childEnv, `${label}: the summary has no childEnv`);
-  assertEq(run.summary.childEnv, { httpsProxy: !!cfg.proxy, added }, `${label}: childEnv in the summary`);
+  assertEq(run.summary.childEnv, { httpsProxy: !!cfg.proxy, added, extended }, `${label}: childEnv in the summary`);
   assert(!JSON.stringify(run.summary).includes(DUMMY_PROXY) && !run.stdout.includes(DUMMY_PROXY), `${label}: the proxy address must not appear in the summary or on the console`);
-  t.note(label, { children: kids.length, added, child: values });
+  t.note(label, { children: kids.length, added, extended, child: values });
   return run;
 }
 const CA_DEFAULT = BUNDLE_HERE ? PROXY_CA_BUNDLE : null;
 
 // ------------------------------------------------------------------ A0. the rule itself (pure)
-test('RUN-01', 'child_env: the rule as a table (no proxy -> nothing; HTTPS_PROXY or https_proxy -> NODE_USE_ENV_PROXY=1 and the CA bundle, each only if unset; an empty proxy is no proxy; HTTP_PROXY alone is no reason)', (t) => {
-  const yes = { exists: () => true }, no = { exists: () => false };
+test('RUN-01', 'child_env: the rule as a table (no proxy -> nothing; HTTPS_PROXY or https_proxy -> NODE_USE_ENV_PROXY=1, the CA bundle, and with the first the quiet flag appended to NODE_OPTIONS, each only if unset; an empty proxy is no proxy; HTTP_PROXY alone is no reason)', (t) => {
+  const V = 'v22.23.4', yes = { exists: () => true, nodeVersion: V }, no = { exists: () => false, nodeVersion: V };
   assertEq(PROXY_CA_BUNDLE, '/root/.ccr/ca-bundle.crt', 'the CA bundle path');
-  const both = { NODE_USE_ENV_PROXY: '1', NODE_EXTRA_CA_CERTS: PROXY_CA_BUNDLE };
+  assertEq(QUIET_FLAG, '--disable-warning=UNDICI-EHPA', 'the flag names the one warning code and nothing else');
+  const quiet = { NODE_OPTIONS: QUIET_FLAG };
+  const both = { NODE_USE_ENV_PROXY: '1', NODE_EXTRA_CA_CERTS: PROXY_CA_BUNDLE, ...quiet };
   const rows = [
     [{}, {}], [{ PATH: '/bin' }, {}], [{ HTTPS_PROXY: '' }, {}], [{ HTTP_PROXY: 'http://p:1' }, {}], [{ ALL_PROXY: 'http://p:1', NO_PROXY: 'localhost' }, {}],
     [{ HTTPS_PROXY: 'http://p:1' }, both], [{ https_proxy: 'http://p:1' }, both], [{ HTTPS_PROXY: '', https_proxy: 'http://p:1' }, both],
     [{ HTTPS_PROXY: 'http://p:1', NODE_USE_ENV_PROXY: '0' }, { NODE_EXTRA_CA_CERTS: PROXY_CA_BUNDLE }],
     [{ HTTPS_PROXY: 'http://p:1', NODE_USE_ENV_PROXY: '' }, { NODE_EXTRA_CA_CERTS: PROXY_CA_BUNDLE }],
-    [{ HTTPS_PROXY: 'http://p:1', NODE_EXTRA_CA_CERTS: '/other.pem' }, { NODE_USE_ENV_PROXY: '1' }],
-    [{ HTTPS_PROXY: 'http://p:1', NODE_EXTRA_CA_CERTS: '' }, { NODE_USE_ENV_PROXY: '1' }],
+    [{ HTTPS_PROXY: 'http://p:1', NODE_EXTRA_CA_CERTS: '/other.pem' }, { NODE_USE_ENV_PROXY: '1', ...quiet }],
+    [{ HTTPS_PROXY: 'http://p:1', NODE_EXTRA_CA_CERTS: '' }, { NODE_USE_ENV_PROXY: '1', ...quiet }],
     [{ HTTPS_PROXY: 'http://p:1', NODE_USE_ENV_PROXY: '1', NODE_EXTRA_CA_CERTS: '/other.pem' }, {}],
     [{ HTTPS_PROXY: 'http://p:1', NODE_USE_ENV_PROXY: undefined }, both],
   ];
   for (const [env, want] of rows) assertEq(proxyAdditions(env, yes), want, `proxyAdditions(${JSON.stringify(env)})`);
-  assertEq(proxyAdditions({ HTTPS_PROXY: 'http://p:1' }, no), { NODE_USE_ENV_PROXY: '1' }, 'no CA bundle file on the machine: NODE_EXTRA_CA_CERTS is not invented');
-  assertEq(proxyAdditions({ HTTPS_PROXY: 'http://p:1' }, { caBundle: '/x/ca.pem', exists: (f) => f === '/x/ca.pem' }), { NODE_USE_ENV_PROXY: '1', NODE_EXTRA_CA_CERTS: '/x/ca.pem' }, 'the bundle that is tested for is the one that is set');
+  assertEq(proxyAdditions({ HTTPS_PROXY: 'http://p:1' }, no), { NODE_USE_ENV_PROXY: '1', ...quiet }, 'no CA bundle file on the machine: NODE_EXTRA_CA_CERTS is not invented');
+  assertEq(proxyAdditions({ HTTPS_PROXY: 'http://p:1' }, { caBundle: '/x/ca.pem', exists: (f) => f === '/x/ca.pem', nodeVersion: V }), { NODE_USE_ENV_PROXY: '1', NODE_EXTRA_CA_CERTS: '/x/ca.pem', ...quiet }, 'the bundle that is tested for is the one that is set');
   assertEq('NODE_EXTRA_CA_CERTS' in proxyAdditions({ HTTPS_PROXY: 'http://p:1' }), BUNDLE_HERE, 'default: the real file decides');
   assertEq([httpsProxySet({}), httpsProxySet({ HTTPS_PROXY: '' }), httpsProxySet({ HTTPS_PROXY: 'x' }), httpsProxySet({ https_proxy: 'x' })], [false, false, true, true], 'httpsProxySet');
-  t.note('rows', rows.length + 4); t.note('CA bundle on this machine', BUNDLE_HERE);
+  // NODE_OPTIONS: appended and never replaced; left alone when the warning is silenced already or when the user set NODE_USE_ENV_PROXY; the Node version decides
+  const P = { HTTPS_PROXY: 'http://p:1' }, CA = { NODE_EXTRA_CA_CERTS: '/other.pem' }, on = { NODE_USE_ENV_PROXY: '1' };
+  const optRows = [
+    [{ ...P, ...CA, NODE_OPTIONS: '--use-openssl-ca' }, { ...on, NODE_OPTIONS: `--use-openssl-ca ${QUIET_FLAG}` }, 'an existing value stays in front'],
+    [{ ...P, ...CA, NODE_OPTIONS: '  --max-old-space-size=512  ' }, { ...on, NODE_OPTIONS: `--max-old-space-size=512 ${QUIET_FLAG}` }, 'blanks around the existing value are trimmed'],
+    [{ ...P, ...CA, NODE_OPTIONS: '' }, { ...on, ...quiet }, 'an empty NODE_OPTIONS is extended'],
+    [{ ...P, ...CA, NODE_OPTIONS: '--disable-warning=ExperimentalWarning' }, { ...on, NODE_OPTIONS: `--disable-warning=ExperimentalWarning ${QUIET_FLAG}` }, 'silencing another warning code is no reason to skip this one'],
+    [{ ...P, ...CA, NODE_OPTIONS: QUIET_FLAG }, on, 'the flag is there already'],
+    [{ ...P, ...CA, NODE_OPTIONS: '--use-openssl-ca --disable-warning UNDICI-EHPA' }, on, 'the flag in its two-word spelling'],
+    [{ ...P, ...CA, NODE_OPTIONS: '--no-warnings' }, on, '--no-warnings silences it already'],
+    [{ ...P, ...CA, NODE_NO_WARNINGS: '1' }, on, 'NODE_NO_WARNINGS=1 silences it already'],
+    [{ ...P, ...CA, NODE_NO_WARNINGS: '0' }, { ...on, ...quiet }, 'NODE_NO_WARNINGS=0 silences nothing'],
+    [{ ...P, ...CA, NODE_USE_ENV_PROXY: '0', NODE_OPTIONS: '--use-openssl-ca' }, {}, 'a NODE_USE_ENV_PROXY the user set is their choice: NODE_OPTIONS stays as it is'],
+    [{ ...P, ...CA, NODE_USE_ENV_PROXY: '1', NODE_OPTIONS: '--use-openssl-ca' }, {}, 'the same when the user set it to 1'],
+  ];
+  for (const [env, want, why] of optRows) assertEq(proxyAdditions(env, yes), want, `${why}: proxyAdditions(${JSON.stringify(env)})`);
+  const versions = [['v20.19.0', false], ['v21.7.3', false], ['v22.0.0', false], ['v22.20.9', false], ['v22.21.0', true], ['v22.23.4', true], ['v23.11.1', false], ['v24.0.0', true], ['v24.12.0', true], ['v25.2.1', true], ['22.21.1', true], ['nonsense', false]];
+  for (const [v, want] of versions) {
+    assertEq(honoursEnvProxy(v), want, `honoursEnvProxy(${v})`);
+    assertEq(proxyAdditions({ ...P, ...CA }, { ...yes, nodeVersion: v }), want ? { ...on, ...quiet } : on, `Node ${v}: NODE_USE_ENV_PROXY is set whatever the version (harmless where it is ignored), the flag only where Node reads it`);
+  }
+  t.note('rows', rows.length + optRows.length + versions.length + 4); t.note('CA bundle on this machine', BUNDLE_HERE); t.note('this Node reads NODE_USE_ENV_PROXY', NODE_HONOURS);
 });
 test('RUN-02', 'child_env: with nothing to add the SAME object is passed on; the input is never modified; a summary record never holds the proxy address', () => {
   const plain = Object.freeze({ A: '1', NODE_EXTRA_CA_CERTS: '/keep.pem' });
   assert(childEnv(plain) === plain, 'no proxy: childEnv must return the object it was given');
   const set = Object.freeze({ HTTPS_PROXY: 'http://p:1', NODE_USE_ENV_PROXY: '0', NODE_EXTRA_CA_CERTS: '/keep.pem' });
   assert(childEnv(set) === set, 'proxy, both variables set: childEnv must return the object it was given');
+  const V = { exists: () => true, nodeVersion: 'v22.23.4' };
   const need = Object.freeze({ HTTPS_PROXY: 'http://user:secret@p:1', B: '2' });
-  const out = childEnv(need, { exists: () => true });
+  const out = childEnv(need, V);
   assert(out !== need, 'a copy when something is added');
-  assertEq(out, { HTTPS_PROXY: 'http://user:secret@p:1', B: '2', NODE_USE_ENV_PROXY: '1', NODE_EXTRA_CA_CERTS: PROXY_CA_BUNDLE }, 'the copy');
+  assertEq(out, { HTTPS_PROXY: 'http://user:secret@p:1', B: '2', NODE_USE_ENV_PROXY: '1', NODE_EXTRA_CA_CERTS: PROXY_CA_BUNDLE, NODE_OPTIONS: QUIET_FLAG }, 'the copy');
   assertEq(need, { HTTPS_PROXY: 'http://user:secret@p:1', B: '2' }, 'the input is unchanged');
-  const rec = childEnvRecord(need, { exists: () => true });
-  assertEq(rec, { httpsProxy: true, added: ['NODE_USE_ENV_PROXY', 'NODE_EXTRA_CA_CERTS'] }, 'record');
+  const rec = childEnvRecord(need, V);
+  assertEq(rec, { httpsProxy: true, added: ['NODE_USE_ENV_PROXY', 'NODE_EXTRA_CA_CERTS', 'NODE_OPTIONS'], extended: [] }, 'record, NODE_OPTIONS was not set');
   assert(!JSON.stringify(rec).includes('secret'), 'the record must not contain the proxy address');
-  assertEq(childEnvRecord({}), { httpsProxy: false, added: [] }, 'record without a proxy');
+  const withOpts = Object.freeze({ ...need, NODE_OPTIONS: '--use-openssl-ca' });
+  assertEq(childEnv(withOpts, V).NODE_OPTIONS, `--use-openssl-ca ${QUIET_FLAG}`, 'an existing NODE_OPTIONS is extended in the copy');
+  assertEq(withOpts.NODE_OPTIONS, '--use-openssl-ca', 'and not in the input');
+  const rec2 = childEnvRecord(withOpts, V);
+  assertEq(rec2, { httpsProxy: true, added: ['NODE_USE_ENV_PROXY', 'NODE_EXTRA_CA_CERTS'], extended: ['NODE_OPTIONS'] }, 'record, NODE_OPTIONS was set: extended, not added');
+  assert(!JSON.stringify(rec2).includes('openssl'), 'the record holds names, never values');
+  assertEq(childEnvRecord({}), { httpsProxy: false, added: [], extended: [] }, 'record without a proxy');
+  assertEq([describeChildEnv({ httpsProxy: false, added: [], extended: [] }), describeChildEnv({ httpsProxy: true, added: [], extended: [] }), describeChildEnv(rec2), describeChildEnv(rec)],
+    ['unchanged (no HTTPS proxy set)', 'unchanged (an HTTPS proxy is set, the Node proxy variables are set already)',
+      '+ NODE_USE_ENV_PROXY, NODE_EXTRA_CA_CERTS, NODE_OPTIONS (extended) (an HTTPS proxy is set)', '+ NODE_USE_ENV_PROXY, NODE_EXTRA_CA_CERTS, NODE_OPTIONS (an HTTPS proxy is set)'], 'the console wording');
 });
 test('RUN-03', 'child_env: load1() is the 1-minute load average with two decimals (null on Windows, never a made-up zero); loadText()', (t) => {
   const v = load1();
@@ -196,7 +242,7 @@ test('RUN-09', 'run_suites, a suite that runs as four parallel processes (mobile
     const kids = run.probe.filter((p) => scriptIs(p, 'tests/t0/mobile-matrix.spec.mjs'));
     assertEq(kids.length, 4, `${label}: slice processes recorded`);
     assertEq(kids.map((k) => k.args[k.args.indexOf('--slot') + 1]).sort(), ['0', '1', '2', '3'], `${label}: the four slices`);
-    for (const k of kids) checkRunnerChild(run, k, expectAdded(cfg), values, label);
+    for (const k of kids) checkRunnerChild(run, k, cfg, values, label);
     const row = run.summary.results.find((r) => r.id === 'mobile.R1c');
     assert(row && row.parts.length === 4 && row.ok === false, `${label}: the row must be not-ok (the dist does not exist), never a pass`);
     t.note(label, { processes: kids.length, exit: row.parts.map((p) => p.exit) });
@@ -207,7 +253,8 @@ test('RUN-10', 'run_suites, a Python suite (static.hygiene): the Node processes 
   const run = runRunner(['--only', 'static.hygiene'], { HTTPS_PROXY: DUMMY_PROXY });
   const kids = run.probe.filter((p) => p.execArgv.includes('--check'));
   assert(kids.length >= 20, `Node processes started by tools/t0/hygiene.py: ${kids.length} (runner exit ${run.status}; ${run.stdout.slice(-300)})`);
-  const bad = kids.filter((k) => k.show.NODE_USE_ENV_PROXY !== '1' || k.show.NODE_EXTRA_CA_CERTS !== CA_DEFAULT || k.show.T0_AGENT !== NESTED_AGENT || k.show.PYTHONIOENCODING !== 'utf-8');
+  const quietOk = (k) => (NODE_HONOURS ? String(k.show.NODE_OPTIONS).endsWith(` ${QUIET_FLAG}`) : true);
+  const bad = kids.filter((k) => k.show.NODE_USE_ENV_PROXY !== '1' || k.show.NODE_EXTRA_CA_CERTS !== CA_DEFAULT || k.show.T0_AGENT !== NESTED_AGENT || k.show.PYTHONIOENCODING !== 'utf-8' || !quietOk(k));
   assertEq(bad.length, 0, `Node processes below Python without the expected variables (first: ${JSON.stringify(bad[0] && bad[0].show)})`);
   const row = run.summary.results.find((r) => r.id === 'static.hygiene');
   t.note('node processes below python', kids.length); t.note('row', { ok: row.ok, exit: row.exit, seconds: row.seconds });
@@ -283,6 +330,39 @@ test('RUN-14', 'run_suites source: there is ONE place where a process is started
   assert(only.length >= 5 && only.every((p) => !'static.runner'.startsWith(p)), `a nested run would select static.runner: ${only.join(' ')}`);
 });
 
+test('RUN-15', 'quiet: behind a proxy a Node child of the runners prints nothing extra on stderr (Node 22 writes two warning lines in every process that has NODE_USE_ENV_PROXY=1: case 16 of baseline_selftest broke on them); another warning code stays visible; controls: the same child with the variable set by hand prints the warning', (t) => {
+  if (!NODE_HONOURS) throw new Skip(`Node ${process.version} does not read NODE_USE_ENV_PROXY: there is no warning to silence`);
+  const child = path.join(SCRATCH, 'quiet-child.mjs'), driver = path.join(SCRATCH, 'quiet-driver.mjs');
+  fs.writeFileSync(child, "process.emitWarning('visible on purpose', 'T0SelfTestWarning');\nconsole.log('out');\n");
+  fs.writeFileSync(driver, `import { runCmd, runCmdAsync } from ${JSON.stringify(pathToFileURL(path.join(ACCEPT, 'lib', 'util.mjs')).href)};
+const child = process.argv[2], pick = (r) => ({ exit: r.exit, status: r.exit, stdout: r.stdout, stderr: r.stderr });
+const a = pick(runCmd(process.execPath, [child])), b = pick(await runCmdAsync(process.execPath, [child]));
+const c = pick(runCmd(process.execPath, [child], { env: { NODE_USE_ENV_PROXY: '1' } }));
+console.log(JSON.stringify({ a, b, c }));
+`);
+  const base = scenarioEnv({ HTTPS_PROXY: DUMMY_PROXY }, null);            // the calling shell, a proxy, no probe
+  const spawnChild = (env) => spawnSync(process.execPath, [child], { cwd: REPO, env, encoding: 'utf8', timeout: 60000, windowsHide: true });
+  const control = spawnChild({ ...base, NODE_USE_ENV_PROXY: '1' });        // set by hand: no flag
+  if (!/UNDICI-EHPA/.test(control.stderr)) throw new Skip(`Node ${process.version} prints no UNDICI-EHPA warning with NODE_USE_ENV_PROXY=1 (stderr: ${JSON.stringify(control.stderr.slice(0, 200))}): nothing to silence, the flag cannot be tested here`);
+  const loud = (r) => /UNDICI-EHPA|EnvHttpProxyAgent/.test(r.stderr);
+  const clean = (label, r) => {
+    assertEq(r.status, 0, `${label}: exit`);
+    assertEq(r.stdout.trim(), 'out', `${label}: stdout`);
+    assert(/T0SelfTestWarning/.test(r.stderr), `${label}: another warning must stay visible, stderr ${JSON.stringify(r.stderr)}`);
+    assert(!loud(r), `${label}: the proxy warning is on stderr: ${JSON.stringify(r.stderr)}`);
+  };
+  clean('through run_suites\' childEnv()', spawnChild(childEnv(base)));
+  const d = spawnSync(process.execPath, [driver, child], { cwd: REPO, env: base, encoding: 'utf8', timeout: 120000, windowsHide: true });
+  let out = null; try { out = JSON.parse((d.stdout || '').trim().split('\n').pop()); } catch { /* reported below */ }
+  assert(d.status === 0 && out, `driver exit ${d.status}: ${(d.stderr || '').slice(-300)}`);
+  clean('tools/accept runCmd', out.a);
+  clean('tools/accept runCmdAsync', out.b);
+  assert(loud(out.c) && out.c.stdout.trim() === 'out', `a caller that sets NODE_USE_ENV_PROXY itself keeps its choice, warning included: ${JSON.stringify(out.c.stderr)}`);
+  assert(loud(control), 'control: the warning is there without the flag');
+  t.note('control (variable set by hand, no flag): stderr', control.stderr.trim().split('\n').map((l) => l.replace(/\(node:\d+\) /, '')));
+  t.note('through the runners: stderr', out.a.stderr.trim().split('\n').map((l) => l.replace(/\(node:\d+\) /, '')));
+});
+
 // ------------------------------------------------------------------ A2 + B2. the acceptance runners (tools/accept)
 const UTIL = pathToFileURL(path.join(ACCEPT, 'lib', 'util.mjs')).href;
 function runDriver(set) {
@@ -311,14 +391,16 @@ test('RUN-20', 'tools/accept (runCmd and runCmdAsync, the start of every accepta
     const run = runDriver(set);
     assert(run.status === 0 && run.out && run.parent, `${label}: driver exit ${run.status}: ${run.stderr.slice(-400)}`);
     assertEq(run.kids.map((k) => k.args[0]), ['sync', 'async', 'caller', 'missing-binary-follows'], `${label}: children recorded`);
-    const added = expectAdded(cfg);
+    const added = expectAdded(cfg), quiet = expectQuiet(cfg);
     for (const k of run.kids.filter((x) => x.args[0] !== 'caller')) {
       const d = envDiff(run.parent, k);
-      assertEq([d.removed, d.changed, d.added], [[], [], ['PYTHONIOENCODING', ...added].sort()], `${label}, ${k.args[0]}: difference between the harness process and its child`);
+      assertEq([d.removed, d.changed, d.added], [[], quiet ? ['NODE_OPTIONS'] : [], ['PYTHONIOENCODING', ...added].sort()], `${label}, ${k.args[0]}: difference between the harness process and its child`);
       assertEq([k.show.NODE_USE_ENV_PROXY, k.show.NODE_EXTRA_CA_CERTS, k.show.PYTHONIOENCODING], [...values, 'utf-8'], `${label}, ${k.args[0]}: values`);
+      assertEq(k.show.NODE_OPTIONS, childNodeOptions(run.parent.show, cfg), `${label}, ${k.args[0]}: NODE_OPTIONS (the harness process's own${quiet ? `, then ${QUIET_FLAG}` : ', unchanged'})`);
     }
     const c = run.kids.find((x) => x.args[0] === 'caller');
     assertEq([c.show.NODE_USE_ENV_PROXY, c.show.T0_PROBE_MARK], ['0', 'caller'], `${label}: the caller's own env option wins and is never overwritten`);
+    assertEq(c.show.NODE_OPTIONS, run.parent.show.NODE_OPTIONS, `${label}: with the caller's own NODE_USE_ENV_PROXY the rule leaves NODE_OPTIONS alone`);
     for (const k of ['a', 'b', 'c', 'd']) assert(run.out[k].exit === 0 && run.out[k].has && isLoad(run.out[k].load1Start) && isLoad(run.out[k].load1End), `${label}: result ${k} ${JSON.stringify(run.out[k])}`);
     assert(run.out.e.exit === null && run.out.e.error && run.out.e.has, `${label}: a command that cannot start still returns its load: ${JSON.stringify(run.out.e)}`);
     t.note(label, { added, child: values });
@@ -361,6 +443,7 @@ test('RUN-22', 'tools/accept/run_pass.mjs, a real (two-check, incomplete) pass b
   const kid = readProbe(probeOut).find((p) => scriptIs(p, 'tests/t0/headers.spec.mjs'));
   assert(kid, 'the suite process of check 6 was not recorded');
   assertEq([kid.show.NODE_USE_ENV_PROXY, kid.show.NODE_EXTRA_CA_CERTS, kid.show.PYTHONIOENCODING], ['1', CA_DEFAULT, 'utf-8'], 'environment of the suite process');
+  if (NODE_HONOURS) assert(String(kid.show.NODE_OPTIONS).endsWith(` ${QUIET_FLAG}`), `NODE_OPTIONS of the suite process ends with the quiet flag: ${kid.show.NODE_OPTIONS}`);
   const md = fs.readFileSync(path.join(outDir, 'pass-1.md'), 'utf8');
   assert(md.includes('| Load average (1 min) |') && md.includes('| # | Check | Status | Defects | Notes | Time | Load (1 min) start > end |'), 'pass-1.md shows the load');
   if (!WIN) assert(md.includes(`| ${loadText(c6.load1Start, c6.load1End)} |`) && new RegExp(`, load ${String(loadText(cmd.load1Start, cmd.load1End)).replace(/[.?]/g, '\\$&')}`).test(md), 'pass-1.md: the numbers of check 6 and of its command');

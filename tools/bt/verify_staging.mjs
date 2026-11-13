@@ -1,56 +1,265 @@
-// Real-run check of a packed Battle Theatre staging build. Not a trace: a browser (software WebGL2, one at a time) opens the page, enters the theatre with the figures on, starts the sound
-// (programmatic, as a click would), runs the scene for some frames at a minute with firing, flies the camera close to a unit, opens the Sources drawer, and the request log is compared:
-//   1. the packed dist is served and every request must answer 2xx (zero 404s);
-//   2. the same run is made against the source tree (docs/battle-theatre) and every URL it loaded must exist in the dist (nothing the features load dynamically is missing).
-//   node tools/bt/verify_staging.mjs --dist deliver/bt-staging/dist [--json report.json] [--frames 40]
-// Run it under `nice -n 10`. Exit 0 only when both checks pass.
-import fs from 'node:fs'; import path from 'node:path'; import http from 'node:http'; import { fileURLToPath } from 'node:url';
-import { chromium } from '../../node_modules/playwright-core/index.mjs';
+// Real-run check of a packed Battle Theatre staging build. The packer (tools/bt/pack_theatre.mjs) finds what the page loads by reading the code; this tool finds out what the page
+// ACTUALLY loads, with a browser (software WebGL2, one at a time), and compares:
+//   1. static: the dist matches its MANIFEST.json byte for byte; the zip holds exactly the dist (names, sizes, CRC-32) and its .sha256 file is right; every relative import of the dist exists;
+//   2. the packed dist is served the way Netlify serves it (its _headers file applied) and walked: enter the theatre with the figures on, start the sound (what a click does), let the added
+//      layers (src/ext) settle, run the scene at 3 July 13:30, fly to a unit, play at 2x and at 60x, go to 4 July 15:00 (rain), open every drawer, select a unit, switch every added layer
+//      on and open every added panel, press Back; then every page of each static section (app/roster when it exists) is visited, its links followed and its controls pressed;
+//   3. the same walk is made against the SOURCE tree (a snapshot of it with --pack, so that nobody's edit moves the target during the run);
+//   4. verdict: every request to the packed site answers 2xx (zero 404s); every URL the source run loaded exists in the dist; no console error or page error appears only in the dist run;
+//      every step that passes at the source passes in the dist; the sound started; the added layers are in the same state in both runs; every page of a static section loads in both.
+// What a run cannot show is printed with the verdict (NOT RUN): the real GPU, the WebGPU picture, hearing the sound, other visits (?history=stub, ?api=webgpu, ?ext=off).
+//
+//   node tools/bt/verify_staging.mjs --pack [--frames 20] [--json report.json]          snapshot the tree, pack it into deliver/, verify the result (the whole honest run)
+//   node tools/bt/verify_staging.mjs --dist deliver/bt-staging/dist [--zip file.zip] [--source docs/battle-theatre] [--frames 20] [--json report.json] [--only dist|source]
+// Run it through the machine lock (tools/horde/bench.sh): a software frame takes seconds. Exit 0 only when every check passes.
+import fs from 'node:fs'; import path from 'node:path'; import http from 'node:http'; import crypto from 'node:crypto'; import zlib from 'node:zlib'; import { execFileSync } from 'node:child_process'; import { fileURLToPath } from 'node:url';
+import { pack, trace, SECTIONS, IMPORT_RE, CSS_URL_RE } from './pack_theatre.mjs';
+
 const here = path.dirname(fileURLToPath(import.meta.url)), REPO = path.resolve(here, '../..'), BT = path.join(REPO, 'docs/battle-theatre');
-const MIME = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.mjs': 'text/javascript', '.js': 'text/javascript', '.json': 'application/json', '.jsonl': 'application/x-ndjson', '.jpg': 'image/jpeg', '.png': 'image/png', '.svg': 'image/svg+xml', '.bin': 'application/octet-stream', '.wav': 'audio/wav', '.ogg': 'audio/ogg', '.glb': 'model/gltf-binary' };
-function serveDir(root, port) {
-  return new Promise(res => { const srv = http.createServer((q, s) => {
-    const u = decodeURIComponent(q.url.split('?')[0]), f = path.join(root, u.endsWith('/') ? u + 'index.html' : u);
-    if (!f.startsWith(root) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { s.writeHead(404, { 'content-type': 'text/plain' }); return s.end('not found'); }
-    const b = fs.readFileSync(f); s.writeHead(200, { 'content-type': MIME[path.extname(f)] || 'application/octet-stream', 'content-length': b.length, 'cache-control': 'no-store' }); s.end(b);
-  }); srv.listen(port, '127.0.0.1', () => res(srv)); });
+const posix = p => p.split(path.sep).join('/');
+const sha256 = b => crypto.createHash('sha256').update(b).digest('hex');
+export const walk = d => fs.readdirSync(d, { withFileTypes: true }).flatMap(e => e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)]);
+const isFile = p => { try { return fs.statSync(p).isFile(); } catch { return false; } };
+
+// ---------------------------------------------------------------- the server: the dist as Netlify serves it
+const MIME = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.json': 'application/json', '.jsonl': 'application/x-ndjson', '.md': 'text/markdown; charset=utf-8', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
+  '.png': 'image/png', '.webp': 'image/webp', '.gif': 'image/gif', '.svg': 'image/svg+xml', '.bin': 'application/octet-stream', '.wav': 'audio/wav', '.ogg': 'audio/ogg', '.mp3': 'audio/mpeg', '.glb': 'model/gltf-binary', '.woff2': 'font/woff2', '.woff': 'font/woff', '.ttf': 'font/ttf', '.otf': 'font/otf', '.wasm': 'application/wasm', '.txt': 'text/plain; charset=utf-8' };
+/** The rules of a Netlify `_headers` file: a path pattern on its own line, then indented `Name: value` lines. `*` matches anything, `:name` one path segment. */
+export function parseHeaders(text) {
+  const rules = []; let cur = null;
+  for (const raw of String(text || '').split(/\r?\n/)) {
+    if (!raw.trim() || /^\s*#/.test(raw)) { if (!raw.trim()) cur = null; continue; }
+    if (/^\s/.test(raw)) { const m = /^\s+([A-Za-z0-9-]+)\s*:\s*(.*?)\s*$/.exec(raw); if (m && cur) cur.headers[m[1].toLowerCase()] = m[2]; continue; }
+    const pattern = raw.trim(); cur = { pattern, headers: {}, regex: new RegExp('^' + pattern.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*').replace(/:[A-Za-z_]\w*/g, '[^/]+') + '$') }; rules.push(cur);
+  }
+  return rules;
 }
-export async function runScenario(root, port, { frames = 20, timeout = 600000 } = {}) {
-  const srv = await serveDir(root, port), base = `http://127.0.0.1:${port}`, log = new Map(), errors = [];
-  const br = await chromium.launch({ channel: 'chrome', headless: true, args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--autoplay-policy=no-user-gesture-required'] });
+export const headersFor = (rules, urlPath) => Object.assign({}, ...rules.filter(r => r.regex.test(urlPath)).map(r => r.headers));
+/** Serves root on 127.0.0.1:port (0 = any free port) and records every request (method, path, status). */
+export function serveDir(root, port = 0) {
+  root = path.resolve(root); const events = [], hf = path.join(root, '_headers'), rules = isFile(hf) ? parseHeaders(fs.readFileSync(hf, 'utf8')) : [];
+  const srv = http.createServer((q, s) => {
+    let u; try { u = decodeURIComponent(q.url.split('?')[0]); } catch { u = '/'; }
+    let f = path.join(root, u); if (u.endsWith('/')) f = path.join(f, 'index.html');
+    if (!f.startsWith(root + path.sep) || !isFile(f)) { events.push({ m: q.method, p: u, s: 404 }); s.writeHead(404, { 'content-type': 'text/plain', 'cache-control': 'no-store' }); return s.end('not found'); }
+    const b = fs.readFileSync(f), h = { 'content-type': MIME[path.extname(f).toLowerCase()] || 'application/octet-stream', 'cache-control': 'no-store', ...headersFor(rules, u), 'content-length': b.length };
+    events.push({ m: q.method, p: u, s: 200 }); s.writeHead(200, h); s.end(q.method === 'HEAD' ? undefined : b);
+  });
+  return new Promise(res => srv.listen(port, '127.0.0.1', () => res({ srv, port: srv.address().port, events, close: () => new Promise(r => { srv.closeAllConnections?.(); srv.close(r); }) })));
+}
+/** Worst status per path from the server's event list: a path that ever answered 4xx is 404. */
+export function logOf(events) { const log = {}; for (const e of events) log[e.p] = Math.max(log[e.p] || 0, e.s); return Object.fromEntries(Object.entries(log).sort()); }
+
+// ---------------------------------------------------------------- 1. static checks of the dist and the zip
+export function checkManifest(dist) {
+  const out = { ok: true, problems: [], version: null, files: 0 }, mf = path.join(dist, 'MANIFEST.json');
+  if (!isFile(mf)) return { ok: false, problems: ['MANIFEST.json is missing'], version: null, files: 0 };
+  let m; try { m = JSON.parse(fs.readFileSync(mf, 'utf8')); } catch (e) { return { ok: false, problems: ['MANIFEST.json does not parse: ' + e.message], version: null, files: 0 }; }
+  out.version = m.version; const listed = new Set();
+  for (const f of m.files || []) { listed.add(f.path); const p = path.join(dist, f.path); if (!isFile(p)) { out.problems.push(`listed but missing: ${f.path}`); continue; } const b = fs.readFileSync(p); if (b.length !== f.bytes) out.problems.push(`size differs: ${f.path} (${b.length}, manifest ${f.bytes})`); else if (sha256(b) !== f.sha256) out.problems.push(`content differs: ${f.path}`); }
+  const onDisk = walk(dist).map(f => posix(path.relative(dist, f))).filter(f => f !== 'MANIFEST.json'); out.files = onDisk.length;
+  for (const f of onDisk) if (!listed.has(f)) out.problems.push(`on disk but not in the manifest: ${f}`);
+  out.ok = out.problems.length === 0; return out;
+}
+/** The entries of a zip from its central directory: [{ name, crc, size, packed }]. */
+export function readZipDirectory(buf) {
+  let e = -1; for (let i = buf.length - 22; i >= Math.max(0, buf.length - 65557); i--) if (buf.readUInt32LE(i) === 0x06054b50) { e = i; break; }
+  if (e < 0) throw new Error('no end-of-central-directory record: not a zip');
+  const n = buf.readUInt16LE(e + 10), off = buf.readUInt32LE(e + 16), out = []; let p = off;
+  for (let i = 0; i < n; i++) { if (buf.readUInt32LE(p) !== 0x02014b50) throw new Error('damaged central directory'); const nl = buf.readUInt16LE(p + 28), xl = buf.readUInt16LE(p + 30), cl = buf.readUInt16LE(p + 32);
+    out.push({ name: buf.toString('utf8', p + 46, p + 46 + nl), crc: buf.readUInt32LE(p + 16), packed: buf.readUInt32LE(p + 20), size: buf.readUInt32LE(p + 24) }); p += 46 + nl + xl + cl; }
+  return out;
+}
+export function checkZip(zip, dist) {
+  const out = { ok: true, problems: [], zip: path.basename(zip), bytes: 0, sha256: null, entries: 0 };
+  if (!isFile(zip)) return { ...out, ok: false, problems: ['the zip is not there: ' + zip] };
+  const buf = fs.readFileSync(zip); out.bytes = buf.length; out.sha256 = sha256(buf);
+  const side = zip + '.sha256'; if (!isFile(side)) out.problems.push('no .sha256 file beside the zip'); else { const w = fs.readFileSync(side, 'utf8').trim().split(/\s+/); if (w[0] !== out.sha256) out.problems.push(`the .sha256 file says ${w[0]}, the zip is ${out.sha256}`); if (w[1] && w[1] !== path.basename(zip)) out.problems.push(`the .sha256 file names ${w[1]}`); }
+  let ents = []; try { ents = readZipDirectory(buf); } catch (e) { out.problems.push(e.message); }
+  out.entries = ents.length; const byName = new Map(ents.map(x => [x.name, x])), onDisk = walk(dist).map(f => posix(path.relative(dist, f)));
+  for (const f of onDisk) { const z = byName.get(f); if (!z) { out.problems.push(`in the dist, not in the zip: ${f}`); continue; } const b = fs.readFileSync(path.join(dist, f)); if (z.size !== b.length) out.problems.push(`size differs in the zip: ${f}`); else if (z.crc !== zlib.crc32(b)) out.problems.push(`content differs in the zip: ${f}`); }
+  for (const x of ents) if (!onDisk.includes(x.name)) out.problems.push(`in the zip, not in the dist: ${x.name}`);
+  const v = (checkManifest(dist).version || ''); if (v && !new RegExp(`^gettysburg-BT-staging-${v}(-AUDIT-HITS-\\d+)?\\.zip$`).test(path.basename(zip))) out.problems.push(`the zip name does not carry the build version ${v}`);
+  try { execFileSync('unzip', ['-tq', zip], { stdio: 'pipe' }); out.unzipTest = 'ok'; } catch (e) { if (e.code === 'ENOENT') out.unzipTest = 'unzip not installed'; else { out.unzipTest = 'FAILED'; out.problems.push('unzip -t failed'); } }
+  out.ok = out.problems.length === 0; return out;
+}
+/** Every relative import, style-sheet address and page link of the dist's own files exists in the dist (a check of the finished folder, not of the trace). */
+export function checkInternalLinks(dist) {
+  const have = new Set(walk(dist).map(f => posix(path.relative(dist, f)))), problems = []; let n = 0;
+  const exists = (from, spec) => { const s = spec.replace(/[?#].*$/, ''); if (!s) return true; const abs = s.startsWith('/') ? s.slice(1) : posix(path.normalize(path.join(path.dirname(from), s))); n++; return have.has(abs) || (abs.endsWith('/') && have.has(abs + 'index.html')) || have.has(abs.replace(/\/$/, '') + '/index.html') && /\/$|^$/.test(s); };
+  for (const f of have) {
+    const abs = path.join(dist, f);
+    if (/\.(mjs|js)$/.test(f)) { const src = fs.readFileSync(abs, 'utf8'); for (const m of src.matchAll(IMPORT_RE)) { const s = m[1] ?? m[2]; if ((s.startsWith('./') || s.startsWith('../')) && !exists(f, s)) problems.push(`${f}: import ${s}`); } }
+    else if (/\.css$/.test(f)) { const src = fs.readFileSync(abs, 'utf8').replace(/\/\*[\s\S]*?\*\//g, ''); for (const m of src.matchAll(CSS_URL_RE)) { const s = (m[2] ?? m[4] ?? '').trim(); if (s && !/^(?:[a-z][a-z0-9+.-]*:|\/\/|#|data:)/i.test(s) && !exists(f, s)) problems.push(`${f}: url(${s})`); } }
+    else if (/\.html?$/.test(f)) { const src = fs.readFileSync(abs, 'utf8').replace(/<!--[\s\S]*?-->/g, ''); for (const m of src.matchAll(/<(?:script|img|source|link|audio|video)\b[^>]*?\b(?:src|href)\s*=\s*["']([^"']+)["']/gi)) { const s = m[1]; if (!/^(?:[a-z][a-z0-9+.-]*:|\/\/|#)/i.test(s) && !exists(f, s)) problems.push(`${f}: ${s}`); } }
+  }
+  return { ok: problems.length === 0, checked: n, problems: [...new Set(problems)] };
+}
+
+// ---------------------------------------------------------------- 4. the comparison (pure: tested in tests/bt-pack/verify.test.mjs)
+const hasFile = (distFiles, u) => distFiles.has(u) || (u.endsWith('/') && distFiles.has(u + 'index.html'));
+const okStatus = s => s >= 200 && s < 400;
+const normError = e => String(e.text ?? e).replace(/https?:\/\/127\.0\.0\.1:\d+/g, 'ORIGIN').replace(/\s+/g, ' ').slice(0, 220);
+/** A, B: the dist run and the source run, each { log: { path: status }, errors: [{ kind, text }], failed: [..], entered, info: { sound }, steps: [{ name, ok, error }], ext: { index, modules: [{ path, state }] } | null, crawl: { pages: [{ url, status }] } }.
+ *  distFiles: Set of '/path' of the dist. Returns { ok, failures, notes, missingInDist, errorsOnlyInDist, errorsInBoth }. */
+export function compareRuns(A, B, distFiles) {
+  const failures = [], notes = [], hint = l => l.slice(0, 8).join(', ') + (l.length > 8 ? `, and ${l.length - 8} more` : '');
+  if (!A.entered) failures.push('the packed site did not enter the theatre (the theatre never reported ready)');
+  if (B && !B.entered) notes.push('the source tree did not enter the theatre either: nothing to compare against beyond the 404 check');
+  const bad = Object.entries(A.log).filter(([, s]) => !okStatus(s)).map(([u, s]) => `${s} ${u}`); if (bad.length) failures.push(`${bad.length} request(s) to the packed site did not answer 2xx: ${hint(bad)}`);
+  const lost = (A.failed || []).filter(f => !/ERR_ABORTED/.test(f.failure || '')); if (lost.length) failures.push(`${lost.length} request(s) of the packed site failed in the browser: ${hint(lost.map(f => `${f.failure} ${f.url}`))}`);
+  const missingInDist = B ? Object.entries(B.log).filter(([u, s]) => okStatus(s) && !hasFile(distFiles, u)).map(([u]) => u) : []; if (missingInDist.length) failures.push(`${missingInDist.length} URL(s) the source run loaded are not in the dist: ${hint(missingInDist)}`);
+  const errA = new Set((A.errors || []).map(normError)), errB = new Set(((B && B.errors) || []).map(normError));
+  const errorsOnlyInDist = [...errA].filter(e => !errB.has(e)), errorsInBoth = [...errA].filter(e => errB.has(e));
+  if (errorsOnlyInDist.length) failures.push(`${errorsOnlyInDist.length} console or page error(s) appear only in the packed site: ${hint(errorsOnlyInDist)}`);
+  if (errorsInBoth.length) notes.push(`${errorsInBoth.length} console or page error(s) appear in the source run too (a product matter, not a packaging one): ${hint(errorsInBoth)}`);
+  if (A.entered && A.info && A.info.sound !== true) { if (B && B.info && B.info.sound === true) failures.push('the sound did not start in the packed site (it did at the source)'); else notes.push('the sound did not start in either run'); }
+  const bs = new Map(((B && B.steps) || []).map(s => [s.name, s]));
+  for (const s of A.steps || []) if (!s.ok) { const o = bs.get(s.name); if (o && !o.ok) notes.push(`step "${s.name}" failed in both runs: ${s.error}`); else failures.push(`step "${s.name}" failed in the packed site${o ? ' (passed at the source)' : ''}: ${s.error}`); }
+  const mb = new Map((((B && B.ext) || {}).modules || []).map(m => [m.path, m]));
+  for (const m of ((A.ext || {}).modules || [])) { const o = mb.get(m.path); if (o && o.state !== m.state) failures.push(`added layer ${m.path}: ${m.state} in the packed site, ${o.state} at the source`); else if (m.state !== 'running' && (!o || o.state !== 'running')) notes.push(`added layer ${m.path} is "${m.state}" in both runs: ${m.error || ''}`); }
+  if (A.ext && B && B.ext && A.ext.index !== B.ext.index) failures.push(`the list of added layers is "${A.ext.index}" in the packed site, "${B.ext.index}" at the source`);
+  const pa = new Map(((A.crawl || {}).pages || []).map(p => [p.url, p.status])), pb = new Map(((B && B.crawl) || {}).pages ? B.crawl.pages.map(p => [p.url, p.status]) : []);
+  for (const [u, s] of pa) if (!okStatus(s)) failures.push(`section page did not load in the packed site (${s}): ${u}`);
+  for (const [u, s] of pb) if (okStatus(s) && !pa.has(u)) failures.push(`section page visited at the source and not in the packed site: ${u}`);
+  return { ok: failures.length === 0, failures, notes, missingInDist, errorsOnlyInDist, errorsInBoth };
+}
+
+// ---------------------------------------------------------------- 3. the snapshot of the source tree
+// folders that no page of the shell can load (design notes, raw rosters, terrain sources, tests and tools of the shell): left out so that the copy is small. A request into one of them
+// answers 404 in BOTH runs, so the dist run still reports it.
+export const SNAPSHOT_EXCLUDE = ['rosters/data', 'rosters/pilot', 'rosters/pipeline', 'rosters/pipeline2', 'terrain', 'library', 'BIBLE', 'fidelity', 'drill', 'assets', 'audio', 'app/tests', 'app/docs', 'app/tools', 'render/shots', 'render/results'];
+export function snapshotTree(src, dst, exclude = SNAPSHOT_EXCLUDE) {
+  fs.rmSync(dst, { recursive: true, force: true }); fs.mkdirSync(path.dirname(dst), { recursive: true });
+  fs.cpSync(src, dst, { recursive: true, filter: s => { const r = posix(path.relative(src, s)); return !exclude.some(e => r === e || r.startsWith(e + '/')); } });
+  return dst;
+}
+
+// ---------------------------------------------------------------- 2. the browser walk
+const SW_ARGS = ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--autoplay-policy=no-user-gesture-required'];
+async function launch() {
+  const { chromium } = await import('../../node_modules/playwright-core/index.mjs');
+  try { return await chromium.launch({ channel: 'chrome', headless: true, args: SW_ARGS }); } catch { return chromium.launch({ headless: true, args: SW_ARGS }); }
+}
+/** What the page does, run inside the theatre. Every step is logged ("[verify] ...") as it ends, so that a hang shows where; a step that throws is recorded and the walk goes on. */
+async function theatreWalk({ frames }) {
+  const a = window.btApp, th = a.theatre, steps = [], out = { api: a.api, crowd: !!(th.host && th.host.crowd), fx: !!th.fxOn, steps, ext: null };
+  const { minOf } = await import(new URL('./src/clock.mjs', document.baseURI).href);
+  const step = async (name, fn) => { const t0 = performance.now(); let rec; try { const r = await fn(); rec = { name, ok: true, ms: Math.round(performance.now() - t0) }; if (r !== undefined) rec.r = r; } catch (e) { rec = { name, ok: false, ms: Math.round(performance.now() - t0), error: String((e && e.message) || e).slice(0, 240) }; } steps.push(rec); console.info('[verify] ' + JSON.stringify({ name: rec.name, ok: rec.ok, ms: rec.ms, error: rec.error })); };
+  const settle = async () => { if (a.ext && a.ext.whenSettled) await a.ext.whenSettled(); };
+  const snapshotExt = () => a.ext ? { index: a.ext.index && a.ext.index.state, modules: a.ext.status().map(m => ({ path: m.path, state: m.state, stage: m.stage, error: m.error, late: m.late, panels: m.panels, toggles: m.toggles })), problems: a.ext.problems() } : null;
+  await step('added layers settle', async () => { await settle(); out.ext = snapshotExt(); return out.ext && out.ext.modules.map(m => m.path + ':' + m.state); });
+  await step('sound starts', async () => { out.sound = th.audio ? await th.audio.start() : null; if (out.sound !== true) throw new Error('audio.start() answered ' + out.sound); });
+  await step('3 July 13:30', async () => { a.setTime(minOf(7, 3, 13, 30)); await a.frames(frames); });
+  let ui = -1;
+  await step('fly to a unit', async () => {
+    const L = th.layer, w = th.world, f = w.unitF; for (let i = 0; i < L.units.length; i++) if (a.stage.present[i] && w.units[i].count > 20) { ui = i; break; }
+    if (ui < 0) throw new Error('no unit with more than 20 figures is present'); const v = th.viewFor(f[ui * 12], f[ui * 12 + 1], { dist: 30, height: 5, yaw: f[ui * 12 + 2] }); th.cam.set(v.x, v.y, v.z, v.yaw, v.pitch, 55); await a.frames(frames); return ui;
+  });
+  await step('play at 2x', async () => { a.setPlaying(true); a.setSpeed(2); await a.frames(frames); a.setPlaying(false); });
+  await step('play at 60x', async () => { a.setPlaying(true); a.setSpeed(60); await a.frames(Math.max(4, frames >> 1)); a.setPlaying(false); a.setSpeed(1); });
+  await step('4 July 15:00 (rain)', async () => { a.setTime(minOf(7, 4, 15, 0)); await a.frames(frames); });
+  await step('open every drawer', async () => { const done = []; for (const b of [...document.querySelectorAll('[data-panel]')]) { if (b.hidden || b.offsetParent === null) continue; b.click(); await a.frames(2); done.push(b.dataset.panel); b.click(); await a.frames(1); } if (!done.length) throw new Error('no drawer button is visible'); return done; });
+  await step('select a unit', async () => { if (ui < 0) throw new Error('no unit was chosen'); a.select(ui); await a.frames(3); a.select(-1); await a.frames(1); });
+  await step('added layers: switches and panels', async () => {
+    await settle(); const ex = a.ext; if (!ex) return 'no loader'; const st = ex.status(), did = [];
+    for (const m of st) for (const id of m.toggles || []) { await ex.setToggle(id, true); await a.frames(3); did.push('switch ' + id); }
+    for (const m of st) for (const id of m.panels || []) { ex.openPanel(id); await a.frames(3); ex.closePanel(id); await a.frames(1); did.push('panel ' + id); }
+    const tour = th.sitePlaces && th.sitePlaces.tour; if (tour && tour.stops) { const s = tour.stops()[0]; if (s) { tour.flyTo(s.id); await a.frames(frames); did.push('tour stop ' + s.id); } }
+    for (const m of st) for (const id of m.toggles || []) { await ex.setToggle(id, false); did.push('switch off ' + id); }
+    await a.frames(2); out.ext = snapshotExt(); return did;
+  });
+  out.soundStarted = th.audio ? th.audio.started : null; out.units = ui; out.perf = (() => { try { const p = a.perf(); return { frames: p.frames, p50: p.p50, entryMs: p.entryMs }; } catch { return null; } })();
+  return out;
+}
+const PAGE_GUARD = (page, tag, sink) => {
+  page.on('console', m => { const t = m.text(); if (m.type() === 'error') sink.errors.push({ kind: 'console', text: t.slice(0, 400) }); else if (t.startsWith('[verify] ')) sink.print(`${tag} ${t.slice(9)}`); });
+  page.on('pageerror', e => sink.errors.push({ kind: 'pageerror', text: String((e && e.message) || e).slice(0, 400) }));
+  page.on('requestfailed', r => { try { const u = new URL(r.url()); if (u.origin === sink.origin) sink.failed.push({ url: u.pathname, failure: r.failure() && r.failure().errorText }); } catch { /* not a URL */ } });
+  page.on('dialog', d => d.dismiss().catch(() => { }));
+};
+/** Visits every page of each section (app/roster, ...), follows links that stay inside the section, presses a few controls, types into a search box. */
+async function crawlSections(ctx, base, sections, sink, { max = 60, pokes = 6 } = {}) {
+  const pages = [], interactions = [], queue = sections.flatMap(s => s.pages.map(p => ({ url: base + '/' + p, prefix: '/' + s.path + '/' }))), seen = new Set();
+  while (queue.length && seen.size < max) {
+    const { url, prefix } = queue.shift(); const key = url.replace(/#.*$/, ''); if (seen.has(key)) continue; seen.add(key);
+    const page = await ctx.newPage(); PAGE_GUARD(page, '[section]', sink);
+    try {
+      const r = await page.goto(key, { waitUntil: 'load', timeout: 180000 }).catch(() => null); await page.waitForLoadState('networkidle', { timeout: 30000 }).catch(() => { });
+      pages.push({ url: new URL(key).pathname, status: r ? r.status() : 0 });
+      const links = await page.evaluate(() => [...document.querySelectorAll('a[href]')].map(a => a.href)).catch(() => []);
+      for (const l of links) { try { const u = new URL(l); if (u.origin === new URL(base).origin && u.pathname.startsWith(prefix) && /(\.html?|\/)$/.test(u.pathname)) queue.push({ url: u.origin + u.pathname + u.search, prefix }); } catch { /* skip */ } }
+      const box = page.locator('input[type=search], input[type=text], input:not([type])').first(); if (await box.count().catch(() => 0)) { await box.fill('a', { timeout: 5000 }).catch(() => { }); await page.waitForTimeout(600); await page.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => { }); interactions.push(new URL(key).pathname + ': typed in the search box'); }
+      const ctl = page.locator('button:not([disabled]), summary, [role=tab], [role=button], [data-unit], [data-id]'); const n = Math.min(pokes, await ctl.count().catch(() => 0));
+      for (let i = 0; i < n; i++) { if (new URL(page.url()).pathname !== new URL(key).pathname) break; await ctl.nth(i).click({ timeout: 5000, noWaitAfter: true }).catch(() => { }); await page.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => { }); interactions.push(new URL(key).pathname + ': pressed control ' + (i + 1)); }
+    } finally { await page.close().catch(() => { }); }
+  }
+  return { pages, interactions };
+}
+/** One walk against a served folder. Returns { log, errors, failed, entered, info, steps, ext, crawl, seconds }. */
+export async function runWalk(root, { frames = 20, label = 'run', sections = [], limitMs = 90 * 60 * 1000, print = s => console.log(s) } = {}) {
+  const t0 = Date.now(), server = await serveDir(root), base = `http://127.0.0.1:${server.port}`, sink = { errors: [], failed: [], origin: base, print: s => print(`  [${label} +${Math.round((Date.now() - t0) / 1000)}s] ${s}`) };
+  const res = { label, entered: false, info: {}, steps: [], ext: null, crawl: { pages: [], interactions: [] }, errors: sink.errors, failed: sink.failed }; let br, timer;
   try {
-    const ctx = await br.newContext({ viewport: { width: 640, height: 360 } }), page = await ctx.newPage();
-    page.on('response', r => { const u = new URL(r.url()); if (u.origin === base) log.set(u.pathname, r.status()); });
-    page.on('requestfailed', r => { const u = new URL(r.url()); if (u.origin === base) log.set(u.pathname, 0); });
-    page.on('pageerror', e => errors.push('pageerror: ' + String(e.message || e).slice(0, 300)));
-    page.on('console', m => { if (m.type() === 'error') errors.push('console: ' + m.text().slice(0, 300)); });
-    await page.goto(base + '/app/index.html', { waitUntil: 'load' });
-    await page.click('[data-bt-enter]'); await page.waitForFunction(() => window.btApp && window.btApp.ready, null, { timeout });
-    const info = await page.evaluate(async n => {
-      const a = window.btApp, th = a.theatre, out = { api: a.api, crowd: !!th.host.crowd, fx: !!th.fxOn };
-      out.sound = th.audio ? await th.audio.start() : null;                                   // programmatic start (a click does the same call)
-      a.setTime(Date.UTC ? 0 : 0); const { minOf } = await import(new URL('./src/clock.mjs', document.baseURI).href);
-      a.setTime(minOf(7, 3, 13, 30)); await a.frames(n);
-      const L = th.layer, w = th.world, f = w.unitF; let ui = -1; for (let i = 0; i < L.units.length; i++) if (a.stage.present[i] && w.units[i].count > 20) { ui = i; break; }
-      if (ui >= 0) { const v = th.viewFor(f[ui * 12], f[ui * 12 + 1], { dist: 30, height: 5, yaw: f[ui * 12 + 2] }); th.cam.set(v.x, v.y, v.z, v.yaw, v.pitch, 55); }
-      await a.frames(n); a.setPlaying(true); a.setSpeed(2); await a.frames(n); a.setPlaying(false);
-      a.setTime(minOf(7, 4, 15, 0)); await a.frames(n);                                       // rain day
-      out.soundStarted = th.audio ? th.audio.started : null; out.units = ui; return out;
-    }, frames);
-    await page.evaluate(() => document.querySelector('[data-panel=scenario]').click()); await page.evaluate(() => window.btApp.frames(3));
-    return { info, log: Object.fromEntries([...log].sort()), errors };
-  } finally { await br.close(); srv.close(); }
+    br = await launch(); const ctx = await br.newContext({ viewport: { width: 640, height: 360 } }); ctx.setDefaultTimeout(600000);
+    const guard = new Promise((_, rej) => { timer = setTimeout(() => rej(new Error(`time limit of ${Math.round(limitMs / 60000)} min reached in the ${label}`)), limitMs); });
+    const work = (async () => {
+      const page = await ctx.newPage(); PAGE_GUARD(page, '[theatre]', sink);
+      await page.goto(base + '/app/index.html', { waitUntil: 'load' }); await page.click('[data-bt-enter]');
+      try { await page.waitForFunction(() => window.btApp && window.btApp.ready, null, { timeout: 900000, polling: 1000 }); res.entered = true; } catch (e) { sink.errors.push({ kind: 'harness', text: 'the theatre did not report ready within 15 min' }); }
+      if (res.entered) {
+        sink.print('entered'); const info = await page.evaluate(theatreWalk, { frames }); res.info = { api: info.api, crowd: info.crowd, fx: info.fx, sound: info.sound, soundStarted: info.soundStarted, units: info.units, perf: info.perf }; res.steps = info.steps; res.ext = info.ext;
+        await page.click('#bt-back').catch(e => sink.errors.push({ kind: 'harness', text: 'Back could not be pressed: ' + e.message })); await page.waitForFunction(() => !window.btApp, null, { timeout: 120000, polling: 500 }).catch(() => sink.errors.push({ kind: 'harness', text: 'the theatre did not release btApp after Back' }));
+        res.steps.push({ name: 'Back', ok: !(await page.evaluate(() => !!window.btApp).catch(() => true)) });
+      }
+      await page.goto('about:blank').catch(() => { }); await page.close().catch(() => { });
+      const present = sections.filter(s => fs.existsSync(path.join(root, s.path))); if (present.length) { sink.print('sections: ' + present.map(s => s.path).join(', ')); res.crawl = await crawlSections(ctx, base, present, sink); }
+    })();
+    await Promise.race([work, guard]);
+  } catch (e) { sink.errors.push({ kind: 'harness', text: String(e.message || e).slice(0, 300) }); res.aborted = String(e.message || e); }
+  finally { clearTimeout(timer); if (br) await br.close().catch(() => { }); await server.close(); }
+  res.log = logOf(server.events); res.requests = server.events.length; res.seconds = Math.round((Date.now() - t0) / 1000); return res;
 }
-const walk = d => fs.readdirSync(d, { withFileTypes: true }).flatMap(e => e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)]);
-if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  const a = process.argv.slice(2), opt = k => { const i = a.indexOf(k); return i >= 0 ? a[i + 1] : undefined; };
-  const dist = path.resolve(opt('--dist') || path.join(REPO, 'deliver/bt-staging/dist')), frames = +opt('--frames') || 20;
-  const distFiles = new Set(walk(dist).map(f => '/' + path.relative(dist, f).split(path.sep).join('/')));
-  console.log('run 1/2: the packed dist'); const A = await runScenario(dist, 10811, { frames });
-  console.log('run 2/2: the source tree'); const B = await runScenario(BT, 10812, { frames });
-  const bad = Object.entries(A.log).filter(([, s]) => s < 200 || s >= 400), missing = Object.keys(B.log).filter(u => B.log[u] >= 200 && B.log[u] < 400 && !distFiles.has(u));
-  const rep = { dist, distFiles: distFiles.size, distRun: { requests: Object.keys(A.log).length, nonOk: bad, info: A.info, errors: A.errors }, sourceRun: { requests: Object.keys(B.log).length, nonOk: Object.entries(B.log).filter(([, s]) => s >= 400 || s === 0), info: B.info, errors: B.errors }, loadedButNotInDist: missing, requestedDataFiles: Object.keys(A.log).filter(u => /\/data\/(audio3d|anim3d|fx3d|figures3d)\//.test(u) || /conflict-defaults/.test(u)), distFilesNotRequested: [...distFiles].filter(f => !(f in A.log) && !/^\/(index\.html|_headers|netlify\.toml|MANIFEST\.json)$/.test(f)).length };
+
+// ---------------------------------------------------------------- the CLI
+const NOT_RUN = ['a real GPU: no frame time, long task or input delay was measured (software rendering only)', 'the WebGPU picture (?api=webgpu): the default renderer is WebGL2; the WebGPU modules are in the dist (static check) but were not run', 'listening to the sound: the audio started and its graph ran, nobody heard it',
+  'other visits: ?history=stub, ?ext=off, ?crowd=off, a phone-sized page, a second entry after Back', 'other browsers (Safari, Firefox) and real phones'];
+async function main() {
+  const a = process.argv.slice(2), opt = k => { const i = a.indexOf(k); return i >= 0 ? a[i + 1] : undefined; }, has = k => a.includes(k);
+  const frames = +opt('--frames') || 20, only = opt('--only'), t0 = Date.now(), print = s => console.log(s); let dist = path.resolve(opt('--dist') || path.join(REPO, 'deliver/bt-staging/dist')), zip = opt('--zip') && path.resolve(opt('--zip')), sourceRoot = path.resolve(opt('--source') || BT);
+  const rep = { when: new Date().toISOString(), frames, dist, mode: has('--pack') ? 'pack' : 'dist' }; const failures = [], notes = [];
+  if (has('--pack')) {
+    const snap = path.resolve(opt('--snap-dir') || path.join(REPO, 'tmp/bt-spec/snap/bt')); print('snapshot of the tree: ' + snap); snapshotTree(BT, snap); sourceRoot = snap;
+    const r = pack({ root: snap, out: dist, zipDir: path.resolve(opt('--zip-dir') || path.join(REPO, 'deliver')) }); zip = r.zip;
+    rep.pack = { version: r.version, files: r.files, bytes: r.bytes, zip: r.zip && path.basename(r.zip), zipBytes: r.zipBytes, zipSha256: r.zipSha256, counts: r.counts, audit: r.audit, clean: r.clean, auditReview: Object.fromEntries(Object.entries(r.auditReview).map(([k, v]) => [k, v.count])), notes: r.trace.notes, unshippedLiterals: r.trace.unshippedLiterals, computedImports: r.trace.computedImports.filter(c => c.status !== 'address').map(c => `${c.status}: ${c.file}: ${c.arg}`) };
+    print(`packed ${r.version}: ${r.files} files, ${r.bytes} bytes; zip ${path.basename(r.zip)} ${r.zipBytes} bytes sha256 ${r.zipSha256}; copy audit hits: ${r.audit.length}`);
+    if (r.audit.length) { failures.push(`copy audit: ${r.audit.length} hit(s) in the packed files (the zip is named "-AUDIT-HITS-${r.audit.length}")`); for (const h of r.audit) notes.push(`audit hit ${h.file}:${h.line ?? ''} ${h.match}`); }
+  }
+  if (!zip) { const v = checkManifest(dist).version; const cand = v && fs.existsSync(path.join(REPO, 'deliver')) ? fs.readdirSync(path.join(REPO, 'deliver')).filter(f => f.startsWith(`gettysburg-BT-staging-${v}`) && f.endsWith('.zip')) : []; if (cand.length) zip = path.join(REPO, 'deliver', cand[0]); }
+  rep.static = { manifest: checkManifest(dist), zip: zip ? checkZip(zip, dist) : null, links: checkInternalLinks(dist) };
+  if (!rep.static.manifest.ok) failures.push('MANIFEST: ' + rep.static.manifest.problems.slice(0, 5).join('; '));
+  if (!zip) notes.push('no zip was found for this dist: the zip was not checked'); else if (!rep.static.zip.ok) failures.push('ZIP: ' + rep.static.zip.problems.slice(0, 5).join('; '));
+  if (!rep.static.links.ok) failures.push('LINKS inside the dist: ' + rep.static.links.problems.slice(0, 5).join('; '));
+  print(`static: manifest ${rep.static.manifest.ok ? 'ok' : 'FAILED'} (${rep.static.manifest.files} files), zip ${zip ? (rep.static.zip.ok ? 'ok' : 'FAILED') : 'not checked'}${zip ? ' (' + path.basename(zip) + ', unzip -t: ' + rep.static.zip.unzipTest + ')' : ''}, links ${rep.static.links.ok ? 'ok' : 'FAILED'} (${rep.static.links.checked} checked)`);
+  // the root page of the dist forwards to the shell
+  try { const s = await serveDir(dist); const r = await fetch(`http://127.0.0.1:${s.port}/`); const body = await r.text(); await s.close(); if (!(r.status === 200 && /url=app\/index\.html/.test(body))) failures.push('the root page of the dist does not forward to app/index.html'); } catch (e) { failures.push('root page check failed: ' + e.message); }
+  const distFiles = new Set(walk(dist).map(f => '/' + posix(path.relative(dist, f)))), sections = trace({ root: sourceRoot }).sections; rep.distFiles = distFiles.size; rep.sections = sections.map(s => `${s.path} (${s.files} files, ${s.pages.length} pages)`);
+  let A = null, B = null;
+  if (only !== 'source') { print(`run 1/2: the packed dist (${frames} frames per step)`); A = await runWalk(dist, { frames, label: 'dist', sections, print }); }
+  if (only !== 'dist') { print(`run 2/2: the source tree${has('--pack') ? ' (the snapshot)' : ''}`); B = await runWalk(sourceRoot, { frames, label: 'source', sections, print }); }
+  rep.distRun = A, rep.sourceRun = B;
+  if (A) {
+    const c = compareRuns(A, B, distFiles); failures.push(...c.failures); notes.push(...c.notes); rep.compare = { missingInDist: c.missingInDist, errorsOnlyInDist: c.errorsOnlyInDist, errorsInBoth: c.errorsInBoth };
+    const requested = new Set([...Object.keys(A.log), ...Object.keys(B ? B.log : {})]); rep.shippedNeverRequested = [...distFiles].filter(f => !requested.has(f) && !/^\/(index\.html|_headers|netlify\.toml|MANIFEST\.json)$/.test(f)).sort();
+    notes.push(`${rep.shippedNeverRequested.length} of ${distFiles.size} shipped files were not requested by this walk (they ship because the trace found a reference; the list is in the JSON report)`);
+  } else failures.push('the packed dist was not walked (--only source)');
+  rep.failures = failures; rep.notes = notes; rep.notRun = NOT_RUN; rep.ok = failures.length === 0 && !!A && !!B; rep.minutes = Math.round((Date.now() - t0) / 600) / 100;
   if (opt('--json')) fs.writeFileSync(path.resolve(opt('--json')), JSON.stringify(rep, null, 1));
-  console.log(JSON.stringify({ ...rep, distRun: { ...rep.distRun, errors: rep.distRun.errors.slice(0, 5) }, sourceRun: { ...rep.sourceRun, errors: rep.sourceRun.errors.slice(0, 5) } }, null, 1));
-  const ok = !bad.length && !missing.length && A.info.sound === true; console.log(ok ? 'STAGING VERIFIED: zero 404s, every URL the source run loaded is in the dist, sound started' : 'STAGING CHECK FAILED'); process.exit(ok ? 0 : 1);
+  const brief = r => r && { requests: r.requests, distinctUrls: Object.keys(r.log).length, nonOk: Object.entries(r.log).filter(([, s]) => !okStatus(s)), entered: r.entered, info: r.info, steps: r.steps.map(s => `${s.ok ? 'ok  ' : 'FAIL'} ${s.name}${s.ok ? '' : ': ' + s.error}`), ext: r.ext && r.ext.modules.map(m => `${m.path}: ${m.state}`), crawlPages: r.crawl.pages.length, errors: r.errors.length, seconds: r.seconds, aborted: r.aborted };
+  print(JSON.stringify({ dist: dist, version: rep.pack?.version ?? rep.static.manifest.version, sections: rep.sections, distRun: brief(A), sourceRun: brief(B) }, null, 1));
+  print('NOT RUN here: ' + NOT_RUN.join('; '));
+  for (const n of notes) print('note: ' + n);
+  print(rep.ok ? 'STAGING VERIFIED: the dist and the zip match, zero 404s, every URL the source run loaded is in the dist, sound started, no error only in the dist' : 'STAGING CHECK FAILED:\n  ' + failures.join('\n  '));
+  process.exit(rep.ok ? 0 : 1);
 }
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main().catch(e => { console.error(e); process.exit(2); });
