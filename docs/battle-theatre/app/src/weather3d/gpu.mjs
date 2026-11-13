@@ -49,11 +49,17 @@ export function packFx(out, fr, cam, vp) {
   return out;
 }
 
+// Nothing the layer installs may wait for ever on the device: every promise of the set-up is given a bound, and what does not come in time is reported and treated as "not built" (the prototype keeps drawing the
+// sky and the particles), never as a stalled entry. The defaults are generous (a software adapter compiles slowly); tests pass small ones.
+const TIMED_OUT = Symbol('not delivered in time');
+const within = (p, ms) => new Promise(res => { const t = setTimeout(() => res(TIMED_OUT), ms); Promise.resolve(p).then(v => { clearTimeout(t); res(v); }, () => { clearTimeout(t); res(TIMED_OUT); }); });
+export const WAIT_MS = { pipelines: 60000, scope: 10000, info: 3000 };
+
 export class GPUPasses {
   // R: the prototype GPURenderer (dev, g0L, bg0, hdr, hdrV, depth, depthV, depthRT, hasTS, track, mem). The promise resolves when the pipelines are compiled (or have failed: see ok, weatherOk, fxOk, log).
   static async create(R, o = {}) { const g = new GPUPasses(R, o); await g._build(); return g; }
-  constructor(R, { maxEvents, timing = true } = {}) {
-    this.R = R; this.d = R.dev; this.log = []; this.warnings = []; this.ok = false; this.weatherOk = false; this.fxOk = false; this.failed = null; this.maxEvents = maxEvents; this.timing = timing && !!R.hasTS; this.bytes = 0; this.tracked = [];
+  constructor(R, { maxEvents, timing = true, waitMs } = {}) {
+    this.R = R; this.waitMs = { ...WAIT_MS, ...(waitMs || {}) }; this.d = R.dev; this.log = []; this.warnings = []; this.ok = false; this.weatherOk = false; this.fxOk = false; this.failed = null; this.maxEvents = maxEvents; this.timing = timing && !!R.hasTS; this.bytes = 0; this.tracked = [];
     this.wu = new Float32Array(WU_FLOATS); this.fu = new Float32Array(FXU_FLOATS); this._dv = null; this.bgW = null; this.bgFx = null; this.reads = []; this.qs = null;
     this.stats = { weatherDraws: 0, fxDraws: 0, spritesDrawn: 0, passes: 0, binds: 0, passMs: null, passMsN: 0, gpuErrors: 0 };
   }
@@ -81,9 +87,12 @@ export class GPUPasses {
       if (this.timing) { this.qs = d.createQuerySet({ label: 'weather3d.timing', type: 'timestamp', count: 2 }); this.qResolve = d.createBuffer({ label: 'weather3d.timing resolve', size: 16, usage: U.QUERY_RESOLVE | U.COPY_SRC }); this.reads = [0, 1, 2].map(i => ({ b: d.createBuffer({ label: 'weather3d.timing read ' + i, size: 16, usage: U.MAP_READ | U.COPY_DST }), state: 'free' })); }
     } catch (e) { this.log.push('weather3d/fx3d WebGPU set-up threw: ' + String((e && e.message) || e).slice(0, 600)); }
     if (d.popErrorScope) scope = d.popErrorScope();                                   // popped in the same task as it was pushed: it holds this set-up's validation errors and nobody else's
-    const [pMul, pAdd, pFx] = await Promise.all([pending[0] || null, pending[1] || null, pending[2] || null]); this.pMul = pMul; this.pAdd = pAdd; this.pFx = pFx;
-    try { const err = scope && await scope; if (err) this.log.push('weather3d/fx3d WebGPU validation error at set-up: ' + String(err.message).slice(0, 600)); } catch { /* the device went away */ }
-    for (const [label, m] of Object.entries(mods)) { try { const info = m.getCompilationInfo ? await m.getCompilationInfo() : { messages: [] }; for (const x of info.messages) { const line = `${label} ${x.type} ${x.lineNum}:${x.linePos} ${x.message}`; (x.type === 'error' ? this.log : this.warnings).push(line.slice(0, 500)); } } catch { /* the device went away */ } }
+    const W = this.waitMs, got = await Promise.all([0, 1, 2].map(i => (pending[i] ? within(pending[i], W.pipelines) : null)));
+    ['weather3d-mul', 'weather3d-add', 'fx3d-sprites'].forEach((n, i) => { if (got[i] === TIMED_OUT) { got[i] = null; this.log.push(n + ' pipeline was not ready after ' + W.pipelines / 1000 + ' s: the prototype keeps what it draws'); } });
+    [this.pMul, this.pAdd, this.pFx] = got;
+    try { const err = scope ? await within(scope, W.scope) : null; if (err === TIMED_OUT) this.warnings.push('the validation scope of the set-up was not delivered in ' + W.scope / 1000 + ' s'); else if (err) this.log.push('weather3d/fx3d WebGPU validation error at set-up: ' + String(err.message).slice(0, 600)); } catch { /* the device went away */ }
+    const infos = await Promise.all(Object.entries(mods).map(([label, m]) => within((() => { try { return m.getCompilationInfo ? m.getCompilationInfo() : { messages: [] }; } catch (e) { return Promise.reject(e); } })(), W.info).then(info => ({ label, info }))));
+    for (const { label, info } of infos) { if (info === TIMED_OUT) { this.warnings.push(label + ': the compiler messages were not delivered in ' + W.info / 1000 + ' s; the layer carries on'); continue; } for (const x of info.messages || []) { const line = `${label} ${x.type} ${x.lineNum}:${x.linePos} ${x.message}`; (x.type === 'error' ? this.log : this.warnings).push(line.slice(0, 500)); } }
     this.weatherOk = !!(this.pMul && this.pAdd && this.ubW && this.bglW); this.fxOk = !!(this.pFx && this.evB && this.cumB && this.windB && this.bglF); this.ok = this.weatherOk || this.fxOk;
     return this;
   }

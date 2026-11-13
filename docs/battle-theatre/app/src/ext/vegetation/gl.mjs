@@ -7,7 +7,7 @@ import { stateAt } from './model.mjs';
 import { perspective, lookAt, mul, frustumPlanes, sphereInFrustum } from '../../../../render/prototype/src/math.mjs';
 
 export const STATE_TEX_W = 1024;
-let TEX_STATE = 20, TEX_VISIT = 21;               // texture units: far above the renderer's own (0 to 15); lowered to the last two a small driver offers
+let TEX_STATE = 28, TEX_VISIT = 29;               // texture units: above the renderer's own (0 to 15), the weather's (12 to 15) and the crowd's (16 to 23); lowered to the last two a small driver offers
 const CROPCODE = { forest_floor: 0, wheat: 1, rye: 2, barley: 3, oats: 4, corn: 5, hay: 6, pasture: 7, open_rock: 8, marsh: 9, rock: 10 };
 const STAGECODE = { being_cut: 1, cut_shocked: 2, stubble: 3, mown: 4, hay_stubble: 5, plowed: 6, winter_grain_sprouts: 7, corn_stubble: 8, dormant_grass: 9, dormant_marsh: 9, rock: 10, shaded_litter: 11, leaf_litter: 11 };
 const TIERCODE = { documented: 0, inferred: 1, 'plausible-procedural': 2, 'open gap': 3 };
@@ -160,7 +160,7 @@ export class VegGL {
   constructor(host, model, decals, trees, opts = {}) {
     this.host = host; this.R = host.R; this.gl = host.R.gl; this.model = model; this.decals = decals; this.trees = trees; this.dead = false; this.stats = { decalTris: decals.triangles, trees: trees.n, treesDrawn: 0, chunksNear: 0, chunksFar: 0, stateWrites: 0 };
     const gl = this.gl, R = this.R; this.on = { ground: true, trees: true, overlay: false, visit: true };
-    const units = gl.getParameter(gl.MAX_COMBINED_TEXTURE_IMAGE_UNITS); if (units < 22) { TEX_STATE = units - 2; TEX_VISIT = units - 1; } else { TEX_STATE = 20; TEX_VISIT = 21; }
+    const units = gl.getParameter(gl.MAX_COMBINED_TEXTURE_IMAGE_UNITS); if (units < 30) { TEX_STATE = units - 2; TEX_VISIT = units - 1; } else { TEX_STATE = 28; TEX_VISIT = 29; }
     const H = COMMON, made = [];
     try {
       const mk = (name, vs, fs) => { const p = R.prog(name, vs, fs); made.push(p); return p; };

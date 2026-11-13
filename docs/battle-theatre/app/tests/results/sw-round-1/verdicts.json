@@ -1,12 +1,43 @@
 {
   "_about": "Hand verdicts of round 1 (bt-spec-health, spec loop). A row with `test` (the full name) lists a test even before it has run; `match` finds a test by a piece of its name. The result columns of SW-STATUS.md always come from the logs; only `verdict` and `evidence` come from here.",
   "specs": {
-    "sky.spec.mjs": { "tests": [
-      { "match": "night frames keep luminance and contrast", "verdict": "PASS", "evidence": "WebGL2 on SwiftShader. 10 night times from 3 Jul 20:30 to 9 Jul 00:30: mean luma 25.2 to 51.9 of 255 (floor 24), 5th percentile 15 or more (floor 6), 0.0 to 0.3 % near-black pixels (limit 2 %), contrast 0.29 to 0.60 (floor 0.2), every one dimmer than the day (mean 168.0). Gate Q10 holds with the weather pass, the crowd and the effects drawn." },
-      { "match": "the luminance floor is a parameter", "verdict": "PASS", "evidence": "night floor 0.15 / 0.25 / 0.34 / 0.5 / 0.6 gives mean luma 30.3 / 33.4 / 36.0 / 40.1 / 42.5 (monotonic), 0.0 % near black at every setting." },
-      { "match": "the light follows the table", "verdict": "PASS", "evidence": "3 Jul 15:00 light azimuth 259.0 = sun 259.0 (PDF B.10.2: 259); 4 Jul 01:00 light azimuth 145.9 = moon 145.9, 34 degrees up." },
-      { "match": "the day and night bar under the picture", "verdict": "PASS", "evidence": "strip luminance noon 3 Jul 169, midnight 44; noon 10 Jul 169, midnight 27 (noon over 2.5 x midnight on both days)." },
-      { "match": "no console errors", "verdict": "PASS", "evidence": "no console error and no page error during the whole spec." }
-    ] }
+    "sky.spec.mjs": {
+      "tests": [
+        {
+          "match": "night frames keep luminance and contrast",
+          "verdict": "PASS",
+          "evidence": "WebGL2 on SwiftShader. 10 night times from 3 Jul 20:30 to 9 Jul 00:30: mean luma 25.2 to 51.9 of 255 (floor 24), 5th percentile 15 or more (floor 6), 0.0 to 0.3 % near-black pixels (limit 2 %), contrast 0.29 to 0.60 (floor 0.2), every one dimmer than the day (mean 168.0). Gate Q10 holds with the weather pass, the crowd and the effects drawn."
+        },
+        {
+          "match": "the luminance floor is a parameter",
+          "verdict": "PASS",
+          "evidence": "night floor 0.15 / 0.25 / 0.34 / 0.5 / 0.6 gives mean luma 30.3 / 33.4 / 36.0 / 40.1 / 42.5 (monotonic), 0.0 % near black at every setting."
+        },
+        {
+          "match": "the light follows the table",
+          "verdict": "PASS",
+          "evidence": "3 Jul 15:00 light azimuth 259.0 = sun 259.0 (PDF B.10.2: 259); 4 Jul 01:00 light azimuth 145.9 = moon 145.9, 34 degrees up."
+        },
+        {
+          "match": "the day and night bar under the picture",
+          "verdict": "PASS",
+          "evidence": "strip luminance noon 3 Jul 169, midnight 44; noon 10 Jul 169, midnight 27 (noon over 2.5 x midnight on both days)."
+        },
+        {
+          "match": "no console errors",
+          "verdict": "PASS",
+          "evidence": "no console error and no page error during the whole spec."
+        }
+      ]
+    },
+    "webgl2.spec.mjs": {
+      "tests": [
+        {
+          "match": "WebGL2 renders the placeholder crowd",
+          "verdict": "PASS",
+          "evidence": "Second run, frozen source snapshot 9e1e1777: 165,000 soldiers on 3 Jul 13:30 at 1280x720, the picture is not black, nothing is placed before any arrival (28 Jun), more than 100,000 present on 2 Jul, the scrubber answers, and leaving the theatre leaves 0 canvas contexts, 0 animation frames, 0 timers; no console error or page error. Frame p50 7.8 s on this renderer (printed in the log as not a timing of the product). The first attempt (live tree, run src-1-webgl2) failed only on one console line: the shell asks the server for src/ext/index.mjs with a HEAD request and the file was created 26 s into that run (the 404 is described in requests/spec-health-pack-ext-folder.md, point 1); it is not a product defect and not a harness problem."
+        }
+      ]
+    }
   }
 }

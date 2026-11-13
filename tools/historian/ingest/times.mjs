@@ -11,24 +11,42 @@
 // A clock claim is the author's own statement: it is testimony (a report written days or months after the fact), not a measurement; dispatch headers are the exception, written as they were sent.
 // Nothing here guesses past what the words say: an hour without a meridiem the context does not give stays ambiguous, and a day that is not named or carried stays null.
 
+// The three patterns that read a meridiem (range, clock, spelled in RES) are compiled WITHOUT the i flag, from a source in which every letter is spelled in both cases (both() and the ci tag below). The meridiem
+// is the one part of the grammar that is case-sensitive ("AM" is a time, "am" is the OCR's "I am"), and a regular expression can be case-sensitive in one part and not in the rest only through a modifier
+// group, which V8 reads from version 12.5 on (Node 23): the container's default Node 22 could not even load a file that held one. Spelled out like this the patterns read exactly what they read before;
+// tests/historian/times-node22.test.mjs pins the readings (candidates/r1h/ver-hist-node/differential.mjs compared them with the old text over several million inputs).
+/** the letters of a pattern spelled in both cases ("past" -> "[pP][aA][sS][tT]", a class "[oec]" -> "[oecOEC]"): backslash escapes, digits, quantifiers and groups stay as they are; a pattern with a named group, a hex, unicode or property escape or a letter range in a class is refused, never half-converted */
+const both = (src) => {
+  if (/\\[xuUpPkc]|\(\?<[A-Za-z_$]/.test(src)) throw new Error('both(): named groups and \\x \\u \\p \\k \\c escapes are not converted: ' + src);
+  const other = (c) => (c === c.toLowerCase() ? c.toUpperCase() : c.toLowerCase());
+  return src.replace(/\\[\s\S]|\[(?:\\[\s\S]|[^\]\\])*\]|[A-Za-z]/g, (t) => {
+    if (t[0] === '\\') return t;
+    if (t[0] !== '[') return `[${t.toLowerCase()}${t.toUpperCase()}]`;
+    if (/[A-Za-z]-[A-Za-z]/.test(t.replace(/\\[\s\S]/g, ''))) throw new Error('both(): a letter range in a class is not converted: ' + t);
+    return t.replace(/\\[\s\S]|[A-Za-z]/g, (u) => (u[0] === '\\' ? u : u + other(u)));
+  });
+};
+/** template tag: the text between the ${...} holes goes through both(); what is interpolated is taken as it is (a part already spelled out, or the one that must stay case-sensitive) */
+const ci = (strings, ...vals) => strings.raw.reduce((acc, seg, i) => acc + both(seg) + (i < vals.length ? vals[i] : ''), '');
+
 const NUMW = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12 };
-const NUMW_RE = '(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)';
-// the meridiem as the OCR prints it: "a. m.", "a.m.", "p. m", "A. M.", "P. M."; a bare "am" or "pm" is not read (it is "I am")
-// "a. m." / "a.m." / "A. M." / "AM": a lower-case "am" or "pm" with no stop in it is not read ("1 am informed" is the OCR's "I am informed": the printer's letter I read as the digit 1)
-const MER = String.raw`(?:[ap]\s?[.,]\s?m|(?-i:[AP]\.?\s?M))\b\.?`;
-const OCL = String.raw`o.{0,2}cl[oec]ck`;
+const NUMW_RE = both('(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)');
+// the meridiem as the OCR prints it: "a. m.", "a.m.", "p. m", "A. M.", "P. M." in any case, and "AM", "PM" in capitals; a bare lower-case "am" or "pm" with no stop in it is not read ("1 am informed" is the OCR's
+// "I am informed": the printer's letter I read as the digit 1), nor is "Am" or "aM"
+const MER = '(?:' + both(String.raw`[ap]\s?[.,]\s?m`) + String.raw`|[AP]\.?\s?M)\b\.?`;      // the second branch is the one that is case-sensitive: capitals only
+const OCL = both(String.raw`o.{0,2}cl[oec]ck`);
 const HM = String.raw`(\d{1,2})(?:\s?[.:]\s?(\d{2}))?`;
 
 // Gettysburg, July 1863 (local mean time): the same values the time model's solar table gives, rounded; they are the reading of a WORD, tolerance 25 minutes
 export const SOLAR = { dawn: 4 * 60 + 25, daybreak: 4 * 60 + 25, sunrise: 4 * 60 + 55, noon: 12 * 60 + 5, sunset: 19 * 60 + 25, sundown: 19 * 60 + 25, dusk: 19 * 60 + 55, twilight: 19 * 60 + 55, nightfall: 20 * 60 + 10, midnight: 0 };
 
 const RES = [
-  { kind: 'range', re: new RegExp(String.raw`\b(between|from)\s+${HM}\s*(?:${MER}|${OCL})?\s+(and|to)\s+${HM}\s*((?:${OCL})?\s*(?:${MER})?)`, 'gi') },
-  { kind: 'clock', re: new RegExp(String.raw`(?<![\d.,:/\-])${HM}\s*(?:${OCL}\s*)?(${MER})`, 'gi') },
+  { kind: 'range', re: new RegExp(ci`\b(between|from)\s+${HM}\s*(?:${MER}|${OCL})?\s+(and|to)\s+${HM}\s*((?:${OCL})?\s*(?:${MER})?)`, 'g') },
+  { kind: 'clock', re: new RegExp(ci`(?<![\d.,:/\-])${HM}\s*(?:${OCL}\s*)?(${MER})`, 'g') },
   { kind: 'noon12', re: new RegExp(String.raw`(?<![\d.,:/\-])(?:12|twelve)\s*m\b\.?(?=\s*[,;.]|\s+(?:and|to|on|the|in|when|we|I|my|our|a|an|while|with|at|he|it|they|then)\b|\s*$)`, 'gi') },
   { kind: 'oclock', re: new RegExp(String.raw`(?<![\d.,:/\-])${HM}\s*${OCL}(?:\s*(?:in\s+the\s+)?(morning|forenoon|afternoon|evening|at\s+night|a\.?\s?m|p\.?\s?m)\b)?`, 'gi') },
   { kind: 'spelled-oclock', re: new RegExp(String.raw`\b(${NUMW_RE})\s+${OCL}(?:\s*(?:in\s+the\s+)?(morning|forenoon|afternoon|evening|at\s+night)\b)?`, 'gi') },
-  { kind: 'spelled', re: new RegExp(String.raw`\b(half\s+past|a\s+quarter\s+(?:before|past|to|after)|(?:one|two|three|four|five|ten|twenty|twenty-five|fifteen)\s+minutes?\s+(?:before|past|to|after))\s+(\d{1,2}|${NUMW_RE})\b(?:\s*(${MER}|${OCL}))?`, 'gi') },
+  { kind: 'spelled', re: new RegExp(ci`\b(half\s+past|a\s+quarter\s+(?:before|past|to|after)|(?:one|two|three|four|five|ten|twenty|twenty-five|fifteen)\s+minutes?\s+(?:before|past|to|after))\s+(\d{1,2}|${NUMW_RE})\b(?:\s*(${MER}|${OCL}))?`, 'g') },
   { kind: 'hour-in-the', re: new RegExp(String.raw`(?<![\d.,:/\-])((?:at|about|near|until|till|by|nearly|before|after|since)\s+)(\d{1,2})(?:\s?[.:]\s?(\d{2}))?\s+in\s+the\s+(morning|forenoon|afternoon|evening)\b`, 'gi') },
   { kind: 'sun', re: /\b(daybreak|break\s+of\s+day|dawn|sunrise|sun-?up|sunset|sun-?down|dusk|twilight|nightfall|midnight|noon|mid-?day)\b/gi },
   { kind: 'sun', re: /\b(?:at|before|by|until|till|after|about|near|toward|towards)\s+(daylight)\b/gi },

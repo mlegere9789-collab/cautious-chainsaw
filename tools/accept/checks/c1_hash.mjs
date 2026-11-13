@@ -3,7 +3,7 @@
 // directory entries, CRCs, one fixed timestamp, no comments, portable names).
 import fs from 'node:fs';
 import path from 'node:path';
-import { Check, readZip, runCmd, sha256File, readJson } from '../lib/util.mjs';
+import { Check, readZip, runCmd, sha256File, readJson, loadOf } from '../lib/util.mjs';
 
 export async function run(ctx) {
   const c = new Check('1', 'Deterministic zip');
@@ -53,7 +53,7 @@ export async function run(ctx) {
       const out = path.join(ctx.scratch, 'repack.zip');
       const staging = /STAGING/i.test(path.basename(cand.path));
       const r = runCmd('python', ['tools/ship/pack_zip.py', '--train', train, '--out', out, ...(staging ? ['--staging'] : [])], { timeoutMs: 300000 });
-      c.commands.push({ cmd: r.cmd, exit: r.exit, ms: r.ms });
+      c.commands.push({ cmd: r.cmd, exit: r.exit, ms: r.ms, ...loadOf(r) });
       c.raw.packerOutput = (r.stdout + r.stderr).slice(-3000);
       if (r.exit !== 0) c.defect('repack-failed', 'tools/ship/pack_zip.py', (r.stdout + r.stderr).slice(-300));
       else {

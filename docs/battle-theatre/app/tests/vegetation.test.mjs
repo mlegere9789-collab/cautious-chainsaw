@@ -261,6 +261,15 @@ test('the module starts on a stand-in theatre: switches, panel, a card for the g
   assert.equal(typeof html, 'string');
   VEG.dispose(); assert.equal(th.vegetation, undefined); assert.equal(v.status(), null);
 });
+test('the card of the ground can be written for every unit, at three dates, with nothing undefined or not a number in it', async () => {
+  const { ctx, th } = standIn('webgpu'); await VEG.init(ctx); const v = th.vegetation;
+  for (const u of DATA.units) for (const iso of ['1863-07-02T12:00', '1863-07-03T20:00', '1863-11-19T12:00']) {
+    const html = v.card(u.id, T(iso)); assert.equal(typeof html, 'string', u.id);
+    assert.ok(!/undefined|NaN|\[object|Infinity/.test(html), `${u.id} at ${iso}: ${(html.match(/.{30}(undefined|NaN|\[object|Infinity).{20}/) || [''])[0]}`);
+    assert.ok(html.includes('<h3'), u.id); assert.ok(/pill|tier|Plausible|Inferred|Documented/i.test(html), u.id + ' shows its tier');
+  }
+  assert.equal(v.card('no-such-unit'), null); VEG.dispose();
+});
 test('?veg=off keeps the module out of a visit; a missing data file is an error the loader can show', async () => {
   globalThis.location = { search: '?veg=off&x=1' }; try { const { ctx, th, reg } = standIn(); await VEG.init(ctx); assert.equal(reg.panels.size, 0); assert.equal(th.vegetation, undefined); } finally { delete globalThis.location; }
   const { ctx } = standIn(); ctx.urls = { data: pathToFileURL(path.join(APP, 'nothing-here') + path.sep).href }; await assert.rejects(() => VEG.init(ctx), /could not be read/);

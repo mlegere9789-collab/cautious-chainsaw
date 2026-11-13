@@ -139,6 +139,14 @@ export class Places {
     }
     return out.sort((a, b) => a.index - b.index);
   }
+  // the text with every place name the gazetteer carries replaced by `sep` (so that "Cemetery Hill" is never read as a general Hill, and "Culp's Hill Greene's" is a place and a name, not one name).
+  // keepGeo: a known place directly followed by a geographic word is NOT blanked ("Cashtown Pike" is a name that contains the town Cashtown, not the town and a stray "Pike")
+  blank(text, sep = ' ', { keepGeo = false } = {}) {
+    let t = String(text || ''); const hits = this.findIn(t); if (!hits.length) return t;
+    const geo = keepGeo ? "(?!\\s+(?:Pike|Turnpike|Road|Rd|Street|St|Lane|Hill|Ridge|Creek|Run|Mill|Gap|Pass|Junction|Ford|Church|Tavern|Furnace)\\b)" : '';
+    for (const h of hits) { const re = new RegExp(h.key.split(' ').map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join("[\\s'\u2019\u2018" + String.fromCharCode(0xfffd) + ".,]*") + geo, 'i'); t = t.replace(re, sep); }
+    return t;
+  }
   distance(place, pt) { return measure(place, pt); }
   within(place, pt, tolM = null) { const tol = tolM == null ? place.tolerance_m : Math.min(tolM, place.tolerance_m); return { d: measure(place, pt), tol }; }
 }

@@ -35,9 +35,14 @@ export function HOOKS(opts) {
         for (const k of ['createRenderPipelineAsync', 'createComputePipelineAsync', 'popErrorScope']) { const f = d[k].bind(d); d[k] = (...x) => track(k + (x[0] && x[0].label ? ' ' + x[0].label : ''), f(...x)); }
         const osw = d.queue.onSubmittedWorkDone.bind(d.queue); d.queue.onSubmittedWorkDone = () => track('queue.onSubmittedWorkDone', osw());
       }
-      const csm = d.createShaderModule.bind(d);
-      d.createShaderModule = desc => { const m = csm(desc), label = (desc && desc.label) || '(no label)'; track('getCompilationInfo ' + label, m.getCompilationInfo()).then(info => { window.__gpuLabels.push(label + ' messages=' + info.messages.length); for (const x of info.messages) window.__wgslMessages.push({ label, type: x.type, line: x.lineNum, col: x.linePos, msg: String(x.message).slice(0, 400) }); }, e => window.__gpuErrors.push('getCompilationInfo ' + label + ': ' + e)); return m; };
       return d;
+    };
+  }
+  if (typeof GPUShaderModule !== 'undefined') {          // the compiler messages of every module, recorded when its creator asks for them: this hook never asks a second time (two overlapping requests for one module's messages can leave one of them unanswered)
+    const gci = GPUShaderModule.prototype.getCompilationInfo, seen = new WeakSet();
+    GPUShaderModule.prototype.getCompilationInfo = function () {
+      const m = this, label = m.label || '(no label)';
+      return track('getCompilationInfo ' + label, gci.call(m)).then(info => { if (!seen.has(m)) { seen.add(m); window.__gpuLabels.push(label + ' messages=' + info.messages.length); for (const x of info.messages) window.__wgslMessages.push({ label, type: x.type, line: x.lineNum, col: x.linePos, msg: String(x.message).slice(0, 400) }); } return info; });
     };
   }
   if (typeof GPUCanvasContext !== 'undefined' && opts && opts.realCanvas) {          // the real canvas, made readable: the same configure() with COPY_SRC added (not run on this machine: its software adapter cannot use the canvas)

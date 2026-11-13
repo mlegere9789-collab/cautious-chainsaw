@@ -149,7 +149,7 @@ export class Product {
     }
     return out.sort((a, b) => b.score - a.score || (a.id < b.id ? -1 : 1));
   }
-  _blank(text) { let t = String(text || ''); const hits = this.places.findIn(t); if (!hits.length) return t; for (const h of hits) { const re = new RegExp(h.key.split(' ').map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join("[\\s'’‘\\ufffd.,]*"), 'i'); t = t.replace(re, ' '); } return t; }
+  _blank(text) { return this.places.blank(text, ' '); }
   // is the unit (or one of its ancestors) named in the text? -> { bound, how, via } (how: 'name' matched the words of the row; 'declared' only through a quote the record gives)
   bindUnit(id, text) {
     const named = this.unitsNamedIn(text), set = new Map(named.map(n => [n.id, n])); const chain = [id, ...this.ancestors(id)];
@@ -216,14 +216,15 @@ export class Product {
   // The inputs of a run, in parts: every file the harness read or the shell's loaders fetched in this process (lib.mjs trackedReads), the files that are always inputs whichever record asked for them, and the
   // whole source tree of the shell (the modules the checks call). Each part is the sha256 of its files' sha256 (16 hex); `files` counts them. The record files are a part of their own (check.mjs recordsDigest:
   // the records without their written-back "result"), so that --update does not change the digest it has just written.
-  inputsParts() {
-    const h16 = p => { try { return sha256File(p).slice(0, 16); } catch { return null; } }, sub = rp => rp.startsWith(rel(REAL) + '/') || rp.startsWith('tools/bt/realize/');
+  inputsParts(detail = false) {
+    const h16 = p => { try { return sha256File(p).slice(0, 16); } catch { return null; } }, sub = rp => rp.startsWith('..') || rp.startsWith(rel(REAL) + '/') || rp.startsWith('tools/bt/realize/');
     const always = ['timeline_seed.jsonl', 'timeline_verified.jsonl', 'timeline_windows.jsonl', 'epilogue_seed.jsonl', 'register_index.json', 'requirements.json'].map(f => path.join(GOV, f))
       .concat(walkFiles(path.join(GOV, 'timeline_corrections'), /^tl-\d\d\.jsonl$/), [path.join(BT, 'render/prototype/data/terrain.json'), path.join(APP, 'data/fx3d/params.json'), path.join(APP, 'data/figures3d/skeleton.json'), path.join(APP, 'docs/GATE-HOOKS.md'), path.join(APP, 'tools/node-terrain.mjs')]);
     const files = new Set([...trackedReads(), ...always.map(rel), ...walkFiles(path.join(APP, 'src')).map(rel)].filter(rp => !sub(rp)));
     const parts = { governance: {}, app_src: {}, data: {} };
     for (const rp of [...files].sort()) { const h = h16(path.join(ROOT, rp)), part = rp.startsWith(rel(GOV) + '/') ? 'governance' : rp.startsWith(rel(APP) + '/src/') || rp === rel(path.join(APP, 'tools/node-terrain.mjs')) ? 'app_src' : 'data'; parts[part][rp] = h; }
     const out = { digests: {}, files: {} }; for (const [k, v] of Object.entries(parts)) { out.digests[k] = sha256(Buffer.from(JSON.stringify(v))).slice(0, 16); out.files[k] = Object.keys(v).length; }
+    if (detail) out.detail = parts;
     return out;
   }
 }

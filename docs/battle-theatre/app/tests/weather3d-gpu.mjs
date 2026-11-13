@@ -13,7 +13,7 @@ import { minOf as MO } from '../src/clock.mjs';
 
 const args = process.argv.slice(2), flag = (k, d) => { const a = args.find(x => x.startsWith('--' + k + '=')); return a ? a.split('=')[1] : d; };
 const pos = args.filter(a => !a.startsWith('--')), outRoot = path.resolve(pos[0] || '.'), api = pos[1] === 'webgl2' ? 'webgl2' : 'webgpu', only = (pos[2] || '').split(',').filter(Boolean);
-const W = +flag('w', 640), H = +flag('h', 360), SOLD = +flag('soldiers', 12000), TIER = flag('tier', 'laptop'), REPEAT = !args.includes('--no-repeat'), SHOT = !args.includes('--no-screenshot'), FXOFF = args.includes('--fx=off');
+const W = +flag('w', 640), H = +flag('h', 360), SOLD = +flag('soldiers', 12000), TIER = flag('tier', 'laptop'), REPEAT = !args.includes('--no-repeat'), SHOT = !args.includes('--no-screenshot'), FXOFF = args.includes('--fx=off'), READY_MS = +flag('ready-timeout', 240) * 1000;
 const out = path.join(outRoot, api); fs.mkdirSync(out, { recursive: true });
 const t00 = Date.now(), say = (...a) => console.log(((Date.now() - t00) / 1000).toFixed(0).padStart(5) + 's', ...a);
 
@@ -38,10 +38,14 @@ const save = () => fs.writeFileSync(path.join(out, 'summary.json'), JSON.stringi
 const logs = []; let browser;
 try {
   browser = await chromium.launch({ channel: 'chrome', headless: true, args: ARGS });
-  const ctx = await browser.newContext({ viewport: { width: W, height: H }, deviceScaleFactor: 1 }); await ctx.addInitScript(HOOKS, { realCanvas: args.includes('--real-canvas') }); ctx.setDefaultTimeout(0);
+  const ctx = await browser.newContext({ viewport: { width: W, height: H }, deviceScaleFactor: 1 }); await ctx.addInitScript(HOOKS, { realCanvas: args.includes('--real-canvas'), trace: true }); ctx.setDefaultTimeout(0);
   const page = await ctx.newPage(); page.on('console', m => logs.push(m.type() + ': ' + m.text())); page.on('pageerror', e => logs.push('pageerror: ' + e.message)); page.on('crash', () => logs.push('PAGE CRASH')); page.on('response', r => { if (r.status() >= 400) logs.push('http ' + r.status() + ' ' + r.url()); }); browser.on('disconnected', () => logs.push('BROWSER DISCONNECTED'));
   say('open', url); await page.goto(url, { waitUntil: 'load' });
-  await page.waitForFunction(() => window.WG && (window.WG.ready || window.WG.error), null, { timeout: 0, polling: 500 });
+  // the set-up takes seconds; when it does not finish the run says where it stands (stage, console, pending GPU promises) and ends instead of holding the machine
+  const hb = setInterval(async () => { try { say('  setting up:', JSON.stringify(await page.evaluate(() => ({ stage: window.WG && window.WG.stage, state: document.readyState, pending: window.__pending ? [...window.__pending.values()].map(v => v.name).slice(0, 5) : null })))); } catch (e) { say('  setting up: page busy'); } }, 20000);
+  try { await page.waitForFunction(() => window.WG && (window.WG.ready || window.WG.error), null, { timeout: READY_MS, polling: 500 }); }
+  catch (e) { summary.stall = await page.evaluate(() => ({ stage: window.WG && window.WG.stage, stages: window.WG && window.WG.stages, readyState: document.readyState, log: window.WG && window.WG.log, gpuErrors: window.__gpuErrors, modules: window.__gpuLabels })).catch(x => ({ error: String(x.message).slice(0, 100) })); say('STALL', JSON.stringify(summary.stall).slice(0, 600)); throw new Error('the set-up did not finish in ' + READY_MS / 1000 + ' s: ' + (summary.stall && summary.stall.stage)); }
+  finally { clearInterval(hb); }
   const ready = await page.evaluate(() => ({ ready: window.WG.ready, error: window.WG.error, log: window.WG.log })); summary.ready = ready; say('ready', JSON.stringify(ready));
   if (!ready.ready) throw new Error('harness set-up failed: ' + ready.error);
   summary.diagInit = await page.evaluate(() => window.WG.diag()); say('init: api', summary.diagInit.api, 'gpu', JSON.stringify(summary.diagInit.gpu && { ok: summary.diagInit.gpu.ok, weather: summary.diagInit.gpu.weatherOk, fx: summary.diagInit.gpu.fxOk, failed: summary.diagInit.gpu.failed }), 'gl', JSON.stringify(summary.diagInit.gl && summary.diagInit.gl.ok), 'errors', summary.diagInit.gpuErrors.length, 'wgsl msgs', summary.diagInit.wgsl.length); save();

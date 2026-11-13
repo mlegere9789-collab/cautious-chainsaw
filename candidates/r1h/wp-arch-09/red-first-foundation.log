@@ -1,0 +1,207 @@
+# Red-first record of the foundation checks of wp-arch-09 (captured before src/package.json, src/tsconfig.base.json, src/STACK.md, the READMEs and the request note existed)
+# date: 2026-11-13T21:11:40Z   node: v22.23.4
+# command: node --test src/foundation.test.mjs
+TAP version 13
+# Subtest: src/package.json is a private ES-module workspace manifest that lists lib/* and app
+not ok 1 - src/package.json is a private ES-module workspace manifest that lists lib/* and app
+  ---
+  duration_ms: 1.079668
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/src/foundation.test.mjs:55:1'
+  failureType: 'testCodeFailure'
+  error: "ENOENT: no such file or directory, open '/home/user/cautious-chainsaw/src/package.json'"
+  code: 'ENOENT'
+  stack: |-
+    Object.readFileSync (node:fs:440:20)
+    read (file:///home/user/cautious-chainsaw/src/foundation.test.mjs:15:38)
+    readJson (file:///home/user/cautious-chainsaw/src/foundation.test.mjs:16:50)
+    TestContext.<anonymous> (file:///home/user/cautious-chainsaw/src/foundation.test.mjs:56:15)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: the root package.json, once it wires the workspace, lists the same entries as src/package.json under src/
+not ok 2 - the root package.json, once it wires the workspace, lists the same entries as src/package.json under src/
+  ---
+  duration_ms: 1.32754
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/src/foundation.test.mjs:65:1'
+  failureType: 'testCodeFailure'
+  error: "ENOENT: no such file or directory, open '/home/user/cautious-chainsaw/src/package.json'"
+  code: 'ENOENT'
+  stack: |-
+    Object.readFileSync (node:fs:440:20)
+    read (file:///home/user/cautious-chainsaw/src/foundation.test.mjs:15:38)
+    readJson (file:///home/user/cautious-chainsaw/src/foundation.test.mjs:16:50)
+    TestContext.<anonymous> (file:///home/user/cautious-chainsaw/src/foundation.test.mjs:67:15)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: exact pins hold wherever the register fixes them, in every package.json under src/
+not ok 3 - exact pins hold wherever the register fixes them, in every package.json under src/
+  ---
+  duration_ms: 4.657611
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/src/foundation.test.mjs:72:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(manifests.includes('package.json'))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///home/user/cautious-chainsaw/src/foundation.test.mjs:76:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: src/tsconfig.base.json is strict, with the extra flags the plan names
+not ok 4 - src/tsconfig.base.json is strict, with the extra flags the plan names
+  ---
+  duration_ms: 0.258247
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/src/foundation.test.mjs:89:1'
+  failureType: 'testCodeFailure'
+  error: "ENOENT: no such file or directory, open '/home/user/cautious-chainsaw/src/tsconfig.base.json'"
+  code: 'ENOENT'
+  stack: |-
+    Object.readFileSync (node:fs:440:20)
+    read (file:///home/user/cautious-chainsaw/src/foundation.test.mjs:15:38)
+    readJson (file:///home/user/cautious-chainsaw/src/foundation.test.mjs:16:50)
+    TestContext.<anonymous> (file:///home/user/cautious-chainsaw/src/foundation.test.mjs:90:20)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: STACK.md maps the plan layout to the repository layout
+not ok 5 - STACK.md maps the plan layout to the repository layout
+  ---
+  duration_ms: 0.275265
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/src/foundation.test.mjs:106:1'
+  failureType: 'testCodeFailure'
+  error: "ENOENT: no such file or directory, open '/home/user/cautious-chainsaw/src/STACK.md'"
+  code: 'ENOENT'
+  stack: |-
+    Object.readFileSync (node:fs:440:20)
+    read (file:///home/user/cautious-chainsaw/src/foundation.test.mjs:15:38)
+    TestContext.<anonymous> (file:///home/user/cautious-chainsaw/src/foundation.test.mjs:107:17)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: STACK.md records the choices the register and the delegated rows fix
+not ok 6 - STACK.md records the choices the register and the delegated rows fix
+  ---
+  duration_ms: 0.161519
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/src/foundation.test.mjs:124:1'
+  failureType: 'testCodeFailure'
+  error: "ENOENT: no such file or directory, open '/home/user/cautious-chainsaw/src/STACK.md'"
+  code: 'ENOENT'
+  stack: |-
+    Object.readFileSync (node:fs:440:20)
+    read (file:///home/user/cautious-chainsaw/src/foundation.test.mjs:15:38)
+    TestContext.<anonymous> (file:///home/user/cautious-chainsaw/src/foundation.test.mjs:125:17)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: STACK.md writes every open choice as "not decided: owner" with a conservative default and a way back
+not ok 7 - STACK.md writes every open choice as "not decided: owner" with a conservative default and a way back
+  ---
+  duration_ms: 0.130211
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/src/foundation.test.mjs:146:1'
+  failureType: 'testCodeFailure'
+  error: "ENOENT: no such file or directory, open '/home/user/cautious-chainsaw/src/STACK.md'"
+  code: 'ENOENT'
+  stack: |-
+    Object.readFileSync (node:fs:440:20)
+    read (file:///home/user/cautious-chainsaw/src/foundation.test.mjs:15:38)
+    TestContext.<anonymous> (file:///home/user/cautious-chainsaw/src/foundation.test.mjs:147:26)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: the three README files of the layout exist and say what belongs where
+not ok 8 - the three README files of the layout exist and say what belongs where
+  ---
+  duration_ms: 0.097386
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/src/foundation.test.mjs:162:1'
+  failureType: 'testCodeFailure'
+  error: "ENOENT: no such file or directory, open '/home/user/cautious-chainsaw/src/README.md'"
+  code: 'ENOENT'
+  stack: |-
+    Object.readFileSync (node:fs:440:20)
+    read (file:///home/user/cautious-chainsaw/src/foundation.test.mjs:15:38)
+    TestContext.<anonymous> (file:///home/user/cautious-chainsaw/src/foundation.test.mjs:163:16)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: mapbox-gl is imported only inside the map facade folder (the lint rule of the plan, until ESLint is installed)
+ok 9 - mapbox-gl is imported only inside the map facade folder (the lint rule of the plan, until ESLint is installed)
+  ---
+  duration_ms: 2.198584
+  type: 'test'
+  ...
+# Subtest: the request note asks the release workstream for the two root package.json lines and nothing else of the root files
+not ok 10 - the request note asks the release workstream for the two root package.json lines and nothing else of the root files
+  ---
+  duration_ms: 0.388318
+  type: 'test'
+  location: '/home/user/cautious-chainsaw/src/foundation.test.mjs:185:1'
+  failureType: 'testCodeFailure'
+  error: "ENOENT: no such file or directory, open '/home/user/cautious-chainsaw/docs/battle-theatre/GOVERNANCE/horde/requests/main-site-wp-arch-09.md'"
+  code: 'ENOENT'
+  stack: |-
+    Object.readFileSync (node:fs:440:20)
+    read (file:///home/user/cautious-chainsaw/src/foundation.test.mjs:15:38)
+    TestContext.<anonymous> (file:///home/user/cautious-chainsaw/src/foundation.test.mjs:186:16)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 1
+# fail 9
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 193.330215
+# exit code: 1

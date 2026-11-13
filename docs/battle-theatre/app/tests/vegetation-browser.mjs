@@ -61,6 +61,8 @@ try {
   const wf = k => viewOfUnit('LC-FIELD-0001', k);
   await at('1863-07-02T12:00', await wf({ dist: 420, height: 230, yaw: 2.2 })); const A = await shot('01-wheatfield-2jul-noon');
   await at('1863-07-02T12:00', await wf({ dist: 90, height: 22, yaw: 2.2 })); const A2 = await shot('02-wheatfield-close-2jul-noon');
+  await at('1863-07-02T12:00', await wf({ dist: 28, height: 4, yaw: 2.2 })); await shot('02b-wheatfield-ground-level-2jul-noon');
+  await at('1863-07-03T12:00', await wf({ dist: 28, height: 4, yaw: 2.2 })); await shot('02c-wheatfield-ground-level-3jul-noon');
   await at('1863-07-02T20:30', await wf({ dist: 420, height: 230, yaw: 2.2 })); const B = await shot('03-wheatfield-2jul-20h30-trampled');
   await at('1863-07-02T20:30', await wf({ dist: 90, height: 22, yaw: 2.2 })); const B2 = await shot('04-wheatfield-close-2jul-20h30');
   await at('1863-07-03T12:00', await wf({ dist: 420, height: 230, yaw: 2.2 })); const B3 = await shot('03b-wheatfield-3jul-noon-trampled');

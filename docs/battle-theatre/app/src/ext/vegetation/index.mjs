@@ -42,7 +42,8 @@ export async function init(ctx) {
   s.offs.push(th.bus.on('scenario', () => { if (S) { startPlanner(S); S.tq = null; } }));
   mountChip(s);
   th.vegetation = { model, check: opts => checkVegetation(model, opts), stateAt: (id, t, choices) => stateAt(model, id, t, choices || effChoices(S)), status: () => statusOf(), setOn: v => (S ? S.toggle.set(!!v) : false), setOverlay: v => (S ? S.tierToggle.set(!!v) : false), pick: (x, z) => pickUnit(S, x, z),
-    whenReady: () => whenReady(), choose: (id, key) => choose(id, key), planner: () => S && S.planner, effChoices: () => effChoices(S) };
+    whenReady: () => whenReady(), choose: (id, key) => choose(id, key), planner: () => S && S.planner, effChoices: () => effChoices(S),
+    card: (id, t) => { const s = S; if (!s) return null; const u = s.model.unit(id); return u ? unitCard(s, u, t == null ? s.t : t) : null; } };
 }
 
 function whenReady() { return new Promise(res => { const tick = () => { if (!S || S.planDone || !S.planner) return res(statusOf()); setTimeout(tick, 40); }; tick(); }); }
@@ -99,12 +100,13 @@ function target(s, cam) {          // the ground point under the centre of the p
 export function update(frame) {
   const s = S; if (!s) return; s.t = frame.tMin; s.cam = frame.cam;
   if (s.gl && s.on) {
-    const tq = Math.round(s.t * 2) / 2, ch = effChoices(s), key = JSON.stringify([ch['CF-VEG-LRT'], ch['CF-VEG-RAIN'], ch['CF-VEG-HARVEST']]);
-    s.gl.setTime(tq, ch, key);
+    const tq = Math.round(s.t * 2) / 2, ch = effChoices(s), key = JSON.stringify([ch['CF-VEG-LRT'], ch['CF-VEG-RAIN'], ch['CF-VEG-HARVEST']]), now = performance.now();
+    // the state of every unit is written when the quantised minute or a choice changes; while the clock runs fast it is written at most every 90 ms (a settled or paused clock is always written at once, so the same minute always gives the same picture)
+    if (frame.paused || !s.lastWrite || now - s.lastWrite > 90 || key !== s.gl.choicesKey) { if (s.gl.setTime(tq, ch, key)) s.lastWrite = now; }
     if (s.planner && !s.planner.done) { const more = s.planner.run(4, () => performance.now()); s.planVersion = (s.planVersion || 0) + 1; if (!more || s.planVersion % 40 === 0) s.gl.setVisit(s.grid); if (!more) { s.planDone = true; s.status = 'drawn on WebGL2; the trampling follows the troops of the theatre'; } }
     else if (!s.planner && !s.planDone) s.planDone = true;
   }
-  if (s.panel && s.panel.isOpen() && s.box && frame.tMin !== s.pickT) { s.pickT = frame.tMin; const now = performance.now(); if (!s.lastCard || now - s.lastCard > 400) { s.lastCard = now; paintCard(s); } }
+  if (s.panel && s.panel.isOpen() && s.box && frame.tMin !== s.pickT) { s.pickT = frame.tMin; const now = performance.now(); if (!s.lastCard || now - s.lastCard > 400) { s.lastCard = now; try { paintCard(s); } catch (e) { const c = s.box && s.box.querySelector('#veg-card'); if (c) c.textContent = 'The card of this ground could not be written (' + (e && e.message) + ').'; } } }
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------- the notice on the picture

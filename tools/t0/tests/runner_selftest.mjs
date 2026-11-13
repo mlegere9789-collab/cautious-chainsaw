@@ -13,6 +13,10 @@
 //     the last line of a node child's merged output).  RUN-15 proves that a child behind the runners prints nothing extra and that the flag is what silences it.
 //  B. The load.  Every row of a run_suites summary has load1Start and load1End (the machine's 1-minute load average; null on Windows), the console line shows them,
 //     --merge keeps them and --import-log reads them back; a pass of tools/accept/run_pass.mjs records them for every check, every command and every suite.
+//     "Every command" is proven on real passes, not on a sample of one check: RUN-22 (checks 6 and 8: the suite and step commands of check 6, the in-process audit of
+//     check 8, on a directory candidate) and RUN-23 (checks 1 and 8 on a zip candidate: the re-pack command of check 1, which runs the real packer) assert, with one
+//     helper, that EVERY command record of EVERY check of the pass JSON has load1Start and load1End; RUN-24 reads the source of every check and fails when a
+//     `commands.push(` record carries no load, so a path no test executes (check 6 with --full) cannot go without it either.
 //
 //   node tools/t0/tests/runner_selftest.mjs                 everything except the online test
 //   node tools/t0/tests/runner_selftest.mjs --online        also RUN-25: a child started through the acceptance harness fetches the pinned Mapbox GL stylesheet
@@ -422,13 +426,38 @@ test('RUN-21', 'tools/accept source: only lib/util.mjs starts processes (r1_conf
   assert(digest.includes("'tools/t0/child_env.mjs'"), 'tools/t0/child_env.mjs is part of the harness digest (a change to it aborts an acceptance run in progress)');
 });
 const freePort = () => new Promise((res, rej) => { const s = net.createServer(); s.once('error', rej); s.listen(0, '127.0.0.1', () => { const p = s.address().port; s.close(() => res(p)); }); });
-test('RUN-22', 'tools/accept/run_pass.mjs, a real (two-check, incomplete) pass behind a proxy: the suite process of check 6 has the variables; the pass JSON has the load for the pass, every check, every command and every suite; the report shows it', async (t) => {
+/** EVERY command record of EVERY check of a pass JSON has load1Start and load1End (numbers; null on Windows), and, given `near` = [lowest, highest] load this process measured
+ *  around the run, numbers within 5 of it (RUN-11's margin: a constant or invented value would not be). Returns one line per command for the notes. */
+function everyCommandHasLoad(j, label, near = null) {
+  const lines = [];
+  for (const c of j.checks) {
+    for (const cm of c.commands || []) {
+      const what = `${label}: check ${c.id}, command ${JSON.stringify(String(cm.cmd).slice(0, 100))}`;
+      assert('load1Start' in cm && 'load1End' in cm && isLoad(cm.load1Start) && isLoad(cm.load1End), `${what}: load1Start ${JSON.stringify(cm.load1Start)}, load1End ${JSON.stringify(cm.load1End)} (keys: ${Object.keys(cm).join(', ')})`);
+      if (near && !WIN) assert([cm.load1Start, cm.load1End].every((v) => v >= near[0] - 5 && v <= near[1] + 5), `${what}: ${cm.load1Start}>${cm.load1End} is not near the load measured here (${near[0]}..${near[1]})`);
+      lines.push(`check ${c.id}: ${String(cm.cmd).slice(0, 60)} load ${loadText(cm.load1Start, cm.load1End) || 'n/a'}`);
+    }
+  }
+  return lines;
+}
+/** the pass-N.md line of a command record carries its numbers (", load a>b"; nothing on Windows) */
+function mdShowsCommandLoad(md, cm, label) {
+  if (WIN) return;
+  const want = loadText(cm.load1Start, cm.load1End);
+  assert(want, `${label}: no load text for ${JSON.stringify(cm)}`);
+  const line = md.split('\n').find((l) => l.startsWith('- `') && l.includes(String(cm.cmd).slice(0, 60)));
+  assert(line, `${label}: pass-1.md has no line for the command ${JSON.stringify(String(cm.cmd).slice(0, 60))}`);
+  assert(line.includes(`, load ${want}`), `${label}: pass-1.md line of the command lacks ", load ${want}": ${line.slice(0, 240)}`);
+}
+test('RUN-22', 'tools/accept/run_pass.mjs, a real (two-check, incomplete) pass behind a proxy: the suite process of check 6 has the variables; the pass JSON has the load for the pass, every check, every command (the commands of check 6 and the in-process audit of check 8) and every suite; the report shows it', async (t) => {
   const cand = path.join(SCRATCH, 'cand'); fs.mkdirSync(cand, { recursive: true });
   fs.writeFileSync(path.join(cand, 'index.html'), '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Runner self-test</title><meta name="viewport" content="width=device-width, initial-scale=1"></head><body><p>Nothing here.</p></body></html>\n');
   const outDir = path.join(SCRATCH, 'passes'), probeOut = path.join(SCRATCH, `probe-${++seq}.jsonl`);
   let port = 0; for (let i = 0; i < 20 && !(port > 1024 && port < 60000); i++) port = await freePort();
+  const before = load1();
   const r = spawnSync(process.execPath, [path.join(ACCEPT, 'run_pass.mjs'), '--candidate', cand, '--pass', '1', '--only', '6,8', '--accuracy-filter', '^headers$', '--out-dir', outDir, '--port-base', String(port)],
     { cwd: REPO, env: scenarioEnv({ HTTPS_PROXY: DUMMY_PROXY }, probeOut), encoding: 'utf8', timeout: 600000, windowsHide: true });
+  const after = load1();
   const file = path.join(outDir, 'pass-1.json');
   assert(fs.existsSync(file), `run_pass wrote no pass-1.json (exit ${r.status}): ${(r.stderr || r.stdout || '').slice(-600)}`);
   assert(r.status === 1 || r.status === 3, `exit ${r.status}: a pass with --only is never clean`);
@@ -440,6 +469,11 @@ test('RUN-22', 'tools/accept/run_pass.mjs, a real (two-check, incomplete) pass b
   const c6 = j.checks[0], suite = (c6.raw.suites || [])[0], cmd = c6.commands.find((c) => /headers\.spec\.mjs/.test(c.cmd));
   assert(suite && suite.id === 'headers' && isLoad(suite.load1Start) && isLoad(suite.load1End), `check 6 suite record: ${JSON.stringify(suite && { id: suite.id, a: suite.load1Start, b: suite.load1End })}`);
   assert(cmd && isLoad(cmd.load1Start) && isLoad(cmd.load1End), `check 6 command record: ${JSON.stringify(cmd)}`);
+  const c8 = j.checks[1];
+  assertEq(c8.commands.length, 1, 'check 8 records one command: its audit, which runs inside the pass process');
+  assert(c8.commands[0].exit === null && /\(in-process\)/.test(c8.commands[0].cmd) && typeof c8.commands[0].ms === 'number', `check 8 command record: ${JSON.stringify(c8.commands[0])}`);
+  const everyCmd = everyCommandHasLoad(j, 'directory candidate', [Math.min(before, after), Math.max(before, after)]);
+  assert(everyCmd.length >= 2, `commands in this pass: ${everyCmd.length}`);
   const kid = readProbe(probeOut).find((p) => scriptIs(p, 'tests/t0/headers.spec.mjs'));
   assert(kid, 'the suite process of check 6 was not recorded');
   assertEq([kid.show.NODE_USE_ENV_PROXY, kid.show.NODE_EXTRA_CA_CERTS, kid.show.PYTHONIOENCODING], ['1', CA_DEFAULT, 'utf-8'], 'environment of the suite process');
@@ -447,7 +481,79 @@ test('RUN-22', 'tools/accept/run_pass.mjs, a real (two-check, incomplete) pass b
   const md = fs.readFileSync(path.join(outDir, 'pass-1.md'), 'utf8');
   assert(md.includes('| Load average (1 min) |') && md.includes('| # | Check | Status | Defects | Notes | Time | Load (1 min) start > end |'), 'pass-1.md shows the load');
   if (!WIN) assert(md.includes(`| ${loadText(c6.load1Start, c6.load1End)} |`) && new RegExp(`, load ${String(loadText(cmd.load1Start, cmd.load1End)).replace(/[.?]/g, '\\$&')}`).test(md), 'pass-1.md: the numbers of check 6 and of its command');
+  for (const cm of j.checks.flatMap((c) => c.commands)) mdShowsCommandLoad(md, cm, 'directory candidate');
   t.note('pass', { verdict: j.verdict, exit: r.status, load: [j.env.load1Start, j.env.load1End], check6: [c6.load1Start, c6.load1End], suite: [suite.load1Start, suite.load1End] });
+  t.note('commands', everyCmd);
+});
+test('RUN-23', 'tools/accept/run_pass.mjs, a real (two-check, incomplete) pass of a ZIP candidate: check 1 re-packs its train with the real packer and records that command with its load, check 8 records its audit with its load; every command record of the pass JSON has load1Start and load1End and the report shows them', async (t) => {
+  if (spawnSync('python', ['--version'], { encoding: 'utf8' }).status !== 0) throw new Skip('python is not on the PATH: check 1 re-packs with tools/ship/pack_zip.py (check 1 calls "python"), so the re-pack command was NOT run');
+  // A throw-away train and the zip the real packer makes of it.  Check 1 re-packs release/<train>/dist; the train name "../tmp/..." makes that path this scratch directory
+  // (release/../tmp/<scratch>/train/dist), so nothing is written below release/ and the test does not depend on a built train.
+  const trainDir = path.join(SCRATCH, 'train'), dist = path.join(trainDir, 'dist');
+  fs.mkdirSync(dist, { recursive: true });
+  fs.writeFileSync(path.join(dist, 'index.html'), '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Runner self-test</title><meta name="viewport" content="width=device-width, initial-scale=1"></head><body><p>Nothing here.</p></body></html>\n');
+  fs.writeFileSync(path.join(dist, '_headers'), '/*\n  X-Content-Type-Options: nosniff\n');
+  const zip = path.join(SCRATCH, 'gettysburg-runner-selftest-PRODUCTION.zip');
+  const pack = spawnSync('python', [path.join(REPO, 'tools', 'ship', 'pack_zip.py'), '--dist', dist, '--out', zip], { cwd: REPO, encoding: 'utf8', timeout: 120000, windowsHide: true });
+  assert(pack.status === 0 && fs.existsSync(zip), `tools/ship/pack_zip.py exit ${pack.status}: ${(pack.stdout + pack.stderr).slice(-400)}`);
+  const train = path.relative(path.join(REPO, 'release'), trainDir);
+  assertEq(path.resolve(REPO, 'release', train, 'dist'), dist, 'release/<train>/dist as check 1 builds the path');
+  const outDir = path.join(SCRATCH, 'passes-zip');
+  let port = 0; for (let i = 0; i < 20 && !(port > 1024 && port < 60000); i++) port = await freePort();
+  const before = load1();
+  const r = spawnSync(process.execPath, [path.join(ACCEPT, 'run_pass.mjs'), '--candidate', zip, '--pass', '1', '--only', '1,8', '--repack', train, '--out-dir', outDir, '--port-base', String(port)],
+    { cwd: REPO, env: scenarioEnv({}, null), encoding: 'utf8', timeout: 600000, windowsHide: true });
+  const after = load1();
+  const file = path.join(outDir, 'pass-1.json');
+  assert(fs.existsSync(file), `run_pass wrote no pass-1.json (exit ${r.status}): ${(r.stderr || r.stdout || '').slice(-600)}`);
+  assert(r.status === 1 || r.status === 3, `exit ${r.status}: a pass with --only is never clean`);
+  const j = JSON.parse(fs.readFileSync(file, 'utf8'));
+  assert(j.verdict !== 'CLEAN' && j.countsTowardAcceptance === false, `verdict ${j.verdict}`);
+  assertEq(j.checks.map((c) => c.id), ['1', '8'], 'checks that ran');
+  const c1 = j.checks[0], c8 = j.checks[1];
+  assert(c1.status === 'RAN' && c1.defectCount === 0, `check 1 on a zip made by the packer: status ${c1.status}, defects ${JSON.stringify(c1.defects)}`);
+  assertEq(c1.commands.length, 1, 'check 1 records one command: the re-pack');
+  const repack = c1.commands[0];
+  assert(/tools\/ship\/pack_zip\.py --train \S+ --out \S+/.test(repack.cmd) && repack.exit === 0 && typeof repack.ms === 'number', `check 1 command record: ${JSON.stringify(repack)}`);
+  assert('load1Start' in repack && 'load1End' in repack && isLoad(repack.load1Start) && isLoad(repack.load1End), `check 1: the re-pack command has no load (keys: ${Object.keys(repack).join(', ')})`);
+  assert(c1.metrics.repackSha256 && c1.metrics.repackSha256 === c1.metrics.candidateSha256, `the re-pack is byte-identical to the candidate: ${c1.metrics.repackSha256} against ${c1.metrics.candidateSha256}`);
+  assertEq(c8.commands.length, 1, 'check 8 records one command: its audit, which runs inside the pass process');
+  const audit = c8.commands[0];
+  assert(audit.exit === null && /\(in-process\)/.test(audit.cmd) && typeof audit.ms === 'number' && audit.ms >= 0, `check 8 command record: ${JSON.stringify(audit)}`);
+  const lines = everyCommandHasLoad(j, 'zip candidate', [Math.min(before, after), Math.max(before, after)]);
+  assertEq(lines.length, 2, 'commands in this pass');
+  const md = fs.readFileSync(path.join(outDir, 'pass-1.md'), 'utf8');
+  for (const cm of [repack, audit]) mdShowsCommandLoad(md, cm, 'zip candidate');
+  t.note('pass', { verdict: j.verdict, exit: r.status, train });
+  t.note('commands', lines);
+});
+test('RUN-24', 'tools/accept source: every command record a check pushes (commands.push) carries the load, so a path no test executes (check 6 with --full, a re-pack variant) cannot go without it; the scanner has a negative control', (t) => {
+  /** the text of the call whose "(" is src[open], up to its matching ")"; string and template literals are skipped (a parenthesis inside one does not count) */
+  const callText = (src, open) => {
+    let depth = 0;
+    for (let i = open; i < src.length; i++) {
+      const ch = src[i];
+      if (ch === "'" || ch === '"' || ch === '`') { for (i++; i < src.length && src[i] !== ch; i++) if (src[i] === '\\') i++; continue; }
+      if (ch === '(') depth++; else if (ch === ')' && --depth === 0) return src.slice(open, i + 1);
+    }
+    throw new Error(`unbalanced call: ${src.slice(open, open + 80)}`);
+  };
+  const pushesIn = (src) => [...src.matchAll(/\bcommands\.push\(/g)].map((m) => callText(src, m.index + m[0].length - 1));
+  const hasLoad = (text) => /\.\.\.loadOf\(\s*\w+\s*\)|\bload1Start\s*[:,}]/.test(text) && /\bload1End\b|\.\.\.loadOf\(/.test(text);
+  // negative control: the scanner finds a record without the load (the shape c1_hash.mjs had) and a parenthesis inside a literal does not end the call early
+  const bad = "c.commands.push({ cmd: r.cmd, exit: r.exit, ms: r.ms });", ok1 = "c.commands.push({ cmd: r.cmd, exit: r.exit, ms: r.ms, ...loadOf(r) });", ok2 = "c.commands.push({ cmd: `node x (in-process) ${p.basename(q)}`, exit: null, ms, load1Start, load1End: load1() });";
+  assertEq([pushesIn(bad).map(hasLoad), pushesIn(ok1).map(hasLoad), pushesIn(ok2).map(hasLoad)], [[false], [true], [true]], 'negative control of the scanner');
+  assertEq(pushesIn("c.commands.push({ cmd: 'a (b', exit: 1, ms: 2 }); c.commands.push({ cmd: 'c)', ...loadOf(r) });").map(hasLoad), [false, true], 'parentheses inside string literals');
+  const dir = path.join(ACCEPT, 'checks'), found = {};
+  for (const f of fs.readdirSync(dir).filter((n) => /\.mjs$/.test(n)).sort()) {
+    const src = fs.readFileSync(path.join(dir, f), 'utf8');
+    for (const text of pushesIn(src)) {
+      (found[f] ||= []).push(text.length);
+      assert(hasLoad(text), `tools/accept/checks/${f}: a command record without load1Start/load1End (use ...loadOf(r) for a started command, load1() before and after for in-process work): ${text.slice(0, 160)}`);
+    }
+  }
+  for (const f of ['c1_hash.mjs', 'c6_accuracy.mjs', 'c8_copy.mjs']) assert(found[f] && found[f].length >= 1, `the scanner found no commands.push in ${f}: it would pass for the wrong reason`);
+  t.note('command records per check file', Object.fromEntries(Object.entries(found).map(([f, a]) => [f, a.length])));
 });
 test('RUN-25', 'ONLINE (--online): through the acceptance harness a child fetches the pinned Mapbox GL stylesheet with Node\'s own fetch() and gets the pinned bytes; behind a proxy the same child without the added variable fails (negative control)', (t) => {
   if (!ONLINE) throw new Skip('--online not given (one request to api.mapbox.com)');

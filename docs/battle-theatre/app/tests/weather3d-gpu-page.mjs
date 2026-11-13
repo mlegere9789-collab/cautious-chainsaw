@@ -16,7 +16,7 @@ import { makePlan, placeCamera } from './weather3d-gpu-plan.mjs';
 const Q = new URLSearchParams(location.search);
 const API = Q.get('api') === 'webgl2' ? 'webgl2' : 'webgpu', W = +Q.get('w') || 640, H = +Q.get('h') || 360, SOLD = +Q.get('soldiers') || 12000;
 const TIER = Q.get('tier') || 'laptop', FXON = Q.get('fx') !== 'off';
-const WG = window.WG = { api: API, ready: false, error: null, log: [], w: W, h: H, minOf };
+const WG = window.WG = { api: API, ready: false, error: null, log: [], w: W, h: H, minOf, stage: 'start', stages: [] };
 const getJSON = async u => { const r = await fetch(u); if (!r.ok) throw new Error(u + ' ' + r.status); return r.json(); };
 const b64 = u8 => { let s = ''; for (let i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000)); return btoa(s); };
 const raf = () => new Promise(r => requestAnimationFrame(() => r()));
@@ -26,14 +26,15 @@ let world = null, T = null; const gy = (x, z) => (T ? T.h(x, z) : 0), P = makePl
 
 // ---- set-up
 async function setup() {
-  T = await loadTerrain(URLS.proto); world = buildWorld(T, { total: SOLD, horses: 400, gunRate: 1 }); WG.world = world; WG.T = T; WG.geo = makeGeo(T);
-  const [eph, wxf] = await Promise.all([getJSON(URLS.env + 'ephemeris_1863.json'), getJSON(URLS.env + 'weather_timeline.json')]); WG.env = new Environment(eph, wxf);
+  const at = x => { WG.stage = x; WG.stages.push(Math.round(performance.now()) + ' ' + x); };
+  at('terrain'); T = await loadTerrain(URLS.proto); at('world'); world = buildWorld(T, { total: SOLD, horses: 400, gunRate: 1 }); WG.world = world; WG.T = T; WG.geo = makeGeo(T);
+  at('environment files'); const [eph, wxf] = await Promise.all([getJSON(URLS.env + 'ephemeris_1863.json'), getJSON(URLS.env + 'weather_timeline.json')]); WG.env = new Environment(eph, wxf);
   const canvas = document.getElementById('c'); canvas.width = W; canvas.height = H; WG.canvas = canvas;
   const ropts = { base: URLS.proto, nearQ: 1, midQ: 0.35, nearR: 12, midR: 60, shadowSize: 1024, midMode: 'vat', fxAlpha: 0.75, exposure: 1 };
-  WG.host = await RenderHost.create({ canvas, world, api: API, opts: ropts, replaceCanvas: () => canvas }); WG.host.resize(W, H); WG.cam = new Camera();
+  at('renderer (adapter, device, aerial photograph, pipelines)'); WG.host = await RenderHost.create({ canvas, world, api: API, opts: ropts, replaceCanvas: () => canvas }); WG.host.resize(W, H); WG.cam = new Camera();
   WG.log.push('renderer api ' + WG.host.api + (WG.host.log.length ? ' (' + WG.host.log.join('; ') + ')' : ''));
-  if (FXON) WG.fx = await fxHost.init(WG.host, { environment: WG.env, anim, choices: () => WG.choices || {}, nightFloor: 0.34, tier: TIER, geo: WG.geo });
-  WG.flags0 = { ...WG.host.R.o.flags }; WG.ready = true;
+  at('weather and effects layer (pipelines)'); if (FXON) WG.fx = await fxHost.init(WG.host, { environment: WG.env, anim, choices: () => WG.choices || {}, nightFloor: 0.34, tier: TIER, geo: WG.geo });
+  WG.flags0 = { ...WG.host.R.o.flags }; at('ready'); WG.ready = true;
 }
 setup().catch(e => { WG.error = String((e && e.stack) || e); console.error('harness set-up failed', e); });
 

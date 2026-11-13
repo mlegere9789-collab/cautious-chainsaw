@@ -6,11 +6,12 @@ Workstream bt-spec-health (spec loop). This file is assembled by `node docs/batt
 
 ## Summary
 
-6 tests in 2 specs: 5 PASS, 1 UNCLASSIFIED
+6 tests in 3 specs: 6 PASS
 
 ## How the specs are run here
 
-* **One at a time through the machine lock.** `tmp/bt-spec/driver.sh` takes one job from `tmp/bt-spec/queue2.txt` and runs it with `tools/horde/bench.sh tmp/bt-spec/runq.sh` (one lock hold per spec; the slot is given back between two specs). `runq.sh` runs `node --test --test-reporter=tap <spec>` detached, writes the log `tests/results/sw-round-1/<label>.log` (the first lines say the environment, the HEAD commit and the newest source file at the start; the last line says the end time, the exit code and whether a source file changed during the run), appends one line to `runs.tsv`, and stops the run only at a limit set far above the expected time (a hang guard, never a result). Labels: `src-<n>-<spec>` = source shell, `dist-<n>-<spec>` = packed dist (`BT_DIST=<folder>`).
+* **One spec at a time through the machine lock.** `tmp/bt-spec/driver.sh` takes the next batch of one spec (the two shortest share one) from `tmp/bt-spec/queue2.txt` and runs it with `tools/horde/bench.sh tmp/bt-spec/runq.sh` (one lock hold per spec: the slot is given back between two specs so that the many shorter jobs of the other workstreams get it; at most one spec of mine runs at any time, and a hold can be 4 hours, which is why a spec waits a long time for its turn). `runq.sh` runs `node --test --test-reporter=tap <spec>` detached, writes the log `tests/results/sw-round-1/<label>.log` (the first lines say the environment, the HEAD commit and the newest source file at the start; the last line says the end time, the exit code and whether a source file changed during the run), appends one line to `runs.tsv`, and stops a run only at a limit set far above the expected time (a hang guard, never a result). Labels: `src-<n>-<spec>` = source shell, `dist-<n>-<spec>` = packed dist (`BT_DIST=<folder>`).
+* **A frozen source shell.** A spec takes hours and the other workstreams edit `docs/battle-theatre` all the time (both runs of the first hour report "the source changed during the run"). From the second hour on, `runq.sh` takes `git archive HEAD` of the shell's folders once per batch (about 195 MB, one second) and the specs serve that copy (`BT_SNAPSHOT=<folder>`, `lib.mjs`; the folder name carries the commit, `tmp/bt-spec/snap-<hash>`); the environment on the first line of every log says which. Every result is therefore about one named commit and can be reproduced with `git archive <hash>`. The runs `src-1-sky` and `src-1-webgl2` (first attempt) were made on the live tree.
 * **The renderer is read from the browser, never assumed.** `lib.mjs` launches system Chrome with the hardware flags first, asks it for a WebGL2 context, and falls back to SwiftShader when it gets none (`# renderer: ANGLE (... SwiftShader ...) (SOFTWARE; hardware flags)` on the first line of every log). A WebGPU adapter exists on this machine (`google swiftshader`, software Vulkan), so the WebGPU path starts and runs; a headless capture of its canvas is blank, so assertions on a WebGPU picture are NOT RUN.
 * **Cost on this machine** (measured by the specs themselves, printed in each log as `slow renderer: frame ... ms`): one frame of the theatre with the full crowd takes 4 to 5.5 s when the machine is quiet and 10 s or more when the other jobs of the campaign load it (load average 8 to 12 on 4 vCPUs), the first entry 18 to 26 s. The specs were written for 16.7 ms, so a spec takes hours here.
 * **Numbers and pictures a spec writes** go to `tests/results/sw-round-1/out-src/` or `out-dist/` (environment `BT_OUT`), never over the committed real-GPU files of the tests folder.
@@ -40,6 +41,14 @@ The page's clock advances by the real frame time but never by more than 100 ms a
 | PRODUCT_BUG | the product misbehaves; a request note with the exact reproduction is in `docs/battle-theatre/GOVERNANCE/horde/requests/spec-*.md`; the test stays red |
 | UNCLASSIFIED / NOT RUN YET | no verdict has been given yet (a run failed and has not been analysed, or the run has not happened) |
 
+### real.spec.mjs
+
+Source shell, latest run: `src-1-real.log` (2026-11-13 21:03Z): ? passed, ? failed, ? not run, of ?; still running or no end line.  
+Packed dist, latest run: not run.
+
+| test | source | dist | verdict | evidence |
+|---|---|---|---|---|
+
 ### sky.spec.mjs
 
 Source shell, latest run: `src-1-sky.log` (2026-11-13 19:19Z): 5 passed, 0 failed, 0 not run, of 5; 50 min; the source changed during the run.  
@@ -55,9 +64,10 @@ Packed dist, latest run: not run.
 
 ### webgl2.spec.mjs
 
-Source shell, latest run: `src-1-webgl2.log` (2026-11-13 19:13Z): 0 passed, 1 failed, 0 not run, of 1; 6 min; the source changed during the run.  
-Packed dist, latest run: not run.
+Source shell, latest run: `src-2-webgl2.log` (2026-11-13 20:55Z): 1 passed, 0 failed, 0 not run, of 1; 8 min.  
+Packed dist, latest run: not run.  
+Earlier runs of this round: `src-1-webgl2.log` (0/1 passed).
 
 | test | source | dist | verdict | evidence |
 |---|---|---|---|---|
-| WebGL2 renders the placeholder crowd, hides units before their arrival, answers the scrubber, and leaves no context behind | FAIL (6 min) | not run | UNCLASSIFIED | source run: Expected values to be strictly deep-equal: / + actual - expected / + [ / +   'Failed to load resource: the server responded with a status of 404 (Not Found)' |
+| WebGL2 renders the placeholder crowd, hides units before their arrival, answers the scrubber, and leaves no context behind | pass (8 min) | not run | PASS | Second run, frozen source snapshot 9e1e1777: 165,000 soldiers on 3 Jul 13:30 at 1280x720, the picture is not black, nothing is placed before any arrival (28 Jun), more than 100,000 present on 2 Jul, the scrubber answers, and leaving the theatre leaves 0 canvas contexts, 0 animation frames, 0 timers; no console error or page error. Frame p50 7.8 s on this renderer (printed in the log as not a timing of the product). The first attempt (live tree, run src-1-webgl2) failed only on one console line: the shell asks the server for src/ext/index.mjs with a HEAD request and the file was created 26 s into that run (the 404 is described in requests/spec-health-pack-ext-folder.md, point 1); it is not a product defect and not a harness problem. |

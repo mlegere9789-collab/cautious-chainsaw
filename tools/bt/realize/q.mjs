@@ -23,6 +23,7 @@ import { REAL, GOV, readJSON, readJSONL, exists, toMin, isoOf, round, hasQuote, 
 import { loadTimeline, describeWindow } from './timeline.mjs';
 import { openProduct } from './query.mjs';
 import { candidatePhrases, norm, expand } from './gazetteer.mjs';
+import { occurrencesOf, classifyNames, buildLexicon } from './names.mjs';
 import { registerCoverage, epilogueRows } from './check.mjs';
 import { suggest, printSuggestion } from './suggest.mjs';
 
@@ -76,9 +77,9 @@ async function main() {
   console.error('unknown command ' + cmd + '; try: node tools/bt/realize/q.mjs help'); process.exit(2);
 }
 
-// place-like phrases of a text that are not, as a whole, a name of the gazetteer ("Cashtown Pike" is not "Cashtown", nor "Chambersburg Pike")
-function unknownPhrases(P, text) {
-  const out = []; for (const c of candidatePhrases(text)) { const r = P.places.resolve(c); if (r.status === 'resolved') continue; const hits = P.places.findIn(c), whole = hits.some(h => h.key === norm(expand(c)).replace(/s$/, '') || norm(expand(c)) === h.key); if (r.status === 'ambiguous') continue; if (!whole) out.push({ phrase: c, part: hits.map(h => h.place.name).join(', ') || null }); } return out;
+// the names a row prints that the gazetteer does not carry, with the evidence that they are places (names.mjs; every capitalised name of the printed cells and the claim fields of the corrected claim)
+function unknownNames(P, row, lex) {
+  const { names } = classifyNames(occurrencesOf(row, lex, P.places), lex, P.places); return names;
 }
 function rowsCmd(shard) {
   const TL = loadTimeline(), res = exists(path.join(REAL, 'RESULTS.json')) ? readJSON(path.join(REAL, 'RESULTS.json')) : { rows: {} }, reg = registerCoverage();
@@ -98,7 +99,9 @@ async function rowCmd(P, S, id) {
   const text = row.claim_text, hits = P.places.findIn(text);
   line('PLACES NAMED IN THE ROW:'); if (!hits.length) line('  (none found in the gazetteer)');
   const seenP = new Set(); for (const h of hits) { const p = h.place; if (seenP.has(p.id)) continue; seenP.add(p.id); line(`  ${p.id.padEnd(22)} ${p.name} [${p.kind}, ${p.shape}] centre ${p.center.lng},${p.center.lat} tolerance ${p.tolerance_m} m${p.on_ground ? '' : '  OFF THE LOADED GROUND'}`); }
-  const unk = unknownPhrases(P, row.what_text); if (unk.length) line(`  place-like phrases the gazetteer does not know as a whole: ${unk.map(u => u.phrase + (u.part ? ' (contains ' + u.part + ')' : '')).join('; ')}`);
+  const lex = buildLexicon(P, [...TL.rows, ...EP]), unk = unknownNames(P, row, lex).filter(n => n.class === 'unknown'), unc = unknownNames(P, row, lex).filter(n => n.class === 'unclassified');
+  if (unk.length) line(`  names with evidence of being a place that the gazetteer does not carry (unknown, never guessed): ${unk.map(u => `${u.name} [${u.strength}: ${u.evidence.slice(0, 2).join('; ')}]${u.contains_known_place ? ' (contains ' + u.contains_known_place + ')' : ''}`).join(' | ')}`);
+  if (unc.length) line(`  other capitalised names with no evidence either way: ${unc.slice(0, 12).map(u => u.name).join('; ')}${unc.length > 12 ? ' ...' : ''}`);
   line('UNITS NAMED IN THE ROW:'); const named = P.unitsNamedIn(text); if (!named.length) line('  (none matched; try q.mjs unit "<words>")');
   const mid = row.window.intervals.length ? (row.window.intervals[0][0] + row.window.intervals[0][1]) / 2 : null;
   for (const n of named.slice(0, 14)) {
@@ -111,19 +114,24 @@ async function rowCmd(P, S, id) {
 }
 
 function gazetteerCmd(P) {
-  const TL = loadTimeline(), EP = epilogueRows(TL), rows = [...TL.rows, ...EP], places = new Map(), unknown = new Map(), ambiguous = new Map();
+  const TL = loadTimeline(), EP = epilogueRows(TL), rows = [...TL.rows, ...EP], places = new Map(), ambiguous = new Map(), lex = buildLexicon(P, rows);
   for (const r of rows) {
     for (const h of P.places.findIn(r.claim_text)) { const k = h.place.id; (places.get(k) || places.set(k, { place: h.place, rows: [] }).get(k)).rows.push(r.id); }
     for (const c of candidatePhrases(r.what_text)) { const res = P.places.resolve(c); if (res.status === 'ambiguous') (ambiguous.get(c) || ambiguous.set(c, { candidates: res.candidates, rows: [] }).get(c)).rows.push(r.id); }
-    for (const u of unknownPhrases(P, r.what_text)) (unknown.get(u.phrase) || unknown.set(u.phrase, { rows: [], part: u.part }).get(u.phrase)).rows.push(r.id);
   }
+  const cls = classifyNames(rows.flatMap(r => occurrencesOf(r, lex, P.places)), lex, P.places);
+  for (const n of cls.names.filter(n => n.class === 'ambiguous')) ambiguous.set(n.name, { candidates: [], rows: n.rows });
+  const unknown = cls.names.filter(n => n.class === 'unknown'), unclassified = cls.names.filter(n => n.class === 'unclassified');
+  const OLD_ARTEFACTS = ['Behind Seminary Ridge', 'Behind Cemetery Hill', 'Behind McPherson Ridge', 'West of McPherson Ridge', 'Base of Culp’s Hill', 'Near Black Horse Tavern', 'Reach Herr Ridge', 'Southwest of Big Round Top', 'Plum Run Landscape Big Round Top', 'Williamsport Potomac River', 'XII Corps Camp', 'Stevens Knoll Hill', 'Fairfield Road Hill', 'Thaddeus Stevens’ Caledonia Furnace', 'Ward Hill', 'Lutheran Seminary'];
   const doc = {
-    _doc: 'The places the timeline rows name, resolved against the repository\'s own files (app/data/gazetteer.json and the base-map layers), with the distance tolerance a check may use. Unknown places are listed, never guessed; an ambiguous name is never resolved by choosing one. Built by tools/bt/realize/q.mjs gazetteer --write; tolerances by kind: tolerances.json distance.',
+    _doc: 'The places the timeline rows name, resolved against the repository\'s own files (app/data/gazetteer.json and the base-map layers), with the distance tolerance a check may use. Unknown places are listed, never guessed; an ambiguous name is never resolved by choosing one. Built by tools/bt/realize/q.mjs gazetteer --write; tolerances by kind: tolerances.json distance. HOW THE UNKNOWN NAMES ARE FOUND (names.mjs): every capitalised name of the printed cells, of the claim fields of the corrected claim and of the notes cells is classified once over all its occurrences: resolved, ambiguous, excluded (months, tier words, state names, unit words), person_or_unit (a commander or unit of the order of battle, or a name introduced by a title, initials or a possessive before a unit noun), unknown (it has evidence of being a place and no repository file carries it) or unclassified (no evidence either way: listed so that nothing capitalised disappears; NOT claimed to be a place). The evidence is stated per name: structural (a geographic word, a town ending, a state code), cue (at, near, in, toward ... before it; the place field of a corrected claim), weak (to/from, the first printed cell, a list). A town has no geographic word, which is why the first report (a pattern of geographic words only) missed Taneytown, Williamsport, Falling Waters, Hagerstown, Hanover, Westminster and Greenwood.',
     tolerance_by_kind_m: P.tolerances.distance.floor_m_by_kind, line_extra_m: P.tolerances.distance.line_extra_m, tolerance_rule: 'point/area/footprint: distance from the unit centre to the centre of the place must be <= sigma_m of the entry (at least the floor of its kind); line (road, lane, stream, railway): distance to the nearest point of the mapped line <= positional error + line_extra_m',
     sources: P.places.sources, ground_box: P.places.box,
-    counts: { places_in_gazetteer: P.places.list.length, named_in_rows: places.size, unknown_names: unknown.size, ambiguous_names: ambiguous.size, rows_naming_a_known_place: new Set([...places.values()].flatMap(x => x.rows)).size, rows: rows.length },
+    counts: { places_in_gazetteer: P.places.list.length, named_in_rows: places.size, unknown_names: unknown.length, unknown_by_strength: Object.fromEntries(['structural', 'cue', 'weak'].map(k => [k, unknown.filter(n => n.strength === k).length])), unclassified_names: unclassified.length, person_or_unit_names: cls.counts.person_or_unit, excluded_names: cls.counts.excluded, names_only_in_notes_without_evidence_not_listed: cls.counts.notes_without_evidence, ambiguous_names: ambiguous.size, rows_naming_a_known_place: new Set([...places.values()].flatMap(x => x.rows)).size, rows: rows.length },
     places: [...places.values()].sort((a, b) => b.rows.length - a.rows.length || (a.place.id < b.place.id ? -1 : 1)).map(({ place: p, rows }) => ({ id: p.id, name: p.name, aliases: p.aliases, kind: p.kind, shape: p.shape, center: p.center, tolerance_m: p.tolerance_m, on_ground: p.on_ground, source: p.source, ref: p.ref, tier: p.tier, rows })),
-    unknown: [...unknown.entries()].sort((a, b) => b[1].rows.length - a[1].rows.length || (a[0] < b[0] ? -1 : 1)).map(([name, v]) => ({ name, rows: v.rows, contains_known_place: v.part || null, status: 'unknown: no repository file carries this name; not guessed' })),
+    unknown: unknown.map(n => ({ name: n.name, strength: n.strength, evidence: n.evidence, rows: n.rows, rows_in_claim: n.rows_in_claim, rows_in_notes_only: n.rows_in_notes_only, contains_known_place: n.contains_known_place || null, status: 'unknown: no repository file carries this name; not guessed' })),
+    unclassified: unclassified.map(n => ({ name: n.name, rows: n.rows, rows_in_claim: n.rows_in_claim, contains_known_place: n.contains_known_place || null, ...(n.bare_surname_of_a_known_place ? { note: 'a bare surname that is a word of a known place: a person, or the farm named after them' } : {}), status: 'capitalised name with no evidence of being a place or not; listed, not claimed to be a place, never given coordinates' })),
+    first_report_names_not_carried_over: { _doc: 'names of the first report (a pattern of geographic words) that are not names: the pattern joined a preposition, a unit word or a person\'s given name to a place name, or (Lutheran Seminary) names a place the gazetteer carries as Seminary', names: OLD_ARTEFACTS },
     ambiguous: [...ambiguous.entries()].map(([name, v]) => ({ name, candidates: v.candidates, rows: v.rows })),
     ambiguous_in_gazetteer: [...P.places.ambiguous.entries()].map(([k, s]) => ({ key: k, ids: [...s].map(p => p.id) })),
     superseded: P.places.superseded, skipped_duplicates: P.places.skipped.length,

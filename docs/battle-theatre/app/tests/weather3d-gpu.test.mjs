@@ -173,11 +173,11 @@ function mockDevice(o = {}) {
   const lab = (d, k) => (d && d.label) || k;
   const dev = { log, writes, destroyed, buffers, pipelines, bindGroups, modules, listeners,
     addEventListener(t, f) { (listeners[t] = listeners[t] || []).push(f); }, removeEventListener(t, f) { listeners[t] = (listeners[t] || []).filter(x => x !== f); },
-    pushErrorScope(k) { log.push(['pushErrorScope', k]); }, popErrorScope() { log.push(['popErrorScope']); return Promise.resolve(o.scopeError || null); },
+    pushErrorScope(k) { log.push(['pushErrorScope', k]); }, popErrorScope() { log.push(['popErrorScope']); return o.hangScope ? new Promise(() => { }) : Promise.resolve(o.scopeError || null); },
     createBindGroupLayout(d) { log.push(['bgl', lab(d)]); return { label: lab(d, 'bgl'), desc: d }; }, createPipelineLayout(d) { log.push(['pl', lab(d)]); return { label: lab(d, 'pl'), desc: d }; },
     createBuffer(d) { const b = { label: lab(d, 'buf'), desc: d, destroy() { destroyed.push(b.label); } }; buffers.push(b); return b; },
-    createShaderModule(d) { const m = { label: lab(d, 'module'), code: d.code, getCompilationInfo: async () => ({ messages: o.messages || [] }) }; modules.push(m); return m; },
-    createRenderPipelineAsync(d) { pipelines.push(d); if (o.failPipeline && o.failPipeline.test(d.label)) return Promise.reject(new Error('mock failure of ' + d.label)); return Promise.resolve({ label: d.label, desc: d }); },
+    createShaderModule(d) { const m = { label: lab(d, 'module'), code: d.code, getCompilationInfo: o.hangInfo ? () => new Promise(() => { }) : async () => ({ messages: o.messages || [] }) }; modules.push(m); return m; },
+    createRenderPipelineAsync(d) { pipelines.push(d); if (o.hangPipeline && o.hangPipeline.test(d.label)) return new Promise(() => { }); if (o.failPipeline && o.failPipeline.test(d.label)) return Promise.reject(new Error('mock failure of ' + d.label)); return Promise.resolve({ label: d.label, desc: d }); },
     createBindGroup(d) { const g = { label: lab(d, 'bg'), desc: d }; bindGroups.push(g); return g; }, createQuerySet(d) { return { desc: d, destroy() { destroyed.push('queryset'); } }; },
     queue: { writeBuffer(b, off, data, dOff, size) { writes.push({ label: b.label, off, data, dOff, size }); } } };
   return dev;
@@ -239,6 +239,16 @@ test('GPUPasses: GPU timing writes (timestamp queries) are used only when the de
   const dev6 = mockDevice({ scopeError: { message: 'Binding size is smaller than the minimum' } }), g6 = await GPUPasses.create(mockR(dev6), { maxEvents: 128, timing: false }); assert.match(g6.log.join(' '), /validation error at set-up: Binding size/); g6.dispose();
 });
 
+test('GPUPasses never waits for ever on the device: a pipeline, the validation scope or the compiler messages that do not arrive end the set-up in time, reported, and the layer carries on with what built', async () => {
+  const waitMs = { pipelines: 40, scope: 40, info: 40 }, mk = o => GPUPasses.create(mockR(mockDevice(o)), { maxEvents: 128, timing: false, waitMs });
+  const t0 = Date.now(); const a = await mk({ hangPipeline: /weather3d-add/ }); assert.ok(Date.now() - t0 < 2000, 'it returned');
+  assert.ok(!a.weatherOk && a.fxOk && a.ok, 'the weather needs both pipelines; the sprites do not'); assert.match(a.log.join(' '), /weather3d-add pipeline was not ready after 0\.04 s: the prototype keeps what it draws/); a.dispose();
+  const b = await mk({ hangInfo: true }); assert.ok(b.ok && b.weatherOk && b.fxOk, 'the compiler messages are only for the log'); assert.equal(b.warnings.length, 3); assert.match(b.warnings[0], /compiler messages were not delivered in 0\.04 s; the layer carries on/); b.dispose();
+  const c = await mk({ hangScope: true }); assert.ok(c.ok && c.weatherOk && c.fxOk); assert.match(c.warnings.join(' '), /validation scope of the set-up was not delivered/); c.dispose();
+  const d = await mk({ hangPipeline: /weather3d|fx3d/ }); assert.ok(!d.ok && !d.weatherOk && !d.fxOk); assert.equal(d.log.length, 3); d.dispose();
+  const R = mockR(mockDevice({ hangPipeline: /weather3d|fx3d/ })), g = await GPUPasses.create(R, { maxEvents: 128, timing: false, waitMs }), flags0 = { ...R.o.flags };
+  const h = await FxHost.create({ api: 'webgpu', R, world: { count: 0 } }, { environment, data, tier: 'laptop', timing: false }).catch(e => e); assert.ok(h instanceof FxHost || h instanceof Error); assert.deepEqual(R.o.flags, flags0, 'nothing of the prototype was switched off'); g.dispose(); if (h instanceof FxHost) h.dispose();
+}, { timeout: 120000 });
 // ---------------------------------------------------------------------------------------------------------------- fx-host on the WebGPU path
 test('fx-host on WebGPU: the prototype\'s sky and particles are switched off only when the new passes built; `after` is chained after whatever hook is there; dispose puts everything back', async () => {
   const dev = mockDevice(), inner = { calls: [], scene() { this.calls.push('scene'); }, shadow() { this.calls.push('shadow'); }, after() { this.calls.push('after'); } }, R = mockR(dev, { ext: inner });
