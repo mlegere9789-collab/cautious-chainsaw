@@ -2,7 +2,7 @@
 // ACTUALLY loads, with a browser (software WebGL2, one at a time), and compares:
 //   1. static: the dist matches its MANIFEST.json byte for byte; the zip holds exactly the dist (names, sizes, CRC-32) and its .sha256 file is right; every relative import of the dist exists;
 //   2. the packed dist is served the way Netlify serves it (its _headers file applied) and walked: enter the theatre with the figures on, start the sound (what a click does), let the added
-//      layers (src/ext) settle, run the scene at 3 July 13:30, fly to a unit, play at 2x and at 60x, go to 4 July 15:00 (rain), open every drawer, select a unit, switch every added layer
+//      layers (src/ext) settle, run the scene at 3 July 13:30, fly to a unit, play at 2x and at 60x, go to dawn, dusk and night of 3 July and to 4 July 15:00 (rain), open every drawer, select a unit, switch every added layer
 //      on and open every added panel, press Back; then every page of each static section (app/roster when it exists) is visited, its links followed and its controls pressed;
 //   3. the same walk is made against the SOURCE tree (a snapshot of it with --pack, so that nobody's edit moves the target during the run);
 //   4. verdict: every request to the packed site answers 2xx (zero 404s); every URL the source run loaded exists in the dist; no console error or page error appears only in the dist run;
@@ -25,7 +25,7 @@ const isFile = p => { try { return fs.statSync(p).isFile(); } catch { return fal
 
 // ---------------------------------------------------------------- the server: the dist as Netlify serves it
 const MIME = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.json': 'application/json', '.jsonl': 'application/x-ndjson', '.md': 'text/markdown; charset=utf-8', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
-  '.png': 'image/png', '.webp': 'image/webp', '.gif': 'image/gif', '.svg': 'image/svg+xml', '.bin': 'application/octet-stream', '.wav': 'audio/wav', '.ogg': 'audio/ogg', '.mp3': 'audio/mpeg', '.glb': 'model/gltf-binary', '.woff2': 'font/woff2', '.woff': 'font/woff', '.ttf': 'font/ttf', '.otf': 'font/otf', '.wasm': 'application/wasm', '.txt': 'text/plain; charset=utf-8' };
+  '.png': 'image/png', '.webp': 'image/webp', '.gif': 'image/gif', '.svg': 'image/svg+xml', '.bin': 'application/octet-stream', '.wav': 'audio/wav', '.ogg': 'audio/ogg', '.mp3': 'audio/mpeg', '.glb': 'model/gltf-binary', '.woff2': 'font/woff2', '.woff': 'font/woff', '.ttf': 'font/ttf', '.otf': 'font/otf', '.wasm': 'application/wasm', '.txt': 'text/plain; charset=utf-8', '.gz': 'application/gzip' };
 /** The rules of a Netlify `_headers` file: a path pattern on its own line, then indented `Name: value` lines. `*` matches anything, `:name` one path segment. */
 export function parseHeaders(text) {
   const rules = []; let cur = null;
@@ -203,6 +203,10 @@ async function theatreWalk({ frames }) {
   });
   await step('play at 2x', async () => { a.setPlaying(true); a.setSpeed(2); await a.frames(frames); a.setPlaying(false); });
   await step('play at 60x', async () => { a.setPlaying(true); a.setSpeed(60); await a.frames(Math.max(4, frames >> 1)); a.setPlaying(false); a.setSpeed(1); });
+  const few = Math.max(6, frames >> 1);
+  await step('3 July 04:30 (dawn)', async () => { a.setTime(minOf(7, 3, 4, 30)); await a.frames(few); });
+  await step('3 July 19:30 (dusk)', async () => { a.setTime(minOf(7, 3, 19, 30)); await a.frames(few); });
+  await step('3 July 23:00 (night)', async () => { a.setTime(minOf(7, 3, 23, 0)); await a.frames(few); });
   await step('4 July 15:00 (rain)', async () => { a.setTime(minOf(7, 4, 15, 0)); await a.frames(frames); });
   await step('open every drawer', async () => { const done = []; for (const b of [...document.querySelectorAll('[data-panel]')]) { if (b.hidden || b.offsetParent === null) continue; b.click(); await a.frames(2); done.push(b.dataset.panel); b.click(); await a.frames(1); } if (!done.length) throw new Error('no drawer button is visible'); return done; });
   await step('select a unit', async () => { if (ui < 0) throw new Error('no unit was chosen'); a.select(ui); await a.frames(3); a.select(-1); await a.frames(1); });
@@ -296,8 +300,9 @@ async function main() {
     // deliver/bt-staging/dist is refreshed only at the end, and only from a build that passed every check.
     dist = path.join(path.resolve(opt('--work-dir') || path.join(REPO, 'tmp/bt-spec/verify/work')), 'dist'); rep.dist = dist;
     const r = pack({ root: snap, out: dist, zipDir: path.resolve(opt('--zip-dir') || path.join(REPO, 'deliver')) }); zip = r.zip;
-    rep.pack = { version: r.version, files: r.files, bytes: r.bytes, zip: r.zip && path.basename(r.zip), zipBytes: r.zipBytes, zipSha256: r.zipSha256, counts: r.counts, audit: r.audit, clean: r.clean, auditReview: Object.fromEntries(Object.entries(r.auditReview).map(([k, v]) => [k, v.count])), notes: r.trace.notes, unshippedLiterals: r.trace.unshippedLiterals, computedImports: r.trace.computedImports.filter(c => c.status !== 'address').map(c => `${c.status}: ${c.file}: ${c.arg}`) };
+    rep.pack = { version: r.version, files: r.files, bytes: r.bytes, zip: r.zip && path.basename(r.zip), zipBytes: r.zipBytes, zipSha256: r.zipSha256, counts: r.counts, scrubbed: r.scrubbed.map(x => ({ path: x.path, members: x.removed.length })), audit: r.audit, clean: r.clean, auditReview: Object.fromEntries(Object.entries(r.auditReview).map(([k, v]) => [k, v.count])), notes: r.trace.notes, unshippedLiterals: r.trace.unshippedLiterals, computedImports: r.trace.computedImports.filter(c => c.status !== 'address').map(c => `${c.status}: ${c.file}: ${c.arg}`) };
     print(`packed ${r.version}: ${r.files} files, ${r.bytes} bytes; zip ${path.basename(r.zip)} ${r.zipBytes} bytes sha256 ${r.zipSha256}; copy audit hits: ${r.audit.length}`);
+    if (r.scrubbed.length) notes.push(`publication filter: ${r.scrubbed.length} data file(s) ship without ${r.scrubbed.reduce((a, x) => a + x.removed.length, 0)} member(s) that name the program that made them (the working files keep them; the list is in the trace report)`);
     if (r.audit.length) { failures.push(`copy audit: ${r.audit.length} hit(s) in the packed files (the zip is named "-AUDIT-HITS-${r.audit.length}")`); for (const h of r.audit) notes.push(`audit hit ${h.file}:${h.line ?? ''} ${h.match}`); }
   }
   if (!zip) { const v = checkManifest(dist).version; const cand = v && fs.existsSync(path.join(REPO, 'deliver')) ? fs.readdirSync(path.join(REPO, 'deliver')).filter(f => f.startsWith(`gettysburg-BT-staging-${v}`) && f.endsWith('.zip')) : []; if (cand.length) zip = path.join(REPO, 'deliver', cand[0]); }

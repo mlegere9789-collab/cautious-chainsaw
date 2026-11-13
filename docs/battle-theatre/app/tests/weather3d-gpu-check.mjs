@@ -2,12 +2,16 @@
 // a gate; it never loosens anything, and what it cannot know (a real GPU) is not in it. A gate runner can call checkRun / checkCompare, or the command:
 //   node docs/battle-theatre/app/tests/weather3d-gpu-check.mjs <outDir> [--api=webgpu|webgl2] [--limit=6]       exit code 1 when a problem is found
 import fs from 'node:fs'; import path from 'node:path'; import { fileURLToPath } from 'node:url';
+import { SOFTWARE_ADAPTER_RE } from './weather3d-gpu-lib.mjs';
 
 // one run of one API (the content of <outDir>/<api>/summary.json). expect: { cases: n } the number of cases the run was asked for (default: any, at least 1)
 export function checkRun(s, expect = {}) {
   const p = [], api = s && s.api; if (!s || !api) return { ok: false, problems: ['not a summary of weather3d-gpu.mjs'], facts: {} };
   const cases = Object.entries(s.cases || {}), fxOff = /[?&]fx=off/.test(s.url || ''), facts = { api, cases: cases.length, layer: fxOff ? 'off (the prototype alone)' : 'on' };
   if (s.errors && s.errors.length) p.push('the run itself reported errors: ' + s.errors[0].slice(0, 160));
+  // a run started with --real-gpu says so; its adapter (WebGPU: vendor and architecture, WebGL2: the renderer string) must be recorded and must not be a software one, or the run is not a real-GPU result
+  const ad = (s.diagEnd && s.diagEnd.adapter) || (s.diagInit && s.diagInit.adapter) || null; facts.adapter = ad ? JSON.stringify(ad).slice(0, 200) : null; facts.realGpu = !!s.realGpu;
+  if (s.realGpu && (!ad || SOFTWARE_ADAPTER_RE.test(JSON.stringify(ad)))) p.push('the run was asked to be a real-GPU run but its adapter is ' + (ad ? 'a software one: ' + JSON.stringify(ad).slice(0, 120) : 'not recorded'));
   if (!s.finished) p.push('the run did not finish'); if (!cases.length) p.push('no case was rendered'); if (expect.cases != null && cases.length !== expect.cases) p.push(`${cases.length} cases rendered, ${expect.cases} expected`);
   if (api === 'webgpu') {
     const g = s.diagInit && s.diagInit.gpu; if (!g && !fxOff) p.push('no WebGPU layer state at start'); else if (g) { if (!g.ok || !g.weatherOk || !g.fxOk) p.push('a WebGPU pipeline of the layer did not build: ' + JSON.stringify(g.log || []).slice(0, 200)); if (g.log && g.log.length) p.push('layer log: ' + g.log[0].slice(0, 160)); if (g.warnings && g.warnings.length) p.push('compiler warnings: ' + g.warnings[0].slice(0, 160)); }

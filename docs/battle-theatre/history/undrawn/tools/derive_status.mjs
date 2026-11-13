@@ -45,7 +45,7 @@ export function derive() {
     const up = ch.slice(0, -1).reverse();      // the formations above the unit, nearest first (the last is the army)
     const leaf = !(u.children || []).length, status = u.render.status, onFieldLeaf = leaf && ['moving', 'edge_only', 'not_drawn'].includes(status);
     const byLedger = {}, byDisp = {}, byCode = {}; let usable = 0;
-    for (const c of own) { byLedger[c.ledger] = (byLedger[c.ledger] || 0) + 1; if (!unusable(c)) usable++; const d = dispOf(c); byDisp[d.disposition] = (byDisp[d.disposition] || 0) + 1; if (d.code) byCode[d.code] = (byCode[d.code] || 0) + 1; }
+    for (const c of own) { byLedger[c.ledger] = (byLedger[c.ledger] || 0) + 1; if (!unusable(c)) usable++; const d = dispOf(c); byDisp[d.disposition] = (byDisp[d.disposition] || 0) + 1; if (d.code && d.disposition === 'unresolved') byCode[d.code] = (byCode[d.code] || 0) + 1; }   // by_code counts the reason codes of the refused (unresolved) claims only: a used claim may carry a code (documented_absence, conflict_approach) but was not refused
     const stops = p && p.stops ? p.stops.map(s => ({ po: s.po, place: s.place, t: iso(s.t_doc) })) : [];
     const ds = dayStops.get(u.id) || [];
     const gateDate = g && g.earliest != null ? iso(g.earliest).slice(0, 10) : null;

@@ -1,17 +1,18 @@
 // Browser harness (not a gate): the two added modules of the site's places (src/ext/monuments.mjs, src/ext/tour.mjs) in the real page, on WebGL2 with software GL.
 // The real list src/ext/index.mjs and the real modules are loaded (nothing is routed or faked). It walks: a desktop visit (the layer is off at entry, the switch, the marks, a picked
 // memorial and its card, a memorial beyond the loaded ground, a tap on a mark, the tour stops, the clock never moved, Back, a second entry) and a phone visit (touch, 390 px wide).
-//   node docs/battle-theatre/app/tests/ext-site-places-browser.mjs [outDir] [light|full|look]
+//   node docs/battle-theatre/app/tests/ext-site-places-browser.mjs [outDir] [light|full|look|units]
 // light (default): ?crowd=off&structures=off&fx=off, the quick look. full: the shell as a viewer gets it (figures, structures, effects), slow on software GL.
 // look: the shell as a viewer gets it, but only a short walk (layer on over Cemetery Ridge, a picked memorial, a tour stop, Back) for the screenshots: the marks over the real scene.
+// units: the shell as a viewer gets it, on 3 July 1863 at 14:30, with the camera among the soldiers of the unit nearest the Pennsylvania State Memorial, the layer off and on: how the 1863 scene and the flat marks of the later memorials sit in one picture.
 // Writes outDir/results.json and screenshots (to be looked at, not asserted). Exit code 1 when a check fails. One browser at a time on a shared machine: run it through tools/horde/bench.sh.
 import fs from 'node:fs'; import path from 'node:path'; import { fileURLToPath } from 'node:url';
 import { chromium } from '../../../../node_modules/playwright-core/index.mjs';
 import { serve } from '../tools/serve.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), REPO = path.resolve(here, '../../../..');
-const out = path.resolve(process.argv[2] || path.join(REPO, 'tmp/ext-site-places-browser')), mode = process.argv[3] === 'full' ? 'full' : process.argv[3] === 'look' ? 'look' : 'light', port = +process.env.BT_PLACES_PORT || 10827; fs.mkdirSync(out, { recursive: true });
-const Q = mode === 'full' || mode === 'look' ? 'api=webgl2' : 'api=webgl2&crowd=off&structures=off&fx=off&nearR=12&midR=60', WAIT = 1800000;
+const out = path.resolve(process.argv[2] || path.join(REPO, 'tmp/ext-site-places-browser')), mode = process.argv[3] === 'full' ? 'full' : process.argv[3] === 'look' ? 'look' : process.argv[3] === 'units' ? 'units' : 'light', port = +process.env.BT_PLACES_PORT || 10827; fs.mkdirSync(out, { recursive: true });
+const Q = mode === 'full' || mode === 'look' || mode === 'units' ? 'api=webgl2' : 'api=webgl2&crowd=off&structures=off&fx=off&nearR=12&midR=60', WAIT = 1800000;
 
 const DRIVER_NOISE = /GPU stall due to ReadPixels|GL_CLOSE_PATH_NV|Automatic fallback to software WebGL|powerPreference option is currently ignored/;        // the software GL driver talking about itself (a screenshot reads the canvas back), as tests/lib.mjs
 // a warning is theirs unless it names these modules, their elements or their words (other added layers share the page and write their own lines; they are listed in the notes, not failed here)
@@ -51,6 +52,33 @@ try {
     const e = await P.evaluate(() => ({ t: window.btApp.state.t, hooks: window.btApp.theatre.host._hooks.length, marks: !!document.querySelector('#xm-marks') })); check('the short walk: the clock never moved, the layer is off again, no canvas of the memorials is left', e.t === t0 && e.marks === false, { t0, e });
     check('the short walk: no console error, no page error, no failed request, and no warning of these modules', clean(s.log), s.log); if (s.log.warnings.length) results.notes.push(`short walk: ${s.log.warnings.length} console warning(s): ${[...new Set(s.log.warnings)].map(w => w.slice(0, 120)).join(' | ')}`);
     await s.leave(); await s.ctx.close();
+  } else if (mode === 'units') {
+    // ======================================================== the later memorials over a manned line: the soldiers of 1863 and the flat marks of the later memorials in one picture
+    const s = await session(Q); const P = s.page; const ms = await s.enter(); results.notes.push(`entry (units, desktop 1280 x 720): ${ms} ms on software GL; not a timing measurement`);
+    const T3 = (30 + 3 - 1) * 1440 + 14 * 60 + 30;                               // the clock counts minutes from 1 June 00:00: this is 3 July 1863, 14:30, the cannonade before the assault
+    await P.evaluate(t => window.btApp.setTime(t), T3); await s.frames(4);
+    const tSet = await P.evaluate(() => window.btApp.state.t);
+    const pick = await P.evaluate(async url => {
+      const Pm = await import(url), a = window.btApp, th = a.theatre, st = a.stage, L = a.layer, mem = await (await fetch(new URL('data/site-memorials.json', location.href))).json(), m = Pm.buildIndex(mem, th.T).byNo.get(46);
+      let best = -1, bd = 1e12, n = 0, fig = 0; for (let i = 0; i < L.units.length; i++) { if (!st.present[i]) continue; n++; fig += st.count[i]; if (!(st.count[i] >= 60)) continue; const d = Math.hypot(st.cx[i] - m.x, st.cz[i] - m.z); if (d < bd) { bd = d; best = i; } }
+      return { n, fig, best, bd: Math.round(bd), name: best >= 0 ? L.units[best].name : null, count: best >= 0 ? st.count[best] : 0 };
+    }, P_URL);
+    results.notes.push(`3 July 14:30 (minute ${tSet}): ${pick.n} units on the field with ${pick.fig} figures; the unit nearest the Pennsylvania State Memorial with at least 60 figures: ${pick.name} (${pick.count} figures, ${pick.bd} m away)`);
+    check('3 July 1863, 14:30: units are on the field and one of at least 60 figures stands near the Pennsylvania State Memorial (no. 46)', pick.n > 5 && pick.best >= 0 && pick.bd < 1500, pick);
+    const view = async (dist, height) => { await P.evaluate(({ i, dist, height }) => { const a = window.btApp, th = a.theatre, st = a.stage; th.controls.flyTo(th.viewFor(st.cx[i], st.cz[i], { dist, height, yaw: st.ch[i] + Math.PI * .8 }), 0); }, { i: pick.best, dist, height }); await s.frames(5); };
+    const hash = () => P.evaluate(() => window.btApp.liveHash());
+    await view(70, 14); const h0 = await hash(); await s.shot('units-01-line-70m-layer-off');
+    await P.evaluate(() => window.btApp.theatre.sitePlaces.memorials.setOn(true)); await s.frames(4);
+    const on = await P.evaluate(() => { const m = window.btApp.theatre.sitePlaces.memorials, chip = document.querySelector('#xm-chip'); return { on: m.isOn(), drawn: m.drawn(), inView: m.marksInView(), chip: chip.hidden ? '' : chip.textContent.replace(/\s+/g, ' ').trim(), hooks: window.btApp.theatre.host._hooks.length }; });
+    const h1 = await hash(); await s.shot('units-02-line-70m-layer-on');
+    check('the layer on over the manned line: marks are drawn and the notice says they were put up after the battle', on.on && on.drawn > 0 && /Put up after the battle/.test(on.chip), on);
+    check('the layer changes nothing in the 1863 scene: the stage hash (the units present, their places and states) is the same with the layer on and off, and the clock is where this walk put it', h0 === h1 && (await P.evaluate(() => window.btApp.state.t)) === tSet, { h0, h1, tSet });
+    await view(24, 3); await s.shot('units-03-soldiers-24m-layer-on');
+    await view(9, 1.8); await s.shot('units-04-soldiers-9m-layer-on');
+    await P.evaluate(() => window.btApp.theatre.sitePlaces.memorials.setOn(false)); await s.frames(3);
+    check('the layer off again: no canvas of the memorials is left, and the clock is where this walk put it', await P.evaluate(t => !document.querySelector('#xm-marks') && window.btApp.state.t === t, tSet));
+    check('the units walk: no console error, no page error, no failed request, and no warning of these modules', clean(s.log), s.log); if (s.log.warnings.length) results.notes.push(`units walk: ${s.log.warnings.length} console warning(s): ${[...new Set(s.log.warnings)].map(w => w.slice(0, 120)).join(' | ')}`);
+    await s.leave(); await s.ctx.close();
   } else {
   // ======================================================== visit 1: a desktop
   let s = await session(Q); const P = s.page; const ms1 = await s.enter(); results.notes.push(`entry (${mode}, desktop): ${ms1} ms on software GL; not a timing measurement`);
@@ -64,6 +92,8 @@ try {
   check('the memorials follow the Monuments list at entry; the tour pin is not shown; the More tool is there', a.mem.positions === 'list' && a.dom.pinHidden === true && a.tour.shown === false && a.more === false, a);
   results.notes.push(`scene hooks registered by all added modules at entry: ${a.hooks}`); const hooks0 = a.hooks;
   const t0 = await P.evaluate(() => window.btApp.state.t);
+  // not these modules' part of the page: the top bar of the shell at this width (recorded for its owner, not checked here)
+  const bar = await P.evaluate(() => { const r = document.querySelector('#bt-ribbon').getBoundingClientRect(), e = document.querySelector('[data-panel="events"]').getBoundingClientRect(); return { vw: innerWidth, ribbon: { left: Math.round(r.left), right: Math.round(r.right), text: document.querySelector('#bt-ribbon').textContent.trim().slice(0, 60) }, eventsLeft: Math.round(e.left), overlapPx: Math.round(r.right - e.left) }; }); results.notes.push(`top bar at ${bar.vw} px (the shell's, recorded for its owner): ribbon "${bar.ribbon.text}" ends at ${bar.ribbon.right}, the Events tool starts at ${bar.eventsLeft}: ${bar.overlapPx > 0 ? 'they overlap by ' + bar.overlapPx + ' px' : 'no overlap'}`);
 
   // the More drawer: the switch (off), the two panels
   await P.click('#bt-more'); await P.waitForSelector('#bt-drawer:not([hidden])');

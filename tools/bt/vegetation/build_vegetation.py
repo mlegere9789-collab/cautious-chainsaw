@@ -941,7 +941,11 @@ if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--check', action='store_true')
     ap.add_argument('--no-register', action='store_true')
+    ap.add_argument('--out', help='write the data here instead of the app data file (the register proposals are then not written)')
     a = ap.parse_args()
+    if a.out:
+        OUT = os.path.abspath(a.out)
+        a.no_register = True
     text, doc = write_all(a)
     m = doc['meta']
     print('units', m['counts'], 'bytes', len(text.encode()))

@@ -109,6 +109,9 @@ OWNER = [
  ('OA07', 'Hollywood-grade human movement incl. artillery fire and impact; no standard relaxed silently; shortfalls reported.'),
  ('OA08', 'Every event from first shot to withdrawal is on the timeline and playable.'),
  ('OA09', 'Main-map background is a source-traced July 1863 reconstruction (B.9 pipeline); the site uses only actual Gettysburg images.'),
+ ('OA10', "Owner chat 2026-11-13: the finished Battle Theatre has an accurate 3D representation of the entire battlefield as it was during the battle: renders of the town, the buildings, the terrain and any kind of structure (the owner's wording is '100% accurate'; the claim made to users stays governed by Law cl.3 and DEC-003: strongest evidence-based reconstruction, tier-marked, gaps registered)."),
+ ('OA11', "Owner chat 2026-11-13: soldiers are shown doing the work and the routine of the armies: building artillery positions, earthworks and defenses, and ordinary things such as eating meals in their camps."),
+ ('OA12', "Owner chat 2026-11-13: accurate renders of field hospitals, including accurate battle trauma and period-accurate treatment methods."),
 ]
 
 LIB = [

@@ -1,0 +1,130 @@
+TAP version 13
+# Subtest: rule: a quote is found only by whole words, apostrophes and quotation marks folded (lib.mjs hasQuote)
+ok 1 - rule: a quote is found only by whole words, apostrophes and quotation marks folded (lib.mjs hasQuote)
+  ---
+  duration_ms: 1.488633
+  type: 'test'
+  ...
+# Subtest: rule: a record's quote must be found in the row, by words (schema.mjs quote_not_in_row)
+ok 2 - rule: a record's quote must be found in the row, by words (schema.mjs quote_not_in_row)
+  ---
+  duration_ms: 1394.475774
+  type: 'test'
+  ...
+# Subtest: rule: a NIGHT row needs a sky assertion with exposure_min (gate Q10: night is night, never black; schema.mjs)
+ok 3 - rule: a NIGHT row needs a sky assertion with exposure_min (gate Q10: night is night, never black; schema.mjs)
+  ---
+  duration_ms: 61.479396
+  type: 'test'
+  ...
+# Subtest: rule: every kind needs the assertion that can prove it (schema.mjs KIND_NEEDS), and every needed type is a known assertion type
+ok 4 - rule: every kind needs the assertion that can prove it (schema.mjs KIND_NEEDS), and every needed type is a known assertion type
+  ---
+  duration_ms: 263.453637
+  type: 'test'
+  ...
+# Subtest: rule: a theatre-clock window, a window inside the row, an assertion time inside the record window (schema.mjs)
+ok 5 - rule: a theatre-clock window, a window inside the row, an assertion time inside the record window (schema.mjs)
+  ---
+  duration_ms: 56.323978
+  type: 'test'
+  ...
+# Subtest: rule: the numbers of an assertion are the row's own (number_not_in_quote), and a record lists the entities it uses, no more and no less
+ok 6 - rule: the numbers of an assertion are the row's own (number_not_in_quote), and a record lists the entities it uses, no more and no less
+  ---
+  duration_ms: 58.490842
+  type: 'test'
+  ...
+# Subtest: rule: motion (unit_moves): displacement, minutes, closing, start, line (checks.mjs _moves)
+ok 7 - rule: motion (unit_moves): displacement, minutes, closing, start, line (checks.mjs _moves)
+  ---
+  duration_ms: 68.469246
+  type: 'test'
+  ...
+# Subtest: rule: position (unit_at), activity minutes, arrival place, absence (checks.mjs)
+ok 8 - rule: position (unit_at), activity minutes, arrival place, absence (checks.mjs)
+  ---
+  duration_ms: 33.119565
+  type: 'test'
+  ...
+# Subtest: rule: guns, formation, losses (checks.mjs)
+ok 9 - rule: guns, formation, losses (checks.mjs)
+  ---
+  duration_ms: 885.228357
+  type: 'test'
+  ...
+# Subtest: rule: the weather and the sky are what the weather pass draws (checks.mjs _weatherProblem, _skyProblem)
+ok 10 - rule: the weather and the sky are what the weather pass draws (checks.mjs _weatherProblem, _skyProblem)
+  ---
+  duration_ms: 1023.729454
+  type: 'test'
+  ...
+# Subtest: rule: structures and works (checks.mjs _structure, _structureProblem, _work)
+ok 11 - rule: structures and works (checks.mjs _structure, _structureProblem, _work)
+  ---
+  duration_ms: 148.411978
+  type: 'test'
+  ...
+# Subtest: rule: a place a record uses is named in the row, or declared with the row's own words (checks.mjs _bindings)
+ok 12 - rule: a place a record uses is named in the row, or declared with the row's own words (checks.mjs _bindings)
+  ---
+  duration_ms: 32.369868
+  type: 'test'
+  ...
+# Subtest: rule: the scenarios of a record are the record's own, and RESULTS says which were run (checks.mjs _scenarioPlan; the T1-015 defect)
+ok 13 - rule: the scenarios of a record are the record's own, and RESULTS says which were run (checks.mjs _scenarioPlan; the T1-015 defect)
+  ---
+  duration_ms: 127.479433
+  type: 'test'
+  ...
+# Subtest: rule: the two halves of the gate for one row (check.mjs coverageOf): a card is a class of its own, a partial realization is covered strictly only by a register entry
+ok 14 - rule: the two halves of the gate for one row (check.mjs coverageOf): a card is a class of its own, a partial realization is covered strictly only by a register entry
+  ---
+  duration_ms: 0.458958
+  type: 'test'
+  ...
+# Subtest: rule: the totals and the Q17 verdict are computed from the rows, and are false unless every expected row is there (check.mjs summarize, q17Of)
+ok 15 - rule: the totals and the Q17 verdict are computed from the rows, and are false unless every expected row is there (check.mjs summarize, q17Of)
+  ---
+  duration_ms: 38.033817
+  type: 'test'
+  ...
+# Subtest: rule: the allowed time of a row is its whole printed cell, and the realized interval must lie inside it (timeline.mjs)
+ok 16 - rule: the allowed time of a row is its whole printed cell, and the realized interval must lie inside it (timeline.mjs)
+  ---
+  duration_ms: 0.252394
+  type: 'test'
+  ...
+# Subtest: rule: the claim words of a row are the printed cells and the claim fields of its correction, never the basis, the marking or the sources (timeline.mjs claimFields; the T1-003 defect)
+ok 17 - rule: the claim words of a row are the printed cells and the claim fields of its correction, never the basis, the marking or the sources (timeline.mjs claimFields; the T1-003 defect)
+  ---
+  duration_ms: 2.288334
+  type: 'test'
+  ...
+# Subtest: rule: a name is a unit's only as a proper noun, and an ordinary word names it only in a naming context (query.mjs unitsNamedIn, lib.mjs wordInfo; the Day and Stone defects)
+ok 18 - rule: a name is a unit's only as a proper noun, and an ordinary word names it only in a naming context (query.mjs unitsNamedIn, lib.mjs wordInfo; the Day and Stone defects)
+  ---
+  duration_ms: 63.652946
+  type: 'test'
+  ...
+# Subtest: rule: dates and minutes are strict (lib.mjs toMin, isoOf)
+ok 19 - rule: dates and minutes are strict (lib.mjs toMin, isoOf)
+  ---
+  duration_ms: 0.859244
+  type: 'test'
+  ...
+# Subtest: rule: the schema is static: a record that is not an object, an unknown row (validateRecord)
+ok 20 - rule: the schema is static: a record that is not an object, an unknown row (validateRecord)
+  ---
+  duration_ms: 8.379094
+  type: 'test'
+  ...
+1..20
+# tests 20
+# suites 0
+# pass 20
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 8047.286607

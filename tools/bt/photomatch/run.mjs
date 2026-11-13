@@ -63,6 +63,13 @@ for (const p of P.poses) { if (want.length && !want.includes(p.id)) continue; co
     for (const k of ['base', 'full']) fs.writeFileSync(path.join(out, `${p.id}${v.s}_${k}.png`), Buffer.from(res[k].split(',')[1], 'base64'));
     if (lm.length) { const pr = await page.evaluate(([pose, pts, w, h]) => window.btProject(pose, pts, w, h), [pose, lm, sz[0], sz[1]]); (r['landmarks' + v.s] = pr.map((q, i) => ({ ...q, name: lm[i].name }))); }
     console.log(p.id, v.s || 'main', 'eye y', res.eye.y.toFixed(1), 'ground', res.groundM.toFixed(1), Date.now() - t0, 'ms'); } }
-if (!want.length) fs.writeFileSync(path.join(HERE, 'resolved_poses.json'), JSON.stringify({ _doc: 'Poses resolved from poses.json against gazetteer, building footprints, monuments and the DEM by run.mjs. Assumptions or inferences as tiered in poses.json, not measured camera positions.', resolved }, null, 1));
-else fs.writeFileSync(path.join(ROOT, 'tmp/photomatch/renders/resolved_partial.json'), JSON.stringify({ resolved }, null, 1));
+const RESOLVED_DOC = 'Poses resolved from poses.json against gazetteer, building footprints, monuments and the DEM by run.mjs. Assumptions or inferences as tiered in poses.json, not measured camera positions.';
+if (!want.length) fs.writeFileSync(path.join(HERE, 'resolved_poses.json'), JSON.stringify({ _doc: RESOLVED_DOC, resolved }, null, 1));
+else {   // a partial run (named poses) is merged into resolved_poses.json: the named entries are replaced, the others kept, the order of poses.json restored
+  const rp = path.join(HERE, 'resolved_poses.json'); let old = []; try { old = JSON.parse(fs.readFileSync(rp)).resolved || []; } catch { }
+  const byId = Object.fromEntries(old.map(r => [r.id, r])); for (const r of resolved) byId[r.id] = r;
+  const merged = P.poses.map(p => byId[p.id]).filter(Boolean);
+  fs.writeFileSync(rp, JSON.stringify({ _doc: RESOLVED_DOC, resolved: merged }, null, 1));
+  fs.writeFileSync(path.join(ROOT, 'tmp/photomatch/renders/resolved_partial.json'), JSON.stringify({ resolved }, null, 1));
+}
 await browser.close(); srv.close();

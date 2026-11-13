@@ -1,87 +1,277 @@
 {
-  "_about": "Hand verdicts of round 1 (bt-spec-health, spec loop). A row with `test` (the full name) lists a test even before it has run; `match` finds a test by a piece of its name. The result columns of SW-STATUS.md always come from the logs; only `verdict` and `evidence` come from here.",
-  "specs": {
-    "sky.spec.mjs": {
-      "tests": [
-        {
-          "match": "night frames keep luminance and contrast",
-          "verdict": "PASS",
-          "evidence": "WebGL2 on SwiftShader. 10 night times from 3 Jul 20:30 to 9 Jul 00:30: mean luma 25.2 to 51.9 of 255 (floor 24), 5th percentile 15 or more (floor 6), 0.0 to 0.3 % near-black pixels (limit 2 %), contrast 0.29 to 0.60 (floor 0.2), every one dimmer than the day (mean 168.0). Gate Q10 holds with the weather pass, the crowd and the effects drawn."
-        },
-        {
-          "match": "the luminance floor is a parameter",
-          "verdict": "PASS",
-          "evidence": "night floor 0.15 / 0.25 / 0.34 / 0.5 / 0.6 gives mean luma 30.3 / 33.4 / 36.0 / 40.1 / 42.5 (monotonic), 0.0 % near black at every setting."
-        },
-        {
-          "match": "the light follows the table",
-          "verdict": "PASS",
-          "evidence": "3 Jul 15:00 light azimuth 259.0 = sun 259.0 (PDF B.10.2: 259); 4 Jul 01:00 light azimuth 145.9 = moon 145.9, 34 degrees up."
-        },
-        {
-          "match": "the day and night bar under the picture",
-          "verdict": "PASS",
-          "evidence": "strip luminance noon 3 Jul 169, midnight 44; noon 10 Jul 169, midnight 27 (noon over 2.5 x midnight on both days)."
-        },
-        {
-          "match": "no console errors",
-          "verdict": "PASS",
-          "evidence": "no console error and no page error during the whole spec."
-        }
-      ]
+ "_about": "Hand verdicts of round 1 (bt-spec-health, spec loop). A row with `test` (the full name) lists a test even before it has run; `match` finds a test by a piece of its name. The result columns of SW-STATUS.md always come from the logs; only `verdict` and `evidence` come from here.",
+ "specs": {
+  "arrival.spec.mjs": {
+   "tests": [
+    {
+     "test": "the page runs the real layer: 726 units, a handful placed, the rest marked open gap"
     },
-    "webgl2.spec.mjs": {
-      "tests": [
-        {
-          "match": "WebGL2 renders the placeholder crowd",
-          "verdict": "PASS",
-          "evidence": "Second run, frozen source snapshot 9e1e1777: 165,000 soldiers on 3 Jul 13:30 at 1280x720, the picture is not black, nothing is placed before any arrival (28 Jun), more than 100,000 present on 2 Jul, the scrubber answers, and leaving the theatre leaves 0 canvas contexts, 0 animation frames, 0 timers; no console error or page error. Frame p50 7.8 s on this renderer (printed in the log as not a timing of the product). The first attempt (live tree, run src-1-webgl2) failed only on one console line: the shell asks the server for src/ext/index.mjs with a HEAD request and the file was created 26 s into that run (the 404 is described in requests/spec-health-pack-ext-folder.md, point 1); it is not a product defect and not a harness problem."
-        }
-      ]
+    {
+     "test": "across the whole window, in every frame sampled: nothing is drawn before its window opens, and the renderer was told exactly what the stage holds"
     },
-    "real.spec.mjs": {
-      "tests": [
-        {
-          "match": "honest labelling: the ribbon",
-          "verdict": "PASS",
-          "evidence": "run src-1-real (snapshot 9e1e1777): ribbon, count, About text and landing copy say what is placed and what is an open gap; no wording about how the page was made."
-        },
-        {
-          "match": "a placed unit: Units list",
-          "verdict": "STALE_TEST (fixed, re-run src-2-real pending)",
-          "evidence": "Failed on 'card shows Standing': the test looked at the card one minute after the END OF THE FIRST PATH of the focus unit (19th Indiana, Meredith's Iron Brigade). Since contract 1.5 (troop-map day positions read from Bachelder's 1876 maps; DEC-010, DEC-011, DEC-018; app/HISTORY-LAYER-NOTES.md 'Troop-map day positions') a placed unit carries several stops: this one has 6 paths and its second march (BACH-1876-S1) starts in the very minute its first ends, so the card correctly said Marching. The test now uses one minute after the end of the LAST path (44,445.5, where the layer's last event is 'stand', no event follows), as arrival.spec.mjs already did. Not a product defect; no assertion was weakened. Nothing after 'Standing' had been reached, so the rest of the test is checked by the re-run (all the other words it asserts exist in the card code)."
-        },
-        {
-          "match": "a unit with no place",
-          "verdict": "PASS",
-          "evidence": "run src-1-real: open-gap card with its reason, ledger arrival window and strength basis; not drawn (x = 1e6), not listed."
-        },
-        {
-          "match": "the evidence overlay outlines",
-          "verdict": "PASS",
-          "evidence": "run src-1-real: placed units outlined in the plausible-procedural tier colour, works drawn as rings with the place named."
-        },
-        {
-          "match": "a unit placed by an Official Records report",
-          "verdict": "PASS",
-          "evidence": "run src-1-real: report, printed page, quoted words, tier and checks on the card; a conflicting report is listed; a unit placed only by the ledger shows no claims section."
-        },
-        {
-          "match": "a unit placed by a troop-map day position",
-          "verdict": "PASS",
-          "evidence": "run src-1-real: the card states the position is documented for the day and the time modelled, with label, sigma, crop and the ledgers' places; the unit stands in its slot two minutes after arriving."
-        },
-        {
-          "match": "a unit drawn by a MODELLED road of approach",
-          "verdict": "PASS",
-          "evidence": "run src-1-real: 56 modelled units, the card says MODELLED APPROACH with siblings, report, page and words and links EG-0070 (opens from the source shell); an open unit found in the layer gives its own reason. (The unit the test used to name, the 134th New York, is drawn since history layer v8, DEC-023E; the earlier attempt of this workstream already changed the test to look the open unit up.)"
-        },
-        {
-          "match": "no console errors",
-          "verdict": "PASS",
-          "evidence": "run src-1-real: no console error or page error."
-        }
-      ]
+    {
+     "test": "an event before a unit's earliest arrival is refused by the sim event cache (Q04), listed, and the page says so"
+    },
+    {
+     "test": "a unit that has not arrived is not drawn (pixels), is absent from the unit list and says so on its card; then it marches in from the edge and is drawn"
+    },
+    {
+     "test": "scenario selector: carries all 47 register conflicts and the weather conflicts; default is the delegated defaults (tier and label shown); the PDF values are one button away; a choice moves the units the ledger links to it"
+    },
+    {
+     "test": "no console errors"
     }
+   ]
+  },
+  "casualties.spec.mjs": {
+   "tests": [
+    {
+     "test": "webgl2: men of a unit fall in the picture while it stands in a printed window, stand up again when the scrubber goes back, and the same time gives the same picture"
+    },
+    {
+     "test": "webgpu: men of a unit fall in the picture while it stands in a printed window, stand up again when the scrubber goes back, and the same time gives the same picture"
+    },
+    {
+     "test": "the card of a unit with men down: the ranges, their basis, the printed window with its row and audit, the running count on the map, the manifests and what the renderer does not show"
+    },
+    {
+     "test": "nothing is uploaded when nothing changes: a still moment writes no soldier table, a moving one does; the animation clock is rebased on a seek"
+    }
+   ]
+  },
+  "leak.spec.mjs": {
+   "tests": [
+    {
+     "test": "webgl2: 20 enter/leave cycles leave no context, device, frame, timer, listener, worker, audio context or heap growth"
+    },
+    {
+     "test": "webgpu: 20 enter/leave cycles leave no context, device, frame, timer, listener, worker, audio context or heap growth"
+    },
+    {
+     "test": "Back pressed while the theatre is still loading leaves nothing behind"
+    },
+    {
+     "test": "the browser Back button and the #theatre link take the same path as the Back control"
+    },
+    {
+     "test": "sound: off until started; started inside the theatre it is one AudioContext with live nodes; Back closes it and leaves 0 nodes, 0 contexts, no timers or listeners behind"
+    },
+    {
+     "test": "added layers: loaded, every switch on and every panel opened, Back leaves nothing behind"
+    }
+   ]
+  },
+  "perf.spec.mjs": {
+   "tests": [
+    {
+     "test": "webgl2: frame time with 165,000 soldiers at 1920x1080, as a person sees it (display pacing)"
+    },
+    {
+     "test": "webgl2: frame time with 165,000 soldiers at 1920x1080, uncapped (real cost per frame)"
+    },
+    {
+     "test": "webgpu: frame time with 165,000 soldiers at 1920x1080, as a person sees it (display pacing)"
+    },
+    {
+     "test": "webgpu: frame time with 165,000 soldiers at 1920x1080, uncapped (real cost per frame)"
+    },
+    {
+     "test": "webgl2: UI interactions: no long task over 50 ms and every input is answered within 100 ms (event timing), with all 165,000 on the field"
+    },
+    {
+     "test": "webgpu: UI interactions: no long task over 50 ms and every input is answered within 100 ms (event timing), with all 165,000 on the field"
+    }
+   ]
+  },
+  "real.spec.mjs": {
+   "tests": [
+    {
+     "match": "honest labelling: the ribbon",
+     "verdict": "PASS",
+     "evidence": "run src-1-real (snapshot 9e1e1777): ribbon, count, About text and landing copy say what is placed and what is an open gap; no wording about how the page was made."
+    },
+    {
+     "match": "a placed unit: Units list",
+     "verdict": "STALE_TEST (fixed; passes in re-run src-2-real)",
+     "evidence": "Failed in src-1-real on 'card shows Standing': the test looked at the card one minute after the END OF THE FIRST PATH of the focus unit (19th Indiana, Meredith's Iron Brigade). Since contract 1.5 (troop-map day positions read from Bachelder's 1876 maps; DEC-010, DEC-011, DEC-018; app/HISTORY-LAYER-NOTES.md 'Troop-map day positions') a placed unit carries several stops: this one has 6 paths and its second march (BACH-1876-S1) starts in the very minute its first ends, so the card correctly said Marching. The test now uses one minute after the end of the LAST path (44,445.5, where the layer's last event is 'stand', no event follows), as arrival.spec.mjs already did. Not a product defect; no assertion was weakened. Re-run src-2-real (frozen snapshot 9e1e1777): this test passed (ok 2, 4 min), so the whole test is now checked, the words after 'Standing' included; that log was cut by the machine restart after test 5, so src-3-real (queued) gives a clean complete run."
+    },
+    {
+     "match": "a unit with no place",
+     "verdict": "PASS",
+     "evidence": "run src-1-real: open-gap card with its reason, ledger arrival window and strength basis; not drawn (x = 1e6), not listed."
+    },
+    {
+     "match": "the evidence overlay outlines",
+     "verdict": "PASS",
+     "evidence": "run src-1-real: placed units outlined in the plausible-procedural tier colour, works drawn as rings with the place named."
+    },
+    {
+     "match": "a unit placed by an Official Records report",
+     "verdict": "PASS",
+     "evidence": "run src-1-real: report, printed page, quoted words, tier and checks on the card; a conflicting report is listed; a unit placed only by the ledger shows no claims section."
+    },
+    {
+     "match": "a unit placed by a troop-map day position",
+     "verdict": "PASS",
+     "evidence": "run src-1-real: the card states the position is documented for the day and the time modelled, with label, sigma, crop and the ledgers' places; the unit stands in its slot two minutes after arriving."
+    },
+    {
+     "match": "a unit drawn by a MODELLED road of approach",
+     "verdict": "PASS",
+     "evidence": "run src-1-real: 56 modelled units, the card says MODELLED APPROACH with siblings, report, page and words and links EG-0070 (opens from the source shell); an open unit found in the layer gives its own reason. (The unit the test used to name, the 134th New York, is drawn since history layer v8, DEC-023E; the earlier attempt of this workstream already changed the test to look the open unit up.)"
+    },
+    {
+     "match": "no console errors",
+     "verdict": "PASS",
+     "evidence": "run src-1-real: no console error or page error."
+    }
+   ]
+  },
+  "scrub.spec.mjs": {
+   "tests": [
+    {
+     "test": "scrubber: random-access seeks equal sequential playback (Q12); the cache header carries seed and code version"
+    },
+    {
+     "test": "scrub across the full range from the keyboard: Home/End/PageUp/PageDown on the scrubber agree with the sequential state too"
+    },
+    {
+     "test": "pixel identity: after a detour, the picture at a time is the picture it was before (paused)"
+    },
+    {
+     "test": "no unit pops while playing at 60x: every unit moves at most double-quick speed per frame; units enter and leave the field only off the loaded ground"
+    },
+    {
+     "test": "no console errors"
+    }
+   ]
+  },
+  "sky.spec.mjs": {
+   "tests": [
+    {
+     "match": "night frames keep luminance and contrast",
+     "verdict": "PASS",
+     "evidence": "WebGL2 on SwiftShader. 10 night times from 3 Jul 20:30 to 9 Jul 00:30: mean luma 25.2 to 51.9 of 255 (floor 24), 5th percentile 15 or more (floor 6), 0.0 to 0.3 % near-black pixels (limit 2 %), contrast 0.29 to 0.60 (floor 0.2), every one dimmer than the day (mean 168.0). Gate Q10 holds with the weather pass, the crowd and the effects drawn."
+    },
+    {
+     "match": "the luminance floor is a parameter",
+     "verdict": "PASS",
+     "evidence": "night floor 0.15 / 0.25 / 0.34 / 0.5 / 0.6 gives mean luma 30.3 / 33.4 / 36.0 / 40.1 / 42.5 (monotonic), 0.0 % near black at every setting."
+    },
+    {
+     "match": "the light follows the table",
+     "verdict": "PASS",
+     "evidence": "3 Jul 15:00 light azimuth 259.0 = sun 259.0 (PDF B.10.2: 259); 4 Jul 01:00 light azimuth 145.9 = moon 145.9, 34 degrees up."
+    },
+    {
+     "match": "the day and night bar under the picture",
+     "verdict": "PASS",
+     "evidence": "strip luminance noon 3 Jul 169, midnight 44; noon 10 Jul 169, midnight 27 (noon over 2.5 x midnight on both days)."
+    },
+    {
+     "match": "no console errors",
+     "verdict": "PASS",
+     "evidence": "no console error and no page error during the whole spec."
+    }
+   ]
+  },
+  "structures3d.spec.mjs": {
+   "tests": [
+    {
+     "test": "what is drawn: object counts per class, draw calls and triangles, at several times, in WebGPU and in WebGL2"
+    },
+    {
+     "test": "the picture: each class changes it where the class stands (roads, fences, buildings, masses, markers), in WebGPU and in WebGL2"
+    },
+    {
+     "test": "the state schedule changes the picture: the Emmitsburg Road fence is breached 15:30-16:15 on 3 July, a Bliss marker is charred after 3 July, a date-only change shows half and half (and the card says so)"
+    },
+    {
+     "test": "conflicts are selectable: reading PD-01 as Jul 2 evening changes the Sherfy barn on 2 July evening, and the reading is a property of the page (the per-object choice on the card wins)"
+    },
+    {
+     "test": "scrub purity and no leak: the state buffer and the picture at a time do not depend on how the time was reached; entering and leaving frees the structures"
+    },
+    {
+     "test": "selection and cards: tap a building, a fence, a marker, a road and a ring; the card shows name, kind, state, geometry source and error, tier and the schedule rows; a unit and an object replace each other"
+    },
+    {
+     "test": "Views and Evidence: a toggle for every class (and the works rings), the list of what is not drawn, and the Evidence outlines in the tier colours"
+    },
+    {
+     "test": "frame cost and GPU memory with the structures on and off at 1920x1080 (default view, a town view, a close view), WebGPU and WebGL2"
+    },
+    {
+     "test": "screenshots: the distance view, a close fence and wall, a close building, the town, the railway, a marker before and after, a card"
+    }
+   ]
+  },
+  "ui.spec.mjs": {
+   "tests": [
+    {
+     "test": "the landing page is inert and honest: no context, frame, timer or worker before entry; one entry control; no forbidden wording"
+    },
+    {
+     "test": "entering: the entry control works from the keyboard; focus lands on the battlefield; the loading step is announced"
+    },
+    {
+     "test": "focus order is Back, the tools, the battlefield, the playback controls, the scrubber; Tab never traps"
+    },
+    {
+     "test": "every control has an accessible name; the scrubber speaks the time; the drawer and card are named regions"
+    },
+    {
+     "test": "keyboard: panels open and close with focus restored; playback, stepping, events, speed, overlay and camera keys all act"
+    },
+    {
+     "test": "Events: 691 rows, tier filters, rows with no clock time say so and are not placed on the minute scale; a timed row moves the clock to its time"
+    },
+    {
+     "test": "Views: 16 tour stops and 512 monuments as camera bookmarks; a flight ends at the place; saved views are kept in the browser"
+    },
+    {
+     "test": "selecting a unit by keyboard: Units list, card with time, activity, position and uncertainty, kit manifest, source keys and a register link that opens"
+    },
+    {
+     "test": "Evidence overlay: tiers are drawn as colour AND outline AND glyph; clicking a mark selects it (demo tier assignment is labelled)"
+    },
+    {
+     "test": "conditions: sun and moon chips follow the sky table; a storm is named at 18:00 on 3 Jul; days without a weather record say so"
+    },
+    {
+     "test": "chapters: the 4 July night marker leads to the 19 November epilogue and back; the epilogue has its own scrubber range"
+    },
+    {
+     "test": "play and speed: time advances at the chosen speed, and the rate eases in instead of jumping"
+    },
+    {
+     "test": "honest labelling: the placeholder is named everywhere it appears, the About text is plain, no stub datum is presented as history, and nothing mentions how the page was made"
+    },
+    {
+     "test": "layout: no horizontal scroll, no overlapping header controls and the dock inside the window at 360, 390, 768, 1024, 1440 and 1920 wide; touch pad on touch screens"
+    },
+    {
+     "test": "phone: touch screen shows the movement pad, play works by tap, the drawer is a bottom sheet"
+    },
+    {
+     "test": "reduced motion: flights are instant and no rain is drawn; the same flight without the preference takes time"
+    },
+    {
+     "test": "the dock and chips contrast: tokens used for text meet WCAG AA on the panel colour"
+    },
+    {
+     "test": "no console errors or page errors during all of the above"
+    }
+   ]
+  },
+  "webgl2.spec.mjs": {
+   "tests": [
+    {
+     "match": "WebGL2 renders the placeholder crowd",
+     "verdict": "PASS",
+     "evidence": "Second run, frozen source snapshot 9e1e1777: 165,000 soldiers on 3 Jul 13:30 at 1280x720, the picture is not black, nothing is placed before any arrival (28 Jun), more than 100,000 present on 2 Jul, the scrubber answers, and leaving the theatre leaves 0 canvas contexts, 0 animation frames, 0 timers; no console error or page error. Frame p50 7.8 s on this renderer (printed in the log as not a timing of the product). The first attempt (live tree, run src-1-webgl2) failed only on one console line: the shell asks the server for src/ext/index.mjs with a HEAD request and the file was created 26 s into that run (the 404 is described in requests/spec-health-pack-ext-folder.md, point 1); it is not a product defect and not a harness problem."
+    }
+   ]
   }
+ }
 }

@@ -23,7 +23,7 @@ rel = lambda p: os.path.relpath(p, ROOT).replace(os.sep, '/')
 # roots: a unit belongs to the group whose root is the nearest of its ancestors (itself included). '=' before an id: that unit alone, not what is under it.
 G = [
  ('us-hq-artres', 'Union army headquarters, Hancock, the Artillery Reserve and its guards', ['=us-aop', 'us-aop-hq', 'us-hancock-acting', 'us-art-reserve', 'us-4nj-train-guard', '=us-5c-1d-sweitzer-32ma-co-c'],
-  'The two headquarters entries have a gate and no figure: who stood at headquarters (staff, the provost guard and orderlies of the table) is to be established before anything is drawn. 22 reserve batteries are placed; three consolidated batteries are drawn as two units each; Company C of the 32d Massachusetts and the 4th New Jersey train guard are listed as never on the field on a weak key while the table prints them with the Reserve (Company C is a unit of this group although the roster files it under the 32d Massachusetts of the Fifth Corps: its evidence stands in Tyler's report and the Reserve's table, and a `reparent` record moves it); the footnote of the two Connecticut heavy batteries is lost in the OCR.',
+  'The two headquarters entries have a gate and no figure: who stood at headquarters (staff, the provost guard and orderlies of the table) is to be established before anything is drawn. 22 reserve batteries are placed; three consolidated batteries are drawn as two units each; Company C of the 32d Massachusetts and the 4th New Jersey train guard are listed as never on the field on a weak key while the table prints them with the Reserve (Company C is a unit of this group although the roster files it under the 32d Massachusetts of the Fifth Corps: its evidence stands in Tyler\'s report and the Reserve\'s table, and a `reparent` record moves it); the footnote of the two Connecticut heavy batteries is lost in the OCR.',
   ['MEADE-LL-v1', 'MEADE-LL-v2', 'BACH-STORY-1904', 'BACH-REPULSE-1870', 'BACH-KEY-1864', 'JACOBS-1864', 'FOX', 'BL3']),
  ('us-1c-1d-art', 'Union I Corps: corps entry, Wadsworth\'s division (Meredith, Cutler) and the artillery brigade (Wainwright)', ['=us-1c', 'us-1c-1d', 'us-1c-art'],
   'All 17 leaf units are placed (the corps-level road only, AP-01). Open: an arrival of each regiment\'s own and of each battery, the places of 2 and 3 July, strengths, the road of each brigade on 1 July, Battery E attached to Battery L, the headquarters company (First Maine Cavalry, Company L).',
@@ -96,6 +96,26 @@ G = [
   ['SHSP-04', 'SHSP-05', 'SHSP-06', 'SHSP-11', 'SHSP-12', 'FREMANTLE-1864', 'LONGSTREET-1896', 'BL3']),
 ]
 STATE_VOLS = {'ny': ['NY1', 'NY2', 'NY3'], 'pa': ['PA1', 'PA1B', 'PA2'], 'me': ['ME'], 'mi': ['MI']}
+# The Pennsylvania batteries of PA2, from the titles of the index (BATTERY "B" (COOPER'S), "F" (HAMPTON'S), "C" (THOMPSON'S), "E" (KNAP'S), "F" and "G"): (kind, letter) -> sections.
+# kind '1pa' is a battery of the 1st Pennsylvania Light Artillery, 'pa' an independent Pennsylvania battery; the roster ids are 1pab, 1paf, 1pag and pac, paf, pae. A lead, never a source.
+PA_BATTERY_SECTIONS = {('1pa', 'b'): ['PA2-S031'], ('pa', 'f'): ['PA2-S032'], ('pa', 'c'): ['PA2-S033'], ('pa', 'e'): ['PA2-S034'], ('1pa', 'f'): ['PA2-S035'], ('1pa', 'g'): ['PA2-S035']}
+# Sections of the state volumes whose heading in library/statevol_index.json names another unit but whose text holds the unit as well: found while reading, each checked against the text at the offsets the records cite, by the researchers of the groups
+# (requests GOVERNANCE/horde/requests/bt-units-us-1c-1d-art-statevol-index.md, bt-units-us-1c-2d-3d-statevol-index.md, bt-units-us-2c-1d-art-statevol-index.md, and the report of us-hq-artres for ME-S021). The index itself is not changed here.
+# section id: (what the heading names, [(number, state, arm, letter) of the units whose text also stands in it], what else it holds). The ids of a record stay valid when the index is re-titled; build_groups.py stops if a section is gone.
+HIDDEN = {
+    'NY2-S013': ('73d New York', [(76, 'ny', 'infantry', '')], 'the 76th New York: the inscription of its monument and Bachelder\'s address (pp. 613 to 616)'),
+    'NY2-S021': ('95th New York', [(104, 'ny', 'infantry', '')], 'the 104th New York: the presentation speech and Col. Prey\'s address (pp. 755 to 758)'),
+    'NY1-S081': ('49th New York', [(52, 'ny', 'infantry', '')], 'the 52d New York: the historical sketch (Surg. Althans) and the monument inscription'),
+    'NY2-S005': ('88th New York', [(64, 'ny', 'infantry', '')], 'the 64th New York (and Gen. Glenny\'s oration)'),
+    'FOX-S061': ('48th New York', [(52, 'ny', 'infantry', '')], 'the entry of the 52d New York (Zook\'s brigade)'),
+    'FOX-S063': ('63d New York', [(64, 'ny', 'infantry', '')], 'the entry of the 64th New York'),
+    'NY3-S022': ('10th New York Cavalry', [(1, 'ny', 'artillery', 'b')], 'the dedication of Battery B, 1st New York Light Artillery (Pettit\'s), 3 July 1888, with the address of Rev. W. O. Beauchamp'),
+    'NY3-S023': ('Battery C, 1st New York Light Artillery', [(1, 'ny', 'artillery', 'd'), (1, 'ny', 'artillery', 'e')], 'the dedications of Batteries D and E (the Battery E part holds the inscription "to the detached men of Battery E serving with L")'),
+    'NY3-S024': ('Battery G, 1st New York Light Artillery', [(1, 'ny', 'artillery', 'l')], 'the whole of Battery L (Reynolds\'): the inscription, the oration and Maj. Breck\'s sketch (pp. 1256 and 1258)'),
+    'ME-S001': ('front matter', [(2, 'me', 'artillery', '')], 'Hall\'s sketch of the Second Maine Battery (pp. 20 to 25)'),
+    'ME-S004': ('Sixteenth Regiment participants', [(5, 'me', 'artillery', '')], 'Stevens\' sketch of the Fifth Maine Battery (pp. 83 and 84)'),
+    'ME-S021': ('Maine battery', [(6, 'me', 'artillery', '')], 'the roster and report of the 6th Maine Battery'),
+}
 STATE_TEXTS = {'nj': ['NJ-TOOMBS-1888', 'NJ-FINAL-1891'], 'vt': ['VT-GB-1914', 'VT-MON-1890'], 'oh': ['OH-DED-1887'], 'in': ['IN-1913'], 'mn': ['MN-1ST-1916']}
 
 def sha(p):
@@ -180,22 +200,39 @@ def main():
             for g, n in cited[r['id']].items(): p3[g].append({'id': r['id'], 'claims': n})
     # ---- state volume sections by unit
     ix = J(os.path.join(BT, 'library/statevol_index.json')); secs = ix['sections']
+    sec_ids = {x['id'] for x in secs}
+    def tail_of(u):
+        """(number, state, letters) from the end of a leaf id: 76ny -> (76, 'ny', ''); 1nyl -> (1, 'ny', 'l'); pae -> (None, 'pa', 'e')"""
+        m = re.search(r'-(\d+)?([a-z]{2})([a-z]{0,2})$', u['id'])
+        return (int(m.group(1)) if m.group(1) else None, m.group(2), m.group(3)) if m and u['leaf'] else None
+    notes_by_section = {}
     def sections_for(u):
-        m = re.search(r'-(\d+)([a-z]{2})([a-z]*)$', u['id'])
-        if not m or not u['leaf']: return []
-        num, stt = int(m.group(1)), m.group(2)
+        t = tail_of(u)
+        if not t: return []
+        num, stt, let = t
         out = []
         for vol in STATE_VOLS.get(stt, []):
             for s in secs:
-                if s['volume'] == vol and s.get('number') == num and s.get('arm') == u['arm'] and u['arm'] != 'artillery': out.append(s['id'])
-        return out
+                # regiments: the section whose heading names the number and the arm (the first version of this list; unchanged)
+                if num is not None and s['volume'] == vol and s.get('number') == num and s.get('arm') == u['arm'] and u['arm'] != 'artillery': out.append(s['id'])
+        if u['arm'] == 'artillery':
+            for s in secs:
+                title = (s.get('title_ocr') or '').upper()
+                if stt == 'ny' and s['volume'] in ('NY1', 'NY3') and s.get('arm') == 'artillery':
+                    if len(let) == 1 and num == 1 and (re.search(r'BATTERY %s\b.*1ST NEW YORK LIGHT' % let.upper(), title) or s['id'] == 'NY3-S029'): out.append(s['id'])          # the batteries of the 1st New York Light Artillery by letter, and the narrative of the regiment
+                    elif not let and num is not None and s.get('number') == num and ('INDEPENDENT' in title or 'N. Y. BATTERY' in title): out.append(s['id'])                       # the independent batteries by number
+            for sid in PA_BATTERY_SECTIONS.get((('1pa' if num == 1 else 'pa') if stt == 'pa' else None, let), []): out.append(sid)
+        for sid, (heading, who, what) in HIDDEN.items():
+            assert sid in sec_ids, 'the state-volume index has no section %s (the index was rebuilt: re-check the table HIDDEN)' % sid
+            if (num, stt, u['arm'], let) in who: out.append(sid); notes_by_section[sid] = 'heading: %s; the text holds also %s' % (heading, what)
+        return list(dict.fromkeys(out))
     # ---- troop-map labels held for the unit or a formation above it (from status)
     S = build_sources()
     groups = []
     seen = collections.Counter()
     for gid, title, roots, note, texts in G:
         us = [u for u in U if assign[u['id']] == gid]
-        rows = []; tally = collections.Counter(); miss = collections.Counter(); sv = {}; state_texts = set()
+        rows = []; tally = collections.Counter(); miss = collections.Counter(); sv = {}; state_texts = set(); disp_n = collections.Counter(); code_n = collections.Counter(); day_n = 0
         for u in us:
             seen[u['id']] += 1
             st_ = u['layer_status']
@@ -215,19 +252,24 @@ def main():
                 row['missing'] = ['parent_only'] if (u['claims_own']['total'] == 0) else []
                 if row['missing']: row['detail'] = {'parent_only': 'no ledger claim and no troop-map label names this formation: evidence recorded for it applies to every unit below it'}
             if cls == 'not_on_field': row['missing'] = []; row['why'] = u['reason'] + (': a non-lead source for the absence is owed' if u['reason'] == 'listed_not_on_field' else '')
+            if u.get('day_claims'): row['day_claims'] = u['day_claims']
             rows.append(row)
+            for k_, v_ in (u['claims_own'].get('by_disposition') or {}).items(): disp_n[k_] += v_
+            for k_, v_ in (u['claims_own'].get('by_code') or {}).items(): code_n[k_] += v_
+            for cs_ in (u.get('day_claims') or {}).values(): day_n += len(cs_)
             ss = sections_for(u)
             if ss: sv[u['id']] = ss
             m = re.search(r'-(\d+)([a-z]{2})[a-z]*$', u['id'])
             if m and u['leaf']: state_texts.update(STATE_TEXTS.get(m.group(2), []))
         tx = [t for t in dict.fromkeys(list(texts) + sorted(state_texts)) if t in S]
         g = {'id': gid, 'title': title, 'note': note,
-             'counts': {'units': len(rows), 'leaf_units_on_field': sum(1 for u in us if u['leaf'] and u['layer_status'] in ('moving', 'edge_only', 'not_drawn')), **dict(tally), 'missing': dict(miss), 'roster_gaps': sum(1 for e in gaps['entries'] if e['group'] == gid), 'figures_drawn': sum(u['figures'] for u in us)},
+             'counts': {'units': len(rows), 'leaf_units_on_field': sum(1 for u in us if u['leaf'] and u['layer_status'] in ('moving', 'edge_only', 'not_drawn')), **dict(tally), 'missing': dict(miss), 'roster_gaps': sum(1 for e in gaps['entries'] if e['group'] == gid), 'figures_drawn': sum(u['figures'] for u in us), 'ledger_claims_on_unplaced_days': day_n},
              'units': rows,
              'roster_gaps': [e['id'] for e in gaps['entries'] if e['group'] == gid],
              'sources': {'or27_reports': sorted(rep_by_group.get(gid, []), key=lambda r: r['id']), 'or27_part3_documents_cited': sorted(p3.get(gid, []), key=lambda r: r['id']),
                          'organization_table': 'OR27-1-R009' if gid.startswith('us') else 'OR27-2-R424', 'returns': ['OR27-1-R008', 'OR27-1-R013'] if gid.startswith('us') else ['OR27-2-R425', 'OR27-2-R427'],
-                         'statevol_sections': sv, 'local_texts': tx, 'ledger_claims_held': dict(led_n.get(gid, {}))}}
+                         'statevol_sections': sv, 'statevol_notes': {sid: notes_by_section[sid] for secs_ in sv.values() for sid in secs_ if sid in notes_by_section}, 'local_texts': tx, 'ledger_claims_held': dict(led_n.get(gid, {})),
+                         'ledger_claims_by_disposition': dict(disp_n), 'ledger_claims_by_reason': dict(code_n)}}
         groups.append(g)
     dup = [k for k, v in seen.items() if v != 1]
     assert not dup and len(seen) == len(U), 'a unit is in no group or in two: %s' % dup[:5]

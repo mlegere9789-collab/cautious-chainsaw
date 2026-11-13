@@ -1,5 +1,5 @@
 {
- "_doc": "Units of the Official Records organization tables that the roster lacks, splits or lists with another status. Built by tools/build_roster_gaps.py: every quote was found by code in the OR text at the offset given (the OCR is printed as it stands). action: add | absent | attached | merge | fix | status. A reading aid: each line is confirmed by a `unit` or `absent` record of its group file before it changes the roster.",
+ "_doc": "Units of the Official Records organization tables that the roster lacks, splits or lists with another status. Built by tools/build_roster_gaps.py: every quote was found by code in the OR text at the offset given (the OCR is printed as it stands). action: add | absent | attached | merge | fix | status. needs: the `unit.action` values a group file must hold for the entry besides any other `unit` record (reparent: the roster's parent is wrong or changes during the battle). footnote_of: the entry is a footnote that carries the status of those entries and is not a unit (nothing is owed for it itself). A reading aid: each line is confirmed by a `unit` record (or a gap record with what: roster) of its group file before it changes the roster.",
  "tables": {
   "union": "OR27-1-R009 (OR Ser. I vol. 27 pt. 1, pp. 155-168 by the running heads inside the table; the index gives 162-169)",
   "confederate": "OR27-2-R424 (OR Ser. I vol. 27 pt. 2, pp. 283-291 by the running heads inside the table; the index gives 282-285)"
@@ -309,14 +309,18 @@
    "ocr_uncertain": false
   },
   {
-   "id": "us-1c-3d-stannard",
-   "parent": "us-1c-3d",
+   "id": "us-1c-3d-stannard-footnote",
+   "parent": "us-1c-3d-stannard",
    "group": "us-1c-2d-3d",
    "action": "absent",
-   "name": "footnote of the two Vermont regiments",
-   "level": "brigade",
+   "name": "footnote of the two Vermont regiments (not a unit)",
+   "level": "footnote",
    "arm": "infantry",
-   "note": "the footnote that carries the status of the 12th and 15th Vermont",
+   "note": "the footnote that carries the status of the 12th and 15th Vermont; it is not a unit and is answered by the records of those two entries (an earlier draft gave it the id of Stannard's brigade, which is already in the roster)",
+   "footnote_of": [
+    "us-1c-3d-stannard-12vt",
+    "us-1c-3d-stannard-15vt"
+   ],
    "found": true,
    "quote": "Guarding trains, and not engaged in the battle",
    "source": {
@@ -337,7 +341,10 @@
    "name": "11th Pennsylvania: transferred to the First Brigade on the afternoon of 1 July",
    "level": "regiment",
    "arm": "infantry",
-   "note": "the roster keeps it under Baxter for the whole battle: its positions after the transfer follow Paul's brigade",
+   "note": "the roster keeps it under Baxter for the whole battle: its positions after the transfer follow Paul's brigade; a `unit` record of action `reparent` (new_parent the First Brigade, `when` the afternoon of 1 July) is owed besides the status",
+   "needs": [
+    "reparent"
+   ],
    "found": true,
    "quote": "Transferred, in afternoon of July 1, to the First Brigade",
    "source": {
@@ -1009,7 +1016,11 @@
    "name": "32d Massachusetts Infantry, Company C (headquarters guard, Artillery Reserve)",
    "level": "company",
    "arm": "infantry",
-   "note": "the roster lists it as never on the field; the table prints it as the headquarters guard of the Artillery Reserve, which was on the field",
+   "note": "the roster lists it as never on the field and under the 32d Massachusetts of Sweitzer's brigade; the table prints it as the headquarters guard of the Artillery Reserve, which was on the field (Tyler, OR27-1-R315 p. 874, puts it with the train on 3 July): a `status` record and a `reparent` record (new_parent the Artillery Reserve, no `when`: the table prints it there for the whole battle) are owed; the group is that of the Artillery Reserve because the evidence stands in its reports",
+   "needs": [
+    "status",
+    "reparent"
+   ],
    "found": true,
    "quote": "32d Massachusetts Infantry, Company C, Capt. Josiah C. Fuller",
    "source": {

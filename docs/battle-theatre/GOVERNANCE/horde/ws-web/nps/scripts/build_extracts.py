@@ -10,6 +10,9 @@ Definition file format (UTF-8):
   @ <SOURCE-ID>                    following lines belong to this source
   %basis <text>                    the records the report itself names as the basis of the following passages
                                    (e.g. '1860 census; NARA Damage Claims, RG 92'); '%basis -' clears it
+  %images <pages>                  PDF pages of this source whose page image the engineer has looked at (e.g. '13, 20-23, 106');
+                                   an extract whose quote page (and context page) are all listed carries page_image_viewed true;
+                                   no other extract claims a visual check
   # comment
   <pdf page> | <topic> | <feature> | <keys> | <state date> | <certainty> | <claim> | <anchor> [| <context anchor>]
     topic      one of TOPICS below
@@ -33,7 +36,8 @@ Definition file format (UTF-8):
                An OCR letter error is corrected explicitly with {{saved|fixed}}: matching uses `saved` (exactly as the
                text layer reads), the quote shows `fixed`, and the record lists every pair in ocr_corrections.
                A trailing ' ~L' uses the layout text of the page, ' ~R' the content-stream-order text (line-end
-               hyphenation repaired), ' ~S' the standard reading-order text, instead of the source's default variant.
+               hyphenation repaired), ' ~O' the OCR text made by scripts/ocr.py (tesseract; line-end hyphenation repaired),
+               ' ~S' the standard reading-order text, instead of the source's default variant.
                A trailing ' ~#k' takes the k-th occurrence of a passage that repeats on the page.
     context    optional 9th field, an anchor of the same kinds (no trailing flags) that is cut from the same page
                (or, written '@<pdf page>: <anchor>', from another page of the same source) and kept next to the quote
@@ -111,7 +115,7 @@ def dehyphenate(text):
 
 
 def text_path(sid, variant=None):
-    name = {None: '.txt', 'layout': '.layout.txt', 'raw': '.raw.txt'}[variant]
+    name = {None: '.txt', 'layout': '.layout.txt', 'raw': '.raw.txt', 'ocr': '.ocr.txt'}[variant]
     for base in (LIB, os.path.join(LIB, 'pages')):
         p = os.path.join(base, sid, sid + name)
         if os.path.exists(p):
@@ -120,14 +124,14 @@ def text_path(sid, variant=None):
 
 
 def pages(sid, variant=None):
-    """variant: None (reading order), 'layout' or 'raw' (content-stream order, line-end hyphenation repaired)."""
+    """variant: None (reading order), 'layout', 'raw' (content-stream order) or 'ocr' (scripts/ocr.py); raw and ocr have line-end hyphenation repaired."""
     if variant is True:
         variant = 'layout'
     k = (sid, variant)
     if k not in _cache:
         p = text_path(sid, variant)
         txt = open(p, encoding='utf-8').read()
-        if variant == 'raw':
+        if variant in ('raw', 'ocr'):
             txt = dehyphenate(txt)
         parts = re.split(r'^=== PAGE (\d+) ===\n', txt, flags=re.M)
         _cache[k] = ({int(parts[i]): parts[i + 1] for i in range(1, len(parts), 2)}, sha256_file(p), os.path.relpath(p, ROOT))
@@ -309,6 +313,7 @@ def main():
     for f in sorted(glob.glob(os.path.join(NPS, 'extracts', 'src', '*.xdef'))):
         sid = None
         basis = None
+        viewed = set()
         for ln, line in enumerate(open(f, encoding='utf-8'), 1):
             line = line.rstrip('\n')
             if not line.strip() or line.lstrip().startswith('#'):
@@ -318,8 +323,17 @@ def main():
                 if basis == '-':
                     basis = None
                 continue
+            if line.startswith('%images'):
+                viewed = set()
+                for tok in re.split(r'[,\s]+', line[7:].strip()):
+                    if not tok or tok == '-':
+                        continue
+                    a_, _, b_ = tok.partition('-')
+                    viewed.update(range(int(a_), int(b_ or a_) + 1))
+                continue
             if line.startswith('@'):
                 basis = None
+                viewed = set()
                 sid = line[1:].strip()
                 if sid not in sources:
                     errors.append('%s:%d unknown source %s' % (os.path.basename(f), ln, sid))
@@ -333,12 +347,13 @@ def main():
             variant = sources.get(sid, {}).get('default_variant')
             occ = ''
             while True:
-                mo = re.search(r' ~(L|R|S|#\d+)$', anchor)
+                mo = re.search(r' ~(L|R|O|S|#\d+)$', anchor)
                 if not mo:
                     break
                 flag, anchor = mo.group(1), anchor[:mo.start()]
                 if flag == 'L': variant = 'layout'
                 elif flag == 'R': variant = 'raw'
+                elif flag == 'O': variant = 'ocr'
                 elif flag == 'S': variant = None
                 else: occ = ' ~' + flag
             anchor += occ
@@ -374,7 +389,7 @@ def main():
             seq[(sid, p)] = seq.get((sid, p), 0) + 1
             s = sources.get(sid, {})
             use, sdate = use_for_1863(sdate)
-            recs.append({
+            rec = {
                 'xid': 'NPSX-%s-p%03d-%02d' % (sid.replace('NPS-', '').replace('NPSGOV-', 'WEB-'), p, seq[(sid, p)]),
                 'topic': TOPICS[topic], 'subtopic': topic,
                 'feature': feature,
@@ -403,7 +418,12 @@ def main():
                 'tier_basis': {'stated': 'official secondary source states it as fact; the 1863 basis is whatever the report cites (see quote and the report page)',
                                'hedged': "the source's own wording is hedged (probably / may / likely); carry as inferred",
                                'conflict': 'the source itself reports contradictory evidence; carry every reading as a scenario'}[cert],
-            })
+            }
+            if p in viewed and ctx_page in viewed:
+                rec['page_image_viewed'] = True
+            if variant == 'ocr':
+                rec['ocr_engine'] = s.get('ocr_engine')
+            recs.append(rec)
     if errors:
         print('\n'.join(errors))
         print('%d error(s); nothing written' % len(errors))

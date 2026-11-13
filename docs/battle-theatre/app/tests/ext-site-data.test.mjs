@@ -32,6 +32,14 @@ test('the copies are reproducible: rebuilt from the primary tree they are the sa
   const src = S.readTree(S.PRIMARY), also = trees.filter(t => t !== S.PRIMARY && !t.startsWith('release/')), c = S.buildCopies(src, also);
   assert.equal(S.serialise(c.memorials), fs.readFileSync(S.FILES.memorials, 'utf8')); assert.equal(S.serialise(c.tour), fs.readFileSync(S.FILES.tour, 'utf8'));
 });
+test('the Views list and the added panels offer the same places: the shell\'s own copy (data/site-bookmarks.json, which feeds the Views list) records the pinned source hashes and agrees with the copies read here in every name, position and viewpoint', () => {
+  const b = readJSON('site-bookmarks.json'), P0 = S.pins();
+  assert.equal(b.source.monumentsSha256, P0.monuments, 'the shell\'s copy was read from the monuments the guard pins'); assert.equal(b.source.tourSha256, P0.tour, 'the shell\'s copy was read from the tour stops the guard pins');
+  assert.equal(b.monuments.length, mem.monuments.length); assert.equal(b.tour.length, tour.tour.length);
+  const bm = new Map(b.monuments.map(x => [x.no, x]));
+  for (const x of mem.monuments) { const y = bm.get(x.no); assert.ok(y, `memorial ${x.no} is in the shell's copy`); assert.equal(y.name, x.name, `memorial ${x.no}: name`); assert.equal(y.lat, x.lat, `memorial ${x.no}: latitude`); assert.equal(y.lng, x.lng, `memorial ${x.no}: longitude`); }
+  tour.tour.forEach((x, i) => { const y = b.tour[i]; assert.equal(y.id, x.id); assert.equal(y.name, x.name, `stop ${x.id}: name`); assert.equal(y.lat, x.lat, `stop ${x.id}: latitude`); assert.equal(y.lng, x.lng, `stop ${x.id}: longitude`); assert.deepEqual(y.view || null, x.view || null, `stop ${x.id}: viewpoint`); });
+});
 test('the projection keeps exactly the fields a mark, a row and a bookmark need and stops at a field it does not know (a new field of the site is a decision, not a silent loss)', () => {
   const src = S.readTree(S.PRIMARY); assert.deepEqual(Object.keys(src.monuments[0]).sort(), S.KEPT.monuments.slice().sort()); assert.deepEqual(Object.keys(src.tour[0]).sort(), [...S.KEPT.tour.filter(k => !k.startsWith('sv.')), 'sv', 'video', 'history'].sort(), 'the site\'s tour record also holds the narration (history), the video link and the street-level view (sv): the projection keeps the viewpoint of sv and leaves the rest');
   assert.throws(() => S.projectMonuments([{ ...src.monuments[0], newField: 1 }]), /a field this copy does not know: newField/); const m = { ...src.monuments[0] }; delete m.lat; assert.throws(() => S.projectMonuments([m]), /field lat is missing/);

@@ -56,7 +56,7 @@ PERIODS = {
 COMPASS = {'north': 0, 'northeast': 45, 'north-east': 45, 'east': 90, 'southeast': 135, 'south-east': 135, 'south': 180, 'southwest': 225, 'south-west': 225, 'west': 270, 'northwest': 315, 'north-west': 315}
 FACING = ['printed_compass', 'toward_place', 'parallel_to_road', 'toward_unit', 'none']
 STRENGTH_WHAT = ['officers_and_men', 'men', 'enlisted', 'officers', 'muskets', 'sabers', 'aggregate_present', 'present_for_duty', 'engaged', 'carried_into_action', 'effective']
-UNIT_ACTIONS = ['add', 'absent', 'attached', 'merge', 'fix', 'status', 'rename']
+UNIT_ACTIONS = ['add', 'absent', 'attached', 'merge', 'fix', 'status', 'rename', 'reparent']
 UNIT_STATUS = ['on_field', 'partly_on_field', 'never_on_field', 'never_main_field']      # the statuses of history/units.json; documented_absent is not one of them: it is what an `absent` evidence record earns
 UNIT_LEVELS = ['army', 'corps', 'division', 'brigade', 'regiment', 'battalion', 'battery', 'company', 'artillery_brigade', 'artillery_battalion', 'artillery_group', 'group', 'command', 'headquarters', 'person']
 UNIT_ARMS = ['infantry', 'cavalry', 'artillery', 'staff', 'medical', 'train', 'headquarters']
@@ -66,7 +66,7 @@ COMMON_KEYS = {'claim_id', 'group', 'kind', 'unit_id', 'tier', 'render_flag', 'w
                'conflicts_with', 'corroborates', 'conflict_key', 'timeline', 'statement', 'reasoning', 'source', 'note'}
 _PLACED = {'when', 'until', 'place', 'activity', 'activity_printed', 'formation', 'facing'}
 # a gap record may also carry gap.covers (units under its unit that the same searches cover) and gap.days (the days of 1 to 3 July it concerns; all days when absent)
-KIND_KEYS = {'unit': {'unit'}, 'arrival': {'when', 'until', 'place', 'arrival'}, 'arrival_road': {'when', 'until', 'road'}, 'march': {'when', 'until', 'road', 'place'}, 'position': _PLACED, 'engagement': _PLACED,
+KIND_KEYS = {'unit': {'unit', 'when'}, 'arrival': {'when', 'until', 'place', 'arrival'}, 'arrival_road': {'when', 'until', 'road'}, 'march': {'when', 'until', 'road', 'place'}, 'position': _PLACED, 'engagement': _PLACED,
              'night_position': _PLACED, 'movement': {'when', 'until', 'from', 'to', 'gait'}, 'departure': {'when', 'until', 'road', 'place'}, 'strength': {'strength'}, 'absent': {'absent', 'when', 'until'},
              'line_order': {'order', 'when', 'until'}, 'road_identification': {'road_identification'}, 'source': {'source_decl'}, 'gap': {'gap'}}
 MAX_QUOTE_WORDS, MAX_PLACE_WORDS = 14, 30
@@ -237,7 +237,7 @@ class Check:
     def E(self, at, msg): self.err.append('%s: %s' % (at, msg))
     def W(self, at, msg): self.warn.append('%s: %s' % (at, msg))
 
-    def unit_ok(self, uid): return uid in self.repo.units or uid in self.repo.gaps or uid in self.declared_units
+    def unit_ok(self, uid): return uid in self.repo.units or (uid in self.repo.gaps and not self.repo.gaps[uid].get('footnote_of')) or uid in self.declared_units
 
     def when(self, at, w, need=True, name='when'):
         if w is None:
@@ -411,6 +411,8 @@ class Check:
             return
         uid = r.get('unit_id')
         if not (isinstance(uid, str) and UNIT_RE.match(uid)): return self.E(at, 'unit_id must be lowercase letters, digits and hyphens')
+        if uid in self.repo.gaps and self.repo.gaps[uid].get('footnote_of') and uid not in self.repo.units:
+            return self.E(at, 'unit_id %s is a footnote of the organization table that carries the status of %s, not a unit: record the status on those units' % (uid, ', '.join(self.repo.gaps[uid]['footnote_of'])))
         if not self.unit_ok(uid): self.E(at, 'unit_id %s is not in the roster, not pre-assigned in roster-gaps.json and not added by a unit record' % uid)
         elif gid in self.repo.group_units and uid in self.repo.units and uid not in self.repo.group_units[gid]:
             self.E(at, 'unit_id %s belongs to group %s, not to %s: a group file holds evidence for the units of its own group (put it in %s.jsonl, or write a request note for the owner of that group)' % (uid, self.repo.unit_group.get(uid), gid, self.repo.unit_group.get(uid)))
@@ -476,6 +478,17 @@ class Check:
             if u.get('action') == 'fix' and not (isinstance(u.get('fix'), str) and len(u['fix'].strip()) >= 40): self.E(at, 'unit.fix (what is wrong with the roster entry and what it should be, 40 characters or more) is required')
             if u.get('action') == 'merge' and (len(u.get('merge_of') or []) < 2 or any(x not in self.repo.units for x in u['merge_of'])): self.E(at, 'unit.merge_of must list two or more roster ids')
             if u.get('action') == 'attached' and not self.unit_ok(u.get('attached_to')): self.E(at, 'unit.attached_to must be a unit')
+            if u.get('action') == 'reparent':
+                # the unit stands under another formation than the roster says: from `when` (a transfer during the battle), or for the whole battle when `when` is absent (the roster entry is wrong)
+                np_, op_ = u.get('new_parent'), u.get('old_parent')
+                if not (isinstance(np_, str) and self.unit_ok(np_)): self.E(at, 'unit.new_parent must be a unit (a roster id, or one added by a unit record of this file)')
+                elif np_ == uid or (uid in self.repo.units and uid in self.repo.ancestors(np_)): self.E(at, 'unit.new_parent %s is the unit itself or a unit below it' % np_)
+                elif np_ == (self.repo.units.get(uid) or {}).get('parent'): self.E(at, 'unit.new_parent %s is the roster parent already: nothing changes' % np_)
+                if op_ is not None:
+                    if not (isinstance(op_, str) and self.unit_ok(op_)): self.E(at, 'unit.old_parent must be a unit when it is given')
+                    elif uid in self.repo.units and op_ != self.repo.units[uid].get('parent'): self.W(at, 'unit.old_parent %s is not the roster parent of %s (%s)' % (op_, uid, self.repo.units[uid].get('parent')))
+                if w is not None: self.when(at, w, need=False)
+            elif w is not None: self.E(at, 'a unit record carries `when` only for a reparent (the time the change took effect)')
             return
         if k == 'strength':
             s = r.get('strength') or {}
@@ -577,7 +590,7 @@ class Check:
         for _, r in rows:
             if isinstance(r, dict) and r.get('kind') == 'source' and isinstance(r.get('source_decl'), dict) and r['source_decl'].get('source_id'):
                 d = r['source_decl']; declared[d['source_id']] = {'kind': 'text', 'path': d.get('path') or ''}
-            if isinstance(r, dict) and r.get('kind') == 'unit' and isinstance(r.get('unit'), dict) and r['unit'].get('action') == 'add' and isinstance(r.get('unit_id'), str): self.declared_units.add(r['unit_id'])
+            if isinstance(r, dict) and r.get('kind') == 'unit' and isinstance(r.get('unit'), dict) and r['unit'].get('action') == 'add' and isinstance(r.get('unit_id'), str) and not (self.repo.gaps.get(r['unit_id']) or {}).get('footnote_of'): self.declared_units.add(r['unit_id'])      # a footnote entry of roster-gaps.json is no unit: an `add` of its id declares nothing and is refused at the record
         for n, r in rows: self.record(n, r, gid, declared)
         # ---- coverage of the group's units: evidence of the right kind or a gap record for every word of what is missing (see coverage())
         cov = {}
@@ -630,6 +643,17 @@ def coverage(repo, gid, rows):
                 return True
         return False
     total = 0
+    # the roster-gap entries of the group (roster-gaps.json): each is confirmed by a `unit` record of its id, or answered by a gap record that names the word `roster`; an entry with `needs` also needs a `unit` record of each action named
+    # (reparent: the roster's parent is wrong, or changes during the battle). A footnote entry (`footnote_of`) is not a unit: it is answered by the records of the entries it carries.
+    for e in sorted(getattr(repo, 'gaps', {}).values(), key=lambda x: x['id']):
+        if e.get('group') != gid or e.get('footnote_of'): continue
+        recs = by.get(e['id'], []); units_ = [r for r in recs if r.get('kind') == 'unit']
+        roster_gap = any(r.get('kind') == 'gap' and 'roster' in ((r.get('gap') or {}).get('what') or []) for r in recs)
+        total += 1
+        if not units_ and not roster_gap: owed.setdefault(e['id'], []).append(('roster entry (a unit record, or a gap record with what: roster)', None))
+        for need in e.get('needs') or []:
+            total += 1
+            if not roster_gap and not any((r.get('unit') or {}).get('action') == need for r in units_): owed.setdefault(e['id'], []).append(('unit record of action %s' % need, None))
     for u in repo.group_units.get(gid, []):
         if repo.unit_class.get(u) not in ('not_drawn', 'edge_only', 'partly_drawn'): continue
         st = repo.status.get(u) or {}
@@ -719,6 +743,40 @@ def self_test():
         ok &= not syn
     finally:
         if os.path.exists(tmp): os.remove(tmp)
+    # reparent: a `unit` record that puts a unit under another formation, from a time (a transfer during the battle) or for the whole battle (the roster entry is wrong); synthetic, never written
+    def synth(rows_, repo_=None):
+        tmp_ = os.path.join(fx, '_synthetic2.jsonl')
+        try:
+            with open(tmp_, 'w', encoding='utf-8', newline='\n') as f:
+                for r_ in rows_: f.write(json.dumps(r_, ensure_ascii=False) + '\n')
+            c_ = Check(repo_ or repo); c_.file(tmp_, 'us-3c-2d'); return c_.err, c_.warn
+        finally:
+            if os.path.exists(tmp_): os.remove(tmp_)
+    def rp(n, uid='us-3c-2d-carr-1ma', when=True, **un):
+        r_ = copy.deepcopy(base); r_.update(claim_id='U-us-3c-2d-%04d' % (9300 + n), kind='unit', unit_id=uid, unit=un)
+        for k_ in ('place', 'arrival'): r_.pop(k_)
+        if not when: r_.pop('when')
+        r_['conflicts_with'] = []; r_['conflict_key'] = None
+        return r_
+    rp_cases = [('a reparent from a time is accepted', [rp(1, action='reparent', new_parent='us-3c-2d-brewster', old_parent='us-3c-2d-carr')], None),
+                ('a reparent for the whole battle (no time) is accepted', [rp(2, when=False, action='reparent', new_parent='us-3c-2d-brewster')], None),
+                ('a reparent without a new parent is refused', [rp(3, action='reparent')], 'unit.new_parent must be a unit'),
+                ('a reparent to a name that is no unit is refused', [rp(4, action='reparent', new_parent='us-3c-2d-nowhere')], 'unit.new_parent must be a unit'),
+                ('a reparent under itself is refused', [rp(5, action='reparent', new_parent='us-3c-2d-carr-1ma')], 'the unit itself or a unit below it'),
+                ('a reparent under the unit\'s own descendant is refused', [rp(6, uid='us-3c-2d-carr', action='reparent', new_parent='us-3c-2d-carr-1ma')], 'the unit itself or a unit below it'),
+                ('a reparent to the roster parent changes nothing and is refused', [rp(7, action='reparent', new_parent='us-3c-2d-carr')], 'roster parent already'),
+                ('a time on a unit record that is not a reparent is refused', [rp(8, action='status', status='on_field')], 'only for a reparent'),
+                ('a reparent with a time that is not a date is refused', [dict(rp(9, action='reparent', new_parent='us-3c-2d-brewster'), when={'date': 'July 1', 'approx': False})], 'when.date must be')]
+    rp_ok = True
+    for name, rows_, want in rp_cases:
+        errs_, _w = synth(rows_)
+        if want is None and errs_: print('FAIL   %s: %s' % (name, ' | '.join(errs_)[:300])); rp_ok = False
+        elif want is not None and not any(want.lower() in e.lower() for e in errs_): print('FAIL   %s: no error holding "%s" (errors: %s)' % (name, want, ' | '.join(errs_)[:300])); rp_ok = False
+    repo_f = copy.copy(repo); repo_f.gaps = dict(repo.gaps, **{'us-3c-2d-footnote-synth': {'id': 'us-3c-2d-footnote-synth', 'group': 'us-3c-2d', 'footnote_of': ['us-3c-2d-carr-1ma']}})
+    errs_, _w = synth([rp(10, uid='us-3c-2d-footnote-synth', when=False, action='add', parent='us-3c-2d', name='a footnote', level='company', arm='infantry')], repo_f)
+    if not any('is a footnote' in e for e in errs_): print('FAIL   a record that names a footnote entry as a unit is not refused: %s' % ' | '.join(errs_)[:300]); rp_ok = False
+    print(('PASS' if rp_ok else 'FAIL') + ' reparent records and footnote entries (%d cases)' % (len(rp_cases) + 1))
+    ok &= rp_ok
     # coverage: what a unit is still owed, and what covers it (synthetic rows, never written)
     unit, gid = 'us-3c-2d-carr-1ma', 'us-3c-2d'
     repo = copy.copy(repo)          # the test states its own status (a unit not drawn that has no place on 2 and 3 July), so that it does not change when the layer does
@@ -743,6 +801,22 @@ def self_test():
         if got != want: print('FAIL   coverage: %s: owed %s, wanted %s' % (name, sorted(got), sorted(want))); cov_ok = False
     print(('PASS' if cov_ok else 'FAIL') + ' coverage of the words a unit is missing (%d cases)' % len(cases))
     ok &= cov_ok
+    # coverage of the roster-gap entries of a group (synthetic entries)
+    repo2 = copy.copy(repo); repo2.group_units = {gid: []}; repo2.unit_class = {}; repo2.unit_missing = {}
+    repo2.gaps = {'g-a': {'id': 'g-a', 'group': gid}, 'g-b': {'id': 'g-b', 'group': gid, 'needs': ['reparent']}, 'g-f': {'id': 'g-f', 'group': gid, 'footnote_of': ['g-a']}, 'g-x': {'id': 'g-x', 'group': 'another-group'}}
+    UR = lambda uid, action: R_('unit', uid, unit={'action': action}); GR = lambda uid: R_('gap', uid, gap={'what': ['roster']})
+    owed_ = lambda rows_: {k: [w for w, _d in v] for k, v in coverage(repo2, gid, rows_)[0].items()}
+    gcases = [('nothing recorded: the two entries of the group are owed, not the footnote and not the other group\'s entry', [], {'g-a', 'g-b'}),
+              ('a unit record of each, but not the reparent that g-b needs: g-b is owed', [UR('g-a', 'add'), UR('g-b', 'status')], {'g-b'}),
+              ('the reparent record answers the need', [UR('g-a', 'add'), UR('g-b', 'status'), UR('g-b', 'reparent')], set()),
+              ('a gap record that names roster answers an entry and its needs', [GR('g-a'), GR('g-b')], set()),
+              ('a gap record that names another word does not answer the entry', [R_('gap', 'g-a', gap={'what': ['strength']}), UR('g-b', 'reparent')], {'g-a'})]
+    g_ok = True
+    for name, rows_, want in gcases:
+        got = set(owed_(rows_))
+        if got != want: print('FAIL   roster entries: %s: owed %s, wanted %s' % (name, sorted(got), sorted(want))); g_ok = False
+    print(('PASS' if g_ok else 'FAIL') + ' coverage of the roster-gap entries of a group (%d cases)' % len(gcases))
+    ok &= g_ok
     print('self-test', 'OK' if ok else 'FAILED')
     return 0 if ok else 1
 

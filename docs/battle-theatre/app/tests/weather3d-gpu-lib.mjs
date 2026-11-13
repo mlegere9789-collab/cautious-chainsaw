@@ -17,6 +17,12 @@ export function stats(w, h, rgba) {
 
 // Chrome flags of the harnesses: WebGPU on its software adapter (SwiftShader through Vulkan) and WebGL2 on SwiftShader through ANGLE. This machine has no GPU; nothing run with these flags is a real-GPU result.
 export const CHROME_ARGS = ['--enable-unsafe-webgpu', '--enable-features=Vulkan,WebGPUService', '--ignore-gpu-blocklist', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'];
+// Chrome flags of a run on a machine WITH a GPU (--real-gpu of the harnesses): no software rasteriser is asked for, so WebGPU and WebGL2 both use the GPU that Chrome picks (on Linux WebGPU needs the Vulkan feature).
+// The summary records the adapter (WebGPU: vendor and architecture; WebGL2: the renderer string) and checkRun (weather3d-gpu-check.mjs) refuses to call a run "real GPU" when that adapter is a software one, so a
+// check on the wrong machine, or with the software flags above, can never pass as a real-GPU result.
+export const REAL_GPU_ARGS = ['--enable-unsafe-webgpu', '--ignore-gpu-blocklist', ...(process.platform === 'linux' ? ['--enable-features=Vulkan'] : [])];
+export const chromeArgs = realGpu => (realGpu ? REAL_GPU_ARGS : CHROME_ARGS);
+export const SOFTWARE_ADAPTER_RE = /swiftshader|llvmpipe|lavapipe|softpipe|software|basic render|microsoft basic/i;
 // Installed before any page script (context.addInitScript(HOOKS, { realCanvas })): uncaptured WebGPU errors and device loss go to window.__gpuErrors; the compiler messages of every shader module to window.__wgslMessages.
 // The canvas texture is replaced by an ordinary texture of the same size and format (configure() is not passed on, getCurrentTexture() returns the stand-in): the software adapter of a machine without a GPU
 // loses its device as soon as the real swapchain is read, drawn into for a while or captured (see the swapchain probe of tests/weather3d-gpu.mjs), and a texture of our own is the one thing that can be read back.

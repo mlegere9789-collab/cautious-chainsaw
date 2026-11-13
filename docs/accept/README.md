@@ -18,7 +18,8 @@ node tools/accept/run_eight.mjs --candidate deliver/<final>.zip --baseline basel
 node tools/accept/copy_audit.mjs deliver/<final>.zip          # --json out.json, --show-whitelisted
 node tools/accept/copy_audit.selftest.mjs                      # plants every kind of leak and proves each is found
 
-# the runners themselves (child environment behind a proxy, load average in every summary); no browser, under a minute
+# the runners themselves (child environment behind a proxy, load average in every summary); no browser, about 25 s of CPU
+#   (measured on the cloud machine (4 vCPU container, software GL): 37 s wall at a 1-minute load of 17, 82 s at a load of 23; passes with HTTPS_PROXY set and unset)
 node tools/t0/tests/runner_selftest.mjs                        # --online adds one real fetch through the harness (see "Behind a proxy" below)
 ```
 

@@ -89,7 +89,7 @@ def main():
     rows = [json.loads(l) for l in open(os.path.join(NPS, 'extracts', 'extracts.jsonl'), encoding='utf-8') if l.strip()]
     problems, warnings, seen = [], [], set()
     unknown_keys = {}
-    counts = {'extracts': len(rows), 'exact': 0, 'cleaned': 0, 'with_context': 0}
+    counts = {'extracts': len(rows), 'exact': 0, 'cleaned': 0, 'with_context': 0, 'page_image_viewed': 0, 'from_ocr_text': 0}
     for r in rows:
         x = r['xid']
         if x in seen:
@@ -111,6 +111,17 @@ def main():
         if variant is None:
             if sid not in acq or acq[sid]['text_sha256'] != tsha:
                 problems.append('%s: acquired_3.json text hash differs from the saved text of %s' % (x, sid))
+        elif variant == 'ocr':
+            if s.get('ocr_text_sha256') != tsha:
+                problems.append('%s: sources.json ocr_text_sha256 differs from the saved OCR text of %s' % (x, sid))
+            if sid not in acq or acq[sid].get('ocr_text_sha256') != tsha:
+                problems.append('%s: acquired_3.json ocr_text_sha256 differs from the saved OCR text of %s' % (x, sid))
+            if not r.get('ocr_engine'):
+                problems.append('%s: an extract from an OCR text must name the OCR engine' % x)
+        if r.get('page_image_viewed') not in (None, True):
+            problems.append('%s: page_image_viewed may only be true (absent = no visual check claimed)' % x)
+        counts['page_image_viewed'] += 1 if r.get('page_image_viewed') else 0
+        counts['from_ocr_text'] += 1 if variant == 'ocr' else 0
         p = r['pdf_page']
         if p not in pgs:
             problems.append('%s: page %d missing' % (x, p)); continue
@@ -169,7 +180,7 @@ def main():
     rep = {'checked': counts, 'problems': problems, 'warnings': warnings, 'sources_with_extracts': sorted({r['source_id'] for r in rows})}
     with open(os.path.join(NPS, 'extracts', 'verify_report.json'), 'w', encoding='utf-8') as f:
         json.dump(rep, f, indent=1, ensure_ascii=False)
-    print('%d extracts checked (%d exact, %d cleaned, %d with a context quote); %d problem(s), %d warning(s)' % (len(rows), counts['exact'], counts['cleaned'], counts['with_context'], len(problems), len(warnings)))
+    print('%d extracts checked (%d exact, %d cleaned, %d with a context quote; %d from OCR text; %d with the page image viewed); %d problem(s), %d warning(s)' % (len(rows), counts['exact'], counts['cleaned'], counts['with_context'], counts['from_ocr_text'], counts['page_image_viewed'], len(problems), len(warnings)))
     for pr in problems[:200]:
         print(' -', pr)
     for w in warnings[:40]:

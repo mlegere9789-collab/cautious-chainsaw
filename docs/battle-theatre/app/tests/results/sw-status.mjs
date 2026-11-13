@@ -29,7 +29,7 @@ export function parseLog(file) {
 }
 
 export function build(round, dir) {
-  const runs = fs.readdirSync(dir).filter(f => f.endsWith('.log')).map(f => parseLog(path.join(dir, f))).filter(r => r.spec).sort((a, b) => (a.start || '').localeCompare(b.start || ''));
+  const runs = fs.readdirSync(dir).filter(f => f.endsWith('.log')).map(f => parseLog(path.join(dir, f))).filter(r => r.spec && /\.spec\.mjs$/.test(r.spec)).sort((a, b) => (a.start || '').localeCompare(b.start || ''));
   const V = fs.existsSync(path.join(dir, 'verdicts.json')) ? JSON.parse(fs.readFileSync(path.join(dir, 'verdicts.json'), 'utf8')) : { specs: {} };
   const esc = s => String(s ?? '').replace(/\|/g, '\\|').replace(/\n/g, ' ');
   const specs = [...new Set([...Object.keys(V.specs || {}), ...runs.map(r => r.spec)])].sort(), out = [], tally = {}, remaining = [], owed = [];

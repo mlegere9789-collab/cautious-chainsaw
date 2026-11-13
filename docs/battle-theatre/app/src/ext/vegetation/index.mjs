@@ -69,11 +69,27 @@ function addWitnessTrees(s, trees, model, project) {
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------- the trample plan
 function startPlanner(s) {
-  const th = s.th, st = th.stage; s.planDone = false;
+  const th = s.th, st = th.stage; s.planDone = false; stopPump(s);
   if (!st || !st.cache || !st.presence || !st.bbox || !st.layer || !s.gl) { s.planner = null; s.planDone = true; return; }
   if (!s.grid) { s.grid = makeGrid(s.ground.W, s.ground.H, 8); s.maskCells = rasterMask(s.model, s.project, s.grid); } else s.grid.visit.fill(1e9);
-  s.planner = new VisitPlanner(s.grid, stageProvider(st), isoMin('1863-06-30T00:00'), isoMin('1863-07-08T00:00'), 8);
+  s.planner = new VisitPlanner(s.grid, stageProvider(st), isoMin('1863-06-30T00:00'), isoMin('1863-07-08T00:00'), 8); s.uploaded = 0;
+  pumpPlan(s);
 }
+// The plan is computed in the idle time between frames as well as in a slice of every frame: a slow frame (a phone, a software renderer) must not make the trampling wait for hundreds of
+// frames. The pump only computes (pure JS, no GL call): the table is uploaded by update(), inside the frame.
+function pumpPlan(s) {
+  const ric = globalThis.requestIdleCallback, cic = globalThis.cancelIdleCallback, p = s.planner; if (!p || p.done) return;
+  const step = dl => {
+    s.pumpId = null; if (S !== s || s.planner !== p || p.done) return;
+    const budget = dl && typeof dl.timeRemaining === 'function' ? Math.min(14, Math.max(3, dl.timeRemaining() - 1)) : 8;
+    p.run(budget, () => performance.now()); s.planVersion = (s.planVersion || 0) + 1;
+    if (!p.done) arm();
+  };
+  const arm = () => { s.pumpId = typeof ric === 'function' ? ric(step, { timeout: 100 }) : setTimeout(step, 20); };
+  s.pumpCancel = () => { if (s.pumpId != null) { try { if (typeof ric === 'function' && typeof cic === 'function') cic(s.pumpId); else clearTimeout(s.pumpId); } catch { /* gone */ } s.pumpId = null; } };
+  arm();
+}
+function stopPump(s) { if (s && s.pumpCancel) { s.pumpCancel(); s.pumpCancel = null; } }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------- picking the ground under the cross-hair
 function buildIndex(s) {
@@ -103,8 +119,14 @@ export function update(frame) {
     const tq = Math.round(s.t * 2) / 2, ch = effChoices(s), key = JSON.stringify([ch['CF-VEG-LRT'], ch['CF-VEG-RAIN'], ch['CF-VEG-HARVEST']]), now = performance.now();
     // the state of every unit is written when the quantised minute or a choice changes; while the clock runs fast it is written at most every 90 ms (a settled or paused clock is always written at once, so the same minute always gives the same picture)
     if (frame.paused || !s.lastWrite || now - s.lastWrite > 90 || key !== s.gl.choicesKey) { if (s.gl.setTime(tq, ch, key)) s.lastWrite = now; }
-    if (s.planner && !s.planner.done) { const more = s.planner.run(4, () => performance.now()); s.planVersion = (s.planVersion || 0) + 1; if (!more || s.planVersion % 40 === 0) s.gl.setVisit(s.grid); if (!more) { s.planDone = true; s.status = 'drawn on WebGL2; the trampling follows the troops of the theatre'; } }
-    else if (!s.planner && !s.planDone) s.planDone = true;
+    if (s.planner && !s.planner.done) { s.planner.run(4, () => performance.now()); s.planVersion = (s.planVersion || 0) + 1; }
+    const p = s.planner;
+    if (p) {                                                           // the table goes to the GPU every 150 steps while the plan runs, and once more when it is whole
+      if (p.done ? !s.planDone : p.steps - (s.uploaded || 0) >= 150) {
+        s.gl.setVisit(s.grid); s.uploaded = p.steps;
+        if (p.done) { s.planDone = true; s.status = 'drawn on WebGL2; the trampling follows the troops of the theatre'; }
+      }
+    } else if (!s.planDone) s.planDone = true;
   }
   if (s.panel && s.panel.isOpen() && s.box && frame.tMin !== s.pickT) { s.pickT = frame.tMin; const now = performance.now(); if (!s.lastCard || now - s.lastCard > 400) { s.lastCard = now; try { paintCard(s); } catch (e) { const c = s.box && s.box.querySelector('#veg-card'); if (c) c.textContent = 'The card of this ground could not be written (' + (e && e.message) + ').'; } } }
 }
@@ -183,6 +205,7 @@ function renderPanel(box, th, sc) {
 export function dispose() {
   const s = S; S = null; if (!s) return;
   try { s.ac.abort(); } catch { /* gone */ }
+  stopPump(s);
   for (const off of s.offs || []) { try { off(); } catch { /* the bus is gone */ } }
   if (s.hook) s.hook(); if (s.gl) s.gl.destroy(); if (s.chip) s.chip.remove();
   const th = s.th; if (th && th.vegetation) delete th.vegetation;

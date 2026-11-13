@@ -13,7 +13,7 @@ import { APP, readJSON, realTerrain, overrideData, installFakeDocument, standIn,
 const tour = readJSON('site-tour-stops.json'), T = await realTerrain();
 
 // ---------------------------------------------------------------- the data
-test('the tour file is fit: 16 stops numbered 1 to 16 in order, each with a name, a label, the site\'s day and a place; 15 with a viewpoint of the site\'s own', () => {
+test('the tour file is fit: 16 stops numbered 1 to 16 in order, each with a name, a label, the site\'s day and a place; each with a viewpoint of the site\'s own', () => {
   assert.deepEqual(P.validateTour(tour), []); assert.equal(tour.tour.length, 16);
   tour.tour.forEach((s, i) => { assert.equal(s.id, i + 1); assert.equal(s.label, `Tour Stop ${i + 1}`); assert.ok(s.name && s.day && Number.isFinite(s.lat) && Number.isFinite(s.lng)); assert.ok(s.view && Number.isFinite(s.view.heading), `stop ${s.id} viewpoint`); });
   assert.equal(tour.tour[7].name, 'Little Round Top'); assert.equal(tour.tour[15].day, 'Nov 19, 1863'); assert.deepEqual(Object.keys(tour.tour[0]).sort(), ['dayClass', 'day', 'id', 'label', 'lat', 'lng', 'name', 'view'].sort());

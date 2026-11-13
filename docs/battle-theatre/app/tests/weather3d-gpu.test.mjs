@@ -21,7 +21,7 @@ import { createAnimBus } from '../src/anim3d/events.mjs';
 import { Camera } from '../../render/prototype/src/camera.mjs';
 import { CASES, EXTRA_CASES, ALL_CASES, specOf, SHERFY } from './weather3d-gpu-cases.mjs';
 import { makePlan, aimCamera } from './weather3d-gpu-plan.mjs';
-import { HOOKS, CHROME_ARGS } from './weather3d-gpu-lib.mjs';
+import { HOOKS, CHROME_ARGS, chromeArgs, REAL_GPU_ARGS } from './weather3d-gpu-lib.mjs';
 import { checkRun, checkCompare } from './weather3d-gpu-check.mjs';
 
 const APP = path.resolve(BT, 'app'), J = f => JSON.parse(fs.readFileSync(path.join(BT, f), 'utf8')), D = f => JSON.parse(fs.readFileSync(path.join(APP, 'data/fx3d', f), 'utf8'));
@@ -333,6 +333,17 @@ test('the run checker: a clean run is clean; every kind of defect is named; noth
   const row = (n, m, g, p) => ({ case: n, all: { meanAbs: m, over24: 0.001 }, spritesGL: g, spritesGPU: p }); const cmp = { rows: [row('a', 0.4, 5, 5), row('b', 0.35, 0, 0)], problems: [] };
   assert.equal(checkCompare(cmp).ok, true); assert.equal(checkCompare(cmp).facts.meanAbsMax, 0.4); assert.equal(checkCompare({ rows: [row('a', 9, 5, 5)], problems: [] }).ok, false); assert.equal(checkCompare({ rows: [row('a', 1, 5, 6)], problems: [] }).ok, false); assert.equal(checkCompare({ rows: [] }).ok, false);
   assert.equal(checkCompare({ rows: [row('a', 9, 5, 5)], problems: [] }, 12).ok, true, 'the limit is the caller\'s, a harness value and not a project gate');
+});
+test('real-GPU mode of the harnesses: Chrome without a software-rasteriser flag; a run that claims to be a real-GPU run on a software adapter, or with no adapter recorded, is a problem; a hardware adapter and an unclaimed software run are not', () => {
+  assert.equal(chromeArgs(false), CHROME_ARGS); assert.equal(chromeArgs(true), REAL_GPU_ARGS); assert.ok(REAL_GPU_ARGS.includes('--enable-unsafe-webgpu') && REAL_GPU_ARGS.includes('--ignore-gpu-blocklist'));
+  assert.ok(!REAL_GPU_ARGS.some(a => /swiftshader|use-angle|use-gl|software/i.test(a)), 'no software flag in the real-GPU set'); assert.ok(CHROME_ARGS.some(a => /swiftshader/.test(a)), 'the default set is the software one (this machine has no GPU)');
+  const mk = (ad, api = 'webgpu') => { const s = okRun(); s.api = api; s.realGpu = true; s.diagInit.adapter = ad; return s; };
+  const hw = checkRun(mk({ vendor: 'nvidia', arch: 'blackwell', device: '', desc: '' })); assert.equal(hw.ok, true, hw.problems.join('; ')); assert.equal(hw.facts.realGpu, true); assert.match(hw.facts.adapter, /nvidia/);
+  for (const ad of [{ vendor: 'google', arch: 'swiftshader', device: '', desc: '' }, { renderer: 'ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)' }, { vendor: 'mesa', arch: 'llvmpipe' }, { renderer: 'Microsoft Basic Render Driver' }]) { const r = checkRun(mk(ad)); assert.equal(r.ok, false, JSON.stringify(ad)); assert.ok(r.problems.some(x => /real-GPU run but its adapter is a software one/.test(x))); }
+  { const r = checkRun(mk(null)); assert.equal(r.ok, false); assert.ok(r.problems.some(x => /adapter is not recorded/.test(x))); }
+  { const r = checkRun(mk({ renderer: 'ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 Direct3D11 vs_5_0 ps_5_0, D3D11)' }, 'webgl2')); assert.equal(r.ok, true, r.problems.join('; ')); }
+  { const s = okRun(); s.diagInit.adapter = { vendor: 'google', arch: 'swiftshader' }; const r = checkRun(s); assert.equal(r.ok, true, 'a software run that does not claim to be a real-GPU run is a software run, and says so in the facts'); assert.equal(r.facts.realGpu, false); }
+  for (const f of ['weather3d-gpu.mjs', 'weather3d-gpu-theatre.mjs']) { const src = fs.readFileSync(path.join(APP, 'tests', f), 'utf8'); assert.match(src, /chromeArgs\(REALGPU\)/, f); assert.match(src, /realCanvas: args\.includes\('--real-canvas'\) \|\| REALGPU/, f); assert.match(src, /realGpu: REALGPU/, f); }
 });
 // ---------- the stored evidence is what the notes say it is (app/tests/results/weather3d-webgpu/, software adapter, 2026-11-13)
 test('stored evidence: the WebGPU and WebGL2 runs are clean, the two APIs agree to the figures the notes state, the other budget tiers are clean, and the 16 pictures are there', () => {

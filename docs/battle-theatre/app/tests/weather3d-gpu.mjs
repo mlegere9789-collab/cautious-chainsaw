@@ -4,6 +4,8 @@
 //   tools/horde/bench.sh node docs/battle-theatre/app/tests/weather3d-gpu.mjs <outDir> <webgpu|webgl2> [case,case,...] [--w=640] [--h=360] [--soldiers=12000] [--no-repeat] [--tier=laptop] [--real-canvas] [--fx=off] [--no-screenshot]
 // --fx=off: the prototype alone (its own sky and particles, no weather or effects layer): the baseline that shows how far the two renderers are from each other without this layer.
 // --real-canvas: no stand-in for the canvas texture (on a machine with a real GPU).
+// --real-gpu: the run is a real-GPU run: Chrome is started without the software-rasteriser flags (both APIs use the GPU Chrome picks), the real canvas is used, and checkRun fails the run when the recorded adapter is a software one.
+//   --headed opens a visible window (where headless Chrome has no GPU access).
 // --extra: the close views of EXTRA_CASES (shell burst, ground strike, fresh volley, dust at falls, the barn fire close and at night) instead of the 16 default cases; named cases are looked up in both lists.
 // Output: <outDir>/<api>/<case>.png, <case>.rgba (raw), <case>.json, summary.json, console.log.
 import fs from 'node:fs'; import path from 'node:path';
@@ -15,10 +17,10 @@ import { minOf as MO } from '../src/clock.mjs';
 const args = process.argv.slice(2), flag = (k, d) => { const a = args.find(x => x.startsWith('--' + k + '=')); return a ? a.split('=')[1] : d; };
 const pos = args.filter(a => !a.startsWith('--')), outRoot = path.resolve(pos[0] || '.'), api = pos[1] === 'webgl2' ? 'webgl2' : 'webgpu', only = (pos[2] || '').split(',').filter(Boolean);
 const W = +flag('w', 640), H = +flag('h', 360), SOLD = +flag('soldiers', 12000), TIER = flag('tier', 'laptop'), REPEAT = !args.includes('--no-repeat'), SHOT = !args.includes('--no-screenshot'), FXOFF = args.includes('--fx=off'), READY_MS = +flag('ready-timeout', 240) * 1000;
-const out = path.join(outRoot, api); fs.mkdirSync(out, { recursive: true });
+const REALGPU = args.includes('--real-gpu'), out = path.join(outRoot, api); fs.mkdirSync(out, { recursive: true });
 const t00 = Date.now(), say = (...a) => console.log(((Date.now() - t00) / 1000).toFixed(0).padStart(5) + 's', ...a);
 
-import { encodePng, stats, CHROME_ARGS as ARGS, HOOKS } from './weather3d-gpu-lib.mjs';
+import { encodePng, stats, chromeArgs, HOOKS } from './weather3d-gpu-lib.mjs';
 
 const srv = await serve(0), port = srv.address().port, url = `http://127.0.0.1:${port}/app/tests/weather3d-gpu.html?api=${api}&w=${W}&h=${H}&soldiers=${SOLD}&tier=${TIER}${FXOFF ? '&fx=off' : ''}`;
 // What the software adapter survives on the real canvas (each in its own page load, no stand-in): used only to say, with evidence, why the pictures are read back from a texture of our own.
@@ -34,12 +36,12 @@ async function swapchainProbe(browser, port) {
   }
   return res;
 }
-const summary = { api, url, w: W, h: H, soldiers: SOLD, tier: TIER, started: new Date().toISOString(), cases: {}, pure: {}, errors: [], screenshot: null };
+const summary = { api, url, w: W, h: H, soldiers: SOLD, tier: TIER, realGpu: REALGPU, started: new Date().toISOString(), cases: {}, pure: {}, errors: [], screenshot: null };
 const save = () => fs.writeFileSync(path.join(out, 'summary.json'), JSON.stringify(summary, null, 1));
 const logs = []; let browser;
 try {
-  browser = await chromium.launch({ channel: 'chrome', headless: true, args: ARGS });
-  const ctx = await browser.newContext({ viewport: { width: W, height: H }, deviceScaleFactor: 1 }); await ctx.addInitScript(HOOKS, { realCanvas: args.includes('--real-canvas'), trace: true }); ctx.setDefaultTimeout(0);
+  browser = await chromium.launch({ channel: 'chrome', headless: !args.includes('--headed'), args: chromeArgs(REALGPU) });
+  const ctx = await browser.newContext({ viewport: { width: W, height: H }, deviceScaleFactor: 1 }); await ctx.addInitScript(HOOKS, { realCanvas: args.includes('--real-canvas') || REALGPU, trace: true }); ctx.setDefaultTimeout(0);
   const page = await ctx.newPage(); page.on('console', m => logs.push(m.type() + ': ' + m.text())); page.on('pageerror', e => logs.push('pageerror: ' + e.message)); page.on('crash', () => logs.push('PAGE CRASH')); page.on('response', r => { if (r.status() >= 400) logs.push('http ' + r.status() + ' ' + r.url()); }); browser.on('disconnected', () => logs.push('BROWSER DISCONNECTED'));
   say('open', url); await page.goto(url, { waitUntil: 'load' });
   // the set-up takes seconds; when it does not finish the run says where it stands (stage, console, pending GPU promises) and ends instead of holding the machine

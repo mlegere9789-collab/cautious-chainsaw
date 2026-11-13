@@ -3,6 +3,7 @@
 Generated data: `kit_specs.json`, `weapons.json`, `artillery_batteries.json`, `cavalry_units.json` (this folder).
 Source modules: `tools/bt/kit_*.py` (data), `tools/bt/build_kit_data.py` (builder), `tools/bt/check_kit.py` (validator).
 Rebuild: `python tools/bt/build_kit_data.py`. Check: `python tools/bt/check_kit.py [--node] [--quiet]` (exit 1 on any ERROR, self-test or population failure). Run python with `PYTHONIOENCODING=utf-8`.
+Evidence pass (commanders, strengths, arms, guns and dress checked against the Official Records and the state volumes): the plan, the evidence file contract, the research groups and the override mechanism are in `evidence/PLAN.md` (a group engineer reads its sections 5 to 7 first); section 9 below summarises it.
 
 Status: these files are research data and a validator, not a rendered product. Every value is copied from the PDF text (`BIBLE/plan-clean.txt` pages 66-90) or from the printed manuals read afterwards (`docs/battle-theatre/drill/`). `claim_support_verified` is false on every source key: no agent re-read the cited web pages for this task.
 

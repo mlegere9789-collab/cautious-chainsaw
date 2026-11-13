@@ -68,6 +68,7 @@ def main():
             'text_defect': mm.get('text_defect'),
             'default_variant': mm.get('default_variant'),
             'raw_text_path': m.get('raw_text_path'), 'raw_text_sha256': m.get('raw_text_sha256'),
+            'ocr_text_path': m.get('ocr_text_path'), 'ocr_text_sha256': m.get('ocr_text_sha256'), 'ocr_engine': m.get('ocr_engine'),
             'state_dates_note': mm.get('state_dates_note'),
             'covers': mm.get('covers'),
             'used_for_extracts': mm.get('used_for_extracts'),
@@ -143,6 +144,8 @@ def main():
                 f.write('- Text defect: %s\n' % s['text_defect'])
             if s.get('default_variant'):
                 f.write('- Quotes are cut from the %s text variant (tmp/library/web/nps/<ID>/<ID>.%s.txt)\n' % (s['default_variant'], s['default_variant']))
+            if s.get('ocr_text_path'):
+                f.write('- OCR text (made by `scripts/ocr.py`, never replaces the text layer): `%s`, sha256 `%s`; engine: %s\n' % (s['ocr_text_path'], s['ocr_text_sha256'], s['ocr_engine']))
             if s['used_for_extracts'] is not None:
                 f.write('- Used for extracts: %s\n' % s['used_for_extracts'])
             f.write('\n')
@@ -170,6 +173,8 @@ def main():
                 'rights_basis': s['rights_basis'], 'rights_note': s['rights_note'],
                 'text_quality': s['text_quality'] or 'text layer of the PDF as served (pdftotext 24.02.0); not proofread',
             }
+            if s.get('ocr_text_sha256'):
+                ent['ocr_text_path'], ent['ocr_text_sha256'], ent['ocr_engine'] = s['ocr_text_path'], s['ocr_text_sha256'], s['ocr_engine']
             if s['id'] in byid:
                 items[byid[s['id']]] = ent
             else:

@@ -35,6 +35,8 @@ def source(sid):
                         'sha256_text': sha(p), 'retrieved': time.strftime('%Y-%m-%d', time.gmtime(os.path.getmtime(p))), 'rights': 'LOC: no known restrictions on publication', 'pages': {'record': text}}
     elif sid.startswith('NPSWEB-'):
         if sid == 'NPSWEB-TN-RW1': fn = 'places_gettysburg-then-now-first-rose-woods.htm'; url = WEBURL[sid]
+        elif sid.startswith('NPSWEB-PL-'):   # the individual NPS 'Place' pages of the Then-And-Now comparisons (fetched 2026-11-13 by webget.py)
+            slug = sid[len('NPSWEB-PL-'):]; fn = 'places_gettysburg-then-now-%s.htm' % slug; url = 'https://www.nps.gov/places/gettysburg-then-now-%s.htm' % slug
         else:
             nm = WEBPAGES[sid]; fn = 'gett_learn_photosmultimedia_' + nm; url = 'https://www.nps.gov/gett/learn/photosmultimedia/' + nm
         p = os.path.join(WEB, fn + '.txt'); m = man_entry(url); t = open(p, encoding='utf-8').read()

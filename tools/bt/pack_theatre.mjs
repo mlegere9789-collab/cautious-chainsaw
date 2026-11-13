@@ -65,7 +65,7 @@ export const PROJECT = [
 export const KNOWN_COMPUTED = [];
 // not shipped by a whole-folder rule (a direct reference by name or by ending still ships such a file)
 const SKIP_IN_FOLDERS = /(^|\/)\.[^/]+$|\.(md|map|orig|bak|tmp|log)$|~$|\.(test|spec)\.[mc]?js$/i;
-const CODE_EXT = /\.(mjs|js)$/i, FILE_EXT = 'json|jsonl|bin|png|jpe?g|webp|gif|svg|glb|gltf|ktx2|wav|ogg|mp3|m4a|flac|wasm|csv|txt|geojson|css|html?|mjs|js|woff2?|ttf|otf|md';
+const CODE_EXT = /\.(mjs|js)$/i, FILE_EXT = 'json|jsonl|gz|bin|png|jpe?g|webp|gif|svg|glb|gltf|ktx2|wav|ogg|mp3|m4a|flac|wasm|csv|txt|geojson|css|html?|mjs|js|woff2?|ttf|otf|md';
 
 export const IMPORT_RE = /(?<![\w$.'"`])(?:import|export)\s*(?:[^'";]*?\sfrom\s*)?['"]([^'"\n]+)['"]|(?<![\w$.])import\(\s*['"]([^'"\n]+)['"]\s*[),]/g;   // [1] static, [2] import('literal')
 const IMPORT_CALL_RE = /(?<![\w$.])import\(\s*([^)]{0,200})/g;                                                                              // every import( call, classified below
@@ -313,6 +313,59 @@ const TOML = `# Static site, no build step: drop the folder or the zip.
   status = 200
 `;
 
+// ---- publication filter: the shipped copy of a data file does not carry a member that names the program that made it
+// A JSON member is removed from the SHIPPED copy only when the copy audit above would report it: `"generated": ...` (any value, the keys generated_at/_by/_on/_from too) and the keys of a maker
+// group (built_by, made_with, generator, builder, build_script ...) whose value is a script path. The working files keep their members; nothing else in a file changes (text-level edit, then proved:
+// the edited file parses and equals the parsed original with exactly those members taken out; any difference stops the pack). Every removal is listed in trace-report.json and counted in MANIFEST.json.
+// A shipped module that reads such a key (`x.generated`, `x['builder']`) stops the pack: the filter must never take away what the page uses.
+export const SCRUB_MAKER_MEMBERS = true;      // false: the maker members ship as they are and the copy audit reports them (delegated decision DD-STG-01)
+const MAKER_KEY = /^(?:generated(?:_?(?:at|by|on|from))?|(?:built|made|produced|written|created|exported|compiled)[_ -]?(?:by|with)|generator|builder|build[_-]?(?:script|tool))$/i;
+export const isMakerMember = (key, valueText) => MAKER_KEY.test(key) && (/^generated/i.test(key) ? !/^[{[]/.test(valueText) : /^"[^"\n]*(?:\/|\.(?:mjs|cjs|js|py|sh)\b)/.test(valueText));
+const JSON_WS = /\s/;
+/** The scalar members of a JSON text that `want(key, valueText)` accepts: [{ start, end, key, value }] (start: the quote that opens the key, end: just after the value). One pass; strings are skipped whole. */
+export function jsonMembers(text, want) {
+  const out = [], stack = [], n = text.length; let i = 0;
+  const ws = () => { while (i < n && JSON_WS.test(text[i])) i++; };
+  const str = () => { let j = i + 1; while (j < n && text[j] !== '"') { if (text[j] === '\\') j++; j++; } const t = text.slice(i, j + 1); i = j + 1; return t; };
+  while (i < n) {
+    const c = text[i];
+    if (c === '{') { stack.push({ o: true, key: true }); i++; } else if (c === '[') { stack.push({ o: false }); i++; } else if (c === '}' || c === ']') { stack.pop(); i++; }
+    else if (c === ',') { const t = stack[stack.length - 1]; if (t && t.o) t.key = true; i++; }
+    else if (c === '"') {
+      const t = stack[stack.length - 1];
+      if (t && t.o && t.key) {
+        const start = i, keyText = str(); ws(); if (text[i] !== ':') continue; i++; ws(); t.key = false;
+        let value; if (text[i] === '"') value = str(); else if (/[-\dtfn]/.test(text[i] || '')) { let j = i; while (j < n && !/[\s,}\]]/.test(text[j])) j++; value = text.slice(i, j); i = j; } else continue;   // an object or array value: its members are met by the loop
+        let key; try { key = JSON.parse(keyText); } catch { continue; }
+        if (want(key, value)) out.push({ start, end: i, key, value });
+      } else str();
+    } else i++;
+  }
+  return out;
+}
+function dropMember(text, m) {      // the text without the member and without a comma it would leave dangling
+  let k = m.end; while (k < text.length && JSON_WS.test(text[k])) k++;
+  if (text[k] === ',') { k++; while (k < text.length && JSON_WS.test(text[k])) k++; return text.slice(0, m.start) + text.slice(k); }
+  let j = m.start - 1; while (j >= 0 && JSON_WS.test(text[j])) j--;
+  return text[j] === ',' ? text.slice(0, j) + text.slice(m.end) : text.slice(0, m.start) + text.slice(m.end);
+}
+const stripped = v => Array.isArray(v) ? v.map(stripped) : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).filter(([k, x]) => !(x === null || typeof x !== 'object') || !isMakerMember(k, JSON.stringify(x))).map(([k, x]) => [k, stripped(x)])) : v;
+/** Removes the maker members of one JSON (or JSON-lines) text. Returns { text, removed: [{ key, value }] }; throws when the result is not exactly the original minus those members. */
+export function scrubMakerMembers(text, name = 'a file') {
+  if (!/"(?:generated|built|made|produced|written|created|exported|compiled|generator|builder|build)/i.test(text)) return { text, removed: [] };
+  const lines = /\.jsonl$/i.test(name) ? text.split('\n') : [text], removed = [];
+  const out = lines.map(line => {
+    let cur = line, guard = 0; if (!cur.trim()) return cur;
+    for (;; guard++) {
+      const m = jsonMembers(cur, isMakerMember)[0]; if (!m) break; if (guard > 500) throw new Error(`${name}: more than 500 maker members: the filter refuses`);
+      removed.push({ key: m.key, value: m.value.slice(0, 120) }); cur = dropMember(cur, m);
+    }
+    if (guard) { let a, b; try { a = JSON.parse(line); b = JSON.parse(cur); } catch (e) { throw new Error(`${name}: the file does not parse after the maker members were removed (${e.message})`); } if (JSON.stringify(stripped(a)) !== JSON.stringify(b)) throw new Error(`${name}: the edit changed more than the maker members`); }
+    return cur;
+  });
+  return { text: out.join('\n'), removed };
+}
+
 // ---- deterministic zip (stored order = sorted, fixed timestamp 1980-01-01, deflate level 9)
 export function makeZip(entries) {   // entries: [{name, data}] sorted by caller
   const parts = [], central = []; let off = 0;
@@ -407,16 +460,20 @@ export function auditReview(dist) {
 export function pack({ root = BT, out = path.join(REPO, 'deliver/bt-staging/dist'), zipDir = path.join(REPO, 'deliver'), zip = true, cfg } = {}) {
   root = path.resolve(root); const t = trace({ root, cfg }), { files, problems } = t; if (problems.length) throw new Error('trace problems:\n' + problems.join('\n'));
   const proj = new Map(t.projected.map(p => [p.path, p]));
+  // the publication filter (above): the maker members of the data files. A key the shipped code reads would stop the pack.
+  const scrub = new Map(); for (const r of files) if (SCRUB_MAKER_MEMBERS && /\.jsonl?$/i.test(r) && !proj.has(r)) { const x = scrubMakerMembers(fs.readFileSync(path.join(root, r), 'utf8'), r); if (x.removed.length) scrub.set(r, { buf: Buffer.from(x.text), removed: x.removed }); }
+  { const keys = new Set([...scrub.values()].flatMap(x => x.removed.map(y => y.key))), code = files.filter(f => /\.(mjs|js|html?)$/i.test(f)).map(f => [f, fs.readFileSync(path.join(root, f), 'utf8').replace(/\/\*[\s\S]*?\*\/|(^|[^:'"`\\])\/\/[^\n]*/g, '$1')]);
+    for (const k of keys) { const re = new RegExp(String.raw`(?:\.|\[\s*['"\`])${k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\b`); for (const [f, src] of code) if (re.test(src)) throw new Error(`the maker key "${k}" is removed from shipped data files and ${f} reads a property of that name: review SCRUB before packing`); } }
   const build = v => {
     const m = new Map();
-    for (const r of files) { const b = fs.readFileSync(path.join(root, r)); m.set(r, r === 'app/index.html' ? Buffer.from(transformIndex(b.toString('utf8'), v)) : proj.has(r) ? projectJson(b, proj.get(r).keeps, r) : b); }
+    for (const r of files) { const b = fs.readFileSync(path.join(root, r)); m.set(r, r === 'app/index.html' ? Buffer.from(transformIndex(b.toString('utf8'), v)) : proj.has(r) ? projectJson(b, proj.get(r).keeps, r) : scrub.has(r) ? scrub.get(r).buf : b); }
     m.set('index.html', Buffer.from(rootIndex(v))); m.set('_headers', Buffer.from(HEADERS)); m.set('netlify.toml', Buffer.from(TOML)); return m;
   };
   // the version names the bytes of the build: every emitted file (with the stamp left blank), so two different builds never share a name
   const blank = build('00000000'), version = sha(Buffer.from([...blank.keys()].sort().map(r => r + ' ' + sha(blank.get(r))).join('\n'))).slice(0, 8), emitted = build(version);
   fs.rmSync(out, { recursive: true, force: true }); fs.mkdirSync(out, { recursive: true });
   const manifest = { name: 'Battle Theatre staging', version, source: 'docs/battle-theatre', files: [...emitted].map(([r, b]) => ({ path: r, bytes: b.length, sha256: sha(b) })).sort((a, b) => a.path < b.path ? -1 : 1),
-    notLoadedByShell: NOT_LOADED, leftOut: t.leftOut.map(l => ({ path: l.path, files: l.files, why: l.why })), withheld: t.withheld.map(w => ({ pattern: w.pattern, files: w.files, why: w.why })), reduced: t.projected.map(p => ({ path: p.path, keeps: p.keeps, why: p.why })) };
+    scrubbed: [...scrub].map(([r, x]) => ({ path: r, members: x.removed.length })), notLoadedByShell: NOT_LOADED, leftOut: t.leftOut.map(l => ({ path: l.path, files: l.files, why: l.why })), withheld: t.withheld.map(w => ({ pattern: w.pattern, files: w.files, why: w.why })), reduced: t.projected.map(p => ({ path: p.path, keeps: p.keeps, why: p.why })) };
   emitted.set('MANIFEST.json', Buffer.from(JSON.stringify(manifest, null, 1) + '\n'));
   const names = [...emitted.keys()].sort();
   for (const n of names) { const p = path.join(out, n); fs.mkdirSync(path.dirname(p), { recursive: true }); fs.writeFileSync(p, emitted.get(n)); }
@@ -424,6 +481,7 @@ export function pack({ root = BT, out = path.join(REPO, 'deliver/bt-staging/dist
   const res = { version, out, files: names.length, bytes: names.reduce((a, n) => a + emitted.get(n).length, 0), traced: files,
     counts: { modules: count(/^app\/src\/.*\.mjs$/), modulesLoaded: t.modules.loaded.length, appData: count(/^app\/data\//), sectionFiles: t.sections.reduce((a, s) => a + s.files, 0), renderer: count(/^render\//), other: files.length - count(/^app\/src\/.*\.mjs$/) - count(/^app\/data\//) - count(/^render\//) },
     trace: { notes: t.notes, withheld: t.withheld, projected: t.projected, sections: t.sections, pages: t.pages, modules: t.modules, computedImports: t.computedImports, unshippedLiterals: t.unshippedLiterals, external: t.external, why: t.why } };
+  res.scrubbed = [...scrub].map(([r, x]) => ({ path: r, removed: x.removed }));
   res.audit = audit(out); res.auditReview = auditReview(out);
   if (zip) {   // a build that fails the copy audit never gets the clean name: the name says so (the owner decides what to do with it; GOVERNANCE/FINAL-ACCEPTANCE.md accepts only a clean one)
     const zbuf = makeZip(names.map(name => ({ name, data: emitted.get(name) }))), zn = `gettysburg-BT-staging-${version}${res.audit.length ? '-AUDIT-HITS-' + res.audit.length : ''}.zip`; fs.mkdirSync(zipDir, { recursive: true });
@@ -435,7 +493,7 @@ export function pack({ root = BT, out = path.join(REPO, 'deliver/bt-staging/dist
   res.clean = res.audit.length === 0;
   // the trace report sits beside the dist, never inside it
   const git = (() => { try { return execFileSync('git', ['rev-parse', '--short', 'HEAD'], { cwd: REPO, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim(); } catch { return null; } })();   // for the reader of the report only: never part of the build, so the build stays a function of the files
-  fs.writeFileSync(path.join(path.dirname(out), 'trace-report.json'), JSON.stringify({ built: { at: new Date().toISOString(), gitHead: git, root }, version, zip: res.zip ? path.basename(res.zip) : null, zipBytes: res.zipBytes, zipSha256: res.zipSha256, files: res.files, bytes: res.bytes, counts: res.counts, ...res.trace, audit: res.audit, auditReview: res.auditReview }, null, 1) + '\n');
+  fs.writeFileSync(path.join(path.dirname(out), 'trace-report.json'), JSON.stringify({ built: { at: new Date().toISOString(), gitHead: git, root }, version, zip: res.zip ? path.basename(res.zip) : null, zipBytes: res.zipBytes, zipSha256: res.zipSha256, files: res.files, bytes: res.bytes, counts: res.counts, ...res.trace, scrubbed: res.scrubbed, audit: res.audit, auditReview: res.auditReview }, null, 1) + '\n');
   return res;
 }
 

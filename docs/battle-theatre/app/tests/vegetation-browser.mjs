@@ -53,7 +53,8 @@ try {
   const mod = ext.status.find(x => x.path === 'vegetation/index.mjs'); results.ext = ext;
   check('the module is running, with its panel and two switches', mod && mod.state === 'running' && mod.panels.includes('vegetation') && mod.toggles.includes('vegetation') && mod.toggles.includes('vegetation-tiers'), mod);
   check('no module of the list is shown as failed', ext.status.every(x => x.state !== 'failed'), ext.status);
-  const ready = await page.evaluate(async () => { const v = window.btApp.theatre.vegetation; return v ? await v.whenReady() : null; }); results.status = ready;
+  // the plan of the troops' walk is computed in the idle time between frames; on a software renderer a frame can take seconds, so the wait is bounded and the state at its end is what the check reads
+  const ready = await page.evaluate(async () => { const v = window.btApp.theatre.vegetation; if (!v) return null; const t0 = performance.now(); await Promise.race([v.whenReady(), new Promise(r => setTimeout(r, 300000))]); const st = v.status(); st.waitedMs = Math.round(performance.now() - t0); return st; }); results.status = ready;
   check('the trample plan is whole and the page draws on WebGL2', ready && ready.api === 'webgl2' && ready.plan && ready.plan.done && ready.decalTriangles > 50000 && ready.trees > 60000, ready);
   results.notes.push(`plan: ${ready.plan.steps} steps, ${ready.plan.marked} cells first visited; GPU bytes ${ready.gpuBytes}; build ${JSON.stringify(ready.build)}`);
 

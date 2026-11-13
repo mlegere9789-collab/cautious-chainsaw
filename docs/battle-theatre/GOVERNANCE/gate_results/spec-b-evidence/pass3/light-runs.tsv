@@ -23,3 +23,15 @@
 2026-11-13T23:34:07Z	weather3d_gpu_test	exit 0	63.2 s	node --test docs/battle-theatre/app/tests/weather3d-gpu.test.mjs
 # light runs done 2026-11-13T23:35:10Z
 2026-11-13T23:35:27Z	veg_check	exit 0	3.2 s	node pass3/veg_check.mjs (direct; 2.7 s CPU)
+2026-11-13T23:37:13Z	ext_site_places_loader_test	exit 0	0.8 s	node --test docs/battle-theatre/app/tests/ext-site-places-loader.test.mjs
+2026-11-13T23:37:14Z	ext_site_source_check	exit 0	1.5 s	node docs/battle-theatre/app/tests/ext-site-source.mjs --check
+2026-11-13T23:37:16Z	ext_site_years_check	exit 0	0.6 s	node docs/battle-theatre/app/tests/ext-site-years.mjs --check
+2026-11-13T23:38:05Z	terrain_check	exit 0	0.3 s	python3 -I tools/bt/terrain_check.py
+2026-11-13T23:38:05Z	verify_positions_A	exit 0	4.0 s	python3 -I tools/bt/verify_positions.py A 12 3
+2026-11-13T23:38:15Z	verify_positions_B	exit 0	3.8 s	python3 -I tools/bt/verify_positions.py B 12 3
+2026-11-13T23:38:19Z	verify_positions_C	exit 0	5.4 s	python3 -I tools/bt/verify_positions.py C 12 3
+2026-11-13T23:38:24Z	verify_positions_D	exit 0	6.8 s	python3 -I tools/bt/verify_positions.py D 12 3
+2026-11-13T23:38:31Z	verify_positions_E	exit 0	3.8 s	python3 -I tools/bt/verify_positions.py E 12 3
+2026-11-13T23:38:47Z	vegetation_test	exit 0	20.8 s	node --test docs/battle-theatre/app/tests/vegetation.test.mjs (direct)
+2026-11-13T23:39:14Z	realize_test	exit 0	44.2 s	node --test tests/governance/realize.test.mjs (direct)
+2026-11-13T23:39:58Z	realize_rules_test	exit 0	8.2 s	node --test tests/governance/realize-rules.test.mjs (direct)

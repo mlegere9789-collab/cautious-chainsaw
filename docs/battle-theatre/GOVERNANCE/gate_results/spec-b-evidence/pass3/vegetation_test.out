@@ -1,0 +1,160 @@
+TAP version 13
+# Subtest: the data is whole: schema, units with outlines and tiers, claims with quotes and places, every reference resolves
+ok 1 - the data is whole: schema, units with outlines and tiers, claims with quotes and places, every reference resolves
+  ---
+  duration_ms: 21.669787
+  type: 'test'
+  ...
+# Subtest: time: the minutes of the theatre clock, both ways
+ok 2 - time: the minutes of the theatre clock, both ways
+  ---
+  duration_ms: 363.452336
+  type: 'test'
+  ...
+# Subtest: the Wheatfield: documented standing wheat on 2 July, trampled by its documented window, never before it
+ok 3 - the Wheatfield: documented standing wheat on 2 July, trampled by its documented window, never before it
+  ---
+  duration_ms: 2.097227
+  type: 'test'
+  ...
+# Subtest: the calendar: wheat is cut inside its documented bounds and the order of asking does not matter
+ok 4 - the calendar: wheat is cut inside its documented bounds and the order of asking does not matter
+  ---
+  duration_ms: 7.519656
+  type: 'test'
+  ...
+# Subtest: corn and oats: stand through the window, never cut in it; hay is mown late; rye may be cut before the window
+ok 5 - corn and oats: stand through the window, never cut in it; hay is mown late; rye may be cut before the window
+  ---
+  duration_ms: 1.473745
+  type: 'test'
+  ...
+# Subtest: woods and orchards: full leaf in the window, leaf-off on 19 November, the damage events strip trees only inside their windows
+ok 6 - woods and orchards: full leaf in the window, leaf-off on 19 November, the damage events strip trees only inside their windows
+  ---
+  duration_ms: 2.044905
+  type: 'test'
+  ...
+# Subtest: scenarios: the three of Little Round Top, the harvest and the rain move what they say and nothing else
+ok 7 - scenarios: the three of Little Round Top, the harvest and the rain move what they say and nothing else
+  ---
+  duration_ms: 0.551692
+  type: 'test'
+  ...
+# Subtest: tiers: a state carries the weakest tier of its parts; documented only where a claim that names the polygon says so
+ok 8 - tiers: a state carries the weakest tier of its parts; documented only where a claim that names the polygon says so
+  ---
+  duration_ms: 6.164179
+  type: 'test'
+  ...
+# Subtest: Q21: the check passes over every unit, every sampled date and every scenario set, and it can fail
+ok 9 - Q21: the check passes over every unit, every sampled date and every scenario set, and it can fail
+  ---
+  duration_ms: 6336.639842
+  type: 'test'
+  ...
+# Subtest: trees: seeded, inside their polygon, at the unit's density; orchards in rows at their spacing
+ok 10 - trees: seeded, inside their polygon, at the unit's density; orchards in rows at their spacing
+  ---
+  duration_ms: 369.153655
+  type: 'test'
+  ...
+# Subtest: hashes and seeds: stable numbers
+ok 11 - hashes and seeds: stable numbers
+  ---
+  duration_ms: 22.595421
+  type: 'test'
+  ...
+# Subtest: the data lies inside the ground the theatre loads: every outline, every witness tree and every event disc
+ok 12 - the data lies inside the ground the theatre loads: every outline, every witness tree and every event disc
+  ---
+  duration_ms: 139.288721
+  type: 'test'
+  ...
+# Subtest: the shipped data says nothing of how it was made, and names no later tree as a tree of 1863
+ok 13 - the shipped data says nothing of how it was made, and names no later tree as a tree of 1863
+  ---
+  duration_ms: 67.323633
+  type: 'test'
+  ...
+# Subtest: the module is listed, and the gate hook is stated
+ok 14 - the module is listed, and the gate hook is stated
+  ---
+  duration_ms: 2.856932
+  type: 'test'
+  ...
+# Subtest: splitTriangle: every piece is short, the pieces cover the triangle
+ok 15 - splitTriangle: every piece is short, the pieces cover the triangle
+  ---
+  duration_ms: 0.954579
+  type: 'test'
+  ...
+# Subtest: the ground-cover mesh covers every unit, in short triangles, and stays on its unit
+ok 16 - the ground-cover mesh covers every unit, in short triangles, and stays on its unit
+  ---
+  duration_ms: 933.012965
+  type: 'test'
+  ...
+# Subtest: trees: chunked, sorted, counted, all inside the ground
+ok 17 - trees: chunked, sorted, counted, all inside the ground
+  ---
+  duration_ms: 3237.451141
+  type: 'test'
+  ...
+# Subtest: the trample plan: a formation marks the ground it covered at the minute it first stood there, nothing else, and nothing twice
+ok 18 - the trample plan: a formation marks the ground it covered at the minute it first stood there, nothing else, and nothing twice
+  ---
+  duration_ms: 14.910335
+  type: 'test'
+  ...
+# Subtest: the stage as a provider: reads the cache and the presence windows as the stage does, and gives nothing for a unit that is not there
+ok 19 - the stage as a provider: reads the cache and the presence windows as the stage does, and gives nothing for a unit that is not there
+  ---
+  duration_ms: 0.415184
+  type: 'test'
+  ...
+# Subtest: the module reads the real stage the way the provider expects
+ok 20 - the module reads the real stage the way the provider expects
+  ---
+  duration_ms: 0.258093
+  type: 'test'
+  ...
+# Subtest: the module starts on a stand-in theatre: switches, panel, a card for the ground, the choices, and Back
+ok 21 - the module starts on a stand-in theatre: switches, panel, a card for the ground, the choices, and Back
+  ---
+  duration_ms: 71.086078
+  type: 'test'
+  ...
+# Subtest: the card of the ground can be written for every unit, at three dates, with nothing undefined or not a number in it
+ok 22 - the card of the ground can be written for every unit, at three dates, with nothing undefined or not a number in it
+  ---
+  duration_ms: 3794.392373
+  type: 'test'
+  ...
+# Subtest: ?veg=off keeps the module out of a visit; a missing data file is an error the loader can show
+ok 23 - ?veg=off keeps the module out of a visit; a missing data file is an error the loader can show
+  ---
+  duration_ms: 1.094483
+  type: 'test'
+  ...
+# Subtest: the module on a stand-in theatre with a recording GL: programs, hooks, the plan of the troops, the draw calls, and clean-up
+ok 24 - the module on a stand-in theatre with a recording GL: programs, hooks, the plan of the troops, the draw calls, and clean-up
+  ---
+  duration_ms: 2647.016126
+  type: 'test'
+  ...
+# Subtest: a program that fails to link is taken out of the renderer's list, so the layers that start after it still start
+ok 25 - a program that fails to link is taken out of the renderer's list, so the layers that start after it still start
+  ---
+  duration_ms: 2208.367587
+  type: 'test'
+  ...
+1..25
+# tests 25
+# suites 0
+# pass 25
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 20630.629343

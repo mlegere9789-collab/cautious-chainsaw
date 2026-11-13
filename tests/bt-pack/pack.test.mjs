@@ -3,7 +3,8 @@
 // rules are proved before the real tree uses them: added modules loaded by computed path, a static section beside the shell, an import map, style-sheet addresses, withheld
 // and reduced working files.
 import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'; import crypto from 'node:crypto'; import { execFileSync } from 'node:child_process';
-import { pack, trace, audit, auditReview, makeZip, URL_KEYS, BT, stampHTML, AUDIT_RE, AUDIT_CS_RE, WITHHELD, PROJECT, EXCLUDE } from '../../tools/bt/pack_theatre.mjs';
+import zlib from 'node:zlib';
+import { pack, trace, audit, auditReview, makeZip, URL_KEYS, BT, stampHTML, AUDIT_RE, AUDIT_CS_RE, AUDIT_ALLOW, WITHHELD, PROJECT, EXCLUDE, scrubMakerMembers, jsonMembers, isMakerMember } from '../../tools/bt/pack_theatre.mjs';
 import { makeFixture, FIXTURE_CFG } from './fixture.mjs';
 
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'btpack-')); let A, B;
@@ -301,4 +302,114 @@ test('fixture: a new pack removes the zips of earlier builds that failed the aud
 test('fixture: the index page transform refuses a page it does not recognise', () => {
   const root = fx('badindex', r => patch(r, 'app/index.html', 'id="home-link" href="../../../"', 'id="other" href="../../../"'));
   assert.throws(() => pack({ root, cfg: FIXTURE_CFG, out: path.join(tmp, 'bi/dist'), zip: false }), /no longer contains the home link/);
+});
+
+// =============================================================== part 3: the copy audit opens gzip files; the publication filter for the maker members of data files
+const gz = text => zlib.gzipSync(Buffer.from(text));
+const auditOf = files => { const d = fs.mkdtempSync(path.join(os.tmpdir(), 'btaud-')); try { for (const [rel, body] of Object.entries(files)) { const p = path.join(d, rel); fs.mkdirSync(path.dirname(p), { recursive: true }); fs.writeFileSync(p, body); } return audit(d); } finally { fs.rmSync(d, { recursive: true, force: true }); } };
+test('copy audit: a gzip file is opened and its text audited like any other file', () => {
+  const h = auditOf({ 'notes/a.txt.gz': gz('plain history\nbuilt by Claude\nmore plain text\n') }); assert.equal(h.length, 1); assert.equal(h[0].line, 2); assert.equal(h[0].gzip, true); assert.match(h[0].match, /claude/i);
+  assert.equal(auditOf({ 'notes/a.txt.gz': gz('the 20th Maine held the left of the line\n') }).length, 0);
+  const u = auditOf({ 'notes/broken.json.gz': Buffer.from('this is not gzip data') }); assert.equal(u.length, 1); assert.equal(u[0].where, 'unreadable', 'a file the audit cannot read is a hit, never a pass');
+  const bin = Buffer.concat([Buffer.from([0x89, 0x50, 0x4e, 0x47, 0, 0, 0, 0]), Buffer.from('tEXtSoftware\0made with ChatGPT image tool')]); const b = auditOf({ 'img/x.png.gz': zlib.gzipSync(bin) }); assert.equal(b.length, 1); assert.equal(b[0].where, 'binary'); assert.equal(b[0].gzip, true);
+  assert.equal(auditOf({ 'img/clean.png.gz': zlib.gzipSync(Buffer.concat([Buffer.from([0x89, 0x50, 0x4e, 0x47, 0, 0]), Buffer.from('plain pixels')])) }).length, 0);
+});
+test('copy audit: a printed given name in the name field of a roster row is data; the same word anywhere else is still a hit', () => {
+  const R = 'rosters/data2/union/nh/5th-new-hampshire-infantry.jsonl.gz', header = '{"f":"roster2/2","u":"u-nh-5th","army":"union","st":"nh","name":"5th New Hampshire Infantry","n":3}';
+  const ok = ['[218,"Mansfield, Claude.","","Co. I ; b. New York ; age 27 ; disch. disa",12]', '[33,"Claude H. Clarke,","","St. Albans, Aug. 15, \'62",1185]', '[17,"Somers, Claude","","Brighton, Sept. 15/62",261]', '[5,"van Claude, Jr.","","Co. A",9]'];
+  assert.deepEqual(auditOf({ [R]: gz([header, ...ok, ''].join('\n')) }), [], 'the three printed names of the real files and a particle name');
+  const bad = { 'in the remarks': '[218,"Mansfield, John","","Co. I ; brother of Claude ; disch.",12]', 'with a note in the name field': '[218,"Smith, built by Claude","","Co. I",12]', 'a lower-case word in the name field': '[218,"Smith, wrote Claude","","Co. I",12]', 'in the rank field': '[218,"Smith, John","Claude","Co. I",12]', 'a second hit in the remarks of the same row': '[218,"Mansfield, Claude","","written by Claude",12]' };
+  for (const [what, row] of Object.entries(bad)) { const h = auditOf({ [R]: gz([header, row, ''].join('\n')) }); assert.equal(h.length, 1, what + ': ' + JSON.stringify(h)); assert.equal(h[0].line, 2); }
+  assert.equal(auditOf({ [R]: gz('{"f":"roster2/2","name":"Claude unit","n":3}\n' + ok[0] + '\n') }).length, 1, 'the header line of a file is not a name field');
+  assert.equal(auditOf({ 'rosters/data2/units.json': '[218,"Mansfield, Claude.","","Co. I",12]' }).length, 1, 'a plain (not gzip) index file is not a roster file');
+  assert.equal(auditOf({ 'app/data/other.jsonl.gz': gz('[218,"Mansfield, Claude.","","Co. I",12]\n') }).length, 1, 'only rosters/data2 has the allowance');
+  assert.equal(auditOf({ [R.replace('.jsonl.gz', '.notes.gz')]: gz('[218,"Mansfield, Claude.","","Co. I",12]\n') }).length, 1, 'only the unit files and their flag files');
+  // the flag files: the normalised names of the unit, one list; a name with an escaped quote in the list (an OCR mark) does not break the reading
+  const F = 'rosters/data2/union/nh/5th-new-hampshire-infantry.flags.json.gz', flags = names => JSON.stringify({ f: 'roster2-flags/1', u: 'u-nh-5th', n: 3, normalised_names: names, head_kinds: {} });
+  assert.deepEqual(auditOf({ [F]: gz(flags(['Albion P. Abbott', 'Bd"ward Avery', '', 'Claude Mansfield', 'Nathan Mansur'])) }), []);
+  assert.equal(auditOf({ [F]: gz(flags(['Albion P. Abbott', 'built by Claude'])) }).length, 1, 'a statement in the list is a hit');
+  assert.equal(auditOf({ [F]: gz(JSON.stringify({ f: 'roster2-flags/1', about: 'this file was written by Claude', normalised_names: ['A B'] })) }).length, 1, 'the other fields of a flag file are in scope');
+  assert.ok(AUDIT_ALLOW.every(a => a.file instanceof RegExp && a.why && a.match && a.before), 'every allowance names its file, the word, the text in front of it and why');
+  assert.ok(AUDIT_ALLOW.every(a => /rosters/.test(a.file.source)), 'no allowance outside the roster data');
+});
+test('real roster data: the printed names pass, nothing else in the 118 files is a hit (a second look at the files the roster section will ship)', () => {
+  const dir = path.join(BT, 'rosters/data2'); if (!fs.existsSync(dir)) return;
+  const d = fs.mkdtempSync(path.join(os.tmpdir(), 'btros-')); try { fs.mkdirSync(path.join(d, 'rosters'), { recursive: true }); fs.cpSync(dir, path.join(d, 'rosters/data2'), { recursive: true });
+    const hits = audit(d).filter(h => !/^rosters\/data2\/(units\.json|sources\/[\w.-]+\.json)$/.test(h.file) || !/"generated"/.test(h.text || ''));      // the "generated" date keys of the index files are the publication filter's (next tests)
+    assert.deepEqual(hits, [], 'hits in the roster data:\n' + hits.map(h => `${h.file}:${h.line} ${h.match}`).join('\n')); } finally { fs.rmSync(d, { recursive: true, force: true }); }
+});
+
+test('publication filter: jsonMembers finds scalar members and skips what is inside strings', () => {
+  const t = '{"a":1,"built_by":"tools/x.mjs","n":{"generator":"scripts/y.py","k":["x",{"builder":"tools/bt/z.py"}]},"note":"he wrote \\"built_by\\": \\"a/b\\" here","generated":"2026-11-04"}';
+  assert.deepEqual(jsonMembers(t, isMakerMember).map(m => [m.key, m.value]), [['built_by', '"tools/x.mjs"'], ['generator', '"scripts/y.py"'], ['builder', '"tools/bt/z.py"'], ['generated', '"2026-11-04"']]);
+  assert.deepEqual(jsonMembers('{"a":{"b":1},"c":[1,2],"d":true,"e":null,"f":-1.5e3}', () => true).map(m => m.key), ['b', 'd', 'e', 'f'], 'scalar members only, in the order of the text');
+});
+test('publication filter: only what the copy audit reports is a maker member', () => {
+  for (const [k, v, want] of [['generated', '"2026-11-04"', true], ['generated_by', '"x"', true], ['generated_at', '1700000000', true], ['Generated', 'null', true], ['generated', '{"a":1}', false], ['generated', '[1]', false],
+    ['built_by', '"tools/build-x.mjs"', true], ['made_with', '"scripts/x.py"', true], ['generator', '"tools/bt/build_structures.py"', true], ['builder', '"build.mjs run.sh"', true], ['builder', '"x.mjs"', true], ['build_script', '"a/b.sh"', true],
+    ['built_by', '"the Park Service"', false], ['builder', '"Harper"', false], ['built_by', '"Bachelder 1876"', false], ['generator', '"battle-theatre figures3d (procedural)"', false], ['built_by', '42', false], ['source', '"tools/x.mjs"', false], ['generates', '"a/b"', false]])
+    assert.equal(isMakerMember(k, v), want, `${k}: ${v}`);
+  // the filter and the audit agree: every member the filter takes is one the audit reports, and every maker-key line the audit reports on a scalar member is taken
+  for (const [k, v] of [['generated', '"2026-11-04"'], ['built_by', '"tools/build-x.mjs"'], ['generator', '"tools/bt/x.py"'], ['builder', '"tools/bt/x.py"'], ['generated_by', '"docs/x.mjs (node y writes this file)"']]) { assert.ok(isMakerMember(k, v)); assert.equal(auditOf({ 'a.json': `{"${k}": ${v}}` }).length, 1, k); }
+});
+test('publication filter: a member is cut with the right comma in every position, in minified, indented and CRLF text, and the rest is byte for byte the same', () => {
+  const cases = [
+    ['{"built_by":"tools/x.mjs","a":1}', '{"a":1}'], ['{"a":1,"built_by":"tools/x.mjs"}', '{"a":1}'], ['{"a":1,"built_by":"tools/x.mjs","b":2}', '{"a":1,"b":2}'], ['{"built_by":"tools/x.mjs"}', '{}'],
+    ['{"generated":"2026-11-04","built_by":"tools/x.mjs","a":1}', '{"a":1}'], ['{"a":1,"generated":"2026-11-04","built_by":"tools/x.mjs"}', '{"a":1}'], ['{"a":1,"b":{"generator":"scripts/y.py"},"c":[{"builder":"tools/b.py","d":2}]}', '{"a":1,"b":{},"c":[{"d":2}]}'],
+    ['{\n "a": 1,\n "built_by": "tools/x.mjs",\n "b": 2\n}\n', '{\n "a": 1,\n "b": 2\n}\n'], ['{\n "a": 1,\n "built_by": "tools/x.mjs"\n}\n', '{\n "a": 1\n}\n'], ['{\n "built_by": "tools/x.mjs",\n "a": 1\n}\n', '{\n "a": 1\n}\n'],
+    ['{\r\n  "a": 1,\r\n  "generator": "tools/bt/build_structures.py",\r\n  "b": 2\r\n}\r\n', '{\r\n  "a": 1,\r\n  "b": 2\r\n}\r\n'], ['{"a":"built_by tools/x.mjs","note":"\\"built_by\\": \\"a/b\\""}', '{"a":"built_by tools/x.mjs","note":"\\"built_by\\": \\"a/b\\""}'],
+    ['[{"generated":"d","a":1},{"a":2,"generated":"d"}]', '[{"a":1},{"a":2}]'], ['{"x":{"built_by":"tools/x.mjs"},"y":{"built_by":"the Park Service"}}', '{"x":{},"y":{"built_by":"the Park Service"}}']];
+  for (const [a, b] of cases) { const r = scrubMakerMembers(a, 'a.json'); assert.equal(r.text, b, JSON.stringify(a)); assert.doesNotThrow(() => JSON.parse(r.text)); }
+  const l = scrubMakerMembers('{"a":1,"generated":"d"}\n\n{"built_by":"tools/x.mjs","b":2}\n', 'x.jsonl'); assert.equal(l.text, '{"a":1}\n\n{"b":2}\n'); assert.equal(l.removed.length, 2);
+  assert.deepEqual(scrubMakerMembers('{"a":1}', 'a.json'), { text: '{"a":1}', removed: [] }); assert.deepEqual(scrubMakerMembers('{"builder":"Harper","a":1}', 'a.json').removed, []);
+  assert.throws(() => scrubMakerMembers('{"a":1,"built_by":"tools/x.mjs",}', 'bad.json'), /does not parse/, 'a file that does not parse is never "fixed"');
+  assert.equal(scrubMakerMembers('{"generated":{"a":1}}', 'a.json').removed.length, 0, 'an object value is not taken: the audit still reports it');
+});
+test('publication filter, real tree: the shipped copy is the working file minus the maker members and nothing else', () => {
+  const strip = v => Array.isArray(v) ? v.map(strip) : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).filter(([k, x]) => !(x === null || typeof x !== 'object') || !isMakerMember(k, JSON.stringify(x))).map(([k, x]) => [k, strip(x)])) : v;
+  const skip = new Set(['app/index.html', ...PROJECT.map(p => p.path)]); let P, same = 0, bad;
+  // other workstreams edit the tree while this runs: a file that changed between the pack and the comparison is not a defect of the packer, so a mismatch is checked again on a fresh pack (three tries)
+  for (let k = 0; k < 3; k++) {
+    P = pack({ out: path.join(tmp, `pf${k}/dist`), zipDir: path.join(tmp, `pf${k}`), zip: false }); const taken = new Map(P.scrubbed.map(x => [x.path, x])); bad = []; same = 0;
+    for (const f of P.traced) { if (skip.has(f)) continue; const a = fs.readFileSync(path.join(BT, f)), b = fs.readFileSync(path.join(P.out, f));
+      if (taken.has(f)) { if (a.equals(b) || !taken.get(f).removed.length || JSON.stringify(JSON.parse(b.toString('utf8'))) !== JSON.stringify(strip(JSON.parse(a.toString('utf8'))))) bad.push('scrubbed file: ' + f); }
+      else if (!a.equals(b)) bad.push('a shipped file differs from its working file and the packer does not list it: ' + f); else same++; }
+    if (!bad.length) break;
+  }
+  assert.deepEqual(bad, []); assert.ok(same > 100, 'files compared: ' + same);
+  const m = JSON.parse(fs.readFileSync(path.join(P.out, 'MANIFEST.json'), 'utf8')); assert.deepEqual(m.scrubbed, P.scrubbed.map(x => ({ path: x.path, members: x.removed.length })), 'the manifest counts every file the filter touched');
+  assert.doesNotMatch(JSON.stringify(m.scrubbed), /tools\/|\.mjs|\.py/, 'the manifest names no script');
+  const rep = JSON.parse(fs.readFileSync(path.join(tmp, 'pf0/trace-report.json'), 'utf8')); assert.ok(Array.isArray(rep.scrubbed), 'the trace report (beside the dist) holds the keys and values that were taken');
+  assert.ok(P.scrubbed.length > 0 && P.scrubbed.every(x => x.removed.every(y => isMakerMember(y.key, y.value))));
+  assert.ok(!P.audit.some(h => /^"?(generated|built_by|made_by|generator|builder|generated_by)/i.test(h.match)), 'no maker key is left in the shipped copy');
+});
+test('fixture: maker members are cut from the shipped copy only, listed in the manifest, and the audit of the finished dist stays on', () => {
+  const root = fx('scrub', r => { put(r, 'app/data/monuments.json', '{\n "built_by": "app/tools/build-x.mjs",\n "rows": [1, 2, 3],\n "generated": "2026-11-04"\n}\n'); put(r, 'app/roster/data/units/u1.json', '{"id":"u1","note":"built by Claude"}\n'); });
+  const out = path.join(tmp, 'scrub/dist'), r = pack({ root, cfg: FIXTURE_CFG, out, zipDir: path.join(tmp, 'scrub') });
+  assert.equal(fs.readFileSync(path.join(out, 'app/data/monuments.json'), 'utf8'), '{\n "rows": [1, 2, 3]\n}\n'); assert.match(fs.readFileSync(path.join(root, 'app/data/monuments.json'), 'utf8'), /built_by/, 'the working file is not touched');
+  assert.deepEqual(r.scrubbed.map(x => [x.path, x.removed.map(y => y.key)]), [['app/data/monuments.json', ['built_by', 'generated']]]);
+  assert.deepEqual(JSON.parse(fs.readFileSync(path.join(out, 'MANIFEST.json'), 'utf8')).scrubbed, [{ path: 'app/data/monuments.json', members: 2 }]);
+  assert.equal(r.audit.length, 1, 'a statement in prose is not a maker member: the audit still reports it'); assert.equal(r.audit[0].file, 'app/roster/data/units/u1.json'); assert.equal(r.clean, false);
+  const again = pack({ root, cfg: FIXTURE_CFG, out: path.join(tmp, 'scrub2/dist'), zipDir: path.join(tmp, 'scrub2') }); assert.equal(again.zipSha256, r.zipSha256, 'deterministic');
+  const quiet = pack({ root: fx('scrub-none'), cfg: FIXTURE_CFG, out: path.join(tmp, 'scrub3/dist'), zip: false }); assert.deepEqual(quiet.scrubbed, []);
+  const reads = fx('scrub-reads', rr => { put(rr, 'app/data/monuments.json', '{"built_by":"app/tools/build-x.mjs","rows":[1]}\n'); put(rr, 'app/src/ext/a.mjs', "export async function init(ctx) { const j = await (await fetch(ctx.urls.data + 'monuments.json')).json(); return j.built_by; }\n"); });
+  assert.throws(() => pack({ root: reads, cfg: FIXTURE_CFG, out: path.join(tmp, 'scrub4/dist'), zip: false }), /maker key "built_by".*app\/src\/ext\/a\.mjs/, 'a module that reads a removed key stops the pack');
+  const comment = fx('scrub-comment', rr => { put(rr, 'app/data/monuments.json', '{"built_by":"app/tools/build-x.mjs","rows":[1]}\n'); put(rr, 'app/src/ext/a.mjs', "// the old files had a .built_by field\nexport async function init(ctx) { return (await fetch(ctx.urls.data + 'monuments.json')).json(); }\n"); });
+  assert.doesNotThrow(() => pack({ root: comment, cfg: FIXTURE_CFG, out: path.join(tmp, 'scrub5/dist'), zip: false }), 'a comment that names the key is not a reader');
+});
+test('fixture: a roster index that names gzip unit files and their flag files ships them; the generated date of the index is cut from the shipped copy; the audit reads inside the gzip files', () => {
+  const rows = ['{"f":"roster2/2","u":"u-pa-1st","name":"1st Fixture Infantry","n":2}', '[1,"Mansfield, Claude.","","Co. I ; age 27",12]', '[2,"Smith, John","","Co. A",12]', ''].join('\n');
+  const root = fx('roster-gz', r => {
+    put(r, 'app/roster/roster.js', "export const load = () => fetch('../../rosters/data2/units.json').then(r => r.json());\n");
+    put(r, 'rosters/data2/units.json', JSON.stringify({ format: 'roster2-units/1', generated: '2026-11-13', or_text: { part1: { file: 'tmp/library/or27/x_djvu.txt' } }, units: [{ key: 'u-pa-1st', path: 'union/pa/1st.jsonl.gz', flags: 'union/pa/1st.flags.json.gz', existing: [{ file: 'data/PA/1st.csv' }] }] }, null, 1) + '\n');
+    put(r, 'rosters/data2/union/pa/1st.jsonl.gz', gz(rows)); put(r, 'rosters/data2/union/pa/1st.flags.json.gz', gz(JSON.stringify({ f: 'roster2-flags/1', normalised_names: ['Claude Mansfield', 'John Smith'] })));
+    put(r, 'rosters/data2/union/pa/2nd.jsonl.gz', gz(rows)); put(r, 'rosters/data/PA/1st.csv', 'a,b\n');
+  }), t = trace({ root, cfg: FIXTURE_CFG }); assert.deepEqual(t.problems, []);
+  for (const f of ['rosters/data2/units.json', 'rosters/data2/union/pa/1st.jsonl.gz', 'rosters/data2/union/pa/1st.flags.json.gz']) assert.ok(t.files.includes(f), 'traced: ' + f);
+  assert.ok(!t.files.includes('rosters/data2/union/pa/2nd.jsonl.gz'), 'a unit file the index does not name is not shipped'); assert.ok(!t.files.some(f => /\.csv$|_djvu/.test(f)), 'a raw file named by a path that does not resolve beside the index is not shipped');
+  const out = path.join(tmp, 'roster-gz/dist'), r = pack({ root, cfg: FIXTURE_CFG, out, zipDir: path.join(tmp, 'roster-gz') });
+  assert.deepEqual(r.audit, [], JSON.stringify(r.audit)); assert.ok(!/"generated"/.test(fs.readFileSync(path.join(out, 'rosters/data2/units.json'), 'utf8')), 'the date key is cut from the shipped index'); assert.deepEqual(r.scrubbed.map(x => x.path), ['rosters/data2/units.json']);
+  assert.ok(fs.readFileSync(path.join(out, 'rosters/data2/union/pa/1st.jsonl.gz')).equals(gz(rows)) || zlib.gunzipSync(fs.readFileSync(path.join(out, 'rosters/data2/union/pa/1st.jsonl.gz'))).toString() === rows, 'the unit file ships unchanged');
+  const bad = fx('roster-gz-bad', rr => { put(rr, 'app/roster/roster.js', "export const load = () => fetch('../../rosters/data2/units.json').then(x => x.json());\n"); put(rr, 'rosters/data2/units.json', '{"units":[{"path":"union/pa/1st.jsonl.gz"}]}\n'); put(rr, 'rosters/data2/union/pa/1st.jsonl.gz', gz(rows.replace('Co. A', 'Co. A ; the list was built by Claude'))); });
+  const rb = pack({ root: bad, cfg: FIXTURE_CFG, out: path.join(tmp, 'roster-gz-bad/dist'), zipDir: path.join(tmp, 'roster-gz-bad') }); assert.equal(rb.audit.length, 1); assert.equal(rb.audit[0].gzip, true); assert.match(path.basename(rb.zip), /-AUDIT-HITS-1\.zip$/);
 });

@@ -2,16 +2,17 @@
 
 Workstream bt-units, 2026-11-13. This plan names every unit of the roster that the history layer does not draw or draws only in part, says what is missing of each and why, divides them into 24 research groups by formation, and fixes the one file each group writes (`docs/battle-theatre/history/undrawn/<group>.jsonl`) and the record format of that file, so that one integrator can merge the 24 files into the layer build without editing a line by hand.
 
-The numbers, the tables and the group sections between `<!-- GEN:... -->` markers are computed from `groups.json`, `status.json` and `roster-gaps.json` by `tools/render_plan_tables.py` (never edited by hand). `status.json` is a snapshot of the layer as it is built now (history layer v8, contract 1.8, 439 units drawn) made by `tools/derive_status.mjs` from `app/src/history/real.mjs`, the five position ledgers and the troop-map digest; it was re-derived on 2026-11-13 and is byte-identical to the file this plan was built from. Re-derive it after every merge (section 6.7).
+The numbers, the tables and the group sections between `<!-- GEN:... -->` markers are computed from `groups.json`, `status.json` and `roster-gaps.json` by `tools/render_plan_tables.py` (never edited by hand). `status.json` is a snapshot of the layer as it is built now (history layer v8, contract 1.8, 439 units drawn) made by `tools/derive_status.mjs` from `app/src/history/real.mjs`, the five position ledgers and the troop-map digest; it was re-derived on 2026-11-13 and again after the first four group files were written (the second version adds what the layer did with every ledger claim, section 2.6; the fields of the first version are unchanged). Re-derive it after every merge (section 6.7).
 
 | File | What |
 |---|---|
 | `PLAN.md` | this plan |
 | `groups.json` | the 24 groups: every unit of the roster in exactly one group; per unit what is missing, why, what the ledgers already hold; per group the sources |
 | `status.json` | what the layer draws of each of the 726 units (derived; input of `groups.json`) |
-| `roster-gaps.json` | 125 units printed in the Official Records organization tables that the roster lacks, splits or lists with another status, found by code with their quotes and offsets; the ids a `unit` record uses |
+| `roster-gaps.json` | 125 entries for units printed in the Official Records organization tables that the roster lacks, splits or lists with another status (124 units and the footnote that carries the status of two of them), found by code with their quotes and offsets; the ids a `unit` record uses |
 | `sources.json` | the 112 local texts a record may cite, with path and sha256 |
-| `<group>.jsonl` | the file a researcher writes (absent until written) |
+| `<group>.jsonl` | the file a researcher writes and the only file the integrator reads for the group (round 1 so far: `us-hq-artres`, `us-1c-1d-art`, `us-1c-2d-3d`, `us-2c-1d-art`; the other 20 are absent until written) |
+| `<group>.REPORT.md` | the researcher's report of the group: what was read and what was not, conflicts carried, gaps, defects found in the texts and the layer data, what is still owed (for the owner and the integrator; never read by code) |
 | `tools/` | `derive_status.mjs`, `build_roster_gaps.py`, `build_groups.py` (build the three data files), `check_undrawn.py` (the checker), `make_fixtures.py` and `fixtures/` (the checker's tests), `render_plan_tables.py` |
 
 ## 1. Purpose, rules and what "done" means
@@ -30,13 +31,13 @@ The layer draws 439 of 726 units (127,572 figures). 108 leaf units are open gaps
 6. **Strengths are ranges with a declared basis.** A printed number is written as printed (`value`) or as the printed range (`min`, `max`) with `what` it counts and the date it refers to; nothing is averaged, summed or completed.
 7. **Tier marking stays** (DEC-006 dropped only the reviewer label). Tiers: `documented`, `inferred`, `open gap`; a group file never holds `plausible-procedural` (what the builder fills in is the builder's, never typed in).
 8. **Copy audit.** The prose fields of a record (`statement`, `reasoning`, `note`, `fidelity_note`, the gap texts) reach the cards: they must not say how the page was made (the pattern of `app/tests/ui.spec.mjs`; the checker applies it). A historical quote that holds one of the words is listed and elided by the integrator.
-9. **One writer per file.** A researcher writes only `undrawn/<group>.jsonl`, `tmp/units-<group>/`, `GOVERNANCE/horde/ws-units/<group>/` and `GOVERNANCE/horde/ws-units/proposed-register/<group>-*.md`. The shared files (`history/units.json`, `arrivals.json`, `positions_*.jsonl`, `app/data/*`) are the integrator's; a change wanted there is a request note under `GOVERNANCE/horde/requests/`. A record names only units of its own group (the checker refuses the others).
+9. **One writer per file.** A researcher writes only `undrawn/<group>.jsonl`, `undrawn/<group>.REPORT.md`, `tmp/units-<group>/`, `GOVERNANCE/horde/ws-units/<group>/` and `GOVERNANCE/horde/ws-units/proposed-register/<group>-*.md`. The shared files (`history/units.json`, `arrivals.json`, `positions_*.jsonl`, `app/data/*`) are the integrator's; a change wanted there is a request note under `GOVERNANCE/horde/requests/`. A record names only units of its own group (the checker refuses the others).
 10. **Public sources only:** at most one request a second, no logins, no CAPTCHAs, no bot-block circumvention. Reachable: archive.org (`https://archive.org/cors/<identifier>/<file>`), www.loc.gov, tile.loc.gov, cdn.loc.gov, chroniclingamerica.loc.gov, www.nps.gov, www.npshistory.com, www.gutenberg.org, catalog.archives.gov. Blocked by their own bot check, never retried: babel.hathitrust.org, ehistory.osu.edu. A refused host is recorded as blocked in the notes.
 
 ### 1.3 What "done" means
 
 - **A unit** is done when, for each word of its `missing` (section 2.3), the group file holds a record of the kind that closes it (the unit's own, or for arrival, positions and path a formation above it) or a gap record that names the word; for positions, one per day of 1 to 3 July on which the layer holds no place. `check_undrawn.py <group> --complete` computes this and lists what is still owed.
-- **A group** is done when `check_undrawn.py <group> --complete` exits 0 (exit 2 is allowed only when a declared source text is not on this machine: list it in the notes), every roster-gap entry of the group is confirmed by a `unit` record or answered with a gap (`what: ["roster"]`), every gap record has its proposed register entry, `GOVERNANCE/horde/ws-units/<group>/NOTES.md` says what was read and what was not, and one dated line is appended to `GOVERNANCE/progress.md`.
+- **A group** is done when `check_undrawn.py <group> --complete` exits 0 (exit 2 is allowed only when a declared source text is not on this machine: list it in the notes), every roster-gap entry of the group is confirmed by a `unit` record or answered with a gap (`what: ["roster"]`), and an entry with `needs` (a `reparent`) by a `unit` record of that action (`--complete` checks this, section 5.10), every gap record has its proposed register entry, the report `undrawn/<group>.REPORT.md` (or `GOVERNANCE/horde/ws-units/<group>/NOTES.md`) says what was read and what was not, and one dated line is appended to `GOVERNANCE/progress.md`.
 - **The round** is done when `check_undrawn.py --all` exits 0, the integrator has merged (section 6) and `derive_status.mjs` has been re-run; units whose `missing` is still not empty and that no gap record covers are the round-2 list.
 - A milestone is never reported complete unless the Section Z checklist is true and `check_governance.py` passes (the project's standing instructions).
 
@@ -61,7 +62,7 @@ The layer draws 439 of 726 units (127,572 figures). 108 leaf units are open gaps
 | Word | The layer says it is missing when | Closed by |
 |---|---|---|
 | `arrival` | the unit has no gate of its own: its arrival window is the one of a formation above (the PDF gives none for regiments) | an `arrival` record with `scope: field` of the unit or a formation above it; or a gap |
-| `positions` | the unit is not placed (not drawn, or at the edge), or on a day of 1 to 3 July after its gate it has no place of its own (no ledger stop and no single-label troop-map position); no place is modelled after 3 July | one `position`, `engagement`, `night_position`, `movement` or `departure` record dated that day (the unit's own or a formation's above), or a gap with that day |
+| `positions` | the unit is not placed (not drawn, or at the edge), or on a day of 1 to 3 July after its gate it has no place of its own (no ledger stop and no single-label troop-map position); no place is modelled after 3 July. The ledgers often hold claims for such a day that the layer refused (section 2.6) | one `position`, `engagement`, `night_position`, `movement` or `departure` record dated that day (the unit's own or a formation's above), or a gap with that day |
 | `path` | the unit has no road of approach (not drawn), or its road is modelled from the sibling formations (DEC-015, EG-0070), or only the corps-level road is printed for it | an `arrival_road` record with `enters_ground: true` of the unit or a formation above it; or a gap |
 | `strength` | the unit has no printed figure of its own (every leaf unit: a procedural share of the corps or brigade figure, tier plausible-procedural) | a `strength` record of the unit itself; or a gap that lists the unit |
 | `parent_only` | no ledger claim and no troop-map label names the unit: its gate, road and places all come from formations above it | any record of its own (not a formation's), or a gap |
@@ -82,7 +83,7 @@ The layer draws 439 of 726 units (127,572 figures). 108 leaf units are open gaps
 | `no_figure` | 4 | a headquarters, a person or a grouping entry with a gate and no figure: not drawn | us-hq-artres (2), cs-1c-mclaws (1), cs-cav-hq (1) |
 | `reports_disagree` | 1 | two reports of the unit print different roads: not drawn, none chosen | cs-2c-early (1) |
 | `roster_structure` | 1 | the roster holds the regiment as a formation whose only child is a detached company: nothing of the regiment is drawn | us-5c (1) |
-| `listed_not_on_field` | 13 | the plan's table lists the unit as never (or only partly) on the field, on a weak key: a non-lead source for the absence is owed | cs-cav-hq (3), us-hq-artres (3), cs-2c-early (2), cs-1c-pickett (1), cs-3c-heth (1), us-5c (1), us-6c-1d-2d (1), us-cav-2d-3d-art (1) |
+| `listed_not_on_field` | 13 | the plan's table lists the unit as never (or only partly) on the field, on a weak key: a non-lead source for the absence is owed | us-hq-artres (4), cs-cav-hq (3), cs-2c-early (2), cs-1c-pickett (1), cs-3c-heth (1), us-6c-1d-2d (1), us-cav-2d-3d-art (1) |
 | `documented_absent` | 1 | documented absence from the field (an overlay, EG-E-84PA): not drawn, correct as it is | us-3c-2d (1) |
 <!-- /GEN:why -->
 
@@ -107,8 +108,39 @@ The layer draws 439 of 726 units (127,572 figures). 108 leaf units are open gaps
 | drawn units by road of approach: only the corps-level road is printed (plausible-procedural) | 170 |
 | drawn units by road of approach: modelled from the sibling formations of the corps (DEC-015, EG-0070) | 56 |
 | placed units with a place on 1, 2 or 3 days of 1 to 3 July (days from the unit's gate; a place is a ledger stop or a single-label troop-map position) | 150, 177, 91 |
-| roster-gap entries (units printed in the Official Records tables that the roster lacks, splits or lists with another status) | 125 |
+| ledger claims held (ledgers A to E) / applied by the layer / refused with a reason code | 3,703 / 75 / 3,628 |
+| leaf units that hold ledger claims dated on a day without a place (none of them a stop) / those claims | 150 / 436 |
+| roster-gap entries (units printed in the Official Records tables that the roster lacks, splits or lists with another status; one is a footnote that carries the status of two others) | 125 |
 <!-- /GEN:totals -->
+
+### 2.6 Why the ledger claims are not stops
+
+A day "without a place" is rarely a day without a statement. The five ledgers hold claims that the layer read and refused, each for a reason of its own, and a record of a group file that restates such a claim with the element the layer lacked turns it into a stop (the claim stays in its ledger; name it in `corroborates`). The reasons below are the layer's (`app/data/claim-dispositions.json`, written by `app/tools/build-claim-placement.mjs`); the right-hand column is what the data contract of section 5 lets a record carry.
+
+<!-- GEN:claims -->
+The five ledgers (A to E) hold 3,703 claims for the units of the roster. The layer applies 75 of them (a stop, an approach, a departure, an absence, or support for one) and leaves 3,628 unresolved, each with a reason code of its own (`app/data/claim-dispositions.json`). A unit-day that "has no place" in this plan very often holds claims that the layer refused: 436 ledger claims dated on a day of 1 to 3 July without a place, held by 150 leaf units (`day_claims` of each unit in `groups.json`: claim id, kind, reason code).
+
+| Reason code | Claims | What the layer found | What a record of a group file adds |
+|---|---:|---|---|
+| `no_printed_time` | 1,796 | no clock and no part of a day is printed (a date only, or nothing) | the clock or the part of the day if the passage prints one (`printed_clock`, `printed_period`); where it prints only the day, `day_only` or `sequence` (the integrator places it by the convention of 6.3, marked on the card) |
+| `no_gazetteer_place` | 924 | the printed place is no gazetteer place, or none is printed | an anchor of 5.7 for the printed place words: a troop-map claim, a monument with the statement that it stands where the unit stood, a structure, the crossing of two roads, a point along a road near a named place, or a place relative to another unit; or the words of the passage that name a place |
+| `reviewed_not_used` | 300 | a hand review refused it: the place is qualified (rear of, near, left of), the time is that of an order or of a stay's end, or the road is a line the unit stood on, not one it marched in by | the place with its `relation` (rel and distance as printed) and the time the passage gives; or, for a road, the road by which the unit came onto the ground (`arrival_road`, `enters_ground`) |
+| `departure_no_resolvable_road` | 201 | a departure with no road the gazetteer holds | a `departure` record with the road as printed and its gazetteer road or a `road_identification` |
+| `strength_note` | 108 | a strength note: it carries no place or time | a `strength` record (what the number counts, value or range, as of which day) |
+| `gazetteer_name_not_printed` | 100 | the ledger's gazetteer reference is not named in the printed words | the place words as printed with an anchor the words support (a `gazetteer` anchor only where the printed words name the place) |
+| `not_usable` | 83 | the claim's support is not verified, or its tier is an open gap | a record whose passage was read in full and states exactly this (`claim_support_verified`), or a gap record |
+| `place_is_a_road` | 54 | a road is no place for a stop; the position along it is not printed | `along_road` with the place it was near, or `road_crossing`; or the road as an `arrival_road` when the unit marched in by it |
+| `printed_clock_unconfirmed` | 27 | no clock stands in the printed words of the claim | the clock as printed (`t_iso` must be a clock that stands in `printed`) or the part of the day |
+| `place_outside_loaded_ground` | 15 | the place lies outside the loaded ground; a unit may be there only marching in | the road by which it entered the ground (`arrival_road`) and the first place inside it |
+| `place_too_broad` | 11 | the place is a stream or a district too broad to stand a unit in | a place the passage names that is narrower, with an anchor |
+| `conflict_stop` | 4 | two claims put the same unit at the same place at other hours within 90 minutes | nothing: both stay, none is chosen (a record that names the claim in `conflicts_with` adds a third reading) |
+| `differs_from_pdf_stop` | 3 | the claim disagrees with an entry of the PDF ledger within 90 minutes | nothing: both stay, none is chosen |
+| `corroborates_existing` | 1 | the claim repeats an entry the layer already holds | nothing |
+| `conflict_approach` | 1 | two reports print different roads for the unit | nothing: both stay as scenarios, none is chosen |
+| (applied) | 75 | used as a stop (10), an approach (36), a departure (1), an absence (9), support (7), or transcribed with no effect (12) | nothing: do not repeat it |
+<!-- /GEN:claims -->
+
+Two consequences for the researcher. First, a unit's `day_claims` in `groups.json` lists the claims it holds for each of its days without a place, with the reason: read those passages first, they are already located and verified for the ledger's own purpose. Second, a refusal is the layer's rule, not a finding about the history: `no_printed_time` and `no_gazetteer_place` are the commonest, and both are answered by the time conventions (6.3) and the anchors (5.7) of this plan, which the layer did not have when the ledgers were read.
 
 ## 3. What is not drawn, and why
 
@@ -137,7 +169,7 @@ The roster holds 56 cavalry leaf entries: 52 regiments and battalions, 3 brigade
 
 ### 3.5 The roster gaps
 
-125 units are printed in the Official Records' organization tables (the Union table `OR27-1-R009`, Confederate `OR27-2-R424`) and are missing from the roster, split or listed with another status, found by code (`roster-gaps.json`): 91 to add (the batteries of the Confederate battalions that the roster holds as one unit each, the horse batteries, headquarters and escort companies), 12 printed as not engaged, 15 whose status is to be confirmed, 3 attached to another unit, 3 consolidated batteries that the roster draws as two, and the 32d Massachusetts. Each is confirmed or answered in a `unit` record of its group; the ids are pre-assigned so that two groups never invent two ids for one unit.
+125 entries are printed in the Official Records' organization tables (the Union table `OR27-1-R009`, Confederate `OR27-2-R424`) for units that are missing from the roster, split or listed with another status, found by code (`roster-gaps.json`): 91 to add (the batteries of the Confederate battalions that the roster holds as one unit each, the horse batteries, headquarters and escort companies), 12 printed as not engaged (11 units and the footnote of Stannard's brigade that carries the status of two Vermont regiments: it is no unit and asks for nothing of its own), 15 whose status is to be confirmed, 3 attached to another unit, 3 consolidated batteries that the roster draws as two, and the 32d Massachusetts. Each unit is confirmed or answered in a `unit` record of its group, or by a gap record that names `roster`; the ids are pre-assigned so that two groups never invent two ids for one unit. Two entries also `need` a record of action `reparent`: the 11th Pennsylvania (transferred to another brigade on the afternoon of 1 July, the table says so) and Company C of the 32d Massachusetts (the roster files it under the regiment, the table prints it with the Artillery Reserve; it is a unit of the group `us-hq-artres`, the regiment less the company of `us-5c`).
 
 ### 3.6 All units not drawn or at the edge
 
@@ -284,8 +316,8 @@ The roster holds 56 cavalry leaf entries: 52 regiments and battalions, 3 brigade
 | `us-art-reserve-taft-1ctheavy-b` | 1st CT Heavy B (1st CT Heavy) | `us-hq-artres` | listed_not_on_field: a non-lead source for the absence is owed |
 | `us-art-reserve-taft-1ctheavy-m` | 1st CT Heavy M (1st CT Heavy) | `us-hq-artres` | listed_not_on_field: a non-lead source for the absence is owed |
 | `us-4nj-train-guard` | 4th NJ (Army of the Potomac) | `us-hq-artres` | listed_not_on_field: a non-lead source for the absence is owed |
+| `us-5c-1d-sweitzer-32ma-co-c` | 32nd MA Company C (32nd MA) | `us-hq-artres` | listed_not_on_field: a non-lead source for the absence is owed |
 | `us-3c-2d-carr-84pa` | 84th PA (Carr) | `us-3c-2d` | documented_absent |
-| `us-5c-1d-sweitzer-32ma-co-c` | 32nd MA Company C (32nd MA) | `us-5c` | listed_not_on_field: a non-lead source for the absence is owed |
 | `us-6c-2d-1brig` | 1st Brigade (2nd Div Howe) | `us-6c-1d-2d` | listed_not_on_field: a non-lead source for the absence is owed |
 | `us-cav-2d-huey` | Huey's 2nd Brigade (2nd Div D. Gregg) | `us-cav-2d-3d-art` | listed_not_on_field: a non-lead source for the absence is owed |
 | `cs-corse-hanover-junction` | Corse’s Brigade (Army of Northern Virginia) | `cs-1c-pickett` | listed_not_on_field: a non-lead source for the absence is owed |
@@ -306,14 +338,14 @@ A group is a part of the line of command a researcher can read through: the corp
 <!-- GEN:groups -->
 | Group | Units | Leaf on field | Not drawn | At edge | Partly drawn | Formations | Not on field | Roster gaps | Figures drawn | Load |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| `us-hq-artres` | 35 | 24 | 2 | 0 | 22 | 8 | 3 | 18 | 2,354 | 83 |
+| `us-hq-artres` | 36 | 24 | 2 | 0 | 22 | 8 | 4 | 18 | 2,354 | 83 |
 | `us-1c-1d-art` | 22 | 17 | 0 | 0 | 17 | 5 | 0 | 2 | 5,694 | 66 |
 | `us-1c-2d-3d` | 28 | 21 | 0 | 0 | 21 | 7 | 0 | 4 | 6,468 | 78 |
 | `us-2c-1d-art` | 30 | 23 | 0 | 0 | 23 | 7 | 0 | 2 | 5,152 | 79 |
 | `us-2c-2d-3d` | 35 | 27 | 0 | 0 | 27 | 8 | 0 | 1 | 6,048 | 90 |
 | `us-3c-1d` | 30 | 24 | 0 | 0 | 24 | 6 | 0 | 0 | 6,120 | 56 |
 | `us-3c-2d` | 23 | 18 | 12 | 0 | 6 | 4 | 1 | 0 | 1,530 | 66 |
-| `us-5c` | 54 | 39 | 1 | 0 | 39 | 13 | 1 | 3 | 10,920 | 115 |
+| `us-5c` | 53 | 39 | 1 | 0 | 39 | 13 | 0 | 3 | 10,920 | 115 |
 | `us-6c-1d-2d` | 32 | 23 | 0 | 6 | 17 | 8 | 1 | 4 | 7,107 | 88 |
 | `us-6c-3d-art` | 26 | 21 | 0 | 4 | 17 | 5 | 0 | 1 | 6,489 | 80 |
 | `us-11c` | 42 | 31 | 14 | 0 | 17 | 11 | 0 | 2 | 5,032 | 103 |
@@ -333,9 +365,12 @@ A group is a part of the line of command a researcher can read through: the corp
 | **24 groups** | **726** | **547** | **109** | **21** | **418** | **164** | **14** | **125** | **127,572** | **1,761** |
 <!-- /GEN:groups -->
 
+Round 1 is under way: the files of `us-hq-artres`, `us-1c-1d-art`, `us-1c-2d-3d` and `us-2c-1d-art` exist and pass `check_undrawn.py --all`; the researchers' reports (`<group>.REPORT.md`) are the first feedback on this plan, and what they found in the plan's own data (a roster-gap entry that carried a roster id, a unit assigned to two groups, a contract with no parent change, state-volume sections whose headings name another unit, a day-only record the integrator could not place) is corrected in this version (section 11).
+
 ### 4.1 Where a group starts
 
-1. Read the unit rows of the group in `groups.json`: `missing`, `why`, `detail` (the layer's own sentence on each missing word) and `claims_held` (what the five ledgers already hold for the unit). The ledgers are `history/positions/positions_{A,B,C,D,E}.jsonl` (A, C, D: OR27 reports; B: OR27 reports, II, III and XII Corps; E: the state regimental volumes); the claims of a unit are those with its `unit_id`. Do not repeat a ledger claim: a record of a group file adds what the ledgers lack, or corrects a claim (name it in `corroborates` or `conflicts_with`).
+0. If `undrawn/<group>.jsonl` exists, run `check_undrawn.py <group> --complete` first and read the group's report: continue from what it says is owed; never renumber a record, and replace a line only to correct it (keep its `claim_id`).
+1. Read the unit rows of the group in `groups.json`: `missing`, `why`, `detail` (the layer's own sentence on each missing word) and `claims_held` (what the five ledgers already hold for the unit and what the layer did with it) and `day_claims` (the held claims dated on a day without a place, with the layer's reason: section 2.6). The ledgers are `history/positions/positions_{A,B,C,D,E}.jsonl` (A, C, D: OR27 reports; B: OR27 reports, II, III and XII Corps; E: the state regimental volumes); the claims of a unit are those with its `unit_id`. Do not repeat a ledger claim: a record of a group file adds what the ledgers lack, or corrects a claim (name it in `corroborates` or `conflicts_with`).
 2. Read the group's formation rows first: a record of a brigade or division (a road, an arrival, a line) applies to every unit below it.
 3. For each unit, search the reports in this order: its own report, its brigade's, its division's, its corps', the army's; then the state volumes and local texts listed for the group. Search with `tools/bt/or27_find.py`, `or27_where.py`, `or27_dump.py` and `statevol_find.py` (usage in 9.1).
 4. Write records as you read, one line each; run the checker often; append the milestone line.
@@ -345,16 +380,18 @@ A group is a part of the line of command a researcher can read through: the corp
 <!-- GEN:sections -->
 ### `us-hq-artres`: Union army headquarters, Hancock, the Artillery Reserve and its guards
 
-- **Units:** 35 rows, 24 leaf units on the field: 2 not drawn, 22 partly drawn, 8 formation, 3 not on field. Missing (leaf units): path 24, strength 24, arrival 22, positions 13. Figures drawn now: 2,354.
+- **Units:** 36 rows, 24 leaf units on the field: 2 not drawn, 22 partly drawn, 8 formation, 4 not on field. Missing (leaf units): path 24, strength 24, arrival 22, positions 13. Figures drawn now: 2,354.
 - **Not drawn or at the edge, by reason:** `no_figure` 2.
-- **What to find:** The two headquarters entries have a gate and no figure: who stood at headquarters (staff, the provost guard and orderlies of the table) is to be established before anything is drawn. 22 reserve batteries are placed; three consolidated batteries are drawn as two units each; Company C of the 32d Massachusetts and the 4th New Jersey train guard are listed as never on the field on a weak key while the table prints them with the Reserve; the footnote of the two Connecticut heavy batteries is lost in the OCR.
+- **What to find:** The two headquarters entries have a gate and no figure: who stood at headquarters (staff, the provost guard and orderlies of the table) is to be established before anything is drawn. 22 reserve batteries are placed; three consolidated batteries are drawn as two units each; Company C of the 32d Massachusetts and the 4th New Jersey train guard are listed as never on the field on a weak key while the table prints them with the Reserve (Company C is a unit of this group although the roster files it under the 32d Massachusetts of the Fifth Corps: its evidence stands in Tyler's report and the Reserve's table, and a `reparent` record moves it); the footnote of the two Connecticut heavy batteries is lost in the OCR.
 - **Roster gaps to confirm or add (`unit` records; ids pre-assigned in roster-gaps.json):** `us-aop-hq-93ny` (absent); `us-aop-hq-8us` (absent); `us-aop-hq-pacav-price` (add); `us-aop-hq-6pacav-e-i` (add); `us-aop-hq-regular-cav-det` (add); `us-aop-hq-signal` (add); `us-aop-hq-oneida-cav` (add); `us-aop-engineers-15ny` (absent); `us-aop-engineers-50ny` (absent); `us-aop-engineers-usbn` (absent); `us-aop-engineers` (absent); `us-5c-1d-sweitzer-32ma-co-c` (status); `us-4nj-train-guard` (status); `us-art-reserve-ransom-3usfk` (merge); `us-art-reserve-mcgilvery-pacf` (merge); `us-art-reserve-huntington-1pafg` (merge); `us-art-reserve-mcgilvery-10ny` (attached); `us-art-reserve-taft-1ctheavy-b` (status).
-- **Official Records reports the ledgers already cite for these units** (OR27 report id, claims held): R006 (8), R007 (6), R009 (3), R016 (1), R017 (11), R024 (3), R028 (10), R030 (1), R187 (1), R189 (1), R217 (1), R218 (1), R243 (1), R315 (28), R316 (3), R317 (4), R318 (9), R319 (6), R320 (8), R321 (3), R322 (4), R323 (4), R324 (1), R325 (4), R326 (5), R327 (3), R328 (4), R329 (1), R330 (5), R331 (4), R332 (2), R333 (1), R334 (5), R335 (3).
+- **Official Records reports the ledgers already cite for these units** (OR27 report id, claims held): R006 (8), R007 (6), R009 (3), R016 (1), R017 (11), R024 (3), R028 (10), R030 (1), R187 (1), R189 (1), R217 (1), R218 (1), R243 (1), R315 (29), R316 (3), R317 (4), R318 (9), R319 (6), R320 (8), R321 (3), R322 (4), R323 (4), R324 (1), R325 (4), R326 (5), R327 (3), R328 (4), R329 (1), R330 (5), R331 (4), R332 (2), R333 (1), R334 (5), R335 (3).
 - **Reports between them in the table of contents that no ledger claim cites (not read, or read with no result):** R018 Capt. WUliam J. L. Nicodemus, R019 Capt. Nahum Daniels, R020 Capt. Wmiam G. McCreary, R021 Lieut. George A. Fisher, R022 Lieut. Ephraim A- Briggs, R023 Lieut. Julius M. Swain, R025 Brig. Gen. Marsena E. Patric, R026 Lieut. John R. Edie, R027 Brig. (Jen. Henry W. Benham.
 - **Other Official Records:** organization table `OR27-1-R009`, returns `OR27-1-R008`, `OR27-1-R013`, part 3 documents cited by claims: D0925 (1), D0982 (1), D1001 (1), D1003 (2), D1120 (1), D1207 (1), D2099 (1), D2102 (1).
-- **Indexed state volumes:** none indexed for these units.
+- **Indexed state volumes:** 9 units have regimental sections in ME 1, NY3 8, PA2 4 (section ids in groups.json, `sources.statevol_sections`).
 - **Local texts to read** (keys in sources.json): `MEADE-LL-v1`, `MEADE-LL-v2`, `BACH-STORY-1904`, `BACH-REPULSE-1870`, `BACH-KEY-1864`, `JACOBS-1864`, `FOX`, `BL3`, `NJ-FINAL-1891`, `NJ-TOOMBS-1888`, `OH-DED-1887`.
-- **Ledger claims already held** (read them first; do not repeat them): ledger A 1, ledger C 168, ledger E 1.
+- **Ledger claims already held** (read them first; do not repeat them): ledger A 1, ledger C 169, ledger E 1.
+- **What the layer did with them:** applied 7; refused: `no_printed_time` 65, `no_gazetteer_place` 45, `reviewed_not_used` 18, `departure_no_resolvable_road` 11, `gazetteer_name_not_printed` 11, `not_usable` 7, `strength_note` 3, `place_is_a_road` 2, `differs_from_pdf_stop` 1, `printed_clock_unconfirmed` 1. 38 of them are dated on a day without a place (`day_claims` of the unit rows: a record that restates such a claim with the missing element of 2.6 gives the day its place; name the claim in `corroborates`).
+- **State-volume sections whose heading names another unit (found while reading; the index is not changed):** `ME-S021` (heading: Maine battery; the text holds also the roster and report of the 6th Maine Battery).
 
 ### `us-1c-1d-art`: Union I Corps: corps entry, Wadsworth's division (Meredith, Cutler) and the artillery brigade (Wainwright)
 
@@ -364,20 +401,24 @@ A group is a part of the line of command a researcher can read through: the corp
 - **Official Records reports the ledgers already cite for these units** (OR27 report id, claims held): R007 (4), R028 (2), R029 (17), R030 (7), R032 (6), R033 (9), R034 (6), R035 (7), R036 (7), R037 (15), R038 (5), R039 (3), R040 (5), R041 (3), R042 (3), R071 (16), R072 (5), R073 (3), R074 (5), R075 (6), R243 (4), R337 (1).
 - **Reports between them in the table of contents that no ledger claim cites (not read, or read with no result):** R031 Lieut. Joseph G. Eosengarten.
 - **Other Official Records:** organization table `OR27-1-R009`, returns `OR27-1-R008`, `OR27-1-R013`, part 3 documents cited by claims: D0920 (1), D0922 (1), D0970 (1).
-- **Indexed state volumes:** 6 units have regimental sections in MI 1, NY1 5, NY2 2, NY3 4, PA1 1, PA1B 1 (section ids in groups.json, `sources.statevol_sections`).
+- **Indexed state volumes:** 11 units have regimental sections in ME 2, MI 1, NY1 5, NY2 3, NY3 10, PA1 1, PA1B 1, PA2 1 (section ids in groups.json, `sources.statevol_sections`).
 - **Local texts to read** (keys in sources.json): `IN-1913`, `FOX`, `BL3`, `BACH-STORY-1904`.
 - **Ledger claims already held** (read them first; do not repeat them): ledger A 143.
+- **What the layer did with them:** applied 2; refused: `no_printed_time` 80, `reviewed_not_used` 16, `no_gazetteer_place` 13, `gazetteer_name_not_printed` 12, `departure_no_resolvable_road` 8, `strength_note` 4, `place_is_a_road` 3, `place_too_broad` 3, `not_usable` 1, `printed_clock_unconfirmed` 1. 9 of them are dated on a day without a place (`day_claims` of the unit rows: a record that restates such a claim with the missing element of 2.6 gives the day its place; name the claim in `corroborates`).
+- **State-volume sections whose heading names another unit (found while reading; the index is not changed):** `ME-S001` (heading: front matter; the text holds also Hall's sketch of the Second Maine Battery (pp. 20 to 25)); `ME-S004` (heading: Sixteenth Regiment participants; the text holds also Stevens' sketch of the Fifth Maine Battery (pp. 83 and 84)); `NY2-S013` (heading: 73d New York; the text holds also the 76th New York: the inscription of its monument and Bachelder's address (pp. 613 to 616)); `NY3-S023` (heading: Battery C, 1st New York Light Artillery; the text holds also the dedications of Batteries D and E (the Battery E part holds the inscription "to the detached men of Battery E serving with L")); `NY3-S024` (heading: Battery G, 1st New York Light Artillery; the text holds also the whole of Battery L (Reynolds'): the inscription, the oration and Maj. Breck's sketch (pp. 1256 and 1258)).
 
 ### `us-1c-2d-3d`: Union I Corps: Robinson's division (Paul, Baxter) and Doubleday/Rowley's division (Rowley/Biddle, Stone, Stannard)
 
 - **Units:** 28 rows, 21 leaf units on the field: 21 partly drawn, 7 formation. Missing (leaf units): arrival 21, path 21, strength 21, positions 15. Figures drawn now: 6,468.
 - **What to find:** All 21 leaf units are placed (the corps-level road only, AP-01). Open: an arrival of each regiment's own, the places of 2 and 3 July, strengths, the transfer of the 11th Pennsylvania to the First Brigade on the afternoon of 1 July, the 12th and 15th Vermont (train guard, not engaged by the table's footnote), Stannard's brigade on 2 and 3 July.
-- **Roster gaps to confirm or add (`unit` records; ids pre-assigned in roster-gaps.json):** `us-1c-3d-stannard-12vt` (absent); `us-1c-3d-stannard-15vt` (absent); `us-1c-3d-stannard` (absent); `us-1c-2d-baxter-11pa` (status).
+- **Roster gaps to confirm or add (`unit` records; ids pre-assigned in roster-gaps.json):** `us-1c-3d-stannard-12vt` (absent); `us-1c-3d-stannard-15vt` (absent); `us-1c-3d-stannard-footnote` (absent); `us-1c-2d-baxter-11pa` (status).
 - **Official Records reports the ledgers already cite for these units** (OR27 report id, claims held): R007 (1), R029 (14), R030 (7), R043 (11), R044 (14), R045 (8), R046 (9), R047 (5), R048 (8), R049 (5), R050 (1), R051 (7), R052 (17), R053 (4), R054 (5), R055 (8), R056 (7), R057 (19), R058 (4), R059 (5), R060 (8), R061 (6), R062 (10), R063 (8), R064 (6), R065 (6), R066 (5), R067 (3), R068 (4), R069 (13), R070 (9), R071 (1).
 - **Other Official Records:** organization table `OR27-1-R009`, returns `OR27-1-R008`, `OR27-1-R013`.
-- **Indexed state volumes:** 16 units have regimental sections in ME 3, NY1 6, NY2 3, NY3 5, PA1 4, PA1B 4, PA2 6 (section ids in groups.json, `sources.statevol_sections`).
+- **Indexed state volumes:** 16 units have regimental sections in ME 3, NY1 6, NY2 4, NY3 5, PA1 4, PA1B 4, PA2 6 (section ids in groups.json, `sources.statevol_sections`).
 - **Local texts to read** (keys in sources.json): `VT-GB-1914`, `VT-MON-1890`, `FOX`, `BL3`, `BACH-STORY-1904`.
 - **Ledger claims already held** (read them first; do not repeat them): ledger A 241.
+- **What the layer did with them:** applied 0; refused: `no_printed_time` 128, `no_gazetteer_place` 44, `reviewed_not_used` 21, `strength_note` 15, `departure_no_resolvable_road` 12, `place_is_a_road` 8, `gazetteer_name_not_printed` 6, `not_usable` 3, `corroborates_existing` 1, `differs_from_pdf_stop` 1, `place_outside_loaded_ground` 1, `place_too_broad` 1. 31 of them are dated on a day without a place (`day_claims` of the unit rows: a record that restates such a claim with the missing element of 2.6 gives the day its place; name the claim in `corroborates`).
+- **State-volume sections whose heading names another unit (found while reading; the index is not changed):** `ME-S004` (heading: Sixteenth Regiment participants; the text holds also Stevens' sketch of the Fifth Maine Battery (pp. 83 and 84)); `NY2-S021` (heading: 95th New York; the text holds also the 104th New York: the presentation speech and Col. Prey's address (pp. 755 to 758)).
 
 ### `us-2c-1d-art`: Union II Corps: corps entry, Caldwell's division and the artillery brigade (Hazard)
 
@@ -386,9 +427,11 @@ A group is a part of the line of command a researcher can read through: the corp
 - **Roster gaps to confirm or add (`unit` records; ids pre-assigned in roster-gaps.json):** `us-2c-hq-6nycav-d-k` (add); `us-2c-art-14ny` (attached).
 - **Official Records reports the ledgers already cite for these units** (OR27 report id, claims held): R006 (1), R028 (3), R076 (28), R077 (12), R078 (12), R079 (4), R080 (6), R081 (1), R082 (12), R083 (6), R084 (4), R085 (6), R086 (7), R087 (8), R088 (9), R089 (5), R090 (4), R091 (6), R092 (15), R093 (10), R094 (9), R095 (9), R096 (6), R097 (2), R098 (3), R104 (2), R132 (13).
 - **Other Official Records:** organization table `OR27-1-R009`, returns `OR27-1-R008`, `OR27-1-R013`, part 3 documents cited by claims: D0839 (1), D0840 (1), D0919 (1), D0932 (1), D0962 (1), D0966 (1), D0967 (1), D0983 (1), D1099 (1), D1115 (1), D2099 (1), D2103 (1).
-- **Indexed state volumes:** 14 units have regimental sections in NY1 7, NY2 4, NY3 8, PA1 2, PA1B 1, PA2 4 (section ids in groups.json, `sources.statevol_sections`).
+- **Indexed state volumes:** 15 units have regimental sections in FOX 2, NY1 8, NY2 5, NY3 11, PA1 2, PA1B 1, PA2 4 (section ids in groups.json, `sources.statevol_sections`).
 - **Local texts to read** (keys in sources.json): `MN-1ST-1916`, `OH-8TH-1889`, `NJ-TOOMBS-1888`, `IN-1913`, `BACH-STORY-1904`, `FOX`, `BL3`.
 - **Ledger claims already held** (read them first; do not repeat them): ledger B 219.
+- **What the layer did with them:** applied 1; refused: `no_printed_time` 106, `no_gazetteer_place` 69, `departure_no_resolvable_road` 14, `reviewed_not_used` 11, `strength_note` 11, `not_usable` 4, `gazetteer_name_not_printed` 1, `place_is_a_road` 1, `printed_clock_unconfirmed` 1. 6 of them are dated on a day without a place (`day_claims` of the unit rows: a record that restates such a claim with the missing element of 2.6 gives the day its place; name the claim in `corroborates`).
+- **State-volume sections whose heading names another unit (found while reading; the index is not changed):** `FOX-S061` (heading: 48th New York; the text holds also the entry of the 52d New York (Zook's brigade)); `FOX-S063` (heading: 63d New York; the text holds also the entry of the 64th New York); `NY1-S081` (heading: 49th New York; the text holds also the 52d New York: the historical sketch (Surg. Althans) and the monument inscription); `NY2-S005` (heading: 88th New York; the text holds also the 64th New York (and Gen. Glenny's oration)); `NY3-S022` (heading: 10th New York Cavalry; the text holds also the dedication of Battery B, 1st New York Light Artillery (Pettit's), 3 July 1888, with the address of Rev. W. O. Beauchamp).
 
 ### `us-2c-2d-3d`: Union II Corps: Gibbon/Harrow's division (Harrow, Webb, Hall) and A. Hays' division (Carroll, Smyth, Willard)
 
@@ -401,6 +444,7 @@ A group is a part of the line of command a researcher can read through: the corp
 - **Indexed state volumes:** 14 units have regimental sections in ME 6, MI 1, NY1 11, NY2 4, NY3 8, PA1 4, PA1B 4 (section ids in groups.json, `sources.statevol_sections`).
 - **Local texts to read** (keys in sources.json): `HASKELL-1908`, `MN-1ST-1916`, `OH-8TH-1889`, `OH-DED-1887`, `NJ-TOOMBS-1888`, `NJ-FINAL-1891`, `BACH-REPULSE-1870`, `BACH-STORY-1904`, `FOX`, `BL3`, `IN-1913`.
 - **Ledger claims already held** (read them first; do not repeat them): ledger B 207.
+- **What the layer did with them:** applied 1; refused: `no_printed_time` 108, `no_gazetteer_place` 71, `strength_note` 10, `departure_no_resolvable_road` 6, `place_is_a_road` 4, `reviewed_not_used` 4, `gazetteer_name_not_printed` 1, `not_usable` 1, `printed_clock_unconfirmed` 1. 31 of them are dated on a day without a place (`day_claims` of the unit rows: a record that restates such a claim with the missing element of 2.6 gives the day its place; name the claim in `corroborates`).
 
 ### `us-3c-1d`: Union III Corps: corps entry, Birney's division and the artillery brigade
 
@@ -408,9 +452,11 @@ A group is a part of the line of command a researcher can read through: the corp
 - **What to find:** All 24 leaf units are placed (Emmitsburg Road, AP-02). Open: an arrival of each regiment's own (Graham and Ward on 1 July, de Trobriand on 2 July), the places of 3 July, strengths.
 - **Official Records reports the ledgers already cite for these units** (OR27 report id, claims held): R006 (4), R007 (6), R017 (2), R028 (9), R029 (1), R030 (2), R076 (5), R098 (2), R109 (1), R133 (32), R134 (3), R135 (15), R136 (7), R137 (7), R138 (9), R139 (14), R140 (9), R141 (6), R142 (7), R143 (11), R144 (4), R145 (3), R146 (11), R147 (3), R148 (11), R149 (17), R150 (10), R151 (8), R152 (18), R153 (9), R154 (12), R155 (7), R156 (11), R157 (7), R158 (6), R165 (1), R181 (39), R182 (7), R183 (8), R184 (7), R185 (5), R186 (7), R187 (2), R243 (3), R293 (1), R318 (1), R331 (1), R334 (1), R336 (1), R337 (1), R339 (1).
 - **Other Official Records:** organization table `OR27-1-R009`, returns `OR27-1-R008`, `OR27-1-R013`, part 3 documents cited by claims: D0840 (1), D0889 (1), D0895 (1), D0919 (2), D0924 (1), D0925 (1), D0926 (1), D0931 (1), D0935 (1), D0936 (3), D0960 (1), D0966 (1), D0972 (2), D0973 (2), D0974 (1), D0978 (1), D0980 (1), D0982 (1), D0984 (1), D1093 (1), D1099 (2), D1105 (1), D1107 (1), D1110 (1), D1116 (1), D1154 (1), D1157 (1), D1159 (1), D1162 (1), D1165 (1), D1168 (1), D1170 (1), D1171 (1), D1224 (2), D2101 (1).
-- **Indexed state volumes:** 16 units have regimental sections in ME 8, MI 2, NY1 7, NY2 1, NY3 3, PA1 4, PA1B 4, PA2 2 (section ids in groups.json, `sources.statevol_sections`).
+- **Indexed state volumes:** 18 units have regimental sections in ME 8, MI 2, NY1 7, NY2 1, NY3 7, PA1 4, PA1B 4, PA2 2 (section ids in groups.json, `sources.statevol_sections`).
 - **Local texts to read** (keys in sources.json): `IN-1913`, `FOX`, `BL3`, `NJ-FINAL-1891`, `NJ-TOOMBS-1888`.
 - **Ledger claims already held** (read them first; do not repeat them): ledger B 422.
+- **What the layer did with them:** applied 3; refused: `no_printed_time` 246, `no_gazetteer_place` 112, `departure_no_resolvable_road` 15, `reviewed_not_used` 12, `strength_note` 12, `place_is_a_road` 10, `not_usable` 8, `printed_clock_unconfirmed` 3, `gazetteer_name_not_printed` 1. 5 of them are dated on a day without a place (`day_claims` of the unit rows: a record that restates such a claim with the missing element of 2.6 gives the day its place; name the claim in `corroborates`).
+- **State-volume sections whose heading names another unit (found while reading; the index is not changed):** `NY3-S023` (heading: Battery C, 1st New York Light Artillery; the text holds also the dedications of Batteries D and E (the Battery E part holds the inscription "to the detached men of Battery E serving with L")).
 
 ### `us-3c-2d`: Union III Corps: Humphreys' division (Carr, Brewster, Burling)
 
@@ -423,19 +469,23 @@ A group is a part of the line of command a researcher can read through: the corp
 - **Indexed state volumes:** 9 units have regimental sections in NY1 7, NY2 6, NY3 3, PA1 2, PA1B 2, PA2 1 (section ids in groups.json, `sources.statevol_sections`).
 - **Local texts to read** (keys in sources.json): `NJ-TOOMBS-1888`, `NJ-FINAL-1891`, `FOX`, `BL3`.
 - **Ledger claims already held** (read them first; do not repeat them): ledger B 221, ledger E 22.
+- **What the layer did with them:** applied 10; refused: `no_printed_time` 117, `no_gazetteer_place` 77, `departure_no_resolvable_road` 13, `reviewed_not_used` 10, `not_usable` 8, `place_is_a_road` 3, `strength_note` 3, `printed_clock_unconfirmed` 2. 73 of them are dated on a day without a place (`day_claims` of the unit rows: a record that restates such a claim with the missing element of 2.6 gives the day its place; name the claim in `corroborates`).
+- **State-volume sections whose heading names another unit (found while reading; the index is not changed):** `NY2-S013` (heading: 73d New York; the text holds also the 76th New York: the inscription of its monument and Bachelder's address (pp. 613 to 616)).
 
 ### `us-5c`: Union V Corps (Barnes, Ayres, Crawford, Martin)
 
-- **Units:** 54 rows, 39 leaf units on the field: 1 not drawn, 39 partly drawn, 13 formation, 1 not on field. Missing (leaf units): arrival 40, strength 40, path 25, positions 10. Figures drawn now: 10,920.
+- **Units:** 53 rows, 39 leaf units on the field: 1 not drawn, 39 partly drawn, 13 formation. Missing (leaf units): arrival 40, strength 40, path 25, positions 10. Figures drawn now: 10,920.
 - **Not drawn or at the edge, by reason:** `roster_structure` 1.
-- **What to find:** 39 leaf units are placed, 24 of them by a MODELLED road (Hanover Road, sibling rule DEC-015, register EG-0070): the road of each division is to be documented or the modelled one confirmed. The 32d Massachusetts is not drawn at all: the roster holds it as a formation whose only child is Company C (headquarters guard of the Artillery Reserve). Open: arrivals, the days without a place, strengths, the headquarters companies.
+- **What to find:** 39 leaf units are placed, 24 of them by a MODELLED road (Hanover Road, sibling rule DEC-015, register EG-0070): the road of each division is to be documented or the modelled one confirmed. The 32d Massachusetts is not drawn at all: the roster holds it as a formation whose only child is Company C (headquarters guard of the Artillery Reserve, a unit of the group `us-hq-artres`); here the regiment less that company is to be established, with the `fix` record. Open: arrivals, the days without a place, strengths, the headquarters companies.
 - **Roster gaps to confirm or add (`unit` records; ids pre-assigned in roster-gaps.json):** `us-5c-hq-12ny-d-e` (add); `us-5c-hq-17pacav-d-h` (add); `us-5c-1d-sweitzer-32ma` (fix).
-- **Official Records reports the ledgers already cite for these units** (OR27 report id, claims held): R006 (3), R007 (4), R028 (1), R187 (18), R189 (17), R190 (2), R192 (10), R193 (14), R195 (15), R196 (13), R197 (1), R198 (5), R200 (3), R201 (5), R202 (1), R203 (14), R204 (2), R205 (5), R206 (7), R207 (2), R208 (5), R210 (4), R211 (8), R212 (3), R213 (2), R214 (2), R215 (2), R216 (2), R217 (9), R218 (13), R219 (10), R220 (7), R221 (11), R222 (4), R315 (1).
+- **Official Records reports the ledgers already cite for these units** (OR27 report id, claims held): R006 (3), R007 (4), R028 (1), R187 (18), R189 (17), R190 (2), R192 (10), R193 (14), R195 (15), R196 (13), R197 (1), R198 (5), R200 (3), R201 (5), R202 (1), R203 (14), R204 (2), R205 (5), R206 (7), R207 (2), R208 (5), R210 (4), R211 (8), R212 (3), R213 (2), R214 (2), R215 (2), R216 (2), R217 (9), R218 (13), R219 (10), R220 (7), R221 (11), R222 (4).
 - **Reports between them in the table of contents that no ledger claim cites (not read, or read with no result):** R188 Capt. James A. Bates, R191 Lieut. Joseph C. Ayer, R194 Col. Strong Vincent, R199 Maj. Robert T. Elliott, R209 Capt. W. Harvey Brown.
 - **Other Official Records:** organization table `OR27-1-R009`, returns `OR27-1-R008`, `OR27-1-R013`, part 3 documents cited by claims: D0919 (1), D0935 (2), D0983 (1), D1001 (3), D1041 (2), D1090 (1), D1091 (1), D1122 (1), D1160 (1), D1168 (1), D1173 (1), D2099 (1).
-- **Indexed state volumes:** 13 units have regimental sections in ME 4, MI 3, NY1 4, NY3 4, PA1 4, PA1B 3, PA2 2 (section ids in groups.json, `sources.statevol_sections`).
+- **Indexed state volumes:** 13 units have regimental sections in ME 4, MI 3, NY1 4, NY3 7, PA1 3, PA1B 2, PA2 2 (section ids in groups.json, `sources.statevol_sections`).
 - **Local texts to read** (keys in sources.json): `FOX`, `BL3`, `OH-DED-1887`.
-- **Ledger claims already held** (read them first; do not repeat them): ledger C 241.
+- **Ledger claims already held** (read them first; do not repeat them): ledger C 240.
+- **What the layer did with them:** applied 2; refused: `no_printed_time` 126, `no_gazetteer_place` 52, `reviewed_not_used` 17, `departure_no_resolvable_road` 13, `gazetteer_name_not_printed` 11, `strength_note` 10, `printed_clock_unconfirmed` 3, `not_usable` 2, `place_is_a_road` 2, `differs_from_pdf_stop` 1, `place_too_broad` 1. 0 of them are dated on a day without a place (`day_claims` of the unit rows: a record that restates such a claim with the missing element of 2.6 gives the day its place; name the claim in `corroborates`).
+- **State-volume sections whose heading names another unit (found while reading; the index is not changed):** `NY3-S023` (heading: Battery C, 1st New York Light Artillery; the text holds also the dedications of Batteries D and E (the Battery E part holds the inscription "to the detached men of Battery E serving with L")).
 
 ### `us-6c-1d-2d`: Union VI Corps: corps entry, Wright's division (Torbert, Bartlett/Upton, Russell) and Howe's division (Grant, Neill)
 
@@ -448,6 +498,8 @@ A group is a part of the line of command a researcher can read through: the corp
 - **Indexed state volumes:** 11 units have regimental sections in ME 6, NY1 3, NY3 3, PA1 4, PA1B 3, PA2 1 (section ids in groups.json, `sources.statevol_sections`).
 - **Local texts to read** (keys in sources.json): `VT-GB-1914`, `VT-MON-1890`, `NJ-TOOMBS-1888`, `NJ-FINAL-1891`, `FOX`, `BL3`.
 - **Ledger claims already held** (read them first; do not repeat them): ledger C 63.
+- **What the layer did with them:** applied 3; refused: `no_gazetteer_place` 26, `no_printed_time` 22, `departure_no_resolvable_road` 7, `reviewed_not_used` 5. 0 of them are dated on a day without a place (`day_claims` of the unit rows: a record that restates such a claim with the missing element of 2.6 gives the day its place; name the claim in `corroborates`).
+- **State-volume sections whose heading names another unit (found while reading; the index is not changed):** `NY1-S081` (heading: 49th New York; the text holds also the 52d New York: the historical sketch (Surg. Althans) and the monument inscription).
 
 ### `us-6c-3d-art`: Union VI Corps: Newton/Wheaton's division (Shaler, Eustis, Wheaton/Nevin) and the artillery brigade (Tompkins)
 
@@ -457,9 +509,10 @@ A group is a part of the line of command a researcher can read through: the corp
 - **Roster gaps to confirm or add (`unit` records; ids pre-assigned in roster-gaps.json):** `us-6c-3d-wheaton-102pa` (absent).
 - **Official Records reports the ledgers already cite for these units** (OR27 report id, claims held): R009 (1), R030 (1), R133 (1), R223 (5), R232 (12), R233 (3), R234 (12), R235 (2), R236 (1), R237 (2), R238 (2), R239 (5), R240 (2), R241 (2), R242 (4), R293 (1), R303 (1).
 - **Other Official Records:** organization table `OR27-1-R009`, returns `OR27-1-R008`, `OR27-1-R013`.
-- **Indexed state volumes:** 9 units have regimental sections in NY1 1, NY2 2, NY3 2, PA1 3, PA1B 3, PA2 1 (section ids in groups.json, `sources.statevol_sections`).
+- **Indexed state volumes:** 11 units have regimental sections in NY1 1, NY2 2, NY3 4, PA1 3, PA1B 3, PA2 1 (section ids in groups.json, `sources.statevol_sections`).
 - **Local texts to read** (keys in sources.json): `VT-GB-1914`, `VT-MON-1890`, `NJ-TOOMBS-1888`, `NJ-FINAL-1891`, `FOX`, `BL3`.
 - **Ledger claims already held** (read them first; do not repeat them): ledger C 66.
+- **What the layer did with them:** applied 0; refused: `no_gazetteer_place` 30, `no_printed_time` 19, `not_usable` 9, `departure_no_resolvable_road` 4, `gazetteer_name_not_printed` 2, `reviewed_not_used` 2. 14 of them are dated on a day without a place (`day_claims` of the unit rows: a record that restates such a claim with the missing element of 2.6 gives the day its place; name the claim in `corroborates`).
 
 ### `us-11c`: Union XI Corps: corps entry, Barlow/Ames', von Steinwehr's and Schurz's divisions and the artillery brigade (Osborn)
 
@@ -470,9 +523,10 @@ A group is a part of the line of command a researcher can read through: the corp
 - **Official Records reports the ledgers already cite for these units** (OR27 report id, claims held): R007 (3), R028 (1), R243 (23), R244 (3), R245 (8), R246 (5), R247 (6), R248 (3), R249 (3), R250 (11), R251 (6), R252 (4), R253 (19), R255 (1), R256 (5), R258 (3), R259 (5), R260 (5), R261 (1), R262 (4), R263 (2), R264 (10), R265 (4), R266 (6), R267 (3), R268 (2), R269 (6), R270 (2).
 - **Reports between them in the table of contents that no ledger claim cites (not read, or read with no result):** R254 Brig. Gen. Hector Tyndale, R257 Col. Horace Boughton.
 - **Other Official Records:** organization table `OR27-1-R009`, returns `OR27-1-R008`, `OR27-1-R013`, part 3 documents cited by claims: D0923 (1), D0959 (2), D0960 (1).
-- **Indexed state volumes:** 15 units have regimental sections in NY1 18, NY2 4, NY3 13, PA1 2, PA1B 4, PA2 1 (section ids in groups.json, `sources.statevol_sections`).
+- **Indexed state volumes:** 17 units have regimental sections in NY1 18, NY2 4, NY3 16, PA1 2, PA1B 4, PA2 1 (section ids in groups.json, `sources.statevol_sections`).
 - **Local texts to read** (keys in sources.json): `OH-DED-1887`, `FOX`, `BL3`.
 - **Ledger claims already held** (read them first; do not repeat them): ledger A 164, ledger E 100.
+- **What the layer did with them:** applied 18; refused: `no_printed_time` 113, `reviewed_not_used` 52, `no_gazetteer_place` 24, `gazetteer_name_not_printed` 23, `departure_no_resolvable_road` 15, `not_usable` 6, `conflict_stop` 4, `place_is_a_road` 4, `printed_clock_unconfirmed` 4, `strength_note` 1. 102 of them are dated on a day without a place (`day_claims` of the unit rows: a record that restates such a claim with the missing element of 2.6 gives the day its place; name the claim in `corroborates`).
 
 ### `us-12c`: Union XII Corps (Williams/Ruger, Geary, Lockwood, Muhlenberg)
 
@@ -482,9 +536,10 @@ A group is a part of the line of command a researcher can read through: the corp
 - **Official Records reports the ledgers already cite for these units** (OR27 report id, claims held): R001 (2), R006 (14), R007 (5), R009 (2), R028 (12), R030 (1), R037 (1), R043 (1), R052 (1), R076 (6), R077 (1), R098 (1), R211 (1), R231 (1), R256 (1), R258 (1), R264 (1), R271 (29), R272 (50), R273 (29), R274 (31), R275 (35), R276 (18), R278 (13), R279 (12), R280 (13), R281 (7), R282 (13), R283 (11), R284 (4), R285 (11), R286 (29), R287 (13), R288 (14), R289 (14), R290 (13), R292 (9), R293 (67), R294 (28), R295 (10), R296 (14), R297 (8), R298 (7), R299 (2), R300 (5), R301 (6), R302 (9), R303 (16), R304 (17), R305 (8), R306 (9), R307 (28), R308 (9), R309 (4), R310 (11), R311 (8), R312 (12), R313 (10), R314 (38), R315 (1), R332 (1).
 - **Reports between them in the table of contents that no ledger claim cites (not read, or read with no result):** R002 Brig. Gen. Hermann Haupt, R003 Medical Inspector John M. Cu, R004 Medical Inspector Edward P., R005 Maj. Gen. Joseph Hooker, R277 Col. Joseph M. Sudsburg, R291 Lieut. Col. Martin Flood.
 - **Other Official Records:** organization table `OR27-1-R009`, returns `OR27-1-R008`, `OR27-1-R013`, part 3 documents cited by claims: D0673 (1), D0746 (1), D0779 (2), D0803 (1), D0804 (1), D0814 (4), D0839 (1), D0840 (2), D0884 (1), D0886 (1), D0895 (1), D0919 (2), D0925 (1), D0962 (1), D0967 (1), D0968 (1), D0975 (1), D0979 (2), D0981 (1), D0983 (1), D1002 (2), D1008 (1), D1016 (1), D1034 (1), D1035 (1), D1040 (1), D1044 (1), D1095 (1), D1099 (1), D1103 (1), D1115 (2).
-- **Indexed state volumes:** 14 units have regimental sections in NY1 9, NY2 3, NY3 12, PA1 4, PA1B 3, PA2 1 (section ids in groups.json, `sources.statevol_sections`).
+- **Indexed state volumes:** 16 units have regimental sections in NY1 9, NY2 3, NY3 15, PA1 4, PA1B 3, PA2 2 (section ids in groups.json, `sources.statevol_sections`).
 - **Local texts to read** (keys in sources.json): `NJ-TOOMBS-1888`, `NJ-FINAL-1891`, `OH-DED-1887`, `IN-1913`, `FOX`, `BL3`.
 - **Ledger claims already held** (read them first; do not repeat them): ledger B 795.
+- **What the layer did with them:** applied 5; refused: `no_printed_time` 368, `no_gazetteer_place` 273, `departure_no_resolvable_road` 63, `strength_note` 29, `not_usable` 18, `reviewed_not_used` 17, `place_is_a_road` 9, `printed_clock_unconfirmed` 6, `place_too_broad` 4, `gazetteer_name_not_printed` 3. 27 of them are dated on a day without a place (`day_claims` of the unit rows: a record that restates such a claim with the missing element of 2.6 gives the day its place; name the claim in `corroborates`).
 
 ### `us-cav-1d`: Union cavalry: corps entry and Buford's division (Gamble, Devin, Merritt)
 
@@ -497,6 +552,7 @@ A group is a part of the line of command a researcher can read through: the corp
 - **Indexed state volumes:** 5 units have regimental sections in NY1 3, NY3 8, PA2 2 (section ids in groups.json, `sources.statevol_sections`).
 - **Local texts to read** (keys in sources.json): `IN-1913`, `FOX`, `BL3`.
 - **Ledger claims already held** (read them first; do not repeat them): ledger A 56, ledger E 18.
+- **What the layer did with them:** applied 3; refused: `no_printed_time` 41, `reviewed_not_used` 11, `not_usable` 7, `no_gazetteer_place` 4, `place_is_a_road` 4, `departure_no_resolvable_road` 3, `printed_clock_unconfirmed` 1. 21 of them are dated on a day without a place (`day_claims` of the unit rows: a record that restates such a claim with the missing element of 2.6 gives the day its place; name the claim in `corroborates`).
 
 ### `us-cav-2d-3d-art`: Union cavalry: D. Gregg's division (McIntosh, J. I. Gregg), Kilpatrick's division (Farnsworth, Custer) and the horse artillery
 
@@ -510,6 +566,8 @@ A group is a part of the line of command a researcher can read through: the corp
 - **Indexed state volumes:** 7 units have regimental sections in ME 1, NY1 2, NY3 5, PA2 4 (section ids in groups.json, `sources.statevol_sections`).
 - **Local texts to read** (keys in sources.json): `NJ-TOOMBS-1888`, `NJ-FINAL-1891`, `VT-GB-1914`, `VT-MON-1890`, `FOX`, `BL3`.
 - **Ledger claims already held** (read them first; do not repeat them): ledger A 83, ledger E 36.
+- **What the layer did with them:** applied 2; refused: `no_printed_time` 53, `no_gazetteer_place` 24, `reviewed_not_used` 21, `departure_no_resolvable_road` 6, `not_usable` 5, `place_outside_loaded_ground` 3, `gazetteer_name_not_printed` 2, `printed_clock_unconfirmed` 2, `place_is_a_road` 1. 39 of them are dated on a day without a place (`day_claims` of the unit rows: a record that restates such a claim with the missing element of 2.6 gives the day its place; name the claim in `corroborates`).
+- **State-volume sections whose heading names another unit (found while reading; the index is not changed):** `NY3-S022` (heading: 10th New York Cavalry; the text holds also the dedication of Battery B, 1st New York Light Artillery (Pettit's), 3 July 1888, with the address of Rev. W. O. Beauchamp).
 
 ### `cs-1c-mclaws`: Confederate First Corps: corps entries and McLaws' division (Kershaw, Barksdale, Semmes, Wofford, Cabell)
 
@@ -523,6 +581,7 @@ A group is a part of the line of command a researcher can read through: the corp
 - **Indexed state volumes:** none indexed for these units.
 - **Local texts to read** (keys in sources.json): `ALEXANDER-1907`, `LONGSTREET-1896`, `FREMANTLE-1864`, `SHSP-04`, `SHSP-05`, `SHSP-06`, `BL3`.
 - **Ledger claims already held** (read them first; do not repeat them): ledger D 67, ledger E 4.
+- **What the layer did with them:** applied 1; refused: `no_printed_time` 40, `no_gazetteer_place` 13, `reviewed_not_used` 8, `departure_no_resolvable_road` 5, `gazetteer_name_not_printed` 3, `not_usable` 1. 8 of them are dated on a day without a place (`day_claims` of the unit rows: a record that restates such a claim with the missing element of 2.6 gives the day its place; name the claim in `corroborates`).
 
 ### `cs-1c-pickett`: Confederate First Corps: Pickett's division (Garnett, Kemper, Armistead, Dearing)
 
@@ -535,6 +594,7 @@ A group is a part of the line of command a researcher can read through: the corp
 - **Indexed state volumes:** none indexed for these units.
 - **Local texts to read** (keys in sources.json): `ALEXANDER-1907`, `LONGSTREET-1896`, `FREMANTLE-1864`, `SHSP-04`, `SHSP-05`, `SHSP-06`, `SHSP-12`, `BACH-REPULSE-1870`, `BACH-STORY-1904`, `BL3`.
 - **Ledger claims already held** (read them first; do not repeat them): ledger D 27, ledger E 3.
+- **What the layer did with them:** applied 0; refused: `no_printed_time` 16, `reviewed_not_used` 8, `no_gazetteer_place` 5, `strength_note` 1. 0 of them are dated on a day without a place (`day_claims` of the unit rows: a record that restates such a claim with the missing element of 2.6 gives the day its place; name the claim in `corroborates`).
 
 ### `cs-1c-hood-resart`: Confederate First Corps: Hood's division (Law, Robertson, Anderson, Benning, Henry) and the corps reserve artillery (Alexander, Washington Artillery)
 
@@ -546,6 +606,7 @@ A group is a part of the line of command a researcher can read through: the corp
 - **Indexed state volumes:** none indexed for these units.
 - **Local texts to read** (keys in sources.json): `ALEXANDER-1907`, `LONGSTREET-1896`, `FREMANTLE-1864`, `SHSP-04`, `SHSP-05`, `SHSP-06`, `BL3`.
 - **Ledger claims already held** (read them first; do not repeat them): ledger D 75.
+- **What the layer did with them:** applied 0; refused: `no_printed_time` 40, `no_gazetteer_place` 19, `reviewed_not_used` 6, `departure_no_resolvable_road` 4, `strength_note` 3, `not_usable` 1, `place_is_a_road` 1, `place_outside_loaded_ground` 1. 0 of them are dated on a day without a place (`day_claims` of the unit rows: a record that restates such a claim with the missing element of 2.6 gives the day its place; name the claim in `corroborates`).
 
 ### `cs-2c-early`: Confederate Second Corps: corps entry, Early's division (Hays, Smith, Hoke/Avery, Gordon, Jones' battalion, 35th Virginia Cavalry Battalion)
 
@@ -559,6 +620,7 @@ A group is a part of the line of command a researcher can read through: the corp
 - **Indexed state volumes:** none indexed for these units.
 - **Local texts to read** (keys in sources.json): `SHSP-04`, `SHSP-05`, `SHSP-06`, `BL3`.
 - **Ledger claims already held** (read them first; do not repeat them): ledger D 52.
+- **What the layer did with them:** applied 4; refused: `no_printed_time` 20, `reviewed_not_used` 14, `gazetteer_name_not_printed` 6, `no_gazetteer_place` 3, `place_outside_loaded_ground` 2, `conflict_approach` 1, `place_too_broad` 1, `strength_note` 1. 5 of them are dated on a day without a place (`day_claims` of the unit rows: a record that restates such a claim with the missing element of 2.6 gives the day its place; name the claim in `corroborates`).
 
 ### `cs-2c-johnson`: Confederate Second Corps: Johnson's division (Steuart, Stonewall, Nicholls/Williams, J. M. Jones, Latimer)
 
@@ -572,6 +634,7 @@ A group is a part of the line of command a researcher can read through: the corp
 - **Indexed state volumes:** none indexed for these units.
 - **Local texts to read** (keys in sources.json): `SHSP-04`, `SHSP-05`, `SHSP-06`, `BL3`.
 - **Ledger claims already held** (read them first; do not repeat them): ledger D 32, ledger E 3.
+- **What the layer did with them:** applied 2; refused: `no_printed_time` 11, `reviewed_not_used` 10, `gazetteer_name_not_printed` 7, `no_gazetteer_place` 3, `place_too_broad` 1, `strength_note` 1. 11 of them are dated on a day without a place (`day_claims` of the unit rows: a record that restates such a claim with the missing element of 2.6 gives the day its place; name the claim in `corroborates`).
 
 ### `cs-2c-rodes-resart`: Confederate Second Corps: Rodes' division (Daniel, Doles, Iverson, Ramseur, O'Neal, Carter) and the corps reserve artillery (Dance, Nelson)
 
@@ -585,6 +648,7 @@ A group is a part of the line of command a researcher can read through: the corp
 - **Indexed state volumes:** none indexed for these units.
 - **Local texts to read** (keys in sources.json): `SHSP-04`, `SHSP-05`, `SHSP-06`, `BL3`.
 - **Ledger claims already held** (read them first; do not repeat them): ledger D 48, ledger E 1.
+- **What the layer did with them:** applied 3; refused: `no_printed_time` 20, `reviewed_not_used` 10, `place_outside_loaded_ground` 5, `gazetteer_name_not_printed` 4, `no_gazetteer_place` 4, `strength_note` 2, `departure_no_resolvable_road` 1. 3 of them are dated on a day without a place (`day_claims` of the unit rows: a record that restates such a claim with the missing element of 2.6 gives the day its place; name the claim in `corroborates`).
 
 ### `cs-3c-anderson`: Confederate Third Corps: corps entry and R. H. Anderson's division (Wilcox, Mahone, Wright, Perry/Lang, Posey, Sumter battalion)
 
@@ -597,6 +661,7 @@ A group is a part of the line of command a researcher can read through: the corp
 - **Indexed state volumes:** none indexed for these units.
 - **Local texts to read** (keys in sources.json): `SHSP-04`, `SHSP-05`, `SHSP-06`, `ALEXANDER-1907`, `BL3`.
 - **Ledger claims already held** (read them first; do not repeat them): ledger D 31.
+- **What the layer did with them:** applied 3; refused: `no_printed_time` 13, `gazetteer_name_not_printed` 4, `reviewed_not_used` 4, `no_gazetteer_place` 3, `place_is_a_road` 1, `place_outside_loaded_ground` 1, `printed_clock_unconfirmed` 1, `strength_note` 1. 0 of them are dated on a day without a place (`day_claims` of the unit rows: a record that restates such a claim with the missing element of 2.6 gives the day its place; name the claim in `corroborates`).
 
 ### `cs-3c-heth`: Confederate Third Corps: Heth's division (Pettigrew, Brockenbrough, Archer, Davis, Garnett's battalion)
 
@@ -609,6 +674,7 @@ A group is a part of the line of command a researcher can read through: the corp
 - **Indexed state volumes:** none indexed for these units.
 - **Local texts to read** (keys in sources.json): `SHSP-04`, `SHSP-05`, `SHSP-06`, `BL3`.
 - **Ledger claims already held** (read them first; do not repeat them): ledger D 19.
+- **What the layer did with them:** applied 3; refused: `reviewed_not_used` 5, `no_printed_time` 4, `gazetteer_name_not_printed` 3, `departure_no_resolvable_road` 1, `not_usable` 1, `place_is_a_road` 1, `strength_note` 1. 1 of them are dated on a day without a place (`day_claims` of the unit rows: a record that restates such a claim with the missing element of 2.6 gives the day its place; name the claim in `corroborates`).
 
 ### `cs-3c-pender-resart`: Confederate Third Corps: Pender's division (Perrin, Lane, Thomas, Scales, Poague) and the corps reserve artillery (McIntosh, Pegram)
 
@@ -620,6 +686,7 @@ A group is a part of the line of command a researcher can read through: the corp
 - **Indexed state volumes:** none indexed for these units.
 - **Local texts to read** (keys in sources.json): `SHSP-04`, `SHSP-05`, `SHSP-06`, `BL3`.
 - **Ledger claims already held** (read them first; do not repeat them): ledger D 19.
+- **What the layer did with them:** applied 2; refused: `no_printed_time` 9, `reviewed_not_used` 5, `no_gazetteer_place` 2, `printed_clock_unconfirmed` 1. 4 of them are dated on a day without a place (`day_claims` of the unit rows: a record that restates such a claim with the missing element of 2.6 gives the day its place; name the claim in `corroborates`).
 
 ### `cs-cav-hq`: Confederate cavalry (Hampton, Fitz. Lee/Chambliss, Jenkins, the horse artillery, Robertson, W. E. Jones, Imboden) and army headquarters
 
@@ -633,6 +700,7 @@ A group is a part of the line of command a researcher can read through: the corp
 - **Indexed state volumes:** none indexed for these units.
 - **Local texts to read** (keys in sources.json): `SHSP-04`, `SHSP-05`, `SHSP-06`, `SHSP-11`, `SHSP-12`, `FREMANTLE-1864`, `LONGSTREET-1896`, `BL3`.
 - **Ledger claims already held** (read them first; do not repeat them): ledger D 43, ledger E 12.
+- **What the layer did with them:** applied 0; refused: `no_printed_time` 31, `reviewed_not_used` 13, `no_gazetteer_place` 8, `place_outside_loaded_ground` 2, `not_usable` 1. 8 of them are dated on a day without a place (`day_claims` of the unit rows: a record that restates such a claim with the missing element of 2.6 gives the day its place; name the claim in `corroborates`).
 
 <!-- /GEN:sections -->
 
@@ -643,7 +711,8 @@ A group is a part of the line of command a researcher can read through: the corp
 ```
 docs/battle-theatre/history/undrawn/<group>.jsonl                          the file a researcher writes (UTF-8, Unix newlines, no BOM; one JSON object per line)
 tmp/units-<group>/                                                         texts a researcher acquires (untracked; below 1 GB; declared by `source` records)
-docs/battle-theatre/GOVERNANCE/horde/ws-units/<group>/NOTES.md             what was read, what was not, defects found in the texts or the layer data, requests made
+docs/battle-theatre/history/undrawn/<group>.REPORT.md                      the report of the group: what was read, what was not, conflicts carried, gaps, defects found in the texts or the layer, requests made, what is owed
+docs/battle-theatre/GOVERNANCE/horde/ws-units/<group>/NOTES.md             optional working notes (the report above is the one that is asked for)
 docs/battle-theatre/GOVERNANCE/horde/ws-units/proposed-register/<group>-<name>.md    one proposed register entry per gap record (template: proposed-register/TEMPLATE.md)
 docs/battle-theatre/GOVERNANCE/horde/requests/bt-units-<short-name>.md    a change wanted in a file the researcher does not own
 ```
@@ -693,7 +762,7 @@ A field the checker does not know is listed as a warning and ignored by the inte
 | `source` | a text the researcher acquired | `source_decl` (5.9) | none |
 | `gap` | nothing found, after searches | `gap` (5.8) | any word, visibly |
 
-**5.3.1 `unit`.** `unit.action`: `add` (a unit the roster lacks: `parent`, `name`, `level`, `arm` required; `status` optional, default `on_field`; the id is the parent's id, a hyphen and a slug, or the id pre-assigned in `roster-gaps.json`), `absent` (the same fields with `status` `never_on_field` or `never_main_field`: printed in the table as not engaged), `attached` (`attached_to`: a unit attached to another has no figures of its own unless a source gives them), `merge` (`merge_of`: two or more roster ids the table prints as one consolidated battery), `status` (`status`: the new roster status), `rename` (`name`), `fix` (`fix`, 40 characters or more: only for the one roster-structure case that `roster-gaps.json` pre-classifies, the 32d Massachusetts; any other structural error is a `gap` with `what: ["roster"]` and a request note). Levels: `army corps division brigade regiment battalion battery company artillery_brigade artillery_battalion artillery_group group command headquarters person`; arms: `infantry cavalry artillery staff medical train headquarters`. A `unit` record is evidence like any other: it cites the printed table line (the quote, offset and page that `roster-gaps.json` already holds are the starting point).
+**5.3.1 `unit`.** `unit.action`: `add` (a unit the roster lacks: `parent`, `name`, `level`, `arm` required; `status` optional, default `on_field`; the id is the parent's id, a hyphen and a slug, or the id pre-assigned in `roster-gaps.json`), `absent` (the same fields with `status` `never_on_field` or `never_main_field`: printed in the table as not engaged), `attached` (`attached_to`: a unit attached to another has no figures of its own unless a source gives them), `merge` (`merge_of`: two or more roster ids the table prints as one consolidated battery), `status` (`status`: the new roster status), `rename` (`name`), `reparent` (`new_parent`: a roster id, or a unit added by a record of the file; `old_parent` optional, the roster parent it leaves; the record's `when`, when present, is the time the change took effect: a transfer during the battle such as the 11th Pennsylvania's "in afternoon of July 1"; without `when` the roster entry is wrong for the whole battle, as for a company that the table prints under another formation than the roster does; the roster must stay a tree: never a unit under itself or under one of its own units, and the roster parent itself is no change), `fix` (`fix`, 40 characters or more: only for the one roster-structure case that `roster-gaps.json` pre-classifies, the 32d Massachusetts; any other structural error is a `gap` with `what: ["roster"]` and a request note). Levels: `army corps division brigade regiment battalion battery company artillery_brigade artillery_battalion artillery_group group command headquarters person`; arms: `infantry cavalry artillery staff medical train headquarters`. A `unit` record is evidence like any other: it cites the printed table line (the quote, offset and page that `roster-gaps.json` already holds are the starting point).
 
 **5.3.2 `strength`.** `strength.what`: `officers_and_men men enlisted officers muskets sabers aggregate_present present_for_duty engaged carried_into_action effective`; exactly one of `value` (one printed positive integer) or `min` and `max` (a printed range); `printed` (the words and figures as printed; `number_in_words: true` when the number is printed in words); `as_of` (the date the figure refers to, `1863-MM-DD`); `approx` (the text says "about"). Two figures in one sentence ("230 men and 13 officers") are two records.
 
@@ -732,7 +801,7 @@ A field the checker does not know is listed as a warning and ignored by the inte
 | `period` | only for `printed_period`: one of the 14 tokens of 5.6, one of whose words stands in `printed`; `printed` must carry no clock |
 | `approx` | boolean: "about", "near", "soon after" |
 
-`until` has the same shape and closes a window (an engagement from 3 p. m. until 8 p. m.). The times of a record are in the report's own clock; the layer reads them as local mean time (the unit of the timeline). A printed clock always outranks a day part. Never write a time the passage does not print.
+`until` has the same shape and closes a window (an engagement from 3 p. m. until 8 p. m.). A `sequence` or `day_only` record is evidence of where the unit stood but has no instant of its own: the integrator places it by the conventions of 6.3 (marked on the card), so give a clock or a day part wherever the passage prints one. The times of a record are in the report's own clock; the layer reads them as local mean time (the unit of the timeline). A printed clock always outranks a day part. Never write a time the passage does not print.
 
 ### 5.6 Day parts
 
@@ -799,7 +868,7 @@ A text the researcher acquires (from the reachable hosts of 1.2) is declared onc
 | `--verify "QUOTE" --source OR27-1` | where a quote stands (offset, report or section, page); exit 1 when it does not |
 | `--self-test` | the fixtures: the good file must pass, every line of the bad file must be refused for the defect it carries; the coverage cases |
 
-It checks: the shape of every record and the vocabularies above; that every id resolves (units of the group, gazetteer places and roads, troop-map claims, monuments, structures, records); that every quote is at most 14 words and stands in the named text at the offset given, inside the named report or section; that every `printed` field stands in the passage read; that a printed clock is in `printed` where `t_iso` is set and a day-part word where a token is set; the tier rules; the copy-audit words; the distances in exact units; that a record names only units of its group. Exit 0: no error; 1: errors; 2: no error but a source text is not on this machine (the quote checks that need it are listed, not passed).
+It checks: the shape of every record and the vocabularies above; that every id resolves (units of the group, gazetteer places and roads, troop-map claims, monuments, structures, records); for a `reparent`, that the new parent is a unit, is not the unit itself or below it, and is not the roster parent already; and, with `--complete`, that every roster-gap entry of the group is answered (a `unit` record of its id, or a gap record that names `roster`; an entry with `needs` asks for a `unit` record of each action named; a footnote entry asks for nothing and is refused as a unit); that every quote is at most 14 words and stands in the named text at the offset given, inside the named report or section; that every `printed` field stands in the passage read; that a printed clock is in `printed` where `t_iso` is set and a day-part word where a token is set; the tier rules; the copy-audit words; the distances in exact units; that a record names only units of its group. Exit 0: no error; 1: errors; 2: no error but a source text is not on this machine (the quote checks that need it are listed, not passed).
 
 It does not judge whether a passage supports a claim: that is the reading and the review. `claim_support_verified: true` is the researcher's statement that the whole passage was read and says exactly this; a reviewer may sample it.
 
@@ -838,14 +907,14 @@ The ledger shape is the one of `history/positions/positions_{A..E}.jsonl` (`clai
 | `arrival_road` with `road.ref` | an `approach` row of `app/data/claim-curation-F.json` (an AP entry): road = the gazetteer line, phrase = the road words as printed that stand in the quote, `identification` = the `road_identification` record's basis | only when `enters_ground` is true and the road crosses the loaded ground (`boxCrossings`); a `road.identification` that is an `RC-` id is checked against `road-concordance.json` (resolved entries only) |
 | `march` | an F claim of kind `march`, used as support and for the order of legs | never an approach by itself |
 | `position`, `engagement`, `night_position`, `movement` (the `to` place) | a `stops` row (a PO entry), one place, one time | the place resolves to a gazetteer point inside the ground (anchor `gazetteer`), or to a derived place of 6.4; the time is a printed clock (`t_iso`) or the instant of a token of 6.3; `until` bounds how long the stop holds |
-| `arrival` with `scope: field` | two things: (a) the unit's own gate in `app/data/unit-overlay.json` (`gates`): `earliest` = the earliest printed time of the unit's `arrival` records, `latest` = the latest, `default` = the earliest (the "range" choice of the scenario machinery: every value shown, none chosen), `kind` `printed_clock` or `named_period_convention` (the token's instant), tier from the claims; (b) a `stops` row when its place resolves | a unit with its own printed time may be drawn before its parent's gate (the rule of `ArrivalModel.effective`); a gate is never earlier than the earliest documented arrival; disagreeing records are listed as the conflict of the gate, none chosen |
+| `arrival` with `scope: field` | two things: (a) the unit's own gate in `app/data/unit-overlay.json` (`gates`): `earliest` = the earliest printed time of the unit's `arrival` records, `latest` = the latest, `default` = the earliest (the "range" choice of the scenario machinery: every value shown, none chosen), `kind` `printed_clock` or `named_period_convention` (the token's instant), tier from the claims; (b) a `stops` row when its place resolves | a unit with its own printed time may be drawn before its parent's gate (the rule of `ArrivalModel.effective`); a gate is never earlier than the earliest documented arrival, so a gate of the layer that differs from the earliest documented arrival of a unit is replaced by it, whether it is later (Stannard's brigade: the layer's event floor is the evening of 2 July, six printed statements put it on the field on the evening of 1 July) or earlier (the Second Corps: a weak lead puts it on the field at 22:30 on 1 July, eight hours before any printed arrival); the layer's value stays on the card as the conflict; disagreeing records are listed as the conflict of the gate, none chosen |
 | `arrival` with `scope: vicinity` | an F claim of kind `march` | a floor for the unit's presence on the road (it cannot be on the ground earlier than it was short of it plus the march), not a gate |
 | `departure` | a `departures` row (a DP entry) | a printed time and a gazetteer road (existing rule) |
 | `strength` | `unit-overlay.json` (`strengths`): the unit's records (`what`, value or range, `as_of`, claims); `allocateStrengths` reads them | a leaf with a record gets `kind: printed` with the declared range and basis; how the pool of its figured ancestor changes is a decision of 6.5 (the figures count different things at different dates); the card shows the range, the basis and what the number counts; no figure is ever capped |
 | `line_order` | `unit-overlay.json` (`line_orders`): the order inside a column (`planTracks`, in place of roster order, EG-0005) and the left-to-right layout of a brigade's regiments | the units named stay in their formation |
 | `road_identification` | an `identification` of an approach row; an F claim of kind `road_identification` | `tier` inferred |
 | `absent` | `documented_absent` rows (ABS) of the curation: two or more records of the unit (different passages), at least one documented, a summary of 60 characters or more, a register id | one record alone leaves the unit `listed_not_on_field` with the claim on its card |
-| `unit` | `unit-overlay.json` (`roster`): the roster actions applied over `units.json` when the layer reads it (the source files are not edited, as for `documented_absent`) | `add` and `absent` create the unit under its parent with its status; `merge` makes the later ids one battery; `attached` removes the figures of the attached unit; `status` and `rename` change the entry; `fix` is the 32d Massachusetts only |
+| `unit` | `unit-overlay.json` (`roster`): the roster actions applied over `units.json` when the layer reads it (the source files are not edited, as for `documented_absent`) | `add` and `absent` create the unit under its parent with its status; `merge` makes the later ids one battery; `attached` removes the figures of the attached unit; `status` and `rename` change the entry; `reparent` without a time replaces the parent, with a time (`from`) keeps the roster parent for what is inherited down the line of command (gate, road, strength pool: the unit was on the field already) and puts the unit under the new parent from that time for its card and for the layout of the brigades (a delegated decision, 6.5, with the alternative kept selectable); `fix` is the 32d Massachusetts only |
 | `gap` | `app/data/undrawn-gaps.json` and the proposed register entry | the unit's card says "open gap", what is missing, what was searched, the register id; the render reason of the unit repeats it |
 | `source` | `app/data/undrawn-sources.json`: the text's citation for the Sources panel | hash checked |
 
@@ -853,7 +922,7 @@ Every F claim keeps its `claim_id`, its `source` (the card prints the key, repor
 
 ### 6.3 The time of a record
 
-A `printed_clock` is used as printed. A `printed_period` takes the labelled convention of its token, one table for all records (the existing `PERIODS` of `app/src/history/placement.mjs` and `claim-clock.mjs` hold three tokens, night, evening and dusk; they become the 14 of the table in 5.6): the window is bounded by the sun and noon of 2 July from `environment/ephemeris_1863.json`, applied to the date printed, as the three earlier ones are; the instant is the start of the window, the earliest the words allow. These are conventions, not claims: the card says "time: convention of the word X, window A to B", and a record whose instant the layer cannot reach from the unit's previous stop (double-quick, the existing check) is dropped and listed with that reason. The choice of the instant (start, middle, end of the window) is a decision of the integrator, to be recorded as a delegated decision (6.5) with the other two kept selectable.
+A `printed_clock` is used as printed. A `printed_period` takes the labelled convention of its token, one table for all records (the existing `PERIODS` of `app/src/history/placement.mjs` and `claim-clock.mjs` hold three tokens, night, evening and dusk; they become the 14 of the table in 5.6): the window is bounded by the sun and noon of 2 July from `environment/ephemeris_1863.json`, applied to the date printed, as the three earlier ones are; the instant is the start of the window, the earliest the words allow. These are conventions, not claims: the card says "time: convention of the word X, window A to B", and a record whose instant the layer cannot reach from the unit's previous stop (double-quick, the existing check) is dropped and listed with that reason. A `day_only` record, which prints the day and no part of it, takes the token `all_day` (a `night_position`: `night`), with the same convention and the same card line ("time: no time printed, convention of the whole day"); a `sequence` record takes the instant of the latest of its `after` records that has one (the earliest the words allow), provided it is earlier than the instant of every `before` record that has one, and is listed and not a stop when no bound has an instant or the bounds leave no room. The choice of the instant (start, middle, end of the window) is a decision of the integrator, to be recorded as a delegated decision (6.5) with the other two kept selectable.
 
 ### 6.4 Places that are not gazetteer places
 
@@ -870,7 +939,7 @@ The builder resolves an anchor to a derived place `GZU-nnn` of `app/data/gazette
 
 ### 6.5 Decisions the integrator records
 
-Append each as a DELEGATED DECISION to `GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md` (never the word DECIDED in `decision_log.md`), conservative, with every alternative kept selectable: the instant inside a period window (6.3); the sigma of each derived anchor (6.4); the figure drawn for a strength range (the printed value, or for a range the lower bound, with the other bounds selectable in the Sources panel); the default of a gate with disagreeing arrival records (the earliest printed, the range shown); how the strengths of a figured ancestor's other leaves change when one leaf has a printed figure; and the treatment of records that fall before the unit's gate. The delegated decision for the period tokens of this plan is entered in the same file (DD-UNITS-01).
+Append each as a DELEGATED DECISION to `GOVERNANCE/decisions/DELEGATED-DECISIONS-2026-11-11.md` (never the word DECIDED in `decision_log.md`), conservative, with every alternative kept selectable: the instant inside a period window (6.3); the sigma of each derived anchor (6.4); the figure drawn for a strength range (the printed value, or for a range the lower bound, with the other bounds selectable in the Sources panel); the default of a gate with disagreeing arrival records (the earliest printed, the range shown); how the strengths of a figured ancestor's other leaves change when one leaf has a printed figure; the treatment of records that fall before the unit's gate; the convention for `day_only` and `sequence` records (6.3); and whether a `reparent` with a time moves the unit under the new parent only for its card and the brigade layout (6.2). The delegated decision for the period tokens of this plan is entered in the same file (DD-UNITS-01).
 
 ### 6.6 Tests and gates
 
@@ -913,12 +982,30 @@ python3 -I docs/battle-theatre/history/undrawn/tools/check_undrawn.py <group> [-
 
 ### 9.3 Known limits of the texts
 
-The OCR damages digits, names and line breaks (a stray character inside a hyphenated word keeps the word from joining: write the quote around it and set `ocr_uncertain`). The index's page model is several pages high inside the organization tables (`OR27-1-R009`, `OR27-2-R424`): give the page read from the running heads inside the table as `printed_page` with `page_basis` (as `roster-gaps.json` does); the scan-leaf map `docs/battle-theatre/kit/evidence/or27_leaf_pages.json` (built by `tools/bt/kit_or27_leafmap.py` from the per-leaf OCR of the archive.org items) gives the printed page of any offset without running heads and may be named as the `page_basis`. Reports of 1863 and later memoirs differ in kind: the memoir is `documented` only where its author states a fact of his own unit and the card shows the date.
+The OCR damages digits, names and line breaks (a stray character inside a hyphenated word keeps the word from joining: write the quote around it and set `ocr_uncertain`). The index's page model is several pages high inside the organization tables (`OR27-1-R009`, `OR27-2-R424`): give the page read from the running heads inside the table as `printed_page` with `page_basis` (as `roster-gaps.json` does); the scan-leaf map `docs/battle-theatre/kit/evidence/or27_leaf_pages.json` (built by `tools/bt/kit_or27_leafmap.py` from the per-leaf OCR of the archive.org items) gives the printed page of any offset without running heads and may be named as the `page_basis`. Defects found by the researchers of round 1, so that the next ones do not meet them blind: (a) the OCR prints the date of 2 July as 3 July in several reports of the First and Second Corps ("the 3d and 3d instant", "On the 3d instant", a heading "July 3" over the entry of the morning after the first day; R030, R037, R040, R073, R079, R087, R088, R095): read the day from the report's own sequence of days, write the printed words in `quote` and say in `note` how the day was read, and carry both readings as two records where the sequence does not decide; (b) Robinson's strength in R043 (p. 291) reads "less than 3,500" and 134 commissioned officers in the text of the index, while two regimental histories that quote the sentence print 2,500 and 124: the page scan is to be read for the digit (the three values are carried as a conflict, none chosen); (c) the footnotes of p. 168 of the organization table (the stars of the two Connecticut heavy batteries, the dagger of Battery K) are lost in the OCR of both copies of vol. 27 part 1 on this machine; (d) `OR27-1-R008` (the abstract of returns) is too scrambled to read a unit's line; (e) the state-volume index names a section by the first heading found and twelve sections hold the text of another unit as well, or name no number (`groups.json`, `sources.statevol_notes` of each group, the table `HIDDEN` of `build_groups.py`: the index is not changed); (f) the numbers of a roster or plan figure (a corps figure, an equal share) are leads, never sources: the reports print other figures.
+
+Reports of 1863 and later memoirs differ in kind: the memoir is `documented` only where its author states a fact of his own unit and the card shows the date.
 
 ## 10. What this plan does not do
 
 - It does not change the layer, the roster or any ledger: the files it names for the integrator do not exist yet. `status.json` and `groups.json` are a snapshot of the layer at 439 drawn units.
 - The group sections list the Official Records reports that the ledgers already cite for each group and the reports between them that no claim cites; they are leads, not a reading list that is complete: the researcher reads all reports of the group's formations.
-- It does not read the texts for the researcher: no record of any group exists yet (the fixture's claim ids, 9000 and over, are format tests of the checker, never evidence).
+- It does not read the texts for the researcher. Four group files exist (round 1: `us-hq-artres`, `us-1c-1d-art`, `us-1c-2d-3d`, `us-2c-1d-art`), written and checked by their own researchers; the fixture's claim ids, 9000 and over, are format tests of the checker, never evidence.
 - The separate roster of soldiers (`rosters/`, workstream bt-rosters) keys on the same unit ids; the integrator tells that workstream of any added, merged or renamed unit through a request note.
 - The kit-evidence pass (`docs/battle-theatre/kit/evidence/`, its own plan and `groups.json`) reads the same Official Records reports for the strength, commander, casualties and arms of every unit. A researcher reads the rows of that file for the group's units first (the `strength` field says what is there now) and does not repeat a figure it already holds; a strength found here that the kit pass lacks is recorded here, with the report and the quote, so that the same report and quote give the same figure in both places, and the integrator reconciles the two by source, never by choosing.
+
+## 11. Changes of this plan after the first four group files (2026-11-13, second version)
+
+What the researchers of `us-hq-artres`, `us-1c-1d-art`, `us-1c-2d-3d` and `us-2c-1d-art` found in the plan's own files, and what was done; each is a change to the tools or data of this workstream, never to a group file, and none lowers a check.
+
+| Found | Done |
+|---|---|
+| `roster-gaps.json` gave Company C of the 32d Massachusetts to `us-hq-artres` while `groups.json` held the unit in `us-5c`, so the checker refused every record of the unit (request `bt-units-us-hq-artres-32ma-co-c.md`) | The unit is in `us-hq-artres` (the evidence stands in Tyler's report and the Reserve's table); the regiment less the company stays in `us-5c` with its `fix` entry; the roster-gap entry `need`s a `status` and a `reparent` record |
+| the entry `us-1c-3d-stannard` carried the id of Stannard's brigade, which is in the roster (request `bt-units-us-1c-2d-3d-roster-gap-entry.md`) | renamed `us-1c-3d-stannard-footnote`, marked `footnote_of` the 12th and 15th Vermont: it is no unit, the checker refuses it as one, and nothing is owed for it itself |
+| the contract had no action that changes a unit's parent (the 11th Pennsylvania, requests `bt-units-us-1c-2d-3d-11pa-reparent.md`; Company C) | the `unit` action `reparent` (5.3.1, 6.2), checked by `check_undrawn.py` with its own self-test cases; the two entries `need` it, so `--complete` asks for it |
+| `--complete` did not check the roster-gap entries although section 1.3 asks for them | it does (5.10); an entry nobody answered is owed like a missing word |
+| the integrator had no rule for `day_only` and `sequence` records, which are 114 of the 332 arrival and place records of the four files | the conventions of 6.3, marked on the card, and a delegated decision to record (6.5) |
+| the gate of Stannard's brigade in the layer is later than every printed arrival but one (request `bt-units-us-1c-2d-3d-stannard-gate.md`); the gate of the Second Corps rests on a weak lead, eight hours before any printed arrival | stated in 6.2: the gate of a unit is its earliest documented arrival, replacing a later or an earlier value of the layer, which stays on the card as the conflict |
+| `status.json` said "no place" on days for which the ledgers hold claims, without saying why they are not stops (the 107th Pennsylvania's two claims of 3 July) | `status.json` and `groups.json` carry, per unit and per such day, the claims and the layer's reason code; section 2.6 explains each code and what a record adds |
+| `sources.statevol_sections` listed no section for batteries, and none whose heading names another unit (requests `bt-units-*-statevol-index.md`) | batteries of the New York and Pennsylvania volumes are matched by letter or number, and twelve sections that the researchers found under another unit's heading are listed for their units with a note (`HIDDEN` in `build_groups.py`); the index is not changed |
+| the researchers wrote their report as `undrawn/<group>.REPORT.md`, which the layout of the first version did not name | named in 5.1 and in the rules |

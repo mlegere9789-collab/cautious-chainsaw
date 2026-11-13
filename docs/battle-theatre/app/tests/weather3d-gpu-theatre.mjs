@@ -1,7 +1,8 @@
 // Harness (not a gate): the real shell (index.html, placeholder history layer) on one renderer API, entered like a visitor enters it, with the weather and effects layers installed by the shell itself and then given the
 // stand-in event plan of tests/weather3d-gpu-plan.mjs. Reads the picture back from the canvas in the frame's own task, and records the console, every WebGPU error and compiler message, the ribbon text and the layer's counters.
 // Software rendering only (SwiftShader). Nothing here is a real-GPU result.
-//   tools/horde/bench.sh node docs/battle-theatre/app/tests/weather3d-gpu-theatre.mjs <outDir> [webgpu|webgl2] [case,case,...] [--w=640] [--h=360] [--real] [--real-canvas] [--trace] [--q=fx=off] [--entry-timeout=1200]
+//   tools/horde/bench.sh node docs/battle-theatre/app/tests/weather3d-gpu-theatre.mjs <outDir> [webgpu|webgl2] [case,case,...] [--w=640] [--h=360] [--real] [--real-canvas] [--real-gpu] [--headed] [--trace] [--q=fx=off] [--entry-timeout=1200]
+// --real-gpu: a run on a machine with a GPU (Chrome without the software-rasteriser flags, the real canvas; the adapter is recorded in summary.entered.adapter and must not be a software one for the run to count); --headed: a visible window.
 // --trace: print the console live and, in the progress line, the GPU promises that have not settled; --q: more address parameters (for example fx=off or structures=off, to find what a stalled entry waits for); --entry-timeout: seconds to wait for the entry.
 // --real: the real history layer (the crowd of figures, the structures, the crowd's own fire plan) instead of the placeholder layer and the stand-in plan; three views of the real field.
 // Output: <outDir>/theatre-<api>/<case>.png, <case>.rgba, <case>.json, summary.json, console.log (theatre-real-<api> with --real).
@@ -10,20 +11,28 @@ import { chromium } from '../../../../node_modules/playwright-core/index.mjs';
 import { serve } from '../tools/serve.mjs';
 import { ALL_CASES, specOf } from './weather3d-gpu-cases.mjs';
 import { minOf as MO } from '../src/clock.mjs';
-import { encodePng, stats, CHROME_ARGS, HOOKS } from './weather3d-gpu-lib.mjs';
+import { encodePng, stats, chromeArgs, HOOKS } from './weather3d-gpu-lib.mjs';
 
 const args = process.argv.slice(2), flag = (k, d) => { const a = args.find(x => x.startsWith('--' + k + '=')); return a ? a.split('=')[1] : d; };
 const pos = args.filter(a => !a.startsWith('--')), outRoot = path.resolve(pos[0] || '.'), api = pos[1] === 'webgl2' ? 'webgl2' : 'webgpu', only = (pos[2] || '').split(',').filter(Boolean);
-const W = +flag('w', 640), H = +flag('h', 360), TRACE = args.includes('--trace'), EXTRA = flag('q', ''), ENTRY_MS = +flag('entry-timeout', 1200) * 1000, REAL = args.includes('--real'), out = path.join(outRoot, (REAL ? 'theatre-real-' : 'theatre-') + api); fs.mkdirSync(out, { recursive: true });
-const REAL_CASES = [{ name: 'real-overview-jul3-1330', m: [7, 3, 13, 30], view: 'overview', what: 'the whole field at the cannonade, the real layer' }, { name: 'real-ground-jul3-1330', m: [7, 3, 13, 30], view: 'ground', what: 'ground view at the cannonade, the real layer' }, { name: 'real-ground-jul2-2330', m: [7, 2, 23, 30], view: 'ground', what: 'ground view at night, the real layer' }];
+const W = +flag('w', 640), H = +flag('h', 360), TRACE = args.includes('--trace'), EXTRA = flag('q', ''), ENTRY_MS = +flag('entry-timeout', 1200) * 1000, REAL = args.includes('--real'), REALGPU = args.includes('--real-gpu'), out = path.join(outRoot, (REAL ? 'theatre-real-' : 'theatre-') + api); fs.mkdirSync(out, { recursive: true });
+// Views of the real field. 'overview' and 'ground' are the shell's own views; 'unit' flies to the unit the census picks at that minute (the largest present unit of the named arm, as a visitor flies to a unit: viewFor at `dist` m, `height` m
+// above the ground, seen from `yawAdd` radians round from the unit's heading), so the pictures show how the men look close up under the weather and the effects of the API under test. The census is written into the case's JSON.
+const REAL_CASES = [{ name: 'real-overview-jul3-1330', m: [7, 3, 13, 30], view: 'overview', what: 'the whole field at the cannonade, the real layer' }, { name: 'real-ground-jul3-1330', m: [7, 3, 13, 30], view: 'ground', what: 'ground view at the cannonade, the real layer' }, { name: 'real-ground-jul2-2330', m: [7, 2, 23, 30], view: 'ground', what: 'ground view at night, the real layer' },
+  { name: 'real-line-60m-jul3-1330', m: [7, 3, 13, 30], view: 'unit', arm: 'infantry', dist: 60, height: 8, yawAdd: Math.PI * 0.8, what: 'the largest infantry unit present at the cannonade, 60 m away, 8 m up' },
+  { name: 'real-soldiers-28m-jul3-1330', m: [7, 3, 13, 30], view: 'unit', arm: 'infantry', dist: 28, height: 4, yawAdd: Math.PI * 0.8, what: 'the same unit from 28 m, 4 m up' },
+  { name: 'real-soldiers-12m-jul3-1330', m: [7, 3, 13, 30], view: 'unit', arm: 'infantry', dist: 12, height: 2.2, yawAdd: Math.PI * 0.8, what: 'the same unit from 12 m, 2.2 m up' },
+  { name: 'real-soldiers-7m-jul3-1330', m: [7, 3, 13, 30], view: 'unit', arm: 'infantry', dist: 7, height: 1.7, yawAdd: Math.PI * 0.35, what: 'the same unit from 7 m at eye level' },
+  { name: 'real-battery-40m-jul3-1330', m: [7, 3, 13, 30], view: 'unit', arm: 'artillery', dist: 40, height: 5, yawAdd: Math.PI * 0.8, what: 'the largest battery present at the cannonade, 40 m away, 5 m up (the crowd\'s own fire plan: smoke and flashes)' },
+  { name: 'real-soldiers-12m-jul2-2330', m: [7, 2, 23, 30], view: 'unit', arm: 'infantry', dist: 12, height: 2.2, yawAdd: Math.PI * 0.8, what: 'the largest infantry unit present at night, 12 m away: the night floor on men and ground' }];
 const DEFAULT = ['stars-jun28-0200', 'moon-jul3-2330', 'day-clouds-jul3-1400', 'wet-ground-jul4-1400', 'smoke-jul3-1400', 'smoke-night-jul2-2200', 'fire-sherfy-jul3-1500', 'dust-march-jul2-1100'];
 const t00 = Date.now(), say = (...a) => console.log(((Date.now() - t00) / 1000).toFixed(0).padStart(5) + 's', ...a);
 const srv = await serve(0), port = srv.address().port, url = `http://127.0.0.1:${port}/app/index.html?history=${REAL ? 'real' : 'stub'}&api=${api}&nearR=12&midR=60${EXTRA ? '&' + EXTRA : ''}`;
-const summary = { api, url, w: W, h: H, started: new Date().toISOString(), cases: {}, errors: [] }, save = () => fs.writeFileSync(path.join(out, 'summary.json'), JSON.stringify(summary, null, 1));
+const summary = { api, url, w: W, h: H, realGpu: REALGPU, started: new Date().toISOString(), cases: {}, errors: [] }, save = () => fs.writeFileSync(path.join(out, 'summary.json'), JSON.stringify(summary, null, 1));
 const logs = []; let browser;
 try {
-  browser = await chromium.launch({ channel: 'chrome', headless: true, args: CHROME_ARGS });
-  const ctx = await browser.newContext({ viewport: { width: W, height: H }, deviceScaleFactor: 1 }); await ctx.addInitScript(HOOKS, { realCanvas: args.includes('--real-canvas'), trace: TRACE }); ctx.setDefaultTimeout(0);
+  browser = await chromium.launch({ channel: 'chrome', headless: !args.includes('--headed'), args: chromeArgs(REALGPU) });
+  const ctx = await browser.newContext({ viewport: { width: W, height: H }, deviceScaleFactor: 1 }); await ctx.addInitScript(HOOKS, { realCanvas: args.includes('--real-canvas') || REALGPU, trace: TRACE }); ctx.setDefaultTimeout(0);
   const page = await ctx.newPage(); page.on('console', m => { logs.push(m.type() + ': ' + m.text()); if (TRACE) say('  console', m.type(), m.text().slice(0, 200)); }); page.on('pageerror', e => logs.push('pageerror: ' + e.message)); page.on('crash', () => logs.push('PAGE CRASH')); page.on('response', r => { if (r.status() >= 400) logs.push('http ' + r.status() + ' ' + r.url()); });
   say('open', url); await page.goto(url, { waitUntil: 'load', timeout: 300000 });
   // a script click (no actionability wait: a visitor's click would be the same event), a progress line every 30 s, and a limit of 20 minutes for the entry
@@ -31,7 +40,7 @@ try {
   const hb = setInterval(async () => { try { say('  entering:', await page.evaluate(() => { const l = document.querySelector('.loading-card'); const pend = window.__pending ? [...window.__pending.values()].map(v => v.name + ' ' + Math.round((performance.now() - v.t) / 1000) + 's').slice(0, 6).join('; ') : ''; return (l ? l.innerText.replace(/\s+/g, ' ').slice(0, 160) : 'no loading card') + ' | btApp ' + !!window.btApp + (pend ? ' | pending GPU promises: ' + pend : ''); })); } catch (e) { say('  entering: page busy'); } }, 30000);
   try { await page.waitForFunction(() => window.btApp && (window.btApp.ready || (document.querySelector('.loading-card .fail'))), null, { timeout: ENTRY_MS, polling: 1000 }); } finally { clearInterval(hb); }
   const entered = await page.evaluate(() => { const a = window.btApp; if (!a || !a.ready) return { ready: false, fail: (document.querySelector('.loading-card') || {}).textContent }; const th = a.theatre, fx = th.fxOn;
-    return { ready: true, api: a.api, entryMs: th.perf.entryMs, ribbon: (th.root.querySelector('#bt-ribbon') || {}).textContent || null, fx: !!fx, status: fx && fx.status ? fx.status() : null, fxLog: fx ? fx.log : null, gpu: fx && fx.gpu ? { ok: fx.gpu.ok, weatherOk: fx.gpu.weatherOk, fxOk: fx.gpu.fxOk, failed: fx.gpu.failed, log: fx.gpu.log } : null, gl: fx && fx.gl ? { ok: fx.gl.ok, log: fx.gl.log } : null, flags: { ...th.host.R.o.flags }, hostLog: th.host.log }; });
+    return { ready: true, api: a.api, entryMs: th.perf.entryMs, ribbon: (th.root.querySelector('#bt-ribbon') || {}).textContent || null, fx: !!fx, status: fx && fx.status ? fx.status() : null, fxLog: fx ? fx.log : null, gpu: fx && fx.gpu ? { ok: fx.gpu.ok, weatherOk: fx.gpu.weatherOk, fxOk: fx.gpu.fxOk, failed: fx.gpu.failed, log: fx.gpu.log } : null, gl: fx && fx.gl ? { ok: fx.gl.ok, log: fx.gl.log } : null, flags: { ...th.host.R.o.flags }, hostLog: th.host.log, adapter: th.host.info }; });
   summary.entered = entered; say('entered', JSON.stringify(entered).slice(0, 700)); save(); if (!entered.ready) throw new Error('the theatre did not start: ' + entered.fail);
   // the stand-in plan replaces the (absent) crowd's plan; the picture is read back in the frame's own task
   await page.evaluate(async real => {
@@ -49,11 +58,15 @@ try {
     const spec = REAL ? { ...c, tMin: MO(c.m[0], c.m[1], c.m[2], c.m[3]) } : specOf(c, MO), t0 = Date.now();
     const r = await page.evaluate(async spec => {
       const { placeCamera, aimCamera } = await import('/app/tests/weather3d-gpu-plan.mjs'), a = window.btApp, th = a.theatre, P = window.__P; a.setTime(spec.tMin); th.controls.flight = null;
-      if (spec.view) { th.setView(spec.view, true); } else { const smp = th.env.sample(spec.tMin, {}); placeCamera(th.cam, spec, { T: th.T, geo: th.geo, smp, line: null }); P.anchor(th.cam, spec.plan); if (spec.aim) aimCamera(th.cam, P, spec.aim); }
-      await a.frames(spec.view ? 6 : 3); window.__grab = true; await a.frames(2); const pic = await window.__grabP; const fxi = th.fxInfo, fx = th.fxOn, gpu = fx && fx.gpu ? fx.gpu : null, gl = fx && fx.gl ? fx.gl : null;
+      if (spec.view === 'unit') { await a.frames(4); const st = a.stage, L = a.layer; let best = -1, bc = 0, any = -1, ac = 0, n = 0, fig = 0; const arms = {};
+          for (let i = 0; i < L.units.length; i++) { if (!st.present[i]) continue; const c = st.w.units[i].count, arm = L.units[i].arm; n++; fig += c; arms[arm] = (arms[arm] || 0) + 1; if (arm === spec.arm && c > bc) { best = i; bc = c; } if (c > ac) { any = i; ac = c; } }
+          const pick = best >= 0 ? best : any; window.__census = { present: n, figures: fig, arms, wanted: spec.arm, found: best >= 0, unit: pick >= 0 ? { index: pick, id: L.units[pick].id, name: L.units[pick].name, arm: L.units[pick].arm, count: st.w.units[pick].count } : null };
+          if (pick >= 0) th.controls.flyTo(th.viewFor(st.cx[pick], st.cz[pick], { dist: spec.dist, height: spec.height, yaw: st.ch[pick] + spec.yawAdd }), 0); }
+        else if (spec.view) { th.setView(spec.view, true); } else { const smp = th.env.sample(spec.tMin, {}); placeCamera(th.cam, spec, { T: th.T, geo: th.geo, smp, line: null }); P.anchor(th.cam, spec.plan); if (spec.aim) aimCamera(th.cam, P, spec.aim); }
+      await a.frames(spec.view === 'unit' ? 10 : spec.view ? 6 : 3); window.__grab = true; await a.frames(2); const pic = await window.__grabP; const fxi = th.fxInfo, fx = th.fxOn, gpu = fx && fx.gpu ? fx.gpu : null, gl = fx && fx.gl ? fx.gl : null;
       let s = ''; const u8 = pic.data; for (let i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000));
       return { w: pic.w, h: pic.h, format: pic.format, px: btoa(s), driveState: fxi && fxi.driveState, effects: fxi && { nEvents: fxi.effects.nEvents, nSprites: fxi.effects.nSprites, fires: fxi.effects.fires, uncertain: fxi.effects.uncertainFires }, weather: fxi && { cover: fxi.weather.cloud.cover, stars: fxi.weather.sky.stars.visibility, wet: fxi.weather.wetness.v, visM: fxi.weather.fog.visibilityM },
-        gpuStats: gpu ? { ...gpu.stats, failed: gpu.failed } : null, glStats: gl ? { ...gl.stats } : null, flags: { ...th.host.R.o.flags }, t: th.state.t, cam: { x: th.cam.x, y: th.cam.y, z: th.cam.z, yaw: th.cam.yaw, pitch: th.cam.pitch } };
+        gpuStats: gpu ? { ...gpu.stats, failed: gpu.failed } : null, glStats: gl ? { ...gl.stats } : null, flags: { ...th.host.R.o.flags }, t: th.state.t, census: spec.view === 'unit' ? window.__census : undefined, cam: { x: th.cam.x, y: th.cam.y, z: th.cam.z, yaw: th.cam.yaw, pitch: th.cam.pitch } };
     }, spec);
     const px = Buffer.from(r.px, 'base64'); delete r.px; const u8 = new Uint8Array(px.buffer, px.byteOffset, px.length), s = stats(r.w, r.h, u8);
     fs.writeFileSync(path.join(out, c.name + '.rgba'), u8); fs.writeFileSync(path.join(out, c.name + '.png'), encodePng(r.w, r.h, u8)); r.pixels = s; r.what = c.what; r.wallMs = Date.now() - t0; fs.writeFileSync(path.join(out, c.name + '.json'), JSON.stringify(r, null, 1));
