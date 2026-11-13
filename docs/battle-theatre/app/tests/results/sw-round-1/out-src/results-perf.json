@@ -1,0 +1,293 @@
+{
+ "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+ "software": true,
+ "note": "SOFTWARE renderer: none of these numbers is a timing of the product; every threshold was NOT RUN",
+ "machine": {
+  "adapter": {
+   "vendor": "webgl2",
+   "arch": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  "api": "webgl2",
+  "canvas": [
+   1920,
+   1080
+  ],
+  "dpr": 1,
+  "gpuMBaccounted": 127,
+  "soldiersOnField": 165000,
+  "guns": 360,
+  "browser": "153.0.8010.12"
+ },
+ "webgl2": {
+  "paced": [
+   {
+    "label": "whole field, 165,000 in view",
+    "frames": 2,
+    "p50": 8532.9,
+    "p95": 8532.9,
+    "p99": 8532.9,
+    "max": 8532.9,
+    "cpuP50": 20.5,
+    "cpuP95": 20.5,
+    "gpuP50": null,
+    "gpuP95": null,
+    "phases": {
+     "light": 0.2,
+     "stage": 0.6,
+     "upload": 0.2,
+     "structs": 0.2,
+     "fx": 0,
+     "ext": 10.7,
+     "render": 13,
+     "overlay": 0.3,
+     "ui": 0
+    },
+    "long": [
+     {
+      "at": 302239,
+      "ms": 8334
+     },
+     {
+      "at": 310578,
+      "ms": 8531
+     }
+    ],
+    "soldiers": 165000,
+    "lod": {
+     "nearFoot": 0,
+     "midFoot": 0,
+     "farFoot": 153000,
+     "tris": 1626144
+    }
+   },
+   {
+    "label": "low over the lines (fly-through)",
+    "frames": 7,
+    "p50": 9266.3,
+    "p95": 10033,
+    "p99": 10033,
+    "max": 10033,
+    "cpuP50": 15.1,
+    "cpuP95": 38.5,
+    "gpuP50": null,
+    "gpuP95": null,
+    "phases": {
+     "light": 0.2,
+     "stage": 12,
+     "upload": 5.3,
+     "structs": 5.3,
+     "fx": 0,
+     "ext": 6.8,
+     "render": 29.4,
+     "overlay": 1.6,
+     "ui": 0.1
+    },
+    "long": [
+     {
+      "at": 350855,
+      "ms": 7914
+     },
+     {
+      "at": 358776,
+      "ms": 9262
+     },
+     {
+      "at": 368039,
+      "ms": 10021
+     },
+     {
+      "at": 378068,
+      "ms": 9051
+     },
+     {
+      "at": 387120,
+      "ms": 9195
+     },
+     {
+      "at": 396385,
+      "ms": 9543
+     },
+     {
+      "at": 405928,
+      "ms": 9297
+     }
+    ],
+    "soldiers": 165000,
+    "lod": {
+     "nearFoot": 0,
+     "midFoot": 942,
+     "farFoot": 153000,
+     "tris": 2805200
+    }
+   },
+   {
+    "label": "close to a firing line, smoke and guns",
+    "frames": 2,
+    "p50": 9449.5,
+    "p95": 9449.5,
+    "p99": 9449.5,
+    "max": 9449.5,
+    "cpuP50": 22.1,
+    "cpuP95": 22.1,
+    "gpuP50": null,
+    "gpuP95": null,
+    "phases": {
+     "light": 0.2,
+     "stage": 0.7,
+     "upload": 1.6,
+     "structs": 1.6,
+     "fx": 0,
+     "ext": 4.3,
+     "render": 11.2,
+     "overlay": 4.3,
+     "ui": 0.1
+    },
+    "long": [
+     {
+      "at": 424912,
+      "ms": 9253
+     },
+     {
+      "at": 434169,
+      "ms": 9457
+     }
+    ],
+    "soldiers": 165000,
+    "lod": {
+     "nearFoot": 16,
+     "midFoot": 1326,
+     "farFoot": 153000,
+     "tris": 3347808
+    }
+   },
+   {
+    "label": "playing at 60x with units on the move",
+    "frames": 3,
+    "p50": 8833,
+    "p95": 9799.6,
+    "p99": 9799.6,
+    "max": 9799.6,
+    "cpuP50": 61.4,
+    "cpuP95": 146.1,
+    "gpuP50": null,
+    "gpuP95": null,
+    "phases": {
+     "light": 0.2,
+     "stage": 7.2,
+     "upload": 7.7,
+     "structs": 4.2,
+     "fx": 17.7,
+     "ext": 15.8,
+     "render": 97,
+     "overlay": 7.3,
+     "ui": 0.5
+    },
+    "long": [
+     {
+      "at": 471283,
+      "ms": 8818
+     },
+     {
+      "at": 480102,
+      "ms": 9796
+     },
+     {
+      "at": 489900,
+      "ms": 7835
+     }
+    ],
+    "soldiers": 165000,
+    "lod": {
+     "nearFoot": 0,
+     "midFoot": 0,
+     "farFoot": 153000,
+     "tris": 1625760
+    }
+   },
+   {
+    "label": "dragging the scrubber",
+    "frames": 11,
+    "p50": 8033,
+    "p95": 8583,
+    "p99": 8583,
+    "max": 8583,
+    "cpuP50": 15.8,
+    "cpuP95": 46.3,
+    "gpuP50": null,
+    "gpuP95": null,
+    "phases": {
+     "light": 1.4,
+     "stage": 0.8,
+     "upload": 1.4,
+     "structs": 1.3,
+     "fx": 0,
+     "ext": 27,
+     "render": 18,
+     "overlay": 6.7,
+     "ui": 0.3
+    },
+    "long": [
+     {
+      "at": 530594,
+      "ms": 8575
+     },
+     {
+      "at": 539188,
+      "ms": 7618
+     },
+     {
+      "at": 546806,
+      "ms": 8055
+     },
+     {
+      "at": 554863,
+      "ms": 8218
+     },
+     {
+      "at": 563086,
+      "ms": 8032
+     },
+     {
+      "at": 571122,
+      "ms": 7854
+     },
+     {
+      "at": 578989,
+      "ms": 7896
+     },
+     {
+      "at": 586887,
+      "ms": 8506
+     },
+     {
+      "at": 595393,
+      "ms": 7953
+     },
+     {
+      "at": 603431,
+      "ms": 7749
+     },
+     {
+      "at": 611183,
+      "ms": 7261
+     }
+    ],
+    "soldiers": 93479,
+    "lod": {
+     "nearFoot": 0,
+     "midFoot": 0,
+     "farFoot": 153000,
+     "tris": 1574304
+    }
+   }
+  ],
+  "uncapped": {},
+  "interactions": null
+ },
+ "webgpu": {
+  "paced": {},
+  "uncapped": {},
+  "interactions": null
+ }
+}

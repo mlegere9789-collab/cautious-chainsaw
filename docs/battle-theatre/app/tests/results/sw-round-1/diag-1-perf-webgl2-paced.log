@@ -3,3 +3,30 @@
 TAP version 13
 # \# renderer: ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver) (SOFTWARE; hardware flags); WebGPU adapter: google swiftshader; serving the frozen source snapshot /home/user/cautious-chainsaw/tmp/bt-spec/snap-9e1e1777/docs/battle-theatre
 # \# slow renderer: frame 7150 ms on this page, wait scale K = 71.5
+# \# webgl2 paced: webgl2 ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver) (SOFTWARE renderer: not a timing of the product), canvas 1920x1080, 165000 soldiers, 360 guns
+# \# webgl2 paced    whole field, 165,000 in view             frames    2  p50 8532.9  p95 8532.9  p99 8532.9  max 8532.9 ms | cpu p50 20.5 p95 20.5 ms | gpu p50 null p95 null ms | long tasks 2
+# \# webgl2 paced    low over the lines (fly-through)         frames    7  p50 9266.3  p95 10033  p99 10033  max 10033 ms | cpu p50 15.1 p95 38.5 ms | gpu p50 null p95 null ms | long tasks 7
+# \# webgl2 paced    close to a firing line, smoke and guns   frames    2  p50 9449.5  p95 9449.5  p99 9449.5  max 9449.5 ms | cpu p50 22.1 p95 22.1 ms | gpu p50 null p95 null ms | long tasks 2
+# \# webgl2 paced    playing at 60x with units on the move    frames    3  p50 8833  p95 9799.6  p99 9799.6  max 9799.6 ms | cpu p50 61.4 p95 146.1 ms | gpu p50 null p95 null ms | long tasks 3
+# \# webgl2 paced    dragging the scrubber                    frames   11  p50 8033  p95 8583  p99 8583  max 8583 ms | cpu p50 15.8 p95 46.3 ms | gpu p50 null p95 null ms | long tasks 11
+# \# NOT RUN (NEEDS_GPU): webgl2 paced, whole field, 165,000 in view: frame time p95 <= 20 ms
+# \# NOT RUN (NEEDS_GPU): webgl2 paced, low over the lines (fly-through): frame time p95 <= 20 ms
+# \# NOT RUN (NEEDS_GPU): webgl2 paced, close to a firing line, smoke and guns: frame time p95 <= 20 ms
+# \# NOT RUN (NEEDS_GPU): webgl2 paced, playing at 60x with units on the move: frame time p95 <= 20 ms
+# \# NOT RUN (NEEDS_GPU): webgl2 paced, dragging the scrubber: frame time p95 <= 20 ms
+# Subtest: webgl2: frame time with 165,000 soldiers at 1920x1080, as a person sees it (display pacing)
+ok 1 - webgl2: frame time with 165,000 soldiers at 1920x1080, as a person sees it (display pacing) # SKIP NEEDS_GPU, 5 assertion(s) NOT RUN on a software renderer (everything else in this test ran and passed): webgl2 paced, whole field, 165,000 in view: frame time p95 <= 20 ms | webgl2 paced, low over the lines (fly-through): frame time p95 <= 20 ms | webgl2 paced, close to a firing line, smoke and guns: frame time p95 <= 20 ms | webgl2 paced, playing at 60x with units on the move: frame time p95 <= 20 ms | webgl2 paced, dragging the scrubber: frame time p95 <= 20 ms
+  ---
+  duration_ms: 619519.340633
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 620050.832846
+# end 2026-11-13T22:34:02Z  seconds 620  exit 0  source changed during the run: no
